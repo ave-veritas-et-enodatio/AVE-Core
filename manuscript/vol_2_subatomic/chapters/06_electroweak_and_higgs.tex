@@ -1,0 +1,312 @@
+% 15_electroweak_and_higgs.tex
+\chapter{The Subatomic Scale: Electroweak and Higgs Sectors}
+\label{ch:electroweak_higgs}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Subsume the Higgs Mechanism entirely into the native Dielectric Breakdown of the $376.73\ \Omega$ LC network, eliminating the need for pervasive scalar fields.
+    \item Analytically calculate the $W$ and $Z$ boson pole masses as the geometric macroscopic evanescent cutoffs of the continuous LC metric.
+    \item Derive the entire three-generation charged lepton spectrum ($\mu, \tau$) as sequential quantized Cosserat (torsional/bending) excitations of the baseline $0_1$ electron unknot.
+    \item Prove Schwinger's anomalous magnetic moment ($a_e = \alpha/2\pi$) strictly from the on-site capacitive displacement strain of the hopping geometric unknot.
+\end{itemize}
+\end{objectivebox}
+
+\section{Reinterpretation of the Higgs Mechanism}
+The Standard Model posits the existence of a scalar "Higgs Field" carrying a non-zero Vacuum Expectation Value (VEV) of $v = 246 \text{ GeV}$. According to the Glashow-Weinberg-Salam model, fundamental particles gain mass exclusively by interacting ("coupling") with this pervasive scalar field.
+
+In the AVE framework, mass generation does not require a separate scalar field. Instead, it emerges naturally from the impedance structure of the LC condensate. The framework proposes that the empirical $125 \text{ GeV}$ resonance observed at the LHC corresponds to a transient acoustic mode---a topological node undergoing rapid structural relaxation upon high-energy impact.
+
+Mass generation requires no exclusive scalar field because the "vacuum" is already a structured, continuous LC mesh. The $246 \text{ GeV}$ VEV parameterizes physically as the explicit \textit{Characteristic Impedance of Free Space}:
+\begin{equation}
+    Z_0 = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376.73 \ \Omega
+\end{equation}
+
+When a topological knot of magnetic flux (e.g., a $0_1$ electron unknot) accelerates through this baseline LC grid, it encounters Lenz's Law induction drag from the vacuum itself. The energy required to propagate the knot against this $376.73 \ \Omega$ characteristic limit is precisely what is measured as Inertial Mass. 
+\begin{equation}
+    M_{inertial} \equiv L_{drag}(Z_0)
+\end{equation}
+
+Thus, physical ``mass'' is Macroscopic Electromagnetic Resistance.
+
+\section{The Weak Mixing Angle from the Perpendicular Axis Theorem}
+
+The electroweak mixing angle is not a free parameter in the AVE framework. It is derived analytically from the Poisson ratio of the vacuum ($\nu_{vac} = 2/7$) and the Perpendicular Axis Theorem (PAT) applied to cylindrical flux tubes.
+
+The W and Z bosons are torsional (Cosserat) excitations of the chiral LC lattice. Their mass ratio is set by the relationship between shear and torsional stiffness in a cylindrical medium. For a cylinder with Poisson ratio $\nu$, the PAT relates the polar moment of area $J$ to the two planar moments $I_x$, $I_y$:
+\begin{equation}
+    J = I_x + I_y = 2I
+\end{equation}
+
+The torsional-to-shear stiffness ratio is therefore $GJ/(EI) = 2G/E = 2G/(2G(1+\nu))$. For the flux tube eigenmode, this ratio sets the W/Z pole mass ratio:
+\begin{equation}
+    \frac{m_W}{m_Z} = \frac{1}{\sqrt{1 + \nu_{vac}}} = \frac{1}{\sqrt{1 + 2/7}} = \sqrt{\frac{7}{9}} = \frac{\sqrt{7}}{3} \approx 0.8819
+\end{equation}
+
+The on-shell weak mixing angle follows directly:
+\begin{equation}
+    \sin^2\theta_W = 1 - \left(\frac{M_W}{M_Z}\right)^2 = 1 - \frac{7}{9} = \frac{2}{9} \approx 0.2222
+\end{equation}
+
+\noindent\textbf{Comparison:} The PDG on-shell value is $\sin^2\theta_W = 0.2230$~\cite{pdg2022}, a deviation of $-0.35\%$. The commonly cited $\overline{\text{MS}}$ value ($0.2312$) differs from the on-shell value by radiative corrections; the AVE derivation predicts the pole mass ratio, which is the correct physical comparison.
+
+An internal coupling constant used in the W mass derivation is the torsion-shear projection from the PAT:
+\begin{equation}
+    \sin\theta_W^{(\text{PAT})} = \sqrt{\frac{3}{7}} \approx 0.6547
+\end{equation}
+
+This is the ratio of torsional to total mechanical coupling in the cylindrical flux tube geometry.
+
+\section{The W and Z Boson Masses}
+
+\subsection{Derivation of $M_W$}
+
+The W boson mass is derived from the torsional ring self-energy of the unknot, with a chirality mismatch coupling.
+
+A twist defect in the chiral LC lattice creates a $1/r^2$ torsional field (Laplace solution, identical in form to Coulomb). For a point source, the self-energy is:
+\begin{equation}
+    E_{\text{point}} = \frac{T_{EM}^2}{4\pi \varepsilon_T r_0}
+\end{equation}
+
+But the unknot is a \textit{ring}, not a point. The circumference integral enhances the energy by $2\pi R/a = 2\pi$ (for the minimal-ropelength unknot where $R = a$):
+\begin{equation}
+    E_{\text{ring}} = E_{\text{point}} \times 2\pi = \frac{T_{EM}^2}{2\varepsilon_T r_0}
+\end{equation}
+
+The torsional permittivity $\varepsilon_T$ relative to the shear modulus is:
+\begin{equation}
+    \frac{\varepsilon_T}{\mu} = \pi \cdot \alpha^2 \cdot p_c \cdot \sqrt{3/7}
+\end{equation}
+
+Each factor has a first-principles geometric origin:
+\begin{enumerate}
+    \item $\pi$ --- spherical geometry of the $1/r^2$ integral
+    \item $\alpha^2$ --- two-vertex coupling (Axiom 4 dielectric $\times 2$)
+    \item $p_c = 8\pi\alpha$ --- packing fraction (Axiom 4: Saturation)
+    \item $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$
+    \item $2\pi$ --- ring topology of the unknot (Axiom 1)
+\end{enumerate}
+
+\textbf{The $\alpha^2$ factor} arises because the twist field $\phi$ couples to the EM background through the Axiom 4 dielectric susceptibility. The self-energy is a two-vertex process (second-order perturbation theory):
+\begin{itemize}
+    \item Vertex 1: twist $\to$ dielectric perturbation (factor $\alpha$)
+    \item Vertex 2: dielectric perturbation $\to$ twist (factor $\alpha$)
+\end{itemize}
+This is the same mechanism that gives $e^2$ in the Coulomb self-energy: two factors of the coupling constant, one per vertex.
+
+Evaluating $E_{\text{ring}}$ with all substitutions gives:
+\begin{equation}
+    \boxed{M_W = \frac{m_e}{\alpha^2 \cdot p_c \cdot \sqrt{3/7}} = \frac{m_e}{\alpha^2 \cdot 8\pi\alpha \cdot \sqrt{3/7}} = \frac{m_e}{8\pi\alpha^3\sqrt{3/7}}}
+\end{equation}
+
+Evaluating numerically: $M_W c^2 \approx 79{,}923 \text{ MeV}$ (CODATA: $80{,}379 \text{ MeV}$~\cite{codata2018}, deviation $+0.57\%$).
+
+\subsection{Derivation of $M_Z$}
+
+From the pole mass ratio derived via the Perpendicular Axis Theorem:
+\begin{equation}
+    M_Z = M_W \cdot \frac{3}{\sqrt{7}} \approx 90{,}624 \text{ MeV} \quad (\text{CODATA: } 91{,}188 \text{ MeV}~\cite{codata2018}, -0.62\%)
+\end{equation}
+
+\subsection{The Cosserat Characteristic Length}
+
+The weak force range is the Compton wavelength of the W boson:
+\begin{equation}
+    \ell_C = \frac{\hbar}{M_W c} \approx 2.46 \times 10^{-18} \text{ m}
+\end{equation}
+
+This defines the evanescent decay length of the Cosserat (torsional) sector of the lattice.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{electroweak_dielectric_spark.pdf}
+    \caption{\textbf{Topological Mass Generation (The Higgs Field).} (Simulation Output). A 2D elastodynamic transient solver charting localised high-energy kinetic collisions ($E > E_{crit}$). Once applied strain eclipses the fundamental discrete grid's structural yielding point ($\epsilon_{sat}$), the localised spatial compliance breaks ($C \to 0$). The transient kinetic energy is forced to condense into trapped inertial tensor inductance ($L$). The Higgs Mechanism is derived as spatial coordinate rupture, establishing the $W/Z$ bosons as macroscopic dielectric vacuum arcs bridging the severed continuous metric.}
+    \label{fig:w_boson_spark}
+\end{figure}
+
+\section{W and Z Bosons as Dielectric Plasma Arcs}
+The Weak Nuclear Force is allegedly mediated by massive W ($\sim 80 \text{ GeV}$) and Z ($\sim 91 \text{ GeV}$) bosons. Because they are so massive, Heisenberg's Uncertainty Principle restricts their existence to vanishingly tiny fractions of a second, necessitating their classification as "virtual" mediators during Beta Decay.
+
+In the AVE framework, W and Z bosons are reinterpreted as transient dielectric breakdown events rather than fundamental gauge mediators.
+
+During Beta Decay (such as a Neutron breaking into a Proton and an Electron), the primary topological knot undergoes extreme mechanical shear and must structurally split to shed phase-frequency. This splitting process breaks the continuous magnetic flux loop open for a fraction of an attosecond. 
+
+The stored inductive energy of the knot attempts to cross this severed vacuum gap. Because the vacuum is a dielectric, this large potential difference causes \textit{Dielectric Breakdown} (Yield Limit fracture). The resulting $80 \text{ GeV}$ energy spike is a macroscopic phase-arc, or ``Spark'', traversing the grid. 
+
+Once the arc bridges the gap, continuity is reestablished, and the resulting topologies phase-lock into their lower-energy states (Proton, Electron, and the transverse recoil acoustic wave/Neutrino). Electroweak theory is therefore absorbed into the fluid dynamics of High-Voltage Circuit Breakdown.
+
+\section{The Three-Generation Lepton Spectrum}
+
+Each charged lepton maps to one sector of the Cosserat micropolar Lagrangian applied to the unknot ground state.
+
+\begin{resultbox}{Physical Interpretation}
+In all three lepton generations, the geometric deformation (twist, curvature) describes a pattern of \textbf{dielectric saturation density}---the varying impedance of each lattice node along the flux tube. The nodes themselves remain fixed at $\ell_{node}$ spacing (Axiom~1). The muon's ``twist'' is a helical modulation of impedance density wound around the unknot loop, and the tau's ``curvature'' is a radial undulation of the saturation envelope. Neither involves physical displacement of lattice nodes.
+\end{resultbox}
+
+\subsection{Generation 1: Translation (Shear Modulus $\mu$)}
+
+The electron is the $0_1$ unknot ground state. No torsional excitation is present:
+\begin{equation}
+    m_e = \frac{T_{EM} \cdot \ell_{node}}{c^2} = \frac{\hbar}{\ell_{node} \cdot c} = 0.511 \text{ MeV}
+\end{equation}
+
+\subsection{Generation 2: Rotation (Cosserat Coupling $\kappa$)}
+
+\begin{examplebox}[Deriving the Muon Mass via Cosserat Torsional Excitation]
+\textbf{Problem:} The muon is the $0_1$ unknot absorbing exactly one quantum of chiral torsional coupling. Derive its deterministic mass eigenvalue.
+
+\textbf{Solution:} The torsional coupling constant is $\alpha\sqrt{3/7}$, where $\alpha$ is the dielectric compliance (one chirality interaction) and $\sqrt{3/7}$ is the PAT torsion-shear projection. 
+Because the muon is a stable static defect, only \textit{one} factor of $\alpha$ appears (a single-vertex process, unlike the transient W boson which requires $\alpha^2$).
+\[ m_\mu = \frac{m_e}{\alpha \sqrt{3/7}} \]
+Evaluating this structurally against $m_e \approx 0.511 \text{ MeV}$ gives:
+\[ m_\mu = \frac{0.511 \text{ MeV}}{\alpha \sqrt{3/7}} \approx 107.0 \text{ MeV} \quad (\text{Exp: } 105.66 \text{ MeV, } +1.24\%) \]
+\end{examplebox}
+
+The coupling $\alpha\sqrt{3/7}$ carries a direct geometric consequence for the unknot's flux tube. The factor $\sqrt{3/7}$ is the PAT torsion-shear projection: the fraction of the translational (shear) impedance density that maps onto the torsional (rotational) degree of freedom when $\nu_{vac} = 2/7$. As the unknot is traversed, the cross-sectional impedance pattern rotates by exactly $\sqrt{3/7}$ turns ($\approx 236°$):
+\begin{equation}
+    \Phi_{\text{twist}} = 2\pi\sqrt{\frac{3}{7}} \approx 4.11 \text{ rad} \approx 236°
+    \label{eq:muon_twist_angle}
+\end{equation}
+This helical impedance spiral is visible in the 3D-printable STL model (\texttt{assets/3d\_models/muon\_twisted\_unknot.stl}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{topology_muon.png}
+    \caption{\textbf{Muon Topology: Cosserat Torsional Excitation.} The muon is the $0_1$ unknot absorbing one quantum of rotational (torsional) coupling, producing a helical impedance spiral wound along the flux tube. The tube cross-section rotates by $\sqrt{3/7} \approx 0.655$ turns per revolution, set by the PAT projection of the Cosserat torsion-shear coupling.}
+    \label{fig:topology_muon}
+\end{figure}
+
+\subsection{Generation 3: Curvature-Twist (Bending Stiffness $\gamma_C$)}
+
+The tau is the unknot promoted to the full bending energy scale:
+\begin{equation}
+    \boxed{m_\tau = m_e \cdot \frac{p_c}{\alpha^2} = \frac{8\pi m_e}{\alpha} \approx 1{,}760 \text{ MeV}} \quad (\text{Exp: } 1{,}776.9 \text{ MeV, } -0.95\%)
+\end{equation}
+
+Geometrically, the curvature-twist excitation manifests as $7$ radial undulation lobes around the unknot circumference (from $\nu_{vac} = 2/7$, giving $7$ compliance modes in the torsional sector). The amplitude of the tube-radius modulation is bounded by the packing fraction $p_c = 8\pi\alpha \approx 0.183$---the maximum bending deformation before Axiom~4 saturation clamps the lattice.
+
+This is the maximum excitation before packing saturates. The hierarchy of Cosserat sectors yields exactly three generations:
+\begin{equation}
+    m_e \xrightarrow{\alpha\sqrt{3/7}} m_\mu \xrightarrow{\alpha \cdot p_c} m_\tau \xrightarrow{\alpha \cdot p_c} M_W
+\end{equation}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{topology_tau.png}
+    \caption{\textbf{Tau Topology: Full Curvature-Twist Excitation.} The tau is the $0_1$ unknot promoted to the maximum bending stiffness sector ($\gamma_C$). Seven radial curvature lobes at amplitude $p_c \approx 0.183$ undulate the tube radius, reflecting the $p_c/\alpha^2 = 8\pi/\alpha$ mass amplification---the highest excitation before packing saturates.}
+    \label{fig:topology_tau}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Particle & AVE Formula & Predicted & Experiment & Deviation \\ \hline
+$e$    & $m_e$                            & 0.511 MeV   & 0.511 MeV   & Input  \\
+$\mu$  & $m_e/(\alpha\sqrt{3/7})$         & 107.0 MeV   & 105.66 MeV  & $+1.24\%$ \\
+$\tau$ & $m_e \cdot p_c/\alpha^2$         & 1,760 MeV   & 1,776.9 MeV & $-0.95\%$ \\
+$W$    & $m_e/(\alpha^2 p_c \sqrt{3/7})$  & 79,923 MeV  & 80,379 MeV  & $-0.57\%$ \\
+$Z$    & $M_W \cdot 3/\sqrt{7}$           & 90,624 MeV  & 91,188 MeV  & $-0.62\%$ \\ \hline
+\end{tabular}
+\end{center}
+
+\section{The Neutrino Mass Spectrum}
+
+The neutrino is a pure torsional (screw) defect---a propagating twist wave in the Cosserat sector. Its mass is set by the ratio of torsional to translational coupling, multiplied by the dielectric compliance:
+\begin{equation}
+    m_\nu = m_e \cdot \alpha \cdot \frac{m_e}{M_W}
+\end{equation}
+
+\textbf{Physical meaning:} $m_e/M_W$ is the ratio of translational to torsional energy scale, and $\alpha$ is the dielectric coupling between sectors. Together, the neutrino mass is suppressed by $\alpha \times (m_e/M_W)$ relative to the electron. Evaluating:
+\begin{equation}
+    m_\nu \approx 0.024 \text{ eV per flavor}
+\end{equation}
+
+\subsection{Flavor Splitting via the Torus Knot Ladder}
+
+Three neutrino flavors arise from the torus knot ladder: each flavor pairs with a baryon resonance via the crossing number. The mass splitting scales as $1/c$ where $c$ is the crossing number:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Flavor & Baryon Partner & Crossing $c$ & Mass (meV) \\ \hline
+$\nu_1$ & Proton $(2,5)$  & 5 & $\sim 24$ \\
+$\nu_2$ & $\Delta(1232)$ $(2,7)$ & 7 & $\sim 17$ \\
+$\nu_3$ & $\Delta(1620)$ $(2,9)$ & 9 & $\sim 13$ \\ \hline
+\multicolumn{3}{|l|}{$\sum m_\nu$} & $\sim 0.054$ eV \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{topology_neutrino.png}
+    \caption{\textbf{Neutrino Topology: Pure Torsional Screw Defect.} The neutrino is a pure screw dislocation---a propagating helical coil in the Cosserat (torsional) sector of the lattice. Its topology is an open helix with $c$ turns (paired with the baryon torus knot ladder: $c = 5, 7, 9$), not a closed loop. Its mass is suppressed by $\alpha \times (m_e/M_W)$ relative to the electron, reflecting its nearly massless character.}
+    \label{fig:topology_neutrino}
+\end{figure}
+
+\noindent\textbf{Comparison:} The Planck 2018 cosmological bound is $\sum m_\nu < 0.12 \text{ eV}$, with hints at $\sim 0.06 \text{ eV}$. The AVE prediction of $0.054 \text{ eV}$ sits comfortably within this window.
+
+\section{Schwinger's Anomalous Magnetic Moment ($g-2$)}
+
+The anomalous magnetic moment of the electron is derived from the on-site impedance correction of the hopping unknot.
+
+When the unknot visits a lattice node, all $m_e c^2$ is stored in that cell as EM field energy, split equally between E and B:
+\begin{equation}
+    U_E = \frac{1}{2}\epsilon_0 E_{\text{peak}}^2 \ell^3 = \frac{m_e c^2}{2}
+\end{equation}
+
+Solving for the peak electric strain:
+\begin{equation}
+    \left(\frac{V_{\text{peak}}}{V_{\text{snap}}}\right)^2 = 4\pi\alpha \quad [\text{EXACT}]
+\end{equation}
+
+This is an identity: $\alpha$ \textit{is} the on-site electric strain. The Axiom 4 nonlinear saturation modifies the node capacitance (\emph{not} the constitutive permittivity):
+\begin{equation}
+    C_{node} = \frac{C_0}{\sqrt{1 - (V/V_{snap})^2}} \;\to\; \infty
+\end{equation}
+
+Time-averaged over the LC oscillation ($\langle\sin^2\rangle = 1/2$):
+\begin{equation}
+    \langle\delta C / C\rangle = \pi\alpha
+\end{equation}
+
+This shifts the LC resonance frequency by $\delta\omega/\omega = \pi\alpha/2$. The anomalous magnetic moment is the fraction of this correction that falls within the ring's topological domain (the form factor). The ring has diameter $2R = \ell/\pi$ (from $R = \ell/(2\pi)$, Axiom 1). Its effective cross-section in the cell face is:
+\begin{equation}
+    F = \frac{A_{\text{ring}}}{A_{\text{cell}}} = \frac{(2R)^2}{\ell^2} = \frac{1}{\pi^2}
+\end{equation}
+
+The full on-site correction $\pi\alpha/2$ decomposes:
+\begin{equation}
+    a_e = \frac{1}{\pi^2} \times \frac{\pi\alpha}{2} = \boxed{\frac{\alpha}{2\pi}} \approx 0.001161
+\end{equation}
+
+\textbf{This is Schwinger's result (1948).} The AVE framework derives it from three structural constants: the Axiom 4 squared saturation operator, the unknot ropelength, and the lattice pitch. No Feynman diagrams or renormalization are required.
+
+\section{Summary of Electroweak Predictions}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+Quantity & AVE Prediction & Experiment & Deviation \\ \hline
+$\sin^2\theta_W$ (on-shell) & 0.2222 & 0.2230 & $-0.35\%$ \\
+$M_W$ & 79,923 MeV & 80,379 MeV & $-0.57\%$ \\
+$M_Z$ & 90,624 MeV & 91,188 MeV & $-0.62\%$ \\
+$m_\mu$ & 107.0 MeV & 105.66 MeV & $+1.24\%$ \\
+$m_\tau$ & 1,760 MeV & 1,776.9 MeV & $-0.95\%$ \\
+$\sum m_\nu$ & $\sim 0.054$ eV & $<0.12$ eV & Within bound \\
+$a_e$ (Schwinger) & $\alpha/(2\pi) = 0.001161$ & 0.001160 & $+0.09\%$ \\ \hline
+\end{tabular}
+\end{center}
+
+Every entry in this table is computed from the same three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
+
+\subsection{Standard Model $\leftrightarrow$ AVE Translation Dictionary}
+\label{sec:sm_ave_translation}
+
+Table~\ref{tab:trans_particle} consolidates the ontological mapping between Standard Model concepts and their AVE structural equivalents.
+
+\input{../common/translation_particle_physics.tex}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{topology_particle_zoo.png}
+    \caption{\textbf{The AVE Particle Zoo.} Complete topological classification of all fundamental fermions and baryons derived in the AVE framework. Top row: the three charged leptons as Cosserat excitations of the $0_1$ unknot (electron: smooth ring; muon: $\sqrt{3/7}$-turn impedance twist; tau: $7$-lobe curvature undulation) and the neutrino as a pure torsional screw defect. Bottom row: the proton as a $6^3_2$ Borromean linkage and the neutron as a Borromean link with a threaded unknot. Every mass is computed from $m_e$, $\alpha$, and $G$ with zero Standard Model parameters. Printable 3D STL meshes for all topologies are available in \texttt{assets/3d\_models/}.}
+    \label{fig:particle_zoo}
+\end{figure}

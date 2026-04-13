@@ -1,0 +1,61 @@
+% =========================================
+% SHARED PREAMBLE: Applied Vacuum Engineering
+% =========================================
+% All books \input{} this file for consistent formatting.
+% NOTE: \documentclass and \graphicspath remain in each main.tex
+%       because they are build-specific.
+
+% --- Typography & Encoding ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} 
+\usepackage{microtype} 
+
+% --- Layout & Geometry ---
+\usepackage[margin=1.2in, headheight=14pt]{geometry}
+\usepackage{fancyhdr} 
+\usepackage{emptypage} 
+
+% --- Mathematics & Science ---
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{siunitx} 
+\usepackage{bm} 
+
+% --- Graphics & Floats ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage[american]{circuitikz}
+\usepackage{booktabs} 
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage[table,xcdraw]{xcolor}
+
+% --- Navigation & Linking ---
+\usepackage[hidelinks]{hyperref} 
+\usepackage{tocloft}
+
+% Custom abstract environment for book class
+\newenvironment{abstract}
+  {\small
+   \begin{center}
+   \bfseries Abstract\vspace{-.5em}\vspace{0pt}
+   \end{center}
+   \quotation}
+  {\endquotation} 
+
+% --- Code & Verbatim ---
+\usepackage{listings}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% --- Header/Footer Configuration ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\itshape Applied Vacuum Engineering}
+\fancyhead[LO]{\itshape\nouppercase{\leftmark}}

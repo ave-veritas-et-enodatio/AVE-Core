@@ -1,0 +1,49 @@
+\documentclass[border=10pt]{standalone}
+\usepackage[siunitx]{circuitikz}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\begin{document}
+\begin{circuitikz}[american, thick, scale=1.2]
+
+% Custom Colors
+\definecolor{corecolor}{HTML}{FF3366}
+\definecolor{halocolor}{HTML}{99FFEE}
+\definecolor{linkcolor}{HTML}{AAAAAA}
+
+% The Alpha Core (Tight Inner Inductive Network)
+\draw[color=corecolor] (0, 0) node[circle, fill, inner sep=2.5pt, label=-90:\textsf{Alpha Core (2p, 2n)}] (core) {};
+\draw[color=corecolor] (core) ++(0,-0.6) node[] {\Large $\mathbf{L_{core}}$};
+\draw[color=corecolor] (core) ++(0, 0.6) node[] {\Large $Q_{high}$};
+
+% The 7-Nucleon Halo Outer Ring
+\draw[color=halocolor, dashed, line width=1.5pt] (core) circle (4cm);
+
+% Define the Halo Nodes (7 Nucleons)
+\foreach \i in {1, 2, ..., 7} {
+    \pgfmathsetmacro{\angle}{360/7 * (\i - 1) + 90}
+    \draw[color=halocolor] (\angle:4cm) node[circle, fill, inner sep=2pt] (halo\i) {};
+    \draw[color=halocolor] (\angle:4.5cm) node[] {$\mathbf{L_{halo\i}}$};
+    
+    % Draw mutual inductance coupling from Core to each Halo node
+    \draw[color=linkcolor, <->, bend right=15] (core) to node[midway, fill=white, inner sep=1pt, sloped] {$M_{c-h}$} (halo\i);
+}
+
+% Draw extremely weak internal mutual coupling between adjacent halo nodes
+\foreach \i in {1,2,3,4,5,6} {
+    \pgfmathsetmacro{\nexti}{\i + 1}
+    \draw[color=linkcolor, <->, dotted] (halo\i) to [bend right=20] (halo\nexti);
+}
+\draw[color=linkcolor, <->, dotted] (halo7) to [bend right=20] (halo1);
+
+\node[color=linkcolor] at (-3.5, 3.5) {$M_{c-h} \ll L_{core}$};
+
+% Orbital Electrons (5e-)
+\draw[color=orange, dashed, line width=1.5pt] (core) circle (6cm);
+\node[color=orange, align=center] at (0, -6.5) {\large \textbf{Orbital Shell ($5e^-$ Displacement Currents)}};
+\draw[color=red, <->, dashed, thick] (0,-4) -- (0,-6) node[midway, right] {$M_{orbit}$};
+
+\node[color=halocolor, align=center] at (0, -4.8) {\Large \textsf{Topological Halo Dispersion} \\[1ex] \textsf{Massive Parasitic Array}};
+
+\end{circuitikz}
+\end{document}

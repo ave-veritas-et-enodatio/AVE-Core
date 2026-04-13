@@ -1,0 +1,46 @@
+\documentclass[11pt, letterpaper, openright]{book}
+
+% --- Shared Preamble (packages, layout, header/footer) ---
+\input{../structure/preamble.tex}
+
+% --- Graphics Path (book-specific) ---
+\graphicspath{{../figures/}{../../assets/}{../../assets/figures/}{../../assets/sim_outputs/}{../../assets/derivations/}{../../assets/archive/}{../../notebooks/periodic/helium/}{../../notebooks/cosmology/}{chapters/}{figures/}}
+
+% --- Shared Commands & Box Styles ---
+\input{../structure/commands.tex}
+
+% =========================================
+% DOCUMENT STRUCTURE
+% =========================================
+
+\begin{document}
+
+% --- FRONT MATTER ---
+\frontmatter
+
+\input{frontmatter/00_title.tex}
+\input{../frontmatter/00_foreword.tex}
+
+\tableofcontents
+
+\input{../frontmatter/00_nomenclature.tex}
+
+% --- MAIN MATTER ---
+\mainmatter
+
+% Reset chapter counter to start at 1
+\setcounter{chapter}{0}
+
+\input{chapters/_manifest.tex}
+
+% --- APPENDICES ---
+\appendix
+\renewcommand{\thechapter}{\Alph{chapter}}
+\input{../backmatter/01_appendices_lean.tex}
+
+% --- BIBLIOGRAPHY ---
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{../bibliography}
+
+\end{document}

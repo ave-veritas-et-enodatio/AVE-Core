@@ -1,0 +1,103 @@
+% =========================================
+% SHARED COMMANDS & DEFINITIONS
+% =========================================
+% All books \input{} this file for consistent custom commands.
+
+% --- Table of Contents Formatting ---
+\setcounter{tocdepth}{2}  % Show chapters and sections in TOC
+\setcounter{secnumdepth}{3}  % Number down to subsections
+
+% --- Global Hardware Constants ---
+% We use \providecommand to allow safe re-input without clashing.
+\providecommand{\Lvac}{\ensuremath{L_{node}}}       % Lattice Inductance
+\providecommand{\Cvac}{\ensuremath{C_{node}}}       % Lattice Capacitance
+\providecommand{\Zvac}{\ensuremath{Z_0}}            % Characteristic Impedance
+\providecommand{\Wcut}{\ensuremath{\omega_{sat}}}   % Saturation Frequency
+\providecommand{\lp}{\ensuremath{l_{node}}}         % Lattice Pitch
+
+% --- Vacuum Engineering Shorthand ---
+\providecommand{\vacuum}{\ensuremath{M_A}}
+\providecommand{\slew}{\ensuremath{c}}
+\providecommand{\planck}{\ensuremath{\hbar}}
+\providecommand{\permeability}{\ensuremath{\mu_0}}
+\providecommand{\permittivity}{\ensuremath{\epsilon_0}}
+\providecommand{\impedance}{\ensuremath{Z_0}}
+
+% --- Citation Commands ---
+\providecommand{\citestart}{}              
+\providecommand{\citeend}{}                
+
+% --- Theorem-like Environments (amsthm) ---
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+% =========================================
+% TCOLORBOX STYLES
+% =========================================
+
+% 1. Axiom Box: Blue for fundamental Vacuum Engineering postulates
+\newtcolorbox{axiombox}[1][]{
+    colback=blue!2!white, colframe=blue!75!black, fonttitle=\bfseries, coltitle=black,
+    title={Vacuum Engineering Postulate: #1}, enhanced, breakable, attach title to upper, 
+    after title={:\enskip}, arc=0mm
+}
+\newenvironment{axiom}[1][]{\begin{axiombox}[#1]}{\end{axiombox}}
+
+% 2. Simulation Box: Green for computational module results
+\newtcolorbox[auto counter, number within=chapter]{simbox}[1][]{
+    colback=green!5!white, colframe=green!50!black, fonttitle=\bfseries,
+    title={Computational Module \thetcbcounter: #1}, enhanced, breakable
+}
+
+% 3. Key Result Box: Black frame on white for major derived results
+%    Usage: \begin{resultbox}{Title text} ... \end{resultbox}
+\newtcolorbox{resultbox}[1]{
+    colback=white, colframe=black, fonttitle=\bfseries, coltitle=black, colbacktitle=black!5!white,
+    title={#1}, enhanced, breakable, arc=0mm
+}
+
+% 4. Circuit Diagram Box: Light grey for schematic illustrations
+%    (SPICE manual pattern)
+\newtcolorbox{circuitbox}[1]{
+    colback=black!5!white, colframe=black!75!white, fonttitle=\bfseries,
+    title={#1}, enhanced, breakable
+}
+
+% 5. Code Listing Box: Dark terminal style for SPICE netlists / code
+%    (SPICE manual pattern)
+\newtcolorbox{codebox}[1]{
+    colback=black!95!white, colframe=black!75!white, coltext=white,
+    fontupper=\ttfamily, fonttitle=\bfseries, coltitle=green!70!white,
+    title={#1}, enhanced, breakable
+}
+
+% 6. Objective Box: For chapter learning objectives
+\newtcolorbox{objectivebox}[1][Learning Objectives]{
+    colback=white, colframe=black, fonttitle=\bfseries, coltitle=black, colbacktitle=black!5!white,
+    title={#1}, enhanced, breakable, arc=0mm
+}
+
+% 7. Example Box: For worked examples
+\newtcolorbox[auto counter, number within=chapter]{examplebox}[1][]{
+    colback=gray!5!white, colframe=black!60!white, fonttitle=\bfseries, coltitle=black, colbacktitle=gray!15!white,
+    title={Example \thetcbcounter: #1}, enhanced, breakable, arc=0mm
+}
+
+% 8. Summary Box: For end-of-chapter summaries
+\newtcolorbox{summarybox}[1][Chapter Summary]{
+    colback=white, colframe=black, fonttitle=\bfseries, coltitle=black, colbacktitle=black!5!white,
+    title={#1}, enhanced, breakable, arc=0mm
+}
+
+% 9. Exercise Box: For end-of-chapter exercises
+\newtcolorbox{exercisebox}[1][Exercises]{
+    colback=gray!5!white, colframe=black!60!white, fonttitle=\bfseries, coltitle=black, colbacktitle=gray!15!white,
+    title={#1}, enhanced, breakable, arc=0mm
+}
+
+% 10. Warning Box: For nomenclature disclaimers and important caveats
+\newtcolorbox{warningbox}[1][Important Note]{
+    colback=orange!5!white, colframe=orange!75!black, fonttitle=\bfseries, coltitle=black, colbacktitle=orange!10!white,
+    title={#1}, enhanced, breakable, arc=0mm
+}

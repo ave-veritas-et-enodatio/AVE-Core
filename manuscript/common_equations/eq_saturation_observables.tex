@@ -1,0 +1,14 @@
+% eq_saturation_observables.tex — Sector-specific saturation formulas
+% \input this wherever you need the explicit μ, ε, C, Z under saturation.
+%
+\begin{align}
+    \mu_{eff}(B)       &= \mu_0 \cdot S(B/B_c) \to 0
+        \quad \text{(inductor shorts --- Meissner)} \label{eq:mu_eff_sat} \\[4pt]
+    \varepsilon_{eff}(V) &= \varepsilon_0 \cdot S(V/V_{yield}) \to 0
+        \quad \text{(dielectric collapses)} \label{eq:eps_eff_sat} \\[4pt]
+    C_{eff}             &= \frac{C_0}{S} \to \infty
+        \quad \text{(capacitance absorbs energy)} \label{eq:C_eff_sat} \\[4pt]
+    Z_{sym}             &= \sqrt{\frac{\mu_{eff}}{\varepsilon_{eff}}}
+                         = \sqrt{\frac{\mu_0 \cdot S}{\varepsilon_0 \cdot S}} = Z_0
+        \quad \text{(invariant)} \label{eq:Z_sym_sat}
+\end{align}

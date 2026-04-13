@@ -1,0 +1,40 @@
+* Applied Vacuum Engineering (AVE) - SPICE Netlist
+* Element: Hydrogen-1 (Z=1, A=1)
+* Auto-generated topological mutual impedance array
+* Nodes: 1
+
+
+
+* -----------------------------------------------------------------
+* NUCLEON (Baseline 6^3_2 Topological Defect)
+* -----------------------------------------------------------------
+.SUBCKT NUCLEON IN OUT
+L_CORE IN OUT 1uH
+C_CORE IN OUT 1pF
+.ENDS NUCLEON
+
+
+
+* -----------------------------------------------------------------
+* MACROSCOPIC TOPOLOGY (Nucleon Array)
+* -----------------------------------------------------------------
+V_STIM NODE_1 0 AC 1 PULSE(0 100k 10n 1n 1n 50n 100n)
+
+X_NUC_1 NODE_1 0 NUCLEON
+
+
+* -----------------------------------------------------------------
+* SPATIAL MUTUAL INDUCTANCE (K-FACTORS)
+* -----------------------------------------------------------------
+
+
+* -----------------------------------------------------------------
+* SIMULATION DIRECTIVES
+* -----------------------------------------------------------------
+* Transient Analysis: 100kV Step Pulse (1ns rise) to test dielectric rupture limits
+.TRAN 0.1n 200n
+* Broadband AC sweep: 1 MHz to 1 GHz to ping macro-resonance Q-factors
+.AC DEC 100 1MEG 1G
+.OPTIONS METHOD=GEAR
+
+.END

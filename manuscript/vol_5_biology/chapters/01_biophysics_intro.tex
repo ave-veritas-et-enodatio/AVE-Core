@@ -1,0 +1,109 @@
+% 08_biophysics.tex
+% Ch.8: Protein backbone impedance
+
+\chapter{Biophysics: Protein Folding}
+\label{ch:biophysics}
+
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Derive the C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ from the AVE lattice pitch $\ell_{\text{node}}$ through a chain of topological identities involving the Bohr radius and covalent bond lengths.
+    \item Classify the 20 canonical amino acids by their sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$).
+    \item Interpret the Chignolin sub-3~\AA\ RMSD folding result as a Level~6 Emergence validation using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
+    \item Evaluate the Molecular Chiral FRET Parallax as a future falsification target, understanding why terrestrial baselines are insufficient.
+\end{itemize}
+\end{objectivebox}
+
+\section{Protein Backbone: From Proton Radius to Folding}
+\label{sec:protein_bridge}
+
+The protein $S_{11}$ folding engine uses the C$\alpha$--C$\alpha$
+virtual bond distance $d_0 \approx 3.80$~\AA\ as its fundamental
+length scale.  This traces back to the AVE axioms via:
+\begin{resultbox}{Proton-to-Backbone Length Scale}
+\begin{equation}
+    d_p = \frac{4\hbar}{m_p c} \approx 0.841\;\text{fm}
+    \;\xrightarrow{\text{nuclear bond}}
+    r_{\text{cov}}
+    \;\xrightarrow{\text{backbone}}
+    d_0 \approx 3.80\;\text{\AA}
+\end{equation}
+\end{resultbox}
+The ratio $d_0 / a_0 \approx 7.18$ (where $a_0 = \ell_{\text{node}}
+/\alpha$ is the Bohr radius) suggests a geometric origin in the
+peptide repeat unit.  The amino acid impedance table $Z_{\text{topo}}$
+assigns complex impedances (R + jX) to each of the 20 residues,
+with $Q_{\text{backbone}} \approx 7$ suppressing reactive coupling.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{protein_backbone_impedance.pdf}
+    \caption{Protein backbone impedance from AVE axioms.
+    \textbf{Left:} Full derivation chain from $\ell_{node}$ to
+    the C$\alpha$--C$\alpha$ peptide bond length $d_0 = 3.80$~\AA.
+    \textbf{Centre:} Amino acid impedance spectrum --- hydrophobic
+    (gold), positive/inductive (blue), negative/capacitive (red).
+    \textbf{Right:} Local inter-residue reflection coefficient
+    $\Gamma$ along a sample peptide sequence; high $|\Gamma|$
+    indicates folding-driving impedance mismatch.}
+    \label{fig:protein_backbone}
+\end{figure}
+
+\section{Derivation Chain: From Lattice Pitch to Bond Length}
+
+The C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ is derived through a chain of AVE identities:
+
+\begin{enumerate}
+    \item \textbf{Lattice pitch:} $\ell_{node} = \hbar / (m_e c) \approx 3.862 \times 10^{-13}$ m.
+    \item \textbf{Bohr radius:} $a_0 = \ell_{node} / \alpha \approx 5.292 \times 10^{-11}$ m (the characteristic extension of the unknot electron).
+    \item \textbf{Covalent bond length:} C--N and C$\alpha$--C bonds are set by the overlap of atomic ground states at the equilibrium impedance-matching distance: $r_{cov} \approx 1.47$~\AA\ (C--N), 1.52~\AA\ (C--C), 1.33~\AA\ (C=O).
+    \item \textbf{Backbone repeat:} The peptide unit (N--C$\alpha$--C--N) has a fixed geometry from the $sp^3$ tetrahedral bond angle ($\theta = 109.47^\circ$) and the planar amide constraint ($\omega = 180^\circ$). The resulting C$\alpha$--C$\alpha$ distance:
+    \begin{equation}
+        d_0 = \sqrt{r_{C\alpha C}^2 + r_{CN}^2 + 2\, r_{C\alpha C}\, r_{CN} \cos(180^\circ - \theta)} \approx 3.80 \text{ \AA}
+    \end{equation}
+\end{enumerate}
+
+Every step uses constants from the AVE physics engine (Volume~I) or standard NERF rigid-body geometry. No free parameter is introduced at the biological scale.
+
+\section{Amino Acid Impedance Classification}
+
+The 20 canonical amino acids are classified by their sidechain impedance relative to the backbone baseline ($Z_{backbone} \approx 7$):
+
+\begin{itemize}
+    \item \textbf{Hydrophobic (low $Z$):} Ala, Val, Leu, Ile, Pro, Phe, Trp, Met --- compact sidechains with low reactive coupling. $|\Gamma| \approx 0$ (impedance-matched, minimal folding drive).
+    \item \textbf{Polar/Charged (high $|Z|$):} Glu, Asp (capacitive), Lys, Arg (inductive) --- large $|\Gamma|$, strong folding drive at sequence positions where impedance mismatch is maximal.
+    \item \textbf{Special:} Gly ($Z \approx 0$, maximum flexibility), Cys (disulphide bridge, reactive short-circuit between distant residues).
+\end{itemize}
+
+\section{Validation: Chignolin (CLN025)}
+
+The 10-residue Chignolin mini-protein (CLN025: YYDPETGTWY) is the benchmark system for the AVE folding engine (Volume~V). Using zero adjustable parameters, the engine folds from an extended chain to a $\beta$-hairpin with:
+\begin{resultbox}{Chignolin Validation}
+\begin{equation}
+    \text{RMSD}_{\text{backbone}} = 2.59 \text{ \AA} \quad \text{(sub-3 \AA: Level 6 Emergence)}
+\end{equation}
+\end{resultbox}
+
+This validation uses the \textit{same three functions} as every other chapter in this volume: \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}. The protein backbone is not ``biology''---it is a transmission line.
+
+\section{Molecular Chiral FRET Parallax}
+To experimentally map the continuous boundary of Axiom 2 (Chirality) into living biophysics, the AVE framework proposes the \textbf{Molecular Chiral FRET Parallax} test. Standard biochemistry assumes the left-handed bias of terrestrial amino acids is a random, isolated historical accident. AVE dictates it is the macroscopic manifestation of the $h_{\perp}$ chiral metric bias structurally enforcing the Ramachandran exclusion zones.
+
+By attaching Cy3/Cy5 fluorophore pairs to the terminal ends of a rigid structural $\alpha$-helix and measuring the F\"orster Resonance Energy Transfer (FRET) efficiency, researchers can map the rigid spatial bounds of the $sp^3$ tetrahedral carbon limits. Under AVE axioms, transitioning from Earth's $1G$ gravitational VSWR ($\varepsilon_{11} \approx 7 \times 10^{-10}$) to microgravity relaxes the background metric strain by $\Delta r / r = \alpha \cdot \varepsilon_{11} \approx 5 \times 10^{-12}$. For a $5\text{ nm}$ fluorophore baseline, this corresponds to a sub-attometer ($\sim 10^{-20}\text{ m}$) physical relaxation---far below any current single-molecule detection threshold.
+
+\textbf{Current Status:} The Molecular Chiral FRET Parallax is \textit{currently unfalsifiable} at terrestrial gravitational baselines. The honest AVE prediction confirms the chiral metric bias is physically real but requires either (a) a compact-object environment (e.g., Sirius B, $\varepsilon_{11} \sim 10^{-4}$) or (b) a coherent resonant amplification mechanism to reach detectable signal levels. This test is catalogued as a \textit{future falsification target} pending access to extreme gravitational environments.
+
+\begin{summarybox}
+\begin{itemize}
+    \item The protein backbone is derived from the proton radius through a chain of AVE identities: $\ell_{\text{node}} \to a_0 \to r_{\text{cov}} \to d_0 \approx 3.80$~\AA, introducing zero free parameters.
+    \item The 20 canonical amino acids are classified by sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$), mapping hydrophobic, polar, and charged residues to reactive coupling strengths.
+    \item Chignolin (CLN025) folds to sub-3~\AA\ RMSD using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
+\end{itemize}
+\end{summarybox}
+
+\begin{exercisebox}
+\begin{enumerate}
+    \item Derive the C$\alpha$--C$\alpha$ virtual bond distance $d_0$ from the peptide unit bond lengths and $sp^3$ tetrahedral angle. Verify that no free parameter is introduced at the biological scale.
+    \item Explain why the Molecular Chiral FRET Parallax test is currently unfalsifiable, and estimate the minimum gravitational VSWR required for a detectable signal.
+\end{enumerate}
+\end{exercisebox}

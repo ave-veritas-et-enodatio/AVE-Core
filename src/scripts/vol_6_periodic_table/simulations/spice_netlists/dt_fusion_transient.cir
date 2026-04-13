@@ -1,0 +1,51 @@
+* Applied Vacuum Engineering (AVE) - DUAL NETWORK FUSION
+* Collision: Deuterium (2H) + Tritium (3H) -> dt_fusion_transient
+* Auto-generated topological mutual impedance transient array
+
+
+
+* -----------------------------------------------------------------
+* NUCLEON (Baseline 6^3_2 Topological Defect)
+* -----------------------------------------------------------------
+.SUBCKT NUCLEON IN OUT
+L_CORE IN OUT 1uH
+C_CORE IN OUT 1pF
+.ENDS NUCLEON
+
+
+
+* -----------------------------------------------------------------
+* MACROSCOPIC TOPOLOGY (Dual Array)
+* -----------------------------------------------------------------
+* V_PONDEROMOTIVE provides the kinetic forcing required to overcome 1/d repulsion
+V_POND NODE_A_1 0 SINE(0 1MEG 1G) AC 1
+
+X_NUC_A_1 NODE_A_1 0 NUCLEON
+X_NUC_A_2 NODE_A_2 0 NUCLEON
+X_NUC_B_1 NODE_B_1 0 NUCLEON
+X_NUC_B_2 NODE_B_2 0 NUCLEON
+X_NUC_B_3 NODE_B_3 0 NUCLEON
+
+
+* -----------------------------------------------------------------
+* SPATIAL MUTUAL INDUCTANCE (K-FACTORS)
+* -----------------------------------------------------------------
+K_1 X_NUC_A_1.L_CORE X_NUC_A_2.L_CORE 0.333333
+K_2 X_NUC_B_1.L_CORE X_NUC_B_2.L_CORE 0.288677
+K_3 X_NUC_B_1.L_CORE X_NUC_B_3.L_CORE 0.288677
+K_4 X_NUC_B_2.L_CORE X_NUC_B_3.L_CORE 0.288684
+K_5 X_NUC_A_1.L_CORE X_NUC_B_1.L_CORE 0.328798
+K_6 X_NUC_A_1.L_CORE X_NUC_B_2.L_CORE 0.356738
+K_7 X_NUC_A_1.L_CORE X_NUC_B_3.L_CORE 0.186853
+K_8 X_NUC_A_2.L_CORE X_NUC_B_1.L_CORE 0.216930
+K_9 X_NUC_A_2.L_CORE X_NUC_B_2.L_CORE 0.733665
+K_10 X_NUC_A_2.L_CORE X_NUC_B_3.L_CORE 0.210157
+
+
+* -----------------------------------------------------------------
+* SIMULATION DIRECTIVES
+* -----------------------------------------------------------------
+* Transient Analysis to track the AC ramp phase-locking threshold
+.TRAN 0.1n 500n
+
+.END

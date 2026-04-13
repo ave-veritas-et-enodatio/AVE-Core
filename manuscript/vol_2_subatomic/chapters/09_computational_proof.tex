@@ -1,0 +1,242 @@
+% 09_computational_proof.tex
+% Ch.9: Computational proof + anomaly catalog
+
+\chapter{Computational Proof and Anomaly Catalog}
+\label{ch:computational_proof}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Defend the computational universality of the AVE physics engine ($39$ orders of magnitude) without free parameters.
+    \item Establish the strict numerical guard hierarchy ($10^{-12}$ to $10^{-30}$) ensuring topological mathematics never cross-contaminate with machine-precision floating-point artefacts.
+    \item Prove that the $r_n \propto n^2$ orbital scaling law does not rely on Bohr or Schrödinger postulates, but emerges natively from the geometry of continuous acoustic impedance cavities acting on discrete matter.
+\end{itemize}
+\end{objectivebox}
+
+\section{Computational Proof of Scale Invariance}
+
+The full computational proof is implemented in the physics engine module
+\texttt{src/ave/axioms/scale\_invariant.py}. Every domain module in the
+framework (\texttt{saturation.py}, \texttt{fdtd\_3d.py},
+\texttt{bond\_energy\_solver.py}, \texttt{seismic.py},
+\texttt{seismic\_fdtd.py}, \texttt{cutoff.py},
+\texttt{galactic\_rotation.py}, \texttt{superconductor.py},
+\texttt{protein\_bond\_constants.py},
+\texttt{gw\_propagation.py},
+\texttt{gw\_detector.py},
+\texttt{stellar\_interior.py},
+\texttt{neutrino\_msw.py},
+\texttt{solar\_impedance.py},
+\texttt{planetary\_magnetosphere.py}) imports its impedance
+operations from this single canonical source. The automated test suite
+verifies that the same
+function produces identical numerical results whether called with
+particle-scale, molecular-scale, laboratory-scale, geophysical-scale,
+or galactic-scale inputs.
+
+This is not an analogy. It is a \textbf{structural identity}: the same
+operator, the same code, the same mathematics, from $10^{-13}$~m to
+$10^{26}$~m.
+
+\section{Verification Summary}
+
+\begin{center}
+\small
+\begin{tabular}{lllrl}
+\toprule
+\textbf{Domain} & \textbf{Prediction} & \textbf{Regime} & \textbf{Agreement} & \textbf{Params} \\
+\midrule
+Galactic rotation (NGC 3198)  & $v = 159$ km/s         & I/IV  & 5\%    & 0 \\
+Multi-galaxy RAR              & McGaugh curve           & I--IV & exact  & 0 \\
+'Oumuamua acceleration        & $4.54 \times 10^{-6}$ m/s$^2$ & I & 91\%   & 0 \\
+Kirkwood gaps (5/5)           & $< 0.3\%$ error         & I     & $<$0.3\% & 0 \\
+Earth magnetopause            & 9.1 R$_E$               & I     & 8.7\%  & 0 \\
+Jupiter magnetopause          & 55.6 R$_J$              & I     & 11.8\% & 0 \\
+Neutrino MSW $P_{ee}$ (4 channels) & 0.31--0.55        & I     & $<$10\% & 0 \\
+Superconductor $B_c(T)$ (5 materials) & $\sqrt{1-(T/T_c)^2}$ & II/III & exact & 0 \\
+London depth ($\lambda_L$)    & 37--150 nm             & II/III & exact  & 0 \\
+Seismic $\Gamma_{\text{Moho}}$ & 0.29                  & I     & matches PREM & 0 \\
+GW lossless propagation       & $V_{GW}/V_{snap} = 10^{-28}$ & I & exact & 0 \\
+Topological Pair Production   & $H_{net}=0 \to e^+ + e^-$    & IV    & exact & 0 \\
+Protein folding (CLN025)      & RMSD = 2.59 \AA        & I     & sub-3 \AA & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{cross_scale_verification.png}
+    \caption{The single Axiom~4 saturation kernel $S(x, x_{yield}) = \sqrt{1 - (x/x_{yield})^2}$ governs physics from the lattice pitch ($10^{-13}$~m) to the Hubble radius ($10^{26}$~m) --- 39 orders of magnitude with the same operator, the same code, zero adjustable parameters.}
+    \label{fig:cross_scale_verification}
+\end{figure}
+
+\section{Anomaly Catalog: Proposed Tests}
+\label{sec:anomaly_catalog}
+
+The following anomalies and phenomena are identified as targets for
+future AVE verification:
+
+\subsection{Tier 2: Precision Tests}
+\begin{enumerate}
+    \item \textbf{Flyby anomaly:} Unexplained $\Delta v$ of $\sim$3--13 mm/s
+    during Earth flybys. Predict: impedance gradient at magnetopause
+    produces differential phase shift.
+    \item \textbf{Muon $g-2$:} $\Delta a_\mu = 2.49 \times 10^{-9}$.
+    AVE predicts a vacuum self-energy correction from lattice topology.
+    \item \textbf{Hubble tension:} $H_0 = 67$ (CMB) vs 73 (Cepheid).
+    AVE's $H_\infty$ is a single number; scale-dependent impedance
+    may resolve the tension.
+    \item \textbf{Proton radius puzzle:} Already solved --- $d_p =
+    4\hbar/m_p c \approx 0.841$ fm matches muonic hydrogen.
+\end{enumerate}
+
+\subsection{Tier 3: Deep Predictions}
+\begin{enumerate}
+    \item \textbf{Fast radio bursts:} Dispersion measure via
+    $Z_{plasma}(r)$ integration along line of sight.
+    \item \textbf{Cosmic ray knee/ankle:} Impedance-driven GZK limit
+    from lattice saturation at $V/V_{snap} \sim 1$.
+    \item \textbf{Pioneer anomaly:} Solar wind drag vs thermal
+    radiation pressure on the RTG.
+    \item \textbf{Saturn ring system:} Ring gaps as impedance waveguide
+    modes (cf. Kirkwood gaps).
+    \item \textbf{Enceladus plume:} Saturn's Io analog --- tidal heating
+    $\to$ cryovolcanism $\to$ plasma source.
+\end{enumerate}
+
+\subsection{Tier 4: Hardware Verification}
+\begin{enumerate}
+    \item \textbf{HOPF-01:} Wire-stitched impedance antenna measuring
+    vacuum $Z_0$ directly.
+    \item \textbf{PONDER-01:} Modified antenna in mineral oil bath
+    for $\varepsilon_r$ sweep.
+    \item \textbf{Casimir measurement:} Impedance between parallel
+    plates as function of separation.
+\end{enumerate}
+
+\section{Numerical Precision and Dimensional Coordination}
+\label{sec:precision_policy}
+
+The physics engine enforces a rigorous numerical precision policy to ensure that computational artefacts never masquerade as physical predictions.
+
+\subsection{Floating-Point Arithmetic}
+All engine modules use IEEE~754 double precision (\texttt{float64}), providing approximately 15 significant decimal digits ($\varepsilon_{mach} \approx 2.2 \times 10^{-16}$).  No single-precision (\texttt{float32}) arrays are used anywhere in the framework.  This is critical because the AVE derivation chain spans 39 orders of magnitude: a constant computed at the lattice pitch ($\ell_{node} \sim 10^{-13}$~m) participates in predictions at the Hubble radius ($R_H \sim 10^{26}$~m), requiring at least 12 significant digits to remain unambiguous.
+
+\subsection{Guard Constant Hierarchy}
+Three standardised guard constants prevent numerical singularities throughout the engine.  All modules import these from \texttt{constants.py} rather than defining ad-hoc magic numbers:
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llp{7.2cm}}
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Usage} \\
+\midrule
+\texttt{EPS\_NUMERICAL} & $10^{-12}$ & Impedance ratios, reflection coefficients, normalisation denominators.  Ensures $Z/(Z + \varepsilon) \approx 1$ within float64 precision. \\
+\texttt{EPS\_CLIP} & $10^{-15}$ & Saturation operator clip ceiling: $\sqrt{1 - x^2}$ with $x = 1 - \varepsilon$.  Prevents $\sqrt{<0}$ while keeping $S(A_{yield}) \approx 0$ to float64 resolution. \\
+\texttt{EPS\_DIVZERO} & $10^{-30}$ & Hard division-by-zero floor for denominators that can reach exactly zero (DC impedance, $\tanh$ at origin).  Sub-float64 so it never affects physical results. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These constants are \emph{dimensionless} ratios applied to already-normalised quantities.  They carry no units and encode no physics.
+
+\subsection{Dimensional Analysis Chain}
+Every derived constant in the engine is expressed algebraically from the three calibration inputs ($m_e$, $\alpha$, $G$) plus exact SI definitions ($c_0$, $\mu_0$, $\varepsilon_0$, $\hbar$, $e$).  The dimensional algebra is as follows:
+
+\begin{resultbox}{Dimensional Traceability}
+\begin{alignat*}{3}
+\ell_{node} &= \hbar / (m_e c_0) \quad &&[\text{m}] \quad &&\text{(Input 1: spatial cutoff)} \\
+\alpha &= e^2 / (4\pi\varepsilon_0 \hbar c_0) \quad &&[\text{---}] \quad &&\text{(Input 2: dielectric bound)} \\
+G &= \hbar c_0 / (7 \xi_M m_e^2) \quad &&[\text{m}^3/\text{kg}\cdot\text{s}^2] \quad &&\text{(Input 3: Machian boundary)}
+\end{alignat*}
+\end{resultbox}
+
+Every subsequent constant (Bohr radius, Rydberg energy, string tension, snap voltage, yield field, proton mass, etc.) is an explicit algebraic combination of these three with no hidden fitting.
+
+\subsection{Precision Budget}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+\textbf{Constant Class} & \textbf{Source} & \textbf{Relative Uncertainty} \\
+\midrule
+SI exact ($c_0$, $\mu_0$, $e$, $\hbar$, $k_B$) & 2019 SI redefinition & 0 (exact by definition) \\
+$m_e$ (CODATA 2018) & Penning trap & $3.0 \times 10^{-10}$ \\
+$\alpha$ (CODATA 2018) & Electron $g$-factor & $1.5 \times 10^{-10}$ \\
+$G$ (CODATA 2018) & Torsion balance & $2.2 \times 10^{-5}$ \\
+$m_p$ (CODATA 2018) & Penning trap & $3.1 \times 10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The gravitational constant $G$ is the least precise input at $2.2 \times 10^{-5}$ (22 ppm).  This uncertainty propagates only into cosmological and gravitational predictions (MOND $a_0$, Machian hierarchy $\xi_M$).  All electromagnetic, atomic, and molecular predictions are limited only by $m_e$ and $\alpha$ uncertainties below 1~ppb, which is far below the ODE solver tolerance and effectively exact.
+
+\section{Avoidance of Methodological Contamination}
+\label{sec:methodological_contamination}
+
+A fundamental principle of the AVE engine is complete independence from external theoretical frameworks. Theoretical contamination occurs when a formula derived from an incompatible physical postulate (e.g., probability amplitudes, hidden geometry, or non-AVE empirical fits) is unknowingly imported as a ``convenient approximation.''
+
+A prominent example discovered during framework development involved atomic ionisation energies. Early iterations of the solver attempted to correct standard shielding models, culminating in formulas of the form $IE = Z_{eff}^2 \, Ry / n^2$. While directionally correct, this explicitly imports the Schrödinger solution for a hydrogenic atom (or the ad-hoc Bohr model). It is not an AVE equation.
+
+The framework requires all energy states to emerge directly and exclusively from the 5-step universal regime-boundary eigenvalue method. The Rydberg energy itself is not a postulate or a given parameter; it is an emergent consequence of the electron cavity saturation boundary ($r_{sat} = a_0 = \ell_{node}/\alpha$), yielding exact reproduction of the $13.6057$ eV constant through pure topological scaling:
+\begin{equation}
+    Ry = \left[ (\hbar c(1+\nu)) / a_0 \right] \times \frac{\alpha/(1+\nu)}{2} = \frac{\alpha^2 m_e c^2}{2}
+\end{equation}
+
+\subsection{Topological Orbital Radii vs. Quantum Mechanics}
+Does the framework implicitly rely on QM by assuming discrete orbital shells scale as $r_n = n^2 a_0 / Z$? No. In AVE, discrete orbitals are macroscopic standing wave cavities — explicitly identical to the physics governing Saturn's rings and Kirkwood gaps in the asteroid belt. 
+
+In the solar system, mean-motion orbital gaps occur where periods are commensurate: $(T/T_{moon})^2 = (q/p)^2$. This periodic boundary condition creates a Fabry-Pérot impedance cavity. At the atomic scale, the ``moon'' is the electron itself. Its orbital circumference must fit an integer number of its own spatial standing waves (the topological phase wind):
+\begin{equation}
+    2\pi r = n \lambda
+\end{equation}
+Since the local central impedance requires the phase velocity to scale as $v \propto 1/\sqrt{r}$, and impedance matching requires $\lambda \propto 1/v$, the wavelength scales as $\lambda \propto \sqrt{r}$. Substituting this into the resonance condition yields:
+\begin{equation}
+    2\pi r \propto n \sqrt{r} \implies \sqrt{r} \propto n \implies r_n \propto n^2
+\end{equation}
+
+Therefore, $r_n = n^2 a_0 / Z$ is not a QM assumption; it is the unique topological standing-wave condition for a scale-free central impedance profile. The Schrödinger equation merely discovers this same geometric constraint heuristically through operators.
+
+When extending to multi-electron atoms, the engine must never revert to $Z_{eff}$ arithmetic; it must strictly apply the coupled resonator normal mode solver using universal pairwise energy terms to find the resulting eigenvalues.
+
+\subsection{The Electron Saturation Radius}
+
+\begin{examplebox}[Verifying the Linear Saturation Regime for Orbitals]
+\textbf{Problem:} The topological saturation radius of the electron defines its structural limit as $d_{sat} = \ell_{node}$. Given that the macroscopic acoustic separation between atomic electrons is characterized by the Bohr radius ($a_0 = \ell_{node}/\alpha$), evaluate the pairwise voltage strain and classify its elastodynamic regime.
+
+\textbf{Solution:} The pairwise voltage strain ($V/V_{snap}$) is the ratio of the saturation radius to the interaction distance ($A = d_{sat} / r_{ij}$). Substituting the structural equivalents:
+\[ A = \frac{d_{sat}}{r_{ij}} \approx \frac{\ell_{node}}{\ell_{node}/\alpha} = \alpha \]
+Evaluating the magnitude:
+\[ \alpha \approx 0.007297 \]
+Because $0.007 \ll \sqrt{2\alpha}$ (the $\approx 0.121$ boundary between Linear Regime I and Saturation Regime II), electron-electron repulsion operates deep within the perfectly linear, Hookean domain of the LC network. Non-linear saturated impedance corrections are entirely unnecessary; standard linear Coulomb electrostatics mapped onto topological geometries apply exactly.
+\end{examplebox}
+
+\subsection{Multi-Electron Repulsion: Topological Subshell Impedance Cascade}
+
+In standard quantum mechanics, peer-electron Coulomb repulsion involves time-averaging spatial probability densities via $N$-body continuous integration. As discussed in Section~\ref{sec:methodological_contamination}, introducing such integrals into AVE is a methodological contamination that artificially recovers the macroscopic shielding collapse.
+
+The framework requires a strictly scale-invariant, 0-parameter resolution. By treating atomic orbitals as nested macroscopic cavities rather than overlapping probability clouds, peer interactions are dictated by the \textbf{Subshell Impedance Cascade} (see Chapter~\ref{ch:quantum_mechanics_and_orbitals} for the complete derivation). 
+
+Instead of continuous integration, the discrete lattice geometry enforces:
+\begin{enumerate}
+    \item \textbf{Cross-Shell Gauss Screening (Axiom 2):} Outer solitons perceive exact stepwise integer screening $Z_{\rm net}(r) = Z - N_{\rm inner}$.
+    \item \textbf{Same-Shell Topologic Node Sorting (Axiom 4):} Electrons within the same principal shell ($n$) couple exclusively as discrete geometric LC resonators subject to the $K = 2G$ topological limit and the $8\pi\alpha$ spatial packing fraction. 
+\end{enumerate}
+
+This pure discrete formalism flawlessly bounds multi-electron systems without resorting to empirical variables, $Z_{\rm eff}$ fitting, or continuous variational probability integrals. The ``multi-electron correlation problem'' of standard quantum mechanics is bypassed entirely by enforcing topological geometry.
+
+\section*{Chapter Summary}
+\begin{itemize}
+    \item The AVE Physics Engine operates identically from the $10^{-13}\text{ m}$ lattice pitch to the $10^{26}\text{ m}$ Hubble boundary, definitively proving the structural scale-invariance of the underlying continuum mathematics.
+    \item Theoretical contamination via empirically fitted scaling laws (e.g., probability amplitudes or parameterized fractional charges) is rigorously barred from the engine.
+    \item All constants inside the model are purely algebraically traceable back to the triad of fundamental calibration boundaries ($m_e$, $\alpha$, $G$).
+    \item Macroscopic multi-body repulsion derives analytically from the Topologic Subshell Impedance cascade (Phase D Architecture), entirely bypassing the "N-body correlation" integration crisis of QM.
+\end{itemize}
+
+\section*{Exercises}
+\begin{enumerate}
+    \item Why must the physics engine execute exclusively in \texttt{float64} precision, and why is an artificial floor (like \texttt{EPS\_DIVZERO} = $10^{-30}$) required when computing perfectly antipodal discrete topological interference metrics?
+    \item In deriving the Hydrogen energy levels, AVE establishes that the quantization integer $n$ does not originate from abstract quantum boundary conditions, but instead from the macro-acoustic resonance rule ($2\pi r = n \lambda$). Why is a continuous macroscopic standing wave structurally impossible if $n = 1.5$?
+\end{enumerate}

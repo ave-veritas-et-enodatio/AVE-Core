@@ -1,0 +1,63 @@
+\section{Turbulence Onset as a Regime I \texorpdfstring{$\to$}{to} II Transition}
+\label{sec:turbulence_onset}
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Model turbulence onset as a Regime~I $\to$ II transition where the critical Reynolds number maps to the saturation threshold.
+\end{itemize}
+\end{objectivebox}
+
+\textit{Note: This section covers the Regime I $\to$ II transition (onset). For the Regime III boundary and the resolution of the Kolmogorov cascade singularity, see Volume 3, Chapter \ref{ch:kolmogorov_spectral_cutoff}.}
+
+\subsection{Hypothesis}
+
+The laminar-to-turbulent transition in fluid flow occurs at a
+critical Reynolds number $\mathrm{Re}_c$ that depends on geometry.
+The AVE framework identifies this transition as the Regime~I $\to$
+Regime~II boundary crossing, where the driving parameter (flow
+velocity, or equivalently the viscous stress) exceeds the first
+universal regime boundary $r_1 = \sqrt{2\alpha}$.
+
+The Reynolds number maps to a normalised drive parameter:
+\begin{equation}
+  r = \frac{\mathrm{Re}}{\mathrm{Re}_{\max}},
+\end{equation}
+where $\mathrm{Re}_{\max}$ is the geometry-dependent maximum
+stable Reynolds number.  The universal prediction is that the
+onset of turbulence (first appearance of self-sustaining vortical
+structures) occurs at $r = r_1 = \sqrt{2\alpha} \approx 0.1208$.
+
+\subsection{Mapping to Fluid Variables}
+
+The regime boundary $r_1$ sets the ratio of inertial driving to
+viscous dissipation at which the laminar standing wave (Poiseuille
+flow) first saturates and begins to shed energy into higher modes
+(turbulent eddies).  The saturation operator governs the
+transition:
+\begin{equation}
+  S(\mathrm{Re}, \mathrm{Re}_c)
+  = \sqrt{1 - \left(\frac{\mathrm{Re}}{\mathrm{Re}_c}\right)^2}.
+\end{equation}
+For $\mathrm{Re} < \mathrm{Re}_c$, $S > 0$ and the flow remains
+laminar.  At $\mathrm{Re} = \mathrm{Re}_c$, $S = 0$ and the
+laminar mode is fully saturated.
+
+\subsection{Testable Prediction}
+
+The intermittency fraction (fraction of time the flow exhibits
+turbulent bursts) near the critical Reynolds number should follow
+$1 - S(\mathrm{Re}, \mathrm{Re}_c)$, measurable via hot-wire
+anemometry in pipe flow at controlled Reynolds numbers.
+
+\begin{summarybox}
+\begin{itemize}
+    \item Turbulence onset is modelled as a Regime~I $\to$ II transition: the critical Reynolds number $\mathrm{Re}_c$ maps to the saturation threshold $S(\mathrm{Re}, \mathrm{Re}_c)$, predicting intermittent turbulent bursts near the transition boundary.
+\end{itemize}
+\end{summarybox}
+
+\begin{exercisebox}
+\begin{enumerate}
+    \item Design a hot-wire anemometry experiment to verify that turbulent burst statistics near $\mathrm{Re}_c$ follow the saturation function $1 - S(\mathrm{Re}, \mathrm{Re}_c)$.
+\end{enumerate}
+\end{exercisebox}
+

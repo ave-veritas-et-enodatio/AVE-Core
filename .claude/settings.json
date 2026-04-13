@@ -1,0 +1,13 @@
+{
+  "_comment_00": "rename _allow to allow to enable the specified permission set.",
+  "permissions": {
+    "_allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Bash"
+    ]
+  }
+}

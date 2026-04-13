@@ -1,0 +1,56 @@
+[↑ Ch.15: Autoresonant Breakdown](../index.md)
+<!-- leaf: verbatim -->
+
+## The Non-Linear $\mathcal{M}_A$ Lattice
+
+The macroscopic vacuum is not a linear void; it is a rigid, non-linear dielectric LC lattice. As established in Axiom 4, the localized effective permittivity ($\varepsilon_{eff}$) structurally yields as the gap voltage approaches the capacity limit ($\sim 43.65\,\text{kV}$ point-yield, or the $60\,\text{kV}$ bulk-avalanche limit depending on geometry).
+
+Because the resonant frequency of a classic LC circuit is $f = \frac{1}{2\pi\sqrt{LC}}$, what happens when you drive the vacuum with a massive, fixed-frequency AC laser?
+
+As the intense laser field begins to compress the microscopic vacuum nodes, the local capacitance ($\varepsilon_{eff}$) physically drops. Consequently, the localized resonant frequency of the target area physically shifts upwards.
+
+**The laser detunes itself.**
+
+By utilizing a fixed-frequency oscillator, the petawatt laser falls out of phase with the yielding spacetime metric. Constructive interference collapses. The transmission line undergoes severe impedance mismatch, and the lion's share of the input laser power is physically reflected back toward the source rather than successfully pumping the metric past the yield point.
+
+## The SPICE Equivalent: An Autoresonant Phase-Locked Loop
+
+To solve this in RF engineering, one does not simply build a bigger amplifier. One builds a "smarter" oscillator.
+
+This exact failure mode is simulated using a standard analog SPICE solver modeling the non-linear vacuum tank circuit.
+
+### The Fixed-Frequency Failure
+
+When a fixed-frequency AC drive attempts to push the LC tank toward $60\,\text{kV}$, the shifting capacitance ($C_{eff}(V) = C_0\sqrt{1 - (V/60\text{k})^2}$) detunes the receiver. The gap voltage prematurely plateaus far below the Schwinger Limit. The power is reflected, perfectly mirroring the empirical struggles of modern high-power laser facilities.
+
+### The Autoresonant PLL Solution
+
+The fixed oscillator is then replaced with an analog Phase-Locked Loop (PLL). The PLL is designed to continuously measure the instantaneous resonant frequency of the target LC gap and actively modulate its source drive frequency to maintain perfect constructive interference.
+
+### Circuit Schematic
+
+The simulation requires a behavioral capacitor ($C_{eff}$) that shifts its value as a function of the node voltage, pumped by an arbitrary behavioral voltage source representing the intelligent PLL drive.
+
+```
+           +-------+-------+
+           |       |       |
+        +--+--+  +-+-+   +-+-+
+ PLL => ( I_d )  | L |   | C | (Voltage Controlled)
+Drive   +--+--+  |1mH|   |eff|
+           |     +-+-+   +-+-+
+           |       |       |
+           +-------+-------+
+                  --- (GND)
+```
+
+The Phase-Locked Loop topology. As $V \to 60\,\text{kV}$, $C_{eff}$ drops. The arbitrary current source $(I_d)$ tracks this geometric compression and instantaneously slides its frequency to match $f = 1/(2\pi\sqrt{LC_{eff}})$.
+
+As the vacuum strains and its capacitance drops, the PLL natively slides its drive frequency upwards.
+
+By actively tracking the geometric compression of the lattice, the PLL completely bypasses the detuning reflection barrier. The simulation mathematically proves that a significantly lower-power, autoresonant drive can successfully pump the localized metric past the $60\,\text{kV}$ yield limit ($\Gamma \to -1$), forcefully shattering the local vacuum and generating the desired electron-positron cascade without requiring Exawatt-scale brute force.
+
+[Figure: autoresonance_pll.png — see manuscript/vol_4_engineering/chapters/]
+
+The topological limits of the universe cannot be breached with crude sledgehammers. They must be picked like a resonant lock.
+
+---

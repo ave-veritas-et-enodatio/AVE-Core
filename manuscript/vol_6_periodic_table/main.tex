@@ -1,0 +1,63 @@
+\documentclass[11pt,letterpaper,twoside]{book}
+
+% --- Shared AVE Framework Infrastructure ---
+\input{../structure/preamble.tex}
+\input{../structure/commands.tex}
+
+% --- Build-specific Graphics Path ---
+\graphicspath{{assets/}{simulations/outputs/}{../../assets/}{../../assets/figures/}{../../assets/sim_outputs/}}
+
+\begin{document}
+
+\frontmatter
+\title{\textbf{Applied Vacuum Engineering} \\ \large \textit{Volume VI: The Periodic Table of Knots}}
+\author{Grant Lindblom}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+\input{chapters/00_summary_table}
+
+% -------------------------
+% CHAPTERS
+% -------------------------
+% --- Theoretical Framework ---
+\input{chapters/00_introduction}
+\input{chapters/01_computational}
+\input{chapters/02_chemistry}
+
+% --- Elemental Catalog ---
+\input{chapters/03_hydrogen}
+\input{chapters/04_helium}
+\input{chapters/05_lithium}
+\input{chapters/06_beryllium}
+\input{chapters/07_boron}
+\input{chapters/08_carbon}
+\input{chapters/09_nitrogen}
+\input{chapters/10_oxygen}
+\input{chapters/11_fluorine}
+\input{chapters/12_neon}
+\input{chapters/13_sodium}
+\input{chapters/14_magnesium}
+\input{chapters/15_aluminum}
+\input{chapters/16_silicon}
+
+
+% -------------------------
+% BACKMATTER
+% -------------------------
+
+
+
+% --- AUTOMATED HIGH-Z ELEMENTS ---
+\appendix
+\input{chapters/A_heavy_element_catalog}
+\input{../backmatter/01_appendices_lean.tex}
+
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{../bibliography}
+
+\end{document}

@@ -1,0 +1,15 @@
+# Prioritize local changes during merges
+# This ensures local versions are kept when conflicts occur with Overleaf
+
+*.tex merge=ours
+*.bib merge=ours
+*.png merge=ours
+*.jpg merge=ours
+*.pdf merge=ours
+
+# Text files - prefer local
+*.md merge=ours
+*.txt merge=ours
+
+# forthcoming binary tool for live conversion of math expressions in terminal
+laterm/* filter=lfs diff=lfs merge=lfs -text

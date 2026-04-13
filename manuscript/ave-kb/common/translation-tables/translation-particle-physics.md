@@ -1,0 +1,25 @@
+[↑ Translation Tables](index.md)
+<!-- leaf: verbatim -->
+
+# Standard Model ↔ AVE Translation
+
+<!-- label: tab:trans_particle -->
+
+Particles are topological defects; forces are impedance gradients.
+
+| **Standard Model** | **AVE Equivalent** | **Relationship** |
+|---|---|---|
+| Electron | $0_1$ unknot (translation sector) | $m_e = $ topological self-impedance. Axiom 1. |
+| Muon, tau | $0_1$ unknots (rotation, curvature) | Three Cosserat sectors $\to$ three generations. |
+| Quark | Fractional vortex ($\theta = 2\pi/3$) | Witten effect: $q = n + \theta e/(2\pi)$. |
+| Gluon | Confining flux tube | $F_{conf} = 3(m_p/m_e)\alpha^{-1}T_{EM} \approx 1$ GeV/fm. |
+| Photon | Transverse shear wave | Linear acoustic mode of the LC mesh. |
+| $W^\pm, Z^0$ bosons | Torsional gauge modes | $m_W/m_Z = \sqrt{7}/3$ from $\nu_{vac} = 2/7$. |
+| Higgs field | Dielectric saturation (Axiom 4) | $v = m_ec^2/\alpha = 246$ GeV; spontaneous yield. |
+| $\sin^2\theta_W$ | Acoustic mode ratio | $1 - m_W^2/m_Z^2 = 2/9$. |
+| $\alpha_s$ (strong coupling) | Geometric projection | $\alpha_s = \alpha^{3/7}$; 3 spatial of 7 total DOF. |
+| Proton mass | Faddeev-Skyrme eigenvalue | $m_p \approx 1836\,m_e$ from $\kappa_{FS}, p_c$. |
+| Neutrino mass | Torsional-to-translational ratio | $m_\nu \approx \alpha(m_e/M_W)m_e \sim 0.024$ eV. |
+| CKM matrix | Dielectric mixing cascade | $V_{us} = \sin\theta_C = 2/9$ from $\sin^2\theta_W$. |
+| Empirical Mass Defect (8 MeV) | $\alpha M_p c^2$ Yield Limit | Binding ceiling is purely the Axiom 4 rupture limit ($\sim 6.84$ MeV). |
+| Isotopic Curve of Stability | Geometric Coulomb Penalty | Required neutron packing scales via topological limit $N \approx Z + 1.2\alpha Z^2$. |

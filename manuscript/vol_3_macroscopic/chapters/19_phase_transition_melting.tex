@@ -1,0 +1,490 @@
+\section{The Water Melting Point as a Proton Transfer Eigenmode}
+\label{sec:melting_eigenmode}
+
+
+\begin{objectivebox}
+\begin{itemize}
+    \item Derive the water melting point ($T_m = 273.46$~K, $+0.14\%$ error) as the anharmonic saturation eigenmode of the proton-transfer $LC$ oscillator.
+    \item Understand how all seven bulk water properties emerge from a single proton $LC$ eigenmode with zero free parameters.
+    \item Explain the density anomaly as a competition between melting contraction and thermal expansion near the theoretical melting eigenmode.
+\end{itemize}
+\end{objectivebox}
+
+\subsection{The Physical Problem}
+
+Water's melting point ($T_m = 273.15$~K) and the anomalous density maximum 
+at approximately $4^{\circ}$C are macroscopic observables that arise from the 
+microscopic structure of the hydrogen-bond network. Classical thermodynamics 
+treats $T_m$ as an empirical constant; the AVE framework derives it as the 
+\emph{eigenfrequency} of the proton cavity formed by the O--H$\cdots$O bridge.
+
+\subsection{Step 1: LC Analogs of the H-Bond Network}
+
+Water's tetrahedral network ($z = 4$) is modelled as a discrete LC lattice 
+where each node (H$_2$O molecule) connects to four neighbours via hydrogen bonds.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Element} & \textbf{$\mu$ (Inertia)} & \textbf{$\varepsilon$ (Compliance)} & \textbf{$Z = \sqrt{\mu/\varepsilon}$} \\
+\midrule
+O--H covalent bond & $\mu_\text{OH}$ (reduced) & $1/k_\text{OH}$ & Intramolecular $Z$ \\
+H-bond             & $m_{\text{H}_2\text{O}}$ & $1/k_\text{hb}$ & Intermolecular $Z$ \\
+Lattice ($z = 4$)  & $m_{\text{H}_2\text{O}}$ (loaded) & $1/(z \cdot k_\text{hb})$ & Network $Z_0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Step 2: H-Bond Spring Constant from Op4}
+
+The H-bond energy $E_\text{hb}$ and equilibrium distance $d_\text{hb}$ are derived 
+from the universal pairwise potential (Op4). The coupling constant for the H-bond 
+is set by the impedance mismatch (Op3) between oxygen and hydrogen port radii:
+\begin{equation}
+  K_\text{hb} = \Gamma^2 \alpha \hbar c, 
+  \qquad \Gamma = \frac{r_\text{O} - r_\text{H}}{r_\text{O} + r_\text{H}}
+  \label{eq:hb_coupling}
+\end{equation}
+where $r_\text{O}$ and $r_\text{H}$ are the atomic port impedances (Op1/Op3).
+
+The H-bond equilibrium distance $d_\text{hb}$ is the minimum of $U(r)$ from Op4, 
+and the harmonic spring constant is:
+\begin{equation}
+  k_\text{hb} = \frac{2 E_\text{hb}}{d_\text{hb}^2}
+  \label{eq:k_hb}
+\end{equation}
+
+\noindent\textbf{Dimensional check:}
+\begin{equation}
+  [k_\text{hb}] = \frac{[\text{J}]}{[\text{m}^2]} 
+  = \frac{[\text{kg}\cdot\text{m}^2/\text{s}^2]}{[\text{m}^2]} 
+  = [\text{kg}/\text{s}^2] = [\text{N/m}] \quad\checkmark
+\end{equation}
+
+\noindent\textbf{Numerical evaluation:}
+\begin{equation}
+  k_\text{hb} = \frac{2 \times 3.458 \times 10^{-20}}{(1.754 \times 10^{-10})^2} 
+  = 2.248 \text{ N/m}
+\end{equation}
+
+\subsection{Step 3: O--H Spring Constant from the Coulomb Bond Solver}
+
+The intramolecular O--H spring constant $k_\text{OH}$ is derived from the 
+Coulomb bond force constant solver, which computes $d^2E/dr^2$ at equilibrium 
+for the covalent bond using Slater orbitals and three lattice topology corrections:
+
+\begin{enumerate}
+  \item \textbf{Isotropy projection} ($1/3$): Bond stretching acts along 
+        one of three equivalent spatial dimensions on the isotropic SRS lattice 
+        (Axiom~1).
+  \item \textbf{Three-phase balance} ($1/\sqrt{3}$ per terminal atom): 
+        Each interior lattice node is a three-connected Wye junction. 
+        Terminal atoms (H) are unbalanced single-phase loads.
+  \item \textbf{Lone-pair dynamic softening}: The four lone-pair electrons on oxygen 
+        couple weakly ($\cos^2(109.5^{\circ}) = 1/9$) to the stretching mode, 
+        broadening the potential well.
+\end{enumerate}
+
+The combined correction factor for the O--H bond (one terminal H) is:
+\begin{equation}
+  f_\text{corr} = \frac{1}{3} \times \frac{1}{\sqrt{3}} 
+  = \frac{1}{3\sqrt{3}} \approx 0.1925
+\end{equation}
+
+Applied to the raw Coulomb curvature:
+\begin{equation}
+  k_\text{OH} = f_\text{corr} \times 
+  \left.\frac{d^2 E}{d r^2}\right|_{r = r_\text{eq}} 
+  = 791 \text{ N/m}
+  \label{eq:k_OH}
+\end{equation}
+
+The experimental value is $745 \pm 5$~N/m (from the O--H symmetric stretch at 
+$\tilde{\nu} = 3657$~cm$^{-1}$), giving an engine error of $+6.2\%$.
+
+\subsection{Step 4: The Proton Transfer Eigenmode}
+
+The melting transition is identified with the fundamental eigenmode of the 
+O--H$\cdots$O bridge---the hydrogen atom oscillating between two oxygen atoms 
+through a series spring system:
+
+\begin{equation}
+  \underbrace{\text{O}_1}_{\text{covalent}} 
+  \overset{k_\text{OH}}{=\!=\!=} 
+  \underbrace{\text{H}}_{{m_\text{H}}} 
+  \overset{k_\text{hb}}{\cdots\cdots\cdots} 
+  \underbrace{\text{O}_2}_{\text{H-bonded}}
+  \label{eq:bridge_diagram}
+\end{equation}
+
+The two springs act in \emph{series} for the proton displacement:
+\begin{equation}
+  k_\text{series} = \frac{k_\text{OH} \cdot k_\text{hb}}{k_\text{OH} + k_\text{hb}}
+  \label{eq:k_series}
+\end{equation}
+
+\noindent\textbf{Dimensional check:}
+\begin{equation}
+  [k_\text{series}] = \frac{[\text{N/m}] \cdot [\text{N/m}]}{[\text{N/m}] + [\text{N/m}]} 
+  = \frac{[\text{N}^2/\text{m}^2]}{[\text{N/m}]} 
+  = [\text{N/m}] \quad\checkmark
+\end{equation}
+
+Since $k_\text{OH} = 791$~N/m $\gg k_\text{hb} = 2.248$~N/m:
+\begin{equation}
+  k_\text{series} = \frac{791 \times 2.248}{791 + 2.248} = 2.242 \text{ N/m} \approx k_\text{hb}
+\end{equation}
+
+The soft H-bond spring completely dominates the series combination. This is a 
+general result: the weakest link sets the eigenfrequency.
+
+The eigenfrequency of the proton oscillating in this cavity is:
+\begin{equation}
+  \omega_m = \sqrt{\frac{k_\text{series}}{m_\text{H}}}
+  \label{eq:omega_m}
+\end{equation}
+
+\noindent\textbf{Dimensional check:}
+\begin{equation}
+  [\omega_m] = \sqrt{\frac{[\text{N/m}]}{[\text{kg}]}} 
+  = \sqrt{\frac{[\text{kg}/\text{s}^2]}{[\text{kg}]}} 
+  = \sqrt{[\text{s}^{-2}]} = [\text{rad/s}] \quad\checkmark
+\end{equation}
+
+The melting condition is $kT_m = \hbar\omega_m$---the thermal energy per mode 
+equals one quantum of the proton cavity oscillation. Below this temperature, 
+the proton cannot classically hop between donor and acceptor oxygen sites, 
+and the H-bond network retains directional coherence (solid phase):
+\begin{equation}
+  \boxed{T_m = \frac{\hbar}{k_B} \sqrt{\frac{k_\text{series}}{m_\text{H}}}}
+  \label{eq:Tm_eigenmode}
+\end{equation}
+
+\noindent\textbf{Dimensional check:}
+\begin{equation}
+  [T_m] = \frac{[\text{J}\cdot\text{s}]}{[\text{J/K}]} \cdot [\text{s}^{-1}]
+  = \frac{[\text{kg}\cdot\text{m}^2/\text{s}]}{[\text{kg}\cdot\text{m}^2/(\text{s}^2\cdot\text{K})]}
+  \cdot [\text{s}^{-1}] = [\text{K}] \quad\checkmark
+\end{equation}
+
+\subsection{Step 5: Numerical Evaluation (Bare Eigenmode)}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Source} & \textbf{Type} \\
+\midrule
+$E_\text{hb}$ & $3.458 \times 10^{-20}$ J & Op4 well depth & Engine-derived \\
+$d_\text{hb}$ & 1.754 \AA & Op4 equilibrium & Engine-derived \\
+$k_\text{hb}$ & 2.248 N/m & $2E_\text{hb}/d_\text{hb}^2$ & Engine-derived \\
+$k_\text{OH}$ & 791 N/m & Coulomb bond solver & Engine-derived \\
+$k_\text{series}$ & 2.242 N/m & Eq.~\eqref{eq:k_series} & Engine-derived \\
+$m_\text{H}$ & $1.674 \times 10^{-27}$ kg & Proton mass & Fundamental \\
+$\hbar$ & $1.055 \times 10^{-34}$ J$\cdot$s & & Fundamental \\
+$k_B$ & $1.381 \times 10^{-23}$ J/K & & Fundamental \\
+\midrule
+$\omega_0$ & $3.659 \times 10^{13}$ rad/s & Eq.~\eqref{eq:omega_m} & Derived \\
+$T_0$ (bare) & \textbf{279.5 K ($+6.3^{\circ}$C)} & Eq.~\eqref{eq:Tm_eigenmode} & Derived \\
+$T_m$ (experiment) & 273.15 K ($0^{\circ}$C) & & \\
+\textbf{Bare error} & $\mathbf{+2.3\%}$ & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This bare eigenmode $T_0 = 279.5$~K is the \emph{harmonic} LC resonance. It accurately predicts the temperature of maximum density ($T(\rho_\text{max}) = T_0(1-\alpha) = 4.26^{\circ}$C, experiment: $3.98^{\circ}$C), but overestimates the melting point by $+2.3\%$ because it neglects the Op4 anharmonicity.
+
+\subsection{Step 6: Axiom~4 Saturation Correction}
+
+The $+2.3\%$ residual is resolved by Axiom~4. At finite temperature, the proton oscillation amplitude $\delta x = \sqrt{k_B T / k_\text{hb}}$ is a significant fraction of the well width $d_\text{hb}$. The thermal strain is:
+\begin{equation}
+  r = \sqrt{\frac{k_B T}{2\,E_\text{hb}}}
+\end{equation}
+At $T_0 = 279.5$~K: $r = 0.236$, which is well past the Regime~I/II boundary at $\sqrt{2\alpha} = 0.121$. The Op4 potential is \emph{not} perfectly parabolic in Regime~II; Axiom~4 provides the saturation function:
+\begin{equation}
+  S(r) = \sqrt{1 - r^2}
+\end{equation}
+This softens the spring constant: $k_\text{hb}^\text{eff}(T) = k_\text{hb}\,S(r(T))$. The melting point is the \textbf{self-consistent} solution:
+\begin{equation}
+  T_\text{sat} = \frac{\hbar}{k_B}\sqrt{\frac{k_\text{hb}^\text{eff}(T_\text{sat})}{m_\text{H}}}
+\end{equation}
+Iterating from $T_0$ converges in $\sim$13 steps to $T_\text{sat} = 275.5$~K ($r = 0.234$, $S = 0.972$).
+
+Applying the Axiom~2 vacuum--lattice loading $(1-\alpha)$:
+\begin{equation}
+\boxed{
+  T_\text{melt} = T_\text{sat}(1-\alpha) = 275.5 \times 0.99270 = 273.5 \text{ K} \quad (+0.14\%)
+}
+\end{equation}
+
+The correction chain is:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Stage} & \textbf{$T_m$ (K)} & \textbf{Error} \\
+\midrule
+Bare eigenmode $T_0$ & 279.5 & $+2.31\%$ \\
+$+$ Axiom~4 saturation & 275.5 & $+0.88\%$ \\
+$+$ Axiom~2 $\alpha$-loading & 273.5 & $+0.14\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Lattice Loading Analysis}
+
+A natural question arises: does the local lattice density modify the eigenfrequency?
+
+Each oxygen atom in the tetrahedral lattice is held by $(z - 1) = 3$ additional 
+H-bonds. A coupled 2-mass model (O$_1$+H covalent unit vs.\ O$_2$ anchored by 
+$3 k_\text{hb}$ lattice springs) was solved as a generalized matrix eigenvalue 
+problem:
+\begin{equation}
+  \mathbf{K} \mathbf{X} = \omega^2 \mathbf{M} \mathbf{X}
+\end{equation}
+with stiffness matrix $\mathbf{K}$ having entries $[z k_\text{hb}, -k_\text{hb}; 
+-k_\text{hb}, z k_\text{hb}]$ and mass matrix $\mathbf{M} = 
+\text{diag}(m_\text{O} + m_\text{H},\ m_\text{O})$.
+
+The result: the lattice optical mode appears at $T \approx 155$~K---this is the 
+\emph{O--O stretching} frequency, not the proton transfer mode. The proton 
+transfer mode does not appear because $k_\text{OH} \gg k_\text{hb}$ locks the 
+proton rigidly to O$_1$.
+
+The lattice correction to $T_m$ is bounded by the mass ratio:
+\begin{equation}
+  \frac{\Delta T_m}{T_m} \sim \frac{m_\text{H}}{2 m_\text{O}} 
+  = \frac{1.008}{2 \times 15.999} = 0.032 \approx 3\%
+\end{equation}
+Applied to the $6.3$~K error, this gives $\Delta T_m \lesssim 0.2$~K---negligible. 
+The O atoms are effectively clamped by their mass ratio alone; the lattice springs 
+make them \emph{more} clamped, not less.
+
+\subsection{Physical Interpretation}
+
+The lattice melts when the thermal energy per mode ($kT$) reaches the energy 
+quantum of the proton oscillating in the O--H$\cdots$O bridge ($\hbar\omega_m$). 
+At this temperature, the proton can classically hop between donor and acceptor 
+oxygen sites, destroying the directional coherence of the H-bond network.
+
+This is isomorphic to atomic ionization: ionization energies are eigenvalues of 
+the \emph{electron cavity}; the melting point is the eigenvalue of the 
+\emph{proton cavity}. The mechanism is identical across scales---the only 
+difference is the mass of the oscillating particle and the stiffness of the 
+confining well.
+
+\subsection{Residual Error Analysis}
+
+The $+2.3\%$ bare eigenmode residual is fully resolved by two corrections, both derived from the AVE axioms:
+\begin{enumerate}
+  \item \textbf{Axiom~4 saturation} ($+2.31\% \to +0.88\%$): the Op4 spring softens at the thermal strain $r = 0.234$ (Regime~II). Self-consistent solution gives $T_\text{sat} = 275.5$~K.
+  \item \textbf{Axiom~2 $\alpha$-loading} ($+0.88\% \to +0.14\%$): the vacuum lattice impedance loads the eigenmode by $(1-\alpha)$.
+\end{enumerate}
+
+The final residual of $+0.14\%$ ($0.38$~K) is within the uncertainty of the Op4 well parameters and the parabolic approximation to the well curvature.
+
+\begin{resultbox}{Corrected Melting Point}
+\begin{equation}
+  T_\text{melt} = T_\text{sat}(1-\alpha) = 273.5 \text{ K} = 0.38^{\circ}\text{C}
+  \qquad (\text{exp: } 273.15 \text{ K}, \; \text{error: } +0.14\%)
+\end{equation}
+\end{resultbox}
+
+\subsection{Seven Observables from One Spring Constant}
+
+The proton eigenmode derived in this section is the foundation for a broader result: \emph{seven} independent macroscopic observables of bulk water are derivable from the single input $k_\text{hb} = 2.247$~N/m. The complete proof---including speed of sound ($+0.5\%$), temperature of maximum density ($+0.28^{\circ}$C), enthalpy of vaporisation ($+1.7\%$), surface tension ($-1.1\%$), boiling point ($-0.15\%$), and specific heat ($-0.7\%$)---is presented in Volume~III, Chapter~\ref{ch:water_lc_lattice}.
+
+\begin{summarybox}
+\begin{itemize}
+  \item The water melting point is derived as the self-consistent saturated proton 
+        eigenmode: $T_\text{melt} = T_\text{sat}(1-\alpha) = 273.5$~K ($+0.14\%$).
+  \item The bare eigenmode $T_0 = 279.5$~K sets the temperature of maximum density
+        via $T(\rho_\text{max}) = T_0(1-\alpha) = 4.26^{\circ}$C ($+0.28^{\circ}$C).
+  \item The H--O--H bond angle is derived from the sp$^3$ tetrahedral angle 
+        via Op3 impedance transmission: $\theta = \arccos(-1/(3(1+\Gamma))) = 104.48^{\circ}$
+        ($+0.03^{\circ}$ from experiment).
+  \item The Axiom~4 saturation correction $S(r) = \sqrt{1-r^2}$ resolves the 
+        $+2.3\%$ bare residual by accounting for spring softening in Regime~II.
+  \item All inputs are engine-derived or fundamental constants; zero spectroscopic 
+        or empirical inputs are required.
+  \item The same spring constant predicts seven independent observables 
+        (see Volume~III, Chapter~\ref{ch:water_lc_lattice}).
+\end{itemize}
+\end{summarybox}
+
+\begin{exercisebox}
+\begin{enumerate}
+  \item Verify that $k_\text{series} \approx k_\text{hb}$ by expanding 
+        Eq.~\eqref{eq:k_series} to first order in the small parameter 
+        $k_\text{hb}/k_\text{OH}$.
+  \item Compute $T_m$ for a hypothetical D$_2$O (heavy water) lattice by replacing 
+        $m_\text{H}$ with $m_\text{D} = 2.014$~amu. Compare with the experimental 
+        value $T_m(\text{D}_2\text{O}) = 276.97$~K.
+  \item Derive the lattice loading correction to $T_m$ from the 2-mass eigenvalue 
+        problem. Show that the correction scales as $m_\text{H}/(2m_\text{O})$.
+  \item Compute the H--S--H bond angle for H$_2$S using $\Gamma_\text{SH} = 
+        (r_\text{S} - r_\text{H})/(r_\text{S} + r_\text{H})$ and compare with the 
+        experimental value of $92.1^{\circ}$.
+  \item Show that the small-signal (Op3) and large-signal (Op8) bond angle 
+        formulas converge to within $0.19^{\circ}$ for H$_2$O, and explain 
+        physically why this convergence implies a self-consistent eigenvalue.
+\end{enumerate}
+\end{exercisebox}
+
+%% == Section: Bond Angle Derivation =====================================
+
+\section{The H--O--H Bond Angle as an Impedance Eigenvalue}
+\label{sec:bond_angle_derivation}
+
+The preceding section treated the melting point as the eigenfrequency of the 
+O--H$\cdots$O bridge. A second geometric constant---the intramolecular 
+H--O--H bond angle $\theta_\text{HOH} = 104.45^{\circ}$---was until now accepted 
+as an empirical input. This section derives it from the same axioms.
+
+\subsection{The sp$^3$ Tetrahedral Angle (Axiom~1)}
+
+The K4 unit cell of the SRS lattice (Axiom~1) has four-connected nodes. 
+The equilibrium angle between any two bonds at a four-connected node is the 
+tetrahedral angle:
+\begin{equation}
+  \cos\theta_\text{tet} = -\frac{1}{3}, \qquad 
+  \theta_\text{tet} = \arccos\!\left(-\tfrac{1}{3}\right) = 109.47^{\circ}
+  \label{eq:theta_tet}
+\end{equation}
+This assumes all four orbitals are equivalent (equal impedance, equal angular 
+weight). Oxygen's valence shell has four sp$^3$ orbitals, but they are 
+\emph{not} equivalent: two are bonding (loaded by H) and two are lone pairs 
+(unloaded).
+
+\subsection{Op3 Small-Signal Correction}
+
+The O--H junction has a reflection coefficient (Op3):
+\begin{equation}
+  \Gamma = \frac{r_\text{O} - r_\text{H}}{r_\text{O} + r_\text{H}} = \frac{1}{3}
+  \label{eq:Gamma_OH}
+\end{equation}
+where $r_\text{O}$ and $r_\text{H}$ are the atomic port impedances.
+
+The bonding orbital is a \emph{partially transmitted} wave through the O--H 
+junction: the proton loads the orbital, and the transmission factor $(1 + \Gamma)$ 
+determines the effective angular weight of the bonding pair relative to the 
+lone pair (which is a totally reflected wave, $\Gamma = -1$, with weight $1$).
+
+The cosine of the bond angle is the tetrahedral cosine divided by 
+the transmission factor:
+\begin{resultbox}{H--O--H Bond Angle (Op3 Small-Signal)}
+\begin{equation}
+  \cos\theta_\text{HOH} = \frac{\cos\theta_\text{tet}}{1 + \Gamma} 
+  = \frac{-1/3}{1 + 1/3} = -\frac{1}{4}
+  \label{eq:theta_HOH}
+\end{equation}
+\begin{equation}
+  \theta_\text{HOH} = \arccos\!\left(-\tfrac{1}{4}\right) = 104.48^{\circ}
+  \qquad (\text{exp: } 104.45^{\circ}, \;\text{error: } +0.03^{\circ})
+\end{equation}
+\end{resultbox}
+
+\noindent\textbf{Dimensional check:} All quantities are dimensionless (ratios 
+of port impedances). The cosine is bounded $|\cos\theta| \leq 1$. 
+For any $\Gamma \in [0, 1)$: $|\cos\theta| = 1/(3(1+\Gamma)) < 1/3 < 1\ \checkmark$.
+
+\subsection{Op8 Large-Signal Confirmation}
+
+The FCC packing fraction $\varphi = \pi\sqrt{2}/6 \approx 0.7405$ (Op8/Axiom~2) 
+provides an independent large-signal check. The lone pairs fill the packed 
+volume $\varphi$ of the sp$^3$ angular space, compressing the bonding angle by 
+the same fraction:
+\begin{equation}
+  \cos\theta_\text{HOH}^{(\text{large})} = \cos\theta_\text{tet} \times \varphi
+  = -\frac{\varphi}{3} = -\frac{\pi\sqrt{2}}{18} \approx -0.2468
+  \label{eq:theta_HOH_large}
+\end{equation}
+\begin{equation}
+  \theta_\text{HOH}^{(\text{large})} = \arccos\!\left(-\tfrac{\pi\sqrt{2}}{18}\right) 
+  = 104.29^{\circ} \qquad (\text{exp: } 104.45^{\circ}, \;\text{error: } -0.16^{\circ})
+\end{equation}
+
+The two estimates\,---\,one from local junction impedance (Op3), one from 
+bulk packing geometry (Op8)\,---\,converge to within $0.19^{\circ}$. This 
+convergence between small-signal and large-signal analyses is the hallmark of 
+a self-consistent eigenvalue: the molecule's local impedance structure is 
+compatible with the global lattice packing constraint.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{Formula} & \textbf{$\theta$ (deg)} & \textbf{Error} \\
+\midrule
+Bare sp$^3$ (Axiom~1) & $\arccos(-1/3)$ & 109.47 & $+5.02^{\circ}$ \\
+Op3 small-signal & $\arccos(-1/(3(1+\Gamma)))$ & 104.48 & $+0.03^{\circ}$ \\
+Op8 large-signal & $\arccos(-\varphi/3)$ & 104.29 & $-0.16^{\circ}$ \\
+Experimental & & 104.45 & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Physical Interpretation}
+
+The deviation from the tetrahedral angle has an exact EE analog. A four-port 
+junction (sp$^3$ node) with two loaded ports (bonding pairs, terminated in 
+$Z_\text{H}$) and two open ports (lone pairs, $\Gamma = -1$) has an asymmetric 
+scattering matrix. The loaded ports have lower input impedance, which allows the 
+unloaded ports to widen their angular separation. The bonding pairs are squeezed.
+
+This is structurally identical to the impedance pulling of a loaded resonator: 
+attaching a load to a cavity shifts its resonant frequency. Here, attaching 
+hydrogen atoms to two of four sp$^3$ orbitals shifts their angular separation 
+from $\arccos(-1/3) \to \arccos(-1/4)$.
+
+Crucially, $\Gamma = 1/3$ for the O--H junction makes the formula exact:
+\begin{equation}
+  \cos\theta = -\frac{1}{3} \to -\frac{1}{3 \times 4/3} = -\frac{1}{4}
+\end{equation}
+The angle transitions from $\arccos(-1/N)$ with $N = 3$ (tetrahedral) to 
+$N = 4$ (loaded tetrahedral). The loaded tetrahedral angle is the next rational 
+cosine in the sequence $\arccos(-1/N)$.
+
+%% == Section: Topological Cell Collapse ==================================
+
+\section{Topological Cell Collapse (State II Volume)}
+\label{sec:topological_cell_collapse}
+
+The classic thermodynamic anomaly of water---that it shrinks upon melting to reach a maximum density at $\sim 4^\circ$C---arises directly from the yielding of its topological LC matrix. 
+
+Classical models struggle to reproduce the density of liquid water (998~kg/m$^3$ at 20$^\circ$C) from its molecular geometry without invoking arbitrary empirical packing radii. If one treats a water molecule as a continuous solid boundary (like a 3-sphere exact geometric union), its bare spatial volume is rigidly $5.56\ \AA^3$. Dividing this by the $\varphi_{FCC}$ Kepler packing fraction yields an absurd packed density of nearly 4000~kg/m$^3$.
+
+In AVE (Axiom~1), spatial volume is not the geometric hull of a particle, but the volumetric capacity of a loaded discrete network cell. We derive the macroscopic liquid state (State II) volume without spatial bounds, relying strictly on the K=2G topological collapse (Axiom~2).
+
+\subsection{State I: The Open Lattice ($V_I$)}
+The rigid, unyielded State I is a tetrahedral lattice dictated by the Op4 pairwise minimum distance ($d_{OO} = d_{OH} + d_{hb} = 2.726\ \AA$). The unit cell volume natively occupied by one molecule in this expanded topology is:
+\begin{equation}
+    V_I = \frac{8}{3\sqrt{3}} d_{OO}^3 = 31.21\ \AA^3
+\end{equation}
+This establishes a theoretical ice density of 958~kg/m$^3$ (experimental Ice Ih is 917~kg/m$^3$).
+
+\subsection{State II: FCC Maximal Yield ($V_{II}$)}
+When the thermal energy surpasses the Op4 barrier ($f_I < 1.0$), the strict tetrahedral orientation fractures. The network yields to the universal packing ceiling prescribed by Axiom~2: $K=2G \rightarrow$ FCC packing.
+
+Crucially, the foundational node-to-node proximity ($d_{OO} = 2.726\ \AA$) does not change---the Op4 minimum remains intact even in the disorganized slush. The only metric that changes is the global topology: the exact spatial cells of State I forfeit their stretched spatial arrangement and collapse into FCC maximal packing. Therefore, the volume of the fully yielded State II fluid is simply the State I volume compacted by Kepler's packing fraction $\varphi = \pi\sqrt{2}/6 \approx 0.7405$:
+\begin{resultbox}{Topological Cell Collapse (State II Volume)}
+\begin{equation}
+    V_{II} = V_I \times \varphi_{FCC} = V_I \times \frac{\pi\sqrt{2}}{6} \approx 23.11\ \AA^3
+\end{equation}
+\end{resultbox}
+
+\subsection{The Density Anomaly}
+By evaluating the structural mixture at $20^\circ$C, the lattice survival fraction (from the Op4 cooperative solver) is $f_I \approx 0.735$. Incorporating anharmonic thermal expansion ($V_{th} \approx 0.67\ \AA^3$):
+\begin{equation}
+    V_{avg} = f_I V_I + (1-f_I) V_{II} + V_{th} 
+    \approx 0.735(31.21) + 0.265(23.11) + 0.67 = 29.74\ \AA^3
+\end{equation}
+The resulting macroscopic density is $m_{H_2O} / V_{avg} = 1005.8$~kg/m$^3$. This yields precisely the experimental liquid state with a $\mathbf{+0.7\%}$ error, entirely devoid of empirical collision or hard-sphere parameters.
+
+The density anomaly occurs because the melting term $(V_I \to V_{II})$ is a pure contraction, while thermal vibrations $(V_{th})$ are pure expansions. The competition balances precisely near the theoretical melting eigenmode.
+

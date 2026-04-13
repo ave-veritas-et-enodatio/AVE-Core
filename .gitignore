@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+
+# OS files
+.DS_Store
+
+# IDE
+.zed/*.*
+.vscode/
+.idea/
+
+# project-specific settings can be saved
+!./.zed/settings.json
+!./.zed/tasks.json
+!./.zed/debug.json
+
+# LaTeX auxiliary files
+*.log
+*.aux
+*.out
+*.toc
+*.lof
+*.lot
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.bbl
+*.blg
+
+# Build auxiliary files (logs, synctex, etc.) — PDFs are tracked
+build/aux/
+
+# Simulation data
+data/*
+simulations/*
+sim_outputs/
+
+#.claude/memory/
+#.claude/agent-memory/
+.claude/local-settings.json
+# manually pulled repo - see Makefile
+.claude/agents/
+.claude/commands
+.claude/commands/
+
+# transient topic handoff file
+manuscript/ave-kb/session/new_topic.md
+build/
+artifacts/
+
+# Build logs (should not be tracked)
+benchmark_output.log
+build_output.log
+build_verify.log
+download.log
+main.log
+verify.log
+
+# Compiled PDFs in manuscript dirs (should only be in build/)
+manuscript/**/main.pdf
+
+# IDE artifacts
+.gemini_reply
+.cursorrules

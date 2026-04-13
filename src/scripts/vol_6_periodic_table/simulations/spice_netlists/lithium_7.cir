@@ -1,0 +1,67 @@
+* Applied Vacuum Engineering (AVE) - SPICE Netlist
+* Element: Lithium-7 (Z=3, A=7)
+* Auto-generated topological mutual impedance array
+* Nodes: 7
+
+
+
+* -----------------------------------------------------------------
+* NUCLEON (Baseline 6^3_2 Topological Defect)
+* -----------------------------------------------------------------
+.SUBCKT NUCLEON IN OUT
+L_CORE IN OUT 1uH
+C_CORE IN OUT 1pF
+.ENDS NUCLEON
+
+
+
+* -----------------------------------------------------------------
+* MACROSCOPIC TOPOLOGY (Nucleon Array)
+* -----------------------------------------------------------------
+V_STIM NODE_1 0 AC 1 PULSE(0 100k 10n 1n 1n 50n 100n)
+
+X_NUC_1 NODE_1 0 NUCLEON
+X_NUC_2 NODE_2 0 NUCLEON
+X_NUC_3 NODE_3 0 NUCLEON
+X_NUC_4 NODE_4 0 NUCLEON
+X_NUC_5 NODE_5 0 NUCLEON
+X_NUC_6 NODE_6 0 NUCLEON
+X_NUC_7 NODE_7 0 NUCLEON
+
+
+* -----------------------------------------------------------------
+* SPATIAL MUTUAL INDUCTANCE (K-FACTORS)
+* -----------------------------------------------------------------
+K_1 X_NUC_1.L_CORE X_NUC_2.L_CORE 0.207973
+K_2 X_NUC_1.L_CORE X_NUC_3.L_CORE 0.207973
+K_3 X_NUC_1.L_CORE X_NUC_4.L_CORE 0.207973
+K_4 X_NUC_1.L_CORE X_NUC_5.L_CORE 0.035977
+K_5 X_NUC_1.L_CORE X_NUC_6.L_CORE 0.031663
+K_6 X_NUC_1.L_CORE X_NUC_7.L_CORE 0.035977
+K_7 X_NUC_2.L_CORE X_NUC_3.L_CORE 0.207973
+K_8 X_NUC_2.L_CORE X_NUC_4.L_CORE 0.207973
+K_9 X_NUC_2.L_CORE X_NUC_5.L_CORE 0.035977
+K_10 X_NUC_2.L_CORE X_NUC_6.L_CORE 0.035977
+K_11 X_NUC_2.L_CORE X_NUC_7.L_CORE 0.031663
+K_12 X_NUC_3.L_CORE X_NUC_4.L_CORE 0.207973
+K_13 X_NUC_3.L_CORE X_NUC_5.L_CORE 0.031663
+K_14 X_NUC_3.L_CORE X_NUC_6.L_CORE 0.035977
+K_15 X_NUC_3.L_CORE X_NUC_7.L_CORE 0.035977
+K_16 X_NUC_4.L_CORE X_NUC_5.L_CORE 0.035977
+K_17 X_NUC_4.L_CORE X_NUC_6.L_CORE 0.035977
+K_18 X_NUC_4.L_CORE X_NUC_7.L_CORE 0.035977
+K_19 X_NUC_5.L_CORE X_NUC_6.L_CORE 0.021383
+K_20 X_NUC_5.L_CORE X_NUC_7.L_CORE 0.021383
+K_21 X_NUC_6.L_CORE X_NUC_7.L_CORE 0.021383
+
+
+* -----------------------------------------------------------------
+* SIMULATION DIRECTIVES
+* -----------------------------------------------------------------
+* Transient Analysis: 100kV Step Pulse (1ns rise) to test dielectric rupture limits
+.TRAN 0.1n 200n
+* Broadband AC sweep: 1 MHz to 1 GHz to ping macro-resonance Q-factors
+.AC DEC 100 1MEG 1G
+.OPTIONS METHOD=GEAR
+
+.END

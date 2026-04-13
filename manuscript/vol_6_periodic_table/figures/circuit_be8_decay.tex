@@ -1,0 +1,61 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usetikzlibrary{arrows, decorations.pathmorphing, shapes.symbols}
+
+\begin{document}
+\begin{tikzpicture}[>=latex']
+
+\definecolor{neonblue}{RGB}{0, 255, 255}
+\definecolor{neongreen}{RGB}{0, 255, 128}
+\definecolor{neonred}{RGB}{255, 50, 50}
+\definecolor{darkbg}{RGB}{15, 15, 15}
+\definecolor{neonyellow}{RGB}{255, 255, 0}
+
+% Fill background
+\fill[darkbg] (-6,-4) rectangle (6,4);
+
+% Title
+\node[text=white, font=\bfseries\Large] at (0, 3) {Beryllium-8 ($\alpha$-Decay Transient Failure)};
+
+\tikzset{
+    alpha block/.style={
+        draw=neonblue, thick, fill=darkbg!80!neonblue,
+        rectangle, rounded corners=3pt,
+        minimum width=2.4cm, minimum height=1.4cm,
+        text=white, font=\bfseries, align=center
+    },
+    bus/.style={
+        draw=neongreen, ultra thick, dashed
+    },
+    rupture/.style={
+        draw=neonred, ultra thick, dashed, decoration={zigzag, segment length=4pt, amplitude=2pt}, decorate
+    }
+}
+
+% 2 ALPHAS (Beryllium-8 Dual Core)
+\node[alpha block] (Left) at (-3, 0) {$\alpha_{1}$\\$(^4\text{He})$};
+\node[alpha block] (Right) at (3, 0) {$\alpha_{2}$\\$(^4\text{He})$};
+
+% --- MACRO-COUPLINGS (RUPTURED BUS) ---
+% We draw two halving lines that don't meet, with a spark in the middle
+\draw[bus] (Left.east) -- (-1, 0);
+\draw[bus] (Right.west) -- (1, 0);
+
+% The rupture gap
+\draw[rupture] (-1, 0) -- (1, 0);
+
+% Rupture Explosion Star
+\node[starburst, fill=neonyellow, draw=neonred, line width=1pt, inner sep=2pt, font=\bfseries\small, text=black] at (0,0) {SNAP!};
+
+% Annotations
+\node[text=neonred, font=\bfseries, align=center] at (0, -1.2) {Dielectric Yield Limit Exceeded\\($Z_{bridge} > Z_{critical}$)};
+\node[text=white, align=center] at (0, -2) {Resonant phase-lock fails;\\Topological structure spontaneously\\fissions into two isolated stable $LC$ rings.};
+
+% Output Arrows
+\draw[->, neonred, thick] (-3, -1.5) -- (-3, -3) node[below, text=white] {Ejected $\alpha$ Particle};
+\draw[->, neonred, thick] (3, -1.5) -- (3, -3) node[below, text=white] {Ejected $\alpha$ Particle};
+
+\end{tikzpicture}
+\end{document}

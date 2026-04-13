@@ -1,0 +1,21 @@
+* =========================================
+* Topo-Kinematic Geometric Diode Subcircuit
+* Model: AVE_DIODE_SI
+* =========================================
+* Structural V_bi derived from Topological offset, Zero Boltzmann $kT$ thermal input.
+* Transmission Matrix T_sq = 1.000000
+* Forward Geometric Viscosity (Resistance) = 0.0000 Ohms
+
+.SUBCKT AVE_DIODE_SI A K
+* Built-in scalar potential offset (structural asymmetric strain):
+V_BARRIER N_INTERNAL K DC 1.0496
+
+* Forward choke viscosity resistance:
+R_FWD A N_FWD 0.0000
+
+* The continuous universal metric junction (Axiom 4 governed):
+* Requires include of ave_vacuum_cell.lib by the parent netlist.
+* Using idealized low-reactance L/C values for DC continuity testing:
+X_JUNCTION N_FWD N_INTERNAL AVE_VACUUM_CELL L0=1nH C0=1pF
+.ENDS AVE_DIODE_SI
+* =========================================

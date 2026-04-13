@@ -1,0 +1,44 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{amsmath}
+
+\begin{document}
+\begin{circuitikz}[scale=1.5, transform shape]
+
+    % --- Core Complex Grid ---
+    \draw[color=gray, dashed, fill=gray!5, rounded corners=15pt] (-3, -3) rectangle (3, 3);
+    \node at (0, 3.5) [font=\bfseries] {Derived Asymmetric Topological Core};
+
+    % --- Distributed Inductive Array (Representing 14 Nucleons in Non-standard positions) ---
+    \draw (0, 2) to[L, l=$L_{top}$, *-*] (0, 0.5);
+    \draw (-2, 0) to[L, l=$L_{left}$, *-*] (-0.5, 0);
+    \draw (2, 0) to[L, l=$L_{right}$, *-*] (0.5, 0);
+    \draw (0, -2) to[L, l=$L_{bot}$, *-*] (0, -0.5);
+    
+    % --- Complex Internal Wiring (Scattering Matrix) ---
+    \draw[color=red, thick, dashed] (0, 0.5) to[L, l=$M_{ij}$, color=red] (-0.5, 0);
+    \draw[color=red, thick, dashed] (0, 0.5) to[L, color=red] (0.5, 0);
+    \draw[color=red, thick, dashed] (0, -0.5) to[L, color=red] (-0.5, 0);
+    \draw[color=red, thick, dashed] (0, -0.5) to[L, color=red] (0.5, 0);
+    
+    % Ground Connection at Center
+    \draw (0,0) node[ground]{};
+    
+    % Orbital Electrons (7e-)
+    \draw[color=orange, dashed, thick] circle (4.5cm);
+    \node[color=orange, align=center] at (0, -5) {\large \textbf{Orbital Shell ($7e^-$ Displacement Currents)}};
+    
+    % Couplings from Core to Orbit
+    \draw[<->, dashed, red, thick] (0, 2) -- (0, 4.5) node[midway, right] {$M_{orbit}$};
+    \draw[<->, dashed, red, thick] (-2, 0) -- (-4.5, 0) node[midway, above] {$M_{orbit}$};
+    
+    % Annotations
+    \node at (0, 6.0) [font=\large\bfseries] {Nitrogen-14 ($^{14}\text{N}$) EE Topology};
+    \node at (0, -1.5) [align=center, text width=6cm] {
+        \textit{Numerically optimized asymmetrical array.}\\
+        \textit{Derived via global minimization}\\
+        \textit{of reactive mutual inductance.}
+    };
+
+\end{circuitikz}
+\end{document}

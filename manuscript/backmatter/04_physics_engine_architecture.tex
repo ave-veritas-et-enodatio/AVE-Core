@@ -1,0 +1,317 @@
+% 04_physics_engine_architecture.tex
+% Appendix: Physics Engine Source Architecture
+%
+% Documents the three-tier structure of the AVE computational engine,
+% maps every module to its axiom-chain entry point, and provides the
+% complete function-level API reference.
+
+\chapter{Physics Engine Architecture}
+\label{ch:engine_architecture}
+
+The computational physics engine (\texttt{src/ave/}) implements
+the AVE framework as executable mathematics.  Every numerical
+result in this series---from the fine-structure constant to galactic
+rotation curves---is produced by code paths traceable to the four
+axioms through the architecture documented below.
+
+\section{Design Principles}
+
+\begin{enumerate}
+    \item \textbf{Single source of truth.}  The three universal operators
+          ($Z$, $S$, $\Gamma$) are implemented \emph{once} in
+          \texttt{scale\_invariant.py}.  No domain module re-derives them.
+    \item \textbf{Scale invariance by construction.}  Domain modules
+          provide constitutive analogs ($\varepsilon$, $\mu$) only;
+          all impedance/saturation/reflection computations delegate
+          upward to the universal operators.
+    \item \textbf{Axiom traceability.}  Every derived constant and
+          function documents its derivation path back to Axioms~1--4.
+\end{enumerate}
+
+
+\section{Three-Tier Architecture}
+
+\begin{figure}[H]
+\centering
+\begin{verbatim}
+Tier 1: CORE (never duplicated)
+|-- core/constants.py            All derived constants (Z_0, V_snap, ...)
+|-- core/universal_operators.py  Z, S, Gamma, pairwise energy (JAX/numpy)
+|-- core/regime_map.py           r_I, r_II, r_III regime classification
+|-- axioms/scale_invariant.py    Canonical API: Z, S, eps_eff, mu_eff, ...
+|-- axioms/saturation.py         Axiom 4 demonstrations
+|-- axioms/isomorphism.py        Topo-kinematic identity proofs
+|-- axioms/yang_mills.py         Yang-Mills mass-gap from AVE
+|-- axioms/navier_stokes.py      N-S global regularity from AVE
+|-- axioms/spectral_gap.py       Spectral gap from lattice topology
+|-- axioms/open_problems.py      Millennium problem demonstrations
+
+Tier 2a: REGIME BOUNDARY MODULES (explicit saturation / rupture physics)
+|-- regime_1_linear/              Linear vacuum regime
+|     |-- fluids_factory.py        Polymorphic fluid Z(T) factory
+|-- regime_2_nonlinear/           Non-linear topology solvers
+|     |-- protein_fold.py          JIT-compiled N-body optimizer
+|     |-- seismic.py               Seismic layer stacks
+|     |-- seismic_fdtd.py          3D seismic wave FDTD driver
+|-- regime_3_saturated/           Deep saturation regime
+|     |-- galactic_rotation.py     Axiom 4 MOND from a_0 = cH/(2pi)
+|     |-- orbital_impedance.py     Gravitational refractive strain
+|     |-- condensed_matter.py      T_melt, c_sound, E_gap (Regime II)
+|     |-- kolmogorov_cutoff.py     Turbulence spectral arrest at L_NODE
+|-- regime_4_rupture/             Lattice rupture regime (S = 0)
+|     |-- rupture_solver.py        c_eff -> 0, impedance collapse
+|     |-- black_hole_jets.py       Energy redirection at (1-S) -> 1
+|     |-- caustic_solver.py        Axiom 4 TL optical caustic arrest
+
+Tier 2b: DOMAIN ADAPTERS (thin wrappers providing eps/mu analogs)
+|-- gravity/                     7 modules: solar, galactic, GW, stellar,
+|                                  neutrino MSW, planetary magnetosphere
+|-- plasma/                      cutoff.py, superconductor.py
+|-- topological/                 7 modules: Skyrme, Borromean, Cosserat,
+|                                  soliton bond, combiner, tensors, SC sim
+|-- mechanics/                   impedance.py
+|-- hardware/                    7 modules: geometric diode, soliton memory,
+|                                  resonance cavity, I/O stepper, etc.
+
+Tier 3: SOLVERS (consume Tiers 1+2, never re-derive operators)
+|-- core/fdtd_3d.py              3D nonlinear FDTD (numpy)
+|-- core/fdtd_3d_jax.py          3D nonlinear FDTD (JAX GPU)
+|-- core/grid.py                 Grid infrastructure
+|-- core/k4_tlm.py               4-port Diamond Lattice (K4-TLM)
+|-- core/node.py                 Node data structures
+|-- solvers/bond_energy_solver    Nuclear bond E(d) curves
+|-- solvers/coupled_resonator     Multi-mode resonator chains
+|-- solvers/eigenvalue_root_finder Boundary regime matching
+|-- solvers/fdtd_lc_network       1D macroscopic gravity FDTD
+|-- solvers/fdtd_yee_lattice      2D TMz Yee animation
+|-- solvers/orbital_resonance     Shell eigenvalue solver
+|-- solvers/protein_bond_constants Backbone derivation + data
+|-- solvers/radial_eigenvalue     Regime-aware Hopf coupling
+|-- solvers/resonator             Single-mode LC resonator
+|-- solvers/spice_transient       Topological SPICE extraction
+|-- solvers/spice_netlist_compiler Topology -> ngspice .cir compiler
+|-- solvers/transmission_line     S-parameters, Q-factor
+\end{verbatim}
+\caption{Three-tier architecture enforcing scale invariance.
+Tier~2a provides the regime boundary modules; Tier~2b provides the
+domain-specific constitutive adapters.
+Every computation flows downward; no tier re-derives operators
+from a higher tier.}
+\label{fig:engine_tiers}
+\end{figure}
+
+
+\section{Tier 1: Core Operators}
+\label{sec:tier1_core}
+
+\subsection{\texttt{core/constants.py} --- Derived Constants}
+
+All physical constants derive from four measured inputs
+($\hbar$, $c$, $e$, $m_e$) plus the four axioms.
+Table~\ref{tab:engine_constants} lists the key derived quantities.
+
+\begin{table}[H]
+\centering\small
+\caption{Derived constants in \texttt{core/constants.py}.
+Every entry traces to Axioms~1--4 with zero free parameters.}
+\label{tab:engine_constants}
+\begin{tabular}{lll}
+\toprule
+\textbf{Symbol} & \textbf{Expression} & \textbf{Axiom} \\
+\midrule
+$Z_0$        & $\sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ & 1 \\
+$\ell_{node}$ & $\hbar/(m_e c) \approx 3.86 \times 10^{-13}$ m     & 1 \\
+$\alpha$      & $e^2/(4\pi\varepsilon_0\hbar c)$                    & 2 \\
+$V_{snap}$    & $m_e c^2/e \approx 511$ kV                        & 4 \\
+$V_{yield}$   & $\sqrt{\alpha}\,V_{snap} \approx 43.65$ kV          & 4 \\
+$B_{snap}$    & $\sqrt{2\mu_0 m_e c^2 / \ell_{node}^3}$             & 4 \\
+$G$           & $\hbar c / (7\xi \cdot m_e^2)$                      & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{\texttt{axioms/scale\_invariant.py} --- Universal Operators}
+
+This module is the single source of truth for all impedance physics.
+Table~\ref{tab:scale_invariant_api} lists every exported function.
+
+\begin{table}[H]
+\centering\small
+\caption{Complete API of \texttt{scale\_invariant.py}.
+Every domain module delegates to these functions.}
+\label{tab:scale_invariant_api}
+\begin{tabular}{lll}
+\toprule
+\textbf{Function} & \textbf{Formula} & \textbf{Domain invariance} \\
+\midrule
+\texttt{impedance($\mu$, $\varepsilon$)}
+  & $Z = \sqrt{\mu/\varepsilon}$
+  & Vacuum, plasma, seismic, protein \\
+\texttt{saturation\_factor($A$, $A_c$)}
+  & $S = \sqrt{1-(A/A_c)^2}$
+  & Dielectric, BCS, galactic, relativistic \\
+\texttt{epsilon\_eff($A$, $A_c$)}
+  & $\varepsilon_0 \cdot S$
+  & Plasma onset, FDTD \\
+\texttt{mu\_eff($B$, $B_c$)}
+  & $\mu_0 \cdot S$
+  & Meissner, particle confinement \\
+\texttt{reflection\_coeff($Z_1$, $Z_2$)}
+  & $\Gamma = (Z_2-Z_1)/(Z_2+Z_1)$
+  & Pauli, Moho, S$_{11}$, MSW \\
+\texttt{transmission\_coeff($Z_1$, $Z_2$)}
+  & $T = 1 + \Gamma$
+  & All boundaries \\
+\texttt{local\_wave\_speed($A$, $A_c$)}
+  & $c_{eff} = c_0 (1-r^2)^{1/4}$
+  & Phase velocity under saturation \\
+\texttt{impedance\_at\_strain($A$, $A_c$)}
+  & $Z_{eff} = Z_0 / (1-r^2)^{1/4}$
+  & Local impedance under saturation \\
+\texttt{regime\_boundary\_eigen(r, $\nu$, $\ell$)}
+  & $\omega = \ell c / r_{eff}$
+  & Universal eigenfrequency \\
+\texttt{co\_rotating\_decay(R, $\Omega$, $\ell$)}
+  & $\omega_I = (\omega_R - m\Omega) / 2\ell$
+  & FOC/Park decomposition \\
+\texttt{avalanche\_factor($V$, $V_{br}$, $n$)}
+  & $M = 1/(1-(V/V_{br})^n)$
+  & Miller multiplication \\
+\texttt{shear\_modulus\_ratio($\varepsilon$)}
+  & $G/G_0 = S(\varepsilon)$
+  & Alias for saturation \\
+\texttt{universal\_pairwise\_energy(r, K, d)}
+  & $U = -(K/r)(T^2 - \Gamma^2)$
+  & Nuclear, molecular, gravitational \\
+\texttt{universal\_pairwise\_energy\_jax(r, K, d)}
+  & identical (JIT-safe)
+  & @jit compiled cost functions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsection{Tier 2a: Regime Boundary Modules}
+
+The regime modules implement the physical transitions between the four
+universal regimes defined by the saturation kernel $S(r)$.
+
+\begin{itemize}
+    \item \texttt{regime\_1\_linear/}: Linear vacuum physics.
+          \texttt{fluids\_factory.py}: Polymorphic fluid impedance
+          factory deriving $\rho$, $\varepsilon_{diel}$, and phase velocity
+          from a two-state partition function.
+    \item \texttt{regime\_2\_nonlinear/}: Non-linear topology solvers.
+          \texttt{protein\_fold.py}: JIT-compiled $O(N^2)$ vectorized
+          pairwise optimizer with 2D Ramachandran torsional landscape.
+          \texttt{seismic.py} / \texttt{seismic\_fdtd.py}: seismic layer
+          stacks and 3D wave propagation.
+    \item \texttt{regime\_3\_saturated/}: Deep saturation physics.
+          \texttt{galactic\_rotation.py}: MOND acceleration $a_0 = cH_\infty/(2\pi)$
+          derived from cosmology (zero empirical parameters).
+          \texttt{orbital\_impedance.py}: gravitational refractive strain.
+          \texttt{condensed\_matter.py}: $T_{melt}$, $c_{sound}$, $E_{gap}$,
+          $E_{breakdown}$.
+    \item \texttt{regime\_4\_rupture/}: Lattice rupture ($S = 0$).
+          \texttt{rupture\_solver.py}: $c_{eff} \to 0$ and impedance collapse.
+          \texttt{black\_hole\_jets.py}: energy redirection at $(1-S) \to 1$.
+\end{itemize}
+
+\subsection{Tier 2b: Domain Adapters}
+
+\subsection{\texttt{gravity/} --- Gravitational Impedance}
+
+\begin{itemize}
+    \item \texttt{refractive\_index($M$, $r$)}: $n(r) = 1 + 2GM/(rc^2)$
+    \item \texttt{local\_mu($M$, $r$)}: $\mu_{eff} = \mu_0 \cdot n(r)$
+    \item \texttt{local\_epsilon($M$, $r$)}: $\varepsilon_{eff} = \varepsilon_0 \cdot n(r)$
+    \item \textbf{Key result:} $Z = \sqrt{\mu_{eff}/\varepsilon_{eff}} = Z_0$ (invariant)
+    \item Sub-modules: \texttt{solar\_impedance}, \texttt{galactic\_rotation},
+          \texttt{gw\_propagation}, \texttt{gw\_detector},
+          \texttt{stellar\_interior},
+          \texttt{neutrino\_msw}, \texttt{planetary\_magnetosphere}
+\end{itemize}
+
+\subsection{\texttt{plasma/} --- Electromagnetic Saturation}
+
+\begin{itemize}
+    \item \texttt{cutoff.py}: Plasma frequency, Drude dielectric function,
+          skin depth. Delegates saturation to \texttt{epsilon\_eff}.
+    \item \texttt{superconductor.py}: Critical field via
+          \texttt{saturation\_factor(T, T\_c)}. Meissner $\mu_{eff}$
+          delegates to \texttt{mu\_eff}. London depth, coherence length.
+    \item \textbf{Duality:}
+          Plasma~=~$\varepsilon\to 0$ (E-field expelled),
+          Superconductor~=~$\mu\to 0$ (B-field expelled).
+\end{itemize}
+
+\subsection{\texttt{topological/} --- Knot Invariants}
+
+\begin{itemize}
+    \item \texttt{borromean.py}: Borromean ring geometry, linking numbers
+    \item \texttt{faddeev\_skyrme.py}: Soliton energy functionals
+    \item \texttt{cosserat.py}: Micropolar continuum tensors
+    \item \texttt{soliton\_bond\_solver.py}: Nuclear bond energy from
+          topological winding
+\end{itemize}
+
+\subsection{\texttt{hardware/} --- APU Hardware Architectures}
+
+\begin{itemize}
+    \item \texttt{geometric\_diode.py}: Asymmetric geometrical choke limits via Axiom 4 rupture bounds.
+    \item \texttt{soliton\_memory.py}: Faddeev-Skyrme soliton memory kinks locking to FCC packing fraction constraints.
+    \item \texttt{phase\_locked\_routing.py}: Ideal $\Gamma=0$ continuous waveguide simulation.
+    \item \texttt{continuous\_fpga.py}: O(1) solver natively executing continuous geometric routing matrices.
+    \item \texttt{resonance\_cavity.py}: Cavity acoustic bounds based on practical/vacuum lattice limits.
+    \item \texttt{axiomatic\_io.py}: Klopfenstein geometric impedance steppers matching Continuous Vacuum limits to Discrete limits.
+    \item \texttt{spice\_apu\_exporter.py}: Equivalent topological sub-circuit mapper strictly enforcing universal $S(V)$ saturation bounds.
+    \item \texttt{spice\_models/ave\_vacuum\_cell.lib}: Canonical ngspice behavioral model library implementing the Axiom~4 kernel as a universal vacuum cell subcircuit.  All domain-specific SPICE models are wiring topologies of this cell (see Appendix~\ref{app:spice_verification}).
+\end{itemize}
+
+
+\section{Tier 3: Solvers}
+\label{sec:tier3_solvers}
+
+\subsection{\texttt{core/fdtd\_3d.py} --- 3D Nonlinear FDTD}
+
+The primary FDTD engine.  At each time step, $\varepsilon_{eff}$
+and $\mu_{eff}$ are recomputed from the local field amplitudes via
+\texttt{saturation\_factor}, implementing Axiom~4 dynamically.
+
+\paragraph{Grid-dependent saturation (known caveat).}
+The engine computes the local cell voltage as $V_{local} = |E| \times dx$, where $dx$ is the simulation grid spacing (default 1~cm).  This makes the saturation threshold $E_{yield}^{sim} = V_{yield}/dx = 4.37$~MV/m --- achievable by laboratory fields.  However, the physical threshold is $E_{yield} = V_{yield}/\ell_{node} \approx 1.13 \times 10^{17}$~V/m (Appendix~\ref{sec:derived_numerology}).  The FDTD engine thus produces \textit{qualitatively correct} nonlinear behaviour but \textit{quantitatively amplified} saturation effects at macroscopic grid resolutions.  Simulation results involving Axiom~4 saturation should be interpreted as scale-compressed demonstrations rather than absolute-magnitude predictions.
+
+\subsection{\texttt{solvers/bond\_energy\_solver.py} --- Nuclear Bond Curves}
+
+1D FDTD for computing $E(d)$ curves between nuclear defects.
+Places mass-modified $\mu$ profiles on the lattice and measures
+total electromagnetic energy vs.\ separation.  Extracts equilibrium
+distance and force constant $k = d^2E/dd^2$.
+
+\subsection{\texttt{solvers/fdtd\_lc\_network.py} --- Macroscopic Gravity FDTD}
+
+1D transmission-line solver with spatially varying $\varepsilon(r)$
+and $\mu(r)$ set by the gravitational refractive index.  Used for
+gravitational lensing and wave propagation through curved spacetime.
+
+
+\section{Delegation Flow}
+
+The following diagram traces a representative computation---the
+Meissner reflection coefficient---through all three tiers:
+
+\begin{verbatim}
+superconductor.meissner_reflection(B, B_c)
+  |-> scale_invariant.mu_eff(B, B_c, mu_base=MU_0)
+  |     |-> scale_invariant.saturation_factor(B, B_c)  [Axiom 4]
+  |     |-> return MU_0 * S
+  |-> scale_invariant.impedance(mu_eff, EPSILON_0)     [Axiom 1]
+  |     |-> return sqrt(mu_eff / EPSILON_0)
+  |-> scale_invariant.reflection_coefficient(Z_0, Z_sc)
+        |-> return (Z_sc - Z_0) / (Z_sc + Z_0)
+\end{verbatim}
+
+Every domain computation follows this pattern: domain-specific
+inputs $\to$ constitutive mapping $\to$ universal operators.
+No scale-specific physics is hard-coded at any level.

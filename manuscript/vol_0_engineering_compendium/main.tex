@@ -1,0 +1,32 @@
+\documentclass[11pt, letterpaper, openright]{book}
+
+% --- Shared Preamble ---
+\input{../structure/preamble.tex}
+
+% --- Graphics Path ---
+\graphicspath{{figures/}{../figures/}{../../assets/}{../../assets/figures/}{../../assets/sim_outputs/}}
+
+% --- Shared Commands & Box Styles ---
+\input{../structure/commands.tex}
+
+\begin{document}
+
+% --- FRONT MATTER ---
+\frontmatter
+\input{../frontmatter/00_title.tex}
+\input{../frontmatter/00_foreword.tex}
+
+\tableofcontents
+
+% --- MAIN MATTER ---
+\mainmatter
+
+% Vol 0 serves to house the heavy computational and theoretical architecture.
+\input{chapters/_manifest.tex}
+
+% --- BIBLIOGRAPHY ---
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{../bibliography}
+
+\end{document}

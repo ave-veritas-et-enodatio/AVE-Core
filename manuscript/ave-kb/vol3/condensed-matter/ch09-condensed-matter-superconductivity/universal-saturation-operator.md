@@ -1,0 +1,20 @@
+[↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
+<!-- leaf: verbatim -->
+
+---
+
+## The Universal Saturation Operator: $\varepsilon$--$\mu$ Duality
+
+The most striking confirmation of scale invariance is the *duality* between plasma physics and superconductivity. Both are instances of the *same* saturation operator acting on complementary sectors of the impedance:
+
+| **Property** | **Plasma ($\varepsilon$-sector)** | **Superconductor ($\mu$-sector)** |
+|---|---|---|
+| What saturates | $\varepsilon_{eff} \to 0$ (capacitor shorts) | $\mu_{eff} \to 0$ (inductor shorts) |
+| Saturation argument | $S(E \cdot \ell / V_{snap})$ | $S(B / B_c)$ |
+| Field expelled | E-field (Debye screening) | B-field (Meissner effect) |
+| Penetration depth | Skin depth $\delta = c/\omega_p$ | London depth $\lambda_L = \sqrt{m^*/\mu_0 n_s e^2}$ |
+| Boundary reflection | $\Gamma \to -1$ for $\omega < \omega_p$ | $\Gamma \to -1$ for $B < B_c$ |
+
+**Key identity:** The BCS thermodynamic critical field $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ is *identically* the Axiom 4 saturation factor $S(T/T_c)$. The London penetration depth and the plasma skin depth have **identical formulas**: $\delta = \sqrt{m/(\mu_0 n e^2)}$---the same operator acting on dual sectors.
+
+---

@@ -1,0 +1,28 @@
+% ═══════════════════════════════════════════════════════════════
+% DOMAIN TRANSLATION TABLE: Topo-Kinematic Circuit Identity
+% Source: Extracted from Book 5 §12
+% Canonical location: manuscript/common/translation_circuit.tex
+% ═══════════════════════════════════════════════════════════════
+%
+% Usage: \input{../../common/translation_circuit.tex}
+%        (from any chapter two levels deep in manuscript/)
+
+\begin{table}[H]
+\centering
+\caption{Topo-Kinematic Circuit Identity.  Every row is derived from $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$ C/m (Axioms~1--2).}
+\label{tab:trans_circuit}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}l l c l@{}}
+\toprule
+\textbf{Electrical} & \textbf{Mechanical} & \textbf{Mapping} & \textbf{Units Check} \\
+\midrule
+Charge $Q$        & Displacement $x$ & $Q = \xi\, x$             & $[\text{C/m}][\text{m}] = [\text{C}]$ \\
+Current $I$       & Velocity $v$     & $I = \xi\, v$             & $[\text{C/m}][\text{m/s}] = [\text{A}]$ \\
+Voltage $V$       & Force $F$        & $V = \xi^{-1} F$          & $[\text{m/C}][\text{N}] = [\text{V}]$ \\
+Inductance $L$    & Mass $m$         & $L = \xi^{-2} m$          & $[\text{m}^2/\text{C}^2][\text{kg}] = [\text{H}]$ \\
+Capacitance $C$   & Compliance $\kappa$ & $C = \xi^{2} \kappa$   & $[\text{C}^2/\text{m}^2][\text{m/N}] = [\text{F}]$ \\
+Resistance $R$    & Viscosity $\eta$ & $R = \xi^{-2} \eta$       & $[\text{m}^2/\text{C}^2][\text{kg/s}] = [\Omega]$ \\
+\bottomrule
+\end{tabular}
+\end{table}

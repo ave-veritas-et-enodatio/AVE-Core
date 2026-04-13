@@ -1,0 +1,9 @@
+{
+  "source_directories": [
+    "src",
+    "scripts"
+  ],
+  "search_path": [
+    "src"
+  ]
+}

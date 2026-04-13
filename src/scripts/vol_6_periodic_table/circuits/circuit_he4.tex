@@ -1,0 +1,29 @@
+\documentclass[tikz,border=15pt]{standalone}
+\usepackage{circuitikz}
+\begin{document}
+\begin{tikzpicture}
+    \def\tank#1#2#3{
+        \begin{scope}[shift={(#1)}]
+            \draw (0,0.5) to[L=$#3$, *-*] (0,-1.5);
+            \draw (1.5,0.5) to[C=$C_v$, *-*] (1.5,-1.5);
+            \draw (0,0.5) -- (1.5,0.5);
+            \draw (0,-1.5) -- (1.5,-1.5);
+        \end{scope}
+    }
+    
+    \tank{0,4}{1}{L_{p1}}
+    \tank{5,4}{2}{L_{p2}}
+    \tank{0,0}{3}{L_{n1}}
+    \tank{5,0}{4}{L_{n2}}
+    
+    \draw[<->, dashed, blue, thick] (1.7,3.5) -- (4.8,3.5) node[midway, above] {$M$};
+    \draw[<->, dashed, blue, thick] (1.7,-0.5) -- (4.8,-0.5) node[midway, below] {$M$};
+    \draw[<->, dashed, blue, thick] (0.75,2.3) -- (0.75,1.2) node[midway, left] {$M$};
+    \draw[<->, dashed, blue, thick] (5.75,2.3) -- (5.75,1.2) node[midway, right] {$M$};
+    \draw[<->, dashed, blue, thick] (1.5,2.3) -- (4.8,1.2) node[midway, above right, pos=0.2] {$M$};
+    \draw[<->, dashed, blue, thick] (5,2.3) -- (1.7,1.2) node[midway, above left, pos=0.2] {$M$};
+    
+    \node at (3.25, 6) {\Large \textbf{Helium-4 (Alpha Particle) Core Network}};
+    \node at (3.25, -2.5) {Symmetric Tetrahedron: All nodes mutually coupled ($M_{ij} \propto 1/d_{core}$)};
+\end{tikzpicture}
+\end{document}
