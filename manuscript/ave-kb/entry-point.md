@@ -63,7 +63,6 @@ Engineering translation of AVE theory into falsifiable hardware. Establishes the
 | Domain | Contents |
 |---|---|
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
-| [Hardware Programs](vol4/hardware-programs/index.md) | HOPF-01 chiral antenna; PONDER series thrusters; torsion metrology |
 | [Advanced Applications](vol4/advanced-applications/index.md) | Topological SMES; metric-catalyzed fusion; topological quantum computing; metamaterials; native silicon design engine |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
 | [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
@@ -80,7 +79,6 @@ Zero-free-parameter biology from the AVE vacuum axioms. Amino acids as SPICE cir
 | Domain | Contents |
 |---|---|
 | [Molecular Foundations](vol5/molecular-foundations/index.md) | Biophysics introduction; organic circuitry; H-bond derivation; 20-amino-acid SPICE batch |
-| [Protein Folding Engine](vol5/protein-folding-engine/index.md) | Deterministic folding; network solver; simulation architecture; Alzheimer's, anesthesia, neural TL |
 | [Biological Applications](vol5/biological-applications/index.md) | Cancer impedance decoupling; red-light therapy; EMDR annealing; creatine as neural capacitor |
 | [Common (Vol 5)](vol5/common/index.md) | Biology-specific translation tables: protein folding and solver domains |
 
@@ -102,7 +100,6 @@ Nuclear masses and 3D geometries for $Z=1$ through $Z=119$ via AVE mutual impeda
 
 ---
 
-### [Vol 7: Hardware & Future Work](vol7/index.md)
 
 Engineering applications, precision anomaly resolutions, condensed matter derivations, and astrophysical predictions. Metric streamlining for propulsion; ten modern physics precision anomalies resolved; superconductivity as phase-locked gear trains; white dwarf shear eigenfrequency in the LIGO band; black hole interior as AVE Regime IV.
 
@@ -110,13 +107,9 @@ Engineering applications, precision anomaly resolutions, condensed matter deriva
 
 | Domain | Contents |
 |---|---|
-| [Propulsion](vol7/propulsion/index.md) | Metric streamlining; inertial cancellation; Lorentz factor as dielectric drag; ten anomaly resolutions |
-| [Condensed Matter](vol7/condensed-matter/index.md) | Superconductivity as gear train; melting point; bond angle; liquid water density; topological cell collapse |
-| [Astrophysical Predictions](vol7/astrophysical-predictions/index.md) | White dwarf gravitational predictions; black hole interior structure |
 
 ---
 
-### [Vol 8: Virtual Media and Informational Topology](vol8/index.md)
 
 The four AVE axioms instantiated in the virtual medium of Large Language Model weight matrices. SwiGLU gates as AVE Axiom 4 saturation; sigmoid as unit-circle impedance; MoE router as real-time Axiom 3 minimization. Experimental validation via structured pruning. The hardware/software inversion: $Z \propto A$ (virtual) vs $Z \propto 1/A$ (physical).
 
@@ -124,14 +117,9 @@ The four AVE axioms instantiated in the virtual medium of Large Language Model w
 
 | Domain | Contents |
 |---|---|
-| [Foundations](vol8/foundations/index.md) | Axiom instantiation; SwiGLU two-port; $Z \propto A$ inversion; operator mapping |
-| [Saturation and Pruning](vol8/saturation-pruning/index.md) | Saturation experiments; $\Gamma$-driven pruning; global correction |
-| [Architecture Analysis](vol8/architecture-analysis/index.md) | Gamma scaling; discrete masking; cascade transfer; attention impedance; MoE impedance |
-| [Activation Geometry](vol8/activation-geometry/index.md) | Sigmoid saturation; unit circle identity; density derivation |
 
 ---
 
-### [Vol 9: APU Hardware — Axiomatic Processing Architecture](vol9/index.md)
 
 Designs a complete post-CMOS processor (the Axiomatic Processing Unit) from continuous-wave topological principles. Each component — geometric diode, triode, soliton kink memory, corrugated delay line, chiral circulator — is derived as a direct spatial instantiation of the four vacuum axioms. Full FDTD and SPICE validation, Klopfenstein impedance tapers, and a capstone 10-metric characterization suite.
 
@@ -139,12 +127,6 @@ Designs a complete post-CMOS processor (the Axiomatic Processing Unit) from cont
 
 | Domain | Contents |
 |---|---|
-| [Foundations](vol9/foundations/index.md) | Philosophy, VCA encoding, saturation kernel, gravity-dielectric identity |
-| [Passive Components](vol9/primitive-elements/index.md) | Analogue passive waveguide and dielectric structures |
-| [Active Components](vol9/primitive-elements/index.md) | Geometric diode, triode, resonance cavities, coupler, phase comparator |
-| [Logic](vol9/system-architecture/index.md) | XOR/AND/OR/NOT gates, NAND universal gate, ring oscillator clock |
-| [Memory and I/O](vol9/system-architecture/index.md) | Soliton kink memory, DAC, ADC, axiomatic transducer |
-| [Hardware](vol9/fabrication-validation/index.md) | Routing, substrate, thermal management, APU capstone |
 
 ---
 
