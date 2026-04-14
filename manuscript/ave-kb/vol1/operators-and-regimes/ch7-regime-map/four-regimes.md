@@ -63,6 +63,6 @@ $$
 S(r) = 1 - \frac{r^2}{2} - \frac{r^4}{8} - \frac{r^6}{16} - \cdots
 $$
 
-To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt{2\alpha}$, $\Delta S = \alpha \approx 1/137$. This validates the use of unmodified Maxwell/Newton equations in all terrestrial laboratory experiments except those explicitly designed to approach $V_{yield}$ (e.g., PONDER-05).
+To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt{2\alpha}$, $\Delta S = \alpha \approx 1/137$. This validates the use of unmodified Maxwell/Newton equations in all terrestrial laboratory experiments except those explicitly designed to approach $V_{yield}$ (e.g., asymmetrical high-voltage capacitors).
 
 ---

@@ -16,7 +16,7 @@
 
 | **Object / Experiment** | **Domain** | **$r$** | **Regime** |
 |---|---|---|---|
-| PONDER-05 @ 30 kV | EM | $0.687$ | II |
+| HV Capacitor @ 30 kV | EM | $0.687$ | II |
 | Nb superconductor @ 4 K | BCS | $0.435$ | II |
 | NS merger surface ($h \sim 0.01$) | GW | $0.117$ | I (sub-$\alpha$) |
 
@@ -24,7 +24,7 @@
 
 | **Object / Experiment** | **Domain** | **$r$** | **Regime** |
 |---|---|---|---|
-| PONDER-05 @ 43 kV | EM | $0.985$ | III |
+| HV Capacitor @ 43 kV | EM | $0.985$ | III |
 | Nb @ 9.1 K ($T_c = 9.2$ K) | BCS | $0.989$ | III |
 
 ### Regime IV (Ruptured, $r \geq 1.0$)

@@ -19,10 +19,10 @@ appears at every impedance boundary in the framework:
 | **Scale** | **Boundary** | **$\Gamma$ value** |
 |---|---|---|
 | Sub-nuclear | Pauli exclusion ($Z_{knot} \to 0$) | $\Gamma \to -1$ |
-| Laboratory | PONDER-01 antenna port S$_{11}$ | $\|\Gamma\| < 1$ |
+| Laboratory | Resonant Antenna S$_{11}$ | $\|\Gamma\| < 1$ |
 | Planetary | Moho discontinuity (crust $\to$ mantle) | $\Gamma \approx 0.17$ |
 
-All seven applications call *the same function* (`scale_invariant.reflection_coefficient(Z1, Z2)`), confirming that the particle physics of Pauli exclusion, the geophysics of seismic reflection, and the astrophysics of neutrino flavor conversion are structurally identical operations on the $\mathcal{M}_A$ lattice impedance.
+All seven structural applications consistently invoke *the same function* (`scale_invariant.reflection_coefficient()`), confirming that the particle physics of Pauli exclusion, the geophysics of seismic reflection, and the astrophysics of neutrino flavor conversion are structurally identical operations on the $\mathcal{M}_A$ lattice impedance.
 
 > **[Examplebox]** *Evaluating the Universal Reflection Coefficient*
 >

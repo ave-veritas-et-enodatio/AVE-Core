@@ -16,8 +16,8 @@ Each domain has a unique physical interpretation of the amplitude $A$ and the cr
 
 **Regime locations:**
 - Lab capacitor (1 kV): $r = 0.023$ --- Regime I
-- PONDER-05 @ 30 kV: $r = 0.687$ --- Regime II
-- PONDER-05 @ 43 kV: $r = 0.985$ --- Regime III
+- HV Capacitor @ 30 kV: $r = 0.687$ --- Regime II
+- HV Capacitor @ 43 kV: $r = 0.985$ --- Regime III
 - Schwinger pair production: $r = 1.0$ --- Regime IV boundary
 
 ### Electromagnetic (Field Strength)
