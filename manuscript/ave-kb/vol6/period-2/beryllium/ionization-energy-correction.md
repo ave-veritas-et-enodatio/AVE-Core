@@ -19,7 +19,7 @@ This is the scale-invariant analog of `hierarchical\_binding()` in the nuclear c
 > $$
 >     IE_\text{Be} = 9.28\;\text{eV} \quad (\text{exp: } 9.322\;\text{eV}, \quad \Delta = -0.45\%)
 > $$
- This resolves the prior $-7.1\%$ residual with zero free parameters.  The correction is gated to $n_\text{adjacent} = 1$ (pure $s$-shell inner core), ensuring it does not fire for period~3 atoms where the SIR boundary model applies (see Vol.~II, \Ssec:sir_atom).
+ This resolves the prior $-7.1\%$ residual with zero free parameters.  The correction is gated to $n_\text{adjacent} = 1$ (pure $s$-shell inner core), ensuring it does not fire for period~3 atoms where the SIR boundary model applies (see Vol. 2).
 
 \begin{summarybox}
 \begin{itemize}
