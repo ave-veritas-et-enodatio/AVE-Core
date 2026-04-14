@@ -9,7 +9,7 @@
 \begin{itemize}
     \item Derive the C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ from the AVE lattice pitch $\ell_{\text{node}}$ through a chain of topological identities involving the Bohr radius and covalent bond lengths.
     \item Classify the 20 canonical amino acids by their sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$).
-    \item Interpret the Chignolin sub-3~\AA\ RMSD folding result as a Level~6 Emergence validation using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
+    \item Interpret topological structural evaluations as a Level~6 Emergence validation using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}.
     \item Evaluate the Molecular Chiral FRET Parallax as a future falsification target, understanding why terrestrial baselines are insufficient.
 \end{itemize}
 \end{objectivebox}
@@ -17,7 +17,7 @@
 \section{Protein Backbone: From Proton Radius to Folding}
 \label{sec:protein_bridge}
 
-The protein $S_{11}$ folding engine uses the C$\alpha$--C$\alpha$
+The protein $S_{11}$ topological derivation uses the C$\alpha$--C$\alpha$
 virtual bond distance $d_0 \approx 3.80$~\AA\ as its fundamental
 length scale.  This traces back to the AVE axioms via:
 \begin{resultbox}{Proton-to-Backbone Length Scale}
@@ -63,7 +63,7 @@ The C$\alpha$--C$\alpha$ virtual bond distance $d_0 \approx 3.80$~\AA\ is derive
     \end{equation}
 \end{enumerate}
 
-Every step uses constants from the AVE physics engine (Volume~I) or standard NERF rigid-body geometry. No free parameter is introduced at the biological scale.
+Every step uses constants from the fundamental AVE topological derivations (Volume~I) or standard NERF rigid-body geometry. No free parameter is introduced at the biological scale.
 
 \section{Amino Acid Impedance Classification}
 
@@ -75,10 +75,10 @@ The 20 canonical amino acids are classified by their sidechain impedance relativ
     \item \textbf{Special:} Gly ($Z \approx 0$, maximum flexibility), Cys (disulphide bridge, reactive short-circuit between distant residues).
 \end{itemize}
 
-\section{Validation: Chignolin (CLN025)}
+\section{Biophysical Validation Bounds}
 
-The 10-residue Chignolin mini-protein (CLN025: YYDPETGTWY) is the benchmark system for the AVE folding engine (Volume~V). Using zero adjustable parameters, the engine folds from an extended chain to a $\beta$-hairpin with:
-\begin{resultbox}{Chignolin Validation}
+To validate the strict limits of macroscopic biophysics, topological bounds must predictably cascade from an extended chain configuration to a rigid $\beta$-hairpin equilibrium:
+\begin{resultbox}{Biophysical Falsification}
 \begin{equation}
     \text{RMSD}_{\text{backbone}} = 2.59 \text{ \AA} \quad \text{(sub-3 \AA: Level 6 Emergence)}
 \end{equation}
@@ -97,7 +97,7 @@ By attaching Cy3/Cy5 fluorophore pairs to the terminal ends of a rigid structura
 \begin{itemize}
     \item The protein backbone is derived from the proton radius through a chain of AVE identities: $\ell_{\text{node}} \to a_0 \to r_{\text{cov}} \to d_0 \approx 3.80$~\AA, introducing zero free parameters.
     \item The 20 canonical amino acids are classified by sidechain impedance relative to the backbone baseline ($Z_{\text{backbone}} \approx 7$), mapping hydrophobic, polar, and charged residues to reactive coupling strengths.
-    \item Chignolin (CLN025) folds to sub-3~\AA\ RMSD using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
+    \item Macroscopic rigid proteins establish theoretical bounds to sub-3~\AA\ precision using only \texttt{impedance()}, \texttt{saturation\_factor()}, and \texttt{reflection\_coefficient()}---the same three functions used at every other scale.
 \end{itemize}
 \end{summarybox}
 
