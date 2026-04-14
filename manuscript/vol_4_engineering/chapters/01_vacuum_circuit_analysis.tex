@@ -672,7 +672,7 @@ The 3D Finite-Difference Time-Domain engine (\texttt{ave.core.fdtd\_3d}) discret
 
 The K4 Transmission Line Matrix engine (\texttt{ave.core.k4\_tlm}) discretises the vacuum on the native diamond graph ($K_4$ complete graph). Each node has exactly four ports connected to its tetrahedral neighbours, with native chirality encoded in the scattering matrix. The solver applies the Axiom~4 saturation operator directly to the 4-port scatter coefficients.
 
-\paragraph{Strengths.} The K4-TLM is the only solver that preserves the vacuum's topological chirality at the simulation level. It is required for any computation where the observable depends on the handedness of the lattice: chiral antenna design (HOPF-01 torus knot coupling), gravitational frame-dragging (Lense--Thirring), and topological symmetry-breaking experiments.
+\paragraph{Strengths.} The K4-TLM is the only solver that preserves the vacuum's topological chirality at the simulation level. It is required for any computation where the observable depends on the handedness of the lattice: chiral antenna design (torus knot coupling), gravitational frame-dragging (Lense--Thirring), and topological symmetry-breaking experiments.
 
 \paragraph{Limitations.} The tetrahedral mesh is approximately $4\times$ more expensive per node than the Cartesian grid, and the non-orthogonal geometry complicates boundary conditions and source injection. For bulk electromagnetic observables (topological stress, energy, S-parameters), it produces identical results to FDTD at a higher computational cost.
 
@@ -691,10 +691,10 @@ Table~\ref{tab:solver_selection} provides the engineering decision matrix.
 \midrule
 Non-linear dielectric stress    & \checkmark & --- \\
 Energy density \& impedance matching     & \checkmark & --- \\
-Dark Wake shear tensor ($\tau_{zx}$)     & \checkmark & --- \\
+Acoustic shear tensor ($\tau_{zx}$)     & \checkmark & --- \\
 IMD spectroscopy                         & \checkmark & --- \\
 Warp metric CFD (superluminal transit)   & \checkmark & --- \\
-Chiral antenna coupling (HOPF-01)        & ---        & \checkmark \\
+Chiral antenna coupling        & ---        & \checkmark \\
 Gravitational lensing \& frame-dragging  & ---        & \checkmark \\
 Topological Faraday rotation             & ---        & \checkmark \\
 Vacuum birefringence (chirality-split)   & ---        & \checkmark \\

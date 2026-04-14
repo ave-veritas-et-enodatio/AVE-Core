@@ -1463,7 +1463,7 @@ Ionization energy & $\lambda_{\min}(S^\dagger S) \to 0$ & Op6 \\
 \noindent\textbf{Solver architecture (validated across domains).}
 The atomic IE solver uses the \textbf{identical} operator chain
 validated for nuclear binding ($-0.8\%$), protein folding
-(2.59~\AA\ RMSD), and antenna matching (HOPF-01):
+(2.59~\AA\ RMSD), and chiral macroscopic antennas:
 \begin{equation}
     \underbrace{U_{ij}(r,K,d_{\text{sat}})}_{\text{Op4}}
     \;\longrightarrow\;
@@ -1939,7 +1939,7 @@ Nuclear & Proton flux tube
 Atomic & Radial lattice
 & Inner shell at $R_a$ & This section \\
 Antenna & Coaxial feed
-& Radiating aperture & HOPF-01 \\
+& Radiating aperture & Chiral Antenna \\
 Galactic & Lattice radial line
 & Regime II boundary $a_0$ & Flat rotation \\
 \hline
@@ -2161,7 +2161,7 @@ Atomic & Radial lattice
 & This section \\
 Antenna & Coaxial line
 & Feed/radiator & Aperture
-& HOPF-01 \\
+& Chiral Antenna \\
 Galactic & Radial lattice
 & Regime I/II/III & $a_0$ boundary
 & Flat rotation \\
@@ -3800,20 +3800,20 @@ The same $8\pi$ governs three distinct physical sectors:
 \midrule
 Atomic (this chapter) & $J_{s^2} = \frac{1}{2}(1+8\pi\alpha)$ & He IE to 0.008\% \\
 Baryon (Ch.~\ref{ch:baryons}) & $\kappa_{FS} = 8\pi$ & Proton mass to 0.002\% \\
-Antenna (Vol.~IV HOPF-01) & $\chi = \alpha \times f(\text{knot})$ & Chirality-shifted $f_{res}$ \\
+Macroscopic Chiral Antenna & $\chi = \alpha \times f(\text{knot})$ & Chirality-shifted $f_{res}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\paragraph{Unification with the HOPF-01 Antenna.}
-The HOPF-01 experimental antenna models torus knot resonators stitched on a PCB substrate. For each $(p,q)$ torus knot, the AVE topological coupling shifts the resonant frequency by a chiral factor $\chi_\text{knot} = \alpha \times pq/(p+q)$. The atom-antenna isomorphism maps each circuit element directly:
+\paragraph{Unification with the Chiral Antenna.}
+The experimental chiral antenna models torus knot resonators stitched on a PCB substrate. For each $(p,q)$ torus knot, the AVE topological coupling shifts the resonant frequency by a chiral factor $\chi_\text{knot} = \alpha \times pq/(p+q)$. The atom-antenna isomorphism maps each circuit element directly:
 
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{ll}
 \toprule
-\textbf{HOPF-01 Antenna} & \textbf{Atomic Orbital} \\
+\textbf{Chiral Antenna} & \textbf{Atomic Orbital} \\
 \midrule
 Wire loop (length $L$) & Flux loop ($2\pi R_n$) \\
 Ground plane at height $h$ & Nucleus at distance $R_n$ \\
