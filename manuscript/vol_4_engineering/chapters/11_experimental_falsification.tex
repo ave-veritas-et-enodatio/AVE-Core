@@ -46,9 +46,9 @@ This microscopic drift velocity yields an optical phase shift of $\sim 10^{-14}$
 \textbf{Theoretical Triumph:} This null result is an absolute requirement for stable physics. If a 50 kA magnet could drag the vacuum network at 1 cm/s, the spatial metric inside a standard hospital MRI machine would aggressively and visibly warp the path of ambient light, violently violating standard Lorentz invariance to the naked eye. The hyper-density of the AVE vacuum acts as a massive inertial anchor, perfectly explaining why light propagates in straight lines through intense classical magnetic fields.
 
 \subsection{The Regenerative Vacuum Receiver (RVR) and the Scalar Gap}
-A second intuitive approach is to utilize high-gain electronics. Because vacuum density ($\rho$) dictates the local scalar refractive index ($n_{scalar}$), and magnetic permeability scales identically with $n$, one could build a \textbf{Regenerative Vacuum Receiver (RVR)}. By rapidly spinning a lobed Tungsten rotor next to an LC tank circuit, one could theoretically pump the local LC parameters of the vacuum, modulating the circuit's Kinetic Inductance ($\Delta L$) and using a negative-resistance regenerative amplifier to catch the parametric ripple.
+A second intuitive approach is to utilize high-gain electronics. Because vacuum density ($\rho$) dictates the local scalar refractive index ($n_{scalar}$), and magnetic permeability scales identically with $n$, one could build a \textbf{Regenerative Vacuum Receiver (RVR)}. By rapidly spinning a lobed metallic mass next to an LC tank circuit, one could theoretically pump the local LC parameters of the vacuum, modulating the circuit's Kinetic Inductance ($\Delta L$) and using a negative-resistance regenerative amplifier to catch the parametric ripple.
 
-However, the change in local LC parameters induced by a moving mass is governed strictly by the volumetric strain: $\chi_{vol} = \frac{7GM}{c^2 r}$. For a $1$ kg Tungsten lobe passing $1$ cm away from the coil, the resulting modulation depth ($\delta_L \approx \frac{1}{7}\chi_{vol}$) is astronomically small:
+However, the change in local LC parameters induced by a moving mass is governed strictly by the volumetric strain: $\chi_{vol} = \frac{7GM}{c^2 r}$. For a $1$ kg metallic lobe passing $1$ cm away from the coil, the resulting modulation depth ($\delta_L \approx \frac{1}{7}\chi_{vol}$) is astronomically small:
 \begin{equation}
     \delta_L \approx \frac{G \cdot (1\text{ kg})}{c^2 \cdot (0.01\text{ m})} \approx \mathbf{7.4 \times 10^{-26}}
 \end{equation}
@@ -66,7 +66,7 @@ Because scalar metric fluctuations are suppressed by $G/c^2$, the most promising
 
 \section{Existing Experimental Signatures}
 
-While the Sagnac-RLVE provides a definitive, near-term prospective kill-switch, the AVE framework is already overwhelmingly supported by major empirical experimental discrepancies that the Standard Model entirely fails to explain. In AVE, these are not empirical errors requiring ad-hoc mathematical patches; they are the exact, mechanically expected signatures of the discrete non-linear substrate.
+While the active Sagnac experiment provides a definitive, near-term prospective kill-switch, the AVE framework is already overwhelmingly supported by major empirical experimental discrepancies that the Standard Model entirely fails to explain. In AVE, these are not empirical errors requiring ad-hoc mathematical patches; they are the exact, mechanically expected signatures of the discrete non-linear substrate.
 
 \subsection{Electro-Optic Metric Compression (The Proton Radius Puzzle)}
 Standard physics was rocked by the discovery that the measured radius of the proton magically shrinks by $\sim 4\%$ when orbited by a Muon instead of an Electron ($0.84$ fm vs $0.88$ fm). Standard physics cannot explain this without violently violating lepton universality.
@@ -137,7 +137,7 @@ To geometrically falsify the chiral index modification without relying entirely 
 
 According to Snell's Law, the phase velocity mismatch induces a steering angle ($\Delta \theta_{parallax}$). By deploying a 2D baseline tracking array behind the target, the anomalous scattered refraction angle maps the discrete topological defect directly into macroscopic geometric displacement. This perfectly converts the high-frequency $S_{11}$ resonance shift into a purely spatial baseline deflection isolated from classical EM scattering models.
 
-\section{Project ROENTGEN-03: Solid-State Sagnac Induction}
+\section{Solid-State Active Phase Induction}
 
 The Roentgen cross-product ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathbf{E}$) provides a pathway to synthesize a measurable B-field from the induced magnetic phase of the vacuum itself, using a dense rotating mass combined with a static high-voltage E-field gradient.
 
@@ -153,7 +153,7 @@ The Roentgen cross-product ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathb
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1.0\textwidth]{ee_pcba_bench_protocols.png}
-    \caption{\textbf{EE Bench-Level PCBA Protocols.} \textbf{Top Left:} The Piezo-Cleavage Electrometer flawlessly predicts exactly $41.5$ mV per micron of mechanical displacement ($V = \xi x / C$). \textbf{Top Right:} Project HOPF-02. The custom Hopf PCBA traces couple to the chiral LC vacuum, creating an anomalously deep $S_{11}$ match. \textbf{Bottom Left:} Solid-State Vacuum Induction. A Lock-In amplifier extracts the induced 4.2 pT Sagnac signal from the noise, flipping $180^\circ$ when the rotor reverses. \textbf{Bottom Right:} The Impedance Avalanche Detector. Driving an encapsulated electrode past $43.65$ kV physically saturates the metric, creating a non-linear Zener avalanche knee in the displacement current.}
+    \caption{\textbf{EE Bench-Level PCBA Protocols.} \textbf{Top Left:} The Piezo-Cleavage Electrometer flawlessly predicts exactly $41.5$ mV per micron of mechanical displacement ($V = \xi x / C$). \textbf{Top Right:} Resonant Antenna. The geometry couples to the chiral LC vacuum, creating an anomalously deep $S_{11}$ match. \textbf{Bottom Left:} Solid-State Vacuum Induction. A Lock-In amplifier extracts the induced 4.2 pT active phase signal from the noise, flipping $180^\circ$ when the rotor reverses. \textbf{Bottom Right:} The Impedance Avalanche Detector. Driving an encapsulated electrode past $43.65$ kV physically saturates the metric, creating a non-linear Zener avalanche knee in the displacement current.}
     \label{fig:ee_pcba_bench_protocols}
     
 \end{figure}
@@ -191,7 +191,7 @@ The theoretical framework derived above---the 1.846-gram static levitation limit
 
 \textit{The complete engineering implementations, PCBA specifications, spacecraft hull designs, and operational telemetry (including boundary-layer sensors and pair-production ``Redline'' monitors) are documented in the companion AVE Hardware Testing Manual.}
 
-% Original sections extracted to AVE-Propulsion and AVE-PONDER repositories:
+% Companion sections extracted
 % - Project TORSION-05 (Horizontal Metric Rectification)
 % - YBCO Phased Array (2.5 Metric Tons lift)
 % - Metric Refraction Capacitor (c^2 Multiplier)
@@ -214,12 +214,12 @@ The AVE framework is designed to be verified using commercial-off-the-shelf (COT
 
 \begin{enumerate}
     \item \textbf{Project HOPF-01:} A wire-stitched $(p,q)$ torus knot antenna on FR-4, measured via VNA S$_{11}$ sweep. Tests the chiral coupling prediction $\Delta f/f = \alpha \cdot pq/(p+q)$.
-    \item \textbf{Project PONDER-01:} An asymmetric high-voltage dielectric array using BaTiO$_3$ MLCCs, testing the macroscopic non-linear stress rectification prediction.
+    \item \textbf{High-Voltage Dielectric Rectification:} An asymmetric high-voltage dielectric array using BaTiO$_3$ MLCCs, testing the macroscopic non-linear stress rectification prediction.
 \end{enumerate}
 
 \textit{Complete fabrication instructions, PCBA layouts, bills of materials, and falsification protocols are provided in the companion AVE Hardware Testing Manual.}
 
-% Original detailed build guides extracted to AVE-PONDER repository
+% Companion hardware testing guides extracted
 
 \section{The Zero-Parameter Derivations}
 By locking the fundamental lattice pitch to the kinematic mass-gap of the fundamental fermion ($l_{node} \equiv \hbar/m_e c \approx 3.8616 \times 10^{-13}$ m), the Topo-Kinematic Conversion Constant physically emerges ($\xi_{topo} \equiv e/l_{node}$).
@@ -375,7 +375,7 @@ A definitive tabletop electrodynamic experiment, labeled \textbf{The Induced Vac
 As the DC voltage supply logarithmically sweeps past $35\text{ kV}$, the APD must register a sudden, non-linear exponential spike in back-scattered optical photons. The physical detection of an electromagnetic wave reflecting off a purely static DC electric gradient uniquely and cleanly falsifies the linear geometry of the QED vacuum, directly validating the non-linear, discrete structural LC bounds of the $\mathcal{M}_A$ continuum.
 
 \section{Protocol 11: Sagnac-Parallax (Galactic Wind Vectoring)}
-While the Sagnac-RLVE experiment relies on spinning a local Tungsten rotor to synthesize a macroscopic mutual inductance phase shift, the absolute rest-frame of the LC metric natively possesses a bulk flow vector relative to Earth. The solar system travels through the continuous $\mathcal{M}_A$ metric at roughly $370\text{ km/s}$ relative to the Cosmic Microwave Background dipole.
+While the tabletop Sagnac experiment relies on spinning a local metallic rotor to synthesize a macroscopic mutual inductance phase shift, the absolute rest-frame of the LC metric natively possesses a bulk flow vector relative to Earth. The solar system travels through the continuous $\mathcal{M}_A$ metric at roughly $370\text{ km/s}$ relative to the Cosmic Microwave Background dipole.
 
 By orienting a highly sensitive static Sagnac fiber-optic loop horizontally and observing it over a 24-hour period, the Earth's natural rotation ($\omega_{earth}$) smoothly vectors the static optical baseline against this absolute galactic metric wind. Because the vacuum is fundamentally an LC medium, this continuous transverse flow acts as a rigid, directional dielectric drag. This generates a clean, predictable 24-hour sinusoidal phase shift ($\Delta \phi \propto v_{gal} \cdot \cos(\omega t)$) that mathematically unifies the local tabletop rotation tests with planetary kinematics.
 
