@@ -6,7 +6,7 @@ Transform LaTeX manuscript sources into a navigable markdown hierarchy (KB).
 - Referenced directories (follow includes, don't descend directly): `common/`, `common_equations/`, `backmatter/`, `structure/`
 - Invariant content (for CLAUDE.md, not hierarchy conversion): `frontmatter/`
 - Output location: `manuscript/ave-kb/`
-- Base path: `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/`
+- Base path: `/manuscript/`
 
 ## Source Volumes
 1. vol_1_foundations

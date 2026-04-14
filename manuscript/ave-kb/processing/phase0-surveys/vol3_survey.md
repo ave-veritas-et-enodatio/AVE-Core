@@ -1,6 +1,6 @@
 # Phase 0 Survey — Vol 3: The Macroscopic Continuum
 
-**Volume:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/vol_3_macroscopic/`
+**Volume:** `/manuscript/vol_3_macroscopic/`
 **Title:** *Applied Vacuum Engineering, Volume III: The Macroscopic Continuum*
 **Author:** Grant Lindblom
 

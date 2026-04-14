@@ -1,6 +1,6 @@
 # Phase 0 Survey — Vol 6: The Periodic Table of Knots
 
-**Volume:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/vol_6_periodic_table/`
+**Volume:** `/manuscript/vol_6_periodic_table/`
 **Title:** *Applied Vacuum Engineering, Volume VI: The Periodic Table of Knots*
 **Author:** Grant Lindblom
 

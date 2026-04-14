@@ -1,6 +1,6 @@
 # Phase 0 Survey — Vol 1: Foundations and Universal Operators
 
-**Volume:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/vol_1_foundations/`
+**Volume:** `/manuscript/vol_1_foundations/`
 **Title:** *Applied Vacuum Engineering, Volume I: Foundations and Universal Operators*
 **Author:** Grant Lindblom
 

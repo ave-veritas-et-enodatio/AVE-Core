@@ -22,8 +22,8 @@ import os
 import textwrap
 from pathlib import Path
 
-# Location of the canonical .lib file
-_LIB_DIR = Path(__file__).resolve().parent.parent / "hardware" / "spice_models"
+# Location of the canonical .lib file (theoretical model, kept in Core)
+_LIB_DIR = Path(__file__).resolve().parent / "spice_models"
 _LIB_FILE = _LIB_DIR / "ave_vacuum_cell.lib"
 
 

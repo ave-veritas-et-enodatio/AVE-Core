@@ -1,7 +1,7 @@
 # Vol 6 Taxonomy Design — Periodic Table of Topological Knots (Z=1–14)
 
 **Architect:** kb-taxonomy-architect
-**Source survey:** `/Users/benn/projects/Applied-Vacuum-Engineering/.claude/phase0-surveys/vol6_survey.md`
+**Source survey:** `/.claude/phase0-surveys/vol6_survey.md`
 **Target root:** `manuscript/ave-kb/vol6/`
 
 ---

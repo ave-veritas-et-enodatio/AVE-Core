@@ -1,7 +1,7 @@
 # Phase 1 Taxonomy — Vol 4: Engineering Applications
 
 **Volume:** Vol 4 — Applied Vacuum Engineering (Engineering Applications)
-**Source survey:** `/Users/benn/projects/Applied-Vacuum-Engineering/.claude/phase0-surveys/vol4_survey.md`
+**Source survey:** `/.claude/phase0-surveys/vol4_survey.md`
 **Output target:** `manuscript/ave-kb/vol4/`
 **Chapters:** 18 | **Estimated leaves:** 140-160
 

@@ -1,0 +1,133 @@
+* AVE UNIVERSAL VACUUM CELL — CANONICAL BEHAVIORAL MODEL
+* =====================================================
+* Implements the Axiom 4 saturation kernel S(V) = sqrt(1-(V/V_yield)^2)
+* as ngspice behavioral sources.  All domain-specific SPICE models
+* (nuclear, molecular, protein, hardware) are wiring topologies of
+* this single cell.
+*
+* Reference:  Vol 4 Ch 1 — Vacuum Circuit Analysis
+*             Backmatter App 4 — Physics Engine Architecture
+*             Backmatter App 6 — SPICE Verification Manual
+*
+* Constants (from ave.core.constants):
+*   V_SNAP  = 510998.95 V     (m_e c^2 / e)
+*   V_YIELD = 43653.7 V       (sqrt(alpha) × V_SNAP)
+*   I_MAX   = 124.4 A         (xi_topo × c)
+*   Z_0     = 376.73 Ohm      (sqrt(mu_0 / eps_0))
+*
+* Subcircuit parameters:
+*   L0       — base inductance (mass analog)
+*   C0       — base capacitance (compliance analog)
+*   R0       — base resistance (viscosity analog), default 0
+*   V_YLD    — dielectric yield voltage, default V_YIELD
+*   I_YMAX   — current saturation limit, default I_MAX
+*
+* Usage:
+*   .INCLUDE ave_vacuum_cell.lib
+*   X1 node_a node_b AVE_VACUUM_CELL L0=1nH C0=1pF
+* =====================================================
+
+
+* -----------------------------------------------------------------
+* 1. AVE_VACUUM_CELL — Full Nonlinear Universal Cell
+* -----------------------------------------------------------------
+* Three constitutive models in parallel between nodes A and B:
+*   (a) Metric Varactor:     C_eff = C0 / S(V)
+*   (b) Relativistic Inductor: L_eff = L0 / S(I)
+*   (c) TVS Zener:           R_eff = 0 when |V| >= V_YLD
+*   (d) Memristor:           [FUTURE — tau_relax ≈ 1.29e-21 s
+*                              below practical SPICE timestep]
+*
+* The saturation kernel S(x) = sqrt(1 - (x/x_max)^2) governs
+* both the electric (voltage) and magnetic (current) sectors.
+*
+* Implementation notes:
+*   - B-sources use min() to clamp the ratio below 0.9999 for
+*     numerical stability (avoids sqrt of negative)
+*   - The charge-based varactor Q = C_eff × V ensures conservation
+*   - The flux-based inductor Phi = L_eff × I ensures conservation
+* -----------------------------------------------------------------
+
+.subckt AVE_VACUUM_CELL A B
++ params: L0=1n C0=1p R0=0 V_YLD=43653.7 I_YMAX=124.4
+
+* Internal nodes
+* N_I = current sense node  (inductor branch)
+* N_V = voltage sense       (capacitor branch)
+
+* ── (a) Metric Varactor (Axiom 4, electric sector) ──
+* Q = C0 × V / sqrt(1 - (V/V_YLD)^2)
+* ngspice B-source with charge output:
+*   B<name> node+ node- Q = { expression }
+* The sqrt saturation ensures C_eff → ∞ as V → V_YLD.
+B_VAR A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
+
+* ── (b) Relativistic Inductor (Axiom 4, magnetic sector) ──
+* Phi = L0 × I / sqrt(1 - (I/I_YMAX)^2)
+* At I → I_YMAX, L_eff → ∞ and dI/dt → 0 (velocity cannot exceed c).
+* ngspice implements this via a behavioral voltage source in series with
+* a small linear inductor for numerical integration:
+L_BASE A N_L {L0}
+B_REL_V N_L B V = {L0 * idt(V(A,B)) * (1/sqrt(1 - min((I(L_BASE)/I_YMAX)**2, 0.9999)) - 1) / (L0 + 1e-30)}
+
+* ── (c) Optional Damping (Regime I: viscous drag) ──
+* R0 = 0 for free vacuum; nonzero for material domains
+R_DAMP A B {R0 + 1e-15}
+
+* ── (d) Memristor Placeholder ──
+* M(q) = dPhi/dq
+* tau_relax = ell_node / c ≈ 1.288e-21 s
+* At any practical SPICE frequency (f << 7.8e20 Hz),
+* the vacuum responds elastically.  No hysteresis loop area.
+*
+* For Ch 18 LLCP metamaterial simulation, the MATERIAL tau_relax
+* is orders of magnitude longer; implement as a domain adapter:
+*   B_MEM A B I = { V(A,B) / M(idt(V(A,B))) }
+*   where M(Phi) depends on the material-specific yield dynamics.
+
+.ends AVE_VACUUM_CELL
+
+
+* -----------------------------------------------------------------
+* 2. AVE_VACUUM_CELL_LINEAR — Sanity-Check Linear Cell
+* -----------------------------------------------------------------
+* Identical topology but with constant L, C, R.
+* Use for comparison: any deviation between LINEAR and NONLINEAR
+* runs is due to Axiom 4 saturation effects.
+
+.subckt AVE_VACUUM_CELL_LINEAR A B
++ params: L0=1n C0=1p R0=0
+
+L1 A B {L0}
+C1 A B {C0}
+R1 A B {R0 + 1e15}
+
+.ends AVE_VACUUM_CELL_LINEAR
+
+
+* -----------------------------------------------------------------
+* 3. AVE_EE_BENCH — EE Bench Dielectric Yield Plateau
+* -----------------------------------------------------------------
+* From KB: vol4/simulation/ch17-hardware-netlists/ee-bench-netlist.md
+* Single varactor cell for DC sweep verification.
+* Expected: C_eff/C0 = 1/sqrt(1-(V/V_yield)^2)
+*
+* Usage:
+*   .INCLUDE ave_vacuum_cell.lib
+*   V_SWEEP N_GAP GND DC 0
+*   X1 N_GAP GND AVE_EE_BENCH C0=10p V_YLD=43650
+*   R_PAR N_GAP GND 1G
+*   .DC V_SWEEP 0 45000 100
+*   .PROBE I(V_SWEEP)
+
+.subckt AVE_EE_BENCH A B
++ params: C0=10p V_YLD=43653.7
+
+B_Q A B Q = {C0 * V(A,B) / sqrt(1 - min((V(A,B)/V_YLD)**2, 0.9999))}
+
+.ends AVE_EE_BENCH
+
+
+* =====================================================
+* END OF AVE UNIVERSAL VACUUM CELL LIBRARY
+* =====================================================

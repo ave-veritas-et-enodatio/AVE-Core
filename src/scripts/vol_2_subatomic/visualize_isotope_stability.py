@@ -19,7 +19,7 @@ import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-from ave.regime_2_nonlinear.protein_fold import TopologicalOptimizer
+from ave.solvers.topology_optimizer import TopologicalOptimizer
 
 M_P = 1.00727
 M_N = 1.00866

@@ -47,4 +47,4 @@ The Vacuum Circuit Architecture (VCA) requires a distinct schematic symbol vocab
 | 16 | **Interference Wave Router** (Mach-Zehnder Switch) | MZI / Phase MUX | $\Delta\phi = 2\pi(L_2^{eff}-L_1)/\lambda_{op}$ |
 | 17 | **Topological DAC Synthesizer** | DAC / R-2R Ladder | $V_{analog} = \sum w_i V_i$ |
 
-> ↗ See also: [Vol 9: APU Hardware](../vol9/index.md) — full derivation and validation of each component
+> ↗ **KB Boundary:** Hardware validation of these components continues in the private `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).

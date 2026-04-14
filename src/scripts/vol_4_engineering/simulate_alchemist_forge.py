@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 from ave.core.constants import D_PROTON
-from ave.regime_2_nonlinear.protein_fold import TopologicalOptimizer
+from ave.solvers.topology_optimizer import TopologicalOptimizer
 
 R_CRUCIBLE = 150.0 * D_PROTON  
 K_CRUCIBLE = 1000.0  

@@ -79,24 +79,13 @@ $\xi_{topo}$ is the bridge between atomic mass and SPICE inductance:
 
 Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect engine ($K \approx 11.337$ MeV·fm) and the mutual impedance summation. The coupling constant $K$ is a derived quantity of $\xi_{topo}$.
 
-### Vol 7: Hardware & Future Work (4 files)
+### Vol 7: Hardware & Future Work
 
-Propulsion and anomaly resolution depend on $\xi_{topo}$:
+> ↗ **KB Boundary:** Propulsion and anomaly resolution applications of $\xi_{topo}$ (inertial cancellation, impedance control, warp metric) continue in the private `AVE-Propulsion` repository (`ave-veritas-et-enodatio/AVE-Propulsion`).
 
-| Article | Context |
-|---|---|
-| [Active Inertial Cancellation](../vol7/propulsion/ch1-metric-streamlining/s02-active-inertial-cancellation.md) | Inertial mass as inductance: $L_{ship} = m/\xi^2$ |
-| [Active Impedance Control](../vol7/propulsion/ch1-metric-streamlining/s08-active-impedance-control.md) | Engineering $Z_0$ for propulsion |
-| [LSI Nano Warp Bubble](../vol7/propulsion/ch2-ave-resolutions/s01-lsi-nano-warp-bubble.md) | Warp metric from $V_{yield}$ geometry |
+### Vol 8: Virtual Media
 
-### Vol 8: Virtual Media (4 files)
-
-The hardware/software inversion: $Z \propto A$ (virtual) vs $Z \propto 1/A$ (physical):
-
-| Article | Context |
-|---|---|
-| [Axiomatic Correspondences](../vol8/foundations/ch3-universal-operator/axiomatic-correspondences.md) | LLM weight norms as virtual $\xi_{topo}$ |
-| [Phase Tension](../vol8/architecture-analysis/ch7-operator-unification/phase-tension.md) | Attention impedance from $\xi_{topo}$ analog |
+> ↗ **KB Boundary:** Virtual media applications of $\xi_{topo}$ (LLM weight norms as virtual impedance, attention phase tension) continue in the private `AVE-Virtual-Media` repository (`ave-veritas-et-enodatio/AVE-Virtual-Media`).
 
 ## Coverage Summary
 
@@ -108,8 +97,8 @@ The hardware/software inversion: $Z \propto A$ (virtual) vs $Z \propto 1/A$ (phy
 | Vol 4 | 22 | **Primary user**: all VCA engineering |
 | Vol 5 | 2 | Biological transduction: mass → $L$, stiffness → $C$ |
 | Vol 6 | 0 (implicit) | Nuclear coupling $K$ via mutual impedance |
-| Vol 7 | 4 | Propulsion: inertial cancellation, warp metric |
-| Vol 8 | 4 | Virtual analog: weight norms as impedance |
+| Vol 7 | 4 | *Private repo* — Propulsion |
+| Vol 8 | 4 | *Private repo* — Virtual Media |
 | **Total** | **51** | |
 
 ## The Zero-Free-Parameter Chain

@@ -1,6 +1,6 @@
 # Applied Vacuum Engineering (AVE)
 
-![Build Status](https://img.shields.io/badge/verification-350/350_PURE-brightgreen)
+![Build Status](https://img.shields.io/badge/verification-354/354_PURE-brightgreen)
 ![Tests](https://img.shields.io/badge/tests-746_passed-blue)
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
 ![Predictions](https://img.shields.io/badge/predictions-46/46_verified-orange)
@@ -84,7 +84,7 @@ make setup
 
 ### Verification (The Kernel Check)
 ```bash
-make verify    # Runs 350-file anti-cheat scan — zero smuggled parameters
+make verify    # Runs 354-file anti-cheat scan — zero smuggled parameters
 make test      # Runs 746 unit tests
 make pdf       # Compiles all 7 manuscript volumes
 ```

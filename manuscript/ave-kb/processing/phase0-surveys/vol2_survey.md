@@ -1,6 +1,6 @@
 # Phase 0 Survey — Vol 2: The Subatomic Scale
 
-**Volume path:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/vol_2_subatomic/`
+**Volume path:** `/manuscript/vol_2_subatomic/`
 **Main entry:** `main.tex`
 **Survey date:** 2026-04-02
 

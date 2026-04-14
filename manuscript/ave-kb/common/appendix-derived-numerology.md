@@ -43,4 +43,4 @@ $$p^* = \frac{10z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
 
 Physical root: $z_0 \approx 51.25$ (second root $z_0 \approx 1.28$ is unphysical). The rigidity threshold $p_G = 6/z_0 \approx 0.117$ confirms the vacuum operates $56.7\%$ above the fluid-solid boundary.
 
-> ↗ See also: [Vol 9 APU Capstone](../vol9/fabrication-validation/ch27-capstone/apu-spec-sheet.md) — application of these constants to the full APU architecture
+> ↗ **KB Boundary:** Application of these constants to the full APU architecture continues in the private `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).

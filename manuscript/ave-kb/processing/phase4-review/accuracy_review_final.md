@@ -64,7 +64,7 @@ All Phase 4b fixes were verified correct. The protected roman ell instance in `t
 
 **Issue:** `gw-propagation-lossless.md` line 28 renders `$V_{GW} = h \cdot c \cdot l_{\text{node}} \cdot 2\pi f$` with **roman ell** (`l_{\text{node}}`). The source (`08_gravitational_waves.tex` line 46) uses **script ell** (`\ell_{\text{node}}`). Vol3 uses script ell per INVARIANT-N2.
 
-**Location:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, line 28
+**Location:** `/manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, line 28
 
 **Source reference:** `vol_3_macroscopic/chapters/08_gravitational_waves.tex` line 46: `$V_{GW} = h \cdot c \cdot \ell_{\text{node}} \cdot 2\pi f`
 
@@ -76,7 +76,7 @@ All Phase 4b fixes were verified correct. The protected roman ell instance in `t
 
 **Issue:** `gw-propagation-lossless.md` renders the Invariant Gravitational Impedance equation (`$Z(r) = \sqrt{\mu_{eff}/\varepsilon_{eff}} \equiv Z_0$`) as a bare display equation (lines 20–22) without the `[Resultbox]` wrapper. The source wraps this equation in `\begin{resultbox}{Invariant Gravitational Impedance}` (source line 17). The dedicated standalone leaf `invariant-gravitational-impedance.md` correctly captures the resultbox, but `gw-propagation-lossless.md`—which presents the same content as context—strips the resultbox marking. An agent reading only `gw-propagation-lossless.md` will not identify this as a named derived result.
 
-**Location:** `/Users/benn/projects/Applied-Vacuum-Engineering/manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, lines 20–22
+**Location:** `/manuscript/ave-kb/vol3/gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, lines 20–22
 
 **Source reference:** `vol_3_macroscopic/chapters/08_gravitational_waves.tex` lines 17–22
 
