@@ -82,6 +82,7 @@ define COMPILE_VOL
 		(cd $(SRC_DIR)/$(1) && $(LATEX) -jobname=$(1) -output-directory=../../$(OUT_DIR)/aux main.tex); \
 	fi
 	@(cd $(SRC_DIR)/$(1) && $(LATEX) -jobname=$(1) -output-directory=../../$(OUT_DIR)/aux main.tex)
+	@$(PYTHON) $(SCRIPT_DIR)/check_latex_margins.py $(OUT_DIR)/aux/$(1).log
 	@mv $(OUT_DIR)/aux/$(1).pdf $(OUT_DIR)/
 	@echo "[Build] $(1).pdf → $(OUT_DIR)/"
 endef
