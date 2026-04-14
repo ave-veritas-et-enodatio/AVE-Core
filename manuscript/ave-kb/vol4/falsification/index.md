@@ -8,7 +8,7 @@ Comprehensive experimental falsification portfolio for the AVE framework. Every 
 
 | Result | Expression | Source |
 |---|---|---|
-| Sagnac-RLVE phase shift | $\Delta\phi \approx 2.07\,\text{Rad}$ (Tungsten rotor, 200 m fiber, 10k RPM) | Ch.11 |
+| Active Sagnac Interferometry phase shift | $\Delta\phi \approx 2.07\,\text{Rad}$ (Tungsten rotor, 200 m fiber, 10k RPM) | Ch.11 |
 | Metric mutual inductance ratio | $\Psi = \rho_W/\rho_{Al} \approx 7.15$ | Ch.11 |
 | $\sqrt{\alpha}$ yield limit | $V_{yield} = \sqrt{\alpha} \times 511\,\text{kV} = 43.65\,\text{kV}$ | Ch.11 |
 | Levitation limit | $m_{max} = 1.846\,\text{g}$ | Ch.11 |

@@ -10,12 +10,10 @@ Three explicit experimental blueprints designed to definitively measure the stru
 |---|---|---|
 | Macroscopic field limit | $E_{yield} = 43.65\,\text{kV}/\ell_{node} \approx 1.13 \times 10^{17}\,\text{V/m}$ | dielectric-plateau |
 | Capacitance divergence | $C_{eff}(E) = C_0/\sqrt{1-(E/E_{yield})^2} \to \infty$ | dielectric-plateau |
-| Maxwell stress thrust | $F_i = \oint \sigma_{ij} n_j\,da - \int \partial\mathbf{g}/\partial t\,d^3x$; thrust $\propto V^2 f^2$ | ponder-01 |
-| Sagnac entrainment law | Phase shift scales with $\rho_m$, $\mu_r$, altitude, latitude, and ambient $B$-field | sagnac-rlvg |
-| Birefringence scaling | AVE: $E^4$; QED: $E^2$ — binary discriminator | vacuum-birefringence |
+| Active Sagnac Interferometry | Phase shift scales with $\rho_m$, $\mu_r$, altitude, latitude, and ambient $B$-field | active-sagnac-interferometry |
 | Torus knot baryon masses | $(2,17)$: $\sim 2742\,\text{MeV}$; $(2,19)$: $\sim 2983\,\text{MeV}$; $(2,21)$: $\sim 3199\,\text{MeV}$ — testable at CLAS12/PANDA | torus-knot-baryon |
 | Dielectric plateau onset | $C_{eff} \to \infty$ at $E \approx 0.85 \times E_{yield}$ | ee-bench |
-| RLVG tolerance | Zerodur cavity, $< 1$ mK thermal, $< 46$ kHz linewidth, sub-pm seismic | sagnac-rlvg |
+| Active Sagnac tolerance | Zerodur cavity, $< 1$ mK thermal, $< 46$ kHz linewidth, sub-pm seismic | active-sagnac-telemetry |
 | Autoresonant PLL | Phase-locked frequency tracking enables vacuum rupture at fractional Schwinger energy | autoresonant |
 
 ## Derivations and Detail (Detailed Leaves — Benn)
@@ -25,7 +23,7 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | [Dielectric Plateau Prediction](dielectric-plateau-prediction.md) | EE Bench: $E_{yield}$, capacitance spike, interferometric refractive index drop; LCR + laser protocol |
 | [Ponder-01 Thrust Prediction](ponder-01-thrust-prediction.md) | Asymmetric Maxwell Stress Rectification; 1000:1 geometry; VHF sweep; torsion balance protocol |
 | [Epistemology (Ch.12)](epistemology-ch12.md) | One-Parameter Effective Field Theory; falsifiability by design |
-| [Sagnac RLVG Impedance Drag](sagnac-rlvg-impedance-drag.md) | Kinematic/electromagnetic entrainment law; density and permeability dependence; RLVG tolerances; applied telemetry (slip-velocity, gradient compass, dark wake, chiral torsion) |
+| [Active Sagnac Impedance Drag](active-sagnac-impedance-drag.md) | Kinematic/electromagnetic entrainment law; density and permeability dependence; tolerances; applied telemetry (slip-velocity, gradient compass, dark wake, chiral torsion) |
 | [Helicity Injection](helicity-injection.md) | Polarization matching; Hopf Configuration ($\mathbf{A} \parallel \mathbf{B}$); topological power factor correction |
 | [Autoresonant Dielectric Rupture](autoresonant-dielectric-rupture.md) | Schwinger limit bypass via PLL; nonlinear detuning; low-power pair production |
 | [Binary Kill-Switches](binary-kill-switches.md) | Neutrino Parity Test; GRB Dispersion Test |
@@ -37,7 +35,7 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | Document | Contents |
 |---|---|
 | [EE Bench Dielectric Plateau](ee-bench-plateau.md) | LCR capacitance tracking, interferometric refractive index, Paschen vacuum gap, PONDER-01 stress rectification |
-| [Sagnac-RLVG & Metric Telemetry](sagnac-rlvg-telemetry.md) | Material-dependent entrainment, density/permeability sweep, slip-velocity sensor, gradient compass, dark wake sensor, chiral torsion sensor |
+| [Active Sagnac & Metric Telemetry](active-sagnac-telemetry.md) | Material-dependent entrainment, density/permeability sweep, slip-velocity sensor, gradient compass, dark wake sensor, chiral torsion sensor |
 | [Autoresonant Rupture & Helicity Injection](autoresonant-helicity.md) | Autoresonant PLL Schwinger limit, Hopf coil power factor correction |
 | [Baryon Mass Predictions](baryon-mass-predictions.md) | Torus knot ladder forward predictions, CLAS12/PANDA search targets, falsification protocol |
 

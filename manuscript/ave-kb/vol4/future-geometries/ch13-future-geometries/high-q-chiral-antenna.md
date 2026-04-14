@@ -81,7 +81,7 @@ We define the Chiral Figure of Merit (FoM) as the product of three dimensionless
 
 where $Q_u$ is the unloaded quality factor, $\alpha \cdot pq/(p+q)$ is the chiral coupling, and $\eta_{\mathcal{H}} = \text{SL}(p,q) / N_{cross}$ is the helicity efficiency — the ratio of the self-linking number $\text{SL}(p,q) = pq - p - q$ (net topological helicity injection) to the minimum crossing number $N_{cross} = \min(p(q-1),\, q(p-1))$ (total geometric complexity). Each factor traces directly to the AVE axioms: $Q$ is set by the conductor physics, $\alpha$ by Axiom 2, and $\eta_{\mathcal{H}}$ by the Seifert framing of the knot topology.
 
-For a lossless resonator ($Q_u \to \infty$), the FoM reduces to the pure topological invariant $\alpha \cdot pq/(p+q) \cdot \eta_{\mathcal{H}}$, which is maximized by the $(7,11)$ torus knot ($\text{FoM}_{topo} = 0.028$).
+For a lossless resonator ($Q_u \to \infty$), the FoM reduces to the pure topological invariant $\alpha \cdot pq/(p+q) \cdot \eta_{\mathcal{H}}$, which is maximized by the $(7,11)$ torus knot ($\text{FoM}_{topo} = 0.028$). [Detailed topological antenna designs and parameters have been extracted to companion IP volumes.]
 
 ### Receiver Mode: Cavity-Coupled Measurement Antenna
 
