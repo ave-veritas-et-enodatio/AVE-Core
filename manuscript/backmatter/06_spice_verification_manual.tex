@@ -192,13 +192,9 @@ as shunt admittances.  The Y-matrix solver's per-port $\Gamma_i$
 values can be verified by running the equivalent SPICE network
 and computing $S_{11}$ at the input port.
 
-\subsection{Hardware: APU Subcircuits}
+\subsection{Topological Hardware Subcircuits}
 
-The existing \texttt{apu\_models.lib} contains five hardware
-subcircuits (geometric diode, soliton memory, resonator,
-phase-locked interconnect, axiomatic I/O stepper).  These should
-ultimately be refactored to instantiate \texttt{AVE\_VACUUM\_CELL}
-subcircuits, making their Axiom~4 compliance explicit.
+The core simulation methodology relies on generalizing any complex hardware topology into interconnected \texttt{AVE\_VACUUM\_CELL} subcircuits, making their Axiom~4 compliance mathematically explicit across any arbitrary configuration.
 
 
 \section{Worked Verifications}
