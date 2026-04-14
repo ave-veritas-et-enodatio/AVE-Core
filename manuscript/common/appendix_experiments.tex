@@ -4,43 +4,56 @@
 
 The Applied Vacuum Engineering (AVE) framework is fundamentally defined by its physical falsifiability. Because the $\mathcal{M}_A$ continuum operates as a saturated macroscopic transmission line rather than an abstract mathematical probability space, it dictates numerous distinct, tabletop-accessible and macroscopic anomalies that explicitly violate standard Lorentzian quantum mechanics and General Relativity.
 
-This index catalogs the continuous network of hardware benchmarks, astronomical baseline tests, and biophysical instrumentation proposals detailed across the AVE manuscript series.
+This index catalogs the continuous network of hardware benchmarks, astronomical baseline tests, and biophysical instrumentation proposals detailed across the AVE manuscript series. Each experiment is tagged with the axiom(s) it primarily falsifies.
+
+\section{The 4 Kill Switches (Flagship Experiments)}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{}|c|c|l|X|@{}}
+\hline
+\textbf{\#} & \textbf{Axiom} & \textbf{Test} & \textbf{Binary Prediction} \\ \hline
+1 & 1 & Chiral VNA Antenna & Hopf coil shows anomalous $S_{11}$ notch ($\Delta f/f = \alpha \cdot pq/(p+q)$). Standard: identical curves. \\ \hline
+2 & 2 & Femto-Coulomb Electrometer & 41.5 mV/\textmu m from plate separation ($V = \xi_{topo} \cdot \Delta x / C$). Standard: 0.0 mV. \\ \hline
+3 & 3 & Sagnac Mutual Inductance & Density ratio $\Psi = \rho_W / \rho_{Al} \approx 7.15$. Standard GR: $\Psi = 1.00$. \\ \hline
+4 & 4 & EE Bench Dielectric Plateau & $C/C_0 \to \infty$ at $V_{yield} = 43.65$ kV. Standard QED: $C/C_0 = 1.00$ (flat). \\ \hline
+\end{tabularx}
+\end{center}
+
+\noindent All predictions are computed live via \texttt{python src/scripts/run\_kill\_switches.py} using the physics engine. Zero free parameters. Estimated costs range from $\sim$\$500 (VNA) to $\sim$\$25,000 (EE Bench). \textit{All BOM estimates are placeholders pending vendor quotes.}
 
 \section{Volume II: Subatomic \& Quantum Mechanics}
 \begin{itemize}
-    \item \textbf{Gravitational Parallax Interferometry:} \textit{Chapter 7: Quantum Mechanics \& Orbitals}. Splits an electron matter-wave across a macroscopic Mach-Zehnder baseline to map the continuous disparity between spatial and temporal refractive indices ($n_s \neq n_t$), inducing a massive 35-radian topological phase shift.
-    \item \textbf{The $g_* = 85.75$ Baryon Limit:} \textit{Chapter 10: Open Problems}. Predicts the absolute structural cutoff of allowable mass states based on the $\frac{3}{7}$ continuous spatial divergence integral, constraining the Particle Data Group spectrum.
+    \item \textbf{[Axiom 1] Gravitational Parallax Interferometry:} \textit{Chapter 7: Quantum Mechanics \& Orbitals}. Splits an electron matter-wave across a macroscopic Mach-Zehnder baseline to map the continuous disparity between spatial and temporal refractive indices ($n_s \neq n_t$), inducing a massive 35-radian topological phase shift.
+    \item \textbf{[Axiom 4] The $g_* = 85.75$ Baryon Limit:} \textit{Chapter 10: Open Problems}. Predicts the absolute structural cutoff of allowable mass states based on the $\frac{3}{7}$ continuous spatial divergence integral, constraining the Particle Data Group spectrum.
 \end{itemize}
 
 \section{Volume III: Macroscopic Relativity \& Cosmology}
 \begin{itemize}
-    \item \textbf{VLBI Gravitational Impedance Parallax:} \textit{Chapter 5: Cosmology \& the Dark Sector}. Utilizes Deep Space Very Long Baseline Interferometry tracking Jupiter's core transit to map "Dark Matter" as a continuous geometric stretching of the $377\,\Omega$ optical delay baseline.
-    \item \textbf{DAMA Parallax \& Crystal Phonon Modulation:} \textit{Chapter 5: Cosmology \& the Dark Sector}. Dictates that the topological "Dark Matter" wind modulating DAMA's NaI scintillators is structurally dependent on the bulk dielectric density of the target. Suggests testing identical setups with Sapphire or Germanium to isolate the exact structural $\kappa_{crystal}$ multiplier.
+    \item \textbf{[Axiom 1] VLBI Gravitational Impedance Parallax:} \textit{Chapter 5: Cosmology \& the Dark Sector}. Utilizes Deep Space Very Long Baseline Interferometry tracking Jupiter's core transit to map ``Dark Matter'' as a continuous geometric stretching of the $377\,\Omega$ optical delay baseline.
+    \item \textbf{[Axiom 3] DAMA Parallax \& Crystal Phonon Modulation:} \textit{Chapter 5: Cosmology \& the Dark Sector}. Dictates that the topological ``Dark Matter'' wind modulating DAMA's NaI scintillators is structurally dependent on the bulk dielectric density of the target. Suggests testing identical setups with Sapphire or Germanium to isolate the exact structural $\kappa_{crystal}$ multiplier.
 \end{itemize}
 
 \section{Volume IV: Applied Vacuum Engineering (Hardware)}
 \begin{itemize}
-    \item \textbf{Femto-Coulomb Electrometer:} \textit{Chapter 11: Experimental Falsification}. Detects dynamic charge limits on topological boundary thresholds.
-    \item \textbf{Solid-State Active Phase Induction:} \textit{Chapter 11: Experimental Falsification}. Maps the unyielding frame-drag of the local lattice via static state fiber-rotation.
-    \item \textbf{Impedance Avalanche Detector:} \textit{Chapter 11: Experimental Falsification}. Triggers the direct $V_{snap}$ optical cascade limit across pure $\mathcal{M}_A$ metric lines.
-    \item \textbf{Horizontal Metric Rectification:} \textit{Chapter 11: Experimental Falsification}. Isolates direct bulk translation coupling using a vacuum-suspended torsion balance.
-    \item \textbf{High-Voltage Dielectric Rectification (Stereo Phased Array Parallax):} \textit{Chapter 2 \& 11}. Tracks the time-resolved mechanical stress wake across an asymmetric capacitive $35\,\text{kV}$ phased array.
-    \item \textbf{Bistatic Active Phase Diagnostics:} \textit{Chapter 6: Vacuum Torsion Metrology}. Measures microwave reflection phase-shifts scattering off the purely physical local $G_{vac}$ distortion of a pumped GRIN array.
-    \item \textbf{Asymmetric Active Capacitor (Differential Saturation Parallax):} \textit{Chapter 5: DC-Biased Quartz}. Employs paired quartz resonators across a vertical gravity gradient to map the exact Axiom 4 saturation differential.
-    \item \textbf{Chiral Parallax Tracking:} \textit{Chapter 3 \& 11}. Utilizes transverse vacuum propagation of cross-coupled RF VNA antennas to map the background Cosmological Cosserat torsion bias.
-    \item \textbf{Topological Refraction Snell Parallax:} \textit{Chapter 11: Experimental Falsification}. Determines the precise multi-angle spatial refraction envelope across a $(3,11)$ transverse Torus Knot generator.
-    \item \textbf{Sagnac-Parallax (Galactic Wind Vectoring):} \textit{Chapter 11: Experimental Falsification}. Records the diurnal $24$-hour $2{,}000{,}000$-radian sinusoidal drift of a static horizontal Sagnac loop sweeping actively against the $370\text{ km/s}$ continuous Milky Way metric flow.
-    \item \textbf{GEO-Synchronous Impedance Differential:} \textit{Chapter 11: Experimental Falsification}. Uses precision Ground-to-GEO laser telecommunication links to detect a continuous $\sim 16.7\text{ mm}$ absolute Time-of-Flight stretch induced solely by Earth's radial $Z_0$ gradient.
+    \item \textbf{[Axiom 2] Femto-Coulomb Electrometer:} \textit{Chapter 11: Experimental Falsification}. Detects topological charge generated by mechanical spatial cleavage ($Q = \xi_{topo} \cdot \Delta x$).
+    \item \textbf{[Axiom 3] Solid-State Active Phase Induction:} \textit{Chapter 11: Experimental Falsification}. Maps the inductive frame-drag of the local lattice via rotating dense masses and static E-field gradients.
+    \item \textbf{[Axiom 4] Impedance Avalanche Detector:} \textit{Chapter 11: Experimental Falsification}. Triggers the direct $V_{yield}$ dielectric cascade limit via Marx generator pulses.
+    \item \textbf{[Axiom 4] Asymmetric Maxwell Stress Rectification:} \textit{Chapter 12: Falsifiable Predictions}. Tests non-linear stress rectification across asymmetric electrode geometry.
+    \item \textbf{[Axiom 1] Chiral VNA Antenna:} \textit{Chapters 3 \& 11}. Tests the chiral impedance match of a $(p,q)$ torus knot antenna via VNA $S_{11}$ sweep.
+    \item \textbf{[Axiom 1] Topological Refraction (Snell Parallax):} \textit{Chapter 11: Experimental Falsification}. Determines the multi-angle spatial refraction envelope across a $(3,11)$ transverse Torus Knot generator.
+    \item \textbf{[Axiom 3] Sagnac-Parallax (Galactic Wind Vectoring):} \textit{Chapter 11: Experimental Falsification}. Records the diurnal $24$-hour sinusoidal drift of a static horizontal Sagnac loop sweeping against the $370\text{ km/s}$ continuous Milky Way metric flow.
+    \item \textbf{[Axiom 1] GEO-Synchronous Impedance Differential:} \textit{Chapter 11: Experimental Falsification}. Uses precision Ground-to-GEO laser links to detect a continuous $\sim 16.7\text{ mm}$ Time-of-Flight stretch induced by Earth's radial $Z_0$ gradient.
+    \item \textbf{[Axiom 4] Vacuum Birefringence ($E^2$ vs $E^4$):} \textit{Chapter 12: Falsifiable Predictions}. Tests whether vacuum refractive shift scales with $E^4$ (AVE) or $E^2$ (QED).
 \end{itemize}
 
 \section{Volume V: Deterministic Biophysics}
 \begin{itemize}
-    \item \textbf{Molecular Chiral FRET Parallax:} \textit{Chapter 1: Biophysics Intro}. Predicts that Ramachandran structural bounds of rigid proteins are mechanically enforced by the chiral LC metric bias (Axiom 2). Under honest first-principles computation, the gravitational relaxation $\Delta r / r = \alpha \cdot \varepsilon_{11} \approx 5 \times 10^{-12}$ produces a sub-attometer shift at terrestrial baselines---\textit{currently unfalsifiable}. Catalogued as a future target pending compact-object environments.
+    \item \textbf{[Axiom 2] Molecular Chiral FRET Parallax:} \textit{Chapter 1: Biophysics Intro}. Predicts that Ramachandran structural bounds of rigid proteins are mechanically enforced by the chiral LC metric bias (Axiom 2). Under honest first-principles computation, the gravitational relaxation $\Delta r / r = \alpha \cdot \varepsilon_{11} \approx 5 \times 10^{-12}$ produces a sub-attometer shift at terrestrial baselines---\textit{currently unfalsifiable}. Catalogued as a future target pending compact-object environments.
 \end{itemize}
 
 \section{Volume III: Absorbed Cross-Scale Verification}
 \textit{(Originally Volume VII; absorbed into Volume III during repository restructuring.)}
 \begin{itemize}
-    \item \textbf{HTS Detector (High-Temperature Superconductor Response):} \textit{Chapter 18: Superconductivity}. Falsifies standard magnetic pairing by mapping continuous boundary exclusion over superconducting Meissner effects.
-    \item \textbf{Turbulence \& Water Condensation Phase Transitions:} \textit{Chapter 19: Phase Transitions}. Computes topological boundary failures in macro-molecular clustering, bridging fluid dynamics directly back to foundational $\mathcal{M}_A$ saturation.
+    \item \textbf{[Axiom 1] HTS Detector (High-Temperature Superconductor Response):} \textit{Chapter 18: Superconductivity}. Falsifies standard magnetic pairing by mapping continuous boundary exclusion over superconducting Meissner effects.
+    \item \textbf{[Axiom 4] Turbulence \& Water Condensation Phase Transitions:} \textit{Chapter 19: Phase Transitions}. Computes topological boundary failures in macro-molecular clustering, bridging fluid dynamics directly back to foundational $\mathcal{M}_A$ saturation.
 \end{itemize}

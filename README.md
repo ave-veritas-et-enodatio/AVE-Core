@@ -155,6 +155,26 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 
 ---
 
+## Experimental Falsification: The 4 Kill Switches
+
+Every axiom exposes a binary, tabletop-measurable prediction. If **any single one** fails, the framework is dead.
+
+| # | Axiom | Test | AVE Prediction | Standard Model |
+|---|-------|------|----------------|----------------|
+| 1 | **LC Impedance** (Z₀ = 377 Ω) | **Chiral VNA Antenna** — Torus-knot coil vs. standard toroid S₁₁ sweep | Anomalous S₁₁ notch (Δf/f ≈ 0.017) | Identical curves |
+| 2 | **Topological Phase** (ξ_topo) | **Femto-Coulomb Electrometer** — Separate uncharged plates by 1 μm | **41.5 mV** step on oscilloscope | 0.0 mV |
+| 3 | **Gravity** (G → ρ_bulk) | **Sagnac Mutual Inductance** — Spin W vs. Al rotor in fiber loop | Phase ratio Ψ ≈ **7.15** | Ψ = 1.00 |
+| 4 | **Saturation** (S = √(1−A²)) | **EE Bench Dielectric Plateau** — Sweep vacuum gap to 43 kV | C/C₀ → **∞** at 43.65 kV | C/C₀ = 1.00 |
+
+> **All predictions computed live from the physics engine — zero free parameters:**
+> ```bash
+> python src/scripts/run_kill_switches.py
+> ```
+
+*Estimated costs: ~$500 (VNA) to ~$25K (EE Bench). BOM estimates are placeholders pending vendor quotes. Full protocols in Volume IV, Ch 11–12.*
+
+---
+
 ## Manuscript Volumes
 
 | Vol | Title | Chapters | Topics |
@@ -177,7 +197,7 @@ See [NOTICE](NOTICE) for details.
 
 ## Author
 
-**Grant Lindblom** — [Applied Vacuum Engineering](https://appliedvacuumengineering.com)
+**Grant Lindblom** — Electronic Design Engineer
 
 ## Citation
 
