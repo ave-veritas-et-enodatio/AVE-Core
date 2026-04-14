@@ -10,14 +10,14 @@
 \centering
 \caption{Protein solver domain translation.  Every row maps one biological concept through EE to the axiomatic source and its codebase implementation.}
 \label{tab:trans_protein_solver}
-\small
+\scriptsize
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{@{}l l l l@{}}
+\begin{tabularx}{\textwidth}{@{}X X X X@{}}
 \toprule
 \textbf{Biology} & \textbf{EE / RF} & \textbf{AVE Axiom} & \textbf{Script Reference} \\
 \midrule
 Peptide bond & TL segment & Axiom 1: $Z = \sqrt{\mu/\varepsilon}$ & \texttt{backbone\_segments} \\
-Amino acid sidechain & Impedance stub ($Z_\text{topo}$) & Axiom 1: $\sqrt{M/n_e}$ & \texttt{protein\_bond\_constants} \\
+Amino acid sidechain & Impedance stub ($Z_\text{topo}$) & Axiom 1: $\sqrt{M/n_e}$ & \texttt{protein\_\allowbreak bond\_\allowbreak constants} \\
 H-bond & Mutual inductance ($\kappa$) & Axiom 1: transformer coupling & \texttt{dc\_analysis()} \\
 $\beta$-sheet & Backward-wave coupler & Axiom 1: antiparallel TL & \texttt{dc\_analysis()} \\
 Hydrophobic core & Conjugate impedance match & Axiom 1: $\operatorname{Re}(Z_iZ_j^*)$ & \texttt{dc\_analysis()} \\
@@ -32,7 +32,7 @@ Protein compaction & Standing wave pattern & Axiom 4: $\eta_\text{eq} = P_C(1-\n
 Native fold & Eigenstate ($\lambda_{\min}(S^\dagger S) = 0$) & 5-step eigenvalue method & \texttt{\_eigenvalue\_target()} \\
 Folding kinetics & SPICE transient ring-down & Axiom 1: $L/C/R$ network & \texttt{explicit\_spice\_step()} \\
 Cotranslational folding & Segmented cascade & Axiom 1: $Q$-coherence length & \texttt{fold\_cascade\_v7()} \\
-Allostery & Tuning stub injection & Axiom 3: $\Gamma$ perturbation & \texttt{s15\_allosteric\_yield.py} \\
+Allostery & Tuning stub injection & Axiom 3: $\Gamma$ perturbation & \texttt{s15\_\allowbreak allosteric\_\allowbreak yield.py} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}

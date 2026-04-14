@@ -16,17 +16,7 @@
 
 The full computational proof is implemented in the physics engine module
 \texttt{src/ave/}\allowbreak\texttt{axioms/}\allowbreak\texttt{scale\_}\allowbreak\texttt{invariant.py}. Every domain module in the
-framework (\texttt{saturation.py}, \texttt{fdtd\_3d.py},
-\texttt{bond\_}\allowbreak\texttt{energy\_}\allowbreak\texttt{solver.py}, \texttt{seismic.py},
-\texttt{seismic\_fdtd.py}, \texttt{cutoff.py},
-\texttt{galactic\_}\allowbreak\texttt{rotation.py}, \texttt{superconductor.py},
-\texttt{protein\_}\allowbreak\texttt{bond\_}\allowbreak\texttt{constants.py},
-\texttt{gw\_}\allowbreak\texttt{propagation.py},
-\texttt{gw\_detector.py},
-\texttt{stellar\_interior.py},
-\texttt{neutrino\_msw.py},
-\texttt{solar\_}\allowbreak\texttt{impedance.py},
-\texttt{planetary\_}\allowbreak\texttt{magnetosphere.py}) imports its impedance
+framework (\texttt{saturation.py}, \texttt{fdtd\_3d.py}, and 13 other domain modules) imports its impedance
 operations from this single canonical source. The automated test suite
 verifies that the same
 function produces identical numerical results whether called with
@@ -216,7 +206,7 @@ Because $0.007 \ll \sqrt{2\alpha}$ (the $\approx 0.121$ boundary between Linear 
 
 In standard quantum mechanics, peer-electron Coulomb repulsion involves time-averaging spatial probability densities via $N$-body continuous integration. As discussed in Section~\ref{sec:methodological_contamination}, introducing such integrals into AVE is a methodological contamination that artificially recovers the macroscopic shielding collapse.
 
-The framework requires a strictly scale-invariant, 0-parameter resolution. By treating atomic orbitals as nested macroscopic cavities rather than overlapping probability clouds, peer interactions are dictated by the \textbf{Subshell Impedance Cascade} (see Chapter~\% missing reference ch:quantum_mechanics_and_orbitals for the complete derivation). 
+The framework requires a strictly scale-invariant, 0-parameter resolution. By treating atomic orbitals as nested macroscopic cavities rather than overlapping probability clouds, peer interactions are dictated by the \textbf{Subshell Impedance Cascade} (see Chapter~[Section Removed] for the complete derivation). 
 
 Instead of continuous integration, the discrete lattice geometry enforces:
 \begin{enumerate}
