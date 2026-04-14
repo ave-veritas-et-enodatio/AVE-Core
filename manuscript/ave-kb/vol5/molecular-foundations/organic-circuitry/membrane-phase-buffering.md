@@ -22,7 +22,7 @@ A(T) = \frac{n_{coop} \cdot k_B T}{E_{HB}}
 \label{eq:cooperative_strain}
 $$
 
-where $E_{HB} = 0.2158$ eV (the hydrogen bond energy, derived from Op4 $\times$ void fraction) and $n_{coop} = 9$ is the cooperative amplification constant.
+where $E_{HB} = 0.2158$ eV (the hydrogen bond energy, derived from Op4 $\times$ void fraction in \S[Section Removed]) and $n_{coop} = 9$ is the cooperative amplification constant.
 
 2. **Strain $\to$ saturation**: Via the Axiom 4 saturation operator (Op2):
 
@@ -49,9 +49,7 @@ T_c = \frac{E_{HB}}{n_{coop} \cdot k_B} = \frac{0.2158\;\text{eV}}{9 \times 8.61
 \label{eq:T_c_membrane}
 $$
 
-This prediction matches the anomalous density maximum of water at $+4.0^\circ$C to within $0.40\%$ — cross-validating the cooperative amplification number $n_{coop} = 9$.
-
-<!-- anomaly: sec:n_coop_derivation is undefined — missing section or future appendix -->
+This prediction matches the anomalous density maximum of water at $+4.0^\circ$C to within $0.40\%$ — cross-validating the cooperative amplification number $n_{coop} = 9$ (derived from the K4 junction mode count: 3 translational + 3 librational + $z/2$ stretch + $z/4$ bend $= 9$; see Volume III, Chapter 13).
 
 ### Cholesterol: The Topological Phase Buffer
 
