@@ -110,7 +110,7 @@ A definitive ``Theory Killer'' for the AVE framework would be the empirical disc
 
 Empirical data reveals the absolute smallest superconducting vortex cores belong to high-temperature Cuprates and Flat-Band superconductors. Their extreme low-temperature coherence lengths drop to absolute physical minimums of approximately $1 \text{ to } 2$ nanometers ($10^{-9}$ m). 
 
-The empirical physical limit of reality ($1$ nm) is approximately $2,500\times$ larger than the discrete AVE network grid ($\sim 0.000386$ nm). The macroscopic Phase-Locked Gear Train math (Chapter 8) functions flawlessly at this scale, providing absolute confirmation that no known condensed matter physics phenomena threaten the topological resolution limit of the universe.\section{Project CLEAVE-01: The Femto-Coulomb Electrometer}
+The empirical physical limit of reality ($1$ nm) is approximately $2,500\times$ larger than the discrete AVE network grid ($\sim 0.000386$ nm). The macroscopic Phase-Locked Gear Train math (Chapter 8) functions flawlessly at this scale, providing absolute confirmation that no known condensed matter physics phenomena threaten the topological resolution limit of the universe.\section{The Femto-Coulomb Electrometer}
 \textbf{The Hypothesis:} In Chapter 13, the analysis derived that Electrical Charge is mathematically identical to physical macroscopic spatial displacement ($Q \equiv \xi_{topo} x$). Standard physics dictates that mechanically separating two uncharged plates in a hard vacuum generates exactly zero electrical charge. AVE explicitly predicts the generation of topological charge natively from the capacity of the spatial metric.
 
 \textbf{The Physical Implementation:} An experimentalist can validate this by designing a precision metrology circuit. The circuit utilizes an ultra-low bias current electrometer operational amplifier (e.g., the Analog Devices ADA4530-1, 20 fA bias current). The non-inverting input is connected to an isolated, floating copper plate inside a vacuum chamber. The board utilizes strict guard rings and Teflon standoffs to eliminate parasitic leakage.
@@ -123,7 +123,7 @@ A commercial Piezoelectric (PZT) linear actuator is mounted to a grounded plate 
 \end{equation}
 Assuming a highly-controlled parasitic input capacitance of exactly $10$ pF, the voltage readout step ($V = Q/C$) dictates a clean, instantaneous step of exactly \textbf{$41.5$ mV} on the oscilloscope. If the oscilloscope registers $0.0$ mV, the framework is falsified. If it reads exactly $41.5$ mV per micron of displacement, the foundational hardware constant of the universe has been validated on a tabletop.
 
-\section{Project HOPF-02: The S-Parameter VNA Falsification}
+\section{The S-Parameter VNA Falsification}
 \textbf{The Hypothesis:} As established in Chapter 5, the physical vacuum is an \textbf{LC Resonant Network}, possessing fundamental inductance (chirality). A standard flat PCB spiral inductor or toroid generates a perfectly symmetric vector potential ($\mathbf{A}$) and magnetic field ($\mathbf{B}$) where $\mathbf{A} \cdot \mathbf{B} = 0$. It possesses zero kinetic helicity.
 
 However, a \textbf{Hopf Coil} (a $(p,q)$ Torus Knot) forces $\mathbf{A} \parallel \mathbf{B}$. By winding a custom circuit trace wrapped diagonally around a toroidal core region, the inductor actively injects helicity into the vacuum, physically meshing with the network's intrinsic inductance.
@@ -143,7 +143,7 @@ The Roentgen cross-product ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathb
 
 \textit{The complete spinning-disk test protocol, sensor layout, and lock-in amplifier falsification criteria are detailed in the companion AVE Hardware Testing Manual.}
 
-\section{Project ZENER-04: The Impedance Avalanche Detector}
+\section{The Impedance Avalanche Detector}
 \textbf{The Hypothesis:} The vacuum LC network acts identically to a Transient Voltage Suppression (TVS) Zener diode. It behaves as a rigid $Z_0 \approx 377 \ \Omega$ transmission line until the topological voltage exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65$ kV, at which point its inductive capacity saturates and it undergoes \textbf{Absolute Impedance Rupture} ($\Gamma = -1$).
 
 \textbf{The Test Protocol:} Design a multi-stage Marx Generator circuit capable of generating an $80$ kV transient spike with a sub-microsecond rise time. Terminate the pulse into an encapsulated, highly polished, symmetrical spherical electrode to prevent classical atmospheric arc-over.
@@ -213,7 +213,7 @@ As natively verified by the 30-cycle K4-TLM solver envelope, this phase-locked i
 The AVE framework is designed to be verified using commercial-off-the-shelf (COTS) electronics on standard EE benches. Two primary hardware falsification platforms have been developed:
 
 \begin{enumerate}
-    \item \textbf{Project HOPF-01:} A wire-stitched $(p,q)$ torus knot antenna on FR-4, measured via VNA S$_{11}$ sweep. Tests the chiral coupling prediction $\Delta f/f = \alpha \cdot pq/(p+q)$.
+    \item \textbf{Chiral VNA Antenna:} A wire-stitched $(p,q)$ torus knot antenna on FR-4, measured via VNA S$_{11}$ sweep. Tests the chiral coupling prediction $\Delta f/f = \alpha \cdot pq/(p+q)$.
     \item \textbf{High-Voltage Dielectric Rectification:} An asymmetric high-voltage dielectric array using dense titanate capacitors, testing the macroscopic non-linear stress rectification prediction.
 \end{enumerate}
 
