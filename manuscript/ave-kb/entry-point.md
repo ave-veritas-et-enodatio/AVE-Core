@@ -107,13 +107,13 @@ Hardware numerology derivations (including $n_{3D}$, $C_K$, $z_0$, $\nu_{vac}$) 
 
 ---
 
-### Volume 9: Axiomatic Processing Unit (Private IP)
+### Volume 9: Axiomatic Processing Unit (Experimental Repository)
 
-The hardware validation, declarative topology compilation (atopile), and physical APU post-CMOS processor specifications have been securely redacted.
+The hardware validation, declarative topology compilation (atopile), and physical APU post-CMOS processor specifications are explored in an experimental repository.
 
 **Key results:** $V_{snap} = m_e c^2/e \approx 511$ kV; $V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65$ kV; soliton density $\rho_{kink} \approx 4.34 \times 10^{20}$ knots/mm²; $P_{drag} \approx 19.8$ W
 
-> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are maintained in the private `ave-veritas-et-enodatio/AVE-APU` repository.
+> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are explored in the experimental `ave-veritas-et-enodatio/AVE-APU` repository.
 
 ---
 

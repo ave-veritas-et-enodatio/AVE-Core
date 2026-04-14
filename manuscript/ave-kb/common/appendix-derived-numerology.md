@@ -73,4 +73,4 @@ $$
 
 **Axiom trace:** Axiom 3 (S-matrix for uniform isotropic lattice intersections) → cascade efficiency $\eta = 3/4 \rightarrow C_K = 4/3$.
 
-> ↗ **KB Boundary:** Application of these constants to the full APU architecture continues in the private `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).
+> ↗ **KB Boundary:** Application of these constants to the full APU architecture is explored in the experimental `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).

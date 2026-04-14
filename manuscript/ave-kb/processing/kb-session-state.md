@@ -427,5 +427,5 @@ Status: COMPLETE (2026-04-14)
 - Reference fixes applied across Vol 6 ionization anomaly leaves.
 - Numerology variables ($n_{3D}$, $C_K$) successfully extracted from `appendix_c_derived_numerology.tex`.
 - Obsolete references to purged Volumes 7 and 8 removed; cross-scale verifications successfully absorbed into `Vol 3: The Macroscopic Continuum`.
-- `ave-kb/entry-point.md` updated to officially redact `Volume 9: APU Hardware` to the private IP repository `ave-veritas-et-enodatio/AVE-APU`.
+- `ave-kb/entry-point.md` updated to link `Volume 9: APU Hardware` to the experimental repository `ave-veritas-et-enodatio/AVE-APU`.
 - Quality Audit reveals exactly one `[Up]` link per leaf, no standard physics terminology violations (no classical field terms injected).

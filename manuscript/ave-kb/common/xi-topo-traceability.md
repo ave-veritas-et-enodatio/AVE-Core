@@ -81,11 +81,11 @@ Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect e
 
 ### Vol 7: Hardware & Future Work
 
-> ↗ **KB Boundary:** Propulsion and anomaly resolution applications of $\xi_{topo}$ (inertial cancellation, impedance control, warp metric) continue in the private `AVE-Propulsion` repository (`ave-veritas-et-enodatio/AVE-Propulsion`).
+> ↗ **KB Boundary:** Propulsion and anomaly resolution applications of $\xi_{topo}$ (inertial cancellation, impedance control, warp metric) are explored in the experimental `AVE-Propulsion` repository (`ave-veritas-et-enodatio/AVE-Propulsion`).
 
 ### Vol 8: Virtual Media
 
-> ↗ **KB Boundary:** Virtual media applications of $\xi_{topo}$ (LLM weight norms as virtual impedance, attention phase tension) continue in the private `AVE-Virtual-Media` repository (`ave-veritas-et-enodatio/AVE-Virtual-Media`).
+> ↗ **KB Boundary:** Virtual media applications of $\xi_{topo}$ (LLM weight norms as virtual impedance, attention phase tension) are explored in the experimental `AVE-Virtual-Media` repository (`ave-veritas-et-enodatio/AVE-Virtual-Media`).
 
 ## Coverage Summary
 
@@ -97,8 +97,8 @@ Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect e
 | Vol 4 | 22 | **Primary user**: all VCA engineering |
 | Vol 5 | 2 | Biological transduction: mass → $L$, stiffness → $C$ |
 | Vol 6 | 0 (implicit) | Nuclear coupling $K$ via mutual impedance |
-| Vol 7 | 4 | *Private repo* — Propulsion |
-| Vol 8 | 4 | *Private repo* — Virtual Media |
+| Vol 7 | 4 | *Experimental repo* — Propulsion |
+| Vol 8 | 4 | *Experimental repo* — Virtual Media |
 | **Total** | **51** | |
 
 ## The Zero-Free-Parameter Chain
