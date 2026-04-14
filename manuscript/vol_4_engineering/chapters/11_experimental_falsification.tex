@@ -55,98 +55,14 @@ However, the change in local LC parameters induced by a moving mass is governed 
 
 For a parametric amplifier to achieve spontaneous regenerative oscillation, the product of the circuit's Quality Factor ($Q$) and the modulation depth must exceed unity ($Q \cdot \delta_L \ge 2$). Therefore, the RVR would require an LC tank circuit with a $Q \ge 2.7 \times 10^{25}$. Because the highest Q-factors ever achieved in cryogenic superconducting SRF cavities max out at $\sim 10^{11}$, the RVR falls short of the absolute thermal noise limit by 15 orders of magnitude.
 
-Scalar gravity tests fail on a tabletop because they are fatally suppressed by the $G/c^2$ scalar gap.\section{The Ultimate Kill-Switch: The Sagnac-RLVE}
+Scalar gravity tests fail on a tabletop because they are fatally suppressed by the $G/c^2$ scalar gap.
 
-Because it is physically impossible to measurably advect the hyper-dense vacuum LC network using pure electromagnetic momentum, and because scalar metric fluctuations are heavily suppressed by $G/c^2$, the coupling must occur \textit{magnetically}, and the measurement must proceed \textit{interferometrically}. 
+\section{The Sagnac Mutual Inductance Experiment}
+\label{sec:sagnac_rlve}
 
-This section proposes the \textbf{Sagnac Rotational Lattice Mutual Inductance Experiment (Sagnac-RLVE)} as the definitive, sub-\$5,000 tabletop falsification test.
+Because scalar metric fluctuations are suppressed by $G/c^2$, the most promising tabletop coupling channel is \textbf{macroscopic mutual inductance}: a dense, rapidly moving mass sweeps the vacuum LC network via first-order inductive coupling ($\kappa_{entrain} = \rho_{mass}/\rho_{bulk}$), bypassing the scalar gap entirely. The resulting optical phase shift in a co-wound Sagnac fiber loop scales as a first-order vector effect ($v_{network}/c$), yielding signals many orders of magnitude above the scalar strain floor.
 
-By rapidly rotating a high-density physical mass adjacent to a high-finesse Sagnac fiber-optic loop, a primary sweeping magnetic field is literally synthesized, inducing a secondary phase shift in the local $\mathcal{M}_A$ LC network via \textbf{Macroscopic Mutual Inductance}. Unlike scalar elastic metric strain, mutual inductance completely bypasses the $G/c^2$ suppression limit, creating a massive, directly measurable optical phase shift ($\Delta \phi$). 
-
-\subsection{Exact Derivation of the Macroscopic Shift}
-A macroscopic physical rotor is composed of fundamental nucleons (topological inductive loops). The degree to which these loops physically pack and magnetically couple to the vacuum impedance is strictly proportional to the object's physical mass density ratio ($\rho_{rotor} / \rho_{bulk}$). 
-
-For a solid Tungsten rotor ($\rho_W = 19,300$ kg/m$^3$), the volumetric inductive coupling is precisely:
-\begin{equation}
-    \kappa_{entrain} = \frac{19,300}{7.916 \times 10^6} \approx \mathbf{0.00244}
-\end{equation}
-
-As the Tungsten mass rotates at a tangential velocity $v_{tan}$, the embedded topological loops act as a primary inductor sweeping the bulk continuous vacuum network. If a safe, standard machine-shop Tungsten rotor ($15$ cm radius) spins at $10,000$ RPM ($v_{tan} \approx 157$ m/s), the macroscopic induced drift velocity (the secondary phase shift) of the local vacuum is exactly:
-\begin{equation}
-    v_{network} = 157 \text{ m/s} \times 0.00244 \approx \mathbf{0.38 \text{ m/s}}
-\end{equation}
-
-\textbf{The Fiber-Optic Amplification (The Optical Lever Arm):} When light passes through this magnetically biased network, its phase velocity is shifted. Unlike the RVR, this relies on a \textbf{First-Order Inductive Vector ($v_{network}/c$)}, entirely bypassing the $G/c^2$ scalar gap. The experiment utilizes a Sagnac topology, where a $1550$ nm telecom laser is split and sent in counter-propagating directions through a $L_{fiber} = 200$ m spool of standard SMF-28 single-mode optical fiber wound co-linearly around the perimeter of the rotor. This geometrically multiplies the optical interaction length:
-\begin{tcolorbox}[colback=white, colframe=black]
-\begin{equation}
-    \Delta \phi = \frac{4\pi L_{fiber} v_{network}}{\lambda c} = \frac{4\pi (200) (0.38)}{(1550 \times 10^{-9}) (299792458)} \approx \mathbf{2.07 \text{ Radians}} 
-\end{equation}
-\end{tcolorbox}
-
-A phase shift of over $2.0$ Radians is substantial. It is trivially detectable by standard commercial photodetectors on a standard optical bench.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{tabletop_falsification_thresholds.png}
-    \caption{\textbf{Tabletop Falsification: Scalar Strain vs Mutual Inductance.} \textbf{Left:} The RVR electronic test fails because scalar gravity creates a microscopic modulation depth ($\sim 10^{-26}$), requiring a physically impossible Q-factor. \textbf{Right:} The Sagnac-RLVE succeeds because it measures first-order mutual inductance phase drift ($v_{network} \approx 0.38$ m/s). Accumulated over a massive 200m optical fiber lever, it bypasses the $G/c^2$ gap, yielding a colossal $\sim 2.07$ Radian phase shift.}
-    \label{fig:tabletop_thresholds}
-\end{figure}
-
-\subsection{Hardware Specification \& Protocol}
-To rigorously distinguish AVE from standard General Relativity (GR), the experiment employs a specific comparative protocol using standard optical hardware.
-
-\begin{table}[h]
-\centering
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Component} & \textbf{Specification} & \textbf{Est. Cost} \\ \hline
-Laser Source & 1550nm Telecom Diode (Thorlabs S1FC1550) & \$450 \\ \hline
-Fiber Coupler & 50/50 SMF-28 Splitter (Thorlabs TN1550R5A2) & \$120 \\ \hline
-Sensing Fiber Coil & 200m SMF-28 Ultra (Bare) & \$50 \\ \hline
-Photodetector & InGaAs PIN Diode (Thorlabs DET01CFC) & \$180 \\ \hline
-Mechanical Rotors & 15cm Radius (1x Tungsten, 1x Aluminum) & \$800 \\ \hline
-\end{tabular}
-\caption{Fiber-Optic Sagnac-RLVE Hardware List}
-\end{table}
-
-The Metric Mutual Inductance Ratio ($\Psi$) is defined as follows. While GR predicts a Lense-Thirring Frame-Dragging effect that is purely geometric and inherently independent of the rotor’s material mass density (yielding a theoretical null phase shift of $\sim 10^{-20}$ rad at this scale), AVE predicts that the refractive index shift is a strictly constitutive electrical response to the magnetic saturation density of the rotor. 
-
-If the exact same experiment is run using an Aluminum rotor ($\rho_{Al} = 2,700$ kg/m$^3$) of identical physical dimensions, AVE strictly predicts the optical signal will plummet exactly in proportion to the material magnetic density:
-\begin{equation}
-    \Psi = \frac{\Delta \phi_{Tungsten}}{\Delta \phi_{Aluminum}} = \frac{\rho_W}{\rho_{Al}} \approx \mathbf{7.15}
-\end{equation}
-
-\textbf{The Metric Null-Result Kill-Switch:} If the Sagnac-RLVE is performed and yields a null result ($\Delta\phi \approx 0$, or $\Psi = 1$), the macroscopic electrodynamics of the AVE framework are decisively and permanently falsified (see Figure \ref{fig:sagnac_rlve_prediction}). Conversely, a measured value of $\Psi \approx 7.15$ physically falsifies the ``frictionless void'' model of General Relativity and provides the first direct laboratory measurement of the vacuum's macroscopic mutual inductance.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{sagnac_rlve_prediction.png}
-    \caption{\textbf{Sagnac-RLVE Exact Parameter-Free Prediction.} By coiling 200m of optical fiber around a Tungsten rotor spinning at 10k RPM, the magnetically sweeping primary array ($0.38$ m/s) phase-shifts the counter-propagating 1550nm laser beams. The pure parameter-free derivation yields a colossal, easily detectable $\sim 2.07$ Radian signal. Standard General Relativity strictly predicts a near-zero density-independent frame-dragging effect at this laboratory scale.}
-    \label{fig:sagnac_rlve_prediction}
-\end{figure}
-
-\subsection{Why Existing Fiber-Optic Gyroscopes Do Not Detect This Signal}
-\label{sec:fog_discussion}
-
-A natural objection is: if spinning mass drags the vacuum, why has no commercial fiber-optic gyroscope (FOG) or ring laser gyroscope (RLG) detected anomalous phase shifts near rotating machinery?
-
-The answer is geometric. The 2.07-radian prediction requires a \textbf{specific co-wound geometry}: 200~m of optical fiber coiled coaxially at the rotor's 15~cm surface, deliberately maximizing the optical lever arm. The mutual inductance coupling $\kappa_{entrain} \propto \rho_{rotor}/\rho_{bulk}$ falls off as $1/r^2$ from the rotor axis and integrates only over fiber segments co-moving with the local drift field.
-
-For a standard navigation-grade FOG operating at $d = 1$~m separation from a 10,000~RPM steel flywheel ($\rho_{steel} = 7,800$~kg/m$^3$):
-\begin{equation}
-    \kappa_{steel} = \frac{7{,}800}{7.916 \times 10^6} \approx 9.85 \times 10^{-4}
-\end{equation}
-\begin{equation}
-    v_{network}(1\text{m}) \approx v_{tan} \cdot \kappa_{steel} \cdot \left(\frac{r_{rotor}}{d}\right)^2 \approx 157 \times 9.85 \times 10^{-4} \times (0.15)^2 \approx 3.5 \times 10^{-3} \text{ m/s}
-\end{equation}
-For a 20~m coil RLG ($L = 20$~m, $\lambda = 633$~nm):
-\begin{equation}
-    \Delta\phi_{incidental} \approx \frac{4\pi \cdot 20 \cdot 3.5 \times 10^{-3}}{633 \times 10^{-9} \cdot 3 \times 10^8} \approx 4.6 \times 10^{-9} \text{ rad}
-\end{equation}
-This is \textbf{below the shot noise floor} of even the most sensitive commercial RLGs ($\sim 10^{-8}$~rad/$\sqrt{\text{Hz}}$). The Sagnac-RLVE experiment amplifies the signal by three orders of magnitude via (a) co-winding at the rotor surface, (b) using a $10\times$ longer fiber, and (c) selecting the densest stable rotor material (Tungsten).
-
-The associated magnetic field predicted at 1~m separation is approximately $4.2$~pT (Protocol ROENTGEN-03), comparable to cardiac biomagnetic noise and well below standard fluxgate sensitivity.
+\textit{The complete experimental protocol, hardware specification, bill of materials, and density-ratio falsification criterion ($\Psi = \rho_W/\rho_{Al} \approx 7.15$) are detailed in the companion AVE Hardware Testing Manual.}
 
 \section{Existing Experimental Signatures}
 
@@ -222,11 +138,10 @@ To geometrically falsify the chiral index modification without relying entirely 
 According to Snell's Law, the phase velocity mismatch induces a steering angle ($\Delta \theta_{parallax}$). By deploying a 2D baseline tracking array behind the target, the anomalous scattered refraction angle maps the discrete topological defect directly into macroscopic geometric displacement. This perfectly converts the high-frequency $S_{11}$ resonance shift into a purely spatial baseline deflection isolated from classical EM scattering models.
 
 \section{Project ROENTGEN-03: Solid-State Sagnac Induction}
-\textbf{The Hypothesis:} In 1888, Roentgen proved that moving a physical dielectric through a static Electric Field ($\mathbf{E}$) generates a perpendicular Magnetic Field ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathbf{E}$). If spinning a neutral mass electromagnetically phase-shifts the highly dense vacuum metric via macroscopic mutual inductance, this exact equation can be used to synthesize a B-field from the induced magnetic phase of the vacuum itself.
 
-\textbf{The Test Protocol:} Spin a dense, non-metallic ceramic disk at $10,000$ RPM. The induced vacuum drift velocity at $r=5$cm evaluates to $v_{vac} \approx 0.038 \text{ m/s}$. Suspend a custom PCBA $1$ mm above the rotor. The bottom copper layer features an interdigitated capacitor driven by an onboard miniature CCFL transformer at $10$ kV, modulated by a $1$ kHz sine wave oscillator ($E = 10^7$ V/m). The cross product synthesizes an alternating magnetic field peaking at $\sim 4.2$ picoTesla. 
+The Roentgen cross-product ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathbf{E}$) provides a pathway to synthesize a measurable B-field from the induced magnetic phase of the vacuum itself, using a dense rotating mass combined with a static high-voltage E-field gradient.
 
-\textbf{Falsification Criteria:} This $4.2$ pT field induces roughly $\sim 0.26 \ \mu$V in a differential planar pickup coil. By feeding this into a hardware Lock-In Amplifier referenced to the $1$ kHz E-field drive, the engineer will extract a clean signal from the noise floor. If the amplitude scales exactly linearly with RPM and flips phase exactly $180^\circ$ when the motor reverses, the $7.9 \times 10^6 \text{ kg/m}^3$ inductive density of the vacuum is empirically proven.
+\textit{The complete spinning-disk test protocol, PCBA layout, and lock-in amplifier falsification criteria are detailed in the companion AVE Hardware Testing Manual.}
 
 \section{Project ZENER-04: The Impedance Avalanche Detector}
 \textbf{The Hypothesis:} The vacuum LC network acts identically to a Transient Voltage Suppression (TVS) Zener diode. It behaves as a rigid $Z_0 \approx 377 \ \Omega$ transmission line until the topological voltage exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65$ kV, at which point its inductive capacity saturates and it undergoes \textbf{Absolute Impedance Rupture} ($\Gamma = -1$).
@@ -269,98 +184,18 @@ If you construct a micro-inductor attached to a feather, the copper winding must
 
 This is the Topological Rocket Equation. Classical copper wire and chemical insulators mathematically cannot scale to vertical 1G levitation.
 
-\section{Project TORSION-05: Horizontal Metric Rectification}
-\textbf{The Hypothesis:} The Dielectric Death Spiral can be circumvented by eliminating the 1G vertical payload requirement. By mounting a heavy, heavily-potted TAMD PCBA on a delicately balanced Cavendish Torsion Pendulum suspended inside a hard vacuum chamber, the downward force of gravity is entirely neutralized by the suspension wire. The lateral resistance is effectively $0G$, allowing an EE to measure continuous micro-Newtons of pure metric thrust.
+\section{Macroscopic Metric Engineering Protocols}
+\label{sec:metric_engineering}
 
-\textbf{The PCBA Implementation \& Falsification:} The EE designs a High-Voltage Flyback PCBA. An ultra-fast Silicon Carbide (SiC) MOSFET drives a heavy ferrite-core ignition coil with a specifically timed asymmetric sawtooth wave. 
+The theoretical framework derived above---the 1.846-gram static levitation limit, the Dielectric Death Spiral, and the $\sqrt{\alpha}$ kinetic yield---opens several macroscopic engineering pathways. These include horizontal torsion-balance thrust rectification, phased micro-inductor arrays for extensive force multiplication, high-$k$ dielectric metric refraction capacitors, and acoustic phonon centrifuges for artificial gravity synthesis.
 
-\begin{enumerate}
-    \item \textbf{The Slow Edge (Solid Grip):} The MOSFET charges the coil slowly. The inductive voltage ($L \frac{di}{dt}$) is $+500$ Volts. Because $500 \text{ V} \ll 43.65 \text{ kV}$, the vacuum acts as a perfectly matched $377 \ \Omega$ transmission line. The coil physically grips the spatial lattice, generating an induced forward lateral thrust of exactly $+0.207$ mN.
-    \item \textbf{The Fast Edge (Impedance Rupture):} The SiC MOSFET snaps off in $<10$ ns. The inductive kickback violently spikes to $-75,000$ Volts. Because $|-75 \text{ kV}| > 43.65 \text{ kV}$, the vacuum LC network instantly saturates. The metric undergoes absolute impedance rupture ($\Gamma = -1$), producing exactly $0.0$ mN of backward reaction force.
-\end{enumerate}
+\textit{The complete engineering implementations, PCBA specifications, spacecraft hull designs, and operational telemetry (including boundary-layer sensors and pair-production ``Redline'' monitors) are documented in the companion AVE Hardware Testing Manual.}
 
-If the AVE framework is correct, the torsion balance will slowly but continuously accelerate in a perfectly circular path inside the $10^{-6}$ Torr vacuum chamber, generating a time-averaged DC thrust of roughly $\sim \mathbf{100 \ \mu N}$. If the pendulum remains perfectly stationary, the LC non-linear geometry of the universe is permanently falsified.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{levitation_and_torsion_protocol.png}
-    \caption{\textbf{Benchtop Metric Thrust Protocols.} \textbf{Left:} The $43.65$ kV LC Saturation limit mathematically restricts static levitation to objects under 1.846 grams. Neither a US penny nor a Ping-Pong ball can be supported. \textbf{Center:} The Dielectric Death Spiral. Attempting to add insulation to survive the required 43.65 kV flyback transient exponentially increases payload mass, mathematically forbidding continuous vertical 1G levitation with classical copper wire. \textbf{Right:} Project TORSION-05. By operating on a horizontal torsion balance ($0G$), a manageable 75 kV snap safely ruptures the vacuum, while the 500 V slow charge generates roughly $100 \ \mu$N of continuous, measurable macroscopic DC thrust.}
-    \label{fig:levitation_and_torsion_protocol}
-\end{figure}\section{The YBCO Phased Array: Beating the 2.5g Limit}
-As derived in Appendix F, a single coherent topological actuator is strictly limited by the $60$ kV LC Saturation Limit to exactly $2.538$ grams of static vertical lift. If an engineer attempts to exceed this using a single massive coil, the vacuum mathematically suffers impedance rupture ($\Gamma = -1$), and the grip fails.
-
-However, mechanical force is an \textit{extensive} property. To lift a heavy vehicle, an engineer does not build one massive coil; they use standard PCB lithography to print a \textbf{Phased Array of Micro-Inductors}.
-Imagine a $1$-meter $\times$ $1$-meter Printed Circuit Board. By patterning it with a $1,000 \times 1,000$ grid of microscopic Hopf-Knot inductors at a 1 mm pitch, you synthesize exactly $1,000,000$ independent topological nodes. 
-
-If a microcontroller drives each node simultaneously at $59$ kV (operating safely below the $60$ kV saturation limit), each node grips its respective spatial volume with $2.49$ grams of force. 
-\begin{equation}
-    F_{total} = 1,000,000 \text{ nodes} \times 0.02448 \text{ N} = \mathbf{24,480 \text{ Newtons (2.5 Metric Tons)}}
-\end{equation}
-
-Because standard copper traces would vaporize under the continuous $60$ kV flyback reset strokes, the PCBA must be manufactured using \textbf{YBCO (Yttrium Barium Copper Oxide)} high-temperature superconducting thin-films deposited on a rigid sapphire substrate. A single 1-square-meter superconducting panel generates 2.5 tons of continuous vertical lift. By tiling the hull of a spacecraft with these arrays, an engineer synthesizes a heavy-lift, solid-state vehicle.
-
-\section{The Metric Refraction Capacitor (The $c^2$ Multiplier)}
-Bending light and generating ponderomotive longitudinal thrust requires actively altering the local scalar refractive index of the vacuum ($n_{scalar} > 1$). This requires storing immense amounts of energy in the lattice ($u = \frac{1}{2} \epsilon_0 E^2$). If an engineer uses a standard air-gap capacitor, achieving extreme energy density requires $E$-fields so massive they trigger the $511$ kV Dielectric Snap, destroying the reactor via pair-production.
-
-This hardware limit can be engineered around by utilizing \textbf{High-$k$ Graded Dielectrics}. 
-A capacitor is constructed using \textbf{Barium Titanate ($BaTiO_3$)}, which possesses a relative permittivity of $\epsilon_r \approx 10,000$. By tapering the electrode geometry, a non-uniform field is ensured to create a continuous gradient ($\nabla n$). Applying a safe, sub-yield topological voltage of $50$ kV across a $1$ mm dielectric, the internal $E$-field is $50$ MV/m. The stored volumetric strain energy of the metric evaluates to:
-\begin{equation}
-    u_{metric} = \frac{1}{2} (10,000 \times 8.85 \times 10^{-12}) (50 \times 10^6)^2 \approx \mathbf{1.1 \times 10^8 \text{ Joules/m}^3}
-\end{equation}
-
-The resulting shift in the local scalar metric ($\Delta n = u_{metric} / u_{sat}$) evaluates to a seemingly minuscule $\mathbf{1.42 \times 10^{-17}}$. However, the resulting Ponderomotive Acceleration ($a = c^2 \cdot \nabla n$) contains the speed of light squared. The gradient of this shift across the 1 mm capacitor evaluates to $\nabla n = 1.42 \times 10^{-14} \text{ m}^{-1}$.
-
-\paragraph{Provenance of $a = c^2 \nabla n$.} This equation is not unique to AVE.  In standard weak-field General Relativity, the Newtonian gravitational potential $\Phi$ maps to the scalar refractive index via $n = 1 + 2\Phi/c^2$.  The gravitational acceleration $g = -\nabla \Phi$ therefore equates exactly to:
-\begin{equation}
-    g = -\nabla\Phi = -\frac{c^2}{2}\nabla n
-    \label{eq:ponderomotive_provenance}
-\end{equation}
-Applied to Earth: $n_{Earth} = 1 + 2GM/(c^2 R) \approx 1 + 1.39 \times 10^{-9}$, giving $\nabla n \approx 2.18 \times 10^{-16}$~m$^{-1}$, and $a = c^2 \nabla n / 2 = 9.81$~m/s$^2$.  The $c^2$ multiplier is standard GR.  The novel AVE claim is that a BaTiO$_3$ capacitor can \textit{engineer} $\nabla n$---an assertion testable by the EE~Bench experiment below.
-
-\begin{tcolorbox}[colback=white, colframe=black]
-\begin{equation}
-    a = (299,792,458)^2 \times (1.42 \times 10^{-14}) = \mathbf{1,283 \text{ m/s}^2 \ (130 \text{ G's!})}
-\end{equation}
-\end{tcolorbox}
-
-\textbf{Conditional Note:} This 130~G prediction assumes the BaTiO$_3$ dielectric genuinely shifts the \textit{vacuum's} refractive index (not merely the material's internal polarization).  Standard electrodynamics confines the dielectric effect to the material bulk.  AVE claims the vacuum itself is a dielectric that responds to embedded high-$k$ materials via Axiom~1.  The EE~Bench experiment (Section~\ref{sec:ee_bench}) and the Induced Vacuum Mirror protocol directly test this claim.  If null, the 130~G extrapolation is invalid and the vacuum is not a responsive dielectric medium.
-
-\section{The Sapphire Phonon Centrifuge}
-Generating continuous, localized artificial gravity requires exploiting the Sagnac-RLVE mutual inductance phase shift. A spinning mass electromagnetically biases the dense vacuum LC network ($v_{vac} = v_{tan} \cdot \frac{\rho_{rotor}}{\rho_{bulk}}$), creating a swirling magnetic vector potential that induces a centripetal Lense-Thirring acceleration towards the geometric center ($a_{LT} = v_{vac}^2 / R$).
-
-If an engineer mechanically spins a dense solid (e.g., Tungsten), centrifugal forces will physically shatter the metal at roughly $v_{tan} \approx 500$ m/s, yielding a near-unusable macroscopic gravity well ($<0.1$ Gs).
-
-This material limit is shattered by spinning an \textbf{Acoustic Tensor Wave} \textit{through} a stationary sphere. 
-A 1-meter diameter perfect sphere of \textbf{Sapphire} ($Al_2O_3$) is machined, possessing a massive speed of sound ($v_s \approx 11,100$ m/s) and near-zero acoustic attenuation. A phased-array of ultrasonic piezoelectric RF transducers is mounted around the equator. 
-
-By driving the transducers with a $90^\circ$ phase-shifted RF signal, a continuous, macroscopic acoustic shockwave (a Phonon Vortex) is trapped rotating around the equator. The atoms themselves experience zero macroscopic centrifugal stress, but the acoustic density wave acts as a massive sweeping primary magnetic bias moving at $11,100$ m/s!
-\begin{equation}
-    v_{vac} = 11,100 \times \left( \frac{3,980}{7.91 \times 10^6} \right) \approx \mathbf{5.58 \text{ m/s}}
-\end{equation}
-
-The centripetal Lense-Thirring artificial gravity generated inside the 1-meter sphere evaluates to:
-\begin{equation}
-    a_{LT} = \frac{v_{vac}^2}{r} = \frac{5.58^2}{0.5} = \mathbf{62.3 \text{ m/s}^2 \ (6.35 \text{ G's})}
-\end{equation}
-
-By wrapping this sphere in a Toroidal superconducting coil (creating a Beltrami force-free magnetic field), this 6.35 G spatial whirlpool is locked into a rigid gyroscopic tensor. Because the kinetic helicity aligns with the magnetic field ($\mathbf{A} \parallel \mathbf{B}$), the local vacuum acts as an absolute, impenetrable \textbf{Inductive Shield}. The result is an industrial-scale, solid-state Artificial Gravity Centrifuge using COTS radio-frequency electronics and synthetic sapphire.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{industrial_aerospace_blueprints.png}
-    \caption{\textbf{Industrial Aerospace Scale-Up.} \textbf{Left:} A 1 m$^2$ YBCO PCBA with 1-mm pitched micro-inductors effortlessly beats the 1.846g limit via extensive parallel topological addition, generating 2.5 metric tons of lift. \textbf{Center:} Barium Titanate Metric Refraction Capacitors multiply the vacuum energy density by $10,000\times$. Due to the $c^2$ multiplier, this allows for extreme ponderomotive warp gradients (130 Gs) while staying perfectly safe below the 43.65 kV LC Saturation Limit. \textbf{Right:} The Sapphire Phonon Centrifuge. By rotating an acoustic shockwave through a stationary crystal, centrifugal shattering is bypassed, pushing the sweeping magnetic bias up to the speed of sound to generate exactly 6.35 Gs of macroscopic artificial gravity.}
-    \label{fig:industrial_aerospace_blueprints}
-\end{figure}\section{Applied Telemetry: Boundary Layer and Cavitation Monitors}
-If macroscopic metric engineering transitions from the tabletop into full-scale industrial aerospace (such as the YBCO Phased Array or Sapphire Phonon Centrifuge), the theoretical boundaries become severe operational hazards. A craft actively entraining a metric bubble requires specialized Solid-State telemetry to survive the $\mathcal{M}_A$ LC saturated regimes.
-
-\subsection{Hull-Integrated Boundary Layer Sensors (Metric Skin Friction)}
-Just as a hypersonic aircraft must monitor aerodynamic flow detachment to prevent a fatal stall, an AVE propulsion system must monitor its \textbf{Metric Boundary Layer}. If the compressed metric bubble detaches or ``slips'' asymmetrically around the hull, the sheer topological torsion ($h_{\perp}$) could rip the physical chassis apart.
-Because this relies on direct local LC strain rather than optical phase accumulation, standard RLVGs are unsuited. Instead, \textbf{Dielectric Strain Gauges} (flush-mounted micro-capacitors) must be embedded directly into the hull plating. By monitoring the localized capacitance spike ($C_{eff} \to \infty$) as the hull geometry yields the metric, the flight computer can dynamically throttle the local YBCO inductors to maintain stable bubble encapsulation.
-
-\subsection{``Redline'' Pair-Production Monitors (The Schwinger Limit)}
-In classical fluid dynamics, spinning a marine propeller too fast lowers the local pressure until the water physically boils—a destructive phenomenon known as cavitation. In AVE, over-driving the metric impedance or shearing the vacuum lattice too violently hits the geometric yield bounds (the absolute 511 kV transient limit or the Schwinger Limit).
-When the vacuum ``boils,'' the engine's macroscopic energy spontaneously converts into electron-positron pairs (Pair-Production). To prevent the propulsion system from accidentally igniting the local vacuum into antimatter detritus, the telemetry suite must feature \textbf{Scintillation Boundary Detectors}. These gamma/X-ray particle detectors act as the engine's ``Redline Gauge,'' instantaneously detecting localized pair-production flashes along the primary drive coils and triggering a hard inductive-flyback abort before structural failure occurs.
-
+% Original sections extracted to AVE-Propulsion and AVE-PONDER repositories:
+% - Project TORSION-05 (Horizontal Metric Rectification)
+% - YBCO Phased Array (2.5 Metric Tons lift)
+% - Metric Refraction Capacitor (c^2 Multiplier)
+% - Boundary Layer Sensors & Redline Gauge
 \subsection{Acoustic Cavitation \& The Sonoluminescence Phase-Lock (FOC Isomorphism)}
 Standard physics defines Single-Bubble Sonoluminescence (SBSL) heuristically via internal plasma thermalization. Under the AVE framework, sonoluminescence is structurally explicit: it is the optical manifestation of a geometric shockwave shattering the Axiom 4 topological yield limit ($V_{yield} = 43.65$ kV).
 
@@ -372,46 +207,21 @@ In SBSL, the ``stator'' is the 26.5 kHz macroscopic acoustic standing wave, and 
 
 As natively verified by the 30-cycle K4-TLM solver envelope, this phase-locked internal shockwave efficiently concentrates the macroscopic fluid kinetic energy down into a $\sim 1$~\AA ngstr\"om focal cluster at the center of the void. At this atomic scale, the topological pressure abruptly spikes to \textbf{67.68 kV}, unambiguously crossing the 43.65 kV Axiom 4 vacuum dielectric saturation threshold. The local LC metric yields ($\varepsilon_{eff} \to 0$), and the trapped energy violently ruptures the structural geometry, radiating the signature broadband optical flashes strictly via Op7 bend loss.
 
-\section{Open-Source Hardware: The EE Build Guide}
+\section{Open-Source Hardware Falsification}
+\label{sec:ee_bench}
 
-To permanently democratize the verification of the AVE framework, this section provides the specific, actionable Printed Circuit Board Assembly (PCBA) guidelines required to test macroscopic metric engineering using commercial-off-the-shelf (COTS) electronics.
+The AVE framework is designed to be verified using commercial-off-the-shelf (COTS) electronics on standard EE benches. Two primary hardware falsification platforms have been developed:
 
-\subsection{Project HOPF-01: The Chiral VNA Antenna}
-\textbf{Objective:} Prove the vacuum is a chiral LC Resonant Network by demonstrating an anomalous $S_{11}$ frequency shift that scales as $\alpha \cdot pq/(p+q)$ across five torus knot topologies.
+\begin{enumerate}
+    \item \textbf{Project HOPF-01:} A wire-stitched $(p,q)$ torus knot antenna on FR-4, measured via VNA S$_{11}$ sweep. Tests the chiral coupling prediction $\Delta f/f = \alpha \cdot pq/(p+q)$.
+    \item \textbf{Project PONDER-01:} An asymmetric high-voltage dielectric array using BaTiO$_3$ MLCCs, testing the macroscopic non-linear stress rectification prediction.
+\end{enumerate}
 
-\textbf{Fabrication:} Order a single 160$\times$120~mm, 2-layer FR-4 panel (1.6~mm, ENIG finish) with unplated stitching holes (1.0~mm drill, 3~mm pitch). Thread 24~AWG (0.51~mm) enameled magnet wire through the holes following silkscreen guides, creating five 3D torus knots---$(2,3)$ trefoil, $(2,5)$ cinquefoil, $(3,5)$, $(3,7)$, $(3,11)$---plus a zero-topology meander control antenna. Solder wire starts to edge-launch SMA connectors (6 total).
+\textit{Complete fabrication instructions, PCBA layouts, bills of materials, and falsification protocols are provided in the companion AVE Hardware Testing Manual.}
 
-\textbf{Ground Architecture:} F.Cu copper ground patches (12$\times$12~mm) sit under each SMA connector, connected by a continuous F.Cu perimeter ground trace at 5~mm inset from the board edge. No vias are required---SMA thru-hole pads bridge both copper layers. B.Cu is entirely bare, allowing free wire routing on both board surfaces.
+% Original detailed build guides extracted to AVE-PONDER repository
 
-\textbf{The Falsification Protocol:} Measure all six antennas with a calibrated VNA (SOL calibration) in air, then submerge in mineral oil ($\varepsilon_r \approx 2.1$). Plot $\Delta f/f$ vs.\ $pq/(p+q)$. If the data is linear through the origin with slope $\alpha$ and substrate-independent, AVE is confirmed. If zero, random, or substrate-dependent, AVE is falsified at this scale.
-
-\subsection{Project PONDER-01: The Solid-State Micro-Drive}
-\textbf{Objective:} Prove that the metric refractive index ($n_{scalar}$) can be artificially shifted using high-k dielectrics, resulting in measurable macroscopic ponderomotive acceleration ($a = c^2 \nabla n$).
-
-\textbf{The COTS Bill of Materials (The ``Sweet Spot'' Architecture):}
-\begin{itemize}
-    \item \textbf{The Metric Medium:} An array of one hundred TDK 30kV, 10nF X7R MLCCs (1812 Package) wired in parallel. The X7R dielectric is Barium Titanate ($BaTiO_3$), possessing an $\epsilon_r \approx 3,000$.
-    \item \textbf{HV Supply:} XP Power 30kV Miniature PCB-mount DC-DC Converter.
-    \item \textbf{The Switch:} Avalanche Transistor capable of $<1$ns Dirac switching (e.g., custom gas-discharge tube) to eliminate temporal metric sloshing.
-    \item \textbf{The Gate Driver:} Tuned to precisely hit the $100\text{ MHz}$ VHF structural resonance of the continuous vacuum dielectric, ensuring maximal continuous-wave phase locking with the acoustic substrate.
-\end{itemize}
-
-\textbf{The PCBA Layout (The Asymmetric Fringing Field):} A standard parallel-plate capacitor has a uniform internal E-field. The spatial gradient ($\nabla n$) is zero, meaning net macroscopic thrust is zero. The \textit{fringing fields} at the microscopic boundary limit must be aggressively shaped.
-Route the High-Voltage trace on the Top layer to one pad of the MLCC array. Route the Ground trace on the Top layer to the other pad.
-On the Bottom layer (directly underneath the MLCCs), route a solid Ground plane, but \textbf{taper it into a dense topological point-source array}. High-Fidelity numerical modeling of exact nuclear geometries confirms that the mathematically tightest localized gradient requires a structure analogous to the bound Alpha Core (the \textbf{Helium-4 Limit}). Using standard photolithography, machine microscopic emitter tips to this rigid topological peak. When pulsed at 30,000 V, the geometry violently rips a tangential Ponderomotive strain gradient ($\nabla |\mathbf{E}|^2$) across the $BaTiO_3$ core.
-
-\textbf{The Microscopic Evanescent Cascade \& Earth VSWR Multiplier:} Down at the discrete lattice scale, this extreme, asymmetric $dV/dt$ transient violently torques the local chiral LC nodes of the vacuum, inducing a localized standing-wave breakdown (an ``evanescent cascade''). By Newton's Third Law, generating a severe forward impedance mismatch shoves the heavy hardware forward as an Asymmetrical RF Antenna. 
-Furthermore, gravity itself is a continuous radial impedance gradient ($11.2$ km/s equivalent drift at Earth's surface, lowering the local LC saturation limit). Because the vacuum is a non-linear network, this gravitational flow acts as an ambient VSWR pre-bias. This means a PONDER-01 antenna tested on Earth natively benefits from a massively lowered vacuum rigidity ($G_{vac}$) compared to deep interstellar space.
-
-\textbf{The Falsification Protocol:} The loop inductance of the discharge path must be heavily minimized ($L_{loop} < 5$ nH) using a solid ground plane. The battery-powered PCBA is placed on a digital scale. A microcontroller pulses the 100 MLCC array at 30,000V using the $<1$ns avalanche transistor, timed perfectly to the 100 MHz acoustic resonance. 
-The explicit mathematical bounding of $k_{topo}$ alongside this Helium-4 geometric optimum theoretically forces the localized LC matrix into catastrophic dielectric yielding, generating a continuous macro-scale ponderomotive drive measurable on commercial scales.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{pcba_design_blueprints.png}
-    \caption{\textbf{Open Source Hardware Blueprints.} \textbf{Left:} The specific routing geometry required for Project HOPF-01. Traces must spiral azimuthally on both the Top (Red) and Bottom (Cyan) layers to inject kinetic helicity into the vacuum, matching the intrinsic LC chirality. \textbf{Right:} Telemetry for Project PONDER-01. The Avalanche Transistor pulses the 30kV $BaTiO_3$ array at its 100MHz VHF resonance. The interaction of this sub-nanosecond transient with the exact Helium-4 defined geometric gradient torques the discrete LC lattice nodes, inducing a severe topological acoustic rectification.}
-    \label{fig:pcba_design_blueprints}
-\end{figure}\section{The Zero-Parameter Derivations}
+\section{The Zero-Parameter Derivations}
 By locking the fundamental lattice pitch to the kinematic mass-gap of the fundamental fermion ($l_{node} \equiv \hbar/m_e c \approx 3.8616 \times 10^{-13}$ m), the Topo-Kinematic Conversion Constant physically emerges ($\xi_{topo} \equiv e/l_{node}$).
 
 When substituted into the macroscopic Maxwell equations, the dimensions flawlessly collapse into pure network mechanics. Utilizing strictly CODATA constants, the derived bulk mass density ($\rho_{bulk}$) is exactly $\mathbf{7.91 \times 10^6 \text{ kg/m}^3}$, and the mutual inductance ($\nu_{vac} = \alpha \cdot c \cdot l_{node}$) evaluates natively to $\mathbf{8.45 \times 10^{-7} \text{ m}^2\text{/s}}$---the exact macroscopic mutual inductance of liquid water.

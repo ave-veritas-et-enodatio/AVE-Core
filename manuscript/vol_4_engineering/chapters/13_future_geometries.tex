@@ -11,7 +11,7 @@
 \end{itemize}
 \end{objectivebox}
 
-While the PONDER-01 asymmetric PCBA explicitly exploits a linear 1D voltage gradient ($\nabla |\mathbf{E}|^2$) to couple volumetrically to the Chiral LC vacuum, the Zero-Parameter Universe framework allows for pure Magnetohydrodynamic (MHD) coupling via topological invariants.
+While an asymmetric high-voltage array explicitly exploits a linear 1D voltage gradient ($\nabla |\mathbf{E}|^2$) to couple volumetrically to the Chiral LC vacuum, the Zero-Parameter Universe framework allows for pure Magnetohydrodynamic (MHD) coupling via topological invariants.
 
 The most profound analogue is the \textbf{Electromagnetic Knot}, mathematically formalized as a Hopf Fibration.
 
@@ -44,8 +44,8 @@ The limitation lies in practical electrical engineering. While a volumetric knot
 
 Given a strict laboratory $1 \text{ kW} \ / \ 100 \text{ MHz}$ continuous-wave power budget:
 \begin{itemize}
-    \item \textbf{Electrostatic PCBA Limit ($\sim 45 \ \mu \text{N}$):} Thrust scales with the square of the voltage ($F \propto V^2$). By building an array with very minimal capacitance ($\sim 100 \text{ pF}$), resonant Q-multiplication easily generates the $30 \text{ kV}$ potentials needed to rupture the lattice geometry.
-    \item \textbf{Hopf Coil Limit ($\sim 18.2 \ \mu \text{N}$):} Thrust scales with the integrated magnetic helicity, driven by the square of the current ($F \propto I^2$). Because a 3D Hopf coil requires long, tangled wire paths, its self-inductance is enormous. At $100 \text{ MHz}$, this chokes the circulating current to a fraction of what an equivalent LC gap allows. 
+    \item \textbf{Asymmetric Dielectric Limit:} Topological stress scales with the square of the voltage ($F \propto V^2$). By building an array with very minimal capacitance ($\sim 100 \text{ pF}$), resonant Q-multiplication easily generates the $30 \text{ kV}$ potentials needed to rupture the lattice geometry.
+    \item \textbf{Hopf Coil Limit:} Topological stress scales with the integrated magnetic helicity, driven by the square of the current ($F \propto I^2$). Because a 3D Hopf coil requires long, tangled wire paths, its self-inductance is enormous. At $100 \text{ MHz}$, this chokes the circulating current to a fraction of what an equivalent LC gap allows. 
 \end{itemize}
 
 Therefore, while the Hopf Fibration is theoretically superior for deep-space topological drive systems (where superconducting magnet current densities are attainable), the high-voltage electrostatic gradient remains the superior architecture for table-top derivation against the threshold limits of an optical torsion balance.
@@ -75,24 +75,9 @@ To visualize the mechanics of why this phased delay generates macroscopic moment
 
 The phased array coils match the natural resonant frequency of the chiral LC network. By sequentially ``hitting'' the LC network with the correct geometric and phased interface, the array builds a coherent standing wave. Because the array is physically asymmetric in its timing, the standing wave builds an asymmetric pressure gradient in the fluid matrix. 
 
-In the language of Newtonian mechanics: the array pushes the structured vacuum sequentially, and the structured vacuum pushes back. The resulting ``back-reaction'' is the macroscopic ponderomotive thrust $F_{ave}$, derived not from expelling propellant, but by continuous acoustic rectification against the absolute dielectric limits of the $\mathcal{M}_A$ continuum.
+In the language of Newtonian mechanics: the array pushes the structured vacuum sequentially, and the structured vacuum pushes back. The resulting ``back-reaction'' is the macroscopic topological stress $F_{ave}$, derived not from expelling propellant, but by continuous acoustic rectification against the absolute dielectric limits of the $\mathcal{M}_A$ continuum.
 
-\subsection*{Thruster Topology Comparison}
-\begin{center}
-\small
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Property} & \textbf{PCBA (1D)} & \textbf{Hopf Coil (3D)} & \textbf{Phased Array} \\
-\midrule
-Coupling          & $\nabla|\mathbf{E}|^2$ (gradient) & $\mathbf{E}\cdot\mathbf{B}$ (helicity) & Synthetic OAM \\
-Self-inductance   & Low ($\sim$nH) & Very high ($\sim\mu$H) & Low ($\sim$nH/element) \\
-Thrust (1 kW)     & $45\,\mu$N & $18.2\,\mu$N & TBD \\
-Knot topology     & None ($0_1$) & Hopf link ($L_2$) & $T(3,2)$ synthetic \\
-TRL               & 3 (tested) & 1 (concept) & 1 (concept) \\
-\bottomrule
-\end{tabular}
-\end{center}
+\textit{Detailed quantitative performance analyses across PCBA, Hopf Coil, and Phased Array bounds are detailed in the companion AVE Hardware Testing Manual.}
 
 \section{Engineering the High-Q Chiral Impedance Antenna}
 \label{sec:high_q_chiral}

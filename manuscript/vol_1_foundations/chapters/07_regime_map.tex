@@ -85,7 +85,7 @@ In Regime~I, the saturation factor admits a convergent Taylor expansion:
     S(r) = 1 - \frac{r^2}{2} - \frac{r^4}{8} - \frac{r^6}{16} - \cdots
     \label{eq:S_taylor}
 \end{equation}
-To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt{2\alpha}$, $\Delta S = \alpha \approx 1/137$. This validates the use of unmodified Maxwell/Newton equations in all terrestrial laboratory experiments except those explicitly designed to approach $V_{yield}$ (e.g., PONDER-05).
+To leading order, $\Delta S \approx r^2/2$. At the derived boundary $r_1 = \sqrt{2\alpha}$, $\Delta S = \alpha \approx 1/137$. This validates the use of unmodified Maxwell/Newton equations in all terrestrial laboratory experiments except those explicitly designed to approach $V_{yield}$ (e.g., asymmetrical high-voltage capacitors).
 
 \section{Domain Control Parameter Catalog}
 \label{sec:domain_catalog}
@@ -107,8 +107,8 @@ Control parameter & $r = V / V_{yield}$ \\
 \noindent \textbf{Regime locations:}
 \begin{itemize}
     \item Lab capacitor (1~kV): $r = 0.023$ --- Regime~I
-    \item PONDER-05 @ 30~kV: $r = 0.687$ --- Regime~II
-    \item PONDER-05 @ 43~kV: $r = 0.985$ --- Regime~III
+    \item HV Capacitor @ 30~kV: $r = 0.687$ --- Regime~II
+    \item HV Capacitor @ 43~kV: $r = 0.985$ --- Regime~III
     \item Schwinger pair production: $r = 1.0$ --- Regime~IV boundary
 \end{itemize}
 
@@ -274,12 +274,12 @@ Lab capacitor (1~kV)       & EM       & $0.023$    & I \\
 MRI scanner (3~T)          & Magnetic & $10^{-9}$  & I \\
 \hline
 \multicolumn{4}{|c|}{\textit{Regime II (Nonlinear, $0.1 \leq r < 0.9$)}} \\ \hline
-PONDER-05 @ 30~kV          & EM       & $0.687$    & II \\
+HV Capacitor @ 30~kV          & EM       & $0.687$    & II \\
 Nb superconductor @ 4~K    & BCS      & $0.435$    & II \\
 NS merger surface ($h \sim 0.01$) & GW & $0.117$    & I (sub-$\alpha$) \\
 \hline
 \multicolumn{4}{|c|}{\textit{Regime III (Yield, $0.9 \leq r < 1.0$)}} \\ \hline
-PONDER-05 @ 43~kV          & EM       & $0.985$    & III \\
+HV Capacitor @ 43~kV          & EM       & $0.985$    & III \\
 Nb @ 9.1~K ($T_c = 9.2$~K) & BCS    & $0.989$    & III \\
 \hline
 \multicolumn{4}{|c|}{\textit{Regime IV (Ruptured, $r \geq 1.0$)}} \\ \hline
@@ -315,7 +315,7 @@ Schwinger field             & EM      & $11.7$     & IV \\
 
 \begin{exercisebox}
 \begin{enumerate}
-    \item Using the first-order Taylor expansion of $S(r)$ (Eq. \ref{eq:S_taylor}), calculate the percentage magnitude error introduced by using the linear low-energy Maxwell equations to model a $30\,\text{kV}$ PONDER-05 thruster where $r \approx 0.687$.
+    \item Using the first-order Taylor expansion of $S(r)$ (Eq. \ref{eq:S_taylor}), calculate the percentage magnitude error introduced by using the linear low-energy Maxwell equations to model a $30\,\text{kV}$ asymmetric vacuum capacitor where $r \approx 0.687$.
     \item According to the AVE framework, what physical property of the $\mathcal{M}_A$ lattice is destroyed when $r \ge 1.0$, and why does this conceptually eliminate the need for mathematical singularities at the center of black holes? 
 \end{enumerate}
 \end{exercisebox}

@@ -45,59 +45,15 @@ To explicitly measure this, an ultra-stiff localized dielectric gap (engineered 
 
 The detection of this geometric asymptote prior to atomic plasma ionization unequivocally confirms the hardware limits of the spatial lattice, directly falsifying the linear continuum model.
 
-\section{The Ponder-01: Asymmetric Maxwell Stress Rectification}
-Standard physics dictates that an enclosed system (such as a capacitor in a vacuum) cannot generate unidirectional thrust without expelling reaction mass, as it would violate the conservation of momentum.
+\section{Asymmetric Maxwell Stress Rectification}
+\label{sec:ponder01}
 
-However, the AVE framework explicitly models the vacuum as a structurally rigid LC dielectric manifold. Because the spatial nodes themselves possess a restorative bulk modulus, they can physically absorb and anchor mechanical momentum. If you generate a highly asymmetric geometric gradient of electric field energy ($|\mathbf{E}|^2$) using a sharp emitter and a flat collector, the metric experiences a non-uniform spatial stress.
+The AVE framework predicts that the vacuum's non-linear dielectric saturation (Axiom~4) can rectify the time-averaged Maxwell stress tensor across an asymmetric electrode geometry, producing a net macroscopic longitudinal force. The theoretical basis is the divergence of the Maxwell stress tensor $\sigma_{ij}$ integrated over the asymmetric boundary, combined with the Axiom~4 saturation operator which prevents symmetric cancellation of the AC stress cycle.
 
-Previously, early PONDER derivations attempted to model this via standard ponderomotive plasma equations, yielding dimensionally invalid geometric scaling predictions. Within a continuous topological solid, macroscopic unidirectional thrust must be derived rigorously from the divergence of the \textbf{Maxwell Stress Tensor} ($\sigma_{ij}$) integrated over the asymmetric boundary surface:
-\begin{equation}
-    F_i = \oint_{\partial V} \sigma_{ij} n_j \, da - \int_V \frac{\partial \mathbf{g}}{\partial t} \, d^3x
-\end{equation}
-where $\mathbf{g} = \mathbf{E} \times \mathbf{H} / c^2$ represents the localized momentum density of the strained LC lattice. When driven at Very High Frequencies (VHF) across an extreme geometric asymmetry, the non-linear saturation operator ($\varepsilon_{eff}(V)$) mechanically rectifies the strain. The time-averaged AC momentum derivative cannot sum symmetrically to zero. This \textbf{Non-Linear Stress Rectification} explicitly converts continuous high-frequency vibration into direct, macroscopic unidirectional thrust \textit{against the rigid vacuum metric itself}.
+\textit{The complete experimental protocol, torsion balance specification, electrode geometry optimization, Dark Wake conservation analysis, and thrust-to-power energy budget are detailed in the companion AVE Hardware Testing Manual.}
 
-\subsection{The Falsification Protocol}
-To explicitly test this macroscopic topological grip, an asymmetric dielectric stack (or vacuum gap) is mounted securely to a high-vacuum, magnetically-damped torsional micro-thrust balance.
-\begin{enumerate}
-    \item \textbf{Optimal Electrode Geometry:} A High-Fidelity geometric simulation of the $\nabla |\mathbf{E}|^2$ gradient identifies a strict mathematical optimum at exactly a \textbf{1000:1 Asymmetry Ratio} (e.g., a $1 \mu\text{m}$ emitter curvature radius acting against a $1 \text{ mm}$ planar collector gap).
-    \item \textbf{High-Voltage/High-Frequency Sweep:} A $30 \text{ kV}$ RMS AC signal is swept logarithmically from $1 \text{ MHz}$ up through the $\text{VHF}$ band ($100 \text{ MHz}$).
-    \item \textbf{Torsional Thrust Measurement:} Because the coupling efficiency to the rigid lattice increases continuously with frequency, the macroscopic thrust theoretically scales exactly proportionally with $V^2 f^2$.
-\end{enumerate}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1.0\textwidth]{ponder_01_thrust_prediction.png}
-    \caption{\textbf{The Ponder-01 Asymmetric Thrust Profile.} Applying an asymmetrical voltage gradient subjects the non-linear continuous vacuum to asymmetric structural strain, explicitly converting alternating geometric momentum into unbalanceable unidirectional macro-thrust via the divergence of the \textbf{Maxwell Stress Tensor}. \textbf{Left:} The simulated logarithmic macroscopic thrust bounds. Once the AC driving frequency enters the VHF band ($> 10 \text{ MHz}$), the integrated non-linear stress rectification is predicted to cross the $1 \mu\text{N}$ detection floor of a standard vacuum torsion balance. \textbf{Right:} Linear zoom of the VHF band showing bounds of sustained structural thrust at $30 \text{ kV}$ RMS approaching $100 \text{ MHz}$. The detection of any net unidirectional thrust in a hard vacuum explicitly proves that the spatial metric acts as a physical, load-bearing mechanical medium.}
-    \label{fig:ponder_01_falsification}
-\end{figure}
 
-\subsection{Conservation of Momentum: The Dark Wake}
-\label{sec:momentum_conservation}
-
-The vacuum lattice is the reaction mass. When the asymmetric Maxwell stress tensor generates a forward force $\mathbf{F}_{device}$ on the emitter-collector assembly, Newton's Third Law is satisfied by an equal and opposite longitudinal shear stress $\tau_{zx}$ injected into the surrounding lattice nodes:
-\begin{equation}
-    \mathbf{p}_{device} = -\int_{\partial V} \tau_{zx} \, dA
-\end{equation}
-This backward-propagating shear wave (the ``Dark Wake'') carries the reaction momentum at $c_0$ through the LC continuum. The wave is ``dark'' because pure longitudinal shear in the vacuum does not couple to transverse electromagnetic radiation---it is mechanically real but electromagnetically invisible.
-
-\paragraph{Energy Budget.} The total input power $P_{in}$ partitions between three channels:
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l c l}
-\toprule
-\textbf{Channel} & \textbf{Fraction} & \textbf{Mechanism} \\
-\midrule
-Radiative loss (EM emission) & $\sim 98\%$ & Transverse wave radiation from AC drive \\
-Dark Wake (reaction momentum) & $\sim 1\%$ & Longitudinal $\tau_{zx}$ shear at $c_0$ \\
-Ponderomotive thrust & $\sim 1\%$ & Net rectified Maxwell stress on device \\
-\bottomrule
-\end{tabular}
-\end{center}
-The thrust-to-power ratio $F_{total} \cdot c_0 / P_{in} \approx 1\%$ is consistent with the non-linear rectification efficiency of the Axiom~4 saturation operator.
-
-\paragraph{Experimental Verification.} The Stereo Parallax Validation (Chapter~\ref{ch:future_geometries}) proposes detecting the Dark Wake directly: a secondary phased microphone array, separated from the emitter by baseline $L$, should register a correlated longitudinal acoustic impulse arriving after delay $\Delta t = L / c_0$.
-
-Measuring anomalous micro-Newtons of sustained thrust within an isolated vacuum balance would contradict standard relativity's assertion of ``empty space,'' indicating the universe possesses an anchorable physical substrate.
 
 \section{The Epistemology of Falsification}
 
@@ -107,81 +63,17 @@ The Applied Vacuum Engineering (AVE) framework is constructed to be falsifiable.
 
 AVE makes falsifiable predictions about the macroscopic and microscopic dynamics of the universe that are testable on tabletop laboratory benches.
 
-\section{The Sagnac Effect and RLVG Impedance Drag}
-A long-debated experimental observation in modern physics is the Sagnac Effect. When two coherent light beams are sent in opposite directions around a rotating ring interferometer, a phase shift ($\Delta\Phi$) is observed. 
-Standard Special Relativity (SR) dictates that the speed of light must be isotropic ($c$) in all inertial frames. To account for the Sagnac phase shift, SR employs coordinate transformations, arguing the paths become different lengths depending on the observer.
+\section{The Sagnac Effect and Vacuum Impedance Entrainment}
+\label{sec:sagnac_rlvg}
 
-The AVE framework rejects this geometric abstraction. The spatial vacuum ($\mathcal{M}_A$) as a dense, structured LC impedance network. When a macroscopic mass (like the Earth, or a large gyroscope) rotates, its microscopic topological defect boundaries \textit{drag} the adjacent vacuum grid. 
-This macroscopic metric entrainment creates a localized rotating inductive slipstream. 
+The Sagnac effect---the phase shift observed in counter-propagating beams around a rotating interferometer---is reinterpreted in the AVE framework as a first-order inductive impedance drag. Because the vacuum is a structured LC network, a rotating mass physically entrains the adjacent lattice nodes via macroscopic mutual inductance ($\kappa_{entrain} = \rho_m / \rho_{bulk}$), creating a localized drift velocity that differentially shifts the co- and counter-propagating beam speeds.
 
-The Sagnac Effect is not a relativistic path-length paradox; it is a \textbf{Macroscopic Inductive Impedance Drag}. 
-When the counter-propagating laser waves are injected into the rotating metric, their propagation speed ($\vec{c}_{local}$) is governed entirely by standard localized inductive drag equations acting upon the LC wave:
-\begin{align}
-    \vec{v}_{\text{cw}} &= c - v_{\text{drift}} \\
-    \vec{v}_{\text{ccw}} &= c + v_{\text{drift}} 
-\end{align}
+This entrainment model predicts density-dependent Sagnac anomalies: identical ring laser gyroscopes constructed from Aerogel vs.\ Lead should yield different phase shifts. This is a direct, material-dependent falsification criterion absent from standard GR.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.85\textwidth]{circuit_sagnac_rlvg.png}
-    \caption{\textbf{RLVG Metric Entrainment Circuit.} The classical Sagnac loop modeled as an explicit LC Impedance phase-shifter. Macroscopic rotation dynamically lowers the local Mutual Inductance ($L(v)$) for the co-rotating path (Metric Drag Advance) while increasing it for the counter-rotating path (Metric Drag Delay), generating the explicit $\Delta \Phi$ phase interference strictly via Lenz's Law constraints.}
-    \label{fig:sagnac_circuit}
-\end{figure}
+\textit{The complete RLVG telemetry suite---including the Differential Sagnac Array, 3D Metric Gradient Compass, Dark Wake Sensor, and Chiral Torsion Sensor---is documented in the companion AVE Hardware Testing Manual.}
 
-The counter-rotating wave experiences higher Ponderomotive Drag (Lenz's Law resistance) from the entrained metric headwind and arrives later than the co-rotating wave.
 
-\subsection{The Kinematic \& Electromagnetic Entrainment Law (Sagnac Anomalies)}
-Because the physical ``grip'' the rotor has on the LC vacuum network is a structural impedance match, the magnitude of the Lense-Thirring metric drag ($\Omega_{metric}$) is governed by the local \textbf{Mass Density} ($\rho_m$) and the \textbf{Electromagnetic Dielectric Loading} ($\mu_r, \epsilon_r$) of the rotor. 
 
-Standard relativity assumes the vacuum is an empty geometric void, claiming the Sagnac phase shift depends purely on Area and Rotational Velocity ($\Delta \Phi = \frac{4 A \Omega}{\lambda c}$), meaning rotor mass and material composition are irrelevant. 
-
-AVE rejects this. The framework states the \textbf{Kinematic \& Electromagnetic Entrainment Law}: The macroscopic structural entrainment of the continuous vacuum metric scales with the local kinematic impedance ($Z_k = \rho_m c$) and the magnetic permeability ($\mu_r$) of the boundary layer mass. High permeability materials drag ``Vacuum Eddy Currents,'' acting as a geometric core. Furthermore, because the vacuum is an LC grid, local background magnetic fields saturate the spatial inductors, shifting the local baseline optical impedance.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{sagnac_kinematic_entrainment.png}
-    \caption{\textbf{Sagnac Electrical Engineering Sensitivities (On-Earth Calibration).} A 5-panel sweep showing predicted Sagnac sensitivity to real-world material and environmental limits. \textbf{1. Density ($\rho_m$):} Denser rotors grip the vacuum more strongly. \textbf{2. Magnetic Permeability ($\mu_r$):} High $\mu$ materials (Iron) act as a solid moving core, generating LC vacuum eddy currents and amplifying the Sagnac drag. \textbf{3. Background EMI ($B$):} External DC magnetic fields pre-saturate vacuum inductance. \textbf{4. Altitude:} Operating higher in gravity lowers ambient metric strain, reducing coupling efficiency. \textbf{5. Latitude Drift:} Earth's background Lense-Thirring drag cross-talks based on RLG alignment.}
-    \label{fig:sagnac_entrainment_sweeps}
-\end{figure}
-
-\textbf{Falsification Test:} 
-High-precision Ring Laser Vacuum Gyroscopes (RLVGs) currently measure Earth's rotation to fractions of a degree per hour. AVE predicts that spinning identical RLGs at the same RPM will yield different Sagnac shifts if constructed from porous Aerogel versus solid Lead, and a further deviation if constructed from Paramagnetic Aluminium versus Ferromagnetic Mu-Metal. Researchers should also observe altitude-dependent (ambient strain), latitude-dependent (Earth Lense-Thirring), and EMI-dependent (B-field saturation) anomalies absent from ideal relativistic formulas. If the Sagnac shift remains identical independent of local $\rho_m$ mass density, magnetic permeability $\mu_r$, and ambient $Z(r)$, AVE's macroscopic inductive entrainment effect is falsified.
-
-\subsection{RLVG System Tolerances (The SNR Limit)}
-The predicted phase deviations caused by kinematic and electromagnetic entrainment are small (on the order of $1.5 \times 10^{-10}$ rad for a standard 1-meter tabletop RLG). Isolating this topological metric drag requires a high Signal-to-Noise Ratio (SNR). Standard laboratory hardware noise floors will mask the AVE signature if not managed.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1.0\textwidth]{sagnac_rlvg_tolerances.png}
-    \caption{\textbf{RLVG System Tolerance Simulation.} To isolate the AVE Kinematic Shift (Target Phase $\sim 10^{-10}$ rad) from standard geometric hardware noise. \textbf{Left:} Thermal Expansion. A Zerodur/ULE ring cavity provides the only viable thermal platform; Aluminum expands too rapidly to maintain cavity resonance. \textbf{Middle:} Laser Frequency Stability ($\Delta f$). The continuous-wave source must be actively locked to prevent wavelength jitter from muddying the fringes. \textbf{Right:} Seismic/Mechanical Vibration. Acoustic and seismic isolation constraints on the cavity mirrors.}
-    \label{fig:sagnac_rlvg_tolerances}
-\end{figure}
-
-To definitively execute the density-sweep falsification test, the experimental hardware must meet the following analytical constraints:
-\begin{enumerate}
-    \item \textbf{Thermal Expansion:} The RLG cavity must be constructed from Zero-Expansion Glass (Zerodur or ULE) and environmentally active-stabilized to better than \textbf{1.0 mK} ($0.001$ K) to prevent bulk geometric area distortion.
-    \item \textbf{Laser Source Stability:} The probe laser must be frequency-locked (e.g., Iodine-stabilized HeNe) with a continuous linewidth drift of less than \textbf{46 kHz}.
-    \item \textbf{Seismic Isolation:} Mirror dither and mechanical vibration must be actively suppressed to the sub-picometer (attometer) regime to prevent dynamic path-length jitter.
-\end{enumerate}
-If an experiment is designed verifying these tolerance bounds, and the theoretical density-dependent Sagnac anomaly $\Delta \Phi$ is still not observed, AVE is definitively and irreversibly falsified.
-
-\subsection{Applied RLVG Telemetry (Metric Slip-Velocity and Gradient Sensing)}
-Beyond falsification, measuring the local entrainment of the $Z(r)$ impedance network provides the fundamental architecture for AVE-based telemetry and navigation. Because the Sagnac-anomalous RLVG provides a direct, localized reading of the vacuum "fluid dynamics," it perfectly maps to aerospace equivalents.
-
-\textbf{1. The Metric Slip-Velocity Indicator (Differential Sagnac Array)}
-To isolate the kinematic induction drag (local space compression) from standard, physical craft rotation, a \textit{Differential Sagnac Array} is utilized. Constructing two identical RLVG cavities, one utilizing a standard high-vacuum path and the other utilizing an engineered highly-porous dielectric (e.g., Aerogel), provides two unequal coupling constants to the background metric. Subtracting out the shared kinematic rotational phase shift isolates the pure inductive drag. This generates a direct scalar readout of the craft's slip-velocity relative to the local Dark Matter filaments (the unsaturated vacuum lattice).
-
-\textbf{2. The 3D Metric Gradient Compass (Topological RLVG)}
-To navigate by "surfing" the impedance contours of local space, flat 2D planar rings are unsuited. Instead, laser paths are injected into a 3D knotted topology (e.g., a Tetrahedral or Trefoil Torus cavity). A metric moving uniformly generates a continuous scalar shift, but moving \textit{through} a steep gradient (such as diving into an Earth-scale gravity well or driving an asymmetric propulsion bubble) yields a differential strain across the 3D optical path. The counter-propagating fields generate a complex phase-shear tensor, yielding a 3D vector pointing precisely down the steepest metric gradient.
-
-\textbf{3. The Dark Wake Sensor (Metric Vorticity Monitor)}
-Because the vacuum behaves as a densely coupled fluid (the $\mathcal{M}_A$ LC network), massive objects or other metric-propulsion craft do not simply pass through without a trace. They induce temporary boundary-layer shear, dragging the metric and leaving behind a transient topological wake (Metric Vorticity). 
-A standard RLVG locks onto the steady-state ambient metric. However, by substituting the steady continuous-wave probe laser with a \textbf{Chirped-Pulse Optical Array}, the system rapidly samples the instantaneous metric impedance across multiple tightly spaced transverse nodes. Because metric vorticity possesses an intense, localized inductive cross-section, the chirped-pulse array can definitively map the lingering "ripples" of recent gravitational or artificial metric disturbances, effectively acting as an optical sonar/radar for tracking deep-space traffic or recent planetary bodies.
-
-\textbf{4. The Chiral Torsion Sensor (Vacuum Spin Polarimeter)}
-The fundamental premise of AVE is that the vacuum is chiral ($6^3_2 \cup 3_1$ topological LC lattice). The "straight lines" of deep space actually contain an intrinsic torsion limit.
-To directly monitor the localized twist of the spatial metric, an aerospace craft utilizes a \textbf{Circularly-Polarized RLVG}. Instead of passing standard linearly polarized light, the cavity simultaneously propagates Left-Hand Circular (LHC) and Right-Hand Circular (RHC) polarizations.
-Because the vacuum lattice itself possesses structural helicity, the LHC wave will experience an infinitesimally different native LC impedance than the RHC wave as they traverse the Sagnac loop. Measuring this highly rigid birefringence differential allows the telemetry computer to instantly correct navigational headings against the sub-quantum "drift" of the universe's baseline torsion.
 
 \section{Electromagnetic Coupling to the Chiral LC Condensate (Helicity Injection)}
 
