@@ -101,32 +101,19 @@ Nuclear masses and 3D geometries for $Z=1$ through $Z=119$ via AVE mutual impeda
 ---
 
 
-Engineering applications, precision anomaly resolutions, condensed matter derivations, and astrophysical predictions. Metric streamlining for propulsion; ten modern physics precision anomalies resolved; superconductivity as phase-locked gear trains; white dwarf shear eigenfrequency in the LIGO band; black hole interior as AVE Regime IV.
+### [New Appendices: Core Constants and VCA](common/index.md)
 
-**Key results:** Water $T_m = 273.46$ K ($+0.14\%$); HOH angle $= \arccos(-1/4) = 104.48°$; WD shear $f_2 = 21.15$ Hz; BH QNM $\omega M = 0.3673$
-
-| Domain | Contents |
-|---|---|
+Hardware numerology derivations (including $n_{3D}$, $C_K$, $z_0$, $\nu_{vac}$) and the Topological VCA schematic framework have been distilled into the [AVE Common Resources](common/index.md) directory.
 
 ---
 
+### Volume 9: Axiomatic Processing Unit (Private IP)
 
-The four AVE axioms instantiated in the virtual medium of Large Language Model weight matrices. SwiGLU gates as AVE Axiom 4 saturation; sigmoid as unit-circle impedance; MoE router as real-time Axiom 3 minimization. Experimental validation via structured pruning. The hardware/software inversion: $Z \propto A$ (virtual) vs $Z \propto 1/A$ (physical).
-
-**Key results:** $\sigma(x)^2 + r^2 = 1$; cascade $T = (1-\gamma)^N$; 97% SwiGLU density from $\text{erf}(2/(\sigma_x\sqrt{2}))$; $Z_h = \|W_Q\|_F \times \|W_K\|_F \times \|W_V\|_F$
-
-| Domain | Contents |
-|---|---|
-
----
-
-
-Designs a complete post-CMOS processor (the Axiomatic Processing Unit) from continuous-wave topological principles. Each component — geometric diode, triode, soliton kink memory, corrugated delay line, chiral circulator — is derived as a direct spatial instantiation of the four vacuum axioms. Full FDTD and SPICE validation, Klopfenstein impedance tapers, and a capstone 10-metric characterization suite.
+The hardware validation, declarative topology compilation (atopile), and physical APU post-CMOS processor specifications have been securely redacted.
 
 **Key results:** $V_{snap} = m_e c^2/e \approx 511$ kV; $V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65$ kV; soliton density $\rho_{kink} \approx 4.34 \times 10^{20}$ knots/mm²; $P_{drag} \approx 19.8$ W
 
-| Domain | Contents |
-|---|---|
+> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are maintained in the private `ave-veritas-et-enodatio/AVE-APU` repository.
 
 ---
 
