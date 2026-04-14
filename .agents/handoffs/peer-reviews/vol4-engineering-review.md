@@ -40,3 +40,9 @@
 
 ## Conclusion
 Volume 4 successfully bridges theory to pragmatic hardware modeling. Utilizing SPICE architectures ensures computational reproducibility and opens the exact theoretical equations of Volumes 1-3 to the immense numerical stress-testing of mature IC design software. The strict adherence to the non-linear varactor limits maintains total structural continuity with the fundamental axioms.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** ~360 lines must be extracted to `ave-veritas-et-enodatio/AVE-Hardware` before public release:
+  - `11_experimental_falsification.tex` (lines 58-147, 224-229, 272-363, 375-413): Extract Sagnac-RLVE, ROENTGEN-03, TORSION-05, YBCO Phased Array, Metric Refraction Capacitor, Sapphire Phonon Centrifuge, Metric Boundary Sensors, and Open-Source PCBA Build Guides. → Verify at `AVE-Hardware/docs/experiments/`
+  - `12_falsifiable_predictions.tex` (lines 48-100, 110-184): Extract PONDER-01 Asymmetric Maxwell Stress Rectification, and Sagnac RLVG Entrainment + Telemetry. → Verify at `AVE-Hardware/docs/falsification/`
+  - `13_future_geometries.tex` (lines 72-95): Extract Acoustic Back-Reaction Analogy + Thruster Topology Table. → Verify at `AVE-Hardware/docs/future-geometries/`

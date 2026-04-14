@@ -26,3 +26,9 @@
 
 ## Conclusion
 Volume 6 acts as the ultimate crucible for the parameter-free AVE framework. By constructing actual periodic elements from the core geometric bounds built in Volume 1, and matching their binding masses against established CODATA observations with staggering accuracy, the framework demonstrates unprecedented deductive power. It successfully replaces the Standard Model's highly parameterized nuclear shell variants with deterministic electrical engineering topology.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** Migrate to `ave-veritas-et-enodatio/AVE-Hardware`:
+  - `simulations/spice_netlists/ponder_01_c12_emitter.cir`: Move entire file. → Verify at `AVE-Hardware/spice/ponder_01_c12_emitter.cir`
+  - `simulations/spice_netlists/ponder_01_he4_emitter.cir`: Move entire file. → Verify at `AVE-Hardware/spice/ponder_01_he4_emitter.cir`
+  - `simulations/spice_netlists/dt_fusion_transient.cir`: Scrub variable `V_PONDEROMOTIVE` → `V_KINETIC`. File stays in public core after scrub.

@@ -44,3 +44,6 @@
 
 ## Conclusion
 Volume 5 performs an elite abstraction leap, treating complex biological enzymes and tissues as nothing more than advanced SPICE trace networks. By forcing the exact geometric derivations that govern gravity and subatomic particle confinement into the biological scale, the theoretical consistency of the AVE framework remains unblemished. Its application predictions (impacting cancer models and neural physics) are sharply mapped to explicit, testable parameters, strictly adhering to the "kill-switch" falsifiability mandate.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** Confirm that the proprietary protein-folding engine codebase (Chapters 03-05) remains strictly isolated in `ave-veritas-et-enodatio/AVE-Protein` (private). → Verify `_manifest.tex` excludes Ch 03-05 from public build. No APU "thrust" leaks were detected in the public biological application theory.

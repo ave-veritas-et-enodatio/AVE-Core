@@ -50,3 +50,7 @@
 
 ## Conclusion
 Volume 3 rigorously adheres to the enhanced peer review framework. It explicitly establishes an empirical firewall between its foundational topology (Axiom 4 non-linear operators) and macroscopic observational targets like McGaugh’s MOND curves and BCS Critical Field profiles. The deployment of the K4-TLM computational simulator validates the analytical predictions numerically, successfully locking out computational rounding artifacts.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** Migrate to `ave-veritas-et-enodatio/AVE-Hardware`:
+  - `21_black_hole_interior_regime_iv.tex` (lines 27-28): Generalize "PONDER-05 at 30kV/43kV" in Regime II/III benchmarks → "Asymmetric Active Capacitor". → Verify original at `AVE-Hardware/docs/ponder/regime-benchmarks.tex`

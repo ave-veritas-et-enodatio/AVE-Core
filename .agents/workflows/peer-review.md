@@ -7,6 +7,15 @@ description: "Agent directive for conducting rigorous mathematical and scientifi
 
 This directive governs how agents should conduct peer reviews on Applied Vacuum Engineering (AVE) theoretical documents, derivations, and experimental blueprints. The ultimate goal is to hold the framework to the highest possible standard of scientific rigor, academic honesty, and empirical falsifiability.
 
+## Prerequisites & Cross-Workflow Awareness
+
+Before beginning a peer review, the agent MUST:
+1. Read `LIVING_REFERENCE.md` and `src/ave/core/constants.py` for canonical constant definitions.
+2. Check whether `/audit-math`, `/audit-latex`, or `/audit-code` has already been run against the target volume. If prior audit output exists, read it first and build on those findings — do not duplicate or contradict them.
+3. The `/audit-full` orchestrator (`audit-full.md`) covers code → math → LaTeX hygiene. The peer review is a **higher-order scientific evaluation** that sits above those mechanical audits. It should reference their findings but focus on theoretical coherence, falsifiability, and pedagogical clarity.
+
+---
+
 ## 1. Zero-Parameter Auditing
 **The standard of truth in AVE is derivation from first principles.**
 - Ensure that no free parameters (e.g., coupling constants, empirical masses, or fitting scalars) are secretly introduced into the math.
@@ -49,27 +58,77 @@ This directive governs how agents should conduct peer reviews on Applied Vacuum 
 
 ## 9. Structural, Logical, and Formatting Hygiene
 **A derivation is useless if it cannot be read, parsed, and traced.**
-- **Logical Bridging:** Actively search for "hand-waving" or missing derivation steps. The reviewer must adopt an adversarial posture towards logical leaps. If an equation bridges $A \to C$ without explicitly defining $B$, flag it as a pedagogical failure.
-- **Formatting Compliance:** Ensure the document adheres to the established KB standards (e.g., correct use of Markdown tables, proper LaTeX rendering, consistent variable nomenclature, and functional internal reference links).
+- **Logical Bridging:** Actively search for "hand-waving" or missing derivation steps. The reviewer must adopt an adversarial posture towards logical leaps. If an equation bridges $A \to C$ without explicitly defining $B$, flag it as a pedagogical failure. **Cite the specific file and line number of every gap found.**
+- **Formatting Compliance:** Open at least one source document per volume (`.md` or `.tex`) and verify internal reference links resolve, tables render, and variable nomenclature is consistent. Report broken references by file and line.
 - **Ease of Follow:** Is the argument cleanly accessible to a critical academic audience? Reject dense, convoluted phrasing in favor of crisp, structural modularity.
 
-## 10. Output Review Structure
+## 10. Numeric Spot-Check Mandate
+**Claims of accuracy must be independently verified, not taken on faith.**
+- For each volume reviewed, the agent must independently compute at least **3 flagship constants or predictions** using `src/ave/core/constants.py` (or equivalent engine scripts) and compare against the manuscript's stated values.
+- Document each spot-check as a table row:
+
+| Constant | Manuscript Value | Engine Value | Match? |
+|----------|-----------------|--------------|--------|
+
+- If the engine cannot reproduce a manuscript value, flag it as a `SPOT-CHECK FAILURE` and escalate.
+
+## 11. Minimum Depth Requirement
+**Shallow reviews are worse than no review — they create false confidence.**
+- Every chapter within the reviewed volume must receive at least one dedicated subsection in the review document.
+- Each chapter subsection must contain:
+    1. At least one specific equation or constant citation (not just a summary of the topic).
+    2. A verdict on zero-parameter compliance for that chapter.
+    3. At least one specific pedagogical or structural observation.
+- If a volume has N chapters, the review document must have at least N topical subsections. Reviews that cover an entire volume in 2-3 broad paragraphs are rejected as insufficient.
+
+---
+
+## 12. Output Review Structure
 When generating a peer review, strictly structure the report as follows:
 1. **Theoretical Claim:** A concise summary of the hypothesis being tested.
 2. **Mathematical Review:** An audit of the derivations, topological mapping, and parameter-free status.
 3. **Contextual Comparison:** How it relates to/departs from Standard Model physics.
-4. **Structural & Logical Hygiene:** Evaluation of the derivation clarity, missing steps, and formatting compliance.
-5. **Experimental Viability & Falsifiability:** Evaluation of the falsification criteria ("kill-switch") and the practical noise floor challenges.
+4. **Numeric Spot-Checks:** Table of independently verified constants.
+5. **Structural & Logical Hygiene:** Evaluation of the derivation clarity, missing steps, and formatting compliance — with file/line citations.
+6. **Experimental Viability & Falsifiability:** Evaluation of the falsification criteria ("kill-switch") and the practical noise floor challenges.
 
-## 11. Mandatory Coverage Gap Tracking
+## 13. Mandatory Coverage Gap Tracking
 **A theoretical boundary is only as strong as its known vulnerabilities.**
 - At the conclusion of any peer review cycle (or multi-volume peer review), the agent must explicitly summarize the theoretical gaps, untested assumptions, or pragmatic hardware limits identified during the review.
-- The agent must proactively update the `.agents/handoffs/peer-reviews/coverage-gaps-tracker.md` document, translating these vulnerabilities into trackable, actionable investigation objectives with checkbox milestones. 
+- The agent must proactively update the `.agents/handoffs/peer-reviews/coverage-gaps-tracker.md` document, translating these vulnerabilities into trackable, actionable investigation objectives with checkbox milestones.
+- **Priority tagging is mandatory.** Every gap must be tagged with a severity level:
+    - `[P0 - Release Blocker]`: Must be resolved before public release (e.g., IP migration tasks).
+    - `[P1 - Next Cycle]`: Should be addressed in the next review cycle (e.g., missing derivation steps).
+    - `[P2 - Research Frontier]`: Long-term theoretical work (e.g., Thermodynamic Isomorphism).
 
-## 12. Recursive Additive Review
-**Peer review is an iterative immunological process, not a one-off overwrite.**
-- Agents must *never* overwrite an existing peer review document (`*-review.md`) from a previous cycle. 
-- All peer reviews must be strictly **additive**. Agents must read the existing evaluation artifact and append their new cycle's findings (e.g., adding a dedicated section for "Structural & Logical Hygiene" during an editorial pass, or noting cross-volume discrepancies discovered later).
-- Cross-check new claims recursively against the findings already persisting in the review document to ensure robust continuity.
+## 14. IP Migration & Cross-Repo Tracking
+**Proprietary hardware IP must be tracked with surgical precision.**
+- When flagging content for migration to a private repository, the reviewer must specify:
+    1. The **source file and line range** in `AVE-Core`.
+    2. The **target repository** (e.g., `ave-veritas-et-enodatio/AVE-Hardware`).
+    3. A **verification step** to confirm the migration was completed (e.g., "Verify file exists at `AVE-Hardware/docs/sagnac-rlve/`").
+- IP migration items are always `[P0 - Release Blocker]`.
+
+## 15. Strategic Condensation & Recursive Review
+**Peer review is an iterative immunological process; documents must evolve, not proliferate.**
+- **Single Source of Truth:** All peer reviews MUST be stored exclusively in the `.agents/handoffs/peer-reviews/` subfolder. No stray output documents should reside in the parent directory.
+- **Naming Convention:** Volume-level reviews must follow the pattern `volX-<descriptor>-review.md`. Chapter-level deep dives, if needed, must be prefixed with their volume: `volX-chY-<descriptor>.md`. Orphaned files that break this convention must be merged or renamed.
+- **Intelligent Condensation:** Agents must *never* arbitrarily overwrite an existing peer review document, nor should they create parallel fragmented documents (like `audit_volX.md`). Instead, all back-to-back reviews must be **merged** into the canonical volume review.
+- **Merge Strategy:** 
+    1. Look for redundant insights. If a new audit discovers the same mathematical triumph or gap as the existing review, do not append a duplicate bullet point. Instead, seamlessly integrate the new terminology or confirmation into the existing paragraph.
+    2. Additive formatting: If applying a new analytical lens (e.g., a "Hygiene Pass" or an "Experimental Noise Review"), add a dedicated subsection for it to preserve the structural history.
+    3. If an older gap identified in the document is resolved by a newer audit, the agent should cross it out or append an "[UPDATE: Resolved in Pass N]" note, preserving the context of the framework's evolution.
+
+## 16. Manifest Compliance Matrix
+**The manifest must prove what was actually audited, not just summarize results.**
+- The `ave-comprehensive-peer-review-manifest.md` must include a compliance matrix showing which directive sections (1–15) were applied to each volume. Example:
+
+| Volume | §1 Zero-Param | §3 Kill-Switch | §9 Hygiene | §10 Spot-Check | ... |
+|--------|:---:|:---:|:---:|:---:|:---:|
+| Vol 1 | ✅ | ✅ | ✅ | ❌ | ... |
+
+- An `❌` in any cell is not a failure — it is an honest disclosure that guides the next review cycle.
+
+---
 
 By maintaining these strict analytical standards, agents will ensure the AVE manuscript is fortified against genuine scientific critique, structural ambiguity, and remains intellectually bulletproof.

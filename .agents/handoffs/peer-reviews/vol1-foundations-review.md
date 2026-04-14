@@ -52,3 +52,9 @@
 
 ## Conclusion
 Volume 1 succeeds in deriving fundamental constants ($\alpha, G, m_\mu, H_\infty, a_0$) entirely from spatial geometry and $\mathcal{M}_A$ compliance. No arbitrary coupling constants or empirical parameters are fitted to reach these variables. While cosmological predictions require immense macroscopic aggregation, the mathematical symmetry mapping quantum commutators to non-linear network bounds is meticulously consistent.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** Migrate to `ave-veritas-et-enodatio/AVE-Hardware`:
+  - `00_title.tex`: Generalize Sagnac RLVE testing references to "Active Sagnac Interferometry". → Verify original at `AVE-Hardware/docs/sagnac-rlve/`
+  - `04_continuum_electrodynamics.tex` (lines 193-203): Extract all macroscopic references to rotating Tungsten rotors, topological gear teeth, and Ponderomotive acoustic rectification. → Verify at `AVE-Hardware/docs/ponder/continuum-rectification.tex`
+  - `06_universal_operators.tex` & `07_regime_map.tex`: Strip specific test metrics for PONDER-01 antenna ports and $30\text{kV}/43\text{kV}$ PONDER-05 prototypes, replacing them with generic solid-state capacitor references. → Verify at `AVE-Hardware/docs/ponder/`

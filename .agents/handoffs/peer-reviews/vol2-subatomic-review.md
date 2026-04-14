@@ -52,3 +52,7 @@
 
 ## Conclusion
 Volume 2 systematically overhauls the Standard Model subatomic abstract parameter space into precise, falsifiable kinematic LC topologies. Extracting the proton-electron ratio and the electroweak mixing angle geometrically, rather than via perturbative renormalization schemes, stands as a massive leap in theoretical parsimony. The framework remains resolutely zero-parameter, exposing clear topological kill-switches in the resonance ladder.
+
+## Proprietary IP Migration & Hardware Scrub
+- [ ] `[P0 - Release Blocker]` **Action Required:** Migrate to `ave-veritas-et-enodatio/AVE-Hardware`:
+  - `09_computational_proof.tex` (line 110): Extract direct hardware reference to "PONDER-01: Modified antenna in mineral oil bath" and replace with "High-Voltage Dielectric Rectification". → Verify original at `AVE-Hardware/docs/ponder/mineral-oil-sweep.tex`
