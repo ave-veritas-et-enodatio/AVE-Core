@@ -418,3 +418,14 @@ Baseline: commit `d23903e` (2026-04-03, Phase 4b complete)
 
 ### Delta Manifest
 See: `processing/phase1-delta-manifest.md`
+
+### Phase 9 Delta Synchronization Close-out
+Status: COMPLETE (2026-04-14)
+
+- Phase 9.4 executed via `kb-coordinator` pipeline across text deltas for Volumes 1-6.
+- Structural material terminology updated from "aerospace and automotive" in Vol 6.
+- Reference fixes applied across Vol 6 ionization anomaly leaves.
+- Numerology variables ($n_{3D}$, $C_K$) successfully extracted from `appendix_c_derived_numerology.tex`.
+- Obsolete references to purged Volumes 7 and 8 removed; cross-scale verifications successfully absorbed into `Vol 3: The Macroscopic Continuum`.
+- `ave-kb/entry-point.md` updated to officially redact `Volume 9: APU Hardware` to the private IP repository `ave-veritas-et-enodatio/AVE-APU`.
+- Quality Audit reveals exactly one `[Up]` link per leaf, no standard physics terminology violations (no classical field terms injected).
