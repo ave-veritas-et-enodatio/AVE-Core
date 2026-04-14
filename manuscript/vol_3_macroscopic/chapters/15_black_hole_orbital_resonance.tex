@@ -41,7 +41,7 @@ The saturated interior therefore acts as a \textbf{perfect reflector for shear w
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l l l}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
 \textbf{Property} & \textbf{Electron} & \textbf{Black Hole} \\
 \midrule
@@ -52,7 +52,7 @@ Shell Gaps & Spectral emission lines & Accretion disk QPOs \\
 Interior Physics & Constructive (topology preserved) & Destructive (topology melts) \\
 Impedance & $Z \to 0$ at knot core & $Z = Z_0$ always (Symmetric Gravity) \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \section{Quantised Accretion Disk Resonance}
@@ -136,7 +136,7 @@ The orbital isomorphism extends beyond static structure. In atomic physics, elec
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l l l l}
+\begin{tabularx}{\textwidth}{@{}l l l X@{}}
 \toprule
 \textbf{System} & \textbf{``Orbital'' Structure} & \textbf{``Photon'' Emission} & \textbf{``Spectral Lines''} \\
 \midrule
@@ -145,7 +145,7 @@ Saturn & Ring impedance bands & Spiral density waves & Cassini gap frequencies \
 Stellar flares & Coronal impedance loops & EUV/X-ray bursts & Flare QPO frequencies \\
 Black hole & Accretion disk bands & X-ray QPOs & QPO frequency ratios \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 Saturn's spiral density waves, observed by the Cassini spacecraft, are \textit{literally} the macroscopic photons of the Saturn orbital system---gravitational/acoustic perturbations emitted when ring material transitions between impedance-quantised bands. The Cassini Division frequencies are Saturn's spectral lines. For black holes, the QPO intensity oscillations observed in X-ray binaries play the identical role. The $1/d$ impedance topology is the universal emission mechanism operating across $10^{40}$ orders of magnitude in spatial scale.
@@ -192,7 +192,7 @@ Comparison against three LIGO detections, now including both frequency and decay
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l c c c c c c c}
+\begin{tabularx}{\textwidth}{@{}l c c c c c c X@{}}
 \toprule
 \textbf{Event} & $\mathbf{M_{final}}$ & $\mathbf{a_*}$ & \textbf{$f_\mathrm{AVE}$} & \textbf{$f_\mathrm{obs}$} & \textbf{$\Delta f$} & \textbf{$\tau_\mathrm{AVE}$} & \textbf{$\tau_\mathrm{obs}$} \\
 \midrule
@@ -200,7 +200,7 @@ GW150914 & 62.0 $M_\odot$ & 0.67 & 278 Hz & 251 Hz & 10.6\% & 3.5 ms & 4.0 ms \\
 GW170104 & 48.7 $M_\odot$ & 0.64 & 345 Hz & 312 Hz & 10.5\% & 2.7 ms & 3.0 ms \\
 GW151226 & 20.8 $M_\odot$ & 0.74 & 884 Hz & 750 Hz & 17.8\% & 1.2 ms & 1.4 ms \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \noindent Frequency errors 10--18\%, decay time errors 10--14\%.  All from zero free parameters.
 
@@ -257,7 +257,7 @@ The following table records which AVE axioms are fully exercised in the current 
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{c l l l}
+\begin{tabularx}{\textwidth}{@{}c l l X@{}}
 \toprule
 \textbf{Axiom} & \textbf{Statement} & \textbf{Status} & \textbf{Coverage} \\
 \midrule
@@ -266,7 +266,7 @@ The following table records which AVE axioms are fully exercised in the current 
 3 & Gravity = dielectric strain $n(r)$ & \textbf{Full} & Kerr saturation boundary, QPOs \\
 4 & Saturation ($V_{SNAP}$, viscosity) & \textbf{Full} & Phase transition, $Q = \ell$, $\tau_{ring}$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \subsection{Axiom 4 Saturation: Phase Transition and $Q = \ell$}
@@ -287,7 +287,7 @@ Comparison against three LIGO events:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l c c c c c}
+\begin{tabularx}{\textwidth}{@{}l c c c c X@{}}
 \toprule
 \textbf{Event} & $\mathbf{a_*}$ & $\mathbf{Q}$ & $\boldsymbol{\tau}$\textbf{AVE [ms]} & $\boldsymbol{\tau}$\textbf{obs [ms]} & \textbf{Error} \\
 \midrule
@@ -295,7 +295,7 @@ GW150914 & 0.67 & 2 & 2.3 & 4.0 & 43\% \\
 GW170104 & 0.64 & 2 & 1.9 & 3.0 & 38\% \\
 GW190521 & 0.72 & 2 & 5.0 & 15.0 & $\dagger$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \noindent The Schwarzschild $Q = \ell = 2$ is used for all events; the Kerr correction to $Q$ (which increases Q for spinning remnants) is not yet included and accounts for the remaining $\tau$ discrepancy.
 
@@ -322,7 +322,7 @@ For a 1.4~$M_\odot$ star, the minimum permissible radius (at $\varepsilon_{11} =
 \begin{equation}
     R_{min} = \frac{7\,G\,M}{c^2} = 7 \times \frac{6.674 \times 10^{-11} \times 2.8 \times 10^{30}}{(3 \times 10^8)^2} = 14.5~\text{km}
 \end{equation}
-Objects more compact than this have ruptured interiors (Regime~IV core with Regime~III crust), which is precisely the neutron star structure inferred from gravitational wave tidal deformability measurements (see Chapter~\ref{ch:regime_map}).
+Objects more compact than this have ruptured interiors (Regime~IV core with Regime~III crust), which is precisely the neutron star structure inferred from gravitational wave tidal deformability measurements (see Chapter~Volume 1).
 
 \section{Interior Topology and Singularity Resolution}
 \label{sec:interior_topology}

@@ -64,7 +64,7 @@ By identifying the vacuum as a physical, variable-impedance LC medium, General R
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccl}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Source} & \textbf{Strain $h$} & \textbf{$V_{GW}/V_{snap}$} & \textbf{Regime} \\
 \midrule
@@ -73,7 +73,7 @@ GW170817 (BNS) & $10^{-22}$ & $\sim 10^{-29}$ & I (deeply linear) \\
 Pulsar timing  & $10^{-15}$ & $\sim 10^{-22}$ & I (linear) \\
 Near-merger ($r \lesssim 10\,r_s$) & $10^{-1}$ & $\sim 10^{-8}$ & I--II boundary \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent All observed GW signals operate far below the dielectric yield threshold. The vacuum responds linearly, producing lossless propagation at speed $c$---the mathematical predictions of linearized GR emerge exactly. The nonlinear regime (II--III) is only reached in the near-merger zone where waveform corrections become significant.
@@ -121,7 +121,7 @@ The simulation renders a Shakura--Sunyaev thin accretion disk ($T_{\text{in}} = 
 \section{K4-TLM Gravitational Lensing Cross-Validation}
 \label{sec:k4_tlm_lensing}
 
-The preceding sections derive photon deflection analytically---$\delta = 4GM/(bc^2)$---and validate it via Hamiltonian raymarching. We now cross-validate the same physics with the K4-TLM native lattice dynamics simulator (Section~\ref{sec:k4_tlm}, Vol.~4), which time-evolves electromagnetic waves natively through the pure Diamond lattice vacuum.
+The preceding sections derive photon deflection analytically---$\delta = 4GM/(bc^2)$---and validate it via Hamiltonian raymarching. We now cross-validate the same physics with the K4-TLM native lattice dynamics simulator (Section~Volume 4, Vol.~4), which time-evolves electromagnetic waves natively through the pure Diamond lattice vacuum.
 
 \subsection{Method}
 
@@ -151,7 +151,7 @@ This impedance mismatch organically pivotal the entire wavefront downward into t
 \section{GR $\leftrightarrow$ AVE Translation Dictionary}
 \label{sec:gr_ave_translation}
 
-The preceding sections demonstrate that General Relativity emerges naturally from the variable-impedance LC medium.  Table~\ref{tab:trans_gravity} makes the ontological mapping explicit.
+The preceding sections demonstrate that General Relativity emerges naturally from the variable-impedance LC medium.  Table~the main text makes the ontological mapping explicit.
 
 \input{../common/translation_gravity.tex}
 

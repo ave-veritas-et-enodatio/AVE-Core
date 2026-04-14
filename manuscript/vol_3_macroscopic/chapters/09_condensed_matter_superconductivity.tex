@@ -96,7 +96,7 @@ The AVE superconductor engine (\texttt{ave.plasma.superconductor}) computes crit
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcccc}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \toprule
 \textbf{Material} & \textbf{$T_c$ [K]} & \textbf{$B_{c0}$ [T]} & \textbf{$\lambda_L$ [nm]} & \textbf{Type} \\
 \midrule
@@ -106,7 +106,7 @@ Niobium   & 9.25  & 0.206  & 22.5  & II \\
 MgB$_2$   & 39.0  & 16.0   & 40.8  & II \\
 YBCO      & 92.0  & 100.0  & 118.8 & II \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent The key identity is that the BCS critical field profile $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ is \emph{exactly} the Axiom~4 saturation factor $S(T/T_c)$. The Meissner effect is the magnetic-sector analog of plasma screening: a saturated $\mu_{eff} \to 0$ expels flux, just as a saturated $\epsilon_{eff} \to 0$ expels E-field in a plasma.
@@ -115,7 +115,7 @@ YBCO      & 92.0  & 100.0  & 118.8 & II \\
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcl}
+\begin{tabularx}{\textwidth}{@{}lcX@{}}
 \toprule
 \textbf{State} & \textbf{Regime} & \textbf{Physical Character} \\
 \midrule
@@ -123,7 +123,7 @@ Superconducting ($T < T_c$) & I (Linear) & Phase-locked inductors; $\mu_{eff} \t
 Transition ($T \approx T_c$)      & I--II boundary & Partial saturation; mixed state \\
 Normal ($T > T_c$)                 & II (Yield) & Thermal disorder breaks phase lock \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \section{The Universal Saturation Operator: $\varepsilon$--$\mu$ Duality}
@@ -137,7 +137,7 @@ on complementary sectors of the impedance:
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lll}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
 \toprule
 \textbf{Property} & \textbf{Plasma ($\varepsilon$-sector)} & \textbf{Superconductor ($\mu$-sector)} \\
 \midrule
@@ -152,7 +152,7 @@ Penetration depth   & Skin depth $\delta = c/\omega_p$
 Boundary reflection & $\Gamma \to -1$ for $\omega < \omega_p$
                     & $\Gamma \to -1$ for $B < B_c$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \textbf{Key identity:} The BCS thermodynamic critical field $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ is \textit{identically} the Axiom~4 saturation factor $S(T/T_c)$.  The London penetration depth and the plasma skin depth have \textbf{identical formulas}: $\delta = \sqrt{m/({\mu_0 n e^2})}$---the same operator acting on dual sectors.
@@ -189,7 +189,7 @@ at six temperatures each yields:
 
 \begin{resultbox}{Critical Field Validation}
 \begin{center}
-\begin{tabular}{lccl}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Material} & $T_c$ [K] & $B_{c0}$ [T] & \textbf{Error vs.\@ BCS} \\
 \midrule
@@ -198,7 +198,7 @@ Lead      & 7.19  & 0.0803 & $\mathbf{0.0000\%}$ \\
 Niobium   & 9.25  & 0.206  & $\mathbf{0.0000\%}$ \\
 MgB$_2$   & 39.0  & 16.0   & $\mathbf{0.0000\%}$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \end{resultbox}
 
@@ -209,7 +209,7 @@ saturation operator are algebraically identical.
 \subsection{London Penetration Depth and Coherence Length}
 
 \begin{center}
-\begin{tabular}{lcccccc}
+\begin{tabularx}{\textwidth}{@{}lcccccX@{}}
 \toprule
 \textbf{Material} & $\lambda_L^{\text{AVE}}$ [nm] & $\lambda_L^{\text{exp}}$ [nm]
                    & $\xi_0^{\text{AVE}}$ [nm] & $\xi_0^{\text{exp}}$ [nm]
@@ -220,7 +220,7 @@ Lead      &  20.7 &  37 &   284 &   83 & 0.073 & I (\checkmark) \\
 Niobium   &  31.9 &  39 &   185 &   38 & 0.172 & I ($\times$) \\
 MgB$_2$   &  57.6 &  85 &    14 &    5 & 4.069 & II (\checkmark) \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent
@@ -235,7 +235,7 @@ This is tracked as a catalog limitation, not an operator failure.
 
 At $T = 4.2$~K:
 \begin{center}
-\begin{tabular}{lccc}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Material} & $r = T/T_c$ & \textbf{Regime} & \textbf{State} \\
 \midrule
@@ -245,13 +245,13 @@ Niobium   & 0.454 & II          & Superconducting \\
 YBCO      & 0.046 & I (deep)    & Superconducting \\
 MgB$_2$   & 0.108 & I (deep)    & Superconducting \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \section{Condensed Matter $\leftrightarrow$ AVE Translation Dictionary}
 \label{sec:cm_ave_translation}
 
-The preceding sections show that superconductivity and the Meissner effect emerge from classical Kuramoto phase-locking of topological inductors, verified by the universal saturation operator.  Table~\ref{tab:trans_condensed} maps each condensed matter concept to its AVE structural equivalent.
+The preceding sections show that superconductivity and the Meissner effect emerge from classical Kuramoto phase-locking of topological inductors, verified by the universal saturation operator.  Table~the main text maps each condensed matter concept to its AVE structural equivalent.
 
 \input{../common/translation_condensed_matter.tex}
 

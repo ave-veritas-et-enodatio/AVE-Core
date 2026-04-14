@@ -71,7 +71,7 @@ Silicon ($Z = 14$, $[\text{Ne}]\,3s^2\,3p^2$) shares the same co-resonant $n = 2
 \paragraph{Equivalent circuit.}
 \begin{center}
 \small
-\begin{tabular}{lccc}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Section} & \textbf{$Z_\text{net}$} & \textbf{Content} & \textbf{Solver path} \\
 \midrule
@@ -79,7 +79,7 @@ Inner ($r < r_2$) & $14 - 2 = 12$ & $1s^2$ & Smooth CDF \\
 Boundary ($r = r_2$) & step: $12 \to 4$ & $2s^2 2p^6$ saturated & \textbf{Impedance step} \\
 Outer ($r > r_2$) & $14 - 10 = 4$ & $3s^2\,3p^2$ & MCL loading \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \paragraph{Correction~C derivation.}

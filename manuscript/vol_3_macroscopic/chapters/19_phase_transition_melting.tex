@@ -26,7 +26,7 @@ where each node (H$_2$O molecule) connects to four neighbours via hydrogen bonds
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccc}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Element} & \textbf{$\mu$ (Inertia)} & \textbf{$\varepsilon$ (Compliance)} & \textbf{$Z = \sqrt{\mu/\varepsilon}$} \\
 \midrule
@@ -34,7 +34,7 @@ O--H covalent bond & $\mu_\text{OH}$ (reduced) & $1/k_\text{OH}$ & Intramolecula
 H-bond             & $m_{\text{H}_2\text{O}}$ & $1/k_\text{hb}$ & Intermolecular $Z$ \\
 Lattice ($z = 4$)  & $m_{\text{H}_2\text{O}}$ (loaded) & $1/(z \cdot k_\text{hb})$ & Network $Z_0$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \subsection{Step 2: H-Bond Spring Constant from Op4}
@@ -174,7 +174,7 @@ and the H-bond network retains directional coherence (solid phase):
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{llll}
+\begin{tabularx}{\textwidth}{@{}lllX@{}}
 \toprule
 \textbf{Quantity} & \textbf{Value} & \textbf{Source} & \textbf{Type} \\
 \midrule
@@ -192,7 +192,7 @@ $T_0$ (bare) & \textbf{279.5 K ($+6.3^{\circ}$C)} & Eq.~\eqref{eq:Tm_eigenmode} 
 $T_m$ (experiment) & 273.15 K ($0^{\circ}$C) & & \\
 \textbf{Bare error} & $\mathbf{+2.3\%}$ & & \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 This bare eigenmode $T_0 = 279.5$~K is the \emph{harmonic} LC resonance. It accurately predicts the temperature of maximum density ($T(\rho_\text{max}) = T_0(1-\alpha) = 4.26^{\circ}$C, experiment: $3.98^{\circ}$C), but overestimates the melting point by $+2.3\%$ because it neglects the Op4 anharmonicity.
@@ -224,7 +224,7 @@ The correction chain is:
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcl}
+\begin{tabularx}{\textwidth}{@{}lcX@{}}
 \toprule
 \textbf{Stage} & \textbf{$T_m$ (K)} & \textbf{Error} \\
 \midrule
@@ -232,7 +232,7 @@ Bare eigenmode $T_0$ & 279.5 & $+2.31\%$ \\
 $+$ Axiom~4 saturation & 275.5 & $+0.88\%$ \\
 $+$ Axiom~2 $\alpha$-loading & 273.5 & $+0.14\%$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \subsection{Lattice Loading Analysis}
@@ -417,7 +417,7 @@ compatible with the global lattice packing constraint.
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccc}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Method} & \textbf{Formula} & \textbf{$\theta$ (deg)} & \textbf{Error} \\
 \midrule
@@ -426,7 +426,7 @@ Op3 small-signal & $\arccos(-1/(3(1+\Gamma)))$ & 104.48 & $+0.03^{\circ}$ \\
 Op8 large-signal & $\arccos(-\varphi/3)$ & 104.29 & $-0.16^{\circ}$ \\
 Experimental & & 104.45 & --- \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \subsection{Physical Interpretation}

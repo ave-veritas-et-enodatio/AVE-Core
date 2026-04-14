@@ -14,7 +14,7 @@ The Topological network maps strictly to empirical observables without hidden va
 
 \begin{table}[htbp]
     \centering
-    \begin{tabular}{l c c r r r}
+    \begin{tabularx}{\textwidth}{@{}l c c r r X@{}}
     \hline\hline
     \textbf{Element} & \textbf{Z} & \textbf{A} & \textbf{Empirical (MeV)} & \textbf{Topological (MeV)} & \textbf{Error (\%)} \\
     \hline
@@ -32,7 +32,7 @@ The Topological network maps strictly to empirical observables without hidden va
     Aluminum-27 & 13 & 27 & 25126.501 & 25132.926 & 0.02557\% \\
     Silicon-28 & 14 & 28 & 26053.188 & 26058.156 & 0.01907\% \\
     \hline\hline
-    \end{tabular}
+    \end{tabularx}
     \caption{Topological derivation of mass defects mapping $1/d_{ij}$ structural mutual impedance against CODATA empirical limits.}
     \label{tab:mass_summary}
 \end{table}
@@ -53,7 +53,7 @@ The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) compute
     \centering
     \small
     \renewcommand{\arraystretch}{1.15}
-    \begin{tabular}{l c r r r l}
+    \begin{tabularx}{\textwidth}{@{}l c r r r X@{}}
     \hline\hline
     \textbf{Element} & \textbf{Z} & \textbf{AVE (eV)} & \textbf{Exp (eV)} & \textbf{Error} & \textbf{Correction} \\
     \hline
@@ -79,7 +79,7 @@ The electronic ionization energy solver (\texttt{radial\_eigenvalue.py}) compute
     Bromine    & 35 & 11.911 & 11.814 & $+0.82\%$ & D (Topo-Kinematic) \\
     Krypton    & 36 & 14.446 & 13.999 & $+3.19\%$ & D (Topo-Kinematic) \\
     \hline\hline
-    \end{tabular}
+    \end{tabularx}
     \caption{First ionization energies: AVE engine vs NIST experimental values. Correction A = hierarchical cascade. Correction B = SIR boundary reflection. Correction C = Op10 junction projection. Correction D = Topo-Kinematic Polar Conjugate Mirror ($\Gamma < 0$ TIR bounding via $3d^{10}$, $4d^{10}$, $5d^{10}$ shells). All elements evaluated rigidly with zero free parameters.}
     \label{tab:ie_summary}
 \end{table}

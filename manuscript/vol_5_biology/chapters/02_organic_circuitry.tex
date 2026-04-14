@@ -47,7 +47,7 @@ This is derived directly from Axioms~1--2; no scaling factors are needed. The CO
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lccc}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \hline
 \textbf{Element} & \textbf{Mass (Da)} & \textbf{Inductance (fH)} & \textbf{$\bar{\lambda}_C$ (fm)} \\
 \hline
@@ -57,7 +57,7 @@ Nitrogen (N) & 14.007 & 135.1 & 95.0 \\
 Oxygen (O)   & 15.999 & 154.3 & 83.1 \\
 Sulfur (S)   & 32.065 & 309.3 & 41.5 \\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption{Atomic inductances derived from $L = m / \xi^2$. No free parameters.}
 \label{tab:inductances}
 \end{table}
@@ -76,7 +76,7 @@ where $k_\text{bond}$ [N/m] is the stretching force constant. These values are c
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lcccc}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \hline
 \textbf{Bond} & $k$ \textbf{(N/m)} & \textbf{Source $\tilde{\nu}$ (cm$^{-1}$)} & \textbf{Capacitance (aF)} \\
 \hline
@@ -91,7 +91,7 @@ O--H  & 745  & $\sim$3650 & 231 \\
 S--H  & 390  & $\sim$2600 & 441 \\
 C--S  & 253  & $\sim$700  & 680 \\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption{Bond capacitances derived from $C = \xi^2 / k$. Force constants from NIST IR data.}
 \label{tab:capacitances}
 \end{table}
@@ -249,7 +249,7 @@ Table~\ref{tab:batch_resonance} lists the primary absorption notch (deepest tran
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lcc}
+\begin{tabularx}{\textwidth}{@{}lcX@{}}
 \hline
 \textbf{Amino Acid} & \textbf{Primary Notch (cm$^{-1}$)} & \textbf{Depth (dB)} \\
 \hline
@@ -276,7 +276,7 @@ Valine        & 1343.9 & $-73.1$ \\
 \hline
 Glycine       & 2819.1 & $-104.0$ \\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption{Primary topological absorption notch for all 20 standard L-amino acids, computed via native MNA solver with zero adjustable parameters. 18 of the 20 share an identical resonance at 1192\,cm$^{-1}$ (amide fingerprint region).}
 \label{tab:batch_resonance}
 \end{table}
@@ -433,7 +433,7 @@ When a bond transitions asymmetrically between shells (e.g., C--S, moving from $
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lccccc}
+\begin{tabularx}{\textwidth}{@{}lccccX@{}}
 \hline
 \textbf{Bond} & $d_\text{FP}$ (\AA) & $d_\text{known}$ (\AA) & $d$ error & $k_\text{pred}$ (N/m) & $k_\text{known}$ (N/m) \\
 \hline
@@ -450,7 +450,7 @@ N--H  & 0.96  & 1.01  & $-5\%$   & 610   & 641   \\
 C--N  & 1.42  & 1.47  & $-4\%$  & 416   & 461   \\
 S--S  & 2.66  & 2.05  & $+30\%$  & 230   & 236   \\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption{Bond parameters from the Fabry--P\'{e}rot eigenvalue (Eq.~\ref{eq:bond_eigenvalue}) and topological force constant projections. The first five bonds (O--H through S--H) are predicted to within $\leq 4\%$ in both $d$ and $k$. Bonds between two heavily-loaded shells (C--C, C--N, C--O single) show systematic overcorrection ($-13$ to $-17\%$), indicating that symmetric cavity loading requires degenerate mode hybridisation (open refinement). All force constants remain within $\leq 10\%$.}
 \label{tab:first_principles_k}
 \end{table}
@@ -528,7 +528,7 @@ In the H-bonded network (ice or liquid water), the O$_1$--O$_2$ distance is:
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lll}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
 \toprule
 \textbf{Property} & \textbf{Covalent (O--H)} & \textbf{Hydrogen (H$\cdots$O)} \\
 \midrule
@@ -538,7 +538,7 @@ Coupling $K$  & $\alpha\hbar c$               & $\Gamma^2 \alpha\hbar c$ \\
 Saturation    & $\sqrt{r_A r_B}$ (soliton overlap) & $r_H + r_O$ (atomic contact) \\
 Distance      & 0.972~\AA                    & 1.754~\AA \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \paragraph{Input audit.} Every quantity is determined by:
@@ -555,7 +555,7 @@ The 4$^\circ$C density boundary (where liquid water uniquely \emph{shrinks} upon
 
 \begin{figure}[h]
     \centering
-    \begin{tabular}{|l|l|l|}
+    \begin{tabularx}{\textwidth}{@{}|l|l|X|@{}}
     \hline
     \textbf{Domain} & \textbf{Structural Parameter} & \textbf{Topological Mapping} \\ \hline
     \rowcolor{gray!10}
@@ -566,7 +566,7 @@ The 4$^\circ$C density boundary (where liquid water uniquely \emph{shrinks} upon
     Macroscopic State I & Expanded Tetrahedral Ice-I$_h$ Matrix & Vacuum Shadow Interpolation (V$_I$) \\ \hline
     \rowcolor{gray!10}
     Macroscopic State II & Saturation Splinter (Random Close Packing) & Spherical Thermal Phase (V$_{II}$) \\ \hline
-    \end{tabular}
+    \end{tabularx}
     \caption{\textbf{The Translation Matrix:} Mapping the intrinsic liquid hydrology anomaly directly back to the $K=2G$ vacuum geometry constraints without parameterization.}
     \label{tab:translation_matrix}
 \end{figure}
@@ -595,7 +595,7 @@ The phase transition is not a smooth Boltzmann process but a catastrophic Axiom~
         A(T) = \frac{n_{coop} \cdot k_B T}{E_{HB}}
         \label{eq:cooperative_strain}
     \end{equation}
-    where $E_{HB} = 0.2158$~eV (the hydrogen bond energy, derived from Op4 $\times$ void fraction in \S\ref{sec:ave_water_hb}) and $n_{coop} = 9$ is the cooperative amplification constant.
+    where $E_{HB} = 0.2158$~eV (the hydrogen bond energy, derived from Op4 $\times$ void fraction in \S\% missing reference sec:ave_water_hb) and $n_{coop} = 9$ is the cooperative amplification constant.
     
     \item \textbf{Strain $\to$ saturation}: Via the Axiom~4 saturation operator (Op2):
     \begin{equation}
@@ -655,7 +655,7 @@ No empirical force constants, IR frequencies, or bond lengths are utilized as tr
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccl}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Scale} & \textbf{Regime} & \textbf{$\Delta\phi/\alpha$} & \textbf{Physical Character} \\
 \midrule
@@ -665,7 +665,7 @@ R-group stub ($\sim$5--10 \AA) & I (Linear) & $\ll 0.1$ & Passive shunt filter \
 Peptide chain ($\sim$nm) & I (Linear) & $\ll 0.01$ & Cascaded resonator network \\
 Folded protein ($\sim$2--10 nm) & I (Linear) & $\ll 0.01$ & Impedance-matched cavity \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent All biological circuitry operates in Regime~I (linear, lossless), except at the covalent bond core where the vacuum strain approaches the Axiom~4 yield limit. This explains why biology is fundamentally an AC resonance phenomenon: the linear regime permits lossless energy transfer across the entire molecular network.

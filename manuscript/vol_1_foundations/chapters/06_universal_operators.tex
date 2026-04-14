@@ -37,7 +37,7 @@ conditions on this single operator.
 \medskip
 \noindent
 This claim is verified computationally: the physics engine implements
-\textit{one} function (\texttt{scale\_invariant.impedance(mu, eps)}) that
+\textit{one} function (\texttt{scale\_\allowbreak invariant.\allowbreak impedance(mu,\allowbreak\ eps)}) that
 is called by every domain module---from particle confinement through
 seismic wave propagation.
 
@@ -49,7 +49,7 @@ each scale.
 \caption{Cross-scale constitutive mapping.  Every row uses the
 \textit{same} code path: \texttt{impedance($\mu$, $\varepsilon$)}.}
 \label{tab:cross_scale}
-\begin{tabular}{llll}
+\begin{tabularx}{\textwidth}{@{}l l l X@{}}
 \toprule
 \textbf{Scale} & \textbf{$\varepsilon$ analog}
   & \textbf{$\mu$ analog}
@@ -88,7 +88,7 @@ Chiral Antenna
   & Wire self-inductance $L$
   & $Z_{wire} = \sqrt{L/C}$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 
@@ -115,7 +115,7 @@ appears in four structurally distinct domains:
 \end{enumerate}
 
 All four call \textit{the same engine function}
-(\texttt{scale\_invariant.saturation\_factor(A, A\_yield)}) that serves
+(\texttt{scale\_invariant.}\allowbreak\texttt{saturation\_}\allowbreak\texttt{factor(A, A\_yield)}) that serves
 all four applications.
 
 \section{The Universal Reflection Coefficient}
@@ -132,7 +132,7 @@ appears at every impedance boundary in the framework:
 
 \begin{center}
 \small
-\begin{tabular}{lll}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
 \textbf{Scale} & \textbf{Boundary} & \textbf{$\Gamma$ value} \\
 \midrule
@@ -140,11 +140,11 @@ Sub-nuclear & Pauli exclusion ($Z_{knot} \to 0$) & $\Gamma \to -1$ \\
 Laboratory  & Resonant Antenna S$_{11}$ & $|\Gamma| < 1$ \\
 Planetary   & Moho discontinuity (crust$\to$mantle) & $\Gamma \approx 0.17$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 All seven applications call \textit{the same function}
-(\texttt{scale\_invariant.reflection\_coefficient(Z1, Z2)}),
+(\texttt{scale\_invariant.}\allowbreak\texttt{reflection\_}\allowbreak\texttt{coefficient(Z1, Z2)}),
 confirming that the particle physics of Pauli exclusion, the
 geophysics of seismic reflection, and the astrophysics of
 neutrino flavor conversion are structurally identical operations
@@ -196,7 +196,7 @@ by composing Operators~1--3:
 
 The three regime behaviours emerge automatically:
 \begin{center}\small
-\begin{tabular}{llll}
+\begin{tabularx}{\textwidth}{@{}l l l X@{}}
 \toprule
 \textbf{Regime} & \textbf{$r$ range} & \textbf{$\Gamma$}
   & \textbf{Physics} \\
@@ -205,7 +205,7 @@ I (Linear) & $r \gg d_\text{sat}$ & $\approx 0$ & Coulomb / gravity \\
 II (Nonlinear) & $r \sim d_\text{sat}$ & $0 < \Gamma < 1$ & Nuclear / H-bond \\
 III (Saturated) & $r \leq d_\text{sat}$ & $\to 1$ & Pauli wall \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 Code path: \texttt{universal\_operators.universal\_pairwise\_energy(r, K, d\_sat)}.
@@ -246,7 +246,7 @@ at least one mode is perfectly absorbed:
 
 When $\lambda_\text{min} = 0$, the network has found an eigenstate---a
 zero singular value of $[S]$ means one mode passes through the system
-with no reflection.  Code path: \texttt{universal\_operators.universal\_eigenvalue\_target(S)}.
+with no reflection.  Code path: \texttt{universal\_\allowbreak operators.\allowbreak universal\_\allowbreak eigenvalue\_\allowbreak target(S)}.
 
 % ═══════════════════════════════  Op 7  ═══════════════════════════════
 \section{The Universal Spectral Analyser}

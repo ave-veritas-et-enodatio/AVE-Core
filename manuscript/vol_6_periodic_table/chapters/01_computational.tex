@@ -255,7 +255,7 @@ Because the semiconductor model includes the repulsive Coulomb correction, its s
 \centering
 \caption{Comparison of inter-alpha distances from the two binding models. All values in units of $d = 4\hbar/(m_p c) \approx 0.841$ fm (\texttt{D\_PROTON}). The semiconductor model R values are the definitive mass-validated quantities.}
 \label{tab:model_comparison}
-\begin{tabular}{l c c l}
+\begin{tabularx}{\textwidth}{@{}l c c X@{}}
 \hline
 \textbf{Element} & \textbf{Bare $K/r$} & \textbf{Semiconductor} & \textbf{Note} \\
 \hline
@@ -265,7 +265,7 @@ Ne-20 ($5\alpha$) & $78.9d$ & $81.2d$ & Bipyramid \\
 Mg-24 ($6\alpha$) & $80.6d$ & $78.0d$ & Octahedron \\
 Si-28 ($7\alpha$) & $85.6d$ & $83.0d$ & Pentagonal bipyramid \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Parameter Derivation Table}
@@ -276,7 +276,7 @@ Every constant used in this model traces directly to a named identifier in the \
 \centering
 \caption{Physics Engine Traceability. Every nuclear parameter maps 1:1 to a named constant in \texttt{ave.core.constants}. Values shown are computed at import time from the four AVE axioms.}
 \label{tab:engine_traceability}
-\begin{tabular}{l l l l l}
+\begin{tabularx}{\textwidth}{@{}l l l l X@{}}
 \hline
 \textbf{LaTeX Symbol} & \textbf{Python Identifier} & \textbf{Value} & \textbf{Unit} & \textbf{Source} \\
 \hline
@@ -296,14 +296,14 @@ $V_{BR}$ & $6\alpha\hbar c / D_\text{intra}$ & $3.631$ & MeV & Axiom 2 \\
 $\beta_0$ & $K/\alpha\hbar c$ & $7.873$ & --- & Axiom 2 \\
 $n_\text{Miller}$ & \texttt{CROSSING\_NUMBER\_PROTON} & $5$ & --- & Axiom 2 \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \begin{table}[htbp]
 \centering
 \caption{Semiconductor $\leftrightarrow$ Nuclear parameter mapping. Each semiconductor concept has an exact AVE equivalent with no free parameters.}
 \label{tab:semi_nuclear_map}
-\begin{tabular}{l l l}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
 \hline
 \textbf{Semiconductor} & \textbf{Nuclear (AVE)} & \textbf{Engine Constant} \\
 \hline
@@ -316,7 +316,7 @@ $n$ (Miller exponent) & $c_\text{proton}$ (crossings) & \texttt{CROSSING\_NUMBER
 Forward bias ($p$--$n$) & $K/r_{ij}$ (strong coupling) & \texttt{K\_MUTUAL}$/r$ \\
 Reverse bias ($p$--$p$) & $\alpha\hbar c / r_{ij}$ (Coulomb) & \texttt{ALPHA}$\times\hbar c / r$ \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Derivation of the Breakdown Voltage}
@@ -364,7 +364,7 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 \centering
 \caption{Predicted nuclear masses from the semiconductor avalanche model. All parameters are axiom-derived; zero empirical fits. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).}
 \label{tab:avalanche_results}
-\begin{tabular}{l c c c c c}
+\begin{tabularx}{\textwidth}{@{}l c c c c X@{}}
 \hline
 \textbf{Element} & $N_\alpha$ & $V_R / V_{BR}$ & $M$ & \textbf{Error} & \textbf{Regime} \\
 \hline
@@ -376,7 +376,7 @@ Mg-24 & 6 & 0.043 & 1.000 & $0.0001\%$ & Small Signal \\
 Si-28 & 7 & 0.050 & 1.000 & $0.0002\%$ & Small Signal \\
 \textbf{S-32}  & \textbf{8} & \textbf{0.994} & \textbf{32.8} & $\mathbf{0.0000\%}$ & \textbf{Large Signal} \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Topology as Semiconductor Device Type}

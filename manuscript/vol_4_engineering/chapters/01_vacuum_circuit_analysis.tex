@@ -101,7 +101,7 @@ Resistance dissipates power as $P = I^2 R$. Substituting:
 
 \subsection{Complete Translation Dictionary}
 
-Table~\ref{tab:trans_circuit} consolidates the six identities into a single reference dictionary.
+Table~the main text consolidates the six identities into a single reference dictionary.
 
 \input{../common/translation_circuit.tex}
 
@@ -146,7 +146,7 @@ At low voltages ($V \ll V_{yield}$), the leading correction is quadratic---ident
 \caption{Effective vacuum capacitance vs.\ drive level. The divergence accelerates sharply above 90\% of $V_{yield}$.}
 \label{tab:varactor_values}
 \small
-\begin{tabular}{@{}r r r r@{}}
+\begin{tabularx}{\textwidth}{@{}@{@{}}r r r r@{}}
 \toprule
 $V/V_{yield}$ & $V$ (kV) & $C_{eff}/C_0$ & $S(V)$ \\
 \midrule
@@ -157,7 +157,7 @@ $V/V_{yield}$ & $V$ (kV) & $C_{eff}/C_0$ & $S(V)$ \\
 0.999 & 43.61  & 22.37 & 0.045 \\
 1.000 & 43.65  & $\infty$ & 0  \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{The Relativistic Inductor (Lorentz Saturation)}
@@ -177,7 +177,11 @@ The energy stored in a current-carrying inductor is $E = \tfrac{1}{2} L_{eff}\, 
 \begin{equation}
     E = \frac{1}{2} \frac{L_0}{\sqrt{1-(v/c)^2}}\, (\xi_{topo}\, v)^2 = \frac{1}{2} \gamma\, \xi_{topo}^{-2}\, m_0\, \xi_{topo}^2\, v^2 = \frac{1}{2} \gamma\, m_0\, v^2
 \end{equation}
-At $v = 0$, the rest energy stored in the inductor's self-field is $E_0 = \tfrac{1}{2} L_0 I_{max}^2 = \tfrac{1}{2} (\xi_{topo}^{-2} m_0)(\xi_{topo} c)^2 = \tfrac{1}{2} m_0 c^2$. Summing with the capacitive (potential) energy via the Virial Theorem recovers $E_{total} = m_0 c^2$.
+At $v = 0$, the rest energy stored in the inductor's self-field is:
+\begin{equation}
+    E_0 = \tfrac{1}{2} L_0 I_{max}^2 = \tfrac{1}{2} (\xi_{topo}^{-2} m_0)(\xi_{topo} c)^2 = \tfrac{1}{2} m_0 c^2
+\end{equation}
+Summing with the capacitive (potential) energy via the Virial Theorem recovers $E_{total} = m_0 c^2$.
 
 \paragraph{Why SPICE Cannot Exceed $c$.}
 In a standard SPICE transient simulation, the inductor $L_0$ limits the current slew rate to $dI/dt = V/L$. As $I \to I_{max}$, $L_{eff} \to \infty$, and the slew rate collapses to zero. The circuit physically cannot push current (matter) past the hardware limit. SPICE engines natively enforce Special Relativity without any code modification.
@@ -311,7 +315,7 @@ Table~\ref{tab:impedance_regimes} summarises how $Z_0$ behaves across the three 
 \caption{Characteristic impedance across the three vacuum operating regimes. Gravity preserves $Z_0$ (stealth); particle cores and event horizons destroy it ($Z \to 0$).}
 \label{tab:impedance_regimes}
 \small
-\begin{tabular}{@{}l c c c c@{}}
+\begin{tabularx}{\textwidth}{@{}@{@{}}l c c c c@{}}
 \toprule
 \textbf{Regime} & $\mu_{eff}$ & $\epsilon_{eff}$ & $Z = \sqrt{\mu_{eff}/\epsilon_{eff}}$ & $\Gamma$ \\
 \midrule
@@ -320,7 +324,7 @@ Gravity well ($n \gg 1$)  & $n\, \mu_0$            & $n\, \epsilon_0$           
 Particle core ($\Delta\phi \to \alpha$) & $\to 0$ (Meissner) & $\to 0$ (dielectric collapse) & $\to 0\;\Omega$ & $-1$ \\
 Event horizon             & $\to 0$ (saturated)    & $\to 0$ (saturated)         & $\to 0\;\Omega$          & $-1$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \noindent The critical distinction: gravity scales $\mu$ and $\epsilon$ \textit{symmetrically} ($n \times n$), preserving $Z_0$ and producing zero reflection. Topological saturation (particles, event horizons) drives both to zero \textit{asymmetrically} via Axiom~4, collapsing $Z$ and creating perfect mirrors ($\Gamma = -1$). This is why gravity wells are RF-transparent (stealth) while particle boundaries and event horizons are perfect reflectors.\section{Gravitational Stealth (S-Parameter Analysis)}
@@ -378,7 +382,7 @@ This identical mathematical pipeline sequences exactly from Hydrogen ($Z=1$) con
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lccl}
+\begin{tabularx}{\textwidth}{@{}lccX@{}}
 \toprule
 \textbf{Region} & \textbf{$Z_{local}$} & \textbf{$\Gamma$} & \textbf{Physical Character} \\
 \midrule
@@ -387,7 +391,7 @@ Gravity well ($r > r_s$) & $376.7\,\Omega$ (invariant) & $0$   & Regime I: steal
 Event horizon ($r = r_s$) & $0\,\Omega$  & $-1$ & Regime III: perfect mirror \\
 Interior ($r < r_s$)     & Undefined    & ---   & Pre-geometric plasma \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}\section{Topological Defects as Resonant LC Solitons}
 
 As established in prior chapters, a fundamental particle is a stable topological defect---a highly
@@ -548,7 +552,7 @@ equivalent of a \textbf{Lossless LC Tank Circuit} operating purely in the reacti
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcccl}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \toprule
 \textbf{System} & \textbf{$\theta$} & \textbf{$P_{real}$} & \textbf{$Q_{reactive}$} & \textbf{AVE Interpretation} \\
 \midrule
@@ -557,7 +561,7 @@ Inspiral (GW)    & $\neq 90^\circ$ & $> 0$ & Decreasing & Radiative damping \\
 Electron orbital & $90^\circ$ & $0$ W & $m_e c^2 \cdot \alpha$ & Quantized reactive shell \\
 Photon propagation & $0^\circ$ & $P_{rad}$ & $0$ & Pure real (travelling wave) \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}\section{Condensate IMD Spectroscopy: The Harmonic Fingerprint}
 \label{sec:imd}
 
@@ -620,7 +624,7 @@ Table~\ref{tab:imd_levels} evaluates the predicted IM3 amplitude at representati
 \caption{Predicted 3rd-order IMD sideband levels vs.\ fractional drive voltage. The IM3 products are measurable above $-80$~dBc (thermal noise floor for a cryogenic receiver).}
 \label{tab:imd_levels}
 \small
-\begin{tabular}{@{}r r r r@{}}
+\begin{tabularx}{\textwidth}{@{}@{@{}}r r r r@{}}
 \toprule
 $V/V_{yield}$ & Drive (kV) & IM3 Level (dBc) & Measurable? \\
 \midrule
@@ -631,7 +635,7 @@ $V/V_{yield}$ & Drive (kV) & IM3 Level (dBc) & Measurable? \\
 0.70 & 30.56 & $-40$  & Yes \\
 0.90 & 39.29 & $-20$  & Strong \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{QED Comparison}
@@ -685,7 +689,7 @@ Table~\ref{tab:solver_selection} provides the engineering decision matrix.
 \caption{Solver selection guide for AVE simulations. Use FDTD for bulk engineering; use K4-TLM only when chirality is the observable.}
 \label{tab:solver_selection}
 \small
-\begin{tabular}{@{}l c c@{}}
+\begin{tabularx}{\textwidth}{@{}@{@{}}l c c@{}}
 \toprule
 \textbf{Observable / Application} & \textbf{FDTD} & \textbf{K4-TLM} \\
 \midrule
@@ -699,12 +703,12 @@ Gravitational lensing \& frame-dragging  & ---        & \checkmark \\
 Topological Faraday rotation             & ---        & \checkmark \\
 Vacuum birefringence (chirality-split)   & ---        & \checkmark \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \paragraph{Boundary Conditions.} Both solvers support Mur 1st-order absorbing boundaries (default) and PML (Perfectly Matched Layer) polynomial-graded absorbing boundaries (\texttt{use\_pml=True}). PML is recommended for simulations requiring low spurious reflection ($<$\,60~dB) at the grid boundary, such as far-field antenna patterns and long-duration energy tracking. The PML implementation uses cubic-graded conductivity: $\sigma(d) = \sigma_{max}(d/d_{pml})^3$, with $\sigma_{max} = (m+1)/(150\pi\,\Delta x)$.
 
-\paragraph{Default Yield Threshold.} Both FDTD and K4-TLM default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV as the Axiom~4 nonlinear onset (see Section~\ref{sec:yield_thresholds} in Chapter~2 for the engineering rationale). Subatomic-scale simulations (e.g., bond energy solvers, Yang--Mills confinement) should override with \texttt{v\_yield=V\_SNAP} ($\approx 511$~kV).
+\paragraph{Default Yield Threshold.} Both FDTD and K4-TLM default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV as the Axiom~4 nonlinear onset (see Section~\% missing reference sec:yield_thresholds in Chapter~2 for the engineering rationale). Subatomic-scale simulations (e.g., bond energy solvers, Yang--Mills confinement) should override with \texttt{v\_yield=V\_SNAP} ($\approx 511$~kV).
 
 \begin{summarybox}
 \begin{itemize}

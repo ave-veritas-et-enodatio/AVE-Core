@@ -94,9 +94,9 @@ This establishes the fundamental principle of \textbf{boundary-impedance thermal
 
 \subsection{Application: Transmon Qubit Decoherence}
 
-The transmon qubit (Chapter~\ref{ch:quantum_computing}) provides a direct experimental demonstration. A Josephson junction is an LC oscillator with junction leads connected to a $300\;\text{K}$ reservoir. The thermal noise enters exclusively through the lead boundaries---the edge nodes where the junction impedance meets the cryogenic feedline impedance.
+The transmon qubit (Chapter~Volume 4) provides a direct experimental demonstration. A Josephson junction is an LC oscillator with junction leads connected to a $300\;\text{K}$ reservoir. The thermal noise enters exclusively through the lead boundaries---the edge nodes where the junction impedance meets the cryogenic feedline impedance.
 
-A correct simulation must therefore inject stochastic noise only at the boundary nodes, not uniformly across the bulk field. The resulting coherence metric (the Cauchy-Schwarz normalised overlap between the instantaneous state and the initial eigenmode) is bounded $C(t) \in [0, 1]$ and decays via oscillatory relaxation, reproducing the observed error-rate timelines of modern cryo-cooled qubits (Figure~\ref{fig:transmon_decoherence}).
+A correct simulation must therefore inject stochastic noise only at the boundary nodes, not uniformly across the bulk field. The resulting coherence metric (the Cauchy-Schwarz normalised overlap between the instantaneous state and the initial eigenmode) is bounded $C(t) \in [0, 1]$ and decays via oscillatory relaxation, reproducing the observed error-rate timelines of modern cryo-cooled qubits (Figure~Volume 4).
 
 \subsection{Ohmic Damping: The Dissipation Arm}
 
@@ -122,7 +122,7 @@ where $\omega_0$ is the resonant frequency and $L_{eff}$ is the effective induct
 
 \subsection{The 7-Mode Compliance Manifold}
 
-The Poisson ratio of the vacuum lattice, $\nu_{vac} = 2/7$ (derived in Chapter~\ref{ch:fundamental_axioms}), reveals the internal structure of each lattice node. The denominator $n = 7$ counts the \textbf{independent compliance modes per node}:
+The Poisson ratio of the vacuum lattice, $\nu_{vac} = 2/7$ (derived in Chapter~Volume 1), reveals the internal structure of each lattice node. The denominator $n = 7$ counts the \textbf{independent compliance modes per node}:
 \begin{enumerate}
     \item 3 translational degrees of freedom (displacement along $x$, $y$, $z$)
     \item 3 rotational degrees of freedom (torsion about $x$, $y$, $z$)
@@ -181,7 +181,7 @@ The preceding sections treated the lattice as a passive thermal reservoir. Consi
 
 \subsection{The Thermal Correction to the Skyrme Coupling}
 
-The proton (Chapter~\ref{ch:baryons}) is a $6_2^3$ Borromean linkage confined by the $(2,5)$ cinquefoil torus knot. Its internal tension is governed by the Faddeev-Skyrme coupling constant $\kappa_{FS} = 8\pi$ (the cold, zero-temperature value). The proton's core exists at an effective temperature $T_{core} \sim m_p c^2 / k_B \approx 10^{13}\;\text{K}$.
+The proton (Chapter~Volume 2) is a $6_2^3$ Borromean linkage confined by the $(2,5)$ cinquefoil torus knot. Its internal tension is governed by the Faddeev-Skyrme coupling constant $\kappa_{FS} = 8\pi$ (the cold, zero-temperature value). The proton's core exists at an effective temperature $T_{core} \sim m_p c^2 / k_B \approx 10^{13}\;\text{K}$.
 
 At this temperature, the baseline RMS thermal noise of the vacuum partially averages out the sharp gradient tensor $(\partial_\mu \mathbf{n} \times \partial_\nu \mathbf{n})^2$ that stabilises the quartic Skyrme repulsion. The thermally corrected coupling is:
 \begin{resultbox}{Thermal Softening Correction}
@@ -254,7 +254,7 @@ The Meissner effect follows directly: when $\mu_{eff} \to 0$ at saturation (Axio
 
 \subsection{Casimir Cooling: Geometric Phase Transitions}
 
-The Casimir effect (Chapter~\ref{ch:quantum_computing}) provides a mechanism for \textbf{engineering} phase transitions without cryogenic cooling. By placing a conductor inside a nanoscale cavity of gap width $d$, long-wavelength thermal modes ($\lambda > 2d$) are geometrically excluded from the cavity interior.
+The Casimir effect (Chapter~Volume 4) provides a mechanism for \textbf{engineering} phase transitions without cryogenic cooling. By placing a conductor inside a nanoscale cavity of gap width $d$, long-wavelength thermal modes ($\lambda > 2d$) are geometrically excluded from the cavity interior.
 
 This acts as a high-pass filter on the ambient noise spectrum. The effective local temperature inside the cavity is:
 \begin{resultbox}{Casimir Effective Temperature}
@@ -263,7 +263,7 @@ This acts as a high-pass filter on the ambient noise spectrum. The effective loc
     \label{eq:casimir_temperature}
 \end{equation}
 \end{resultbox}
-where $f_c = c_0 / (2d)$ is the cavity cutoff frequency. When the resulting $T_{eff}$ drops below $T_c$, the enclosed conductor undergoes a geometric phase transition into the superconducting state---at room ambient temperature (see Chapter~\ref{ch:quantum_computing}, Figure~\ref{fig:casimir_superconductor}).
+where $f_c = c_0 / (2d)$ is the cavity cutoff frequency. When the resulting $T_{eff}$ drops below $T_c$, the enclosed conductor undergoes a geometric phase transition into the superconducting state---at room ambient temperature (see Chapter~Volume 4, Figure~\ref{fig:casimir_superconductor}).
 
 \subsection{Fluid Anomalies: The Two-State LC Partition Framework}
 \label{sec:water_partition}
@@ -274,7 +274,7 @@ Under AVE, macroscopic fluid anomalies are not mathematical quirks; they are str
 
 Water topologically occupies two absolute LC structural extreme states:
 \begin{enumerate}
-    \item \textbf{State I (Intact Impedance Lock):} The molecule forms an open, tetrahedral diamond-like topological structure to perfectly impedance-match the surrounding thermal network. The physical volume scales precisely to the exact lattice constant $V = a^3$, where $a = \frac{4 r_{OO}}{\sqrt{3}}$ and $r_{OO}$ is the O--O nearest-neighbor distance derived from the Op4 hydrogen bond equilibrium (Vol.~V, Ch.~2, \S\ref{sec:hbond_derivation}: $d_{OO} = d_{OH} + d_{HB} = 2.727$~\AA). This maximizes structural rigidity but minimizes macroscopic packing density.
+    \item \textbf{State I (Intact Impedance Lock):} The molecule forms an open, tetrahedral diamond-like topological structure to perfectly impedance-match the surrounding thermal network. The physical volume scales precisely to the exact lattice constant $V = a^3$, where $a = \frac{4 r_{OO}}{\sqrt{3}}$ and $r_{OO}$ is the O--O nearest-neighbor distance derived from the Op4 hydrogen bond equilibrium (Vol.~V, Ch.~2, \S Volume 5: $d_{OO} = d_{OH} + d_{HB} = 2.727$~\AA). This maximizes structural rigidity but minimizes macroscopic packing density.
     \item \textbf{State II (Thermal Shattering):} Sufficient transverse thermal noise ($\langle U_{noise} \rangle$) exceeds the H-bond geometric phase-gap breaking the LC lock. The structure collapses probabilistically into a standard spherical close-packing fluid (FCC packing fraction $\varphi = \pi\sqrt{2}/6 \approx 0.7405$, Axiom~2).
 \end{enumerate}
 
@@ -292,7 +292,7 @@ Using purely the derived H-bond Void space energy ($0.2158$ eV), the lattice $r_
 Furthermore, the macroscopic fluid Dielectric Constant—normally plotted strictly via empirical measurement—derives exactly as a geometric projection of this structural fraction into the macroscopic Kirkwood-Fröhlich equation ($g_{kirkwood} = 1 + z \cos^2(\theta/2) f_I$, where $z=4$ represents the tetrahedral network symmetry). 
 
 \paragraph{Engine implementation.}
-The physics engine formally enforces this non-linear LC transition boundary in \texttt{regime\_1\_linear/hexagonal\_lattice.py}. The factory replaces generalized scalar distributions with an explicit geometric lattice yield tensor that structurally snaps to $0$ strictly at the Axiom 4 limit ($\approx 30\,^{\circ}$C). Code path: \texttt{CooperativeHexagonalLattice.evaluate\_structural\_fraction(T)}.
+The physics engine formally enforces this non-linear LC transition boundary in \texttt{regime\_1\_linear/hexagonal\_lattice.py}. The factory replaces generalized scalar distributions with an explicit geometric lattice yield tensor that structurally snaps to $0$ strictly at the Axiom 4 limit ($\sim 30^\circ$C). Code path: \texttt{Cooperative\allowbreak Hexagonal\allowbreak Lattice.\allowbreak evaluate\_\allowbreak structural\_\allowbreak fraction(T)}.
 
 \paragraph{Empirical Calibration (The 2026 X-Ray Validation).}
 This non-linear transition directly maps to the physical Liquid-Liquid Critical Point (LLCP) observed in supercooled water. Recent sub-femtosecond X-ray laser measurements \cite{nilsson2026llcp} empirically intercepted water structurally splitting into two disjoint macroscopic geometries at bridging boundaries. Under the AVE structural lens, their ``Low-Density Liquid'' (LDL) equates flawlessly to the expanded tetrahedral phase ($V_I$) aligned with the vacuum void fraction, while their ``High-Density Liquid'' (HDL) captures the collapse into uniform random-close-packing ($V_{II}$). Their observed rapid, unstable structural fluctuations near the critical threshold perfectly corroborate the mathematical limits of the cooperative lattice yield. It confirms that the $+4\,^{\circ}\text{C}$ density maximum is fundamentally a supercritical statistical average of this dual-geometric struggle, exactly as derived.
@@ -303,7 +303,7 @@ All classical phase transitions map onto impedance matching events in the LC lat
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l l l}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
 \textbf{Transition} & \textbf{Impedance Change} & \textbf{Physical Manifestation} \\
 \midrule
@@ -313,7 +313,7 @@ Paramagnetic $\to$ Ferromagnetic & $Z_\mu \to 0$ locally & $\mu_{eff}$ saturates
 Bose-Einstein Condensation & $|\Gamma| \to 1$ globally & Macroscopic coherent reflection \\
 Deconfinement (QGP) & $Z_{int} \to Z_0$ & Impedance matching dissolves confinement \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 The critical temperature $T_c$ for each transition is the temperature at which the RMS thermal noise amplitude exceeds (or falls below) the impedance mismatch threshold required to maintain (or break) a particular structural resonance. Phase transitions are not spontaneous symmetry breaking in an abstract order-parameter field. They are mechanical impedance catastrophes in a physical elastic medium.

@@ -165,7 +165,7 @@ This proves that the Bohr radius is exactly $1/\alpha$ lattice pitches. The hydr
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcl}
+\begin{tabularx}{\textwidth}{@{}l c X@{}}
 \toprule
 \textbf{Region} & \textbf{Regime} & \textbf{Physical Character} \\
 \midrule
@@ -173,7 +173,7 @@ $r < a_0$ (inner core) & II (Yield) & $V_{local} \sim V_{yield}$; strong confine
 $r \approx n^2 a_0$ (orbital shell) & I--II boundary & Impedance matching; standing wave nodes \\
 $r \gg n^2 a_0$ (classically forbidden) & I (Linear) & Evanescent decay; field sub-threshold \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 In this interpretation, the mathematics of quantum mechanics remain fully valid, but the ontology changes: the wavefunction describes the physical acoustic mode structure of the vacuum LC mesh rather than an irreducible probability distribution. Quantum mechanics, under this lens, is the high-frequency limit of structural fluid dynamics in the vacuum condensate.
@@ -597,7 +597,7 @@ simplest stable closed loop on the lattice.
 $\ell_{\text{node}} \approx 3.862 \times 10^{-13}$~m
 (the reduced Compton wavelength) is the lattice spatial cutoff
 (Bounding Limit~1 of the derivation chain,
-Appendix~\ref{app:full_derivation_chain}).
+Volume 1, Appendix B).
 
 Dimensional check:
 $[\hbar / (\ell_{\text{node}} \cdot c)]
@@ -1211,7 +1211,7 @@ Normalising by the single-electron eigenvalue $E_0 = Z^2 R_y/n^2$:
     = \frac{Z R_y / n^2}{Z^2 R_y / n^2} = \frac{1}{Z}
 \end{equation}
 Each Hopf link has two crossings.  At each crossing, the strain
-saturates and Op2 (\texttt{universal\_saturation}) reduces the
+saturates and Op2 (\texttt{universal\_\allowbreak saturation}) reduces the
 transmitted power by $p_c/2$ (two crossings $\times$ $p_c/4$ each).
 Including both electrons in the pair (factor of 2):
 \begin{equation}
@@ -2046,19 +2046,19 @@ Sommerfeld integral:\vspace{-4pt}
 For a pure $-Z_{\text{net}}\alpha\hbar c / r
 + l^2\hbar^2/(2m_e r^2)$ potential, the closed form
 is:\vspace{-4pt}
-\begin{equation}
-    \phi_i = \left[
+\begin{align}
+    \phi_i &= \left[
     \sqrt{-2m_e E}\;r
     \;\sqrt{1 + \frac{Z_{\text{net}}\alpha\hbar c}{E\,r}
     - \frac{l^2\hbar^2}{2m_e E\,r^2}}
-    \right]_{r_i}^{r_{i+1}}
-    + Z_{\text{net}}\alpha
+    \right]_{r_i}^{r_{i+1}} \nonumber \\
+    &\quad + Z_{\text{net}}\alpha
     \sqrt{\frac{m_e}{-2E}}\,
     \arcsin\!\left(\frac{2Er + Z_{\text{net}}
     \alpha\hbar c}{\sqrt{Z_{\text{net}}^2\alpha^2\hbar^2 c^2
     + 2El^2\hbar^2/m_e}}\right)
     \Bigg|_{r_i}^{r_{i+1}}
-\end{equation}
+\end{align}
 This is evaluable in closed form---no numerical
 quadrature required.
 
@@ -3004,7 +3004,7 @@ Antenna & Coupled microstrip &
 \end{center}
 The protein engine already uses coupled-line
 even/odd impedances for $\beta$-sheet inter-strand
-coupling (Vol.~V, Ch.~\ref{ch:network_solver}).
+coupling (Vol.~V, Ch.~\% missing reference ch:network_solver).
 The atomic instantiation is identical: two
 electron orbitals running through the same
 nuclear field are coupled by mutual Coulomb
@@ -3525,7 +3525,7 @@ of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$).
 The charge of each soliton ($-e$) screens the nuclear charge seen
 by its partner.  Gauss's law applied to the Hopf link geometry
 gives $\sigma_{\text{Hopf}} = 1/2$ per partner
-(\S\ref{sec:hops_screening}).  This screening is
+(\S\% missing reference sec:hops_screening).  This screening is
 \textbf{isotropic}---it depends on the linking number (Axiom~3)
 and the enclosed charge fraction, but \emph{not} on the relative
 orbital plane orientation ($m_l$).
@@ -3554,7 +3554,7 @@ $\sim 10^{2\text{--}3}$.  They cannot be lumped into a
 single effective impedance.  The correct procedure is:
 \begin{enumerate}
     \item \textbf{Cavity Eigenvalue} (orbital, distributed):
-          The ABCD cascade computes the base standing wave eigenvalue $E_{\text{base}}$ from the nucleus to the radial turning point. Only \emph{cross-shell} (different-$n$) bound states provide spherical Gauss shielding in this phase.  Same-$n$ electrons are \textbf{excluded} from the CDF screening: they share the same torus and Gauss's law cannot resolve angular correlations on one torus (see \S\ref{sec:hops_screening}). Same-$n$ interactions enter through Phase~2 (Hopf mode splitting) instead. The isolated core baseline is natively extracted as an effective charge bounded cavity:
+          The ABCD cascade computes the base standing wave eigenvalue $E_{\text{base}}$ from the nucleus to the radial turning point. Only \emph{cross-shell} (different-$n$) bound states provide spherical Gauss shielding in this phase.  Same-$n$ electrons are \textbf{excluded} from the CDF screening: they share the same torus and Gauss's law cannot resolve angular correlations on one torus (see \S\% missing reference sec:hops_screening). Same-$n$ interactions enter through Phase~2 (Hopf mode splitting) instead. The isolated core baseline is natively extracted as an effective charge bounded cavity:
           \begin{equation}
               Z_{\text{eff\_core}} = \frac{R_{\text{target}}}{a_0} \sqrt{\frac{E_{\text{base}}}{\text{Ry}}}
           \end{equation}
@@ -3731,7 +3731,7 @@ transmitted coupling by $p_c/2$
     \label{eq:k_hopf_he}
 \end{equation}
 where $p_c = 8\pi\alpha$ is the packing fraction
-(Axiom~4, derived in Ch.~\ref{ch:macroscopic_moduli}).
+(Axiom~4, derived in Ch.~Volume 1).
 
 \paragraph{Bonding Energy (Stage~E1).}
 Both electrons occupy the bonding mode of the
@@ -3784,7 +3784,7 @@ Therefore:
 \end{equation}
 using $e^2 = 4\pi\varepsilon_0\alpha\hbar c$ (Axiom~2).
 The derivation is given in full in
-Ch.~\ref{ch:macroscopic_moduli} (Schwinger yield).
+Ch.~Volume 1 (Schwinger yield).
 The factor $8\pi = 2 \times 4\pi$ has the geometric interpretation established in Chapter~\ref{ch:baryons} (where it appears as the Faddeev-Skyrme coupling $\kappa_{FS} = p_c/\alpha = 8\pi$):
 \begin{itemize}
     \item $4\pi$ --- the solid-angle normalisation of the spherical Gauss-law integral.
@@ -3824,7 +3824,7 @@ Chiral factor $\chi = \alpha \cdot pq/(p+q)$ & $p_c = 8\pi\alpha$ \\
 \end{tabular}
 \end{center}
 
-\noindent Both systems are LC resonators on a discrete lattice, and in both cases the topological coupling enters as $\alpha$ times a purely geometric factor determined by the defect's knot or link type. At atomic scales, two linked unknots (the Hopf link of $1s^2$) produce the geometric factor $8\pi$; at macroscopic scales, the $(2,3)$ trefoil produces $6/5$. The coupling constant $\alpha$ is universal---it is the lattice's own self-coupling (Chapter~\ref{ch:macroscopic_moduli}).
+\noindent Both systems are LC resonators on a discrete lattice, and in both cases the topological coupling enters as $\alpha$ times a purely geometric factor determined by the defect's knot or link type. At atomic scales, two linked unknots (the Hopf link of $1s^2$) produce the geometric factor $8\pi$; at macroscopic scales, the $(2,3)$ trefoil produces $6/5$. The coupling constant $\alpha$ is universal---it is the lattice's own self-coupling (Chapter~Volume 1).
 
 \section{The Atom as a Stepped Impedance Resonator}
 \label{sec:sir_atom}
@@ -3963,7 +3963,7 @@ This resolves the Beryllium residual from $-7.1\%$ to $-0.45\%$ with zero free p
 \section{Ionization Energy Validation: $Z = 1$ to $14$}
 \label{sec:ie_validation}
 
-The complete first-ionization-energy sweep demonstrates the accuracy of the three-phase pipeline (Phase~A cavity eigenvalue, Phase~B Hopf mode splitting with corrections A/B/C, Phase~C crossing scattering).  All values are computed using the engine solver \texttt{ionization\_energy\_e2k(Z)} with zero free parameters.
+The complete first-ionization-energy sweep demonstrates the accuracy of the three-phase pipeline (Phase~A cavity eigenvalue, Phase~B Hopf mode splitting with corrections A/B/C, Phase~C crossing scattering).  All values are computed using the engine solver \texttt{ionization\_\allowbreak energy\_\allowbreak e2k(Z)} with zero free parameters.
 
 \begin{center}
 \small

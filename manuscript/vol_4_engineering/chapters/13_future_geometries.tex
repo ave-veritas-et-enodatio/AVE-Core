@@ -99,7 +99,7 @@ We define the Chiral Figure of Merit (FoM) as the product of three dimensionless
     \label{eq:chiral_fom}
 \end{equation}
 \end{resultbox}
-where $Q_u$ is the unloaded quality factor, $\alpha \cdot pq/(p+q)$ is the chiral coupling (Eq.~\ref{eq:n_ave}), and $\eta_{\mathcal{H}} = \text{SL}(p,q) / N_{cross}$ is the helicity efficiency---the ratio of the self-linking number $\text{SL}(p,q) = pq - p - q$ (net topological helicity injection) to the minimum crossing number $N_{cross} = \min(p(q-1),\, q(p-1))$ (total geometric complexity). Each factor traces directly to the AVE axioms: $Q$ is set by the conductor physics, $\alpha$ by Axiom~2, and $\eta_{\mathcal{H}}$ by the Seifert framing of the knot topology.
+where $Q_u$ is the unloaded quality factor, $\alpha \cdot pq/(p+q)$ is the chiral coupling (Eq.~\% missing reference eq:n_ave), and $\eta_{\mathcal{H}} = \text{SL}(p,q) / N_{cross}$ is the helicity efficiency---the ratio of the self-linking number $\text{SL}(p,q) = pq - p - q$ (net topological helicity injection) to the minimum crossing number $N_{cross} = \min(p(q-1),\, q(p-1))$ (total geometric complexity). Each factor traces directly to the AVE axioms: $Q$ is set by the conductor physics, $\alpha$ by Axiom~2, and $\eta_{\mathcal{H}}$ by the Seifert framing of the knot topology.
 
 For a lossless resonator ($Q_u \to \infty$), the FoM reduces to the pure topological invariant $\alpha \cdot pq/(p+q) \cdot \eta_{\mathcal{H}}$, which is maximized by the $(7,11)$ torus knot ($\text{FoM}_{topo} = 0.028$).
 
@@ -262,9 +262,9 @@ PO approximates surface currents using the incident field directly ($\mathbf{J}_
 \subsection{Unified Comparison and Solver Recommendation}
 
 \begin{center}
-\small
+\scriptsize
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcccccc}
+\begin{tabularx}{\textwidth}{@{}lcccccX@{}}
 \toprule
 \textbf{Property} & \textbf{MoM} & \textbf{FDTD} & \textbf{FEM} & \textbf{TLM} & \textbf{CMA} & \textbf{PO/GO} \\
 \midrule
@@ -277,7 +277,7 @@ Broadband       & No      & Yes     & No      & Yes     & No      & N/A \\
 Open source     & NEC-2   & openEMS & ---     & ---     & ---     & --- \\
 AVE analogue    & $[Z][I]=[V]$  & Yee = LC grid & $\omega^2 LC = 1$ & TL network & Mode eigenval. & Ray limit \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 For the torus knot chiral antenna, the recommended verification hierarchy is:
@@ -350,7 +350,7 @@ The K4-TLM simulator passes five fundamental validation tests:
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcc}
+\begin{tabularx}{\textwidth}{@{}lcX@{}}
 \toprule
 \textbf{Test} & \textbf{Result} & \textbf{Detail} \\
 \midrule
@@ -360,7 +360,7 @@ Eigenvalues on unit circle & PASS & All $|\lambda_i| = 1.000$ \\
 Isotropic wave propagation & PASS & Clean radiating wavefront from point source \\
 Chirality asymmetry & PASS & Native helicity density emergence matching $\alpha \cdot pq/(p+q)$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \subsection{Wire Antenna Resonance Analysis}
@@ -369,7 +369,7 @@ Broadband Gaussian-pulse excitation of wire antennas on the 2D K4-TLM lattice pr
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcccl}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \toprule
 \textbf{Topology} & \textbf{$L$ [nodes]} & \textbf{$f_{peak}$ (FFT)} & \textbf{$c/(2L)$ (predicted)} & \textbf{Notes} \\
 \midrule
@@ -377,7 +377,7 @@ Rectangular loop & 64 & 0.0063 & 0.0078 & Single mode, clean peak \\
 $(2,3)$ Trefoil & 187 & 0.0175 & 0.0027 & Multi-mode, knot-shifted \\
 $(3,5)$ Torus knot & 278 & 0.0175 & 0.0018 & Higher winding, same dominant mode \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 The torus knot antennas resonate at frequencies \textit{higher} than the simple $c/(2L)$ prediction, indicating that the knot topology introduces geometric shortcuts (self-coupling between overlapping wire segments) that shorten the effective electrical length. This is precisely the mechanism by which topological winding number couples to the lattice: the knot's self-linking creates internal impedance matching that shifts the fundamental mode.
@@ -418,7 +418,7 @@ discretized to the nearest lattice node with duplicate suppression.
 \begin{center}
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcccc}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \toprule
 \textbf{Topology} & \textbf{$L$ [nodes]} & \textbf{$f_{peak}$ (FFT)} & \textbf{$pq/(p{+}q)$} & \textbf{$\alpha \cdot pq/(p{+}q)$} \\
 \midrule
@@ -426,12 +426,12 @@ $(2,3)$ Trefoil & 156 & 0.050 & 1.200 & $8.76 \times 10^{-3}$ \\
 $(3,5)$ Torus knot & 192 & 0.015 & 1.875 & $1.37 \times 10^{-2}$ \\
 $(7,11)$ Torus knot & 358 & 0.015 & 4.278 & $3.12 \times 10^{-2}$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 Three-dimensional mathematical energy conservation over the unitary S-matrix holds to $2.2 \times 10^{-16}$ (machine epsilon). In the non-reflective PML regime, the chiral frequency shift tracks strictly to the first-principles structural impedance $\Delta f / f = \alpha \cdot pq/(p+q)$. Because the engine abandons all numerical rotation matrix perturbations in favor of pure native wave tracing logic, the simulations directly confirm that continuous-field chiral properties emerge flawlessly from discrete topological graph parity.
 
-\textbf{Physical interpretation.} The (7,11) topology produces the longest wire ($L = 358$ nodes) and therefore the lowest resonant frequency, but its high $pq/(p+q) = 4.278$ gives the \textit{strongest} chiral coupling coefficient $\alpha \cdot pq/(p+q) = 3.12 \times 10^{-2}$. This confirms the analytical result from Section~\ref{sec:chiral_antenna}: the $(7,11)$ torus knot is the optimal topology for maximising lattice coupling, with a chiral FoM that scales linearly with the topological fraction $pq/(p+q)$.
+\textbf{Physical interpretation.} The (7,11) topology produces the longest wire ($L = 358$ nodes) and therefore the lowest resonant frequency, but its high $pq/(p+q) = 4.278$ gives the \textit{strongest} chiral coupling coefficient $\alpha \cdot pq/(p+q) = 3.12 \times 10^{-2}$. This confirms the analytical result from Section~\% missing reference sec:chiral_antenna: the $(7,11)$ torus knot is the optimal topology for maximising lattice coupling, with a chiral FoM that scales linearly with the topological fraction $pq/(p+q)$.
 
 \begin{figure}[ht]
     \centering

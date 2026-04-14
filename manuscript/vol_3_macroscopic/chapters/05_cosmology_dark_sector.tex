@@ -61,7 +61,7 @@ Each galactic radius maps to a specific regime via $r = g_N/a_0$:
 
 \begin{center}
 \small
-\begin{tabular}{llcl}
+\begin{tabularx}{\textwidth}{@{}llcX@{}}
 \toprule
 \textbf{Region} & \textbf{Condition} & \textbf{$r = g_N/a_0$} & \textbf{Regime} \\
 \midrule
@@ -69,7 +69,7 @@ Inner galaxy ($< 5$ kpc) & $g_N \gg a_0$ & $\gg 1$ & IV (saturated, Keplerian) \
 Transition zone ($5$--$15$ kpc) & $g_N \approx a_0$ & $\sim 1$ & II/III boundary \\
 Outer galaxy ($> 15$ kpc) & $g_N \ll a_0$ & $\ll 1$ & I (unsaturated, ``dark matter'') \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent The dark matter problem \textbf{IS} the Regime~I observation of unsaturated vacuum lattice drag.  Inner-galaxy stars at $r \gg 1$ are in Regime~IV: the lattice is fully saturated, drag is zero, orbits are Keplerian.  Outer-galaxy stars at $r \ll 1$ are in Regime~I: the lattice is unsaturated, full drag produces $g_{eff} \to \sqrt{g_N \cdot a_0}$ (flat rotation curves).
@@ -100,7 +100,8 @@ The AVE Axiom~4 saturation (Eq.~\ref{eq:saturation_mond}) reproduces the same as
     \item $g_{bar} \ll a_0$: both yield $g_{obs} \to \sqrt{g_{bar} \cdot a_0}$ (deep MOND)
     \item $g_{bar} \gg a_0$: both yield $g_{obs} \to g_{bar}$ (Newtonian)
 \end{itemize}
-The physics engine implements both via \texttt{galactic\_rotation.radial\_acceleration\_relation()}.
+The physics engine implements both via
+\texttt{galactic\_}\allowbreak\texttt{rotation.}\allowbreak\texttt{radial\_}\allowbreak\texttt{acceleration\_}\allowbreak\texttt{relation()}.
 
 \section{Multi-Galaxy Validation}
 \label{sec:multi_galaxy}
@@ -108,10 +109,10 @@ The physics engine implements both via \texttt{galactic\_rotation.radial\_accele
 The physics engine contains a five-galaxy catalog (\texttt{gravity/galactic\_rotation.py}) spanning four decades of baryonic mass.  Table~\ref{tab:galaxy_validation} lists the predicted flat rotation velocities computed using the AVE saturation model with zero free parameters.
 
 \begin{table}[H]
-\centering\small
+\centering\footnotesize
 \caption{Multi-galaxy validation.  All predictions use $a_0 = c H_\infty / (2\pi)$ with zero adjustable parameters.  Observed values from SPARC (Lelli et al.\ 2016) and standard references.}
 \label{tab:galaxy_validation}
-\begin{tabular}{lrrrrr}
+\begin{tabularx}{\textwidth}{@{}lrrrrX@{}}
 \toprule
 \textbf{Galaxy} & $M_{\text{disk}}$ ($M_\odot$) & $R_d$ (kpc) & $v_{\text{flat}}^{\text{AVE}}$ (km/s) & $v_{\text{flat}}^{\text{obs}}$ (km/s) & Error \\
 \midrule
@@ -121,7 +122,7 @@ Milky Way             & $5 \times 10^{10}$ & 2.6  & $\sim\!220$ & $220 \pm 20$ &
 M31 (Andromeda)       & $7 \times 10^{10}$ & 5.3  & $\sim\!225$ & $225 \pm 25$ & $<5\%$ \\
 UGC 2885 (giant)      & $2 \times 10^{11}$ & 12.0 & $\sim\!300$ & $300 \pm 10$ & $<3\%$ \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \noindent The Tully-Fisher relation ($v_{flat}^4 = G M a_0$) is an automatic consequence of the deep-MOND limit, requiring no additional physics beyond the universal saturation operator.
@@ -141,7 +142,7 @@ UGC 2885 (giant)      & $2 \times 10^{11}$ & 12.0 & $\sim\!300$ & $300 \pm 10$ &
 \section{The Metric Rupture Boundary}
 \label{sec:metric_rupture}
 
-The topological engine actively maps the transition boundary dynamically via the \texttt{simulate\_galactic\_rotation\_curve.py} module. Rather than manually fitting an arbitrary Dark Matter halo density profile, the script continuously evaluates the baryonic Newtonian limit $g_N(r)$ explicitly against the Derived Universal Saturation Bound ($a_0$).
+The topological engine actively maps the transition boundary dynamically via the \texttt{simulate\_\allowbreak galactic\_\allowbreak rotation\_\allowbreak curve.py} module. Rather than manually fitting an arbitrary Dark Matter halo density profile, the script continuously evaluates the baryonic Newtonian limit $g_N(r)$ explicitly against the Derived Universal Saturation Bound ($a_0$).
 
 When scaling outwards from the dense Galactic Core (Regime IV), the local metric is initially completely saturated ($g_N \gg a_0$). However, as the enclosed baryonic mass density trails off radially, the metric tension $g_N$ drops. The exact radius where $g_N(r) \le a_0$ triggers the \textbf{Metric Rupture Boundary}. 
 
@@ -163,14 +164,14 @@ Because the vacuum behaves as a linear LC network, localized metric strains exhi
     \label{fig:bullet_cluster_offset}
 \end{figure}
 
-The \texttt{simulate\_bullet\_cluster\_fdtd.py} engine computes this entirely from the baseline unknot expansion primitive, projecting the true 2D topological wake passing symmetrically out of the collision zone (represented dynamically in the repository's rotation renderings).
+The \texttt{simulate\_\allowbreak bullet\_\allowbreak cluster\_\allowbreak fdtd.py} engine computes this entirely from the baseline unknot expansion primitive, projecting the true 2D topological wake passing symmetrically out of the collision zone (represented dynamically in the repository's rotation renderings).
 
 \subsection{Tabletop Falsification: Ferromagnetic Viscosity Analogue}
 To definitively prove that the Bullet Cluster offset is standard electromagnetic Mutual Inductance and not an exotic cosmological phenomenon, the framework proposes a direct macroscopic tabletop replication. 
 
 The Vacuum $K_4$ LC lattice is modeled by a vat of dense ferromagnetic fluid (e.g. EFH1 with a base initial permeability of $\mu_r = 400$ and a definitive magnetic yield bounds of $B_{yield} = 44\text{ mT}$). The incoming galaxy cores are modeled by 2cm gyroscopic electromagnet spherical motors spinning through the vat.
 
-As calculated in the runtime validation engine (\texttt{design\_tabletop\_ferrofluid.py}), if the motors are energized with exactly $109.4\text{ Ampere-Turns}$, they will emit a massive core field bounding a precise $5\text{ cm}$ radius metric where $B_{core} \ge B_{yield}$. Within this 5cm core geometry, the fluid natively suffers total dielectric saturation ($\mu_r \to 1$). 
+As calculated in the runtime validation engine (\texttt{design\_\allowbreak tabletop\_\allowbreak ferrofluid.py}), if the motors are energized with exactly $109.4\text{ Ampere-Turns}$, they will emit a massive core field bounding a precise $5\text{ cm}$ radius metric where $B_{core} \ge B_{yield}$. Within this 5cm core geometry, the fluid natively suffers total dielectric saturation ($\mu_r \to 1$). 
 
 Extensive operational testing maps identical topological lensing mechanics directly onto the fluid:
 \begin{enumerate}

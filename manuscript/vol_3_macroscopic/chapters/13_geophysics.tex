@@ -63,7 +63,7 @@ Table~\ref{tab:prem_layers} lists the major discontinuities of the Preliminary R
 \caption{PREM layer impedances. Reflection coefficients are computed by the universal \texttt{reflection\_coefficient(Z1, Z2)} function---identical to the function used for particle boundaries, plasma cutoffs, and antenna ports.}
 \label{tab:prem_layers}
 \small
-\begin{tabular}{@{}l r r r r@{}}
+\begin{tabularx}{\textwidth}{@{}@{@{}}l r r r r@{}}
 \toprule
 \textbf{Boundary} & $\rho$ (kg/m$^3$) & $V_P$ (km/s) & $Z = \rho V_P$ (MPa$\cdot$s/m) & $|\Gamma|$ \\
 \midrule
@@ -73,7 +73,7 @@ Moho (crust/mantle)   & 3,380  & 8.1   & 27.4 & 0.29 \\
 CMB (mantle/core)     & 9,900  & 8.1   & 80.2 & 0.32 \\
 ICB (outer/inner)     & 12,760 & 11.0  & 140.4 & 0.27 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \noindent The Moho reflection coefficient evaluates numerically:

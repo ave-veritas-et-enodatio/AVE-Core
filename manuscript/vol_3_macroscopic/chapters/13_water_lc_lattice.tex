@@ -52,7 +52,7 @@ Boiling point
 Specific heat
     & Mode count of the K4 junction: 3 translational + 3 librational + $z/2$ stretch + $z/4$ bend $= 9$ modes, each storing $k_B T$.  \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 This mapping constitutes a complete \textbf{Rosetta Stone} between macroscopic fluid thermodynamics and microwave network analysis. Every quantity on the left is computable with the tools on the right.
@@ -107,7 +107,7 @@ Iterating from $T_0$ converges in $\sim$13 steps to $T_\mathrm{sat} = 275.54$~K.
 Three distinct physical processes each use a different combination of the bare and saturated eigenmodes:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lll}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
 \toprule
 \textbf{Process} & \textbf{Eigenmode} & \textbf{Physics} \\
 \midrule
@@ -115,7 +115,7 @@ $T(\rho_\mathrm{max})$ & $T_0(1-\alpha)$ & Harmonic peak energy storage \\
 $T_\mathrm{melt}$      & $T_\mathrm{sat}(1-\alpha)$ & Single-port saturation (Axiom~4 softening) \\
 $T_b$                   & $(z/3) \cdot T_0$ & Multi-port junction decoupling \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 The factor $(1-\alpha)$ is the Axiom~2 vacuum--lattice impedance loading, which red-shifts every LC mode by the fine-structure constant $\alpha = 7.297 \times 10^{-3}$.
@@ -283,7 +283,7 @@ Experimental: $T_b = 373.15$~K. \quad Error: $\mathbf{-0.15\%}$.
 The K4-TLM topology determines the mode count. Each molecule is a 4-port K4 junction connected to four neighbours via H-bond transmission lines. The modes are:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lrl}
+\begin{tabularx}{\textwidth}{@{}lrX@{}}
 \toprule
 \textbf{Mode type} & \textbf{Count} & \textbf{Physics} \\
 \midrule
@@ -294,7 +294,7 @@ H-bond bend          & $z/4 = 1$ & Shared among 4 molecules at the K4 junction \
 \midrule
 \textbf{Total}       & \textbf{9} & \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 The bend mode division by 4 (not 2) follows from the K4 topology: at a 4-port junction, each angular degree of freedom is shared among all four ports. This gives $z/4 = 1$ bend mode per molecule, not $z/2 = 2$.
@@ -319,7 +319,7 @@ All seven observables are derived from a single input: the Op4 H-bond spring con
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
 \small
-\begin{tabular}{lcccl}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
 \toprule
 \textbf{Observable} & \textbf{AVE} & \textbf{Experiment} & \textbf{Error} & \textbf{Source} \\
 \midrule
@@ -331,7 +331,7 @@ Surface tension (25\textdegree{}C) & 67.31 mN/m  & 71.97 mN/m  & $-6.47\%$    & 
 Boiling point                       & 372.60 K    & 373.15 K    & $-0.15\%$    & $(z/3)\,T_0$ \\
 Specific heat $c_p$ (25\textdegree{}C) & 4153.8 J/(kg$\cdot$K) & 4182.0 & $-0.68\%$ & 9 K4 modes \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 Maximum error: $6.47\%$. Mean absolute error: $1.42\%$.

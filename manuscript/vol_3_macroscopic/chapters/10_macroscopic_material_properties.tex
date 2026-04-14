@@ -28,7 +28,7 @@ To build a high-performance ``Helium Metamaterial,'' arrays must be used constru
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{l c c c c c}
+    \begin{tabularx}{\textwidth}{@{}l c c c c X@{}}
     \hline\hline
     \textbf{Element} & \textbf{Z} & \textbf{A} & \textbf{Stability (MeV/A)} & \textbf{Hardness (log GPa)} & \textbf{Magnetism} \\
     \hline
@@ -46,7 +46,7 @@ To build a high-performance ``Helium Metamaterial,'' arrays must be used constru
     Aluminum-27 & 13 & 27 & 8.3316 & 18.9680 & Paramagnetic (0.369) \\
     Silicon-28 & 14 & 28 & 8.4478 & 19.4336 & Paramagnetic (0.107) \\
     \hline\hline
-    \end{tabular}
+    \end{tabularx}
     \caption{Topologically derived material properties mapping physical units (MeV and GPa) against magnetic stability.}
     \label{tab:derived_properties}
 \end{table}
@@ -133,7 +133,7 @@ Evaluating the Hessian numerically for each element Z=1 through Z=14 yields the 
 \begin{table}[h!]
     \centering
     \small
-    \begin{tabular}{l c c r r r r r l}
+    \begin{tabularx}{\textwidth}{@{}l c c r r r r r X@{}}
     \hline\hline
     \textbf{Element} & \textbf{Z} & \textbf{A} & $Z_{atom}$ & $K_{bulk}$ & $G_{shear}$ & $E_{rupt}$ & $Q$ & \textbf{B/R/E} \\
     \hline
@@ -152,7 +152,7 @@ Evaluating the Hessian numerically for each element Z=1 through Z=14 yields the 
     Aluminum-27 & 13 & 27 & 1.440  & 2.156  & 2.045  & 0.817  & 2.8 & 11/2/20 \\
     Silicon-28  & 14 & 28 & 1.369  & 1.946  & 2.215  & 0.816  & 2.0 & 13/14/8 \\
     \hline\hline
-    \end{tabular}
+    \end{tabularx}
     \caption{Single-element impedance characterisation from the Hessian of the $K_{mutual}/d$ energy surface. $Z_{atom}$: geometric mean mode frequency (atomic impedance). $K_{bulk}$: mean breathing-mode eigenvalue (bulk modulus proxy). $G_{shear}$: mean rocking-mode eigenvalue (shear modulus proxy). $E_{rupt}$: softest physical eigenvalue (thermal rupture proxy). $Q$: ratio of highest to lowest mode frequency. B/R/E: count of breathing, rocking, and ejection modes.}
     \label{tab:element_impedance}
 \end{table}
