@@ -57,7 +57,7 @@ When extending to multi-electron atoms, the engine must never revert to $Z_{eff}
 
 In standard approaches, peer-electron Coulomb repulsion involves time-averaging spatial probability densities via $N$-body continuous integration. Introducing such integrals into AVE is a methodological contamination that artificially recovers the macroscopic shielding collapse.
 
-The framework requires a strictly scale-invariant, 0-parameter resolution. By treating atomic orbitals as nested macroscopic cavities rather than overlapping probability clouds, peer interactions are dictated by the **Subshell Impedance Cascade** (see Ch. 7 for the complete derivation).
+The framework requires a strictly scale-invariant, 0-parameter resolution. By treating atomic orbitals as nested macroscopic cavities rather than overlapping probability clouds, peer interactions are dictated by the **Subshell Impedance Cascade** (see Chapter [Section Removed] for the complete derivation).
 
 Instead of continuous integration, the discrete lattice geometry enforces:
 

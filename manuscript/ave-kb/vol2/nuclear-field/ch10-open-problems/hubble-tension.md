@@ -18,7 +18,7 @@ The tension is $\Delta H_0 \approx 5.6$ km/s/Mpc ($>4\sigma$).
 >
 > **Problem:** The Cosmology community is divided by the "Hubble Tension" where CMB measurements ($67.4$) drastically deviate from local Cepheid measurements ($73.0$). Evaluate the theoretical midpoint using AVE.
 >
-> **Solution:** AVE predicts $H_0$ from pure lattice first principles without referencing redshift catalogs. At Layer 7 of the derivation chain, the asymptotic expansion rate for a lattice-genesis model balances node generation against the holographic thermal capacity. The resulting algebraic limit is:
+> **Solution:** AVE predicts $H_0$ from pure lattice first principles without referencing redshift catalogs. At Layer 7 of the derivation chain (Volume 1, Appendix B), the asymptotic expansion rate for a lattice-genesis model balances node generation against the holographic thermal capacity. The resulting algebraic limit is:
 >
 > $$
 > H_\infty = \frac{28\pi\,m_e^3\,c\,G}{\hbar^2\,\alpha^2}

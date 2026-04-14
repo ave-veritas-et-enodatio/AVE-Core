@@ -20,6 +20,6 @@ The vacuum Poisson ratio $\nu_{vac} = 2/7$ identifies the $K_4$ lattice complian
 | Quark Mass | $m_u, m_d$ | $m_e/\alpha_s$ | Translation sector projection |
 | Thermodynamics | $g_*$ | $7^3/4$ | 7 modes $\times$ K4 cell |
 
-This principle allows the AVE physics engine to compute **all 26 free parameters of the Standard Model** without any phenomenological curve fitting, structurally eliminating $\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance.
+This principle allows the AVE physics engine (Volume 1, Appendix B) to compute **all 26 free parameters of the Standard Model** without any phenomenological curve fitting, structurally eliminating $\theta_{QCD}$ and deriving the remaining 25 from the lattice impedance.
 
 ---

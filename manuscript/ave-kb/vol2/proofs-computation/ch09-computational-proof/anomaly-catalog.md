@@ -22,8 +22,8 @@ The following anomalies and phenomena are identified as targets for future AVE v
 
 ### Tier 4: Hardware Verification
 
-1. **HOPF-01:** Wire-stitched impedance antenna measuring vacuum $Z_0$ directly.
-2. **PONDER-01:** Modified antenna in mineral oil bath for $\varepsilon_r$ sweep.
+1. **Chiral Antennas:** Wire-stitched impedance antenna measuring vacuum $Z_0$ directly.
+2. **High-Voltage Dielectric Rectification:** Asymmetrical solid-state capacitor in mineral oil bath for $\varepsilon_r$ sweep.
 3. **Casimir measurement:** Impedance between parallel plates as function of separation.
 
 ---

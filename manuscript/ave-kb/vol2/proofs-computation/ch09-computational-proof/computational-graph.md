@@ -3,7 +3,7 @@
 
 ## Computational Proof of Scale Invariance
 
-The full computational proof is implemented in the physics engine module `src/ave/axioms/scale_invariant.py`. Every domain module in the framework (`saturation.py`, `fdtd_3d.py`, `bond_energy_solver.py`, `seismic.py`, `seismic_fdtd.py`, `cutoff.py`, `galactic_rotation.py`, `superconductor.py`, `protein_bond_constants.py`, `gw_propagation.py`, `gw_detector.py`, `stellar_interior.py`, `neutrino_msw.py`, `solar_impedance.py`, `planetary_magnetosphere.py`) imports its impedance operations from this single canonical source. The automated test suite verifies that the same function produces identical numerical results whether called with particle-scale, molecular-scale, laboratory-scale, geophysical-scale, or galactic-scale inputs.
+The full computational proof is implemented in the physics engine module `src/ave/axioms/scale_invariant.py`. Every domain module in the framework (`saturation.py`, `fdtd_3d.py`, and 13 other domain modules) imports its impedance operations from this single canonical source. The automated test suite verifies that the same function produces identical numerical results whether called with particle-scale, molecular-scale, laboratory-scale, geophysical-scale, or galactic-scale inputs.
 
 This is not an analogy. It is a **structural identity**: the same operator, the same code, the same mathematics, from $10^{-13}$ m to $10^{26}$ m.
 
