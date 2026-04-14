@@ -113,7 +113,7 @@ Empirical data reveals the absolute smallest superconducting vortex cores belong
 The empirical physical limit of reality ($1$ nm) is approximately $2,500\times$ larger than the discrete AVE network grid ($\sim 0.000386$ nm). The macroscopic Phase-Locked Gear Train math (Chapter 8) functions flawlessly at this scale, providing absolute confirmation that no known condensed matter physics phenomena threaten the topological resolution limit of the universe.\section{Project CLEAVE-01: The Femto-Coulomb Electrometer}
 \textbf{The Hypothesis:} In Chapter 13, the analysis derived that Electrical Charge is mathematically identical to physical macroscopic spatial displacement ($Q \equiv \xi_{topo} x$). Standard physics dictates that mechanically separating two uncharged plates in a hard vacuum generates exactly zero electrical charge. AVE explicitly predicts the generation of topological charge natively from the capacity of the spatial metric.
 
-\textbf{The PCBA Implementation:} An EE can validate this by designing a precision metrology board. The PCBA utilizes an ultra-low bias current electrometer operational amplifier (e.g., the Analog Devices ADA4530-1, 20 fA bias current). The non-inverting input is connected to an isolated, floating copper plate inside a vacuum chamber. The board utilizes strict guard rings and Teflon standoffs to eliminate parasitic leakage.
+\textbf{The Physical Implementation:} An experimentalist can validate this by designing a precision metrology circuit. The circuit utilizes an ultra-low bias current electrometer operational amplifier (e.g., the Analog Devices ADA4530-1, 20 fA bias current). The non-inverting input is connected to an isolated, floating copper plate inside a vacuum chamber. The board utilizes strict guard rings and Teflon standoffs to eliminate parasitic leakage.
 
 A commercial Piezoelectric (PZT) linear actuator is mounted to a grounded plate directly facing the floating plate. Using a high-precision DAC, the PZT actuator is stepped exactly $1.0 \ \mu$m away from the floating plate in under $100$ ms.
 
@@ -121,14 +121,14 @@ A commercial Piezoelectric (PZT) linear actuator is mounted to a grounded plate 
 \begin{equation}
     Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7} \text{ C/m}) \times 10^{-6} \text{ m} = \mathbf{0.415 \text{ pC (picoCoulombs)}}
 \end{equation}
-Assuming a highly-controlled PCBA parasitic input capacitance of exactly $10$ pF, the voltage readout step ($V = Q/C$) dictates a clean, instantaneous step of exactly \textbf{$41.5$ mV} on the oscilloscope. If the oscilloscope registers $0.0$ mV, the framework is falsified. If it reads exactly $41.5$ mV per micron of displacement, the foundational hardware constant of the universe has been validated on a tabletop.
+Assuming a highly-controlled parasitic input capacitance of exactly $10$ pF, the voltage readout step ($V = Q/C$) dictates a clean, instantaneous step of exactly \textbf{$41.5$ mV} on the oscilloscope. If the oscilloscope registers $0.0$ mV, the framework is falsified. If it reads exactly $41.5$ mV per micron of displacement, the foundational hardware constant of the universe has been validated on a tabletop.
 
 \section{Project HOPF-02: The S-Parameter VNA Falsification}
 \textbf{The Hypothesis:} As established in Chapter 5, the physical vacuum is an \textbf{LC Resonant Network}, possessing fundamental inductance (chirality). A standard flat PCB spiral inductor or toroid generates a perfectly symmetric vector potential ($\mathbf{A}$) and magnetic field ($\mathbf{B}$) where $\mathbf{A} \cdot \mathbf{B} = 0$. It possesses zero kinetic helicity.
 
-However, a \textbf{Hopf Coil} (a $(p,q)$ Torus Knot) forces $\mathbf{A} \parallel \mathbf{B}$. By winding a custom 6-layer PCBA where the inductive traces wrap diagonally around a toroidal core region, the inductor actively injects helicity into the vacuum, physically meshing with the network's intrinsic inductance.
+However, a \textbf{Hopf Coil} (a $(p,q)$ Torus Knot) forces $\mathbf{A} \parallel \mathbf{B}$. By winding a custom circuit trace wrapped diagonally around a toroidal core region, the inductor actively injects helicity into the vacuum, physically meshing with the network's intrinsic inductance.
 
-\textbf{The Test Protocol:} Design a single PCBA containing both a standard Toroid and a Hopf Coil, mathematically matched to identical classical DC inductances. Connect both to a Vector Network Analyzer (VNA) and sweep from 10 MHz to 100 MHz.
+\textbf{The Test Protocol:} Design a single test-board containing both a standard Toroid and a Hopf Coil, mathematically matched to identical classical DC inductances. Connect both to a Vector Network Analyzer (VNA) and sweep from 10 MHz to 100 MHz.
 
 \textbf{Falsification Criteria:} If the vacuum is classical and linear, both coils will display identical impedance curves. However, the AVE framework strictly predicts an \textbf{Anomalous Chiral Impedance Match} (see Figure \ref{fig:ee_pcba_bench_protocols}). Because the Hopf coil couples perfectly to the chiral LC metric, it acts as a topological antenna, minimizing reactive VAR reflections and exhibiting an anomalously deep $S_{11}$ notch.
 
@@ -141,19 +141,19 @@ According to Snell's Law, the phase velocity mismatch induces a steering angle (
 
 The Roentgen cross-product ($\mathbf{B} = \frac{1}{c^2} \mathbf{v} \times \mathbf{E}$) provides a pathway to synthesize a measurable B-field from the induced magnetic phase of the vacuum itself, using a dense rotating mass combined with a static high-voltage E-field gradient.
 
-\textit{The complete spinning-disk test protocol, PCBA layout, and lock-in amplifier falsification criteria are detailed in the companion AVE Hardware Testing Manual.}
+\textit{The complete spinning-disk test protocol, sensor layout, and lock-in amplifier falsification criteria are detailed in the companion AVE Hardware Testing Manual.}
 
 \section{Project ZENER-04: The Impedance Avalanche Detector}
 \textbf{The Hypothesis:} The vacuum LC network acts identically to a Transient Voltage Suppression (TVS) Zener diode. It behaves as a rigid $Z_0 \approx 377 \ \Omega$ transmission line until the topological voltage exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65$ kV, at which point its inductive capacity saturates and it undergoes \textbf{Absolute Impedance Rupture} ($\Gamma = -1$).
 
-\textbf{The Test Protocol:} Design a multi-stage Marx Generator PCBA capable of generating an $80$ kV transient spike with a sub-microsecond rise time. Terminate the pulse into an encapsulated, highly polished, symmetrical spherical electrode to prevent classical atmospheric arc-over.
+\textbf{The Test Protocol:} Design a multi-stage Marx Generator circuit capable of generating an $80$ kV transient spike with a sub-microsecond rise time. Terminate the pulse into an encapsulated, highly polished, symmetrical spherical electrode to prevent classical atmospheric arc-over.
 
 \textbf{Falsification Criteria:} Monitor the input displacement current ($I_D$) and topological voltage ($V$). In standard electromagnetics, charging an isolated spherical capacitor yields a perfectly linear charging curve ($I_D = C \frac{dV}{dt}$). AVE strictly predicts that the moment the localized field crosses the $43.65$ kV Impedance Rupture limit, the effective transmission line impedance of the surrounding spatial vacuum drops to zero. The oscilloscope will display a distinct, anomalous "Avalanche Knee"---a sudden non-linear spike in displacement current as the vacuum lattice physically undergoes dielectric breakdown.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1.0\textwidth]{ee_pcba_bench_protocols.png}
-    \caption{\textbf{EE Bench-Level PCBA Protocols.} \textbf{Top Left:} The Piezo-Cleavage Electrometer flawlessly predicts exactly $41.5$ mV per micron of mechanical displacement ($V = \xi x / C$). \textbf{Top Right:} Resonant Antenna. The geometry couples to the chiral LC vacuum, creating an anomalously deep $S_{11}$ match. \textbf{Bottom Left:} Solid-State Vacuum Induction. A Lock-In amplifier extracts the induced 4.2 pT active phase signal from the noise, flipping $180^\circ$ when the rotor reverses. \textbf{Bottom Right:} The Impedance Avalanche Detector. Driving an encapsulated electrode past $43.65$ kV physically saturates the metric, creating a non-linear Zener avalanche knee in the displacement current.}
+    \caption{\textbf{EE Bench-Level Testing Protocols.} \textbf{Top Left:} The Piezo-Cleavage Electrometer flawlessly predicts exactly $41.5$ mV per micron of mechanical displacement ($V = \xi x / C$). \textbf{Top Right:} Resonant Antenna. The geometry couples to the chiral LC vacuum, creating an anomalously deep $S_{11}$ match. \textbf{Bottom Left:} Solid-State Vacuum Induction. A Lock-In amplifier extracts the induced 4.2 pT active phase signal from the noise, flipping $180^\circ$ when the rotor reverses. \textbf{Bottom Right:} The Impedance Avalanche Detector. Driving an encapsulated electrode past $43.65$ kV physically saturates the metric, creating a non-linear Zener avalanche knee in the displacement current.}
     \label{fig:ee_pcba_bench_protocols}
     
 \end{figure}
@@ -187,9 +187,9 @@ This is the Topological Rocket Equation. Classical copper wire and chemical insu
 \section{Macroscopic Metric Engineering Protocols}
 \label{sec:metric_engineering}
 
-The theoretical framework derived above---the 1.846-gram static levitation limit, the Dielectric Death Spiral, and the $\sqrt{\alpha}$ kinetic yield---opens several macroscopic engineering pathways. These include horizontal torsion-balance thrust rectification, phased micro-inductor arrays for extensive force multiplication, high-$k$ dielectric metric refraction capacitors, and acoustic phonon centrifuges for artificial gravity synthesis.
+The theoretical framework derived above---the 1.846-gram static levitation limit, the Dielectric Death Spiral, and the $\sqrt{\alpha}$ kinetic yield---opens several macroscopic engineering pathways. These include horizontal macroscopic phase rectification, phased micro-inductor arrays for extensive force multiplication, high-$k$ dielectric metric refraction capacitors, and acoustic phonon centrifuges for artificial gravity synthesis.
 
-\textit{The complete engineering implementations, PCBA specifications, spacecraft hull designs, and operational telemetry (including boundary-layer sensors and pair-production ``Redline'' monitors) are documented in the companion AVE Hardware Testing Manual.}
+\textit{The complete engineering implementations, testing specifications, structural designs, and operational telemetry (including boundary-layer sensors and pair-production ``Redline'' monitors) are documented in the companion AVE Hardware Testing Manual.}
 
 % Companion sections extracted
 % - Project TORSION-05 (Horizontal Metric Rectification)
@@ -214,10 +214,10 @@ The AVE framework is designed to be verified using commercial-off-the-shelf (COT
 
 \begin{enumerate}
     \item \textbf{Project HOPF-01:} A wire-stitched $(p,q)$ torus knot antenna on FR-4, measured via VNA S$_{11}$ sweep. Tests the chiral coupling prediction $\Delta f/f = \alpha \cdot pq/(p+q)$.
-    \item \textbf{High-Voltage Dielectric Rectification:} An asymmetric high-voltage dielectric array using BaTiO$_3$ MLCCs, testing the macroscopic non-linear stress rectification prediction.
+    \item \textbf{High-Voltage Dielectric Rectification:} An asymmetric high-voltage dielectric array using dense titanate capacitors, testing the macroscopic non-linear stress rectification prediction.
 \end{enumerate}
 
-\textit{Complete fabrication instructions, PCBA layouts, bills of materials, and falsification protocols are provided in the companion AVE Hardware Testing Manual.}
+\textit{Complete fabrication instructions, topological layouts, bills of materials, and falsification protocols are provided in the companion AVE Hardware Testing Manual.}
 
 % Companion hardware testing guides extracted
 
