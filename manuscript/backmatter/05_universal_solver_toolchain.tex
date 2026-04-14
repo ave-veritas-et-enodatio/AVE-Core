@@ -391,7 +391,7 @@ The same solver applies at every scale:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
 \scriptsize
-\begin{tabular}{l l l l l l l l}
+\begin{tabularx}{\textwidth}{@{}lXXXXXXX@{}}
 \toprule
 & \textbf{BH QNM} & \textbf{Electron} & \textbf{Nuclear} & \textbf{Protein} & \textbf{Antenna} & \textbf{Tokamak} & \textbf{BLDC Motor} \\
 \midrule
@@ -404,7 +404,7 @@ Co-rotation & Frame drag $\Omega$ & --- & Shell rotation & --- & --- & Plasma ro
 Regime I & Flat space & Bound & Sub-critical & Folded & Short & Core & Motoring \\
 Regime II & Curved & Free & Avalanche & Unfolded & Open & SOL & Generating \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 \normalsize
 
@@ -471,7 +471,7 @@ $V_\mathrm{SNAP}$ & Planck energy (approx) & \texttt{constants.V\_SNAP} \\
 
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{p{5cm} p{5cm} p{5cm}}
+\begin{tabularx}{\textwidth}{@{}p{3.8cm}p{3.8cm}X@{}}
 \toprule
 \textbf{AVE Descriptor} & \textbf{Standard QM} & \textbf{Physical Origin / Engine Function} \\
 \midrule
@@ -482,7 +482,7 @@ $0_1$ Strain Field $\rho_{unknot}(r)$ & $1s$ Probability Cloud $\psi^*\psi(r)$ &
 Inner Impedance Bumps & Core Electron Shells ($Z_{eff}$) & Filled standing waves alter the background voltage gradient $V_{total}(r)$, perturbing the refractive index for outer valence electrons. \\
 Outermost Mode Eigenvalue & Ionization Energy (IE) & Evaluated via \texttt{coupled\_resonator.atomic\_resonance} \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 
@@ -522,7 +522,7 @@ These are the domain-independent building blocks from which every eigenvalue is 
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l l l}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
 \textbf{Value} & \textbf{Expression} & \textbf{Origin} \\
 \midrule
@@ -534,7 +534,7 @@ $\sqrt{9/7} = 1.134$ & $\sqrt{1+\nu_\mathrm{vac}}$ & Kerr spin evaluation radius
 $d_0/a_0 = 7.22$ & $\lceil d_0/a_0 \rfloor \to 7$ & Backbone mode number \\
 $I_\mathrm{baryon} \approx 1836$ & Faddeev--Skyrme eigenvalue & Proton/Electron Mass / Macroscopic Phase Shear \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
 
 \noindent The pion mass prediction
