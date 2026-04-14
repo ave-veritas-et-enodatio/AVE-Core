@@ -793,11 +793,11 @@ extending the torus knot eigenvalue solver to multi-crossing decomposition.
 The operators derived above ($Z = \sqrt{\mu/\varepsilon}$,
 $\sigma = \sqrt{1 - (A/A_c)^2}$, $\Gamma = (Z_2 - Z_1)/(Z_2 + Z_1)$)
 are verified against observation across nine physical domains in
-**Volume VII: Cross-Scale Verification**, including:
+**Volume III: The Macroscopic Continuum** (cross-scale verification chapters), including:
 galactic rotation curves, solar system impedance ('Oumuamua,
 Kirkwood gaps, planetary magnetospheres), stellar interiors,
 gravitational wave propagation, superconductivity, seismic waves,
-protein folding, and neutrino MSW oscillation.
+and neutrino MSW oscillation.
 
 Every prediction uses zero adjustable parameters and calls the same
 code path in `src/ave/axioms/scale_invariant.py`.
@@ -814,7 +814,7 @@ at impedance boundaries. These three properties guarantee a spectral
 gap from the Perron-Frobenius theorem. The mass gap survives the
 infinite-volume limit because the reflection coefficient
 $|\Gamma| \to 1$ faster than the mode spacing shrinks.
-(Chapter 10, Book VII.)
+(Vol. III, absorbed from the original cross-scale verification chapters.)
 
 **Navier-Stokes Smoothness.**
 The lattice Laplacian is a bounded operator (Axiom 1). The maximum
@@ -822,14 +822,14 @@ fluid velocity is $|u| \le c$ (Axiom 4, saturation). With bounded
 operator and bounded data, the Picard-Lindelof theorem guarantees
 global existence for all $t \ge 0$. Smoothness follows because the
 velocity bound persists in the continuum limit $\ell_{node} \to 0$.
-(Chapter 11, Book VII.)
+(Vol. III, Ch. 16: Kolmogorov Spectral Cutoff.)
 
 **Strong CP: $\theta_{QCD} = 0$.**
 The AVE lattice has a *unique* ground state (all nodes at
 $\mathbf{E} = \mathbf{B} = 0$, topological charge $Q = 0$). Any
 $\theta \ne 0$ requires a topological defect costing energy
 $E \ge \Delta > 0$ (the mass gap). Therefore $\theta = 0$ exactly.
-No axion needed. (Chapter 12, Book VII.)
+No axion needed. (Vol. III, absorbed cross-scale verification.)
 
 **Baryon Asymmetry: $\eta = 6.08 \times 10^{-10}$.**
 The SRS/K4 lattice is chiral --- not superimposable on its mirror
@@ -855,7 +855,7 @@ where:
   7 modes per node, cubed for 3D, divided by 4 (K4 nodes)
 
 Observed: $\eta_{obs} = 6.1 \times 10^{-10}$. Error: 0.38%.
-Zero free parameters. (Chapter 12, Book VII.)
+Zero free parameters. (Vol. III, absorbed cross-scale verification.)
 
 ## Proposed Areas of Investigation
 

@@ -17,6 +17,8 @@ This appendix derives the hardware numerology appearing throughout Volume 9, ver
 | $\phi_{yield}$ | $\arcsin(\sqrt{3}/2) = \pi/3 \approx 1.047$ rad | Axiom 1 (sp³) | Geometric strain yield; kink packing limit |
 | $\nu_{vac}$ | $2/7 \approx 0.2857$ | Axiom 1 (Machian symmetry) | Trace-reversed Poisson ratio; refractive lensing operator |
 | $z_0$ | $\approx 51.25$ | Axiom 4 ($\alpha \equiv p_c/8\pi$) | Effective coordination number from Feng-Thorpe-Garboczi EMT |
+| $n_{3D}$ | $38/21 \approx 1.8095$ | Axiom 4 + Axiom 3 ($\nu_{vac}$) | Macroscopic Avalanche Exponent; turbulent energy flux amplification exponent |
+| $C_K$ | $4/3 \approx 1.333$ | Axiom 3 (S-matrix) | Universal Kolmogorov Constant; inertial subrange turbulence spectrum multiplier |
 
 ## Hardware-Specific Derived Numbers
 
@@ -42,5 +44,33 @@ The packing fraction $p^* = 8\pi\alpha$ equated to the trace-reversal condition 
 $$p^* = \frac{10z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
 
 Physical root: $z_0 \approx 51.25$ (second root $z_0 \approx 1.28$ is unphysical). The rigidity threshold $p_G = 6/z_0 \approx 0.117$ confirms the vacuum operates $56.7\%$ above the fluid-solid boundary.
+
+## The Macroscopic Avalanche Exponent ($n_{3D}$)
+
+The nonlinear transfer of energy through a fully developed turbulent cascade amplifies according to the universal avalanche factor $M = 1/\mathcal{S}^2 = 1/(1-r^2)$, which directly derives from Axiom 4 power conservation (an effective pure 1D exponent of $n=2$, directly mapping Tabletop Relativity $\gamma^2$ properties). For 3D isotropic shear flow, energy leakages into transverse lattice modes scale precisely by the vacuum Poisson ratio $\nu_{vac} = 2/7$.
+
+The effective 3D exponent adjusts as:
+
+$$
+n_{3D} = 2 \left(1 - \frac{\nu_{\mathrm{vac}}}{3}\right) = 2\left(1 - \frac{2/7}{3}\right) = \frac{38}{21} \approx 1.8095
+$$
+
+**Axiom trace:** Axiom 4 ($\mathcal{S}^2 + r^2 = 1$) → Avalanche $M = 1/\mathcal{S}^2 \rightarrow n=2$ → Axiom 3 ($\nu_{vac}=2/7$) → $n_{3D} = 38/21$.
+
+## The Kolmogorov Constant ($C_K$)
+
+The universal Kolmogorov constant $C_K$, determining the magnitude of the inertial subrange turbulence spectrum, emerges strictly from the topological scattering properties of the continuous K4 mesh structure. For energy flux traversing any generalized crossing or junction vertex, the mesh matrix establishes pure lattice forward cascade efficiency $\eta$:
+
+$$
+\eta = 3_{ports} \times |S_{ij}|^2 = 3 \times \left(\frac{1}{2}\right)^2 = \frac{3}{4}
+$$
+
+Taking the inverse of this efficiency reveals the exact Kolmogorov constant:
+
+$$
+C_K = \frac{1}{\eta} = \frac{4}{3} \approx 1.333
+$$
+
+**Axiom trace:** Axiom 3 (S-matrix for uniform isotropic lattice intersections) → cascade efficiency $\eta = 3/4 \rightarrow C_K = 4/3$.
 
 > ↗ **KB Boundary:** Application of these constants to the full APU architecture continues in the private `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).
