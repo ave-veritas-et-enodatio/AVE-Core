@@ -44,10 +44,6 @@ sim_outputs/
 #.claude/memory/
 #.claude/agent-memory/
 .claude/local-settings.json
-# manually pulled repo - see Makefile
-.claude/agents/
-.claude/commands
-.claude/commands/
 
 # transient topic handoff file
 manuscript/ave-kb/session/new_topic.md

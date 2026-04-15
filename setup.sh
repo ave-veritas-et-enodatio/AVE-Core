@@ -17,18 +17,6 @@ case "${OS}" in
         ;;
 esac
 
-# version tag in ave-veritas-et-enodatio/agents repo
-AGENTS_VERSION=v0.1.0
-
-[[ -f ".claude/agents/.git/HEAD" ]] || {
-  # parse git protocol instead of hard-coding ssh or http
-  AGENTS_REPO=$(git remote -v | awk '{print $2; exit(0); }')
-  AGENTS_REPO=${AGENTS_REPO%/*}/agents.git
-	git clone "${AGENTS_REPO}" .claude/agents
-	(cd .claude/agents && git checkout ${AGENTS_VERSION})
-	(cd .claude && ln -s agents/commands .)
-}
-
 # Check if Python 3 is installed
 if ! command -v uv &> /dev/null; then
     echo "uv is missing. Please install." 1>&2
