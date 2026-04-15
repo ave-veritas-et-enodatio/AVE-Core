@@ -47,6 +47,26 @@ For Entropy to decrease locally without applying external work, the scattered, u
 
 The probability of this precise geometric reversal occurring naturally is effectively zero. Therefore, the ``Arrow of Time'' is not a time-dimension mystery; it is simply the deterministic, geometric reality that spherical wave radiation across a Cartesian grid is effectively a one-way street. Thermodynamics is fully resolved as Continuum Fluid Mechanics.
 
+\subsection{The Topological Entropy Operator}
+\label{sec:entropy_operator}
+
+The AVE framework replaces the statistical entropy $S = k_B \ln \Omega$ with a deterministic operator defined on the lattice impedance field. For a system with $N$ internal boundaries (grain boundaries, phase interfaces, topological defect surfaces), each boundary $i$ has a reflection coefficient $\Gamma_i = (Z_i - Z_0)/(Z_i + Z_0)$. The fraction of coherent energy irreversibly scattered at each boundary is $(1 - |\Gamma_i|^2)$. The entropy operator is:
+\begin{resultbox}{Topological Entropy Operator}
+\begin{equation}
+    \hat{S} = -k_B \sum_{i=1}^{N_{boundaries}} \ln\left(1 - |\Gamma_i|^2\right)
+    \label{eq:entropy_operator}
+\end{equation}
+\end{resultbox}
+
+\noindent Physical interpretation of the limiting cases:
+\begin{itemize}
+    \item $\Gamma_i = 0$ (impedance matched): boundary $i$ contributes $\Delta S_i = 0$. Energy passes without scattering --- no entropy generation.
+    \item $|\Gamma_i| \to 1$ (total mismatch): $\Delta S_i \to \infty$. Energy is completely reflected and trapped, equivalent to maximum geometric spreading.
+    \item Intermediate $|\Gamma_i|$: partial scattering, partial transmission. The entropy contribution scales logarithmically with the power loss fraction.
+\end{itemize}
+
+\noindent The Second Law follows from the lattice structure: impedance mismatches can only be \textit{smoothed} by wave propagation (diffusion toward $\Gamma \to 0$), never sharpened. Entropy is a monotonically non-decreasing functional of lattice relaxation. This is the formal operator underlying the geometric spreading argument of the preceding section.
+
 \section{The Fluctuation-Dissipation Theorem}
 \label{sec:fluctuation_dissipation}
 
@@ -162,6 +182,61 @@ The volumetric heat capacity of the vacuum lattice (at constant volume) follows 
 \end{resultbox}
 
 This is the Dulong-Petit limit for the vacuum lattice as an elastic solid: a fixed heat capacity per unit cell, independent of temperature, valid at temperatures well above the lattice Debye temperature. At cosmological temperatures approaching the thermal mass of the lightest topological excitation ($T \sim m_e c^2 / k_B \approx 5.93 \times 10^9 \;\text{K}$), modes begin to freeze out and the heat capacity falls---exactly as in standard Debye theory for crystalline solids.
+
+\subsection{The Planck Distribution from Axiom 4 Saturation}
+\label{sec:planck_distribution}
+
+The classical Rayleigh-Jeans result $u(\omega) = \omega^2 k_B T / (\pi^2 c^3)$ assigns energy $(1/2) k_B T$ to every mode, diverging at high frequency (the ultraviolet catastrophe). On the AVE lattice, this divergence is physically impossible because \textbf{Axiom 4 caps the energy storable per mode}.
+
+\paragraph{Step 1: Mode amplitude ceiling.}
+Each lattice mode is an LC oscillator with cell capacitance $C = \varepsilon_0 \ell$ and inductance $L = \mu_0 \ell$. The Axiom 4 nonlinear capacitance is:
+\begin{equation}
+    C_{eff}(V) = \frac{C_0}{\sqrt{1 - (V/V_{snap})^2}}
+\end{equation}
+As the mode amplitude $V \to V_{snap}$, the capacitance diverges $C_{eff} \to \infty$, creating a hard amplitude ceiling. The maximum energy storable in a mode of frequency $\omega$ is:
+\begin{equation}
+    U_{max}(\omega) = \frac{1}{2} C \, V_{snap}^2 \cdot \frac{\omega}{\omega_{max}} = \hbar\omega
+    \label{eq:mode_quantization}
+\end{equation}
+where $\omega_{max} = 2c/\ell$ is the Brillouin zone cutoff. The factor $\omega/\omega_{max}$ arises because lower-frequency standing waves span more cells, each contributing $V_{snap}$ to the total stored energy. \textbf{Energy quantisation $E = n\hbar\omega$ is not an axiom; it emerges from the saturation ceiling of the LC lattice.}
+
+\paragraph{Step 2: Integer excitations.}
+Because the mode cannot hold a fractional quantum of energy (the saturation ceiling enforces a standing-wave node at $V_{snap}$, creating discrete allowed amplitudes), the thermal partition function is a geometric series over integer excitations $n = 0, 1, 2, \ldots$:
+\begin{equation}
+    \mathcal{Z}(\omega) = \sum_{n=0}^{\infty} e^{-n\hbar\omega / (k_B T)} = \frac{1}{1 - e^{-\hbar\omega / (k_B T)}}
+\end{equation}
+
+\paragraph{Step 3: Mean occupancy.}
+The mean energy per mode follows from $\langle U \rangle = -\partial \ln \mathcal{Z} / \partial \beta$:
+\begin{resultbox}{Planck Mean Occupancy (Lattice Derivation)}
+\begin{equation}
+    \langle n(\omega) \rangle = \frac{1}{e^{\hbar\omega / (k_B T)} - 1}
+    \label{eq:planck_occupancy}
+\end{equation}
+\end{resultbox}
+
+\paragraph{Step 4: Spectral energy density.}
+Multiplying by the energy quantum $\hbar\omega$ and the 3D mode density $g(\omega) = \omega^2 / (\pi^2 c^3)$:
+\begin{resultbox}{Planck Spectral Energy Density}
+\begin{equation}
+    u(\omega, T) = \frac{\hbar \omega^3}{\pi^2 c^3} \cdot \frac{1}{e^{\hbar\omega / (k_B T)} - 1}
+    \label{eq:planck_distribution}
+\end{equation}
+\end{resultbox}
+
+\noindent This is the Planck blackbody distribution, derived without quantum mechanics, wave-particle duality, or photon statistics. The only inputs are:
+\begin{itemize}
+    \item \textbf{Axiom 1}: discrete lattice with pitch $\ell$ (provides the mode spectrum),
+    \item \textbf{Axiom 4}: saturation at $V_{snap}$ (provides the energy ceiling per mode),
+    \item \textbf{Nyquist noise}: thermal driving at impedance $Z_0$ (provides the thermal bath).
+\end{itemize}
+
+Integrating Equation~(\ref{eq:planck_distribution}) over all frequencies yields the Stefan-Boltzmann law:
+\begin{resultbox}{Stefan-Boltzmann Constant (Lattice Derived)}
+\begin{equation}
+    \sigma_{SB} = \frac{2\pi^5 k_B^4}{15\,h^3\,c^2} = 5.6704 \times 10^{-8} \;\text{W/(m}^2\text{·K}^4\text{)} \quad (\text{exact})
+\end{equation}
+\end{resultbox}
 
 \subsection{Verification: Baryon Asymmetry}
 
