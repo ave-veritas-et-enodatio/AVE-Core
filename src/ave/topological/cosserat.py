@@ -107,32 +107,60 @@ _SIN_THETA_W_PAT: float = sqrt(3.0 / 7.0)  # = 0.65465 (Perpendicular Axis Theor
 #   sqrt(3/7) -- torsion-shear projection (PAT + nu = 2/7)
 #   2*pi      -- ring topology of the unknot (Axiom 1)
 #
-# Evaluating E_ring with all substitutions gives EXACTLY:
-#   M_W = m_e / (alpha^2 * p_c * sqrt(3/7))
-M_W: float = M_E / (ALPHA**2 * P_C * _SIN_THETA_W_PAT)  # in kg
-M_W_MEV: float = M_W * C_0**2 / _J_PER_MEV    # approx 79923 MeV
+# TREE LEVEL: M_W_tree = m_e / (alpha^2 * p_c * sqrt(3/7))
+M_W_TREE: float = M_E / (ALPHA**2 * P_C * _SIN_THETA_W_PAT)  # in kg
+
+# LOOP CORRECTION (Impedance Mismatch Loss):
+# The W-Boson is a transient, catastrophic excitation. Its energy density
+# immediately exceeds V_yield at the nearest neighbor cell (Axiom 4).
+# This saturates the boundary into an open-circuit (Y_boundary = 0).
+#
+# DERIVATION (VCA Mismatch Loss):
+#   1. Build the K4 Bethe tree to depth=1 with saturated boundary.
+#   2. Compute the input reflection coefficient S_11 at the origin.
+#   3. The two-vertex coupling alpha^2 requires energy to transfer through
+#      the local network. The saturated boundary creates an impedance
+#      mismatch, reflecting a fraction |S_11|^2 of the coupling POWER.
+#   4. The effective coupling is reduced by the mismatch loss factor:
+#        alpha_eff^2 = alpha^2 * (1 - |S_11|^2)
+#   5. Since M_W is inversely proportional to alpha^2:
+#        M_W = M_W_tree / (1 - |S_11|^2)
+#
+# This is standard transmission line mismatch loss (VCA, Vol 4 Ch. 1),
+# applied to the Axiom 4 saturation boundary. Zero free parameters.
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
+from ave.core.constants import NU_VAC
+
+Y_sat = build_radial_tree_admittance(depth=1, branch_y=NU_VAC, boundary_y=0.0, coordination_z=4)
+S11_W_BOUND: float = s11_from_y_matrix(Y_sat, port=0, Y0=1.0).real
+MISMATCH_LOSS: float = 1.0 - S11_W_BOUND**2
+
+# The total mass is corrected by the mismatch loss factor
+M_W: float = M_W_TREE / MISMATCH_LOSS
+
+M_W_MEV: float = M_W * C_0**2 / _J_PER_MEV    # approx 80671 MeV
 
 # The Z boson mass from the W mass and pole mass ratio:
 #   m_W/m_Z = sqrt(7)/3   (from Chapter 8, Perpendicular Axis Theorem)
 #   M_Z = M_W * 3/sqrt(7)
 M_Z: float = M_W * 3.0 / sqrt(7)                     # in kg
-M_Z_MEV: float = M_Z * C_0**2 / _J_PER_MEV      # approx 90624 MeV
+M_Z_MEV: float = M_Z * C_0**2 / _J_PER_MEV      # approx 91472 MeV
 
 # =============================================================================
 # COSSERAT CHARACTERISTIC LENGTH (Weak Force Range)
 # =============================================================================
 
 # l_c = hbar / (M_W * c) — the Compton wavelength of the W boson
-L_COSSERAT: float = HBAR / (M_W * C_0)              # approx 2.46e-18 m
+L_COSSERAT: float = HBAR / (M_W * C_0)
 
 # =============================================================================
-# FERMI CONSTANT (Tree-Level)
+# FERMI CONSTANT (Geometrically Loop Corrected)
 # =============================================================================
 
 # G_F = sqrt(2)*pi*alpha / (2*sin^2(theta_W)*M_W^2)  [GeV^-2]
 # Using the on-shell sin^2(theta_W) = 2/9:
 M_W_GEV: float = M_W_MEV / 1000.0
-GF_TREE: float = sqrt(2) * pi * ALPHA / (2 * SIN2_THETA_W * M_W_GEV**2)
+GF_CORRECTED: float = sqrt(2) * pi * ALPHA / (2 * SIN2_THETA_W * M_W_GEV**2)
 
 # =============================================================================
 # NEUTRINO MASS SPECTRUM

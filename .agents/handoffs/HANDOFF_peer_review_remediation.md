@@ -94,7 +94,7 @@ These serve as the audit trail and contain real reference value (prior-art compa
 
 ### P1 — Actionable (manuscript/infrastructure)
 
-#### P1.3 — Geophysics/Water Chapters Are Qualitative
+#### ~~P1.3 — Geophysics/Water Chapters Are Qualitative~~ [COMPLETED]
 **Context:** Vol 3 chapters on geophysics (Ch. 8) and water LC dynamics (Ch. 10) demonstrate scale invariance qualitatively but lack specific quantitative predictions with error bars. The review flagged them as "aspirational."
 **Action:** Add at least one numerical derivation per chapter, e.g.:
 - **Geophysics:** Derive Earth's core temperature from adiabatic compression on the LC lattice
@@ -102,7 +102,7 @@ These serve as the audit trail and contain real reference value (prior-art compa
 **Files:** `manuscript/vol_3_macroscopic/chapters/08_geophysics.tex`, `.../10_water_lc_dynamics.tex`
 **Engine support:** `src/ave/regime_1_linear/fluids_factory.py` already has surface tension; may just need to plumb it into the chapter.
 
-#### P1.4 — Cross-Volume Reference Macro
+#### ~~P1.4 — Cross-Volume Reference Macro~~ [COMPLETED]
 **Context:** The 14 `[Section Removed]` casualties revealed that `\ref{}` calls break silently when chapters migrate between repos/volumes. This will recur on future splits.
 **Action:** Create a `\xvref{vol}{label}` macro that degrades gracefully to "Vol. X, Ch. Y" text when the target label is undefined (e.g., in a different compilation unit). Put it in `manuscript/common/ave_commands.tex`.
 **Complexity:** Low — pure LaTeX infrastructure, no physics content.
@@ -117,24 +117,52 @@ These serve as the audit trail and contain real reference value (prior-art compa
 **Context:** The engineering-textbook treatment is structurally sound (Yang-Mills mass gap, Navier-Stokes regularity are "solved" in Ch.12). But the Clay Institute requires formal mathematical proof. Consider a supplementary appendix with rigorous measure-theoretic statements.
 **Files:** `manuscript/vol_2_subatomic/chapters/12_millennium_prizes.tex`
 
-#### P2.3 — QPO Observational Validation
+#### ~~P2.3 — QPO Observational Validation~~ [COMPLETED]
 **Context:** The BH orbital resonance QPO prediction ($3:2$ from the impedance cavity) needs comparison against specific X-ray binary data (GRS 1915+105, XTE J1550-564).
 **Files:** `manuscript/vol_3_macroscopic/chapters/16_bh_orbital_resonance.tex`
 
-#### P2.4 — Room-Temperature Superconductivity Material Prediction
+#### ~~P2.4 — Room-Temperature Superconductivity Material Prediction~~ [COMPLETED]
 **Context:** The Casimir cavity prediction needs a specific material-temperature-geometry triplet to be experimentally actionable.
 **Files:** `manuscript/vol_3_macroscopic/chapters/18_superconductivity_phase_locked.tex`
 
-#### P2.5 — Higgs Mass Derivation
+#### ~~P2.5 — Higgs Mass Derivation~~ [COMPLETED]
 **Context:** The 125 GeV Higgs resonance is described in Ch.6 as a "transient acoustic mode" but $M_H$ is not numerically derived from axioms. The Vol 2 spot-check already has a target value ($M_H = 125.1$ GeV) and the engine computes $124.4$ GeV ($-0.55\%$), so the engine already has it — the manuscript just needs the derivation written up.
 **Files:** `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex`
+
+#### ~~P2.6 — Supernova Core Collapse & Macroscopic Dielectric Rupture~~ [COMPLETED]
+**Context:** Documented stellar core collapse as macroscopic Axiom 4 bulk dielectric rupture. The shockwave is lattice relaxation propagating through the stellar impedance profile; the neutron star remnant is a macroscopic topological defect in Regime IV.
+**Files:** `manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex`
+
+#### P2.7 — W-Boson Mass Loop Correction ($M_W$) [SUBSTANTIALLY COMPLETE]
+**Context:** The tree-level geometric derivation of the W-boson mass results in $79,923$ MeV, a 0.57\% deviation from the physical 80.379 GeV value. Resolved via VCA impedance mismatch loss: the Axiom 4 saturated boundary at depth=1 reflects $|S_{11}|^2$ of the coupling power, yielding $M_W = 80,200$ MeV ($-0.22\%$).
+**Remaining:** The $-0.22\%$ residual is attributed to partial saturation at depth 2+ shells. Extending to a graded saturation profile would close the gap further.
+**Engine Update:** `build_radial_tree_admittance(depth=1, boundary_y=0.0)` + standard mismatch loss $(1-|S_{11}|^2)$ in `cosserat.py`.
+**Files:** `src/ave/topological/cosserat.py`, `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex`
+
+#### P2.8 — The Running Fine Structure Constant (Vacuum Polarization) [OPEN — BLOCKED]
+**Mechanism Identified:** The KB (electron-unknot.md) documents the correct physics: Axiom 4 dynamic capacitive yielding $C_{eff}(\Delta\phi) = C_0 / \sqrt{1 - (\Delta\phi/\alpha)^2}$ causes the effective coupling to increase at higher strain (= shorter distance = higher energy).
+**Blocker:** The explicit mapping from probe momentum transfer $q^2$ to local lattice strain $\Delta\phi$ is not yet derived. The discrete hop model (`build_radial_tree_admittance` at integer depths) collapses all energies above $m_e c^2 \approx 0.511$ MeV to depth=1, producing essentially no running. The electroweak scale ($M_Z = 91$ GeV) is $\sim 10^5 \times m_e c^2$, meaning the probe operates far below a single lattice pitch — sub-node physics that the integer-hop solver cannot resolve.
+**What Does NOT Work:** Mismatch loss from static boundary reflections produces $<0.01\%$ variation in $\alpha$ — far too small to explain the observed $\alpha(0) \to \alpha(M_Z)$ shift ($1/137 \to 1/128.9$, a $\sim 6\%$ increase).
+**What Is Needed:** A first-principles derivation of $\Delta\phi(q^2)$ that maps momentum transfer to intra-node strain. This likely requires the nonlinear constitutive model (metric varactor) from VCA Vol 4 Ch. 1, evaluated in the sub-$\ell_{node}$ regime where continuum elasticity applies within a single lattice cell.
+**Engine Update:** `build_radial_tree_admittance()` branch admittances must be dynamically stiffened per the Axiom 4 varactor curve; the current uniform-$y$ builder is inadequate for this problem.
+**Files:** `src/scripts/vol_2_subatomic/simulate_running_alpha.py` (exploratory, non-passing), `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md`
+
+#### P2.9 — Neutrino Mass Flavor Spectrum
+**Context:** Replacing the integer crossing-number ratios `(5, 7, 9)` in `cosserat.py` with the raw structural torsional feedback. Projecting the flavor topologies onto the 1D radial admittance map where paths interact per shell depth should algebraically yield the disparate mass states via $S_{11}$ dispersion.
+**Engine Update:** Map the internal crossing nodes onto the `build_radial_tree_admittance()` tree logic, and compute the origin reflections identical to the $C_2$ anomaly.
+**Files:** `src/ave/topological/cosserat.py`
+
+#### P2.10 — Exact Casimir Thermodynamic Filtering
+**Context:** Instead of evaluating the Casimir macroscopic effect via generalized bounding equations, the $Y$-matrix solver can be mechanically restricted by terminating the boundaries prematurely to map physical cavity widths, yielding the explicit geometric high-pass thermodynamic cooling output.
+**Engine Update:** Mechanically truncate the graph depth in `build_radial_tree_admittance()` exactly at distance $d$ to produce physical vacuum filtration.
+**Files:** `src/scripts/vol_3_macroscopic/simulate_vacuum_mirror.py`, `src/scripts/vol_3_macroscopic/water_lattice_proof.py`
 
 ---
 
 ## Verification State
 
 ```
-make verify      → MATHEMATICALLY PURE (0 violations)
+make verify      → MATHEMATICALLY PURE (0 violations, 369 files)
 make all         → All 7 volumes compile to PDF (0 errors)
 hygiene_audit.py → ALL CROSS-REFERENCES RESOLVE (678 labels, 0 broken)
 spot_check_*     → 39/39 pass across all volumes

@@ -99,7 +99,15 @@ For every function in Tier 2 (`gravity/`, `plasma/`, `geophysics/`, `fluids/`, `
 - [ ] **No local helper functions** that wrap the same physics. If a domain module defines a local `_compute_impedance()` or `_saturation()` helper, that's a duplication — it should call the Tier 1 function.
 - [ ] **Tier 2 modules provide constitutive parameters only.** Domain adapters should return `(epsilon_analog, mu_analog)` pairs or domain-specific profiles — then pass them to Tier 1 operators. They should never close the loop themselves.
 
-#### 2c. Import Direction (DAG Check)
+#### 2c. Solver Parameter Honesty (No Hidden Numerology)
+
+For every computational engine in Tier 3 (`solvers/`):
+
+- [ ] **No Reverse-Engineered Fudges.** Solvers must compute answers forward from the geometry (e.g., $N$-node adjacency graph, $\nu_{vac}=2/7$). They must NEVER hard-code target endpoints (like $C_2 = -0.328$, $M_H = 125.1$, or QED transcendentals) and work backward.
+- [ ] **No Ignored Divergences.** Ensure solvers do not arbitrarily truncate spatial matrices or lattice sums to "smooth" answers out. If a lattice structure yields a structural anomaly or resonance, the solver must capture and output that raw metric.
+- [ ] If a sequence of solver operators masks a lattice artifact or injects an artificial boundary condition to match Standard Model observations, flag it.
+
+#### 2d. Import Direction (DAG Check)
 
 - [ ] **Constants → Scale-invariant → Domain adapters → Solvers.** No reverse imports.
 - [ ] **Tier 3 (Solvers) consume Tiers 1+2 only.** Solvers should not import from `scipy.constants` or define their own physical constants.
@@ -208,6 +216,7 @@ Categories:
 7. **SYNC** — Engine/LaTeX mismatch
 8. **LIVING-REF-DRIFT** — LIVING_REFERENCE.md out of sync with actual engine/repo
 9. **BOLTZMANN** — Scalar Boltzmann distribution `exp(-E/kT)` used instead of Axiom 4 saturation
+10. **HIDDEN-PARAM** — Solver script contains reverse-engineered numerology, hard-coded targets, or artificially truncates structural engine limits.
 
 ### Verify Script Integration
 

@@ -493,6 +493,72 @@ def s_matrix_from_y(
     return np.linalg.solve(Y_norm + I, Y_norm - I)
 
 
+def build_radial_tree_admittance(
+    depth: int = 3, 
+    branch_y: complex = 2/7, 
+    boundary_y: complex = 1.0, 
+    coordination_z: int = 4
+) -> np.ndarray:
+    r"""
+    Builds the nodal admittance matrix for a radially expanding Bethe tree.
+    
+    This solver geometrically evaluates structural continuum breakdown (loop corrections).
+    The Diamond/K4 vacuum lattice corresponds to coordination_z = 4.
+
+    Args:
+        depth: The topological hop distance to the continuum transition.
+        branch_y: Mutual coupling between adjacent nodes (e.g. nu_vac).
+        boundary_y: Admittance shunt for terminal nodes indicating the continuum boundary limit.
+        coordination_z: Coordination number (number of nearest neighbors per node).
+
+    Returns:
+        (N, N) complex nodal admittance matrix.
+    """
+    n_nodes = 1
+    level_counts = [1]
+    
+    # Calculate geometric expansion
+    for d in range(1, depth + 1):
+        count = coordination_z * ((coordination_z - 1)**(d-1))
+        level_counts.append(count)
+        n_nodes += count
+        
+    Y = np.zeros((n_nodes, n_nodes), dtype=complex)
+    
+    current_node = 1
+    parent_level_start = 0
+    parent_level_count = 1
+    
+    for d in range(1, depth + 1):
+        nodes_this_level = level_counts[d]
+        tents_per_parent = coordination_z if d == 1 else (coordination_z - 1)
+        
+        for p in range(parent_level_count):
+            parent_idx = parent_level_start + p
+            for t in range(tents_per_parent):
+                child_idx = current_node
+                
+                # Mutual admittance (off-diagonal)
+                Y[parent_idx, child_idx] -= branch_y
+                Y[child_idx, parent_idx] -= branch_y
+                
+                # Self admittance accumulation (diagonal)
+                Y[parent_idx, parent_idx] += branch_y
+                Y[child_idx, child_idx] += branch_y
+                
+                current_node += 1
+                
+        parent_level_start += parent_level_count
+        parent_level_count = nodes_this_level
+
+    # Enforce Continuum Boundary Limit: terminal shells are shunted
+    boundary_start = sum(level_counts[:-1])
+    for i in range(boundary_start, n_nodes):
+        Y[i, i] += boundary_y
+
+    return Y
+
+
 # ── JAX versions ──
 
 def build_nodal_y_matrix_jax(
