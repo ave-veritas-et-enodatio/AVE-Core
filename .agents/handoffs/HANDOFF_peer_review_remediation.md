@@ -169,16 +169,53 @@ $$Y_{00}^* = Y_{00}^{(0)} - |S_{11}(Y_{00}^*)|^2 \cdot (z\,\nu_\text{vac})$$
 **Engine Update:** `build_radial_tree_admittance()` branch admittances must be dynamically stiffened per the Axiom 4 varactor curve; the current uniform-$y$ builder is inadequate for this problem.
 **Files:** `src/scripts/vol_2_subatomic/simulate_running_alpha.py` (exploratory, non-passing), `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md`
 
-#### P2.9 — Neutrino Mass Flavor Spectrum [DELIVERED]
-**Context:** The three neutrino flavors pair with (2,5), (2,7), (2,9) torus knots. The mass splitting is the torsional oscillation-period ratio $5/q$.
-**P2.9 Resolution — Oscillation-Period Derivation:**
-A (2,q) torus knot completes one torsional cycle in $q$ crossings, so the LC resonance frequency scales as $1/q$, giving $m_\nu(q) = m_{\nu,\text{base}} \times (5/q)$. This is shown to be equivalent to the S11 dispersion of a Seifert-fibre propagation chain in the continuous limit ($\nu_\text{vac} \ll q$). Zero free parameters.
-**Delivered (branch `feature/neutrino-casimir-p2x`):**
-- `cosserat.py` — `neutrino_flavor_spectrum()` with full docstring: mechanism, S11 equivalence, output dict
-- Module-level `M_NU_FLAVORS_EV` / `SUM_M_NU_EV` now routed through the documented function
-**Results:** $m_1 = 23.8$ meV, $m_2 = 17.0$ meV, $m_3 = 13.2$ meV. $\Sigma m_\nu = 53.9$ meV (Planck bound $<120$ meV ✓).
-**Open:** The mass-squared splittings ($\Delta m^2_{21} \approx 276\ \mu\text{eV}^2$) are $\sim300\times$ smaller than the PDG oscillation data ($75{,}000\ \mu\text{eV}^2$). This reflects that the absolute $m_{\nu,\text{base}}$ scale is correct but the inter-flavor splitting requires the full mixing matrix. Deferred to P2.9b.
-**Test:** All 77 tests pass.
+#### ~~P2.9 — Neutrino Mass Flavor Spectrum (1/c ansatz)~~ [SUPERSEDED by P2.9b]
+**Note:** The original `1/c` oscillation-period mass formula and the stale M_NU_FLAVORS_EV / SUM_M_NU_EV constants have been replaced by the Bethe-lattice ring eigenvalue derivation (P2.9b). The P2.9 implementation is fully retained in git history; see commit `2dccdfd`.
+
+#### P2.9b — Neutrino Mass-Squared Splittings: Bethe-Lattice + Goldstone Correction
+**Status:** Engine delivered. Manuscript updated. Lemma 5 formally open (see below).
+
+**What was derived this session:**
+
+| Step | Result | Status |
+|------|--------|--------|
+| Bethe-lattice linearity theorem | $\Sigma(E)=E/3$ → ratio locked at 0.597 | ✅ proven |
+| No-power-law theorem | No $f(c_{1,2,3})$ gives 0.030 | ✅ proven |
+| Independence theorem | SVD(Y_PMNS) confirms mix angles ⊥ masses | ✅ proven |
+| Bethe ring eigenvalue | $E_{res}(c)=(3/2)\nu_{vac}\cos(2\pi/c)$ | ✅ proven |
+| Normalization fix | $m_c = M_\nu \cdot E_{res}(c)/E_{res}(9)$ (c=9 sets scale) | ✅ corrected |
+| Mass spectrum | (9.58, 19.33, 23.75) meV; Sum=52.7 meV < 120 meV Planck | ✅ delivered |
+| Goldstone lemmas 1–4 | $Y_{12}^{corr}=7/235=0.02979$ (0.65% from PDG, within 1σ) | ✅ proven |
+| Lemma 5 | $\Delta m^2_{31}=M_\nu^2$ — not yet proven | 🔴 open |
+
+**Engine files delivered (`feature/neutrino-casimir-p2x`):**
+- `cosserat.py` — `neutrino_bethe_ring_eigenvalue(c)`, `neutrino_delta_m_sq()`, updated `neutrino_flavor_spectrum()`, corrected `M_NU_FLAVORS_EV` / `SUM_M_NU_EV`
+- `commit 83b5704` — full Bethe + Goldstone delivery
+
+**Manuscript updated:**
+- `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex` — §"Neutrino Mass Spectrum" fully rewritten: Bethe-lattice derivation, Goldstone correction table, Lemma 5 with Routes A/B/C
+
+**Proof artifacts:**
+- `.agents/handoffs/`  → KI: `p2.9b_goldstone_proof.md` (4 proven lemmas, 3 routes to Lemma 5)
+- `.agents/handoffs/`  → KI: `p2.9b_bethe_lattice_derivation.md` (full Bethe chain)
+
+**Test:** 77/77 pass (including all 26 W-boson SC loop tests).
+**DAG:** `verify_universe.py` → MATHEMATICALLY PURE.
+
+**Lemma 5 — open problem (next session target):**
+
+To close the conditional proof $\Delta m^2_{21}/\Delta m^2_{31} = 7/235$ into an
+absolute theorem, one must show $\Delta m^2_{31} = M_\nu^2$.
+The Bethe-lattice gives $m^2(\nu_1)/m^2(\nu_3) \approx 16\%$, which is not negligible. Three
+routes have been explored and partially eliminated:
+
+| Route | Method | Current state |
+|-------|---------|---------------|
+| **A — MSW junction** | Solar Δm² is measured via MSW (effective coupling), not vacuum eigenvalue. If AVE MSW selects $Y_{12}^{corr}$ as the amplitude, Lemma 5 follows. | Requires AVE MSW Hamiltonian derivation in compliance basis. Not yet started. **Most promising.** |
+| **B — SC fixed-point** | P2.7-style back-saturation on the ν₁↔ν₂ compliance channel drives $m(\nu_1)→0$ at convergence. | Loop drives ν₁ to zero but physical Axiom-4 saturation floor not yet derived. 0.004% correction in K4-consistent variant; 100% in pure-self-admittance variant (unphysical floor). |
+| **C — Jackiw-Rebbi** | Compliance near-degeneracy of (2,5)-(2,7) may support topological zero mode in K4 background. | Not yet attempted. Requires Jackiw-Rebbi analysis of the junction. |
+
+**Recommended first move (next session):** Pursue Route A — derive the AVE analog of the MSW effective Hamiltonian in the compliance mode basis. The key question is whether the solar neutrino suppression in the Sun's matter potential selects the junction coupling $Y_{12}^{corr}$ as the physical observable, rather than the vacuum eigenvalue difference.
 
 #### P2.10 — Exact Casimir Thermodynamic Filtering [DELIVERED — NEAR-FIELD]
 **Context:** The Casimir effect modeled as K4 tree depth truncation: modes with $\lambda > 2d$ (cavity width) are excluded at depth $N_{\text{cav}} = d/\ell_{\text{node}}$.
@@ -205,9 +242,12 @@ grep "Section Removed" → 0 results across entire manuscript
 ## Commits This Session
 
 ```
-f021d79 peer-review remediation: close all WS2/WS4 items, fix 14 stale refs, pass DAG verify
-6247530 fix: resolve LaTeX compile errors in Vol 2, Vol 4, Vol 6
-0952aa8 fix: resolve remaining Vol 2 & Vol 4 LaTeX compile errors
+
+### P2.9b Session (2026-04-15):
+
+```
+83b5704 feat: Bethe-lattice ring eigenvalue + neutrino Δm² structural derivation (P2.9b)
+2dccdfd feat: neutrino flavor spectrum (P2.9) + Casimir thermodynamic filtering (P2.10)
 ```
 
 ## Files Modified This Session
@@ -254,5 +294,15 @@ src/ave/solvers/bond_energy_solver.py
 src/ave/solvers/orbital_resonance.py
 src/scripts/vol_1_foundations/verify_universe.py
 src/scripts/vol_6_periodic_table/simulations/spice_netlists/dt_fusion_transient.cir
+
+# P2.9b session additions
+src/ave/topological/cosserat.py  (neutrino_bethe_ring_eigenvalue, neutrino_delta_m_sq, updated flavor spectrum)
+manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex  (neutrino section rewritten)
+.agents/handoffs/HANDOFF_peer_review_remediation.md  (P2.9b full entry)
+
+# P2.9b proof artifacts (session KI)
+# /Users/grantlindblom/.gemini/antigravity/brain/ee17a847-.../p2.9b_goldstone_proof.md
+# /Users/grantlindblom/.gemini/antigravity/brain/ee17a847-.../p2.9b_bethe_lattice_derivation.md
+# /Users/grantlindblom/.gemini/antigravity/brain/ee17a847-.../p2.9b_axiomatic_study.md
 ```
 
