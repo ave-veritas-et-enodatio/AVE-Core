@@ -310,6 +310,94 @@ M_NU_FLAVORS_EV = [M_NU_EV * 5.0 / c for c in CROSSING_NUMBERS_NEUTRINO]
 SUM_M_NU_EV: float = sum(M_NU_FLAVORS_EV)
 # → ~0.054 eV (Planck 2018 bound: < 0.12 eV, hint: ~0.06 eV)
 
+
+def neutrino_flavor_spectrum() -> dict:
+    """
+    Neutrino mass flavor spectrum from torus-knot torsional oscillation (P2.9).
+
+    === Physical Mechanism ===
+
+    The neutrino is a pure screw (torsional) defect in the chiral LC lattice.
+    Its three flavors correspond to the three lightest (2,q) torus knot
+    topologies that can be embedded in the lattice:
+
+        nu_1 ↔ (2,5)  torus knot (links with proton, q=5)
+        nu_2 ↔ (2,7)  torus knot (links with Delta+ resonance, q=7)
+        nu_3 ↔ (2,9)  torus knot (links with higher Delta resonance, q=9)
+
+    === Mass Splitting from Oscillation Period ===
+
+    A (2,q) torus knot has q crossings arranged with q-fold rotational symmetry.
+    Each crossing is a node where the defect intersects itself.  The full cycle
+    of the screw defect completes in q torsional oscillations:
+
+        T_q = q × T_base
+
+    Since the neutrino mass is set by the LC resonance frequency
+    (m_nu ∝ omega_torsion ∝ 1/T_q), the mass ratio between flavors is:
+
+        m_nu(q_a) / m_nu(q_b) = T_b / T_a = q_b / q_a
+
+    Normalising to nu_1 (q=5):
+
+        m_nu(q) = m_nu_base × (5/q)
+
+    This is the crossing-number mass formula.  It is NOT an empirical fit —
+    it is derived purely from Axiom 1 (torus knot topology) and the LC resonance
+    condition (Axiom 2: mass ↔ frequency).
+
+    === Structural S11 Equivalence ===
+
+    The oscillation-period ratio 5/q can also be read directly from the
+    S11 dispersion of a screw-defect propagation chain.  The torsional wave
+    propagates along the knot's Seifert fibre (a 1D chain of length q nodes).
+    The structural reflection at the chain terminus gives:
+
+        S11(q) ∝ nu_vac / (q + nu_vac)  →  ratio = S11(5) / S11(q) ≈ q/5
+
+    In the continuous limit (nu_vac ≪ q), S11(q) → 1/q exactly, recovering
+    the oscillation-period formula.  The two derivations are equivalent;
+    the crossing-number formula is the analytic closed form.
+
+    Returns:
+        dict with keys:
+            crossing_numbers    : list[int]  — [5, 7, 9] torus knot q values
+            M_nu_base_eV        : float      — base neutrino mass (nu_1)
+            M_nu_flavors_eV     : list[float] — [m1, m2, m3] in eV
+            M_nu_flavors_meV    : list[float] — same in meV
+            sum_M_nu_eV         : float      — Σmν in eV
+            mass_ratios         : list[float] — [1, 5/7, 5/9]
+            delta_m21_sq_eV2    : float      — Δm²₂₁ in eV²
+            delta_m31_sq_eV2    : float      — Δm²₃₁ in eV²
+            planck_bound_ok     : bool       — Σmν < 0.12 eV (Planck 2018)
+    """
+    crossings = [5, 7, 9]
+    flavors_ev = [M_NU_EV * 5.0 / c for c in crossings]
+    m1, m2, m3 = flavors_ev
+
+    dm21_sq = abs(m2**2 - m1**2)
+    dm31_sq = abs(m3**2 - m1**2)
+    sum_ev = sum(flavors_ev)
+
+    return {
+        "crossing_numbers":   crossings,
+        "M_nu_base_eV":       M_NU_EV,
+        "M_nu_flavors_eV":    flavors_ev,
+        "M_nu_flavors_meV":   [f * 1000 for f in flavors_ev],
+        "sum_M_nu_eV":        sum_ev,
+        "mass_ratios":        [5.0 / c for c in crossings],
+        "delta_m21_sq_eV2":  dm21_sq,
+        "delta_m31_sq_eV2":  dm31_sq,
+        "planck_bound_ok":    sum_ev < 0.12,
+    }
+
+
+# Expose spectrum at module level
+_NU_SPECTRUM = neutrino_flavor_spectrum()
+M_NU_FLAVORS_EV = _NU_SPECTRUM["M_nu_flavors_eV"]
+SUM_M_NU_EV: float = _NU_SPECTRUM["sum_M_nu_eV"]
+# → ~0.054 eV (Planck 2018 bound: < 0.12 eV, hint: ~0.06 eV)
+
 # =============================================================================
 # CHARGED LEPTON SPECTRUM (Three Cosserat Sectors)
 # =============================================================================
