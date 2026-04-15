@@ -1,0 +1,116 @@
+\section{The Experimental Noise-Floor Boundary}
+\label{sec:noise_floor}
+
+A serious experimental physicist will immediately challenge the EE~Bench and Vacuum Impedance Mirror protocols with a brutally pragmatic question: \textit{Can 43.65~kV actually be applied across a 100~$\mu$m vacuum gap without inducing competing atomic breakdown mechanisms that would overwhelm the predicted AVE signal?}
+
+This section answers that question quantitatively. Four competing failure modes are evaluated independently. All are shown to fail \textit{above} the AVE operating window, leaving a clean experimental corridor.
+
+\subsection{Failure Mode 1: Paschen Gas Breakdown}
+
+Classical Townsend avalanche breakdown requires a minimum number of ionizing collisions across the gap. The breakdown voltage follows the Paschen curve:
+\begin{equation}
+    V_{bk} = \frac{B \cdot (p \cdot d)}{\ln(A \cdot p \cdot d) - \ln\!\left(\ln\!\left(1 + \frac{1}{\gamma_{se}}\right)\right)}
+    \label{eq:paschen}
+\end{equation}
+where $A \approx 12$~cm$^{-1}$Torr$^{-1}$, $B \approx 365$~V cm$^{-1}$Torr$^{-1}$ (N$_2$ proxy), and $\gamma_{se} \approx 0.01$ is the secondary emission coefficient.
+
+For the 100~$\mu$m gap, the Paschen minimum occurs at $p \approx 100$~Torr ($V_{bk,min} \approx 382$~V). However, the Paschen curve does \textit{not} describe high-vacuum physics. When the chamber pressure drops below $10^{-4}$~Torr, the molecular mean free path becomes:
+\begin{equation}
+    \lambda_{mfp} = \frac{k_B T}{\sqrt{2}\, \pi\, d_{mol}^2\, p} \;\bigg|_{p = 10^{-4}\text{ Torr}} \approx 51\text{ cm}
+\end{equation}
+where $d_{mol} \approx 3.7 \times 10^{-10}$~m (N$_2$ kinetic diameter). Since $\lambda_{mfp} \gg d_{gap}$ by a factor of $5{,}100\times$, no electron can undergo \textit{even a single ionizing collision} while traversing the gap. The Townsend avalanche is geometrically impossible.
+
+\textbf{Requirement:} Chamber pressure $p < 10^{-4}$~Torr (standard UHV, achievable with a $100/s$ turbomolecular pump).
+
+\subsection{Failure Mode 2: Fowler-Nordheim Field Emission}
+
+Even in perfect vacuum, electrons can quantum-mechanically tunnel from the electrode surface. The Fowler-Nordheim dark current density is:
+\begin{equation}
+    J_{FN} = \frac{A_{FN}\, (\beta E)^2}{\phi} \exp\!\left(\frac{-B_{FN}\, \phi^{3/2}}{\beta E}\right)
+    \label{eq:fowler_nordheim}
+\end{equation}
+where $A_{FN} = 1.54 \times 10^{-6}$~A$\cdot$eV/V$^2$, $B_{FN} = 6.83 \times 10^{9}$~eV$^{-3/2}$V/m, $\phi = 4.5$~eV (Tungsten work function), $\beta$ is the local field enhancement factor, and $E = V/d$ is the macroscopic gap field.
+
+At $V_{yield} = 43{,}652$~V across $d = 100$~$\mu$m:
+\begin{equation}
+    E_{gap} = \frac{43{,}652}{100 \times 10^{-6}} = 4.37 \times 10^{8}\text{ V/m}
+\end{equation}
+
+The field enhancement factor $\beta$ is the critical engineering variable. For electropolished tungsten spheres ($r_{tip} \gtrsim 100$~$\mu$m), $\beta \approx 2$--$5$. For sharp needle tips ($r_{tip} \sim 1$~$\mu$m), $\beta \approx 50$--$100$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
+\toprule
+\textbf{Electrode Geometry} & $\beta$ & $E_{local}$ [V/m] & $I_{dark}$ [A] & \textbf{Status} \\
+\midrule
+Electropolished sphere   & 3   & $1.31 \times 10^{9}$ & $1.4 \times 10^{-18}$ & \textbf{SAFE} \\
+Blunted needle           & 6   & $2.62 \times 10^{9}$ & $\sim 10^{-6}$        & \textbf{MARGINAL} \\
+Sharp Field Emission Tip & 50  & $2.18 \times 10^{10}$ & $\gg 1$               & \textbf{DESTRUCTIVE} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Requirement:} Electropolished electrodes with $\beta < 5$ (commercial standard for high-voltage vacuum equipment). The critical boundary is $\beta_{crit} \approx 6$; all electrode geometries below this threshold produce dark currents below $10^{-9}$~A.
+
+\subsection{Failure Mode 3: Multipacting}
+
+Multipacting is a resonant secondary electron cascade where electrons accelerated across the gap generate secondaries upon impact, which are then re-accelerated in phase with an RF field. Two conditions must be simultaneously satisfied:
+\begin{enumerate}
+    \item The electron transit time must equal half the RF period: $\tau_{transit} = T_{RF}/2$.
+    \item The secondary emission coefficient at impact must exceed unity: $\delta(E_{impact}) > 1$.
+\end{enumerate}
+
+Both conditions fail categorically:
+\begin{itemize}
+    \item \textbf{DC Bias:} The EE Bench and Vacuum Mirror experiments use static DC voltage. No RF cycle exists to sustain resonant re-acceleration.
+    \item \textbf{Impact Energy:} Even if parasitic oscillations existed, the electron impact energy at full gap voltage is $43.65$~keV. The secondary emission coefficient of Tungsten at this energy is $\delta(43\text{ keV}) \ll 1.0$ (the SEY maximum for W occurs at $\sim 300$~eV; at 43~keV, the primary electron penetrates deep below the surface and generates negligible secondaries).
+\end{itemize}
+
+\textbf{Verdict:} Multipacting is physically impossible in a DC vacuum gap experiment.
+
+\subsection{Failure Mode 4: Thermal (Johnson-Nyquist) Noise}
+
+The fundamental thermal noise floor for a capacitive measurement is set by the $kT/C$ limit:
+\begin{equation}
+    V_{noise} = \sqrt{\frac{k_B T}{C_{total}}} \;\bigg|_{300\text{ K},\; 10\text{ pF}} \approx 20.4\text{ $\mu$V RMS}
+\end{equation}
+
+The AVE-predicted signal at $V/V_{yield} = 0.85$ (onset of divergence):
+\begin{equation}
+    \frac{C_{eff}}{C_0} = \frac{1}{\sqrt{1 - 0.85^2}} \approx 1.90\times \quad \Longrightarrow \quad \frac{\Delta C}{C_0} \approx 90\%
+\end{equation}
+
+A 90\% capacitance change represents a macroscopic signal---measurable by any commercial LCR meter. The thermal noise floor is $5.5 \times 10^{-8}$\% of the measurement voltage. The signal-to-noise ratio exceeds $10^{9}$.
+
+\textbf{Verdict:} Thermal noise is entirely negligible. The predicted AVE signal is macroscopic.
+
+\subsection{The Feasible Operating Window}
+
+The complete engineering parameter space is summarized:
+
+\begin{tcolorbox}[colback=white, colframe=black]
+\textbf{Operating Envelope for AVE Falsification Experiments:}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{0.85\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Parameter} & \textbf{Specification} \\
+\midrule
+Target voltage        & $V_{yield} = \sqrt{\alpha} \times V_{snap} = 43{,}652$~V \\
+Gap distance          & $d = 100$~$\mu$m  \\
+Chamber pressure      & $p < 10^{-4}$~Torr (UHV) \\
+Electrode material    & Electropolished Tungsten ($\phi = 4.5$~eV, $\beta < 5$)  \\
+Operating temperature & Ambient ($T = 300$~K); cryogenic optional, not required \\
+\bottomrule
+\end{tabularx}
+\end{center}
+All four competing atomic breakdown mechanisms are geometrically suppressed within this envelope. The predicted AVE capacitance divergence exceeds the thermal noise floor by nine orders of magnitude.
+\end{tcolorbox}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\textwidth]{experimental_noise_floor_analysis.png}
+    \caption{\textbf{Experimental Noise-Floor Boundary Analysis.} \textbf{Top Left:} Paschen gas breakdown curve for the $100$~$\mu$m gap. At $p < 10^{-4}$~Torr (shaded), mean free path exceeds the gap by $5{,}100\times$, geometrically preventing Townsend avalanche. \textbf{Top Right:} Fowler-Nordheim field emission current vs.\ gap voltage. Polished electrodes ($\beta = 3$) produce sub-attoampere dark current at $V_{yield}$; sharp tips ($\beta = 50$) cause catastrophic emission. \textbf{Bottom Left:} The Axiom~4 capacitance divergence signal initiating at $85\%$ of $V_{yield}$, rising to $1.90\times$ at $V/V_{yield} = 0.85$. Standard QED predicts a flat response. \textbf{Bottom Right:} Operating window verdict---all four failure modes clear the operational envelope.}
+    \label{fig:noise_floor_analysis}
+\end{figure}

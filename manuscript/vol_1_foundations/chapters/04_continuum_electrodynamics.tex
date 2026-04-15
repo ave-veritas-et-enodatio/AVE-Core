@@ -13,6 +13,20 @@
 
 If the discrete spatial vacuum is a physical LC network ($\mathcal{M}_A$) supporting momentum limits and finite wave propagation, its macroscopic low-energy effective field theory (EFT) mathematically maps to continuous network dynamics. 
 
+\subsection*{Cosserat Continuum Mechanics: A Primer for EE Readers}
+\label{sec:cosserat_primer}
+
+The AVE lattice is a \textbf{Cosserat continuum}---a generalization of classical (Cauchy) elasticity in which each material point carries not only translational degrees of freedom but also independent rotational degrees of freedom. In standard Cauchy elasticity, stress is symmetric ($\sigma_{ij} = \sigma_{ji}$) and only six independent strain components exist. In a Cosserat medium, each node can spin independently of its neighbours, producing asymmetric stress tensors and local torque balance equations.
+
+For the $\mathcal{M}_A$ lattice, this distinction is physically critical:
+\begin{itemize}
+    \item Each LC node stores energy in \emph{both} translational (capacitive, $\epsilon_0$) and rotational (inductive, $\mu_0$) modes. This is precisely the Cosserat structure: translation $\leftrightarrow$ electric field, rotation $\leftrightarrow$ magnetic field.
+    \item The Poisson ratio $\nu = 2/7$ (Axiom~2) relates translational and rotational compliance. In a Cauchy solid, $\nu$ is bounded to $[-1, 1/2]$ in 3D. The Cosserat extension permits additional internal length scales---here, $\ell_\text{node}$---that couple the rotational and translational sectors.
+    \item The K4 graph topology (Axiom~1) enforces $K = 2G$ (trace-reversal identity), which is the Cosserat equilibrium condition for a network with 3 translational + 3 rotational modes per node, cross-coupled through the electromagnetic constitutive relations.
+\end{itemize}
+
+Readers familiar with micropolar elasticity will recognize the LC lattice as its electromagnetic dual. Those arriving from circuit theory may simply note: \textit{the lattice is a distributed transmission line in which every node is also a gyroscope.}
+
 Before discussing the bulk properties of the universe, the transport mechanism is defined. In the continuous limit ($L \gg \ell_{node}$), signal propagation is governed by the classical Maxwell-Heaviside acoustic wave equation:
 \begin{resultbox}{Maxwell-Heaviside Acoustic Wave Equation}
 \begin{equation}
@@ -101,7 +115,7 @@ resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
 \approx 5.49 \times 10^{11}$~Pa, which governs individual edge stiffness but is $\sim 10^{12}\times$
 smaller than the collective continuum value. The Cauchy bulk modulus is fixed at
-$K_{vac} = 2G_{vac}$ (\S[Section Removed]).
+$K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
 
 \subsection{Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)}
 

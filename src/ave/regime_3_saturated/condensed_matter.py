@@ -48,6 +48,7 @@ from ave.core.constants import (
     K_B,        # Boltzmann constant [J/K]
     e_charge,   # Elementary charge [C]
     M_PROTON,   # Proton mass [kg] (used as m_u ≈ 1 amu)
+    M_U,        # Atomic mass unit (Dalton) [kg] — single source of truth
 )
 from ave.solvers.coupled_resonator import (
     ionization_energy_circuit,
@@ -57,8 +58,8 @@ from ave.solvers.coupled_resonator import (
 )
 
 
-# Unified atomic mass unit (exact)
-_M_U = 1.66053906660e-27  # kg
+# Alias for local readability (imported from constants.py)
+_M_U = M_U
 
 def ave_stable_mass(Z) -> float:
     """

@@ -412,7 +412,7 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     omega_I_dimless : float  ω_I × M_g (dimensionless)
     """
     M_g = G_NEWTON * M / C_0**2
-    NU_VAC = 2.0 / 7.0
+    # NU_VAC imported from ave.core.constants (line 28) — no local shadow
 
     # ── Step 1: Saturation boundary (Schwarzschild) ──
     x_sat_schw = 7.0   # r_sat = 7 M_g  from ε₁₁(r_sat) = 1

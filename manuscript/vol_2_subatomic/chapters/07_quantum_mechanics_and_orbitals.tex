@@ -412,6 +412,27 @@ For atoms with $Z \geq 3$, each filled subshell adds one filter section to the l
 \end{equation}
 where $Z_k = j\omega L_k$ is the series impedance (inertia of the flux loop) and $Y_k = j\omega C_k$ is the shunt admittance (Coulomb coupling to the nucleus) of the $k$-th shell.
 
+\begin{figure}[h]
+\centering
+\begin{tcolorbox}[colback=white, colframe=black!50, title={\textbf{Signal-Flow: Atom as Radial Transmission Line}}, width=\textwidth]
+\centering
+\begin{verbatim}
+   NUCLEUS          1s² Filter       2s² Filter       2p^N Filter       VACUUM
+   Z=+Ze     ──────┤  ABCD_1  ├──────┤  ABCD_2  ├──────┤  ABCD_3  ├──── Z₀=377Ω
+   (Source)         │ L₁, C₁  │      │ L₂, C₂  │      │ L₃, C₃  │    (Load)
+                    └─────────┘      └─────────┘      └─────────┘
+
+   Each section:    T_k = [1+Z_k·Y_k   Z_k]     Z_k = jωL_k  (series = inertial)
+                         [   Y_k         1  ]     Y_k = jωC_k  (shunt  = Coulomb)
+
+   Eigenvalue at valence port:   Z_eff(ω) = Z · |1/(A + B/Z_term)|
+   Bound state ↔ S₁₁ minimum ↔ Op6: λ_min(S†S) → 0
+\end{verbatim}
+\end{tcolorbox}
+\caption{\textbf{The Atom as an Analog Ladder Filter.}  The nuclear Coulomb field (voltage source $Ze$) propagates outward through cascaded ABCD filter sections, each representing a filled electron subshell. The valence electron is the load termination at $Z_0 = 377~\Omega$. Bound-state energies correspond to frequencies where $|S_{11}|^2$ dips to zero (Op6 eigenvalue). This is identical to the standard microwave filter design pipeline.}
+\label{fig:abcd_atom_cascade}
+\end{figure}
+
 The effective nuclear charge seen by the valence electron emerges from the voltage transfer ratio at the output port:
 \begin{equation}
     Z_\text{eff}(\omega) = Z \cdot |H(\omega_\text{valence})| = Z \cdot \left|\frac{1}{A + B/Z_\text{term}}\right|
@@ -3004,7 +3025,7 @@ Antenna & Coupled microstrip &
 \end{center}
 The protein engine already uses coupled-line
 even/odd impedances for $\beta$-sheet inter-strand
-coupling (Vol.~V, Ch.~[Section Removed]).
+coupling (Vol.~V, Ch.~2).
 The atomic instantiation is identical: two
 electron orbitals running through the same
 nuclear field are coupled by mutual Coulomb
@@ -3525,7 +3546,7 @@ of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$).
 The charge of each soliton ($-e$) screens the nuclear charge seen
 by its partner.  Gauss's law applied to the Hopf link geometry
 gives $\sigma_{\text{Hopf}} = 1/2$ per partner
-(\S[Section Removed]).  This screening is
+(Eq.~\ref{eq:kappa_hopf}).  This screening is
 \textbf{isotropic}---it depends on the linking number (Axiom~3)
 and the enclosed charge fraction, but \emph{not} on the relative
 orbital plane orientation ($m_l$).
@@ -3554,7 +3575,7 @@ $\sim 10^{2\text{--}3}$.  They cannot be lumped into a
 single effective impedance.  The correct procedure is:
 \begin{enumerate}
     \item \textbf{Cavity Eigenvalue} (orbital, distributed):
-          The ABCD cascade computes the base standing wave eigenvalue $E_{\text{base}}$ from the nucleus to the radial turning point. Only \emph{cross-shell} (different-$n$) bound states provide spherical Gauss shielding in this phase.  Same-$n$ electrons are \textbf{excluded} from the CDF screening: they share the same torus and Gauss's law cannot resolve angular correlations on one torus (see \S[Section Removed]). Same-$n$ interactions enter through Phase~2 (Hopf mode splitting) instead. The isolated core baseline is natively extracted as an effective charge bounded cavity:
+          The ABCD cascade computes the base standing wave eigenvalue $E_{\text{base}}$ from the nucleus to the radial turning point. Only \emph{cross-shell} (different-$n$) bound states provide spherical Gauss shielding in this phase.  Same-$n$ electrons are \textbf{excluded} from the CDF screening: they share the same torus and Gauss's law cannot resolve angular correlations on one torus (see Section~\ref{sec:topological_buckling_vs_hopf}). Same-$n$ interactions enter through Phase~2 (Hopf mode splitting) instead. The isolated core baseline is natively extracted as an effective charge bounded cavity:
           \begin{equation}
               Z_{\text{eff\_core}} = \frac{R_{\text{target}}}{a_0} \sqrt{\frac{E_{\text{base}}}{\text{Ry}}}
           \end{equation}

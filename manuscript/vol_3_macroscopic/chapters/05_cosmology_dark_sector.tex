@@ -106,6 +106,16 @@ The physics engine implements both behaviors programmatically via the solver
 \section{Multi-Galaxy Validation}
 \label{sec:multi_galaxy}
 
+\begin{tcolorbox}[colback=green!3!white, colframe=green!50!black, title={\textbf{Reader's Guide: Topological Derivation $\to$ Observational Mapping}}]
+\textbf{Everything above this point} (Sections~\ref{ch:cosmology_v7}--\ref{sec:rar}) is \textbf{pure circuit theory}:
+\begin{itemize}
+    \item The MOND scale $a_0$ is derived from $H_\infty$ via the vacuum LC resonance (Eq.~\ref{eq:a0_derived}).
+    \item The galactic drag is the \textbf{same} Axiom~4 saturation operator $S(\dot\gamma) = \sqrt{1 - (\dot\gamma/\dot\gamma_{\text{yield}})^2}$ that derives particle confinement.
+    \item The regime table (Section~\ref{sec:galactic_regimes}) is a standard operating-point analysis: $g_N/a_0$ is the normalized drive level.
+\end{itemize}
+\textbf{Everything below} translates these topological results into \textbf{observational astrophysics}---galaxy rotation curves, the Bullet Cluster, DAMA, and the VLBI parallax test. No new physics is introduced; the observational sections simply ask: \textit{``Does the circuit model match what telescopes see?''}
+\end{tcolorbox}
+
 The physics engine contains a five-galaxy catalog (\texttt{gravity/galactic\_rotation.py}) spanning four decades of baryonic mass.  Table~\ref{tab:galaxy_validation} lists the predicted flat rotation velocities computed using the AVE saturation model with zero free parameters.
 
 \begin{table}[H]

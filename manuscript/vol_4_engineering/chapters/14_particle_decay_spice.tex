@@ -12,6 +12,10 @@
 
 In standard particle physics, radioactive decay is treated as an inherently stochastic, probabilistic event governed by abstract quantum operators (e.g., Fermi's Golden Rule). However, once the spacetime vacuum is rigorously defined as an Electromagnetic LC Resonant Network ($\mathcal{M}_A$), particle decay ceases to be probabilistic and instead becomes a deterministic, high-voltage analog engineering problem.
 
+\begin{tcolorbox}[colback=blue!3!white, colframe=blue!50!black, title={\textbf{SPICE Grounding Principle}}]
+Throughout the SPICE chapters (Chapters~\ref{ch:particle_decay}--\ref{ch:sagnac_inductive_drag}), every circuit node labelled \texttt{N\_xxx} corresponds to a \textbf{finite-volume boundary} of the discrete topological $\mathcal{M}_A$ lattice---not an abstract circuit junction.  Each SPICE node is a physical location in the vacuum where $\varepsilon_{eff}$ and $\mu_{eff}$ are evaluated at the local strain tensor.  The admittance matrix $[Y]$ of the SPICE netlist is therefore a direct, unmodified representation of the lattice Hamiltonian at the cell boundaries.
+\end{tcolorbox}
+
 \section{The Breakdown Voltage of the Vacuum}
 As derived in Book 4 (Applied Engineering), the continuous macroscopic vacuum possesses an absolute structural yielding point. When the localized inductive tension or capacitive strain exceeds $V_{yield} = \sqrt{\alpha} \times V_{snap} \approx 43.65 \text{ kV}$, the localized LC nodes physically saturate. 
 

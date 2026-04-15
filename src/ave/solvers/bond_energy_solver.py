@@ -296,7 +296,7 @@ def extract_force_constant(d_array, E_array):
 # ═══════════════════════════════════════════════════════════
 # ATOMIC MASSES (CODATA 2018)
 # ═══════════════════════════════════════════════════════════
-_DA = 1.66053906660e-27  # kg per Dalton
+from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
 
 NUCLEAR_MASSES = {
     'H':  1.00794 * _DA,

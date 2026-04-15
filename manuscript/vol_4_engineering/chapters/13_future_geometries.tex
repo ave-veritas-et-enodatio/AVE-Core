@@ -31,9 +31,9 @@ This non-zero dot product defines the \textit{Magnetic Helicity Density} ($h$). 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{ponder_01_hopf_knot.png}
+    \includegraphics[width=1.0\textwidth]{hopf_knot_em_synthesis.png}
     \caption{\textbf{3D Electromagnetic Knot Synthesis:} Simulation mapping the linked Toroidal and Poloidal core fluxes. The combined topology directly asserts a chiral twist onto the local vacuum lattice via non-trivial $\mathbf{E} \cdot \mathbf{B}$ scalar multiplication.}
-    \label{fig:ponder_01_hopf_knot}
+    \label{fig:hopf_knot_em_synthesis}
 \end{figure}
 
 \section{Vector Scaling vs. Knot Volumetrics}
@@ -64,9 +64,9 @@ By taking inspiration from the planar geometry of Carbon ($C_6$ rings and graphe
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{ponder_c0g_phased_array.png}
+    \includegraphics[width=1.0\textwidth]{c0g_phased_array_synthesis.png}
     \caption{\textbf{Optimal Synthesis:} A macroscopic $T(3,2)$ Borromean coil representing 100\% ideal lattice coupling (left), juxtaposed against a $C_0$ symmetric array of linear dipoles (right). By firing the static dipoles out of phase, a synthetic macroscopic helicity knot can be generated while maintaining the low electrical inductance of linear hardware.}
-    \label{fig:ponder_c0g_phased_array}
+    \label{fig:c0g_phased_array_synthesis}
 \end{figure}
 
 \subsection{The Acoustic Back-Reaction Analogy}
@@ -99,7 +99,7 @@ We define the Chiral Figure of Merit (FoM) as the product of three dimensionless
     \label{eq:chiral_fom}
 \end{equation}
 \end{resultbox}
-where $Q_u$ is the unloaded quality factor, $\alpha \cdot pq/(p+q)$ is the chiral coupling (Eq.~[Section Removed]), and $\eta_{\mathcal{H}} = \text{SL}(p,q) / N_{cross}$ is the helicity efficiency---the ratio of the self-linking number $\text{SL}(p,q) = pq - p - q$ (net topological helicity injection) to the minimum crossing number $N_{cross} = \min(p(q-1),\, q(p-1))$ (total geometric complexity). Each factor traces directly to the AVE axioms: $Q$ is set by the conductor physics, $\alpha$ by Axiom~2, and $\eta_{\mathcal{H}}$ by the Seifert framing of the knot topology.
+where $Q_u$ is the unloaded quality factor, $\alpha \cdot pq/(p+q)$ is the chiral coupling (Eq.~\ref{eq:chiral_fom}), and $\eta_{\mathcal{H}} = \text{SL}(p,q) / N_{cross}$ is the helicity efficiency---the ratio of the self-linking number $\text{SL}(p,q) = pq - p - q$ (net topological helicity injection) to the minimum crossing number $N_{cross} = \min(p(q-1),\, q(p-1))$ (total geometric complexity). Each factor traces directly to the AVE axioms: $Q$ is set by the conductor physics, $\alpha$ by Axiom~2, and $\eta_{\mathcal{H}}$ by the Seifert framing of the knot topology.
 
 For a lossless resonator ($Q_u \to \infty$), the FoM reduces to the pure topological invariant $\alpha \cdot pq/(p+q) \cdot \eta_{\mathcal{H}}$, which is maximized by the $(7,11)$ torus knot ($\text{FoM}_{topo} = 0.028$).
 
@@ -431,7 +431,7 @@ $(7,11)$ Torus knot & 358 & 0.015 & 4.278 & $3.12 \times 10^{-2}$ \\
 
 Three-dimensional mathematical energy conservation over the unitary S-matrix holds to $2.2 \times 10^{-16}$ (machine epsilon). In the non-reflective PML regime, the chiral frequency shift tracks strictly to the first-principles structural impedance $\Delta f / f = \alpha \cdot pq/(p+q)$. Because the engine abandons all numerical rotation matrix perturbations in favor of pure native wave tracing logic, the simulations directly confirm that continuous-field chiral properties emerge flawlessly from discrete topological graph parity.
 
-\textbf{Physical interpretation.} The (7,11) topology produces the longest wire ($L = 358$ nodes) and therefore the lowest resonant frequency, but its high $pq/(p+q) = 4.278$ gives the \textit{strongest} chiral coupling coefficient $\alpha \cdot pq/(p+q) = 3.12 \times 10^{-2}$. This confirms the analytical result from Section~[Section Removed] the $(7,11)$ torus knot is the optimal topology for maximising lattice coupling, with a chiral FoM that scales linearly with the topological fraction $pq/(p+q)$.
+\textbf{Physical interpretation.} The (7,11) topology produces the longest wire ($L = 358$ nodes) and therefore the lowest resonant frequency, but its high $pq/(p+q) = 4.278$ gives the \textit{strongest} chiral coupling coefficient $\alpha \cdot pq/(p+q) = 3.12 \times 10^{-2}$. This confirms that the $(7,11)$ torus knot is the optimal topology for maximising lattice coupling, with a chiral FoM that scales linearly with the topological fraction $pq/(p+q)$.
 
 \begin{figure}[ht]
     \centering

@@ -708,7 +708,7 @@ Vacuum birefringence (chirality-split)   & ---        & \checkmark \\
 
 \paragraph{Boundary Conditions.} Both solvers support Mur 1st-order absorbing boundaries (default) and PML (Perfectly Matched Layer) polynomial-graded absorbing boundaries (\texttt{use\_pml=True}). PML is recommended for simulations requiring low spurious reflection ($<$\,60~dB) at the grid boundary, such as far-field antenna patterns and long-duration energy tracking. The PML implementation uses cubic-graded conductivity: $\sigma(d) = \sigma_{max}(d/d_{pml})^3$, with $\sigma_{max} = (m+1)/(150\pi\,\Delta x)$.
 
-\paragraph{Default Yield Threshold.} Both FDTD and K4-TLM default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV as the Axiom~4 nonlinear onset (see Section~[Section Removed] in Chapter~2 for the engineering rationale). Subatomic-scale simulations (e.g., bond energy solvers, Yang--Mills confinement) should override with \texttt{v\_yield=V\_SNAP} ($\approx 511$~kV).
+\paragraph{Default Yield Threshold.} Both FDTD and K4-TLM default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV as the Axiom~4 nonlinear onset. Subatomic-scale simulations (e.g., bond energy solvers, Yang--Mills confinement) should override with \texttt{v\_yield=V\_SNAP} ($\approx 511$~kV).
 
 \begin{summarybox}
 \begin{itemize}

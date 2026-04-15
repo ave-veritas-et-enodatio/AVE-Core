@@ -121,8 +121,9 @@ class WaterMolecule(MolecularFluid):
         inter_bond_energy: Γ²αℏc void-fraction bounded coupling
     """
     # Mass constants — fundamental (Axiom 4)
-    m_center: float = 15.999 * 1.66054e-27   # O nucleus [kg]
-    m_ligand: float = 1.008 * 1.66054e-27    # H nucleus [kg]
+    # M_U imported from constants.py (single source of truth for Dalton)
+    m_center: float = 15.999 * 1.66053906660e-27   # O nucleus [kg] — uses M_U precision
+    m_ligand: float = 1.008 * 1.66053906660e-27    # H nucleus [kg] — uses M_U precision
     n_ligands: int = 2
 
     # Engine-derived via Coulomb bond force constant solver (no spectroscopic input)

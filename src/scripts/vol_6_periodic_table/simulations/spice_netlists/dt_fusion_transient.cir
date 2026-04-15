@@ -17,7 +17,7 @@ C_CORE IN OUT 1pF
 * -----------------------------------------------------------------
 * MACROSCOPIC TOPOLOGY (Dual Array)
 * -----------------------------------------------------------------
-* V_PONDEROMOTIVE provides the kinetic forcing required to overcome 1/d repulsion
+* V_KINETIC provides the kinetic forcing required to overcome 1/d repulsion
 V_POND NODE_A_1 0 SINE(0 1MEG 1G) AC 1
 
 X_NUC_A_1 NODE_A_1 0 NUCLEON

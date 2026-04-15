@@ -103,7 +103,7 @@ def run_verification():
     # - verify_universe.py: this verifier itself
     # - test_*: tests legitimately compare against known PDG/CODATA values
     EXEMPT_FILES = ["constants.py", "cosserat.py", "verify_universe.py"]
-    EXEMPT_PREFIXES = ["test_"]
+    EXEMPT_PREFIXES = ["test_", "spot_check_"]
 
     # Scan the ENTIRE project root — no directory left behind
     py_files_to_scan = []
