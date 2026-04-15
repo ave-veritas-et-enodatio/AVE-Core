@@ -1,8 +1,8 @@
 # Major Topic Here
 
 ## Issues 
-* [Issue Title](https://github.com/Grant-L/Variable-Spacetime-Impedance/issues/*number*)
-* [Issue Title](https://github.com/Grant-L/Variable-Spacetime-Impedance/issues/*number*)
+* [Issue Title](https://github.com/ave-veritas-et-enodatio/AVE-Core/issues/*number*)
+* [Issue Title](https://github.com/ave-veritas-et-enodatio/AVE-Core/issues/*number*)
 
 ## Change Notes
 
