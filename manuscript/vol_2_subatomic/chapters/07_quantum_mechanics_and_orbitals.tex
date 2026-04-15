@@ -416,17 +416,18 @@ where $Z_k = j\omega L_k$ is the series impedance (inertia of the flux loop) and
 \centering
 \begin{tcolorbox}[colback=white, colframe=black!50, title={\textbf{Signal-Flow: Atom as Radial Transmission Line}}, width=\textwidth]
 \centering
+\small
 \begin{verbatim}
-   NUCLEUS          1s  Filter       2s  Filter       2p^N Filter       VACUUM
-   Z=+Ze     ------+  ABCD_1  +------+  ABCD_2  +------+  ABCD_3  +---- Z0=377
-   (Source)         | L1, C1  |      | L2, C2  |      | L3, C3  |    (Load)
-                    +---------+      +---------+      +---------+
+ NUCLEUS       1s Filter     2s Filter    2p^N Filter     VACUUM
+ Z=+Ze   ----+ ABCD_1 +----+ ABCD_2 +----+ ABCD_3 +---- Z0=377
+ (Source)     | L1, C1 |    | L2, C2 |    | L3, C3 |     (Load)
+              +--------+    +--------+    +--------+
 
-   Each section:    T_k = [1+Z_k*Y_k   Z_k]     Z_k = jwL_k  (series = inertial)
-                         [   Y_k         1  ]     Y_k = jwC_k  (shunt  = Coulomb)
+ T_k = [1+Z_k*Y_k  Z_k]   Z_k = jwL_k (series = inertial)
+       [  Y_k        1 ]   Y_k = jwC_k (shunt  = Coulomb)
 
-   Eigenvalue at valence port:   Z_eff(w) = Z * |1/(A + B/Z_term)|
-   Bound state <-> S11 minimum <-> Op6: min(eig(S'S)) -> 0
+ Eigenvalue: Z_eff(w) = Z * |1/(A + B/Z_term)|
+ Bound state <-> S11 min <-> Op6: min(eig(S'S)) -> 0
 \end{verbatim}
 \end{tcolorbox}
 \caption{\textbf{The Atom as an Analog Ladder Filter.}  The nuclear Coulomb field (voltage source $Ze$) propagates outward through cascaded ABCD filter sections, each representing a filled electron subshell. The valence electron is the load termination at $Z_0 = 377~\Omega$. Bound-state energies correspond to frequencies where $|S_{11}|^2$ dips to zero (Op6 eigenvalue). This is identical to the standard microwave filter design pipeline.}
