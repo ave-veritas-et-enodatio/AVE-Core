@@ -59,10 +59,68 @@ In Figure \ref{fig:casimir_superconductor}, two identical $N=500$ topological ar
     \label{fig:casimir_superconductor}
 \end{figure}
 
+\subsection{Quantitative Cavity Prescription}
+\label{sec:casimir_prescription}
+
+The cavity gap $d$ sets a hard spectral cutoff: electromagnetic modes with wavelength $\lambda > 2d$ are geometrically forbidden between the cavity walls. The thermal photon wavelength at temperature $T$ is:
+\begin{equation}
+    \lambda_{th} = \frac{\hbar c}{k_B T}
+\end{equation}
+At $T = 300$ K, $\lambda_{th} = 7{,}633$ nm. The fraction of thermal noise power surviving inside a cavity of gap $d$ is:
+\begin{equation}
+    f_{noise} = \frac{2d}{\lambda_{th}} \qquad (d < \lambda_{th}/2)
+\end{equation}
+
+The effective thermal noise temperature experienced by the conductor is therefore:
+\begin{equation}
+    T_{eff} = T \times f_{noise} = \frac{2\,d\,k_B\,T}{\hbar c}
+\end{equation}
+
+Phase-lock occurs when $T_{eff} < T_c$ (the conductor's intrinsic critical temperature). This gives the cavity gap criterion:
+\begin{resultbox}{Room-Temperature Casimir Superconductivity Criterion}
+\begin{equation}
+    \boxed{d < \frac{\hbar c \, T_c}{2\,k_B\,T}}
+\end{equation}
+\end{resultbox}
+
+\noindent\textbf{Hard geometric constraint}: the gap must also satisfy $d > \lambda_L$ (London penetration depth), otherwise supercurrents cannot flow between the cavity walls.
+
+\subsubsection{Sensitivity Table}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{r c c l}
+\toprule
+$d$ [nm] & $f_{noise}$ & $T_{eff}$ [K] & Status \\
+\midrule
+10  & 0.003 & 0.8  & $\checkmark$ Phase-locked (all materials) \\
+50  & 0.013 & 3.9  & $\checkmark$ Phase-locked (Al $T_c = 1.2$ K fails) \\
+100 & 0.026 & 7.9  & $\checkmark$ Phase-locked (Nb $T_c = 9.3$ K) \\
+200 & 0.052 & 15.7 & $\checkmark$ Phase-locked (MgB$_2$ $T_c = 39$ K) \\
+500 & 0.131 & 39.3 & $\checkmark$ Phase-locked (YBCO $T_c = 92$ K) \\
+1000 & 0.262 & 78.6 & $\times$ Below YBCO, above MgB$_2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsubsection{Falsifiable Experimental Prediction}
+
+\begin{resultbox}{Room-Temperature Superconductor Prescription}
+\textbf{Material:} Niobium thin film ($T_c = 9.25$ K, $\lambda_L = 39$ nm). \\
+\textbf{Geometry:} Film deposited between parallel Casimir cavity walls with gap $d \approx 100$ nm. \\
+\textbf{Prediction:} At $T = 300$ K, the cavity reduces effective thermal noise to $T_{eff} \approx 7.9$ K $< T_c$. \\
+The film should exhibit zero DC resistance and Meissner-effect diamagnetism ($\chi_m = -1$) at room temperature. \\[6pt]
+\textbf{Kill switch:} If a $d = 100$ nm Nb-filled Casimir cavity shows nonzero resistance at 300 K, the gear-train phase-lock model is falsified at this scale.
+\end{resultbox}
+
+\noindent The prediction is parameter-free: the only inputs are $\hbar$, $c$, $k_B$ (definitional constants), $T_c$ (measured for each material), and $\lambda_L$ (measured). No adjustable couplings or fitting coefficients appear. The cavity gap $d$ is the single engineering degree of freedom.
+
 \begin{summarybox}
 \begin{itemize}
-    \item Room-temperature superconductivity is predicted via engineered Casimir High-Pass Cavities that geometrically shield the conductor from ambient low-frequency phonons, inducing spontaneous Kuramoto phase-lock ($R = 1$) at 300~K.
-    \item The topological Order Parameter $R$ maps directly to the Kuramoto synchronisation parameter, providing a measurable engineering target.
+    \item Room-temperature superconductivity is predicted via engineered Casimir High-Pass Cavities. The cavity gap criterion $d < \hbar c \, T_c / (2 k_B T)$ is derived from the thermal mode suppression ratio $f_{noise} = 2d/\lambda_{th}$.
+    \item For Niobium ($T_c = 9.25$ K), a gap of $d \approx 100$ nm reduces $T_{eff}$ to 7.9 K, enabling phase-lock at 300 K.
+    \item For YBCO ($T_c = 92$ K), gaps up to $d \approx 500$ nm suffice, relaxing fabrication constraints.
+    \item The geometric constraint $d > \lambda_L$ (39--150 nm) ensures supercurrent flow is not geometrically prohibited.
 \end{itemize}
 \end{summarybox}
 

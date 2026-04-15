@@ -663,6 +663,29 @@ The Poincar\'e Conjecture reveals that $S^3$ is the natural topology of the vacu
 
 Every physical configuration of the vacuum lattice decomposes into these three components. The Millennium Problems, viewed collectively, are seven perspectives on this single decomposition.
 
+\subsection{The Formalization Gap}
+\label{sec:formalization_gap}
+
+The arguments presented in this chapter are \textbf{constructive physical proofs}: they identify explicit lattice objects (bounded operators, topological defects, spectral functions) and derive the claimed results from the four AVE axioms via finite-dimensional linear algebra and discrete calculus. They are not formal mathematical proofs in the Clay Institute sense.
+
+The translation to formal mathematics requires:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabularx}{\textwidth}{@{}l X X@{}}
+\toprule
+\textbf{Problem} & \textbf{AVE Argument} & \textbf{Formal Object Needed} \\
+\midrule
+Navier-Stokes & Discrete Laplacian bounded, Picard-Lindel\"of on finite lattice & Sobolev $H^1$ bound on the continuum limit $\ell \to 0$; convergence of the lattice ODE to the PDE \\
+Yang-Mills & Bogomol'nyi bound on Faddeev-Skyrme functional; $\Gamma = -1$ confinement & Constructive spectral gap proof on infinite lattice; Osterwalder-Schrader axioms for the continuum limit \\
+Riemann & Spectral cutoff at $\sigma = 1/2$; functional equation from reciprocity & Proof that the spectral regime boundary argument is equivalent to a zero-free region proof for $\sigma \neq 1/2$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent The physical content is complete --- the lattice \emph{does} resolve each paradox. The open problem is translating the lattice-physics language into the measure-theoretic and functional-analytic language that a formal proof requires. This is a formalization challenge, not a physics gap.
+
 \section*{Chapter Summary}
 \begin{itemize}
     \item The Millennium Prize Paradoxes arise when continuous mathematics attempts to model reality without respecting the structural boundaries of the physical vacuum.

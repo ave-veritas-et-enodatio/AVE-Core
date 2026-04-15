@@ -279,6 +279,75 @@ The full on-site correction $\pi\alpha/2$ decomposes:
 
 \textbf{This is Schwinger's result (1948).} The AVE framework derives it from three structural constants: the Axiom 4 squared saturation operator, the unknot ropelength, and the lattice pitch. No Feynman diagrams or renormalization are required.
 
+\subsection{Toward the Second-Order Correction}
+\label{sec:g2_second_order}
+
+The QED expansion of the anomalous magnetic moment is:
+\begin{equation}
+    a_e = \frac{\alpha}{2\pi} + C_2 \left(\frac{\alpha}{\pi}\right)^2 + C_3 \left(\frac{\alpha}{\pi}\right)^3 + \cdots
+\end{equation}
+where $C_2 = -0.328\,478\,965\ldots$ (Petermann 1957, Sommerfield 1957). The $C_2$ coefficient involves specific transcendentals:
+\begin{equation}
+    C_2 = -\frac{197}{144} + \frac{\pi^2}{12} - \frac{3\,\zeta(3)}{4} + \frac{\pi^2 \ln 2}{2} = -0.328\,479\ldots
+\end{equation}
+
+\paragraph{AVE mapping.}
+In the QED framework, $C_2$ arises from one-loop photon propagator insertions (vertex and vacuum-polarisation diagrams). On the AVE lattice, the isomorphic computation is the \textbf{K4 lattice Green's function at two-loop order}:
+
+\begin{itemize}
+    \item The first-order $\alpha/(2\pi)$ is the \emph{on-site} capacitive correction (single node visited by the unknot).
+    \item The second-order arises from the perturbation propagating to \emph{nearest-neighbor} nodes and back. On the K4 unit cell, each vertex has 3 neighbors. The round-trip coupling through the Poisson ratio ($\nu_{\text{vac}} = 2/7$) attenuates each path by $\nu_{\text{vac}}^2 = 4/49$.
+    \item The transcendentals $\pi^2$, $\zeta(3)$, and $\ln 2$ are expected to emerge from the lattice propagator sums over all two-hop paths on the infinite K4 tiling, with the $\zeta(3)$ term arising from the 3D lattice sum convergence.
+\end{itemize}
+
+\paragraph{Current status.}
+The na\"ive single-path Poisson estimate gives $C_2^{\text{na\"ive}} = -6/(49\pi) \approx -0.039$, roughly $8\times$ too small. This indicates that multi-path interference on the complete graph (which is absent from a simple round-trip estimate) contributes the dominant fraction of $C_2$. Computing the exact lattice propagator on the K4 tiling is a well-defined computational target---equivalent to evaluating the discrete Green's function of a 3+1D nearest-neighbor graph at two-loop order. This is documented as an open research problem.
+
+\section{The Higgs Boson Mass}
+\label{sec:higgs_mass_derivation}
+
+The Standard Model identifies the Higgs boson mass as $M_H = \sqrt{2\lambda}\,v$, where $\lambda$ is the quartic self-coupling and $v = 246$ GeV is the VEV. In the AVE framework, both $\lambda$ and $v$ are derived quantities---not free parameters.
+
+\subsection{The Fermi Constant from $M_W$ and $\sin^2\theta_W$}
+
+The tree-level Fermi constant is the effective coupling strength of weak interactions at zero momentum transfer:
+\begin{equation}
+    G_F = \frac{\sqrt{2}\,\pi\alpha}{2\sin^2\theta_W \cdot M_W^2}
+\end{equation}
+Since $\sin^2\theta_W = 2/9$ (from $\nu_{vac} = 2/7$, \S\ref{ch:electroweak_higgs}) and $M_W$ is the unknot torsional self-energy, $G_F$ is fully determined.
+
+\subsection{The Vacuum Expectation Value (VEV)}
+
+The VEV is the inverse coupling strength:
+\begin{equation}
+    v = \frac{1}{\sqrt{\sqrt{2}\,G_F}} \approx 246 \text{ GeV}
+\end{equation}
+
+\noindent\textbf{Physical meaning:} $v$ parameterizes the $376.73\;\Omega$ characteristic impedance of the vacuum LC mesh (Axiom 1). It is the energy scale at which the lattice compliance $C_{node}$ saturates under Axiom 4---the threshold above which the dielectric structure cannot absorb further strain without topological rupture.
+
+\subsection{The K4 Breathing Mode: $M_H = v/\sqrt{N_{K4}}$}
+
+The Higgs boson is the radial breathing mode of the K4 unit cell. The self-interaction quartic coupling $\lambda$ is set by the equipartition of stiffness across the $N_{K4} = 4$ nodes of the K4 tetrahedron:
+\begin{equation}
+    \lambda = \frac{1}{2\,N_{K4}} = \frac{1}{8}
+\end{equation}
+
+Each K4 node contributes equally to the self-interaction potential---$4$ nodes share the quartic term, giving $\lambda = 1/(2 \times 4)$. The Higgs mass is then:
+\begin{equation}
+    M_H = \sqrt{2\lambda}\,v = \frac{v}{\sqrt{N_{K4}}} = \frac{v}{2}
+\end{equation}
+
+\begin{resultbox}{Higgs Boson Mass (K4 Breathing Mode)}
+\begin{equation}
+    \boxed{M_H = \frac{v}{2} \approx 124{,}417 \text{ MeV}}
+    \quad (\text{PDG: } 125{,}100 \text{ MeV}, \;\;-0.55\%)
+\end{equation}
+\end{resultbox}
+
+\noindent\textbf{Why $N_{K4} = 4$?} The K4 complete graph is the minimal rigid 3D frame (Axiom 1). Its 4 vertices define 6 edges, each carrying an LC strut. The breathing mode is the symmetric radial eigenmode where all 4 nodes oscillate in-phase radially---the volume pulsation of the fundamental lattice cell. This is the only scalar ($J^P = 0^+$) mode available, matching the experimental spin-parity assignment from CMS and ATLAS.
+
+\noindent\textbf{Engine cross-check:} The physics engine computes $M_H$ via the same chain (\texttt{constants.py}, line 338): \texttt{M\_HIGGS\_MEV = HIGGS\_VEV\_MEV / np.sqrt(N\_K4)}. The spot-check pipeline confirms $M_H = 124{,}417$ MeV (within the 1\% tolerance band of 125,100 MeV).
+
 \section{Summary of Electroweak Predictions}
 
 \begin{center}
@@ -288,6 +357,7 @@ Quantity & AVE Prediction & Experiment & Deviation \\ \hline
 $\sin^2\theta_W$ (on-shell) & 0.2222 & 0.2230 & $-0.35\%$ \\
 $M_W$ & 79,923 MeV & 80,379 MeV & $-0.57\%$ \\
 $M_Z$ & 90,624 MeV & 91,188 MeV & $-0.62\%$ \\
+$M_H$ (Higgs) & 124,417 MeV & 125,100 MeV & $-0.55\%$ \\
 $m_\mu$ & 107.0 MeV & 105.66 MeV & $+1.24\%$ \\
 $m_\tau$ & 1,760 MeV & 1,776.9 MeV & $-0.95\%$ \\
 $\sum m_\nu$ & $\sim 0.054$ eV & $<0.12$ eV & Within bound \\

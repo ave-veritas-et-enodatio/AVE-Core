@@ -101,3 +101,25 @@
     colback=orange!5!white, colframe=orange!75!black, fonttitle=\bfseries, coltitle=black, colbacktitle=orange!10!white,
     title={#1}, enhanced, breakable, arc=0mm
 }
+
+% =========================================
+% CROSS-VOLUME REFERENCE MACRO
+% =========================================
+% Usage: \xvref{III}{ch:geophysics}
+%   - If \label{ch:geophysics} is defined in this compilation unit,
+%     expands to a normal \ref{ch:geophysics} hyperlink.
+%   - If undefined (label lives in another volume), degrades gracefully
+%     to italic text: "Vol. III" instead of broken "??" references.
+%
+% For section-level cross-refs with a description:
+%   \xvref{II}{sec:neutrino_mixing}  → "§3.2" or "Vol. II"
+%
+% This prevents the [Section Removed] breakage class found during the
+% IP migration/repo split (14 instances fixed in the 2026-04-14 session).
+\makeatletter
+\providecommand{\xvref}[2]{%
+  \@ifundefined{r@#2}%
+    {\textit{Vol.~#1}}%  % Fallback: graceful text when label is in another volume
+    {\ref{#2}}%           % Normal: resolved hyperlink when label exists
+}
+\makeatother

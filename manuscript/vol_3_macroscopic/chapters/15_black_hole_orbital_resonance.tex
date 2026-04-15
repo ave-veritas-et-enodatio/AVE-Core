@@ -85,7 +85,44 @@ The Keplerian orbital frequency at each impedance band radius yields the predict
 \end{equation}
 \end{resultbox}
 
-For GRS 1915+105 ($M \approx 14\,M_\odot$, $a_* \approx 0.7$), the impedance resonance solver predicts the fundamental QPO mode at $\nu_1 \approx 77$ Hz. The observed fundamental QPO frequency is $67$ Hz---a $15\%$ first-principles prediction from the impedance topology. Crucially, there is \textbf{zero parameterisation}: the only inputs are the observationally measured mass $M$ and spin $a_*$ of the target object. The standing-wave condition, the refractive gradient $n(r)$, and the quantisation radii all emerge from the metric geometry without any adjustable constants.
+For GRS 1915+105 ($M \approx 14\,M_\odot$, $a_* \approx 0.7$), the impedance resonance solver predicts the fundamental QPO mode at $\nu_1 \approx 77$ Hz. Crucially, there is \textbf{zero parameterisation}: the only inputs are the observationally measured mass $M$ and spin $a_*$ of the target object. The standing-wave condition, the refractive gradient $n(r)$, and the quantisation radii all emerge from the metric geometry without any adjustable constants.
+
+\subsection{Observational Validation: Twin HF QPOs in X-ray Binaries}
+\label{sec:qpo_validation}
+
+Four stellar-mass X-ray binary systems exhibit well-characterised twin high-frequency QPOs with a near-universal $3$:$2$ frequency ratio (Abramowicz \& Klu{\'z}niak 2001; Remillard \& McClintock 2006). This ratio is a critical observational constraint on any accretion disk model.
+
+The AVE impedance band solver ({\texttt{orbital\_resonance.py}}) predicts quantised mode frequencies at each standing-wave resonance radius. Table~\ref{tab:qpo_comparison} compares the predicted mode spectrum against four systems with published RXTE twin HF QPO detections.
+
+\begin{table}[H]
+\centering
+\caption{Observed twin HF QPO frequencies vs.\ AVE impedance band predictions. Columns: published twin QPO frequencies ($\nu_{\text{upper}}$, $\nu_{\text{lower}}$), observed ratio, AVE fundamental mode ($\nu_1$), and the AVE mode~3/mode~4 ratio. Mass and spin parameters from RXTE/radio parallax determinations.}
+\label{tab:qpo_comparison}
+\small
+\begin{tabularx}{\textwidth}{@{}l c c c c c c c@{}}
+\toprule
+\textbf{Source} & $M/M_\odot$ & $a_*$ & $\nu_{\text{upper}}$ & $\nu_{\text{lower}}$ & Ratio$_{\text{obs}}$ & $\nu_1^{\text{AVE}}$ & $(\nu_3/\nu_4)^{\text{AVE}}$ \\
+ & & & (Hz) & (Hz) & & (Hz) & \\
+\midrule
+GRO J1655$-$40 & 6.3  & 0.70 & 450  & 300  & 1.500 & 171.5 & 1.543 \\
+XTE J1550$-$564 & 9.1  & 0.34 & 276  & 184  & 1.500 & 118.7 & 1.543 \\
+GRS 1915+105    & 14.0 & 0.70 & 168  & 113  & 1.487 & 77.2  & 1.543 \\
+H1743$-$322     & 8.5  & 0.20 & 240  & 166  & 1.446 & 127.1 & 1.543 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{What works.}
+The standing-wave impedance band topology \emph{naturally} produces a mode pair with frequency ratio $\nu_3/\nu_4 = 1.543$, within $3\%$ of the observed $3$:$2$ ratio across all four sources. This ratio is a structural invariant of the refractive gradient---it depends only on the functional form of $n(r)$ and not on the mass, spin, or any free parameters. The universality of the $3$:$2$ ratio in observations maps directly to the universality of the impedance band spacing.
+
+\paragraph{What needs work.}
+The absolute frequencies of the predicted modes are systematically lower than the observed QPOs by a factor of $\sim 2$--$3\times$. The impedance band radii are spaced outward from the photon sphere ($r_1 \approx 4.8\,r_s$), while the observed twin HF QPOs are believed to originate much closer to the ISCO ($r_{\text{ISCO}} \approx 3$--$6\,r_s$ depending on spin). Two candidate corrections:
+\begin{enumerate}
+    \item The standing-wave inner boundary should be evaluated at the ISCO (where the accretion disk is truncated) rather than the photon sphere, which would shift all modes to smaller radii and higher frequencies.
+    \item The Keplerian frequency formula omits relativistic corrections to the orbital frequency near the ISCO, where $\Omega \to \Omega_{\text{ISCO}} > \Omega_{\text{Keplerian}}$.
+\end{enumerate}
+
+\noindent The $3$:$2$ ratio, being a pure topological invariant of the impedance band spacing, is robust to these corrections. The absolute frequency calibration is the open problem.
 
 \begin{figure}[h!]
     \centering

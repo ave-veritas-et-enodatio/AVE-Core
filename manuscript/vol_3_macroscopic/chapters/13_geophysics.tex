@@ -63,7 +63,7 @@ Table~\ref{tab:prem_layers} lists the major discontinuities of the Preliminary R
 \caption{PREM layer impedances. Reflection coefficients are computed by the universal \texttt{reflection\_coefficient(Z1, Z2)} function---identical to the function used for particle boundaries, plasma cutoffs, and antenna ports.}
 \label{tab:prem_layers}
 \small
-\begin{tabularx}{\textwidth}{@{}@{@{}}l r r r r@{}}
+\begin{tabularx}{\textwidth}{@{}l r r r r@{}}
 \toprule
 \textbf{Boundary} & $\rho$ (kg/m$^3$) & $V_P$ (km/s) & $Z = \rho V_P$ (MPa$\cdot$s/m) & $|\Gamma|$ \\
 \midrule
@@ -118,7 +118,7 @@ For Earth, rotating fast enough to fracture the Acoustic Shear layer ($\Gamma \a
 \end{equation}
 \end{resultbox}
 
-This completely mathematically recovers Earth's empirical $8.0 \times 10^{22}$ A$\cdot$m$^2$ dipole natively from structural electrical engineering principles. The VCA model instantly establishes falsifiability without parameter-tuning via the explicit death of the dynamo on neighboring planets, as illustrated in Figure \ref{fig:geodynamo_vca}.
+The empirical dipole moment is $M_\oplus^{\text{obs}} = 8.0 \times 10^{22}$ A$\cdot$m$^2$ (IGRF-13). The VCA prediction overshoots by a factor of $\sim 1.9\times$, which is within the order-of-magnitude expected given the simplified geometry (uniform core conductivity, dipole-only field structure, neglected quadrupole leakage). Critically, this single formula---with zero tuned parameters---correctly predicts Earth's dynamo to $\mathcal{O}(1)$ while simultaneously predicting its \textit{absence} on Venus and Mars (see below), establishing robust falsifiability via the explicit death of the dynamo on neighboring planets (Figure~\ref{fig:geodynamo_vca}).
 
 \begin{figure}[htpb]
     \centering
@@ -132,10 +132,62 @@ This completely mathematically recovers Earth's empirical $8.0 \times 10^{22}$ A
     \item \textbf{Mars:} The VCA Back-EMF fails naturally. Mars rotates fast enough to produce high Sagnac voltage, but its core has crystallized into a solid. The DC resistance $R_{Fe}$ spikes structurally toward infinity, collapsing the Eddy current to zero.
 \end{itemize}
 
+\section{Earth's Core Temperature from Adiabatic LC Compression}
+\label{sec:core_temperature}
+
+Standard geophysics derives the inner-core boundary (ICB) temperature from mineral physics extrapolations and shock-wave experiments. The AVE framework derives it from the impedance stiffening of the LC lattice under gravitational self-compression.
+
+\subsection{Derivation}
+
+The key identity is the VCA thermodynamic bridge: temperature is the kinetic energy per degree of freedom of a lattice node, mapped through the Boltzmann conversion constant $k_B$:
+\begin{equation}
+    T = \frac{\langle E_{\text{kinetic}} \rangle}{k_B}
+\end{equation}
+
+For an adiabatically compressed LC lattice, the local kinetic energy density scales with the compressional impedance $Z = \rho V_P$. At the surface, the mean crustal temperature is $T_s \approx 300$ K with impedance $Z_s \approx 15.1 \times 10^6$ Pa$\cdot$s/m. At the ICB, $Z_{ICB} \approx 140.4 \times 10^6$ Pa$\cdot$s/m.
+
+The adiabatic temperature gradient on the LC lattice is governed by the Gr\"uneisen relation. For a lattice with Poisson ratio $\nu_{vac} = 2/7$, the thermodynamic Gr\"uneisen parameter is:
+\begin{equation}
+    \gamma_G = \frac{3(1 + \nu)}{2(2 - 3\nu)} = \frac{3(1 + 2/7)}{2(2 - 6/7)} = \frac{3 \cdot 9/7}{2 \cdot 8/7} = \frac{27}{16} = 1.6875
+    \label{eq:gruneisen}
+\end{equation}
+
+The adiabatic temperature ratio between two layers is:
+\begin{equation}
+    \frac{T_2}{T_1} = \left( \frac{\rho_2}{\rho_1} \right)^{\gamma_G}
+\end{equation}
+
+Applying this across the full PREM column from crust ($\rho_s = 2{,}600$ kg/m$^3$) to ICB ($\rho_{ICB} = 12{,}760$ kg/m$^3$):
+\begin{equation}
+    T_{ICB} = T_s \cdot \left( \frac{\rho_{ICB}}{\rho_s} \right)^{\gamma_G} = 300 \cdot \left( \frac{12{,}760}{2{,}600} \right)^{27/16}
+\end{equation}
+
+Evaluating: $(12{,}760 / 2{,}600) = 4.908$, and $4.908^{27/16} = 4.908^{1.6875} \approx 14.65$:
+
+\begin{resultbox}{Inner-Core Boundary Temperature}
+\begin{equation}
+    \boxed{T_{ICB} \approx 4{,}395 \text{ K}}
+    \quad (\text{PREM estimate: } \sim 4{,}000\text{--}5{,}500 \text{ K})
+\end{equation}
+\end{resultbox}
+
+\noindent The AVE prediction of $\sim 4{,}400$ K sits within the standard geophysical uncertainty window. The only inputs are the PREM density profile (observational), the surface temperature (boundary condition), and the Poisson ratio $\nu_{vac} = 2/7$ (Axiom 2). No mineral-physics phase diagrams or shock-compression calibrations are used.
+
+\begin{summarybox}
+\begin{itemize}
+    \item Seismic PREM reflections are modelled on the same FDTD engine driving subatomic mechanics, with reflection coefficients identical to Pauli Exclusion ($\Gamma \to -1$).
+    \item The Low-Velocity Zone is a macroscopic total-internal reflection waveguide matching QCD flux-tube confinement.
+    \item The Geodynamo is an Inductive Back-EMF generator, with the VCA model predicting Earth's dipole to $\mathcal{O}(1)$ and correctly zeroing Venus and Mars.
+    \item The ICB temperature ($\sim 4{,}400$ K) is derived from the Gr\"uneisen parameter $\gamma_G = 27/16$, which follows from $\nu_{vac} = 2/7$ with zero fitted parameters.
+\end{itemize}
+\end{summarybox}
+
 \begin{exercisebox}
 \begin{enumerate}
-    \item Calculate geometrically the numerical reflection coefficient $\Gamma$ for the Moho boundary given absolute discrete crust and mantle impedance inputs.
-    \item Relate the exact derivation of the seismic waveguide critical angle $\theta_c$ to the continuous macroscopic structural mechanics evaluated in standard optical fiber dynamics.
+    \item Calculate the numerical reflection coefficient $\Gamma$ for each PREM boundary in Table~\ref{tab:prem_layers} and verify the tabulated values.
+    \item Derive the seismic waveguide critical angle $\theta_c$ for the Low-Velocity Zone and compare it to the total internal reflection angle in a standard optical fibre.
+    \item Evaluate the Gr\"uneisen parameter $\gamma_G$ for $\nu_{vac} = 2/7$ and compute $T_{ICB}$ using the full five-layer PREM density profile (layer by layer) instead of the single-step approximation.
+    \item The geodynamo prediction overshoots by $\sim 1.9\times$. Identify which geometric simplifications (uniform vs.\ radial $\sigma$ profile, dipole vs.\ multipole field) contribute the largest error.
 \end{enumerate}
 \end{exercisebox}
 
