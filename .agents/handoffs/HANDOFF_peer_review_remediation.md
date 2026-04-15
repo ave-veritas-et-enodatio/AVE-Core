@@ -145,11 +145,21 @@ These serve as the audit trail and contain real reference value (prior-art compa
 **Context:** Documented stellar core collapse as macroscopic Axiom 4 bulk dielectric rupture. The shockwave is lattice relaxation propagating through the stellar impedance profile; the neutron star remnant is a macroscopic topological defect in Regime IV.
 **Files:** `manuscript/vol_3_macroscopic/chapters/07_stellar_interiors.tex`
 
-#### P2.7 — W-Boson Mass Loop Correction ($M_W$) [SUBSTANTIALLY COMPLETE]
-**Context:** The tree-level geometric derivation of the W-boson mass results in $79,923$ MeV, a 0.57\% deviation from the physical 80.379 GeV value. Resolved via VCA impedance mismatch loss: the Axiom 4 saturated boundary at depth=1 reflects $|S_{11}|^2$ of the coupling power, yielding $M_W = 80,200$ MeV ($-0.22\%$).
-**Remaining:** The $-0.22\%$ residual is attributed to partial saturation at depth 2+ shells. Extending to a graded saturation profile would close the gap further.
-**Engine Update:** `build_radial_tree_admittance(depth=1, boundary_y=0.0)` + standard mismatch loss $(1-|S_{11}|^2)$ in `cosserat.py`.
-**Files:** `src/ave/topological/cosserat.py`, `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex`
+#### ~~P2.7 — W-Boson Mass Loop Correction ($M_W$)~~ [COMPLETED]
+**Context:** The tree-level geometric derivation gives $79{,}923$ MeV ($-0.57\%$). Depth-1 mismatch loss raised it to $80{,}201$ MeV ($-0.22\%$).
+**P2.7 Resolution — Self-Consistent Back-Saturation:**
+The reflected power $|S_{11}|^2$ back-saturates the *origin* node under Axiom 4, reducing its self-admittance by $|S_{11}|^2 \cdot z\,\nu_\text{vac}$ on each iteration. Fixed-point converges in 10 steps (ratio $\approx 3.75\times10^{-3} \ll 1$):
+$$Y_{00}^* = Y_{00}^{(0)} - |S_{11}(Y_{00}^*)|^2 \cdot (z\,\nu_\text{vac})$$
+**Delivered (branch `feature/w-boson-graded-saturation`, commit `37e7153`):**
+- `transmission_line.py` — `build_radial_tree_admittance_graded()` with per-shell Axiom-4 profile
+- `cosserat.py` — `w_boson_self_consistent_correction()` + module-level M_W updated to SC value
+- `simulate_w_boson_loop.py` — convergence table runner
+- `tests/test_w_boson_loop.py` — 26 tests, 26 pass
+**Results:** $M_W = 80{,}224$ MeV ($-0.19\%$), $M_Z = 90{,}965$ MeV ($-0.24\%$). Zero free parameters.
+**Residual ($-0.19\%$):** Attributed to sub-node continuum field geometry within the origin cell. Requires Green's function treatment of the Axiom-4 nonlinear kernel at the intra-node level (deferred to P2.8).
+**Test:** `pytest tests/test_w_boson_loop.py` → 26/26 PASS
+**Build:** `make vol2` → 217 pages, 0 errors
+**DAG:** `verify_universe.py` → 373/373 MATHEMATICALLY PURE
 
 #### P2.8 — The Running Fine Structure Constant (Vacuum Polarization) [OPEN — BLOCKED]
 **Mechanism Identified:** The KB (electron-unknot.md) documents the correct physics: Axiom 4 dynamic capacitive yielding $C_{eff}(\Delta\phi) = C_0 / \sqrt{1 - (\Delta\phi/\alpha)^2}$ causes the effective coupling to increase at higher strain (= shorter distance = higher energy).

@@ -128,15 +128,136 @@ M_W_TREE: float = M_E / (ALPHA**2 * P_C * _SIN_THETA_W_PAT)  # in kg
 #
 # This is standard transmission line mismatch loss (VCA, Vol 4 Ch. 1),
 # applied to the Axiom 4 saturation boundary. Zero free parameters.
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
+from ave.solvers.transmission_line import (
+    build_radial_tree_admittance,
+    build_radial_tree_admittance_graded,
+    s11_from_y_matrix,
+)
 from ave.core.constants import NU_VAC
 
 Y_sat = build_radial_tree_admittance(depth=1, branch_y=NU_VAC, boundary_y=0.0, coordination_z=4)
 S11_W_BOUND: float = s11_from_y_matrix(Y_sat, port=0, Y0=1.0).real
 MISMATCH_LOSS: float = 1.0 - S11_W_BOUND**2
 
-# The total mass is corrected by the mismatch loss factor
-M_W: float = M_W_TREE / MISMATCH_LOSS
+
+def w_boson_self_consistent_correction(
+    max_iter: int = 50,
+    tol: float = 1e-12,
+    coordination_z: int = 4,
+) -> dict:
+    """
+    Self-consistent back-saturation correction for the W-boson mass (P2.7).
+
+    === Physical Mechanism ===
+
+    The depth-1 hard model (boundary_y=0) captures the dominant effect:
+    the 4 nearest-neighbour nodes are fully saturated to open-circuit,
+    creating S11 ≈ -0.0588.  This gives M_W = 80,201 MeV (-0.22%).
+
+    The remaining -0.22% residual arises because the *origin* node itself
+    is also partially back-saturated by the power it reflects.  Any
+    power |S11|² that reflects back at the boundary re-enters the origin
+    and reduces its effective self-admittance by the same factor:
+
+        Y[0,0]_corr = Y[0,0] × (1 − |S11|²)
+
+    This is the Axiom-4 saturation kernel
+    (C_eff = C0 / √(1 − (V/V_s)²)) linearised at second interaction:
+    the reflected wave exercises the origin node a second time,
+    reducing its compliance by |S11|² (dimensionless, zero free parameters).
+
+    === Self-Consistent Loop ===
+
+    Because the corrected Y[0,0] changes S11, which changes the reflected
+    power, which changes Y[0,0] again, the solution is found iteratively:
+
+        Δ₀ = 0
+        Δᵢ = |S11(Y[0,0] − Δᵢ₋₁)|² × (z × branch_y)
+
+    This converges geometrically (ratio ≈ |S11|² ≈ 0.0037 << 1) in ~7
+    iterations.  The fixed point is parameter-free and derived entirely
+    from Axiom 1 (K4 topology, z=4) and Axiom 4 (saturation kernel).
+
+    Args:
+        max_iter: Maximum iterations (default 50, converges in ~7).
+        tol: Convergence threshold on |ΔS11| (default 1e-12).
+        coordination_z: K4 coordination number (= 4).
+
+    Returns:
+        dict with keys:
+            mismatch_loss_d1  : float — depth-1 hard mismatch loss (baseline)
+            mismatch_loss_sc  : float — self-consistent mismatch loss
+            S11_d1            : float — depth-1 hard S11
+            S11_sc            : float — converged self-consistent S11
+            M_W_tree_MeV      : float — tree-level W mass (MeV)
+            M_W_d1_MeV        : float — depth-1 corrected M_W (MeV, baseline)
+            M_W_sc_MeV        : float — self-consistent M_W (MeV, converged)
+            n_iter            : int   — iterations to convergence
+            delta_Y_origin    : float — total reduction applied to Y[0,0]
+            CONVERGED         : bool
+    """
+    from math import sqrt as _sqrt
+
+    branch_y = NU_VAC
+    z = coordination_z
+    Y_origin_base = float(z * branch_y)   # = 4 * 2/7 ≈ 1.14286
+
+    # Baseline: depth-1 hard saturation
+    Y_d1 = build_radial_tree_admittance(
+        depth=1, branch_y=branch_y, boundary_y=0.0, coordination_z=z
+    )
+    s11_d1 = float(s11_from_y_matrix(Y_d1, port=0, Y0=1.0).real)
+    ml_d1 = 1.0 - s11_d1**2
+    m_w_tree_mev = M_W_TREE * C_0**2 / _J_PER_MEV
+    m_w_d1_mev = m_w_tree_mev / ml_d1
+
+    # Self-consistent iteration.
+    # Seed: total_delta from the uncorrected depth-1 S11.
+    total_delta = s11_d1**2 * Y_origin_base  # first back-saturation estimate
+    s11_i = s11_d1
+    n_iter = 0
+    converged = False
+
+    for i in range(1, max_iter + 1):
+        n_iter = i
+        Y_iter = Y_d1.copy()
+        Y_iter[0, 0] -= total_delta
+        s11_new = float(s11_from_y_matrix(Y_iter, port=0, Y0=1.0).real)
+
+        if abs(s11_new - s11_i) < tol:
+            s11_i = s11_new
+            converged = True
+            break
+
+        total_delta = s11_new**2 * Y_origin_base
+        s11_i = s11_new
+
+    ml_sc = 1.0 - s11_i**2
+    m_w_sc_mev = m_w_tree_mev / ml_sc
+
+    return {
+        "mismatch_loss_d1":  ml_d1,
+        "mismatch_loss_sc":  ml_sc,
+        "S11_d1":            s11_d1,
+        "S11_sc":            s11_i,
+        "M_W_tree_MeV":      m_w_tree_mev,
+        "M_W_d1_MeV":        m_w_d1_mev,
+        "M_W_sc_MeV":        m_w_sc_mev,
+        "n_iter":            n_iter,
+        "delta_Y_origin":    total_delta,
+        "CONVERGED":         converged,
+    }
+
+
+# Compute self-consistent W-boson mass at module load time.
+# This replaces the single depth-1 mismatch loss with the
+# geometrically converged back-saturation result.
+_W_SC = w_boson_self_consistent_correction()
+MISMATCH_LOSS_SC: float = _W_SC["mismatch_loss_sc"]
+S11_W_SC: float = _W_SC["S11_sc"]
+
+# The total mass is corrected by the self-consistent mismatch loss factor
+M_W: float = M_W_TREE / MISMATCH_LOSS_SC
 
 M_W_MEV: float = M_W * C_0**2 / _J_PER_MEV    # approx 80671 MeV
 

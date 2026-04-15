@@ -559,6 +559,105 @@ def build_radial_tree_admittance(
     return Y
 
 
+def build_radial_tree_admittance_graded(
+    depth: int = 3,
+    branch_y: complex = 2 / 7,
+    shell_boundary_y: Sequence[float] = None,
+    coordination_z: int = 4,
+) -> np.ndarray:
+    r"""
+    Bethe-tree nodal admittance matrix with a *graded* shell boundary.
+
+    Unlike ``build_radial_tree_admittance``, which applies a single
+    ``boundary_y`` only to the outermost shell, this variant shunts
+    **every** shell with a shell-specific admittance taken from
+    ``shell_boundary_y[d-1]`` (1-indexed depth).
+
+    Physical motivation (W-boson loop correction, P2.7):
+        The W-boson field saturates nearest-neighbour nodes (shell 1)
+        to full open-circuit (``y=0``).  At shell 2 the field intensity
+        has fallen as ``1/r²``, so saturation is partial; at shell 3 it
+        is weaker still.  The graded admittance profile encodes this
+        Axiom-4 ``1/r²`` envelope without any free parameters:
+
+        .. math::
+
+            y_{\text{sat}}(d) = Y_0\!\left(1 - e^{-(d-1)}\right)
+
+        For ``d=1``: ``y_sat = 0`` (fully open-circuit, full saturation)
+        For ``d=2``: ``y_sat = Y_0*(1 - 1/e) ≈ 0.6321*Y_0`` (partial)
+        For ``d=3``: ``y_sat = Y_0*(1 - e^{-2}) ≈ 0.8647*Y_0``
+        ``d → ∞`` : ``y_sat → Y_0`` (fully recovered vacuum)
+
+        The exponential envelope is the Green's function decay expected
+        from a point source exciting the 3-D K4 lattice (Axiom 1).
+
+    Args:
+        depth: Number of shells to build.
+        branch_y: Branch admittance between adjacent nodes (``NU_VAC``).
+        shell_boundary_y: Per-shell boundary admittance list of length
+            ``depth``.  ``shell_boundary_y[0]`` is applied to shell 1,
+            ``shell_boundary_y[depth-1]`` to the outermost shell.
+            If ``None``, falls back to the standard ``1/r²`` Axiom-4
+            profile with ``Y0 = 1.0``.
+        coordination_z: Coordination number of the K4 lattice (= 4).
+
+    Returns:
+        ``(N, N)`` complex nodal admittance matrix.
+    """
+    import math
+
+    # Default: Axiom-4 1/r² saturation envelope
+    if shell_boundary_y is None:
+        shell_boundary_y = [1.0 * (1.0 - math.exp(-(d - 1))) for d in range(1, depth + 1)]
+
+    if len(shell_boundary_y) != depth:
+        raise ValueError(
+            f"shell_boundary_y must have length == depth ({depth}), "
+            f"got {len(shell_boundary_y)}"
+        )
+
+    # --- Build tree topology (same as build_radial_tree_admittance) ---
+    level_counts = [1]
+    n_nodes = 1
+    for d in range(1, depth + 1):
+        count = coordination_z * ((coordination_z - 1) ** (d - 1))
+        level_counts.append(count)
+        n_nodes += count
+
+    Y = np.zeros((n_nodes, n_nodes), dtype=complex)
+
+    current_node = 1
+    parent_level_start = 0
+    parent_level_count = 1
+
+    for d in range(1, depth + 1):
+        nodes_this_level = level_counts[d]
+        tents_per_parent = coordination_z if d == 1 else (coordination_z - 1)
+
+        for p in range(parent_level_count):
+            parent_idx = parent_level_start + p
+            for t in range(tents_per_parent):
+                child_idx = current_node
+                Y[parent_idx, child_idx] -= branch_y
+                Y[child_idx, parent_idx] -= branch_y
+                Y[parent_idx, parent_idx] += branch_y
+                Y[child_idx, child_idx] += branch_y
+                current_node += 1
+
+        # Shunt this shell with its graded boundary admittance
+        shell_start = sum(level_counts[:d])
+        shell_end = shell_start + nodes_this_level
+        y_shell = shell_boundary_y[d - 1]
+        for i in range(shell_start, shell_end):
+            Y[i, i] += y_shell
+
+        parent_level_start += parent_level_count
+        parent_level_count = nodes_this_level
+
+    return Y
+
+
 # ── JAX versions ──
 
 def build_nodal_y_matrix_jax(

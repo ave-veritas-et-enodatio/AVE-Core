@@ -203,8 +203,8 @@ Particle & AVE Formula & Predicted & Experiment & Deviation \\ \hline
 $e$    & $m_e$                            & 0.511 MeV   & 0.511 MeV   & Input  \\
 $\mu$  & $m_e/(\alpha\sqrt{3/7})$         & 107.0 MeV   & 105.66 MeV  & $+1.24\%$ \\
 $\tau$ & $m_e \cdot p_c/\alpha^2$         & 1,760 MeV   & 1,776.9 MeV & $-0.95\%$ \\
-$W$    & $M_W^{\text{tree}} / (1 - |S_{11}|^2)$  & 80,200 MeV  & 80,379 MeV  & $-0.22\%$ \\
-$Z$    & $M_W^{\text{loop}} \cdot 3/\sqrt{7}$           & 90,939 MeV  & 91,188 MeV  & $-0.27\%$ \\ \hline
+$W$    & $M_W^{\text{tree}} / (1 - |S_{11}^{\text{sc}}|^2)$  & 80,224 MeV  & 80,379 MeV  & $-0.19\%$ \\
+$Z$    & $M_W^{\text{sc}} \cdot 3/\sqrt{7}$           & 90,965 MeV  & 91,188 MeV  & $-0.24\%$ \\ \hline
 \end{tabular}
 \end{center}
 
@@ -216,9 +216,22 @@ This creates an impedance mismatch between the origin node and the surrounding l
     \alpha_{\text{eff}}^2 = \alpha^2 \bigl(1 - |S_{11}|^2\bigr), \qquad
     M_W^{\text{loop}} = \frac{M_W^{\text{tree}}}{1 - |S_{11}|^2}
 \end{equation}
-where $S_{11} \approx -0.0588$ is computed from the K4 Bethe tree at depth 1 with $\nu_{\text{vac}} = 2/7$ branch coupling (\texttt{src/ave/topological/cosserat.py}). Every element of this formula---the graph topology, the coupling constant, the boundary condition, and the mismatch loss rule---is derived from AVE axioms and VCA circuit mechanics. Zero free parameters are employed.
+where $S_{11} \approx -0.0588$ is computed from the K4 Bethe tree at depth~1 with $\nu_{\text{vac}} = 2/7$ branch coupling (\texttt{cosserat.py}). Every element---graph topology, coupling constant, boundary condition, and mismatch loss rule---is derived from AVE axioms and VCA circuit mechanics. Zero free parameters are employed.
 
-\noindent\textbf{Residual ($\mathbf{-0.22\%}$):} The depth-1 approximation treats all nearest-neighbor nodes as fully saturated (hard open-circuit). In reality, shells at depth 2 and beyond experience partial saturation, contributing additional small mismatch losses. Extending the solver to a graded saturation profile across multiple shells is expected to close the remaining gap; this is tracked as an open research item (P2.7, Appendix).
+\paragraph{Self-Consistent Back-Saturation (P2.7).}
+The depth-1 result ($-0.22\%$) omits a second-order effect: the reflected power $|S_{11}|^2$ re-enters the origin node and partially re-saturates it under Axiom~4, reducing its effective self-admittance:
+\begin{equation}
+    Y_{00}^{(k+1)} = Y_{00}^{(0)} - \bigl|S_{11}^{(k)}\bigr|^2 \cdot (z\,\nu_{\text{vac}})
+\end{equation}
+where $z = 4$ is the K4 coordination number. Because $|S_{11}|^2 \approx 3.75 \times 10^{-3} \ll 1$, the series is geometric and converges to a unique fixed point after $\sim 10$ iterations:
+\begin{equation}
+    S_{11}^{\text{sc}} \approx -0.06123, \qquad
+    M_W^{\text{sc}} = \frac{M_W^{\text{tree}}}{1 - \bigl|S_{11}^{\text{sc}}\bigr|^2} \approx 80{,}224\ \text{MeV}
+    \quad (-0.19\%)
+\end{equation}
+The fixed-point correction reduces the deviation from $-0.22\%$ to $\mathbf{-0.19\%}$, bringing $M_W$ within one part in 500 of the PDG value with zero free parameters.
+
+\noindent\textbf{Residual ($\mathbf{-0.19\%}$):} The remaining gap reflects the discrete K4 approximation to the continuum field at the origin node. A full Green's function treatment of the Axiom~4 nonlinear kernel within the single lattice cell is expected to close this gap; this is deferred as sub-node continuum physics (see P2.8).
 
 \section{The Neutrino Mass Spectrum}
 
