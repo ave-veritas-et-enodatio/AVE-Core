@@ -202,20 +202,23 @@ $$Y_{00}^* = Y_{00}^{(0)} - |S_{11}(Y_{00}^*)|^2 \cdot (z\,\nu_\text{vac})$$
 **Test:** 77/77 pass (including all 26 W-boson SC loop tests).
 **DAG:** `verify_universe.py` → MATHEMATICALLY PURE.
 
-**Lemma 5 — open problem (next session target):**
+**Lemma 5 — OPEN RESEARCH FRONTIER (all three routes investigated and eliminated):**
 
 To close the conditional proof $\Delta m^2_{21}/\Delta m^2_{31} = 7/235$ into an
 absolute theorem, one must show $\Delta m^2_{31} = M_\nu^2$.
-The Bethe-lattice gives $m^2(\nu_1)/m^2(\nu_3) \approx 16\%$, which is not negligible. Three
-routes have been explored and partially eliminated:
+The Bethe-lattice gives $m^2(\nu_1)/m^2(\nu_3) \approx 16\%$, which is not negligible. All three
+routes have been rigorously investigated and **definitively eliminated**:
 
-| Route | Method | Current state |
-|-------|---------|---------------|
-| **A — MSW junction** | Solar Δm² is measured via MSW (effective coupling), not vacuum eigenvalue. If AVE MSW selects $Y_{12}^{corr}$ as the amplitude, Lemma 5 follows. | Requires AVE MSW Hamiltonian derivation in compliance basis. Not yet started. **Most promising.** |
-| **B — SC fixed-point** | P2.7-style back-saturation on the ν₁↔ν₂ compliance channel drives $m(\nu_1)→0$ at convergence. | Loop drives ν₁ to zero but physical Axiom-4 saturation floor not yet derived. 0.004% correction in K4-consistent variant; 100% in pure-self-admittance variant (unphysical floor). |
-| **C — Jackiw-Rebbi** | Compliance near-degeneracy of (2,5)-(2,7) may support topological zero mode in K4 background. | Not yet attempted. Requires Jackiw-Rebbi analysis of the junction. |
+| Route | Method | Numerical result | Elimination reason |
+|-------|---------|------------------|--------------------|
+| **A — MSW junction** | Solar MSW selects junction coupling $Y_{12}^{corr}$ as the measured amplitude instead of the eigenvalue difference | PDG $\Delta m^2_{21}$ comes from KamLAND (reactor $\bar\nu$ vacuum L/E oscillation), not from solar MSW. KamLAND measures the vacuum eigenvalue difference directly. | ❌ **Wrong measurement type.** MSW argument inapplicable to the principal data source. |
+| **B — SC saturation** | Multi-bounce Axiom-4 strain accumulation via P2.7-style SC loop on the ν₁↔ν₂ compliance channel | $Q_{ring}(\nu_1) = 0.117$ (sub-unity). $\tau_{coh} = 1.76$ vs $\tau_{RT} = 67.1$ Bethe units → $n_{bounces} = 0.026$. Mode decays at 2.6% of first round trip. | ❌ **ν₁ mode too broad.** E5 = 0.132 deep inside Bethe band (edge = 1.143). Single-pass correction bounded to 0.54%. |
+| **C — SSH/Jackiw-Rebbi** | Topological zero mode at the (2,5)–(2,7) junction via SSH chain analysis | $t_1/t_2 = Y_{12}/Y_{23} = (7/235)/(9/553) = 1.830 > 1$ → trivial SSH phase. No zero mode exists. | ❌ **Wrong topological phase.** Goldstone formula makes the farther junction weaker ($Y_{23} < Y_{12}$), which is backwards for SSH topology. |
 
-**Recommended first move (next session):** Pursue Route A — derive the AVE analog of the MSW effective Hamiltonian in the compliance mode basis. The key question is whether the solar neutrino suppression in the Sun's matter potential selects the junction coupling $Y_{12}^{corr}$ as the physical observable, rather than the vacuum eigenvalue difference.
+**What this means:**
+The formula $7/235 = 0.02979$ (0.65% from PDG, within $1\sigma$) is a **rigorous first-order structural estimate** — Lemmas 1–4 are proven from Axioms 1+3 with zero free parameters. But the physical mechanism connecting the junction coupling to the experimentally measured ratio ($\Delta m^2_{21}/\Delta m^2_{31}$ from KamLAND + atmospheric data) requires an insight not yet in the AVE operator set. This is a **genuine open research frontier**, not a derivation gap.
+
+**For next session:** New approaches needed. Candidates include: (1) a non-perturbative lattice calculation of the ν₁ self-energy $\Sigma_{11}$ directly from the K4 Green's function; (2) a physical argument for why the junction coupling $Y_{12}^{corr}$ should be identified with the measured ratio rather than the eigenvalue difference; (3) investigation of whether the $16\%$ correction from $m^2(\nu_1)/m^2(\nu_3)$ has a closed-form that reduces 7/235 to the exact PDG value.
 
 #### P2.10 — Exact Casimir Thermodynamic Filtering [DELIVERED — NEAR-FIELD]
 **Context:** The Casimir effect modeled as K4 tree depth truncation: modes with $\lambda > 2d$ (cavity width) are excluded at depth $N_{\text{cav}} = d/\ell_{\text{node}}$.
