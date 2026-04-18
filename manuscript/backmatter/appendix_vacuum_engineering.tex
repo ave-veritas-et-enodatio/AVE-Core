@@ -1,0 +1,163 @@
+% =========================================================
+% Appendix: Vacuum Engineering Design Specifications
+% =========================================================
+\chapter{Vacuum Engineering Design Specifications}
+\label{app:vacuum_eng}
+
+This appendix collects all engineering-critical design parameters derived throughout the volume into a structured reference. Each specification is traced to its axiomatic origin, with worked examples demonstrating the calculation chain from first principles to fabrication tolerance.
+
+\section{Design Specification Protocol}
+
+Every Design Specification in this volume follows a formal verification structure:
+
+\begin{enumerate}
+    \item \textbf{Axiomatic Origin:} The specification must trace to one or more of the four AVE axioms, the three calibration parameters ($\ell_{node}$, $\alpha$, $G$), or a previously derived intermediate result.
+    \item \textbf{Solver Calibration:} If a specification is resolved numerically via a topological solver (e.g., extracting elastic moduli from an LC mesh), the solver must first demonstrably recover the standard CODATA/NIST measurements for purely covalent (e.g., Silicon) and purely van der Waals (e.g., Argon) canonical lattices to certify boundary neutrality.
+    \item \textbf{Quantitative Bound:} The specification must produce a numerical value with explicit units and parameterization sweeps (modeling operating phase spaces such as temperature distributions and orientational phase locks).
+    \item \textbf{Kill-Switch Condition:} If applicable, the specification defines a falsification boundary --- a numerical threshold beyond which the proposed architecture is structurally impossible.
+\end{enumerate}
+
+\noindent If all three tiers are satisfied, the parameter enters the Design Specification Datasheet with a green status. If the axiomatic chain is incomplete (e.g., requires an undone derivation), the parameter is flagged as ``Open Derivation.''
+
+\section{Consolidated Design Parameters}
+\label{sec:design_params}
+
+\subsection{Universal Constants (Axiom-Derived)}
+
+\begin{designbox}{Universal Vacuum Constants}
+\begin{center}
+\small
+\begin{tabular}{l c c l}
+\hline\hline
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value} & \textbf{Axiom Source} \\
+\hline
+Lattice pitch & $\ell_{node}$ & $3.862 \times 10^{-13}$ m & Calibration \\
+Fine-structure constant & $\alpha$ & 1/137.036 & Calibration \\
+Vacuum impedance & $Z_0$ & $376.73\;\Omega$ & Axiom 2 ($\sqrt{\mu_0/\varepsilon_0}$) \\
+Packing fraction (FCC) & $\phi_{crit}$ & 0.7405 & Axiom 1 ($\pi\sqrt{2}/6$) \\
+Void fraction & $1 - \phi_{crit}$ & 0.2595 & Axiom 1 complement \\
+Vacuum Poisson ratio & $\nu_{vac}$ & 2/7 & Axiom 2 ($K = 2G$) \\
+Dielectric yield voltage & $V_{yield}$ & 43.65 kV & Axiom 4 ($\sqrt{\alpha} \cdot V_{snap}$) \\
+Saturation operator & $S(x)$ & $\sqrt{1-x^2}$ & Axiom 4 ($n = 2$) \\
+Hydrogen bond energy & $E_{HB}$ & 0.2158 eV & Axiom 4 $\times$ void fraction \\
+\hline\hline
+\end{tabular}
+\end{center}
+\end{designbox}
+
+\subsection{LLCP Metamaterial Parameters (Derived)}
+
+\begin{designbox}{LLCP Metamaterial Specifications}
+\begin{center}
+\small
+\begin{tabular}{l c l}
+\hline\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{Status} \\
+\hline
+$n_{meta}(\phi)$ & $[1 - (\phi/\phi_{crit})^2]^{-1/2}$ & Derived (Ch.~2) \\
+$K_{residual}$ (symmetric) & $K_0 \sqrt{2\delta}$ & Derived (Ch.~2) \\
+$K_{residual}$ (asymmetric) & $f \cdot K_{wedge}$ & Derived (Ch.~2) \\
+$Z_{meta}/Z_0$ (symmetric) & 1.000 & Derived (Ch.~2) \\
+$Z_{meta}/Z_0$ (asymmetric) & $\sqrt{K_w/2G_w}$ & Derived (Ch.~2) \\
+$\Delta \Gamma$ Isolation (per junction) & $-0.27$ dB (Non-Reciprocal) & Derived (Ch.~2 Cosserat FDTD) \\
+Wedge $K_w/G_w$ ($C_{60}$) & $2.667 \to 1.667$ & Derived ($300$K--$4$K) \\
+$f_{max}$ (Acoustic Bandwidth) & $2.04$ THz & Derived (Ch.~6 Memristor Limit) \\
+\hline\hline
+\end{tabular}
+\end{center}
+\end{designbox}
+
+\subsection{Casimir Cavity Parameters (Derived)}
+
+\begin{designbox}{Casimir Cavity Specifications}
+\begin{center}
+\small
+\begin{tabular}{l c l}
+\hline\hline
+\textbf{Parameter} & \textbf{Value} & \textbf{Status} \\
+\hline
+Casimir pressure ($d = 5$ nm) & $2.1 \times 10^5$ Pa & Derived (Ch.~6) \\
+Casimir pressure ($d = 1$ nm) & $1.3 \times 10^8$ Pa & Derived (Ch.~6) \\
+Planarity tolerance ($d = 10$ nm) & $4\sigma/d < 0.04$ & Derived (Ch.~6, Kill-Switch) \\
+Min.\ plate spacing & $d_{min} > \ell_{node}$ & Axiom 1 (lattice floor) \\
+Metamaterial-enhanced spacing & $d^*_{meta} = n_{meta} \cdot d^*_{vac}$ & Derived (Ch.~8) \\
+\hline\hline
+\end{tabular}
+\end{center}
+\end{designbox}
+
+\section{Worked Examples}
+\label{sec:worked_examples}
+
+\subsection{Example 1: Computing $n_{meta}$ for a Target Fabrication Gap}
+
+\begin{examplebox}[$n_{meta}$ from a Target Plate Spacing]
+\textbf{Given:} A Casimir qubit shield requires plate spacing $d_{fab} = 5$ nm. The vacuum critical spacing is $d^*_{vac} = 0.607$ pm.
+
+\textbf{Required:} The LLCP packing fraction $\phi$ needed to achieve this spacing.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item The required refractive index: $n_{meta} = d_{fab} / d^*_{vac} = 5 \times 10^{-9} / 6.07 \times 10^{-13} = 8{,}237$.
+    \item From the Ch.~2 derivation: $n_{meta} = [1 - (\phi/\phi_{crit})^2]^{-1/2}$, so:
+    \[
+        \frac{\phi}{\phi_{crit}} = \sqrt{1 - \frac{1}{n_{meta}^2}} = \sqrt{1 - \frac{1}{8237^2}} = 1 - 7.4 \times 10^{-9}
+    \]
+    \item The required packing precision: $\delta = \phi_{crit} - \phi = 7.4 \times 10^{-9} \times 0.7405 \approx 5.5 \times 10^{-9}$.
+\end{enumerate}
+\end{examplebox}
+
+\subsection{Example 2: Casimir Pressure Survivability Under Asymmetric Saturation}
+
+\begin{examplebox}[Asymmetric Saturation Pressure Budget]
+\textbf{Given:} A $C_{60}$-doped LLCP matrix with $K_{C60} \approx 12$ GPa, wedge volume fraction $f = 0.30$.
+
+\textbf{Required:} Does the fill survive Casimir pressure at $d_{fab} = 5$ nm?
+
+\textbf{Solution (Asymmetric):}
+\begin{enumerate}
+    \item Casimir pressure at 5 nm: $P_C = \pi^2 \hbar c / (240 \times d^4) = 2.1 \times 10^5$ Pa $\approx 2.1$ atm.
+    \item Residual bulk modulus (asymmetric): $K_{residual} = f \cdot K_{wedge} = 0.30 \times 12 \times 10^9 = 3.6 \times 10^9$ Pa $= 3.6$ GPa.
+    \item Ratio: $K_{residual}/P_C = 3.6 \times 10^9 / 2.1 \times 10^5 \approx 17{,}000$.
+\end{enumerate}
+\textbf{Result:} The wedge scaffold provides a safety factor of $\sim 17{,}000\times$ above the Casimir pressure at 5 nm. Under asymmetric saturation, the fill easily survives.
+
+\textbf{Contrast (Symmetric):} Under symmetric saturation at this $n_{meta} \approx 8{,}237$, $K_{residual} \approx K_0 \sqrt{2\delta} \approx 600$ Pa $\ll P_C$. The fill is crushed. The symmetric architecture fails; the asymmetric architecture succeeds.
+\end{examplebox}
+
+\subsection{Example 3: Reading a Design Specification Datasheet}
+
+\begin{examplebox}[Interpreting a Kill-Switch]
+A Design Specification entry marked ``Kill-Switch'' defines a boundary beyond which the proposed device is structurally impossible under AVE axioms. For instance:
+
+\begin{center}
+\small
+\begin{tabular}{l c l}
+\hline\hline
+\textbf{Parameter} & \textbf{Bound} & \textbf{Kill-Switch} \\
+\hline
+$C_{60}$ defect density & $< 7.8\%$ & Percolation threshold (Ch.~3) \\
+Planarity $4\sigma/d$ & $< 0.04$ & Casimir uniformity (Ch.~6) \\
+$n_{meta}$ (symmetric) & $< K_{0}/P_C(\delta)$ & Casimir crush (Ch.~8) \\
+\hline\hline
+\end{tabular}
+\end{center}
+
+If a fabrication process cannot achieve these bounds, the device does not fail ``gradually'' --- it fails \textbf{categorically}, because the underlying vacuum physics does not support the required mode structure outside these limits. This is the engineering advantage of axiom-derived specifications: there is no ambiguity about design margins.
+\end{examplebox}
+
+\section{Open Derivation Register}
+\label{sec:open_derivations}
+
+The following parameters have incomplete axiomatic derivation chains. Each represents a defined research frontier with a clear resolution path.
+
+\begin{center}
+\small
+\begin{tabular}{l l l}
+\hline\hline
+\textbf{Parameter} & \textbf{Resolution Path} & \textbf{Priority} \\
+\hline
+\multicolumn{3}{c}{\textit{All parameters derived parameters derived organically from axioms}} \\
+\hline\hline
+\end{tabular}
+\end{center}

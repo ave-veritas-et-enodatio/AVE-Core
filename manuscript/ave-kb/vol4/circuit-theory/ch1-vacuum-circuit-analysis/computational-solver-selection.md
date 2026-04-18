@@ -48,8 +48,17 @@ Vacuum birefringence (chirality-split)   & ---        & \checkmark \\
 \end{tabular}
 \end{table}
 
-**Boundary Conditions.** Both solvers support Mur 1st-order absorbing boundaries (default) and PML (Perfectly Matched Layer) polynomial-graded absorbing boundaries (`use\_pml=True`). PML is recommended for simulations requiring low spurious reflection ($<$\,60~dB) at the grid boundary, such as far-field antenna patterns and long-duration energy tracking. The PML implementation uses cubic-graded conductivity: $\sigma(d) = \sigma_{max}(d/d_{pml})^3$, with $\sigma_{max} = (m+1)/(150\pi\,\Delta x)$.
+### Boundary Conditions (Open Universe Mapping)
 
+The computational mechanism required to simulate an infinite open vacuum (zero reflection) depends strictly on the tensor rank of the domain:
+
+**1. Vector Grids (3D FDTD \& K4-TLM)**
+Both 3D electromagnetic solvers support Mur 1st-order absorbing boundaries (default) and PML (Perfectly Matched Layer) polynomial-graded absorbing boundaries (`use\_pml=True`). PML is recommended for simulations requiring low spurious reflection ($<$\,60~dB) at the grid boundary, such as far-field antenna patterns and long-duration energy tracking. The PML mathematically splits the decoupled transverse $\mathbf{E}$ and $\mathbf{H}$ tensor fields to perfectly match the local $Z_0$ boundary impedance without geometric reflection. The implementation uses cubic-graded conductivity: $\sigma(d) = \sigma_{max}(d/d_{pml})^3$, with $\sigma_{max} = (m+1)/(150\pi\,\Delta x)$.
+
+**2. Scalar Fluid Grids (2D Warp CFD)**
+For scalar density modeling (where $\rho_{LC}$ lacks decoupled transverse vectors), PML tensor splitting is mathematically impossible. Constructing an open boundary on scalar Finite-Difference staggered arrays natively results in either periodic Torus wrap-around or violent mirror impedance reflection. The formal AVE workaround requires a two-stage topological trap:
+- **Dirichlet Grid Clamp:** Explicitly zeroing the outermost pixel border ($\rho = 0.0$) to shatter infinite continuous wrap-around, acting as a rigid non-periodic mirror.
+- **Aggressive Quadratic Sponge:** Stacking a highly absorbent polynomial immediately inside the clamp. Because the scalar wave must reflect off the Dirichlet mirror, it traverses the sponge twice. To secure attenuation below machine precision, the optimal profile is steepened to quadratic ($\sigma_{max} = 0.20$, $\sigma(d) \propto (d/d_{sponge})^2$) rather than cubic.
 **Default Yield Threshold.** Both FDTD and K4-TLM default to $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV as the Axiom~4 nonlinear onset (see Section~sec:yield_thresholds in Chapter~2 for the engineering rationale). Subatomic-scale simulations (e.g., bond energy solvers, Yang--Mills confinement) should override with `v\_yield=V\_SNAP` ($\approx 511$~kV).
 
 \begin{summarybox}
