@@ -74,7 +74,8 @@ class FDTD3DEngine:
         self.epsilon_0 = float(EPSILON_0)
 
         # CFL Condition for 3D stability: dt <= dx / (c * √3)
-        self.dt = self.dx / (self.c * np.sqrt(3.0))
+        # Inject 0.80 stability buffer against Axiom 4 varactor steepening.
+        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * 0.80
 
         # Core Field Matrices (E and H vectors)
         self.Ex = np.zeros((nx, ny, nz))

@@ -393,8 +393,11 @@ class FDTD3DEngineJAX:
         self.mu_0 = float(MU_0)
         self.epsilon_0 = float(EPSILON_0)
 
-        # CFL Condition for 3D stability: dt ≤ dx / (c · √3)
-        self.dt = self.dx / (self.c * np.sqrt(3.0))
+        # CFL Condition for 3D stability: dt ≤ dx / (c_max · √3).
+        # We inject an explicit 0.80 stability buffer because as the lattice saturates (Axiom 4),
+        # eps_eff drops toward zero causing c_local to rapidly increase. Without this buffer,
+        # the engine immediately diverges when driven near V_yield.
+        self.dt = (self.dx / (self.c * np.sqrt(3.0))) * 0.80
 
         # Core Field Arrays (JAX device arrays)
         self.Ex = jnp.zeros((nx, ny, nz))

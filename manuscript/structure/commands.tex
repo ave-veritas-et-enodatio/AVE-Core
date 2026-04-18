@@ -102,6 +102,13 @@
     title={#1}, enhanced, breakable, arc=0mm
 }
 
+% 11. Design Specification Box: For critical engineering parameters/kill-switches
+%     Usage: \begin{designbox}{Material Datasheet: LLCP Matrix} ... \end{designbox}
+\newtcolorbox{designbox}[1]{
+    colback=red!2!white, colframe=red!60!black, fonttitle=\bfseries, coltitle=black, colbacktitle=red!8!white,
+    title={Engineering Specification: #1}, enhanced, breakable, arc=0mm
+}
+
 % =========================================
 % CROSS-VOLUME REFERENCE MACRO
 % =========================================
