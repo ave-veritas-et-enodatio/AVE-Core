@@ -20,9 +20,11 @@ The central thesis: the vacuum is a physical substrate governed by finite induct
 | # | Axiom | Statement |
 |---|-------|-----------|
 | 1 | **Impedance** | The vacuum is an LC resonant network with Z₀ = √(μ₀/ε₀) |
-| 2 | **Fine Structure** | α = e²/(4πε₀ℏc) couples topology to impedance |
+| 2 | **Topo-Kinematic Isomorphism** | Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; α falls out as the Q-factor of the minimum-crossing soliton ([Ch. 8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
 | 3 | **Gravity** | G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²) |
 | 4 | **Saturation** | S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes |
+
+> **On axiom count after Ch 8.** Ch 8 derives α⁻¹ = 4π³ + π² + π from the Golden Torus geometry. This does *not* reduce the axiom count. Axiom 2's content is the topo-kinematic isomorphism `[Q] ≡ [L]` — the claim that a topological dislocation encodes charge — which is independent of α's numerical value and is *load-bearing* for the Ch 8 derivation (without it, a knot in the LC substrate has no EM interpretation and the multipole decomposition yielding α cannot be set up). What changed: the *value* of α is no longer taken as input; it is produced by applying Axiom 2's isomorphism to the minimum-crossing soliton under Axiom 1's LC-lattice topology.
 
 ### What This Derives (46 Predictions, 0 Free Parameters)
 
