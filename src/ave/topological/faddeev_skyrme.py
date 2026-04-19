@@ -67,6 +67,28 @@ class TopologicalHamiltonian1D:
         Args:
             node_pitch (float): Fundamental structural spacing (Axiom 1).
             scaling_coupling (float): The generalized Faddeev coupling constant.
+
+                ⚠ PRECONDITION: If the caller passes KAPPA_FS from
+                src/ave/core/constants.py (the canonical proton-baryon
+                coupling), the value is ALREADY thermally softened at
+                import time:
+
+                    KAPPA_FS = KAPPA_FS_COLD * (1 - DELTA_THERMAL)
+                           = 8π * (1 - 1/(14π²))
+                           ≈ 24.951       (constants.py:563–566)
+
+                The thermal softening δ_th = 1/(14π²) is the proton
+                core's thermal correction at its native ~10¹³ K regime.
+                This solver does NOT re-apply the softening — the input
+                κ is expected to be already-softened. If you're passing
+                a different coupling (e.g. KAPPA_FS_COLD for a
+                sensitivity check or T→0 limit), pass the intended
+                value explicitly.
+
+                See also: src/ave/core/constants.py `KAPPA_FS` definition
+                (~line 566), LIVING_REFERENCE.md Rule D2, and
+                docs/framing_and_presentation.md §D2 for the
+                "preconditions applied before solver entry" pattern.
         """
         self.l_node = node_pitch
         self.kappa = scaling_coupling
@@ -137,6 +159,12 @@ class TopologicalHamiltonian1D:
         The confinement bound r_opt ≤ κ/c divides the total Faddeev-Skyrme
         coupling by the crossing number, partitioning the coupling equally
         among the topological crossings through which the phase must wind.
+
+        Preconditions applied to self.kappa BEFORE entry (see __init__ docstring):
+          - Thermal softening δ_th = 1/(14π²) ≈ 7.21×10⁻³ is applied in
+            src/ave/core/constants.py:563–566 (KAPPA_FS = KAPPA_FS_COLD × (1 − DELTA_THERMAL)).
+            This solver receives the already-softened κ and does not re-apply.
+            For T→0 / cold-limit behavior, instantiate with scaling_coupling=KAPPA_FS_COLD.
 
         Args:
             crossing_number: The number of topological crossings for the
