@@ -382,7 +382,7 @@ $\Delta c = 2 \le 3$): The eigenvalue ratio gives:
 
 $$
 \sin^2\theta_{12} = \frac{\Delta c}{c_2} + \frac{1}{c_1 c_3}
-= \frac{2}{7} + \frac{1}{45} = \frac{139}{450}
+= \frac{2}{7} + \frac{1}{45} = \frac{97}{315}
 \quad\text{(NuFIT: 0.307, }\Delta = 0.3\%\text{)}
 $$
 

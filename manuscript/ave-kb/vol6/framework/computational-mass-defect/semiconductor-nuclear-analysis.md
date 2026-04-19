@@ -4,7 +4,9 @@
 
 ## Semiconductor Circuit Analysis of Nuclear Binding
 
-The nuclear binding problem maps precisely onto the large-signal analysis of semiconductor junction devices. This is not an analogy---the vacuum LC lattice *is* the dielectric medium, the nucleon knots *are* the junction dopants, and the Coulomb field *is* the reverse-bias voltage. Every parameter derives from the four AVE axioms with zero empirical fits.
+> **⚠ Methodology note — fit vs prediction.** The inter-alpha distances ($R$) tabulated below and throughout this section are obtained by a one-parameter-per-nucleus fit: for each nucleus, the $\alpha$-cluster topology is forced by $(Z, A)$, and a single scalar $R$ is adjusted so the computed $\sum K_{\text{mutual}}/r_{ij}$ reproduces the observed mass. The ≤0.03% (and in places ≤0.0002%) agreement reported below is therefore a **fitting tolerance** — a measure of how tightly the one-parameter geometric compression reproduces the target mass — not an *ab-initio* prediction error. The axiomatic content of this section is the claim that a single scalar $R$ per nucleus, constrained by the cluster topology, suffices to recover the full mass defect; what is fit is the distance, what is predicted is that one parameter is enough.
+
+The nuclear binding problem maps precisely onto the large-signal analysis of semiconductor junction devices. This is not an analogy---the vacuum LC lattice *is* the dielectric medium, the nucleon knots *are* the junction dopants, and the Coulomb field *is* the reverse-bias voltage. All non-geometric constants ($K_{\text{MUTUAL}}$, $\alpha$, $D_{\text{intra}}$, breakdown voltages) derive from the four AVE axioms with zero empirical fits; the remaining geometric degree of freedom is the per-nucleus $R$-value discussed above.
 
 ### Two Binding Models: Bare vs Semiconductor
 

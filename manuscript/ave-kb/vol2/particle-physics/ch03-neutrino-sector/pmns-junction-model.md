@@ -11,7 +11,7 @@ The junction coupling $Y_{\text{junc}} = 1/(c_1 c_3) = 1/45$ persists as an evan
 > $$
 > \begin{align}
 >     \sin^2\theta_{13} &= \frac{1}{c_1 c_3} = \frac{1}{45} \\[4pt]
->     \sin^2\theta_{12} &= \nu_{vac} + \frac{1}{c_1 c_3} = \frac{2}{7} + \frac{1}{45} = \frac{139}{450} \\[4pt]
+>     \sin^2\theta_{12} &= \nu_{vac} + \frac{1}{c_1 c_3} = \frac{2}{7} + \frac{1}{45} = \frac{97}{315} \\[4pt]
 >     \sin^2\theta_{23} &= \frac{1}{2} + \frac{2}{c_1 c_3} = \frac{1}{2} + \frac{2}{45} = \frac{49}{90}
 > \end{align}
 > $$

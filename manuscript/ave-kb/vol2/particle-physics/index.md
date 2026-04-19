@@ -15,7 +15,7 @@ The particle-physics domain derives the full spectrum of elementary particles â€
 | Topological Fractionalization | $q_{eff} = n + \theta e/(2\pi)$; $\theta \in \{0, \pm 2\pi/3, \pm 4\pi/3\}$ yields $\pm 1/3e, \pm 2/3e$ |
 | Hierarchy Bridge | $F_g = T_{nuc} \left[ \frac{1}{7\xi} \left(\frac{l_{node}}{r}\right)^2 \left(\frac{m_p}{m_e}\right) \right]$ |
 | Neutrino mass | $m_\nu = m_e \cdot \alpha \cdot (m_e/M_W) \approx 0.024$ eV per flavor |
-| PMNS mixing angles | $\sin^2\theta_{13} = 1/45$, $\sin^2\theta_{12} = 2/7 + 1/45 = 139/450$, $\sin^2\theta_{23} = 1/2 + 2/45 = 49/90$ |
+| PMNS mixing angles | $\sin^2\theta_{13} = 1/45$, $\sin^2\theta_{12} = 2/7 + 1/45 = 97/315$, $\sin^2\theta_{23} = 1/2 + 2/45 = 49/90$ |
 | CP-violating phase | $\delta_{CP} = (1 + 1/3 + 1/45)\pi = 61\pi/45$ |
 | Larmor precession | $\omega_L = \gamma B_0$ from classical gyroscopic mechanics |
 | Weak mixing angle | $\sin^2\theta_W = 2/9$ from $\nu_{vac} = 2/7$ and Perpendicular Axis Theorem |

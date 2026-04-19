@@ -33,7 +33,7 @@ The central thesis: the vacuum is a physical substrate governed by finite induct
 | **Mixing Matrices** | Full CKM + PMNS matrices from ν_vac = 2/7 | 4.1% |
 | **Cosmology** | H₀ (2.9%), baryon asymmetry (0.38%), MOND a₀ | 11.8% |
 | **Astrophysics** | Solar deflection (0.03%), Kirkwood gaps (0.05%) | 1.6% |
-| **Millennium Problems** | Yang-Mills mass gap ✅, Navier-Stokes ✅, Strong CP ✅ | Exact |
+| **Millennium Problems** | Yang-Mills mass gap, Navier-Stokes, Strong CP — framework-conditional derivations ([Vol 2 Ch 12](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) | Framework-exact |
 | **Condensed Matter** | BCS B_c(T) (0.00%), IE sweep Z=1–12 (2.8%) | 2.8% |
 | **Biology** | Protein Rg (0.8%), deterministic folding | 0.8% |
 
@@ -133,7 +133,7 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 10 | Solar deflection | 0.03% | ✅ |
 | 11–12 | Δ(1620), Δ(1950) | 0.19–0.62% | ✅ |
 | 13 | Fermi constant | 2.09% | ✅ |
-| 14–16 | Yang-Mills, N-S, Strong CP | Exact | ✅ Proofs |
+| 14–16 | Yang-Mills, N-S, Strong CP | Framework-derived | ✅ Derivations ([Vol 2 Ch 12 caveats](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) |
 | 17–18 | Kirkwood gaps, Cassini | 0.05–0.59% | ✅ |
 | 19 | Flyby anomaly (NEAR) | 1.6% | ✅ |
 | 20–21 | Magnetopause (Earth, Jupiter) | 8.7–11.8% | ✅ |
