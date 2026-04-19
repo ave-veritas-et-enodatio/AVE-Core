@@ -242,9 +242,9 @@ future_work/          # Speculative roadmap
 | 11 | Δ(1620) | 0.19% | ✅ |
 | 12 | Δ(1950) | 0.62% | ✅ |
 | 13 | Fermi constant | 2.09% | ✅ |
-| 14 | Yang-Mills mass gap | Δ>0 | ✅ Constructive proof |
-| 15 | Navier-Stokes smoothness | Global | ✅ Lattice + Picard-Lindelöf |
-| 16 | Strong CP (θ=0) | Exact | ✅ Unique vacuum topology |
+| 14 | Yang-Mills mass gap | Δ>0 | ✅ Framework-derived (lattice-conditional; not Clay-rigorous — [Vol 2 Ch 12](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex) caveats) |
+| 15 | Navier-Stokes smoothness | Global | ✅ Framework-derived (lattice + Picard-Lindelöf; not Clay-rigorous — [Vol 2 Ch 12](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex) caveats) |
+| 16 | Strong CP (θ=0) | Exact | ✅ Framework-derived (unique vacuum topology; not Clay-rigorous — [Vol 2 Ch 12](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex) caveats) |
 | 17 | Kirkwood gaps (4:1) | 0.05% | ✅ |
 | 18 | Saturn Cassini Division | 0.59% | ✅ |
 | 19 | Flyby anomaly (NEAR) | 1.6% | ✅ |
