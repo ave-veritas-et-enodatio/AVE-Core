@@ -63,6 +63,8 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
 	@echo "\n[Verify] Running defense-context checker (warning-only)..."
 	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+	@echo "\n[Verify] Running claim-graph validator..."
+	$(PYTHON) $(SCRIPT_DIR)/claim_graph_validator.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="

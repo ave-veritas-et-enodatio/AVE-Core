@@ -1,0 +1,404 @@
+# AVE Master Prediction Manifest
+#
+# Structured claim graph for Tier-2 rigor. Each prediction in the public-facing
+# README and LIVING_REFERENCE master tables MUST have a matching entry here.
+# Entries link back to:
+#   - manuscript labels (\label{} targets) where the derivation lives
+#   - constants.py symbols that carry the predicted numeric value
+#   - observed values with their source
+#
+# The claim_graph_validator.py script verifies:
+#   1. Every entry's derivation_label resolves to a \label{} in manuscript/**/*.tex
+#   2. Every entry's constants_py_symbol (if present) resolves in src/ave/core/constants.py
+#   3. Numeric agreement between predicted_value and the corresponding constants.py symbol
+#   4. Public-table coverage: every row in README/LIVING_REFERENCE must map to an entry
+#
+# ─── Entry schema ────────────────────────────────────────────────────────────
+# id:                    stable identifier (P01, P02, ...) — never re-use
+# name:                  short human-readable name
+# type:                  classification (A1 rule)
+#                          derived_prediction   — genuine forward prediction
+#                          axiom_manifestation  — axiom expressed at a new scale
+#                          identity             — definitional; 0% is trivially true
+#                          consistency_check    — reproduces a known result
+#                          engineering_limit    — theoretical bound
+# derivation_label:      \label{} target in manuscript/**/*.tex
+# constants_py_symbol:   (optional) name in src/ave/core/constants.py
+# predicted_value:       (optional) numeric value for validator to cross-check
+# predicted_unit:        (optional) unit annotation
+# observed_value:        (optional) measured value
+# observed_source:       (optional) e.g. "CODATA 2022", "PDG 2022"
+# error_percent:         (optional) |pred - obs| / obs × 100
+# axioms_used:           list of axiom numbers (1-4) the derivation depends on
+# public_in_readme:      true if appears in README master table
+# public_in_living_ref:  true if appears in LIVING_REFERENCE master table
+# notes:                 free-form explanation
+# ────────────────────────────────────────────────────────────────────────────
+
+version: 1
+
+predictions:
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER-A: Well-derived, numerically checked
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: P01
+    name: "α⁻¹ from Golden Torus S₁₁-min"
+    type: derived_prediction
+    derivation_label: "ch:alpha_golden_torus"
+    derivation_equation: "eq:alpha_cold"
+    constants_py_symbol: "ALPHA_COLD_INV"
+    predicted_value: 137.0363038
+    predicted_unit: "dimensionless (α⁻¹)"
+    observed_value: 137.035999
+    observed_source: "CODATA 2022"
+    error_percent: 0.000222
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Cold-lattice asymptote: 4π³ + π² + π. CMB thermal strain δ_strain ≈ 2.22e-6
+      bridges to CODATA. See P47 for the running-α prediction.
+
+  - id: P02
+    name: "Z₀ = √(μ₀/ε₀) from Axiom 1"
+    type: identity
+    derivation_label: "ch:fundamental_axioms"
+    constants_py_symbol: "Z_0"
+    predicted_value: 376.730313668
+    predicted_unit: "Ω"
+    observed_value: 376.730313668
+    observed_source: "SI definition"
+    error_percent: 0.0
+    axioms_used: [1]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Definitional identity — by how Z₀ is defined in SI. The AVE claim is
+      that the vacuum operates AS a real LC impedance at this value, which
+      is substantive even though the number is trivial.
+
+  - id: P24
+    name: "α_s (strong coupling) from scale invariance"
+    type: derived_prediction
+    derivation_label: "ch:electroweak"
+    constants_py_symbol: "ALPHA_S"
+    predicted_value: 0.12139860958708219
+    predicted_unit: "dimensionless"
+    observed_value: 0.1179
+    observed_source: "PDG 2022"
+    error_percent: 2.97
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "α_s = α^(3/7) — Scale-Invariance projection at EW scale."
+
+  - id: P05
+    name: "M_W boson mass"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    constants_py_symbol: "M_W_MEV"
+    predicted_value: 79923.0
+    predicted_unit: "MeV/c²"
+    observed_value: 80379.0
+    observed_source: "CODATA 2022"
+    error_percent: 0.57
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "m_e / (8πα³√(3/7)) — torsional ring self-energy with chirality mismatch."
+
+  - id: P06
+    name: "M_Z boson mass"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    constants_py_symbol: "M_Z_MEV"
+    predicted_value: 90624.0
+    predicted_unit: "MeV/c²"
+    observed_value: 91188.0
+    observed_source: "CODATA 2022"
+    error_percent: 0.62
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "M_Z = M_W · 3/√7 — PAT pole-mass ratio."
+
+  - id: P23
+    name: "H∞ (Hubble asymptote)"
+    type: derived_prediction
+    derivation_label: "sec:galactic_saturation"
+    constants_py_symbol: "H_INFINITY"
+    predicted_value: 2.246561628172611e-18
+    predicted_unit: "s⁻¹ (engine native); ≈ 69.32 km/s/Mpc after × 3.086e19"
+    observed_value: 69.8
+    observed_source: "TRGB (late-universe), km/s/Mpc"
+    error_percent: 0.7
+    axioms_used: [1, 3, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      H∞ = 28π m_e³ c G / (ℏ² α²). Engine stores s⁻¹; × 3.086e19 km/Mpc gives
+      69.32 km/s/Mpc. Sits between Planck (67.4) and SH0ES (73) — a priori
+      prediction that Hubble tension is a regime artifact.
+
+  - id: P47
+    name: "α thermal running (δ_strain)"
+    type: derived_prediction
+    derivation_label: "sec:alpha_thermal_running"
+    constants_py_symbol: "DELTA_STRAIN"
+    predicted_value: 2.22344133782304e-06
+    predicted_unit: "dimensionless (strain coefficient)"
+    observed_value: 2.22344133782304e-06
+    observed_source: "Derived: 1 − (1/ALPHA)/ALPHA_COLD_INV"
+    error_percent: 0.0
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      CMB thermal expansion of the spatial metric. Distinct from QED vacuum
+      polarization and from the proton Skyrme thermal correction. δ_strain is
+      defined by the relation, so predicted == observed by construction —
+      the substantive claim is that the *residual between Ch 8's cold α
+      prediction and CODATA* has this magnitude, not that the formula fits.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER-B: Derivation location known, numeric cross-check deferred
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: P03
+    name: "g-2 anomaly"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    error_percent: 0.15
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "a_e = α/(2π) — Schwinger result from on-site impedance correction."
+
+  - id: P04
+    name: "sin²θ_W (weak mixing angle)"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    predicted_value: 0.2222
+    observed_value: 0.2230
+    observed_source: "PDG on-shell"
+    error_percent: 0.35
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "sin²θ_W = 2/9 from ν_vac = 2/7 and Perpendicular Axis Theorem."
+
+  - id: P07
+    name: "Proton mass"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    error_percent: 0.29
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "m_p ≈ 1836.12 m_e — Faddeev-Skyrme scalar eigenvalue on (2,5) trefoil."
+
+  - id: P08
+    name: "Δ(1232) baryon mass"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    error_percent: 3.49
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Torus knot (2,7) ladder."
+
+  - id: P09
+    name: "Neutrino mass sum"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    error_percent: 0.66
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "m_ν = m_e · α · (m_e / M_W) per flavor; sum ≈ 0.054 eV."
+
+  - id: P25
+    name: "Higgs mass"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    constants_py_symbol: "M_HIGGS_MEV"
+    error_percent: 0.55
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "M_H = HIGGS_VEV / √(N_K4) = v/2."
+
+  - id: P43
+    name: "BCS B_c(T) superconducting critical field"
+    type: axiom_manifestation
+    derivation_label: "ch:condensed_matter"
+    error_percent: 0.0
+    axioms_used: [4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Axiom 4 saturation kernel at thermal scaling: B_c(T) = B_c0 · √(1 - (T/T_c)²).
+      Not a fit — it IS the Axiom 4 operator at a new scale.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER-C: Public claims; manifest records minimal (to be filled in)
+  # ═══════════════════════════════════════════════════════════════════════
+  # These entries pin the public claim to an existing manuscript label so
+  # the validator can verify cross-references, but numeric cross-check and
+  # full axiom lineage are future work (v2 expansion).
+
+  - id: P10
+    name: "Solar light deflection"
+    type: consistency_check
+    derivation_label: "ch:macroscopic_moduli"
+    error_percent: 0.03
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Standard GR weak-field; reproduced via lattice refractive index."
+
+  - id: P11_12
+    name: "Δ(1620), Δ(1950)"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Torus knot (2,9), (2,11) ladder entries."
+
+  - id: P13
+    name: "Fermi constant"
+    type: derived_prediction
+    derivation_label: "ch:electroweak_higgs"
+    error_percent: 2.09
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P14_16
+    name: "Millennium — Yang-Mills, Navier-Stokes, Strong CP"
+    type: engineering_limit
+    derivation_label: "ch:millennium_prizes"
+    axioms_used: [1, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Framework-conditional engineering-physics resolutions, not Clay-rigorous
+      proofs. See Ch 12 scope caveat.
+
+  - id: P17_18
+    name: "Kirkwood gaps, Cassini division"
+    type: derived_prediction
+    derivation_label: "ch:orbital_mechanics"
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P19
+    name: "Flyby anomaly (NEAR)"
+    type: derived_prediction
+    derivation_label: "ch:orbital_mechanics"
+    error_percent: 1.6
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Geometry-modulated; NEAR-shape prediction validated, others nulls."
+
+  - id: P20_21
+    name: "Magnetopause (Earth, Jupiter)"
+    type: derived_prediction
+    derivation_label: "ch:macroscopic_moduli"
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P22
+    name: "Baryon asymmetry"
+    type: derived_prediction
+    derivation_label: "ch:cosmology_v7"
+    error_percent: 0.38
+    axioms_used: [1, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P26_28
+    name: "CKM matrix (V_us, V_cb, V_ub)"
+    type: derived_prediction
+    derivation_label: "ch:electroweak"
+    axioms_used: [1, 2, 3]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P29_32
+    name: "PMNS matrix (all 4 parameters)"
+    type: derived_prediction
+    derivation_label: "ch:neutrino_sector"
+    axioms_used: [1, 2, 3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "sin²θ_{12,13,23} + δ_CP from torus-knot crossing-number ladder."
+
+  - id: P33_38
+    name: "All 6 quark masses"
+    type: derived_prediction
+    derivation_label: "ch:electroweak"
+    axioms_used: [1, 2, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P39
+    name: "Protein Rg (Villin)"
+    type: derived_prediction
+    derivation_label: "ch:condensed_matter"
+    error_percent: 0.8
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Cross-repo: full engine lives in AVE-Protein; formula is AVE-Core-native."
+
+  - id: P40
+    name: "NS compactness limit"
+    type: engineering_limit
+    derivation_label: "ch:gravitational_waves"
+    axioms_used: [3, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P41
+    name: "WD redshift (Sirius B)"
+    type: consistency_check
+    derivation_label: "ch:white_dwarf_predictions"
+    error_percent: 3.7
+    axioms_used: [3]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P42
+    name: "α invariance under gravity"
+    type: derived_prediction
+    derivation_label: "sec:galactic_saturation"
+    axioms_used: [2, 3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Substrate-level prediction: ε_local and c_local carry the same n·S factor
+      which cancels in α = e²/(4πε₀ℏc). Not a null equivalence-principle restatement.
+
+  - id: P44_45
+    name: "BH interior, Regime IV"
+    type: derived_prediction
+    derivation_label: "ch:cosmology_v7"
+    axioms_used: [4]
+    public_in_readme: true
+    public_in_living_ref: true
+
+  - id: P46
+    name: "IE sweep Z=1–12"
+    type: derived_prediction
+    derivation_label: "ch:electroweak"
+    error_percent: 2.8
+    axioms_used: [1, 2, 3]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: "Four named corrections (A/B/C/D) are operator invocations with geometric gates."
