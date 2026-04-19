@@ -30,6 +30,22 @@ Run `/audit-latex` for formatting and structural hygiene.
 1. Follow all steps in `.agents/workflows/audit-latex.md`
 2. Record all findings
 
+### Phase 4: Defense-Context Checker
+
+Run the automated defense-context checker to catch known framing anti-patterns that uncontextualized AI reviewers predictably misread.
+
+```bash
+python src/scripts/defense_context_checker.py
+```
+
+Each finding carries a rule ID (`B1`, `B2`, `A3`, `A1`, `C2`, `CRIT-1`) mapping to a named section in [`docs/framing_and_presentation.md`](../../docs/framing_and_presentation.md). The corresponding section explains the anti-pattern, the corrected framing, and the remediation target.
+
+- **CRITICAL findings** block merge — these are known arithmetic bugs (e.g. the 139/450 PMNS typo).
+- **WARN findings** should be addressed before external presentation of the affected content.
+- **INFO findings** are framing-hygiene observations that can be batched.
+
+To add a new rule, edit [`src/scripts/defense_context_checker.py`](../../src/scripts/defense_context_checker.py) `RULES` list and add a corresponding test case in [`src/tests/test_defense_context_checker.py`](../../src/tests/test_defense_context_checker.py).
+
 ## Unified Report
 
 After all three phases, produce a single summary report with:

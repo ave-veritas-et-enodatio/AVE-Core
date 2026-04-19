@@ -61,6 +61,8 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
+	@echo "\n[Verify] Running defense-context checker (warning-only)..."
+	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
