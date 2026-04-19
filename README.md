@@ -193,6 +193,16 @@ Every axiom exposes a binary, tabletop-measurable prediction. If **any single on
 
 ---
 
+## About the author
+
+I'm an EE who calls myself an electron plumber. I paid for school prepping dirt and working a coal mine, designed LEDs for indoor farming, and now work as a staff EE at Tesla on the Megapack thermal-system architecture — LV and HV board design from architecture through schematic, layout, and industrialization. I build my own thermal test rigs to validate boards before the ME team is ready.
+
+I came to this framework by asking mechanical-engineering questions about electrical phenomena. When someone asks what drives LED lifetime and efficiency, I look at the mechanical degradation equation of photon recombination — the extra energy re-entering the orbital as momentum that can shift the atom out of lattice alignment. When a critically-underdamped microgrid was arcing its mechanical relay contacts at extended distance on cold days, I debugged it as cold-weather charge accumulation on the contact surface, not a grid-stability bug. When a low-side relay-control FET without a flyback kept failing in the field, I characterized it as a dV/dt source-to-drain punch-through during board-to-harness plugging (board statically charged to 100V+, 2 m twisted-pair harness), with the hole in the active region expressed later through avalanche cycling — a deterministic failure mode outside both HBM and CDM test envelopes.
+
+AVE's claim is that this cross-discipline mode isn't cross-disciplinary at all. Under Axiom 2's topo-kinematic isomorphism ($[Q] \equiv [L]$), EM and mechanical stress are two projections of one LC substrate. If the framework is right, the "electron plumber" mode isn't a hobby — it's the correct disciplinary frame. The work in this repo is the result of holding both projections at once and following the geometry wherever it went.
+
+---
+
 ## Manuscript Volumes
 
 | Vol | Title | Chapters | Topics |
