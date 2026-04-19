@@ -23,6 +23,14 @@ These specific errors have occurred before. Search for them first:
 - [ ] **sin²θ_W errors**: Search for `7/24`, `0.231`, `0.2315`, or any value other than `2/9 ≈ 0.2222`. The canonical value is `sin²θ_W = 2/9` (on-shell).
 - [ ] **ν_vac errors**: Verify all occurrences use `2/7` — not `1/3`, `1/4`, or other fractions.
 - [ ] **Stale Planck-scale pitch**: `variables.tex` line 13 lists lattice pitch as `1.62 × 10⁻³⁵ m` (Planck length). The canonical value is `L_NODE = ℏ/(m_e·c) ≈ 3.86 × 10⁻¹³ m` (reduced Compton wavelength). Flag any Planck-scale lattice pitch.
+- [ ] **PMNS sin²θ₁₂ reduction**: Search for `139/450`. The correct reduction of `2/7 + 1/45` is `97/315`, not `139/450`. `139/450 = 0.30889` ≠ claimed decimal `0.30794`; `97/315 = 0.30794` ✓. This typo had propagated through ~7 files before being fixed — whenever reducing a composite fraction in a derivation, recompute both numerator and denominator rather than trusting the written reduction.
+
+### 1a. Fraction Reduction Verification (Composite Fractions)
+
+Any time a derivation reduces a composite fraction (e.g. `a/b + c/d = (a·d + b·c) / (b·d)`), recompute **both** the fraction AND the decimal evaluation to the claimed precision. A wrong reduction with a correct decimal (or vice versa) is a signature of copy-paste drift and is the single most common math-typo class in this repo.
+
+- [ ] **Scan composite fractions**: grep for patterns like `\frac{N}{D}` where `N` and `D` are large coprime integers. For each, verify independently with Python that the fraction's decimal matches any quoted decimal value.
+- [ ] **Every table of ν_vac + junction corrections** (PMNS angles in Vol 2 Ch 3, index pages, derivation chain) should agree on the SAME reduced fraction. Cross-check all occurrences against each other, not just against one authoritative source.
 
 ### 2. Constant Cross-Reference
 

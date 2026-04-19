@@ -106,13 +106,18 @@ _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
 
 # --- Individual volume targets ---
-vol0:
+# Note: Vols 0 and 2 use xr-hyper to pull Vol 1 labels (Ch.\ref{ch:alpha_golden_torus}
+# etc.) into their \ref namespace. They depend on vol1 so `build/aux/vol_1_foundations.aux`
+# is present when Vol 0/2 are compiled. The \IfFileExists guard in those main.tex
+# files allows standalone builds to fall through silently, but targeting them via
+# these Makefile rules guarantees cross-volume refs resolve.
+vol0: vol1
 	$(call COMPILE_VOL,vol_0_engineering_compendium)
 
 vol1:
 	$(call COMPILE_VOL,vol_1_foundations)
 
-vol2:
+vol2: vol1
 	$(call COMPILE_VOL,vol_2_subatomic)
 
 vol3:
