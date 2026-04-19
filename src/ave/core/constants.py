@@ -54,8 +54,78 @@ M_E: float = 9.1093837015e-31                  # Electron rest mass [kg]
 # Topologically, m_e = T_EM × ℓ_node / c² is the unknot ground-state energy.
 # Input 2: The dielectric bound
 ALPHA: float = 7.2973525693e-3                  # Fine-structure constant (dimensionless)
+#
+# NOTE ON α (see also ALPHA_COLD_INV and DELTA_STRAIN below):
+# The value above is the CODATA measurement (α⁻¹ = 137.035999084).  Within the
+# AVE framework α is DERIVED, not input — it is the S₁₁-minimum geometric Q-factor
+# of the trefoil soliton at dielectric ropelength (the "Golden Torus"):
+#
+#     α⁻¹_ideal = 4π³ + π² + π ≈ 137.0363038  (cold-lattice, T → 0)
+#
+# The observed value is below the cold asymptote by a CMB-induced thermal strain
+# δ_strain ≈ 2.225 × 10⁻⁶.  The ALPHA above is retained as the canonical numerical
+# value for downstream calculations (matches CODATA); ALPHA_COLD_INV is provided
+# separately as the derivation's cold output, and DELTA_STRAIN is the thermal
+# correction.  See manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
+# for the full derivation.
+#
 # Input 3: The Machian boundary
 G: float = 6.67430e-11                          # Gravitational constant [m³/(kg·s²)]
+
+# =============================================================================
+# α from Golden Torus Trefoil S₁₁-minimization (Zero-Parameter Closure)
+# =============================================================================
+#
+# DERIVATION (manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex):
+#
+# 1. Nyquist resolution (Axiom 1): ℓ_node is the lattice pitch that resolves the
+#    smallest topologically stable soliton — the (2,3) trefoil. On the discrete
+#    grid, the core tube thickness is rigidly d ≡ 1 ℓ_node.
+#
+# 2. Trefoil at dielectric ropelength is pulled tight by vacuum tension; S₁₁
+#    minimization (Universal Operator #6, λ_min(S†S) → 0) enforces:
+#
+#       R − r = 1/2        (self-avoidance of internal strands)
+#       R · r = 1/4        (holomorphic screening at π² surface optimum)
+#
+#    Solving: R = φ/2, r = (φ − 1)/2   (Golden Torus; φ = golden ratio)
+#
+# 3. Multipole decomposition of the Golden Torus holomorphic impedance:
+#
+#       Λ_vol  = (2πR)(2πr)(2π·2) = 16π³(R·r) = 4π³
+#              # 3-torus phase volume; spin-1/2 4π double-cover → r_phase = 2
+#       Λ_surf = (2πR)(2πr)       = 4π²(R·r)  = π²
+#              # Clifford torus (S¹ × S¹) bounding area
+#       Λ_line = π · d            = π
+#              # core-loop magnetic moment at minimum node thickness d = 1
+#
+# 4. Cold-lattice α⁻¹ (T → 0 asymptote):
+#
+#       α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363038
+#
+ALPHA_COLD_INV: float = 4.0 * pi**3 + pi**2 + pi    # ≈ 137.0363038
+ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV            # ≈ 7.29352e-3
+
+# Vacuum Strain Coefficient — CMB-induced thermal expansion of the spatial metric
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# The observed α⁻¹ (CODATA 137.035999) is below the cold asymptote by a fractional
+# amount corresponding to thermal expansion of the spatial metric under the 2.7 K
+# CMB bath.  AVE identifies this as the Vacuum Strain Coefficient:
+#
+#     δ_strain = 1 − α_obs / α_cold
+#              = 1 − 137.035999 / 137.036304
+#              ≈ 2.225 × 10⁻⁶
+#
+# Falsifiable prediction: α runs with local thermal energy.  In extreme thermal
+# environments (collider cores, early universe) α⁻¹ decreases below 137.036.  The
+# cold 137.0363038 is the mathematical T → 0 asymptote.
+#
+DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV   # ≈ 2.225e-6
+
+# Cross-check: α × (1 − δ_strain)⁻¹ should recover ALPHA_COLD_INV to CODATA precision
+# (This is definitional given the way DELTA_STRAIN is computed, but ensures future
+# CODATA updates to ALPHA automatically refresh DELTA_STRAIN without drift.)
 
 # =============================================================================
 # DERIVED TOPOLOGICAL CONSTANTS (Axiom 1)

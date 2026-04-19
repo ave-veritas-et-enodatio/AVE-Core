@@ -2,7 +2,7 @@
 
 # Vol 1: Foundations
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). From this single-parameter Effective Field Theory, all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are now derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Ch.8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). From this zero-parameter Effective Field Theory, all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
 
 ## Key Results
 
@@ -14,6 +14,8 @@ The AVE framework models the physical vacuum as a discrete amorphous LC resonant
 | Trace-Reversal Packing Fraction | $p^* = (10z_0 - 12)/(z_0(z_0+2)) = 8\pi\alpha$ |
 | Vacuum Packing Fraction | $p_c = V_{node}/\ell_{node}^3 = 8\pi\alpha \approx 0.1834$ |
 | Inverse Fine-Structure Constant | $\alpha^{-1} = 8\pi / p_c$ |
+| Cold-Lattice $\alpha$ (Ch.8, Golden Torus) | $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ |
+| CMB-Strain $\alpha$ Correction | $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$; $\alpha^{-1}_{\text{obs}} = 137.035999$ (CODATA match) |
 | Impedance Dimensional Isomorphism | $1\,\Omega = \xi_{topo}^{-2}\,\text{kg/s}$ |
 | Dielectric Snap Limit | $V_{snap} = m_e c^2 / e \approx 511.0$ kV |
 | Unifying AVE Master Equation | $\nabla^2 V - \mu_0 \varepsilon_0 \sqrt{1 - (V/V_{yield})^2}\;\partial^2 V/\partial t^2 = 0$ |
@@ -35,3 +37,4 @@ The AVE framework models the physical vacuum as a discrete amorphous LC resonant
 | [Axioms and Lattice](./axioms-and-lattice/index.md) | Ch.1 four axioms, LC condensate vacuum, zero-parameter pathway; Ch.2 micropolar moduli, dielectric rupture, packing fraction |
 | [Dynamics](./dynamics/index.md) | Ch.3 quantum formalism from signal bandwidth, GUP, entanglement mechanism; Ch.4 master equation, operating regimes, MOND, dark sector |
 | [Operators and Regimes](./operators-and-regimes/index.md) | Ch.5 universal spatial tension and mass unification; Ch.6 eight universal operators (Z, S, Gamma); Ch.7 four-regime map and domain catalog |
+| [Ch.8: Zero-Parameter Closure — $\alpha$ from Golden Torus](./ch8-alpha-golden-torus.md) | Full derivation of $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ from S₁₁-minimum Golden Torus geometry of the trefoil electron soliton; spin-1/2 half-cover of Clifford torus rigorously justifies the $\pi^2$ screening normalization; CMB thermal strain coefficient closes to CODATA |

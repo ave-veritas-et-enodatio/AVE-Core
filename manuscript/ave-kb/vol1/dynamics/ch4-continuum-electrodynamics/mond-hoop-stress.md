@@ -6,7 +6,7 @@
 
 Dark Matter is consistent with the network dynamics of a saturating $\mathcal{M}_{A}$ condensate. The phenomenological MOND acceleration threshold ($a_{0}$) corresponds to the fundamental Unruh-Hawking Drift of the expanding cosmic lattice.
 
-The asymptotic Hubble constant $H_\infty$ is derived strictly from the three calibration inputs of the AVE framework. By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to:
+The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../ch8-alpha-golden-torus.md)). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to:
 
 > **[Resultbox]** *Asymptotic Hubble Constant*
 >

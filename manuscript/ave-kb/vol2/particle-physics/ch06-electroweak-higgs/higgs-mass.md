@@ -82,6 +82,6 @@ $$
 | $\sum m_\nu$ | $\sim 0.054$ eV | $<0.12$ eV | Within bound |
 | $a_e$ (Schwinger) | $\alpha/(2\pi) = 0.001161$ | 0.001160 | $+0.09\%$ |
 
-Every entry in this table is computed from the same three calibration inputs ($m_e$, $\alpha$, $G$) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
+Every entry in this table is computed from the same three canonical hardware scales ($m_e$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../../vol1/ch8-alpha-golden-torus.md)) plus the Poisson ratio $\nu_{vac} = 2/7$ and the packing fraction $p_c = 8\pi\alpha$. No Standard Model parameters (Yukawa couplings, CKM matrix elements, or Higgs VEV) are used.
 
 ---

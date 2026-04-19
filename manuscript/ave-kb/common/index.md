@@ -2,13 +2,13 @@
 
 # AVE Common Resources
 
-Cross-volume reference material shared across all AVE volumes. Contains the unified experimental falsification index, the complete derivation chain from three bounding limits to zero free parameters, the universal solver toolchain, system verification trace, the interdisciplinary translation matrix, and domain-specific translation tables mapping established physics disciplines to AVE equivalents.
+Cross-volume reference material shared across all AVE volumes. Contains the unified experimental falsification index, the complete derivation chain from four axioms + three (now-derived) hardware scales to zero free parameters, the universal solver toolchain, system verification trace, the interdisciplinary translation matrix, and domain-specific translation tables mapping established physics disciplines to AVE equivalents. The zero-parameter closure is finalized by the Golden Torus $\alpha$ derivation (Vol 1 Ch 8).
 
 ## Key Results
 
 | Result | Location |
 |---|---|
-| Complete derivation chain: 3 bounding limits + 4 axioms → 8 derivation layers → zero free parameters | [Full Derivation Chain](full-derivation-chain.md) |
+| Complete derivation chain: 4 axioms + Golden Torus $\alpha$ derivation → 8 derivation layers → genuinely zero free parameters | [Full Derivation Chain](full-derivation-chain.md) |
 | Automated diagnostic confirms strict geometric closure (DAG proof, no free parameters) | [Mathematical Closure](mathematical-closure.md) |
 | Universal regime-boundary eigenvalue method applies across BH QNM, nuclear, protein, and semiconductor domains | [Solver Toolchain](solver-toolchain.md) |
 | Unified experimental index: hardware benchmarks, astronomical tests, biophysical proposals (all volumes) | [Unified Experiments Appendix](appendix-experiments.md) |

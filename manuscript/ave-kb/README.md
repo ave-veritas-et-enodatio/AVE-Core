@@ -6,7 +6,7 @@ The AVE KB is a navigable Markdown distillation of an 8-volume LaTeX physics man
 
 ## What the KB Contains
 
-The manuscript derives all physical observables — particle masses, coupling constants, bond energies, cosmological parameters, neural scaling laws — from three bounding constants ($\ell_{node}$, $\alpha$, $G$) and four topological axioms governing the physical vacuum modeled as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$). The KB distills this into leaf documents (verbatim LaTeX→Markdown translation) organized under a hierarchy of index documents.
+The manuscript derives all physical observables — particle masses, coupling constants, bond energies, cosmological parameters — from four topological axioms plus three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$), all three of which are themselves derived (see Vol 1 Ch 8 for the Golden Torus derivation of $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$). The KB distills the manuscript into leaf documents (verbatim LaTeX→Markdown translation) organized under a hierarchy of index documents.
 
 ## Hierarchy
 
@@ -71,8 +71,6 @@ Cross-volume reference target leaves carry a third structural annotation on line
 | [Vol 4: Applied Vacuum Engineering](vol4/index.md) | Engineering translation into falsifiable hardware via the Vacuum Circuit Analysis framework. Chiral antennas, ponderomotive thrusters, topological SMES, SPICE simulation suite. |
 | [Vol 5: Topological Biology](vol5/index.md) | Zero-free-parameter biology from AVE axioms. Amino acids as SPICE circuits; protein folding as $S_{11}$ minimization; validated against 20 PDB structures. |
 | [Vol 6: Periodic Table of Knots](vol6/index.md) | Nuclear masses and 3D geometries for $Z=1$–119 via AVE mutual impedance summation. Explicit alpha-particle cluster placement; semiconductor-regime classification. |
-| [Vol 7: Hardware & Future Work](vol7/index.md) | Engineering applications, precision anomaly resolutions, condensed matter derivations. Metric streamlining, ten modern physics anomalies resolved, white dwarf shear eigenfrequency, black hole interior. |
-| [Vol 8: Virtual Media and Informational Topology](vol8/index.md) | AVE axioms instantiated in LLM weight matrices. SwiGLU as Axiom 4 saturation; MoE router as Axiom 3 minimization. Hardware/software impedance inversion: $Z \propto A$ vs $Z \propto 1/A$. |
 
 ## Using the System
 
@@ -101,7 +99,7 @@ Note: agent defaults to opus
 
 ⏺ Ready. No previously explored topics on record. What would you like to explore?
 
-  The KB covers eight volumes of the AVE framework:
+  The KB covers six volumes of the AVE framework:
 
   1. Foundations — vacuum lattice, four axioms, master equation
   2. Subatomic Scale — particle masses, electroweak mixing, neutrino sector
@@ -109,8 +107,6 @@ Note: agent defaults to opus
   4. Applied Vacuum Engineering — circuit theory, hardware programs, simulation
   5. Topological Biology — amino acid circuits, protein folding, H-bond derivation
   6. Periodic Table of Knots — nuclear masses, alpha-cluster geometries
-  7. Hardware & Future Work — propulsion, condensed matter, astrophysical predictions
-  8. Virtual Media — LLM weight matrices as AVE instantiation, SwiGLU/sigmoid geometry
 
   Plus shared common resources (translation tables, experimental falsification index, derivation chains).
 

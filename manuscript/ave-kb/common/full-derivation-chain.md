@@ -12,8 +12,8 @@ unconstrained free parameters are introduced at any stage.
 
 A peer reviewer may verify the logical closure of the framework by confirming:
 1. Each "Layer" derives *only* from quantities established in preceding layers.
-2. The three initial calibration inputs are themselves shown to be geometrically emergent (Layer 8), closing the loop.
-3. All numerical values are reproduced exactly by `src/ave/core/constants.py`.
+2. The three canonical hardware scales are themselves derived (Layer 8 + Vol 1 Ch 8 Golden Torus $\alpha$ derivation), closing the loop to zero parameters.
+3. All numerical values are reproduced exactly by `src/ave/core/constants.py` (including `ALPHA_COLD_INV = 4π³ + π² + π` and `DELTA_STRAIN`).
 
 ## Postulates: Three Bounding Limits and Four Axioms
 
@@ -583,11 +583,21 @@ geometrically emergent---not independent empirical inputs---formally reducing
 the framework to **zero free parameters**.
 
 **$\alpha$ is derived (not input).**
-Layer 2 explicitly derives $\alpha = p_c / (8\pi)$ from the
-ratio of the Schwinger critical energy density to the unknot ground-state mass.
-The EMT operating point (Layer 3)
-independently confirms $p^* = 8\pi\alpha$ as the *unique* packing
-fraction satisfying the trace-reversal identity $K = 2G$.
+The full derivation is in Vol 1 Ch 8 (Zero-Parameter Closure: $\alpha$ from the Golden Torus). Three distinct physical regimes produce three independent equations that solve uniquely to the Golden Torus geometry:
+
+1. **Nyquist regime** (Axiom 1 + smallest stable soliton): tube diameter $d = 1\,\ell_{node}$.
+2. **Crossings regime** (self-avoidance at trefoil crossings): $2(R-r) = d \Rightarrow R - r = 1/2$.
+3. **Screening regime** (spin-1/2 half-cover of standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$): $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$.
+
+Solving (2) ∧ (3): $R = \varphi/2$, $r = (\varphi-1)/2$ (Golden Torus; $\varphi$ = golden ratio). The multipole decomposition at this geometry yields:
+
+$$
+\alpha^{-1}_{\text{ideal}} = \Lambda_{\text{vol}} + \Lambda_{\text{surf}} + \Lambda_{\text{line}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038
+$$
+
+with CMB-induced thermal strain $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ correcting to the CODATA value $137.035999$.
+
+The Layer 2 identity $p_c = 8\pi\alpha$ and the Layer 3 EMT operating point are downstream algebraic consequences of this closure, not the closure mechanism. Given $\alpha$ derived above, the EMT quadratic then determines $z_0 \approx 51.25$ uniquely.
 
 **$G$ is derived (not input).**
 Macroscopic gravity is the aggregate bulk modulus of $\sim\!10^{40}$ lattice

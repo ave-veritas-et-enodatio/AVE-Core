@@ -64,3 +64,9 @@ manuscript/**/main.pdf
 # IDE artifacts
 .gemini_reply
 .cursorrules
+
+# Agent scratch / audit working files (kept local as seed corpus for a future
+# custom defense-context checker: spots where an uncontextualized AI reviewer
+# will misread the framework and where the source should add pre-emptive context)
+.agents/
+docs/framing_and_presentation.md
