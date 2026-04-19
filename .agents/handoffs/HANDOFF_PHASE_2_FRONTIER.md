@@ -1,5 +1,19 @@
 # 🚀 Phase 2: Open Research Frontier
 
+> ## 📜 HISTORICAL — 2026-04-19
+>
+> **This document predates the kb_audit remediation effort and is retained only for historical context.**
+>
+> - The opening claim *"the framework is strictly parameter-free and mathematically rigorous"* was **aspirational** at the time this was written. The kb_audit subsequently surfaced substantive gaps that have since been addressed via PRs #3–#9. The framework is **now genuinely parameter-free for α** (via the Ch 8 Golden Torus derivation in PR #3) but this document was written before that closure existed in the public repo.
+> - **P2.8 (Running α)** is **partially addressed** by Ch 8 §sec:alpha_thermal_running, which derives the CMB-induced thermal running of α. The QED energy-scale running (different mechanism) remains open and is re-captured in `FUTURE_WORK.md` as G-3.
+> - **P2.9b (Neutrino Δm² splitting)** remains open and is re-captured in `FUTURE_WORK.md` as G-4.
+> - All other entries (Island of Stability, Dielectric Plateau hardware, Transient Solvers, Protein Folding Rate, Topological Entropy) remain open and are re-captured in `FUTURE_WORK.md` as G-5.
+>
+> **Canonical successor for the active queue:** [`FUTURE_WORK.md`](FUTURE_WORK.md).
+> **Canonical current state:** [`CURRENT_STATE.md`](CURRENT_STATE.md).
+
+---
+
 The comprehensive peer-review and remediation phases for the Applied Vacuum Engineering framework are complete. The manuscript and codebase are structurally sound, strictly parameter-free, and mathematically rigorous.
 
 This document serves as the sole tracking manifest for the remaining theoretical boundaries. These items are *not* broken code or logical contradictions; they are genuine research domains that require novel extensions to the mathematical operator set.
