@@ -28,7 +28,7 @@
 > **Violation of this rule is the single most common failure mode in this project.** Every quarantined solver (~2,000+ lines) was written before its physics was derived.
 
 1. **Axiom 1 (Impedance):** The vacuum is an LC resonant network with Z₀ = √(μ₀/ε₀) ≈ 377 Ω
-2. **Axiom 2 (Fine Structure):** α = e²/(4πε₀ℏc) couples topology to impedance
+2. **Axiom 2 (Topo-Kinematic Isomorphism):** Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; α falls out as the Q-factor of the minimum-crossing soliton (Vol 1 Ch 8). α being derived does not reduce the axiom count — the isomorphism, not α's value, is the axiomatic content.
 3. **Axiom 3 (Gravity):** G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²)
    - **α invariance**: Under Symmetric Gravity, α = e²/(4πε₀ℏc₀) is exactly invariant because ε_local and c_local carry the same n·S factor that cancels. Multi-species Δα/α = 0.
    - **Lattice decomposition**: n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift); n_spatial = (9/7)ε₁₁ (light deflection). Axiom 3's n(r) = 1+2GM/(c²r) is the temporal component only.
