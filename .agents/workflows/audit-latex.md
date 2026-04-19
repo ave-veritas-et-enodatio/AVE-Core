@@ -146,6 +146,29 @@ For each figure referenced in the manuscript, verify the output is publication-q
 - [ ] Function signatures in API tables match actual code
 - [ ] Delegation flow examples are accurate
 
+### 11a. Cross-Volume Reference Hygiene (xr-hyper)
+
+Cross-volume `\ref{}` calls only resolve in standalone PDF builds if the target volume's `.aux` file is pulled in via `xr-hyper`. Volumes that cite another volume's labels MUST declare the dependency in their `main.tex`.
+
+**Setup pattern (in `main.tex`, after `commands.tex` include, before `\begin{document}`):**
+```latex
+\usepackage{xr-hyper}
+\IfFileExists{../../build/aux/vol_1_foundations.aux}{%
+    \externaldocument{../../build/aux/vol_1_foundations}%
+}{%
+    \typeout{[xr-hyper] vol_1_foundations.aux not found — run `make vol1` first.}%
+}
+```
+
+**Makefile dependency**: `vol0`, `vol2`, etc. that rely on Vol 1 labels must depend on `vol1` so the aux file is present at build time.
+
+#### Checklist
+- [ ] **Scan every standalone-built `main.tex`** for `\ref{}` calls to labels defined in *another* volume (grep the label name in the project and check which volumes define/consume it).
+- [ ] **Any downstream volume citing Vol 1 labels** (e.g. `ch:alpha_golden_torus`, `sec:pi_squared_rigor`) must load `xr-hyper` and declare `\externaldocument{../../build/aux/vol_1_foundations}`. If it doesn't, the build will silently produce `??` in the PDF.
+- [ ] **Shared backmatter files** (`manuscript/backmatter/*.tex`) that contain `\ref{}` to Vol 1 labels must be paired with xr-hyper setup in *every* volume's `main.tex` that `\input`s them. Currently: Vol 0 and Vol 2.
+- [ ] **Verify resolution** by grepping the final-pass log for undefined references: `grep -E "undefined on input" build/aux/<vol>.log` must return zero lines after the last pdflatex pass (initial-pass warnings are fine).
+- [ ] **Prose citations are a fallback, not the target state.** If a cross-volume cite is in prose form (`"see Vol.~1, Ch.~8 \textit{Zero-Parameter Closure}"` rather than `\ref{}`), treat it as a historical artifact from before xr-hyper was wired up and convert to `\ref{}`. The point of xr is that chapter numbers, page numbers, and hyperref links all stay accurate under chapter renumbering.
+
 ### 12. Chapter Content Completeness (Engineering Textbook Standard)
 
 Every chapter should contain the elements expected in a professional engineering textbook:
