@@ -137,5 +137,5 @@ class TestFullProof:
         assert proof['Step_1_Lattice']['laplacian_bounded']
         assert proof['Step_2_Velocity_Bound']['v_bounded']
         assert proof['Step_3_Global_Existence']['GLOBAL_EXISTENCE_PROVEN']
-        assert proof['Step_4_Continuum_Limit']['smoothness_preserved']
+        assert proof['Step_4_Continuum_and_Sobolev']['smoothness_preserved']
         assert proof['NS_SMOOTHNESS_PROVEN']
