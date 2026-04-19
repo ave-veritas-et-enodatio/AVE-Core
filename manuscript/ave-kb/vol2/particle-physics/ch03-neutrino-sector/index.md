@@ -13,7 +13,7 @@ The neutrino is defined geometrically as a $0_1$ twisted unknot whose zero self-
 | Neutrino sum | $\sum m_\nu \approx 0.054$ eV (within Planck 2018 bound $< 0.12$ eV) |
 | Chiral Screening Threshold | $\Delta c_{crit} = 3$ (K4 connectivity = trefoil crossing number) |
 | $\sin^2\theta_{13}$ | $1/(c_1 c_3) = 1/45 = 0.02222$ (NuFIT 5.2: 0.02200, $1.0\%$) |
-| $\sin^2\theta_{12}$ | $\nu_{vac} + 1/45 = 2/7 + 1/45 = 139/450 = 0.30794$ (NuFIT 5.2: 0.307, $0.3\%$) |
+| $\sin^2\theta_{12}$ | $\nu_{vac} + 1/45 = 2/7 + 1/45 = 97/315 = 0.30794$ (NuFIT 5.2: 0.307, $0.3\%$) |
 | $\sin^2\theta_{23}$ | $1/2 + 2/45 = 49/90 = 0.54444$ (NuFIT 5.2: 0.546, $0.3\%$) |
 | CP-violating phase | $\delta_{CP} = (1 + 1/3 + 1/45)\pi = 61\pi/45$ ($\delta_{CP}/\pi = 1.3556$; NuFIT: 1.36, $0.3\%$) |
 | Neutrino Mass Ordering | $m_i \propto 1/c_i^2$; $m_1 : m_2 : m_3 = 1/25 : 1/49 : 1/81$ |

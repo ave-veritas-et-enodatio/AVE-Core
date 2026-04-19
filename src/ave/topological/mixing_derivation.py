@@ -63,7 +63,7 @@ Step 3: PERTURBATIVE JUNCTION CORRECTIONS
     The perturbative junction coupling 1/(c₁c₃) = 1/45 adds to
     each mixing angle as an evanescent tail:
     
-        sin²θ₁₂ = ν_vac + 1/(c₁c₃)  = 2/7 + 1/45  = 139/450
+        sin²θ₁₂ = ν_vac + 1/(c₁c₃)  = 2/7 + 1/45  = 97/315
         sin²θ₂₃ = 1/2   + 2/(c₁c₃)  = 1/2 + 2/45  = 49/90
         sin²θ₁₃ =         1/(c₁c₃)  =       1/45
     
@@ -287,7 +287,7 @@ def derive_pmns_angles() -> dict:
     # Compliance regime: Δc/c₂ = 2/7, plus junction correction
     compliance_12 = compliance_eigenvalue(c1, c2)  # = 2/7
     sin2_12 = compliance_12 + 1 * Y_junc
-    # = 2/7 + 1/45 = 139/450 = 0.30889
+    # = 2/7 + 1/45 = 97/315 = 0.30794
 
     # --- sin²θ₂₃ (atmospheric angle) ---
     # Impedance-matched regime: 1/2, plus 2× junction correction
