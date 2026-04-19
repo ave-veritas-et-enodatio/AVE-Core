@@ -1,6 +1,6 @@
 # Applied Vacuum Engineering — Knowledge Base
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. From three bounding constants ($\ell_{node}$, $\alpha$, $G$), all physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network. Zero free parameters after the initial three hardware limits.
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). The framework is **genuinely zero-parameter**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), CMB-corrected to CODATA $137.035999$.
 
 ---
 

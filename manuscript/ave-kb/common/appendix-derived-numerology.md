@@ -3,7 +3,7 @@
 
 # Appendix C: Derived Hardware Numerology
 
-The AVE framework operates under the strictest formulation of first-principles physics. There are precisely three arbitrary calibration inputs ($\ell_{node}$, $\alpha$, and $G$) defining the entire universal manifold. Every subsequent physical constraint must be analytically traceable back to these parameters without empirical curve-fitting.
+The AVE framework operates under the strictest formulation of first-principles physics. The entire universal manifold is defined by three canonical hardware scales ($\ell_{node}$, $\alpha$, and $G$), all three of which are derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from the Nyquist resolution of the smallest topologically stable soliton, and $G$ from the Machian boundary condition (Axiom 3). Every subsequent physical constraint is analytically traceable back to these derived scales plus the four axioms, without empirical curve-fitting.
 
 This appendix derives the hardware numerology appearing throughout Volume 9, verifying their exact theoretical limits against the continuous LC tensor solver and the declarative compilation traces.
 

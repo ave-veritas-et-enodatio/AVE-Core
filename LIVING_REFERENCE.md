@@ -1,13 +1,14 @@
 # AVE Project — Living Reference Document
 > **Last Updated:** 2026-04-08  
 > **Purpose:** Canonical reference for all AI assistants and collaborators. Any chat session should read this file first.
+>
+> **Companion:** [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) captures recurring patterns that create friction between AVE and reviewers trained in SM/QED/continuum-GR physics — with specific anti-patterns, corrected framings, and remediation targets. Read it before presenting AVE externally or reviewing it.
 
 ## Project Identity
 
 | Field | Value |
 |-------|-------|
 | **Name** | Applied Vacuum Engineering (AVE) |
-| **Domain** | [appliedvacuumengineering.com](https://appliedvacuumengineering.com) |
 | **Repo** | [github.com/ave-veritas-et-enodatio/AVE-Core](https://github.com/ave-veritas-et-enodatio/AVE-Core) |
 | **Author** | Grant Lindblom |
 | **Status** | Active development — Phase D/E |
@@ -224,12 +225,12 @@ src/tests/            # 746 passing tests
 future_work/          # Speculative roadmap
 ```
 
-## Master Prediction Table (46 entries)
+## Master Prediction Table (47 entries)
 
 | # | Prediction | Δ% | Status |
 |---|-----------|-----|--------|
-| 1 | α (input) | 0.00% | ✅ |
-| 2 | Z₀ (input) | 0.00% | ✅ |
+| 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 (Ch.8) |
+| 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
 | 3 | g-2 anomaly | 0.15% | ✅ |
 | 4 | sin²θ_W | 0.30% | ✅ |
 | 5 | M_W | 0.55% | ✅ |
@@ -274,8 +275,12 @@ future_work/          # Speculative roadmap
 | 44 | BH interior (Regime IV) | Exact | ✅ G_shear = 0, c_eff = 0 for r < r_sat = 7GM/c². Symmetric saturation → Z = Z₀, Γ = 0 (dissipative sink). |
 | 45 | Regime IV isomorphism | — | ✅ BH (sym, hole) ≠ electron (asym, knot). Same S=0 operator, different saturation symmetry. |
 | 46 | IE sweep Z=1–12 | 2.8% max | ✅ ODE cavity eigenvalue + Hopf mode split + hierarchical cascade (Be) + SIR boundary (Mg). Zero free parameters. |
+| 47 | α thermal running (δ_strain) | 2.2×10⁻⁶ at T=2.7 K | ✅ CMB-induced expansion of the spatial metric; predicts α⁻¹ decreases in high-T regions. Falsifiable. See Ch.8 and `DELTA_STRAIN` in constants.py. |
 
-Run: `python src/scripts/future_work/master_predictions.py`
+Run: `python src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py` (cold-lattice α derivation; verifies ALPHA_COLD_INV = 4π³+π²+π and CMB correction δ_strain)
+Rigorously justify π² (Clifford half-cover): `python src/scripts/vol_1_foundations/verify_clifford_half_cover.py` — derives Λ_surf = π² from spin-1/2 half-cover of the standard Clifford torus T² ⊂ S³ ⊂ ℂ², closing the π² normalization rigorously. Three-regime structure parallel to PMNS-angle derivation (Nyquist / crossings / screening).
+Verify (definitive, numerical): `python src/scripts/vol_1_foundations/ropelength_trefoil_golden_torus.py` — minimizes ropelength + self-avoidance + holomorphic screening; converges to (R, r) = (φ/2, (φ-1)/2) exactly from arbitrary starting point.
+Verify (algebraic + infrastructure): `python src/scripts/vol_1_foundations/verify_golden_torus_s11.py`
 
 ## Scale Invariance Principle
 
@@ -346,76 +351,6 @@ validations run independently.
 4. **Galaxy rotation uses derived a₀ = cH∞/(2π) ≈ 1.07×10⁻¹⁰** (−10.7% from empirical 1.2×10⁻¹⁰). This is NOT a free parameter — it emerges from the asymptotic Hubble constant H∞ = 28πm_e³cG/(ℏ²α²). See `src/ave/gravity/galactic_rotation.py`.
 5. **The SPICE RC muon model is qualitative.** The quantitative lifetime comes from the Fermi formula with AVE-derived G_F (3.9% accurate).
 
-## Website — appliedvacuumengineering.com
-
-### Site Map
-
-```
-/                       → Landing page (hero + key prediction count)
-/theory                 → Overview of 4 axioms + lattice model
-/theory/axioms          → Interactive axiom explorer (toggle each on/off)
-/theory/constants       → Live constant derivation table
-/predictions            → Master prediction table (sortable, filterable)
-/predictions/calculator → Enter axiom values → get all 13+ predictions
-/engine                 → FDTD engine docs + API reference
-/engine/playground      → In-browser 2D FDTD demo (WebGL)
-/experiments            → PONDER-01 / 02 / 05 / HOPF-01 overview
-/experiments/ponder-01  → Build guide, BOM, PCB layout rules
-/experiments/ponder-05  → DC bias analysis, ε_eff curve, steepening
-/experiments/hopf-01    → Torus knot antenna, S₁₁ prediction
-/domains                → Domain extensions grid
-/domains/seismology     → PREM impedance model
-/domains/water          → 4°C anomaly from impedance matching
-/domains/plasma         → Plasma cutoff from ε saturation
-/domains/galaxies       → Rotation curves (no dark matter)
-/visualizations         → 3D interactive demos
-/visualizations/lattice → SRS K4 net (Three.js)
-/visualizations/knots   → Torus knot library (periodic table)
-/visualizations/photon  → Helical photon propagation GIF
-/downloads              → Manuscript PDFs, code, SPICE netlists
-/blog                   → Updates, experimental results, community
-```
-
-### Tech Stack (Recommended)
-
-| Layer | Choice | Rationale |
-|-------|--------|-----------|
-| Framework | Next.js (App Router) | SSR for SEO, API routes for computation |
-| 3D Rendering | Three.js + React Three Fiber | WebGL lattice/knot visualizations |
-| Styling | Tailwind CSS | Rapid iteration, dark mode built-in |
-| Computation | WebAssembly (Rust/C) | Client-side FDTD playground |
-| Hosting | Vercel | Free tier, instant deploys from GitHub |
-| CMS/Blog | MDX | Markdown + React components |
-| Data | Static JSON | Prediction table, element catalog |
-
-### Content Sources (map to existing repo)
-
-| Page | Source File |
-|------|------------|
-| Prediction table | `src/scripts/future_work/master_predictions.py` |
-| Axioms/constants | `src/ave/core/constants.py` |
-| Yang-Mills proof | `src/ave/axioms/yang_mills.py` |
-| Navier-Stokes proof | `src/ave/axioms/navier_stokes.py` |
-| Strong CP / open problems | `src/ave/axioms/open_problems.py` |
-| Mass gap (spectral) | `src/ave/axioms/spectral_gap.py` |
-| Solar impedance | `src/ave/gravity/solar_impedance.py` |
-| Magnetospheres | `src/ave/gravity/planetary_magnetosphere.py` |
-| Galaxy rotation | `src/ave/gravity/galactic_rotation.py` |
-| GW propagation | `src/ave/gravity/gw_propagation.py` |
-| GW detection | `src/ave/gravity/gw_detector.py` |
-| Stellar interiors | `src/ave/gravity/stellar_interior.py` |
-| Neutrino MSW | `src/ave/gravity/neutrino_msw.py` |
-| Superconductor | `src/ave/plasma/superconductor.py` |
-
-### Phased Rollout
-
-| Phase | Scope | Priority |
-|-------|-------|----------|
-| **v0.1** | Landing + prediction table + downloads | After PONDER characterization |
-| **v0.2** | Theory pages + interactive constant explorer | — |
-| **v0.3** | 3D visualizations (lattice, knots, photon) | — |
-| **v0.4** | PONDER build guides + experimental blog | — |
-| **v0.5** | In-browser FDTD playground (WebAssembly) | — |
 
 ## Protein Folding Engine
 

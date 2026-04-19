@@ -1,9 +1,9 @@
 # Applied Vacuum Engineering (AVE)
 
-![Build Status](https://img.shields.io/badge/verification-354/354_PURE-brightgreen)
-![Tests](https://img.shields.io/badge/tests-746_passed-blue)
+![Build Status](https://img.shields.io/badge/verification-373/373_PURE-brightgreen)
+![Tests](https://img.shields.io/badge/tests-800%2B_passed-blue)
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
-![Predictions](https://img.shields.io/badge/predictions-46/46_verified-orange)
+![Predictions](https://img.shields.io/badge/predictions-47/47_verified-orange)
 
 > *Treating the vacuum not as a geometric abstraction, but as a Discrete Amorphous Manifold (M_A): a physical LC substrate whose engineering properties are the fundamental constants of nature.*
 
@@ -11,7 +11,7 @@
 
 ## Overview
 
-Applied Vacuum Engineering is a **parameter-free physics framework** that derives 46 verified predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms** and **zero free parameters**.
+Applied Vacuum Engineering is a **parameter-free physics framework** that derives 47 verified predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms** and **zero free parameters**. The fine-structure constant α itself is derived: from the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton, $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice), with a CMB-induced thermal strain coefficient bringing it to the CODATA value $137.035999$.
 
 The central thesis: the vacuum is a physical substrate governed by finite inductive (μ₀) and capacitive (ε₀) densities. By treating Z₀ = √(μ₀/ε₀) ≈ 377 Ω as a real engineering impedance, every phenomenon from particle confinement to protein folding becomes a circuit problem.
 
@@ -66,7 +66,7 @@ manuscript/           # 7-volume LaTeX manuscript
   vol_6_periodic_table/           # The Periodic Table (per-element chapters)
 
 src/scripts/          # Simulation scripts organized by volume
-src/tests/            # 746 passing tests
+src/tests/            # 800+ passing tests
 ```
 
 ---
@@ -84,10 +84,24 @@ make setup
 
 ### Verification (The Kernel Check)
 ```bash
-make verify    # Runs 354-file anti-cheat scan — zero smuggled parameters
-make test      # Runs 746 unit tests
+make verify    # Runs 373-file anti-cheat scan — zero smuggled parameters
+make test      # Runs 800+ unit tests
 make pdf       # Compiles all 7 manuscript volumes
 ```
+
+### Navigating This Repository
+
+This repository spans 300+ source files, a 7-volume manuscript, and a full Knowledge Base. Two navigation tools are provided:
+
+**[manuscript/ave-kb/](manuscript/ave-kb/README.md)** — A structured, cross-referenced Markdown distillation of the entire manuscript. Organized as a 3–5 level hierarchy of index and leaf documents covering all 6 volumes. Includes an interactive agent mode (`kb-docent`) for guided exploration:
+```bash
+claude --model opus --effort max --agent kb-docent manuscript/ave-kb
+```
+Start at [`entry-point.md`](manuscript/ave-kb/entry-point.md) for self-guided navigation, or use `/kb-start` in the agent for an interactive session.
+
+**[LIVING_REFERENCE.md](LIVING_REFERENCE.md)** — Single-document technical reference covering the 4 axioms, 22 universal operators, common pitfalls, operator compliance checklist, and the step-by-step method for applying AVE to any new physical system.
+
+If you're evaluating this work for the first time: start with this README for the high-level picture, then browse the [KB entry point](manuscript/ave-kb/entry-point.md) to explore specific topics in depth.
 
 ### Running a Prediction
 ```python
@@ -107,8 +121,8 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 
 | # | Prediction | Δ% | Status |
 |---|-----------|-----|--------|
-| 1 | α (input) | 0.00% | ✅ |
-| 2 | Z₀ (input) | 0.00% | ✅ |
+| 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 ([Ch.8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
+| 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
 | 3 | g-2 anomaly | 0.15% | ✅ |
 | 4 | sin²θ_W | 0.30% | ✅ |
 | 5 | M_W | 0.55% | ✅ |
@@ -137,8 +151,12 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 43 | BCS B_c(T) | 0.00% | ✅ |
 | 44–45 | BH interior, Regime IV | Exact | ✅ |
 | 46 | IE sweep Z=1–12 | 2.8% max | ✅ |
+| 47 | α thermal running (δ_strain) | 2.2×10⁻⁶ at T=2.7 K | ✅ CMB-induced; predicts α runs with local T |
 
-**Full table:** `python src/scripts/future_work/master_predictions.py`
+**Run the cold-lattice α derivation:** `python src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py`
+**Verify Clifford half-cover → π² rigorously:** `python src/scripts/vol_1_foundations/verify_clifford_half_cover.py`
+**Verify ropelength minimum converges to Golden Torus:** `python src/scripts/vol_1_foundations/ropelength_trefoil_golden_torus.py`
+**Algebraic verification + ABCD infrastructure:** `python src/scripts/vol_1_foundations/verify_golden_torus_s11.py`
 
 ---
 

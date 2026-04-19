@@ -21,9 +21,9 @@ The four fundamental axioms define the vacuum as an electromagnetic LC resonant 
 
 | Document | Contents |
 |---|---|
-| [Calibration and Cutoff Scales](./calibration-cutoff-scales.md) | Three fundamental emergent hardware constraints: $\ell_{node}$, $\alpha$, $G$ |
+| [Calibration and Cutoff Scales](./calibration-cutoff-scales.md) | Three canonical hardware scales: $\ell_{node}$, $\alpha$, $G$ (all derived from first principles; $\alpha$ closure in Ch.8 Golden Torus) |
 | [Axiom Definitions](./axiom-definitions.md) | The four fundamental axioms with resultboxes for $\xi_{topo}$, $\mathcal{L}_{node}$, $C_{eff}$ |
 | [LC Condensate Vacuum](./lc-condensate-vacuum.md) | Planck scale artifact, true gravitational coupling, vacuum porosity ratio |
-| [Zero-Parameter Universe](./zero-parameter-universe.md) | Deriving $\alpha$ via EMT, $G$ via thermodynamic equilibrium, $\ell_{node}$ via scale invariance |
+| [Zero-Parameter Universe](./zero-parameter-universe.md) | Deriving $\alpha$ via Golden Torus S₁₁-min (Ch.8), $G$ via thermodynamic equilibrium, $\ell_{node}$ via scale invariance |
 | [Kirchhoff Network Method](./kirchhoff-network-method.md) | Discrete Kirchhoff solver, edge/node update equations, master constants pipeline |
 | [Lattice Structure (stub)](./lattice-structure.md) | Redirect to Kirchhoff network method |
