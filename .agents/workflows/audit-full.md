@@ -46,6 +46,28 @@ Each finding carries a rule ID (`B1`, `B2`, `A3`, `A1`, `C2`, `CRIT-1`) mapping 
 
 To add a new rule, edit [`src/scripts/defense_context_checker.py`](../../src/scripts/defense_context_checker.py) `RULES` list and add a corresponding test case in [`src/tests/test_defense_context_checker.py`](../../src/tests/test_defense_context_checker.py).
 
+### Phase 5: Claim-Graph Validator (Tier-2 structural rigor)
+
+```bash
+python src/scripts/claim_graph_validator.py
+```
+
+Structural validator for [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) — the authoritative manifest of every public-facing prediction. Four checks:
+
+1. **schema** — every entry has required fields; types are in the allowed set; IDs unique.
+2. **label** — every `derivation_label` resolves to a real `\label{}` target in `manuscript/**/*.tex`.
+3. **engine** — every `constants_py_symbol` resolves in `src/ave/core/constants.py`; live numeric value agrees with `predicted_value` to rtol 1e-5.
+4. **parity** — every row in the README Master Prediction Table maps to a manifest entry (no undocumented public claims).
+
+Unlike the framing checker, the claim-graph validator is **enforced in `make verify`** — critical findings fail the build. This is the right stance because unresolved labels or engine drift are structural errors, not framing choices.
+
+**When editing the manifest:**
+- If you change a prediction's derivation chapter, update `derivation_label` to match the new `\label{}`.
+- If you change a constant in `constants.py`, either update the manifest's `predicted_value` or accept that the validator will fail until the two agree.
+- If you add a new public prediction to the README, add a corresponding manifest entry (validator flags this as a parity finding).
+
+Tests live at [`src/tests/test_claim_graph_validator.py`](../../src/tests/test_claim_graph_validator.py).
+
 ## Unified Report
 
 After all three phases, produce a single summary report with:
