@@ -7,6 +7,18 @@
 % --- Build-specific Graphics Path ---
 \graphicspath{{figures/}{chapters/figures/}{assets/}{simulations/outputs/}{../../assets/}{../../assets/figures/}{../../assets/sim_outputs/}}
 
+% --- Cross-Volume References (xr-hyper) ---
+% Pulls Vol 1's labels (e.g. ch:alpha_golden_torus, sec:pi_squared_rigor) into
+% this volume's \ref namespace so \ref{ch:alpha_golden_torus} resolves to the
+% Vol 1 chapter number and page. Requires `make vol1` to have been run first;
+% the \IfFileExists guard lets standalone builds fall through silently.
+\usepackage{xr-hyper}
+\IfFileExists{../../build/aux/vol_1_foundations.aux}{%
+    \externaldocument{../../build/aux/vol_1_foundations}%
+}{%
+    \typeout{[xr-hyper] vol_1_foundations.aux not found — cross-vol refs will be unresolved. Run `make vol1` first.}%
+}
+
 \begin{document}
 
 \frontmatter
