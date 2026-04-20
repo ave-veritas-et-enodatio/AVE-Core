@@ -75,6 +75,15 @@
 - **Surfaced:** Phase 1 bibliography expansion, 2026-04-20
 - **Status:** queued (Phase-1 wrap-up task)
 
+### [8] Resolve AVE major-minor convention for "(2,3)" assignment on Clifford torus
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md) §7.2 + [03_existence_proof.md](03_existence_proof.md) §4.3 (anywhere that assigns windings to major/minor cycles)
+- **Kind:** markdown (internal research docs) + potentially manuscript Ch 8 annotation
+- **Location:** §7.2 of `02_` and wherever $(w_1, w_2) = (2, 3)$ is tied to $(\theta_1, \theta_2)$
+- **Change:** Explicitly state and justify whether $w_1 = 2$ lives on the major cycle ($\theta_1$, radius $R = \varphi/2$) or the minor cycle ($\theta_2$, radius $r = (\varphi-1)/2$). Currently the assignment is implicit. Given Williamson-van der Mark (B25) puts their "2" on the major cycle, and the natural matching under the Cosserat → EM projection ([`06_winding_index_projection.md`](06_winding_index_projection.md) §3) is "major = 2," the canonical AVE convention should be: $w_1 = 2$ on $\theta_1$ (major), $w_2 = 3$ on $\theta_2$ (minor). If the AVE corpus's physical intuition disagrees, the opposite convention must be made explicit and §3 of `06_` revised accordingly.
+- **Why:** `06_` §6 flagged this as an unresolved convention. The (2,3) vs (2,1) resolution depends on the major-minor assignment. Leaving it implicit risks a silent sign/convention error in later Phase-3 numerics.
+- **Surfaced:** Phase 1 winding-index projection, 2026-04-20
+- **Status:** queued (Phase-1 wrap-up task)
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
