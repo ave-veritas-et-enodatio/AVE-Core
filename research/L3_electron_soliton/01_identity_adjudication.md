@@ -186,11 +186,20 @@ If Reading (a) or (c) is adopted instead, the Lagrangian derivation is similar b
 
 ---
 
-## §10  User adjudication required
+## §10  User adjudication
 
-Two questions:
+**Adjudicated 2026-04-19:**
 
-1. **C3 as the canonical identity?** My recommendation is C3 (with C4 as the lean Phase-3 computational convention). If you prefer C2 or one of the others, I'll re-argue — but C1 is genuinely dead.
-2. **Reading (a), (b), or (c) for "(2,3) phase winding"?** My recommendation is Reading (b). This is a physics judgment — if your original intent was Reading (a) (Sutcliffe torus-knot Hopfion, $Q_H = 6$) or Reading (c) (joint invariant), please adjudicate.
+1. **Canonical identity: C3.** SU(2) embedding $U(\mathbf{r}) = \exp(i\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$. $\hat{\mathbf{n}}$ is the S² projection via the Hopf fibration $SU(2) \to S^2$. C4 remains in reserve as the Cosserat-native computational convention for Phase 3 if it produces materially leaner code.
+2. **Reading for "(2,3) phase winding": Reading (b).** Dual $U(1)$ winding on the Clifford torus — 2× around the major axis, 3× around the minor axis. The SO(3) direction $\hat{\mathbf{n}}$ carries the first winding and the $U(1)$ fibre phase $\alpha_\parallel$ carries the second, with axis-assignment chosen to match the Ch 8 derivation conventions at radii $R$ and $r$.
 
-Phase-1 Lagrangian derivation begins once both are answered.
+### §10.1  Noted fallbacks — Readings (a) and (c)
+
+Recorded so that if Reading (b) encounters obstruction during the Lagrangian derivation (Phase-1) or numerical implementation (Phase-3), we do not lose track of the alternative topological accounting schemes.
+
+- **Reading (a) — Hopf number $Q_H = 6$ with $(2,3)$-torus-knot preimages** (Sutcliffe-2007 convention). Invoke if: Reading (b)'s dual-$U(1)$ framing fails to produce a finite-energy, topologically stable ground state at the Clifford-torus geometry. Reading (a) has the virtue of bringing an established numerical literature (Battye-Sutcliffe, Hietarinta-Salo, Sutcliffe 2007) that has documented energy-minimizer torus-knot solitons for various $(p,q)$.
+- **Reading (c) — joint invariant $(Q_H, w_{U(1)}) = (2, 3)$.** Invoke if: Phase-1 derivation identifies a physical observable that distinguishes $(2,3)$ from its permutations $(3,2)$ or degenerate partitions $(6,0)$, $(0,6)$, etc. Reading (c) becomes necessary if and only if such an observable exists and is load-bearing for the AVE derivation of a further prediction.
+
+**Current working assumption: Reading (b) unless Phase-1 says otherwise.**
+
+Phase-1 Lagrangian derivation proceeds next.
