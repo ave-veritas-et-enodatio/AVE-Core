@@ -39,6 +39,24 @@
 - **Surfaced:** Phase 0, 2026-04-19
 - **Status:** queued (held per user direction, 2026-04-19)
 
+### [3] research/L3_electron_soliton/02_lagrangian_derivation.md — correct §8.3 overclaim
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §8.3 (screening constraint derivation sketch)
+- **Change:** Re-word §8.3 to reflect the corrected understanding established in [`03_existence_proof.md`](03_existence_proof.md) §0 + §4.3. Specifically, the current §8.3 sketch frames $R\cdot r = 1/4$ as emerging from "Cosserat bending-energy extremization" — which overclaims. Replace with: the condition is a *topological quantization* forced by SU(2) half-cover + Clifford-torus area match, not a dynamical energy extremum. Retain the Cosserat framing as consistency check, not as derivation mechanism.
+- **Why:** Writing out §4.3 of `03_` at publication rigor revealed that the naive "uniform-winding kinetic energy on the Clifford torus" gives $R/r = 3/2$ (or $2/3$ depending on winding assignment), not the Golden $R/r = \varphi^2 \approx 2.618$. The Cosserat Lagrangian alone does not dynamically select $R\cdot r = 1/4$; the condition is topological. Keeping §8.3 as-written would mis-state where the derivation's weight lies.
+- **Surfaced:** Phase 1, 2026-04-19
+- **Status:** queued
+
+### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
+- **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §3 (existence, currently sketched via Faddeev-Skyrme-literature adaptation); §5 (uniqueness, currently sketched via modulus-space argument)
+- **Change:** Replace the sketch-level existence and uniqueness arguments with formal proofs, including: (a) explicit coercivity bound for the Cosserat sector energy, (b) regularity argument for the weak-limit minimizer, (c) Palais-Smale or concentration-compactness for mass escape, (d) modulus-space uniqueness argument specific to the $(2,3)$ Cosserat sector.
+- **Why:** Publication rigor target (`00_scoping.md` §0). Current sketches invoke "standard Hopfion-literature adaptations" which are technically correct but not publication-ready.
+- **Surfaced:** Phase 1, 2026-04-19
+- **Status:** queued (Phase-1 wrap-up task)
+
 ---
 
 ## Applied
