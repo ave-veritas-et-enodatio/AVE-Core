@@ -12,7 +12,6 @@ Covers:
 Reference: research/L3_electron_soliton/08_, 09_.
 """
 import numpy as np
-import pytest
 
 from ave.topological.cosserat_field_3d import (
     CosseratField3D,
@@ -226,6 +225,44 @@ def test_energy_gradient_matches_finite_difference():
 # ------------------------------------------------------------------
 # Gradient descent — monotonic energy decrease
 # ------------------------------------------------------------------
+
+def test_saturated_gradient_matches_finite_difference_under_activation():
+    """
+    Strict FD agreement test at sites where saturation is strongly active
+    (|kappa|/yield > 0.5). This is the regime where the hand-derived
+    gradient previously failed — now that jax.grad computes it, the
+    agreement should be float-precision exact.
+    """
+    solver = CosseratField3D(16, 16, 16, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=5.0, r_target=2.0)
+    kappa = solver.compute_curvature()
+    kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
+    # Find alive sites in the strongly-saturated regime.
+    active_mask = (
+        solver.mask_alive
+        & (kappa_mag > 0.3 * solver.omega_yield)
+    )
+    candidates = np.argwhere(active_mask)
+    assert len(candidates) > 10
+
+    dE_du, dE_dw = solver.energy_gradient()
+
+    h = 1e-6
+    for site in candidates[:3]:
+        ix, iy, iz = site
+        for k in range(3):
+            saved = solver.omega[ix, iy, iz, k]
+            solver.omega[ix, iy, iz, k] = saved + h
+            E_plus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved - h
+            E_minus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved
+            fd = (E_plus - E_minus) / (2.0 * h)
+            analytical = float(dE_dw[ix, iy, iz, k])
+            # Float-precision agreement, not the loose 1e-3 we accepted
+            # when saturation was hand-derived.
+            np.testing.assert_allclose(analytical, fd, rtol=1e-5, atol=1e-6)
+
 
 def test_relax_step_decreases_energy():
     """

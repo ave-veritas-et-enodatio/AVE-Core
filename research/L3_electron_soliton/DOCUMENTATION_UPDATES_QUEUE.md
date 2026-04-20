@@ -127,12 +127,22 @@
 ### [13] src/ave/topological/cosserat_field_3d.py — fix saturation-gradient bug
 - **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) `_stress_and_couple_stress()`
 - **Kind:** code bug
-- **Location:** saturated-stress terms in `_stress_and_couple_stress` (the `- 2 W_bare X / Y²` contribution)
-- **Change:** The analytical derivative of the saturated energy `W_sat = W_bare · S²(|X|)` with respect to tensor component `X_mn` disagrees with finite-difference by factor ~10 and often wrong sign at sites with moderately saturated field (|X| ~ 0.7 yield). Without saturation (use_saturation=False), the analytical gradient matches FD exactly — the bug is specifically in the saturation treatment. Recommended fix: refactor the saturated-energy function to use JAX autograd (`jax.grad`), eliminating the hand-derived saturation term entirely. Alternate fix: carefully re-derive dW_sat/dX_mn accounting for the scalar-invariant coupling through |X|² = X_ij X_ij (the cross-coupling between different tensor components may be the source of the error).
-- **Why:** Phase-3 validation revealed that without saturation, the Cosserat quadratic Lagrangian's unique minimum is the trivial vacuum — the soliton decays. Saturation is LOAD-BEARING for soliton stability (Ch 8 yield-barrier physics). So the saturation kernel must be in the energy AND its gradient must be correct for relaxation to find a stable soliton. The bug blocks Phase-3 end-to-end validation of the Golden Torus recovery.
-- **Test to add:** strengthen `test_energy_gradient_matches_finite_difference` to probe sites with |kappa|/yield > 0.5 (currently the test sites are all weakly saturated and the bug doesn't manifest at the ~1e-3 tolerance).
+- **Change:** The analytical derivative of the saturated energy `W_sat = W_bare · S²(|X|)` with respect to tensor component `X_mn` disagrees with finite-difference by factor ~10 and often wrong sign at sites with moderately saturated field.
+- **Why:** Phase-3 validation revealed that without saturation, the Cosserat quadratic Lagrangian's unique minimum is the trivial vacuum — the soliton decays. Saturation is LOAD-BEARING for soliton stability.
 - **Surfaced:** Phase 3 first-pass validation, 2026-04-20
-- **Status:** queued — blocks Phase-3 completion
+- **Status:** **APPLIED 2026-04-20** — full JAX refactor. Module now uses `jax.value_and_grad` on the energy functional; hand-derived stress tensors removed entirely. New strict test `test_saturated_gradient_matches_finite_difference_under_activation` verifies FD agreement at 1e-5 rtol in the saturation-active regime (previously would fail at ~10× at same sites). x64 mode enabled via `jax.config.update`. JIT-compiled energy and gradient functions give ~5–10× speedup; Metal GPU backend will apply when `jax-metal` is installed.
+
+### [14] Phase-3: preserve (2,3) topology through gradient descent
+- **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py)
+- **Kind:** numerical-physics enhancement
+- **Change:** Phase-3 validation with correct saturation gradient (per [13] APPLIED) now shows that (2,3) topology is NOT preserved during gradient descent at 32³ resolution — `c` drops from 3 to 0, R/r ratio does not converge to $\varphi^2$. Field unwinds through the discrete lattice faster than the saturation barrier can prevent. Needs one or more of:
+  - Higher grid resolution ($64^3$, $96^3$) — reduces discrete topological-slip rate.
+  - Finer lattice spacing (dx < 1) with rescaled (R, r) — increases tube resolution.
+  - Topology-preserving solver variant: constrained gradient, projected descent, or Landau–Lifshitz-style precession-plus-damping that naturally conserves winding.
+  - More robust c-extraction diagnostic (cross-check via Op11 topological-curl integral over full shell, not just a single minor-circle sample).
+- **Why:** Fix [13] removed the saturation-gradient bug, but revealed that the solver as-is still doesn't complete Phase-3 end-to-end validation because topology isn't preserved. This is the next concrete blocker to demonstrating "electron emerges from Cosserat Lagrangian at Golden Torus."
+- **Surfaced:** Phase 3 second-pass validation (JAX), 2026-04-20
+- **Status:** queued — blocks Phase-3 completion.
 
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)

@@ -45,7 +45,7 @@ def run_relaxation(
     label: str,
     max_iter: int = 500,
     initial_lr: float = 1e-3,
-    use_saturation: bool = False,
+    use_saturation: bool = True,
 ) -> dict:
     solver = CosseratField3D(nx, nx, nx, dx=1.0, use_saturation=use_saturation)
     solver.initialize_electron_2_3_sector(R_target=R_init, r_target=r_init)
@@ -110,12 +110,7 @@ def main():
     print(f"  Expected R/r:           {R_exact / r_exact:.4f} (= phi^2)")
     print(f"  Expected (R-r):         {R_exact - r_exact:.4f}")
 
-    print("  NOTE: saturation kernel disabled for this pass — analytical")
-    print("  derivative of the saturated term disagrees with finite-difference")
-    print("  (bug pending; likely fix via JAX autograd). Running bare quadratic")
-    print("  Lagrangian; the Ch 8 three-constraint structure is unchanged by")
-    print("  saturation for static ground-state geometry, so this validates")
-    print("  the core claim modulo the yield-bound regularization.")
+    print("  Saturation kernel: ACTIVE. Gradient computed via jax.value_and_grad.")
 
     # Run 1: initialize near exact Golden Torus.
     info_exact = run_relaxation(
@@ -155,21 +150,27 @@ def main():
 
     print()
     print("=" * 72)
-    print("  KEY FINDING (Phase-3 first pass, saturation OFF)")
+    print("  FINDINGS (Phase-3 pass, saturation ON via JAX autograd)")
     print("=" * 72)
-    print("  Both runs: final energy ~0, field decays to vacuum, topology lost.")
-    print("  Without saturation, the Cosserat quadratic Lagrangian has its")
-    print("  unique minimum at the trivial vacuum (eps = kappa = 0). No stable")
-    print("  soliton exists in the topological sector.")
+    print("  Good: energy no longer decays to vacuum (was ~1e-13 without")
+    print("  saturation; is O(10-100) with saturation). Saturation kernel")
+    print("  is providing a real energy barrier.")
     print()
-    print("  This is a physically meaningful result: saturation provides the")
-    print("  yield barrier that gives the soliton its topological stability.")
-    print("  Ch 8's 'dielectric ropelength' picture requires saturation to")
-    print("  prevent the flux tube from unwinding.")
+    print("  Problem: (2,3) topology does not survive gradient descent at")
+    print("  32^3 resolution. c goes from 3 -> 0 in both runs; R/r ratio")
+    print("  does not converge to phi^2. The field is unwinding through")
+    print("  the discrete lattice faster than saturation can prevent it.")
     print()
-    print("  Next step: fix the saturation-gradient bug (likely via JAX")
-    print("  autograd), rerun the dual-run protocol with saturation ON,")
-    print("  measure the actual stable-soliton (R, r).")
+    print("  Likely causes (Phase-3 investigation items):")
+    print("  1. Grid too coarse for stable (2,3) winding (try 64^3, 96^3).")
+    print("  2. dx = 1.0 too coarse relative to tube minor radius r ~ 3.")
+    print("     Refinement via dx < 1 and rescaled R/r may help.")
+    print("  3. Plain gradient descent does not preserve topology under")
+    print("     lattice tearing. A topology-preserving variant (constrained")
+    print("     gradient, projected descent, or Landau-Lifshitz-style")
+    print("     precession-plus-damping) may be required.")
+    print("  4. c-extraction diagnostic may not be robust to shell")
+    print("     deformation. Cross-check via Op11 topological-curl integral.")
 
 
 if __name__ == "__main__":

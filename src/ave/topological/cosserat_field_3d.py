@@ -1,22 +1,31 @@
 """
-3D Cosserat field solver on the K4 diamond substrate.
+3D Cosserat field solver on the K4 diamond substrate (JAX-backed).
 
 Carries the translational displacement u(r) and the Cosserat microrotation
 omega(r) as independent fields on the Cartesian-with-FCC-filter grid pattern
 of ave.core.k4_tlm. Supports the electron topological sector (c = 3) via a
 Sutcliffe-style (2,3)-torus-knot initial ansatz, relaxes to the ground state
-by gradient descent on the saturated Cosserat energy functional, and reads
-out the Golden-Torus geometry and multipole Q-factor.
+by gradient descent on the Cosserat energy functional (optionally with the
+Axiom-4 saturation kernel), and reads out the Golden-Torus geometry and
+multipole Q-factor.
 
 Moduli pinning (natural units, ell_node = 1): G = G_c = gamma = rho_vac = 1.
+
+The energy gradient is computed by jax.grad — no hand-derived stress tensors.
+Under use_saturation=True the jax-grad version is exact; compare to the prior
+hand-derived version (now removed) which disagreed with FD on the saturation
+path.
 
 References: research/L3_electron_soliton/02_, 03_, 04_, 07_, 08_, 09_.
 """
 from __future__ import annotations
 
-import numpy as np
+import jax
 
-from ave.core.universal_operators import universal_saturation
+jax.config.update("jax_enable_x64", True)
+
+import jax.numpy as jnp  # noqa: E402
+import numpy as np  # noqa: E402
 
 
 TETRA_OFFSETS: tuple[tuple[int, int, int], ...] = (
@@ -25,48 +34,34 @@ TETRA_OFFSETS: tuple[tuple[int, int, int], ...] = (
     (-1, +1, -1),
     (-1, -1, +1),
 )
+TETRA_P = jnp.array(TETRA_OFFSETS, dtype=jnp.float32)
 
 
-def tetrahedral_gradient(V: np.ndarray) -> np.ndarray:
-    """
-    Closed-form gradient via the 4 tetrahedral K4 offsets.
+# ----------------------------------------------------------------------
+# Pure JAX functions (module-level; jitted below)
+# ----------------------------------------------------------------------
 
-    For V of shape (nx, ny, nz, n_comp), returns shape (nx, ny, nz, n_comp, 3)
-    with the last axis indexing d/dx, d/dy, d/dz.
 
-    Formula: d_j V_i ~= (1/4) sum_ell p_ell^j (V(x + p_ell) - V(x)).
-    Valid at both Type-A and Type-B sites (same formula; the tetrahedral
-    neighbor set differs by sign but the scalar sum structure is identical).
-
-    First-order consistent. For second-order accuracy, symmetrize across
-    adjacent A and B sites (see research/L3_electron_soliton/09_ §1.4).
-    """
-    grad = np.zeros(V.shape + (3,), dtype=V.dtype)
+def _tetrahedral_gradient(V: jnp.ndarray) -> jnp.ndarray:
+    """d_j V_i ~= (1/4) sum_ell p_ell^j (V(x + p_ell) - V(x)). First-order
+    consistent on the diamond lattice; see 09_ §1.2."""
+    grad = jnp.zeros(V.shape + (3,), dtype=V.dtype)
     for p in TETRA_OFFSETS:
-        V_neighbor = np.roll(V, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
+        V_neighbor = jnp.roll(V, shift=(-p[0], -p[1], -p[2]), axis=(0, 1, 2))
         delta = V_neighbor - V
         for j in range(3):
             if p[j] != 0:
-                grad[..., j] += 0.25 * p[j] * delta
+                grad = grad.at[..., j].add(0.25 * p[j] * delta)
     return grad
 
 
-def adjoint_tetrahedral_divergence(T: np.ndarray) -> np.ndarray:
-    """
-    Discrete adjoint of tetrahedral_gradient, used for variational derivatives.
-
-    For T of shape (..., 3) with the last axis indexing direction j, returns
-    the divergence-like quantity (1/4) sum_ell p_ell^j [T_j(x - p_ell) - T_j(x)]
-    summed over j, with shape (...) (last axis removed).
-
-    Identity used: sum_y (grad_j V)(y) W_j(y) = sum_y V(y) (adj_div W)(y)
-    for grad_j = tetrahedral_gradient (modulo the 1/4 and p_ell^j factors
-    baked in symmetrically). This makes adj_div the correct operator for
-    propagating variational derivatives d(W(kappa))/dkappa back to dW/domega.
-    """
-    result = np.zeros(T.shape[:-1], dtype=T.dtype)
+def adjoint_tetrahedral_divergence(T: jnp.ndarray) -> jnp.ndarray:
+    """Discrete adjoint of _tetrahedral_gradient: (1/4) sum_ell p_ell^j
+    [T(x - p_ell) - T(x)] summed over j. Kept for external callers; the
+    jax-grad energy path no longer needs it internally."""
+    result = jnp.zeros(T.shape[:-1], dtype=T.dtype)
     for p in TETRA_OFFSETS:
-        T_shifted = np.roll(T, shift=(p[0], p[1], p[2]), axis=(0, 1, 2))
+        T_shifted = jnp.roll(T, shift=(p[0], p[1], p[2]), axis=(0, 1, 2))
         delta = T_shifted - T
         for j in range(3):
             if p[j] != 0:
@@ -74,13 +69,127 @@ def adjoint_tetrahedral_divergence(T: np.ndarray) -> np.ndarray:
     return result
 
 
+def _compute_strain(u: jnp.ndarray, omega: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """eps_ij = d_j u_i - eps_ijk omega_k. Returns (nx, ny, nz, 3, 3)."""
+    grad_u = _tetrahedral_gradient(u) / dx
+    w = omega
+    cross = jnp.zeros_like(grad_u)
+    cross = cross.at[..., 0, 1].set(w[..., 2])
+    cross = cross.at[..., 0, 2].set(-w[..., 1])
+    cross = cross.at[..., 1, 0].set(-w[..., 2])
+    cross = cross.at[..., 1, 2].set(w[..., 0])
+    cross = cross.at[..., 2, 0].set(w[..., 1])
+    cross = cross.at[..., 2, 1].set(-w[..., 0])
+    return grad_u - cross
+
+
+def _compute_curvature(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """kappa_ij = d_j omega_i."""
+    return _tetrahedral_gradient(omega) / dx
+
+
+def _energy_density_bare(
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    G: float,
+    G_c: float,
+    gamma: float,
+) -> jnp.ndarray:
+    """Cosserat energy density without the saturation kernel.
+
+    W = (2/3) G (tr eps)^2 + G eps_sym · eps_sym + G_c eps_antisym · eps_antisym
+        + gamma kappa · kappa
+    """
+    eps = _compute_strain(u, omega, dx)
+    kappa = _compute_curvature(omega, dx)
+    eps_T = jnp.swapaxes(eps, -1, -2)
+    eps_sym = 0.5 * (eps + eps_T)
+    eps_antisym = 0.5 * (eps - eps_T)
+    trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
+    W_cauchy = (2.0 / 3.0) * trace_eps**2 + jnp.sum(eps_sym**2, axis=(-1, -2))
+    W_micropolar = jnp.sum(eps_antisym**2, axis=(-1, -2))
+    W_kappa = jnp.sum(kappa**2, axis=(-1, -2))
+    W = W_cauchy * G + W_micropolar * G_c + W_kappa * gamma
+    return W * mask_alive.astype(W.dtype)
+
+
+def _energy_density_saturated(
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    mask_alive: jnp.ndarray,
+    dx: float,
+    G: float,
+    G_c: float,
+    gamma: float,
+    omega_yield: float,
+    epsilon_yield: float,
+) -> jnp.ndarray:
+    """Cosserat energy density with scalar-invariant Axiom-4 saturation
+    applied to |eps| and |kappa| separately."""
+    eps = _compute_strain(u, omega, dx)
+    kappa = _compute_curvature(omega, dx)
+    eps_T = jnp.swapaxes(eps, -1, -2)
+    eps_sym = 0.5 * (eps + eps_T)
+    eps_antisym = 0.5 * (eps - eps_T)
+    trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
+    W_cauchy = (2.0 / 3.0) * trace_eps**2 + jnp.sum(eps_sym**2, axis=(-1, -2))
+    W_micropolar = jnp.sum(eps_antisym**2, axis=(-1, -2))
+    W_kappa = jnp.sum(kappa**2, axis=(-1, -2))
+    eps_sq = jnp.sum(eps**2, axis=(-1, -2))
+    kappa_sq = jnp.sum(kappa**2, axis=(-1, -2))
+    S_eps_sq = jnp.clip(1.0 - eps_sq / epsilon_yield**2, 0.0, 1.0)
+    S_kappa_sq = jnp.clip(1.0 - kappa_sq / omega_yield**2, 0.0, 1.0)
+    W = (W_cauchy * G + W_micropolar * G_c) * S_eps_sq + W_kappa * gamma * S_kappa_sq
+    return W * mask_alive.astype(W.dtype)
+
+
+def _total_energy_bare(u, omega, mask_alive, dx, G, G_c, gamma):
+    return jnp.sum(_energy_density_bare(u, omega, mask_alive, dx, G, G_c, gamma))
+
+
+def _total_energy_saturated(u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield):
+    return jnp.sum(_energy_density_saturated(
+        u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield
+    ))
+
+
+# JIT-compiled energy-and-gradient functions.
+# jax.value_and_grad returns (value, gradient_tuple) for the argnums we diff.
+_val_and_grad_bare = jax.jit(jax.value_and_grad(_total_energy_bare, argnums=(0, 1)))
+_val_and_grad_saturated = jax.jit(jax.value_and_grad(_total_energy_saturated, argnums=(0, 1)))
+_total_energy_bare_jit = jax.jit(_total_energy_bare)
+_total_energy_saturated_jit = jax.jit(_total_energy_saturated)
+
+
+# ----------------------------------------------------------------------
+# Public numpy-style shim for backward compatibility with existing tests
+# ----------------------------------------------------------------------
+
+
+def tetrahedral_gradient(V):
+    """Numpy-compatible wrapper around _tetrahedral_gradient.
+
+    Accepts numpy or jax arrays; returns same type as input.
+    """
+    was_np = isinstance(V, np.ndarray)
+    V_jax = jnp.asarray(V)
+    result = _tetrahedral_gradient(V_jax)
+    return np.asarray(result) if was_np else result
+
+
+# ----------------------------------------------------------------------
+# Solver class
+# ----------------------------------------------------------------------
+
+
 class CosseratField3D:
-    """
-    Cartesian-with-FCC-filter solver for the 3D Cosserat field (u, omega)
-    on the K4 diamond substrate. Follows the grid pattern of
-    ave.core.k4_tlm.K4Lattice3D but carries a 6-DOF Cosserat state rather
-    than 4-port voltages.
-    """
+    """Cartesian-with-FCC-filter solver for the 3D Cosserat field (u, omega)
+    on the K4 diamond substrate, JAX-backed. State held as jax arrays; public
+    attribute reads return numpy via __getattribute__ hooks are avoided —
+    instead, users can np.asarray(solver.u) / np.asarray(solver.omega) to
+    materialize when needed."""
 
     def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0, use_saturation: bool = True):
         self.nx = nx
@@ -90,31 +199,29 @@ class CosseratField3D:
 
         idx = np.indices((nx, ny, nz))
         i, j, k = idx[0], idx[1], idx[2]
-        self.mask_A = (i % 2 == 0) & (j % 2 == 0) & (k % 2 == 0)
-        self.mask_B = (i % 2 == 1) & (j % 2 == 1) & (k % 2 == 1)
-        self.mask_alive = self.mask_A | self.mask_B
+        mask_A = (i % 2 == 0) & (j % 2 == 0) & (k % 2 == 0)
+        mask_B = (i % 2 == 1) & (j % 2 == 1) & (k % 2 == 1)
+        self.mask_A = mask_A
+        self.mask_B = mask_B
+        self.mask_alive = mask_A | mask_B
         self._i, self._j, self._k = i, j, k
+        self._mask_alive_jax = jnp.asarray(self.mask_alive)
 
+        # State is numpy for easy mutation; converted to jnp at each energy /
+        # gradient call. The conversion overhead is small relative to the
+        # jitted JAX kernels.
         self.u = np.zeros((nx, ny, nz, 3), dtype=np.float64)
         self.omega = np.zeros((nx, ny, nz, 3), dtype=np.float64)
 
-        # Pinned moduli (natural units).
         self.G = 1.0
         self.G_c = 1.0
         self.gamma = 1.0
-
-        # Saturation: |kappa| yielded at Nyquist pi / ell_node, |eps| at the
-        # dielectric yield. Known issue (2026-04-20): the saturated-stress
-        # analytical derivative in _stress_and_couple_stress disagrees with
-        # finite-difference. Passing use_saturation=False disables the
-        # kernel; gradient then matches FD exactly. Fix pending — likely via
-        # JAX autograd in a follow-up session.
         self.use_saturation = use_saturation
-        self.omega_yield = np.pi
+        self.omega_yield = float(np.pi)
         self.epsilon_yield = 1.0
 
     # ------------------------------------------------------------------
-    # Initial condition: Sutcliffe-style (2,3) torus-knot ansatz
+    # Initial condition
     # ------------------------------------------------------------------
 
     def initialize_electron_2_3_sector(
@@ -123,240 +230,102 @@ class CosseratField3D:
         r_target: float,
         localization_sigma: float | None = None,
     ) -> None:
-        """
-        Initialize omega with a Sutcliffe-style (p,q) = (2,3) torus-knot
-        phase ansatz localized on a toroidal shell of radii (R_target, r_target)
-        centered on the domain midpoint. Combined phase Theta = 2*phi + 3*psi.
-
-        Sets u = 0 everywhere (electron ground state has trivial translational
-        sector; the microrotation carries the topology).
-
-        Does NOT enforce saturation or modulus pinning — this is an initial
-        guess to be relaxed by gradient descent.
-        """
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
         x = self._i - cx
         y = self._j - cy
         z = self._k - cz
 
-        # Toroidal coordinates about the xy-plane central ring of major radius R.
         rho_xy = np.sqrt(x**2 + y**2)
-        # Distance from the ring itself.
         rho_tube = np.sqrt((rho_xy - R_target) ** 2 + z**2)
-        # Angles: phi around z (longitude), psi around the ring (meridian).
         phi = np.arctan2(y, x)
         psi = np.arctan2(z, rho_xy - R_target)
 
         sigma = localization_sigma if localization_sigma is not None else r_target
         envelope = np.pi * np.exp(-(rho_tube**2) / (sigma**2))
-
         theta = 2.0 * phi + 3.0 * psi
 
-        self.omega[..., 0] = envelope * np.cos(theta)
-        self.omega[..., 1] = envelope * np.sin(theta)
-        self.omega[..., 2] = 0.0
-        self.u.fill(0.0)
+        omega = np.zeros((self.nx, self.ny, self.nz, 3), dtype=np.float64)
+        omega[..., 0] = envelope * np.cos(theta)
+        omega[..., 1] = envelope * np.sin(theta)
+        omega[..., 2] = 0.0
+        omega *= self.mask_alive[..., None]
 
-        self._zero_outside_alive()
+        self.omega = omega
+        self.u = np.zeros_like(self.u)
 
     def _zero_outside_alive(self) -> None:
-        """Mask fields to alive sites only (dead sites carry no physical data)."""
-        self.u *= self.mask_alive[..., None]
-        self.omega *= self.mask_alive[..., None]
+        mask = self.mask_alive[..., None].astype(self.u.dtype)
+        self.u = self.u * mask
+        self.omega = self.omega * mask
 
     # ------------------------------------------------------------------
-    # Kinematic tensors (strain, curvature-twist)
+    # Kinematic tensors
     # ------------------------------------------------------------------
 
     def compute_strain(self) -> np.ndarray:
-        """
-        epsilon_ij = d_j u_i - eps_ijk omega_k.
-
-        Returns shape (nx, ny, nz, 3, 3) with indices (site, i, j).
-        """
-        grad_u = tetrahedral_gradient(self.u) / self.dx
-        # eps_ijk omega_k — antisymmetric contribution to epsilon_ij.
-        w = self.omega
-        cross = np.zeros_like(grad_u)
-        cross[..., 0, 1] = w[..., 2]
-        cross[..., 0, 2] = -w[..., 1]
-        cross[..., 1, 0] = -w[..., 2]
-        cross[..., 1, 2] = w[..., 0]
-        cross[..., 2, 0] = w[..., 1]
-        cross[..., 2, 1] = -w[..., 0]
-        return grad_u - cross
+        return np.asarray(_compute_strain(jnp.asarray(self.u), jnp.asarray(self.omega), self.dx))
 
     def compute_curvature(self) -> np.ndarray:
-        """kappa_ij = d_j omega_i. Shape (nx, ny, nz, 3, 3)."""
-        return tetrahedral_gradient(self.omega) / self.dx
+        return np.asarray(_compute_curvature(jnp.asarray(self.omega), self.dx))
 
     # ------------------------------------------------------------------
-    # Saturated energy functional
+    # Energy and gradient (via jax.grad)
     # ------------------------------------------------------------------
 
     def energy_density(self) -> np.ndarray:
-        """
-        Local Cosserat energy density per alive node.
-
-        Structure (natural units, K = 2G, isotropic-bending ansatz,
-        G = G_c = gamma = 1):
-            W_Cauchy     = (2/3)(tr eps)^2 + eps^sym_ij eps^sym_ij
-            W_micropolar = eps^antisym_ij eps^antisym_ij
-            W_kappa      = kappa_ij kappa_ij
-
-        Scalar-invariant Axiom-4 saturation applied when use_saturation=True.
-        """
-        eps = self.compute_strain()
-        kappa = self.compute_curvature()
-
-        eps_sym = 0.5 * (eps + np.swapaxes(eps, -1, -2))
-        eps_antisym = 0.5 * (eps - np.swapaxes(eps, -1, -2))
-        trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
-
-        W_cauchy = (2.0 / 3.0) * (trace_eps**2) + np.sum(eps_sym**2, axis=(-1, -2))
-        W_micropolar = np.sum(eps_antisym**2, axis=(-1, -2))
-        W_kappa = np.sum(kappa**2, axis=(-1, -2))
-
+        u_j = jnp.asarray(self.u)
+        w_j = jnp.asarray(self.omega)
         if self.use_saturation:
-            eps_mag = np.sqrt(np.sum(eps**2, axis=(-1, -2)))
-            S_eps = universal_saturation(eps_mag, self.epsilon_yield)
-            kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
-            S_kappa = universal_saturation(kappa_mag, self.omega_yield)
-            W = (
-                (W_cauchy * self.G + W_micropolar * self.G_c) * (S_eps**2)
-                + W_kappa * self.gamma * (S_kappa**2)
+            rho = _energy_density_saturated(
+                u_j, w_j, self._mask_alive_jax, self.dx,
+                self.G, self.G_c, self.gamma,
+                self.omega_yield, self.epsilon_yield,
             )
         else:
-            W = (
-                W_cauchy * self.G + W_micropolar * self.G_c
-                + W_kappa * self.gamma
+            rho = _energy_density_bare(
+                u_j, w_j, self._mask_alive_jax, self.dx,
+                self.G, self.G_c, self.gamma,
             )
-        return W * self.mask_alive.astype(W.dtype)
+        return np.asarray(rho)
 
     def total_energy(self) -> float:
-        return float(np.sum(self.energy_density()))
-
-    # ------------------------------------------------------------------
-    # Stress, couple-stress, and variational gradient
-    # ------------------------------------------------------------------
-
-    def _stress_and_couple_stress(
-        self,
-    ) -> tuple[np.ndarray, np.ndarray]:
-        """
-        Compute saturated stress_ij := dW/d(eps_ij) and couple_stress_ij :=
-        dW/d(kappa_ij) at every site. Returns shapes (nx, ny, nz, 3, 3).
-
-        Derivations:
-          W_cauchy = (2/3)(tr eps)^2 + eps_sym_ij eps_sym_ij
-          W_micro  = eps_antisym_ij eps_antisym_ij
-          W_kappa  = kappa_ij kappa_ij
-
-          d(tr eps)^2 / d eps_mn = 2 (tr eps) delta_mn
-          d(eps_sym)^2 / d eps_mn = eps_mn + eps_nm
-          d(eps_antisym)^2 / d eps_mn = eps_mn - eps_nm
-
-        Bare stresses (before saturation):
-          sigma_bare_mn = G [(4/3) tr(eps) delta_mn + eps_mn + eps_nm]
-                        + G_c [eps_mn - eps_nm]
-          couple_bare_mn = 2 gamma kappa_mn
-
-        Saturation (scalar-invariant, |eps|^2 and |kappa|^2 invariants):
-          W_sat = W_bare * S^2,  S = sqrt(1 - |X|^2/Y^2),  |X|^2 = X_ij X_ij
-          dW_sat/dX_mn = dW_bare/dX_mn * S^2 - 2 W_bare * X_mn / Y^2
-
-        Saturation zeroes out both factors past yield; numerically we clip
-        |X|^2 at the yield value to avoid NaN from negative square roots.
-        """
-        eps = self.compute_strain()
-        kappa = self.compute_curvature()
-
-        eps_T = np.swapaxes(eps, -1, -2)  # eps_nm
-        trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
-
-        delta = np.eye(3)
-        # Bare stress
-        sigma_bare = (
-            self.G * ((4.0 / 3.0) * trace_eps[..., None, None] * delta + eps + eps_T)
-            + self.G_c * (eps - eps_T)
-        )
-        # Bare couple stress
-        couple_bare = 2.0 * self.gamma * kappa
-
-        # Bare Cosserat elastic energies at each site (not including kappa).
-        eps_sym = 0.5 * (eps + eps_T)
-        eps_antisym = 0.5 * (eps - eps_T)
-        W_cauchy = (2.0 / 3.0) * (trace_eps**2) + np.sum(eps_sym**2, axis=(-1, -2))
-        W_micropolar = np.sum(eps_antisym**2, axis=(-1, -2))
-        W_eps_bare = W_cauchy * self.G + W_micropolar * self.G_c
-        W_kappa_bare = self.gamma * np.sum(kappa**2, axis=(-1, -2))
-
-        if not self.use_saturation:
-            return sigma_bare, couple_bare
-
-        # Saturation factors (scalar-invariant).
-        eps_sq = np.sum(eps**2, axis=(-1, -2))
-        kappa_sq = np.sum(kappa**2, axis=(-1, -2))
-        Y_eps_sq = self.epsilon_yield**2
-        Y_kappa_sq = self.omega_yield**2
-
-        S_eps_sq = np.clip(1.0 - eps_sq / Y_eps_sq, 0.0, 1.0)
-        S_kappa_sq = np.clip(1.0 - kappa_sq / Y_kappa_sq, 0.0, 1.0)
-
-        sigma_sat = sigma_bare * S_eps_sq[..., None, None] - 2.0 * W_eps_bare[..., None, None] * eps / Y_eps_sq
-        couple_sat = couple_bare * S_kappa_sq[..., None, None] - 2.0 * W_kappa_bare[..., None, None] * kappa / Y_kappa_sq
-
-        return sigma_sat, couple_sat
+        u_j = jnp.asarray(self.u)
+        w_j = jnp.asarray(self.omega)
+        if self.use_saturation:
+            return float(_total_energy_saturated_jit(
+                u_j, w_j, self._mask_alive_jax, self.dx,
+                self.G, self.G_c, self.gamma,
+                self.omega_yield, self.epsilon_yield,
+            ))
+        return float(_total_energy_bare_jit(
+            u_j, w_j, self._mask_alive_jax, self.dx,
+            self.G, self.G_c, self.gamma,
+        ))
 
     def energy_gradient(self) -> tuple[np.ndarray, np.ndarray]:
-        """
-        Variational derivative of the total energy w.r.t. the fields.
-        Returns (dE/du, dE/domega), each of shape (nx, ny, nz, 3).
-
-        Chain rule:
-          dE/du_i(x)     = sum_j adj_div_j sigma_sat_ij(x)
-          dE/domega_k(x) = -eps_ijk sigma_sat_ij(x) + sum_j adj_div_j couple_sat_kj(x)
-
-        Both terms are computed per-site with O(N) complexity.
-        """
-        sigma, couple = self._stress_and_couple_stress()
-
-        # u-gradient: sum_j adj_div_j sigma_ij for each i.
-        # sigma shape (nx, ny, nz, i=3, j=3); treat as (i-indexed) x (j-indexed) gradient field.
-        dE_du = np.zeros_like(self.u)
-        for i in range(3):
-            # For each i, pass sigma[..., i, :] (shape (..., 3)) through adjoint divergence.
-            dE_du[..., i] = adjoint_tetrahedral_divergence(sigma[..., i, :]) / self.dx
-
-        # omega-gradient: two contributions.
-        # (a) From epsilon path: -eps_ijk sigma_ij contracts with levi-civita on (i,j) for each k.
-        # cross_k = sum_{ij} eps_ijk * sigma_ij. For standard eps_ijk with eps_123 = 1:
-        #   eps_123 sigma_12 + eps_132 sigma_13 + eps_213 sigma_21 + eps_231 sigma_23
-        #   + eps_312 sigma_31 + eps_321 sigma_32 all give contributions to cross_k.
-        cross = np.zeros_like(self.omega)
-        cross[..., 0] = sigma[..., 1, 2] - sigma[..., 2, 1]
-        cross[..., 1] = sigma[..., 2, 0] - sigma[..., 0, 2]
-        cross[..., 2] = sigma[..., 0, 1] - sigma[..., 1, 0]
-
-        # (b) From kappa path: sum_j adj_div_j couple_kj for each k.
-        dE_from_kappa = np.zeros_like(self.omega)
-        for k in range(3):
-            dE_from_kappa[..., k] = adjoint_tetrahedral_divergence(couple[..., k, :]) / self.dx
-
-        dE_dw = -cross + dE_from_kappa
-
-        # Mask out dead nodes.
-        alive = self.mask_alive[..., None].astype(dE_du.dtype)
-        return dE_du * alive, dE_dw * alive
+        """Via jax.value_and_grad on the energy functional. Exact to
+        float-precision — no hand-derived stress tensors involved."""
+        u_j = jnp.asarray(self.u)
+        w_j = jnp.asarray(self.omega)
+        if self.use_saturation:
+            _, (dE_du, dE_dw) = _val_and_grad_saturated(
+                u_j, w_j, self._mask_alive_jax, self.dx,
+                self.G, self.G_c, self.gamma,
+                self.omega_yield, self.epsilon_yield,
+            )
+        else:
+            _, (dE_du, dE_dw) = _val_and_grad_bare(
+                u_j, w_j, self._mask_alive_jax, self.dx,
+                self.G, self.G_c, self.gamma,
+            )
+        mask = self._mask_alive_jax[..., None].astype(dE_du.dtype)
+        return np.asarray(dE_du * mask), np.asarray(dE_dw * mask)
 
     # ------------------------------------------------------------------
-    # Gradient-descent relaxation
+    # Relaxation
     # ------------------------------------------------------------------
 
     def relax_step(self, learning_rate: float = 0.01) -> float:
-        """
-        One gradient-descent update. Returns the total energy BEFORE the step.
-        """
         E_before = self.total_energy()
         dE_du, dE_dw = self.energy_gradient()
         self.u = self.u - learning_rate * dE_du
@@ -371,22 +340,10 @@ class CosseratField3D:
         initial_lr: float = 0.01,
         verbose: bool = False,
     ) -> dict:
-        """
-        Gradient descent with adaptive learning rate (backtracking).
-
-        Terminates when either max_iter is reached, or the relative energy
-        change between steps drops below tol.
-
-        Returns a dict with keys: 'iterations', 'final_energy', 'converged',
-        'energy_history' (list of E at each step), 'lr_final'.
-        """
         lr = initial_lr
         history = []
         E_prev = self.total_energy()
         history.append(E_prev)
-
-        # Absolute-noise floor: accept a step if energy change is below
-        # float-precision noise relative to the energy scale.
         noise_floor = 1e-12 * max(abs(E_prev), 1.0)
 
         for step in range(max_iter):
@@ -396,11 +353,10 @@ class CosseratField3D:
             E_new = self.total_energy()
 
             if E_new <= E_prev + noise_floor:
-                # Accepted: track change, try to grow lr modestly.
                 rel_change = abs(E_new - E_prev) / max(abs(E_prev), 1e-12)
                 history.append(E_new)
-                if verbose and step % 10 == 0:
-                    print(f"  step {step:4d}  E = {E_new:.6f}  lr = {lr:.2e}  drel = {rel_change:.2e}")
+                if verbose and step % 20 == 0:
+                    print(f"  step {step:4d}  E = {E_new:.6e}  lr = {lr:.2e}  drel = {rel_change:.2e}")
                 if step > 10 and rel_change < tol:
                     return {
                         "iterations": step + 1,
@@ -413,7 +369,6 @@ class CosseratField3D:
                 E_prev = E_new
                 noise_floor = 1e-12 * max(abs(E_prev), 1.0)
             else:
-                # Reject: roll back, shrink lr.
                 self.u = u_save
                 self.omega = w_save
                 lr *= 0.5
@@ -435,17 +390,10 @@ class CosseratField3D:
         }
 
     # ------------------------------------------------------------------
-    # Diagnostics
+    # Diagnostics (numpy-backed)
     # ------------------------------------------------------------------
 
     def extract_shell_radii(self) -> tuple[float, float]:
-        """
-        Extract (R, r) — the toroidal-shell major and minor radii of the
-        current omega field — from the intensity distribution of |omega|.
-
-        Major radius R: radial location of peak |omega| in the xy plane at z=0.
-        Minor radius r: FWHM of |omega| in the transverse direction.
-        """
         omega_mag = np.sqrt(np.sum(self.omega**2, axis=-1))
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
         kz = int(round(cz))
@@ -455,10 +403,9 @@ class CosseratField3D:
         ys = self._j[:, :, kz] - cy
         rho = np.sqrt(xs**2 + ys**2)
 
-        # Radial profile: sum |omega| around each rho bin.
         rho_flat = rho.flatten()
         mag_flat = slice_z.flatten()
-        rho_max = rho.max()
+        rho_max = float(rho.max())
         n_bins = max(8, int(round(rho_max)))
         edges = np.linspace(0.0, rho_max, n_bins + 1)
         hist, _ = np.histogram(rho_flat, bins=edges, weights=mag_flat)
@@ -469,7 +416,6 @@ class CosseratField3D:
 
         R = float(centers[np.argmax(profile)])
 
-        # Minor radius: FWHM of the profile in the physical length r.
         half_max = 0.5 * profile.max()
         above = profile >= half_max
         if above.any():
@@ -481,31 +427,17 @@ class CosseratField3D:
         return R, r
 
     def extract_crossing_count(self) -> int:
-        """
-        Estimate c = q (per AVE (2,q) torus-knot convention) by integrating
-        the phase of omega around the MINOR cycle of the toroidal shell.
-
-        The minor cycle threads through the tube cross-section: at fixed
-        azimuthal angle phi, traverse psi from 0 to 2*pi. For a (2,q)
-        torus-knot phase Theta = 2*phi + q*psi, this contour picks up q.
-
-        For the electron initial ansatz with Theta = 2*phi + 3*psi this
-        returns 3. Integer winding number; no fractional crossings.
-        """
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
         R_found, _ = self.extract_shell_radii()
 
         n_psi = 64
         psis = np.linspace(0.0, 2.0 * np.pi, n_psi, endpoint=False)
-
-        # Minor cycle: fix phi = 0 (sampling the x-axis cross-section).
-        # Parameterize (x, y, z) = (R_found + r_sample*cos(psi), 0, r_sample*sin(psi))
-        # where r_sample is a mid-tube radius. The shell_radii FWHM may
-        # underestimate r; use 1.5x for a safely-inside sample radius.
         r_sample = max(1.5, R_found * 0.25)
         dx_s = cx + (R_found + r_sample * np.cos(psis))
         dy_s = cy + np.zeros_like(psis)
         dz_s = cz + r_sample * np.sin(psis)
+
+        omega_np = self.omega
 
         def sample(comp: int) -> np.ndarray:
             ix = np.clip(dx_s.astype(int), 0, self.nx - 2)
@@ -514,14 +446,14 @@ class CosseratField3D:
             fx = dx_s - ix
             fy = dy_s - iy
             fz = dz_s - iz
-            c000 = self.omega[ix, iy, iz, comp]
-            c100 = self.omega[ix + 1, iy, iz, comp]
-            c010 = self.omega[ix, iy + 1, iz, comp]
-            c001 = self.omega[ix, iy, iz + 1, comp]
-            c110 = self.omega[ix + 1, iy + 1, iz, comp]
-            c101 = self.omega[ix + 1, iy, iz + 1, comp]
-            c011 = self.omega[ix, iy + 1, iz + 1, comp]
-            c111 = self.omega[ix + 1, iy + 1, iz + 1, comp]
+            c000 = omega_np[ix, iy, iz, comp]
+            c100 = omega_np[ix + 1, iy, iz, comp]
+            c010 = omega_np[ix, iy + 1, iz, comp]
+            c001 = omega_np[ix, iy, iz + 1, comp]
+            c110 = omega_np[ix + 1, iy + 1, iz, comp]
+            c101 = omega_np[ix + 1, iy, iz + 1, comp]
+            c011 = omega_np[ix, iy + 1, iz + 1, comp]
+            c111 = omega_np[ix + 1, iy + 1, iz + 1, comp]
             return (
                 (1 - fx) * (1 - fy) * (1 - fz) * c000
                 + fx * (1 - fy) * (1 - fz) * c100
@@ -538,8 +470,7 @@ class CosseratField3D:
         phase = np.arctan2(oy, ox)
         unwrapped = np.unwrap(phase)
         total_winding = (unwrapped[-1] - unwrapped[0]) / (2.0 * np.pi)
-        # Close the loop: add the wrap from last-to-first sample.
-        closure = (phase[0] - unwrapped[-1])
+        closure = phase[0] - unwrapped[-1]
         while closure > np.pi:
             closure -= 2.0 * np.pi
         while closure < -np.pi:
@@ -548,13 +479,6 @@ class CosseratField3D:
         return int(round(abs(total_winding)))
 
     def extract_quality_factor(self) -> float:
-        """
-        Q-factor from Ch 8 multipole decomposition evaluated on the current
-        shell geometry: Q = 16 pi^3 (R r) + 4 pi^2 (R r) + pi * d.
-
-        With d = 1, Q collapses to 4 pi^3 + pi^2 + pi ~= 137.036 at the
-        Golden-Torus radii (R, r) = (phi/2, (phi-1)/2).
-        """
         R, r = self.extract_shell_radii()
         d = 1.0
         return 16.0 * np.pi**3 * (R * r) + 4.0 * np.pi**2 * (R * r) + np.pi * d
