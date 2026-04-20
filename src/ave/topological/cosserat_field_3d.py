@@ -82,7 +82,7 @@ class CosseratField3D:
     than 4-port voltages.
     """
 
-    def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0):
+    def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0, use_saturation: bool = True):
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -103,7 +103,14 @@ class CosseratField3D:
         self.G_c = 1.0
         self.gamma = 1.0
 
-        self.omega_yield = np.pi  # |kappa| yield scale; Nyquist pi / ell_node
+        # Saturation: |kappa| yielded at Nyquist pi / ell_node, |eps| at the
+        # dielectric yield. Known issue (2026-04-20): the saturated-stress
+        # analytical derivative in _stress_and_couple_stress disagrees with
+        # finite-difference. Passing use_saturation=False disables the
+        # kernel; gradient then matches FD exactly. Fix pending — likely via
+        # JAX autograd in a follow-up session.
+        self.use_saturation = use_saturation
+        self.omega_yield = np.pi
         self.epsilon_yield = 1.0
 
     # ------------------------------------------------------------------
@@ -189,14 +196,15 @@ class CosseratField3D:
 
     def energy_density(self) -> np.ndarray:
         """
-        Local saturated Cosserat energy density per alive node.
+        Local Cosserat energy density per alive node.
 
         Structure (natural units, K = 2G, isotropic-bending ansatz,
         G = G_c = gamma = 1):
             W_Cauchy     = (2/3)(tr eps)^2 + eps^sym_ij eps^sym_ij
             W_micropolar = eps^antisym_ij eps^antisym_ij
             W_kappa      = kappa_ij kappa_ij
-        Scalar-invariant Axiom-4 saturation applied to |eps| and |kappa|.
+
+        Scalar-invariant Axiom-4 saturation applied when use_saturation=True.
         """
         eps = self.compute_strain()
         kappa = self.compute_curvature()
@@ -205,19 +213,24 @@ class CosseratField3D:
         eps_antisym = 0.5 * (eps - np.swapaxes(eps, -1, -2))
         trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
 
-        eps_mag = np.sqrt(np.sum(eps**2, axis=(-1, -2)))
-        S_eps = universal_saturation(eps_mag, self.epsilon_yield)
-        kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
-        S_kappa = universal_saturation(kappa_mag, self.omega_yield)
-
         W_cauchy = (2.0 / 3.0) * (trace_eps**2) + np.sum(eps_sym**2, axis=(-1, -2))
         W_micropolar = np.sum(eps_antisym**2, axis=(-1, -2))
         W_kappa = np.sum(kappa**2, axis=(-1, -2))
 
-        W = (
-            (W_cauchy * self.G + W_micropolar * self.G_c) * (S_eps**2)
-            + W_kappa * self.gamma * (S_kappa**2)
-        )
+        if self.use_saturation:
+            eps_mag = np.sqrt(np.sum(eps**2, axis=(-1, -2)))
+            S_eps = universal_saturation(eps_mag, self.epsilon_yield)
+            kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
+            S_kappa = universal_saturation(kappa_mag, self.omega_yield)
+            W = (
+                (W_cauchy * self.G + W_micropolar * self.G_c) * (S_eps**2)
+                + W_kappa * self.gamma * (S_kappa**2)
+            )
+        else:
+            W = (
+                W_cauchy * self.G + W_micropolar * self.G_c
+                + W_kappa * self.gamma
+            )
         return W * self.mask_alive.astype(W.dtype)
 
     def total_energy(self) -> float:
@@ -278,17 +291,18 @@ class CosseratField3D:
         W_eps_bare = W_cauchy * self.G + W_micropolar * self.G_c
         W_kappa_bare = self.gamma * np.sum(kappa**2, axis=(-1, -2))
 
+        if not self.use_saturation:
+            return sigma_bare, couple_bare
+
         # Saturation factors (scalar-invariant).
         eps_sq = np.sum(eps**2, axis=(-1, -2))
         kappa_sq = np.sum(kappa**2, axis=(-1, -2))
         Y_eps_sq = self.epsilon_yield**2
         Y_kappa_sq = self.omega_yield**2
 
-        # Clip arguments of S^2 away from (0, negative) to stay differentiable.
         S_eps_sq = np.clip(1.0 - eps_sq / Y_eps_sq, 0.0, 1.0)
         S_kappa_sq = np.clip(1.0 - kappa_sq / Y_kappa_sq, 0.0, 1.0)
 
-        # Saturated stresses.
         sigma_sat = sigma_bare * S_eps_sq[..., None, None] - 2.0 * W_eps_bare[..., None, None] * eps / Y_eps_sq
         couple_sat = couple_bare * S_kappa_sq[..., None, None] - 2.0 * W_kappa_bare[..., None, None] * kappa / Y_kappa_sq
 
@@ -371,19 +385,23 @@ class CosseratField3D:
         E_prev = self.total_energy()
         history.append(E_prev)
 
+        # Absolute-noise floor: accept a step if energy change is below
+        # float-precision noise relative to the energy scale.
+        noise_floor = 1e-12 * max(abs(E_prev), 1.0)
+
         for step in range(max_iter):
             u_save = self.u.copy()
             w_save = self.omega.copy()
             self.relax_step(lr)
             E_new = self.total_energy()
 
-            if E_new < E_prev - 1e-15:
-                # Accepted: try to increase lr modestly next time.
+            if E_new <= E_prev + noise_floor:
+                # Accepted: track change, try to grow lr modestly.
                 rel_change = abs(E_new - E_prev) / max(abs(E_prev), 1e-12)
                 history.append(E_new)
                 if verbose and step % 10 == 0:
                     print(f"  step {step:4d}  E = {E_new:.6f}  lr = {lr:.2e}  drel = {rel_change:.2e}")
-                if rel_change < tol:
+                if step > 10 and rel_change < tol:
                     return {
                         "iterations": step + 1,
                         "final_energy": E_new,
@@ -393,12 +411,13 @@ class CosseratField3D:
                     }
                 lr = min(lr * 1.1, 1.0)
                 E_prev = E_new
+                noise_floor = 1e-12 * max(abs(E_prev), 1.0)
             else:
                 # Reject: roll back, shrink lr.
                 self.u = u_save
                 self.omega = w_save
                 lr *= 0.5
-                if lr < 1e-12:
+                if lr < 1e-14:
                     return {
                         "iterations": step + 1,
                         "final_energy": E_prev,
@@ -463,40 +482,69 @@ class CosseratField3D:
 
     def extract_crossing_count(self) -> int:
         """
-        Estimate c by integrating the azimuthal phase gradient around the
-        z-axis at the peak radial location. Uses the in-plane projection of
-        omega for a minimal, Op11-like contour integral.
+        Estimate c = q (per AVE (2,q) torus-knot convention) by integrating
+        the phase of omega around the MINOR cycle of the toroidal shell.
 
-        Returns the absolute rounded integer winding number along the major
-        cycle, which for the (2,q) torus-knot ladder equals c (= q) when the
-        initialization convention is preserved through relaxation.
+        The minor cycle threads through the tube cross-section: at fixed
+        azimuthal angle phi, traverse psi from 0 to 2*pi. For a (2,q)
+        torus-knot phase Theta = 2*phi + q*psi, this contour picks up q.
+
+        For the electron initial ansatz with Theta = 2*phi + 3*psi this
+        returns 3. Integer winding number; no fractional crossings.
         """
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
-        kz = int(round(cz))
         R_found, _ = self.extract_shell_radii()
 
-        n_theta = 64
-        thetas = np.linspace(0.0, 2.0 * np.pi, n_theta, endpoint=False)
-        dx_samples = cx + R_found * np.cos(thetas)
-        dy_samples = cy + R_found * np.sin(thetas)
+        n_psi = 64
+        psis = np.linspace(0.0, 2.0 * np.pi, n_psi, endpoint=False)
 
-        # Trilinear-sample omega_x, omega_y along the major circle at z = 0.
+        # Minor cycle: fix phi = 0 (sampling the x-axis cross-section).
+        # Parameterize (x, y, z) = (R_found + r_sample*cos(psi), 0, r_sample*sin(psi))
+        # where r_sample is a mid-tube radius. The shell_radii FWHM may
+        # underestimate r; use 1.5x for a safely-inside sample radius.
+        r_sample = max(1.5, R_found * 0.25)
+        dx_s = cx + (R_found + r_sample * np.cos(psis))
+        dy_s = cy + np.zeros_like(psis)
+        dz_s = cz + r_sample * np.sin(psis)
+
         def sample(comp: int) -> np.ndarray:
-            ix = np.clip(dx_samples.astype(int), 0, self.nx - 2)
-            iy = np.clip(dy_samples.astype(int), 0, self.ny - 2)
-            fx = dx_samples - ix
-            fy = dy_samples - iy
-            v00 = self.omega[ix, iy, kz, comp]
-            v10 = self.omega[ix + 1, iy, kz, comp]
-            v01 = self.omega[ix, iy + 1, kz, comp]
-            v11 = self.omega[ix + 1, iy + 1, kz, comp]
-            return (1 - fx) * (1 - fy) * v00 + fx * (1 - fy) * v10 + (1 - fx) * fy * v01 + fx * fy * v11
+            ix = np.clip(dx_s.astype(int), 0, self.nx - 2)
+            iy = np.clip(dy_s.astype(int), 0, self.ny - 2)
+            iz = np.clip(dz_s.astype(int), 0, self.nz - 2)
+            fx = dx_s - ix
+            fy = dy_s - iy
+            fz = dz_s - iz
+            c000 = self.omega[ix, iy, iz, comp]
+            c100 = self.omega[ix + 1, iy, iz, comp]
+            c010 = self.omega[ix, iy + 1, iz, comp]
+            c001 = self.omega[ix, iy, iz + 1, comp]
+            c110 = self.omega[ix + 1, iy + 1, iz, comp]
+            c101 = self.omega[ix + 1, iy, iz + 1, comp]
+            c011 = self.omega[ix, iy + 1, iz + 1, comp]
+            c111 = self.omega[ix + 1, iy + 1, iz + 1, comp]
+            return (
+                (1 - fx) * (1 - fy) * (1 - fz) * c000
+                + fx * (1 - fy) * (1 - fz) * c100
+                + (1 - fx) * fy * (1 - fz) * c010
+                + (1 - fx) * (1 - fy) * fz * c001
+                + fx * fy * (1 - fz) * c110
+                + fx * (1 - fy) * fz * c101
+                + (1 - fx) * fy * fz * c011
+                + fx * fy * fz * c111
+            )
 
         ox = sample(0)
         oy = sample(1)
-        phi = np.arctan2(oy, ox)
-        unwrapped = np.unwrap(phi)
-        total_winding = (unwrapped[-1] - unwrapped[0] + (phi[0] - unwrapped[0])) / (2.0 * np.pi)
+        phase = np.arctan2(oy, ox)
+        unwrapped = np.unwrap(phase)
+        total_winding = (unwrapped[-1] - unwrapped[0]) / (2.0 * np.pi)
+        # Close the loop: add the wrap from last-to-first sample.
+        closure = (phase[0] - unwrapped[-1])
+        while closure > np.pi:
+            closure -= 2.0 * np.pi
+        while closure < -np.pi:
+            closure += 2.0 * np.pi
+        total_winding += closure / (2.0 * np.pi)
         return int(round(abs(total_winding)))
 
     def extract_quality_factor(self) -> float:
