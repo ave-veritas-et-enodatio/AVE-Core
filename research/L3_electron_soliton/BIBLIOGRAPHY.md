@@ -174,7 +174,11 @@
 
 *Citations that surface in prose but that I have not yet placed in a section above. These are the "add later" backlog.*
 
-*(none currently)*
+### [B26] Eckhardt — "A Dark Future for Dark Matter" (tangential; to verify)
+- **Citation:** Eckhardt, D. H. (verification needed — likely a monograph or review article arguing against dark-matter hypothesis in favor of an alternative-substrate or modified-gravity mechanism). Author affiliation: formerly Air Force Geophysics Laboratory (lunar gravimetry background).
+- **Used in:** Identified in chat 2026-04-20 as tangential potentially-relevant prior art.
+- **Why it matters (speculatively, pending verification):** AVE's Axiom-4 saturation kernel produces galactic-regime deviations from Newtonian gravity at the MOND scale (per operating-regimes phase diagram in `manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex` and cross-references in Vol 3). Any independent work arguing dark-matter phenomenology is better explained by vacuum/substrate effects rather than by a new particle is prior art that AVE should position against and cite — at minimum in the galactic-regime derivation chapters, potentially in L3 if the electron-soliton ground-state framework is eventually scaled up to regime-IV/V_snap phenomenology.
+- **Status:** **[to verify + read]** — tentative pending web-search confirmation of title, venue, and thesis. Not load-bearing for Phase-1 L3. Tangential track.
 
 ---
 
