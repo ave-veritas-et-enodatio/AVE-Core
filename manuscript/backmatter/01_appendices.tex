@@ -68,8 +68,24 @@ The following mathematical bounds and identities were derived within the text fr
     \item \textbf{Geometric Packing Fraction:} $p_c \approx 0.1834$
     \item \textbf{Macroscopic Bulk Density:} $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3$
     \item \textbf{Kinematic Network Mutual Inductance:} $\nu_{vac} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
-    \item \textbf{Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):} $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
+    \item \textbf{Macroscopic Dielectric Yield Stress:} $\tau_{yield} = \frac{e^2\, \mathcal{V}_{total}}{8\pi \varepsilon_0\, \ell_{node}^4} \approx 1.04 \times 10^{22}\text{ Pa}$
+          \quad (simplified from $\rho_{bulk}\, c^2 \cdot \mathcal{V}_{total} \cdot p_c/(8\pi)$; $\mathcal{V}_{total} = 2.0$ is the FEM-verified Borromean halo volume; full derivation in Vol 1 Ch 4 \S\ref{sec:dielectric_yield})
 \end{itemize}
+
+% -----------------------------------------------------------------------------
+% DROPPED CLAIM (2026-04-20 audit):
+%   A prior version of this appendix listed a SECOND 'τ_yield' formula:
+%       τ_yield = ℏc / (α² ℓ_node⁴) ≈ 7.21×10³⁴ Pa  [Bingham-Plastic Limit]
+%   That formula was:
+%     (a) asserted without derivation anywhere in the manuscript,
+%     (b) dimensionally a Planck-scale estimate (not a physical-mechanism
+%         derivation), and
+%     (c) numerically inconsistent with itself — the stated 7.21×10³⁴ Pa
+%         does not match the stated formula, which recomputes to 2.67×10²⁸ Pa.
+%   See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md and
+%   .agents/handoffs/DROPPED_CLAIMS.md for the full audit trail.
+%   Do NOT re-add this claim without a real derivation.
+% -----------------------------------------------------------------------------
 
 \section{Signal Dynamics and Topological Matter}
 \begin{itemize}
