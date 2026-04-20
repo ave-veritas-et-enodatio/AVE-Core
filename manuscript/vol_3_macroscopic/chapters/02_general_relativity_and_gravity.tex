@@ -118,10 +118,63 @@ The simulation renders a Shakura--Sunyaev thin accretion disk ($T_{\text{in}} = 
     \label{fig:gargantua}
 \end{figure}
 
+\section{The Double Deflection: Why Light Bends Twice as Much as Matter}
+\label{sec:double_deflection}
+
+In 1801 Johann Georg von Soldner, treating light as a massive ballistic corpuscle, computed the Newtonian deflection of starlight grazing the Sun as $\delta_{\text{matter}} = 2GM/(bc^2)$. In 1915 Einstein showed the actual deflection is exactly twice this: $\delta_{\text{light}} = 4GM/(bc^2)$. The factor of 2 is the historically decisive signature of General Relativity.
+
+Within the AVE framework this factor of 2 is neither geometric curvature nor a 4D manifold artefact. It is a direct consequence of how two different kinds of wave packet couple to the strained LC lattice, and it is fully determined by the trace-reversed vacuum Poisson ratio $\nu_{vac} \equiv 2/7$ derived in Chapter~\ref{ch:gravity_and_yield}.
+
+\subsection{Two Coupling Channels, Two Projections}
+
+A massive topological defect (Hopfion) and a massless photon share the same spatial gradient of the vacuum refractive index $n(\mathbf{r})$, but they couple to it through structurally distinct mechanical channels:
+
+\begin{itemize}
+    \item \textbf{Matter (scalar coupling).} A fast-moving massive particle is an isotropic 3D volumetric wave packet carrying finite rest energy. It couples to the \emph{scalar} (isotropic bulk) component of the lattice strain via the $1/7$ volumetric projection derived in \S\ref{ch:gravity_and_yield} (``The $1/7$ Isotropic Impedance Projection''):
+    \begin{equation}
+        n_{\text{scalar}}(\mathbf{r}) = 1 + \tfrac{1}{7}\chi_{vol}(\mathbf{r})
+    \end{equation}
+    This is the projection a 1D uniaxial stress makes onto the isotropic spherical bulk tensor $\tfrac{1}{3}\theta\delta_{ij}$ of a medium with $\nu_{vac} = 2/7$.
+
+    \item \textbf{Light (transverse coupling).} A photon is a purely transverse Cosserat shear wave; it carries no rest mass and has no longitudinal (scalar) component. It is therefore \emph{mechanically blind} to the isotropic bulk and couples instead to the transverse cross-sectional strain of the lattice. In classical mechanics the relationship between axial and transverse strain is governed exactly by Poisson's ratio, giving the transverse-sector refractive index:
+    \begin{equation}
+        n_{\perp}(\mathbf{r}) = 1 + \nu_{vac}\,\chi_{vol}(\mathbf{r}) = 1 + \tfrac{2}{7}\chi_{vol}(\mathbf{r})
+    \end{equation}
+\end{itemize}
+
+\subsection{The Factor of 2 Falls Out of $2/7 : 1/7$}
+
+The deflection of a wave packet grazing a spherically symmetric refractive gradient is, in the eikonal limit, linear in the projection coefficient multiplying $\chi_{vol}$. Because the transverse Poisson coupling ($2/7$) is arithmetically exactly double the scalar bulk coupling ($1/7$), the photon refracts through a gradient exactly twice as severe as the ballistic matter wave:
+\begin{resultbox}{Double Deflection}
+\begin{equation}
+    \frac{\delta_{\text{light}}}{\delta_{\text{matter}}} = \frac{n_{\perp} - 1}{n_{\text{scalar}} - 1} = \frac{2/7}{1/7} = 2
+\end{equation}
+\end{resultbox}
+
+With $\chi_{vol}(r) = 7GM/(c^2 r)$ (Chapter~\ref{ch:gravity_and_yield}, Eq.~``Gravitational Coupling Constant''), the two deflection integrals reduce to the canonical expressions:
+\begin{equation}
+    \delta_{\text{matter}} = \frac{2GM}{bc^2} \quad\text{(Newton / Soldner 1801)},
+    \qquad
+    \delta_{\text{light}} = \frac{4GM}{bc^2} \quad\text{(Einstein 1915)}
+\end{equation}
+For the Sun at grazing incidence ($b = R_\odot$), the predicted starlight deflection is the observed $1.75$ arcseconds.
+
+\subsection{What This Derivation Replaces}
+
+The AVE Double Deflection replaces the ``Rubber Sheet'' metaphor and its requirement for a hidden fourth spatial dimension to accommodate curvature. The factor of 2 that distinguishes Einstein's prediction from Newton's is:
+
+\begin{itemize}
+    \item \textbf{not} a general-relativistic signature of a curved 4-manifold,
+    \item \textbf{not} the consequence of massless particles following null geodesics in a pseudo-Riemannian metric,
+    \item \textbf{but} the mechanical fingerprint of a 3D Cosserat elastic solid with a Poisson ratio rigidly locked to $\nu_{vac} = 2/7$ by trace-reversal ($K = 2G$).
+\end{itemize}
+
+The $1.75$ arcsecond deflection of starlight, historically the decisive experimental validation of General Relativity, is here derived as the macroscopic mechanical signature of the same Chiral LC trace-reversal identity that sets the weak mixing angle $\sin^2\theta_W = 2/9$ and the neutrino mass-squared splitting ratio $\nu_{vac} = 2/7$. The factor of 2 in Einstein's $4GM/bc^2$ is not a feature of empty geometry; it is the ratio of the transverse to the isotropic Poisson projection of a strained 3D Cosserat continuum.
+
 \section{K4-TLM Gravitational Lensing Cross-Validation}
 \label{sec:k4_tlm_lensing}
 
-The preceding sections derive photon deflection analytically---$\delta = 4GM/(bc^2)$---and validate it via Hamiltonian raymarching. We now cross-validate the same physics with the K4-TLM native lattice dynamics simulator (Section~Volume 4, Vol.~4), which time-evolves electromagnetic waves natively through the pure Diamond lattice vacuum.
+Section~\ref{sec:double_deflection} derives photon deflection analytically as $\delta_{\text{light}} = 4GM/(bc^2)$ from the transverse Poisson coupling of light to the trace-reversed LC lattice. We now cross-validate the same physics with the K4-TLM native lattice dynamics simulator (Section~Volume 4, Vol.~4), which time-evolves electromagnetic waves natively through the pure Diamond lattice vacuum.
 
 \subsection{Method}
 

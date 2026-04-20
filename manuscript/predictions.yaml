@@ -273,31 +273,31 @@ predictions:
   - id: P10
     name: "Solar light deflection"
     type: consistency_check
-    derivation_label: "ch:general_relativity"
+    derivation_label: "sec:double_deflection"
     error_percent: 0.03
-    axioms_used: [1, 3]
+    axioms_used: [1, 2, 3]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
       AVE reproduces the Einstein weak-field deflection δ = 4GM/(bc²) via
-      optical refraction through the lattice impedance gradient.
+      the transverse Poisson coupling of photons to the trace-reversed
+      LC lattice (ν_vac = 2/7), giving exactly twice the Newtonian
+      scalar bulk coupling (1/7) for matter. The historical "factor of 2"
+      is mechanical, not geometric.
 
-      ⚠ R-2 audit (2026-04-19): the step-by-step derivation asserted in
-      Vol 3 Ch 2 §K4-TLM Gravitational Lensing Cross-Validation ("the
-      preceding sections derive photon deflection analytically—δ = 4GM/bc²")
-      is not actually shown in preceding sections. What IS in AVE-Core:
-      Gordon metric + 7GM/c²r strain field (KB leaves, gordon-optical-metric.md)
-      and a statement of the result (einstein-lensing-deflection.md).
+      R-8 closure (2026-04-19): the Double Deflection derivation was
+      restored into Vol 3 Ch 2 §sec:double_deflection. Previously flagged
+      as a content gap in the R-2 audit (PR #18). Content was retrieved
+      from deleted parent-repo future_work (commit 0a6ea52^ in
+      Applied-Vacuum-Engineering) and adapted to Ch 2 notation.
+      derivation_label updated ch:general_relativity → sec:double_deflection
+      to point at the new section directly.
 
-      The load-bearing "Double Deflection" mechanism (photon couples via
-      ν_vac = 2/7 transverse Poisson ratio; matter couples via 1/7 scalar
-      volumetric — factor of 2 in 4GM/bc² vs Newton's 2GM/bc² falls out
-      of the ratio 2/7 : 1/7) EXISTS in deleted parent-repo content at
-      future_work/chapters/16_futurework/07_gravitation_metric_refraction/
-      01_gravity_as_refractive_index.tex (commit 0a6ea52^ in parent
-      Applied-Vacuum-Engineering repo). Retrieved content staged locally
-      at .agents/kb_audit/recovered_lensing_derivation/ pending integration
-      into Vol 3 Ch 2 in a future PR (tracked as R-8 in FUTURE_WORK.md).
+      axioms_used updated [1, 3] → [1, 2, 3]: Axiom 1 (LC lattice hosts
+      the refractive gradient), Axiom 2 (Cosserat TKI-encoded transverse
+      shear couples light to the ν_vac = 2/7 Poisson projection), Axiom 3
+      (gravity sources the χ_vol strain field). Axiom 4 is not load-
+      bearing for this weak-field derivation (operates in linear Regime I).
 
   - id: P11_12
     name: "Δ(1600), Δ(1900)"
