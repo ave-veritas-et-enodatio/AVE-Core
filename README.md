@@ -135,7 +135,7 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 8 | Δ(1232) | 3.49% | ✅ |
 | 9 | Neutrino mass | 0.66% | ✅ |
 | 10 | Solar deflection | 0.03% | ✅ |
-| 11–12 | Δ(1620), Δ(1950) | 0.19–0.62% | ✅ |
+| 11–12 | Δ(1600), Δ(1900) | 0.27–1.11% | ✅ |
 | 13 | Fermi constant | 2.09% | ✅ |
 | 14–16 | Yang-Mills, N-S, Strong CP | Framework-derived | ✅ Derivations ([Vol 2 Ch 12 caveats](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) |
 | 17–18 | Kirkwood gaps, Cassini | 0.05–0.59% | ✅ |

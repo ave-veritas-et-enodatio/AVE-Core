@@ -251,21 +251,56 @@ predictions:
   - id: P10
     name: "Solar light deflection"
     type: consistency_check
-    derivation_label: "ch:macroscopic_moduli"
+    derivation_label: "ch:general_relativity"
     error_percent: 0.03
-    axioms_used: [3]
+    axioms_used: [1, 3]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Standard GR weak-field; reproduced via lattice refractive index."
+    notes: |
+      AVE reproduces the Einstein weak-field deflection δ = 4GM/(bc²) via
+      optical refraction through the lattice impedance gradient.
+
+      ⚠ R-2 audit (2026-04-19): the step-by-step derivation asserted in
+      Vol 3 Ch 2 §K4-TLM Gravitational Lensing Cross-Validation ("the
+      preceding sections derive photon deflection analytically—δ = 4GM/bc²")
+      is not actually shown in preceding sections. What IS in AVE-Core:
+      Gordon metric + 7GM/c²r strain field (KB leaves, gordon-optical-metric.md)
+      and a statement of the result (einstein-lensing-deflection.md).
+
+      The load-bearing "Double Deflection" mechanism (photon couples via
+      ν_vac = 2/7 transverse Poisson ratio; matter couples via 1/7 scalar
+      volumetric — factor of 2 in 4GM/bc² vs Newton's 2GM/bc² falls out
+      of the ratio 2/7 : 1/7) EXISTS in deleted parent-repo content at
+      future_work/chapters/16_futurework/07_gravitation_metric_refraction/
+      01_gravity_as_refractive_index.tex (commit 0a6ea52^ in parent
+      Applied-Vacuum-Engineering repo). Retrieved content staged locally
+      at .agents/kb_audit/recovered_lensing_derivation/ pending integration
+      into Vol 3 Ch 2 in a future PR (tracked as R-8 in FUTURE_WORK.md).
 
   - id: P11_12
-    name: "Δ(1620), Δ(1950)"
+    name: "Δ(1600), Δ(1900)"
     type: derived_prediction
-    derivation_label: "ch:electroweak_higgs"
+    derivation_label: "ch:baryons"
+    predicted_value: 1582.23
+    predicted_unit: "MeV/c² ((2,9) entry; the (2,11) entry predicts 1894.89 MeV)"
+    observed_value: 1600.0
+    observed_source: "PDG — Δ(1600); the (2,11) matches Δ(1900) at 1900 MeV"
+    error_percent: 1.11
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Torus knot (2,9), (2,11) ladder entries."
+    notes: |
+      Torus knot (2,9) and (2,11) baryon-ladder entries from
+      Vol 2 Ch 2 §"The Baryon Resonance Spectrum: The Torus Knot Ladder".
+      Engine BARYON_LADDER canonical values: c=9 → 1582.23 MeV (Δ(1600),
+      −1.11%); c=11 → 1894.89 MeV (Δ(1900), −0.26%).
+
+      ⚠ Prior manifest + README targeted "Δ(1620), Δ(1950)" which is
+      inconsistent with the engine. R-2 audit (2026-04-19) traced this
+      to Vol 2 Ch 2 line 236 prose that incorrectly claimed "m = 1617
+      MeV matches Δ(1620) to 0.20%" — this prose is being removed in
+      the same PR as part of aligning the canonical target to the
+      engine output.
 
   - id: P13
     name: "Fermi constant"
@@ -289,11 +324,25 @@ predictions:
 
   - id: P17_18
     name: "Kirkwood gaps, Cassini division"
-    type: derived_prediction
+    type: consistency_check
     derivation_label: "ch:orbital_mechanics"
     axioms_used: [3]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      Kirkwood gap positions: Vol 3 Ch 6 §sec:kirkwood asserts
+      a_gap = a_J (q/p)^(2/3) and claims <0.3% error for all five major
+      gaps. Cassini Division: Vol 3 Ch 14 §"Radial Impedance Bands"
+      frames the 2:1 Mimas resonance gap as a topological standing-wave
+      cancellation.
+
+      ⚠ R-2 audit (2026-04-19): the quantitative formulas are standard
+      Keplerian mean-motion-resonance celestial mechanics (Kepler's
+      Third Law + n_asteroid/n_J = p/q), not AVE-axiom-derived. The
+      "cavity mode / standing wave" framing is AVE's reinterpretation
+      of the standard mechanism. Reclassified type: derived_prediction
+      → consistency_check to reflect that AVE reproduces but does not
+      mechanistically derive these gap locations from the four axioms.
 
   - id: P19
     name: "Flyby anomaly (NEAR)"
@@ -308,19 +357,23 @@ predictions:
   - id: P20_21
     name: "Magnetopause (Earth, Jupiter)"
     type: derived_prediction
-    derivation_label: "ch:macroscopic_moduli"
+    derivation_label: "sec:planetary_magnetosphere"
     axioms_used: [3]
     public_in_readme: true
     public_in_living_ref: true
+    notes: "Chapman-Ferraro standoff derived in Vol 3 Ch 6 from vacuum magnetic pressure balance; NOT in ch:macroscopic_moduli as previously labeled."
 
   - id: P22
     name: "Baryon asymmetry"
     type: derived_prediction
-    derivation_label: "ch:cosmology_v7"
+    derivation_label: "sec:baryon_asymmetry"
+    predicted_value: 6.08e-10
+    observed_value: 6.1e-10
     error_percent: 0.38
     axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: "η_B = n_B/n_γ from sphaleron + CP-violation open problem in Vol 2 Ch 10 sec:baryon_asymmetry; NOT in ch:cosmology_v7 (Vol 3 Ch 5) as previously labeled. No ETA_BARYON module-level constant; engine computes inline in src/ave/axioms/open_problems.py:236."
 
   - id: P26_28
     name: "CKM matrix (V_us, V_cb, V_ub)"
