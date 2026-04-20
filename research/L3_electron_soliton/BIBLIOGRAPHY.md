@@ -120,12 +120,31 @@
 - **Used in:** `00_` §10 ref [16]. Hopfion electromagnetism review.
 - **Status:** Secondary.
 
-### [B25] Williamson & van der Mark 1997 ⚠ CRITICAL DIRECT PRIOR ART
-- **Citation:** Williamson, J. G. & van der Mark, M. B. "Is the electron a photon with toroidal topology?" *Annales de la Fondation Louis de Broglie* **22**, 133–160 (1997).
-- **Used in:** Identified in chat 2026-04-20 as direct prior-art for electron-as-torus models.
-- **Why it matters:** Proposes the electron as a confined electromagnetic wave (photon) wound around a closed toroidal path. Addresses spin-1/2 via the 720° phase-closure requirement — the same $4\pi$ spinor-cycle structure AVE uses in Ch 8's $\Lambda_{\text{vol}}$ derivation and in the C3 SU(2) embedding (`01_` §4). This is not Hopfion-literature abstract topology but a concrete physical model of the electron as a toroidal structure. Directly on-topic for the Reading (a) vs Reading (b) question: Williamson-van der Mark's toroidal-photon ansatz uses a single combined field (closer to Reading (a) Sutcliffe-style single-phase topology), but with explicit physical interpretation as an EM wave rather than an abstract S²-valued field.
-- **Status:** **[to read — high priority.]** Likely shifts the Reading (a) vs Reading (b) balance: if Williamson-van der Mark's single-field toroidal-photon model matches AVE's ground state (not just topologically but dynamically), Reading (a) gains real prior-art legitimacy beyond pure-math Hopfion literature. Also potentially load-bearing for the separate L3 derivation of $\delta_{\text{strain}}$ (since Williamson-van der Mark's photon-as-electron identity ties the electron's $\alpha$ to photon-frequency content in a way that may illuminate the CMB-thermal coupling).
-- **Authors:** John G. Williamson (University of Glasgow, Scotland — UK); Martin B. van der Mark (Philips Research, Netherlands).
+### [B25] Williamson & van der Mark 1997 ⚠ CRITICAL DIRECT PRIOR ART — verified 2026-04-20
+- **Citation:** Williamson, J. G. & van der Mark, M. B. "Is the electron a photon with toroidal topology?" *Annales de la Fondation Louis de Broglie* **22**, 133–160 (1997). PDF: https://fondationlouisdebroglie.org/AFLB-222/MARK.TEX2.pdf
+- **Used in:** Identified in chat 2026-04-20; verified via web search 2026-04-20.
+- **Authors:** John G. Williamson (Glasgow, Scotland — UK, Dept. Electronics & Electrical Engineering); Martin B. van der Mark (Philips Research Labs, Netherlands).
+- **Key claims (verified):**
+  - Semi-classical model: single photon confined in periodic boundary conditions on a toroidal path; electron IS a confined photon.
+  - Single combined EM field — not factorized base+fibre. Reading-(a)-like in topology (single field with combined phase winding), not Reading-(b)-like.
+  - Spin-1/2 via 720° phase-closure: "the object must rotate by 720° to return to its starting position." Same $4\pi$ spinor cycle AVE uses in Ch 8 $\Lambda_{\text{vol}}$ and in C3 SU(2) embedding.
+  - Major radius of the photon path: $R = \lambda_C / (4\pi)$ where $\lambda_C$ is the Compton wavelength; wrapped into a 720° double-loop.
+  - Charge $\sim 10^{-19}$ C (right order of magnitude as elementary charge $e$).
+  - Anomalous spin g-factor close to electron's, derived from the EM energy ratio inside vs outside the torus.
+  - **Winding ratios investigated: original 1:2 and alternate 2:1.** The 2:1 ratio is preferred — produces more accurate alignment of computed charge with observed elementary charge. **NOT (2,3).**
+  - No derivation of $\alpha^{-1} = 137$; no Hopfion, Faddeev-Skyrme, or Cosserat references.
+  - Reception: limited mainstream citation; lives in alternative-physics literature.
+- **Why it matters for L3:** ⚠ **Single most relevant prior art for AVE's electron-as-topological-object claim.** Same 720° mechanism, same toroidal structure, similar order-of-magnitude charge, comparable anomalous g-factor. Represents the "Reading (a) with physical-EM interpretation" version of AVE's electron.
+- **⚠ THE (2,1) vs (2,3) TENSION — user adjudicated 2026-04-20 as Option (1):** Williamson-van der Mark's preferred winding is 2:1, not (2,3) as in AVE. User adjudication: **Option (1) — different invariants being counted.** Williamson-van der Mark counts EM-phase cycles on a semi-classical photon path; AVE counts SU(2)-Cosserat windings on the Clifford toroidal shell. The (p,q) labels index different observables and need not numerically coincide. Resolving this requires the explicit Cosserat → EM projection map (Phase-1 or Phase-2 task, see queue item [7]). The two numbers are not in contradiction under this reading; they are different counting schemes for overlapping physical content.
+- **Status:** Core directly-relevant prior art. Cite in publication positioning. **[to read full paper if (2,1) vs (2,3) resolution via explicit projection map requires it.]**
+
+### [B27] Williamson 2020 — Quicycle follow-up
+- **Citation:** Williamson, J. G. "A new theory of light and matter." PoS (Proceedings of Science), 2020. PDF: https://quicycle.com/wp-content/uploads/2020/05/PoS5.pdf
+- **Used in:** Identified during B25 web search 2026-04-20.
+- **Authors:** John G. Williamson (Glasgow / Quicycle Society).
+- **Content:** Follow-up to Williamson-van der Mark 1997 under the "Quantum Bicycle" research program. Continued development of the photon-as-electron toroidal model. Likely contains more precise derivations of g-factor, charge, mass; may contain the full 1:2 → 2:1 winding adjudication.
+- **Why it matters:** If the 2020 follow-up has an explicit mechanism tying the photon-winding index to an SU(2)- or gauge-theoretic invariant, that map resolves the (2,1) vs (2,3) tension directly.
+- **Status:** **[to read — medium priority, after understanding the (2,1) vs (2,3) Cosserat → EM projection well enough from B25 alone.]**
 
 ---
 

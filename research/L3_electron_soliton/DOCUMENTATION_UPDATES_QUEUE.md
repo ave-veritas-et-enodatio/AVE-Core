@@ -66,6 +66,15 @@
 - **Surfaced:** Phase 1 equivalence check, 2026-04-20
 - **Status:** queued (pending §8 adjudication in `05_`)
 
+### [7] Resolve Williamson-van der Mark (2,1) vs AVE (2,3) winding tension via Cosserat→EM projection map
+- **File (new):** suggested path `research/L3_electron_soliton/06_winding_index_projection.md`
+- **Kind:** markdown (new research doc) + possible touch of `02_lagrangian_derivation.md` §7.2 to annotate the projection relationship
+- **Location:** new Phase-1 wrap-up doc
+- **Change:** Derive the explicit projection from AVE's SU(2)-Cosserat winding pair $(2, 3)$ to the semi-classical EM-phase winding of a Williamson-van der Mark-type toroidal photon model. Under user adjudication (2026-04-20) that the two indices count different observables, show which Cosserat invariant produces a semi-classical EM-phase count matching Williamson-van der Mark's preferred 2:1 — and verify the other Cosserat invariant (the $(2,3)$ second number) has a consistent interpretation in the semi-classical limit (e.g., as a fibre-phase count invisible to a pure-EM observer).
+- **Why:** Williamson-van der Mark (B25) is the most directly comparable prior art for AVE's electron-as-torus claim. AVE uses $(2,3)$ winding; Williamson-van der Mark uses 2:1. User adjudicated this as option (1): different invariants being counted. But the adjudication is not written down formally anywhere yet; until it is, "why $(2,3)$ not $(2,1)$?" is an open question any reviewer will ask. The projection map is the rigorous answer.
+- **Surfaced:** Phase 1 bibliography expansion, 2026-04-20
+- **Status:** queued (Phase-1 wrap-up task)
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
