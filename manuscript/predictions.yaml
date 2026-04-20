@@ -183,30 +183,52 @@ predictions:
     observed_value: 0.2230
     observed_source: "PDG on-shell"
     error_percent: 0.35
-    axioms_used: [3]
+    axioms_used: [1, 2]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "sin²θ_W = 2/9 from ν_vac = 2/7 and Perpendicular Axis Theorem."
+    notes: |
+      sin²θ_W = 2/9 from ν_vac = 2/7 and Perpendicular Axis Theorem.
+
+      R-1 audit (2026-04-19): axioms_used corrected [3] → [1, 2]. Prior
+      [3] was a bootstrap typo — no gravitational coupling is invoked in
+      this derivation. ν_vac = 2/7 is an interlink between Axiom 1 (K4
+      lattice geometry) and Axiom 2 (Cosserat TKI); both are load-bearing
+      for the Poisson ratio used in the PAT stiffness projection.
 
   - id: P07
     name: "Proton mass"
     type: derived_prediction
-    derivation_label: "ch:electroweak_higgs"
+    derivation_label: "ch:baryons"
     error_percent: 0.29
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "m_p ≈ 1836.12 m_e — Faddeev-Skyrme scalar eigenvalue on (2,5) trefoil."
+    notes: |
+      m_p ≈ 1836.12 m_e — Faddeev-Skyrme scalar eigenvalue on (2,5) trefoil
+      cinquefoil-confined, with toroidal halo V_total = 2.0 and thermal
+      softening δ_th = 1/(14π²).
+
+      R-1 audit (2026-04-19): derivation_label corrected
+      ch:electroweak_higgs → ch:baryons (R-2 spillover). Full derivation
+      lives in Vol 2 Ch 2 §"The Proton Mass: The Dynamic Tensor Deficit"
+      through §"The Self-Consistent Mass Oscillator" (lines 40–197), not
+      in the electroweak/higgs chapter.
 
   - id: P08
     name: "Δ(1232) baryon mass"
     type: derived_prediction
-    derivation_label: "ch:electroweak_higgs"
+    derivation_label: "ch:baryons"
     error_percent: 3.49
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Torus knot (2,7) ladder."
+    notes: |
+      Torus knot (2,7) ladder entry.
+
+      R-1 audit (2026-04-19): derivation_label corrected
+      ch:electroweak_higgs → ch:baryons (R-2 spillover). The baryon ladder
+      is Vol 2 Ch 2 §"The Baryon Resonance Spectrum: The Torus Knot Ladder",
+      not the electroweak/higgs chapter.
 
   - id: P09
     name: "Neutrino mass sum"
@@ -315,12 +337,23 @@ predictions:
     name: "Millennium — Yang-Mills, Navier-Stokes, Strong CP"
     type: engineering_limit
     derivation_label: "ch:millennium_prizes"
-    axioms_used: [1, 4]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
       Framework-conditional engineering-physics resolutions, not Clay-rigorous
       proofs. See Ch 12 scope caveat.
+
+      R-1 audit (2026-04-19): axioms_used updated [1, 4] → [1, 2, 4] to
+      cover Strong CP, whose derivation explicitly invokes Axiom 2 (gauge
+      structure emerges from (2,q) torus knot TKI encoding). Yang-Mills
+      mass gap and Navier-Stokes smoothness use [1, 4] alone; Strong CP
+      adds [2]; the bundle inherits the superset.
+
+      ⚠ Strong CP derivation actually lives in Vol 2 Ch 10 open_problems
+      (sec:strong_cp), not Ch 12 millennium_prizes. Future PR should either
+      split P14_16 into three entries with individual labels, or add a
+      supplementary label field referencing Ch 10.
 
   - id: P17_18
     name: "Kirkwood gaps, Cassini division"
@@ -349,19 +382,40 @@ predictions:
     type: derived_prediction
     derivation_label: "ch:orbital_mechanics"
     error_percent: 1.6
-    axioms_used: [3]
+    axioms_used: [1, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Geometry-modulated; NEAR-shape prediction validated, others nulls."
+    notes: |
+      Geometry-modulated; NEAR-shape prediction validated, others nulls.
+
+      R-1 audit (2026-04-19): axioms_used corrected [3] → [1, 4]. Vol 3
+      Ch 14 §sec:flyby_anomaly derives the anomaly as a Sagnac Acoustic
+      Shear Layer at Earth's rigid rotating boundary (Axiom 1 LC lattice),
+      operating in Regime IV (Axiom 4 saturation). The section explicitly
+      "falsifies Lense-Thirring gravity on macroscopic geometries" — so
+      Axiom 3 is NOT the mechanism. Hyperbolic trajectory setup uses GR
+      as input but the anomaly itself is lattice mechanics.
 
   - id: P20_21
     name: "Magnetopause (Earth, Jupiter)"
     type: derived_prediction
     derivation_label: "sec:planetary_magnetosphere"
-    axioms_used: [3]
+    axioms_used: [1, 2]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Chapman-Ferraro standoff derived in Vol 3 Ch 6 from vacuum magnetic pressure balance; NOT in ch:macroscopic_moduli as previously labeled."
+    notes: |
+      Chapman-Ferraro standoff derived in Vol 3 Ch 6 from vacuum magnetic
+      pressure balance. The derivation is pure transmission-line impedance
+      matching: B²/(2μ₀) = ½ρ_sw v_sw² with reflection coefficient Γ.
+
+      R-1 audit (2026-04-19): axioms_used corrected [3] → [1, 2]. Gravity
+      is EXPLICITLY decoupled from the magnetopause mechanism (Vol 3 Ch 6
+      lines 110–117: "The Sun's standing orbital acoustic cavities
+      completely ignore the planetary magnetic envelope"; Venus/Mars
+      control group proves gravity operates independently). Magnetopause
+      is Axiom 1 (LC lattice impedance matching via μ₀) + Axiom 2 (magnetic
+      flux TKI coupling). Operates in Regime I (linear), so Axiom 4
+      saturation is not load-bearing.
 
   - id: P22
     name: "Baryon asymmetry"
@@ -379,18 +433,33 @@ predictions:
     name: "CKM matrix (V_us, V_cb, V_ub)"
     type: derived_prediction
     derivation_label: "ch:electroweak"
-    axioms_used: [1, 2, 3]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      R-1 audit (2026-04-19): axioms_used corrected [1, 2, 3] → [1, 2, 4].
+      Vol 2 Ch 5 electroweak gauge theory explicitly invokes Ax 1 (line 56
+      "Axiom 1 bounds the physical diameter"), Ax 2 (line 84 "Chiral SRS
+      net (Axiom 2)"), and Ax 4 (line 86 "Axiom 4 dielectric susceptibility").
+      Axiom 3 (gravity) is NOT invoked anywhere in Ch 5. Prior [3] was a
+      bootstrap typo for [4].
 
   - id: P29_32
     name: "PMNS matrix (all 4 parameters)"
     type: derived_prediction
     derivation_label: "ch:neutrino_sector"
-    axioms_used: [1, 2, 3]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "sin²θ_{12,13,23} + δ_CP from torus-knot crossing-number ladder."
+    notes: |
+      sin²θ_{12,13,23} + δ_CP from torus-knot crossing-number ladder.
+
+      R-1 audit (2026-04-19): axioms_used corrected [1, 2, 3] → [1, 2, 4].
+      Vol 2 Ch 3 line 23 invokes Axiom 4 saturation; line 33 invokes
+      Axiom 1; line 242 lists "torus knot crossing numbers (Ax 2 TKI),
+      vacuum Poisson ratio (Ax 1+2 interlink), and K4 lattice connectivity
+      (Ax 1)." Axiom 3 (gravity) is NOT invoked. Same bootstrap typo
+      pattern as P26_28 and P46 (Ch 5 family: [3] → [4]).
 
   - id: P33_38
     name: "All 6 quark masses"
@@ -404,11 +473,24 @@ predictions:
     name: "Protein Rg (Villin)"
     type: derived_prediction
     derivation_label: "ch:condensed_matter"
+    cross_repo: "AVE-Protein"
     error_percent: 0.8
-    axioms_used: [3]
+    axioms_used: []
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Cross-repo: full engine lives in AVE-Protein; formula is AVE-Core-native."
+    notes: |
+      Cross-repo: full engine lives in AVE-Protein; formula is AVE-Core-native.
+
+      R-1 audit (2026-04-19): the ch:condensed_matter label was
+      categorically wrong — the Rg derivation lives at AVE-Protein
+      (manuscript/vol_protein/chapters/03_deterministic_protein_folding.tex,
+      engine in src/scripts/amino_chain_pipeline.py), NOT in AVE-Core's
+      condensed matter chapter. Axiom attribution (prior [3] was
+      implausible for protein folding) nulled pending AVE-Protein audit.
+
+      Recommendation: once C1 cross-repo rule (Y-1 in FUTURE_WORK) is
+      implemented, derivation_label should point at AVE-Protein's chapter
+      directly and the entry should carry a [Protein] tag in README.
 
   - id: P40
     name: "NS compactness limit"
@@ -417,41 +499,78 @@ predictions:
     axioms_used: [3, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      R-1 audit (2026-04-19): axioms_used [3, 4] retained after review.
+      The NS compactness limit is gravity (Ax 3) driving the lattice into
+      saturation (Ax 4). Ch 8 also invokes Ax 1 and Ax 2 elsewhere
+      (gravitational wave propagation, Topo-Kinematic phase damping of
+      Hulse-Taylor), but those are adjacent derivations in the same
+      chapter, not the NS compactness bound specifically. [3, 4] is the
+      minimal load-bearing set for this entry.
 
   - id: P41
     name: "WD redshift (Sirius B)"
     type: consistency_check
     derivation_label: "ch:white_dwarf_predictions"
     error_percent: 3.7
-    axioms_used: [3]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      R-1 audit (2026-04-19): axioms_used updated [3] → [1, 2, 3, 4].
+      Vol 3 Ch 20 explicitly invokes Ax 3 (lines 54, 98 "gravitational
+      refractive index (Axiom 3)"), Ax 4 (line 99 "saturation factor
+      (Axiom 4)"), and uses ν_vac = 2/7 (line 151) which per the ν_vac
+      interlink rule loads Ax 1 + Ax 2.
 
   - id: P42
     name: "α invariance under gravity"
     type: derived_prediction
     derivation_label: "sec:galactic_saturation"
-    axioms_used: [2, 3]
+    axioms_used: [1, 2, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
       Substrate-level prediction: ε_local and c_local carry the same n·S factor
       which cancels in α = e²/(4πε₀ℏc). Not a null equivalence-principle restatement.
 
+      R-1 audit (2026-04-19): axioms_used corrected [2, 3] → [1, 2, 3, 4].
+      α itself is TKI-defined (Ax 2 golden torus), hosted on the LC
+      substrate (Ax 1), with gravity contributing the refractive index n(r)
+      (Ax 3) and saturation contributing the S factor (Ax 4). Both n and
+      S are explicit in the cancellation argument per the manifest notes.
+
   - id: P44_45
     name: "BH interior, Regime IV"
     type: derived_prediction
-    derivation_label: "ch:cosmology_v7"
-    axioms_used: [4]
+    derivation_label: "ch:bh_interior"
+    axioms_used: [1, 3, 4]
     public_in_readme: true
     public_in_living_ref: true
+    notes: |
+      R-1 audit (2026-04-19): derivation_label corrected
+      ch:cosmology_v7 → ch:bh_interior (the dedicated chapter at
+      vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex).
+      axioms_used corrected [4] → [1, 3, 4]: Regime IV is full Axiom 4
+      saturation (central mechanism), driven by Axiom 3 gravitational
+      extreme-field, hosted on the Axiom 1 LC substrate.
 
   - id: P46
     name: "IE sweep Z=1–12"
     type: derived_prediction
-    derivation_label: "ch:electroweak"
+    derivation_label: "ch:computational_mass_defect"
     error_percent: 2.8
-    axioms_used: [1, 2, 3]
+    axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "Four named corrections (A/B/C/D) are operator invocations with geometric gates."
+    notes: |
+      Four named corrections (A/B/C/D) are operator invocations with geometric gates.
+
+      R-1 audit (2026-04-19): derivation_label corrected
+      ch:electroweak → ch:computational_mass_defect (Vol 6 Ch 1
+      01_computational.tex). IE sweep uses the semiconductor-binding
+      engine in src/ave/nuclear/ (hydrogen through silicon per-element
+      atoms), NOT the electroweak gauge theory chapter. Engine confirmed
+      in AVE-Core (not migrated to AVE-APU). axioms_used corrected
+      [1, 2, 3] → [1, 2, 4]: same bootstrap typo pattern as P26_28 and
+      P29_32 ([3] was meant [4]). Gravity NOT load-bearing for atomic IE.
