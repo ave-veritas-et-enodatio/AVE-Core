@@ -134,15 +134,22 @@
 
 ### [14] Phase-3: preserve (2,3) topology through gradient descent
 - **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py)
-- **Kind:** numerical-physics enhancement
-- **Change:** Phase-3 validation with correct saturation gradient (per [13] APPLIED) now shows that (2,3) topology is NOT preserved during gradient descent at 32³ resolution — `c` drops from 3 to 0, R/r ratio does not converge to $\varphi^2$. Field unwinds through the discrete lattice faster than the saturation barrier can prevent. Needs one or more of:
-  - Higher grid resolution ($64^3$, $96^3$) — reduces discrete topological-slip rate.
-  - Finer lattice spacing (dx < 1) with rescaled (R, r) — increases tube resolution.
-  - Topology-preserving solver variant: constrained gradient, projected descent, or Landau–Lifshitz-style precession-plus-damping that naturally conserves winding.
-  - More robust c-extraction diagnostic (cross-check via Op11 topological-curl integral over full shell, not just a single minor-circle sample).
-- **Why:** Fix [13] removed the saturation-gradient bug, but revealed that the solver as-is still doesn't complete Phase-3 end-to-end validation because topology isn't preserved. This is the next concrete blocker to demonstrating "electron emerges from Cosserat Lagrangian at Golden Torus."
+- **Kind:** numerical-physics enhancement — PARTIALLY RESOLVED 2026-04-20
+- **Resolution so far:** 
+  - c-extractor made robust via multi-radius contour scan (returns max over reliable contours); initial c now reads 3 correctly.
+  - At $32^3$: topology goes $3 \to 2$ (one winding lost between iters 20-60); not preserved.
+  - At $48^3$ and $64^3$: **topology preserved — $c = 3$ throughout relaxation.** Higher resolution defeats lattice tearing.
+- **Remaining issue:** at $48^3/64^3$ the relaxed soliton's *spatial* `r` (|ω| FWHM) collapses to $\sim 0{-}1$, and $R/r$ does NOT match $\varphi^2 \approx 2.618$. May indicate (a) the relaxed soliton is collapsing to a singular 1D curve, (b) the spatial FWHM extractor doesn't correspond to Ch 8's Clifford-torus $r$, or (c) the Lagrangian needs an additional stabilization term (e.g., Skyrme 4-derivative) to prevent the minor-axis collapse.
 - **Surfaced:** Phase 3 second-pass validation (JAX), 2026-04-20
-- **Status:** queued — blocks Phase-3 completion.
+- **Status:** queued — partial resolution applied (topology preservation at higher res). Completing Phase-3 validation blocked on understanding the spatial-(R,r) vs Clifford-(R,r) relationship. See new item [15].
+
+### [15] Phase-3: distinguish spatial-toroidal (R, r) from Clifford-torus (R, r)
+- **File:** Phase-3 diagnostic work; may need new research doc `research/L3_electron_soliton/10_spatial_vs_clifford_torus.md`
+- **Kind:** conceptual / diagnostic
+- **Change:** Write out precisely what Ch 8's Clifford-torus $(R, r) = (\varphi/2, (\varphi-1)/2)$ correspond to in REAL-SPACE field measurements. Options: (a) Clifford-torus parameters are purely phase-space, not spatial — validate Ch 8 via $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ directly from the relaxed field's multipole Q-factor decomposition, not from spatial R/r. (b) There IS a direct spatial correspondence and the current extractor is wrong — derive and implement the correct spatial diagnostic. (c) Hybrid: Clifford (R, r) ≠ spatial |ω| FWHM but there's a known transformation between them.
+- **Why:** Phase-3 at $64^3$ preserves topology (c=3) and reduces energy, but reports spatial (R, r) = (16.33, 0.99), R/r = 16.5 — NOT $\varphi^2$. Either the validation target is wrong (we should validate α⁻¹ instead of spatial R/r), or the extractor is reading the wrong quantity, or the solver is producing a non-Ch8 soliton. Without this distinction clarified, we can't interpret the Phase-3 result as success or failure.
+- **Surfaced:** Phase 3 higher-resolution validation, 2026-04-20
+- **Status:** queued — conceptually blocks Phase-3 end-to-end interpretation.
 
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)

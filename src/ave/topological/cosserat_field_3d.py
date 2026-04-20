@@ -339,12 +339,27 @@ class CosseratField3D:
         tol: float = 1e-6,
         initial_lr: float = 0.01,
         verbose: bool = False,
+        track_topology_every: int = 0,
     ) -> dict:
+        """Gradient descent with backtracking-lr acceptance.
+
+        If track_topology_every > 0, records (step, E, R, r, c) at that
+        cadence in a 'trajectory' list, so the unwinding dynamics are
+        visible in post-hoc analysis.
+        """
         lr = initial_lr
         history = []
+        trajectory = []
         E_prev = self.total_energy()
         history.append(E_prev)
         noise_floor = 1e-12 * max(abs(E_prev), 1.0)
+
+        if track_topology_every > 0:
+            R0, r0 = self.extract_shell_radii()
+            c0 = self.extract_crossing_count()
+            trajectory.append({"step": 0, "E": E_prev, "R": R0, "r": r0, "c": c0, "lr": lr})
+            if verbose:
+                print(f"  step {0:4d}  E = {E_prev:.6e}  (R, r, c) = ({R0:.3f}, {r0:.3f}, {c0})  lr = {lr:.2e}")
 
         for step in range(max_iter):
             u_save = self.u.copy()
@@ -355,8 +370,14 @@ class CosseratField3D:
             if E_new <= E_prev + noise_floor:
                 rel_change = abs(E_new - E_prev) / max(abs(E_prev), 1e-12)
                 history.append(E_new)
-                if verbose and step % 20 == 0:
-                    print(f"  step {step:4d}  E = {E_new:.6e}  lr = {lr:.2e}  drel = {rel_change:.2e}")
+
+                if track_topology_every > 0 and ((step + 1) % track_topology_every == 0):
+                    R_s, r_s = self.extract_shell_radii()
+                    c_s = self.extract_crossing_count()
+                    trajectory.append({"step": step + 1, "E": E_new, "R": R_s, "r": r_s, "c": c_s, "lr": lr})
+                    if verbose:
+                        print(f"  step {step+1:4d}  E = {E_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}")
+
                 if step > 10 and rel_change < tol:
                     return {
                         "iterations": step + 1,
@@ -364,6 +385,7 @@ class CosseratField3D:
                         "converged": True,
                         "energy_history": history,
                         "lr_final": lr,
+                        "trajectory": trajectory,
                     }
                 lr = min(lr * 1.1, 1.0)
                 E_prev = E_new
@@ -379,6 +401,7 @@ class CosseratField3D:
                         "converged": False,
                         "energy_history": history,
                         "lr_final": lr,
+                        "trajectory": trajectory,
                     }
 
         return {
@@ -387,6 +410,7 @@ class CosseratField3D:
             "converged": False,
             "energy_history": history,
             "lr_final": lr,
+            "trajectory": trajectory,
         }
 
     # ------------------------------------------------------------------
@@ -427,56 +451,93 @@ class CosseratField3D:
         return R, r
 
     def extract_crossing_count(self) -> int:
+        """
+        Robust c-extraction: scan several minor-cycle radii around the major
+        ring; return the max winding number found on any contour where the
+        field amplitude is nontrivial.
+
+        Motivation: a single contour at too-small a minor radius can
+        undercount the winding because the field is noisy at sub-shell radii
+        (amplitude near zero, phase ill-defined). Scanning larger radii
+        surfaces the true topological winding.
+        """
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
         R_found, _ = self.extract_shell_radii()
-
-        n_psi = 64
-        psis = np.linspace(0.0, 2.0 * np.pi, n_psi, endpoint=False)
-        r_sample = max(1.5, R_found * 0.25)
-        dx_s = cx + (R_found + r_sample * np.cos(psis))
-        dy_s = cy + np.zeros_like(psis)
-        dz_s = cz + r_sample * np.sin(psis)
-
         omega_np = self.omega
 
-        def sample(comp: int) -> np.ndarray:
+        def single_contour_winding(r_minor: float) -> tuple[int, float]:
+            n_psi = 128
+            psis = np.linspace(0.0, 2.0 * np.pi, n_psi, endpoint=False)
+            dx_s = cx + (R_found + r_minor * np.cos(psis))
+            dy_s = cy + np.zeros_like(psis)
+            dz_s = cz + r_minor * np.sin(psis)
+
             ix = np.clip(dx_s.astype(int), 0, self.nx - 2)
             iy = np.clip(dy_s.astype(int), 0, self.ny - 2)
             iz = np.clip(dz_s.astype(int), 0, self.nz - 2)
             fx = dx_s - ix
             fy = dy_s - iy
             fz = dz_s - iz
-            c000 = omega_np[ix, iy, iz, comp]
-            c100 = omega_np[ix + 1, iy, iz, comp]
-            c010 = omega_np[ix, iy + 1, iz, comp]
-            c001 = omega_np[ix, iy, iz + 1, comp]
-            c110 = omega_np[ix + 1, iy + 1, iz, comp]
-            c101 = omega_np[ix + 1, iy, iz + 1, comp]
-            c011 = omega_np[ix, iy + 1, iz + 1, comp]
-            c111 = omega_np[ix + 1, iy + 1, iz + 1, comp]
-            return (
-                (1 - fx) * (1 - fy) * (1 - fz) * c000
-                + fx * (1 - fy) * (1 - fz) * c100
-                + (1 - fx) * fy * (1 - fz) * c010
-                + (1 - fx) * (1 - fy) * fz * c001
-                + fx * fy * (1 - fz) * c110
-                + fx * (1 - fy) * fz * c101
-                + (1 - fx) * fy * fz * c011
-                + fx * fy * fz * c111
-            )
 
-        ox = sample(0)
-        oy = sample(1)
-        phase = np.arctan2(oy, ox)
-        unwrapped = np.unwrap(phase)
-        total_winding = (unwrapped[-1] - unwrapped[0]) / (2.0 * np.pi)
-        closure = phase[0] - unwrapped[-1]
-        while closure > np.pi:
-            closure -= 2.0 * np.pi
-        while closure < -np.pi:
-            closure += 2.0 * np.pi
-        total_winding += closure / (2.0 * np.pi)
-        return int(round(abs(total_winding)))
+            def sample(comp: int) -> np.ndarray:
+                v000 = omega_np[ix, iy, iz, comp]
+                v100 = omega_np[ix + 1, iy, iz, comp]
+                v010 = omega_np[ix, iy + 1, iz, comp]
+                v001 = omega_np[ix, iy, iz + 1, comp]
+                v110 = omega_np[ix + 1, iy + 1, iz, comp]
+                v101 = omega_np[ix + 1, iy, iz + 1, comp]
+                v011 = omega_np[ix, iy + 1, iz + 1, comp]
+                v111 = omega_np[ix + 1, iy + 1, iz + 1, comp]
+                return (
+                    (1 - fx) * (1 - fy) * (1 - fz) * v000
+                    + fx * (1 - fy) * (1 - fz) * v100
+                    + (1 - fx) * fy * (1 - fz) * v010
+                    + (1 - fx) * (1 - fy) * fz * v001
+                    + fx * fy * (1 - fz) * v110
+                    + fx * (1 - fy) * fz * v101
+                    + (1 - fx) * fy * fz * v011
+                    + fx * fy * fz * v111
+                )
+
+            ox = sample(0)
+            oy = sample(1)
+            amp = np.sqrt(ox**2 + oy**2)
+            min_amp = float(amp.min())
+            max_amp = float(amp.max())
+
+            phase = np.arctan2(oy, ox)
+            unwrapped = np.unwrap(phase)
+            total_winding = (unwrapped[-1] - unwrapped[0]) / (2.0 * np.pi)
+            closure = phase[0] - unwrapped[-1]
+            while closure > np.pi:
+                closure -= 2.0 * np.pi
+            while closure < -np.pi:
+                closure += 2.0 * np.pi
+            total_winding += closure / (2.0 * np.pi)
+
+            # Flag the contour as "reliable" only if the minimum amplitude
+            # on the loop is at least 10% of the max. Weak-amplitude contours
+            # are phase-noise dominated and underreport the winding.
+            reliability = min_amp / max(max_amp, 1e-12)
+            return int(round(abs(total_winding))), reliability
+
+        # Scan a range of minor radii, keeping max from reliable contours.
+        max_reliable_winding = 0
+        any_reliable = False
+        for r_minor in np.linspace(0.5, max(3.0, R_found * 0.5), 8):
+            w, rel = single_contour_winding(r_minor)
+            if rel > 0.1:
+                any_reliable = True
+                if w > max_reliable_winding:
+                    max_reliable_winding = w
+
+        if any_reliable:
+            return max_reliable_winding
+        # Fallback: if no reliable contour, take the max winding read regardless.
+        return max(
+            single_contour_winding(r_minor)[0]
+            for r_minor in np.linspace(1.0, max(3.0, R_found * 0.5), 5)
+        )
 
     def extract_quality_factor(self) -> float:
         R, r = self.extract_shell_radii()
