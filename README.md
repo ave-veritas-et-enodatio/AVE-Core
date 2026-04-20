@@ -137,7 +137,9 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 10 | Solar deflection | 0.03% | ✅ |
 | 11–12 | Δ(1600), Δ(1900) | 0.27–1.11% | ✅ |
 | 13 | Fermi constant | 2.09% | ✅ |
-| 14–16 | Yang-Mills, N-S, Strong CP | Framework-derived | ✅ Derivations ([Vol 2 Ch 12 caveats](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) |
+| 14 | Yang-Mills mass gap | Framework-derived | ✅ Derivation ([Vol 2 Ch 12 caveats](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) |
+| 15 | Navier-Stokes smoothness | Framework-derived | ✅ Derivation ([Vol 2 Ch 12 caveats](manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex)) |
+| 16 | Strong CP (θ=0) | Framework-derived | ✅ Derivation ([Vol 2 Ch 10 §sec:strong_cp](manuscript/vol_2_subatomic/chapters/10_open_problems.tex)) |
 | 17–18 | Kirkwood gaps, Cassini | 0.05–0.59% | ✅ |
 | 19 | Flyby anomaly (NEAR) | 1.6% | ✅ |
 | 20–21 | Magnetopause (Earth, Jupiter) | 8.7–11.8% | ✅ |
