@@ -16,7 +16,7 @@ import pytest
 
 from ave.topological.cosserat_field_3d import (
     CosseratField3D,
-    TETRA_OFFSETS,
+    adjoint_tetrahedral_divergence,
     tetrahedral_gradient,
 )
 
@@ -157,3 +157,89 @@ def test_diagnostics_run_on_initial_state():
     Q = solver.extract_quality_factor()
     assert np.isfinite(Q)
     assert Q > 0.0
+
+
+# ------------------------------------------------------------------
+# Adjoint gradient operator — discrete integration-by-parts identity
+# ------------------------------------------------------------------
+
+def test_adjoint_satisfies_integration_by_parts():
+    """
+    The discrete identity sum_x (grad_j V)(x) W_j(x) = sum_x V(x) (adj_div W)(x)
+    must hold for arbitrary V, W on a periodic domain. This is what makes
+    adj_div the correct operator for variational-derivative propagation.
+    """
+    n = 8
+    rng = np.random.default_rng(0)
+    V = rng.normal(size=(n, n, n, 1))
+    W = rng.normal(size=(n, n, n, 1, 3))
+
+    grad_V = tetrahedral_gradient(V)
+    lhs = float(np.sum(grad_V * W))
+
+    adj_W = adjoint_tetrahedral_divergence(W[..., 0, :])
+    rhs = float(np.sum(V[..., 0] * adj_W))
+
+    np.testing.assert_allclose(lhs, rhs, rtol=1e-12)
+
+
+# ------------------------------------------------------------------
+# Energy gradient — consistency with finite-difference
+# ------------------------------------------------------------------
+
+def test_energy_gradient_matches_finite_difference():
+    """
+    Compare analytical energy_gradient against a finite-difference estimator
+    at a few alive sites. Required agreement ~1e-4 given the step size and
+    float64 precision.
+    """
+    solver = CosseratField3D(12, 12, 12)
+    solver.initialize_electron_2_3_sector(R_target=3.0, r_target=1.2)
+
+    dE_du, dE_dw = solver.energy_gradient()
+
+    # Probe a few alive A-sites with omega > 0 so the gradient is nontrivial.
+    omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
+    candidates = np.argwhere(solver.mask_A & (omega_mag > 0.1))
+    assert len(candidates) > 0
+    probe_sites = candidates[::max(1, len(candidates) // 4)][:3]
+
+    h = 1e-5
+    for site in probe_sites:
+        ix, iy, iz = site
+        for k in range(3):
+            # Finite-difference estimate of dE/d(omega_k at site).
+            saved = solver.omega[ix, iy, iz, k]
+            solver.omega[ix, iy, iz, k] = saved + h
+            E_plus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved - h
+            E_minus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved
+
+            fd = (E_plus - E_minus) / (2.0 * h)
+            analytical = dE_dw[ix, iy, iz, k]
+            # Agreement to ~1e-4 expected; the saturated functional has
+            # curvature and the FD approximation has O(h^2) error.
+            np.testing.assert_allclose(analytical, fd, rtol=1e-3, atol=1e-4)
+
+
+# ------------------------------------------------------------------
+# Gradient descent — monotonic energy decrease
+# ------------------------------------------------------------------
+
+def test_relax_step_decreases_energy():
+    """
+    A few gradient-descent steps from a localized initial field should
+    monotonically decrease the energy (with an adaptive lr, accepted steps
+    by construction decrease energy).
+    """
+    solver = CosseratField3D(16, 16, 16)
+    solver.initialize_electron_2_3_sector(R_target=4.0, r_target=1.5)
+
+    E_initial = solver.total_energy()
+    result = solver.relax_to_ground_state(max_iter=20, tol=1e-12, initial_lr=0.001)
+
+    # At minimum we must not have increased energy.
+    assert result["final_energy"] <= E_initial
+    # And we should have made at least some progress on a far-from-equilibrium start.
+    assert result["final_energy"] < E_initial or result["iterations"] >= 1

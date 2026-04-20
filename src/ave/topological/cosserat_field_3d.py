@@ -51,6 +51,29 @@ def tetrahedral_gradient(V: np.ndarray) -> np.ndarray:
     return grad
 
 
+def adjoint_tetrahedral_divergence(T: np.ndarray) -> np.ndarray:
+    """
+    Discrete adjoint of tetrahedral_gradient, used for variational derivatives.
+
+    For T of shape (..., 3) with the last axis indexing direction j, returns
+    the divergence-like quantity (1/4) sum_ell p_ell^j [T_j(x - p_ell) - T_j(x)]
+    summed over j, with shape (...) (last axis removed).
+
+    Identity used: sum_y (grad_j V)(y) W_j(y) = sum_y V(y) (adj_div W)(y)
+    for grad_j = tetrahedral_gradient (modulo the 1/4 and p_ell^j factors
+    baked in symmetrically). This makes adj_div the correct operator for
+    propagating variational derivatives d(W(kappa))/dkappa back to dW/domega.
+    """
+    result = np.zeros(T.shape[:-1], dtype=T.dtype)
+    for p in TETRA_OFFSETS:
+        T_shifted = np.roll(T, shift=(p[0], p[1], p[2]), axis=(0, 1, 2))
+        delta = T_shifted - T
+        for j in range(3):
+            if p[j] != 0:
+                result += 0.25 * p[j] * delta[..., j]
+    return result
+
+
 class CosseratField3D:
     """
     Cartesian-with-FCC-filter solver for the 3D Cosserat field (u, omega)
@@ -199,6 +222,198 @@ class CosseratField3D:
 
     def total_energy(self) -> float:
         return float(np.sum(self.energy_density()))
+
+    # ------------------------------------------------------------------
+    # Stress, couple-stress, and variational gradient
+    # ------------------------------------------------------------------
+
+    def _stress_and_couple_stress(
+        self,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Compute saturated stress_ij := dW/d(eps_ij) and couple_stress_ij :=
+        dW/d(kappa_ij) at every site. Returns shapes (nx, ny, nz, 3, 3).
+
+        Derivations:
+          W_cauchy = (2/3)(tr eps)^2 + eps_sym_ij eps_sym_ij
+          W_micro  = eps_antisym_ij eps_antisym_ij
+          W_kappa  = kappa_ij kappa_ij
+
+          d(tr eps)^2 / d eps_mn = 2 (tr eps) delta_mn
+          d(eps_sym)^2 / d eps_mn = eps_mn + eps_nm
+          d(eps_antisym)^2 / d eps_mn = eps_mn - eps_nm
+
+        Bare stresses (before saturation):
+          sigma_bare_mn = G [(4/3) tr(eps) delta_mn + eps_mn + eps_nm]
+                        + G_c [eps_mn - eps_nm]
+          couple_bare_mn = 2 gamma kappa_mn
+
+        Saturation (scalar-invariant, |eps|^2 and |kappa|^2 invariants):
+          W_sat = W_bare * S^2,  S = sqrt(1 - |X|^2/Y^2),  |X|^2 = X_ij X_ij
+          dW_sat/dX_mn = dW_bare/dX_mn * S^2 - 2 W_bare * X_mn / Y^2
+
+        Saturation zeroes out both factors past yield; numerically we clip
+        |X|^2 at the yield value to avoid NaN from negative square roots.
+        """
+        eps = self.compute_strain()
+        kappa = self.compute_curvature()
+
+        eps_T = np.swapaxes(eps, -1, -2)  # eps_nm
+        trace_eps = eps[..., 0, 0] + eps[..., 1, 1] + eps[..., 2, 2]
+
+        delta = np.eye(3)
+        # Bare stress
+        sigma_bare = (
+            self.G * ((4.0 / 3.0) * trace_eps[..., None, None] * delta + eps + eps_T)
+            + self.G_c * (eps - eps_T)
+        )
+        # Bare couple stress
+        couple_bare = 2.0 * self.gamma * kappa
+
+        # Bare Cosserat elastic energies at each site (not including kappa).
+        eps_sym = 0.5 * (eps + eps_T)
+        eps_antisym = 0.5 * (eps - eps_T)
+        W_cauchy = (2.0 / 3.0) * (trace_eps**2) + np.sum(eps_sym**2, axis=(-1, -2))
+        W_micropolar = np.sum(eps_antisym**2, axis=(-1, -2))
+        W_eps_bare = W_cauchy * self.G + W_micropolar * self.G_c
+        W_kappa_bare = self.gamma * np.sum(kappa**2, axis=(-1, -2))
+
+        # Saturation factors (scalar-invariant).
+        eps_sq = np.sum(eps**2, axis=(-1, -2))
+        kappa_sq = np.sum(kappa**2, axis=(-1, -2))
+        Y_eps_sq = self.epsilon_yield**2
+        Y_kappa_sq = self.omega_yield**2
+
+        # Clip arguments of S^2 away from (0, negative) to stay differentiable.
+        S_eps_sq = np.clip(1.0 - eps_sq / Y_eps_sq, 0.0, 1.0)
+        S_kappa_sq = np.clip(1.0 - kappa_sq / Y_kappa_sq, 0.0, 1.0)
+
+        # Saturated stresses.
+        sigma_sat = sigma_bare * S_eps_sq[..., None, None] - 2.0 * W_eps_bare[..., None, None] * eps / Y_eps_sq
+        couple_sat = couple_bare * S_kappa_sq[..., None, None] - 2.0 * W_kappa_bare[..., None, None] * kappa / Y_kappa_sq
+
+        return sigma_sat, couple_sat
+
+    def energy_gradient(self) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Variational derivative of the total energy w.r.t. the fields.
+        Returns (dE/du, dE/domega), each of shape (nx, ny, nz, 3).
+
+        Chain rule:
+          dE/du_i(x)     = sum_j adj_div_j sigma_sat_ij(x)
+          dE/domega_k(x) = -eps_ijk sigma_sat_ij(x) + sum_j adj_div_j couple_sat_kj(x)
+
+        Both terms are computed per-site with O(N) complexity.
+        """
+        sigma, couple = self._stress_and_couple_stress()
+
+        # u-gradient: sum_j adj_div_j sigma_ij for each i.
+        # sigma shape (nx, ny, nz, i=3, j=3); treat as (i-indexed) x (j-indexed) gradient field.
+        dE_du = np.zeros_like(self.u)
+        for i in range(3):
+            # For each i, pass sigma[..., i, :] (shape (..., 3)) through adjoint divergence.
+            dE_du[..., i] = adjoint_tetrahedral_divergence(sigma[..., i, :]) / self.dx
+
+        # omega-gradient: two contributions.
+        # (a) From epsilon path: -eps_ijk sigma_ij contracts with levi-civita on (i,j) for each k.
+        # cross_k = sum_{ij} eps_ijk * sigma_ij. For standard eps_ijk with eps_123 = 1:
+        #   eps_123 sigma_12 + eps_132 sigma_13 + eps_213 sigma_21 + eps_231 sigma_23
+        #   + eps_312 sigma_31 + eps_321 sigma_32 all give contributions to cross_k.
+        cross = np.zeros_like(self.omega)
+        cross[..., 0] = sigma[..., 1, 2] - sigma[..., 2, 1]
+        cross[..., 1] = sigma[..., 2, 0] - sigma[..., 0, 2]
+        cross[..., 2] = sigma[..., 0, 1] - sigma[..., 1, 0]
+
+        # (b) From kappa path: sum_j adj_div_j couple_kj for each k.
+        dE_from_kappa = np.zeros_like(self.omega)
+        for k in range(3):
+            dE_from_kappa[..., k] = adjoint_tetrahedral_divergence(couple[..., k, :]) / self.dx
+
+        dE_dw = -cross + dE_from_kappa
+
+        # Mask out dead nodes.
+        alive = self.mask_alive[..., None].astype(dE_du.dtype)
+        return dE_du * alive, dE_dw * alive
+
+    # ------------------------------------------------------------------
+    # Gradient-descent relaxation
+    # ------------------------------------------------------------------
+
+    def relax_step(self, learning_rate: float = 0.01) -> float:
+        """
+        One gradient-descent update. Returns the total energy BEFORE the step.
+        """
+        E_before = self.total_energy()
+        dE_du, dE_dw = self.energy_gradient()
+        self.u = self.u - learning_rate * dE_du
+        self.omega = self.omega - learning_rate * dE_dw
+        self._zero_outside_alive()
+        return E_before
+
+    def relax_to_ground_state(
+        self,
+        max_iter: int = 1000,
+        tol: float = 1e-6,
+        initial_lr: float = 0.01,
+        verbose: bool = False,
+    ) -> dict:
+        """
+        Gradient descent with adaptive learning rate (backtracking).
+
+        Terminates when either max_iter is reached, or the relative energy
+        change between steps drops below tol.
+
+        Returns a dict with keys: 'iterations', 'final_energy', 'converged',
+        'energy_history' (list of E at each step), 'lr_final'.
+        """
+        lr = initial_lr
+        history = []
+        E_prev = self.total_energy()
+        history.append(E_prev)
+
+        for step in range(max_iter):
+            u_save = self.u.copy()
+            w_save = self.omega.copy()
+            self.relax_step(lr)
+            E_new = self.total_energy()
+
+            if E_new < E_prev - 1e-15:
+                # Accepted: try to increase lr modestly next time.
+                rel_change = abs(E_new - E_prev) / max(abs(E_prev), 1e-12)
+                history.append(E_new)
+                if verbose and step % 10 == 0:
+                    print(f"  step {step:4d}  E = {E_new:.6f}  lr = {lr:.2e}  drel = {rel_change:.2e}")
+                if rel_change < tol:
+                    return {
+                        "iterations": step + 1,
+                        "final_energy": E_new,
+                        "converged": True,
+                        "energy_history": history,
+                        "lr_final": lr,
+                    }
+                lr = min(lr * 1.1, 1.0)
+                E_prev = E_new
+            else:
+                # Reject: roll back, shrink lr.
+                self.u = u_save
+                self.omega = w_save
+                lr *= 0.5
+                if lr < 1e-12:
+                    return {
+                        "iterations": step + 1,
+                        "final_energy": E_prev,
+                        "converged": False,
+                        "energy_history": history,
+                        "lr_final": lr,
+                    }
+
+        return {
+            "iterations": max_iter,
+            "final_energy": E_prev,
+            "converged": False,
+            "energy_history": history,
+            "lr_final": lr,
+        }
 
     # ------------------------------------------------------------------
     # Diagnostics
