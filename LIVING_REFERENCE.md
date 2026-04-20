@@ -234,8 +234,8 @@ future_work/          # Speculative roadmap
 | 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 (Ch.8) |
 | 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
 | 3 | g-2 anomaly | 0.15% | ✅ |
-| 4 | sin²θ_W | 0.30% | ✅ |
-| 5 | M_W | 0.55% | ✅ |
+| 4 | sin²θ_W | 0.35% | ✅ |
+| 5 | M_W | 0.57% | ✅ |
 | 6 | M_Z | 0.62% | ✅ |
 | 7 | Proton mass | 0.00% | ✅ |
 | 8 | Δ(1232) | 2.35% | ✅ |

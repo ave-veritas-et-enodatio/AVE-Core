@@ -48,6 +48,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"
 README_PATH = REPO_ROOT / "README.md"
+LIVING_REFERENCE_PATH = REPO_ROOT / "LIVING_REFERENCE.md"
 
 ALLOWED_TYPES = {
     "derived_prediction",
@@ -132,20 +133,21 @@ def collect_constants_symbols(path: Path = CONSTANTS_PY) -> dict[str, float]:
     return values
 
 
-def extract_readme_prediction_rows(readme: Path = README_PATH) -> list[tuple[str, str]]:
+def _extract_prediction_table_rows(
+    path: Path,
+    section_header_pattern: str,
+) -> list[tuple[str, str]]:
     """
-    Extract the Master Prediction Table rows from the README. Returns a
-    list of (row_id, name) tuples where row_id is the leading '#' column
-    (possibly a range like '14–16' or '11–12').
+    Shared parser for "Master Prediction Table" style markdown tables.
+    Returns (row_id, name) tuples; row_id preserves range syntax like '14–16'.
     """
     try:
-        text = readme.read_text(encoding="utf-8")
+        text = path.read_text(encoding="utf-8")
     except OSError:
         return []
 
-    # Find the Master Prediction Table section
     match = re.search(
-        r"##\s+Master\s+Prediction\s+Table\s*\n(.*?)(?=\n##\s|\Z)",
+        section_header_pattern + r"(.*?)(?=\n##\s|\Z)",
         text,
         flags=re.DOTALL,
     )
@@ -158,20 +160,45 @@ def extract_readme_prediction_rows(readme: Path = README_PATH) -> list[tuple[str
         line = line.strip()
         if not line.startswith("|"):
             continue
-        # Header and separator rows are skipped
         cols = [c.strip() for c in line.split("|")[1:-1]]
         if len(cols) < 4:
             continue
         if cols[0] in {"#", "---", ":---"} or set(cols[0]) <= set("-:"):
             continue
-        # Real data rows: cols[0] is the id, cols[1] is the name
         row_id = cols[0]
         name = cols[1]
-        # Strip markdown decoration for matching
-        name_clean = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", name)  # unwrap links
+        name_clean = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", name)
         name_clean = name_clean.strip()
         rows.append((row_id, name_clean))
     return rows
+
+
+def extract_readme_prediction_rows(readme: Path = README_PATH) -> list[tuple[str, str]]:
+    """
+    Extract the Master Prediction Table rows from the README. Returns a
+    list of (row_id, name) tuples where row_id is the leading '#' column
+    (possibly a range like '14–16' or '11–12').
+    """
+    return _extract_prediction_table_rows(
+        readme,
+        r"##\s+Master\s+Prediction\s+Table\s*\n",
+    )
+
+
+def extract_living_reference_prediction_rows(
+    path: Path = LIVING_REFERENCE_PATH,
+) -> list[tuple[str, str]]:
+    """
+    Extract the Master Prediction Table rows from LIVING_REFERENCE.md.
+    The LIVING_REFERENCE header includes a count suffix (e.g. "(47 entries)").
+    Rows may be split (separate rows for Δ(1600) and Δ(1900)) where the
+    README bundles them — the parity check handles both cases via
+    range-inclusion matching.
+    """
+    return _extract_prediction_table_rows(
+        path,
+        r"##\s+Master\s+Prediction\s+Table[^\n]*\n",
+    )
 
 
 # ───────────────────────────────────────────────────────────────────────────
@@ -416,6 +443,80 @@ def check_readme_parity(manifest: dict) -> list[Finding]:
     return findings
 
 
+def _id_range_contains(eid: str, row_num: int) -> bool:
+    """True if manifest ID is a range (e.g., 'P11_12') covering row_num."""
+    m = re.fullmatch(r"P(\d+)_(\d+)", eid)
+    if not m:
+        return False
+    lo, hi = int(m.group(1)), int(m.group(2))
+    return lo <= row_num <= hi
+
+
+def check_living_reference_parity(manifest: dict) -> list[Finding]:
+    """
+    Every row in the LIVING_REFERENCE.md Master Prediction Table maps to a
+    manifest entry. Matches via (a) exact ID, (b) zero-padded ID, or
+    (c) range-inclusion (a split LR row like '11' or '12' both map to the
+    bundled manifest entry 'P11_12').
+    """
+    findings: list[Finding] = []
+    rows = extract_living_reference_prediction_rows()
+    if not rows:
+        return [
+            Finding(
+                check="parity",
+                severity="warn",
+                entry_id=None,
+                message=(
+                    "Could not parse the Master Prediction Table from "
+                    "LIVING_REFERENCE.md"
+                ),
+            )
+        ]
+
+    entries_by_id: dict[str, dict] = {
+        e["id"]: e for e in manifest.get("predictions", []) if "id" in e
+    }
+
+    def candidate_ids(raw: str) -> list[str]:
+        cleaned = raw.strip().replace("–", "-").replace("—", "-")
+        out = [f"P{cleaned.replace('-', '_')}"]
+        if cleaned.isdigit():
+            out.append(f"P{int(cleaned):02d}")
+        return out
+
+    for row_id, name in rows:
+        matched = False
+        for cand in candidate_ids(row_id):
+            if cand in entries_by_id:
+                matched = True
+                break
+        if not matched and row_id.isdigit():
+            row_num = int(row_id)
+            if any(_id_range_contains(eid, row_num) for eid in entries_by_id):
+                matched = True
+        if not matched:
+            findings.append(
+                Finding(
+                    check="parity",
+                    severity="warn",
+                    entry_id=None,
+                    message=(
+                        f"LIVING_REFERENCE prediction row '{row_id}' "
+                        f"({name!r}) has no matching entry in "
+                        f"manuscript/predictions.yaml"
+                    ),
+                    details={
+                        "row_id": row_id,
+                        "name": name,
+                        "source": "LIVING_REFERENCE.md",
+                    },
+                )
+            )
+
+    return findings
+
+
 # ───────────────────────────────────────────────────────────────────────────
 # Orchestration
 # ───────────────────────────────────────────────────────────────────────────
@@ -424,6 +525,7 @@ ALL_CHECKS = {
     "label": check_labels,
     "engine": check_engine,
     "parity": check_readme_parity,
+    "lr_parity": check_living_reference_parity,
 }
 
 
