@@ -30,7 +30,7 @@ The central thesis: the vacuum is a physical substrate governed by finite induct
 
 | Category | Examples | Max Error |
 |----------|----------|-----------|
-| **Particle Physics** | Proton mass (0.29%), W/Z boson (0.55%), g−2 (0.15%) | 3.5% |
+| **Particle Physics** | Proton mass (0.00%), W/Z boson (0.57%), g−2 (0.15%) | 2.4% |
 | **Quark Masses** | All 6 quarks from torus knot topology | 2.4% |
 | **Mixing Matrices** | Full CKM + PMNS matrices from ν_vac = 2/7 | 4.1% |
 | **Cosmology** | H₀ (2.9%), baryon asymmetry (0.38%), MOND a₀ | 11.8% |
@@ -128,11 +128,11 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 ([Ch.8](manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)) |
 | 2 | Z₀ from Axiom 1 | 0.00% | ✅ √(μ₀/ε₀) ≈ 377 Ω |
 | 3 | g-2 anomaly | 0.15% | ✅ |
-| 4 | sin²θ_W | 0.30% | ✅ |
-| 5 | M_W | 0.55% | ✅ |
+| 4 | sin²θ_W | 0.35% | ✅ |
+| 5 | M_W | 0.57% | ✅ |
 | 6 | M_Z | 0.62% | ✅ |
-| 7 | Proton mass | 0.29% | ✅ |
-| 8 | Δ(1232) | 3.49% | ✅ |
+| 7 | Proton mass | 0.00% | ✅ |
+| 8 | Δ(1232) | 2.35% | ✅ |
 | 9 | Neutrino mass | 0.66% | ✅ |
 | 10 | Solar deflection | 0.03% | ✅ |
 | 11–12 | Δ(1600), Δ(1900) | 0.27–1.11% | ✅ |
@@ -144,7 +144,7 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 | 19 | Flyby anomaly (NEAR) | 1.6% | ✅ |
 | 20–21 | Magnetopause (Earth, Jupiter) | 8.7–11.8% | ✅ |
 | 22 | Baryon asymmetry | 0.38% | ✅ |
-| 23 | H∞ (Hubble) | 2.9% | ✅ |
+| 23 | H∞ (Hubble asymptote) | 0.7% vs TRGB | ✅ Sits between Planck (67.4) and SH0ES (73) |
 | 24 | α_s (strong coupling) | 2.97% | ✅ |
 | 25 | Higgs mass | 0.55% | ✅ |
 | 26–28 | CKM matrix (V_us, V_cb, V_ub) | 1.3–4.1% | ✅ |
