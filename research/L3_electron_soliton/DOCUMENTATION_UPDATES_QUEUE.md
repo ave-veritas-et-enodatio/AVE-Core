@@ -151,6 +151,23 @@
 - **Surfaced:** Phase 3 higher-resolution validation, 2026-04-20
 - **Status:** queued — conceptually blocks Phase-3 end-to-end interpretation.
 
+### [17] Phase-3: add Skyrme-like 4-derivative term to stabilize Golden Torus
+- **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) — energy functional
+- **Kind:** physics extension, load-bearing for Phase-3 validation
+- **Change:** Add a Skyrme-like 4-derivative term $W_\text{Skyrme} = \kappa_S^2 \, |\partial_i \hat{n} \wedge \partial_j \hat{n}|^2$ (or Cosserat analog via $\boldsymbol{\omega}$-gradient wedges) to the energy functional. This term penalizes sharp-gradient configurations at topological crossings, providing the self-avoidance barrier that enforces Ch 8's $R - r = d/2$ constraint.
+- **Why:** Phase-3 α⁻¹ validation (see [`10_chirality_accounting_narrative.md`](10_chirality_accounting_narrative.md) + [`validate_cosserat_alpha_via_ch8_ratios.py`](../../src/scripts/vol_1_foundations/validate_cosserat_alpha_via_ch8_ratios.py)) showed that the current bare-Cosserat-plus-saturation Lagrangian finds a local minimum in the $(2,3)$ topological sector at R/r ≈ 16.5 (thin flat ring), NOT the Golden Torus R/r = φ². Root cause: scalar-invariant saturation on $|\kappa|$ doesn't penalize strand-crossing proximity. The standard Hopfion literature (Faddeev-Niemi, Battye-Sutcliffe, Sutcliffe 2007) routinely uses a Skyrme-like 4-derivative term for this; it's a known canonical fix, not a speculative extension.
+- **Derivation needed:** how does the Skyrme term arise in AVE's Cosserat framework? Candidate physical interpretations: (i) higher-order elastic response, (ii) non-local coupling via the K4 lattice connectivity, (iii) explicit dielectric-rupture penalty at strand overlap. Should be derived from AVE axioms rather than adopted ad-hoc from Hopfion literature.
+- **Surfaced:** Phase 3 α⁻¹ validation, 2026-04-20
+- **Status:** queued — blocks Phase-3 end-to-end Golden-Torus recovery.
+
+### [16] Future research — strain-induced chirality-dependent dynamic impedance
+- **File (new):** suggested `research/L3_electron_soliton/12_strain_chirality_split.md` (if pursued)
+- **Kind:** future research note
+- **Change:** Investigate whether Op14 Dynamic Impedance $Z_\text{eff}(W)$ has a chirality-dependent correction under strain (i.e., $Z^L_\text{eff}(W) \neq Z^R_\text{eff}(W)$ while both equal $Z_0$ at $W = 0$). Would provide a derivation path for the $\Delta n \propto E^4$ vacuum birefringence in Vol 4 Ch 11 (baseline birefringence = 0, consistent with scalar $Z_0$ at $W = 0$; nonzero under strain). Derivation would come from Cosserat constitutive tensor decomposition into chirality-symmetric + antisymmetric parts, then tracking the antisymmetric part through the saturation kernel.
+- **Why:** [`10_chirality_accounting_narrative.md`](10_chirality_accounting_narrative.md) §8 identifies this as a natural extension thread. Not needed for Phase-3 (scalar $Z_0$ suffices for multipole Q-factor validation). Becomes load-bearing if a downstream prediction requires quantifying vacuum birefringence or optical activity inside high-strain regions.
+- **Surfaced:** Phase 3 chirality discussion, 2026-04-20
+- **Status:** queued — low priority, not blocking.
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
