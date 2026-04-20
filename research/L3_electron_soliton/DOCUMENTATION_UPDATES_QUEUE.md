@@ -151,14 +151,28 @@
 - **Surfaced:** Phase 3 higher-resolution validation, 2026-04-20
 - **Status:** queued — conceptually blocks Phase-3 end-to-end interpretation.
 
-### [17] Phase-3: add Skyrme-like 4-derivative term to stabilize Golden Torus
-- **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) — energy functional
-- **Kind:** physics extension, load-bearing for Phase-3 validation
-- **Change:** Add a Skyrme-like 4-derivative term $W_\text{Skyrme} = \kappa_S^2 \, |\partial_i \hat{n} \wedge \partial_j \hat{n}|^2$ (or Cosserat analog via $\boldsymbol{\omega}$-gradient wedges) to the energy functional. This term penalizes sharp-gradient configurations at topological crossings, providing the self-avoidance barrier that enforces Ch 8's $R - r = d/2$ constraint.
-- **Why:** Phase-3 α⁻¹ validation (see [`10_chirality_accounting_narrative.md`](10_chirality_accounting_narrative.md) + [`validate_cosserat_alpha_via_ch8_ratios.py`](../../src/scripts/vol_1_foundations/validate_cosserat_alpha_via_ch8_ratios.py)) showed that the current bare-Cosserat-plus-saturation Lagrangian finds a local minimum in the $(2,3)$ topological sector at R/r ≈ 16.5 (thin flat ring), NOT the Golden Torus R/r = φ². Root cause: scalar-invariant saturation on $|\kappa|$ doesn't penalize strand-crossing proximity. The standard Hopfion literature (Faddeev-Niemi, Battye-Sutcliffe, Sutcliffe 2007) routinely uses a Skyrme-like 4-derivative term for this; it's a known canonical fix, not a speculative extension.
-- **Derivation needed:** how does the Skyrme term arise in AVE's Cosserat framework? Candidate physical interpretations: (i) higher-order elastic response, (ii) non-local coupling via the K4 lattice connectivity, (iii) explicit dielectric-rupture penalty at strand overlap. Should be derived from AVE axioms rather than adopted ad-hoc from Hopfion literature.
-- **Surfaced:** Phase 3 α⁻¹ validation, 2026-04-20
-- **Status:** queued — blocks Phase-3 end-to-end Golden-Torus recovery.
+### [17] Phase-3 blocker: derive the Op10-continuum Lagrangian density
+- **File (new):** [`research/L3_electron_soliton/11_op10_continuum_promotion.md`](11_op10_continuum_promotion.md) (to be written); then update [`src/ave/topological/cosserat_field_3d.py`](../../src/ave/topological/cosserat_field_3d.py) energy functional.
+- **Kind:** AVE-native derivation + Lagrangian extension, load-bearing for Phase-3 end-to-end validation.
+- **Context:** Phase-3 validation via Ch 8 dimensionless ratios (`validate_cosserat_alpha_via_ch8_ratios.py`) shows the current Cosserat-plus-saturation Lagrangian relaxes to a thin flat ring ($R/r \approx 16.5$) in the $(2,3)$ topological sector rather than Ch 8's Golden Torus ($R/r = \varphi^2 \approx 2.618$). Root cause: scalar-invariant saturation on $|\kappa|$ caps per-site strain but doesn't penalize strand-crossing proximity — two strands of the $(2,3)$ winding passing near each other at a crossing point incur no extra energy cost. This is the classic Hopfion-stabilization gap.
+- **The AVE-native fix — promote Op10 to a Lagrangian density:**
+  Op10 (Junction Projection Loss, [`src/ave/core/universal_operators.py:535`](../../src/ave/core/universal_operators.py#L535)) is already the AVE-canonical crossing-loss operator: $Y_\text{loss}(\theta, c) = c(1 - \cos\theta)/(2\pi^2)$. It applies at discrete crossings. To write a field Lagrangian that includes this physics continuously, we need to express Op10 as a local density $\mathcal{L}_\text{Op10}(\hat{\mathbf{n}}, \partial \hat{\mathbf{n}})$ that, when integrated, reproduces the discrete Op10 behavior. The continuum form is structurally a Skyrme-like 4-derivative term $|\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$, but with a **coefficient derived from Op10's $2\pi^2$ normalization, not fit**.
+- **Derivation plan (research doc `11_`):**
+  1. State Op10 at a single discrete crossing: $Y_\text{loss} = c(1-\cos\theta)/(2\pi^2)$ with $c$ = local crossing number, $\theta$ = junction angle.
+  2. Identify the continuum analog of $(1-\cos\theta)$: this is $|\hat{\mathbf{n}}_1 - \hat{\mathbf{n}}_2|^2 / 2$ for two nearby field values. For a smooth field, this scales as $|\partial \hat{\mathbf{n}}|^2 \cdot (\text{distance})^2$ — but we already have this at order-2 in derivatives.
+  3. The new contribution at order-4 (in derivatives) is $|\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$, which measures simultaneous directional change — exactly what characterizes crossings.
+  4. Compute $\int |\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2 \, d^3\mathbf{r}$ over a test configuration with known crossings and match to the discrete Op10 sum. Coefficient falls out.
+  5. Result: $\mathcal{L}_\text{Op10} = (k/2\pi^2) \cdot |\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$ with a specific $k$ determined by the matching in step 4.
+- **Why this is AVE-native, not ad-hoc:**
+  - Op10 is already a canonical universal operator (enumerated in the file header comment of universal_operators.py).
+  - Ch 8's $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derivation uses Op10 directly at the Clifford-torus crossings (the $\pi^2$ screening factor IS Op10 applied to $c = 3$ at $\theta = \pi/2$).
+  - The $2\pi^2$ normalization is derived (standing-wave $\pi$ times azimuthal $2\pi$), not fit.
+  - Promoting Op10 from discrete to continuum is a technical advance, not a new postulate.
+  - Zero-parameter closure is preserved — the continuum coefficient is determined by the discrete-to-continuum matching, no fit parameter.
+- **Success criterion:** with the Op10-derived term in the Lagrangian, rerun [`validate_cosserat_alpha_via_ch8_ratios.py`](../../src/scripts/vol_1_foundations/validate_cosserat_alpha_via_ch8_ratios.py) at 64³; the three Ch 8 ratios should match within the committed tolerances ($10^{-3}$ real-valued, c=3 integer, $\alpha^{-1}$ within $10^{-3}$ of 137.0363038).
+- **Failure mode & interpretation:** if the Op10-derived coefficient does NOT produce the Golden Torus under relaxation, that would be a significant finding: either Op10's continuum form is different from expected, or there's a missing ingredient in AVE's axiom set for full field-theoretic closure. Both outcomes are publication-relevant.
+- **Surfaced:** Phase 3 α⁻¹ validation → chirality-accounting resolution → Op10-native insight, 2026-04-20
+- **Status:** queued — next session entry point. Blocks Phase-3 end-to-end validation.
 
 ### [16] Future research — strain-induced chirality-dependent dynamic impedance
 - **File (new):** suggested `research/L3_electron_soliton/12_strain_chirality_split.md` (if pursued)
