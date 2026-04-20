@@ -193,14 +193,16 @@ If Reading (a) or (c) is adopted instead, the Lagrangian derivation is similar b
 1. **Canonical identity: C3.** SU(2) embedding $U(\mathbf{r}) = \exp(i\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$. $\hat{\mathbf{n}}$ is the S² projection via the Hopf fibration $SU(2) \to S^2$. C4 remains in reserve as the Cosserat-native computational convention for Phase 3 if it produces materially leaner code.
 2. **Reading for "(2,3) phase winding": Reading (b).** Dual $U(1)$ winding on the Clifford torus — 2× around the major axis, 3× around the minor axis. The SO(3) direction $\hat{\mathbf{n}}$ carries the first winding and the $U(1)$ fibre phase $\alpha_\parallel$ carries the second, with axis-assignment chosen to match the Ch 8 derivation conventions at radii $R$ and $r$.
 
-### §10.1  Amendment 2026-04-20: Readings (b) and (c) merged
+### §10.1  Amendment 2026-04-20: Readings superseded by universal-operator reframing
 
-On closer analysis in [`05_reading_equivalence_check.md`](05_reading_equivalence_check.md), Reading (b) as originally framed (dual $U(1)$ winding on the Clifford torus) and Reading (c) (joint invariant $(Q_H, w_{U(1)})$) turned out to be two different notations for the same underlying topological structure: a factorized SU(2) field carrying a joint winding pair on the toroidal shell. The distinction between them was cosmetic.
+Two successive amendments:
 
-**Merged Reading (b):** factorized SU(2) field on the Clifford shell with two distinguishable winding contributions — one tied to the $S^2$-projection boundary condition, one tied to the $U(1)$-fibre phase. The specific invariant pair that characterizes the electron sector (whether it is $(w_1, w_2)$, $(Q_H, w_{U(1)})$, or the SU(2) winding number $B$ under an appropriate embedding) is a Phase-3 numerical determination, not a Phase-1 postulate.
+**(i) Initial merge:** On closer analysis in [`05_reading_equivalence_check.md`](05_reading_equivalence_check.md), Reading (b) and Reading (c) turned out to be different notations for the same factorized-SU(2) structure. Merged.
 
-**Reading (a) remains a distinct alternative.** Sutcliffe-2007 torus Hopfion with single combined phase $\Theta = 2\varphi + 3\psi$ and $Q_H = 6$ is a genuinely different topological sector. Kept as a fallback if Reading (b) obstructs.
+**(ii) Full supersession (same-day):** The universal-operator reframing in [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) establishes that AVE's native topological invariant is **Op10's scalar crossing count $c$**, not a winding pair. The electron has $c = 3$. Neither Reading (a), Reading (b), nor Reading (c) is AVE-native — they are all external-literature conventions.
 
-**Current working assumption: Reading (b) (merged) unless Phase-3 numerics indicate otherwise.**
+**Current canonical framing (post-`07_`):** the electron's topological sector is characterized by $c = 3$ (Op10 scalar invariant). The field-formulation remains C3 SU(2) embedding (as adjudicated here in §10, still valid). The specific ansatz for how the SU(2) field realizes $c = 3$ on the Clifford shell — Sutcliffe-style single combined phase, factorized base + fibre, or other — is a **computational convenience**, not a topological distinction.
 
-Phase-1 Lagrangian derivation proceeds next.
+**Reading (a) remains a distinct alternative *ansatz*.** If Phase-3 numerics shows energy-minimization favors a Sutcliffe-style single-combined-phase field configuration over a factorized one, we adopt that ansatz — but the underlying invariant is still $c = 3$.
+
+Phase-1 Lagrangian derivation proceeds on the $c = 3$ framing.

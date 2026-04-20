@@ -122,7 +122,7 @@ for some characteristic amplitude $\Omega_\star$ and dimensionless profile $f$ w
 
 $$\Omega_\star / d = \pi \Longrightarrow d = \Omega_\star / \pi$$
 
-**Pinning $\Omega_\star$.** For the $(2, 3)$ soliton, the microrotation within the core must carry the windings ($w_1 = 2$ around the major axis embedded in the tube direction, $w_2 = 3$ around the meridian). The natural amplitude is $\Omega_\star = \pi$ (a half-cycle of the SU(2) chart, which under C3 is the maximum rotation that returns the spinor to within the original coset). Hence
+**Pinning $\Omega_\star$.** For the $(2, 3)$ soliton with Op10-native crossing count $c = 3$ (see [`07_`](07_universal_operator_invariants.md) §3), the microrotation within the core must carry the required phase structure. The natural amplitude is $\Omega_\star = \pi$ (a half-cycle of the SU(2) chart, which under C3 is the maximum rotation that returns the spinor to within the original coset). Hence
 
 $$d = \pi / \pi = 1 = \ell_{\text{node}}$$
 

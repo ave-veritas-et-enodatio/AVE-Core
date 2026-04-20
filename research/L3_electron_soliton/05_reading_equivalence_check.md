@@ -3,6 +3,16 @@
 **Status:** Phase 1 wrap-up task. Pressure-test of Reading (b) (canonized in `01_` §10 and implemented in `02_` §7.2) against Reading (a) (Sutcliffe-2007 torus-Hopfion convention).
 **Prerequisites:** `01_` §10, `02_` §7.2, `03_` §4.3.
 
+> ### ⚠ AMENDMENT 2026-04-20 — Superseded by [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md)
+>
+> This document's core question (Reading (a) vs Reading (b) equivalence) is **superseded** by the universal-operator reframing in `07_`. Under AVE-native Op10 (Junction Projection Loss), the topological invariant is a **scalar crossing count $c$**, not a winding pair. The electron has $c = 3$, and neither Reading (a) (Hopf invariant on pure $S^2$) nor Reading (b) (factorized SU(2) with $(w_1, w_2)$ pair) is AVE-native — both are external-literature conventions.
+>
+> **What survives as valid:** the observation that Readings (a) and (b) are *not* equivalent as imported-literature topologies is still correct *about those literatures*. The Q_H=0 calculation in §4 remains true for Reading (b) as written.
+>
+> **What is overridden:** §§6–8 recommendations and adjudication questions. See `07_` for the AVE-native answer.
+>
+> Retained below unchanged for traceability of the analysis that led to `07_`.
+
 **Finding, surfaced first:** Reading (b) as written in `02_` §7.2 is **NOT equivalent** to Reading (a) Sutcliffe torus Hopfion. They describe genuinely different topological sectors. This is a flag-don't-fix finding requiring your adjudication before Phase 2 begins.
 
 The rest of this document works the check in detail.

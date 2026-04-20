@@ -46,7 +46,7 @@
 - **Change:** Re-word §8.3 to reflect the corrected understanding established in [`03_existence_proof.md`](03_existence_proof.md) §0 + §4.3. Specifically, the current §8.3 sketch frames $R\cdot r = 1/4$ as emerging from "Cosserat bending-energy extremization" — which overclaims. Replace with: the condition is a *topological quantization* forced by SU(2) half-cover + Clifford-torus area match, not a dynamical energy extremum. Retain the Cosserat framing as consistency check, not as derivation mechanism.
 - **Why:** Writing out §4.3 of `03_` at publication rigor revealed that the naive "uniform-winding kinetic energy on the Clifford torus" gives $R/r = 3/2$ (or $2/3$ depending on winding assignment), not the Golden $R/r = \varphi^2 \approx 2.618$. The Cosserat Lagrangian alone does not dynamically select $R\cdot r = 1/4$; the condition is topological. Keeping §8.3 as-written would mis-state where the derivation's weight lies.
 - **Surfaced:** Phase 1, 2026-04-19
-- **Status:** queued
+- **Status:** **APPLIED 2026-04-20.** `02_` §8.3 rewritten with "topological quantization, not a dynamical extremum" framing.
 
 ### [5] research/L3_electron_soliton/02_lagrangian_derivation.md — correct §9 Pinning-2 factor-of-3 and rationale
 - **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md)
@@ -55,7 +55,7 @@
 - **Change:** Replace $\ell_{\text{Cos}} = \sqrt{3\gamma/G_c}$ with $\ell_{\text{Cos}} = \sqrt{\gamma/G_c}$; replace $G_c = 3\gamma$ with $G_c = \gamma$; replace the "pinned by $\nu_{\text{vac}} = 2/7$ operating point" rationale with "pinned by $\ell_{\text{Cos}} = \ell_{\text{node}}$ (Axiom 1 Nyquist match)." See [`04_moduli_pinning_check.md`](04_moduli_pinning_check.md) §3 for the corrected derivation.
 - **Why:** The factor of 3 came from naively summing three bending moduli that happen to all equal $\gamma$ in the isotropic ansatz; the dimensionally-natural characteristic length uses the coefficient of $|\nabla\boldsymbol{\omega}|^2$ in the isotropic energy functional, which is $\gamma$, not $3\gamma$. The $\nu_{\text{vac}}$ attribution was a confusion with the translational Poisson ratio (which pertains to $K/G$, not to $G_c$). After correction, all three pinnings self-consistently close and all three §9.1 checks pass.
 - **Surfaced:** Phase 1 moduli-pinning check, 2026-04-20
-- **Status:** queued
+- **Status:** **APPLIED 2026-04-20.** `02_` §9 Pinning-2 rewritten; factor-of-3 removed, rationale corrected to $\ell_\text{Cos}=\ell_\text{node}$ Nyquist match, final pinning updated to $G_c = \gamma$.
 
 ### [6] research/L3_electron_soliton/01_ §10 + 02_ §7.2 + 03_ §4.3 — remove Reading-(a)↔(b) equivalence implications
 - **File:** [research/L3_electron_soliton/01_identity_adjudication.md](01_identity_adjudication.md), [02_lagrangian_derivation.md](02_lagrangian_derivation.md), [03_existence_proof.md](03_existence_proof.md)
@@ -64,7 +64,7 @@
 - **Change:** Remove or qualify any phrasing that equates Reading (b)'s factorized SU(2) sector with a Sutcliffe Hopfion (Reading a). Specifically, the end of `02_` §7.2 claims "$Q_H = w_1 \cdot w_2 = 6$" for Reading (b); this is false, $Q_H(\hat{\mathbf{n}}) = 0$ for Reading (b) as written. See [`05_reading_equivalence_check.md`](05_reading_equivalence_check.md) §4 for the calculation. Readings (b) and (c) in `01_` §10 may also be unified into a single "factorized SU(2) with joint $(w_1, w_2)$ invariant" reading, per `05_` §8.2 — pending user adjudication.
 - **Why:** The equivalence check revealed that (a) and (b) describe genuinely different topological sectors. Keeping equivalence-implying language would mislead future readers and introduce an error into the load-bearing topology-invariants claim.
 - **Surfaced:** Phase 1 equivalence check, 2026-04-20
-- **Status:** queued (pending §8 adjudication in `05_`)
+- **Status:** **APPLIED 2026-04-20** via universal-operator reframing supersession. `01_` §10.1 amended (two-step: (b)/(c) merge, then full supersession); `02_` §7.2 rewritten with $c = 3$ scalar invariant; `03_` §4.1 references updated. False "Q_H = w_1 × w_2 = 6" claim removed.
 
 ### [7] Resolve Williamson-van der Mark (2,1) vs AVE (2,3) winding tension via Cosserat→EM projection map
 - **File (new):** suggested path `research/L3_electron_soliton/06_winding_index_projection.md`
@@ -91,7 +91,7 @@
 - **Change:** Replace the Hopfion-literature-style dual-winding specification (winding 2 on $\theta_1$, winding 3 on $\theta_2$) with an AVE-native crossing-count specification: the electron ground state is characterized by $c = 3$ (Op10 scalar topological invariant). Retain the SU(2) field formulation from C3 canonization. Drop the factorized "base + fibre" phase specification — it was imported from Hopfion literature and does not match AVE's own universal-operator invariant basis.
 - **Why:** Survey of [`src/ave/core/universal_operators.py`](../../src/ave/core/universal_operators.py) in [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) establishes that AVE's native topological invariant is the scalar crossing count $c$ (used by Op10 = Junction Projection Loss), not a winding pair. The $(w_1, w_2)$ framing was a category error.
 - **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
-- **Status:** queued
+- **Status:** **APPLIED 2026-04-20.** `02_` §7.2 rewritten with scalar $c = 3$ framing; §7.3 updated accordingly.
 
 ### [10] Revise 06_ §3, §5, §8 projection map to AVE-native c-based framing
 - **File:** [research/L3_electron_soliton/06_winding_index_projection.md](06_winding_index_projection.md) §3 (major-cycle direct agreement), §5 (consistency prediction), §8 (open questions)
@@ -100,7 +100,7 @@
 - **Change:** Simplify the projection map under the `07_` finding. AVE and WvdM both speak $(p, q)$ torus-knot language but on different tori (phase-space Clifford for AVE; physical-space for WvdM), giving $c = 3$ for AVE and $c = 0$ (unknot; $(2,1)$ is an unknotted curve) for WvdM. The Cosserat → EM projection chain is still structurally correct but the "major vs minor" reasoning in §3 should be replaced with the two-different-tori framing.
 - **Why:** The `07_` reframing shows that AVE-native invariant is scalar $c$, not a pair. The `06_` §3 "major cycle agreement" reasoning was based on Hopfion-literature conventions that don't apply natively. Cleaner story: both pictures use $(p,q)$ notation but for different tori.
 - **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
-- **Status:** queued
+- **Status:** **APPLIED 2026-04-20** (amendment box). Added ⚠ amendment at top of `06_` pointing to `07_` as cleaner resolution; preserved §§1–8 as traceable reasoning history. §§1–2 (two-tori distinction) and §5 (3:1 tube-wrap consistency check for Phase 3) retained as still-valuable; §§3–4 $(w_1, w_2)$ reasoning superseded by $c$-based framing.
 
 ### [11] Revise 05_ §8 three-readings framework — superseded by universal-operator reframing
 - **File:** [research/L3_electron_soliton/05_reading_equivalence_check.md](05_reading_equivalence_check.md) §8 adjudication questions, §7 "Where the Cosserat canonization points"
@@ -109,7 +109,7 @@
 - **Change:** Add an amendment note: under the `07_` universal-operator reframing, the Reading (a) / Reading (b) distinction is superseded. Both are external-literature conventions that don't match AVE's own Op10 invariant basis. What remains is: (i) the field-formulation choice is C3 SU(2) embedding (from `01_` §10, still valid), and (ii) the topological invariant is $c = 3$ (from `07_`, supersedes all readings).
 - **Why:** The reading-equivalence check in `05_` was a valuable process that surfaced the category error. But now that the error is identified and resolved via `07_`, the three-readings framing is itself superseded.
 - **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
-- **Status:** queued
+- **Status:** **APPLIED 2026-04-20** (amendment box). Added ⚠ amendment at top of `05_` pointing to `07_`. §§1–6 retained as traceable reasoning; §§7–8 recommendations marked as overridden.
 
 ### [8] Resolve AVE major-minor convention for "(2,3)" assignment on Clifford torus — RESOLVED via 07_
 - **Resolution:** No assignment needed. The scalar crossing count $c = 3$ is the AVE-native topological invariant (Op10, universal-operator basis), not a winding pair. The major-vs-minor assignment was a Hopfion-literature category error. See [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) §4.1.
@@ -122,7 +122,7 @@
 - **Change:** Replace the sketch-level existence and uniqueness arguments with formal proofs, including: (a) explicit coercivity bound for the Cosserat sector energy, (b) regularity argument for the weak-limit minimizer, (c) Palais-Smale or concentration-compactness for mass escape, (d) modulus-space uniqueness argument specific to the $(2,3)$ Cosserat sector.
 - **Why:** Publication rigor target (`00_scoping.md` §0). Current sketches invoke "standard Hopfion-literature adaptations" which are technically correct but not publication-ready.
 - **Surfaced:** Phase 1, 2026-04-19
-- **Status:** queued (Phase-1 wrap-up task)
+- **Status:** **TABLED 2026-04-20** per user direction. Phase-1 theoretical spine is complete as a research artifact; formal rigor upgrade of §3 and §5 is deferred. If/when the research targets publication, this becomes a prerequisite deliverable. Retained in the active queue as a known outstanding item.
 
 ---
 

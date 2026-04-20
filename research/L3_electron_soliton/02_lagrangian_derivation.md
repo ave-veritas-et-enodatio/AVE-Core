@@ -179,28 +179,21 @@ $$(x, y, z) = \big((R + r\cos\theta_2)\cos\theta_1,\ (R + r\cos\theta_2)\sin\the
 
 with $\theta_1$ the major-axis (longitude) coordinate and $\theta_2$ the minor-axis (meridian) coordinate.
 
-### 7.2  The (2,3) dual winding
+### 7.2  The $(2, 3)$ torus-knot sector via scalar $c = 3$
 
-Under C3, the SU(2) field $U(\mathbf{r})$ on the Clifford-torus shell factorizes into its SO(3) projection (captured by $\hat{\mathbf{n}}$) and its $U(1)$ fibre (captured by $\alpha_\parallel$). The $(2,3)$ Reading (b) says:
+**Amended 2026-04-20** per [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md). Earlier drafts of §7.2 specified the topological sector as a dual-winding pair $(w_1, w_2) = (2, 3)$ imported from Hopfion literature. Under AVE's native universal-operator basis (Op10 Junction Projection Loss, [`src/ave/core/universal_operators.py:535`](../../src/ave/core/universal_operators.py#L535)), the canonical topological invariant is the scalar crossing number $c$, not a winding pair. The electron's topological sector is characterized by a single invariant:
 
-- $\hat{\mathbf{n}}$ as a function of $\theta_1$ (at fixed $\theta_2$) winds *twice* around a circle on $S^2$:
-  $$\hat{\mathbf{n}}(\theta_1, \theta_2 = \text{const}) = \big(\sin\phi_\star\cos 2\theta_1,\ \sin\phi_\star\sin 2\theta_1,\ \cos\phi_\star\big)$$
-  for some fixed polar angle $\phi_\star$ set by the radial profile.
+$$\boxed{c = 3 \quad \text{(crossing count of the phase-space } (2, 3) \text{ torus-knot structure)}}$$
 
-- $\alpha_\parallel$ as a function of $\theta_2$ (at fixed $\theta_1$) winds *three times* around $S^1$:
-  $$\alpha_\parallel(\theta_1 = \text{const}, \theta_2) = 3\theta_2 + \text{const}$$
+The AVE notation $(2, q)$ is torus-knot type: $p = 2$ is the fixed series index for the stable $(2, q)$ baryon/lepton ladder (odd $q$); $q$ is the invariant crossing count. Electron $(2, 3) \Rightarrow c = 3$; proton cinquefoil $(2, 5) \Rightarrow c = 5$; Δ$(2, 7) \Rightarrow c = 7$; etc.
 
-Stated as a single SU(2)-field asymptotic condition on the shell:
-
-$$U(\theta_1, \theta_2) = \exp\!\big(i\,\tfrac{1}{2}\boldsymbol{\sigma}\cdot\hat{\mathbf{e}}(\theta_1)\,2\pi\cdot 2\big) \cdot \exp\!\big(i\,\tfrac{1}{2}\boldsymbol{\sigma}\cdot\hat{\mathbf{z}}\,3\theta_2\big) + O(r^{-1}) \text{ corrections}$$
-
-with $\hat{\mathbf{e}}(\theta_1)$ a unit vector swept as $\theta_1$ traverses $[0, 2\pi)$. The windings $(2, 3)$ are fixed; the radial profile and the "polar angle" $\phi_\star$ are determined by energy minimization.
+Under C3, the SU(2) field $U(\mathbf{r})$ on the Clifford-torus shell carries this $c = 3$ topology. The specific geometric realization — whether the winding is distributed as Sutcliffe-style single combined phase $\Theta = 2\varphi + 3\psi$ (Reading a) or as factorized base + fibre (was Reading b) — is a **gauge / ansatz choice** that does not affect the scalar $c$. Both representations are consistent with the universal-operator invariant.
 
 ### 7.3  Off-shell decay
 
 $U(\mathbf{r}) \to \mathbb{1}$ and $\boldsymbol{\omega}(\mathbf{r}) \to 0$ as $|\mathbf{r}| \to \infty$. The Cosserat field is localized.
 
-**The topological sector is defined by the boundary condition on the Clifford shell, not by a conserved charge integrated over all space.** This is the Reading-(b) specific framing. Reading (a) would instead fix the Hopf invariant $Q_H = 6$ as a global topological charge; Reading (b) fixes the two winding numbers $(w_1, w_2) = (2, 3)$ as boundary data. In practice the two descriptions are compatible (a $(2,3)$ dual winding realizes $Q_H = 6$ via $Q_H = w_1 \cdot w_2$), but the minimization problem is stated slightly differently.
+**The topological sector is defined by $c = 3$ — the Op10 invariant.** The asymptotic boundary condition on the shell is any SU(2)-field configuration carrying $c = 3$ crossings; the specific ansatz (single combined phase vs factorized phases vs other) is a computational convenience determined by the discretization in Phase 2+3.
 
 ---
 
@@ -222,18 +215,19 @@ $$2(R - r) = d = 1 \Longrightarrow R - r = \tfrac{1}{2}$$
 
 The Ch 8 "dielectric rupture" language maps directly to Axiom-4 saturation in Cosserat variables: overlap drives $|\kappa|^2 \to \infty$ locally, the saturation kernel enforces a hard constraint, and the stationary configuration satisfies the inequality with equality.
 
-### 8.3  Constraint 3 (screening): $R \cdot r = 1/4$
+### 8.3  Constraint 3 (screening): $R \cdot r = 1/4$ — **topological quantization, not a dynamical extremum**
 
-This is the subtle one. Ch 8 derives $R \cdot r = 1/4$ from the *Holomorphic Screening Limit* = $S_{11}$ minimization = spin-1/2 half-cover of $\mathbb{T}^2 \subset S^3$ in $\mathbb{C}^2$. Under C3 + Reading (b), $R \cdot r = 1/4$ emerges as the extremum of the Cosserat bending energy $W_\kappa$ evaluated on the topological sector.
+**Corrected 2026-04-20** per [`03_existence_proof.md`](03_existence_proof.md) §0 + §4.3. Earlier draft of §8.3 sketched $R\cdot r = 1/4$ as emerging from "Cosserat bending-energy extremization." On honest analysis (`03_` §4.3), that framing overclaims: $R \cdot r = 1/4$ is a **topological quantization** forced by the SU(2) half-cover + Clifford-torus area match, *not* a variational extremum.
 
-**Sketch of the argument** (full formal derivation is §4 of the sequel `03_existence_proof.md`):
+**The corrected derivation** (full version in `03_` §4.3; summary here):
 
-1. The Clifford torus at radii $(R, r)$ in $S^3 \subset \mathbb{C}^2$ has surface area $4\pi^2 R\cdot r$.
-2. The SU(2) → SO(3) projection is 2-to-1; physical-observable states occupy only half of the SU(2) phase space. The physical bounding area is $\tfrac{1}{2} \cdot 4\pi^2 R\cdot r = 2\pi^2 R \cdot r$.
-3. The bending-energy contribution from the U(1) fibre sector, integrated over the toroidal shell, scales as $\gamma \cdot (2\pi w_2)^2 / (\text{minor circumference})^2 \cdot (\text{shell area})$ where $w_2 = 3$ is the meridian winding. For the $(2, 3)$ sector with Clifford geometry, this reduces to $\gamma \cdot (3)^2 \cdot \text{(geometric factor)}(R, r)$.
-4. Minimization over $R \cdot r$ (at fixed $R - r = 1/2$ from constraint 2 and $d = 1$ from constraint 1) gives a unique stationary value. Dimensional analysis + the spin-1/2 prefactor locks this value at $R\cdot r = 1/4$.
+1. The Clifford torus at radii $(R, r)$ in $S^3 \subset \mathbb{C}^2$ has surface area $4\pi^2 R \cdot r$. At the standard balanced embedding $r_1 = r_2 = 1/\sqrt{2}$, the area is $2\pi^2$.
+2. SU(2) double-covers SO(3): the physical observable states occupy only half of the SU(2) configuration space. The physical half-cover area is $\pi^2$.
+3. **Quantization condition:** for the electron's shell area to match the physical half-cover quantum without over- or under-filling the topological sector's configuration space,
+$$(2\pi R)(2\pi r) = \pi^2 \Longrightarrow R \cdot r = \tfrac{1}{4}$$
+4. $R\cdot r > 1/4$ leaves the shell under-covered (soliton unbound); $R\cdot r < 1/4$ forces singular loci on the shell (energy divergent). Only $R\cdot r = 1/4$ is continuous, finite-energy, and topologically-closed.
 
-The AVE-specific input is the spin-1/2 half-cover factor; generic Faddeev-Skyrme/Hopfion literature does not produce exactly $R\cdot r = 1/4$ because it does not build in the SU(2) double cover at the substrate level. C3 makes the half-cover structural, so Ch 8's $R\cdot r = 1/4$ is native under the canonical Lagrangian.
+**What the Cosserat Lagrangian contributes:** the SU(2) embedding (C3) makes the half-cover structural rather than an extra postulate, and Op10 / the universal-operator basis uses the same $2\pi^2$ quantum natively (see [`src/ave/core/universal_operators.py:558–569`](../../src/ave/core/universal_operators.py#L558) and [`07_`](07_universal_operator_invariants.md) §2). **What the Lagrangian does not do:** dynamically select $R\cdot r = 1/4$ from a family of variational minima. The Lagrangian must be *consistent with* this quantization (i.e., produce a ground state at this geometry when the topological boundary condition is imposed), and it is. But the value itself is set by topology, not energetics.
 
 ### 8.4  Multipole decomposition recovery
 
@@ -259,11 +253,11 @@ $\mathcal{L}_{\text{AVE}}$ (6.1) contains five moduli: $\{G,\ G_c,\ \gamma_c,\ \
 
 **Proposed pinning under AVE axioms:**
 
-1. **$G$**: pinned by photon-mode speed. Axiom 1 + K4 lattice gives $c = \sqrt{G/\rho_{\text{vac}}}$, so in natural units $c = 1$ implies $G = \rho_{\text{vac}}$.
-2. **$G_c$**: pinned by the $\nu_{\text{vac}} = 2/7$ operating point. The Cosserat characteristic length $\ell_{\text{Cos}} = \sqrt{(\gamma_c + \beta_c + \gamma'_c)/G_c}$ must equal $\ell_{\text{node}}$ (Axiom 1 Nyquist). Under isotropic bending, $\ell_{\text{Cos}} = \sqrt{3\gamma/G_c} = 1$, giving $G_c = 3\gamma$.
+1. **$G$**: pinned by photon-mode speed. Axiom 1 + K4 lattice gives $c_\text{photon} = \sqrt{G/\rho_{\text{vac}}}$, so in natural units $c_\text{photon} = 1$ implies $G = \rho_{\text{vac}}$.
+2. **$G_c$**: pinned by $\ell_{\text{Cos}} = \ell_{\text{node}}$ (Axiom 1 Nyquist match). The dimensionally-natural Cosserat characteristic length is $\ell_{\text{Cos}} = \sqrt{\gamma / G_c}$, using the coefficient of $|\nabla\boldsymbol{\omega}|^2$ in the isotropic energy functional (which is $\gamma$). Setting $\ell_{\text{Cos}} = 1$ gives $G_c = \gamma$. **Corrected 2026-04-20** per [`04_moduli_pinning_check.md`](04_moduli_pinning_check.md) §3 — earlier draft had $G_c = 3\gamma$ from a naive sum-of-three-bending-moduli error and misattributed the rationale to $\nu_\text{vac} = 2/7$ (which is a *translational* Poisson ratio, not a Cosserat-shear constraint).
 3. **$\gamma$**: pinned by Ch 8 $\alpha^{-1}$ recovery at unity ($\gamma_\star = 1$ in the units of §1), as argued in §8.4.
 
-**Status:** tentative. Each pinning is plausible but not yet a formal derivation. Phase-1 sub-problem 9.1 below.
+**Status:** Verified self-consistently in [`04_moduli_pinning_check.md`](04_moduli_pinning_check.md) §5. All three §9.1 checks pass. Final pinning: $G = G_c = \gamma = \rho_{\text{vac}} = 1$ in natural units — no free parameters in the static Lagrangian.
 
 ### 9.1  Sub-problem: prove the three pinnings hold self-consistently
 

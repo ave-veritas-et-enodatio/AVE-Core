@@ -3,6 +3,16 @@
 **Status:** Phase 1 wrap-up. Resolves queue item [7] — the $(2, 3)$ vs $2{:}1$ tension between AVE's electron winding and Williamson-van der Mark's toroidal-photon electron (B25).
 **Prerequisites:** `00_` – `05_`; `BIBLIOGRAPHY.md` entries B25, B27.
 
+> ### ⚠ AMENDMENT 2026-04-20 — Cleaner resolution in [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md)
+>
+> After writing this document, the universal-operator reframing in `07_` provided a cleaner resolution of the $(2, 3)$ vs $2{:}1$ tension: AVE's native topological invariant is the scalar crossing count $c$, not a winding pair. The electron has $c = 3$ (phase-space trefoil on the Clifford torus); Williamson-van der Mark's electron has $c = 0$ (the $(2, 1)$ is an unknotted physical-space curve). Both descriptions are consistent because they live on different tori (phase-space vs physical-space).
+>
+> **Under `07_` the projection map simplifies.** The three-level projection chain in §3 (major-cycle agreement) is replaced by: "both use $(p, q)$ torus-knot language but on different tori — different invariants, different observables, both correct."
+>
+> **What remains valuable from this document:** §§1–2 (the two-tori distinction, still load-bearing) and the §5 consistency check (the 3:1 tube-wrap prediction is still worth testing in Phase 3 as a cross-verification). §§3–4 reasoning via the $(w_1, w_2)$ pair is subsumed by the $c$-based framing.
+>
+> Retained below unchanged for traceability.
+
 Under user adjudication (2026-04-20), the two electron-winding labels count different observables (option 1 of the tension resolution in `BIBLIOGRAPHY.md` B25). This document makes the adjudication rigorous by writing down the explicit projection from AVE's Cosserat SU(2) winding pair $(w_1, w_2) = (2, 3)$ to the semi-classical EM-wavefront winding of a Williamson-van der Mark-type toroidal-photon model.
 
 **Caveat:** The Williamson-van der Mark paper has not been read in full; the specific claims about their 2:1 winding come from the verified web-search summary (see B25). Any subsequent detail discovered on read-through may revise this projection.
