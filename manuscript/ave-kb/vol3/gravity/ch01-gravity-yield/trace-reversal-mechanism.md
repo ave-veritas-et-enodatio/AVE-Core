@@ -13,6 +13,6 @@ Under macroscopic shear, this geometric over-bracing forces a **non-affine micro
 
 ## EMT Verification
 
-The Effective Medium Theory of Feng, Thorpe, and Garboczi analytically verifies this requirement. By solving the self-consistent EMT for a 3D diluted central-force network with coordination $z_0 \approx 51.25$, the $K/G$ ratio is computed as a function of $p$. The ratio diverges at the rigidity threshold $p_G = 0.117$ (incompressible fluid, $\nu = 1/2$), decreases monotonically, and crosses $K/G = 2$ at $p^* = 8\pi\alpha = 0.1834$ ($\nu = 2/7$), confirming the trace-reversal identity as a geometric consequence of the network topology.
+The Effective Medium Theory of Feng, Thorpe, and Garboczi analytically verifies this requirement. By solving the self-consistent EMT for a 3D amorphous diluted central-force network with (non-integer) coordination $z_0 \approx 51.25$, the $K/G$ ratio is computed as a function of $p$. (Non-integer coordination is expected for amorphous, disordered manifolds — only crystalline lattices have integer first-neighbour coordination.) The ratio diverges at the rigidity threshold $p_G = 0.117$ (incompressible fluid, $\nu = 1/2$), decreases monotonically, and crosses $K/G = 2$ at $p^* = 8\pi\alpha = 0.1834$ ($\nu = 2/7$), confirming the trace-reversal identity as a geometric consequence of the network topology.
 
 ---

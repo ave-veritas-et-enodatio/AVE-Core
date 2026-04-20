@@ -86,7 +86,7 @@ make setup
 
 ### Verification (The Kernel Check)
 ```bash
-make verify    # Runs 373-file anti-cheat scan — zero smuggled parameters
+make verify    # Runs physics protocols + 373-file anti-cheat scan (AST-level check for scipy.constants imports and CODATA-value literal magic numbers — narrow scope, not a full parameter audit; see docs/framing_and_presentation.md §C2)
 make test      # Runs 800+ unit tests
 make pdf       # Compiles all 7 manuscript volumes
 ```
@@ -120,6 +120,8 @@ print(f"sin²θ_W = {2/9:.4f}  (derived: 2 weak modes / 9 angular sectors)")
 ---
 
 ## Master Prediction Table
+
+> **Classification note.** Rows below include four kinds of claim: (i) **identities** where 0.00% agreement is definitionally true (e.g., Z₀ = √(μ₀/ε₀) is how Z₀ is defined); (ii) **axiom manifestations** where the prediction IS one of the four axioms expressed at a new scale (e.g., BCS B_c(T) is Axiom 4 saturation at thermal scaling); (iii) **consistency checks** where the framework reproduces a standard result via an alternative mechanism (e.g., solar deflection); and (iv) **derived predictions** where the framework outputs a novel numerical value (e.g., the W/Z masses). A 0% error means very different things across these categories. See [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) §A1 for the anti-pattern this note pre-empts.
 
 | # | Prediction | Δ% | Status |
 |---|-----------|-----|--------|

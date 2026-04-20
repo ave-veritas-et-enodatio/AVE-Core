@@ -43,7 +43,7 @@ The packing fraction $p^* = 8\pi\alpha$ equated to the trace-reversal condition 
 
 $$p^* = \frac{10z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
 
-Physical root: $z_0 \approx 51.25$ (second root $z_0 \approx 1.28$ is unphysical). The rigidity threshold $p_G = 6/z_0 \approx 0.117$ confirms the vacuum operates $56.7\%$ above the fluid-solid boundary.
+Physical root: $z_0 \approx 51.25$ (second root $z_0 \approx 1.28$ is unphysical). The non-integer value is natural: the AVE vacuum is an amorphous disordered manifold, and amorphous networks generically have non-integer effective coordination numbers (c.f. random close packing $z \approx 6.4$, Phillips-Thorpe network glasses, jammed disordered packings). The rigidity threshold $p_G = 6/z_0 \approx 0.117$ confirms the vacuum operates $56.7\%$ above the fluid-solid boundary.
 
 ## The Macroscopic Avalanche Exponent ($n_{3D}$)
 

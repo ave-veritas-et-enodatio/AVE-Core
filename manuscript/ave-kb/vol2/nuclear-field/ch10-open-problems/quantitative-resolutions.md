@@ -3,9 +3,11 @@
 
 ## Quantitative Resolutions
 
+> Note: "Solved" / "Exact" entries below are **framework-conditional engineering-physics** resolutions, not Clay-rigorous proofs. See Vol 2 Ch 12 scope caveat.
+
 | **Problem** | **AVE Resolution** | **$\Delta\%$** | **Status** |
 |---|---|---|---|
-| Strong CP | $\theta = 0$ (unique vacuum topology) | Exact | **Solved** |
+| Strong CP | $\theta = 0$ (unique vacuum topology) | Exact | **Framework-derived** |
 | Baryon asymmetry | $\eta = \delta_{CP} \alpha_W^4 C_{sph}/g_*$ | 0.38% | **Solved** |
 | Standard Model | 26 of 26 parameters derived | $< 4.1\%$ | **Complete** |
 | Hubble tension | $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ | 2.9% | **Predicted** |

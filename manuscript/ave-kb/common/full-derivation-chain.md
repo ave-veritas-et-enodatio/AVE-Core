@@ -597,7 +597,7 @@ $$
 
 with CMB-induced thermal strain $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ correcting to the CODATA value $137.035999$.
 
-The Layer 2 identity $p_c = 8\pi\alpha$ and the Layer 3 EMT operating point are downstream algebraic consequences of this closure, not the closure mechanism. Given $\alpha$ derived above, the EMT quadratic then determines $z_0 \approx 51.25$ uniquely.
+The Layer 2 identity $p_c = 8\pi\alpha$ and the Layer 3 EMT operating point are downstream algebraic consequences of this closure, not the closure mechanism. Given $\alpha$ derived above, the EMT quadratic then determines $z_0 \approx 51.25$ uniquely — a non-integer value that is generic for amorphous disordered networks (integer coordination is a crystalline feature, not an amorphous one).
 
 **$G$ is derived (not input).**
 Macroscopic gravity is the aggregate bulk modulus of $\sim\!10^{40}$ lattice
