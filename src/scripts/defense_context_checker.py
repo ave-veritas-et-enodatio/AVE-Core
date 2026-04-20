@@ -197,6 +197,11 @@ RULES: list[Rule] = [
             r"identity|manifestation|definitional|by\s+construction"
             r"|tautolog(?:y|ical)|not\s+a\s+fit|consistency\s+check"
             r"|Axiom\s+[0-9]\s+manifestation"
+            # Classification-preamble keywords: if a table is preceded by
+            # a preamble explaining the identity/manifestation/prediction
+            # split, individual rows are covered by that preamble.
+            r"|Classification\s+note|classification\s+tag"
+            r"|mix\s+four\s+kinds\s+of\s+claim"
         ),
         severity="info",
         message=(
@@ -206,18 +211,32 @@ RULES: list[Rule] = [
         ),
         fix=(
             "Tag the row or nearby prose as (Identity), (Axiom N Manifestation), "
-            "or (Prediction) so the reader knows which kind of 0% this is."
+            "or (Prediction) so the reader knows which kind of 0% this is. "
+            "Alternatively, add a Classification preamble above the master "
+            "table explaining the identity/manifestation/prediction split."
         ),
         see="docs/framing_and_presentation.md §A1",
-        context_chars=400,
+        # Wide context window: master prediction tables can be ~5000 chars
+        # end-to-end (LIVING_REFERENCE has 47 rows spanning ~50 lines). A
+        # classification preamble at the top of the table needs to be
+        # visible from rows near the bottom.
+        context_chars=5000,
     ),
 
     # ─── C2: anti-cheat badge overclaim ─────────────────────────────────────
     Rule(
         id="C2",
         pattern=(
+            # "zero smuggled parameters" — verification-specific phrase,
+            # unambiguous on its own
             r"zero\s+smuggled\s+parameters"
-            r"|mathematically\s+pure"
+            # "mathematically pure" ONLY when co-occurring with verification
+            # context. The phrase is used in non-verification senses too
+            # (geometric symmetry, idealized substrate); firing on the raw
+            # phrase caused 4 false positives in the R-3 triage.
+            r"|\b(?:verify_universe|anti[-\s]cheat|scan|verified|verification)[^\n]{0,200}mathematically\s+pure"
+            r"|mathematically\s+pure[^\n]{0,200}\b(?:verify_universe|anti[-\s]cheat|scan|verified|verification)\b"
+            # "PURE" badge in verification context (e.g. "373/373 PURE")
             r"|\bPURE\b(?:\s+anti[-\s]cheat|\s+verified|\s+\d+\s*/\s*\d+)"
         ),
         mitigator=(

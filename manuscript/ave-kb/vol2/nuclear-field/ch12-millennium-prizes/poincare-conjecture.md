@@ -1,7 +1,9 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
 <!-- leaf: verbatim -->
 
-## The Poincare Conjecture (Solved)
+## The Poincare Conjecture — AVE Physical Interpretation (Perelman's proof, 2002–2003)
+
+> Note: Unlike the other Millennium problems in this chapter (which AVE treats as framework-conditional engineering-physics derivations with the Vol 2 Ch 12 scope caveat), the Poincaré Conjecture has been genuinely solved — by Grigori Perelman using Hamilton's Ricci flow programme. What follows is AVE's *physical interpretation* of why Perelman's proof works; no AVE claim to the Clay prize is made or implied.
 
 ### The Mathematical Paradox (What Clay Asked)
 

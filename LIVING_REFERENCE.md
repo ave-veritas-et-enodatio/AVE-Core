@@ -227,6 +227,8 @@ future_work/          # Speculative roadmap
 
 ## Master Prediction Table (47 entries)
 
+> **Classification note.** Rows below mix four kinds of claim — (i) **identities** where 0.00% is definitionally true (Z₀ = √(μ₀/ε₀) is how Z₀ is defined), (ii) **axiom manifestations** where the prediction IS one of the four axioms expressed at a new scale (BCS B_c(T) = Axiom 4 at thermal scaling), (iii) **consistency checks** where the framework reproduces a standard result via an alternative mechanism (solar deflection reproducing GR), and (iv) **derived predictions** where the framework outputs a novel numerical value (W/Z masses). A `0.00%` or `Exact` column entry means different things across these categories; see [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) §A1 and §A2.
+
 | # | Prediction | Δ% | Status |
 |---|-----------|-----|--------|
 | 1 | α⁻¹ from Golden Torus S₁₁-min | 0.001% cold / 0.000% CMB-corrected | ✅ 4π³+π²+π = 137.036304 (Ch.8) |
