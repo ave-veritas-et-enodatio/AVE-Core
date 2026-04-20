@@ -333,27 +333,70 @@ predictions:
     public_in_readme: true
     public_in_living_ref: true
 
-  - id: P14_16
-    name: "Millennium — Yang-Mills, Navier-Stokes, Strong CP"
+  - id: P14
+    name: "Yang-Mills mass gap"
     type: engineering_limit
-    derivation_label: "ch:millennium_prizes"
+    derivation_label: "sec:ym_millennium"
+    axioms_used: [1, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Framework-conditional engineering-physics resolution, not a Clay-rigorous
+      proof. See Vol 2 Ch 12 scope caveat.
+
+      Mechanism: finite-difference dispersion on the Axiom 1 discrete
+      lattice provides a strictly positive minimum frequency (mass gap),
+      with Axiom 4 saturation preventing UV divergences. Pure gauge
+      theories lacking a spatial scale have no mathematical reason for a
+      non-zero energy minimum; AVE's lattice pitch ℓ_node provides it.
+
+      Split from prior P14_16 bundle in R-1 follow-up (2026-04-19).
+
+  - id: P15
+    name: "Navier-Stokes smoothness"
+    type: engineering_limit
+    derivation_label: "sec:ns_millennium"
+    axioms_used: [1, 4]
+    public_in_readme: true
+    public_in_living_ref: true
+    notes: |
+      Framework-conditional engineering-physics resolution, not a Clay-rigorous
+      proof. See Vol 2 Ch 12 scope caveat.
+
+      Mechanism: the continuum "blow-up" of Navier-Stokes is a mathematical
+      artefact of removing the lattice floor. Replacing the continuum with
+      the Axiom 1 discrete lattice (pitch ℓ_node) and bounding all
+      velocities by c via Axiom 4 saturation yields a bounded discrete
+      Laplacian (‖∇²_ℓ‖ = 4/ℓ²), finite enstrophy (Ω ≤ 2Nc²/ℓ), and
+      Picard-Lindelöf global existence. See also Vol 3 Ch 16 Kolmogorov
+      spectral cutoff for the turbulent cascade application.
+
+      Split from prior P14_16 bundle in R-1 follow-up (2026-04-19).
+
+  - id: P16
+    name: "Strong CP"
+    type: engineering_limit
+    derivation_label: "sec:strong_cp"
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
-      Framework-conditional engineering-physics resolutions, not Clay-rigorous
-      proofs. See Ch 12 scope caveat.
+      Framework-conditional engineering-physics resolution, not a Clay-rigorous
+      proof. See Vol 2 Ch 10 §sec:strong_cp.
 
-      R-1 audit (2026-04-19): axioms_used updated [1, 4] → [1, 2, 4] to
-      cover Strong CP, whose derivation explicitly invokes Axiom 2 (gauge
-      structure emerges from (2,q) torus knot TKI encoding). Yang-Mills
-      mass gap and Navier-Stokes smoothness use [1, 4] alone; Strong CP
-      adds [2]; the bundle inherits the superset.
+      Mechanism: the θ-vacuum angle is exactly 0 (no axion needed). The
+      AVE vacuum is the unique ground state with E_n = B_n = 0 for all
+      lattice nodes (Axiom 1), carrying zero topological charge. Gauge
+      structure emerges from (2,q) torus knots whose quantized phase
+      winding Φ = qπ is Axiom 2 TKI. Transitions between topologically
+      distinct vacua require creating a topological defect costing energy
+      E ≥ Δ > 0 — the Axiom 4 mass gap. The vacuum cannot tunnel between
+      θ-sectors; |θ = 0⟩ is the ground state with probability 1.
 
-      ⚠ Strong CP derivation actually lives in Vol 2 Ch 10 open_problems
-      (sec:strong_cp), not Ch 12 millennium_prizes. Future PR should either
-      split P14_16 into three entries with individual labels, or add a
-      supplementary label field referencing Ch 10.
+      Label points to Vol 2 Ch 10 (sec:strong_cp), not Ch 12
+      millennium_prizes — the Strong CP proof is in the open-problems
+      chapter. Split from prior P14_16 bundle in R-1 follow-up
+      (2026-04-19).
 
   - id: P17_18
     name: "Kirkwood gaps, Cassini division"
