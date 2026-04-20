@@ -115,6 +115,15 @@
 - **Resolution:** No assignment needed. The scalar crossing count $c = 3$ is the AVE-native topological invariant (Op10, universal-operator basis), not a winding pair. The major-vs-minor assignment was a Hopfion-literature category error. See [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) §4.1.
 - **Status:** **RESOLVED** 2026-04-20 via `07_`. Keeping entry in queue as a resolved-item marker. Requeue only if Phase-3 numerics reveals an axis-dependent observable not captured by the universal operators.
 
+### [12] research/L3_electron_soliton/08_discretization_design.md — correct §3.2 consistency claim
+- **File:** [research/L3_electron_soliton/08_discretization_design.md](08_discretization_design.md) §3.2 (discrete kinematic tensors)
+- **Kind:** markdown (internal research doc)
+- **Location:** §3.2 — where "second-order consistency" is stated for the nearest-neighbor tetrahedral gradient
+- **Change:** Replace the "second-order consistency" wording with an honest statement: the naive nearest-neighbor tetrahedral-gradient estimator is **first-order consistent**, with leading error proportional to mixed second partials $\partial_k\partial_l V$ (for distinct $k, l \neq j$). Second-order consistency requires the A+B symmetrized estimator derived in [`09_phase2_wrapup.md`](09_phase2_wrapup.md) §1.4.
+- **Why:** `08_` overclaimed. Honest analysis in `09_` §1 showed the triple-sum $\sum_\ell p_\ell^j p_\ell^k p_\ell^l$ is non-zero for distinct indices ($= 4$), producing an $O(\Delta x)$ error. Phase-3 implementation efforts need accurate expected convergence rates.
+- **Surfaced:** Phase 2 wrap-up, 2026-04-20
+- **Status:** queued
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
