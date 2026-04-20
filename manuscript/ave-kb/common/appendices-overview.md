@@ -57,7 +57,17 @@ The following mathematical bounds and identities were derived within the text fr
 - **Geometric Packing Fraction:** $p_c \approx 0.1834$
 - **Macroscopic Bulk Density:** $\rho_{bulk} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3$
 - **Kinematic Network Mutual Inductance:** $\nu_{vac} = \alpha c \ell_{node} \approx 8.45 \times 10^{-7} \text{ m}^2/\text{s}$
-- **Macroscopic Rheological Yield Stress (Bingham-Plastic Limit):** $\tau_{yield} = \frac{\hbar c}{\ell_{node}^4} \left( \frac{1}{\alpha^2} \right) \approx 7.21 \times 10^{34}\text{ Pa}$
+- **Macroscopic Dielectric Yield Stress:** $\tau_{yield} = \frac{e^2\, \mathcal{V}_{total}}{8\pi \varepsilon_0\, \ell_{node}^4} \approx 1.04 \times 10^{22}\text{ Pa}$ (simplified from $\rho_{bulk}\, c^2 \cdot \mathcal{V}_{total} \cdot p_c/(8\pi)$; $\mathcal{V}_{total} = 2.0$ FEM-verified; derivation in Vol 1 Ch 4)
+
+<!--
+DROPPED CLAIM (2026-04-20 audit): a prior bullet listed a second τ_yield formula
+`ℏc/(α² ℓ_node⁴) ≈ 7.21×10³⁴ Pa (Bingham-Plastic Limit)`. Removed because:
+(a) no derivation anywhere in the manuscript;
+(b) Planck-scale dimensional estimate, not a physical-mechanism derivation;
+(c) stated value off by 10⁶·⁴ from the stated formula.
+See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md. Do not re-add without a derivation.
+-->
+
 
 ### Signal Dynamics and Topological Matter
 
