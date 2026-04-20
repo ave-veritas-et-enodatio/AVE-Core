@@ -57,6 +57,15 @@
 - **Surfaced:** Phase 1 moduli-pinning check, 2026-04-20
 - **Status:** queued
 
+### [6] research/L3_electron_soliton/01_ §10 + 02_ §7.2 + 03_ §4.3 — remove Reading-(a)↔(b) equivalence implications
+- **File:** [research/L3_electron_soliton/01_identity_adjudication.md](01_identity_adjudication.md), [02_lagrangian_derivation.md](02_lagrangian_derivation.md), [03_existence_proof.md](03_existence_proof.md)
+- **Kind:** markdown (internal research docs)
+- **Location:** `01_` §10.1 Reading-(a) language; `02_` §7.2 "a $(2,3)$ dual winding realizes $Q_H = 6$ via $Q_H = w_1 \cdot w_2$" (end of §7.2); `03_` §4.3 "torus-knot preimages" phrasing anywhere
+- **Change:** Remove or qualify any phrasing that equates Reading (b)'s factorized SU(2) sector with a Sutcliffe Hopfion (Reading a). Specifically, the end of `02_` §7.2 claims "$Q_H = w_1 \cdot w_2 = 6$" for Reading (b); this is false, $Q_H(\hat{\mathbf{n}}) = 0$ for Reading (b) as written. See [`05_reading_equivalence_check.md`](05_reading_equivalence_check.md) §4 for the calculation. Readings (b) and (c) in `01_` §10 may also be unified into a single "factorized SU(2) with joint $(w_1, w_2)$ invariant" reading, per `05_` §8.2 — pending user adjudication.
+- **Why:** The equivalence check revealed that (a) and (b) describe genuinely different topological sectors. Keeping equivalence-implying language would mislead future readers and introduce an error into the load-bearing topology-invariants claim.
+- **Surfaced:** Phase 1 equivalence check, 2026-04-20
+- **Status:** queued (pending §8 adjudication in `05_`)
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
