@@ -14,10 +14,12 @@ from scripts.claim_graph_validator import (
     ALLOWED_TYPES,
     check_engine,
     check_labels,
+    check_living_reference_parity,
     check_readme_parity,
     check_schema,
     collect_constants_symbols,
     collect_manuscript_labels,
+    extract_living_reference_prediction_rows,
     load_manifest,
     run,
     MANIFEST_PATH,
@@ -261,6 +263,30 @@ class TestLiveManifest:
             "README master table has rows with no manifest entry:\n"
             + "\n".join(f"  {f.message}" for f in warns)
         )
+
+    def test_living_reference_parity(self):
+        m = load_manifest(MANIFEST_PATH)
+        findings = check_living_reference_parity(m)
+        warns = [f for f in findings if f.severity == "warn"]
+        # Same semantics as README parity, but checks LIVING_REFERENCE.md
+        # master table. LR may split bundled README rows (e.g., rows 11/12
+        # appear separately for Δ(1600) and Δ(1900) while the manifest
+        # bundles as P11_12); the check accepts both via range-inclusion.
+        assert warns == [], (
+            "LIVING_REFERENCE master table has rows with no manifest entry:\n"
+            + "\n".join(f"  {f.message}" for f in warns)
+        )
+
+    def test_living_reference_parser_finds_rows(self):
+        # Sanity: the parser returns a non-empty list on the live doc.
+        rows = extract_living_reference_prediction_rows()
+        assert len(rows) >= 40, (
+            f"Expected ≥40 LIVING_REFERENCE prediction rows, got {len(rows)}"
+        )
+        # Row ids should be numeric or ranges; names non-empty.
+        for row_id, name in rows:
+            assert row_id, "row_id should not be empty"
+            assert name, "name should not be empty"
 
     def test_all_entries_use_allowed_types(self):
         m = load_manifest(MANIFEST_PATH)

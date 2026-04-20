@@ -69,4 +69,3 @@ manuscript/**/main.pdf
 # custom defense-context checker: spots where an uncontextualized AI reviewer
 # will misread the framework and where the source should add pre-emptive context)
 .agents/
-docs/framing_and_presentation.md
