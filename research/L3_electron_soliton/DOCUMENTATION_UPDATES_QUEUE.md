@@ -84,6 +84,37 @@
 - **Surfaced:** Phase 1 winding-index projection, 2026-04-20
 - **Status:** queued (Phase-1 wrap-up task)
 
+### [9] Revise 02_ §7.2 topological boundary condition from (w_1,w_2) pair to scalar c=3
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md) §7.2
+- **Kind:** markdown (internal research doc)
+- **Location:** §7.2 of `02_` (topological boundary condition on Clifford shell)
+- **Change:** Replace the Hopfion-literature-style dual-winding specification (winding 2 on $\theta_1$, winding 3 on $\theta_2$) with an AVE-native crossing-count specification: the electron ground state is characterized by $c = 3$ (Op10 scalar topological invariant). Retain the SU(2) field formulation from C3 canonization. Drop the factorized "base + fibre" phase specification — it was imported from Hopfion literature and does not match AVE's own universal-operator invariant basis.
+- **Why:** Survey of [`src/ave/core/universal_operators.py`](../../src/ave/core/universal_operators.py) in [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) establishes that AVE's native topological invariant is the scalar crossing count $c$ (used by Op10 = Junction Projection Loss), not a winding pair. The $(w_1, w_2)$ framing was a category error.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** queued
+
+### [10] Revise 06_ §3, §5, §8 projection map to AVE-native c-based framing
+- **File:** [research/L3_electron_soliton/06_winding_index_projection.md](06_winding_index_projection.md) §3 (major-cycle direct agreement), §5 (consistency prediction), §8 (open questions)
+- **Kind:** markdown (internal research doc)
+- **Location:** §§3, 5, 8 of `06_`
+- **Change:** Simplify the projection map under the `07_` finding. AVE and WvdM both speak $(p, q)$ torus-knot language but on different tori (phase-space Clifford for AVE; physical-space for WvdM), giving $c = 3$ for AVE and $c = 0$ (unknot; $(2,1)$ is an unknotted curve) for WvdM. The Cosserat → EM projection chain is still structurally correct but the "major vs minor" reasoning in §3 should be replaced with the two-different-tori framing.
+- **Why:** The `07_` reframing shows that AVE-native invariant is scalar $c$, not a pair. The `06_` §3 "major cycle agreement" reasoning was based on Hopfion-literature conventions that don't apply natively. Cleaner story: both pictures use $(p,q)$ notation but for different tori.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** queued
+
+### [11] Revise 05_ §8 three-readings framework — superseded by universal-operator reframing
+- **File:** [research/L3_electron_soliton/05_reading_equivalence_check.md](05_reading_equivalence_check.md) §8 adjudication questions, §7 "Where the Cosserat canonization points"
+- **Kind:** markdown (internal research doc)
+- **Location:** `05_` §§6, 7, 8
+- **Change:** Add an amendment note: under the `07_` universal-operator reframing, the Reading (a) / Reading (b) distinction is superseded. Both are external-literature conventions that don't match AVE's own Op10 invariant basis. What remains is: (i) the field-formulation choice is C3 SU(2) embedding (from `01_` §10, still valid), and (ii) the topological invariant is $c = 3$ (from `07_`, supersedes all readings).
+- **Why:** The reading-equivalence check in `05_` was a valuable process that surfaced the category error. But now that the error is identified and resolved via `07_`, the three-readings framing is itself superseded.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** queued
+
+### [8] Resolve AVE major-minor convention for "(2,3)" assignment on Clifford torus — RESOLVED via 07_
+- **Resolution:** No assignment needed. The scalar crossing count $c = 3$ is the AVE-native topological invariant (Op10, universal-operator basis), not a winding pair. The major-vs-minor assignment was a Hopfion-literature category error. See [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) §4.1.
+- **Status:** **RESOLVED** 2026-04-20 via `07_`. Keeping entry in queue as a resolved-item marker. Requeue only if Phase-3 numerics reveals an axis-dependent observable not captured by the universal operators.
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
