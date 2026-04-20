@@ -120,6 +120,13 @@
 - **Used in:** `00_` §10 ref [16]. Hopfion electromagnetism review.
 - **Status:** Secondary.
 
+### [B25] Williamson & van der Mark 1997 ⚠ CRITICAL DIRECT PRIOR ART
+- **Citation:** Williamson, J. G. & van der Mark, M. B. "Is the electron a photon with toroidal topology?" *Annales de la Fondation Louis de Broglie* **22**, 133–160 (1997).
+- **Used in:** Identified in chat 2026-04-20 as direct prior-art for electron-as-torus models.
+- **Why it matters:** Proposes the electron as a confined electromagnetic wave (photon) wound around a closed toroidal path. Addresses spin-1/2 via the 720° phase-closure requirement — the same $4\pi$ spinor-cycle structure AVE uses in Ch 8's $\Lambda_{\text{vol}}$ derivation and in the C3 SU(2) embedding (`01_` §4). This is not Hopfion-literature abstract topology but a concrete physical model of the electron as a toroidal structure. Directly on-topic for the Reading (a) vs Reading (b) question: Williamson-van der Mark's toroidal-photon ansatz uses a single combined field (closer to Reading (a) Sutcliffe-style single-phase topology), but with explicit physical interpretation as an EM wave rather than an abstract S²-valued field.
+- **Status:** **[to read — high priority.]** Likely shifts the Reading (a) vs Reading (b) balance: if Williamson-van der Mark's single-field toroidal-photon model matches AVE's ground state (not just topologically but dynamically), Reading (a) gains real prior-art legitimacy beyond pure-math Hopfion literature. Also potentially load-bearing for the separate L3 derivation of $\delta_{\text{strain}}$ (since Williamson-van der Mark's photon-as-electron identity ties the electron's $\alpha$ to photon-frequency content in a way that may illuminate the CMB-thermal coupling).
+- **Authors:** John G. Williamson (University of Glasgow, Scotland — UK); Martin B. van der Mark (Philips Research, Netherlands).
+
 ---
 
 ## §5  Lattice-discretization for micropolar field theories
