@@ -237,8 +237,8 @@ future_work/          # Speculative roadmap
 | 4 | sin²θ_W | 0.30% | ✅ |
 | 5 | M_W | 0.55% | ✅ |
 | 6 | M_Z | 0.62% | ✅ |
-| 7 | Proton mass | 0.29% | ✅ |
-| 8 | Δ(1232) | 3.49% | ✅ |
+| 7 | Proton mass | 0.00% | ✅ |
+| 8 | Δ(1232) | 2.35% | ✅ |
 | 9 | Neutrino mass | 0.66% | ✅ |
 | 10 | Solar deflection | 0.03% | ✅ |
 | 11 | Δ(1600) | 1.11% | ✅ |
@@ -253,7 +253,7 @@ future_work/          # Speculative roadmap
 | 20 | Earth magnetopause | 8.7% | ✅ |
 | 21 | Jupiter magnetopause | 11.8% | ✅ |
 | 22 | Baryon asymmetry | 0.38% | ✅ g*=7³/4 |
-| 23 | H∞ (Hubble) | 2.9% | ✅ 69.32 km/s/Mpc |
+| 23 | H∞ (Hubble asymptote) | 0.7% vs TRGB | ✅ 69.32 km/s/Mpc (between Planck 67.4 and SH0ES 73) |
 | 24 | α_s (strong coupling) | 2.97% | ✅ α^(3/7) |
 | 25 | m_H (Higgs mass) | 0.55% | ✅ v/√N_K4 |
 | 26 | V_us (Cabibbo) | 1.4% | ✅ λ = sin²θ_W = 2/9 |

@@ -199,14 +199,26 @@ predictions:
     name: "Proton mass"
     type: derived_prediction
     derivation_label: "ch:baryons"
-    error_percent: 0.29
+    predicted_value: 938.254
+    predicted_unit: "MeV/c² (BARYON_LADDER[5]['mass_mev'])"
+    observed_value: 938.272
+    observed_source: "CODATA 2022"
+    error_percent: 0.002
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
-      m_p ≈ 1836.12 m_e — Faddeev-Skyrme scalar eigenvalue on (2,5) trefoil
+      m_p ≈ 1836.11 m_e — Faddeev-Skyrme scalar eigenvalue on (2,5) trefoil
       cinquefoil-confined, with toroidal halo V_total = 2.0 and thermal
-      softening δ_th = 1/(14π²).
+      softening δ_th = 1/(14π²). Engine value from BARYON_LADDER dict
+      keyed by crossing number c=5.
+
+      R-7 audit (2026-04-19): error_percent corrected 0.29 → 0.002
+      to match the engine (BARYON_LADDER[5] = 938.254 MeV vs CODATA
+      938.272 MeV). Vol 2 Ch 2 line 197 confirms "within 0.002% of
+      CODATA." The 0.29% value was a pre-engine-reconciliation stale
+      figure; source unknown. Also added predicted_value, observed_value,
+      observed_source fields for Tier-A parity.
 
       R-1 audit (2026-04-19): derivation_label corrected
       ch:electroweak_higgs → ch:baryons (R-2 spillover). Full derivation
@@ -218,12 +230,23 @@ predictions:
     name: "Δ(1232) baryon mass"
     type: derived_prediction
     derivation_label: "ch:baryons"
-    error_percent: 3.49
+    predicted_value: 1261.001
+    predicted_unit: "MeV/c² (BARYON_LADDER[7]['mass_mev'])"
+    observed_value: 1232.0
+    observed_source: "PDG 2022"
+    error_percent: 2.35
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
     notes: |
-      Torus knot (2,7) ladder entry.
+      Torus knot (2,7) ladder entry — engine value from BARYON_LADDER
+      dict keyed by c=7.
+
+      R-7 audit (2026-04-19): error_percent corrected 3.49 → 2.35 to
+      match the engine (BARYON_LADDER[7] = 1261.001 MeV vs PDG 1232 MeV)
+      and Vol 2 Ch 2 line 222 table entry "+2.35%". The 3.49% value was
+      a pre-engine-reconciliation stale figure; source unknown. Added
+      numeric fields for Tier-A parity.
 
       R-1 audit (2026-04-19): derivation_label corrected
       ch:electroweak_higgs → ch:baryons (R-2 spillover). The baryon ladder
@@ -238,18 +261,44 @@ predictions:
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "m_ν = m_e · α · (m_e / M_W) per flavor; sum ≈ 0.054 eV."
+    notes: |
+      m_ν = m_e · α · (m_e / M_W) per flavor; sum ≈ 0.054 eV (from Vol 2
+      Ch 6 line 286 Bethe-lattice distribution: 9.58 + 19.33 + 23.75 =
+      52.66 meV).
+
+      ⚠ R-7 audit (2026-04-19): the 0.66% error_percent has no derivable
+      source. The AVE prediction is Σm_ν ≈ 0.054 eV; the observation is
+      an upper bound Σm_ν < 0.12 eV (Planck 2018). An error % against a
+      bound doesn't have clean semantics — the prediction either
+      satisfies the bound or doesn't.
+
+      FLAG for next audit pass: either (a) replace error_percent with
+      a "within-bound" indicator (like Row 40 NS compactness), (b)
+      identify which specific eigenvalue the 0.66% measures and
+      document, or (c) retire error_percent for this entry entirely.
+      Public-facing status unchanged pending user judgment.
 
   - id: P25
     name: "Higgs mass"
     type: derived_prediction
     derivation_label: "ch:electroweak_higgs"
     constants_py_symbol: "M_HIGGS_MEV"
+    predicted_value: 124416.71
+    predicted_unit: "MeV/c²"
+    observed_value: 125100.0
+    observed_source: "PDG 2022 (ATLAS + CMS)"
     error_percent: 0.55
     axioms_used: [1, 2, 4]
     public_in_readme: true
     public_in_living_ref: true
-    notes: "M_H = HIGGS_VEV / √(N_K4) = v/2."
+    notes: |
+      M_H = HIGGS_VEV / √(N_K4) = v/2.
+
+      R-7 audit (2026-04-19): added predicted_value and observed_value
+      to close the validator INFO finding ("constants_py_symbol declared
+      but no predicted_value to cross-check against"). Engine returns
+      124416.71 MeV vs PDG 125100 MeV → -0.55% error (matches manifest
+      error_percent field).
 
   - id: P43
     name: "BCS B_c(T) superconducting critical field"
