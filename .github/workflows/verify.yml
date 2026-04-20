@@ -1,0 +1,39 @@
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validators:
+    name: Claim-graph + defense-context + unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MPLBACKEND: Agg
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Claim-graph validator (strict)
+        run: uv run python src/scripts/claim_graph_validator.py
+
+      - name: Defense-context checker (warning-only)
+        run: uv run python src/scripts/defense_context_checker.py || true
+
+      - name: Unit tests
+        run: uv run pytest src/tests --tb=short
