@@ -134,19 +134,20 @@ Reading (a) (Sutcliffe Hopfion with $Q_H = 6$) and Reading (b) (factorized SU(2)
 
 ---
 
-## §7  Where the Cosserat canonization (C3) actually points
+## §7  Where the Cosserat canonization (C3) points — amended 2026-04-20
 
-Reflecting on §2 of `00_` — the C3 canonization declaration states that "all field-theoretic formalisms used in the framework must be interpretable as sectoral projections of the Cosserat field." Under C3, the primary field is $\boldsymbol{\omega} \in \mathbb{R}^3$ (Cosserat microrotation), and SU(2) $U$ is its exponential map.
+**Amendment note:** Original §7 argued that Reading (a) "drops the U(1) fibre entirely" while Reading (b) retains it natively. That was overstated. Reading (a) written as a full SU(2) field (not just an S² field) *does* carry fibre-phase content — it just expresses it through the combined Hopfion phase $\Theta = 2\varphi + 3\psi$ rather than as a separately-tracked variable. Both (a) and (b) are valid SU(2)-field formulations; they differ in how the $(2, 3)$ winding is distributed between the base and fibre sectors. Whether one ends up energy-minimizing and the other not is a Phase-3 numerical question, not a Phase-1 topological one.
 
-This natively carries *both* the S² projection (via $\hat{\mathbf{n}} = U\hat{\mathbf{z}}U^\dagger$) *and* the U(1) fibre (via the phase not captured in the projection). The full Cosserat field has the structure of Reading (b) — factorized into S² and U(1) sectors on the Clifford shell.
+Under C3, the primary field is the Cosserat microrotation $\boldsymbol{\omega}$ with SU(2) element $U = \exp(i\boldsymbol{\sigma}\cdot\boldsymbol{\omega}/2)$. Both Reading (a) and Reading (b) are specific ansätze for how the $(2, 3)$ winding is realized in $U$:
 
-**Reading (a) drops the U(1) fibre entirely.** This is a simplification that loses physical content native to Cosserat: the "internal spin phase" $\alpha_\parallel$ of the electron, the thing that requires $4\pi$ to close the spinor cycle. Under Reading (a), this fibre-phase physics has to be bolted on, not read off.
+- **Reading (a):** single combined phase in $U$: $\Theta(\mathbf{r}) = 2\varphi(\mathbf{r}) + 3\psi(\mathbf{r})$, giving preimages that are $(2, 3)$-torus knots. $Q_H(\hat{\mathbf{n}}) = 6$.
+- **Reading (b):** factorized $U = U_{\text{base}}(\theta_1) \cdot U_{\text{fibre}}(\theta_2)$ with independent winding in each sector. $Q_H(\hat{\mathbf{n}}) = 0$; topological content is in the U(1) fibre winding.
 
-Under the C3 canonization, **Reading (b) is the natural reading.** Reading (a) is a valid simplification for certain analyses (pure S² Hopfion numerics) but does not faithfully represent the full Cosserat structure that AVE has committed to.
+Which reading is physical in AVE — i.e., which ground state the energy-minimizing dynamics of $\mathcal{L}_{\text{AVE}}$ actually produces — is **a Phase-3 numerics question.** It's premature for Phase-1 to lock this in.
 
-**My recommendation:** Stay with Reading (b) (option α in §6). Accept limited external-literature leverage. The Phase-1 Lagrangian already commits to the full SU(2) Cosserat field; Reading (a) would undo this commitment.
+**Revised recommendation:** Hold Reading (b) as the canonical *boundary-condition prescription* for Phase-1 writeups, but do not treat the distinction between (a) and (b) as settled. Phase 3 adjudicates.
 
-But this is a physics judgment call. **Your adjudication required.**
+**Your adjudication required** for Phase-1 documentation language: either (i) treat the two readings as distinct Phase-3 hypotheses to be tested numerically; or (ii) commit to (a) now (simpler, more literature); or (iii) commit to (b) now (more Cosserat-faithful in sense of `00_` §2, less literature).
 
 ---
 
