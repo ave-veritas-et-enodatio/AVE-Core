@@ -48,6 +48,15 @@
 - **Surfaced:** Phase 1, 2026-04-19
 - **Status:** queued
 
+### [5] research/L3_electron_soliton/02_lagrangian_derivation.md — correct §9 Pinning-2 factor-of-3 and rationale
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §9 (Cosserat moduli pinning), Pinning 2 specifically
+- **Change:** Replace $\ell_{\text{Cos}} = \sqrt{3\gamma/G_c}$ with $\ell_{\text{Cos}} = \sqrt{\gamma/G_c}$; replace $G_c = 3\gamma$ with $G_c = \gamma$; replace the "pinned by $\nu_{\text{vac}} = 2/7$ operating point" rationale with "pinned by $\ell_{\text{Cos}} = \ell_{\text{node}}$ (Axiom 1 Nyquist match)." See [`04_moduli_pinning_check.md`](04_moduli_pinning_check.md) §3 for the corrected derivation.
+- **Why:** The factor of 3 came from naively summing three bending moduli that happen to all equal $\gamma$ in the isotropic ansatz; the dimensionally-natural characteristic length uses the coefficient of $|\nabla\boldsymbol{\omega}|^2$ in the isotropic energy functional, which is $\gamma$, not $3\gamma$. The $\nu_{\text{vac}}$ attribution was a confusion with the translational Poisson ratio (which pertains to $K/G$, not to $G_c$). After correction, all three pinnings self-consistently close and all three §9.1 checks pass.
+- **Surfaced:** Phase 1 moduli-pinning check, 2026-04-20
+- **Status:** queued
+
 ### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
 - **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
 - **Kind:** markdown (internal research doc)
