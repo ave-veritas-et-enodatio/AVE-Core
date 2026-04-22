@@ -47,11 +47,11 @@ WHAT THIS SCRIPT COMPUTES:
 Outputs → assets/sim_outputs/
 """
 
-import matplotlib
-import numpy as np
 import os
 from pathlib import Path
 
+import matplotlib
+import numpy as np
 from scipy.integrate import cumulative_trapezoid
 from scipy.optimize import minimize_scalar
 

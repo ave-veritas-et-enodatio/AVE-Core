@@ -61,7 +61,9 @@ from ave.core.constants import (
     M_N_MEV_TARGET,
     M_P_MEV_TARGET,
     NU_VAC,
-    P_C as _P_C,
+)
+from ave.core.constants import P_C as _P_C
+from ave.core.constants import (
     e_charge,
 )
 

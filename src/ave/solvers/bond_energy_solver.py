@@ -33,8 +33,9 @@ from __future__ import annotations
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
-from ave.core.constants import ALPHA, B_SNAP, C_0, EPSILON_0, L_NODE, M_E, MU_0, V_SNAP
+from ave.core.constants import ALPHA, B_SNAP, C_0, EPSILON_0, L_NODE, M_E
 from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
+from ave.core.constants import MU_0, V_SNAP
 
 
 class BondFDTD1D:

@@ -5,7 +5,6 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 # The subatomic phase-gap separating the V_II dielectric phase from the V_I conduction phase
 # Derived natively from the Void Fraction remainder (1 - Phi_limit)
 E_GAP_TRIGGER = 0.2158  # Regime II Subatomic Electroweak/Structural Energy Gap (eV)

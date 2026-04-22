@@ -34,11 +34,11 @@ Algorithm
 Outputs → assets/sim_outputs/
 """
 
-import matplotlib
-import numpy as np
 import os
 from pathlib import Path
 
+import matplotlib
+import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import brentq
 from scipy.special import sph_harm

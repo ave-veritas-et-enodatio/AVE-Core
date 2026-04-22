@@ -35,10 +35,11 @@ Algorithm
 Outputs -> assets/sim_outputs/
 """
 
-import matplotlib
-import numpy as np
 import os
 from pathlib import Path
+
+import matplotlib
+import numpy as np
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, M_PROTON, MU_0, V_SNAP, Z_0
 from ave.core.universal_operators import universal_impedance, universal_reflection, universal_saturation
