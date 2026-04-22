@@ -2,7 +2,6 @@ import numpy as np
 
 from ave.regime_1_linear.fluids_factory import WaterMolecule
 from ave.regime_3_saturated.cavitation_collapse import AxiomaticRayleighPlesset, PayloadConfig
-from scripts.vol_3_macroscopic.simulate_sonoluminescence import compute_flash_temperature
 
 
 def test_sonoluminescence_topological_bounce():
@@ -31,7 +30,7 @@ def test_sonoluminescence_topological_bounce():
     T_cycle = 1.0 / f_ac
     sol = solver.solve_collapse((0, T_cycle), max_step=1e-8)
 
-    R_array = sol.y[0]
+    # R_array = sol.y[0]  # bulk lint fixup pass
     U_array = sol.y[1]
 
     # Must never exceed the speed of sound (+0.1% margin for ODE integrator slop)

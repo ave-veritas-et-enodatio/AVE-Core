@@ -1,13 +1,8 @@
-import numpy as np
-import os
-import sys
 import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 from ave.core.constants import (
-    MU_0,
-    EPSILON_0,
     Z_0,
     e_charge,
     HIGGS_VEV_MEV,

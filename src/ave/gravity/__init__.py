@@ -15,8 +15,7 @@ Key results (Ch. 9):
 from __future__ import annotations
 
 
-import numpy as np
-from ave.core.constants import G, C_0, Z_0, MU_0, EPSILON_0, NU_VAC
+from ave.core.constants import G, C_0, Z_0, MU_0, EPSILON_0
 from ave.axioms.scale_invariant import (
     impedance as _impedance,
     saturation_factor,

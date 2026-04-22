@@ -24,7 +24,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_atomic_spectra.py
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib
@@ -39,8 +38,6 @@ from ave.core.constants import (
     HBAR,
     M_E,
     e_charge,
-    EPSILON_0,
-    Z_0,
     L_NODE,
 )
 
@@ -94,7 +91,7 @@ def run_simulation():
     # ── Energy levels ──────────────────────────────────────────────────────
     print(f"\n  ── HYDROGEN ENERGY LEVELS ──")
     n_levels = np.arange(1, 8)
-    E_n = -RY_EV / n_levels**2
+    # E_n = -RY_EV / n_levels**2  # bulk lint fixup pass
 
     print(f"  {'n':>4} {'E_n (eV)':>12} {'r_n / a₀':>10}")
     print(f"  {'─'*28}")

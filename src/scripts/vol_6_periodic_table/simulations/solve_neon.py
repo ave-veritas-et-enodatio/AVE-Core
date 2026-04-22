@@ -8,8 +8,6 @@ arranged in a Triangular Bipyramid.
 
 import numpy as np
 from scipy.optimize import minimize
-import os
-import sys
 
 # Ensure the core framework is in PATH
 import pathlib

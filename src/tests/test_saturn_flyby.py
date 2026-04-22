@@ -13,8 +13,6 @@ from ave.gravity.solar_impedance import (
     flyby_anomaly_impedance,
     flyby_catalog,
     A_MIMAS,
-    A_PAN,
-    R_SATURN,
 )
 
 

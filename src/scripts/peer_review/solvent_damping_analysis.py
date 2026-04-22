@@ -42,15 +42,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.core.constants import (
-    ALPHA,
-    HBAR,
     C_0,
     e_charge,
-    M_E,
-    L_NODE,
-    Z_0,
-    EPSILON_0,
-    MU_0,
     XI_TOPO,
     K_B,
 )
@@ -172,7 +165,6 @@ print("=" * 100)
 from ave.solvers.transmission_line import (
     build_nodal_y_matrix,
     s11_from_y_matrix,
-    s_matrix_from_y,
 )
 
 N_RESIDUES = 10

@@ -10,7 +10,6 @@ from ave.core.constants import (
     ALPHA,
     ALPHA_S,
     SIN2_THETA_W,
-    NU_VAC,
     M_W_MEV,
     M_Z_MEV,
     HIGGS_VEV_MEV,

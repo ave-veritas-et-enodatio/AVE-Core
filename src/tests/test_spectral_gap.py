@@ -22,7 +22,7 @@ from ave.axioms.spectral_gap import (
     mass_gap_energy,
     mass_gap_is_positive,
 )
-from ave.core.constants import L_NODE, C_0, HBAR, M_E, KAPPA_FS
+from ave.core.constants import L_NODE, C_0, M_E, KAPPA_FS
 
 
 # ── Step 1: Lattice Existence ──

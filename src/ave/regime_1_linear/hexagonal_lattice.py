@@ -1,6 +1,6 @@
 from __future__ import annotations
 import numpy as np
-from ave.core.constants import K_B, ALPHA, HBAR, N_PHI_PACK
+from ave.core.constants import K_B, ALPHA, HBAR
 
 
 class CooperativeHexagonalLattice:

@@ -96,13 +96,13 @@ def main():
             fig.patch.set_facecolor("black")
             ax.set_facecolor("black")
 
-            im = ax.imshow(
-                field.T,
-                cmap="hot",
-                origin="lower",
-                extent=[0, NX, 0, NY],
-                norm=PowerNorm(gamma=0.5, vmin=0, vmax=vmax),
-            )
+            # im = ax.imshow(  # bulk lint fixup pass
+            #     field.T,
+            #     cmap="hot",
+            #     origin="lower",
+            #     extent=[0, NX, 0, NY],
+            #     norm=PowerNorm(gamma=0.5, vmin=0, vmax=vmax),
+            # )
 
             # Draw lens
             circle = plt.Circle((cx, cy), R_CORE, color="#00E5FF", fill=False, lw=1.5, ls="--", alpha=0.7)

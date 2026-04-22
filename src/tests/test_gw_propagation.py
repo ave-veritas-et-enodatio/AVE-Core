@@ -24,7 +24,7 @@ from ave.gravity.gw_propagation import (
     refractive_index,
     gw_propagation_summary,
 )
-from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0, G, V_SNAP
+from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0, V_SNAP
 
 
 M_SUN = 1.989e30  # Solar mass [kg]

@@ -9,7 +9,6 @@ Phases 3-4 verification.
 """
 
 import numpy as np
-import pytest
 from ave.condensed.silicon_crystal import (
     D_SI_SI,
     D_SI_SI_EXP,
@@ -21,7 +20,6 @@ from ave.condensed.silicon_crystal import (
     E_GAP_EXP,
     N_ATOMS_CELL,
     COORD_NUMBER,
-    FRAC_COORDS,
     build_unit_cell_bonds,
     dispersion_periodic_lc,
     silicon_band_gap,

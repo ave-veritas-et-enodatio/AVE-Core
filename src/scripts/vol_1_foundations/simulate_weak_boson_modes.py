@@ -8,10 +8,8 @@ Z = Transverse Phase Bending (Voltage lag)
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def simulate_electroweak_modes():

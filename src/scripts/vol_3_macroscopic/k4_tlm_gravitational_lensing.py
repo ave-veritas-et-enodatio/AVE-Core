@@ -35,11 +35,8 @@ from matplotlib.colors import PowerNorm
 
 from ave.core.k4_tlm import (
     K4Lattice2D,
-    K4Node,
     build_k4_scattering_matrix,
-    N_PORTS,
 )
-from ave.core.constants import C_0, G, Z_0, ALPHA
 
 
 def apply_lens_2d(lattice, cx, cy, n0, r_core):

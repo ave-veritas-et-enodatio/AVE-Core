@@ -30,14 +30,11 @@ GPU READY: All pairwise computations use JAX vectorization.
 """
 
 import numpy as np
-import sys
-import os
 
 # Try JAX, fall back to numpy if unavailable
 try:
     import jax
     import jax.numpy as jnp
-    from jax import jit, vmap
 
     HAS_JAX = True
     print(f"[JAX] Backend: {jax.devices()[0].platform}")
@@ -48,7 +45,7 @@ except ImportError:
     print("[JAX] Not available, using NumPy fallback")
 
 # ---- Import AVE constants ----
-from ave.core.constants import K_MUTUAL, ALPHA, V_SNAP, V_YIELD, B_SNAP
+from ave.core.constants import K_MUTUAL, ALPHA
 
 # Import nucleon coordinates from existing engine
 from simulate_element import get_nucleon_coordinates, M_P_RAW, M_N_RAW

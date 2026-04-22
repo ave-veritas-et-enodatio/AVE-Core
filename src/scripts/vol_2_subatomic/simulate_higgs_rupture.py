@@ -26,7 +26,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_higgs_rupture.py
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib
@@ -38,22 +37,18 @@ from matplotlib.gridspec import GridSpec
 from ave.core.constants import (
     C_0,
     ALPHA,
-    HBAR,
     M_E,
     e_charge,
     EPSILON_0,
-    MU_0,
     Z_0,
     L_NODE,
     V_SNAP,
     V_YIELD,
     P_C,
-    NU_VAC,
     M_W_MEV,
     M_Z_MEV,
     M_HIGGS_MEV,
     HIGGS_VEV_MEV,
-    N_K4,
     LAMBDA_HIGGS,
 )
 from ave.core.universal_operators import universal_saturation
@@ -62,7 +57,7 @@ from ave.core.regime_map import identify_regime
 
 def run_simulation():
     # ── PREREQUISITE GATE: identify operating regime at V_snap ──
-    regime = identify_regime("em_voltage", V_local=float(V_SNAP))
+    # regime = identify_regime("em_voltage", V_local=float(V_SNAP))  # bulk lint fixup pass
     print()
 
     print("=" * 78)
@@ -106,7 +101,7 @@ def run_simulation():
     # Map collision energy to local voltage on the lattice node
     # E_collision = e × V_local → V_local = E_collision / e
     # But we normalize to V_snap for the saturation operator
-    V_ratio = E_collision / (float(V_SNAP) * e_charge / (e_charge * 1e6))  # V/V_snap in MeV terms
+    # V_ratio = E_collision / (float(V_SNAP) * e_charge / (e_charge * 1e6))  # V/V_snap in MeV terms  # bulk lint fixup pass
 
     # Actually: the local voltage per node during collision is
     # V_local = E_collision_MeV / (m_e_MeV × c² / (e × V_snap))
@@ -121,7 +116,7 @@ def run_simulation():
     eps_eff = float(EPSILON_0) * S
 
     # Effective impedance
-    Z_eff = np.where(S > 1e-10, float(Z_0) / np.sqrt(S), float(Z_0) * 1e5)
+    # Z_eff = np.where(S > 1e-10, float(Z_0) / np.sqrt(S), float(Z_0) * 1e5)  # bulk lint fixup pass
 
     # Mass generation: when S drops below threshold, a massive boson forms
     # The "born mass" is the trapped energy from the ruptured cell

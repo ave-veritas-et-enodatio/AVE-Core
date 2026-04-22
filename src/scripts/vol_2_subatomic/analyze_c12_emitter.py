@@ -3,7 +3,6 @@ Evaluate the geometric gradient advantage of Helium-4
 (Alpha Core) vs a Flat 4-Node Emitter.
 """
 
-import sys
 import os
 import numpy as np
 

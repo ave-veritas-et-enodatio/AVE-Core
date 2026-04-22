@@ -28,7 +28,7 @@ Performance:
 """
 
 import numpy as np
-from typing import Callable, Optional, Sequence, Tuple, List
+from typing import Callable, Optional, Tuple, List
 
 from ave.core.constants import EPS_DIVZERO
 

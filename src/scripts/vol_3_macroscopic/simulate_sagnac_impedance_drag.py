@@ -1,4 +1,3 @@
-import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,7 +5,7 @@ from matplotlib import animation
 
 # Important: Add project root to sys path so we can import ave.core cleanly
 
-from ave.core import VacuumGrid, TopologicalNode
+from ave.core import VacuumGrid
 
 
 def main():
@@ -56,7 +55,7 @@ def main():
         fontsize=14,
     )
 
-    dt = 1.0
+    # dt = 1.0  # bulk lint fixup pass
     cw_phase = 0.0
     ccw_phase = 0.0
 

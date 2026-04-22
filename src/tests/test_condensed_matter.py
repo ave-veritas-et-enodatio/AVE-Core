@@ -87,7 +87,7 @@ class TestSoundSpeed:
 
     def test_formula_consistency(self):
         """c_s = sqrt(B_bond * e / (A * m_u))."""
-        from ave.core.constants import e_charge, M_PROTON
+        from ave.core.constants import e_charge
 
         cs, d = sound_speed(14)
         cs_check = np.sqrt(d["B_bond_eV"] * e_charge / d["m_atom_kg"])

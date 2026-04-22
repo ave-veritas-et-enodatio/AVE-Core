@@ -25,17 +25,7 @@ from ave.core.constants import (
     NU_VAC,
     PROTON_ELECTRON_RATIO,
     M_P_MEV_TARGET,
-    M_N_MEV_TARGET,
     D_PROTON,
-    D_INTRA_ALPHA,
-    D_NN_EIGENVALUE,
-    B_DEUTERON_PREDICTED,
-    OMEGA_0_NUCLEAR,
-    E_0_NUCLEAR,
-    K_COUPLING,
-    K_MUTUAL,
-    HBAR_C_MEV_FM,
-    CROSSING_NUMBER_PROTON,
 )
 
 # ─── (A) DERIVED chain (current engine state) ───────────────────────────

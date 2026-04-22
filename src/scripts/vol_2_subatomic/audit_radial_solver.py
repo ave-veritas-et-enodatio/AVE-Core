@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import os
 from pathlib import Path
 import numpy as np
 
@@ -8,7 +7,6 @@ PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 sys.path.append(str(PROJECT_ROOT / "src"))
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
-from ave.core.constants import e_charge
 
 
 def audit_radial_solver():
@@ -52,9 +50,9 @@ def audit_radial_solver():
         # In `_solve_graded_eigenvalue_J`, cross_shells is used as (n_shell, N_a).
         # We need to map e.g., for B (Z=5, 2s2 2p1) to n=2, l=1, shells=[(1,2), (2,3)].
 
-        n_out = shell_dist[-1][0]
+        # n_out = shell_dist[-1][0]  # bulk lint fixup pass
         # In AVE solver, l=0 is s-block (Z <= 4), l=1 is p-block (Z >= 5) for Period 2.
-        l_out = 0 if z <= 4 else 1
+        # l_out = 0 if z <= 4 else 1  # bulk lint fixup pass
         if z == 1:
             l_out = 0
 

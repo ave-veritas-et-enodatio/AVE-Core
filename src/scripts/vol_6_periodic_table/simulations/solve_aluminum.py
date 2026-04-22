@@ -9,8 +9,6 @@ CODATA mass defect of Al-27.
 
 import numpy as np
 from scipy.optimize import minimize
-import os
-import sys
 
 import pathlib
 

@@ -3,7 +3,6 @@ Lepton Asymmetry and Baryogenesis Solver.
 Derives the fundamental CP-violating chiral phase bias of the discrete LC Network.
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt

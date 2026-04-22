@@ -98,7 +98,7 @@ def plot_memory_hysteresis(times, V_app, current_I, w_state):
     Plot the physical state transition over time and
     the classic Non-Linear I-V Memristor "Bow-Tie" curve.
     """
-    fig = plt.figure(figsize=(14, 6))
+    # fig = plt.figure(figsize=(14, 6))  # bulk lint fixup pass
     gs = gridspec.GridSpec(1, 2, width_ratios=[1.2, 1])
 
     # Plot 1: Temporal Voltage and Structural State Mapping

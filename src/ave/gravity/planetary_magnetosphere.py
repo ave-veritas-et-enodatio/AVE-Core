@@ -30,9 +30,8 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import G, C_0, Z_0, MU_0, M_PROTON, K_B
+from ave.core.constants import G, MU_0, M_PROTON, K_B
 from ave.axioms.scale_invariant import reflection_coefficient
 
 

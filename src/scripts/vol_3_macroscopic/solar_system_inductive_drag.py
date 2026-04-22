@@ -10,7 +10,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from ave.core.constants import G, C_0, M_SUN
+from ave.core.constants import M_SUN
 from ave.gravity.lense_thirring import (
     gravitomagnetic_field,
     gravitational_wave_power,

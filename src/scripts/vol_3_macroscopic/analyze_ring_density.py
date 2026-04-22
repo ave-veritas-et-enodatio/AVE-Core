@@ -6,7 +6,6 @@ of macroscopic topological band gaps (analogous to electron shells).
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib

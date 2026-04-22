@@ -21,7 +21,6 @@ from ave.gravity.neutrino_msw import (
     impedance_analogy,
     solar_msw_profile,
     THETA_12,
-    DELTA_M21_SQ_TARGET,
 )
 
 

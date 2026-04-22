@@ -27,23 +27,18 @@ GPU READY: All computations vectorized with JAX.
 """
 
 import numpy as np
-import sys
-import os
-import time
 
 try:
-    import jax
-    import jax.numpy as jnp
-    from jax import jit
+    pass
 
     HAS_JAX = True
 except ImportError:
-    import numpy as jnp
+    pass
 
     HAS_JAX = False
 
 # Import AVE constants
-from ave.core.constants import K_MUTUAL, ALPHA, V_SNAP, B_SNAP
+from ave.core.constants import K_MUTUAL
 
 from simulate_element import get_nucleon_coordinates, M_P_RAW, M_N_RAW
 

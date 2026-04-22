@@ -35,7 +35,6 @@ from ave.core.k4_tlm import (
     K4Lattice2D,
     build_scattering_matrix,
 )
-from ave.core.constants import C_0, Z_0, ALPHA, P_C
 
 N_PORTS = 4
 

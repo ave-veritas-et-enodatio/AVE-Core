@@ -11,7 +11,7 @@ import math
 import numpy as np
 import pytest
 
-from ave.core.constants import NU_VAC, M_E, C_0, ALPHA, P_C, e_charge, SIN2_THETA_W
+from ave.core.constants import NU_VAC, M_E, C_0, ALPHA, P_C, e_charge
 from ave.solvers.transmission_line import (
     build_radial_tree_admittance,
     build_radial_tree_admittance_graded,
@@ -19,13 +19,9 @@ from ave.solvers.transmission_line import (
 )
 from ave.topological.cosserat import (
     M_W_TREE,
-    M_W,
     M_W_MEV,
     M_Z_MEV,
-    MISMATCH_LOSS,
     MISMATCH_LOSS_SC,
-    S11_W_BOUND,
-    S11_W_SC,
     w_boson_self_consistent_correction,
 )
 
@@ -91,7 +87,7 @@ class TestGradedSolverStructure:
     def test_default_profile_is_axiom4_envelope(self):
         """Default profile (shell_boundary_y=None) uses 1-exp(-(d-1)) envelope."""
         depth = 4
-        Y = build_radial_tree_admittance_graded(depth=depth, branch_y=NU_VAC, coordination_z=4)
+        # Y = build_radial_tree_admittance_graded(depth=depth, branch_y=NU_VAC, coordination_z=4)  # bulk lint fixup pass
         expected_profile = [1.0 * (1.0 - math.exp(-(d - 1))) for d in range(1, depth + 1)]
         # Shell 1 receives y=0 → no extra diagonal shunt on those nodes
         # Shell d receives y = expected_profile[d-1]

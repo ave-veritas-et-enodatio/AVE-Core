@@ -28,7 +28,7 @@ import sys, pathlib
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.parent))
 
-from ave.core.constants import ALPHA, C_0, EPSILON_0, MU_0, Z_0, NU_VAC, K_B
+from ave.core.constants import ALPHA, C_0, EPSILON_0, Z_0, K_B
 
 # ═══════════════════════════════════════════════════════════════════
 # Physical constants

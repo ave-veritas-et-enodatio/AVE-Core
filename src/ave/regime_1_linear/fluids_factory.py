@@ -44,7 +44,7 @@ from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import HBAR, C_0, K_B, e_charge as EV_TO_J, N_A
+from ave.core.constants import HBAR, C_0, K_B, e_charge as EV_TO_J
 
 # Physical constants
 H_BAR = float(HBAR)  # ℏ [J·s] — from constants.py
@@ -304,7 +304,7 @@ class FluidImpedanceFactory:
             stacklevel=2,
         )
         T_K = T_celsius + 273.15
-        kT = K_B * T_K
+        # kT = K_B * T_K  # bulk lint fixup pass
 
         # Volume of tetrahedral unit cell
         r_inter = self.fluid.bond_length + self.fluid.inter_bond_length

@@ -28,11 +28,9 @@ Usage:
 """
 
 import os
-import sys
 import numpy as np
-import jax
 import jax.numpy as jnp
-from jax import jit, lax
+from jax import jit
 
 
 import matplotlib
@@ -152,7 +150,7 @@ def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
     freq = 0.06
     source_x_start = 60
     source_y = slit_1  # Particle aimed at Slit 1 (AVE: particle through ONE slit)
-    particle_speed = 0.22  # nodes per timestep
+    # particle_speed = 0.22  # nodes per timestep  # bulk lint fixup pass
 
     # Build static geometry (CPU, once)
     damping = _build_sponge(nx, ny, sponge)

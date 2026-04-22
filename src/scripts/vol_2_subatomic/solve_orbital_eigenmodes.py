@@ -54,14 +54,10 @@ from ave.core.constants import (
     HBAR,
     ALPHA,
     L_NODE,
-    V_SNAP,
-    Z_0,
     e_charge,
 )
 from ave.core.universal_operators import (
     universal_impedance,
-    universal_saturation,
-    universal_reflection,
 )
 
 from scipy.integrate import solve_ivp

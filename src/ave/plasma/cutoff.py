@@ -23,8 +23,8 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, ALPHA, L_NODE, e_charge, M_E, K_B
-from ave.axioms.scale_invariant import saturation_factor, epsilon_eff as _si_epsilon_eff
+from ave.core.constants import C_0, EPSILON_0, V_SNAP, L_NODE, e_charge, M_E, K_B
+from ave.axioms.scale_invariant import epsilon_eff as _si_epsilon_eff
 
 
 @dataclass

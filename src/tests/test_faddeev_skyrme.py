@@ -48,8 +48,8 @@ class TestPhaseProfile:
     def test_profile_steepness_scales_with_n(self, solver):
         """Higher n → steeper transition (sharper soliton wall)."""
         r_mid = 1.0  # at r = r_opt
-        phi_n1 = solver._phase_profile(r_mid, r_opt=1.0, n=1.0)
-        phi_n4 = solver._phase_profile(r_mid, r_opt=1.0, n=4.0)
+        # phi_n1 = solver._phase_profile(r_mid, r_opt=1.0, n=1.0)  # bulk lint fixup pass
+        # phi_n4 = solver._phase_profile(r_mid, r_opt=1.0, n=4.0)  # bulk lint fixup pass
         # At r = r_opt: φ = π/(1 + 1^n) = π/2 for all n
         # But just outside r_opt, higher n drops faster
         r_outer = 2.0

@@ -7,7 +7,6 @@ Phase 5 verification.
 """
 
 import numpy as np
-import pytest
 from ave.condensed.silicon_doping import (
     Z_BORON,
     Z_PHOSPHORUS,

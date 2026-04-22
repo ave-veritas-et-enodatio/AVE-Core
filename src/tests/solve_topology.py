@@ -1,5 +1,3 @@
-import sys
-import os
 import numpy as np
 
 from vol_6_periodic_table.simulations.simulate_element import M_P_RAW, M_N_RAW

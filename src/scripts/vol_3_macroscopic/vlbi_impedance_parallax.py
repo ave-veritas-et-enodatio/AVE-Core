@@ -1,4 +1,3 @@
-import numpy as np
 from ave.core.constants import C_0, G, RHO_BULK
 
 

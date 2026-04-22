@@ -41,20 +41,14 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
 from ave.core.constants import (
-    C_0,
     EPSILON_0,
     MU_0,
     Z_0,
-    B_SNAP,
-    L_NODE,
-    ALPHA,
     e_charge,
     M_E,
     HBAR,
-    K_B,
 )
 from ave.axioms.scale_invariant import (
     saturation_factor,

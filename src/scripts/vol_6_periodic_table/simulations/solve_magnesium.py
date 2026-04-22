@@ -8,8 +8,6 @@ CODATA mass defect of Mg-24.
 
 import numpy as np
 from scipy.optimize import minimize
-import os
-import sys
 
 import pathlib
 

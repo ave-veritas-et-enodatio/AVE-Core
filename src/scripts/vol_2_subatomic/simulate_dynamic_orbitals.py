@@ -41,9 +41,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.gridspec import GridSpec
 import os
-import sys
 from pathlib import Path
 
 # ── Project imports ──
@@ -55,11 +53,9 @@ from ave.core.constants import (
     EPSILON_0,
     M_E,
     M_PROTON,
-    HBAR,
     ALPHA,
     L_NODE,
     V_SNAP,
-    B_SNAP,
     Z_0,
 )
 from ave.core.universal_operators import (

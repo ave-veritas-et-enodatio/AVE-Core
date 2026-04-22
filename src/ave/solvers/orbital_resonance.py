@@ -27,19 +27,14 @@ import numpy as np
 from ave.core.constants import (
     C_0,
     G,
-    M_E,
     HBAR,
     ALPHA,
     L_NODE,
     Z_0,
     NU_VAC,
-    ISOTROPIC_PROJECTION,
-    P_C,
-    T_EM,
     K_B,
     M_SUN,
     EPS_CLIP,
-    EPS_NUMERICAL,
 )
 
 # Alias for readability
@@ -218,7 +213,7 @@ def impedance_orbital_radii(M, a_star=0.0, n_modes=8):
     """
     rs = schwarzschild_radius(M)
     r_ph = photon_sphere_radius(M)
-    r_isco = isco_radius(M, a_star)
+    # r_isco = isco_radius(M, a_star)  # bulk lint fixup pass
 
     # Fundamental wavelength: photon sphere circumference
     lambda_0 = 2.0 * np.pi * r_ph
@@ -288,7 +283,7 @@ def scale_invariance_table():
     table : list of dicts   Each dict contains:
         'property', 'electron', 'black_hole', 'relation'
     """
-    rs_sun = schwarzschild_radius(M_SUN)
+    # rs_sun = schwarzschild_radius(M_SUN)  # bulk lint fixup pass
 
     table = [
         {

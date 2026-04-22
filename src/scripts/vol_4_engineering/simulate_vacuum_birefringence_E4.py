@@ -26,8 +26,6 @@ gradients, standard QED is falsified and the physical LC node limits
 of the generic vacuum are proven.
 """
 
-import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib

@@ -52,7 +52,7 @@ def generate_hulse_taylor_phase_slip():
     Generates fig_hulse_taylor_phase_slip.png
     """
     # Simply plot the geometric scaling of Phase Slip delta versus v/c limiting bounds
-    v_c_ratios = np.logspace(-5, -1, 100)  # From 0.001% of c to 10% of c
+    # v_c_ratios = np.logspace(-5, -1, 100)  # From 0.001% of c to 10% of c  # bulk lint fixup pass
 
     # delta ~ (v/c)^5
     # Let's normalize it to the PSR B1913+16 bound

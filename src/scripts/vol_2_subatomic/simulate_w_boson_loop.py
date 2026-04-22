@@ -21,14 +21,7 @@ if src_path not in sys.path:
 
 from ave.topological.cosserat import (
     M_W_TREE,
-    M_W,
-    M_W_MEV,
-    M_Z,
     M_Z_MEV,
-    MISMATCH_LOSS,
-    MISMATCH_LOSS_SC,
-    S11_W_BOUND,
-    S11_W_SC,
     w_boson_self_consistent_correction,
 )
 from ave.core.constants import C_0, e_charge
@@ -61,8 +54,6 @@ print(f"  " + "-" * 63)
 sc = w_boson_self_consistent_correction(max_iter=50, tol=1e-12)
 
 # Re-run iteration visibly for display
-import math
-import numpy as np
 from ave.core.constants import NU_VAC
 from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 

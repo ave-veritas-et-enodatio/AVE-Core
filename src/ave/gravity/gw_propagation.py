@@ -33,7 +33,6 @@ from __future__ import annotations
 
 
 import numpy as np
-from typing import Optional
 
 from ave.core.constants import (
     C_0,
@@ -41,14 +40,11 @@ from ave.core.constants import (
     MU_0,
     Z_0,
     V_SNAP,
-    B_SNAP,
     G,
-    HBAR,
     L_NODE,
     M_SUN,
 )
 from ave.axioms.scale_invariant import (
-    saturation_factor,
     impedance,
     reflection_coefficient,
 )

@@ -33,7 +33,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.core.k4_tlm import K4Lattice2D
-from ave.core.constants import C_0, ALPHA, P_C
+from ave.core.constants import ALPHA
 
 
 def generate_loop_path(cx, cy, radius, n_points=200):
@@ -388,8 +388,8 @@ def main():
     ]
 
     x_pos = np.arange(3)
-    bars1 = ax.bar(x_pos - 0.15, f_peaks, 0.3, label="FFT Peak", color="#2196F3")
-    bars2 = ax.bar(x_pos + 0.15, f_preds, 0.3, label="c/(2L)", color="#4CAF50", alpha=0.7)
+    # bars1 = ax.bar(x_pos - 0.15, f_peaks, 0.3, label="FFT Peak", color="#2196F3")  # bulk lint fixup pass
+    # bars2 = ax.bar(x_pos + 0.15, f_preds, 0.3, label="c/(2L)", color="#4CAF50", alpha=0.7)  # bulk lint fixup pass
     ax.set_xticks(x_pos)
     ax.set_xticklabels(labels)
     ax.set_ylabel("Normalized Frequency")

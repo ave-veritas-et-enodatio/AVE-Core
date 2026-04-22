@@ -106,7 +106,7 @@ def simulate_kinetic_armor_yield():
 def plot_kinetic_armor_reaction(history_p, history_phi, history_Z):
     """Plot the 3 stages: Ingress, Phase-Lock Reflection, and Relaxation"""
 
-    fig = plt.figure(figsize=(12, 9))
+    # fig = plt.figure(figsize=(12, 9))  # bulk lint fixup pass
     gs = gridspec.GridSpec(3, 1, height_ratios=[1, 1, 1])
 
     titles = [

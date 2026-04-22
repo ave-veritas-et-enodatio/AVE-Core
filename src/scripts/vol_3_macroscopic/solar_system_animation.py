@@ -57,7 +57,7 @@ def generate_animation(out_path):
 
     # Add planet markers (scatter)
     scatter = ax.scatter([], [], c="white", s=5)
-    sun_marker = ax.scatter([0], [0], c="yellow", s=30)
+    # sun_marker = ax.scatter([0], [0], c="yellow", s=30)  # bulk lint fixup pass
 
     ax.set_xlim(-grid_lim, grid_lim)
     ax.set_ylim(-grid_lim, grid_lim)

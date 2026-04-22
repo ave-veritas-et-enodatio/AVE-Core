@@ -7,7 +7,6 @@ All coordinates sourced from simulate_element.py (which uses ave.core.constants)
 Outputs directly to periodic_table/figures/ for LaTeX inclusion.
 """
 import os
-import sys
 import numpy as np
 import matplotlib
 

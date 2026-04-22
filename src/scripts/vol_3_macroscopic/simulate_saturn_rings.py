@@ -18,7 +18,6 @@ Generates an animated GIF of the structural evolution.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -29,8 +28,6 @@ project_root = pathlib.Path(__file__).parent.parent.absolute()
 # JAX GPU acceleration (graceful fallback to numpy)
 try:
     import jax
-    import jax.numpy as jnp
-    from jax import jit
 
     jax.config.update("jax_enable_x64", True)
     _HAS_JAX = True

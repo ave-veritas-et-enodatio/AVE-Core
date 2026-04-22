@@ -104,10 +104,7 @@ import numpy as np
 from math import pi, sqrt
 
 from ave.core.constants import (
-    NU_VAC,
     SIN2_THETA_W,
-    ALPHA,
-    ALPHA_S,
     SIN2_THETA_13,
     SIN2_THETA_12,
     SIN2_THETA_23,
@@ -115,9 +112,6 @@ from ave.core.constants import (
     LAMBDA_CKM,
     A_CKM,
     RHO_ETA_MAG,
-    V_US,
-    V_CB,
-    V_UB,
 )
 
 

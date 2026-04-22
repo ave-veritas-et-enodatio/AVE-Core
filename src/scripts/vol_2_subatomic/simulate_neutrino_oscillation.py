@@ -63,7 +63,7 @@ def simulate_neutrino_oscillation(frames=250, nx=400):
     (line_sum,) = ax2.plot([], [], color="white", lw=3, label="Observable Neutrino Wave Packet (Superposition)")
 
     # Emulate the Super-Kamiokande detection threshold (Probability = Amplitude^2)
-    fill_prob = ax2.fill_between(x, 0, 0, color="yellow", alpha=0.3, label=r"Detection Probability ($|\Psi|^2$)")
+    # fill_prob = ax2.fill_between(x, 0, 0, color="yellow", alpha=0.3, label=r"Detection Probability ($|\Psi|^2$)")  # bulk lint fixup pass
 
     ax2.set_xlim(0, L)
     ax2.set_ylim(-3.0, 3.0)
@@ -99,11 +99,11 @@ def simulate_neutrino_oscillation(frames=250, nx=400):
         line_sum.set_data(x, total_wave)
 
         # Update the 'Probability' envelope fill (square of amplitude)
-        prob_envelope = (
-            np.exp(-((x - mu1) ** 2) / (2 * sigma**2))
-            * np.exp(-((x - mu2) ** 2) / (2 * sigma**2))
-            * np.exp(-((x - mu3) ** 2) / (2 * sigma**2))
-        )  # rough bounding
+        # prob_envelope = (  # bulk lint fixup pass
+        #     np.exp(-((x - mu1) ** 2) / (2 * sigma**2))
+        #     * np.exp(-((x - mu2) ** 2) / (2 * sigma**2))
+        #     * np.exp(-((x - mu3) ** 2) / (2 * sigma**2))
+        # )  # rough bounding
 
         # Use a more accurate upper envelope for visualization
         envelope = np.abs(total_wave)

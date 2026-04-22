@@ -3,14 +3,13 @@ Vacuum Energy (Dark Energy) and Cosmological Inflation Solver.
 Derives the Zero-Point Energy of the LC Network and the inflationary limit.
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Ensure local ave package is in path
 
-from ave.core.constants import C_0, MU_0, EPSILON_0, G, HBAR, M_E, ALPHA, L_NODE
+from ave.core.constants import C_0, G, HBAR, M_E, ALPHA, L_NODE
 
 
 def derive_vacuum_energy():

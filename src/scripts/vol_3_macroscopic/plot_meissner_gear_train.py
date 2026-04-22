@@ -9,7 +9,8 @@ Left: Normal conduction — boundary torque causes localized slipping
 Right: Superconduction — phase-locked flywheels create infinite inertia,
        boundary gears refuse to rotate, exponential decay = London penetration depth.
 """
-import os, sys, pathlib
+import os
+import pathlib
 import numpy as np
 import matplotlib.pyplot as plt
 

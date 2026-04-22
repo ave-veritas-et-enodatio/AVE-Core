@@ -17,14 +17,11 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_g2.py
 """
 
-import numpy as np
 from math import pi, sqrt
 from ave.core.constants import (
     ALPHA,
     C_0,
     EPSILON_0,
-    MU_0,
-    HBAR,
     M_E,
     L_NODE,
     V_SNAP,

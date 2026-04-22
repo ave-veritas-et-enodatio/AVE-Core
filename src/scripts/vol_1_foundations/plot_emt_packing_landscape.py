@@ -12,9 +12,8 @@ import os
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
 
-from ave.core.constants import ALPHA, P_C
+from ave.core.constants import P_C
 
 # ─── EMT model ───
 # For a 3D amorphous central-force network (Feng-Thorpe-Garboczi),

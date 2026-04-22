@@ -7,7 +7,7 @@ from __future__ import annotations
 
 
 import numpy as np
-from ave.core.constants import C_0, MU_0, EPSILON_0, Z_0
+from ave.core.constants import C_0, MU_0, EPSILON_0
 from ave.regime_3_saturated.orbital_impedance import calculate_refractive_strain
 from ave.axioms.scale_invariant import impedance
 

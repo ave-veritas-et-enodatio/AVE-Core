@@ -10,7 +10,8 @@ Uses the approved Si-28 4-section layout:
 Data sourced from semiconductor_binding_engine.py.
 """
 
-import subprocess, os, math
+import subprocess
+import os
 
 # Output directory resolved at runtime in __main__
 
@@ -405,7 +406,7 @@ def make_section_cd(elem):
     else:
         # Halo or special elements — draw a simple core + halo block
         CX, CY = -4.5, -10.0
-        parent_topo = None
+        # parent_topo = None  # bulk lint fixup pass
         if "halo_1a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX}, {CY}) {{$\\alpha$}};\n"
             nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (h0) at ({CX+3}, {CY}) {{$^3\\text{{H}}$}};\n"
@@ -430,7 +431,7 @@ def make_section_cd(elem):
             legend = f"Core + halo at ${r_halo}d$\\\\\\textbf{{{elem['n_pairs']}+ junctions}}"
 
     # Energy balance
-    R_str = f"{elem['R']}" if isinstance(elem["R"], str) else f"{elem['R']:.1f}"
+    # R_str = f"{elem['R']}" if isinstance(elem["R"], str) else f"{elem['R']:.1f}"  # bulk lint fixup pass
     vr_str = f"{elem['vr']:.3f}" if isinstance(elem["vr"], (int, float)) else str(elem["vr"])
     M_str = f"{elem['M_val']:.3f}" if isinstance(elem["M_val"], (int, float)) else str(elem["M_val"])
 

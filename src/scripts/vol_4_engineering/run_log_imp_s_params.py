@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import sys
 
 from ave.core.constants import Z_0
 

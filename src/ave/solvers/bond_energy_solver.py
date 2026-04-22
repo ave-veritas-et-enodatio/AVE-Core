@@ -40,8 +40,6 @@ from ave.core.constants import (
     V_SNAP,
     B_SNAP,
     L_NODE,
-    HBAR,
-    e_charge,
     ALPHA,
 )
 from ave.axioms.scale_invariant import saturation_factor

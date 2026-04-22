@@ -15,7 +15,6 @@ particles in the AVE framework:
 
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import os
 
 plt.style.use("dark_background")
@@ -290,8 +289,8 @@ def figure_summary_panel():
     ]
 
     for idx, (label, gen_fn, color, kind) in enumerate(panels):
-        row = idx // 3
-        col = idx % 3
+        # row = idx // 3  # bulk lint fixup pass
+        # col = idx % 3  # bulk lint fixup pass
         ax = fig.add_subplot(2, 3, idx + 1, projection="3d")
         ax.set_facecolor("#050510")
         ax.xaxis.set_pane_color((0, 0, 0, 0))

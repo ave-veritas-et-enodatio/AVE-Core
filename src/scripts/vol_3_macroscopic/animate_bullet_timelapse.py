@@ -43,17 +43,17 @@ def animate_bullet_cluster():
     ax.set_facecolor("black")
 
     # Persistent axis tracking text
-    title_text = ax.text(
-        0.5,
-        1.05,
-        "",
-        transform=ax.transAxes,
-        color="white",
-        fontsize=14,
-        ha="center",
-        fontweight="bold",
-    )
-    phase_text = ax.text(0.5, 0.95, "", transform=ax.transAxes, color="cyan", fontsize=12, ha="center")
+    # title_text = ax.text(  # bulk lint fixup pass
+    #     0.5,
+    #     1.05,
+    #     "",
+    #     transform=ax.transAxes,
+    #     color="white",
+    #     fontsize=14,
+    #     ha="center",
+    #     fontweight="bold",
+    # )
+    # phase_text = ax.text(0.5, 0.95, "", transform=ax.transAxes, color="cyan", fontsize=12, ha="center")  # bulk lint fixup pass
 
     print(f"Executing 30s High-Fidelity Physics Render ({FRAMES} Frames)...")
     writer = PillowWriter(fps=FPS)

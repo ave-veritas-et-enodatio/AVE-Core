@@ -2,9 +2,7 @@
 # Renders a rigorous mathematical 3D diagram of the standard FDTD Yee Cell,
 # explicitly mapping the staggered spatial gradients (\nabla_d \times) that
 # govern the fundamental discrete limits of causality in the universe.
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import os
 
 plt.style.use("dark_background")

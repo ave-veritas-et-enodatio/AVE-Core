@@ -13,7 +13,6 @@ import pytest
 
 from ave.regime_2_nonlinear.seismic_fdtd import (
     build_seismic_engine,
-    verify_impedance_consistency,
     compute_boundary_reflections,
 )
 from ave.regime_2_nonlinear.seismic import PREM_LAYERS

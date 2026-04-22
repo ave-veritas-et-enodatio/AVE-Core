@@ -11,13 +11,12 @@ Instead, we validate mathematically: do the macroscopic states perfectly map bac
 to the Axiom 4 saturation boundaries?
 """
 
-import sys
 import numpy as np
 
 from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
-from ave.regime_3_saturated.condensed_matter import element_summary, ave_stable_mass
+from ave.regime_3_saturated.condensed_matter import element_summary
 from ave.core.regime_map import identify_regime, REGIME_LINEAR
-from ave.core.constants import V_YIELD, e_charge, ALPHA, C_0, M_PROTON
+from ave.core.constants import V_YIELD, ALPHA, C_0, M_PROTON
 
 
 def test_water_phase_coincidence():
@@ -92,7 +91,7 @@ def test_topological_nuclear_saturation():
     rejects empirical Standard Model binding energies (like the typical 8 MeV guess)
     and strictly follows the electrostatic topological saturation limit: E = α M_p.
     """
-    Z = 6  # Carbon
+    # Z = 6  # Carbon  # bulk lint fixup pass
 
     # We recalculate the stable mass gap to ensure the Coulomb penalty is 1.2*ALPHA
     coulomb_penalty_ratio = 1.2 * ALPHA

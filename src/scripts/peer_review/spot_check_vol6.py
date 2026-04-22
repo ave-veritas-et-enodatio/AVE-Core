@@ -20,10 +20,7 @@ from ave.core.constants import (
     K_COUPLING,
     K_MUTUAL,
     HBAR_C_MEV_FM,
-    ALPHA,
     ALPHA_HC,
-    E_0_NUCLEAR,
-    OMEGA_0_NUCLEAR,
 )
 
 CHECKS = [

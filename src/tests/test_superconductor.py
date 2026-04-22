@@ -18,13 +18,11 @@ from ave.plasma.superconductor import (
     superconducting_impedance,
     meissner_reflection,
     london_penetration_depth,
-    coherence_length,
     ginzburg_landau_kappa,
     SC_CATALOG,
 )
-from ave.plasma.cutoff import dielectric_function_ave
 from ave.axioms.scale_invariant import saturation_factor
-from ave.core.constants import MU_0, EPSILON_0, Z_0
+from ave.core.constants import MU_0, Z_0
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -116,7 +114,7 @@ class TestMeissnerReflection:
 
     def test_normal_state_gamma_zero(self):
         """Above B_c → μ_eff = μ₀ → Z_sc = Z₀ → Γ = 0 (matched)."""
-        gamma = meissner_reflection(0.3, 0.206)  # Above B_c, clips to 0
+        # gamma = meissner_reflection(0.3, 0.206)  # Above B_c, clips to 0  # bulk lint fixup pass
         # When B > B_c, saturation_factor clips → mu_eff = 0 → Z = 0 → Γ = -1
         # Actually when clipped, mu_eff = MU_0 * 0 ≈ 0, so Z → 0
         # This means Γ → -1 (total reflection, like hitting a wall)

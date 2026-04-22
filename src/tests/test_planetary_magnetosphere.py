@@ -13,13 +13,8 @@ from ave.gravity.planetary_magnetosphere import (
     uranus_asymmetric_profile,
     comparative_magnetosphere_table,
     EARTH,
-    JUPITER,
-    SATURN,
-    URANUS,
-    NEPTUNE,
     ALL_PLANETS,
 )
-from ave.core.constants import MU_0
 
 
 class TestDipoleField:

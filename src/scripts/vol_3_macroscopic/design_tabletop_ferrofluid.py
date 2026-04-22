@@ -10,7 +10,7 @@ import numpy as np
 
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from ave.core.constants import MU_0, M_E, C_0, e_charge
+from ave.core.constants import MU_0
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 
 

@@ -22,8 +22,7 @@ This module performs the "means test" on problems 4-7.
 from __future__ import annotations
 
 
-from ave.core.constants import C_0, L_NODE, M_E, KAPPA_FS, BARYON_LADDER
-from ave.axioms.scale_invariant import impedance
+from ave.core.constants import BARYON_LADDER
 
 # ════════════════════════════════════════════════════════════════════
 # PROBLEM 4: P versus NP
@@ -158,7 +157,7 @@ def test_birch_swinnerton_dyer() -> dict:
         Dictionary evaluating the physical mapping.
     """
     # The number of stable baryon states maps to stable rational knots
-    baryon_knots = list(BARYON_LADDER.keys())
+    # baryon_knots = list(BARYON_LADDER.keys())  # bulk lint fixup pass
 
     return {
         "problem": "Birch and Swinnerton-Dyer Conjecture",
@@ -253,7 +252,7 @@ def formal_proof_summary() -> dict:
     ym_proof = full_mass_gap_proof()
     ym_os = verify_osterwalder_schrader()
     ym_proven = ym_proof["MASS_GAP_PROVEN"]
-    ym_os_all = ym_os["all_OS_satisfied"]
+    # ym_os_all = ym_os["all_OS_satisfied"]  # bulk lint fixup pass
 
     # ── Navier-Stokes ─────────────────────────────────────────────────
     ns_proof = full_navier_stokes_proof()

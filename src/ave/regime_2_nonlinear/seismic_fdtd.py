@@ -33,13 +33,11 @@ from ave.core.fdtd_3d import FDTD3DEngine
 from ave.regime_2_nonlinear.seismic import (
     build_1d_impedance_profile,
     PREM_LAYERS,
-    SeismicLayer,
 )
 from ave.axioms.scale_invariant import (
     reflection_coefficient,
     impedance,
 )
-from ave.core.constants import EPSILON_0, MU_0
 
 
 def build_seismic_engine(

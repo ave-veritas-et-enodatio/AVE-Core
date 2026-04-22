@@ -22,9 +22,7 @@ Usage:
     python src/scripts/vol_3_macroscopic/water_lattice_proof.py
 """
 
-import os
 import sys
-import warnings
 import numpy as np
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -32,15 +30,10 @@ import numpy as np
 # ═══════════════════════════════════════════════════════════════════════════
 from ave.core.constants import (
     HBAR,
-    C_0,
     K_B,
     N_A,
     ALPHA,
-    EPSILON_0,
     e_charge,
-    MU_0,
-    N_PHI_PACK,
-    NU_VAC,
 )
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -201,7 +194,7 @@ def main():
     #   ΔH_vap = (z/2) × E_eff × N_A
     print(f"\n  ── [AXIOM] Prediction 4: ΔH_vap ──")
 
-    R_gas = float(K_B) * float(N_A)
+    # R_gas = float(K_B) * float(N_A)  # bulk lint fixup pass
     n_bonds_per_mol = 4.0 / 2.0
     E_eff = E_hb * (1.0 - float(ALPHA))  # α-loaded bond energy
     delta_H_vap = n_bonds_per_mol * E_eff * float(N_A)

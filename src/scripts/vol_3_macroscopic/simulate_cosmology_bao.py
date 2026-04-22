@@ -5,7 +5,6 @@ Derives the Hubble Constant, MOND acceleration limits, and Acoustic Baryon scale
 
 import numpy as np
 import os
-import sys
 import matplotlib.pyplot as plt
 
 # Ensure local ave package is in path

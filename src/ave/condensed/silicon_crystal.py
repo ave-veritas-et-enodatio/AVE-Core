@@ -29,17 +29,9 @@ from __future__ import annotations
 import numpy as np
 from math import pi
 
-from ave.core.constants import (
-    HBAR,
-    C_0,
-    e_charge,
-    ALPHA,
-)
 from ave.nuclear.silicon_atom import (
     R_VAL_SI,
     IE_SI_NIST,
-    N_SP3_ORBITALS,
-    SP3_ANGLE_DEG,
 )
 from ave.solvers.coupled_resonator import (
     molecular_bond_distance,
@@ -247,11 +239,11 @@ def silicon_band_gap() -> dict:
 
     # Also compute at zone boundary (q=π/a, minimum gap)
     # At zone boundary: cos(qa/2) = 0, so E_± = ω₀ (degenerate)
-    E_gap_zone_edge = 0.0  # For a monatomic chain with equal bonds
+    # E_gap_zone_edge = 0.0  # For a monatomic chain with equal bonds  # bulk lint fixup pass
 
     # The zone-center gap is the physically meaningful one for
     # the coordination-loaded model
-    E_gap_at_zone_center = E_gap
+    # E_gap_at_zone_center = E_gap  # bulk lint fixup pass
 
     return {
         "E_gap_eV": E_gap,

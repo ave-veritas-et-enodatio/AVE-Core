@@ -56,7 +56,7 @@ from __future__ import annotations
 
 
 import numpy as np
-from ave.core.constants import EPSILON_0, MU_0, C_0, Z_0, V_SNAP, EPS_CLIP
+from ave.core.constants import EPSILON_0, MU_0, C_0, Z_0, V_SNAP
 
 
 # ────────────────────────────────────────────────────────────────────

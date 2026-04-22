@@ -20,7 +20,6 @@ densities of 'matter':
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -28,7 +27,6 @@ import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 
-from ave.core.constants import C_0
 
 # FDTD Grid
 GRID_SIZE = 300

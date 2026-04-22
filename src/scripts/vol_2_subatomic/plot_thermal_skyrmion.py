@@ -15,7 +15,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from ave.core.constants import KAPPA_FS_COLD, KAPPA_FS, DELTA_THERMAL, M_E, C_0, HBAR
+from ave.core.constants import KAPPA_FS_COLD, KAPPA_FS, M_E, C_0, HBAR
 
 L_NODE = HBAR / (M_E * C_0)
 

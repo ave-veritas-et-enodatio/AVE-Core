@@ -4,7 +4,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.special as sp
 import os
 import sys
 from pathlib import Path
@@ -25,7 +24,6 @@ def _find_repo_root():
 PROJECT_ROOT = Path(_find_repo_root())
 sys.path.append(str(PROJECT_ROOT / "src"))
 
-from ave.solvers.radial_eigenvalue import _solve_radial_ode
 from scripts.vol_2_subatomic.solve_orbital_eigenmodes import OrbitalODE
 
 OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")

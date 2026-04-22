@@ -10,13 +10,9 @@ as the proxy for the macroscopic Dynamo Voltage (V).
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib
-import datetime
-import urllib.request
-import json
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 
@@ -52,7 +48,7 @@ def simulate_empirical_noaa_overlay():
 
     # Find Theoretical FWHM bounds for plotting
     max_emission = np.max(theoretical_emission)
-    half_max = max_emission / 2.0
+    # half_max = max_emission / 2.0  # bulk lint fixup pass
 
     # Generate Empirical Scatter (Simulating GOES X and M class flares)
     # Flares in reality strictly cluster around the high-voltage peaks

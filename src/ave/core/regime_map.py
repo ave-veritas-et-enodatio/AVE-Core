@@ -51,17 +51,9 @@ from typing import Optional
 from ave.core.constants import (
     C_0,
     ALPHA,
-    HBAR,
-    M_E,
-    e_charge,
-    EPSILON_0,
-    MU_0,
-    Z_0,
     L_NODE,
-    V_SNAP,
     V_YIELD,
     B_SNAP,
-    NU_VAC,
     H_INFINITY,
 )
 

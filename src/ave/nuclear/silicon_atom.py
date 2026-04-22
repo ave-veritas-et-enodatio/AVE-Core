@@ -24,10 +24,7 @@ Engine: radial_eigenvalue.ionization_energy_e2k (ABCD+MCL hybrid)
 from __future__ import annotations
 
 
-import numpy as np
-from math import pi
 
-from ave.core.constants import ALPHA, L_NODE
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 from ave.solvers.coupled_resonator import atom_port_impedance
 

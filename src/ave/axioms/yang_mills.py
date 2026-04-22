@@ -28,28 +28,21 @@ from __future__ import annotations
 
 
 import numpy as np
-from scipy.integrate import quad
 from ave.core.constants import (
     C_0,
     HBAR,
     L_NODE,
     M_E,
-    ALPHA,
     MU_0,
     EPSILON_0,
-    Z_0,
     V_SNAP,
     B_SNAP,
-    T_EM,
-    P_C,
     KAPPA_FS,
     e_charge,
     BARYON_LADDER,
 )
 from ave.axioms.scale_invariant import (
     impedance,
-    saturation_factor,
-    reflection_coefficient,
     epsilon_eff,
     mu_eff,
 )
@@ -439,7 +432,7 @@ def defect_energy_vs_volume(crossing_number: int = 5, box_sizes_Rp: list = None)
 
     results = []
     for L_ratio in box_sizes_Rp:
-        L_box = L_ratio * r_conf  # in ℓ_node units
+        # L_box = L_ratio * r_conf  # in ℓ_node units  # bulk lint fixup pass
         # Energy is ALWAYS I_scalar × (geometric constants)
         # regardless of L_box, because the integral domain is [0, r_conf]
         results.append(
@@ -539,7 +532,7 @@ def verify_osterwalder_schrader() -> dict:
     Returns:
         Dictionary with 5 boolean OS axiom checks and detailed verification.
     """
-    from ave.core.constants import KAPPA_FS, ALPHA, Z_0, MU_0, EPSILON_0
+    from ave.core.constants import KAPPA_FS, Z_0, MU_0, EPSILON_0
 
     m_e_c2 = M_E * C_0**2
     ell = L_NODE

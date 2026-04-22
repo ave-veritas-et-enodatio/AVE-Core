@@ -28,22 +28,13 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
 
 from ave.core.constants import (
     V_YIELD,
-    V_SNAP,
-    E_YIELD,
-    L_NODE,
-    ALPHA,
     EPSILON_0,
-    MU_0,
-    C_0,
-    Z_0,
     K_B,
     e_charge,
     M_E,
-    HBAR,
 )
 
 # ═════════════════════════════════════════════════════════════════

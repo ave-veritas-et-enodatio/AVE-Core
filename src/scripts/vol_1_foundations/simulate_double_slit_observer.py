@@ -26,7 +26,6 @@ Usage:
 """
 
 import os
-import sys
 import numpy as np
 
 
@@ -207,21 +206,21 @@ def main():
     gs = GridSpec(1, 3, figure=fig, width_ratios=[1, 1, 0.08], wspace=0.12)
 
     # Custom AVE colormap: Ocean Fire (teal depths → white → crimson → gold)
-    AVE_CMAP = LinearSegmentedColormap.from_list(
-        "ocean_fire",
-        [
-            "#001520",
-            "#003040",
-            "#207080",
-            "#80b8c8",
-            "#ffffff",
-            "#d09080",
-            "#c04030",
-            "#cc1500",
-            "#e05000",
-            "#f0a020",
-        ],
-    )
+    # AVE_CMAP = LinearSegmentedColormap.from_list(  # bulk lint fixup pass
+    #     "ocean_fire",
+    #     [
+    #         "#001520",
+    #         "#003040",
+    #         "#207080",
+    #         "#80b8c8",
+    #         "#ffffff",
+    #         "#d09080",
+    #         "#c04030",
+    #         "#cc1500",
+    #         "#e05000",
+    #         "#f0a020",
+    #     ],
+    # )
 
     for idx, (intensity, sim, title, label) in enumerate(
         [

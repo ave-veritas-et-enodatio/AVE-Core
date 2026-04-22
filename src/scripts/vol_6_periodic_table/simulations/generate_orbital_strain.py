@@ -14,10 +14,8 @@ positions overlaid as physical geometric objects, not probability clouds.
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, FancyArrowPatch
-from matplotlib.collections import LineCollection
+from matplotlib.patches import Circle
 import os
-import sys
 
 # AVE constants (imported from physics engine for traceability)
 from ave.core.constants import ALPHA

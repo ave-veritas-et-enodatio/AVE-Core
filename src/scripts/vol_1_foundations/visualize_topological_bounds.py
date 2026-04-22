@@ -2,7 +2,6 @@ import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))

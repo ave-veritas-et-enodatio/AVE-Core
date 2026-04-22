@@ -26,7 +26,6 @@ import matplotlib.pyplot as plt
 import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
-from ave.core.constants import ALPHA, L_NODE
 
 OUTDIR = f"{str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())}/periodic_table/figures"
 
@@ -539,7 +538,7 @@ def generate_topology(elem):
             if is_outer and not is_closed and n_elec > 1:
                 rmag = np.sqrt(x**2 + y**2)
                 dx_out, dy_out = x / rmag, y / rmag
-                dx_in, dy_in = -dx_out, -dy_out
+                # dx_in, dy_in = -dx_out, -dy_out  # bulk lint fixup pass
 
                 # Outward repulsion arrows (red)
                 for fan in [-0.2, -0.1, 0, 0.1, 0.2]:

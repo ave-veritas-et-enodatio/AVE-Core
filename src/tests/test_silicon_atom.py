@@ -8,7 +8,7 @@ Validates that the hybrid solver (Split-Layer Architecture):
 produces a physically reasonable IE for Si.
 """
 
-from ave.nuclear.silicon_atom import first_ionization, IE_SI_AVE, IE_SI_NIST, R_VAL_SI, Z_SI
+from ave.nuclear.silicon_atom import first_ionization, IE_SI_AVE, IE_SI_NIST, R_VAL_SI
 
 
 class TestSiliconIE:

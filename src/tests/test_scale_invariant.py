@@ -16,9 +16,7 @@ from ave.axioms.scale_invariant import (
     impedance,
     saturation_factor,
     epsilon_eff,
-    mu_eff,
     reflection_coefficient,
-    transmission_coefficient,
     local_wave_speed,
     impedance_at_strain,
 )
@@ -28,8 +26,6 @@ from ave.core.constants import (
     C_0,
     Z_0,
     V_SNAP,
-    B_SNAP,
-    ALPHA,
 )
 
 

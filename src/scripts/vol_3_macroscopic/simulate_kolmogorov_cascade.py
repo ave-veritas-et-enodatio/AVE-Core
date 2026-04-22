@@ -13,7 +13,6 @@ import pathlib
 import numpy as np
 import matplotlib.pyplot as plt
 
-from ave.core.constants import L_NODE
 from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     avalanche_exponent_3d,

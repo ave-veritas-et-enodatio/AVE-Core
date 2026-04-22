@@ -15,12 +15,10 @@ dominates wall time (especially at N=512: 134M voxels).
 Output: assets/sim_outputs/borromean_fem_convergence.png
 """
 
-import sys
 import os
 
 
 import numpy as np
-import jax
 import jax.numpy as jnp
 from jax import jit
 from functools import partial

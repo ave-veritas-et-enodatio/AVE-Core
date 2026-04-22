@@ -31,8 +31,6 @@ from ave.core.constants import (
     HBAR_C_MEV_FM,
     M_P_MEV_TARGET,
     M_N_MEV_TARGET,
-    V_SNAP,
-    NU_VAC,
 )
 
 # ═════════════════════════════════════════════════════════════════

@@ -31,21 +31,12 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
 from ave.core.constants import (
     C_0,
-    EPSILON_0,
-    MU_0,
     Z_0,
     V_SNAP,
     HBAR,
-    L_NODE,
-    ALPHA,
-)
-from ave.axioms.scale_invariant import (
-    impedance,
-    reflection_coefficient,
 )
 
 

@@ -3,7 +3,6 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from PIL import Image
 import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()

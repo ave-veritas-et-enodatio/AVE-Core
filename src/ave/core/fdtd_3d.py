@@ -23,7 +23,7 @@ from __future__ import annotations
 
 
 import numpy as np
-from ave.core.constants import C_0, MU_0, EPSILON_0, V_SNAP, V_YIELD, B_SNAP
+from ave.core.constants import C_0, MU_0, EPSILON_0, V_YIELD, B_SNAP
 from ave.axioms.scale_invariant import saturation_factor
 
 

@@ -16,11 +16,9 @@ relativity based on real-world material and environmental limits:
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
-import sys
 import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
@@ -43,7 +41,7 @@ def generate_sagnac_sweeps():
     standard_shift = (4 * area * omega_earth) / (wavelength * c)
 
     # Sweep Arrays
-    x_sweep = np.linspace(0.1, 10.0, 500)
+    # x_sweep = np.linspace(0.1, 10.0, 500)  # bulk lint fixup pass
 
     # -------------------------------------------------------------
     # Figure Setup (Modern Dark Theme)

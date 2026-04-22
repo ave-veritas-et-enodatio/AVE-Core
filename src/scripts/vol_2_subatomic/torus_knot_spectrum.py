@@ -13,7 +13,6 @@ Faddeev-Skyrme coupling.
 Output: assets/sim_outputs/torus_knot_baryon_spectrum.png
 """
 
-import sys
 import os
 
 
@@ -21,7 +20,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import quad
 from scipy.optimize import minimize
-from ave.core.constants import KAPPA_FS, P_C, ALPHA
+from ave.core.constants import KAPPA_FS, P_C
 
 # Electron mass in MeV
 M_E_MEV = 0.51099895
@@ -121,7 +120,7 @@ def run_spectrum():
                 best_name = name
                 best_mass = mass
                 best_jp = jp
-                best_stars = stars
+                # best_stars = stars  # bulk lint fixup pass
 
         pct = best_delta / best_mass * 100
         results.append((c, m_MeV, best_name, best_mass, best_jp, pct))

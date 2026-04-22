@@ -20,7 +20,6 @@ required to falsify or confirm the AVE Kinematic Entrainment Law.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib

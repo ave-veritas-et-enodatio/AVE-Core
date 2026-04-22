@@ -31,26 +31,18 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
 from ave.core.constants import (
-    C_0,
     EPSILON_0,
-    MU_0,
-    Z_0,
     M_E,
     e_charge,
-    HBAR,
-    ALPHA,
     K_B,
-    M_SUN,
     M_PROTON,
     EPS_NUMERICAL,
 )
 from ave.axioms.scale_invariant import (
     impedance,
     reflection_coefficient,
-    saturation_factor,
 )
 
 
@@ -143,7 +135,7 @@ def build_radial_profile(layers: list = None, n_points: int = 500, r_star_m: flo
         for layer in layers:
             if layer.r_inner <= r <= layer.r_outer:
                 # Linear interpolation within layer
-                frac = (r - layer.r_inner) / max(layer.r_outer - layer.r_inner, EPS_NUMERICAL)
+                # frac = (r - layer.r_inner) / max(layer.r_outer - layer.r_inner, EPS_NUMERICAL)  # bulk lint fixup pass
                 n_e[i] = layer.n_e
                 T[i] = layer.T
                 names.append(layer.name)

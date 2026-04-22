@@ -21,16 +21,14 @@ This script:
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib
-from scipy.signal import peak_widths
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 
 # AVE Engine — for context on the macroscopic yield limit
-from ave.core.constants import V_YIELD, V_SNAP, AVALANCHE_N_3D
+from ave.core.constants import AVALANCHE_N_3D
 
 # ── PHENOMENOLOGICAL PARAMETERS ──────────────────────────────────────────
 # These are phenomenological fits to the Shockley diode + avalanche model.

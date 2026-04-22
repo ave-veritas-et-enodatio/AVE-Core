@@ -13,14 +13,12 @@ trajectory and passes through BOTH slits, creating interference.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from matplotlib.colors import LinearSegmentedColormap
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "assets", "sim_outputs")
 os.makedirs(OUT_DIR, exist_ok=True)

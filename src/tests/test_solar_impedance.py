@@ -19,7 +19,6 @@ from ave.gravity.solar_impedance import (
     OUMUAMUA,
     AU,
     R_SUN,
-    M_SUN,
     A0_LATTICE,
 )
 from ave.core.constants import Z_0

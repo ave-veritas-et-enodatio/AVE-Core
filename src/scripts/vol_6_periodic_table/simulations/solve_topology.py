@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import basinhopping
 import sys
 
-import sys, pathlib
+import sys
 
 # All constants imported from the physics engine — zero hardcoded values
 from ave.core.constants import (

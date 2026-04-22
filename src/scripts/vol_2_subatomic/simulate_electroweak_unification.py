@@ -49,7 +49,6 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_electroweak_unification.py
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib
@@ -66,10 +65,7 @@ from ave.core.constants import (
     M_E,
     MU_0,
     EPSILON_0,
-    Z_0,
     L_NODE,
-    V_SNAP,
-    V_YIELD,
     P_C,
     NU_VAC,
     SIN2_THETA_W,

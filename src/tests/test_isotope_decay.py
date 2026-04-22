@@ -1,4 +1,3 @@
-import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,7 +7,6 @@ from scripts.vol_6_periodic_table.simulations.simulate_element import (
     get_nucleon_coordinates,
     M_P_RAW,
     M_N_RAW,
-    K_MUTUAL,
 )
 
 

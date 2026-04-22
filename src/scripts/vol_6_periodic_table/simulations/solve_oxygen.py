@@ -8,7 +8,6 @@ empirical CODATA mass defect (Binding Energy) using purely electrical 1/d_ij cou
 
 import numpy as np
 from scipy.optimize import minimize
-import sys, pathlib
 
 # All constants imported from the physics engine — zero hardcoded values
 from ave.core.constants import (

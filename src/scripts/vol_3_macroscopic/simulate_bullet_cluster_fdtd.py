@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-from ave.core.constants import C_0, MU_0, EPSILON_0, M_SUN, G
+from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import ave_saturation_acceleration, A0_LATTICE
 
 

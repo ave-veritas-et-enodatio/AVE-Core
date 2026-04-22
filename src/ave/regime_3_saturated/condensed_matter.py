@@ -42,8 +42,6 @@ from __future__ import annotations
 
 
 import numpy as np
-import jax
-import jax.numpy as jnp
 
 from ave.core.constants import (
     K_B,  # Boltzmann constant [J/K]
@@ -75,7 +73,7 @@ def ave_stable_mass(Z) -> float:
     - Optimal neutrons N to balance Coulomb repulsion: N = Z + (1.2*α)Z²
     - Mass defect derived from lattice saturation coupling
     """
-    from ave.core.constants import M_PROTON, ALPHA, C_0, e_charge
+    from ave.core.constants import M_PROTON, ALPHA
 
     # Structural requirement for stability:
     # Protons create a 1/r^2 capacitive strain. Neutrons provide interstitial

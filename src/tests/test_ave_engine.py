@@ -9,8 +9,6 @@ Rigorous assertion-based tests validating:
   5. Proton mass eigenvalue from topological feedback
 """
 
-import sys
-import os
 import numpy as np
 import pytest
 
@@ -33,15 +31,11 @@ from ave.core.constants import (
     ISOTROPIC_PROJECTION,
     NU_VAC,
     E_CRIT,
-    RHO_BULK,
-    NU_KIN,
     H_INFINITY,
-    R_HUBBLE,
     PROTON_ELECTRON_RATIO,
     T_NUC,
     I_SCALAR_1D,
     V_TOROIDAL_HALO,
-    DIELECTRIC_RUPTURE_STRAIN,
 )
 
 from ave.axioms.saturation import (

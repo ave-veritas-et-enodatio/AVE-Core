@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
-import sys
 import os
 
 # Add the src directory to path to import the ave engine

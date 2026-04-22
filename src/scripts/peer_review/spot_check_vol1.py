@@ -14,10 +14,6 @@ sys.path.insert(0, "src")
 
 from ave.core.constants import (
     ALPHA,
-    HBAR,
-    C_0,
-    M_E,
-    e_charge,
     L_NODE,
     A_0,
     RY_EV,
@@ -31,11 +27,7 @@ from ave.core.constants import (
     P_C,
     SIN2_THETA_W,
     N_PHI_PACK,
-    MU_0,
-    EPSILON_0,
     ISOTROPIC_PROJECTION,
-    Z_COORDINATION,
-    G,
 )
 
 # ─── Manuscript stated values (from Vol 1 chapters) ────────────────────

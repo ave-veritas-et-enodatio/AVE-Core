@@ -9,10 +9,7 @@ of a 3D amorphous Chiral LC network transitioning from a fluid to a shear-bearin
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.spatial import Delaunay
-import networkx as nx
 import os
-import sys
 import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()

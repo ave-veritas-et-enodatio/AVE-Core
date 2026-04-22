@@ -23,8 +23,6 @@ This script numerically sweeps all 5 non-ideal constraints to prove that the Sag
 Effect is fundamentally density, electromagnetic, and gravity dependent.
 """
 
-import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib
@@ -34,7 +32,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # -----------------------------------------------------------------
 # Fundamental Topological Values
 # -----------------------------------------------------------------
-from ave.core.constants import C_0, G, MU_0, EPSILON_0, ALPHA
+from ave.core.constants import C_0, G, ALPHA
 
 # Astrophysical Constants
 M_EARTH = 5.972e24  # kg

@@ -32,7 +32,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.core.k4_tlm import K4Lattice3D
-from ave.core.constants import C_0, ALPHA, P_C, Z_0
+from ave.core.constants import ALPHA
 
 
 def generate_torus_knot_path_3d(cx, cy, cz, R, r, p, q, n_points):
@@ -346,7 +346,7 @@ def main():
     f_peaks = [trefoil_achiral["f_peak"], knot_35["f_peak"], knot_711["f_peak"]]
     wire_lens = [trefoil_achiral["wire_length"], knot_35["wire_length"], knot_711["wire_length"]]
     colors = ["#2196F3", "#4CAF50", "#FF9800"]
-    bars = ax.bar(range(3), f_peaks, color=colors, edgecolor="black", lw=0.5)
+    # bars = ax.bar(range(3), f_peaks, color=colors, edgecolor="black", lw=0.5)  # bulk lint fixup pass
     ax.set_xticks(range(3))
     ax.set_xticklabels(labels)
     ax.set_ylabel("Resonant Frequency")

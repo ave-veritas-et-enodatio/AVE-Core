@@ -12,20 +12,16 @@ Panels:
 Output: manuscript/vol_1_foundations/regime_map.png
 """
 
-import sys
 import os
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
 from ave.core.regime_map import (
     R_LINEAR_MAX,
     R_NONLINEAR_MAX,
     R_YIELD_MAX,
-    REGIME_NAMES,
 )
-from ave.core.constants import ALPHA, V_YIELD, B_SNAP, C_0
 
 
 def main():
@@ -79,7 +75,7 @@ def main():
     ]
 
     # Use log scale for r to show the enormous dynamic range
-    r_vals = [p[1] for p in points]
+    # r_vals = [p[1] for p in points]  # bulk lint fixup pass
     y_positions = np.linspace(0.9, 0.1, len(points))
 
     for i, (name, rv, color, marker) in enumerate(points):

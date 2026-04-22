@@ -17,7 +17,6 @@ The vacuum is a rigid solid operating 56.7% above the fluid-solid
 transition, at the unique point where ν = 2/7.
 """
 
-import sys
 import os
 
 
@@ -97,7 +96,7 @@ def run_analysis():
 
     # --- Comparison across z₀ values ---
     z0_range = np.linspace(8, 80, 200)
-    p_star_range = np.array([p_star_kg2(z) for z in z0_range])
+    # p_star_range = np.array([p_star_kg2(z) for z in z0_range])  # bulk lint fixup pass
 
     # --- Plotting ---
     fig, axes = plt.subplots(1, 3, figsize=(18, 5.5))

@@ -101,7 +101,7 @@ def calculate_alpha_from_lattice():
     nodes = create_amorphous_lattice(NUM_NODES, BOX_SIZE)
 
     # Calculate local unit volume per node
-    node_volume = (BOX_SIZE**3) / NUM_NODES
+    # node_volume = (BOX_SIZE**3) / NUM_NODES  # bulk lint fixup pass
 
     print("\n[*] Initiating Topological Matrix Stress Test...")
     print("[!] Target Empirical Alpha: 1/137.035999\n")

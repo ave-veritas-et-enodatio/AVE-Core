@@ -6,7 +6,6 @@ and asymmetric elements generate topological torque (Paramagnetism).
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib
@@ -69,18 +68,18 @@ def plot_magnetism(element_name, Z, A, is_paramagnetic=False):
     ax.set_facecolor("#0f0f0f")
 
     # Background density map
-    im = ax.imshow(
-        density,
-        extent=[-bound, bound, -bound, bound],
-        origin="lower",
-        cmap="hot",
-        alpha=0.6,
-        vmax=np.percentile(density, 95),
-    )
+    # im = ax.imshow(  # bulk lint fixup pass
+    #     density,
+    #     extent=[-bound, bound, -bound, bound],
+    #     origin="lower",
+    #     cmap="hot",
+    #     alpha=0.6,
+    #     vmax=np.percentile(density, 95),
+    # )
 
     # Streamplot of the interacting flow (External Magnetic Flux)
     color = "#00ffcc" if is_paramagnetic else "#ff3366"
-    streams = ax.streamplot(x, y, Vx, Vy, color=color, linewidth=1.5, density=1.5, arrowstyle="->", arrowsize=1.5)
+    # streams = ax.streamplot(x, y, Vx, Vy, color=color, linewidth=1.5, density=1.5, arrowstyle="->", arrowsize=1.5)  # bulk lint fixup pass
 
     # Scatter the nodes
     ax.scatter(

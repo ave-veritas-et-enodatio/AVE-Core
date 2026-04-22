@@ -11,7 +11,6 @@ from __future__ import annotations
 from ave.nuclear.gallium_atom import Z_GALLIUM
 from ave.nuclear.arsenic_atom import Z_ARSENIC
 from ave.nuclear.silicon_atom import Z_SI
-from ave.nuclear.carbon_atom import Z_CARBON
 from ave.condensed.silicon_crystal import silicon_band_gap
 
 # Core Operating Boundary Approximation via binding extraction

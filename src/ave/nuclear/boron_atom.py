@@ -12,7 +12,6 @@ utilizing no empirical parameters.
 from __future__ import annotations
 
 
-import numpy as np
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 from ave.solvers.coupled_resonator import atom_port_impedance

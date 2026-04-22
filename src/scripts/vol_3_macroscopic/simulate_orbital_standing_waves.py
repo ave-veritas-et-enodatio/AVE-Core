@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
 import os
 
 
@@ -30,8 +28,8 @@ def main():
     R[R == 0] = 1e-10
 
     # Spherical coordinates
-    Theta = np.arccos(Z / R)
-    Phi = np.arctan2(Y, X)
+    # Theta = np.arccos(Z / R)  # bulk lint fixup pass
+    # Phi = np.arctan2(Y, X)  # bulk lint fixup pass
 
     print("[2] Engaging Continuous LC Resonant Cavity Harmonics...")
 

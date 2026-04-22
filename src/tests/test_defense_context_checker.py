@@ -14,12 +14,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
 
 from scripts.defense_context_checker import (
     RULES,
     Rule,
-    Finding,
     scan_file,
     discover_targets,
 )

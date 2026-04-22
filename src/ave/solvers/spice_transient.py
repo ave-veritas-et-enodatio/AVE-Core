@@ -45,7 +45,6 @@ Reference: Backmatter App 5 (Universal Solver Toolchain)
 from __future__ import annotations
 
 
-import numpy as np
 
 
 def explicit_euler_step(theta, velocity, grad_f, L, R, dt, mask=None):
@@ -79,9 +78,7 @@ def explicit_euler_step(theta, velocity, grad_f, L, R, dt, mask=None):
 # ── JAX backend (optional, for JIT-compiled loops) ──────────────
 
 try:
-    import jax
-    import jax.numpy as jnp
-    from jax import lax
+    pass
 
     def explicit_euler_step_jax(theta, velocity, grad_f, L, R, dt, mask=None):
         """JAX-traceable single Euler step."""

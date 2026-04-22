@@ -10,7 +10,6 @@ are then violently ejected by long-range Coulomb repulsion.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation

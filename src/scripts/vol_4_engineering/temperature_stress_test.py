@@ -19,7 +19,6 @@ micro-volts directly translating to the fractional geometry shift.
 """
 
 import math
-import numpy as np
 
 # Empirical constants for Classical failure tracking
 k_B = 8.617333262145e-5  # eV/K

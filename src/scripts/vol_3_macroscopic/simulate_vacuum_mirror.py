@@ -45,7 +45,7 @@ if src_path not in sys.path:
     sys.path.append(src_path)
 
 import numpy as np
-from ave.core.constants import NU_VAC, L_NODE, HBAR, C_0, e_charge
+from ave.core.constants import NU_VAC, L_NODE, HBAR, C_0
 from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 
 BAR = "=" * 68

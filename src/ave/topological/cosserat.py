@@ -42,7 +42,6 @@ from ave.core.constants import (
     NU_VAC,
     P_C,
     HBAR,
-    L_NODE,
     ALPHA_S,
     HIGGS_VEV_MEV,
     e_charge,
@@ -140,7 +139,6 @@ M_W_TREE: float = M_E / (ALPHA**2 * P_C * _SIN_THETA_W_PAT)  # in kg
 # applied to the Axiom 4 saturation boundary. Zero free parameters.
 from ave.solvers.transmission_line import (
     build_radial_tree_admittance,
-    build_radial_tree_admittance_graded,
     s11_from_y_matrix,
 )
 from ave.core.constants import NU_VAC
@@ -206,7 +204,6 @@ def w_boson_self_consistent_correction(
             delta_Y_origin    : float — total reduction applied to Y[0,0]
             CONVERGED         : bool
     """
-    from math import sqrt as _sqrt
 
     branch_y = NU_VAC
     z = coordination_z
@@ -441,7 +438,6 @@ def neutrino_delta_m_sq() -> dict:
             delta_m31_sq_eV2_bethe  : float  — Δm²₃₁ from Bethe formula
             open_problem            : str    — description of remaining gap
     """
-    import math as _math
 
     # Bethe-lattice ring masses (normalised m²_c = E_res(c)² / E_res(5)²)
     e5, e7, e9 = [neutrino_bethe_ring_eigenvalue(c) for c in [5, 7, 9]]

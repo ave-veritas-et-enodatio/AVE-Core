@@ -13,7 +13,6 @@ from ave.axioms.open_problems import (
     impedance_hubble_correction,
     full_open_problems_proof,
 )
-from ave.core.constants import ALPHA
 
 
 # ════════════════════════════════════════════════════════════════════

@@ -1,12 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import sys
 import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-from ave.core.constants import ALPHA, V_YIELD, Z_0, EPSILON_0
+from ave.core.constants import V_YIELD, Z_0
 from ave.axioms.scale_invariant import epsilon_eff, impedance as _impedance
 
 

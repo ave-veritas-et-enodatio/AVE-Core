@@ -9,9 +9,7 @@ Output: assets/sim_outputs/hubble_tension_position.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
 from ave.core.constants import H_INFINITY
 

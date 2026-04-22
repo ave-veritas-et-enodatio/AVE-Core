@@ -12,7 +12,6 @@ that leaves it structurally vulnerable to incoming thermal neutrons.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pathlib

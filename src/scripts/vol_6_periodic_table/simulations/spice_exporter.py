@@ -13,4 +13,3 @@ def generate_spice_netlist(element_name, Z, A, nodes, output_dir):
     This is a stub — the full implementation resides in a private IP
     repository. The function signature is preserved for API compatibility.
     """
-    pass

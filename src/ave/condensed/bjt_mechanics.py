@@ -21,7 +21,6 @@ realistic bounds (~50 to 300) governed strictly by pure geometry.
 from __future__ import annotations
 
 
-from ave.core.constants import ALPHA
 from ave.nuclear.silicon_atom import V_R_OVER_V_BR, Z_SI
 from ave.nuclear.boron_atom import Z_BORON
 from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS

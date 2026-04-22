@@ -39,9 +39,8 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import G, C_0, H_INFINITY, M_SUN, EPS_DIVZERO
+from ave.core.constants import G, C_0, H_INFINITY, M_SUN
 from ave.axioms.scale_invariant import saturation_factor
 
 

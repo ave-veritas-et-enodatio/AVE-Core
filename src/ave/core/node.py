@@ -36,7 +36,7 @@ class TopologicalNode:
         grid.inject_strain(gx, gy, strain_emission)
 
         # Read local grid background strain to perturb phase/velocity (Ponderomotive Force)
-        local_ambient_strain = grid.get_local_strain(gx, gy)
+        # local_ambient_strain = grid.get_local_strain(gx, gy)  # bulk lint fixup pass
 
         # Advance AC spin state
         self.phase += self.spin_frequency * dt

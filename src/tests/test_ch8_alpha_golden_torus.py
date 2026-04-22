@@ -16,7 +16,6 @@ Reference: manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
 """
 
 import numpy as np
-import pytest
 
 from ave.core.constants import ALPHA, ALPHA_COLD_INV, ALPHA_COLD, DELTA_STRAIN
 

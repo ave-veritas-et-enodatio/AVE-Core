@@ -1,7 +1,6 @@
-import pytest
 import numpy as np
 from ave.regime_4_rupture.caustic_solver import AxiomaticCausticSolver
-from ave.core.constants import E_YIELD, Z_0
+from ave.core.constants import E_YIELD
 
 
 def test_intensity_bounded():

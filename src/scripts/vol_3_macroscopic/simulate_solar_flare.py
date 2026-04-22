@@ -9,12 +9,10 @@ directional density wave (Coronal Mass Ejection / Solar Flare).
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import pathlib
-import matplotlib.collections as mcoll
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 

@@ -34,29 +34,16 @@ from __future__ import annotations
 
 
 import numpy as np
-from math import pi
 
 from ave.core.constants import (
     ALPHA,
-    HBAR,
-    C_0,
-    e_charge,
 )
-from ave.nuclear.silicon_atom import IE_SI_AVE, R_VAL_SI, V_R_OVER_V_BR, N_SP3_ORBITALS, Z_SI
-from ave.nuclear.boron_atom import Z_BORON, IE_B_AVE, R_VAL_BORON
-from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS, IE_P_AVE, R_VAL_PHOSPHORUS
+from ave.nuclear.silicon_atom import IE_SI_AVE, V_R_OVER_V_BR, Z_SI
+from ave.nuclear.boron_atom import Z_BORON
+from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS
 from ave.condensed.silicon_crystal import (
     K_SI_SI,
-    K_CRYSTAL,
-    E_GAP_EXP,
-    COORD_NUMBER,
     silicon_band_gap,
-)
-from ave.solvers.coupled_resonator import (
-    ionization_energy,
-    atom_port_impedance,
-    molecular_bond_energy,
-    molecular_bond_distance,
 )
 
 
@@ -156,7 +143,7 @@ def pn_junction(N_a: float = 1e16, N_d: float = 1e16) -> dict:
     E_gap = gap["E_gap_eV"]
 
     # Built-in potential derived from topological delta sum
-    V_bi = max(0.0, E_gap - (boron["delta_E_eV"] + phosphorus["delta_E_eV"]))
+    # V_bi = max(0.0, E_gap - (boron["delta_E_eV"] + phosphorus["delta_E_eV"]))  # bulk lint fixup pass
 
     # Transmission coefficient at junction (impedance step limit)
     Z_p = 1.0 / (1.0 + boron["k_dopant_Si"])

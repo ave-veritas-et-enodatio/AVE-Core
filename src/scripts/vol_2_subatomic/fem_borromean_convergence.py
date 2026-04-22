@@ -22,7 +22,6 @@ Richardson extrapolation gives the N→∞ limit.
 Output: assets/sim_outputs/borromean_fem_convergence.png
 """
 
-import sys
 import os
 
 

@@ -24,7 +24,7 @@ This script elegantly models the exact amplitude and angle of that saturation po
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
-from ave.core.constants import C_0, L_NODE, V_YIELD, EPSILON_0, e_charge
+from ave.core.constants import L_NODE, V_YIELD, EPSILON_0
 
 # ---------------------------------------------------------
 # Cavity & Fluid Parameters

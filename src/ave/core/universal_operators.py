@@ -28,7 +28,7 @@ solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
 """
 
-from ave.core.constants import EPS_NUMERICAL, EPS_CLIP, EPS_DIVZERO
+from ave.core.constants import EPS_NUMERICAL, EPS_CLIP
 
 
 def _is_jax_array(x):
@@ -644,7 +644,6 @@ def universal_junction_projection_loss(theta, c_crossings=1):
 
 
 import jax
-import jax.numpy as jnp
 
 
 # @jax.jit(static_argnames=['field_type'])  # Removed to fix legacy JAX decorator crash

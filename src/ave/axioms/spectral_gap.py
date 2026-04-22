@@ -33,11 +33,9 @@ from ave.core.constants import (
     HBAR,
     L_NODE,
     M_E,
-    ALPHA,
     KAPPA_FS,
     e_charge,
     BARYON_LADDER,
-    TORUS_KNOT_CROSSING_NUMBERS,
 )
 from ave.axioms.scale_invariant import reflection_coefficient
 

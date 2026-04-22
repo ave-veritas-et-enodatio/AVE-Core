@@ -34,16 +34,8 @@ from __future__ import annotations
 import numpy as np
 from ave.core.constants import (
     C_0,
-    HBAR,
     L_NODE,
-    M_E,
-    V_SNAP,
-    EPSILON_0,
-    MU_0,
-    Z_0,
-    e_charge,
 )
-from ave.axioms.scale_invariant import saturation_factor
 
 
 # ════════════════════════════════════════════════════════════════════

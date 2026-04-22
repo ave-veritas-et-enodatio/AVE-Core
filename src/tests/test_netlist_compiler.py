@@ -7,8 +7,6 @@ Verifies .INCLUDE paths, component naming, .CONTROL blocks,
 and round-trip topology consistency.
 """
 
-import pytest
-from pathlib import Path
 
 from ave.solvers.spice_netlist_compiler import (
     compile_ee_bench_dc_sweep,

@@ -50,14 +50,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 import numpy as np
 from ave.core.constants import (
     ALPHA,
-    NU_VAC,
     M_E,
     C_0,
     e_charge,
-    L_NODE,
-    HBAR,
 )
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 
 
 def alpha_eff_axiom4(energy_mev: float) -> dict:

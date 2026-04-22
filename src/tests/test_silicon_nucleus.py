@@ -1,4 +1,3 @@
-import pytest
 from ave.nuclear.silicon_nucleus import silicon_nucleus_binding
 
 

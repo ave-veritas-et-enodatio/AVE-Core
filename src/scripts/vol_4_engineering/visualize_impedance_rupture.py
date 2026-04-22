@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from ave.core.constants import C_0, MU_0, EPSILON_0
 from ave.solvers.fdtd_lc_network import FDTDLattice1D
 
 

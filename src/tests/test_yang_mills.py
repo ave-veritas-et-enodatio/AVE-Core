@@ -22,8 +22,6 @@ from ave.core.constants import (
     C_0,
     V_SNAP,
     B_SNAP,
-    e_charge,
-    KAPPA_FS,
 )
 
 
@@ -47,7 +45,7 @@ class TestLatticeHamiltonian:
 
     def test_energy_bounded_above(self):
         """H per cell is bounded — saturation prevents blow-up."""
-        m_e_c2 = M_E * C_0**2
+        # m_e_c2 = M_E * C_0**2  # bulk lint fixup pass
         # At saturation, ε_eff → 0, so E-energy term vanishes.
         # The B-energy term dominates near B_snap.
         # Test that energy at moderate fields (50% of saturation) is finite.

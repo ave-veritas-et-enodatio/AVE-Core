@@ -9,9 +9,7 @@ Output: assets/sim_outputs/cross_scale_verification.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 
 # Domain data: (name, log10(scale_m), agreement, color)
 domains = [

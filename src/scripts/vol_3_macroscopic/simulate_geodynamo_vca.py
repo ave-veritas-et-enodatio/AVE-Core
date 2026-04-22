@@ -11,7 +11,6 @@ import sys, os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-import numpy as np
 import math
 
 from ave.core.constants import (
@@ -56,7 +55,7 @@ def compute_vca_dynamo(name: str, r_orbit: float, omega_spin: float, R_planet: f
         # Molten Iron Resistivity
         rho_fe = 1e-6  # Ohm*m
         # VCA Mapping: Topo-Kinematic Viscosity (kg/s)
-        resistivity_topo = rho_fe * EE_TO_TOPO_RESISTANCE
+        # resistivity_topo = rho_fe * EE_TO_TOPO_RESISTANCE  # bulk lint fixup pass
     else:
         resistivity_topo = float("inf")
 

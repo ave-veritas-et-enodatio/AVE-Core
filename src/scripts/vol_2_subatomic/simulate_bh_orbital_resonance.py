@@ -17,10 +17,8 @@ All constants from ave.core.constants — zero free parameters.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
 
 # Ensure local ave package is in path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -33,12 +31,8 @@ from ave.solvers.orbital_resonance import (
     isco_radius,
     impedance_orbital_radii,
     qpo_frequencies,
-    keplerian_frequency,
     M_SUN,
-    G_NEWTON,
-    C_0,
 )
-from ave.core.constants import L_NODE, ALPHA, Z_0
 
 # Standard AVE output directory
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
@@ -61,8 +55,8 @@ def main():
     risco_grs = isco_radius(M_grs, a_grs)
 
     # ── Target: Sgr A* (4×10⁶ M☉, a*≈0.5) ──
-    M_sgr = 4.0e6 * M_SUN
-    a_sgr = 0.5
+    # M_sgr = 4.0e6 * M_SUN  # bulk lint fixup pass
+    # a_sgr = 0.5  # bulk lint fixup pass
 
     # ─────────────────────────────────────────────
     # Figure: 3-panel diagnostic
@@ -157,8 +151,8 @@ def main():
     )
 
     # Observed QPOs for GRS 1915+105
-    observed_qpo_grs = [67.0, 113.0]
-    observed_modes_grs = [1, 2]
+    # observed_qpo_grs = [67.0, 113.0]  # bulk lint fixup pass
+    # observed_modes_grs = [1, 2]  # bulk lint fixup pass
     ax3.scatter(
         [1],
         [67.0],

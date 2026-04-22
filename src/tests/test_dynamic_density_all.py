@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 from ave.topological.borromean import FundamentalTopologies
-from ave.topological.combiner import NucleonCombiner
 
 
 # The exact EE-Mutual solved coordinates for large clusters

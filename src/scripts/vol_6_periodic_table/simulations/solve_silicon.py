@@ -8,8 +8,6 @@ the empirical CODATA mass defect of Si-28.
 
 import numpy as np
 from scipy.optimize import minimize
-import os
-import sys
 
 import pathlib
 

@@ -5,7 +5,6 @@ Locks in the six saturation functions' boundary conditions, limiting
 behaviors, and mathematical identities that follow from the AVE axioms.
 """
 
-import math
 import numpy as np
 import pytest
 
@@ -17,7 +16,7 @@ from ave.axioms.saturation import (
     energy_density_nonlinear,
     impedance_at_strain,
 )
-from ave.core.constants import EPSILON_0, MU_0, C_0, ALPHA, V_YIELD, Z_0
+from ave.core.constants import EPSILON_0, C_0, ALPHA, V_YIELD, Z_0
 
 
 # ---------------------------------------------------------------------------

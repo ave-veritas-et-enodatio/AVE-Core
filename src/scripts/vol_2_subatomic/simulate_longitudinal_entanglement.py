@@ -27,8 +27,8 @@ def simulate_entanglement(frames=200, length=200):
     center = length // 2
 
     # Grid arrays
-    transverse_pulse = np.zeros(length)
-    longitudinal_pulse = np.zeros(length)
+    # transverse_pulse = np.zeros(length)  # bulk lint fixup pass
+    # longitudinal_pulse = np.zeros(length)  # bulk lint fixup pass
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 6), gridspec_kw={"height_ratios": [1, 1]})
     fig.patch.set_facecolor("black")

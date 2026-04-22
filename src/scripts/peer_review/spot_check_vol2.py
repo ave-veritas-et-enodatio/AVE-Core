@@ -13,23 +13,17 @@ import sys
 sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    ALPHA,
-    HBAR,
     C_0,
     M_E,
     e_charge,
-    L_NODE,
     A_0,
-    RY_EV,
     PROTON_ELECTRON_RATIO,
-    M_P_MEV_TARGET,
     D_PROTON,
     SIN2_THETA_W,
     ALPHA_S,
     M_W_MEV,
     M_Z_MEV,
     M_HIGGS_MEV,
-    NU_VAC,
     BARYON_LADDER,
     CROSSING_NUMBER_PROTON,
 )

@@ -36,7 +36,7 @@ Examples
 """
 
 import numpy as np
-from typing import Optional, Union, Sequence
+from typing import Optional, Sequence
 
 # ====================================================================
 # NumPy backend (analysis, plotting)
@@ -920,7 +920,7 @@ def abcd_to_y_3seg_jax(N, Z_seg, d_seg, Z_node, omega, d0):
     # M_total = M12 × M3
     A_t = A12 * A3 + B12 * C3
     B_t = A12 * B3 + B12 * D3
-    C_t = C12 * A3 + D12 * C3
+    # C_t = C12 * A3 + D12 * C3  # bulk lint fixup pass
     D_t = C12 * B3 + D12 * D3
 
     # Apply physical impedance scale:

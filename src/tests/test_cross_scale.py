@@ -6,8 +6,6 @@ from ave.solvers.coupled_resonator import (
     atom_port_impedance,
     molecular_bond_distance,
     molecular_bond_energy,
-    K_COUPLING,
-    Z_RESONANCE_MEV,
     _RY_EV,
     _A0,
     _PROJECTION,

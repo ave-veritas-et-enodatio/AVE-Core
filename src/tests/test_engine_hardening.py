@@ -8,7 +8,6 @@ force extraction, energy density, gravity module, and coupled EM+CFD.
 import numpy as np
 from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.lbm_3d import LBM3DEngine
-from ave.core.constants import C_0, EPSILON_0, MU_0, G
 
 
 # ============================================================

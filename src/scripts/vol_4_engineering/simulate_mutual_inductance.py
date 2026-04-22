@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
-from ave.core.constants import G, C_0, MU_0
+from ave.core.constants import G, C_0
 
 
 def simulate_frame_dragging_as_inductance():
@@ -15,7 +15,7 @@ def simulate_frame_dragging_as_inductance():
     is entirely analogous to macroscopic Mutual Inductance (M_12) in the LC Network.
     """
     # Earth mass and radius parameters for scaling
-    M_earth = 5.972e24
+    # M_earth = 5.972e24  # bulk lint fixup pass
     R_earth = 6.371e6
     J_earth = 7.05e33  # Angular momentum
 

@@ -11,7 +11,6 @@ Tests for engine modules that previously had no dedicated test file:
   - topological/soliton_bond_solver.py
 """
 
-import math
 import numpy as np
 import pytest
 

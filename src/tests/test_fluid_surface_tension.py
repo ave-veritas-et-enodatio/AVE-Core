@@ -1,5 +1,3 @@
-import pytest
-import numpy as np
 from ave.regime_1_linear.fluids_factory import WaterMolecule, FluidImpedanceFactory
 
 

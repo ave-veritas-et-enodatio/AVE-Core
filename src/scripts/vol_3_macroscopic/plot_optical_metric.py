@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 import os
-import sys
 
 # Aesthetic configuration
 plt.style.use("dark_background")
@@ -42,14 +41,14 @@ def plot_optical_metric():
     density = 1.0 + 8.0 / (R_safe**1.5)
 
     # Normalize density for colormapping
-    norm_density = (density - np.min(density)) / (np.max(density) - np.min(density))
+    # norm_density = (density - np.min(density)) / (np.max(density) - np.min(density))  # bulk lint fixup pass
 
     # Custom colormap from black -> purple -> cyan
     colors = ["#000000", "#220022", "#660066", "#aa00aa", "#00cccc", "#00ffff"]
     cmap = LinearSegmentedColormap.from_list("ave_gravity", colors, N=256)
 
     # Plot background refractive density field
-    heatmap = ax.contourf(X, Y, density, levels=200, cmap=cmap, alpha=0.6, zorder=1)
+    # heatmap = ax.contourf(X, Y, density, levels=200, cmap=cmap, alpha=0.6, zorder=1)  # bulk lint fixup pass
 
     # Plot distorted LC grid lines
     # Radial displacement inward to simulate geometric densification

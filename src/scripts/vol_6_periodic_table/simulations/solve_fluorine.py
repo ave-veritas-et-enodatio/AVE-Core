@@ -8,8 +8,6 @@ to perfectly match the empirical CODATA mass defect of F-19.
 
 import numpy as np
 from scipy.optimize import minimize
-import os
-import sys
 
 # Ensure the core framework is in PATH
 import pathlib

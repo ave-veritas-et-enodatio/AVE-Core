@@ -704,7 +704,7 @@ def compute_element_impedance(Z, A):
     # Extract bulk properties
     breathing_evals = [m["eigenvalue"] for m in modes if m["character"] == "breathing"]
     rocking_evals = [m["eigenvalue"] for m in modes if m["character"] == "rocking"]
-    ejection_evals = [m["eigenvalue"] for m in modes if m["character"] == "ejection"]
+    # ejection_evals = [m["eigenvalue"] for m in modes if m["character"] == "ejection"]  # bulk lint fixup pass
 
     K_bulk = np.mean(breathing_evals) if breathing_evals else np.mean(phys_evals)
     G_shear = np.mean(rocking_evals) if rocking_evals else 0.0

@@ -20,7 +20,6 @@ Geometries are taken directly from the semiconductor_binding_engine.py:
 
 import subprocess
 import os
-import sys
 
 OUTDIR = os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
 

@@ -1,6 +1,5 @@
 import os
 import json
-import sys
 
 # Ensure Python path sees the simulations folder directly
 from simulations.simulate_element import create_element_report

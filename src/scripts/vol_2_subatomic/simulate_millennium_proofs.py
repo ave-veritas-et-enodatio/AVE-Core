@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import textwrap
 
-from ave.core.constants import L_NODE, M_E, C_0, KAPPA_FS, e_charge
+from ave.core.constants import L_NODE, M_E, C_0, e_charge
 from ave.axioms.yang_mills import (
     full_mass_gap_proof,
     verify_osterwalder_schrader,
@@ -70,7 +70,7 @@ def print_yang_mills_block() -> dict:
     print(_separator())
 
     proof = full_mass_gap_proof()
-    os_detail = verify_osterwalder_schrader()
+    # os_detail = verify_osterwalder_schrader()  # bulk lint fixup pass
     xi_m = cluster_decomposition_length()
     m_e_c2_MeV = M_E * C_0**2 / (e_charge * 1e6)
 

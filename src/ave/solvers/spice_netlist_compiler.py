@@ -18,7 +18,6 @@ Tier 3 Solver (consumes Tiers 1+2, never re-derives operators).
 Reference: Backmatter App 6 — SPICE Verification Manual
 """
 
-import os
 import textwrap
 from pathlib import Path
 

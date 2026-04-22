@@ -10,7 +10,6 @@ The induced angular velocity decays as 1/r^2, matching the GR prediction.
 """
 
 import os
-import sys
 import pathlib
 import numpy as np
 import matplotlib.pyplot as plt

@@ -37,14 +37,12 @@ from __future__ import annotations
 
 import numpy as np
 from dataclasses import dataclass
-from typing import Optional
 
 from ave.core.constants import (
     G,
     C_0,
     Z_0,
     EPSILON_0,
-    MU_0,
     M_E,
     e_charge,
     M_SUN,
@@ -52,7 +50,6 @@ from ave.core.constants import (
 from ave.axioms.scale_invariant import (
     reflection_coefficient,
     saturation_factor,
-    impedance,
 )
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 
@@ -559,7 +556,7 @@ def saturn_ring_gap_model() -> list:
 
         # Saturn's gravitational perturbation at gap
         F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
-        Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)
+        # Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)  # bulk lint fixup pass
 
         gaps.append(
             {
@@ -684,7 +681,7 @@ def flyby_anomaly_impedance(
     dv_anderson = flyby_anomaly_anderson(v_inf, declination_in, declination_out)
 
     # AVE impedance gradient at periapsis
-    r_peri = periapsis_Re * R_EARTH
+    # r_peri = periapsis_Re * R_EARTH  # bulk lint fixup pass
     v_rot_equator = OMEGA_EARTH * R_EARTH
 
     # Gravitomagnetic coefficient

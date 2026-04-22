@@ -63,7 +63,6 @@ from ave.core.constants import (
     PROTON_ELECTRON_RATIO,
     M_P_MEV_TARGET,
     M_N_MEV_TARGET,
-    D_PROTON,
 )
 from ave.axioms.scale_invariant import avalanche_factor
 
@@ -465,11 +464,11 @@ def compute_binding_halo(alpha_centers, halo_nodes, n_alpha, Z_core, Z_halo):
     core_nodes = np.array(core_nodes)
     halo_nodes = np.array(halo_nodes)
 
-    all_nodes = np.vstack([core_nodes, halo_nodes])
+    # all_nodes = np.vstack([core_nodes, halo_nodes])  # bulk lint fixup pass
     n_core = len(core_nodes)
     n_halo = len(halo_nodes)
-    A_total = n_core + n_halo
-    Z_total = Z_core + Z_halo
+    # A_total = n_core + n_halo  # bulk lint fixup pass
+    # Z_total = Z_core + Z_halo  # bulk lint fixup pass
 
     # --- Inter-alpha binding (same as compute_binding) ---
     strong_inter = 0.0

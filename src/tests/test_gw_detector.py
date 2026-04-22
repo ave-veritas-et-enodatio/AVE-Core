@@ -23,7 +23,7 @@ from ave.gravity.gw_detector import (
     lattice_voltage_ratio,
     detector_summary,
 )
-from ave.core.constants import Z_0, C_0, V_SNAP
+from ave.core.constants import Z_0
 
 
 class TestDetectorCatalog:

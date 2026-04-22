@@ -1,14 +1,12 @@
-import pytest
 import numpy as np
 
-from ave.core.constants import L_NODE, C_0, C_K_KOLMOGOROV, AVALANCHE_N_3D, N_NU
+from ave.core.constants import L_NODE, C_0, C_K_KOLMOGOROV, N_NU
 from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     avalanche_exponent_3d,
     axiomatic_energy_spectrum,
     kolmogorov_microscale,
     dissipation_cutoff_ratio,
-    spectral_cascade_demo,
     prove_bounded_enstrophy,
 )
 
@@ -78,7 +76,7 @@ class TestKolmogorovCascade:
         nu = 1e-6
         eps = 1e-3
 
-        eta_k = kolmogorov_microscale(nu, eps)
+        # eta_k = kolmogorov_microscale(nu, eps)  # bulk lint fixup pass
         ratio = dissipation_cutoff_ratio(nu, eps)
 
         assert ratio > 1e6, f"Scale separation failed. Ratio was {ratio}"

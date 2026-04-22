@@ -17,10 +17,8 @@ All constants from ave.core.constants — zero free parameters.
 """
 
 import os
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
 import matplotlib.gridspec as gridspec
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -32,11 +30,8 @@ from ave.solvers.orbital_resonance import (
     hawking_temperature,
     gw_memory_strain,
     ringdown_Q_and_decay,
-    schwarzschild_radius,
     LIGO_EVENTS,
     M_SUN,
-    G_NEWTON,
-    C_0,
 )
 from ave.core.constants import ALPHA
 

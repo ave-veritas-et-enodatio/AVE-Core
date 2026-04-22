@@ -39,10 +39,7 @@ from ave.core.constants import (
     HBAR,
     M_E,
     K_B,
-    Z_0,
     e_charge,
-    MU_0,
-    EPSILON_0,
 )
 
 # ═══════════════════════════════════════════════════════════════

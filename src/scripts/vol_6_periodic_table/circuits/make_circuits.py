@@ -1,4 +1,3 @@
-import os
 import subprocess
 
 tex_h1 = r"""\documentclass[tikz,border=15pt]{standalone}

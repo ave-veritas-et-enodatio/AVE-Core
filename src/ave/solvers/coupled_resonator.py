@@ -61,8 +61,6 @@ from ave.core.constants import (
     M_N_MEV_TARGET,
     HBAR_C_MEV_FM,
     K_COUPLING,
-    OMEGA_0_NUCLEAR as _OMEGA_0_CONST,
-    E_0_NUCLEAR as _E_0_CONST,
     M_E,
 )
 

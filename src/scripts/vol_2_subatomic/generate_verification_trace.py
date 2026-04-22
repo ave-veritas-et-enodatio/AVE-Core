@@ -6,8 +6,6 @@ and prints the verification block that gets embedded in the manuscript.
 Run this whenever the engine changes to keep the manuscript in sync.
 """
 
-import sys
-import os
 
 from ave.core.constants import (
     L_NODE,
@@ -17,9 +15,6 @@ from ave.core.constants import (
     P_C,
     M_E,
     C_0,
-    HBAR,
-    EPSILON_0,
-    MU_0,
     Z_0,
     T_EM,
     V_SNAP,
@@ -29,11 +24,9 @@ from ave.core.constants import (
     I_SCALAR_1D,
     V_TOROIDAL_HALO,
     PROTON_ELECTRON_RATIO,
-    T_NUC,
     H_INFINITY,
     R_HUBBLE,
     RHO_BULK,
-    NU_KIN,
     M_PROTON,
     e_charge,
 )

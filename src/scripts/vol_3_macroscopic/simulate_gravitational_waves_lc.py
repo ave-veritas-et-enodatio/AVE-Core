@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
-import sys
 import os
 
 from ave.core.grid import VacuumGrid

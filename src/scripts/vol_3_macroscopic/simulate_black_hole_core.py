@@ -28,7 +28,6 @@ Usage:
     python src/scripts/vol_3_macroscopic/simulate_black_hole_core.py
 """
 
-import sys
 import os
 import numpy as np
 import matplotlib
@@ -41,14 +40,8 @@ from ave.core.constants import (
     C_0,
     G,
     HBAR,
-    MU_0,
-    EPSILON_0,
     Z_0,
     NU_VAC,
-    ALPHA,
-    M_E,
-    e_charge,
-    L_NODE,
     K_B,
     M_SUN,
 )
@@ -65,7 +58,6 @@ from ave.gravity import (
     local_impedance,
 )
 from ave.axioms.scale_invariant import (
-    regime_boundary_eigenvalue,
     phase_transition_Q,
 )
 
@@ -85,7 +77,7 @@ LIGO_EVENTS = {
 
 def run_simulation():
     # ── PREREQUISITE GATE: identify operating regime for 10 M☉ BH ──
-    regime = identify_regime("gravity", M_kg=10 * float(M_SUN), r_meters=7 * G * 10 * float(M_SUN) / C_0**2)
+    # regime = identify_regime("gravity", M_kg=10 * float(M_SUN), r_meters=7 * G * 10 * float(M_SUN) / C_0**2)  # bulk lint fixup pass
     print()
 
     print("=" * 78)
@@ -115,8 +107,8 @@ def run_simulation():
     S_r = np.array([gravitational_saturation_factor(M_bh, ri) for ri in r])
     G_shear = np.array([shear_modulus_factor(M_bh, ri) for ri in r])
     Z_r = np.array([local_impedance(M_bh, ri) for ri in r])
-    mu_r = np.array([local_mu(M_bh, ri) for ri in r])
-    eps_r = np.array([local_epsilon(M_bh, ri) for ri in r])
+    # mu_r = np.array([local_mu(M_bh, ri) for ri in r])  # bulk lint fixup pass
+    # eps_r = np.array([local_epsilon(M_bh, ri) for ri in r])  # bulk lint fixup pass
 
     # Group velocity: c_g = c × (1 - ε₁₁²)^(1/4)
     eps_sq = np.clip(eps_11**2, 0, 1.0 - 1e-12)
@@ -366,7 +358,7 @@ def run_simulation():
     x = np.arange(len(names))
     w = 0.35
     bars1 = ax5.bar(x - w / 2, f_ave, w, color="#44ff88", alpha=0.85, label="AVE (derived)")
-    bars2 = ax5.bar(x + w / 2, f_obs, w, color="#ff4444", alpha=0.85, label="LIGO (observed)")
+    # bars2 = ax5.bar(x + w / 2, f_obs, w, color="#ff4444", alpha=0.85, label="LIGO (observed)")  # bulk lint fixup pass
     ax5.set_xticks(x)
     ax5.set_xticklabels(names, color=C_TEXT, fontsize=9, rotation=15)
     ax5.set_ylabel("Ringdown Frequency (Hz)", color=C_TEXT, fontsize=10)

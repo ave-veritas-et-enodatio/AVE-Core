@@ -10,8 +10,6 @@ Here we compute the actual mean coordination of the over-braced
 Delaunay graph to check physical consistency.
 """
 
-import sys
-import os
 
 
 import numpy as np
@@ -74,7 +72,7 @@ def delaunay_coordination(pos):
 
 def run_verification():
     """Verify z₀ from lattice geometry."""
-    from ave.core.constants import ALPHA, P_C
+    from ave.core.constants import P_C
 
     print("=" * 60)
     print("  W2: LATTICE COORDINATION — z₀ VERIFICATION")
@@ -82,7 +80,7 @@ def run_verification():
 
     # Target z₀ from EMT
     z0_emt = 51.25
-    p_c = P_C
+    # p_c = P_C  # bulk lint fixup pass
 
     # Lattice parameters
     l_node = 1.0  # natural units

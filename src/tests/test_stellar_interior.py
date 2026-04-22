@@ -14,7 +14,6 @@ import pytest
 
 from ave.gravity.stellar_interior import (
     SSM_LAYERS,
-    R_SUN,
     build_radial_profile,
     tachocline_reflection,
     photosphere_reflection,

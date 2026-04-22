@@ -8,8 +8,6 @@ Outputs a means report extracting the V_R/V_BR ratio boundaries.
 """
 
 from ave.condensed.silicon_doping import (
-    boron_impurity_level,
-    phosphorus_impurity_level,
     pn_junction as pn_si,
 )
 from ave.condensed.germanium_doping import (
@@ -18,8 +16,6 @@ from ave.condensed.germanium_doping import (
     arsenic_impurity_level,
 )
 from ave.condensed.gaas_doping import pn_junction_gaas as pn_gaas, amphoteric_impurity_level
-from ave.nuclear.silicon_atom import V_R_OVER_V_BR, Z_SI
-from ave.condensed.silicon_crystal import K_SI_SI
 from ave.condensed.bjt_mechanics import bjt_current_gain
 
 

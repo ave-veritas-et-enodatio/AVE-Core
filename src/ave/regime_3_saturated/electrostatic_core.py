@@ -27,14 +27,10 @@ from ave.core.constants import (
     ALPHA,
     M_E,
     C_0,
-    Z_0,
-    V_YIELD,
     T_EM,
-    HBAR,
     EPSILON_0,
     e_charge,
 )
-from ave.core.universal_operators import universal_saturation
 
 
 def run_electrostatic_resolution():

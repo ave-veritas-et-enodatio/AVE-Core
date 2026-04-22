@@ -4,8 +4,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.collections import LineCollection
 import os
 
 plt.style.use("dark_background")
@@ -41,7 +39,7 @@ def generate_electron_knot():
     # embedded in 3D as a torus with major radius R and minor radius r
     # Ropelength = 2*pi for the unknot at minimum
     R = 2.0  # major radius (center of tube to center of loop)
-    r = 0.0  # we plot the centerline, not the tube surface
+    # r = 0.0  # we plot the centerline, not the tube surface  # bulk lint fixup pass
     x = R * np.cos(t)
     y = R * np.sin(t)
     z = np.zeros_like(t)  # planar loop

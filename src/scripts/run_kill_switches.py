@@ -26,23 +26,15 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 import numpy as np
 from ave.core.constants import (
     ALPHA,
-    Z_0,
-    C_0,
     EPSILON_0,
-    MU_0,
     XI_TOPO,
     L_NODE,
     V_YIELD,
     V_SNAP,
-    M_E,
-    HBAR,
-    e_charge,
     RHO_BULK,
 )
 from ave.axioms.scale_invariant import (
     saturation_factor,
-    impedance_at_strain,
-    reflection_coefficient,
 )
 
 # ─────────────────────────────────────────────────────────────────────

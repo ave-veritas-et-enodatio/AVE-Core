@@ -11,8 +11,6 @@ drag vanishes smoothly — not as a step function.
 from __future__ import annotations
 
 
-import numpy as np
-from ave.core.constants import G, C_0, ISOTROPIC_PROJECTION
 from ave.axioms.scale_invariant import saturation_factor
 
 # Re-export from gravity module (single source of truth)

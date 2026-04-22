@@ -33,8 +33,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.colors import Normalize
 import matplotlib.cm as cm
 
 try:

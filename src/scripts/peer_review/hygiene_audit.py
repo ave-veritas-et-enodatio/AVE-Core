@@ -10,7 +10,6 @@ Run: PYTHONPATH=src python src/scripts/peer_review/hygiene_audit.py
 
 import os
 import re
-import sys
 from pathlib import Path
 from collections import defaultdict
 
@@ -64,16 +63,15 @@ def check_nomenclature(tex_file: Path) -> list:
     issues = []
 
     # Check for known nomenclature inconsistencies
-    patterns = [
-        # (pattern, description, severity)
-        (r"\\ell_\{?node\}?", "ℓ_node (should use \\ell_\\text{node})", "style"),
-        (r"V_\{?snap\}?", "V_snap (should use V_\\text{snap} or V_{\\text{snap}})", "style"),
-        (r"\\text\{topo\}", "topo subscript (consistent use)", "check"),
-    ]
+    # patterns = [  # bulk lint fixup pass
+    #     (r"\\ell_\{?node\}?", "ℓ_node (should use \\ell_\\text{node})", "style"),
+    #     (r"V_\{?snap\}?", "V_snap (should use V_\\text{snap} or V_{\\text{snap}})", "style"),
+    #     (r"\\text\{topo\}", "topo subscript (consistent use)", "check"),
+    # ]
 
     lines = content.split("\n")
     for i, line in enumerate(lines, 1):
-        stripped = line.split("%")[0]
+        # stripped = line.split("%")[0]  # bulk lint fixup pass
         # Check for raw ASCII in math mode
         if "\\begin{equation}" in line or "$" in line:
             # Look for unescaped underscores outside of commands

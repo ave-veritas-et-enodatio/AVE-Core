@@ -27,7 +27,7 @@ import math
 import os
 
 # ── Engine imports ──
-from ave.core.constants import G, C_0, ALPHA, NU_VAC, M_SUN
+from ave.core.constants import G, C_0, M_SUN
 
 
 # ═════════════════════════════════════════
@@ -223,7 +223,6 @@ def main():
         import matplotlib
 
         matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
 
         _generate_figure(results)
     except ImportError:

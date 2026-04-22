@@ -16,14 +16,11 @@ from ave.regime_3_saturated.galactic_rotation import (
     ave_saturation_acceleration,
     ave_rotation_velocity,
     radial_acceleration_relation,
-    GalaxyModel,
     GALAXY_CATALOG,
     A0_LATTICE,
     KPC,
-    M_SUN,
 )
 from ave.regime_3_saturated.orbital_impedance import get_mutual_inductance
-from ave.core.constants import G
 
 
 # ═══════════════════════════════════════════════════════════════

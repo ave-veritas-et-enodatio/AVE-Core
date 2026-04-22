@@ -35,13 +35,12 @@ Usage:
 """
 
 import os
-import sys
 import pathlib
 import numpy as np
 from stl import mesh as stl_mesh
 
 # Engine imports — all physics constants from the single source of truth
-from ave.core.constants import KAPPA_FS, L_NODE, ALPHA, P_C, NU_VAC
+from ave.core.constants import KAPPA_FS, P_C
 from ave.topological.borromean import FundamentalTopologies
 
 # ═══════════════════════════════════════════════════════════════════
@@ -81,7 +80,7 @@ def compute_frenet_frame(curve):
     Returns:
         T, N, B: each [M, 3] arrays of unit tangent, normal, binormal vectors.
     """
-    M = len(curve)
+    # M = len(curve)  # bulk lint fixup pass
 
     # Tangent via central differences (wrap for closed curves)
     T = np.zeros_like(curve)
@@ -284,7 +283,7 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
     # End caps (fan triangulation)
     if cap:
         # Start cap
-        center_start = curve[0]
+        # center_start = curve[0]  # bulk lint fixup pass
         for j in range(n_radial - 2):
             faces["vectors"][face_idx] = [vertices[0, 0], vertices[0, j + 2], vertices[0, j + 1]]
             face_idx += 1

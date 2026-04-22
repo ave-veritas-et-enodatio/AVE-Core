@@ -116,7 +116,7 @@ def find_eigenstate(theta_init, f_fn, grad_fn, n_iter=200, trust_radius=np.pi, c
 try:
     import jax
     import jax.numpy as jnp
-    from jax import lax, grad, jit
+    from jax import lax
 
     def newton_step_jax(f_val, gradient, trust_radius=jnp.pi):
         """JAX-traceable single Newton step."""
