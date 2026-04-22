@@ -230,8 +230,16 @@ if all_ok:
 else:
     print("  ⚠️  GLOBAL VERDICT: FAILURES DETECTED — INVESTIGATE ❌")
 print(f"{'='*100}")
-print(
-    f"\n  Total checks: {sum(len(c) for _, c in [('1', vol1_checks), ('2', vol2_checks), ('3', vol3_checks),"
-    f" ('4', vol4_checks), ('5', vol5_checks), ('6', vol6_checks)])}"
+total_checks = sum(
+    len(c)
+    for _, c in [
+        ("1", vol1_checks),
+        ("2", vol2_checks),
+        ("3", vol3_checks),
+        ("4", vol4_checks),
+        ("5", vol5_checks),
+        ("6", vol6_checks),
+    ]
 )
+print(f"\n  Total checks: {total_checks}")
 print(f"  All within stated tolerance: {'YES' if all_ok else 'NO'}")

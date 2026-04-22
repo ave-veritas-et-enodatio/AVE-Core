@@ -113,7 +113,8 @@ def generate_parity_violation():
         + r"Because the discrete $\mathcal{M}_A$ LC network is physically constructed of right-handed helical"
         + r" Inductors,\n"
         + "it constitutes a naturally birefringent mechanical substrate. Left-handed input signals"
-        + r" ($W^-$ equivalent) encounter massive" + "\n"
+        + r" ($W^-$ equivalent) encounter massive"
+        + "\n"
         + r"geometric linkage frustration ($Z_{chiral} \to \infty$) and are deterministically scattered"
         + " (attenuated) over sub-fermi bounds.",
         ha="center",

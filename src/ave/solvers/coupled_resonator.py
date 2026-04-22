@@ -320,7 +320,6 @@ def _shell_config(n_resonators):
     return subshells
 
 
-
 def ionization_energy_circuit(Z, n_resonators=None):
     r"""First ionization energy from AVE coupled LC resonator model.
 

@@ -125,9 +125,7 @@ _g_sol = N_HB_PER_NODE * G_SOLVENT_PER_HB
 _b_sol = N_HB_PER_NODE * K_HB_ELECTRICAL / (2 * np.pi * F_BACKBONE)
 _y_sol = np.sqrt(_g_sol**2 + _b_sol**2)
 _r_sol = 1 / (_g_sol + 1e-30)
-_q_loaded = (
-    2 * np.pi * F_BACKBONE * L_C / (1 / _g_sol if _g_sol > 0 else np.inf)
-)
+_q_loaded = 2 * np.pi * F_BACKBONE * L_C / (1 / _g_sol if _g_sol > 0 else np.inf)
 print(
     f"""
 ┌─────────────────────────────────────────────────────┐

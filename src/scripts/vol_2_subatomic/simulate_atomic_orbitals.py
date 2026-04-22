@@ -22,6 +22,7 @@ def _find_repo_root():
         d = os.path.dirname(d)
     return os.path.dirname(os.path.abspath(__file__))
 
+
 PROJECT_ROOT = Path(_find_repo_root())
 OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
