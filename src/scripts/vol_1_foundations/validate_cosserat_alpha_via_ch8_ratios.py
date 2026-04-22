@@ -74,9 +74,17 @@ def extract_ch8_ratios(solver: CosseratField3D) -> dict:
 
 
 def run_single(nx: int, R_init: float, r_init: float, label: str,
-               max_iter: int = 500, lr: float = 0.01) -> dict:
+               max_iter: int = 500, lr: float = 0.01,
+               k_op10: float = 0.0, k_refl: float = 0.0, k_hopf: float = 0.0) -> dict:
     solver = CosseratField3D(nx, nx, nx, dx=1.0, use_saturation=True)
-    solver.initialize_electron_2_3_sector(R_target=R_init, r_target=r_init)
+    # Use the AVE-canonical power-law hedgehog ansatz (research/L3/13_ amendment),
+    # not the Gaussian (SM/QED leakage in my original init).
+    solver.initialize_electron_2_3_sector(
+        R_target=R_init, r_target=r_init, use_hedgehog=True
+    )
+    solver.k_op10 = k_op10
+    solver.k_refl = k_refl
+    solver.k_hopf = k_hopf
 
     initial = extract_ch8_ratios(solver)
     result = solver.relax_to_ground_state(
@@ -134,12 +142,17 @@ def main():
     print()
 
     # Run 1: exact Golden Torus initialization
+    # k_op10 = 1 provides topological-sector preservation (c=3);
+    # bending + elastic terms drive the composite-S11 geometric minimization.
+    # k_refl = k_hopf = 0 since those have their own numerical issues from earlier
+    # investigations (handoff L3_PHASE3_SESSION_20260420).
     info1 = run_single(
         nx=NX,
         R_init=R_exact,
         r_init=r_exact,
         label="Run 1: initialize at exact Golden Torus",
         max_iter=500,
+        k_op10=1.0, k_refl=0.0, k_hopf=0.0,
     )
     print_report(info1)
 
@@ -150,6 +163,7 @@ def main():
         r_init=r_exact * 0.7,
         label="Run 2: perturbed off-Golden (R +30%, r -30%)",
         max_iter=500,
+        k_op10=1.0, k_refl=0.0, k_hopf=0.0,
     )
     print_report(info2)
 

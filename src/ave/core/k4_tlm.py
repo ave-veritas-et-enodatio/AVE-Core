@@ -89,13 +89,26 @@ class K4Lattice3D:
     Port `i` on the neighboring Type B node. No reciprocity mapping needed!
     """
 
-    def __init__(self, nx, ny, nz, dx=1.0, nonlinear=False, pml_thickness=0):
+    def __init__(self, nx, ny, nz, dx=1.0, nonlinear=False, pml_thickness=0,
+                 op3_bond_reflection=False):
+        """
+        Args:
+            op3_bond_reflection: If True, applies Op3 reflection at each bond
+                based on the local impedance mismatch between adjacent sites
+                (Z_eff = Z_0/sqrt(S) per Op14). This extends the native TLM
+                with strain-coupled wave reflection — the missing mechanism
+                for bound solitons on the K4 substrate. Default False for
+                backwards compatibility with existing validator scripts.
+                See research/L3_electron_soliton/L3_PHASE3_SESSION_20260420
+                handoff for the full AVE explanation.
+        """
         self.nx = nx
         self.ny = ny
         self.nz = nz
         self.dx = dx
         self.nonlinear = nonlinear
         self.pml_thickness = pml_thickness
+        self.op3_bond_reflection = op3_bond_reflection
         
         # Dispersion: wave crossing a 4-port junction is exactly c0 = dx / (dt * sqrt(2))
         self.c = float(C_0)
@@ -180,23 +193,57 @@ class K4Lattice3D:
         # For backward compatibility with validation scripts
         self.z_local_field = np.ones((nx, ny, nz), dtype=float)
 
+    def _update_z_local_field(self):
+        """Compute the local impedance at every active site from the current
+        incident voltage magnitude. Needed by op3_bond_reflection to know
+        the per-site Z_eff for bond-reflection calculations.
+
+        Chain: |V_inc| -> strain A -> saturation S -> Z_eff = Z_0/sqrt(S).
+
+        Normalization: strain A = |V_inc| / V_SNAP (absolute rupture voltage),
+        NOT V_YIELD (engineering onset). This matches AVE's three-regime
+        convention per AVE-VirtualMedia/generate_reflection_profile.py:
+          Regime I  (passband):    A < sqrt(2*alpha) ~ 0.121
+          Regime II (transition):  sqrt(2*alpha) < A < sqrt(3)/2 ~ 0.866
+          Regime III (stopband):   A > sqrt(3)/2, approaching A=1 (rupture)
+        V_YIELD ~ sqrt(alpha) * V_SNAP falls inside Regime II, not at yield.
+        """
+        v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
+        v_snap = float(V_SNAP)
+        strain = v_total / v_snap
+        # S = sqrt(1 - A^2) per universal_saturation.
+        S_factor = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
+        # Op14 canonical: Z_eff = Z_0 / sqrt(S), i.e., Z/Z_0 = 1/(1-A^2)^(1/4).
+        # Prior code used S_factor**0.25 (= (1-A^2)^(1/8)) which is off by a factor
+        # of 2 in the exponent; corrected to sqrt(S_factor) to match Op14.
+        self.z_local_field = 1.0 / np.maximum(np.sqrt(S_factor), 1e-6)
+        # Inactive sites get baseline Z_0; they contribute nothing physically.
+        self.z_local_field[~self.mask_active] = 1.0
+
     def _scatter_all(self):
         """Matrix-vector multiply to scatter incident pulses into reflected pulses."""
+        if self.op3_bond_reflection:
+            # Track z_local at every site (not just strained) so that
+            # _connect_all can apply bond-level Op3 reflection. This is
+            # lightweight (one pointwise operation on the full field).
+            self._update_z_local_field()
         if self.nonlinear:
-            # Op14 Impedance Saturation
+            # Op14 Impedance Saturation, anchored to V_SNAP per the three-regime
+            # convention (AVE-VirtualMedia/scripts/generate_reflection_profile.py):
+            # regime boundaries at √(2α), √3/2, 1 all in units of V_SNAP.
+            # V_YIELD falls inside regime II (at strain = √α ≈ 0.085), not at yield.
+            # Corrected 2026-04-21 to match _update_z_local_field convention.
             v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
-            # V_YIELD = √α × V_SNAP is the macroscopic onset of Axiom 4
-            # nonlinearity. V_SNAP (511 kV) is the absolute topological
-            # destruction limit; V_YIELD (43.65 kV) is where the saturation
-            # operator begins to bite at engineering scales.
-            v_yield = float(V_YIELD)
-            strain = v_total / v_yield
-            
+            v_snap = float(V_SNAP)
+            strain = v_total / v_snap
+
             strained = strain > 0.01
             if np.any(strained):
-                # S factor limits fields
+                # Op2: S = √(1 - A²), with A = strain/V_SNAP ∈ [0, 1]
                 S_factor = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
-                z_strained = 1.0 / np.maximum(S_factor**0.25, 1e-6)
+                # Op14: Z_eff = Z_0/√S, i.e., (1-A²)^(-1/4) in natural units.
+                # Previously used S_factor**0.25 which gave (1-A²)^(-1/8); off by 2×.
+                z_strained = 1.0 / np.maximum(np.sqrt(S_factor), 1e-6)
                 self.z_local_field[strained] = z_strained[strained]
                 
                 for idx in zip(*np.where(strained & self.mask_active)):
@@ -220,47 +267,62 @@ class K4Lattice3D:
     def _connect_all(self):
         """
         Propagate pulses across the tetrapod connections.
-        
+
         Port 0 vector: A->B is (+1,+1,+1). Therefore A gets B's reflected pulse from (+1,+1,+1).
         Port 1 vector: A->B is (+1,-1,-1).
         Port 2 vector: A->B is (-1,+1,-1).
         Port 3 vector: A->B is (-1,-1,+1).
+
+        If op3_bond_reflection is True, each bond applies Op3 reflection based
+        on the impedance mismatch between the two endpoint sites' z_local.
+        Unitary: V_inc_A[k] = Γ * V_ref_A[k] + T * V_ref_B[k], where
+        Γ = (Z_B - Z_A)/(Z_B + Z_A), T = sqrt(1 - Γ²). Seen from B, the
+        reflection is -Γ (opposite sign). Conserves total power.
         """
         new_inc = np.zeros_like(self.V_inc)
-        
-        # A nodes receive from B nodes
-        # Port 0: B is at (i+1, j+1, k+1)
-        B_ref_shifted_0 = np.roll(self.V_ref[..., 0], shift=(-1, -1, -1), axis=(0, 1, 2))
-        new_inc[self.mask_A, 0] = B_ref_shifted_0[self.mask_A]
-        
-        # Port 1: B is at (i+1, j-1, k-1)
-        B_ref_shifted_1 = np.roll(self.V_ref[..., 1], shift=(-1, 1, 1), axis=(0, 1, 2))
-        new_inc[self.mask_A, 1] = B_ref_shifted_1[self.mask_A]
-        
-        # Port 2: B is at (i-1, j+1, k-1)
-        B_ref_shifted_2 = np.roll(self.V_ref[..., 2], shift=(1, -1, 1), axis=(0, 1, 2))
-        new_inc[self.mask_A, 2] = B_ref_shifted_2[self.mask_A]
-        
-        # Port 3: B is at (i-1, j-1, k+1)
-        B_ref_shifted_3 = np.roll(self.V_ref[..., 3], shift=(1, 1, -1), axis=(0, 1, 2))
-        new_inc[self.mask_A, 3] = B_ref_shifted_3[self.mask_A]
-        
-        # B nodes receive from A nodes
-        # Port 0: A is at (i-1, j-1, k-1)
-        A_ref_shifted_0 = np.roll(self.V_ref[..., 0], shift=(1, 1, 1), axis=(0, 1, 2))
-        new_inc[self.mask_B, 0] = A_ref_shifted_0[self.mask_B]
-        
-        # Port 1: A is at (i-1, j+1, k+1)
-        A_ref_shifted_1 = np.roll(self.V_ref[..., 1], shift=(1, -1, -1), axis=(0, 1, 2))
-        new_inc[self.mask_B, 1] = A_ref_shifted_1[self.mask_B]
-        
-        # Port 2: A is at (i+1, j-1, k+1)
-        A_ref_shifted_2 = np.roll(self.V_ref[..., 2], shift=(-1, 1, -1), axis=(0, 1, 2))
-        new_inc[self.mask_B, 2] = A_ref_shifted_2[self.mask_B]
-        
-        # Port 3: A is at (i+1, j+1, k-1)
-        A_ref_shifted_3 = np.roll(self.V_ref[..., 3], shift=(-1, -1, 1), axis=(0, 1, 2))
-        new_inc[self.mask_B, 3] = A_ref_shifted_3[self.mask_B]
+
+        # Port shifts: A-to-B direction vectors (each port)
+        port_shifts = [
+            (-1, -1, -1),   # Port 0: B is at (+1, +1, +1) → roll to bring B's val to A
+            (-1, +1, +1),   # Port 1: B is at (+1, -1, -1)
+            (+1, -1, +1),   # Port 2: B is at (-1, +1, -1)
+            (+1, +1, -1),   # Port 3: B is at (-1, -1, +1)
+        ]
+
+        if self.op3_bond_reflection:
+            eps = 1e-12
+            z_A_own = self.z_local_field  # local z at every site (A or B)
+            for port, shift_to_B in enumerate(port_shifts):
+                # Bring B's z_local and V_ref to A's location via roll
+                z_B_at_A = np.roll(self.z_local_field, shift=shift_to_B, axis=(0, 1, 2))
+                V_ref_B_at_A = np.roll(self.V_ref[..., port], shift=shift_to_B, axis=(0, 1, 2))
+                V_ref_A_own = self.V_ref[..., port]
+                gamma = (z_B_at_A - z_A_own) / (z_B_at_A + z_A_own + eps)
+                T = np.sqrt(np.maximum(1.0 - gamma**2, 0.0))
+                # At A-sites: V_inc = gamma * V_ref_A + T * V_ref_B (transmitted)
+                new_inc[self.mask_A, port] = (gamma * V_ref_A_own + T * V_ref_B_at_A)[self.mask_A]
+
+                # For B-sites receiving on the same port: the neighbor is the A-site
+                # in the OPPOSITE direction.
+                shift_to_A = tuple(-s for s in shift_to_B)
+                z_A_at_B = np.roll(self.z_local_field, shift=shift_to_A, axis=(0, 1, 2))
+                V_ref_A_at_B = np.roll(self.V_ref[..., port], shift=shift_to_A, axis=(0, 1, 2))
+                V_ref_B_own = self.V_ref[..., port]
+                # Seen from B: gamma_B = (Z_A - Z_B)/(Z_A + Z_B) = -gamma_AB
+                gamma_B = (z_A_at_B - z_A_own) / (z_A_at_B + z_A_own + eps)
+                T_B = np.sqrt(np.maximum(1.0 - gamma_B**2, 0.0))
+                new_inc[self.mask_B, port] = (gamma_B * V_ref_B_own + T_B * V_ref_A_at_B)[self.mask_B]
+        else:
+            # Original pure-transmission connection (gamma = 0 everywhere)
+            # A nodes receive from B nodes
+            for port, shift_to_B in enumerate(port_shifts):
+                B_ref_shifted = np.roll(self.V_ref[..., port], shift=shift_to_B, axis=(0, 1, 2))
+                new_inc[self.mask_A, port] = B_ref_shifted[self.mask_A]
+            # B nodes receive from A nodes (opposite shift)
+            for port, shift_to_B in enumerate(port_shifts):
+                shift_to_A = tuple(-s for s in shift_to_B)
+                A_ref_shifted = np.roll(self.V_ref[..., port], shift=shift_to_A, axis=(0, 1, 2))
+                new_inc[self.mask_B, port] = A_ref_shifted[self.mask_B]
         
         # Boundary matching (Discrete Topological Bond Severing)
         # If PML is active, the domain is physically cut (not a torus).

@@ -17,6 +17,10 @@ from ave.topological.cosserat_field_3d import (
     CosseratField3D,
     adjoint_tetrahedral_divergence,
     tetrahedral_gradient,
+    _project_omega_to_nhat,
+    _op10_density,
+    _reflection_density,
+    _hopf_density,
 )
 
 
@@ -234,6 +238,11 @@ def test_saturated_gradient_matches_finite_difference_under_activation():
     agreement should be float-precision exact.
     """
     solver = CosseratField3D(16, 16, 16, use_saturation=True)
+    # Isolate saturation: disable Op10 and reflection terms for this test
+    # (they have their own FD tests; 1/S^2 curvature in reflection makes
+    # h=1e-6 FD noisy at saturation-active sites).
+    solver.k_op10 = 0.0
+    solver.k_refl = 0.0
     solver.initialize_electron_2_3_sector(R_target=5.0, r_target=2.0)
     kappa = solver.compute_curvature()
     kappa_mag = np.sqrt(np.sum(kappa**2, axis=(-1, -2)))
@@ -280,3 +289,249 @@ def test_relax_step_decreases_energy():
     assert result["final_energy"] <= E_initial
     # And we should have made at least some progress on a far-from-equilibrium start.
     assert result["final_energy"] < E_initial or result["iterations"] >= 1
+
+
+# ------------------------------------------------------------------
+# Op10 continuum term — Rodrigues projection and density
+# ------------------------------------------------------------------
+
+def test_rodrigues_projection_on_zero_omega_gives_z_hat():
+    """omega = 0 everywhere => n_hat = (0, 0, 1) (reference direction)."""
+    n = 8
+    omega = np.zeros((n, n, n, 3))
+    n_hat = np.asarray(_project_omega_to_nhat(omega))
+    expected = np.zeros_like(omega)
+    expected[..., 2] = 1.0
+    np.testing.assert_allclose(n_hat, expected, atol=1e-12)
+
+
+def test_rodrigues_projection_rotation_by_pi_around_x_flips_z():
+    """omega = (pi, 0, 0) => rotate z_hat by pi around x_hat => -z_hat."""
+    n = 4
+    omega = np.zeros((n, n, n, 3))
+    omega[..., 0] = np.pi
+    n_hat = np.asarray(_project_omega_to_nhat(omega))
+    expected = np.zeros_like(omega)
+    expected[..., 2] = -1.0
+    np.testing.assert_allclose(n_hat, expected, atol=1e-12)
+
+
+def test_rodrigues_projection_preserves_unit_length():
+    """n_hat must be unit length for any omega."""
+    rng = np.random.default_rng(7)
+    omega = rng.normal(scale=0.7, size=(6, 6, 6, 3))
+    n_hat = np.asarray(_project_omega_to_nhat(omega))
+    norms = np.sqrt(np.sum(n_hat**2, axis=-1))
+    np.testing.assert_allclose(norms, 1.0, atol=1e-12)
+
+
+def test_op10_density_zero_on_constant_omega():
+    """Constant omega => constant n_hat => grad(n_hat) = 0 => W_4 = 0."""
+    n = 8
+    omega = np.zeros((n, n, n, 3))
+    omega[..., 0] = 0.5
+    omega[..., 1] = 0.3
+    W4 = np.asarray(_op10_density(omega, dx=1.0))
+    np.testing.assert_allclose(W4, 0.0, atol=1e-12)
+
+
+def test_op10_density_nonzero_on_2_3_ansatz_shell():
+    """The (2,3) Sutcliffe-style initial ansatz should produce nonzero W_4
+    in the shell region around the torus."""
+    solver = CosseratField3D(24, 24, 24)
+    solver.initialize_electron_2_3_sector(R_target=6.0, r_target=2.0)
+    W4 = np.asarray(_op10_density(solver.omega, dx=solver.dx))
+    # Must be finite, non-negative, and strictly positive somewhere.
+    assert np.all(np.isfinite(W4))
+    assert np.all(W4 >= -1e-12)  # Should be >= 0 by construction.
+    assert float(W4.max()) > 0.0
+
+
+def test_op10_energy_gradient_matches_finite_difference():
+    """With k_op10 active, the jax-grad energy gradient must match FD at
+    probe sites. This is the analog of the strict FD test for saturation."""
+    solver = CosseratField3D(14, 14, 14, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=4.0, r_target=1.5)
+    # Confirm k_op10 is active (default 1.0). Isolate from reflection term
+    # whose 1/S^2 curvature makes FD noisy at saturation-active sites.
+    assert solver.k_op10 == 1.0
+    solver.k_refl = 0.0
+
+    dE_du, dE_dw = solver.energy_gradient()
+
+    omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
+    candidates = np.argwhere(solver.mask_A & (omega_mag > 0.2))
+    assert len(candidates) > 5
+
+    h = 1e-6
+    for site in candidates[: min(3, len(candidates))]:
+        ix, iy, iz = site
+        for k in range(3):
+            saved = solver.omega[ix, iy, iz, k]
+            solver.omega[ix, iy, iz, k] = saved + h
+            E_plus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved - h
+            E_minus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved
+            fd = (E_plus - E_minus) / (2.0 * h)
+            analytical = float(dE_dw[ix, iy, iz, k])
+            np.testing.assert_allclose(analytical, fd, rtol=1e-5, atol=1e-6)
+
+
+def test_op10_contributes_to_total_energy():
+    """Energy with k_op10 = 1 must exceed the same configuration with k_op10 = 0,
+    since the (2,3) ansatz has nontrivial wedge density on the shell."""
+    solver = CosseratField3D(16, 16, 16)
+    solver.initialize_electron_2_3_sector(R_target=4.0, r_target=1.5)
+    E_with = solver.total_energy()
+    solver.k_op10 = 0.0
+    E_without = solver.total_energy()
+    assert E_with > E_without + 1e-9
+
+
+# ------------------------------------------------------------------
+# Reflection term (Op9 via Op2 + Op14 + Op3) — chain at the field scale
+# ------------------------------------------------------------------
+
+def test_reflection_density_zero_on_vacuum():
+    """u = omega = 0 => A = 0 => S = 1 => grad S = 0 => reflection = 0."""
+    n = 8
+    u = np.zeros((n, n, n, 3))
+    omega = np.zeros((n, n, n, 3))
+    W_refl = np.asarray(
+        _reflection_density(u, omega, dx=1.0, omega_yield=np.pi, epsilon_yield=1.0)
+    )
+    np.testing.assert_allclose(W_refl, 0.0, atol=1e-12)
+
+
+def test_reflection_density_nonzero_on_2_3_ansatz():
+    """(2,3) ansatz has nonzero strain in the shell => S < 1 there => grad S
+    nonzero at shell boundary => reflection density > 0 somewhere."""
+    solver = CosseratField3D(24, 24, 24, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=6.0, r_target=2.0)
+    W_refl = np.asarray(
+        _reflection_density(
+            solver.u, solver.omega, dx=solver.dx,
+            omega_yield=solver.omega_yield,
+            epsilon_yield=solver.epsilon_yield,
+        )
+    )
+    assert np.all(np.isfinite(W_refl))
+    assert np.all(W_refl >= 0.0 - 1e-12)
+    assert float(W_refl.max()) > 0.0
+
+
+def test_reflection_density_grows_near_yield():
+    """Scaling omega up (closer to yield) should strictly increase the
+    total reflection energy. Tests the 1/S^2 anti-collapse behavior."""
+    solver_small = CosseratField3D(16, 16, 16, use_saturation=True)
+    solver_small.initialize_electron_2_3_sector(R_target=4.0, r_target=1.5)
+    solver_small.omega = solver_small.omega * 0.4  # far from yield
+
+    solver_large = CosseratField3D(16, 16, 16, use_saturation=True)
+    solver_large.initialize_electron_2_3_sector(R_target=4.0, r_target=1.5)
+    solver_large.omega = solver_large.omega * 0.9  # near yield
+
+    W_small = np.asarray(
+        _reflection_density(
+            solver_small.u, solver_small.omega, dx=1.0,
+            omega_yield=solver_small.omega_yield,
+            epsilon_yield=solver_small.epsilon_yield,
+        )
+    )
+    W_large = np.asarray(
+        _reflection_density(
+            solver_large.u, solver_large.omega, dx=1.0,
+            omega_yield=solver_large.omega_yield,
+            epsilon_yield=solver_large.epsilon_yield,
+        )
+    )
+    # Near-yield configuration should carry substantially more reflection energy.
+    # (Typical ratio ~3-4x for factor-2.25 omega amplitude scaling.)
+    assert float(W_large.sum()) > 2.0 * float(W_small.sum())
+
+
+def test_reflection_contributes_to_total_energy():
+    """Turning k_refl on from 0 to 1 must increase total energy on the
+    (2,3) ansatz (which has nonzero strain in the shell region)."""
+    solver = CosseratField3D(20, 20, 20, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=5.0, r_target=1.8)
+    solver.k_refl = 0.0
+    solver.k_op10 = 0.0
+    E_without = solver.total_energy()
+    solver.k_refl = 1.0
+    E_with = solver.total_energy()
+    assert E_with > E_without + 1e-9
+
+
+def test_hopf_density_zero_on_vacuum():
+    """omega = 0 => n_hat constant => F_ij = 0 => B = 0 => A = 0 => A.B = 0."""
+    n = 12
+    omega = np.zeros((n, n, n, 3))
+    W_hopf = np.asarray(_hopf_density(omega, dx=1.0))
+    np.testing.assert_allclose(W_hopf, 0.0, atol=1e-10)
+
+
+def test_hopf_density_nonzero_on_2_3_ansatz():
+    """(2,3) Sutcliffe-style ansatz has a genuine Hopf-invariant winding.
+    A.B should be nonzero SOMEWHERE, and its integral (mean) is finite."""
+    solver = CosseratField3D(24, 24, 24)
+    solver.initialize_electron_2_3_sector(R_target=6.0, r_target=2.0)
+    W_hopf = np.asarray(_hopf_density(solver.omega, dx=solver.dx))
+    assert np.all(np.isfinite(W_hopf))
+    # Should have nontrivial local density
+    assert np.abs(W_hopf).max() > 1e-6
+    # Integrated value should be finite (not a NaN or blown-up FFT)
+    total = float(np.sum(W_hopf))
+    assert np.isfinite(total)
+
+
+def test_hopf_contributes_to_total_energy():
+    """Turning k_hopf on from 0 must change total energy (the (2,3) ansatz
+    carries a nontrivial Hopf invariant, so A.B integral is nonzero)."""
+    solver = CosseratField3D(20, 20, 20, use_saturation=True)
+    solver.initialize_electron_2_3_sector(R_target=5.0, r_target=1.8)
+    # Isolate Hopf contribution.
+    solver.k_op10 = 0.0
+    solver.k_refl = 0.0
+    solver.k_hopf = 0.0
+    E_without = solver.total_energy()
+    solver.k_hopf = np.pi / 3.0
+    E_with = solver.total_energy()
+    assert abs(E_with - E_without) > 1e-6
+
+
+def test_reflection_gradient_matches_finite_difference():
+    """FD consistency check on the reflection term alone (Op10 and Cosserat
+    terms disabled, only reflection active). Tolerance is looser than the
+    strict saturation test because 1/S^2 has sharp curvature."""
+    solver = CosseratField3D(12, 12, 12, use_saturation=False)
+    solver.initialize_electron_2_3_sector(R_target=3.0, r_target=1.2)
+    # Scale omega down to keep S well away from 0 so 1/S^2 is well-conditioned.
+    solver.omega = solver.omega * 0.3
+    # Isolate reflection: disable every other term.
+    solver.G = 0.0
+    solver.G_c = 0.0
+    solver.gamma = 0.0
+    solver.k_op10 = 0.0
+    solver.k_refl = 1.0
+
+    dE_du, dE_dw = solver.energy_gradient()
+
+    omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
+    candidates = np.argwhere(solver.mask_A & (omega_mag > 0.1))
+    assert len(candidates) > 5
+
+    h = 1e-5
+    for site in candidates[:2]:
+        ix, iy, iz = site
+        for k in range(3):
+            saved = solver.omega[ix, iy, iz, k]
+            solver.omega[ix, iy, iz, k] = saved + h
+            E_plus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved - h
+            E_minus = solver.total_energy()
+            solver.omega[ix, iy, iz, k] = saved
+            fd = (E_plus - E_minus) / (2.0 * h)
+            analytical = float(dE_dw[ix, iy, iz, k])
+            np.testing.assert_allclose(analytical, fd, rtol=1e-3, atol=1e-4)
