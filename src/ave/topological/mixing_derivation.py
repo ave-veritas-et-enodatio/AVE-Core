@@ -17,14 +17,14 @@ Inputs (from Axioms 1-3):
 Step 1: CHIRAL SCREENING THRESHOLD
     The chiral SRS/K4 lattice acts as a high-pass filter on torsional
     mode coupling (Chapter 3, chiral dispersion: ω² = c²k² ∓ γ_c k).
-    
+
     To couple two torsional modes with crossing number difference Δc,
     the lattice must transfer Δc units of torsional angular momentum.
     Each K4 node has 3 bonds, so the maximum single-interaction transfer
     is 3 units:
-    
+
         Δc_crit = 3  (K4 connectivity = trefoil crossing number)
-    
+
     Modes with Δc ≤ 3: compliance channel OPEN  (bulk coupling)
     Modes with Δc > 3:  compliance channel SCREENED  (evanescent)
 
@@ -32,28 +32,28 @@ Step 2: REGIME BOUNDARY EIGENVALUES IN MODE SPACE
     Apply the same 5-step regime-boundary eigenvalue method used for
     black hole QNMs, atomic orbitals, and protein bond angles — but
     in crossing-number space instead of physical space.
-    
+
     The eigenvalue ratio at each boundary:
         ω = ℓ · c / r_eff   →   sin²θ = Δc / c_mode
-    
+
     Three distinct regime boundary conditions:
-    
+
     (a) COMPLIANCE REGIME (ν₁↔ν₂, Δc=2 < 3):
         sin²θ₁₂ = Δc/c₂ = 2/7  (= ν_vac — the compliance eigenvalue)
         The spacing-to-mode ratio IS the Poisson ratio.  This is
         not coincidence: the crossing numbers 5,7,9 are spaced by
         exactly Δc=2 BECAUSE the lattice compliance is 2/7.
-    
+
     (b) IMPEDANCE-MATCHED REGIME (ν₂↔ν₃, c₂ = midpoint):
         c₂ = (c₁+c₃)/2 = 7  (arithmetic mean of boundary modes)
         At the midpoint: Z_left = Z_right → Γ = 0 → power splits 50/50:
         sin²θ₂₃ = 1/2  (maximal mixing at impedance-matched boundary)
-    
+
     (c) SCREENED REGIME (ν₁↔ν₃, Δc=4 > 3):
         Compliance channel is evanescent.  Only perturbative junction
         coupling survives:
         sin²θ₁₃ = 1/(c₁·c₃) = 1/45
-        
+
         Physical mechanism: coupling requires leaving at one of c₁'s
         crossings AND entering at one of c₃'s crossings.  Normalized
         by the total junction pair count: c₁×c₃ = 45.  This is the
@@ -62,20 +62,20 @@ Step 2: REGIME BOUNDARY EIGENVALUES IN MODE SPACE
 Step 3: PERTURBATIVE JUNCTION CORRECTIONS
     The perturbative junction coupling 1/(c₁c₃) = 1/45 adds to
     each mixing angle as an evanescent tail:
-    
+
         sin²θ₁₂ = ν_vac + 1/(c₁c₃)  = 2/7 + 1/45  = 97/315
         sin²θ₂₃ = 1/2   + 2/(c₁c₃)  = 1/2 + 2/45  = 49/90
         sin²θ₁₃ =         1/(c₁c₃)  =       1/45
-    
+
     The factor of 2 in θ₂₃ arises because the middle mode (c₂=7)
     has TWO adjacent junction paths (toward c₁ and toward c₃).
 
 Step 4: CP PHASE
     The CP-violating phase accumulates three contributions as the
     torsional mode propagates through the chiral K4 lattice:
-    
+
         δ_CP = (1 + 1/3 + 1/45) π = 61π/45
-    
+
     (a) 1·π:   Base torsional half-turn (unknot 0₁ phase winding)
     (b) π/3:   One K4 bond's share of the chirality (3-connected lattice).
                Equivalently, 1/c_trefoil: the trefoil has c=3 crossings
@@ -85,7 +85,7 @@ Step 4: CP PHASE
 Step 5: CKM MATRIX (Scale Invariance)
     The CKM mixing matrix follows the same mechanism at the quark scale,
     with the Wolfenstein parameterization:
-    
+
         λ  = sin²θ_W  = 2/9    (compliance eigenvalue at the EW scale)
         A  = cosθ_W    = √(7/9) (complementary sector)
         √(ρ²+η²) = 1/√7        (single-mode amplitude on 7-mode manifold)
@@ -96,18 +96,21 @@ constants.py : NU_VAC, SIN2_THETA_W, ALPHA_S
 cosserat.py  : COS_THETA_W, CROSSING_NUMBERS_NEUTRINO
 yang_mills.py: torus_knot_gauge_rank(), gauge_topology_table()
 """
-from __future__ import annotations
 
-
-import numpy as np
 from math import pi, sqrt
 
-from ave.core.constants import (
-    NU_VAC, SIN2_THETA_W, ALPHA, ALPHA_S,
-    SIN2_THETA_13, SIN2_THETA_12, SIN2_THETA_23, DELTA_CP_PMNS,
-    LAMBDA_CKM, A_CKM, RHO_ETA_MAG, V_US, V_CB, V_UB,
-)
+import numpy as np
 
+from ave.core.constants import (
+    A_CKM,
+    DELTA_CP_PMNS,
+    LAMBDA_CKM,
+    RHO_ETA_MAG,
+    SIN2_THETA_12,
+    SIN2_THETA_13,
+    SIN2_THETA_23,
+    SIN2_THETA_W,
+)
 
 # ═══════════════════════════════════════════════════════════════════
 # TORUS KNOT MODE SPACE (Axiom 1)
@@ -128,6 +131,7 @@ DELTA_C_CRIT: int = K4_CONNECTIVITY  # = 3
 # ═══════════════════════════════════════════════════════════════════
 # STEP 1: CHIRAL SCREENING
 # ═══════════════════════════════════════════════════════════════════
+
 
 def is_chirally_screened(c_i: int, c_j: int) -> bool:
     r"""
@@ -157,6 +161,7 @@ def is_chirally_screened(c_i: int, c_j: int) -> bool:
 # ═══════════════════════════════════════════════════════════════════
 # STEP 2: REGIME BOUNDARY EIGENVALUES
 # ═══════════════════════════════════════════════════════════════════
+
 
 def compliance_eigenvalue(c_i: int, c_j: int) -> float:
     r"""
@@ -243,17 +248,18 @@ def junction_multiplicity(i: int, j: int) -> int:
     """
     i, j = sorted([i, j])
     if i == 0 and j == 2:
-        return 1   # 1↔3: single boundary path
+        return 1  # 1↔3: single boundary path
     if i == 0 and j == 1:
-        return 1   # 1↔2: single adjacent path
+        return 1  # 1↔2: single adjacent path
     if i == 1 and j == 2:
-        return 2   # 2↔3: middle mode has 2 adjacent paths
+        return 2  # 2↔3: middle mode has 2 adjacent paths
     return 1
 
 
 # ═══════════════════════════════════════════════════════════════════
 # STEP 3: FULL PMNS MIXING ANGLES
 # ═══════════════════════════════════════════════════════════════════
+
 
 def derive_pmns_angles() -> dict:
     r"""
@@ -300,41 +306,40 @@ def derive_pmns_angles() -> dict:
     #   π:    unknot base (0₁ half-turn)
     #   π/3:  one K4 bond's chirality share (3-connected lattice)
     #   π/45: boundary junction phase (1/(c₁c₃))
-    delta_cp = (1.0 + 1.0/K4_CONNECTIVITY + Y_junc) * pi
+    delta_cp = (1.0 + 1.0 / K4_CONNECTIVITY + Y_junc) * pi
     # = (1 + 1/3 + 1/45)π = 61π/45 ≈ 4.259 rad
 
     # NuFIT 5.2 comparison values
     nufit = {
-        'sin2_13': 0.02200,
-        'sin2_12': 0.307,
-        'sin2_23': 0.546,
-        'delta_cp_over_pi': 1.36,
+        "sin2_13": 0.02200,
+        "sin2_12": 0.307,
+        "sin2_23": 0.546,
+        "delta_cp_over_pi": 1.36,
     }
 
     results = {
-        'sin2_theta_13': sin2_13,
-        'sin2_theta_12': sin2_12,
-        'sin2_theta_23': sin2_23,
-        'delta_cp_rad': delta_cp,
-        'delta_cp_over_pi': delta_cp / pi,
+        "sin2_theta_13": sin2_13,
+        "sin2_theta_12": sin2_12,
+        "sin2_theta_23": sin2_23,
+        "delta_cp_rad": delta_cp,
+        "delta_cp_over_pi": delta_cp / pi,
         # Error analysis
-        'err_theta_13': abs(sin2_13 - nufit['sin2_13']) / nufit['sin2_13'],
-        'err_theta_12': abs(sin2_12 - nufit['sin2_12']) / nufit['sin2_12'],
-        'err_theta_23': abs(sin2_23 - nufit['sin2_23']) / nufit['sin2_23'],
-        'err_delta_cp': abs(delta_cp/pi - nufit['delta_cp_over_pi'])
-                        / nufit['delta_cp_over_pi'],
+        "err_theta_13": abs(sin2_13 - nufit["sin2_13"]) / nufit["sin2_13"],
+        "err_theta_12": abs(sin2_12 - nufit["sin2_12"]) / nufit["sin2_12"],
+        "err_theta_23": abs(sin2_23 - nufit["sin2_23"]) / nufit["sin2_23"],
+        "err_delta_cp": abs(delta_cp / pi - nufit["delta_cp_over_pi"]) / nufit["delta_cp_over_pi"],
         # Derivation provenance
-        'crossing_numbers': C_NU,
-        'chiral_threshold': DELTA_C_CRIT,
-        'junction_coupling': Y_junc,
-        'compliance_12': compliance_12,
-        'compliance_23': compliance_23,
-        'compliance_13': compliance_13,
+        "crossing_numbers": C_NU,
+        "chiral_threshold": DELTA_C_CRIT,
+        "junction_coupling": Y_junc,
+        "compliance_12": compliance_12,
+        "compliance_23": compliance_23,
+        "compliance_13": compliance_13,
         # Verification against constants.py
-        'matches_constants_13': abs(sin2_13 - SIN2_THETA_13) < 1e-15,
-        'matches_constants_12': abs(sin2_12 - SIN2_THETA_12) < 1e-12,
-        'matches_constants_23': abs(sin2_23 - SIN2_THETA_23) < 1e-12,
-        'matches_constants_cp': abs(delta_cp - DELTA_CP_PMNS) < 1e-12,
+        "matches_constants_13": abs(sin2_13 - SIN2_THETA_13) < 1e-15,
+        "matches_constants_12": abs(sin2_12 - SIN2_THETA_12) < 1e-12,
+        "matches_constants_23": abs(sin2_23 - SIN2_THETA_23) < 1e-12,
+        "matches_constants_cp": abs(delta_cp - DELTA_CP_PMNS) < 1e-12,
     }
 
     return results
@@ -343,6 +348,7 @@ def derive_pmns_angles() -> dict:
 # ═══════════════════════════════════════════════════════════════════
 # STEP 5: FULL CKM MATRIX VERIFICATION
 # ═══════════════════════════════════════════════════════════════════
+
 
 def derive_ckm_params() -> dict:
     r"""
@@ -361,46 +367,47 @@ def derive_ckm_params() -> dict:
     Returns:
         Dictionary with CKM parameters and PDG comparison.
     """
-    lambda_w = SIN2_THETA_W         # = 2/9
+    lambda_w = SIN2_THETA_W  # = 2/9
     A_w = sqrt(1.0 - SIN2_THETA_W)  # = √(7/9)
-    rho_eta = 1.0 / sqrt(7.0)       # = 1/√7
+    rho_eta = 1.0 / sqrt(7.0)  # = 1/√7
 
     V_us = lambda_w
     V_cb = A_w * lambda_w**2
     V_ub = A_w * lambda_w**3 * rho_eta
 
     pdg = {
-        'lambda': 0.22535,
-        'A': 0.814,
-        'rho_eta': 0.373,
-        'V_us': 0.22535,
-        'V_cb': 0.04182,
-        'V_ub': 0.003650,
+        "lambda": 0.22535,
+        "A": 0.814,
+        "rho_eta": 0.373,
+        "V_us": 0.22535,
+        "V_cb": 0.04182,
+        "V_ub": 0.003650,
     }
 
     return {
-        'lambda': lambda_w,
-        'A': A_w,
-        'rho_eta': rho_eta,
-        'V_us': V_us,
-        'V_cb': V_cb,
-        'V_ub': V_ub,
-        'err_lambda': abs(lambda_w - pdg['lambda']) / pdg['lambda'],
-        'err_A': abs(A_w - pdg['A']) / pdg['A'],
-        'err_rho_eta': abs(rho_eta - pdg['rho_eta']) / pdg['rho_eta'],
-        'err_V_us': abs(V_us - pdg['V_us']) / pdg['V_us'],
-        'err_V_cb': abs(V_cb - pdg['V_cb']) / pdg['V_cb'],
-        'err_V_ub': abs(V_ub - pdg['V_ub']) / pdg['V_ub'],
+        "lambda": lambda_w,
+        "A": A_w,
+        "rho_eta": rho_eta,
+        "V_us": V_us,
+        "V_cb": V_cb,
+        "V_ub": V_ub,
+        "err_lambda": abs(lambda_w - pdg["lambda"]) / pdg["lambda"],
+        "err_A": abs(A_w - pdg["A"]) / pdg["A"],
+        "err_rho_eta": abs(rho_eta - pdg["rho_eta"]) / pdg["rho_eta"],
+        "err_V_us": abs(V_us - pdg["V_us"]) / pdg["V_us"],
+        "err_V_cb": abs(V_cb - pdg["V_cb"]) / pdg["V_cb"],
+        "err_V_ub": abs(V_ub - pdg["V_ub"]) / pdg["V_ub"],
         # Verification against constants.py
-        'matches_lambda': abs(lambda_w - LAMBDA_CKM) < 1e-15,
-        'matches_A': abs(A_w - A_CKM) < 1e-12,
-        'matches_rho_eta': abs(rho_eta - RHO_ETA_MAG) < 1e-12,
+        "matches_lambda": abs(lambda_w - LAMBDA_CKM) < 1e-15,
+        "matches_A": abs(A_w - A_CKM) < 1e-12,
+        "matches_rho_eta": abs(rho_eta - RHO_ETA_MAG) < 1e-12,
     }
 
 
 # ═══════════════════════════════════════════════════════════════════
 # FULL 3×3 PMNS MATRIX CONSTRUCTION
 # ═══════════════════════════════════════════════════════════════════
+
 
 def pmns_matrix() -> np.ndarray:
     r"""
@@ -417,22 +424,31 @@ def pmns_matrix() -> np.ndarray:
     """
     params = derive_pmns_angles()
 
-    s13 = sqrt(params['sin2_theta_13'])
-    c13 = sqrt(1 - params['sin2_theta_13'])
-    s12 = sqrt(params['sin2_theta_12'])
-    c12 = sqrt(1 - params['sin2_theta_12'])
-    s23 = sqrt(params['sin2_theta_23'])
-    c23 = sqrt(1 - params['sin2_theta_23'])
-    delta = params['delta_cp_rad']
+    s13 = sqrt(params["sin2_theta_13"])
+    c13 = sqrt(1 - params["sin2_theta_13"])
+    s12 = sqrt(params["sin2_theta_12"])
+    c12 = sqrt(1 - params["sin2_theta_12"])
+    s23 = sqrt(params["sin2_theta_23"])
+    c23 = sqrt(1 - params["sin2_theta_23"])
+    delta = params["delta_cp_rad"]
 
     # Standard PDG parameterization
-    U = np.array([
-        [c12*c13,                    s12*c13,                   s13*np.exp(-1j*delta)],
-        [-s12*c23 - c12*s23*s13*np.exp(1j*delta),
-         c12*c23 - s12*s23*s13*np.exp(1j*delta),  s23*c13],
-        [s12*s23 - c12*c23*s13*np.exp(1j*delta),
-         -c12*s23 - s12*c23*s13*np.exp(1j*delta), c23*c13],
-    ], dtype=complex)
+    U = np.array(
+        [
+            [c12 * c13, s12 * c13, s13 * np.exp(-1j * delta)],
+            [
+                -s12 * c23 - c12 * s23 * s13 * np.exp(1j * delta),
+                c12 * c23 - s12 * s23 * s13 * np.exp(1j * delta),
+                s23 * c13,
+            ],
+            [
+                s12 * s23 - c12 * c23 * s13 * np.exp(1j * delta),
+                -c12 * s23 - s12 * c23 * s13 * np.exp(1j * delta),
+                c23 * c13,
+            ],
+        ],
+        dtype=complex,
+    )
 
     return U
 
@@ -457,12 +473,12 @@ def verify_unitarity() -> dict:
     J = np.imag(U[0, 0] * U[1, 1] * np.conj(U[0, 1]) * np.conj(U[1, 0]))
 
     return {
-        'U': U,
-        'UdagU': UdagU,
-        'max_deviation_from_identity': max_deviation,
-        'is_unitary': max_deviation < 1e-12,
-        'Jarlskog_invariant': J,
-        'abs_U_squared': np.abs(U)**2,
+        "U": U,
+        "UdagU": UdagU,
+        "max_deviation_from_identity": max_deviation,
+        "is_unitary": max_deviation < 1e-12,
+        "Jarlskog_invariant": J,
+        "abs_U_squared": np.abs(U) ** 2,
     }
 
 
@@ -470,7 +486,8 @@ def verify_unitarity() -> dict:
 # DIAGNOSTIC: PRINT FULL RESULTS
 # ═══════════════════════════════════════════════════════════════════
 
-def run_full_derivation():
+
+def run_full_derivation() -> None:
     """Print the complete PMNS and CKM derivation results."""
 
     print("=" * 70)
@@ -481,26 +498,21 @@ def run_full_derivation():
 
     print(f"\nCrossing numbers: c₁={C_NU[0]}, c₂={C_NU[1]}, c₃={C_NU[2]}")
     print(f"Chiral screening threshold: Δc_crit = {DELTA_C_CRIT}")
-    print(f"Junction coupling: 1/(c₁c₃) = 1/{C_NU[0]*C_NU[2]} "
-          f"= {pmns['junction_coupling']:.5f}")
+    print(f"Junction coupling: 1/(c₁c₃) = 1/{C_NU[0]*C_NU[2]} " f"= {pmns['junction_coupling']:.5f}")
 
-    print(f"\nν₁↔ν₃ (Δc={C_NU[2]-C_NU[0]} > {DELTA_C_CRIT}): "
-          f"SCREENED — compliance = {pmns['compliance_13']}")
-    print(f"ν₁↔ν₂ (Δc={C_NU[1]-C_NU[0]} ≤ {DELTA_C_CRIT}): "
-          f"OPEN — compliance = {pmns['compliance_12']:.5f} = ν_vac")
-    print(f"ν₂↔ν₃ (Δc={C_NU[2]-C_NU[1]} ≤ {DELTA_C_CRIT}): "
-          f"OPEN — compliance = {pmns['compliance_23']:.1f} = midpoint match")
+    print(f"\nν₁↔ν₃ (Δc={C_NU[2]-C_NU[0]} > {DELTA_C_CRIT}): " f"SCREENED — compliance = {pmns['compliance_13']}")
+    print(f"ν₁↔ν₂ (Δc={C_NU[1]-C_NU[0]} ≤ {DELTA_C_CRIT}): " f"OPEN — compliance = {pmns['compliance_12']:.5f} = ν_vac")
+    print(
+        f"ν₂↔ν₃ (Δc={C_NU[2]-C_NU[1]} ≤ {DELTA_C_CRIT}): "
+        f"OPEN — compliance = {pmns['compliance_23']:.1f} = midpoint match"
+    )
 
     print(f"\n{'Parameter':<20} {'AVE':>10} {'NuFIT 5.2':>10} {'Error':>8}")
     print("-" * 50)
-    print(f"{'sin²θ₁₃':<20} {pmns['sin2_theta_13']:>10.5f} "
-          f"{'0.02200':>10} {pmns['err_theta_13']:>7.1%}")
-    print(f"{'sin²θ₁₂':<20} {pmns['sin2_theta_12']:>10.5f} "
-          f"{'0.307':>10} {pmns['err_theta_12']:>7.1%}")
-    print(f"{'sin²θ₂₃':<20} {pmns['sin2_theta_23']:>10.5f} "
-          f"{'0.546':>10} {pmns['err_theta_23']:>7.1%}")
-    print(f"{'δ_CP/π':<20} {pmns['delta_cp_over_pi']:>10.4f} "
-          f"{'1.36':>10} {pmns['err_delta_cp']:>7.1%}")
+    print(f"{'sin²θ₁₃':<20} {pmns['sin2_theta_13']:>10.5f} " f"{'0.02200':>10} {pmns['err_theta_13']:>7.1%}")
+    print(f"{'sin²θ₁₂':<20} {pmns['sin2_theta_12']:>10.5f} " f"{'0.307':>10} {pmns['err_theta_12']:>7.1%}")
+    print(f"{'sin²θ₂₃':<20} {pmns['sin2_theta_23']:>10.5f} " f"{'0.546':>10} {pmns['err_theta_23']:>7.1%}")
+    print(f"{'δ_CP/π':<20} {pmns['delta_cp_over_pi']:>10.4f} " f"{'1.36':>10} {pmns['err_delta_cp']:>7.1%}")
 
     # Unitarity check
     print("\n" + "=" * 70)
@@ -513,12 +525,11 @@ def run_full_derivation():
     print(f"Jarlskog invariant J = {unit['Jarlskog_invariant']:.6f}")
 
     print("\n|U|² matrix:")
-    absU2 = unit['abs_U_squared']
-    labels = ['e', 'μ', 'τ']
+    absU2 = unit["abs_U_squared"]
+    labels = ["e", "μ", "τ"]
     print(f"{'':>6} {'ν₁':>8} {'ν₂':>8} {'ν₃':>8}")
     for i, l in enumerate(labels):
-        print(f"  {l:>3}  {absU2[i,0]:>8.4f} {absU2[i,1]:>8.4f} "
-              f"{absU2[i,2]:>8.4f}")
+        print(f"  {l:>3}  {absU2[i, 0]:>8.4f} {absU2[i, 1]:>8.4f} " f"{absU2[i, 2]:>8.4f}")
 
     # CKM
     print("\n" + "=" * 70)
@@ -528,17 +539,12 @@ def run_full_derivation():
     ckm = derive_ckm_params()
     print(f"\n{'Parameter':<20} {'AVE':>10} {'PDG':>10} {'Error':>8}")
     print("-" * 50)
-    print(f"{'λ (V_us)':<20} {ckm['lambda']:>10.5f} "
-          f"{'0.22535':>10} {ckm['err_lambda']:>7.1%}")
-    print(f"{'A':<20} {ckm['A']:>10.5f} "
-          f"{'0.814':>10} {ckm['err_A']:>7.1%}")
-    print(f"{'√(ρ²+η²)':<20} {ckm['rho_eta']:>10.5f} "
-          f"{'0.373':>10} {ckm['err_rho_eta']:>7.1%}")
-    print(f"{'V_cb':<20} {ckm['V_cb']:>10.5f} "
-          f"{'0.04182':>10} {ckm['err_V_cb']:>7.1%}")
-    print(f"{'V_ub':<20} {ckm['V_ub']:>10.6f} "
-          f"{'0.003650':>10} {ckm['err_V_ub']:>7.1%}")
+    print(f"{'λ (V_us)':<20} {ckm['lambda']:>10.5f} " f"{'0.22535':>10} {ckm['err_lambda']:>7.1%}")
+    print(f"{'A':<20} {ckm['A']:>10.5f} " f"{'0.814':>10} {ckm['err_A']:>7.1%}")
+    print(f"{'√(ρ²+η²)':<20} {ckm['rho_eta']:>10.5f} " f"{'0.373':>10} {ckm['err_rho_eta']:>7.1%}")
+    print(f"{'V_cb':<20} {ckm['V_cb']:>10.5f} " f"{'0.04182':>10} {ckm['err_V_cb']:>7.1%}")
+    print(f"{'V_ub':<20} {ckm['V_ub']:>10.6f} " f"{'0.003650':>10} {ckm['err_V_ub']:>7.1%}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_full_derivation()

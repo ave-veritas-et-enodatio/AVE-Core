@@ -11,16 +11,13 @@ Key results (Ch. 9):
   - Refractive index:         n(r) = 1 + 2GM/(c²r)
   - Achromatic matching:      μ'/ε' scales symmetrically → Z₀ invariant
 """
-from __future__ import annotations
 
+import warnings as _warnings
 
-import numpy as np
-from ave.core.constants import G, C_0, Z_0, MU_0, EPSILON_0, NU_VAC
-from ave.axioms.scale_invariant import (
-    impedance as _impedance,
-    saturation_factor,
-    reflection_coefficient as _reflection_coefficient,
-)
+from ave.axioms.scale_invariant import impedance as _impedance
+from ave.axioms.scale_invariant import reflection_coefficient as _reflection_coefficient
+from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0, G
 
 
 def principal_radial_strain(mass_kg: float, radius_m: float) -> float:
@@ -59,8 +56,9 @@ def refractive_index(mass_kg: float, radius_m: float) -> float:
     Returns:
         Scalar refractive index (≥ 1.0 always for positive mass).
     """
-    from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
+    from ave.core.universal_operators import universal_refractive_index
+
     eps = principal_radial_strain(mass_kg, radius_m)
     return universal_refractive_index(eps, nu_vac=NU_VAC)
 
@@ -284,8 +282,6 @@ def shear_modulus_factor(mass_kg: float, radius_m: float) -> float:
 
 # ── Deprecated backward-compatible wrappers ──
 
-import warnings as _warnings
-
 
 def radial_impedance(mass_kg: float, radius_m: float) -> float:
     """
@@ -320,5 +316,3 @@ def radial_reflection_coefficient(mass_kg: float, radius_m: float) -> float:
     )
     Z_rad = Z_0 * refractive_index(mass_kg, radius_m)
     return float(_reflection_coefficient(Z_0, Z_rad))
-
-

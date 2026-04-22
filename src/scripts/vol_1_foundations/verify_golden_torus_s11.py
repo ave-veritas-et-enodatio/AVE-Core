@@ -32,13 +32,14 @@ Golden Torus to within numerical precision.
 Usage:
     python src/scripts/vol_1_foundations/verify_golden_torus_s11.py
 """
+
+from typing import Any
+
 import numpy as np
 from scipy.optimize import minimize
 
 from ave.core.constants import ALPHA_COLD_INV, Z_0
-from ave.solvers.transmission_line import (
-    abcd_segment, abcd_cascade, s11_from_abcd,
-)
+from ave.solvers.transmission_line import abcd_cascade, abcd_segment, s11_from_abcd
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 GOLDEN_R = PHI / 2.0
@@ -48,7 +49,7 @@ GOLDEN_r = (PHI - 1.0) / 2.0
 # ═══════════════════════════════════════════════════════════════════════════
 # 1. Trefoil parameterization
 # ═══════════════════════════════════════════════════════════════════════════
-def trefoil_points(R, r, n=600):
+def trefoil_points(R: float, r: float, n: int = 600) -> tuple[np.ndarray, np.ndarray]:
     """
     (2,3) torus knot parameterized by (R, r).
     Parameter t ∈ [0, 2π); traces the full closed loop once.
@@ -56,15 +57,17 @@ def trefoil_points(R, r, n=600):
     t = np.linspace(0.0, 2.0 * np.pi, n, endpoint=False)
     u = 2.0 * t
     v = 3.0 * t
-    cos_v = np.cos(v); sin_v = np.sin(v)
-    cos_u = np.cos(u); sin_u = np.sin(u)
+    cos_v = np.cos(v)
+    sin_v = np.sin(v)
+    cos_u = np.cos(u)
+    sin_u = np.sin(u)
     x = (R + r * cos_v) * cos_u
     y = (R + r * cos_v) * sin_u
     z = r * sin_v
     return np.stack([x, y, z], axis=-1), t
 
 
-def min_strand_separation(R, r, n=400):
+def min_strand_separation(R: float, r: float, n: int = 400) -> float:
     """
     Minimum non-adjacent point-to-point distance along the trefoil.
 
@@ -90,7 +93,7 @@ def min_strand_separation(R, r, n=400):
 # ═══════════════════════════════════════════════════════════════════════════
 # 2. Local characteristic impedance along the trefoil
 # ═══════════════════════════════════════════════════════════════════════════
-def local_impedance(R, r, n=200):
+def local_impedance(R: float, r: float, n: int = 200) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Characteristic impedance Z_c(s) along the trefoil.
 
@@ -128,7 +131,7 @@ def local_impedance(R, r, n=200):
 # ═══════════════════════════════════════════════════════════════════════════
 # 3. Closed-loop S₁₁ via ABCD cascade
 # ═══════════════════════════════════════════════════════════════════════════
-def trefoil_s11(R, r, n=200, omega_over_c=2.0 * np.pi):
+def trefoil_s11(R: float, r: float, n: int = 200, omega_over_c: float = 2.0 * np.pi) -> float:
     """
     Total S₁₁ of the closed-loop trefoil via ABCD cascade.
 
@@ -155,7 +158,7 @@ def trefoil_s11(R, r, n=200, omega_over_c=2.0 * np.pi):
 # ═══════════════════════════════════════════════════════════════════════════
 # 4. Verification runs
 # ═══════════════════════════════════════════════════════════════════════════
-def verify_self_avoidance():
+def verify_self_avoidance() -> None:
     """
     Demonstrate that minimum strand separation = 1 (tube diameter)
     occurs precisely at R - r = 1/2.
@@ -171,19 +174,18 @@ def verify_self_avoidance():
         sep = min_strand_separation(R_test, r_test)
         ok = "yes" if sep >= 1.0 - 1e-3 else "no"
         marker = "  ← Golden" if np.isclose(R_test, GOLDEN_R, atol=0.01) else ""
-        print(f"  {R_test:8.4f}  {r_test:8.4f}  {R_test - r_test:8.4f}  "
-              f"{sep:10.4f}  {ok:>8}{marker}")
+        print(f"  {R_test:8.4f}  {r_test:8.4f}  {R_test - r_test:8.4f}  " f"{sep:10.4f}  {ok:>8}{marker}")
     print()
     # Confirm at Golden Torus
     sep_golden = min_strand_separation(GOLDEN_R, GOLDEN_r)
-    print(f"  At Golden Torus (R=φ/2, r=(φ-1)/2):")
+    print("  At Golden Torus (R=φ/2, r=(φ-1)/2):")
     print(f"    R − r = {GOLDEN_R - GOLDEN_r:.6f}  (expected 0.5)")
     print(f"    R · r = {GOLDEN_R * GOLDEN_r:.6f}  (expected 0.25)")
     print(f"    min strand separation = {sep_golden:.6f}  (expected ≥ 1)")
     print()
 
 
-def verify_s11_minimum():
+def verify_s11_minimum() -> tuple[Any, float, float]:
     """
     Minimize |S₁₁|² over (R, r) subject to the self-avoidance constraint.
     The minimum should land at the Golden Torus.
@@ -192,19 +194,21 @@ def verify_s11_minimum():
     print("  (2) S₁₁-min: verifying |S₁₁|² minimum → Golden Torus (R·r = 1/4)")
     print("─" * 72)
 
-    def objective(params):
+    def objective(params: np.ndarray) -> float:
         R, r = params
         # Hard constraint: R - r ≥ 1/2 (self-avoidance); penalize violation
         gap = (R - r) - 0.5
-        penalty = 0.0 if gap >= -1e-6 else 1e4 * (0.5 - (R - r))**2
+        penalty = 0.0 if gap >= -1e-6 else 1e4 * (0.5 - (R - r)) ** 2
         s11 = trefoil_s11(R, r, n=120)
         return s11**2 + penalty
 
     # Start well away from Golden Torus to avoid trivial convergence
     x0 = np.array([1.0, 0.2])
     result = minimize(
-        objective, x0, method='Nelder-Mead',
-        options={'xatol': 1e-5, 'fatol': 1e-10, 'maxiter': 2000},
+        objective,
+        x0,
+        method="Nelder-Mead",
+        options={"xatol": 1e-5, "fatol": 1e-10, "maxiter": 2000},
     )
     R_found, r_found = result.x
     deviation_R = abs(R_found - GOLDEN_R) / GOLDEN_R * 100
@@ -228,8 +232,7 @@ def verify_s11_minimum():
     alpha_inv_found = Lambda_vol + Lambda_surf + Lambda_line
     print(f"  Multipole at S₁₁-min:  α⁻¹ = {alpha_inv_found:.6f}")
     print(f"  ALPHA_COLD_INV (engine): {ALPHA_COLD_INV:.6f}")
-    print(f"  Relative deviation:      "
-          f"{abs(alpha_inv_found - ALPHA_COLD_INV) / ALPHA_COLD_INV:.3e}")
+    print(f"  Relative deviation:      " f"{abs(alpha_inv_found - ALPHA_COLD_INV) / ALPHA_COLD_INV:.3e}")
     print()
 
     # Caveat: the specific Z_c(κ) physical model in this script is dimensional
@@ -268,20 +271,20 @@ if __name__ == "__main__":
     print("    ✓ Multipole sum 4π³ + π² + π = 137.0363038 matches ALPHA_COLD_INV")
     print()
     print("  SIMPLIFIED ABCD S₁₁-MIN (this script):")
-    print(f"    • Infrastructure (ABCD cascade, S₁₁ computation, optimization) operational")
-    print(f"    • With the illustrative Z_c(s) = Z₀·√κ·ℓ_node impedance model in this")
-    print(f"      script alone, the minimum lands on a degenerate configuration —")
-    print(f"      the standard (u=2t, v=3t) torus-knot parameterization is not the")
-    print(f"      ropelength-minimum tight trefoil.")
+    print("    • Infrastructure (ABCD cascade, S₁₁ computation, optimization) operational")
+    print("    • With the illustrative Z_c(s) = Z₀·√κ·ℓ_node impedance model in this")
+    print("      script alone, the minimum lands on a degenerate configuration —")
+    print("      the standard (u=2t, v=3t) torus-knot parameterization is not the")
+    print("      ropelength-minimum tight trefoil.")
     print()
     print("  FULL NUMERICAL VERIFICATION (companion script):")
-    print(f"    → See `ropelength_trefoil_golden_torus.py` in this directory.")
-    print(f"    • Minimizes arc length + self-avoidance + holomorphic screening")
-    print(f"      (composite S₁₁-min free energy)")
-    print(f"    • Converges to (R, r) = (φ/2, (φ-1)/2) = (0.809017, 0.309017) to 7")
-    print(f"      decimal places from arbitrary starting point.")
-    print(f"    • R − r = 1/2 and R · r = 1/4 both exact at the optimum.")
-    print(f"    • Multipole at optimum reproduces α⁻¹ = 4π³ + π² + π = 137.0363038.")
+    print("    → See `ropelength_trefoil_golden_torus.py` in this directory.")
+    print("    • Minimizes arc length + self-avoidance + holomorphic screening")
+    print("      (composite S₁₁-min free energy)")
+    print("    • Converges to (R, r) = (φ/2, (φ-1)/2) = (0.809017, 0.309017) to 7")
+    print("      decimal places from arbitrary starting point.")
+    print("    • R − r = 1/2 and R · r = 1/4 both exact at the optimum.")
+    print("    • Multipole at optimum reproduces α⁻¹ = 4π³ + π² + π = 137.0363038.")
     print()
     print("  CONCLUSION: α derivation from Golden Torus is verified end-to-end —")
     print("  algebraically (this script) AND numerically (companion ropelength script).")

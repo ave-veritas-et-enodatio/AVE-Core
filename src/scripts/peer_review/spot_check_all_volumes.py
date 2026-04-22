@@ -7,52 +7,73 @@ and compare against manuscript-stated values. Each volume has 3-4 checks.
 
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_all_volumes.py
 """
-import sys
-sys.path.insert(0, "src")
+
+from math import pi
 
 import numpy as np
-from math import pi
 
 # ── Import ALL engine constants ──────────────────────────────────
 from ave.core.constants import (
-    ALPHA, L_NODE, A_0, RY_EV, XI_TOPO, M_E, C_0, HBAR, e_charge,
-    Z_0, G, H_INFINITY, NU_VAC, V_YIELD, V_SNAP, P_C,
-    SIN2_THETA_W, PROTON_ELECTRON_RATIO,
-    D_PROTON, K_MUTUAL, D_INTRA_ALPHA, HBAR_C_MEV_FM,
-    M_P_MEV_TARGET, M_N_MEV_TARGET,
-    B_DEUTERON_PREDICTED, ALPHA_S,
-    K_B, N_PHI_PACK, N_VOID_FRAC, E_YIELD_KINETIC,
-    M_W_MEV, M_Z_MEV, M_HIGGS_MEV,
-    V_US, V_CB, V_UB,
-    SIN2_THETA_13, SIN2_THETA_12, SIN2_THETA_23,
-    BARYON_LADDER, KAPPA_FS_COLD,
+    A_0,
+    ALPHA,
+    ALPHA_S,
+    B_DEUTERON_PREDICTED,
+    C_0,
+    D_INTRA_ALPHA,
+    D_PROTON,
+    E_YIELD_KINETIC,
+    H_INFINITY,
+    HBAR,
+    HBAR_C_MEV_FM,
+    K_MUTUAL,
+    KAPPA_FS_COLD,
+    L_NODE,
+    M_HIGGS_MEV,
+    M_W_MEV,
+    M_Z_MEV,
+    N_PHI_PACK,
+    N_VOID_FRAC,
+    NU_VAC,
+    P_C,
+    PROTON_ELECTRON_RATIO,
+    RY_EV,
+    SIN2_THETA_12,
+    SIN2_THETA_13,
+    SIN2_THETA_23,
+    SIN2_THETA_W,
+    V_CB,
+    V_SNAP,
+    V_US,
+    V_YIELD,
+    XI_TOPO,
+    Z_0,
+    e_charge,
 )
 
 # ═════════════════════════════════════════════════════════════════
 # COMPLIANCE TABLE HELPERS
 # ═════════════════════════════════════════════════════════════════
 
-def check(name, manuscript, engine, tol_pct=1.0, unit=""):
+
+def check(name: str, manuscript: float, engine: float, tol_pct: float = 1.0, unit: str = "") -> tuple[bool, str]:
     """Compare manuscript vs engine value. Returns (pass, row_string)."""
     if engine == 0 and manuscript == 0:
         delta_pct = 0.0
     elif engine == 0:
-        delta_pct = float('inf')
+        delta_pct = float("inf")
     else:
         delta_pct = abs(engine - manuscript) / abs(manuscript) * 100.0
     passed = delta_pct <= tol_pct
     mark = "✅" if passed else "❌"
-    return passed, (f"  {name:<40s} {manuscript:>16.6g} {engine:>16.6g} "
-                     f"{delta_pct:>8.4f}% {mark}  {unit}")
+    return passed, (f"  {name:<40s} {manuscript:>16.6g} {engine:>16.6g} " f"{delta_pct:>8.4f}% {mark}  {unit}")
 
 
-def print_volume(vol_name, checks):
+def print_volume(vol_name: str, checks: list[tuple[bool, str]]) -> bool:
     """Print a compliance table for a volume."""
     print(f"\n{'='*100}")
     print(f"  {vol_name}")
     print(f"{'='*100}")
-    print(f"  {'Constant':<40s} {'Manuscript':>16s} {'Engine':>16s} "
-          f"{'Δ%':>9s} {'OK':>3s}  {'Unit'}")
+    print(f"  {'Constant':<40s} {'Manuscript':>16s} {'Engine':>16s} " f"{'Δ%':>9s} {'OK':>3s}  {'Unit'}")
     print(f"  {'-'*95}")
     all_pass = True
     for p, row in checks:
@@ -68,14 +89,13 @@ def print_volume(vol_name, checks):
 # ═════════════════════════════════════════════════════════════════
 
 vol1_checks = [
-    check("α⁻¹ (fine structure inverse)", 137.036, 1.0/ALPHA, unit=""),
+    check("α⁻¹ (fine structure inverse)", 137.036, 1.0 / ALPHA, unit=""),
     check("ℓ_node (lattice pitch)", 3.8616e-13, L_NODE, unit="m"),
     check("a₀ (Bohr radius = ℓ/α)", 5.2918e-11, A_0, unit="m"),
     check("Z₀ (vacuum impedance)", 376.730, Z_0, unit="Ω"),
     check("H∞ (asymptotic Hubble)", 2.33e-18, H_INFINITY, tol_pct=5.0, unit="s⁻¹"),
-    check("a₀_MOND = cH∞/(2π)", 1.11e-10,
-          C_0 * H_INFINITY / (2*pi), tol_pct=5.0, unit="m/s²"),
-    check("ν_vac (Poisson ratio)", 2.0/7.0, NU_VAC, unit=""),
+    check("a₀_MOND = cH∞/(2π)", 1.11e-10, C_0 * H_INFINITY / (2 * pi), tol_pct=5.0, unit="m/s²"),
+    check("ν_vac (Poisson ratio)", 2.0 / 7.0, NU_VAC, unit=""),
     check("P_c (critical packing)", 0.1834, P_C, unit=""),
 ]
 
@@ -104,14 +124,13 @@ vol2_checks = [
 
 # Schwarzschild refractive index at r = 10 r_s
 r_rs = 10.0
-n_schwarzschild = 1.0 / (1.0 - 1.0/r_rs)**0.5
+n_schwarzschild = 1.0 / (1.0 - 1.0 / r_rs) ** 0.5
 
 vol3_checks = [
     check("n(r) Schwarzschild at r=10rₛ", 1.0541, n_schwarzschild, unit=""),
-    check("a₀_MOND = cH∞/(2π)", 1.11e-10,
-          C_0 * H_INFINITY / (2*pi), tol_pct=5.0, unit="m/s²"),
+    check("a₀_MOND = cH∞/(2π)", 1.11e-10, C_0 * H_INFINITY / (2 * pi), tol_pct=5.0, unit="m/s²"),
     check("ν_vac (Poisson = 2/7)", 0.28571, NU_VAC, unit=""),
-    check("AVALANCHE_N_3D (38/21)", 38.0/21.0, 2.0*(1.0 - NU_VAC/3.0), unit=""),
+    check("AVALANCHE_N_3D (38/21)", 38.0 / 21.0, 2.0 * (1.0 - NU_VAC / 3.0), unit=""),
 ]
 
 # ═════════════════════════════════════════════════════════════════
@@ -133,8 +152,7 @@ v_snap_kv = V_SNAP / 1e3
 vol4_checks = [
     check("V_yield", 43.652, v_yield_kv, tol_pct=0.1, unit="kV"),
     check("V_snap = m_e c²/e", 511.0, v_snap_kv, tol_pct=0.1, unit="kV"),
-    check("E_yield = √α × m_e c²", 43.652,
-          E_YIELD_KINETIC / e_charge / 1e3, tol_pct=0.1, unit="keV"),
+    check("E_yield = √α × m_e c²", 43.652, E_YIELD_KINETIC / e_charge / 1e3, tol_pct=0.1, unit="keV"),
     check("ξ_topo = e/ℓ_node", 4.149e-7, XI_TOPO, tol_pct=0.1, unit="C/m"),
     check("κ_FS (cold) = 8π", 25.133, KAPPA_FS_COLD, unit=""),
 ]
@@ -149,12 +167,12 @@ from ave.core.universal_operators import universal_pairwise_energy
 # Manuscript-stated Bohr radii (from MCL solver, Vol II Ch 7):
 # r_H = a₀ = 0.529 Å, r_O = 2a₀/Z_eff_O where Z_eff_O from MCL
 # For spot-check, we use the manuscript values directly:
-r_H_A = 0.529   # Å (hydrogen Bohr radius)
-r_O_A = 1.059   # Å (oxygen effective radius, from MCL)
+r_H_A = 0.529  # Å (hydrogen Bohr radius)
+r_O_A = 1.059  # Å (oxygen effective radius, from MCL)
 
 # Γ = 1/3 → K_HB = Γ² × αℏc
 ALPHA_HC_EV_A = ALPHA * HBAR * C_0 / e_charge * 1e10  # αℏc in eV·Å
-K_HB = (1.0/3.0)**2 * ALPHA_HC_EV_A  # eV·Å
+K_HB = (1.0 / 3.0) ** 2 * ALPHA_HC_EV_A  # eV·Å
 d_sat_hb = r_H_A + r_O_A  # Å (sum of atomic radii)
 
 # Use engine's actual universal_pairwise_energy() to find minimum
@@ -212,5 +230,16 @@ if all_ok:
 else:
     print("  ⚠️  GLOBAL VERDICT: FAILURES DETECTED — INVESTIGATE ❌")
 print(f"{'='*100}")
-print(f"\n  Total checks: {sum(len(c) for _, c in [('1', vol1_checks), ('2', vol2_checks), ('3', vol3_checks), ('4', vol4_checks), ('5', vol5_checks), ('6', vol6_checks)])}")
+total_checks = sum(
+    len(c)
+    for _, c in [
+        ("1", vol1_checks),
+        ("2", vol2_checks),
+        ("3", vol3_checks),
+        ("4", vol4_checks),
+        ("5", vol5_checks),
+        ("6", vol6_checks),
+    ]
+)
+print(f"\n  Total checks: {total_checks}")
 print(f"  All within stated tolerance: {'YES' if all_ok else 'NO'}")

@@ -1,4 +1,3 @@
-from __future__ import annotations
 r"""
 Scale-Invariant Resonator Analysis
 ====================================
@@ -26,15 +25,16 @@ Performance:
   JAX backend available via ``ave.solvers.transmission_line.abcd_cascade_jax``.
 """
 
+from typing import Callable
+
 import numpy as np
-from typing import Callable, Optional, Sequence, Tuple, List
 
 from ave.core.constants import EPS_DIVZERO
-
 
 # ====================================================================
 # 1.  S₁₁ frequency sweep through a graded impedance profile
 # ====================================================================
+
 
 def graded_tl_eigenvalue(
     Z_func: Callable[[float], float],
@@ -46,10 +46,10 @@ def graded_tl_eigenvalue(
     N_freq: int = 200,
     c_wave: float = 1.0,
     Z_source: float = 1.0,
-    Z_load: Optional[float] = None,
-    stub_length_func: Optional[Callable[[float], float]] = None,
+    Z_load: float | None = None,
+    stub_length_func: Callable[[float], float] | None = None,
     stub_termination: str = "open",
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[Tuple[float, float]]]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, list[tuple[float, float]]]:
     r"""
     S₁₁ frequency sweep through a graded impedance profile.
 
@@ -97,8 +97,8 @@ def graded_tl_eigenvalue(
     # ── Pre-compute shell geometry (vectorised, once) ──
     r_edges = np.linspace(r_inner, r_outer, N_shells + 1)
     r_mids = 0.5 * (r_edges[:-1] + r_edges[1:])
-    dr = np.diff(r_edges)                              # (N_shells,)
-    Z_shells = np.array([Z_func(r) for r in r_mids])   # (N_shells,)
+    dr = np.diff(r_edges)  # (N_shells,)
+    Z_shells = np.array([Z_func(r) for r in r_mids])  # (N_shells,)
 
     if Z_load is None:
         Z_load = float(Z_shells[0])
@@ -109,7 +109,7 @@ def graded_tl_eigenvalue(
         L_stubs = np.array([stub_length_func(r) for r in r_mids])
 
     # n_local for propagation constant: n = Z_shell / Z_source
-    n_local = Z_shells / Z_source                      # (N_shells,)
+    n_local = Z_shells / Z_source  # (N_shells,)
 
     # ── Frequency sweep (vectorised inner loop) ──
     freqs = np.linspace(f_min, f_max, N_freq)
@@ -125,16 +125,16 @@ def graded_tl_eigenvalue(
 
         # Propagation constants for all shells at this frequency
         # β = ω·n/c,  γℓ = jβ·dr  (lossless)
-        beta = omega * n_local / c_wave               # (N_shells,)
-        gamma_l = 1j * beta * dr                      # (N_shells,)
+        beta = omega * n_local / c_wave  # (N_shells,)
+        gamma_l = 1j * beta * dr  # (N_shells,)
 
         # NOTE: No clamping needed.  When Z_func applies Axiom 4
         # saturation, n_eff ∈ [1, ~2.8] so |γℓ| stays bounded.
         # The saturation IS the natural bound (S → 0 near horizon).
 
         # Build ABCD matrices for all segments
-        cosh_gl = np.cosh(gamma_l)                    # (N_shells,)
-        sinh_gl = np.sinh(gamma_l)                    # (N_shells,)
+        cosh_gl = np.cosh(gamma_l)  # (N_shells,)
+        sinh_gl = np.sinh(gamma_l)  # (N_shells,)
 
         # Stub ABCD matrices (if tangential mode)
         if L_stubs is not None:
@@ -204,11 +204,12 @@ def graded_tl_eigenvalue(
 # 2.  Q extraction from S₁₁ spectrum
 # ====================================================================
 
+
 def cavity_q_from_spectrum(
     freqs: np.ndarray,
     s11_power: np.ndarray,
     min_prominence: float = 0.01,
-) -> List[Tuple[float, float]]:
+) -> list[tuple[float, float]]:
     r"""
     Extract resonant modes and Q-factors from an |S₁₁(f)|² spectrum.
 
@@ -234,16 +235,18 @@ def cavity_q_from_spectrum(
         return modes
 
     for i in range(2, N - 2):
-        if not (s11_power[i] > s11_power[i - 1] and
-                s11_power[i] > s11_power[i + 1] and
-                s11_power[i] > s11_power[i - 2] and
-                s11_power[i] > s11_power[i + 2]):
+        if not (
+            s11_power[i] > s11_power[i - 1]
+            and s11_power[i] > s11_power[i + 1]
+            and s11_power[i] > s11_power[i - 2]
+            and s11_power[i] > s11_power[i + 2]
+        ):
             continue
 
         peak_val = s11_power[i]
         lo = max(0, i - 20)
         hi = min(N, i + 21)
-        local_min = min(np.min(s11_power[lo:i]), np.min(s11_power[i + 1:hi]))
+        local_min = min(np.min(s11_power[lo:i]), np.min(s11_power[i + 1 : hi]))
         if peak_val - local_min < min_prominence:
             continue
 
@@ -254,21 +257,19 @@ def cavity_q_from_spectrum(
         f_low = f0
         for j in range(i, 0, -1):
             if s11_power[j] < half_power:
-                frac = ((half_power - s11_power[j])
-                        / max(s11_power[j + 1] - s11_power[j], EPS_DIVZERO))
+                frac = (half_power - s11_power[j]) / max(s11_power[j + 1] - s11_power[j], EPS_DIVZERO)
                 f_low = freqs[j] + frac * (freqs[j + 1] - freqs[j])
                 break
 
         f_high = f0
         for j in range(i, N - 1):
             if s11_power[j] < half_power:
-                frac = ((half_power - s11_power[j])
-                        / max(s11_power[j - 1] - s11_power[j], EPS_DIVZERO))
+                frac = (half_power - s11_power[j]) / max(s11_power[j - 1] - s11_power[j], EPS_DIVZERO)
                 f_high = freqs[j] - frac * (freqs[j] - freqs[j - 1])
                 break
 
         bw = f_high - f_low
-        Q = f0 / bw if bw > 0 else float('inf')
+        Q = f0 / bw if bw > 0 else float("inf")
         modes.append((f0, Q))
 
     modes.sort(key=lambda m: m[0])
@@ -279,10 +280,11 @@ def cavity_q_from_spectrum(
 # 3.  Impulse response via IFFT
 # ====================================================================
 
+
 def impulse_response(
     freqs: np.ndarray,
     s21_spectrum: np.ndarray,
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     r"""
     Time-domain impulse response from IFFT of S₂₁(f).
 

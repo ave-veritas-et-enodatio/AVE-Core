@@ -28,25 +28,16 @@ Key identities (SYMMETRIC GRAVITY):
   There are NO black hole echoes. The event horizon is a refractive
   singularity (n → ∞, c_local → 0), not an impedance boundary.
 """
-from __future__ import annotations
-
 
 import numpy as np
-from typing import Optional
 
-from ave.core.constants import (
-    C_0, EPSILON_0, MU_0, Z_0, V_SNAP, B_SNAP, G, HBAR, L_NODE, M_SUN,
-)
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-    impedance,
-    reflection_coefficient,
-)
-
+from ave.axioms.scale_invariant import impedance, reflection_coefficient
+from ave.core.constants import C_0, EPSILON_0, L_NODE, M_SUN, MU_0, V_SNAP, Z_0, G
 
 # ═══════════════════════════════════════════════════════════════
 # Schwarzschild refractive profile — gravity as symmetric refraction
 # ═══════════════════════════════════════════════════════════════
+
 
 def schwarzschild_radius(M: float) -> float:
     r"""
@@ -64,8 +55,7 @@ def schwarzschild_radius(M: float) -> float:
     return 2 * G * M / C_0**2
 
 
-def refractive_index(r: float | np.ndarray,
-                      r_s: float) -> float | np.ndarray:
+def refractive_index(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
     Effective refractive index around a Schwarzschild mass.
 
@@ -89,9 +79,9 @@ def refractive_index(r: float | np.ndarray,
     Returns:
         Refractive index (≥ 1).
     """
-    from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
-    
+    from ave.core.universal_operators import universal_refractive_index
+
     r = np.asarray(r, dtype=float)
     ratio = np.minimum(r_s / r, 0.9999)
     # n(r) = 1 / (1 - r_s/r)
@@ -101,8 +91,7 @@ def refractive_index(r: float | np.ndarray,
     return universal_refractive_index(eps_11, nu_vac=NU_VAC)
 
 
-def epsilon_eff_schwarzschild(r: float | np.ndarray,
-                               r_s: float) -> float | np.ndarray:
+def epsilon_eff_schwarzschild(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
     Effective permittivity in a Schwarzschild gravity well.
 
@@ -122,8 +111,7 @@ def epsilon_eff_schwarzschild(r: float | np.ndarray,
     return EPSILON_0 * n
 
 
-def mu_eff_schwarzschild(r: float | np.ndarray,
-                          r_s: float) -> float | np.ndarray:
+def mu_eff_schwarzschild(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
     Effective permeability in a Schwarzschild gravity well.
 
@@ -143,8 +131,7 @@ def mu_eff_schwarzschild(r: float | np.ndarray,
     return MU_0 * n
 
 
-def gravitational_impedance(r: float | np.ndarray,
-                             r_s: float) -> float | np.ndarray:
+def gravitational_impedance(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
     Characteristic impedance at radius r in a Schwarzschild field.
 
@@ -172,8 +159,7 @@ def gravitational_impedance(r: float | np.ndarray,
     return impedance(mu, eps)
 
 
-def horizon_reflection(r: float | np.ndarray,
-                        r_s: float) -> float | np.ndarray:
+def horizon_reflection(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     r"""
     Reflection coefficient at radius r in a Schwarzschild field.
 
@@ -199,6 +185,7 @@ def horizon_reflection(r: float | np.ndarray,
 # ═══════════════════════════════════════════════════════════════
 # GW strain and propagation properties
 # ═══════════════════════════════════════════════════════════════
+
 
 def gw_strain_to_voltage(h: float, freq_hz: float = 100.0) -> float:
     r"""
@@ -258,9 +245,10 @@ def gw_local_speed(r: float, r_s: float) -> float:
 # Summary dataclass
 # ═══════════════════════════════════════════════════════════════
 
-def gw_propagation_summary(M_solar: float = 30.0,
-                            h: float = 1e-21,
-                            r_multiples: list = None) -> dict:
+
+def gw_propagation_summary(
+    M_solar: float = 30.0, h: float = 1e-21, r_multiples: list[float] | None = None
+) -> dict[str, float | bool | list[dict[str, float]]]:
     """
     Generate a summary of GW propagation properties.
 
@@ -279,24 +267,26 @@ def gw_propagation_summary(M_solar: float = 30.0,
         r_multiples = [1.01, 1.1, 2, 5, 10, 100, 1000]
 
     results = {
-        'M_kg': M,
-        'r_s_m': r_s,
-        'linear_propagation': is_linear_propagation(h),
-        'V_gw_over_V_snap': gw_strain_to_voltage(h) / V_SNAP,
-        'profiles': [],
+        "M_kg": M,
+        "r_s_m": r_s,
+        "linear_propagation": is_linear_propagation(h),
+        "V_gw_over_V_snap": gw_strain_to_voltage(h) / V_SNAP,
+        "profiles": [],
     }
 
     for mult in r_multiples:
         r = mult * r_s
-        results['profiles'].append({
-            'r_over_rs': mult,
-            'r_m': r,
-            'n_refract': float(refractive_index(r, r_s)),
-            'epsilon_eff': float(epsilon_eff_schwarzschild(r, r_s)),
-            'mu_eff': float(mu_eff_schwarzschild(r, r_s)),
-            'Z_ohm': float(gravitational_impedance(r, r_s)),
-            'gamma': float(horizon_reflection(r, r_s)),
-            'c_local': gw_local_speed(r, r_s),
-        })
+        results["profiles"].append(
+            {
+                "r_over_rs": mult,
+                "r_m": r,
+                "n_refract": float(refractive_index(r, r_s)),
+                "epsilon_eff": float(epsilon_eff_schwarzschild(r, r_s)),
+                "mu_eff": float(mu_eff_schwarzschild(r, r_s)),
+                "Z_ohm": float(gravitational_impedance(r, r_s)),
+                "gamma": float(horizon_reflection(r, r_s)),
+                "c_local": gw_local_speed(r, r_s),
+            }
+        )
 
     return results

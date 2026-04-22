@@ -27,14 +27,14 @@ Usage:
 
 import os
 import sys
-import numpy as np
+
 import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.colors import Normalize
-import matplotlib.cm as cm
+import numpy as np
+
+matplotlib.use("Agg")
+import matplotlib.cm as cm  # noqa: E402
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.animation import FuncAnimation, PillowWriter  # noqa: E402
 
 try:
     from ave.core.fdtd_3d_jax import FDTD3DEngineJAX as FDTD3DEngine
@@ -44,15 +44,16 @@ except ImportError:
 # ====================================================================
 # Parameters
 # ====================================================================
-N = 60          # Grid size (60³)
-DX = 0.01       # 1 cm per cell
-FREQ = 1.5e9    # 1.5 GHz → λ ≈ 20 cm ≈ 20 cells (nice helix pitch)
-SIGMA = 8.0     # Gaussian envelope width in cells
+N = 60  # Grid size (60³)
+DX = 0.01  # 1 cm per cell
+FREQ = 1.5e9  # 1.5 GHz → λ ≈ 20 cm ≈ 20 cells (nice helix pitch)
+SIGMA = 8.0  # Gaussian envelope width in cells
 
 TOTAL_FRAMES = 50
 STEPS_PER_FRAME = 4
 
-def main():
+
+def main() -> None:
     print("=" * 60)
     print("  AVE PHOTON: Helical Torsional Wave Visualization")
     print("=" * 60)
@@ -66,14 +67,14 @@ def main():
     print(f"  Frequency: {FREQ/1e9:.1f} GHz")
     print(f"  Wavelength: {wavelength*100:.1f} cm ({cells_per_lambda:.1f} cells)")
     print(f"  Grid: {N}³ @ {DX*100:.1f} cm/cell ({N*DX*100:.0f} cm domain)")
-    print(f"  Impedance: Z₀ = 377 Ω (perfectly matched)")
+    print("  Impedance: Z₀ = 377 Ω (perfectly matched)")
 
     # Inject a circularly polarized Gaussian pulse at one face
     # CP = E_y sin(ωt) + E_z cos(ωt) propagating in +x
     src_x = 12  # Source plane (past PML)
     omega = 2 * np.pi * FREQ
 
-    print(f"\n  Injecting left-handed circularly polarized pulse...")
+    print("\n  Injecting left-handed circularly polarized pulse...")
     print(f"  Source plane: x = {src_x}")
 
     # Pre-run to inject the pulse and let it propagate
@@ -85,7 +86,7 @@ def main():
 
         # Gaussian-windowed circularly polarized source
         t_center = 20 * eng.dt * STEPS_PER_FRAME  # Peak at frame 20
-        gauss = np.exp(-0.5 * ((t - t_center) / (SIGMA * eng.dt * STEPS_PER_FRAME))**2)
+        gauss = np.exp(-0.5 * ((t - t_center) / (SIGMA * eng.dt * STEPS_PER_FRAME)) ** 2)
 
         # Circular polarization: E_y + iE_z
         amp = 500.0
@@ -113,12 +114,12 @@ def main():
         if step % STEPS_PER_FRAME == 0:
             # Extract fields along the propagation axis
             frame_data = {
-                'Ey': np.array(eng.Ey),
-                'Ez': np.array(eng.Ez),
-                'Hy': np.array(eng.Hy),
-                'Hz': np.array(eng.Hz),
-                'step': step,
-                't': t,
+                "Ey": np.array(eng.Ey),
+                "Ez": np.array(eng.Ez),
+                "Hy": np.array(eng.Hy),
+                "Hz": np.array(eng.Hz),
+                "step": step,
+                "t": t,
             }
             all_frames.append(frame_data)
             pct = 100.0 * step / total_steps
@@ -134,21 +135,21 @@ def main():
     print("  Rendering 3D helicity animation...")
 
     fig = plt.figure(figsize=(12, 8))
-    fig.patch.set_facecolor('#0a0a1a')
-    ax = fig.add_subplot(111, projection='3d')
+    fig.patch.set_facecolor("#0a0a1a")
+    ax = fig.add_subplot(111, projection="3d")
 
     # Styling
-    ax.set_facecolor('#0a0a1a')
+    ax.set_facecolor("#0a0a1a")
     ax.xaxis.pane.fill = False
     ax.yaxis.pane.fill = False
     ax.zaxis.pane.fill = False
-    ax.xaxis.pane.set_edgecolor('#1a1a3a')
-    ax.yaxis.pane.set_edgecolor('#1a1a3a')
-    ax.zaxis.pane.set_edgecolor('#1a1a3a')
-    ax.tick_params(colors='#444466')
-    ax.set_xlabel('X (propagation)', color='#666688', fontsize=9)
-    ax.set_ylabel('Y', color='#666688', fontsize=9)
-    ax.set_zlabel('Z', color='#666688', fontsize=9)
+    ax.xaxis.pane.set_edgecolor("#1a1a3a")
+    ax.yaxis.pane.set_edgecolor("#1a1a3a")
+    ax.zaxis.pane.set_edgecolor("#1a1a3a")
+    ax.tick_params(colors="#444466")
+    ax.set_xlabel("X (propagation)", color="#666688", fontsize=9)
+    ax.set_ylabel("Y", color="#666688", fontsize=9)
+    ax.set_zlabel("Z", color="#666688", fontsize=9)
 
     # We'll plot:
     # 1. The E-field helix along the propagation axis (red/orange)
@@ -159,21 +160,21 @@ def main():
     mid = N // 2
     x_range = np.arange(N)
 
-    def update(frame_idx):
+    def update(frame_idx: int) -> None:
         ax.cla()
-        ax.set_facecolor('#0a0a1a')
+        ax.set_facecolor("#0a0a1a")
         ax.xaxis.pane.fill = False
         ax.yaxis.pane.fill = False
         ax.zaxis.pane.fill = False
-        ax.xaxis.pane.set_edgecolor('#1a1a3a')
-        ax.yaxis.pane.set_edgecolor('#1a1a3a')
-        ax.zaxis.pane.set_edgecolor('#1a1a3a')
+        ax.xaxis.pane.set_edgecolor("#1a1a3a")
+        ax.yaxis.pane.set_edgecolor("#1a1a3a")
+        ax.zaxis.pane.set_edgecolor("#1a1a3a")
 
         frame = all_frames[frame_idx]
-        Ey = frame['Ey']
-        Ez = frame['Ez']
-        Hy = frame['Hy']
-        Hz = frame['Hz']
+        Ey = frame["Ey"]
+        Ez = frame["Ez"]
+        Hy = frame["Hy"]
+        Hz = frame["Hz"]
 
         # Extract E and H along the central axis
         Ey_axis = Ey[:, mid, mid]
@@ -199,10 +200,12 @@ def main():
         for i in range(len(x_range) - 1):
             if E_mag[i] > E_max * 0.02:  # threshold to avoid noise
                 ax.plot(
-                    [x_range[i], x_range[i+1]],
-                    [E_y_vis[i], E_y_vis[i+1]],
-                    [E_z_vis[i], E_z_vis[i+1]],
-                    color=e_colors[i], linewidth=2.0, alpha=min(E_mag[i] / E_max * 3, 0.95)
+                    [x_range[i], x_range[i + 1]],
+                    [E_y_vis[i], E_y_vis[i + 1]],
+                    [E_z_vis[i], E_z_vis[i + 1]],
+                    color=e_colors[i],
+                    linewidth=2.0,
+                    alpha=min(E_mag[i] / E_max * 3, 0.95),
                 )
 
         # Plot H-field helix (cyan/blue)
@@ -214,10 +217,12 @@ def main():
         for i in range(len(x_range) - 1):
             if H_mag[i] > H_max * 0.02:
                 ax.plot(
-                    [x_range[i], x_range[i+1]],
-                    [H_y_vis[i], H_y_vis[i+1]],
-                    [H_z_vis[i], H_z_vis[i+1]],
-                    color=h_colors[i], linewidth=1.5, alpha=min(H_mag[i] / H_max * 3, 0.8)
+                    [x_range[i], x_range[i + 1]],
+                    [H_y_vis[i], H_y_vis[i + 1]],
+                    [H_z_vis[i], H_z_vis[i + 1]],
+                    color=h_colors[i],
+                    linewidth=1.5,
+                    alpha=min(H_mag[i] / H_max * 3, 0.8),
                 )
 
         # Draw field vectors at select points (quiver-like)
@@ -226,17 +231,25 @@ def main():
             if E_mag[i] > E_max * 0.05:
                 # E vector from axis to helix
                 ax.plot(
-                    [i, i], [mid, E_y_vis[i]], [mid, E_z_vis[i]],
-                    color='#ff4444', linewidth=0.6, alpha=E_mag[i] / E_max * 0.6
+                    [i, i],
+                    [mid, E_y_vis[i]],
+                    [mid, E_z_vis[i]],
+                    color="#ff4444",
+                    linewidth=0.6,
+                    alpha=E_mag[i] / E_max * 0.6,
                 )
             if H_mag[i] > H_max * 0.05:
                 ax.plot(
-                    [i, i], [mid, H_y_vis[i]], [mid, H_z_vis[i]],
-                    color='#4488ff', linewidth=0.6, alpha=H_mag[i] / H_max * 0.5
+                    [i, i],
+                    [mid, H_y_vis[i]],
+                    [mid, H_z_vis[i]],
+                    color="#4488ff",
+                    linewidth=0.6,
+                    alpha=H_mag[i] / H_max * 0.5,
                 )
 
         # Propagation axis (faint gold line)
-        ax.plot([0, N-1], [mid, mid], [mid, mid], color='#aa8833', linewidth=0.5, alpha=0.3)
+        ax.plot([0, N - 1], [mid, mid], [mid, mid], color="#aa8833", linewidth=0.5, alpha=0.3)
 
         # Wavefront indicator: find the leading edge of the pulse
         threshold = E_max * 0.05
@@ -253,15 +266,27 @@ def main():
             wf_y = mid + wf_r * np.cos(theta_wf)
             wf_z = mid + wf_r * np.sin(theta_wf)
             wf_x = np.full_like(theta_wf, leading_edge)
-            ax.plot(wf_x, wf_y, wf_z, color='#ffcc44', linewidth=1.0, alpha=0.4)
+            ax.plot(wf_x, wf_y, wf_z, color="#ffcc44", linewidth=1.0, alpha=0.4)
 
         # Faint lattice grid lines (every 5 cells)
         grid_step = 5
         for gx in range(0, N, grid_step):
-            ax.plot([gx, gx], [mid - 10, mid + 10], [mid, mid],
-                    color='#222244', linewidth=0.3, alpha=0.2)
-            ax.plot([gx, gx], [mid, mid], [mid - 10, mid + 10],
-                    color='#222244', linewidth=0.3, alpha=0.2)
+            ax.plot(
+                [gx, gx],
+                [mid - 10, mid + 10],
+                [mid, mid],
+                color="#222244",
+                linewidth=0.3,
+                alpha=0.2,
+            )
+            ax.plot(
+                [gx, gx],
+                [mid, mid],
+                [mid - 10, mid + 10],
+                color="#222244",
+                linewidth=0.3,
+                alpha=0.2,
+            )
 
         ax.set_xlim(0, N)
         ax.set_ylim(mid - 12, mid + 12)
@@ -272,15 +297,17 @@ def main():
             f"f = {FREQ/1e9:.1f} GHz  |  λ = {cells_per_lambda:.0f} cells  |  "
             r"$Z_0 = \sqrt{\mu_0/\varepsilon_0}$ = 377 Ω  |  "
             f"Frame {frame_idx+1}/{len(all_frames)}",
-            color='#aaaacc', fontsize=10, pad=15
+            color="#aaaacc",
+            fontsize=10,
+            pad=15,
         )
 
         # Rotate viewpoint slowly
         ax.view_init(elev=18, azim=-60 + frame_idx * 1.5)
-        ax.tick_params(colors='#444466', labelsize=7)
+        ax.tick_params(colors="#444466", labelsize=7)
 
         # Legend box
-        props = {'boxstyle': 'round', 'facecolor': '#0a0a2a', 'alpha': 0.9, 'edgecolor': '#333366'}
+        props = {"boxstyle": "round", "facecolor": "#0a0a2a", "alpha": 0.9, "edgecolor": "#333366"}
         legend_text = (
             "━━ E-field helix (inferno)\n"
             "━━ H-field helix (cool)\n"
@@ -288,21 +315,29 @@ def main():
             "Helicity = spin angular momentum\n"
             "Pitch = wavelength = c/f"
         )
-        fig.text(0.02, 0.02, legend_text, fontsize=8, color='#8888aa',
-                 verticalalignment='bottom', bbox=props, family='monospace')
+        fig.text(
+            0.02,
+            0.02,
+            legend_text,
+            fontsize=8,
+            color="#8888aa",
+            verticalalignment="bottom",
+            bbox=props,
+            family="monospace",
+        )
 
     print(f"  Assembling {len(all_frames)} frames...")
     ani = FuncAnimation(fig, update, frames=len(all_frames), blit=False)
 
-    out_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'assets', 'sim_outputs')
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, 'ave_photon_helicity.gif')
+    out_path = os.path.join(out_dir, "ave_photon_helicity.gif")
 
     print(f"  Saving GIF to: {out_path}")
     ani.save(out_path, writer=PillowWriter(fps=12), dpi=120)
     plt.close(fig)
 
-    print(f"\n  ✓ AVE Photon Helicity GIF complete!")
+    print("\n  ✓ AVE Photon Helicity GIF complete!")
     print(f"    {out_path}")
 
 

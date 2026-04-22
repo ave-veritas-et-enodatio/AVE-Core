@@ -13,26 +13,26 @@ trajectory and passes through BOTH slits, creating interference.
 """
 
 import os
-import sys
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from matplotlib.colors import LinearSegmentedColormap
 
-OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'assets', 'sim_outputs')
+import matplotlib
+import numpy as np
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.animation import FuncAnimation  # noqa: E402
+
+OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "assets", "sim_outputs")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
 class DoubleSlit2D:
     """Compact 2D FDTD wave solver for wake animation."""
 
-    def __init__(self, nx=600, ny=400, observer_at_slit2=False):
+    def __init__(self, nx: int = 600, ny: int = 400, observer_at_slit2: bool = False) -> None:
         self.NX, self.NY = nx, ny
         self.dt, self.dx = 0.45, 1.0
 
-        self.P  = np.zeros((nx, ny))
+        self.P = np.zeros((nx, ny))
         self.Vx = np.zeros((nx, ny))
         self.Vy = np.zeros((nx, ny))
 
@@ -40,11 +40,11 @@ class DoubleSlit2D:
         sponge = 35
         self.damping = np.ones((nx, ny))
         for i in range(sponge):
-            f = 1.0 - 0.06 * ((sponge - i) / sponge)**2
+            f = 1.0 - 0.06 * ((sponge - i) / sponge) ** 2
             self.damping[i, :] *= f
-            self.damping[nx-1-i, :] *= f
+            self.damping[nx - 1 - i, :] *= f
             self.damping[:, i] *= f
-            self.damping[:, ny-1-i] *= f
+            self.damping[:, ny - 1 - i] *= f
 
         # Double slit wall
         self.wall_x = int(nx * 0.38)
@@ -54,9 +54,15 @@ class DoubleSlit2D:
         self.slit_1 = ny // 2 - slit_sep // 2
         self.slit_2 = ny // 2 + slit_sep // 2
         self.wall = np.zeros((nx, ny), dtype=bool)
-        self.wall[self.wall_x:self.wall_x+wt, :] = True
-        self.wall[self.wall_x:self.wall_x+wt, self.slit_1-self.slit_w//2:self.slit_1+self.slit_w//2] = False
-        self.wall[self.wall_x:self.wall_x+wt, self.slit_2-self.slit_w//2:self.slit_2+self.slit_w//2] = False
+        self.wall[self.wall_x : self.wall_x + wt, :] = True
+        self.wall[
+            self.wall_x : self.wall_x + wt,
+            self.slit_1 - self.slit_w // 2 : self.slit_1 + self.slit_w // 2,
+        ] = False
+        self.wall[
+            self.wall_x : self.wall_x + wt,
+            self.slit_2 - self.slit_w // 2 : self.slit_2 + self.slit_w // 2,
+        ] = False
 
         # Observer = Ohmic load at slit 2 (AVE first principles)
         # In AVE, a detector thermalizes wave energy via Joule friction:
@@ -69,16 +75,16 @@ class DoubleSlit2D:
                 for dyi in range(-self.slit_w, self.slit_w):
                     xi, yi = ox + dxi, oy + dyi
                     if 0 <= xi < nx and 0 <= yi < ny:
-                        r = np.sqrt(dxi**2 + (dyi / self.slit_w * 3)**2) / 3
+                        r = np.sqrt(dxi**2 + (dyi / self.slit_w * 3) ** 2) / 3
                         if r < 1.0:
-                            self.obs_damping[xi, yi] = damping_strength * (1.0 - r)**2
+                            self.obs_damping[xi, yi] = damping_strength * (1.0 - r) ** 2
 
         self.freq = 0.055
         self.source_y = self.slit_1  # Particle aimed at Slit 1 (AVE physics)
         self.source_x_start = 50
         self.particle_speed = 0.22
 
-    def step(self, t):
+    def step(self, t: int) -> None:
         P, Vx, Vy = self.P, self.Vx, self.Vy
         dt, dx = self.dt, self.dx
 
@@ -87,14 +93,11 @@ class DoubleSlit2D:
         Vx[self.wall] = 0
         Vy[self.wall] = 0
 
-        P[1:-1, 1:-1] -= dt * (
-            (Vx[1:-1, 1:-1] - Vx[:-2, 1:-1]) / dx +
-            (Vy[1:-1, 1:-1] - Vy[1:-1, :-2]) / dx
-        )
+        P[1:-1, 1:-1] -= dt * ((Vx[1:-1, 1:-1] - Vx[:-2, 1:-1]) / dx + (Vy[1:-1, 1:-1] - Vy[1:-1, :-2]) / dx)
         # Ohmic observer: thermalize ALL field components at detector
-        P *= (1.0 - self.obs_damping)
-        Vx *= (1.0 - self.obs_damping)
-        Vy *= (1.0 - self.obs_damping)
+        P *= 1.0 - self.obs_damping
+        Vx *= 1.0 - self.obs_damping
+        Vy *= 1.0 - self.obs_damping
         P *= self.damping
         Vx *= self.damping
         Vy *= self.damping
@@ -114,7 +117,7 @@ class DoubleSlit2D:
                     P[px, self.source_y + dy] += amp * 0.3
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Animated Double Slit: High-Contrast Dark Wake")
     print("=" * 70)
@@ -124,7 +127,7 @@ def main():
     STEPS_PER_FRAME = 8
     TOTAL_FRAMES = TOTAL_STEPS // STEPS_PER_FRAME
 
-    sim_no  = DoubleSlit2D(NX, NY, observer_at_slit2=False)
+    sim_no = DoubleSlit2D(NX, NY, observer_at_slit2=False)
     sim_obs = DoubleSlit2D(NX, NY, observer_at_slit2=True)
 
     frames_no = []
@@ -147,81 +150,119 @@ def main():
     print("  FDTD complete. Rendering animation...")
 
     # Global vmax for consistent normalization
-    global_max = max(np.percentile(frames_no[-1], 99),
-                     np.percentile(frames_obs[-1], 99))
+    global_max = max(np.percentile(frames_no[-1], 99), np.percentile(frames_obs[-1], 99))
     vmax = max(float(global_max), 1e-6)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 7))
-    fig.patch.set_facecolor('#0a0a2e')
+    fig.patch.set_facecolor("#0a0a2e")
     fig.suptitle(
         r"AVE Double Slit: Particle Through Slit 1, Wake Through Both",
-        color='white', fontsize=16, fontweight='bold', y=0.97)
+        color="white",
+        fontsize=16,
+        fontweight="bold",
+        y=0.97,
+    )
 
     for ax in (ax1, ax2):
-        ax.set_facecolor('#0a0a2e')
-        ax.tick_params(colors='white', labelsize=8)
+        ax.set_facecolor("#0a0a2e")
+        ax.tick_params(colors="white", labelsize=8)
         for s in ax.spines.values():
-            s.set_color('#334')
+            s.set_color("#334")
 
-    im1 = ax1.imshow(frames_no[0].T, cmap='hot', origin='lower',
-                     extent=[0, NX, 0, NY], vmin=0, vmax=vmax, aspect='auto')
-    im2 = ax2.imshow(frames_obs[0].T, cmap='hot', origin='lower',
-                     extent=[0, NX, 0, NY], vmin=0, vmax=vmax, aspect='auto')
+    im1 = ax1.imshow(
+        frames_no[0].T,
+        cmap="hot",
+        origin="lower",
+        extent=[0, NX, 0, NY],
+        vmin=0,
+        vmax=vmax,
+        aspect="auto",
+    )
+    im2 = ax2.imshow(
+        frames_obs[0].T,
+        cmap="hot",
+        origin="lower",
+        extent=[0, NX, 0, NY],
+        vmin=0,
+        vmax=vmax,
+        aspect="auto",
+    )
 
     # Wall overlays
     wall_vis = np.ma.masked_where(~sim_no.wall, np.ones((NX, NY)))
-    ax1.imshow(wall_vis.T, cmap='Greys', alpha=0.9, origin='lower',
-               extent=[0, NX, 0, NY], aspect='auto')
-    ax2.imshow(wall_vis.T, cmap='Greys', alpha=0.9, origin='lower',
-               extent=[0, NX, 0, NY], aspect='auto')
+    ax1.imshow(wall_vis.T, cmap="Greys", alpha=0.9, origin="lower", extent=[0, NX, 0, NY], aspect="auto")
+    ax2.imshow(wall_vis.T, cmap="Greys", alpha=0.9, origin="lower", extent=[0, NX, 0, NY], aspect="auto")
 
     # Observer marker
-    ax2.plot(sim_obs.wall_x, sim_obs.slit_2, 'o', color='#00ff00',
-             markersize=10, markeredgecolor='white', markeredgewidth=2, zorder=10)
-    ax2.annotate('OBSERVER', xy=(sim_obs.wall_x, sim_obs.slit_2),
-                 xytext=(sim_obs.wall_x - 70, sim_obs.slit_2 + 50),
-                 fontsize=9, color='#00ff00', fontweight='bold',
-                 arrowprops=dict(arrowstyle='->', color='#00ff00', lw=1.5))
+    ax2.plot(
+        sim_obs.wall_x,
+        sim_obs.slit_2,
+        "o",
+        color="#00ff00",
+        markersize=10,
+        markeredgecolor="white",
+        markeredgewidth=2,
+        zorder=10,
+    )
+    ax2.annotate(
+        "OBSERVER",
+        xy=(sim_obs.wall_x, sim_obs.slit_2),
+        xytext=(sim_obs.wall_x - 70, sim_obs.slit_2 + 50),
+        fontsize=9,
+        color="#00ff00",
+        fontweight="bold",
+        arrowprops=dict(arrowstyle="->", color="#00ff00", lw=1.5),
+    )
 
-    ax1.set_title("No Observer: Coherent Wake Interference",
-                  color='white', fontsize=13, fontweight='bold', pad=8)
-    ax2.set_title("Observer at Slit 2: Wake Decoherence",
-                  color='white', fontsize=13, fontweight='bold', pad=8)
+    ax1.set_title(
+        "No Observer: Coherent Wake Interference",
+        color="white",
+        fontsize=13,
+        fontweight="bold",
+        pad=8,
+    )
+    ax2.set_title("Observer at Slit 2: Wake Decoherence", color="white", fontsize=13, fontweight="bold", pad=8)
 
     # Slit labels
     for ax, sim in [(ax1, sim_no), (ax2, sim_obs)]:
-        ax.annotate('Slit 1', xy=(sim.wall_x+6, sim.slit_1),
-                    fontsize=8, color='white', alpha=0.7)
-        ax.annotate('Slit 2', xy=(sim.wall_x+6, sim.slit_2),
-                    fontsize=8, color='white', alpha=0.7)
+        ax.annotate("Slit 1", xy=(sim.wall_x + 6, sim.slit_1), fontsize=8, color="white", alpha=0.7)
+        ax.annotate("Slit 2", xy=(sim.wall_x + 6, sim.slit_2), fontsize=8, color="white", alpha=0.7)
 
     # Explanation box
-    props = dict(boxstyle='round', facecolor='#111122', alpha=0.9, edgecolor='#ff6600')
-    ax1.text(0.02, 0.97,
-             "Particle passes through SLIT 1\n"
-             "Wake radiates from trajectory\n"
-             "and passes through BOTH slits",
-             transform=ax1.transAxes, fontsize=9, color='white',
-             verticalalignment='top', bbox=props)
+    props = dict(boxstyle="round", facecolor="#111122", alpha=0.9, edgecolor="#ff6600")
+    ax1.text(
+        0.02,
+        0.97,
+        "Particle passes through SLIT 1\n" "Wake radiates from trajectory\n" "and passes through BOTH slits",
+        transform=ax1.transAxes,
+        fontsize=9,
+        color="white",
+        verticalalignment="top",
+        bbox=props,
+    )
 
-    props2 = dict(boxstyle='round', facecolor='#111122', alpha=0.9, edgecolor='#00ff00')
-    ax2.text(0.02, 0.97,
-             "Particle still through Slit 1\n"
-             "Detector at Slit 2 thermalizes\n"
-             "wake phase → no interference",
-             transform=ax2.transAxes, fontsize=9, color='white',
-             verticalalignment='top', bbox=props2)
+    props2 = dict(boxstyle="round", facecolor="#111122", alpha=0.9, edgecolor="#00ff00")
+    ax2.text(
+        0.02,
+        0.97,
+        "Particle still through Slit 1\n" "Detector at Slit 2 thermalizes\n" "wake phase → no interference",
+        transform=ax2.transAxes,
+        fontsize=9,
+        color="white",
+        verticalalignment="top",
+        bbox=props2,
+    )
 
     plt.tight_layout(rect=[0, 0, 1, 0.94])
 
-    def update(frame):
+    def update(frame: int) -> list:
         im1.set_data(frames_no[frame].T)
         im2.set_data(frames_obs[frame].T)
         return [im1, im2]
 
     ani = FuncAnimation(fig, update, frames=TOTAL_FRAMES, blit=True)
-    out_path = os.path.join(OUT_DIR, 'double_slit_dark_wake_animated.gif')
-    ani.save(out_path, writer='pillow', fps=20)
+    out_path = os.path.join(OUT_DIR, "double_slit_dark_wake_animated.gif")
+    ani.save(out_path, writer="pillow", fps=20)
     plt.close()
 
     print(f"  ✅ Animated dark wake saved: {out_path}")

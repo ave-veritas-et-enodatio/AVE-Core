@@ -27,19 +27,19 @@ Vol 3 Ch. 2 — Optical-Mechanical Acoustic Vortex (Kerr Metric)
 """
 
 import os
-import sys
 import time
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+import matplotlib
+import numpy as np
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+
 
 # ─────────────────────────────────────────────────────────────
 # Blackbody → sRGB conversion (Planck spectrum)
 # ─────────────────────────────────────────────────────────────
-def _blackbody_rgb(T):
+def _blackbody_rgb(T: float | "np.ndarray") -> "np.ndarray":
     """Convert temperature (K) to approximate sRGB [0,1].
     Tanner Helland approximation (1000 K – 40,000 K)."""
     T = np.atleast_1d(np.asarray(T, dtype=float))
@@ -72,20 +72,19 @@ def _blackbody_rgb(T):
     return rgb
 
 
-def _aces_tonemap(color):
+def _aces_tonemap(color: "np.ndarray") -> "np.ndarray":
     """ACES filmic tone mapping for cinema-grade HDR → LDR."""
     a, b, c, d, e = 2.51, 0.03, 2.43, 0.59, 0.14
-    return np.clip((color * (a * color + b)) / (color * (c * color + d) + e),
-                   0.0, 1.0)
+    return np.clip((color * (a * color + b)) / (color * (c * color + d) + e), 0.0, 1.0)
 
 
-def _hash_noise(x, y, seed=0.0):
+def _hash_noise(x: "np.ndarray", y: "np.ndarray", seed: float = 0.0) -> "np.ndarray":
     """Deterministic 2D hash noise for disk texture."""
     val = np.sin(x * 127.1 + y * 311.7 + seed) * 43758.5453
     return val - np.floor(val)
 
 
-def render_gargantua():
+def render_gargantua() -> None:
     t_start = time.time()
     print("=" * 70)
     print("  GARGANTUA ACOUSTIC VORTEX — AVE RAYMARCHER v2")
@@ -99,13 +98,13 @@ def render_gargantua():
 
     # Adaptive step: dt = DTAU_BASE × min(r/r_adapt, 1.0)
     # Far from BH → large steps.  Near BH → fine steps.
-    DTAU_BASE = 0.12          # Large base step for far-field
-    R_ADAPT = 5.0             # Below this radius, step shrinks linearly
-    DTAU_MIN = 0.04           # Minimum step near horizon
+    DTAU_BASE = 0.12  # Large base step for far-field
+    R_ADAPT = 5.0  # Below this radius, step shrinks linearly
+    DTAU_MIN = 0.04  # Minimum step near horizon
 
     R_IN = 1.0
     R_OUT = 20.0
-    R_ESCAPE = 50.0           # Background escape radius
+    R_ESCAPE = 50.0  # Background escape radius
     T_INNER = 12000.0
 
     M = 1.0
@@ -150,9 +149,7 @@ def render_gargantua():
         jitter_u = (rng.random(num_pixels) - 0.5) * du
         jitter_v = (rng.random(num_pixels) - 0.5) * dv
 
-        ray_dirs = (forward
-                    + (uu + jitter_u)[:, None] * right
-                    + (vv + jitter_v)[:, None] * cam_up)
+        ray_dirs = forward + (uu + jitter_u)[:, None] * right + (vv + jitter_v)[:, None] * cam_up
         ray_dirs /= np.linalg.norm(ray_dirs, axis=1)[:, None]
 
         # Use contiguous arrays for cache efficiency
@@ -169,9 +166,7 @@ def render_gargantua():
 
             if step % 500 == 0:
                 elapsed = time.time() - t_sample
-                print(f"    Step {step:5d}/{MAX_STEPS}  "
-                      f"active: {active_count:>10,}  "
-                      f"({elapsed:.1f}s)")
+                print(f"    Step {step:5d}/{MAX_STEPS}  " f"active: {active_count:>10,}  " f"({elapsed:.1f}s)")
 
             if active_count == 0:
                 break
@@ -197,29 +192,27 @@ def render_gargantua():
 
             # ── Adaptive step size ──
             # Large steps far from BH, fine steps near horizon
-            dt = np.clip(DTAU_BASE * r_mag / R_ADAPT,
-                         DTAU_MIN, DTAU_BASE)
+            dt = np.clip(DTAU_BASE * r_mag / R_ADAPT, DTAU_MIN, DTAU_BASE)
 
             # ── AVE Hamiltonian optics ──
             W = 1.0 + rh / r_mag
             U = np.maximum(1.0 - rh / r_mag, 1e-4)
             n = (W**3) / U
 
-            dn_dr = -W**2 * (rh / r_mag**2) * (4.0 - 2.0 * rh / r_mag) / U**2
+            dn_dr = -(W**2) * (rh / r_mag**2) * (4.0 - 2.0 * rh / r_mag) / U**2
             r_hat = r_act / r_mag[:, None]
             grad_n = dn_dr[:, None] * r_hat
 
             # Frame dragging
             r2 = r_mag**2
-            denom = (r2 + a_kerr**2)**2
+            denom = (r2 + a_kerr**2) ** 2
             omega = 2.0 * M * a_kerr * r_mag / denom
             v_drag = np.zeros_like(r_act)
             v_drag[:, 0] = -omega * r_act[:, 1]
             v_drag[:, 1] = omega * r_act[:, 0]
 
             Lz = r_act[:, 0] * p_act[:, 1] - r_act[:, 1] * p_act[:, 0]
-            domega_dr = (2.0 * M * a_kerr * (a_kerr**2 - 3.0 * r2)
-                         / (r2 + a_kerr**2)**3)
+            domega_dr = 2.0 * M * a_kerr * (a_kerr**2 - 3.0 * r2) / (r2 + a_kerr**2) ** 3
             grad_pv = domega_dr[:, None] * r_hat * Lz[:, None]
             grad_pv[:, 0] += omega * p_act[:, 1]
             grad_pv[:, 1] -= omega * p_act[:, 0]
@@ -262,21 +255,19 @@ def render_gargantua():
                     rcy = rc_y[hd]
 
                     x = R_IN / rc_r
-                    T_disk = T_INNER * x**0.75 * np.maximum(
-                        1.0 - np.sqrt(x), 0.01)**0.25
+                    T_disk = T_INNER * x**0.75 * np.maximum(1.0 - np.sqrt(x), 0.01) ** 0.25
 
                     W_c = 1.0 + rh / rc_r
                     U_c = np.maximum(1.0 - rh / rc_r, 0.05)
                     z_grav = W_c / U_c
 
-                    r_schwarz = rc_r * (1.0 + rh / rc_r)**2
+                    r_schwarz = rc_r * (1.0 + rh / rc_r) ** 2
                     v_orb = np.sqrt(np.minimum(1.0 / r_schwarz, 0.95))
                     v_disk_x = -rcy / rc_r * v_orb
                     v_disk_y = rcx / rc_r * v_orb
                     beta_sq = v_orb**2
                     gamma_inv = np.sqrt(1.0 - beta_sq)
-                    v_dot_p = (v_disk_x * p_act[ci, 0]
-                               + v_disk_y * p_act[ci, 1])
+                    v_dot_p = v_disk_x * p_act[ci, 0] + v_disk_y * p_act[ci, 1]
                     doppler = gamma_inv / np.maximum(1.0 - v_dot_p, 0.05)
                     doppler = np.clip(doppler, 0.1, 5.0)
 
@@ -289,18 +280,14 @@ def render_gargantua():
                     noise3 = _hash_noise(phi * 13.0, rc_r * 2.1, seed=3.0)
                     texture = 0.8 + 0.12 * noise1 + 0.05 * noise2 + 0.03 * noise3
 
-                    base_lum = (2.8 / (rc_r - R_IN + 0.5)**1.3) * texture
+                    base_lum = (2.8 / (rc_r - R_IN + 0.5) ** 1.3) * texture
                     base_lum *= doppler**3.0
 
-                    opacity = np.clip(
-                        1.0 - ((rc_r - R_IN) / (R_OUT - R_IN))**2.5,
-                        0.05, 1.0
-                    )
+                    opacity = np.clip(1.0 - ((rc_r - R_IN) / (R_OUT - R_IN)) ** 2.5, 0.05, 1.0)
                     base_lum *= opacity
 
                     order = hit_count[gi]
-                    ring_boost = np.where(order == 0, 1.0,
-                                 np.where(order == 1, 0.65, 0.35))
+                    ring_boost = np.where(order == 0, 1.0, np.where(order == 1, 0.65, 0.35))
                     base_lum *= ring_boost
 
                     contrib = disk_rgb * np.clip(base_lum, 0, 4.0)[:, None]
@@ -320,11 +307,9 @@ def render_gargantua():
                     nh_g = g_esc[no_hit]
                     p_esc = p_new[esc_idx[no_hit]]
 
-                    h1 = np.sin(p_esc[:, 0] * 314.159
-                                + p_esc[:, 1] * 271.828) * 1000.0
+                    h1 = np.sin(p_esc[:, 0] * 314.159 + p_esc[:, 1] * 271.828) * 1000.0
                     h1 = h1 - np.floor(h1)
-                    h2 = np.sin(p_esc[:, 0] * 173.267
-                                + p_esc[:, 2] * 432.111) * 1000.0
+                    h2 = np.sin(p_esc[:, 0] * 173.267 + p_esc[:, 2] * 432.111) * 1000.0
                     h2 = h2 - np.floor(h2)
 
                     bg = np.zeros((len(nh_g), 3))
@@ -336,7 +321,7 @@ def render_gargantua():
                     if np.any(is_star):
                         star_T = 3000.0 + h2[is_star] * 30000.0
                         star_rgb = _blackbody_rgb(star_T)
-                        brightness = 0.15 + 0.85 * h1[is_star]**2
+                        brightness = 0.15 + 0.85 * h1[is_star] ** 2
                         bg[is_star] = star_rgb * brightness[:, None]
 
                     faint = (h1 > 0.97) & (h1 <= 0.99)
@@ -366,10 +351,10 @@ def render_gargantua():
     # Dual bloom
     try:
         from scipy.ndimage import gaussian_filter
+
         bloom_tight = gaussian_filter(image, sigma=[2, 2, 0])
         bloom_wide = gaussian_filter(image, sigma=[8, 8, 0])
-        image = np.clip(image + bloom_tight * 0.15 + bloom_wide * 0.1,
-                        0.0, 1.0)
+        image = np.clip(image + bloom_tight * 0.15 + bloom_wide * 0.1, 0.0, 1.0)
     except ImportError:
         pass
 
@@ -379,47 +364,51 @@ def render_gargantua():
     # Vignette
     yy, xx = np.mgrid[0:HEIGHT, 0:WIDTH]
     cx, cy = WIDTH / 2, HEIGHT / 2
-    vignette = 1.0 - 0.15 * ((xx - cx)**2 / cx**2 + (yy - cy)**2 / cy**2)
+    vignette = 1.0 - 0.15 * ((xx - cx) ** 2 / cx**2 + (yy - cy) ** 2 / cy**2)
     image *= vignette[:, :, None]
     image = np.clip(image, 0.0, 1.0)
 
     # ── Render ──
     fig, ax = plt.subplots(figsize=(20, 10))
-    fig.patch.set_facecolor('black')
+    fig.patch.set_facecolor("black")
 
-    ax.imshow(image, interpolation='bilinear', origin='lower')
-    ax.axis('off')
+    ax.imshow(image, interpolation="bilinear", origin="lower")
+    ax.axis("off")
 
     total_time = time.time() - t_start
-    ax.text(30, 25,
-            "GARGANTUA ACOUSTIC VORTEX\n"
-            "AVE Raymarcher v2: Blackbody + Grav. Redshift + "
-            "Doppler Beaming + ACES Filmic\n"
-            r"Mass $\sim 10^8\;M_\odot$   Spin = 0.999   "
-            f"Samples/px = {N_SAMPLES}   "
-            f"Render time: {total_time:.0f}s",
-            color='white', alpha=0.35, fontsize=10, family='monospace',
-            verticalalignment='bottom')
+    ax.text(
+        30,
+        25,
+        "GARGANTUA ACOUSTIC VORTEX\n"
+        "AVE Raymarcher v2: Blackbody + Grav. Redshift + "
+        "Doppler Beaming + ACES Filmic\n"
+        r"Mass $\sim 10^8\;M_\odot$   Spin = 0.999   "
+        f"Samples/px = {N_SAMPLES}   "
+        f"Render time: {total_time:.0f}s",
+        color="white",
+        alpha=0.35,
+        fontsize=10,
+        family="monospace",
+        verticalalignment="bottom",
+    )
 
     plt.tight_layout(pad=0)
 
-    out_dir = os.path.join(os.path.dirname(__file__), '..', '..',
-                           'assets', 'sim_outputs')
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, 'gargantua_acoustic_vortex.png')
-    plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(),
-                bbox_inches='tight')
+    out_path = os.path.join(out_dir, "gargantua_acoustic_vortex.png")
+    plt.savefig(out_path, dpi=250, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
 
     # Copy to manuscript
-    ms_dir = os.path.join(os.path.dirname(__file__), '..', '..',
-                          'manuscript', 'vol_3_macroscopic', 'figures')
+    ms_dir = os.path.join(os.path.dirname(__file__), "..", "..", "manuscript", "vol_3_macroscopic", "figures")
     os.makedirs(ms_dir, exist_ok=True)
     import shutil
-    shutil.copy2(out_path, os.path.join(ms_dir, 'gargantua_acoustic_vortex.png'))
+
+    shutil.copy2(out_path, os.path.join(ms_dir, "gargantua_acoustic_vortex.png"))
 
     print(f"\n  Saved: {out_path}")
-    print(f"  Copied to manuscript figures")
+    print("  Copied to manuscript figures")
     print(f"  Total render time: {total_time:.1f}s")
     print("=" * 70)
 

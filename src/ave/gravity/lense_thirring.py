@@ -28,20 +28,22 @@ Dimensional audit (all formulas):
     J = I * omega  [kg m^2/s]  OK (always passed in, not recomputed here)
 """
 
-import numpy as np
-from ave.core.constants import G, C_0, HBAR, M_E
+from typing import Callable
 
+import numpy as np
+
+from ave.core.constants import C_0, HBAR, M_E, G
 
 # ── Derived gravitomagnetic constants ────────────────────────────────────────
 
 # Compton angular frequency of the electron (fundamental K4 lattice rate)
 # omega_Compton = M_E c^2 / hbar  [rad/s]
 # This is the reference frequency for the gravitomagnetic strain check (Axiom 4)
-OMEGA_COMPTON = M_E * C_0**2 / HBAR   # ~ 7.76e20 rad/s
+OMEGA_COMPTON = M_E * C_0**2 / HBAR  # ~ 7.76e20 rad/s
 
 # Gravitational wave power denominator: Z_gw = 5 c^5 / (32 G)  [W]
 # P_gw = J^2 * omega^4 / Z_gw
-Z_GW = (5.0 * C_0**5) / (32.0 * G)    # ~ 1.80e52 W
+Z_GW = (5.0 * C_0**5) / (32.0 * G)  # ~ 1.80e52 W
 
 
 def gravitomagnetic_vector(J_vec: np.ndarray, r_vec: np.ndarray) -> np.ndarray:
@@ -69,7 +71,7 @@ def gravitomagnetic_vector(J_vec: np.ndarray, r_vec: np.ndarray) -> np.ndarray:
     r_hat = r_vec / r_mag
     prefactor = G / (C_0**2 * r_mag**3)
     B_gm_vec = prefactor * (3.0 * np.dot(J_vec, r_hat) * r_hat - J_vec)
-    return B_gm_vec                    # [rad/s]
+    return B_gm_vec  # [rad/s]
 
 
 def gravitomagnetic_field(J: float, r: float) -> float:
@@ -85,7 +87,7 @@ def gravitomagnetic_field(J: float, r: float) -> float:
     Returns:
         B_gm [rad/s]
     """
-    return G * abs(J) / (C_0**2 * r**3)   # [rad/s]
+    return G * abs(J) / (C_0**2 * r**3)  # [rad/s]
 
 
 def lense_thirring_precession(J: float, r: float) -> float:
@@ -104,7 +106,7 @@ def lense_thirring_precession(J: float, r: float) -> float:
     Returns:
         Omega_LT [rad/s]
     """
-    return 2.0 * G * abs(J) / (C_0**2 * r**3)   # [rad/s]
+    return 2.0 * G * abs(J) / (C_0**2 * r**3)  # [rad/s]
 
 
 def gravitational_wave_power(J: float, omega: float) -> float:
@@ -138,10 +140,10 @@ def gravitational_wave_power(J: float, omega: float) -> float:
     Returns:
         P_gw [W]  (upper bound; multiply by epsilon^2 for real bodies)
     """
-    return J**2 * omega**4 / Z_GW    # [W]
+    return J**2 * omega**4 / Z_GW  # [W]
 
 
-def strain_amplitude(B_gm: float) -> tuple:
+def strain_amplitude(B_gm: float) -> tuple[float, str]:
     """
     Gravitomagnetic strain amplitude (Axiom 4 saturation check).
 
@@ -165,12 +167,12 @@ def strain_amplitude(B_gm: float) -> tuple:
         A_gm: Dimensionless strain amplitude
         regime: Regime classification string
     """
-    A_gm = abs(B_gm) / OMEGA_COMPTON       # dimensionless
+    A_gm = abs(B_gm) / OMEGA_COMPTON  # dimensionless
     # Regime boundaries from LIVING_REFERENCE Universal Regime Map
-    R_I_BOUNDARY = (2.0 * 7.2973525693e-3) ** 0.5   # sqrt(2 alpha) ~ 0.121
+    R_I_BOUNDARY = (2.0 * 7.2973525693e-3) ** 0.5  # sqrt(2 alpha) ~ 0.121
     if A_gm < R_I_BOUNDARY:
         regime = "Regime I (Linear)"
-    elif A_gm < (3.0 ** 0.5 / 2.0):
+    elif A_gm < (3.0**0.5 / 2.0):
         regime = "Regime II (Nonlinear)"
     elif A_gm < 1.0:
         regime = "Regime III (Yield)"
@@ -179,7 +181,12 @@ def strain_amplitude(B_gm: float) -> tuple:
     return A_gm, regime
 
 
-def fluid_spin_flux(rho_func, omega_func, r_max: float, n_steps: int = 200) -> float:
+def fluid_spin_flux(
+    rho_func: Callable[[float], float],
+    omega_func: Callable[[float, float], float],
+    r_max: float,
+    n_steps: int = 200,
+) -> float:
     """
     Integrates the total spin angular momentum for a stratified fluid body.
 
@@ -211,7 +218,7 @@ def fluid_spin_flux(rho_func, omega_func, r_max: float, n_steps: int = 200) -> f
             continue
         for theta in theta_centers:
             omega = omega_func(r, theta)
-            dV = 2.0 * np.pi * r**2 * np.sin(theta) * dr * dtheta   # [m^3]
-            r_perp = r * np.sin(theta)                                # [m]
+            dV = 2.0 * np.pi * r**2 * np.sin(theta) * dr * dtheta  # [m^3]
+            r_perp = r * np.sin(theta)  # [m]
             J_total += rho * dV * r_perp**2 * omega
-    return J_total    # [kg m^2 / s]
+    return J_total  # [kg m^2 / s]

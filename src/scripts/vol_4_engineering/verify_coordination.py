@@ -9,15 +9,12 @@ The EMT derivation predicts z₀ ≈ 51.25 for the vacuum lattice.
 Here we compute the actual mean coordination of the over-braced
 Delaunay graph to check physical consistency.
 """
-import sys
-import os
-
 
 import numpy as np
 from scipy.spatial import Delaunay
 
 
-def poisson_disk_sample(N_target, box_size, r_min, seed=42):
+def poisson_disk_sample(N_target: int, box_size: float, r_min: float, seed: int = 42) -> np.ndarray:
     """
     Simple dart-throwing Poisson-disk sampling in 3D.
     Places points with minimum separation r_min.
@@ -41,7 +38,7 @@ def poisson_disk_sample(N_target, box_size, r_min, seed=42):
     return np.array(points)
 
 
-def count_coordination(pos, r_max, box_size):
+def count_coordination(pos: np.ndarray, r_max: float, box_size: float) -> tuple[float, float]:
     """
     Count mean coordination: number of neighbors within r_max.
     Uses minimum image convention for periodic boundaries.
@@ -58,22 +55,21 @@ def count_coordination(pos, r_max, box_size):
     return np.mean(z_values), np.std(z_values)
 
 
-def delaunay_coordination(pos):
+def delaunay_coordination(pos: np.ndarray) -> tuple[float, float]:
     """Mean coordination from Delaunay triangulation."""
     tri = Delaunay(pos)
     neighbors = {i: set() for i in range(len(pos))}
     for simplex in tri.simplices:
         for a in range(4):
-            for b in range(a+1, 4):
+            for b in range(a + 1, 4):
                 neighbors[simplex[a]].add(simplex[b])
                 neighbors[simplex[b]].add(simplex[a])
     z_vals = [len(v) for v in neighbors.values()]
     return np.mean(z_vals), np.std(z_vals)
 
 
-def run_verification():
+def run_verification() -> None:
     """Verify z₀ from lattice geometry."""
-    from ave.core.constants import ALPHA, P_C
 
     print("=" * 60)
     print("  W2: LATTICE COORDINATION — z₀ VERIFICATION")
@@ -81,16 +77,16 @@ def run_verification():
 
     # Target z₀ from EMT
     z0_emt = 51.25
-    p_c = P_C
+    # p_c = P_C  # bulk lint fixup pass
 
     # Lattice parameters
-    l_node = 1.0    # natural units
-    r_min = l_node   # exclusion radius
+    l_node = 1.0  # natural units
+    r_min = l_node  # exclusion radius
     overbrace = 1.187  # from manuscript
-    box_size = 6.0   # ℓ_node units
-    N_target = 300   # nodes in the box
+    box_size = 6.0  # ℓ_node units
+    N_target = 300  # nodes in the box
 
-    print(f"\n  Lattice parameters:")
+    print("\n  Lattice parameters:")
     print(f"    ℓ_node = {l_node}")
     print(f"    r_min = {r_min}")
     print(f"    Overbracing ratio = {overbrace}")
@@ -106,7 +102,7 @@ def run_verification():
         results_range[R] = []
 
     for s in range(n_samples):
-        pos = poisson_disk_sample(N_target, box_size, r_min, seed=42+s*7)
+        pos = poisson_disk_sample(N_target, box_size, r_min, seed=42 + s * 7)
         N = len(pos)
 
         # Delaunay coordination
@@ -124,11 +120,11 @@ def run_verification():
 
     # Results
     z_del = np.mean(results_delaunay)
-    print(f"\n  --- Delaunay coordination ---")
+    print("\n  --- Delaunay coordination ---")
     print(f"    z_Delaunay = {z_del:.2f} ± {np.std(results_delaunay):.2f}")
     print()
 
-    print(f"  --- Range-based coordination ---")
+    print("  --- Range-based coordination ---")
     print(f"  {'R/ℓ_node':>10} {'z_eff':>8} {'±σ':>8} {'% of z₀':>10}")
     print(f"  {'-'*40}")
 
@@ -146,11 +142,11 @@ def run_verification():
     # By interpolation
     Rs = sorted(results_range.keys())
     zs = [np.mean(results_range[R]) for R in Rs]
-    for i in range(len(Rs)-1):
-        if zs[i] <= z0_emt <= zs[i+1]:
+    for i in range(len(Rs) - 1):
+        if zs[i] <= z0_emt <= zs[i + 1]:
             # Linear interpolation
-            frac = (z0_emt - zs[i]) / (zs[i+1] - zs[i])
-            R_interp = Rs[i] + frac * (Rs[i+1] - Rs[i])
+            frac = (z0_emt - zs[i]) / (zs[i + 1] - zs[i])
+            R_interp = Rs[i] + frac * (Rs[i + 1] - Rs[i])
             print(f"  z₀ = 51.25 occurs at R ≈ {R_interp:.3f} ℓ_node")
             print(f"  This is {R_interp:.2f}× the nearest-neighbor distance")
             break

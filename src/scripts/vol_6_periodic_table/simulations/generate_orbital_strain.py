@@ -11,12 +11,12 @@ These visualize the electron orbital topology around each nucleus:
 Each figure shows the continuous metric strain field M_A with electron
 positions overlaid as physical geometric objects, not probability clouds.
 """
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, FancyArrowPatch
-from matplotlib.collections import LineCollection
+
 import os
-import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Circle
 
 # AVE constants (imported from physics engine for traceability)
 from ave.core.constants import ALPHA
@@ -32,7 +32,8 @@ A0_RELATIVE = 1.0 / ALPHA  # Bohr radius in units of l_node (~137)
 
 ELEMENTS = {
     "hydrogen": {
-        "Z": 1, "A": 1,
+        "Z": 1,
+        "A": 1,
         "shells": [
             (1, "1s", 1, 1.0, "#00DDFF"),
         ],
@@ -40,7 +41,8 @@ ELEMENTS = {
         "subtitle": "Single Trefoil ($3_1$) surfing the $1/r$ metric gradient at $a_0$",
     },
     "helium": {
-        "Z": 2, "A": 4,
+        "Z": 2,
+        "A": 4,
         "shells": [
             (1, "1s²", 2, 0.59, "#00DDFF"),
         ],
@@ -48,7 +50,8 @@ ELEMENTS = {
         "subtitle": "Antipodal phase-locked Trefoils saturate the $1s$ shell",
     },
     "lithium": {
-        "Z": 3, "A": 7,
+        "Z": 3,
+        "A": 7,
         "shells": [
             (1, "1s²", 2, 0.37, "#00DDFF"),
             (2, "2s¹", 1, 3.10, "#FF6644"),
@@ -57,7 +60,8 @@ ELEMENTS = {
         "subtitle": "Saturated inner metric reflects 3rd electron to $n=2$",
     },
     "beryllium": {
-        "Z": 4, "A": 9,
+        "Z": 4,
+        "A": 9,
         "shells": [
             (1, "1s²", 2, 0.31, "#00DDFF"),
             (2, "2s²", 2, 2.40, "#FF6644"),
@@ -66,7 +70,8 @@ ELEMENTS = {
         "subtitle": "Perpendicular harmonic phase-locking at $n=2$",
     },
     "boron": {
-        "Z": 5, "A": 11,
+        "Z": 5,
+        "A": 11,
         "shells": [
             (1, "1s²", 2, 0.27, "#00DDFF"),
             (2, "2s²2p¹", 3, 1.74, "#FF6644"),
@@ -75,7 +80,8 @@ ELEMENTS = {
         "subtitle": "Trigonal $120°$ resonance in the crowded $n=2$ track",
     },
     "carbon": {
-        "Z": 6, "A": 12,
+        "Z": 6,
+        "A": 12,
         "shells": [
             (1, "1s²", 2, 0.23, "#00DDFF"),
             (2, "2s²2p²", 4, 1.45, "#FF6644"),
@@ -86,7 +92,7 @@ ELEMENTS = {
 }
 
 
-def generate_strain_figure(name, info, output_dir):
+def generate_strain_figure(name: str, info: dict, output_dir: str) -> str:
     """Generate a single orbital strain figure."""
     Z = info["Z"]
     shells = info["shells"]
@@ -98,9 +104,9 @@ def generate_strain_figure(name, info, output_dir):
         bounds = 3.0
 
     # Create figure
-    fig, ax = plt.subplots(figsize=(10, 10), facecolor='#0A0A1A')
-    ax.set_facecolor('#0A0A1A')
-    ax.set_aspect('equal')
+    fig, ax = plt.subplots(figsize=(10, 10), facecolor="#0A0A1A")
+    ax.set_facecolor("#0A0A1A")
+    ax.set_aspect("equal")
 
     # ---- 1. Background metric strain field (1/r gradient from nucleus) ----
     grid = 500
@@ -118,28 +124,45 @@ def generate_strain_figure(name, info, output_dir):
     vmax = np.percentile(strain_norm, 99)
 
     # Plot the gradient field
-    ax.imshow(strain_norm, extent=[-bounds, bounds, -bounds, bounds],
-              origin='lower', cmap='inferno', alpha=0.6,
-              vmin=0, vmax=vmax)
+    ax.imshow(
+        strain_norm,
+        extent=[-bounds, bounds, -bounds, bounds],
+        origin="lower",
+        cmap="inferno",
+        alpha=0.6,
+        vmin=0,
+        vmax=vmax,
+    )
 
     # ---- 2. Equipotential contour rings ----
     levels = np.linspace(0.5, vmax * 0.9, 12)
-    ax.contour(X, Y, strain_norm, levels=levels,
-               colors='white', linewidths=0.3, alpha=0.15)
+    ax.contour(X, Y, strain_norm, levels=levels, colors="white", linewidths=0.3, alpha=0.15)
 
     # ---- 3. Dielectric saturation boundaries (shell limits) ----
     for n, label, count, radius, color in shells:
         # Draw the orbital track as a glowing ring
         for width, alpha_val in [(4.0, 0.15), (2.5, 0.3), (1.5, 0.7)]:
-            circle = Circle((0, 0), radius, fill=False,
-                           edgecolor=color, linewidth=width, alpha=alpha_val,
-                           linestyle='-')
+            circle = Circle(
+                (0, 0),
+                radius,
+                fill=False,
+                edgecolor=color,
+                linewidth=width,
+                alpha=alpha_val,
+                linestyle="-",
+            )
             ax.add_patch(circle)
 
         # Draw saturation boundary (dashed outer limit)
-        sat_circle = Circle((0, 0), radius * 1.08, fill=False,
-                           edgecolor=color, linewidth=0.8, alpha=0.4,
-                           linestyle='--')
+        sat_circle = Circle(
+            (0, 0),
+            radius * 1.08,
+            fill=False,
+            edgecolor=color,
+            linewidth=0.8,
+            alpha=0.4,
+            linestyle="--",
+        )
         ax.add_patch(sat_circle)
 
         # Place electron markers along the orbital track
@@ -148,69 +171,85 @@ def generate_strain_figure(name, info, output_dir):
         elif count == 2:
             angles = [0, np.pi]  # Antipodal
         elif count == 3:
-            angles = [0, 2*np.pi/3, 4*np.pi/3]  # Trigonal
+            angles = [0, 2 * np.pi / 3, 4 * np.pi / 3]  # Trigonal
         elif count == 4:
             # Tetrahedral projected to 2D → 90° cross
-            angles = [0, np.pi/2, np.pi, 3*np.pi/2]
+            angles = [0, np.pi / 2, np.pi, 3 * np.pi / 2]
         else:
-            angles = np.linspace(0, 2*np.pi, count, endpoint=False)
+            angles = np.linspace(0, 2 * np.pi, count, endpoint=False)
 
         for ang in angles:
             ex = radius * np.cos(ang)
             ey = radius * np.sin(ang)
 
             # Glow
-            ax.plot(ex, ey, 'o', color=color, markersize=14, alpha=0.2)
-            ax.plot(ex, ey, 'o', color=color, markersize=10, alpha=0.4)
+            ax.plot(ex, ey, "o", color=color, markersize=14, alpha=0.2)
+            ax.plot(ex, ey, "o", color=color, markersize=10, alpha=0.4)
             # Core
-            ax.plot(ex, ey, 'o', color='white', markersize=5, alpha=0.9)
+            ax.plot(ex, ey, "o", color="white", markersize=5, alpha=0.9)
 
             # Trefoil knot indicator (small 3-lobe pattern)
             for k in range(3):
-                lobe_ang = ang + k * 2*np.pi/3
+                lobe_ang = ang + k * 2 * np.pi / 3
                 lx = ex + 0.08 * bounds * np.cos(lobe_ang)
                 ly = ey + 0.08 * bounds * np.sin(lobe_ang)
                 ax.plot([ex, lx], [ey, ly], color=color, linewidth=0.6, alpha=0.3)
 
         # Shell label
-        label_x = radius * np.cos(np.pi/4) + bounds * 0.03
-        label_y = radius * np.sin(np.pi/4) + bounds * 0.03
-        ax.text(label_x, label_y, f"$n={n}$: {label}",
-                color=color, fontsize=11, fontweight='bold',
-                bbox=dict(boxstyle='round,pad=0.2', facecolor='#0A0A1A',
-                         edgecolor=color, alpha=0.7))
+        label_x = radius * np.cos(np.pi / 4) + bounds * 0.03
+        label_y = radius * np.sin(np.pi / 4) + bounds * 0.03
+        ax.text(
+            label_x,
+            label_y,
+            f"$n={n}$: {label}",
+            color=color,
+            fontsize=11,
+            fontweight="bold",
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="#0A0A1A", edgecolor=color, alpha=0.7),
+        )
 
     # ---- 4. Central nucleus ----
     # Bright core
     for size, alpha_val in [(20, 0.1), (14, 0.2), (8, 0.5)]:
-        ax.plot(0, 0, 'o', color='#FFD700', markersize=size, alpha=alpha_val)
-    ax.plot(0, 0, 'o', color='white', markersize=4, alpha=0.9)
+        ax.plot(0, 0, "o", color="#FFD700", markersize=size, alpha=alpha_val)
+    ax.plot(0, 0, "o", color="white", markersize=4, alpha=0.9)
 
     # Nucleus label
-    ax.text(bounds * 0.04, -bounds * 0.06, f"$Z={Z}$",
-            color='#FFD700', fontsize=10, fontweight='bold')
+    ax.text(bounds * 0.04, -bounds * 0.06, f"$Z={Z}$", color="#FFD700", fontsize=10, fontweight="bold")
 
     # ---- 5. Labels and formatting ----
     ax.set_xlim(-bounds, bounds)
     ax.set_ylim(-bounds, bounds)
-    ax.set_xlabel('Spatial Radius ($a_0$)', color='white', fontsize=12)
-    ax.set_ylabel('Spatial Radius ($a_0$)', color='white', fontsize=12)
-    ax.tick_params(colors='white', labelsize=9)
+    ax.set_xlabel("Spatial Radius ($a_0$)", color="white", fontsize=12)
+    ax.set_ylabel("Spatial Radius ($a_0$)", color="white", fontsize=12)
+    ax.tick_params(colors="white", labelsize=9)
 
     # Title
-    ax.set_title(info["title"], color='white', fontsize=14, fontweight='bold', pad=15)
-    ax.text(0.5, 1.01, info["subtitle"],
-            transform=ax.transAxes, ha='center', va='bottom',
-            color='#AAAAAA', fontsize=10, style='italic')
+    ax.set_title(info["title"], color="white", fontsize=14, fontweight="bold", pad=15)
+    ax.text(
+        0.5,
+        1.01,
+        info["subtitle"],
+        transform=ax.transAxes,
+        ha="center",
+        va="bottom",
+        color="#AAAAAA",
+        fontsize=10,
+        style="italic",
+    )
 
     # Legend note
-    legend_text = (
-        "● Trefoil ($3_1$) soliton  —— Orbital track  "
-        "- - Saturation boundary"
+    legend_text = "● Trefoil ($3_1$) soliton  —— Orbital track  " "- - Saturation boundary"
+    ax.text(
+        0.5,
+        -0.04,
+        legend_text,
+        transform=ax.transAxes,
+        ha="center",
+        va="top",
+        color="#888888",
+        fontsize=8,
     )
-    ax.text(0.5, -0.04, legend_text,
-            transform=ax.transAxes, ha='center', va='top',
-            color='#888888', fontsize=8)
 
     # Save
     os.makedirs(output_dir, exist_ok=True)
@@ -223,7 +262,7 @@ def generate_strain_figure(name, info, output_dir):
     elif name == "carbon":
         filepath = os.path.join(output_dir, "carbon_strain.png")
 
-    plt.savefig(filepath, dpi=300, bbox_inches='tight', facecolor='#0A0A1A')
+    plt.savefig(filepath, dpi=300, bbox_inches="tight", facecolor="#0A0A1A")
     plt.close()
     print(f"[*] Saved: {filepath}")
     return filepath
@@ -231,6 +270,7 @@ def generate_strain_figure(name, info, output_dir):
 
 if __name__ == "__main__":
     import pathlib
+
     repo_root = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
     output_dir = str(repo_root / "periodic_table")
 

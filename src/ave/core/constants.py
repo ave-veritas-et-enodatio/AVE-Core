@@ -22,38 +22,37 @@ tension and the unknot ropelength.
 All other constants are DERIVED from these three plus the SI definitions
 of ε₀, μ₀, c, ℏ, and e.
 """
-from __future__ import annotations
 
+from math import pi
 
 import numpy as np
-from math import pi
 
 # =============================================================================
 # SI ELECTROMAGNETIC CONSTANTS (Exact or CODATA 2018)
 # =============================================================================
-C_0: float = 299_792_458.0                     # Speed of light [m/s]
-MU_0: float = 4.0 * pi * 1e-7                  # Vacuum permeability [H/m]
-EPSILON_0: float = 1.0 / (MU_0 * C_0**2)       # Vacuum permittivity [F/m]
-Z_0: float = np.sqrt(MU_0 / EPSILON_0)         # Characteristic impedance [Ω] ≈ 376.73
-HBAR: float = 1.054571817e-34                   # reduced Planck constant [J·s]
-e_charge: float = 1.602176634e-19              # Elementary charge [C]
+C_0: float = 299_792_458.0  # Speed of light [m/s]
+MU_0: float = 4.0 * pi * 1e-7  # Vacuum permeability [H/m]
+EPSILON_0: float = 1.0 / (MU_0 * C_0**2)  # Vacuum permittivity [F/m]
+Z_0: float = np.sqrt(MU_0 / EPSILON_0)  # Characteristic impedance [Ω] ≈ 376.73
+HBAR: float = 1.054571817e-34  # reduced Planck constant [J·s]
+e_charge: float = 1.602176634e-19  # Elementary charge [C]
 # Note: K_B defines the Kelvin scale relative to Joules. It is a definitional mapping,
 # not a free parameter of the vacuum topology.
-K_B: float = 1.380649e-23                       # Boltzmann conversion constant [J/K] (exact, 2019 SI)
-N_A: float = 6.02214076e23                       # Avogadro constant [mol⁻¹] (exact, 2019 SI)
-M_U: float = 1.66053906660e-27                   # Atomic mass unit (Dalton) [kg]
-M_PROTON: float = 1.67262192369e-27             # Proton mass [kg] (CODATA 2018)
-M_SUN: float = 1.989e30                          # Solar mass [kg] (IAU nominal)
+K_B: float = 1.380649e-23  # Boltzmann conversion constant [J/K] (exact, 2019 SI)
+N_A: float = 6.02214076e23  # Avogadro constant [mol⁻¹] (exact, 2019 SI)
+M_U: float = 1.66053906660e-27  # Atomic mass unit (Dalton) [kg]
+M_PROTON: float = 1.67262192369e-27  # Proton mass [kg] (CODATA 2018)
+M_SUN: float = 1.989e30  # Solar mass [kg] (IAU nominal)
 
 # =============================================================================
 # THREE CALIBRATION INPUTS
 # =============================================================================
 # Input 1: The spatial cutoff (from which m_e is derived via the unknot)
-M_E: float = 9.1093837015e-31                  # Electron rest mass [kg]
+M_E: float = 9.1093837015e-31  # Electron rest mass [kg]
 # NOTE: m_e is operationally used as the input because ℓ_node ≡ ℏ/(m_e·c).
 # Topologically, m_e = T_EM × ℓ_node / c² is the unknot ground-state energy.
 # Input 2: The dielectric bound
-ALPHA: float = 7.2973525693e-3                  # Fine-structure constant (dimensionless)
+ALPHA: float = 7.2973525693e-3  # Fine-structure constant (dimensionless)
 #
 # NOTE ON α (see also ALPHA_COLD_INV and DELTA_STRAIN below):
 # The value above is the CODATA measurement (α⁻¹ = 137.035999084).  Within the
@@ -70,7 +69,7 @@ ALPHA: float = 7.2973525693e-3                  # Fine-structure constant (dimen
 # for the full derivation.
 #
 # Input 3: The Machian boundary
-G: float = 6.67430e-11                          # Gravitational constant [m³/(kg·s²)]
+G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 
 # =============================================================================
 # α from Golden Torus Trefoil S₁₁-minimization (Zero-Parameter Closure)
@@ -103,8 +102,8 @@ G: float = 6.67430e-11                          # Gravitational constant [m³/(k
 #
 #       α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363038
 #
-ALPHA_COLD_INV: float = 4.0 * pi**3 + pi**2 + pi    # ≈ 137.0363038
-ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV            # ≈ 7.29352e-3
+ALPHA_COLD_INV: float = 4.0 * pi**3 + pi**2 + pi  # ≈ 137.0363038
+ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 
 # Vacuum Strain Coefficient — CMB-induced thermal expansion of the spatial metric
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -121,7 +120,7 @@ ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV            # ≈ 7.29352e-3
 # environments (collider cores, early universe) α⁻¹ decreases below 137.036.  The
 # cold 137.0363038 is the mathematical T → 0 asymptote.
 #
-DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV   # ≈ 2.225e-6
+DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV  # ≈ 2.225e-6
 
 # Cross-check: α × (1 − δ_strain)⁻¹ should recover ALPHA_COLD_INV to CODATA precision
 # (This is definitional given the way DELTA_STRAIN is computed, but ensures future
@@ -133,11 +132,11 @@ DELTA_STRAIN: float = 1.0 - (1.0 / ALPHA) / ALPHA_COLD_INV   # ≈ 2.225e-6
 
 # Lattice pitch — the electromagnetic coherence length (reduced Compton wavelength)
 # ℓ_node ≡ ℏ / (m_e · c)
-L_NODE: float = HBAR / (M_E * C_0)             # ≈ 3.8616e-13 m
+L_NODE: float = HBAR / (M_E * C_0)  # ≈ 3.8616e-13 m
 
 # Bohr radius — the atomic unit of length
 # a₀ ≡ ℏ / (α · m_e · c) = ℓ_node / α
-A_0: float = L_NODE / ALPHA                     # ≈ 5.2918e-11 m
+A_0: float = L_NODE / ALPHA  # ≈ 5.2918e-11 m
 
 # Rydberg energy in eV — the atomic unit of ionisation energy
 # Ry ≡ α² · m_e · c² / 2
@@ -145,7 +144,7 @@ RY_EV: float = (ALPHA**2 * M_E * C_0**2 / 2.0) / e_charge  # ≈ 13.606 eV
 
 # Topological Conversion Constant: maps charge to spatial dislocation
 # ξ_topo ≡ e / ℓ_node   [C/m]
-XI_TOPO: float = e_charge / L_NODE             # ≈ 4.149e-7 C/m
+XI_TOPO: float = e_charge / L_NODE  # ≈ 4.149e-7 C/m
 
 # =============================================================================
 # LATTICE NATIVE UNITS
@@ -172,25 +171,25 @@ XI_TOPO: float = e_charge / L_NODE             # ≈ 4.149e-7 C/m
 # PREFIX CONVENTION: all native-unit constants use the N_ prefix.
 
 # --- Fundamental dimensionless constants (same in any unit system) ---
-N_ALPHA: float = ALPHA                           # ≈ 1/137.036 (soliton-lattice coupling)
-N_NU: float = 2.0 / 7.0                         # Poisson ratio (Axiom 2)
-N_P_C: float = 8.0 * pi * ALPHA                 # Critical packing fraction (Axiom 3)
+N_ALPHA: float = ALPHA  # ≈ 1/137.036 (soliton-lattice coupling)
+N_NU: float = 2.0 / 7.0  # Poisson ratio (Axiom 2)
+N_P_C: float = 8.0 * pi * ALPHA  # Critical packing fraction (Axiom 3)
 
 # --- Derived atomic constants in native units ---
-N_A0: float = 1.0 / ALPHA                       # Bohr radius = ℓ_NODE / α ≈ 137.04
-N_RY: float = ALPHA**2 / 2.0                    # Rydberg energy = α²/2 ≈ 2.663e-5
-N_RY_EV: float = N_RY * M_E * C_0**2 / e_charge # Same as RY_EV (cross-check: 13.606 eV)
+N_A0: float = 1.0 / ALPHA  # Bohr radius = ℓ_NODE / α ≈ 137.04
+N_RY: float = ALPHA**2 / 2.0  # Rydberg energy = α²/2 ≈ 2.663e-5
+N_RY_EV: float = N_RY * M_E * C_0**2 / e_charge  # Same as RY_EV (cross-check: 13.606 eV)
 
 # --- Projection loss at 90° crossing (Op7) ---
 # Y_loss = (1 - cosθ) / (2π²)
 # For θ = 90° (Hopf crossing, K=2G orthogonal, Borromean):
-N_Y_LOSS_90: float = 1.0 / (2.0 * pi**2)        # ≈ 0.05066
+N_Y_LOSS_90: float = 1.0 / (2.0 * pi**2)  # ≈ 0.05066
 
 # --- Macroscopic Cascade Constants ---
 # Macroscopic avalanche exponent (3D isotropic Poisson-corrected)
 # n_1D = 2 (pure Axiom 4: M = 1/S^2 = gamma^2)
 # n_3D = 2(1 - N_NU/d) = 2(1 - (2/7)/3) = 38/21
-AVALANCHE_N_3D: float = 2.0 * (1.0 - N_NU / 3.0)   # 38/21 ≈ 1.8095
+AVALANCHE_N_3D: float = 2.0 * (1.0 - N_NU / 3.0)  # 38/21 ≈ 1.8095
 
 # K4 cascade efficiency (Kolmogorov constant)
 # eta = 3/4 (K4 junction: 3 forward ports × |S_ij|^2 = 3×1/4)
@@ -210,17 +209,17 @@ C_K_KOLMOGOROV: float = 4.0 / 3.0
 # at nuclear scale (Regime I, S→0), φ determines the saturated
 # zone geometry.  At atomic scale (Regime II, S≈1), φ bounds
 # the drainable phase space.  Same constant, different regime.
-N_PHI_PACK: float = pi * np.sqrt(2.0) / 6.0      # ≈ 0.7405
-N_VOID_FRAC: float = 1.0 - N_PHI_PACK            # ≈ 0.2595
+N_PHI_PACK: float = pi * np.sqrt(2.0) / 6.0  # ≈ 0.7405
+N_VOID_FRAC: float = 1.0 - N_PHI_PACK  # ≈ 0.2595
 
 # --- SI ↔ Native conversion factors ---
 # Multiply a native-unit quantity by these to get SI.
-NATIVE_TO_SI_LENGTH: float = L_NODE              # 1 native length = ℓ_NODE [m]
-NATIVE_TO_SI_MASS: float = M_E                   # 1 native mass = m_e [kg]
-NATIVE_TO_SI_ENERGY: float = M_E * C_0**2        # 1 native energy = m_e c² [J]
+NATIVE_TO_SI_LENGTH: float = L_NODE  # 1 native length = ℓ_NODE [m]
+NATIVE_TO_SI_MASS: float = M_E  # 1 native mass = m_e [kg]
+NATIVE_TO_SI_ENERGY: float = M_E * C_0**2  # 1 native energy = m_e c² [J]
 NATIVE_TO_SI_ENERGY_EV: float = M_E * C_0**2 / e_charge  # 1 native energy [eV] ≈ 511000
-NATIVE_TO_SI_TIME: float = HBAR / (M_E * C_0**2) # 1 native time = ℏ/(m_e c²) [s]
-NATIVE_TO_SI_VELOCITY: float = C_0               # 1 native velocity = c [m/s]
+NATIVE_TO_SI_TIME: float = HBAR / (M_E * C_0**2)  # 1 native time = ℏ/(m_e c²) [s]
+NATIVE_TO_SI_VELOCITY: float = C_0  # 1 native velocity = c [m/s]
 
 # =============================================================================
 # MACROSCOPIC EE TO TOPOLOGICAL KINEMATIC CONVERSIONS (VCA)
@@ -229,23 +228,23 @@ NATIVE_TO_SI_VELOCITY: float = C_0               # 1 native velocity = c [m/s]
 # Maps standard macroscopic engineering parameters (SI) to native vacuum LC equivalents.
 
 # R = ξ⁻² η  → η (viscosity) = R_ohms × ξ²
-EE_TO_TOPO_RESISTANCE: float = XI_TOPO**2          # Ohms [Ω] → Topological Viscosity [kg/s]
+EE_TO_TOPO_RESISTANCE: float = XI_TOPO**2  # Ohms [Ω] → Topological Viscosity [kg/s]
 
 # V = ξ⁻¹ F  → F (force) = V_volts × ξ
-EE_TO_TOPO_VOLTAGE: float = XI_TOPO                # Volts [V] → Topological Force [N]
+EE_TO_TOPO_VOLTAGE: float = XI_TOPO  # Volts [V] → Topological Force [N]
 
 # L = ξ⁻² m  → m (mass) = L_henries × ξ²
-EE_TO_TOPO_INDUCTANCE: float = XI_TOPO**2          # Henries [H] → Topological Mass [kg]
+EE_TO_TOPO_INDUCTANCE: float = XI_TOPO**2  # Henries [H] → Topological Mass [kg]
 
 # C = ξ² κ  → κ (compliance) = C_farads / ξ²
-EE_TO_TOPO_CAPACITANCE: float = 1.0 / (XI_TOPO**2) # Farads [F] → Topological Compliance [m/N]
+EE_TO_TOPO_CAPACITANCE: float = 1.0 / (XI_TOPO**2)  # Farads [F] → Topological Compliance [m/N]
 
 # =============================================================================
 # DERIVED DIELECTRIC CONSTANTS (Axiom 4)
 # =============================================================================
 
 # Volumetric packing fraction  p_c = 8πα
-P_C: float = 8.0 * pi * ALPHA                  # ≈ 0.1834
+P_C: float = 8.0 * pi * ALPHA  # ≈ 0.1834
 
 # Equilibrium packing fraction for 3D structures (proteins, etc.)
 # η_eq = P_C × (1 − ν_vac) = 8πα × 5/7
@@ -257,22 +256,22 @@ P_C: float = 8.0 * pi * ALPHA                  # ≈ 0.1834
 # The accessible packing fraction is therefore (1 − ν) × P_C.
 #
 # Same ν_vac = 2/7 that governs:  sin²θ_W, α_s, CKM, PMNS
-ETA_EQ: float = P_C * (1.0 - 2.0 / 7.0)       # = P_C × 5/7 ≈ 0.1310
+ETA_EQ: float = P_C * (1.0 - 2.0 / 7.0)  # = P_C × 5/7 ≈ 0.1310
 
 # 1D Electromagnetic string tension  T_EM = m_e c² / ℓ_node
-T_EM: float = (M_E * C_0**2) / L_NODE          # ≈ 0.212 N
+T_EM: float = (M_E * C_0**2) / L_NODE  # ≈ 0.212 N
 
 # Absolute nodal breakdown voltage  V_snap = m_e c² / e
-V_SNAP: float = (M_E * C_0**2) / e_charge      # ≈ 511.0 kV
+V_SNAP: float = (M_E * C_0**2) / e_charge  # ≈ 511.0 kV
 
 # Kinetic yield limit  E_k = √α · m_e c²
-E_YIELD_KINETIC: float = np.sqrt(ALPHA) * M_E * C_0**2   # ≈ 43.65 keV (in Joules)
+E_YIELD_KINETIC: float = np.sqrt(ALPHA) * M_E * C_0**2  # ≈ 43.65 keV (in Joules)
 
 # Kinetic yield limit in the voltage domain  V_yield = √α · V_snap
 # This is the 3D macroscopic dielectric saturation threshold.
 # When a localized topological voltage exceeds V_yield, the vacuum LC
 # network enters the non-linear saturation plateau (ε_eff → 0).
-V_YIELD: float = np.sqrt(ALPHA) * V_SNAP                 # ≈ 43,652 V (43.65 kV)
+V_YIELD: float = np.sqrt(ALPHA) * V_SNAP  # ≈ 43,652 V (43.65 kV)
 
 
 # Critical electric field (Schwinger limit via AVE)
@@ -283,7 +282,7 @@ E_CRIT: float = (M_E**2 * C_0**3) / (e_charge * HBAR)
 # When the applied field reaches E_yield = V_yield / ℓ_node, the local vacuum
 # LC cell enters the nonlinear saturation plateau (ε_eff → 0).
 # E_yield = √α × m_e² c³ / (eℏ) = √α × E_crit
-E_YIELD: float = V_YIELD / L_NODE                      # ≈ 1.13e17 V/m
+E_YIELD: float = V_YIELD / L_NODE  # ≈ 1.13e17 V/m
 
 # Magnetic saturation threshold (Axiom 4 — magnetic sector)
 # When B² / (2μ₀) = m_e c² / ℓ³ (energy density = rest energy per cell),
@@ -292,9 +291,9 @@ E_YIELD: float = V_YIELD / L_NODE                      # ≈ 1.13e17 V/m
 B_SNAP: float = np.sqrt(2.0 * MU_0 * M_E * C_0**2 / L_NODE**3)  # ≈ 1.89e9 T
 
 # Pre-computed phase boundaries (Axiom 4 Limits)
-R_I: float = np.sqrt(2.0 * ALPHA)              # Linear -> Non-Linear
-R_II: float = np.sqrt(3.0) / 2.0                 # Non-Linear -> Saturated
-R_III: float = 1.0                             # Saturated -> Rupture
+R_I: float = np.sqrt(2.0 * ALPHA)  # Linear -> Non-Linear
+R_II: float = np.sqrt(3.0) / 2.0  # Non-Linear -> Saturated
+R_III: float = 1.0  # Saturated -> Rupture
 
 
 # =============================================================================
@@ -328,9 +327,9 @@ R_III: float = 1.0                             # Saturated -> Rupture
 #   constants.py → faddeev_skyrme.py → universal_operators.py → constants.py
 # The guards must be defined before _compute_i_scalar_dynamic() runs.
 
-EPS_NUMERICAL: float = 1e-12   # Reflection / impedance guards
-EPS_CLIP: float      = 1e-15   # Saturation argument clip ceiling
-EPS_DIVZERO: float   = 1e-30   # Hard division-by-zero floor
+EPS_NUMERICAL: float = 1e-12  # Reflection / impedance guards
+EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling
+EPS_DIVZERO: float = 1e-30  # Hard division-by-zero floor
 
 
 # =============================================================================
@@ -352,13 +351,13 @@ EPS_DIVZERO: float   = 1e-30   # Hard division-by-zero floor
 _a_emt = P_C
 _b_emt = 2.0 * P_C - 10.0
 _c_emt = 12.0
-_disc  = _b_emt**2 - 4.0 * _a_emt * _c_emt
+_disc = _b_emt**2 - 4.0 * _a_emt * _c_emt
 Z_COORDINATION: float = (-_b_emt + _disc**0.5) / (2.0 * _a_emt)  # ≈ 51.25
 
 # Rigidity percolation threshold  p_G = 6/z₀ ≈ 0.117
 # Below this, the network is a fluid (K > 0, G = 0).
 # P_C = 0.1834 is 56.7% above p_G — the vacuum is a robust rigid solid.
-P_RIGIDITY: float = 6.0 / Z_COORDINATION                # ≈ 0.117
+P_RIGIDITY: float = 6.0 / Z_COORDINATION  # ≈ 0.117
 
 # Isotropic Strain Projection factor (trace-reversed Poisson ν = 2/7)
 # 1D → 3D volumetric bulk projection = 1/7
@@ -372,7 +371,7 @@ NU_VAC: float = 2.0 / 7.0
 # Strong coupling is α projected onto the 3D spatial subspace:
 # 3 spatial dimensions / 7 compliance modes (from ν_vac = 2/7).
 # PDG value: 0.1179 ± 0.0010.  AVE: 0.1214 (2.97% error).
-ALPHA_S: float = ALPHA ** (3.0 / 7.0)           # ≈ 0.1214
+ALPHA_S: float = ALPHA ** (3.0 / 7.0)  # ≈ 0.1214
 
 # Machian hierarchy coupling  ξ_M = 4π(R_H/ℓ_node)α⁻²
 # (computed from G via G = ℏc / (7ξ m_e²))
@@ -383,17 +382,17 @@ XI_MACHIAN: float = HBAR * C_0 / (7.0 * G * M_E**2)
 # =============================================================================
 
 # On-shell weak mixing angle from Poisson ratio: sin²θ_W = 1 - 7/9 = 2/9
-SIN2_THETA_W: float = 2.0 / 9.0                 # ≈ 0.2222 (PDG on-shell: 0.2234, Δ=−0.52%)
+SIN2_THETA_W: float = 2.0 / 9.0  # ≈ 0.2222 (PDG on-shell: 0.2234, Δ=−0.52%)
 
 # W boson mass from unknot self-energy at saturation:
 # M_W = m_e / (α² × p_c × √(3/7))
-M_W_MEV: float = (M_E * C_0**2 / (e_charge * 1e6)) / (ALPHA**2 * P_C * np.sqrt(3.0/7.0))
+M_W_MEV: float = (M_E * C_0**2 / (e_charge * 1e6)) / (ALPHA**2 * P_C * np.sqrt(3.0 / 7.0))
 
 # Z boson mass from weak mixing: M_Z = M_W × 3/√7
 M_Z_MEV: float = M_W_MEV * 3.0 / np.sqrt(7.0)
 
 # Tree-level Fermi constant: G_F = √2 πα / (2 sin²θ_W M_W²)
-G_F: float = np.sqrt(2.0) * pi * ALPHA / (2.0 * SIN2_THETA_W * (M_W_MEV * 1e-3)**2)
+G_F: float = np.sqrt(2.0) * pi * ALPHA / (2.0 * SIN2_THETA_W * (M_W_MEV * 1e-3) ** 2)
 
 # Higgs VEV: v = 1/√(√2 G_F)
 HIGGS_VEV_MEV: float = 1.0 / np.sqrt(np.sqrt(2.0) * G_F) * 1e3  # MeV
@@ -403,8 +402,8 @@ HIGGS_VEV_MEV: float = 1.0 / np.sqrt(np.sqrt(2.0) * G_F) * 1e3  # MeV
 # λ = 1/(2 N_K4) = 1/8 (quartic stiffness shared across 4 nodes)
 # m_H = √(2λ) × v = v/√N_K4 = v/2
 # PDG: 125,100 MeV.  AVE: ≈124,417 MeV (0.55% error).
-N_K4: int = 4                                    # Nodes per K4 unit cell
-LAMBDA_HIGGS: float = 1.0 / (2.0 * N_K4)        # = 1/8 = 0.125
+N_K4: int = 4  # Nodes per K4 unit cell
+LAMBDA_HIGGS: float = 1.0 / (2.0 * N_K4)  # = 1/8 = 0.125
 M_HIGGS_MEV: float = HIGGS_VEV_MEV / np.sqrt(N_K4)  # = v/2
 
 # =============================================================================
@@ -433,14 +432,14 @@ M_HIGGS_MEV: float = HIGGS_VEV_MEV / np.sqrt(N_K4)  # = v/2
 #   A = cos(θ_W):  Complementary EW sector (7 of 9)
 #   1/√7:          Single-mode amplitude from 7-mode compliance manifold
 
-LAMBDA_CKM: float = SIN2_THETA_W                      # = 2/9
-A_CKM: float = np.sqrt(7.0 / 9.0)                     # = cos(θ_W) = √7/3
-RHO_ETA_MAG: float = 1.0 / np.sqrt(7.0)               # = 1/√7
+LAMBDA_CKM: float = SIN2_THETA_W  # = 2/9
+A_CKM: float = np.sqrt(7.0 / 9.0)  # = cos(θ_W) = √7/3
+RHO_ETA_MAG: float = 1.0 / np.sqrt(7.0)  # = 1/√7
 
 # Key CKM matrix elements
-V_US: float = LAMBDA_CKM                               # = 2/9 ≈ 0.2222
-V_CB: float = A_CKM * LAMBDA_CKM**2                    # = 4√7/(9³) ≈ 0.0436
-V_UB: float = A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG     # = 8/2187 ≈ 0.00366
+V_US: float = LAMBDA_CKM  # = 2/9 ≈ 0.2222
+V_CB: float = A_CKM * LAMBDA_CKM**2  # = 4√7/(9³) ≈ 0.0436
+V_UB: float = A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG  # = 8/2187 ≈ 0.00366
 
 # =============================================================================
 # PMNS MATRIX (Neutrino Mixing from Regime-Boundary Eigenvalue Method)
@@ -472,10 +471,10 @@ V_UB: float = A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG     # = 8/2187 ≈ 0.00366
 #   π/3  = K4 bond chirality share (3-connected lattice = trefoil c=3)
 #   π/45 = boundary junction coupling phase
 
-SIN2_THETA_13: float = 1.0 / 45.0                      # = 0.02222
-SIN2_THETA_12: float = NU_VAC + SIN2_THETA_13          # = 97/315 ≈ 0.308
-SIN2_THETA_23: float = 0.5 + 2.0 * SIN2_THETA_13       # = 49/90 ≈ 0.544
-DELTA_CP_PMNS: float = (1.0 + 1.0/3.0 + 1.0/45.0) * pi # = 61π/45 ≈ 1.356π
+SIN2_THETA_13: float = 1.0 / 45.0  # = 0.02222
+SIN2_THETA_12: float = NU_VAC + SIN2_THETA_13  # = 97/315 ≈ 0.308
+SIN2_THETA_23: float = 0.5 + 2.0 * SIN2_THETA_13  # = 49/90 ≈ 0.544
+DELTA_CP_PMNS: float = (1.0 + 1.0 / 3.0 + 1.0 / 45.0) * pi  # = 61π/45 ≈ 1.356π
 
 # Asymptotic Hubble constant  H∞ = 28π m_e³ c G / (ℏ² α²)
 H_INFINITY: float = (28.0 * pi * M_E**3 * C_0 * G) / (HBAR**2 * ALPHA**2)
@@ -488,7 +487,7 @@ RHO_BULK: float = (XI_TOPO**2 * MU_0) / (P_C * L_NODE**2)
 
 # 1D string tension per length  G_string = T_EM / ℓ_node = m_e c² / ℓ_node²
 # This is the axial stiffness of a single lattice strut.
-G_STRING: float = T_EM / L_NODE                            # ≈ 5.49×10¹¹ Pa
+G_STRING: float = T_EM / L_NODE  # ≈ 5.49×10¹¹ Pa
 
 # 3D continuum shear modulus  G_vac = ρ_bulk · c²
 # From v_transverse = √(G/ρ) = c (photons propagate at c on the LC lattice).
@@ -499,7 +498,7 @@ G_VAC: float = RHO_BULK * C_0**2
 V_LONG: float = np.sqrt(2.0 * G_VAC / RHO_BULK)
 
 # Kinematic mutual inductance  ν_vac_kin = α · c · ℓ_node
-NU_KIN: float = ALPHA * C_0 * L_NODE           # ≈ 8.45e-7 m²/s
+NU_KIN: float = ALPHA * C_0 * L_NODE  # ≈ 8.45e-7 m²/s
 
 # Dielectric Rupture Strain (dimensionless unit strain limit)
 DIELECTRIC_RUPTURE_STRAIN: float = 1.0
@@ -512,7 +511,7 @@ DIELECTRIC_RUPTURE_STRAIN: float = 1.0
 #   κ_FS = p_c / α = (8πα) / α = 8π
 # This is a pure geometric constant: the solid-angle normalisation of
 # the Borromean linkage's quartic stabilization term.
-KAPPA_FS_COLD: float = 8.0 * pi              # = 25.1327...
+KAPPA_FS_COLD: float = 8.0 * pi  # = 25.1327...
 
 # ---- Torus Knot Phase Winding Ladder ----
 #
@@ -560,10 +559,11 @@ CROSSING_NUMBER_PROTON: int = 5  # (2,5) cinquefoil
 # lattice gradient saturation that is now handled by the solver directly.
 
 # Thermal softening fraction (residual after gradient saturation)
-DELTA_THERMAL: float = 1.0 / (14.0 * pi**2)   # = 1/(14π²) ≈ 0.007214
+DELTA_THERMAL: float = 1.0 / (14.0 * pi**2)  # = 1/(14π²) ≈ 0.007214
 
 # Effective (thermally corrected) Faddeev-Skyrme coupling
 KAPPA_FS: float = KAPPA_FS_COLD * (1.0 - DELTA_THERMAL)
+
 
 # Dynamic 1D Faddeev-Skyrme scalar trace
 # Computed by minimizing the 1D radial Skyrmion energy functional
@@ -575,11 +575,13 @@ def _compute_i_scalar_dynamic(crossing_number: int = 5) -> float:
         crossing_number: Torus knot crossing number.  Default 5 (proton).
     """
     from ave.topological.faddeev_skyrme import TopologicalHamiltonian1D
+
     solver = TopologicalHamiltonian1D(
         node_pitch=HBAR / (M_E * C_0),  # = L_NODE (avoid circular ref)
         scaling_coupling=KAPPA_FS,
     )
     return solver.solve_scalar_trace(crossing_number=crossing_number)
+
 
 I_SCALAR_1D: float = _compute_i_scalar_dynamic(crossing_number=5)
 
@@ -612,9 +614,9 @@ PROTON_ELECTRON_RATIO: float = _X_CORE + 1.0
 T_NUC: float = T_EM * PROTON_ELECTRON_RATIO
 
 # Macroscopic Baryonic Phase Shear Scalar (Sagnac geometric boundary bound)
-# When translating 1D Fizeau kinematics to macroscopic Topo-Kinematic 3D 
-# boundaries (Geodynamo, Lunar Heating), the inductive spatial phase flow 
-# is amplified by the physical density of the baryonic bodies shearing the 
+# When translating 1D Fizeau kinematics to macroscopic Topo-Kinematic 3D
+# boundaries (Geodynamo, Lunar Heating), the inductive spatial phase flow
+# is amplified by the physical density of the baryonic bodies shearing the
 # topological LC node field. This matches the exact proton mass eigenvalue.
 MACROSCOPIC_BARYON_PHASE_SCALAR: float = PROTON_ELECTRON_RATIO
 
@@ -639,9 +641,10 @@ _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 #   c=11: Δ(1950) resonance
 #   c=13: N(2250) resonance
 
-TORUS_KNOT_CROSSING_NUMBERS: list = [5, 7, 9, 11, 13]
+TORUS_KNOT_CROSSING_NUMBERS: list[int] = [5, 7, 9, 11, 13]
 
-def _compute_baryon_ladder() -> dict:
+
+def _compute_baryon_ladder() -> dict[int, dict[str, float]]:
     """Compute the full baryon resonance ladder at import time."""
     ladder = {}
     for c in TORUS_KNOT_CROSSING_NUMBERS:
@@ -654,13 +657,14 @@ def _compute_baryon_ladder() -> dict:
         ratio = x_core + 1.0
         mass_mev = ratio * M_E * _KG_TO_MEV
         ladder[c] = {
-            'i_scalar': i_scalar,
-            'ratio': ratio,
-            'mass_mev': mass_mev,
+            "i_scalar": i_scalar,
+            "ratio": ratio,
+            "mass_mev": mass_mev,
         }
     return ladder
 
-BARYON_LADDER: dict = _compute_baryon_ladder()
+
+BARYON_LADDER: dict[int, dict[str, float]] = _compute_baryon_ladder()
 
 # =============================================================================
 # NUCLEAR MUTUAL COUPLING CONSTANT (Periodic Table Solver)
@@ -724,8 +728,8 @@ K_MUTUAL: float = (CROSSING_NUMBER_PROTON * pi / 2.0) * ALPHA * HBAR_C_MEV_FM / 
 # =============================================================================
 # These are the experimentally measured isolated nucleon rest masses.
 # They serve as the target boundary conditions for the topological binding engine.
-M_P_MEV_TARGET: float = 938.272088   # Proton mass [MeV/c²]  (CODATA 2018)
-M_N_MEV_TARGET: float = 939.565420   # Neutron mass [MeV/c²] (CODATA 2018)
+M_P_MEV_TARGET: float = 938.272088  # Proton mass [MeV/c²]  (CODATA 2018)
+M_N_MEV_TARGET: float = 939.565420  # Neutron mass [MeV/c²] (CODATA 2018)
 
 # =============================================================================
 # PROTON CHARGE RADIUS (Derived — Axiom 1 + standing wave confinement)
@@ -734,11 +738,11 @@ M_N_MEV_TARGET: float = 939.565420   # Neutron mass [MeV/c²] (CODATA 2018)
 #   d = 4 × λ_p = 4 × ℏ/(m_p c)
 # This is the RMS vibration amplitude of the center-of-mass standing wave
 # confined within the 0Ω saturated cavity boundary of one lattice cell.
-D_PROTON: float = 4.0 * HBAR / (PROTON_ELECTRON_RATIO * M_E * C_0) * 1e15   # ≈ 0.8412 fm
+D_PROTON: float = 4.0 * HBAR / (PROTON_ELECTRON_RATIO * M_E * C_0) * 1e15  # ≈ 0.8412 fm
 
 # Intra-alpha distance: nucleons at vertices of regular tetrahedron
 # D_intra = d × √8  (tetrahedral edge from vertex ±(d,d,d))
-D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)   # ≈ 2.379 fm
+D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)  # ≈ 2.379 fm
 
 # =============================================================================
 # NUCLEAR EIGENVALUE CONSTANTS (Derived — 5-Step Regime Boundary Method)
@@ -762,10 +766,10 @@ D_INTRA_ALPHA: float = D_PROTON * np.sqrt(8.0)   # ≈ 2.379 fm
 # NU_VAC already defined at line 127 — use that single definition
 
 # Inter-nucleon eigenvalue distance [fm]
-D_NN_EIGENVALUE: float = pi * D_PROTON * 7.0 / 9.0   # ≈ 2.056 fm
+D_NN_EIGENVALUE: float = pi * D_PROTON * 7.0 / 9.0  # ≈ 2.056 fm
 
 # Coulomb coupling constant αℏc [MeV·fm]
-ALPHA_HC: float = ALPHA * HBAR_C_MEV_FM   # ≈ 1.440 MeV·fm
+ALPHA_HC: float = ALPHA * HBAR_C_MEV_FM  # ≈ 1.440 MeV·fm
 
 # Predicted deuteron binding [MeV]  (ℏω₁ × α where ω₁ = c/r_eff)
 _OMEGA_1: float = C_0 / (D_PROTON * 1e-15 / (1.0 + NU_VAC))
@@ -786,10 +790,10 @@ B_DEUTERON_PREDICTED: float = HBAR * _OMEGA_1 / e_charge * 1e-6 * ALPHA  # ≈ 2
 # nucleon LC tanks at the eigenvalue distance d_nn.
 
 # Uncoupled resonant frequency [rad/s]
-OMEGA_0_NUCLEAR: float = _OMEGA_1   # = c(1+ν)/d_p
+OMEGA_0_NUCLEAR: float = _OMEGA_1  # = c(1+ν)/d_p
 
 # Uncoupled resonant energy [MeV]
-E_0_NUCLEAR: float = HBAR * OMEGA_0_NUCLEAR / (e_charge * 1e6)   # ≈ 301.6 MeV
+E_0_NUCLEAR: float = HBAR * OMEGA_0_NUCLEAR / (e_charge * 1e6)  # ≈ 301.6 MeV
 
 # Dimensionless coupling coefficient (from deuteron binding)
-K_COUPLING: float = 1.0 / (1.0 - ALPHA) ** 2 - 1.0   # ≈ 0.01476 ≈ 2α
+K_COUPLING: float = 1.0 / (1.0 - ALPHA) ** 2 - 1.0  # ≈ 0.01476 ≈ 2α

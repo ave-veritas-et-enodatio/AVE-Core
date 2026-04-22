@@ -27,18 +27,15 @@ Axiom compliance:
 
 No external quantum postulates are used.
 """
-from __future__ import annotations
-
 
 import numpy as np
 
-from ave.core.constants import (
-    L_NODE, C_0, HBAR, M_E, K_B, Z_0, e_charge, MU_0, EPSILON_0,
-)
+from ave.core.constants import C_0, HBAR, K_B, L_NODE, M_E, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Thread geometry
 # ═══════════════════════════════════════════════════════════════
+
 
 def thread_node_count(d: float) -> int:
     """Number of LC nodes along the thread.
@@ -72,6 +69,7 @@ def phase_advance_per_node(d: float) -> float:
 # ═══════════════════════════════════════════════════════════════
 # Standing wave mode
 # ═══════════════════════════════════════════════════════════════
+
 
 def thread_mode_frequency(d: float) -> float:
     """Fundamental mode frequency of the short-short resonator.
@@ -122,9 +120,10 @@ def thread_mode_energy_eV(d: float) -> float:
 # Impedance taper profile
 # ═══════════════════════════════════════════════════════════════
 
-def impedance_taper_profile(d: float, n_points: int = 200,
-                            r_opt: float = None,
-                            n_profile: float = 1.0) -> tuple:
+
+def impedance_taper_profile(
+    d: float, n_points: int = 200, r_opt: float | None = None, n_profile: float = 1.0
+) -> tuple[np.ndarray, np.ndarray]:
     """Impedance profile Z(x)/Z₀ along the thread axis.
 
     Each particle is a saturated defect with a Faddeev-Skyrme radial
@@ -177,7 +176,7 @@ def impedance_taper_profile(d: float, n_points: int = 200,
         # Total strain (opposite twists → strains add)
         total_strain = dphi_A + dphi_B
         ratio = min(total_strain / np.pi, 0.9999)
-        Z_profile[i] = np.sqrt(1.0 - ratio ** 2)
+        Z_profile[i] = np.sqrt(1.0 - ratio**2)
 
     return x, Z_profile
 
@@ -185,6 +184,7 @@ def impedance_taper_profile(d: float, n_points: int = 200,
 # ═══════════════════════════════════════════════════════════════
 # Topological protection
 # ═══════════════════════════════════════════════════════════════
+
 
 def decoherence_probability(T: float) -> float:
     """Probability of spontaneous thread destruction via pair creation.
@@ -205,7 +205,7 @@ def decoherence_probability(T: float) -> float:
     """
     if T <= 0:
         return 0.0
-    exponent = 2.0 * M_E * C_0 ** 2 / (K_B * T)
+    exponent = 2.0 * M_E * C_0**2 / (K_B * T)
     # Avoid overflow: if exponent > 700, result is indistinguishable from 0
     if exponent > 700:
         return 0.0
@@ -215,6 +215,7 @@ def decoherence_probability(T: float) -> float:
 # ═══════════════════════════════════════════════════════════════
 # Bell angular correlation
 # ═══════════════════════════════════════════════════════════════
+
 
 def bell_correlation(theta: float | np.ndarray) -> float | np.ndarray:
     """Angular correlation function for entangled pair.

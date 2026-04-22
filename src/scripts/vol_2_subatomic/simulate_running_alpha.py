@@ -42,15 +42,9 @@ VALIDATION:
                   α(M_Z)   ≈ 1/128.9    (LEP measurement at 91.2 GeV)
 """
 
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
 import numpy as np
-from ave.core.constants import (
-    ALPHA, NU_VAC, M_E, C_0, e_charge, L_NODE, HBAR,
-)
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
+
+from ave.core.constants import ALPHA, C_0, M_E, e_charge
 
 
 def alpha_eff_axiom4(energy_mev: float) -> dict:
@@ -99,23 +93,23 @@ def alpha_eff_axiom4(energy_mev: float) -> dict:
     # Axiom 4 dynamic yielding
     if strain_ratio >= 1.0:
         # Full saturation — Landau pole
-        alpha_eff = float('inf')
+        alpha_eff = float("inf")
         inv_alpha = 0.0
     else:
         alpha_eff = ALPHA / np.sqrt(1.0 - strain_ratio**2)
         inv_alpha = 1.0 / alpha_eff
 
     return {
-        'energy_mev': energy_mev,
-        'depth': depth,
-        'partial_basel': partial_basel,
-        'strain_ratio': strain_ratio,
-        'alpha_eff': alpha_eff,
-        'inv_alpha_eff': inv_alpha,
+        "energy_mev": energy_mev,
+        "depth": depth,
+        "partial_basel": partial_basel,
+        "strain_ratio": strain_ratio,
+        "alpha_eff": alpha_eff,
+        "inv_alpha_eff": inv_alpha,
     }
 
 
-def main():
+def main() -> None:
     print("=" * 72)
     print("  AVE ENGINE: Running α from Axiom 4 Dynamic Capacitive Yielding")
     print("=" * 72)
@@ -126,47 +120,50 @@ def main():
 
     # Compute at key energy scales
     energies_mev = [
-        0.001,    # Thomson limit (optical)
-        0.511,    # Electron mass
-        1.0,      # 1 MeV
-        10.0,     # 10 MeV
-        100.0,    # 100 MeV
-        1000.0,   # 1 GeV
+        0.001,  # Thomson limit (optical)
+        0.511,  # Electron mass
+        1.0,  # 1 MeV
+        10.0,  # 10 MeV
+        100.0,  # 100 MeV
+        1000.0,  # 1 GeV
         10000.0,  # 10 GeV
         80379.0,  # M_W
         91188.0,  # M_Z
-        200000.0, # 200 GeV
+        200000.0,  # 200 GeV
     ]
 
-    print(f"  {'E (MeV)':>10}  {'Depth':>6}  {'Σ(1/d²)':>10}  {'Strain':>10}"
-          f"  {'α_eff':>12}  {'1/α_eff':>8}")
+    print(f"  {'E (MeV)':>10}  {'Depth':>6}  {'Σ(1/d²)':>10}  {'Strain':>10}" f"  {'α_eff':>12}  {'1/α_eff':>8}")
     print("  " + "-" * 66)
 
     for e in energies_mev:
         r = alpha_eff_axiom4(e)
-        if r['inv_alpha_eff'] > 0:
-            print(f"  {r['energy_mev']:10.1f}  {r['depth']:6d}"
-                  f"  {r['partial_basel']:10.4f}  {r['strain_ratio']:10.6f}"
-                  f"  {r['alpha_eff']:12.8f}  {r['inv_alpha_eff']:8.3f}")
+        if r["inv_alpha_eff"] > 0:
+            print(
+                f"  {r['energy_mev']:10.1f}  {r['depth']:6d}"
+                f"  {r['partial_basel']:10.4f}  {r['strain_ratio']:10.6f}"
+                f"  {r['alpha_eff']:12.8f}  {r['inv_alpha_eff']:8.3f}"
+            )
         else:
-            print(f"  {r['energy_mev']:10.1f}  {r['depth']:6d}"
-                  f"  {r['partial_basel']:10.4f}  {r['strain_ratio']:10.6f}"
-                  f"  {'SATURATED':>12}  {'∞':>8}")
+            print(
+                f"  {r['energy_mev']:10.1f}  {r['depth']:6d}"
+                f"  {r['partial_basel']:10.4f}  {r['strain_ratio']:10.6f}"
+                f"  {'SATURATED':>12}  {'∞':>8}"
+            )
 
     print()
     print("  REFERENCE (PDG):")
-    print(f"    α(0)     = 1/137.036  (Thomson limit)")
-    print(f"    α(M_Z)   = 1/128.9    (LEP measurement)")
-    print(f"    α(∞)     → Landau pole (QED prediction)")
+    print("    α(0)     = 1/137.036  (Thomson limit)")
+    print("    α(M_Z)   = 1/128.9    (LEP measurement)")
+    print("    α(∞)     → Landau pole (QED prediction)")
     print()
 
     # Direct comparison at M_Z
     r_mz = alpha_eff_axiom4(91188.0)
     print(f"  AT M_Z ({r_mz['energy_mev']:.0f} MeV):")
     print(f"    AVE:  1/α_eff = {r_mz['inv_alpha_eff']:.3f}")
-    print(f"    PDG:  1/α     = 128.9")
-    if r_mz['inv_alpha_eff'] > 0:
-        error = (r_mz['inv_alpha_eff'] - 128.9) / 128.9 * 100
+    print("    PDG:  1/α     = 128.9")
+    if r_mz["inv_alpha_eff"] > 0:
+        error = (r_mz["inv_alpha_eff"] - 128.9) / 128.9 * 100
         print(f"    Deviation:    {error:+.2f}%")
     print()
     print("=" * 72)

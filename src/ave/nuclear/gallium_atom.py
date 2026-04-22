@@ -3,7 +3,6 @@ Gallium Atom Framework
 ======================
 Z=31, Amphoteric Matrix Acceptor.
 """
-from __future__ import annotations
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 

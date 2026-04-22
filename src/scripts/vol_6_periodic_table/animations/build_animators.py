@@ -68,7 +68,8 @@ if __name__ == "__main__":
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
     outdir = "../figures"
     os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15, savefig_kwargs={'facecolor': fig.get_facecolor()})
+    anim.save(os.path.join(outdir, "hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15,
+        savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
 
@@ -133,7 +134,8 @@ if __name__ == "__main__":
         for cx, cy, cz in rotated_nodes:
             depth_scale = np.exp(-np.abs(cz / (bound/3.0)))
             ax.scatter(cx, cy, color='#00ffcc', s=300 * depth_scale, marker='+', linewidth=2, alpha=0.8)
-            ax.scatter(cx, cy, color='#00ffcc', s=100 * depth_scale, edgecolor='#00ffcc', facecolor='none', linewidth=1.5, alpha=0.9)
+            ax.scatter(cx, cy, color='#00ffcc', s=100 * depth_scale, edgecolor='#00ffcc',
+                facecolor='none', linewidth=1.5, alpha=0.9)
 
         ax.set_title(title, color='white', fontsize=16, pad=20)
         ax.tick_params(colors='white')
@@ -142,7 +144,8 @@ if __name__ == "__main__":
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
     outdir = "../figures"
     os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "{NAME}_dynamic_flux.gif"), writer='pillow', fps=15, savefig_kwargs={'facecolor': fig.get_facecolor()})
+    anim.save(os.path.join(outdir, "{NAME}_dynamic_flux.gif"), writer='pillow', fps=15,
+        savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
 
@@ -153,7 +156,7 @@ elements = [
     (5, 11, 15.0, "boron_11", "Boron-11 ($^{11}B$): Massive Parasitic Halo Strain"),
     (6, 12, 65.0, "carbon_12", "Carbon-12 ($^{12}C$): Subcritical $3\\\\alpha$ Ring Strain"),
     (7, 14, 15.0, "nitrogen_14", "Nitrogen-14 ($^{14}N$): Optimized Asymmetric Mesh Strain"),
-    (8, 16, 75.0, "oxygen_16", "Oxygen-16 ($^{16}O$): $4\\\\alpha$ Macro-Tetrahedron Strain")
+    (8, 16, 75.0, "oxygen_16", "Oxygen-16 ($^{16}O$): $4\\\\alpha$ Macro-Tetrahedron Strain"),
 ]
 
 with open(f"{output_dir}/animate_hydrogen.py", "w") as f:
@@ -162,7 +165,7 @@ with open(f"{output_dir}/animate_hydrogen.py", "w") as f:
 for Z, A, bound, name, title in elements:
     code = base_template.replace("{Z}", str(Z)).replace("{A}", str(A))
     code = code.replace("{BOUND}", str(bound)).replace("{NAME}", name).replace("{TITLE}", title)
-    filename = name.split('_')[0]
+    filename = name.split("_")[0]
     with open(f"{output_dir}/animate_{filename}.py", "w") as f:
         f.write(code)
 

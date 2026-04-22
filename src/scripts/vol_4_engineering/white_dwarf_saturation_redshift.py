@@ -27,8 +27,7 @@ import math
 import os
 
 # ── Engine imports ──
-from ave.core.constants import G, C_0, ALPHA, NU_VAC, M_SUN
-
+from ave.core.constants import C_0, M_SUN, G
 
 # ═════════════════════════════════════════
 # White Dwarf Catalog (measured parameters)
@@ -38,33 +37,33 @@ from ave.core.constants import G, C_0, ALPHA, NU_VAC, M_SUN
 CATALOG = [
     {
         "name": "Sirius B",
-        "M_solar": 1.018,        # Holberg+ 2012 (HST)
-        "R_km": 5_800,           # ≈ 0.0084 R☉
-        "v_obs_kms": 80.65,      # Gravitational redshift (Joyce+ 2018, HST/STIS)
-        "v_obs_err_kms": 0.77,   # ±0.77 km/s
+        "M_solar": 1.018,  # Holberg+ 2012 (HST)
+        "R_km": 5_800,  # ≈ 0.0084 R☉
+        "v_obs_kms": 80.65,  # Gravitational redshift (Joyce+ 2018, HST/STIS)
+        "v_obs_err_kms": 0.77,  # ±0.77 km/s
         "ref": "Joyce+ 2018",
     },
     {
         "name": "40 Eridani B",
-        "M_solar": 0.573,        # Mason+ 2017
-        "R_km": 9_000,           # ~0.013 R☉ (Shipman 1979)
-        "v_obs_kms": 23.9,       # Pasquini+ 2019
+        "M_solar": 0.573,  # Mason+ 2017
+        "R_km": 9_000,  # ~0.013 R☉ (Shipman 1979)
+        "v_obs_kms": 23.9,  # Pasquini+ 2019
         "v_obs_err_kms": 1.3,
         "ref": "Pasquini+ 2019",
     },
     {
         "name": "Procyon B",
         "M_solar": 0.602,
-        "R_km": 8_600,           # ~0.012 R☉
-        "v_obs_kms": 28.0,       # Provencal+ 2002
+        "R_km": 8_600,  # ~0.012 R☉
+        "v_obs_kms": 28.0,  # Provencal+ 2002
         "v_obs_err_kms": 3.0,
         "ref": "Provencal+ 2002",
     },
     {
         "name": "Stein 2051 B",
-        "M_solar": 0.675,        # Sahu+ 2017 (astrometric mass from HST)
-        "R_km": 8_000,           # estimated from mass-radius relation
-        "v_obs_kms": None,       # no direct spectroscopic redshift published
+        "M_solar": 0.675,  # Sahu+ 2017 (astrometric mass from HST)
+        "R_km": 8_000,  # estimated from mass-radius relation
+        "v_obs_kms": None,  # no direct spectroscopic redshift published
         "v_obs_err_kms": None,
         "ref": "Sahu+ 2017",
     },
@@ -88,8 +87,8 @@ def compute_redshift(M_kg: float, R_m: float) -> dict:
 
     # Step 3: Operators
     phi_over_c2 = G * M_kg / (C_0**2 * R_m)  # GM/(c²R)
-    n = 1.0 + 2.0 * phi_over_c2               # refractive index
-    S = math.sqrt(max(1.0 - eps11**2, 0.0))   # saturation factor
+    n = 1.0 + 2.0 * phi_over_c2  # refractive index
+    S = math.sqrt(max(1.0 - eps11**2, 0.0))  # saturation factor
 
     # Step 5: Observable
     # GR:  z_GR = n - 1 = 2GM/(c²R)  (to leading order)
@@ -102,8 +101,8 @@ def compute_redshift(M_kg: float, R_m: float) -> dict:
     # GR gravitational redshift (exact Schwarzschild)
     rs_over_r = 2.0 * phi_over_c2
     if rs_over_r >= 1.0:
-        z_GR = float('inf')
-        z_AVE = float('inf')
+        z_GR = float("inf")
+        z_AVE = float("inf")
     else:
         z_GR = 1.0 / math.sqrt(1.0 - rs_over_r) - 1.0
         # AVE: additional 1/S factor
@@ -118,13 +117,13 @@ def compute_redshift(M_kg: float, R_m: float) -> dict:
         "phi_c2": phi_over_c2,
         "z_GR": z_GR,
         "z_AVE": z_AVE,
-        "delta_pct": delta * 100.0,     # percent
-        "v_GR_kms": z_GR * C_0 / 1000.0,   # km/s equivalent
+        "delta_pct": delta * 100.0,  # percent
+        "v_GR_kms": z_GR * C_0 / 1000.0,  # km/s equivalent
         "v_AVE_kms": z_AVE * C_0 / 1000.0,
     }
 
 
-def main():
+def main() -> None:
     print("=" * 72)
     print("AVE White Dwarf Gravitational Redshift — Saturation Correction")
     print("=" * 72)
@@ -138,11 +137,18 @@ def main():
     # Header
     fmt_hdr = "{:<16s} {:>8s} {:>8s} {:>10s} {:>10s} {:>10s} {:>10s} {:>8s}"
     fmt_row = "{:<16s} {:>8.3f} {:>8.0f} {:>10.3e} {:>10.3e} {:>10.3e} {:>10.3e} {:>8.4f}"
-    print(fmt_hdr.format(
-        "White Dwarf", "M/M☉", "R [km]",
-        "ε₁₁", "z_GR", "z_AVE", "Δz",
-        "Δ [%]",
-    ))
+    print(
+        fmt_hdr.format(
+            "White Dwarf",
+            "M/M☉",
+            "R [km]",
+            "ε₁₁",
+            "z_GR",
+            "z_AVE",
+            "Δz",
+            "Δ [%]",
+        )
+    )
     print("-" * 92)
 
     results = []
@@ -154,11 +160,18 @@ def main():
         results.append((wd, r))
 
         dz = r["z_AVE"] - r["z_GR"]
-        print(fmt_row.format(
-            wd["name"], wd["M_solar"], wd["R_km"],
-            r["eps11"], r["z_GR"], r["z_AVE"], dz,
-            r["delta_pct"],
-        ))
+        print(
+            fmt_row.format(
+                wd["name"],
+                wd["M_solar"],
+                wd["R_km"],
+                r["eps11"],
+                r["z_GR"],
+                r["z_AVE"],
+                dz,
+                r["delta_pct"],
+            )
+        )
 
     print()
     print("=" * 72)
@@ -167,9 +180,7 @@ def main():
     print()
     fmt2_hdr = "{:<16s} {:>10s} {:>10s} {:>10s} {:>10s} {:>10s}"
     fmt2_row = "{:<16s} {:>10.2f} {:>10.2f} {:>10.2f} {:>10.2f} {:>10s}"
-    print(fmt2_hdr.format(
-        "White Dwarf", "v_obs", "v_GR", "v_AVE", "v_obs−v_GR", "v_obs−v_AVE"
-    ))
+    print(fmt2_hdr.format("White Dwarf", "v_obs", "v_GR", "v_AVE", "v_obs−v_GR", "v_obs−v_AVE"))
     print("(all in km/s)")
     print("-" * 72)
 
@@ -179,14 +190,16 @@ def main():
             v_err = wd["v_obs_err_kms"]
             resid_GR = v_obs - r["v_GR_kms"]
             resid_AVE = v_obs - r["v_AVE_kms"]
-            print(fmt2_row.format(
-                wd["name"],
-                v_obs,
-                r["v_GR_kms"],
-                r["v_AVE_kms"],
-                resid_GR,
-                f"{resid_AVE:.2f}",
-            ))
+            print(
+                fmt2_row.format(
+                    wd["name"],
+                    v_obs,
+                    r["v_GR_kms"],
+                    r["v_AVE_kms"],
+                    resid_GR,
+                    f"{resid_AVE:.2f}",
+                )
+            )
             print(f"  {'':16s} ±{v_err:.2f}            [{wd['ref']}]")
         else:
             print(f"{wd['name']:<16s} {'(no spectroscopic z)':>50s}")
@@ -207,14 +220,15 @@ def main():
     # Generate figure if matplotlib available
     try:
         import matplotlib
-        matplotlib.use('Agg')
-        import matplotlib.pyplot as plt
+
+        matplotlib.use("Agg")
+
         _generate_figure(results)
     except ImportError:
         print("[!] matplotlib not available — skipping figure generation")
 
 
-def _generate_figure(results):
+def _generate_figure(results: list) -> None:
     """Generate a comparison figure."""
     import matplotlib.pyplot as plt
 
@@ -230,36 +244,56 @@ def _generate_figure(results):
             v_gr_list.append(r["v_GR_kms"])
             v_ave_list.append(r["v_AVE_kms"])
 
-    fig, ax = plt.subplots(figsize=(10, 6), facecolor='#0A0A1A')
-    ax.set_facecolor('#0A0A1A')
+    fig, ax = plt.subplots(figsize=(10, 6), facecolor="#0A0A1A")
+    ax.set_facecolor("#0A0A1A")
 
     x = range(len(names))
 
-    ax.errorbar(x, v_obs_list, yerr=v_err_list, fmt='o', color='#00DDFF',
-                markersize=10, capsize=5, capthick=2, linewidth=2,
-                label='Observed', zorder=3)
-    ax.scatter(x, v_gr_list, marker='s', color='#FF6644', s=80,
-              label='GR prediction', zorder=2)
-    ax.scatter(x, v_ave_list, marker='D', color='#44FF88', s=80,
-              label='AVE prediction (with saturation)', zorder=2)
+    ax.errorbar(
+        x,
+        v_obs_list,
+        yerr=v_err_list,
+        fmt="o",
+        color="#00DDFF",
+        markersize=10,
+        capsize=5,
+        capthick=2,
+        linewidth=2,
+        label="Observed",
+        zorder=3,
+    )
+    ax.scatter(x, v_gr_list, marker="s", color="#FF6644", s=80, label="GR prediction", zorder=2)
+    ax.scatter(
+        x,
+        v_ave_list,
+        marker="D",
+        color="#44FF88",
+        s=80,
+        label="AVE prediction (with saturation)",
+        zorder=2,
+    )
 
     ax.set_xticks(x)
-    ax.set_xticklabels(names, color='white', fontsize=12)
-    ax.set_ylabel('Gravitational Redshift [km/s]', color='white', fontsize=13)
-    ax.set_title('White Dwarf Gravitational Redshift: GR vs AVE',
-                color='white', fontsize=15, fontweight='bold', pad=15)
-    ax.tick_params(colors='white', labelsize=11)
-    ax.legend(loc='upper left', fontsize=11, facecolor='#1A1A2E',
-             edgecolor='#333', labelcolor='white')
-    ax.grid(True, alpha=0.15, color='white')
+    ax.set_xticklabels(names, color="white", fontsize=12)
+    ax.set_ylabel("Gravitational Redshift [km/s]", color="white", fontsize=13)
+    ax.set_title(
+        "White Dwarf Gravitational Redshift: GR vs AVE",
+        color="white",
+        fontsize=15,
+        fontweight="bold",
+        pad=15,
+    )
+    ax.tick_params(colors="white", labelsize=11)
+    ax.legend(loc="upper left", fontsize=11, facecolor="#1A1A2E", edgecolor="#333", labelcolor="white")
+    ax.grid(True, alpha=0.15, color="white")
 
     for spine in ax.spines.values():
-        spine.set_color('#333')
+        spine.set_color("#333")
 
-    out_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'assets', 'sim_outputs')
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, 'white_dwarf_saturation_redshift.png')
-    plt.savefig(out_path, dpi=200, bbox_inches='tight', facecolor='#0A0A1A')
+    out_path = os.path.join(out_dir, "white_dwarf_saturation_redshift.png")
+    plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor="#0A0A1A")
     plt.close()
     print(f"[*] Saved figure: {out_path}")
 

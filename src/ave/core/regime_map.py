@@ -40,19 +40,12 @@ This maps exactly to semiconductor device analysis:
 The regime classification is the PREREQUISITE GATE: no domain
 analysis should proceed without first identifying its regime.
 """
-from __future__ import annotations
 
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import (
-    C_0, ALPHA, HBAR, M_E, e_charge,
-    EPSILON_0, MU_0, Z_0, L_NODE,
-    V_SNAP, V_YIELD,
-    B_SNAP, NU_VAC, H_INFINITY,
-)
+from ave.core.constants import ALPHA, B_SNAP, C_0, H_INFINITY, L_NODE, V_YIELD
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Regime Boundaries — DERIVED FROM FIRST PRINCIPLES
@@ -72,9 +65,9 @@ from ave.core.constants import (
 #         S(1) = 0. Topology destroyed.
 #         EE: junction breakdown, M → ∞.
 #
-R_LINEAR_MAX: float = np.sqrt(2.0 * ALPHA)       # √(2α) ≈ 0.1208
-R_NONLINEAR_MAX: float = np.sqrt(3.0) / 2.0      # √3/2 ≈ 0.8660
-R_YIELD_MAX: float = 1.0                          # Axiom 4 (exact)
+R_LINEAR_MAX: float = np.sqrt(2.0 * ALPHA)  # √(2α) ≈ 0.1208
+R_NONLINEAR_MAX: float = np.sqrt(3.0) / 2.0  # √3/2 ≈ 0.8660
+R_YIELD_MAX: float = 1.0  # Axiom 4 (exact)
 
 # Regime IDs
 REGIME_LINEAR = 1
@@ -140,31 +133,31 @@ TRANSITION_DESCRIPTIONS = {
 @dataclass
 class RegimeInfo:
     """Result of regime classification."""
+
     regime: int
     name: str
     description: str
-    r: float                  # dimensionless ratio A/Ac
-    S: float                  # saturation factor
-    A: float                  # physical amplitude
-    Ac: float                 # critical threshold
-    domain: Optional[str] = None
-    A_units: Optional[str] = None
-    Ac_units: Optional[str] = None
+    r: float  # dimensionless ratio A/Ac
+    S: float  # saturation factor
+    A: float  # physical amplitude
+    Ac: float  # critical threshold
+    domain: str | None = None
+    A_units: str | None = None
+    Ac_units: str | None = None
     near_boundary: bool = False
-    boundary_name: Optional[str] = None
-    boundary_description: Optional[str] = None
+    boundary_name: str | None = None
+    boundary_description: str | None = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         bnd = f", boundary='{self.boundary_name}'" if self.near_boundary else ""
         return (
-            f"RegimeInfo(regime={self.name}, r={self.r:.6f}, "
-            f"S={self.S:.6f}, A={self.A:.4e}, Ac={self.Ac:.4e}{bnd})"
+            f"RegimeInfo(regime={self.name}, r={self.r:.6f}, " f"S={self.S:.6f}, A={self.A:.4e}, Ac={self.Ac:.4e}{bnd})"
         )
 
     def summary(self) -> str:
         """Human-readable summary for diagnostic printing."""
         lines = [
-            f"  ── REGIME CLASSIFICATION ──",
+            "  ── REGIME CLASSIFICATION ──",
             f"  Domain:    {self.domain or 'unspecified'}",
             f"  Amplitude: A = {self.A:.4e}" + (f" {self.A_units}" if self.A_units else ""),
             f"  Threshold: Ac = {self.Ac:.4e}" + (f" {self.Ac_units}" if self.Ac_units else ""),
@@ -183,7 +176,14 @@ class RegimeInfo:
 # Core Classification
 # ══════════════════════════════════════════════════════════════════════════════
 
-def classify_regime(A, Ac, domain=None, A_units=None, Ac_units=None):
+
+def classify_regime(
+    A: float,
+    Ac: float,
+    domain: str | None = None,
+    A_units: str | None = None,
+    Ac_units: str | None = None,
+) -> RegimeInfo:
     """
     Classify the operating regime from amplitude and critical threshold.
 
@@ -204,7 +204,7 @@ def classify_regime(A, Ac, domain=None, A_units=None, Ac_units=None):
         Complete regime classification with diagnostics.
     """
     r = abs(float(A)) / abs(float(Ac))
-    S = np.sqrt(max(0.0, 1.0 - min(r, 1.0)**2))
+    S = np.sqrt(max(0.0, 1.0 - min(r, 1.0) ** 2))
 
     if r < R_LINEAR_MAX:
         regime = REGIME_LINEAR
@@ -253,7 +253,8 @@ def classify_regime(A, Ac, domain=None, A_units=None, Ac_units=None):
 # Domain-Specific Control Parameters
 # ══════════════════════════════════════════════════════════════════════════════
 
-def em_voltage_regime(V_local):
+
+def em_voltage_regime(V_local: float) -> RegimeInfo:
     """
     EM (dielectric) regime: r = V / V_yield.
 
@@ -262,13 +263,15 @@ def em_voltage_regime(V_local):
     PONDER-05 at 30 kV operates at r = 0.687 (Regime II).
     """
     return classify_regime(
-        V_local, float(V_YIELD),
+        V_local,
+        float(V_YIELD),
         domain="EM (dielectric)",
-        A_units="V", Ac_units="V",
+        A_units="V",
+        Ac_units="V",
     )
 
 
-def em_field_regime(E_local):
+def em_field_regime(E_local: float) -> RegimeInfo:
     """
     EM (field strength) regime: r = E / E_yield.
 
@@ -277,13 +280,15 @@ def em_field_regime(E_local):
     """
     E_yield = float(V_YIELD) / float(L_NODE)  # ≈ 1.13 × 10¹⁷ V/m
     return classify_regime(
-        E_local, E_yield,
+        E_local,
+        E_yield,
         domain="EM (field)",
-        A_units="V/m", Ac_units="V/m",
+        A_units="V/m",
+        Ac_units="V/m",
     )
 
 
-def gravity_regime(M_kg, r_meters):
+def gravity_regime(M_kg: float, r_meters: float) -> RegimeInfo:
     """
     Gravitational regime: r = ε₁₁ = 7GM/(c²r).
 
@@ -293,15 +298,18 @@ def gravity_regime(M_kg, r_meters):
     Black hole at r_s: ε₁₁ → 1 (Regime III/IV boundary).
     """
     from ave.core.constants import G
+
     epsilon_11 = 7.0 * G * M_kg / (C_0**2 * r_meters)
     return classify_regime(
-        epsilon_11, 1.0,
+        epsilon_11,
+        1.0,
         domain="Gravity",
-        A_units="(strain)", Ac_units="(unitary)",
+        A_units="(strain)",
+        Ac_units="(unitary)",
     )
 
 
-def bcs_regime(T_kelvin, T_c_kelvin):
+def bcs_regime(T_kelvin: float, T_c_kelvin: float) -> RegimeInfo:
     """
     BCS/superconducting regime: r = T/Tc.
 
@@ -309,13 +317,15 @@ def bcs_regime(T_kelvin, T_c_kelvin):
     Below Tc: superconducting (S > 0). At Tc: normal (S → 0).
     """
     return classify_regime(
-        T_kelvin, T_c_kelvin,
+        T_kelvin,
+        T_c_kelvin,
         domain="BCS (superconductor)",
-        A_units="K", Ac_units="K",
+        A_units="K",
+        Ac_units="K",
     )
 
 
-def magnetic_regime(B_local):
+def magnetic_regime(B_local: float) -> RegimeInfo:
     """
     Magnetic regime: r = B / B_snap.
 
@@ -324,28 +334,32 @@ def magnetic_regime(B_local):
     Magnetar surface (B ~ 10¹⁰ T): r ~ 5 (Regime IV, ruptured).
     """
     return classify_regime(
-        B_local, float(B_SNAP),
+        B_local,
+        float(B_SNAP),
         domain="Magnetic",
-        A_units="T", Ac_units="T",
+        A_units="T",
+        Ac_units="T",
     )
 
 
-def nuclear_regime(r_separation, d_sat):
+def nuclear_regime(r_separation: float, d_sat: float) -> RegimeInfo:
     """
     Nuclear regime: r = d_sat / r_separation.
 
     d_sat is the saturation radius (proton diameter, Slater radius, etc.)
     At r_separation = d_sat: r = 1 (Pauli wall, Regime IV boundary).
     """
-    ratio = d_sat / r_separation if r_separation > 0 else float('inf')
+    ratio = d_sat / r_separation if r_separation > 0 else float("inf")
     return classify_regime(
-        ratio, 1.0,
+        ratio,
+        1.0,
         domain="Nuclear",
-        A_units="(d_sat/r)", Ac_units="(unitary)",
+        A_units="(d_sat/r)",
+        Ac_units="(unitary)",
     )
 
 
-def gw_regime(h_strain):
+def gw_regime(h_strain: float) -> RegimeInfo:
     """
     Gravitational wave regime: r = h / h_yield.
 
@@ -354,13 +368,15 @@ def gw_regime(h_strain):
     """
     h_yield = np.sqrt(ALPHA)
     return classify_regime(
-        h_strain, h_yield,
+        h_strain,
+        h_yield,
         domain="GW strain",
-        A_units="(strain)", Ac_units="(strain)",
+        A_units="(strain)",
+        Ac_units="(strain)",
     )
 
 
-def protein_regime(d_bond, d_eq):
+def protein_regime(d_bond: float, d_eq: float) -> RegimeInfo:
     """
     Protein backbone regime: r = |d - d_eq| / d_eq.
 
@@ -370,13 +386,15 @@ def protein_regime(d_bond, d_eq):
     """
     dr = abs(d_bond - d_eq)
     return classify_regime(
-        dr, d_eq,
+        dr,
+        d_eq,
         domain="Protein backbone",
-        A_units="Å", Ac_units="Å",
+        A_units="Å",
+        Ac_units="Å",
     )
 
 
-def galactic_regime(g_newtonian, a_0=None):
+def galactic_regime(g_newtonian: float, a_0: float | None = None) -> RegimeInfo:
     """
     Galactic regime: r = g_N / a₀.
 
@@ -408,9 +426,11 @@ def galactic_regime(g_newtonian, a_0=None):
         # Derived: a₀ = cH∞/(2π)
         a_0 = float(C_0) * float(H_INFINITY) / (2 * np.pi)
     return classify_regime(
-        g_newtonian, a_0,
+        g_newtonian,
+        a_0,
         domain="Galactic rotation",
-        A_units="m/s²", Ac_units="m/s²",
+        A_units="m/s²",
+        Ac_units="m/s²",
     )
 
 
@@ -418,7 +438,8 @@ def galactic_regime(g_newtonian, a_0=None):
 # Regime-Specific Equation Forms
 # ══════════════════════════════════════════════════════════════════════════════
 
-def regime_equations(regime_id):
+
+def regime_equations(regime_id: int) -> dict[str, tuple[str, str]]:
     """
     Return the simplified equation forms valid in each regime.
 
@@ -464,14 +485,15 @@ def regime_equations(regime_id):
 # Comprehensive Summary
 # ══════════════════════════════════════════════════════════════════════════════
 
-def print_regime_map():
+
+def print_regime_map() -> None:
     """Print the full regime map with all domain examples."""
     print("=" * 78)
     print("  UNIVERSAL REGIME MAP (Derived Boundaries)")
-    print(f"  S(r) = √(1 - r²),  r = A/Ac")
+    print("  S(r) = √(1 - r²),  r = A/Ac")
     print(f"  r₁ = √(2α) = {R_LINEAR_MAX:.4f}   (small-signal limit)")
     print(f"  r₂ = √3/2  = {R_NONLINEAR_MAX:.4f}   (Q = ℓ_min = 2)")
-    print(f"  r₃ = 1.0000          (Axiom 4)")
+    print("  r₃ = 1.0000          (Axiom 4)")
     print("=" * 78)
 
     S_at_r1 = np.sqrt(1 - R_LINEAR_MAX**2)
@@ -484,29 +506,41 @@ def print_regime_map():
     print(f"  {'III YIELD':<24} {'√3/2 ≤ r < 1':<20} {'S < 0.500':<20} Avalanche (M ≥ 2)")
     print(f"  {'IV  RUPTURED':<24} {'r ≥ 1.0':<20} {'S = 0':<20} Breakdown (M → ∞)")
 
-    print(f"\n  ── DOMAIN EXAMPLES ──")
+    print("\n  ── DOMAIN EXAMPLES ──")
 
     examples = [
-        ("EM (dielectric)", [
-            ("Lab 1kV/m capacitor", 1e3, float(V_YIELD), "V"),
-            ("PONDER-05 @ 30kV", 30e3, float(V_YIELD), "V"),
-            ("PONDER-05 @ 43kV", 43e3, float(V_YIELD), "V"),
-        ]),
-        ("Gravity", [
-            ("Solar surface", 2.12e-6, 1.0, "strain"),
-            ("White dwarf", 3.0e-4, 1.0, "strain"),
-            ("Neutron star", 0.3, 1.0, "strain"),
-            ("BH at r_s", 1.0, 1.0, "strain"),
-        ]),
-        ("Magnetic", [
-            ("MRI scanner (3T)", 3.0, float(B_SNAP), "T"),
-            ("LHC dipole (8T)", 8.0, float(B_SNAP), "T"),
-            ("Magnetar (10¹⁰ T)", 1e10, float(B_SNAP), "T"),
-        ]),
-        ("GW strain", [
-            ("LIGO detection", 1e-21, np.sqrt(ALPHA), "h"),
-            ("NS merger surface", 0.01, np.sqrt(ALPHA), "h"),
-        ]),
+        (
+            "EM (dielectric)",
+            [
+                ("Lab 1kV/m capacitor", 1e3, float(V_YIELD), "V"),
+                ("PONDER-05 @ 30kV", 30e3, float(V_YIELD), "V"),
+                ("PONDER-05 @ 43kV", 43e3, float(V_YIELD), "V"),
+            ],
+        ),
+        (
+            "Gravity",
+            [
+                ("Solar surface", 2.12e-6, 1.0, "strain"),
+                ("White dwarf", 3.0e-4, 1.0, "strain"),
+                ("Neutron star", 0.3, 1.0, "strain"),
+                ("BH at r_s", 1.0, 1.0, "strain"),
+            ],
+        ),
+        (
+            "Magnetic",
+            [
+                ("MRI scanner (3T)", 3.0, float(B_SNAP), "T"),
+                ("LHC dipole (8T)", 8.0, float(B_SNAP), "T"),
+                ("Magnetar (10¹⁰ T)", 1e10, float(B_SNAP), "T"),
+            ],
+        ),
+        (
+            "GW strain",
+            [
+                ("LIGO detection", 1e-21, np.sqrt(ALPHA), "h"),
+                ("NS merger surface", 0.01, np.sqrt(ALPHA), "h"),
+            ],
+        ),
     ]
 
     for domain, items in examples:
@@ -524,17 +558,21 @@ def print_regime_map():
 
 _DOMAIN_DISPATCH = {
     "em_voltage": lambda kw: em_voltage_regime(kw["V_local"]),
-    "em_field":   lambda kw: em_field_regime(kw["E_local"]),
-    "gravity":    lambda kw: gravity_regime(kw["M_kg"], kw["r_meters"]),
-    "bcs":        lambda kw: bcs_regime(kw["T_kelvin"], kw["T_c_kelvin"]),
-    "magnetic":   lambda kw: magnetic_regime(kw["B_local"]),
-    "nuclear":    lambda kw: nuclear_regime(kw["r_separation"], kw["d_sat"]),
-    "gw":         lambda kw: gw_regime(kw["h_strain"]),
-    "protein":    lambda kw: protein_regime(kw["d_bond"], kw["d_eq"]),
-    "galactic":   lambda kw: galactic_regime(kw["g_newtonian"]),
-    "generic":    lambda kw: classify_regime(kw["A"], kw["Ac"],
-                       domain=kw.get("domain"), A_units=kw.get("A_units"),
-                       Ac_units=kw.get("Ac_units")),
+    "em_field": lambda kw: em_field_regime(kw["E_local"]),
+    "gravity": lambda kw: gravity_regime(kw["M_kg"], kw["r_meters"]),
+    "bcs": lambda kw: bcs_regime(kw["T_kelvin"], kw["T_c_kelvin"]),
+    "magnetic": lambda kw: magnetic_regime(kw["B_local"]),
+    "nuclear": lambda kw: nuclear_regime(kw["r_separation"], kw["d_sat"]),
+    "gw": lambda kw: gw_regime(kw["h_strain"]),
+    "protein": lambda kw: protein_regime(kw["d_bond"], kw["d_eq"]),
+    "galactic": lambda kw: galactic_regime(kw["g_newtonian"]),
+    "generic": lambda kw: classify_regime(
+        kw["A"],
+        kw["Ac"],
+        domain=kw.get("domain"),
+        A_units=kw.get("A_units"),
+        Ac_units=kw.get("Ac_units"),
+    ),
 }
 
 

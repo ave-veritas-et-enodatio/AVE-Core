@@ -9,7 +9,7 @@ import ast
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p/".git").is_dir())
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 EXCLUDED_DIRS = {".venv", "venv", "node_modules", ".git", "__pycache__", ".eggs", "*.egg-info"}
 
 BANNED_IMPORTS = ["scipy.constants"]
@@ -36,26 +36,27 @@ MAGIC_NUMBERS = {
     300000000.0: "Speed of light (c) (Must be imported from constants.py)",
 }
 
+
 class AVESyntaxValidator(ast.NodeVisitor):
-    def __init__(self, filepath):
+    def __init__(self, filepath: str) -> None:
         self.filepath = filepath
         self.violations = []
         self.in_main_block = False
 
-    def visit_Import(self, node):
+    def visit_Import(self, node: ast.Import) -> None:
         for alias in node.names:
             if "scipy.constants" in alias.name:
                 self.violations.append(f"Line {node.lineno}: ILLEGAL IMPORT: '{alias.name}'. Standard Model smuggling.")
         self.generic_visit(node)
 
-    def visit_ImportFrom(self, node):
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
         if node.module and "scipy.constants" in node.module:
             self.violations.append(
                 f"Line {node.lineno}: ILLEGAL IMPORT: 'from {node.module}'. Standard Model smuggling."
             )
         self.generic_visit(node)
 
-    def visit_If(self, node):
+    def visit_If(self, node: ast.If) -> None:
         is_main = False
         try:
             if (
@@ -77,7 +78,7 @@ class AVESyntaxValidator(ast.NodeVisitor):
         else:
             self.generic_visit(node)
 
-    def visit_Constant(self, node):
+    def visit_Constant(self, node: ast.Constant) -> None:
         if isinstance(node.value, float) and not self.in_main_block:
             for magic_val, reason in MAGIC_NUMBERS.items():
                 if node.value != 0 and abs(node.value - magic_val) / abs(magic_val) < 0.005:
@@ -88,7 +89,7 @@ class AVESyntaxValidator(ast.NodeVisitor):
         self.generic_visit(node)
 
 
-def run_verification():
+def run_verification() -> None:
     print("==================================================")
     print("AVE DIRECTED ACYCLIC GRAPH (DAG) VERIFIER")
     print("Hunting for smuggled Standard Model parameters...")

@@ -35,32 +35,22 @@ Correspondences with plasma ``cutoff.py``:
     skin depth δ = c / ω_p         London depth λ_L
     Γ → −1 for ω < ω_p             Γ → −1 for B < B_c
 """
-from __future__ import annotations
 
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import (
-    C_0, EPSILON_0, MU_0, Z_0, B_SNAP, L_NODE, ALPHA,
-    e_charge, M_E, HBAR, K_B,
-)
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-    mu_eff as _si_mu_eff,
-    impedance,
-    reflection_coefficient,
-)
-
+from ave.axioms.scale_invariant import impedance
+from ave.axioms.scale_invariant import mu_eff as _si_mu_eff
+from ave.axioms.scale_invariant import reflection_coefficient, saturation_factor
+from ave.core.constants import EPSILON_0, HBAR, M_E, MU_0, Z_0, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Core saturation functions — the magnetic dual of plasma
 # ═══════════════════════════════════════════════════════════════
 
-def critical_field(T: float | np.ndarray,
-                   T_c: float,
-                   B_c0: float) -> float | np.ndarray:
+
+def critical_field(T: float | np.ndarray, T_c: float, B_c0: float) -> float | np.ndarray:
     r"""
     Thermodynamic critical field as a function of temperature.
 
@@ -88,8 +78,7 @@ def critical_field(T: float | np.ndarray,
     return B_c0 * S
 
 
-def meissner_mu_eff(B_applied: float | np.ndarray,
-                    B_critical: float) -> float | np.ndarray:
+def meissner_mu_eff(B_applied: float | np.ndarray, B_critical: float) -> float | np.ndarray:
     r"""
     Effective permeability in the superconducting state.
 
@@ -112,8 +101,7 @@ def meissner_mu_eff(B_applied: float | np.ndarray,
     return _si_mu_eff(B_applied, B_critical, mu_base=MU_0)
 
 
-def superconducting_impedance(B_applied: float | np.ndarray,
-                              B_critical: float) -> float | np.ndarray:
+def superconducting_impedance(B_applied: float | np.ndarray, B_critical: float) -> float | np.ndarray:
     r"""
     Characteristic impedance of the superconducting medium.
 
@@ -134,8 +122,7 @@ def superconducting_impedance(B_applied: float | np.ndarray,
     return impedance(mu, EPSILON_0)
 
 
-def meissner_reflection(B_applied: float | np.ndarray,
-                        B_critical: float) -> float | np.ndarray:
+def meissner_reflection(B_applied: float | np.ndarray, B_critical: float) -> float | np.ndarray:
     r"""
     Reflection coefficient at the vacuum–superconductor boundary.
 
@@ -171,8 +158,8 @@ def meissner_reflection(B_applied: float | np.ndarray,
 # London penetration depth — the magnetic analog of skin depth
 # ═══════════════════════════════════════════════════════════════
 
-def london_penetration_depth(n_s: float,
-                             m_eff: float = M_E) -> float:
+
+def london_penetration_depth(n_s: float, m_eff: float = M_E) -> float:
     r"""
     London penetration depth from superfluid density.
 
@@ -242,15 +229,17 @@ def ginzburg_landau_kappa(lambda_L: float, xi_0: float) -> float:
 # Superconductor catalog
 # ═══════════════════════════════════════════════════════════════
 
+
 @dataclass
 class SuperconductorProperties:
     """Properties of a superconducting material."""
+
     name: str
-    T_c: float         # Critical temperature [K]
-    B_c0: float        # Critical field at T = 0 [T]
-    n_s: float         # Superfluid density [m⁻³]
+    T_c: float  # Critical temperature [K]
+    B_c0: float  # Critical field at T = 0 [T]
+    n_s: float  # Superfluid density [m⁻³]
     lambda_L_0: float  # London depth at T = 0 [m]
-    type: str = "I"    # "I" or "II"
+    type: str = "I"  # "I" or "II"
 
     def critical_field_at(self, T: float) -> float:
         """B_c(T) = B_c0 · saturation_factor(T, T_c)."""
@@ -283,15 +272,15 @@ SC_CATALOG = {
     "Aluminium": SuperconductorProperties(
         name="Aluminium",
         T_c=1.18,
-        B_c0=0.0105,       # 10.5 mT
-        n_s=1.81e29,        # from n_e of Al
-        lambda_L_0=50e-9,   # ~50 nm
+        B_c0=0.0105,  # 10.5 mT
+        n_s=1.81e29,  # from n_e of Al
+        lambda_L_0=50e-9,  # ~50 nm
         type="I",
     ),
     "Lead": SuperconductorProperties(
         name="Lead",
         T_c=7.19,
-        B_c0=0.0803,        # 80.3 mT
+        B_c0=0.0803,  # 80.3 mT
         n_s=1.32e29,
         lambda_L_0=37e-9,
         type="I",
@@ -299,7 +288,7 @@ SC_CATALOG = {
     "Niobium": SuperconductorProperties(
         name="Niobium",
         T_c=9.25,
-        B_c0=0.206,         # 206 mT (upper B_c2 is higher)
+        B_c0=0.206,  # 206 mT (upper B_c2 is higher)
         n_s=5.56e28,
         lambda_L_0=39e-9,
         type="II",
@@ -307,7 +296,7 @@ SC_CATALOG = {
     "YBCO": SuperconductorProperties(
         name="YBCO (YBa₂Cu₃O₇)",
         T_c=92.0,
-        B_c0=100.0,         # ~100 T (B_c2)
+        B_c0=100.0,  # ~100 T (B_c2)
         n_s=2e27,
         lambda_L_0=150e-9,
         type="II",
@@ -315,7 +304,7 @@ SC_CATALOG = {
     "MgB2": SuperconductorProperties(
         name="MgB₂",
         T_c=39.0,
-        B_c0=16.0,          # ~16 T (B_c2)
+        B_c0=16.0,  # ~16 T (B_c2)
         n_s=1.7e28,
         lambda_L_0=85e-9,
         type="II",

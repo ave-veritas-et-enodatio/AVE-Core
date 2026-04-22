@@ -41,13 +41,19 @@ domain-specific physics.
 Reference: Backmatter App 5 (Universal Solver Toolchain)
            Backmatter App 6 (SPICE Verification Manual)
 """
-from __future__ import annotations
-
 
 import numpy as np
 
 
-def explicit_euler_step(theta, velocity, grad_f, L, R, dt, mask=None):
+def explicit_euler_step(
+    theta: np.ndarray,
+    velocity: np.ndarray,
+    grad_f: np.ndarray,
+    L: float | np.ndarray,
+    R: float | np.ndarray,
+    dt: float,
+    mask: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Single explicit Euler step for SPICE transient integration.
 
@@ -78,9 +84,7 @@ def explicit_euler_step(theta, velocity, grad_f, L, R, dt, mask=None):
 # ── JAX backend (optional, for JIT-compiled loops) ──────────────
 
 try:
-    import jax
-    import jax.numpy as jnp
-    from jax import lax
+    pass
 
     def explicit_euler_step_jax(theta, velocity, grad_f, L, R, dt, mask=None):
         """JAX-traceable single Euler step."""

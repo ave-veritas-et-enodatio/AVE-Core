@@ -1,4 +1,3 @@
-from __future__ import annotations
 r"""
 Transmission Line Network Solver (Scale-Invariant)
 ====================================================
@@ -34,12 +33,14 @@ Examples
 >>> s11 = s11_frequency_sweep(Z, gamma, Y, Z_source=1.0, Z_load=1.0)
 """
 
+from typing import Sequence
+
 import numpy as np
-from typing import Optional, Union, Sequence
 
 # ====================================================================
 # NumPy backend (analysis, plotting)
 # ====================================================================
+
 
 def abcd_segment(Z_c: complex, gamma_l: complex) -> np.ndarray:
     r"""
@@ -63,10 +64,13 @@ def abcd_segment(Z_c: complex, gamma_l: complex) -> np.ndarray:
     """
     ch = np.cosh(gamma_l)
     sh = np.sinh(gamma_l)
-    return np.array([
-        [ch,        Z_c * sh],
-        [sh / Z_c,  ch      ],
-    ], dtype=complex)
+    return np.array(
+        [
+            [ch, Z_c * sh],
+            [sh / Z_c, ch],
+        ],
+        dtype=complex,
+    )
 
 
 def abcd_shunt(Y: complex) -> np.ndarray:
@@ -83,14 +87,16 @@ def abcd_shunt(Y: complex) -> np.ndarray:
     Returns:
         2×2 ABCD matrix.
     """
-    return np.array([
-        [1.0 + 0j,  0.0 + 0j],
-        [Y,         1.0 + 0j],
-    ], dtype=complex)
+    return np.array(
+        [
+            [1.0 + 0j, 0.0 + 0j],
+            [Y, 1.0 + 0j],
+        ],
+        dtype=complex,
+    )
 
 
-def abcd_stub(Z_stub: complex, gamma_l_stub: complex,
-              termination: str = 'open') -> np.ndarray:
+def abcd_stub(Z_stub: complex, gamma_l_stub: complex, termination: str = "open") -> np.ndarray:
     r"""
     ABCD matrix for a TL stub attached at a junction.
 
@@ -113,10 +119,10 @@ def abcd_stub(Z_stub: complex, gamma_l_stub: complex,
     Returns:
         2×2 ABCD matrix (equivalent shunt admittance).
     """
-    if termination == 'open':
+    if termination == "open":
         # Y_input = tanh(γℓ) / Z_stub
         Y = np.tanh(gamma_l_stub) / Z_stub
-    elif termination == 'short':
+    elif termination == "short":
         # Y_input = 1 / (Z_stub · tanh(γℓ))
         Y = 1.0 / (Z_stub * np.tanh(gamma_l_stub) + 1e-20)
     else:
@@ -140,9 +146,7 @@ def abcd_cascade(matrices: Sequence[np.ndarray]) -> np.ndarray:
     return result
 
 
-def s11_from_abcd(M: np.ndarray,
-                  Z_source: float = 1.0,
-                  Z_load: float = 1.0) -> complex:
+def s11_from_abcd(M: np.ndarray, Z_source: float = 1.0, Z_load: float = 1.0) -> complex:
     r"""
     Compute S₁₁ (reflection coefficient) from a total ABCD matrix.
 
@@ -170,17 +174,13 @@ def s11_from_abcd(M: np.ndarray,
     return numer / denom
 
 
-def s11_power(M: np.ndarray,
-              Z_source: float = 1.0,
-              Z_load: float = 1.0) -> float:
+def s11_power(M: np.ndarray, Z_source: float = 1.0, Z_load: float = 1.0) -> float:
     """S₁₁ power reflection coefficient |Γ|²."""
     gamma = s11_from_abcd(M, Z_source, Z_load)
     return float(np.real(gamma * np.conj(gamma)))
 
 
-def s21_from_abcd(M: np.ndarray,
-                  Z_source: float = 1.0,
-                  Z_load: float = 1.0) -> complex:
+def s21_from_abcd(M: np.ndarray, Z_source: float = 1.0, Z_load: float = 1.0) -> complex:
     r"""
     Compute S₂₁ (transmission coefficient) from ABCD matrix.
 
@@ -203,12 +203,12 @@ def s21_from_abcd(M: np.ndarray,
 def s11_frequency_sweep(
     seg_Z: Sequence[float],
     seg_gamma_l: Sequence[complex],
-    junction_Y: Optional[Sequence[complex]] = None,
-    stubs: Optional[dict] = None,
+    junction_Y: Sequence[complex] | None = None,
+    stubs: dict | None = None,
     freqs: Sequence[float] = (0.5, 0.8, 1.0, 1.3, 2.0),
     Z_source: float = 1.0,
     Z_load: float = 1.0,
-) -> dict:
+) -> dict[str, np.ndarray]:
     r"""
     Frequency-swept S₁₁ for a loaded TL cascade.
 
@@ -252,11 +252,11 @@ def s11_frequency_sweep(
                 # Add stub admittance if present at this junction
                 if i in stubs:
                     s = stubs[i]
-                    stub_gl = s['gamma_l'] * freq
-                    if s.get('termination', 'open') == 'open':
-                        Y_stub = np.tanh(stub_gl) / s['Z']
+                    stub_gl = s["gamma_l"] * freq
+                    if s.get("termination", "open") == "open":
+                        Y_stub = np.tanh(stub_gl) / s["Z"]
                     else:
-                        Y_stub = 1.0 / (s['Z'] * np.tanh(stub_gl) + 1e-20)
+                        Y_stub = 1.0 / (s["Z"] * np.tanh(stub_gl) + 1e-20)
                     Y_total = Y_total + Y_stub
 
                 if Y_total != 0:
@@ -270,9 +270,9 @@ def s11_frequency_sweep(
         s21_phases.append(float(np.angle(s21)))
 
     return {
-        's11_power': np.array(s11_powers),
-        's21_phase': np.array(s21_phases),
-        'freqs': np.array(list(freqs)),
+        "s11_power": np.array(s11_powers),
+        "s21_phase": np.array(s21_phases),
+        "freqs": np.array(list(freqs)),
     }
 
 
@@ -280,12 +280,14 @@ def s11_frequency_sweep(
 # JAX backend (gradient-based optimisation)
 # ====================================================================
 
-def _try_import_jax():
+
+def _try_import_jax() -> tuple | None:
     """Import JAX if available, return (jax, jnp, lax) or None."""
     try:
         import jax
         import jax.numpy as jnp
         from jax import lax
+
         return jax, jnp, lax
     except ImportError:
         return None
@@ -330,8 +332,7 @@ def abcd_cascade_jax(seg_Zc, cosh_arr, sinh_arr, seg_Y, n_segs, n_junctions):
         D_n = C * (Zc * sh) + D * ch
 
         # Junction shunt admittance
-        Y = jnp.where(i < n_junctions,
-                      seg_Y[jnp.clip(i, 0, n_junctions - 1)], 0.0)
+        Y = jnp.where(i < n_junctions, seg_Y[jnp.clip(i, 0, n_junctions - 1)], 0.0)
         C_n = C_n + Y * A_n
         D_n = D_n + Y * B_n
 
@@ -399,8 +400,8 @@ def s11_from_abcd_jax(abcd_state, Z_source, Z_load):
 def build_nodal_y_matrix(
     N: int,
     backbone_y: Sequence[complex],
-    contacts: Optional[Sequence[tuple]] = None,
-    self_y: Optional[Sequence[complex]] = None,
+    contacts: Sequence[tuple] | None = None,
+    self_y: Sequence[complex] | None = None,
 ) -> np.ndarray:
     r"""
     Build an N×N nodal admittance matrix from backbone and contact terms.
@@ -429,7 +430,7 @@ def build_nodal_y_matrix(
 
     # Non-sequential contacts (H-bonds, β-sheet, hydrophobic)
     if contacts is not None:
-        for (i, j, y_ij) in contacts:
+        for i, j, y_ij in contacts:
             Y[i, i] += y_ij
             Y[j, j] += y_ij
             Y[i, j] -= y_ij
@@ -494,14 +495,11 @@ def s_matrix_from_y(
 
 
 def build_radial_tree_admittance(
-    depth: int = 3, 
-    branch_y: complex = 2/7, 
-    boundary_y: complex = 1.0, 
-    coordination_z: int = 4
+    depth: int = 3, branch_y: complex = 2 / 7, boundary_y: complex = 1.0, coordination_z: int = 4
 ) -> np.ndarray:
     r"""
     Builds the nodal admittance matrix for a radially expanding Bethe tree.
-    
+
     This solver geometrically evaluates structural continuum breakdown (loop corrections).
     The Diamond/K4 vacuum lattice corresponds to coordination_z = 4.
 
@@ -516,38 +514,38 @@ def build_radial_tree_admittance(
     """
     n_nodes = 1
     level_counts = [1]
-    
+
     # Calculate geometric expansion
     for d in range(1, depth + 1):
-        count = coordination_z * ((coordination_z - 1)**(d-1))
+        count = coordination_z * ((coordination_z - 1) ** (d - 1))
         level_counts.append(count)
         n_nodes += count
-        
+
     Y = np.zeros((n_nodes, n_nodes), dtype=complex)
-    
+
     current_node = 1
     parent_level_start = 0
     parent_level_count = 1
-    
+
     for d in range(1, depth + 1):
         nodes_this_level = level_counts[d]
         tents_per_parent = coordination_z if d == 1 else (coordination_z - 1)
-        
+
         for p in range(parent_level_count):
             parent_idx = parent_level_start + p
             for t in range(tents_per_parent):
                 child_idx = current_node
-                
+
                 # Mutual admittance (off-diagonal)
                 Y[parent_idx, child_idx] -= branch_y
                 Y[child_idx, parent_idx] -= branch_y
-                
+
                 # Self admittance accumulation (diagonal)
                 Y[parent_idx, parent_idx] += branch_y
                 Y[child_idx, child_idx] += branch_y
-                
+
                 current_node += 1
-                
+
         parent_level_start += parent_level_count
         parent_level_count = nodes_this_level
 
@@ -562,7 +560,7 @@ def build_radial_tree_admittance(
 def build_radial_tree_admittance_graded(
     depth: int = 3,
     branch_y: complex = 2 / 7,
-    shell_boundary_y: Sequence[float] = None,
+    shell_boundary_y: Sequence[float] | None = None,
     coordination_z: int = 4,
 ) -> np.ndarray:
     r"""
@@ -612,10 +610,7 @@ def build_radial_tree_admittance_graded(
         shell_boundary_y = [1.0 * (1.0 - math.exp(-(d - 1))) for d in range(1, depth + 1)]
 
     if len(shell_boundary_y) != depth:
-        raise ValueError(
-            f"shell_boundary_y must have length == depth ({depth}), "
-            f"got {len(shell_boundary_y)}"
-        )
+        raise ValueError(f"shell_boundary_y must have length == depth ({depth}), " f"got {len(shell_boundary_y)}")
 
     # --- Build tree topology (same as build_radial_tree_admittance) ---
     level_counts = [1]
@@ -660,10 +655,13 @@ def build_radial_tree_admittance_graded(
 
 # ── JAX versions ──
 
+
 def build_nodal_y_matrix_jax(
     N,
     backbone_y,
-    contact_i, contact_j, contact_y,
+    contact_i,
+    contact_j,
+    contact_y,
     self_y,
 ):
     r"""
@@ -844,14 +842,14 @@ def s_diagonal_from_y_matrix_jax(Y, Y0=1.0):
     s_eig_power = jnp.linalg.eigvalsh(SdagS)  # ascending order, real
 
     return {
-        'diag': s_diag_power,
-        'diag_complex': s_diag,            # complex Γᵢ = S_ii per port
-        'mean': jnp.mean(s_diag_power),
-        'max': jnp.max(s_diag_power),
-        'eig': s_eig_power,
-        'eig_min': s_eig_power[0],         # minimum |λ|² = root target
-        'eig_mean': jnp.mean(s_eig_power),
-        'S_matrix': S,
+        "diag": s_diag_power,
+        "diag_complex": s_diag,  # complex Γᵢ = S_ii per port
+        "mean": jnp.mean(s_diag_power),
+        "max": jnp.max(s_diag_power),
+        "eig": s_eig_power,
+        "eig_min": s_eig_power[0],  # minimum |λ|² = root target
+        "eig_mean": jnp.mean(s_eig_power),
+        "S_matrix": S,
     }
 
 
@@ -892,11 +890,13 @@ def abcd_to_y_3seg_jax(N, Z_seg, d_seg, Z_node, omega, d0):
     Z_norm = Z_seg / Z_mean  # (3,) ≈ [1.04, 0.88, 1.08]
 
     # Sub-segment propagation constants
-    gamma_l = jnp.array([
-        1e-4 + 1j * omega * d_seg[0] / d0,
-        1e-4 + 1j * omega * d_seg[1] / d0,
-        1e-4 + 1j * omega * d_seg[2] / d0,
-    ])
+    gamma_l = jnp.array(
+        [
+            1e-4 + 1j * omega * d_seg[0] / d0,
+            1e-4 + 1j * omega * d_seg[1] / d0,
+            1e-4 + 1j * omega * d_seg[2] / d0,
+        ]
+    )
 
     ch = jnp.cosh(gamma_l)
     sh = jnp.sinh(gamma_l)
@@ -919,7 +919,7 @@ def abcd_to_y_3seg_jax(N, Z_seg, d_seg, Z_node, omega, d0):
     # M_total = M12 × M3
     A_t = A12 * A3 + B12 * C3
     B_t = A12 * B3 + B12 * D3
-    C_t = C12 * A3 + D12 * C3
+    # C_t = C12 * A3 + D12 * C3  # bulk lint fixup pass
     D_t = C12 * B3 + D12 * D3
 
     # Apply physical impedance scale:
@@ -942,4 +942,3 @@ def abcd_to_y_3seg_jax(N, Z_seg, d_seg, Z_node, omega, d0):
     diag_bb = diag_bb.at[bb_idx + 1].add(y_self_right.astype(jnp.complex128))
 
     return y_mutual.astype(jnp.complex128), diag_bb
-

@@ -24,26 +24,27 @@ PHYSICS MODEL (Option C — Boundary-Impedance Thermalization):
     guaranteed to lie in [0, 1] by Cauchy-Schwarz.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 # ── Simulation Parameters ────────────────────────────────────────────────────
-N = 200                # Number of LC nodes in the 1D junction
-T_MAX = 1000           # Simulation time steps
-C_COURANT = 0.5        # Courant number (wave speed for FDTD stability)
-GAMMA = 0.005          # Ohmic damping coefficient (substrate radiation loss)
+N = 200  # Number of LC nodes in the 1D junction
+T_MAX = 1000  # Simulation time steps
+C_COURANT = 0.5  # Courant number (wave speed for FDTD stability)
+GAMMA = 0.005  # Ohmic damping coefficient (substrate radiation loss)
 
 # ── Thermal Boundary Parameters ──────────────────────────────────────────────
 # In normalized units, the thermal amplitude at the boundaries represents
 # Johnson-Nyquist noise from the 300K environment coupling through the
 # impedance-mismatched junction leads.
-THERMAL_AMP = 0.15     # RMS amplitude of boundary thermal drive
-BOUNDARY_WIDTH = 3     # Number of nodes at each end coupled to the reservoir
+THERMAL_AMP = 0.15  # RMS amplitude of boundary thermal drive
+BOUNDARY_WIDTH = 3  # Number of nodes at each end coupled to the reservoir
 
 
-def simulate_transmon_decoherence():
+def simulate_transmon_decoherence() -> tuple[list[int], list[float]]:
     """
     Run the 1D FDTD simulation with boundary-impedance thermalization.
 
@@ -76,10 +77,7 @@ def simulate_transmon_decoherence():
             laplacian = V[i + 1] - 2 * V[i] + V[i - 1]
             velocity = V[i] - V_prev[i]
             V_next[i] = (
-                2 * V[i]
-                - V_prev[i]
-                + C_COURANT**2 * laplacian
-                - GAMMA * velocity            # Ohmic damping (substrate loss)
+                2 * V[i] - V_prev[i] + C_COURANT**2 * laplacian - GAMMA * velocity  # Ohmic damping (substrate loss)
             )
 
         # 2) Boundary thermalization: thermal reservoir drives the edge nodes
@@ -110,62 +108,72 @@ def simulate_transmon_decoherence():
     return time_history, coherence_history
 
 
-def generate_plot(time, coherence, out_path):
+def generate_plot(time: list[int], coherence: list[float], out_path: str) -> None:
     """Generate the decoherence plot with AVE manuscript styling."""
-    plt.style.use('dark_background')
+    plt.style.use("dark_background")
     fig, ax = plt.subplots(figsize=(10, 6))
 
     # Smooth the coherence trace with a moving average for readability
     window_size = 20
-    smoothed = np.convolve(coherence, np.ones(window_size) / window_size,
-                           mode='valid')
-    time_smooth = time[:len(smoothed)]
+    smoothed = np.convolve(coherence, np.ones(window_size) / window_size, mode="valid")
+    time_smooth = time[: len(smoothed)]
 
-    ax.plot(time_smooth, smoothed, color='#00ffcc', linewidth=2.5,
-            label='Transmon Phase Coherence (Boundary Thermalized)')
-    ax.fill_between(time_smooth, smoothed, color='#00ffcc', alpha=0.1)
+    ax.plot(
+        time_smooth,
+        smoothed,
+        color="#00ffcc",
+        linewidth=2.5,
+        label="Transmon Phase Coherence (Boundary Thermalized)",
+    )
+    ax.fill_between(time_smooth, smoothed, color="#00ffcc", alpha=0.1)
 
     # Exponential decoherence envelope
     decay_envelope = np.exp(-np.array(time_smooth) / 150.0)
-    ax.plot(time_smooth, decay_envelope, color='#ff00aa', linestyle='--',
-            linewidth=2, label='Exponential Decoherence Envelope')
+    ax.plot(
+        time_smooth,
+        decay_envelope,
+        color="#ff00aa",
+        linestyle="--",
+        linewidth=2,
+        label="Exponential Decoherence Envelope",
+    )
 
     # Formatting
     ax.set_title(
         "1D Transmon Decoherence — Boundary-Impedance Thermalization (300K)",
-        fontsize=15, color='white', pad=15
+        fontsize=15,
+        color="white",
+        pad=15,
     )
     ax.set_xlabel("Time (Arbitrary Units)", fontsize=14)
-    ax.set_ylabel(
-        r"Coherence $\frac{|\langle V(t)|\psi_0\rangle|}"
-        r"{\|V(t)\|\,\|\psi_0\|}$",
-        fontsize=14
-    )
+    ax.set_ylabel(r"Coherence $\frac{|\langle V(t)|\psi_0\rangle|}" r"{\|V(t)\|\,\|\psi_0\|}$", fontsize=14)
     ax.set_ylim(-0.05, 1.05)
     ax.set_xlim(0, T_MAX)
-    ax.grid(True, color='#333333', linestyle='--', alpha=0.7)
+    ax.grid(True, color="#333333", linestyle="--", alpha=0.7)
 
     # Annotation: physics mechanism
     ax.text(
-        0.98, 0.85,
+        0.98,
+        0.85,
         "Noise enters ONLY\nthrough boundary\nimpedance mismatch",
         transform=ax.transAxes,
-        ha='right', va='top',
-        fontsize=10, color='#aaaaaa',
-        bbox=dict(boxstyle='round,pad=0.4', facecolor='#1a1a1a',
-                  edgecolor='#444444', alpha=0.9)
+        ha="right",
+        va="top",
+        fontsize=10,
+        color="#aaaaaa",
+        bbox=dict(boxstyle="round,pad=0.4", facecolor="#1a1a1a", edgecolor="#444444", alpha=0.9),
     )
 
-    ax.legend(loc='upper right', facecolor='black', edgecolor='white')
+    ax.legend(loc="upper right", facecolor="black", edgecolor="white")
 
     plt.tight_layout()
-    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
     print(f"[Done] Saved Transmon Decoherence Plot: {out_path}")
 
 
 if __name__ == "__main__":
-    PROJECT_ROOT = next(p for p in Path(__file__).parents if (p/".git").is_dir())
+    PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
     out_dir = PROJECT_ROOT / "assets" / "sim_outputs"
     os.makedirs(out_dir, exist_ok=True)
 

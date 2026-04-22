@@ -28,19 +28,17 @@ Usage:
 """
 
 import os
-import sys
-import numpy as np
-import jax
+
 import jax.numpy as jnp
-from jax import jit, lax
-
-
 import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+import numpy as np
+from jax import jit
 
-OUT_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'assets', 'sim_outputs')
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
+
+OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -48,7 +46,8 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # JAX-Accelerated 2D FDTD Acoustic Solver
 # ═══════════════════════════════════════════════════════
 
-def _build_sponge(nx, ny, sponge=50):
+
+def _build_sponge(nx: int, ny: int, sponge: int = 50) -> jnp.ndarray:
     """Build sponge absorbing boundary layer (computed once on CPU)."""
     d = np.ones((nx, ny))
     for i in range(sponge):
@@ -60,16 +59,16 @@ def _build_sponge(nx, ny, sponge=50):
     return jnp.array(d)
 
 
-def _build_wall(nx, ny, wall_x, wall_t, slit_w, slit_1, slit_2):
+def _build_wall(nx: int, ny: int, wall_x: int, wall_t: int, slit_w: int, slit_1: int, slit_2: int) -> jnp.ndarray:
     """Build wall mask with two slits (computed once on CPU)."""
     mask = np.zeros((nx, ny), dtype=bool)
-    mask[wall_x:wall_x + wall_t, :] = True
-    mask[wall_x:wall_x + wall_t, slit_1 - slit_w//2:slit_1 + slit_w//2] = False
-    mask[wall_x:wall_x + wall_t, slit_2 - slit_w//2:slit_2 + slit_w//2] = False
+    mask[wall_x : wall_x + wall_t, :] = True
+    mask[wall_x : wall_x + wall_t, slit_1 - slit_w // 2 : slit_1 + slit_w // 2] = False
+    mask[wall_x : wall_x + wall_t, slit_2 - slit_w // 2 : slit_2 + slit_w // 2] = False
     return jnp.array(mask)
 
 
-def _build_obs_damping(nx, ny, wall_x, slit_2, slit_w, observe_slit):
+def _build_obs_damping(nx: int, ny: int, wall_x: int, slit_2: int, slit_w: int, observe_slit: bool) -> jnp.ndarray:
     """Build Ohmic damping mask at slit 2.
     AVE first principles: observer = resistive load that thermalizes
     the wake's phase energy (Joule friction: W ∝ |∂_t A|²/Z_det).
@@ -82,15 +81,28 @@ def _build_obs_damping(nx, ny, wall_x, slit_2, slit_w, observe_slit):
                 xi = wall_x + dx
                 yi = slit_2 + dy
                 if 0 <= xi < nx and 0 <= yi < ny:
-                    r = np.sqrt(dx**2 + (dy / slit_w * 3)**2) / 3
+                    r = np.sqrt(dx**2 + (dy / slit_w * 3) ** 2) / 3
                     if r < 1.0:
-                        mask[xi, yi] = damping_strength * (1.0 - r)**2
+                        mask[xi, yi] = damping_strength * (1.0 - r) ** 2
     return jnp.array(mask)
 
 
 @jit
-def _fdtd_step(P, Vx, Vy, wall_mask, damping, obs_damping,
-               dt, dx, source_x_start, source_y, freq, t, wall_x):
+def _fdtd_step(
+    P: jnp.ndarray,
+    Vx: jnp.ndarray,
+    Vy: jnp.ndarray,
+    wall_mask: jnp.ndarray,
+    damping: jnp.ndarray,
+    obs_damping: jnp.ndarray,
+    dt: float,
+    dx: float,
+    source_x_start: int,
+    source_y: int,
+    freq: float,
+    t: float,
+    wall_x: int,
+) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray]:
     """
     One FDTD timestep of the 2D acoustic solver (JIT-compiled).
 
@@ -136,7 +148,9 @@ def _fdtd_step(P, Vx, Vy, wall_mask, damping, obs_damping,
     return P, Vx, Vy
 
 
-def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
+def run_fdtd_jax(
+    nx: int = 800, ny: int = 500, steps: int = 2500, observe_slit: bool = False
+) -> tuple[np.ndarray, jnp.ndarray, int, int, int, int]:
     """Run the full 2D FDTD simulation on GPU via JAX."""
     dt = 0.45
     dx = 1.0
@@ -151,7 +165,7 @@ def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
     freq = 0.06
     source_x_start = 60
     source_y = slit_1  # Particle aimed at Slit 1 (AVE: particle through ONE slit)
-    particle_speed = 0.22  # nodes per timestep
+    # particle_speed = 0.22  # nodes per timestep  # bulk lint fixup pass
 
     # Build static geometry (CPU, once)
     damping = _build_sponge(nx, ny, sponge)
@@ -171,14 +185,24 @@ def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
     # Time integration (each step is JIT-compiled)
     for t_step in range(steps):
         P, Vx, Vy = _fdtd_step(
-            P, Vx, Vy, wall_mask, damping, obs_damping,
-            dt, dx, source_x_start, source_y, freq, float(t_step),
+            P,
+            Vx,
+            Vy,
+            wall_mask,
+            damping,
+            obs_damping,
+            dt,
+            dx,
+            source_x_start,
+            source_y,
+            freq,
+            float(t_step),
             wall_x,
         )
 
         # Integrate intensity after transient
         if t_step > integrate_start:
-            intensity = intensity + P ** 2
+            intensity = intensity + P**2
 
     # Normalize
     intensity = intensity / (jnp.max(intensity) + 1e-30)
@@ -186,26 +210,27 @@ def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
     return np.array(intensity), wall_mask, slit_1, slit_2, source_x_start, source_y
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Double Slit: Standing Wave Heatmap — JAX GPU-Accelerated")
     print("=" * 70)
 
     import time
+
     steps = 2500
 
     # Run WITHOUT observer
     print("\n  Running FDTD (no observer) on GPU...", flush=True)
     t0 = time.time()
-    intensity_no_obs, wall_mask_arr, slit_1, slit_2, source_x, source_y = \
-        run_fdtd_jax(nx=800, ny=500, steps=steps, observe_slit=False)
+    intensity_no_obs, wall_mask_arr, slit_1, slit_2, source_x, source_y = run_fdtd_jax(
+        nx=800, ny=500, steps=steps, observe_slit=False
+    )
     print(f"  Done in {time.time()-t0:.1f}s")
 
     # Run WITH observer at slit 2
     print("  Running FDTD (observer at slit 2) on GPU...", flush=True)
     t0 = time.time()
-    intensity_obs, _, _, _, _, _ = \
-        run_fdtd_jax(nx=800, ny=500, steps=steps, observe_slit=True)
+    intensity_obs, _, _, _, _, _ = run_fdtd_jax(nx=800, ny=500, steps=steps, observe_slit=True)
     print(f"  Done in {time.time()-t0:.1f}s")
 
     # ─────────────────────────────────────────────────
@@ -215,88 +240,138 @@ def main():
     NX, NY = 800, 500
 
     fig = plt.figure(figsize=(20, 10))
-    fig.patch.set_facecolor('#050510')
+    fig.patch.set_facecolor("#050510")
     gs = GridSpec(1, 3, figure=fig, width_ratios=[1, 1, 0.08], wspace=0.12)
 
-    for idx, (intensity, title, label) in enumerate([
-        (intensity_no_obs,
-         'No Observer: Coherent Wake Interference',
-         'Particle passes through SLIT 1\nWake passes through BOTH slits\n→ coherent interference fringes'),
-        (intensity_obs,
-         'Observer at Slit 2: Wake Decoherence',
-         'Particle still passes through Slit 1\nDetector at Slit 2 thermalizes wake\n→ phase coherence destroyed'),
-    ]):
+    for idx, (intensity, title, label) in enumerate(
+        [
+            (
+                intensity_no_obs,
+                "No Observer: Coherent Wake Interference",
+                "Particle passes through SLIT 1\nWake passes through BOTH slits\n→ coherent interference fringes",
+            ),
+            (
+                intensity_obs,
+                "Observer at Slit 2: Wake Decoherence",
+                "Particle still passes through Slit 1\nDetector at Slit 2 thermalizes wake"
+                "\n→ phase coherence destroyed",
+            ),
+        ]
+    ):
         ax = fig.add_subplot(gs[0, idx])
-        ax.set_facecolor('#050510')
+        ax.set_facecolor("#050510")
 
-        im = ax.imshow(intensity.T, cmap='hot', origin='lower',
-                       extent=[0, NX, 0, NY],
-                       vmin=0, vmax=0.25, aspect='auto')
+        im = ax.imshow(
+            intensity.T,
+            cmap="hot",
+            origin="lower",
+            extent=[0, NX, 0, NY],
+            vmin=0,
+            vmax=0.25,
+            aspect="auto",
+        )
 
         wall_display = np.ma.masked_where(~wall_mask_np, np.ones_like(wall_mask_np, dtype=float))
-        ax.imshow(wall_display.T, cmap='Greys', alpha=0.9, origin='lower',
-                  extent=[0, NX, 0, NY], aspect='auto')
+        ax.imshow(
+            wall_display.T,
+            cmap="Greys",
+            alpha=0.9,
+            origin="lower",
+            extent=[0, NX, 0, NY],
+            aspect="auto",
+        )
 
         if idx == 1:
             wall_x = int(NX * 0.35)
-            ax.plot(wall_x, slit_2, 'o', color='#00ff00',
-                    markersize=12, markeredgecolor='white', markeredgewidth=2,
-                    zorder=10)
-            ax.annotate('OBSERVER', xy=(wall_x, slit_2),
-                        xytext=(wall_x - 80, slit_2 + 60),
-                        fontsize=11, color='#00ff00', fontweight='bold',
-                        arrowprops=dict(arrowstyle='->', color='#00ff00', lw=2))
+            ax.plot(
+                wall_x,
+                slit_2,
+                "o",
+                color="#00ff00",
+                markersize=12,
+                markeredgecolor="white",
+                markeredgewidth=2,
+                zorder=10,
+            )
+            ax.annotate(
+                "OBSERVER",
+                xy=(wall_x, slit_2),
+                xytext=(wall_x - 80, slit_2 + 60),
+                fontsize=11,
+                color="#00ff00",
+                fontweight="bold",
+                arrowprops=dict(arrowstyle="->", color="#00ff00", lw=2),
+            )
 
-        ax.annotate('Slit 1', xy=(int(NX * 0.35) + 5, slit_1),
-                    fontsize=9, color='white', alpha=0.7)
-        ax.annotate('Slit 2', xy=(int(NX * 0.35) + 5, slit_2),
-                    fontsize=9, color='white', alpha=0.7)
+        ax.annotate("Slit 1", xy=(int(NX * 0.35) + 5, slit_1), fontsize=9, color="white", alpha=0.7)
+        ax.annotate("Slit 2", xy=(int(NX * 0.35) + 5, slit_2), fontsize=9, color="white", alpha=0.7)
 
         # Mark particle trajectory line (aimed at Slit 1)
-        ax.plot(source_x, slit_1, '*', color='cyan', markersize=15, zorder=10,
-                label='Particle start')
+        ax.plot(source_x, slit_1, "*", color="cyan", markersize=15, zorder=10, label="Particle start")
         # Draw trajectory arrow through Slit 1
-        ax.annotate('', xy=(int(NX * 0.55), slit_1),
-                    xytext=(source_x, slit_1),
-                    arrowprops=dict(arrowstyle='->', color='cyan', lw=2, ls='--'))
+        ax.annotate(
+            "",
+            xy=(int(NX * 0.55), slit_1),
+            xytext=(source_x, slit_1),
+            arrowprops=dict(arrowstyle="->", color="cyan", lw=2, ls="--"),
+        )
 
         levels = np.linspace(0.05, 0.20, 6)
-        ax.contour(intensity.T, levels=levels, colors='#ff00aa',
-                   alpha=0.25, linewidths=0.5,
-                   extent=[0, NX, 0, NY])
+        ax.contour(
+            intensity.T,
+            levels=levels,
+            colors="#ff00aa",
+            alpha=0.25,
+            linewidths=0.5,
+            extent=[0, NX, 0, NY],
+        )
 
-        ax.set_title(title, color='white', fontsize=14, fontweight='bold', pad=10)
-        ax.set_xlabel('Propagation Axis (nodes)', color='white', fontsize=11)
+        ax.set_title(title, color="white", fontsize=14, fontweight="bold", pad=10)
+        ax.set_xlabel("Propagation Axis (nodes)", color="white", fontsize=11)
         if idx == 0:
-            ax.set_ylabel('Transverse Axis (nodes)', color='white', fontsize=11)
-        ax.tick_params(colors='white')
+            ax.set_ylabel("Transverse Axis (nodes)", color="white", fontsize=11)
+        ax.tick_params(colors="white")
 
-        props = dict(boxstyle='round', facecolor='#111122', alpha=0.9,
-                     edgecolor='#ff00aa' if idx == 0 else '#00ff00')
-        ax.text(0.02, 0.02, label, transform=ax.transAxes,
-                fontsize=10, color='white', verticalalignment='bottom',
-                bbox=props)
+        props = dict(
+            boxstyle="round",
+            facecolor="#111122",
+            alpha=0.9,
+            edgecolor="#ff00aa" if idx == 0 else "#00ff00",
+        )
+        ax.text(
+            0.02,
+            0.02,
+            label,
+            transform=ax.transAxes,
+            fontsize=10,
+            color="white",
+            verticalalignment="bottom",
+            bbox=props,
+        )
 
         for spine in ax.spines.values():
-            spine.set_color('#333')
+            spine.set_color("#333")
 
     cax = fig.add_subplot(gs[0, 2])
     cbar = plt.colorbar(im, cax=cax)
-    cbar.set_label('Time-Averaged Wave Energy $\\langle |\\Psi|^2 \\rangle$',
-                   color='white', fontsize=12)
-    cbar.ax.tick_params(colors='white')
+    cbar.set_label("Time-Averaged Wave Energy $\\langle |\\Psi|^2 \\rangle$", color="white", fontsize=12)
+    cbar.ax.tick_params(colors="white")
 
     fig.suptitle(
         r"AVE Double Slit: Particle Through Slit 1, Wake Through Both (JAX GPU)",
-        color='white', fontsize=18, fontweight='bold', y=0.98)
+        color="white",
+        fontsize=18,
+        fontweight="bold",
+        y=0.98,
+    )
 
     # ─────────────────────────────────────────────────
     # Transverse intensity cross-section
     # ─────────────────────────────────────────────────
     fig2 = plt.figure(figsize=(14, 6))
-    fig2.patch.set_facecolor('#050510')
+    fig2.patch.set_facecolor("#050510")
     ax_cross = fig2.add_subplot(111)
-    ax_cross.set_facecolor('#0a0a0a')
+    ax_cross.set_facecolor("#0a0a0a")
 
     x_cross = int(NX * 0.85)
     y = np.arange(NY)
@@ -305,58 +380,59 @@ def main():
     cross_obs = intensity_obs[x_cross, :]
 
     from scipy.ndimage import gaussian_filter1d
+
     cross_no_obs_s = gaussian_filter1d(cross_no_obs, sigma=3)
     cross_obs_s = gaussian_filter1d(cross_obs, sigma=3)
 
-    ax_cross.fill_between(y, cross_no_obs_s, alpha=0.3, color='#ff6b6b')
-    ax_cross.plot(y, cross_no_obs_s, color='#ff6b6b', linewidth=2,
-                  label='No Observer (coherent interference)')
-    ax_cross.fill_between(y, cross_obs_s, alpha=0.3, color='#00ffcc')
-    ax_cross.plot(y, cross_obs_s, color='#00ffcc', linewidth=2,
-                  label='Observer at Slit 2 (decoherence)')
+    ax_cross.fill_between(y, cross_no_obs_s, alpha=0.3, color="#ff6b6b")
+    ax_cross.plot(y, cross_no_obs_s, color="#ff6b6b", linewidth=2, label="No Observer (coherent interference)")
+    ax_cross.fill_between(y, cross_obs_s, alpha=0.3, color="#00ffcc")
+    ax_cross.plot(y, cross_obs_s, color="#00ffcc", linewidth=2, label="Observer at Slit 2 (decoherence)")
 
-    ax_cross.set_xlabel('Transverse Position (nodes)', color='white', fontsize=12)
-    ax_cross.set_ylabel('$\\langle |\\Psi|^2 \\rangle$ (normalized)', color='white', fontsize=12)
+    ax_cross.set_xlabel("Transverse Position (nodes)", color="white", fontsize=12)
+    ax_cross.set_ylabel("$\\langle |\\Psi|^2 \\rangle$ (normalized)", color="white", fontsize=12)
     ax_cross.set_title(
-        f'Far-Field Intensity Cross-Section at x = {x_cross} nodes',
-        color='white', fontsize=14, fontweight='bold')
-    ax_cross.legend(fontsize=12, facecolor='#1a1a1a', edgecolor='#333',
-                    labelcolor='white', loc='upper right')
-    ax_cross.tick_params(colors='white')
-    ax_cross.grid(True, alpha=0.1, color='white')
+        f"Far-Field Intensity Cross-Section at x = {x_cross} nodes",
+        color="white",
+        fontsize=14,
+        fontweight="bold",
+    )
+    ax_cross.legend(fontsize=12, facecolor="#1a1a1a", edgecolor="#333", labelcolor="white", loc="upper right")
+    ax_cross.tick_params(colors="white")
+    ax_cross.grid(True, alpha=0.1, color="white")
     for spine in ax_cross.spines.values():
-        spine.set_color('#333')
+        spine.set_color("#333")
 
     # Save both
-    out1 = os.path.join(OUT_DIR, 'double_slit_heatmap_comparison.png')
-    fig.savefig(out1, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
+    out1 = os.path.join(OUT_DIR, "double_slit_heatmap_comparison.png")
+    fig.savefig(out1, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
     plt.close(fig)
     print(f"\n  📊 Heatmap saved: {out1}")
 
-    out2 = os.path.join(OUT_DIR, 'double_slit_cross_section.png')
-    fig2.savefig(out2, dpi=200, bbox_inches='tight', facecolor=fig2.get_facecolor())
+    out2 = os.path.join(OUT_DIR, "double_slit_cross_section.png")
+    fig2.savefig(out2, dpi=200, bbox_inches="tight", facecolor=fig2.get_facecolor())
     plt.close(fig2)
     print(f"  📊 Cross-section saved: {out2}")
 
     # Summary
-    print(f"\n  ═══════════════════════════════════════════════════════════════")
-    print(f"  AVE INTERPRETATION (Correct Physics)")
-    print(f"  ═══════════════════════════════════════════════════════════════")
-    print(f"  The PARTICLE passes through SLIT 1 (one slit only).")
-    print(f"  The transverse WAKE radiates from the particle's trajectory")
-    print(f"  and passes through BOTH slits.")
-    print(f"")
-    print(f"  WITHOUT observer: the wake through both slits interferes")
-    print(f"  coherently → standing wave fringes on the far side.")
-    print(f"  The particle is steered by ∇|Ψ|² into the fringe troughs.")
-    print(f"")
-    print(f"  WITH observer: a physical impedance perturbation (detector)")
-    print(f"  at Slit 2 thermalizes the wake's phase energy (Joule friction),")
-    print(f"  destroying coherence → single-slit envelope.")
-    print(f"")
-    print(f"  'Wavefunction collapse' = classical structural decoherence.")
-    print(f"  There is no mystery.")
-    print(f"  ═══════════════════════════════════════════════════════════════")
+    print("\n  ═══════════════════════════════════════════════════════════════")
+    print("  AVE INTERPRETATION (Correct Physics)")
+    print("  ═══════════════════════════════════════════════════════════════")
+    print("  The PARTICLE passes through SLIT 1 (one slit only).")
+    print("  The transverse WAKE radiates from the particle's trajectory")
+    print("  and passes through BOTH slits.")
+    print("")
+    print("  WITHOUT observer: the wake through both slits interferes")
+    print("  coherently → standing wave fringes on the far side.")
+    print("  The particle is steered by ∇|Ψ|² into the fringe troughs.")
+    print("")
+    print("  WITH observer: a physical impedance perturbation (detector)")
+    print("  at Slit 2 thermalizes the wake's phase energy (Joule friction),")
+    print("  destroying coherence → single-slit envelope.")
+    print("")
+    print("  'Wavefunction collapse' = classical structural decoherence.")
+    print("  There is no mystery.")
+    print("  ═══════════════════════════════════════════════════════════════")
 
 
 if __name__ == "__main__":

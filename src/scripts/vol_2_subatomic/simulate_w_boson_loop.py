@@ -12,30 +12,22 @@ Engine files:
   src/ave/solvers/transmission_line.py         — build_radial_tree_admittance_graded()
 """
 
-import sys
-from pathlib import Path
 
-src_path = str(Path(__file__).parent.parent.parent.parent)
-if src_path not in sys.path:
-    sys.path.append(src_path)
-
-from ave.topological.cosserat import (
-    M_W_TREE, M_W, M_W_MEV, M_Z, M_Z_MEV,
-    MISMATCH_LOSS, MISMATCH_LOSS_SC,
-    S11_W_BOUND, S11_W_SC,
-    w_boson_self_consistent_correction,
-)
-from ave.core.constants import C_0, e_charge
+from ave.core.constants import C_0, NU_VAC, e_charge
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
+from ave.topological.cosserat import M_W_TREE, M_Z_MEV, w_boson_self_consistent_correction
 
 _J_PER_MEV = float(e_charge) * 1e6
-PDG_MW = 80_379.0   # MeV  (PDG 2022)
-PDG_MZ = 91_188.0   # MeV  (PDG 2022)
+PDG_MW = 80_379.0  # MeV  (PDG 2022)
+PDG_MZ = 91_188.0  # MeV  (PDG 2022)
 
 # ─── Headers ──────────────────────────────────────────────────────────────────
 BAR = "=" * 66
 
-def pct(got, pdg):
+
+def pct(got: float, pdg: float) -> float:
     return (got / pdg - 1.0) * 100.0
+
 
 # ─── Block 1: Derivation chain ────────────────────────────────────────────────
 print(BAR)
@@ -46,18 +38,13 @@ m_w_tree_mev = M_W_TREE * C_0**2 / _J_PER_MEV
 print(f"\n  M_W (tree-level)         = {m_w_tree_mev:>10.4f} MeV   ({pct(m_w_tree_mev, PDG_MW):+.4f}%)")
 
 # ─── Block 2: Self-consistent iteration ───────────────────────────────────────
-print(f"\n  Self-Consistent Back-Saturation (Axiom 1 + Axiom 4):")
+print("\n  Self-Consistent Back-Saturation (Axiom 1 + Axiom 4):")
 print(f"  {'iter':>5}  {'Y[0,0]':>12}  {'S11':>12}  {'|S11|^2':>12}  {'M_W (MeV)':>12}  {'dev%':>8}")
-print(f"  " + "-" * 63)
+print("  " + "-" * 63)
 
 sc = w_boson_self_consistent_correction(max_iter=50, tol=1e-12)
 
 # Re-run iteration visibly for display
-import math
-import numpy as np
-from ave.core.constants import NU_VAC
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
-
 Z = 4
 Y_origin_base = Z * float(NU_VAC)
 Y_d1 = build_radial_tree_admittance(depth=1, branch_y=NU_VAC, boundary_y=0.0, coordination_z=Z)
@@ -73,7 +60,10 @@ for i in range(1, 15):
     back_sat = s11_i**2
     ml = 1.0 - back_sat
     mw_i = m_w_tree_mev / ml
-    print(f"  {i:>5}  {Y_iter[0,0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}  {mw_i:>12.4f}  {pct(mw_i, PDG_MW):>+8.4f}%")
+    print(
+        f"  {i:>5}  {Y_iter[0, 0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}"
+        f"  {mw_i:>12.4f}  {pct(mw_i, PDG_MW):>+8.4f}%"
+    )
     if abs(s11_i - s11_prev) < 1e-12:
         print(f"  [CONVERGED at iteration {i}]")
         break
@@ -81,9 +71,9 @@ for i in range(1, 15):
     s11_prev = s11_i
 
 # ─── Block 3: Final comparison ────────────────────────────────────────────────
-print(f"\n  Summary")
+print("\n  Summary")
 print(f"  {'':40}  {'MeV':>10}  {'dev%':>8}")
-print(f"  " + "-" * 63)
+print("  " + "-" * 63)
 print(f"  {'Tree-level M_W':40}  {m_w_tree_mev:>10.2f}  {pct(m_w_tree_mev, PDG_MW):>+8.4f}%")
 print(f"  {'Depth-1 hard saturation':40}  {sc['M_W_d1_MeV']:>10.2f}  {pct(sc['M_W_d1_MeV'], PDG_MW):>+8.4f}%")
 print(f"  {'Self-consistent (converged)':40}  {sc['M_W_sc_MeV']:>10.2f}  {pct(sc['M_W_sc_MeV'], PDG_MW):>+8.4f}%")
@@ -97,7 +87,8 @@ print(f"  delta_Y_origin = {sc['delta_Y_origin']:.10f}  (reduction to Y[0,0])")
 print(f"\n{BAR}")
 print("  PHYSICAL INTERPRETATION")
 print(BAR)
-print("""
+print(
+    """
   The W-boson occupies a single lattice node.  Its energy density
   immediately saturates the 4 nearest-neighbour nodes (open-circuit,
   Y_boundary = 0).  This produces S11 ≈ -0.0588 at depth 1.
@@ -114,5 +105,6 @@ print("""
 
   Result:  S11_sc ≈ -0.06123  →  M_W = 80,224 MeV  (-0.19%)
   Improved from depth-1 hard:  M_W = 80,201 MeV  (-0.22%)
-""")
+"""
+)
 print(BAR)

@@ -1,4 +1,8 @@
-from __future__ import annotations
+import jax
+import numpy as np
+
+from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
+
 """
 Universal Topological Operators
 ===============================
@@ -27,26 +31,26 @@ solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
 """
 
-from ave.core.constants import EPS_NUMERICAL, EPS_CLIP, EPS_DIVZERO
 
-def _is_jax_array(x):
+def _is_jax_array(x: object) -> bool:
     try:
-        import jax.numpy as jnp
         import jax
+        import jax.numpy as jnp
+
         return isinstance(x, (jnp.ndarray, jax.Array))
     except ImportError:
         return False
 
 
-def universal_impedance(mu, eps):
+def universal_impedance(mu: float | np.ndarray, eps: float | np.ndarray) -> float | np.ndarray:
     """
     Operator 1: The Universal Impedance Operator (Z)
     Defines the resistance of an arbitrary medium to a propagating wave.
-    
+
     Args:
         mu: Inertial/magnetic density (e.g., mu_0, fluid shear resistance, inductance)
         eps: Elastic compliance (e.g., eps_0, fluid density, capacitance)
-        
+
     Returns:
         Z: The characteristic impedance of the medium.
     """
@@ -54,16 +58,16 @@ def universal_impedance(mu, eps):
     return (mu / eps) ** 0.5
 
 
-def universal_saturation(A, A_yield):
+def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.ndarray:
     """
     Operator 2: The Universal Saturation Operator (S)
     Imposes the geometric percolation limit of the 3D lattice. Strain cannot
     increase infinitely; as the limit is approached, the metric non-linearly stiffens.
-    
+
     Args:
         A: The current strain amplitude (e.g., Voltage, Velocity, Fluid Stress)
         A_yield: The absolute topological yield limit of the domain
-        
+
     Returns:
         S: The saturation factor (real-valued in [0, 1]).
     """
@@ -72,12 +76,13 @@ def universal_saturation(A, A_yield):
     # Note: duck-typing assumes the caller handles the appropriate jnp/np where
     # branching/clipping is complex. A simple algebraic form is best for cross-compatibility.
     import numpy as np
-    
+
     # Try to use JAX if the input is a JAX array, otherwise use NumPy
     is_jax = _is_jax_array(A)
-    
+
     if is_jax:
         import jax.numpy as jnp
+
         ratio = jnp.clip(A / A_yield, -1.0, 1.0)
         return jnp.sqrt(1.0 - ratio**2)
     else:
@@ -85,25 +90,33 @@ def universal_saturation(A, A_yield):
         return np.sqrt(1.0 - ratio**2)
 
 
-def universal_reflection(Z1, Z2, eps=EPS_NUMERICAL):
+def universal_reflection(
+    Z1: float | np.ndarray,
+    Z2: float | np.ndarray,
+    eps: float = EPS_NUMERICAL,
+) -> float | np.ndarray:
     """
     Operator 3: The Universal Reflection Operator (Gamma)
     Governs how much energy is transferred versus reflected when a wave
     encounters a boundary between two topological impedances (Z1 -> Z2).
-    
+
     Args:
         Z1: The characteristic impedance of the source/incident medium
         Z2: The characteristic impedance of the target medium
         eps: Small numerical constant to prevent div-by-zero, especially
              useful for auto-differentiation in JAX loss functions.
-        
+
     Returns:
         Gamma: The reflection coefficient (-1.0 to 1.0).
     """
     return (Z2 - Z1) / (Z2 + Z1 + eps)
 
 
-def universal_pairwise_energy(r, K, d_sat):
+def universal_pairwise_energy(
+    r: float | np.ndarray,
+    K: float,
+    d_sat: float,
+) -> float | np.ndarray:
     """
     Operator 4: Full 3-Regime Pairwise Potential (Impedance-Based)
 
@@ -137,17 +150,17 @@ def universal_pairwise_energy(r, K, d_sat):
     Returns:
         U: Pairwise energy. Negative = attractive, positive = repulsive wall.
     """
-    import numpy as np
 
     is_jax = _is_jax_array(r)
     if is_jax:
         import jax.numpy as jnp
+
         ratio_sq = jnp.clip((d_sat / r) ** 2, 0.0, 1.0 - EPS_CLIP)
         # Impedance ratio: Z/Z₀ = 1/(1-A²)^(1/4) where A² = ratio_sq
         S_quarter = (1.0 - ratio_sq) ** 0.25
         Z_ratio = 1.0 / S_quarter  # Z_local / Z_0
         Gamma = (Z_ratio - 1.0) / (Z_ratio + 1.0)
-        Gamma_sq = Gamma ** 2
+        Gamma_sq = Gamma**2
         T_sq = 1.0 - Gamma_sq
         return -(K / r) * (T_sq - Gamma_sq)
     else:
@@ -160,7 +173,7 @@ def universal_pairwise_energy(r, K, d_sat):
             S_quarter = (1.0 - ratio_sq) ** 0.25
             Z_ratio = 1.0 / S_quarter
             Gamma = (Z_ratio - 1.0) / (Z_ratio + 1.0)
-            Gamma_sq = Gamma ** 2
+            Gamma_sq = Gamma**2
             return -(K / r) * (1.0 - 2.0 * Gamma_sq)
         else:
             r = np.asarray(r, dtype=float)
@@ -174,12 +187,12 @@ def universal_pairwise_energy(r, K, d_sat):
             S_quarter = (1.0 - ratio_sq[ok]) ** 0.25
             Z_ratio = 1.0 / S_quarter
             Gamma = (Z_ratio - 1.0) / (Z_ratio + 1.0)
-            Gamma_sq = Gamma ** 2
+            Gamma_sq = Gamma**2
             result[ok] = -(K / r[ok]) * (1.0 - 2.0 * Gamma_sq)
             return result
 
 
-def universal_pairwise_energy_jax(r, K, d_sat):
+def universal_pairwise_energy_jax(r: jax.Array, K: float, d_sat: float) -> jax.Array:
     """
     Operator 4 (JAX-only): JIT-safe pairwise impedance potential.
 
@@ -205,12 +218,16 @@ def universal_pairwise_energy_jax(r, K, d_sat):
     S_quarter = (1.0 - ratio_sq) ** 0.25
     Z_ratio = 1.0 / S_quarter
     Gamma = (Z_ratio - 1.0) / (Z_ratio + 1.0)
-    Gamma_sq = Gamma ** 2
+    Gamma_sq = Gamma**2
     T_sq = 1.0 - Gamma_sq
     return -(K / r) * (T_sq - Gamma_sq)
 
 
-def universal_pairwise_gradient(r, K, d_sat):
+def universal_pairwise_gradient(
+    r: float | np.ndarray,
+    K: float,
+    d_sat: float,
+) -> float | np.ndarray:
     """
     Analytical gradient (dU/dr) of the full 3-regime impedance potential.
 
@@ -229,13 +246,14 @@ def universal_pairwise_gradient(r, K, d_sat):
         dU_dr: Gradient of the pairwise potential.
     """
     import numpy as np
+
     dr = 1e-8 * (r if np.isscalar(r) else np.maximum(r, EPS_CLIP))
     U_plus = universal_pairwise_energy(r + dr, K, d_sat)
     U_minus = universal_pairwise_energy(r - dr, K, d_sat)
     return (U_plus - U_minus) / (2.0 * dr)
 
 
-def universal_ymatrix_to_s(Y, Y0=1.0):
+def universal_ymatrix_to_s(Y: np.ndarray, Y0: float = 1.0) -> np.ndarray:
     """
     Operator 5: The Universal Y-Matrix → S-Matrix Conversion
 
@@ -267,6 +285,7 @@ def universal_ymatrix_to_s(Y, Y0=1.0):
 
     if is_jax:
         import jax.numpy as jnp
+
         N = Y.shape[0]
         I = jnp.eye(N, dtype=Y.dtype)
         Y_norm = Y / Y0
@@ -282,7 +301,7 @@ def universal_ymatrix_to_s(Y, Y0=1.0):
         return np.linalg.solve(A, B)
 
 
-def universal_eigenvalue_target(S):
+def universal_eigenvalue_target(S: np.ndarray) -> float:
     """
     Operator 6: The Universal Eigenvalue Ground-State Target
 
@@ -308,6 +327,7 @@ def universal_eigenvalue_target(S):
 
     if is_jax:
         import jax.numpy as jnp
+
         SdS = jnp.conj(S.T) @ S
         eigenvalues = jnp.linalg.eigvalsh(SdS)
         return eigenvalues[0]  # smallest eigenvalue
@@ -317,7 +337,7 @@ def universal_eigenvalue_target(S):
         return eigenvalues[0]
 
 
-def universal_spectral_analysis(Z_sequence):
+def universal_spectral_analysis(Z_sequence: np.ndarray) -> dict[str, np.ndarray]:
     """
     Operator 7: The Universal Impedance Spectral Analyser
 
@@ -371,16 +391,21 @@ def universal_spectral_analysis(Z_sequence):
     top_periods = np.where(top_k > 0, N / top_k, np.inf)
 
     return {
-        'spectrum': spectrum,
-        'power': power,
-        'frequencies': k_indices,
-        'autocorr': autocorr,
-        'dominant_k': top_k,
-        'dominant_periods': top_periods,
+        "spectrum": spectrum,
+        "power": power,
+        "frequencies": k_indices,
+        "autocorr": autocorr,
+        "dominant_k": top_k,
+        "dominant_periods": top_periods,
     }
 
 
-def universal_packing_reflection(Rg_sq, N, r_node, eta_eq):
+def universal_packing_reflection(
+    Rg_sq: float | np.ndarray,
+    N: int,
+    r_node: float,
+    eta_eq: float,
+) -> float | np.ndarray:
     """
     Operator 8: The Universal Packing Reflection Coefficient
 
@@ -436,6 +461,7 @@ def universal_packing_reflection(Rg_sq, N, r_node, eta_eq):
 
     if is_jax:
         import jax.numpy as jnp
+
         _max = jnp.maximum
         _sqrt = jnp.sqrt
         _pi = jnp.pi
@@ -456,10 +482,14 @@ def universal_packing_reflection(Rg_sq, N, r_node, eta_eq):
     Rg_actual = _sqrt(Rg_sq + EPS_NUMERICAL)
     Gamma_pack = (Rg_actual - Rg_target) / (Rg_actual + Rg_target + EPS_NUMERICAL)
 
-    return Gamma_pack ** 2
+    return Gamma_pack**2
 
 
-def universal_steric_reflection(dists, R_excl, mask):
+def universal_steric_reflection(
+    dists: np.ndarray,
+    R_excl: float | np.ndarray,
+    mask: np.ndarray,
+) -> float | np.ndarray:
     """
     Operator 9: The Universal Steric Reflection Coefficient
 
@@ -509,6 +539,7 @@ def universal_steric_reflection(dists, R_excl, mask):
 
     if is_jax:
         import jax.numpy as jnp
+
         _max = jnp.maximum
         _sum = jnp.sum
         _where = jnp.where
@@ -529,10 +560,10 @@ def universal_steric_reflection(dists, R_excl, mask):
     # Average over non-bonded pairs
     n_pairs = _max(1.0, _sum(_triu(mask.astype(float), k=1)))
 
-    return _sum(gamma_upper ** 2) / n_pairs
+    return _sum(gamma_upper**2) / n_pairs
 
 
-def universal_junction_projection_loss(theta, c_crossings=1):
+def universal_junction_projection_loss(theta: float | np.ndarray, c_crossings: int = 1) -> float | np.ndarray:
     """
     Operator 10: The Universal Junction Projection Loss (Y_loss)
 
@@ -627,34 +658,37 @@ def universal_junction_projection_loss(theta, c_crossings=1):
     import numpy as np
 
     is_jax = _is_jax_array(theta)
-    _cos = __import__('jax').numpy.cos if is_jax else np.cos
+    _cos = __import__("jax").numpy.cos if is_jax else np.cos
 
     single_crossing_loss = (1.0 - _cos(theta)) / (2.0 * np.pi**2)
     return c_crossings * single_crossing_loss
 
 
-import jax
-import jax.numpy as jnp
-
 # @jax.jit(static_argnames=['field_type'])  # Removed to fix legacy JAX decorator crash
-def universal_topological_curl(Vx, Vy, Vz, dx=1.0, field_type='E'):
+def universal_topological_curl(
+    Vx: np.ndarray,
+    Vy: np.ndarray,
+    Vz: np.ndarray,
+    dx: float = 1.0,
+    field_type: str = "E",
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Operator 11: The Universal Topological Curl (∇×V)
-    
-    Maps the macroscopic continuum curl operator onto the discrete topological 
+
+    Maps the macroscopic continuum curl operator onto the discrete topological
     Yee-lattice. This guarantees exact conservation of macroscopic vorticity.
     Supports both Numpy and JAX arrays transparently via duck-typing.
-    
+
     Args:
         Vx, Vy, Vz: The 3D tensor vector components representing the field.
         dx: The topological lattice spacing.
         field_type: 'E' (integer node edges) or 'H' (half-node faces), determining
                     the staggered stencil shift.
-    
+
     Returns:
         curl_x, curl_y, curl_z: The discrete spatial rotations mapped onto the grid.
     """
-    if field_type == 'E':
+    if field_type == "E":
         # E-field curl (produces H-field updates on half-mesh)
         cx = (Vz[:, 1:, :-1] - Vz[:, :-1, :-1]) - (Vy[:, :-1, 1:] - Vy[:, :-1, :-1])
         cy = (Vx[:-1, :, 1:] - Vx[:-1, :, :-1]) - (Vz[1:, :, :-1] - Vz[:-1, :, :-1])
@@ -664,79 +698,101 @@ def universal_topological_curl(Vx, Vy, Vz, dx=1.0, field_type='E'):
         cx = (Vz[:, 1:, 1:] - Vz[:, :-1, 1:]) - (Vy[:, 1:, 1:] - Vy[:, 1:, :-1])
         cy = (Vx[1:, :, 1:] - Vx[1:, :, :-1]) - (Vz[1:, :, 1:] - Vz[:-1, :, 1:])
         cz = (Vy[1:, 1:, :] - Vy[:-1, 1:, :]) - (Vx[1:, 1:, :] - Vx[1:, :-1, :])
-        
+
     return cx / dx, cy / dx, cz / dx
 
 
 @jax.jit
-def universal_topological_divergence(Vx, Vy, Vz, dx=1.0):
+def universal_topological_divergence(
+    Vx: np.ndarray,
+    Vy: np.ndarray,
+    Vz: np.ndarray,
+    dx: float = 1.0,
+) -> np.ndarray:
     """
     Operator 12: The Universal Topological Divergence (∇·V)
-    
+
     Maps the continuum divergence operator onto the discrete LC node sums.
     Structurally translates Gauss's continuous flux to a discrete face summation
     on the LC graph, assuring zero numerical loss.
-    
+
     Returns:
         div_V: The scalar divergence field mapped strictly to the node centers.
     """
     div_x = Vx[1:, :, :] - Vx[:-1, :, :]
     div_y = Vy[:, 1:, :] - Vy[:, :-1, :]
     div_z = Vz[:, :, 1:] - Vz[:, :, :-1]
-    
+
     # Resolving to the common interior staggered volume mapping:
     return (div_x[:, :-1, :-1] + div_y[:-1, :, :-1] + div_z[:-1, :-1, :]) / dx
 
 
 @jax.jit
-def universal_d_alembertian(Phi_current, Phi_past, c_squared, dt, dx):
+def universal_d_alembertian(
+    Phi_current: np.ndarray,
+    Phi_past: np.ndarray,
+    c_squared: float,
+    dt: float,
+    dx: float,
+) -> np.ndarray:
     """
     Operator 13: The Universal D'Alembertian Wave Operator (◻²)
-    
-    Maps the geometric invariant wave equation: ◻²Φ = ∇²Φ - (1/c²)∂²Φ/∂t² = 0 
-    onto the discrete topological LC lattice without introducing artificial 
-    smoothing or dissipative parameters. 
-    
+
+    Maps the geometric invariant wave equation: ◻²Φ = ∇²Φ - (1/c²)∂²Φ/∂t² = 0
+    onto the discrete topological LC lattice without introducing artificial
+    smoothing or dissipative parameters.
+
     Returns:
         Phi_next: The time-advanced scalar amplitude conserving the wave geometry.
     """
     # 7-point 3D spatial Laplacian stencil
-    laplacian_x = (Phi_current[2:, 1:-1, 1:-1] - 2*Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[:-2, 1:-1, 1:-1]) / (dx**2)
-    laplacian_y = (Phi_current[1:-1, 2:, 1:-1] - 2*Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[1:-1, :-2, 1:-1]) / (dx**2)
-    laplacian_z = (Phi_current[1:-1, 1:-1, 2:] - 2*Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[1:-1, 1:-1, :-2]) / (dx**2)
+    laplacian_x = (Phi_current[2:, 1:-1, 1:-1] - 2 * Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[:-2, 1:-1, 1:-1]) / (
+        dx**2
+    )
+    laplacian_y = (Phi_current[1:-1, 2:, 1:-1] - 2 * Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[1:-1, :-2, 1:-1]) / (
+        dx**2
+    )
+    laplacian_z = (Phi_current[1:-1, 1:-1, 2:] - 2 * Phi_current[1:-1, 1:-1, 1:-1] + Phi_current[1:-1, 1:-1, :-2]) / (
+        dx**2
+    )
     laplacian = laplacian_x + laplacian_y + laplacian_z
-    
+
     # Time evolution via 2nd-order central difference:
     # (Phi_next - 2*Phi_current + Phi_past) / dt^2 = c^2 * Laplacian
     Phi_next = 2 * Phi_current[1:-1, 1:-1, 1:-1] - Phi_past[1:-1, 1:-1, 1:-1] + (c_squared * (dt**2)) * laplacian
     return Phi_next
 
 
-def universal_dynamic_impedance(Z_0, S, eps=EPS_NUMERICAL):
+def universal_dynamic_impedance(
+    Z_0: float | np.ndarray,
+    S: float | np.ndarray,
+    eps: float = EPS_NUMERICAL,
+) -> float | np.ndarray:
     """
     Operator 14: The Universal Dynamic Impedance (Z_eff)
-    
-    Transforms the linear characteristic impedance Z_0 into the dynamic 
+
+    Transforms the linear characteristic impedance Z_0 into the dynamic
     non-linear impedance of a strained medium. As the medium approaches
     saturation (S -> 0), the effective impedance diverges towards infinity,
     forming the Pauli exclusion wall (physical) or the token routing wall (virtual).
-    
+
     Z_eff = Z_0 / sqrt(S)
-    
+
     Args:
         Z_0: Linear characteristic base impedance (scalar or array)
         S: The saturation factor from universal_saturation, S in [0, 1]
         eps: Small numerical constant to prevent div-by-zero at complete yield
-        
+
     Returns:
         Z_eff: The dynamic characteristic impedance
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(S)
-    
+
     if is_jax:
         import jax.numpy as jnp
+
         S_safe = jnp.maximum(S, eps)
         return Z_0 / jnp.sqrt(S_safe)
     else:
@@ -744,29 +800,30 @@ def universal_dynamic_impedance(Z_0, S, eps=EPS_NUMERICAL):
         return Z_0 / np.sqrt(S_safe)
 
 
-def universal_virtual_strain(x):
+def universal_virtual_strain(x: float | np.ndarray) -> float | np.ndarray:
     """
     Operator 15: The Universal Virtual Strain Isomorphism (r_virtual)
-    
-    Maps the dimensionless gate pre-activations x of a virtual neural 
-    manifold (e.g. SwiGLU) to the normalized physical strain r = A/A_c 
+
+    Maps the dimensionless gate pre-activations x of a virtual neural
+    manifold (e.g. SwiGLU) to the normalized physical strain r = A/A_c
     of the AVE vacuum lattice.
-    
+
     Derived from the phase-conservation identity: sigma(x)^2 + r^2 = 1
     Therefore, r = sqrt(1 - sigma(x)^2)
-    
+
     Args:
         x: Pre-activation logit scalar or array
-        
+
     Returns:
         r: Normalized geometric strain in [0, 1]
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(x)
-    
+
     if is_jax:
         import jax.numpy as jnp
+
         sigma = 1.0 / (1.0 + jnp.exp(-x))
         return jnp.sqrt(jnp.maximum(0.0, 1.0 - sigma**2))
     else:
@@ -774,67 +831,72 @@ def universal_virtual_strain(x):
         return np.sqrt(np.maximum(0.0, 1.0 - sigma**2))
 
 
-def universal_power_transmission(Z1, Z2=None):
+def universal_power_transmission(
+    Z1: float | np.ndarray,
+    Z2: float | np.ndarray | None = None,
+) -> float | np.ndarray:
     """
     Operator 17: Universal Power Transmission (T²)
-    
-    The squared transmission coefficient representing the fraction of 
-    power transmitted across an impedance boundary. 
-    
+
+    The squared transmission coefficient representing the fraction of
+    power transmitted across an impedance boundary.
+
     T² = 1 - Γ² = 4 Z₁ Z₂ / (Z₁ + Z₂)²
-    
-    This operator can be called with two impedances, or with a single 
+
+    This operator can be called with two impedances, or with a single
     impedance ratio N = Z₁/Z₂ or Z₂/Z₁.
-    
+
     Args:
         Z1: First impedance, or the impedance ratio N if Z2 is None.
         Z2: Second impedance (optional).
-        
+
     Returns:
         T²: Power transmission fraction [0, 1].
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(Z1)
     if Z2 is not None:
         is_jax = is_jax or _is_jax_array(Z2)
-        
+
     if is_jax:
         import jax.numpy as jnp
+
         if Z2 is None:
             N = Z1
         else:
             N = Z1 / jnp.maximum(Z2, EPS_NUMERICAL)
-        return 4.0 * N / (1.0 + N)**2
+        return 4.0 * N / (1.0 + N) ** 2
     else:
         if Z2 is None:
             N = Z1
         else:
             # Prevent division by zero
             if np.isscalar(Z1) and np.isscalar(Z2) and Z2 == 0:
-                if Z1 == 0: return 1.0
+                if Z1 == 0:
+                    return 1.0
                 return 0.0
             N = Z1 / np.maximum(Z2, EPS_NUMERICAL)
-            
+
         if np.isscalar(N) and N == 0:
             return 0.0
-        return 4.0 * N / (1.0 + N)**2
+        return 4.0 * N / (1.0 + N) ** 2
 
 
-def universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave):
+def universal_regime_eigenvalue(r_sat: float, nu_vac: float, ell: int, c_wave: float) -> float:
     """
     Operator 20: Universal Regime Boundary Eigenvalue
-    
+
     Universal eigenfrequency at any saturation boundary (the 5-step method).
-    
+
     ω = ℓ · c_wave / r_eff,      r_eff = r_sat / (1 + ν_vac)
-    
+
     Args:
         r_sat: Regime boundary radius (where saturation_factor = 0).
         nu_vac: Poisson ratio of the medium.
         ell: Angular mode number.
         c_wave: Wave speed in the medium.
-        
+
     Returns:
         Angular eigenfrequency ω [rad/s].
     """
@@ -842,172 +904,188 @@ def universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave):
     return ell * c_wave / r_eff
 
 
-def universal_quality_factor(ell):
+def universal_quality_factor(ell: int) -> float:
     """
     Operator 21: Universal Phase Transition Quality Factor
-    
+
     Universal quality factor from lattice phase transition at saturation: Q = ℓ.
-    
-    At the saturation boundary (S = 0), the shear modulus vanishes, 
+
+    At the saturation boundary (S = 0), the shear modulus vanishes,
     making it a perfect reflector. The mode has ℓ wavelengths around
     the circumference, each releasing ~1/ℓ of energy per cycle.
-    
+
     Args:
         ell: Angular mode number (integer >= 1).
-        
+
     Returns:
         Quality factor Q (dimensionless).
     """
     return float(ell)
 
 
-def universal_avalanche_factor(V_applied, V_breakdown, n_topology):
+def universal_avalanche_factor(
+    V_applied: float | np.ndarray,
+    V_breakdown: float,
+    n_topology: int,
+) -> float | np.ndarray:
     """
     Operator 22: Universal Avalanche Factor (M)
-    
+
     Miller avalanche multiplication: the topological INVERSE of saturation.
-    
+
     M = 1 / (1 - (V / V_BR)^n)
-    
+
     At V → 0: M = 1 (linear, no avalanche).
     At V → V_BR: M → ∞ (breakdown, divergence).
-    
+
     Args:
         V_applied: Applied strain/voltage.
         V_breakdown: Breakdown yielding strain/voltage.
         n_topology: Topological crossing number (controls sharpness).
-        
+
     Returns:
         Avalanche factor M (dimensionless).
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(V_applied)
-    
+
     if is_jax:
         import jax.numpy as jnp
+
         ratio = jnp.abs(V_applied / V_breakdown)
-        ratio = jnp.clip(ratio, 0.0, 1.0 - EPS_NUMERICAL**(1.0/n_topology))
+        ratio = jnp.clip(ratio, 0.0, 1.0 - EPS_NUMERICAL ** (1.0 / n_topology))
         return 1.0 / (1.0 - ratio**n_topology)
     else:
         ratio = np.asarray(V_applied, dtype=float) / V_breakdown
-        ratio = np.abs(ratio) 
-        ratio = np.clip(ratio, 0.0, 1.0 - EPS_NUMERICAL**(1.0/n_topology))
+        ratio = np.abs(ratio)
+        ratio = np.clip(ratio, 0.0, 1.0 - EPS_NUMERICAL ** (1.0 / n_topology))
         return 1.0 / (1.0 - ratio**n_topology)
 
 
-def universal_wave_speed(A, A_yield, c_base):
+def universal_wave_speed(
+    A: float | np.ndarray,
+    A_yield: float,
+    c_base: float,
+) -> float | np.ndarray:
     """
     Operator 16: Universal Wave Speed (c_shear)
-    
+
     Effective local shear/GW wave speed under dielectric saturation.
-    
+
     c_shear(A) = c_base * (1 - (A/A_yield)^2)^(1/4)
                = c_base * sqrt(S(A))
-               
+
     Note: For EM phase velocity, the scaling depends on the symmetry
-    of the saturation (symmetric vs asymmetric). See rupture_solver.py 
+    of the saturation (symmetric vs asymmetric). See rupture_solver.py
     for detailed derivations. This operator computes the shear speed.
-    
+
     Args:
         A: Local strain amplitude.
         A_yield: Saturation limit.
         c_base: Base wave speed.
-        
+
     Returns:
         Local shear/GW wave speed.
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(A)
-    
+
     if is_jax:
         import jax.numpy as jnp
-        ratio_sq = jnp.clip((A / A_yield)**2, 0.0, 1.0 - EPS_NUMERICAL)
-        return c_base * (1.0 - ratio_sq)**0.25
+
+        ratio_sq = jnp.clip((A / A_yield) ** 2, 0.0, 1.0 - EPS_NUMERICAL)
+        return c_base * (1.0 - ratio_sq) ** 0.25
     else:
         A_arr = np.asarray(A, dtype=float)
-        ratio_sq = np.clip((A_arr / A_yield)**2, 0.0, 1.0 - EPS_NUMERICAL)
-        return c_base * (1.0 - ratio_sq)**0.25
+        ratio_sq = np.clip((A_arr / A_yield) ** 2, 0.0, 1.0 - EPS_NUMERICAL)
+        return c_base * (1.0 - ratio_sq) ** 0.25
 
 
-def universal_coupled_mode_frequency(omega_0, k, adjacency_eigenvalue):
+def universal_coupled_mode_frequency(
+    omega_0: float,
+    k: float,
+    adjacency_eigenvalue: float | np.ndarray,
+) -> float | np.ndarray:
     """
     Operator 18: Universal Coupled Mode Frequency
-    
+
     Normal mode splitting for coupled LC resonators.
-    
+
     \\omega_n = \\omega_0 / \\sqrt{1 + k \\cdot \\lambda_n}
-    
+
     where \\lambda_n is the adjacency matrix eigenvalue.
-    
+
     Args:
         omega_0: Base resonance frequency.
         k: Coupling constant between resonators.
         adjacency_eigenvalue: Eigenvalue of the coupling topology.
-        
+
     Returns:
         Coupled mode frequency \\omega_n.
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(adjacency_eigenvalue)
-    
+
     if is_jax:
         import jax.numpy as jnp
+
         return omega_0 / jnp.sqrt(1.0 + k * adjacency_eigenvalue)
     else:
         return omega_0 / np.sqrt(1.0 + k * adjacency_eigenvalue)
 
 
-def universal_refractive_index(epsilon_11, nu_vac=2.0/7.0):
+def universal_refractive_index(epsilon_11: float | np.ndarray, nu_vac: float = 2.0 / 7.0) -> float | np.ndarray:
     """
     Operator 19: Universal Refractive Index (n)
-    
+
     The medium's total strain response to a gravitational source.
     Answers "how slow is propagation?" where S answers "how stiff is the medium?"
-    
+
     n = 1 + \\nu_{vac} \\times \\epsilon_{11}
-    
+
     where \\nu_vac is the Poisson ratio (default 2/7 for the vacuum lattice)
     and \\epsilon_11 is the principal strain component.
-    
+
     Args:
         epsilon_11: Principal strain component.
         nu_vac: Poisson ratio of the medium.
-        
+
     Returns:
         Refractive index n >= 1.
     """
     return 1.0 + nu_vac * epsilon_11
 
 
-def plasma_refractive_index(omega, omega_p):
+def plasma_refractive_index(omega: float | np.ndarray, omega_p: float) -> float | np.ndarray:
     """
     Operator 19 (Adapter): Plasma Refractive Index (n_plasma)
-    
+
     The refractive index for transverse waves in a cold, unmagnetized plasma.
     This describes dispersion rather than geometric strain, but maps to the
     same propagation kinematics (c_local = c/n).
-    
+
     n = \\sqrt{1 - (\\omega_p / \\omega)^2}
-    
+
     Args:
         omega: Angular frequency of the wave.
         omega_p: Plasma frequency.
-        
+
     Returns:
         Refractive index n <= 1. (0 if omega <= omega_p)
     """
     import numpy as np
-    
+
     is_jax = _is_jax_array(omega)
-    
+
     if is_jax:
         import jax.numpy as jnp
-        ratio_sq = (omega_p / jnp.maximum(omega, EPS_NUMERICAL))**2
+
+        ratio_sq = (omega_p / jnp.maximum(omega, EPS_NUMERICAL)) ** 2
         return jnp.sqrt(jnp.maximum(0.0, 1.0 - ratio_sq))
     else:
         omega_arr = np.asarray(omega, dtype=float)
-        ratio_sq = (omega_p / np.maximum(omega_arr, EPS_NUMERICAL))**2
+        ratio_sq = (omega_p / np.maximum(omega_arr, EPS_NUMERICAL)) ** 2
         return np.sqrt(np.maximum(0.0, 1.0 - ratio_sq))
