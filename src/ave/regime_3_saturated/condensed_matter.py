@@ -38,8 +38,6 @@ Models
    Field that delivers one bond-quantum of energy per lattice cell.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import K_B  # Boltzmann constant [J/K]
@@ -56,7 +54,7 @@ from ave.solvers.coupled_resonator import (
 _M_U = M_U
 
 
-def ave_stable_mass(Z) -> float:
+def ave_stable_mass(Z: int) -> float:
     """
     First-principles prediction of the mass of the most stable isotope
     for a given atomic number Z.
@@ -99,7 +97,9 @@ def ave_stable_mass(Z) -> float:
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def _element_bond_properties(Z, A=None):
+def _element_bond_properties(
+    Z: int, A: int | None = None
+) -> tuple[float, float, float, float, float, float]:
     """
     Compute the valence bond properties for element Z.
 
@@ -148,7 +148,7 @@ def _element_bond_properties(Z, A=None):
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def melting_temperature(Z, A=None):
+def melting_temperature(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict melting temperature from first principles.
 
@@ -203,7 +203,7 @@ def melting_temperature(Z, A=None):
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def sound_speed(Z, A=None):
+def sound_speed(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict longitudinal sound speed from first principles.
 
@@ -259,7 +259,7 @@ def sound_speed(Z, A=None):
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def band_gap_energy(Z, A=None):
+def band_gap_energy(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict band gap energy from first principles.
 
@@ -321,7 +321,7 @@ def band_gap_energy(Z, A=None):
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def breakdown_field(Z, A=None):
+def breakdown_field(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict dielectric breakdown field from first principles.
 
@@ -372,7 +372,7 @@ def breakdown_field(Z, A=None):
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def element_summary(Z, A=None):
+def element_summary(Z: int, A: int | None = None) -> dict[str, float]:
     """
     Compute all four condensed matter predictions for element Z.
 

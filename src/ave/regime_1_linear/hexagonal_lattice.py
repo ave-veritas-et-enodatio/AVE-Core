@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import ALPHA, HBAR, K_B
@@ -29,10 +27,10 @@ class CooperativeHexagonalLattice:
     def __init__(
         self,
         E_hb_joules: float,
-        d_hb_meters: float = None,
-        m_ligand_kg: float = None,
-        k_intra: float = None,
-    ):
+        d_hb_meters: float | None = None,
+        m_ligand_kg: float | None = None,
+        k_intra: float | None = None,
+    ) -> None:
         """
         Args:
             E_hb_joules: H-bond energy [J] (from Op4 well depth)

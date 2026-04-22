@@ -27,7 +27,7 @@ saturation topological wall r_sat. The lattice undergoes a phase transition
 infinite singularity.
 """
 
-from __future__ import annotations
+from typing import Any
 
 import numpy as np
 from scipy.integrate import solve_ivp
@@ -88,7 +88,7 @@ class AxiomaticBlackHoleCollapse:
 
         return np.array([v_r, dv_dt])
 
-    def solve_infall(self, r_start: float, v_start: float = 0.0, max_time: float = 1.0):
+    def solve_infall(self, r_start: float, v_start: float = 0.0, max_time: float = 1.0) -> Any:
         """
         Integrates the trajectory of matter falling toward the core.
 
@@ -104,7 +104,7 @@ class AxiomaticBlackHoleCollapse:
 
         # Event to stop integration when matter hits the topological wall
         # Matter hits r_sat directly.
-        def wall_event(t, y):
+        def wall_event(t: float, y: np.ndarray) -> float:
             # Difference between current radius and saturation wall
             return y[0] - (self.r_sat * 1.000001)
 

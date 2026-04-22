@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 r"""
 Coulomb Bond Force Constant Solver
 ===================================
@@ -171,14 +169,18 @@ def _bond_overlap(Z_a: int, Z_b: int, d: float) -> float:
     return min(_overlap_1s(za / max(na, 1.0), zb / max(nb, 1.0), d), 1.0)
 
 
-def compute_bond_curve(Z_a, Z_b, n_shared, d_min=0.5e-10, d_max=4.0e-10, n_points=200):
+def compute_bond_curve(
+    Z_a: int, Z_b: int, n_shared: int, d_min: float = 0.5e-10, d_max: float = 4.0e-10, n_points: int = 200
+) -> tuple[np.ndarray, np.ndarray]:
     """Compute E(d) for a given bond. Returns (d [m], E [J])."""
     d_range = np.linspace(d_min, d_max, n_points)
     energies = np.array([bond_energy(d, Z_a, Z_b, n_shared) for d in d_range])
     return d_range, energies
 
 
-def compute_torsion_curve(Z_a, Z_b, n_shared, d_eq=None, n_points=100):
+def compute_torsion_curve(
+    Z_a: int, Z_b: int, n_shared: int, d_eq: float | None = None, n_points: int = 100
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Compute E(θ) at fixed d=d_eq for torsion angles 0 to π.
 
@@ -196,7 +198,9 @@ def compute_torsion_curve(Z_a, Z_b, n_shared, d_eq=None, n_points=100):
     return theta_range, energies
 
 
-def extract_torsional_constant(Z_a, Z_b, n_shared, d_eq=None):
+def extract_torsional_constant(
+    Z_a: int, Z_b: int, n_shared: int, d_eq: float | None = None
+) -> tuple[float, float, float]:
     r"""
     Torsional (bending) force constant from the power factor decomposition.
 
@@ -277,7 +281,9 @@ def extract_peptide_kbend() -> float:
     return k_bend
 
 
-def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_shared: int = 2):
+def extract_force_constant(
+    d_array: np.ndarray, E_array: np.ndarray, Z_a: int = 6, Z_b: int = 6, n_shared: int = 2
+) -> tuple[float, float, float]:
     """
     Extract d_eq [m] and k [N/m] from E(d) curve.
 

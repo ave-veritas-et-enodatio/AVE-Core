@@ -19,8 +19,6 @@ Boltzmann fluid hacks. Instead, it strictly tiles 4-port LC junctions
 All constants derived correctly from `ave.core.constants`.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0, V_YIELD
@@ -30,7 +28,7 @@ from ave.core.constants import C_0, V_YIELD
 # ═══════════════════════════════════════════════════════════════════════════
 
 
-def build_scattering_matrix(z_local=1.0):
+def build_scattering_matrix(z_local: float = 1.0) -> np.ndarray:
     """
     Build the 4x4 unitary scattering matrix for a true K4/Diamond junction.
 
@@ -87,7 +85,7 @@ class K4Lattice3D:
     Port `i` on the neighboring Type B node. No reciprocity mapping needed!
     """
 
-    def __init__(self, nx, ny, nz, dx=1.0, nonlinear=False, pml_thickness=0):
+    def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0, nonlinear: bool = False, pml_thickness: int = 0) -> None:
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -178,7 +176,7 @@ class K4Lattice3D:
         # For backward compatibility with validation scripts
         self.z_local_field = np.ones((nx, ny, nz), dtype=float)
 
-    def _scatter_all(self):
+    def _scatter_all(self) -> None:
         """Matrix-vector multiply to scatter incident pulses into reflected pulses."""
         if self.nonlinear:
             # Op14 Impedance Saturation
@@ -215,7 +213,7 @@ class K4Lattice3D:
         if self.pml_thickness > 0:
             self.V_ref *= self.pml_mask
 
-    def _connect_all(self):
+    def _connect_all(self) -> None:
         """
         Propagate pulses across the tetrapod connections.
 
@@ -284,7 +282,7 @@ class K4Lattice3D:
 
         self.V_inc = new_inc
 
-    def step(self):
+    def step(self) -> None:
         """Execute one complete timestep."""
         self._scatter_all()
         self._connect_all()
@@ -292,16 +290,16 @@ class K4Lattice3D:
 
     def run(
         self,
-        n_steps,
-        source_x=None,
-        source_y=None,
-        source_z=None,
-        source_func=None,
-        probe_x=None,
-        probe_y=None,
-        probe_z=None,
-        record_energy=True,
-    ):
+        n_steps: int,
+        source_x: int | None = None,
+        source_y: int | None = None,
+        source_z: int | None = None,
+        source_func: object | None = None,
+        probe_x: int | None = None,
+        probe_y: int | None = None,
+        probe_z: int | None = None,
+        record_energy: bool = True,
+    ) -> dict[str, np.ndarray]:
         """Run the simulation for n_steps."""
         probe_data = []
         energy_data = []
@@ -330,26 +328,26 @@ class K4Lattice3D:
             result["energy"] = np.array(energy_data)
         return result
 
-    def inject_point_source(self, x, y, z, amplitude):
+    def inject_point_source(self, x: int, y: int, z: int, amplitude: float) -> None:
         """Isotropic point source into an active node."""
         if 0 <= x < self.nx and 0 <= y < self.ny and 0 <= z < self.nz:
             if self.mask_active[x, y, z]:
                 amp = amplitude / 2.0  # sqrt(4) = 2
                 self.V_inc[x, y, z, :] += amp
 
-    def get_field(self, x, y, z):
+    def get_field(self, x: int, y: int, z: int) -> float:
         if 0 <= x < self.nx and 0 <= y < self.ny and 0 <= z < self.nz:
             return np.sqrt(np.sum(self.V_inc[x, y, z] ** 2))
         return 0.0
 
-    def get_energy_density(self):
+    def get_energy_density(self) -> np.ndarray:
         """Compute structural scalar energy |V|^2."""
         return np.sum(self.V_inc**2 + self.V_ref**2, axis=-1)
 
-    def total_energy(self):
-        return np.sum(self.get_energy_density())
+    def total_energy(self) -> float:
+        return float(np.sum(self.get_energy_density()))
 
-    def get_helicity_density(self):
+    def get_helicity_density(self) -> np.ndarray:
         """
         Compute helicity density h = A.B in the diamond lattice.
 
@@ -379,36 +377,36 @@ class K4Lattice2D(K4Lattice3D):
     3D lattice and slice it.
     """
 
-    def __init__(self, nx, ny, alternating_chirality=False, dx=1.0, nonlinear=False, pml_thickness=0):
+    def __init__(self, nx: int, ny: int, alternating_chirality: bool = False, dx: float = 1.0, nonlinear: bool = False, pml_thickness: int = 0) -> None:
         # We need a depth of 4 to securely wrap 3D parity links natively
         super().__init__(nx, ny, 4, dx=dx, nonlinear=nonlinear, pml_thickness=pml_thickness)
         self.my_z = 2
 
-    def inject_point_source(self, x, y, amplitude=0):
+    def inject_point_source(self, x: int, y: int, amplitude: float = 0) -> None:
         # ensure it injects into an active node
         z = self.my_z
         if not self.mask_active[x, y, z]:
             z -= 1
         super().inject_point_source(x, y, z, amplitude)
 
-    def get_field(self, x, y):
+    def get_field(self, x: int, y: int) -> float:  # type: ignore[override]
         z = self.my_z
         if not self.mask_active[x, y, z]:
             z -= 1
         return super().get_field(x, y, z)
 
-    def get_field_array(self):
+    def get_field_array(self) -> np.ndarray:
         z_slice = self.my_z
         active = self.mask_active[:, :, z_slice]
         field = np.zeros((self.nx, self.ny))
         field[active] = np.sqrt(np.sum(self.V_inc[:, :, z_slice, :] ** 2, axis=-1))[active]
         return field
 
-    def get_helicity_density(self):
+    def get_helicity_density(self) -> np.ndarray:
         h = super().get_helicity_density()
         return h[:, :, self.my_z]
 
-    def inject_wire_current(self, wire_path, amplitude, direction_port=0):
+    def inject_wire_current(self, wire_path: list[tuple[int, int]], amplitude: float, direction_port: int = 0) -> None:
         """Legacy compatibility for RF antenna injection."""
         z = self.my_z
         for idx in range(len(wire_path)):

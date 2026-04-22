@@ -24,8 +24,6 @@ THE ARGUMENT (4 steps):
 This module implements the computational verification of each step.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import reflection_coefficient

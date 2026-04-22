@@ -52,8 +52,6 @@ avalanche_factor(V_applied, V_breakdown, n_topology)
     M = 1/(1 − (V/V_BR)^n) — Miller multiplication (inverse of saturation).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
@@ -63,7 +61,7 @@ from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
 # ────────────────────────────────────────────────────────────────────
 
 
-def impedance(mu, eps):
+def impedance(mu: float | np.ndarray, eps: float | np.ndarray) -> float | np.ndarray:
     r"""
     Compute the characteristic impedance of any medium.
 
@@ -98,7 +96,7 @@ def impedance(mu, eps):
 
 
 def saturation_factor(
-    amplitude,
+    amplitude: float | np.ndarray,
     yield_limit: float = V_SNAP,
     *,
     clip: bool = True,
@@ -154,7 +152,13 @@ def saturation_factor(
 # ────────────────────────────────────────────────────────────────────
 
 
-def epsilon_eff(amplitude, yield_limit: float = V_SNAP, eps_base=EPSILON_0, *, clip: bool = True):
+def epsilon_eff(
+    amplitude: float | np.ndarray,
+    yield_limit: float = V_SNAP,
+    eps_base: float = EPSILON_0,
+    *,
+    clip: bool = True,
+) -> float | np.ndarray:
     r"""
     Non-linear effective permittivity under dielectric saturation.
 
@@ -182,7 +186,13 @@ def epsilon_eff(amplitude, yield_limit: float = V_SNAP, eps_base=EPSILON_0, *, c
     return eps_base * saturation_factor(amplitude, yield_limit, clip=clip)
 
 
-def mu_eff(amplitude, yield_limit: float = V_SNAP, mu_base=MU_0, *, clip: bool = True):
+def mu_eff(
+    amplitude: float | np.ndarray,
+    yield_limit: float = V_SNAP,
+    mu_base: float = MU_0,
+    *,
+    clip: bool = True,
+) -> float | np.ndarray:
     r"""
     Non-linear effective permeability under magnetic saturation.
 
@@ -207,7 +217,7 @@ def mu_eff(amplitude, yield_limit: float = V_SNAP, mu_base=MU_0, *, clip: bool =
 # ────────────────────────────────────────────────────────────────────
 
 
-def reflection_coefficient(Z1, Z2=None):
+def reflection_coefficient(Z1: float | np.ndarray, Z2: float | np.ndarray | None = None) -> float | np.ndarray:
     r"""
     Amplitude reflection coefficient at any impedance boundary.
 
@@ -239,7 +249,7 @@ def reflection_coefficient(Z1, Z2=None):
     return universal_reflection(Z1, Z2)
 
 
-def transmission_coefficient(Z1, Z2=None):
+def transmission_coefficient(Z1: float | np.ndarray, Z2: float | np.ndarray | None = None) -> float | np.ndarray:
     r"""
     Amplitude transmission coefficient at any impedance boundary.
 
@@ -261,7 +271,13 @@ def transmission_coefficient(Z1, Z2=None):
 # ────────────────────────────────────────────────────────────────────
 
 
-def local_wave_speed(amplitude, yield_limit: float = V_SNAP, c_base: float = C_0, *, clip: bool = True):
+def local_wave_speed(
+    amplitude: float | np.ndarray,
+    yield_limit: float = V_SNAP,
+    c_base: float = C_0,
+    *,
+    clip: bool = True,
+) -> float | np.ndarray:
     r"""
     Effective local **shear / GW wave speed** under dielectric saturation.
 
@@ -316,7 +332,13 @@ def local_wave_speed(amplitude, yield_limit: float = V_SNAP, c_base: float = C_0
     return universal_wave_speed(amplitude, yield_limit, c_base)
 
 
-def impedance_at_strain(amplitude, yield_limit: float = V_SNAP, Z_base: float = Z_0, *, clip: bool = True):
+def impedance_at_strain(
+    amplitude: float | np.ndarray,
+    yield_limit: float = V_SNAP,
+    Z_base: float = Z_0,
+    *,
+    clip: bool = True,
+) -> float | np.ndarray:
     r"""
     Local characteristic impedance under dielectric saturation.
 
@@ -347,7 +369,7 @@ def impedance_at_strain(amplitude, yield_limit: float = V_SNAP, Z_base: float = 
 # ────────────────────────────────────────────────────────────────────
 
 
-def regime_boundary_eigenvalue(r_sat, nu_vac, ell, c_wave=C_0):
+def regime_boundary_eigenvalue(r_sat: float, nu_vac: float, ell: int, c_wave: float = C_0) -> float:
     r"""
     Universal eigenfrequency at any saturation boundary (the 5-step method).
 
@@ -381,7 +403,7 @@ def regime_boundary_eigenvalue(r_sat, nu_vac, ell, c_wave=C_0):
     return universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave)
 
 
-def phase_transition_Q(ell):
+def phase_transition_Q(ell: int) -> int:
     r"""
     Universal quality factor from lattice phase transition: Q = ℓ.
 
@@ -415,7 +437,7 @@ def phase_transition_Q(ell):
     return universal_quality_factor(ell)
 
 
-def shear_modulus_ratio(strain, yield_strain=1.0):
+def shear_modulus_ratio(strain: float | np.ndarray, yield_strain: float = 1.0) -> np.ndarray:
     r"""
     Shear modulus relative to baseline: G_shear / G_shear₀ = S(ε).
 
@@ -433,7 +455,7 @@ def shear_modulus_ratio(strain, yield_strain=1.0):
     return saturation_factor(strain, yield_limit=yield_strain, clip=True)
 
 
-def co_rotating_decay_rate(omega_R, omega_rotation, ell, m=None):
+def co_rotating_decay_rate(omega_R: float, omega_rotation: float, ell: int, m: int | None = None) -> float:
     r"""
     Co-rotating frame decomposition: the FOC/Park transform operator.
 
@@ -481,7 +503,11 @@ def co_rotating_decay_rate(omega_R, omega_rotation, ell, m=None):
     return max(omega_I, 0.0)
 
 
-def avalanche_factor(V_applied, V_breakdown, n_topology):
+def avalanche_factor(
+    V_applied: float | np.ndarray,
+    V_breakdown: float,
+    n_topology: int,
+) -> float | np.ndarray:
     r"""
     Miller avalanche multiplication: the INVERSE of saturation.
 

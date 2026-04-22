@@ -26,8 +26,6 @@ PROBLEM 3: HUBBLE TENSION
     local measurements traverse denser structures (lower Z, faster).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.yang_mills import torus_knot_gauge_rank

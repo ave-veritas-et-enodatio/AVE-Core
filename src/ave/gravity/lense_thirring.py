@@ -28,6 +28,8 @@ Dimensional audit (all formulas):
     J = I * omega  [kg m^2/s]  OK (always passed in, not recomputed here)
 """
 
+from typing import Callable
+
 import numpy as np
 
 from ave.core.constants import C_0, HBAR, M_E, G
@@ -141,7 +143,7 @@ def gravitational_wave_power(J: float, omega: float) -> float:
     return J**2 * omega**4 / Z_GW  # [W]
 
 
-def strain_amplitude(B_gm: float) -> tuple:
+def strain_amplitude(B_gm: float) -> tuple[float, str]:
     """
     Gravitomagnetic strain amplitude (Axiom 4 saturation check).
 
@@ -179,7 +181,12 @@ def strain_amplitude(B_gm: float) -> tuple:
     return A_gm, regime
 
 
-def fluid_spin_flux(rho_func, omega_func, r_max: float, n_steps: int = 200) -> float:
+def fluid_spin_flux(
+    rho_func: Callable[[float], float],
+    omega_func: Callable[[float, float], float],
+    r_max: float,
+    n_steps: int = 200,
+) -> float:
     """
     Integrates the total spin angular momentum for a stratified fluid body.
 

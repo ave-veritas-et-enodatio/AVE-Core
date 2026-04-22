@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from ave.condensed.silicon_crystal import silicon_band_gap
 from ave.nuclear.arsenic_atom import Z_ARSENIC
 from ave.nuclear.gallium_atom import Z_GALLIUM
@@ -20,7 +18,7 @@ M_GE_BASE = 158.2634
 K_GE_GE = 0.509802 / M_GE_BASE  # Scaled baseline cavity transmission
 
 
-def germanium_band_gap() -> dict:
+def germanium_band_gap() -> dict[str, float | str]:
     # Scale base matrix capacity limits
     # V_bi_max roughly = 6 * alpha * hbar * c * structural scalar
     # To prove no hardcoding, we derive it from Si structural offset
@@ -40,7 +38,7 @@ def germanium_band_gap() -> dict:
     }
 
 
-def gallium_impurity_level() -> dict:
+def gallium_impurity_level() -> dict[str, float | int | str]:
     """Acceptor void (Z=31) in Z=32 Matrix."""
     gap = germanium_band_gap()
     E_gap_Ge = gap["E_gap_eV"]
@@ -60,7 +58,7 @@ def gallium_impurity_level() -> dict:
     }
 
 
-def arsenic_impurity_level() -> dict:
+def arsenic_impurity_level() -> dict[str, float | int | str]:
     """Donor surplus (Z=33) in Z=32 Matrix."""
     gap = germanium_band_gap()
     E_gap_Ge = gap["E_gap_eV"]
@@ -82,7 +80,7 @@ def arsenic_impurity_level() -> dict:
     }
 
 
-def pn_junction_ge(N_a: float = 1e16, N_d: float = 1e16) -> dict:
+def pn_junction_ge(N_a: float = 1e16, N_d: float = 1e16) -> dict[str, float]:
     ga = gallium_impurity_level()
     As = arsenic_impurity_level()
 

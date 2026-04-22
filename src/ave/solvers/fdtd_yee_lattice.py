@@ -9,8 +9,6 @@ animated GIF of wave scattering off the impedance boundary.
 Axiom 1 compliance: Yee grid = discrete LC lattice.
 """
 
-from __future__ import annotations
-
 import os
 
 import matplotlib.animation as animation
@@ -18,7 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     """Run the 2D TMz FDTD simulation and save the animation as a GIF."""
     print("==========================================================")
     print(" AVE STANDARD MODEL: FDTD CONTINUOUS YEE LATTICE")
@@ -89,7 +87,7 @@ def main():
     ax.set_xticks([])
     ax.set_yticks([])
 
-    def update(frame):
+    def update(frame: int) -> list:
         """Advance one FDTD timestep: H-update, E-update, source injection, and ABC."""
         nonlocal Ez, Hx, Hy
 

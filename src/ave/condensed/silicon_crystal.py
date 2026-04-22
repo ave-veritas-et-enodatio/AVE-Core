@@ -23,8 +23,6 @@ References:
   - Engine: transmission_line.py (ABCD cascade)
 """
 
-from __future__ import annotations
-
 from math import pi
 
 import numpy as np
@@ -93,7 +91,7 @@ N_ATOMS_CELL: int = 8
 COORD_NUMBER: int = 4
 
 
-def build_unit_cell_bonds():
+def build_unit_cell_bonds() -> list[tuple[int, int, np.ndarray]]:
     """Find nearest-neighbor bonds in the diamond cubic unit cell.
 
     Returns list of (i, j, displacement_vector) tuples, where i,j are
@@ -170,7 +168,7 @@ def build_unit_cell_bonds():
 K_CRYSTAL: float = K_SI_SI / float(COORD_NUMBER)
 
 
-def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
+def dispersion_periodic_lc(q_points: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Dispersion relation for periodic LC network with 2-atom basis.
 
     Two LC resonators per cell, coupling k_crystal between neighbors.
@@ -208,7 +206,7 @@ def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
     return E_bonding, E_antibonding
 
 
-def silicon_band_gap() -> dict:
+def silicon_band_gap() -> dict[str, float | int]:
     """Extract the silicon band gap from coordination-loaded coupling.
 
     The crystal band gap is the energy difference between the top
@@ -253,7 +251,7 @@ def silicon_band_gap() -> dict:
     }
 
 
-def print_silicon_crystal_report():
+def print_silicon_crystal_report() -> None:
     """Print comprehensive silicon crystal report."""
     result = silicon_band_gap()
     bonds = build_unit_cell_bonds()

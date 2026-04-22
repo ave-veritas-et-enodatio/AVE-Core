@@ -46,8 +46,6 @@ ARCHITECTURE NOTE (2026-03-13):
   solver (Approach 22). The N-port Y-matrix extension is in development.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import (
@@ -82,12 +80,17 @@ Z_RESONANCE_MEV = HBAR * F_BASE_RESONANCE / (e_charge * 1e6)  # ≈ 301.6 MeV
 # ─────────────────────────────────────────────────────────────────
 
 
-def complete_graph_eigenvalues(n):
+def complete_graph_eigenvalues(n: int) -> np.ndarray:
     """Eigenvalues of the adjacency matrix of K_n: [n-1, -1, -1, ..., -1]."""
     return np.array([n - 1] + [-1] * (n - 1), dtype=float)
 
 
-def coupled_resonator_binding(n_resonators, k, f_base_resonance=F_BASE_RESONANCE, adjacency_eigenvalues=None):
+def coupled_resonator_binding(
+    n_resonators: int,
+    k: float,
+    f_base_resonance: float = F_BASE_RESONANCE,
+    adjacency_eigenvalues: np.ndarray | None = None,
+) -> tuple[float, np.ndarray]:
     r"""
     Compute Z_binding_target_MeV energy from coupled resonator normal mode splitting.
 
@@ -125,7 +128,11 @@ def coupled_resonator_binding(n_resonators, k, f_base_resonance=F_BASE_RESONANCE
     return Z_binding_target_MeV, f_coupled_modes
 
 
-def hierarchical_binding(n_alphas, k_intra=K_COUPLING, k_inter=K_COUPLING):
+def hierarchical_binding(
+    n_alphas: int,
+    k_intra: float = K_COUPLING,
+    k_inter: float = K_COUPLING,
+) -> tuple[float, float, float]:
     r"""
     Hierarchical Z_binding_target_MeV: alphas at level 1, then alpha assembly at level 2.
 
@@ -164,7 +171,7 @@ def hierarchical_binding(n_alphas, k_intra=K_COUPLING, k_inter=K_COUPLING):
     return Z_binding_target_MeV, Z_alpha_binding_MeV, Z_inter_binding_MeV
 
 
-def nuclear_mass(Z, A, n_alphas=None):
+def nuclear_mass(Z: int, A: int, n_alphas: int | None = None) -> tuple[float, float]:
     r"""
     Compute nuclear mass from the coupled resonator model.
 
@@ -272,7 +279,7 @@ _AUFBAU_ORDER = [
 ]
 
 
-def _fill_shells(n_resonators):
+def _fill_shells(n_resonators: int) -> list[tuple[int, int]]:
     """Fill electron shells using Aufbau (Madelung n+l) order.
 
     Returns [(n, count), ...] grouped by principal quantum number n.
@@ -306,7 +313,7 @@ def _fill_shells(n_resonators):
 # ─────────────────────────────────────────────────────────────────
 
 
-def _shell_config(n_resonators):
+def _shell_config(n_resonators: int) -> list[tuple[int, int, int]]:
     """Return outermost subshell (n, l, count) for f_eigen_eV calculation.
 
     Uses Aufbau order to fill shells, returning the complete electronic configuration up to the outermost structure.
@@ -322,7 +329,7 @@ def _shell_config(n_resonators):
     return subshells
 
 
-def ionization_energy_circuit(Z, n_resonators=None):
+def ionization_energy_circuit(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy from AVE coupled LC resonator model.
 
     .. warning:: STRUCTURAL LIMITATION
@@ -416,7 +423,7 @@ def ionization_energy_circuit(Z, n_resonators=None):
     return max(0.0, f_eigen_eV)
 
 
-def ionization_energy_cavity(Z, n_resonators=None):
+def ionization_energy_cavity(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy from AVE mutual cavity loading.
 
     .. warning:: STRUCTURAL LIMITATION
@@ -507,7 +514,7 @@ def ionization_energy_cavity(Z, n_resonators=None):
     return max(0.0, f_eigen_eV)
 
 
-def ionization_energy(Z, n_resonators=None):
+def ionization_energy(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy — dispatches to AVE mutual cavity loading solver.
 
     .. warning::
@@ -527,7 +534,7 @@ def ionization_energy(Z, n_resonators=None):
     return ionization_energy_cavity(Z, n_resonators)
 
 
-def atom_port_impedance(Z, f_eigen_eV):
+def atom_port_impedance(Z: int, f_eigen_eV: float) -> float:
     r"""
     Atom's port impedance = valence orbital radius.
 
@@ -550,7 +557,13 @@ def atom_port_impedance(Z, f_eigen_eV):
 # ─────────────────────────────────────────────────────────────────
 
 
-def molecular_bond_distance(r_A, r_B, Z_A=1, Z_B=1, bond_order=1):
+def molecular_bond_distance(
+    r_A: float,
+    r_B: float,
+    Z_A: int = 1,
+    Z_B: int = 1,
+    bond_order: int = 1,
+) -> float:
     r"""
     Bond distance as Fabry-Perot cavity eigenvalue with unified mode loading.
 
@@ -591,7 +604,13 @@ def molecular_bond_distance(r_A, r_B, Z_A=1, Z_B=1, bond_order=1):
     return d_base * np.sqrt(universal_power_transmission(N_eff) / universal_power_transmission(2.0))
 
 
-def molecular_bond_energy(f_eigen_A_eV, f_eigen_B_eV, r_val_A, r_val_B, d_bond):
+def molecular_bond_energy(
+    f_eigen_A_eV: float,
+    f_eigen_B_eV: float,
+    r_val_A: float,
+    r_val_B: float,
+    d_bond: float,
+) -> tuple[float, float]:
     r"""Molecular bond energy from coupled resonant cavities.
 
     PHYSICAL MODEL:

@@ -18,8 +18,6 @@ mismatch chokes T^2 off from perfect 1.000, forcing \beta into physically
 realistic bounds (~50 to 300) governed strictly by pure geometry.
 """
 
-from __future__ import annotations
-
 from ave.condensed.silicon_crystal import K_SI_SI
 from ave.nuclear.boron_atom import Z_BORON
 from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS
@@ -50,7 +48,7 @@ def compute_asymmetric_impedance(dopant_Z: float, doping_weight: float) -> float
     return 1.0 / (1.0 + k_eff)
 
 
-def bjt_current_gain(N_gap_hops: int = 1, emitter_doping_ratio: float = 1.5) -> dict:
+def bjt_current_gain(N_gap_hops: int = 1, emitter_doping_ratio: float = 1.5) -> dict[str, float]:
     """
     Derives the BJT Current Gain purely from macroscopic transmission limits.
 

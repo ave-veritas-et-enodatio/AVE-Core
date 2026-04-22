@@ -24,8 +24,6 @@ Part D: INFINITE-VOLUME LIMIT
   defects are localized and their energy is volume-independent.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import epsilon_eff, impedance, mu_eff
@@ -187,7 +185,7 @@ def torus_knot_gauge_rank(q: int) -> int:
     return (q + 1) // 2
 
 
-def gauge_topology_table() -> list:
+def gauge_topology_table() -> list[dict[str, object]]:
     """
     Complete gauge-topology correspondence table.
 
@@ -383,7 +381,7 @@ def spectral_gap_theorem() -> dict:
 # ════════════════════════════════════════════════════════════════════
 
 
-def defect_energy_vs_volume(crossing_number: int = 5, box_sizes_Rp: list = None) -> dict:
+def defect_energy_vs_volume(crossing_number: int = 5, box_sizes_Rp: list[float] | None = None) -> dict:
     """
     Show that defect energy is INDEPENDENT of box size.
 

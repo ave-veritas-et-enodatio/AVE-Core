@@ -32,10 +32,7 @@ The Moho produces a reflection coefficient:
   → 17% amplitude reflection at crust-mantle boundary.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import List
 
 import numpy as np
 
@@ -109,7 +106,7 @@ class SeismicLayer:
 # Standard Earth Model (PREM-based)
 # ============================================================
 
-PREM_LAYERS: List[SeismicLayer] = [
+PREM_LAYERS: list[SeismicLayer] = [
     SeismicLayer("Upper Crust", 0, 15, 2600, 5800, 3200),
     SeismicLayer("Lower Crust", 15, 35, 2900, 6500, 3600),
     SeismicLayer("Upper Mantle", 35, 410, 3300, 8100, 4500),
@@ -168,7 +165,7 @@ def transmission_coefficient(layer1: SeismicLayer, layer2: SeismicLayer, wave_ty
     return 1.0 + gamma
 
 
-def travel_time(layers: List[SeismicLayer], wave_type: str = "p") -> float:
+def travel_time(layers: list[SeismicLayer], wave_type: str = "p") -> float:
     """
     Compute total vertical travel time through all layers.
 
@@ -190,7 +187,7 @@ def travel_time(layers: List[SeismicLayer], wave_type: str = "p") -> float:
     return total
 
 
-def all_reflections(wave_type: str = "p") -> dict:
+def all_reflections(wave_type: str = "p") -> dict[str, float]:
     """
     Compute reflection coefficients at all PREM layer boundaries.
 
@@ -207,7 +204,7 @@ def all_reflections(wave_type: str = "p") -> dict:
     return results
 
 
-def build_1d_impedance_profile(dx_km: float = 10.0) -> dict:
+def build_1d_impedance_profile(dx_km: float = 10.0) -> dict[str, np.ndarray]:
     """
     Build a 1D radial impedance profile of the Earth for FDTD injection.
 

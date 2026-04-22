@@ -20,8 +20,6 @@ Physical outputs:
 All constants imported from ave.core.constants — zero free parameters.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, EPS_CLIP, HBAR, K_B, L_NODE, M_SUN, NU_VAC, Z_0, G
@@ -38,7 +36,7 @@ G_NEWTON = G
 # ---------------------------------------------------------------------------
 
 
-def refractive_index(r, M):
+def refractive_index(r: float | np.ndarray, M: float) -> np.ndarray:
     """
     Isotropic Schwarzschild refractive index  n(r).
 
@@ -74,7 +72,7 @@ def refractive_index(r, M):
     return universal_refractive_index(eps_11, nu_vac=NU_VAC)
 
 
-def reflection_coefficient(r, M):
+def reflection_coefficient(r: float | np.ndarray, M: float) -> np.ndarray:
     """
     .. deprecated::
         INCORRECT under Symmetric Gravity.  Z = Z₀ everywhere,
@@ -100,7 +98,7 @@ def reflection_coefficient(r, M):
 # ---------------------------------------------------------------------------
 
 
-def keplerian_frequency(r, M):
+def keplerian_frequency(r: float | np.ndarray, M: float) -> np.ndarray:
     """
     Keplerian orbital frequency at Schwarzschild coordinate radius r.
 
@@ -124,12 +122,12 @@ def keplerian_frequency(r, M):
 # ---------------------------------------------------------------------------
 
 
-def schwarzschild_radius(M):
+def schwarzschild_radius(M: float) -> float:
     """Event horizon radius  r_s = 2 G M / c²."""
     return 2.0 * G_NEWTON * M / C_0**2
 
 
-def photon_sphere_radius(M):
+def photon_sphere_radius(M: float) -> float:
     """
     Photon sphere radius  r_ph = 3 G M / c².
 
@@ -139,7 +137,7 @@ def photon_sphere_radius(M):
     return 3.0 * G_NEWTON * M / C_0**2
 
 
-def isco_radius(M, a_star=0.0):
+def isco_radius(M: float, a_star: float = 0.0) -> float:
     """
     Innermost Stable Circular Orbit (ISCO) for a Kerr black hole.
 
@@ -173,7 +171,9 @@ def isco_radius(M, a_star=0.0):
 # ---------------------------------------------------------------------------
 
 
-def impedance_orbital_radii(M, a_star=0.0, n_modes=8):
+def impedance_orbital_radii(
+    M: float, a_star: float = 0.0, n_modes: int = 8
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Quantised orbital radii from standing-wave resonance in the
     refractive gradient n(r).
@@ -231,7 +231,9 @@ def impedance_orbital_radii(M, a_star=0.0, n_modes=8):
     return np.array(radii), np.array(mode_numbers)
 
 
-def qpo_frequencies(M, a_star=0.0, n_modes=5):
+def qpo_frequencies(
+    M: float, a_star: float = 0.0, n_modes: int = 5
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Quasi-Periodic Oscillation (QPO) frequencies from impedance
     band resonance.
@@ -263,7 +265,7 @@ def qpo_frequencies(M, a_star=0.0, n_modes=5):
 # ---------------------------------------------------------------------------
 
 
-def scale_invariance_table():
+def scale_invariance_table() -> list[dict[str, str]]:
     """
     Generate the electron ↔ black hole isomorphism mapping table.
 
@@ -326,7 +328,7 @@ def scale_invariance_table():
 # ---------------------------------------------------------------------------
 
 
-def kerr_photon_sphere(M, a_star):
+def kerr_photon_sphere(M: float, a_star: float) -> float:
     """
     Prograde photon sphere radius for a Kerr black hole.
 
@@ -348,7 +350,7 @@ def kerr_photon_sphere(M, a_star):
     return 2.0 * M_g * (1.0 + np.cos(2.0 / 3.0 * np.arccos(-a_star)))
 
 
-def regge_wheeler_potential(x, ell=2, s=2):
+def regge_wheeler_potential(x: float | np.ndarray, ell: int = 2, s: int = 2) -> float | np.ndarray:
     """
     Dimensionless Regge-Wheeler effective potential from the n(r) profile.
 
@@ -375,7 +377,13 @@ def regge_wheeler_potential(x, ell=2, s=2):
     return (1.0 - 2.0 / x) * (ell * (ell + 1) / x**2 + (1 - s**2) * 2.0 / x**3)
 
 
-def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
+def qnm_eigenvalue(
+    M: float,
+    a_star: float = 0.0,
+    ell: int = 2,
+    s: int = 2,
+    n_overtone: int = 0,
+) -> tuple[float, float, float, float, float]:
     r"""
     Quasi-normal mode eigenvalue from the AVE regime-boundary junction model.
 
@@ -511,7 +519,13 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     return f_ring, tau_ring, Q, oR_dimless, oI_dimless
 
 
-def qnm_eigenvalue_berti_reference(M, a_star=0.0, ell=2, s=2, n_overtone=0):
+def qnm_eigenvalue_berti_reference(
+    M: float,
+    a_star: float = 0.0,
+    ell: int = 2,
+    s: int = 2,
+    n_overtone: int = 0,
+) -> tuple[float, float, float, float, float]:
     r"""
     QNM eigenvalue from Berti, Cardoso & Starinets 2009 tabulated fits.
 
@@ -548,7 +562,7 @@ def qnm_eigenvalue_berti_reference(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     return f_ring, tau_ring, Q, oR_dimless, oI_dimless
 
 
-def ringdown_frequency(M, a_star=0.0):
+def ringdown_frequency(M: float, a_star: float = 0.0) -> float:
     """
     Merger ringdown frequency from the AVE junction eigenvalue.
 
@@ -565,7 +579,7 @@ def ringdown_frequency(M, a_star=0.0):
     return f
 
 
-def ringdown_Q_and_decay(M, a_star=0.0, saturated=True):
+def ringdown_Q_and_decay(M: float, a_star: float = 0.0, saturated: bool = True) -> tuple[float, float, float]:
     """
     Cavity Q-factor and ringdown decay time from the AVE junction eigenvalue.
 
@@ -620,7 +634,12 @@ LIGO_EVENTS = {
 # ---------------------------------------------------------------------------
 
 
-def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
+def iron_ka_line_profile(
+    M: float,
+    a_star: float = 0.0,
+    E0: float = 6.4,
+    N_radii: int = 500,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute the Fe Kα fluorescence line profile broadened by the
     gravitational refractive gradient n(r).
@@ -692,7 +711,12 @@ def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
 # ---------------------------------------------------------------------------
 
 
-def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
+def jet_impedance_map(
+    M: float,
+    a_star: float = 0.9,
+    N_r: int = 200,
+    N_theta: int = 200,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute the 2D impedance reflection coefficient Γ(r, θ) around
     a spinning Kerr black hole.
@@ -753,7 +777,7 @@ def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
 # ---------------------------------------------------------------------------
 
 
-def hawking_temperature(M):
+def hawking_temperature(M: float) -> float:
     """
     Hawking temperature from impedance boundary noise leakage.
 
@@ -775,7 +799,7 @@ def hawking_temperature(M):
 # ---------------------------------------------------------------------------
 
 
-def gw_memory_strain(h_peak, V_yield_frac=0.01):
+def gw_memory_strain(h_peak: float | np.ndarray, V_yield_frac: float = 0.01) -> float | np.ndarray:
     """
     Residual strain from gravitational wave memory.
 
@@ -811,7 +835,7 @@ def gw_memory_strain(h_peak, V_yield_frac=0.01):
 # ---------------------------------------------------------------------------
 
 
-def print_report(M_solar=10.0, a_star=0.0):
+def print_report(M_solar: float = 10.0, a_star: float = 0.0) -> None:
     """
     Print a diagnostic report for a given black hole.
 

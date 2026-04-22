@@ -29,8 +29,6 @@ Key identities (SYMMETRIC GRAVITY):
   singularity (n → ∞, c_local → 0), not an impedance boundary.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import impedance, reflection_coefficient
@@ -248,7 +246,9 @@ def gw_local_speed(r: float, r_s: float) -> float:
 # ═══════════════════════════════════════════════════════════════
 
 
-def gw_propagation_summary(M_solar: float = 30.0, h: float = 1e-21, r_multiples: list = None) -> dict:
+def gw_propagation_summary(
+    M_solar: float = 30.0, h: float = 1e-21, r_multiples: list[float] | None = None
+) -> dict[str, float | bool | list[dict[str, float]]]:
     """
     Generate a summary of GW propagation properties.
 

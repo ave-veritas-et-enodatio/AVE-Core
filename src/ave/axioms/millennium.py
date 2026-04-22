@@ -19,8 +19,6 @@ The Millennium Prize problems:
 This module performs the "means test" on problems 4-7.
 """
 
-from __future__ import annotations
-
 from ave.core.constants import BARYON_LADDER
 
 # ════════════════════════════════════════════════════════════════════

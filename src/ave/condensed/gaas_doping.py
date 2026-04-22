@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from ave.condensed.silicon_crystal import silicon_band_gap
 from ave.nuclear.arsenic_atom import Z_ARSENIC
 from ave.nuclear.gallium_atom import Z_GALLIUM
@@ -20,7 +18,7 @@ V_R_OVER_V_BR_GAAS = 0.9850
 K_GAAS = 0.45
 
 
-def gaas_band_gap() -> dict:
+def gaas_band_gap() -> dict[str, float | str]:
     si_gap = silicon_band_gap()["E_gap_eV"]
     # Wider gap geometrically because the dual lattice breaks perfect symmetry
     # Derived structurally against boundary scale:
@@ -30,7 +28,7 @@ def gaas_band_gap() -> dict:
     return {"E_gap_eV": e_gap, "model": "Geometric Amphoteric Matrix"}
 
 
-def amphoteric_impurity_level(z_dopant: int, target_site_z: int) -> dict:
+def amphoteric_impurity_level(z_dopant: int, target_site_z: int) -> dict[str, float | int | str]:
     """Calculates phase slip based on the target site geometry."""
     gap = gaas_band_gap()
     E_gap = gap["E_gap_eV"]
@@ -75,7 +73,7 @@ def amphoteric_impurity_level(z_dopant: int, target_site_z: int) -> dict:
     }
 
 
-def pn_junction_gaas() -> dict:
+def pn_junction_gaas() -> dict[str, float | str]:
     # GaAs diode natively doped by Silicon jumping structural sites
     # Si on Ga -> Donor
     # Si on As -> Acceptor

@@ -26,8 +26,6 @@ Key correspondences:
     Moho reflection     Tachocline Γ        Horizon Γ = −1
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -36,7 +34,7 @@ from ave.axioms.scale_invariant import impedance, reflection_coefficient
 from ave.core.constants import EPSILON_0, K_B, M_E, M_PROTON, e_charge
 
 
-def plasma_frequency(n_e):
+def plasma_frequency(n_e: float | np.ndarray) -> float | np.ndarray:
     """ω_p = √(n_e e² / (m_e ε₀))  [rad/s]."""
     return np.sqrt(np.asarray(n_e, dtype=float) * e_charge**2 / (M_E * EPSILON_0))
 
@@ -99,7 +97,9 @@ SSM_LAYERS = [
 ]
 
 
-def build_radial_profile(layers: list = None, n_points: int = 500, r_star_m: float = R_SUN) -> dict:
+def build_radial_profile(
+    layers: list["StellarLayer"] | None = None, n_points: int = 500, r_star_m: float = R_SUN
+) -> dict[str, np.ndarray | list[str]]:
     """
     Build a continuous radial impedance profile from stellar layers.
 
@@ -273,7 +273,7 @@ def helioseismology_modes(n_max: int = 10, l: int = 0) -> np.ndarray:
     return modes * 1e6  # Convert Hz to μHz
 
 
-def print_stellar_summary():
+def print_stellar_summary() -> None:
     """Print a summary of the Standard Solar Model impedance profile."""
     print("\n" + "=" * 70)
     print("  Standard Solar Model — AVE Impedance Profile")

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """
 Axiom 4: Dielectric Saturation
 ================================
@@ -50,7 +48,7 @@ from ave.core.constants import ALPHA, C_0, EPSILON_0, V_YIELD, Z_0
 # ═══════════════════════════════════════════════════════════════
 
 
-def epsilon_eff(V, V_yield: float = V_YIELD):
+def epsilon_eff(V: float | np.ndarray, V_yield: float = V_YIELD) -> float | np.ndarray:
     """
     Non-linear effective permittivity: ε_eff(V) = ε₀ · √(1 − (V/V_yield)²)
 

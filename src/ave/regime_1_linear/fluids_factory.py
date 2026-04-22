@@ -38,8 +38,6 @@ Physical constants for H₂O:
   Molecular mass:     18.015 g/mol
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -140,7 +138,7 @@ class WaterMolecule(MolecularFluid):
     inter_bond_energy: float = 0.0
     vdw_radius: float = 0.0
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Derive geometric constants from the AVE physics engine."""
         from ave.core.constants import ALPHA, RY_EV
         from ave.solvers.coupled_resonator import atom_port_impedance, ionization_energy, molecular_bond_distance
@@ -272,7 +270,7 @@ class FluidImpedanceFactory:
     from the topological LC mechanics of individual molecules.
     """
 
-    def __init__(self, fluid: MolecularFluid):
+    def __init__(self, fluid: MolecularFluid) -> None:
         self.fluid = fluid
 
     def compute_density(self, T_celsius: float, P_pascal: float = 101325.0) -> float:
@@ -468,7 +466,7 @@ def dielectric_constant_water(T_celsius: float, P_pascal: float = 101325.0) -> f
     return factory.compute_dielectric(T_celsius, P_pascal)
 
 
-def find_density_maximum() -> tuple:
+def find_density_maximum() -> tuple[float, float]:
     """
     Find the temperature of maximum density in the AVE model.
 

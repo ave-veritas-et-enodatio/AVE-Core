@@ -23,8 +23,6 @@ All other constants are DERIVED from these three plus the SI definitions
 of ε₀, μ₀, c, ℏ, and e.
 """
 
-from __future__ import annotations
-
 from math import pi
 
 import numpy as np
@@ -643,10 +641,10 @@ _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 #   c=11: Δ(1950) resonance
 #   c=13: N(2250) resonance
 
-TORUS_KNOT_CROSSING_NUMBERS: list = [5, 7, 9, 11, 13]
+TORUS_KNOT_CROSSING_NUMBERS: list[int] = [5, 7, 9, 11, 13]
 
 
-def _compute_baryon_ladder() -> dict:
+def _compute_baryon_ladder() -> dict[int, dict[str, float]]:
     """Compute the full baryon resonance ladder at import time."""
     ladder = {}
     for c in TORUS_KNOT_CROSSING_NUMBERS:
@@ -666,7 +664,7 @@ def _compute_baryon_ladder() -> dict:
     return ladder
 
 
-BARYON_LADDER: dict = _compute_baryon_ladder()
+BARYON_LADDER: dict[int, dict[str, float]] = _compute_baryon_ladder()
 
 # =============================================================================
 # NUCLEAR MUTUAL COUPLING CONSTANT (Periodic Table Solver)

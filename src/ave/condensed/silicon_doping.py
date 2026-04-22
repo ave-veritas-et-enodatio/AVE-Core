@@ -30,8 +30,6 @@ References:
   - KB: vol6/framework/chemistry-translation/semiconductor-regime-chemistry.md
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.condensed.silicon_crystal import K_SI_SI, silicon_band_gap
@@ -67,7 +65,7 @@ from ave.nuclear.silicon_atom import IE_SI_AVE, V_R_OVER_V_BR, Z_SI
 # fixed changes in the local crystalline Avalanche transmission limit.
 
 
-def boron_impurity_level() -> dict:
+def boron_impurity_level() -> dict[str, float | int | str]:
     """Compute boron acceptor level position in the Si band gap using Avalanche multipliers."""
     gap = silicon_band_gap()
     E_gap_Si = gap["E_gap_eV"]
@@ -93,7 +91,7 @@ def boron_impurity_level() -> dict:
     }
 
 
-def phosphorus_impurity_level() -> dict:
+def phosphorus_impurity_level() -> dict[str, float | int | str]:
     """Compute phosphorus donor level position in the Si band gap."""
     gap = silicon_band_gap()
     E_gap_Si = gap["E_gap_eV"]
@@ -128,7 +126,7 @@ def phosphorus_impurity_level() -> dict:
 # mismatched avalanche topologies.
 
 
-def pn_junction(N_a: float = 1e16, N_d: float = 1e16) -> dict:
+def pn_junction(N_a: float = 1e16, N_d: float = 1e16) -> dict[str, float]:
     boron = boron_impurity_level()
     phosphorus = phosphorus_impurity_level()
 
@@ -191,7 +189,7 @@ def diode_iv(V_applied: np.ndarray) -> np.ndarray:
     return I
 
 
-def print_doping_report():
+def print_doping_report() -> None:
     """Print comprehensive doping and junction report."""
     boron = boron_impurity_level()
     phosphorus = phosphorus_impurity_level()

@@ -36,8 +36,6 @@ Correspondences with plasma ``cutoff.py``:
     Γ → −1 for ω < ω_p             Γ → −1 for B < B_c
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np

@@ -16,8 +16,6 @@ exactly E_YIELD and diffuses the geometrical point singularity into a
 finite waist.
 """
 
-from __future__ import annotations
-
 import numpy as np
 from scipy.optimize import brentq
 
@@ -33,7 +31,7 @@ class AxiomaticCausticSolver:
     the resulting reflection coefficient Gamma.
     """
 
-    def __init__(self, e_yield: float = E_YIELD, z_0: float = Z_0):
+    def __init__(self, e_yield: float = E_YIELD, z_0: float = Z_0) -> None:
         self.E_YIELD = e_yield
         self.Z_0 = z_0
 
@@ -44,7 +42,7 @@ class AxiomaticCausticSolver:
         z_start: float,
         z_end: float = 1e-15,
         num_steps: int = 2000,
-    ) -> dict:
+    ) -> dict[str, np.ndarray]:
         """
         Integrates the power transmission along the z-axis towards the focus.
 
@@ -70,7 +68,7 @@ class AxiomaticCausticSolver:
         current_P = initial_power
         current_Z = self.Z_0
 
-        def root_func(u, P_prev, Z_prev, A_i):
+        def root_func(u: float, P_prev: float, Z_prev: float, A_i: float) -> float:
             S_u = (1.0 - u) ** 0.25
             Z_u = self.Z_0 / (S_u + EPS_NUMERICAL)
             Gamma_u = (Z_u - Z_prev) / (Z_u + Z_prev + EPS_NUMERICAL)

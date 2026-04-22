@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 r"""
 Transmission Line Network Solver (Scale-Invariant)
 ====================================================
@@ -35,7 +33,7 @@ Examples
 >>> s11 = s11_frequency_sweep(Z, gamma, Y, Z_source=1.0, Z_load=1.0)
 """
 
-from typing import Optional, Sequence
+from typing import Sequence
 
 import numpy as np
 
@@ -205,12 +203,12 @@ def s21_from_abcd(M: np.ndarray, Z_source: float = 1.0, Z_load: float = 1.0) -> 
 def s11_frequency_sweep(
     seg_Z: Sequence[float],
     seg_gamma_l: Sequence[complex],
-    junction_Y: Optional[Sequence[complex]] = None,
-    stubs: Optional[dict] = None,
+    junction_Y: Sequence[complex] | None = None,
+    stubs: dict | None = None,
     freqs: Sequence[float] = (0.5, 0.8, 1.0, 1.3, 2.0),
     Z_source: float = 1.0,
     Z_load: float = 1.0,
-) -> dict:
+) -> dict[str, np.ndarray]:
     r"""
     Frequency-swept S₁₁ for a loaded TL cascade.
 
@@ -283,7 +281,7 @@ def s11_frequency_sweep(
 # ====================================================================
 
 
-def _try_import_jax():
+def _try_import_jax() -> tuple | None:
     """Import JAX if available, return (jax, jnp, lax) or None."""
     try:
         import jax
@@ -402,8 +400,8 @@ def s11_from_abcd_jax(abcd_state, Z_source, Z_load):
 def build_nodal_y_matrix(
     N: int,
     backbone_y: Sequence[complex],
-    contacts: Optional[Sequence[tuple]] = None,
-    self_y: Optional[Sequence[complex]] = None,
+    contacts: Sequence[tuple] | None = None,
+    self_y: Sequence[complex] | None = None,
 ) -> np.ndarray:
     r"""
     Build an N×N nodal admittance matrix from backbone and contact terms.
@@ -562,7 +560,7 @@ def build_radial_tree_admittance(
 def build_radial_tree_admittance_graded(
     depth: int = 3,
     branch_y: complex = 2 / 7,
-    shell_boundary_y: Sequence[float] = None,
+    shell_boundary_y: Sequence[float] | None = None,
     coordination_z: int = 4,
 ) -> np.ndarray:
     r"""

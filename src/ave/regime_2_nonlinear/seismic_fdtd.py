@@ -23,10 +23,6 @@ Usage:
         engine.step()
 """
 
-from __future__ import annotations
-
-from typing import Tuple
-
 import numpy as np
 
 from ave.axioms.scale_invariant import impedance, reflection_coefficient
@@ -38,7 +34,7 @@ def build_seismic_engine(
     n_cells: int = 200,
     dx_km: float = 10.0,
     linear_only: bool = True,
-) -> Tuple[FDTD3DEngine, dict]:
+) -> tuple[FDTD3DEngine, dict[str, np.ndarray]]:
     """
     Create an FDTD engine pre-loaded with the PREM Earth profile.
 
@@ -106,7 +102,7 @@ def build_seismic_engine(
     return engine, profile_out
 
 
-def verify_impedance_consistency(profile: dict) -> dict:
+def verify_impedance_consistency(profile: dict[str, np.ndarray]) -> dict[str, float | np.ndarray]:
     """
     Verify that the FDTD material maps produce the correct seismic impedance.
 
@@ -141,7 +137,7 @@ def verify_impedance_consistency(profile: dict) -> dict:
     }
 
 
-def compute_boundary_reflections(profile: dict) -> list:
+def compute_boundary_reflections(profile: dict[str, np.ndarray]) -> list[dict[str, float | str]]:
     """
     Compute reflection coefficients at all layer boundaries using
     both the seismic formula and the universal reflection_coefficient.

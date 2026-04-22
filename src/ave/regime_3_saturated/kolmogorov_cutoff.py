@@ -11,8 +11,6 @@ LC lattice properties.
 3. The avalanche factor (n=38/21) derives from 3D pure Axiom 4.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 # AVE fundamental properties
@@ -97,7 +95,7 @@ def axiomatic_energy_spectrum(k: np.ndarray, epsilon: float, nu: float = 0.0) ->
     return E_k
 
 
-def spectral_cascade_demo(N_modes: int, Re: float, k_forcing: float = 1.0) -> dict:
+def spectral_cascade_demo(N_modes: int, Re: float, k_forcing: float = 1.0) -> dict[str, np.ndarray | float]:
     """
     A 1D shell-model style proxy simulation to demonstrate bounded enstrophy.
 

@@ -24,14 +24,14 @@ Used at every scale:
 This module contains ZERO domain-specific physics.
 """
 
-from __future__ import annotations
+from typing import Callable
 
 import numpy as np
 
 from ave.core.constants import EPS_NUMERICAL
 
 
-def newton_step(f_val, gradient, trust_radius=np.pi):
+def newton_step(f_val: float, gradient: np.ndarray, trust_radius: float = np.pi) -> np.ndarray:
     """
     Single Newton-Raphson step for eigenvalue root-finding.
 
@@ -57,7 +57,15 @@ def newton_step(f_val, gradient, trust_radius=np.pi):
     return direction
 
 
-def find_eigenstate(theta_init, f_fn, grad_fn, n_iter=200, trust_radius=np.pi, converge_threshold=None, Q=None):
+def find_eigenstate(
+    theta_init: np.ndarray,
+    f_fn: Callable[[np.ndarray], float],
+    grad_fn: Callable[[np.ndarray], np.ndarray],
+    n_iter: int = 200,
+    trust_radius: float = np.pi,
+    converge_threshold: float | None = None,
+    Q: float | None = None,
+) -> tuple[np.ndarray, float, bool, list[float]]:
     """
     Newton-Raphson root-finder with backtracking line search.
 

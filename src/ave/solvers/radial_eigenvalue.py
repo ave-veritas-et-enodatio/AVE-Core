@@ -1,4 +1,4 @@
-from __future__ import annotations
+from typing import Callable
 
 import numpy as np
 
@@ -73,7 +73,7 @@ CONSTANTS
 # [Legacy CDF Gaussian charge smearing equations securely eliminated per Axiomatic topology derivations.]
 
 
-def _z_net(r, Z, shells):
+def _z_net(r: float, Z: int | float, shells: list[tuple[int, int]]) -> float:
     """
     Computes the effective nuclear charge Z_eff(r) traversing radially inward
     across exact geometrical boundary limits.
@@ -97,7 +97,13 @@ def _z_net(r, Z, shells):
 # ---------------------------------------------------------------------------
 
 
-def _crossing_data(n_outer, l_outer, n_inner, l_inner, Z_eff_inner):
+def _crossing_data(
+    n_outer: int,
+    l_outer: int,
+    n_inner: int,
+    l_inner: int,
+    Z_eff_inner: float,
+) -> tuple[int, float, float]:
     """Compute crossing count, radius, and angle between two solitons.
 
     From torus knot geometry (Eqs. intersection_number, crossing_angle,
@@ -145,7 +151,7 @@ def _crossing_data(n_outer, l_outer, n_inner, l_inner, Z_eff_inner):
     return I, r_cross, cos_theta
 
 
-def _crossing_shunt_admittance(V0_J):
+def _crossing_shunt_admittance(V0_J: float) -> float:
     """Convert a delta-function potential V₀δ(r−r₀) to a shunt admittance.
 
     In the radial lattice dispersion equation ψ'' + [2m/ℏ²(E−V)]ψ = 0
@@ -168,7 +174,12 @@ def _crossing_shunt_admittance(V0_J):
     return -2.0 * M_E * V0_J / HBAR**2
 
 
-def _crossing_abcd(n_outer, l_outer, shells, Z):
+def _crossing_abcd(
+    n_outer: int,
+    l_outer: int,
+    shells: list[tuple[int, int]],
+    Z: int | float,
+) -> tuple[np.ndarray, list[tuple[float, float]]]:
     """Build the lumped ABCD matrix for CROSS-SHELL crossings only (E2k).
 
     ╔══════════════════════════════════════════════════════════════════╗
@@ -290,7 +301,7 @@ def _crossing_abcd(n_outer, l_outer, shells, Z):
     return M_total, crossings
 
 
-def _vacuum_strain_eff(r, Z, l, shells):
+def _vacuum_strain_eff(r: float, Z: int | float, l: int, shells: list[tuple[int, int]]) -> float:
     """Effective radial potential V(r) [J] (Axiom 2).
 
     The bare Coulomb potential −Z·αℏc/r is screened by inner shells.
@@ -317,7 +328,7 @@ def _vacuum_strain_eff(r, Z, l, shells):
 # ---------------------------------------------------------------------------
 
 
-def _k_local(r, E, Z, l, shells):
+def _k_local(r: float, E: float, Z: int | float, l: int, shells: list[tuple[int, int]]) -> float:
     """Local soliton wavenumber k(r) = √(2m_e(E - V_eff)) / ℏ.
 
     From Axiom 4 (soliton mass) + energy conservation.
@@ -394,7 +405,7 @@ def _k_local(r, E, Z, l, shells):
 #     return 0.5 * (r_lo + r_hi)
 
 
-def _compute_r_turn(l_out, E_base_eV):
+def _compute_r_turn(l_out: int, E_base_eV: float) -> float:
     """Centrifugal turning point for a soliton with angular number l.
 
     The centrifugal barrier V_cent = l(l+1)ℏ²/(2m_e r²) equals the
@@ -424,7 +435,14 @@ def _compute_r_turn(l_out, E_base_eV):
     return HBAR * np.sqrt(float(l_out * (l_out + 1))) / np.sqrt(2.0 * M_E * E_J)
 
 
-def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
+def _sir_mode_weighted_base(
+    E_base_eV: float,
+    Z: int | float,
+    n_out: int,
+    l_out: int,
+    shells: list[tuple[int, int]],
+    N_out: int = 0,
+) -> float:
     """Compute the MCL base energy via l-selective SIR correction.
 
     The atom is a Stepped Impedance Resonator (SIR): CDF screening creates
@@ -603,7 +621,14 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
 # ---------------------------------------------------------------------------
 
 
-def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
+def _radial_ode(
+    r: float,
+    y: list[float],
+    E_eigen_J: float,
+    Z_net: float,
+    l: int,
+    kappa_hopf: float = 0.0,
+) -> list[float]:
     """Right-hand side of the radial lattice cavity ODE.
 
     Eq. k_complete (ms Eq. k_complete):
@@ -649,7 +674,17 @@ def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     return [dpsi, d2psi]
 
 
-def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l, kappa_hopf=0.0, n_points=500):
+def _solve_radial_ode(
+    r_start: float,
+    r_end: float,
+    psi0: float,
+    dpsi0: float,
+    E_eigen_J: float,
+    Z_net: float,
+    l: int,
+    kappa_hopf: float = 0.0,
+    n_points: int = 500,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Integrate the radial wave equation from r_start to r_end.
 
     Uses scipy.integrate.solve_ivp with RK45 (adaptive step).
@@ -691,7 +726,14 @@ def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l, kappa_ho
 # ---------------------------------------------------------------------------
 
 
-def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
+def _abcd_section(
+    r1: float,
+    r2: float,
+    E_eigen_J: float,
+    Z_net: float,
+    l: int,
+    kappa_hopf: float = 0.0,
+) -> np.ndarray:
     """Build the 2×2 ABCD transfer matrix for one radial TL section.
 
     Maps (ψ, ψ') at r1 to (ψ, ψ') at r2 via two IVP integrations:
@@ -750,7 +792,13 @@ def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
 # ---------------------------------------------------------------------------
 
 
-def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
+def _eigenvalue_condition(
+    f_eigen_eV: float,
+    Z: int | float,
+    n: int,
+    l: int,
+    shells: list[tuple[int, int]],
+) -> float:
     """Eigenvalue target for the ABCD cascade — graded taper model (E2f).
 
     The inner shell is modelled as a graded impedance taper:
@@ -852,7 +900,7 @@ def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
     return f / scale
 
 
-def radial_eigenvalue_abcd(Z, n, l, shells):
+def radial_eigenvalue_abcd(Z: int | float, n: int, l: int, shells: list[tuple[int, int]]) -> float:
     """Find the energy eigenvalue using the ABCD cascade.
 
     Bracket (Axiom 2):
@@ -912,7 +960,14 @@ def radial_eigenvalue_abcd(Z, n, l, shells):
 # ---------------------------------------------------------------------------
 
 
-def _eigenvalue_condition_general(f_eigen_eV, Z, n, l, z_net_func, N_inner):
+def _eigenvalue_condition_general(
+    f_eigen_eV: float,
+    Z: int | float,
+    n: int,
+    l: int,
+    z_net_func: Callable[[float], float],
+    N_inner: int,
+) -> float:
     """Eigenvalue condition with a GENERAL z_net function.
 
     Same as _eigenvalue_condition but accepts any z_net callable,
@@ -963,7 +1018,15 @@ def _eigenvalue_condition_general(f_eigen_eV, Z, n, l, z_net_func, N_inner):
     return f / scale
 
 
-def _extract_wavefunction(f_eigen_eV, Z, n, l, z_net_func, N_inner, n_grid=200):
+def _extract_wavefunction(
+    f_eigen_eV: float,
+    Z: int | float,
+    n: int,
+    l: int,
+    z_net_func: Callable[[float], float],
+    N_inner: int,
+    n_grid: int = 200,
+) -> tuple[np.ndarray, np.ndarray]:
     """Extract ψ(r) on a grid at a given energy.
 
     Runs the ABCD cascade section-by-section, solving the ODE in each
@@ -1017,7 +1080,7 @@ def _extract_wavefunction(f_eigen_eV, Z, n, l, z_net_func, N_inner, n_grid=200):
     return r_full, psi_full
 
 
-def _numerical_enclosed_charge(r_grid, psi_grid):
+def _numerical_enclosed_charge(r_grid: np.ndarray, psi_grid: np.ndarray) -> np.ndarray:
     """Compute σ(r) = enclosed charge fraction from ψ(r).
 
     σ(r) = ∫₀ʳ |ψ|² 4πr'² dr' / ∫₀^∞ |ψ|² 4πr'² dr'
@@ -1187,7 +1250,14 @@ def _numerical_enclosed_charge(r_grid, psi_grid):
 # # ---------------------------------------------------------------------------
 
 
-def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
+def _reflection_phase(
+    E: float,
+    Z: int | float,
+    l: int,
+    R_a: float,
+    N_a: int,
+    shells: list[tuple[int, int]],
+) -> float:  # QUARANTINED
     """Phase shift from reflection at shell boundary R_a.
 
     Uses universal_reflection() (Op3) — same operator as nuclear/antenna.
@@ -1218,7 +1288,7 @@ def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
 # ---------------------------------------------------------------------------
 
 
-def _phase_integral(*args, **kwargs):
+def _phase_integral(*args, **kwargs) -> float:
     """
     this implementation disappeared somewhere.
     """
@@ -1227,7 +1297,13 @@ def _phase_integral(*args, **kwargs):
     raise NotImplementedError
 
 
-def _total_phase(f_eigen_eV, Z, n, l, shells):
+def _total_phase(
+    f_eigen_eV: float,
+    Z: int | float,
+    n: int,
+    l: int,
+    shells: list[tuple[int, int]],
+) -> float:
     """Total radial phase for trial energy E.
 
     f(E) = Σ φ_i + Σ φ_Γ - n_r·π
@@ -1300,7 +1376,13 @@ def _total_phase(f_eigen_eV, Z, n, l, shells):
     return total_phi - target
 
 
-def radial_eigenvalue(Z, n, l, shells, E_guess_eV=None):
+def radial_eigenvalue(
+    Z: int | float,
+    n: int,
+    l: int,
+    shells: list[tuple[int, int]],
+    E_guess_eV: float | None = None,
+) -> float:
     """Find the energy eigenvalue for electron (n, l) in a multi-electron atom.
 
     Uses the radial waveguide model (E2d):
@@ -1391,7 +1473,7 @@ _AUFBAU = [
 ]
 
 
-def _fill_config(Z):
+def _fill_config(Z: int) -> tuple[int, int, int, list[tuple[int, int]]]:
     """Build shell configuration for a neutral atom with Z electrons.
 
     CROSS-SHELL CDF ONLY (Axiom 2, Gauss's law).
@@ -1452,7 +1534,13 @@ def _fill_config(Z):
     return n_out, l_out, N_out, cross_shells
 
 
-def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
+def _direct_ODE_eigenvalue(
+    Z: int | float,
+    n_out: int,
+    l_out: int,
+    shells: list[tuple[int, int]],
+    kappa_hopf: float = 0.0,
+) -> float:
     """Finds the true Phase A unbroken single-electron eigenvalue.
 
     Axiomatically integrates the LC continuous cavity mode (Axiom 1),
@@ -1613,7 +1701,7 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     return E_gauss
 
 
-def ionization_energy_e2k(Z, f_val=1.0):
+def ionization_energy_e2k(Z: int, f_val: float = 1.0) -> float:
     """Compute Ionization Energy using the E2k Atomic Approach.
 
     AVE Axiomatic Mapping:

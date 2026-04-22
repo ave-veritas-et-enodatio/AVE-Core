@@ -10,14 +10,12 @@ Includes:
 - 6^3_2 Borromean Link (Fundamental Baryon / Proton)
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 
 class FundamentalTopologies:
     @staticmethod
-    def generate_unknot_0_1(radius: float, resolution: int = 1000):
+    def generate_unknot_0_1(radius: float, resolution: int = 1000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a 0_1 Unknot.
         In the AVE framework, this is the fundamental lepton topology:
@@ -44,7 +42,7 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_trefoil_3_1(radius: float, resolution: int = 1000):
+    def generate_trefoil_3_1(radius: float, resolution: int = 1000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a 3_1 Trefoil Knot.
         NOTE: This is used for the HOPF-01 antenna topology and torus knot
@@ -77,7 +75,9 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_borromean_6_3_2(radius: float, eccentricity: float = 1.6, resolution: int = 1000):
+    def generate_borromean_6_3_2(
+        radius: float, eccentricity: float = 1.6, resolution: int = 1000
+    ) -> list[np.ndarray]:
         """
         Generates the 3D parametric coordinates of the 6^3_2 Borromean Link.
         Consists of three mutually interlocking independent discrete rings.
@@ -122,7 +122,7 @@ class FundamentalTopologies:
         return [ring_1, ring_2, ring_3]
 
     @staticmethod
-    def generate_torus_knot_2q(q: int, R: float = 1.0, r: float = 0.4, resolution: int = 2000):
+    def generate_torus_knot_2q(q: int, R: float = 1.0, r: float = 0.4, resolution: int = 2000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a (2,q) torus knot.
 
@@ -157,7 +157,9 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_screw_dislocation(pitch_count: int, length: float = 1.0, radius: float = 0.1, resolution: int = 2000):
+    def generate_screw_dislocation(
+        pitch_count: int, length: float = 1.0, radius: float = 0.1, resolution: int = 2000
+    ) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a screw dislocation
         (helical coil).

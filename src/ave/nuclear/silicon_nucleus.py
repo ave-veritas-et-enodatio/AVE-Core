@@ -10,12 +10,10 @@ No curve fits. 14 Protons + 14 Neutrons inherently construct into
 a topologically packed K_N graph of 7 localized alpha knots.
 """
 
-from __future__ import annotations
-
 from ave.solvers.coupled_resonator import nuclear_mass
 
 
-def silicon_nucleus_binding():
+def silicon_nucleus_binding() -> tuple[float, float]:
     """
     Computes the base assembly binding resonance for Z=14, A=28.
 

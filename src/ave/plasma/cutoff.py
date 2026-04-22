@@ -18,9 +18,8 @@ The FDTD engine already implements this: when E > V_snap/dx,
 (plasma screening / Meissner effect analog).
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
+from typing import Callable
 
 import numpy as np
 
@@ -59,7 +58,7 @@ class PlasmaParameters:
         return np.sqrt(EPSILON_0 * K_B * T_K / (self.n_e * e_charge**2))
 
     @property
-    def dielectric_function(self) -> callable:
+    def dielectric_function(self) -> Callable[[float], float]:
         """
         Returns ε(ω) = 1 - (ω_p/ω)² (Drude model).
         """

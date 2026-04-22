@@ -19,8 +19,6 @@ This non-linearity causes the solver to:
 Includes 1st-order Mur Absorbing Boundary Conditions (ABCs).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
@@ -58,7 +56,7 @@ class FDTD3DEngine:
         b_yield: float = B_SNAP,
         use_pml: bool = False,
         pml_layers: int = 8,
-    ):
+    ) -> None:
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -131,7 +129,7 @@ class FDTD3DEngine:
         self.max_strain_ratio = 0.0  # Track peak |E·dx / V_yield|
         self.max_mag_strain = 0.0  # Track peak |B / B_yield|
 
-    def set_material_region(self, slices, eps_r=None, mu_r=None):
+    def set_material_region(self, slices: tuple, eps_r: float | None = None, mu_r: float | None = None) -> None:
         """
         Set material properties in a spatial region.
 
@@ -149,7 +147,7 @@ class FDTD3DEngine:
         if mu_r is not None:
             self.mu_r[slices] = mu_r
 
-    def _init_cpml(self):
+    def _init_cpml(self) -> None:
         """Initialize CPML conductivity profiles and ψ accumulator arrays."""
         d = self.pml_layers
         # Optimal conductivity: σ_max = (m+1) / (150π·dx) for polynomial order m
@@ -158,7 +156,7 @@ class FDTD3DEngine:
 
         # Build 1D conductivity profiles for each axis
         # The profile ramps from 0 at the PML inner edge to σ_max at the boundary
-        def _build_sigma(n_cells, n_pml):
+        def _build_sigma(n_cells: int, n_pml: int) -> np.ndarray:
             sigma = np.zeros(n_cells)
             for i in range(n_pml):
                 val = sigma_max * ((n_pml - i) / n_pml) ** m
@@ -171,7 +169,7 @@ class FDTD3DEngine:
         self.sigma_z = _build_sigma(self.nz, d)
 
         # CPML decay coefficients: b = exp(-σ·dt/ε₀), a = (b-1)·σ/(σ+κ) simplified
-        def _cpml_coeffs(sigma_1d):
+        def _cpml_coeffs(sigma_1d: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
             b = np.exp(-sigma_1d * self.dt / self.epsilon_0)
             # Avoid divide-by-zero where σ=0
             with np.errstate(divide="ignore", invalid="ignore"):
@@ -282,7 +280,7 @@ class FDTD3DEngine:
         mu_eff = self._compute_local_mu(H_component)
         return self.dt / (mu_eff * self.dx)
 
-    def update_magnetic_field(self):
+    def update_magnetic_field(self) -> None:
         """
         Update H fields from the curl of E (Faraday's Law).
 
@@ -306,7 +304,7 @@ class FDTD3DEngine:
         ch_z = self._compute_ch(self.Hz[:-1, :-1, :])
         self.Hz[:-1, :-1, :] -= ch_z * curl_e_z
 
-    def update_electric_field(self):
+    def update_electric_field(self) -> None:
         """
         Update E fields from the curl of H (Ampere's Law).
 
@@ -330,7 +328,7 @@ class FDTD3DEngine:
         ce_z = self._compute_ce(self.Ez[1:, 1:, :])
         self.Ez[1:, 1:, :] += ce_z * curl_h_z
 
-    def apply_mur_abc(self):
+    def apply_mur_abc(self) -> None:
         """Apply 1st-Order Mur ABCs to all six faces."""
         c1 = self.abc_coef
 
@@ -364,7 +362,7 @@ class FDTD3DEngine:
         self.Ey[:, :, -1] = self.ey_zn + c1 * (self.Ey[:, :, -2] - self.Ey[:, :, -1])
         self.ey_zn[:, :] = self.Ey[:, :, -2]
 
-    def inject_soft_source(self, field: str, x: int, y: int, z: int, amplitude: float):
+    def inject_soft_source(self, field: str, x: int, y: int, z: int, amplitude: float) -> None:
         """Inject a soft source (additive) into a field component at (x, y, z)."""
         if field == "Ex":
             self.Ex[x, y, z] += amplitude
@@ -430,7 +428,7 @@ class FDTD3DEngine:
 
         return u_e + u_m
 
-    def ponderomotive_force(self) -> tuple:
+    def ponderomotive_force(self) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Compute the ponderomotive force density F = -∇u [N/m³].
 
@@ -452,7 +450,7 @@ class FDTD3DEngine:
 
         return Fx, Fy, Fz
 
-    def apply_pml(self):
+    def apply_pml(self) -> None:
         """
         Apply PML absorbing boundaries using exponential conductivity damping.
 
@@ -496,7 +494,7 @@ class FDTD3DEngine:
         self.Hy *= bz_3d
         self.Hz *= bz_3d
 
-    def step(self):
+    def step(self) -> None:
         """Execute one complete dt timestep of the Maxwell Yee-cell algorithm."""
         self.update_magnetic_field()
         self.update_electric_field()

@@ -55,8 +55,6 @@ In Regime IV (r >= 1.0):
     Z_asym → ∞ (dielectric void), Z_sym = Z₀ (perfect absorber, Γ=0).
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0
@@ -65,7 +63,7 @@ from ave.core.universal_operators import universal_saturation
 
 class TopologicalRuptureSolver:
     @staticmethod
-    def evaluate_rupture_state(r_param: float | np.ndarray) -> dict:
+    def evaluate_rupture_state(r_param: float | np.ndarray) -> dict[str, np.ndarray | bool]:
         """
         Evaluate the macroscopic state variables of a system at saturation r.
 

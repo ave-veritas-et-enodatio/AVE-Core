@@ -28,8 +28,6 @@ Step 3: GLOBAL EXISTENCE
 This module implements the computational verification.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0, L_NODE
@@ -360,7 +358,7 @@ def sobolev_h1_norm(u: np.ndarray, dx: float) -> float:
     return np.sqrt(l2_sq + grad_sq)
 
 
-def sobolev_bound_theorem(N_list: list = None) -> dict:
+def sobolev_bound_theorem(N_list: list[int] | None = None) -> dict:
     """
     Prove that the H¹ Sobolev norm of the lattice velocity field
     is uniformly bounded as the lattice is refined (N → ∞, dx → 0).

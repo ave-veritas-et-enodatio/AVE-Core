@@ -34,8 +34,6 @@ References:
     - SPARC database: Lelli et al. (2016)
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np

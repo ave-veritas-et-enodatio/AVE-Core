@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 r"""
 Scale-Invariant Resonator Analysis
 ====================================
@@ -27,7 +25,7 @@ Performance:
   JAX backend available via ``ave.solvers.transmission_line.abcd_cascade_jax``.
 """
 
-from typing import Callable, List, Optional, Tuple
+from typing import Callable
 
 import numpy as np
 
@@ -48,10 +46,10 @@ def graded_tl_eigenvalue(
     N_freq: int = 200,
     c_wave: float = 1.0,
     Z_source: float = 1.0,
-    Z_load: Optional[float] = None,
-    stub_length_func: Optional[Callable[[float], float]] = None,
+    Z_load: float | None = None,
+    stub_length_func: Callable[[float], float] | None = None,
     stub_termination: str = "open",
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, List[Tuple[float, float]]]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, list[tuple[float, float]]]:
     r"""
     S₁₁ frequency sweep through a graded impedance profile.
 
@@ -211,7 +209,7 @@ def cavity_q_from_spectrum(
     freqs: np.ndarray,
     s11_power: np.ndarray,
     min_prominence: float = 0.01,
-) -> List[Tuple[float, float]]:
+) -> list[tuple[float, float]]:
     r"""
     Extract resonant modes and Q-factors from an |S₁₁(f)|² spectrum.
 
@@ -286,7 +284,7 @@ def cavity_q_from_spectrum(
 def impulse_response(
     freqs: np.ndarray,
     s21_spectrum: np.ndarray,
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     r"""
     Time-domain impulse response from IFFT of S₂₁(f).
 

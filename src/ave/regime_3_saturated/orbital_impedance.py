@@ -8,8 +8,6 @@ when rotational shear exceeds the lattice saturation threshold, the
 drag vanishes smoothly — not as a step function.
 """
 
-from __future__ import annotations
-
 from ave.axioms.scale_invariant import saturation_factor
 
 # Re-export from gravity module (single source of truth)

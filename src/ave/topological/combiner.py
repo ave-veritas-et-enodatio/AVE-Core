@@ -6,16 +6,12 @@ fundamental topological defects (Protons/Neutrons) into composite
 Atomic Nuclei (Helium, Lithium, etc.).
 """
 
-from __future__ import annotations
-
-from typing import List, Tuple
-
 import numpy as np
 
 
 class NucleonCombiner:
     @staticmethod
-    def rotate_mesh(mesh: np.ndarray, angles: Tuple[float, float, float]) -> np.ndarray:
+    def rotate_mesh(mesh: np.ndarray, angles: tuple[float, float, float]) -> np.ndarray:
         """
         Rotates a 3D coordinate mesh [N, 3] by given Euler angles (rx, ry, rz) in radians.
         """
@@ -37,7 +33,7 @@ class NucleonCombiner:
         return mesh.dot(R.T)
 
     @staticmethod
-    def translate_mesh(mesh: np.ndarray, shift: Tuple[float, float, float]) -> np.ndarray:
+    def translate_mesh(mesh: np.ndarray, shift: tuple[float, float, float]) -> np.ndarray:
         """
         Translates a 3D coordinate mesh [N, 3] by a given spatial vector (dx, dy, dz).
         """
@@ -45,7 +41,7 @@ class NucleonCombiner:
         return mesh + translation_vector
 
     @classmethod
-    def assemble_cluster(cls, base_nucleon_generator, placements: List[dict]):
+    def assemble_cluster(cls, base_nucleon_generator, placements: list[dict]) -> list[dict]:
         """
         Assembles a complex nucleus by instantiating multiple base defects
         and arranging them according to a list of placement dictionaries.

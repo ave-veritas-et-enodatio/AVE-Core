@@ -28,8 +28,6 @@ Algorithm
 4. Fit E(d) and extract k = d²E/dd² at the minimum
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
@@ -67,7 +65,7 @@ class BondFDTD1D:
         self._dt_set = False
         self.dt = dx / (2.0 * C_0)
 
-    def _update_dt(self):
+    def _update_dt(self) -> None:
         """Recompute dt based on the maximum μ_r·ε_r product (adaptive CFL)."""
         # Local wave speed: v = c / √(μ_r · ε_r_avg)
         # ε at H-nodes = average of adjacent E-nodes
@@ -77,7 +75,7 @@ class BondFDTD1D:
         self.dt = self.dx / (2.0 * C_0 * slowdown)
         self._dt_set = True
 
-    def place_nuclear_defect(self, site: int, mass_kg: float, n_resonators: int = 0):
+    def place_nuclear_defect(self, site: int, mass_kg: float, n_resonators: int = 0) -> None:
         """
         Place a massive nuclear defect at the given lattice site.
 
@@ -104,24 +102,24 @@ class BondFDTD1D:
         # Recompute CFL
         self._update_dt()
 
-    def _epsilon_eff(self):
+    def _epsilon_eff(self) -> np.ndarray:
         """Local ε with Axiom 4 saturation."""
         V_local = np.abs(self.E) * self.dx
         return EPSILON_0 * self.eps_r * saturation_factor(V_local, V_SNAP)
 
-    def _mu_eff(self):
+    def _mu_eff(self) -> np.ndarray:
         """Local μ with Axiom 4 saturation."""
         B_local = MU_0 * np.abs(self.H)
         return MU_0 * self.mu_r * saturation_factor(B_local, B_SNAP)
 
-    def seed_thermal_field(self, amplitude: float = 1e-12):
+    def seed_thermal_field(self, amplitude: float = 1e-12) -> None:
         """Initialize with very low-amplitude thermal noise."""
         rng = np.random.default_rng(42)
         # Scale to V_SNAP/dx for E, B_SNAP/μ₀ for H — but at tiny amplitude
         self.E[:] = amplitude * V_SNAP * rng.standard_normal(self.n) / self.dx
         self.H[:] = amplitude * B_SNAP * rng.standard_normal(self.n - 1) / MU_0
 
-    def step(self, n_steps: int = 1):
+    def step(self, n_steps: int = 1) -> None:
         """Advance the simulation with adaptive CFL and optional damping."""
         if not self._dt_set:
             self._update_dt()
@@ -200,7 +198,7 @@ def compute_bond_energy_curve(
     lattice_padding: int = 200,
     use_fdtd: bool = False,
     n_equilibration_steps: int = 2000,
-) -> tuple:
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Compute total energy vs separation for two nuclear defects.
 
@@ -260,7 +258,7 @@ def compute_bond_energy_curve(
     return d_range, energies
 
 
-def extract_force_constant(d_array, E_array):
+def extract_force_constant(d_array: np.ndarray, E_array: np.ndarray) -> tuple[float, float, float]:
     """
     Extract equilibrium distance and force constant from an E(d) curve.
 

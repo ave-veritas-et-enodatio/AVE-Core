@@ -20,8 +20,6 @@ The cost function is vectorized using jax.numpy pairwise distance matrices:
 Tier 2 Solver: consumes Tier 1 constants/operators, never re-derives them.
 """
 
-from __future__ import annotations
-
 import jax.numpy as jnp
 import numpy as np
 from jax import grad, jit
@@ -34,7 +32,16 @@ from ave.core.universal_operators import universal_pairwise_energy_jax
 # =========================================================================
 
 
-def _make_nuclear_cost_fn(N, masses_jax, charges_jax, K_attr, d_sat, alpha_hc, boundary_radius, boundary_k):
+def _make_nuclear_cost_fn(
+    N: int,
+    masses_jax: jnp.ndarray,
+    charges_jax: jnp.ndarray,
+    K_attr: float,
+    d_sat: float,
+    alpha_hc: float,
+    boundary_radius: float | None,
+    boundary_k: float,
+):
     """Factory: build a JIT-compiled nuclear topology cost function.
 
     Parameters
@@ -108,12 +115,12 @@ class TopologicalOptimizer:
 
     def __init__(
         self,
-        node_masses,
-        interaction_scale="nuclear",
-        node_charges=None,
-        boundary_radius=None,
-        boundary_k=1000.0,
-    ):
+        node_masses: np.ndarray | list,
+        interaction_scale: str = "nuclear",
+        node_charges: np.ndarray | list | None = None,
+        boundary_radius: float | None = None,
+        boundary_k: float = 1000.0,
+    ) -> None:
         self.masses = np.array(node_masses)
         self.N = len(self.masses)
         self.scale = interaction_scale
@@ -149,15 +156,21 @@ class TopologicalOptimizer:
         # JIT-compiled gradient
         self._grad_jit = jit(grad(self._cost_jit))
 
-    def _cost_function(self, flat_coords):
+    def _cost_function(self, flat_coords: np.ndarray) -> float:
         """Evaluate total energy (delegates to JIT-compiled kernel)."""
         return self._cost_jit(jnp.array(flat_coords))
 
-    def _jacobian(self, flat_coords):
+    def _jacobian(self, flat_coords: np.ndarray) -> np.ndarray:
         """Analytical gradient via JAX autograd."""
         return np.array(self._grad_jit(jnp.array(flat_coords)))
 
-    def optimize(self, initial_coords, method="native", options=None, record_history=False):
+    def optimize(
+        self,
+        initial_coords: np.ndarray | list,
+        method: str = "native",
+        options: dict | None = None,
+        record_history: bool = False,
+    ):
         """Native AVE Topological Damped Integrator.
 
         Nodes are treated as massive elements in an L-C lattice. As they
@@ -244,7 +257,15 @@ class TopologicalOptimizer:
             return final_coords, current_energy, history, energy_history
         return final_coords, current_energy
 
-    def quench(self, initial_coords, T=1.0, stepsize=0.5, niter=100, options=None, record_history=False):
+    def quench(
+        self,
+        initial_coords: np.ndarray | list,
+        T: float = 1.0,
+        stepsize: float = 0.5,
+        niter: int = 100,
+        options: dict | None = None,
+        record_history: bool = False,
+    ):
         """Native AVE Topological Annealing Quench.
 
         Iteratively spikes the lattice with thermal noise (T) and allows

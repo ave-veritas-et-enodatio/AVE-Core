@@ -41,8 +41,6 @@ THE TORUS KNOT LADDER (Phase Winding Classification):
     The FCC packing fraction φ governs both.
 """
 
-from __future__ import annotations
-
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize
@@ -60,7 +58,7 @@ CROSSING_NUMBER_CINQUEFOIL: int = 5
 
 
 class TopologicalHamiltonian1D:
-    def __init__(self, node_pitch: float, scaling_coupling: float = 1.0):
+    def __init__(self, node_pitch: float, scaling_coupling: float = 1.0) -> None:
         """
         Initializes the 1D solver for the localized non-linear phase defect.
 

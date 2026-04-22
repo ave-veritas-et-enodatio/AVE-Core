@@ -41,10 +41,7 @@ The regime classification is the PREREQUISITE GATE: no domain
 analysis should proceed without first identifying its regime.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Optional
 
 import numpy as np
 
@@ -144,14 +141,14 @@ class RegimeInfo:
     S: float  # saturation factor
     A: float  # physical amplitude
     Ac: float  # critical threshold
-    domain: Optional[str] = None
-    A_units: Optional[str] = None
-    Ac_units: Optional[str] = None
+    domain: str | None = None
+    A_units: str | None = None
+    Ac_units: str | None = None
     near_boundary: bool = False
-    boundary_name: Optional[str] = None
-    boundary_description: Optional[str] = None
+    boundary_name: str | None = None
+    boundary_description: str | None = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         bnd = f", boundary='{self.boundary_name}'" if self.near_boundary else ""
         return (
             f"RegimeInfo(regime={self.name}, r={self.r:.6f}, " f"S={self.S:.6f}, A={self.A:.4e}, Ac={self.Ac:.4e}{bnd})"
@@ -180,7 +177,13 @@ class RegimeInfo:
 # ══════════════════════════════════════════════════════════════════════════════
 
 
-def classify_regime(A, Ac, domain=None, A_units=None, Ac_units=None):
+def classify_regime(
+    A: float,
+    Ac: float,
+    domain: str | None = None,
+    A_units: str | None = None,
+    Ac_units: str | None = None,
+) -> RegimeInfo:
     """
     Classify the operating regime from amplitude and critical threshold.
 
@@ -251,7 +254,7 @@ def classify_regime(A, Ac, domain=None, A_units=None, Ac_units=None):
 # ══════════════════════════════════════════════════════════════════════════════
 
 
-def em_voltage_regime(V_local):
+def em_voltage_regime(V_local: float) -> RegimeInfo:
     """
     EM (dielectric) regime: r = V / V_yield.
 
@@ -268,7 +271,7 @@ def em_voltage_regime(V_local):
     )
 
 
-def em_field_regime(E_local):
+def em_field_regime(E_local: float) -> RegimeInfo:
     """
     EM (field strength) regime: r = E / E_yield.
 
@@ -285,7 +288,7 @@ def em_field_regime(E_local):
     )
 
 
-def gravity_regime(M_kg, r_meters):
+def gravity_regime(M_kg: float, r_meters: float) -> RegimeInfo:
     """
     Gravitational regime: r = ε₁₁ = 7GM/(c²r).
 
@@ -306,7 +309,7 @@ def gravity_regime(M_kg, r_meters):
     )
 
 
-def bcs_regime(T_kelvin, T_c_kelvin):
+def bcs_regime(T_kelvin: float, T_c_kelvin: float) -> RegimeInfo:
     """
     BCS/superconducting regime: r = T/Tc.
 
@@ -322,7 +325,7 @@ def bcs_regime(T_kelvin, T_c_kelvin):
     )
 
 
-def magnetic_regime(B_local):
+def magnetic_regime(B_local: float) -> RegimeInfo:
     """
     Magnetic regime: r = B / B_snap.
 
@@ -339,7 +342,7 @@ def magnetic_regime(B_local):
     )
 
 
-def nuclear_regime(r_separation, d_sat):
+def nuclear_regime(r_separation: float, d_sat: float) -> RegimeInfo:
     """
     Nuclear regime: r = d_sat / r_separation.
 
@@ -356,7 +359,7 @@ def nuclear_regime(r_separation, d_sat):
     )
 
 
-def gw_regime(h_strain):
+def gw_regime(h_strain: float) -> RegimeInfo:
     """
     Gravitational wave regime: r = h / h_yield.
 
@@ -373,7 +376,7 @@ def gw_regime(h_strain):
     )
 
 
-def protein_regime(d_bond, d_eq):
+def protein_regime(d_bond: float, d_eq: float) -> RegimeInfo:
     """
     Protein backbone regime: r = |d - d_eq| / d_eq.
 
@@ -391,7 +394,7 @@ def protein_regime(d_bond, d_eq):
     )
 
 
-def galactic_regime(g_newtonian, a_0=None):
+def galactic_regime(g_newtonian: float, a_0: float | None = None) -> RegimeInfo:
     """
     Galactic regime: r = g_N / a₀.
 
@@ -436,7 +439,7 @@ def galactic_regime(g_newtonian, a_0=None):
 # ══════════════════════════════════════════════════════════════════════════════
 
 
-def regime_equations(regime_id):
+def regime_equations(regime_id: int) -> dict[str, tuple[str, str]]:
     """
     Return the simplified equation forms valid in each regime.
 
@@ -483,7 +486,7 @@ def regime_equations(regime_id):
 # ══════════════════════════════════════════════════════════════════════════════
 
 
-def print_regime_map():
+def print_regime_map() -> None:
     """Print the full regime map with all domain examples."""
     print("=" * 78)
     print("  UNIVERSAL REGIME MAP (Derived Boundaries)")

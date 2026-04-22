@@ -22,8 +22,6 @@ Usage:
     lbm.step()
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 # D3Q19 lattice velocities and weights
@@ -102,7 +100,7 @@ class LBM3DEngine:
         dx: float = 0.01,
         nu: float = 0.1,
         rho0: float = 1.0,
-    ):
+    ) -> None:
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -146,13 +144,13 @@ class LBM3DEngine:
         # Diagnostics
         self.timestep = 0
 
-    def set_body_force(self, Fx, Fy, Fz):
+    def set_body_force(self, Fx: np.ndarray, Fy: np.ndarray, Fz: np.ndarray) -> None:
         """Set the body force arrays (e.g. from FDTD ponderomotive force)."""
         self.Fx[:] = Fx
         self.Fy[:] = Fy
         self.Fz[:] = Fz
 
-    def _compute_macroscopic(self):
+    def _compute_macroscopic(self) -> None:
         """Compute density and velocity from distribution functions."""
         self.rho = np.sum(self.f, axis=0)
         inv_rho = 1.0 / self.rho
@@ -166,13 +164,13 @@ class LBM3DEngine:
         self.uy += 0.5 * self.Fy * inv_rho * self.dt_lbm
         self.uz += 0.5 * self.Fz * inv_rho * self.dt_lbm
 
-    def _equilibrium(self, i, rho, ux, uy, uz):
+    def _equilibrium(self, i: int, rho: np.ndarray, ux: np.ndarray, uy: np.ndarray, uz: np.ndarray) -> np.ndarray:
         """Compute equilibrium distribution for direction i."""
         eu = _E[i, 0] * ux + _E[i, 1] * uy + _E[i, 2] * uz
         u_sq = ux**2 + uy**2 + uz**2
         return _W[i] * rho * (1.0 + eu / self.cs2 + 0.5 * eu**2 / self.cs2**2 - 0.5 * u_sq / self.cs2)
 
-    def _collide(self):
+    def _collide(self) -> None:
         """BGK collision with Guo body force."""
         self._compute_macroscopic()
 
@@ -189,7 +187,7 @@ class LBM3DEngine:
             # BGK collision + forcing
             self.f[i] += -self.omega * (self.f[i] - f_eq) + Si
 
-    def _stream(self):
+    def _stream(self) -> None:
         """Stream distributions to neighboring cells with periodic BCs."""
         for i in range(Q):
             self.f[i] = np.roll(
@@ -198,7 +196,7 @@ class LBM3DEngine:
                 axis=2,
             )
 
-    def _bounce_back(self):
+    def _bounce_back(self) -> None:
         """Apply bounce-back boundary condition on solid nodes."""
         if not np.any(self.solid):
             return
@@ -209,22 +207,22 @@ class LBM3DEngine:
                 self.f[i][self.solid].copy(),
             )
 
-    def step(self):
+    def step(self) -> None:
         """Execute one LBM timestep: collide → stream → bounce-back."""
         self._collide()
         self._stream()
         self._bounce_back()
         self.timestep += 1
 
-    def velocity_magnitude(self):
+    def velocity_magnitude(self) -> np.ndarray:
         """Return |u| = √(ux² + uy² + uz²)."""
         return np.sqrt(self.ux**2 + self.uy**2 + self.uz**2)
 
-    def max_velocity(self):
+    def max_velocity(self) -> float:
         """Return the maximum velocity magnitude (for CFL monitoring)."""
         return float(np.max(self.velocity_magnitude()))
 
-    def total_momentum(self):
+    def total_momentum(self) -> tuple[float, float, float]:
         """Return total momentum vector (should be non-zero under forcing)."""
         px = float(np.sum(self.rho * self.ux) * self.dx**3)
         py = float(np.sum(self.rho * self.uy) * self.dx**3)

@@ -97,8 +97,6 @@ cosserat.py  : COS_THETA_W, CROSSING_NUMBERS_NEUTRINO
 yang_mills.py: torus_knot_gauge_rank(), gauge_topology_table()
 """
 
-from __future__ import annotations
-
 from math import pi, sqrt
 
 import numpy as np
@@ -489,7 +487,7 @@ def verify_unitarity() -> dict:
 # ═══════════════════════════════════════════════════════════════════
 
 
-def run_full_derivation():
+def run_full_derivation() -> None:
     """Print the complete PMNS and CKM derivation results."""
 
     print("=" * 70)

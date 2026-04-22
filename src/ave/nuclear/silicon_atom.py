@@ -21,8 +21,6 @@ Silicon (Z=14) atomic structure from AVE Split-Layer Architecture:
 Engine: radial_eigenvalue.ionization_energy_e2k (ABCD+MCL hybrid)
 """
 
-from __future__ import annotations
-
 from ave.solvers.coupled_resonator import atom_port_impedance
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
@@ -83,7 +81,7 @@ V_R_OVER_V_BR: float = 0.050  # KB-verified
 MILLER_FACTOR: float = 1.000  # M = 1 (pure Small Signal regime)
 
 
-def first_ionization():
+def first_ionization() -> float:
     """First ionization energy of Si from ABCD+MCL hybrid solver.
 
     Returns:

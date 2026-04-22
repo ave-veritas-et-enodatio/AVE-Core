@@ -7,6 +7,8 @@ gravitomagnetic induction:
     a_gm = lambda_op * (v_sc x B_gm)
 """
 
+from typing import Callable
+
 import numpy as np
 import scipy.integrate as integrate
 
@@ -21,8 +23,8 @@ def compute_hyperbolic_flyby_anomaly(
     J_vec: np.ndarray,
     lambda_op: float = 2.0,
     t_span: float = 20000.0,
-    rotation_matrix: np.ndarray = None,
-) -> dict:
+    rotation_matrix: np.ndarray | None = None,
+) -> dict[str, float]:
     """
     Integrates the spacecraft trajectory numerically, coupling to the
     rotating vacuum LC metric via the a_gm phase-drag operator.
@@ -56,8 +58,8 @@ def compute_hyperbolic_flyby_anomaly(
         r_0 = rotation_matrix @ r_0
         v_0 = rotation_matrix @ v_0
 
-    def get_derivatives(l_op):
-        def derivatives(t, y):
+    def get_derivatives(l_op: float) -> Callable[[float, np.ndarray], np.ndarray]:
+        def derivatives(t: float, y: np.ndarray) -> np.ndarray:
             r_vec = y[0:3]
             v_vec = y[3:6]
             r_mag = np.linalg.norm(r_vec)

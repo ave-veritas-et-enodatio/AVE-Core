@@ -28,8 +28,6 @@ Axiom compliance:
 No external quantum postulates are used.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.core.constants import C_0, HBAR, K_B, L_NODE, M_E, e_charge
@@ -123,7 +121,9 @@ def thread_mode_energy_eV(d: float) -> float:
 # ═══════════════════════════════════════════════════════════════
 
 
-def impedance_taper_profile(d: float, n_points: int = 200, r_opt: float = None, n_profile: float = 1.0) -> tuple:
+def impedance_taper_profile(
+    d: float, n_points: int = 200, r_opt: float | None = None, n_profile: float = 1.0
+) -> tuple[np.ndarray, np.ndarray]:
     """Impedance profile Z(x)/Z₀ along the thread axis.
 
     Each particle is a saturated defect with a Faddeev-Skyrme radial

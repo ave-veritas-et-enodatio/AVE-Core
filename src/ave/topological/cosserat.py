@@ -31,8 +31,6 @@ spectrum from the torsional (Cosserat) sector of the Chiral LC lattice.
    each flavor pairs with a baryon resonance via the crossing number.
 """
 
-from __future__ import annotations
-
 from math import pi, sqrt
 
 from ave.core.constants import ALPHA, ALPHA_S, C_0, HBAR, HIGGS_VEV_MEV, M_E, NU_VAC, P_C, SIN2_THETA_W, e_charge

@@ -3,8 +3,6 @@
 Strictly replaces continuous structural CFD solvers with discrete Electrodynamic solvers.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import impedance
@@ -46,7 +44,7 @@ class FDTDLattice1D:
         u_centers = self.u_local
         self.ch = self.dt / (self.dz * u_centers)
 
-    def _apply_gravitational_metric(self, mass_kg: float):
+    def _apply_gravitational_metric(self, mass_kg: float) -> None:
         """
         Applies topological gravity (vectorized).
         Calculates localized optical strain n_r based on mass distance from center.
@@ -80,7 +78,7 @@ class FDTDLattice1D:
         e_eff = self.e_local[k]
         return impedance(u_eff / MU_0, e_eff / EPSILON_0)
 
-    def step(self, source_node: int, t_steps: int):
+    def step(self, source_node: int, t_steps: int) -> None:
         """
         Advances the FDTD simulation by injecting a continuous sine wave at the source node.
         """

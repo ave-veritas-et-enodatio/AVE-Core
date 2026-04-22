@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 
 from .grid import VacuumGrid
@@ -12,7 +10,7 @@ class TopologicalNode:
     that possess mass (inductive inertia) and navigate through the LC vacuum grid.
     """
 
-    def __init__(self, x: float, y: float, mass: float = 1.0):
+    def __init__(self, x: float, y: float, mass: float = 1.0) -> None:
         self.position = np.array([x, y], dtype=float)
         self.velocity = np.array([0.0, 0.0], dtype=float)
         self.mass = mass
@@ -25,7 +23,7 @@ class TopologicalNode:
         """Translates continuous floating position into discrete FDTD array indices."""
         return int(self.position[0]), int(self.position[1])
 
-    def interact_with_vacuum(self, grid: VacuumGrid, dt: float, coupling: float = 0.1):
+    def interact_with_vacuum(self, grid: VacuumGrid, dt: float, coupling: float = 0.1) -> None:
         """
         Calculates inductive mechanical drag and radiation.
         Nodes pump strain into the grid as they move, and the grid pushes back.
@@ -43,7 +41,7 @@ class TopologicalNode:
         # Advance AC spin state
         self.phase += self.spin_frequency * dt
 
-    def step_kinematics(self, dt: float, bounds_x: float, bounds_y: float):
+    def step_kinematics(self, dt: float, bounds_x: float, bounds_y: float) -> None:
         """Advances Newtonian position based on current velocity and enforces elastic boundaries."""
         self.position += self.velocity * dt
 

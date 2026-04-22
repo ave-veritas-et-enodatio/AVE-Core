@@ -27,7 +27,7 @@ import numpy as np
 from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, T_EM, e_charge
 
 
-def run_electrostatic_resolution():
+def run_electrostatic_resolution() -> None:
     print("==================================================")
     print(" AVE ELECTROSTATIC POINT CHARGE RESOLUTION ")
     print("==================================================")

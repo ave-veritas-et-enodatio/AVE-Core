@@ -9,8 +9,6 @@ Values derived entirely from the ABCD/Hopf radial eigenvalue solver,
 utilizing no empirical parameters.
 """
 
-from __future__ import annotations
-
 from ave.solvers.coupled_resonator import atom_port_impedance
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
@@ -39,7 +37,7 @@ IE_P_AVE: float = ionization_energy_e2k(Z_PHOSPHORUS)
 R_VAL_PHOSPHORUS: float = atom_port_impedance(Z_PHOSPHORUS, IE_P_AVE)
 
 
-def first_ionization():
+def first_ionization() -> float:
     """First ionization energy of Phosphorus from ABCD+MCL hybrid solver.
 
     Returns:

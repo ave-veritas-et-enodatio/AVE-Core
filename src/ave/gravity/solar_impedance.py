@@ -32,8 +32,6 @@ References:
     - Bialy & Loeb (2018): Radiation pressure on thin body
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -135,7 +133,7 @@ def heliospheric_impedance_profile(
     r_min_au: float = 0.1,
     r_max_au: float = 300.0,
     freq_hz: float = 1e6,
-) -> dict:
+) -> dict[str, np.ndarray | float]:
     """
     Build a full radial impedance profile from near-Sun to beyond heliopause.
 
@@ -276,7 +274,7 @@ def oumuamua_impedance_acceleration(r_m: float, obj: InterstellarObject = OUMUAM
     return a_rad
 
 
-def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict:
+def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict[str, float | bool | str]:
     """
     Complete 'Oumuamua analysis at perihelion and 1 AU.
 
@@ -331,7 +329,7 @@ def saturation_radius_au() -> float:
     return r_sat / AU
 
 
-def oort_cloud_prediction() -> dict:
+def oort_cloud_prediction() -> dict[str, float | int | str]:
     """
     AVE prediction for the Oort Cloud location.
 
@@ -389,7 +387,7 @@ def kirkwood_gap_radius(p: int, q: int) -> float:
     return (A_JUPITER / AU) * (q / p) ** (2.0 / 3.0)
 
 
-def kirkwood_impedance_model() -> list:
+def kirkwood_impedance_model() -> list[dict[str, float | str | None]]:
     """
     Model Kirkwood gaps as impedance cavity modes.
 
@@ -493,7 +491,7 @@ def saturn_gap_radius(p: int, q: int, a_moon: float) -> float:
     return a_moon * (q / p) ** (2.0 / 3.0)
 
 
-def saturn_ring_gap_model() -> list:
+def saturn_ring_gap_model() -> list[dict[str, float | str]]:
     """
     Model Saturn ring gaps as impedance cavity modes.
 
@@ -622,7 +620,7 @@ def flyby_anomaly_impedance(
     periapsis_Re: float,
     declination_in: float,
     declination_out: float,
-) -> dict:
+) -> dict[str, float | str]:
     """
     AVE impedance interpretation of the flyby anomaly.
 
@@ -695,7 +693,7 @@ def flyby_anomaly_impedance(
     }
 
 
-def flyby_catalog() -> list:
+def flyby_catalog() -> list[dict[str, float | str]]:
     """
     Known Earth flyby anomalies and AVE predictions.
 

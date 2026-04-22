@@ -30,8 +30,6 @@ Key equation:
 When V_CC = Δm²cos2θ/(2E): resonance → θ_m = π/4 → maximal mixing.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -207,7 +205,7 @@ def survival_probability(
     return float(np.clip(P_ee, 0, 1))
 
 
-def impedance_analogy(n_e: float, E_mev: float) -> dict:
+def impedance_analogy(n_e: float, E_mev: float) -> dict[str, float | bool]:
     """
     Express the MSW effect as an impedance problem.
 
@@ -251,7 +249,7 @@ def impedance_analogy(n_e: float, E_mev: float) -> dict:
     }
 
 
-def solar_msw_profile(E_mev: float = 10.0, n_points: int = 200) -> dict:
+def solar_msw_profile(E_mev: float = 10.0, n_points: int = 200) -> dict[str, np.ndarray | float]:
     """
     Compute MSW mixing across the solar interior.
 

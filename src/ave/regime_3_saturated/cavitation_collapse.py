@@ -22,10 +22,8 @@ This guarantees the model halts without encountering physical singularities,
 automatically predicting the sonoluminescent flash conditions.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Literal
+from typing import Any, Literal
 
 import numpy as np
 from scipy.integrate import solve_ivp
@@ -132,12 +130,12 @@ class AxiomaticRayleighPlesset:
 
         return np.array([U, dU_dt])
 
-    def solve_collapse(self, t_span: tuple[float, float], max_step: float = 1e-9):
+    def solve_collapse(self, t_span: tuple[float, float], max_step: float = 1e-9) -> Any:
         """Integrates the topological bubble collapse over an acoustic cycle."""
         y0 = np.array([self.R0, 0.0])
 
         # Tracking minimum volume explicitly before topological bounce
-        def bounce_event(t, y):
+        def bounce_event(t: float, y: np.ndarray) -> float:
             # Trigger when velocity flips from shrinking to expanding (bounce)
             return y[1]
 
@@ -145,7 +143,7 @@ class AxiomaticRayleighPlesset:
         bounce_event.direction = 1
 
         # Topological Wall: Stop the collapse exactly at the saturation metric limit
-        def yield_event(t, y):
+        def yield_event(t: float, y: np.ndarray) -> float:
             # M -> 1.0 (velocity approaches shear speed c_sound)
             return (self.c_sound * 0.995) - abs(y[1])
 

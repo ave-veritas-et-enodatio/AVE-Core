@@ -12,8 +12,6 @@ Key results (Ch. 9):
   - Achromatic matching:      μ'/ε' scales symmetrically → Z₀ invariant
 """
 
-from __future__ import annotations
-
 import warnings as _warnings
 
 from ave.axioms.scale_invariant import impedance as _impedance

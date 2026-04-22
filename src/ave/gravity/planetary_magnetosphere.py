@@ -25,8 +25,6 @@ This module predicts:
   3. Comparative impedance spectra: Earth, Jupiter, Saturn, Uranus, Neptune
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -552,7 +550,7 @@ def magnetopause_reflection(planet: PlanetMagnetosphere) -> float:
     return float(reflection_coefficient(Z_sw, Z_mag))
 
 
-def uranus_asymmetric_profile(n_points: int = 360) -> dict:
+def uranus_asymmetric_profile(n_points: int = 360) -> dict[str, np.ndarray | float]:
     """
     Uranus magnetopause profile as function of magnetic longitude.
 
@@ -609,7 +607,7 @@ def uranus_asymmetric_profile(n_points: int = 360) -> dict:
     }
 
 
-def comparative_magnetosphere_table() -> list:
+def comparative_magnetosphere_table() -> list[dict[str, float | str | None]]:
     """
     Compare all gas giant magnetospheres.
 

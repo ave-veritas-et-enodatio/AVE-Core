@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import jax
 import numpy as np
 
@@ -34,7 +32,7 @@ adherence to the core axioms without local redefinitions.
 """
 
 
-def _is_jax_array(x):
+def _is_jax_array(x: object) -> bool:
     try:
         import jax
         import jax.numpy as jnp
@@ -44,7 +42,7 @@ def _is_jax_array(x):
         return False
 
 
-def universal_impedance(mu, eps):
+def universal_impedance(mu: float | np.ndarray, eps: float | np.ndarray) -> float | np.ndarray:
     """
     Operator 1: The Universal Impedance Operator (Z)
     Defines the resistance of an arbitrary medium to a propagating wave.
@@ -60,7 +58,7 @@ def universal_impedance(mu, eps):
     return (mu / eps) ** 0.5
 
 
-def universal_saturation(A, A_yield):
+def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.ndarray:
     """
     Operator 2: The Universal Saturation Operator (S)
     Imposes the geometric percolation limit of the 3D lattice. Strain cannot
@@ -92,7 +90,11 @@ def universal_saturation(A, A_yield):
         return np.sqrt(1.0 - ratio**2)
 
 
-def universal_reflection(Z1, Z2, eps=EPS_NUMERICAL):
+def universal_reflection(
+    Z1: float | np.ndarray,
+    Z2: float | np.ndarray,
+    eps: float = EPS_NUMERICAL,
+) -> float | np.ndarray:
     """
     Operator 3: The Universal Reflection Operator (Gamma)
     Governs how much energy is transferred versus reflected when a wave
@@ -110,7 +112,11 @@ def universal_reflection(Z1, Z2, eps=EPS_NUMERICAL):
     return (Z2 - Z1) / (Z2 + Z1 + eps)
 
 
-def universal_pairwise_energy(r, K, d_sat):
+def universal_pairwise_energy(
+    r: float | np.ndarray,
+    K: float,
+    d_sat: float,
+) -> float | np.ndarray:
     """
     Operator 4: Full 3-Regime Pairwise Potential (Impedance-Based)
 
@@ -186,7 +192,7 @@ def universal_pairwise_energy(r, K, d_sat):
             return result
 
 
-def universal_pairwise_energy_jax(r, K, d_sat):
+def universal_pairwise_energy_jax(r: jax.Array, K: float, d_sat: float) -> jax.Array:
     """
     Operator 4 (JAX-only): JIT-safe pairwise impedance potential.
 
@@ -217,7 +223,11 @@ def universal_pairwise_energy_jax(r, K, d_sat):
     return -(K / r) * (T_sq - Gamma_sq)
 
 
-def universal_pairwise_gradient(r, K, d_sat):
+def universal_pairwise_gradient(
+    r: float | np.ndarray,
+    K: float,
+    d_sat: float,
+) -> float | np.ndarray:
     """
     Analytical gradient (dU/dr) of the full 3-regime impedance potential.
 
@@ -243,7 +253,7 @@ def universal_pairwise_gradient(r, K, d_sat):
     return (U_plus - U_minus) / (2.0 * dr)
 
 
-def universal_ymatrix_to_s(Y, Y0=1.0):
+def universal_ymatrix_to_s(Y: np.ndarray, Y0: float = 1.0) -> np.ndarray:
     """
     Operator 5: The Universal Y-Matrix → S-Matrix Conversion
 
@@ -291,7 +301,7 @@ def universal_ymatrix_to_s(Y, Y0=1.0):
         return np.linalg.solve(A, B)
 
 
-def universal_eigenvalue_target(S):
+def universal_eigenvalue_target(S: np.ndarray) -> float:
     """
     Operator 6: The Universal Eigenvalue Ground-State Target
 
@@ -327,7 +337,7 @@ def universal_eigenvalue_target(S):
         return eigenvalues[0]
 
 
-def universal_spectral_analysis(Z_sequence):
+def universal_spectral_analysis(Z_sequence: np.ndarray) -> dict[str, np.ndarray]:
     """
     Operator 7: The Universal Impedance Spectral Analyser
 
@@ -390,7 +400,12 @@ def universal_spectral_analysis(Z_sequence):
     }
 
 
-def universal_packing_reflection(Rg_sq, N, r_node, eta_eq):
+def universal_packing_reflection(
+    Rg_sq: float | np.ndarray,
+    N: int,
+    r_node: float,
+    eta_eq: float,
+) -> float | np.ndarray:
     """
     Operator 8: The Universal Packing Reflection Coefficient
 
@@ -470,7 +485,11 @@ def universal_packing_reflection(Rg_sq, N, r_node, eta_eq):
     return Gamma_pack**2
 
 
-def universal_steric_reflection(dists, R_excl, mask):
+def universal_steric_reflection(
+    dists: np.ndarray,
+    R_excl: float | np.ndarray,
+    mask: np.ndarray,
+) -> float | np.ndarray:
     """
     Operator 9: The Universal Steric Reflection Coefficient
 
@@ -544,7 +563,7 @@ def universal_steric_reflection(dists, R_excl, mask):
     return _sum(gamma_upper**2) / n_pairs
 
 
-def universal_junction_projection_loss(theta, c_crossings=1):
+def universal_junction_projection_loss(theta: float | np.ndarray, c_crossings: int = 1) -> float | np.ndarray:
     """
     Operator 10: The Universal Junction Projection Loss (Y_loss)
 
@@ -646,7 +665,13 @@ def universal_junction_projection_loss(theta, c_crossings=1):
 
 
 # @jax.jit(static_argnames=['field_type'])  # Removed to fix legacy JAX decorator crash
-def universal_topological_curl(Vx, Vy, Vz, dx=1.0, field_type="E"):
+def universal_topological_curl(
+    Vx: np.ndarray,
+    Vy: np.ndarray,
+    Vz: np.ndarray,
+    dx: float = 1.0,
+    field_type: str = "E",
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Operator 11: The Universal Topological Curl (∇×V)
 
@@ -678,7 +703,12 @@ def universal_topological_curl(Vx, Vy, Vz, dx=1.0, field_type="E"):
 
 
 @jax.jit
-def universal_topological_divergence(Vx, Vy, Vz, dx=1.0):
+def universal_topological_divergence(
+    Vx: np.ndarray,
+    Vy: np.ndarray,
+    Vz: np.ndarray,
+    dx: float = 1.0,
+) -> np.ndarray:
     """
     Operator 12: The Universal Topological Divergence (∇·V)
 
@@ -698,7 +728,13 @@ def universal_topological_divergence(Vx, Vy, Vz, dx=1.0):
 
 
 @jax.jit
-def universal_d_alembertian(Phi_current, Phi_past, c_squared, dt, dx):
+def universal_d_alembertian(
+    Phi_current: np.ndarray,
+    Phi_past: np.ndarray,
+    c_squared: float,
+    dt: float,
+    dx: float,
+) -> np.ndarray:
     """
     Operator 13: The Universal D'Alembertian Wave Operator (◻²)
 
@@ -727,7 +763,11 @@ def universal_d_alembertian(Phi_current, Phi_past, c_squared, dt, dx):
     return Phi_next
 
 
-def universal_dynamic_impedance(Z_0, S, eps=EPS_NUMERICAL):
+def universal_dynamic_impedance(
+    Z_0: float | np.ndarray,
+    S: float | np.ndarray,
+    eps: float = EPS_NUMERICAL,
+) -> float | np.ndarray:
     """
     Operator 14: The Universal Dynamic Impedance (Z_eff)
 
@@ -760,7 +800,7 @@ def universal_dynamic_impedance(Z_0, S, eps=EPS_NUMERICAL):
         return Z_0 / np.sqrt(S_safe)
 
 
-def universal_virtual_strain(x):
+def universal_virtual_strain(x: float | np.ndarray) -> float | np.ndarray:
     """
     Operator 15: The Universal Virtual Strain Isomorphism (r_virtual)
 
@@ -791,7 +831,10 @@ def universal_virtual_strain(x):
         return np.sqrt(np.maximum(0.0, 1.0 - sigma**2))
 
 
-def universal_power_transmission(Z1, Z2=None):
+def universal_power_transmission(
+    Z1: float | np.ndarray,
+    Z2: float | np.ndarray | None = None,
+) -> float | np.ndarray:
     """
     Operator 17: Universal Power Transmission (T²)
 
@@ -840,7 +883,7 @@ def universal_power_transmission(Z1, Z2=None):
         return 4.0 * N / (1.0 + N) ** 2
 
 
-def universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave):
+def universal_regime_eigenvalue(r_sat: float, nu_vac: float, ell: int, c_wave: float) -> float:
     """
     Operator 20: Universal Regime Boundary Eigenvalue
 
@@ -861,7 +904,7 @@ def universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave):
     return ell * c_wave / r_eff
 
 
-def universal_quality_factor(ell):
+def universal_quality_factor(ell: int) -> float:
     """
     Operator 21: Universal Phase Transition Quality Factor
 
@@ -880,7 +923,11 @@ def universal_quality_factor(ell):
     return float(ell)
 
 
-def universal_avalanche_factor(V_applied, V_breakdown, n_topology):
+def universal_avalanche_factor(
+    V_applied: float | np.ndarray,
+    V_breakdown: float,
+    n_topology: int,
+) -> float | np.ndarray:
     """
     Operator 22: Universal Avalanche Factor (M)
 
@@ -916,7 +963,11 @@ def universal_avalanche_factor(V_applied, V_breakdown, n_topology):
         return 1.0 / (1.0 - ratio**n_topology)
 
 
-def universal_wave_speed(A, A_yield, c_base):
+def universal_wave_speed(
+    A: float | np.ndarray,
+    A_yield: float,
+    c_base: float,
+) -> float | np.ndarray:
     """
     Operator 16: Universal Wave Speed (c_shear)
 
@@ -952,7 +1003,11 @@ def universal_wave_speed(A, A_yield, c_base):
         return c_base * (1.0 - ratio_sq) ** 0.25
 
 
-def universal_coupled_mode_frequency(omega_0, k, adjacency_eigenvalue):
+def universal_coupled_mode_frequency(
+    omega_0: float,
+    k: float,
+    adjacency_eigenvalue: float | np.ndarray,
+) -> float | np.ndarray:
     """
     Operator 18: Universal Coupled Mode Frequency
 
@@ -982,7 +1037,7 @@ def universal_coupled_mode_frequency(omega_0, k, adjacency_eigenvalue):
         return omega_0 / np.sqrt(1.0 + k * adjacency_eigenvalue)
 
 
-def universal_refractive_index(epsilon_11, nu_vac=2.0 / 7.0):
+def universal_refractive_index(epsilon_11: float | np.ndarray, nu_vac: float = 2.0 / 7.0) -> float | np.ndarray:
     """
     Operator 19: Universal Refractive Index (n)
 
@@ -1004,7 +1059,7 @@ def universal_refractive_index(epsilon_11, nu_vac=2.0 / 7.0):
     return 1.0 + nu_vac * epsilon_11
 
 
-def plasma_refractive_index(omega, omega_p):
+def plasma_refractive_index(omega: float | np.ndarray, omega_p: float) -> float | np.ndarray:
     """
     Operator 19 (Adapter): Plasma Refractive Index (n_plasma)
 

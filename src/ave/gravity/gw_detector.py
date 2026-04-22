@@ -26,8 +26,6 @@ It is measuring the IMPEDANCE PERTURBATION of a lossless
 transmission line caused by passing inductive shear waves.
 """
 
-from __future__ import annotations
-
 from dataclasses import dataclass
 
 import numpy as np
@@ -288,7 +286,7 @@ def lattice_voltage_ratio(h: float, gw_freq_hz: float = 100.0) -> float:
     return V_gw / V_SNAP
 
 
-def detector_summary(detector_name: str = "LIGO", h: float = 1e-21) -> dict:
+def detector_summary(detector_name: str = "LIGO", h: float = 1e-21) -> dict[str, float | int | str | np.ndarray]:
     """
     Generate a summary of detector properties and sensitivity.
 

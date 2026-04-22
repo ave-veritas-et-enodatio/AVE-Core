@@ -8,8 +8,6 @@ is geometrically redirected along the un-ruptured polar axes, resulting in
 the emission of extreme relativistic jets.
 """
 
-from __future__ import annotations
-
 import numpy as np
 
 from ave.gravity import principal_radial_strain
