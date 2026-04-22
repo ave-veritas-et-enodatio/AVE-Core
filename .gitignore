@@ -70,4 +70,6 @@ manuscript/**/main.pdf
 # custom defense-context checker: spots where an uncontextualized AI reviewer
 # will misread the framework and where the source should add pre-emptive context)
 .agents/
+
+# tarballs archived for extraction/transfer/sharing 
 *.tgz
