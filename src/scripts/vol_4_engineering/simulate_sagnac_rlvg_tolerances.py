@@ -27,7 +27,6 @@ import numpy as np
 
 from ave.core.constants import C_0, HBAR
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target AVE Signal Amplitude (Estimate from Lead vs. Aluminum 1-meter RLG at 1000 RPM)
 # The density difference generates a microscopic but steady phase offset.

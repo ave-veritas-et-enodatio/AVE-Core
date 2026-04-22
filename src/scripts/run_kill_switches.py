@@ -258,7 +258,8 @@ def main():
     print(f"  {'-'*84}")
     print(f"  {'1':>3}  {'LC Impedance (Z₀=377Ω)':<28}  {'Chiral VNA S₁₁':<30}  {'Δf/f = ' + f'{delta_f:.4e}':<20}")
     print(
-        f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}  {f'{V_out*1e3:.1f} mV/μm':<20}"
+        f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}"
+        f"  {f'{V_out*1e3:.1f} mV/μm':<20}"
     )
     print(f"  {'3':>3}  {'Gravity (G → ρ_bulk)':<28}  {'Sagnac Density Ratio':<30}  {f'Ψ = {Psi:.2f}':<20}")
     print(f"  {'4':>3}  {'Saturation (S=√(1-A²))':<28}  {'EE Bench C(V) Divergence':<30}  {'C/C₀ → ∞ @ 43.65kV':<20}")

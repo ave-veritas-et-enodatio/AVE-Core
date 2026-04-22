@@ -355,7 +355,8 @@ def main():
         err_f = abs(f_kerr - f_obs) / f_obs * 100
         err_t = abs(tau - tau_obs) / tau_obs * 100
         print(
-            f"  {name:12s}: f_Kerr={f_kerr:7.1f} Hz ({err_f:4.1f}%) | Q={Q:.1f} | τ={tau*1e3:.2f} ms ({err_t:.1f}%) | Obs: f={f_obs} Hz, τ={tau_obs*1e3:.1f} ms"
+            f"  {name:12s}: f_Kerr={f_kerr:7.1f} Hz ({err_f:4.1f}%) | Q={Q:.1f}"
+            f" | τ={tau*1e3:.2f} ms ({err_t:.1f}%) | Obs: f={f_obs} Hz, τ={tau_obs*1e3:.1f} ms"
         )
 
     print(f"\n{'=' * 70}")

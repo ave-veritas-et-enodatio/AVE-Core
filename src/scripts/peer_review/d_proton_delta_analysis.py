@@ -117,7 +117,8 @@ print("VERDICT:")
 if abs(m_p_derived_mev / M_P_MEV_TARGET - 1) < 0.005:
     print("  ✅ C3 is RESOLVED. D_PROTON already uses the derived proton mass.")
     print(
-        f"  ✅ All nuclear constants shift by ≤ {abs(m_p_derived_mev / M_P_MEV_TARGET - 1) * 100:.3f}% — within framework precision."
+        f"  ✅ All nuclear constants shift by ≤ {abs(m_p_derived_mev / M_P_MEV_TARGET - 1) * 100:.3f}%"
+        " — within framework precision."
     )
 else:
     print("  ⚠️  Proton mass derivation error exceeds 0.5% — review nuclear predictions carefully.")

@@ -110,9 +110,12 @@ def generate_parity_violation():
         0.05,
         r"$\mathbf{Structural\ Origin\ of\ Weak\ Force\ Parity\ Violation}$"
         + "\n"
-        + r"Because the discrete $\mathcal{M}_A$ LC network is physically constructed of right-handed helical Inductors,\n"
-        + "it constitutes a naturally birefringent mechanical substrate. Left-handed input signals ($W^-$ equivalent) encounter massive\n"
-        + r"geometric linkage frustration ($Z_{chiral} \to \infty$) and are deterministically scattered (attenuated) over sub-fermi bounds.",
+        + r"Because the discrete $\mathcal{M}_A$ LC network is physically constructed of right-handed helical"
+        + r" Inductors,\n"
+        + "it constitutes a naturally birefringent mechanical substrate. Left-handed input signals"
+        + r" ($W^-$ equivalent) encounter massive" + "\n"
+        + r"geometric linkage frustration ($Z_{chiral} \to \infty$) and are deterministically scattered"
+        + " (attenuated) over sub-fermi bounds.",
         ha="center",
         va="center",
         color="white",

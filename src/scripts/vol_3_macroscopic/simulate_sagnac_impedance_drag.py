@@ -131,7 +131,8 @@ def main():
 
     print("\n[STATUS: SUCCESS] The Sagnac Phase Shift successfully simulated as a Classical Impedance Drag anomaly.")
     print(
-        "Relativistic path-length adjustment was mathematically bypassed in favor of localized metric slipstream velocity."
+        "Relativistic path-length adjustment was mathematically bypassed in favor of localized metric"
+        " slipstream velocity."
     )
     print(f"Animated propagation saved to {out_path}")
 

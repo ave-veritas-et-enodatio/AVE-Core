@@ -5,6 +5,7 @@ the cosmological Vacuum H_INFINITY bound to a tabletop ferrofluid container.
 """
 
 import numpy as np
+
 from ave.core.constants import MU_0
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 

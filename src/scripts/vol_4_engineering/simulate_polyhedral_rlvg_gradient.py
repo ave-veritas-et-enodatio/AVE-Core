@@ -8,6 +8,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from ave.core.constants import C_0
 
 # Set up output directory
@@ -29,7 +30,8 @@ def simulate_polyhedral_rlvg():
     # Standard spacetime impedance Z0 = 376.73 Ohms
 
     # Induced phase shift from gradient
-    # A steep metric gradient induces localized phase shear proportional to 1/r^2 (gravitational) or artificial drive strain
+    # A steep metric gradient induces localized phase shear proportional to 1/r^2 (gravitational)
+    # or artificial drive strain
     phase_shear_x = np.zeros_like(z_dist)
     phase_shear_y = np.zeros_like(z_dist)
     phase_shear_z = np.zeros_like(z_dist)

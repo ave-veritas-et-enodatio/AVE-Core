@@ -5,7 +5,6 @@ import numpy as np
 
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
-
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 
@@ -33,7 +32,8 @@ def audit_radial_solver():
     border = "-" * 85
     print(border)
     print(
-        f"{'Z':<3} | {'Element':<7} | {'Valence Struct':<15} | {'Exp IE (eV)':<12} | {'Solver IE (eV)':<15} | {'Error %'}"
+        f"{'Z':<3} | {'Element':<7} | {'Valence Struct':<15} | {'Exp IE (eV)':<12}"
+        f" | {'Solver IE (eV)':<15} | {'Error %'}"
     )
     print(border)
 

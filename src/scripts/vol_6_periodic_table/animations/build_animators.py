@@ -68,7 +68,8 @@ if __name__ == "__main__":
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
     outdir = "../figures"
     os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15, savefig_kwargs={'facecolor': fig.get_facecolor()})
+    anim.save(os.path.join(outdir, "hydrogen_1_dynamic_flux.gif"), writer='pillow', fps=15,
+        savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
 
@@ -133,7 +134,8 @@ if __name__ == "__main__":
         for cx, cy, cz in rotated_nodes:
             depth_scale = np.exp(-np.abs(cz / (bound/3.0)))
             ax.scatter(cx, cy, color='#00ffcc', s=300 * depth_scale, marker='+', linewidth=2, alpha=0.8)
-            ax.scatter(cx, cy, color='#00ffcc', s=100 * depth_scale, edgecolor='#00ffcc', facecolor='none', linewidth=1.5, alpha=0.9)
+            ax.scatter(cx, cy, color='#00ffcc', s=100 * depth_scale, edgecolor='#00ffcc',
+                facecolor='none', linewidth=1.5, alpha=0.9)
 
         ax.set_title(title, color='white', fontsize=16, pad=20)
         ax.tick_params(colors='white')
@@ -142,7 +144,8 @@ if __name__ == "__main__":
     anim = FuncAnimation(fig, update, frames=frames, interval=80, blit=False)
     outdir = "../figures"
     os.makedirs(outdir, exist_ok=True)
-    anim.save(os.path.join(outdir, "{NAME}_dynamic_flux.gif"), writer='pillow', fps=15, savefig_kwargs={'facecolor': fig.get_facecolor()})
+    anim.save(os.path.join(outdir, "{NAME}_dynamic_flux.gif"), writer='pillow', fps=15,
+        savefig_kwargs={'facecolor': fig.get_facecolor()})
     print("[*] Done.")
 """
 

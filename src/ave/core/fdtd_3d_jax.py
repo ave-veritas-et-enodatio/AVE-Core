@@ -27,6 +27,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 from jax import jit
+
 from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
 
 # Enable float64 to match numpy precision for numerical equivalence

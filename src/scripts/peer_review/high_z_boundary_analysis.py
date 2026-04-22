@@ -173,7 +173,8 @@ print("Gap 1A: Tensor Core Extension  |  Gap 1B: Heavy Shell Mapping")
 print("=" * 100)
 print()
 print(
-    f"{'Element':<10s} {'Z':>4s} {'A':>4s} {'CODATA [MeV]':>14s} {'AVE [MeV]':>14s} {'Δ%':>10s} {'n_pair':>8s} {'Regime':>14s}"
+    f"{'Element':<10s} {'Z':>4s} {'A':>4s} {'CODATA [MeV]':>14s} {'AVE [MeV]':>14s}"
+    f" {'Δ%':>10s} {'n_pair':>8s} {'Regime':>14s}"
 )
 print("-" * 100)
 
@@ -214,7 +215,8 @@ for name, Z, A, codata_mass in CODATA_MASSES:
     )
 
     print(
-        f"  {name:<10s} {Z:4d} {A:4d} {codata_mass:14.3f} {ave_mass:14.3f} {delta_pct:+9.4f}% {n_pairs:8d} {regime:>14s}"
+        f"  {name:<10s} {Z:4d} {A:4d} {codata_mass:14.3f} {ave_mass:14.3f}"
+        f" {delta_pct:+9.4f}% {n_pairs:8d} {regime:>14s}"
     )
 
 # ═════════════════════════════════════════════════════════════════

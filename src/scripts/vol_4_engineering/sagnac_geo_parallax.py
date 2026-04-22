@@ -17,7 +17,8 @@ def simulate_sagnac_geo_parallax():
     max_phase_shift_rad = (4 * np.pi * L_fiber * v_gal) / (wavelength * C_0)
     print(f"Max Amplitude Phase Shift from Galactic Drift: {max_phase_shift_rad:.2f} radians")
     print(
-        "=> RESULT: The 24-hr Earth rotation vectors this drift into a massive, detectable sinusoidal daily oscillation."
+        "=> RESULT: The 24-hr Earth rotation vectors this drift into a massive, detectable sinusoidal"
+        " daily oscillation."
     )
 
     # 2. GEO-Synchronous Impedance Differential
@@ -39,7 +40,8 @@ def simulate_sagnac_geo_parallax():
     path_stretch_mm = delta_t_s * C_0 * 1000.0
     print(f"Effective Optical Path Stretch (\u0394L): {path_stretch_mm:.6f} mm")
     print(
-        "=> RESULT: The static G-field structurally stretches the telecom laser time-of-flight by ~17 millimeters, proving gravitational LC dispersion."
+        "=> RESULT: The static G-field structurally stretches the telecom laser time-of-flight by ~17"
+        " millimeters, proving gravitational LC dispersion."
     )
 
 

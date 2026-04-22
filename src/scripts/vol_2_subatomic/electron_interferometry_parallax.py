@@ -41,7 +41,8 @@ def simulate_electron_interferometry_parallax(electron_energy_ev=100.0, baseline
 
     if delta_phi_deg > 0.1:
         print(
-            "RESULT: The parity breakdown is macroscopically resolvable. Probability conservation is strictly falsified by topological LC coupling."
+            "RESULT: The parity breakdown is macroscopically resolvable. Probability conservation is strictly"
+            " falsified by topological LC coupling."
         )
     else:
         print("RESULT: Phase shift is below standard detection resolution.")

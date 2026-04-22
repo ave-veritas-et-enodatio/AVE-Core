@@ -120,6 +120,13 @@ print(
 """
 )
 
+_g_sol = N_HB_PER_NODE * G_SOLVENT_PER_HB
+_b_sol = N_HB_PER_NODE * K_HB_ELECTRICAL / (2 * np.pi * F_BACKBONE)
+_y_sol = np.sqrt(_g_sol**2 + _b_sol**2)
+_r_sol = 1 / (_g_sol + 1e-30)
+_q_loaded = (
+    2 * np.pi * F_BACKBONE * L_C / (1 / _g_sol if _g_sol > 0 else np.inf)
+)
 print(
     f"""
 ┌─────────────────────────────────────────────────────┐
@@ -131,15 +138,15 @@ print(
 │    L_C = {L_C:.3e} H   C_CN = {C_CN:.3e} F      │
 │                                                     │
 │  Solvent shunt admittance per Cα (at f_backbone):   │
-│    G_solvent (dissipative) = {N_HB_PER_NODE * G_SOLVENT_PER_HB:.3e} S   │
-│    B_solvent (reactive)    = {N_HB_PER_NODE * K_HB_ELECTRICAL / (2*np.pi*F_BACKBONE):.3e} S   │
-│    |Y_solvent|             = {np.sqrt((N_HB_PER_NODE * G_SOLVENT_PER_HB)**2 + (N_HB_PER_NODE * K_HB_ELECTRICAL / (2*np.pi*F_BACKBONE))**2):.3e} S   │
-│    Y/Y_backbone            = {np.sqrt((N_HB_PER_NODE * G_SOLVENT_PER_HB)**2 + (N_HB_PER_NODE * K_HB_ELECTRICAL / (2*np.pi*F_BACKBONE))**2) * Z_BACKBONE:.3e}     │
+│    G_solvent (dissipative) = {_g_sol:.3e} S   │
+│    B_solvent (reactive)    = {_b_sol:.3e} S   │
+│    |Y_solvent|             = {_y_sol:.3e} S   │
+│    Y/Y_backbone            = {_y_sol * Z_BACKBONE:.3e}     │
 │                                                     │
 │  Solvent quality factor:                            │
 │    Q_solvent = ω L_C / (n × R_solvent)              │
-│    R_solvent = 1/G = {1/(N_HB_PER_NODE * G_SOLVENT_PER_HB + 1e-30):.2e} Ω          │
-│    Q_loaded  = {2*np.pi*F_BACKBONE * L_C / (1/(N_HB_PER_NODE * G_SOLVENT_PER_HB + 1e-30) if N_HB_PER_NODE * G_SOLVENT_PER_HB > 0 else np.inf):.2e}                       │
+│    R_solvent = 1/G = {_r_sol:.2e} Ω          │
+│    Q_loaded  = {_q_loaded:.2e}                       │
 └─────────────────────────────────────────────────────┘
 """
 )

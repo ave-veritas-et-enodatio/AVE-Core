@@ -7,6 +7,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
@@ -71,7 +72,8 @@ def extract_bullet_stills():
 
         # Plot as a 2D Heatmap
         ax = axes[i]
-        # c = ax.contourf(X_kpc, Y_kpc, total_drag / norm_factor, levels=30, cmap="magma", vmin=0, vmax=0.7)  # bulk lint fixup pass
+        # c = ax.contourf(X_kpc, Y_kpc, total_drag / norm_factor, levels=30,
+        #     cmap="magma", vmin=0, vmax=0.7)  # bulk lint fixup pass
 
         # Overlay the baryonic point masses
         ax.scatter(

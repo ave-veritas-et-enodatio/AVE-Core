@@ -237,7 +237,8 @@ def main():
             (
                 intensity_obs,
                 "Observer at Slit 2: Wake Decoherence",
-                "Particle still passes through Slit 1\nDetector at Slit 2 thermalizes wake\n→ phase coherence destroyed",
+                "Particle still passes through Slit 1\nDetector at Slit 2 thermalizes wake"
+                "\n→ phase coherence destroyed",
             ),
         ]
     ):

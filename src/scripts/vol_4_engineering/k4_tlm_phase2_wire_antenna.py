@@ -418,13 +418,16 @@ def main():
     print("\n" + "=" * 70)
     print("  PHASE 2 ANALYSIS COMPLETE")
     print(
-        f"  Loop:    L={loop_result['wire_length']},   f_peak={loop_result['f_peak']:.4f},  c/(2L)={expected_f_loop:.4f}"
+        f"  Loop:    L={loop_result['wire_length']},   f_peak={loop_result['f_peak']:.4f},"
+        f"  c/(2L)={expected_f_loop:.4f}"
     )
     print(
-        f"  Trefoil: L={trefoil_result['wire_length']},  f_peak={trefoil_result['f_peak']:.4f},  c/(2L)={expected_f_trefoil:.4f}"
+        f"  Trefoil: L={trefoil_result['wire_length']},  f_peak={trefoil_result['f_peak']:.4f},"
+        f"  c/(2L)={expected_f_trefoil:.4f}"
     )
     print(
-        f"  (3,5):   L={knot_35_result['wire_length']},  f_peak={knot_35_result['f_peak']:.4f},  c/(2L)={expected_f_35:.4f}"
+        f"  (3,5):   L={knot_35_result['wire_length']},  f_peak={knot_35_result['f_peak']:.4f},"
+        f"  c/(2L)={expected_f_35:.4f}"
     )
     print(f"  Chiral shift Δf/f: {delta_f / max(trefoil_result['f_peak'], 1e-10):.4e}")
     print(f"  AVE prediction:    {predicted_shift:.4e}")

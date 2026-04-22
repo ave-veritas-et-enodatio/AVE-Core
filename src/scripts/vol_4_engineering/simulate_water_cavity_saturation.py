@@ -160,7 +160,8 @@ axes[2].grid(color="#333333", linestyle="--")
 
 plt.tight_layout()
 plt.savefig(
-    f"{str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())}/manuscript/vol_4_engineering/figures/sonoluminescence_challenge.png",
+    str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())
+    + "/manuscript/vol_4_engineering/figures/sonoluminescence_challenge.png",
     dpi=150,
 )
 print(f"Simulation completed. Exact peak V_topo reached at focal scalar: {np.nanmax(V_topo_focal)/1e3:.2f} kV")

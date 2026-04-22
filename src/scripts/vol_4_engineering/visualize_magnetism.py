@@ -10,9 +10,7 @@ import pathlib
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
-
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
@@ -81,7 +79,8 @@ def plot_magnetism(element_name, Z, A, is_paramagnetic=False):
 
     # Streamplot of the interacting flow (External Magnetic Flux)
     color = "#00ffcc" if is_paramagnetic else "#ff3366"
-    # streams = ax.streamplot(x, y, Vx, Vy, color=color, linewidth=1.5, density=1.5, arrowstyle="->", arrowsize=1.5)  # bulk lint fixup pass
+    # streams = ax.streamplot(x, y, Vx, Vy, color=color, linewidth=1.5, density=1.5,
+    #     arrowstyle="->", arrowsize=1.5)  # bulk lint fixup pass
 
     # Scatter the nodes
     ax.scatter(

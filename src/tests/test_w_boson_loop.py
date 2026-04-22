@@ -82,7 +82,8 @@ class TestGradedSolverStructure:
     def test_default_profile_is_axiom4_envelope(self):
         """Default profile (shell_boundary_y=None) uses 1-exp(-(d-1)) envelope."""
         depth = 4
-        # Y = build_radial_tree_admittance_graded(depth=depth, branch_y=NU_VAC, coordination_z=4)  # bulk lint fixup pass
+        # Y = build_radial_tree_admittance_graded(
+        #     depth=depth, branch_y=NU_VAC, coordination_z=4)  # bulk lint fixup pass
         expected_profile = [1.0 * (1.0 - math.exp(-(d - 1))) for d in range(1, depth + 1)]
         # Shell 1 receives y=0 → no extra diagonal shunt on those nodes
         # Shell d receives y = expected_profile[d-1]

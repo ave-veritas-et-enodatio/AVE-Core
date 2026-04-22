@@ -18,7 +18,6 @@ import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Simulation Parameters
 Z = 92  # Protons in U-235
@@ -152,7 +151,8 @@ def run_fission_simulation():
     ax.set_zticks([])
 
     ax.set_title(
-        "Macroscopic Topological Fission (U-235 + n $\\rightarrow$ Ba-141 + Kr-92)\nStrain Rupture via Thermal Neutron Impact",
+        "Macroscopic Topological Fission (U-235 + n $\\rightarrow$ Ba-141 + Kr-92)"
+        "\nStrain Rupture via Thermal Neutron Impact",
         color="white",
         fontsize=14,
         pad=20,

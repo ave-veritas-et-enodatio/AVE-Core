@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+import numpy as np
+
 from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
 
 """
@@ -140,7 +143,6 @@ def universal_pairwise_energy(r, K, d_sat):
     Returns:
         U: Pairwise energy. Negative = attractive, positive = repulsive wall.
     """
-    import numpy as np
 
     is_jax = _is_jax_array(r)
     if is_jax:

@@ -18,7 +18,6 @@ import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Uranium-235 parameters
 Z = 92  # Protons

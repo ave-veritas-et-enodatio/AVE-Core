@@ -120,7 +120,8 @@ def simulate_impedance_matched_gravity():
         + "\n"
         + r"and Capacitance ($\epsilon$) proportionately. Characteristic Impedance ($Z_0$) remains perfectly flat."
         + "\n"
-        + r"Thus, light physically compresses its wavelength ($v_g = c/n$) inside the well without suffering reflections."
+        + r"Thus, light physically compresses its wavelength ($v_g = c/n$) inside the well"
+        + r" without suffering reflections."
     )
     ax2.text(
         -9.5,

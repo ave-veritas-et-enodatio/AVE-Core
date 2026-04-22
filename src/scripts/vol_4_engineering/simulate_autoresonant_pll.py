@@ -23,7 +23,8 @@ w_0 = w_res(C_0_SIM)  # Baseline resonant frequency (rad/s)
 
 
 # Non-linear Capacitance (Dielectric Yielding)
-# C(V) increases as V approaches V_yield because e_eff drops (C = e*A/d goes down, causing frequency characteristic to detune).
+# C(V) increases as V approaches V_yield because e_eff drops (C = e*A/d goes down, causing frequency
+# characteristic to detune).
 # Wait, actually in Book 4 Eq 13.1, e_eff decreases. So C_eff decreases!
 # w = 1 / sqrt(L*C_eff). If C_eff drops, the resonant frequency of the vacuum INCREASES as it is stressed.
 def C_eff(V):

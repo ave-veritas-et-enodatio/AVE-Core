@@ -47,7 +47,8 @@ def simulate_galactic_curve():
     transition_boundary_kpc = None
 
     print(
-        f"{'R (kpc)':<10} | {'M_enc (M_sun)':<15} | {'g_N (m/s^2)':<15} | {'v_Newton (km/s)':<18} | {'v_Topo (km/s)':<18} | {'Regime'}"
+        f"{'R (kpc)':<10} | {'M_enc (M_sun)':<15} | {'g_N (m/s^2)':<15}"
+        f" | {'v_Newton (km/s)':<18} | {'v_Topo (km/s)':<18} | {'Regime'}"
     )
     print("-" * 105)
 
@@ -80,7 +81,8 @@ def simulate_galactic_curve():
         print(f"Metric Rupture Boundary (Dark Matter engagement): Exactly {transition_boundary_kpc:.1f} kpc.")
         print("Past this radius, the vacuum metric fundamentally unsaturates, regaining elasticity.")
         print(
-            "This intact geometry actively resists macroscopic velocity vectors, naturally flattening the rotation curve without phantom particle halos."
+            "This intact geometry actively resists macroscopic velocity vectors, naturally flattening the"
+            " rotation curve without phantom particle halos."
         )
     else:
         print("Boundary undetected in this span.")

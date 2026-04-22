@@ -17,7 +17,6 @@ from scipy.optimize import minimize
 
 from ave.core.constants import P_C
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 

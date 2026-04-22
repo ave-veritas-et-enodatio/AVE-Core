@@ -33,7 +33,6 @@ import numpy as np
 # -----------------------------------------------------------------
 from ave.core.constants import ALPHA, C_0, G
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Astrophysical Constants
 M_EARTH = 5.972e24  # kg

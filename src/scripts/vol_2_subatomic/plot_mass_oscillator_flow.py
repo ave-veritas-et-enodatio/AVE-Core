@@ -49,7 +49,8 @@ def create_flowchart():
     draw_box(
         0.5,
         0.45,
-        "3. Compute Structural Metrics\nEffective Crossing Volume $\mathcal{V}_{cross}$\nTopological Scale Factor $\\beta$",
+        "3. Compute Structural Metrics\nEffective Crossing Volume $\mathcal{V}_{cross}$"
+        "\nTopological Scale Factor $\\beta$",
         "#00ff00",
     )
 

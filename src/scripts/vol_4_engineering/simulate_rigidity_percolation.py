@@ -15,7 +15,6 @@ import numpy as np
 
 from ave.core.constants import ALPHA
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 

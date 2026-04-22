@@ -8,7 +8,6 @@ from matplotlib.animation import FuncAnimation
 # Ensure the core framework is in PATH
 from ave.topological.borromean import FundamentalTopologies
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 

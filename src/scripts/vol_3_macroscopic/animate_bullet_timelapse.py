@@ -9,6 +9,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import PillowWriter
+
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
@@ -50,7 +51,8 @@ def animate_bullet_cluster():
     #     ha="center",
     #     fontweight="bold",
     # )
-    # phase_text = ax.text(0.5, 0.95, "", transform=ax.transAxes, color="cyan", fontsize=12, ha="center")  # bulk lint fixup pass
+    # phase_text = ax.text(0.5, 0.95, "", transform=ax.transAxes,
+    #     color="cyan", fontsize=12, ha="center")  # bulk lint fixup pass
 
     print(f"Executing 30s High-Fidelity Physics Render ({FRAMES} Frames)...")
     writer = PillowWriter(fps=FPS)

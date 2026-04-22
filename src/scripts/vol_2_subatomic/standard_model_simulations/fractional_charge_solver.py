@@ -95,7 +95,8 @@ def main():
         fontsize=12,
     )
 
-    # legend = plt.legend(facecolor="#222222", edgecolor="#555555", labelcolor="white", loc="lower right")  # bulk lint fixup pass
+    # legend = plt.legend(facecolor="#222222", edgecolor="#555555", labelcolor="white",
+    #     loc="lower right")  # bulk lint fixup pass
 
     os.makedirs("standard_model/figures", exist_ok=True)
     out_path = "standard_model/figures/fractional_charge_projections.png"

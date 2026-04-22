@@ -65,8 +65,10 @@ def plot_geodynamo():
     x = np.arange(len(planets))
 
     fig, ax = plt.subplots(figsize=(6, 5))
-    # rects1 = ax.bar(x - width / 2, empirical, width, label="Empirical Target", color="darkgray")  # bulk lint fixup pass
-    # rects2 = ax.bar(x + width / 2, vca_derived, width, label="AVE VCA Derivation", color="darkorange")  # bulk lint fixup pass
+    # rects1 = ax.bar(x - width / 2, empirical, width,
+    #     label="Empirical Target", color="darkgray")  # bulk lint fixup pass
+    # rects2 = ax.bar(x + width / 2, vca_derived, width,
+    #     label="AVE VCA Derivation", color="darkorange")  # bulk lint fixup pass
 
     ax.set_yscale("log")
     ax.set_ylabel("Magnetic Dipole Moment [A $\cdot$ m$^2$]")

@@ -65,7 +65,8 @@ LIGO_EVENTS = {
 
 def run_simulation():
     # ── PREREQUISITE GATE: identify operating regime for 10 M☉ BH ──
-    # regime = identify_regime("gravity", M_kg=10 * float(M_SUN), r_meters=7 * G * 10 * float(M_SUN) / C_0**2)  # bulk lint fixup pass
+    # regime = identify_regime("gravity", M_kg=10 * float(M_SUN),
+    #     r_meters=7 * G * 10 * float(M_SUN) / C_0**2)  # bulk lint fixup pass
     print()
 
     print("=" * 78)
@@ -129,7 +130,8 @@ def run_simulation():
     print(f"    f_R = {omega_R/(2*np.pi):.1f} Hz")
     print(f"    Q = ℓ = {Q_mode}")
     print(
-        f"    ω_R·M_g = {omega_R * M_g / C_0:.4f}  (GR exact: 0.3737, Δ = {(omega_R*M_g/C_0 - 0.3737)/0.3737*100:+.1f}%)"
+        f"    ω_R·M_g = {omega_R * M_g / C_0:.4f}"
+        f"  (GR exact: 0.3737, Δ = {(omega_R*M_g/C_0 - 0.3737)/0.3737*100:+.1f}%)"
     )
 
     # ── LIGO Event Comparison ──────────────────────────────────────────────

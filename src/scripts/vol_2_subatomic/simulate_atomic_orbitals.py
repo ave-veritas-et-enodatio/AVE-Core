@@ -23,7 +23,6 @@ def _find_repo_root():
 
 from scripts.vol_2_subatomic.solve_orbital_eigenmodes import OrbitalODE
 
-
 PROJECT_ROOT = Path(_find_repo_root())
 OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)

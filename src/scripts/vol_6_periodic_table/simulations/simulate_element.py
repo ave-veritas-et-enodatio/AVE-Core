@@ -23,7 +23,6 @@ from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, K_MUTUAL, M_E, M_N_ME
 # Ensure local module resolution
 from .spice_exporter import generate_spice_netlist
 
-
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 # Fundamental Constants (MeV domain)
 # ME_MEV imported from physics engine for cross-validation
@@ -815,25 +814,30 @@ def generate_summary_table(results, output_file):
         "\\addcontentsline{toc}{chapter}{Macroscopic Mass Defect Summary}",
         "\\label{ch:summary}",
         "",
-        "The Topological network maps strictly to empirical observables without hidden variables by calculating overlapping geometry using a simple $1/d_{ij}$ summation. As elements grow progressively more complex, the physical geometry perfectly yields the standard CODATA mass metrics.",
+        "The Topological network maps strictly to empirical observables without hidden variables by"
+        " calculating overlapping geometry using a simple $1/d_{ij}$ summation. As elements grow"
+        " progressively more complex, the physical geometry perfectly yields the standard CODATA mass metrics.",
         "",
         "\\begin{table}[htbp]",
         "    \\centering",
         "    \\begin{tabular}{l c c r r r}",
         "    \\hline\\hline",
-        "    \\textbf{Element} & \\textbf{Z} & \\textbf{A} & \\textbf{Empirical (MeV)} & \\textbf{Topological (MeV)} & \\textbf{Error (\\%)} \\\\",
+        "    \\textbf{Element} & \\textbf{Z} & \\textbf{A} & \\textbf{Empirical (MeV)}"
+        " & \\textbf{Topological (MeV)} & \\textbf{Error (\\%)} \\\\",
         "    \\hline",
     ]
     for r in results:
         tex.append(
-            f"    {r['name']} & {r['Z']} & {r['A']} & {r['empirical']:.3f} & {r['theoretical']:.3f} & {r['error']:.5f}\\% \\\\"
+            f"    {r['name']} & {r['Z']} & {r['A']} & {r['empirical']:.3f}"
+            f" & {r['theoretical']:.3f} & {r['error']:.5f}\\% \\\\"
         )
 
     tex.extend(
         [
             "    \\hline\\hline",
             "    \\end{tabular}",
-            "    \\caption{Topological derivation of mass defects mapping $1/d_{ij}$ structural mutual impedance against CODATA empirical limits.}",
+            "    \\caption{Topological derivation of mass defects mapping $1/d_{ij}$ structural mutual"
+            " impedance against CODATA empirical limits.}",
             "    \\label{tab:mass_summary}",
             "\\end{table}",
             "",

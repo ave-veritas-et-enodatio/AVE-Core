@@ -8,7 +8,6 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
 from ave.topological.borromean import FundamentalTopologies
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 

@@ -19,7 +19,6 @@ import numpy as np
 
 from ave.solvers.topology_optimizer import TopologicalOptimizer
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 M_P = 1.00727
 M_N = 1.00866

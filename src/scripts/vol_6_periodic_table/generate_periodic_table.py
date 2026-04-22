@@ -49,7 +49,11 @@ def generate_table():
     catalog_content = """\\chapter{Catalog of Heavy Elements (Z=15 to Z=118)}
 \\label{ch:heavy_element_catalog}
 
-The theoretical split between Nuclear Topology and Orbital Knot Topology represents a fundamentally unified continuous geometric structure. The following catalog mathematically derives the topological packing limits for all remaining super-heavy elements. For each element $Z \\geq 15$, the AVE topological solver numerically bounds the spherical Fibonacci geometry of the Alpha cores, successfully predicting empirical CODATA rest mass targets strictly through recursive $1/d_{ij}$ structural mutual impedance.
+The theoretical split between Nuclear Topology and Orbital Knot Topology represents a fundamentally unified
+continuous geometric structure. The following catalog mathematically derives the topological packing limits
+for all remaining super-heavy elements. For each element $Z \\geq 15$, the AVE topological solver
+numerically bounds the spherical Fibonacci geometry of the Alpha cores, successfully predicting empirical
+CODATA rest mass targets strictly through recursive $1/d_{ij}$ structural mutual impedance.
 
 \\vspace{1em}
 """
@@ -91,7 +95,8 @@ The theoretical split between Nuclear Topology and Orbital Knot Topology represe
     \\textbf{{Mapping Error:}} {report['error']:.3f}\\%\\\\
 
     \\vspace{{0.5em}}
-    \\textit{{Numerical packing bounds the radius scaling against $A={A}$. Core geometry resolves into {z//2} distinct Alpha cores bounded within a spherical Fibonacci matrix.}}
+    \\textit{{Numerical packing bounds the radius scaling against $A={A}$.
+    Core geometry resolves into {z//2} distinct Alpha cores bounded within a spherical Fibonacci matrix.}}
 \\end{{minipage}}
 \\hfill
 \\begin{{minipage}}{{0.50\\textwidth}}
@@ -125,7 +130,8 @@ The theoretical split between Nuclear Topology and Orbital Knot Topology represe
 
         new_content = (
             main_content
-            + f"\n{clean_marker}\n\\appendix\n\\include{{chapters/A_heavy_element_catalog}}\n\n\\backmatter\n\\bibliographystyle{{plain}}\n\\bibliography{{bibliography}}\n\n\\end{{document}}\n"
+            + f"\n{clean_marker}\n\\appendix\n\\include{{chapters/A_heavy_element_catalog}}\n\n"
+            + "\\backmatter\n\\bibliographystyle{plain}\n\\bibliography{bibliography}\n\n\\end{document}\n"
         )
         with open(main_tex_path, "w") as f:
             f.write(new_content)

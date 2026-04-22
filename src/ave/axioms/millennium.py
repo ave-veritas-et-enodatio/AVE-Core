@@ -68,8 +68,15 @@ def test_p_vs_np() -> dict:
             "optimal_solution": "Global impedance standing wave minimum (Gamma -> 0)",
             "constraint_evaluation": "Dielectric rejection (A -> A_yield) on high-impedance paths",
         },
-        "physical_resolution": 'The universe does not "compute" via discrete Turing steps. It relaxes thermodynamically into perfectly bounded phase-matched geometries (Gamma=0). NP-hard problems embedded into physical systems solve instantly in parallel via Axiom 1/Axiom 4 saturation boundaries.',
-        "mathematical_status": "MATHEMATICALLY OPEN. The physical universe operates as an analog parallel network, completely bypassing the constraints of pure deterministic Turing machine analysis.",
+        "physical_resolution": (
+            'The universe does not "compute" via discrete Turing steps. It relaxes thermodynamically into perfectly'
+            " bounded phase-matched geometries (Gamma=0). NP-hard problems embedded into physical systems solve"
+            " instantly in parallel via Axiom 1/Axiom 4 saturation boundaries."
+        ),
+        "mathematical_status": (
+            "MATHEMATICALLY OPEN. The physical universe operates as an analog parallel network, completely"
+            " bypassing the constraints of pure deterministic Turing machine analysis."
+        ),
         "means_test_result": "PHYSICALLY BYPASSED, MATHEMATICALLY UNAFFECTED",
         "solvable_in_ave_engine": True,
     }
@@ -119,8 +126,14 @@ def test_riemann_hypothesis() -> dict:
             "functional_symmetry": "S-parameter network reciprocity (S12 = S21)",
             "spectral_density": "Eigenvalues of self-adjoint topological Hamiltonian",
         },
-        "physical_resolution": "The Riemann Zeta function is the macroscopic impedance response of the LC vacuum lattice. The zeros on the critical line are the localized standing wave resonant eigenvalues (baryon masses).",
-        "mathematical_status": "Arithmetic Topology physically embeds the Riemann Hypothesis into 3D geometry; it is mathematically a statement of perfect destructive interference in a reciprocal lattice.",
+        "physical_resolution": (
+            "The Riemann Zeta function is the macroscopic impedance response of the LC vacuum lattice."
+            " The zeros on the critical line are the localized standing wave resonant eigenvalues (baryon masses)."
+        ),
+        "mathematical_status": (
+            "Arithmetic Topology physically embeds the Riemann Hypothesis into 3D geometry; it is mathematically"
+            " a statement of perfect destructive interference in a reciprocal lattice."
+        ),
         "means_test_result": "RIGOROUS PHYSICAL DERIVATION (Arithmetic Topology)",
         "solvable_in_ave_engine": True,
         "baryon_eigenvalues": stable_modes,
@@ -167,8 +180,15 @@ def test_birch_swinnerton_dyer() -> dict:
             "rank": "Total number of physically stable resonance states (baryons)",
             "l_function_s_1": "Zero impedance crossing threshold (Gamma = 0)",
         },
-        "physical_resolution": 'The BSD Conjecture describes the geometric saturation of a torus. The "rank" (number of rational points) is physically just the number of exact (p,q) integer winding combinations where the LC mesh maintains a stable A_yield boundary without phase overlap.',
-        "mathematical_status": "The AVE engine models rational points as physical standing wave phase-locks. It mathematically bounds the rank of the vacuum torus to the 5 stable states of the BARYON_LADDER.",
+        "physical_resolution": (
+            'The BSD Conjecture describes the geometric saturation of a torus. The "rank" (number of rational'
+            " points) is physically just the number of exact (p,q) integer winding combinations where the LC"
+            " mesh maintains a stable A_yield boundary without phase overlap."
+        ),
+        "mathematical_status": (
+            "The AVE engine models rational points as physical standing wave phase-locks. It mathematically"
+            " bounds the rank of the vacuum torus to the 5 stable states of the BARYON_LADDER."
+        ),
         "means_test_result": "RIGOROUS PHYSICAL DERIVATION (Phase-locking bounds)",
         "solvable_in_ave_engine": True,
     }
@@ -213,8 +233,16 @@ def test_hodge_conjecture() -> dict:
             "non_singular_variety": "The 3D LC vacuum lattice (Axiom 4 prevents singularities)",
             "rational_coefficients": "Integers enforcing phase-matching boundaries",
         },
-        "physical_resolution": "Because wave phase-matching on a closed torus strictly forbids fractional wavelengths, the physical universe mandates that any stable field topology (Hodge Class) must be a linear combination of discrete integer algebraic cycles (the BARYON_LADDER torus knots).",
-        "mathematical_status": "AVE explicitly validates the conjecture computationally: localized energy sinks only occur at rational algebraic coordinates (integer winding knots). Continuous irrational topological blobs radiate away (Gamma > 0).",
+        "physical_resolution": (
+            "Because wave phase-matching on a closed torus strictly forbids fractional wavelengths, the physical"
+            " universe mandates that any stable field topology (Hodge Class) must be a linear combination of"
+            " discrete integer algebraic cycles (the BARYON_LADDER torus knots)."
+        ),
+        "mathematical_status": (
+            "AVE explicitly validates the conjecture computationally: localized energy sinks only occur at"
+            " rational algebraic coordinates (integer winding knots). Continuous irrational topological blobs"
+            " radiate away (Gamma > 0)."
+        ),
         "means_test_result": "STRONG PHYSICAL VALIDATION (Phase Matching)",
         "solvable_in_ave_engine": True,
     }

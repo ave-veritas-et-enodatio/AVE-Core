@@ -6,9 +6,7 @@ Evaluate the geometric gradient advantage of Helium-4
 import os
 
 import numpy as np
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
-
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -81,7 +79,8 @@ def main():
 
     dist = np.linalg.norm(he4_nodes[0] - he4_nodes[1])
     print(
-        f"\n[!] The internal nodes of Helium-4 are spaced {dist/d:.1f}d apart, acting as an ultra-dense mathematically perfect microscopic point-source!"
+        f"\n[!] The internal nodes of Helium-4 are spaced {dist/d:.1f}d apart,"
+        " acting as an ultra-dense mathematically perfect microscopic point-source!"
     )
 
 

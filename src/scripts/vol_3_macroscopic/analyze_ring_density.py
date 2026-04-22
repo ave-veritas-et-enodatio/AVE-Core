@@ -10,9 +10,7 @@ import pathlib
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from vol_3_macroscopic.simulate_saturn_rings import simulate_rings
-
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

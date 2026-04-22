@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+import numpy as np
+
+from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
+from ave.core.universal_operators import universal_reflection, universal_saturation
+
 """
 Radial Eigenvalue Solver (ABCD Cascade)
 ========================================
@@ -58,13 +65,6 @@ CONSTANTS
     All from ave.core.constants: ALPHA, HBAR, C_0, M_E, A_0, RY_EV, e_charge
     Zero hardcoded values.  Zero imported numbers. Zero continuous hacks.
 """
-
-from __future__ import annotations
-
-import numpy as np
-
-from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
-from ave.core.universal_operators import universal_reflection, universal_saturation
 
 # ---------------------------------------------------------------------------
 # Step 1: Piece-wise radial potential
@@ -335,63 +335,63 @@ def _k_local(r, E, Z, l, shells):
 # Step 2b: SIR Mode-Weighted Charge (Axiom 3 — Least Reflected Action)
 # ---------------------------------------------------------------------------
 
+# function unused and contained references to undefined functions
+# def _compute_r95_shell(Z_eff, n_shell, N_a):
+#     """Compute the 95th-percentile radius of an inner shell's CDF.
 
-def _compute_r95_shell(Z_eff, n_shell, N_a):
-    """Compute the 95th-percentile radius of an inner shell's CDF.
+#     r_95 is the radius where the enclosed charge fraction σ(r) reaches 0.95.
+#     This marks the outer edge of the shell's screening transition zone.
 
-    r_95 is the radius where the enclosed charge fraction σ(r) reaches 0.95.
-    This marks the outer edge of the shell's screening transition zone.
+#     IMPORTANT: Z_eff must be the SCREENED nuclear charge that this shell
+#     actually experiences — i.e., the bare Z minus all electrons in shells
+#     with smaller n.  This matches the cascade logic of _z_net().  Using
+#     the bare nuclear Z would artificially compress the CDF, making inner
+#     shells appear to be enclosed when they are not.
 
-    IMPORTANT: Z_eff must be the SCREENED nuclear charge that this shell
-    actually experiences — i.e., the bare Z minus all electrons in shells
-    with smaller n.  This matches the cascade logic of _z_net().  Using
-    the bare nuclear Z would artificially compress the CDF, making inner
-    shells appear to be enclosed when they are not.
+#     Axiom chain:
+#         Axiom 1 (Helmholtz) → standing wave ψ_nl(r)
+#         Axiom 2 (Gauss)     → CDF σ(r) = ∫₀ʳ |ψ|² r'² dr'
+#         Axiom 2 (cascade)   → each shell sees Z minus all preceding shells
 
-    Axiom chain:
-        Axiom 1 (Helmholtz) → standing wave ψ_nl(r)
-        Axiom 2 (Gauss)     → CDF σ(r) = ∫₀ʳ |ψ|² r'² dr'
-        Axiom 2 (cascade)   → each shell sees Z minus all preceding shells
+#     Uses bisection on the analytic CDF functions.
 
-    Uses bisection on the analytic CDF functions.
+#     Args:
+#         Z_eff:    Screened nuclear charge seen by THIS shell [1].
+#         n_shell:  Principal number of the inner shell [1].
+#         N_a:      Number of electrons in this shell [1].
 
-    Args:
-        Z_eff:    Screened nuclear charge seen by THIS shell [1].
-        n_shell:  Principal number of the inner shell [1].
-        N_a:      Number of electrons in this shell [1].
+#     Returns:
+#         r_95:  Radius [m] where σ(r) = 0.95.
+#     """
+#     target = 0.95
+#     import math
 
-    Returns:
-        r_95:  Radius [m] where σ(r) = 0.95.
-    """
-    target = 0.95
-    import math
+#     # Bracket: r_lo = 0, r_hi = generous upper bound
+#     r_hi = 10.0 * float(n_shell) ** 2 * A_0 / max(float(Z_eff), 1.0)
+#     r_lo = 0.0
 
-    # Bracket: r_lo = 0, r_hi = generous upper bound
-    r_hi = 10.0 * float(n_shell) ** 2 * A_0 / max(float(Z_eff), 1.0)
-    r_lo = 0.0
+#     for _ in range(80):  # bisection iterations (converges to machine precision)
+#         r_mid = 0.5 * (r_lo + r_hi)
+#         if n_shell == 1:
+#             sigma = _enclosed_charge_fraction_1s(r_mid, float(Z_eff))
+#         elif n_shell == 2:
+#             N_2s = min(N_a, 2)
+#             N_2p = max(0, N_a - 2)
+#             sigma = _enclosed_charge_fraction_n2(r_mid, float(Z_eff), N_2s, N_2p)
+#         else:
+#             # n≥3: use scaled 1s CDF (same as _z_net)
+#             x = 2.0 * float(Z_eff) * r_mid / (float(n_shell) * A_0)
+#             if x > 500:
+#                 sigma = 1.0
+#             else:
+#                 sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
 
-    for _ in range(80):  # bisection iterations (converges to machine precision)
-        r_mid = 0.5 * (r_lo + r_hi)
-        if n_shell == 1:
-            sigma = _enclosed_charge_fraction_1s(r_mid, float(Z_eff))
-        elif n_shell == 2:
-            N_2s = min(N_a, 2)
-            N_2p = max(0, N_a - 2)
-            sigma = _enclosed_charge_fraction_n2(r_mid, float(Z_eff), N_2s, N_2p)
-        else:
-            # n≥3: use scaled 1s CDF (same as _z_net)
-            x = 2.0 * float(Z_eff) * r_mid / (float(n_shell) * A_0)
-            if x > 500:
-                sigma = 1.0
-            else:
-                sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+#         if sigma < target:
+#             r_lo = r_mid
+#         else:
+#             r_hi = r_mid
 
-        if sigma < target:
-            r_lo = r_mid
-        else:
-            r_hi = r_mid
-
-    return 0.5 * (r_lo + r_hi)
+#     return 0.5 * (r_lo + r_hi)
 
 
 def _compute_r_turn(l_out, E_base_eV):

@@ -9,7 +9,6 @@ from matplotlib.animation import FuncAnimation
 # Ensure the core framework is in PATH
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 

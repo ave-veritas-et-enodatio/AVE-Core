@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 
 from ave.solvers.radial_eigenvalue import radial_eigenvalue_abcd
 
-
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True, parents=True)

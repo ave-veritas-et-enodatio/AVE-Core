@@ -274,10 +274,12 @@ def main():
     print(f"  {'Method':<38} {'E [eV]':>9} {'Error':>7} {'Source':>20}")
     print(f"  {'─'*38} {'─'*9} {'─'*7} {'─'*20}")
     print(
-        f"  {'Perturbation (1st order)':<38} {E_pert/eV:>9.4f} {abs(E_pert/eV-E_exp)/abs(E_exp)*100:>6.2f}% {'Axiom 2 (αℏc)':>20}"
+        f"  {'Perturbation (1st order)':<38} {E_pert/eV:>9.4f}"
+        f" {abs(E_pert/eV-E_exp)/abs(E_exp)*100:>6.2f}% {'Axiom 2 (αℏc)':>20}"
     )
     print(
-        f"  {'Variational (Z_eff = 27/16)':<38} {E_var/eV:>9.4f} {abs(E_var/eV-E_exp)/abs(E_exp)*100:>6.2f}% {'Axiom 2 (αℏc)':>20}"
+        f"  {'Variational (Z_eff = 27/16)':<38} {E_var/eV:>9.4f}"
+        f" {abs(E_var/eV-E_exp)/abs(E_exp)*100:>6.2f}% {'Axiom 2 (αℏc)':>20}"
     )
     print(f"  {'Self-consistent Hartree':<38} {E_h:>9.4f} {abs(E_h-E_exp)/abs(E_exp)*100:>6.2f}% {'Axiom 2 (αℏc)':>20}")
     print(f"  {'─'*38} {'─'*9} {'─'*7} {'─'*20}")
@@ -286,7 +288,8 @@ def main():
     )
     print(f"  {'─'*38} {'─'*9} {'─'*7} {'─'*20}")
     print(
-        f"  {'AVE topological J_s2 (Ch.16)':<38} {-79.00:>9.4f} {abs(-79.00-E_exp)/abs(E_exp)*100:>6.2f}% {'Axioms 2+4 + topo':>20}"
+        f"  {'AVE topological J_s2 (Ch.16)':<38} {-79.00:>9.4f}"
+        f" {abs(-79.00-E_exp)/abs(E_exp)*100:>6.2f}% {'Axioms 2+4 + topo':>20}"
     )
     print(f"  {'Experiment (NIST)':<38} {E_exp:>9.3f} {'—':>7} {'—':>20}")
     print(f"{'═'*70}")

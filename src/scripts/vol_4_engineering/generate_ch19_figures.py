@@ -3,6 +3,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from src.ave.condensed.bjt_mechanics import bjt_current_gain
 from src.scripts.vol_4_engineering.temperature_stress_test import ave_V_bi, classical_V_bi
 

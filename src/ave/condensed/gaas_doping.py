@@ -50,8 +50,8 @@ def amphoteric_impurity_level(z_dopant: int, target_site_z: int) -> dict:
         # But for group IV on III-V, it provides 4 bonds for a 3-bond site (Ga).
         # We model this structurally: Z surplus ratio for *valence*, let's scale it.
         # For simplicity, if Z_dop > 15 (hypothetically), but wait, Si is Z=14.
-        # Pure geometry means Si (Z=14) on Ga (Z=31) acts as a local surplus of bonds technically compared to Ga's normal configuration,
-        # forcing the geometry outward.
+        # Pure geometry means Si (Z=14) on Ga (Z=31) acts as a local surplus of bonds technically compared to
+        # Ga's normal configuration, forcing the geometry outward.
 
         # We will bound the ratio structurally
         if target_site_z == Z_GALLIUM:

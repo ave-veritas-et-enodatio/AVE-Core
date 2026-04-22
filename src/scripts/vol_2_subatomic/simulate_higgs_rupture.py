@@ -100,7 +100,8 @@ def run_simulation():
     # Map collision energy to local voltage on the lattice node
     # E_collision = e × V_local → V_local = E_collision / e
     # But we normalize to V_snap for the saturation operator
-    # V_ratio = E_collision / (float(V_SNAP) * e_charge / (e_charge * 1e6))  # V/V_snap in MeV terms  # bulk lint fixup pass
+    # V_ratio = E_collision / (float(V_SNAP) * e_charge / (e_charge * 1e6))  # V/V_snap in MeV terms
+    # bulk lint fixup pass
 
     # Actually: the local voltage per node during collision is
     # V_local = E_collision_MeV / (m_e_MeV × c² / (e × V_snap))

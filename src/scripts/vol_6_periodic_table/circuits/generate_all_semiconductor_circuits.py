@@ -28,7 +28,11 @@ def topo_ring3():
         nodes += (
             f"\\node[small alpha] (n{i}) at ({{CX + 2.0*cos({angle})}}, {{CY + 2.0*sin({angle})}}) {{$\\alpha$}};\n"
         )
-    edges = "\\draw[neongreen, thick] (n0) -- (n1);\n\\draw[neongreen, thick] (n1) -- (n2);\n\\draw[neongreen, thick] (n2) -- (n0);\n"
+    edges = (
+        "\\draw[neongreen, thick] (n0) -- (n1);\n"
+        "\\draw[neongreen, thick] (n1) -- (n2);\n"
+        "\\draw[neongreen, thick] (n2) -- (n0);\n"
+    )
     legend = "3 ring edges\\\\\\textbf{3 junctions total}"
     return nodes, edges, legend
 
@@ -62,7 +66,8 @@ def topo_bipyr5():
         "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
     )
     edges = (
-        "\\draw[neongreen, thick] (e0) -- (e1); \\draw[neongreen, thick] (e1) -- (e2); \\draw[neongreen, thick] (e2) -- (e0);\n"
+        "\\draw[neongreen, thick] (e0) -- (e1); \\draw[neongreen, thick] (e1) -- (e2);"
+        " \\draw[neongreen, thick] (e2) -- (e0);\n"
         "\\foreach \\e in {e0,e1,e2} { \\draw[neongreen] (p1) -- (\\e); \\draw[neongreen] (p2) -- (\\e); }\n"
         "\\draw[neonpurple, thick] (p1) -- (p2);\n"
     )
@@ -106,11 +111,13 @@ def topo_pbipyr7():
     )
     edges = (
         "\\draw[neongreen, thick] (e0)--(e1); \\draw[neongreen, thick] (e1)--(e2);\n"
-        "\\draw[neongreen, thick] (e2)--(e3); \\draw[neongreen, thick] (e3)--(e4); \\draw[neongreen, thick] (e4)--(e0);\n"
+        "\\draw[neongreen, thick] (e2)--(e3); \\draw[neongreen, thick] (e3)--(e4);"
+        " \\draw[neongreen, thick] (e4)--(e0);\n"
         "\\foreach \\e in {e0,e1,e2,e3,e4} { \\draw[neongreen] (p1) -- (\\e); \\draw[neongreen] (p2) -- (\\e); }\n"
         "\\draw[neonpurple, thick] (p1) -- (p2);\n"
         "\\draw[neonpurple, thin] (e0)--(e2); \\draw[neonpurple, thin] (e1)--(e3);\n"
-        "\\draw[neonpurple, thin] (e2)--(e4); \\draw[neonpurple, thin] (e3)--(e0); \\draw[neonpurple, thin] (e4)--(e1);\n"
+        "\\draw[neonpurple, thin] (e2)--(e4); \\draw[neonpurple, thin] (e3)--(e0);"
+        " \\draw[neonpurple, thin] (e4)--(e1);\n"
     )
     legend = "5 ring + 10 pole-eq\\\\5 cross + 1 pp\\\\\\textbf{21 junctions}"
     return nodes, edges, legend
@@ -122,11 +129,15 @@ def topo_cube8():
     for i, (x, y) in enumerate([(-1.2, 1.2), (1.2, 1.2), (1.2, -1.2), (-1.2, -1.2)]):
         nodes += f"\\node[small alpha] (f{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha$}};\n"
     for i, (x, y) in enumerate([(-2.2, 2.2), (2.2, 2.2), (2.2, -2.2), (-2.2, -2.2)]):
-        nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (b{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+            f" (b{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha$}};\n"
+        )
     edges = (
         "\\draw[neongreen, thick] (f0)--(f1)--(f2)--(f3)--cycle;\n"
         "\\draw[neongreen, thick] (b0)--(b1)--(b2)--(b3)--cycle;\n"
-        "\\draw[neongreen] (f0)--(b0); \\draw[neongreen] (f1)--(b1); \\draw[neongreen] (f2)--(b2); \\draw[neongreen] (f3)--(b3);\n"
+        "\\draw[neongreen] (f0)--(b0); \\draw[neongreen] (f1)--(b1);"
+        " \\draw[neongreen] (f2)--(b2); \\draw[neongreen] (f3)--(b3);\n"
     )
     legend = "12 cube edges\\\\+16 face/body diag.\\\\\\textbf{28 junctions}"
     return nodes, edges, legend
@@ -137,10 +148,16 @@ def topo_bcap10():
     nodes = ""
     for i in range(4):
         angle = 90 * i
-        nodes += f"\\node[small alpha] (l{i}) at ({{CX + 1.5*cos({angle})}}, {{CY + 1.5*sin({angle}) - 0.5}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha] (l{i}) at"
+            f" ({{CX + 1.5*cos({angle})}}, {{CY + 1.5*sin({angle}) - 0.5}}) {{$\\alpha$}};\n"
+        )
     for i in range(4):
         angle = 90 * i + 45
-        nodes += f"\\node[small alpha] (u{i}) at ({{CX + 1.5*cos({angle})}}, {{CY + 1.5*sin({angle}) + 0.5}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha] (u{i}) at"
+            f" ({{CX + 1.5*cos({angle})}}, {{CY + 1.5*sin({angle}) + 0.5}}) {{$\\alpha$}};\n"
+        )
     nodes += (
         "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p1) at (CX, CY+2.5) {$\\alpha_N$};\n"
         "\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (p2) at (CX, CY-2.5) {$\\alpha_S$};\n"
@@ -166,15 +183,22 @@ def topo_cuboct12():
         )
     for i in range(4):
         angle = 90 * i + 45
-        nodes += f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (u{i}) at ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) + 1.2}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (u{i}) at"
+            f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) + 1.2}}) {{$\\alpha$}};\n"
+        )
     for i in range(4):
         angle = 90 * i + 45
-        nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (l{i}) at ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) - 1.2}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (l{i}) at"
+            f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle}) - 1.2}}) {{$\\alpha$}};\n"
+        )
     edges = (
         "\\draw[neongreen, thick] (e0)--(e1)--(e2)--(e3)--cycle;\n"
         "\\draw[neonpurple] (u0)--(u1)--(u2)--(u3)--cycle;\n"
         "\\draw[neonorange] (l0)--(l1)--(l2)--(l3)--cycle;\n"
-        "\\draw[neongreen] (e0)--(u0); \\draw[neongreen] (e1)--(u1); \\draw[neongreen] (e2)--(u2); \\draw[neongreen] (e3)--(u3);\n"
+        "\\draw[neongreen] (e0)--(u0); \\draw[neongreen] (e1)--(u1);"
+        " \\draw[neongreen] (e2)--(u2); \\draw[neongreen] (e3)--(u3);\n"
         "\\draw[neongreen] (e0)--(l0); \\draw[neongreen] (e1)--(l1);\n"
     )
     legend = "12 ring + 8 cross\\\\+46 non-adjacent\\\\\\textbf{66 junctions}"
@@ -183,7 +207,10 @@ def topo_cuboct12():
 
 def topo_icosa13():
     """Cr-52: centered icosahedron (center + 2 pentagons + 2 poles)."""
-    nodes = "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange, minimum size=0.7cm] (c0) at (CX, CY) {$\\alpha_0$};\n"
+    nodes = (
+        "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange, minimum size=0.7cm]"
+        " (c0) at (CX, CY) {$\\alpha_0$};\n"
+    )
     for i in range(5):
         angle = 90 + 72 * i
         nodes += (
@@ -191,7 +218,10 @@ def topo_icosa13():
         )
     for i in range(5):
         angle = 90 + 72 * i + 36
-        nodes += f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (i{i}) at ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle})}}) {{$\\alpha$}};\n"
+        nodes += (
+            f"\\node[small alpha, draw=neonpurple, fill=darkbg!80!neonpurple] (i{i}) at"
+            f" ({{CX + 1.3*cos({angle})}}, {{CY + 1.3*sin({angle})}}) {{$\\alpha$}};\n"
+        )
     nodes += (
         "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (pN) at (CX+2.8, CY) {$\\alpha_p$};\n"
         "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (pS) at (CX-2.8, CY) {$\\alpha_p$};\n"
@@ -212,7 +242,10 @@ def topo_fcc14():
     for i, (x, y) in enumerate([(-2.3, 0.3), (2.3, -0.3), (0.3, 2.3), (-0.3, -2.3)]):
         nodes += f"\\node[small alpha] (c{i+4}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha_c$}};\n"
     for i, (x, y) in enumerate([(0, 1.5), (0, -1.5), (-1.5, 0), (1.5, 0), (0, 0.3), (0, -0.3)]):
-        nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (f{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha_f$}};\n"
+        nodes += (
+            f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+            f" (f{i}) at ({{CX+{x}}}, {{CY+{y}}}) {{$\\alpha_f$}};\n"
+        )
     edges = (
         "\\draw[neongreen, thick] (c0)--(c1)--(c2)--(c3)--cycle;\n"
         "\\draw[neonorange] (f0)--(c0); \\draw[neonorange] (f0)--(c1);\n"
@@ -361,13 +394,20 @@ def make_section_b(elem):
     elif elem["regime"] == "Core+Halo":
         op_color = "neonpurple"
         if isinstance(elem["vr"], (int, float)):
-            op_text = f"{elem['name']}: Core $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$ \\quad (Core inherits parent regime)"
+            op_text = (
+                f"{elem['name']}: Core $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$"
+                " \\quad (Core inherits parent regime)"
+            )
         else:
             op_text = f"{elem['name']}: Below model threshold \\quad (Core+Halo, no avalanche)"
     else:
         op_color = "white"
         op_text = f"{elem['name']}: $V_R/V_{{BR}} = {vr_str} \\implies M = {M_str}$ \\quad (Deep Small Signal)"
 
+    vbr_node = (
+        "\\node[text=neonred, font=\\small, anchor=north] at (0, -2.2)"
+        " {$V_{BR} = 6\\alpha\\hbar c / D_{\\text{intra}} = 3.594$ MeV};"
+    )
     return f"""
 % =====================================================================
 % SECTION B: MILLER AVALANCHE STAGE
@@ -380,7 +420,7 @@ def make_section_b(elem):
 \\draw[white, thick] (2, -1.2) -- (5, -1.2);
 
 \\draw[neonred, dashed, thick] (0, -0.4) -- (0, -2.0);
-\\node[text=neonred, font=\\small, anchor=north] at (0, -2.2) {{$V_{{BR}} = 6\\alpha\\hbar c / D_{{\\text{{intra}}}} = 3.594$ MeV}};
+{vbr_node}
 
 \\node[text=neonorange, font=\\large, draw=neonorange, thick, rounded corners=4pt,
       fill=darkbg, inner sep=6pt] at (0, -3.8)
@@ -409,8 +449,14 @@ def make_section_cd(elem):
         # parent_topo = None  # bulk lint fixup pass
         if "halo_1a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX}, {CY}) {{$\\alpha$}};\n"
-            nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (h0) at ({CX+3}, {CY}) {{$^3\\text{{H}}$}};\n"
-            edges = "\\draw[neonorange, thick, dashed] (c0) -- (h0) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            nodes += (
+                f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+                f" (h0) at ({CX+3}, {CY}) {{$^3\\text{{H}}$}};\n"
+            )
+            edges = (
+                "\\draw[neonorange, thick, dashed] (c0) -- (h0)"
+                " node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            )
             legend = "1 core-halo link\\\\\\textbf{1 junction}"
         elif "halo_2a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX-1.5}, {CY}) {{$\\alpha$}};\n"
@@ -425,8 +471,14 @@ def make_section_cd(elem):
             # Generic core+halo — use parent geometry label
             n_core = n_alpha
             nodes = f"\\node[small alpha, minimum size=1.5cm] (core) at ({CX}, {CY}) {{${n_core}\\alpha$\\\\core}};\n"
-            nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (halo) at ({CX+3.5}, {CY}) {{$^3\\text{{H}}$}};\n"
-            edges = "\\draw[neonorange, thick, dashed] (core) -- (halo) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            nodes += (
+                f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange]"
+                f" (halo) at ({CX+3.5}, {CY}) {{$^3\\text{{H}}$}};\n"
+            )
+            edges = (
+                "\\draw[neonorange, thick, dashed] (core) -- (halo)"
+                " node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            )
             r_halo = elem.get("R_halo", "?")
             legend = f"Core + halo at ${r_halo}d$\\\\\\textbf{{{elem['n_pairs']}+ junctions}}"
 
@@ -466,8 +518,10 @@ def make_section_cd(elem):
       draw=white, dashed, rounded corners=5pt, inner sep=8pt, anchor=north west]
       at (2.5, -7.6) {{
     $M_{{\\text{{nuc}}}} = {n_alpha}\\, M_\\alpha - BE_{{\\text{{net}}}}$\\\\[6pt]
-    $BE_{{\\text{{net}}}} = \\underbrace{{\\displaystyle\\sum_{{i<j}}^{{{elem['n_pairs']}}} 16 \\cdot \\frac{{K}}{{R_{{ij}}}}}}_{{\\ text{{Strong (attractive)}}}}
-                     - \\underbrace{{M \\cdot \\displaystyle\\sum f_{{pp}}\\, \\frac{{\\alpha\\hbar c}}{{R_{{ij}}}}}}_{{\\text{{Coulomb (repulsive)}}}}$\\\\[10pt]
+    $BE_{{\\text{{net}}}} = \\underbrace{{\\displaystyle\\sum_{{i<j}}^{{{elem['n_pairs']}}}
+    16 \\cdot \\frac{{K}}{{R_{{ij}}}}}}_{{\\ text{{Strong (attractive)}}}}
+                     - \\underbrace{{M \\cdot \\displaystyle\\sum f_{{pp}}\\,
+    \\frac{{\\alpha\\hbar c}}{{R_{{ij}}}}}}_{{\\text{{Coulomb (repulsive)}}}}$\\\\[10pt]
     \\textcolor{{neongreen}}{{Strong:}} $\\sum K/R$ = engine-derived\\\\
     \\textcolor{{neonred}}{{Coulomb:}} $\\sum \\alpha\\hbar c/R \\times f_{{pp}}$\\\\
     \\textcolor{{neonorange}}{{Miller:}} $M = {M_str}$ ($V_R/V_{{BR}} = {vr_str}$)\\\\[4pt]

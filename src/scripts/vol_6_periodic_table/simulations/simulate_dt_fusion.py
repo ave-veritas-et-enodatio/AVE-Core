@@ -4,7 +4,6 @@ import pathlib
 # Ensure the core framework is in PATH
 from periodic_table.simulations.spice_exporter import generate_fusion_netlist
 
-
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 

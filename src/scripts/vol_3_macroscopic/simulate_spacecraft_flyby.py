@@ -144,14 +144,16 @@ print("  NEAR (1998):")
 print(f"    Empirical Target:   +{near_empirical_anomaly:.2f} mm/s")
 near_topo_dv_mms = near_topo_dv * 1000.0
 print(
-    f"    AVE Sagnac Solver:  +{near_topo_dv_mms:.2f} mm/s  (Error: {abs(near_topo_dv_mms-near_empirical_anomaly)/near_empirical_anomaly:.2%})"
+    f"    AVE Sagnac Solver:  +{near_topo_dv_mms:.2f} mm/s"
+    f"  (Error: {abs(near_topo_dv_mms-near_empirical_anomaly)/near_empirical_anomaly:.2%})"
 )
 
 print("\n  Galileo (1990):")
 print(f"    Empirical Target:   +{gal_empirical_anomaly:.2f} mm/s")
 gal_topo_dv_mms = gal_topo_dv * 1000.0
 print(
-    f"    AVE Sagnac Solver:  +{gal_topo_dv_mms:.2f} mm/s  (Error: {abs(gal_topo_dv_mms-gal_empirical_anomaly)/gal_empirical_anomaly:.2%})"
+    f"    AVE Sagnac Solver:  +{gal_topo_dv_mms:.2f} mm/s"
+    f"  (Error: {abs(gal_topo_dv_mms-gal_empirical_anomaly)/gal_empirical_anomaly:.2%})"
 )
 
 print("\nCONCLUSION:")

@@ -20,7 +20,8 @@ tex_h1 = r"""\documentclass[tikz,border=15pt]{standalone}
         \node at (1, -2.5) {Orbital Phase Tank ($3_1$)};
     \end{scope}
 
-    \draw[<->, dashed, blue, thick] (2.2,-0.5) -- (5.8,-0.5) node[midway, above] {$M_{orbit} \propto \frac{1}{r_{Bohr}}$};
+    \draw[<->, dashed, blue, thick] (2.2,-0.5) -- (5.8,-0.5)
+        node[midway, above] {$M_{orbit} \propto \frac{1}{r_{Bohr}}$};
 
     \node at (4, 2.5) {\Large \textbf{Hydrogen-1 (Protium) AVE Circuit}};
 \end{tikzpicture}

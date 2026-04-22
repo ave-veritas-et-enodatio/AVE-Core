@@ -168,9 +168,12 @@ def generate_string_mapping():
         0.05,
         r"$\mathbf{The\ String\ Theory\ Isomorphism}$"
         + "\n"
-        + "String theory's 1D continuous vibrating filaments identically represent the 1D acoustic phase flux connecting discrete LC array nodes.\n"
-        + "String 'Tension' maps exactly to spatial Capacitance ($C$), while String 'Mass Density' maps exactly to nodal Inductance ($L$).\n"
-        + "This strict discrete FDTD transmission logic generates identical waveform symmetries to M-Theory without positing unobservable 11D bulk dimensions.",
+        + "String theory's 1D continuous vibrating filaments identically represent the 1D acoustic phase flux"
+        + " connecting discrete LC array nodes.\n"
+        + "String 'Tension' maps exactly to spatial Capacitance ($C$), while String 'Mass Density' maps"
+        + " exactly to nodal Inductance ($L$).\n"
+        + "This strict discrete FDTD transmission logic generates identical waveform symmetries to M-Theory"
+        + " without positing unobservable 11D bulk dimensions.",
         ha="center",
         va="center",
         color="white",

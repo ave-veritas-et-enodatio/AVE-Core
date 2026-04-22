@@ -8,6 +8,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
@@ -98,7 +99,8 @@ def simulate_bullet_cluster_fdtd():
 
         if i == 0:
             ax.set_title(
-                "First-Principles Bullet Cluster Topo-Lensing Crossing\nDriven entirely by absolute constants (G, m_e, ALPHA)",
+                "First-Principles Bullet Cluster Topo-Lensing Crossing"
+                "\nDriven entirely by absolute constants (G, m_e, ALPHA)",
                 pad=15,
             )
             ax.legend(loc="upper right")

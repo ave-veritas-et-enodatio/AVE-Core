@@ -331,25 +331,32 @@ def main():
     print(f"  {'Observable':<28} {'AVE':>12} {'Exp':>12} {'Error':>8}  Source")
     print(f"  {'─'*68}")
     print(
-        f"  {'Speed of sound (25°C)':<28} {results['speed_of_sound'][0]:>10.1f} m/s {EXP_SPEED_OF_SOUND_25C:>8.1f} m/s {results['speed_of_sound'][2]:>+7.1f}%  Ax1"
+        f"  {'Speed of sound (25°C)':<28} {results['speed_of_sound'][0]:>10.1f} m/s"
+        f" {EXP_SPEED_OF_SOUND_25C:>8.1f} m/s {results['speed_of_sound'][2]:>+7.1f}%  Ax1"
     )
     print(
-        f"  {'T(ρ_max)':<28} {results['t_density_max'][0]:>10.2f} °C  {EXP_T_DENSITY_MAX:>8.2f} °C  {results['t_density_max'][2]:>+7.2f}°C Ax2"
+        f"  {'T(ρ_max)':<28} {results['t_density_max'][0]:>10.2f} °C"
+        f"  {EXP_T_DENSITY_MAX:>8.2f} °C  {results['t_density_max'][2]:>+7.2f}°C Ax2"
     )
     print(
-        f"  {'Melting point':<28} {results['melting_point'][0]:>10.2f} K   {EXP_MELTING_POINT:>8.2f} K   {results['melting_point'][2]:>+7.1f}%  Ax1+Op4"
+        f"  {'Melting point':<28} {results['melting_point'][0]:>10.2f} K"
+        f"   {EXP_MELTING_POINT:>8.2f} K   {results['melting_point'][2]:>+7.1f}%  Ax1+Op4"
     )
     print(
-        f"  {'ΔH_vap':<28} {results['delta_H_vap'][0]/1e3:>10.2f} kJ/mol {EXP_DELTA_H_VAP/1e3:>5.2f} kJ/mol {results['delta_H_vap'][2]:>+7.1f}%  Op4"
+        f"  {'ΔH_vap':<28} {results['delta_H_vap'][0]/1e3:>10.2f} kJ/mol"
+        f" {EXP_DELTA_H_VAP/1e3:>5.2f} kJ/mol {results['delta_H_vap'][2]:>+7.1f}%  Op4"
     )
     print(
-        f"  {'Surface tension (25°C)':<28} {results['surface_tension'][0]*1e3:>10.2f} mN/m {EXP_SURFACE_TENSION_25C*1e3:>6.2f} mN/m {results['surface_tension'][2]:>+7.1f}%  Op3+K4"
+        f"  {'Surface tension (25°C)':<28} {results['surface_tension'][0]*1e3:>10.2f} mN/m"
+        f" {EXP_SURFACE_TENSION_25C*1e3:>6.2f} mN/m {results['surface_tension'][2]:>+7.1f}%  Op3+K4"
     )
     print(
-        f"  {'Boiling point':<28} {results['boiling_point'][0]:>10.2f} K   {EXP_BOILING_POINT:>8.2f} K   {results['boiling_point'][2]:>+7.1f}%  Z ratio"
+        f"  {'Boiling point':<28} {results['boiling_point'][0]:>10.2f} K"
+        f"   {EXP_BOILING_POINT:>8.2f} K   {results['boiling_point'][2]:>+7.1f}%  Z ratio"
     )
     print(
-        f"  {'Specific heat c_p (25°C)':<28} {results['specific_heat'][0]:>10.1f} J/kg·K {EXP_SPECIFIC_HEAT_25C:>6.1f} J/kg·K {results['specific_heat'][2]:>+7.1f}%  K4 modes"
+        f"  {'Specific heat c_p (25°C)':<28} {results['specific_heat'][0]:>10.1f} J/kg·K"
+        f" {EXP_SPECIFIC_HEAT_25C:>6.1f} J/kg·K {results['specific_heat'][2]:>+7.1f}%  K4 modes"
     )
     print(f"{'='*72}")
 
