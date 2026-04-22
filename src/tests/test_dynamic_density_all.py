@@ -6,9 +6,8 @@ from matplotlib.animation import FuncAnimation
 
 from ave.topological.borromean import FundamentalTopologies
 
-
 # The exact EE-Mutual solved coordinates for large clusters
-def get_nucleon_coordinates(Z, A, d=0.85):
+def get_nucleon_coordinates(Z: int, A: int, d: float = 0.85) -> list[tuple[float, float, float]]:
     if Z == 2 and A == 4:
         return [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]
     elif Z == 3 and A == 7:
@@ -41,13 +40,11 @@ def get_nucleon_coordinates(Z, A, d=0.85):
         return alpha_1 + alpha_2 + [(0, 0, 0)]
     return []
 
-
-def get_color(coord, idx, Z):
+def get_color(coord: tuple, idx: int, Z: int) -> str:
     colors = ["#ff3366", "#00ffcc", "#99ffee", "#ff99aa", "#cc66ff", "#ffff66"]
     return colors[idx % len(colors)]
 
-
-def extract_mesh_points(cluster, subsample=30, scale=1.0):
+def extract_mesh_points(cluster: list[dict], subsample: int = 30, scale: float = 1.0) -> list[dict]:
     points = []
     for node in cluster:
         color = node.get("color", "#66ccff")
@@ -57,8 +54,7 @@ def extract_mesh_points(cluster, subsample=30, scale=1.0):
                 points.append({"pos": pt * scale, "color": color, "is_mesh": True})
     return points
 
-
-def generate_element(Z, A):
+def generate_element(Z: int, A: int) -> list[dict]:
     if Z == 1 and A == 1:
         # Protium is a single proton (6^3_2 Borromean link).
         # We extract mesh points to make the knot's chiral geometry animate and spin!
@@ -73,8 +69,7 @@ def generate_element(Z, A):
         nucleons.append({"pos": c, "color": get_color(c, i, Z), "is_mesh": False})
     return nucleons
 
-
-def generate_fermion(name):
+def generate_fermion(name: str) -> list[dict]:
     if name == "electron":
         # The electron is a 0_1 unknot (closed loop).
         raw_mesh = FundamentalTopologies.generate_unknot_0_1(radius=1.0)
@@ -82,9 +77,8 @@ def generate_fermion(name):
         return extract_mesh_points(cluster, subsample=20, scale=0.8)
     return []
 
-
 # ----- Matrix Ops -----
-def rotate_cluster_y(nucleons, angle):
+def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
     c, s = np.cos(angle), np.sin(angle)
     R = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
     rotated = []
@@ -93,9 +87,8 @@ def rotate_cluster_y(nucleons, angle):
         rotated.append({"pos": r_pos, "color": n["color"], "is_mesh": n.get("is_mesh", False)})
     return rotated
 
-
 # ----- Scalar Field -----
-def calculate_vacuum_density(nucleons, X, Y, z_slice=0.0):
+def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarray', z_slice: float = 0.0) -> 'np.ndarray':
     density_field = np.zeros_like(X)
 
     # Scale amplitude down if we are using hundreds of submesh points
@@ -111,9 +104,8 @@ def calculate_vacuum_density(nucleons, X, Y, z_slice=0.0):
         density_field += local_density
     return density_field
 
-
 # ----- Animation -----
-def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_res=100, bound=4.5, frames=90):
+def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title: str, grid_res: int = 100, bound: float = 4.5, frames: int = 90) -> None:
     if not base_cluster:
         return
 
@@ -124,7 +116,7 @@ def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_r
     fig, ax = plt.subplots(figsize=(10, 8))
     fig.patch.set_facecolor("#0f0f0f")
 
-    def update(frame):
+    def update(frame: int) -> None:
         ax.clear()
         ax.set_facecolor("#0f0f0f")
 
@@ -198,7 +190,6 @@ def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_r
     anim.save(out_path, writer="pillow", fps=15, savefig_kwargs={"facecolor": fig.get_facecolor()})
     plt.close()
     print(f"[+] Saved {out_path}")
-
 
 if __name__ == "__main__":
     # Extracted bounds to fix the Lithium-7 crop issue. Outer shell is at 8.26 in X, so R_y swings it to ~11.68.

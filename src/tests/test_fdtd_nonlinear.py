@@ -19,11 +19,10 @@ import pytest
 from ave.core.constants import C_0, V_SNAP
 from ave.core.fdtd_3d import FDTD3DEngine
 
-
 class TestFDTD3DLinearRegime:
     """In the linear limit, the non-linear solver must reproduce standard Maxwell."""
 
-    def test_linear_mode_runs(self):
+    def test_linear_mode_runs(self) -> None:
         """Basic smoke test: linear mode completes without error."""
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=0.01, linear_only=True)
         engine.inject_soft_source("Ez", 5, 5, 5, 1.0)
@@ -31,7 +30,7 @@ class TestFDTD3DLinearRegime:
             engine.step()
         assert engine.timestep == 10
 
-    def test_nonlinear_mode_runs(self):
+    def test_nonlinear_mode_runs(self) -> None:
         """Basic smoke test: non-linear mode completes without error."""
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=0.01, linear_only=False)
         engine.inject_soft_source("Ez", 5, 5, 5, 1.0)
@@ -39,7 +38,7 @@ class TestFDTD3DLinearRegime:
             engine.step()
         assert engine.timestep == 10
 
-    def test_linear_nonlinear_equivalence_weak_field(self):
+    def test_linear_nonlinear_equivalence_weak_field(self) -> None:
         """At very weak fields, linear and non-linear must produce identical results."""
         amplitude = 1.0  # Very small E-field (V/m)
 
@@ -63,7 +62,7 @@ class TestFDTD3DLinearRegime:
             np.abs(engine_lin.Ez)
         ), f"Linear/non-linear diverge at weak field: max diff = {ez_diff:.2e}"
 
-    def test_dipole_symmetry(self):
+    def test_dipole_symmetry(self) -> None:
         """A point source must produce left/right symmetric radiation.
 
         Note: The Yee grid is inherently asymmetric along the polarization
@@ -87,7 +86,7 @@ class TestFDTD3DLinearRegime:
             ratio = right / left
             assert 0.5 < ratio < 2.0, f"Asymmetry detected: ratio = {ratio:.4f}"
 
-    def test_energy_grows_with_source(self):
+    def test_energy_grows_with_source(self) -> None:
         """Total energy must increase when a source is actively injecting."""
         engine = FDTD3DEngine(nx=15, ny=15, nz=15, dx=0.01, linear_only=True)
 
@@ -101,11 +100,10 @@ class TestFDTD3DLinearRegime:
         # Energy should grow while source is active
         assert energies[-1] > energies[5] > 0
 
-
 class TestFDTD3DNonLinearRegime:
     """Tests in the non-linear regime where E-field amplitudes are moderate."""
 
-    def test_nonlinear_diverges_from_linear(self):
+    def test_nonlinear_diverges_from_linear(self) -> None:
         """At strong fields, non-linear mode must differ from linear."""
         # Use a large amplitude that's still safe (well below V_yield / dx)
         amplitude = V_SNAP / (0.01 * 100)  # Significant fraction of yield per cell
@@ -126,7 +124,7 @@ class TestFDTD3DNonLinearRegime:
         ez_diff = np.max(np.abs(engine_lin.Ez - engine_nl.Ez))
         assert ez_diff > 0, "Non-linear should differ from linear at strong fields"
 
-    def test_nonlinear_energy_different(self):
+    def test_nonlinear_energy_different(self) -> None:
         """Non-linear total energy must differ from linear at strong fields."""
         amplitude = V_SNAP / (0.01 * 50)
 
@@ -152,11 +150,10 @@ class TestFDTD3DNonLinearRegime:
         # They should be different (non-linear ε_eff changes the energy density)
         assert energy_lin != energy_nl, f"Energies should differ: linear={energy_lin:.4e}, nonlinear={energy_nl:.4e}"
 
-
 class TestFDTD3DSaturationRegime:
     """Tests near the dielectric saturation limit."""
 
-    def test_strain_tracking(self):
+    def test_strain_tracking(self) -> None:
         """The engine must track the maximum strain ratio for diagnostics."""
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=0.01, linear_only=False)
 
@@ -167,34 +164,32 @@ class TestFDTD3DSaturationRegime:
         # Strain ratio should have been updated
         assert engine.max_strain_ratio >= 0
 
-
 class TestFDTD3DBackwardCompatibility:
     """Ensure the old API still works."""
 
-    def test_old_api_init(self):
+    def test_old_api_init(self) -> None:
         """Old-style initialization (no linear_only arg) must work."""
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=0.01)
         assert engine.linear_only is False
 
-    def test_old_api_step(self):
+    def test_old_api_step(self) -> None:
         """Old step() API must still work."""
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=0.01)
         engine.inject_soft_source("Ez", 5, 5, 5, 1.0)
         engine.step()
         assert engine.timestep == 1
 
-    def test_cfl_condition(self):
+    def test_cfl_condition(self) -> None:
         """CFL dt must satisfy dt < dx / (c * √3)."""
         dx = 0.01
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=dx)
         dt_max = dx / (C_0 * np.sqrt(3.0))
         assert engine.dt <= dt_max
 
-
 class TestFDTD3DEnergyConservation:
     """Test energy conservation and CFL stability."""
 
-    def test_cfl_stability_linear(self):
+    def test_cfl_stability_linear(self) -> None:
         """Linear engine must remain stable over many timesteps (no NaN/Inf)."""
         engine = FDTD3DEngine(nx=20, ny=20, nz=20, dx=0.01, linear_only=True)
 
@@ -211,7 +206,7 @@ class TestFDTD3DEnergyConservation:
         assert np.all(np.isfinite(engine.Hy))
         assert np.all(np.isfinite(engine.Hz))
 
-    def test_cfl_stability_nonlinear(self):
+    def test_cfl_stability_nonlinear(self) -> None:
         """Non-linear engine must remain stable over many timesteps."""
         engine = FDTD3DEngine(nx=20, ny=20, nz=20, dx=0.01, linear_only=False)
 
@@ -224,7 +219,7 @@ class TestFDTD3DEnergyConservation:
         assert np.all(np.isfinite(engine.Hz))
         assert engine.total_field_energy() > 0
 
-    def test_energy_grows_monotonically_during_injection(self):
+    def test_energy_grows_monotonically_during_injection(self) -> None:
         """While actively injecting, total energy should trend upward."""
         engine = FDTD3DEngine(nx=15, ny=15, nz=15, dx=0.01, linear_only=True)
 
@@ -237,7 +232,6 @@ class TestFDTD3DEnergyConservation:
 
         # Final energy should be much larger than initial
         assert energies[-1] > energies[5] * 2.0
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

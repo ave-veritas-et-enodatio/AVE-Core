@@ -1,7 +1,6 @@
 from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
 
-
-def test_fluid_surface_tension():
+def test_fluid_surface_tension() -> None:
     """
     Validates that the parameter-free Vol 7 stereological surface tension
     derivation correctly predicts exactly the experimental surface tension
@@ -22,8 +21,7 @@ def test_fluid_surface_tension():
         f"Expected: {gamma_exp} N/m (Err: {error_pct:.2f}%)"
     )
 
-
-def test_surface_tension_thermal_scaling():
+def test_surface_tension_thermal_scaling() -> None:
     """
     Validates that the axiomatic Saturation thermal operator (S = sqrt(1-r^2))
     correctly yields a monotonic decline in surface tension with temperature.

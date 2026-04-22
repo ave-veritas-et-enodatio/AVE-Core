@@ -20,9 +20,8 @@ from matplotlib.animation import FuncAnimation
 from ave.topological.borromean import FundamentalTopologies
 from ave.topological.combiner import NucleonCombiner
 
-
 # ----- Geometric Constructors -----
-def construct_helium_4(shift_distance: float):
+def construct_helium_4(shift_distance: float) -> list[dict]:
     placements = [
         {
             "shift": [shift_distance, shift_distance, shift_distance],
@@ -49,8 +48,7 @@ def construct_helium_4(shift_distance: float):
         NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
     )
 
-
-def construct_lithium_7(shift_distance: float):
+def construct_lithium_7(shift_distance: float) -> list[dict]:
     cs = shift_distance
     os_dist = shift_distance * 2.2
     placements = [
@@ -68,8 +66,7 @@ def construct_lithium_7(shift_distance: float):
         NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
     )
 
-
-def NumericallyEvaluateNucleons(cluster):
+def NumericallyEvaluateNucleons(cluster: list[dict]) -> list[dict]:
     """
     Extracts the Center of Mass (CoM) for each nucleon in the cluster to
     feed the 1/r overlap calculation.
@@ -81,9 +78,8 @@ def NumericallyEvaluateNucleons(cluster):
         nucleons.append({"pos": com, "color": node["color"]})
     return nucleons
 
-
 # ----- Dynamic Matrix Ops -----
-def rotate_cluster_y(nucleons, angle):
+def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
     """
     Rotates the 3D Center of Mass of each nucleon around the Y-axis.
     """
@@ -97,9 +93,8 @@ def rotate_cluster_y(nucleons, angle):
         rotated.append({"pos": r_pos, "color": n["color"]})
     return rotated
 
-
 # ----- Scalar Field Engine -----
-def calculate_vacuum_density(nucleons, X, Y, z_slice=0.0):
+def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarray', z_slice: float = 0.0) -> 'np.ndarray':
     density_field = np.zeros_like(X)
     amplitude = 100.0
     epsilon = 0.5
@@ -113,9 +108,8 @@ def calculate_vacuum_density(nucleons, X, Y, z_slice=0.0):
 
     return density_field
 
-
 # ----- Animation Engine -----
-def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_res=150, bound=4.5, frames=180):
+def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title: str, grid_res: int = 150, bound: float = 4.5, frames: int = 180) -> None:
     """
     Animates the continuous streamplot deformation as the knot cluster rotates.
     """
@@ -127,7 +121,7 @@ def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_r
     fig, ax = plt.subplots(figsize=(10, 8))
     fig.patch.set_facecolor("#0f0f0f")
 
-    def update(frame):
+    def update(frame: int) -> None:
         ax.clear()
         ax.set_facecolor("#0f0f0f")
 
@@ -212,7 +206,6 @@ def generate_dynamic_flux_gif(base_cluster, output_name: str, title: str, grid_r
     anim.save(out_path, writer="pillow", fps=15, savefig_kwargs={"facecolor": fig.get_facecolor()})
     plt.close()
     print(f"[*] Successfully saved dynamic flux GIF: {out_path}\n")
-
 
 if __name__ == "__main__":
     # --- Execute Render Queue ---

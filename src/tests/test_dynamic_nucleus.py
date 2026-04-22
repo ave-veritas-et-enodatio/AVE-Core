@@ -17,9 +17,8 @@ from matplotlib.animation import FuncAnimation
 from ave.topological.borromean import FundamentalTopologies
 from ave.topological.combiner import NucleonCombiner
 
-
 # ----- Geometric Constructors -----
-def construct_helium_4(shift_distance: float):
+def construct_helium_4(shift_distance: float) -> list[dict]:
     placements = [
         {
             "shift": [shift_distance, shift_distance, shift_distance],
@@ -46,8 +45,7 @@ def construct_helium_4(shift_distance: float):
     ]
     return NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
 
-
-def construct_lithium_7(shift_distance: float):
+def construct_lithium_7(shift_distance: float) -> list[dict]:
     core_shift = shift_distance
     outer_shift = shift_distance * 2.2
     placements = [
@@ -95,8 +93,7 @@ def construct_lithium_7(shift_distance: float):
     ]
     return NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
 
-
-def create_nucleus_gif(nucleus_cluster, output_name: str, title: str, bound=4.5):
+def create_nucleus_gif(nucleus_cluster: list[dict], output_name: str, title: str, bound: float = 4.5) -> None:
     """
     Renders the static 3D mesh and animates the camera azimuth to output a GIF.
     """
@@ -168,7 +165,7 @@ def create_nucleus_gif(nucleus_cluster, output_name: str, title: str, bound=4.5)
     # 2. Animation Logic
     frames = 180  # Number of frames for 360 rotation
 
-    def update(frame):
+    def update(frame: int) -> None:
         # Calculate angle
         azim = frame * (360.0 / frames)
         # Gentle bobbing on elevation to see "over" the top slightly
@@ -186,7 +183,6 @@ def create_nucleus_gif(nucleus_cluster, output_name: str, title: str, bound=4.5)
     anim.save(out_path, writer="pillow", fps=15, savefig_kwargs={"facecolor": fig.get_facecolor()})
     plt.close()
     print(f"[*] Successfully saved GIF: {out_path}")
-
 
 if __name__ == "__main__":
     # --- Execute Render Queue ---

@@ -9,16 +9,15 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     prove_bounded_enstrophy,
 )
 
-
 class TestKolmogorovCascade:
 
-    def test_nyquist_wavenumber(self):
+    def test_nyquist_wavenumber(self) -> None:
         """Verifies the fundamental Axiom 1 scale separation limit."""
         k_max = lattice_nyquist_wavenumber()
         expected = np.pi / L_NODE
         assert np.isclose(k_max, expected), f"k_max {k_max} != {expected}"
 
-    def test_avalanche_exponent_derivation(self):
+    def test_avalanche_exponent_derivation(self) -> None:
         """Verifies the 38/21 exponent directly derives from Axiom 4 + Poisson ratio."""
         n_3d = avalanche_exponent_3d()
         expected_fraction = 38.0 / 21.0
@@ -29,7 +28,7 @@ class TestKolmogorovCascade:
         # Check empirical 1.8 fit
         assert abs(n_3d - 1.8) / 1.8 < 0.01, "Axiomatic n_3d strayed > 1% from empirical"
 
-    def test_spectrum_scaling(self):
+    def test_spectrum_scaling(self) -> None:
         """
         Verify that E(k) scales classically in the inertial range
         and hits zero strictly above k_max.
@@ -50,7 +49,7 @@ class TestKolmogorovCascade:
         E_high = axiomatic_energy_spectrum(np.array([k_high]), epsilon)[0]
         assert E_high == 0.0, "Energy cascade leaked beyond the Nyquist lattice pitch"
 
-    def test_bounded_enstrophy(self):
+    def test_bounded_enstrophy(self) -> None:
         """
         Verifies that enstrophy is strictly bounded by the structural constraints
         of the lattice logic (Phase 3 resolution to Navier Stokes).
@@ -69,7 +68,7 @@ class TestKolmogorovCascade:
 
         assert np.isclose(Z_bound, expected_Z), "Bounded enstrophy proof violation"
 
-    def test_scale_separation_ratio(self):
+    def test_scale_separation_ratio(self) -> None:
         """Verifies the macroscopic indistinguishability argument."""
         # Water: nu ~ 1e-6, epsilon ~ 1e-3
         nu = 1e-6

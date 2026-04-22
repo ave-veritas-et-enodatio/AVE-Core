@@ -3,8 +3,7 @@ import numpy as np
 from ave.core.constants import E_YIELD
 from ave.regime_4_rupture.caustic_solver import AxiomaticCausticSolver
 
-
-def test_intensity_bounded():
+def test_intensity_bounded() -> None:
     """
     Ensures that as ray optics tries to force infinite intensity (z -> 0),
     the solver correctly bounds E_field at or below E_YIELD,
@@ -35,8 +34,7 @@ def test_intensity_bounded():
     # The final transmitted power must drop significantly for an extreme focus
     assert res["power"][-1] < initial_power
 
-
-def test_caustic_waist():
+def test_caustic_waist() -> None:
     """
     Confirms that at the closest approach to the zero-area geometric point,
     the reflection coefficient Gamma is driven towards 1.0 safely.

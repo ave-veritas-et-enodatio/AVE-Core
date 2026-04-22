@@ -3,8 +3,7 @@ import numpy as np
 from ave.regime_1_linear.fluids_factory import WaterMolecule
 from ave.regime_3_saturated.cavitation_collapse import AxiomaticRayleighPlesset, PayloadConfig
 
-
-def test_sonoluminescence_topological_bounce():
+def test_sonoluminescence_topological_bounce() -> None:
     """
     Validates that the Axiom 4 topological yield limit successfully halts
     the mathematical collapse of the Rayleigh-Plesset equation before infinite

@@ -9,8 +9,6 @@ Reference: src/scripts/claim_graph_validator.py,
            manuscript/predictions.yaml
 """
 
-from __future__ import annotations
-
 from scripts.claim_graph_validator import (
     ALLOWED_TYPES,
     MANIFEST_PATH,
@@ -27,16 +25,14 @@ from scripts.claim_graph_validator import (
     run,
 )
 
-
 def _manifest(entries: list[dict]) -> dict:
     return {"version": 1, "predictions": entries}
-
 
 # ───────────────────────────────────────────────────────────────────────────
 # check_schema
 # ───────────────────────────────────────────────────────────────────────────
 class TestSchema:
-    def test_valid_entry_no_findings(self):
+    def test_valid_entry_no_findings(self) -> None:
         m = _manifest(
             [
                 {
@@ -49,7 +45,7 @@ class TestSchema:
         )
         assert check_schema(m) == []
 
-    def test_missing_required_field_fires(self):
+    def test_missing_required_field_fires(self) -> None:
         m = _manifest([{"id": "P01", "name": "missing-type", "derivation_label": "ch:x"}])
         findings = check_schema(m)
         # At least one finding must flag the missing-field violation; may
@@ -58,7 +54,7 @@ class TestSchema:
         assert len(missing_findings) == 1
         assert missing_findings[0].severity == "critical"
 
-    def test_invalid_type_fires(self):
+    def test_invalid_type_fires(self) -> None:
         m = _manifest(
             [
                 {
@@ -73,7 +69,7 @@ class TestSchema:
         assert len(findings) == 1
         assert findings[0].severity == "critical"
 
-    def test_duplicate_ids_fires(self):
+    def test_duplicate_ids_fires(self) -> None:
         m = _manifest(
             [
                 {
@@ -93,12 +89,11 @@ class TestSchema:
         findings = [f for f in check_schema(m) if "Duplicate" in f.message]
         assert len(findings) == 1
 
-
 # ───────────────────────────────────────────────────────────────────────────
 # check_labels
 # ───────────────────────────────────────────────────────────────────────────
 class TestLabels:
-    def test_resolved_label_no_findings(self):
+    def test_resolved_label_no_findings(self) -> None:
         m = _manifest(
             [
                 {
@@ -112,7 +107,7 @@ class TestLabels:
         findings = check_labels(m, labels={"ch:real", "ch:other"})
         assert findings == []
 
-    def test_unresolved_label_fires(self):
+    def test_unresolved_label_fires(self) -> None:
         m = _manifest(
             [
                 {
@@ -128,7 +123,7 @@ class TestLabels:
         assert findings[0].severity == "critical"
         assert "ch:missing" in findings[0].message
 
-    def test_unresolved_equation_label_is_warn(self):
+    def test_unresolved_equation_label_is_warn(self) -> None:
         m = _manifest(
             [
                 {
@@ -144,12 +139,11 @@ class TestLabels:
         assert len(findings) == 1
         assert findings[0].severity == "warn"
 
-
 # ───────────────────────────────────────────────────────────────────────────
 # check_engine
 # ───────────────────────────────────────────────────────────────────────────
 class TestEngine:
-    def test_matching_symbol_and_value_no_findings(self):
+    def test_matching_symbol_and_value_no_findings(self) -> None:
         m = _manifest(
             [
                 {
@@ -165,7 +159,7 @@ class TestEngine:
         findings = check_engine(m, constants={"Z_0": 376.730313668})
         assert findings == []
 
-    def test_missing_symbol_fires(self):
+    def test_missing_symbol_fires(self) -> None:
         m = _manifest(
             [
                 {
@@ -183,7 +177,7 @@ class TestEngine:
         assert findings[0].severity == "critical"
         assert "BOGUS" in findings[0].message
 
-    def test_numeric_drift_fires(self):
+    def test_numeric_drift_fires(self) -> None:
         m = _manifest(
             [
                 {
@@ -201,7 +195,7 @@ class TestEngine:
         assert findings[0].severity == "critical"
         assert "disagrees" in findings[0].message
 
-    def test_symbol_without_value_is_info(self):
+    def test_symbol_without_value_is_info(self) -> None:
         m = _manifest(
             [
                 {
@@ -218,7 +212,7 @@ class TestEngine:
         assert len(findings) == 1
         assert findings[0].severity == "info"
 
-    def test_entry_without_symbol_skipped(self):
+    def test_entry_without_symbol_skipped(self) -> None:
         m = _manifest(
             [
                 {
@@ -231,18 +225,17 @@ class TestEngine:
         )
         assert check_engine(m, constants={}) == []
 
-
 # ───────────────────────────────────────────────────────────────────────────
 # End-to-end: live manifest + live repo
 # ───────────────────────────────────────────────────────────────────────────
 class TestLiveManifest:
-    def test_manifest_loads(self):
+    def test_manifest_loads(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         assert "predictions" in m
         assert isinstance(m["predictions"], list)
         assert len(m["predictions"]) > 0
 
-    def test_manifest_schema_clean(self):
+    def test_manifest_schema_clean(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         findings = check_schema(m)
         criticals = [f for f in findings if f.severity == "critical"]
@@ -250,7 +243,7 @@ class TestLiveManifest:
             f"  [{f.severity}] P={f.entry_id} {f.message}" for f in criticals
         )
 
-    def test_manifest_labels_resolve(self):
+    def test_manifest_labels_resolve(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         labels = collect_manuscript_labels(REPO_ROOT)
         findings = check_labels(m, labels=labels)
@@ -259,7 +252,7 @@ class TestLiveManifest:
             f"  P={f.entry_id} {f.message}" for f in criticals
         )
 
-    def test_manifest_engine_agrees(self):
+    def test_manifest_engine_agrees(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         constants = collect_constants_symbols()
         findings = check_engine(m, constants=constants)
@@ -268,7 +261,7 @@ class TestLiveManifest:
             f"  P={f.entry_id} {f.message}" for f in criticals
         )
 
-    def test_readme_parity(self):
+    def test_readme_parity(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         findings = check_readme_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
@@ -279,7 +272,7 @@ class TestLiveManifest:
             f"  {f.message}" for f in warns
         )
 
-    def test_living_reference_parity(self):
+    def test_living_reference_parity(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         findings = check_living_reference_parity(m)
         warns = [f for f in findings if f.severity == "warn"]
@@ -291,7 +284,7 @@ class TestLiveManifest:
             f"  {f.message}" for f in warns
         )
 
-    def test_living_reference_parser_finds_rows(self):
+    def test_living_reference_parser_finds_rows(self) -> None:
         # Sanity: the parser returns a non-empty list on the live doc.
         rows = extract_living_reference_prediction_rows()
         assert len(rows) >= 40, f"Expected ≥40 LIVING_REFERENCE prediction rows, got {len(rows)}"
@@ -300,19 +293,18 @@ class TestLiveManifest:
             assert row_id, "row_id should not be empty"
             assert name, "name should not be empty"
 
-    def test_all_entries_use_allowed_types(self):
+    def test_all_entries_use_allowed_types(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         for entry in m["predictions"]:
             assert entry["type"] in ALLOWED_TYPES, f"Entry {entry['id']} uses unknown type: {entry['type']}"
 
-    def test_all_entries_have_unique_ids(self):
+    def test_all_entries_have_unique_ids(self) -> None:
         m = load_manifest(MANIFEST_PATH)
         ids = [e["id"] for e in m["predictions"]]
         assert len(ids) == len(set(ids)), f"Duplicate IDs: {ids}"
 
-
 class TestOrchestration:
-    def test_run_with_all_checks(self):
+    def test_run_with_all_checks(self) -> None:
         findings = run()
         # Same assertion as above but via the top-level `run()` entry point.
         criticals = [f for f in findings if f.severity == "critical"]
@@ -320,7 +312,7 @@ class TestOrchestration:
             f"  [{f.check}] P={f.entry_id} {f.message}" for f in criticals
         )
 
-    def test_run_selective_check(self):
+    def test_run_selective_check(self) -> None:
         findings = run(checks=["schema"])
         # schema-only on a valid manifest should have no criticals
         criticals = [f for f in findings if f.severity == "critical"]

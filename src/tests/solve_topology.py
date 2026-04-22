@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 from vol_6_periodic_table.simulations.simulate_element import M_N_RAW, M_P_RAW
 
@@ -6,8 +8,7 @@ K_MUTUAL = 11.3378
 
 d = 0.85  # Topological nodal offset (fm)
 
-
-def solve_topology_for_mass(Z, A, empirical_mass_mev, nodes_generator):
+def solve_topology_for_mass(Z: int, A: int, empirical_mass_mev: float, nodes_generator: Any) -> float:
     """
     Reverse-engineers the required internal spatial arrangement of a given topology
     to match the empirical CODATA mass defect.
@@ -45,13 +46,11 @@ def solve_topology_for_mass(Z, A, empirical_mass_mev, nodes_generator):
     print(f"Resulting Binding Energy: {best_be:.3f} MeV (Error: {min_error:.4f} MeV)\n")
     return best_param
 
-
 # --- Carbon-12 (3 Alpha Ring) ---
 # Carbon-12 mass from CODATA
 CARBON_12_MASS_MEV = 11174.862
 
-
-def carbon_12_ring(ring_radius):
+def carbon_12_ring(ring_radius: float) -> list[tuple[float, float, float]]:
     """
     Carbon-12 is 3 Alpha particles arranged in an equilateral triangle/ring.
     The parameter is the distance from the center to each Alpha core.
@@ -69,7 +68,6 @@ def carbon_12_ring(ring_radius):
             nodes.append((n[0] + cx, n[1] + cy, n[2] + cz))
 
     return nodes
-
 
 if __name__ == "__main__":
     r_carbon = solve_topology_for_mass(6, 12, CARBON_12_MASS_MEV, carbon_12_ring)
