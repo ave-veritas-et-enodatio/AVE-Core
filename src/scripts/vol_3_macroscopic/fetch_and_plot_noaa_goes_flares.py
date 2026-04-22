@@ -1,11 +1,11 @@
 """
 AVE Empirical Validation: NOAA GOES Satellite vs. Topological Solar Weather
 ======================================================
-This script fetches empirical historical solar flare data (X-ray fluxes) 
-and overlays the actual occurrence of X-Class and M-Class flares against 
+This script fetches empirical historical solar flare data (X-ray fluxes)
+and overlays the actual occurrence of X-Class and M-Class flares against
 the theoretical Macroscopic I-V FWHM (0.46 Years) derived by the AVE Solar Diode model.
 
-We use sunspot numbers or known solar cycle maxima (e.g., Cycle 23, 24, 25) 
+We use sunspot numbers or known solar cycle maxima (e.g., Cycle 23, 24, 25)
 as the proxy for the macroscopic Dynamo Voltage (V).
 """
 

@@ -3,18 +3,18 @@ Bipolar Junction Transistor (BJT) Mechanics — AVE First Principles
 ==================================================================
 
 Models NPN and PNP Transistors purely as dual-barrier Topo-Kinematic
-Coupled Cavities. 
+Coupled Cavities.
 
-In classical physics, Current Gain (\beta or h_FE) is calculated using 
-diffusion equations of minority carriers. In AVE, it is strictly the 
-geometric ratio of the forward longitudinal transmission line (T^2) 
-against the orthogonal recombination defect leakage (1 - T^2), 
+In classical physics, Current Gain (\beta or h_FE) is calculated using
+diffusion equations of minority carriers. In AVE, it is strictly the
+geometric ratio of the forward longitudinal transmission line (T^2)
+against the orthogonal recombination defect leakage (1 - T^2),
 integrated across the discrete number of alpha-cluster hops (N_gap).
 
-Because Emitters are typically heavily doped (N_E+) compared to the 
+Because Emitters are typically heavily doped (N_E+) compared to the
 Base (N_B-), their structural Avalanche Multipliers (Miller M) offset,
-creating a deliberate topological impedance mismatch (Z_E != Z_B). This 
-mismatch chokes T^2 off from perfect 1.000, forcing \beta into physically 
+creating a deliberate topological impedance mismatch (Z_E != Z_B). This
+mismatch chokes T^2 off from perfect 1.000, forcing \beta into physically
 realistic bounds (~50 to 300) governed strictly by pure geometry.
 """
 

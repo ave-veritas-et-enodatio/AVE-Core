@@ -2,13 +2,13 @@ r"""
 AVE MODULE 56b: TIME-DOMAIN IMPEDANCE MATCHING (WAVE COMPRESSION)
 ---------------------------------------------------------
 Models an analog gravity well as a Tapered LC Transmission Line.
-Proves that because gravity compresses the condensate volume, it increases 
+Proves that because gravity compresses the condensate volume, it increases
 both Inductance (\mu) and Capacitance (\epsilon) proportionally.
-Therefore, Characteristic Impedance Z_0 = \sqrt{L/C} remains perfectly 
-invariant. 
+Therefore, Characteristic Impedance Z_0 = \sqrt{L/C} remains perfectly
+invariant.
 
-Visualizes the time-domain wave: Light physically compresses its 
-wavelength (Relativistic Shift) inside the well on a LINEAR grid, 
+Visualizes the time-domain wave: Light physically compresses its
+wavelength (Relativistic Shift) inside the well on a LINEAR grid,
 but NEVER generates a backward reflected signal.
 """
 

@@ -17,14 +17,14 @@ Inputs (from Axioms 1-3):
 Step 1: CHIRAL SCREENING THRESHOLD
     The chiral SRS/K4 lattice acts as a high-pass filter on torsional
     mode coupling (Chapter 3, chiral dispersion: ω² = c²k² ∓ γ_c k).
-    
+
     To couple two torsional modes with crossing number difference Δc,
     the lattice must transfer Δc units of torsional angular momentum.
     Each K4 node has 3 bonds, so the maximum single-interaction transfer
     is 3 units:
-    
+
         Δc_crit = 3  (K4 connectivity = trefoil crossing number)
-    
+
     Modes with Δc ≤ 3: compliance channel OPEN  (bulk coupling)
     Modes with Δc > 3:  compliance channel SCREENED  (evanescent)
 
@@ -32,28 +32,28 @@ Step 2: REGIME BOUNDARY EIGENVALUES IN MODE SPACE
     Apply the same 5-step regime-boundary eigenvalue method used for
     black hole QNMs, atomic orbitals, and protein bond angles — but
     in crossing-number space instead of physical space.
-    
+
     The eigenvalue ratio at each boundary:
         ω = ℓ · c / r_eff   →   sin²θ = Δc / c_mode
-    
+
     Three distinct regime boundary conditions:
-    
+
     (a) COMPLIANCE REGIME (ν₁↔ν₂, Δc=2 < 3):
         sin²θ₁₂ = Δc/c₂ = 2/7  (= ν_vac — the compliance eigenvalue)
         The spacing-to-mode ratio IS the Poisson ratio.  This is
         not coincidence: the crossing numbers 5,7,9 are spaced by
         exactly Δc=2 BECAUSE the lattice compliance is 2/7.
-    
+
     (b) IMPEDANCE-MATCHED REGIME (ν₂↔ν₃, c₂ = midpoint):
         c₂ = (c₁+c₃)/2 = 7  (arithmetic mean of boundary modes)
         At the midpoint: Z_left = Z_right → Γ = 0 → power splits 50/50:
         sin²θ₂₃ = 1/2  (maximal mixing at impedance-matched boundary)
-    
+
     (c) SCREENED REGIME (ν₁↔ν₃, Δc=4 > 3):
         Compliance channel is evanescent.  Only perturbative junction
         coupling survives:
         sin²θ₁₃ = 1/(c₁·c₃) = 1/45
-        
+
         Physical mechanism: coupling requires leaving at one of c₁'s
         crossings AND entering at one of c₃'s crossings.  Normalized
         by the total junction pair count: c₁×c₃ = 45.  This is the
@@ -62,20 +62,20 @@ Step 2: REGIME BOUNDARY EIGENVALUES IN MODE SPACE
 Step 3: PERTURBATIVE JUNCTION CORRECTIONS
     The perturbative junction coupling 1/(c₁c₃) = 1/45 adds to
     each mixing angle as an evanescent tail:
-    
+
         sin²θ₁₂ = ν_vac + 1/(c₁c₃)  = 2/7 + 1/45  = 97/315
         sin²θ₂₃ = 1/2   + 2/(c₁c₃)  = 1/2 + 2/45  = 49/90
         sin²θ₁₃ =         1/(c₁c₃)  =       1/45
-    
+
     The factor of 2 in θ₂₃ arises because the middle mode (c₂=7)
     has TWO adjacent junction paths (toward c₁ and toward c₃).
 
 Step 4: CP PHASE
     The CP-violating phase accumulates three contributions as the
     torsional mode propagates through the chiral K4 lattice:
-    
+
         δ_CP = (1 + 1/3 + 1/45) π = 61π/45
-    
+
     (a) 1·π:   Base torsional half-turn (unknot 0₁ phase winding)
     (b) π/3:   One K4 bond's share of the chirality (3-connected lattice).
                Equivalently, 1/c_trefoil: the trefoil has c=3 crossings
@@ -85,7 +85,7 @@ Step 4: CP PHASE
 Step 5: CKM MATRIX (Scale Invariance)
     The CKM mixing matrix follows the same mechanism at the quark scale,
     with the Wolfenstein parameterization:
-    
+
         λ  = sin²θ_W  = 2/9    (compliance eigenvalue at the EW scale)
         A  = cosθ_W    = √(7/9) (complementary sector)
         √(ρ²+η²) = 1/√7        (single-mode amplitude on 7-mode manifold)

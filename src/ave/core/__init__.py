@@ -1,7 +1,7 @@
 """
 Applied Vacuum Engineering (AVE) - Unified Physics Engine.
 This core library maps discrete mass geometry and continuum LC network dynamics
-onto a rigorous LC matrix. 
+onto a rigorous LC matrix.
 """
 
 from __future__ import annotations

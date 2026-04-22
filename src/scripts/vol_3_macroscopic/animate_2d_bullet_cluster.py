@@ -1,6 +1,6 @@
 """
 2D Rotating Slice Animation of the Bullet Cluster Merger.
-Proves that Macroscopic Mutual Inductance (Dark Matter) expands radially in 2D space 
+Proves that Macroscopic Mutual Inductance (Dark Matter) expands radially in 2D space
 as derived exactly by the Topological H_INFINITY bound (A0_LATTICE).
 """
 

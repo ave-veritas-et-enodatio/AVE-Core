@@ -89,7 +89,7 @@ The theoretical split between Nuclear Topology and Orbital Knot Topology represe
     \\textbf{{Empirical Target:}} {mass_mev:.3f} MeV\\\\
     \\textbf{{AVE Solved Topology:}} {report['theoretical']:.3f} MeV\\\\
     \\textbf{{Mapping Error:}} {report['error']:.3f}\\%\\\\
-    
+
     \\vspace{{0.5em}}
     \\textit{{Numerical packing bounds the radius scaling against $A={A}$. Core geometry resolves into {z//2} distinct Alpha cores bounded within a spherical Fibonacci matrix.}}
 \\end{{minipage}}

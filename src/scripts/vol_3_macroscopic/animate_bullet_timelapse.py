@@ -1,6 +1,6 @@
 """
 30-Second Bullet Cluster Timelapse.
-Computes a high-fidelity continuous cinematic animation mapping 
+Computes a high-fidelity continuous cinematic animation mapping
 the Linear Superposition offset physics of Macroscopic Lensing haloss.
 """
 

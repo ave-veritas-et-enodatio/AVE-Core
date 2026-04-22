@@ -4,8 +4,8 @@ Deriving Macroscopic Gravity (G) and the Hubble Constant (H_0) from Latent Heat.
 
 In standard Physics, G is an empirical fundamental constant.
 In AVE, G serves only to define the causal boundary of the universe R_H.
-R_H (and therefore G) is determined by the thermodynamic equilibrium where the 
-Latent Heat of spatial crystallization equals the Holographic Radiation Capacity 
+R_H (and therefore G) is determined by the thermodynamic equilibrium where the
+Latent Heat of spatial crystallization equals the Holographic Radiation Capacity
 of the boundary.
 """
 

@@ -3,10 +3,10 @@ r"""
 AVE: Sagnac Kinematic Entrainment Simulator
 ===========================================
 
-This script generates the 5-panel parameter sweep for the Kinematic & Electromagnetic 
+This script generates the 5-panel parameter sweep for the Kinematic & Electromagnetic
 Entrainment Law predicted by the AVE framework (Book 4, Chapter 13).
 
-It models how the macroscopic Sagnac phase shift (\Delta\Phi) deviates from standard 
+It models how the macroscopic Sagnac phase shift (\Delta\Phi) deviates from standard
 relativity based on real-world material and environmental limits:
 1. Mass Density (\rho)
 2. Magnetic Permeability (\mu_r)

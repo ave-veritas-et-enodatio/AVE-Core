@@ -2,19 +2,19 @@
 Saturated Rayleigh-Plesset Cavitation Solver (Regime III/IV Transition)
 ========================================================================
 
-Classical fluid dynamics relies on constant macroscopic properties (density, 
-compressibility). The AVE framework recognizes these as localized linearizations 
+Classical fluid dynamics relies on constant macroscopic properties (density,
+compressibility). The AVE framework recognizes these as localized linearizations
 of the underlying LC metric bounds (Regime I).
 
-During sonoluminescence, a collapsing bubble cavity acts as a geometric 
-strain amplifier. As the shrinking boundary's velocity \\dot{R} approaches the 
+During sonoluminescence, a collapsing bubble cavity acts as a geometric
+strain amplifier. As the shrinking boundary's velocity \\dot{R} approaches the
 lattice metric speed c_0 (speed of sound), the mechanical strain r -> 1.0.
 
-By Axiom 4, the topological yield operator S(A) = sqrt(1 - r^2) triggers a 
+By Axiom 4, the topological yield operator S(A) = sqrt(1 - r^2) triggers a
 divergence in the effective impedance: Z_eff = Z_0 / sqrt(S).
 
-The fluid hits a "Topological Wall" identical to special relativistic 
-velocity bounds. The classical Rayleigh-Plesset equation is updated here 
+The fluid hits a "Topological Wall" identical to special relativistic
+velocity bounds. The classical Rayleigh-Plesset equation is updated here
 with the Axiomatic Topological mass/inertia divergence:
     rho_eff = rho_0 / sqrt(1 - (\\dot{R}/c_0)^2)
 

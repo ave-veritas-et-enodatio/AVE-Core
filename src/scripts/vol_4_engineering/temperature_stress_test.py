@@ -7,14 +7,14 @@ A falsification script specifically testing Topo-Kinematic structural rigidity
 
 Classical Physics asserts:
 V_bi(T) = V_T * ln(N_A*N_D / n_i^2) where V_T = kT/e
-At cryogenic boundaries (T->0), n_i goes to zero and V_T goes to zero, causing 
+At cryogenic boundaries (T->0), n_i goes to zero and V_T goes to zero, causing
 math domain collapse and predicting full dielectric freeze-out.
 
 AVE Physics asserts:
-V_bi(T) is purely a macroscopic transmission boundary explicitly immune to 
-thermal statistics. Heat is strictly interpreted as metric phononic dilation 
-(solid matter volumetrically pulling apart according to alpha_th). 
-Therefore, V_bi MUST remain totally rigid at 0K, only yielding roughly by 
+V_bi(T) is purely a macroscopic transmission boundary explicitly immune to
+thermal statistics. Heat is strictly interpreted as metric phononic dilation
+(solid matter volumetrically pulling apart according to alpha_th).
+Therefore, V_bi MUST remain totally rigid at 0K, only yielding roughly by
 micro-volts directly translating to the fractional geometry shift.
 """
 

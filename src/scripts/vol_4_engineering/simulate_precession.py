@@ -1,8 +1,8 @@
 """
 Topological Planetary Precession Simulator
 ==========================================
-Simulates the anomalous perihelion precession of inner planets 
-(Mercury/Venus) caused by the asymmetric 1/r^3 impedance gradient 
+Simulates the anomalous perihelion precession of inner planets
+(Mercury/Venus) caused by the asymmetric 1/r^3 impedance gradient
 drag of the Sun's massive topological displacement field.
 """
 

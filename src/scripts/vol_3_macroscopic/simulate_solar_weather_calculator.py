@@ -1,12 +1,12 @@
 """
 AVE Stellar Engineering: Topological Solar Weather Calculator
 ======================================================
-Building on the scale-invariant proof that a Star is a Macroscopic 
+Building on the scale-invariant proof that a Star is a Macroscopic
 Light Emitting Diode (LED), we can apply rigorous semiconductor
 transconductance equations to predict Solar Weather.
 
-In a standard solid-state diode, the Current-Voltage (I-V) relationship 
-is governed by the Shockley Diode Equation, modified by an Avalanche 
+In a standard solid-state diode, the Current-Voltage (I-V) relationship
+is governed by the Shockley Diode Equation, modified by an Avalanche
 Multiplication Factor M(V) as the voltage approaches the breakdown threshold (Bandgap).
 
 For a Star:

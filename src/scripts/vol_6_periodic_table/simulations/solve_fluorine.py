@@ -1,8 +1,8 @@
 """
 AVE SUBMODULE: FLUORINE-19 TOPOLOGICAL SOLVER
 -------------------------------------------
-Calculates the required macroscopic separation distance (R_halo) between the 
-inert Oxygen-16 core (4 Alphas) and the bound Tritium outer ring 
+Calculates the required macroscopic separation distance (R_halo) between the
+inert Oxygen-16 core (4 Alphas) and the bound Tritium outer ring
 to perfectly match the empirical CODATA mass defect of F-19.
 """
 

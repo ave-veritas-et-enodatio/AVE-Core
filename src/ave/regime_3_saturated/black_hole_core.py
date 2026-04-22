@@ -2,11 +2,11 @@
 Saturated Black Hole Core Solver (Regime III/IV Transition)
 ===========================================================
 
-Classical General Relativity predicts that matter falling into a black hole 
+Classical General Relativity predicts that matter falling into a black hole
 will accelerate indefinitely until reaching a point singularity at r = 0,
 generating infinite curvature, density, and kinetic energy.
 
-The AVE framework substitutes the classical geometric metric with the 
+The AVE framework substitutes the classical geometric metric with the
 Topological LC Vacuum Lattice, which has a finite elastic limit.
 The Axiom 4 principal radial strain for a localized mass is:
     ε_11(r) = 7 * G * M / (c^2 * r)
@@ -15,15 +15,15 @@ This directly bounds the compactness limit of any structure to 2/7 = ν_vac.
 The absolute saturation boundary is:
     r_sat = 7 * G * M / c^2 = 3.5 * r_s
 
-As infalling matter approaches r_sat, the lattice strain ε_11 -> 1.0. 
-The effective topological density and inertial resistance to further 
+As infalling matter approaches r_sat, the lattice strain ε_11 -> 1.0.
+The effective topological density and inertial resistance to further
 compression diverges according to the yield mapping:
     S = sqrt(1 - ε_11^2)
     rho_eff = rho_0 / S^3
 
-This script demonstrates that radial collapse strictly halts at the 
+This script demonstrates that radial collapse strictly halts at the
 saturation topological wall r_sat. The lattice undergoes a phase transition
-(shear modulus G_shear -> 0), preventing matter from generating an 
+(shear modulus G_shear -> 0), preventing matter from generating an
 infinite singularity.
 """
 

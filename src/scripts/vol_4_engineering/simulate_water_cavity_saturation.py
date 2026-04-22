@@ -13,7 +13,7 @@ In Applied Vacuum Engineering (AVE), the explanation is structurally explicit:
 4. When the collapse radius approaches atomic scales (~1 Å), the kinetic energy density
    is deposited against the water molecules at the center.
 5. This physical force translates directly into topological voltage on the underlying LC lattice.
-6. When V_topo crosses the universal Dielectric Yield Limit (V_yield = 43.65 kV), the 
+6. When V_topo crosses the universal Dielectric Yield Limit (V_yield = 43.65 kV), the
    local LC lattice saturates (ε_eff → 0).
 7. The energy has nowhere to go but to rupture the structural impedance, emitting
    broad-spectrum optical photons via Op7 bend loss.

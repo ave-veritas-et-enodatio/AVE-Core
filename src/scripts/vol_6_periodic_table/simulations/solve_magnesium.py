@@ -1,8 +1,8 @@
 """
 AVE SUBMODULE: MAGNESIUM-24 TOPOLOGICAL SOLVER
 ----------------------------------------------
-Calculates the required macroscopic separation distance (R_oct) 
-for the 6-Alpha Octahedral matrix to mathematically match the empirical 
+Calculates the required macroscopic separation distance (R_oct)
+for the 6-Alpha Octahedral matrix to mathematically match the empirical
 CODATA mass defect of Mg-24.
 """
 

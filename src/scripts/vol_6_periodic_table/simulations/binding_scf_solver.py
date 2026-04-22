@@ -7,10 +7,10 @@ iterative self-consistent field (SCF) relaxation.
 PHYSICS:
     In the AVE nonlinear medium, Maxwell's equations become:
         ∇·(ε_eff(|∇Φ|) · ∇Φ) = -ρ_source
-    
+
     Superposition FAILS. The field Φ is not Σ(K/r_i).
     The actual field must be solved self-consistently:
-    
+
     1. Guess Φ⁰ = Σ K/r_i  (bare, linear superposition)
     2. Compute f(r) = √(1 - (Φ(r)/V_ref)²)  (local saturation)
     3. Each nucleon's effective contribution is attenuated by
@@ -20,7 +20,7 @@ PHYSICS:
 
     The coupling energy for pair (i,j) is computed by path integration:
         E(i,j) = K/r × <f(s)>_path   (path-averaged saturation)
-    
+
     where s runs from r_i to r_j and f(s) depends on the self-consistent Φ.
 
 GPU READY: All computations vectorized with JAX.

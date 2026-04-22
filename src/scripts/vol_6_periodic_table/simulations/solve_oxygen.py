@@ -1,8 +1,8 @@
 """
 AVE SUBMODULE: OXYGEN-16 TOPOLOGICAL SOLVER
 -------------------------------------------
-Calculates the required macroscopic separation distance (R_tet) between the 
-four constituent Alpha-particle cores in Oxygen-16 to perfectly match the 
+Calculates the required macroscopic separation distance (R_tet) between the
+four constituent Alpha-particle cores in Oxygen-16 to perfectly match the
 empirical CODATA mass defect (Binding Energy) using purely electrical 1/d_ij coupling.
 """
 

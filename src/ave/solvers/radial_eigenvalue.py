@@ -40,7 +40,7 @@ Each solver step maps to a universal operator:
 
     ¹ The capacitive bias V = −Z·αℏc/r is the nuclear-scale pairwise
       energy.  For the ODE approach this is a coefficient, not a
-      separate function call. 
+      separate function call.
 
     ² Impedance Z_TL = ℏk/m_e appears implicitly in the ODE's k(r)
       term.  The transfer matrix M encodes the distributed impedance

@@ -2,9 +2,9 @@
 AVE MODULE: Regime IV — Black Hole Jets
 =======================================
 Implements the topological shear mechanics at the Event Horizon boundary.
-At the boundary where r = 1.0 (Schwarzschild saturation radius), infalling 
-transverse wave energy cannot penetrate the ruptured interior. The energy 
-is geometrically redirected along the un-ruptured polar axes, resulting in 
+At the boundary where r = 1.0 (Schwarzschild saturation radius), infalling
+transverse wave energy cannot penetrate the ruptured interior. The energy
+is geometrically redirected along the un-ruptured polar axes, resulting in
 the emission of extreme relativistic jets.
 """
 

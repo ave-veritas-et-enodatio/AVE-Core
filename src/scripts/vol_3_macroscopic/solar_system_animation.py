@@ -1,5 +1,5 @@
 """
-Generates an AVE-accurate 2D slice showing the lattice mutual inductance 
+Generates an AVE-accurate 2D slice showing the lattice mutual inductance
 (gravitomagnetic field Bgm) of the inner solar system, animated over time.
 """
 

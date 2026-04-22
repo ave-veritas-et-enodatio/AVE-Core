@@ -2,8 +2,8 @@
 """
 Standard vs. AVE Macroscopic Doping Comparison
 ==============================================
-Direct mathematical execution tracing the classical Fermi-Dirac 
-probabilistic semiconductor approach vs. the geometric, deterministic 
+Direct mathematical execution tracing the classical Fermi-Dirac
+probabilistic semiconductor approach vs. the geometric, deterministic
 Vacuum Circuit Analysis (VCA) matrix.
 """
 

@@ -3,11 +3,11 @@ AVE Mesoscopic Validation Suite
 ===============================
 
 This test suite strictly validates the macroscopic physics models (fluids, condensed matter)
-by confirming they form a CLOSED LOOP with the microscopic AVE axioms. 
+by confirming they form a CLOSED LOOP with the microscopic AVE axioms.
 
-We explicitly forbid validating against "empirical lab data" as it is environmentally 
-contaminated (e.g., specific to Earth's pressure or accidental isotopic history). 
-Instead, we validate mathematically: do the macroscopic states perfectly map back 
+We explicitly forbid validating against "empirical lab data" as it is environmentally
+contaminated (e.g., specific to Earth's pressure or accidental isotopic history).
+Instead, we validate mathematically: do the macroscopic states perfectly map back
 to the Axiom 4 saturation boundaries?
 """
 

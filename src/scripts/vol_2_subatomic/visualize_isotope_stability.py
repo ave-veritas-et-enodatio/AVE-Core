@@ -7,7 +7,7 @@ fissile and U-238 is mostly inert, relying entirely on quantum probability table
 
 By running both nucleon clusters through the exact same Topological Optimizer,
 we can visually see the geometric differences: U-238 converges into a closed,
-stable spherical shell, while U-235 settles with an asymmetrical lattice "cleft" 
+stable spherical shell, while U-235 settles with an asymmetrical lattice "cleft"
 that leaves it structurally vulnerable to incoming thermal neutrons.
 """
 

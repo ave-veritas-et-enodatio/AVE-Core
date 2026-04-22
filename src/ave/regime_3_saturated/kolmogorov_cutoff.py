@@ -2,8 +2,8 @@
 Axiomatic Kolmogorov Turbulence Cutoff
 ======================================
 
-Implements the resolution to the classical continuous Navier-Stokes 
-singularity (the infinite energy cascade) by applying the AVE discrete 
+Implements the resolution to the classical continuous Navier-Stokes
+singularity (the infinite energy cascade) by applying the AVE discrete
 LC lattice properties.
 
 1. The Nyquist cutoff: No eddy can scale below the lattice pitch L_NODE.

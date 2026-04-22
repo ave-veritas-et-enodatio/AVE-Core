@@ -1,9 +1,9 @@
 """
 AVE SUBMODULE: ALUMINUM-27 TOPOLOGICAL SOLVER
 ---------------------------------------------
-Calculates the required macroscopic separation distance (R_halo) 
-between the rigid Magnesium-24 (6-Alpha Octahedron) core and the 
-bound Tritium outer ring to mathematically match the empirical 
+Calculates the required macroscopic separation distance (R_halo)
+between the rigid Magnesium-24 (6-Alpha Octahedron) core and the
+bound Tritium outer ring to mathematically match the empirical
 CODATA mass defect of Al-27.
 """
 

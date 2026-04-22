@@ -1,6 +1,6 @@
 """
 Tabletop Ferromagnetic Bullet Cluster Analogue Design.
-Derives the physical lab requirements (Magnetic field, viscous scaling) bridging 
+Derives the physical lab requirements (Magnetic field, viscous scaling) bridging
 the cosmological Vacuum H_INFINITY bound to a tabletop ferrofluid container.
 """
 

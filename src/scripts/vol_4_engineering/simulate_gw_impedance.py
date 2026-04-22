@@ -2,8 +2,8 @@
 AVE MODULE: Gravitational Wave Impedance (Topological Lattice Strain)
 ---------------------------------------------------------------------
 Evaluates the Macroscopic Moduli Ratio (K/G) of the discrete vacuum.
-In standard fluidics, K/G defines compressibility. 
-In the Topological LC Network, K/G defines the orthogonal impedance ratio 
+In standard fluidics, K/G defines compressibility.
+In the Topological LC Network, K/G defines the orthogonal impedance ratio
 between Volumetric Capacitance (bulk) and Torsional Inductance (shear),
 which bounds the propagation of transverse Gravitational Waves.
 """

@@ -1,8 +1,8 @@
 """
 Topological Geometry Combiner: combiner.py
 -------------------------------------------
-Physics engine module for docking, rotating, and geometrically fusing 
-fundamental topological defects (Protons/Neutrons) into composite 
+Physics engine module for docking, rotating, and geometrically fusing
+fundamental topological defects (Protons/Neutrons) into composite
 Atomic Nuclei (Helium, Lithium, etc.).
 """
 

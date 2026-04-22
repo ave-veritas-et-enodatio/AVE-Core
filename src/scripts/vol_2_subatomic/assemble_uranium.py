@@ -5,7 +5,7 @@ This script replaces supercomputer-scale Lattice QCD solvers.
 By feeding 235 randomized protons and neutrons into the identical
 1/d LC impedance optimizer used for atomic chemistry, the engine
 spontaneously assembles the precise crystalline lattice of Uranium-235.
-We capture the exact optimization history to dynamically animate the 
+We capture the exact optimization history to dynamically animate the
 annealing/synthesis process.
 """
 

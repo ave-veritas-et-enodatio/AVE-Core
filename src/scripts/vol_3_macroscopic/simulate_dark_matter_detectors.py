@@ -2,18 +2,18 @@
 AVE Cosmology: DAMA/LIBRA vs XENON Paradox Simulator
 ======================================================
 For decades, the DAMA/LIBRA solid-crystal detector has claimed to see an annual
-"Dark Matter" signal (peaking in June). Meanwhile, the massive XENON liquid 
+"Dark Matter" signal (peaking in June). Meanwhile, the massive XENON liquid
 detectors have found absolutely zero signal, hitting the 'Neutrino Floor'.
 
 Standard physics assumes DAMA is a false positive because Dark Matter is
 modeled as a collisionless scalar particle.
 
 In the AVE framework, Dark Matter is the transverse, macroscopic sheer-stress of
-the expanding/rotating spatial metric. Through fundamental Mechanics, a transverse 
+the expanding/rotating spatial metric. Through fundamental Mechanics, a transverse
 sheer wave CANNOT couple to a fluid (liquids have zero sheer modulus). It can ONLY
 couple to rigid solid-state lattices via phonon displacement.
 
-This script runs an FDTD sheer-wave simulation passing through two identical 
+This script runs an FDTD sheer-wave simulation passing through two identical
 densities of 'matter':
 1. A rigid Solid Crystal (DAMA) - The sheer wave physically rocks the lattice.
 2. A frictionless Liquid (XENON) - The sheer wave slips cleanly through.

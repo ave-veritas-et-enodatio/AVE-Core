@@ -6,7 +6,7 @@ Derives the nuclear mass and total mesoscopic binding targets mapped
 strictly to the generic Alpha-Coupled Resonator matrix derived
 from Vacuum Circuit Analysis (VCA) axioms.
 
-No curve fits. 14 Protons + 14 Neutrons inherently construct into 
+No curve fits. 14 Protons + 14 Neutrons inherently construct into
 a topologically packed K_N graph of 7 localized alpha knots.
 """
 

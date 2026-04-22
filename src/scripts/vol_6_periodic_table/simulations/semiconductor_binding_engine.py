@@ -6,7 +6,7 @@ Maps standard semiconductor device equations onto nuclear binding:
 
   Strong coupling:  BE_strong = Σ K/r_ij  (bare, all inter-alpha nucleon pairs)
   Coulomb repulsion: BE_coulomb = Σ αℏc/r_ij × f_pp × M(V_R/V_BR)
-  
+
   Miller avalanche: M = 1 / (1 - (V_R/V_BR)^n)
     V_R  = cumulative Coulomb per alpha cluster (reverse voltage)
     V_BR = 6×αℏc/D_INTRA (breakdown = intra-alpha Coulomb capacity)
@@ -41,11 +41,11 @@ Physical Interpretation:
   - Different avalanche threshold (topology determines operating regime)
 
 Equilibrium Inter-Alpha Distance (R):
-  The inter-alpha distance is not a static DC force equilibrium, because 
+  The inter-alpha distance is not a static DC force equilibrium, because
   the entire nucleus exists inside a single saturated lattice node (ℓ_node ≈ 386 fm).
-  Instead, R represents a dynamic AC standing-wave resonance condition. The 
-  topology acts as a coupled cavity resonator (bandpass filter). The solver 
-  finds the distance where the topological phase volume perfectly matches the 
+  Instead, R represents a dynamic AC standing-wave resonance condition. The
+  topology acts as a coupled cavity resonator (bandpass filter). The solver
+  finds the distance where the topological phase volume perfectly matches the
   standing half-wavelengths of the required binding energy (S_11 → 0 impedance matching).
 """
 

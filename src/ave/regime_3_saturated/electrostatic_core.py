@@ -2,17 +2,17 @@
 """
 Electrostatic Point Charge Resolution
 
-This script resolves the classical electromagnetism infinity associated 
-with the self-energy of a point charge ($r \to 0$, $E \to \infty$). 
+This script resolves the classical electromagnetism infinity associated
+with the self-energy of a point charge ($r \to 0$, $E \to \infty$).
 
 Classical electrostatics integrates the spherical 3D energy density
 towards a dimensionless 0D coordinate, causing the energy to diverge. Wait.
-If we bound the spatial integral stringently at the Axiom 1 lattice limit 
+If we bound the spatial integral stringently at the Axiom 1 lattice limit
 ($L_{NODE}$), the 3D isotropic integral yields only $\approx \alpha/2 \, m_e c^2$.
 
 To yield exactly $1.0 \, m_e c^2$, the AVE framework substitutes the 3D isotropic
 core with the exact 1D topological boundary of the $0_1$ Unknot. The electron
-is a closed flux tube of circumference $\ell_{node}$. The energy is simply the 
+is a closed flux tube of circumference $\ell_{node}$. The energy is simply the
 1D electromagnetic string tension integrated along this minimum ropelength.
 
 The classical electrostatic divergence is definitively capped by the topology

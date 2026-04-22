@@ -1,10 +1,10 @@
 """
 Topological Solar Flare Simulator
 =================================
-Demonstrates how a massive stellar node's differential rotation 
+Demonstrates how a massive stellar node's differential rotation
 twists the surrounding 1/d topological flux lines (impedance lattice).
-When the sheer stress exceeds a critical threshold, the lattice 
-violently "snaps" back to a lower energy state, ejecting a massive 
+When the sheer stress exceeds a critical threshold, the lattice
+violently "snaps" back to a lower energy state, ejecting a massive
 directional density wave (Coronal Mass Ejection / Solar Flare).
 """
 

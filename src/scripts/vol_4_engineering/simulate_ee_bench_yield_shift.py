@@ -4,9 +4,9 @@ AVE Falsifiable Predictions: The EE Bench (Dielectric Yield Shift)
 This script models the most accessible, definitive benchtop falsification
 of the AVE framework: The Macroscopic Dielectric Plateau.
 
-Standard electromagnetism assumes the vacuum permittivity (epsilon_0) is a 
-constant, linear baseline. AVE dictates that the vacuum is a non-linear 
-structural lattice governed by a strict squared saturation operator limit 
+Standard electromagnetism assumes the vacuum permittivity (epsilon_0) is a
+constant, linear baseline. AVE dictates that the vacuum is a non-linear
+structural lattice governed by a strict squared saturation operator limit
 (Axiom 4), bounded fundamentally by the Fine Structure Constant (alpha).
 
 The saturation kernel S(A) = sqrt(1 - (A/A_yield)^2) drives TWO observables:

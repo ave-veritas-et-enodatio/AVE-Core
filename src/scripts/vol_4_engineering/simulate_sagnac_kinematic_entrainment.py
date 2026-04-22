@@ -12,14 +12,14 @@ mechanically "grips" and twists the localized LC spatial network.
 Because this is a real structural coupling, we must apply the Electrical Engineering (EE) lens.
 The Sagnac shift is explicitly dictated by:
 1. KINEMATIC IMPEDANCE (Z_k = rho * c): Higher mass density = tighter grip.
-2. MAGNETIC PERMEABILITY (mu_r): The rotor is a moving inductor core. High permeability 
+2. MAGNETIC PERMEABILITY (mu_r): The rotor is a moving inductor core. High permeability
    materials (Iron) cause massive "Vacuum Eddy Currents" compared to paramagnetic materials (Aluminum).
-3. AMBIENT EMI (Background B-Fields): External fields pre-saturate the vacuum LC inductors, 
+3. AMBIENT EMI (Background B-Fields): External fields pre-saturate the vacuum LC inductors,
    altering the local phase velocity limit and causing phase jitter.
 4. ALTITUDE: Ambient gravitational strain lowers the effective vacuum stiffness.
 5. LATITUDE: Earth's own rotating metric slipstream cross-talks with the RLG.
 
-This script numerically sweeps all 5 non-ideal constraints to prove that the Sagnac 
+This script numerically sweeps all 5 non-ideal constraints to prove that the Sagnac
 Effect is fundamentally density, electromagnetic, and gravity dependent.
 """
 

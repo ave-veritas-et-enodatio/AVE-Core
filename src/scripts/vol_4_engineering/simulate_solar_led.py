@@ -1,7 +1,7 @@
 """
 AVE Stellar Engineering: The Solar-LED Macroscopic Photon Simulator
 ======================================================
-Building on the profound realization that a Solar Flare is topologically 
+Building on the profound realization that a Solar Flare is topologically
 identical to a microscopic Photon emission (scale invariance):
 
 If the universe operates on a single continuous LC fabric, a Star is
@@ -9,15 +9,15 @@ not a chaotic plasma soup, it is a MACROSCOPIC SEMICONDUCTOR.
 
 Specifically, the Sun's magnetic field layers act as a forward-biased P-N junction
 (a macroscopic Light Emitting Diode). As magnetic flux twists and accumulates,
-it increases the macroscopic "voltage". When this voltage exceeds the structural 
-"bandgap" (the magnetic yield stress of the vacuum), the topology undergoes 
+it increases the macroscopic "voltage". When this voltage exceeds the structural
+"bandgap" (the magnetic yield stress of the vacuum), the topology undergoes
 Avalanche Breakdown.
 
 The excess strain snaps (recombines), emitting a Macroscopic Photon (a Flare).
 
-This script models solar magnetic flux accumulation using standard solid-state 
-semiconductor physics (Fermi-Dirac statistics & Avalanche Breakdown). 
-It generates a simulated distribution of solar flares and compares it to 
+This script models solar magnetic flux accumulation using standard solid-state
+semiconductor physics (Fermi-Dirac statistics & Avalanche Breakdown).
+It generates a simulated distribution of solar flares and compares it to
 the empirical power-law distribution observed by astrophysicists.
 """
 

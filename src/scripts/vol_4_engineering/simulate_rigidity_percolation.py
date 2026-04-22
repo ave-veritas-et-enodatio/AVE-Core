@@ -3,7 +3,7 @@ AVE Framework: Rigidity Percolation Simulator
 Deriving the Fine-Structure Constant (alpha) from pure graph geometry.
 
 In standard Physics, alpha (~1/137.036) is an empirical constant.
-In AVE, alpha is defined as the geometric packing fraction limit (alpha = p_c / 8*pi) 
+In AVE, alpha is defined as the geometric packing fraction limit (alpha = p_c / 8*pi)
 of a 3D amorphous Chiral LC network transitioning from a fluid to a shear-bearing solid.
 """
 

@@ -5,15 +5,15 @@ K4-TLM: Native AVE Vacuum Lattice Dynamics Simulator
 Transmission Line Matrix method strictly adhering to AVE Axiom 1:
 "The vacuum is an LC resonant network with K4 node topology."
 
-This module abandons the classical FDTD 6-port cubic mappings and Lattice 
-Boltzmann fluid hacks. Instead, it strictly tiles 4-port LC junctions 
+This module abandons the classical FDTD 6-port cubic mappings and Lattice
+Boltzmann fluid hacks. Instead, it strictly tiles 4-port LC junctions
 (tetrahedral embedding) forming a bipartite Diamond lattice.
 
 1. True Topology: Nodes connect to exactly 4 neighbors in tetrahedral formation.
-2. Native Chirality: The bipartite A/B structural embedding naturally twists 
+2. Native Chirality: The bipartite A/B structural embedding naturally twists
    polarization without ad-hoc rotation matrices.
 3. Perfect Energy Conservation: S = 0.5 * 1 - I (exact unitary junction).
-4. Axiom 4 Gravity: Mass is a static topological boundary where S -> 0, causing 
+4. Axiom 4 Gravity: Mass is a static topological boundary where S -> 0, causing
    Lense-Thirring via Op14 non-reciprocal impedance gradients.
 
 All constants derived correctly from `ave.core.constants`.

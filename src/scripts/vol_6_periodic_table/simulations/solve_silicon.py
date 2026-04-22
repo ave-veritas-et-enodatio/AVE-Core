@@ -1,8 +1,8 @@
 """
 AVE SUBMODULE: SILICON-28 TOPOLOGICAL SOLVER
 --------------------------------------------
-Calculates the required macroscopic separation distance (R_bipyr) 
-for the 7-Alpha Pentagonal Bipyramid matrix to mathematically match 
+Calculates the required macroscopic separation distance (R_bipyr)
+for the 7-Alpha Pentagonal Bipyramid matrix to mathematically match
 the empirical CODATA mass defect of Si-28.
 """
 

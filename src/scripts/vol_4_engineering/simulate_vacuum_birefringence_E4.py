@@ -1,28 +1,28 @@
 """
 AVE Falsifiable Predictions: The E^4 Vacuum Birefringence Limit
 ======================================================
-A core distinction between standard Quantum Electrodynamics (QED) and 
-the Applied Vacuum Engineering (AVE) framework is the mathematical 
+A core distinction between standard Quantum Electrodynamics (QED) and
+the Applied Vacuum Engineering (AVE) framework is the mathematical
 nature of the vacuum's optical saturation.
 
-Standard QED mathematically predicts that the refractive index of the 
-vacuum shifts under extreme electric fields strictly proportionally 
+Standard QED mathematically predicts that the refractive index of the
+vacuum shifts under extreme electric fields strictly proportionally
 to E^2 (Euler-Heisenberg Lagrangian).
 
-AVE fundamentally rejects this. In AVE, the vacuum is a rigid LC string 
+AVE fundamentally rejects this. In AVE, the vacuum is a rigid LC string
 network bounded by a squared geometric saturation operator (Axiom 4).
-Taking the Taylor expansion of this physical polynomial limit proves 
-that the macroscopic optical shift is driven heavily by the 4th order 
+Taking the Taylor expansion of this physical polynomial limit proves
+that the macroscopic optical shift is driven heavily by the 4th order
 term (E^4).
 
-This script simulates an ultra-high-Q optical fiber ring resonator 
-placed in a transverse, extreme-voltage DC electric field. 
-By measuring the resonance frequency shift of the cavity under varied 
-E-field strengths, experimentalists can definitively plot the slope. 
+This script simulates an ultra-high-Q optical fiber ring resonator
+placed in a transverse, extreme-voltage DC electric field.
+By measuring the resonance frequency shift of the cavity under varied
+E-field strengths, experimentalists can definitively plot the slope.
 
 If the slope is strictly E^2, QED is validated and AVE is falsified.
-If the non-linear slope hooks upward proportionally to E^4 at extreme 
-gradients, standard QED is falsified and the physical LC node limits 
+If the non-linear slope hooks upward proportionally to E^4 at extreme
+gradients, standard QED is falsified and the physical LC node limits
 of the generic vacuum are proven.
 """
 

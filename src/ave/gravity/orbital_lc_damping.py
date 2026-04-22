@@ -8,9 +8,9 @@ orbital traversal energy fully in the Reactive Power domain (Q).
 
 Due to strictly finite wave-speed propagation (c) of the topological metric,
 binary configurations experience a retardation transit delay. This induces a
-geometric phase slip (delta) between the Voltage and Current. 
+geometric phase slip (delta) between the Voltage and Current.
 
-Because linear dipole radiation is nullified by momentum conservation, the 
+Because linear dipole radiation is nullified by momentum conservation, the
 lowest mode coupling is the quadrupole, causing the slip to scale strictly as (v/c)^5.
 """
 

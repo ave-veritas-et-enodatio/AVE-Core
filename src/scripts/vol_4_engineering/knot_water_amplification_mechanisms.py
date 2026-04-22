@@ -423,7 +423,7 @@ print(
   ─────────────────────────────────────────────────────────────────────
   Use the Marangoni flow as an INDEPENDENT confirmation channel.
   Seed particles (lycopodium powder) float on the water surface.
-  
+
   Phase 1: Shaker OFF, antenna ON → observe Marangoni spiral direction
   Phase 2: Shaker at threshold, antenna ON → observe Faraday pattern
   Phase 3: Switch antenna handedness → observe if pattern flips

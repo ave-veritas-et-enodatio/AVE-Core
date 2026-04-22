@@ -1,7 +1,7 @@
 """
 AVE MODULE: SATURATION-CORRECTED NUCLEAR BINDING ENGINE (JAX)
 ==============================================================
-Implements Axiom 4 dielectric/magnetic saturation in the nuclear 
+Implements Axiom 4 dielectric/magnetic saturation in the nuclear
 mutual coupling model.
 
 PHYSICS:
@@ -13,7 +13,7 @@ PHYSICS:
 
     In Maxwell's equations with a nonlinear medium:
         ∇·(ε_eff(|E|)·E) = ρ
-    
+
     Superposition fails. The effective coupling between pair (i,j)
     depends on the background strain from all OTHER nucleons along
     the coupling path.

@@ -2,8 +2,8 @@
 Phase 2 Astrophysical Falsification: The Geodynamo Back-EMF
 
 Evaluates the planetary magnetic dynamos directly via Vacuum Circuit Analysis (VCA)
-without heuristic convective fluid parameters. Dynamos are strictly treated as 
-Topo-Kinematic Back-EMF induction generators driven by the Gravitomagnetic 
+without heuristic convective fluid parameters. Dynamos are strictly treated as
+Topo-Kinematic Back-EMF induction generators driven by the Gravitomagnetic
 AC motor phase slip (Sagnac sheer).
 """
 

@@ -2,8 +2,8 @@
 Macroscopic Orbital Simulator (Applied Vacuum Engineering)
 ========================================================
 Demonstrates the scale-invariance of the 1/d topological framework.
-Uses a simple N-body Verlet / Euler integrator to evolve a massive 
-central node (Saturn) and N test-mass nodes (ice ring particles) 
+Uses a simple N-body Verlet / Euler integrator to evolve a massive
+central node (Saturn) and N test-mass nodes (ice ring particles)
 over time in 3D space.
 
 ╔══════════════════════════════════════════════════════════════════╗

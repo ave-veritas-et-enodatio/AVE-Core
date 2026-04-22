@@ -5,7 +5,7 @@ Nuclear binding as S₁₁ minimization of a coupled resonator network.
 ALL physics derived from the 4 AVE axioms — zero empirical fits.
 
 AXIOM MAP:
-    Axiom 1 → Each α-cluster is a 4-port LC resonant tank 
+    Axiom 1 → Each α-cluster is a 4-port LC resonant tank
               Vacuum between clusters is a transmission line
     Axiom 2 → Coupling scale K = (5π/2)αℏc/(1-α/3)
               Coulomb repulsion αℏc/r between proton pairs

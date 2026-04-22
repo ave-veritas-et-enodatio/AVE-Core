@@ -1,13 +1,13 @@
 """
 AVE Physical Predictions: Sagnac RLVG System Tolerances
 ======================================================
-The AVE Kinematic and Electromagnetic Entrainment anomalies predict that 
+The AVE Kinematic and Electromagnetic Entrainment anomalies predict that
 the Sagnac phase shift depends on local rotor density, permeability, and ambient strain.
-However, these deviations are exceedingly small (often on the order of 1e-9 to 1e-12 
+However, these deviations are exceedingly small (often on the order of 1e-9 to 1e-12
 radians depending on the physical tabletop setup).
 
 To definitively isolate the AVE topological signature from standard experimental noise,
-a Ring Laser Vacuum Gyroscope (RLVG) must be engineered with extreme precision. 
+a Ring Laser Vacuum Gyroscope (RLVG) must be engineered with extreme precision.
 
 This script models the four most critical hardware tolerance noise floors:
 1. THERMAL EXPANSION (Delta L / L): Changes in the geometric area of the ring.

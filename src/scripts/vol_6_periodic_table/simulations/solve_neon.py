@@ -1,8 +1,8 @@
 """
 AVE SUBMODULE: NEON-20 TOPOLOGICAL SOLVER
 -------------------------------------------
-Calculates the required macroscopic separation distance (R_bipyramid) 
-for the 5 constituent Alpha-particle cores in Neon-20 
+Calculates the required macroscopic separation distance (R_bipyramid)
+for the 5 constituent Alpha-particle cores in Neon-20
 arranged in a Triangular Bipyramid.
 """
 

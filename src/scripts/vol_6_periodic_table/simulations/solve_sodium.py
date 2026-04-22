@@ -1,9 +1,9 @@
 """
 AVE SUBMODULE: SODIUM-23 TOPOLOGICAL SOLVER
 -------------------------------------------
-Calculates the required macroscopic separation distance (R_halo) 
-between the rigid Neon-20 (5-Alpha Bipyramid) core and the 
-bound Tritium outer ring to mathematically match the empirical 
+Calculates the required macroscopic separation distance (R_halo)
+between the rigid Neon-20 (5-Alpha Bipyramid) core and the
+bound Tritium outer ring to mathematically match the empirical
 CODATA mass defect of Na-23.
 """
 

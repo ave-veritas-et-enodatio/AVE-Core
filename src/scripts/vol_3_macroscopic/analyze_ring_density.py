@@ -1,7 +1,7 @@
 """
 Saturn Ring Radial Impedance Analysis
 =====================================
-Analyzes the outputs of the N-Body simulator to prove the emergence 
+Analyzes the outputs of the N-Body simulator to prove the emergence
 of macroscopic topological band gaps (analogous to electron shells).
 """
 

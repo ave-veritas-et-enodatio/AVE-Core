@@ -2,7 +2,7 @@
 simulate_optical_caustic.py
 Volume 4 Engineering: Optical Caustic Resolution Demonstration
 
-This script demonstrates how Axiom 4 saturation boundaries prevent classical 
+This script demonstrates how Axiom 4 saturation boundaries prevent classical
 infinite-intensity focal points. It computes the actual focal intensity using
 the 1D transmission line solver (`AxiomaticCausticSolver`).
 

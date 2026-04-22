@@ -1,6 +1,6 @@
 """
 1D FDTD Simulation of the Bullet Cluster Merger.
-Proves that Macroscopic Mutual Inductance (Dark Matter) permeates and passes 
+Proves that Macroscopic Mutual Inductance (Dark Matter) permeates and passes
 through localized collisions collisionlessly due to LC Network superposition.
 """
 

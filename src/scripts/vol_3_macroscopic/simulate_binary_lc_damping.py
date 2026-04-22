@@ -1,7 +1,7 @@
 """
 Simulate Binary LC Damping (Hulse-Taylor PSR B1913+16)
 
-Calculates the exact Transmission Line Real Power Damping caused by the 
+Calculates the exact Transmission Line Real Power Damping caused by the
 quadrupole phase slip of the vacuum metrics on the Hulse-Taylor binary pulsar.
 
 Provides pure Topo-Kinematic validation of Gravitational Radiation mechanics
