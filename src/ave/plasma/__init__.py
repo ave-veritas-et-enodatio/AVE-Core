@@ -7,7 +7,9 @@ Plasma and superconductor implementations of the universal saturation operator.
 from __future__ import annotations
 
 from ave.plasma.cutoff import ave_plasma_frequency, dielectric_function_ave, electron_density_from_frequency
-from ave.plasma.superconductor import (  # Core saturation functions (magnetic dual of plasma); London penetration depth; Data classes and catalog
+
+# Core saturation functions (magnetic dual of plasma); London penetration depth; Data classes and catalog
+from ave.plasma.superconductor import (
     SC_CATALOG,
     SuperconductorProperties,
     coherence_length,

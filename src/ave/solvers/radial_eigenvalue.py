@@ -1042,149 +1042,149 @@ def _numerical_enclosed_charge(r_grid, psi_grid):
     return np.zeros_like(r_grid)
 
 
-def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
-    """Self-consistent ABCD eigenvalue solver (E2h).
+# def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
+#     """Self-consistent ABCD eigenvalue solver (E2h).
 
-    Iterates the lattice Euler equation:
-      1. Compute 1s density → σ₁ₛ(r)
-      2. ABCD cascade for 2s → E₂ₛ, ψ₂ₛ(r)
-      3. Compute σ₂ₛ(r) from ψ₂ₛ
-      4. Update 1s: each 1s sees Z − σ_other_1s(r) − σ₂ₛ(r)
-      5. Recompute σ₁ₛ from updated 1s density
-      6. Repeat until |ΔE| < tol
+#     Iterates the lattice Euler equation:
+#       1. Compute 1s density → σ₁ₛ(r)
+#       2. ABCD cascade for 2s → E₂ₛ, ψ₂ₛ(r)
+#       3. Compute σ₂ₛ(r) from ψ₂ₛ
+#       4. Update 1s: each 1s sees Z − σ_other_1s(r) − σ₂ₛ(r)
+#       5. Recompute σ₁ₛ from updated 1s density
+#       6. Repeat until |ΔE| < tol
 
-    Zero new physics: same ODE, same ABCD, same Axiom 2.
+#     Zero new physics: same ODE, same ABCD, same Axiom 2.
 
-    Args:
-        Z:            Nuclear charge.
-        n:            Principal winding number of outer electron.
-        l:            Angular winding number (must be 0 for penetration).
-        inner_shells: List of (n_shell, N_a) for inner shells.
-        max_iter:     Maximum iterations.
-        tol:          Convergence tolerance [eV].
+#     Args:
+#         Z:            Nuclear charge.
+#         n:            Principal winding number of outer electron.
+#         l:            Angular winding number (must be 0 for penetration).
+#         inner_shells: List of (n_shell, N_a) for inner shells.
+#         max_iter:     Maximum iterations.
+#         tol:          Convergence tolerance [eV].
 
-    Returns:
-        f_eigen_eV:   Converged eigenvalue [eV].
-        info:   Dict with iteration history.
-    """
-    from scipy.interpolate import interp1d
-    from scipy.optimize import brentq
+#     Returns:
+#         f_eigen_eV:   Converged eigenvalue [eV].
+#         info:   Dict with iteration history.
+#     """
+#     from scipy.interpolate import interp1d
+#     from scipy.optimize import brentq
 
-    N_inner = sum(N_a for _, N_a in inner_shells)
+#     N_inner = sum(N_a for _, N_a in inner_shells)
 
-    # --- Iteration 0: analytic screening (current result) ---
-    def z_net_analytic(r):
-        return _z_net(r, Z, inner_shells)
+#     # --- Iteration 0: analytic screening (current result) ---
+#     def z_net_analytic(r):
+#         return _z_net(r, Z, inner_shells)
 
-    E_prev = radial_eigenvalue_abcd(Z, n, l, inner_shells)
-    history = [E_prev]
+#     E_prev = radial_eigenvalue_abcd(Z, n, l, inner_shells)
+#     history = [E_prev]
 
-    # Build the grid for wavefunction extraction
-    z_outer = max(Z - N_inner, 1.0)
-    r_max = 3.0 * n**2 * A_0 / z_outer
-    r_max = max(r_max, 7.0 * A_0)
+#     # Build the grid for wavefunction extraction
+#     z_outer = max(Z - N_inner, 1.0)
+#     r_max = 3.0 * n**2 * A_0 / z_outer
+#     r_max = max(r_max, 7.0 * A_0)
 
-    for iteration in range(1, max_iter + 1):
-        # --- Extract 2s wavefunction at current eigenvalue ---
-        z_net_current = z_net_analytic if iteration == 1 else z_net_updated
-        r_2s, psi_2s = _extract_wavefunction(E_prev, Z, n, l, z_net_current, N_inner)
-        sigma_2s = _numerical_enclosed_charge(r_2s, psi_2s)
-        sigma_2s_interp = interp1d(r_2s, sigma_2s, bounds_error=False, fill_value=(0.0, 1.0))
+#     for iteration in range(1, max_iter + 1):
+#         # --- Extract 2s wavefunction at current eigenvalue ---
+#         z_net_current = z_net_analytic if iteration == 1 else z_net_updated
+#         r_2s, psi_2s = _extract_wavefunction(E_prev, Z, n, l, z_net_current, N_inner)
+#         sigma_2s = _numerical_enclosed_charge(r_2s, psi_2s)
+#         sigma_2s_interp = interp1d(r_2s, sigma_2s, bounds_error=False, fill_value=(0.0, 1.0))
 
-        # --- Solve each 1s electron with updated screening ---
-        # Each 1s sees: Z − σ_other_1s(r) − σ_2s(r)
-        # For 2 electrons in 1s: each sees 1 other 1s + 1 2s
-        def z_net_1s(r):
-            # Other 1s screening (analytic, Z_eff=Z for unperturbed)
-            sig_other_1s = _enclosed_charge_fraction(r, float(Z))
-            # 2s screening (numerical)
-            sig_2s = float(sigma_2s_interp(r))
-            return max(float(Z) - sig_other_1s - sig_2s, 0.0)
+#         # --- Solve each 1s electron with updated screening ---
+#         # Each 1s sees: Z − σ_other_1s(r) − σ_2s(r)
+#         # For 2 electrons in 1s: each sees 1 other 1s + 1 2s
+#         def z_net_1s(r):
+#             # Other 1s screening (analytic, Z_eff=Z for unperturbed)
+#             sig_other_1s = _enclosed_charge_fraction(r, float(Z))
+#             # 2s screening (numerical)
+#             sig_2s = float(sigma_2s_interp(r))
+#             return max(float(Z) - sig_other_1s - sig_2s, 0.0)
 
-        # Solve 1s ODE to get updated 1s density
-        # n_1s = inner_shells[0][0]  # n=1  # bulk lint fixup pass
-        r_min_1s = 0.005 * A_0
-        r_max_1s = 5.0 * A_0  # 1s decays fast
-        E_1s_J = -float(Z) ** 2 * RY_EV * e_charge  # approximate 1s energy
+#         # Solve 1s ODE to get updated 1s density
+#         # n_1s = inner_shells[0][0]  # n=1  # bulk lint fixup pass
+#         r_min_1s = 0.005 * A_0
+#         r_max_1s = 5.0 * A_0  # 1s decays fast
+#         E_1s_J = -float(Z) ** 2 * RY_EV * e_charge  # approximate 1s energy
 
-        r_1s_grid = np.linspace(r_min_1s, r_max_1s, 500)
-        # Integrate 1s ODE with position-dependent Z_net
-        psi0 = r_min_1s
-        dpsi0 = 1.0
-        from scipy.integrate import solve_ivp
+#         r_1s_grid = np.linspace(r_min_1s, r_max_1s, 500)
+#         # Integrate 1s ODE with position-dependent Z_net
+#         psi0 = r_min_1s
+#         dpsi0 = 1.0
+#         from scipy.integrate import solve_ivp
 
-        def ode_1s(r, y):
-            z = z_net_1s(r)
-            V = -z * ALPHA * HBAR * C_0 / r
-            k_sq = 2.0 * M_E * (E_1s_J + abs(V)) / HBAR**2
-            return [y[1], -k_sq * y[0]]
+#         def ode_1s(r, y):
+#             z = z_net_1s(r)
+#             V = -z * ALPHA * HBAR * C_0 / r
+#             k_sq = 2.0 * M_E * (E_1s_J + abs(V)) / HBAR**2
+#             return [y[1], -k_sq * y[0]]
 
-        sol = solve_ivp(
-            ode_1s,
-            [r_min_1s, r_max_1s],
-            [psi0, dpsi0],
-            t_eval=r_1s_grid,
-            method="RK45",
-            rtol=1e-12,
-            atol=1e-14,
-        )
-        r_1s = sol.t
-        psi_1s = sol.y[0]
+#         sol = solve_ivp(
+#             ode_1s,
+#             [r_min_1s, r_max_1s],
+#             [psi0, dpsi0],
+#             t_eval=r_1s_grid,
+#             method="RK45",
+#             rtol=1e-12,
+#             atol=1e-14,
+#         )
+#         r_1s = sol.t
+#         psi_1s = sol.y[0]
 
-        # Compute updated σ₁ₛ from numerical 1s density
-        sigma_1s_num = _numerical_enclosed_charge(r_1s, psi_1s)
-        sigma_1s_interp = interp1d(r_1s, sigma_1s_num, bounds_error=False, fill_value=(0.0, 1.0))
+#         # Compute updated σ₁ₛ from numerical 1s density
+#         sigma_1s_num = _numerical_enclosed_charge(r_1s, psi_1s)
+#         sigma_1s_interp = interp1d(r_1s, sigma_1s_num, bounds_error=False, fill_value=(0.0, 1.0))
 
-        # --- Build updated z_net for 2s cascade ---
-        N_1s = inner_shells[0][1]  # number of 1s electrons
+#         # --- Build updated z_net for 2s cascade ---
+#         N_1s = inner_shells[0][1]  # number of 1s electrons
 
-        def z_net_updated(r):
-            sig = float(sigma_1s_interp(r))
-            return max(float(Z) - N_1s * sig, 0.0)
+#         def z_net_updated(r):
+#             sig = float(sigma_1s_interp(r))
+#             return max(float(Z) - N_1s * sig, 0.0)
 
-        # --- Solve 2s with updated screening ---
-        E_hi = float(Z) ** 2 * RY_EV / n**2 * 1.05
-        E_lo = z_outer**2 * RY_EV / n**2 * 0.95
+#         # --- Solve 2s with updated screening ---
+#         E_hi = float(Z) ** 2 * RY_EV / n**2 * 1.05
+#         E_lo = z_outer**2 * RY_EV / n**2 * 0.95
 
-        f_hi = _eigenvalue_condition_general(E_hi, Z, n, l, z_net_updated, N_inner)
-        f_lo = _eigenvalue_condition_general(E_lo, Z, n, l, z_net_updated, N_inner)
+#         f_hi = _eigenvalue_condition_general(E_hi, Z, n, l, z_net_updated, N_inner)
+#         f_lo = _eigenvalue_condition_general(E_lo, Z, n, l, z_net_updated, N_inner)
 
-        if f_hi * f_lo > 0:
-            E_scan = np.linspace(E_lo, E_hi, 200)
-            for i in range(len(E_scan) - 1):
-                fa = _eigenvalue_condition_general(E_scan[i], Z, n, l, z_net_updated, N_inner)
-                fb = _eigenvalue_condition_general(E_scan[i + 1], Z, n, l, z_net_updated, N_inner)
-                if fa * fb < 0:
-                    E_lo, E_hi = E_scan[i], E_scan[i + 1]
-                    break
-            else:
-                break  # can't find bracket
+#         if f_hi * f_lo > 0:
+#             E_scan = np.linspace(E_lo, E_hi, 200)
+#             for i in range(len(E_scan) - 1):
+#                 fa = _eigenvalue_condition_general(E_scan[i], Z, n, l, z_net_updated, N_inner)
+#                 fb = _eigenvalue_condition_general(E_scan[i + 1], Z, n, l, z_net_updated, N_inner)
+#                 if fa * fb < 0:
+#                     E_lo, E_hi = E_scan[i], E_scan[i + 1]
+#                     break
+#             else:
+#                 break  # can't find bracket
 
-        E_new = brentq(
-            lambda E: _eigenvalue_condition_general(E, Z, n, l, z_net_updated, N_inner),
-            E_lo,
-            E_hi,
-            xtol=1e-6,
-            rtol=1e-10,
-        )
+#         E_new = brentq(
+#             lambda E: _eigenvalue_condition_general(E, Z, n, l, z_net_updated, N_inner),
+#             E_lo,
+#             E_hi,
+#             xtol=1e-6,
+#             rtol=1e-10,
+#         )
 
-        history.append(E_new)
+#         history.append(E_new)
 
-        if abs(E_new - E_prev) < tol:
-            return E_new, {"iterations": iteration, "history": history, "converged": True}
-        E_prev = E_new
+#         if abs(E_new - E_prev) < tol:
+#             return E_new, {"iterations": iteration, "history": history, "converged": True}
+#         E_prev = E_new
 
-    return E_prev, {"iterations": max_iter, "history": history, "converged": False}
+#     return E_prev, {"iterations": max_iter, "history": history, "converged": False}
 
 
-# ---------------------------------------------------------------------------
-# QUARANTINE: _reflection_phase, _total_phase, radial_eigenvalue
-# These functions are dead code — never called by any test or downstream
-# module. _reflection_phase is a diagnostic. _total_phase and
-# radial_eigenvalue are an alternative eigenvalue path superseded by
-# _eigenvalue_condition() and radial_eigenvalue_abcd().
-# Quarantined 2026-04-06.
-# ---------------------------------------------------------------------------
+# # ---------------------------------------------------------------------------
+# # QUARANTINE: _reflection_phase, _total_phase, radial_eigenvalue
+# # These functions are dead code — never called by any test or downstream
+# # module. _reflection_phase is a diagnostic. _total_phase and
+# # radial_eigenvalue are an alternative eigenvalue path superseded by
+# # _eigenvalue_condition() and radial_eigenvalue_abcd().
+# # Quarantined 2026-04-06.
+# # ---------------------------------------------------------------------------
 
 
 def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
@@ -1216,6 +1216,15 @@ def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
 # ---------------------------------------------------------------------------
 # Step 5: Eigenvalue condition (Op6) — root-finding target
 # ---------------------------------------------------------------------------
+
+
+def _phase_integral(*args, **kwargs):
+    """
+    this implementation disappeared somewhere.
+    """
+    _ = args
+    _ = kwargs
+    raise NotImplementedError
 
 
 def _total_phase(f_eigen_eV, Z, n, l, shells):

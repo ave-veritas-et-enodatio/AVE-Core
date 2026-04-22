@@ -544,7 +544,7 @@ def saturn_ring_gap_model() -> list:
         error_pct = abs(r_pred_km - obs_km) / obs_km * 100
 
         # Saturn's gravitational perturbation at gap
-        F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
+        # F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
         # Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)  # bulk lint fixup pass
 
         gaps.append(

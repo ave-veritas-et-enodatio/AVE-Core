@@ -278,7 +278,7 @@ def scale_invariance_table():
         {
             "property": "Confinement Boundary",
             "electron": f"ℓ_node = {L_NODE:.4e} m",
-            "black_hole": f"r_sat = 7GM/c² ({7 * G * M_SUN / C**2:.2e} m for 1 M☉)",
+            "black_hole": f"r_sat = 7GM/c² ({7 * G * M_SUN / C_0**2:.2e} m for 1 M☉)",
             "relation": "Both are total-reflection boundaries (different mechanisms)",
         },
         {
