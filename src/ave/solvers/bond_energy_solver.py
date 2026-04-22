@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 r"""
 1D FDTD Bond Energy Solver — First-Principles Force Constants
 =============================================================
@@ -30,10 +28,13 @@ Algorithm
 4. Fit E(d) and extract k = d²E/dd² at the minimum
 """
 
+from __future__ import annotations
+
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
 from ave.core.constants import ALPHA, B_SNAP, C_0, EPSILON_0, L_NODE, M_E, MU_0, V_SNAP
+from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
 
 
 class BondFDTD1D:
@@ -298,7 +299,6 @@ def extract_force_constant(d_array, E_array):
 # ═══════════════════════════════════════════════════════════
 # ATOMIC MASSES (CODATA 2018)
 # ═══════════════════════════════════════════════════════════
-from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
 
 NUCLEAR_MASSES = {
     "H": 1.00794 * _DA,

@@ -31,11 +31,7 @@ import os
 import matplotlib
 import numpy as np
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.gridspec import GridSpec  # noqa: E402
-
-from ave.core.constants import (  # noqa: E402
+from ave.core.constants import (
     ALPHA,
     C_0,
     EPSILON_0,
@@ -52,6 +48,10 @@ from ave.core.constants import (  # noqa: E402
     e_charge,
 )
 from ave.core.universal_operators import universal_saturation
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
 
 
 def run_simulation():

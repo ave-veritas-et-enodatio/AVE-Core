@@ -12,9 +12,10 @@ that standard linear acoustics fail to match the observed ~10^-2 m/s offset.
 import time
 
 import numpy as np
+from scipy.spatial.transform import Rotation
 
 from ave.core.constants import GRAVITATIONAL_CONSTANT
-from ave.gravity.hyperbolic_kinematics import compute_hyperbolic_flyby_anomaly
+from ave.gravity.hyperbolic_kinematics import compute_acoustic_sagnac_drag, compute_hyperbolic_flyby_anomaly
 
 # --- Earth Parametric Bounds ---
 # We do not use constants.py M_SUN here because we are explicitly modeling Earth.
@@ -48,8 +49,6 @@ max_anomaly_mms = 0.0
 anomalies = []
 
 np.random.seed(42)  # For reproducible scientific results
-
-from scipy.spatial.transform import Rotation
 
 for i in range(50):
     # Random 3D rotation matrix to fully randomize the periapsis location
@@ -107,8 +106,6 @@ print("=" * 60)
 # ==============================================================================
 # PHASE 1b: TOPO-KINEMATIC SAGNAC-RLVE SHEAR LAYER SOLVER
 # ==============================================================================
-from ave.gravity.hyperbolic_kinematics import compute_acoustic_sagnac_drag
-
 print("\nExecuting Phase 1b: Topo-Kinematic Acoustic Shear Layer Solver...")
 
 # NEAR (1998) Empirical Trajectory Geometric Parameters

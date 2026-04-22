@@ -4,11 +4,11 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.axioms.scale_invariant import epsilon_eff
 from ave.axioms.scale_invariant import impedance as _impedance
 from ave.core.constants import V_YIELD, Z_0
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
 def calculate_effective_permittivity(V_applied):

@@ -34,10 +34,11 @@ Run: PYTHONPATH=src python src/scripts/peer_review/solvent_damping_analysis.py
 import matplotlib
 import numpy as np
 
+from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
+from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
-
-from ave.core.constants import C_0, K_B, XI_TOPO, e_charge  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # DERIVED SOLVENT CONSTANTS (all from axioms + water properties)
@@ -160,8 +161,6 @@ print("§3  S₁₁ SENSITIVITY TO SOLVENT LOADING")
 print("=" * 100)
 
 # Model: simple 5-residue backbone cascade with tunable solvent shunt
-from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
-
 N_RESIDUES = 10
 omegas = np.linspace(0.1, 5.0, 500)  # normalized frequency
 

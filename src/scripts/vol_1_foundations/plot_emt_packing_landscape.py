@@ -9,6 +9,7 @@ Output: assets/sim_outputs/emt_packing_landscape.png
 """
 
 import os
+import shutil
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -162,8 +163,6 @@ plt.close()
 print(f"Saved: {output_path}")
 
 # Also copy to standard location
-import shutil
-
 dst = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs", "emt_packing_landscape.png")
 shutil.copy2(output_path, dst)
 print(f"Copied to: {dst}")

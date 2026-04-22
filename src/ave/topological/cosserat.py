@@ -36,6 +36,7 @@ from __future__ import annotations
 from math import pi, sqrt
 
 from ave.core.constants import ALPHA, ALPHA_S, C_0, HBAR, HIGGS_VEV_MEV, M_E, NU_VAC, P_C, SIN2_THETA_W, e_charge
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 
 # Unit conversion factors from canonical e_charge
 _J_PER_MEV = float(e_charge) * 1e6  # 1 MeV in Joules
@@ -108,8 +109,6 @@ _SIN_THETA_W_PAT: float = sqrt(3.0 / 7.0)  # = 0.65465 (Perpendicular Axis Theor
 # TREE LEVEL: M_W_tree = m_e / (alpha^2 * p_c * sqrt(3/7))
 M_W_TREE: float = M_E / (ALPHA**2 * P_C * _SIN_THETA_W_PAT)  # in kg
 
-from ave.core.constants import NU_VAC
-
 # LOOP CORRECTION (Impedance Mismatch Loss):
 # The W-Boson is a transient, catastrophic excitation. Its energy density
 # immediately exceeds V_yield at the nearest neighbor cell (Axiom 4).
@@ -128,8 +127,6 @@ from ave.core.constants import NU_VAC
 #
 # This is standard transmission line mismatch loss (VCA, Vol 4 Ch. 1),
 # applied to the Axiom 4 saturation boundary. Zero free parameters.
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
-
 Y_sat = build_radial_tree_admittance(depth=1, branch_y=NU_VAC, boundary_y=0.0, coordination_z=4)
 S11_W_BOUND: float = s11_from_y_matrix(Y_sat, port=0, Y0=1.0).real
 MISMATCH_LOSS: float = 1.0 - S11_W_BOUND**2

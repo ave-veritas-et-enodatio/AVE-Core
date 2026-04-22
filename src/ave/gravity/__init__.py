@@ -14,6 +14,8 @@ Key results (Ch. 9):
 
 from __future__ import annotations
 
+import warnings as _warnings
+
 from ave.axioms.scale_invariant import impedance as _impedance
 from ave.axioms.scale_invariant import reflection_coefficient as _reflection_coefficient
 from ave.axioms.scale_invariant import saturation_factor
@@ -281,8 +283,6 @@ def shear_modulus_factor(mass_kg: float, radius_m: float) -> float:
 
 
 # ── Deprecated backward-compatible wrappers ──
-
-import warnings as _warnings
 
 
 def radial_impedance(mass_kg: float, radius_m: float) -> float:

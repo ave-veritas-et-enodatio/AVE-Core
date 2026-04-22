@@ -20,6 +20,11 @@ micro-volts directly translating to the fractional geometry shift.
 
 import math
 
+from ave.condensed.bjt_mechanics import bjt_current_gain
+
+# Topo-Kinematic structural base values
+from ave.condensed.silicon_doping import pn_junction as pn_si
+
 # Empirical constants for Classical failure tracking
 k_B = 8.617333262145e-5  # eV/K
 E_g0 = 1.12  # eV (empirical Si)
@@ -27,11 +32,6 @@ N_A = 1e16
 N_D = 1e16
 N_c = 2.8e19  # approx at 300K
 N_v = 1.04e19  # approx at 300K
-
-from ave.condensed.bjt_mechanics import bjt_current_gain
-
-# Topo-Kinematic structural base values
-from ave.condensed.silicon_doping import pn_junction as pn_si
 
 # Linear phononic thermal expansion (Silicon)
 alpha_th = 2.6e-6  # /K

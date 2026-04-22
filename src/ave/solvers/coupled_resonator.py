@@ -61,6 +61,7 @@ from ave.core.constants import (
     M_N_MEV_TARGET,
     M_P_MEV_TARGET,
     NU_VAC,
+    P_C as _P_C,
     e_charge,
 )
 
@@ -318,8 +319,6 @@ def _shell_config(n_resonators):
         remaining -= count
     return subshells
 
-
-from ave.core.constants import P_C as _P_C
 
 
 def ionization_energy_circuit(Z, n_resonators=None):

@@ -7,15 +7,14 @@ All coordinates sourced from simulate_element.py (which uses ave.core.constants)
 Outputs directly to periodic_table/figures/ for LaTeX inclusion.
 """
 import os
+import pathlib
 
 import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 
 matplotlib.use("Agg")
-import pathlib  # noqa: E402
-
-import matplotlib.pyplot as plt  # noqa: E402
-from periodic_table.simulations.simulate_element import get_nucleon_coordinates
+from periodic_table.simulations.simulate_element import get_nucleon_coordinates  # noqa: E402
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 REPO_ROOT = pathlib.Path(__file__).parent.parent.parent.parent.absolute()

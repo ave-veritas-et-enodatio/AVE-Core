@@ -49,14 +49,8 @@ Outputs → assets/sim_outputs/
 
 import matplotlib
 import numpy as np
-
-matplotlib.use("Agg")
-import os  # noqa: E402
-from pathlib import Path  # noqa: E402
-
-import matplotlib.pyplot as plt  # noqa: E402
-
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+import os
+from pathlib import Path
 
 from scipy.integrate import cumulative_trapezoid
 from scipy.optimize import minimize_scalar
@@ -65,6 +59,11 @@ from scipy.optimize import minimize_scalar
 # All constants from the physics engine — ZERO free parameters
 # ═══════════════════════════════════════════════════════════
 from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True)

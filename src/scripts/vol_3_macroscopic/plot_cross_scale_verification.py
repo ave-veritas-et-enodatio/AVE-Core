@@ -8,6 +8,7 @@ Output: assets/sim_outputs/cross_scale_verification.png
 """
 
 import os
+import shutil
 
 import matplotlib.pyplot as plt
 
@@ -109,8 +110,6 @@ output_path = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outpu
 plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
 plt.close()
 print(f"Saved: {output_path}")
-
-import shutil
 
 dst = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs", "cross_scale_verification.png")
 shutil.copy2(output_path, dst)

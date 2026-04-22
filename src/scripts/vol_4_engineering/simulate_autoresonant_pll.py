@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import odeint
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import V_YIELD
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 # Simulation Parameters for the Spacetime Vacuum Tank
 L_0 = 1e-3  # Baseline Inductance (1 mH)

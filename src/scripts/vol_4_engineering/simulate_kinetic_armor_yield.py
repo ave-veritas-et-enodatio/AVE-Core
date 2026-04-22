@@ -5,11 +5,12 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 
-# --- AVE First-Principles Constants ---
-PHI_AMBIENT = 0.6402  # V_II Fluid (Random Close Packing for uncompressed macroscopic polymer LC)
 from ave.core.constants import (
     N_PHI_PACK as PHI_LIMIT,  # Axiom 1: V_I Solid (Kepler Conjecture Rigid Hexagonal FCC/HCP packing limit)
 )
+
+# --- AVE First-Principles Constants ---
+PHI_AMBIENT = 0.6402  # V_II Fluid (Random Close Packing for uncompressed macroscopic polymer LC)
 
 # Acoustic limits
 Z_FLUID = 1.0  # Base acoustic impedance (normalized)

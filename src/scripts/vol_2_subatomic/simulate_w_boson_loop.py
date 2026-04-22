@@ -13,7 +13,8 @@ Engine files:
 """
 
 
-from ave.core.constants import C_0, e_charge
+from ave.core.constants import C_0, NU_VAC, e_charge
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 from ave.topological.cosserat import M_W_TREE, M_Z_MEV, w_boson_self_consistent_correction
 
 _J_PER_MEV = float(e_charge) * 1e6
@@ -44,9 +45,6 @@ print("  " + "-" * 63)
 sc = w_boson_self_consistent_correction(max_iter=50, tol=1e-12)
 
 # Re-run iteration visibly for display
-from ave.core.constants import NU_VAC
-from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
-
 Z = 4
 Y_origin_base = Z * float(NU_VAC)
 Y_d1 = build_radial_tree_admittance(depth=1, branch_y=NU_VAC, boundary_y=0.0, coordination_z=Z)

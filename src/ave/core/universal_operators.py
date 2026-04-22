@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import jax
 import numpy as np
 
 from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
@@ -642,9 +643,6 @@ def universal_junction_projection_loss(theta, c_crossings=1):
 
     single_crossing_loss = (1.0 - _cos(theta)) / (2.0 * np.pi**2)
     return c_crossings * single_crossing_loss
-
-
-import jax
 
 
 # @jax.jit(static_argnames=['field_type'])  # Removed to fix legacy JAX decorator crash

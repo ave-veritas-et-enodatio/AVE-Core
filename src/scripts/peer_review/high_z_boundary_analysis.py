@@ -16,6 +16,7 @@ Run: PYTHONPATH=src python src/scripts/peer_review/high_z_boundary_analysis.py
 
 import matplotlib
 import numpy as np
+from matplotlib.patches import Patch
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -377,8 +378,6 @@ ax.text(
 )
 
 # Legend
-from matplotlib.patches import Patch
-
 legend_elements = [
     Patch(facecolor="#00ff88", edgecolor="white", label="Analytic (Z≤14)"),
     Patch(facecolor="#4488ff", edgecolor="white", label="Fibonacci (15≤Z≤82)"),
