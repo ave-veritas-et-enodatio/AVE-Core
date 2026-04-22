@@ -5,9 +5,9 @@ and plot the 3D coordinate meshes of the Unknot and Borromean knots.
 """
 
 import os
+from typing import Any
 
 import matplotlib.pyplot as plt
-from typing import Any
 
 from ave.topological.borromean import FundamentalTopologies
 
