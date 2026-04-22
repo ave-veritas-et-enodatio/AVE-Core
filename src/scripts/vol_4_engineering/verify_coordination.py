@@ -10,8 +10,6 @@ Here we compute the actual mean coordination of the over-braced
 Delaunay graph to check physical consistency.
 """
 
-
-
 import numpy as np
 from scipy.spatial import Delaunay
 

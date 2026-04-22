@@ -6,7 +6,6 @@ and prints the verification block that gets embedded in the manuscript.
 Run this whenever the engine changes to keep the manuscript in sync.
 """
 
-
 from ave.core.constants import (
     L_NODE,
     ALPHA,

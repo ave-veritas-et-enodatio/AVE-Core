@@ -8,7 +8,6 @@ Provides pure Topo-Kinematic validation of Gravitational Radiation mechanics
 without breaking the AVE LC structural assumptions.
 """
 
-
 from ave.gravity.orbital_lc_damping import (
     orbital_reactive_power,
     quadrupole_phase_slip,

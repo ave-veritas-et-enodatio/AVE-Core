@@ -45,8 +45,6 @@ Reference: Backmatter App 5 (Universal Solver Toolchain)
 from __future__ import annotations
 
 
-
-
 def explicit_euler_step(theta, velocity, grad_f, L, R, dt, mask=None):
     """
     Single explicit Euler step for SPICE transient integration.

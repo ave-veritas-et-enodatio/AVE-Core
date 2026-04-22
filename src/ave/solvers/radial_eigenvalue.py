@@ -1617,7 +1617,6 @@ def ionization_energy_e2k(Z, f_val=1.0):
       Phase C:  Topological Pairing Penalty (Axiom 3 crossing scattering).
     """
 
-
     if Z == 1:
         return RY_EV
 

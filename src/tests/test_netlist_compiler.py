@@ -7,7 +7,6 @@ Verifies .INCLUDE paths, component naming, .CONTROL blocks,
 and round-trip topology consistency.
 """
 
-
 from ave.solvers.spice_netlist_compiler import (
     compile_ee_bench_dc_sweep,
     compile_lcr_network,
