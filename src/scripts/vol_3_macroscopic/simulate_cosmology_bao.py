@@ -28,7 +28,7 @@ def run_cosmology_verification():
     MPC_IN_KM = 3.0857e19
     H_0_cosmo = H_0_si * MPC_IN_KM
 
-    print(f"\n[1] THE HUBBLE CONSTANT (Lattice Genesis Rate)")
+    print("\n[1] THE HUBBLE CONSTANT (Lattice Genesis Rate)")
     print(f"    Calculated H_0:         {H_0_cosmo:.4f} km/s/Mpc")
     print("    Planck (CMB) Target:    67.4 +/- 0.5")
     print("    SHOES (Local) Target:   73.0 +/- 1.4")
@@ -39,7 +39,7 @@ def run_cosmology_verification():
     a_genesis = (C_0 * H_0_si) / (2 * np.pi)
     target_mond = float("1.2e-10")
 
-    print(f"\n[2] DARK MATTER THRESHOLD (Unruh-Hawking Drift)")
+    print("\n[2] DARK MATTER THRESHOLD (Unruh-Hawking Drift)")
     print(f"    Horizon Drift (a_0):    {a_genesis:.4e} m/s^2")
     print(f"    Milgrom Limit (Target): {target_mond:.4e} m/s^2")
 

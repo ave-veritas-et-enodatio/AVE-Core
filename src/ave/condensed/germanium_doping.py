@@ -24,7 +24,7 @@ def germanium_band_gap() -> dict:
     # Scale base matrix capacity limits
     # V_bi_max roughly = 6 * alpha * hbar * c * structural scalar
     # To prove no hardcoding, we derive it from Si structural offset
-    si_gap = silicon_band_gap()["E_gap_eV"]
+    silicon_band_gap()["E_gap_eV"]
     # Geometric scale: Si = 7 alpha, Ge = 16 alpha -> 7/16 scaling? No, M factor crushing.
     # Theoretical gap ratio collapses inverted against M relative scaling
     # Standard Si ~ 1.12, Ge ~ 0.67

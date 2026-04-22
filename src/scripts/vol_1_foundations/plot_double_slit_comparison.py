@@ -89,7 +89,7 @@ def create_comparison():
     # source_x, source_y = -4, 0  # bulk lint fixup pass
 
     # Create the physical wave field (instantaneous pressure)
-    r_source = np.sqrt((x + 4) ** 2 + y**2) + 0.1
+    np.sqrt((x + 4) ** 2 + y**2) + 0.1
     # wake_primary = np.sin(k * r_source) / np.sqrt(r_source)  # bulk lint fixup pass
 
     # Secondary wavelets from slits (Huygens-Fresnel, but mechanical)

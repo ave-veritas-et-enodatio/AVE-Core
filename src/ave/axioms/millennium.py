@@ -246,7 +246,7 @@ def formal_proof_summary() -> dict:
 
     # ── Yang-Mills ────────────────────────────────────────────────────
     ym_proof = full_mass_gap_proof()
-    ym_os = verify_osterwalder_schrader()
+    verify_osterwalder_schrader()
     ym_proven = ym_proof["MASS_GAP_PROVEN"]
     # ym_os_all = ym_os["all_OS_satisfied"]  # bulk lint fixup pass
 

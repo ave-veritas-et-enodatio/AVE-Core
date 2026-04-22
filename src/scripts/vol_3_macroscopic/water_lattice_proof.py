@@ -64,7 +64,7 @@ def main():
     m_H2O = mol.total_mass  # H2O molecular mass [kg]
     m_H = mol.m_ligand  # Hydrogen mass [kg]
 
-    print(f"\n  ── Op4 H-Bond Parameters (from axioms) ──")
+    print("\n  ── Op4 H-Bond Parameters (from axioms) ──")
     print(f"  E_hb  = {E_hb:.4e} J  ({E_hb/e_charge:.4f} eV)")
     print(f"  d_hb  = {d_hb*1e10:.4f} Å")
     print(f"  k_hb  = {k_hb:.3f} N/m")
@@ -119,7 +119,7 @@ def main():
     # Combined with the 1D→3D dimensional factor (1/√(π/4) from
     # normalizing the solid angle of the forward hemisphere):
     #   c_liquid = c_1D × 2/π
-    print(f"\n  ── [AXIOM] Prediction 1: Speed of Sound (25°C) ──")
+    print("\n  ── [AXIOM] Prediction 1: Speed of Sound (25°C) ──")
 
     d_OO = mol.oh_bond_length + d_hb
     c_1D = d_OO * np.sqrt(k_hb / m_H2O)
@@ -141,7 +141,7 @@ def main():
     # Saturation softening is what MELTS the lattice (Prediction 3),
     # happening at a LOWER temperature than the harmonic peak.
     #   T(ρ_max) = T₀ × (1 − α)
-    print(f"\n  ── [AXIOM] Prediction 2: Temperature of Maximum Density ──")
+    print("\n  ── [AXIOM] Prediction 2: Temperature of Maximum Density ──")
 
     T_rho_max_K = T_0 * (1.0 - float(ALPHA))
     T_rho_max_C = T_rho_max_K - 273.15
@@ -165,7 +165,7 @@ def main():
     # The spring softens: k_eff = k_hb × S(r) = k_hb × √(1−r²)
     #
     # Self-consistent: T_melt = ℏ√(k_eff(T)/m_H)/k_B, then × (1−α)
-    print(f"\n  ── [AXIOM] Prediction 3: Melting Point ──")
+    print("\n  ── [AXIOM] Prediction 3: Melting Point ──")
 
     r_melt = np.sqrt(float(K_B) * T_sat / (2.0 * E_hb))
     S_melt = np.sqrt(1.0 - r_melt**2)
@@ -187,7 +187,7 @@ def main():
     # (Axiom 2), the same physics that loads the eigenmode temperature:
     #   E_eff = E_hb × (1 − α)
     #   ΔH_vap = (z/2) × E_eff × N_A
-    print(f"\n  ── [AXIOM] Prediction 4: ΔH_vap ──")
+    print("\n  ── [AXIOM] Prediction 4: ΔH_vap ──")
 
     # R_gas = float(K_B) * float(N_A)  # bulk lint fixup pass
     n_bonds_per_mol = 4.0 / 2.0
@@ -215,7 +215,7 @@ def main():
     #    is exactly the pure phase packing fraction (P_C).
     #
     #   gamma = n_s * E_hb * P_C
-    print(f"\n  ── [AXIOM] Prediction 5: Surface Tension (25°C) ──")
+    print("\n  ── [AXIOM] Prediction 5: Surface Tension (25°C) ──")
 
     from ave.core.constants import N_PHI_PACK, P_C
 
@@ -243,7 +243,7 @@ def main():
     results["surface_tension"] = (gamma, EXP_SURFACE_TENSION_25C, err5)
     print(f"  V_II (Liquid FCC) = {V_II*1e30:.2f} Å³")
     print(f"  Stereological Phase Limit P_C = {float(P_C):.4f}")
-    print(f"  Delesse Boundary Formula: gamma = n_s * E_hb * P_C")
+    print("  Delesse Boundary Formula: gamma = n_s * E_hb * P_C")
     print(f"  AVE:  {gamma*1e3:.2f} mN/m")
     print(f"  Exp:  {EXP_SURFACE_TENSION_25C*1e3:.2f} mN/m")
     print(f"  Err:  {err5:+.2f}%")
@@ -267,7 +267,7 @@ def main():
     # anharmonically softened one.
     #
     #   T_b = (z/3) × T₀
-    print(f"\n  ── [AXIOM] Prediction 6: Boiling Point ──")
+    print("\n  ── [AXIOM] Prediction 6: Boiling Point ──")
 
     z_coord = 4  # tetrahedral coordination
     T_b = (z_coord / 3.0) * T_0
@@ -305,7 +305,7 @@ def main():
     # At 6 pair-angles per junction, distributed among 4 molecules:
     # 6/4 = 1.5, but only the softest mode (lowest eigenvalue of the
     # K4 scattering matrix) is thermally excited → 1 mode.
-    print(f"\n  ── [AXIOM] Prediction 7: Specific Heat (25°C) ──")
+    print("\n  ── [AXIOM] Prediction 7: Specific Heat (25°C) ──")
 
     n_trans_modes = 3
     n_lib_modes = 3
@@ -315,7 +315,7 @@ def main():
     c_p = total_modes * float(K_B) / m_H2O
     err7 = (c_p - EXP_SPECIFIC_HEAT_25C) / EXP_SPECIFIC_HEAT_25C * 100
     results["specific_heat"] = (c_p, EXP_SPECIFIC_HEAT_25C, err7)
-    print(f"  K4 topology: 3 trans + 3 lib + z/2 stretch + z/4 bend")
+    print("  K4 topology: 3 trans + 3 lib + z/2 stretch + z/4 bend")
     print(f"  = {n_trans_modes} + {n_lib_modes} + {n_stretch_modes} + {n_bend_modes} = {total_modes} modes")
     print(f"  AVE:  {c_p:.1f} J/(kg·K)")
     print(f"  Exp:  {EXP_SPECIFIC_HEAT_25C:.1f} J/(kg·K)")
@@ -325,7 +325,7 @@ def main():
     # SUMMARY TABLE
     # ═══════════════════════════════════════════════════════════════════
     print(f"\n{'='*72}")
-    print(f"  WATER LC LATTICE — PARITY TABLE")
+    print("  WATER LC LATTICE — PARITY TABLE")
     print(f"  All from one input: k_hb = {k_hb:.3f} N/m (Op4)")
     print(f"{'='*72}")
     print(f"  {'Observable':<28} {'AVE':>12} {'Exp':>12} {'Error':>8}  Source")
@@ -368,7 +368,7 @@ def main():
     total = len(all_keys)
     print(f"\n  VERDICT: {n_pass}/{total} predictions within threshold (<10% or <1°C)")
     if n_pass == total:
-        print(f"  ✅ ALL SEVEN OBSERVABLES DERIVED FROM ONE SPRING CONSTANT")
+        print("  ✅ ALL SEVEN OBSERVABLES DERIVED FROM ONE SPRING CONSTANT")
     elif n_pass >= 6:
         print(f"  ⚠️ {total - n_pass} prediction(s) outside threshold")
     print()

@@ -67,7 +67,7 @@ def simulate_cosmological_equilibrium():
         H_baseline,
         color="white",
         linestyle="--",
-        label=f"Thermodynamic Limit ($H_0 \\approx 69.32$)",
+        label="Thermodynamic Limit ($H_0 \\approx 69.32$)",
     )
 
     ax1.set_title("Cosmological Acceleration to Latent Heat Equilibrium", fontsize=14)
@@ -84,7 +84,7 @@ def simulate_cosmological_equilibrium():
         linewidth=3,
         label="Effective Macroscopic Tensor $G(t)$",
     )
-    ax2.axhline(1.0, color="white", linestyle="--", label=f"Present Day Fundamental Constant ($G_0$)")
+    ax2.axhline(1.0, color="white", linestyle="--", label="Present Day Fundamental Constant ($G_0$)")
 
     ax2.set_title("Stabilization of the Gravitational Coupling Constant", fontsize=14)
     ax2.set_xlabel("Cosmological Time (Arbitrary Units)")

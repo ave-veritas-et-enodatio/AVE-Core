@@ -9,7 +9,6 @@ If the numeric solver returns a Delta-V in the ~10^-6 m/s scale, we prove
 that standard linear acoustics fail to match the observed ~10^-2 m/s offset.
 """
 
-import os
 import time
 
 import numpy as np
@@ -32,7 +31,7 @@ J_EARTH = I_EARTH * OMEGA_EARTH
 J_VEC_EARTH = np.array([0.0, 0.0, J_EARTH])
 
 print("=" * 60)
-print(f"EARTH GRAVITATIONAL AC STATOR INITIALIZED")
+print("EARTH GRAVITATIONAL AC STATOR INITIALIZED")
 print(f"J_Earth: {J_EARTH:.3e} kg m^2/s")
 print("=" * 60)
 
@@ -82,24 +81,24 @@ std_anomaly = np.std(anomalies)
 
 print(f"\nIntegration Complete ({time.time()-t0:.1f}s)")
 print("-" * 60)
-print(f"MONTE CARLO STATISTICS (50 Random Transits):")
+print("MONTE CARLO STATISTICS (50 Random Transits):")
 print(f"  Max Extracted Target Delta-V:   {max_anomaly_mms:+.4e} mm/s")
 print(f"  Mean Extracted Delta-V:         {mean_anomaly:+.4e} mm/s")
 print(f"  Standard Deviation:             {std_anomaly:+.4e} mm/s")
 
 print("-" * 60)
-print(f"RESULTS VS EMPIRICAL DATA (NEAR 1998):")
+print("RESULTS VS EMPIRICAL DATA (NEAR 1998):")
 print(f"  Empirical Observed Delta-V:     +{near_empirical_anomaly:.2f} mm/s")
 
 if abs(max_anomaly_mms) < 1e-12:
-    print(f"\nCONCLUSION:")
-    print(f"The classical linear limits produce an anomaly exactly zero (or masked entirely by noise limit).")
-    print(f"We have HIT THE WALL.")
+    print("\nCONCLUSION:")
+    print("The classical linear limits produce an anomaly exactly zero (or masked entirely by noise limit).")
+    print("We have HIT THE WALL.")
 else:
     divergence_ratio = near_empirical_anomaly / abs(max_anomaly_mms)
-    print(f"\nCONCLUSION:")
+    print("\nCONCLUSION:")
     print(f"The classical linear limits produce an anomaly {divergence_ratio:,.0f} times too small.")
-    print(f"We have HIT THE WALL.")
+    print("We have HIT THE WALL.")
 
 print("This proves that the Flyby Anomaly is a non-linear Topological phenomenon,")
 print("requiring the LC Resonance limits (Sagnac/Mond metrics) to traverse.")
@@ -140,22 +139,22 @@ gal_topo_dv = compute_acoustic_sagnac_drag(
     declination_out=gal_dec_out_rad,
 )
 
-print(f"\nRESULTS VS EMPIRICAL DATA (TOPO-KINEMATIC SAGNAC DRAG):")
-print(f"  NEAR (1998):")
+print("\nRESULTS VS EMPIRICAL DATA (TOPO-KINEMATIC SAGNAC DRAG):")
+print("  NEAR (1998):")
 print(f"    Empirical Target:   +{near_empirical_anomaly:.2f} mm/s")
 near_topo_dv_mms = near_topo_dv * 1000.0
 print(
     f"    AVE Sagnac Solver:  +{near_topo_dv_mms:.2f} mm/s  (Error: {abs(near_topo_dv_mms-near_empirical_anomaly)/near_empirical_anomaly:.2%})"
 )
 
-print(f"\n  Galileo (1990):")
+print("\n  Galileo (1990):")
 print(f"    Empirical Target:   +{gal_empirical_anomaly:.2f} mm/s")
 gal_topo_dv_mms = gal_topo_dv * 1000.0
 print(
     f"    AVE Sagnac Solver:  +{gal_topo_dv_mms:.2f} mm/s  (Error: {abs(gal_topo_dv_mms-gal_empirical_anomaly)/gal_empirical_anomaly:.2%})"
 )
 
-print(f"\nCONCLUSION:")
+print("\nCONCLUSION:")
 print("The native Sagnac-RLVE Acoustic Shear operator predicts the anomalies")
 print("with >95% accuracy using ZERO curve-fitting parameters, explicitly")
 print("replacing the linear Lense-Thirring shortfall.")

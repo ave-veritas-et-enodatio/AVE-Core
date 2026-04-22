@@ -318,7 +318,7 @@ def main():
     ani.save(out_path, writer=PillowWriter(fps=10), dpi=120)
     plt.close(fig)
 
-    print(f"\n  ✓ Self-trapping transition GIF complete!")
+    print("\n  ✓ Self-trapping transition GIF complete!")
     print(f"    {out_path}")
 
 

@@ -27,7 +27,7 @@ title = "Fluorine-19 ($^{19}F$): Dynamic Topological Flux Offset"
 
 nodes = get_nucleon_coordinates(Z, A)
 if not nodes:
-    print(f"Error executing F19 nodes")
+    print("Error executing F19 nodes")
     sys.exit(1)
 
 z_min = min(n[2] for n in nodes) - 1.0

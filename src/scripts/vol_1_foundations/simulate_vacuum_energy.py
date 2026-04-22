@@ -40,13 +40,13 @@ def derive_vacuum_energy():
     # Effective Dark Energy Density (rho_lambda) = Energy / Volume / c^2
     rho_lambda = (E_zero_point / V_node) / (C_0**2)
 
-    print(f"[1] ZERO-POINT LC NETWORK ENERGY Density (Dark Energy)")
+    print("[1] ZERO-POINT LC NETWORK ENERGY Density (Dark Energy)")
     print(f"    Calculated Zero-Point Density: {rho_lambda:.4e} kg/m^3")
 
     # Target Cosmological Constant Density ~ 6e-27 kg/m^3
     target_rho = 6.0e-27
     print(f"    Empirical Cosmological Const : {target_rho:.4e} kg/m^3")
-    print(f"    Note: Analytical result requires trace-reversed volume mapping.")
+    print("    Note: Analytical result requires trace-reversed volume mapping.")
 
     # The actual geometric projection requires mapping the 1D string oscillation
     # into a 3D expanding horizon. (1/7 Isotropic strain projection)

@@ -67,7 +67,7 @@ def run_simulation():
     print("  Inputs: m_e, c, α, ℏ  |  All from ave.core.constants")
     print("=" * 78)
 
-    print(f"\n  ── DERIVED ATOMIC CONSTANTS ──")
+    print("\n  ── DERIVED ATOMIC CONSTANTS ──")
     print(f"    ℓ_node = ℏ/(m_e c) = {float(L_NODE):.4e} m")
     print(f"    α      = {ALPHA:.6e} = 1/{1/ALPHA:.2f}")
     print(f"    a₀     = ℓ_node/α  = {A_BOHR:.4e} m  (NIST: {NIST['a_bohr']:.4e})")
@@ -83,7 +83,7 @@ def run_simulation():
     print(f"    Δ(R_∞) = {delta_R:+.4f}%")
 
     # ── Energy levels ──────────────────────────────────────────────────────
-    print(f"\n  ── HYDROGEN ENERGY LEVELS ──")
+    print("\n  ── HYDROGEN ENERGY LEVELS ──")
     n_levels = np.arange(1, 8)
     # E_n = -RY_EV / n_levels**2  # bulk lint fixup pass
 
@@ -95,7 +95,7 @@ def run_simulation():
         print(f"  {n:4d} {E:12.4f} {r:10.1f}")
 
     # ── Spectral series ────────────────────────────────────────────────────
-    print(f"\n  ── SPECTRAL SERIES (Balmer) ──")
+    print("\n  ── SPECTRAL SERIES (Balmer) ──")
     print(f"  {'Transition':>14} {'λ_AVE (nm)':>12} {'λ_NIST (nm)':>12} {'Δ':>8}")
     print(f"  {'─'*50}")
 
@@ -109,7 +109,7 @@ def run_simulation():
         print(f"  {n_upper}→2{' ':>10} {lambda_nm:12.2f} {nist_nm:12.2f} {delta:+7.3f}%")
 
     # Lyman series: transitions to n=1
-    print(f"\n  ── SPECTRAL SERIES (Lyman) ──")
+    print("\n  ── SPECTRAL SERIES (Lyman) ──")
     lyman_nist = {2: 121.57, 3: 102.57, 4: 97.25, 5: 94.97, 6: 93.78}
     for n_upper in range(2, 7):
         lambda_m = 1.0 / (R_INF * (1.0 - 1.0 / n_upper**2))
@@ -330,7 +330,7 @@ def run_simulation():
     out_path = os.path.join(out_dir, "atomic_spectra_cavity.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
-    print(f"\n  ═══ ATOMIC SPECTRA DERIVATION COMPLETE ═══")
+    print("\n  ═══ ATOMIC SPECTRA DERIVATION COMPLETE ═══")
 
 
 if __name__ == "__main__":

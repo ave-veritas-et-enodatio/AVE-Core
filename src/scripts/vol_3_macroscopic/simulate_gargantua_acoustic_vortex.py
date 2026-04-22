@@ -408,7 +408,7 @@ def render_gargantua():
     shutil.copy2(out_path, os.path.join(ms_dir, "gargantua_acoustic_vortex.png"))
 
     print(f"\n  Saved: {out_path}")
-    print(f"  Copied to manuscript figures")
+    print("  Copied to manuscript figures")
     print(f"  Total render time: {total_time:.1f}s")
     print("=" * 70)
 

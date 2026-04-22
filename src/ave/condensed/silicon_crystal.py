@@ -262,7 +262,7 @@ def print_silicon_crystal_report():
     print("SILICON CRYSTAL — DIAMOND CUBIC AVE CIRCUIT")
     print("=" * 65)
 
-    print(f"\n--- Bond Parameters ---")
+    print("\n--- Bond Parameters ---")
     print(
         f"  Si-Si distance:  {result['d_si_si_angstrom']:.4f} Å  (exp: 2.352 Å, "
         f"err: {(result['d_si_si_angstrom']-2.352)/2.352*100:+.1f}%)"
@@ -275,12 +275,12 @@ def print_silicon_crystal_report():
         f"err: {(result['a_lattice_angstrom']-5.431)/5.431*100:+.1f}%)"
     )
 
-    print(f"\n--- Unit Cell ---")
+    print("\n--- Unit Cell ---")
     print(f"  Atoms per cell: {N_ATOMS_CELL}")
     print(f"  Coordination:   {COORD_NUMBER} (tetrahedral)")
     print(f"  Bonds found:    {len(bonds)}")
 
-    print(f"\n--- Band Gap (Coordination-Loaded Coupled Resonator) ---")
+    print("\n--- Band Gap (Coordination-Loaded Coupled Resonator) ---")
     print(f"  ω₀ (atomic):      {result['omega_0_eV']:.3f} eV")
     print(f"  k_crystal:         {result['k_crystal']:.6f}")
     print(f"  E_bonding:         {result['E_bonding_eV']:.4f} eV")

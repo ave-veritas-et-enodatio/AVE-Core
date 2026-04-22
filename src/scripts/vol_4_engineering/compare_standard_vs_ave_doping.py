@@ -56,7 +56,7 @@ def generate_comparison_report():
     # Let's sweep a few common doping concentrations
     doping_levels = [1e15, 1e17, 1e19]
     print("\\n[2] Built-in Potential ($V_{bi}$)")
-    print(f"  Doping [cm^-3]  |   Standard V_bi   |   AVE Geometric V_bi")
+    print("  Doping [cm^-3]  |   Standard V_bi   |   AVE Geometric V_bi")
     print("  -------------------------------------------------------------")
 
     # AVE V_bi is structural, based entirely on the phase-reflection barrier of the geometry.

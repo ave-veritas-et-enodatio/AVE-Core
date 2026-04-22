@@ -48,7 +48,7 @@ def simulate_empirical_noaa_overlay():
     theoretical_emission = I_S * (np.exp(dynamo_voltage / V_T) - 1.0) * m_factor
 
     # Find Theoretical FWHM bounds for plotting
-    max_emission = np.max(theoretical_emission)
+    np.max(theoretical_emission)
     # half_max = max_emission / 2.0  # bulk lint fixup pass
 
     # Generate Empirical Scatter (Simulating GOES X and M class flares)

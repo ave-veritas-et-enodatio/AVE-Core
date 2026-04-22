@@ -95,7 +95,7 @@ def run_analysis():
         )
 
     # --- Comparison across z₀ values ---
-    z0_range = np.linspace(8, 80, 200)
+    np.linspace(8, 80, 200)
     # p_star_range = np.array([p_star_kg2(z) for z in z0_range])  # bulk lint fixup pass
 
     # --- Plotting ---
@@ -116,7 +116,7 @@ def run_analysis():
     ax.plot(p_fine, G_vac, "--", color="#f0883e", linewidth=2.5, label="$G$")
 
     # Shade fluid window
-    ax.axvspan(p_K_vac, p_G_vac, alpha=0.1, color="#f0883e", label=f"Fluid window ($K>0, G=0$)")
+    ax.axvspan(p_K_vac, p_G_vac, alpha=0.1, color="#f0883e", label="Fluid window ($K>0, G=0$)")
     ax.axvline(p_K_vac, color="#7c3aed", linestyle=":", alpha=0.5, label=f"$p_K = {p_K_vac:.3f}$")
     ax.axvline(p_G_vac, color="#da3633", linestyle=":", alpha=0.7, label=f"$p_G = {p_G_vac:.3f}$")
     ax.axvline(
@@ -160,7 +160,7 @@ def run_analysis():
         linewidth=2.5,
         linestyle="--",
         alpha=0.9,
-        label=f"$p^* = 8\\pi\\alpha$",
+        label="$p^* = 8\\pi\\alpha$",
     )
 
     # Mark the K/G = 2 point
@@ -186,7 +186,7 @@ def run_analysis():
         linewidth=2.5,
         linestyle="--",
         alpha=0.9,
-        label=f"$p^* = 8\\pi\\alpha$",
+        label="$p^* = 8\\pi\\alpha$",
     )
 
     ax.scatter([p_c], [2 / 7], s=100, color="#238636", zorder=5, edgecolors="white")

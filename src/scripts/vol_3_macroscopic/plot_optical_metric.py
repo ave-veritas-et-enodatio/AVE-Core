@@ -39,7 +39,7 @@ def plot_optical_metric():
 
     # Ponderomotive force / Refractive index gradient
     # n(r) = 1 + GM/c^2r. We simulate the density visually.
-    density = 1.0 + 8.0 / (R_safe**1.5)
+    1.0 + 8.0 / (R_safe**1.5)
 
     # Normalize density for colormapping
     # norm_density = (density - np.min(density)) / (np.max(density) - np.min(density))  # bulk lint fixup pass

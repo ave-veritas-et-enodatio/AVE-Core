@@ -66,13 +66,13 @@ def run_simulation():
 
     m_e_MeV = M_E * C_0**2 / (e_charge * 1e6)
 
-    print(f"\n  ── ENGINE CONSTANTS ──")
+    print("\n  ── ENGINE CONSTANTS ──")
     print(f"    V_snap        = {float(V_SNAP):.2f} V  ({float(V_SNAP)/1e3:.2f} kV)")
     print(f"    V_yield       = √α × V_snap = {float(V_YIELD):.2f} V")
     print(f"    ℓ_node        = {float(L_NODE):.3e} m")
     print(f"    α             = 1/{1/ALPHA:.2f}")
 
-    print(f"\n  ── PARTICLE MASSES FROM DIELECTRIC RUPTURE ──")
+    print("\n  ── PARTICLE MASSES FROM DIELECTRIC RUPTURE ──")
     print(f"    M_W   = {float(M_W_MEV):.0f} MeV  (PDG: 80,379)")
     print(f"    M_Z   = {float(M_Z_MEV):.0f} MeV  (PDG: 91,188)")
     print(f"    m_H   = {float(M_HIGGS_MEV):.0f} MeV  (PDG: 125,100)")
@@ -81,7 +81,7 @@ def run_simulation():
 
     # ── Pair production threshold ──────────────────────────────────────────
     E_threshold_MeV = 2.0 * float(M_W_MEV)
-    print(f"\n  ── PAIR PRODUCTION THRESHOLDS ──")
+    print("\n  ── PAIR PRODUCTION THRESHOLDS ──")
     print(f"    W+W-:  {E_threshold_MeV:.0f} MeV  ({E_threshold_MeV/1e3:.1f} GeV)")
     print(f"    ZZ:    {2*float(M_Z_MEV):.0f} MeV  ({2*float(M_Z_MEV)/1e3:.1f} GeV)")
     print(f"    HH:    {2*float(M_HIGGS_MEV):.0f} MeV  ({2*float(M_HIGGS_MEV)/1e3:.1f} GeV)")
@@ -121,7 +121,7 @@ def run_simulation():
     # The "born mass" is the trapped energy from the ruptured cell
     mass_generated = np.where(S < 0.1, float(M_W_MEV), 0.0)
 
-    print(f"\n  ── RUPTURE DYNAMICS ──")
+    print("\n  ── RUPTURE DYNAMICS ──")
     print(f"    Peak collision energy: {E_peak_MeV/1e3:.0f} GeV")
     print(f"    E_snap = m_e√α = {E_snap_MeV:.4f} MeV")
     print(f"    Peak ratio E/E_snap: {E_peak_MeV/E_snap_MeV:.1f}")
@@ -254,7 +254,7 @@ def run_simulation():
         color="#ffaa44",
         linewidth=1.5,
         linestyle=":",
-        label=f"$V_{{yield}}$ = $\\sqrt{{α}}V_{{snap}}$",
+        label="$V_{{yield}}$ = $\\sqrt{{α}}V_{{snap}}$",
     )
     ax4.scatter(
         [1.0],
@@ -371,7 +371,7 @@ def run_simulation():
     out_path = os.path.join(out_dir, "electroweak_dielectric_spark.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
-    print(f"\n  ═══ HIGGS RUPTURE SIMULATION COMPLETE ═══")
+    print("\n  ═══ HIGGS RUPTURE SIMULATION COMPLETE ═══")
 
 
 if __name__ == "__main__":

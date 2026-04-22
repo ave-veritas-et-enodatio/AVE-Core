@@ -76,7 +76,7 @@ COULOMB_INTRA_ALPHA = ALPHA_HC / (6.0 * D_INTRA_ALPHA)
 # In normalized units where I = 1:
 Z_ALPHA = float(BE_ALPHA)  # ≈ 28.3 (dimensionless in natural units)
 
-print(f"=== Alpha Cluster Properties (Derived from Axioms) ===")
+print("=== Alpha Cluster Properties (Derived from Axioms) ===")
 print(f"d_nucleon      = {D_NUCLEON} fm")
 print(f"d_intra_alpha  = {D_INTRA_ALPHA:.4f} fm")
 print(f"K_MUTUAL       = {K_MUTUAL:.6f} MeV·fm")
@@ -85,7 +85,7 @@ print(f"BE(α)          = {BE_ALPHA:.3f} MeV")
 print(f"M(α) raw       = {M_ALPHA_RAW:.3f} MeV")
 print(f"M(α) bound     = {M_ALPHA:.3f} MeV")
 print(f"Z_α            = {Z_ALPHA:.3f}")
-print(f"CODATA He-4    = 3727.379 MeV")
+print("CODATA He-4    = 3727.379 MeV")
 print(f"Error          = {abs(M_ALPHA - 3727.379)/3727.379*100:.4f}%")
 print()
 

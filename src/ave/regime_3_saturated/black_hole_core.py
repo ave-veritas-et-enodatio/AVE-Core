@@ -149,7 +149,7 @@ if __name__ == "__main__":
     r_start = bhs.r_sat * 1.5
     sol = bhs.solve_infall(r_start=r_start, max_time=0.005)
 
-    print(f"Black Hole Mass: 10 Solar Masses")
+    print("Black Hole Mass: 10 Solar Masses")
     print(f"Schwarzschild Radius: {bhs.r_s/1000:.2f} km")
     print(f"Saturation Boundary (r_sat): {bhs.r_sat/1000:.2f} km")
     print(f"Collapse halted at: {sol.y[0][-1]/1000:.6f} km")

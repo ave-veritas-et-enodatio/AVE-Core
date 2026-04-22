@@ -84,7 +84,7 @@ ax2.plot(
     u_cold * r**2,
     color="#58a6ff",
     linewidth=2.5,
-    label=rf"Cold: $I_{{scalar}} \approx 1171\,m_e$",
+    label=r"Cold: $I_{scalar} \approx 1171\,m_e$",
 )
 ax2.plot(
     r,
@@ -92,7 +92,7 @@ ax2.plot(
     color="#f0883e",
     linewidth=2.5,
     linestyle="--",
-    label=rf"Thermal: $I_{{scalar}} \approx 1162\,m_e$",
+    label=r"Thermal: $I_{scalar} \approx 1162\,m_e$",
 )
 ax2.fill_between(
     r,
@@ -100,7 +100,7 @@ ax2.fill_between(
     u_warm * r**2,
     alpha=0.15,
     color="#da3633",
-    label=rf"$\Delta E \approx 0.8\%$ (thermal + saturation)",
+    label=r"$\Delta E \approx 0.8\%$ (thermal + saturation)",
 )
 ax2.set_xlabel(r"$r / \ell_{node}$", fontsize=13, color="white")
 ax2.set_ylabel(r"$r^2 \cdot \mathcal{E}(r)$ (energy integrand)", fontsize=13, color="white")

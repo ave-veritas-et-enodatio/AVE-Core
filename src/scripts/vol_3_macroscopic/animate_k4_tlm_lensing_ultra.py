@@ -104,7 +104,7 @@ def main():
         alpha=0.3,
     )
 
-    title_text = ax.set_title(f"", color="white", fontsize=12, pad=10)
+    title_text = ax.set_title("", color="white", fontsize=12, pad=10)
     ax.axis("off")
     plt.tight_layout()
 

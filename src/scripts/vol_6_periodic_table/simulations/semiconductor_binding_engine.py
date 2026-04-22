@@ -583,7 +583,7 @@ if __name__ == "__main__":
     print("Bare K/r coupling + Miller avalanche Coulomb — zero empirical parameters")
     print("=" * 100)
     print()
-    print(f"Constants (all axiom-derived):")
+    print("Constants (all axiom-derived):")
     print(f"  K_MUTUAL = {K_MUTUAL:.6f} MeV·fm  (Axiom 2: cinquefoil winding)")
     print(f"  αℏc      = {ALPHA_HC:.6f} MeV·fm  (Axiom 2: Coulomb constant)")
     print(f"  D_INTRA  = {D_INTRA:.4f} fm       (Axiom 1: tetrahedron edge)")

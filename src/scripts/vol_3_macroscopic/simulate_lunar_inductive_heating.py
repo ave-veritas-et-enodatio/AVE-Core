@@ -54,7 +54,7 @@ def compute_lunar_healing():
 
     print(f"  VCA Inductive Heating: {P_topo_vca / 1e12:.3f} TW")
 
-    print(f"\nRESULTS VS EMPIRICAL DATA (LUNAR INDUCTIVE HEATING):")
+    print("\nRESULTS VS EMPIRICAL DATA (LUNAR INDUCTIVE HEATING):")
     print(f"  Empirical Target:   ~{empirical_heat_target / 1e12:.3f} TW")
 
     print("\nCONCLUSION:")

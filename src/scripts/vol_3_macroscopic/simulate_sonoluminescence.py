@@ -11,7 +11,6 @@ Outputs:
    fluid momentum halting against the LC metric topological yield point.
 """
 
-import os
 
 import matplotlib.pyplot as plt
 import numpy as np

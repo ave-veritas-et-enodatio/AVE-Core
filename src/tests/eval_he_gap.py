@@ -1,7 +1,7 @@
 import numpy as np
 
 Ry = 13.605693
-print(f"Goal IE: 24.59 eV")
+print("Goal IE: 24.59 eV")
 
 
 def eval_gap(eff_dist_factor):

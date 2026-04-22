@@ -85,8 +85,8 @@ def main():
     out_path = "standard_model/animations/ave_unified_engine_demo.gif"
     ani.save(out_path, writer="pillow", fps=30)
 
-    print(f"\n[STATUS: SUCCESS] The Object-Oriented Engine is live.")
-    print(f"Instantiated Node-Grid interactions tracked seamlessly.")
+    print("\n[STATUS: SUCCESS] The Object-Oriented Engine is live.")
+    print("Instantiated Node-Grid interactions tracked seamlessly.")
     print(f"Animated propagation saved to {out_path}")
 
 

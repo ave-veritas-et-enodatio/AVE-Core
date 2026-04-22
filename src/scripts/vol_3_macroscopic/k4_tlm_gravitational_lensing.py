@@ -389,8 +389,8 @@ def main():
     print("=" * 70)
     print(f"  Lattice: {NX}×{NY} = {NX*NY:,} nodes")
     print(f"  Steps: {N_STEPS}")
-    print(f"  Three simulations: Reference, n₀=0.5, n₀=0.8")
-    print(f"  Figures: 12-frame evolution + 6-panel analysis")
+    print("  Three simulations: Reference, n₀=0.5, n₀=0.8")
+    print("  Figures: 12-frame evolution + 6-panel analysis")
     print("=" * 70)
 
     return True

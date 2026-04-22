@@ -67,14 +67,14 @@ def main():
     print(f"  Frequency: {FREQ/1e9:.1f} GHz")
     print(f"  Wavelength: {wavelength*100:.1f} cm ({cells_per_lambda:.1f} cells)")
     print(f"  Grid: {N}³ @ {DX*100:.1f} cm/cell ({N*DX*100:.0f} cm domain)")
-    print(f"  Impedance: Z₀ = 377 Ω (perfectly matched)")
+    print("  Impedance: Z₀ = 377 Ω (perfectly matched)")
 
     # Inject a circularly polarized Gaussian pulse at one face
     # CP = E_y sin(ωt) + E_z cos(ωt) propagating in +x
     src_x = 12  # Source plane (past PML)
     omega = 2 * np.pi * FREQ
 
-    print(f"\n  Injecting left-handed circularly polarized pulse...")
+    print("\n  Injecting left-handed circularly polarized pulse...")
     print(f"  Source plane: x = {src_x}")
 
     # Pre-run to inject the pulse and let it propagate
@@ -337,7 +337,7 @@ def main():
     ani.save(out_path, writer=PillowWriter(fps=12), dpi=120)
     plt.close(fig)
 
-    print(f"\n  ✓ AVE Photon Helicity GIF complete!")
+    print("\n  ✓ AVE Photon Helicity GIF complete!")
     print(f"    {out_path}")
 
 

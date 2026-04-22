@@ -167,7 +167,7 @@ if __name__ == "__main__":
         print(f"\n--- {name.replace('_', ' ').title()} (Z={Z}, A={A}) ---")
         nodes = get_nucleon_coordinates(Z, A)
         if not nodes:
-            print(f"  [!] No coordinates found")
+            print("  [!] No coordinates found")
             continue
 
         for z_slice in d_slices:

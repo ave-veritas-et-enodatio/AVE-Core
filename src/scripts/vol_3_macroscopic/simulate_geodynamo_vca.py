@@ -47,7 +47,7 @@ def compute_vca_dynamo(name: str, r_orbit: float, omega_spin: float, R_planet: f
         # VCA Mapping: Topo-Kinematic Viscosity (kg/s)
         # resistivity_topo = rho_fe * EE_TO_TOPO_RESISTANCE  # bulk lint fixup pass
     else:
-        resistivity_topo = float("inf")
+        float("inf")
 
     # 3. Macro Sagnac Acoustic Shear Force
     # F_shear = m_core * U_stator * B_gm_sun (Lorentz equivalent)
@@ -98,12 +98,12 @@ def compute_vca_dynamo(name: str, r_orbit: float, omega_spin: float, R_planet: f
     if B_surf > 1e-9:
         print(f"  Surface Magnetic Field: {B_surf * 1e6:.1f} uT")
     else:
-        print(f"  Surface Magnetic Field: NEGLIGIBLE (< 1 pT)")
+        print("  Surface Magnetic Field: NEGLIGIBLE (< 1 pT)")
     print("")
 
 
 if __name__ == "__main__":
-    print(f"=== AVE GEODYNAMO VCA BACK-EMF SOLVER ===\n")
+    print("=== AVE GEODYNAMO VCA BACK-EMF SOLVER ===\n")
     print("Evaluating classical baseline AC Motor Lense-Thirring Induction...\n")
 
     # EARTH
@@ -185,7 +185,7 @@ if __name__ == "__main__":
         if B_surf > 1e-9:
             print(f"  Surface Magnetic Field: {B_surf * 1e6:.1f} uT")
         else:
-            print(f"  Surface Magnetic Field: NEGLIGIBLE (< 1 pT)")
+            print("  Surface Magnetic Field: NEGLIGIBLE (< 1 pT)")
 
         return M_dipole
 

@@ -168,12 +168,12 @@ for vol_name, vol_dir in VOLUMES:
         if len(still_broken) > 5:
             print(f"       ... and {len(still_broken) - 5} more")
     else:
-        print(f"  ✅ Broken refs:    0")
+        print("  ✅ Broken refs:    0")
 
     # Sample 3 labels for evidence
     sample_labels = list(all_labels.items())[:3]
     if sample_labels:
-        print(f"  Sample labels (evidence):")
+        print("  Sample labels (evidence):")
         for key, (file, line) in sample_labels:
             short = os.path.basename(file)
             print(f"       {short}:{line}  \\label{{{key}}}")
@@ -193,7 +193,7 @@ for vol_name, vol_dir in VOLUMES:
 # ═════════════════════════════════════════════════════════════════
 
 print(f"\n{'='*100}")
-print(f"  GLOBAL HYGIENE SUMMARY")
+print("  GLOBAL HYGIENE SUMMARY")
 print(f"{'='*100}")
 print(f"\n  {'Volume':<30s} {'Files':>6s} {'Labels':>8s} {'Refs':>7s} {'Broken':>8s} {'Status':>8s}")
 print(f"  {'─'*75}")
@@ -204,7 +204,7 @@ print(f"  {'─'*75}")
 print(f"  {'TOTAL':<30s} {total_files:>6d} {total_labels:>8d} {total_refs:>7d} {total_broken:>8d}")
 
 if total_broken == 0:
-    print(f"\n  🎯 HYGIENE VERDICT: ALL CROSS-REFERENCES RESOLVE ✅")
+    print("\n  🎯 HYGIENE VERDICT: ALL CROSS-REFERENCES RESOLVE ✅")
 else:
     print(f"\n  ⚠️  HYGIENE VERDICT: {total_broken} BROKEN REFERENCES FOUND ❌")
 print(f"{'='*100}")

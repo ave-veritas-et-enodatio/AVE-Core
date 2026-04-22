@@ -118,7 +118,7 @@ def run_derivation():
 
     m_e_MeV = M_E * C_0**2 / (e_charge * 1e6)
 
-    print(f"\n  ── INPUTS (from engine) ──")
+    print("\n  ── INPUTS (from engine) ──")
     print(f"    m_e    = {m_e_MeV:.4f} MeV")
     print(f"    α      = 1/{1/ALPHA:.4f}")
     print(f"    ν_vac  = {float(NU_VAC):.10f} = 2/7")
@@ -126,12 +126,12 @@ def run_derivation():
     print(f"    N_K4   = {N_K4} (nodes per unit cell)")
 
     # ── Step 1: Weak Mixing Angle ──────────────────────────────────────────
-    print(f"\n  ── STEP 1: WEAK MIXING ANGLE ──")
-    print(f"    ν_vac = 2/7 (K4 lattice Poisson ratio)")
-    print(f"    For an isotropic elastic solid: E = 2G(1 + ν)")
-    print(f"    Torsional stiffness ratio = GJ/(EI) = G/(G(1+ν)) = 1/(1+ν)")
-    print(f"    cos²θ_W = 1/(1 + ν_vac) × (correction) = 7/9")
-    print(f"    sin²θ_W = 1 - 7/9 = 2/9")
+    print("\n  ── STEP 1: WEAK MIXING ANGLE ──")
+    print("    ν_vac = 2/7 (K4 lattice Poisson ratio)")
+    print("    For an isotropic elastic solid: E = 2G(1 + ν)")
+    print("    Torsional stiffness ratio = GJ/(EI) = G/(G(1+ν)) = 1/(1+ν)")
+    print("    cos²θ_W = 1/(1 + ν_vac) × (correction) = 7/9")
+    print("    sin²θ_W = 1 - 7/9 = 2/9")
 
     sin2_ave = float(SIN2_THETA_W)
     sin2_onshell = PDG["sin2_theta_W_onshell"]
@@ -146,7 +146,7 @@ def run_derivation():
     print(f"    Δ = {delta_msbar:+.2f}%  ← includes radiative running")
 
     # ── Step 2: Mass Ratio ─────────────────────────────────────────────────
-    print(f"\n  ── STEP 2: W/Z MASS RATIO ──")
+    print("\n  ── STEP 2: W/Z MASS RATIO ──")
     ratio_ave = np.sqrt(7.0) / 3.0
     ratio_pdg = PDG["M_W"] / PDG["M_Z"]
     delta_ratio = (ratio_ave - ratio_pdg) / ratio_pdg * 100
@@ -156,8 +156,8 @@ def run_derivation():
     print(f"    Δ = {delta_ratio:+.2f}%")
 
     # ── Step 3: W Boson Mass ───────────────────────────────────────────────
-    print(f"\n  ── STEP 3: W BOSON MASS ──")
-    print(f"    M_W = m_e / (α² × p_c × √(3/7))")
+    print("\n  ── STEP 3: W BOSON MASS ──")
+    print("    M_W = m_e / (α² × p_c × √(3/7))")
 
     M_W = float(M_W_MEV)
     delta_MW = (M_W - PDG["M_W"]) / PDG["M_W"] * 100
@@ -167,8 +167,8 @@ def run_derivation():
     print(f"    Δ = {delta_MW:+.2f}%")
 
     # ── Step 4: Z Boson Mass ───────────────────────────────────────────────
-    print(f"\n  ── STEP 4: Z BOSON MASS ──")
-    print(f"    M_Z = M_W × 3/√7")
+    print("\n  ── STEP 4: Z BOSON MASS ──")
+    print("    M_Z = M_W × 3/√7")
 
     M_Z = float(M_Z_MEV)
     delta_MZ = (M_Z - PDG["M_Z"]) / PDG["M_Z"] * 100
@@ -178,8 +178,8 @@ def run_derivation():
     print(f"    Δ = {delta_MZ:+.2f}%")
 
     # ── Step 5: Fermi Constant ─────────────────────────────────────────────
-    print(f"\n  ── STEP 5: FERMI CONSTANT ──")
-    print(f"    G_F = √2 × π × α / (2 × sin²θ_W × M_W²)")
+    print("\n  ── STEP 5: FERMI CONSTANT ──")
+    print("    G_F = √2 × π × α / (2 × sin²θ_W × M_W²)")
 
     G_F_ave = float(G_F)
     delta_GF = (G_F_ave - PDG["G_F"]) / PDG["G_F"] * 100
@@ -189,8 +189,8 @@ def run_derivation():
     print(f"    Δ = {delta_GF:+.2f}%")
 
     # ── Step 6: Higgs VEV ──────────────────────────────────────────────────
-    print(f"\n  ── STEP 6: HIGGS VEV ──")
-    print(f"    v = 1/√(√2 × G_F)")
+    print("\n  ── STEP 6: HIGGS VEV ──")
+    print("    v = 1/√(√2 × G_F)")
 
     v_ave = float(HIGGS_VEV_MEV)
     delta_v = (v_ave - PDG["v_higgs"]) / PDG["v_higgs"] * 100
@@ -200,8 +200,8 @@ def run_derivation():
     print(f"    Δ = {delta_v:+.2f}%")
 
     # ── Step 7: Higgs Mass ─────────────────────────────────────────────────
-    print(f"\n  ── STEP 7: HIGGS MASS ──")
-    print(f"    m_H = v/√N_K4 = v/2 (radial breathing mode of K4 cell)")
+    print("\n  ── STEP 7: HIGGS MASS ──")
+    print("    m_H = v/√N_K4 = v/2 (radial breathing mode of K4 cell)")
     print(f"    λ_Higgs = 1/(2N_K4) = 1/8 = {1/(2*N_K4):.4f}")
 
     mH_ave = float(M_HIGGS_MEV)
@@ -212,7 +212,7 @@ def run_derivation():
     print(f"    Δ = {delta_mH:+.2f}%")
 
     # ── Step 8: Lepton Masses ──────────────────────────────────────────────
-    print(f"\n  ── STEP 8: LEPTON MASS SPECTRUM ──")
+    print("\n  ── STEP 8: LEPTON MASS SPECTRUM ──")
 
     m_mu_ave = m_e_MeV / (ALPHA * np.sqrt(3.0 / 7.0))
     m_tau_ave = m_e_MeV * float(P_C) / ALPHA**2
@@ -225,9 +225,9 @@ def run_derivation():
     print(f"    m_τ  = m_e×p_c/α²    = {m_tau_ave:.0f} MeV  (PDG: {PDG['m_tau']:.2f}, Δ = {delta_tau:+.2f}%)")
 
     # ── Summary Table ──────────────────────────────────────────────────────
-    print(f"\n  ═══════════════════════════════════════════════════════════")
-    print(f"  SUMMARY: ZERO-PARAMETER PREDICTIONS vs PDG")
-    print(f"  ───────────────────────────────────────────────────────────")
+    print("\n  ═══════════════════════════════════════════════════════════")
+    print("  SUMMARY: ZERO-PARAMETER PREDICTIONS vs PDG")
+    print("  ───────────────────────────────────────────────────────────")
 
     predictions = [
         ("sin²θ_W", "2/9", sin2_ave, PDG["sin2_theta_W_onshell"], ""),
@@ -241,7 +241,7 @@ def run_derivation():
     ]
 
     print(f"  {'Quantity':>10} {'Formula':>22} {'AVE':>14} {'PDG':>14} {'Δ':>8}")
-    print(f"  " + "─" * 72)
+    print("  " + "─" * 72)
 
     for name, formula, ave_val, pdg_val, unit in predictions:
         delta = (ave_val - pdg_val) / pdg_val * 100
@@ -252,7 +252,7 @@ def run_derivation():
         else:
             print(f"  {name:>10} {formula:>22} {ave_val:14.6f} {pdg_val:14.6f} {delta:+7.2f}% {unit}")
 
-    print(f"  ═══════════════════════════════════════════════════════════")
+    print("  ═══════════════════════════════════════════════════════════")
 
     # ══════════════════════════════════════════════════════════════════════════
     # PLOTTING — Electroweak Derivation Chain
@@ -492,7 +492,7 @@ def run_derivation():
         linewidth=2.5,
         label=r"$\sin^2\theta_W = \nu/(1+\nu)$",
     )
-    ax6.axvline(x=2 / 7, color=C_AVE, linewidth=2, linestyle="--", label=f"ν = 2/7 (K4 lattice)")
+    ax6.axvline(x=2 / 7, color=C_AVE, linewidth=2, linestyle="--", label="ν = 2/7 (K4 lattice)")
     ax6.axhline(y=2 / 9, color=C_HIGGS, linewidth=1.5, linestyle=":", label=f"sin²θ_W = 2/9 = {2/9:.4f}")
     ax6.scatter([2 / 7], [2 / 9], color=C_AVE, s=150, zorder=5, edgecolors="#ffffff")
 
@@ -541,7 +541,7 @@ def run_derivation():
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
 
-    print(f"\n  ═══ ELECTROWEAK DERIVATION COMPLETE ═══")
+    print("\n  ═══ ELECTROWEAK DERIVATION COMPLETE ═══")
 
 
 if __name__ == "__main__":

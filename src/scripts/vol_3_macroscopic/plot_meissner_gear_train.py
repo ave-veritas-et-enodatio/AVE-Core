@@ -75,7 +75,7 @@ def generate():
     lambda_L = 0.3  # London penetration depth (normalized)
     omega_super = np.exp(-x / lambda_L)
 
-    ax2.plot(x, omega_super, color="#33ffcc", lw=3, label=f"$\\omega(x) = \\omega_0 e^{{-x/\\lambda_L}}$")
+    ax2.plot(x, omega_super, color="#33ffcc", lw=3, label="$\\omega(x) = \\omega_0 e^{{-x/\\lambda_L}}$")
     ax2.fill_between(x, 0, omega_super, alpha=0.1, color="#33ffcc")
 
     # Draw phase-locked gears (all same size = rigid coupling)

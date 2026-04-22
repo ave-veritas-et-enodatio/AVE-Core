@@ -212,7 +212,7 @@ def main():
     E_exp = -79.005  # NIST: IE₁ + IE₂ = 24.587 + 54.418
 
     # ── Constant chain ──
-    print(f"\n  CONSTANT CHAIN (Axiom 2 → Coulomb):")
+    print("\n  CONSTANT CHAIN (Axiom 2 → Coulomb):")
     print(f"    α       = {ALPHA:.10f}          (calibration input)")
     print(f"    ℓ_node  = ℏ/(m_e c) = {L_NODE:.6e} m")
     print(f"    a₀      = ℓ_node/α  = {A_BOHR:.6e} m")
@@ -234,7 +234,7 @@ def main():
 
     print(f"    E_0       = -Z²E_H          = {E_0/eV:.4f} eV")
     print(f"    ⟨V_ee⟩₁   = (5Z/8)E_H      = {V_ee_1/eV:.4f} eV")
-    print(f"    (5/8) = exact ∬|φ|²|φ|²/r₁₂ analytical integral, NOT a fit")
+    print("    (5/8) = exact ∬|φ|²|φ|²/r₁₂ analytical integral, NOT a fit")
     print(
         f"    E_pert    = E_0 + ⟨V_ee⟩₁   = {E_pert/eV:.4f} eV  "
         f"({abs(E_pert/eV - E_exp)/abs(E_exp)*100:.2f}% error)"
@@ -250,7 +250,7 @@ def main():
     Z_opt = res.x
     E_var = res.fun
 
-    print(f"    ∂E/∂Z_eff = 0  →  Z_eff = Z − 5/16 = 27/16 = 1.6875")
+    print("    ∂E/∂Z_eff = 0  →  Z_eff = Z − 5/16 = 27/16 = 1.6875")
     print(f"    Z_eff (numerical) = {Z_opt:.6f}")
     print(f"    E_var             = {E_var/eV:.4f} eV  " f"({abs(E_var/eV - E_exp)/abs(E_exp)*100:.2f}% error)")
 
@@ -291,16 +291,16 @@ def main():
     print(f"  {'Experiment (NIST)':<38} {E_exp:>9.3f} {'—':>7} {'—':>20}")
     print(f"{'═'*70}")
 
-    print(f"\n  INTERPRETATION:")
-    print(f"    Rows 1–3: AVE reproduces standard QM at atomic scales.")
-    print(f"              This confirms consistency, not new physics.")
-    print(f"              Saturation (Axiom 4) is sub-ppm → pure Coulomb.")
-    print(f"    Row 4:    HF limit is a basis-set refinement of standard QM.")
-    print(f"              NOT an AVE result — cited for context only.")
-    print(f"    Row 5:    J_s2 = ½(1+p_c) with p_c = 8πα is UNIQUE to AVE.")
-    print(f"              It captures electron correlation as geometric")
-    print(f"              phase-jitter of two 0₁ unknots in a shared cavity.")
-    print(f"              This is the genuinely new prediction.")
+    print("\n  INTERPRETATION:")
+    print("    Rows 1–3: AVE reproduces standard QM at atomic scales.")
+    print("              This confirms consistency, not new physics.")
+    print("              Saturation (Axiom 4) is sub-ppm → pure Coulomb.")
+    print("    Row 4:    HF limit is a basis-set refinement of standard QM.")
+    print("              NOT an AVE result — cited for context only.")
+    print("    Row 5:    J_s2 = ½(1+p_c) with p_c = 8πα is UNIQUE to AVE.")
+    print("              It captures electron correlation as geometric")
+    print("              phase-jitter of two 0₁ unknots in a shared cavity.")
+    print("              This is the genuinely new prediction.")
 
     # ── Visualization ──
     r = hartree["r"]
@@ -380,14 +380,14 @@ def main():
     print(f"\n  Saved: {path}")
 
     # Audit trail
-    print(f"\n  AUDIT TRAIL:")
+    print("\n  AUDIT TRAIL:")
     print(f"    m_e    = {M_E:.6e} kg   (constants.M_E)")
     print(f"    α      = {ALPHA:.10f}   (constants.ALPHA)")
     print(f"    ℏ      = {HBAR:.6e} J·s (constants.HBAR)")
     print(f"    c      = {C_0:.1f} m/s     (constants.C_0)")
     print(f"    e      = {e_charge:.6e} C   (constants.e_charge)")
-    print(f"    (5/8)  = analytical Coulomb integral, textbook exact")
-    print(f"    All values from constants.py — zero smuggled data.")
+    print("    (5/8)  = analytical Coulomb integral, textbook exact")
+    print("    All values from constants.py — zero smuggled data.")
 
 
 if __name__ == "__main__":

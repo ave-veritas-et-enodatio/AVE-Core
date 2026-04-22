@@ -160,7 +160,7 @@ class RegimeInfo:
     def summary(self) -> str:
         """Human-readable summary for diagnostic printing."""
         lines = [
-            f"  ── REGIME CLASSIFICATION ──",
+            "  ── REGIME CLASSIFICATION ──",
             f"  Domain:    {self.domain or 'unspecified'}",
             f"  Amplitude: A = {self.A:.4e}" + (f" {self.A_units}" if self.A_units else ""),
             f"  Threshold: Ac = {self.Ac:.4e}" + (f" {self.Ac_units}" if self.Ac_units else ""),
@@ -487,10 +487,10 @@ def print_regime_map():
     """Print the full regime map with all domain examples."""
     print("=" * 78)
     print("  UNIVERSAL REGIME MAP (Derived Boundaries)")
-    print(f"  S(r) = √(1 - r²),  r = A/Ac")
+    print("  S(r) = √(1 - r²),  r = A/Ac")
     print(f"  r₁ = √(2α) = {R_LINEAR_MAX:.4f}   (small-signal limit)")
     print(f"  r₂ = √3/2  = {R_NONLINEAR_MAX:.4f}   (Q = ℓ_min = 2)")
-    print(f"  r₃ = 1.0000          (Axiom 4)")
+    print("  r₃ = 1.0000          (Axiom 4)")
     print("=" * 78)
 
     S_at_r1 = np.sqrt(1 - R_LINEAR_MAX**2)
@@ -503,7 +503,7 @@ def print_regime_map():
     print(f"  {'III YIELD':<24} {'√3/2 ≤ r < 1':<20} {'S < 0.500':<20} Avalanche (M ≥ 2)")
     print(f"  {'IV  RUPTURED':<24} {'r ≥ 1.0':<20} {'S = 0':<20} Breakdown (M → ∞)")
 
-    print(f"\n  ── DOMAIN EXAMPLES ──")
+    print("\n  ── DOMAIN EXAMPLES ──")
 
     examples = [
         (

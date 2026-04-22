@@ -152,8 +152,8 @@ def main():
     static_out = "assets/figures/ideal_gas_compressed_static.pdf"
     fig_static.savefig(static_out, facecolor="#111111", bbox_inches="tight", dpi=150)
 
-    print(f"\n[STATUS: SUCCESS] The Equation of State PV=nRT successfully modeled")
-    print(f"as continuous macroscopic LC Impedance mapping.")
+    print("\n[STATUS: SUCCESS] The Equation of State PV=nRT successfully modeled")
+    print("as continuous macroscopic LC Impedance mapping.")
     print(f"Animated propagation saved to {out_path}")
     print(f"Static boundary state saved to {static_out}")
 

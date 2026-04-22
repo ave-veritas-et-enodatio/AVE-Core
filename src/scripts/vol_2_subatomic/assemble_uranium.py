@@ -31,7 +31,7 @@ M_N = 1.00866
 
 
 def assemble_heavy_nucleus_dynamic():
-    print(f"[*] Initializing Dynamic Topoloogical Synthesizer: 235 Nucleons (Uranium-235)")
+    print("[*] Initializing Dynamic Topoloogical Synthesizer: 235 Nucleons (Uranium-235)")
 
     masses = []
     colors = []

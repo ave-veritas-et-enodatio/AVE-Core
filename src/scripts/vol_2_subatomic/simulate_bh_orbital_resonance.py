@@ -146,7 +146,7 @@ def main():
         color="#00ccff",
         markersize=10,
         linewidth=2,
-        label=f"GRS 1915+105 (14 M☉)",
+        label="GRS 1915+105 (14 M☉)",
         zorder=5,
     )
 
@@ -214,7 +214,7 @@ def main():
     print(f"\n[*] Saved figure: {out_path}")
 
     # ── Console summary ──
-    print(f"\n  GRS 1915+105 (14 M☉, a*=0.7):")
+    print("\n  GRS 1915+105 (14 M☉, a*=0.7):")
     print(f"    Mode 1 predicted: {freqs_grs[0]:.1f} Hz  (observed: 67 Hz)")
     if len(freqs_grs) >= 2:
         print(f"    Mode 2 predicted: {freqs_grs[1]:.1f} Hz  (observed: 113 Hz)")

@@ -150,7 +150,7 @@ def main():
     static_out = "assets/figures/emergent_gravity_capture_static.pdf"
     fig_static.savefig(static_out, facecolor="#000000", bbox_inches="tight", dpi=150)
 
-    print(f"\n[STATUS: SUCCESS] The engine naturally simulates Gravitational Lensing!")
+    print("\n[STATUS: SUCCESS] The engine naturally simulates Gravitational Lensing!")
     print(f"Animated propagation saved to {out_path}")
     print(f"Static trajectory map saved to {static_out}")
 

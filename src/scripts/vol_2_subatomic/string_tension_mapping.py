@@ -47,7 +47,7 @@ def main():
 
     T_ave = U_e_joules / L_31
 
-    print(f"    Calculated AVE Tension for the unknot Electron:")
+    print("    Calculated AVE Tension for the unknot Electron:")
     print(f"    T_AVE = {T_ave:.4e} N (or J/m)")
 
     print("\n[3] The String Duality Resolution:")

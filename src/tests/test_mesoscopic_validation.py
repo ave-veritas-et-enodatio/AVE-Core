@@ -54,7 +54,7 @@ def test_water_phase_coincidence():
     )
     t_max = lattice_solver.density_maximum_temperature() - 273.15
 
-    print(f"\n[TEST 1] Water Phase Boundary Limits")
+    print("\n[TEST 1] Water Phase Boundary Limits")
     print(f"  Theoretical Density Peak: {t_max:.4f} °C")
     print(f"  Algebraic Regime T_crit:  {T_crit:.4f} °C")
 
@@ -76,7 +76,7 @@ def test_regime_boundary_enforcement():
     # Classify the voltage drop against the vacuum lattice limit
     info = identify_regime("em_voltage", V_local=v_drop_per_cell, verbose=False)
 
-    print(f"[TEST 2] Regime Boundary Enforcement (Z=26)")
+    print("[TEST 2] Regime Boundary Enforcement (Z=26)")
     print(f"  Unit Cell Voltage Drop: {v_drop_per_cell:.4f} V")
     print(f"  Vacuum Yield (Axiom 4): {float(V_YIELD):.4f} V")
     print(f"  Regime 'r' Ratio:       {info.r:.6f}")
@@ -100,7 +100,7 @@ def test_topological_nuclear_saturation():
     # Test the theoretical binding limit
     expected_m_defect = ALPHA * M_PROTON
 
-    print(f"[TEST 3] Topological Nuclear Saturation (Z=6)")
+    print("[TEST 3] Topological Nuclear Saturation (Z=6)")
     print(f"  Theoretical Geometric Defect/Nucleon: {expected_m_defect:.4e} kg")
 
     # The binding energy ratio against the nucleon mass MUST BE exactly alpha.

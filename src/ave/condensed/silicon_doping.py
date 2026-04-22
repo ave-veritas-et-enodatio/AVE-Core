@@ -177,7 +177,7 @@ def diode_iv(V_applied: np.ndarray) -> np.ndarray:
         Normalized current array (I/I₀).
     """
     junction = pn_junction()
-    V_bi = junction["V_bi_eV"]
+    junction["V_bi_eV"]
 
     # Saturation function S(x) = 1/√(1+x²) from Axiom 4
     # The barrier modulates the coupling: k_eff(V) = k × S(V_bi - V)
@@ -201,17 +201,17 @@ def print_doping_report():
     print("SILICON DOPING & p-n JUNCTION — AVE FIRST PRINCIPLES")
     print("=" * 65)
 
-    print(f"\n--- Boron (p-type, Z=5) ---")
+    print("\n--- Boron (p-type, Z=5) ---")
     print(f"  k(B-Si)/4:         {boron['k_dopant_Si']:.6f}")
     print(f"  Gap (B-Si bonds):  {boron['E_gap_dopant_eV']:.4f} eV")
     print(f"  ΔE (acceptor):     {boron['delta_E_eV']:.4f} eV  ({boron['position']})")
 
-    print(f"\n--- Phosphorus (n-type, Z=15) ---")
+    print("\n--- Phosphorus (n-type, Z=15) ---")
     print(f"  k(P-Si)/4:         {phosphorus['k_dopant_Si']:.6f}")
     print(f"  Gap (P-Si bonds):  {phosphorus['E_gap_dopant_eV']:.4f} eV")
     print(f"  ΔE (donor):        {phosphorus['delta_E_eV']:.4f} eV  ({phosphorus['position']})")
 
-    print(f"\n--- p-n Junction ---")
+    print("\n--- p-n Junction ---")
     print(f"  Si band gap:       {junction['E_gap_eV']:.4f} eV")
     print(f"  Built-in potential: {junction['V_bi_eV']:.4f} eV")
     print(f"  T²(junction):      {junction['T_sq_junction']:.6f}")

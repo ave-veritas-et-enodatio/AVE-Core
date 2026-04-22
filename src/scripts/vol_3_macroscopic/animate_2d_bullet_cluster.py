@@ -30,8 +30,8 @@ def animate_2d_bullet_cluster():
     y = np.linspace(GRID_MIN, GRID_MAX, GRID_RES)
     X_si, Y_si = np.meshgrid(x, y)
 
-    X_kpc = X_si / KPC
-    Y_kpc = Y_si / KPC
+    X_si / KPC
+    Y_si / KPC
 
     # Asymmetric Cluster masses based on Bullet Cluster empiricals
     mass_main = 1e14 * M_SUN
@@ -61,7 +61,7 @@ def animate_2d_bullet_cluster():
 
     # Smooth the edges computationally slightly for the 3D surface plot visual rendering
     norm_factor = np.max(total_drag) if np.max(total_drag) > 0 else 1
-    Z_plot = total_drag / norm_factor
+    total_drag / norm_factor
 
     # Set up matplotlib 3D Axis
     fig = plt.figure(figsize=(10, 8))

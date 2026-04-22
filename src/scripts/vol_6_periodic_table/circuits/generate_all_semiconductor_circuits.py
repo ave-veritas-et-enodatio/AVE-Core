@@ -410,7 +410,7 @@ def make_section_cd(elem):
         if "halo_1a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX}, {CY}) {{$\\alpha$}};\n"
             nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (h0) at ({CX+3}, {CY}) {{$^3\\text{{H}}$}};\n"
-            edges = f"\\draw[neonorange, thick, dashed] (c0) -- (h0) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            edges = "\\draw[neonorange, thick, dashed] (c0) -- (h0) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
             legend = "1 core-halo link\\\\\\textbf{1 junction}"
         elif "halo_2a" in topo_key:
             nodes = f"\\node[small alpha] (c0) at ({CX-1.5}, {CY}) {{$\\alpha$}};\n"
@@ -426,7 +426,7 @@ def make_section_cd(elem):
             n_core = n_alpha
             nodes = f"\\node[small alpha, minimum size=1.5cm] (core) at ({CX}, {CY}) {{${n_core}\\alpha$\\\\core}};\n"
             nodes += f"\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange] (halo) at ({CX+3.5}, {CY}) {{$^3\\text{{H}}$}};\n"
-            edges = f"\\draw[neonorange, thick, dashed] (core) -- (halo) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
+            edges = "\\draw[neonorange, thick, dashed] (core) -- (halo) node[midway, above, text=white, font=\\tiny] {{$M_{{\\text{{halo}}}}$}};\n"
             r_halo = elem.get("R_halo", "?")
             legend = f"Core + halo at ${r_halo}d$\\\\\\textbf{{{elem['n_pairs']}+ junctions}}"
 

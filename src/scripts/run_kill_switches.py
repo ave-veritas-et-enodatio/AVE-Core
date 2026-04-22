@@ -237,8 +237,8 @@ def kill_switch_4():
 # =====================================================================
 def main():
     print(f"\n{BOLD}{'='*72}")
-    print(f"  THE 4 KILL SWITCHES")
-    print(f"  Applied Vacuum Engineering — Experimental Falsification Program")
+    print("  THE 4 KILL SWITCHES")
+    print("  Applied Vacuum Engineering — Experimental Falsification Program")
     print(f"{'='*72}{RESET}")
     print()
     print("  Each test targets one axiom with a binary, tabletop-measurable")

@@ -100,12 +100,12 @@ def main():
     REF_DEPTH = 5
     s11_inf = s11_at_depth(REF_DEPTH, boundary_y=1.0)
     print(f"\n  S11_inf = S11(N={REF_DEPTH}, boundary=continuum) = {s11_inf:.8f}")
-    print(f"  (converges by depth 5; 485 nodes — tractable)")
+    print("  (converges by depth 5; 485 nodes — tractable)")
 
     # ─── Block 1: S11 depth convergence table ─────────────────────────────────
-    print(f"\n  S11 Convergence: Cavity (open) vs Continuum (matched):")
+    print("\n  S11 Convergence: Cavity (open) vs Continuum (matched):")
     print(f"  {'N_cav':>6}  {'d (pm)':>10}  {'|S11|_open':>12}  {'|S11|_cont':>12}  {'ΔS11²':>12}")
-    print(f"  " + "-" * 60)
+    print("  " + "-" * 60)
     n_cavs = [1, 2, 3, 4, 5]
     s11_vals = {}
     for n in n_cavs:
@@ -117,9 +117,9 @@ def main():
         print(f"  {n:>6}  {d_pm:>10.4f}  {s_open:>12.8f}  {s_cont:>12.8f}  {delta:>12.8f}")
 
     # ─── Block 2: Pressure vs cavity depth (lattice units) ────────────────────
-    print(f"\n  Casimir Pressure vs Cavity Depth:")
+    print("\n  Casimir Pressure vs Cavity Depth:")
     print(f"  {'N_cav':>6}  {'d (pm)':>10}  {'P_std (Pa)':>14}  {'P_AVE (Pa)':>14}  {'ratio':>8}")
-    print(f"  " + "-" * 64)
+    print("  " + "-" * 64)
     for n in [1, 2, 3, 4, 5]:
         d_m = n * L_NODE
         d_pm = d_m * 1e12
@@ -129,7 +129,7 @@ def main():
         print(f"  {n:>6}  {d_pm:>10.4f}  {p_std:>14.4e}  {p_ave:>14.4e}  {ratio:>8.4f}")
 
     # ─── Block 3: Power-law verification ──────────────────────────────────────
-    print(f"\n  Power-Law Fit (AVE prediction should scale as d^{{-4}}):")
+    print("\n  Power-Law Fit (AVE prediction should scale as d^{{-4}}):")
     depths = [2, 3, 4, 5]
     log_d = np.log([n * L_NODE for n in depths])
     log_p = np.log([abs(casimir_ave(n, s11_inf)) for n in depths])

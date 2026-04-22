@@ -289,7 +289,7 @@ def print_stellar_summary():
     print(f"  Photosphere Γ:  {photosphere_reflection():.6f}")
     print()
     p_modes = helioseismology_modes(5)
-    print(f"  p-mode frequencies (n=1-5, l=0):")
+    print("  p-mode frequencies (n=1-5, l=0):")
     for n, f in enumerate(p_modes, 1):
         print(f"    n={n}: {f:.1f} μHz")
     print("=" * 70)

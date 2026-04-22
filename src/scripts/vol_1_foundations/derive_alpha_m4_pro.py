@@ -154,7 +154,7 @@ def calculate_alpha_from_lattice():
             print("===================================================================")
             print(" [!!!] TOPOLOGICAL RIGIDITY PERCOLATION METRIC REACHED [!!!]")
             print(f" -> Organic Geometric Prediction: 1/alpha ≈ {derived_inverse_alpha:.3f}")
-            print(f" -> Empirical Target: 1/alpha = 137.036")
+            print(" -> Empirical Target: 1/alpha = 137.036")
             print("===================================================================\n")
             break
 

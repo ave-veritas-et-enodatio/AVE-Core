@@ -45,7 +45,7 @@ def main():
     # pierce the inner core geometrically, bypassing the Op3 shunt admittance.
     energy_2p_eV = radial_eigenvalue_abcd(Z, n, 1, shells)
 
-    print(f"\nResults:")
+    print("\nResults:")
     print(f"  2s Binding Energy (l=0): {energy_2s_eV:.4f} eV")
     print(f"  2p Binding Energy (l=1): {energy_2p_eV:.4f} eV")
 

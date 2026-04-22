@@ -87,7 +87,7 @@ def main():
     static_out = "assets/figures/gravitational_waves_lc_static.pdf"
     fig_static.savefig(static_out, facecolor="#0a0a2e", bbox_inches="tight", dpi=150)
 
-    print(f"\n[STATUS: SUCCESS] General Relativity mapped as Applied Vacuum Engineering.")
+    print("\n[STATUS: SUCCESS] General Relativity mapped as Applied Vacuum Engineering.")
     print(f"Animated propagation saved to {out_path}")
     print(f"Static spiral state saved to {static_out}")
 

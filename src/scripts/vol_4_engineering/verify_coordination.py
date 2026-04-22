@@ -86,7 +86,7 @@ def run_verification():
     box_size = 6.0  # ℓ_node units
     N_target = 300  # nodes in the box
 
-    print(f"\n  Lattice parameters:")
+    print("\n  Lattice parameters:")
     print(f"    ℓ_node = {l_node}")
     print(f"    r_min = {r_min}")
     print(f"    Overbracing ratio = {overbrace}")
@@ -120,11 +120,11 @@ def run_verification():
 
     # Results
     z_del = np.mean(results_delaunay)
-    print(f"\n  --- Delaunay coordination ---")
+    print("\n  --- Delaunay coordination ---")
     print(f"    z_Delaunay = {z_del:.2f} ± {np.std(results_delaunay):.2f}")
     print()
 
-    print(f"  --- Range-based coordination ---")
+    print("  --- Range-based coordination ---")
     print(f"  {'R/ℓ_node':>10} {'z_eff':>8} {'±σ':>8} {'% of z₀':>10}")
     print(f"  {'-'*40}")
 

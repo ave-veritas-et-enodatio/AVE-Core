@@ -94,7 +94,7 @@ def main():
     A_numeric = clifford_area_numeric(r1, r2)
     A_expected = 2.0 * np.pi**2
 
-    print(f"  Parameterization: (z₁, z₂) = (r₁·e^{{iθ₁}}, r₂·e^{{iθ₂}}) on S³")
+    print("  Parameterization: (z₁, z₂) = (r₁·e^{{iθ₁}}, r₂·e^{{iθ₂}}) on S³")
     print(f"  Standard geodesic radii: r₁ = r₂ = 1/√2 = {r1:.10f}")
     print(f"  Closed-form area: 4π²·r₁·r₂ = {A_closed_form:.10f}")
     print(f"  Numeric integration:           {A_numeric:.10f}")
@@ -120,29 +120,29 @@ def main():
     print("─" * 74)
     print("  Step 3: Match general (R, r) Clifford torus to the π² target")
     print("─" * 74)
-    print(f"  Screening-match condition: (2πR)(2πr) = π²")
-    print(f"                              4π²·R·r   = π²")
-    print(f"                              R·r       = 1/4")
+    print("  Screening-match condition: (2πR)(2πr) = π²")
+    print("                              4π²·R·r   = π²")
+    print("                              R·r       = 1/4")
     print()
 
     # ─── Step 4: Solve the combined system ───
     print("─" * 74)
     print("  Step 4: Solve the two independent regime equations")
     print("─" * 74)
-    print(f"  (a) R - r  = 1/2     (crossings self-avoidance at d = 1)")
-    print(f"  (b) R · r  = 1/4     (spin-1/2 half-cover screening)")
+    print("  (a) R - r  = 1/2     (crossings self-avoidance at d = 1)")
+    print("  (b) R · r  = 1/4     (spin-1/2 half-cover screening)")
     print()
-    print(f"  Elimination: r = R - 1/2; substitute into (b):")
-    print(f"    R(R - 1/2) = 1/4")
-    print(f"    2R² - R - 1/2 = 0")
-    print(f"    R = (1 + √5)/4  or  R = (1 - √5)/4")
+    print("  Elimination: r = R - 1/2; substitute into (b):")
+    print("    R(R - 1/2) = 1/4")
+    print("    2R² - R - 1/2 = 0")
+    print("    R = (1 + √5)/4  or  R = (1 - √5)/4")
     print()
 
     R_plus, R_minus = solve_golden_torus()
     R_golden = PHI / 2.0
     r_golden = (PHI - 1.0) / 2.0
 
-    print(f"  Roots:")
+    print("  Roots:")
     print(f"    R₊ = (1 + √5)/4 = {R_plus:.10f}   (physical)")
     print(f"    R₋ = (1 − √5)/4 = {R_minus:.10f}   (unphysical, negative)")
     print()
@@ -159,7 +159,7 @@ def main():
     # Verify constraints at solution
     check_avoid = R_plus - (R_plus - 0.5)
     check_screen = R_plus * (R_plus - 0.5)
-    print(f"  Check constraints at R = φ/2, r = (φ-1)/2:")
+    print("  Check constraints at R = φ/2, r = (φ-1)/2:")
     print(f"    R - r = {check_avoid:.10f}   (expected 0.5)")
     print(f"    R · r = {check_screen:.10f}   (expected 0.25)")
     print()
@@ -183,7 +183,7 @@ def main():
     print(f"  Match: {'✓' if np.isclose(alpha_inv, ALPHA_COLD_INV, rtol=1e-12) else '✗'}")
     print()
     print(f"  CODATA 1/ALPHA:     {1.0/ALPHA:.10f}")
-    print(f"  CMB correction:     α⁻¹_cold × (1 - δ_strain)")
+    print("  CMB correction:     α⁻¹_cold × (1 - δ_strain)")
     print(f"                    = {alpha_inv * (1 - DELTA_STRAIN):.10f}")
     print()
 

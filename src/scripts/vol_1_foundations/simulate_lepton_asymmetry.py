@@ -42,16 +42,16 @@ def derive_chiral_asymmetry():
 
     baryogen_efficiency = ALPHA * theta_cp
 
-    print(f"[1] INTRINSIC LOMMEL-SEELIGER LATTICE CHIRALITY")
+    print("[1] INTRINSIC LOMMEL-SEELIGER LATTICE CHIRALITY")
     print(f"    Fundamental CP-Violating Phase: {theta_cp:.4e} Radians")
 
-    print(f"\n[2] BARYOGENESIS (MATTER-ANTIMATTER IMBALANCE)")
+    print("\n[2] BARYOGENESIS (MATTER-ANTIMATTER IMBALANCE)")
     print(f"    Calculated Asymmetry Ratio (eta): {baryogen_efficiency:.4e}")
 
     # Target Cosmological Asymmetry ~ 6e-10
     target_eta = 6e-10
     print(f"    Cosmological Target Ratio:        {target_eta:.4e}")
-    print(f"    Note: Full thermal suppression limits not modeled (Sphaleron transitions).")
+    print("    Note: Full thermal suppression limits not modeled (Sphaleron transitions).")
 
     return theta_cp, baryogen_efficiency
 

@@ -27,7 +27,7 @@ title = "Neon-20 ($^{20}Ne$): Dynamic Bipyramid Flux"
 
 nodes = get_nucleon_coordinates(Z, A)
 if not nodes:
-    print(f"Error executing Ne20 nodes")
+    print("Error executing Ne20 nodes")
     sys.exit(1)
 
 z_min = min(n[2] for n in nodes) - 1.0

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
 
 """
 Universal Topological Operators
@@ -27,8 +28,6 @@ These operators are domain-agnostic and should be imported by all downstream
 solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
 """
-
-from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
 
 
 def _is_jax_array(x):

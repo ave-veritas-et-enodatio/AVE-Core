@@ -129,9 +129,9 @@ def main():
     out_path = "standard_model/animations/sagnac_rlvg_impedance_drag.gif"
     ani.save(out_path, writer="pillow", fps=25)
 
-    print(f"\n[STATUS: SUCCESS] The Sagnac Phase Shift successfully simulated as a Classical Impedance Drag anomaly.")
+    print("\n[STATUS: SUCCESS] The Sagnac Phase Shift successfully simulated as a Classical Impedance Drag anomaly.")
     print(
-        f"Relativistic path-length adjustment was mathematically bypassed in favor of localized metric slipstream velocity."
+        "Relativistic path-length adjustment was mathematically bypassed in favor of localized metric slipstream velocity."
     )
     print(f"Animated propagation saved to {out_path}")
 

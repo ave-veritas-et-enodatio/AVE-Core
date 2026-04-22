@@ -84,7 +84,7 @@ def main():
     static_out = "assets/figures/entropy_dissipation_final.pdf"
     fig_static.savefig(static_out, facecolor="#111111", bbox_inches="tight", dpi=150)
 
-    print(f"\n[STATUS: SUCCESS] The 2nd Law of Thermodynamics is strict grid geometry.")
+    print("\n[STATUS: SUCCESS] The 2nd Law of Thermodynamics is strict grid geometry.")
     print(f"Animated propagation saved to {out_path}")
     print(f"Static boundary state saved to {static_out}")
 

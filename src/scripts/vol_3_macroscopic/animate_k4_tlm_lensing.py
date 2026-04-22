@@ -87,7 +87,7 @@ def main():
         lattice.step()
 
         if step % FRAME_INTERVAL == 0:
-            field = lattice.get_field_array().copy()
+            lattice.get_field_array().copy()
 
             fig, ax = plt.subplots(figsize=(12, 4.8), dpi=150)
             fig.patch.set_facecolor("black")
@@ -147,7 +147,7 @@ def main():
             "k4_tlm_gravitational_lensing_10s.mp4",
         )
     )
-    print(f"\nCompiling frames to MP4 at 30 fps using ffmpeg...")
+    print("\nCompiling frames to MP4 at 30 fps using ffmpeg...")
     cmd = [
         "ffmpeg",
         "-y",

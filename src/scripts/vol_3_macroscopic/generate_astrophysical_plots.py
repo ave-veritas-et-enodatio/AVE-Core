@@ -61,10 +61,8 @@ def plot_geodynamo():
 
     # Empirical dipole moments [A*m^2]
     empirical = [8.0e22, 1e18, 1e18]  # treating Venus/Mars dead as ~1e18 noise floor
-    vca_derived = [1.54e23, 1.50e18, 1.36e8]
 
     x = np.arange(len(planets))
-    width = 0.35
 
     fig, ax = plt.subplots(figsize=(6, 5))
     # rects1 = ax.bar(x - width / 2, empirical, width, label="Empirical Target", color="darkgray")  # bulk lint fixup pass
@@ -93,9 +91,6 @@ def plot_geodynamo():
 # -----------------------------------------------------
 def plot_lunar_heating():
     fig, ax = plt.subplots(figsize=(6, 4))
-
-    labels = ["Classical Frictional Wall", "VCA Baryonic AC Resonance"]
-    watts = [0.569e9, 1.044e12]
 
     # Target bound spanning 0.5 to 2.0 TW
     target_low = 0.5e12

@@ -107,9 +107,9 @@ def main():
     fig, axes = plt.subplots(3, 1, figsize=(14, 12))
 
     titles = [
-        f"PROGRADE: Wave moving WITH vortex (+y side). Less impedance = shallower hooking.",
-        f"RETROGRADE: Wave moving AGAINST vortex (-y side). Higher impedance = deeper hooking.",
-        f"SCHWARZSCHILD (Static Reference): Isotropic bending.",
+        "PROGRADE: Wave moving WITH vortex (+y side). Less impedance = shallower hooking.",
+        "RETROGRADE: Wave moving AGAINST vortex (-y side). Higher impedance = deeper hooking.",
+        "SCHWARZSCHILD (Static Reference): Isotropic bending.",
     ]
     fields = [field_pro, field_ret, field_ref]
     y_lines = [BEAM_Y_PROGRADE, BEAM_Y_RETROGRADE, BEAM_Y_PROGRADE]
@@ -128,7 +128,6 @@ def main():
                 vx_grid[i, j] = -v_mag * (yi - cy) / r
                 vy_grid[i, j] = v_mag * (xi - cx) / r
 
-    vmax = 0.25
     for idx, (ax, field, title, beam_y) in enumerate(zip(axes, fields, titles, y_lines)):
         # im = ax.imshow(  # bulk lint fixup pass
         #     field.T,

@@ -130,7 +130,7 @@ ax.text(
 ax.text(
     p_star + 0.008,
     KG_star + 0.3,
-    f"$K = 2G$\n$\\alpha^{{-1}} = 8\\pi/p_c$\n$= 137.036$",
+    "$K = 2G$\n$\\alpha^{{-1}} = 8\\pi/p_c$\n$= 137.036$",
     fontsize=10,
     color="#4CAF50",
     fontweight="bold",

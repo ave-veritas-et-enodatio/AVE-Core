@@ -103,7 +103,7 @@ def run_simulation():
     c_g = C_0 * (1.0 - eps_sq) ** 0.25
 
     # ── Print key radii ────────────────────────────────────────────────────
-    print(f"\n  ── RADIAL PROFILES (from gravity module) ──")
+    print("\n  ── RADIAL PROFILES (from gravity module) ──")
     for r_check, label in [
         (r_sat * 10, "10×r_sat"),
         (r_sat * 2, "2×r_sat"),
@@ -117,7 +117,7 @@ def run_simulation():
         print(f"    r = {r_check/r_s:6.2f} r_s: ε₁₁ = {eps:.4f}, S = {S:.4f}, " f"n = {n:.4f}, Z = {Z:.2f} Ω")
 
     # ── QNM Ringdown (ℓ=2) ────────────────────────────────────────────────
-    print(f"\n  ── SCHWARZSCHILD QNM RINGDOWN (ℓ = 2) ──")
+    print("\n  ── SCHWARZSCHILD QNM RINGDOWN (ℓ = 2) ──")
     ell = 2
     r_eff = r_sat / (1.0 + float(NU_VAC))  # Poisson-corrected cavity
     omega_R = ell * C_0 / r_eff
@@ -133,7 +133,7 @@ def run_simulation():
     )
 
     # ── LIGO Event Comparison ──────────────────────────────────────────────
-    print(f"\n  ── LIGO EVENT COMPARISON ──")
+    print("\n  ── LIGO EVENT COMPARISON ──")
     print(
         f"  {'Event':>12} {'M_final':>8} {'a*':>5} {'f_AVE':>8} {'f_obs':>8} {'Δf':>8} "
         f"{'τ_AVE':>8} {'τ_obs':>8} {'Δτ':>8}"
@@ -187,7 +187,7 @@ def run_simulation():
         )
 
     # ── Hawking Temperature ────────────────────────────────────────────────
-    print(f"\n  ── HAWKING TEMPERATURE ──")
+    print("\n  ── HAWKING TEMPERATURE ──")
     T_H = HBAR * C_0**3 / (8.0 * np.pi * G * M_bh * k_B)
     print(f"    T_H = ℏc³/(8πGMk_B) = {T_H:.3e} K")
     print(f"    For 10 M☉: {T_H:.3e} K (essentially zero — undetectable)")
@@ -229,9 +229,9 @@ def run_simulation():
         color="#ffaa44",
         linewidth=2,
         linestyle="--",
-        label=f"$r_{{sat}} = 3.5\\,r_s$",
+        label="$r_{{sat}} = 3.5\\,r_s$",
     )
-    ax1.axvline(x=1.0, color="#ff4444", linewidth=1.5, linestyle=":", label=f"$r_s$ (Event Horizon)")
+    ax1.axvline(x=1.0, color="#ff4444", linewidth=1.5, linestyle=":", label="$r_s$ (Event Horizon)")
     ax1.axvspan(0, r_sat / r_s, alpha=0.08, color="#ff4444")
     ax1.set_xlabel(r"$r / r_s$", color=C_TEXT, fontsize=11)
     ax1.set_ylabel("Dimensionless", color=C_TEXT, fontsize=11)
@@ -251,7 +251,7 @@ def run_simulation():
         linewidth=2.5,
         label=r"$c_g/c = (1-\varepsilon^2)^{1/4}$",
     )
-    ax2.axvline(x=r_sat / r_s, color="#ffaa44", linewidth=2, linestyle="--", label=f"Phase transition")
+    ax2.axvline(x=r_sat / r_s, color="#ffaa44", linewidth=2, linestyle="--", label="Phase transition")
     ax2.axvspan(0, r_sat / r_s, alpha=0.08, color="#ff4444")
     ax2.text(
         1.5,
@@ -315,13 +315,13 @@ def run_simulation():
         "Confine:   Γ = -1 (Z→0)    G_shear → 0\n"
         "Impedance: Z → 0 at core   Z = Z₀ always\n"
         "Interior:  Topology kept    Topology melts\n"
-        f"Q factor:  crossing # c    mode # ℓ\n"
+        "Q factor:  crossing # c    mode # ℓ\n"
         "\n"
         "BOTH:\n"
         "  • S(r) = √(1 - (A/A_yield)²)\n"
         "  • Standing-wave orbitals\n"
         "  • Emission = orbital transitions\n"
-        f"  • From same Axiom 4 kernel"
+        "  • From same Axiom 4 kernel"
     )
     ax4.text(
         0.05,
@@ -431,7 +431,7 @@ def run_simulation():
     out_path = os.path.join(out_dir, "simulate_black_hole_core.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
-    print(f"\n  ═══ BLACK HOLE DERIVATION COMPLETE ═══")
+    print("\n  ═══ BLACK HOLE DERIVATION COMPLETE ═══")
 
 
 if __name__ == "__main__":

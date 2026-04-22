@@ -125,7 +125,7 @@ def main():
         dpi=150,
     )
 
-    print(f"\n[STATUS: SUCCESS] The BCS Cooper-Pair model is obsolete.")
+    print("\n[STATUS: SUCCESS] The BCS Cooper-Pair model is obsolete.")
     print(f"Classical Zero-Impedance phase-transition plot saved to {out_path}")
 
 

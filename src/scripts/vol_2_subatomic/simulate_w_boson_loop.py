@@ -37,9 +37,9 @@ m_w_tree_mev = M_W_TREE * C_0**2 / _J_PER_MEV
 print(f"\n  M_W (tree-level)         = {m_w_tree_mev:>10.4f} MeV   ({pct(m_w_tree_mev, PDG_MW):+.4f}%)")
 
 # ─── Block 2: Self-consistent iteration ───────────────────────────────────────
-print(f"\n  Self-Consistent Back-Saturation (Axiom 1 + Axiom 4):")
+print("\n  Self-Consistent Back-Saturation (Axiom 1 + Axiom 4):")
 print(f"  {'iter':>5}  {'Y[0,0]':>12}  {'S11':>12}  {'|S11|^2':>12}  {'M_W (MeV)':>12}  {'dev%':>8}")
-print(f"  " + "-" * 63)
+print("  " + "-" * 63)
 
 sc = w_boson_self_consistent_correction(max_iter=50, tol=1e-12)
 
@@ -72,9 +72,9 @@ for i in range(1, 15):
     s11_prev = s11_i
 
 # ─── Block 3: Final comparison ────────────────────────────────────────────────
-print(f"\n  Summary")
+print("\n  Summary")
 print(f"  {'':40}  {'MeV':>10}  {'dev%':>8}")
-print(f"  " + "-" * 63)
+print("  " + "-" * 63)
 print(f"  {'Tree-level M_W':40}  {m_w_tree_mev:>10.2f}  {pct(m_w_tree_mev, PDG_MW):>+8.4f}%")
 print(f"  {'Depth-1 hard saturation':40}  {sc['M_W_d1_MeV']:>10.2f}  {pct(sc['M_W_d1_MeV'], PDG_MW):>+8.4f}%")
 print(f"  {'Self-consistent (converged)':40}  {sc['M_W_sc_MeV']:>10.2f}  {pct(sc['M_W_sc_MeV'], PDG_MW):>+8.4f}%")

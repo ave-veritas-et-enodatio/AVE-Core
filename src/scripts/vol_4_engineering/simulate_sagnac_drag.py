@@ -99,7 +99,7 @@ def run_sagnac_sim():
 
     # Plot 1: Wave Propagation Waterfall
     # Shows the two waves traveling around the ring
-    extent = [0, N_NODES, t_end * 1e6, 0]
+    [0, N_NODES, t_end * 1e6, 0]
     # im = axes[0].imshow(V_nodes, aspect="auto", cmap="hot", extent=extent)  # bulk lint fixup pass
     axes[0].set_title("Photon Packet Propagation Through LC Vacuum Ring")
     axes[0].set_xlabel("Spatial LC Node Index")

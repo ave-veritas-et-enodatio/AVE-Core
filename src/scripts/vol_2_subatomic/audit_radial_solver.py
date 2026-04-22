@@ -13,7 +13,7 @@ def audit_radial_solver():
     print("=========================================================================")
     print("  Full First-Principles Audit of the ABCD Radial Eigenvalue Solver")
     print("=========================================================================")
-    print(f"Executing deterministic sweep for Period 1 & 2 Elements (Z=1 to Z=10)")
+    print("Executing deterministic sweep for Period 1 & 2 Elements (Z=1 to Z=10)")
 
     # Experimental references for first ionization energies (eV)
     # NIST Data
@@ -54,7 +54,7 @@ def audit_radial_solver():
         # In AVE solver, l=0 is s-block (Z <= 4), l=1 is p-block (Z >= 5) for Period 2.
         # l_out = 0 if z <= 4 else 1  # bulk lint fixup pass
         if z == 1:
-            l_out = 0
+            pass
 
         try:
             val_ie = ionization_energy_e2k(z)

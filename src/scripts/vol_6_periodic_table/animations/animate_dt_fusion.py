@@ -70,7 +70,7 @@ def animate_dt_fusion_transient():
             d_nodes = [np.array([dx, 0.75, 0]), np.array([dx, -0.75, 0])]
 
             nodes = t_nodes + d_nodes
-            status = f"Inbound AC Ponderomotive Forcing"
+            status = "Inbound AC Ponderomotive Forcing"
             color = "white"
 
         elif frame < 45:

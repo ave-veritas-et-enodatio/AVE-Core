@@ -51,7 +51,7 @@ def get_structural_variance(Z, A):
     return np.mean(global_variances) if global_variances else float("inf")
 
 
-print(f"Structural Acoustic/Electrical Impedance Variances (Lower = Better Conductor):")
+print("Structural Acoustic/Electrical Impedance Variances (Lower = Better Conductor):")
 print("-" * 60)
 
 elements = [

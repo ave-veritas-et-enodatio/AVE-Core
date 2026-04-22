@@ -296,7 +296,7 @@ def main():
         vmax=vmax,
         extent=[0, h_chiral.shape[0], 0, h_chiral.shape[1]],
     )
-    ax.set_title(f"Helicity Density h = A·B\n(Uniform chirality lattice)", fontsize=11)
+    ax.set_title("Helicity Density h = A·B\n(Uniform chirality lattice)", fontsize=11)
     ax.set_xlabel("x [nodes]")
     ax.set_ylabel("y [nodes]")
     plt.colorbar(im, ax=ax, shrink=0.8, label="h")

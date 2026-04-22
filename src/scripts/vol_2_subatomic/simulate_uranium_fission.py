@@ -39,7 +39,7 @@ FRAMES = 150
 
 
 def run_fission_simulation():
-    print(f"[*] Initializing U-235 Core Topology...")
+    print("[*] Initializing U-235 Core Topology...")
     masses = []
     is_proton = []
     colors = []

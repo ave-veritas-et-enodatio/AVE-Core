@@ -21,8 +21,8 @@ def extract_bullet_stills():
     x = np.linspace(GRID_MIN, GRID_MAX, GRID_RES)
     y = np.linspace(GRID_MIN, GRID_MAX, GRID_RES)
     X_si, Y_si = np.meshgrid(x, y)
-    X_kpc = X_si / KPC
-    Y_kpc = Y_si / KPC
+    X_si / KPC
+    Y_si / KPC
 
     mass_main = 1e14 * M_SUN
     mass_bullet = 1e13 * M_SUN
@@ -67,7 +67,7 @@ def extract_bullet_stills():
         g_eff_bullet = np.vectorize(lambda g: ave_saturation_acceleration(g, a0=A0_LATTICE))(g_N_bullet)
 
         total_drag = (g_eff_main - g_N_main) + (g_eff_bullet - g_N_bullet)
-        norm_factor = np.max(total_drag) if np.max(total_drag) > 0 else 1
+        np.max(total_drag) if np.max(total_drag) > 0 else 1
 
         # Plot as a 2D Heatmap
         ax = axes[i]

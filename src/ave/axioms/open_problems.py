@@ -336,7 +336,7 @@ def impedance_hubble_correction(n_e_local: float = 0.05, n_e_cmb_path: float = 0
     c_cmb = C_0 / n_ref_cmb
 
     # Fractional speed difference
-    delta_c_over_c = (c_local - c_cmb) / C_0
+    (c_local - c_cmb) / C_0
 
     # This affects H₀ because H = v/d, and d is inferred from
     # luminosity distance which depends on c_eff

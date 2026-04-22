@@ -100,7 +100,7 @@ def run_convergence_study():
     d_offset = 0.5
     M_over_L = np.exp(-(d_offset**2) / (4.0 * sigma_tube**2))
 
-    print(f"\n--- Phase 1: Derived Saturation Threshold ---")
+    print("\n--- Phase 1: Derived Saturation Threshold ---")
     print(f"  σ_tube = FWHM/(2√(2ln2)) = {sigma_tube:.6f} ℓ_node")
     print(f"  M/L at crossing = exp(-d²/(4σ²)) = {M_over_L:.6f} = 1/√2")
     print(f"  Derived threshold: t = 1 + σ/4 = {t_derived:.6f}")

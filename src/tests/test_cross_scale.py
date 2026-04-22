@@ -32,7 +32,7 @@ for name, Z, A, cod in nuc:
 
 print("\n--- Level 2: ATOMIC IE ---")
 print("Formula: IE = E(ion) - E(neutral)")
-print(f"Screening: Total energy via Mutual Cavity Loading (Op1+Op3)")
+print("Screening: Total energy via Mutual Cavity Loading (Op1+Op3)")
 CODATA = {
     1: 13.598,
     2: 24.587,

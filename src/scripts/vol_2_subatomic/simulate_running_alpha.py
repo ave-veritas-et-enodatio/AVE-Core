@@ -152,16 +152,16 @@ def main():
 
     print()
     print("  REFERENCE (PDG):")
-    print(f"    α(0)     = 1/137.036  (Thomson limit)")
-    print(f"    α(M_Z)   = 1/128.9    (LEP measurement)")
-    print(f"    α(∞)     → Landau pole (QED prediction)")
+    print("    α(0)     = 1/137.036  (Thomson limit)")
+    print("    α(M_Z)   = 1/128.9    (LEP measurement)")
+    print("    α(∞)     → Landau pole (QED prediction)")
     print()
 
     # Direct comparison at M_Z
     r_mz = alpha_eff_axiom4(91188.0)
     print(f"  AT M_Z ({r_mz['energy_mev']:.0f} MeV):")
     print(f"    AVE:  1/α_eff = {r_mz['inv_alpha_eff']:.3f}")
-    print(f"    PDG:  1/α     = 128.9")
+    print("    PDG:  1/α     = 128.9")
     if r_mz["inv_alpha_eff"] > 0:
         error = (r_mz["inv_alpha_eff"] - 128.9) / 128.9 * 100
         print(f"    Deviation:    {error:+.2f}%")
