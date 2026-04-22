@@ -16,7 +16,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.colors import PowerNorm
 
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix
 

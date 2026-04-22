@@ -45,7 +45,6 @@ from ave.core.constants import (
     K_B,
     M_SUN,
 )
-from ave.core.regime_map import identify_regime
 from ave.gravity import (
     principal_radial_strain,
     refractive_index,
@@ -53,8 +52,6 @@ from ave.gravity import (
     saturation_radius,
     gravitational_saturation_factor,
     shear_modulus_factor,
-    local_mu,
-    local_epsilon,
     local_impedance,
 )
 from ave.axioms.scale_invariant import (

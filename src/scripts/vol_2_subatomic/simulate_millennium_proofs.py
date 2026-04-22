@@ -26,7 +26,6 @@ import textwrap
 from ave.core.constants import L_NODE, M_E, C_0, e_charge
 from ave.axioms.yang_mills import (
     full_mass_gap_proof,
-    verify_osterwalder_schrader,
     cluster_decomposition_length,
 )
 from ave.axioms.navier_stokes import (

@@ -38,7 +38,6 @@ from ave.core.constants import (
     e_charge,
     K_B,
     M_PROTON,
-    EPS_NUMERICAL,
 )
 from ave.axioms.scale_invariant import (
     impedance,

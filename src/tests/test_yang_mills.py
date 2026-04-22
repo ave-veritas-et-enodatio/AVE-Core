@@ -18,8 +18,6 @@ from ave.axioms.yang_mills import (
 )
 from ave.core.constants import (
     L_NODE,
-    M_E,
-    C_0,
     V_SNAP,
     B_SNAP,
 )

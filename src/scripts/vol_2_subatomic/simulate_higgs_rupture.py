@@ -40,7 +40,6 @@ from ave.core.constants import (
     M_E,
     e_charge,
     EPSILON_0,
-    Z_0,
     L_NODE,
     V_SNAP,
     V_YIELD,
@@ -52,7 +51,6 @@ from ave.core.constants import (
     LAMBDA_HIGGS,
 )
 from ave.core.universal_operators import universal_saturation
-from ave.core.regime_map import identify_regime
 
 
 def run_simulation():

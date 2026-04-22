@@ -5,7 +5,6 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     lattice_nyquist_wavenumber,
     avalanche_exponent_3d,
     axiomatic_energy_spectrum,
-    kolmogorov_microscale,
     dissipation_cutoff_ratio,
     prove_bounded_enstrophy,
 )

@@ -16,7 +16,6 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.colors import PowerNorm
 import shutil
 import subprocess
 

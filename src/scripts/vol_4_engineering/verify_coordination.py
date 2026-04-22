@@ -72,7 +72,6 @@ def delaunay_coordination(pos):
 
 def run_verification():
     """Verify z₀ from lattice geometry."""
-    from ave.core.constants import P_C
 
     print("=" * 60)
     print("  W2: LATTICE COORDINATION — z₀ VERIFICATION")
