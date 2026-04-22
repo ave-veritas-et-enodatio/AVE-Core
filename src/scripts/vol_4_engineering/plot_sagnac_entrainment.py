@@ -21,9 +21,10 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import C_0
+
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
 def generate_sagnac_sweeps():

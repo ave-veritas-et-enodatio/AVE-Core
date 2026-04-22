@@ -8,11 +8,6 @@ Acoustic Phase-Slip bound (Gamma ~ 1000) derived in Phase 1 and 2,
 the VCA Topo-Kinematic AC induction natively bridges the gap.
 """
 
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
 from ave.core.constants import GRAVITATIONAL_CONSTANT, MACROSCOPIC_BARYON_PHASE_SCALAR
 
 

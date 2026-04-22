@@ -17,12 +17,6 @@ No magic numbers.
 """
 from __future__ import annotations
 
-import os
-import sys
-
-# Ensure the source tree is importable
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor

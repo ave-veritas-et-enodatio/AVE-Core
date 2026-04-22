@@ -15,10 +15,10 @@ import numpy as np
 import scipy.spatial as spatial
 from scipy.optimize import minimize
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import P_C
 
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # --- 1. AVE PHYSICAL CONSTANTS ---

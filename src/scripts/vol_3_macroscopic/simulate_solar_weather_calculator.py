@@ -26,11 +26,11 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.absolute()
-
 # AVE Engine — for context on the macroscopic yield limit
 from ave.core.constants import AVALANCHE_N_3D
 
+
+project_root = pathlib.Path(__file__).parent.parent.absolute()
 # ── PHENOMENOLOGICAL PARAMETERS ──────────────────────────────────────────
 # These are phenomenological fits to the Shockley diode + avalanche model.
 # V_BD, I_S, V_T are macroscopic analogy parameters (NOT derived from AVE axioms).

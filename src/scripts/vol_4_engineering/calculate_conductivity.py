@@ -3,9 +3,10 @@ import pathlib
 import numpy as np
 
 # Setup paths
-project_root = pathlib.Path(__file__).parent.absolute()
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
+
+
+project_root = pathlib.Path(__file__).parent.absolute()
 
 
 def calculate_vacuum_density(nodes, X, Y, z_slice):

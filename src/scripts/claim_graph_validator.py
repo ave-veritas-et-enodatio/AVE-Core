@@ -112,11 +112,6 @@ def collect_constants_symbols(path: Path = CONSTANTS_PY) -> dict[str, float]:
     import importlib
     import sys as _sys
 
-    # Ensure the src directory is on the import path
-    src_path = str(REPO_ROOT / "src")
-    if src_path not in _sys.path:
-        _sys.path.insert(0, src_path)
-
     # (Re-)import to pick up any changes in an interactive session
     if "ave.core.constants" in _sys.modules:
         del _sys.modules["ave.core.constants"]

@@ -90,9 +90,6 @@ def generate_galactic_flattening():
     """
     Generates fig_galactic_flattening.png
     """
-    import sys
-
-    sys.path.append(".")  # Ensure ave modules are accessible
     from ave.core.constants import M_SUN, G
     from ave.gravity.galactic_mond_drag import calculate_rotation_velocity, get_a0
 

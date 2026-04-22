@@ -24,16 +24,14 @@ Vol 4 Ch. 13 — K4-TLM Wire Antenna Validation
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import ALPHA
-from ave.core.k4_tlm import K4Lattice2D
+from ave.core.constants import ALPHA  # noqa: E402
+from ave.core.k4_tlm import K4Lattice2D  # noqa: E402
 
 
 def generate_loop_path(cx, cy, radius, n_points=200):

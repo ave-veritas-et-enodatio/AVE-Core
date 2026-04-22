@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Append path to import AVE core modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 from src.ave.condensed.bjt_mechanics import bjt_current_gain
 from src.scripts.vol_4_engineering.temperature_stress_test import ave_V_bi, classical_V_bi
 

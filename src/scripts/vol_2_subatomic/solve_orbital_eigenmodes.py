@@ -38,11 +38,11 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import os
-from pathlib import Path
+import os  # noqa: E402
+from pathlib import Path  # noqa: E402
 
-import matplotlib.animation as animation
-import matplotlib.pyplot as plt
+import matplotlib.animation as animation  # noqa: E402
+import matplotlib.pyplot as plt  # noqa: E402
 
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 

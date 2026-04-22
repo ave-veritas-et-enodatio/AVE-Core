@@ -26,9 +26,9 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation, PillowWriter
+import matplotlib.cm as cm  # noqa: E402
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.animation import FuncAnimation, PillowWriter  # noqa: E402
 
 # ====================================================================
 # Parameters

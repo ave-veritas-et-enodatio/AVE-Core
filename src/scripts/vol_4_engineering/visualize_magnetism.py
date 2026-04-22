@@ -11,9 +11,10 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
+
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
 def calculate_flow_field(nodes, X, Y, z_slice=0.0):

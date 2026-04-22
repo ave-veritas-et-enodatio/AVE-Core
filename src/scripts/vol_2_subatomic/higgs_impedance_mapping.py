@@ -1,8 +1,9 @@
 import pathlib
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import HIGGS_VEV_MEV, Z_0, e_charge
+
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
 def main():

@@ -12,12 +12,6 @@ Engine files:
   src/ave/solvers/transmission_line.py         — build_radial_tree_admittance_graded()
 """
 
-import sys
-from pathlib import Path
-
-src_path = str(Path(__file__).parent.parent.parent.parent)
-if src_path not in sys.path:
-    sys.path.append(src_path)
 
 from ave.core.constants import C_0, e_charge
 from ave.topological.cosserat import M_W_TREE, M_Z_MEV, w_boson_self_consistent_correction

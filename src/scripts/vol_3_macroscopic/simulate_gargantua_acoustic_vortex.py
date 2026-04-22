@@ -27,16 +27,13 @@ Vol 3 Ch. 2 — Optical-Mechanical Acoustic Vortex (Kerr Metric)
 """
 
 import os
-import sys
 import time
 
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+import matplotlib.pyplot as plt  # noqa: E402
 
 
 # ─────────────────────────────────────────────────────────────

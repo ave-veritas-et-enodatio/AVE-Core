@@ -1,11 +1,7 @@
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Ensure local ave package is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from ave.topological.tensors import (
     calculate_structural_baryon_eigenvalue,

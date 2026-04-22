@@ -7,17 +7,14 @@ using the native K4-TLM frame-dragging metric implementation.
 """
 
 import os
-import sys
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix
+from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 
 
 def apply_kerr_vortex_2d(lattice, cx, cy, n0, r_core, v_spin):

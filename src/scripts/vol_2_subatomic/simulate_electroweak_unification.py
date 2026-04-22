@@ -55,10 +55,10 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
 
-from ave.core.constants import (
+from ave.core.constants import (  # noqa: E402
     ALPHA,
     C_0,
     EPSILON_0,

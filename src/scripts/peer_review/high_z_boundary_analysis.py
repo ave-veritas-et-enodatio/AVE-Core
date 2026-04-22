@@ -14,17 +14,13 @@ Three Regimes:
 Run: PYTHONPATH=src python src/scripts/peer_review/high_z_boundary_analysis.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_TARGET
+from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_TARGET  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # CODATA Nuclear Mass Table (selected stable isotopes, Z=1-118)

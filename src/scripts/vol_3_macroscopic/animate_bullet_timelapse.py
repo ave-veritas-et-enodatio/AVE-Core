@@ -5,14 +5,10 @@ the Linear Superposition offset physics of Macroscopic Lensing haloss.
 """
 
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import PillowWriter
-
-# Ensure local ave package is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 

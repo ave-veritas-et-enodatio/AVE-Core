@@ -19,17 +19,13 @@ All constants from the physics engine (no magic numbers).
 Run: PYTHONPATH=src python src/scripts/peer_review/experimental_noise_floor.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import EPSILON_0, K_B, M_E, V_YIELD, e_charge
+from ave.core.constants import EPSILON_0, K_B, M_E, V_YIELD, e_charge  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # EXPERIMENTAL PARAMETERS

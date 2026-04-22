@@ -22,11 +22,7 @@ matplotlib.use("Agg")
 # ---------------------------------------------------------------------------
 # Import physics engine — NO ad-hoc values
 # ---------------------------------------------------------------------------
-import sys
-
-import matplotlib.pyplot as plt
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
+import matplotlib.pyplot as plt  # noqa: E402
 
 OUTDIR = f"{str(pathlib.Path(__file__).parent.parent.parent.parent.absolute())}/periodic_table/figures"
 

@@ -22,8 +22,6 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
 from ave.core.constants import ALPHA
 from ave.solvers.orbital_resonance import (
     LIGO_EVENTS,
@@ -36,6 +34,7 @@ from ave.solvers.orbital_resonance import (
     ringdown_Q_and_decay,
 )
 
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

@@ -5,13 +5,9 @@ Based on: Vol 4, Section 12.4.3 - Applied RLVG Telemetry
 """
 
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Add src to path to import ave packages
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from ave.core.constants import C_0
 
 # Set up output directory

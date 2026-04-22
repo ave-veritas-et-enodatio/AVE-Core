@@ -7,20 +7,17 @@ then compiles them into an MP4 video using ffmpeg.
 """
 
 import os
-import sys
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import shutil
-import subprocess
+import shutil  # noqa: E402
+import subprocess  # noqa: E402
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix
+from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 
 
 def apply_lens_2d(lattice, cx, cy, n0, r_core):

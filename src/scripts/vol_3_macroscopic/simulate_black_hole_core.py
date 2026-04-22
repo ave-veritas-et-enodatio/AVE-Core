@@ -34,12 +34,12 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
 
-from ave.axioms.scale_invariant import phase_transition_Q
-from ave.core.constants import C_0, HBAR, K_B, M_SUN, NU_VAC, Z_0, G
-from ave.gravity import (
+from ave.axioms.scale_invariant import phase_transition_Q  # noqa: E402
+from ave.core.constants import C_0, HBAR, K_B, M_SUN, NU_VAC, Z_0, G  # noqa: E402
+from ave.gravity import (  # noqa: E402
     gravitational_saturation_factor,
     local_impedance,
     principal_radial_strain,

@@ -7,11 +7,6 @@ Topo-Kinematic Back-EMF induction generators driven by the Gravitomagnetic
 AC motor phase slip (Sagnac sheer).
 """
 
-import os
-import sys
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
 import math
 
 from ave.core.constants import C_0, GRAVITATIONAL_CONSTANT, M_SUN, MACROSCOPIC_BARYON_PHASE_SCALAR, e_charge

@@ -30,10 +30,10 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
 
-from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge
+from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge  # noqa: E402
 
 # ══════════════════════════════════════════════════════════════════════════════
 # DERIVED CONSTANTS (from engine primitives)

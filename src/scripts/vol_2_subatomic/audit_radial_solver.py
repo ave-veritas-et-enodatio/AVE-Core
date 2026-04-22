@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-import sys
 from pathlib import Path
 
 import numpy as np
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
-sys.path.append(str(PROJECT_ROOT / "src"))
-
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
+
+
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 
 def audit_radial_solver():

@@ -22,8 +22,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Ensure local ave package is in path
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
 from ave.solvers.orbital_resonance import (
     M_SUN,
     impedance_orbital_radii,
@@ -35,6 +33,7 @@ from ave.solvers.orbital_resonance import (
     schwarzschild_radius,
 )
 
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 # Standard AVE output directory
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)

@@ -24,7 +24,7 @@ import numpy as np
 from jax import jit
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
 
 @partial(jit, static_argnums=(1,))

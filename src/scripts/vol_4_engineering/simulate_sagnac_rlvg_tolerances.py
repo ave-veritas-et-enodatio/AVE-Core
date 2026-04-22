@@ -25,10 +25,10 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import C_0, HBAR
 
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target AVE Signal Amplitude (Estimate from Lead vs. Aluminum 1-meter RLG at 1000 RPM)
 # The density difference generates a microscopic but steady phase offset.
 AVE_TARGET_ANOMALY_PHASE = 1.5e-10  # Radians (Order of magnitude estimate for tabletop RLGs)

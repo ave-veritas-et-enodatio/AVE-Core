@@ -23,12 +23,7 @@ Usage:
     PYTHONPATH=src python src/scripts/vol_4_engineering/knot_water_amplification_mechanisms.py
 """
 
-import pathlib
-import sys
-
 import numpy as np
-
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.parent))
 
 from ave.core.constants import ALPHA, C_0, EPSILON_0, K_B, Z_0
 

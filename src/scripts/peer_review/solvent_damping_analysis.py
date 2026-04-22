@@ -31,17 +31,13 @@ PHYSICS:
 Run: PYTHONPATH=src python src/scripts/peer_review/solvent_damping_analysis.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
+from ave.core.constants import C_0, K_B, XI_TOPO, e_charge  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # DERIVED SOLVENT CONSTANTS (all from axioms + water properties)

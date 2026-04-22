@@ -12,8 +12,6 @@ import pathlib
 import numpy as np
 from scipy.optimize import minimize
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
 # All constants imported from the physics engine — zero hardcoded values
@@ -22,6 +20,8 @@ from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
 from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target Empirical CODATA Nuclear Mass for Fluorine-19 (MeV)
 # 18.99840316273 amu * 931.494102 MeV/amu - (9 * 0.51099895 MeV)
 TARGET_MASS_F19 = 17692.301503

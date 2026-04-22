@@ -8,10 +8,6 @@ against manuscript-stated values in Volume 2.
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_vol2.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 from ave.core.constants import (
     A_0,
     ALPHA_S,

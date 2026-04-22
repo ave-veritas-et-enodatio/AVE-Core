@@ -12,13 +12,9 @@ Outputs:
 """
 
 import os
-import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Add src to python path for local execution
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 from ave.core.constants import K_B
 from ave.regime_1_linear.fluids_factory import WaterMolecule

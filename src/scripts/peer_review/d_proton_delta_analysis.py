@@ -11,10 +11,7 @@ integrity and document the impact of using first-principles values.
 Run: PYTHONPATH=src python src/scripts/peer_review/d_proton_delta_analysis.py
 """
 
-import sys
 from math import pi
-
-sys.path.insert(0, "src")
 
 from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, M_E, M_P_MEV_TARGET, NU_VAC, PROTON_ELECTRON_RATIO, e_charge
 

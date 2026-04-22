@@ -8,10 +8,6 @@ and compare against manuscript-stated values. Each volume has 3-4 checks.
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_all_volumes.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 from math import pi
 
 import numpy as np

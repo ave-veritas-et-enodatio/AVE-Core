@@ -8,10 +8,6 @@ against manuscript-stated values in Volume 6.
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_vol6.py
 """
 
-import sys
-
-sys.path.insert(0, "src")
-
 from ave.core.constants import (
     ALPHA_HC,
     B_DEUTERON_PREDICTED,

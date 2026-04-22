@@ -12,16 +12,14 @@ The Op3 impedance step (a 1/d boundary condition) perfectly breaks the l-degener
 separating the 2s and 2p energies without any statistical Born-rule interpretation.
 """
 
-import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
-sys.path.append(str(PROJECT_ROOT / "src"))
-
 from ave.solvers.radial_eigenvalue import radial_eigenvalue_abcd
 
+
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True, parents=True)
 

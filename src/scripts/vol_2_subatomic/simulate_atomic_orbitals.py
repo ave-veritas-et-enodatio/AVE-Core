@@ -3,7 +3,6 @@
 # Acoustic Chladni Standing-Wave logic formed inside the LC lattice tensor gradients.
 
 import os
-import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -22,11 +21,10 @@ def _find_repo_root():
     return os.path.dirname(os.path.abspath(__file__))
 
 
-PROJECT_ROOT = Path(_find_repo_root())
-sys.path.append(str(PROJECT_ROOT / "src"))
-
 from scripts.vol_2_subatomic.solve_orbital_eigenmodes import OrbitalODE
 
+
+PROJECT_ROOT = Path(_find_repo_root())
 OUTPUT_DIR = os.path.join(_find_repo_root(), "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 # --- End standard output directory ---

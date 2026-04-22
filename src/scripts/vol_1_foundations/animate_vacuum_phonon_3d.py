@@ -23,9 +23,9 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from matplotlib.colors import PowerNorm
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.animation import FuncAnimation  # noqa: E402
+from matplotlib.colors import PowerNorm  # noqa: E402
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "assets", "sim_outputs")
 os.makedirs(OUT_DIR, exist_ok=True)

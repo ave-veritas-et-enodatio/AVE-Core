@@ -23,16 +23,14 @@ Vol 4 Ch. 13 — Native Lattice Dynamics: 3D Torus Knot Antenna
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import ALPHA
-from ave.core.k4_tlm import K4Lattice3D
+from ave.core.constants import ALPHA  # noqa: E402
+from ave.core.k4_tlm import K4Lattice3D  # noqa: E402
 
 
 def generate_torus_knot_path_3d(cx, cy, cz, R, r, p, q, n_points):

@@ -42,11 +42,6 @@ VALIDATION:
                   α(M_Z)   ≈ 1/128.9    (LEP measurement at 91.2 GeV)
 """
 
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
 import numpy as np
 
 from ave.core.constants import ALPHA, C_0, M_E, e_charge

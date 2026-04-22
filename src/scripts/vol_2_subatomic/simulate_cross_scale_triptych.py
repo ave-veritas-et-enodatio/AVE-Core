@@ -7,7 +7,7 @@ Side-by-side comparison of the same 1/d impedance topology operating
 across 40 orders of magnitude in spatial scale:
 
   Panel 1: Electron — |ψ|² probability density from standing de Broglie waves
-  Panel 2: Saturn — ring surface density with Cassini gap impedance bands  
+  Panel 2: Saturn — ring surface density with Cassini gap impedance bands
   Panel 3: Black Hole — accretion disk with quantised impedance radii
 
   Panel 4: Unified Γ(r) — all three systems on one normalised plot
@@ -23,8 +23,6 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-
 from ave.core.constants import ALPHA, L_NODE
 from ave.solvers.orbital_resonance import (
     LIGO_EVENTS,
@@ -35,6 +33,7 @@ from ave.solvers.orbital_resonance import (
     schwarzschild_radius,
 )
 
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

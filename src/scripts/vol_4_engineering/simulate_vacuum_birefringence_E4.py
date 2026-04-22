@@ -31,9 +31,10 @@ import pathlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.core.constants import ALPHA, C_0, L_NODE, M_E, e_charge
+
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
 def simulate_birefringence_e4():

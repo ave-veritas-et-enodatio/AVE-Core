@@ -24,16 +24,14 @@ Vol 3 Ch. 2 — Gravitational Lensing Cross-Validation
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
-
 import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.colors import PowerNorm
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.colors import PowerNorm  # noqa: E402
 
-from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix
+from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
 
 
 def apply_lens_2d(lattice, cx, cy, n0, r_core):

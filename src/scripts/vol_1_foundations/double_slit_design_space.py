@@ -29,9 +29,9 @@ import matplotlib
 import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
-from scipy.ndimage import gaussian_filter1d
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.gridspec import GridSpec  # noqa: E402
+from scipy.ndimage import gaussian_filter1d  # noqa: E402
 
 # JAX GPU acceleration (graceful fallback to numpy)
 try:

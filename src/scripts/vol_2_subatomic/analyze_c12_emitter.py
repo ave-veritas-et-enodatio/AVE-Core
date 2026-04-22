@@ -7,9 +7,10 @@ import os
 
 import numpy as np
 
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
+
+
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def main():

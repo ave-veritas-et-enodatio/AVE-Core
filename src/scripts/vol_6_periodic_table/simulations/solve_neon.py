@@ -12,14 +12,14 @@ import pathlib
 import numpy as np
 from scipy.optimize import minimize
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 # All constants imported from the physics engine — zero hardcoded values
 from ave.core.constants import D_PROTON as D_0
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
 from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target Empirical CODATA Nuclear Mass for Neon-20 (MeV)
 # 19.9924401762 amu * 931.494102 MeV/amu - (10 * 0.51099895 MeV)
 TARGET_MASS_NE20 = 18617.730119

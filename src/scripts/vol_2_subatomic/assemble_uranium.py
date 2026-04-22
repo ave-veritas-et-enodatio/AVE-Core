@@ -16,10 +16,10 @@ import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 import numpy as np
 
-project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
-
 from ave.solvers.topology_optimizer import TopologicalOptimizer
 
+
+project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Uranium-235 parameters
 Z = 92  # Protons
 A = 235  # Total Nucleons
