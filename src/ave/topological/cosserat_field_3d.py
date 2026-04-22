@@ -435,7 +435,16 @@ class CosseratField3D:
     instead, users can np.asarray(solver.u) / np.asarray(solver.omega) to
     materialize when needed."""
 
-    def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0, use_saturation: bool = True):
+    def __init__(
+        self,
+        nx: int,
+        ny: int,
+        nz: int,
+        dx: float = 1.0,
+        use_saturation: bool = True,
+        rho: float = 1.0,
+        I_omega: float = 1.0,
+    ):
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -457,6 +466,14 @@ class CosseratField3D:
         self.u = np.zeros((nx, ny, nz, 3), dtype=np.float64)
         self.omega = np.zeros((nx, ny, nz, 3), dtype=np.float64)
 
+        # Time-domain state (Phase I extension). Velocity fields conjugate to
+        # (u, omega). Zero-initialised — solver remains drop-in compatible with
+        # existing static ground-state finders (relax_s11, relax_to_ground_state)
+        # which ignore these.
+        self.u_dot = np.zeros_like(self.u)
+        self.omega_dot = np.zeros_like(self.omega)
+        self.time = 0.0
+
         self.G = 1.0
         self.G_c = 1.0
         self.gamma = 1.0
@@ -468,6 +485,13 @@ class CosseratField3D:
         self.use_saturation = use_saturation
         self.omega_yield = float(np.pi)
         self.epsilon_yield = 1.0
+
+        # Mass parameters for time-domain Lagrangian (Phase I).
+        # L = ½·rho·|u_dot|² + ½·I_omega·|omega_dot|² − W(u, omega)
+        # Defaults rho = I_omega = 1 in natural units (phase-I placeholder;
+        # S4 adjudication to pin values from measured wave speed).
+        self.rho = float(rho)
+        self.I_omega = float(I_omega)
 
     # ------------------------------------------------------------------
     # Initial condition
@@ -805,6 +829,167 @@ class CosseratField3D:
             "lr_final": lr,
             "trajectory": trajectory,
         }
+
+    # ------------------------------------------------------------------
+    # Time-domain evolution (Phase I — AVE-ideal simulator prereq)
+    # ------------------------------------------------------------------
+    #
+    # Velocity-Verlet (leapfrog) integrator for the Cosserat Lagrangian
+    #     L = (½·rho·|u̇|² + ½·I_ω·|ω̇|²) − W(u, ω)
+    # giving Euler-Lagrange equations
+    #     rho·ü    = −∂W/∂u      (force per volume on translation)
+    #     I_ω·ω̈  = −∂W/∂ω     (torque per volume on microrotation)
+    # The spatial force is the existing `energy_gradient()` call — re-used
+    # without modification. For a CLEAN linear-wave validation, set
+    # `k_op10 = k_refl = k_hopf = 0` and `use_saturation = False` before
+    # stepping so only the Cauchy + micropolar + curvature terms remain.
+
+    @property
+    def cfl_dt(self) -> float:
+        """CFL-safe timestep for the linear Cosserat wave equation.
+
+        Transverse shear speed  c_T = √(G/rho).
+        Rotational speed         c_R = √(gamma/I_omega).
+        Longitudinal (bulk)      c_L = √((K + 4G/3)/rho) with K = 2G →
+                                        c_L = √(10G/(3·rho)) ≈ 1.826·c_T.
+
+        CFL on a 3D lattice with first-order tetrahedral gradient:
+            dt ≤ dx / (c_max · √3)
+        Return 0.3 · dx / (c_max · √3) for a 70% safety margin.
+        """
+        c_T = np.sqrt(self.G / max(self.rho, 1e-30))
+        c_R = np.sqrt(self.gamma / max(self.I_omega, 1e-30))
+        c_L = np.sqrt((2.0 * self.G + 4.0 * self.G / 3.0) / max(self.rho, 1e-30))
+        c_max = max(c_T, c_R, c_L)
+        return float(0.3 * self.dx / (c_max * np.sqrt(3.0)))
+
+    def kinetic_energy(self) -> float:
+        """(½·rho·|u̇|² + ½·I_ω·|ω̇|²) summed over alive sites."""
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        K_u = 0.5 * self.rho * np.sum((self.u_dot * mask) ** 2)
+        K_w = 0.5 * self.I_omega * np.sum((self.omega_dot * mask) ** 2)
+        return float(K_u + K_w)
+
+    def total_hamiltonian(self) -> float:
+        """H = T + V where T = kinetic_energy, V = total_energy."""
+        return self.kinetic_energy() + self.total_energy()
+
+    def _zero_velocities_outside_alive(self) -> None:
+        mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
+        self.u_dot = self.u_dot * mask
+        self.omega_dot = self.omega_dot * mask
+
+    def step(self, dt: float | None = None) -> None:
+        """Advance (u, omega) one timestep via velocity-Verlet.
+
+        Equations:
+            u(t+dt)    = u(t) + u_dot(t) · dt + ½·ü(t)·dt²
+            omega(t+dt) = omega(t) + omega_dot(t)·dt + ½·ω̈(t)·dt²
+            u_dot(t+dt)    = u_dot(t) + ½·(ü(t) + ü(t+dt))·dt
+            omega_dot(t+dt) = ...
+        with
+            ü     = −(1/rho)·∂W/∂u
+            ω̈    = −(1/I_omega)·∂W/∂omega
+
+        Energy-conserving to O(dt²) for the full nonlinear Lagrangian.
+        Active-site masks are enforced on (u, omega, u_dot, omega_dot)
+        at each sub-step.
+
+        dt defaults to cfl_dt if not provided.
+        """
+        if dt is None:
+            dt = self.cfl_dt
+
+        # Force at current state  →  acceleration
+        dE_du, dE_dw = self.energy_gradient()
+        a_u = -dE_du / self.rho
+        a_w = -dE_dw / self.I_omega
+
+        # Half-kick: u_dot(t+dt/2)
+        self.u_dot = self.u_dot + 0.5 * dt * a_u
+        self.omega_dot = self.omega_dot + 0.5 * dt * a_w
+        self._zero_velocities_outside_alive()
+
+        # Drift: u(t+dt)
+        self.u = self.u + dt * self.u_dot
+        self.omega = self.omega + dt * self.omega_dot
+        self._zero_outside_alive()
+
+        # Force at new state  →  new acceleration
+        dE_du_new, dE_dw_new = self.energy_gradient()
+        a_u_new = -dE_du_new / self.rho
+        a_w_new = -dE_dw_new / self.I_omega
+
+        # Half-kick: u_dot(t+dt)
+        self.u_dot = self.u_dot + 0.5 * dt * a_u_new
+        self.omega_dot = self.omega_dot + 0.5 * dt * a_w_new
+        self._zero_velocities_outside_alive()
+
+        self.time += dt
+
+    def initialize_gaussian_wavepacket_omega(
+        self,
+        center: tuple[float, float, float],
+        sigma: float,
+        direction: tuple[float, float, float],
+        wavelength: float,
+        amplitude: float = 1e-3,
+        axis: int = 2,
+    ) -> None:
+        """Seed a small propagating rotational (ω) Gaussian wavepacket.
+
+        omega(r, t=0) =
+            amplitude · exp(-|r-c|²/(2σ²)) · cos(k·(r-c)) · ê_axis
+        u(r, t=0) = 0
+        omega_dot(r, t=0) = ω̇ chosen to give forward-propagating wave:
+            ω̇ = -(c_T · k) · amplitude · exp(…) · sin(k·(r-c)) · ê_axis
+        (so the superposition e^{i(k·r-ω t)} travels in +direction)
+
+        For a clean shear-wave test: axis perpendicular to direction
+        (e.g. direction=x̂, axis=ẑ).
+
+        Args:
+            center: (x0, y0, z0) in lattice cells.
+            sigma: Gaussian envelope σ in lattice cells.
+            direction: propagation direction (need not be unit).
+            wavelength: carrier λ in lattice cells.
+            amplitude: peak omega amplitude (rad).
+            axis: component index (0,1,2) of omega to excite.
+        """
+        d_hat = np.asarray(direction, dtype=float)
+        d_hat = d_hat / np.linalg.norm(d_hat)
+        k_vec = (2.0 * np.pi / wavelength) * d_hat
+
+        x0, y0, z0 = center
+        rx = self._i - x0
+        ry = self._j - y0
+        rz = self._k - z0
+        r2 = rx * rx + ry * ry + rz * rz
+
+        envelope = np.exp(-r2 / (2.0 * sigma ** 2))
+        phase = k_vec[0] * rx + k_vec[1] * ry + k_vec[2] * rz
+        carrier_cos = np.cos(phase)
+        carrier_sin = np.sin(phase)
+
+        c_T = np.sqrt(self.G / max(self.rho, 1e-30))
+
+        omega_field = np.zeros_like(self.omega)
+        omega_dot_field = np.zeros_like(self.omega_dot)
+        omega_field[..., axis] = amplitude * envelope * carrier_cos
+        # Velocity chosen so (cos·f(r) at t=0, sin-like time evolution) forms a
+        # traveling wave at speed c_T along +d̂. omega(r, t) ~ cos(k·r − ω t)
+        # ⇒ ∂_t omega|_{t=0} = ω · sin(k·r) = c_T·|k|·sin(k·r).
+        omega_dot_field[..., axis] = (
+            c_T * np.linalg.norm(k_vec) * amplitude * envelope * carrier_sin
+        )
+
+        # Enforce active-site mask.
+        mask4 = self.mask_alive[..., None].astype(omega_field.dtype)
+        self.omega = omega_field * mask4
+        self.omega_dot = omega_dot_field * mask4
+        self.u = np.zeros_like(self.u)
+        self.u_dot = np.zeros_like(self.u_dot)
+        self.time = 0.0
 
     # ------------------------------------------------------------------
     # Diagnostics (numpy-backed)
