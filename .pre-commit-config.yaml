@@ -1,4 +1,11 @@
 repos:
+  - repo: https://github.com/PyCQA/isort
+    rev: 8.0.1
+    hooks:
+      - id: isort
+        args: [--profile=black, --line-length=120]
+        files: ^src/
+
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
