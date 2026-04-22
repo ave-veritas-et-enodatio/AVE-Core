@@ -10,6 +10,7 @@ produces a physically reasonable IE for Si.
 
 from ave.nuclear.silicon_atom import IE_SI_AVE, IE_SI_NIST, R_VAL_SI, first_ionization
 
+
 class TestSiliconIE:
     """IE from ABCD+MCL hybrid solver."""
 
@@ -40,6 +41,7 @@ class TestSiliconIE:
         """Valence orbital radius must be positive and finite."""
         assert R_VAL_SI > 0
         assert R_VAL_SI < 1e-9  # smaller than 1 nm
+
 
 class TestFirstIonization:
     """API compatibility."""

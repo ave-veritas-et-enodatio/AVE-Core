@@ -18,7 +18,10 @@ import numpy as np
 from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.fdtd_3d_jax import FDTD3DEngineJAX
 
-def test_equivalence(nx: int = 20, ny: int = 20, nz: int = 20, n_steps: int = 50, linear_only: bool = False, use_pml: bool = False) -> None:
+
+def test_equivalence(
+    nx: int = 20, ny: int = 20, nz: int = 20, n_steps: int = 50, linear_only: bool = False, use_pml: bool = False
+) -> None:
     """Compare numpy and JAX engines for n_steps with a point source."""
     label = f"{'linear' if linear_only else 'nonlinear'}, {'PML' if use_pml else 'Mur'}"
     print(f"\n  Test: {label}  ({nx}×{ny}×{nz}, {n_steps} steps)")
@@ -79,6 +82,7 @@ def test_equivalence(nx: int = 20, ny: int = 20, nz: int = 20, n_steps: int = 50
 
     assert all_pass, f"JAX/numpy mismatch in {label}"
 
+
 def main() -> None:
     print("=" * 60)
     print("  FDTD3DEngine: numpy vs JAX Numerical Equivalence Test")
@@ -104,6 +108,7 @@ def main() -> None:
     else:
         print("  SOME TESTS FAILED — investigate discrepancies")
     print(f"{'=' * 60}")
+
 
 if __name__ == "__main__":
     main()

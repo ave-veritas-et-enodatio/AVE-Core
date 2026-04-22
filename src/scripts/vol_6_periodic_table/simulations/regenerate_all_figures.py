@@ -77,7 +77,9 @@ def plot_density_hot(nodes: list, bounds: float, z_slice: float, title: str, fil
     print(f"  [ok] {os.path.basename(filename)}")
 
 
-def plot_flux_inferno(nodes: list, bounds: float, z_slice: float, title: str, filename: str, grid_res: int = 120) -> None:
+def plot_flux_inferno(
+    nodes: list, bounds: float, z_slice: float, title: str, filename: str, grid_res: int = 120
+) -> None:
     x = np.linspace(-bounds, bounds, grid_res)
     y = np.linspace(-bounds, bounds, grid_res)
     X, Y = np.meshgrid(x, y)

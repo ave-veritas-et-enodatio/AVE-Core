@@ -25,6 +25,7 @@ from ave.solvers.coupled_resonator import (
 # Graph Theory
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestCompleteGraphEigenvalues:
     def test_K2_eigenvalues(self) -> None:
         lam = complete_graph_eigenvalues(2)
@@ -39,9 +40,11 @@ class TestCompleteGraphEigenvalues:
         for n in [2, 3, 5, 10]:
             assert abs(sum(complete_graph_eigenvalues(n))) < 1e-10
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # Nuclear Binding
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestNuclearBinding:
     def test_deuteron_binding_positive(self) -> None:
@@ -64,9 +67,11 @@ class TestNuclearBinding:
         assert B_alpha > 0
         assert B_inter >= 0
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # Atomic Ionization
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestIonizationEnergy:
     def test_hydrogen_ie(self) -> None:
@@ -83,9 +88,11 @@ class TestIonizationEnergy:
         IE_Li = ionization_energy(3)
         assert IE_Li < IE_He, "Li IE < He IE (new shell)"
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # Molecular Bonds
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestMolecularBonds:
     def test_bond_distance_positive(self) -> None:

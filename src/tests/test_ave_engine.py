@@ -61,6 +61,7 @@ from ave.gravity import (
 # TEST 1: DERIVED CONSTANTS CONSISTENCY
 # =========================================================================
 
+
 class TestDerivedConstants:
     """Verify all derived constants are self-consistent and match known values."""
 
@@ -131,9 +132,11 @@ class TestDerivedConstants:
         H_km_s_Mpc = H_INFINITY * Mpc_in_m / 1000.0
         assert 60.0 < H_km_s_Mpc < 80.0, f"H∞ = {H_km_s_Mpc:.2f} km/s/Mpc — outside plausible range [60,80]"
 
+
 # =========================================================================
 # TEST 2: AXIOM 4 — DIELECTRIC SATURATION (ALL THREE REGIMES)
 # =========================================================================
+
 
 class TestAxiom4Saturation:
     """Verify the non-linear saturation operator across linear, non-linear, and rupture regimes."""
@@ -260,9 +263,11 @@ class TestAxiom4Saturation:
         assert np.all(eps_array > 0)
         assert np.all(np.diff(eps_array) < 0), "ε_eff must be monotonically decreasing"
 
+
 # =========================================================================
 # TEST 3: AXIOM 2 — TOPO-KINEMATIC ISOMORPHISM
 # =========================================================================
+
 
 class TestAxiom2Isomorphism:
     """Verify that the charge↔length dimensional bridge is self-consistent."""
@@ -290,9 +295,11 @@ class TestAxiom2Isomorphism:
         """ξ_topo should have dimensions of [C/m] ≈ 4.15e-7."""
         assert abs(XI_TOPO - 4.15e-7) / 4.15e-7 < 0.01  # Within 1%
 
+
 # =========================================================================
 # TEST 4: GRAVITY / OPTICAL METRIC
 # =========================================================================
+
 
 class TestGravityOpticalMetric:
     """Verify the optical metric, achromatic matching, and GR limits."""
@@ -366,9 +373,11 @@ class TestGravityOpticalMetric:
         expected = (2.0 / 7.0) * eps11
         assert abs(delta_n - expected) / expected < 1e-10
 
+
 # =========================================================================
 # TEST 5: PROTON MASS EIGENVALUE (TOPOLOGICAL)
 # =========================================================================
+
 
 class TestProtonEigenvalue:
     """Verify the Borromean eigenvalue derivation reproduces m_p/m_e."""
@@ -394,9 +403,11 @@ class TestProtonEigenvalue:
         x = I_SCALAR_1D / denom + 1.0
         assert 1800 < x < 1900
 
+
 # =========================================================================
 # TEST 6: CROSS-AXIOM CONSISTENCY
 # =========================================================================
+
 
 class TestCrossAxiomConsistency:
     """Tests that span multiple axioms to verify the framework is self-consistent."""
@@ -427,6 +438,7 @@ class TestCrossAxiomConsistency:
     def test_ecrit_schwinger(self) -> None:
         """E_crit must match the Schwinger critical field ~ 1.32e18 V/m."""
         assert abs(E_CRIT - 1.32e18) / 1.32e18 < 0.01, f"E_crit = {E_CRIT:.4e} — expected ≈ 1.32e18 V/m"
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

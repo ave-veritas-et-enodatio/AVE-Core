@@ -18,6 +18,7 @@ from ave.core.regime_map import REGIME_LINEAR, identify_regime
 from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
 from ave.regime_3_saturated.condensed_matter import element_summary
 
+
 def test_water_phase_coincidence() -> None:
     """
     In AVE, anomalous macroscopic water properties (like the density maximum) must occur
@@ -62,6 +63,7 @@ def test_water_phase_coincidence() -> None:
     assert 0.0 <= t_max <= T_crit, "Theoretical lattice boundary failed: phase escapes Axiom 4 limits."
     print("  -> PASSED: Macroscopic fluid density natively bounded by algebraic $K=2G$ limits.\\n")
 
+
 def test_regime_boundary_enforcement() -> None:
     """
     Ensures that the macroscopic field breakdowns predicted by the condensed matter module
@@ -81,6 +83,7 @@ def test_regime_boundary_enforcement() -> None:
 
     assert info.regime == REGIME_LINEAR, f"Catastrophic failure: Iron is classified as {info.name}"
     print("  -> PASSED: Mesoscopic matrix structurally compliant with Regime I limits.\n")
+
 
 def test_topological_nuclear_saturation() -> None:
     """
@@ -107,6 +110,7 @@ def test_topological_nuclear_saturation() -> None:
 
     assert abs(r_binding - ALPHA) < 1e-12, "Empirical SM binding energy contamination detected!"
     print("  -> PASSED: Nuclear mass derivation is 100% rigorous and strictly AVE compliant.\n")
+
 
 if __name__ == "__main__":
     print("===========================================")

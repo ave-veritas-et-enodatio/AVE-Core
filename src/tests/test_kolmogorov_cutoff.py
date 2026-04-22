@@ -9,6 +9,7 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
     prove_bounded_enstrophy,
 )
 
+
 class TestKolmogorovCascade:
 
     def test_nyquist_wavenumber(self) -> None:

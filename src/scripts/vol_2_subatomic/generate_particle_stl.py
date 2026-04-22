@@ -309,7 +309,9 @@ def sweep_tube_open(curve: np.ndarray, tube_radius: float, n_radial: int = 24, c
 # ═══════════════════════════════════════════════════════════════════
 
 
-def make_baryon_stl(q: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 2000) -> stl_mesh.Mesh:
+def make_baryon_stl(
+    q: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 2000
+) -> stl_mesh.Mesh:
     """
     Generate a (2,q) torus knot STL mesh for a baryon.
 

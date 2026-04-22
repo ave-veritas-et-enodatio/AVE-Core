@@ -27,6 +27,7 @@ from scripts.vol_1_foundations.ropelength_trefoil_golden_torus import (
 )
 from scripts.vol_1_foundations.verify_clifford_half_cover import clifford_area_numeric, solve_golden_torus
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # 1. Multipole closure: α⁻¹ = 4π³ + π² + π, and engine constant matches
 # ───────────────────────────────────────────────────────────────────────────
@@ -53,6 +54,7 @@ class TestMultipoleClosure:
         """ALPHA_COLD and ALPHA_COLD_INV are reciprocals."""
         assert abs(ALPHA_COLD * ALPHA_COLD_INV - 1.0) < 1e-12
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # 2. Golden Torus geometric constraints
 # ───────────────────────────────────────────────────────────────────────────
@@ -77,6 +79,7 @@ class TestGoldenTorusConstraints:
         # Unphysical root is negative
         assert R_minus < 0
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # 3. Clifford torus half-cover (justifies Λ_surf = π² normalization)
 # ───────────────────────────────────────────────────────────────────────────
@@ -92,6 +95,7 @@ class TestCliffordHalfCover:
         r1 = r2 = 1.0 / np.sqrt(2.0)
         A_half = 0.5 * clifford_area_numeric(r1, r2)
         assert abs(A_half - np.pi**2) < 1e-8
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # 4. Ropelength optimizer converges to Golden Torus
@@ -113,6 +117,7 @@ class TestRopelengthConvergence:
         R_b, r_b = stage_b_with_screening_constraint()
         assert abs(R_b - GOLDEN_R) < 1e-5
         assert abs(r_b - GOLDEN_r) < 1e-5
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # 5. Vacuum Strain Coefficient (CMB thermal running of α)

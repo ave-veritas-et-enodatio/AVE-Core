@@ -20,6 +20,7 @@ from matplotlib.animation import FuncAnimation
 from ave.topological.borromean import FundamentalTopologies
 from ave.topological.combiner import NucleonCombiner
 
+
 # ----- Geometric Constructors -----
 def construct_helium_4(shift_distance: float) -> list[dict]:
     placements = [
@@ -48,6 +49,7 @@ def construct_helium_4(shift_distance: float) -> list[dict]:
         NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
     )
 
+
 def construct_lithium_7(shift_distance: float) -> list[dict]:
     cs = shift_distance
     os_dist = shift_distance * 2.2
@@ -66,6 +68,7 @@ def construct_lithium_7(shift_distance: float) -> list[dict]:
         NucleonCombiner.assemble_cluster(FundamentalTopologies.generate_borromean_6_3_2, placements)
     )
 
+
 def NumericallyEvaluateNucleons(cluster: list[dict]) -> list[dict]:
     """
     Extracts the Center of Mass (CoM) for each nucleon in the cluster to
@@ -77,6 +80,7 @@ def NumericallyEvaluateNucleons(cluster: list[dict]) -> list[dict]:
         com = np.mean(all_pts, axis=0)
         nucleons.append({"pos": com, "color": node["color"]})
     return nucleons
+
 
 # ----- Dynamic Matrix Ops -----
 def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
@@ -93,8 +97,11 @@ def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
         rotated.append({"pos": r_pos, "color": n["color"]})
     return rotated
 
+
 # ----- Scalar Field Engine -----
-def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarray', z_slice: float = 0.0) -> 'np.ndarray':
+def calculate_vacuum_density(
+    nucleons: list[dict], X: "np.ndarray", Y: "np.ndarray", z_slice: float = 0.0
+) -> "np.ndarray":
     density_field = np.zeros_like(X)
     amplitude = 100.0
     epsilon = 0.5
@@ -108,8 +115,11 @@ def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarr
 
     return density_field
 
+
 # ----- Animation Engine -----
-def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title: str, grid_res: int = 150, bound: float = 4.5, frames: int = 180) -> None:
+def generate_dynamic_flux_gif(
+    base_cluster: list[dict], output_name: str, title: str, grid_res: int = 150, bound: float = 4.5, frames: int = 180
+) -> None:
     """
     Animates the continuous streamplot deformation as the knot cluster rotates.
     """
@@ -206,6 +216,7 @@ def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title:
     anim.save(out_path, writer="pillow", fps=15, savefig_kwargs={"facecolor": fig.get_facecolor()})
     plt.close()
     print(f"[*] Successfully saved dynamic flux GIF: {out_path}\n")
+
 
 if __name__ == "__main__":
     # --- Execute Render Queue ---

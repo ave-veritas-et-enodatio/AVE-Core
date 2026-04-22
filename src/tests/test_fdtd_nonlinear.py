@@ -19,6 +19,7 @@ import pytest
 from ave.core.constants import C_0, V_SNAP
 from ave.core.fdtd_3d import FDTD3DEngine
 
+
 class TestFDTD3DLinearRegime:
     """In the linear limit, the non-linear solver must reproduce standard Maxwell."""
 
@@ -100,6 +101,7 @@ class TestFDTD3DLinearRegime:
         # Energy should grow while source is active
         assert energies[-1] > energies[5] > 0
 
+
 class TestFDTD3DNonLinearRegime:
     """Tests in the non-linear regime where E-field amplitudes are moderate."""
 
@@ -150,6 +152,7 @@ class TestFDTD3DNonLinearRegime:
         # They should be different (non-linear ε_eff changes the energy density)
         assert energy_lin != energy_nl, f"Energies should differ: linear={energy_lin:.4e}, nonlinear={energy_nl:.4e}"
 
+
 class TestFDTD3DSaturationRegime:
     """Tests near the dielectric saturation limit."""
 
@@ -163,6 +166,7 @@ class TestFDTD3DSaturationRegime:
 
         # Strain ratio should have been updated
         assert engine.max_strain_ratio >= 0
+
 
 class TestFDTD3DBackwardCompatibility:
     """Ensure the old API still works."""
@@ -185,6 +189,7 @@ class TestFDTD3DBackwardCompatibility:
         engine = FDTD3DEngine(nx=10, ny=10, nz=10, dx=dx)
         dt_max = dx / (C_0 * np.sqrt(3.0))
         assert engine.dt <= dt_max
+
 
 class TestFDTD3DEnergyConservation:
     """Test energy conservation and CFL stability."""
@@ -232,6 +237,7 @@ class TestFDTD3DEnergyConservation:
 
         # Final energy should be much larger than initial
         assert energies[-1] > energies[5] * 2.0
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

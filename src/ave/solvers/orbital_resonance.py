@@ -171,9 +171,7 @@ def isco_radius(M: float, a_star: float = 0.0) -> float:
 # ---------------------------------------------------------------------------
 
 
-def impedance_orbital_radii(
-    M: float, a_star: float = 0.0, n_modes: int = 8
-) -> tuple[np.ndarray, np.ndarray]:
+def impedance_orbital_radii(M: float, a_star: float = 0.0, n_modes: int = 8) -> tuple[np.ndarray, np.ndarray]:
     """
     Quantised orbital radii from standing-wave resonance in the
     refractive gradient n(r).
@@ -231,9 +229,7 @@ def impedance_orbital_radii(
     return np.array(radii), np.array(mode_numbers)
 
 
-def qpo_frequencies(
-    M: float, a_star: float = 0.0, n_modes: int = 5
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def qpo_frequencies(M: float, a_star: float = 0.0, n_modes: int = 5) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Quasi-Periodic Oscillation (QPO) frequencies from impedance
     band resonance.

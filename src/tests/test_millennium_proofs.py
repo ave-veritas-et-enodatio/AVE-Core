@@ -34,6 +34,7 @@ from ave.core.constants import C_0, KAPPA_FS, L_NODE, M_E, e_charge
 # Yang-Mills
 # ─────────────────────────────────────────────────────────────────────
 
+
 class TestYangMillsHamiltonian:
     def test_bounded_below(self) -> None:
         from ave.axioms.yang_mills import lattice_hamiltonian_properties
@@ -67,6 +68,7 @@ class TestYangMillsHamiltonian:
             for B in [1e-3, 1.0, 1e3]:
                 H = lattice_cell_energy(E_field=E, B_field=B)
                 assert H >= 0.0, f"Cell energy must be ≥ 0 for E={E}, B={B}"
+
 
 class TestYangMillsSpectralGap:
     def test_gap_positive(self) -> None:
@@ -104,6 +106,7 @@ class TestYangMillsSpectralGap:
         r7 = confinement_radius(KAPPA_FS, 7)
         assert r3 > r5 > r7, "Higher crossing number → smaller confinement radius"
 
+
 class TestYangMillsInfiniteVolume:
     def test_energy_volume_independent(self) -> None:
         from ave.axioms.yang_mills import defect_energy_vs_volume
@@ -116,6 +119,7 @@ class TestYangMillsInfiniteVolume:
 
         result = defect_energy_vs_volume(crossing_number=5)
         assert result["max_spread"] < 1e-10, "I_scalar must be identical across all box sizes"
+
 
 class TestOsterwalderSchrader:
     @pytest.fixture(scope="class")
@@ -174,9 +178,11 @@ class TestOsterwalderSchrader:
         assert proof["MASS_GAP_PROVEN"], "MASS_GAP_PROVEN flag must be True"
         assert "Part_E_Osterwalder_Schrader" in proof, "Part E must be present in full proof output"
 
+
 # ─────────────────────────────────────────────────────────────────────
 # Navier-Stokes
 # ─────────────────────────────────────────────────────────────────────
+
 
 class TestNSLatticeRegularization:
     def test_laplacian_bounded(self) -> None:
@@ -202,6 +208,7 @@ class TestNSLatticeRegularization:
         # Laplacian of a constant field = 0
         assert np.allclose(lap, 0.0, atol=1e-20), "Laplacian of constant field must be zero"
 
+
 class TestNSVelocityBound:
     def test_max_velocity_equals_c(self) -> None:
         from ave.axioms.navier_stokes import maximum_lattice_velocity
@@ -215,6 +222,7 @@ class TestNSVelocityBound:
         omega = enstrophy_maximum(N=100, dx=L_NODE)
         assert np.isfinite(omega) and omega > 0, "Enstrophy maximum must be finite and positive"
 
+
 class TestNSGlobalExistence:
     def test_picard_lindelof_applies(self) -> None:
         from ave.axioms.navier_stokes import lattice_ns_global_existence
@@ -227,6 +235,7 @@ class TestNSGlobalExistence:
 
         result = lattice_ns_global_existence(N=100, dx=L_NODE)
         assert result["GLOBAL_EXISTENCE_PROVEN"], "Global existence flag must be True"
+
 
 class TestNSSobolevBound:
     def test_h1_norm_positive(self) -> None:
@@ -266,9 +275,11 @@ class TestNSSobolevBound:
         proof = full_navier_stokes_proof()
         assert proof["NS_SMOOTHNESS_PROVEN"], "NS_SMOOTHNESS_PROVEN must be True after Sobolev upgrade"
 
+
 # ─────────────────────────────────────────────────────────────────────
 # Riemann Hypothesis
 # ─────────────────────────────────────────────────────────────────────
+
 
 class TestRiemannSpectralBoundary:
     def test_sigma_cutoff_is_half(self) -> None:
@@ -314,9 +325,11 @@ class TestRiemannSpectralBoundary:
         cases = result["sigma_test_cases"]
         assert cases["sigma_0.6 (physical)"]["convergent"], "Power sum must converge for σ > 1/2"
 
+
 # ─────────────────────────────────────────────────────────────────────
 # Full Orchestration
 # ─────────────────────────────────────────────────────────────────────
+
 
 class TestFormalProofOrchestration:
     @pytest.fixture(scope="class")

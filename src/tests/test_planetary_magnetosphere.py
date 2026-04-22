@@ -17,6 +17,7 @@ from ave.gravity.planetary_magnetosphere import (
     uranus_asymmetric_profile,
 )
 
+
 class TestDipoleField:
     """Dipole magnetic field."""
 
@@ -43,6 +44,7 @@ class TestDipoleField:
         fields = {p.name: dipole_field(p, p.radius_m, 90) for p in ALL_PLANETS}
         assert fields["Jupiter"] == max(fields.values())
 
+
 class TestMagneticPressure:
     """Magnetic pressure."""
 
@@ -53,6 +55,7 @@ class TestMagneticPressure:
         P1 = magnetic_pressure(1e-5)
         P2 = magnetic_pressure(2e-5)
         assert abs(P2 / P1 - 4.0) < 0.01
+
 
 class TestSolarWindPressure:
     """Solar wind dynamic pressure."""
@@ -66,6 +69,7 @@ class TestSolarWindPressure:
         P1 = solar_wind_dynamic_pressure(1.0)
         P2 = solar_wind_dynamic_pressure(2.0)
         assert abs(P1 / P2 - 4.0) < 0.01
+
 
 class TestMagnetopause:
     """Magnetopause standoff distance."""
@@ -85,6 +89,7 @@ class TestMagnetopause:
             r = magnetopause_standoff_Rp(planet)
             assert r > 1.0, f"{planet.name}: standoff = {r:.1f} R_p"
 
+
 class TestReflection:
     """Magnetopause reflection coefficient."""
 
@@ -93,6 +98,7 @@ class TestReflection:
         for planet in ALL_PLANETS:
             G = magnetopause_reflection(planet)
             assert -1.0 <= G <= 1.0, f"{planet.name}: Γ = {G:.3f}"
+
 
 class TestUranusAsymmetry:
     """Uranus asymmetric magnetosphere."""
@@ -113,6 +119,7 @@ class TestUranusAsymmetry:
         r_range = np.max(p["r_mp_Rp"]) - np.min(p["r_mp_Rp"])
         r_mean = np.mean(p["r_mp_Rp"])
         assert r_range / r_mean > 0.1
+
 
 class TestComparative:
     """Comparative magnetosphere table."""

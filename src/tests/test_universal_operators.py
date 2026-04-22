@@ -26,6 +26,7 @@ from ave.core.universal_operators import (
 # 1. IMPEDANCE OPERATOR
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestUniversalImpedance:
     """Z = sqrt(mu/eps) — the foundation of all AVE physics."""
 
@@ -50,9 +51,11 @@ class TestUniversalImpedance:
         Z = universal_impedance(0.001, 100.0)
         assert Z > 0
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # 2. SATURATION OPERATOR
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestUniversalSaturation:
     """S = sqrt(1 - (A/A_yield)²) — Axiom 4 at every scale."""
@@ -99,9 +102,11 @@ class TestUniversalSaturation:
         S = universal_saturation(A, V_SNAP)
         assert np.all(np.diff(S) <= 0), "Saturation must be monotonically decreasing"
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # 3. REFLECTION OPERATOR
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestUniversalReflection:
     """Γ = (Z₂ - Z₁)/(Z₂ + Z₁) — at every boundary, every scale."""
@@ -133,9 +138,11 @@ class TestUniversalReflection:
             Gamma = universal_reflection(Z1, Z2)
             assert abs(Gamma) <= 1.0 + 1e-10
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # 4. PAIRWISE ENERGY AND GRADIENT
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestUniversalPairwiseEnergy:
     """U(r) = -(K/r)(T² - Γ²) — the full 3-regime impedance potential."""

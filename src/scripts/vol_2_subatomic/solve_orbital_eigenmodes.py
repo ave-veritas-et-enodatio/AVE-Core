@@ -314,7 +314,9 @@ def plot_2d_orbital(ode: OrbitalODE, n: int, l: int, m: int, u: np.ndarray, path
     print(f"  Saved: {path}")
 
 
-def make_orbital_animation(ode: OrbitalODE, n: int, l: int, m: int, u: np.ndarray, path: str, n_frames: int = 120) -> None:
+def make_orbital_animation(
+    ode: OrbitalODE, n: int, l: int, m: int, u: np.ndarray, path: str, n_frames: int = 120
+) -> None:
     """Animated GIF: oscillating standing wave ψ(r,θ,t)."""
     P = u**2
     R_amp = np.sqrt(np.maximum(P / np.max(P), 0))

@@ -24,6 +24,7 @@ from ave.gravity.solar_impedance import (
     solar_wind_plasma_frequency,
 )
 
+
 class TestSolarWind:
     """Solar wind plasma properties."""
 
@@ -61,6 +62,7 @@ class TestSolarWind:
         Z = solar_wind_impedance(0.1 * AU, freq_hz=1.0)
         assert Z == 0.0
 
+
 class TestHeliosphericProfile:
     """Full radial impedance profile."""
 
@@ -84,6 +86,7 @@ class TestHeliosphericProfile:
         """Heliopause should have a measurable Γ."""
         p = heliospheric_impedance_profile()
         assert p["Gamma_heliopause"] != 0.0
+
 
 class TestOumuamua:
     """'Oumuamua anomalous acceleration."""
@@ -125,6 +128,7 @@ class TestOumuamua:
         a_imp = oumuamua_impedance_acceleration(AU)
         assert abs(a_rad - a_imp) / a_rad < 0.01
 
+
 class TestOortCloud:
     """Oort Cloud as saturation boundary."""
 
@@ -138,6 +142,7 @@ class TestOortCloud:
         assert "r_saturation_au" in p
         assert "g_at_saturation" in p
         assert p["g_at_saturation"] == A0_LATTICE
+
 
 class TestKirkwoodGaps:
     """Kirkwood gaps as cavity resonances."""

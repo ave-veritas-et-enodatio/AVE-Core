@@ -22,6 +22,7 @@ from ave.core.constants import ALPHA, C_0, EPSILON_0, V_YIELD, Z_0
 # epsilon_eff: ε_eff(V) = ε₀ √(1 − (V/V_yield)²)
 # ---------------------------------------------------------------------------
 
+
 class TestEpsilonEff:
     """Non-linear permittivity under dielectric saturation."""
 
@@ -56,9 +57,11 @@ class TestEpsilonEff:
         """ε_eff(-V) = ε_eff(V) (even function of strain)."""
         assert epsilon_eff(0.5 * V_YIELD) == pytest.approx(epsilon_eff(-0.5 * V_YIELD), rel=1e-12)
 
+
 # ---------------------------------------------------------------------------
 # capacitance_eff: C_eff(Δφ) = 1/√(1 − (Δφ/α)²)
 # ---------------------------------------------------------------------------
+
 
 class TestCapacitanceEff:
     """Non-linear capacitance (inverse relationship to ε_eff)."""
@@ -83,9 +86,11 @@ class TestCapacitanceEff:
         C = capacitance_eff(dphi)
         assert np.all(np.diff(C) > 0)
 
+
 # ---------------------------------------------------------------------------
 # reflection_coefficient: Γ = (Z_knot − Z_vac) / (Z_knot + Z_vac)
 # ---------------------------------------------------------------------------
+
 
 class TestReflectionCoefficient:
     """Transmission-line reflection coefficient Γ."""
@@ -107,9 +112,11 @@ class TestReflectionCoefficient:
         for Z in [0.01, 1.0, 100.0, Z_0, 1e6]:
             assert abs(reflection_coefficient(Z)) <= 1.0 + 1e-12
 
+
 # ---------------------------------------------------------------------------
 # local_wave_speed: c_eff(V) = c₀ · (1 − (V/V_yield)²)^(1/4)
 # ---------------------------------------------------------------------------
+
 
 class TestLocalWaveSpeed:
     """Effective local phase velocity under saturation."""
@@ -137,9 +144,11 @@ class TestLocalWaveSpeed:
         c = local_wave_speed(V)
         assert np.all(np.diff(c) < 0)
 
+
 # ---------------------------------------------------------------------------
 # impedance_at_strain: Z_eff(V) = Z₀ / (1 − (V/V_yield)²)^(1/4)
 # ---------------------------------------------------------------------------
+
 
 class TestImpedanceAtStrain:
     """Local impedance under saturation."""
@@ -162,9 +171,11 @@ class TestImpedanceAtStrain:
         expected = Z_0 / (1.0 - x**2) ** 0.25
         assert Z == pytest.approx(expected, rel=1e-10)
 
+
 # ---------------------------------------------------------------------------
 # energy_density_nonlinear: U ≈ ½ε₀(Δφ)² + (3/8α²)ε₀(Δφ)⁴
 # ---------------------------------------------------------------------------
+
 
 class TestEnergyDensityNonlinear:
     """Full non-linear energy density with E⁴ correction."""

@@ -8,6 +8,7 @@ K_MUTUAL = 11.3378
 
 d = 0.85  # Topological nodal offset (fm)
 
+
 def solve_topology_for_mass(Z: int, A: int, empirical_mass_mev: float, nodes_generator: Any) -> float:
     """
     Reverse-engineers the required internal spatial arrangement of a given topology
@@ -46,9 +47,11 @@ def solve_topology_for_mass(Z: int, A: int, empirical_mass_mev: float, nodes_gen
     print(f"Resulting Binding Energy: {best_be:.3f} MeV (Error: {min_error:.4f} MeV)\n")
     return best_param
 
+
 # --- Carbon-12 (3 Alpha Ring) ---
 # Carbon-12 mass from CODATA
 CARBON_12_MASS_MEV = 11174.862
+
 
 def carbon_12_ring(ring_radius: float) -> list[tuple[float, float, float]]:
     """
@@ -68,6 +71,7 @@ def carbon_12_ring(ring_radius: float) -> list[tuple[float, float, float]]:
             nodes.append((n[0] + cx, n[1] + cy, n[2] + cz))
 
     return nodes
+
 
 if __name__ == "__main__":
     r_carbon = solve_topology_for_mass(6, 12, CARBON_12_MASS_MEV, carbon_12_ring)

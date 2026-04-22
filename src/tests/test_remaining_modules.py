@@ -18,6 +18,7 @@ import pytest
 # fluids/water.py
 # ============================================================================
 
+
 class TestWaterDensity:
     """Water density model reproduces the 4°C anomaly via FluidImpedanceFactory."""
 
@@ -60,6 +61,7 @@ class TestWaterDensity:
         rho_50 = factory.compute_density(50.0)
         assert rho_50 > rho_10, "Structural phase transitions erroneously inverted without scaling metrics."
 
+
 class TestWaterDielectric:
     """Dielectric constant model via FluidImpedanceFactory."""
 
@@ -74,6 +76,7 @@ class TestWaterDielectric:
 
         factory = FluidImpedanceFactory(WaterMolecule())
         assert factory.compute_dielectric(0.0) > factory.compute_dielectric(50.0)
+
 
 class TestWaterMolecule:
     """WaterMolecule and FluidImpedanceFactory dataclass macroscopic properties."""
@@ -92,9 +95,11 @@ class TestWaterMolecule:
         f = mol.resonant_frequency
         assert 1e13 < f < 1e15
 
+
 # ============================================================================
 # plasma/cutoff.py
 # ============================================================================
+
 
 class TestPlasmaParameters:
     """Plasma frequency and derived quantities."""
@@ -145,6 +150,7 @@ class TestPlasmaParameters:
         omega_above = p.plasma_frequency * 2.0
         assert eps_fn(omega_above) > 0
 
+
 class TestCommonPlasmas:
     """COMMON_PLASMAS catalog is populated and consistent."""
 
@@ -169,6 +175,7 @@ class TestCommonPlasmas:
                 pass
         # Just check Cu is very high
         assert metal.plasma_frequency > 1e16
+
 
 class TestAVEPlasma:
     """AVE-specific plasma functions."""
@@ -195,9 +202,11 @@ class TestAVEPlasma:
         eps = dielectric_function_ave(omega=1e18, E_field=1.0)
         assert eps >= 0
 
+
 # ============================================================================
 # mechanics/impedance.py
 # ============================================================================
+
 
 class TestMutualInductance:
     """Mutual inductance saturation via Axiom 4."""
@@ -227,9 +236,11 @@ class TestMutualInductance:
         eta_5 = get_mutual_inductance(30.0, 5.0, 100.0)
         assert eta_5 == pytest.approx(5 * eta_1, rel=1e-10)
 
+
 # ============================================================================
 # solvers/transmission_line.py
 # ============================================================================
+
 
 class TestTransmissionLine:
     """ABCD matrix transmission line solver."""
@@ -253,9 +264,11 @@ class TestTransmissionLine:
         M_direct = M1 @ M2
         np.testing.assert_allclose(M12, M_direct, atol=1e-12)
 
+
 # ============================================================================
 # solvers/resonator.py
 # ============================================================================
+
 
 class TestResonator:
     """Cavity resonator solver."""
@@ -285,9 +298,11 @@ class TestResonator:
         t, h = impulse_response(freqs, s21)
         assert np.all(np.isfinite(h))
 
+
 # ============================================================================
 # topological/tensors.py
 # ============================================================================
+
 
 class TestTopologicalTensors:
     """Topological tensor computations."""
@@ -311,9 +326,11 @@ class TestTopologicalTensors:
         tension = calculate_topological_nuclear_tension(M_PROTON, M_E, L_NODE)
         assert tension > 0
 
+
 # ============================================================================
 # topological/soliton_bond_solver.py
 # ============================================================================
+
 
 class TestSolitonBondSolver:
     """Bond energy solver for molecular structures."""

@@ -27,6 +27,7 @@ _SIN_THETA_W_PAT = math.sqrt(3.0 / 7.0)
 
 # ─── build_radial_tree_admittance_graded() ────────────────────────────────────
 
+
 class TestGradedSolverStructure:
     """Structural / API tests for the graded-boundary Bethe tree solver."""
 
@@ -94,6 +95,7 @@ class TestGradedSolverStructure:
         with pytest.raises(ValueError, match="shell_boundary_y"):
             build_radial_tree_admittance_graded(depth=3, branch_y=NU_VAC, shell_boundary_y=[0.0, 1.0], coordination_z=4)
 
+
 class TestGradedSolverPhysics:
     """Physics-level checks on the graded solver."""
 
@@ -119,7 +121,9 @@ class TestGradedSolverPhysics:
         s11 = s11_from_y_matrix(Y, port=0, Y0=1.0).real
         assert abs(s11 - (-0.058824)) < 1e-5, f"S11 = {s11:.8f}, expected ≈ -0.0588"
 
+
 # ─── w_boson_self_consistent_correction() ─────────────────────────────────────
+
 
 class TestSelfConsistentCorrection:
     """Unit tests for the self-consistent back-saturation loop."""
@@ -175,7 +179,9 @@ class TestSelfConsistentCorrection:
             abs(self.sc["M_W_tree_MeV"] - m_w_tree_mev) < 0.01
         ), f"Tree level mismatch: {self.sc['M_W_tree_MeV']:.4f} vs {m_w_tree_mev:.4f}"
 
+
 # ─── Module-level constants updated correctly ─────────────────────────────────
+
 
 class TestModuleConstants:
     """Verify that cosserat.py module-level M_W uses the self-consistent value."""

@@ -15,6 +15,7 @@ from ave.topological.borromean import FundamentalTopologies
 # Unknot (0_1) — Fundamental lepton topology
 # ---------------------------------------------------------------------------
 
+
 class TestUnknot:
     """The 0_1 unknot: a single closed loop at minimum ropelength = 2π."""
 
@@ -54,9 +55,11 @@ class TestUnknot:
         circumference = np.sum(arc_lengths)
         assert circumference == pytest.approx(2 * np.pi, rel=1e-3)
 
+
 # ---------------------------------------------------------------------------
 # Trefoil (3_1) — NOT the electron; used for antenna topology
 # ---------------------------------------------------------------------------
+
 
 class TestTrefoil:
     """The 3_1 trefoil knot: used for HOPF-01 antenna, not the electron."""
@@ -80,9 +83,11 @@ class TestTrefoil:
         max_r = np.max(np.linalg.norm(coords, axis=1))
         assert max_r == pytest.approx(1.0, rel=0.01)
 
+
 # ---------------------------------------------------------------------------
 # Borromean Link (6^3_2) — Proton topology
 # ---------------------------------------------------------------------------
+
 
 class TestBorromean:
     """The 6^3_2 Borromean link: three mutually interlocking rings."""

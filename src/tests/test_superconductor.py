@@ -28,6 +28,7 @@ from ave.plasma.superconductor import (
 # Critical field = saturation_factor on temperature
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestCriticalField:
     """B_c(T) IS saturation_factor(T, T_c) — the structural identity."""
 
@@ -67,9 +68,11 @@ class TestCriticalField:
         B = critical_field(T, 9.25, 0.206)
         assert np.all(np.diff(B) <= 0)
 
+
 # ═══════════════════════════════════════════════════════════════
 # Meissner effect — μ-saturation
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestMeissnerEffect:
     """μ_eff = μ₀ · S(B/B_c) — the dual of plasma ε_eff."""
@@ -94,9 +97,11 @@ class TestMeissnerEffect:
         Z = superconducting_impedance(0.0, 0.206)
         assert float(Z) == pytest.approx(Z_0, rel=1e-12)
 
+
 # ═══════════════════════════════════════════════════════════════
 # Reflection coefficient — same function as Pauli and Moho
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestMeissnerReflection:
     """Γ uses the SAME reflection_coefficient as seismic and particle."""
@@ -134,9 +139,11 @@ class TestMeissnerReflection:
         # Γ = (0.930Z₀ - Z₀)/(0.930Z₀ + Z₀) = -0.070 / 1.930 ≈ -0.036
         assert -0.1 < float(gamma) < 0.0  # Mild reflection
 
+
 # ═══════════════════════════════════════════════════════════════
 # London depth — the magnetic skin depth
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestLondonDepth:
     """λ_L = √(m*/(μ₀ n_s e²)) — dual of plasma skin depth."""
@@ -161,9 +168,11 @@ class TestLondonDepth:
         lam_high = london_penetration_depth(1e29)
         assert lam_high < lam_low
 
+
 # ═══════════════════════════════════════════════════════════════
 # Duality: plasma ↔ superconductor
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestDuality:
     """Prove that plasma and superconductor use the same math."""
@@ -197,9 +206,11 @@ class TestDuality:
                 gamma = sc.reflection_at(B_c * 0.9, 4.2)
                 assert gamma < 0, f"{name} should reflect at 4.2 K"
 
+
 # ═══════════════════════════════════════════════════════════════
 # GL parameter — type I vs type II classification
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestGinzburgLandau:
     """κ = λ_L/ξ₀ classifies type I (κ < 1/√2) vs type II."""

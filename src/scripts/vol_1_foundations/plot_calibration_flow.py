@@ -29,7 +29,9 @@ def create_flowchart() -> None:
         ax.text(x, y, text, ha="center", va="center", color="white", fontsize=11, fontweight="bold")
 
     # Helper to draw arrows
-    def draw_arrow(start: tuple[float, float], end: tuple[float, float], color: str = "white", text: str | None = None) -> None:
+    def draw_arrow(
+        start: tuple[float, float], end: tuple[float, float], color: str = "white", text: str | None = None
+    ) -> None:
         ax.annotate(
             "",
             xy=end,

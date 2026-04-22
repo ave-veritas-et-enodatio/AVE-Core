@@ -26,6 +26,7 @@ from ave.regime_3_saturated.orbital_impedance import get_mutual_inductance
 # Asymptotic limits of the saturation model
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestAsymptotes:
     """Both MOND limits must emerge exactly from saturation_factor."""
 
@@ -72,9 +73,11 @@ class TestAsymptotes:
         g_eff = ave_saturation_acceleration(g_N)
         assert np.all(np.diff(g_eff) > 0)
 
+
 # ═══════════════════════════════════════════════════════════════
 # Galaxy rotation test
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestGalaxyRotation:
     """NGC 3198 rotation curve must be flat and match observations."""
@@ -101,10 +104,12 @@ class TestGalaxyRotation:
         v_outer = self.galaxy.newtonian_velocity(25 * KPC)
         assert v_outer < v_inner, "Newtonian curve should decline"
 
+
 # Empirical McGaugh tests purged: Engine relies strictly on Axiom 4 saturation.
 # ═══════════════════════════════════════════════════════════════
 # RAR array interface
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestRadialAccelerationRelation:
     """The RAR function must handle array inputs correctly."""
@@ -115,9 +120,11 @@ class TestRadialAccelerationRelation:
         assert g_obs.shape == g_N.shape
         assert np.all(g_obs >= g_N * (1 - 1e-12))
 
+
 # ═══════════════════════════════════════════════════════════════
 # Smooth mutual inductance (replaces step function)
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestMutualInductance:
     """impedance.get_mutual_inductance must now be smooth, not a step."""

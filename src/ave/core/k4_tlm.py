@@ -85,7 +85,9 @@ class K4Lattice3D:
     Port `i` on the neighboring Type B node. No reciprocity mapping needed!
     """
 
-    def __init__(self, nx: int, ny: int, nz: int, dx: float = 1.0, nonlinear: bool = False, pml_thickness: int = 0) -> None:
+    def __init__(
+        self, nx: int, ny: int, nz: int, dx: float = 1.0, nonlinear: bool = False, pml_thickness: int = 0
+    ) -> None:
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -377,7 +379,15 @@ class K4Lattice2D(K4Lattice3D):
     3D lattice and slice it.
     """
 
-    def __init__(self, nx: int, ny: int, alternating_chirality: bool = False, dx: float = 1.0, nonlinear: bool = False, pml_thickness: int = 0) -> None:
+    def __init__(
+        self,
+        nx: int,
+        ny: int,
+        alternating_chirality: bool = False,
+        dx: float = 1.0,
+        nonlinear: bool = False,
+        pml_thickness: int = 0,
+    ) -> None:
         # We need a depth of 4 to securely wrap 3D parity links natively
         super().__init__(nx, ny, 4, dx=dx, nonlinear=nonlinear, pml_thickness=pml_thickness)
         self.my_z = 2

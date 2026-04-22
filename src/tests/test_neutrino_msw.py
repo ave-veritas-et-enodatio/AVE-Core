@@ -23,6 +23,7 @@ from ave.gravity.neutrino_msw import (
     survival_probability,
 )
 
+
 class TestMatterPotential:
     """V_CC must scale with n_e."""
 
@@ -39,6 +40,7 @@ class TestMatterPotential:
         V1 = matter_potential(1e30)
         V2 = matter_potential(2e30)
         assert V2 == pytest.approx(2 * V1, rel=1e-10)
+
 
 class TestMixingAngle:
     """Effective mixing angle must behave correctly."""
@@ -58,6 +60,7 @@ class TestMixingAngle:
         """θ_m must be in [0, π/2]."""
         theta = effective_mixing_angle(1e30, 10.0)
         assert 0 <= theta <= np.pi / 2
+
 
 class TestResonanceDensity:
     """MSW resonance density must be physical."""
@@ -79,6 +82,7 @@ class TestResonanceDensity:
         n_res = msw_resonance_density(5.0)
         assert 1e20 < n_res < 1e40
 
+
 class TestSurvivalProbability:
     """P(ν_e → ν_e) must be in [0, 1]."""
 
@@ -98,6 +102,7 @@ class TestSurvivalProbability:
         P2 = survival_probability(1e32, 10.0)
         assert P1 != pytest.approx(P2, abs=0.01)
 
+
 class TestImpedanceAnalogy:
     """Impedance analogy must produce valid output."""
 
@@ -112,6 +117,7 @@ class TestImpedanceAnalogy:
         """In vacuum, Z_e ≈ Z_μ → Γ ≈ 0."""
         result = impedance_analogy(0.0, 10.0)
         assert abs(result["gamma_mode"]) < 0.1
+
 
 class TestSolarProfile:
     """Solar MSW profile must run."""

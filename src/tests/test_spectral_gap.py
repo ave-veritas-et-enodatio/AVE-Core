@@ -27,6 +27,7 @@ from ave.core.constants import C_0, KAPPA_FS, L_NODE, M_E
 
 # ── Step 1: Lattice Existence ──
 
+
 class TestLatticeExistence:
 
     def test_dof_positive(self) -> None:
@@ -46,7 +47,9 @@ class TestLatticeExistence:
         V_cell = L_NODE**3
         assert abs(lattice_degrees_of_freedom(V_cell) - 1.0) < 1e-10
 
+
 # ── Step 2: Discrete Dispersion ──
+
 
 class TestDispersion:
 
@@ -86,7 +89,9 @@ class TestDispersion:
         E_eV = minimum_excitation_energy_eV()
         assert abs(E_eV / 511e3 - 1.0) < 0.01  # Within 1%
 
+
 # ── Step 3: Confinement ──
+
 
 class TestConfinement:
 
@@ -120,7 +125,9 @@ class TestConfinement:
         # For infinitesimally small Z_knot, |Γ| → 1 (total reflection).
         assert abs(Gamma) > 0.99
 
+
 # ── Step 4: Mass Gap ──
+
 
 class TestMassGap:
 

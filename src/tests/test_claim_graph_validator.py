@@ -25,8 +25,10 @@ from scripts.claim_graph_validator import (
     run,
 )
 
+
 def _manifest(entries: list[dict]) -> dict:
     return {"version": 1, "predictions": entries}
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # check_schema
@@ -89,6 +91,7 @@ class TestSchema:
         findings = [f for f in check_schema(m) if "Duplicate" in f.message]
         assert len(findings) == 1
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # check_labels
 # ───────────────────────────────────────────────────────────────────────────
@@ -138,6 +141,7 @@ class TestLabels:
         findings = check_labels(m, labels={"ch:real"})
         assert len(findings) == 1
         assert findings[0].severity == "warn"
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # check_engine
@@ -225,6 +229,7 @@ class TestEngine:
         )
         assert check_engine(m, constants={}) == []
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # End-to-end: live manifest + live repo
 # ───────────────────────────────────────────────────────────────────────────
@@ -302,6 +307,7 @@ class TestLiveManifest:
         m = load_manifest(MANIFEST_PATH)
         ids = [e["id"] for e in m["predictions"]]
         assert len(ids) == len(set(ids)), f"Duplicate IDs: {ids}"
+
 
 class TestOrchestration:
     def test_run_with_all_checks(self) -> None:

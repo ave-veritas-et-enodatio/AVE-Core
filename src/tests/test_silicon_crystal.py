@@ -30,6 +30,7 @@ from ave.condensed.silicon_crystal import (
 # Si-Si Bond
 # ═══════════════════════════════════════════════════════════════════
 
+
 class TestSiSiBond:
     def test_bond_distance_within_15_pct(self) -> None:
         """Si-Si bond distance within 15% of experimental 2.352 Å."""
@@ -51,9 +52,11 @@ class TestSiSiBond:
         """k_crystal = k_molecular / N_coord."""
         np.testing.assert_allclose(K_CRYSTAL, K_SI_SI / 4.0)
 
+
 # ═══════════════════════════════════════════════════════════════════
 # Diamond Cubic Unit Cell
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDiamondCubicUnitCell:
     def test_8_atoms(self) -> None:
@@ -79,9 +82,11 @@ class TestDiamondCubicUnitCell:
         err = abs(A_LATTICE - A_LATTICE_EXP) / A_LATTICE_EXP
         assert err < 0.15, f"Lattice constant error {err:.1%} > 15%"
 
+
 # ═══════════════════════════════════════════════════════════════════
 # Band Gap — MEANS TEST
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestSiliconBandGap:
     def test_band_gap_positive(self) -> None:
@@ -109,9 +114,11 @@ class TestSiliconBandGap:
         result = silicon_band_gap()
         assert result["N_coord"] == 4
 
+
 # ═══════════════════════════════════════════════════════════════════
 # Dispersion Relation
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDispersion:
     def test_two_branches(self) -> None:

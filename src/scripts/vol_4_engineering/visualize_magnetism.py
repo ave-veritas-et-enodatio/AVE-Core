@@ -15,7 +15,9 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def calculate_flow_field(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def calculate_flow_field(
+    nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Computes a uniform horizontal flow (U, 0) perturbed by the
     repulsive density gradients of the topological nodes.

@@ -21,6 +21,7 @@ from ave.gravity.stellar_interior import (
     tachocline_reflection,
 )
 
+
 class TestSSMLayers:
     """Standard Solar Model layers must be physically reasonable."""
 
@@ -50,6 +51,7 @@ class TestSSMLayers:
         assert SSM_LAYERS[0].r_inner < 0.01
         assert SSM_LAYERS[-1].r_outer > 1.0
 
+
 class TestRadialProfile:
     """Radial profile must produce continuous, physical output."""
 
@@ -71,6 +73,7 @@ class TestRadialProfile:
         wp = profile["omega_p"]
         assert wp[0] > wp[-1]
 
+
 class TestBoundaryReflections:
     """Key boundaries must have measurable reflection."""
 
@@ -88,6 +91,7 @@ class TestBoundaryReflections:
         """Photosphere Γ should be larger (bigger impedance jump)."""
         assert abs(photosphere_reflection()) > abs(tachocline_reflection())
 
+
 class TestSolarOpacity:
     """Opacity must depend on frequency and depth."""
 
@@ -100,6 +104,7 @@ class TestSolarOpacity:
         """Radio waves cannot penetrate the core."""
         opacity = solar_opacity_from_impedance(0.1, 1e6)
         assert opacity > 0.9  # Totally reflected
+
 
 class TestHelioseismology:
     """p-mode frequencies must match observed solar oscillations."""

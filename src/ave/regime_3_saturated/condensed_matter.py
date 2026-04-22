@@ -97,9 +97,7 @@ def ave_stable_mass(Z: int) -> float:
 # ═════════════════════════════════════════════════════════════════════════════
 
 
-def _element_bond_properties(
-    Z: int, A: int | None = None
-) -> tuple[float, float, float, float, float, float]:
+def _element_bond_properties(Z: int, A: int | None = None) -> tuple[float, float, float, float, float, float]:
     """
     Compute the valence bond properties for element Z.
 

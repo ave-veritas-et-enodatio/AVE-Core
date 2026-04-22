@@ -14,6 +14,7 @@ from ave.core.lbm_3d import LBM3DEngine
 # PML BOUNDARY TESTS
 # ============================================================
 
+
 class TestPMLBoundaries:
     """Tests for the Perfectly Matched Layer absorbing boundaries."""
 
@@ -58,9 +59,11 @@ class TestPMLBoundaries:
         assert np.all(eng.sigma_y >= 0)
         assert np.all(eng.sigma_z >= 0)
 
+
 # ============================================================
 # LBM FLUID SOLVER TESTS
 # ============================================================
+
 
 class TestLBM3D:
     """Tests for the D3Q19 Lattice Boltzmann solver."""
@@ -133,9 +136,11 @@ class TestLBM3D:
         # Flow should still develop between walls
         assert lbm.max_velocity() > 0
 
+
 # ============================================================
 # SPATIAL MATERIAL TESTS
 # ============================================================
+
 
 class TestSpatialMaterials:
     """Tests for eps_r and mu_r spatial material arrays."""
@@ -183,9 +188,11 @@ class TestSpatialMaterials:
         ratio = eng_mat.total_field_energy() / eng_vac.total_field_energy()
         assert abs(ratio - 4.0) < 0.1, f"Energy ratio should be ~4, got {ratio:.2f}"
 
+
 # ============================================================
 # FORCE EXTRACTION TESTS
 # ============================================================
+
 
 class TestForceExtraction:
     """Tests for energy_density() and ponderomotive_force()."""
@@ -228,9 +235,11 @@ class TestForceExtraction:
         assert np.max(np.abs(Fy)) > 0
         assert np.max(np.abs(Fz)) > 0
 
+
 # ============================================================
 # GRAVITY MODULE TESTS
 # ============================================================
+
 
 class TestGravityModule:
     """Tests for the gravity/optical metric module."""
@@ -285,9 +294,11 @@ class TestGravityModule:
         U = gravitational_potential(5.972e24, 6.371e6)
         assert U < 0
 
+
 # ============================================================
 # COUPLED EM+CFD TESTS
 # ============================================================
+
 
 class TestCoupledEMCFD:
     """Tests for coupling FDTD → LBM via ponderomotive force."""

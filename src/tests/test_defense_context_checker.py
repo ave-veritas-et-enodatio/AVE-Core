@@ -14,15 +14,18 @@ from pathlib import Path
 
 from scripts.defense_context_checker import RULES, Rule, discover_targets, scan_file
 
+
 def _write(tmp_path: Path, name: str, content: str) -> Path:
     """Write a fixture file and return its Path."""
     p = tmp_path / name
     p.write_text(content, encoding="utf-8")
     return p
 
+
 def _rules_for(rule_id: str) -> list[Rule]:
     """Return the single rule matching this id (scan_file takes a list)."""
     return [r for r in RULES if r.id == rule_id]
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # CRIT-1: known-stale 139/450 arithmetic
@@ -43,6 +46,7 @@ class TestKnownStaleArithmetic:
         p = _write(tmp_path, "good.md", "sin²θ₁₂ = 2/7 + 1/45 = 97/315.")
         findings = scan_file(p, _rules_for("CRIT-1"))
         assert findings == []
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # B1: α as free/input parameter without Golden-Torus derivation cross-ref
@@ -82,6 +86,7 @@ class TestAlphaAsInput:
         )
         findings = scan_file(p, _rules_for("B1"))
         assert findings == []
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # B2: Millennium-problem proof claim without engineering-physics caveat
@@ -126,6 +131,7 @@ class TestMillenniumProofs:
         findings = scan_file(p, _rules_for("B2"))
         assert findings == []
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # A3: non-integer coordination z_0 ≈ 51.25 without amorphous framing
 # ───────────────────────────────────────────────────────────────────────────
@@ -161,6 +167,7 @@ class TestNonIntegerCoordination:
         findings = scan_file(p, _rules_for("A3"))
         assert findings == []
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # A1: 0.00% / Exact in prediction tables without identity classification
 # ───────────────────────────────────────────────────────────────────────────
@@ -193,6 +200,7 @@ class TestExactPredictionClassification:
         findings = scan_file(p, _rules_for("A1"))
         assert findings == []
 
+
 # ───────────────────────────────────────────────────────────────────────────
 # C2: anti-cheat badge overclaim
 # ───────────────────────────────────────────────────────────────────────────
@@ -218,6 +226,7 @@ class TestAntiCheatBadgeScope:
         )
         findings = scan_file(p, _rules_for("C2"))
         assert findings == []
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # Meta: discovery and end-to-end
@@ -248,6 +257,7 @@ class TestDiscovery:
         names = {p.name for p in targets}
         assert "CLAUDE.md" not in names
         assert "regular.md" in names
+
 
 class TestEndToEnd:
     def test_all_rules_compile(self) -> None:

@@ -56,9 +56,7 @@ def excited_unknot(
     return x, y, z, t
 
 
-def twisted_unknot(
-    R: float = 2.0, resolution: int = 500
-) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def twisted_unknot(R: float = 2.0, resolution: int = 500) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Dispersive twisted unknot: neutrino. A helical open loop."""
     t = np.linspace(0, 4 * np.pi, resolution)
     pitch = 0.8
@@ -98,7 +96,9 @@ def borromean_link(
 
 def threaded_borromean(
     R_borro: float = 1.5, R_thread: float = 0.4, resolution: int = 500
-) -> tuple[list[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]], tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]:
+) -> tuple[
+    list[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]], tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+]:
     """Neutron: Borromean link with a threaded unknot in the central void."""
     rings = borromean_link(R_borro, resolution)
 

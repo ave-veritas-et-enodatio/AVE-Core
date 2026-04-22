@@ -23,6 +23,7 @@ from ave.solvers.orbital_resonance import (
     schwarzschild_radius,
 )
 
+
 class TestCharacteristicRadii:
     def test_schwarzschild_radius_proportional_to_mass(self) -> None:
         rs1 = schwarzschild_radius(M_SUN)
@@ -53,6 +54,7 @@ class TestCharacteristicRadii:
         rph_7 = kerr_photon_sphere(M_SUN, 0.7)
         assert rph_7 < rph_0
 
+
 class TestRefractiveIndex:
     def test_far_field_approaches_1(self) -> None:
         r_far = 1e15  # Very far from Sun
@@ -64,6 +66,7 @@ class TestRefractiveIndex:
         n_far = refractive_index(100 * rs, M_SUN)
         n_near = refractive_index(2 * rs, M_SUN)
         assert n_near > n_far
+
 
 class TestQNMEigenvalue:
     def test_schwarzschild_fundamental(self) -> None:
@@ -89,6 +92,7 @@ class TestQNMEigenvalue:
         assert tau > 0
         assert f > 0
 
+
 class TestHawkingTemperature:
     def test_positive(self) -> None:
         T = hawking_temperature(M_SUN)
@@ -98,6 +102,7 @@ class TestHawkingTemperature:
         T1 = hawking_temperature(M_SUN)
         T10 = hawking_temperature(10 * M_SUN)
         assert T1 > T10
+
 
 class TestReggeWheeler:
     def test_potential_zero_at_horizon(self) -> None:

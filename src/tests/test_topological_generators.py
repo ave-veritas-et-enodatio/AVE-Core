@@ -11,6 +11,7 @@ from typing import Any
 
 from ave.topological.borromean import FundamentalTopologies
 
+
 def plot_unknot() -> None:
     coords = FundamentalTopologies.generate_unknot_0_1(radius=1.0)
 
@@ -40,6 +41,7 @@ def plot_unknot() -> None:
     plt.savefig("tests/outputs/unknot_0_1_validation.png", dpi=300, facecolor=fig.get_facecolor())
     plt.close()
     print("[*] Saved Unknot Validation Plot.")
+
 
 def plot_borromean() -> None:
     rings = FundamentalTopologies.generate_borromean_6_3_2(radius=1.0)
@@ -73,6 +75,7 @@ def plot_borromean() -> None:
     plt.close()
     print("[*] Saved Borromean Validation Plot.")
 
+
 def _clean_axes(ax: Any) -> None:
     """Helper to enforce dark-mode aesthetic boundaries"""
     ax.xaxis.set_pane_color((0.0, 0.0, 0.0, 0.0))
@@ -85,6 +88,7 @@ def _clean_axes(ax: Any) -> None:
     ax.set_xlim([-1.5, 1.5])
     ax.set_ylim([-1.5, 1.5])
     ax.set_zlim([-1.5, 1.5])
+
 
 if __name__ == "__main__":
     plot_unknot()

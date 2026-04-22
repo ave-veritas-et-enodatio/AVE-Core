@@ -10,6 +10,7 @@ from scripts.vol_6_periodic_table.simulations.simulate_element import (
     get_nucleon_coordinates,
 )
 
+
 def compute_topology(Z: int, A: int) -> tuple[float, float, float]:
     N = A - Z
     raw_mass = (Z * M_P_RAW) + (N * M_N_RAW)
@@ -28,6 +29,7 @@ def compute_topology(Z: int, A: int) -> tuple[float, float, float]:
     q_factor = (binding_energy / effective_radius) if binding_energy > 0 else 1.0
 
     return theo_mass, binding_energy, q_factor
+
 
 if __name__ == "__main__":
     os.makedirs("tests/outputs", exist_ok=True)

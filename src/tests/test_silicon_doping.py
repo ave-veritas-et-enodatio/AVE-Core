@@ -23,6 +23,7 @@ from ave.nuclear.phosphorus_atom import R_VAL_PHOSPHORUS
 # Dopant Properties
 # ═══════════════════════════════════════════════════════════════════
 
+
 class TestDopantConstants:
     def test_boron_Z(self) -> None:
         assert Z_BORON == 5
@@ -34,9 +35,11 @@ class TestDopantConstants:
         assert R_VAL_BORON > 0
         assert R_VAL_PHOSPHORUS > 0
 
+
 # ═══════════════════════════════════════════════════════════════════
 # Impurity Levels
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestBoronImpurity:
     def test_acceptor_type(self) -> None:
@@ -56,6 +59,7 @@ class TestBoronImpurity:
         result = boron_impurity_level()
         assert result["delta_E_eV"] < result["E_gap_Si_eV"]
 
+
 class TestPhosphorusImpurity:
     def test_donor_type(self) -> None:
         result = phosphorus_impurity_level()
@@ -73,9 +77,11 @@ class TestPhosphorusImpurity:
         result = phosphorus_impurity_level()
         assert result["delta_E_eV"] < result["E_gap_Si_eV"]
 
+
 # ═══════════════════════════════════════════════════════════════════
 # p-n Junction
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestPNJunction:
     def test_built_in_potential_positive(self) -> None:
@@ -93,9 +99,11 @@ class TestPNJunction:
         junction = pn_junction()
         assert 0 < junction["T_sq_junction"] <= 1.0
 
+
 # ═══════════════════════════════════════════════════════════════════
 # Diode I-V Characteristic
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDiodeIV:
     def test_zero_current_at_zero_voltage(self) -> None:

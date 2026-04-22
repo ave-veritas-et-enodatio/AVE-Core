@@ -11,11 +11,13 @@ import pytest
 
 from ave.topological.faddeev_skyrme import CROSSING_NUMBER_CINQUEFOIL, TopologicalHamiltonian1D
 
+
 class TestCrossingNumber:
     """The cinquefoil crossing number must be exactly 5."""
 
     def test_value(self) -> None:
         assert CROSSING_NUMBER_CINQUEFOIL == 5
+
 
 class TestPhaseProfile:
     """Phase profile φ(r) must satisfy topological boundary conditions."""
@@ -52,6 +54,7 @@ class TestPhaseProfile:
         phi_n4_outer = solver._phase_profile(r_outer, r_opt=1.0, n=4.0)
         assert phi_n4_outer < phi_n1_outer
 
+
 class TestEnergyDensity:
     """Energy density integrand properties."""
 
@@ -74,6 +77,7 @@ class TestEnergyDensity:
         """Energy density must vanish at large r."""
         density = solver._energy_density_integrand(100.0, r_opt=1.0, n=2.0)
         assert density < 1e-5
+
 
 class TestSolveScalarTrace:
     """Full Hamiltonian minimization."""

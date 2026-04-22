@@ -1,5 +1,6 @@
 from ave.nuclear.silicon_nucleus import silicon_nucleus_binding
 
+
 def test_silicon_nucleus_binding() -> None:
     """
     Validates that the Z=14 nucleus constructs a strictly positive bounding target

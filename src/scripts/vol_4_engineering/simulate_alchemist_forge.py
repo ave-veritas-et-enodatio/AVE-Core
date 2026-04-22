@@ -21,8 +21,7 @@ def calculate_principal_axes(coords: np.ndarray) -> list[float]:
 
 
 def plot_time_lapse(
-    coords_t0: np.ndarray, coords_t1: np.ndarray, coords_t2: np.ndarray,
-    A_NUCLEONS: int, title: str, filename: str
+    coords_t0: np.ndarray, coords_t1: np.ndarray, coords_t2: np.ndarray, A_NUCLEONS: int, title: str, filename: str
 ) -> None:
     fig = plt.figure(figsize=(18, 6))
 

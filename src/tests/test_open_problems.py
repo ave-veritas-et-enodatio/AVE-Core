@@ -19,6 +19,7 @@ from ave.axioms.open_problems import (
 # Strong CP Problem
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestStrongCP:
 
     def test_phase_winding_quantized(self) -> None:
@@ -47,9 +48,11 @@ class TestStrongCP:
         result = vacuum_angle_quantization()
         assert result["STRONG_CP_SOLVED"]
 
+
 # ════════════════════════════════════════════════════════════════════
 # Baryon Asymmetry
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestBaryonAsymmetry:
 
@@ -78,9 +81,11 @@ class TestBaryonAsymmetry:
         result = lattice_chirality()
         assert result["eta_predicted"] > 0
 
+
 # ════════════════════════════════════════════════════════════════════
 # Hubble Tension
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestHubbleTension:
 
@@ -99,9 +104,11 @@ class TestHubbleTension:
         result = impedance_hubble_correction()
         assert "impedance" in result["mechanism"].lower()
 
+
 # ════════════════════════════════════════════════════════════════════
 # Full Proof
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestFullProof:
 
@@ -118,9 +125,11 @@ class TestFullProof:
         proof = full_open_problems_proof()
         assert proof["Strong_CP"]["SOLVED"]
 
+
 # ════════════════════════════════════════════════════════════════════
 # g* Testable Prediction
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestGStarPrediction:
 

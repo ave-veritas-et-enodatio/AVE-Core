@@ -6,6 +6,7 @@ import numpy as np
 # Import exactly what simulate_element uses to ensure mathematical fidelity
 from scripts.vol_6_periodic_table.simulations.simulate_element import K_MUTUAL, get_nucleon_coordinates
 
+
 def calculate_network_parameters(Z: int, A: int) -> tuple[float, float, float]:
     """
     Calculates the Theoretical EE Network Parameters for the given element topology.
@@ -63,6 +64,7 @@ def calculate_network_parameters(Z: int, A: int) -> tuple[float, float, float]:
     S11_area = np.pi * (effective_radius**2)
 
     return U_stored, Q_factor, S11_area
+
 
 if __name__ == "__main__":
     elements = [

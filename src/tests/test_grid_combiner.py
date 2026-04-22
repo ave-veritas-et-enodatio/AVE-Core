@@ -16,6 +16,7 @@ from ave.topological.combiner import NucleonCombiner
 # VacuumGrid
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestVacuumGrid:
     def test_initial_strain_is_zero(self) -> None:
         g = VacuumGrid(10, 10)
@@ -52,9 +53,11 @@ class TestVacuumGrid:
         # Step runs without error
         g.step_kinematic_wave_equation()
 
+
 # ═══════════════════════════════════════════════════════════════════════
 # NucleonCombiner
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestNucleonCombiner:
     def test_rotate_identity(self) -> None:

@@ -32,6 +32,7 @@ from ave.core.regime_map import (
     regime_equations,
 )
 
+
 class TestClassifyRegime:
     """Core classification function."""
 
@@ -64,6 +65,7 @@ class TestClassifyRegime:
         assert info.regime == REGIME_LINEAR
         assert info.S == 1.0
 
+
 class TestDerivedBoundaries:
     """Verify boundaries are derived from first principles."""
 
@@ -86,6 +88,7 @@ class TestDerivedBoundaries:
         S = np.sqrt(1 - R_NONLINEAR_MAX**2)
         assert abs(S - 0.5) < 1e-12
         assert abs(1.0 / S - 2.0) < 1e-12
+
 
 class TestTransitionBoundaries:
     """Verify transition (between-regime) boundary detection."""
@@ -133,6 +136,7 @@ class TestTransitionBoundaries:
         assert (REGIME_NONLINEAR, REGIME_YIELD) in TRANSITION_NAMES
         assert (REGIME_YIELD, REGIME_RUPTURED) in TRANSITION_NAMES
 
+
 class TestIdentifyRegime:
     """Test the identify_regime() convenience startup function."""
 
@@ -162,6 +166,7 @@ class TestIdentifyRegime:
         captured = capsys.readouterr()
         assert "REGIME CLASSIFICATION" in captured.out
 
+
 class TestEMDomain:
     """Electromagnetic regime classification."""
 
@@ -181,6 +186,7 @@ class TestEMDomain:
     def test_lab_efield(self) -> None:
         info = em_field_regime(1e6)  # 1 MV/m
         assert info.regime == REGIME_LINEAR
+
 
 class TestGravityDomain:
     """Gravitational regime classification."""
@@ -210,6 +216,7 @@ class TestGravityDomain:
         info = gravity_regime(M, r_s)
         assert info.regime == REGIME_RUPTURED
 
+
 class TestMagneticDomain:
 
     def test_lab_magnet(self) -> None:
@@ -219,6 +226,7 @@ class TestMagneticDomain:
     def test_magnetar(self) -> None:
         info = magnetic_regime(1e10)
         assert info.regime == REGIME_RUPTURED
+
 
 class TestGWDomain:
 
@@ -237,6 +245,7 @@ class TestGWDomain:
         info = gw_regime(0.02)
         assert info.regime == REGIME_NONLINEAR
 
+
 class TestBCSDomain:
 
     def test_below_tc(self) -> None:
@@ -246,6 +255,7 @@ class TestBCSDomain:
     def test_at_tc(self) -> None:
         info = bcs_regime(9.1, 9.2)  # Just below Tc
         assert info.regime == REGIME_YIELD
+
 
 class TestGalacticDomain:
     """Galactic domain with derived a₀ = cH∞/(2π)."""
@@ -271,6 +281,7 @@ class TestGalacticDomain:
         info = galactic_regime(1e-12)  # 0.01× a₀
         assert info.regime == REGIME_LINEAR
 
+
 class TestRegimeEquations:
 
     def test_linear_equations(self) -> None:
@@ -286,6 +297,7 @@ class TestRegimeEquations:
         for r in [REGIME_LINEAR, REGIME_NONLINEAR, REGIME_YIELD, REGIME_RUPTURED]:
             eqs = regime_equations(r)
             assert len(eqs) == 5
+
 
 class TestSummaryOutput:
 

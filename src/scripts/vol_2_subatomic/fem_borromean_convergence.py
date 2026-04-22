@@ -28,7 +28,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def gaussian_tube_density(x: np.ndarray, y: np.ndarray, z: np.ndarray, axis: str = "x", offset: float = 0.5) -> np.ndarray:
+def gaussian_tube_density(
+    x: np.ndarray, y: np.ndarray, z: np.ndarray, axis: str = "x", offset: float = 0.5
+) -> np.ndarray:
     """
     Gaussian flux tube along a given axis, offset perpendicular by `offset`.
 

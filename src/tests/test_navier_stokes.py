@@ -24,6 +24,7 @@ from ave.core.constants import C_0, L_NODE
 # Step 1: Lattice Properties
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestLatticeProperties:
 
     def test_laplacian_of_constant_is_zero(self) -> None:
@@ -58,9 +59,11 @@ class TestLatticeProperties:
         d2 = lattice_ns_degrees_of_freedom(20)
         assert d2 == d1 * 8  # (20/10)³ = 8
 
+
 # ════════════════════════════════════════════════════════════════════
 # Step 2: Velocity Bound
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestVelocityBound:
 
@@ -96,9 +99,11 @@ class TestVelocityBound:
         omega_max = enstrophy_maximum(N, dx)
         assert omega <= omega_max * 1.01  # numerical margin
 
+
 # ════════════════════════════════════════════════════════════════════
 # Step 3: Global Existence
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestGlobalExistence:
 
@@ -121,9 +126,11 @@ class TestGlobalExistence:
         assert cl["continuum_NS_recovered"]
         assert cl["smoothness_preserved"]
 
+
 # ════════════════════════════════════════════════════════════════════
 # The Complete Proof
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestFullProof:
 

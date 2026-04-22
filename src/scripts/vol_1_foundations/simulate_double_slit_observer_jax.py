@@ -88,7 +88,21 @@ def _build_obs_damping(nx: int, ny: int, wall_x: int, slit_2: int, slit_w: int, 
 
 
 @jit
-def _fdtd_step(P: jnp.ndarray, Vx: jnp.ndarray, Vy: jnp.ndarray, wall_mask: jnp.ndarray, damping: jnp.ndarray, obs_damping: jnp.ndarray, dt: float, dx: float, source_x_start: int, source_y: int, freq: float, t: float, wall_x: int) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray]:
+def _fdtd_step(
+    P: jnp.ndarray,
+    Vx: jnp.ndarray,
+    Vy: jnp.ndarray,
+    wall_mask: jnp.ndarray,
+    damping: jnp.ndarray,
+    obs_damping: jnp.ndarray,
+    dt: float,
+    dx: float,
+    source_x_start: int,
+    source_y: int,
+    freq: float,
+    t: float,
+    wall_x: int,
+) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray]:
     """
     One FDTD timestep of the 2D acoustic solver (JIT-compiled).
 
@@ -134,7 +148,9 @@ def _fdtd_step(P: jnp.ndarray, Vx: jnp.ndarray, Vy: jnp.ndarray, wall_mask: jnp.
     return P, Vx, Vy
 
 
-def run_fdtd_jax(nx: int = 800, ny: int = 500, steps: int = 2500, observe_slit: bool = False) -> tuple[np.ndarray, jnp.ndarray, int, int, int, int]:
+def run_fdtd_jax(
+    nx: int = 800, ny: int = 500, steps: int = 2500, observe_slit: bool = False
+) -> tuple[np.ndarray, jnp.ndarray, int, int, int, int]:
     """Run the full 2D FDTD simulation on GPU via JAX."""
     dt = 0.45
     dx = 1.0

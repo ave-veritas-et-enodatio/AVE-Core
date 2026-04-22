@@ -24,6 +24,7 @@ from ave.core.constants import (
 # Gauge Couplings
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestGaugeCouplings:
 
     def test_alpha_exact(self) -> None:
@@ -50,9 +51,11 @@ class TestGaugeCouplings:
         d_spatial = 3
         assert abs(ALPHA_S - ALPHA ** (d_spatial / n_modes)) < 1e-12
 
+
 # ════════════════════════════════════════════════════════════════════
 # Electroweak Boson Masses
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestBosonMasses:
 
@@ -88,9 +91,11 @@ class TestBosonMasses:
         err = abs(G_F - pdg) / pdg
         assert err < 0.03  # < 3%
 
+
 # ════════════════════════════════════════════════════════════════════
 # Higgs Mass from K4 Breathing Mode
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestHiggsMass:
 

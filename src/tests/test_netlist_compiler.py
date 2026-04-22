@@ -1,4 +1,5 @@
 from pathlib import Path
+
 """
 Tests for the AVE SPICE Netlist Compiler
 ========================================
@@ -16,6 +17,7 @@ from ave.solvers.spice_netlist_compiler import (
     write_netlist,
 )
 
+
 class TestLibPath:
     """Verify the .lib file exists and is reachable."""
 
@@ -28,6 +30,7 @@ class TestLibPath:
         assert ".subckt AVE_VACUUM_CELL " in content
         assert ".subckt AVE_VACUUM_CELL_LINEAR " in content
         assert ".subckt AVE_EE_BENCH " in content
+
 
 class TestEEBenchNetlist:
     """Verify the EE Bench DC sweep netlist."""
@@ -55,6 +58,7 @@ class TestEEBenchNetlist:
         assert ".control" in netlist
         assert ".endc" in netlist
         assert "deriv" in netlist  # C_eff = dQ/dV
+
 
 class TestLCRNetwork:
     """Verify generic LCR network compilation."""
@@ -108,6 +112,7 @@ class TestLCRNetwork:
         netlist = compile_lcr_network(nodes=nodes, edges=edges)
         assert "R_SH_N1" in netlist
 
+
 class TestAminoAcidNetwork:
     """Verify amino acid SPICE model generation."""
 
@@ -124,6 +129,7 @@ class TestAminoAcidNetwork:
         # Should cover FTIR range
         assert "1.000000e+12" in netlist  # 1 THz start
         assert "1.000000e+14" in netlist  # 100 THz stop
+
 
 class TestWriteNetlist:
     """Verify file output."""

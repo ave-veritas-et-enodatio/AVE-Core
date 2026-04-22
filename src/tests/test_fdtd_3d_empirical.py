@@ -21,6 +21,7 @@ import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine
 
+
 def test_fdtd_dipole() -> None:
     print("[*] Initializing FDTD 3D Engine Empirical Validation...")
 
@@ -90,6 +91,7 @@ def test_fdtd_dipole() -> None:
     plt.close()
 
     print(f"[*] Engine Validation Passed. Output saved to: {out_path}")
+
 
 if __name__ == "__main__":
     test_fdtd_dipole()

@@ -17,7 +17,9 @@ def rotate_mesh_y(mesh: np.ndarray, angle: float) -> np.ndarray:
     return mesh.dot(R.T)
 
 
-def calculate_vacuum_density_from_mesh(mesh_points: np.ndarray, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
+def calculate_vacuum_density_from_mesh(
+    mesh_points: np.ndarray, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0
+) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude = 100.0 / len(mesh_points)
     epsilon = 0.5

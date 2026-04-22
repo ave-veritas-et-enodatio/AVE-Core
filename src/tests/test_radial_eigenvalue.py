@@ -11,6 +11,7 @@ import pytest
 
 from ave.solvers.radial_eigenvalue import A_0, _z_net, ionization_energy_e2k
 
+
 class TestTopologicalBindingLimits:
     """Validate E2k Atomic Approach (Topological Boundaries)."""
 
@@ -50,6 +51,7 @@ class TestTopologicalBindingLimits:
         # For Z=1 at ~ 0, z_net is ~ 1.0 (no inner electron screening)
         z = _z_net(1e-15 * A_0, 1, [(1, 0)])
         assert abs(z - 1.0) < 0.01, f"z_net(~0) = {z}, expected 1.0"
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

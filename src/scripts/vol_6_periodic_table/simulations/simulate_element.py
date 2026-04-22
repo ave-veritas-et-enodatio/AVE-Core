@@ -514,7 +514,9 @@ def calculate_topological_mass(Z: int, A: int) -> float:
     return raw_mass - binding_energy
 
 
-def _compute_energy_at_coords(nodes_flat: np.ndarray, N: int, K: float, alpha_hc: float, Z_protons: int, A_nucleons: int) -> float:
+def _compute_energy_at_coords(
+    nodes_flat: np.ndarray, N: int, K: float, alpha_hc: float, Z_protons: int, A_nucleons: int
+) -> float:
     """
     Evaluate the total 1/d energy for an arbitrary coordinate vector.
     Used internally by the Hessian computation.

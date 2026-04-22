@@ -262,7 +262,9 @@ def nuclear_s11_loss(positions_flat: jnp.ndarray, n_alphas: int, Z_total: int, A
     return loss, total_mass, be_inter
 
 
-def predict_nuclear_geometry(n_alphas: int, Z: int, A: int, n_steps: int = 3000, lr: float = 0.01) -> tuple[np.ndarray, float, float]:
+def predict_nuclear_geometry(
+    n_alphas: int, Z: int, A: int, n_steps: int = 3000, lr: float = 0.01
+) -> tuple[np.ndarray, float, float]:
     """
     Predict nuclear geometry by minimizing S₁₁.
     Returns optimized alpha cluster positions and nuclear mass.

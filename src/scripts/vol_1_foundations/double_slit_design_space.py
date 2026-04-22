@@ -133,7 +133,15 @@ def run_fdtd_slit(
         intensity_j = jnp.zeros((nx, ny))
 
         @jit
-        def _step(P: jnp.ndarray, Vx: jnp.ndarray, Vy: jnp.ndarray, intensity: jnp.ndarray, src_amp: float, source_x: jnp.ndarray, do_integrate: float) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray, jnp.ndarray]:
+        def _step(
+            P: jnp.ndarray,
+            Vx: jnp.ndarray,
+            Vy: jnp.ndarray,
+            intensity: jnp.ndarray,
+            src_amp: float,
+            source_x: jnp.ndarray,
+            do_integrate: float,
+        ) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray, jnp.ndarray]:
             Vx = Vx.at[:-1, :].add(-dt * (P[1:, :] - P[:-1, :]) / dx)
             Vy = Vy.at[:, :-1].add(-dt * (P[:, 1:] - P[:, :-1]) / dx)
             Vx = jnp.where(wall_j, 0.0, Vx)

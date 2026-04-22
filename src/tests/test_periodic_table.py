@@ -37,6 +37,7 @@ EXPERIMENTAL_IE = {
     36: 13.999,  # Kr
 }
 
+
 def test_transition_metals_stability() -> None:
     """Validates that the Continuous Geometric Root Search correctly scales through
     the Z=21 to Z=30 limits, proving that d-orbitals mechanically decouple (N_eff = 0.0)
@@ -60,6 +61,7 @@ def test_transition_metals_stability() -> None:
         # decoupled from MCL. This prevents the explosion > 1000% seen earlier.
         # We assert structural stability (calculates without exploding > 100 eV)
         assert results[z]["calc"] < 100.0, f"Transition element {z} IE exploded to {results[z]['calc']} eV."
+
 
 if __name__ == "__main__":
     test_transition_metals_stability()

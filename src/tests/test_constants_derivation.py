@@ -72,6 +72,7 @@ from ave.core.constants import (
 # 1. INTERNAL CONSISTENCY: Each derived constant matches its definition
 # ============================================================================
 
+
 class TestSIConstants:
     """Verify SI electromagnetic foundation is self-consistent."""
 
@@ -83,6 +84,7 @@ class TestSIConstants:
 
     def test_impedance_value(self) -> None:
         assert Z_0 == pytest.approx(376.73, rel=1e-3)
+
 
 class TestTopologicalDerivations:
     """Every derived constant matches its stated formula from Axiom 1."""
@@ -116,6 +118,7 @@ class TestTopologicalDerivations:
     def test_b_snap(self) -> None:
         assert B_SNAP == pytest.approx(np.sqrt(2 * MU_0 * M_E * C_0**2 / L_NODE**3), rel=1e-12)
 
+
 class TestDielectricDerivations:
     """Axiom 4 dielectric constants match their formulas."""
 
@@ -131,6 +134,7 @@ class TestDielectricDerivations:
 
     def test_isotropic_projection(self) -> None:
         assert ISOTROPIC_PROJECTION == pytest.approx(1.0 / 7.0, rel=1e-15)
+
 
 class TestElectroweakDerivations:
     """Electroweak constants match their derivation from ν_vac = 2/7."""
@@ -150,6 +154,7 @@ class TestElectroweakDerivations:
 
     def test_lambda_higgs(self) -> None:
         assert LAMBDA_HIGGS == pytest.approx(1.0 / 8.0, rel=1e-15)
+
 
 class TestCKMDerivations:
     """CKM matrix elements from Wolfenstein parameterization."""
@@ -172,6 +177,7 @@ class TestCKMDerivations:
     def test_v_ub(self) -> None:
         assert V_UB == pytest.approx(A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG, rel=1e-12)
 
+
 class TestPMNSDerivations:
     """PMNS mixing angles from torsional defect crossing numbers."""
 
@@ -186,6 +192,7 @@ class TestPMNSDerivations:
 
     def test_delta_cp(self) -> None:
         assert DELTA_CP_PMNS == pytest.approx((1 + 1 / 3 + 1 / 45) * math.pi, rel=1e-12)
+
 
 class TestCosmologicalDerivations:
     """Cosmological constants match their formulas."""
@@ -209,9 +216,11 @@ class TestCosmologicalDerivations:
     def test_kappa_fs(self) -> None:
         assert KAPPA_FS_COLD == pytest.approx(8 * math.pi, rel=1e-12)
 
+
 # ============================================================================
 # 2. EMPIRICAL AGREEMENT: Within stated tolerance of PDG/CODATA
 # ============================================================================
+
 
 class TestEmpiricalAgreement:
     """All derived constants fall within published tolerances of
@@ -257,9 +266,11 @@ class TestEmpiricalAgreement:
     def test_pmns_theta_23(self) -> None:
         assert abs(SIN2_THETA_23 - 0.546) / 0.546 < 0.01  # <1%
 
+
 # ============================================================================
 # 3. ENGINE PREDICTION TABLE (Book 2, Ch.09)
 # ============================================================================
+
 
 class TestPredictionTable:
     """Values claimed in Book 2 Ch.09 verification table are reproducible."""
@@ -307,9 +318,11 @@ class TestPredictionTable:
         gamma = tachocline_reflection()
         assert abs(gamma) > 0.1, "Tachocline must show significant reflection"
 
+
 # ============================================================================
 # 4. DIMENSIONAL SANITY CHECKS
 # ============================================================================
+
 
 class TestDimensionalSanity:
     """Key physical quantities have correct orders of magnitude."""

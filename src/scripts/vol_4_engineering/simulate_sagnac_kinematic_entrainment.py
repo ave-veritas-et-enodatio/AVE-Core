@@ -48,7 +48,14 @@ AREA = np.pi * RLG_RADIUS**2
 SAGNAC_IDEAL_PHASE = (4 * AREA * RLG_OMEGA) / (LAMBDA_LASER * C_0)
 
 
-def calculate_ave_sagnac(density: float, altitude: float, latitude_deg: float, mu_r: float = 1.0, b_field_tesla: float = 0.0, orientation: str = "parallel") -> float:
+def calculate_ave_sagnac(
+    density: float,
+    altitude: float,
+    latitude_deg: float,
+    mu_r: float = 1.0,
+    b_field_tesla: float = 0.0,
+    orientation: str = "parallel",
+) -> float:
     """
     Calculates the AVE anomalous Sagnac phase shift based on local environmental and EE factors.
     """

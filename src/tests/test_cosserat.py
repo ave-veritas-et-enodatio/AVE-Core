@@ -40,6 +40,7 @@ SCHWINGER_G2 = 1.0 / (2 * math.pi) * (1.0 / 137.035999084)  # alpha/(2*pi)
 # Tests
 # ---------------------------------------------------------------------------
 
+
 class TestWeakMixingAngle:
     """sin²θ_W = 2/9 from the Perpendicular Axis Theorem."""
 
@@ -49,6 +50,7 @@ class TestWeakMixingAngle:
     def test_vs_pdg(self) -> None:
         assert SIN2_THETA_W == pytest.approx(PDG_SIN2_THETA_W_ONSHELL, rel=0.01)
 
+
 class TestWBosonMass:
     """M_W = m_e / (α² · p_c · √(3/7))."""
 
@@ -57,6 +59,7 @@ class TestWBosonMass:
 
     def test_below_z(self) -> None:
         assert M_W_MEV < M_Z_MEV
+
 
 class TestZBosonMass:
     """M_Z = M_W · 3/√7."""
@@ -69,17 +72,20 @@ class TestZBosonMass:
         expected = math.sqrt(7) / 3
         assert ratio == pytest.approx(expected, rel=1e-10)
 
+
 class TestMuonMass:
     """m_μ = m_e / (α · √(3/7))."""
 
     def test_vs_pdg(self) -> None:
         assert M_MU_MEV == pytest.approx(PDG_M_MU_MEV, rel=0.02)
 
+
 class TestTauMass:
     """m_τ = m_e · p_c / α²."""
 
     def test_vs_pdg(self) -> None:
         assert M_TAU_MEV == pytest.approx(PDG_M_TAU_MEV, rel=0.02)
+
 
 class TestNeutrinoSum:
     """Σm_ν ≈ 0.054 eV (must be < 0.12 eV Planck bound)."""
@@ -89,6 +95,7 @@ class TestNeutrinoSum:
 
     def test_order_of_magnitude(self) -> None:
         assert 0.01 < SUM_M_NU_EV < 0.10
+
 
 class TestSchwingerGMinus2:
     """a_e = α/(2π) (Schwinger, 1948)."""
@@ -102,11 +109,13 @@ class TestSchwingerGMinus2:
     def test_vs_schwinger(self) -> None:
         assert G_MINUS_2_TREE == pytest.approx(SCHWINGER_G2, rel=1e-6)
 
+
 class TestCosseratLength:
     """Weak force range: ℓ_C = ℏ/(M_W·c) ≈ 2.5 × 10⁻¹⁸ m."""
 
     def test_order_of_magnitude(self) -> None:
         assert 1e-19 < L_COSSERAT < 1e-17
+
 
 class TestMassHierarchy:
     """m_e < m_μ < m_τ < M_W < M_Z (strict ordering)."""

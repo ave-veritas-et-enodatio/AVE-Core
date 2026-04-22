@@ -75,9 +75,7 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_borromean_6_3_2(
-        radius: float, eccentricity: float = 1.6, resolution: int = 1000
-    ) -> list[np.ndarray]:
+    def generate_borromean_6_3_2(radius: float, eccentricity: float = 1.6, resolution: int = 1000) -> list[np.ndarray]:
         """
         Generates the 3D parametric coordinates of the 6^3_2 Borromean Link.
         Consists of three mutually interlocking independent discrete rings.

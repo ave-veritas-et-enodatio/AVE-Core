@@ -26,6 +26,7 @@ from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
 # impedance: Z = √(μ/ε)
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestImpedance:
     """The universal impedance operator."""
 
@@ -52,9 +53,11 @@ class TestImpedance:
         Z_high_mu = impedance(10 * MU_0, EPSILON_0)
         assert Z_high_mu > Z_0
 
+
 # ═══════════════════════════════════════════════════════════════
 # saturation_factor: √(1 − (A/A_yield)²) — the single nonlinearity
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestSaturationFactor:
     """The universal saturation kernel — Axiom 4 at every scale."""
@@ -106,9 +109,11 @@ class TestSaturationFactor:
         assert result.shape == (3,)
         assert result[0] > result[1] > result[2]
 
+
 # ═══════════════════════════════════════════════════════════════
 # reflection_coefficient: Γ = (Z₂ − Z₁) / (Z₂ + Z₁)
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestReflectionCoefficient:
     """The universal boundary operator — every scale, every domain."""
@@ -144,9 +149,11 @@ class TestReflectionCoefficient:
         for Z1, Z2 in [(0.01, Z_0), (Z_0, 0.01), (1.0, 1e6), (Z_0, Z_0)]:
             assert abs(float(reflection_coefficient(Z1, Z2))) <= 1.0 + 1e-12
 
+
 # ═══════════════════════════════════════════════════════════════
 # Cross-scale identity: saturation.py ≡ scale_invariant
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestCrossScaleIdentity:
     """Prove that the old saturation.py API calls the same math."""

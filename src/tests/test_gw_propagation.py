@@ -28,6 +28,7 @@ from ave.gravity.gw_propagation import (
 
 M_SUN = 1.989e30  # Solar mass [kg]
 
+
 class TestSchwarzschildRadius:
     """r_s = 2GM/c² must match GR."""
 
@@ -44,6 +45,7 @@ class TestSchwarzschildRadius:
     def test_proportional(self) -> None:
         """r_s scales linearly with M."""
         assert schwarzschild_radius(2 * M_SUN) == pytest.approx(2 * schwarzschild_radius(M_SUN), rel=1e-10)
+
 
 class TestSymmetricGravity:
     """Symmetric Gravity: Z ≡ Z₀ everywhere, Γ = 0."""
@@ -99,6 +101,7 @@ class TestSymmetricGravity:
         mu = float(mu_eff_schwarzschild(r, r_s))
         assert mu > 10 * MU_0
 
+
 class TestGWLinearPropagation:
     """LIGO GW must be in the linear regime (no saturation)."""
 
@@ -117,6 +120,7 @@ class TestGWLinearPropagation:
         V_gw = gw_strain_to_voltage(1.0, 100.0)
         ratio = V_gw / V_SNAP
         assert ratio < 1e-3, f"V_gw/V_SNAP = {ratio:.2e}, expected << 1"
+
 
 class TestRefractiveIndex:
     """Gravity well must have n > 1 (lensing)."""
@@ -140,6 +144,7 @@ class TestRefractiveIndex:
         n = refractive_index(r, r_s)
         assert np.all(np.diff(n) > 0)  # n increases as r decreases
 
+
 class TestLocalSpeed:
     """c_local = c/n must decrease near mass."""
 
@@ -160,6 +165,7 @@ class TestLocalSpeed:
         r_s = schwarzschild_radius(30 * M_SUN)
         c_local = gw_local_speed(1.01 * r_s, r_s)
         assert c_local < 0.02 * C_0
+
 
 class TestSummary:
     """Summary function should produce complete output."""

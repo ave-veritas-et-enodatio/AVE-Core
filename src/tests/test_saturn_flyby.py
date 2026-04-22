@@ -20,6 +20,7 @@ from ave.gravity.solar_impedance import (
 # Saturn Ring Gaps
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestSaturnRingGaps:
 
     def test_gap_radius_formula(self) -> None:
@@ -53,9 +54,11 @@ class TestSaturnRingGaps:
         cassini = [g for g in gaps if "Cassini" in g["gap_name"]][0]
         assert 100_000 < cassini["r_predicted_km"] < 130_000
 
+
 # ═══════════════════════════════════════════════════════════════
 # Earth Flyby Anomaly
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestFlybyAnomaly:
 

@@ -17,6 +17,7 @@ from ave.core.constants import ALPHA, C_0, L_NODE, NU_VAC, G
 
 M_SUN = 1.989e30
 
+
 class TestUniversalOperators:
     """Test that universal operators work across domains."""
 
@@ -149,6 +150,7 @@ class TestUniversalOperators:
         M_expected = 1.0 / (1.0 - ratio**5)
         M_universal = avalanche_factor(ratio, 1.0, 5)
         assert abs(M_universal - M_expected) < 1e-10
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

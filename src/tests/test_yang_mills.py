@@ -23,6 +23,7 @@ from ave.core.constants import B_SNAP, L_NODE, V_SNAP
 # Part A: Lattice Hamiltonian
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestLatticeHamiltonian:
 
     def test_vacuum_energy_is_zero(self) -> None:
@@ -56,9 +57,11 @@ class TestLatticeHamiltonian:
         assert props["self_adjoint"]
         assert props["Z_vacuum_is_positive"]
 
+
 # ════════════════════════════════════════════════════════════════════
 # Part B: Gauge-Topology Correspondence
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestGaugeTopology:
 
@@ -95,9 +98,11 @@ class TestGaugeTopology:
         assert su3["particle"] == "Proton"
         assert abs(su3["mass_MeV"] - 938.3) < 1.0
 
+
 # ════════════════════════════════════════════════════════════════════
 # Part C: Spectral Gap
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestSpectralGap:
 
@@ -141,9 +146,11 @@ class TestSpectralGap:
             if data["E_actual_MeV"] is not None:
                 assert data["bound_satisfied"], f"Bound violated for c={c}"
 
+
 # ════════════════════════════════════════════════════════════════════
 # Part D: Infinite-Volume Limit
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestInfiniteVolume:
 
@@ -158,9 +165,11 @@ class TestInfiniteVolume:
         result = defect_energy_vs_volume(crossing_number=5, box_sizes_Rp=[2, 1e6])
         assert result["volume_independent"]
 
+
 # ════════════════════════════════════════════════════════════════════
 # The Complete Proof
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestFullProof:
 

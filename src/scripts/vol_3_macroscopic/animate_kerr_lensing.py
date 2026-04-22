@@ -17,9 +17,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 
 
-def apply_kerr_vortex_2d(
-    lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float, v_spin: float
-) -> None:
+def apply_kerr_vortex_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float, v_spin: float) -> None:
     """
     Apply a Kerr metric natively (refractive n(r) + asymmetric saturation).
     Simulates Op14 frame dragging without LBM fluid vectors.

@@ -1,5 +1,6 @@
 from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
 
+
 def test_fluid_surface_tension() -> None:
     """
     Validates that the parameter-free Vol 7 stereological surface tension
@@ -20,6 +21,7 @@ def test_fluid_surface_tension() -> None:
         f"Stereological surface tension failed! Derived: {gamma_20c:.5f} N/m. "
         f"Expected: {gamma_exp} N/m (Err: {error_pct:.2f}%)"
     )
+
 
 def test_surface_tension_thermal_scaling() -> None:
     """

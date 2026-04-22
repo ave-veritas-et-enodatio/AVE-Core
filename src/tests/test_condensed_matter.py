@@ -31,6 +31,7 @@ from ave.regime_3_saturated.condensed_matter import (
 # Model 1: Melting Temperature
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 class TestMeltingTemperature:
     def test_positive_and_finite(self) -> None:
         for Z in [1, 2, 4, 6, 13, 14, 26, 29]:
@@ -62,9 +63,11 @@ class TestMeltingTemperature:
         T_check = d["B_bond_eV"] * e_charge / (3.0 * K_B)
         assert T == pytest.approx(T_check, rel=1e-10)
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 2: Sound Speed
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestSoundSpeed:
     def test_positive_and_finite(self) -> None:
@@ -99,9 +102,11 @@ class TestSoundSpeed:
         assert cs_Be > 0
         assert cs_Fe > 0
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 3: Band Gap Energy
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestBandGapEnergy:
     def test_positive_and_finite(self) -> None:
@@ -138,9 +143,11 @@ class TestBandGapEnergy:
         assert "k_saturation" in d
         assert d["k_saturation"] == 0.5
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 4: Dielectric Breakdown Field
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestBreakdownField:
     def test_positive_and_finite(self) -> None:
@@ -161,9 +168,11 @@ class TestBreakdownField:
         Ebd_check = d["B_bond_eV"] / d["d_eq_m"]
         assert Ebd == pytest.approx(Ebd_check, rel=1e-10)
 
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Summary Function
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestElementSummary:
     def test_silicon_summary(self) -> None:

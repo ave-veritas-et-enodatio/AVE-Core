@@ -274,7 +274,9 @@ def make_fcc14(R_factor: float) -> np.ndarray:
     return np.array(corners + faces)
 
 
-def make_core_plus_halo(core_func: Callable[[float], np.ndarray], core_R: float, halo_R_factor: float) -> tuple[np.ndarray, np.ndarray]:
+def make_core_plus_halo(
+    core_func: Callable[[float], np.ndarray], core_R: float, halo_R_factor: float
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Build an odd-A nucleus: alpha-conjugate core + Tritium (3-nucleon) halo.
 
@@ -384,7 +386,15 @@ def compute_binding(alpha_centers: np.ndarray, n_alpha: int) -> dict:
     }
 
 
-def solve_element(name: str, n_alpha: int, Z: int, A: int, mass_codata: float, geo_func: Callable[[float], np.ndarray], verbose: bool = True) -> tuple[float, dict]:
+def solve_element(
+    name: str,
+    n_alpha: int,
+    Z: int,
+    A: int,
+    mass_codata: float,
+    geo_func: Callable[[float], np.ndarray],
+    verbose: bool = True,
+) -> tuple[float, dict]:
     """
     Solve for inter-alpha distance R that matches CODATA mass.
 
@@ -450,7 +460,9 @@ def solve_element(name: str, n_alpha: int, Z: int, A: int, mass_codata: float, g
     return best_R, result
 
 
-def compute_binding_halo(alpha_centers: np.ndarray, halo_nodes: np.ndarray, n_alpha: int, Z_core: int, Z_halo: int) -> dict:
+def compute_binding_halo(
+    alpha_centers: np.ndarray, halo_nodes: np.ndarray, n_alpha: int, Z_core: int, Z_halo: int
+) -> dict:
     """
     Compute binding for a core+halo nucleus (e.g. F-19 = O-16 core + T halo).
 
@@ -541,7 +553,17 @@ def compute_binding_halo(alpha_centers: np.ndarray, halo_nodes: np.ndarray, n_al
     }
 
 
-def solve_halo_element(name: str, n_alpha: int, Z_core: int, Z_halo: int, n_halo: int, mass_codata: float, core_func: Callable[[float], np.ndarray], core_R: float, verbose: bool = True) -> tuple[float | None, dict | None]:
+def solve_halo_element(
+    name: str,
+    n_alpha: int,
+    Z_core: int,
+    Z_halo: int,
+    n_halo: int,
+    mass_codata: float,
+    core_func: Callable[[float], np.ndarray],
+    core_R: float,
+    verbose: bool = True,
+) -> tuple[float | None, dict | None]:
     """Solve for halo distance R that matches CODATA mass for a core+halo nucleus."""
 
     def err_func(R_halo):

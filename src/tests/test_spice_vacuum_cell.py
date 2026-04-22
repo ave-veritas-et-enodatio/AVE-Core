@@ -30,6 +30,7 @@ from ave.solvers.spice_netlist_compiler import compile_ee_bench_dc_sweep, lib_pa
 NGSPICE_AVAILABLE = shutil.which("ngspice") is not None
 ngspice_required = pytest.mark.skipif(not NGSPICE_AVAILABLE, reason="ngspice not installed (optional dependency)")
 
+
 class TestSaturationKernelConsistency:
     """
     Verify the S(V) kernel is consistent between:
@@ -66,6 +67,7 @@ class TestSaturationKernelConsistency:
         """V_YIELD = sqrt(alpha) × V_SNAP."""
         expected = np.sqrt(ALPHA) * V_SNAP
         assert np.isclose(V_YIELD, expected, rtol=1e-4)
+
 
 @ngspice_required
 class TestNgspiceDCSweep:
@@ -117,6 +119,7 @@ R1 N1 GND 1G
             )
 
             assert result.returncode == 0, f"Library parse failed:\n{result.stderr[:500]}"
+
 
 @ngspice_required
 class TestNgspiceACResonance:

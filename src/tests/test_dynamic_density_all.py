@@ -6,6 +6,7 @@ from matplotlib.animation import FuncAnimation
 
 from ave.topological.borromean import FundamentalTopologies
 
+
 # The exact EE-Mutual solved coordinates for large clusters
 def get_nucleon_coordinates(Z: int, A: int, d: float = 0.85) -> list[tuple[float, float, float]]:
     if Z == 2 and A == 4:
@@ -40,9 +41,11 @@ def get_nucleon_coordinates(Z: int, A: int, d: float = 0.85) -> list[tuple[float
         return alpha_1 + alpha_2 + [(0, 0, 0)]
     return []
 
+
 def get_color(coord: tuple, idx: int, Z: int) -> str:
     colors = ["#ff3366", "#00ffcc", "#99ffee", "#ff99aa", "#cc66ff", "#ffff66"]
     return colors[idx % len(colors)]
+
 
 def extract_mesh_points(cluster: list[dict], subsample: int = 30, scale: float = 1.0) -> list[dict]:
     points = []
@@ -53,6 +56,7 @@ def extract_mesh_points(cluster: list[dict], subsample: int = 30, scale: float =
             for pt in arr[::step]:
                 points.append({"pos": pt * scale, "color": color, "is_mesh": True})
     return points
+
 
 def generate_element(Z: int, A: int) -> list[dict]:
     if Z == 1 and A == 1:
@@ -69,6 +73,7 @@ def generate_element(Z: int, A: int) -> list[dict]:
         nucleons.append({"pos": c, "color": get_color(c, i, Z), "is_mesh": False})
     return nucleons
 
+
 def generate_fermion(name: str) -> list[dict]:
     if name == "electron":
         # The electron is a 0_1 unknot (closed loop).
@@ -76,6 +81,7 @@ def generate_fermion(name: str) -> list[dict]:
         cluster = [{"mesh": [raw_mesh], "color": "#66ccff"}]
         return extract_mesh_points(cluster, subsample=20, scale=0.8)
     return []
+
 
 # ----- Matrix Ops -----
 def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
@@ -87,8 +93,11 @@ def rotate_cluster_y(nucleons: list[dict], angle: float) -> list[dict]:
         rotated.append({"pos": r_pos, "color": n["color"], "is_mesh": n.get("is_mesh", False)})
     return rotated
 
+
 # ----- Scalar Field -----
-def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarray', z_slice: float = 0.0) -> 'np.ndarray':
+def calculate_vacuum_density(
+    nucleons: list[dict], X: "np.ndarray", Y: "np.ndarray", z_slice: float = 0.0
+) -> "np.ndarray":
     density_field = np.zeros_like(X)
 
     # Scale amplitude down if we are using hundreds of submesh points
@@ -104,8 +113,11 @@ def calculate_vacuum_density(nucleons: list[dict], X: 'np.ndarray', Y: 'np.ndarr
         density_field += local_density
     return density_field
 
+
 # ----- Animation -----
-def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title: str, grid_res: int = 100, bound: float = 4.5, frames: int = 90) -> None:
+def generate_dynamic_flux_gif(
+    base_cluster: list[dict], output_name: str, title: str, grid_res: int = 100, bound: float = 4.5, frames: int = 90
+) -> None:
     if not base_cluster:
         return
 
@@ -190,6 +202,7 @@ def generate_dynamic_flux_gif(base_cluster: list[dict], output_name: str, title:
     anim.save(out_path, writer="pillow", fps=15, savefig_kwargs={"facecolor": fig.get_facecolor()})
     plt.close()
     print(f"[+] Saved {out_path}")
+
 
 if __name__ == "__main__":
     # Extracted bounds to fix the Lithium-7 crop issue. Outer shell is at 8.26 in X, so R_y swings it to ~11.68.

@@ -25,6 +25,7 @@ from ave.gravity.gw_detector import (
     total_strain_sensitivity,
 )
 
+
 class TestDetectorCatalog:
     """Detector configurations must be physically reasonable."""
 
@@ -49,6 +50,7 @@ class TestDetectorCatalog:
         """LISA arm length = 2.5 million km."""
         assert DETECTOR_CATALOG["LISA"].arm_length_m == pytest.approx(2.5e9, rel=0.01)
 
+
 class TestImpedanceModulation:
     """GW strain must produce correct impedance perturbation."""
 
@@ -59,6 +61,7 @@ class TestImpedanceModulation:
     def test_modulation_zero_for_no_strain(self) -> None:
         """No strain → no modulation."""
         assert impedance_modulation(0.0) == 0.0
+
 
 class TestPhaseShift:
     """Phase shift must scale correctly."""
@@ -83,6 +86,7 @@ class TestPhaseShift:
         ligo = DETECTOR_CATALOG["LIGO"]
         phi = phase_shift(1e-21, ligo)
         assert 1e-25 < abs(phi) < 1e-15
+
 
 class TestSensitivity:
     """Strain sensitivity must match known orders of magnitude."""
@@ -109,6 +113,7 @@ class TestSensitivity:
         assert np.all(sens > 0)
         assert np.all(np.isfinite(sens))
 
+
 class TestLinearRegime:
     """GW must always be in the linear regime."""
 
@@ -121,6 +126,7 @@ class TestLinearRegime:
         """Even h=10⁻¹⁵ (supernovae close-up) is linear."""
         ratio = lattice_voltage_ratio(1e-15)
         assert ratio < 1e-3
+
 
 class TestSummary:
     """Summary function must produce complete output."""
