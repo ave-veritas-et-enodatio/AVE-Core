@@ -16,6 +16,7 @@ from ave.topological.borromean import FundamentalTopologies
 # Unknot (0_1) — Fundamental lepton topology
 # ---------------------------------------------------------------------------
 
+
 class TestUnknot:
     """The 0_1 unknot: a single closed loop at minimum ropelength = 2π."""
 
@@ -45,7 +46,7 @@ class TestUnknot:
 
     def test_ropelength_is_2pi(self):
         """The unknot's ropelength (circumference/tube_diameter) = 2π for
-        a tube whose radius equals r/(2π), giving ropelength = 2πr / (2·r/(2π)) = 2π²/... 
+        a tube whose radius equals r/(2π), giving ropelength = 2πr / (2·r/(2π)) = 2π²/...
         Actually, the ropelength of the ideal tight unknot is exactly 2π.
         For a unit-radius circle, circumference = 2π, tube radius = 1 → ropelength = 2π/1 = 2π.
         We verify the circumference here as 2π·R."""
@@ -59,6 +60,7 @@ class TestUnknot:
 # ---------------------------------------------------------------------------
 # Trefoil (3_1) — NOT the electron; used for antenna topology
 # ---------------------------------------------------------------------------
+
 
 class TestTrefoil:
     """The 3_1 trefoil knot: used for HOPF-01 antenna, not the electron."""
@@ -86,6 +88,7 @@ class TestTrefoil:
 # ---------------------------------------------------------------------------
 # Borromean Link (6^3_2) — Proton topology
 # ---------------------------------------------------------------------------
+
 
 class TestBorromean:
     """The 6^3_2 Borromean link: three mutually interlocking rings."""

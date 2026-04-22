@@ -21,6 +21,7 @@ Richardson extrapolation gives the N→∞ limit.
 
 Output: assets/sim_outputs/borromean_fem_convergence.png
 """
+
 import sys
 import os
 
@@ -29,7 +30,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def gaussian_tube_density(x, y, z, axis='x', offset=0.5):
+def gaussian_tube_density(x, y, z, axis="x", offset=0.5):
     """
     Gaussian flux tube along a given axis, offset perpendicular by `offset`.
 
@@ -40,14 +41,14 @@ def gaussian_tube_density(x, y, z, axis='x', offset=0.5):
     The FWHM = 1 ℓ_node, giving σ = 1/(2√(2ln2)) ≈ 0.4247
     """
     sigma = 1.0 / (2.0 * np.sqrt(2.0 * np.log(2.0)))  # FWHM = 1.0
-    s2 = sigma ** 2
+    s2 = sigma**2
 
-    if axis == 'x':
-        r2 = y ** 2 + (z - offset) ** 2
-    elif axis == 'y':
-        r2 = (x - offset) ** 2 + z ** 2
-    elif axis == 'z':
-        r2 = x ** 2 + (y + offset) ** 2
+    if axis == "x":
+        r2 = y**2 + (z - offset) ** 2
+    elif axis == "y":
+        r2 = (x - offset) ** 2 + z**2
+    elif axis == "z":
+        r2 = x**2 + (y + offset) ** 2
     else:
         raise ValueError(f"Unknown axis: {axis}")
 
@@ -71,17 +72,17 @@ def compute_v_halo(N, L=6.0, threshold=0.5):
     # Create 3D grid
     x = np.linspace(-L, L, N)
     dx = x[1] - x[0]
-    dV = dx ** 3
+    dV = dx**3
 
     # Use meshgrid with memory-efficient chunking for large N
     # For N ≤ 256, direct computation is fine
     if N <= 256:
-        X, Y, Z = np.meshgrid(x, x, x, indexing='ij')
+        X, Y, Z = np.meshgrid(x, x, x, indexing="ij")
 
         # Three orthogonal flux tubes with skew offsets
-        rho_x = gaussian_tube_density(X, Y, Z, axis='x', offset=0.5)
-        rho_y = gaussian_tube_density(X, Y, Z, axis='y', offset=0.5)
-        rho_z = gaussian_tube_density(X, Y, Z, axis='z', offset=0.5)
+        rho_x = gaussian_tube_density(X, Y, Z, axis="x", offset=0.5)
+        rho_y = gaussian_tube_density(X, Y, Z, axis="y", offset=0.5)
+        rho_z = gaussian_tube_density(X, Y, Z, axis="z", offset=0.5)
 
         rho_total = rho_x + rho_y + rho_z
 
@@ -91,9 +92,7 @@ def compute_v_halo(N, L=6.0, threshold=0.5):
 
         # Overlap volume: where ≥2 tubes both exceed half-threshold
         half_t = threshold / 2.0
-        n_above = ((rho_x > half_t).astype(int) +
-                   (rho_y > half_t).astype(int) +
-                   (rho_z > half_t).astype(int))
+        n_above = (rho_x > half_t).astype(int) + (rho_y > half_t).astype(int) + (rho_z > half_t).astype(int)
         V_overlap = np.sum(n_above >= 2) * dV
 
         peak = np.max(rho_total)
@@ -108,11 +107,11 @@ def compute_v_halo(N, L=6.0, threshold=0.5):
         for i_start in range(0, N, chunk_size):
             i_end = min(i_start + chunk_size, N)
             x_chunk = x[i_start:i_end]
-            X_c, Y_c, Z_c = np.meshgrid(x_chunk, x, x, indexing='ij')
+            X_c, Y_c, Z_c = np.meshgrid(x_chunk, x, x, indexing="ij")
 
-            rho_x = gaussian_tube_density(X_c, Y_c, Z_c, axis='x', offset=0.5)
-            rho_y = gaussian_tube_density(X_c, Y_c, Z_c, axis='y', offset=0.5)
-            rho_z = gaussian_tube_density(X_c, Y_c, Z_c, axis='z', offset=0.5)
+            rho_x = gaussian_tube_density(X_c, Y_c, Z_c, axis="x", offset=0.5)
+            rho_y = gaussian_tube_density(X_c, Y_c, Z_c, axis="y", offset=0.5)
+            rho_z = gaussian_tube_density(X_c, Y_c, Z_c, axis="z", offset=0.5)
 
             rho_total = rho_x + rho_y + rho_z
 
@@ -120,9 +119,7 @@ def compute_v_halo(N, L=6.0, threshold=0.5):
             V_sat += np.sum(sat_mask) * dV
 
             half_t = threshold / 2.0
-            n_above = ((rho_x > half_t).astype(int) +
-                       (rho_y > half_t).astype(int) +
-                       (rho_z > half_t).astype(int))
+            n_above = (rho_x > half_t).astype(int) + (rho_y > half_t).astype(int) + (rho_z > half_t).astype(int)
             V_overlap += np.sum(n_above >= 2) * dV
 
             peak = max(peak, np.max(rho_total))
@@ -159,7 +156,7 @@ def run_convergence_study():
 
     # Mutual inductance at crossing
     d_offset = 0.5  # tube offset in ℓ_node
-    M_over_L = np.exp(-d_offset**2 / (4.0 * sigma_tube**2))
+    M_over_L = np.exp(-(d_offset**2) / (4.0 * sigma_tube**2))
 
     print(f"\n--- Phase 1: Derived Saturation Threshold ---")
     print(f"  σ_tube = FWHM/(2√(2ln2)) = {sigma_tube:.6f} ℓ_node")
@@ -201,7 +198,7 @@ def run_convergence_study():
     # At a crossing (e.g., x-tube and y-tube meet at origin with offset 0.5):
     # Combined density along radial direction from crossing center
     # approximate: ρ = 2·exp(-r²/(2σ²)) at the exact crossing
-    rho_crossing = 2.0 * np.exp(-r_vals**2 / (2.0 * sigma**2))
+    rho_crossing = 2.0 * np.exp(-(r_vals**2) / (2.0 * sigma**2))
     # Find where it drops below threshold
     cage_idx = np.argmax(rho_crossing < t_target)
     r_cage = r_vals[cage_idx]
@@ -211,66 +208,86 @@ def run_convergence_study():
 
     # --- Plotting ---
     fig, axes = plt.subplots(1, 3, figsize=(18, 5.5))
-    fig.patch.set_facecolor('#0d1117')
+    fig.patch.set_facecolor("#0d1117")
 
     for ax in axes:
-        ax.set_facecolor('#0d1117')
-        ax.tick_params(colors='white')
+        ax.set_facecolor("#0d1117")
+        ax.tick_params(colors="white")
         for spine in ax.spines.values():
-            spine.set_color('#30363d')
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
+            spine.set_color("#30363d")
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
 
     # Panel 1: V_sat vs threshold (inline sweep)
     thresholds = np.linspace(0.5, 1.5, 40)
     V_sat_vs_t = np.array([compute_v_halo(128, threshold=t)[0] for t in thresholds])
-    axes[0].plot(thresholds, V_sat_vs_t, color='#58a6ff', linewidth=2.5)
-    axes[0].axhline(2.0, color='#f0883e', linestyle='--', alpha=0.8,
-                    label=r'$\mathcal{V}_{total} = 2.0$ (topological bound)')
-    axes[0].axvline(t_target, color='#da3633', linestyle=':', alpha=0.8,
-                    label=f'Derived $t = 1+\\sigma/4 = {t_target:.3f}$')
-    axes[0].set_xlabel('Density Threshold', fontsize=12, color='white')
-    axes[0].set_ylabel(r'Saturated Volume $\mathcal{V}_{sat}$', fontsize=12, color='white')
-    axes[0].set_title('Threshold Sensitivity', fontsize=13, color='white')
-    axes[0].legend(fontsize=9, facecolor='#161b22', edgecolor='#30363d', labelcolor='white')
-    axes[0].grid(True, alpha=0.15, color='#30363d')
+    axes[0].plot(thresholds, V_sat_vs_t, color="#58a6ff", linewidth=2.5)
+    axes[0].axhline(
+        2.0,
+        color="#f0883e",
+        linestyle="--",
+        alpha=0.8,
+        label=r"$\mathcal{V}_{total} = 2.0$ (topological bound)",
+    )
+    axes[0].axvline(
+        t_target,
+        color="#da3633",
+        linestyle=":",
+        alpha=0.8,
+        label=f"Derived $t = 1+\\sigma/4 = {t_target:.3f}$",
+    )
+    axes[0].set_xlabel("Density Threshold", fontsize=12, color="white")
+    axes[0].set_ylabel(r"Saturated Volume $\mathcal{V}_{sat}$", fontsize=12, color="white")
+    axes[0].set_title("Threshold Sensitivity", fontsize=13, color="white")
+    axes[0].legend(fontsize=9, facecolor="#161b22", edgecolor="#30363d", labelcolor="white")
+    axes[0].grid(True, alpha=0.15, color="#30363d")
 
     # Panel 2: Mesh convergence
     Ns_arr = np.array([r[0] for r in results])
     Vs_arr = np.array([r[2] for r in results])
-    axes[1].plot(Ns_arr, Vs_arr, 'o-', color='#58a6ff', linewidth=2, markersize=8)
-    axes[1].axhline(V_richardson, color='#f0883e', linestyle='--', alpha=0.8,
-                    label=f'Richardson: {V_richardson:.4f}')
-    axes[1].axhline(2.0, color='#238636', linestyle=':', alpha=0.5,
-                    label='Topological bound = 2.0')
-    axes[1].set_xlabel('Grid Points per Axis (N)', fontsize=12, color='white')
-    axes[1].set_ylabel(r'$\mathcal{V}_{sat}$', fontsize=12, color='white')
-    axes[1].set_title('Mesh Convergence', fontsize=13, color='white')
-    axes[1].legend(fontsize=9, facecolor='#161b22', edgecolor='#30363d', labelcolor='white')
-    axes[1].grid(True, alpha=0.15, color='#30363d')
+    axes[1].plot(Ns_arr, Vs_arr, "o-", color="#58a6ff", linewidth=2, markersize=8)
+    axes[1].axhline(
+        V_richardson,
+        color="#f0883e",
+        linestyle="--",
+        alpha=0.8,
+        label=f"Richardson: {V_richardson:.4f}",
+    )
+    axes[1].axhline(2.0, color="#238636", linestyle=":", alpha=0.5, label="Topological bound = 2.0")
+    axes[1].set_xlabel("Grid Points per Axis (N)", fontsize=12, color="white")
+    axes[1].set_ylabel(r"$\mathcal{V}_{sat}$", fontsize=12, color="white")
+    axes[1].set_title("Mesh Convergence", fontsize=13, color="white")
+    axes[1].legend(fontsize=9, facecolor="#161b22", edgecolor="#30363d", labelcolor="white")
+    axes[1].grid(True, alpha=0.15, color="#30363d")
 
     # Panel 3: Crossing profile and cage radius
-    axes[2].plot(r_vals, rho_crossing, color='#58a6ff', linewidth=2.5,
-                label='Combined density at crossing')
-    axes[2].axhline(t_target, color='#f0883e', linestyle='--', alpha=0.8,
-                    label=f'Threshold = {t_target:.3f}')
-    axes[2].axvline(r_cage, color='#da3633', linewidth=2, alpha=0.8,
-                    label=f'Cage radius = {r_cage:.2f} ℓ_node')
-    axes[2].fill_between(r_vals[:cage_idx+1], 0, rho_crossing[:cage_idx+1],
-                         alpha=0.15, color='#238636')
-    axes[2].set_xlabel(r'Distance from crossing center ($\ell_{node}$)', fontsize=12, color='white')
-    axes[2].set_ylabel(r'Density $\rho$', fontsize=12, color='white')
-    axes[2].set_title('Flux-Tube Confinement', fontsize=13, color='white')
-    axes[2].legend(fontsize=9, facecolor='#161b22', edgecolor='#30363d', labelcolor='white')
-    axes[2].grid(True, alpha=0.15, color='#30363d')
+    axes[2].plot(r_vals, rho_crossing, color="#58a6ff", linewidth=2.5, label="Combined density at crossing")
+    axes[2].axhline(t_target, color="#f0883e", linestyle="--", alpha=0.8, label=f"Threshold = {t_target:.3f}")
+    axes[2].axvline(r_cage, color="#da3633", linewidth=2, alpha=0.8, label=f"Cage radius = {r_cage:.2f} ℓ_node")
+    axes[2].fill_between(r_vals[: cage_idx + 1], 0, rho_crossing[: cage_idx + 1], alpha=0.15, color="#238636")
+    axes[2].set_xlabel(r"Distance from crossing center ($\ell_{node}$)", fontsize=12, color="white")
+    axes[2].set_ylabel(r"Density $\rho$", fontsize=12, color="white")
+    axes[2].set_title("Flux-Tube Confinement", fontsize=13, color="white")
+    axes[2].legend(fontsize=9, facecolor="#161b22", edgecolor="#30363d", labelcolor="white")
+    axes[2].grid(True, alpha=0.15, color="#30363d")
 
-    fig.suptitle(r'P2: Borromean $6^3_2$ FEM — $\mathcal{V}_{halo}$ Convergence',
-                 fontsize=16, color='white', y=1.02)
+    fig.suptitle(
+        r"P2: Borromean $6^3_2$ FEM — $\mathcal{V}_{halo}$ Convergence",
+        fontsize=16,
+        color="white",
+        y=1.02,
+    )
     plt.tight_layout()
 
-    output_path = os.path.join(os.path.dirname(__file__), '..', '..',
-                               'assets', 'sim_outputs', 'borromean_fem_convergence.png')
-    plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches='tight')
+    output_path = os.path.join(
+        os.path.dirname(__file__),
+        "..",
+        "..",
+        "assets",
+        "sim_outputs",
+        "borromean_fem_convergence.png",
+    )
+    plt.savefig(output_path, dpi=200, facecolor=fig.get_facecolor(), bbox_inches="tight")
     plt.close()
     print(f"\nSaved: {output_path}")
 

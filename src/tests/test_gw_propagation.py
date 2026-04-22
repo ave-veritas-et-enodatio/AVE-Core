@@ -45,8 +45,7 @@ class TestSchwarzschildRadius:
 
     def test_proportional(self):
         """r_s scales linearly with M."""
-        assert schwarzschild_radius(2 * M_SUN) == pytest.approx(
-            2 * schwarzschild_radius(M_SUN), rel=1e-10)
+        assert schwarzschild_radius(2 * M_SUN) == pytest.approx(2 * schwarzschild_radius(M_SUN), rel=1e-10)
 
 
 class TestSymmetricGravity:
@@ -56,12 +55,9 @@ class TestSymmetricGravity:
         """Far from mass: ε → ε₀, μ → μ₀, Z → Z₀."""
         r_s = schwarzschild_radius(30 * M_SUN)
         r = 1e6 * r_s  # Very far
-        assert float(epsilon_eff_schwarzschild(r, r_s)) == pytest.approx(
-            EPSILON_0, rel=1e-4)
-        assert float(mu_eff_schwarzschild(r, r_s)) == pytest.approx(
-            MU_0, rel=1e-4)
-        assert float(gravitational_impedance(r, r_s)) == pytest.approx(
-            Z_0, rel=1e-4)
+        assert float(epsilon_eff_schwarzschild(r, r_s)) == pytest.approx(EPSILON_0, rel=1e-4)
+        assert float(mu_eff_schwarzschild(r, r_s)) == pytest.approx(MU_0, rel=1e-4)
+        assert float(gravitational_impedance(r, r_s)) == pytest.approx(Z_0, rel=1e-4)
 
     def test_impedance_constant_everywhere(self):
         """Z must equal Z₀ at ALL radii — this IS Symmetric Gravity."""
@@ -69,8 +65,7 @@ class TestSymmetricGravity:
         for mult in [1.01, 1.1, 2, 5, 10, 100, 1000]:
             r = mult * r_s
             Z = float(gravitational_impedance(r, r_s))
-            assert Z == pytest.approx(Z_0, rel=1e-3), \
-                f"Z({mult}·r_s) = {Z:.2f}, expected {Z_0:.2f}"
+            assert Z == pytest.approx(Z_0, rel=1e-3), f"Z({mult}·r_s) = {Z:.2f}, expected {Z_0:.2f}"
 
     def test_gamma_zero_everywhere(self):
         """Γ = 0 at ALL radii — no reflection, no echoes."""
@@ -78,8 +73,7 @@ class TestSymmetricGravity:
         for mult in [1.01, 1.1, 2, 5, 10, 100, 1000]:
             r = mult * r_s
             gamma = float(horizon_reflection(r, r_s))
-            assert abs(gamma) < 0.01, \
-                f"Γ({mult}·r_s) = {gamma:.6f}, expected ~0"
+            assert abs(gamma) < 0.01, f"Γ({mult}·r_s) = {gamma:.6f}, expected ~0"
 
     def test_epsilon_mu_scale_symmetrically(self):
         """ε and μ must scale by the SAME factor n(r)."""
@@ -90,8 +84,9 @@ class TestSymmetricGravity:
             mu = float(mu_eff_schwarzschild(r, r_s))
             n_from_eps = eps / EPSILON_0
             n_from_mu = mu / MU_0
-            assert n_from_eps == pytest.approx(n_from_mu, rel=1e-10), \
-                f"Asymmetric scaling at {mult}·r_s: ε-factor={n_from_eps}, μ-factor={n_from_mu}"
+            assert n_from_eps == pytest.approx(
+                n_from_mu, rel=1e-10
+            ), f"Asymmetric scaling at {mult}·r_s: ε-factor={n_from_eps}, μ-factor={n_from_mu}"
 
     def test_near_horizon_epsilon_diverges(self):
         """Near horizon: ε >> ε₀ (metric is deeply strained)."""
@@ -179,11 +174,11 @@ class TestSummary:
     def test_summary_runs(self):
         """Summary should run without errors."""
         result = gw_propagation_summary(30.0, 1e-21)
-        assert result['linear_propagation'] is True
-        assert len(result['profiles']) > 0
-        assert result['r_s_m'] > 0
+        assert result["linear_propagation"] is True
+        assert len(result["profiles"]) > 0
+        assert result["r_s_m"] > 0
 
     def test_summary_no_echo_key(self):
         """Summary should NOT contain echo_delay (scrapped)."""
         result = gw_propagation_summary(30.0, 1e-21)
-        assert 'echo_delay_s' not in result
+        assert "echo_delay_s" not in result

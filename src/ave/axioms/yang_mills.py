@@ -23,25 +23,42 @@ Part D: INFINITE-VOLUME LIMIT
   Prove the gap survives as lattice size → ∞ because topological
   defects are localized and their energy is volume-independent.
 """
+
 from __future__ import annotations
 
 
 import numpy as np
 from scipy.integrate import quad
 from ave.core.constants import (
-    C_0, HBAR, L_NODE, M_E, ALPHA, MU_0, EPSILON_0, Z_0,
-    V_SNAP, B_SNAP, T_EM, P_C, KAPPA_FS, e_charge,
+    C_0,
+    HBAR,
+    L_NODE,
+    M_E,
+    ALPHA,
+    MU_0,
+    EPSILON_0,
+    Z_0,
+    V_SNAP,
+    B_SNAP,
+    T_EM,
+    P_C,
+    KAPPA_FS,
+    e_charge,
     BARYON_LADDER,
 )
 from ave.axioms.scale_invariant import (
-    impedance, saturation_factor, reflection_coefficient,
-    epsilon_eff, mu_eff,
+    impedance,
+    saturation_factor,
+    reflection_coefficient,
+    epsilon_eff,
+    mu_eff,
 )
 
 
 # ════════════════════════════════════════════════════════════════════
 # PART A: THE LATTICE HAMILTONIAN
 # ════════════════════════════════════════════════════════════════════
+
 
 def lattice_cell_energy(E_field: float, B_field: float) -> float:
     """
@@ -127,30 +144,28 @@ def lattice_hamiltonian_properties() -> dict:
 
     # (3) Check impedance is real and positive
     Z_vac = impedance(MU_0, EPSILON_0)
-    Z_half_sat = impedance(
-        mu_eff(B_SNAP * 0.5, yield_limit=B_SNAP),
-        epsilon_eff(V_SNAP * 0.5, yield_limit=V_SNAP)
-    )
+    Z_half_sat = impedance(mu_eff(B_SNAP * 0.5, yield_limit=B_SNAP), epsilon_eff(V_SNAP * 0.5, yield_limit=V_SNAP))
 
     return {
-        'H_vacuum': H_vacuum,
-        'H_vacuum_is_zero': abs(H_vacuum) < 1e-50,
-        'H_mid_J': H_mid,
-        'H_max_J': m_e_c2,
-        'bounded_above': np.isfinite(H_mid) and H_mid > 0,
-        'bounded_below': H_vacuum >= 0.0,
-        'Z_vacuum': Z_vac,
-        'Z_vacuum_is_real': np.isreal(Z_vac),
-        'Z_vacuum_is_positive': Z_vac > 0,
-        'Z_saturated_is_real': np.isreal(Z_half_sat),
-        'Z_saturated_is_positive': Z_half_sat > 0,
-        'self_adjoint': np.isreal(Z_vac) and np.isreal(Z_half_sat),
+        "H_vacuum": H_vacuum,
+        "H_vacuum_is_zero": abs(H_vacuum) < 1e-50,
+        "H_mid_J": H_mid,
+        "H_max_J": m_e_c2,
+        "bounded_above": np.isfinite(H_mid) and H_mid > 0,
+        "bounded_below": H_vacuum >= 0.0,
+        "Z_vacuum": Z_vac,
+        "Z_vacuum_is_real": np.isreal(Z_vac),
+        "Z_vacuum_is_positive": Z_vac > 0,
+        "Z_saturated_is_real": np.isreal(Z_half_sat),
+        "Z_saturated_is_positive": Z_half_sat > 0,
+        "self_adjoint": np.isreal(Z_vac) and np.isreal(Z_half_sat),
     }
 
 
 # ════════════════════════════════════════════════════════════════════
 # PART B: GAUGE-TOPOLOGY CORRESPONDENCE
 # ════════════════════════════════════════════════════════════════════
+
 
 def torus_knot_gauge_rank(q: int) -> int:
     """
@@ -192,16 +207,51 @@ def gauge_topology_table() -> list:
         List of dicts mapping knot → gauge group → particle.
     """
     table = [
-        {'q': 3, 'knot': 'Trefoil (2,3)',   'N': 2, 'group': 'SU(2)',
-         'particle': 'Electron', 'mass_MeV': 0.511, 'interaction': 'Electroweak'},
-        {'q': 5, 'knot': 'Cinquefoil (2,5)', 'N': 3, 'group': 'SU(3)',
-         'particle': 'Proton',   'mass_MeV': 938.3, 'interaction': 'Strong (QCD)'},
-        {'q': 7, 'knot': '(2,7)',            'N': 4, 'group': 'SU(4)',
-         'particle': 'Δ(1232)', 'mass_MeV': 1232,  'interaction': 'Resonance'},
-        {'q': 9, 'knot': '(2,9)',            'N': 5, 'group': 'SU(5)',
-         'particle': 'Δ(1620)', 'mass_MeV': 1620,  'interaction': 'Resonance'},
-        {'q': 11, 'knot': '(2,11)',          'N': 6, 'group': 'SU(6)',
-         'particle': 'Δ(1950)', 'mass_MeV': 1950,  'interaction': 'Resonance'},
+        {
+            "q": 3,
+            "knot": "Trefoil (2,3)",
+            "N": 2,
+            "group": "SU(2)",
+            "particle": "Electron",
+            "mass_MeV": 0.511,
+            "interaction": "Electroweak",
+        },
+        {
+            "q": 5,
+            "knot": "Cinquefoil (2,5)",
+            "N": 3,
+            "group": "SU(3)",
+            "particle": "Proton",
+            "mass_MeV": 938.3,
+            "interaction": "Strong (QCD)",
+        },
+        {
+            "q": 7,
+            "knot": "(2,7)",
+            "N": 4,
+            "group": "SU(4)",
+            "particle": "Δ(1232)",
+            "mass_MeV": 1232,
+            "interaction": "Resonance",
+        },
+        {
+            "q": 9,
+            "knot": "(2,9)",
+            "N": 5,
+            "group": "SU(5)",
+            "particle": "Δ(1620)",
+            "mass_MeV": 1620,
+            "interaction": "Resonance",
+        },
+        {
+            "q": 11,
+            "knot": "(2,11)",
+            "N": 6,
+            "group": "SU(6)",
+            "particle": "Δ(1950)",
+            "mass_MeV": 1950,
+            "interaction": "Resonance",
+        },
     ]
     return table
 
@@ -209,6 +259,7 @@ def gauge_topology_table() -> list:
 # ════════════════════════════════════════════════════════════════════
 # PART C: SPECTRAL GAP THEOREM
 # ════════════════════════════════════════════════════════════════════
+
 
 def topological_excitation_energy(crossing_number: int) -> float:
     """
@@ -303,11 +354,11 @@ def spectral_gap_theorem() -> dict:
 
     # The mass gap is the unknot ground state (exact, not a bound)
     unknot = {
-        'defect': 'unknot (0₁)',
-        'crossing_number': 0,
-        'energy_MeV': gap_MeV,
-        'is_exact': True,
-        'particle': 'electron',
+        "defect": "unknot (0₁)",
+        "crossing_number": 0,
+        "energy_MeV": gap_MeV,
+        "is_exact": True,
+        "particle": "electron",
     }
 
     # Faddeev-Skyrme bounds for torus knots (c ≥ 3)
@@ -317,26 +368,25 @@ def spectral_gap_theorem() -> dict:
         E_MeV = E_lower / (e_charge * 1e6)
 
         if c in BARYON_LADDER:
-            E_actual_MeV = BARYON_LADDER[c]['mass_mev']
+            E_actual_MeV = BARYON_LADDER[c]["mass_mev"]
         else:
             E_actual_MeV = None
 
         torus_knot_bounds[c] = {
-            'crossing_number': c,
-            'gauge_group': f'SU({torus_knot_gauge_rank(c)})',
-            'E_lower_bound_MeV': E_MeV,
-            'E_actual_MeV': E_actual_MeV,
-            'bound_satisfied': (E_actual_MeV is None or
-                                E_actual_MeV >= E_MeV * 0.99),
+            "crossing_number": c,
+            "gauge_group": f"SU({torus_knot_gauge_rank(c)})",
+            "E_lower_bound_MeV": E_MeV,
+            "E_actual_MeV": E_actual_MeV,
+            "bound_satisfied": (E_actual_MeV is None or E_actual_MeV >= E_MeV * 0.99),
         }
 
     return {
-        'gap_MeV': gap_MeV,
-        'gap_positive': gap_MeV > 0,
-        'gap_particle': 'electron (unknot 0₁)',
-        'gap_is_exact': True,
-        'unknot': unknot,
-        'torus_knot_bounds': torus_knot_bounds,
+        "gap_MeV": gap_MeV,
+        "gap_positive": gap_MeV > 0,
+        "gap_particle": "electron (unknot 0₁)",
+        "gap_is_exact": True,
+        "unknot": unknot,
+        "torus_knot_bounds": torus_knot_bounds,
     }
 
 
@@ -344,8 +394,8 @@ def spectral_gap_theorem() -> dict:
 # PART D: INFINITE-VOLUME LIMIT
 # ════════════════════════════════════════════════════════════════════
 
-def defect_energy_vs_volume(crossing_number: int = 5,
-                            box_sizes_Rp: list = None) -> dict:
+
+def defect_energy_vs_volume(crossing_number: int = 5, box_sizes_Rp: list = None) -> dict:
     """
     Show that defect energy is INDEPENDENT of box size.
 
@@ -383,10 +433,8 @@ def defect_energy_vs_volume(crossing_number: int = 5,
     # So changing L_box doesn't change the energy.
 
     from ave.topological.faddeev_skyrme import TopologicalHamiltonian1D
-    solver = TopologicalHamiltonian1D(
-        node_pitch=L_NODE,
-        scaling_coupling=KAPPA_FS
-    )
+
+    solver = TopologicalHamiltonian1D(node_pitch=L_NODE, scaling_coupling=KAPPA_FS)
     I_scalar = solver.solve_scalar_trace(crossing_number)
 
     results = []
@@ -394,28 +442,31 @@ def defect_energy_vs_volume(crossing_number: int = 5,
         L_box = L_ratio * r_conf  # in ℓ_node units
         # Energy is ALWAYS I_scalar × (geometric constants)
         # regardless of L_box, because the integral domain is [0, r_conf]
-        results.append({
-            'L_box_over_r_conf': L_ratio,
-            'I_scalar': I_scalar,
-            'energy_changes': False,
-        })
+        results.append(
+            {
+                "L_box_over_r_conf": L_ratio,
+                "I_scalar": I_scalar,
+                "energy_changes": False,
+            }
+        )
 
-    energies = [r['I_scalar'] for r in results]
+    energies = [r["I_scalar"] for r in results]
     spread = max(energies) - min(energies)
 
     return {
-        'crossing_number': crossing_number,
-        'r_conf_l_node': r_conf,
-        'I_scalar': I_scalar,
-        'volume_independent': spread < 1e-10,
-        'max_spread': spread,
-        'results': results,
+        "crossing_number": crossing_number,
+        "r_conf_l_node": r_conf,
+        "I_scalar": I_scalar,
+        "volume_independent": spread < 1e-10,
+        "max_spread": spread,
+        "results": results,
     }
 
 
 # ════════════════════════════════════════════════════════════════════
 # PART E: OSTERWALDER-SCHRADER AXIOM VERIFICATION
 # ════════════════════════════════════════════════════════════════════
+
 
 def verify_osterwalder_schrader() -> dict:
     """
@@ -497,8 +548,8 @@ def verify_osterwalder_schrader() -> dict:
     # H is analytic in ℓ > 0 via:  ω(k,ℓ) = (2c/ℓ)|sin(kℓ/2)|
     # At ℓ → 0: ω → ck  (standard linear dispersion — analytic limit)
     # Wick rotator: e^{-τH} converges for Re(τ)>0 because H ≥ 0
-    H_lower_bound = 0.0                     # proven in Part A
-    wick_converges = H_lower_bound >= 0.0   # e^{-τH} absolutely convergent
+    H_lower_bound = 0.0  # proven in Part A
+    wick_converges = H_lower_bound >= 0.0  # e^{-τH} absolutely convergent
     os1_analyticity = wick_converges
 
     # ── OS2: Euclidean Covariance ────────────────────────────────────
@@ -511,74 +562,74 @@ def verify_osterwalder_schrader() -> dict:
     # Transfer matrix T = e^{-ℓH}.  H ≥ 0 → eigenvalues of T ∈ (0,1].
     # Test: all eigenvalues of a 2×2 representative T are positive.
     # Use the two-mode truncation: E₁ = m_e c², E₂ = (2π³/κ_FS)×3×m_e c²
-    E1 = m_e_c2                               # unknot (electron)
+    E1 = m_e_c2  # unknot (electron)
     E2 = (2 * np.pi**3 / KAPPA_FS) * 3 * m_e_c2  # trefoil lower bound
-    T_evals = np.array([np.exp(-ell * E1 / (np.sqrt(HBAR * C_0 / ell))),
-                        np.exp(-ell * E2 / (np.sqrt(HBAR * C_0 / ell)))])
+    T_evals = np.array(
+        [
+            np.exp(-ell * E1 / (np.sqrt(HBAR * C_0 / ell))),
+            np.exp(-ell * E2 / (np.sqrt(HBAR * C_0 / ell))),
+        ]
+    )
     # Physical: eigenvalues in (0,1) confirms RP
     os3_reflection_positivity = bool(np.all(T_evals > 0) and np.all(T_evals <= 1.0))
 
     # ── OS4: Symmetry ────────────────────────────────────────────────
     # Vacuum translational invariance: all cells have identical Z = Z₀
     # Fermion antisymmetry: torus knot exchange → e^{iπ} = -1 phase
-    trefoil_phase = np.exp(1j * np.pi)          # = -1 (antisymmetric)
+    trefoil_phase = np.exp(1j * np.pi)  # = -1 (antisymmetric)
     os4_symmetry = (
-        abs(Z_vacuum - Z_0) / Z_0 < 1e-10 and  # translational invariance
-        abs(trefoil_phase + 1.0) < 1e-10        # fermion antisymmetry
+        abs(Z_vacuum - Z_0) / Z_0 < 1e-10  # translational invariance
+        and abs(trefoil_phase + 1.0) < 1e-10  # fermion antisymmetry
     )
 
     # ── OS5: Cluster Decomposition ───────────────────────────────────
     # Correlation length ξ = r_conf(c=3) — the smallest confinement radius
     # |S(x,y)| ≤ e^{-|x-y|/ξ} → 0 as |x-y| → ∞
-    c_min = 3                                   # trefoil (lightest stable knot)
-    xi_l_node = KAPPA_FS / c_min               # correlation length [in ℓ_node]
-    xi_m = xi_l_node * ell                     # [m]
+    c_min = 3  # trefoil (lightest stable knot)
+    xi_l_node = KAPPA_FS / c_min  # correlation length [in ℓ_node]
+    xi_m = xi_l_node * ell  # [m]
     # At 10×ξ, the correlation is e^{-10} ≈ 4.5×10⁻⁵ — effectively zero
     correlation_at_10xi = np.exp(-10.0)
     os5_cluster_decomp = xi_m > 0.0 and correlation_at_10xi < 1e-4
 
     all_os_satisfied = (
-        os1_analyticity and
-        os2_covariance and
-        os3_reflection_positivity and
-        os4_symmetry and
-        os5_cluster_decomp
+        os1_analyticity and os2_covariance and os3_reflection_positivity and os4_symmetry and os5_cluster_decomp
     )
 
     return {
-        'OS1_analyticity': {
-            'satisfied': os1_analyticity,
-            'mechanism': 'H ≥ 0 → e^{-τH} absolutely convergent for Re(τ)>0',
-            'H_lower_bound_J': H_lower_bound,
+        "OS1_analyticity": {
+            "satisfied": os1_analyticity,
+            "mechanism": "H ≥ 0 → e^{-τH} absolutely convergent for Re(τ)>0",
+            "H_lower_bound_J": H_lower_bound,
         },
-        'OS2_covariance': {
-            'satisfied': os2_covariance,
-            'mechanism': 'Z₀ = √(μ₀/ε₀) is scalar → SO(3) invariant → SO(4) in continuum',
-            'Z_vacuum_Ohm': Z_vacuum,
-            'Z_0_Ohm': Z_0,
+        "OS2_covariance": {
+            "satisfied": os2_covariance,
+            "mechanism": "Z₀ = √(μ₀/ε₀) is scalar → SO(3) invariant → SO(4) in continuum",
+            "Z_vacuum_Ohm": Z_vacuum,
+            "Z_0_Ohm": Z_0,
         },
-        'OS3_reflection_positivity': {
-            'satisfied': os3_reflection_positivity,
-            'mechanism': 'H ≥ 0 → T = e^{-ℓH} positive semi-definite → RP holds',
-            'T_eigenvalue_unknot': float(T_evals[0]),
-            'T_eigenvalue_trefoil': float(T_evals[1]),
+        "OS3_reflection_positivity": {
+            "satisfied": os3_reflection_positivity,
+            "mechanism": "H ≥ 0 → T = e^{-ℓH} positive semi-definite → RP holds",
+            "T_eigenvalue_unknot": float(T_evals[0]),
+            "T_eigenvalue_trefoil": float(T_evals[1]),
         },
-        'OS4_symmetry': {
-            'satisfied': os4_symmetry,
-            'mechanism': 'Vacuum translational invariance + torus knot π-phase exchange',
-            'fermion_phase': complex(trefoil_phase),
+        "OS4_symmetry": {
+            "satisfied": os4_symmetry,
+            "mechanism": "Vacuum translational invariance + torus knot π-phase exchange",
+            "fermion_phase": complex(trefoil_phase),
         },
-        'OS5_cluster_decomposition': {
-            'satisfied': os5_cluster_decomp,
-            'mechanism': 'Γ=-1 confinement → exponential correlation decay with ξ=κ_FS/c',
-            'correlation_length_m': xi_m,
-            'correlation_at_10xi': correlation_at_10xi,
+        "OS5_cluster_decomposition": {
+            "satisfied": os5_cluster_decomp,
+            "mechanism": "Γ=-1 confinement → exponential correlation decay with ξ=κ_FS/c",
+            "correlation_length_m": xi_m,
+            "correlation_at_10xi": correlation_at_10xi,
         },
-        'all_OS_satisfied': all_os_satisfied,
-        'reconstruction_theorem': (
-            'OS1-OS5 satisfied → by Osterwalder-Schrader Reconstruction Theorem '
-            '(Comm. Math. Phys. 31, 1973; 42, 1975), the AVE lattice defines a '
-            'unique continuum QFT with mass gap Δ = m_e c² > 0.'
+        "all_OS_satisfied": all_os_satisfied,
+        "reconstruction_theorem": (
+            "OS1-OS5 satisfied → by Osterwalder-Schrader Reconstruction Theorem "
+            "(Comm. Math. Phys. 31, 1973; 42, 1975), the AVE lattice defines a "
+            "unique continuum QFT with mass gap Δ = m_e c² > 0."
         ),
     }
 
@@ -632,45 +683,42 @@ def full_mass_gap_proof() -> dict:
 
     # Assemble proof
     proof = {
-        'Part_A_Hamiltonian': {
-            'bounded_below': H_props['bounded_below'],
-            'bounded_above': H_props['bounded_above'],
-            'self_adjoint': H_props['self_adjoint'],
-            'all_satisfied': (H_props['bounded_below'] and
-                              H_props['bounded_above'] and
-                              H_props['self_adjoint']),
+        "Part_A_Hamiltonian": {
+            "bounded_below": H_props["bounded_below"],
+            "bounded_above": H_props["bounded_above"],
+            "self_adjoint": H_props["self_adjoint"],
+            "all_satisfied": (H_props["bounded_below"] and H_props["bounded_above"] and H_props["self_adjoint"]),
         },
-        'Part_B_Gauge_Topology': {
-            'SU2_from_trefoil': gauge_table[0]['group'] == 'SU(2)',
-            'SU3_from_cinquefoil': gauge_table[1]['group'] == 'SU(3)',
-            'correspondence_valid': True,
+        "Part_B_Gauge_Topology": {
+            "SU2_from_trefoil": gauge_table[0]["group"] == "SU(2)",
+            "SU3_from_cinquefoil": gauge_table[1]["group"] == "SU(3)",
+            "correspondence_valid": True,
         },
-        'Part_C_Spectral_Gap': {
-            'gap_MeV': gap['gap_MeV'],
-            'gap_positive': gap['gap_positive'],
-            'gap_is_exact': gap['gap_is_exact'],
-            'gaps_by_SU_N': {g['gauge_group']: g['E_lower_bound_MeV']
-                             for g in gap['torus_knot_bounds'].values()},
+        "Part_C_Spectral_Gap": {
+            "gap_MeV": gap["gap_MeV"],
+            "gap_positive": gap["gap_positive"],
+            "gap_is_exact": gap["gap_is_exact"],
+            "gaps_by_SU_N": {g["gauge_group"]: g["E_lower_bound_MeV"] for g in gap["torus_knot_bounds"].values()},
         },
-        'Part_D_Infinite_Volume': {
-            'volume_independent': vol_indep['volume_independent'],
-            'max_spread': vol_indep['max_spread'],
+        "Part_D_Infinite_Volume": {
+            "volume_independent": vol_indep["volume_independent"],
+            "max_spread": vol_indep["max_spread"],
         },
-        'Part_E_Osterwalder_Schrader': {
-            'OS1_analyticity': os_check['OS1_analyticity']['satisfied'],
-            'OS2_covariance': os_check['OS2_covariance']['satisfied'],
-            'OS3_reflection_positivity': os_check['OS3_reflection_positivity']['satisfied'],
-            'OS4_symmetry': os_check['OS4_symmetry']['satisfied'],
-            'OS5_cluster_decomposition': os_check['OS5_cluster_decomposition']['satisfied'],
-            'all_OS_satisfied': os_check['all_OS_satisfied'],
-            'reconstruction_theorem': os_check['reconstruction_theorem'],
+        "Part_E_Osterwalder_Schrader": {
+            "OS1_analyticity": os_check["OS1_analyticity"]["satisfied"],
+            "OS2_covariance": os_check["OS2_covariance"]["satisfied"],
+            "OS3_reflection_positivity": os_check["OS3_reflection_positivity"]["satisfied"],
+            "OS4_symmetry": os_check["OS4_symmetry"]["satisfied"],
+            "OS5_cluster_decomposition": os_check["OS5_cluster_decomposition"]["satisfied"],
+            "all_OS_satisfied": os_check["all_OS_satisfied"],
+            "reconstruction_theorem": os_check["reconstruction_theorem"],
         },
-        'MASS_GAP_PROVEN': (
-            H_props['bounded_below'] and
-            H_props['self_adjoint'] and
-            gap['gap_positive'] and
-            vol_indep['volume_independent'] and
-            os_check['all_OS_satisfied']
+        "MASS_GAP_PROVEN": (
+            H_props["bounded_below"]
+            and H_props["self_adjoint"]
+            and gap["gap_positive"]
+            and vol_indep["volume_independent"]
+            and os_check["all_OS_satisfied"]
         ),
     }
 

@@ -7,26 +7,35 @@ against manuscript-stated values in Volume 6.
 
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_vol6.py
 """
+
 import sys
+
 sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    D_PROTON, D_INTRA_ALPHA, D_NN_EIGENVALUE,
-    B_DEUTERON_PREDICTED, K_COUPLING, K_MUTUAL,
-    HBAR_C_MEV_FM, ALPHA, ALPHA_HC,
-    E_0_NUCLEAR, OMEGA_0_NUCLEAR,
+    D_PROTON,
+    D_INTRA_ALPHA,
+    D_NN_EIGENVALUE,
+    B_DEUTERON_PREDICTED,
+    K_COUPLING,
+    K_MUTUAL,
+    HBAR_C_MEV_FM,
+    ALPHA,
+    ALPHA_HC,
+    E_0_NUCLEAR,
+    OMEGA_0_NUCLEAR,
 )
 
 CHECKS = [
     # (Name, Engine Value, Manuscript/Target Value, Unit, Tolerance %)
-    ("d (Proton Charge Radius)",            D_PROTON,               0.8414,   "fm",     0.1),
-    ("D_intra (Alpha Tetrahedral Edge)",    D_INTRA_ALPHA,          2.379,    "fm",     0.1),
-    ("d_nn (Eigenvalue NN Distance)",       D_NN_EIGENVALUE,        2.056,    "fm",     0.5),
-    ("B_deuteron (Deuteron Binding)",       B_DEUTERON_PREDICTED,   2.2246,   "MeV",    2.0),
-    ("αℏc (Coulomb Coupling)",              ALPHA_HC,               1.440,    "MeV·fm", 0.5),
-    ("K_coupling (Mutual Inductance)",      K_COUPLING,             0.01476,  "",       0.5),
-    ("K_mutual (Pairwise Binding)",         K_MUTUAL,               11.337,   "MeV·fm", 2.0),
-    ("ℏc (Conversion Factor)",              HBAR_C_MEV_FM,          197.33,   "MeV·fm", 0.01),
+    ("d (Proton Charge Radius)", D_PROTON, 0.8414, "fm", 0.1),
+    ("D_intra (Alpha Tetrahedral Edge)", D_INTRA_ALPHA, 2.379, "fm", 0.1),
+    ("d_nn (Eigenvalue NN Distance)", D_NN_EIGENVALUE, 2.056, "fm", 0.5),
+    ("B_deuteron (Deuteron Binding)", B_DEUTERON_PREDICTED, 2.2246, "MeV", 2.0),
+    ("αℏc (Coulomb Coupling)", ALPHA_HC, 1.440, "MeV·fm", 0.5),
+    ("K_coupling (Mutual Inductance)", K_COUPLING, 0.01476, "", 0.5),
+    ("K_mutual (Pairwise Binding)", K_MUTUAL, 11.337, "MeV·fm", 2.0),
+    ("ℏc (Conversion Factor)", HBAR_C_MEV_FM, 197.33, "MeV·fm", 0.01),
 ]
 
 print("=" * 90)
@@ -39,7 +48,7 @@ print("-" * 90)
 all_pass = True
 for name, engine_val, target_val, unit, tol_pct in CHECKS:
     if target_val == 0:
-        delta_pct = 0.0 if engine_val == 0 else float('inf')
+        delta_pct = 0.0 if engine_val == 0 else float("inf")
     else:
         delta_pct = abs(engine_val / target_val - 1.0) * 100.0
 

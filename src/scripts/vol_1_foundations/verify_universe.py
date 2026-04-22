@@ -9,7 +9,7 @@ import ast
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p/".git").is_dir())
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 EXCLUDED_DIRS = {".venv", "venv", "node_modules", ".git", "__pycache__", ".eggs", "*.egg-info"}
 
 BANNED_IMPORTS = ["scipy.constants"]
@@ -35,6 +35,7 @@ MAGIC_NUMBERS = {
     8.8541878e-12: "Vacuum permittivity (EPSILON_0) (Must be imported from constants.py)",
     300000000.0: "Speed of light (c) (Must be imported from constants.py)",
 }
+
 
 class AVESyntaxValidator(ast.NodeVisitor):
     def __init__(self, filepath):

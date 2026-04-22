@@ -21,6 +21,7 @@ Usage:
     lbm.set_body_force(Fx, Fy, Fz)  # from FDTD ponderomotive_force()
     lbm.step()
 """
+
 from __future__ import annotations
 
 
@@ -29,36 +30,54 @@ import numpy as np
 
 # D3Q19 lattice velocities and weights
 # 19 discrete velocities: 1 rest + 6 face + 12 edge
-_E = np.array([
-    [ 0,  0,  0],  # 0: rest
-    [ 1,  0,  0],  # 1-6: faces
-    [-1,  0,  0],
-    [ 0,  1,  0],
-    [ 0, -1,  0],
-    [ 0,  0,  1],
-    [ 0,  0, -1],
-    [ 1,  1,  0],  # 7-18: edges
-    [-1,  1,  0],
-    [ 1, -1,  0],
-    [-1, -1,  0],
-    [ 1,  0,  1],
-    [-1,  0,  1],
-    [ 1,  0, -1],
-    [-1,  0, -1],
-    [ 0,  1,  1],
-    [ 0, -1,  1],
-    [ 0,  1, -1],
-    [ 0, -1, -1],
-], dtype=np.float64)
+_E = np.array(
+    [
+        [0, 0, 0],  # 0: rest
+        [1, 0, 0],  # 1-6: faces
+        [-1, 0, 0],
+        [0, 1, 0],
+        [0, -1, 0],
+        [0, 0, 1],
+        [0, 0, -1],
+        [1, 1, 0],  # 7-18: edges
+        [-1, 1, 0],
+        [1, -1, 0],
+        [-1, -1, 0],
+        [1, 0, 1],
+        [-1, 0, 1],
+        [1, 0, -1],
+        [-1, 0, -1],
+        [0, 1, 1],
+        [0, -1, 1],
+        [0, 1, -1],
+        [0, -1, -1],
+    ],
+    dtype=np.float64,
+)
 
-_W = np.array([
-    1.0/3.0,                                      # rest
-    1.0/18.0, 1.0/18.0, 1.0/18.0,                 # faces
-    1.0/18.0, 1.0/18.0, 1.0/18.0,
-    1.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0,       # edges
-    1.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0,
-    1.0/36.0, 1.0/36.0, 1.0/36.0, 1.0/36.0,
-])
+_W = np.array(
+    [
+        1.0 / 3.0,  # rest
+        1.0 / 18.0,
+        1.0 / 18.0,
+        1.0 / 18.0,  # faces
+        1.0 / 18.0,
+        1.0 / 18.0,
+        1.0 / 18.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,  # edges
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+        1.0 / 36.0,
+    ]
+)
 
 # Opposite direction indices for bounce-back
 _OPP = np.array([0, 2, 1, 4, 3, 6, 5, 10, 9, 8, 7, 14, 13, 12, 11, 18, 17, 16, 15])
@@ -153,9 +172,7 @@ class LBM3DEngine:
         """Compute equilibrium distribution for direction i."""
         eu = _E[i, 0] * ux + _E[i, 1] * uy + _E[i, 2] * uz
         u_sq = ux**2 + uy**2 + uz**2
-        return _W[i] * rho * (1.0 + eu / self.cs2
-                               + 0.5 * eu**2 / self.cs2**2
-                               - 0.5 * u_sq / self.cs2)
+        return _W[i] * rho * (1.0 + eu / self.cs2 + 0.5 * eu**2 / self.cs2**2 - 0.5 * u_sq / self.cs2)
 
     def _collide(self):
         """BGK collision with Guo body force."""
@@ -169,10 +186,7 @@ class LBM3DEngine:
             eF = _E[i, 0] * self.Fx + _E[i, 1] * self.Fy + _E[i, 2] * self.Fz
             uF = self.ux * self.Fx + self.uy * self.Fy + self.uz * self.Fz
 
-            Si = (1.0 - 0.5 * self.omega) * _W[i] * (
-                (eF - uF) / self.cs2
-                + eu * eF / self.cs2**2
-            ) * self.dt_lbm
+            Si = (1.0 - 0.5 * self.omega) * _W[i] * ((eF - uF) / self.cs2 + eu * eF / self.cs2**2) * self.dt_lbm
 
             # BGK collision + forcing
             self.f[i] += -self.omega * (self.f[i] - f_eq) + Si
@@ -181,11 +195,9 @@ class LBM3DEngine:
         """Stream distributions to neighboring cells with periodic BCs."""
         for i in range(Q):
             self.f[i] = np.roll(
-                np.roll(
-                    np.roll(self.f[i], int(_E[i, 0]), axis=0),
-                    int(_E[i, 1]), axis=1
-                ),
-                int(_E[i, 2]), axis=2
+                np.roll(np.roll(self.f[i], int(_E[i, 0]), axis=0), int(_E[i, 1]), axis=1),
+                int(_E[i, 2]),
+                axis=2,
             )
 
     def _bounce_back(self):
@@ -194,8 +206,10 @@ class LBM3DEngine:
             return
         for i in range(Q):
             # Where the node is solid, swap with opposite direction
-            self.f[i][self.solid], self.f[_OPP[i]][self.solid] = \
-                self.f[_OPP[i]][self.solid].copy(), self.f[i][self.solid].copy()
+            self.f[i][self.solid], self.f[_OPP[i]][self.solid] = (
+                self.f[_OPP[i]][self.solid].copy(),
+                self.f[i][self.solid].copy(),
+            )
 
     def step(self):
         """Execute one LBM timestep: collide → stream → bounce-back."""

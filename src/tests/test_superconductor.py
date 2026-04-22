@@ -31,6 +31,7 @@ from ave.core.constants import MU_0, EPSILON_0, Z_0
 # Critical field = saturation_factor on temperature
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestCriticalField:
     """B_c(T) IS saturation_factor(T, T_c) — the structural identity."""
 
@@ -75,6 +76,7 @@ class TestCriticalField:
 # Meissner effect — μ-saturation
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestMeissnerEffect:
     """μ_eff = μ₀ · S(B/B_c) — the dual of plasma ε_eff."""
 
@@ -102,6 +104,7 @@ class TestMeissnerEffect:
 # ═══════════════════════════════════════════════════════════════
 # Reflection coefficient — same function as Pauli and Moho
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestMeissnerReflection:
     """Γ uses the SAME reflection_coefficient as seismic and particle."""
@@ -144,6 +147,7 @@ class TestMeissnerReflection:
 # London depth — the magnetic skin depth
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestLondonDepth:
     """λ_L = √(m*/(μ₀ n_s e²)) — dual of plasma skin depth."""
 
@@ -172,6 +176,7 @@ class TestLondonDepth:
 # Duality: plasma ↔ superconductor
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestDuality:
     """Prove that plasma and superconductor use the same math."""
 
@@ -190,7 +195,7 @@ class TestDuality:
         nb = SC_CATALOG["Niobium"]
         T_test = 4.2  # Liquid helium
         # Standard BCS formula
-        bcs = nb.B_c0 * np.sqrt(1 - (T_test / nb.T_c)**2)
+        bcs = nb.B_c0 * np.sqrt(1 - (T_test / nb.T_c) ** 2)
         # AVE saturation formula
         ave = float(critical_field(T_test, nb.T_c, nb.B_c0))
         assert bcs == pytest.approx(ave, rel=1e-12)
@@ -208,6 +213,7 @@ class TestDuality:
 # ═══════════════════════════════════════════════════════════════
 # GL parameter — type I vs type II classification
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestGinzburgLandau:
     """κ = λ_L/ξ₀ classifies type I (κ < 1/√2) vs type II."""

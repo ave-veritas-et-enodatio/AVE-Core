@@ -31,6 +31,7 @@ from ave.regime_3_saturated.condensed_matter import (
 # Model 1: Melting Temperature
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 class TestMeltingTemperature:
     def test_positive_and_finite(self):
         for Z in [1, 2, 4, 6, 13, 14, 26, 29]:
@@ -43,28 +44,30 @@ class TestMeltingTemperature:
         T_H, d_H = melting_temperature(1)
         T_Be, d_Be = melting_temperature(4)
         # H has higher IE (13.6 eV) → higher B_bond → higher T_melt than Be
-        assert d_H['B_bond_eV'] > d_Be['B_bond_eV']
+        assert d_H["B_bond_eV"] > d_Be["B_bond_eV"]
         assert T_H > T_Be
 
     def test_details_dict_complete(self):
         T, d = melting_temperature(14)
-        assert 'f_eigen_eV' in d
-        assert 'B_bond_eV' in d
-        assert 'r_val_m' in d
-        assert 'd_eq_m' in d
-        assert d['B_bond_eV'] > 0
+        assert "f_eigen_eV" in d
+        assert "B_bond_eV" in d
+        assert "r_val_m" in d
+        assert "d_eq_m" in d
+        assert d["B_bond_eV"] > 0
 
     def test_formula_consistency(self):
         """T = B_bond × e / (3 k_B)."""
         from ave.core.constants import K_B, e_charge
+
         T, d = melting_temperature(14)
-        T_check = d['B_bond_eV'] * e_charge / (3.0 * K_B)
+        T_check = d["B_bond_eV"] * e_charge / (3.0 * K_B)
         assert T == pytest.approx(T_check, rel=1e-10)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 2: Sound Speed
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestSoundSpeed:
     def test_positive_and_finite(self):
@@ -76,6 +79,7 @@ class TestSoundSpeed:
     def test_subsonic_to_light(self):
         """Sound speed should be between 100 m/s and c."""
         from ave.core.constants import C_0
+
         for Z in [1, 4, 6, 14, 26]:
             cs, _ = sound_speed(Z)
             assert cs > 100, f"Z={Z}: c_sound={cs} m/s too low"
@@ -84,8 +88,9 @@ class TestSoundSpeed:
     def test_formula_consistency(self):
         """c_s = sqrt(B_bond * e / (A * m_u))."""
         from ave.core.constants import e_charge, M_PROTON
+
         cs, d = sound_speed(14)
-        cs_check = np.sqrt(d['B_bond_eV'] * e_charge / d['m_atom_kg'])
+        cs_check = np.sqrt(d["B_bond_eV"] * e_charge / d["m_atom_kg"])
         assert cs == pytest.approx(cs_check, rel=1e-10)
 
     def test_heavier_atoms_generally_slower(self):
@@ -102,6 +107,7 @@ class TestSoundSpeed:
 # Model 3: Band Gap Energy
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 class TestBandGapEnergy:
     def test_positive_and_finite(self):
         for Z in [1, 4, 6, 14, 32]:
@@ -114,10 +120,10 @@ class TestBandGapEnergy:
         expected_fraction = 1.0 - 0.5 / np.sqrt(1.5)
         for Z in [1, 6, 14, 32]:
             Eg, d = band_gap_energy(Z)
-            ratio = Eg / d['f_eigen_eV']
-            assert ratio == pytest.approx(expected_fraction, rel=1e-10), (
-                f"Z={Z}: E_gap/IE = {ratio:.6f}, expected {expected_fraction:.6f}"
-            )
+            ratio = Eg / d["f_eigen_eV"]
+            assert ratio == pytest.approx(
+                expected_fraction, rel=1e-10
+            ), f"Z={Z}: E_gap/IE = {ratio:.6f}, expected {expected_fraction:.6f}"
 
     def test_carbon_greater_than_silicon(self):
         """C IE > Si IE if both use model IE → C gap > Si gap."""
@@ -132,15 +138,16 @@ class TestBandGapEnergy:
 
     def test_details_dict(self):
         Eg, d = band_gap_energy(14)
-        assert 'bandwidth_eV' in d
-        assert 'gap_fraction' in d
-        assert 'k_saturation' in d
-        assert d['k_saturation'] == 0.5
+        assert "bandwidth_eV" in d
+        assert "gap_fraction" in d
+        assert "k_saturation" in d
+        assert d["k_saturation"] == 0.5
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 4: Dielectric Breakdown Field
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestBreakdownField:
     def test_positive_and_finite(self):
@@ -158,7 +165,7 @@ class TestBreakdownField:
     def test_formula_consistency(self):
         """E_bd = B_bond [eV] / d_eq [m]."""
         Ebd, d = breakdown_field(14)
-        Ebd_check = d['B_bond_eV'] / d['d_eq_m']
+        Ebd_check = d["B_bond_eV"] / d["d_eq_m"]
         assert Ebd == pytest.approx(Ebd_check, rel=1e-10)
 
 
@@ -166,14 +173,15 @@ class TestBreakdownField:
 # Summary Function
 # ══════════════════════════════════════════════════════════════════════════════
 
+
 class TestElementSummary:
     def test_silicon_summary(self):
         s = element_summary(14)
-        assert 'T_melt_K' in s
-        assert 'c_sound_m_s' in s
-        assert 'E_gap_eV' in s
-        assert 'E_breakdown_V_m' in s
-        for key in ['T_melt_K', 'c_sound_m_s', 'E_gap_eV', 'E_breakdown_V_m']:
+        assert "T_melt_K" in s
+        assert "c_sound_m_s" in s
+        assert "E_gap_eV" in s
+        assert "E_breakdown_V_m" in s
+        for key in ["T_melt_K", "c_sound_m_s", "E_gap_eV", "E_breakdown_V_m"]:
             assert s[key] > 0, f"{key} must be positive"
             assert np.isfinite(s[key]), f"{key} must be finite"
 
@@ -181,6 +189,6 @@ class TestElementSummary:
         """Smoke test: all elements Z=1..30 produce finite, positive results."""
         for Z in range(1, 31):
             s = element_summary(Z)
-            for key in ['T_melt_K', 'c_sound_m_s', 'E_gap_eV', 'E_breakdown_V_m']:
+            for key in ["T_melt_K", "c_sound_m_s", "E_gap_eV", "E_breakdown_V_m"]:
                 assert np.isfinite(s[key]), f"Z={Z}, {key} not finite"
                 assert s[key] > 0, f"Z={Z}, {key} not positive"

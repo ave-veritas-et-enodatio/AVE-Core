@@ -16,6 +16,7 @@ from ave.topological.combiner import NucleonCombiner
 # VacuumGrid
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestVacuumGrid:
     def test_initial_strain_is_zero(self):
         g = VacuumGrid(10, 10)
@@ -40,14 +41,14 @@ class TestVacuumGrid:
         assert g.get_local_strain(11, 10) != 0.0
 
     def test_temperature_setting(self):
-        g = VacuumGrid(10, 10, thermal_mode='boundary')
+        g = VacuumGrid(10, 10, thermal_mode="boundary")
         g.set_temperature(1.0)
         assert g.temperature == 1.0
 
     def test_bulk_thermal_mode_sets_correctly(self):
-        g = VacuumGrid(20, 20, thermal_mode='bulk')
+        g = VacuumGrid(20, 20, thermal_mode="bulk")
         g.set_temperature(1.0)
-        assert g.thermal_mode == 'bulk'
+        assert g.thermal_mode == "bulk"
         assert g.temperature == 1.0
         # Step runs without error
         g.step_kinematic_wave_equation()
@@ -56,6 +57,7 @@ class TestVacuumGrid:
 # ═══════════════════════════════════════════════════════════════════════
 # NucleonCombiner
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestNucleonCombiner:
     def test_rotate_identity(self):
@@ -81,10 +83,10 @@ class TestNucleonCombiner:
             return [np.random.randn(10, 3)]
 
         placements = [
-            {'shift': (0, 0, 0), 'label': 'p1'},
-            {'shift': (1, 0, 0), 'rot': (0, np.pi/2, 0), 'label': 'p2'},
+            {"shift": (0, 0, 0), "label": "p1"},
+            {"shift": (1, 0, 0), "rot": (0, np.pi / 2, 0), "label": "p2"},
         ]
         cluster = NucleonCombiner.assemble_cluster(dummy_gen, placements)
         assert len(cluster) == 2
-        assert cluster[0]['label'] == 'p1'
-        assert cluster[1]['label'] == 'p2'
+        assert cluster[0]["label"] == "p1"
+        assert cluster[1]["label"] == "p2"

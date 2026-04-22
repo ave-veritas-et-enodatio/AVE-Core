@@ -10,12 +10,32 @@ import sys
 import os
 
 from ave.core.constants import (
-    L_NODE, ALPHA, G, XI_TOPO, P_C, M_E, C_0, HBAR,
-    EPSILON_0, MU_0, Z_0, T_EM, V_SNAP,
-    KAPPA_FS_COLD, KAPPA_FS, DELTA_THERMAL,
-    I_SCALAR_1D, V_TOROIDAL_HALO, PROTON_ELECTRON_RATIO,
-    T_NUC, H_INFINITY, R_HUBBLE, RHO_BULK, NU_KIN,
-    M_PROTON, e_charge,
+    L_NODE,
+    ALPHA,
+    G,
+    XI_TOPO,
+    P_C,
+    M_E,
+    C_0,
+    HBAR,
+    EPSILON_0,
+    MU_0,
+    Z_0,
+    T_EM,
+    V_SNAP,
+    KAPPA_FS_COLD,
+    KAPPA_FS,
+    DELTA_THERMAL,
+    I_SCALAR_1D,
+    V_TOROIDAL_HALO,
+    PROTON_ELECTRON_RATIO,
+    T_NUC,
+    H_INFINITY,
+    R_HUBBLE,
+    RHO_BULK,
+    NU_KIN,
+    M_PROTON,
+    e_charge,
 )
 
 # Derived values
@@ -33,7 +53,8 @@ _M_PROTON_KG = float(M_PROTON)  # from constants.py
 PROTON_EMPIRICAL = _M_PROTON_KG / M_E
 proton_error_pct = abs(PROTON_ELECTRON_RATIO - PROTON_EMPIRICAL) / PROTON_EMPIRICAL * 100
 
-print("""==========================================================
+print(
+    """==========================================================
 AVE UNIVERSAL DIAGNOSTIC & VERIFICATION ENGINE
 Dynamic Output — Generated from src/ave/core/constants.py
 ==========================================================
@@ -82,29 +103,30 @@ VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
 168/168 framework files — zero Standard Model parameters.
 ==========================================================
 """.format(
-    l_node=L_NODE,
-    alpha_inv=1/ALPHA,
-    G=G,
-    xi=XI_TOPO,
-    pc=P_C,
-    Z0=Z_0,
-    kc=KAPPA_FS_COLD,
-    dth=DELTA_THERMAL,
-    keff=KAPPA_FS,
-    I=I_SCALAR_1D,
-    Vh=V_TOROIDAL_HALO,
-    pr=PROTON_ELECTRON_RATIO,
-    emp=PROTON_EMPIRICAL,
-    err=proton_error_pct,
-    Fc=confinement_force,
-    FcGeV=confinement_GeV_fm,
-    Tem=T_EM,
-    Vs=V_SNAP / 1e3,
-    Hinf=H_inf_km_s_Mpc,
-    Ht=hubble_time_Gyr,
-    RH=R_HUBBLE,
-    a0=a_0,
-    rho=RHO_BULK,
-    nu=2.0/7.0,
-    wma=7**0.5 / 3.0,
-))
+        l_node=L_NODE,
+        alpha_inv=1 / ALPHA,
+        G=G,
+        xi=XI_TOPO,
+        pc=P_C,
+        Z0=Z_0,
+        kc=KAPPA_FS_COLD,
+        dth=DELTA_THERMAL,
+        keff=KAPPA_FS,
+        I=I_SCALAR_1D,
+        Vh=V_TOROIDAL_HALO,
+        pr=PROTON_ELECTRON_RATIO,
+        emp=PROTON_EMPIRICAL,
+        err=proton_error_pct,
+        Fc=confinement_force,
+        FcGeV=confinement_GeV_fm,
+        Tem=T_EM,
+        Vs=V_SNAP / 1e3,
+        Hinf=H_inf_km_s_Mpc,
+        Ht=hubble_time_Gyr,
+        RH=R_HUBBLE,
+        a0=a_0,
+        rho=RHO_BULK,
+        nu=2.0 / 7.0,
+        wma=7**0.5 / 3.0,
+    )
+)

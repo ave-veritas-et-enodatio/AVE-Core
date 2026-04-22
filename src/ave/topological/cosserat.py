@@ -30,18 +30,28 @@ spectrum from the torsional (Cosserat) sector of the Chiral LC lattice.
 5. Neutrino mass splitting follows the torus knot ladder:
    each flavor pairs with a baryon resonance via the crossing number.
 """
+
 from __future__ import annotations
 
 
 from math import pi, sqrt
 from ave.core.constants import (
-    ALPHA, M_E, C_0, NU_VAC, P_C, HBAR, L_NODE,
-    ALPHA_S, HIGGS_VEV_MEV, e_charge, SIN2_THETA_W,
+    ALPHA,
+    M_E,
+    C_0,
+    NU_VAC,
+    P_C,
+    HBAR,
+    L_NODE,
+    ALPHA_S,
+    HIGGS_VEV_MEV,
+    e_charge,
+    SIN2_THETA_W,
 )
 
 # Unit conversion factors from canonical e_charge
-_J_PER_MEV = float(e_charge) * 1e6   # 1 MeV in Joules
-_J_PER_EV  = float(e_charge)         # 1 eV in Joules
+_J_PER_MEV = float(e_charge) * 1e6  # 1 MeV in Joules
+_J_PER_EV = float(e_charge)  # 1 eV in Joules
 
 # =============================================================================
 # WEAK MIXING ANGLE (from Poisson ratio, Chapter 4 + Chapter 8)
@@ -59,7 +69,7 @@ _J_PER_EV  = float(e_charge)         # 1 eV in Joules
 
 # Derived from the canonical SIN2_THETA_W imported from constants.py:
 COS2_THETA_W: float = 1.0 - SIN2_THETA_W  # = 7/9 = 0.7778
-SIN_THETA_W: float = sqrt(SIN2_THETA_W)    # = sqrt(2)/3 = 0.47140
+SIN_THETA_W: float = sqrt(SIN2_THETA_W)  # = sqrt(2)/3 = 0.47140
 COS_THETA_W: float = sqrt(COS2_THETA_W)  # = sqrt(7)/3 = 0.88192
 
 # Internal (torsion-shear) coupling from J=2I + nu=2/7:
@@ -87,7 +97,7 @@ _SIN_THETA_W_PAT: float = sqrt(3.0 / 7.0)  # = 0.65465 (Perpendicular Axis Theor
 # DERIVATION OF alpha^2 (two-vertex coupling):
 #   The twist field phi couples to the EM background through the
 #   Axiom 4 dielectric susceptibility:
-#     epsilon(phi) = epsilon_0 * (1 + alpha * f(phi))  
+#     epsilon(phi) = epsilon_0 * (1 + alpha * f(phi))
 #     L_int = (epsilon_0 * alpha / 2) * phi * |E|^2
 #
 #   The self-energy is a TWO-VERTEX process (second-order PT):
@@ -200,12 +210,10 @@ def w_boson_self_consistent_correction(
 
     branch_y = NU_VAC
     z = coordination_z
-    Y_origin_base = float(z * branch_y)   # = 4 * 2/7 ≈ 1.14286
+    Y_origin_base = float(z * branch_y)  # = 4 * 2/7 ≈ 1.14286
 
     # Baseline: depth-1 hard saturation
-    Y_d1 = build_radial_tree_admittance(
-        depth=1, branch_y=branch_y, boundary_y=0.0, coordination_z=z
-    )
+    Y_d1 = build_radial_tree_admittance(depth=1, branch_y=branch_y, boundary_y=0.0, coordination_z=z)
     s11_d1 = float(s11_from_y_matrix(Y_d1, port=0, Y0=1.0).real)
     ml_d1 = 1.0 - s11_d1**2
     m_w_tree_mev = M_W_TREE * C_0**2 / _J_PER_MEV
@@ -236,16 +244,16 @@ def w_boson_self_consistent_correction(
     m_w_sc_mev = m_w_tree_mev / ml_sc
 
     return {
-        "mismatch_loss_d1":  ml_d1,
-        "mismatch_loss_sc":  ml_sc,
-        "S11_d1":            s11_d1,
-        "S11_sc":            s11_i,
-        "M_W_tree_MeV":      m_w_tree_mev,
-        "M_W_d1_MeV":        m_w_d1_mev,
-        "M_W_sc_MeV":        m_w_sc_mev,
-        "n_iter":            n_iter,
-        "delta_Y_origin":    total_delta,
-        "CONVERGED":         converged,
+        "mismatch_loss_d1": ml_d1,
+        "mismatch_loss_sc": ml_sc,
+        "S11_d1": s11_d1,
+        "S11_sc": s11_i,
+        "M_W_tree_MeV": m_w_tree_mev,
+        "M_W_d1_MeV": m_w_d1_mev,
+        "M_W_sc_MeV": m_w_sc_mev,
+        "n_iter": n_iter,
+        "delta_Y_origin": total_delta,
+        "CONVERGED": converged,
     }
 
 
@@ -259,13 +267,13 @@ S11_W_SC: float = _W_SC["S11_sc"]
 # The total mass is corrected by the self-consistent mismatch loss factor
 M_W: float = M_W_TREE / MISMATCH_LOSS_SC
 
-M_W_MEV: float = M_W * C_0**2 / _J_PER_MEV    # approx 80671 MeV
+M_W_MEV: float = M_W * C_0**2 / _J_PER_MEV  # approx 80671 MeV
 
 # The Z boson mass from the W mass and pole mass ratio:
 #   m_W/m_Z = sqrt(7)/3   (from Chapter 8, Perpendicular Axis Theorem)
 #   M_Z = M_W * 3/sqrt(7)
-M_Z: float = M_W * 3.0 / sqrt(7)                     # in kg
-M_Z_MEV: float = M_Z * C_0**2 / _J_PER_MEV      # approx 91472 MeV
+M_Z: float = M_W * 3.0 / sqrt(7)  # in kg
+M_Z_MEV: float = M_Z * C_0**2 / _J_PER_MEV  # approx 91472 MeV
 
 # =============================================================================
 # COSSERAT CHARACTERISTIC LENGTH (Weak Force Range)
@@ -296,7 +304,7 @@ GF_CORRECTED: float = sqrt(2) * pi * ALPHA / (2 * SIN2_THETA_W * M_W_GEV**2)
 # - Together: the neutrino mass is suppressed by alpha × (m_e/M_W)
 #   relative to the electron mass.
 
-M_NU_BASE: float = M_E * ALPHA * (M_E / M_W)        # in kg
+M_NU_BASE: float = M_E * ALPHA * (M_E / M_W)  # in kg
 M_NU_EV: float = M_NU_BASE * C_0**2 / _J_PER_EV  # ≈ 0.024 eV
 
 # Three flavors from the torus knot ladder:
@@ -334,6 +342,7 @@ CROSSING_NUMBERS_NEUTRINO = [5, 7, 9]
 # See: P2.9b Bethe-lattice derivation in research artifacts.
 # ---------------------------------------------------------------------------
 
+
 def neutrino_bethe_ring_eigenvalue(c: int) -> float:
     """
     Normalised K4 Bethe-lattice ring eigenvalue for the (2,c) torus knot (P2.9b).
@@ -356,14 +365,14 @@ def neutrino_bethe_ring_eigenvalue(c: int) -> float:
         Normalised ring eigenvalue (dimensionless, in units of ω_lattice).
     """
     import math as _math
+
     if c < 5 or c % 2 == 0:
         raise ValueError(f"c={c}: neutrino crossing numbers must be odd ≥ 5")
     return 1.5 * float(NU_VAC) * _math.cos(2.0 * _math.pi / c)
 
 
 # Module-level ring eigenvalues for the three flavors
-NU_RING_EIGENVALUES: list = [neutrino_bethe_ring_eigenvalue(c)
-                              for c in CROSSING_NUMBERS_NEUTRINO]
+NU_RING_EIGENVALUES: list = [neutrino_bethe_ring_eigenvalue(c) for c in CROSSING_NUMBERS_NEUTRINO]
 
 # Mass eigenvalues from ring eigenvalue (normalised to nu_3, c=9):
 #   m_c = M_NU_EV * E_res(c) / E_res(9)
@@ -440,23 +449,23 @@ def neutrino_delta_m_sq() -> dict:
     m_sq_7 = (M_NU_EV * e7 / _E0) ** 2
     m_sq_9 = (M_NU_EV * e9 / _E0) ** 2
 
-    dm21_bethe = abs(m_sq_7 - m_sq_5)   # inverted hierarchy: m(c=5) > m(c=7)
+    dm21_bethe = abs(m_sq_7 - m_sq_5)  # inverted hierarchy: m(c=5) > m(c=7)
     dm31_bethe = abs(m_sq_9 - m_sq_5)
     bethe_ratio = dm21_bethe / dm31_bethe if dm31_bethe > 0 else 0.0
 
     # Structural estimate from junction coupling argument
     c1, c2 = 5, 7
-    structural_ratio_est = 1.0 / (c1 * c2)   # = 1/35
+    structural_ratio_est = 1.0 / (c1 * c2)  # = 1/35
 
-    pdg_ratio = 7.53e-5 / 2.51e-3             # ≈ 0.02998
+    pdg_ratio = 7.53e-5 / 2.51e-3  # ≈ 0.02998
 
     return {
-        "bethe_ratio":              bethe_ratio,
-        "structural_ratio_est":     structural_ratio_est,
-        "pdg_ratio":                pdg_ratio,
-        "structural_ratio_error":   abs(structural_ratio_est - pdg_ratio) / pdg_ratio,
-        "delta_m21_sq_eV2_bethe":   dm21_bethe,
-        "delta_m31_sq_eV2_bethe":   dm31_bethe,
+        "bethe_ratio": bethe_ratio,
+        "structural_ratio_est": structural_ratio_est,
+        "pdg_ratio": pdg_ratio,
+        "structural_ratio_error": abs(structural_ratio_est - pdg_ratio) / pdg_ratio,
+        "delta_m21_sq_eV2_bethe": dm21_bethe,
+        "delta_m31_sq_eV2_bethe": dm31_bethe,
         "open_problem": (
             "Torsional self-energy Σ_ii of (2,c) knot in K4 vacuum. "
             "Required to shift ratio from 0.5968 (Bethe) toward 0.02998 (PDG). "
@@ -503,8 +512,7 @@ def neutrino_flavor_spectrum() -> dict:
         dict with neutrino flavor spectrum and splitting information.
     """
     crossings = [5, 7, 9]
-    flavors_ev = [M_NU_EV * (neutrino_bethe_ring_eigenvalue(c) / _E0)
-                  for c in crossings]
+    flavors_ev = [M_NU_EV * (neutrino_bethe_ring_eigenvalue(c) / _E0) for c in crossings]
     m1, m2, m3 = flavors_ev
 
     dm21_sq = abs(m2**2 - m1**2)
@@ -515,19 +523,18 @@ def neutrino_flavor_spectrum() -> dict:
     dms = neutrino_delta_m_sq()
 
     return {
-        "crossing_numbers":       crossings,
-        "M_nu_base_eV":           M_NU_EV,
-        "M_nu_flavors_eV":        flavors_ev,
-        "M_nu_flavors_meV":       [f * 1000 for f in flavors_ev],
-        "sum_M_nu_eV":            sum_ev,
-        "mass_ratios":            [neutrino_bethe_ring_eigenvalue(c) / _E0
-                                   for c in crossings],
-        "delta_m21_sq_eV2":       dm21_sq,
-        "delta_m31_sq_eV2":       dm31_sq,
-        "planck_bound_ok":        sum_ev < 0.12,
-        "bethe_splitting_ratio":  bethe_ratio,
-        "structural_ratio_est":   dms["structural_ratio_est"],
-        "open_problem":           dms["open_problem"],
+        "crossing_numbers": crossings,
+        "M_nu_base_eV": M_NU_EV,
+        "M_nu_flavors_eV": flavors_ev,
+        "M_nu_flavors_meV": [f * 1000 for f in flavors_ev],
+        "sum_M_nu_eV": sum_ev,
+        "mass_ratios": [neutrino_bethe_ring_eigenvalue(c) / _E0 for c in crossings],
+        "delta_m21_sq_eV2": dm21_sq,
+        "delta_m31_sq_eV2": dm31_sq,
+        "planck_bound_ok": sum_ev < 0.12,
+        "bethe_splitting_ratio": bethe_ratio,
+        "structural_ratio_est": dms["structural_ratio_est"],
+        "open_problem": dms["open_problem"],
     }
 
 
@@ -564,12 +571,12 @@ _NU_SPECTRUM = neutrino_flavor_spectrum()
 #   M_W / m_mu = 1/(alpha * p_c) = 1/(8*pi*alpha^2)
 
 # Muon mass — single torsional coupling (kappa sector)
-M_MU: float = M_E / (ALPHA * _SIN_THETA_W_PAT)       # in kg
-M_MU_MEV: float = M_MU * C_0**2 / _J_PER_MEV     # approx 107.0 MeV (exp: 105.66, +1.24%)
+M_MU: float = M_E / (ALPHA * _SIN_THETA_W_PAT)  # in kg
+M_MU_MEV: float = M_MU * C_0**2 / _J_PER_MEV  # approx 107.0 MeV (exp: 105.66, +1.24%)
 
 # Tau mass — full bending stiffness (gamma_C sector)
-M_TAU: float = M_E * P_C / ALPHA**2                    # in kg
-M_TAU_MEV: float = M_TAU * C_0**2 / _J_PER_MEV    # approx 1760 MeV (exp: 1776.9, -0.95%)
+M_TAU: float = M_E * P_C / ALPHA**2  # in kg
+M_TAU_MEV: float = M_TAU * C_0**2 / _J_PER_MEV  # approx 1760 MeV (exp: 1776.9, -0.95%)
 
 # =============================================================================
 # QUARK MASS SPECTRUM (Cosserat Projections)

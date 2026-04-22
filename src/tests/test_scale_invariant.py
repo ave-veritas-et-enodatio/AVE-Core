@@ -23,13 +23,20 @@ from ave.axioms.scale_invariant import (
     impedance_at_strain,
 )
 from ave.core.constants import (
-    EPSILON_0, MU_0, C_0, Z_0, V_SNAP, B_SNAP, ALPHA,
+    EPSILON_0,
+    MU_0,
+    C_0,
+    Z_0,
+    V_SNAP,
+    B_SNAP,
+    ALPHA,
 )
 
 
 # ═══════════════════════════════════════════════════════════════
 # impedance: Z = √(μ/ε)
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestImpedance:
     """The universal impedance operator."""
@@ -61,6 +68,7 @@ class TestImpedance:
 # ═══════════════════════════════════════════════════════════════
 # saturation_factor: √(1 − (A/A_yield)²) — the single nonlinearity
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestSaturationFactor:
     """The universal saturation kernel — Axiom 4 at every scale."""
@@ -102,7 +110,7 @@ class TestSaturationFactor:
         A = 50.0
         A_yield = 100.0
         S = float(saturation_factor(A, A_yield))
-        expected = np.sqrt(1.0 - (50.0 / 100.0)**2)
+        expected = np.sqrt(1.0 - (50.0 / 100.0) ** 2)
         assert S == pytest.approx(expected, rel=1e-12)
 
     def test_array_input(self):
@@ -116,6 +124,7 @@ class TestSaturationFactor:
 # ═══════════════════════════════════════════════════════════════
 # reflection_coefficient: Γ = (Z₂ − Z₁) / (Z₂ + Z₁)
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestReflectionCoefficient:
     """The universal boundary operator — every scale, every domain."""
@@ -135,8 +144,8 @@ class TestReflectionCoefficient:
 
     def test_moho_reflection(self):
         """Seismic Moho: Γ ≈ 0.17 for typical crust/mantle impedances."""
-        Z_crust = 2900 * 6500     # Lower crust: ρ × V_p
-        Z_mantle = 3300 * 8100    # Upper mantle: ρ × V_p
+        Z_crust = 2900 * 6500  # Lower crust: ρ × V_p
+        Z_mantle = 3300 * 8100  # Upper mantle: ρ × V_p
         gamma = float(reflection_coefficient(Z_crust, Z_mantle))
         assert 0.10 < gamma < 0.25  # Reasonable Moho value
 
@@ -156,6 +165,7 @@ class TestReflectionCoefficient:
 # Cross-scale identity: saturation.py ≡ scale_invariant
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestCrossScaleIdentity:
     """Prove that the old saturation.py API calls the same math."""
 
@@ -173,6 +183,7 @@ class TestCrossScaleIdentity:
         from ave.axioms.saturation import (
             reflection_coefficient as sat_gamma,
         )
+
         for Z in [0.0, 1.0, 100.0, Z_0, 1e6]:
             old = sat_gamma(Z, Z_0)
             new = float(reflection_coefficient(Z_0, Z))
@@ -183,6 +194,7 @@ class TestCrossScaleIdentity:
         from ave.axioms.saturation import (
             impedance_at_strain as sat_z_strain,
         )
+
         V_test = np.linspace(0, 0.99 * V_SNAP, 50)
         old = sat_z_strain(V_test, V_SNAP)
         new = impedance_at_strain(V_test, V_SNAP, Z_0, clip=True)
@@ -191,6 +203,7 @@ class TestCrossScaleIdentity:
     def test_local_wave_speed_matches(self):
         """saturation.local_wave_speed ≡ scale_invariant version."""
         from ave.axioms.saturation import local_wave_speed as sat_lws
+
         V_test = np.linspace(0, 0.99 * V_SNAP, 50)
         old = sat_lws(V_test, V_SNAP)
         new = local_wave_speed(V_test, V_SNAP, C_0, clip=True)
@@ -202,9 +215,10 @@ class TestCrossScaleIdentity:
             reflection_coefficient as seismic_gamma,
             PREM_LAYERS,
         )
+
         # Compute Moho reflection manually
         Z1 = PREM_LAYERS[1].acoustic_impedance_p  # Lower crust
         Z2 = PREM_LAYERS[2].acoustic_impedance_p  # Upper mantle
         universal = float(reflection_coefficient(Z1, Z2))
-        seismic = seismic_gamma(PREM_LAYERS[1], PREM_LAYERS[2], 'p')
+        seismic = seismic_gamma(PREM_LAYERS[1], PREM_LAYERS[2], "p")
         assert universal == pytest.approx(seismic, rel=1e-12)

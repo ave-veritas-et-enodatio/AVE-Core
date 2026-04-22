@@ -4,17 +4,28 @@ Tests for the Universal Regime Map
 Verifies that every domain classifier maps known physical objects
 to the correct regime.
 """
+
 import pytest
 import numpy as np
 from ave.core.regime_map import (
     classify_regime,
-    em_voltage_regime, em_field_regime,
-    gravity_regime, bcs_regime, magnetic_regime,
-    nuclear_regime, gw_regime, protein_regime,
+    em_voltage_regime,
+    em_field_regime,
+    gravity_regime,
+    bcs_regime,
+    magnetic_regime,
+    nuclear_regime,
+    gw_regime,
+    protein_regime,
     galactic_regime,
     identify_regime,
-    REGIME_LINEAR, REGIME_NONLINEAR, REGIME_YIELD, REGIME_RUPTURED,
-    R_LINEAR_MAX, R_NONLINEAR_MAX, R_YIELD_MAX,
+    REGIME_LINEAR,
+    REGIME_NONLINEAR,
+    REGIME_YIELD,
+    REGIME_RUPTURED,
+    R_LINEAR_MAX,
+    R_NONLINEAR_MAX,
+    R_YIELD_MAX,
     regime_equations,
     TRANSITION_NAMES,
 )
@@ -134,8 +145,7 @@ class TestIdentifyRegime:
         assert info.domain == "EM (dielectric)"
 
     def test_gravity(self):
-        info = identify_regime("gravity", verbose=False,
-                               M_kg=1.989e30, r_meters=6.96e8)
+        info = identify_regime("gravity", verbose=False, M_kg=1.989e30, r_meters=6.96e8)
         assert info.regime == REGIME_LINEAR
 
     def test_gw(self):
@@ -143,8 +153,7 @@ class TestIdentifyRegime:
         assert info.regime == REGIME_LINEAR
 
     def test_generic(self):
-        info = identify_regime("generic", verbose=False,
-                               A=0.5, Ac=1.0)
+        info = identify_regime("generic", verbose=False, A=0.5, Ac=1.0)
         assert info.regime == REGIME_NONLINEAR
 
     def test_invalid_domain_raises(self):
@@ -193,7 +202,7 @@ class TestGravityDomain:
         In AVE, the NS surface is INSIDE the saturation boundary, which
         is the AVE analog of the Buchdahl limit."""
         M_ns = 2.8e30  # ~1.4 M_sun
-        r_ns = 1e4      # 10 km
+        r_ns = 1e4  # 10 km
         info = gravity_regime(M_ns, r_ns)
         assert info.regime == REGIME_RUPTURED
         assert info.r > 1.0
@@ -202,7 +211,7 @@ class TestGravityDomain:
         """At r = r_s = 2GM/c², ε₁₁ = 7GM/(c²r) = 7/2 = 3.5 → Regime IV."""
         M = 10 * 1.989e30  # 10 solar masses
         G = 6.67430e-11
-        r_s = 2 * G * M / (3e8)**2
+        r_s = 2 * G * M / (3e8) ** 2
         info = gravity_regime(M, r_s)
         assert info.regime == REGIME_RUPTURED
 
@@ -296,4 +305,3 @@ class TestSummaryOutput:
         s = info.summary()
         assert "NONLINEAR" in s or "Large-Signal" in s
         assert "30000" in s or "3.0000e+04" in s
-

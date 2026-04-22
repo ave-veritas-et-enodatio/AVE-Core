@@ -32,10 +32,7 @@ from ave.solvers.spice_netlist_compiler import (
 
 # Skip all ngspice tests if not installed
 NGSPICE_AVAILABLE = shutil.which("ngspice") is not None
-ngspice_required = pytest.mark.skipif(
-    not NGSPICE_AVAILABLE,
-    reason="ngspice not installed (optional dependency)"
-)
+ngspice_required = pytest.mark.skipif(not NGSPICE_AVAILABLE, reason="ngspice not installed (optional dependency)")
 
 
 class TestSaturationKernelConsistency:
@@ -85,9 +82,7 @@ class TestNgspiceDCSweep:
 
     def test_dc_sweep_runs(self):
         """Verify ngspice can parse and execute the EE bench netlist."""
-        netlist = compile_ee_bench_dc_sweep(
-            c0=10e-12, v_max=40000.0, v_step=1000.0
-        )
+        netlist = compile_ee_bench_dc_sweep(c0=10e-12, v_max=40000.0, v_step=1000.0)
 
         with tempfile.TemporaryDirectory() as tmpdir:
             cir_path = write_netlist(netlist, Path(tmpdir) / "ee_bench.cir")
@@ -101,8 +96,7 @@ class TestNgspiceDCSweep:
 
             # ngspice should complete without error
             assert result.returncode == 0, (
-                f"ngspice failed:\nstdout: {result.stdout[:500]}\n"
-                f"stderr: {result.stderr[:500]}"
+                f"ngspice failed:\nstdout: {result.stdout[:500]}\n" f"stderr: {result.stderr[:500]}"
             )
 
     def test_lib_syntax_valid(self):
@@ -128,9 +122,7 @@ R1 N1 GND 1G
                 timeout=15,
             )
 
-            assert result.returncode == 0, (
-                f"Library parse failed:\n{result.stderr[:500]}"
-            )
+            assert result.returncode == 0, f"Library parse failed:\n{result.stderr[:500]}"
 
 
 @ngspice_required
@@ -166,9 +158,7 @@ R_TERM N_OUT GND 50
                 timeout=30,
             )
 
-            assert result.returncode == 0, (
-                f"Resonance sim failed:\n{result.stderr[:500]}"
-            )
+            assert result.returncode == 0, f"Resonance sim failed:\n{result.stderr[:500]}"
             # Verify expected resonance is in the right ballpark
             # (detailed output parsing would require raw data export)
             assert f_expected > 4e9 and f_expected < 6e9

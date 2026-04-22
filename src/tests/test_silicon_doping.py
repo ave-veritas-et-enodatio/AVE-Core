@@ -9,8 +9,10 @@ Phase 5 verification.
 import numpy as np
 import pytest
 from ave.condensed.silicon_doping import (
-    Z_BORON, Z_PHOSPHORUS,
-    R_VAL_BORON, R_VAL_PHOSPHORUS,
+    Z_BORON,
+    Z_PHOSPHORUS,
+    R_VAL_BORON,
+    R_VAL_PHOSPHORUS,
     boron_impurity_level,
     phosphorus_impurity_level,
     pn_junction,
@@ -21,6 +23,7 @@ from ave.condensed.silicon_doping import (
 # ═══════════════════════════════════════════════════════════════════
 # Dopant Properties
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDopantConstants:
     def test_boron_Z(self):
@@ -38,67 +41,70 @@ class TestDopantConstants:
 # Impurity Levels
 # ═══════════════════════════════════════════════════════════════════
 
+
 class TestBoronImpurity:
     def test_acceptor_type(self):
         result = boron_impurity_level()
-        assert result['type'] == 'acceptor (hole)'
+        assert result["type"] == "acceptor (hole)"
 
     def test_above_valence_band(self):
         result = boron_impurity_level()
-        assert result['position'] == 'above valence band'
+        assert result["position"] == "above valence band"
 
     def test_delta_E_positive(self):
         result = boron_impurity_level()
-        assert result['delta_E_eV'] >= 0
+        assert result["delta_E_eV"] >= 0
 
     def test_delta_E_less_than_gap(self):
         """Impurity level must be within the gap, not above it."""
         result = boron_impurity_level()
-        assert result['delta_E_eV'] < result['E_gap_Si_eV']
+        assert result["delta_E_eV"] < result["E_gap_Si_eV"]
 
 
 class TestPhosphorusImpurity:
     def test_donor_type(self):
         result = phosphorus_impurity_level()
-        assert result['type'] == 'donor (electron)'
+        assert result["type"] == "donor (electron)"
 
     def test_below_conduction_band(self):
         result = phosphorus_impurity_level()
-        assert result['position'] == 'below conduction band'
+        assert result["position"] == "below conduction band"
 
     def test_delta_E_positive(self):
         result = phosphorus_impurity_level()
-        assert result['delta_E_eV'] >= 0
+        assert result["delta_E_eV"] >= 0
 
     def test_delta_E_less_than_gap(self):
         result = phosphorus_impurity_level()
-        assert result['delta_E_eV'] < result['E_gap_Si_eV']
+        assert result["delta_E_eV"] < result["E_gap_Si_eV"]
 
 
 # ═══════════════════════════════════════════════════════════════════
 # p-n Junction
 # ═══════════════════════════════════════════════════════════════════
 
+
 class TestPNJunction:
     def test_built_in_potential_positive(self):
         """Built-in potential must be positive (P-side higher)."""
         junction = pn_junction()
-        assert junction['V_bi_eV'] > 0
+        assert junction["V_bi_eV"] > 0
 
     def test_built_in_potential_less_than_gap(self):
         """V_bi must be less than the band gap."""
         junction = pn_junction()
-        assert junction['V_bi_eV'] < junction['E_gap_eV']
+        assert junction["V_bi_eV"] < junction["E_gap_eV"]
 
     def test_transmission_coefficient_range(self):
         """T² must be between 0 and 1."""
         junction = pn_junction()
-        assert 0 < junction['T_sq_junction'] <= 1.0
+        assert 0 < junction["T_sq_junction"] <= 1.0
 
 
 # ═══════════════════════════════════════════════════════════════════
 # Diode I-V Characteristic
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDiodeIV:
     def test_zero_current_at_zero_voltage(self):

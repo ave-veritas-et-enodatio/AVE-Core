@@ -9,6 +9,7 @@ Each rule gets two fixtures:
 
 Reference: src/scripts/defense_context_checker.py
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -105,8 +106,7 @@ class TestMillenniumProofs:
         p = _write(
             tmp_path,
             "bad.md",
-            "The Yang-Mills mass gap is proved via the Axiom 4 saturation "
-            "kernel applied to the Wilson action.",
+            "The Yang-Mills mass gap is proved via the Axiom 4 saturation " "kernel applied to the Wilson action.",
         )
         findings = scan_file(p, _rules_for("B2"))
         assert len(findings) >= 1
@@ -115,8 +115,7 @@ class TestMillenniumProofs:
         p = _write(
             tmp_path,
             "bad.md",
-            "The Navier-Stokes smoothness problem is solved by the discrete "
-            "lattice floor at ℓ_node.",
+            "The Navier-Stokes smoothness problem is solved by the discrete " "lattice floor at ℓ_node.",
         )
         findings = scan_file(p, _rules_for("B2"))
         assert len(findings) >= 1
@@ -173,8 +172,7 @@ class TestNonIntegerCoordination:
         p = _write(
             tmp_path,
             "good.tex",
-            r"In the Phillips-Thorpe rigidity framework, $z_0 \approx 51.25$ "
-            r"is the glass-transition coordination.",
+            r"In the Phillips-Thorpe rigidity framework, $z_0 \approx 51.25$ " r"is the glass-transition coordination.",
         )
         findings = scan_file(p, _rules_for("A3"))
         assert findings == []
@@ -188,8 +186,7 @@ class TestExactPredictionClassification:
         p = _write(
             tmp_path,
             "bad.md",
-            "| 2 | Z₀ from Axiom 1 | 0.00% | ✅ |\n"
-            "| 42 | α invariance under gravity | Exact | ✅ |",
+            "| 2 | Z₀ from Axiom 1 | 0.00% | ✅ |\n" "| 42 | α invariance under gravity | Exact | ✅ |",
         )
         findings = scan_file(p, _rules_for("A1"))
         assert len(findings) >= 1
@@ -222,8 +219,7 @@ class TestAntiCheatBadgeScope:
         p = _write(
             tmp_path,
             "bad.md",
-            "The verify_universe.py scan confirms zero smuggled parameters "
-            "across the entire codebase.",
+            "The verify_universe.py scan confirms zero smuggled parameters " "across the entire codebase.",
         )
         findings = scan_file(p, _rules_for("C2"))
         assert len(findings) >= 1
@@ -277,6 +273,7 @@ class TestEndToEnd:
     def test_all_rules_compile(self):
         """Every rule's pattern and mitigator must be valid regex."""
         import re
+
         for rule in RULES:
             re.compile(rule.pattern)
             if rule.mitigator is not None:

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 """
 Axiom 4: Dielectric Saturation
 ================================
@@ -57,6 +58,7 @@ from ave.axioms.scale_invariant import (
 # Thin wrappers with Axiom-4 defaults
 # ═══════════════════════════════════════════════════════════════
 
+
 def epsilon_eff(V, V_yield: float = V_YIELD):
     """
     Non-linear effective permittivity: ε_eff(V) = ε₀ · √(1 − (V/V_yield)²)
@@ -101,6 +103,7 @@ def impedance_at_strain(V: np.ndarray, V_yield: float = V_YIELD) -> np.ndarray:
 # Unique domain-specific functions (NOT in scale_invariant)
 # ═══════════════════════════════════════════════════════════════
 
+
 def capacitance_eff(
     dphi: np.ndarray | float,
     alpha: float = ALPHA,
@@ -122,12 +125,9 @@ def capacitance_eff(
     Returns:
         Effective capacitance ratio (C_eff / C₀).
     """
-    ratio_sq = np.asarray(dphi, dtype=float)**2 / alpha**2
+    ratio_sq = np.asarray(dphi, dtype=float) ** 2 / alpha**2
     if np.any(ratio_sq >= 1.0):
-        raise ValueError(
-            f"Capacitance singularity: |Δφ/α| ≥ 1.0. "
-            f"Max ratio² = {np.max(ratio_sq):.6f}."
-        )
+        raise ValueError(f"Capacitance singularity: |Δφ/α| ≥ 1.0. " f"Max ratio² = {np.max(ratio_sq):.6f}.")
     return 1.0 / np.sqrt(1.0 - ratio_sq)
 
 

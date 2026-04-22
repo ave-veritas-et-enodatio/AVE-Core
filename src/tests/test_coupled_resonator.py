@@ -25,6 +25,7 @@ from ave.solvers.coupled_resonator import (
 # Graph Theory
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestCompleteGraphEigenvalues:
     def test_K2_eigenvalues(self):
         lam = complete_graph_eigenvalues(2)
@@ -43,6 +44,7 @@ class TestCompleteGraphEigenvalues:
 # ═══════════════════════════════════════════════════════════════════════
 # Nuclear Binding
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestNuclearBinding:
     def test_deuteron_binding_positive(self):
@@ -70,6 +72,7 @@ class TestNuclearBinding:
 # Atomic Ionization
 # ═══════════════════════════════════════════════════════════════════════
 
+
 class TestIonizationEnergy:
     def test_hydrogen_ie(self):
         IE = ionization_energy(1)
@@ -89,6 +92,7 @@ class TestIonizationEnergy:
 # ═══════════════════════════════════════════════════════════════════════
 # Molecular Bonds
 # ═══════════════════════════════════════════════════════════════════════
+
 
 class TestMolecularBonds:
     def test_bond_distance_positive(self):
@@ -115,26 +119,26 @@ class TestMolecularBonds:
         IE_O = ionization_energy(8)
         r_C = atom_port_impedance(6, IE_C)
         r_O = atom_port_impedance(8, IE_O)
-        
+
         # Test C-C (Order 1): NIST 1.540 A. N_eff = 3
         d_cc = molecular_bond_distance(r_C, r_C, Z_A=6, Z_B=6, bond_order=1)
         # 1.503 A (-2.4%)
         assert 1.45 < d_cc * 1e10 < 1.55
-        
+
         # Test C=C (Order 2): NIST 1.340 A. N_eff = 5
         d_c_c = molecular_bond_distance(r_C, r_C, Z_A=6, Z_B=6, bond_order=2)
         # 1.294 A (-3.5%)
         assert 1.25 < d_c_c * 1e10 < 1.35
-        
+
         # Test C#C (Order 3): NIST 1.200 A. N_eff = 7
         d_c_t_c = molecular_bond_distance(r_C, r_C, Z_A=6, Z_B=6, bond_order=3)
         # 1.148 A (-4.3%)
         assert 1.10 < d_c_t_c * 1e10 < 1.21
-        
+
         # Test C=O (Order 2 heteronuclear): NIST 1.230 A. N_eff = 5
         d_c_o = molecular_bond_distance(r_C, r_O, Z_A=6, Z_B=8, bond_order=2)
         # 1.237 A (+0.6%)
         assert 1.20 < d_c_o * 1e10 < 1.28
-        
+
         # Verify ordering
         assert d_cc > d_c_c > d_c_t_c

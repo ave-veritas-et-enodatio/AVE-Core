@@ -28,18 +28,19 @@ from ave.topological.cosserat import (
 # ---------------------------------------------------------------------------
 # PDG / CODATA reference values
 # ---------------------------------------------------------------------------
-PDG_SIN2_THETA_W_ONSHELL = 0.2230    # on-shell scheme
-PDG_M_W_MEV = 80_379.0               # W boson mass
-PDG_M_Z_MEV = 91_188.0               # Z boson mass
-PDG_M_MU_MEV = 105.658               # Muon mass
-PDG_M_TAU_MEV = 1776.86              # Tau mass
-PLANCK_SUM_MNU_BOUND_EV = 0.12       # Cosmological upper bound
+PDG_SIN2_THETA_W_ONSHELL = 0.2230  # on-shell scheme
+PDG_M_W_MEV = 80_379.0  # W boson mass
+PDG_M_Z_MEV = 91_188.0  # Z boson mass
+PDG_M_MU_MEV = 105.658  # Muon mass
+PDG_M_TAU_MEV = 1776.86  # Tau mass
+PLANCK_SUM_MNU_BOUND_EV = 0.12  # Cosmological upper bound
 SCHWINGER_G2 = 1.0 / (2 * math.pi) * (1.0 / 137.035999084)  # alpha/(2*pi)
 
 
 # ---------------------------------------------------------------------------
 # Tests
 # ---------------------------------------------------------------------------
+
 
 class TestWeakMixingAngle:
     """sin²θ_W = 2/9 from the Perpendicular Axis Theorem."""
@@ -102,6 +103,7 @@ class TestSchwingerGMinus2:
 
     def test_exact_formula(self):
         from ave.core.constants import ALPHA
+
         expected = ALPHA / (2 * math.pi)
         assert G_MINUS_2_TREE == pytest.approx(expected, rel=1e-10)
 
@@ -121,5 +123,6 @@ class TestMassHierarchy:
 
     def test_ordering(self):
         from ave.core.constants import M_E, C_0
+
         M_E_MEV = M_E * C_0**2 / 1.602176634e-13
         assert M_E_MEV < M_MU_MEV < M_TAU_MEV < M_W_MEV < M_Z_MEV

@@ -55,12 +55,12 @@ class TestMixingAngle:
         """At resonance: θ_m → π/4."""
         n_res = msw_resonance_density(10.0)
         theta = effective_mixing_angle(n_res, 10.0)
-        assert theta == pytest.approx(np.pi/4, abs=0.05)
+        assert theta == pytest.approx(np.pi / 4, abs=0.05)
 
     def test_angle_in_range(self):
         """θ_m must be in [0, π/2]."""
         theta = effective_mixing_angle(1e30, 10.0)
-        assert 0 <= theta <= np.pi/2
+        assert 0 <= theta <= np.pi / 2
 
 
 class TestResonanceDensity:
@@ -110,14 +110,14 @@ class TestImpedanceAnalogy:
     def test_basic_output(self):
         """Should return a dict with expected keys."""
         result = impedance_analogy(1e30, 10.0)
-        assert 'gamma_mode' in result
-        assert 'P_ee' in result
-        assert 'theta_m_deg' in result
+        assert "gamma_mode" in result
+        assert "P_ee" in result
+        assert "theta_m_deg" in result
 
     def test_vacuum_no_mismatch(self):
         """In vacuum, Z_e ≈ Z_μ → Γ ≈ 0."""
         result = impedance_analogy(0.0, 10.0)
-        assert abs(result['gamma_mode']) < 0.1
+        assert abs(result["gamma_mode"]) < 0.1
 
 
 class TestSolarProfile:
@@ -126,6 +126,6 @@ class TestSolarProfile:
     def test_profile_runs(self):
         """Profile should produce valid arrays."""
         result = solar_msw_profile(10.0, n_points=50)
-        assert len(result['P_ee']) == 50
-        assert np.all(result['P_ee'] >= 0)
-        assert np.all(result['P_ee'] <= 1)
+        assert len(result["P_ee"]) == 50
+        assert np.all(result["P_ee"] >= 0)
+        assert np.all(result["P_ee"] <= 1)

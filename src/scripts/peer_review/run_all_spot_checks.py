@@ -6,6 +6,7 @@ Runs all volume spot-check scripts in sequence and reports pass/fail.
 
 Run: PYTHONPATH=src python src/scripts/peer_review/run_all_spot_checks.py
 """
+
 import subprocess
 import sys
 import os

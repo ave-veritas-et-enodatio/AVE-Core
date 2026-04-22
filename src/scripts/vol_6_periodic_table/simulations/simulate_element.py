@@ -9,19 +9,30 @@ Electrical Engineering mutual impedance / reactive coupling (M_ij ~ 1/d).
 Proves that overlapping non-linear vacuum topologies reduce the total stored
 network energy identically to empirical CODATA mass measurements.
 """
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p/".git").is_dir())
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 # Custom Modules
 # Ensure local module resolution
 from .spice_exporter import generate_spice_netlist
 
 # Import derived constants from the AVE physics engine
-from ave.core.constants import K_MUTUAL, ALPHA, M_E, C_0, e_charge, HBAR, M_P_MEV_TARGET, M_N_MEV_TARGET, D_PROTON
+from ave.core.constants import (
+    K_MUTUAL,
+    ALPHA,
+    M_E,
+    C_0,
+    e_charge,
+    HBAR,
+    M_P_MEV_TARGET,
+    M_N_MEV_TARGET,
+    D_PROTON,
+)
 
 # Fundamental Constants (MeV domain)
 # ME_MEV imported from physics engine for cross-validation
@@ -54,11 +65,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         # To match the empirical mass defect (~8.48 MeV), the nodes are pushed extremely far apart (~3.5d)
         # because they lack the symmetry to collapse into a stable core.
         stretch = 3.5 * d
-        return [
-            (0, 0, 0),        # Proton
-            (stretch, 0, 0),  # Neutron 1
-            (-stretch, 0, 0)  # Neutron 2
-        ]
+        return [(0, 0, 0), (stretch, 0, 0), (-stretch, 0, 0)]  # Proton  # Neutron 1  # Neutron 2
 
     elif Z == 2 and A == 3:
         # Helium-3 (2p, 1n): The stable beta-decay daughter of Tritium.
@@ -67,18 +74,13 @@ def get_nucleon_coordinates(Z, A, d=None):
         tight = 1.18 * d
         return [
             (tight, 0, 0),
-            (-tight/2, tight*np.sqrt(3)/2, 0),
-            (-tight/2, -tight*np.sqrt(3)/2, 0)
+            (-tight / 2, tight * np.sqrt(3) / 2, 0),
+            (-tight / 2, -tight * np.sqrt(3) / 2, 0),
         ]
 
     elif Z == 2 and A == 4:
         # Helium-4: Perfectly symmetrical tetrahedral Alpha Core
-        return [
-            (d, d, d),
-            (-d, -d, d),
-            (-d, d, -d),
-            (d, -d, -d)
-        ]
+        return [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]
 
     elif Z == 3 and A == 7:
         # Lithium-7: Alpha Core + Asymmetrical Outer Shell (1p, 2n)
@@ -86,11 +88,14 @@ def get_nucleon_coordinates(Z, A, d=None):
         outer = 9.726 * d
         return [
             # Alpha Core
-            (d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d),
+            (d, d, d),
+            (-d, -d, d),
+            (-d, d, -d),
+            (d, -d, -d),
             # Outer Shell
             (outer, -outer, outer),
             (-outer, -outer, -outer),
-            (outer, outer, -outer)
+            (outer, outer, -outer),
         ]
 
     elif Z == 4 and A == 9:
@@ -103,16 +108,16 @@ def get_nucleon_coordinates(Z, A, d=None):
         outer = 2.5 * d
 
         alpha_1 = [
-            (-outer+d_stretch, d_stretch, d_stretch),
-            (-outer-d_stretch, -d_stretch, d_stretch),
-            (-outer-d_stretch, d_stretch, -d_stretch),
-            (-outer+d_stretch, -d_stretch, -d_stretch)
+            (-outer + d_stretch, d_stretch, d_stretch),
+            (-outer - d_stretch, -d_stretch, d_stretch),
+            (-outer - d_stretch, d_stretch, -d_stretch),
+            (-outer + d_stretch, -d_stretch, -d_stretch),
         ]
         alpha_2 = [
-            (outer+d_stretch, d_stretch, d_stretch),
-            (outer-d_stretch, -d_stretch, d_stretch),
-            (outer-d_stretch, d_stretch, -d_stretch),
-            (outer+d_stretch, -d_stretch, -d_stretch)
+            (outer + d_stretch, d_stretch, d_stretch),
+            (outer - d_stretch, -d_stretch, d_stretch),
+            (outer - d_stretch, d_stretch, -d_stretch),
+            (outer + d_stretch, -d_stretch, -d_stretch),
         ]
         bridge_neutron = [(0, 0, 0)]
 
@@ -123,8 +128,8 @@ def get_nucleon_coordinates(Z, A, d=None):
         # Because the mutual induction bridge M_bridge is missing, the two Alpha cores
         # instantly repel and shatter. We model this as widely separated independent cores.
         outer = 15.0 * d
-        alpha_1 = [(x-outer, y, z) for x, y, z in [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]]
-        alpha_2 = [(x+outer, y, z) for x, y, z in [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]]
+        alpha_1 = [(x - outer, y, z) for x, y, z in [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]]
+        alpha_2 = [(x + outer, y, z) for x, y, z in [(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)]]
         return alpha_1 + alpha_2
 
     elif Z == 5 and A == 11:
@@ -136,7 +141,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         shell = []
         for i in range(7):
             theta = 2 * np.pi * i / golden_ratio
-            phi = np.arccos(1 - 2*(i+0.5)/7)
+            phi = np.arccos(1 - 2 * (i + 0.5) / 7)
             x = shell_dist * np.cos(theta) * np.sin(phi)
             y = shell_dist * np.sin(theta) * np.sin(phi)
             z = shell_dist * np.cos(phi)
@@ -179,7 +184,7 @@ def get_nucleon_coordinates(Z, A, d=None):
             (0.7292, -1.4506, -21.4077),
             (7.0937, 2.8415, 3.3257),
             (-0.1658, -7.4184, 3.5089),
-            (-0.5181, -6.0310, 1.2791)
+            (-0.5181, -6.0310, 1.2791),
         ]
 
     elif Z == 8 and A == 16:
@@ -193,15 +198,15 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         # Tetrahedron geometric vertices
         macro_centers = [
-            (r_tet/np.sqrt(3), r_tet/np.sqrt(3), r_tet/np.sqrt(3)),
-            (-r_tet/np.sqrt(3), -r_tet/np.sqrt(3), r_tet/np.sqrt(3)),
-            (-r_tet/np.sqrt(3), r_tet/np.sqrt(3), -r_tet/np.sqrt(3)),
-            (r_tet/np.sqrt(3), -r_tet/np.sqrt(3), -r_tet/np.sqrt(3))
+            (r_tet / np.sqrt(3), r_tet / np.sqrt(3), r_tet / np.sqrt(3)),
+            (-r_tet / np.sqrt(3), -r_tet / np.sqrt(3), r_tet / np.sqrt(3)),
+            (-r_tet / np.sqrt(3), r_tet / np.sqrt(3), -r_tet / np.sqrt(3)),
+            (r_tet / np.sqrt(3), -r_tet / np.sqrt(3), -r_tet / np.sqrt(3)),
         ]
 
         for center in macro_centers:
             for node in alpha_base:
-                nodes.append((node[0]+center[0], node[1]+center[1], node[2]+center[2]))
+                nodes.append((node[0] + center[0], node[1] + center[1], node[2] + center[2]))
 
         return nodes
 
@@ -214,12 +219,14 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         # 1. Oxygen-16 Core Array
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
-        macro_centers = np.array([
-            (r_tet/np.sqrt(3), r_tet/np.sqrt(3), r_tet/np.sqrt(3)),
-            (-r_tet/np.sqrt(3), -r_tet/np.sqrt(3), r_tet/np.sqrt(3)),
-            (-r_tet/np.sqrt(3), r_tet/np.sqrt(3), -r_tet/np.sqrt(3)),
-            (r_tet/np.sqrt(3), -r_tet/np.sqrt(3), -r_tet/np.sqrt(3))
-        ])
+        macro_centers = np.array(
+            [
+                (r_tet / np.sqrt(3), r_tet / np.sqrt(3), r_tet / np.sqrt(3)),
+                (-r_tet / np.sqrt(3), -r_tet / np.sqrt(3), r_tet / np.sqrt(3)),
+                (-r_tet / np.sqrt(3), r_tet / np.sqrt(3), -r_tet / np.sqrt(3)),
+                (r_tet / np.sqrt(3), -r_tet / np.sqrt(3), -r_tet / np.sqrt(3)),
+            ]
+        )
 
         nodes = []
         for center in macro_centers:
@@ -231,11 +238,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         v_out = alpha_0_center / np.linalg.norm(alpha_0_center)
 
         # 3. Construct Tritium Halo (Span 2d)
-        halo_base = np.array([
-            (0, d, d),   # P
-            (0, -d, d),  # N
-            (0, 0, -d)   # N
-        ])
+        halo_base = np.array([(0, d, d), (0, -d, d), (0, 0, -d)])  # P  # N  # N
 
         # 4. Radially shift Halo by R_halo and append
         halo_offset = alpha_0_center + (v_out * r_halo)
@@ -252,7 +255,7 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
 
-        equator_angles = [0, 2*np.pi/3, 4*np.pi/3]
+        equator_angles = [0, 2 * np.pi / 3, 4 * np.pi / 3]
         macro_centers = []
         macro_centers.append((0, 0, r_bipyramid))
         macro_centers.append((0, 0, -r_bipyramid))
@@ -275,7 +278,7 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         # 1. Neon-20 Core
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
-        equator_angles = [0, 2*np.pi/3, 4*np.pi/3]
+        equator_angles = [0, 2 * np.pi / 3, 4 * np.pi / 3]
         macro_centers = []
         macro_centers.append((0, 0, r_bipyramid))
         macro_centers.append((0, 0, -r_bipyramid))
@@ -292,11 +295,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         v_out = np.array([0, 0, 1.0])
 
         # 3. Construct Tritium Halo
-        halo_base = np.array([
-            (0, d, d),
-            (0, -d, d),
-            (0, 0, -d)
-        ])
+        halo_base = np.array([(0, d, d), (0, -d, d), (0, 0, -d)])
 
         # 4. Radially shift Halo
         halo_offset = polar_alpha_center + (v_out * r_halo)
@@ -315,14 +314,16 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
 
-        macro_centers = np.array([
-            (r_oct, 0, 0),
-            (-r_oct, 0, 0),
-            (0, r_oct, 0),
-            (0, -r_oct, 0),
-            (0, 0, r_oct),
-            (0, 0, -r_oct)
-        ])
+        macro_centers = np.array(
+            [
+                (r_oct, 0, 0),
+                (-r_oct, 0, 0),
+                (0, r_oct, 0),
+                (0, -r_oct, 0),
+                (0, 0, r_oct),
+                (0, 0, -r_oct),
+            ]
+        )
 
         nodes = []
         for center in macro_centers:
@@ -340,14 +341,16 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         # 1. Mg-24 Core
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
-        macro_centers = np.array([
-            (r_oct, 0, 0),
-            (-r_oct, 0, 0),
-            (0, r_oct, 0),
-            (0, -r_oct, 0),
-            (0, 0, r_oct),  # North Pole Alpha
-            (0, 0, -r_oct)
-        ])
+        macro_centers = np.array(
+            [
+                (r_oct, 0, 0),
+                (-r_oct, 0, 0),
+                (0, r_oct, 0),
+                (0, -r_oct, 0),
+                (0, 0, r_oct),  # North Pole Alpha
+                (0, 0, -r_oct),
+            ]
+        )
 
         nodes_mg24 = []
         for center in macro_centers:
@@ -359,11 +362,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         v_out = np.array([0, 0, 1.0])
 
         # 3. Construct Tritium Halo
-        halo_base = np.array([
-            (0, d, d),
-            (0, -d, d),
-            (0, 0, -d)
-        ])
+        halo_base = np.array([(0, d, d), (0, -d, d), (0, 0, -d)])
 
         # 4. Radially shift Halo
         halo_offset = polar_alpha_center + (v_out * r_halo)
@@ -383,7 +382,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
 
         # 5 Equator Nodes + 2 Polar Nodes
-        equator_angles = np.linspace(0, 2*np.pi, 5, endpoint=False)
+        equator_angles = np.linspace(0, 2 * np.pi, 5, endpoint=False)
         macro_centers = []
 
         # Poles
@@ -413,9 +412,9 @@ def get_nucleon_coordinates(Z, A, d=None):
 
         # 1. Si-28 Core (7α Pentagonal Bipyramid)
         alpha_base = np.array([(d, d, d), (-d, -d, d), (-d, d, -d), (d, -d, -d)])
-        equator_angles = np.linspace(0, 2*np.pi, 5, endpoint=False)
+        equator_angles = np.linspace(0, 2 * np.pi, 5, endpoint=False)
         macro_centers = []
-        macro_centers.append(np.array([0, 0, r_bipyr]))   # North Pole Alpha
+        macro_centers.append(np.array([0, 0, r_bipyr]))  # North Pole Alpha
         macro_centers.append(np.array([0, 0, -r_bipyr]))  # South Pole Alpha
         for theta in equator_angles:
             macro_centers.append(np.array([r_bipyr * np.cos(theta), r_bipyr * np.sin(theta), 0]))
@@ -430,11 +429,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         v_out = np.array([0, 0, 1.0])
 
         # 3. Construct Tritium Halo
-        halo_base = np.array([
-            (0, d, d),
-            (0, -d, d),
-            (0, 0, -d)
-        ])
+        halo_base = np.array([(0, d, d), (0, -d, d), (0, 0, -d)])
 
         # 4. Radially shift Halo
         halo_offset = polar_alpha_center + (v_out * r_halo)
@@ -462,7 +457,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         golden_ratio = (1 + 5**0.5) / 2
         for i in range(num_alpha):
             theta = 2 * np.pi * i / golden_ratio
-            phi = np.arccos(1 - 2*(i+0.5)/num_alpha)
+            phi = np.arccos(1 - 2 * (i + 0.5) / num_alpha)
             x = r_core * np.cos(theta) * np.sin(phi)
             y = r_core * np.sin(theta) * np.sin(phi)
             z = r_core * np.cos(phi)
@@ -477,13 +472,14 @@ def get_nucleon_coordinates(Z, A, d=None):
         if total_remaining > 0:
             for i in range(total_remaining):
                 theta = 2 * np.pi * i / golden_ratio
-                phi = np.arccos(1 - 2*(i+0.5)/total_remaining)
+                phi = np.arccos(1 - 2 * (i + 0.5) / total_remaining)
                 x = r_halo * np.cos(theta) * np.sin(phi)
                 y = r_halo * np.sin(theta) * np.sin(phi)
                 z = r_halo * np.cos(phi)
                 nodes.append((x, y, z))
 
         return nodes
+
 
 def calculate_topological_mass(Z, A):
     """
@@ -573,10 +569,16 @@ def compute_element_impedance(Z, A):
     if N <= 1:
         # Single nucleon — no internal modes
         return {
-            'Z_atom': 0.0, 'K_bulk': 0.0, 'G_shear': 0.0,
-            'E_rupture': 0.0, 'Q_factor': 1.0,
-            'modes': [], 'eigenvalues': np.array([]),
-            'n_breathing': 0, 'n_rocking': 0, 'n_ejection': 0
+            "Z_atom": 0.0,
+            "K_bulk": 0.0,
+            "G_shear": 0.0,
+            "E_rupture": 0.0,
+            "Q_factor": 1.0,
+            "modes": [],
+            "eigenvalues": np.array([]),
+            "n_breathing": 0,
+            "n_rocking": 0,
+            "n_ejection": 0,
         }
 
     coords = np.array(nodes, dtype=float)
@@ -596,7 +598,7 @@ def compute_element_impedance(Z, A):
         Em = _compute_energy_at_coords(flat_m, N, K_MUTUAL, ALPHA_HC, Z, A)
         # Diagonal: d²U/dx_i²
         E0 = _compute_energy_at_coords(flat, N, K_MUTUAL, ALPHA_HC, Z, A)
-        hessian[i, i] = (Ep - 2 * E0 + Em) / (h ** 2)
+        hessian[i, i] = (Ep - 2 * E0 + Em) / (h**2)
 
         # Off-diagonal: d²U/(dx_i dx_j) — only upper triangle, then symmetrise
         for j in range(i + 1, ndof):
@@ -604,15 +606,19 @@ def compute_element_impedance(Z, A):
             flat_pm = flat.copy()
             flat_mp = flat.copy()
             flat_mm = flat.copy()
-            flat_pp[i] += h; flat_pp[j] += h
-            flat_pm[i] += h; flat_pm[j] -= h
-            flat_mp[i] -= h; flat_mp[j] += h
-            flat_mm[i] -= h; flat_mm[j] -= h
+            flat_pp[i] += h
+            flat_pp[j] += h
+            flat_pm[i] += h
+            flat_pm[j] -= h
+            flat_mp[i] -= h
+            flat_mp[j] += h
+            flat_mm[i] -= h
+            flat_mm[j] -= h
             Epp = _compute_energy_at_coords(flat_pp, N, K_MUTUAL, ALPHA_HC, Z, A)
             Epm = _compute_energy_at_coords(flat_pm, N, K_MUTUAL, ALPHA_HC, Z, A)
             Emp = _compute_energy_at_coords(flat_mp, N, K_MUTUAL, ALPHA_HC, Z, A)
             Emm = _compute_energy_at_coords(flat_mm, N, K_MUTUAL, ALPHA_HC, Z, A)
-            hessian[i, j] = (Epp - Epm - Emp + Emm) / (4 * h ** 2)
+            hessian[i, j] = (Epp - Epm - Emp + Emm) / (4 * h**2)
             hessian[j, i] = hessian[i, j]
 
     # Eigendecomposition
@@ -627,10 +633,16 @@ def compute_element_impedance(Z, A):
 
     if len(phys_evals) == 0:
         return {
-            'Z_atom': 0.0, 'K_bulk': 0.0, 'G_shear': 0.0,
-            'E_rupture': 0.0, 'Q_factor': 1.0,
-            'modes': [], 'eigenvalues': eigenvalues,
-            'n_breathing': 0, 'n_rocking': 0, 'n_ejection': 0
+            "Z_atom": 0.0,
+            "K_bulk": 0.0,
+            "G_shear": 0.0,
+            "E_rupture": 0.0,
+            "Q_factor": 1.0,
+            "modes": [],
+            "eigenvalues": eigenvalues,
+            "n_breathing": 0,
+            "n_rocking": 0,
+            "n_ejection": 0,
         }
 
     # Mode classification by character of the eigenvector
@@ -656,7 +668,7 @@ def compute_element_impedance(Z, A):
 
         # Participation ratio: how many atoms contribute significantly
         if np.max(evec_norms) > 1e-10:
-            participation = (np.sum(evec_norms) ** 2) / (N * np.sum(evec_norms ** 2))
+            participation = (np.sum(evec_norms) ** 2) / (N * np.sum(evec_norms**2))
         else:
             participation = 0.0
 
@@ -669,28 +681,30 @@ def compute_element_impedance(Z, A):
 
         # Classification
         if participation < 0.3:
-            character = 'ejection'
+            character = "ejection"
             n_ejection += 1
         elif radial_proj > 0.6:
-            character = 'breathing'
+            character = "breathing"
             n_breathing += 1
         else:
-            character = 'rocking'
+            character = "rocking"
             n_rocking += 1
 
         freq = np.sqrt(abs(phys_evals[idx]))  # ω ∝ √(k/m), using unit mass
-        modes.append({
-            'eigenvalue': phys_evals[idx],
-            'frequency': freq,
-            'character': character,
-            'participation': participation,
-            'radial_proj': radial_proj
-        })
+        modes.append(
+            {
+                "eigenvalue": phys_evals[idx],
+                "frequency": freq,
+                "character": character,
+                "participation": participation,
+                "radial_proj": radial_proj,
+            }
+        )
 
     # Extract bulk properties
-    breathing_evals = [m['eigenvalue'] for m in modes if m['character'] == 'breathing']
-    rocking_evals = [m['eigenvalue'] for m in modes if m['character'] == 'rocking']
-    ejection_evals = [m['eigenvalue'] for m in modes if m['character'] == 'ejection']
+    breathing_evals = [m["eigenvalue"] for m in modes if m["character"] == "breathing"]
+    rocking_evals = [m["eigenvalue"] for m in modes if m["character"] == "rocking"]
+    ejection_evals = [m["eigenvalue"] for m in modes if m["character"] == "ejection"]
 
     K_bulk = np.mean(breathing_evals) if breathing_evals else np.mean(phys_evals)
     G_shear = np.mean(rocking_evals) if rocking_evals else 0.0
@@ -699,7 +713,7 @@ def compute_element_impedance(Z, A):
     E_rupture = phys_evals[0] if len(phys_evals) > 0 else 0.0
 
     # Q factor = ratio of highest to lowest physical mode frequency
-    freqs = [m['frequency'] for m in modes if m['frequency'] > 0]
+    freqs = [m["frequency"] for m in modes if m["frequency"] > 0]
     Q_factor = max(freqs) / min(freqs) if len(freqs) >= 2 else 1.0
 
     # Atomic impedance = geometric mean of all physical mode frequencies
@@ -707,16 +721,16 @@ def compute_element_impedance(Z, A):
     Z_atom = np.exp(np.mean(np.log(np.array(freqs) + 1e-30))) if freqs else 0.0
 
     return {
-        'Z_atom': Z_atom,
-        'K_bulk': K_bulk,
-        'G_shear': G_shear,
-        'E_rupture': E_rupture,
-        'Q_factor': Q_factor,
-        'modes': modes,
-        'eigenvalues': eigenvalues,
-        'n_breathing': n_breathing,
-        'n_rocking': n_rocking,
-        'n_ejection': n_ejection
+        "Z_atom": Z_atom,
+        "K_bulk": K_bulk,
+        "G_shear": G_shear,
+        "E_rupture": E_rupture,
+        "Q_factor": Q_factor,
+        "modes": modes,
+        "eigenvalues": eigenvalues,
+        "n_breathing": n_breathing,
+        "n_rocking": n_rocking,
+        "n_ejection": n_ejection,
     }
 
 
@@ -738,7 +752,7 @@ def create_element_report(element_name, Z, A, empirical_mass_mev, save_dir):
     # Generate 3D Topological Visualization
     if nodes:
         fig = plt.figure(figsize=(8, 8))
-        ax = fig.add_subplot(111, projection='3d')
+        ax = fig.add_subplot(111, projection="3d")
 
         # We know Alphas are tightly packed 4-node groups (in multiples of 4)
         # Any remainder are halo neutrons/protons
@@ -751,21 +765,40 @@ def create_element_report(element_name, Z, A, empirical_mass_mev, save_dir):
             num_alpha_nodes = len(nodes)
 
         # Plot Alpha Cores
-        ax.scatter(xs[:num_alpha_nodes], ys[:num_alpha_nodes], zs[:num_alpha_nodes],
-                   c='r', s=60, alpha=0.8, edgecolors='white', label='Alpha Core Nodes')
+        ax.scatter(
+            xs[:num_alpha_nodes],
+            ys[:num_alpha_nodes],
+            zs[:num_alpha_nodes],
+            c="r",
+            s=60,
+            alpha=0.8,
+            edgecolors="white",
+            label="Alpha Core Nodes",
+        )
 
         # Plot Halo Nodes
         if len(nodes) > num_alpha_nodes:
-            ax.scatter(xs[num_alpha_nodes:], ys[num_alpha_nodes:], zs[num_alpha_nodes:],
-                       c='gray', s=30, alpha=0.6, label='Halo Neutrons/Odd Protons')
+            ax.scatter(
+                xs[num_alpha_nodes:],
+                ys[num_alpha_nodes:],
+                zs[num_alpha_nodes:],
+                c="gray",
+                s=30,
+                alpha=0.6,
+                label="Halo Neutrons/Odd Protons",
+            )
 
-        ax.set_title(f"{element_name} (Z={Z}, A={A})\nSpherical Fibonacci Lattice Topology", fontsize=14, pad=20)
-        ax.axis('off')
+        ax.set_title(
+            f"{element_name} (Z={Z}, A={A})\nSpherical Fibonacci Lattice Topology",
+            fontsize=14,
+            pad=20,
+        )
+        ax.axis("off")
 
         img_name = f"nuclear_{Z:03d}.png"
         img_path = os.path.join(save_dir, img_name)
         plt.tight_layout()
-        plt.savefig(img_path, format='png', dpi=150, bbox_inches='tight')
+        plt.savefig(img_path, format="png", dpi=150, bbox_inches="tight")
         plt.close(fig)
         print(f"[*] Visual Topology Rendered: {img_path}")
 
@@ -781,7 +814,7 @@ def create_element_report(element_name, Z, A, empirical_mass_mev, save_dir):
         "A": A,
         "empirical": empirical_mass_mev,
         "theoretical": theo_mass,
-        "error": mass_error
+        "error": mass_error,
     }
 
 
@@ -798,23 +831,28 @@ def generate_summary_table(results, output_file):
         "    \\begin{tabular}{l c c r r r}",
         "    \\hline\\hline",
         "    \\textbf{Element} & \\textbf{Z} & \\textbf{A} & \\textbf{Empirical (MeV)} & \\textbf{Topological (MeV)} & \\textbf{Error (\\%)} \\\\",
-        "    \\hline"
+        "    \\hline",
     ]
     for r in results:
-        tex.append(f"    {r['name']} & {r['Z']} & {r['A']} & {r['empirical']:.3f} & {r['theoretical']:.3f} & {r['error']:.5f}\\% \\\\")
+        tex.append(
+            f"    {r['name']} & {r['Z']} & {r['A']} & {r['empirical']:.3f} & {r['theoretical']:.3f} & {r['error']:.5f}\\% \\\\"
+        )
 
-    tex.extend([
-        "    \\hline\\hline",
-        "    \\end{tabular}",
-        "    \\caption{Topological derivation of mass defects mapping $1/d_{ij}$ structural mutual impedance against CODATA empirical limits.}",
-        "    \\label{tab:mass_summary}",
-        "\\end{table}",
-        ""
-    ])
+    tex.extend(
+        [
+            "    \\hline\\hline",
+            "    \\end{tabular}",
+            "    \\caption{Topological derivation of mass defects mapping $1/d_{ij}$ structural mutual impedance against CODATA empirical limits.}",
+            "    \\label{tab:mass_summary}",
+            "\\end{table}",
+            "",
+        ]
+    )
 
     with open(output_file, "w") as f:
         f.write("\n".join(tex))
     print(f"[*] Summary table generated at: {output_file}\n")
+
 
 if __name__ == "__main__":
     # Resolve output path relative to repo root (this script lives at scripts/periodic_table/simulations/)
@@ -827,15 +865,15 @@ if __name__ == "__main__":
     # Standardize early element execution
     # CODATA standard binding energy targets incorporated inherently
     results.append(create_element_report("Hydrogen-1", 1, 1, 938.272, OUT_DIR))
-    results.append(create_element_report("Helium-4",   2, 4, 3727.379, OUT_DIR))
-    results.append(create_element_report("Lithium-7",  3, 7, 6533.832, OUT_DIR))
+    results.append(create_element_report("Helium-4", 2, 4, 3727.379, OUT_DIR))
+    results.append(create_element_report("Lithium-7", 3, 7, 6533.832, OUT_DIR))
 
     # 1 amu = 931.494102 MeV/c^2
     c12_mass = (12.0 - (6 * 0.00054858)) * 931.494102
-    results.append(create_element_report("Carbon-12",  6, 12, c12_mass, OUT_DIR))
+    results.append(create_element_report("Carbon-12", 6, 12, c12_mass, OUT_DIR))
 
     b11_mass = (11.009305 - (5 * 0.00054858)) * 931.494102
-    results.append(create_element_report("Boron-11",   5, 11, b11_mass, OUT_DIR))
+    results.append(create_element_report("Boron-11", 5, 11, b11_mass, OUT_DIR))
 
     n14_mass = (14.003074 - (7 * 0.00054858)) * 931.494102
     results.append(create_element_report("Nitrogen-14", 7, 14, n14_mass, OUT_DIR))

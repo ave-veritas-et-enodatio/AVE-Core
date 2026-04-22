@@ -19,14 +19,27 @@ Physical outputs:
 
 All constants imported from ave.core.constants — zero free parameters.
 """
+
 from __future__ import annotations
 
 
 import numpy as np
 from ave.core.constants import (
-    C_0, G, M_E, HBAR, ALPHA, L_NODE, Z_0,
-    NU_VAC, ISOTROPIC_PROJECTION, P_C, T_EM, K_B, M_SUN,
-    EPS_CLIP, EPS_NUMERICAL,
+    C_0,
+    G,
+    M_E,
+    HBAR,
+    ALPHA,
+    L_NODE,
+    Z_0,
+    NU_VAC,
+    ISOTROPIC_PROJECTION,
+    P_C,
+    T_EM,
+    K_B,
+    M_SUN,
+    EPS_CLIP,
+    EPS_NUMERICAL,
 )
 
 # Alias for readability
@@ -39,6 +52,7 @@ G_NEWTON = G
 # ---------------------------------------------------------------------------
 # 1.  Isotropic Schwarzschild Refractive Index
 # ---------------------------------------------------------------------------
+
 
 def refractive_index(r, M):
     """
@@ -61,18 +75,18 @@ def refractive_index(r, M):
     """
     from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
-    
+
     r = np.asarray(r, dtype=float)
     rh = G_NEWTON * M / (2.0 * C_0**2)
-    ratio = rh / np.maximum(r, rh * 1.01)          # clamp at horizon
+    ratio = rh / np.maximum(r, rh * 1.01)  # clamp at horizon
     W = 1.0 + ratio
     U = np.maximum(1.0 - ratio, EPS_CLIP)
-    
+
     # n = W³ / U
     # n = 1 + NU_VAC * eps_11
     n_val = W**3 / U
     eps_11 = (n_val - 1.0) / NU_VAC
-    
+
     return universal_refractive_index(eps_11, nu_vac=NU_VAC)
 
 
@@ -86,6 +100,7 @@ def reflection_coefficient(r, M):
     Kept for backward compatibility with plotting scripts.
     """
     import warnings
+
     warnings.warn(
         "orbital_resonance.reflection_coefficient() is deprecated: "
         "Γ = 0 under Symmetric Gravity.  Use gravity.shear_modulus_factor().",
@@ -99,6 +114,7 @@ def reflection_coefficient(r, M):
 # ---------------------------------------------------------------------------
 # 2.  Orbital Keplerian Frequency
 # ---------------------------------------------------------------------------
+
 
 def keplerian_frequency(r, M):
     """
@@ -122,6 +138,7 @@ def keplerian_frequency(r, M):
 # ---------------------------------------------------------------------------
 # 3.  Characteristic Radii
 # ---------------------------------------------------------------------------
+
 
 def schwarzschild_radius(M):
     """Event horizon radius  r_s = 2 G M / c²."""
@@ -156,11 +173,11 @@ def isco_radius(M, a_star=0.0):
     """
     rs = schwarzschild_radius(M)
     if abs(a_star) < 1e-10:
-        return 3.0 * rs   # 6 GM/c²
+        return 3.0 * rs  # 6 GM/c²
 
     # Bardeen, Press, Teukolsky (1972) exact formulae
     a = a_star
-    Z1 = 1.0 + (1.0 - a**2)**(1.0/3.0) * ((1.0 + a)**(1.0/3.0) + (1.0 - a)**(1.0/3.0))
+    Z1 = 1.0 + (1.0 - a**2) ** (1.0 / 3.0) * ((1.0 + a) ** (1.0 / 3.0) + (1.0 - a) ** (1.0 / 3.0))
     Z2 = np.sqrt(3.0 * a**2 + Z1**2)
     # Prograde orbit
     r_isco = rs / 2.0 * (3.0 + Z2 - np.sqrt((3.0 - Z1) * (3.0 + Z1 + 2.0 * Z2)))
@@ -170,6 +187,7 @@ def isco_radius(M, a_star=0.0):
 # ---------------------------------------------------------------------------
 # 4.  Impedance Band Quantisation  (Standing-Wave Resonance)
 # ---------------------------------------------------------------------------
+
 
 def impedance_orbital_radii(M, a_star=0.0, n_modes=8):
     """
@@ -260,6 +278,7 @@ def qpo_frequencies(M, a_star=0.0, n_modes=5):
 # 5.  Scale-Invariance Table
 # ---------------------------------------------------------------------------
 
+
 def scale_invariance_table():
     """
     Generate the electron ↔ black hole isomorphism mapping table.
@@ -273,46 +292,46 @@ def scale_invariance_table():
 
     table = [
         {
-            'property': 'Confinement Boundary',
-            'electron': f'ℓ_node = {L_NODE:.4e} m',
-            'black_hole': f'r_sat = 7GM/c² ({7 * G * M_SUN / C**2:.2e} m for 1 M☉)',
-            'relation': 'Both are total-reflection boundaries (different mechanisms)',
+            "property": "Confinement Boundary",
+            "electron": f"ℓ_node = {L_NODE:.4e} m",
+            "black_hole": f"r_sat = 7GM/c² ({7 * G * M_SUN / C**2:.2e} m for 1 M☉)",
+            "relation": "Both are total-reflection boundaries (different mechanisms)",
         },
         {
-            'property': 'Confinement Mechanism',
-            'electron': 'Impedance mismatch (Γ = −1, Z → 0)',
-            'black_hole': 'Lattice phase transition (G_shear → 0)',
-            'relation': 'Particle: short circuit.  BH: shear modulus collapse',
+            "property": "Confinement Mechanism",
+            "electron": "Impedance mismatch (Γ = −1, Z → 0)",
+            "black_hole": "Lattice phase transition (G_shear → 0)",
+            "relation": "Particle: short circuit.  BH: shear modulus collapse",
         },
         {
-            'property': '"Ground-State" Orbital',
-            'electron': 'Bohr radius a₀ = ℓ_node / α',
-            'black_hole': 'Saturation cavity r_eff = 49M_g/9',
-            'relation': 'Innermost stable circular standing wave',
+            "property": '"Ground-State" Orbital',
+            "electron": "Bohr radius a₀ = ℓ_node / α",
+            "black_hole": "Saturation cavity r_eff = 49M_g/9",
+            "relation": "Innermost stable circular standing wave",
         },
         {
-            'property': 'Orbital Quantisation',
-            'electron': 'de Broglie λ = 2πr/n  (integer standing waves)',
-            'black_hole': '∫n(r)dr = nλ₀/2  (impedance band resonance)',
-            'relation': 'Same standing-wave topology at different scales',
+            "property": "Orbital Quantisation",
+            "electron": "de Broglie λ = 2πr/n  (integer standing waves)",
+            "black_hole": "∫n(r)dr = nλ₀/2  (impedance band resonance)",
+            "relation": "Same standing-wave topology at different scales",
         },
         {
-            'property': 'Shell Gaps',
-            'electron': 'Spectral lines (forbidden transitions)',
-            'black_hole': 'Accretion disk QPOs',
-            'relation': '1/d impedance topology frequencies',
+            "property": "Shell Gaps",
+            "electron": "Spectral lines (forbidden transitions)",
+            "black_hole": "Accretion disk QPOs",
+            "relation": "1/d impedance topology frequencies",
         },
         {
-            'property': 'Interior Physics',
-            'electron': 'Constructive: topology preserved',
-            'black_hole': 'Destructive: topology melts (phase transition)',
-            'relation': 'Exterior identical; interior inverted',
+            "property": "Interior Physics",
+            "electron": "Constructive: topology preserved",
+            "black_hole": "Destructive: topology melts (phase transition)",
+            "relation": "Exterior identical; interior inverted",
         },
         {
-            'property': 'Impedance',
-            'electron': 'Z → 0 at knot core (short circuit)',
-            'black_hole': f'Z = Z₀ = {Z_0:.2f} Ω always (Symmetric Gravity)',
-            'relation': 'Electron: impedance collapse.  BH: impedance invariant',
+            "property": "Impedance",
+            "electron": "Z → 0 at knot core (short circuit)",
+            "black_hole": f"Z = Z₀ = {Z_0:.2f} Ω always (Symmetric Gravity)",
+            "relation": "Electron: impedance collapse.  BH: impedance invariant",
         },
     ]
     return table
@@ -321,6 +340,7 @@ def scale_invariance_table():
 # ---------------------------------------------------------------------------
 # 6.  Merger Ringdown as Cavity Resonance (with Kerr Correction)
 # ---------------------------------------------------------------------------
+
 
 def kerr_photon_sphere(M, a_star):
     """
@@ -341,7 +361,7 @@ def kerr_photon_sphere(M, a_star):
     r_ph : float    Prograde photon sphere radius [m]
     """
     M_g = G_NEWTON * M / C_0**2  # gravitational radius
-    return 2.0 * M_g * (1.0 + np.cos(2.0/3.0 * np.arccos(-a_star)))
+    return 2.0 * M_g * (1.0 + np.cos(2.0 / 3.0 * np.arccos(-a_star)))
 
 
 def regge_wheeler_potential(x, ell=2, s=2):
@@ -415,15 +435,15 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     # NU_VAC imported from ave.core.constants (line 28) — no local shadow
 
     # ── Step 1: Saturation boundary (Schwarzschild) ──
-    x_sat_schw = 7.0   # r_sat = 7 M_g  from ε₁₁(r_sat) = 1
+    x_sat_schw = 7.0  # r_sat = 7 M_g  from ε₁₁(r_sat) = 1
 
     # ── Step 2: Kerr correction ──
     # The prograde photon sphere shrinks from 3 M_g (a*=0) to M_g (a*→1).
     # The saturation shell shrinks proportionally:
     #   r_sat(a*) / r_sat(0) = r_ph(a*) / r_ph(0)
     if abs(a_star) > 1e-10:
-        r_ph_kerr  = 2.0 * (1.0 + np.cos(2.0/3.0 * np.arccos(-a_star)))
-        r_ph_schw  = 3.0   # x = r/M_g for Schwarzschild
+        r_ph_kerr = 2.0 * (1.0 + np.cos(2.0 / 3.0 * np.arccos(-a_star)))
+        r_ph_schw = 3.0  # x = r/M_g for Schwarzschild
         kerr_ratio = r_ph_kerr / r_ph_schw
     else:
         kerr_ratio = 1.0
@@ -434,14 +454,14 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     x_eff = x_sat / (1.0 + NU_VAC)
 
     # ── Step 4: Eigenfrequency ──
-    oR_dimless = ell / x_eff                 # ω_R × M_g
+    oR_dimless = ell / x_eff  # ω_R × M_g
 
     # Overtone correction: higher overtones have larger ω_R
     # From WKB: n-th overtone adds (n + 1/2) × angular spacing
     if n_overtone > 0:
         # Approximate: f_coupled_modes ≈ f_base_resonance + n * delta_omega
         # where delta_omega is set by the curvature of V''
-        oR_dimless *= (1.0 + 0.12 * n_overtone)
+        oR_dimless *= 1.0 + 0.12 * n_overtone
 
     # ── Step 5: Quality factor from co-rotating frame decomposition ──
     #
@@ -482,7 +502,7 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
 
     # Domain-specific: compute Kerr frame-dragging at r_Ω
     if abs(a_star) > 1e-10:
-        r_ph_k = 2.0 * (1.0 + np.cos(2.0/3.0 * np.arccos(-a_star)))
+        r_ph_k = 2.0 * (1.0 + np.cos(2.0 / 3.0 * np.arccos(-a_star)))
         r_omega = r_ph_k * np.sqrt(1.0 + NU_VAC)  # Poisson-augmented
         a = a_star  # in M_g units
         Omega = 2.0 * a / (r_omega**3 + a**2 * r_omega + 2.0 * a**2)
@@ -491,6 +511,7 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
 
     # Universal operator: co-rotating frame decomposition (FOC/Park)
     from ave.axioms.scale_invariant import co_rotating_decay_rate
+
     oI_dimless = co_rotating_decay_rate(oR_dimless, Omega, ell)
     oI_dimless = max(oI_dimless, EPS_CLIP)  # Guard: superradiant limit
 
@@ -501,7 +522,7 @@ def qnm_eigenvalue(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     omega_I = oI_dimless * C_0 / M_g
 
     f_ring = omega_R / (2.0 * np.pi)
-    tau_ring = 1.0 / omega_I if omega_I > 0 else float('inf')
+    tau_ring = 1.0 / omega_I if omega_I > 0 else float("inf")
 
     return f_ring, tau_ring, Q, oR_dimless, oI_dimless
 
@@ -523,18 +544,22 @@ def qnm_eigenvalue_berti_reference(M, a_star=0.0, ell=2, s=2, n_overtone=0):
     f_ring, tau_ring, Q, omega_R_dimless, omega_I_dimless
     """
     M_g = G_NEWTON * M / C_0**2
-    f1 = 1.5251;  f2 = -1.1568;  f3 = 0.1292
-    g1 = 0.0;     g2 = -0.0890;  g3 = 0.7000
+    f1 = 1.5251
+    f2 = -1.1568
+    f3 = 0.1292
+    g1 = 0.0
+    g2 = -0.0890
+    g3 = 0.7000
 
-    oR_dimless = f1 + f2 * (1.0 - a_star)**f3
-    oI_dimless = abs(g1 + g2 * (1.0 - a_star)**g3)
+    oR_dimless = f1 + f2 * (1.0 - a_star) ** f3
+    oI_dimless = abs(g1 + g2 * (1.0 - a_star) ** g3)
 
     omega_R = oR_dimless * C_0 / M_g
     omega_I = oI_dimless * C_0 / M_g
 
     f_ring = omega_R / (2.0 * np.pi)
-    tau_ring = 1.0 / omega_I if omega_I > 0 else float('inf')
-    Q = oR_dimless / (2.0 * oI_dimless) if oI_dimless > 0 else float('inf')
+    tau_ring = 1.0 / omega_I if omega_I > 0 else float("inf")
+    Q = oR_dimless / (2.0 * oI_dimless) if oI_dimless > 0 else float("inf")
 
     return f_ring, tau_ring, Q, oR_dimless, oI_dimless
 
@@ -580,24 +605,36 @@ def ringdown_Q_and_decay(M, a_star=0.0, saturated=True):
     return Q, tau_ring, f_ring
 
 
-
 # Known LIGO events for comparison (with estimated remnant spins and decay times)
 LIGO_EVENTS = {
-    'GW150914': {'M_final_solar': 62.0, 'a_star': 0.67,
-                 'f_ring_obs': 251.0, 'tau_ring_obs': 4.0e-3,
-                 'desc': 'First detection (36+29 M☉)'},
-    'GW170104': {'M_final_solar': 48.7, 'a_star': 0.64,
-                 'f_ring_obs': 312.0, 'tau_ring_obs': 3.0e-3,
-                 'desc': '31.2+19.4 M☉'},
-    'GW190521': {'M_final_solar': 142.0, 'a_star': 0.72,
-                 'f_ring_obs': 63.0, 'tau_ring_obs': 15.0e-3,
-                 'desc': 'Intermediate-mass (85+66 M☉)'},
+    "GW150914": {
+        "M_final_solar": 62.0,
+        "a_star": 0.67,
+        "f_ring_obs": 251.0,
+        "tau_ring_obs": 4.0e-3,
+        "desc": "First detection (36+29 M☉)",
+    },
+    "GW170104": {
+        "M_final_solar": 48.7,
+        "a_star": 0.64,
+        "f_ring_obs": 312.0,
+        "tau_ring_obs": 3.0e-3,
+        "desc": "31.2+19.4 M☉",
+    },
+    "GW190521": {
+        "M_final_solar": 142.0,
+        "a_star": 0.72,
+        "f_ring_obs": 63.0,
+        "tau_ring_obs": 15.0e-3,
+        "desc": "Intermediate-mass (85+66 M☉)",
+    },
 }
 
 
 # ---------------------------------------------------------------------------
 # 7.  Iron Kα Line Profile from Refractive Gradient
 # ---------------------------------------------------------------------------
+
 
 def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
     """
@@ -635,7 +672,7 @@ def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
     E_grid = E0 / n_grid
 
     # Emissivity ∝ r^{-3} (standard thin-disk)
-    emissivity = (rs / r_grid)**3
+    emissivity = (rs / r_grid) ** 3
 
     # Build histogram line profile
     E_min, E_max = 0.5, E0 * 1.1
@@ -651,6 +688,7 @@ def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
 
     # Smooth slightly for presentation
     from scipy.ndimage import gaussian_filter1d
+
     flux = gaussian_filter1d(flux, sigma=2.0)
 
     # Normalise
@@ -668,6 +706,7 @@ def iron_ka_line_profile(M, a_star=0.0, E0=6.4, N_radii=500):
 # ---------------------------------------------------------------------------
 # 8.  Jet Launching: Polar vs. Equatorial Impedance Map
 # ---------------------------------------------------------------------------
+
 
 def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
     """
@@ -698,7 +737,7 @@ def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
     r_vals = np.linspace(1.01 * rs, 15.0 * rs, N_r)
     theta_vals = np.linspace(0.01, np.pi - 0.01, N_theta)
 
-    R, Theta = np.meshgrid(r_vals / rs, theta_vals, indexing='ij')
+    R, Theta = np.meshgrid(r_vals / rs, theta_vals, indexing="ij")
 
     # Base scalar refractive index
     n_base = refractive_index(r_vals, M)  # shape (N_r,)
@@ -706,7 +745,7 @@ def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
     # Kerr frame-dragging angular velocity
     a = a_star * rs / 2.0  # Kerr a parameter
     r2 = r_vals**2
-    omega = 2.0 * G_NEWTON * M * a * r_vals / (r2 + a**2)**2
+    omega = 2.0 * G_NEWTON * M * a * r_vals / (r2 + a**2) ** 2
 
     # Frame-dragging velocity magnitude at equator
     v_drag_eq = omega * r_vals  # v = ωr at equator
@@ -717,7 +756,7 @@ def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
     beta = np.clip(beta, 0, 0.99)
 
     # 2D effective refractive index
-    n_2D = n_base[:, None] * (1.0 + beta[:, None]**2 * np.sin(Theta)**2)
+    n_2D = n_base[:, None] * (1.0 + beta[:, None] ** 2 * np.sin(Theta) ** 2)
 
     # 2D reflection coefficient
     Gamma_2D = (n_2D - 1.0) / (n_2D + 1.0)
@@ -728,6 +767,7 @@ def jet_impedance_map(M, a_star=0.9, N_r=200, N_theta=200):
 # ---------------------------------------------------------------------------
 # 9.  Hawking Temperature
 # ---------------------------------------------------------------------------
+
 
 def hawking_temperature(M):
     """
@@ -749,6 +789,7 @@ def hawking_temperature(M):
 # ---------------------------------------------------------------------------
 # 10. Gravitational Wave Memory (Residual Lattice Strain)
 # ---------------------------------------------------------------------------
+
 
 def gw_memory_strain(h_peak, V_yield_frac=0.01):
     """
@@ -784,6 +825,7 @@ def gw_memory_strain(h_peak, V_yield_frac=0.01):
 # ---------------------------------------------------------------------------
 # 11.  Console Report
 # ---------------------------------------------------------------------------
+
 
 def print_report(M_solar=10.0, a_star=0.0):
     """

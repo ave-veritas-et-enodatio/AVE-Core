@@ -38,17 +38,17 @@ def test_equivalence(nx=20, ny=20, nz=20, n_steps=50, linear_only=False, use_pml
         t = eng_np.dt * step
         signal = np.sin(2 * np.pi * freq * t) * 100.0
 
-        eng_np.inject_soft_source('Ez', cx, cy, cz, signal)
+        eng_np.inject_soft_source("Ez", cx, cy, cz, signal)
         eng_np.step()
 
-        eng_jax.inject_soft_source('Ez', cx, cy, cz, signal)
+        eng_jax.inject_soft_source("Ez", cx, cy, cz, signal)
         eng_jax.step()
     dt_total = time.time() - t0
 
     # Compare fields
     jax_fields = eng_jax.to_numpy()
     max_diffs = {}
-    for name in ['Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz']:
+    for name in ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"]:
         np_field = getattr(eng_np, name)
         jax_field = jax_fields[name]
         max_diff = np.max(np.abs(np_field - jax_field))

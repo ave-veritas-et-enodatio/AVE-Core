@@ -9,6 +9,7 @@ The EMT derivation predicts z₀ ≈ 51.25 for the vacuum lattice.
 Here we compute the actual mean coordination of the over-braced
 Delaunay graph to check physical consistency.
 """
+
 import sys
 import os
 
@@ -64,7 +65,7 @@ def delaunay_coordination(pos):
     neighbors = {i: set() for i in range(len(pos))}
     for simplex in tri.simplices:
         for a in range(4):
-            for b in range(a+1, 4):
+            for b in range(a + 1, 4):
                 neighbors[simplex[a]].add(simplex[b])
                 neighbors[simplex[b]].add(simplex[a])
     z_vals = [len(v) for v in neighbors.values()]
@@ -84,11 +85,11 @@ def run_verification():
     p_c = P_C
 
     # Lattice parameters
-    l_node = 1.0    # natural units
-    r_min = l_node   # exclusion radius
+    l_node = 1.0  # natural units
+    r_min = l_node  # exclusion radius
     overbrace = 1.187  # from manuscript
-    box_size = 6.0   # ℓ_node units
-    N_target = 300   # nodes in the box
+    box_size = 6.0  # ℓ_node units
+    N_target = 300  # nodes in the box
 
     print(f"\n  Lattice parameters:")
     print(f"    ℓ_node = {l_node}")
@@ -106,7 +107,7 @@ def run_verification():
         results_range[R] = []
 
     for s in range(n_samples):
-        pos = poisson_disk_sample(N_target, box_size, r_min, seed=42+s*7)
+        pos = poisson_disk_sample(N_target, box_size, r_min, seed=42 + s * 7)
         N = len(pos)
 
         # Delaunay coordination
@@ -146,11 +147,11 @@ def run_verification():
     # By interpolation
     Rs = sorted(results_range.keys())
     zs = [np.mean(results_range[R]) for R in Rs]
-    for i in range(len(Rs)-1):
-        if zs[i] <= z0_emt <= zs[i+1]:
+    for i in range(len(Rs) - 1):
+        if zs[i] <= z0_emt <= zs[i + 1]:
             # Linear interpolation
-            frac = (z0_emt - zs[i]) / (zs[i+1] - zs[i])
-            R_interp = Rs[i] + frac * (Rs[i+1] - Rs[i])
+            frac = (z0_emt - zs[i]) / (zs[i + 1] - zs[i])
+            R_interp = Rs[i] + frac * (Rs[i + 1] - Rs[i])
             print(f"  z₀ = 51.25 occurs at R ≈ {R_interp:.3f} ℓ_node")
             print(f"  This is {R_interp:.2f}× the nearest-neighbor distance")
             break

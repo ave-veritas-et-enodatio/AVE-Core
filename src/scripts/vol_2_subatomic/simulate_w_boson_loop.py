@@ -20,22 +20,30 @@ if src_path not in sys.path:
     sys.path.append(src_path)
 
 from ave.topological.cosserat import (
-    M_W_TREE, M_W, M_W_MEV, M_Z, M_Z_MEV,
-    MISMATCH_LOSS, MISMATCH_LOSS_SC,
-    S11_W_BOUND, S11_W_SC,
+    M_W_TREE,
+    M_W,
+    M_W_MEV,
+    M_Z,
+    M_Z_MEV,
+    MISMATCH_LOSS,
+    MISMATCH_LOSS_SC,
+    S11_W_BOUND,
+    S11_W_SC,
     w_boson_self_consistent_correction,
 )
 from ave.core.constants import C_0, e_charge
 
 _J_PER_MEV = float(e_charge) * 1e6
-PDG_MW = 80_379.0   # MeV  (PDG 2022)
-PDG_MZ = 91_188.0   # MeV  (PDG 2022)
+PDG_MW = 80_379.0  # MeV  (PDG 2022)
+PDG_MZ = 91_188.0  # MeV  (PDG 2022)
 
 # ─── Headers ──────────────────────────────────────────────────────────────────
 BAR = "=" * 66
 
+
 def pct(got, pdg):
     return (got / pdg - 1.0) * 100.0
+
 
 # ─── Block 1: Derivation chain ────────────────────────────────────────────────
 print(BAR)
@@ -73,7 +81,9 @@ for i in range(1, 15):
     back_sat = s11_i**2
     ml = 1.0 - back_sat
     mw_i = m_w_tree_mev / ml
-    print(f"  {i:>5}  {Y_iter[0,0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}  {mw_i:>12.4f}  {pct(mw_i, PDG_MW):>+8.4f}%")
+    print(
+        f"  {i:>5}  {Y_iter[0,0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}  {mw_i:>12.4f}  {pct(mw_i, PDG_MW):>+8.4f}%"
+    )
     if abs(s11_i - s11_prev) < 1e-12:
         print(f"  [CONVERGED at iteration {i}]")
         break
@@ -97,7 +107,8 @@ print(f"  delta_Y_origin = {sc['delta_Y_origin']:.10f}  (reduction to Y[0,0])")
 print(f"\n{BAR}")
 print("  PHYSICAL INTERPRETATION")
 print(BAR)
-print("""
+print(
+    """
   The W-boson occupies a single lattice node.  Its energy density
   immediately saturates the 4 nearest-neighbour nodes (open-circuit,
   Y_boundary = 0).  This produces S11 ≈ -0.0588 at depth 1.
@@ -114,5 +125,6 @@ print("""
 
   Result:  S11_sc ≈ -0.06123  →  M_W = 80,224 MeV  (-0.19%)
   Improved from depth-1 hard:  M_W = 80,201 MeV  (-0.22%)
-""")
+"""
+)
 print(BAR)

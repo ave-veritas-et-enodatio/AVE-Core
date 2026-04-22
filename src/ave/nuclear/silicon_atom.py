@@ -20,6 +20,7 @@ Silicon (Z=14) atomic structure from AVE Split-Layer Architecture:
 
 Engine: radial_eigenvalue.ionization_energy_e2k (ABCD+MCL hybrid)
 """
+
 from __future__ import annotations
 
 
@@ -40,7 +41,7 @@ A_SI: int = 28
 ELEMENT_NAME: str = "Silicon"
 
 # Resonator configuration: 1s² 2s² 2p⁶ 3s² 3p²  =  [Ne] 3s² 3p²
-CORE_ELECTRONS: int = 10   # [Ne] core (cross-shell screening)
+CORE_ELECTRONS: int = 10  # [Ne] core (cross-shell screening)
 VALENCE_ELECTRONS: int = 4  # 3s² + 3p² (same-shell loading)
 
 # sp³ hybridisation: 4 equivalent soliton ports at tetrahedral angle
@@ -84,8 +85,8 @@ R_VAL_SI: float = atom_port_impedance(Z_SI, IE_SI_NIST)
 #   Operating point: V_R/V_BR = 0.050 (KB-verified)
 #   This is the axiomatic origin of semiconducting behavior.
 
-V_R_OVER_V_BR: float = 0.050   # KB-verified
-MILLER_FACTOR: float = 1.000   # M = 1 (pure Small Signal regime)
+V_R_OVER_V_BR: float = 0.050  # KB-verified
+MILLER_FACTOR: float = 1.000  # M = 1 (pure Small Signal regime)
 
 
 def first_ionization():

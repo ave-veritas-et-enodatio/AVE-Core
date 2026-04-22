@@ -57,7 +57,7 @@ class Rule:
     id: str
     pattern: str
     mitigator: Optional[str] = None
-    severity: str = "warn"      # "critical" | "warn" | "info"
+    severity: str = "warn"  # "critical" | "warn" | "info"
     message: str = ""
     fix: str = ""
     see: str = ""
@@ -81,7 +81,6 @@ RULES: list[Rule] = [
         fix="Replace 139/450 with 97/315.",
         see="audit-math.md §1 (Known Stale Values) and docs/framing_and_presentation.md",
     ),
-
     # ─── B1: α as free/input parameter without derivation cross-ref ────────
     Rule(
         id="B1",
@@ -123,7 +122,6 @@ RULES: list[Rule] = [
         see="docs/framing_and_presentation.md §B1",
         context_chars=600,
     ),
-
     # ─── B2: Millennium proofs framed as rigorous without caveat ───────────
     Rule(
         id="B2",
@@ -150,14 +148,13 @@ RULES: list[Rule] = [
             "insufficient."
         ),
         fix=(
-            "Add inline caveat: \"framework-conditional lattice-level resolution; "
-            "Clay-grade formalization remains future work\". Or cite "
+            'Add inline caveat: "framework-conditional lattice-level resolution; '
+            'Clay-grade formalization remains future work". Or cite '
             "Ch.~\\ref{ch:millennium_prizes}."
         ),
         see="docs/framing_and_presentation.md §B2",
         context_chars=500,
     ),
-
     # ─── A3: non-integer coordination without amorphous framing ────────────
     Rule(
         id="A3",
@@ -176,23 +173,19 @@ RULES: list[Rule] = [
             "will flag non-integer coordination as suspicious."
         ),
         fix=(
-            "Add one-line prelude: \"As the vacuum is a disordered amorphous "
+            'Add one-line prelude: "As the vacuum is a disordered amorphous '
             "chiral manifold (not a crystal), effective coordination numbers "
-            "are generically non-integer statistical means.\""
+            'are generically non-integer statistical means."'
         ),
         see="docs/framing_and_presentation.md §A3",
         context_chars=500,
     ),
-
     # ─── A1: 0.00% prediction without identity classification ──────────────
     Rule(
         id="A1",
         # Table rows or prose claiming "0.00%" / "exact" agreement on a
         # prediction — potentially-tautological unless classified.
-        pattern=(
-            r"(?:\|\s*0\.00\s*\\?%|\|\s*Exact\s*\|"
-            r"|0\.00\s*\\?%\s*(?:agreement|error|match))"
-        ),
+        pattern=(r"(?:\|\s*0\.00\s*\\?%|\|\s*Exact\s*\|" r"|0\.00\s*\\?%\s*(?:agreement|error|match))"),
         mitigator=(
             r"identity|manifestation|definitional|by\s+construction"
             r"|tautolog(?:y|ical)|not\s+a\s+fit|consistency\s+check"
@@ -222,7 +215,6 @@ RULES: list[Rule] = [
         # visible from rows near the bottom.
         context_chars=5000,
     ),
-
     # ─── C2: anti-cheat badge overclaim ─────────────────────────────────────
     Rule(
         id="C2",
@@ -247,13 +239,13 @@ RULES: list[Rule] = [
         severity="info",
         message=(
             "verify_universe.py claim framed as if it verifies the full "
-            "\"no smuggled data\" rule, but the scan is a narrow AST-level "
+            '"no smuggled data" rule, but the scan is a narrow AST-level '
             "check for banned imports and a handful of literal magic numbers."
         ),
         fix=(
-            "Add inline scope: \"the scan prohibits scipy.constants imports "
+            'Add inline scope: "the scan prohibits scipy.constants imports '
             "and specific CODATA-value literals; it does not AST-walk data "
-            "arrays or fit-target arguments.\""
+            'arrays or fit-target arguments."'
         ),
         see="docs/framing_and_presentation.md §C2",
         context_chars=400,
@@ -296,11 +288,7 @@ def scan_file(path: Path, rules: list[Rule]) -> list[Finding]:
             continue
 
         pat = re.compile(rule.pattern, re.IGNORECASE | re.MULTILINE)
-        mit = (
-            re.compile(rule.mitigator, re.IGNORECASE | re.MULTILINE)
-            if rule.mitigator is not None
-            else None
-        )
+        mit = re.compile(rule.mitigator, re.IGNORECASE | re.MULTILINE) if rule.mitigator is not None else None
 
         for m in pat.finditer(source):
             start, end = m.span()
@@ -321,9 +309,7 @@ def scan_file(path: Path, rules: list[Rule]) -> list[Finding]:
                     severity=rule.severity,
                     path=str(path),
                     line=line_of_offset(source, start),
-                    matched_text=(
-                        matched if len(matched) <= 180 else matched[:177] + "…"
-                    ),
+                    matched_text=(matched if len(matched) <= 180 else matched[:177] + "…"),
                     message=rule.message,
                     fix=rule.fix,
                     see=rule.see,
@@ -369,10 +355,7 @@ def discover_targets(root: Path) -> list[Path]:
 
 def format_text_report(findings: list[Finding], total_files: int) -> str:
     if not findings:
-        return (
-            f"[defense-checker] Scanned {total_files} files. "
-            "No anti-patterns detected."
-        )
+        return f"[defense-checker] Scanned {total_files} files. " "No anti-patterns detected."
 
     # Count by severity
     by_sev: dict[str, int] = {}
@@ -380,10 +363,7 @@ def format_text_report(findings: list[Finding], total_files: int) -> str:
         by_sev[f.severity] = by_sev.get(f.severity, 0) + 1
 
     order = ["critical", "warn", "info"]
-    header = [
-        f"[defense-checker] Scanned {total_files} files; "
-        f"{len(findings)} findings."
-    ]
+    header = [f"[defense-checker] Scanned {total_files} files; " f"{len(findings)} findings."]
     for sev in order:
         if sev in by_sev:
             header.append(f"  {sev.upper():<8} {by_sev[sev]}")
@@ -435,8 +415,7 @@ def format_json_report(findings: list[Finding], total_files: int) -> str:
 
 def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Scan AVE corpus for defense-context anti-patterns "
-        "(docs/framing_and_presentation.md rules).",
+        description="Scan AVE corpus for defense-context anti-patterns " "(docs/framing_and_presentation.md rules).",
     )
     parser.add_argument(
         "--root",
@@ -490,9 +469,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     if args.severity != "all":
         sev_order = {"critical": 0, "warn": 1, "info": 2}
         cutoff = sev_order[args.severity]
-        all_findings = [
-            f for f in all_findings if sev_order[f.severity] <= cutoff
-        ]
+        all_findings = [f for f in all_findings if sev_order[f.severity] <= cutoff]
 
     # Output
     if args.json:

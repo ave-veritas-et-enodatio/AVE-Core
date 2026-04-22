@@ -53,6 +53,7 @@ Numerically verifying this via three stages of increasing strictness:
 Usage:
     python src/scripts/vol_1_foundations/ropelength_trefoil_golden_torus.py
 """
+
 import numpy as np
 from scipy.optimize import minimize
 from scipy.integrate import quad
@@ -77,7 +78,7 @@ def trefoil_speed_squared(t, R, r):
         (dz/dt)²            = 9r² cos²(3t)
         |dX/dt|²            = 4(R + r cos 3t)² + 9r²
     """
-    return 4.0 * (R + r * np.cos(3.0 * t))**2 + 9.0 * r**2
+    return 4.0 * (R + r * np.cos(3.0 * t)) ** 2 + 9.0 * r**2
 
 
 def trefoil_arc_length(R, r):
@@ -101,10 +102,12 @@ def stage_a_arc_length_on_crossings_boundary():
 
     # Refine with bounded scalar minimization
     from scipy.optimize import minimize_scalar
+
     res = minimize_scalar(
         lambda R: trefoil_arc_length(R, R - 0.5),
-        bounds=(0.51, 1.8), method='bounded',
-        options={'xatol': 1e-6},
+        bounds=(0.51, 1.8),
+        method="bounded",
+        options={"xatol": 1e-6},
     )
     R_min_refined = res.x
     r_min_refined = R_min_refined - 0.5
@@ -158,17 +161,20 @@ def stage_b_with_screening_constraint():
         # Arc length (primary energy term)
         L = trefoil_arc_length(R, r)
         # Self-avoidance EQUALITY penalty (at crossings: 2(R-r) = 1 exactly at tight rope)
-        penalty_avoid = lambda_avoid * ((R - r) - 0.5)**2
+        penalty_avoid = lambda_avoid * ((R - r) - 0.5) ** 2
         # Holomorphic screening penalty (R·r → 1/4)
-        penalty_screen = lambda_screening * (R * r - 0.25)**2
+        penalty_screen = lambda_screening * (R * r - 0.25) ** 2
         return L + penalty_avoid + penalty_screen
 
     # Start well away from Golden Torus
     x0 = np.array([1.2, 0.4])
     # Ramp up penalties to squeeze residual toward zero
     res = minimize(
-        objective, x0, args=(1e8, 1e8), method='Nelder-Mead',
-        options={'xatol': 1e-10, 'fatol': 1e-14, 'maxiter': 20000},
+        objective,
+        x0,
+        args=(1e8, 1e8),
+        method="Nelder-Mead",
+        options={"xatol": 1e-10, "fatol": 1e-14, "maxiter": 20000},
     )
     R_found, r_found = res.x
 
@@ -203,8 +209,7 @@ def stage_c_landscape():
     def composite(params, lambda_avoid, lambda_screen):
         R, r = params
         L = trefoil_arc_length(R, r)
-        penalty = (lambda_avoid * ((R - r) - 0.5)**2
-                   + lambda_screen * (R * r - 0.25)**2)
+        penalty = lambda_avoid * ((R - r) - 0.5) ** 2 + lambda_screen * (R * r - 0.25) ** 2
         return L + penalty
 
     # Grid search then refine
@@ -220,9 +225,13 @@ def stage_c_landscape():
                 best = (v, (R, r))
 
     # Local refine with tightened penalties
-    res = minimize(composite, np.array(best[1]), args=(1e8, 1e8),
-                   method='Nelder-Mead',
-                   options={'xatol': 1e-10, 'fatol': 1e-14, 'maxiter': 20000})
+    res = minimize(
+        composite,
+        np.array(best[1]),
+        args=(1e8, 1e8),
+        method="Nelder-Mead",
+        options={"xatol": 1e-10, "fatol": 1e-14, "maxiter": 20000},
+    )
     R_c, r_c = res.x
 
     print(f"  Grid-search best:  R = {best[1][0]:.4f}, r = {best[1][1]:.4f}")
@@ -264,8 +273,12 @@ if __name__ == "__main__":
     print()
 
     tol = 1e-5
-    converged = (abs(R_b - GOLDEN_R) < tol and abs(r_b - GOLDEN_r) < tol and
-                 abs(R_c - GOLDEN_R) < tol and abs(r_c - GOLDEN_r) < tol)
+    converged = (
+        abs(R_b - GOLDEN_R) < tol
+        and abs(r_b - GOLDEN_r) < tol
+        and abs(R_c - GOLDEN_R) < tol
+        and abs(r_c - GOLDEN_r) < tol
+    )
 
     if converged:
         print("  ✓ VERIFIED: Both constraints (self-avoidance R-r=1/2 + holomorphic")

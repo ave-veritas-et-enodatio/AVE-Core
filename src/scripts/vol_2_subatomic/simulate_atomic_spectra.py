@@ -28,13 +28,20 @@ import sys
 import os
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 from ave.core.constants import (
-    C_0, ALPHA, HBAR, M_E, e_charge,
-    EPSILON_0, Z_0, L_NODE,
+    C_0,
+    ALPHA,
+    HBAR,
+    M_E,
+    e_charge,
+    EPSILON_0,
+    Z_0,
+    L_NODE,
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -57,9 +64,9 @@ RY_EV = float(E_ION_EV)
 
 # NIST experimental values for comparison
 NIST = {
-    'a_bohr': 5.29177e-11,   # m
-    'E_ion': 13.6057,         # eV
-    'R_inf': 1.0973732e7,     # m⁻¹
+    "a_bohr": 5.29177e-11,  # m
+    "E_ion": 13.6057,  # eV
+    "R_inf": 1.0973732e7,  # m⁻¹
 }
 
 
@@ -76,9 +83,9 @@ def run_simulation():
     print(f"    E_ion  = ½α²m_ec²  = {RY_EV:.4f} eV  (NIST: {NIST['E_ion']:.4f})")
     print(f"    R_∞    = α²m_ec/2h = {R_INF:.6e} m⁻¹  (NIST: {NIST['R_inf']:.6e})")
 
-    delta_a = (A_BOHR - NIST['a_bohr']) / NIST['a_bohr'] * 100
-    delta_E = (RY_EV - NIST['E_ion']) / NIST['E_ion'] * 100
-    delta_R = (R_INF - NIST['R_inf']) / NIST['R_inf'] * 100
+    delta_a = (A_BOHR - NIST["a_bohr"]) / NIST["a_bohr"] * 100
+    delta_E = (RY_EV - NIST["E_ion"]) / NIST["E_ion"] * 100
+    delta_R = (R_INF - NIST["R_inf"]) / NIST["R_inf"] * 100
 
     print(f"\n    Δ(a₀)  = {delta_a:+.4f}%")
     print(f"    Δ(E_ion) = {delta_E:+.4f}%")
@@ -104,7 +111,7 @@ def run_simulation():
     # Balmer series: transitions to n=2
     balmer_nist = {3: 656.28, 4: 486.13, 5: 434.05, 6: 410.17, 7: 397.01}
     for n_upper in range(3, 8):
-        lambda_m = 1.0 / (R_INF * (1.0/4.0 - 1.0/n_upper**2))
+        lambda_m = 1.0 / (R_INF * (1.0 / 4.0 - 1.0 / n_upper**2))
         lambda_nm = lambda_m * 1e9
         nist_nm = balmer_nist.get(n_upper, None)
         delta = (lambda_nm - nist_nm) / nist_nm * 100 if nist_nm else 0
@@ -114,7 +121,7 @@ def run_simulation():
     print(f"\n  ── SPECTRAL SERIES (Lyman) ──")
     lyman_nist = {2: 121.57, 3: 102.57, 4: 97.25, 5: 94.97, 6: 93.78}
     for n_upper in range(2, 7):
-        lambda_m = 1.0 / (R_INF * (1.0 - 1.0/n_upper**2))
+        lambda_m = 1.0 / (R_INF * (1.0 - 1.0 / n_upper**2))
         lambda_nm = lambda_m * 1e9
         nist_nm = lyman_nist.get(n_upper, None)
         delta = (lambda_nm - nist_nm) / nist_nm * 100 if nist_nm else 0
@@ -145,18 +152,25 @@ def run_simulation():
     for n in range(1, 8):
         E = -RY_EV / n**2
         ax1.hlines(E, 0.3, 0.7, color="#44ff88", linewidth=2)
-        ax1.text(0.75, E, f"n={n}\n{E:.2f} eV", color=C_TEXT, fontsize=8,
-                 va="center")
+        ax1.text(0.75, E, f"n={n}\n{E:.2f} eV", color=C_TEXT, fontsize=8, va="center")
     # Show some transitions (Balmer)
     for n_up in [3, 4, 5]:
         E_low = -RY_EV / 4
         E_high = -RY_EV / n_up**2
-        ax1.annotate("", xy=(0.5, E_low), xytext=(0.5, E_high),
-                     arrowprops=dict(arrowstyle="->", color="#ff4444", lw=1.5))
+        ax1.annotate(
+            "",
+            xy=(0.5, E_low),
+            xytext=(0.5, E_high),
+            arrowprops=dict(arrowstyle="->", color="#ff4444", lw=1.5),
+        )
     ax1.set_xlim(0, 1)
     ax1.set_ylabel("Energy (eV)", color=C_TEXT, fontsize=10)
-    ax1.set_title(f"Hydrogen Energy Levels\n$E_n = -E_{{ion}}/n^2$, $E_{{ion}}$ = {RY_EV:.3f} eV",
-                  color=C_TEXT, fontsize=13, fontweight="bold")
+    ax1.set_title(
+        f"Hydrogen Energy Levels\n$E_n = -E_{{ion}}/n^2$, $E_{{ion}}$ = {RY_EV:.3f} eV",
+        color=C_TEXT,
+        fontsize=13,
+        fontweight="bold",
+    )
     ax1.set_xticks([])
 
     # Panel 2: Balmer series spectral lines
@@ -164,9 +178,14 @@ def run_simulation():
     style_ax(ax2)
     colors_nm = plt.cm.rainbow(np.linspace(0.1, 0.9, 5))
     for i, n_up in enumerate(range(3, 8)):
-        lam = 1.0 / (R_INF * (0.25 - 1.0/n_up**2)) * 1e9
-        ax2.axvline(lam, color=colors_nm[i], linewidth=3, alpha=0.8,
-                    label=f"H-{chr(945+i-1) if i > 0 else 'α'}: {lam:.1f} nm")
+        lam = 1.0 / (R_INF * (0.25 - 1.0 / n_up**2)) * 1e9
+        ax2.axvline(
+            lam,
+            color=colors_nm[i],
+            linewidth=3,
+            alpha=0.8,
+            label=f"H-{chr(945+i-1) if i > 0 else 'α'}: {lam:.1f} nm",
+        )
     ax2.set_xlabel("Wavelength (nm)", color=C_TEXT, fontsize=10)
     ax2.set_yticks([])
     ax2.set_title("Balmer Series:\nLC Cavity Harmonics", color=C_TEXT, fontsize=13, fontweight="bold")
@@ -179,23 +198,33 @@ def run_simulation():
     r_bohr = np.linspace(0, 25, 500)  # in units of a₀
 
     # Hydrogenic radial functions R_{n,0}(r) for ℓ=0
-    def R_10(r): return 2.0 * np.exp(-r)
-    def R_20(r): return (1.0/(2*np.sqrt(2))) * (2 - r) * np.exp(-r/2)
-    def R_30(r): return (2.0/(81*np.sqrt(3))) * (27 - 18*r + 2*r**2) * np.exp(-r/3)
+    def R_10(r):
+        return 2.0 * np.exp(-r)
 
-    P_1s = r_bohr**2 * R_10(r_bohr)**2
-    P_2s = r_bohr**2 * R_20(r_bohr)**2
-    P_3s = r_bohr**2 * R_30(r_bohr)**2
+    def R_20(r):
+        return (1.0 / (2 * np.sqrt(2))) * (2 - r) * np.exp(-r / 2)
 
-    ax3.fill_between(r_bohr, P_1s/max(P_1s), alpha=0.3, color="#00ccff")
-    ax3.plot(r_bohr, P_1s/max(P_1s), color="#00ccff", linewidth=2.5, label="1s")
-    ax3.fill_between(r_bohr, P_2s/max(P_2s), alpha=0.2, color="#ff44aa")
-    ax3.plot(r_bohr, P_2s/max(P_2s), color="#ff44aa", linewidth=2, label="2s")
-    ax3.fill_between(r_bohr, P_3s/max(P_3s), alpha=0.15, color="#ffaa44")
-    ax3.plot(r_bohr, P_3s/max(P_3s), color="#ffaa44", linewidth=2, label="3s")
+    def R_30(r):
+        return (2.0 / (81 * np.sqrt(3))) * (27 - 18 * r + 2 * r**2) * np.exp(-r / 3)
+
+    P_1s = r_bohr**2 * R_10(r_bohr) ** 2
+    P_2s = r_bohr**2 * R_20(r_bohr) ** 2
+    P_3s = r_bohr**2 * R_30(r_bohr) ** 2
+
+    ax3.fill_between(r_bohr, P_1s / max(P_1s), alpha=0.3, color="#00ccff")
+    ax3.plot(r_bohr, P_1s / max(P_1s), color="#00ccff", linewidth=2.5, label="1s")
+    ax3.fill_between(r_bohr, P_2s / max(P_2s), alpha=0.2, color="#ff44aa")
+    ax3.plot(r_bohr, P_2s / max(P_2s), color="#ff44aa", linewidth=2, label="2s")
+    ax3.fill_between(r_bohr, P_3s / max(P_3s), alpha=0.15, color="#ffaa44")
+    ax3.plot(r_bohr, P_3s / max(P_3s), color="#ffaa44", linewidth=2, label="3s")
     ax3.set_xlabel(r"$r / a_0$", color=C_TEXT, fontsize=10)
     ax3.set_ylabel("Radial density (normalized)", color=C_TEXT, fontsize=10)
-    ax3.set_title("Standing Wave Envelopes:\nPhonon-Polariton Modes", color=C_TEXT, fontsize=13, fontweight="bold")
+    ax3.set_title(
+        "Standing Wave Envelopes:\nPhonon-Polariton Modes",
+        color=C_TEXT,
+        fontsize=13,
+        fontweight="bold",
+    )
     ax3.legend(fontsize=9, facecolor="#111133", edgecolor="#333355", labelcolor=C_TEXT)
 
     # Panel 4: Derivation chain
@@ -221,23 +250,42 @@ def run_simulation():
         f"λ_{{n→m}} = 1/(R_∞(1/m²-1/n²))\n"
         f"  Hα: {1/(R_INF*(0.25-1/9))*1e9:.1f} nm"
     )
-    ax4.text(0.05, 0.95, chain_text, transform=ax4.transAxes,
-             fontfamily="monospace", fontsize=10, color="#44ff88",
-             verticalalignment="top")
+    ax4.text(
+        0.05,
+        0.95,
+        chain_text,
+        transform=ax4.transAxes,
+        fontfamily="monospace",
+        fontsize=10,
+        color="#44ff88",
+        verticalalignment="top",
+    )
 
     # Panel 5: Full spectrum (all series)
     ax5 = fig.add_subplot(gs[1, 1])
     style_ax(ax5)
 
-    series = {"Lyman": (1, "#8844ff"), "Balmer": (2, "#ff4444"),
-              "Paschen": (3, "#ffaa44"), "Brackett": (4, "#44aaff")}
+    series = {
+        "Lyman": (1, "#8844ff"),
+        "Balmer": (2, "#ff4444"),
+        "Paschen": (3, "#ffaa44"),
+        "Brackett": (4, "#44aaff"),
+    }
     for name, (m, color) in series.items():
         wavelengths = []
-        for n_up in range(m+1, m+7):
-            lam = 1.0 / (R_INF * (1.0/m**2 - 1.0/n_up**2)) * 1e9
+        for n_up in range(m + 1, m + 7):
+            lam = 1.0 / (R_INF * (1.0 / m**2 - 1.0 / n_up**2)) * 1e9
             wavelengths.append(lam)
-        ax5.scatter(wavelengths, [m]*len(wavelengths), color=color, s=80,
-                    label=f"{name} (→n={m})", zorder=5, edgecolors="#ffffff", linewidths=0.5)
+        ax5.scatter(
+            wavelengths,
+            [m] * len(wavelengths),
+            color=color,
+            s=80,
+            label=f"{name} (→n={m})",
+            zorder=5,
+            edgecolors="#ffffff",
+            linewidths=0.5,
+        )
         for lam in wavelengths:
             ax5.axvline(lam, color=color, alpha=0.15, linewidth=1)
 
@@ -257,8 +305,7 @@ def run_simulation():
     # Show V(r) = -e²/(4πε₀r) as impedance cavity potential
     r_pot = np.linspace(0.1, 20, 500)
     V_pot = -1.0 / r_pot  # in units of E_ion
-    ax6.plot(r_pot, V_pot, color="#44ff88", linewidth=2.5,
-             label=r"$V(r) = -E_{ion} \cdot a_0/r$")
+    ax6.plot(r_pot, V_pot, color="#44ff88", linewidth=2.5, label=r"$V(r) = -E_{ion} \cdot a_0/r$")
     # Energy levels
     for n in [1, 2, 3, 4]:
         E_level = -1.0 / n**2
@@ -279,14 +326,17 @@ def run_simulation():
         f"{RY_EV:.3f} eV,  "
         r"$R_\infty$ = " + f"{R_INF:.4e} m$^{{-1}}$  |  "
         r"All from $\mathtt{ave.core.constants}$",
-        color=C_TEXT, fontsize=14, fontweight="black", y=0.995
+        color=C_TEXT,
+        fontsize=14,
+        fontweight="black",
+        y=0.995,
     )
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
-    out_dir = os.path.join(os.path.dirname(__file__), '..', 'assets', 'sim_outputs')
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, 'atomic_spectra_cavity.png')
+    out_path = os.path.join(out_dir, "atomic_spectra_cavity.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
     print(f"\n  ═══ ATOMIC SPECTRA DERIVATION COMPLETE ═══")

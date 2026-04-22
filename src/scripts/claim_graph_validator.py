@@ -66,8 +66,8 @@ REQUIRED_FIELDS = {"id", "name", "type", "derivation_label"}
 # ───────────────────────────────────────────────────────────────────────────
 @dataclass
 class Finding:
-    check: str           # "schema" | "label" | "engine" | "parity"
-    severity: str        # "critical" | "warn" | "info"
+    check: str  # "schema" | "label" | "engine" | "parity"
+    severity: str  # "critical" | "warn" | "info"
     entry_id: Optional[str]
     message: str
     details: dict[str, Any] = field(default_factory=dict)
@@ -233,9 +233,7 @@ def check_schema(manifest: dict) -> list[Finding]:
                     check="schema",
                     severity="critical",
                     entry_id=eid,
-                    message=(
-                        f"Invalid type '{type_val}'. Allowed: {sorted(ALLOWED_TYPES)}"
-                    ),
+                    message=(f"Invalid type '{type_val}'. Allowed: {sorted(ALLOWED_TYPES)}"),
                 )
             )
 
@@ -254,9 +252,7 @@ def check_schema(manifest: dict) -> list[Finding]:
     return findings
 
 
-def check_labels(
-    manifest: dict, labels: Optional[set[str]] = None
-) -> list[Finding]:
+def check_labels(manifest: dict, labels: Optional[set[str]] = None) -> list[Finding]:
     """Every entry's derivation_label resolves to a \\label{} in the manuscript."""
     findings: list[Finding] = []
     if labels is None:
@@ -274,8 +270,7 @@ def check_labels(
                     severity="critical",
                     entry_id=eid,
                     message=(
-                        f"derivation_label '{label}' does not resolve to any "
-                        f"\\label{{}} in manuscript/**/*.tex"
+                        f"derivation_label '{label}' does not resolve to any " f"\\label{{}} in manuscript/**/*.tex"
                     ),
                     details={"label": label},
                 )
@@ -344,8 +339,7 @@ def check_engine(
                     severity="info",
                     entry_id=eid,
                     message=(
-                        f"constants_py_symbol '{symbol}' declared but no "
-                        f"predicted_value to cross-check against"
+                        f"constants_py_symbol '{symbol}' declared but no " f"predicted_value to cross-check against"
                     ),
                     details={"symbol": symbol, "engine_value": constants[symbol]},
                 )
@@ -399,9 +393,7 @@ def check_readme_parity(manifest: dict) -> list[Finding]:
         ]
 
     # Index manifest by id and by normalized id
-    entries_by_id: dict[str, dict] = {
-        e["id"]: e for e in manifest.get("predictions", []) if "id" in e
-    }
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in manifest.get("predictions", []) if "id" in e}
 
     def normalize_row_id(raw: str) -> str:
         # Remove markdown emphasis / whitespace
@@ -467,16 +459,11 @@ def check_living_reference_parity(manifest: dict) -> list[Finding]:
                 check="parity",
                 severity="warn",
                 entry_id=None,
-                message=(
-                    "Could not parse the Master Prediction Table from "
-                    "LIVING_REFERENCE.md"
-                ),
+                message=("Could not parse the Master Prediction Table from " "LIVING_REFERENCE.md"),
             )
         ]
 
-    entries_by_id: dict[str, dict] = {
-        e["id"]: e for e in manifest.get("predictions", []) if "id" in e
-    }
+    entries_by_id: dict[str, dict] = {e["id"]: e for e in manifest.get("predictions", []) if "id" in e}
 
     def candidate_ids(raw: str) -> list[str]:
         cleaned = raw.strip().replace("–", "-").replace("—", "-")
@@ -546,18 +533,13 @@ def run(
 
 def format_text(findings: list[Finding], n_entries: int) -> str:
     if not findings:
-        return (
-            f"[claim-graph] {n_entries} manifest entries; "
-            "all structural checks pass."
-        )
+        return f"[claim-graph] {n_entries} manifest entries; " "all structural checks pass."
 
     by_sev: dict[str, int] = {}
     for f in findings:
         by_sev[f.severity] = by_sev.get(f.severity, 0) + 1
 
-    out = [
-        f"[claim-graph] {n_entries} manifest entries; {len(findings)} findings."
-    ]
+    out = [f"[claim-graph] {n_entries} manifest entries; {len(findings)} findings."]
     for sev in ("critical", "warn", "info"):
         if sev in by_sev:
             out.append(f"  {sev.upper():<8} {by_sev[sev]}")
@@ -597,9 +579,7 @@ def format_json(findings: list[Finding], n_entries: int) -> str:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Validate the AVE claim graph (manuscript/predictions.yaml)."
-    )
+    parser = argparse.ArgumentParser(description="Validate the AVE claim graph (manuscript/predictions.yaml).")
     parser.add_argument(
         "--manifest",
         type=Path,

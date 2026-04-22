@@ -7,6 +7,7 @@ In the Topological LC Network, K/G defines the orthogonal impedance ratio
 between Volumetric Capacitance (bulk) and Torsional Inductance (shear),
 which bounds the propagation of transverse Gravitational Waves.
 """
+
 import warnings
 import numpy as np
 import scipy.spatial as spatial
@@ -22,17 +23,18 @@ from ave.core.constants import P_C
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # --- 1. AVE PHYSICAL CONSTANTS ---
-L_NODE = 1.0            # Baseline impedance length scale (normalized for simulation)
+L_NODE = 1.0  # Baseline impedance length scale (normalized for simulation)
 TARGET_PACKING = float(P_C)  # QED Packing Limit (8 * pi * alpha)
-OVER_BRACE_RATIO = 1.74 # Tuned Poisson-disk coupling bridge
+OVER_BRACE_RATIO = 1.74  # Tuned Poisson-disk coupling bridge
 
 PARAMS = {
     "k_stretch": 1.0,  # Capacitive Compliance (epsilon)
-    "k_twist": 0.6,    # Inductive Phase Shear (mu)
-    "k_couple": 4.6,   # Topo-Electric Phase Lock (Gain)
-    "box_size": 9.0,   
-    "num_nodes": 200,  
+    "k_twist": 0.6,  # Inductive Phase Shear (mu)
+    "k_couple": 4.6,  # Topo-Electric Phase Lock (Gain)
+    "box_size": 9.0,
+    "num_nodes": 200,
 }
+
 
 class ImpedanceLattice:
     def __init__(self, params):
@@ -55,7 +57,7 @@ class ImpedanceLattice:
             if len(accepted) == 0:
                 accepted.append(p)
                 continue
-            
+
             acc_arr = np.array(accepted)
             dists = np.linalg.norm(acc_arr - p, axis=1)
 
@@ -66,7 +68,7 @@ class ImpedanceLattice:
             self.num_nodes = len(accepted)
 
         pos = np.array(accepted)
-        rot = np.zeros((self.num_nodes, 3)) 
+        rot = np.zeros((self.num_nodes, 3))
         return np.concatenate([pos.flatten(), rot.flatten()])
 
     def _build_network(self, state_vector):

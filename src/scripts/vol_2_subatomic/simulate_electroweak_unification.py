@@ -53,16 +53,32 @@ import sys
 import os
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
 from ave.core.constants import (
-    C_0, ALPHA, HBAR, e_charge, M_E,
-    MU_0, EPSILON_0, Z_0, L_NODE,
-    V_SNAP, V_YIELD, P_C, NU_VAC,
-    SIN2_THETA_W, M_W_MEV, M_Z_MEV,
-    G_F, HIGGS_VEV_MEV, M_HIGGS_MEV, N_K4,
+    C_0,
+    ALPHA,
+    HBAR,
+    e_charge,
+    M_E,
+    MU_0,
+    EPSILON_0,
+    Z_0,
+    L_NODE,
+    V_SNAP,
+    V_YIELD,
+    P_C,
+    NU_VAC,
+    SIN2_THETA_W,
+    M_W_MEV,
+    M_Z_MEV,
+    G_F,
+    HIGGS_VEV_MEV,
+    M_HIGGS_MEV,
+    N_K4,
 )
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -80,21 +96,22 @@ from ave.core.constants import (
 # small-signal parameter at operating frequency (MS-bar).
 #
 PDG = {
-    'sin2_theta_W_onshell': 0.22337,  # On-shell: 1 - (M_W/M_Z)² (correct comparison)
-    'sin2_theta_W_msbar': 0.23122,    # MS-bar at M_Z (includes loop corrections)
-    'M_W': 80379.0,             # MeV
-    'M_Z': 91187.6,             # MeV
-    'G_F': 1.1663788e-5,        # GeV⁻²
-    'v_higgs': 246220.0,        # MeV
-    'm_H': 125100.0,            # MeV
-    'm_e': 0.51100,             # MeV
-    'm_mu': 105.658,            # MeV
-    'm_tau': 1776.86,           # MeV
+    "sin2_theta_W_onshell": 0.22337,  # On-shell: 1 - (M_W/M_Z)² (correct comparison)
+    "sin2_theta_W_msbar": 0.23122,  # MS-bar at M_Z (includes loop corrections)
+    "M_W": 80379.0,  # MeV
+    "M_Z": 91187.6,  # MeV
+    "G_F": 1.1663788e-5,  # GeV⁻²
+    "v_higgs": 246220.0,  # MeV
+    "m_H": 125100.0,  # MeV
+    "m_e": 0.51100,  # MeV
+    "m_mu": 105.658,  # MeV
+    "m_tau": 1776.86,  # MeV
 }
 
 # ══════════════════════════════════════════════════════════════════════════════
 # DERIVATION
 # ══════════════════════════════════════════════════════════════════════════════
+
 
 def run_derivation():
     print("=" * 78)
@@ -120,8 +137,8 @@ def run_derivation():
     print(f"    sin²θ_W = 1 - 7/9 = 2/9")
 
     sin2_ave = float(SIN2_THETA_W)
-    sin2_onshell = PDG['sin2_theta_W_onshell']
-    sin2_msbar = PDG['sin2_theta_W_msbar']
+    sin2_onshell = PDG["sin2_theta_W_onshell"]
+    sin2_msbar = PDG["sin2_theta_W_msbar"]
     delta_onshell = (sin2_ave - sin2_onshell) / sin2_onshell * 100
     delta_msbar = (sin2_ave - sin2_msbar) / sin2_msbar * 100
 
@@ -134,7 +151,7 @@ def run_derivation():
     # ── Step 2: Mass Ratio ─────────────────────────────────────────────────
     print(f"\n  ── STEP 2: W/Z MASS RATIO ──")
     ratio_ave = np.sqrt(7.0) / 3.0
-    ratio_pdg = PDG['M_W'] / PDG['M_Z']
+    ratio_pdg = PDG["M_W"] / PDG["M_Z"]
     delta_ratio = (ratio_ave - ratio_pdg) / ratio_pdg * 100
 
     print(f"    m_W/m_Z = √(7)/3 = {ratio_ave:.6f}")
@@ -146,7 +163,7 @@ def run_derivation():
     print(f"    M_W = m_e / (α² × p_c × √(3/7))")
 
     M_W = float(M_W_MEV)
-    delta_MW = (M_W - PDG['M_W']) / PDG['M_W'] * 100
+    delta_MW = (M_W - PDG["M_W"]) / PDG["M_W"] * 100
 
     print(f"    AVE:  M_W = {M_W:.1f} MeV")
     print(f"    PDG:  M_W = {PDG['M_W']:.1f} MeV")
@@ -157,7 +174,7 @@ def run_derivation():
     print(f"    M_Z = M_W × 3/√7")
 
     M_Z = float(M_Z_MEV)
-    delta_MZ = (M_Z - PDG['M_Z']) / PDG['M_Z'] * 100
+    delta_MZ = (M_Z - PDG["M_Z"]) / PDG["M_Z"] * 100
 
     print(f"    AVE:  M_Z = {M_Z:.1f} MeV")
     print(f"    PDG:  M_Z = {PDG['M_Z']:.1f} MeV")
@@ -168,7 +185,7 @@ def run_derivation():
     print(f"    G_F = √2 × π × α / (2 × sin²θ_W × M_W²)")
 
     G_F_ave = float(G_F)
-    delta_GF = (G_F_ave - PDG['G_F']) / PDG['G_F'] * 100
+    delta_GF = (G_F_ave - PDG["G_F"]) / PDG["G_F"] * 100
 
     print(f"    AVE:  G_F = {G_F_ave:.6e} GeV⁻²")
     print(f"    PDG:  G_F = {PDG['G_F']:.6e} GeV⁻²")
@@ -179,7 +196,7 @@ def run_derivation():
     print(f"    v = 1/√(√2 × G_F)")
 
     v_ave = float(HIGGS_VEV_MEV)
-    delta_v = (v_ave - PDG['v_higgs']) / PDG['v_higgs'] * 100
+    delta_v = (v_ave - PDG["v_higgs"]) / PDG["v_higgs"] * 100
 
     print(f"    AVE:  v = {v_ave:.0f} MeV")
     print(f"    PDG:  v = {PDG['v_higgs']:.0f} MeV")
@@ -191,7 +208,7 @@ def run_derivation():
     print(f"    λ_Higgs = 1/(2N_K4) = 1/8 = {1/(2*N_K4):.4f}")
 
     mH_ave = float(M_HIGGS_MEV)
-    delta_mH = (mH_ave - PDG['m_H']) / PDG['m_H'] * 100
+    delta_mH = (mH_ave - PDG["m_H"]) / PDG["m_H"] * 100
 
     print(f"    AVE:  m_H = {mH_ave:.0f} MeV")
     print(f"    PDG:  m_H = {PDG['m_H']:.0f} MeV")
@@ -200,11 +217,11 @@ def run_derivation():
     # ── Step 8: Lepton Masses ──────────────────────────────────────────────
     print(f"\n  ── STEP 8: LEPTON MASS SPECTRUM ──")
 
-    m_mu_ave = m_e_MeV / (ALPHA * np.sqrt(3.0/7.0))
+    m_mu_ave = m_e_MeV / (ALPHA * np.sqrt(3.0 / 7.0))
     m_tau_ave = m_e_MeV * float(P_C) / ALPHA**2
 
-    delta_mu = (m_mu_ave - PDG['m_mu']) / PDG['m_mu'] * 100
-    delta_tau = (m_tau_ave - PDG['m_tau']) / PDG['m_tau'] * 100
+    delta_mu = (m_mu_ave - PDG["m_mu"]) / PDG["m_mu"] * 100
+    delta_tau = (m_tau_ave - PDG["m_tau"]) / PDG["m_tau"] * 100
 
     print(f"    m_e  = {m_e_MeV:.4f} MeV  (input)")
     print(f"    m_μ  = m_e/(α√(3/7)) = {m_mu_ave:.1f} MeV  (PDG: {PDG['m_mu']:.3f}, Δ = {delta_mu:+.2f}%)")
@@ -216,14 +233,14 @@ def run_derivation():
     print(f"  ───────────────────────────────────────────────────────────")
 
     predictions = [
-        ("sin²θ_W",  "2/9",                     sin2_ave,  PDG['sin2_theta_W_onshell'], ""),
-        ("m_W",      "m_e/(α²p_c√(3/7))",       M_W,       PDG['M_W'],         "MeV"),
-        ("m_Z",      "M_W × 3/√7",              M_Z,       PDG['M_Z'],         "MeV"),
-        ("G_F",      "√2πα/(2s²M_W²)",          G_F_ave,   PDG['G_F'],         "GeV⁻²"),
-        ("v",        "1/√(√2 G_F)",              v_ave,     PDG['v_higgs'],     "MeV"),
-        ("m_H",      "v/2",                      mH_ave,    PDG['m_H'],         "MeV"),
-        ("m_μ",      "m_e/(α√(3/7))",            m_mu_ave,  PDG['m_mu'],        "MeV"),
-        ("m_τ",      "m_e p_c/α²",               m_tau_ave, PDG['m_tau'],       "MeV"),
+        ("sin²θ_W", "2/9", sin2_ave, PDG["sin2_theta_W_onshell"], ""),
+        ("m_W", "m_e/(α²p_c√(3/7))", M_W, PDG["M_W"], "MeV"),
+        ("m_Z", "M_W × 3/√7", M_Z, PDG["M_Z"], "MeV"),
+        ("G_F", "√2πα/(2s²M_W²)", G_F_ave, PDG["G_F"], "GeV⁻²"),
+        ("v", "1/√(√2 G_F)", v_ave, PDG["v_higgs"], "MeV"),
+        ("m_H", "v/2", mH_ave, PDG["m_H"], "MeV"),
+        ("m_μ", "m_e/(α√(3/7))", m_mu_ave, PDG["m_mu"], "MeV"),
+        ("m_τ", "m_e p_c/α²", m_tau_ave, PDG["m_tau"], "MeV"),
     ]
 
     print(f"  {'Quantity':>10} {'Formula':>22} {'AVE':>14} {'PDG':>14} {'Δ':>8}")
@@ -270,7 +287,7 @@ def run_derivation():
     omega = 2 * np.pi * f
 
     # Physical LC parameters from the lattice
-    L_cell = float(MU_0) * float(L_NODE)   # H per cell
+    L_cell = float(MU_0) * float(L_NODE)  # H per cell
     C_cell = float(EPSILON_0) * float(L_NODE)  # F per cell
 
     Z_L = omega * L_cell
@@ -283,18 +300,37 @@ def run_derivation():
 
     idx_unify = np.argmin(np.abs(f - f_unify))
 
-    ax1.loglog(f[:idx_unify], Z_L[:idx_unify], color="#00ccff", linewidth=2.5,
-               label=r"$Z_L = \omega L_{cell}$ (Magnetic)")
-    ax1.loglog(f[:idx_unify], Z_C[:idx_unify], color="#ff44aa", linewidth=2.5,
-               label=r"$Z_C = 1/(\omega C_{cell})$ (Electric)")
-    ax1.loglog(f[idx_unify:], Z_unified[idx_unify:], color="#ffffff", linewidth=3,
-               label=r"$Z_{EW} = \sqrt{L/C} = Z_0$ (Unified)")
-    ax1.axvline(f_unify, color=C_HIGGS, linestyle="--", linewidth=1.5,
-                label=f"f_unify = {f_unify:.2e} Hz")
+    ax1.loglog(
+        f[:idx_unify],
+        Z_L[:idx_unify],
+        color="#00ccff",
+        linewidth=2.5,
+        label=r"$Z_L = \omega L_{cell}$ (Magnetic)",
+    )
+    ax1.loglog(
+        f[:idx_unify],
+        Z_C[:idx_unify],
+        color="#ff44aa",
+        linewidth=2.5,
+        label=r"$Z_C = 1/(\omega C_{cell})$ (Electric)",
+    )
+    ax1.loglog(
+        f[idx_unify:],
+        Z_unified[idx_unify:],
+        color="#ffffff",
+        linewidth=3,
+        label=r"$Z_{EW} = \sqrt{L/C} = Z_0$ (Unified)",
+    )
+    ax1.axvline(f_unify, color=C_HIGGS, linestyle="--", linewidth=1.5, label=f"f_unify = {f_unify:.2e} Hz")
 
     ax1.set_xlabel("Frequency (Hz)", color=C_TEXT, fontsize=10)
     ax1.set_ylabel("Impedance (Ω)", color=C_TEXT, fontsize=10)
-    ax1.set_title("Electroweak Unification:\nLC Acoustic Resonance", color=C_TEXT, fontsize=13, fontweight="bold")
+    ax1.set_title(
+        "Electroweak Unification:\nLC Acoustic Resonance",
+        color=C_TEXT,
+        fontsize=13,
+        fontweight="bold",
+    )
     ax1.legend(fontsize=7, facecolor="#111133", edgecolor="#333355", labelcolor=C_TEXT, loc="lower left")
 
     # Panel 2: Mass Predictions vs PDG
@@ -303,12 +339,18 @@ def run_derivation():
 
     mass_names = [r"$m_\mu$", r"$m_\tau$", r"$M_W$", r"$M_Z$", r"$m_H$"]
     mass_ave = [m_mu_ave, m_tau_ave, M_W, M_Z, mH_ave]
-    mass_pdg = [PDG['m_mu'], PDG['m_tau'], PDG['M_W'], PDG['M_Z'], PDG['m_H']]
+    mass_pdg = [PDG["m_mu"], PDG["m_tau"], PDG["M_W"], PDG["M_Z"], PDG["m_H"]]
     mass_deltas = [(a - p) / p * 100 for a, p in zip(mass_ave, mass_pdg)]
 
     x_pos = np.arange(len(mass_names))
-    bars = ax2.bar(x_pos, mass_deltas, color=[C_AVE if abs(d) < 1 else C_HIGGS for d in mass_deltas],
-                   edgecolor="#333355", linewidth=1.5, alpha=0.85)
+    bars = ax2.bar(
+        x_pos,
+        mass_deltas,
+        color=[C_AVE if abs(d) < 1 else C_HIGGS for d in mass_deltas],
+        edgecolor="#333355",
+        linewidth=1.5,
+        alpha=0.85,
+    )
     ax2.set_xticks(x_pos)
     ax2.set_xticklabels(mass_names, color=C_TEXT, fontsize=11)
     ax2.axhline(y=0, color=C_TEXT, linewidth=0.5, alpha=0.5)
@@ -319,9 +361,16 @@ def run_derivation():
     ax2.set_ylim(-2, 2)
 
     for bar, delta in zip(bars, mass_deltas):
-        ax2.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.05 * np.sign(bar.get_height()),
-                 f"{delta:+.2f}%", ha='center', va='bottom' if delta > 0 else 'top',
-                 color=C_TEXT, fontsize=9, fontweight="bold")
+        ax2.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 0.05 * np.sign(bar.get_height()),
+            f"{delta:+.2f}%",
+            ha="center",
+            va="bottom" if delta > 0 else "top",
+            color=C_TEXT,
+            fontsize=9,
+            fontweight="bold",
+        )
 
     # Panel 3: Mass spectrum (log scale)
     ax3 = fig.add_subplot(gs[0, 2])
@@ -329,11 +378,20 @@ def run_derivation():
 
     all_names = [r"$m_e$", r"$m_\mu$", r"$m_\tau$", r"$M_W$", r"$M_Z$", r"$m_H$"]
     all_ave = [m_e_MeV, m_mu_ave, m_tau_ave, M_W, M_Z, mH_ave]
-    all_pdg = [PDG['m_e'], PDG['m_mu'], PDG['m_tau'], PDG['M_W'], PDG['M_Z'], PDG['m_H']]
+    all_pdg = [PDG["m_e"], PDG["m_mu"], PDG["m_tau"], PDG["M_W"], PDG["M_Z"], PDG["m_H"]]
 
     x = np.arange(len(all_names))
-    ax3.semilogy(x, all_ave, 'o-', color=C_AVE, markersize=10, linewidth=2.5, label="AVE (derived)")
-    ax3.semilogy(x, all_pdg, 's--', color=C_PDG, markersize=8, linewidth=1.5, alpha=0.7, label="PDG (measured)")
+    ax3.semilogy(x, all_ave, "o-", color=C_AVE, markersize=10, linewidth=2.5, label="AVE (derived)")
+    ax3.semilogy(
+        x,
+        all_pdg,
+        "s--",
+        color=C_PDG,
+        markersize=8,
+        linewidth=1.5,
+        alpha=0.7,
+        label="PDG (measured)",
+    )
     ax3.set_xticks(x)
     ax3.set_xticklabels(all_names, color=C_TEXT, fontsize=11)
     ax3.set_ylabel("Mass (MeV)", color=C_TEXT, fontsize=10)
@@ -368,9 +426,16 @@ def run_derivation():
         "    ↓\n"
         f"m_H = v/2 = {mH_ave:.0f} MeV"
     )
-    ax4.text(0.05, 0.95, chain_text, transform=ax4.transAxes,
-             fontfamily="monospace", fontsize=10, color=C_AVE,
-             verticalalignment="top")
+    ax4.text(
+        0.05,
+        0.95,
+        chain_text,
+        transform=ax4.transAxes,
+        fontfamily="monospace",
+        fontsize=10,
+        color=C_AVE,
+        verticalalignment="top",
+    )
 
     # Panel 5: Saturation factor at W/Z mass scale
     ax5 = fig.add_subplot(gs[1, 1])
@@ -384,15 +449,31 @@ def run_derivation():
     # Strain ~ ℓ_node / r (evanescent torsional field)
     strain = float(L_NODE) / r_range
     from ave.core.universal_operators import universal_saturation
+
     S = universal_saturation(strain, 1.0)
 
     ax5.semilogx(r_range * 1e15, S, color=C_HIGGS, linewidth=2.5)
-    ax5.axvline(x=lambda_W * 1e15, color=C_ACCENT, linestyle="--", alpha=0.7,
-                label=f"λ_W = {lambda_W*1e18:.1f} am")
-    ax5.axvline(x=lambda_Z * 1e15, color="#ff44aa", linestyle="--", alpha=0.7,
-                label=f"λ_Z = {lambda_Z*1e18:.1f} am")
-    ax5.axvline(x=float(L_NODE) * 1e15, color=C_AVE, linestyle=":", alpha=0.5,
-                label=f"ℓ_node = {float(L_NODE)*1e15:.3f} fm")
+    ax5.axvline(
+        x=lambda_W * 1e15,
+        color=C_ACCENT,
+        linestyle="--",
+        alpha=0.7,
+        label=f"λ_W = {lambda_W*1e18:.1f} am",
+    )
+    ax5.axvline(
+        x=lambda_Z * 1e15,
+        color="#ff44aa",
+        linestyle="--",
+        alpha=0.7,
+        label=f"λ_Z = {lambda_Z*1e18:.1f} am",
+    )
+    ax5.axvline(
+        x=float(L_NODE) * 1e15,
+        color=C_AVE,
+        linestyle=":",
+        alpha=0.5,
+        label=f"ℓ_node = {float(L_NODE)*1e15:.3f} fm",
+    )
 
     ax5.set_xlabel("Distance (fm)", color=C_TEXT, fontsize=10)
     ax5.set_ylabel("Saturation S(r)", color=C_TEXT, fontsize=10)
@@ -407,19 +488,34 @@ def run_derivation():
     nu_range = np.linspace(0, 0.5, 100)
     sin2_from_nu = 1.0 - 1.0 / (1.0 + nu_range)
 
-    ax6.plot(nu_range, sin2_from_nu, color=C_ACCENT, linewidth=2.5,
-             label=r"$\sin^2\theta_W = \nu/(1+\nu)$")
-    ax6.axvline(x=2/7, color=C_AVE, linewidth=2, linestyle="--",
-                label=f"ν = 2/7 (K4 lattice)")
-    ax6.axhline(y=2/9, color=C_HIGGS, linewidth=1.5, linestyle=":",
-                label=f"sin²θ_W = 2/9 = {2/9:.4f}")
-    ax6.scatter([2/7], [2/9], color=C_AVE, s=150, zorder=5, edgecolors="#ffffff")
+    ax6.plot(
+        nu_range,
+        sin2_from_nu,
+        color=C_ACCENT,
+        linewidth=2.5,
+        label=r"$\sin^2\theta_W = \nu/(1+\nu)$",
+    )
+    ax6.axvline(x=2 / 7, color=C_AVE, linewidth=2, linestyle="--", label=f"ν = 2/7 (K4 lattice)")
+    ax6.axhline(y=2 / 9, color=C_HIGGS, linewidth=1.5, linestyle=":", label=f"sin²θ_W = 2/9 = {2/9:.4f}")
+    ax6.scatter([2 / 7], [2 / 9], color=C_AVE, s=150, zorder=5, edgecolors="#ffffff")
 
     # PDG measurement
-    ax6.axhline(y=PDG['sin2_theta_W_onshell'], color=C_PDG, linewidth=1.5, linestyle=":",
-                alpha=0.7, label=f"PDG on-shell: {PDG['sin2_theta_W_onshell']:.5f}")
-    ax6.axhline(y=PDG['sin2_theta_W_msbar'], color=C_PDG, linewidth=1, linestyle="--",
-                alpha=0.3, label=f"PDG MS-bar: {PDG['sin2_theta_W_msbar']:.5f}")
+    ax6.axhline(
+        y=PDG["sin2_theta_W_onshell"],
+        color=C_PDG,
+        linewidth=1.5,
+        linestyle=":",
+        alpha=0.7,
+        label=f"PDG on-shell: {PDG['sin2_theta_W_onshell']:.5f}",
+    )
+    ax6.axhline(
+        y=PDG["sin2_theta_W_msbar"],
+        color=C_PDG,
+        linewidth=1,
+        linestyle="--",
+        alpha=0.3,
+        label=f"PDG MS-bar: {PDG['sin2_theta_W_msbar']:.5f}",
+    )
 
     ax6.set_xlabel("Poisson ratio ν", color=C_TEXT, fontsize=10)
     ax6.set_ylabel("sin²θ_W", color=C_TEXT, fontsize=10)
@@ -433,15 +529,18 @@ def run_derivation():
         r"All masses from $m_e$, $\alpha$, $\nu_{vac}=2/7$  |  "
         r"8 predictions, max error $\pm 1.2\%$  |  "
         r"All constants from $\mathtt{ave.core.constants}$",
-        color=C_TEXT, fontsize=14, fontweight="black", y=0.995
+        color=C_TEXT,
+        fontsize=14,
+        fontweight="black",
+        y=0.995,
     )
 
     plt.tight_layout(rect=[0, 0, 1, 0.93])
 
     # Use standard output directory
-    out_dir = os.path.join(os.path.dirname(__file__), '..', 'assets', 'sim_outputs')
+    out_dir = os.path.join(os.path.dirname(__file__), "..", "assets", "sim_outputs")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, 'electroweak_unification.png')
+    out_path = os.path.join(out_dir, "electroweak_unification.png")
     plt.savefig(out_path, dpi=200, facecolor=C_BG, bbox_inches="tight")
     print(f"\n  ✓ Plot saved → {out_path}")
 

@@ -23,13 +23,21 @@ THE ARGUMENT (4 steps):
 
 This module implements the computational verification of each step.
 """
+
 from __future__ import annotations
 
 
 import numpy as np
 from ave.core.constants import (
-    C_0, HBAR, L_NODE, M_E, ALPHA, KAPPA_FS, e_charge,
-    BARYON_LADDER, TORUS_KNOT_CROSSING_NUMBERS,
+    C_0,
+    HBAR,
+    L_NODE,
+    M_E,
+    ALPHA,
+    KAPPA_FS,
+    e_charge,
+    BARYON_LADDER,
+    TORUS_KNOT_CROSSING_NUMBERS,
 )
 from ave.axioms.scale_invariant import reflection_coefficient
 
@@ -37,6 +45,7 @@ from ave.axioms.scale_invariant import reflection_coefficient
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Existence
 # ════════════════════════════════════════════════════════════════════
+
 
 def lattice_degrees_of_freedom(volume_m3: float) -> float:
     """
@@ -58,6 +67,7 @@ def lattice_degrees_of_freedom(volume_m3: float) -> float:
 # ════════════════════════════════════════════════════════════════════
 # Step 2: Discrete Dispersion and Spectral Gap
 # ════════════════════════════════════════════════════════════════════
+
 
 def lattice_dispersion(k: float, l_node: float = L_NODE) -> float:
     """
@@ -168,6 +178,7 @@ def minimum_excitation_energy_eV(l_node: float = L_NODE) -> float:
 # Step 3: Confinement from Total Reflection
 # ════════════════════════════════════════════════════════════════════
 
+
 def confinement_radius(kappa_fs: float, crossing_number: int) -> float:
     """
     Confinement radius of a topological soliton.
@@ -226,6 +237,7 @@ def boundary_reflection_coefficient(Z_knot: float = 0.0) -> float:
 # Step 4: Mass Gap
 # ════════════════════════════════════════════════════════════════════
 
+
 def mass_gap_energy(crossing_number: int = 5) -> float:
     """
     Compute the mass gap for a given torus knot crossing number.
@@ -262,13 +274,13 @@ def mass_gap_energy(crossing_number: int = 5) -> float:
 
     # For c ≥ 5: use the baryon ladder from the Faddeev-Skyrme solver
     if crossing_number in BARYON_LADDER:
-        return BARYON_LADDER[crossing_number]['mass_mev']
+        return BARYON_LADDER[crossing_number]["mass_mev"]
 
     # For unlisted crossing numbers, use the scaling relation:
     # M(c) ∝ I_scalar(c), and I_scalar scales roughly as c^(2/3)
     # (from the Faddeev-Skyrme confinement bound)
-    ref_mass = BARYON_LADDER[5]['mass_MeV']
-    return ref_mass * (crossing_number / 5.0)**(2.0/3.0)
+    ref_mass = BARYON_LADDER[5]["mass_MeV"]
+    return ref_mass * (crossing_number / 5.0) ** (2.0 / 3.0)
 
 
 def mass_gap_is_positive(max_crossing: int = 13) -> dict:
@@ -288,27 +300,28 @@ def mass_gap_is_positive(max_crossing: int = 13) -> dict:
 
     for c in crossings:
         E_MeV = mass_gap_energy(c)
-        r_conf = confinement_radius(KAPPA_FS, c) if c >= 3 else float('inf')
+        r_conf = confinement_radius(KAPPA_FS, c) if c >= 3 else float("inf")
         results[c] = {
-            'crossing_number': c,
-            'mass_MeV': E_MeV,
-            'confinement_radius_l_node': r_conf,
-            'gap_positive': E_MeV > 0,
+            "crossing_number": c,
+            "mass_MeV": E_MeV,
+            "confinement_radius_l_node": r_conf,
+            "gap_positive": E_MeV > 0,
         }
 
-    delta_min = min(r['mass_MeV'] for r in results.values())
+    delta_min = min(r["mass_MeV"] for r in results.values())
 
     return {
-        'crossings': results,
-        'mass_gap_MeV': delta_min,
-        'gap_positive': delta_min > 0,
-        'gap_particle': 'electron' if delta_min < 1.0 else 'proton',
+        "crossings": results,
+        "mass_gap_MeV": delta_min,
+        "gap_positive": delta_min > 0,
+        "gap_particle": "electron" if delta_min < 1.0 else "proton",
     }
 
 
 # ════════════════════════════════════════════════════════════════════
 # Step 5: Zero-Free Region Equivalence (Riemann Hypothesis)
 # ════════════════════════════════════════════════════════════════════
+
 
 def spectral_cutoff_sigma() -> float:
     """
@@ -367,13 +380,13 @@ def functional_equation_reciprocal_proof() -> dict:
     """
     # Verified: for a lossless LC ladder, AD - BC = 1
     # (A = cosh(γL), B = Z₀ sinh(γL), C = sinh(γL)/Z₀, D = cosh(γL))
-    A = 1.0    # representative at zero frequency
+    A = 1.0  # representative at zero frequency
     B = 0.0
     C_mat = 0.0
     D = 1.0
-    det_ABCD = A * D - B * C_mat   # = 1 (lossless reciprocal network)
+    det_ABCD = A * D - B * C_mat  # = 1 (lossless reciprocal network)
 
-    sigma_axis = 0.5   # symmetry axis of ξ(s)
+    sigma_axis = 0.5  # symmetry axis of ξ(s)
 
     # Verify: ξ(s) = ξ(1-s) ↔ reflection symmetry at σ = 1/2
     # Test point: s = 0.5 + 14.1347i (first known Riemann zero)
@@ -384,14 +397,14 @@ def functional_equation_reciprocal_proof() -> dict:
     symmetry_holds = abs(sigma_test + sigma_mirror - 1.0) < 1e-10
 
     return {
-        'network_reciprocal': abs(det_ABCD - 1.0) < 1e-10,
-        'det_ABCD': det_ABCD,
-        'symmetry_axis_sigma': sigma_axis,
-        'functional_equation': 'xi(s) = xi(1-s)',
-        'test_zero_s': str(s_test),
-        'test_zero_mirror': str(s_mirror),
-        'mirror_symmetry_verified': symmetry_holds,
-        'FUNCTIONAL_EQUATION_FROM_RECIPROCITY': True,
+        "network_reciprocal": abs(det_ABCD - 1.0) < 1e-10,
+        "det_ABCD": det_ABCD,
+        "symmetry_axis_sigma": sigma_axis,
+        "functional_equation": "xi(s) = xi(1-s)",
+        "test_zero_s": str(s_test),
+        "test_zero_mirror": str(s_mirror),
+        "mirror_symmetry_verified": symmetry_holds,
+        "FUNCTIONAL_EQUATION_FROM_RECIPROCITY": True,
     }
 
 
@@ -434,40 +447,40 @@ def zero_free_region_equivalence() -> dict:
     N_max = 10000
     ns = np.arange(1, N_max + 1, dtype=float)
 
-    sigma_above = 0.6    # convergent region (physical)
+    sigma_above = 0.6  # convergent region (physical)
     sigma_critical = 0.5
-    sigma_below = 0.4    # divergent region (Axiom 4 forbidden)
+    sigma_below = 0.4  # divergent region (Axiom 4 forbidden)
 
     P_above = float(np.sum(ns ** (-2.0 * sigma_above)))
     P_critical = float(np.sum(ns ** (-2.0 * sigma_critical)))
     P_below = float(np.sum(ns ** (-2.0 * sigma_below)))
 
     return {
-        'sigma_cutoff': sigma_c,
-        'zero_free_claim': 'All non-trivial zeros of zeta(s) have Re(s) = 1/2',
-        'proof_type': 'Physical contrapositive (Axiom 4 saturation + functional equation)',
-        'sigma_test_cases': {
-            'sigma_0.6 (physical)': {
-                'P_total_N10000': P_above,
-                'convergent': np.isfinite(P_above),
+        "sigma_cutoff": sigma_c,
+        "zero_free_claim": "All non-trivial zeros of zeta(s) have Re(s) = 1/2",
+        "proof_type": "Physical contrapositive (Axiom 4 saturation + functional equation)",
+        "sigma_test_cases": {
+            "sigma_0.6 (physical)": {
+                "P_total_N10000": P_above,
+                "convergent": np.isfinite(P_above),
             },
-            'sigma_0.5 (critical)': {
-                'P_total_N10000': P_critical,
-                'convergent': np.isfinite(P_critical),
+            "sigma_0.5 (critical)": {
+                "P_total_N10000": P_critical,
+                "convergent": np.isfinite(P_critical),
             },
-            'sigma_0.4 (Axiom4 forbidden)': {
-                'P_total_N10000': P_below,
-                'diverging_vs_critical': P_below > P_critical * 5,
+            "sigma_0.4 (Axiom4 forbidden)": {
+                "P_total_N10000": P_below,
+                "diverging_vs_critical": P_below > P_critical * 5,
             },
         },
-        'axiom_4_forbids_sigma_below_half': True,
-        'formalization_gap': (
-            'The physical Axiom 4 saturation argument must be translated '
-            'into analytic number theory as: the spectral measure of the '
-            'Riemann zeta function cannot be supported at Re(s) < 1/2. '
-            'This requires the Phragmen-Lindelof principle applied to the '
-            'half-plane Re(s) < 1/2 to produce a classical zero-free region. '
-            'This is a task for a specialist in analytic number theory.'
+        "axiom_4_forbids_sigma_below_half": True,
+        "formalization_gap": (
+            "The physical Axiom 4 saturation argument must be translated "
+            "into analytic number theory as: the spectral measure of the "
+            "Riemann zeta function cannot be supported at Re(s) < 1/2. "
+            "This requires the Phragmen-Lindelof principle applied to the "
+            "half-plane Re(s) < 1/2 to produce a classical zero-free region. "
+            "This is a task for a specialist in analytic number theory."
         ),
-        'ZERO_FREE_REGION_PHYSICALLY_ESTABLISHED': True,
+        "ZERO_FREE_REGION_PHYSICALLY_ESTABLISHED": True,
     }

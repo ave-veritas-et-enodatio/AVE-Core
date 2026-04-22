@@ -30,17 +30,29 @@ PHYSICS:
 
 Run: PYTHONPATH=src python src/scripts/peer_review/solvent_damping_analysis.py
 """
+
 import sys
+
 sys.path.insert(0, "src")
 
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ave.core.constants import (
-    ALPHA, HBAR, C_0, e_charge, M_E, L_NODE, Z_0,
-    EPSILON_0, MU_0, XI_TOPO, K_B,
+    ALPHA,
+    HBAR,
+    C_0,
+    e_charge,
+    M_E,
+    L_NODE,
+    Z_0,
+    EPSILON_0,
+    MU_0,
+    XI_TOPO,
+    K_B,
 )
 
 # ═════════════════════════════════════════════════════════════════
@@ -103,7 +115,8 @@ print("SOLVENT DAMPING NOISE-FLOOR ANALYSIS")
 print("Gap 3A: Cytosol as Reactive Boundary Load on Protein S₁₁")
 print("=" * 100)
 
-print(f"""
+print(
+    f"""
 ┌─────────────────────────────────────────────────────┐
 │  §1  THERMAL ENVIRONMENT CHARACTERIZATION           │
 ├─────────────────────────────────────────────────────┤
@@ -120,9 +133,11 @@ print(f"""
 │  Stokes damping (Cα):   γ = {GAMMA_STOKES:.2e} kg/s         │
 │  H-bonds per Cα node:   n = {N_HB_PER_NODE:.0f}                     │
 └─────────────────────────────────────────────────────┘
-""")
+"""
+)
 
-print(f"""
+print(
+    f"""
 ┌─────────────────────────────────────────────────────┐
 │  §2  SOLVENT ADMITTANCE AT BACKBONE FREQUENCY       │
 ├─────────────────────────────────────────────────────┤
@@ -142,7 +157,8 @@ print(f"""
 │    R_solvent = 1/G = {1/(N_HB_PER_NODE * G_SOLVENT_PER_HB + 1e-30):.2e} Ω          │
 │    Q_loaded  = {2*np.pi*F_BACKBONE * L_C / (1/(N_HB_PER_NODE * G_SOLVENT_PER_HB + 1e-30) if N_HB_PER_NODE * G_SOLVENT_PER_HB > 0 else np.inf):.2e}                       │
 └─────────────────────────────────────────────────────┘
-""")
+"""
+)
 
 # ═════════════════════════════════════════════════════════════════
 # SENSITIVITY SWEEP: S₁₁ vs. solvent loading
@@ -154,7 +170,9 @@ print("=" * 100)
 
 # Model: simple 5-residue backbone cascade with tunable solvent shunt
 from ave.solvers.transmission_line import (
-    build_nodal_y_matrix, s11_from_y_matrix, s_matrix_from_y,
+    build_nodal_y_matrix,
+    s11_from_y_matrix,
+    s_matrix_from_y,
 )
 
 N_RESIDUES = 10
@@ -192,7 +210,7 @@ for y_frac in solvent_fractions:
 
         # Extract S₁₁ at N-terminal
         s11 = s11_from_y_matrix(Y, port=0, Y0=1.0)
-        s11_sweep.append(float(np.abs(s11)**2))
+        s11_sweep.append(float(np.abs(s11) ** 2))
 
     s11_sweep = np.array(s11_sweep)
     s11_results[y_frac] = s11_sweep
@@ -215,7 +233,7 @@ for y_frac in solvent_fractions:
         bw = omegas[bw_indices[-1]] - omegas[bw_indices[0]]
         Q_eff = omega_min / max(bw, 1e-6)
     else:
-        Q_eff = float('inf')
+        Q_eff = float("inf")
 
     if delta < 0.01:
         verdict = "NEGLIGIBLE"
@@ -232,11 +250,11 @@ for y_frac in solvent_fractions:
 
 # Compute the actual solvent loading fraction
 Y_bb_typical = 1.0 / Z_BACKBONE  # backbone admittance scale
-Y_solvent_actual = N_HB_PER_NODE * np.sqrt(G_SOLVENT_PER_HB**2 +
-                    (K_HB_ELECTRICAL / (2*np.pi*F_BACKBONE))**2)
+Y_solvent_actual = N_HB_PER_NODE * np.sqrt(G_SOLVENT_PER_HB**2 + (K_HB_ELECTRICAL / (2 * np.pi * F_BACKBONE)) ** 2)
 LOADING_RATIO = Y_solvent_actual / Y_bb_typical
 
-print(f"""
+print(
+    f"""
 
 ╔═════════════════════════════════════════════════════╗
 ║    SOLVENT NOISE-FLOOR: FEASIBILITY VERDICT        ║
@@ -276,7 +294,8 @@ print(f"""
 ║  VERDICT: SOLVENT NOISE IS NEGLIGIBLE               ║
 ║  The protein's topological S₁₁ signal dominates.   ║
 ╚═════════════════════════════════════════════════════╝
-""")
+"""
+)
 
 # ═════════════════════════════════════════════════════════════════
 # GENERATE PUBLICATION FIGURE
@@ -284,15 +303,15 @@ print(f"""
 print("  Generating publication figure...")
 
 fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-fig.patch.set_facecolor('#0a0a14')
+fig.patch.set_facecolor("#0a0a14")
 for ax in axes.flat:
-    ax.set_facecolor('#0f0f1c')
-    ax.tick_params(colors='white', which='both')
-    ax.xaxis.label.set_color('white')
-    ax.yaxis.label.set_color('white')
-    ax.title.set_color('white')
+    ax.set_facecolor("#0f0f1c")
+    ax.tick_params(colors="white", which="both")
+    ax.xaxis.label.set_color("white")
+    ax.yaxis.label.set_color("white")
+    ax.title.set_color("white")
     for spine in ax.spines.values():
-        spine.set_color('#333355')
+        spine.set_color("#333355")
 
 # Colors for solvent loading levels
 cmap = plt.cm.plasma
@@ -302,51 +321,80 @@ colors_sweep = [cmap(i / len(solvent_fractions)) for i in range(len(solvent_frac
 ax = axes[0, 0]
 for i, y_frac in enumerate(solvent_fractions):
     label = f"Y_solv = {y_frac:.3f}" if y_frac > 0 else "Vacuum (no solvent)"
-    ax.plot(omegas, 10*np.log10(s11_results[y_frac] + 1e-30),
-            color=colors_sweep[i], linewidth=1.5, alpha=0.8, label=label)
-ax.set_xlabel('Normalized Frequency ω/ω₀', fontsize=11)
-ax.set_ylabel('|S₁₁|² [dB]', fontsize=11)
-ax.set_title('S₁₁ Sensitivity to Solvent Loading\n(10-residue backbone)', fontsize=12, fontweight='bold')
-ax.legend(fontsize=7, facecolor='#1a1a2e', edgecolor='#333355', labelcolor='white')
+    ax.plot(
+        omegas,
+        10 * np.log10(s11_results[y_frac] + 1e-30),
+        color=colors_sweep[i],
+        linewidth=1.5,
+        alpha=0.8,
+        label=label,
+    )
+ax.set_xlabel("Normalized Frequency ω/ω₀", fontsize=11)
+ax.set_ylabel("|S₁₁|² [dB]", fontsize=11)
+ax.set_title("S₁₁ Sensitivity to Solvent Loading\n(10-residue backbone)", fontsize=12, fontweight="bold")
+ax.legend(fontsize=7, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
 ax.set_ylim([-40, 5])
 
 # ── Panel 2: S₁₁ minimum vs loading fraction ──
 ax = axes[0, 1]
 mins = [float(np.min(s11_results[y])) for y in solvent_fractions]
-ax.semilogy(solvent_fractions, mins, 'o-', color='#00ff88', linewidth=2,
-            markersize=8, markeredgecolor='white')
-ax.axhline(mins[0], color='#ffff44', linestyle=':', alpha=0.5, label='Vacuum baseline')
-ax.axvline(LOADING_RATIO, color='#ff4444', linestyle='--', alpha=0.7,
-           label=f'Physical loading ({LOADING_RATIO:.1e})')
-ax.set_xlabel('Solvent Loading (Y_solv / Y_backbone)', fontsize=11)
-ax.set_ylabel('min |S₁₁|²', fontsize=11)
-ax.set_title('Folding Signal Robustness', fontsize=12, fontweight='bold')
-ax.legend(fontsize=9, facecolor='#1a1a2e', edgecolor='#333355', labelcolor='white')
+ax.semilogy(
+    solvent_fractions,
+    mins,
+    "o-",
+    color="#00ff88",
+    linewidth=2,
+    markersize=8,
+    markeredgecolor="white",
+)
+ax.axhline(mins[0], color="#ffff44", linestyle=":", alpha=0.5, label="Vacuum baseline")
+ax.axvline(
+    LOADING_RATIO,
+    color="#ff4444",
+    linestyle="--",
+    alpha=0.7,
+    label=f"Physical loading ({LOADING_RATIO:.1e})",
+)
+ax.set_xlabel("Solvent Loading (Y_solv / Y_backbone)", fontsize=11)
+ax.set_ylabel("min |S₁₁|²", fontsize=11)
+ax.set_title("Folding Signal Robustness", fontsize=12, fontweight="bold")
+ax.legend(fontsize=9, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
 
 # ── Panel 3: Impedance mismatch diagram ──
 ax = axes[1, 0]
 freq_range = np.logspace(10, 14, 200)  # Hz
 Z_bb = Z_BACKBONE * np.ones_like(freq_range)
-Z_solv = 1.0 / (N_HB_PER_NODE * np.sqrt(G_SOLVENT_PER_HB**2 +
-         (K_HB_ELECTRICAL / (2*np.pi*freq_range))**2) + 1e-30)
-reflection = np.abs((Z_bb - Z_solv) / (Z_bb + Z_solv))**2
+Z_solv = 1.0 / (
+    N_HB_PER_NODE * np.sqrt(G_SOLVENT_PER_HB**2 + (K_HB_ELECTRICAL / (2 * np.pi * freq_range)) ** 2) + 1e-30
+)
+reflection = np.abs((Z_bb - Z_solv) / (Z_bb + Z_solv)) ** 2
 
-ax.semilogx(freq_range / 1e12, Z_bb, '--', color='#00ff88', linewidth=2,
-            label=f'Z_backbone = {Z_BACKBONE:.1f} Ω')
-ax.semilogx(freq_range / 1e12, Z_solv, '-', color='#4488ff', linewidth=2,
-            label='Z_solvent(f)')
-ax.fill_between(freq_range / 1e12, Z_bb, Z_solv, alpha=0.1, color='#ff4444')
-ax.axvline(F_BACKBONE / 1e12, color='#ffff44', linestyle=':', alpha=0.5,
-           label=f'f_backbone = {F_BACKBONE/1e12:.1f} THz')
-ax.set_xlabel('Frequency [THz]', fontsize=11)
-ax.set_ylabel('Impedance [Ω]', fontsize=11)
-ax.set_title('Backbone vs. Solvent Impedance Mismatch', fontsize=12, fontweight='bold')
-ax.set_yscale('log')
-ax.legend(fontsize=8, facecolor='#1a1a2e', edgecolor='#333355', labelcolor='white')
+ax.semilogx(
+    freq_range / 1e12,
+    Z_bb,
+    "--",
+    color="#00ff88",
+    linewidth=2,
+    label=f"Z_backbone = {Z_BACKBONE:.1f} Ω",
+)
+ax.semilogx(freq_range / 1e12, Z_solv, "-", color="#4488ff", linewidth=2, label="Z_solvent(f)")
+ax.fill_between(freq_range / 1e12, Z_bb, Z_solv, alpha=0.1, color="#ff4444")
+ax.axvline(
+    F_BACKBONE / 1e12,
+    color="#ffff44",
+    linestyle=":",
+    alpha=0.5,
+    label=f"f_backbone = {F_BACKBONE/1e12:.1f} THz",
+)
+ax.set_xlabel("Frequency [THz]", fontsize=11)
+ax.set_ylabel("Impedance [Ω]", fontsize=11)
+ax.set_title("Backbone vs. Solvent Impedance Mismatch", fontsize=12, fontweight="bold")
+ax.set_yscale("log")
+ax.legend(fontsize=8, facecolor="#1a1a2e", edgecolor="#333355", labelcolor="white")
 
 # ── Panel 4: Summary verdict ──
 ax = axes[1, 1]
-ax.axis('off')
+ax.axis("off")
 
 verdict_text = (
     f"SOLVENT NOISE-FLOOR VERDICT\n"
@@ -363,25 +411,42 @@ verdict_text = (
     f"→ High-Q backbone reflects thermal noise\n"
 )
 
-ax.text(0.05, 0.95, verdict_text, transform=ax.transAxes,
-        fontsize=11, fontfamily='monospace', color='#ccddff',
-        verticalalignment='top',
-        bbox=dict(boxstyle='round,pad=0.5', facecolor='#1a1a2e',
-                  edgecolor='#00ff88', linewidth=2))
+ax.text(
+    0.05,
+    0.95,
+    verdict_text,
+    transform=ax.transAxes,
+    fontsize=11,
+    fontfamily="monospace",
+    color="#ccddff",
+    verticalalignment="top",
+    bbox=dict(boxstyle="round,pad=0.5", facecolor="#1a1a2e", edgecolor="#00ff88", linewidth=2),
+)
 
 # Big green verdict
-ax.text(0.5, 0.08, "EXPERIMENT FEASIBLE", transform=ax.transAxes,
-        fontsize=18, fontweight='bold', color='#00ff88', ha='center',
-        bbox=dict(boxstyle='round,pad=0.3', facecolor='#0a2a0a',
-                  edgecolor='#00ff88', linewidth=3))
+ax.text(
+    0.5,
+    0.08,
+    "EXPERIMENT FEASIBLE",
+    transform=ax.transAxes,
+    fontsize=18,
+    fontweight="bold",
+    color="#00ff88",
+    ha="center",
+    bbox=dict(boxstyle="round,pad=0.3", facecolor="#0a2a0a", edgecolor="#00ff88", linewidth=3),
+)
 
-fig.suptitle('Solvent Damping Noise-Floor Analysis\n'
-             'Gap 3A: Cytosol Reactive Load on Protein S₁₁ Engine',
-             fontsize=15, fontweight='bold', color='white', y=0.98)
+fig.suptitle(
+    "Solvent Damping Noise-Floor Analysis\n" "Gap 3A: Cytosol Reactive Load on Protein S₁₁ Engine",
+    fontsize=15,
+    fontweight="bold",
+    color="white",
+    y=0.98,
+)
 plt.tight_layout(rect=[0, 0, 1, 0.94])
 
 out_path = "src/assets/sim_outputs/solvent_damping_analysis.png"
-plt.savefig(out_path, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
+plt.savefig(out_path, dpi=200, bbox_inches="tight", facecolor=fig.get_facecolor())
 print(f"  → Saved: {out_path}")
 plt.close()
 

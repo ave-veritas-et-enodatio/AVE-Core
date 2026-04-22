@@ -15,6 +15,7 @@ from ave.core.constants import C_0, EPSILON_0, MU_0, G
 # PML BOUNDARY TESTS
 # ============================================================
 
+
 class TestPMLBoundaries:
     """Tests for the Perfectly Matched Layer absorbing boundaries."""
 
@@ -35,8 +36,9 @@ class TestPMLBoundaries:
                 energies.append(eng.total_field_energy())
         # Each sample should be <= previous (monotonic decrease)
         for i in range(len(energies) - 1):
-            assert energies[i] >= energies[i + 1] * 0.99, \
-                f"Energy not monotonically decreasing: {energies[i]} -> {energies[i+1]}"
+            assert (
+                energies[i] >= energies[i + 1] * 0.99
+            ), f"Energy not monotonically decreasing: {energies[i]} -> {energies[i+1]}"
 
     def test_pml_vs_mur_stability(self):
         """PML should be stable where Mur ABCs explode on long runs."""
@@ -62,6 +64,7 @@ class TestPMLBoundaries:
 # ============================================================
 # LBM FLUID SOLVER TESTS
 # ============================================================
+
 
 class TestLBM3D:
     """Tests for the D3Q19 Lattice Boltzmann solver."""
@@ -91,8 +94,7 @@ class TestLBM3D:
                 velocities.append(lbm.max_velocity())
         # Velocity should increase over time
         for i in range(len(velocities) - 1):
-            assert velocities[i + 1] >= velocities[i], \
-                f"Velocity not increasing: {velocities[i]} -> {velocities[i+1]}"
+            assert velocities[i + 1] >= velocities[i], f"Velocity not increasing: {velocities[i]} -> {velocities[i+1]}"
 
     def test_lbm_force_direction(self):
         """Force in x should produce flow in x, not y or z."""
@@ -111,8 +113,9 @@ class TestLBM3D:
         for _ in range(50):
             lbm.step()
         final_mass = np.sum(lbm.rho)
-        assert abs(final_mass - initial_mass) / initial_mass < 1e-8, \
-            f"Mass not conserved: {initial_mass} -> {final_mass}"
+        assert (
+            abs(final_mass - initial_mass) / initial_mass < 1e-8
+        ), f"Mass not conserved: {initial_mass} -> {final_mass}"
 
     def test_lbm_momentum_extraction(self):
         """total_momentum() should return a 3-tuple of floats."""
@@ -139,6 +142,7 @@ class TestLBM3D:
 # SPATIAL MATERIAL TESTS
 # ============================================================
 
+
 class TestSpatialMaterials:
     """Tests for eps_r and mu_r spatial material arrays."""
 
@@ -162,8 +166,8 @@ class TestSpatialMaterials:
         eng_mat = FDTD3DEngine(N, N, N, dx=0.01, linear_only=True)
         eng_mat.eps_r[:, :, :] = 4.0
 
-        eng_vac.Ez[5, N//2, N//2] = 1e3
-        eng_mat.Ez[5, N//2, N//2] = 1e3
+        eng_vac.Ez[5, N // 2, N // 2] = 1e3
+        eng_mat.Ez[5, N // 2, N // 2] = 1e3
 
         for _ in range(20):
             eng_vac.step()
@@ -189,6 +193,7 @@ class TestSpatialMaterials:
 # ============================================================
 # FORCE EXTRACTION TESTS
 # ============================================================
+
 
 class TestForceExtraction:
     """Tests for energy_density() and ponderomotive_force()."""
@@ -236,12 +241,14 @@ class TestForceExtraction:
 # GRAVITY MODULE TESTS
 # ============================================================
 
+
 class TestGravityModule:
     """Tests for the gravity/optical metric module."""
 
     def test_schwarzschild_radius_earth(self):
         """Schwarzschild radius of Earth should be ~8.87 mm."""
         from ave.gravity import schwarzschild_radius
+
         M_earth = 5.972e24
         r_s = schwarzschild_radius(M_earth)
         assert abs(r_s - 0.00887) < 0.0001, f"R_s = {r_s} m"
@@ -249,6 +256,7 @@ class TestGravityModule:
     def test_refractive_index_positive(self):
         """Refractive index should be ≥ 1 for positive mass."""
         from ave.gravity import refractive_index
+
         n = refractive_index(5.972e24, 6.371e6)  # Earth surface
         assert n > 1.0
         assert n < 1.001  # Should be very close to 1
@@ -257,12 +265,14 @@ class TestGravityModule:
         """Local impedance should equal Z₀ regardless of mass/radius."""
         from ave.gravity import local_impedance
         from ave.core.constants import Z_0
+
         z = local_impedance(1.989e30, 6.957e8)  # Sun surface
         assert abs(z - Z_0) / Z_0 < 1e-10, f"Z = {z} vs Z₀ = {Z_0}"
 
     def test_einstein_deflection_sun(self):
         """Photon deflection by the Sun should be ~1.75 arcsec."""
         from ave.gravity import einstein_deflection_angle
+
         M_sun = 1.989e30
         R_sun = 6.957e8
         delta = einstein_deflection_angle(M_sun, R_sun)
@@ -272,6 +282,7 @@ class TestGravityModule:
     def test_dielectric_rupture_inside_horizon(self):
         """Points inside Schwarzschild radius should show rupture."""
         from ave.gravity import is_dielectric_rupture, schwarzschild_radius
+
         M = 10 * 1.989e30  # 10 solar masses
         r_s = schwarzschild_radius(M)
         assert is_dielectric_rupture(M, r_s * 0.5) is True
@@ -280,6 +291,7 @@ class TestGravityModule:
     def test_gravitational_potential_negative(self):
         """Gravitational potential should be negative for positive mass."""
         from ave.gravity import gravitational_potential
+
         U = gravitational_potential(5.972e24, 6.371e6)
         assert U < 0
 
@@ -287,6 +299,7 @@ class TestGravityModule:
 # ============================================================
 # COUPLED EM+CFD TESTS
 # ============================================================
+
 
 class TestCoupledEMCFD:
     """Tests for coupling FDTD → LBM via ponderomotive force."""

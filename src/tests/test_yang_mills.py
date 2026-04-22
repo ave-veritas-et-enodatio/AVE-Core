@@ -3,6 +3,7 @@ Tests for ave.axioms.yang_mills
 
 Verifies the 4-part rigorous mass gap argument.
 """
+
 import pytest
 import numpy as np
 from ave.axioms.yang_mills import (
@@ -16,13 +17,20 @@ from ave.axioms.yang_mills import (
     full_mass_gap_proof,
 )
 from ave.core.constants import (
-    L_NODE, M_E, C_0, V_SNAP, B_SNAP, e_charge, KAPPA_FS,
+    L_NODE,
+    M_E,
+    C_0,
+    V_SNAP,
+    B_SNAP,
+    e_charge,
+    KAPPA_FS,
 )
 
 
 # ════════════════════════════════════════════════════════════════════
 # Part A: Lattice Hamiltonian
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestLatticeHamiltonian:
 
@@ -52,15 +60,16 @@ class TestLatticeHamiltonian:
     def test_hamiltonian_properties_all_satisfied(self):
         """All Hamiltonian properties are satisfied."""
         props = lattice_hamiltonian_properties()
-        assert props['H_vacuum_is_zero']
-        assert props['bounded_below']
-        assert props['self_adjoint']
-        assert props['Z_vacuum_is_positive']
+        assert props["H_vacuum_is_zero"]
+        assert props["bounded_below"]
+        assert props["self_adjoint"]
+        assert props["Z_vacuum_is_positive"]
 
 
 # ════════════════════════════════════════════════════════════════════
 # Part B: Gauge-Topology Correspondence
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestGaugeTopology:
 
@@ -93,14 +102,15 @@ class TestGaugeTopology:
     def test_gauge_table_SU3_is_proton(self):
         """SU(3) entry is the proton."""
         table = gauge_topology_table()
-        su3 = [t for t in table if t['group'] == 'SU(3)'][0]
-        assert su3['particle'] == 'Proton'
-        assert abs(su3['mass_MeV'] - 938.3) < 1.0
+        su3 = [t for t in table if t["group"] == "SU(3)"][0]
+        assert su3["particle"] == "Proton"
+        assert abs(su3["mass_MeV"] - 938.3) < 1.0
 
 
 # ════════════════════════════════════════════════════════════════════
 # Part C: Spectral Gap
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestSpectralGap:
 
@@ -121,63 +131,62 @@ class TestSpectralGap:
     def test_lower_bound_is_positive(self):
         """Bogomol'nyi lower bounds are all positive for torus knots."""
         gap = spectral_gap_theorem()
-        for c, data in gap['torus_knot_bounds'].items():
-            assert data['E_lower_bound_MeV'] > 0, \
-                f"Lower bound not positive for c={c}"
+        for c, data in gap["torus_knot_bounds"].items():
+            assert data["E_lower_bound_MeV"] > 0, f"Lower bound not positive for c={c}"
 
     def test_spectral_gap_positive(self):
         """The spectral gap Δ > 0."""
         gap = spectral_gap_theorem()
-        assert gap['gap_positive']
-        assert gap['gap_MeV'] > 0
+        assert gap["gap_positive"]
+        assert gap["gap_MeV"] > 0
 
     def test_gap_is_unknot(self):
         """The mass gap is the unknot (electron), exact m_e c²."""
         gap = spectral_gap_theorem()
-        assert gap['gap_particle'] == 'electron (unknot 0₁)'
-        assert gap['gap_is_exact']
-        assert abs(gap['gap_MeV'] - 0.511) < 0.001
+        assert gap["gap_particle"] == "electron (unknot 0₁)"
+        assert gap["gap_is_exact"]
+        assert abs(gap["gap_MeV"] - 0.511) < 0.001
 
     def test_torus_knot_bounds_satisfied(self):
         """All torus knot energies exceed Faddeev-Skyrme bound."""
         gap = spectral_gap_theorem()
-        for c, data in gap['torus_knot_bounds'].items():
-            if data['E_actual_MeV'] is not None:
-                assert data['bound_satisfied'], \
-                    f"Bound violated for c={c}"
+        for c, data in gap["torus_knot_bounds"].items():
+            if data["E_actual_MeV"] is not None:
+                assert data["bound_satisfied"], f"Bound violated for c={c}"
 
 
 # ════════════════════════════════════════════════════════════════════
 # Part D: Infinite-Volume Limit
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestInfiniteVolume:
 
     def test_energy_volume_independent(self):
         """Defect energy does not depend on box size."""
         result = defect_energy_vs_volume(crossing_number=5)
-        assert result['volume_independent']
-        assert result['max_spread'] < 1e-10
+        assert result["volume_independent"]
+        assert result["max_spread"] < 1e-10
 
     def test_energy_same_at_all_scales(self):
         """Energy is identical for box = 2×r_conf and 10⁶×r_conf."""
-        result = defect_energy_vs_volume(crossing_number=5,
-                                          box_sizes_Rp=[2, 1e6])
-        assert result['volume_independent']
+        result = defect_energy_vs_volume(crossing_number=5, box_sizes_Rp=[2, 1e6])
+        assert result["volume_independent"]
 
 
 # ════════════════════════════════════════════════════════════════════
 # The Complete Proof
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestFullProof:
 
     def test_mass_gap_proven(self):
         """The complete 4-part mass gap proof passes."""
         proof = full_mass_gap_proof()
-        assert proof['Part_A_Hamiltonian']['bounded_below']
-        assert proof['Part_A_Hamiltonian']['self_adjoint']
-        assert proof['Part_B_Gauge_Topology']['correspondence_valid']
-        assert proof['Part_C_Spectral_Gap']['gap_positive']
-        assert proof['Part_D_Infinite_Volume']['volume_independent']
-        assert proof['MASS_GAP_PROVEN']
+        assert proof["Part_A_Hamiltonian"]["bounded_below"]
+        assert proof["Part_A_Hamiltonian"]["self_adjoint"]
+        assert proof["Part_B_Gauge_Topology"]["correspondence_valid"]
+        assert proof["Part_C_Spectral_Gap"]["gap_positive"]
+        assert proof["Part_D_Infinite_Volume"]["volume_independent"]
+        assert proof["MASS_GAP_PROVEN"]

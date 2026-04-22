@@ -52,10 +52,11 @@ BAR = "=" * 68
 
 # ─── Physical constants ────────────────────────────────────────────────────────
 # Vacuum energy density at the lattice UV cutoff
-OMEGA_MAX = C_0 / L_NODE             # Planck angular frequency [rad/s]
+OMEGA_MAX = C_0 / L_NODE  # Planck angular frequency [rad/s]
 RHO_VAC = HBAR * OMEGA_MAX / L_NODE**3  # vacuum energy density [J/m³]
 # Radiation pressure from one hemisphere = ρc/4
-P_RAD = RHO_VAC * C_0 / 4           # [Pa]
+P_RAD = RHO_VAC * C_0 / 4  # [Pa]
+
 
 # ─── Standard Casimir formula ─────────────────────────────────────────────────
 def casimir_standard(d_m: float) -> float:
@@ -71,9 +72,7 @@ def s11_at_depth(n_cav: int, boundary_y: float = 0.0) -> float:
     boundary_y=0.0  → hard open-circuit (Casimir cavity wall: modes blocked)
     boundary_y=1.0  → continuum limit (vacuum reference: modes transmitted)
     """
-    Y = build_radial_tree_admittance(
-        depth=n_cav, branch_y=NU_VAC, boundary_y=boundary_y, coordination_z=4
-    )
+    Y = build_radial_tree_admittance(depth=n_cav, branch_y=NU_VAC, boundary_y=boundary_y, coordination_z=4)
     return abs(s11_from_y_matrix(Y, port=0, Y0=1.0).real)
 
 
@@ -88,7 +87,7 @@ def casimir_ave(n_cav: int, s11_inf: float) -> float:
     """
     d_m = n_cav * L_NODE
     s11_n = s11_at_depth(n_cav, boundary_y=0.0)  # open-circuit cavity wall
-    delta_s11_sq = s11_n**2 - s11_inf**2          # excess reflected power
+    delta_s11_sq = s11_n**2 - s11_inf**2  # excess reflected power
     return -P_RAD * delta_s11_sq / d_m
 
 
@@ -131,7 +130,7 @@ def main():
         d_pm = d_m * 1e12
         p_std = casimir_standard(d_m)
         p_ave = casimir_ave(n, s11_inf)
-        ratio = p_ave / p_std if p_std != 0 else float('nan')
+        ratio = p_ave / p_std if p_std != 0 else float("nan")
         print(f"  {n:>6}  {d_pm:>10.4f}  {p_std:>14.4e}  {p_ave:>14.4e}  {ratio:>8.4f}")
 
     # ─── Block 3: Power-law verification ──────────────────────────────────────
@@ -154,7 +153,8 @@ def main():
     # At lattice scale, S11² falls geometrically (exponential in N), much
     # faster than d^{-4}.  The crossover occurs around the lattice
     # coherence length ~ a few node spacings.
-    print(f"""
+    print(
+        f"""
   === Near-field vs. Macroscopic Casimir Regimes ===
 
   The K4 tree at cavity depth N_cav reproduces the Casimir vacuum
@@ -191,7 +191,8 @@ def main():
   structurally from K4 depth truncation (zero free parameters).
   The crossover scale L_cav ~ 5 * L_NODE = {L_NODE * 5 * 1e12:.2f} pm is a
   derived, falsifiable quantity.
-""")
+"""
+    )
     print(BAR)
 
 

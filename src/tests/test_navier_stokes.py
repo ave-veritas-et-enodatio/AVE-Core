@@ -24,6 +24,7 @@ from ave.core.constants import C_0, L_NODE
 # Step 1: Lattice Properties
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestLatticeProperties:
 
     def test_laplacian_of_constant_is_zero(self):
@@ -62,6 +63,7 @@ class TestLatticeProperties:
 # ════════════════════════════════════════════════════════════════════
 # Step 2: Velocity Bound
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestVelocityBound:
 
@@ -102,40 +104,42 @@ class TestVelocityBound:
 # Step 3: Global Existence
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestGlobalExistence:
 
     def test_picard_lindelof_applies(self):
         """Picard-Lindelöf theorem applies to lattice NS."""
         result = lattice_ns_global_existence()
-        assert result['DOF_finite']
-        assert result['laplacian_bounded']
-        assert result['v_bounded']
-        assert result['lipschitz_finite']
-        assert result['picard_lindelof_applies']
-        assert result['GLOBAL_EXISTENCE_PROVEN']
+        assert result["DOF_finite"]
+        assert result["laplacian_bounded"]
+        assert result["v_bounded"]
+        assert result["lipschitz_finite"]
+        assert result["picard_lindelof_applies"]
+        assert result["GLOBAL_EXISTENCE_PROVEN"]
 
     def test_continuum_limit(self):
         """Continuum NS recovered with velocity bound."""
         cl = continuum_limit_ns()
-        assert cl['discrete_laplacian_converges']
-        assert cl['convergence_order'] == 2
-        assert cl['velocity_bound_persists']
-        assert cl['continuum_NS_recovered']
-        assert cl['smoothness_preserved']
+        assert cl["discrete_laplacian_converges"]
+        assert cl["convergence_order"] == 2
+        assert cl["velocity_bound_persists"]
+        assert cl["continuum_NS_recovered"]
+        assert cl["smoothness_preserved"]
 
 
 # ════════════════════════════════════════════════════════════════════
 # The Complete Proof
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestFullProof:
 
     def test_ns_smoothness_proven(self):
         """The complete Navier-Stokes smoothness proof passes."""
         proof = full_navier_stokes_proof()
-        assert proof['Step_1_Lattice']['DOF_finite']
-        assert proof['Step_1_Lattice']['laplacian_bounded']
-        assert proof['Step_2_Velocity_Bound']['v_bounded']
-        assert proof['Step_3_Global_Existence']['GLOBAL_EXISTENCE_PROVEN']
-        assert proof['Step_4_Continuum_and_Sobolev']['smoothness_preserved']
-        assert proof['NS_SMOOTHNESS_PROVEN']
+        assert proof["Step_1_Lattice"]["DOF_finite"]
+        assert proof["Step_1_Lattice"]["laplacian_bounded"]
+        assert proof["Step_2_Velocity_Bound"]["v_bounded"]
+        assert proof["Step_3_Global_Existence"]["GLOBAL_EXISTENCE_PROVEN"]
+        assert proof["Step_4_Continuum_and_Sobolev"]["smoothness_preserved"]
+        assert proof["NS_SMOOTHNESS_PROVEN"]

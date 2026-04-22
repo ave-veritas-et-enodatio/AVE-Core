@@ -21,12 +21,22 @@ import sys
 import os
 
 # Ensure the source tree is importable
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np
 from ave.core.constants import (
-    ALPHA, Z_0, C_0, EPSILON_0, MU_0,
-    XI_TOPO, L_NODE, V_YIELD, V_SNAP, M_E, HBAR, e_charge,
+    ALPHA,
+    Z_0,
+    C_0,
+    EPSILON_0,
+    MU_0,
+    XI_TOPO,
+    L_NODE,
+    V_YIELD,
+    V_SNAP,
+    M_E,
+    HBAR,
+    e_charge,
     RHO_BULK,
 )
 from ave.axioms.scale_invariant import (
@@ -84,7 +94,7 @@ def kill_switch_1():
     compare(
         "Hopf coil shows anomalously deep S₁₁ notch (Δf/f = α·pq/(p+q))",
         f"Δf/f ≈ {delta_f_over_f:.4e}",
-        "Both coils show identical S₁₁ curves (no chiral vacuum coupling)"
+        "Both coils show identical S₁₁ curves (no chiral vacuum coupling)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -123,7 +133,7 @@ def kill_switch_2():
     compare(
         f"Clean {V_output*1e3:.1f} mV step per μm of displacement",
         f"V = {V_output*1e3:.1f} mV / μm",
-        "V = 0.0 mV (no charge generated from mechanical separation)"
+        "V = 0.0 mV (no charge generated from mechanical separation)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -169,7 +179,7 @@ def kill_switch_3():
     compare(
         f"Phase shift ratio Ψ = {Psi:.2f}× between W and Al rotors",
         f"Δφ_W / Δφ_Al = {Psi:.2f}",
-        "Δφ_W / Δφ_Al = 1.00 (GR: no material dependence in Sagnac)"
+        "Δφ_W / Δφ_Al = 1.00 (GR: no material dependence in Sagnac)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -220,18 +230,18 @@ def kill_switch_4():
         ratio = V / V_YIELD
         if ratio >= 1.0:
             S_val = 0.0
-            C_ratio = float('inf')
+            C_ratio = float("inf")
             print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {'∞':>10}")
         else:
             S_val = float(saturation_factor(np.array([V]), yield_limit=V_YIELD)[0])
-            C_ratio = 1.0 / S_val if S_val > 1e-15 else float('inf')
+            C_ratio = 1.0 / S_val if S_val > 1e-15 else float("inf")
             print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {C_ratio:10.4f}")
 
     print()
     compare(
         "C(V)/C₀ diverges asymptotically as V → 43.65 kV",
         "C/C₀ → ∞ at V_yield",
-        "C/C₀ = 1.00 (flat, linear ε₀, no saturation)"
+        "C/C₀ = 1.00 (flat, linear ε₀, no saturation)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -270,7 +280,9 @@ def main():
     print(f"  {'#':>3}  {'Axiom':<28}  {'Test':<30}  {'Prediction':<20}")
     print(f"  {'-'*84}")
     print(f"  {'1':>3}  {'LC Impedance (Z₀=377Ω)':<28}  {'Chiral VNA S₁₁':<30}  {'Δf/f = ' + f'{delta_f:.4e}':<20}")
-    print(f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}  {f'{V_out*1e3:.1f} mV/μm':<20}")
+    print(
+        f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}  {f'{V_out*1e3:.1f} mV/μm':<20}"
+    )
     print(f"  {'3':>3}  {'Gravity (G → ρ_bulk)':<28}  {'Sagnac Density Ratio':<30}  {f'Ψ = {Psi:.2f}':<20}")
     print(f"  {'4':>3}  {'Saturation (S=√(1-A²))':<28}  {'EE Bench C(V) Divergence':<30}  {'C/C₀ → ∞ @ 43.65kV':<20}")
     print()

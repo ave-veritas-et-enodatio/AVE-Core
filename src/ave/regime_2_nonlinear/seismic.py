@@ -31,6 +31,7 @@ The Moho produces a reflection coefficient:
   Γ = (Z₂ - Z₁) / (Z₂ + Z₁) = (26.7 - 18.9) / (26.7 + 18.9) ≈ 0.17
   → 17% amplitude reflection at crust-mantle boundary.
 """
+
 from __future__ import annotations
 
 
@@ -46,12 +47,13 @@ from ave.axioms.scale_invariant import (
 @dataclass
 class SeismicLayer:
     """A single layer of the Earth's interior."""
+
     name: str
-    depth_top_km: float    # Top of layer [km]
-    depth_bot_km: float    # Bottom of layer [km]
-    rho: float             # Density [kg/m³]
-    v_p: float             # P-wave velocity [m/s]
-    v_s: float             # S-wave velocity [m/s]
+    depth_top_km: float  # Top of layer [km]
+    depth_bot_km: float  # Bottom of layer [km]
+    rho: float  # Density [kg/m³]
+    v_p: float  # P-wave velocity [m/s]
+    v_s: float  # S-wave velocity [m/s]
 
     @property
     def thickness_km(self) -> float:
@@ -85,7 +87,7 @@ class SeismicLayer:
         ε_r = K_ref / K  (soft material → high ε_r → slow P-waves)
         Normalized to upper crust K as reference.
         """
-        K_ref = 2600 * (5800**2 - (4/3) * 3200**2)  # Upper crust K
+        K_ref = 2600 * (5800**2 - (4 / 3) * 3200**2)  # Upper crust K
         K = self.bulk_modulus
         if K <= 0:
             return 1e6  # Liquid: infinite compressibility
@@ -110,18 +112,17 @@ class SeismicLayer:
 # ============================================================
 
 PREM_LAYERS: List[SeismicLayer] = [
-    SeismicLayer("Upper Crust",   0,    15,  2600,  5800,  3200),
-    SeismicLayer("Lower Crust",  15,    35,  2900,  6500,  3600),
-    SeismicLayer("Upper Mantle",  35,   410,  3300,  8100,  4500),
-    SeismicLayer("Transition Z", 410,   660,  3800, 10300,  5600),
-    SeismicLayer("Lower Mantle", 660,  2891,  5500, 13700,  7300),
-    SeismicLayer("Outer Core",  2891,  5150,  9900,  8100,     0),
-    SeismicLayer("Inner Core",  5150,  6371, 13000, 11300,  3600),
+    SeismicLayer("Upper Crust", 0, 15, 2600, 5800, 3200),
+    SeismicLayer("Lower Crust", 15, 35, 2900, 6500, 3600),
+    SeismicLayer("Upper Mantle", 35, 410, 3300, 8100, 4500),
+    SeismicLayer("Transition Z", 410, 660, 3800, 10300, 5600),
+    SeismicLayer("Lower Mantle", 660, 2891, 5500, 13700, 7300),
+    SeismicLayer("Outer Core", 2891, 5150, 9900, 8100, 0),
+    SeismicLayer("Inner Core", 5150, 6371, 13000, 11300, 3600),
 ]
 
 
-def reflection_coefficient(layer1: SeismicLayer, layer2: SeismicLayer,
-                           wave_type: str = 'p') -> float:
+def reflection_coefficient(layer1: SeismicLayer, layer2: SeismicLayer, wave_type: str = "p") -> float:
     """
     Compute the amplitude reflection coefficient at a boundary.
 
@@ -139,7 +140,7 @@ def reflection_coefficient(layer1: SeismicLayer, layer2: SeismicLayer,
     Returns:
         Reflection coefficient Γ ∈ [-1, 1].
     """
-    if wave_type == 'p':
+    if wave_type == "p":
         Z1 = layer1.acoustic_impedance_p
         Z2 = layer2.acoustic_impedance_p
     else:
@@ -149,8 +150,7 @@ def reflection_coefficient(layer1: SeismicLayer, layer2: SeismicLayer,
     return float(_universal_gamma(Z1, Z2))
 
 
-def transmission_coefficient(layer1: SeismicLayer, layer2: SeismicLayer,
-                             wave_type: str = 'p') -> float:
+def transmission_coefficient(layer1: SeismicLayer, layer2: SeismicLayer, wave_type: str = "p") -> float:
     """
     Compute the amplitude transmission coefficient at a boundary.
 
@@ -170,7 +170,7 @@ def transmission_coefficient(layer1: SeismicLayer, layer2: SeismicLayer,
     return 1.0 + gamma
 
 
-def travel_time(layers: List[SeismicLayer], wave_type: str = 'p') -> float:
+def travel_time(layers: List[SeismicLayer], wave_type: str = "p") -> float:
     """
     Compute total vertical travel time through all layers.
 
@@ -186,13 +186,13 @@ def travel_time(layers: List[SeismicLayer], wave_type: str = 'p') -> float:
     total = 0.0
     for layer in layers:
         thickness = layer.thickness_km * 1000.0  # km → m
-        v = layer.v_p if wave_type == 'p' else layer.v_s
+        v = layer.v_p if wave_type == "p" else layer.v_s
         if v > 0:
             total += thickness / v
     return total
 
 
-def all_reflections(wave_type: str = 'p') -> dict:
+def all_reflections(wave_type: str = "p") -> dict:
     """
     Compute reflection coefficients at all PREM layer boundaries.
 
@@ -250,10 +250,10 @@ def build_1d_impedance_profile(dx_km: float = 10.0) -> dict:
             mu_r[i] = last.mu_r_ave
 
     return {
-        'depth_km': depths,
-        'rho': rho,
-        'v_p': v_p,
-        'v_s': v_s,
-        'eps_r': eps_r,
-        'mu_r': mu_r,
+        "depth_km": depths,
+        "rho": rho,
+        "v_p": v_p,
+        "v_s": v_s,
+        "eps_r": eps_r,
+        "mu_r": mu_r,
     }

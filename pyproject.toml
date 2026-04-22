@@ -26,7 +26,6 @@ dependencies = [
 dev = [
     "PySpice>=1.5",         # ngspice Python bindings (requires ngspice system install)
     "scikit-rf>=0.30.0",    # RF/microwave engineering (S-parameter validation)
-    "black",
 ]
 
 [tool.pyright]

@@ -43,8 +43,7 @@ class TestSeismicFDTDBridge:
         reflections = compute_boundary_reflections({})
         for r in reflections:
             # All reflection coefficients should be finite and bounded
-            assert -1.0 <= r['gamma'] <= 1.0, \
-                f"{r['boundary']}: Γ = {r['gamma']:.3f} out of bounds"
+            assert -1.0 <= r["gamma"] <= 1.0, f"{r['boundary']}: Γ = {r['gamma']:.3f} out of bounds"
 
     def test_boundary_reflections(self):
         """All boundary reflections should use the universal function."""
@@ -53,8 +52,7 @@ class TestSeismicFDTDBridge:
 
         # Moho reflection should be 10-25%
         moho = reflections[1]  # Upper Crust → Upper Mantle
-        assert 0.05 < abs(moho['gamma']) < 0.5, \
-            f"Moho Γ = {moho['gamma']:.3f}"
+        assert 0.05 < abs(moho["gamma"]) < 0.5, f"Moho Γ = {moho['gamma']:.3f}"
 
     def test_pulse_propagates(self):
         """A source pulse should propagate through the layered model."""
@@ -64,8 +62,8 @@ class TestSeismicFDTDBridge:
         for step in range(20):
             t = step * engine.dt
             # Gaussian pulse
-            pulse = np.exp(-((t - 5 * engine.dt) / (2 * engine.dt))**2)
-            engine.inject_soft_source('Ez', 2, 1, 1, pulse * 1e-6)
+            pulse = np.exp(-(((t - 5 * engine.dt) / (2 * engine.dt)) ** 2))
+            engine.inject_soft_source("Ez", 2, 1, 1, pulse * 1e-6)
             engine.step()
 
         # Energy should have spread from the source
@@ -76,7 +74,7 @@ class TestSeismicFDTDBridge:
         """reflection_coefficient on seismic Z must match direct computation."""
         for i in range(len(PREM_LAYERS) - 1):
             Z1 = PREM_LAYERS[i].acoustic_impedance_p
-            Z2 = PREM_LAYERS[i+1].acoustic_impedance_p
+            Z2 = PREM_LAYERS[i + 1].acoustic_impedance_p
             # Universal function
             gamma_universal = float(reflection_coefficient(Z1, Z2))
             # Direct formula

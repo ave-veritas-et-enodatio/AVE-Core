@@ -49,9 +49,7 @@ class TestEEBenchNetlist:
         assert "ave_vacuum_cell.lib" in netlist
 
     def test_custom_parameters(self):
-        netlist = compile_ee_bench_dc_sweep(
-            c0=20e-12, v_yield=50000.0, v_max=55000.0, v_step=50.0
-        )
+        netlist = compile_ee_bench_dc_sweep(c0=20e-12, v_yield=50000.0, v_max=55000.0, v_step=50.0)
         assert "2.000000e-11" in netlist  # 20 pF
         assert "50000.0" in netlist
         assert ".DC V_SWEEP 0 55000 50" in netlist
@@ -73,7 +71,8 @@ class TestLCRNetwork:
             {"from": "N1", "to": "N_OUT", "L": 2e-9, "C": 0.5e-12, "R": 100.0},
         ]
         return compile_lcr_network(
-            nodes=nodes, edges=edges,
+            nodes=nodes,
+            edges=edges,
             use_nonlinear=use_nonlinear,
         )
 

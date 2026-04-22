@@ -8,6 +8,7 @@ doping element represented by a 3-port geometric anomaly in an sp³ network.
 Values derived entirely from the ABCD/Hopf radial eigenvalue solver,
 utilizing no empirical parameters.
 """
+
 from __future__ import annotations
 
 
@@ -24,7 +25,7 @@ Z_BORON: int = 5
 A_BORON: int = 11
 ELEMENT_NAME: str = "Boron"
 
-CORE_ELECTRONS: int = 2     # [He] core
+CORE_ELECTRONS: int = 2  # [He] core
 VALENCE_ELECTRONS: int = 3  # 2s² 2p¹
 
 # 3-port topology (acceptor flaw in 4-port Si lattice)

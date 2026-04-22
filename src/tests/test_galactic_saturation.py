@@ -19,7 +19,8 @@ from ave.regime_3_saturated.galactic_rotation import (
     GalaxyModel,
     GALAXY_CATALOG,
     A0_LATTICE,
-    KPC, M_SUN,
+    KPC,
+    M_SUN,
 )
 from ave.regime_3_saturated.orbital_impedance import get_mutual_inductance
 from ave.core.constants import G
@@ -28,6 +29,7 @@ from ave.core.constants import G
 # ═══════════════════════════════════════════════════════════════
 # Asymptotic limits of the saturation model
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestAsymptotes:
     """Both MOND limits must emerge exactly from saturation_factor."""
@@ -80,6 +82,7 @@ class TestAsymptotes:
 # Galaxy rotation test
 # ═══════════════════════════════════════════════════════════════
 
+
 class TestGalaxyRotation:
     """NGC 3198 rotation curve must be flat and match observations."""
 
@@ -105,10 +108,12 @@ class TestGalaxyRotation:
         v_outer = self.galaxy.newtonian_velocity(25 * KPC)
         assert v_outer < v_inner, "Newtonian curve should decline"
 
+
 # Empirical McGaugh tests purged: Engine relies strictly on Axiom 4 saturation.
 # ═══════════════════════════════════════════════════════════════
 # RAR array interface
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestRadialAccelerationRelation:
     """The RAR function must handle array inputs correctly."""
@@ -123,6 +128,7 @@ class TestRadialAccelerationRelation:
 # ═══════════════════════════════════════════════════════════════
 # Smooth mutual inductance (replaces step function)
 # ═══════════════════════════════════════════════════════════════
+
 
 class TestMutualInductance:
     """impedance.get_mutual_inductance must now be smooth, not a step."""
@@ -143,7 +149,7 @@ class TestMutualInductance:
         shears = np.linspace(0, 0.99, 50)
         etas = [get_mutual_inductance(s, 1.0, 1.0) for s in shears]
         # Must be monotonically decreasing
-        assert all(etas[i] >= etas[i+1] for i in range(len(etas)-1))
+        assert all(etas[i] >= etas[i + 1] for i in range(len(etas) - 1))
         # Must NOT be a step function (intermediate values exist)
         assert any(0.1 < eta < 0.9 for eta in etas)
 

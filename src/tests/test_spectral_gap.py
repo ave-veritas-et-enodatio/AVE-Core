@@ -7,6 +7,7 @@ Verifies the 4-step mass gap argument:
   3. Confinement (Γ → -1)
   4. Positive mass gap for all crossing numbers
 """
+
 import pytest
 import numpy as np
 from ave.axioms.spectral_gap import (
@@ -25,6 +26,7 @@ from ave.core.constants import L_NODE, C_0, HBAR, M_E, KAPPA_FS
 
 
 # ── Step 1: Lattice Existence ──
+
 
 class TestLatticeExistence:
 
@@ -47,6 +49,7 @@ class TestLatticeExistence:
 
 
 # ── Step 2: Discrete Dispersion ──
+
 
 class TestDispersion:
 
@@ -89,6 +92,7 @@ class TestDispersion:
 
 # ── Step 3: Confinement ──
 
+
 class TestConfinement:
 
     def test_confinement_decreases_with_crossing(self):
@@ -124,6 +128,7 @@ class TestConfinement:
 
 # ── Step 4: Mass Gap ──
 
+
 class TestMassGap:
 
     def test_electron_mass_gap(self):
@@ -139,10 +144,10 @@ class TestMassGap:
     def test_gap_positive_all_crossings(self):
         """Mass gap Δ > 0 for all crossing numbers 3-13."""
         result = mass_gap_is_positive(max_crossing=13)
-        assert result['gap_positive'] is True
-        for c, data in result['crossings'].items():
-            assert data['gap_positive'] is True
-            assert data['mass_MeV'] > 0
+        assert result["gap_positive"] is True
+        for c, data in result["crossings"].items():
+            assert data["gap_positive"] is True
+            assert data["mass_MeV"] > 0
 
     def test_mass_increases_with_crossing(self):
         """Higher crossing number → heavier particle."""
@@ -155,5 +160,5 @@ class TestMassGap:
     def test_gap_is_electron(self):
         """The absolute minimum mass is the electron."""
         result = mass_gap_is_positive()
-        assert result['gap_particle'] == 'electron'
-        assert result['mass_gap_MeV'] < 1.0  # < 1 MeV
+        assert result["gap_particle"] == "electron"
+        assert result["mass_gap_MeV"] < 1.0  # < 1 MeV

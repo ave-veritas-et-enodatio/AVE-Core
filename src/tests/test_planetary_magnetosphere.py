@@ -12,7 +12,12 @@ from ave.gravity.planetary_magnetosphere import (
     magnetopause_reflection,
     uranus_asymmetric_profile,
     comparative_magnetosphere_table,
-    EARTH, JUPITER, SATURN, URANUS, NEPTUNE, ALL_PLANETS,
+    EARTH,
+    JUPITER,
+    SATURN,
+    URANUS,
+    NEPTUNE,
+    ALL_PLANETS,
 )
 from ave.core.constants import MU_0
 
@@ -41,7 +46,7 @@ class TestDipoleField:
     def test_jupiter_strongest(self):
         """Jupiter should have strongest surface field."""
         fields = {p.name: dipole_field(p, p.radius_m, 90) for p in ALL_PLANETS}
-        assert fields['Jupiter'] == max(fields.values())
+        assert fields["Jupiter"] == max(fields.values())
 
 
 class TestMagneticPressure:
@@ -81,7 +86,7 @@ class TestMagnetopause:
     def test_jupiter_largest(self):
         """Jupiter should have largest magnetosphere."""
         standoffs = {p.name: magnetopause_standoff(p) for p in ALL_PLANETS}
-        assert standoffs['Jupiter'] == max(standoffs.values())
+        assert standoffs["Jupiter"] == max(standoffs.values())
 
     def test_all_standoffs_positive(self):
         for planet in ALL_PLANETS:
@@ -104,19 +109,19 @@ class TestUranusAsymmetry:
 
     def test_profile_shape(self):
         p = uranus_asymmetric_profile(n_points=36)
-        assert len(p['longitude_deg']) == 36
-        assert len(p['r_mp_Rp']) == 36
+        assert len(p["longitude_deg"]) == 36
+        assert len(p["r_mp_Rp"]) == 36
 
     def test_uranus_is_asymmetric(self):
         """Asymmetry ratio should be > 1.5 (highly non-uniform)."""
         p = uranus_asymmetric_profile()
-        assert p['asymmetry_ratio'] > 1.2, f"Ratio = {p['asymmetry_ratio']:.2f}"
+        assert p["asymmetry_ratio"] > 1.2, f"Ratio = {p['asymmetry_ratio']:.2f}"
 
     def test_standoff_varies_with_longitude(self):
         """Standoff should vary by more than 30% across rotation."""
         p = uranus_asymmetric_profile()
-        r_range = np.max(p['r_mp_Rp']) - np.min(p['r_mp_Rp'])
-        r_mean = np.mean(p['r_mp_Rp'])
+        r_range = np.max(p["r_mp_Rp"]) - np.min(p["r_mp_Rp"])
+        r_mean = np.mean(p["r_mp_Rp"])
         assert r_range / r_mean > 0.1
 
 
@@ -125,17 +130,17 @@ class TestComparative:
 
     def test_table_has_all_planets(self):
         t = comparative_magnetosphere_table()
-        names = [r['name'] for r in t]
-        assert 'Earth' in names
-        assert 'Jupiter' in names
-        assert 'Uranus' in names
+        names = [r["name"] for r in t]
+        assert "Earth" in names
+        assert "Jupiter" in names
+        assert "Uranus" in names
 
     def test_uranus_flagged_asymmetric(self):
         t = comparative_magnetosphere_table()
-        uranus = [r for r in t if r['name'] == 'Uranus'][0]
-        assert uranus['symmetry'] == 'asymmetric'
+        uranus = [r for r in t if r["name"] == "Uranus"][0]
+        assert uranus["symmetry"] == "asymmetric"
 
     def test_saturn_flagged_symmetric(self):
         t = comparative_magnetosphere_table()
-        saturn = [r for r in t if r['name'] == 'Saturn'][0]
-        assert saturn['symmetry'] == 'symmetric'
+        saturn = [r for r in t if r["name"] == "Saturn"][0]
+        assert saturn["symmetry"] == "symmetric"

@@ -7,25 +7,34 @@ to explicitly verify zero statistical thermal elements exist.
 Outputs a means report extracting the V_R/V_BR ratio boundaries.
 """
 
-from ave.condensed.silicon_doping import boron_impurity_level, phosphorus_impurity_level, pn_junction as pn_si
-from ave.condensed.germanium_doping import pn_junction_ge as pn_ge, gallium_impurity_level, arsenic_impurity_level
+from ave.condensed.silicon_doping import (
+    boron_impurity_level,
+    phosphorus_impurity_level,
+    pn_junction as pn_si,
+)
+from ave.condensed.germanium_doping import (
+    pn_junction_ge as pn_ge,
+    gallium_impurity_level,
+    arsenic_impurity_level,
+)
 from ave.condensed.gaas_doping import pn_junction_gaas as pn_gaas, amphoteric_impurity_level
 from ave.nuclear.silicon_atom import V_R_OVER_V_BR, Z_SI
 from ave.condensed.silicon_crystal import K_SI_SI
 from ave.condensed.bjt_mechanics import bjt_current_gain
 
+
 def generate_means_report():
     print("==================================================")
     print(" AVE MACROSCOPIC DOPING ENGINE — MEANS TEST REPORT")
     print("==================================================")
-    
+
     # --- SILICON SECTION ---
     print(f"\\n[1] SILICON (Z=14) BOUNDS")
     pn = pn_si()
     print(f"    Native Gap Limit: {pn['E_gap_eV']:.4f} eV")
     print(f"    Axiomatic Transmission T²: {pn['T_sq_junction']:.6f}")
     print(f"    Resulting Geometric V_bi: {pn['V_bi_V']:.4f} V")
-    
+
     # --- GERMANIUM SECTION ---
     print(f"\\n[2] GERMANIUM (Z=32) BOUNDS")
     pge = pn_ge()
@@ -40,16 +49,16 @@ def generate_means_report():
     print(f"\\n[3] GALLIUM ARSENIDE (GaAs) AMPHOTERIC BOUNDS")
     pgaas = pn_gaas()
     print(f"    Dual-Lattice Assumed Gap: {pgaas['E_gap_eV']:.4f} eV")
-    
+
     # Test Silicon jumping sites
-    don_si = amphoteric_impurity_level(14, 31) # Si on Ga
-    acc_si = amphoteric_impurity_level(14, 33) # Si on As
+    don_si = amphoteric_impurity_level(14, 31)  # Si on Ga
+    acc_si = amphoteric_impurity_level(14, 33)  # Si on As
     print(f"    Silicon (Z=14) on Ga (Z=31): {don_si['type']} | Shift = {don_si['delta_E_eV']:.4f}")
     print(f"    Silicon (Z=14) on As (Z=33): {acc_si['type']} | Shift = {acc_si['delta_E_eV']:.4f}")
 
     # Extreme boundary: Carbon
-    don_c = amphoteric_impurity_level(6, 31) # C on Ga
-    acc_c = amphoteric_impurity_level(6, 33) # C on As
+    don_c = amphoteric_impurity_level(6, 31)  # C on Ga
+    acc_c = amphoteric_impurity_level(6, 33)  # C on As
     print(f"    Carbon (Z=6) on Ga (Z=31): {don_c['type']} | Shift = {don_c['delta_E_eV']:.4f}")
     print(f"    Carbon (Z=6) on As (Z=33): {acc_c['type']} | Shift = {acc_c['delta_E_eV']:.4f}")
     print(f"    Resulting Auto-Doped V_bi Limit: {pgaas['V_bi_V']:.4f} V")
@@ -65,6 +74,7 @@ def generate_means_report():
     print("\\n==================================================")
     print("VERDICT: 100% Topo-Kinematic Origin. Limits crush perfectly without statistics.")
     print("==================================================")
+
 
 if __name__ == "__main__":
     generate_means_report()

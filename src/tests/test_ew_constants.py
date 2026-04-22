@@ -7,9 +7,17 @@ within the documented error bounds.
 
 import numpy as np
 from ave.core.constants import (
-    ALPHA, ALPHA_S, SIN2_THETA_W, NU_VAC,
-    M_W_MEV, M_Z_MEV, HIGGS_VEV_MEV, M_HIGGS_MEV,
-    LAMBDA_HIGGS, N_K4, G_F,
+    ALPHA,
+    ALPHA_S,
+    SIN2_THETA_W,
+    NU_VAC,
+    M_W_MEV,
+    M_Z_MEV,
+    HIGGS_VEV_MEV,
+    M_HIGGS_MEV,
+    LAMBDA_HIGGS,
+    N_K4,
+    G_F,
 )
 
 
@@ -17,22 +25,23 @@ from ave.core.constants import (
 # Gauge Couplings
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestGaugeCouplings:
 
     def test_alpha_exact(self):
         """α = 1/137.036 — exact by calibration."""
-        assert abs(ALPHA - 1/137.036) < 1e-6
+        assert abs(ALPHA - 1 / 137.036) < 1e-6
 
     def test_sin2_theta_w(self):
         """sin²θ_W = 2/9 ≈ 0.2222 (PDG: 0.2230, Δ=0.35%)."""
-        assert SIN2_THETA_W == 2/9
+        assert SIN2_THETA_W == 2 / 9
         pdg = 0.2230
         err = abs(SIN2_THETA_W - pdg) / pdg
         assert err < 0.005  # < 0.5%
 
     def test_alpha_s_from_compliance(self):
         """α_s = α^(3/7) ≈ 0.1214 (PDG: 0.1179, Δ=2.97%)."""
-        assert abs(ALPHA_S - ALPHA**(3/7)) < 1e-12  # exact formula
+        assert abs(ALPHA_S - ALPHA ** (3 / 7)) < 1e-12  # exact formula
         pdg = 0.1179
         err = abs(ALPHA_S - pdg) / pdg
         assert err < 0.04  # < 4%
@@ -41,12 +50,13 @@ class TestGaugeCouplings:
         """The 3/7 exponent = d/n: 3 spatial dim / 7 compliance modes."""
         n_modes = 7  # from ν_vac = 2/7
         d_spatial = 3
-        assert abs(ALPHA_S - ALPHA**(d_spatial / n_modes)) < 1e-12
+        assert abs(ALPHA_S - ALPHA ** (d_spatial / n_modes)) < 1e-12
 
 
 # ════════════════════════════════════════════════════════════════════
 # Electroweak Boson Masses
 # ════════════════════════════════════════════════════════════════════
+
 
 class TestBosonMasses:
 
@@ -87,6 +97,7 @@ class TestBosonMasses:
 # Higgs Mass from K4 Breathing Mode
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestHiggsMass:
 
     def test_n_k4_is_4(self):
@@ -95,7 +106,7 @@ class TestHiggsMass:
 
     def test_lambda_is_one_eighth(self):
         """λ_H = 1/(2N_K4) = 1/8."""
-        assert LAMBDA_HIGGS == 1/8
+        assert LAMBDA_HIGGS == 1 / 8
 
     def test_higgs_mass_is_v_over_2(self):
         """m_H = v/√N_K4 = v/2."""

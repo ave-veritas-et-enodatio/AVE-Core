@@ -22,6 +22,7 @@ Usage:
         engine.inject_soft_source('Ez', src_x, src_y, src_z, pulse(t))
         engine.step()
 """
+
 from __future__ import annotations
 
 
@@ -76,9 +77,9 @@ def build_seismic_engine(
     profile = build_1d_impedance_profile(dx_km=dx_km)
 
     # Resample to n_cells if different
-    depth_source = profile['depth_km']
-    eps_r_source = profile['eps_r']
-    mu_r_source = profile['mu_r']
+    depth_source = profile["depth_km"]
+    eps_r_source = profile["eps_r"]
+    mu_r_source = profile["mu_r"]
 
     depth_target = np.linspace(0, depth_source[-1], n_cells)
     eps_r = np.interp(depth_target, depth_source, eps_r_source)
@@ -89,7 +90,7 @@ def build_seismic_engine(
     dx_m = dx_km * 1000.0
     engine = FDTD3DEngine(
         nx=n_cells,
-        ny=3,         # Minimum for curl computation
+        ny=3,  # Minimum for curl computation
         nz=3,
         dx=dx_m,
         linear_only=linear_only,
@@ -102,12 +103,12 @@ def build_seismic_engine(
 
     # Update profile dict with resampled values
     profile_out = {
-        'depth_km': depth_target,
-        'eps_r': eps_r,
-        'mu_r': mu_r,
-        'rho': np.interp(depth_target, depth_source, profile['rho']),
-        'v_p': np.interp(depth_target, depth_source, profile['v_p']),
-        'v_s': np.interp(depth_target, depth_source, profile['v_s']),
+        "depth_km": depth_target,
+        "eps_r": eps_r,
+        "mu_r": mu_r,
+        "rho": np.interp(depth_target, depth_source, profile["rho"]),
+        "v_p": np.interp(depth_target, depth_source, profile["v_p"]),
+        "v_s": np.interp(depth_target, depth_source, profile["v_s"]),
     }
 
     return engine, profile_out
@@ -131,8 +132,8 @@ def verify_impedance_consistency(profile: dict) -> dict:
             'Z_fdtd_normalized': FDTD impedance, normalized to match
             'max_deviation_pct': maximum relative deviation
     """
-    Z_seismic = profile['rho'] * profile['v_p']
-    Z_fdtd_raw = impedance(profile['mu_r'], profile['eps_r'])
+    Z_seismic = profile["rho"] * profile["v_p"]
+    Z_fdtd_raw = impedance(profile["mu_r"], profile["eps_r"])
 
     # Normalize to the same scale (surface value)
     scale = Z_seismic[0] / Z_fdtd_raw[0]
@@ -141,10 +142,10 @@ def verify_impedance_consistency(profile: dict) -> dict:
     deviation_pct = np.abs(Z_fdtd_norm - Z_seismic) / Z_seismic * 100
 
     return {
-        'Z_seismic': Z_seismic,
-        'Z_fdtd_normalized': Z_fdtd_norm,
-        'max_deviation_pct': float(np.max(deviation_pct)),
-        'rms_deviation_pct': float(np.sqrt(np.mean(deviation_pct**2))),
+        "Z_seismic": Z_seismic,
+        "Z_fdtd_normalized": Z_fdtd_norm,
+        "max_deviation_pct": float(np.max(deviation_pct)),
+        "rms_deviation_pct": float(np.sqrt(np.mean(deviation_pct**2))),
     }
 
 
@@ -170,12 +171,14 @@ def compute_boundary_reflections(profile: dict) -> list:
         # Universal function — same code as Pauli exclusion, Moho, S₁₁
         gamma = float(reflection_coefficient(Z1, Z2))
 
-        results.append({
-            'boundary': f"{L1.name} → {L2.name}",
-            'Z1_MRayl': Z1 / 1e6,
-            'Z2_MRayl': Z2 / 1e6,
-            'gamma': gamma,
-            'reflection_pct': abs(gamma) * 100,
-        })
+        results.append(
+            {
+                "boundary": f"{L1.name} → {L2.name}",
+                "Z1_MRayl": Z1 / 1e6,
+                "Z2_MRayl": Z2 / 1e6,
+                "gamma": gamma,
+                "reflection_pct": abs(gamma) * 100,
+            }
+        )
 
     return results

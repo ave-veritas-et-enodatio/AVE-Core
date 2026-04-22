@@ -12,6 +12,7 @@ Constant:
 This module provides exact dimensional conversion functions between
 electrical and mechanical domains.
 """
+
 from __future__ import annotations
 
 

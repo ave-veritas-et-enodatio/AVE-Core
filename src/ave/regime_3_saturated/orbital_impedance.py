@@ -7,6 +7,7 @@ governs particle confinement, FDTD field updates, and plasma cutoff:
 when rotational shear exceeds the lattice saturation threshold, the
 drag vanishes smoothly — not as a step function.
 """
+
 from __future__ import annotations
 
 
@@ -17,6 +18,7 @@ from ave.axioms.scale_invariant import saturation_factor
 # Re-export from gravity module (single source of truth)
 from ave.gravity import refractive_index as calculate_refractive_strain  # noqa: F401
 from ave.gravity import is_dielectric_rupture  # noqa: F401
+
 # NOTE: calculate_refractive_strain and is_dielectric_rupture are
 # re-exported from ave.gravity above. No local implementation needed.
 

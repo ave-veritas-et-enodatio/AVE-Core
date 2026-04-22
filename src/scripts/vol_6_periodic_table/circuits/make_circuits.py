@@ -142,12 +142,16 @@ tex_be9 = r"""\documentclass[tikz,border=15pt]{standalone}
 \end{document}
 """
 
-with open('circuit_h1.tex', 'w') as f: f.write(tex_h1)
-with open('circuit_he4.tex', 'w') as f: f.write(tex_he4)
-with open('circuit_li7.tex', 'w') as f: f.write(tex_li7)
-with open('circuit_be9.tex', 'w') as f: f.write(tex_be9)
+with open("circuit_h1.tex", "w") as f:
+    f.write(tex_h1)
+with open("circuit_he4.tex", "w") as f:
+    f.write(tex_he4)
+with open("circuit_li7.tex", "w") as f:
+    f.write(tex_li7)
+with open("circuit_be9.tex", "w") as f:
+    f.write(tex_be9)
 
-files = ['circuit_h1', 'circuit_he4', 'circuit_li7', 'circuit_be9']
+files = ["circuit_h1", "circuit_he4", "circuit_li7", "circuit_be9"]
 for file in files:
-    subprocess.run(['pdflatex', '-interaction=nonstopmode', f'{file}.tex'])
-    subprocess.run(['sips', '-s', 'format', 'png', f'{file}.pdf', '--out', f'{file}.png'])
+    subprocess.run(["pdflatex", "-interaction=nonstopmode", f"{file}.tex"])
+    subprocess.run(["sips", "-s", "format", "png", f"{file}.pdf", "--out", f"{file}.png"])

@@ -11,12 +11,16 @@ Phases 3-4 verification.
 import numpy as np
 import pytest
 from ave.condensed.silicon_crystal import (
-    D_SI_SI, D_SI_SI_EXP,
+    D_SI_SI,
+    D_SI_SI_EXP,
     B_SI_SI_EV,
-    K_SI_SI, K_CRYSTAL,
-    A_LATTICE, A_LATTICE_EXP,
+    K_SI_SI,
+    K_CRYSTAL,
+    A_LATTICE,
+    A_LATTICE_EXP,
     E_GAP_EXP,
-    N_ATOMS_CELL, COORD_NUMBER,
+    N_ATOMS_CELL,
+    COORD_NUMBER,
     FRAC_COORDS,
     build_unit_cell_bonds,
     dispersion_periodic_lc,
@@ -27,6 +31,7 @@ from ave.condensed.silicon_crystal import (
 # ═══════════════════════════════════════════════════════════════════
 # Si-Si Bond
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestSiSiBond:
     def test_bond_distance_within_15_pct(self):
@@ -53,6 +58,7 @@ class TestSiSiBond:
 # ═══════════════════════════════════════════════════════════════════
 # Diamond Cubic Unit Cell
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDiamondCubicUnitCell:
     def test_8_atoms(self):
@@ -83,36 +89,38 @@ class TestDiamondCubicUnitCell:
 # Band Gap — MEANS TEST
 # ═══════════════════════════════════════════════════════════════════
 
+
 class TestSiliconBandGap:
     def test_band_gap_positive(self):
         """Band gap must be positive (semiconductor, not metal)."""
         result = silicon_band_gap()
-        assert result['E_gap_eV'] > 0
+        assert result["E_gap_eV"] > 0
 
     def test_band_gap_within_50_pct(self):
         """PRIMARY MEANS TEST: band gap within 50% of 1.12 eV."""
         result = silicon_band_gap()
-        err = abs(result['E_gap_eV'] - E_GAP_EXP) / E_GAP_EXP
+        err = abs(result["E_gap_eV"] - E_GAP_EXP) / E_GAP_EXP
         assert err < 0.50, f"Band gap error {err:.1%} > 50%"
 
     def test_band_gap_within_10_pct(self):
         """STRETCH TARGET: band gap within 10% of 1.12 eV."""
         result = silicon_band_gap()
-        err = abs(result['E_gap_eV'] - E_GAP_EXP) / E_GAP_EXP
+        err = abs(result["E_gap_eV"] - E_GAP_EXP) / E_GAP_EXP
         assert err < 0.10, f"Band gap error {err:.1%} > 10%"
 
     def test_bonding_below_antibonding(self):
         result = silicon_band_gap()
-        assert result['E_bonding_eV'] < result['E_antibonding_eV']
+        assert result["E_bonding_eV"] < result["E_antibonding_eV"]
 
     def test_coordination_number(self):
         result = silicon_band_gap()
-        assert result['N_coord'] == 4
+        assert result["N_coord"] == 4
 
 
 # ═══════════════════════════════════════════════════════════════════
 # Dispersion Relation
 # ═══════════════════════════════════════════════════════════════════
+
 
 class TestDispersion:
     def test_two_branches(self):

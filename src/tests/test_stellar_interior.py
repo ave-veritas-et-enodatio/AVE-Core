@@ -59,19 +59,19 @@ class TestRadialProfile:
     def test_profile_runs(self):
         """Profile build should succeed."""
         profile = build_radial_profile(n_points=100)
-        assert len(profile['r_frac']) == 100
+        assert len(profile["r_frac"]) == 100
 
     def test_impedance_decreases_inward(self):
         """Z/Z₀ should decrease toward the core (denser plasma)."""
         profile = build_radial_profile(n_points=200)
-        Z = profile['Z_ratio']
+        Z = profile["Z_ratio"]
         # Core should have lower Z than surface
         assert Z[0] < Z[-1]
 
     def test_plasma_frequency_increases_inward(self):
         """ω_p increases toward the core."""
         profile = build_radial_profile(n_points=200)
-        wp = profile['omega_p']
+        wp = profile["omega_p"]
         assert wp[0] > wp[-1]
 
 

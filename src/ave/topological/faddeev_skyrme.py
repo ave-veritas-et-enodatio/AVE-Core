@@ -40,6 +40,7 @@ THE TORUS KNOT LADDER (Phase Winding Classification):
     Both scales: crossing count partitions the available resource.
     The FCC packing fraction φ governs both.
 """
+
 from __future__ import annotations
 
 
@@ -105,7 +106,7 @@ class TopologicalHamiltonian1D:
         scaled_r = r / r_opt
 
         # Power-law bounded profile matching standard topological ansatz
-        return np.pi / (1.0 + (scaled_r)**n)
+        return np.pi / (1.0 + (scaled_r) ** n)
 
     def _energy_density_integrand(self, r: float, r_opt: float, n: float) -> float:
         """
@@ -135,6 +136,7 @@ class TopologicalHamiltonian1D:
         # rotation per cell).
         gradient_yield = np.pi  # π / ℓ_node = π / 1 in natural units
         from ave.core.universal_operators import universal_saturation
+
         S = universal_saturation(dphi_dr, gradient_yield)
         dphi_dr_eff = dphi_dr * S
 
@@ -144,7 +146,7 @@ class TopologicalHamiltonian1D:
         # Quartic stabilization term (Skyrme/Faddeev Tensor repulsion)
         # Prevents the defect from collapsing to a singularity
         # In 1D radial projection, sin²(phi)/r² dominates
-        skyrme_term = 0.5 * (np.sin(phi1)**2) / (r**2 + _EPS_NUMERICAL)
+        skyrme_term = 0.5 * (np.sin(phi1) ** 2) / (r**2 + _EPS_NUMERICAL)
 
         # Total density scaled spherically
         density = 4 * np.pi * (r**2) * (kinetic_term + (self.kappa**2) * skyrme_term * dphi_dr_eff**2)
@@ -190,7 +192,7 @@ class TopologicalHamiltonian1D:
         # Bound the radius by the confinement, n > 0
         bounds = [(0.1, r_opt_max), (1.0, 4.0)]
 
-        result = minimize(objective, initial_guess, bounds=bounds, method='L-BFGS-B')
+        result = minimize(objective, initial_guess, bounds=bounds, method="L-BFGS-B")
 
         # Return the minimized dimensionless energy scalar
         return result.fun

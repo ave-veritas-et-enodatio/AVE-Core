@@ -32,12 +32,15 @@ Golden Torus to within numerical precision.
 Usage:
     python src/scripts/vol_1_foundations/verify_golden_torus_s11.py
 """
+
 import numpy as np
 from scipy.optimize import minimize
 
 from ave.core.constants import ALPHA_COLD_INV, Z_0
 from ave.solvers.transmission_line import (
-    abcd_segment, abcd_cascade, s11_from_abcd,
+    abcd_segment,
+    abcd_cascade,
+    s11_from_abcd,
 )
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
@@ -56,8 +59,10 @@ def trefoil_points(R, r, n=600):
     t = np.linspace(0.0, 2.0 * np.pi, n, endpoint=False)
     u = 2.0 * t
     v = 3.0 * t
-    cos_v = np.cos(v); sin_v = np.sin(v)
-    cos_u = np.cos(u); sin_u = np.sin(u)
+    cos_v = np.cos(v)
+    sin_v = np.sin(v)
+    cos_u = np.cos(u)
+    sin_u = np.sin(u)
     x = (R + r * cos_v) * cos_u
     y = (R + r * cos_v) * sin_u
     z = r * sin_v
@@ -171,8 +176,7 @@ def verify_self_avoidance():
         sep = min_strand_separation(R_test, r_test)
         ok = "yes" if sep >= 1.0 - 1e-3 else "no"
         marker = "  ← Golden" if np.isclose(R_test, GOLDEN_R, atol=0.01) else ""
-        print(f"  {R_test:8.4f}  {r_test:8.4f}  {R_test - r_test:8.4f}  "
-              f"{sep:10.4f}  {ok:>8}{marker}")
+        print(f"  {R_test:8.4f}  {r_test:8.4f}  {R_test - r_test:8.4f}  " f"{sep:10.4f}  {ok:>8}{marker}")
     print()
     # Confirm at Golden Torus
     sep_golden = min_strand_separation(GOLDEN_R, GOLDEN_r)
@@ -196,15 +200,17 @@ def verify_s11_minimum():
         R, r = params
         # Hard constraint: R - r ≥ 1/2 (self-avoidance); penalize violation
         gap = (R - r) - 0.5
-        penalty = 0.0 if gap >= -1e-6 else 1e4 * (0.5 - (R - r))**2
+        penalty = 0.0 if gap >= -1e-6 else 1e4 * (0.5 - (R - r)) ** 2
         s11 = trefoil_s11(R, r, n=120)
         return s11**2 + penalty
 
     # Start well away from Golden Torus to avoid trivial convergence
     x0 = np.array([1.0, 0.2])
     result = minimize(
-        objective, x0, method='Nelder-Mead',
-        options={'xatol': 1e-5, 'fatol': 1e-10, 'maxiter': 2000},
+        objective,
+        x0,
+        method="Nelder-Mead",
+        options={"xatol": 1e-5, "fatol": 1e-10, "maxiter": 2000},
     )
     R_found, r_found = result.x
     deviation_R = abs(R_found - GOLDEN_R) / GOLDEN_R * 100
@@ -228,8 +234,7 @@ def verify_s11_minimum():
     alpha_inv_found = Lambda_vol + Lambda_surf + Lambda_line
     print(f"  Multipole at S₁₁-min:  α⁻¹ = {alpha_inv_found:.6f}")
     print(f"  ALPHA_COLD_INV (engine): {ALPHA_COLD_INV:.6f}")
-    print(f"  Relative deviation:      "
-          f"{abs(alpha_inv_found - ALPHA_COLD_INV) / ALPHA_COLD_INV:.3e}")
+    print(f"  Relative deviation:      " f"{abs(alpha_inv_found - ALPHA_COLD_INV) / ALPHA_COLD_INV:.3e}")
     print()
 
     # Caveat: the specific Z_c(κ) physical model in this script is dimensional

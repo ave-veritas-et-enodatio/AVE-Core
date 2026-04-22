@@ -29,6 +29,7 @@ Key equation:
 
 When V_CC = Δm²cos2θ/(2E): resonance → θ_m = π/4 → maximal mixing.
 """
+
 from __future__ import annotations
 
 
@@ -36,8 +37,13 @@ import numpy as np
 from dataclasses import dataclass
 
 from ave.core.constants import (
-    C_0, HBAR, e_charge, G_F,
-    SIN2_THETA_12, SIN2_THETA_23, SIN2_THETA_13,
+    C_0,
+    HBAR,
+    e_charge,
+    G_F,
+    SIN2_THETA_12,
+    SIN2_THETA_23,
+    SIN2_THETA_13,
 )
 from ave.axioms.scale_invariant import reflection_coefficient
 
@@ -69,6 +75,7 @@ MEV_TO_JOULE = EV_TO_JOULE * 1e6
 @dataclass
 class NeutrinoFlavor:
     """A neutrino flavor state."""
+
     name: str
     energy_mev: float  # Neutrino energy [MeV]
 
@@ -76,6 +83,7 @@ class NeutrinoFlavor:
 # ═══════════════════════════════════════════════════════════════
 # Matter potential — the impedance modification
 # ═══════════════════════════════════════════════════════════════
+
 
 def matter_potential(n_e: float) -> float:
     r"""
@@ -105,10 +113,9 @@ def matter_potential(n_e: float) -> float:
     return V_cc
 
 
-def effective_mixing_angle(n_e: float,
-                            E_mev: float,
-                            theta_vac: float = THETA_12,
-                            delta_m_sq: float = DELTA_M21_SQ_TARGET) -> float:
+def effective_mixing_angle(
+    n_e: float, E_mev: float, theta_vac: float = THETA_12, delta_m_sq: float = DELTA_M21_SQ_TARGET
+) -> float:
     r"""
     Effective mixing angle in matter (MSW formula).
 
@@ -145,9 +152,7 @@ def effective_mixing_angle(n_e: float,
     return abs(theta_m)
 
 
-def msw_resonance_density(E_mev: float,
-                            theta_vac: float = THETA_12,
-                            delta_m_sq: float = DELTA_M21_SQ_TARGET) -> float:
+def msw_resonance_density(E_mev: float, theta_vac: float = THETA_12, delta_m_sq: float = DELTA_M21_SQ_TARGET) -> float:
     r"""
     Electron density at MSW resonance.
 
@@ -176,11 +181,13 @@ def msw_resonance_density(E_mev: float,
     return n_e_res
 
 
-def survival_probability(n_e: float,
-                           E_mev: float,
-                           L_m: float = 1.0,
-                           theta_vac: float = THETA_12,
-                           delta_m_sq: float = DELTA_M21_SQ_TARGET) -> float:
+def survival_probability(
+    n_e: float,
+    E_mev: float,
+    L_m: float = 1.0,
+    theta_vac: float = THETA_12,
+    delta_m_sq: float = DELTA_M21_SQ_TARGET,
+) -> float:
     r"""
     Electron neutrino survival probability in matter.
 
@@ -242,19 +249,18 @@ def impedance_analogy(n_e: float, E_mev: float) -> dict:
     P_ee = survival_probability(n_e, E_mev)
 
     return {
-        'V_CC_eV': V,
-        'A_ratio': A,
-        'Z_e_over_Z_mu': Z_ratio,
-        'gamma_mode': float(gamma),
-        'theta_m_rad': theta_m,
-        'theta_m_deg': np.degrees(theta_m),
-        'P_ee': P_ee,
-        'is_resonance': abs(A - np.cos(2 * THETA_12)) < 0.1,
+        "V_CC_eV": V,
+        "A_ratio": A,
+        "Z_e_over_Z_mu": Z_ratio,
+        "gamma_mode": float(gamma),
+        "theta_m_rad": theta_m,
+        "theta_m_deg": np.degrees(theta_m),
+        "P_ee": P_ee,
+        "is_resonance": abs(A - np.cos(2 * THETA_12)) < 0.1,
     }
 
 
-def solar_msw_profile(E_mev: float = 10.0,
-                        n_points: int = 200) -> dict:
+def solar_msw_profile(E_mev: float = 10.0, n_points: int = 200) -> dict:
     """
     Compute MSW mixing across the solar interior.
 
@@ -272,18 +278,18 @@ def solar_msw_profile(E_mev: float = 10.0,
     from ave.gravity.stellar_interior import build_radial_profile
 
     profile = build_radial_profile(n_points=n_points)
-    n_e = profile['n_e']
-    r_frac = profile['r_frac']
+    n_e = profile["n_e"]
+    r_frac = profile["r_frac"]
 
     theta_m = np.array([effective_mixing_angle(ne, E_mev) for ne in n_e])
     P_ee = np.array([survival_probability(ne, E_mev) for ne in n_e])
     n_e_res = msw_resonance_density(E_mev)
 
     return {
-        'r_frac': r_frac,
-        'n_e': n_e,
-        'theta_m_deg': np.degrees(theta_m),
-        'P_ee': P_ee,
-        'n_e_resonance': n_e_res,
-        'E_mev': E_mev,
+        "r_frac": r_frac,
+        "n_e": n_e,
+        "theta_m_deg": np.degrees(theta_m),
+        "P_ee": P_ee,
+        "n_e_resonance": n_e_res,
+        "E_mev": E_mev,
     }

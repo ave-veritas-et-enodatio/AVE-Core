@@ -27,12 +27,21 @@ Step 3: GLOBAL EXISTENCE
 
 This module implements the computational verification.
 """
+
 from __future__ import annotations
 
 
 import numpy as np
 from ave.core.constants import (
-    C_0, HBAR, L_NODE, M_E, V_SNAP, EPSILON_0, MU_0, Z_0, e_charge,
+    C_0,
+    HBAR,
+    L_NODE,
+    M_E,
+    V_SNAP,
+    EPSILON_0,
+    MU_0,
+    Z_0,
+    e_charge,
 )
 from ave.axioms.scale_invariant import saturation_factor
 
@@ -40,6 +49,7 @@ from ave.axioms.scale_invariant import saturation_factor
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Navier-Stokes Equations
 # ════════════════════════════════════════════════════════════════════
+
 
 def lattice_laplacian_1d(u: np.ndarray, dx: float) -> np.ndarray:
     """
@@ -109,6 +119,7 @@ def lattice_ns_degrees_of_freedom(N: int, dim: int = 3) -> int:
 # Step 2: Velocity Bound from Saturation (Axiom 4)
 # ════════════════════════════════════════════════════════════════════
 
+
 def maximum_lattice_velocity() -> float:
     """
     Maximum velocity on the AVE lattice.
@@ -159,6 +170,7 @@ def velocity_bound_ratio() -> float:
 # ════════════════════════════════════════════════════════════════════
 # Step 3: Global Existence Theorem
 # ════════════════════════════════════════════════════════════════════
+
 
 def enstrophy_bound(u: np.ndarray, dx: float) -> float:
     """
@@ -262,25 +274,21 @@ def lattice_ns_global_existence(N: int = 100, dx: float = L_NODE) -> dict:
     L_total = L_advection + L_diffusion
 
     return {
-        'N': N,
-        'dx_m': dx,
-        'DOF': dof,
-        'DOF_finite': dof < float('inf'),
-        'laplacian_norm': lap_norm,
-        'laplacian_bounded': np.isfinite(lap_norm),
-        'v_max_m_s': v_max,
-        'v_bounded': v_max == C_0,
-        'enstrophy_max': omega_max,
-        'enstrophy_finite': np.isfinite(omega_max),
-        'lipschitz_constant': L_total,
-        'lipschitz_finite': np.isfinite(L_total),
-        'picard_lindelof_applies': (
-            dof < float('inf') and
-            np.isfinite(L_total) and
-            v_max < float('inf')
-        ),
-        'GLOBAL_EXISTENCE_PROVEN': True,
-        'mechanism': 'Finite DOF + bounded velocity + Lipschitz RHS → Picard-Lindelöf',
+        "N": N,
+        "dx_m": dx,
+        "DOF": dof,
+        "DOF_finite": dof < float("inf"),
+        "laplacian_norm": lap_norm,
+        "laplacian_bounded": np.isfinite(lap_norm),
+        "v_max_m_s": v_max,
+        "v_bounded": v_max == C_0,
+        "enstrophy_max": omega_max,
+        "enstrophy_finite": np.isfinite(omega_max),
+        "lipschitz_constant": L_total,
+        "lipschitz_finite": np.isfinite(L_total),
+        "picard_lindelof_applies": (dof < float("inf") and np.isfinite(L_total) and v_max < float("inf")),
+        "GLOBAL_EXISTENCE_PROVEN": True,
+        "mechanism": "Finite DOF + bounded velocity + Lipschitz RHS → Picard-Lindelöf",
     }
 
 
@@ -322,17 +330,17 @@ def continuum_limit_ns() -> dict:
     truncation_error = dx**2 / 12  # Leading error coefficient
 
     return {
-        'discrete_laplacian_converges': True,
-        'convergence_order': error_order,
-        'truncation_error': truncation_error,
-        'velocity_bound_persists': True,
-        'velocity_bound_value_m_s': C_0,
-        'continuum_NS_recovered': True,
-        'smoothness_preserved': True,
-        'key_insight': (
-            'The velocity bound |u| ≤ c is a property of Axiom 4 '
-            '(saturation), not of the lattice spacing. It persists '
-            'in the continuum limit because saturation is physical.'
+        "discrete_laplacian_converges": True,
+        "convergence_order": error_order,
+        "truncation_error": truncation_error,
+        "velocity_bound_persists": True,
+        "velocity_bound_value_m_s": C_0,
+        "continuum_NS_recovered": True,
+        "smoothness_preserved": True,
+        "key_insight": (
+            "The velocity bound |u| ≤ c is a property of Axiom 4 "
+            "(saturation), not of the lattice spacing. It persists "
+            "in the continuum limit because saturation is physical."
         ),
     }
 
@@ -417,7 +425,7 @@ def sobolev_bound_theorem(N_list: list = None) -> dict:
         L = N * dx  # physical domain length [m]
 
         # Worst-case velocity field: alternating +c, -c (maximum gradient)
-        u_worst = np.array([C_0 * (-1)**i for i in range(N)])
+        u_worst = np.array([C_0 * (-1) ** i for i in range(N)])
 
         h1_norm = sobolev_h1_norm(u_worst, dx)
 
@@ -429,30 +437,32 @@ def sobolev_bound_theorem(N_list: list = None) -> dict:
         # H¹ norm per unit length (intensive quantity — scale-invariant)
         h1_per_length = h1_norm / np.sqrt(L)
 
-        results.append({
-            'N': N,
-            'L_m': L,
-            'h1_norm': h1_norm,
-            'h1_bound_analytical': h1_bound,
-            'h1_norm_leq_bound': h1_norm <= h1_bound * (1 + 1e-8),
-            'h1_per_unit_length': h1_per_length,
-        })
+        results.append(
+            {
+                "N": N,
+                "L_m": L,
+                "h1_norm": h1_norm,
+                "h1_bound_analytical": h1_bound,
+                "h1_norm_leq_bound": h1_norm <= h1_bound * (1 + 1e-8),
+                "h1_per_unit_length": h1_per_length,
+            }
+        )
 
     # Key check: H¹ norm per unit length is constant (uniform bound)
-    norms_per_length = [r['h1_per_unit_length'] for r in results]
+    norms_per_length = [r["h1_per_unit_length"] for r in results]
     max_variation = max(norms_per_length) / min(norms_per_length)
 
     return {
-        'dx_m': dx,
-        'results_by_N': results,
-        'h1_norm_per_length_constant': max_variation < 1.01,
-        'max_relative_variation': max_variation,
-        'uniform_bound_holds': all(r['h1_norm_leq_bound'] for r in results),
-        'SOBOLEV_BOUND_PROVEN': True,
-        'bound_mechanism': (
-            'Axiom 4 caps |u| ≤ c (L² bound). '
-            'Axiom 1 fixes dx = ℓ_node (gradient bound). '
-            '→ ||u||_{H¹} ≤ c√(L(1 + 4/ℓ_node²))  [uniform in N]'
+        "dx_m": dx,
+        "results_by_N": results,
+        "h1_norm_per_length_constant": max_variation < 1.01,
+        "max_relative_variation": max_variation,
+        "uniform_bound_holds": all(r["h1_norm_leq_bound"] for r in results),
+        "SOBOLEV_BOUND_PROVEN": True,
+        "bound_mechanism": (
+            "Axiom 4 caps |u| ≤ c (L² bound). "
+            "Axiom 1 fixes dx = ℓ_node (gradient bound). "
+            "→ ||u||_{H¹} ≤ c√(L(1 + 4/ℓ_node²))  [uniform in N]"
         ),
     }
 
@@ -467,16 +477,16 @@ def full_navier_stokes_proof() -> dict:
     """
     # Step 1: Lattice regularization
     step1 = {
-        'DOF_finite': True,
-        'laplacian_bounded': True,
-        'operator_norm': lattice_laplacian_operator_norm(L_NODE),
+        "DOF_finite": True,
+        "laplacian_bounded": True,
+        "operator_norm": lattice_laplacian_operator_norm(L_NODE),
     }
 
     # Step 2: Velocity bound
     step2 = {
-        'v_max': maximum_lattice_velocity(),
-        'v_bounded': True,
-        'enstrophy_bounded': True,
+        "v_max": maximum_lattice_velocity(),
+        "v_bounded": True,
+        "enstrophy_bounded": True,
     }
 
     # Step 3: Global existence
@@ -488,17 +498,16 @@ def full_navier_stokes_proof() -> dict:
     step4 = {**step4_limit, **step4_sobolev}
 
     return {
-        'Step_1_Lattice': step1,
-        'Step_2_Velocity_Bound': step2,
-        'Step_3_Global_Existence': step3,
-        'Step_4_Continuum_and_Sobolev': step4,
-        'NS_SMOOTHNESS_PROVEN': (
-            step1['DOF_finite'] and
-            step1['laplacian_bounded'] and
-            step2['v_bounded'] and
-            step3['GLOBAL_EXISTENCE_PROVEN'] and
-            step4['smoothness_preserved'] and
-            step4['SOBOLEV_BOUND_PROVEN']
+        "Step_1_Lattice": step1,
+        "Step_2_Velocity_Bound": step2,
+        "Step_3_Global_Existence": step3,
+        "Step_4_Continuum_and_Sobolev": step4,
+        "NS_SMOOTHNESS_PROVEN": (
+            step1["DOF_finite"]
+            and step1["laplacian_bounded"]
+            and step2["v_bounded"]
+            and step3["GLOBAL_EXISTENCE_PROVEN"]
+            and step4["smoothness_preserved"]
+            and step4["SOBOLEV_BOUND_PROVEN"]
         ),
     }
-

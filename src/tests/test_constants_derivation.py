@@ -12,31 +12,69 @@ This test file covers:
   3. Dimensional analysis — key dimensional relationships hold
   4. Book 2 prediction table — engine outputs match manuscript claims
 """
+
 import math
 import numpy as np
 import pytest
 
 from ave.core.constants import (
     # SI inputs
-    C_0, MU_0, EPSILON_0, Z_0, HBAR, e_charge, K_B, N_A,
-    M_E, M_PROTON, M_SUN,
+    C_0,
+    MU_0,
+    EPSILON_0,
+    Z_0,
+    HBAR,
+    e_charge,
+    K_B,
+    N_A,
+    M_E,
+    M_PROTON,
+    M_SUN,
     # Three calibration inputs
-    ALPHA, G,
+    ALPHA,
+    G,
     # Derived topological
-    L_NODE, XI_TOPO, T_EM,
+    L_NODE,
+    XI_TOPO,
+    T_EM,
     # Derived dielectric
-    P_C, NU_VAC, ETA_EQ,
-    V_SNAP, V_YIELD, E_YIELD_KINETIC, E_CRIT, E_YIELD, B_SNAP,
+    P_C,
+    NU_VAC,
+    ETA_EQ,
+    V_SNAP,
+    V_YIELD,
+    E_YIELD_KINETIC,
+    E_CRIT,
+    E_YIELD,
+    B_SNAP,
     # Derived macroscopic
-    ISOTROPIC_PROJECTION, ALPHA_S, XI_MACHIAN,
-    H_INFINITY, R_HUBBLE, RHO_BULK, NU_KIN,
+    ISOTROPIC_PROJECTION,
+    ALPHA_S,
+    XI_MACHIAN,
+    H_INFINITY,
+    R_HUBBLE,
+    RHO_BULK,
+    NU_KIN,
     # Electroweak
-    SIN2_THETA_W, M_W_MEV, M_Z_MEV,
-    M_HIGGS_MEV, HIGGS_VEV_MEV, LAMBDA_HIGGS, N_K4,
+    SIN2_THETA_W,
+    M_W_MEV,
+    M_Z_MEV,
+    M_HIGGS_MEV,
+    HIGGS_VEV_MEV,
+    LAMBDA_HIGGS,
+    N_K4,
     # CKM
-    LAMBDA_CKM, A_CKM, RHO_ETA_MAG, V_US, V_CB, V_UB,
+    LAMBDA_CKM,
+    A_CKM,
+    RHO_ETA_MAG,
+    V_US,
+    V_CB,
+    V_UB,
     # PMNS
-    SIN2_THETA_13, SIN2_THETA_12, SIN2_THETA_23, DELTA_CP_PMNS,
+    SIN2_THETA_13,
+    SIN2_THETA_12,
+    SIN2_THETA_23,
+    DELTA_CP_PMNS,
     # Baryon
     KAPPA_FS_COLD,
 )
@@ -44,6 +82,7 @@ from ave.core.constants import (
 # ============================================================================
 # 1. INTERNAL CONSISTENCY: Each derived constant matches its definition
 # ============================================================================
+
 
 class TestSIConstants:
     """Verify SI electromagnetic foundation is self-consistent."""
@@ -79,19 +118,16 @@ class TestTopologicalDerivations:
         assert V_YIELD == pytest.approx(43_652, rel=1e-2)  # ~43.65 kV
 
     def test_e_yield_kinetic(self):
-        assert E_YIELD_KINETIC == pytest.approx(
-            np.sqrt(ALPHA) * M_E * C_0**2, rel=1e-12)
+        assert E_YIELD_KINETIC == pytest.approx(np.sqrt(ALPHA) * M_E * C_0**2, rel=1e-12)
 
     def test_e_crit(self):
-        assert E_CRIT == pytest.approx(
-            M_E**2 * C_0**3 / (e_charge * HBAR), rel=1e-12)
+        assert E_CRIT == pytest.approx(M_E**2 * C_0**3 / (e_charge * HBAR), rel=1e-12)
 
     def test_e_yield_from_v_yield(self):
         assert E_YIELD == pytest.approx(V_YIELD / L_NODE, rel=1e-12)
 
     def test_b_snap(self):
-        assert B_SNAP == pytest.approx(
-            np.sqrt(2 * MU_0 * M_E * C_0**2 / L_NODE**3), rel=1e-12)
+        assert B_SNAP == pytest.approx(np.sqrt(2 * MU_0 * M_E * C_0**2 / L_NODE**3), rel=1e-12)
 
 
 class TestDielectricDerivations:
@@ -118,8 +154,7 @@ class TestElectroweakDerivations:
         assert SIN2_THETA_W == pytest.approx(2.0 / 9.0, rel=1e-15)
 
     def test_m_w(self):
-        expected = (M_E * C_0**2 / (e_charge * 1e6)) / (
-            ALPHA**2 * P_C * np.sqrt(3.0 / 7.0))
+        expected = (M_E * C_0**2 / (e_charge * 1e6)) / (ALPHA**2 * P_C * np.sqrt(3.0 / 7.0))
         assert M_W_MEV == pytest.approx(expected, rel=1e-12)
 
     def test_m_z_from_m_w(self):
@@ -151,8 +186,7 @@ class TestCKMDerivations:
         assert V_CB == pytest.approx(A_CKM * LAMBDA_CKM**2, rel=1e-12)
 
     def test_v_ub(self):
-        assert V_UB == pytest.approx(
-            A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG, rel=1e-12)
+        assert V_UB == pytest.approx(A_CKM * LAMBDA_CKM**3 * RHO_ETA_MAG, rel=1e-12)
 
 
 class TestPMNSDerivations:
@@ -162,14 +196,13 @@ class TestPMNSDerivations:
         assert SIN2_THETA_13 == pytest.approx(1.0 / 45.0, rel=1e-15)
 
     def test_theta_12(self):
-        assert SIN2_THETA_12 == pytest.approx(NU_VAC + 1.0/45.0, rel=1e-12)
+        assert SIN2_THETA_12 == pytest.approx(NU_VAC + 1.0 / 45.0, rel=1e-12)
 
     def test_theta_23(self):
-        assert SIN2_THETA_23 == pytest.approx(0.5 + 2.0/45.0, rel=1e-12)
+        assert SIN2_THETA_23 == pytest.approx(0.5 + 2.0 / 45.0, rel=1e-12)
 
     def test_delta_cp(self):
-        assert DELTA_CP_PMNS == pytest.approx(
-            (1 + 1/3 + 1/45) * math.pi, rel=1e-12)
+        assert DELTA_CP_PMNS == pytest.approx((1 + 1 / 3 + 1 / 45) * math.pi, rel=1e-12)
 
 
 class TestCosmologicalDerivations:
@@ -183,11 +216,10 @@ class TestCosmologicalDerivations:
         assert R_HUBBLE == pytest.approx(C_0 / H_INFINITY, rel=1e-12)
 
     def test_alpha_s(self):
-        assert ALPHA_S == pytest.approx(ALPHA ** (3.0/7.0), rel=1e-12)
+        assert ALPHA_S == pytest.approx(ALPHA ** (3.0 / 7.0), rel=1e-12)
 
     def test_xi_machian(self):
-        assert XI_MACHIAN == pytest.approx(
-            HBAR * C_0 / (7 * G * M_E**2), rel=1e-12)
+        assert XI_MACHIAN == pytest.approx(HBAR * C_0 / (7 * G * M_E**2), rel=1e-12)
 
     def test_nu_kin(self):
         assert NU_KIN == pytest.approx(ALPHA * C_0 * L_NODE, rel=1e-12)
@@ -199,6 +231,7 @@ class TestCosmologicalDerivations:
 # ============================================================================
 # 2. EMPIRICAL AGREEMENT: Within stated tolerance of PDG/CODATA
 # ============================================================================
+
 
 class TestEmpiricalAgreement:
     """All derived constants fall within published tolerances of
@@ -249,14 +282,15 @@ class TestEmpiricalAgreement:
 # 3. ENGINE PREDICTION TABLE (Book 2, Ch.09)
 # ============================================================================
 
+
 class TestPredictionTable:
     """Values claimed in Book 2 Ch.09 verification table are reproducible."""
 
     def test_galactic_ngc3198(self):
         """NGC 3198 flat rotation velocity from galactic_rotation engine."""
-        from ave.regime_3_saturated.galactic_rotation import (
-            ave_rotation_velocity, GALAXY_CATALOG)
-        galaxy = GALAXY_CATALOG['NGC 3198']
+        from ave.regime_3_saturated.galactic_rotation import ave_rotation_velocity, GALAXY_CATALOG
+
+        galaxy = GALAXY_CATALOG["NGC 3198"]
         r_flat = 30e3 * 3.086e16  # 30 kpc in meters
         v = ave_rotation_velocity(galaxy, r_flat)
         # Book 2 claims 159 km/s, obs = 150, 5% error
@@ -266,6 +300,7 @@ class TestPredictionTable:
         """B_c(T) = B_c0 * sqrt(1 - (T/T_c)^2) = saturation_factor."""
         from ave.plasma.superconductor import critical_field
         from ave.axioms.saturation import saturation_factor
+
         T, T_c, B_c0 = 4.2, 9.25, 0.206  # Niobium
         bc = critical_field(T, T_c, B_c0)
         sat = saturation_factor(T, T_c) * B_c0
@@ -274,6 +309,7 @@ class TestPredictionTable:
     def test_london_depth_order_of_magnitude(self):
         """London depths are in the 30-150 nm range per Book 2 table."""
         from ave.plasma.superconductor import london_penetration_depth, SC_CATALOG
+
         for name, mat in SC_CATALOG.items():
             lam = london_penetration_depth(mat.n_s)
             assert 10e-9 < lam < 300e-9, f"{name}: λ_L = {lam*1e9:.0f} nm"
@@ -289,6 +325,7 @@ class TestPredictionTable:
     def test_stellar_tachocline_reflection(self):
         """Tachocline reflection coefficient is nonzero."""
         from ave.gravity.stellar_interior import tachocline_reflection
+
         gamma = tachocline_reflection()
         assert abs(gamma) > 0.1, "Tachocline must show significant reflection"
 
@@ -296,6 +333,7 @@ class TestPredictionTable:
 # ============================================================================
 # 4. DIMENSIONAL SANITY CHECKS
 # ============================================================================
+
 
 class TestDimensionalSanity:
     """Key physical quantities have correct orders of magnitude."""
@@ -325,4 +363,4 @@ class TestDimensionalSanity:
         assert 0 < ALPHA_S < 1
 
     def test_nu_vac_is_two_sevenths(self):
-        assert NU_VAC == pytest.approx(2/7, rel=1e-15)
+        assert NU_VAC == pytest.approx(2 / 7, rel=1e-15)

@@ -8,6 +8,7 @@ from matplotlib import animation
 
 from ave.core import VacuumGrid, TopologicalNode
 
+
 def main():
     print("==========================================================")
     print(" AVE LIBRARY: ENGINE DEMONSTRATION SCRIPT")
@@ -19,7 +20,7 @@ def main():
     # 1. Initialize the Environment
     NX, NY = 100, 100
     grid = VacuumGrid(nx=NX, ny=NY)
-    grid.set_temperature(0.5, mode='bulk')  # Bulk noise for visual demo
+    grid.set_temperature(0.5, mode="bulk")  # Bulk noise for visual demo
     # 2. Instantiate Topological Nodes (e.g. A cluster of mass)
     num_particles = 15
     nodes = []
@@ -31,25 +32,31 @@ def main():
         node = TopologicalNode(x=x, y=y, mass=5.0)
 
         # Give them some initial kinetic energy (Heat/Velocity)
-        angle = np.random.uniform(0, 2*np.pi)
+        angle = np.random.uniform(0, 2 * np.pi)
         speed = 1.2
         node.velocity[0] = speed * np.cos(angle)
         node.velocity[1] = speed * np.sin(angle)
         nodes.append(node)
 
     # 3. Visualization Setup
-    fig, ax = plt.subplots(figsize=(8, 8), facecolor='#0d0d14')
-    ax.set_facecolor('#0d0d14')
+    fig, ax = plt.subplots(figsize=(8, 8), facecolor="#0d0d14")
+    ax.set_facecolor("#0d0d14")
 
     # Background Grid Render (Strain)
-    img = ax.imshow(np.abs(grid.strain_z.T)**2, cmap='hot', vmin=0, vmax=1.0, origin='lower')
+    img = ax.imshow(np.abs(grid.strain_z.T) ** 2, cmap="hot", vmin=0, vmax=1.0, origin="lower")
 
     # Node Render (Atoms)
-    scatter = ax.scatter([n.position[0] for n in nodes], [n.position[1] for n in nodes],
-                         s=40, color='cyan', edgecolors='white', zorder=5)
+    scatter = ax.scatter(
+        [n.position[0] for n in nodes],
+        [n.position[1] for n in nodes],
+        s=40,
+        color="cyan",
+        edgecolors="white",
+        zorder=5,
+    )
 
-    ax.axis('off')
-    ax.set_title("Unified Engine: Nodes Traversing LC Vacuum", color='white', pad=20, fontsize=14)
+    ax.axis("off")
+    ax.set_title("Unified Engine: Nodes Traversing LC Vacuum", color="white", pad=20, fontsize=14)
 
     dt = 0.5
 
@@ -74,13 +81,14 @@ def main():
     print("[1] Executing Unified Main Loop...")
     ani = animation.FuncAnimation(fig, update, frames=200, interval=30, blit=True)
 
-    os.makedirs('standard_model/animations', exist_ok=True)
-    out_path = 'standard_model/animations/ave_unified_engine_demo.gif'
-    ani.save(out_path, writer='pillow', fps=30)
+    os.makedirs("standard_model/animations", exist_ok=True)
+    out_path = "standard_model/animations/ave_unified_engine_demo.gif"
+    ani.save(out_path, writer="pillow", fps=30)
 
     print(f"\n[STATUS: SUCCESS] The Object-Oriented Engine is live.")
     print(f"Instantiated Node-Grid interactions tracked seamlessly.")
     print(f"Animated propagation saved to {out_path}")
+
 
 if __name__ == "__main__":
     main()

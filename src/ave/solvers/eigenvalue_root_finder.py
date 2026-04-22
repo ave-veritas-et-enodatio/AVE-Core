@@ -23,6 +23,7 @@ Used at every scale:
 
 This module contains ZERO domain-specific physics.
 """
+
 from __future__ import annotations
 
 
@@ -57,9 +58,7 @@ def newton_step(f_val, gradient, trust_radius=np.pi):
     return direction
 
 
-def find_eigenstate(theta_init, f_fn, grad_fn, n_iter=200,
-                    trust_radius=np.pi, converge_threshold=None,
-                    Q=None):
+def find_eigenstate(theta_init, f_fn, grad_fn, n_iter=200, trust_radius=np.pi, converge_threshold=None, Q=None):
     """
     Newton-Raphson root-finder with backtracking line search.
 
@@ -79,7 +78,7 @@ def find_eigenstate(theta_init, f_fn, grad_fn, n_iter=200,
         history:     List of f values per iteration
     """
     if converge_threshold is None and Q is not None:
-        converge_threshold = 1.0 / (Q ** 2)
+        converge_threshold = 1.0 / (Q**2)
     elif converge_threshold is None:
         converge_threshold = 1e-4
 
@@ -126,12 +125,10 @@ try:
         direction = -f_val * g / g_norm_sq
 
         dir_norm = jnp.sqrt(jnp.sum(direction**2) + EPS_NUMERICAL)
-        scale = jnp.where(dir_norm > trust_radius,
-                          trust_radius / dir_norm, 1.0)
+        scale = jnp.where(dir_norm > trust_radius, trust_radius / dir_norm, 1.0)
         return direction * scale
 
-    def find_eigenstate_jax(theta_init, f_fn, n_iter=200,
-                             trust_radius=jnp.pi):
+    def find_eigenstate_jax(theta_init, f_fn, n_iter=200, trust_radius=jnp.pi):
         """
         JIT-compiled Newton-Raphson with backtracking line search.
 
@@ -167,9 +164,7 @@ try:
                 new_f = f_fn(trial)
                 return (new_alpha, new_f, count + 1)
 
-            alpha_final, _, _ = lax.while_loop(
-                ls_cond, ls_body,
-                (jnp.float64(1.0), f_full, jnp.int32(0)))
+            alpha_final, _, _ = lax.while_loop(ls_cond, ls_body, (jnp.float64(1.0), f_full, jnp.int32(0)))
 
             return theta + alpha_final * direction
 

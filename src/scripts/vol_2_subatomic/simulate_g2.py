@@ -20,12 +20,19 @@ Usage:
 import numpy as np
 from math import pi, sqrt
 from ave.core.constants import (
-    ALPHA, C_0, EPSILON_0, MU_0, HBAR, M_E, L_NODE, V_SNAP,
+    ALPHA,
+    C_0,
+    EPSILON_0,
+    MU_0,
+    HBAR,
+    M_E,
+    L_NODE,
+    V_SNAP,
 )
 from ave.topological.cosserat import G_MINUS_2_TREE
 
 MeV = float(e_charge) * 1e6  # from constants.py (e × 10⁶)
-e = float(e_charge)           # from constants.py
+e = float(e_charge)  # from constants.py
 m_e_J = M_E * C_0**2
 l = L_NODE
 
@@ -44,7 +51,7 @@ print()
 
 E_peak = sqrt(m_e_J / (EPSILON_0 * l**3))
 V_peak = E_peak * l
-strain_sq = (V_peak / V_SNAP)**2
+strain_sq = (V_peak / V_SNAP) ** 2
 
 print(f"  STEP 1: On-site strain")
 print(f"    E_peak    = {E_peak:.4e} V/m")

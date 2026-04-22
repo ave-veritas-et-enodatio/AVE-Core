@@ -24,6 +24,7 @@ This module predicts:
   2. Uranus asymmetric Γ profile (day vs night side)
   3. Comparative impedance spectra: Earth, Jupiter, Saturn, Uranus, Neptune
 """
+
 from __future__ import annotations
 
 
@@ -39,25 +40,27 @@ from ave.axioms.scale_invariant import reflection_coefficient
 # Physical constants
 # ═══════════════════════════════════════════════════════════════
 
-AU = 1.496e11           # Astronomical unit [m]
-M_P = float(M_PROTON)   # Proton mass alias [kg]
+AU = 1.496e11  # Astronomical unit [m]
+M_P = float(M_PROTON)  # Proton mass alias [kg]
 
 
 # ═══════════════════════════════════════════════════════════════
 # Planet data
 # ═══════════════════════════════════════════════════════════════
 
+
 @dataclass
 class PlanetMagnetosphere:
     """Magnetic and orbital properties of a planet."""
+
     name: str
-    mass_kg: float              # Planet mass
-    radius_m: float             # Equatorial radius
-    a_orbital_au: float         # Orbital semi-major axis
-    B_equatorial_T: float       # Surface equatorial magnetic field [T]
-    dipole_tilt_deg: float      # Angle between magnetic and rotation axes
-    dipole_offset_frac: float   # Dipole center offset / planet radius
-    rotation_period_hr: float   # Sidereal rotation period
+    mass_kg: float  # Planet mass
+    radius_m: float  # Equatorial radius
+    a_orbital_au: float  # Orbital semi-major axis
+    B_equatorial_T: float  # Surface equatorial magnetic field [T]
+    dipole_tilt_deg: float  # Angle between magnetic and rotation axes
+    dipole_offset_frac: float  # Dipole center offset / planet radius
+    rotation_period_hr: float  # Sidereal rotation period
 
     @property
     def dipole_tilt_rad(self) -> float:
@@ -73,9 +76,10 @@ class PlanetMagnetosphere:
 # Measured values from Voyager, Galileo, Cassini, ground-based
 EARTH = PlanetMagnetosphere(
     name="Earth",
-    mass_kg=5.972e24, radius_m=6.371e6,
+    mass_kg=5.972e24,
+    radius_m=6.371e6,
     a_orbital_au=1.0,
-    B_equatorial_T=3.12e-5,    # ~31.2 μT
+    B_equatorial_T=3.12e-5,  # ~31.2 μT
     dipole_tilt_deg=11.5,
     dipole_offset_frac=0.07,
     rotation_period_hr=23.93,
@@ -83,9 +87,10 @@ EARTH = PlanetMagnetosphere(
 
 JUPITER = PlanetMagnetosphere(
     name="Jupiter",
-    mass_kg=1.898e27, radius_m=7.149e7,
+    mass_kg=1.898e27,
+    radius_m=7.149e7,
     a_orbital_au=5.20,
-    B_equatorial_T=4.28e-4,    # ~428 μT (strongest in solar system)
+    B_equatorial_T=4.28e-4,  # ~428 μT (strongest in solar system)
     dipole_tilt_deg=9.6,
     dipole_offset_frac=0.13,
     rotation_period_hr=9.93,
@@ -93,31 +98,34 @@ JUPITER = PlanetMagnetosphere(
 
 SATURN = PlanetMagnetosphere(
     name="Saturn",
-    mass_kg=5.683e26, radius_m=6.027e7,
+    mass_kg=5.683e26,
+    radius_m=6.027e7,
     a_orbital_au=9.58,
-    B_equatorial_T=2.1e-5,     # ~21 μT
-    dipole_tilt_deg=0.0,       # Nearly zero! (< 0.06°)
+    B_equatorial_T=2.1e-5,  # ~21 μT
+    dipole_tilt_deg=0.0,  # Nearly zero! (< 0.06°)
     dipole_offset_frac=0.04,
     rotation_period_hr=10.66,
 )
 
 URANUS = PlanetMagnetosphere(
     name="Uranus",
-    mass_kg=8.681e25, radius_m=2.556e7,
+    mass_kg=8.681e25,
+    radius_m=2.556e7,
     a_orbital_au=19.22,
-    B_equatorial_T=2.3e-5,     # ~23 μT
-    dipole_tilt_deg=59.0,      # THE ANOMALY: 59° tilt!
-    dipole_offset_frac=0.31,   # Offset by 0.31 R_U from center
+    B_equatorial_T=2.3e-5,  # ~23 μT
+    dipole_tilt_deg=59.0,  # THE ANOMALY: 59° tilt!
+    dipole_offset_frac=0.31,  # Offset by 0.31 R_U from center
     rotation_period_hr=17.24,
 )
 
 NEPTUNE = PlanetMagnetosphere(
     name="Neptune",
-    mass_kg=1.024e26, radius_m=2.476e7,
+    mass_kg=1.024e26,
+    radius_m=2.476e7,
     a_orbital_au=30.07,
-    B_equatorial_T=1.4e-5,     # ~14 μT
-    dipole_tilt_deg=47.0,      # Also highly tilted (47°)
-    dipole_offset_frac=0.55,   # Most offset in solar system
+    B_equatorial_T=1.4e-5,  # ~14 μT
+    dipole_tilt_deg=47.0,  # Also highly tilted (47°)
+    dipole_offset_frac=0.55,  # Most offset in solar system
     rotation_period_hr=16.11,
 )
 
@@ -128,8 +136,8 @@ ALL_PLANETS = [EARTH, JUPITER, SATURN, URANUS, NEPTUNE]
 # Magnetospheric impedance
 # ═══════════════════════════════════════════════════════════════
 
-def dipole_field(planet: PlanetMagnetosphere, r_m: float,
-                 theta_deg: float = 0.0) -> float:
+
+def dipole_field(planet: PlanetMagnetosphere, r_m: float, theta_deg: float = 0.0) -> float:
     """
     Magnetic field magnitude from an offset tilted dipole.
 
@@ -151,8 +159,7 @@ def dipole_field(planet: PlanetMagnetosphere, r_m: float,
 
     theta = np.radians(theta_deg)
     # Dipole field formula
-    B = planet.B_equatorial_T * (planet.radius_m / r_eff)**3 * \
-        np.sqrt(1 + 3 * np.cos(theta)**2) / 2.0
+    B = planet.B_equatorial_T * (planet.radius_m / r_eff) ** 3 * np.sqrt(1 + 3 * np.cos(theta) ** 2) / 2.0
     return B
 
 
@@ -185,8 +192,8 @@ def solar_wind_dynamic_pressure(r_au: float) -> float:
     Returns:
         Dynamic pressure [Pa].
     """
-    n_p_1au = 5e6          # protons/m³ at 1 AU
-    v_sw = 400e3           # m/s
+    n_p_1au = 5e6  # protons/m³ at 1 AU
+    v_sw = 400e3  # m/s
     n_p = n_p_1au / r_au**2
     return 0.5 * n_p * M_P * v_sw**2
 
@@ -305,7 +312,7 @@ def internal_plasma_pressure(planet: PlanetMagnetosphere) -> float:
         Internal plasma pressure [Pa].
     """
     k_B_val = float(K_B)  # from constants.py
-    T_sw = 1e5       # Solar wind temperature [K]
+    T_sw = 1e5  # Solar wind temperature [K]
 
     # Solar wind density at planet
     n_sw = 5e6 / planet.a_orbital_au**2  # protons/m³
@@ -318,7 +325,7 @@ def internal_plasma_pressure(planet: PlanetMagnetosphere) -> float:
     ratio6 = P_sw * 2 * MU_0 / B_eq_factor**2
     if ratio6 <= 0:
         return 0.0
-    r_mp_Rp = 1.0 / ratio6**(1.0/6.0)
+    r_mp_Rp = 1.0 / ratio6 ** (1.0 / 6.0)
 
     # Mirror ratio
     mirror_ratio = r_mp_Rp**3  # B_mp/B_surface = (R_p/R_mp)³
@@ -336,7 +343,7 @@ def internal_plasma_pressure(planet: PlanetMagnetosphere) -> float:
     P_generic = n_trapped * k_B_val * T_internal
 
     # ─── Jupiter Io torus correction ─────────────────────────────
-    if planet.name == 'Jupiter':
+    if planet.name == "Jupiter":
         P_io = _io_torus_pressure(planet)
         return P_generic + P_io
 
@@ -368,36 +375,35 @@ def _io_torus_pressure(planet: PlanetMagnetosphere) -> float:
         Io torus plasma pressure at magnetopause [Pa].
     """
     # ── Step 1: Tidal heating of Io ──
-    R_Io = 1.822e6          # Io radius [m]
-    a_Io = 4.217e8          # Io semi-major axis [m] (5.9 R_J)
-    T_Io = 1.769 * 86400    # Io orbital period [s]
-    e_Io = 0.0041           # Eccentricity (maintained by Laplace resonance)
+    R_Io = 1.822e6  # Io radius [m]
+    a_Io = 4.217e8  # Io semi-major axis [m] (5.9 R_J)
+    T_Io = 1.769 * 86400  # Io orbital period [s]
+    e_Io = 0.0041  # Eccentricity (maintained by Laplace resonance)
 
-    k2_Io = 0.04            # Love number (silicate body)
-    Q_Io_quality = 100      # Tidal quality factor
+    k2_Io = 0.04  # Love number (silicate body)
+    Q_Io_quality = 100  # Tidal quality factor
 
-    n_orb = 2 * np.pi / T_Io   # Mean motion [rad/s]
+    n_orb = 2 * np.pi / T_Io  # Mean motion [rad/s]
     M_J = planet.mass_kg
 
     # Peale (1979) — correct dimensional form [W]:
-    Q_tidal = (21.0 / 2.0) * (k2_Io / Q_Io_quality) * \
-              (R_Io / a_Io)**5 * n_orb * G * M_J**2 * e_Io**2 / a_Io
+    Q_tidal = (21.0 / 2.0) * (k2_Io / Q_Io_quality) * (R_Io / a_Io) ** 5 * n_orb * G * M_J**2 * e_Io**2 / a_Io
     # Q ≈ 2.5×10¹² W (observed ~10¹⁴ W; higher k₂ for molten interior)
 
     # ── Step 2: Volcanic mass ejection ──
-    L_SO2 = 3.9e5           # Latent heat of SO₂ [J/kg]
-    eta_volcanic = 1.0      # 100% of tidal heat → surface (thin litho.)
+    L_SO2 = 3.9e5  # Latent heat of SO₂ [J/kg]
+    eta_volcanic = 1.0  # 100% of tidal heat → surface (thin litho.)
 
-    m_dot = Q_tidal * eta_volcanic / L_SO2   # ~6400 kg/s
+    m_dot = Q_tidal * eta_volcanic / L_SO2  # ~6400 kg/s
 
     # ── Step 3: Torus density at Io orbit ──
     r_torus = a_Io
     torus_cross_R = 1.0 * planet.radius_m  # ~1 R_J cross-section
     V_torus = 2 * np.pi * r_torus * np.pi * torus_cross_R**2
 
-    m_ion = 20 * M_P        # Average ion mass (~20 amu)
+    m_ion = 20 * M_P  # Average ion mass (~20 amu)
 
-    tau_loss = 60 * 86400   # ~60 day radial transport timescale [s]
+    tau_loss = 60 * 86400  # ~60 day radial transport timescale [s]
     n_Io_torus = m_dot / (m_ion * V_torus * (1.0 / tau_loss))
 
     # ── Step 4: Dilute to magnetopause ──
@@ -405,7 +411,7 @@ def _io_torus_pressure(planet: PlanetMagnetosphere) -> float:
     # Particle conservation along flux tube: n × A = const
     # → n(r) = n(r₀) × (r₀/r)³ for dipole geometry
     r_mp_est = 40.0 * planet.radius_m  # Bootstrap estimate
-    n_mp = n_Io_torus * (a_Io / r_mp_est)**3
+    n_mp = n_Io_torus * (a_Io / r_mp_est) ** 3
 
     # ── Step 5: Corotational pressure at magnetopause ──
     Omega_J = 2 * np.pi / (planet.rotation_period_hr * 3600)
@@ -491,9 +497,9 @@ def magnetopause_standoff(planet: PlanetMagnetosphere) -> float:
     ratio6 = P_eff * 2 * MU_0 / B_eff**2
     if ratio6 <= 0:
         raise ValueError(
-            f"{planet.name}: P_eff ≤ 0 (internal plasma exceeds solar wind). "
-            f"Cannot compute magnetopause standoff.")
-    r_mp = planet.radius_m / ratio6**(1.0/6.0)
+            f"{planet.name}: P_eff ≤ 0 (internal plasma exceeds solar wind). " f"Cannot compute magnetopause standoff."
+        )
+    r_mp = planet.radius_m / ratio6 ** (1.0 / 6.0)
     return r_mp
 
 
@@ -571,23 +577,19 @@ def uranus_asymmetric_profile(n_points: int = 360) -> dict:
         # Magnetic colatitude varies with longitude due to tilt
         # At longitude φ, the sub-solar magnetic colatitude is:
         # θ_mag = arccos(cos(tilt) × cos(φ))  (simplified)
-        theta_mag = np.degrees(np.arccos(
-            np.cos(URANUS.dipole_tilt_rad) * np.cos(np.radians(lon))
-        ))
+        theta_mag = np.degrees(np.arccos(np.cos(URANUS.dipole_tilt_rad) * np.cos(np.radians(lon))))
 
         # Offset projection along sub-solar line
-        offset_proj = URANUS.dipole_offset_frac * URANUS.radius_m * \
-                       np.cos(np.radians(lon - 30))  # Offset azimuth ~30°
+        offset_proj = URANUS.dipole_offset_frac * URANUS.radius_m * np.cos(np.radians(lon - 30))  # Offset azimuth ~30°
 
         # Effective surface B at this longitude
-        B_surf[i] = dipole_field(URANUS, URANUS.radius_m + abs(offset_proj),
-                                 theta_deg=theta_mag)
+        B_surf[i] = dipole_field(URANUS, URANUS.radius_m + abs(offset_proj), theta_deg=theta_mag)
 
         # Find standoff where B²/(2μ₀) = P_sw
         B_factor = B_surf[i] / 2.0
         if B_factor > 0:
             ratio6 = P_sw * 2 * MU_0 / B_factor**2
-            r_mp_m = URANUS.radius_m / ratio6**(1.0/6.0) if ratio6 > 0 else 50 * URANUS.radius_m
+            r_mp_m = URANUS.radius_m / ratio6 ** (1.0 / 6.0) if ratio6 > 0 else 50 * URANUS.radius_m
         else:
             r_mp_m = 50 * URANUS.radius_m
         r_mp[i] = r_mp_m / URANUS.radius_m
@@ -601,11 +603,11 @@ def uranus_asymmetric_profile(n_points: int = 360) -> dict:
         Gamma[i] = float(reflection_coefficient(Z_sw, Z_mag))
 
     return {
-        'longitude_deg': longitudes,
-        'r_mp_Rp': r_mp,
-        'B_surface_T': B_surf,
-        'Gamma': Gamma,
-        'asymmetry_ratio': np.max(r_mp) / np.min(r_mp),
+        "longitude_deg": longitudes,
+        "r_mp_Rp": r_mp,
+        "B_surface_T": B_surf,
+        "Gamma": Gamma,
+        "asymmetry_ratio": np.max(r_mp) / np.min(r_mp),
     }
 
 
@@ -620,11 +622,11 @@ def comparative_magnetosphere_table() -> list:
 
     # Observed standoff distances [R_p] from spacecraft
     observed_standoff = {
-        'Earth': 10.0,
-        'Jupiter': 63.0,
-        'Saturn': 22.0,
-        'Uranus': 25.0,
-        'Neptune': 26.0,
+        "Earth": 10.0,
+        "Jupiter": 63.0,
+        "Saturn": 22.0,
+        "Uranus": 25.0,
+        "Neptune": 26.0,
     }
 
     for planet in ALL_PLANETS:
@@ -632,17 +634,19 @@ def comparative_magnetosphere_table() -> list:
         Gamma = magnetopause_reflection(planet)
         obs = observed_standoff.get(planet.name, None)
 
-        results.append({
-            'name': planet.name,
-            'B_eq_uT': planet.B_equatorial_T * 1e6,
-            'dipole_tilt_deg': planet.dipole_tilt_deg,
-            'dipole_offset_frac': planet.dipole_offset_frac,
-            'r_standoff_Rp': r_mp_Rp,
-            'r_observed_Rp': obs,
-            'error_pct': abs(r_mp_Rp - obs) / obs * 100 if obs else None,
-            'Gamma_magnetopause': Gamma,
-            'dipole_moment_Tm3': planet.dipole_moment,
-            'symmetry': 'symmetric' if planet.dipole_tilt_deg < 15 else 'asymmetric',
-        })
+        results.append(
+            {
+                "name": planet.name,
+                "B_eq_uT": planet.B_equatorial_T * 1e6,
+                "dipole_tilt_deg": planet.dipole_tilt_deg,
+                "dipole_offset_frac": planet.dipole_offset_frac,
+                "r_standoff_Rp": r_mp_Rp,
+                "r_observed_Rp": obs,
+                "error_pct": abs(r_mp_Rp - obs) / obs * 100 if obs else None,
+                "Gamma_magnetopause": Gamma,
+                "dipole_moment_Tm3": planet.dipole_moment,
+                "symmetry": "symmetric" if planet.dipole_tilt_deg < 15 else "asymmetric",
+            }
+        )
 
     return results

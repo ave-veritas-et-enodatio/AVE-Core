@@ -11,6 +11,7 @@ Key results (Ch. 9):
   - Refractive index:         n(r) = 1 + 2GM/(c²r)
   - Achromatic matching:      μ'/ε' scales symmetrically → Z₀ invariant
 """
+
 from __future__ import annotations
 
 
@@ -61,6 +62,7 @@ def refractive_index(mass_kg: float, radius_m: float) -> float:
     """
     from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
+
     eps = principal_radial_strain(mass_kg, radius_m)
     return universal_refractive_index(eps, nu_vac=NU_VAC)
 
@@ -320,5 +322,3 @@ def radial_reflection_coefficient(mass_kg: float, radius_m: float) -> float:
     )
     Z_rad = Z_0 * refractive_index(mass_kg, radius_m)
     return float(_reflection_coefficient(Z_0, Z_rad))
-
-

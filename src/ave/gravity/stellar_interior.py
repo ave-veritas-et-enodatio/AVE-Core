@@ -25,6 +25,7 @@ Key correspondences:
     K, G moduli         n_e, T profiles     ε_eff, μ_eff
     Moho reflection     Tachocline Γ        Horizon Γ = −1
 """
+
 from __future__ import annotations
 
 
@@ -33,8 +34,18 @@ from dataclasses import dataclass
 from typing import Optional
 
 from ave.core.constants import (
-    C_0, EPSILON_0, MU_0, Z_0, M_E, e_charge, HBAR, ALPHA, K_B,
-    M_SUN, M_PROTON, EPS_NUMERICAL,
+    C_0,
+    EPSILON_0,
+    MU_0,
+    Z_0,
+    M_E,
+    e_charge,
+    HBAR,
+    ALPHA,
+    K_B,
+    M_SUN,
+    M_PROTON,
+    EPS_NUMERICAL,
 )
 from ave.axioms.scale_invariant import (
     impedance,
@@ -55,15 +66,17 @@ def plasma_frequency(n_e):
 R_SUN = 6.957e8  # Solar radius [m]
 L_SUN = 3.828e26  # Solar luminosity [W]
 
+
 @dataclass
 class StellarLayer:
     """A radial shell in a stellar interior."""
+
     name: str
-    r_inner: float     # Inner radius [units of R_star]
-    r_outer: float     # Outer radius [units of R_star]
-    n_e: float         # Electron density [m⁻³]
-    T: float           # Temperature [K]
-    composition: str   # Dominant species
+    r_inner: float  # Inner radius [units of R_star]
+    r_outer: float  # Outer radius [units of R_star]
+    n_e: float  # Electron density [m⁻³]
+    T: float  # Temperature [K]
+    composition: str  # Dominant species
 
     @property
     def omega_p(self) -> float:
@@ -94,19 +107,17 @@ class StellarLayer:
 
 # Standard Solar Model layers (Bahcall & Pinsonneault, 2004)
 SSM_LAYERS = [
-    StellarLayer("Core",          0.00, 0.25, 1.5e32, 1.57e7, "H/He"),
-    StellarLayer("Radiative",     0.25, 0.70, 1.0e30, 7.0e6,  "H/He"),
-    StellarLayer("Tachocline",    0.70, 0.72, 2.0e29, 2.0e6,  "H/He"),
-    StellarLayer("Convection",    0.72, 0.95, 1.0e28, 5.0e5,  "H/He"),
-    StellarLayer("Photosphere",   0.95, 1.00, 1.0e23, 5.8e3,  "H/He"),
-    StellarLayer("Chromosphere",  1.00, 1.003, 1.0e17, 1.0e4, "H"),
-    StellarLayer("Corona",        1.003, 3.0, 1.0e15, 1.5e6,  "H"),
+    StellarLayer("Core", 0.00, 0.25, 1.5e32, 1.57e7, "H/He"),
+    StellarLayer("Radiative", 0.25, 0.70, 1.0e30, 7.0e6, "H/He"),
+    StellarLayer("Tachocline", 0.70, 0.72, 2.0e29, 2.0e6, "H/He"),
+    StellarLayer("Convection", 0.72, 0.95, 1.0e28, 5.0e5, "H/He"),
+    StellarLayer("Photosphere", 0.95, 1.00, 1.0e23, 5.8e3, "H/He"),
+    StellarLayer("Chromosphere", 1.00, 1.003, 1.0e17, 1.0e4, "H"),
+    StellarLayer("Corona", 1.003, 3.0, 1.0e15, 1.5e6, "H"),
 ]
 
 
-def build_radial_profile(layers: list = None,
-                          n_points: int = 500,
-                          r_star_m: float = R_SUN) -> dict:
+def build_radial_profile(layers: list = None, n_points: int = 500, r_star_m: float = R_SUN) -> dict:
     """
     Build a continuous radial impedance profile from stellar layers.
 
@@ -132,8 +143,7 @@ def build_radial_profile(layers: list = None,
         for layer in layers:
             if layer.r_inner <= r <= layer.r_outer:
                 # Linear interpolation within layer
-                frac = (r - layer.r_inner) / max(
-                    layer.r_outer - layer.r_inner, EPS_NUMERICAL)
+                frac = (r - layer.r_inner) / max(layer.r_outer - layer.r_inner, EPS_NUMERICAL)
                 n_e[i] = layer.n_e
                 T[i] = layer.T
                 names.append(layer.name)
@@ -151,13 +161,13 @@ def build_radial_profile(layers: list = None,
     Z_ratio = impedance(1.0, eps_r_analog)
 
     return {
-        'r_frac': r_frac,
-        'r_m': r_frac * r_star_m,
-        'n_e': n_e,
-        'T_K': T,
-        'omega_p': omega_p,
-        'Z_ratio': Z_ratio,
-        'layer_names': names,
+        "r_frac": r_frac,
+        "r_m": r_frac * r_star_m,
+        "n_e": n_e,
+        "T_K": T,
+        "omega_p": omega_p,
+        "Z_ratio": Z_ratio,
+        "layer_names": names,
     }
 
 
@@ -198,8 +208,7 @@ def photosphere_reflection() -> float:
     return reflection_coefficient(Z_photo, Z_space)
 
 
-def solar_opacity_from_impedance(r_frac: float,
-                                   freq_hz: float = 5e14) -> float:
+def solar_opacity_from_impedance(r_frac: float, freq_hz: float = 5e14) -> float:
     """
     Photon opacity at radius r as impedance mismatch.
 
@@ -229,7 +238,7 @@ def solar_opacity_from_impedance(r_frac: float,
 
     if omega > omega_p:
         # Transparent: ε_r > 0
-        eps_r = 1 - (omega_p / omega)**2
+        eps_r = 1 - (omega_p / omega) ** 2
         Z_local = impedance(1.0, eps_r)  # normalised
         gamma = reflection_coefficient(1.0, Z_local)
     else:
@@ -239,8 +248,7 @@ def solar_opacity_from_impedance(r_frac: float,
     return float(gamma**2)
 
 
-def helioseismology_modes(n_max: int = 10,
-                            l: int = 0) -> np.ndarray:
+def helioseismology_modes(n_max: int = 10, l: int = 0) -> np.ndarray:
     """
     Predict solar p-mode frequencies from the impedance profile.
 
@@ -270,8 +278,8 @@ def helioseismology_modes(n_max: int = 10,
 
     # Acoustic travel time through the Sun
     profile = build_radial_profile(n_points=200)
-    dr = np.diff(profile['r_m'])
-    T_mid = 0.5 * (profile['T_K'][:-1] + profile['T_K'][1:])
+    dr = np.diff(profile["r_m"])
+    T_mid = 0.5 * (profile["T_K"][:-1] + profile["T_K"][1:])
     c_s = np.sqrt(gamma * k_B_val * T_mid / m_p)
     travel_time = np.sum(dr / c_s)  # one-way [s]
 
@@ -279,7 +287,7 @@ def helioseismology_modes(n_max: int = 10,
     # With angular correction: f_nl ≈ (n + l/2 + 1/4) × Δν
     delta_nu = 1.0 / (2 * travel_time)  # Large frequency separation
 
-    modes = np.array([(n + l/2 + 0.25) * delta_nu for n in range(1, n_max + 1)])
+    modes = np.array([(n + l / 2 + 0.25) * delta_nu for n in range(1, n_max + 1)])
     return modes * 1e6  # Convert Hz to μHz
 
 
@@ -289,9 +297,11 @@ def print_stellar_summary():
     print("  Standard Solar Model — AVE Impedance Profile")
     print("=" * 70)
     for layer in SSM_LAYERS:
-        print(f"  {layer.name:15s}  r={layer.r_inner:.3f}-{layer.r_outer:.3f} R☉  "
-              f"n_e={layer.n_e:.1e} m⁻³  T={layer.T:.1e} K  "
-              f"f_p={layer.f_p_hz:.2e} Hz")
+        print(
+            f"  {layer.name:15s}  r={layer.r_inner:.3f}-{layer.r_outer:.3f} R☉  "
+            f"n_e={layer.n_e:.1e} m⁻³  T={layer.T:.1e} K  "
+            f"f_p={layer.f_p_hz:.2e} Hz"
+        )
     print()
     print(f"  Tachocline Γ:   {tachocline_reflection():.6f}")
     print(f"  Photosphere Γ:  {photosphere_reflection():.6f}")

@@ -34,6 +34,7 @@ Physical screening area = half of A_standard = π². □
 Usage:
     python src/scripts/vol_1_foundations/verify_clifford_half_cover.py
 """
+
 import numpy as np
 from scipy.integrate import dblquad
 
@@ -149,12 +150,14 @@ def main():
     print(f"  Corresponding: r = R − 1/2 = {R_plus - 0.5:.10f}")
     print(f"  Reference:     r = (φ − 1)/2 = {r_golden:.10f}")
     print()
-    print(f"  Match: R = {'✓' if np.isclose(R_plus, R_golden) else '✗'}, "
-          f"r = {'✓' if np.isclose(R_plus - 0.5, r_golden) else '✗'}")
+    print(
+        f"  Match: R = {'✓' if np.isclose(R_plus, R_golden) else '✗'}, "
+        f"r = {'✓' if np.isclose(R_plus - 0.5, r_golden) else '✗'}"
+    )
     print()
 
     # Verify constraints at solution
-    check_avoid = (R_plus - (R_plus - 0.5))
+    check_avoid = R_plus - (R_plus - 0.5)
     check_screen = R_plus * (R_plus - 0.5)
     print(f"  Check constraints at R = φ/2, r = (φ-1)/2:")
     print(f"    R - r = {check_avoid:.10f}   (expected 0.5)")

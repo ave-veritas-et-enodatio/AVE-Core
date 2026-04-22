@@ -24,6 +24,7 @@ from ave.core.constants import EPSILON_0, MU_0, C_0, ALPHA, V_YIELD, Z_0
 # epsilon_eff: ε_eff(V) = ε₀ √(1 − (V/V_yield)²)
 # ---------------------------------------------------------------------------
 
+
 class TestEpsilonEff:
     """Non-linear permittivity under dielectric saturation."""
 
@@ -56,14 +57,13 @@ class TestEpsilonEff:
 
     def test_symmetry(self):
         """ε_eff(-V) = ε_eff(V) (even function of strain)."""
-        assert epsilon_eff(0.5 * V_YIELD) == pytest.approx(
-            epsilon_eff(-0.5 * V_YIELD), rel=1e-12
-        )
+        assert epsilon_eff(0.5 * V_YIELD) == pytest.approx(epsilon_eff(-0.5 * V_YIELD), rel=1e-12)
 
 
 # ---------------------------------------------------------------------------
 # capacitance_eff: C_eff(Δφ) = 1/√(1 − (Δφ/α)²)
 # ---------------------------------------------------------------------------
+
 
 class TestCapacitanceEff:
     """Non-linear capacitance (inverse relationship to ε_eff)."""
@@ -93,6 +93,7 @@ class TestCapacitanceEff:
 # reflection_coefficient: Γ = (Z_knot − Z_vac) / (Z_knot + Z_vac)
 # ---------------------------------------------------------------------------
 
+
 class TestReflectionCoefficient:
     """Transmission-line reflection coefficient Γ."""
 
@@ -118,6 +119,7 @@ class TestReflectionCoefficient:
 # local_wave_speed: c_eff(V) = c₀ · (1 − (V/V_yield)²)^(1/4)
 # ---------------------------------------------------------------------------
 
+
 class TestLocalWaveSpeed:
     """Effective local phase velocity under saturation."""
 
@@ -135,7 +137,7 @@ class TestLocalWaveSpeed:
         V_test = 0.5 * V_YIELD
         c = local_wave_speed(V_test)
         x = V_test / V_YIELD
-        expected = C_0 * (1.0 - x**2)**0.25
+        expected = C_0 * (1.0 - x**2) ** 0.25
         assert c == pytest.approx(expected, rel=1e-10)
 
     def test_monotonically_decreasing(self):
@@ -148,6 +150,7 @@ class TestLocalWaveSpeed:
 # ---------------------------------------------------------------------------
 # impedance_at_strain: Z_eff(V) = Z₀ / (1 − (V/V_yield)²)^(1/4)
 # ---------------------------------------------------------------------------
+
 
 class TestImpedanceAtStrain:
     """Local impedance under saturation."""
@@ -167,13 +170,14 @@ class TestImpedanceAtStrain:
         V_test = 0.5 * V_YIELD
         Z = impedance_at_strain(V_test)
         x = V_test / V_YIELD
-        expected = Z_0 / (1.0 - x**2)**0.25
+        expected = Z_0 / (1.0 - x**2) ** 0.25
         assert Z == pytest.approx(expected, rel=1e-10)
 
 
 # ---------------------------------------------------------------------------
 # energy_density_nonlinear: U ≈ ½ε₀(Δφ)² + (3/8α²)ε₀(Δφ)⁴
 # ---------------------------------------------------------------------------
+
 
 class TestEnergyDensityNonlinear:
     """Full non-linear energy density with E⁴ correction."""

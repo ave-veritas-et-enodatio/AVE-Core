@@ -33,6 +33,7 @@ References:
     - McGaugh et al. (2016): Radial Acceleration Relation
     - SPARC database: Lelli et al. (2016)
 """
+
 from __future__ import annotations
 
 
@@ -45,7 +46,7 @@ from ave.axioms.scale_invariant import saturation_factor
 
 
 # ======================================================
-# Critical Acceleration Limit — Axiomatically Derived 
+# Critical Acceleration Limit — Axiomatically Derived
 # Derived from the fundamental Topological Unknot Expansion (H_INFINITY)
 # a₀ = c × H∞ / (2π)  ≈ 1.07×10⁻¹⁰ m/s²
 # NO empirical telescope parameter is used.
@@ -66,12 +67,13 @@ class GalaxyModel:
         R_b: Bulge effective radius [m].
         distance: Distance from Earth [m] (for reference).
     """
+
     name: str
-    M_disk: float       # kg
-    R_d: float          # m (disk scale length)
+    M_disk: float  # kg
+    R_d: float  # m (disk scale length)
     M_bulge: float = 0  # kg
-    R_b: float = 0      # m
-    distance: float = 0 # m
+    R_b: float = 0  # m
+    distance: float = 0  # m
 
     def enclosed_mass_disk(self, r: float) -> float:
         """
@@ -88,7 +90,7 @@ class GalaxyModel:
         """Hernquist bulge: M(r) = M_b × r² / (r + R_b)²"""
         if self.M_bulge <= 0:
             return 0.0
-        return self.M_bulge * r**2 / (r + self.R_b)**2
+        return self.M_bulge * r**2 / (r + self.R_b) ** 2
 
     def enclosed_mass_total(self, r: float) -> float:
         """Total baryonic enclosed mass at radius r."""
@@ -166,8 +168,7 @@ def ave_saturation_acceleration(
     return float(g_eff[0]) if scalar else g_eff
 
 
-def ave_rotation_velocity(galaxy: GalaxyModel, r: float,
-                          a0: float = A0_LATTICE) -> float:
+def ave_rotation_velocity(galaxy: GalaxyModel, r: float, a0: float = A0_LATTICE) -> float:
     """
     AVE-predicted rotation velocity at radius r.
 
@@ -188,8 +189,7 @@ def ave_rotation_velocity(galaxy: GalaxyModel, r: float,
     return np.sqrt(g_eff * r)
 
 
-def radial_acceleration_relation(g_N: np.ndarray,
-                                 a0: float = A0_LATTICE) -> np.ndarray:
+def radial_acceleration_relation(g_N: np.ndarray, a0: float = A0_LATTICE) -> np.ndarray:
     """
     The Radial Acceleration Relation (RAR): g_obs vs g_bar.
 
@@ -216,7 +216,7 @@ def radial_acceleration_relation(g_N: np.ndarray,
 # Catalog of well-studied galaxies
 # ======================================================
 
-KPC = 3.0857e19   # m
+KPC = 3.0857e19  # m
 
 GALAXY_CATALOG = {
     "Milky Way": GalaxyModel(

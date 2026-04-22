@@ -8,6 +8,7 @@ doping element represented by a 5-port geometric anomaly in an sp³ network.
 Values derived entirely from the ABCD/Hopf radial eigenvalue solver,
 utilizing no empirical parameters.
 """
+
 from __future__ import annotations
 
 
@@ -24,7 +25,7 @@ Z_PHOSPHORUS: int = 15
 A_PHOSPHORUS: int = 31
 ELEMENT_NAME: str = "Phosphorus"
 
-CORE_ELECTRONS: int = 10    # [Ne] core
+CORE_ELECTRONS: int = 10  # [Ne] core
 VALENCE_ELECTRONS: int = 5  # 3s² 3p³
 
 # 5-port topology (donor flaw in 4-port Si lattice)

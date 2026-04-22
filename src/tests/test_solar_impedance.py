@@ -1,6 +1,7 @@
 """
 Tests for ave.gravity.solar_impedance
 """
+
 import pytest
 from ave.gravity.solar_impedance import (
     solar_wind_density,
@@ -15,7 +16,11 @@ from ave.gravity.solar_impedance import (
     oort_cloud_prediction,
     kirkwood_gap_radius,
     kirkwood_impedance_model,
-    OUMUAMUA, AU, R_SUN, M_SUN, A0_LATTICE,
+    OUMUAMUA,
+    AU,
+    R_SUN,
+    M_SUN,
+    A0_LATTICE,
 )
 from ave.core.constants import Z_0
 
@@ -63,24 +68,24 @@ class TestHeliosphericProfile:
 
     def test_profile_shape(self):
         p = heliospheric_impedance_profile(n_points=100)
-        assert len(p['r_au']) == 100
-        assert len(p['Z_sw']) == 100
-        assert len(p['g_solar']) == 100
+        assert len(p["r_au"]) == 100
+        assert len(p["Z_sw"]) == 100
+        assert len(p["g_solar"]) == 100
 
     def test_density_monotonically_decreases(self):
         p = heliospheric_impedance_profile(n_points=100)
-        for i in range(len(p['n_e']) - 1):
-            assert p['n_e'][i] >= p['n_e'][i+1]
+        for i in range(len(p["n_e"]) - 1):
+            assert p["n_e"][i] >= p["n_e"][i + 1]
 
     def test_gravity_monotonically_decreases(self):
         p = heliospheric_impedance_profile(n_points=100)
-        for i in range(len(p['g_solar']) - 1):
-            assert p['g_solar'][i] >= p['g_solar'][i+1]
+        for i in range(len(p["g_solar"]) - 1):
+            assert p["g_solar"][i] >= p["g_solar"][i + 1]
 
     def test_heliopause_reflection(self):
         """Heliopause should have a measurable Γ."""
         p = heliospheric_impedance_profile()
-        assert p['Gamma_heliopause'] != 0.0
+        assert p["Gamma_heliopause"] != 0.0
 
 
 class TestOumuamua:
@@ -107,7 +112,7 @@ class TestOumuamua:
     def test_oumuamua_matches_observation(self):
         """Predicted acceleration should match Micheli et al. within 50%."""
         summary = oumuamua_summary()
-        ratio = summary['ratio_predicted_observed']
+        ratio = summary["ratio_predicted_observed"]
         assert 0.5 < ratio < 2.0, f"Ratio = {ratio:.2f}"
 
     def test_oumuamua_scales_as_1_over_r2(self):
@@ -134,9 +139,9 @@ class TestOortCloud:
 
     def test_oort_prediction_structure(self):
         p = oort_cloud_prediction()
-        assert 'r_saturation_au' in p
-        assert 'g_at_saturation' in p
-        assert p['g_at_saturation'] == A0_LATTICE
+        assert "r_saturation_au" in p
+        assert "g_at_saturation" in p
+        assert p["g_at_saturation"] == A0_LATTICE
 
 
 class TestKirkwoodGaps:
@@ -161,9 +166,8 @@ class TestKirkwoodGaps:
         """All predicted gaps within 1% of observed."""
         gaps = kirkwood_impedance_model()
         for gap in gaps:
-            if gap['r_observed_au'] is not None:
-                assert gap['error_pct'] < 1.0, \
-                    f"{gap['resonance']}: {gap['error_pct']:.2f}% error"
+            if gap["r_observed_au"] is not None:
+                assert gap["error_pct"] < 1.0, f"{gap['resonance']}: {gap['error_pct']:.2f}% error"
 
     def test_gap_count(self):
         gaps = kirkwood_impedance_model()

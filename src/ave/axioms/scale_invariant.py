@@ -51,6 +51,7 @@ co_rotating_decay_rate(omega_R, omega_rotation, ell, m)
 avalanche_factor(V_applied, V_breakdown, n_topology)
     M = 1/(1 − (V/V_BR)^n) — Miller multiplication (inverse of saturation).
 """
+
 from __future__ import annotations
 
 
@@ -61,6 +62,7 @@ from ave.core.constants import EPSILON_0, MU_0, C_0, Z_0, V_SNAP, EPS_CLIP
 # ────────────────────────────────────────────────────────────────────
 # The universal impedance operator
 # ────────────────────────────────────────────────────────────────────
+
 
 def impedance(mu, eps):
     r"""
@@ -87,12 +89,14 @@ def impedance(mu, eps):
         Impedance (same shape as inputs).
     """
     from ave.core.universal_operators import universal_impedance
+
     return universal_impedance(mu, eps)
 
 
 # ────────────────────────────────────────────────────────────────────
 # The Axiom 4 saturation kernel
 # ────────────────────────────────────────────────────────────────────
+
 
 def saturation_factor(
     amplitude,
@@ -133,7 +137,7 @@ def saturation_factor(
         ValueError: If ``clip=False`` and |amplitude| > yield_limit.
     """
     if not clip:
-        ratio_sq = np.asarray(amplitude, dtype=float) ** 2 / yield_limit ** 2
+        ratio_sq = np.asarray(amplitude, dtype=float) ** 2 / yield_limit**2
         if np.any(ratio_sq > 1.0):
             raise ValueError(
                 f"Dielectric rupture: |A/A_yield| > 1.0. "
@@ -142,6 +146,7 @@ def saturation_factor(
             )
     # Core kernel: single source of truth in universal_operators
     from ave.core.universal_operators import universal_saturation
+
     return universal_saturation(amplitude, yield_limit)
 
 
@@ -149,8 +154,8 @@ def saturation_factor(
 # Effective material parameters under saturation
 # ────────────────────────────────────────────────────────────────────
 
-def epsilon_eff(amplitude, yield_limit: float = V_SNAP,
-                eps_base=EPSILON_0, *, clip: bool = True):
+
+def epsilon_eff(amplitude, yield_limit: float = V_SNAP, eps_base=EPSILON_0, *, clip: bool = True):
     r"""
     Non-linear effective permittivity under dielectric saturation.
 
@@ -178,8 +183,7 @@ def epsilon_eff(amplitude, yield_limit: float = V_SNAP,
     return eps_base * saturation_factor(amplitude, yield_limit, clip=clip)
 
 
-def mu_eff(amplitude, yield_limit: float = V_SNAP,
-           mu_base=MU_0, *, clip: bool = True):
+def mu_eff(amplitude, yield_limit: float = V_SNAP, mu_base=MU_0, *, clip: bool = True):
     r"""
     Non-linear effective permeability under magnetic saturation.
 
@@ -202,6 +206,7 @@ def mu_eff(amplitude, yield_limit: float = V_SNAP,
 # ────────────────────────────────────────────────────────────────────
 # The universal reflection and transmission coefficients
 # ────────────────────────────────────────────────────────────────────
+
 
 def reflection_coefficient(Z1, Z2=None):
     r"""
@@ -229,6 +234,7 @@ def reflection_coefficient(Z1, Z2=None):
         Reflection coefficient Γ ∈ [−1, +1].
     """
     from ave.core.universal_operators import universal_reflection
+
     if Z2 is None:
         Z2 = Z_0
     return universal_reflection(Z1, Z2)
@@ -255,8 +261,8 @@ def transmission_coefficient(Z1, Z2=None):
 # Derived wave-speed and impedance under saturation
 # ────────────────────────────────────────────────────────────────────
 
-def local_wave_speed(amplitude, yield_limit: float = V_SNAP,
-                     c_base: float = C_0, *, clip: bool = True):
+
+def local_wave_speed(amplitude, yield_limit: float = V_SNAP, c_base: float = C_0, *, clip: bool = True):
     r"""
     Effective local **shear / GW wave speed** under dielectric saturation.
 
@@ -299,19 +305,19 @@ def local_wave_speed(amplitude, yield_limit: float = V_SNAP,
         Local shear/GW wave speed [m/s]. Equals ``c_base * sqrt(S)``.
     """
     from ave.core.universal_operators import universal_wave_speed
-    
+
     if clip:
         from ave.core.constants import EPS_CLIP
-        amplitude_ratio_sq = np.asarray(amplitude, dtype=float)**2 / yield_limit**2
+
+        amplitude_ratio_sq = np.asarray(amplitude, dtype=float) ** 2 / yield_limit**2
         # Use a clipped amplitude to pass to universal_wave_speed so it evaluates within bounds
         safe_amplitude = np.sqrt(np.clip(amplitude_ratio_sq, 0.0, 1.0 - EPS_CLIP)) * yield_limit
         return universal_wave_speed(safe_amplitude, yield_limit, c_base)
-    
+
     return universal_wave_speed(amplitude, yield_limit, c_base)
 
 
-def impedance_at_strain(amplitude, yield_limit: float = V_SNAP,
-                        Z_base: float = Z_0, *, clip: bool = True):
+def impedance_at_strain(amplitude, yield_limit: float = V_SNAP, Z_base: float = Z_0, *, clip: bool = True):
     r"""
     Local characteristic impedance under dielectric saturation.
 
@@ -332,6 +338,7 @@ def impedance_at_strain(amplitude, yield_limit: float = V_SNAP,
         Local impedance [Ω].
     """
     from ave.core.universal_operators import universal_dynamic_impedance
+
     S = saturation_factor(amplitude, yield_limit, clip=clip)
     return universal_dynamic_impedance(Z_base, S)
 
@@ -339,6 +346,7 @@ def impedance_at_strain(amplitude, yield_limit: float = V_SNAP,
 # ────────────────────────────────────────────────────────────────────
 # Universal regime-boundary eigenvalue operators
 # ────────────────────────────────────────────────────────────────────
+
 
 def regime_boundary_eigenvalue(r_sat, nu_vac, ell, c_wave=C_0):
     r"""
@@ -370,6 +378,7 @@ def regime_boundary_eigenvalue(r_sat, nu_vac, ell, c_wave=C_0):
         Angular eigenfrequency ω [rad/s].
     """
     from ave.core.universal_operators import universal_regime_eigenvalue
+
     return universal_regime_eigenvalue(r_sat, nu_vac, ell, c_wave)
 
 
@@ -403,6 +412,7 @@ def phase_transition_Q(ell):
         Quality factor Q (dimensionless).
     """
     from ave.core.universal_operators import universal_quality_factor
+
     return universal_quality_factor(ell)
 
 
@@ -511,5 +521,5 @@ def avalanche_factor(V_applied, V_breakdown, n_topology):
         Multiplication factor M ≥ 1.
     """
     from ave.core.universal_operators import universal_avalanche_factor
-    return universal_avalanche_factor(V_applied, V_breakdown, n_topology)
 
+    return universal_avalanche_factor(V_applied, V_breakdown, n_topology)

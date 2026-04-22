@@ -7,9 +7,8 @@ Validates that the hybrid solver (Split-Layer Architecture):
   Phase B: MCL T²(N_eff) for 3s²3p² same-shell loading
 produces a physically reasonable IE for Si.
 """
-from ave.nuclear.silicon_atom import (
-    first_ionization, IE_SI_AVE, IE_SI_NIST, R_VAL_SI, Z_SI
-)
+
+from ave.nuclear.silicon_atom import first_ionization, IE_SI_AVE, IE_SI_NIST, R_VAL_SI, Z_SI
 
 
 class TestSiliconIE:
@@ -23,9 +22,7 @@ class TestSiliconIE:
         """Hybrid must exceed the old cavity solver's 5.06 eV.
         The ABCD cascade accounts for 3s/3p penetration into the
         [Ne] core, which Gauss Z_eff=4 misses entirely."""
-        assert IE_SI_AVE > 7.0, (
-            f"Hybrid IE {IE_SI_AVE:.2f} eV should exceed cavity solver (5.06 eV)"
-        )
+        assert IE_SI_AVE > 7.0, f"Hybrid IE {IE_SI_AVE:.2f} eV should exceed cavity solver (5.06 eV)"
 
     def test_ie_within_30pct_of_nist(self):
         """Current hybrid gives +22.8%. Track as regression target.
@@ -33,8 +30,7 @@ class TestSiliconIE:
         Expected to improve when screening profile is refined."""
         err = abs(IE_SI_AVE - IE_SI_NIST) / IE_SI_NIST
         assert err < 0.30, (
-            f"IE error {err*100:.1f}% exceeds 30% tolerance. "
-            f"AVE={IE_SI_AVE:.3f}, NIST={IE_SI_NIST:.3f}"
+            f"IE error {err*100:.1f}% exceeds 30% tolerance. " f"AVE={IE_SI_AVE:.3f}, NIST={IE_SI_NIST:.3f}"
         )
 
     def test_nist_reference(self):

@@ -19,6 +19,7 @@ The cost function is vectorized using jax.numpy pairwise distance matrices:
 
 Tier 2 Solver: consumes Tier 1 constants/operators, never re-derives them.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -27,7 +28,13 @@ from jax import grad, jit
 
 from ave.core.universal_operators import universal_pairwise_energy_jax
 from ave.core.constants import (
-    K_MUTUAL, D_PROTON, ALPHA, HBAR, C_0, e_charge, EPS_NUMERICAL,
+    K_MUTUAL,
+    D_PROTON,
+    ALPHA,
+    HBAR,
+    C_0,
+    e_charge,
+    EPS_NUMERICAL,
 )
 
 
@@ -35,8 +42,8 @@ from ave.core.constants import (
 # JIT-compiled nuclear cost function kernel
 # =========================================================================
 
-def _make_nuclear_cost_fn(N, masses_jax, charges_jax, K_attr, d_sat,
-                          alpha_hc, boundary_radius, boundary_k):
+
+def _make_nuclear_cost_fn(N, masses_jax, charges_jax, K_attr, d_sat, alpha_hc, boundary_radius, boundary_k):
     """Factory: build a JIT-compiled nuclear topology cost function.
 
     Parameters
@@ -67,8 +74,8 @@ def _make_nuclear_cost_fn(N, masses_jax, charges_jax, K_attr, d_sat,
         coords = flat_coords.reshape((N, 3))
 
         # Vectorized all-pairs distance matrix (upper triangle only)
-        diff = coords[triu_i] - coords[triu_j]           # (M, 3)
-        dist = jnp.sqrt(jnp.sum(diff**2, axis=-1))       # (M,)
+        diff = coords[triu_i] - coords[triu_j]  # (M, 3)
+        dist = jnp.sqrt(jnp.sum(diff**2, axis=-1))  # (M,)
         dist = jnp.maximum(dist, EPS_NUMERICAL)
 
         # Universal Operator 4: saturated pairwise potential
@@ -82,8 +89,7 @@ def _make_nuclear_cost_fn(N, masses_jax, charges_jax, K_attr, d_sat,
         # Boundary confinement
         if boundary_radius is not None:
             r_mag = jnp.sqrt(jnp.sum(coords**2, axis=-1))
-            penalty = jnp.where(r_mag > boundary_radius,
-                                boundary_k * (r_mag - boundary_radius)**2, 0.0)
+            penalty = jnp.where(r_mag > boundary_radius, boundary_k * (r_mag - boundary_radius) ** 2, 0.0)
             energy = energy + jnp.sum(penalty)
 
         return energy
@@ -109,8 +115,14 @@ class TopologicalOptimizer:
         Harmonic stiffness of boundary wall (default: 1000.0).
     """
 
-    def __init__(self, node_masses, interaction_scale='nuclear',
-                 node_charges=None, boundary_radius=None, boundary_k=1000.0):
+    def __init__(
+        self,
+        node_masses,
+        interaction_scale="nuclear",
+        node_charges=None,
+        boundary_radius=None,
+        boundary_k=1000.0,
+    ):
         self.masses = np.array(node_masses)
         self.N = len(self.masses)
         self.scale = interaction_scale
@@ -126,18 +138,21 @@ class TopologicalOptimizer:
         if node_charges is not None:
             self.charges = np.array(node_charges, dtype=float)
         else:
-            self.charges = np.array(
-                [1.0 if m < 1.003 else 0.0 for m in self.masses]
-            )
+            self.charges = np.array([1.0 if m < 1.003 else 0.0 for m in self.masses])
 
         # Build JIT-compiled cost function at init time
         masses_jax = jnp.array(self.masses)
         charges_jax = jnp.array(self.charges)
 
         self._cost_jit = _make_nuclear_cost_fn(
-            self.N, masses_jax, charges_jax,
-            self.K_attr, self.d_sat, self.alpha_hc,
-            self.boundary_radius, self.boundary_k,
+            self.N,
+            masses_jax,
+            charges_jax,
+            self.K_attr,
+            self.d_sat,
+            self.alpha_hc,
+            self.boundary_radius,
+            self.boundary_k,
         )
 
         # JIT-compiled gradient
@@ -151,8 +166,7 @@ class TopologicalOptimizer:
         """Analytical gradient via JAX autograd."""
         return np.array(self._grad_jit(jnp.array(flat_coords)))
 
-    def optimize(self, initial_coords, method='native', options=None,
-                 record_history=False):
+    def optimize(self, initial_coords, method="native", options=None, record_history=False):
         """Native AVE Topological Damped Integrator.
 
         Nodes are treated as massive elements in an L-C lattice. As they
@@ -178,8 +192,11 @@ class TopologicalOptimizer:
         """
         if options is None:
             options = {
-                'disp': True, 'maxiter': 5000,
-                'dt': 0.05, 'gamma': 0.1, 'ftol': 1e-7,
+                "disp": True,
+                "maxiter": 5000,
+                "dt": 0.05,
+                "gamma": 0.1,
+                "ftol": 1e-7,
             }
 
         N = self.N
@@ -189,10 +206,10 @@ class TopologicalOptimizer:
         history = []
         energy_history = []
 
-        dt = options.get('dt', 0.05)
-        gamma = options.get('gamma', 0.1)
-        maxiter = options.get('maxiter', 5000)
-        ftol = options.get('ftol', 1e-7)
+        dt = options.get("dt", 0.05)
+        gamma = options.get("gamma", 0.1)
+        maxiter = options.get("maxiter", 5000)
+        ftol = options.get("ftol", 1e-7)
 
         prev_energy = float(self._cost_function(coords.flatten()))
 
@@ -202,9 +219,8 @@ class TopologicalOptimizer:
         # Vectorized mass array for acceleration computation
         inv_masses = 1.0 / self.masses
 
-        if options.get('disp', False):
-            print(f"[*] Commencing O(N²) Topological Relaxation"
-                  f" ({self.scale} mapping) [JIT-compiled]...")
+        if options.get("disp", False):
+            print(f"[*] Commencing O(N²) Topological Relaxation" f" ({self.scale} mapping) [JIT-compiled]...")
 
         for k in range(maxiter):
             force = -self._jacobian(coords.flatten()).reshape((N, 3))
@@ -225,11 +241,9 @@ class TopologicalOptimizer:
                 history.append(coords.copy())
                 energy_history.append(current_energy)
 
-            if (abs(prev_energy - current_energy) < ftol
-                    and np.all(np.abs(velocities) < 1e-4)):
-                if options.get('disp', False):
-                    print(f"[*] Equilibrium at {k} iterations."
-                          f" Strain: {current_energy:.4f}")
+            if abs(prev_energy - current_energy) < ftol and np.all(np.abs(velocities) < 1e-4):
+                if options.get("disp", False):
+                    print(f"[*] Equilibrium at {k} iterations." f" Strain: {current_energy:.4f}")
                 break
 
             prev_energy = current_energy
@@ -239,8 +253,7 @@ class TopologicalOptimizer:
             return final_coords, current_energy, history, energy_history
         return final_coords, current_energy
 
-    def quench(self, initial_coords, T=1.0, stepsize=0.5, niter=100,
-               options=None, record_history=False):
+    def quench(self, initial_coords, T=1.0, stepsize=0.5, niter=100, options=None, record_history=False):
         """Native AVE Topological Annealing Quench.
 
         Iteratively spikes the lattice with thermal noise (T) and allows
@@ -268,8 +281,7 @@ class TopologicalOptimizer:
 
         history = []
 
-        print(f"[*] Commencing Native Topological Quench"
-              f" (T={T}, step={stepsize}, niter={niter})...")
+        print(f"[*] Commencing Native Topological Quench" f" (T={T}, step={stepsize}, niter={niter})...")
 
         for cycle in range(niter):
             if current_energy < best_energy:
@@ -282,8 +294,11 @@ class TopologicalOptimizer:
             settled_coords, settled_energy = self.optimize(
                 test_coords,
                 options={
-                    'disp': False, 'maxiter': 500,
-                    'dt': 0.1, 'gamma': 0.2, 'ftol': 1e-5,
+                    "disp": False,
+                    "maxiter": 500,
+                    "dt": 0.1,
+                    "gamma": 0.2,
+                    "ftol": 1e-5,
                 },
                 record_history=False,
             )
