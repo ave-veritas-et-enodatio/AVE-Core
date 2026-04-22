@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE STANDARD MODEL: QUARK FRACTIONAL CHARGE SOLVER")
     print("==========================================================\n")

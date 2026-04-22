@@ -21,7 +21,7 @@ import subprocess
 # ============================================================================
 
 
-def topo_ring3():
+def topo_ring3() -> tuple[str, str, str]:
     """C-12: equilateral triangle."""
     nodes = ""
     for i, angle in enumerate([90, 210, 330]):
@@ -37,7 +37,7 @@ def topo_ring3():
     return nodes, edges, legend
 
 
-def topo_tet4():
+def topo_tet4() -> tuple[str, str, str]:
     """O-16: tetrahedron projected as 3 outer + 1 center."""
     nodes = (
         "\\node[small alpha] (n0) at (CX, CY+2.3) {$\\alpha$};\n"
@@ -54,7 +54,7 @@ def topo_tet4():
     return nodes, edges, legend
 
 
-def topo_bipyr5():
+def topo_bipyr5() -> tuple[str, str, str]:
     """Ne-20: triangular bipyramid (3 eq + 2 polar)."""
     nodes = ""
     for i, angle in enumerate([90, 210, 330]):
@@ -75,7 +75,7 @@ def topo_bipyr5():
     return nodes, edges, legend
 
 
-def topo_oct6():
+def topo_oct6() -> tuple[str, str, str]:
     """Mg-24: octahedron (4 eq + 2 polar)."""
     nodes = ""
     for i, angle in enumerate([0, 90, 180, 270]):
@@ -97,7 +97,7 @@ def topo_oct6():
     return nodes, edges, legend
 
 
-def topo_pbipyr7():
+def topo_pbipyr7() -> tuple[str, str, str]:
     """Si-28: pentagonal bipyramid (5 eq + 2 polar)."""
     nodes = ""
     for i in range(5):
@@ -123,7 +123,7 @@ def topo_pbipyr7():
     return nodes, edges, legend
 
 
-def topo_cube8():
+def topo_cube8() -> tuple[str, str, str]:
     """S-32: cube (projected as inner + outer square)."""
     nodes = ""
     for i, (x, y) in enumerate([(-1.2, 1.2), (1.2, 1.2), (1.2, -1.2), (-1.2, -1.2)]):
@@ -143,7 +143,7 @@ def topo_cube8():
     return nodes, edges, legend
 
 
-def topo_bcap10():
+def topo_bcap10() -> tuple[str, str, str]:
     """Ar-40/Ca-40: bicapped square antiprism."""
     nodes = ""
     for i in range(4):
@@ -173,7 +173,7 @@ def topo_bcap10():
     return nodes, edges, legend
 
 
-def topo_cuboct12():
+def topo_cuboct12() -> tuple[str, str, str]:
     """Ti-48: cuboctahedron projected as 3 rings of 4."""
     nodes = ""
     for i in range(4):
@@ -205,7 +205,7 @@ def topo_cuboct12():
     return nodes, edges, legend
 
 
-def topo_icosa13():
+def topo_icosa13() -> tuple[str, str, str]:
     """Cr-52: centered icosahedron (center + 2 pentagons + 2 poles)."""
     nodes = (
         "\\node[small alpha, draw=neonorange, fill=darkbg!80!neonorange, minimum size=0.7cm]"
@@ -234,7 +234,7 @@ def topo_icosa13():
     return nodes, edges, legend
 
 
-def topo_fcc14():
+def topo_fcc14() -> tuple[str, str, str]:
     """Fe-56: FCC-14 (8 corner + 6 face-center)."""
     nodes = ""
     for i, (x, y) in enumerate([(-1.5, 1.5), (1.5, 1.5), (1.5, -1.5), (-1.5, -1.5)]):
@@ -301,7 +301,7 @@ POSTAMBLE = r"""
 """
 
 
-def make_section_a():
+def make_section_a() -> str:
     """Section A: Inter-Alpha Junction unit cell (same for all multi-alpha elements)."""
     return r"""
 % =====================================================================
@@ -383,7 +383,7 @@ def make_section_a():
 """
 
 
-def make_section_b(elem):
+def make_section_b(elem: dict) -> str:
     """Section B: Miller Avalanche Stage (parameterized)."""
     vr_str = f"{elem['vr']:.3f}" if isinstance(elem["vr"], (int, float)) else str(elem["vr"])
     M_str = f"{elem['M_val']:.1f}" if isinstance(elem["M_val"], (int, float)) else str(elem["M_val"])
@@ -431,7 +431,7 @@ def make_section_b(elem):
 """
 
 
-def make_section_cd(elem):
+def make_section_cd(elem: dict) -> str:
     """Sections C (topology) and D (energy balance), parameterized."""
     topo_key = elem["topo"]
     n_alpha = elem["n_alpha"]
@@ -543,7 +543,7 @@ def make_section_cd(elem):
 """
 
 
-def generate_circuit(elem):
+def generate_circuit(elem: dict) -> str:
     """Generate full TikZ circuit for one element."""
     # Title
     vr_str = f"{elem['vr']:.3f}" if isinstance(elem["vr"], (int, float)) else str(elem["vr"])
@@ -566,7 +566,7 @@ def generate_circuit(elem):
 # ============================================================================
 
 
-def _build_element_data():
+def _build_element_data() -> list[dict]:
     """Return the element data list. Kept inside a function to avoid
     triggering the DAG verifier's magic-number scan at module scope."""
     return [

@@ -8,7 +8,7 @@ from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 
-def audit_radial_solver():
+def audit_radial_solver() -> None:
     print("=========================================================================")
     print("  Full First-Principles Audit of the ABCD Radial Eigenvalue Solver")
     print("=========================================================================")

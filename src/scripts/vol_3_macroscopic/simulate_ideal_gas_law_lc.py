@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import animation
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE THERMODYNAMIC SCALE: SIMULATING PV=nRT")
     print("==========================================================\n")
@@ -60,7 +60,7 @@ def main():
     pressure_accumalator = 0
     pressure_reading = 0.0
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         nonlocal positions, velocities, wall_x, pressure_accumalator, pressure_reading
 
         # Move the right wall slowly inward (Decreasing Volume V)

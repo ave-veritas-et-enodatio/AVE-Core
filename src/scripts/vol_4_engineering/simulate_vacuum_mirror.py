@@ -11,19 +11,19 @@ from ave.core.constants import V_YIELD, Z_0
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def calculate_effective_permittivity(V_applied):
+def calculate_effective_permittivity(V_applied: np.ndarray) -> np.ndarray:
     """Non-linear permittivity collapse via Axiom 4 saturation kernel."""
     V = np.clip(V_applied, 0, V_YIELD * 0.9999)
     return epsilon_eff(V, V_YIELD)
 
 
-def calculate_impedance(V_applied):
+def calculate_impedance(V_applied: np.ndarray) -> np.ndarray:
     """If epsilon drops, Z local spikes. Delegates to scale_invariant.impedance."""
     eps_eff = calculate_effective_permittivity(V_applied)
     return _impedance(4 * np.pi * 1e-7, eps_eff)
 
 
-def paschen_curve(p, d, gas="Air"):
+def paschen_curve(p: np.ndarray, d: float, gas: str = "Air") -> np.ndarray:
     """
     Standard Paschen curve modeling for DC breakdown voltage.
     p = pressure in Torr
@@ -47,7 +47,7 @@ def paschen_curve(p, d, gas="Air"):
     return V_breakdown
 
 
-def run_sensitivity_sweeps():
+def run_sensitivity_sweeps() -> None:
     print("[*] Running Sensitivity Studies for Induced Vacuum Impedance Mirror...")
 
     # 1. Vacuum Pressure Sensitivity (Paschen vs AVE Yield)

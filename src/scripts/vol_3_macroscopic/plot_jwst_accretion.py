@@ -10,7 +10,7 @@ COLOR_LCDM = "#ff00ff"  # Magenta for Lambda-CDM
 COLOR_DATA = "#ffff00"  # Yellow for JWST data points
 
 
-def _find_repo_root():
+def _find_repo_root() -> str:
     """Find the Git repository root directory."""
     current_dir = os.path.abspath(os.path.dirname(__file__))
     while current_dir != "/":
@@ -20,7 +20,7 @@ def _find_repo_root():
     return os.path.abspath(os.path.dirname(__file__))  # Fallback
 
 
-def plot_jwst_accretion():
+def plot_jwst_accretion() -> None:
     # Time vector in Million Years (Myr) from Big Bang
     t = np.linspace(0, 800, 500)
 

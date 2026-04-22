@@ -90,7 +90,7 @@ PLANETS = [
 ]
 
 
-def analyze_system():
+def analyze_system() -> list[dict]:
     results = []
 
     # Pre-calculate to find Earth's GW power for normalization
@@ -129,7 +129,7 @@ def analyze_system():
     return results
 
 
-def print_tables(results):
+def print_tables(results: list[dict]) -> None:
     print("=== AVE Solar System Rotational Topology ===")
     print()
     print("All strains referenced to omega_Compton = M_e c^2 / hbar ~ 7.76e20 rad/s")
@@ -151,7 +151,7 @@ def print_tables(results):
     print("All bodies in Regime I (A_gm << sqrt(2 alpha) ~ 0.121). Linear LT holds.")
 
 
-def plot_bar_chart(results, output_dir):
+def plot_bar_chart(results: list[dict], output_dir: str) -> None:
     # Exclude Sun for the main bar chart to show planets only
     planets = [r for r in results if r["name"] != "Sun"]
     names = [r["name"] for r in planets]
@@ -171,7 +171,7 @@ def plot_bar_chart(results, output_dir):
     plt.close()
 
 
-def plot_impedance_map(results, output_dir):
+def plot_impedance_map(results: list[dict], output_dir: str) -> None:
     plt.figure(figsize=(8, 8))
     ax = plt.subplot(111, projection="polar")
 

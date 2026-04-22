@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def gaussian_tube_density(x, y, z, axis="x", offset=0.5):
+def gaussian_tube_density(x: np.ndarray, y: np.ndarray, z: np.ndarray, axis: str = "x", offset: float = 0.5) -> np.ndarray:
     """
     Gaussian flux tube along a given axis, offset perpendicular by `offset`.
 
@@ -53,7 +53,7 @@ def gaussian_tube_density(x, y, z, axis="x", offset=0.5):
     return np.exp(-r2 / (2.0 * s2))
 
 
-def compute_v_halo(N, L=6.0, threshold=0.5):
+def compute_v_halo(N: int, L: float = 6.0, threshold: float = 0.5) -> tuple[float, float, float]:
     """
     Compute the saturated overlap volume on an N³ grid spanning [-L, L]³.
 
@@ -125,7 +125,7 @@ def compute_v_halo(N, L=6.0, threshold=0.5):
     return V_sat, V_overlap, peak
 
 
-def run_convergence_study():
+def run_convergence_study() -> tuple[float, float]:
     """Run mesh refinement study and Richardson extrapolation."""
     print("=" * 60)
     print("  P2: BORROMEAN FLUX-TUBE FEM — V_halo CONVERGENCE STUDY")

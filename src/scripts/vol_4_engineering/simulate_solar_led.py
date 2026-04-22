@@ -40,7 +40,7 @@ LEAKAGE_CURRENT = 0.5  # Constant background emission (solar wind)
 CHARGE_RATE = 2.0  # Rate of magnetic flux accumulation (dynamo winding)
 
 
-def run_solar_led_simulation():
+def run_solar_led_simulation() -> None:
     print("[*] Initializing Macroscopic Solar-LED (P-N Junction) Simulator...")
 
     # We will track the accumulated topological "Voltage" of the magnetic field

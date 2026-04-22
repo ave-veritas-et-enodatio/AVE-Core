@@ -11,7 +11,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -27,7 +27,9 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 
-def generate_trefoil(center, radius, rotation_matrix, phase_offset):
+def generate_trefoil(
+    center: np.ndarray, radius: float, rotation_matrix: np.ndarray, phase_offset: float
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     t = np.linspace(0, 2 * np.pi, 600)
     # Parametric equations for a 3_1 knot
     rho = radius * (2.0 + np.cos(3 * (t + phase_offset)))
@@ -40,7 +42,7 @@ def generate_trefoil(center, radius, rotation_matrix, phase_offset):
     return rotated[0, :] + center[0], rotated[1, :] + center[1], rotated[2, :] + center[2]
 
 
-def simulate_proton():
+def simulate_proton() -> None:
     print("Evaluating 6^3_2 Borromean Linkage for the Proton...")
     fig = plt.figure(figsize=(10, 10), facecolor="#050510")
     ax = fig.add_subplot(111, projection="3d")

@@ -24,12 +24,12 @@ N_I = 1.0e10
 E_G_STD = 1.12
 
 
-def standard_v_bi(N_a, N_d):
+def standard_v_bi(N_a: float, N_d: float) -> float:
     """Classical calculation using probabilistic charge carrier densities."""
     return V_T_STD * np.log((N_a * N_d) / (N_I**2))
 
 
-def standard_diode_current(V, I_0=1e-12):
+def standard_diode_current(V: float, I_0: float = 1e-12) -> float:
     """Classical Shockley Diode equation."""
     return I_0 * (np.exp(V / V_T_STD) - 1.0)
 
@@ -41,7 +41,7 @@ def standard_diode_current(V, I_0=1e-12):
 V_T_AVE = ALPHA * IE_SI_AVE
 
 
-def generate_comparison_report():
+def generate_comparison_report() -> None:
     print("===============================================================")
     print(" SEMICONDUCTOR DOPING COMPARISON: STANDARD VS. AVE (VCA)")
     print("===============================================================")

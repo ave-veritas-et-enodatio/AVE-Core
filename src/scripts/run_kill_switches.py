@@ -15,8 +15,6 @@ Run:
 All arithmetic uses the physics engine (src/ave/core/constants.py).
 No magic numbers.
 """
-from __future__ import annotations
-
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
@@ -33,18 +31,18 @@ RED = "\033[91m"
 RESET = "\033[0m"
 
 
-def header(title: str):
+def header(title: str) -> None:
     print(f"\n{'='*72}")
     print(f"{BOLD}{CYAN}{title}{RESET}")
     print(f"{'='*72}")
 
 
-def result(label: str, value: str, unit: str = ""):
+def result(label: str, value: str, unit: str = "") -> None:
     suffix = f" {unit}" if unit else ""
     print(f"  {GREEN}→{RESET} {label}: {BOLD}{value}{RESET}{suffix}")
 
 
-def compare(label: str, ave_val: str, sm_val: str):
+def compare(label: str, ave_val: str, sm_val: str) -> None:
     print(f"  {YELLOW}AVE predicts:{RESET} {ave_val}")
     print(f"  {RED}Std Model:  {RESET} {sm_val}")
 
@@ -52,7 +50,7 @@ def compare(label: str, ave_val: str, sm_val: str):
 # =====================================================================
 # KILL SWITCH 1 — AXIOM 1: Chiral VNA Antenna (Hopf Coil S₁₁ Test)
 # =====================================================================
-def kill_switch_1():
+def kill_switch_1() -> float:
     header("KILL SWITCH 1 — AXIOM 1: LC IMPEDANCE")
     print(f"  {BOLD}Chiral VNA Antenna (Hopf Coil S₁₁ Test){RESET}")
     print()
@@ -86,7 +84,7 @@ def kill_switch_1():
 # =====================================================================
 # KILL SWITCH 2 — AXIOM 2: Femto-Coulomb Electrometer
 # =====================================================================
-def kill_switch_2():
+def kill_switch_2() -> float:
     header("KILL SWITCH 2 — AXIOM 2: TOPOLOGICAL PHASE TWIST")
     print(f"  {BOLD}Femto-Coulomb Electrometer (Piezo Cleavage Test){RESET}")
     print()
@@ -127,7 +125,7 @@ def kill_switch_2():
 # =====================================================================
 # KILL SWITCH 3 — AXIOM 3: Sagnac Mutual Inductance
 # =====================================================================
-def kill_switch_3():
+def kill_switch_3() -> float:
     header("KILL SWITCH 3 — AXIOM 3: LEAST REFLECTED ACTION (GRAVITY)")
     print(f"  {BOLD}Sagnac Mutual Inductance (Density-Dependent Rotor Test){RESET}")
     print()
@@ -174,7 +172,7 @@ def kill_switch_3():
 # =====================================================================
 # KILL SWITCH 4 — AXIOM 4: EE Bench Dielectric Plateau
 # =====================================================================
-def kill_switch_4():
+def kill_switch_4() -> None:
     header("KILL SWITCH 4 — AXIOM 4: UNIVERSAL SATURATION")
     print(f"  {BOLD}EE Bench Dielectric Plateau (Vacuum Gap C(V) Curve){RESET}")
     print()
@@ -235,7 +233,7 @@ def kill_switch_4():
 # =====================================================================
 # MAIN
 # =====================================================================
-def main():
+def main() -> None:
     print(f"\n{BOLD}{'='*72}")
     print("  THE 4 KILL SWITCHES")
     print("  Applied Vacuum Engineering — Experimental Falsification Program")

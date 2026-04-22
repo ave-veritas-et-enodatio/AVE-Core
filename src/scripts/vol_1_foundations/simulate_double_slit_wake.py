@@ -12,7 +12,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -77,7 +77,7 @@ wall_mask[wall_x : wall_x + wall_thickness, slit_2_y - slit_width // 2 : slit_2_
 freq = 0.08
 
 
-def run_pde_solver(steps=1200):
+def run_pde_solver(steps: int = 1200) -> np.ndarray:
     global P, V_x, V_y, P_intensity
 
     print("Executing Continuous PDE Wave Interference Solver with ABCs (Sponge Damping)...")
@@ -114,7 +114,7 @@ def run_pde_solver(steps=1200):
     return P_intensity / np.max(P_intensity)
 
 
-def generate_scientific_visuals():
+def generate_scientific_visuals() -> None:
     intensity_field = run_pde_solver()
 
     fig = plt.figure(figsize=(14, 9), facecolor="#050510")

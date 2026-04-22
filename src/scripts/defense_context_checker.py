@@ -28,15 +28,12 @@ Exit codes:
 Reference: docs/framing_and_presentation.md, .agents/workflows/audit-math.md,
            .agents/workflows/audit-latex.md
 """
-from __future__ import annotations
-
 import argparse
 import json
 import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
 
 
 # ───────────────────────────────────────────────────────────────────────────
@@ -56,7 +53,7 @@ class Rule:
 
     id: str
     pattern: str
-    mitigator: Optional[str] = None
+    mitigator: str | None = None
     severity: str = "warn"  # "critical" | "warn" | "info"
     message: str = ""
     fix: str = ""
@@ -413,7 +410,7 @@ def format_json_report(findings: list[Finding], total_files: int) -> str:
     )
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Scan AVE corpus for defense-context anti-patterns " "(docs/framing_and_presentation.md rules).",
     )

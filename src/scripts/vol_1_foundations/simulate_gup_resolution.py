@@ -12,7 +12,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -28,7 +28,7 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 
-def generate_gup_resolution():
+def generate_gup_resolution() -> None:
     print("Executing Brillouin Zone Topological GUP Solver...")
 
     # Constants (Normalized for graphing clarity rather than SI units)

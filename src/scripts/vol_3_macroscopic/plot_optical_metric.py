@@ -10,7 +10,7 @@ COLOR_NODE = "#00ffff"
 COLOR_GRID = "#ff00ff"
 
 
-def _find_repo_root():
+def _find_repo_root() -> str:
     """Find the Git repository root directory."""
     current_dir = os.path.abspath(os.path.dirname(__file__))
     while current_dir != "/":
@@ -20,7 +20,7 @@ def _find_repo_root():
     return os.path.abspath(os.path.dirname(__file__))  # Fallback
 
 
-def plot_optical_metric():
+def plot_optical_metric() -> None:
     fig, ax = plt.subplots(figsize=(10, 8), dpi=150)
     ax.set_aspect("equal")
     ax.axis("off")

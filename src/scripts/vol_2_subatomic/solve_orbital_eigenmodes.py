@@ -81,7 +81,7 @@ class OrbitalODE:
     All constants from ave.core.constants.
     """
 
-    def __init__(self, Z_nuc=1, l=0, r_max_bohr=50.0, n_points=2000):
+    def __init__(self, Z_nuc: int = 1, l: int = 0, r_max_bohr: float = 50.0, n_points: int = 2000) -> None:
         self.Z_nuc = Z_nuc
         self.l = l
         self.r_max = r_max_bohr * A_BOHR
@@ -98,14 +98,14 @@ class OrbitalODE:
         # Pre-compute 2m/ℏ²
         self._2m_hbar2 = 2.0 * M_E / HBAR**2
 
-    def _ode_rhs(self, r, y, E):
+    def _ode_rhs(self, r: float, y: list, E: float) -> list:
         """RHS of the radial ODE: y = [u, u']."""
         u, du = y
         V_r = -self.Z_nuc * ALPHA * HBAR * C_0 / r
         k2 = self._2m_hbar2 * (E - V_r) - self.l * (self.l + 1) / r**2
         return [du, -k2 * u]
 
-    def shoot(self, E):
+    def shoot(self, E: float) -> float:
         """
         Integrate from r_min outward for trial energy E.
         Returns u(r_max) — root-finding target.
@@ -131,7 +131,7 @@ class OrbitalODE:
             return 1e10
         return sol.y[0, -1]
 
-    def find_eigenvalue(self, n, E_low=None, E_high=None):
+    def find_eigenvalue(self, n: int, E_low: float | None = None, E_high: float | None = None) -> float:
         """
         Find the n-th eigenvalue (n=1,2,3,...) for angular momentum l.
         Uses Brent's method between E_low and E_high.
@@ -157,7 +157,7 @@ class OrbitalODE:
 
         return E_eigen
 
-    def eigenmode(self, E):
+    def eigenmode(self, E: float) -> np.ndarray:
         """Return the normalised radial wavefunction u(r) for energy E."""
         r_min = self.r[0]
         u0 = r_min ** (self.l + 1)
@@ -179,13 +179,13 @@ class OrbitalODE:
         norm = np.sqrt(np.trapezoid(u**2, self.r))
         return u / norm if norm > 0 else u
 
-    def radial_probability(self, u):
+    def radial_probability(self, u: np.ndarray) -> np.ndarray:
         """P(r) = |u(r)|² (since u = r·R, P(r)dr = r²|R|²dr = u²dr)."""
         P = u**2
         norm = np.trapezoid(P, self.r)
         return P / norm if norm > 0 else P
 
-    def impedance_profile(self):
+    def impedance_profile(self) -> np.ndarray:
         """Nuclear impedance cavity Z(r)."""
         mu_r = 1.0 + MU_RATIO * np.exp(-0.5 * (self.r / (2.5 * A_BOHR / 15)) ** 2)
         eps_r = 1.0 + (self.Z_nuc / ALPHA) * (A_BOHR / self.r) * np.exp(-self.r / (20 * A_BOHR))
@@ -197,7 +197,7 @@ class OrbitalODE:
 # ═══════════════════════════════════════════════════════════
 
 
-def hydrogen_u(r_bohr, n, l):
+def hydrogen_u(r_bohr: np.ndarray, n: int, l: int) -> np.ndarray:
     """Analytical u(r) = r·R_nl(r) for hydrogen, normalised."""
     from scipy.special import assoc_laguerre, factorial
 
@@ -216,7 +216,7 @@ plt.style.use("dark_background")
 COL = {"ave": "#00ffcc", "qm": "#ff6699", "imp": "#ffaa00", "grid": "#222222"}
 
 
-def _ax(ax, xl, yl, title):
+def _ax(ax: plt.Axes, xl: str, yl: str, title: str) -> None:
     ax.set_xlabel(xl, fontsize=11, color="#cccccc")
     ax.set_ylabel(yl, fontsize=11, color="#cccccc")
     ax.set_title(title, fontsize=13, fontweight="bold", color="white", pad=12)
@@ -225,7 +225,7 @@ def _ax(ax, xl, yl, title):
         s.set_color("#333333")
 
 
-def plot_eigenmodes(solver, modes, path):
+def plot_eigenmodes(solver: OrbitalODE | None, modes: list[tuple[int, int]], path: str) -> None:
     """Multi-panel: AVE eigenmode P(r) vs analytical hydrogen for each (n,l)."""
     n_modes = len(modes)
     fig, axes = plt.subplots(n_modes, 1, figsize=(11, 4 * n_modes), facecolor="#0a0a14")
@@ -277,7 +277,7 @@ def plot_eigenmodes(solver, modes, path):
     print(f"  Saved: {path}")
 
 
-def plot_2d_orbital(ode, n, l, m, u, path):
+def plot_2d_orbital(ode: OrbitalODE, n: int, l: int, m: int, u: np.ndarray, path: str) -> None:
     """2D cross-section: eigenmode × Y_lm."""
     P = u**2
     R_amp = np.sqrt(np.maximum(P / np.max(P), 0))
@@ -314,7 +314,7 @@ def plot_2d_orbital(ode, n, l, m, u, path):
     print(f"  Saved: {path}")
 
 
-def make_orbital_animation(ode, n, l, m, u, path, n_frames=120):
+def make_orbital_animation(ode: OrbitalODE, n: int, l: int, m: int, u: np.ndarray, path: str, n_frames: int = 120) -> None:
     """Animated GIF: oscillating standing wave ψ(r,θ,t)."""
     P = u**2
     R_amp = np.sqrt(np.maximum(P / np.max(P), 0))
@@ -342,7 +342,7 @@ def make_orbital_animation(ode, n, l, m, u, path, n_frames=120):
     density /= np.max(density) if np.max(density) > 0 else 1
     im = ax.pcolormesh(X, Z, density, cmap="inferno", shading="gouraud", vmin=0, vmax=0.6)
 
-    def update(frame):
+    def update(frame: int) -> list:
         t = 2 * np.pi * frame / n_frames
         psi = rad * np.real(Y * np.exp(1j * t))
         density = psi**2
@@ -362,7 +362,7 @@ def make_orbital_animation(ode, n, l, m, u, path, n_frames=120):
 # ═══════════════════════════════════════════════════════════
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  AVE Orbital Eigenvalue Solver (ODE)")
     print("  All constants from ave.core.constants")

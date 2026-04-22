@@ -390,7 +390,7 @@ ELEMENTS = [
 ]
 
 
-def generate_topology(elem):
+def generate_topology(elem: dict) -> str:
     """Generate an orbital topology figure for one element."""
     fig, ax = plt.subplots(figsize=(10, 10), facecolor="#0a0a0a")
     ax.set_facecolor("#0a0a0a")

@@ -30,7 +30,7 @@ R_gt = PHI / 2.0  # Golden Torus major radius
 r_gt = (PHI - 1.0) / 2.0  # Golden Torus minor radius
 
 
-def golden_torus_multipole():
+def golden_torus_multipole() -> dict[str, float]:
     """
     Evaluate the holomorphic multipole decomposition of α⁻¹ at the Golden
     Torus (R = φ/2, r = (φ-1)/2, d = 1).
@@ -53,7 +53,7 @@ def golden_torus_multipole():
     }
 
 
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -62,7 +62,7 @@ def _find_repo_root():
     return os.path.dirname(os.path.abspath(__file__))
 
 
-def render_figure(output_path=None):
+def render_figure(output_path: str | None = None) -> str:
     """Render the trefoil soliton figure at Golden Torus ropelength."""
     import matplotlib.pyplot as plt
 
@@ -167,7 +167,7 @@ def render_figure(output_path=None):
     return output_path
 
 
-def main():
+def main() -> None:
     # Geometric sanity checks
     assert np.isclose(R_gt - r_gt, 0.5), "Self-avoidance R - r = 1/2 violated"
     assert np.isclose(R_gt * r_gt, 0.25), "Holomorphic screening R·r = 1/4 violated"

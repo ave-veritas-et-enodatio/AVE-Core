@@ -20,7 +20,7 @@ from matplotlib.colors import PowerNorm  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
 
 
-def apply_lens_2d(lattice, cx, cy, n0, r_core):
+def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
     for i in range(lattice.nx):
         for j in range(lattice.ny):
             r = np.sqrt((i - cx) ** 2 + (j - cy) ** 2)
@@ -30,7 +30,14 @@ def apply_lens_2d(lattice, cx, cy, n0, r_core):
                 lattice.nodes[i, j].S_matrix = build_k4_scattering_matrix(z_local=1.0 / n, chirality=chirality)
 
 
-def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2):
+def inject_beam_2d(
+    lattice: "K4Lattice2D",
+    y_center: float,
+    beam_width: float,
+    amplitude: float,
+    wavelength: float,
+    x_inj: int = 2,
+) -> None:
     k = 2.0 * np.pi / wavelength
     phase = k * lattice.timestep
     for j in range(lattice.ny):
@@ -40,7 +47,7 @@ def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2
             lattice.nodes[x_inj, j].V_inc[0] += envelope * np.sin(phase)
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  Generating 20s Gravitational Lensing Animation (Halved Res)")
     print("  [Optimized In-Memory FFmpeg Pipeline - 4x Physical Speed]")

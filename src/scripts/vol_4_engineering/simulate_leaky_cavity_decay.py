@@ -20,7 +20,7 @@ R_IDEAL = 1e9  # 1 GigaOhm (Stable knot)
 R_LEAK = 50.0  # 50 Ohms (Avalanche breakdown)
 
 
-def leaky_rc_model(y, t):
+def leaky_rc_model(y: list[float], t: float) -> list[float]:
     """
     Simulates a non-linear RLC circuit.
     y[0] = V_C (Voltage across the capacitor)
@@ -43,7 +43,7 @@ def leaky_rc_model(y, t):
     return [dV_c_dt, dI_l_dt]
 
 
-def run_leaky_cavity_sim():
+def run_leaky_cavity_sim() -> None:
     print("[*] Running Leaky Cavity (Particle Decay) SPICE Model...")
 
     # Time vector (we want to see the rapid cycles and the envelope decay)

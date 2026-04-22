@@ -7,7 +7,7 @@ that the core simulation and test modules continue to function.
 """
 
 
-def generate_spice_netlist(element_name, Z, A, nodes, output_dir):
+def generate_spice_netlist(element_name: str, Z: int, A: int, nodes: list, output_dir: str) -> None:
     """Generate a SPICE netlist for a given element topology.
 
     This is a stub — the full implementation resides in a private IP

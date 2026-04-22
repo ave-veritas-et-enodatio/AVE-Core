@@ -34,7 +34,7 @@ from matplotlib.colors import PowerNorm  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix  # noqa: E402
 
 
-def apply_lens_2d(lattice, cx, cy, n0, r_core):
+def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
     """
     Apply a Lorentzian refractive lens to a 2D K4-TLM lattice.
 
@@ -52,7 +52,14 @@ def apply_lens_2d(lattice, cx, cy, n0, r_core):
                 lattice.nodes[i, j].S_matrix = build_k4_scattering_matrix(z_local=1.0 / n, chirality=chirality)
 
 
-def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2):
+def inject_beam_2d(
+    lattice: "K4Lattice2D",
+    y_center: float,
+    beam_width: float,
+    amplitude: float,
+    wavelength: float,
+    x_inj: int = 2,
+) -> None:
     """
     Inject a CW Gaussian beam in +x on a 2D lattice.
 
@@ -69,7 +76,17 @@ def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2
             lattice.nodes[x_inj, j].V_inc[0] += envelope * np.sin(phase)
 
 
-def run_lensing_sim(nx, ny, n_steps, n0, r_core, beam_y, beam_w, wavelength, amplitude):
+def run_lensing_sim(
+    nx: int,
+    ny: int,
+    n_steps: int,
+    n0: float,
+    r_core: float,
+    beam_y: float,
+    beam_w: float,
+    wavelength: float,
+    amplitude: float,
+) -> dict:
     """
     Run a complete 2D lensing simulation.
 
@@ -115,7 +132,7 @@ def run_lensing_sim(nx, ny, n_steps, n0, r_core, beam_y, beam_w, wavelength, amp
     }
 
 
-def main():
+def main() -> bool:
     """Run three lensing simulations and produce publication-quality figures."""
     print("=" * 70)
     print("  K4-TLM GRAVITATIONAL LENSING — 2D HIGH-RESOLUTION")

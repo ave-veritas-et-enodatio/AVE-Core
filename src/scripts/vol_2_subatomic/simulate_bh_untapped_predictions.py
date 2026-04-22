@@ -41,7 +41,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 plt.style.use("dark_background")
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  UNTAPPED FIRST-PRINCIPLES BLACK HOLE PREDICTIONS")
     print("  AVE Impedance Framework — Zero Free Parameters")

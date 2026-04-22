@@ -65,7 +65,7 @@ def compute_flash_temperature(R_min: float, P_max: float, R_0: float, payload: P
     return T_flash
 
 
-def run_simulation(payload_type: str = "argon"):
+def run_simulation(payload_type: str = "argon") -> tuple:
     print(f"--- Simulating Sonoluminescence for payload: {payload_type} ---")
 
     if payload_type == "argon":
@@ -117,7 +117,7 @@ def run_simulation(payload_type: str = "argon"):
     return sol, solver
 
 
-def generate_manuscript_figures():
+def generate_manuscript_figures() -> None:
     """Generates the Vol 3 publication figures demonstrating Tabletop Relativity."""
     print("Generating Manuscript Figures...")
 

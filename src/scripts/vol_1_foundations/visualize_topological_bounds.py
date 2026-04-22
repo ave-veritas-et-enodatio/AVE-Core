@@ -10,7 +10,7 @@ from ave.topological.tensors import (
 )
 
 
-def visualize_baryon_bounds():
+def visualize_baryon_bounds() -> None:
     """
     Visualizes the derived bounds of the 6^3_2 Borromean Linkage.
     Plots the Toroidal Tensor Halo volume mathematically resolving the Nucleon Mass,

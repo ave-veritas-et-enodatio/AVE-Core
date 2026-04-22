@@ -41,7 +41,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 plt.style.use("dark_background")
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  BLACK HOLE AS MACROSCOPIC ELECTRON ORBITAL")
     print("  AVE Impedance Resonance Visualisation")

@@ -16,7 +16,7 @@ C_0 = 1e-12  # Baseline Capacitance per node (1 pF)
 SAGNAC_DRAG = 0.05  # 5% inductive asymmetry (highly exaggerated for visual clarity)
 
 
-def sagnac_ring_model(y, t):
+def sagnac_ring_model(y: np.ndarray, t: float) -> np.ndarray:
     """
     Simulates a closed ring of N LC transmission line nodes.
     y contains exactly 2*N elements:
@@ -53,7 +53,7 @@ def sagnac_ring_model(y, t):
     return np.concatenate((dV_dt, dI_dt))
 
 
-def run_sagnac_sim():
+def run_sagnac_sim() -> None:
     print("[*] Running Sagnac Inductive Drag SPICE Model...")
 
     # We want to inject two identical photon packets at node 0

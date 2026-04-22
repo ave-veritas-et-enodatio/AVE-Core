@@ -37,7 +37,7 @@ DT = 0.005
 FRAMES = 150
 
 
-def run_fission_simulation():
+def run_fission_simulation() -> None:
     print("[*] Initializing U-235 Core Topology...")
     masses = []
     is_proton = []
@@ -85,7 +85,7 @@ def run_fission_simulation():
 
     history = np.zeros((FRAMES, A + 1, 3))
 
-    def compute_accelerations(p):
+    def compute_accelerations(p: np.ndarray) -> np.ndarray:
         N = len(mass_arr)
         acc = np.zeros((N, 3))
 
@@ -166,7 +166,7 @@ def run_fission_simulation():
     scat = ax.scatter(x0, y0, z0, c=colors, s=80, alpha=0.9, edgecolors="black")
     time_text = ax.text2D(0.05, 0.95, "", transform=ax.transAxes, color="#00ffcc", fontsize=14)
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         coords = history[frame]
         scat._offsets3d = (coords[:, 0], coords[:, 1], coords[:, 2])
         time_text.set_text(f"Atto-second t={frame * DT * 1000:.1f}")

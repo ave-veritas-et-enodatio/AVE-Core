@@ -24,7 +24,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_AL27 = 25126.501017
 
 
-def get_aluminum_27_nodes(r_halo):
+def get_aluminum_27_nodes(r_halo: float) -> np.ndarray:
     """
     Constructs the 27-nucleon array (Mg-24 core + Tritium Halo).
     """
@@ -68,7 +68,7 @@ def get_aluminum_27_nodes(r_halo):
     return np.array(nodes_al27)
 
 
-def calc_mass(r_halo):
+def calc_mass(r_halo: float) -> float:
     nodes = get_aluminum_27_nodes(r_halo)
     raw_mass = (13 * M_P_RAW) + (14 * M_N_RAW)
     binding_energy = 0.0
@@ -81,7 +81,7 @@ def calc_mass(r_halo):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Aluminum-27 ({TARGET_MASS_AL27:.6f} MeV target) ---")
 
     def error_func(r_val):

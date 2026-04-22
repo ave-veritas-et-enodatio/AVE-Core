@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def simulate_electroweak_modes():
+def simulate_electroweak_modes() -> None:
     print("==========================================================")
     print(" AVE ELECTROWEAK BOSON MODES (Z/W IMPEDANCE POLARIZATION)")
     print("==========================================================")

@@ -43,7 +43,7 @@ INCIDENT_AMPLITUDE = 1.0
 WAVE_WIDTH = 20
 
 
-def run_detector_comparison():
+def run_detector_comparison() -> None:
     print("[*] Initializing Dark Matter Transverse Wave Simulation...")
 
     # 1. Solid State DAMA (NaI Crystal)
@@ -130,7 +130,7 @@ def run_detector_comparison():
     (line1,) = ax1.plot([], [], color="white", lw=2)
     (line2,) = ax2.plot([], [], color="white", lw=2)
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         line1.set_data(np.arange(GRID_SIZE), hist_dama[frame])
         # In reality, the 'fluid' E_xenon is just the unperturbed wave, but we plot it to show it slipping through
         line2.set_data(np.arange(GRID_SIZE), hist_xenon[frame])

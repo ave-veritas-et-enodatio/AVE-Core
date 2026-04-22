@@ -41,7 +41,7 @@ LASER_LAMBDA = C_0 / LASER_FREQ
 OMEGA_TABLE = 100.0  # rad/s base rotation rate
 
 
-def compute_thermal_noise(delta_temp_K, cte):
+def compute_thermal_noise(delta_temp_K: float, cte: float) -> float:
     """
     Delta Phi proportional to Delta Area.
     Area scales as length squared, so Delta A / A = 2 * (Delta L / L)
@@ -52,7 +52,7 @@ def compute_thermal_noise(delta_temp_K, cte):
     return base_sagnac * fractional_area_change
 
 
-def compute_laser_drift_noise(delta_f_hz):
+def compute_laser_drift_noise(delta_f_hz: float) -> float:
     """
     Delta Phi proportional to frequency f (since lambda = c/f).
     Delta Phi / Phi = Delta f / f
@@ -62,7 +62,7 @@ def compute_laser_drift_noise(delta_f_hz):
     return base_sagnac * fractional_f_change
 
 
-def compute_shot_noise(power_watts, integration_time_s):
+def compute_shot_noise(power_watts: float, integration_time_s: float) -> float:
     """
     Fundamental quantum limit for interferometry.
     Delta Phi_shot ~ 1 / sqrt(N), where N is number of photons.
@@ -74,7 +74,7 @@ def compute_shot_noise(power_watts, integration_time_s):
     return 1.0 / np.sqrt(max(1.0, num_photons))
 
 
-def compute_seismic_noise(vibration_amp_m):
+def compute_seismic_noise(vibration_amp_m: float) -> float:
     """
     Mechanical mirror dither translates directly to path length uncertainty.
     Delta Phi_seismic = (2 * pi / lambda) * Delta L
@@ -82,7 +82,7 @@ def compute_seismic_noise(vibration_amp_m):
     return (2.0 * np.pi / LASER_LAMBDA) * vibration_amp_m
 
 
-def run_tolerance_sweeps():
+def run_tolerance_sweeps() -> None:
     print("[*] Initializing Sagnac RLVG System Tolerance Analyzer...")
 
     # 1. Thermal Sweep (Zerodur/ULE vs Quartz vs Aluminum)

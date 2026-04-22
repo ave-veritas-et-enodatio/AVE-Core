@@ -4,7 +4,7 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 
 
-def create_flowchart():
+def create_flowchart() -> None:
     fig, ax = plt.subplots(figsize=(12, 8), facecolor="#050510")
     ax.set_facecolor("#050510")
     ax.axis("off")
@@ -15,7 +15,7 @@ def create_flowchart():
     macro_y = 0.2
 
     # Helper to draw boxes
-    def draw_box(x, y, text, color, width=0.22, height=0.12):
+    def draw_box(x: float, y: float, text: str, color: str, width: float = 0.22, height: float = 0.12) -> None:
         box = patches.FancyBboxPatch(
             (x - width / 2, y - height / 2),
             width,
@@ -29,7 +29,7 @@ def create_flowchart():
         ax.text(x, y, text, ha="center", va="center", color="white", fontsize=11, fontweight="bold")
 
     # Helper to draw arrows
-    def draw_arrow(start, end, color="white", text=None):
+    def draw_arrow(start: tuple[float, float], end: tuple[float, float], color: str = "white", text: str | None = None) -> None:
         ax.annotate(
             "",
             xy=end,

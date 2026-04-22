@@ -25,7 +25,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_F19 = 17692.301503
 
 
-def get_fluorine_19_nodes(r_halo):
+def get_fluorine_19_nodes(r_halo: float) -> np.ndarray:
     """
     Constructs the 19-nucleon array (Oxygen-16 core + Tritium Halo).
     """
@@ -55,7 +55,7 @@ def get_fluorine_19_nodes(r_halo):
     return np.array(nodes_f19)
 
 
-def calc_mass(r_halo):
+def calc_mass(r_halo: float) -> float:
     """
     Calculates the topological mass of the F-19 lattice given an R_halo separation.
     """
@@ -73,7 +73,7 @@ def calc_mass(r_halo):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Fluorine-19 ({TARGET_MASS_F19:.6f} MeV target) ---")
 
     # Error function to minimize

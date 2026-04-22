@@ -6,7 +6,7 @@ from scipy.integrate import solve_ivp
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -21,7 +21,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def simulate_memristor_and_skin_effect():
+def simulate_memristor_and_skin_effect() -> None:
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6), dpi=150)
     fig.patch.set_facecolor("#0a0a12")
     ax1.set_facecolor("#0a0a12")
@@ -33,7 +33,7 @@ def simulate_memristor_and_skin_effect():
     tau_vac = 0.05
     freq = 2.0
 
-    def memristor_ode(t, y):
+    def memristor_ode(t: float, y: list[float]) -> list[float]:
         V_app = 5.0 * np.sin(2 * np.pi * freq * t)
         S_target = 0.5 * (1.0 + np.tanh(10.0 * (np.abs(V_app) - V_yield)))
         return [(S_target - y[0]) / tau_vac]

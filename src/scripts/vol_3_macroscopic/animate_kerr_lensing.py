@@ -17,7 +17,9 @@ import matplotlib.pyplot as plt  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 
 
-def apply_kerr_vortex_2d(lattice, cx, cy, n0, r_core, v_spin):
+def apply_kerr_vortex_2d(
+    lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float, v_spin: float
+) -> None:
     """
     Apply a Kerr metric natively (refractive n(r) + asymmetric saturation).
     Simulates Op14 frame dragging without LBM fluid vectors.
@@ -46,7 +48,14 @@ def apply_kerr_vortex_2d(lattice, cx, cy, n0, r_core, v_spin):
                 lattice._S_field[i, j, z_idx] = build_scattering_matrix(z_local=1.0 / n_eff)
 
 
-def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2):
+def inject_beam_2d(
+    lattice: "K4Lattice2D",
+    y_center: float,
+    beam_width: float,
+    amplitude: float,
+    wavelength: float,
+    x_inj: int = 2,
+) -> None:
     k = 2.0 * np.pi / wavelength
     phase = k * lattice.timestep
     j_indices = np.arange(lattice.ny)
@@ -56,7 +65,7 @@ def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2
     lattice.V_inc[x_inj, :, lattice.my_z, 0] += pulse
 
 
-def main():
+def main() -> bool:
     print("=" * 70)
     print("  K4-TLM KERR METRIC LENSING — BERNOULLI VORTEX")
     print("  Photon hooking dynamically via asymmetric scattering.")

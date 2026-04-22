@@ -13,7 +13,7 @@ from ave.core.constants import ALPHA, C_0, HBAR, M_E, G
 # Ensure local ave package is in path
 
 
-def run_cosmology_verification():
+def run_cosmology_verification() -> tuple[float, float]:
     print("==========================================================")
     print("   AVE COSMOLOGY (CMB & BAO FITTING REBUILD)")
     print("==========================================================")
@@ -46,7 +46,7 @@ def run_cosmology_verification():
     return H_0_cosmo, a_genesis
 
 
-def plot_bao_acoustic_peaks():
+def plot_bao_acoustic_peaks() -> None:
     """
     Plots a mockup of the Baryon Acoustic Oscillations (BAO) CMB power spectrum,
     annotating how the LC Network acoustic bounds perfectly fit the fundamental peaks.

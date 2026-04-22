@@ -13,7 +13,7 @@ from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
 
-def simulate_bullet_cluster_fdtd():
+def simulate_bullet_cluster_fdtd() -> None:
     """
     Simulates the Bullet Cluster collision purely via first-principles scaling.
     Replaces empirical Gaussians with Absolute Metric Drag operators (A0_LATTICE)
@@ -33,7 +33,7 @@ def simulate_bullet_cluster_fdtd():
     pos_main_init = -800 * KPC
     pos_bullet_init = +800 * KPC
 
-    def calculate_cluster_profiles(pos, mass):
+    def calculate_cluster_profiles(pos: float, mass: float) -> tuple:
         """
         Calculates Newtonian Bare Mass (g_N) and the Topo-Inductive Halo (g_eff)
         """

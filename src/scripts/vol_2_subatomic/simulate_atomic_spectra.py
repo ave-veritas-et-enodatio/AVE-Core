@@ -61,7 +61,7 @@ NIST = {
 }
 
 
-def run_simulation():
+def run_simulation() -> None:
     print("=" * 78)
     print("  ATOMIC SPECTRA: LC CAVITY RESONANCES FROM FIRST PRINCIPLES")
     print("  Inputs: m_e, c, α, ℏ  |  All from ave.core.constants")
@@ -130,7 +130,7 @@ def run_simulation():
     fig.patch.set_facecolor(C_BG)
     gs = GridSpec(2, 3, figure=fig, hspace=0.35, wspace=0.35)
 
-    def style_ax(ax):
+    def style_ax(ax: plt.Axes) -> None:
         ax.set_facecolor(C_BG)
         ax.tick_params(colors=C_TEXT, labelsize=9)
         ax.grid(True, alpha=0.12, color=C_GRID)
@@ -189,13 +189,13 @@ def run_simulation():
     r_bohr = np.linspace(0, 25, 500)  # in units of a₀
 
     # Hydrogenic radial functions R_{n,0}(r) for ℓ=0
-    def R_10(r):
+    def R_10(r: np.ndarray) -> np.ndarray:
         return 2.0 * np.exp(-r)
 
-    def R_20(r):
+    def R_20(r: np.ndarray) -> np.ndarray:
         return (1.0 / (2 * np.sqrt(2))) * (2 - r) * np.exp(-r / 2)
 
-    def R_30(r):
+    def R_30(r: np.ndarray) -> np.ndarray:
         return (2.0 / (81 * np.sqrt(3))) * (27 - 18 * r + 2 * r**2) * np.exp(-r / 3)
 
     P_1s = r_bohr**2 * R_10(r_bohr) ** 2

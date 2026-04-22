@@ -78,7 +78,7 @@ class OrbitalFDTD:
       eps_r(r):  Coulomb coupling = 1 + (Z_nuc / alpha) * (a0/r) * envelope
     """
 
-    def __init__(self, r_max_bohr=25.0, cells_per_bohr=15, l=0, Z_nuc=1):
+    def __init__(self, r_max_bohr: float = 25.0, cells_per_bohr: int = 15, l: int = 0, Z_nuc: int = 1) -> None:
         self.l, self.Z_nuc = l, Z_nuc
 
         self.n = int(r_max_bohr * cells_per_bohr)
@@ -125,12 +125,12 @@ class OrbitalFDTD:
         self.accum = np.zeros(self.n)
         self.n_acc = 0
 
-    def seed_noise(self, amp=1e-6):
+    def seed_noise(self, amp: float = 1e-6) -> None:
         rng = np.random.default_rng(42)
         self.u_E[:] = amp * rng.standard_normal(self.n)
         self.u_H[:] = amp * rng.standard_normal(self.n - 1)
 
-    def step(self, n_steps=1):
+    def step(self, n_steps: int = 1) -> None:
         dt, dr = self.dt, self.dr
 
         for _ in range(n_steps):
@@ -161,17 +161,17 @@ class OrbitalFDTD:
             self.u_E[0] = 0.0
             self.u_E[-1] = 0.0
 
-    def accumulate(self):
+    def accumulate(self) -> None:
         self.accum += self.u_E**2
         self.n_acc += 1
 
-    def radial_prob(self):
+    def radial_prob(self) -> np.ndarray:
         """Time-averaged P(r) = <u^2>.  u=r*psi so P=|psi|^2*r^2 ~ u^2."""
         P = self.accum / max(self.n_acc, 1)
         norm = np.trapz(P, self.r)
         return P / norm if norm > 0 else P
 
-    def impedance_profile(self):
+    def impedance_profile(self) -> np.ndarray:
         mu_at_e = np.ones(self.n) * MU_0
         mu_at_e[1:-1] = MU_0 * 0.5 * (self.mu_r[:-1] + self.mu_r[1:])
         mu_at_e[0] = MU_0 * self.mu_r[0]
@@ -179,7 +179,7 @@ class OrbitalFDTD:
         eps_at_e = EPSILON_0 * self.eps_r
         return universal_impedance(mu_at_e, eps_at_e)
 
-    def reflection_profile(self):
+    def reflection_profile(self) -> np.ndarray:
         Z = self.impedance_profile()
         return np.array([universal_reflection(Z[i], Z[i + 1]) for i in range(self.n - 1)])
 
@@ -189,7 +189,7 @@ class OrbitalFDTD:
 # ══════════════════════════════════════════════════════════════
 
 
-def hydrogen_radial_prob(r_bohr, n, l):
+def hydrogen_radial_prob(r_bohr: np.ndarray, n: int, l: int) -> np.ndarray:
     """Analytical radial probability r^2 |R_nl|^2 for hydrogen."""
     from scipy.special import assoc_laguerre, factorial
 
@@ -207,7 +207,7 @@ plt.style.use("dark_background")
 COLORS = {"ave": "#00ffcc", "qm": "#ff6699", "imp": "#ffaa00", "refl": "#66aaff"}
 
 
-def _style_ax(ax, xlabel, ylabel, title):
+def _style_ax(ax: plt.Axes, xlabel: str, ylabel: str, title: str) -> None:
     ax.set_xlabel(xlabel, fontsize=11, color="#cccccc")
     ax.set_ylabel(ylabel, fontsize=11, color="#cccccc")
     ax.set_title(title, fontsize=13, fontweight="bold", color="white", pad=12)
@@ -216,7 +216,7 @@ def _style_ax(ax, xlabel, ylabel, title):
         s.set_color("#333333")
 
 
-def plot_impedance(sim, path):
+def plot_impedance(sim: OrbitalFDTD, path: str) -> None:
     """Static plot: Z(r), Gamma(r) profiles."""
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 7), facecolor="#0a0a14")
     fig.subplots_adjust(hspace=0.35)
@@ -241,7 +241,7 @@ def plot_impedance(sim, path):
     print(f"  Saved: {path}")
 
 
-def plot_comparison(sim, path):
+def plot_comparison(sim: OrbitalFDTD, path: str) -> None:
     """Static plot: time-averaged P(r) vs analytical hydrogen."""
     fig, ax = plt.subplots(figsize=(10, 5.5), facecolor="#0a0a14")
 
@@ -276,7 +276,7 @@ def plot_comparison(sim, path):
     print(f"  Saved: {path}")
 
 
-def make_animation(sim, n_warmup, n_frames, steps_per_frame, path):
+def make_animation(sim: OrbitalFDTD, n_warmup: int, n_frames: int, steps_per_frame: int, path: str) -> None:
     """Animated GIF: P(r) building up from noise."""
     fig, ax = plt.subplots(figsize=(10, 5), facecolor="#0a0a14")
     _style_ax(ax, "r / a₀", "|u(r)|²  [a.u.]", "Standing Wave Formation in Nuclear Impedance Cavity")
@@ -307,7 +307,7 @@ def make_animation(sim, n_warmup, n_frames, steps_per_frame, path):
     ax.plot(r_qm, P_qm, "--", color=COLORS["qm"], lw=1.5, alpha=0.4, label="1s analytical")
     ax.legend(fontsize=9, loc="upper right", framealpha=0.3)
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         nonlocal fill
         P = snapshots[frame]
         line.set_data(sim.r_b, P)
@@ -324,7 +324,7 @@ def make_animation(sim, n_warmup, n_frames, steps_per_frame, path):
     print(f"  Saved: {path}")
 
 
-def make_2d_orbital(sim, n_quantum, l_quantum, m_quantum, path):
+def make_2d_orbital(sim: OrbitalFDTD, n_quantum: int, l_quantum: int, m_quantum: int, path: str) -> None:
     """Static 2D cross-section: radial eigenmode x Y_lm(theta)."""
     from scipy.special import sph_harm
 
@@ -377,7 +377,7 @@ def make_2d_orbital(sim, n_quantum, l_quantum, m_quantum, path):
 # ══════════════════════════════════════════════════════════════
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  AVE Dynamic Orbital Simulation")
     print("  All constants from ave.core.constants")

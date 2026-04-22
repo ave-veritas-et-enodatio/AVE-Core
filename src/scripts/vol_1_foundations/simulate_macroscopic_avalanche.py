@@ -11,7 +11,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -32,7 +32,7 @@ R_planet = 1.0  # Radius of the visible planet
 TAU_YIELD = 1.5  # The absolute magnetic saturation limit of the lattice
 
 
-def run_avalanche_simulation():
+def run_avalanche_simulation() -> None:
     """
     Renders a 2D cross-section of the spatial mutual inductance (eta_eff)
     surrounding a heavy gravitational mass. Identifies the exact Yield Horizon

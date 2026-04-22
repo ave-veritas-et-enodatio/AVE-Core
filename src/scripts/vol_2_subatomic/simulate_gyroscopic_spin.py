@@ -19,7 +19,7 @@ t_span = (0, t_pi)
 t_eval = np.linspace(0, t_pi, 1000)
 
 
-def b_field(t):
+def b_field(t: float) -> np.ndarray:
     """External dynamic magnetic field combining B0 and circularly polarized B1"""
     return np.array([B1 * np.cos(W_RF * t), B1 * np.sin(W_RF * t), B0])
 
@@ -28,7 +28,7 @@ def b_field(t):
 # 1. CLASSICAL GYROSCOPE ODE
 # dL/dt = gamma * L x B
 # ---------------------------------------------------------
-def classical_gyroscope_deriv(t, L):
+def classical_gyroscope_deriv(t: float, L: np.ndarray) -> np.ndarray:
     B = b_field(t)
     return GAMMA * np.cross(L, B)
 
@@ -42,7 +42,7 @@ sig_y = np.array([[0, -1j], [1j, 0]], dtype=complex)
 sig_z = np.array([[1, 0], [0, -1]], dtype=complex)
 
 
-def quantum_spinor_deriv(t, y):
+def quantum_spinor_deriv(t: float, y: list) -> list:
     c0 = y[0] + 1j * y[1]
     c1 = y[2] + 1j * y[3]
     psi = np.array([c0, c1])
@@ -54,7 +54,7 @@ def quantum_spinor_deriv(t, y):
     return [dpsi[0].real, dpsi[0].imag, dpsi[1].real, dpsi[1].imag]
 
 
-def main():
+def main() -> None:
     print("Simulating Classical Gyroscopic Precession...")
     L0 = np.array([0.0, 0.0, 1.0])
     res_class = solve_ivp(classical_gyroscope_deriv, t_span, L0, t_eval=t_eval, rtol=1e-8, atol=1e-8)
@@ -85,7 +85,9 @@ def main():
     # ==========================================
     # Helper for 3D trajectory
     # ==========================================
-    def plot_sphere(ax, title, color_line, x_data, y_data, z_data):
+    def plot_sphere(
+        ax: plt.Axes, title: str, color_line: str, x_data: np.ndarray, y_data: np.ndarray, z_data: np.ndarray
+    ) -> None:
         ax.set_title(title, fontsize=16, pad=10, fontweight="bold")
         # Wireframe sphere
         u = np.linspace(0, 2 * np.pi, 25)

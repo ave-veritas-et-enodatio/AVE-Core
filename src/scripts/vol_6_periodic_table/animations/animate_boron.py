@@ -12,13 +12,13 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def rotate_cluster_y(nodes, angle):
+def rotate_cluster_y(nodes: list, angle: float) -> list:
     c, s = np.cos(angle), np.sin(angle)
     R = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
     return [np.dot(R, n) for n in nodes]
 
 
-def calculate_vacuum_density(nodes, X, Y, z_slice=0.0):
+def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude, epsilon = 100.0, 0.5
     for cx, cy, cz in nodes:

@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def simulate_cosmological_equilibrium():
+def simulate_cosmological_equilibrium() -> None:
     """
     Simulates the heat equation of the expanding lattice.
     Latent heat generation scales with Volume (R^3).

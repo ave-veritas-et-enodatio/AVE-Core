@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_comparison():
+def create_comparison() -> None:
     fig = plt.figure(figsize=(22, 10), facecolor="#050510")
 
     # ---------------------------------------------------------

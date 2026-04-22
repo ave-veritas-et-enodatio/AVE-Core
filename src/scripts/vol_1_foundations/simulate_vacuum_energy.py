@@ -13,7 +13,7 @@ from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, G
 # Ensure local ave package is in path
 
 
-def derive_vacuum_energy():
+def derive_vacuum_energy() -> float:
     """
     Derives the cosmological constant (Dark Energy density) not as 'anti-gravity',
     but simply as the ground-state Zero-Point Energy of the discrete LC network hardware.
@@ -56,7 +56,7 @@ def derive_vacuum_energy():
     return rho_lambda
 
 
-def simulate_cosmic_inflation():
+def simulate_cosmic_inflation() -> None:
     """
     Simulates Cosmic Inflation. In AVE, inflation is not an arbitrary scalar field
     (Inflaton), but the absolute maximum geometric crystallization rate of the LC network

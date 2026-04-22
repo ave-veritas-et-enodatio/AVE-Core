@@ -12,7 +12,7 @@ from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
 
-def extract_bullet_stills():
+def extract_bullet_stills() -> None:
     """
     Renders 3 explicit 2D collision phases (Entry, Crossing, Exit)
     annotated with the formal saturation limits.

@@ -5,7 +5,7 @@ import numpy as np
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -20,7 +20,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def simulate_orbital_ac_power():
+def simulate_orbital_ac_power() -> None:
     t = np.linspace(0, 2 * np.pi, 1000)
     I_x, I_y = -np.sin(t), np.cos(t)
     V_x, V_y = -np.cos(t), -np.sin(t)

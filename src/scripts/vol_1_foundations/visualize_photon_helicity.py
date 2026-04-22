@@ -53,7 +53,7 @@ TOTAL_FRAMES = 50
 STEPS_PER_FRAME = 4
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  AVE PHOTON: Helical Torsional Wave Visualization")
     print("=" * 60)
@@ -160,7 +160,7 @@ def main():
     mid = N // 2
     x_range = np.arange(N)
 
-    def update(frame_idx):
+    def update(frame_idx: int) -> None:
         ax.cla()
         ax.set_facecolor("#0a0a1a")
         ax.xaxis.pane.fill = False

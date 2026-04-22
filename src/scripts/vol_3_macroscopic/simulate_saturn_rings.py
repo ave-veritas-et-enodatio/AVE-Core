@@ -50,7 +50,7 @@ DT = 0.05
 FRAMES = 500
 
 
-def initialize_rings():
+def initialize_rings() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Initializes N particles in a flat, uniformly dense Keplerian
     disk around the central mass.
@@ -89,7 +89,7 @@ def initialize_rings():
     return np.array(positions), np.array(velocities), np.array(masses)
 
 
-def compute_accelerations(pos, masses):
+def compute_accelerations(pos: np.ndarray, masses: np.ndarray) -> np.ndarray:
     """
     Calculates the N-body gravitational/topological acceleration matrix.
     a_i = SUM( G * m_j * r_ij / |r_ij|^3 )
@@ -110,7 +110,7 @@ def compute_accelerations(pos, masses):
     return acc
 
 
-def simulate_rings():
+def simulate_rings() -> np.ndarray:
     print(f"[*] Initializing {N_PARTICLES} ring particles around Saturn...")
     pos, vel, masses = initialize_rings()
 
@@ -141,7 +141,7 @@ def simulate_rings():
     return history
 
 
-def animate_simulation(history):
+def animate_simulation(history: np.ndarray) -> None:
     print("[*] Rendering 3D Temporal Evolution GIF...")
 
     fig = plt.figure(figsize=(10, 10))
@@ -182,7 +182,7 @@ def animate_simulation(history):
         pad=20,
     )
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # Extract frame data
         frame_pos = history[frame]
 

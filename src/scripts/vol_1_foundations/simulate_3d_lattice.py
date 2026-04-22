@@ -13,7 +13,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -29,7 +29,7 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 
-def generate_k4_chiral_lattice(grid_size=2):
+def generate_k4_chiral_lattice(grid_size: int = 2) -> np.ndarray:
     """
     Algebraically constructs the exact SRS (Laves K4) 3D Chiral Isotropic Graph.
     Uses the precise Wyckoff 8a coordinate positions mapped to a cubic unit cell.
@@ -64,7 +64,7 @@ def generate_k4_chiral_lattice(grid_size=2):
     return np.array(nodes)
 
 
-def plot_chiral_lattice_manifold():
+def plot_chiral_lattice_manifold() -> None:
     print("Evaluating Continuous Spatial Manifold as a Discrete Chiral Graph (SRS Net)...")
 
     fig = plt.figure(figsize=(12, 12), facecolor="#050510")

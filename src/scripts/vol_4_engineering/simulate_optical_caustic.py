@@ -19,7 +19,7 @@ from ave.core.constants import E_YIELD, Z_0
 from ave.regime_4_rupture.caustic_solver import AxiomaticCausticSolver
 
 
-def main():
+def main() -> None:
     solver = AxiomaticCausticSolver()
 
     # 10 Petawatt conceptual laser focusing

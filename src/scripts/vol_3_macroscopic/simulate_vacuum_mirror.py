@@ -87,7 +87,7 @@ def casimir_ave(n_cav: int, s11_inf: float) -> float:
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
-def main():
+def main() -> None:
     print(BAR)
     print("  AVE ENGINE: CASIMIR THERMODYNAMIC FILTERING (P2.10)")
     print(BAR)

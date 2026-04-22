@@ -19,7 +19,7 @@ import numpy as np
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def generate_photon_helical_spin():
+def generate_photon_helical_spin() -> None:
     print("[*] Generating Photon Helical Spin-1 Confinement Figure...")
 
     plt.style.use("dark_background")

@@ -14,7 +14,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -31,7 +31,7 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 
-def generate_orbitals():
+def generate_orbitals() -> None:
     print("Evaluating Atomic Orbitals as deterministic Chladni Acoustic Nodes...")
 
     # -------------------------------------------------------------------

@@ -1,7 +1,7 @@
 from ave.core.constants import C_0, RHO_BULK, G
 
 
-def simulate_vlbi_and_dama_parallax():
+def simulate_vlbi_and_dama_parallax() -> None:
     print("--- Vol 3: Macroscopic VLBI & DAMA Phonon Parallax ---")
 
     # 1. VLBI Jupiter Grazing Transit

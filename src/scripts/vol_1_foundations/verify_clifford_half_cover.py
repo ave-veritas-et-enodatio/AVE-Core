@@ -43,7 +43,7 @@ from ave.core.constants import ALPHA, ALPHA_COLD_INV, DELTA_STRAIN
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 
 
-def clifford_area_numeric(r1, r2):
+def clifford_area_numeric(r1: float, r2: float) -> float:
     """
     Numerically integrate the Clifford torus surface area in ℂ².
 
@@ -55,7 +55,7 @@ def clifford_area_numeric(r1, r2):
     return A
 
 
-def solve_golden_torus():
+def solve_golden_torus() -> tuple[float, float]:
     """
     Solve the 2×2 system from the three regimes (Nyquist d=1 being
     trivially absorbed into the other two):
@@ -78,7 +78,7 @@ def solve_golden_torus():
     return R_plus, R_minus
 
 
-def main():
+def main() -> None:
     print()
     print("═" * 74)
     print("  Clifford Torus Half-Cover Rigor — justifying Λ_surf = π²")

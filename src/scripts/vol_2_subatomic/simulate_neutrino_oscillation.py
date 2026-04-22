@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def simulate_neutrino_oscillation(frames=250, nx=400):
+def simulate_neutrino_oscillation(frames: int = 250, nx: int = 400) -> None:
     """
     Simulates Neutrino "Flavor Oscillation" as a classical wave
     dispersion phenomenon on a discrete macroscopic LC lattice.
@@ -78,7 +78,7 @@ def simulate_neutrino_oscillation(frames=250, nx=400):
     # Gauss packet width
     sigma = 4.0
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         t = frame * 0.15
 
         # Center positions of each propagating packet

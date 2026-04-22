@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_phase_diagram():
+def create_phase_diagram() -> None:
     fig, ax = plt.subplots(figsize=(14, 8), facecolor="#050510")
     ax.set_facecolor("#050510")
 

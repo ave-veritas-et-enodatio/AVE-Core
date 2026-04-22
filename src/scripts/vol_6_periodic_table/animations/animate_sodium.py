@@ -10,7 +10,7 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def calculate_vacuum_density(nodes, X, Y, z_slice):
+def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude, epsilon = 100.0, 0.5
     for cx, cy, cz in nodes:
@@ -63,7 +63,7 @@ y_slices = np.linspace(z_min, z_max, frames)
 y_slices = np.concatenate([y_slices, y_slices[::-1]])
 
 
-def update(frame):
+def update(frame: int) -> list:
     y_slice = y_slices[frame]
     density = calculate_vacuum_density([(n[0], n[2], n[1]) for n in nodes], X, Z, y_slice)
     im.set_array(density)

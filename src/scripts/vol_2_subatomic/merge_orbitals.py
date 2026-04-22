@@ -2,6 +2,7 @@ import glob
 import os
 import re
 import shutil
+from re import Match
 
 src_base = "periodic_table_of_knots/chapters"
 dst_base = "periodic_table/chapters"
@@ -27,7 +28,7 @@ mapping = {
 }
 
 
-def replace_img_simple(m, src_dir):
+def replace_img_simple(m: Match[str], src_dir: str) -> str:
     opts = m.group(1)
     img_path = m.group(2)
     filename = os.path.basename(img_path)

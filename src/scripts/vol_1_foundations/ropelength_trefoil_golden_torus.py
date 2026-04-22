@@ -68,7 +68,7 @@ GOLDEN_r = (PHI - 1.0) / 2.0
 # ═══════════════════════════════════════════════════════════════════════════
 # Arc length of the (2,3) torus knot (closed-form speed² from parameterization)
 # ═══════════════════════════════════════════════════════════════════════════
-def trefoil_speed_squared(t, R, r):
+def trefoil_speed_squared(t: float, R: float, r: float) -> float:
     """
     |dX/dt|² for the standard (2,3) torus knot parameterization
     X(t) = ((R + r cos 3t) cos 2t, (R + r cos 3t) sin 2t, r sin 3t).
@@ -81,7 +81,7 @@ def trefoil_speed_squared(t, R, r):
     return 4.0 * (R + r * np.cos(3.0 * t)) ** 2 + 9.0 * r**2
 
 
-def trefoil_arc_length(R, r):
+def trefoil_arc_length(R: float, r: float) -> float:
     """Arc length L(R, r) of one full traversal of the (2,3) trefoil."""
     integrand = lambda t: np.sqrt(trefoil_speed_squared(t, R, r))
     L, _ = quad(integrand, 0.0, 2.0 * np.pi, limit=200)
@@ -91,7 +91,7 @@ def trefoil_arc_length(R, r):
 # ═══════════════════════════════════════════════════════════════════════════
 # STAGE A: 1D arc-length minimum on the crossings-tight boundary R - r = 1/2
 # ═══════════════════════════════════════════════════════════════════════════
-def stage_a_arc_length_on_crossings_boundary():
+def stage_a_arc_length_on_crossings_boundary() -> tuple[float, float]:
     print("─" * 72)
     print("  STAGE A — Arc length along the crossings-tight boundary R − r = 1/2")
     print("─" * 72)
@@ -149,14 +149,14 @@ def stage_a_arc_length_on_crossings_boundary():
 # ═══════════════════════════════════════════════════════════════════════════
 # STAGE B: Add the holomorphic screening constraint R·r = 1/4
 # ═══════════════════════════════════════════════════════════════════════════
-def stage_b_with_screening_constraint():
+def stage_b_with_screening_constraint() -> tuple[float, float]:
     print("─" * 72)
     print("  STAGE B — Add holomorphic screening R·r = 1/4, re-minimize")
     print("─" * 72)
 
     # Both constraints imposed as equality via composite objective.
     # Self-avoidance is now enforced as EQUALITY (tight rope): (R - r) = 1/2.
-    def objective(params, lambda_screening, lambda_avoid):
+    def objective(params: np.ndarray, lambda_screening: float, lambda_avoid: float) -> float:
         R, r = params
         # Arc length (primary energy term)
         L = trefoil_arc_length(R, r)
@@ -200,13 +200,13 @@ def stage_b_with_screening_constraint():
 # ═══════════════════════════════════════════════════════════════════════════
 # STAGE C: Full 2D landscape — visualize the composite objective
 # ═══════════════════════════════════════════════════════════════════════════
-def stage_c_landscape():
+def stage_c_landscape() -> tuple[float, float]:
     print("─" * 72)
     print("  STAGE C — Joint minimization: arc length + both constraints")
     print("─" * 72)
 
     # Composite objective (equality constraints via squared penalties, ramped)
-    def composite(params, lambda_avoid, lambda_screen):
+    def composite(params: np.ndarray, lambda_avoid: float, lambda_screen: float) -> float:
         R, r = params
         L = trefoil_arc_length(R, r)
         penalty = lambda_avoid * ((R - r) - 0.5) ** 2 + lambda_screen * (R * r - 0.25) ** 2

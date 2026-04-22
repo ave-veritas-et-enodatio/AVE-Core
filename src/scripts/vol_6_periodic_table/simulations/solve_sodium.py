@@ -24,7 +24,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_NA23 = 21409.213504
 
 
-def get_sodium_23_nodes(r_halo):
+def get_sodium_23_nodes(r_halo: float) -> np.ndarray:
     """
     Constructs the 23-nucleon array (Neon-20 core + Tritium Halo).
     """
@@ -69,7 +69,7 @@ def get_sodium_23_nodes(r_halo):
     return np.array(nodes_na23)
 
 
-def calc_mass(r_halo):
+def calc_mass(r_halo: float) -> float:
     nodes = get_sodium_23_nodes(r_halo)
     raw_mass = (11 * M_P_RAW) + (12 * M_N_RAW)
     binding_energy = 0.0
@@ -82,7 +82,7 @@ def calc_mass(r_halo):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Sodium-23 ({TARGET_MASS_NA23:.6f} MeV target) ---")
 
     def error_func(r_val):

@@ -6,7 +6,7 @@ from scipy.integrate import solve_ivp
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -20,11 +20,11 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # --- End standard output directory ---
 
 
-def simulate_transmission_line():
+def simulate_transmission_line() -> None:
     N_nodes = 100
     L_val, C_val = 1.0, 1.0  # Normalized yielding v_g = 1.0 (representing c)
 
-    def tline_ode(t, y):
+    def tline_ode(t: float, y: np.ndarray) -> np.ndarray:
         dy = np.zeros(2 * N_nodes)
         V_in = np.exp(-((t - 5.0) ** 2) / 2.0)
         I_in_0 = (V_in - y[0]) / 1.0

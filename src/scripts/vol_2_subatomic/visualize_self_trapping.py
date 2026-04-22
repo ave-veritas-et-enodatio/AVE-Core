@@ -37,7 +37,7 @@ TOTAL_FRAMES = 60
 LATTICE_SIZE = 40  # Visualization cells along propagation axis
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  PHOTON → ELECTRON: Self-Trapping Transition")
     print("=" * 60)
@@ -63,7 +63,7 @@ def main():
             lam = 2 * np.pi
         wavelengths.append(lam)
 
-    def update(frame):
+    def update(frame: int) -> None:
         ax_3d.cla()
         ax_info.cla()
         ax_3d.set_facecolor("#08081a")

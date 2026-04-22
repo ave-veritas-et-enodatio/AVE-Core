@@ -40,7 +40,7 @@ V_T = 15.0  # Thermal Equivalent Voltage (Ambient kinetic baseline)
 AVALANCHE_N = AVALANCHE_N_3D  # Axiom 4: 38/21 ≈ 1.8095
 
 
-def macroscopic_shockley_avalanche(v):
+def macroscopic_shockley_avalanche(v: np.ndarray) -> np.ndarray:
     """
     Computes the Macroscopic Photon Emission Rate (Current I)
     based on the topological shear strain (Voltage V).
@@ -59,7 +59,7 @@ def macroscopic_shockley_avalanche(v):
     return i_total
 
 
-def generate_weather_calculator():
+def generate_weather_calculator() -> None:
     print("[*] Initializing AVE Topological Solar Weather Calculator...")
 
     # -------------------------------------------------------------
@@ -207,7 +207,7 @@ def generate_weather_calculator():
 
 
 # Quick inline helper to avoid importing scipy.signal just for one basic peak find if not needed
-def scipy_find_peaks(arr):
+def scipy_find_peaks(arr: np.ndarray) -> tuple:
     # Dummy implementation for simple smooth curves
     return [np.argmax(arr)], None
 

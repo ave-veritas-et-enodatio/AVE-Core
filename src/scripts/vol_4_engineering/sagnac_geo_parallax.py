@@ -3,7 +3,7 @@ import numpy as np
 from ave.core.constants import C_0, G
 
 
-def simulate_sagnac_geo_parallax():
+def simulate_sagnac_geo_parallax() -> None:
     print("--- Vol 4 New Proposals: Sagnac & GEO-Synchronous Parallax ---")
 
     # 1. Sagnac-Parallax (Galactic Wind Vectoring)

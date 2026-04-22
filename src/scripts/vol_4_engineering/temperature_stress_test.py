@@ -89,7 +89,7 @@ def ave_bjt_beta(T: float) -> str:
     return f"β = {beta:.2f}"
 
 
-def run_thermal_sweep():
+def run_thermal_sweep() -> None:
     temperatures = [0.0, 10.0, 50.0, 150.0, 300.0, 600.0, 800.0]
 
     print("=" * 70)

@@ -14,7 +14,7 @@ import numpy as np
 from scipy.spatial import Delaunay
 
 
-def poisson_disk_sample(N_target, box_size, r_min, seed=42):
+def poisson_disk_sample(N_target: int, box_size: float, r_min: float, seed: int = 42) -> np.ndarray:
     """
     Simple dart-throwing Poisson-disk sampling in 3D.
     Places points with minimum separation r_min.
@@ -38,7 +38,7 @@ def poisson_disk_sample(N_target, box_size, r_min, seed=42):
     return np.array(points)
 
 
-def count_coordination(pos, r_max, box_size):
+def count_coordination(pos: np.ndarray, r_max: float, box_size: float) -> tuple[float, float]:
     """
     Count mean coordination: number of neighbors within r_max.
     Uses minimum image convention for periodic boundaries.
@@ -55,7 +55,7 @@ def count_coordination(pos, r_max, box_size):
     return np.mean(z_values), np.std(z_values)
 
 
-def delaunay_coordination(pos):
+def delaunay_coordination(pos: np.ndarray) -> tuple[float, float]:
     """Mean coordination from Delaunay triangulation."""
     tri = Delaunay(pos)
     neighbors = {i: set() for i in range(len(pos))}
@@ -68,7 +68,7 @@ def delaunay_coordination(pos):
     return np.mean(z_vals), np.std(z_vals)
 
 
-def run_verification():
+def run_verification() -> None:
     """Verify z₀ from lattice geometry."""
 
     print("=" * 60)

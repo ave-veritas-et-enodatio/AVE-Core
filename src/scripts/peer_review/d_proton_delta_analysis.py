@@ -28,7 +28,7 @@ m_p_derived_mev = PROTON_ELECTRON_RATIO * M_E * C_0**2 / (e_charge * 1e6)
 
 
 # ─── Recompute ALL downstream constants with BOTH chains ────────────────
-def compute_nuclear_chain(d_proton_fm: float) -> dict:
+def compute_nuclear_chain(d_proton_fm: float) -> dict[str, float]:
     """Recompute the full nuclear constant chain from a given D_PROTON."""
     d_intra = d_proton_fm * (8.0**0.5)
     d_nn = pi * d_proton_fm * 7.0 / 9.0

@@ -12,7 +12,7 @@ output_dir = os.path.join(project_root, "periodic_table", "figures")
 os.makedirs(output_dir, exist_ok=True)
 
 
-def calculate_vacuum_density(nodes, X, Y, z_slice=0.0):
+def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude, epsilon = 100.0, 0.5
     for cx, cy, cz in nodes:
@@ -21,7 +21,7 @@ def calculate_vacuum_density(nodes, X, Y, z_slice=0.0):
     return density_field
 
 
-def animate_dt_fusion_transient():
+def animate_dt_fusion_transient() -> None:
     print("[*] Generating D-T Fusion FDTD Macro-Merger Animation...")
     bound, grid_res, frames = 8.0, 80, 80
     x = np.linspace(-bound, bound, grid_res)

@@ -7,7 +7,7 @@ from periodic_table.simulations.spice_exporter import generate_fusion_netlist
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def simulate_dt_fusion():
+def simulate_dt_fusion() -> None:
     print("[*] Simulating D-T Fusion Transient Macro-Topology...")
 
     # Deuterium (Z=1, A=2)

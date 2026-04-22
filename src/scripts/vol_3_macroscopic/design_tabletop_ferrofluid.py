@@ -10,7 +10,7 @@ from ave.core.constants import MU_0
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 
 
-def design_tabletop_ferrofluid():
+def design_tabletop_ferrofluid() -> None:
     """
     Calculates the exact Electromechanical requirements for a physical lab replication
     of the Bullet Cluster Dark Matter offset.

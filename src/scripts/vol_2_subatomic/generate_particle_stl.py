@@ -68,7 +68,7 @@ LEPTON_VISUAL_SCALE = 6.0  # [RENDERING] Magnify leptons 6× for printability
 # ═══════════════════════════════════════════════════════════════════
 
 
-def compute_frenet_frame(curve):
+def compute_frenet_frame(curve: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute the Frenet-Serret frame (T, N, B) along a 3D curve.
 
@@ -132,7 +132,14 @@ def compute_frenet_frame(curve):
     return T, N, B
 
 
-def sweep_tube(curve, tube_radius, n_radial=24, twist_turns=0, curvature_amplitude=0.0, curvature_lobes=0):
+def sweep_tube(
+    curve: np.ndarray,
+    tube_radius: float,
+    n_radial: int = 24,
+    twist_turns: float = 0,
+    curvature_amplitude: float = 0.0,
+    curvature_lobes: int = 0,
+) -> stl_mesh.Mesh:
     """
     Generate a watertight triangle mesh by sweeping a circular cross-section
     along a 3D curve using the Frenet-Serret frame.
@@ -200,7 +207,7 @@ def sweep_tube(curve, tube_radius, n_radial=24, twist_turns=0, curvature_amplitu
     return result
 
 
-def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
+def sweep_tube_open(curve: np.ndarray, tube_radius: float, n_radial: int = 24, cap: bool = True) -> stl_mesh.Mesh:
     """
     Generate a watertight triangle mesh for an OPEN curve (not closed loop).
     Used for neutrino screw dislocation helices.
@@ -302,7 +309,7 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
 # ═══════════════════════════════════════════════════════════════════
 
 
-def make_baryon_stl(q, scale_mm=MM_PER_L_NODE, n_radial=24, resolution=2000):
+def make_baryon_stl(q: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 2000) -> stl_mesh.Mesh:
     """
     Generate a (2,q) torus knot STL mesh for a baryon.
 
@@ -332,7 +339,7 @@ def make_baryon_stl(q, scale_mm=MM_PER_L_NODE, n_radial=24, resolution=2000):
     return sweep_tube(curve, tube_r, n_radial=n_radial)
 
 
-def make_electron_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_electron_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the electron unknot: a smooth torus ring.
 
@@ -359,7 +366,7 @@ def make_electron_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     return sweep_tube(curve, tube_r, n_radial=n_radial)
 
 
-def make_muon_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_muon_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the muon: unknot with Cosserat torsional twist.
 
@@ -397,7 +404,7 @@ def make_muon_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     return sweep_tube(curve, tube_r, n_radial=n_radial, twist_turns=twist_turns_derived)
 
 
-def make_tau_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_tau_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the tau: unknot with curvature-twist undulation.
 
@@ -422,7 +429,9 @@ def make_tau_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     return sweep_tube(curve, tube_r, n_radial=n_radial, curvature_amplitude=P_C, curvature_lobes=7)
 
 
-def make_neutrino_stl(crossing_number, scale_mm=MM_PER_L_NODE, n_radial=16, resolution=2000):
+def make_neutrino_stl(
+    crossing_number: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 16, resolution: int = 2000
+) -> stl_mesh.Mesh:
     """
     Generate a neutrino screw dislocation: open helical coil.
 
@@ -454,7 +463,9 @@ def make_neutrino_stl(crossing_number, scale_mm=MM_PER_L_NODE, n_radial=16, reso
     return sweep_tube_open(curve, tube_r, n_radial=n_radial, cap=True)
 
 
-def make_proton_borromean_stl(scale_mm=MM_PER_L_NODE, n_radial=20, resolution=1000):
+def make_proton_borromean_stl(
+    scale_mm: float = MM_PER_L_NODE, n_radial: int = 20, resolution: int = 1000
+) -> stl_mesh.Mesh:
     """
     Generate the proton internal structure: Borromean 6³₂ link.
 
@@ -491,7 +502,7 @@ def make_proton_borromean_stl(scale_mm=MM_PER_L_NODE, n_radial=20, resolution=10
 # ═══════════════════════════════════════════════════════════════════
 
 
-def main():
+def main() -> None:
     project_root = pathlib.Path(__file__).parent.parent.parent.parent
     output_dir = project_root / "assets" / "3d_models"
     output_dir.mkdir(parents=True, exist_ok=True)

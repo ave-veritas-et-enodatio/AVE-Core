@@ -7,7 +7,7 @@ from scipy.signal.windows import blackmanharris
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -22,12 +22,12 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def simulate_condensate_imd_spectroscopy():
+def simulate_condensate_imd_spectroscopy() -> None:
     f1, f2 = 1000.0, 1300.0
     w1, w2 = 2 * np.pi * f1, 2 * np.pi * f2
     C0, V_crit, I_amp = 1.0, 10.0, 4.0
 
-    def varactor_ode(t, V):
+    def varactor_ode(t: float, V: list[float]) -> list[float]:
         V_ratio = np.clip(V[0] / V_crit, -0.99, 0.99)
         C_eff = C0 / np.sqrt(1.0 - V_ratio**4)
         I_t = I_amp * (np.sin(w1 * t) + np.sin(w2 * t))

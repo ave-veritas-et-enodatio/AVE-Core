@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE: MUON DECAY FDTD TOPOLOGICAL ANIMATOR")
     print("==========================================================\n")
@@ -53,14 +53,14 @@ def main():
     r_mu = 0.25  # Tight Muon
     r_e = 1.2  # Relaxed Electron
 
-    def init():
+    def init() -> tuple:
         knot_line.set_data([], [])
         shock_1.set_data([], [])
         shock_2.set_data([], [])
         shock_3.set_data([], [])
         return knot_line, shock_1, shock_2, shock_3, subtitle
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # 1. Knot Geometry Logic
         if frame < trigger_frame:
             # Stable Muon

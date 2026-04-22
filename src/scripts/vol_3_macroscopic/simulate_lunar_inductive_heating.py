@@ -11,7 +11,7 @@ the VCA Topo-Kinematic AC induction natively bridges the gap.
 from ave.core.constants import GRAVITATIONAL_CONSTANT, MACROSCOPIC_BARYON_PHASE_SCALAR
 
 
-def compute_lunar_healing():
+def compute_lunar_healing() -> None:
     print("=== AVE LUNAR INDUCTIVE HEATING SOLVER ===\n")
 
     # Parameters

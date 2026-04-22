@@ -18,7 +18,7 @@ import numpy as np
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def generate_lense_thirring_figure():
+def generate_lense_thirring_figure() -> None:
     print("[*] Generating Lense-Thirring Inductive Drag Figure...")
 
     plt.style.use("dark_background")

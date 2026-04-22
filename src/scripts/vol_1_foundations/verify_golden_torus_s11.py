@@ -33,6 +33,8 @@ Usage:
     python src/scripts/vol_1_foundations/verify_golden_torus_s11.py
 """
 
+from typing import Any
+
 import numpy as np
 from scipy.optimize import minimize
 
@@ -47,7 +49,7 @@ GOLDEN_r = (PHI - 1.0) / 2.0
 # ═══════════════════════════════════════════════════════════════════════════
 # 1. Trefoil parameterization
 # ═══════════════════════════════════════════════════════════════════════════
-def trefoil_points(R, r, n=600):
+def trefoil_points(R: float, r: float, n: int = 600) -> tuple[np.ndarray, np.ndarray]:
     """
     (2,3) torus knot parameterized by (R, r).
     Parameter t ∈ [0, 2π); traces the full closed loop once.
@@ -65,7 +67,7 @@ def trefoil_points(R, r, n=600):
     return np.stack([x, y, z], axis=-1), t
 
 
-def min_strand_separation(R, r, n=400):
+def min_strand_separation(R: float, r: float, n: int = 400) -> float:
     """
     Minimum non-adjacent point-to-point distance along the trefoil.
 
@@ -91,7 +93,7 @@ def min_strand_separation(R, r, n=400):
 # ═══════════════════════════════════════════════════════════════════════════
 # 2. Local characteristic impedance along the trefoil
 # ═══════════════════════════════════════════════════════════════════════════
-def local_impedance(R, r, n=200):
+def local_impedance(R: float, r: float, n: int = 200) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Characteristic impedance Z_c(s) along the trefoil.
 
@@ -129,7 +131,7 @@ def local_impedance(R, r, n=200):
 # ═══════════════════════════════════════════════════════════════════════════
 # 3. Closed-loop S₁₁ via ABCD cascade
 # ═══════════════════════════════════════════════════════════════════════════
-def trefoil_s11(R, r, n=200, omega_over_c=2.0 * np.pi):
+def trefoil_s11(R: float, r: float, n: int = 200, omega_over_c: float = 2.0 * np.pi) -> float:
     """
     Total S₁₁ of the closed-loop trefoil via ABCD cascade.
 
@@ -156,7 +158,7 @@ def trefoil_s11(R, r, n=200, omega_over_c=2.0 * np.pi):
 # ═══════════════════════════════════════════════════════════════════════════
 # 4. Verification runs
 # ═══════════════════════════════════════════════════════════════════════════
-def verify_self_avoidance():
+def verify_self_avoidance() -> None:
     """
     Demonstrate that minimum strand separation = 1 (tube diameter)
     occurs precisely at R - r = 1/2.
@@ -183,7 +185,7 @@ def verify_self_avoidance():
     print()
 
 
-def verify_s11_minimum():
+def verify_s11_minimum() -> tuple[Any, float, float]:
     """
     Minimize |S₁₁|² over (R, r) subject to the self-avoidance constraint.
     The minimum should land at the Golden Torus.
@@ -192,7 +194,7 @@ def verify_s11_minimum():
     print("  (2) S₁₁-min: verifying |S₁₁|² minimum → Golden Torus (R·r = 1/4)")
     print("─" * 72)
 
-    def objective(params):
+    def objective(params: np.ndarray) -> float:
         R, r = params
         # Hard constraint: R - r ≥ 1/2 (self-avoidance); penalize violation
         gap = (R - r) - 0.5

@@ -5,7 +5,7 @@ from ave.core.constants import HIGGS_VEV_MEV, Z_0, e_charge
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE SUBATOMIC SCALE: HIGGS FIELD IMPEDANCE MAPPING")
     print("==========================================================\n")

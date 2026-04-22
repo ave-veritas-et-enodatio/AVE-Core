@@ -24,13 +24,13 @@ L_NODE = HBAR / (M_E * C_0)
 r = np.linspace(0.01, 8.0, 500)  # in units of L_NODE
 
 
-def skyrmion_profile(r, kappa, n=2):
+def skyrmion_profile(r: np.ndarray, kappa: float, n: int = 2) -> np.ndarray:
     """Power-law hedgehog profile for the O(3) sigma model."""
     R = 1.0 / np.sqrt(kappa)  # characteristic radius
     return np.pi / (1 + (r / R) ** n)
 
 
-def energy_density(r, kappa, n=2):
+def energy_density(r: np.ndarray, kappa: float, n: int = 2) -> np.ndarray:
     """Strain energy density of the Skyrmion profile."""
     f = skyrmion_profile(r, kappa, n)
     df = np.gradient(f, r)

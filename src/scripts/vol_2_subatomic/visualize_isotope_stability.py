@@ -25,7 +25,7 @@ M_N = 1.00866
 Z = 92  # Uranium protons
 
 
-def build_uranium_core(A):
+def build_uranium_core(A: int) -> tuple[list, list, np.ndarray]:
     """
     Builds the masses array and initializes the random nucleon cloud.
     """
@@ -50,7 +50,7 @@ def build_uranium_core(A):
     return masses, colors, initial_coords
 
 
-def assemble_isotopes():
+def assemble_isotopes() -> None:
     print("[*] Comparing Topological Stability: U-235 vs U-238")
 
     # 1. Assemble U-235

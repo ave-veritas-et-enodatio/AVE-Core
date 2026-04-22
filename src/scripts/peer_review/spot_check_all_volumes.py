@@ -55,7 +55,7 @@ from ave.core.constants import (
 # ═════════════════════════════════════════════════════════════════
 
 
-def check(name, manuscript, engine, tol_pct=1.0, unit=""):
+def check(name: str, manuscript: float, engine: float, tol_pct: float = 1.0, unit: str = "") -> tuple[bool, str]:
     """Compare manuscript vs engine value. Returns (pass, row_string)."""
     if engine == 0 and manuscript == 0:
         delta_pct = 0.0
@@ -68,7 +68,7 @@ def check(name, manuscript, engine, tol_pct=1.0, unit=""):
     return passed, (f"  {name:<40s} {manuscript:>16.6g} {engine:>16.6g} " f"{delta_pct:>8.4f}% {mark}  {unit}")
 
 
-def print_volume(vol_name, checks):
+def print_volume(vol_name: str, checks: list[tuple[bool, str]]) -> bool:
     """Print a compliance table for a volume."""
     print(f"\n{'='*100}")
     print(f"  {vol_name}")

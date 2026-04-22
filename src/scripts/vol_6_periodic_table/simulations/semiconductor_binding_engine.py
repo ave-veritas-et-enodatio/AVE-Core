@@ -49,6 +49,8 @@ Equilibrium Inter-Alpha Distance (R):
   standing half-wavelengths of the required binding energy (S_11 → 0 impedance matching).
 """
 
+from collections.abc import Callable
+
 import numpy as np
 from scipy.optimize import brentq
 
@@ -126,7 +128,7 @@ BETA_0 = K_MUTUAL / ALPHA_HC  # ≈ 7.873
 # =============================================================================
 
 
-def make_ring(n, R_factor):
+def make_ring(n: int, R_factor: float) -> np.ndarray:
     """N-alpha ring (equilateral polygon)."""
     R = R_factor * d
     centers = np.zeros((n, 3))
@@ -136,19 +138,19 @@ def make_ring(n, R_factor):
     return centers
 
 
-def make_tetrahedron(R_factor):
+def make_tetrahedron(R_factor: float) -> np.ndarray:
     """4-alpha tetrahedron."""
     R = R_factor * d
     return np.array([(R, R, R), (-R, -R, R), (-R, R, -R), (R, -R, -R)])
 
 
-def make_octahedron(R_factor):
+def make_octahedron(R_factor: float) -> np.ndarray:
     """6-alpha octahedron."""
     R = R_factor * d
     return np.array([(R, 0, 0), (-R, 0, 0), (0, R, 0), (0, -R, 0), (0, 0, R), (0, 0, -R)])
 
 
-def make_pentagonal_bipyramid(R_factor):
+def make_pentagonal_bipyramid(R_factor: float) -> np.ndarray:
     """7-alpha pentagonal bipyramid (5 equatorial + 2 polar)."""
     R = R_factor * d
     centers = []
@@ -160,7 +162,7 @@ def make_pentagonal_bipyramid(R_factor):
     return np.array(centers)
 
 
-def make_cube(R_factor):
+def make_cube(R_factor: float) -> np.ndarray:
     """8-alpha cube."""
     R = R_factor * d
     s = R / np.sqrt(3)
@@ -178,7 +180,7 @@ def make_cube(R_factor):
     )
 
 
-def make_bicapped_antiprism(R_factor):
+def make_bicapped_antiprism(R_factor: float) -> np.ndarray:
     """10-alpha bicapped square antiprism.
     8 vertices form a square antiprism, plus 2 polar caps."""
     R = R_factor * d
@@ -197,7 +199,7 @@ def make_bicapped_antiprism(R_factor):
     return np.array(centers)
 
 
-def make_cuboctahedron(R_factor):
+def make_cuboctahedron(R_factor: float) -> np.ndarray:
     """12-alpha cuboctahedron (Archimedean solid).
     12 vertices at midpoints of cube edges."""
     R = R_factor * d
@@ -220,7 +222,7 @@ def make_cuboctahedron(R_factor):
     )
 
 
-def make_centered_icosahedron(R_factor):
+def make_centered_icosahedron(R_factor: float) -> np.ndarray:
     """13-alpha centered icosahedron.
     12 vertices of regular icosahedron + 1 at center."""
     R = R_factor * d
@@ -246,7 +248,7 @@ def make_centered_icosahedron(R_factor):
     return np.array(centers)
 
 
-def make_fcc14(R_factor):
+def make_fcc14(R_factor: float) -> np.ndarray:
     """14-alpha FCC-type packing.
     Face-centered cubic unit cell: 8 corner + 6 face-center sites."""
     R = R_factor * d
@@ -272,7 +274,7 @@ def make_fcc14(R_factor):
     return np.array(corners + faces)
 
 
-def make_core_plus_halo(core_func, core_R, halo_R_factor):
+def make_core_plus_halo(core_func: Callable[[float], np.ndarray], core_R: float, halo_R_factor: float) -> tuple[np.ndarray, np.ndarray]:
     """
     Build an odd-A nucleus: alpha-conjugate core + Tritium (3-nucleon) halo.
 
@@ -312,7 +314,7 @@ def make_core_plus_halo(core_func, core_R, halo_R_factor):
 # =============================================================================
 
 
-def compute_binding(alpha_centers, n_alpha):
+def compute_binding(alpha_centers: np.ndarray, n_alpha: int) -> dict:
     """
     Compute nuclear binding energy using the semiconductor model.
 
@@ -382,7 +384,7 @@ def compute_binding(alpha_centers, n_alpha):
     }
 
 
-def solve_element(name, n_alpha, Z, A, mass_codata, geo_func, verbose=True):
+def solve_element(name: str, n_alpha: int, Z: int, A: int, mass_codata: float, geo_func: Callable[[float], np.ndarray], verbose: bool = True) -> tuple[float, dict]:
     """
     Solve for inter-alpha distance R that matches CODATA mass.
 
@@ -448,7 +450,7 @@ def solve_element(name, n_alpha, Z, A, mass_codata, geo_func, verbose=True):
     return best_R, result
 
 
-def compute_binding_halo(alpha_centers, halo_nodes, n_alpha, Z_core, Z_halo):
+def compute_binding_halo(alpha_centers: np.ndarray, halo_nodes: np.ndarray, n_alpha: int, Z_core: int, Z_halo: int) -> dict:
     """
     Compute binding for a core+halo nucleus (e.g. F-19 = O-16 core + T halo).
 
@@ -539,7 +541,7 @@ def compute_binding_halo(alpha_centers, halo_nodes, n_alpha, Z_core, Z_halo):
     }
 
 
-def solve_halo_element(name, n_alpha, Z_core, Z_halo, n_halo, mass_codata, core_func, core_R, verbose=True):
+def solve_halo_element(name: str, n_alpha: int, Z_core: int, Z_halo: int, n_halo: int, mass_codata: float, core_func: Callable[[float], np.ndarray], core_R: float, verbose: bool = True) -> tuple[float | None, dict | None]:
     """Solve for halo distance R that matches CODATA mass for a core+halo nucleus."""
 
     def err_func(R_halo):

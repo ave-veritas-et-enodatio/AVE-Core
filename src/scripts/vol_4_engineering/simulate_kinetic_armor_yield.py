@@ -26,7 +26,7 @@ DT = 0.5  # Time step (Courant condition stable)
 COMPRESSIBILITY = 0.05
 
 
-def simulate_kinetic_armor_yield():
+def simulate_kinetic_armor_yield() -> tuple[list, list, list]:
     """
     1D Finite-Difference Time-Domain (FDTD) Acoustic Wave Propagation.
     Strictly simulates the AVE topological volume compression phase state jump.
@@ -49,7 +49,7 @@ def simulate_kinetic_armor_yield():
 
     # The Ballistic Impact: Inject an extreme massive pressure pulse
     # (resembling an armor-piercing kinetic shock) on the left boundary
-    def source(t):
+    def source(t: int) -> float:
         if t < 40:
             return 3.0 * np.sin(np.pi * t / 40.0)  # High-kinetic Gaussian-like hit
         return 0.0
@@ -105,7 +105,7 @@ def simulate_kinetic_armor_yield():
     return history_p, history_phi, history_Z
 
 
-def plot_kinetic_armor_reaction(history_p, history_phi, history_Z):
+def plot_kinetic_armor_reaction(history_p: list, history_phi: list, history_Z: list) -> None:
     """Plot the 3 stages: Ingress, Phase-Lock Reflection, and Relaxation"""
 
     # fig = plt.figure(figsize=(12, 9))  # bulk lint fixup pass

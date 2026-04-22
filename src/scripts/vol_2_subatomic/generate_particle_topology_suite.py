@@ -25,7 +25,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # ─── Topology Generators ────────────────────────────────────────────
 
 
-def unknot(R=2.0, resolution=500):
+def unknot(R: float = 2.0, resolution: int = 500) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """0_1 Unknot: a simple closed loop (circle) in 3D."""
     t = np.linspace(0, 2 * np.pi, resolution)
     x = R * np.cos(t)
@@ -34,7 +34,9 @@ def unknot(R=2.0, resolution=500):
     return x, y, z, t
 
 
-def excited_unknot(R=2.0, mode="rotation", resolution=500):
+def excited_unknot(
+    R: float = 2.0, mode: str = "rotation", resolution: int = 500
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Cosserat excitation of the unknot.
     - mode='rotation': torsional ripple (Muon — 1 quantum)
@@ -54,7 +56,9 @@ def excited_unknot(R=2.0, mode="rotation", resolution=500):
     return x, y, z, t
 
 
-def twisted_unknot(R=2.0, resolution=500):
+def twisted_unknot(
+    R: float = 2.0, resolution: int = 500
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """Dispersive twisted unknot: neutrino. A helical open loop."""
     t = np.linspace(0, 4 * np.pi, resolution)
     pitch = 0.8
@@ -64,7 +68,9 @@ def twisted_unknot(R=2.0, resolution=500):
     return x, y, z, t
 
 
-def borromean_link(R=1.5, resolution=500):
+def borromean_link(
+    R: float = 1.5, resolution: int = 500
+) -> list[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]:
     """6^3_2 Borromean linkage: three mutually interlocked rings."""
     t = np.linspace(0, 2 * np.pi, resolution)
     rings = []
@@ -90,7 +96,9 @@ def borromean_link(R=1.5, resolution=500):
     return rings
 
 
-def threaded_borromean(R_borro=1.5, R_thread=0.4, resolution=500):
+def threaded_borromean(
+    R_borro: float = 1.5, R_thread: float = 0.4, resolution: int = 500
+) -> tuple[list[tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]], tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]:
     """Neutron: Borromean link with a threaded unknot in the central void."""
     rings = borromean_link(R_borro, resolution)
 
@@ -114,7 +122,7 @@ NEUTRINO_COLOR = "#9966ff"
 NEUTRON_THREAD_COLOR = "#66ffcc"
 
 
-def setup_3d_ax(fig, pos=111):
+def setup_3d_ax(fig: plt.Figure, pos: int = 111) -> plt.Axes:
     ax = fig.add_subplot(pos, projection="3d")
     ax.set_facecolor("#050510")
     ax.xaxis.set_pane_color((0, 0, 0, 0))
@@ -125,13 +133,23 @@ def setup_3d_ax(fig, pos=111):
     return ax
 
 
-def set_cubic_limits(ax, lim=3.0):
+def set_cubic_limits(ax: plt.Axes, lim: float = 3.0) -> None:
     ax.set_xlim([-lim, lim])
     ax.set_ylim([-lim, lim])
     ax.set_zlim([-lim, lim])
 
 
-def plot_phase_loop(ax, x, y, z, t, color, lw=4, alpha=0.9, label=None):
+def plot_phase_loop(
+    ax: plt.Axes,
+    x: np.ndarray,
+    y: np.ndarray,
+    z: np.ndarray,
+    t: np.ndarray,
+    color: str,
+    lw: float = 4,
+    alpha: float = 0.9,
+    label: str | None = None,
+) -> None:
     """Plot with phase-mapped color along the loop."""
     ax.scatter(x, y, z, c=t, cmap="hsv", s=15, alpha=alpha, edgecolors="none")
     ax.plot(x, y, z, color=color, linewidth=lw * 0.3, alpha=0.4)
@@ -152,7 +170,7 @@ def plot_phase_loop(ax, x, y, z, t, color, lw=4, alpha=0.9, label=None):
 # ─── Individual Figures ──────────────────────────────────────────────
 
 
-def figure_electron():
+def figure_electron() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     x, y, z, t = unknot()
@@ -166,7 +184,7 @@ def figure_electron():
     print(f"[+] {path}")
 
 
-def figure_muon():
+def figure_muon() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     x, y, z, t = excited_unknot(mode="rotation")
@@ -180,7 +198,7 @@ def figure_muon():
     print(f"[+] {path}")
 
 
-def figure_tau():
+def figure_tau() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     x, y, z, t = excited_unknot(mode="curvature")
@@ -194,7 +212,7 @@ def figure_tau():
     print(f"[+] {path}")
 
 
-def figure_neutrino():
+def figure_neutrino() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     x, y, z, t = twisted_unknot()
@@ -208,7 +226,7 @@ def figure_neutrino():
     print(f"[+] {path}")
 
 
-def figure_proton():
+def figure_proton() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     rings = borromean_link()
@@ -234,7 +252,7 @@ def figure_proton():
     print(f"[+] {path}")
 
 
-def figure_neutron():
+def figure_neutron() -> None:
     fig = plt.figure(figsize=(8, 8), facecolor="#050510")
     ax = setup_3d_ax(fig)
     rings, inner = threaded_borromean()
@@ -266,7 +284,7 @@ def figure_neutron():
 # ─── Summary Panel ───────────────────────────────────────────────────
 
 
-def figure_summary_panel():
+def figure_summary_panel() -> None:
     fig = plt.figure(figsize=(20, 14), facecolor="#050510")
     fig.suptitle("AVE Topological Particle Zoo", color="white", fontsize=22, y=0.97, weight="bold")
 

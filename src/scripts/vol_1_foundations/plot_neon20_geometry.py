@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_neon20_plot():
+def create_neon20_plot() -> None:
     fig = plt.figure(figsize=(10, 10), facecolor="#050510")
     ax = fig.add_subplot(111, projection="3d")
     ax.set_facecolor("#050510")
@@ -101,7 +101,7 @@ def create_neon20_plot():
     )
 
     # Annotate d_ij bonds
-    def annotate_bond(pA, pB, label):
+    def annotate_bond(pA: np.ndarray, pB: np.ndarray, label: str) -> None:
         mid = (pA + pB) / 2
         # Offset bond text slightly to prevent overlap with the line
         ax.text(

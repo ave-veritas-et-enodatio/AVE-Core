@@ -23,7 +23,7 @@ from ave.regime_3_saturated.kolmogorov_cutoff import (
 )
 
 
-def build_visualization():
+def build_visualization() -> None:
     print("[*] Generating Kolmogorov Cascade Topology Visualizations...")
     project_root = pathlib.Path(__file__).parent.parent.parent.parent.absolute()
 

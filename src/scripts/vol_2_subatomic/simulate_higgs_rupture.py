@@ -54,7 +54,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.gridspec import GridSpec  # noqa: E402
 
 
-def run_simulation():
+def run_simulation() -> None:
     # ── PREREQUISITE GATE: identify operating regime at V_snap ──
     # regime = identify_regime("em_voltage", V_local=float(V_SNAP))  # bulk lint fixup pass
     print()
@@ -141,7 +141,7 @@ def run_simulation():
     fig.patch.set_facecolor(C_BG)
     gs = GridSpec(2, 3, figure=fig, hspace=0.35, wspace=0.35)
 
-    def style_ax(ax):
+    def style_ax(ax: plt.Axes) -> None:
         ax.set_facecolor(C_BG)
         ax.tick_params(colors=C_TEXT, labelsize=9)
         ax.grid(True, alpha=0.12, color=C_GRID)

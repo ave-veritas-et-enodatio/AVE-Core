@@ -12,7 +12,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -28,7 +28,7 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 
-def generate_parity_violation():
+def generate_parity_violation() -> None:
     print("Evaluating Topologically Chiral Signal Propagation (Weak Force Parity Bounds)...")
     fig, axes = plt.subplots(1, 2, figsize=(14, 6), facecolor="#050510")
 
@@ -47,7 +47,7 @@ def generate_parity_violation():
     K_L = 0.05  # Massive impedance mismatch to left-handed geometry (geometric frustration)
 
     # The propagation amplitude decays proportionally to impedance mismatch
-    def simulate_torsional_wave(chirality, K_coupling):
+    def simulate_torsional_wave(chirality: float, K_coupling: float) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         y = np.zeros(N)
         y[0] = 1.0  # Input amplitude at origin
         # Simple spatial envelope attenuation reflecting the mechanical blocking

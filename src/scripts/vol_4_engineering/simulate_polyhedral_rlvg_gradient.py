@@ -16,7 +16,7 @@ OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..",
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def simulate_polyhedral_rlvg():
+def simulate_polyhedral_rlvg() -> None:
     print("Simulating 3D Polyhedral RLVG Metric Gradient Compass...")
 
     # Simulation Parameters

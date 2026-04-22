@@ -36,7 +36,7 @@ def enclosed_baryonic_mass(r_kpc: float) -> float:
     return m_bd + m_dd
 
 
-def simulate_galactic_curve():
+def simulate_galactic_curve() -> None:
     print("=== AVE PHASE 4: GALACTIC EDGE AND MOND TRANSITION ===")
 
     a_0 = get_a0()

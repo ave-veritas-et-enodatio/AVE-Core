@@ -25,11 +25,11 @@ PLANETS = [
 ]
 
 
-def get_b_gm(J, r):
+def get_b_gm(J: float, r: float | np.ndarray) -> float | np.ndarray:
     return (G * abs(J)) / (C_0**2 * r**3)
 
 
-def generate_animation(out_path):
+def generate_animation(out_path: str) -> None:
     print("Initializing animation grid...")
     # Scale to cover Jupiter's orbit (7.78e11 m)
     grid_lim = 8.5e11
@@ -67,7 +67,7 @@ def generate_animation(out_path):
     ax.set_ylabel("Y (meters)")
 
     # To enhance contrast for the planets vs the sun, we compress the dynamic range.
-    def compute_field(day):
+    def compute_field(day: float) -> tuple[np.ndarray, list[tuple[float, float]]]:
         Z = np.zeros_like(X)
         positions = []
 
@@ -102,7 +102,7 @@ def generate_animation(out_path):
         Z_log = np.log10(Z + 1e-30)
         return Z_log, positions
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         day = frame * days_per_frame
         if frame % 20 == 0:
             print(f"Rendering frame {frame}/{n_frames}...")

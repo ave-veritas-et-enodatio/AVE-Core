@@ -15,7 +15,7 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def calculate_flow_field(nodes, X, Y, z_slice=0.0):
+def calculate_flow_field(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Computes a uniform horizontal flow (U, 0) perturbed by the
     repulsive density gradients of the topological nodes.
@@ -43,7 +43,7 @@ def calculate_flow_field(nodes, X, Y, z_slice=0.0):
     return density, Vx, Vy
 
 
-def plot_magnetism(element_name, Z, A, is_paramagnetic=False):
+def plot_magnetism(element_name: str, Z: int, A: int, is_paramagnetic: bool = False) -> None:
     nodes = get_nucleon_coordinates(Z, A)
     if not nodes:
         return

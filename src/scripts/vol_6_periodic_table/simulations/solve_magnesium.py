@@ -23,7 +23,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_MG24 = 22335.792891
 
 
-def get_magnesium_24_nodes(r_oct):
+def get_magnesium_24_nodes(r_oct: float) -> np.ndarray:
     """
     Constructs the 24-nucleon array (6-Alpha Octahedron).
     """
@@ -50,7 +50,7 @@ def get_magnesium_24_nodes(r_oct):
     return np.array(nodes_mg24)
 
 
-def calc_mass(r_oct):
+def calc_mass(r_oct: float) -> float:
     nodes = get_magnesium_24_nodes(r_oct)
     raw_mass = (12 * M_P_RAW) + (12 * M_N_RAW)
     binding_energy = 0.0
@@ -63,7 +63,7 @@ def calc_mass(r_oct):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Magnesium-24 ({TARGET_MASS_MG24:.6f} MeV target) ---")
 
     def error_func(r_val):

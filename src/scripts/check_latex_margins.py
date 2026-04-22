@@ -2,7 +2,7 @@ import re
 import sys
 
 
-def check_log(log_path):
+def check_log(log_path: str) -> None:
     overfull_pattern = re.compile(r"Overfull \\hbox \(([\d\.]+)pt too wide\)")
     max_allowed = 15.0  # Permit minor kerning/hyphenation overruns up to 15pt
     failed = False

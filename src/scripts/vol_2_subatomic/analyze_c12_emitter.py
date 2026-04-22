@@ -11,7 +11,7 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main():
+def main() -> None:
     # 1. Get Helium-4 Nodes (Perfect Tetrahedron)
     he4_nodes = get_nucleon_coordinates(2, 4)
     he4_center = np.mean(he4_nodes, axis=0)
@@ -41,7 +41,7 @@ def main():
     # To keep it simple, we just look at the max E-field concentration vs the average E-field.
     # A sharper tip = higher max concentration (higher variance across the collector).
 
-    def calc_E_field_squared_profile(emitter_nodes):
+    def calc_E_field_squared_profile(emitter_nodes: list) -> np.ndarray:
         E_profile = np.zeros_like(X)
         for i in range(X.shape[0]):
             for j in range(X.shape[1]):

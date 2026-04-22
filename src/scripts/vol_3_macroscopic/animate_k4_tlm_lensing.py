@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 
 
-def apply_lens_2d(lattice, cx, cy, n0, r_core):
+def apply_lens_2d(lattice: "K4Lattice2D", cx: float, cy: float, n0: float, r_core: float) -> None:
     if not lattice.nonlinear:
         pass
     for i in range(lattice.nx):
@@ -31,7 +31,14 @@ def apply_lens_2d(lattice, cx, cy, n0, r_core):
                 lattice._S_field[i, j, lattice.my_z] = build_scattering_matrix(z_local=1.0 / n)
 
 
-def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2):
+def inject_beam_2d(
+    lattice: "K4Lattice2D",
+    y_center: float,
+    beam_width: float,
+    amplitude: float,
+    wavelength: float,
+    x_inj: int = 2,
+) -> None:
     k = 2.0 * np.pi / wavelength
     phase = k * lattice.timestep
     j_indices = np.arange(lattice.ny)
@@ -41,7 +48,7 @@ def inject_beam_2d(lattice, y_center, beam_width, amplitude, wavelength, x_inj=2
     lattice.V_inc[x_inj, :, lattice.my_z, 0] += pulse
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  Generating 10s Gravitational Lensing Animation")
     print("=" * 60)

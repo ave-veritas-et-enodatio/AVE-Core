@@ -6,7 +6,7 @@ import numpy as np
 from ave.core.constants import C_0, G
 
 
-def simulate_frame_dragging_as_inductance():
+def simulate_frame_dragging_as_inductance() -> None:
     """
     Demonstrates that the Lense-Thirring (Gravitomagnetic) Frame Dragging effect
     is entirely analogous to macroscopic Mutual Inductance (M_12) in the LC Network.

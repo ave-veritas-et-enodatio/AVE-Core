@@ -12,13 +12,13 @@ output_dir = os.path.join(project_root, "periodic_table", "figures")
 os.makedirs(output_dir, exist_ok=True)
 
 
-def rotate_cluster_y(nodes, angle):
+def rotate_cluster_y(nodes: list, angle: float) -> list:
     c, s = np.cos(angle), np.sin(angle)
     R = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
     return [np.dot(R, n) for n in nodes]
 
 
-def calculate_vacuum_density(nodes, X, Y, z_slice=0.0):
+def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude, epsilon = 100.0, 0.5
     for cx, cy, cz in nodes:
@@ -27,14 +27,14 @@ def calculate_vacuum_density(nodes, X, Y, z_slice=0.0):
     return density_field
 
 
-def get_tetrahedron(center, scale=1.0):
+def get_tetrahedron(center: np.ndarray, scale: float = 1.0) -> list:
     # 4 nucleons in an alpha particle
     t = 1.0 / np.sqrt(2.0)
     pts = [np.array([1, 0, -t]), np.array([-1, 0, -t]), np.array([0, 1, t]), np.array([0, -1, t])]
     return [p * scale + center for p in pts]
 
 
-def animate_beryllium_8_decay():
+def animate_beryllium_8_decay() -> None:
     print("[*] Generating Beryllium-8 Alpha Decay Transient Animation...")
     bound, grid_res, frames = 15.0, 80, 60
     x = np.linspace(-bound, bound, grid_res)
@@ -123,7 +123,7 @@ def animate_beryllium_8_decay():
     print("[*] Beryllium-8 Decay Animation Complete.")
 
 
-def animate_tritium_decay():
+def animate_tritium_decay() -> None:
     print("[*] Generating Tritium Beta- Decay Transient Animation...")
     bound, grid_res, frames = 8.0, 80, 60
     x = np.linspace(-bound, bound, grid_res)

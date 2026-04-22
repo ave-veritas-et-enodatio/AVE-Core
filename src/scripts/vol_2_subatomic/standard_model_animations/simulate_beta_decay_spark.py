@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE SUBATOMIC SCALE: ELECTROWEAK DIELECTRIC SPARK")
     print("==========================================================\n")
@@ -53,7 +53,7 @@ def main():
 
     plt.tight_layout()
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # A 5-crossing complex knot breaking into a simpler 3-crossing
 
         # Pre-decay: tight, high-tension knot

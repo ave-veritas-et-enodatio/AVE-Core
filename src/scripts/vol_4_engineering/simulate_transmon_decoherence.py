@@ -44,7 +44,7 @@ THERMAL_AMP = 0.15  # RMS amplitude of boundary thermal drive
 BOUNDARY_WIDTH = 3  # Number of nodes at each end coupled to the reservoir
 
 
-def simulate_transmon_decoherence():
+def simulate_transmon_decoherence() -> tuple[list[int], list[float]]:
     """
     Run the 1D FDTD simulation with boundary-impedance thermalization.
 
@@ -108,7 +108,7 @@ def simulate_transmon_decoherence():
     return time_history, coherence_history
 
 
-def generate_plot(time, coherence, out_path):
+def generate_plot(time: list[int], coherence: list[float], out_path: str) -> None:
     """Generate the decoherence plot with AVE manuscript styling."""
     plt.style.use("dark_background")
     fig, ax = plt.subplots(figsize=(10, 6))

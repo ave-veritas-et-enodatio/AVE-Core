@@ -11,7 +11,7 @@ output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../a
 os.makedirs(output_dir, exist_ok=True)
 
 
-def generate_bjt_surface():
+def generate_bjt_surface() -> None:
     """Generates the 3D Topological Beta Surface map"""
     print("Generating BJT Geometric Surface...")
     fig = plt.figure(figsize=(10, 7))
@@ -50,7 +50,7 @@ def generate_bjt_surface():
     print(f"Saved {path}")
 
 
-def generate_thermal_rigidity():
+def generate_thermal_rigidity() -> None:
     """Generates the absolute 0 K boundary falsification plot"""
     print("Generating Thermal Falsification Ridge...")
     temperatures = np.linspace(0.1, 800, 400)
@@ -100,7 +100,7 @@ def generate_thermal_rigidity():
     print(f"Saved {path}")
 
 
-def generate_spice_override():
+def generate_spice_override() -> None:
     """Generates the Topological Matrix vs Exponential I-V Curve"""
     print("Generating SPICE Constraint Visualizer...")
 

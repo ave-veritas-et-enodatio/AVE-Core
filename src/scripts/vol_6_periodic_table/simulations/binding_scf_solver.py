@@ -49,7 +49,7 @@ SCF_TOLERANCE = 1e-8  # Convergence threshold (fractional change in BE)
 DAMPING = 0.3  # Under-relaxation factor (PID "I" term)
 
 
-def compute_binding_bare(nodes):
+def compute_binding_bare(nodes: list) -> float:
     """Bare K/r model (no saturation). Reference baseline."""
     nodes = np.array(nodes, dtype=np.float64)
     n = len(nodes)
@@ -61,7 +61,7 @@ def compute_binding_bare(nodes):
     return be
 
 
-def compute_binding_scf(nodes, V_ref, verbose=False):
+def compute_binding_scf(nodes: list, V_ref: float, verbose: bool = False) -> tuple[float, dict]:
     """
     Self-consistent field solver for nuclear binding with Axiom 4 saturation.
 

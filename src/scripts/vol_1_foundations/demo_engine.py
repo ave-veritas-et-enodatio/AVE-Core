@@ -9,7 +9,7 @@ from ave.core import TopologicalNode, VacuumGrid
 # Important: Add project root to sys path so we can import ave.core cleanly
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE LIBRARY: ENGINE DEMONSTRATION SCRIPT")
     print("==========================================================\n")
@@ -60,7 +60,7 @@ def main():
 
     dt = 0.5
 
-    def update(frame):
+    def update(frame: int) -> list:
         # Master physics loop
 
         # Phase A: Grid Update

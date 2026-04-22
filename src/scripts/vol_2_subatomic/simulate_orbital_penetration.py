@@ -23,7 +23,7 @@ OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True, parents=True)
 
 
-def main():
+def main() -> None:
     print("=========================================================================")
     print("  Deterministic Derivation of Orbital Penetration via Impedance Mismatch")
     print("=========================================================================")

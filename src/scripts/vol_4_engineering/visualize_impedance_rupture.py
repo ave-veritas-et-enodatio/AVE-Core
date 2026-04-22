@@ -6,7 +6,7 @@ import numpy as np
 from ave.solvers.fdtd_lc_network import FDTDLattice1D
 
 
-def run_simulation():
+def run_simulation() -> None:
     """
     Simulates a Gaussian EM pulse traveling through a 1D gravitational metric
     (a gradient of optical density).

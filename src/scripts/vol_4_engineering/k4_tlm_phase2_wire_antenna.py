@@ -34,7 +34,7 @@ from ave.core.constants import ALPHA  # noqa: E402
 from ave.core.k4_tlm import K4Lattice2D  # noqa: E402
 
 
-def generate_loop_path(cx, cy, radius, n_points=200):
+def generate_loop_path(cx: int, cy: int, radius: int, n_points: int = 200) -> list[tuple[int, int]]:
     t = np.linspace(0, 2 * np.pi, n_points)
     x = cx + radius * np.cos(t)
     y = cy + radius * np.sin(t)
@@ -48,7 +48,9 @@ def generate_loop_path(cx, cy, radius, n_points=200):
     return unique_path
 
 
-def generate_torus_knot_path_2d(cx, cy, R, r, p, q, n_points=300):
+def generate_torus_knot_path_2d(
+    cx: int, cy: int, R: int, r: int, p: int, q: int, n_points: int = 300
+) -> list[tuple[int, int]]:
     t = np.linspace(0, 2 * np.pi, n_points)
     x = cx + (R + r * np.cos(q * t)) * np.cos(p * t)
     y = cy + (R + r * np.cos(q * t)) * np.sin(p * t)
@@ -63,8 +65,14 @@ def generate_torus_knot_path_2d(cx, cy, R, r, p, q, n_points=300):
 
 
 def simulate_wire_antenna(
-    nx, ny, wire_path, n_steps=500, source_freq_norm=0.1, probe_offset=5, alternating_chirality=True
-):
+    nx: int,
+    ny: int,
+    wire_path: list[tuple[int, int]],
+    n_steps: int = 500,
+    source_freq_norm: float = 0.1,
+    probe_offset: int = 5,
+    alternating_chirality: bool = True,
+) -> dict:
     """
     Run a wire antenna simulation on the K4-TLM lattice.
 
@@ -119,7 +127,9 @@ def simulate_wire_antenna(
     }
 
 
-def broadband_simulation(nx, ny, wire_path, n_steps=800, alternating_chirality=True):
+def broadband_simulation(
+    nx: int, ny: int, wire_path: list[tuple[int, int]], n_steps: int = 800, alternating_chirality: bool = True
+) -> dict:
     """
     Broadband (Gaussian pulse) simulation for FFT-based resonance detection.
 
@@ -179,7 +189,7 @@ def broadband_simulation(nx, ny, wire_path, n_steps=800, alternating_chirality=T
     }
 
 
-def main():
+def main() -> bool:
     """Run Phase 2 wire antenna analysis and produce 9-panel figure."""
     print("=" * 70)
     print("  K4-TLM PHASE 2: WIRE ANTENNA RESONANCE ANALYSIS")

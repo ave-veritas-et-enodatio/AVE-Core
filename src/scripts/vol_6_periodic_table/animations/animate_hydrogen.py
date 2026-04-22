@@ -11,13 +11,13 @@ from ave.topological.borromean import FundamentalTopologies
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def rotate_mesh_y(mesh, angle):
+def rotate_mesh_y(mesh: np.ndarray, angle: float) -> np.ndarray:
     c, s = np.cos(angle), np.sin(angle)
     R = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
     return mesh.dot(R.T)
 
 
-def calculate_vacuum_density_from_mesh(mesh_points, X, Y, z_slice=0.0):
+def calculate_vacuum_density_from_mesh(mesh_points: np.ndarray, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude = 100.0 / len(mesh_points)
     epsilon = 0.5

@@ -92,7 +92,7 @@ CODATA_MASSES = [
 # ═════════════════════════════════════════════════════════════════
 
 
-def fibonacci_sphere_coordinates(Z, A, d=None):
+def fibonacci_sphere_coordinates(Z: int, A: int, d: float | None = None) -> list[tuple[float, ...]]:
     """Generate alpha-cluster + halo nucleon coordinates via Fibonacci packing."""
     if d is None:
         d = D_PROTON
@@ -130,7 +130,7 @@ def fibonacci_sphere_coordinates(Z, A, d=None):
     return [tuple(n) for n in nodes]
 
 
-def compute_binding_energy(nodes, Z, A):
+def compute_binding_energy(nodes: list[tuple[float, ...]], Z: int, A: int) -> float:
     """Compute binding energy via K/r summation with Coulomb correction."""
     from ave.core.universal_operators import universal_pairwise_energy
 
@@ -155,7 +155,7 @@ def compute_binding_energy(nodes, Z, A):
     return binding
 
 
-def predict_mass(Z, A):
+def predict_mass(Z: int, A: int) -> float:
     """Predict nuclear mass using Fibonacci sphere packing."""
     N = A - Z
     raw = Z * M_P_MEV_TARGET + N * M_N_MEV_TARGET

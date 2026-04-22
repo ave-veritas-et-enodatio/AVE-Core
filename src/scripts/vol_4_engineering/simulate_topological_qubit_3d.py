@@ -24,7 +24,7 @@ NOISE_AMP = 0.025  # 300K Ambient Stochastic Vector Noise (moderate, keeps Gauss
 T_MAX = 500  # Simulation Frames
 
 
-def generate_linked_rings():
+def generate_linked_rings() -> tuple[np.ndarray, np.ndarray]:
     """Generates two interlocked perfectly circular rings (A Hopf Link)"""
     theta = np.linspace(0, 2 * np.pi, N_NODES, endpoint=False)
 
@@ -43,7 +43,7 @@ def generate_linked_rings():
     return ring1, ring2
 
 
-def compute_gauss_linking_number(r1, r2):
+def compute_gauss_linking_number(r1: np.ndarray, r2: np.ndarray) -> float:
     r"""
     Computes the Gauss Linking Integer via the double contour integral.
     L = (1/4pi) * \oint\oint [ (dr1 x dr2) \cdot (r1 - r2) ] / |r1 - r2|^3
@@ -69,7 +69,7 @@ def compute_gauss_linking_number(r1, r2):
     return L / (4 * np.pi)
 
 
-def simulate_topological_immunity():
+def simulate_topological_immunity() -> tuple[list, list, list, list, list]:
     ring1, ring2 = generate_linked_rings()
 
     history_r1 = []
@@ -112,7 +112,7 @@ def simulate_topological_immunity():
     return history_time, history_L, history_distance, history_r1, history_r2
 
 
-def generate_plot(time, linking_nums, distances, out_path):
+def generate_plot(time: list, linking_nums: list, distances: list, out_path: str) -> None:
     """Two-panel plot: top = Gauss linking number (qubit state), bottom = thermal jitter."""
     plt.style.use("dark_background")
     fig, (ax_top, ax_bot) = plt.subplots(2, 1, figsize=(10, 7), sharex=True, gridspec_kw={"height_ratios": [1, 1]})
@@ -198,7 +198,7 @@ def generate_plot(time, linking_nums, distances, out_path):
     print(f"[Done] Saved Topological Status Plot: {out_path}")
 
 
-def generate_3d_animation(history_r1, history_r2, out_path):
+def generate_3d_animation(history_r1: list, history_r2: list, out_path: str) -> None:
     print("Rendering 3D Hopfion Thermal Animation...")
     fig = plt.figure(figsize=(8, 8), facecolor="black")
     ax = fig.add_subplot(111, projection="3d")
@@ -232,7 +232,7 @@ def generate_3d_animation(history_r1, history_r2, out_path):
     frames_r1 = history_r1[::subsample_rate]
     frames_r2 = history_r2[::subsample_rate]
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # Close the loop visually
         r1 = np.vstack((frames_r1[frame], frames_r1[frame][0]))
         r2 = np.vstack((frames_r2[frame], frames_r2[frame][0]))

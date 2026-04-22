@@ -43,7 +43,7 @@ plt.style.use("dark_background")
 # ============================================================
 # Electron orbital probability density (hydrogen-like)
 # ============================================================
-def electron_radial_density(r_over_a0, n=1, l=0):
+def electron_radial_density(r_over_a0: np.ndarray, n: int = 1, l: int = 0) -> np.ndarray:
     """Hydrogen radial probability density |R_{nl}|² r² for simple cases."""
     x = r_over_a0
     if n == 1 and l == 0:  # 1s
@@ -64,7 +64,7 @@ def electron_radial_density(r_over_a0, n=1, l=0):
 # ============================================================
 # Saturn ring density model (impedance gap resonance)
 # ============================================================
-def saturn_ring_density(r_km):
+def saturn_ring_density(r_km: np.ndarray) -> tuple[np.ndarray, list[tuple[float, float, str]]]:
     """
     Simplified Saturn ring surface density model with impedance resonance gaps.
     Gaps at known resonance radii: Cassini Division, Encke Gap, etc.
@@ -102,7 +102,7 @@ def saturn_ring_density(r_km):
     return density, gaps
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  CROSS-SCALE IMPEDANCE TRIPTYCH")
     print("  Same 1/d topology at electron, planetary, and black hole scales")

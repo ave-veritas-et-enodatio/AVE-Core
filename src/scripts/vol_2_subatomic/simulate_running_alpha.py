@@ -109,7 +109,7 @@ def alpha_eff_axiom4(energy_mev: float) -> dict:
     }
 
 
-def main():
+def main() -> None:
     print("=" * 72)
     print("  AVE ENGINE: Running α from Axiom 4 Dynamic Capacitive Yielding")
     print("=" * 72)

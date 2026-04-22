@@ -23,7 +23,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_SI28 = 26053.188074
 
 
-def get_silicon_28_nodes(r_bipyr):
+def get_silicon_28_nodes(r_bipyr: float) -> np.ndarray:
     """
     Constructs the 28-nucleon array (7-Alpha Pentagonal Bipyramid).
     """
@@ -55,7 +55,7 @@ def get_silicon_28_nodes(r_bipyr):
     return np.array(nodes_si28)
 
 
-def calc_mass(r_bipyr):
+def calc_mass(r_bipyr: float) -> float:
     nodes = get_silicon_28_nodes(r_bipyr)
     raw_mass = (14 * M_P_RAW) + (14 * M_N_RAW)
     binding_energy = 0.0
@@ -68,7 +68,7 @@ def calc_mass(r_bipyr):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Silicon-28 ({TARGET_MASS_SI28:.6f} MeV target) ---")
 
     def error_func(r_val):

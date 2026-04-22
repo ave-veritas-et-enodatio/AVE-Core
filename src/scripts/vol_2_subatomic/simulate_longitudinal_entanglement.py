@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def simulate_entanglement(frames=200, length=200):
+def simulate_entanglement(frames: int = 200, length: int = 200) -> None:
     """
     Simulates a purely classical, deterministic 1D LC grid demonstrating
     "spooky action at a distance" (Bell's Theorem Paradox).
@@ -58,7 +58,7 @@ def simulate_entanglement(frames=200, length=200):
     time_text = ax1.text(0.02, 0.90, "", transform=ax1.transAxes, color="white", fontsize=10)
     entangled_text = ax2.text(0.02, 0.05, "", transform=ax2.transAxes, color="yellow", fontsize=12, fontweight="bold")
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # Calculate positions
         pos_t_right = min(center + frame * c, length - 1)
         pos_t_left = max(center - frame * c, 0)

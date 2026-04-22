@@ -7,7 +7,7 @@ from matplotlib import animation
 from ave.core.grid import VacuumGrid
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE COSMIC SCALE: GENERAL RELATIVITY & GRAVITATIONAL WAVES")
     print("==========================================================\n")
@@ -42,7 +42,7 @@ def main():
 
     print("[1] Simulating 2D binary black hole orbital pumping...")
 
-    def update(frame):
+    def update(frame: int) -> list:
         # Step the macroscopic wave equation across the grid
         grid.step_kinematic_wave_equation(damping=0.99)
 

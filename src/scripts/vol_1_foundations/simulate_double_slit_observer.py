@@ -53,7 +53,7 @@ class DoubleSlit2D:
     Optional: an "observer" at one slit introduces damping (decoherence).
     """
 
-    def __init__(self, nx=800, ny=500, observe_slit=False):
+    def __init__(self, nx: int = 800, ny: int = 500, observe_slit: bool = False) -> None:
         self.NX = nx
         self.NY = ny
         self.c = 1.0
@@ -108,7 +108,7 @@ class DoubleSlit2D:
         self.source_x = 60
         self.source_y = ny // 2
 
-    def _build_sponge(self):
+    def _build_sponge(self) -> np.ndarray:
         d = np.ones((self.NX, self.NY))
         s = self.sponge
         for i in range(s):
@@ -119,7 +119,7 @@ class DoubleSlit2D:
             d[:, self.NY - 1 - i] *= factor
         return d
 
-    def _build_wall(self):
+    def _build_wall(self) -> np.ndarray:
         mask = np.zeros((self.NX, self.NY), dtype=bool)
         wx = self.wall_x
         wt = self.wall_t
@@ -130,7 +130,7 @@ class DoubleSlit2D:
         mask[wx : wx + wt, self.slit_2 - sw // 2 : self.slit_2 + sw // 2] = False
         return mask
 
-    def run(self, steps=2000):
+    def run(self, steps: int = 2000) -> np.ndarray:
         P = self.P
         Vx = self.Vx
         Vy = self.Vy
@@ -177,7 +177,7 @@ class DoubleSlit2D:
         return self.intensity
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Double Slit: Standing Wave Heatmap — Observer vs No Observer")
     print("=" * 70)

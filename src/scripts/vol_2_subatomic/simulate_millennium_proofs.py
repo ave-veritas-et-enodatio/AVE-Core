@@ -19,8 +19,6 @@ All constants are imported from ave.core.constants.
 No hardcoded physics values are used in this script.
 """
 
-from __future__ import annotations
-
 import textwrap
 
 from ave.axioms.millennium import formal_proof_summary

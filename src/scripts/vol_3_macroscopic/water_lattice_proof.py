@@ -43,7 +43,7 @@ EXP_BOILING_POINT = 373.15  # K    (at 1 atm)
 EXP_SPECIFIC_HEAT_25C = 4182.0  # J/(kg·K) (NIST, 25°C)
 
 
-def main():
+def main() -> bool:
     print("=" * 70)
     print("  WATER LC LATTICE: AXIOM-DERIVED PROOF")
     print("  All predictions from one Op4 H-bond spring constant")

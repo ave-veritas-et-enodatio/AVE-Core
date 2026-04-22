@@ -8,7 +8,7 @@ from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 project_root = pathlib.Path(__file__).parent.absolute()
 
 
-def calculate_vacuum_density(nodes, X, Y, z_slice):
+def calculate_vacuum_density(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float) -> np.ndarray:
     density_field = np.zeros_like(X)
     amplitude, epsilon = 100.0, 0.5
     for cx, cy, cz in nodes:
@@ -17,7 +17,7 @@ def calculate_vacuum_density(nodes, X, Y, z_slice):
     return density_field
 
 
-def get_structural_variance(Z, A):
+def get_structural_variance(Z: int, A: int) -> float:
     nodes = get_nucleon_coordinates(Z, A)
     if not nodes:
         return float("inf")

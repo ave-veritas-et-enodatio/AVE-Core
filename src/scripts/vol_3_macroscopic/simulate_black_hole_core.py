@@ -63,7 +63,7 @@ LIGO_EVENTS = {
 }
 
 
-def run_simulation():
+def run_simulation() -> None:
     # ── PREREQUISITE GATE: identify operating regime for 10 M☉ BH ──
     # regime = identify_regime("gravity", M_kg=10 * float(M_SUN),
     #     r_meters=7 * G * 10 * float(M_SUN) / C_0**2)  # bulk lint fixup pass
@@ -211,7 +211,7 @@ def run_simulation():
     fig.patch.set_facecolor(C_BG)
     gs = GridSpec(2, 3, figure=fig, hspace=0.35, wspace=0.35)
 
-    def style_ax(ax):
+    def style_ax(ax: "Axes") -> None:
         ax.set_facecolor(C_BG)
         ax.tick_params(colors=C_TEXT, labelsize=9)
         ax.grid(True, alpha=0.12, color=C_GRID)

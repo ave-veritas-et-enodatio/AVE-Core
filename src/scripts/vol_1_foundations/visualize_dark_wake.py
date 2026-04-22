@@ -36,7 +36,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 class DarkWakeSim:
     """2D FDTD showing the instantaneous dark wake of a soliton."""
 
-    def __init__(self, nx=800, ny=500, observer_damping=0.0):
+    def __init__(self, nx: int = 800, ny: int = 500, observer_damping: float = 0.0) -> None:
         self.NX = nx
         self.NY = ny
         self.dt = 0.45
@@ -84,7 +84,7 @@ class DarkWakeSim:
         self.snapshots = []
         self.snapshot_times = []
 
-    def _sponge(self):
+    def _sponge(self) -> np.ndarray:
         d = np.ones((self.NX, self.NY))
         s = self.sponge
         for i in range(s):
@@ -95,7 +95,7 @@ class DarkWakeSim:
             d[:, self.NY - 1 - i] *= f
         return d
 
-    def _wall(self):
+    def _wall(self) -> np.ndarray:
         w = np.zeros((self.NX, self.NY), dtype=bool)
         wx, wt = self.wall_x, self.wall_t
         w[wx : wx + wt, :] = True
@@ -104,7 +104,7 @@ class DarkWakeSim:
         w[wx : wx + wt, self.slit_2 - sw // 2 : self.slit_2 + sw // 2] = False
         return w
 
-    def run(self, steps=1800, snapshot_interval=150):
+    def run(self, steps: int = 1800, snapshot_interval: int = 150) -> tuple[list[np.ndarray], np.ndarray]:
         P, Vx, Vy = self.P, self.Vx, self.Vy
         d, wall = self.damping, self.wall
         dt, dx = self.dt, self.dx
@@ -155,7 +155,7 @@ class DarkWakeSim:
         return self.snapshots, self.intensity
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Double Slit: Dark Wake Visualization")
     print("  Showing instantaneous pressure field (not time-averaged)")

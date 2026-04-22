@@ -16,7 +16,7 @@ os.makedirs(out_dir, exist_ok=True)
 # -----------------------------------------------------
 # 1. Flyby Anomaly Monte Carlo Distribution
 # -----------------------------------------------------
-def plot_flyby():
+def plot_flyby() -> None:
     # Simulate a classical Lense-Thirring monte carlo
     mean_lt = 2.4e-6  # mm/s
     std_lt = 0.5e-6
@@ -56,7 +56,7 @@ def plot_flyby():
 # -----------------------------------------------------
 # 2. Geodynamo Topo-Kinematic Impedance Limits
 # -----------------------------------------------------
-def plot_geodynamo():
+def plot_geodynamo() -> None:
     planets = ["Earth", "Venus", "Mars"]
 
     # Empirical dipole moments [A*m^2]
@@ -91,7 +91,7 @@ def plot_geodynamo():
 # -----------------------------------------------------
 # 3. Lunar Inductive Resonant Heating
 # -----------------------------------------------------
-def plot_lunar_heating():
+def plot_lunar_heating() -> None:
     fig, ax = plt.subplots(figsize=(6, 4))
 
     # Target bound spanning 0.5 to 2.0 TW

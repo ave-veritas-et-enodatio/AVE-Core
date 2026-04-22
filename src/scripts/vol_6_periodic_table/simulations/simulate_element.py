@@ -40,7 +40,7 @@ ALPHA_HC = ALPHA * (HBAR * C_0 / e_charge) * 1e9  # ≈ 1.4400 MeV·fm
 # and 1/(1−α/3) is the proximity correction for close-packed nucleons.
 
 
-def get_nucleon_coordinates(Z, A, d=None):
+def get_nucleon_coordinates(Z: int, A: int, d: float | None = None) -> list:
     """
     Returns the explicitly solved discrete 3D spatial coordinates (Center of Mass)
     for the individual knot nodes composing the specific nucleus.
@@ -471,7 +471,7 @@ def get_nucleon_coordinates(Z, A, d=None):
         return nodes
 
 
-def calculate_topological_mass(Z, A):
+def calculate_topological_mass(Z: int, A: int) -> float:
     """
     Computes theoretical mass defect using EE Mutual Impedance.
     U_total = sum(U_self) - sum(M_ij) + E_Coulomb
@@ -514,7 +514,7 @@ def calculate_topological_mass(Z, A):
     return raw_mass - binding_energy
 
 
-def _compute_energy_at_coords(nodes_flat, N, K, alpha_hc, Z_protons, A_nucleons):
+def _compute_energy_at_coords(nodes_flat: np.ndarray, N: int, K: float, alpha_hc: float, Z_protons: int, A_nucleons: int) -> float:
     """
     Evaluate the total 1/d energy for an arbitrary coordinate vector.
     Used internally by the Hessian computation.
@@ -538,7 +538,7 @@ def _compute_energy_at_coords(nodes_flat, N, K, alpha_hc, Z_protons, A_nucleons)
     return -(binding - coulomb)  # negative because binding lowers energy
 
 
-def compute_element_impedance(Z, A):
+def compute_element_impedance(Z: int, A: int) -> dict:
     """
     Computes the full impedance characterization of an element by analysing the
     Hessian (second-derivative matrix) of the K_mutual/d energy surface at the
@@ -724,7 +724,7 @@ def compute_element_impedance(Z, A):
     }
 
 
-def create_element_report(element_name, Z, A, empirical_mass_mev, save_dir):
+def create_element_report(element_name: str, Z: int, A: int, empirical_mass_mev: float, save_dir: str) -> dict:
     """
     Generates a standardized element report and plot.
     """
@@ -808,7 +808,7 @@ def create_element_report(element_name, Z, A, empirical_mass_mev, save_dir):
     }
 
 
-def generate_summary_table(results, output_file):
+def generate_summary_table(results: list[dict], output_file: str) -> None:
     tex = [
         "\\chapter*{Macroscopic Mass Defect Summary}",
         "\\addcontentsline{toc}{chapter}{Macroscopic Mass Defect Summary}",

@@ -20,7 +20,7 @@ import numpy as np
 from ave.core.regime_map import R_LINEAR_MAX, R_NONLINEAR_MAX, R_YIELD_MAX
 
 
-def main():
+def main() -> None:
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
     fig.suptitle("The Universal Regime Map", fontsize=16, fontweight="bold", y=1.02)
 

@@ -35,7 +35,7 @@ PARAMS = {
 
 
 class ImpedanceLattice:
-    def __init__(self, params):
+    def __init__(self, params: dict) -> None:
         self.params = params
         self.num_nodes = params["num_nodes"]
         self.box_size = params["box_size"]
@@ -44,7 +44,7 @@ class ImpedanceLattice:
         self.initial_state = self._genesis_poisson()
         self.edges, self.rest_lengths = self._build_network(self.initial_state)
 
-    def _genesis_poisson(self):
+    def _genesis_poisson(self) -> np.ndarray:
         r_min = L_NODE
         candidates = np.random.rand(self.num_nodes * 100, 3) * self.box_size
         accepted = []
@@ -69,7 +69,7 @@ class ImpedanceLattice:
         rot = np.zeros((self.num_nodes, 3))
         return np.concatenate([pos.flatten(), rot.flatten()])
 
-    def _build_network(self, state_vector):
+    def _build_network(self, state_vector: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
         N = self.num_nodes
         pos = state_vector[: 3 * N].reshape(N, 3)
         tree = spatial.cKDTree(pos)
@@ -83,7 +83,7 @@ class ImpedanceLattice:
         dists = np.linalg.norm(r_vecs, axis=1)
         return edges, dists
 
-    def potential_energy(self, state_vector):
+    def potential_energy(self, state_vector: np.ndarray) -> float:
         """
         AVE Hamiltonian: U = Capacitive Strain + Inductive Twist + Coupling
         """
@@ -110,12 +110,12 @@ class ImpedanceLattice:
 
         return E_stretch + E_twist + E_couple
 
-    def relax_lattice(self):
+    def relax_lattice(self) -> tuple[np.ndarray, float]:
         print(f"    -> Relaxing impedance phase across {self.num_nodes} nodes and {len(self.edges)} ties...")
         res = minimize(self.potential_energy, self.initial_state, method="L-BFGS-B", options={"maxiter": 1000})
         return res.x, res.fun
 
-    def measure_packing_fraction(self, state_vector):
+    def measure_packing_fraction(self, state_vector: np.ndarray) -> float:
         v_node = (4 / 3) * np.pi * (L_NODE / 2) ** 3
         total_node_vol = self.num_nodes * v_node
 
@@ -124,7 +124,7 @@ class ImpedanceLattice:
         hull = spatial.ConvexHull(pos)
         return total_node_vol / hull.volume
 
-    def measure_impedance_ratio(self, relaxed_state):
+    def measure_impedance_ratio(self, relaxed_state: np.ndarray) -> float:
         N = self.num_nodes
         pos = relaxed_state[: 3 * N].reshape(N, 3)
         phi = relaxed_state[3 * N :].reshape(N, 3)
@@ -151,7 +151,7 @@ class ImpedanceLattice:
         return K_measure / G_measure
 
 
-def run_simulation():
+def run_simulation() -> None:
     print("==========================================================")
     print(" AVE GRAVITATIONAL WAVE STRAIN (IMPEDANCE RATIO Z_C / Z_L)")
     print("==========================================================")

@@ -18,7 +18,7 @@ from ave.core.constants import ALPHA
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def simulate_percolation_threshold():
+def simulate_percolation_threshold() -> None:
     """
     Simulates the Rigidity Percolation threshold (p_c) of a 3D amorphous lattice.
     For central-force networks with bending constraints (Chiral LC links),

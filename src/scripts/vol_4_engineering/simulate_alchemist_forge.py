@@ -8,7 +8,7 @@ R_CRUCIBLE = 150.0 * D_PROTON
 K_CRUCIBLE = 1000.0
 
 
-def calculate_principal_axes(coords):
+def calculate_principal_axes(coords: np.ndarray) -> list[float]:
     center = np.mean(coords, axis=0)
     shifted = coords - center
     I_tensor = np.zeros((3, 3))
@@ -20,7 +20,10 @@ def calculate_principal_axes(coords):
     return sorted(eigenvalues)
 
 
-def plot_time_lapse(coords_t0, coords_t1, coords_t2, A_NUCLEONS, title, filename):
+def plot_time_lapse(
+    coords_t0: np.ndarray, coords_t1: np.ndarray, coords_t2: np.ndarray,
+    A_NUCLEONS: int, title: str, filename: str
+) -> None:
     fig = plt.figure(figsize=(18, 6))
 
     stages = [
@@ -59,7 +62,7 @@ def plot_time_lapse(coords_t0, coords_t1, coords_t2, A_NUCLEONS, title, filename
     plt.close()
 
 
-def run_stage_1_helium():
+def run_stage_1_helium() -> None:
     print("\n--- STAGE 1: Helium-4 Generation from Unstructured Void ---")
 
     A_NUCLEONS = 4
@@ -112,7 +115,7 @@ def run_stage_1_helium():
     )
 
 
-def run_stage_2_oxygen():
+def run_stage_2_oxygen() -> None:
     print("\n--- STAGE 2: Oxygen-16 Generation from Helium-4 Buffers ---")
 
     A_NUCLEONS = 16

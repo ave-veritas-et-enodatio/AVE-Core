@@ -18,7 +18,7 @@ import numpy as np
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 
 
-def simulate_empirical_noaa_overlay():
+def simulate_empirical_noaa_overlay() -> None:
     print("[*] Generating Empirical NOAA GOES Satellite vs AVE Topological Diode comparison...")
 
     # We will simulate the empirical layout since live-fetching the entire 40-year

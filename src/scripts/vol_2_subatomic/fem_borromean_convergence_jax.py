@@ -28,7 +28,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 
 @partial(jit, static_argnums=(1,))
-def _compute_v_halo_jax(threshold, N, L=6.0):
+def _compute_v_halo_jax(threshold: float, N: int, L: float = 6.0) -> tuple:
     """
     Compute the saturated overlap volume on an N³ grid spanning [-L, L]³.
 
@@ -77,13 +77,13 @@ def _compute_v_halo_jax(threshold, N, L=6.0):
     return V_sat, V_overlap, peak
 
 
-def compute_v_halo_jax(N, L=6.0, threshold=0.5):
+def compute_v_halo_jax(N: int, L: float = 6.0, threshold: float = 0.5) -> tuple[float, float, float]:
     """Wrapper that handles the static N argument for JIT."""
     V_sat, V_ov, peak = _compute_v_halo_jax(threshold, N, L)
     return float(V_sat), float(V_ov), float(peak)
 
 
-def run_convergence_study():
+def run_convergence_study() -> tuple[float, float]:
     """Run mesh refinement study and Richardson extrapolation."""
     import time
 

@@ -22,7 +22,7 @@ OUTDIR = os.path.join(REPO_ROOT, "periodic_table", "figures")
 os.makedirs(OUTDIR, exist_ok=True)
 
 
-def density_field_inv_r(nodes, X, Y, z_slice=0.0):
+def density_field_inv_r(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density = np.zeros_like(X)
     Z = np.full_like(X, z_slice)
     for nx, ny, nz in nodes:
@@ -32,7 +32,7 @@ def density_field_inv_r(nodes, X, Y, z_slice=0.0):
     return density
 
 
-def density_field_inv_r2(nodes, X, Y, z_slice=0.0):
+def density_field_inv_r2(nodes: list, X: np.ndarray, Y: np.ndarray, z_slice: float = 0.0) -> np.ndarray:
     density = np.zeros_like(X)
     for cx, cy, cz in nodes:
         dist_sq = (X - cx) ** 2 + (Y - cy) ** 2 + (z_slice - cz) ** 2
@@ -40,7 +40,7 @@ def density_field_inv_r2(nodes, X, Y, z_slice=0.0):
     return density
 
 
-def plot_density_hot(nodes, bounds, z_slice, title, filename):
+def plot_density_hot(nodes: list, bounds: float, z_slice: float, title: str, filename: str) -> None:
     grid_size = 400
     xs = np.linspace(-bounds, bounds, grid_size)
     ys = np.linspace(-bounds, bounds, grid_size)
@@ -77,7 +77,7 @@ def plot_density_hot(nodes, bounds, z_slice, title, filename):
     print(f"  [ok] {os.path.basename(filename)}")
 
 
-def plot_flux_inferno(nodes, bounds, z_slice, title, filename, grid_res=120):
+def plot_flux_inferno(nodes: list, bounds: float, z_slice: float, title: str, filename: str, grid_res: int = 120) -> None:
     x = np.linspace(-bounds, bounds, grid_res)
     y = np.linspace(-bounds, bounds, grid_res)
     X, Y = np.meshgrid(x, y)

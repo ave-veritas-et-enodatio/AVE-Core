@@ -110,7 +110,7 @@ PDG = {
 # ══════════════════════════════════════════════════════════════════════════════
 
 
-def run_derivation():
+def run_derivation() -> None:
     print("=" * 78)
     print("  ELECTROWEAK UNIFICATION: ZERO-PARAMETER MASS DERIVATION")
     print("  Inputs: m_e, α, ν_vac = 2/7  |  All from ave.core.constants")
@@ -270,7 +270,7 @@ def run_derivation():
     fig.patch.set_facecolor(C_BG)
     gs = GridSpec(2, 3, figure=fig, hspace=0.40, wspace=0.35)
 
-    def style_ax(ax):
+    def style_ax(ax: plt.Axes) -> None:
         ax.set_facecolor(C_BG)
         ax.tick_params(colors=C_TEXT, labelsize=9)
         ax.grid(True, alpha=0.12, color=C_GRID)

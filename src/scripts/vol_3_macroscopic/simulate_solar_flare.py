@@ -28,7 +28,7 @@ R_MAX = 25.0
 SNAP_FRAME = 75
 
 
-def initialize_grid():
+def initialize_grid() -> tuple[np.ndarray, np.ndarray]:
     r = np.linspace(R_SUN, R_MAX, N_RADIAL)
     theta = np.linspace(0, 2 * np.pi, N_ANGULAR)
 
@@ -36,7 +36,7 @@ def initialize_grid():
     return R, THETA
 
 
-def differential_omega(r, theta):
+def differential_omega(r: np.ndarray, theta: np.ndarray) -> np.ndarray:
     """
     Equator (theta=0, pi) rotates much faster than the poles
     (theta = pi/2, 3pi/2).
@@ -51,7 +51,7 @@ def differential_omega(r, theta):
     return (base_omega + equator_boost) * decay
 
 
-def simulate_solar_topology():
+def simulate_solar_topology() -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     print("[*] Initializing Stellar Topological Matrix...")
     R, THETA = initialize_grid()
 
@@ -123,7 +123,7 @@ def simulate_solar_topology():
     return R, history_theta, flare_wave
 
 
-def animate_flare(R, history_theta, flare_wave):
+def animate_flare(R: np.ndarray, history_theta: np.ndarray, flare_wave: np.ndarray) -> None:
     print("[*] Rendering Solar Flare Evolution GIF...")
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -163,7 +163,7 @@ def animate_flare(R, history_theta, flare_wave):
         pad=20,
     )
 
-    def update(frame):
+    def update(frame: int) -> list:
         current_theta = history_theta[frame]
 
         # Calculate X, Y coordinates

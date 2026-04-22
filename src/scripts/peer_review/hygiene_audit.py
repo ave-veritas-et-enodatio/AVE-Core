@@ -12,6 +12,7 @@ import os
 import re
 from collections import defaultdict
 from pathlib import Path
+from typing import Any
 
 MANUSCRIPT_ROOT = Path("manuscript")
 
@@ -20,7 +21,7 @@ MANUSCRIPT_ROOT = Path("manuscript")
 # ═════════════════════════════════════════════════════════════════
 
 
-def find_tex_files(vol_dir: Path) -> list:
+def find_tex_files(vol_dir: Path) -> list[Path]:
     """Find all .tex files in a volume directory."""
     if not vol_dir.exists():
         return []
@@ -32,7 +33,7 @@ def find_tex_files(vol_dir: Path) -> list:
     return sorted(tex_files)
 
 
-def extract_labels_and_refs(tex_file: Path) -> dict:
+def extract_labels_and_refs(tex_file: Path) -> dict[str, Any]:
     """Extract all \\label{} and \\ref{} from a .tex file."""
     content = tex_file.read_text(errors="replace")
     lines = content.split("\n")
@@ -57,7 +58,7 @@ def extract_labels_and_refs(tex_file: Path) -> dict:
     return {"labels": labels, "refs": refs}
 
 
-def check_nomenclature(tex_file: Path) -> list:
+def check_nomenclature(tex_file: Path) -> list[Any]:
     """Check for inconsistent variable naming patterns."""
     content = tex_file.read_text(errors="replace")
     issues = []

@@ -5,7 +5,7 @@ import os
 from simulations.simulate_element import create_element_report
 
 
-def get_group_name(group):
+def get_group_name(group: int) -> str:
     groups = {
         1: "Alkali Metals",
         2: "Alkaline Earth Metals",
@@ -29,7 +29,7 @@ def get_group_name(group):
     return groups.get(group, "Actinides/Lanthanides")
 
 
-def generate_table():
+def generate_table() -> None:
     # Resolve paths relative to repo root (this script lives at scripts/periodic_table/)
     REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     PT_ROOT = os.path.join(REPO_ROOT, "periodic_table")

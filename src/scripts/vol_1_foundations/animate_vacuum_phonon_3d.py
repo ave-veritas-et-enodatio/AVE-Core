@@ -31,7 +31,7 @@ OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
-def main():
+def main() -> None:
     print("═" * 70)
     print("  AVE: Vacuum Phonon Propagation — 2D Lattice Slice")
     print("  A photon is a lattice phonon at c = 1/√(LC)")
@@ -188,7 +188,7 @@ def main():
 
     plt.tight_layout(rect=[0, 0.02, 1, 0.95])
 
-    def update(frame_idx):
+    def update(frame_idx: int) -> list:
         im1.set_data(frames_P[frame_idx].T)
         im2.set_data(frames_P2[frame_idx].T)
         time_text.set_text(f"t = {frame_idx * STEPS_PER_FRAME * dt:.0f} · τ_LC" f"    frame {frame_idx}/{TOTAL_FRAMES}")

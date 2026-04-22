@@ -28,7 +28,7 @@ import numpy as np
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def simulate_ee_bench_plateau():
+def simulate_ee_bench_plateau() -> None:
     print("[*] Generating the EE Bench Dielectric Yield predictions...")
 
     # -------------------------------------------------------------

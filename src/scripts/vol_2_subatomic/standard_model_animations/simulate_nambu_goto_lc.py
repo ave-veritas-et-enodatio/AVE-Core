@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE PLANCK SCALE: STRING THEORY TOPOLOGICAL SIMULATION")
     print("==========================================================\n")
@@ -55,7 +55,7 @@ def main():
 
     plt.tight_layout()
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # We simulate the string 'vibrating' by superimposing a high-frequency
         # continuous transverse LC wave (Ponderomotive standing wave) along the knot.
 

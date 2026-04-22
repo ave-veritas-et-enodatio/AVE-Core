@@ -20,7 +20,7 @@ from scipy.integrate import solve_ivp
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -35,7 +35,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def simulate_impedance_matched_gravity():
+def simulate_impedance_matched_gravity() -> None:
     print("Simulating Time-Domain Impedance-Matched Gravity Well...")
 
     # Increased resolution for a perfectly smooth wave
@@ -51,7 +51,7 @@ def simulate_impedance_matched_gravity():
     C_array = dx * n_local
     Z_0 = np.sqrt(L_array / C_array)  # Evaluates strictly to 1.0 everywhere
 
-    def tline_ode(t, y):
+    def tline_ode(t: float, y: np.ndarray) -> np.ndarray:
         dy = np.zeros(2 * N_nodes)
 
         # Inject continuous High-Frequency carrier wave pulse

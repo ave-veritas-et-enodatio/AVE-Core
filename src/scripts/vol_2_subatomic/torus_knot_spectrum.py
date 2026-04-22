@@ -32,13 +32,13 @@ V_HALO = 2.0
 # ---- Solver ----
 
 
-def phase_profile(r, r_opt, n):
+def phase_profile(r: float, r_opt: float, n: float) -> float:
     if r == 0:
         return np.pi
     return np.pi / (1.0 + (r / r_opt) ** n)
 
 
-def energy_density(r, r_opt, n, kappa):
+def energy_density(r: float, r_opt: float, n: float, kappa: float) -> float:
     dr = 1e-6
     phi1 = phase_profile(r, r_opt, n)
     phi2 = phase_profile(r + dr, r_opt, n)
@@ -56,11 +56,11 @@ def energy_density(r, r_opt, n, kappa):
     return 4 * np.pi * r**2 * (kinetic + kappa**2 * skyrme * dphi_eff**2)
 
 
-def compute_I_scalar(crossing_number, kappa=KAPPA_FS):
+def compute_I_scalar(crossing_number: int, kappa: float = KAPPA_FS) -> float:
     """Compute I_scalar for a given crossing number c."""
     r_opt_max = kappa / crossing_number
 
-    def objective(params):
+    def objective(params: list) -> float:
         r_opt, n = params
         integral, _ = quad(energy_density, 0, 10 * r_opt, args=(r_opt, n, kappa), limit=100)
         return integral
@@ -69,7 +69,7 @@ def compute_I_scalar(crossing_number, kappa=KAPPA_FS):
     return result.fun
 
 
-def proton_mass_ratio(I_scalar):
+def proton_mass_ratio(I_scalar: float) -> float:
     """Convert I_scalar to m/m_e via the eigenvalue equation."""
     return I_scalar / (1.0 - V_HALO * P_C) + 1.0
 
@@ -96,7 +96,7 @@ PDG_RESONANCES = {
 }
 
 
-def run_spectrum():
+def run_spectrum() -> None:
     """Compute and plot the torus knot baryon spectrum."""
     crossing_numbers = [3, 5, 7, 9, 11, 13, 15]
     results = []

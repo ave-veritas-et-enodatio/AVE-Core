@@ -28,7 +28,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 class DoubleSlit2D:
     """Compact 2D FDTD wave solver for wake animation."""
 
-    def __init__(self, nx=600, ny=400, observer_at_slit2=False):
+    def __init__(self, nx: int = 600, ny: int = 400, observer_at_slit2: bool = False) -> None:
         self.NX, self.NY = nx, ny
         self.dt, self.dx = 0.45, 1.0
 
@@ -84,7 +84,7 @@ class DoubleSlit2D:
         self.source_x_start = 50
         self.particle_speed = 0.22
 
-    def step(self, t):
+    def step(self, t: int) -> None:
         P, Vx, Vy = self.P, self.Vx, self.Vy
         dt, dx = self.dt, self.dx
 
@@ -117,7 +117,7 @@ class DoubleSlit2D:
                     P[px, self.source_y + dy] += amp * 0.3
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Animated Double Slit: High-Contrast Dark Wake")
     print("=" * 70)
@@ -255,7 +255,7 @@ def main():
 
     plt.tight_layout(rect=[0, 0, 1, 0.94])
 
-    def update(frame):
+    def update(frame: int) -> list:
         im1.set_data(frames_no[frame].T)
         im2.set_data(frames_obs[frame].T)
         return [im1, im2]

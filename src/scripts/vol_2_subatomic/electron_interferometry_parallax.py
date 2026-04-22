@@ -3,7 +3,7 @@ import numpy as np
 from ave.core.constants import C_0, HBAR, M_E, e_charge
 
 
-def simulate_electron_interferometry_parallax(electron_energy_ev=100.0, baseline_m=1.0):
+def simulate_electron_interferometry_parallax(electron_energy_ev: float = 100.0, baseline_m: float = 1.0) -> None:
     """
     Simulates the Vol 2 Topological Matter Interferometry Parallax test.
     An electron matter-wave is split in a macroscopic Mach-Zehnder setup.

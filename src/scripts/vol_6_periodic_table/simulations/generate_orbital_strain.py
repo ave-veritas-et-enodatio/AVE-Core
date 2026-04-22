@@ -92,7 +92,7 @@ ELEMENTS = {
 }
 
 
-def generate_strain_figure(name, info, output_dir):
+def generate_strain_figure(name: str, info: dict, output_dir: str) -> str:
     """Generate a single orbital strain figure."""
     Z = info["Z"]
     shells = info["shells"]

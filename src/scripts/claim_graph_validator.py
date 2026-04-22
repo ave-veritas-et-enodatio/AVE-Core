@@ -30,8 +30,6 @@ Usage:
 Reference: docs/framing_and_presentation.md (Tier 2 proposal),
            manuscript/predictions.yaml (the manifest).
 """
-from __future__ import annotations
-
 import argparse
 import json
 import math
@@ -39,7 +37,7 @@ import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import yaml
 
@@ -67,7 +65,7 @@ REQUIRED_FIELDS = {"id", "name", "type", "derivation_label"}
 class Finding:
     check: str  # "schema" | "label" | "engine" | "parity"
     severity: str  # "critical" | "warn" | "info"
-    entry_id: Optional[str]
+    entry_id: str | None
     message: str
     details: dict[str, Any] = field(default_factory=dict)
 
@@ -246,7 +244,7 @@ def check_schema(manifest: dict) -> list[Finding]:
     return findings
 
 
-def check_labels(manifest: dict, labels: Optional[set[str]] = None) -> list[Finding]:
+def check_labels(manifest: dict, labels: set[str] | None = None) -> list[Finding]:
     """Every entry's derivation_label resolves to a \\label{} in the manuscript."""
     findings: list[Finding] = []
     if labels is None:
@@ -291,7 +289,7 @@ def check_labels(manifest: dict, labels: Optional[set[str]] = None) -> list[Find
 
 def check_engine(
     manifest: dict,
-    constants: Optional[dict[str, float]] = None,
+    constants: dict[str, float] | None = None,
     rtol: float = 1e-5,
 ) -> list[Finding]:
     """
@@ -512,7 +510,7 @@ ALL_CHECKS = {
 
 def run(
     manifest_path: Path = MANIFEST_PATH,
-    checks: Optional[list[str]] = None,
+    checks: list[str] | None = None,
 ) -> list[Finding]:
     manifest = load_manifest(manifest_path)
     checks = checks or list(ALL_CHECKS.keys())
@@ -572,7 +570,7 @@ def format_json(findings: list[Finding], n_entries: int) -> str:
     )
 
 
-def main(argv: Optional[list[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate the AVE claim graph (manuscript/predictions.yaml).")
     parser.add_argument(
         "--manifest",

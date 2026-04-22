@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 # ─────────────────────────────────────────────────────────────
 # Blackbody → sRGB conversion (Planck spectrum)
 # ─────────────────────────────────────────────────────────────
-def _blackbody_rgb(T):
+def _blackbody_rgb(T: float | "np.ndarray") -> "np.ndarray":
     """Convert temperature (K) to approximate sRGB [0,1].
     Tanner Helland approximation (1000 K – 40,000 K)."""
     T = np.atleast_1d(np.asarray(T, dtype=float))
@@ -72,19 +72,19 @@ def _blackbody_rgb(T):
     return rgb
 
 
-def _aces_tonemap(color):
+def _aces_tonemap(color: "np.ndarray") -> "np.ndarray":
     """ACES filmic tone mapping for cinema-grade HDR → LDR."""
     a, b, c, d, e = 2.51, 0.03, 2.43, 0.59, 0.14
     return np.clip((color * (a * color + b)) / (color * (c * color + d) + e), 0.0, 1.0)
 
 
-def _hash_noise(x, y, seed=0.0):
+def _hash_noise(x: "np.ndarray", y: "np.ndarray", seed: float = 0.0) -> "np.ndarray":
     """Deterministic 2D hash noise for disk texture."""
     val = np.sin(x * 127.1 + y * 311.7 + seed) * 43758.5453
     return val - np.floor(val)
 
 
-def render_gargantua():
+def render_gargantua() -> None:
     t_start = time.time()
     print("=" * 70)
     print("  GARGANTUA ACOUSTIC VORTEX — AVE RAYMARCHER v2")

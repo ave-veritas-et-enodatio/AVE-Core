@@ -62,7 +62,7 @@ V_SNAP_MEV = 0.51099895  # m_e c² in MeV — the absolute snap voltage in energ
 V_YIELD_MEV = np.sqrt(ALPHA) * V_SNAP_MEV  # ≈ 0.04365 MeV
 
 
-def compute_binding_energy_bare(nodes_np):
+def compute_binding_energy_bare(nodes_np: np.ndarray) -> float:
     """
     BARE model: simple sum of K/r for all pairs (no saturation).
     This is the existing Z=1-14 model.
@@ -83,7 +83,7 @@ def compute_binding_energy_bare(nodes_np):
     return float(be)
 
 
-def compute_binding_energy_saturated(nodes_np, V_ref):
+def compute_binding_energy_saturated(nodes_np: np.ndarray, V_ref: float) -> tuple[float, dict]:
     """
     SATURATED model: each pair's coupling is reduced by the background
     strain from all other nucleons at the pair's midpoint.
@@ -157,7 +157,7 @@ def compute_binding_energy_saturated(nodes_np, V_ref):
     return be_total, pair_data
 
 
-def compute_nuclear_mass(Z, A, V_ref=None):
+def compute_nuclear_mass(Z: int, A: int, V_ref: float | None = None) -> tuple[float, float, dict | None]:
     """
     Compute nuclear mass with optional saturation correction.
 

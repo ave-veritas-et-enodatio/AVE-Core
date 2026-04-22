@@ -14,7 +14,7 @@ import scipy.sparse as sp
 from scipy.spatial import cKDTree
 
 
-def create_amorphous_lattice(num_nodes, box_size):
+def create_amorphous_lattice(num_nodes: int, box_size: float) -> np.ndarray:
     """
     Generates a dense, amorphous 3D point cloud using random uniform distribution.
     A true Poisson-Disk sampling is incredibly slow for millions of nodes,
@@ -25,7 +25,7 @@ def create_amorphous_lattice(num_nodes, box_size):
     return np.random.uniform(0, box_size, size=(num_nodes, 3))
 
 
-def build_sparse_rigidity_matrix(nodes, connection_radius):
+def build_sparse_rigidity_matrix(nodes: np.ndarray, connection_radius: float) -> tuple[sp.csc_matrix | None, int, int]:
     """
     Builds the sparse Kinematic (Rigidity) Matrix for the 3D network.
     Rows = P bonds (Constraints)
@@ -81,7 +81,7 @@ def build_sparse_rigidity_matrix(nodes, connection_radius):
     return R_matrix, num_nodes, num_bonds
 
 
-def calculate_alpha_from_lattice():
+def calculate_alpha_from_lattice() -> None:
     """
     Main execution loop.
     Iteratively increases the "density" (packing fraction) of the lattice

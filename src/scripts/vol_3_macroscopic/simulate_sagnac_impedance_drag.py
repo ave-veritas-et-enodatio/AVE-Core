@@ -9,7 +9,7 @@ from ave.core import VacuumGrid
 # Important: Add project root to sys path so we can import ave.core cleanly
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE APPLIED PHYSICS: SAGNAC EFFECT & RLVG IMPEDANCE DRAG")
     print("==========================================================\n")
@@ -63,7 +63,7 @@ def main():
     # Metric rotation velocity
     omega_metric = 0.03
 
-    def update(frame):
+    def update(frame: int) -> list:
         nonlocal cw_phase, ccw_phase
 
         # Phase A: Inject the Entrainment (Metric Drag)

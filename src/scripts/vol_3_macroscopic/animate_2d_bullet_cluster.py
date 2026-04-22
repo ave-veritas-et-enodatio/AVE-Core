@@ -14,7 +14,7 @@ from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
 
-def animate_2d_bullet_cluster():
+def animate_2d_bullet_cluster() -> None:
     """
     Renders a 3D Surface heat map of the 2D topological Lensing field.
     The camera dynamically rotates 360 degrees around the structure to visualize

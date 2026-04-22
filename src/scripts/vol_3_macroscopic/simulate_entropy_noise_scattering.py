@@ -8,7 +8,7 @@ from matplotlib import animation
 from ave.core.grid import VacuumGrid
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE MACROSCOPIC SCALE: MECHANICAL ENTROPY & THERMODYNAMICS")
     print("==========================================================\n")
@@ -53,7 +53,7 @@ def main():
 
     print("[1] Simulating 2D LC grid wave dissipation using ave_engine...")
 
-    def update(frame):
+    def update(frame: int) -> list:
         grid.step_kinematic_wave_equation(damping=0.98)
         img.set_array(grid.strain_z)
         return [img]

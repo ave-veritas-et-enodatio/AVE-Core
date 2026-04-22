@@ -14,7 +14,7 @@ RESISTANCE_V_II = 1e6  # Native Unstructured Insulator (High Resistance)
 RESISTANCE_V_I = 1e2  # Structurally Locked Crystal Wire (Low Resistance)
 
 
-def simulate_neuromorphic_memristor():
+def simulate_neuromorphic_memristor() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Finite-Difference voltage stepping evaluating localized Metamaterial structures.
     Proves macroscopic brain-like memory (Hysteresis) mapped purely to the AVE E_gap trigger.
@@ -91,7 +91,7 @@ def simulate_neuromorphic_memristor():
     return times, V_app, current_I, w_state
 
 
-def plot_memory_hysteresis(times, V_app, current_I, w_state):
+def plot_memory_hysteresis(times: np.ndarray, V_app: np.ndarray, current_I: np.ndarray, w_state: np.ndarray) -> None:
     """
     Plot the physical state transition over time and
     the classic Non-Linear I-V Memristor "Bow-Tie" curve.

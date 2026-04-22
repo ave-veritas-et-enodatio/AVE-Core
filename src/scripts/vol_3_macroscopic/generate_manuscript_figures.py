@@ -13,7 +13,7 @@ OUTPUT_DIR = "manuscript/vol_3_macroscopic/figures"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
-def generate_solar_spin_tensors():
+def generate_solar_spin_tensors() -> None:
     """
     Generates fig_solar_spin_tensors.png
     Shows the geometric strain ratio A_gm deep within Regime IV saturation.
@@ -49,7 +49,7 @@ def generate_solar_spin_tensors():
     plt.close()
 
 
-def generate_hulse_taylor_phase_slip():
+def generate_hulse_taylor_phase_slip() -> None:
     """
     Generates fig_hulse_taylor_phase_slip.png
     """
@@ -86,7 +86,7 @@ def generate_hulse_taylor_phase_slip():
     plt.close()
 
 
-def generate_galactic_flattening():
+def generate_galactic_flattening() -> None:
     """
     Generates fig_galactic_flattening.png
     """

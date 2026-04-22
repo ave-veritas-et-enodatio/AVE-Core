@@ -30,7 +30,7 @@ PLANETS = [
 ]
 
 
-def analyze_spin_tensors():
+def analyze_spin_tensors() -> list[dict]:
     results = []
     for p in PLANETS:
         # Calculate Spin vector based on tilt
@@ -57,7 +57,7 @@ def analyze_spin_tensors():
     return results
 
 
-def print_tensor_results(results):
+def print_tensor_results(results: list[dict]) -> None:
     print("=== AVE PURE SPIN KINEMATICS & 3D TENSORS ===\\n")
     print("Orbital LC Friction Paradox Resolved: P_drag(orbit) = 0 Watts.")
     print("Evaluating Frame-Dragging only via inner Spin vectors.\\n")

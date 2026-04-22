@@ -2,6 +2,7 @@ import os
 import pathlib
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Ensure the core framework is in PATH
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
@@ -11,7 +12,7 @@ from ave.topological.borromean import FundamentalTopologies
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def rotate_coordinates(mesh, rx, ry, rz):
+def rotate_coordinates(mesh: np.ndarray, rx: float, ry: float, rz: float) -> np.ndarray:
     Rx = np.array([[1, 0, 0], [0, np.cos(rx), -np.sin(rx)], [0, np.sin(rx), np.cos(rx)]])
     Ry = np.array([[np.cos(ry), 0, np.sin(ry)], [0, 1, 0], [-np.sin(ry), 0, np.cos(ry)]])
     Rz = np.array([[np.cos(rz), -np.sin(rz), 0], [np.sin(rz), np.cos(rz), 0], [0, 0, 1]])
@@ -19,7 +20,7 @@ def rotate_coordinates(mesh, rx, ry, rz):
     return mesh.dot(R.T)
 
 
-def plot_combined_mesh(nodes, title, filename, exploded_factor=1.0):
+def plot_combined_mesh(nodes: list, title: str, filename: str, exploded_factor: float = 1.0) -> None:
     """
     Renders the unified 3D Borromean mesh manifold for a given set of nucleon coordinates.
     `exploded_factor` > 1.0 radially scales the node coordinates for an exploded diagram context.

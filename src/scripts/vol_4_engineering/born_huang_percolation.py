@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def emt_moduli(p, z0):
+def emt_moduli(p: np.ndarray, z0: float) -> tuple[np.ndarray, np.ndarray]:
     """
     EMT bulk and shear moduli for a diluted 3D central-force network.
 
@@ -41,12 +41,12 @@ def emt_moduli(p, z0):
     return K, G
 
 
-def p_star_kg2(z0):
+def p_star_kg2(z0: float) -> float:
     """Packing fraction where K/G = 2 in the EMT."""
     return (10.0 * z0 - 12.0) / (z0 * (z0 + 2.0))
 
 
-def run_analysis():
+def run_analysis() -> None:
     """Full EMT analysis with derived z₀ = 10/(8πα)."""
     print("=" * 60)
     print("  P1: RIGIDITY PERCOLATION — K/G = 2 AT VACUUM OPERATING POINT")

@@ -12,7 +12,7 @@ from ave.condensed.silicon_doping import pn_junction
 from ave.condensed.spice_exporter import generate_ave_diode_subcircuit
 
 
-def generate():
+def generate() -> None:
     print("Extracting physical Silicon matrix bounds...")
     junction = pn_junction()
 

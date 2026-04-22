@@ -26,7 +26,7 @@ from ave.core.constants import C_0
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def generate_sagnac_sweeps():
+def generate_sagnac_sweeps() -> None:
     print("[*] Simulating Macroscopic Inductive Sagnac Entrainment...")
 
     # -------------------------------------------------------------

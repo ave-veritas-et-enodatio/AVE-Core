@@ -12,7 +12,7 @@ plt.style.use("dark_background")
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -40,7 +40,7 @@ V = np.zeros(N_nodes)
 I = np.zeros(N_nodes + 1)
 
 
-def run_lc_solver():
+def run_lc_solver() -> list:
     global V, I
     print("Executing FDTD Discrete LC Transmission Line (String) Solver...")
 
@@ -69,7 +69,7 @@ def run_lc_solver():
     return history
 
 
-def generate_string_mapping():
+def generate_string_mapping() -> None:
     history = run_lc_solver()
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6), facecolor="#050510")

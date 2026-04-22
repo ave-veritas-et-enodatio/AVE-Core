@@ -20,7 +20,7 @@ from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 TARGET_MASS_O16 = 14895.080
 
 
-def get_oxygen_16_nodes(r_tet):
+def get_oxygen_16_nodes(r_tet: float) -> np.ndarray:
     """
     Constructs the 16-nucleon array (4 Alphas arranged in a giant tetrahedron).
     """
@@ -48,7 +48,7 @@ def get_oxygen_16_nodes(r_tet):
     return np.array(nodes)
 
 
-def calc_mass(r_tet):
+def calc_mass(r_tet: float) -> float:
     """
     Calculates the topological mass of the O-16 lattice given an R_tet separation.
     """
@@ -65,7 +65,7 @@ def calc_mass(r_tet):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Oxygen-16 ({TARGET_MASS_O16} MeV target) ---")
 
     # Error function to minimize

@@ -23,7 +23,7 @@ G_M = 1.0  # Standard 1/r^2 mass displacement constant
 ALPHA_IMPEDANCE = 0.05
 
 
-def orbital_derivatives(t, state):
+def orbital_derivatives(t: float, state: list[float]) -> list[float]:
     """
     Computes the velocity and acceleration vectors at time t.
     state = [x, y, vx, vy]
@@ -48,7 +48,7 @@ def orbital_derivatives(t, state):
     return [vx, vy, ax, ay]
 
 
-def simulate_precession():
+def simulate_precession() -> None:
     print("[*] Initializing Topological Precession Integrator (Venus/Mercury)...")
 
     # Initialize highly elliptical orbit to make the perihelion shift obvious
@@ -115,7 +115,7 @@ def simulate_precession():
     # We will animate in steps to speed up rendering
     step_size = 5
 
-    def update(frame_idx):
+    def update(frame_idx: int) -> tuple:
         idx = frame_idx * step_size
         if idx >= frames:
             idx = frames - 1

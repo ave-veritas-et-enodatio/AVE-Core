@@ -15,7 +15,7 @@ from vol_3_macroscopic.simulate_saturn_rings import simulate_rings
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def analyze_ring_impedance():
+def analyze_ring_impedance() -> None:
     print("[*] Evolving topological test-nodes...")
     # Run the N-body evolution
     history = simulate_rings()

@@ -80,7 +80,7 @@ K_COULOMB = ALPHA * HBAR * C_0  # αℏc = e²/(4πε₀) [J·m]
 # ═══════════════════════════════════════════════════════════
 
 
-def helium_variational_energy(Z_eff, Z_nuc=2):
+def helium_variational_energy(Z_eff: float, Z_nuc: int = 2) -> float:
     """
     Total energy of helium with a product trial wavefunction:
         ψ(r₁,r₂) = φ(r₁)φ(r₂),  φ(r) ∝ exp(-Z_eff r/a₀)
@@ -112,7 +112,7 @@ def helium_variational_energy(Z_eff, Z_nuc=2):
 # ═══════════════════════════════════════════════════════════
 
 
-def compute_V_scf(r, u):
+def compute_V_scf(r: np.ndarray, u: np.ndarray) -> np.ndarray:
     """
     Mean-field Coulomb potential from one electron's charge density.
 
@@ -133,14 +133,14 @@ def compute_V_scf(r, u):
     return K_COULOMB * (Q_enc / np.maximum(r, r[0]) + outer)
 
 
-def hydrogen_like_u(r, Z_eff):
+def hydrogen_like_u(r: np.ndarray, Z_eff: float) -> np.ndarray:
     """Normalised u(r) = r·R₁₀(r) for a hydrogenic 1s."""
     u = 2.0 * (Z_eff / A_BOHR) ** 1.5 * r * np.exp(-Z_eff * r / A_BOHR)
     norm = np.sqrt(np.trapezoid(u**2, r))
     return u / norm if norm > 0 else u
 
 
-def solve_hartree_scf(Z_nuc=2, max_iter=100, mix=0.5, tol=1e-8):
+def solve_hartree_scf(Z_nuc: int = 2, max_iter: int = 100, mix: float = 0.5, tol: float = 1e-8) -> dict:
     """
     Self-consistent Hartree via variational Z_eff iteration.
 
@@ -159,7 +159,7 @@ def solve_hartree_scf(Z_nuc=2, max_iter=100, mix=0.5, tol=1e-8):
         u = hydrogen_like_u(r, Z_eff)
         V_scf = compute_V_scf(r, u)
 
-        def E_orbital(z):
+        def E_orbital(z: float) -> float:
             u_t = hydrogen_like_u(r, z)
             T = (z**2 / 2.0) * E_HARTREE
             V_nuc = -Z_nuc * z * E_HARTREE
@@ -202,7 +202,7 @@ def solve_hartree_scf(Z_nuc=2, max_iter=100, mix=0.5, tol=1e-8):
 # ═══════════════════════════════════════════════════════════
 
 
-def main():
+def main() -> None:
     print("\n" + "=" * 70)
     print("  AVE Helium Ground State — First Principles Derivation")
     print("  All constants from ave.core.constants — ZERO free parameters")

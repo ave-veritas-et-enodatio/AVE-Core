@@ -29,7 +29,7 @@ M_P = 1.00727
 M_N = 1.00866
 
 
-def assemble_heavy_nucleus_dynamic():
+def assemble_heavy_nucleus_dynamic() -> None:
     print("[*] Initializing Dynamic Topoloogical Synthesizer: 235 Nucleons (Uranium-235)")
 
     masses = []
@@ -100,7 +100,7 @@ def assemble_heavy_nucleus_dynamic():
     # Pre-calculate centers to keep the camera focused
     centers = [np.mean(h, axis=0) for h in history]
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # Center the coordinates on the current center of mass so it doesn't drift
         coords = history[frame] - centers[frame]
 

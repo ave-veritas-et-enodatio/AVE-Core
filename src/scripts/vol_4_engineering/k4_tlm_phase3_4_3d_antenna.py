@@ -33,7 +33,9 @@ from ave.core.constants import ALPHA  # noqa: E402
 from ave.core.k4_tlm import K4Lattice3D  # noqa: E402
 
 
-def generate_torus_knot_path_3d(cx, cy, cz, R, r, p, q, n_points):
+def generate_torus_knot_path_3d(
+    cx: int, cy: int, cz: int, R: int, r: int, p: int, q: int, n_points: int
+) -> list[tuple[int, int, int]]:
     t = np.linspace(0, 2 * np.pi, n_points)
     x = cx + (R + r * np.cos(q * t)) * np.cos(p * t)
     y = cy + (R + r * np.cos(q * t)) * np.sin(p * t)
@@ -49,7 +51,7 @@ def generate_torus_knot_path_3d(cx, cy, cz, R, r, p, q, n_points):
     return unique_path
 
 
-def test_3d_wave_propagation(N=30, n_steps=25):
+def test_3d_wave_propagation(N: int = 30, n_steps: int = 25) -> dict:
     """Test 1: 3D point source wave propagation."""
     print("  [3D Propagation] Initializing 30³ lattice...")
     lattice = K4Lattice3D(N, N, N, pml_thickness=8)
@@ -79,7 +81,7 @@ def test_3d_wave_propagation(N=30, n_steps=25):
     }
 
 
-def test_3d_energy_conservation(N=20, n_steps=50):
+def test_3d_energy_conservation(N: int = 20, n_steps: int = 50) -> dict:
     """Test 2: Energy conservation in 3D (single pulse, no continuous source)."""
     print("  [3D Energy] Tracking energy over 50 steps...")
     lattice = K4Lattice3D(N, N, N)
@@ -102,7 +104,7 @@ def test_3d_energy_conservation(N=20, n_steps=50):
     }
 
 
-def simulate_torus_knot_3d(N, p, q, R, r, n_steps=400):
+def simulate_torus_knot_3d(N: int, p: int, q: int, R: int, r: int, n_steps: int = 400) -> dict:
     """
     Broadband simulation of a (p,q) torus knot on 3D K4-TLM.
 
@@ -175,7 +177,7 @@ def simulate_torus_knot_3d(N, p, q, R, r, n_steps=400):
     }
 
 
-def main():
+def main() -> bool:
     """Full 3D K4-TLM validation and torus knot antenna analysis."""
     print("=" * 70)
     print("  K4-TLM PHASE 3+4: 3D TORUS KNOT ANTENNA SIMULATION")

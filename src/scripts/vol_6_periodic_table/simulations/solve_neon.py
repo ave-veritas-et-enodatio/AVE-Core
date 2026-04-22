@@ -24,7 +24,7 @@ project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 TARGET_MASS_NE20 = 18617.730119
 
 
-def get_neon_20_nodes(r_bipyramid):
+def get_neon_20_nodes(r_bipyramid: float) -> np.ndarray:
     """
     Constructs the 20-nucleon array (5 Alphas in a Triangular Bipyramid).
     """
@@ -56,7 +56,7 @@ def get_neon_20_nodes(r_bipyramid):
     return np.array(nodes)
 
 
-def calc_mass(r_bipyramid):
+def calc_mass(r_bipyramid: float) -> float:
     nodes = get_neon_20_nodes(r_bipyramid)
     raw_mass = (10 * M_P_RAW) + (10 * M_N_RAW)
     binding_energy = 0.0
@@ -69,7 +69,7 @@ def calc_mass(r_bipyramid):
     return raw_mass - binding_energy
 
 
-def optimize_topology():
+def optimize_topology() -> float:
     print(f"--- Optimizing Neon-20 ({TARGET_MASS_NE20:.6f} MeV target) ---")
 
     def error_func(r_val):

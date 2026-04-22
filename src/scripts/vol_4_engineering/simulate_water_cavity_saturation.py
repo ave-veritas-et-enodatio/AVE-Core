@@ -47,7 +47,7 @@ P_GAS_0 = P_ATMO + 2.0 * SIGMA_WATER / R_0  # Assume internal gas is air, isothe
 GAMMA = 1.33  # Polytropic index for gas
 
 
-def get_P_AC(t):
+def get_P_AC(t: float) -> float:
     # Ramp up and down: 1.05 atm base, up to 1.45 atm peak
     envelope = np.sin(np.pi * t / T_TOTAL)
     return (1.05 + 0.40 * envelope) * P_ATMO
@@ -74,7 +74,7 @@ print("=======================================================\n")
 # ---------------------------------------------------------
 # Rayleigh-Plesset Equation Solver
 # ---------------------------------------------------------
-def rayleigh_plesset(t, y):
+def rayleigh_plesset(t: float, y: list[float]) -> list[float]:
     R, R_dot = y
 
     if R < 1e-10:

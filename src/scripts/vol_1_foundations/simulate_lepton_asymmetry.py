@@ -13,7 +13,7 @@ from ave.core.constants import ALPHA
 # Ensure local ave package is in path
 
 
-def derive_chiral_asymmetry():
+def derive_chiral_asymmetry() -> tuple[float, float]:
     """
     Derives the Lepton Asymmetry (Matter-Antimatter imbalance) directly from
     the innate non-linear gyroscopic "twist" of the LC Network.
@@ -56,7 +56,7 @@ def derive_chiral_asymmetry():
     return theta_cp, baryogen_efficiency
 
 
-def visualize_chiral_evanescence():
+def visualize_chiral_evanescence() -> None:
     """
     Plots the divergence of Left vs Right handed polarization fields propagating
     through a discrete LC Network, demonstrating why the vacuum intrinsically

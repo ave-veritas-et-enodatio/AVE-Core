@@ -15,7 +15,7 @@ from ave.condensed.germanium_doping import pn_junction_ge as pn_ge
 from ave.condensed.silicon_doping import pn_junction as pn_si
 
 
-def generate_means_report():
+def generate_means_report() -> None:
     print("==================================================")
     print(" AVE MACROSCOPIC DOPING ENGINE — MEANS TEST REPORT")
     print("==================================================")

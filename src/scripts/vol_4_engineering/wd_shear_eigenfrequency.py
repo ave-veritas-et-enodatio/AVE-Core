@@ -53,7 +53,7 @@ LISA_BAND = (1e-4, 1.0)
 ET_BAND = (1.0, 10000.0)  # Einstein Telescope
 
 
-def wd_eigenfrequency(M_kg, R_m, ell):
+def wd_eigenfrequency(M_kg: float, R_m: float, ell: int) -> dict:
     """
     5-step eigenvalue method for WD surface shear cavity.
 
@@ -118,7 +118,7 @@ def wd_eigenfrequency(M_kg, R_m, ell):
     }
 
 
-def main():
+def main() -> None:
     print("=" * 78)
     print("AVE White Dwarf Standing Shear Wave Eigenfrequencies")
     print("5-Step Regime-Boundary Eigenvalue Method")

@@ -131,7 +131,7 @@ A_FN = 1.54e-6  # [A·eV/V²]
 B_FN = 6.83e9  # [eV^(-3/2)·V/m]
 
 
-def fowler_nordheim_current(V, d, beta, phi, A_emit):
+def fowler_nordheim_current(V: float, d: float, beta: float, phi: float, A_emit: float) -> float:
     """Fowler-Nordheim dark current [A] for given voltage."""
     E_macro = V / d
     E_local = beta * E_macro

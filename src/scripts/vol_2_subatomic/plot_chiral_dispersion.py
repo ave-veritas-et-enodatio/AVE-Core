@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_dispersion_plot():
+def create_dispersion_plot() -> None:
     fig, ax = plt.subplots(figsize=(10, 7), facecolor="#050510")
     ax.set_facecolor("#050510")
 

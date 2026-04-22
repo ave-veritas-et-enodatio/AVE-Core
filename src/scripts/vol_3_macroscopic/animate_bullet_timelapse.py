@@ -14,7 +14,7 @@ from ave.core.constants import M_SUN, G
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
 
-def animate_bullet_cluster():
+def animate_bullet_cluster() -> None:
     KPC = 3.086e19  # m
     GRID_MIN, GRID_MAX, GRID_RES = -1500 * KPC, 1500 * KPC, 120
     x = np.linspace(GRID_MIN, GRID_MAX, GRID_RES)

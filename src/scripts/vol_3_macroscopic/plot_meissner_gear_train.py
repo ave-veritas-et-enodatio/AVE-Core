@@ -18,7 +18,7 @@ import numpy as np
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 
-def generate():
+def generate() -> None:
     print("[*] Generating Meissner Gear Train Figure...")
     plt.style.use("dark_background")
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 8))

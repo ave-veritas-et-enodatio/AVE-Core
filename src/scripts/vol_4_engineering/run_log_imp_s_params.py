@@ -7,7 +7,7 @@ from ave.core.constants import Z_0
 
 
 # --- Standard AVE output directory ---
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):
@@ -21,7 +21,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # --- End standard output directory ---
 
 
-def simulate_log_scale_s_parameters():
+def simulate_log_scale_s_parameters() -> None:
     r = np.logspace(0, 5, 1000)
     n_r = 1.0 + 1.0 / r
     Z_base = Z_0  # Derived from √(μ₀/ε₀)

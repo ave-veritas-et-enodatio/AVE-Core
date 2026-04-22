@@ -15,7 +15,7 @@ C_0_SIM = 1e-9  # Baseline Capacitance (1 nF)
 
 
 # Resonant Frequency Formula
-def w_res(C_val):
+def w_res(C_val: float) -> float:
     return 1.0 / np.sqrt(L_0 * C_val)
 
 
@@ -27,7 +27,7 @@ w_0 = w_res(C_0_SIM)  # Baseline resonant frequency (rad/s)
 # characteristic to detune).
 # Wait, actually in Book 4 Eq 13.1, e_eff decreases. So C_eff decreases!
 # w = 1 / sqrt(L*C_eff). If C_eff drops, the resonant frequency of the vacuum INCREASES as it is stressed.
-def C_eff(V):
+def C_eff(V: float) -> float:
     # Cap stops dropping right before divide by zero to prevent solver crash
     v_norm = min(abs(V) / V_YIELD, 0.999)
     return C_0_SIM * np.sqrt(1.0 - v_norm**2)
@@ -38,7 +38,7 @@ DRIVE_AMPLITUDE = 8e-5  # Drive current amplitude
 
 
 # --- 1. The Fixed-Frequency Petawatt Laser (No PLL) ---
-def fixed_driver_model(y, t):
+def fixed_driver_model(y: list[float], t: float) -> list[float]:
     """
     Simulates driving the vacuum with a massive fixed-frequency laser.
     y[0] = V_C (Voltage across the space)
@@ -59,7 +59,7 @@ def fixed_driver_model(y, t):
 
 
 # --- 2. The Autoresonant Phase-Locked Loop (PLL) ---
-def pll_driver_model(y, t):
+def pll_driver_model(y: list[float], t: float) -> list[float]:
     """
     Simulates driving the vacuum with a smart PLL that tracks the detuning.
     y[0] = V_C
@@ -86,7 +86,7 @@ def pll_driver_model(y, t):
     return [dV_c_dt, dI_l_dt, dtheta_dt]
 
 
-def run_autoresonance_sim():
+def run_autoresonance_sim() -> None:
     print("[*] Running Autoresonant PLL SPICE Model...")
 
     t_end = 200e-6

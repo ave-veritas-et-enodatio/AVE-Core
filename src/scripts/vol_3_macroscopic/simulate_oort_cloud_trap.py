@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def simulate_accumulation_boundaries():
+def simulate_accumulation_boundaries() -> None:
     print("==========================================================")
     print(" AVE MACRO-FLUIDICS: OORT CLOUD DETRITUS TRAPPING")
     print("==========================================================")
@@ -144,7 +144,7 @@ def simulate_accumulation_boundaries():
     # --- Standard AVE output directory ---
 
 
-def _find_repo_root():
+def _find_repo_root() -> str:
     d = os.path.dirname(os.path.abspath(__file__))
     while d != os.path.dirname(d):
         if os.path.exists(os.path.join(d, "pyproject.toml")):

@@ -94,7 +94,7 @@ print()
 # ============================================================
 
 
-def abcd_vacuum_segment(distance, freq=1.0):
+def abcd_vacuum_segment(distance: float, freq: float = 1.0) -> jnp.ndarray:
     """
     ABCD matrix for a vacuum transmission line segment of given length.
 
@@ -120,7 +120,7 @@ def abcd_vacuum_segment(distance, freq=1.0):
     return jnp.array([A, B, C, D])
 
 
-def abcd_shunt_admittance(Y):
+def abcd_shunt_admittance(Y: complex) -> jnp.ndarray:
     """
     ABCD matrix for a shunt admittance element.
 
@@ -132,7 +132,7 @@ def abcd_shunt_admittance(Y):
     return jnp.array([1.0 + 0j, 0.0 + 0j, Y + 0j, 1.0 + 0j])
 
 
-def cascade_abcd(M1, M2):
+def cascade_abcd(M1: jnp.ndarray, M2: jnp.ndarray) -> jnp.ndarray:
     """Multiply two ABCD matrices: M_total = M1 × M2."""
     A1, B1, C1, D1 = M1[0], M1[1], M1[2], M1[3]
     A2, B2, C2, D2 = M2[0], M2[1], M2[2], M2[3]
@@ -145,7 +145,7 @@ def cascade_abcd(M1, M2):
     return jnp.array([A, B, C, D])
 
 
-def s11_from_abcd(M, Z_source=1.0, Z_load=1.0):
+def s11_from_abcd(M: jnp.ndarray, Z_source: float = 1.0, Z_load: float = 1.0) -> jnp.ndarray:
     """
     Compute S₁₁ (reflection coefficient magnitude²) from ABCD matrix.
 
@@ -166,7 +166,7 @@ def s11_from_abcd(M, Z_source=1.0, Z_load=1.0):
 # ============================================================
 
 
-def nuclear_s11_loss(positions_flat, n_alphas, Z_total, A_total):
+def nuclear_s11_loss(positions_flat: jnp.ndarray, n_alphas: int, Z_total: int, A_total: int) -> tuple:
     """
     Compute the total S₁₁ loss for an N-alpha-cluster nucleus.
     ALL JAX-compatible — no Python conditionals on traced values.
@@ -262,7 +262,7 @@ def nuclear_s11_loss(positions_flat, n_alphas, Z_total, A_total):
     return loss, total_mass, be_inter
 
 
-def predict_nuclear_geometry(n_alphas, Z, A, n_steps=3000, lr=0.01):
+def predict_nuclear_geometry(n_alphas: int, Z: int, A: int, n_steps: int = 3000, lr: float = 0.01) -> tuple[np.ndarray, float, float]:
     """
     Predict nuclear geometry by minimizing S₁₁.
     Returns optimized alpha cluster positions and nuclear mass.

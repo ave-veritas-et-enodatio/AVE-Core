@@ -47,7 +47,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # ═══════════════════════════════════════════════════════
 
 
-def _build_sponge(nx, ny, sponge=50):
+def _build_sponge(nx: int, ny: int, sponge: int = 50) -> jnp.ndarray:
     """Build sponge absorbing boundary layer (computed once on CPU)."""
     d = np.ones((nx, ny))
     for i in range(sponge):
@@ -59,7 +59,7 @@ def _build_sponge(nx, ny, sponge=50):
     return jnp.array(d)
 
 
-def _build_wall(nx, ny, wall_x, wall_t, slit_w, slit_1, slit_2):
+def _build_wall(nx: int, ny: int, wall_x: int, wall_t: int, slit_w: int, slit_1: int, slit_2: int) -> jnp.ndarray:
     """Build wall mask with two slits (computed once on CPU)."""
     mask = np.zeros((nx, ny), dtype=bool)
     mask[wall_x : wall_x + wall_t, :] = True
@@ -68,7 +68,7 @@ def _build_wall(nx, ny, wall_x, wall_t, slit_w, slit_1, slit_2):
     return jnp.array(mask)
 
 
-def _build_obs_damping(nx, ny, wall_x, slit_2, slit_w, observe_slit):
+def _build_obs_damping(nx: int, ny: int, wall_x: int, slit_2: int, slit_w: int, observe_slit: bool) -> jnp.ndarray:
     """Build Ohmic damping mask at slit 2.
     AVE first principles: observer = resistive load that thermalizes
     the wake's phase energy (Joule friction: W ∝ |∂_t A|²/Z_det).
@@ -88,7 +88,7 @@ def _build_obs_damping(nx, ny, wall_x, slit_2, slit_w, observe_slit):
 
 
 @jit
-def _fdtd_step(P, Vx, Vy, wall_mask, damping, obs_damping, dt, dx, source_x_start, source_y, freq, t, wall_x):
+def _fdtd_step(P: jnp.ndarray, Vx: jnp.ndarray, Vy: jnp.ndarray, wall_mask: jnp.ndarray, damping: jnp.ndarray, obs_damping: jnp.ndarray, dt: float, dx: float, source_x_start: int, source_y: int, freq: float, t: float, wall_x: int) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray]:
     """
     One FDTD timestep of the 2D acoustic solver (JIT-compiled).
 
@@ -134,7 +134,7 @@ def _fdtd_step(P, Vx, Vy, wall_mask, damping, obs_damping, dt, dx, source_x_star
     return P, Vx, Vy
 
 
-def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
+def run_fdtd_jax(nx: int = 800, ny: int = 500, steps: int = 2500, observe_slit: bool = False) -> tuple[np.ndarray, jnp.ndarray, int, int, int, int]:
     """Run the full 2D FDTD simulation on GPU via JAX."""
     dt = 0.45
     dx = 1.0
@@ -194,7 +194,7 @@ def run_fdtd_jax(nx=800, ny=500, steps=2500, observe_slit=False):
     return np.array(intensity), wall_mask, slit_1, slit_2, source_x_start, source_y
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Double Slit: Standing Wave Heatmap — JAX GPU-Accelerated")
     print("=" * 70)

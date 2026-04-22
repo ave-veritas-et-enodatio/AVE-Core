@@ -123,7 +123,7 @@ def compute_redshift(M_kg: float, R_m: float) -> dict:
     }
 
 
-def main():
+def main() -> None:
     print("=" * 72)
     print("AVE White Dwarf Gravitational Redshift — Saturation Correction")
     print("=" * 72)
@@ -228,7 +228,7 @@ def main():
         print("[!] matplotlib not available — skipping figure generation")
 
 
-def _generate_figure(results):
+def _generate_figure(results: list) -> None:
     """Generate a comparison figure."""
     import matplotlib.pyplot as plt
 

@@ -20,7 +20,7 @@ from ave.gravity.orbital_lc_damping import (
 HULSE_TAYLOR = {"m1": 1.4398 * M_SUN, "m2": 1.3886 * M_SUN, "a": 1.9501e9, "e": 0.6171334}
 
 
-def simulate_hulse_taylor():
+def simulate_hulse_taylor() -> None:
     m1, m2 = HULSE_TAYLOR["m1"], HULSE_TAYLOR["m2"]
     a, e = HULSE_TAYLOR["a"], HULSE_TAYLOR["e"]
 

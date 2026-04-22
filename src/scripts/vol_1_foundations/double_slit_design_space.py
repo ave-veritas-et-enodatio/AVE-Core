@@ -49,16 +49,16 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 
 def run_fdtd_slit(
-    nx=600,
-    ny=400,
-    steps=1800,
-    freq=0.06,
-    slit_sep=90,
-    slit_width=14,
-    n_slits=2,
-    observer_damping=0.0,
-    wall_frac=0.35,
-):
+    nx: int = 600,
+    ny: int = 400,
+    steps: int = 1800,
+    freq: float = 0.06,
+    slit_sep: int = 90,
+    slit_width: int = 14,
+    n_slits: int = 2,
+    observer_damping: float = 0.0,
+    wall_frac: float = 0.35,
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Run a 2D FDTD double/N-slit simulation and return the
     far-field transverse intensity cross-section.
@@ -133,7 +133,7 @@ def run_fdtd_slit(
         intensity_j = jnp.zeros((nx, ny))
 
         @jit
-        def _step(P, Vx, Vy, intensity, src_amp, source_x, do_integrate):
+        def _step(P: jnp.ndarray, Vx: jnp.ndarray, Vy: jnp.ndarray, intensity: jnp.ndarray, src_amp: float, source_x: jnp.ndarray, do_integrate: float) -> tuple[jnp.ndarray, jnp.ndarray, jnp.ndarray, jnp.ndarray]:
             Vx = Vx.at[:-1, :].add(-dt * (P[1:, :] - P[:-1, :]) / dx)
             Vy = Vy.at[:, :-1].add(-dt * (P[:, 1:] - P[:, :-1]) / dx)
             Vx = jnp.where(wall_j, 0.0, Vx)
@@ -199,7 +199,7 @@ def run_fdtd_slit(
     return gaussian_filter1d(cross, sigma=2), intensity
 
 
-def main():
+def main() -> None:
     print("=" * 70)
     print("  Double Slit Design Space Explorer")
     print("  Thinking Like an EE: Mapping the Parameter Space")

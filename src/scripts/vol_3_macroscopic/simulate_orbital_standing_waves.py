@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE ATOMIC SCALE: DETERMINISTIC ORBITAL RESONANCES")
     print("==========================================================\n")
@@ -56,7 +56,7 @@ def main():
     # We will plot isosurfaces (constant pressure/impedance boundaries)
     # showing where the phase-velocity reaches an equilibrium standing-wave.
 
-    def plot_isosurface(ax, volume_data, isovalue, color, title):
+    def plot_isosurface(ax: "Axes3D", volume_data: np.ndarray, isovalue: float, color: str, title: str) -> None:
         # A simple voxel approximation for fast matplotlib 3D rendering
         voxels = np.abs(volume_data) > isovalue
         ax.voxels(voxels, facecolors=color, edgecolor="none", alpha=0.6)

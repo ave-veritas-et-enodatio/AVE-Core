@@ -3,7 +3,7 @@ import numpy as np
 from ave.core.constants import L_NODE
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE PLANCK SCALE: STRING TENSION METRIC MAPPING")
     print("==========================================================\n")

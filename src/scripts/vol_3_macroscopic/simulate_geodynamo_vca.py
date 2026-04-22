@@ -25,7 +25,9 @@ J_SUN = (0.073 * M_SUN * R_SUN**2) * OMEGA_SUN  # kg m^2/s
 G = GRAVITATIONAL_CONSTANT
 
 
-def compute_vca_dynamo(name: str, r_orbit: float, omega_spin: float, R_planet: float, R_core: float, core_state: str):
+def compute_vca_dynamo(
+    name: str, r_orbit: float, omega_spin: float, R_planet: float, R_core: float, core_state: str
+) -> None:
     """
     Computes the planetary magnetic dipole moment via VCA Topo-Kinematics.
     """
@@ -139,7 +141,14 @@ if __name__ == "__main__":
     print("=========================================")
     print("\nEvaluating Phase 2: Topo-Kinematic VCA AC Motor Induction...\n")
 
-    def compute_vca_ac_dynamo(name, omega_spin, R_planet, R_core, b_standoff_multiplier, core_state):
+    def compute_vca_ac_dynamo(
+        name: str,
+        omega_spin: float,
+        R_planet: float,
+        R_core: float,
+        b_standoff_multiplier: float,
+        core_state: str,
+    ) -> float:
         print(f"--- {name.upper()} DYNAMO (VCA AC MOTOR) ---")
 
         # Sagnac Phase Slip drives the Motional EMF against the Magnetopause Stator Field

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def main():
+def main() -> None:
     print("==========================================================")
     print(" AVE CONDENSED MATTER SCALE: CLASSICAL SUPERCONDUCTIVITY")
     print("==========================================================\n")

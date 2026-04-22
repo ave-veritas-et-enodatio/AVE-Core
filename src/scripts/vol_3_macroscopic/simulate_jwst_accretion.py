@@ -46,7 +46,7 @@ G_NEWTON = 0.5  # Standard inverse-square gravity
 AVE_INDUCTANCE = 2.5  # Macroscopic inductive drag herding
 
 
-def initialize_gas_cloud():
+def initialize_gas_cloud() -> tuple[np.ndarray, np.ndarray]:
     """Generates a uniform, diffuse primordial gas cloud footprint."""
     np.random.seed(int("137"))  # Fine structure seed for consistency
     pos = np.random.uniform(-BOX_SIZE / 2, BOX_SIZE / 2, size=(N_PARTICLES, 2))
@@ -54,7 +54,7 @@ def initialize_gas_cloud():
     return pos, vel
 
 
-def compute_newtonian_accelerations(pos):
+def compute_newtonian_accelerations(pos: np.ndarray) -> np.ndarray:
     """Standard Lambda-CDM 1/r^2 collisionless gravity — fully vectorized."""
     epsilon = 2.0
     # r_vec[i,j] = pos[j] - pos[i]  shape: (N, N, 2)
@@ -69,7 +69,7 @@ def compute_newtonian_accelerations(pos):
     return acc
 
 
-def compute_ave_accelerations(pos, vel):
+def compute_ave_accelerations(pos: np.ndarray, vel: np.ndarray) -> np.ndarray:
     """
     AVE Cosmology: Macroscopic Inductive Tracking.
     In addition to weak 1/r^2 gravity, the structured vacuum acts as a
@@ -103,7 +103,7 @@ def compute_ave_accelerations(pos, vel):
     return acc
 
 
-def run_comparative_accretion():
+def run_comparative_accretion() -> None:
     print("[*] Initializing Primordial Gas Clouds...")
 
     pos_newt, vel_newt = initialize_gas_cloud()
@@ -172,7 +172,7 @@ def run_comparative_accretion():
     time_text_1 = ax1.text(0.05, 0.95, "", transform=ax1.transAxes, color="white", fontsize=12)
     time_text_2 = ax2.text(0.05, 0.95, "", transform=ax2.transAxes, color="white", fontsize=12)
 
-    def update(frame):
+    def update(frame: int) -> tuple:
         # Update Lambda-CDM
         scat1.set_offsets(hist_newt[frame])
         c_rate1 = accretion_rate_newt[frame]

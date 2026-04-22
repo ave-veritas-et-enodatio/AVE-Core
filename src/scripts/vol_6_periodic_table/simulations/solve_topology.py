@@ -10,7 +10,7 @@ from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
 from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 
-def evaluate_binding_energy(positions):
+def evaluate_binding_energy(positions: np.ndarray) -> float:
     """
     Computes theoretical mass defect using EE Mutual Impedance.
     positions: 1D array of length 3N representing (x,y,z) for N nucleons.
@@ -33,7 +33,7 @@ def evaluate_binding_energy(positions):
     return binding_energy
 
 
-def objective_function(positions, Z, A, target_mass):
+def objective_function(positions: np.ndarray, Z: int, A: int, target_mass: float) -> float:
     """
     Minimizes the error between theoretical and empirical mass.
     Returns absolute error in MeV.
@@ -52,7 +52,7 @@ def objective_function(positions, Z, A, target_mass):
     return abs(theo_mass - target_mass)
 
 
-def find_optimal_topology(Z, A, empirical_mass_mev, n_iter=1000):
+def find_optimal_topology(Z: int, A: int, empirical_mass_mev: float, n_iter: int = 1000) -> np.ndarray | None:
     """
     Uses Basinhopping (global optimization) to find the spatial coordinates
     that perfectly match the empirical mass defect.

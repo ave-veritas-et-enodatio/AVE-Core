@@ -34,7 +34,7 @@ from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix  # noqa: E402
 N_PORTS = 4
 
 
-def test_s_matrix_unitarity():
+def test_s_matrix_unitarity() -> dict:
     """Test 1: S†S = I for both chiralities."""
     results = {}
     for chirality in [+1, -1]:
@@ -50,7 +50,7 @@ def test_s_matrix_unitarity():
     return results
 
 
-def test_wave_propagation(nx=60, ny=60, n_steps=40):
+def test_wave_propagation(nx: int = 60, ny: int = 60, n_steps: int = 40) -> dict:
     """Test 2: Wave propagation from point source."""
     lattice = K4Lattice2D(nx, ny, dx=1.0)
     center_x, center_y = nx // 2, ny // 2
@@ -58,7 +58,7 @@ def test_wave_propagation(nx=60, ny=60, n_steps=40):
     # Inject a single Gaussian pulse at center
     pulse_width = 3.0
 
-    def source(t):
+    def source(t: float) -> float:
         return np.exp(-0.5 * ((t - 10) / pulse_width) ** 2)
 
     # Run simulation and record field snapshots
@@ -81,7 +81,7 @@ def test_wave_propagation(nx=60, ny=60, n_steps=40):
     }
 
 
-def test_energy_conservation(nx=40, ny=40, n_steps=100):
+def test_energy_conservation(nx: int = 40, ny: int = 40, n_steps: int = 100) -> dict:
     """Test 3: Total energy conservation (no source after initial pulse)."""
     lattice = K4Lattice2D(nx, ny, dx=1.0)
     center_x, center_y = nx // 2, ny // 2
@@ -108,7 +108,7 @@ def test_energy_conservation(nx=40, ny=40, n_steps=100):
     }
 
 
-def test_chirality_asymmetry(nx=40, ny=40, n_steps=30):
+def test_chirality_asymmetry(nx: int = 40, ny: int = 40, n_steps: int = 30) -> dict:
     """Test 4: Chiral vs achiral lattice helicity density."""
     # Achiral lattice (alternating chirality)
     lattice_achiral = K4Lattice2D(nx, ny, alternating_chirality=True)
@@ -138,7 +138,7 @@ def test_chirality_asymmetry(nx=40, ny=40, n_steps=30):
     }
 
 
-def test_eigenvalue_spectrum():
+def test_eigenvalue_spectrum() -> dict:
     """Test 5: S-matrix eigenvalue spectrum analysis."""
     results = {}
     for chirality in [+1, -1]:
@@ -156,7 +156,7 @@ def test_eigenvalue_spectrum():
     return results
 
 
-def main():
+def main() -> bool:
     """Run all Phase 1 validation tests and produce 6-panel figure."""
     print("=" * 70)
     print("  K4-TLM PHASE 1 VALIDATION SUITE")

@@ -25,7 +25,7 @@ PDG_MZ = 91_188.0  # MeV  (PDG 2022)
 BAR = "=" * 66
 
 
-def pct(got, pdg):
+def pct(got: float, pdg: float) -> float:
     return (got / pdg - 1.0) * 100.0
 
 
