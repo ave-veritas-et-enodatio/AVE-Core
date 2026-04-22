@@ -31,24 +31,10 @@ Key identities (SYMMETRIC GRAVITY):
 
 from __future__ import annotations
 
-
 import numpy as np
 
-from ave.core.constants import (
-    C_0,
-    EPSILON_0,
-    MU_0,
-    Z_0,
-    V_SNAP,
-    G,
-    L_NODE,
-    M_SUN,
-)
-from ave.axioms.scale_invariant import (
-    impedance,
-    reflection_coefficient,
-)
-
+from ave.axioms.scale_invariant import impedance, reflection_coefficient
+from ave.core.constants import C_0, EPSILON_0, L_NODE, M_SUN, MU_0, V_SNAP, Z_0, G
 
 # ═══════════════════════════════════════════════════════════════
 # Schwarzschild refractive profile — gravity as symmetric refraction
@@ -95,8 +81,8 @@ def refractive_index(r: float | np.ndarray, r_s: float) -> float | np.ndarray:
     Returns:
         Refractive index (≥ 1).
     """
-    from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
+    from ave.core.universal_operators import universal_refractive_index
 
     r = np.asarray(r, dtype=float)
     ratio = np.minimum(r_s / r, 0.9999)

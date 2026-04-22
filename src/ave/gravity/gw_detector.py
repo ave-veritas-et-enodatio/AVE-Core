@@ -28,17 +28,11 @@ transmission line caused by passing inductive shear waves.
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import (
-    C_0,
-    Z_0,
-    V_SNAP,
-    HBAR,
-)
+import numpy as np
 
+from ave.core.constants import C_0, HBAR, V_SNAP, Z_0
 
 # ═══════════════════════════════════════════════════════════════
 # Detector configurations

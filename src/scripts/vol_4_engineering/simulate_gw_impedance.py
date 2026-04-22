@@ -8,11 +8,12 @@ between Volumetric Capacitance (bulk) and Torsional Inductance (shear),
 which bounds the propagation of transverse Gravitational Waves.
 """
 
+import pathlib
 import warnings
+
 import numpy as np
 import scipy.spatial as spatial
 from scipy.optimize import minimize
-import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

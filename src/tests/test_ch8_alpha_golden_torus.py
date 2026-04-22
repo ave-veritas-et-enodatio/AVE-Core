@@ -17,24 +17,15 @@ Reference: manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
 
 import numpy as np
 
-from ave.core.constants import ALPHA, ALPHA_COLD_INV, ALPHA_COLD, DELTA_STRAIN
-
-from scripts.vol_1_foundations.derive_alpha_from_golden_torus import (
-    PHI,
-    R_gt,
-    r_gt,
-    golden_torus_multipole,
-)
-from scripts.vol_1_foundations.verify_clifford_half_cover import (
-    clifford_area_numeric,
-    solve_golden_torus,
-)
+from ave.core.constants import ALPHA, ALPHA_COLD, ALPHA_COLD_INV, DELTA_STRAIN
+from scripts.vol_1_foundations.derive_alpha_from_golden_torus import PHI, R_gt, golden_torus_multipole, r_gt
 from scripts.vol_1_foundations.ropelength_trefoil_golden_torus import (
-    trefoil_arc_length,
-    stage_b_with_screening_constraint,
     GOLDEN_R,
     GOLDEN_r,
+    stage_b_with_screening_constraint,
+    trefoil_arc_length,
 )
+from scripts.vol_1_foundations.verify_clifford_half_cover import clifford_area_numeric, solve_golden_torus
 
 
 # ───────────────────────────────────────────────────────────────────────────

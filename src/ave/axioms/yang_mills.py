@@ -26,27 +26,22 @@ Part D: INFINITE-VOLUME LIMIT
 
 from __future__ import annotations
 
-
 import numpy as np
+
+from ave.axioms.scale_invariant import epsilon_eff, impedance, mu_eff
 from ave.core.constants import (
+    B_SNAP,
+    BARYON_LADDER,
     C_0,
+    EPSILON_0,
     HBAR,
+    KAPPA_FS,
     L_NODE,
     M_E,
     MU_0,
-    EPSILON_0,
     V_SNAP,
-    B_SNAP,
-    KAPPA_FS,
     e_charge,
-    BARYON_LADDER,
 )
-from ave.axioms.scale_invariant import (
-    impedance,
-    epsilon_eff,
-    mu_eff,
-)
-
 
 # ════════════════════════════════════════════════════════════════════
 # PART A: THE LATTICE HAMILTONIAN
@@ -532,7 +527,7 @@ def verify_osterwalder_schrader() -> dict:
     Returns:
         Dictionary with 5 boolean OS axiom checks and detailed verification.
     """
-    from ave.core.constants import KAPPA_FS, Z_0, MU_0, EPSILON_0
+    from ave.core.constants import EPSILON_0, KAPPA_FS, MU_0, Z_0
 
     m_e_c2 = M_E * C_0**2
     ell = L_NODE

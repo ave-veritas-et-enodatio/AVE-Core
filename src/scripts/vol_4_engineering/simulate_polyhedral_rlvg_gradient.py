@@ -4,10 +4,11 @@ Author: AI (Antigravity Assistant)
 Based on: Vol 4, Section 12.4.3 - Applied RLVG Telemetry
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Add src to path to import ave packages
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))

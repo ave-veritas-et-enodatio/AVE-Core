@@ -4,11 +4,12 @@ Generates an AVE-accurate 2D slice showing the lattice mutual inductance
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
-from ave.core.constants import G, C_0
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
+
+from ave.core.constants import C_0, G
 
 # Planetary Data: Name, J [kg m^2/s], Orbit_R [m], Period [days], radius [m]
 # The Sun is at the origin.

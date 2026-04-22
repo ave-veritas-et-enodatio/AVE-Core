@@ -11,12 +11,9 @@ Proves that:
 import numpy as np
 import pytest
 
-from ave.regime_2_nonlinear.seismic_fdtd import (
-    build_seismic_engine,
-    compute_boundary_reflections,
-)
-from ave.regime_2_nonlinear.seismic import PREM_LAYERS
 from ave.axioms.scale_invariant import reflection_coefficient
+from ave.regime_2_nonlinear.seismic import PREM_LAYERS
+from ave.regime_2_nonlinear.seismic_fdtd import build_seismic_engine, compute_boundary_reflections
 
 
 class TestSeismicFDTDBridge:

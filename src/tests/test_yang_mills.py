@@ -4,24 +4,20 @@ Tests for ave.axioms.yang_mills
 Verifies the 4-part rigorous mass gap argument.
 """
 
-import pytest
 import numpy as np
+import pytest
+
 from ave.axioms.yang_mills import (
-    lattice_cell_energy,
-    lattice_hamiltonian_properties,
-    torus_knot_gauge_rank,
-    gauge_topology_table,
-    topological_excitation_energy,
-    spectral_gap_theorem,
     defect_energy_vs_volume,
     full_mass_gap_proof,
+    gauge_topology_table,
+    lattice_cell_energy,
+    lattice_hamiltonian_properties,
+    spectral_gap_theorem,
+    topological_excitation_energy,
+    torus_knot_gauge_rank,
 )
-from ave.core.constants import (
-    L_NODE,
-    V_SNAP,
-    B_SNAP,
-)
-
+from ave.core.constants import B_SNAP, L_NODE, V_SNAP
 
 # ════════════════════════════════════════════════════════════════════
 # Part A: Lattice Hamiltonian

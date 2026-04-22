@@ -18,14 +18,14 @@ from this model — no curve fitting or adjustments.
 
 import numpy as np
 import pytest
+
 from ave.regime_3_saturated.condensed_matter import (
-    melting_temperature,
-    sound_speed,
     band_gap_energy,
     breakdown_field,
     element_summary,
+    melting_temperature,
+    sound_speed,
 )
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Model 1: Melting Temperature

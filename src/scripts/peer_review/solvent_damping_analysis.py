@@ -35,18 +35,13 @@ import sys
 
 sys.path.insert(0, "src")
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.constants import (
-    C_0,
-    e_charge,
-    XI_TOPO,
-    K_B,
-)
+from ave.core.constants import C_0, K_B, XI_TOPO, e_charge
 
 # ═════════════════════════════════════════════════════════════════
 # DERIVED SOLVENT CONSTANTS (all from axioms + water properties)
@@ -162,10 +157,7 @@ print("§3  S₁₁ SENSITIVITY TO SOLVENT LOADING")
 print("=" * 100)
 
 # Model: simple 5-residue backbone cascade with tunable solvent shunt
-from ave.solvers.transmission_line import (
-    build_nodal_y_matrix,
-    s11_from_y_matrix,
-)
+from ave.solvers.transmission_line import build_nodal_y_matrix, s11_from_y_matrix
 
 N_RESIDUES = 10
 omegas = np.linspace(0.1, 5.0, 500)  # normalized frequency

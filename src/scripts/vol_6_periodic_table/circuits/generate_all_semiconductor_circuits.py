@@ -10,8 +10,8 @@ Uses the approved Si-28 4-section layout:
 Data sourced from semiconductor_binding_engine.py.
 """
 
-import subprocess
 import os
+import subprocess
 
 # Output directory resolved at runtime in __main__
 

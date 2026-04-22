@@ -11,11 +11,12 @@ Axiomatic optics demonstrates impedance reflection diffusing the focal point.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 
-from ave.regime_4_rupture.caustic_solver import AxiomaticCausticSolver
+import matplotlib.pyplot as plt
+import numpy as np
+
 from ave.core.constants import E_YIELD, Z_0
+from ave.regime_4_rupture.caustic_solver import AxiomaticCausticSolver
 
 
 def main():

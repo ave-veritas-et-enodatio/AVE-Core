@@ -16,7 +16,7 @@ from __future__ import annotations
 import numpy as np
 
 # AVE fundamental properties
-from ave.core.constants import L_NODE, AVALANCHE_N_3D, C_K_KOLMOGOROV
+from ave.core.constants import AVALANCHE_N_3D, C_K_KOLMOGOROV, L_NODE
 from ave.core.universal_operators import universal_saturation
 
 

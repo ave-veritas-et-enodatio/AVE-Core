@@ -8,22 +8,22 @@ Verifies the 4-step mass gap argument:
   4. Positive mass gap for all crossing numbers
 """
 
-import pytest
 import numpy as np
+import pytest
+
 from ave.axioms.spectral_gap import (
+    boundary_reflection_coefficient,
+    brillouin_zone_edge,
+    confinement_radius,
     lattice_degrees_of_freedom,
     lattice_dispersion,
-    brillouin_zone_edge,
+    mass_gap_energy,
+    mass_gap_is_positive,
     maximum_frequency,
     minimum_excitation_energy,
     minimum_excitation_energy_eV,
-    confinement_radius,
-    boundary_reflection_coefficient,
-    mass_gap_energy,
-    mass_gap_is_positive,
 )
-from ave.core.constants import L_NODE, C_0, M_E, KAPPA_FS
-
+from ave.core.constants import C_0, KAPPA_FS, L_NODE, M_E
 
 # ── Step 1: Lattice Existence ──
 

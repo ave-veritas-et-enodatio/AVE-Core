@@ -28,21 +28,12 @@ Key correspondences:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import (
-    EPSILON_0,
-    M_E,
-    e_charge,
-    K_B,
-    M_PROTON,
-)
-from ave.axioms.scale_invariant import (
-    impedance,
-    reflection_coefficient,
-)
+import numpy as np
+
+from ave.axioms.scale_invariant import impedance, reflection_coefficient
+from ave.core.constants import EPSILON_0, K_B, M_E, M_PROTON, e_charge
 
 
 def plasma_frequency(n_e):

@@ -12,20 +12,19 @@ Verifies:
 import numpy as np
 import pytest
 
+from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
 from ave.gravity.gw_propagation import (
-    schwarzschild_radius,
     epsilon_eff_schwarzschild,
-    mu_eff_schwarzschild,
     gravitational_impedance,
-    horizon_reflection,
-    gw_strain_to_voltage,
-    is_linear_propagation,
     gw_local_speed,
-    refractive_index,
     gw_propagation_summary,
+    gw_strain_to_voltage,
+    horizon_reflection,
+    is_linear_propagation,
+    mu_eff_schwarzschild,
+    refractive_index,
+    schwarzschild_radius,
 )
-from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0, V_SNAP
-
 
 M_SUN = 1.989e30  # Solar mass [kg]
 

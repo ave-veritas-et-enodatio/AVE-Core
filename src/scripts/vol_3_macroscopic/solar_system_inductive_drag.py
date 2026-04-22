@@ -7,17 +7,17 @@ field, and Lense-Thirring precession for each celestial body.
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import M_SUN
 from ave.gravity.lense_thirring import (
-    gravitomagnetic_field,
     gravitational_wave_power,
+    gravitomagnetic_field,
     lense_thirring_precession,
     strain_amplitude,
 )
-
 
 # Reference data including standard ephemeris orbital radii
 # Data: Name, Mass (kg), R_equator (m), Omega (rad/s), J (kg m^2/s), Orbit_R (m)

@@ -2,9 +2,10 @@
 # Natively computes the exact 6^3_2 Borromean topological linkage of three completely
 # discrete 3_1 Torus Knots, which mathematically dictates the structural mass of the Proton.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

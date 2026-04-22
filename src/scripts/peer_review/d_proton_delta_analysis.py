@@ -11,22 +11,12 @@ integrity and document the impact of using first-principles values.
 Run: PYTHONPATH=src python src/scripts/peer_review/d_proton_delta_analysis.py
 """
 
-from math import pi
 import sys
+from math import pi
 
 sys.path.insert(0, "src")
 
-from ave.core.constants import (
-    HBAR,
-    M_E,
-    C_0,
-    e_charge,
-    ALPHA,
-    NU_VAC,
-    PROTON_ELECTRON_RATIO,
-    M_P_MEV_TARGET,
-    D_PROTON,
-)
+from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, M_E, M_P_MEV_TARGET, NU_VAC, PROTON_ELECTRON_RATIO, e_charge
 
 # ─── (A) DERIVED chain (current engine state) ───────────────────────────
 # D_PROTON already uses PROTON_ELECTRON_RATIO * M_E (verified at line 667)

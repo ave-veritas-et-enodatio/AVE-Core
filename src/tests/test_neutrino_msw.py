@@ -14,13 +14,13 @@ import numpy as np
 import pytest
 
 from ave.gravity.neutrino_msw import (
-    matter_potential,
-    effective_mixing_angle,
-    msw_resonance_density,
-    survival_probability,
-    impedance_analogy,
-    solar_msw_profile,
     THETA_12,
+    effective_mixing_angle,
+    impedance_analogy,
+    matter_potential,
+    msw_resonance_density,
+    solar_msw_profile,
+    survival_probability,
 )
 
 

@@ -27,11 +27,11 @@ Performance:
   JAX backend available via ``ave.solvers.transmission_line.abcd_cascade_jax``.
 """
 
+from typing import Callable, List, Optional, Tuple
+
 import numpy as np
-from typing import Callable, Optional, Tuple, List
 
 from ave.core.constants import EPS_DIVZERO
-
 
 # ====================================================================
 # 1.  S₁₁ frequency sweep through a graded impedance profile

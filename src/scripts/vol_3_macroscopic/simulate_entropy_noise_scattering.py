@@ -1,7 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import animation
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import animation
 
 # Add the src directory to path to import the ave engine
 from ave.core.grid import VacuumGrid

@@ -1,12 +1,13 @@
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 from scripts.vol_6_periodic_table.simulations.simulate_element import (
+    M_N_RAW,
+    M_P_RAW,
     calculate_topological_mass,
     get_nucleon_coordinates,
-    M_P_RAW,
-    M_N_RAW,
 )
 
 

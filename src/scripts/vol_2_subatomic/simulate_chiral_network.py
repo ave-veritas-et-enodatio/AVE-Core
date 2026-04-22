@@ -3,9 +3,10 @@
 # Proves that a discrete spatial matrix seeded with a right-handed inductive chirality
 # mechanically forbids the propagation of a left-handed torsional input vector.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

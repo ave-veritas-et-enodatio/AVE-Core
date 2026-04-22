@@ -11,8 +11,9 @@ The induced angular velocity decays as 1/r^2, matching the GR prediction.
 
 import os
 import pathlib
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

@@ -21,10 +21,10 @@ Includes 1st-order Mur Absorbing Boundary Conditions (ABCs).
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import C_0, MU_0, EPSILON_0, V_YIELD, B_SNAP
+
 from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
 
 
 class FDTD3DEngine:

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Append path to import AVE core modules
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 from src.ave.condensed.bjt_mechanics import bjt_current_gain
-from src.scripts.vol_4_engineering.temperature_stress_test import classical_V_bi, ave_V_bi
+from src.scripts.vol_4_engineering.temperature_stress_test import ave_V_bi, classical_V_bi
 
 output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../assets/sim_outputs"))
 os.makedirs(output_dir, exist_ok=True)

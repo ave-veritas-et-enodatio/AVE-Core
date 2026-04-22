@@ -9,15 +9,14 @@ import numpy as np
 import pytest
 
 from ave.axioms.saturation import (
-    epsilon_eff,
     capacitance_eff,
-    reflection_coefficient,
-    local_wave_speed,
     energy_density_nonlinear,
+    epsilon_eff,
     impedance_at_strain,
+    local_wave_speed,
+    reflection_coefficient,
 )
-from ave.core.constants import EPSILON_0, C_0, ALPHA, V_YIELD, Z_0
-
+from ave.core.constants import ALPHA, C_0, EPSILON_0, V_YIELD, Z_0
 
 # ---------------------------------------------------------------------------
 # epsilon_eff: ε_eff(V) = ε₀ √(1 − (V/V_yield)²)

@@ -1,7 +1,8 @@
-import sys
 import os
-import numpy as np
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))

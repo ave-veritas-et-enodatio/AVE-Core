@@ -15,7 +15,8 @@ lowest mode coupling is the quadrupole, causing the slip to scale strictly as (v
 """
 
 import numpy as np
-from ave.core.constants import G, C_0
+
+from ave.core.constants import C_0, G
 
 
 def orbital_reactive_power(m1: float, m2: float, a: float) -> float:

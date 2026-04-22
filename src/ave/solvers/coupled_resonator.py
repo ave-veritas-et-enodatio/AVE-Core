@@ -48,22 +48,21 @@ ARCHITECTURE NOTE (2026-03-13):
 
 from __future__ import annotations
 
-
 import numpy as np
+
 from ave.core.constants import (
     ALPHA,
-    HBAR,
     C_0,
-    e_charge,
     D_PROTON,
-    NU_VAC,
-    M_P_MEV_TARGET,
-    M_N_MEV_TARGET,
+    HBAR,
     HBAR_C_MEV_FM,
     K_COUPLING,
     M_E,
+    M_N_MEV_TARGET,
+    M_P_MEV_TARGET,
+    NU_VAC,
+    e_charge,
 )
-
 
 # ─────────────────────────────────────────────────────────────────
 # Fundamental circuit parameters (from axioms)

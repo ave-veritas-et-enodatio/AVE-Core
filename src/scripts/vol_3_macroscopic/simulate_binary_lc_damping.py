@@ -8,13 +8,13 @@ Provides pure Topo-Kinematic validation of Gravitational Radiation mechanics
 without breaking the AVE LC structural assumptions.
 """
 
+from ave.core.constants import M_SUN
 from ave.gravity.orbital_lc_damping import (
+    orbital_period_decay_rate,
     orbital_reactive_power,
     quadrupole_phase_slip,
     real_power_damping,
-    orbital_period_decay_rate,
 )
-from ave.core.constants import M_SUN
 
 # PSR B1913+16 empirical parameters
 HULSE_TAYLOR = {"m1": 1.4398 * M_SUN, "m2": 1.3886 * M_SUN, "a": 1.9501e9, "e": 0.6171334}

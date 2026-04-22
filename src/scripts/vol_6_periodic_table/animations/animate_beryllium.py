@@ -1,9 +1,10 @@
 import os
-import sys
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 import pathlib
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.animation import FuncAnimation
 
 # Ensure the core framework is in PATH
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()

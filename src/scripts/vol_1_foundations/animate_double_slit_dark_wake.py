@@ -13,8 +13,9 @@ trajectory and passes through BOTH slits, creating interference.
 """
 
 import os
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

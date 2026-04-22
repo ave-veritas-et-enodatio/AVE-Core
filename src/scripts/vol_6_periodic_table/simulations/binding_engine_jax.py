@@ -44,11 +44,11 @@ except ImportError:
     HAS_JAX = False
     print("[JAX] Not available, using NumPy fallback")
 
-# ---- Import AVE constants ----
-from ave.core.constants import K_MUTUAL, ALPHA
-
 # Import nucleon coordinates from existing engine
-from simulate_element import get_nucleon_coordinates, M_P_RAW, M_N_RAW
+from simulate_element import M_N_RAW, M_P_RAW, get_nucleon_coordinates
+
+# ---- Import AVE constants ----
+from ave.core.constants import ALPHA, K_MUTUAL
 
 # ---- Physical constants in nuclear units ----
 # K_MUTUAL is in MeV·fm

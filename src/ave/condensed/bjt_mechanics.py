@@ -20,11 +20,10 @@ realistic bounds (~50 to 300) governed strictly by pure geometry.
 
 from __future__ import annotations
 
-
-from ave.nuclear.silicon_atom import V_R_OVER_V_BR, Z_SI
+from ave.condensed.silicon_crystal import K_SI_SI
 from ave.nuclear.boron_atom import Z_BORON
 from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS
-from ave.condensed.silicon_crystal import K_SI_SI
+from ave.nuclear.silicon_atom import V_R_OVER_V_BR, Z_SI
 
 
 def compute_asymmetric_impedance(dopant_Z: float, doping_weight: float) -> float:

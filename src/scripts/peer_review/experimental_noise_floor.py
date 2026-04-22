@@ -23,19 +23,13 @@ import sys
 
 sys.path.insert(0, "src")
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.constants import (
-    V_YIELD,
-    EPSILON_0,
-    K_B,
-    e_charge,
-    M_E,
-)
+from ave.core.constants import EPSILON_0, K_B, M_E, V_YIELD, e_charge
 
 # ═════════════════════════════════════════════════════════════════
 # EXPERIMENTAL PARAMETERS

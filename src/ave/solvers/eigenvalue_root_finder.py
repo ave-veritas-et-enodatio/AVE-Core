@@ -26,7 +26,6 @@ This module contains ZERO domain-specific physics.
 
 from __future__ import annotations
 
-
 import numpy as np
 
 from ave.core.constants import EPS_NUMERICAL

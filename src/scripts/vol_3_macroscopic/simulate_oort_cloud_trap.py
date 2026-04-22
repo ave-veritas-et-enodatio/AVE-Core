@@ -16,8 +16,9 @@ Outer zone -> Oort Cloud / Kuiper Belt
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def simulate_accumulation_boundaries():

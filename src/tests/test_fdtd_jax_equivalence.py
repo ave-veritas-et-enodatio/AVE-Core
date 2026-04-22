@@ -11,8 +11,9 @@ physics — every axiom-derived constant, every nonlinear saturation
 curve, every curl stencil is numerically identical.
 """
 
-import numpy as np
 import time
+
+import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.fdtd_3d_jax import FDTD3DEngineJAX

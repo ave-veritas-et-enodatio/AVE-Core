@@ -15,7 +15,6 @@ electrical and mechanical domains.
 
 from __future__ import annotations
 
-
 from ave.core.constants import XI_TOPO
 
 

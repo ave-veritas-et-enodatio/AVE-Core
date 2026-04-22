@@ -32,21 +32,12 @@ When V_CC = Δm²cos2θ/(2E): resonance → θ_m = π/4 → maximal mixing.
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import (
-    C_0,
-    HBAR,
-    e_charge,
-    G_F,
-    SIN2_THETA_12,
-    SIN2_THETA_23,
-    SIN2_THETA_13,
-)
-from ave.axioms.scale_invariant import reflection_coefficient
+import numpy as np
 
+from ave.axioms.scale_invariant import reflection_coefficient
+from ave.core.constants import C_0, G_F, HBAR, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Physical constants for neutrino physics

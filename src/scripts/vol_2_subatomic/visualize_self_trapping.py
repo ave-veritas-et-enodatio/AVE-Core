@@ -21,13 +21,14 @@ Usage:
 """
 
 import os
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
+import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
-import matplotlib.cm as cm
 
 # ====================================================================
 # Parameters

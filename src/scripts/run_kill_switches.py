@@ -17,25 +17,16 @@ No magic numbers.
 """
 from __future__ import annotations
 
-import sys
 import os
+import sys
 
 # Ensure the source tree is importable
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np
-from ave.core.constants import (
-    ALPHA,
-    EPSILON_0,
-    XI_TOPO,
-    L_NODE,
-    V_YIELD,
-    V_SNAP,
-    RHO_BULK,
-)
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-)
+
+from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import ALPHA, EPSILON_0, L_NODE, RHO_BULK, V_SNAP, V_YIELD, XI_TOPO
 
 # ─────────────────────────────────────────────────────────────────────
 # ANSI formatting helpers

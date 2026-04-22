@@ -32,8 +32,8 @@ from __future__ import annotations
 import numpy as np
 from scipy.integrate import solve_ivp
 
-from ave.core.universal_operators import universal_saturation
 from ave.core.constants import C_0, G
+from ave.core.universal_operators import universal_saturation
 
 
 class AxiomaticBlackHoleCollapse:

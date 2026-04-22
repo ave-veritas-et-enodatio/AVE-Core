@@ -16,13 +16,12 @@ Output: assets/sim_outputs/borromean_fem_convergence.png
 """
 
 import os
-
-
-import numpy as np
-import jax.numpy as jnp
-from jax import jit
 from functools import partial
+
+import jax.numpy as jnp
 import matplotlib
+import numpy as np
+from jax import jit
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

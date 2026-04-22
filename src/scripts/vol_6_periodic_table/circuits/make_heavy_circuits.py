@@ -18,8 +18,8 @@ Geometries are taken directly from the semiconductor_binding_engine.py:
   Fe-56: 14α FCC-14
 """
 
-import subprocess
 import os
+import subprocess
 
 OUTDIR = os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
 

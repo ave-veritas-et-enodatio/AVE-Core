@@ -4,9 +4,10 @@
 # which is the definitive algebraically continuous, 3D isotropic, highly-symmetric
 # chiral graph manifold.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

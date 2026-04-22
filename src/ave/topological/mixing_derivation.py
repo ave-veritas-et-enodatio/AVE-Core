@@ -99,21 +99,20 @@ yang_mills.py: torus_knot_gauge_rank(), gauge_topology_table()
 
 from __future__ import annotations
 
-
-import numpy as np
 from math import pi, sqrt
 
+import numpy as np
+
 from ave.core.constants import (
-    SIN2_THETA_W,
-    SIN2_THETA_13,
-    SIN2_THETA_12,
-    SIN2_THETA_23,
+    A_CKM,
     DELTA_CP_PMNS,
     LAMBDA_CKM,
-    A_CKM,
     RHO_ETA_MAG,
+    SIN2_THETA_12,
+    SIN2_THETA_13,
+    SIN2_THETA_23,
+    SIN2_THETA_W,
 )
-
 
 # ═══════════════════════════════════════════════════════════════════
 # TORUS KNOT MODE SPACE (Axiom 1)

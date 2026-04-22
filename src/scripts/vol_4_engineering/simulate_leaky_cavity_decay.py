@@ -1,8 +1,9 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.integrate import odeint
 import os
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import odeint
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

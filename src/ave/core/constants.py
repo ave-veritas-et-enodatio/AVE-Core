@@ -25,9 +25,9 @@ of ε₀, μ₀, c, ℏ, and e.
 
 from __future__ import annotations
 
+from math import pi
 
 import numpy as np
-from math import pi
 
 # =============================================================================
 # SI ELECTROMAGNETIC CONSTANTS (Exact or CODATA 2018)

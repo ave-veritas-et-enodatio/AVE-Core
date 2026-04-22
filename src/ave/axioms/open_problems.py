@@ -28,19 +28,10 @@ PROBLEM 3: HUBBLE TENSION
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import (
-    C_0,
-    M_E,
-    ALPHA,
-    EPSILON_0,
-    Z_0,
-    KAPPA_FS,
-    e_charge,
-)
-from ave.axioms.yang_mills import torus_knot_gauge_rank
 
+from ave.axioms.yang_mills import torus_knot_gauge_rank
+from ave.core.constants import ALPHA, C_0, EPSILON_0, KAPPA_FS, M_E, Z_0, e_charge
 
 # ════════════════════════════════════════════════════════════════════
 # PROBLEM 1: STRONG CP — θ = 0 from Torus Knot Quantization

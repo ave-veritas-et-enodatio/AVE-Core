@@ -12,7 +12,6 @@ a topologically packed K_N graph of 7 localized alpha knots.
 
 from __future__ import annotations
 
-
 from ave.solvers.coupled_resonator import nuclear_mass
 
 

@@ -19,18 +19,12 @@ The classical electrostatic divergence is definitively capped by the topology
 of the vacuum.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
-from ave.core.constants import (
-    L_NODE,
-    ALPHA,
-    M_E,
-    C_0,
-    T_EM,
-    EPSILON_0,
-    e_charge,
-)
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, T_EM, e_charge
 
 
 def run_electrostatic_resolution():

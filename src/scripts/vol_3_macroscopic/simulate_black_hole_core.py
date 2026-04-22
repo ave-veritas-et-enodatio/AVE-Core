@@ -29,33 +29,24 @@ Usage:
 """
 
 import os
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-from ave.core.constants import (
-    C_0,
-    G,
-    HBAR,
-    Z_0,
-    NU_VAC,
-    K_B,
-    M_SUN,
-)
+from ave.axioms.scale_invariant import phase_transition_Q
+from ave.core.constants import C_0, HBAR, K_B, M_SUN, NU_VAC, Z_0, G
 from ave.gravity import (
+    gravitational_saturation_factor,
+    local_impedance,
     principal_radial_strain,
     refractive_index,
-    schwarzschild_radius,
     saturation_radius,
-    gravitational_saturation_factor,
+    schwarzschild_radius,
     shear_modulus_factor,
-    local_impedance,
-)
-from ave.axioms.scale_invariant import (
-    phase_transition_Q,
 )
 
 # ══════════════════════════════════════════════════════════════════════════════

@@ -11,7 +11,6 @@ import pytest
 
 from ave.topological.borromean import FundamentalTopologies
 
-
 # ---------------------------------------------------------------------------
 # Unknot (0_1) — Fundamental lepton topology
 # ---------------------------------------------------------------------------

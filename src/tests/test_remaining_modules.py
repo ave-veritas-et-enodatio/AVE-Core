@@ -14,7 +14,6 @@ Tests for engine modules that previously had no dedicated test file:
 import numpy as np
 import pytest
 
-
 # ============================================================================
 # fluids/water.py
 # ============================================================================
@@ -257,7 +256,7 @@ class TestTransmissionLine:
         assert abs(M[1, 0]) < 1e-10
 
     def test_abcd_cascade_associative(self):
-        from ave.solvers.transmission_line import abcd_segment, abcd_cascade
+        from ave.solvers.transmission_line import abcd_cascade, abcd_segment
 
         M1 = abcd_segment(50.0 + 0j, 0.1 + 0.5j)
         M2 = abcd_segment(75.0 + 0j, 0.2 + 0.3j)
@@ -321,8 +320,8 @@ class TestTopologicalTensors:
         assert V > 0
 
     def test_nuclear_tension_positive(self):
+        from ave.core.constants import L_NODE, M_E, M_PROTON
         from ave.topological.tensors import calculate_topological_nuclear_tension
-        from ave.core.constants import M_PROTON, M_E, L_NODE
 
         tension = calculate_topological_nuclear_tension(M_PROTON, M_E, L_NODE)
         assert tension > 0

@@ -34,14 +34,12 @@ The Moho produces a reflection coefficient:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 from typing import List
 
-from ave.axioms.scale_invariant import (
-    reflection_coefficient as _universal_gamma,
-)
+import numpy as np
+
+from ave.axioms.scale_invariant import reflection_coefficient as _universal_gamma
 
 
 @dataclass

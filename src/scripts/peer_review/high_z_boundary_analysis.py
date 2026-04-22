@@ -18,20 +18,13 @@ import sys
 
 sys.path.insert(0, "src")
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.constants import (
-    K_MUTUAL,
-    ALPHA,
-    D_PROTON,
-    HBAR_C_MEV_FM,
-    M_P_MEV_TARGET,
-    M_N_MEV_TARGET,
-)
+from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_TARGET
 
 # ═════════════════════════════════════════════════════════════════
 # CODATA Nuclear Mass Table (selected stable isotopes, Z=1-118)

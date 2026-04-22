@@ -21,7 +21,6 @@ This module performs the "means test" on problems 4-7.
 
 from __future__ import annotations
 
-
 from ave.core.constants import BARYON_LADDER
 
 # ════════════════════════════════════════════════════════════════════
@@ -241,12 +240,9 @@ def formal_proof_summary() -> dict:
     Returns:
         Complete formal proof status with Clay-gap enumeration.
     """
-    from ave.axioms.yang_mills import full_mass_gap_proof, verify_osterwalder_schrader
     from ave.axioms.navier_stokes import full_navier_stokes_proof, sobolev_bound_theorem
-    from ave.axioms.spectral_gap import (
-        zero_free_region_equivalence,
-        functional_equation_reciprocal_proof,
-    )
+    from ave.axioms.spectral_gap import functional_equation_reciprocal_proof, zero_free_region_equivalence
+    from ave.axioms.yang_mills import full_mass_gap_proof, verify_osterwalder_schrader
 
     # ── Yang-Mills ────────────────────────────────────────────────────
     ym_proof = full_mass_gap_proof()

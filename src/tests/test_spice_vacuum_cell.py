@@ -14,21 +14,17 @@ Test hierarchy:
   3. AC resonance: verify f_res = 1/(2π√LC) for linear cell
 """
 
-import subprocess
 import shutil
+import subprocess
 import tempfile
-import numpy as np
-import pytest
 from pathlib import Path
 
-from ave.core.constants import V_YIELD, V_SNAP, ALPHA
-from ave.axioms.scale_invariant import saturation_factor
-from ave.solvers.spice_netlist_compiler import (
-    compile_ee_bench_dc_sweep,
-    write_netlist,
-    lib_path,
-)
+import numpy as np
+import pytest
 
+from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import ALPHA, V_SNAP, V_YIELD
+from ave.solvers.spice_netlist_compiler import compile_ee_bench_dc_sweep, lib_path, write_netlist
 
 # Skip all ngspice tests if not installed
 NGSPICE_AVAILABLE = shutil.which("ngspice") is not None

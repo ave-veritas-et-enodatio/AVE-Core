@@ -34,23 +34,12 @@ References:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import (
-    G,
-    C_0,
-    Z_0,
-    EPSILON_0,
-    M_E,
-    e_charge,
-    M_SUN,
-)
-from ave.axioms.scale_invariant import (
-    reflection_coefficient,
-    saturation_factor,
-)
+import numpy as np
+
+from ave.axioms.scale_invariant import reflection_coefficient, saturation_factor
+from ave.core.constants import C_0, EPSILON_0, M_E, M_SUN, Z_0, G, e_charge
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 
 # Alias for readability in formulas

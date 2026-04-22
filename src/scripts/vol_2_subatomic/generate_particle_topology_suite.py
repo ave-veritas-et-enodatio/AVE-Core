@@ -13,9 +13,10 @@ particles in the AVE framework:
   7. Summary   (All particles in a single 2x3+1 panel)
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "sim_outputs")

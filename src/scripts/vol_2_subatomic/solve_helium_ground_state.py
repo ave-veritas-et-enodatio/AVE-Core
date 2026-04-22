@@ -47,30 +47,24 @@ WHAT THIS SCRIPT COMPUTES:
 Outputs → assets/sim_outputs/
 """
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import os
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+
+from scipy.integrate import cumulative_trapezoid
+from scipy.optimize import minimize_scalar
 
 # ═══════════════════════════════════════════════════════════
 # All constants from the physics engine — ZERO free parameters
 # ═══════════════════════════════════════════════════════════
-from ave.core.constants import (
-    C_0,
-    M_E,
-    HBAR,
-    ALPHA,
-    L_NODE,
-    e_charge,
-)
-
-from scipy.optimize import minimize_scalar
-from scipy.integrate import cumulative_trapezoid
+from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, e_charge
 
 OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True)

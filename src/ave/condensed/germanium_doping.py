@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from ave.condensed.silicon_crystal import silicon_band_gap
+from ave.nuclear.arsenic_atom import Z_ARSENIC
+from ave.nuclear.gallium_atom import Z_GALLIUM
+from ave.nuclear.germanium_atom import Z_GERMANIUM
+
 # ═══════════════════════════════════════════════════════════════════
 # GERMANIUM TOPO-KINEMATIC DOPING (Z=32)
 # ═══════════════════════════════════════════════════════════════════
@@ -7,10 +12,6 @@ from __future__ import annotations
 # Derives Germanium's built-in limits purely from Topo-Kinematic
 # avalanche boundaries, natively dropping empirical bandgaps.
 
-from ave.nuclear.germanium_atom import Z_GERMANIUM
-from ave.nuclear.gallium_atom import Z_GALLIUM
-from ave.nuclear.arsenic_atom import Z_ARSENIC
-from ave.condensed.silicon_crystal import silicon_band_gap
 
 # Core Operating Boundary from Binding Engine
 # 16-alpha Heavy Matrix => Deep Large Signal

@@ -1,4 +1,5 @@
 import pytest
+
 from ave.solvers.radial_eigenvalue import ionization_energy_e2k
 
 # Subset of experimental ionization energies (eV)

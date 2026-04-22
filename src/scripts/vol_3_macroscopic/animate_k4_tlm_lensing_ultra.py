@@ -6,18 +6,19 @@ Length: 20 seconds, 60 FPS (1200 frames).
 Expanded lattice size to support the longer photon transit.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
+import subprocess
+
 import matplotlib.pyplot as plt
 from matplotlib.colors import PowerNorm
-import subprocess
 
 from ave.core.k4_tlm import K4Lattice2D, build_k4_scattering_matrix
 

@@ -9,14 +9,17 @@ If the numeric solver returns a Delta-V in the ~10^-6 m/s scale, we prove
 that standard linear acoustics fail to match the observed ~10^-2 m/s offset.
 """
 
-import sys, os
+import os
+import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-import numpy as np
-from ave.gravity.hyperbolic_kinematics import compute_hyperbolic_flyby_anomaly
-from ave.core.constants import GRAVITATIONAL_CONSTANT
 import time
+
+import numpy as np
+
+from ave.core.constants import GRAVITATIONAL_CONSTANT
+from ave.gravity.hyperbolic_kinematics import compute_hyperbolic_flyby_anomaly
 
 # --- Earth Parametric Bounds ---
 # We do not use constants.py M_SUN here because we are explicitly modeling Earth.

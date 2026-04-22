@@ -6,9 +6,9 @@ force extraction, energy density, gravity module, and coupled EM+CFD.
 """
 
 import numpy as np
+
 from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.lbm_3d import LBM3DEngine
-
 
 # ============================================================
 # PML BOUNDARY TESTS
@@ -262,8 +262,8 @@ class TestGravityModule:
 
     def test_impedance_invariant(self):
         """Local impedance should equal Z₀ regardless of mass/radius."""
-        from ave.gravity import local_impedance
         from ave.core.constants import Z_0
+        from ave.gravity import local_impedance
 
         z = local_impedance(1.989e30, 6.957e8)  # Sun surface
         assert abs(z - Z_0) / Z_0 < 1e-10, f"Z = {z} vs Z₀ = {Z_0}"

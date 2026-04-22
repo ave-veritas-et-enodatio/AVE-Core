@@ -9,9 +9,10 @@ Latent Heat of spatial crystallization equals the Holographic Radiation Capacity
 of the boundary.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def simulate_cosmological_equilibrium():

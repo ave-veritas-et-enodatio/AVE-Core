@@ -5,9 +5,9 @@ Analytically computes the rigid 3D bounds and fractional projections of Borromea
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import ISOTROPIC_PROJECTION, C_0, ALPHA
+
+from ave.core.constants import ALPHA, C_0, ISOTROPIC_PROJECTION
 
 
 def get_isotropic_strain_projection() -> float:

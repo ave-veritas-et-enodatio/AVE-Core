@@ -9,7 +9,7 @@ and projects the accurate B_gm Field frequency limits per Axiom 4.
 
 import numpy as np
 
-from ave.core.constants import G, C_0, B_SNAP, M_SUN
+from ave.core.constants import B_SNAP, C_0, M_SUN, G
 
 # The True Kinematic Gravitomagnetic Impedance (kg/s)
 Z_GM = (C_0**3) / G

@@ -21,10 +21,11 @@ In Applied Vacuum Engineering (AVE), the explanation is structurally explicit:
 This script elegantly models the exact amplitude and angle of that saturation point.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.integrate import solve_ivp
-from ave.core.constants import L_NODE, V_YIELD, EPSILON_0
+
+from ave.core.constants import EPSILON_0, L_NODE, V_YIELD
 
 # ---------------------------------------------------------
 # Cavity & Fluid Parameters

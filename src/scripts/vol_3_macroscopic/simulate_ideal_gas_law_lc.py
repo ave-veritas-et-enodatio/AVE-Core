@@ -1,7 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import animation
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib import animation
 
 
 def main():

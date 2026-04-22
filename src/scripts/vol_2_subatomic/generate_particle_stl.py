@@ -36,6 +36,7 @@ Usage:
 
 import os
 import pathlib
+
 import numpy as np
 from stl import mesh as stl_mesh
 

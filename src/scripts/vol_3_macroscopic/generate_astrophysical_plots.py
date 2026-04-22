@@ -3,9 +3,10 @@ Astrophysical Visualization Generator
 Produces the 3 core plots proving the Macroscopic VCA Topo-Kinematic scale constants.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Create output dir if needed
 out_dir = "manuscript/vol_3_macroscopic/figures"

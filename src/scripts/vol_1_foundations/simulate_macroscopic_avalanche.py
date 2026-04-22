@@ -2,9 +2,10 @@
 # Simulates the gravitational induction field of a massive body
 # and visibly renders the explicit tau > tau_yield breakdown threshold
 # where mutual zero-impedance occurs.
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

@@ -6,23 +6,21 @@ inert Oxygen-16 core (4 Alphas) and the bound Tritium outer ring
 to perfectly match the empirical CODATA mass defect of F-19.
 """
 
-import numpy as np
-from scipy.optimize import minimize
-
 # Ensure the core framework is in PATH
 import pathlib
+
+import numpy as np
+from scipy.optimize import minimize
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 from periodic_table.simulations.simulate_element import get_nucleon_coordinates
 
 # All constants imported from the physics engine — zero hardcoded values
-from ave.core.constants import (
-    K_MUTUAL,
-    M_P_MEV_TARGET as M_P_RAW,
-    M_N_MEV_TARGET as M_N_RAW,
-    D_PROTON as D_0,
-)
+from ave.core.constants import D_PROTON as D_0
+from ave.core.constants import K_MUTUAL
+from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
+from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 # Target Empirical CODATA Nuclear Mass for Fluorine-19 (MeV)
 # 18.99840316273 amu * 931.494102 MeV/amu - (9 * 0.51099895 MeV)

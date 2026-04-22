@@ -20,9 +20,10 @@ The Experiment:
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
@@ -33,7 +34,7 @@ def simulate_ee_bench_plateau():
     # -------------------------------------------------------------
     # Experimental Parameters (Zero-Parameter Foundation)
     # -------------------------------------------------------------
-    from ave.core.constants import ALPHA, M_E, C_0, e_charge, L_NODE
+    from ave.core.constants import ALPHA, C_0, L_NODE, M_E, e_charge
 
     # Absolute Localized Node Voltage Limit (derived dynamically)
     # V_node = (m_e * c^2) / e * sqrt(alpha) -> 43,653 Volts

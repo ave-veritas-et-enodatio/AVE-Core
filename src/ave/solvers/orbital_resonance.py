@@ -22,20 +22,9 @@ All constants imported from ave.core.constants — zero free parameters.
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import (
-    C_0,
-    G,
-    HBAR,
-    ALPHA,
-    L_NODE,
-    Z_0,
-    NU_VAC,
-    K_B,
-    M_SUN,
-    EPS_CLIP,
-)
+
+from ave.core.constants import ALPHA, C_0, EPS_CLIP, HBAR, K_B, L_NODE, M_SUN, NU_VAC, Z_0, G
 
 # Alias for readability
 G_NEWTON = G
@@ -68,8 +57,8 @@ def refractive_index(r, M):
     -------
     n : ndarray       Local refractive index (dimensionless)
     """
-    from ave.core.universal_operators import universal_refractive_index
     from ave.core.constants import NU_VAC
+    from ave.core.universal_operators import universal_refractive_index
 
     r = np.asarray(r, dtype=float)
     rh = G_NEWTON * M / (2.0 * C_0**2)

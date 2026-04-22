@@ -1,8 +1,9 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 from pathlib import Path
+
 import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import numpy as np
 
 # --- AVE First-Principles Constants ---
 from ave.core.constants import N_PHI_PACK as PHI_LIMIT  # Axiom 1: Packing limit

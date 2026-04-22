@@ -27,13 +27,14 @@ Usage:
 
 import os
 import sys
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
+import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
-import matplotlib.cm as cm
 
 try:
     from ave.core.fdtd_3d_jax import FDTD3DEngineJAX as FDTD3DEngine

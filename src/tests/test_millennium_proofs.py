@@ -25,11 +25,10 @@ Tests all new formal proof functions added in feature/millennium-formal-proofs:
     - formal_proof_summary() returns correct structure and counts
 """
 
-import pytest
 import numpy as np
+import pytest
 
-from ave.core.constants import C_0, M_E, L_NODE, e_charge, KAPPA_FS
-
+from ave.core.constants import C_0, KAPPA_FS, L_NODE, M_E, e_charge
 
 # ─────────────────────────────────────────────────────────────────────
 # Yang-Mills

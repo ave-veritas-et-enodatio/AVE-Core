@@ -6,21 +6,19 @@ for the 5 constituent Alpha-particle cores in Neon-20
 arranged in a Triangular Bipyramid.
 """
 
-import numpy as np
-from scipy.optimize import minimize
-
 # Ensure the core framework is in PATH
 import pathlib
+
+import numpy as np
+from scipy.optimize import minimize
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 # All constants imported from the physics engine — zero hardcoded values
-from ave.core.constants import (
-    K_MUTUAL,
-    M_P_MEV_TARGET as M_P_RAW,
-    M_N_MEV_TARGET as M_N_RAW,
-    D_PROTON as D_0,
-)
+from ave.core.constants import D_PROTON as D_0
+from ave.core.constants import K_MUTUAL
+from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
+from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 # Target Empirical CODATA Nuclear Mass for Neon-20 (MeV)
 # 19.9924401762 amu * 931.494102 MeV/amu - (10 * 0.51099895 MeV)

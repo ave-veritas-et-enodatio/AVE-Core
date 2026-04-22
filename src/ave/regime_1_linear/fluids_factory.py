@@ -40,11 +40,12 @@ Physical constants for H₂O:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import HBAR, C_0, K_B, e_charge as EV_TO_J
+import numpy as np
+
+from ave.core.constants import C_0, HBAR, K_B
+from ave.core.constants import e_charge as EV_TO_J
 
 # Physical constants
 H_BAR = float(HBAR)  # ℏ [J·s] — from constants.py
@@ -141,12 +142,8 @@ class WaterMolecule(MolecularFluid):
 
     def __post_init__(self):
         """Derive geometric constants from the AVE physics engine."""
-        from ave.solvers.coupled_resonator import (
-            ionization_energy,
-            atom_port_impedance,
-            molecular_bond_distance,
-        )
         from ave.core.constants import ALPHA, RY_EV
+        from ave.solvers.coupled_resonator import atom_port_impedance, ionization_energy, molecular_bond_distance
 
         # Ionization energies from Mutual Cavity Loading solver
         IE_O = ionization_energy(8)
@@ -191,9 +188,10 @@ class WaterMolecule(MolecularFluid):
         # K = Γ²αℏc (partial charge coupling from Op3 impedance mismatch)
         # d_sat = r_H + r_O (saturation at atomic contact)
         # d_eq = Op4 potential minimum (universal_pairwise_energy)
-        from ave.core.universal_operators import universal_pairwise_energy
-        from ave.core.constants import HBAR, C_0
         import numpy as _np
+
+        from ave.core.constants import C_0, HBAR
+        from ave.core.universal_operators import universal_pairwise_energy
 
         Gamma = (r_O - r_H) / (r_O + r_H)
         K_hbond = Gamma**2 * float(ALPHA * HBAR * C_0)  # J·m
@@ -219,10 +217,7 @@ class WaterMolecule(MolecularFluid):
         #   2. Three-phase balance (1/√3 for terminal H)
         #   3. Lone-pair dynamic softening (O has 4 lone-pair electrons)
         # All inputs are Z_a, Z_b, ε₀, m_e, ℏ, e — AVE axioms only.
-        from ave.topological.soliton_bond_solver import (
-            compute_bond_curve,
-            extract_force_constant,
-        )
+        from ave.topological.soliton_bond_solver import compute_bond_curve, extract_force_constant
 
         _d_bond, _E_bond = compute_bond_curve(8, 1, 2, d_min=0.3e-10, d_max=4.0e-10, n_points=300)
         _, self._k_OH_engine, _ = extract_force_constant(_d_bond, _E_bond, Z_a=8, Z_b=1, n_shared=2)
@@ -365,7 +360,7 @@ class FluidImpedanceFactory:
         #   Γ = (r_center - r_ligand) / (r_center + r_ligand)
         # For O-H: r_O = 1.059 Å (n=2), r_H = 0.529 Å (n=1)
         # Γ = (1.059 - 0.529)/(1.059 + 0.529) ≈ 1/3  (derived, not fitted)
-        from ave.solvers.coupled_resonator import ionization_energy, atom_port_impedance
+        from ave.solvers.coupled_resonator import atom_port_impedance, ionization_energy
 
         IE_c = ionization_energy(8)  # Oxygen
         IE_l = ionization_energy(1)  # Hydrogen

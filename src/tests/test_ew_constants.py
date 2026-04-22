@@ -6,19 +6,19 @@ within the documented error bounds.
 """
 
 import numpy as np
+
 from ave.core.constants import (
     ALPHA,
     ALPHA_S,
-    SIN2_THETA_W,
+    G_F,
+    HIGGS_VEV_MEV,
+    LAMBDA_HIGGS,
+    M_HIGGS_MEV,
     M_W_MEV,
     M_Z_MEV,
-    HIGGS_VEV_MEV,
-    M_HIGGS_MEV,
-    LAMBDA_HIGGS,
     N_K4,
-    G_F,
+    SIN2_THETA_W,
 )
-
 
 # ════════════════════════════════════════════════════════════════════
 # Gauge Couplings

@@ -10,12 +10,10 @@ import numpy as np
 from scipy.optimize import minimize
 
 # All constants imported from the physics engine — zero hardcoded values
-from ave.core.constants import (
-    K_MUTUAL,
-    M_P_MEV_TARGET as M_P_RAW,
-    M_N_MEV_TARGET as M_N_RAW,
-    D_PROTON as D_0,
-)
+from ave.core.constants import D_PROTON as D_0
+from ave.core.constants import K_MUTUAL
+from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
+from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 # Target Empirical CODATA Mass for Oxygen-16 (MeV)
 # 15.99491461957 amu * 931.494102 MeV/amu - (8 * 0.51099895 MeV)

@@ -1,6 +1,7 @@
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 import os
+
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
 
 
 def create_flowchart():

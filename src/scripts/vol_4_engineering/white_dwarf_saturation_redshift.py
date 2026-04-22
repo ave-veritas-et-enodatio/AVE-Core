@@ -27,8 +27,7 @@ import math
 import os
 
 # ── Engine imports ──
-from ave.core.constants import G, C_0, M_SUN
-
+from ave.core.constants import C_0, M_SUN, G
 
 # ═════════════════════════════════════════
 # White Dwarf Catalog (measured parameters)

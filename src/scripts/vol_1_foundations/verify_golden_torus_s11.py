@@ -37,11 +37,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 from ave.core.constants import ALPHA_COLD_INV, Z_0
-from ave.solvers.transmission_line import (
-    abcd_segment,
-    abcd_cascade,
-    s11_from_abcd,
-)
+from ave.solvers.transmission_line import abcd_cascade, abcd_segment, s11_from_abcd
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 GOLDEN_R = PHI / 2.0

@@ -43,7 +43,6 @@ THE TORUS KNOT LADDER (Phase Winding Classification):
 
 from __future__ import annotations
 
-
 import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize

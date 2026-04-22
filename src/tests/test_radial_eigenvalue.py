@@ -9,7 +9,7 @@ Validates:
 
 import pytest
 
-from ave.solvers.radial_eigenvalue import ionization_energy_e2k, _z_net, A_0
+from ave.solvers.radial_eigenvalue import A_0, _z_net, ionization_energy_e2k
 
 
 class TestTopologicalBindingLimits:

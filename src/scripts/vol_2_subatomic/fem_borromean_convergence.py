@@ -24,9 +24,8 @@ Output: assets/sim_outputs/borromean_fem_convergence.png
 
 import os
 
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def gaussian_tube_density(x, y, z, axis="x", offset=0.5):

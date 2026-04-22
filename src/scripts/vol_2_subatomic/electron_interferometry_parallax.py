@@ -1,5 +1,6 @@
 import numpy as np
-from ave.core.constants import C_0, M_E, e_charge, HBAR
+
+from ave.core.constants import C_0, HBAR, M_E, e_charge
 
 
 def simulate_electron_interferometry_parallax(electron_energy_ev=100.0, baseline_m=1.0):

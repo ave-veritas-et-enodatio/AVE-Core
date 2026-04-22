@@ -13,21 +13,21 @@ import sys
 sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    ALPHA,
-    L_NODE,
     A_0,
-    RY_EV,
-    XI_TOPO,
-    Z_0,
-    V_SNAP,
-    V_YIELD,
+    ALPHA,
     E_YIELD,
-    T_EM,
+    ISOTROPIC_PROJECTION,
+    L_NODE,
+    N_PHI_PACK,
     NU_VAC,
     P_C,
+    RY_EV,
     SIN2_THETA_W,
-    N_PHI_PACK,
-    ISOTROPIC_PROJECTION,
+    T_EM,
+    V_SNAP,
+    V_YIELD,
+    XI_TOPO,
+    Z_0,
 )
 
 # ─── Manuscript stated values (from Vol 1 chapters) ────────────────────

@@ -25,19 +25,13 @@ Usage:
 
 from __future__ import annotations
 
-
-import numpy as np
 from typing import Tuple
 
+import numpy as np
+
+from ave.axioms.scale_invariant import impedance, reflection_coefficient
 from ave.core.fdtd_3d import FDTD3DEngine
-from ave.regime_2_nonlinear.seismic import (
-    build_1d_impedance_profile,
-    PREM_LAYERS,
-)
-from ave.axioms.scale_invariant import (
-    reflection_coefficient,
-    impedance,
-)
+from ave.regime_2_nonlinear.seismic import PREM_LAYERS, build_1d_impedance_profile
 
 
 def build_seismic_engine(

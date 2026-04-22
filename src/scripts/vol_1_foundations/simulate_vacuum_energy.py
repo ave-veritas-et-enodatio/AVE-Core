@@ -4,12 +4,13 @@ Derives the Zero-Point Energy of the LC Network and the inflationary limit.
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
+
+from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, G
 
 # Ensure local ave package is in path
-
-from ave.core.constants import C_0, G, HBAR, M_E, ALPHA, L_NODE
 
 
 def derive_vacuum_energy():

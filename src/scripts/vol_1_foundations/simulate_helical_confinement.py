@@ -2,9 +2,10 @@
 # Natively computes the spatial collapse of a linear EM wave into a stationary
 # helical spin-1 topology strictly due to increasing local network impedance.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

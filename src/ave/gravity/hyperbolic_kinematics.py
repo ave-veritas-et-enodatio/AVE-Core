@@ -9,6 +9,7 @@ gravitomagnetic induction:
 
 import numpy as np
 import scipy.integrate as integrate
+
 from ave.gravity.lense_thirring import gravitomagnetic_vector
 
 

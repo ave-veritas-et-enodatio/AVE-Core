@@ -7,16 +7,12 @@ to explicitly verify zero statistical thermal elements exist.
 Outputs a means report extracting the V_R/V_BR ratio boundaries.
 """
 
-from ave.condensed.silicon_doping import (
-    pn_junction as pn_si,
-)
-from ave.condensed.germanium_doping import (
-    pn_junction_ge as pn_ge,
-    gallium_impurity_level,
-    arsenic_impurity_level,
-)
-from ave.condensed.gaas_doping import pn_junction_gaas as pn_gaas, amphoteric_impurity_level
 from ave.condensed.bjt_mechanics import bjt_current_gain
+from ave.condensed.gaas_doping import amphoteric_impurity_level
+from ave.condensed.gaas_doping import pn_junction_gaas as pn_gaas
+from ave.condensed.germanium_doping import arsenic_impurity_level, gallium_impurity_level
+from ave.condensed.germanium_doping import pn_junction_ge as pn_ge
+from ave.condensed.silicon_doping import pn_junction as pn_si
 
 
 def generate_means_report():

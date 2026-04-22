@@ -30,13 +30,9 @@ This module implements the computational verification.
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import (
-    C_0,
-    L_NODE,
-)
 
+from ave.core.constants import C_0, L_NODE
 
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Navier-Stokes Equations

@@ -14,9 +14,8 @@ Output: assets/sim_outputs/vacuum_dielectric_saturation.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 # Normalised field variable: A / A_yield  (0 to 0.999)
 x = np.linspace(0, 0.999, 2000)

@@ -3,9 +3,10 @@
 # generating real macroscopic interference gradients.
 # Rigorously enforces strict continuum mechanics PDE solvers, including
 # Absorbing Boundary Conditions (ABCs) to prevent non-physical tank reflections.
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

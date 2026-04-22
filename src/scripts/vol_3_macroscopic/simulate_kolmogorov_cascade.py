@@ -10,14 +10,15 @@ Generates a three-panel figure demonstrating:
 
 import os
 import pathlib
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.regime_3_saturated.kolmogorov_cutoff import (
-    lattice_nyquist_wavenumber,
     avalanche_exponent_3d,
     axiomatic_energy_spectrum,
     kolmogorov_microscale,
+    lattice_nyquist_wavenumber,
     spectral_cascade_demo,
 )
 

@@ -24,10 +24,11 @@ PHYSICS MODEL (Option C — Boundary-Impedance Thermalization):
     guaranteed to lie in [0, 1] by Cauchy-Schwarz.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 # ── Simulation Parameters ────────────────────────────────────────────────────
 N = 200  # Number of LC nodes in the 1D junction

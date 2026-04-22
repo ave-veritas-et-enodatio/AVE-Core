@@ -1,11 +1,11 @@
 import numpy as np
 
-from ave.core.constants import L_NODE, C_0, C_K_KOLMOGOROV, N_NU
+from ave.core.constants import C_0, C_K_KOLMOGOROV, L_NODE, N_NU
 from ave.regime_3_saturated.kolmogorov_cutoff import (
-    lattice_nyquist_wavenumber,
     avalanche_exponent_3d,
     axiomatic_energy_spectrum,
     dissipation_cutoff_ratio,
+    lattice_nyquist_wavenumber,
     prove_bounded_enstrophy,
 )
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 from pathlib import Path
+
 import numpy as np
 
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())

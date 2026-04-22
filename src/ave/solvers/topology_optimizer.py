@@ -22,21 +22,12 @@ Tier 2 Solver: consumes Tier 1 constants/operators, never re-derives them.
 
 from __future__ import annotations
 
-import numpy as np
 import jax.numpy as jnp
+import numpy as np
 from jax import grad, jit
 
+from ave.core.constants import ALPHA, C_0, D_PROTON, EPS_NUMERICAL, HBAR, K_MUTUAL, e_charge
 from ave.core.universal_operators import universal_pairwise_energy_jax
-from ave.core.constants import (
-    K_MUTUAL,
-    D_PROTON,
-    ALPHA,
-    HBAR,
-    C_0,
-    e_charge,
-    EPS_NUMERICAL,
-)
-
 
 # =========================================================================
 # JIT-compiled nuclear cost function kernel

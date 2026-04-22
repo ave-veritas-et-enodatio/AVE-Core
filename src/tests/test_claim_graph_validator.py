@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from scripts.claim_graph_validator import (
     ALLOWED_TYPES,
+    MANIFEST_PATH,
+    REPO_ROOT,
     check_engine,
     check_labels,
     check_living_reference_parity,
@@ -23,8 +25,6 @@ from scripts.claim_graph_validator import (
     extract_living_reference_prediction_rows,
     load_manifest,
     run,
-    MANIFEST_PATH,
-    REPO_ROOT,
 )
 
 

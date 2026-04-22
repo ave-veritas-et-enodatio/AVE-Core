@@ -11,10 +11,11 @@ Axiom 1 compliance: Yee grid = discrete LC lattice.
 
 from __future__ import annotations
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import os
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def main():

@@ -20,7 +20,8 @@ from __future__ import annotations
 
 import numpy as np
 from scipy.optimize import brentq
-from ave.core.constants import Z_0, E_YIELD, EPS_NUMERICAL
+
+from ave.core.constants import E_YIELD, EPS_NUMERICAL, Z_0
 
 
 class AxiomaticCausticSolver:

@@ -8,18 +8,19 @@ ISCO, kerr photon sphere, QPO frequencies, and QNM eigenvalues.
 
 import numpy as np
 import pytest
+
 from ave.core.constants import M_SUN
 from ave.solvers.orbital_resonance import (
-    schwarzschild_radius,
-    photon_sphere_radius,
+    hawking_temperature,
     isco_radius,
-    refractive_index,
+    kerr_photon_sphere,
+    photon_sphere_radius,
     qnm_eigenvalue,
+    refractive_index,
+    regge_wheeler_potential,
     ringdown_frequency,
     ringdown_Q_and_decay,
-    hawking_temperature,
-    kerr_photon_sphere,
-    regge_wheeler_potential,
+    schwarzschild_radius,
 )
 
 

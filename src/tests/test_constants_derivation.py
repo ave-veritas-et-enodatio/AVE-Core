@@ -14,69 +14,61 @@ This test file covers:
 """
 
 import math
+
 import numpy as np
 import pytest
 
-from ave.core.constants import (
-    # SI inputs
-    C_0,
-    MU_0,
-    EPSILON_0,
-    Z_0,
-    HBAR,
-    e_charge,
-    K_B,
-    N_A,
-    M_E,
-    M_PROTON,
-    M_SUN,
-    # Three calibration inputs
+from ave.core.constants import (  # SI inputs; Three calibration inputs; Derived topological; Derived dielectric; Derived macroscopic; Electroweak; CKM; PMNS; Baryon
+    A_CKM,
     ALPHA,
-    G,
-    # Derived topological
-    L_NODE,
-    XI_TOPO,
-    T_EM,
-    # Derived dielectric
-    P_C,
-    NU_VAC,
-    ETA_EQ,
-    V_SNAP,
-    V_YIELD,
-    E_YIELD_KINETIC,
+    ALPHA_S,
+    B_SNAP,
+    C_0,
+    DELTA_CP_PMNS,
     E_CRIT,
     E_YIELD,
-    B_SNAP,
-    # Derived macroscopic
-    ISOTROPIC_PROJECTION,
-    ALPHA_S,
-    XI_MACHIAN,
+    E_YIELD_KINETIC,
+    EPSILON_0,
+    ETA_EQ,
     H_INFINITY,
-    R_HUBBLE,
-    RHO_BULK,
-    NU_KIN,
-    # Electroweak
-    SIN2_THETA_W,
+    HBAR,
+    HIGGS_VEV_MEV,
+    ISOTROPIC_PROJECTION,
+    K_B,
+    KAPPA_FS_COLD,
+    L_NODE,
+    LAMBDA_CKM,
+    LAMBDA_HIGGS,
+    M_E,
+    M_HIGGS_MEV,
+    M_PROTON,
+    M_SUN,
     M_W_MEV,
     M_Z_MEV,
-    M_HIGGS_MEV,
-    HIGGS_VEV_MEV,
-    LAMBDA_HIGGS,
+    MU_0,
+    N_A,
     N_K4,
-    # CKM
-    LAMBDA_CKM,
-    A_CKM,
+    NU_KIN,
+    NU_VAC,
+    P_C,
+    R_HUBBLE,
+    RHO_BULK,
     RHO_ETA_MAG,
-    V_US,
-    V_CB,
-    V_UB,
-    # PMNS
-    SIN2_THETA_13,
     SIN2_THETA_12,
+    SIN2_THETA_13,
     SIN2_THETA_23,
-    DELTA_CP_PMNS,
-    # Baryon
-    KAPPA_FS_COLD,
+    SIN2_THETA_W,
+    T_EM,
+    V_CB,
+    V_SNAP,
+    V_UB,
+    V_US,
+    V_YIELD,
+    XI_MACHIAN,
+    XI_TOPO,
+    Z_0,
+    G,
+    e_charge,
 )
 
 # ============================================================================
@@ -288,7 +280,7 @@ class TestPredictionTable:
 
     def test_galactic_ngc3198(self):
         """NGC 3198 flat rotation velocity from galactic_rotation engine."""
-        from ave.regime_3_saturated.galactic_rotation import ave_rotation_velocity, GALAXY_CATALOG
+        from ave.regime_3_saturated.galactic_rotation import GALAXY_CATALOG, ave_rotation_velocity
 
         galaxy = GALAXY_CATALOG["NGC 3198"]
         r_flat = 30e3 * 3.086e16  # 30 kpc in meters
@@ -298,8 +290,8 @@ class TestPredictionTable:
 
     def test_superconductor_bcs_identity(self):
         """B_c(T) = B_c0 * sqrt(1 - (T/T_c)^2) = saturation_factor."""
-        from ave.plasma.superconductor import critical_field
         from ave.axioms.saturation import saturation_factor
+        from ave.plasma.superconductor import critical_field
 
         T, T_c, B_c0 = 4.2, 9.25, 0.206  # Niobium
         bc = critical_field(T, T_c, B_c0)
@@ -308,7 +300,7 @@ class TestPredictionTable:
 
     def test_london_depth_order_of_magnitude(self):
         """London depths are in the 30-150 nm range per Book 2 table."""
-        from ave.plasma.superconductor import london_penetration_depth, SC_CATALOG
+        from ave.plasma.superconductor import SC_CATALOG, london_penetration_depth
 
         for name, mat in SC_CATALOG.items():
             lam = london_penetration_depth(mat.n_s)

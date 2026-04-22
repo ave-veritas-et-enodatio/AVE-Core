@@ -3,9 +3,10 @@
 # Plots the absolute minimum localization bounds created by the discrete Brillouin zone
 # of the LC lattice, preventing the Ultraviolet (UV) Singularities inherent to continuum QM.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

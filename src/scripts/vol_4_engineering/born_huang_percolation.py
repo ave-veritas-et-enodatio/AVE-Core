@@ -19,9 +19,8 @@ transition, at the unique point where ν = 2/7.
 
 import os
 
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def emt_moduli(p, z0):
@@ -53,7 +52,8 @@ def run_analysis():
     print("  P1: RIGIDITY PERCOLATION — K/G = 2 AT VACUUM OPERATING POINT")
     print("=" * 60)
 
-    from ave.core.constants import ALPHA as alpha, P_C as p_c
+    from ave.core.constants import ALPHA as alpha
+    from ave.core.constants import P_C as p_c
 
     # Solve for z₀ from the exact EMT formula:
     # p* = (10z₀ - 12) / [z₀(z₀+2)] = 8πα

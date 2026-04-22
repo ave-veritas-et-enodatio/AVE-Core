@@ -27,13 +27,12 @@ This module predicts:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import G, MU_0, M_PROTON, K_B
-from ave.axioms.scale_invariant import reflection_coefficient
+import numpy as np
 
+from ave.axioms.scale_invariant import reflection_coefficient
+from ave.core.constants import K_B, M_PROTON, MU_0, G
 
 # ═══════════════════════════════════════════════════════════════
 # Physical constants

@@ -8,8 +8,9 @@ Atomic Nuclei (Helium, Lithium, etc.).
 
 from __future__ import annotations
 
-import numpy as np
 from typing import List, Tuple
+
+import numpy as np
 
 
 class NucleonCombiner:

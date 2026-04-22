@@ -28,7 +28,13 @@ Key functions:
 """
 
 import numpy as np
-from ave.core.constants import EPSILON_0, C_0, ALPHA, V_YIELD, Z_0
+
+# Import the scale-invariant canonical implementations for wrapping
+from ave.axioms.scale_invariant import epsilon_eff as _si_epsilon_eff
+from ave.axioms.scale_invariant import impedance_at_strain as _si_impedance_at_strain
+from ave.axioms.scale_invariant import local_wave_speed as _si_local_wave_speed
+from ave.axioms.scale_invariant import reflection_coefficient as _si_reflection_coefficient
+from ave.core.constants import ALPHA, C_0, EPSILON_0, V_YIELD, Z_0
 
 # ═══════════════════════════════════════════════════════════════
 # Re-exports from scale_invariant.py (single source of truth)
@@ -37,15 +43,6 @@ from ave.core.constants import EPSILON_0, C_0, ALPHA, V_YIELD, Z_0
 # These are thin re-exports with Axiom-4-specific defaults baked in.
 # The canonical implementations live in scale_invariant.py.
 # Import from either location — they are the same function.
-
-
-# Import the scale-invariant canonical implementations for wrapping
-from ave.axioms.scale_invariant import (
-    epsilon_eff as _si_epsilon_eff,
-    reflection_coefficient as _si_reflection_coefficient,
-    local_wave_speed as _si_local_wave_speed,
-    impedance_at_strain as _si_impedance_at_strain,
-)
 
 
 # ═══════════════════════════════════════════════════════════════

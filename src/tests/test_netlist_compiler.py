@@ -8,9 +8,9 @@ and round-trip topology consistency.
 """
 
 from ave.solvers.spice_netlist_compiler import (
+    compile_amino_acid_network,
     compile_ee_bench_dc_sweep,
     compile_lcr_network,
-    compile_amino_acid_network,
     lib_path,
     write_netlist,
 )

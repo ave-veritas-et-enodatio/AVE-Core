@@ -48,12 +48,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import numpy as np
-from ave.core.constants import (
-    ALPHA,
-    M_E,
-    C_0,
-    e_charge,
-)
+
+from ave.core.constants import ALPHA, C_0, M_E, e_charge
 
 
 def alpha_eff_axiom4(energy_mev: float) -> dict:

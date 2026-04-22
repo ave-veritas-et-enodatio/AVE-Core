@@ -40,22 +40,18 @@ Models
 
 from __future__ import annotations
 
-
 import numpy as np
 
-from ave.core.constants import (
-    K_B,  # Boltzmann constant [J/K]
-    e_charge,  # Elementary charge [C]
-    M_PROTON,  # Proton mass [kg] (used as m_u ≈ 1 amu)
-    M_U,  # Atomic mass unit (Dalton) [kg] — single source of truth
-)
+from ave.core.constants import K_B  # Boltzmann constant [J/K]
+from ave.core.constants import M_PROTON  # Proton mass [kg] (used as m_u ≈ 1 amu)
+from ave.core.constants import M_U  # Atomic mass unit (Dalton) [kg] — single source of truth
+from ave.core.constants import e_charge  # Elementary charge [C]
 from ave.solvers.coupled_resonator import (
-    ionization_energy_circuit,
     atom_port_impedance,
+    ionization_energy_circuit,
     molecular_bond_distance,
     molecular_bond_energy,
 )
-
 
 # Alias for local readability (imported from constants.py)
 _M_U = M_U
@@ -73,7 +69,7 @@ def ave_stable_mass(Z) -> float:
     - Optimal neutrons N to balance Coulomb repulsion: N = Z + (1.2*α)Z²
     - Mass defect derived from lattice saturation coupling
     """
-    from ave.core.constants import M_PROTON, ALPHA
+    from ave.core.constants import ALPHA, M_PROTON
 
     # Structural requirement for stability:
     # Protons create a 1/r^2 capacitive strain. Neutrons provide interstitial

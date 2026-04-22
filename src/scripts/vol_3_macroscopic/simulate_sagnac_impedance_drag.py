@@ -1,11 +1,12 @@
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import animation
 
-# Important: Add project root to sys path so we can import ave.core cleanly
-
 from ave.core import VacuumGrid
+
+# Important: Add project root to sys path so we can import ave.core cleanly
 
 
 def main():

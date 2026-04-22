@@ -12,18 +12,17 @@ Verifies:
 import numpy as np
 import pytest
 
-from ave.plasma.superconductor import (
-    critical_field,
-    meissner_mu_eff,
-    superconducting_impedance,
-    meissner_reflection,
-    london_penetration_depth,
-    ginzburg_landau_kappa,
-    SC_CATALOG,
-)
 from ave.axioms.scale_invariant import saturation_factor
 from ave.core.constants import MU_0, Z_0
-
+from ave.plasma.superconductor import (
+    SC_CATALOG,
+    critical_field,
+    ginzburg_landau_kappa,
+    london_penetration_depth,
+    meissner_mu_eff,
+    meissner_reflection,
+    superconducting_impedance,
+)
 
 # ═══════════════════════════════════════════════════════════════
 # Critical field = saturation_factor on temperature

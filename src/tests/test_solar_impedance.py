@@ -3,25 +3,26 @@ Tests for ave.gravity.solar_impedance
 """
 
 import pytest
+
+from ave.core.constants import Z_0
 from ave.gravity.solar_impedance import (
-    solar_wind_density,
-    solar_wind_plasma_frequency,
-    solar_wind_impedance,
+    A0_LATTICE,
+    AU,
+    OUMUAMUA,
+    R_SUN,
     heliospheric_impedance_profile,
-    solar_radiation_pressure,
-    oumuamua_radiation_acceleration,
-    oumuamua_impedance_acceleration,
-    oumuamua_summary,
-    saturation_radius_au,
-    oort_cloud_prediction,
     kirkwood_gap_radius,
     kirkwood_impedance_model,
-    OUMUAMUA,
-    AU,
-    R_SUN,
-    A0_LATTICE,
+    oort_cloud_prediction,
+    oumuamua_impedance_acceleration,
+    oumuamua_radiation_acceleration,
+    oumuamua_summary,
+    saturation_radius_au,
+    solar_radiation_pressure,
+    solar_wind_density,
+    solar_wind_impedance,
+    solar_wind_plasma_frequency,
 )
-from ave.core.constants import Z_0
 
 
 class TestSolarWind:

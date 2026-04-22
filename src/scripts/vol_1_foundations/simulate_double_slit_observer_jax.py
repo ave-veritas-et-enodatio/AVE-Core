@@ -28,12 +28,11 @@ Usage:
 """
 
 import os
-import numpy as np
+
 import jax.numpy as jnp
-from jax import jit
-
-
 import matplotlib
+import numpy as np
+from jax import jit
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

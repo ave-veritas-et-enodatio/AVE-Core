@@ -30,17 +30,9 @@ No external quantum postulates are used.
 
 from __future__ import annotations
 
-
 import numpy as np
 
-from ave.core.constants import (
-    L_NODE,
-    C_0,
-    HBAR,
-    M_E,
-    K_B,
-    e_charge,
-)
+from ave.core.constants import C_0, HBAR, K_B, L_NODE, M_E, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Thread geometry

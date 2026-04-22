@@ -8,22 +8,17 @@ Covers:
 """
 
 import math
+
 import numpy as np
 import pytest
 
-from ave.core.constants import NU_VAC, M_E, C_0, ALPHA, P_C, e_charge
+from ave.core.constants import ALPHA, C_0, M_E, NU_VAC, P_C, e_charge
 from ave.solvers.transmission_line import (
     build_radial_tree_admittance,
     build_radial_tree_admittance_graded,
     s11_from_y_matrix,
 )
-from ave.topological.cosserat import (
-    M_W_TREE,
-    M_W_MEV,
-    M_Z_MEV,
-    MISMATCH_LOSS_SC,
-    w_boson_self_consistent_correction,
-)
+from ave.topological.cosserat import M_W_MEV, M_W_TREE, M_Z_MEV, MISMATCH_LOSS_SC, w_boson_self_consistent_correction
 
 _J_PER_MEV = float(e_charge) * 1e6
 PDG_MW = 80_379.0

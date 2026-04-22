@@ -38,7 +38,7 @@ Usage:
 import numpy as np
 from scipy.integrate import dblquad
 
-from ave.core.constants import ALPHA_COLD_INV, DELTA_STRAIN, ALPHA
+from ave.core.constants import ALPHA, ALPHA_COLD_INV, DELTA_STRAIN
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 

@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import D_PROTON
 from ave.solvers.topology_optimizer import TopologicalOptimizer

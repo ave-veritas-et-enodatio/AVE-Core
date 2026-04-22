@@ -21,8 +21,8 @@ All constants derived correctly from `ave.core.constants`.
 
 from __future__ import annotations
 
-
 import numpy as np
+
 from ave.core.constants import C_0, V_YIELD
 
 # ═══════════════════════════════════════════════════════════════════════════

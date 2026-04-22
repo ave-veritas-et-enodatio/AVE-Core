@@ -22,9 +22,10 @@ the empirical power-law distribution observed by astrophysicists.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

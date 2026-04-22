@@ -11,17 +11,18 @@ Outputs:
    fluid momentum halting against the LC metric topological yield point.
 """
 
-import sys
 import os
-import numpy as np
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Add src to python path for local execution
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
+from ave.core.constants import K_B
 from ave.regime_1_linear.fluids_factory import WaterMolecule
 from ave.regime_3_saturated.cavitation_collapse import AxiomaticRayleighPlesset, PayloadConfig
-from ave.core.constants import K_B
 
 
 def compute_flash_temperature(R_min: float, P_max: float, R_0: float, payload: PayloadConfig) -> float:

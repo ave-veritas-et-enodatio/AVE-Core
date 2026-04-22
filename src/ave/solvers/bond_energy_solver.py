@@ -32,17 +32,8 @@ Algorithm
 
 import numpy as np
 
-from ave.core.constants import (
-    C_0,
-    MU_0,
-    EPSILON_0,
-    M_E,
-    V_SNAP,
-    B_SNAP,
-    L_NODE,
-    ALPHA,
-)
 from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import ALPHA, B_SNAP, C_0, EPSILON_0, L_NODE, M_E, MU_0, V_SNAP
 
 
 class BondFDTD1D:

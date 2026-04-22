@@ -34,35 +34,24 @@ Algorithm
 Outputs → assets/sim_outputs/
 """
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import os
 from pathlib import Path
 
-PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
 
-from ave.core.constants import (
-    C_0,
-    MU_0,
-    EPSILON_0,
-    M_E,
-    M_PROTON,
-    HBAR,
-    ALPHA,
-    L_NODE,
-    e_charge,
-)
-from ave.core.universal_operators import (
-    universal_impedance,
-)
+PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 
 from scipy.integrate import solve_ivp
 from scipy.optimize import brentq
 from scipy.special import sph_harm
+
+from ave.core.constants import ALPHA, C_0, EPSILON_0, HBAR, L_NODE, M_E, M_PROTON, MU_0, e_charge
+from ave.core.universal_operators import universal_impedance
 
 OUT = PROJECT_ROOT / "assets/sim_outputs"
 OUT.mkdir(exist_ok=True)

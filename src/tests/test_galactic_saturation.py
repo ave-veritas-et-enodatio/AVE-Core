@@ -13,15 +13,14 @@ import numpy as np
 import pytest
 
 from ave.regime_3_saturated.galactic_rotation import (
-    ave_saturation_acceleration,
-    ave_rotation_velocity,
-    radial_acceleration_relation,
-    GALAXY_CATALOG,
     A0_LATTICE,
+    GALAXY_CATALOG,
     KPC,
+    ave_rotation_velocity,
+    ave_saturation_acceleration,
+    radial_acceleration_relation,
 )
 from ave.regime_3_saturated.orbital_impedance import get_mutual_inductance
-
 
 # ═══════════════════════════════════════════════════════════════
 # Asymptotic limits of the saturation model

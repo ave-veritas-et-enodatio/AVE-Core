@@ -13,10 +13,10 @@ to the Axiom 4 saturation boundaries?
 
 import numpy as np
 
+from ave.core.constants import ALPHA, C_0, M_PROTON, V_YIELD
+from ave.core.regime_map import REGIME_LINEAR, identify_regime
 from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
 from ave.regime_3_saturated.condensed_matter import element_summary
-from ave.core.regime_map import identify_regime, REGIME_LINEAR
-from ave.core.constants import V_YIELD, ALPHA, C_0, M_PROTON
 
 
 def test_water_phase_coincidence():
@@ -34,7 +34,7 @@ def test_water_phase_coincidence():
     This test STRICTLY asserts the algebraic topological boundary crossover (T_crit)
     rather than injecting fake parameters to hit 4°C.
     """
-    from ave.core.constants import K_B, ALPHA
+    from ave.core.constants import ALPHA, K_B
 
     factory = FluidImpedanceFactory(WaterMolecule())
 

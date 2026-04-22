@@ -14,14 +14,10 @@ Output: manuscript/vol_1_foundations/regime_map.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from ave.core.regime_map import (
-    R_LINEAR_MAX,
-    R_NONLINEAR_MAX,
-    R_YIELD_MAX,
-)
+from ave.core.regime_map import R_LINEAR_MAX, R_NONLINEAR_MAX, R_YIELD_MAX
 
 
 def main():

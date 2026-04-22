@@ -6,15 +6,15 @@ Flyby anomaly uses Anderson (2008) formula derived from AVE impedance.
 """
 
 import numpy as np
+
 from ave.gravity.solar_impedance import (
-    saturn_gap_radius,
-    saturn_ring_gap_model,
+    A_MIMAS,
     flyby_anomaly_anderson,
     flyby_anomaly_impedance,
     flyby_catalog,
-    A_MIMAS,
+    saturn_gap_radius,
+    saturn_ring_gap_model,
 )
-
 
 # ═══════════════════════════════════════════════════════════════
 # Saturn Ring Gaps

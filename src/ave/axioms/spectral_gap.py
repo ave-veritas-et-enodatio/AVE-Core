@@ -26,19 +26,10 @@ This module implements the computational verification of each step.
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import (
-    C_0,
-    HBAR,
-    L_NODE,
-    M_E,
-    KAPPA_FS,
-    e_charge,
-    BARYON_LADDER,
-)
-from ave.axioms.scale_invariant import reflection_coefficient
 
+from ave.axioms.scale_invariant import reflection_coefficient
+from ave.core.constants import BARYON_LADDER, C_0, HBAR, KAPPA_FS, L_NODE, M_E, e_charge
 
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Existence

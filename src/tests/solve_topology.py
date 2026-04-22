@@ -1,6 +1,5 @@
 import numpy as np
-
-from vol_6_periodic_table.simulations.simulate_element import M_P_RAW, M_N_RAW
+from vol_6_periodic_table.simulations.simulate_element import M_N_RAW, M_P_RAW
 
 # Exact K_MUTUAL derived from the perfect Alpha particle (Helium-4)
 K_MUTUAL = 11.3378

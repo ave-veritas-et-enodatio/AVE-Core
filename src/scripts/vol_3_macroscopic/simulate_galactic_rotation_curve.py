@@ -8,9 +8,8 @@ decays, and the intact lattice imposes macroscopic "Dark Matter" MOND drag (Regi
 
 import numpy as np
 
-from ave.core.constants import G
-from ave.gravity.galactic_mond_drag import get_a0, calculate_rotation_velocity
-from ave.core.constants import M_SUN
+from ave.core.constants import M_SUN, G
+from ave.gravity.galactic_mond_drag import calculate_rotation_velocity, get_a0
 
 KPC_TO_M = 3.086e19
 

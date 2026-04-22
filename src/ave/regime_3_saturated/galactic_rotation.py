@@ -36,13 +36,12 @@ References:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import G, C_0, H_INFINITY, M_SUN
-from ave.axioms.scale_invariant import saturation_factor
+import numpy as np
 
+from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import C_0, H_INFINITY, M_SUN, G
 
 # ======================================================
 # Critical Acceleration Limit — Axiomatically Derived

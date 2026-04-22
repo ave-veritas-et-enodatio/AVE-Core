@@ -3,9 +3,10 @@
 # identical to the 1D phase flux-tubes connecting the discrete LC nodes of the AVE vacuum.
 # Replaces the old static plot with a genuine Discrete LC Transmission Line FDTD Solver.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

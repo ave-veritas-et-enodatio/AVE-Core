@@ -10,9 +10,10 @@ as the proxy for the macroscopic Dynamo Voltage (V).
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()
 

@@ -5,29 +5,30 @@ Verifies that every domain classifier maps known physical objects
 to the correct regime.
 """
 
-import pytest
 import numpy as np
+import pytest
+
+from ave.core.constants import ALPHA
 from ave.core.regime_map import (
-    classify_regime,
-    em_voltage_regime,
-    em_field_regime,
-    gravity_regime,
-    bcs_regime,
-    magnetic_regime,
-    gw_regime,
-    galactic_regime,
-    identify_regime,
-    REGIME_LINEAR,
-    REGIME_NONLINEAR,
-    REGIME_YIELD,
-    REGIME_RUPTURED,
     R_LINEAR_MAX,
     R_NONLINEAR_MAX,
     R_YIELD_MAX,
-    regime_equations,
+    REGIME_LINEAR,
+    REGIME_NONLINEAR,
+    REGIME_RUPTURED,
+    REGIME_YIELD,
     TRANSITION_NAMES,
+    bcs_regime,
+    classify_regime,
+    em_field_regime,
+    em_voltage_regime,
+    galactic_regime,
+    gravity_regime,
+    gw_regime,
+    identify_regime,
+    magnetic_regime,
+    regime_equations,
 )
-from ave.core.constants import ALPHA
 
 
 class TestClassifyRegime:

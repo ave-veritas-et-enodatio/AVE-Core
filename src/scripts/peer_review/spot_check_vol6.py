@@ -13,14 +13,14 @@ import sys
 sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    D_PROTON,
+    ALPHA_HC,
+    B_DEUTERON_PREDICTED,
     D_INTRA_ALPHA,
     D_NN_EIGENVALUE,
-    B_DEUTERON_PREDICTED,
+    D_PROTON,
+    HBAR_C_MEV_FM,
     K_COUPLING,
     K_MUTUAL,
-    HBAR_C_MEV_FM,
-    ALPHA_HC,
 )
 
 CHECKS = [

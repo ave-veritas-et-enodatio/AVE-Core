@@ -21,19 +21,19 @@ DAG Compliance:
 Vol 4 Ch. 13 — K4-TLM Wire Antenna Validation
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.k4_tlm import K4Lattice2D
 from ave.core.constants import ALPHA
+from ave.core.k4_tlm import K4Lattice2D
 
 
 def generate_loop_path(cx, cy, radius, n_points=200):

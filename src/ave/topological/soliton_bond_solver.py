@@ -20,7 +20,7 @@ Key corrections derived from lattice topology:
 
 import numpy as np
 
-from ave.core.constants import EPSILON_0, M_E, HBAR, e_charge
+from ave.core.constants import EPSILON_0, HBAR, M_E, e_charge
 
 # ═══════════════════════════════════════════════════════════
 # CONSTANTS

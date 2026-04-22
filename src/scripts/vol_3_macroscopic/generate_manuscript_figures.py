@@ -3,8 +3,10 @@ Generate Manuscript Figures for Volume 3 Macroscopic Physics (AVE Phase 2-4 Upda
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
+
 from ave.core.constants import C_0, G
 
 OUTPUT_DIR = "manuscript/vol_3_macroscopic/figures"
@@ -91,8 +93,8 @@ def generate_galactic_flattening():
     import sys
 
     sys.path.append(".")  # Ensure ave modules are accessible
-    from ave.gravity.galactic_mond_drag import get_a0, calculate_rotation_velocity
-    from ave.core.constants import G, M_SUN
+    from ave.core.constants import M_SUN, G
+    from ave.gravity.galactic_mond_drag import calculate_rotation_velocity, get_a0
 
     KPC_TO_M = 3.086e19
     a_0 = get_a0()

@@ -11,28 +11,19 @@ network energy identically to empirical CODATA mass measurements.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
+
+# Import derived constants from the AVE physics engine
+from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, K_MUTUAL, M_E, M_N_MEV_TARGET, M_P_MEV_TARGET, e_charge
 
 # Custom Modules
 # Ensure local module resolution
 from .spice_exporter import generate_spice_netlist
-
-# Import derived constants from the AVE physics engine
-from ave.core.constants import (
-    K_MUTUAL,
-    ALPHA,
-    M_E,
-    C_0,
-    e_charge,
-    HBAR,
-    M_P_MEV_TARGET,
-    M_N_MEV_TARGET,
-    D_PROTON,
-)
 
 # Fundamental Constants (MeV domain)
 # ME_MEV imported from physics engine for cross-validation

@@ -9,10 +9,7 @@ and the cinquefoil (2,5) confinement bound.
 import numpy as np
 import pytest
 
-from ave.topological.faddeev_skyrme import (
-    TopologicalHamiltonian1D,
-    CROSSING_NUMBER_CINQUEFOIL,
-)
+from ave.topological.faddeev_skyrme import CROSSING_NUMBER_CINQUEFOIL, TopologicalHamiltonian1D
 
 
 class TestCrossingNumber:

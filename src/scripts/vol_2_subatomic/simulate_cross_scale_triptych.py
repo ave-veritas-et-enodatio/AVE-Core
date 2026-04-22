@@ -18,23 +18,21 @@ All structure from Z = √(μ/ε) impedance topology — zero free parameters.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
+
 import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from ave.core.constants import (
-    ALPHA,
-    L_NODE,
-)
+from ave.core.constants import ALPHA, L_NODE
 from ave.solvers.orbital_resonance import (
-    refractive_index,
-    impedance_orbital_radii,
-    schwarzschild_radius,
-    ringdown_frequency,
     LIGO_EVENTS,
     M_SUN,
+    impedance_orbital_radii,
+    refractive_index,
+    ringdown_frequency,
+    schwarzschild_radius,
 )
 
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")

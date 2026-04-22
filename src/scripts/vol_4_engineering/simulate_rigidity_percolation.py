@@ -7,10 +7,11 @@ In AVE, alpha is defined as the geometric packing fraction limit (alpha = p_c / 
 of a 3D amorphous Chiral LC network transitioning from a fluid to a shear-bearing solid.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

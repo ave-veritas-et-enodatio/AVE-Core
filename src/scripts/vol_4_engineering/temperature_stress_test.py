@@ -28,9 +28,10 @@ N_D = 1e16
 N_c = 2.8e19  # approx at 300K
 N_v = 1.04e19  # approx at 300K
 
+from ave.condensed.bjt_mechanics import bjt_current_gain
+
 # Topo-Kinematic structural base values
 from ave.condensed.silicon_doping import pn_junction as pn_si
-from ave.condensed.bjt_mechanics import bjt_current_gain
 
 # Linear phononic thermal expansion (Silicon)
 alpha_th = 2.6e-6  # /K

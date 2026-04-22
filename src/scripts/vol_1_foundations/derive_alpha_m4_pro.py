@@ -6,11 +6,12 @@ Analytically computing the Fine-Structure Constant (1/137.036) via
 Designed to maximize the 24GB Unified Memory architecture of the M4 Pro.
 """
 
+import os
+import time
+
 import numpy as np
 import scipy.sparse as sp
 from scipy.spatial import cKDTree
-import time
-import os
 
 
 def create_amorphous_lattice(num_nodes, box_size):

@@ -55,8 +55,8 @@ Usage:
 """
 
 import numpy as np
-from scipy.optimize import minimize
 from scipy.integrate import quad
+from scipy.optimize import minimize
 
 from ave.core.constants import ALPHA_COLD_INV
 

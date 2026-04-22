@@ -13,9 +13,10 @@ we compute the structural reflection coefficient (S_11) of the discrete
 K4 vacuum explicitly out to the macroscopic continuum boundary (Regime I/II transition).
 """
 
-import numpy as np
 import sys
 from pathlib import Path
+
+import numpy as np
 
 # Add src to path to allow direct execution
 src_path = str(Path(__file__).parent.parent.parent)
@@ -23,7 +24,7 @@ if src_path not in sys.path:
     sys.path.append(src_path)
 
 from ave.core.constants import NU_VAC
-from ave.solvers.transmission_line import s11_from_y_matrix, build_radial_tree_admittance
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
 
 
 def compute_c2_structural() -> float:

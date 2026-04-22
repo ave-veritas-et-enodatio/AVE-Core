@@ -12,15 +12,15 @@ delegates to them. Getting these right means getting everything right.
 
 import numpy as np
 import pytest
+
+from ave.core.constants import EPSILON_0, MU_0, V_SNAP, Z_0
 from ave.core.universal_operators import (
     universal_impedance,
-    universal_saturation,
-    universal_reflection,
     universal_pairwise_energy,
     universal_pairwise_gradient,
+    universal_reflection,
+    universal_saturation,
 )
-from ave.core.constants import MU_0, EPSILON_0, Z_0, V_SNAP
-
 
 # ═══════════════════════════════════════════════════════════════════════
 # 1. IMPEDANCE OPERATOR

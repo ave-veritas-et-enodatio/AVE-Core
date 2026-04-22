@@ -17,23 +17,24 @@ All constants from ave.core.constants — zero free parameters.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
+
 import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from ave.core.constants import ALPHA
 from ave.solvers.orbital_resonance import (
-    ringdown_frequency,
-    iron_ka_line_profile,
-    jet_impedance_map,
-    hawking_temperature,
-    gw_memory_strain,
-    ringdown_Q_and_decay,
     LIGO_EVENTS,
     M_SUN,
+    gw_memory_strain,
+    hawking_temperature,
+    iron_ka_line_profile,
+    jet_impedance_map,
+    ringdown_frequency,
+    ringdown_Q_and_decay,
 )
-from ave.core.constants import ALPHA
 
 OUTPUT_DIR = os.path.join(project_root, "assets", "sim_outputs")
 os.makedirs(OUTPUT_DIR, exist_ok=True)

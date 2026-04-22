@@ -57,9 +57,9 @@ In Regime IV (r >= 1.0):
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import C_0, Z_0, EPSILON_0, MU_0
+
+from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0
 from ave.core.universal_operators import universal_saturation
 
 

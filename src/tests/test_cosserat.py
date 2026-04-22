@@ -8,21 +8,21 @@ higher-order radiative corrections.
 """
 
 import math
-import pytest
 
+import pytest
 
 # ---------------------------------------------------------------------------
 # Import everything from the Cosserat module
 # ---------------------------------------------------------------------------
 from ave.topological.cosserat import (
-    SIN2_THETA_W,
-    M_W_MEV,
-    M_Z_MEV,
-    M_MU_MEV,
-    M_TAU_MEV,
-    SUM_M_NU_EV,
     G_MINUS_2_TREE,
     L_COSSERAT,
+    M_MU_MEV,
+    M_TAU_MEV,
+    M_W_MEV,
+    M_Z_MEV,
+    SIN2_THETA_W,
+    SUM_M_NU_EV,
 )
 
 # ---------------------------------------------------------------------------
@@ -122,7 +122,7 @@ class TestMassHierarchy:
     """m_e < m_μ < m_τ < M_W < M_Z (strict ordering)."""
 
     def test_ordering(self):
-        from ave.core.constants import M_E, C_0
+        from ave.core.constants import C_0, M_E
 
         M_E_MEV = M_E * C_0**2 / 1.602176634e-13
         assert M_E_MEV < M_MU_MEV < M_TAU_MEV < M_W_MEV < M_Z_MEV

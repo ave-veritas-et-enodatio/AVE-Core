@@ -13,19 +13,19 @@ import sys
 sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    C_0,
-    M_E,
-    e_charge,
     A_0,
-    PROTON_ELECTRON_RATIO,
-    D_PROTON,
-    SIN2_THETA_W,
     ALPHA_S,
+    BARYON_LADDER,
+    C_0,
+    CROSSING_NUMBER_PROTON,
+    D_PROTON,
+    M_E,
+    M_HIGGS_MEV,
     M_W_MEV,
     M_Z_MEV,
-    M_HIGGS_MEV,
-    BARYON_LADDER,
-    CROSSING_NUMBER_PROTON,
+    PROTON_ELECTRON_RATIO,
+    SIN2_THETA_W,
+    e_charge,
 )
 
 # Derived proton mass from engine

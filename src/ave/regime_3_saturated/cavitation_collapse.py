@@ -24,12 +24,13 @@ automatically predicting the sonoluminescent flash conditions.
 
 from __future__ import annotations
 
-import numpy as np
-from scipy.integrate import solve_ivp
 from dataclasses import dataclass
 from typing import Literal
 
-from ave.regime_1_linear.fluids_factory import MolecularFluid, FluidImpedanceFactory
+import numpy as np
+from scipy.integrate import solve_ivp
+
+from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, MolecularFluid
 
 
 @dataclass

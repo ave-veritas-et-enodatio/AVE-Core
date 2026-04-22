@@ -14,16 +14,17 @@ Each figure shows:
 All output goes to periodic_table/figures/<element>_topology.png
 """
 import os
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
 # ---------------------------------------------------------------------------
 # Import physics engine — NO ad-hoc values
 # ---------------------------------------------------------------------------
 import sys
+
+import matplotlib.pyplot as plt
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 

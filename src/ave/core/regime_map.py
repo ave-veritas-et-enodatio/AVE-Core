@@ -43,19 +43,12 @@ analysis should proceed without first identifying its regime.
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 from typing import Optional
 
-from ave.core.constants import (
-    C_0,
-    ALPHA,
-    L_NODE,
-    V_YIELD,
-    B_SNAP,
-    H_INFINITY,
-)
+import numpy as np
+
+from ave.core.constants import ALPHA, B_SNAP, C_0, H_INFINITY, L_NODE, V_YIELD
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Regime Boundaries — DERIVED FROM FIRST PRINCIPLES

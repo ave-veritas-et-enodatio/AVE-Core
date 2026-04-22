@@ -4,16 +4,17 @@ Proves that Macroscopic Mutual Inductance (Dark Matter) expands radially in 2D s
 as derived exactly by the Topological H_INFINITY bound (A0_LATTICE).
 """
 
-import sys
 import os
-import numpy as np
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.animation import PillowWriter
 
 # Ensure local ave package is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from ave.core.constants import M_SUN, G
-from ave.regime_3_saturated.galactic_rotation import ave_saturation_acceleration, A0_LATTICE
+from ave.regime_3_saturated.galactic_rotation import A0_LATTICE, ave_saturation_acceleration
 
 
 def animate_2d_bullet_cluster():

@@ -16,8 +16,8 @@ Also tests:
 import numpy as np
 import pytest
 
-from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.constants import C_0, V_SNAP
+from ave.core.fdtd_3d import FDTD3DEngine
 
 
 class TestFDTD3DLinearRegime:

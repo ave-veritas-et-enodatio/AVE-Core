@@ -3,17 +3,18 @@ Tests for ave.gravity.planetary_magnetosphere
 """
 
 import numpy as np
+
 from ave.gravity.planetary_magnetosphere import (
+    ALL_PLANETS,
+    EARTH,
+    comparative_magnetosphere_table,
     dipole_field,
     magnetic_pressure,
-    solar_wind_dynamic_pressure,
+    magnetopause_reflection,
     magnetopause_standoff,
     magnetopause_standoff_Rp,
-    magnetopause_reflection,
+    solar_wind_dynamic_pressure,
     uranus_asymmetric_profile,
-    comparative_magnetosphere_table,
-    EARTH,
-    ALL_PLANETS,
 )
 
 

@@ -12,59 +12,50 @@ Rigorous assertion-based tests validating:
 import numpy as np
 import pytest
 
-from ave.core.constants import (
-    C_0,
-    MU_0,
-    EPSILON_0,
-    Z_0,
-    HBAR,
-    M_E,
-    e_charge,
-    ALPHA,
-    G,
-    L_NODE,
-    XI_TOPO,
-    P_C,
-    T_EM,
-    V_SNAP,
-    V_YIELD,
-    ISOTROPIC_PROJECTION,
-    NU_VAC,
-    E_CRIT,
-    H_INFINITY,
-    PROTON_ELECTRON_RATIO,
-    T_NUC,
-    I_SCALAR_1D,
-    V_TOROIDAL_HALO,
-)
-
+from ave.axioms.isomorphism import charge_to_length, length_to_charge, mechanical_to_electrical, ohms_to_kinematic
 from ave.axioms.saturation import (
-    epsilon_eff,
     capacitance_eff,
-    reflection_coefficient,
-    local_wave_speed,
     energy_density_nonlinear,
+    epsilon_eff,
     impedance_at_strain,
+    local_wave_speed,
+    reflection_coefficient,
 )
-
-from ave.axioms.isomorphism import (
-    charge_to_length,
-    length_to_charge,
-    ohms_to_kinematic,
-    mechanical_to_electrical,
+from ave.core.constants import (
+    ALPHA,
+    C_0,
+    E_CRIT,
+    EPSILON_0,
+    H_INFINITY,
+    HBAR,
+    I_SCALAR_1D,
+    ISOTROPIC_PROJECTION,
+    L_NODE,
+    M_E,
+    MU_0,
+    NU_VAC,
+    P_C,
+    PROTON_ELECTRON_RATIO,
+    T_EM,
+    T_NUC,
+    V_SNAP,
+    V_TOROIDAL_HALO,
+    V_YIELD,
+    XI_TOPO,
+    Z_0,
+    G,
+    e_charge,
 )
-
 from ave.gravity import (
-    principal_radial_strain,
-    refractive_index,
+    einstein_deflection_angle,
     is_dielectric_rupture,
-    schwarzschild_radius,
-    local_mu,
     local_epsilon,
     local_impedance,
-    einstein_deflection_angle,
+    local_mu,
+    principal_radial_strain,
+    refractive_index,
+    schwarzschild_radius,
 )
-
 
 # =========================================================================
 # TEST 1: DERIVED CONSTANTS CONSISTENCY

@@ -11,11 +11,12 @@ local Cartesian distances jitter violently (Brownian motion), the Linking Number
 remains exactly L=1.0 indefinitely. Continuous noise cannot alter a discrete state.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import os
 from pathlib import Path
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Parameters
 N_NODES = 100  # Nodes per ring

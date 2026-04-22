@@ -2,11 +2,12 @@
 # Solves standard electron orbitals entirely deterministically as 3D Macroscopic
 # Acoustic Chladni Standing-Wave logic formed inside the LC lattice tensor gradients.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import sys
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

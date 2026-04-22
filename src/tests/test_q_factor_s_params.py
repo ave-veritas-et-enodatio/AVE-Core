@@ -1,12 +1,10 @@
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Import exactly what simulate_element uses to ensure mathematical fidelity
-from scripts.vol_6_periodic_table.simulations.simulate_element import (
-    get_nucleon_coordinates,
-    K_MUTUAL,
-)
+from scripts.vol_6_periodic_table.simulations.simulate_element import K_MUTUAL, get_nucleon_coordinates
 
 
 def calculate_network_parameters(Z, A):

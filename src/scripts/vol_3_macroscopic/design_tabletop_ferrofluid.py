@@ -4,8 +4,9 @@ Derives the physical lab requirements (Magnetic field, viscous scaling) bridging
 the cosmological Vacuum H_INFINITY bound to a tabletop ferrofluid container.
 """
 
-import sys
 import os
+import sys
+
 import numpy as np
 
 # Ensure local ave package is in path

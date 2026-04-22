@@ -2,9 +2,10 @@
 # Natively computes the exact U(1) parameterization of the $0_1$ Unknot
 # which mechanically constitutes the electron topological mass defect.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

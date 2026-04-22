@@ -23,18 +23,13 @@ Usage:
 """
 
 import sys
+
 import numpy as np
 
 # ═══════════════════════════════════════════════════════════════════════════
 # AVE ENGINE IMPORTS — all physics from the engine, nothing hardcoded
 # ═══════════════════════════════════════════════════════════════════════════
-from ave.core.constants import (
-    HBAR,
-    K_B,
-    N_A,
-    ALPHA,
-    e_charge,
-)
+from ave.core.constants import ALPHA, HBAR, K_B, N_A, e_charge
 
 # ═══════════════════════════════════════════════════════════════════════════
 # EXPERIMENTAL REFERENCE VALUES (for comparison only — never used in calc)

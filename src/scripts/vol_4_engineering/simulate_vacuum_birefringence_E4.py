@@ -26,13 +26,14 @@ gradients, standard QED is falsified and the physical LC node limits
 of the generic vacuum are proven.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import pathlib
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-from ave.core.constants import ALPHA, M_E, C_0, e_charge, L_NODE
+from ave.core.constants import ALPHA, C_0, L_NODE, M_E, e_charge
 
 
 def simulate_birefringence_e4():

@@ -12,18 +12,18 @@ Verifies:
 import numpy as np
 import pytest
 
-from ave.gravity.gw_detector import (
-    GWDetector,
-    DETECTOR_CATALOG,
-    impedance_modulation,
-    phase_shift,
-    shot_noise_strain,
-    radiation_pressure_strain,
-    total_strain_sensitivity,
-    lattice_voltage_ratio,
-    detector_summary,
-)
 from ave.core.constants import Z_0
+from ave.gravity.gw_detector import (
+    DETECTOR_CATALOG,
+    GWDetector,
+    detector_summary,
+    impedance_modulation,
+    lattice_voltage_ratio,
+    phase_shift,
+    radiation_pressure_strain,
+    shot_noise_strain,
+    total_strain_sensitivity,
+)
 
 
 class TestDetectorCatalog:

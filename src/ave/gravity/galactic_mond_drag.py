@@ -10,7 +10,8 @@ or an intact inductive compliance network (MOND/Dark Matter equivalent).
 """
 
 import numpy as np
-from ave.core.constants import G, C_0, HBAR, M_E, ALPHA
+
+from ave.core.constants import ALPHA, C_0, HBAR, M_E, G
 
 
 def get_hubble_infinity() -> float:

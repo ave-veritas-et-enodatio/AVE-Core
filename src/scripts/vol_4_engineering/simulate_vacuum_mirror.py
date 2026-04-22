@@ -1,12 +1,14 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 import pathlib
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
+from ave.axioms.scale_invariant import epsilon_eff
+from ave.axioms.scale_invariant import impedance as _impedance
 from ave.core.constants import V_YIELD, Z_0
-from ave.axioms.scale_invariant import epsilon_eff, impedance as _impedance
 
 
 def calculate_effective_permittivity(V_applied):

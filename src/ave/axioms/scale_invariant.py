@@ -54,10 +54,9 @@ avalanche_factor(V_applied, V_breakdown, n_topology)
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.core.constants import EPSILON_0, MU_0, C_0, Z_0, V_SNAP
 
+from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
 
 # ────────────────────────────────────────────────────────────────────
 # The universal impedance operator

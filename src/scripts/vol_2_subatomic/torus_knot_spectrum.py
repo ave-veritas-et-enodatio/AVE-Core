@@ -15,11 +15,11 @@ Output: assets/sim_outputs/torus_knot_baryon_spectrum.png
 
 import os
 
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize
+
 from ave.core.constants import KAPPA_FS, P_C
 
 # Electron mass in MeV

@@ -15,10 +15,10 @@ import pytest
 from ave.gravity.stellar_interior import (
     SSM_LAYERS,
     build_radial_profile,
-    tachocline_reflection,
+    helioseismology_modes,
     photosphere_reflection,
     solar_opacity_from_impedance,
-    helioseismology_modes,
+    tachocline_reflection,
 )
 
 

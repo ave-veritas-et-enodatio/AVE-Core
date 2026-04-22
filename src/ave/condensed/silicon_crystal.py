@@ -25,19 +25,12 @@ References:
 
 from __future__ import annotations
 
-
-import numpy as np
 from math import pi
 
-from ave.nuclear.silicon_atom import (
-    R_VAL_SI,
-    IE_SI_NIST,
-)
-from ave.solvers.coupled_resonator import (
-    molecular_bond_distance,
-    molecular_bond_energy,
-)
+import numpy as np
 
+from ave.nuclear.silicon_atom import IE_SI_NIST, R_VAL_SI
+from ave.solvers.coupled_resonator import molecular_bond_distance, molecular_bond_energy
 
 # ═══════════════════════════════════════════════════════════════════
 # Si-Si BOND PARAMETERS

@@ -8,7 +8,8 @@ Vacuum Circuit Analysis (VCA) matrix.
 """
 
 import numpy as np
-from ave.condensed.silicon_doping import pn_junction, diode_iv
+
+from ave.condensed.silicon_doping import diode_iv, pn_junction
 from ave.core.constants import ALPHA
 from ave.nuclear.silicon_atom import IE_SI_AVE
 

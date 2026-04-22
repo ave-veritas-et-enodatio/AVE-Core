@@ -4,9 +4,10 @@
 # elastic integration (Velocity-Verlet) to formally derive the MOND $a_0$ acceleration
 # boundary strictly from Newtonian/Hookean mechanics without phenomenology.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use("dark_background")
 

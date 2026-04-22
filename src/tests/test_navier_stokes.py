@@ -5,20 +5,20 @@ Verifies the 3-step Navier-Stokes smoothness proof.
 """
 
 import numpy as np
+
 from ave.axioms.navier_stokes import (
+    continuum_limit_ns,
+    enstrophy_bound,
+    enstrophy_maximum,
+    full_navier_stokes_proof,
     lattice_laplacian_1d,
     lattice_laplacian_operator_norm,
     lattice_ns_degrees_of_freedom,
+    lattice_ns_global_existence,
     maximum_lattice_velocity,
     velocity_bound_ratio,
-    enstrophy_bound,
-    enstrophy_maximum,
-    lattice_ns_global_existence,
-    continuum_limit_ns,
-    full_navier_stokes_proof,
 )
 from ave.core.constants import C_0, L_NODE
-
 
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Properties

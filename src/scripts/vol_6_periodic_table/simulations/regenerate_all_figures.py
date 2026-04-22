@@ -7,13 +7,14 @@ All coordinates sourced from simulate_element.py (which uses ave.core.constants)
 Outputs directly to periodic_table/figures/ for LaTeX inclusion.
 """
 import os
-import numpy as np
+
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
 import pathlib
+
+import matplotlib.pyplot as plt
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 

@@ -2,11 +2,7 @@ import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-from ave.core.constants import (
-    Z_0,
-    e_charge,
-    HIGGS_VEV_MEV,
-)
+from ave.core.constants import HIGGS_VEV_MEV, Z_0, e_charge
 
 
 def main():

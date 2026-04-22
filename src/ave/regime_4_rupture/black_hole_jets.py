@@ -10,10 +10,10 @@ the emission of extreme relativistic jets.
 
 from __future__ import annotations
 
-
 import numpy as np
-from ave.regime_4_rupture.rupture_solver import TopologicalRuptureSolver
+
 from ave.gravity import principal_radial_strain
+from ave.regime_4_rupture.rupture_solver import TopologicalRuptureSolver
 
 
 def compute_jet_emission_power(M_kg: float, r_infall: np.ndarray, incident_power: np.ndarray) -> np.ndarray:

@@ -6,20 +6,18 @@ for the 6-Alpha Octahedral matrix to mathematically match the empirical
 CODATA mass defect of Mg-24.
 """
 
+import pathlib
+
 import numpy as np
 from scipy.optimize import minimize
-
-import pathlib
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 
 # All constants imported from the physics engine — zero hardcoded values
-from ave.core.constants import (
-    K_MUTUAL,
-    M_P_MEV_TARGET as M_P_RAW,
-    M_N_MEV_TARGET as M_N_RAW,
-    D_PROTON as D_0,
-)
+from ave.core.constants import D_PROTON as D_0
+from ave.core.constants import K_MUTUAL
+from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
+from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 # Target Empirical CODATA Nuclear Mass for Magnesium-24 (MeV)
 # 23.985041699 amu * 931.494102 MeV/amu - (12 * 0.51099895 MeV)

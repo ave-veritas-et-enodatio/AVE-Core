@@ -13,8 +13,9 @@ separating the 2s and 2p energies without any statistical Born-rule interpretati
 """
 
 import sys
-import matplotlib.pyplot as plt
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 
 PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 sys.path.append(str(PROJECT_ROOT / "src"))

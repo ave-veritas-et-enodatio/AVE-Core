@@ -12,10 +12,11 @@ Each figure shows the continuous metric strain field M_A with electron
 positions overlaid as physical geometric objects, not probability clouds.
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Circle
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Circle
 
 # AVE constants (imported from physics engine for traceability)
 from ave.core.constants import ALPHA

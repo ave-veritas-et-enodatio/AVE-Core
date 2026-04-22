@@ -7,17 +7,17 @@ Phase 5 verification.
 """
 
 import numpy as np
+
 from ave.condensed.silicon_doping import (
-    Z_BORON,
-    Z_PHOSPHORUS,
     R_VAL_BORON,
     R_VAL_PHOSPHORUS,
+    Z_BORON,
+    Z_PHOSPHORUS,
     boron_impurity_level,
+    diode_iv,
     phosphorus_impurity_level,
     pn_junction,
-    diode_iv,
 )
-
 
 # ═══════════════════════════════════════════════════════════════════
 # Dopant Properties

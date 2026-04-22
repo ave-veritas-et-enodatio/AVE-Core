@@ -1,6 +1,6 @@
-import pathlib
-import os
 import glob
+import os
+import pathlib
 import re
 
 chapters_dir = (

@@ -15,8 +15,9 @@ Boundary Conditions (ABCs).
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine
 

@@ -20,11 +20,12 @@ The FDTD engine already implements this: when E > V_snap/dx,
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from ave.core.constants import C_0, EPSILON_0, V_SNAP, L_NODE, e_charge, M_E, K_B
+
 from ave.axioms.scale_invariant import epsilon_eff as _si_epsilon_eff
+from ave.core.constants import C_0, EPSILON_0, K_B, L_NODE, M_E, V_SNAP, e_charge
 
 
 @dataclass

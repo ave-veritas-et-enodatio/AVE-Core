@@ -1,5 +1,6 @@
-import numpy as np
 import pathlib
+
+import numpy as np
 
 # Setup paths
 project_root = pathlib.Path(__file__).parent.absolute()

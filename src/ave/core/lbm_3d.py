@@ -24,9 +24,7 @@ Usage:
 
 from __future__ import annotations
 
-
 import numpy as np
-
 
 # D3Q19 lattice velocities and weights
 # 19 discrete velocities: 1 rest + 6 face + 12 edge

@@ -21,18 +21,17 @@ Usage:
 
 from __future__ import annotations
 
+from functools import partial
 
 import jax
 import jax.numpy as jnp
-from jax import jit
-from functools import partial
 import numpy as np
+from jax import jit
 
 # Enable float64 to match numpy precision for numerical equivalence
 jax.config.update("jax_enable_x64", True)
 
-from ave.core.constants import C_0, MU_0, EPSILON_0, V_YIELD, B_SNAP
-
+from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
 
 # =====================================================================
 # Pure-function kernels (JIT-compiled, no side effects)

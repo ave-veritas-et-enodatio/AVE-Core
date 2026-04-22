@@ -17,21 +17,22 @@ All constants from ave.core.constants — zero free parameters.
 """
 
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Ensure local ave package is in path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from ave.solvers.orbital_resonance import (
-    refractive_index,
-    reflection_coefficient,
-    schwarzschild_radius,
-    photon_sphere_radius,
-    isco_radius,
-    impedance_orbital_radii,
-    qpo_frequencies,
     M_SUN,
+    impedance_orbital_radii,
+    isco_radius,
+    photon_sphere_radius,
+    qpo_frequencies,
+    reflection_coefficient,
+    refractive_index,
+    schwarzschild_radius,
 )
 
 # Standard AVE output directory

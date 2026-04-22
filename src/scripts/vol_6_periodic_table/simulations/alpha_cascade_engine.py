@@ -24,22 +24,23 @@ GEOMETRY EMERGENCE:
     This is the nuclear analog of the protein folding S₁₁ engine.
 """
 
-import jax.numpy as jnp
-from jax import grad, jit, lax
-import numpy as np
 import time
+
+import jax.numpy as jnp
+import numpy as np
+from jax import grad, jit, lax
 
 # Import AVE constants
 from ave.core.constants import (
-    K_MUTUAL,
     ALPHA,
-    HBAR,
     C_0,
-    e_charge,
-    M_P_MEV_TARGET,
-    M_N_MEV_TARGET,
-    D_PROTON,
     D_INTRA_ALPHA,
+    D_PROTON,
+    HBAR,
+    K_MUTUAL,
+    M_N_MEV_TARGET,
+    M_P_MEV_TARGET,
+    e_charge,
 )
 
 # ---- AXIOM-DERIVED CONSTANTS ----

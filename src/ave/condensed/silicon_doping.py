@@ -32,20 +32,13 @@ References:
 
 from __future__ import annotations
 
-
 import numpy as np
 
-from ave.core.constants import (
-    ALPHA,
-)
-from ave.nuclear.silicon_atom import IE_SI_AVE, V_R_OVER_V_BR, Z_SI
+from ave.condensed.silicon_crystal import K_SI_SI, silicon_band_gap
+from ave.core.constants import ALPHA
 from ave.nuclear.boron_atom import Z_BORON
 from ave.nuclear.phosphorus_atom import Z_PHOSPHORUS
-from ave.condensed.silicon_crystal import (
-    K_SI_SI,
-    silicon_band_gap,
-)
-
+from ave.nuclear.silicon_atom import IE_SI_AVE, V_R_OVER_V_BR, Z_SI
 
 # ═══════════════════════════════════════════════════════════════════
 # DOPANT ATOMIC PROPERTIES (IMPORTED FROM FIRST-PRINCIPLES MODULES)

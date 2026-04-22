@@ -13,21 +13,14 @@ import numpy as np
 import pytest
 
 from ave.axioms.scale_invariant import (
-    impedance,
-    saturation_factor,
     epsilon_eff,
-    reflection_coefficient,
-    local_wave_speed,
+    impedance,
     impedance_at_strain,
+    local_wave_speed,
+    reflection_coefficient,
+    saturation_factor,
 )
-from ave.core.constants import (
-    EPSILON_0,
-    MU_0,
-    C_0,
-    Z_0,
-    V_SNAP,
-)
-
+from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, Z_0
 
 # ═══════════════════════════════════════════════════════════════
 # impedance: Z = √(μ/ε)
@@ -176,9 +169,7 @@ class TestCrossScaleIdentity:
 
     def test_reflection_matches_saturation_module(self):
         """saturation.reflection_coefficient ≡ scale_invariant version."""
-        from ave.axioms.saturation import (
-            reflection_coefficient as sat_gamma,
-        )
+        from ave.axioms.saturation import reflection_coefficient as sat_gamma
 
         for Z in [0.0, 1.0, 100.0, Z_0, 1e6]:
             old = sat_gamma(Z, Z_0)
@@ -187,9 +178,7 @@ class TestCrossScaleIdentity:
 
     def test_impedance_at_strain_matches(self):
         """saturation.impedance_at_strain ≡ scale_invariant version."""
-        from ave.axioms.saturation import (
-            impedance_at_strain as sat_z_strain,
-        )
+        from ave.axioms.saturation import impedance_at_strain as sat_z_strain
 
         V_test = np.linspace(0, 0.99 * V_SNAP, 50)
         old = sat_z_strain(V_test, V_SNAP)
@@ -207,10 +196,8 @@ class TestCrossScaleIdentity:
 
     def test_seismic_uses_universal_gamma(self):
         """Seismic module produces same results through the universal function."""
-        from ave.regime_2_nonlinear.seismic import (
-            reflection_coefficient as seismic_gamma,
-            PREM_LAYERS,
-        )
+        from ave.regime_2_nonlinear.seismic import PREM_LAYERS
+        from ave.regime_2_nonlinear.seismic import reflection_coefficient as seismic_gamma
 
         # Compute Moho reflection manually
         Z1 = PREM_LAYERS[1].acoustic_impedance_p  # Lower crust

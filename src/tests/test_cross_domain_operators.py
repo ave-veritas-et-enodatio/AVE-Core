@@ -6,13 +6,14 @@ produce correct results across multiple physical domains.
 """
 
 import pytest
+
 from ave.axioms.scale_invariant import (
-    regime_boundary_eigenvalue,
     phase_transition_Q,
-    shear_modulus_ratio,
+    regime_boundary_eigenvalue,
     saturation_factor,
+    shear_modulus_ratio,
 )
-from ave.core.constants import G, C_0, NU_VAC, L_NODE, ALPHA
+from ave.core.constants import ALPHA, C_0, L_NODE, NU_VAC, G
 
 M_SUN = 1.989e30
 

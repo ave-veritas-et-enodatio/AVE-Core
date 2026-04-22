@@ -12,10 +12,10 @@ Output: assets/sim_outputs/thermal_skyrmion_comparison.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from ave.core.constants import KAPPA_FS_COLD, KAPPA_FS, M_E, C_0, HBAR
+from ave.core.constants import C_0, HBAR, KAPPA_FS, KAPPA_FS_COLD, M_E
 
 L_NODE = HBAR / (M_E * C_0)
 

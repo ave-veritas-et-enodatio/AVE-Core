@@ -32,14 +32,8 @@ USAGE:
 
 import math
 
-from ave.core.constants import G, C_0, NU_VAC, M_SUN, ALPHA
-from ave.gravity import (
-    principal_radial_strain,
-    refractive_index,
-    shear_modulus_factor,
-    saturation_radius,
-)
-
+from ave.core.constants import ALPHA, C_0, M_SUN, NU_VAC, G
+from ave.gravity import principal_radial_strain, refractive_index, saturation_radius, shear_modulus_factor
 
 # ═══════════════════════════════════════
 # WD Catalog

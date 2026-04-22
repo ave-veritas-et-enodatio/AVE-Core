@@ -8,9 +8,9 @@ Tests for the core VacuumGrid (2D wave equation) and the NucleonCombiner
 
 import numpy as np
 import pytest
+
 from ave.core.grid import VacuumGrid
 from ave.topological.combiner import NucleonCombiner
-
 
 # ═══════════════════════════════════════════════════════════════════════
 # VacuumGrid

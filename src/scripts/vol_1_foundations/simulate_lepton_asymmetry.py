@@ -4,12 +4,13 @@ Derives the fundamental CP-violating chiral phase bias of the discrete LC Networ
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 
-# Ensure local ave package is in path
+import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import ALPHA
+
+# Ensure local ave package is in path
 
 
 def derive_chiral_asymmetry():

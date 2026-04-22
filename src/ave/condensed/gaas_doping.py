@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from ave.condensed.silicon_crystal import silicon_band_gap
+from ave.nuclear.arsenic_atom import Z_ARSENIC
+from ave.nuclear.gallium_atom import Z_GALLIUM
+from ave.nuclear.silicon_atom import Z_SI
+
 # ═══════════════════════════════════════════════════════════════════
 # GALLIUM ARSENIDE TOPO-KINEMATIC DOPING (GaAs)
 # ═══════════════════════════════════════════════════════════════════
@@ -8,10 +13,6 @@ from __future__ import annotations
 # Amphoteric phase slips (Silicon Z=14, Carbon Z=6) which
 # behave dynamically depending on target node position.
 
-from ave.nuclear.gallium_atom import Z_GALLIUM
-from ave.nuclear.arsenic_atom import Z_ARSENIC
-from ave.nuclear.silicon_atom import Z_SI
-from ave.condensed.silicon_crystal import silicon_band_gap
 
 # Core Operating Boundary Approximation via binding extraction
 # Operating structurally right below Germanium limits

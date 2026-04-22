@@ -18,9 +18,9 @@ Output:  assets/sim_outputs/vacuum_phonon_propagation_3d.gif
 """
 
 import os
-import numpy as np
 
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

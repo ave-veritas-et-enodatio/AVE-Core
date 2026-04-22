@@ -19,12 +19,8 @@ src_path = str(Path(__file__).parent.parent.parent.parent)
 if src_path not in sys.path:
     sys.path.append(src_path)
 
-from ave.topological.cosserat import (
-    M_W_TREE,
-    M_Z_MEV,
-    w_boson_self_consistent_correction,
-)
 from ave.core.constants import C_0, e_charge
+from ave.topological.cosserat import M_W_TREE, M_Z_MEV, w_boson_self_consistent_correction
 
 _J_PER_MEV = float(e_charge) * 1e6
 PDG_MW = 80_379.0  # MeV  (PDG 2022)

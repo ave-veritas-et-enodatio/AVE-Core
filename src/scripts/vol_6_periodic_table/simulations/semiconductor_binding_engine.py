@@ -52,19 +52,20 @@ Equilibrium Inter-Alpha Distance (R):
 import numpy as np
 from scipy.optimize import brentq
 
+from ave.axioms.scale_invariant import avalanche_factor
+
 # Import AVE constants
 from ave.core.constants import (
-    K_MUTUAL,
     ALPHA,
-    HBAR,
     C_0,
-    e_charge,
+    HBAR,
+    K_MUTUAL,
     L_NODE,
-    PROTON_ELECTRON_RATIO,
-    M_P_MEV_TARGET,
     M_N_MEV_TARGET,
+    M_P_MEV_TARGET,
+    PROTON_ELECTRON_RATIO,
+    e_charge,
 )
-from ave.axioms.scale_invariant import avalanche_factor
 
 # =============================================================================
 # AXIOM-DERIVED CONSTANTS

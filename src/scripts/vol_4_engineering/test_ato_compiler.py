@@ -9,11 +9,11 @@ to fundamental physical lattice testing.
 
 import json
 import re
+
 import numpy as np
 
-from ave.core.constants import EE_TO_TOPO_RESISTANCE, V_YIELD, M_E
+from ave.core.constants import EE_TO_TOPO_RESISTANCE, M_E, V_YIELD
 from ave.solvers.spice_transient import explicit_euler_step
-
 
 # ═══════════════════════════════════════════════════════════════════
 # PARSER AND NETLIST GENERATOR

@@ -10,8 +10,8 @@ Output: assets/sim_outputs/emt_packing_landscape.png
 
 import os
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ave.core.constants import P_C
 

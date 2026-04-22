@@ -43,7 +43,6 @@ from typing import Any, Optional
 
 import yaml
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = REPO_ROOT / "manuscript" / "predictions.yaml"
 CONSTANTS_PY = REPO_ROOT / "src" / "ave" / "core" / "constants.py"

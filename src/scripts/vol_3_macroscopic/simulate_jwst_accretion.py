@@ -17,10 +17,11 @@ perfectly resolving the JWST paradox.
 """
 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import pathlib
+
+import matplotlib.animation as animation
+import matplotlib.pyplot as plt
+import numpy as np
 from scipy.spatial.distance import cdist
 
 project_root = pathlib.Path(__file__).parent.parent.absolute()

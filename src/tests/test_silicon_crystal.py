@@ -9,22 +9,22 @@ Phases 3-4 verification.
 """
 
 import numpy as np
+
 from ave.condensed.silicon_crystal import (
-    D_SI_SI,
-    D_SI_SI_EXP,
-    B_SI_SI_EV,
-    K_SI_SI,
-    K_CRYSTAL,
     A_LATTICE,
     A_LATTICE_EXP,
-    E_GAP_EXP,
-    N_ATOMS_CELL,
+    B_SI_SI_EV,
     COORD_NUMBER,
+    D_SI_SI,
+    D_SI_SI_EXP,
+    E_GAP_EXP,
+    K_CRYSTAL,
+    K_SI_SI,
+    N_ATOMS_CELL,
     build_unit_cell_bonds,
     dispersion_periodic_lc,
     silicon_band_gap,
 )
-
 
 # ═══════════════════════════════════════════════════════════════════
 # Si-Si Bond

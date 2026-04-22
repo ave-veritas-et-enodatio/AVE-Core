@@ -29,8 +29,8 @@ Dimensional audit (all formulas):
 """
 
 import numpy as np
-from ave.core.constants import G, C_0, HBAR, M_E
 
+from ave.core.constants import C_0, HBAR, M_E, G
 
 # ── Derived gravitomagnetic constants ────────────────────────────────────────
 

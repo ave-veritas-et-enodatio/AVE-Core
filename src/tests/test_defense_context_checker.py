@@ -14,13 +14,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
-from scripts.defense_context_checker import (
-    RULES,
-    Rule,
-    scan_file,
-    discover_targets,
-)
+from scripts.defense_context_checker import RULES, Rule, discover_targets, scan_file
 
 
 def _write(tmp_path: Path, name: str, content: str) -> Path:

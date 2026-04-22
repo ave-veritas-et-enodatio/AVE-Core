@@ -61,12 +61,10 @@ CONSTANTS
 
 from __future__ import annotations
 
-
 import numpy as np
 
-from ave.core.constants import ALPHA, HBAR, C_0, M_E, A_0, RY_EV, e_charge, P_C, L_NODE
+from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
 from ave.core.universal_operators import universal_reflection, universal_saturation
-
 
 # ---------------------------------------------------------------------------
 # Step 1: Piece-wise radial potential
@@ -1069,8 +1067,8 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
         f_eigen_eV:   Converged eigenvalue [eV].
         info:   Dict with iteration history.
     """
-    from scipy.optimize import brentq
     from scipy.interpolate import interp1d
+    from scipy.optimize import brentq
 
     N_inner = sum(N_a for _, N_a in inner_shells)
 
@@ -1452,8 +1450,8 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     naturally resolving all Op3 impedance step partial reflections
     at the Gauss screening boundaries (Axiom 2).
     """
-    from scipy.optimize import brentq
     import numpy as np
+    from scipy.optimize import brentq
 
     N_inner = sum(N_a for _, N_a in shells)
     z_outer = max(float(Z) - N_inner, 1.0)

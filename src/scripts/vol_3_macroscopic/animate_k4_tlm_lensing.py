@@ -6,18 +6,19 @@ Generates a sequence of frames for a highly-resolved 2D K4-TLM simulation,
 then compiles them into an MP4 video using ffmpeg.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import shutil
 import subprocess
+
+import matplotlib.pyplot as plt
 
 from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix
 

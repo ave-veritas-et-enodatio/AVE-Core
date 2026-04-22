@@ -20,21 +20,18 @@ DAG Compliance:
 Vol 4 Ch. 13 — K4-TLM Lattice Dynamics Validation
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-import numpy as np
 import matplotlib
+import numpy as np
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.k4_tlm import (
-    K4Lattice2D,
-    build_scattering_matrix,
-)
+from ave.core.k4_tlm import K4Lattice2D, build_scattering_matrix
 
 N_PORTS = 4
 

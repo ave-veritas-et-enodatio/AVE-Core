@@ -23,23 +23,15 @@ from __future__ import annotations
 
 import textwrap
 
-from ave.core.constants import L_NODE, M_E, C_0, e_charge
-from ave.axioms.yang_mills import (
-    full_mass_gap_proof,
-    cluster_decomposition_length,
-)
-from ave.axioms.navier_stokes import (
-    full_navier_stokes_proof,
-    sobolev_bound_theorem,
-    lattice_laplacian_operator_norm,
-)
+from ave.axioms.millennium import formal_proof_summary
+from ave.axioms.navier_stokes import full_navier_stokes_proof, lattice_laplacian_operator_norm, sobolev_bound_theorem
 from ave.axioms.spectral_gap import (
-    zero_free_region_equivalence,
     functional_equation_reciprocal_proof,
     spectral_cutoff_sigma,
+    zero_free_region_equivalence,
 )
-from ave.axioms.millennium import formal_proof_summary
-
+from ave.axioms.yang_mills import cluster_decomposition_length, full_mass_gap_proof
+from ave.core.constants import C_0, L_NODE, M_E, e_charge
 
 # ─────────────────────────────────────────────────────────────────────
 # Helpers

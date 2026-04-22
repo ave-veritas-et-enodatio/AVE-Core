@@ -1,4 +1,4 @@
-from ave.core.constants import C_0, G, RHO_BULK
+from ave.core.constants import C_0, RHO_BULK, G
 
 
 def simulate_vlbi_and_dama_parallax():

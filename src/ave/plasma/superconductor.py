@@ -38,25 +38,14 @@ Correspondences with plasma ``cutoff.py``:
 
 from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import (
-    EPSILON_0,
-    MU_0,
-    Z_0,
-    e_charge,
-    M_E,
-    HBAR,
-)
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-    mu_eff as _si_mu_eff,
-    impedance,
-    reflection_coefficient,
-)
+import numpy as np
 
+from ave.axioms.scale_invariant import impedance
+from ave.axioms.scale_invariant import mu_eff as _si_mu_eff
+from ave.axioms.scale_invariant import reflection_coefficient, saturation_factor
+from ave.core.constants import EPSILON_0, HBAR, M_E, MU_0, Z_0, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Core saturation functions — the magnetic dual of plasma

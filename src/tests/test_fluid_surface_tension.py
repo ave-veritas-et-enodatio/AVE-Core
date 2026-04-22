@@ -1,4 +1,4 @@
-from ave.regime_1_linear.fluids_factory import WaterMolecule, FluidImpedanceFactory
+from ave.regime_1_linear.fluids_factory import FluidImpedanceFactory, WaterMolecule
 
 
 def test_fluid_surface_tension():

@@ -28,13 +28,13 @@ solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
 """
 
-from ave.core.constants import EPS_NUMERICAL, EPS_CLIP
+from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
 
 
 def _is_jax_array(x):
     try:
-        import jax.numpy as jnp
         import jax
+        import jax.numpy as jnp
 
         return isinstance(x, (jnp.ndarray, jax.Array))
     except ImportError:

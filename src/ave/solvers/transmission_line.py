@@ -35,8 +35,9 @@ Examples
 >>> s11 = s11_frequency_sweep(Z, gamma, Y, Z_source=1.0, Z_load=1.0)
 """
 
-import numpy as np
 from typing import Optional, Sequence
+
+import numpy as np
 
 # ====================================================================
 # NumPy backend (analysis, plotting)

@@ -4,16 +4,16 @@ Tests for ave.axioms.open_problems
 Verifies Strong CP, baryon asymmetry, and Hubble tension arguments.
 """
 
-import pytest
 import numpy as np
+import pytest
+
 from ave.axioms.open_problems import (
+    full_open_problems_proof,
+    impedance_hubble_correction,
+    lattice_chirality,
     torus_knot_phase_winding,
     vacuum_angle_quantization,
-    lattice_chirality,
-    impedance_hubble_correction,
-    full_open_problems_proof,
 )
-
 
 # ════════════════════════════════════════════════════════════════════
 # Strong CP Problem

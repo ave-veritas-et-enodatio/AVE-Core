@@ -3,13 +3,14 @@ Cosmological Simulation / Derivations for the AVE LC Network.
 Derives the Hubble Constant, MOND acceleration limits, and Acoustic Baryon scales.
 """
 
-import numpy as np
 import os
+
 import matplotlib.pyplot as plt
+import numpy as np
+
+from ave.core.constants import ALPHA, C_0, HBAR, M_E, G
 
 # Ensure local ave package is in path
-
-from ave.core.constants import M_E, C_0, HBAR, G, ALPHA
 
 
 def run_cosmology_verification():

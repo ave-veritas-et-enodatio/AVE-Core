@@ -10,8 +10,8 @@ Run: PYTHONPATH=src python src/scripts/peer_review/hygiene_audit.py
 
 import os
 import re
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
 
 MANUSCRIPT_ROOT = Path("manuscript")
 

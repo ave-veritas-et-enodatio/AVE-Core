@@ -1,16 +1,13 @@
+import sys
+
 import numpy as np
 from scipy.optimize import basinhopping
-import sys
-
-import sys
 
 # All constants imported from the physics engine — zero hardcoded values
-from ave.core.constants import (
-    K_MUTUAL,
-    M_P_MEV_TARGET as M_P_RAW,
-    M_N_MEV_TARGET as M_N_RAW,
-    D_PROTON as D_MIN,
-)
+from ave.core.constants import D_PROTON as D_MIN
+from ave.core.constants import K_MUTUAL
+from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
+from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
 
 
 def evaluate_binding_energy(positions):
