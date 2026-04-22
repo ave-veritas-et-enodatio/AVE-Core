@@ -61,7 +61,7 @@ for i in range(1, 15):
     ml = 1.0 - back_sat
     mw_i = m_w_tree_mev / ml
     print(
-        f"  {i:>5}  {Y_iter[0,0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}"
+        f"  {i:>5}  {Y_iter[0, 0].real:>12.8f}  {s11_i:>12.8f}  {back_sat:>12.8f}"
         f"  {mw_i:>12.4f}  {pct(mw_i, PDG_MW):>+8.4f}%"
     )
     if abs(s11_i - s11_prev) < 1e-12:

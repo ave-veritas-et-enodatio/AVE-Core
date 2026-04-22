@@ -105,12 +105,12 @@ if __name__ == "__main__":
             continue
 
         # Generate the standard bound structural mesh
-        bound_file = f"{outdir}/{el['name'].lower().replace('-','_')}_bound.png"
+        bound_file = f"{outdir}/{el['name'].lower().replace('-', '_')}_bound.png"
         plot_combined_mesh(nodes, f"{el['name']} Bound Topology ($6^3_2$ Interlocking Manifold)", bound_file, 1.0)
 
         # If the nucleus is multi-nucleon, generate an exploded structural mesh for clarity
         if len(nodes) > 1:
-            exploded_file = f"{outdir}/{el['name'].lower().replace('-','_')}_exploded.png"
+            exploded_file = f"{outdir}/{el['name'].lower().replace('-', '_')}_exploded.png"
             plot_combined_mesh(nodes, f"{el['name']} Exploded Topology (Visual Node Spacing)", exploded_file, 3.0)
 
     print("--- Generation Complete ---")

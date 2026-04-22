@@ -18,7 +18,8 @@ import math
 import numpy as np
 import pytest
 
-from ave.core.constants import (  # SI inputs; Three calibration inputs; Derived topological; Derived dielectric; Derived macroscopic; Electroweak; CKM; PMNS; Baryon
+# SI inputs; Three calibration inputs; Derived topological; Derived dielectric; Derived macroscopic; Electroweak; CKM; PMNS; Baryon
+from ave.core.constants import (
     A_CKM,
     ALPHA,
     ALPHA_S,

@@ -525,7 +525,7 @@ def make_section_cd(elem):
     \\textcolor{{neongreen}}{{Strong:}} $\\sum K/R$ = engine-derived\\\\
     \\textcolor{{neonred}}{{Coulomb:}} $\\sum \\alpha\\hbar c/R \\times f_{{pp}}$\\\\
     \\textcolor{{neonorange}}{{Miller:}} $M = {M_str}$ ($V_R/V_{{BR}} = {vr_str}$)\\\\[4pt]
-    \\textbf{{Result:}} ${elem['mass']:,.3f}$ MeV (${ elem['error']:.4f}\\%$ error)
+    \\textbf{{Result:}} ${elem['mass']:,.3f}$ MeV (${elem['error']:.4f}\\%$ error)
 }};
 
 % =====================================================================
