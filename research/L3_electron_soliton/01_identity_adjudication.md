@@ -83,6 +83,21 @@ However, $\pi_1(SO(3)) = \mathbb{Z}_2$ — spin-1/2 is NOT faithfully representa
 
 ## §4  Candidate C3 — SU(2) embedding
 
+> **Status note (2026-04-22):** This section's claim that "SU(2) is
+> the double cover of SO(3), so the half-cover prefactor
+> $\Lambda_{\text{surf}} = \pi^2$ falls out of the SU(2) → SO(3) 2-to-1
+> map" was challenged in
+> [`35_halfcover_derivation_audit.md`](35_halfcover_derivation_audit.md)
+> §4.5 as conflating "Lie-group 2-to-1 map" with "spatial-field
+> antipodal identification." The challenge was OVERCORRECTED. The
+> subsequent Path B investigation in
+> [`36_pathB_trefoil_z2_investigation.md`](36_pathB_trefoil_z2_investigation.md)
+> §2 vindicates the original C3 claim: when AVE's observables live
+> in SO(3) (classical Cosserat mechanics, standard), the SU(2) → SO(3)
+> 2-to-1 cover's automatic area-halving IS the Ch 8 half-cover.
+> Mathematical identity, classical physics justification, no QM
+> postulate required. C3 stands as the correct canonical identity.
+
 **Definition:** $U(\mathbf{r}) = \exp(i\,\boldsymbol{\sigma}\cdot\boldsymbol{\omega}(\mathbf{r})/2) \in SU(2)$. The FS field is $\hat{n}^a(\mathbf{r}) = \tfrac{1}{2}\text{tr}\big(\sigma^a\,U(\mathbf{r})\,\sigma^3\,U^\dagger(\mathbf{r})\big)$ (Hopf fibration $SU(2) \to S^2$ with fibre $U(1)$).
 
 **Topology.** SU(2) as a group is $S^3$. $\pi_3(SU(2)) = \pi_3(S^3) = \mathbb{Z}$ — the Skyrme / baryon winding number $B$. The projected $\hat{\mathbf{n}}$ carries the Hopf invariant $Q_H \in \pi_3(S^2) = \mathbb{Z}$. These are *different* invariants. The U(1) fibre direction also carries a winding $w_{U(1)}$.

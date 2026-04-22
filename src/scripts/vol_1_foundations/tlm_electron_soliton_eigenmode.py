@@ -125,6 +125,115 @@ def initialize_2_3_voltage_ansatz(
     lattice.V_inc[~lattice.mask_active] = 0.0
 
 
+def _apply_2_3_ansatz_with_envelope(
+    lattice: K4Lattice3D,
+    R: float,
+    r: float,
+    amplitude: float,
+    envelope_fn,
+) -> None:
+    """Shared implementation: populate V_inc with (2,3) chiral phasor
+    pattern using an arbitrary radial-envelope shape.
+
+    `envelope_fn(rho_tube, r_opt, amplitude) → ndarray` specifies the
+    magnitude profile. Phase winding θ=2φ+3ψ, port quadrature (cos on
+    ports 0,1; sin on 2,3), and chirality weighting are identical across
+    all envelope variants — only the magnitude differs.
+
+    Used by the three `initialize_2_3_voltage_ansatz_*` wrappers below
+    to enable seed-independence testing: a true dynamical eigenmode
+    should be reachable from any envelope in the basin of attraction.
+    """
+    cx = (lattice.nx - 1) / 2.0
+    cy = (lattice.ny - 1) / 2.0
+    cz = (lattice.nz - 1) / 2.0
+
+    idx = np.indices((lattice.nx, lattice.ny, lattice.nz))
+    i, j, k = idx[0], idx[1], idx[2]
+    x = i - cx
+    y = j - cy
+    z = k - cz
+
+    rho_xy = np.sqrt(x**2 + y**2 + 1e-12)
+    rho_tube = np.sqrt((rho_xy - R) ** 2 + z**2 + 1e-12)
+    phi_ang = np.arctan2(y, x)
+    psi_ang = np.arctan2(z, rho_xy - R)
+
+    r_opt = max(r, 1.0)
+    envelope = envelope_fn(rho_tube, r_opt, amplitude)
+
+    dphi_x = -(R + r * np.cos(psi_ang)) * np.sin(phi_ang)
+    dphi_y = (R + r * np.cos(psi_ang)) * np.cos(phi_ang)
+    dphi_z = np.zeros_like(phi_ang)
+    dpsi_x = -r * np.sin(psi_ang) * np.cos(phi_ang)
+    dpsi_y = -r * np.sin(psi_ang) * np.sin(phi_ang)
+    dpsi_z = r * np.cos(psi_ang) * np.ones_like(phi_ang)
+    t_x = 2.0 * dphi_x + 3.0 * dpsi_x
+    t_y = 2.0 * dphi_y + 3.0 * dpsi_y
+    t_z = 2.0 * dphi_z + 3.0 * dpsi_z
+    t_mag = np.sqrt(t_x**2 + t_y**2 + t_z**2 + 1e-12)
+    t_hat_x = t_x / t_mag
+    t_hat_y = t_y / t_mag
+    t_hat_z = t_z / t_mag
+
+    ports = [
+        (+1.0, +1.0, +1.0),
+        (+1.0, -1.0, -1.0),
+        (-1.0, +1.0, -1.0),
+        (-1.0, -1.0, +1.0),
+    ]
+    inv_sqrt3 = 1.0 / np.sqrt(3.0)
+
+    theta_wind = 2.0 * phi_ang + 3.0 * psi_ang
+    cos_theta = np.cos(theta_wind)
+    sin_theta = np.sin(theta_wind)
+
+    for p_idx, (px, py, pz) in enumerate(ports):
+        chirality_weight = inv_sqrt3 * (
+            px * t_hat_x + py * t_hat_y + pz * t_hat_z
+        )
+        phase_pattern = cos_theta if p_idx < 2 else sin_theta
+        lattice.V_inc[..., p_idx] = envelope * chirality_weight * phase_pattern
+
+    lattice.V_inc[~lattice.mask_active] = 0.0
+
+
+def initialize_2_3_voltage_ansatz_gaussian(
+    lattice: K4Lattice3D,
+    R: float,
+    r: float,
+    amplitude: float = 0.5,
+) -> None:
+    """(2,3) ansatz with Gaussian radial envelope `A·π·exp(−(ρ_tube/r)²)`.
+
+    Seed-independence variant. Same phase winding, port quadrature, and
+    chirality weighting as the power-law hedgehog; only the magnitude
+    profile changes. See `_apply_2_3_ansatz_with_envelope` for shared
+    logic.
+    """
+    def envelope_fn(rho_tube, r_opt, amp):
+        return amp * np.pi * np.exp(-(rho_tube / r_opt) ** 2)
+    _apply_2_3_ansatz_with_envelope(lattice, R, r, amplitude, envelope_fn)
+
+
+def initialize_2_3_voltage_ansatz_exponential(
+    lattice: K4Lattice3D,
+    R: float,
+    r: float,
+    amplitude: float = 0.5,
+) -> None:
+    """(2,3) ansatz with exponential radial envelope `A·π·exp(−ρ_tube/r)`.
+
+    Seed-independence variant. Same phase winding, port quadrature, and
+    chirality weighting as the power-law hedgehog; only the magnitude
+    profile changes. See `_apply_2_3_ansatz_with_envelope` for shared
+    logic.
+    """
+    def envelope_fn(rho_tube, r_opt, amp):
+        return amp * np.pi * np.exp(-rho_tube / r_opt)
+    _apply_2_3_ansatz_with_envelope(lattice, R, r, amplitude, envelope_fn)
+
+
 def shell_envelope(
     V_magnitude: np.ndarray, cx: float, cy: float, cz: float
 ) -> tuple[float, float]:
