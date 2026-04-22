@@ -136,7 +136,7 @@ def pn_junction(N_a: float = 1e16, N_d: float = 1e16) -> dict:
     E_gap = gap["E_gap_eV"]
 
     # Built-in potential derived from topological delta sum
-    # V_bi = max(0.0, E_gap - (boron["delta_E_eV"] + phosphorus["delta_E_eV"]))  # bulk lint fixup pass
+    V_bi = max(0.0, E_gap - (boron["delta_E_eV"] + phosphorus["delta_E_eV"]))
 
     # Transmission coefficient at junction (impedance step limit)
     Z_p = 1.0 / (1.0 + boron["k_dopant_Si"])

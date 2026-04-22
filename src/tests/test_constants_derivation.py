@@ -290,7 +290,7 @@ class TestPredictionTable:
 
     def test_superconductor_bcs_identity(self):
         """B_c(T) = B_c0 * sqrt(1 - (T/T_c)^2) = saturation_factor."""
-        from ave.axioms.saturation import saturation_factor
+        from ave.axioms.scale_invariant import saturation_factor
         from ave.plasma.superconductor import critical_field
 
         T, T_c, B_c0 = 4.2, 9.25, 0.206  # Niobium
