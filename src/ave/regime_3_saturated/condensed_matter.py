@@ -43,7 +43,6 @@ from __future__ import annotations
 import numpy as np
 
 from ave.core.constants import K_B  # Boltzmann constant [J/K]
-from ave.core.constants import M_PROTON  # Proton mass [kg] (used as m_u ≈ 1 amu)
 from ave.core.constants import M_U  # Atomic mass unit (Dalton) [kg] — single source of truth
 from ave.core.constants import e_charge  # Elementary charge [C]
 from ave.solvers.coupled_resonator import (

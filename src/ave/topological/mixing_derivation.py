@@ -531,7 +531,7 @@ def run_full_derivation():
     labels = ["e", "μ", "τ"]
     print(f"{'':>6} {'ν₁':>8} {'ν₂':>8} {'ν₃':>8}")
     for i, l in enumerate(labels):
-        print(f"  {l:>3}  {absU2[i,0]:>8.4f} {absU2[i,1]:>8.4f} " f"{absU2[i,2]:>8.4f}")
+        print(f"  {l:>3}  {absU2[i, 0]:>8.4f} {absU2[i, 1]:>8.4f} " f"{absU2[i, 2]:>8.4f}")
 
     # CKM
     print("\n" + "=" * 70)

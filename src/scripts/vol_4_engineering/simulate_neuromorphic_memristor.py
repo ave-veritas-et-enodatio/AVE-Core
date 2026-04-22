@@ -5,8 +5,6 @@ import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 
-# --- AVE First-Principles Constants ---
-from ave.core.constants import N_PHI_PACK as PHI_LIMIT  # Axiom 1: Packing limit
 
 # The subatomic phase-gap separating the V_II dielectric phase from the V_I conduction phase
 # Derived natively from the Void Fraction remainder (1 - Phi_limit)
