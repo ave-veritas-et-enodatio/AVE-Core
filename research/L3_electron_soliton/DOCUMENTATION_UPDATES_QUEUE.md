@@ -191,6 +191,94 @@
 - **Surfaced:** Phase 1, 2026-04-19
 - **Status:** **TABLED 2026-04-20** per user direction. Phase-1 theoretical spine is complete as a research artifact; formal rigor upgrade of §3 and §5 is deferred. If/when the research targets publication, this becomes a prerequisite deliverable. Retained in the active queue as a known outstanding item.
 
+### [17] Vol 4 Ch 1 — cite AVE-native vacuum-rupture temperature T_V-rupt = 3.44 MK
+- **File:** [manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex)
+- **Kind:** latex
+- **Location:** end of §`sec:thixotropic-relaxation` / §`sec:axiom-4-nonlinear`, as a new subsection or resultbox
+- **Change:** Add an AVE-native Schwinger-vacuum-temperature prediction derived
+  in [47_thermal_lattice_noise.md §2.2](47_thermal_lattice_noise.md): if the
+  K4 substrate itself were in thermal equilibrium at T > α/(4π)·m_e c² ≈
+  5.8×10⁻⁴·m_e c² → **T ≈ 3.44×10⁶ K**, the vacuum would spontaneously
+  rupture from thermal V alone. Clarify that SOLAR-CORE plasma (1.5×10⁷ K)
+  does NOT imply vacuum-substrate heating — the vacuum between particles
+  stays cold. Falsifiable: any process that heats the VACUUM (not just
+  plasma) above 3.44 MK without spontaneous pair creation falsifies AVE.
+- **Why:** Emerged during Phase III-B simulator stability investigation
+  (T=0.1·m_e c² thermal-V init caused numerical blowup). First-principles
+  prediction from existing V_SNAP/α machinery but not currently stated
+  explicitly in the manuscript.
+- **Surfaced:** Phase III-B, 2026-04-22 (docs 47_ §2.1–2.3)
+- **Status:** queued
+
+### [18] Vol 4 Ch 11 — cross-ref AVE-Propulsion autoresonant dielectric rupture + AVE-Core AutoresonantCWSource
+- **File:** [manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex](../../manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex)
+- **Kind:** latex
+- **Location:** sonoluminescence / FOC section (~line 202) where FOC is introduced
+- **Change:** Cross-reference AVE-Propulsion Ch 5 autoresonant dielectric
+  rupture, and point to the AVE-Core implementation at
+  [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py)
+  (`AutoresonantCWSource` class). FOC q-axis is now a computational mechanism
+  in AVE-Core, not only a conceptual framing.
+- **Why:** Consolidates FOC / autoresonant / back-EMF picture across three
+  volumes (Vol 4 Ch 11, AVE-Propulsion Ch 5, AVE-Core code).
+- **Surfaced:** Stage 4 ecosystem synthesis, 2026-04-22 (doc 49_)
+- **Status:** queued
+
+### [19] Vol 4 Ch 1/2 — cross-ref AVE-Core DarkWakeObserver implementation
+- **File:** [manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex)
+  (dark-wake discussion) AND/OR eventual vol_4 ch02 mirroring AVE-PONDER/vol_ponder/ch01
+- **Kind:** latex
+- **Location:** dark-wake / PONDER thrust discussion
+- **Change:** Cross-reference [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py)
+  `DarkWakeObserver` as the AVE-Core implementation of τ_zx back-EMF.
+  Formula `τ_zx ∝ Z_local · ∇|V|²` ported from AVE-Propulsion's
+  `simulate_warp_metric_tensors.py:75-95`. Pearson r(V², τ_zx) = 0.994
+  validates the formula numerically (doc 49_+50_).
+- **Why:** AVE-Core now has the instrument that validates PONDER's
+  dark-wake prediction. Manuscript should point to the reusable
+  implementation.
+- **Surfaced:** Stage 4b, 2026-04-22 (doc 49_)
+- **Status:** queued
+
+### [20] Vol 1 Ch 3 — cross-ref doc 47_'s σ_V/σ_ω equipartition derivation
+- **File:** [manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex](../../manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex)
+- **Kind:** latex
+- **Location:** §Quantum Foam / baseline electrical noise (~lines 188–198)
+- **Change:** Cross-reference [47_thermal_lattice_noise.md](47_thermal_lattice_noise.md)
+  for QUANTITATIVE σ values at temperature T. Ch 3 provides qualitative
+  framing ("quantum foam is baseline electrical noise"); doc 47_ provides
+  the numbers. Doc 47_ explicitly rejects "quantum foam" terminology in
+  favor of "thermal lattice noise"; Ch 3 wording could be softened to match.
+- **Why:** Ch 3 currently is qualitative; doc 47_ makes it quantitative.
+  Future readers benefit from seeing the cross-link.
+- **Surfaced:** Phase III-B Stage 1b, 2026-04-22
+- **Status:** queued
+
+### [21] AVE-Core README / CURRENT_STATE — point to VacuumEngine3D
+- **File (primary):** `README.md` at repo root, if present, else
+  `.agents/handoffs/CURRENT_STATE.md`
+- **Kind:** markdown
+- **Location:** top-level "delivered infrastructure" section
+- **Change:** Add a pointer to [`src/ave/topological/vacuum_engine.py`](../../src/ave/topological/vacuum_engine.py)
+  as the delivered 3D AVE vacuum engine. Mention it covers all four
+  Axiom-4 operating regimes and supports temperature-dependent vacuum states.
+- **Why:** Without a top-level pointer, future sessions won't know the engine
+  exists as a reusable artifact.
+- **Surfaced:** 2026-04-22 Stage 5 release
+- **Status:** queued
+
+### [22] research/L3_electron_soliton — index README / promote 40_ as "enter here"
+- **File:** either new `research/L3_electron_soliton/README.md` OR update
+  [40_modeling_roadmap.md](40_modeling_roadmap.md) §1 with a clear "current
+  canonical engine doc" pointer (46_) and "follow-up handoff" pointer (51_)
+- **Kind:** markdown
+- **Change:** The research folder has 51 numbered docs as of 2026-04-22. A
+  reader starting from scratch needs a map. Promote 40_ to be the "enter
+  here" navigation document, or add a README.md index.
+- **Why:** Navigation / discoverability.
+- **Surfaced:** 2026-04-22 Stage 5 release
+- **Status:** queued
+
 ---
 
 ## Applied

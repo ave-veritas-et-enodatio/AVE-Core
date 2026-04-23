@@ -6,17 +6,95 @@ a general-purpose simulator for all four Axiom-4 operating regimes with
 temperature-dependent vacuum states, rigorous unit conventions, and
 composable sources / observers.
 
-Delegates to `CoupledK4Cosserat` for the physics core. Adds:
-  - Temperature-dependent initialization (T=0 deterministic, T>0 MB per 47_)
-  - Unit conventions (V_SNAP primary, V_YIELD alias)
-  - Cosserat coupling prefactor κ (proxy for η_vac per C2)
-  - Composable Source objects (Pulsed, CW, Point, ThermalBath)
-  - Composable Observer objects (regime, topology, saturation)
-  - Per-step snapshot with full engine state
+Architectural overview
+----------------------
+The engine wraps `CoupledK4Cosserat` (the physics core: K4 scatter+connect
+photon propagation + Cosserat (u, ω) rotational sector + S1-D coupling per
+42_coupled_simulator_validation.md) with a clean user-facing API:
 
-Reference:
-  - research/L3_electron_soliton/46_vacuum_engine_scope.md (scope)
-  - research/L3_electron_soliton/47_thermal_lattice_noise.md (σ_ω(T) derivation)
+    engine = VacuumEngine3D.from_args(
+        N=48, pml=6,
+        temperature=0.1,            # m_e c² units (0 → deterministic vacuum)
+        amplitude_convention="V_SNAP",
+        coupling_kappa=1.0,
+    )
+    engine.add_source(AutoresonantCWSource(...))
+    engine.add_observer(DarkWakeObserver())
+    engine.run(n_steps=300)
+
+Source types
+------------
+- `PulsedSource`       — Gaussian-pulse plane source (transient, for single-photon
+                         propagation tests). Phase A/B-style.
+- `CWSource`           — Sinusoidal plane source with ramp/sustain/decay envelope
+                         (fixed frequency). Phase III-B v1 default.
+- `AutoresonantCWSource` — PLL-tracked CW source that adjusts drive frequency
+                         based on probe-point strain (Duffing-like resonance
+                         shift). Phase III-B v2 default. Implements the FOC
+                         q-axis analog per AVE-Propulsion Ch 5. Novel to
+                         AVE-Core — no sibling reference implementation.
+
+Observer types
+--------------
+- `ScalarObserver`            — generic user-function wrapper
+- `RegimeClassifierObserver`  — counts lattice cells per Axiom-4 regime
+                                (I linear, II E-H transition, III saturated,
+                                IV rupture) at each step
+- `TopologyObserver`          — Q_H (Hopf invariant), soliton centroid count,
+                                shell radii (for (2,3) structures)
+- `EnergyBudgetObserver`      — E_K4, E_cos, T_cos, E_coupling, H_total
+- `DarkWakeObserver`          — τ_zx longitudinal shear strain (back-EMF
+                                signature); ports formula from AVE-Propulsion's
+                                simulate_warp_metric_tensors.py. Uses
+                                tetrahedral gradient (NOT np.gradient) because
+                                K4 active sites alternate sublattices.
+
+Temperature regimes
+-------------------
+- `T = 0`  — deterministic cold vacuum (V = u = ω = 0 exactly). Correct AVE
+              prediction per doc 47_ §2.1 (C1): no sub-ℓ_node reality.
+- `T > 0`  — classical Maxwell-Boltzmann thermal init of Cosserat (u, ω) fields
+              only. V_inc stays at zero unless thermalize_V=True is explicitly
+              set (which requires T < α/(4π) ≈ 5.8e-4 for vacuum stability;
+              equivalently T < 3.44×10⁶ K in SI — see doc 47_ §2.2 for the
+              AVE Schwinger-temperature derivation).
+
+Unit conventions
+----------------
+- `amplitude_convention="V_SNAP"`:  user provides amp as fraction of V_SNAP
+                                    (= m_e c²/e ≈ 511 kV SI; rupture threshold).
+                                    Rupture boundary is A² = 1.
+- `amplitude_convention="V_YIELD"`: user provides amp as fraction of V_YIELD
+                                    (= √α·V_SNAP ≈ 43.65 kV SI; Regime II onset).
+                                    Converted internally via √α.
+
+Physics parameters (S-gate resolutions 2026-04-22)
+--------------------------------------------------
+- S1 = D: coupling form `(V²/V_SNAP²) · W_refl(u, ω)` — pure Axiom-4 reuse
+- S2 = γ: port-quadrature pairing deferred (S1-D is phase-insensitive)
+- S3 = A: no amplitude gate (S1-D is naturally gated by 1/S² in W_refl)
+- S4 = A: natural units ρ = I_ω = 1
+- S5 = B: unified leapfrog integrator
+- S6 = A: topological charge Q measured, not projected
+
+Phase III-B results (v1 + v2)
+-----------------------------
+- v1 (fixed-f CW): `σ(ω)` peaks at ω·τ_relax ≈ 0.9 (detuning-limited);
+                    max A²_cos ≈ 0.96 (doc 48_).
+- v2 (autoresonant): `σ(ω)` monotonic rise, reaches A²_cos = 1.009 at
+                      ω·τ = 1.8 (rupture boundary crossed; doc 50_).
+- Pair creation (localized centroids) NOT yet observed — see 51_handoff
+  for follow-up hypotheses.
+
+References
+----------
+- research/L3_electron_soliton/46_vacuum_engine_scope.md (design scope + C-findings)
+- research/L3_electron_soliton/47_thermal_lattice_noise.md (σ_V, σ_ω derivations)
+- research/L3_electron_soliton/49_dark_wake_bemf_foc_synthesis.md (ecosystem synthesis)
+- research/L3_electron_soliton/42_coupled_simulator_validation.md (Phase II Coupled* core)
+- AVE-Propulsion/src/scripts/simulate_warp_metric_tensors.py (τ_zx source)
+- AVE-Propulsion/manuscript/vol_propulsion/chapters/05_autoresonant_dielectric_rupture.tex (PLL picture)
+- AVE-PONDER/src/scripts/generate_ponder_01_spice_netlist.py (η_vac calibration K_0=0.208)
 """
 from __future__ import annotations
 

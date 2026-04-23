@@ -1,6 +1,23 @@
-# S-Gate Adjudications — Open Decisions for the AVE-Ideal Coupled Simulator
+# S-Gate Adjudications — Resolved Decisions for the AVE-Ideal Coupled Simulator
 
-**Status:** **ALL RESOLVED 2026-04-22 (Grant)** — Phase II cleared to start.
+**Status:** **ALL RESOLVED 2026-04-22 (Grant).** Phase II and all subsequent
+stages (III v1, III v2) executed per these decisions. This document is now
+**closed** — kept for historical audit. For engine documentation see:
+  - [46_vacuum_engine_scope.md](46_vacuum_engine_scope.md) — engine scope
+  - [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py) — implementation
+  - [50_autoresonant_pair_creation.md](50_autoresonant_pair_creation.md) — final Phase III-B v2 result
+
+**Empirical validation of the resolutions (post-hoc 2026-04-22):**
+
+| Gate | Choice | Empirical outcome |
+|---|---|---|
+| S1 = D | `(V²/V_SNAP²)·W_refl` | ✓ Works end-to-end. A²_cos reached 1.009 at rupture boundary (doc 50_). |
+| S2 = γ | deferred | ✓ Not needed — S1-D is phase-insensitive as predicted. |
+| S3 = A | no gate | ✓ 1/S² in W_refl correctly gates coupling (zero at vacuum, diverges near rupture). |
+| S4 = A | ρ = I_ω = 1 | ✓ Produces CFL-stable Verlet; measurable σ_ω thermal = 1.000 ratio to theory (41_). |
+| S5 = B | unified leapfrog | ✓ Cosserat sub-stepping at N_sub=8 handles the rate mismatch stably. |
+| S6 = A | soft Q | ✓ Q_H measured via Hopf invariant; Q-drift is a diagnostic signal, not enforced. |
+
 **Parent plan:** `~/.claude/plans/document-list-for-next-chat-compressed-thunder.md`
 **Phase I informant:** [41_cosserat_time_domain_validation.md](41_cosserat_time_domain_validation.md)
 

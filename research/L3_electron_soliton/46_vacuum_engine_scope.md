@@ -1,6 +1,10 @@
 # 46 — AVE Fundamental 3D Vacuum Engine — Scope, Axiom/Operator Map, and C-Findings
 
-**Status:** foundation doc (2026-04-22)
+**Status:** DELIVERED 2026-04-22 — design scope fully implemented; see §9 for
+as-built summary and [51_handoff_followups.md](51_handoff_followups.md) for
+pair-creation follow-up hypotheses.
+
+**Original status:** foundation doc (2026-04-22)
 **Parent plan:** `~/.claude/plans/document-list-for-next-chat-compressed-thunder.md`
 **Supersedes:** [45_lattice_impedance_first_principles.md](45_lattice_impedance_first_principles.md) §8 Q1-Q6 (now resolved)
 **Depends on:** [41_cosserat_time_domain_validation.md](41_cosserat_time_domain_validation.md),
@@ -272,3 +276,63 @@ Each commit is standalone-reviewable.
 - The LC-resonance-eigenmode decomposition of the K4 lattice (L1 future work)
 - The η_vac derivation from an action principle (L2 future work)
 - The σ(ω) shape prediction (C5, deferred to Phase III-B data)
+
+## 9. As-delivered summary (appended 2026-04-22 after Stages 2-5)
+
+The full engine is implemented at
+[src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py)
+(~750 lines). What was built vs. the original §4 scope:
+
+### Classes shipped
+
+| Class | Origin | Scope §4 predicted? |
+|---|---|---|
+| `VacuumEngine3D` | Stage 2 | ✓ core class, matches §4.1 |
+| `EngineConfig` dataclass | Stage 2 | parameterization wrapper |
+| `Source` (base) | Stage 2 | ✓ §4.2 |
+| `PulsedSource` | Stage 2 | ✓ §4.2 (renamed from PlaneSource) |
+| `CWSource` | Stage 2 | ✓ §4.2 |
+| `AutoresonantCWSource` | Stage 4c | **NEW** — not in original §4, added after ecosystem research (doc 49_) |
+| `Observer` (base) | Stage 2 | ✓ §4.3 |
+| `ScalarObserver` | Stage 2 | ✓ §4.3 |
+| `RegimeClassifierObserver` | Stage 2 | ✓ §4.3 E4 |
+| `TopologyObserver` | Stage 2 | ✓ §4.3 |
+| `EnergyBudgetObserver` | Stage 2 | ✓ §4.3 |
+| `DarkWakeObserver` | Stage 4b | **NEW** — not in original §4, ported from AVE-Propulsion per doc 49_ |
+| `PointSource` | not shipped | deferred (radiation-pattern tests use existing PulsedSource at x0=N/2 as proxy) |
+| `ThermalBath` | not shipped | deferred (`initialize_thermal(T)` method on VacuumEngine3D covers the realistic use case; a dynamically-coupled reservoir would require much more infrastructure) |
+
+### C-findings validated or updated
+
+| C-finding | Validation status |
+|---|---|
+| C1 (cold vacuum deterministic) | ✓ CONFIRMED across v1 (8 configs) and v2 (4 configs); max A²_cos = 0 exactly |
+| C2 (η_vac not tunable) | ✓ CONFIRMED — quantified via AVE-PONDER K₀ = 0.207973 but not exposed as user knob |
+| C3 (V_SNAP fundamental) | ✓ `amplitude_convention="V_SNAP"` is default |
+| C4 (outer dt adequate) | ✓ no refinement needed through Stages 3-4 |
+| C5 (σ(ω) falsifiable prediction) | **ELABORATED**: v1 showed peak at ω·τ=0.9; v2 showed monotonic rise to 1.009 at ω·τ=1.8. Two distinct falsifiable regimes now predicted (fixed-f peaked vs autoresonant monotonic). |
+| C6 ("quantum foam" banned) | ✓ engine uses "thermal lattice noise" throughout |
+
+### Phase III-B closure
+
+Phase III-B v1 ([48_](48_pair_creation_frequency_sweep.md)) and v2
+([50_](50_autoresonant_pair_creation.md)) both produce **P_IIIb-partial**
+verdicts. A²_cos = 1.009 reached at v2 λ=3.5 (**first numerical crossing of
+the Axiom-4 rupture boundary via drive mechanism**).
+
+**Localized pair creation NOT observed at threshold_frac=0.7.** Three
+follow-up hypotheses in [51_handoff_followups.md](51_handoff_followups.md).
+
+### Cross-repo integrations landed
+
+- τ_zx formula ← AVE-Propulsion/simulate_warp_metric_tensors.py:75-95
+- K₀ = 0.207973 ← AVE-PONDER/generate_ponder_01_spice_netlist.py:90
+- Autoresonant PLL picture ← AVE-Propulsion/vol_propulsion/ch05_*.tex
+- L-H transition reframe ← AVE-Fusion/vol_fusion/ch05_metamaterial_caging.tex
+- Mass = L_drag physical interpretation ← AVE-Core/higgs_impedance_mapping.py
+
+### Validation tests / driver scripts
+- [src/scripts/vol_1_foundations/dark_wake_validation.py](../../src/scripts/vol_1_foundations/dark_wake_validation.py) (Stage 4b)
+- [src/scripts/vol_1_foundations/autoresonant_tuning.py](../../src/scripts/vol_1_foundations/autoresonant_tuning.py) (Stage 4c)
+- [src/scripts/vol_1_foundations/vacuum_engine_pair_creation.py](../../src/scripts/vol_1_foundations/vacuum_engine_pair_creation.py) (v1)
+- [src/scripts/vol_1_foundations/vacuum_engine_pair_creation_v2.py](../../src/scripts/vol_1_foundations/vacuum_engine_pair_creation_v2.py) (v2)
