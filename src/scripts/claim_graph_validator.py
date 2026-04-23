@@ -60,6 +60,16 @@ ALLOWED_TYPES = {
 
 REQUIRED_FIELDS = {"id", "name", "type", "derivation_label"}
 
+# Entries flagged `pre_registered: true` are forward-looking predictions whose
+# derivation lives in a research doc (not yet a manuscript chapter) and whose
+# test file is introduced in the same commit as the prediction. They substitute
+# `research_doc` + `test_file` for `derivation_label`, and skip label
+# resolution. Once the derivation is promoted to a manuscript chapter, the
+# entry sheds `pre_registered` and gains a real `derivation_label`.
+PRE_REGISTERED_REQUIRED_FIELDS = {
+    "id", "name", "type", "pre_registered", "research_doc", "test_file",
+}
+
 
 # ───────────────────────────────────────────────────────────────────────────
 # Findings
@@ -213,8 +223,12 @@ def check_schema(manifest: dict) -> list[Finding]:
     for entry in entries:
         eid = entry.get("id", "<missing-id>")
 
-        # Required fields
-        missing = REQUIRED_FIELDS - entry.keys()
+        # Required fields — pre_registered entries use a different set
+        if entry.get("pre_registered") is True:
+            required = PRE_REGISTERED_REQUIRED_FIELDS
+        else:
+            required = REQUIRED_FIELDS
+        missing = required - entry.keys()
         if missing:
             findings.append(
                 Finding(
@@ -251,6 +265,53 @@ def check_schema(manifest: dict) -> list[Finding]:
             )
         seen_ids.add(eid)
 
+        # pre_registered entries must have research_doc + test_file. The
+        # research_doc MUST exist (the derivation itself lives there);
+        # test_file is a forward commitment — the test lands when the
+        # corresponding phase ships, so a missing test_file is a warning
+        # (prediction declared, implementation pending) not a critical
+        # failure. Once the test exists the warning clears automatically.
+        if entry.get("pre_registered") is True:
+            # research_doc: MUST exist (critical)
+            path_str = entry.get("research_doc")
+            if path_str:
+                raw = path_str.split("#")[0]
+                full = REPO_ROOT / raw
+                if not full.exists():
+                    findings.append(
+                        Finding(
+                            check="schema",
+                            severity="critical",
+                            entry_id=eid,
+                            message=(
+                                f"pre_registered entry research_doc "
+                                f"'{path_str}' does not resolve to a file "
+                                f"on disk"
+                            ),
+                            details={"field": "research_doc", "path": path_str},
+                        )
+                    )
+            # test_file: WARN if missing (phase not yet shipped)
+            path_str = entry.get("test_file")
+            if path_str:
+                raw = path_str.split("#")[0]
+                full = REPO_ROOT / raw
+                if not full.exists():
+                    findings.append(
+                        Finding(
+                            check="schema",
+                            severity="warn",
+                            entry_id=eid,
+                            message=(
+                                f"pre_registered entry test_file "
+                                f"'{path_str}' does not exist yet — phase "
+                                f"has not shipped. This is expected for "
+                                f"forward phases."
+                            ),
+                            details={"field": "test_file", "path": path_str},
+                        )
+                    )
+
     return findings
 
 
@@ -264,6 +325,10 @@ def check_labels(
 
     for entry in manifest.get("predictions", []):
         eid = entry.get("id", "<missing-id>")
+        # pre_registered entries derive in a research doc, not yet a
+        # manuscript chapter; skip label resolution for them
+        if entry.get("pre_registered") is True:
+            continue
         label = entry.get("derivation_label")
         if label is None:
             continue  # schema check will flag it

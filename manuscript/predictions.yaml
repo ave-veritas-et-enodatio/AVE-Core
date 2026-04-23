@@ -666,3 +666,115 @@ predictions:
       in AVE-Core (not migrated to AVE-APU). axioms_used corrected
       [1, 2, 3] → [1, 2, 4]: same bootstrap typo pattern as P26_28 and
       P29_32 ([3] was meant [4]). Gravity NOT load-bearing for atomic IE.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # PRE-REGISTERED: Stage 6 pair-production engine (forward-looking, not
+  # yet validated by engine work). Each entry has `pre_registered: true`,
+  # a `research_doc` pointer to doc 54_ axiom derivation, and a `test_file`
+  # that will be (or already is) the pytest that locks the prediction.
+  # Derivation lives in research/L3_electron_soliton/54_*.md until the
+  # engine work lands and the derivation moves to a manuscript chapter.
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: P_phase0_varactor
+    name: "Vacuum Varactor C_eff(V) = C_0/S(V) matches Vol 4 Ch 1:127-142"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_axiom_4_vacuum_varactor.py"
+    axioms_used: [4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 0. Pins the Axiom-4 Vacuum Varactor curve from
+      Vol 4 Ch 1:127-142 numerically. Tests the closed form, Taylor
+      expansion to 4th order (Euler-Heisenberg equivalent), and
+      Ω_node(V) = ω_0·S(V)^(1/2). Zero new engine code; uses existing
+      ave.axioms.saturation + scale_invariant functions.
+
+  - id: P_phase2_omega
+    name: "Ω_node(A²) tracks Vacuum Varactor softening in coupled K4⊗Cosserat engine"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_phase2_node_resonance.py"
+    axioms_used: [1, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 2. Engine Ω_node(r,t) from NodeResonanceObserver
+      must match ω_yield·(1-A²/α)^(1/4) within 5% on the v2 headline
+      config (λ=3.5, T=0.1, K_drift=0.5). Falsification: deviation
+      >10% → varactor form is wrong for coupled K4⊗Cosserat sector.
+
+  - id: P_phase3_flux_tube
+    name: "Φ_link persists ≥ 10 Compton periods between saturated endpoints"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_phase3_bond_state.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 3. Between A-B node pairs both at A²_μ > 1/2,
+      magnetic flux linkage Φ_link = ∫V_bond dt persists ≥ 10 Compton
+      periods after drive shutoff (TIR confinement). Below saturation,
+      decays per c_local within ~3 periods. Falsification: same decay
+      rate regardless of endpoint saturation → impedance-wall model
+      is wrong.
+
+  - id: P_phase4_asymmetric
+    name: "Chiral drive drives Meissner-like S_μ collapse while S_ε stays finite"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_phase4_asymmetric_saturation.py"
+    axioms_used: [4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 4. Under RH circular drive at amp=0.5·V_SNAP
+      (= 0.5/√α ≈ 5.85·V_yield in the yield-normalization convention
+      per doc 54_ §5), the focal node reaches S_μ < 0.1 while
+      S_ε > 0.5 simultaneously, driving Z_eff < 0.2·Z_0. Falsification:
+      μ and ε remain coupled under chiral drive → chirality doesn't
+      bias saturation (Vol 1 Ch 7:252 misread). Uses κ_chiral = 1.2·α
+      from Sub-Theorem 3.1.1 (doc 20_); not a free parameter. Both
+      saturation tracks use the V_yield normalization (varactor from
+      Vol 4 Ch 1:132, not V_SNAP).
+
+  - id: P_phase5_nucleation
+    name: "PairNucleationGate fires under C1∧C2 within 50 Compton periods"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_phase5_pair_nucleation_gate.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 5. Under point-collision drive at amp=0.5·V_SNAP,
+      ω=ω_C, autoresonant tracking on — gate fires within 50 Compton
+      periods of the first time C1 (A²_μ≥1 at both endpoints) ∧ C2
+      (|Ω_node - ω_drive| < δ_lock = ω_0·α) is satisfied. Zero gate
+      firings at amp < 0.3·V_SNAP. Falsification: gate fires too
+      aggressively (>1 pair/period) or never fires under C1∧C2.
+
+  - id: P_phase6_autoresonant
+    name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    test_file: "src/tests/test_phase6_autoresonant_advantage.py"
+    axioms_used: [4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 6 — HEADLINE KILL SWITCH. At amp=0.5·V_SNAP,
+      focal geometry, T=0.1, autoresonant drive nucleates pairs at
+      ≥ 5× the rate of fixed-f drive at the same total input energy.
+      Falsification: fixed-f rate ≥ autoresonant rate → AVE-Propulsion
+      Ch 5's autoresonant mechanism is wrong, and the whole pair-
+      creation-via-autoresonance story falsifies. Publish as null
+      result per 51_handoff §5a if it falls.
