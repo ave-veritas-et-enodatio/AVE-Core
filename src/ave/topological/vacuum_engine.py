@@ -388,6 +388,111 @@ class RegimeClassifierObserver(Observer):
         }
 
 
+class BondObserver(Observer):
+    """Read-only observer of per-bond magnetic flux linkage `Φ_link`.
+
+    Each directed A→B bond in the K4 lattice carries
+    `Φ_link = ∫V_bond dt` per doc 54_ §3. `K4Lattice3D` accumulates
+    this in `_connect_all` during the scatter-to-connect transit;
+    this observer summarizes the field's statistics each step.
+
+    Primary metrics:
+      - `phi_abs_max`: max |Φ_link| across all A-site bonds
+      - `phi_rms`: √⟨Φ²⟩ across A-site bonds
+      - `phi_at_saturated_bonds_rms`: RMS of Φ_link restricted to bonds
+        whose BOTH endpoints have A²_yield ≥ saturation_frac (default 0.5).
+        This is the signal channel for flux-tube confinement (doc 54_ §3):
+        saturated endpoints form Γ = -1 walls, trapping the LC oscillation
+        as persistent flux linkage.
+      - `phi_at_unsaturated_bonds_rms`: same, for bonds with at least one
+        unsaturated endpoint. This is the propagating / decaying channel.
+
+    Comparing the two RMS ratios over time gives the Phase-3 prediction
+    signal: after drive shutoff, the saturated-bond channel should persist
+    (≥ 10 Compton periods) while the unsaturated channel decays (~3
+    Compton periods).
+
+    Saturation detection reuses the same A²_yield normalization as
+    NodeResonanceObserver (V_SNAP → V_yield via factor 1/α).
+
+    References:
+      - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §3, §9.2
+      - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:223-227
+      - src/ave/core/k4_tlm.py::K4Lattice3D.Phi_link
+
+    Predictions.yaml entry: P_phase3_flux_tube.
+    """
+
+    def __init__(self, cadence: int = 1, saturation_frac: float = 0.5):
+        super().__init__(cadence=cadence)
+        self.saturation_frac = float(saturation_frac)
+
+    def _compute_A2_yield(self, engine: "VacuumEngine3D") -> np.ndarray:
+        V_sq = _v_squared_per_site(engine.k4.V_inc)
+        A2_k4_SNAP = V_sq / (engine.V_SNAP ** 2)
+        A2_k4_yield = A2_k4_SNAP / ALPHA
+        A2_cos_yield = _cosserat_A_squared(
+            engine.cos.u, engine.cos.omega, engine.cos.dx,
+            engine.cos.omega_yield, engine.cos.epsilon_yield,
+        )
+        return A2_k4_yield + A2_cos_yield  # Pythagorean sum
+
+    def _capture(self, engine: "VacuumEngine3D") -> dict:
+        Phi = engine.k4.Phi_link
+        mask_A = engine.k4.mask_A
+
+        # Site-level A²_yield for saturation detection
+        A2_yield = self._compute_A2_yield(engine)
+        saturated_site = (A2_yield >= self.saturation_frac)
+
+        # Each bond has an A-site and a B-site endpoint.
+        # Bond is "saturated" when BOTH endpoints are saturated.
+        # For A-sites: port_shifts[port] gives the A→B direction;
+        # the B endpoint is at np.roll(..., -shift_to_B) from A.
+        # We use the inverse shift to check the B neighbor.
+        # (port_shifts in k4_tlm.py:297-302 are NEGATED directions for np.roll;
+        #  so to find B's position from A's, we apply the -shift_to_B direction)
+        port_shifts = [(-1, -1, -1), (-1, +1, +1), (+1, -1, +1), (+1, +1, -1)]
+
+        # Phi restricted to A-sites (the canonical bond-index location)
+        # We'll partition by whether each bond's B-neighbor is saturated
+        phi_sat_flat = []       # bonds with both endpoints saturated
+        phi_unsat_flat = []     # bonds with at least one unsaturated endpoint
+        for port, shift_to_B in enumerate(port_shifts):
+            # To get the B-neighbor's A²_yield at each A-site position,
+            # we roll the saturated_site field OPPOSITE the shift_to_B
+            # direction (because B is at -shift_to_B relative to A's
+            # storage slot — see the k4_tlm.py connect step comments).
+            inverse_shift = tuple(-s for s in shift_to_B)
+            sat_B_at_A = np.roll(
+                saturated_site, shift=inverse_shift, axis=(0, 1, 2),
+            )
+            bond_both_sat = mask_A & saturated_site & sat_B_at_A
+            bond_any_unsat = mask_A & ~(saturated_site & sat_B_at_A)
+            phi_port = Phi[..., port]
+            phi_sat_flat.append(phi_port[bond_both_sat])
+            phi_unsat_flat.append(phi_port[bond_any_unsat])
+
+        phi_sat = np.concatenate(phi_sat_flat) if phi_sat_flat else np.array([])
+        phi_unsat = np.concatenate(phi_unsat_flat) if phi_unsat_flat else np.array([])
+
+        # Overall stats across all A-site bonds
+        all_A_phi = Phi[mask_A, :]
+
+        def _rms(x: np.ndarray) -> float:
+            return float(np.sqrt(np.mean(x ** 2))) if x.size > 0 else 0.0
+
+        return {
+            "t": engine.time,
+            "phi_abs_max": float(np.max(np.abs(all_A_phi))) if all_A_phi.size > 0 else 0.0,
+            "phi_rms": _rms(all_A_phi),
+            "phi_at_saturated_bonds_rms": _rms(phi_sat),
+            "phi_at_unsaturated_bonds_rms": _rms(phi_unsat),
+            "n_saturated_bonds": int(phi_sat.size),
+            "n_unsaturated_bonds": int(phi_unsat.size),
+        }
+
+
 class NodeResonanceObserver(Observer):
     """Read-only observer of per-node LC-tank resonance softening derived
     from Axiom 4's Vacuum Varactor.

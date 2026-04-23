@@ -117,6 +117,19 @@ class K4Lattice3D:
         # State arrays shape: (nx, ny, nz, 4 ports)
         self.V_inc = np.zeros((nx, ny, nz, 4), dtype=float)
         self.V_ref = np.zeros((nx, ny, nz, 4), dtype=float)
+
+        # Per-bond magnetic flux linkage  Φ_link = ∫ V_bond dt
+        # (Axiom 2, doc 54_ §3; Vol 4 Ch 1:223-227 memristance).
+        # Stored at A-sites only — each entry is the flux on the directed
+        # A→B bond along the corresponding port vector. B-sites mirror the
+        # same physical bond. Accumulated in _connect_all between scatter
+        # and port shift; bond voltage is V_avg = ½(V_ref_A + V_ref_B) per
+        # doc 54_ §3/§9.2 so Φ counts both forward-going and backward-going
+        # wave transit over the TLM time step dt.
+        #
+        # Read-only downstream of K4TLM; see ave.topological.vacuum_engine
+        # BondObserver for diagnostics. Reset via engine.k4.reset_phi_link().
+        self.Phi_link = np.zeros((nx, ny, nz, 4), dtype=float)
         
         # Sublattice Masks
         idx_grid = np.indices((nx, ny, nz))
@@ -278,6 +291,11 @@ class K4Lattice3D:
         Unitary: V_inc_A[k] = Γ * V_ref_A[k] + T * V_ref_B[k], where
         Γ = (Z_B - Z_A)/(Z_B + Z_A), T = sqrt(1 - Γ²). Seen from B, the
         reflection is -Γ (opposite sign). Conserves total power.
+
+        Before the port shift, accumulates per-bond magnetic flux linkage
+        `Phi_link += V_avg · dt` where `V_avg = ½(V_ref_A + V_ref_B_shifted)`
+        per doc 54_ §3. Flux is stored at A-sites only (canonical A→B
+        direction); B-sites mirror the same physical bond.
         """
         new_inc = np.zeros_like(self.V_inc)
 
@@ -288,6 +306,21 @@ class K4Lattice3D:
             (+1, -1, +1),   # Port 2: B is at (-1, +1, -1)
             (+1, +1, -1),   # Port 3: B is at (-1, -1, +1)
         ]
+
+        # ─────────────────────────────────────────────────────────────
+        # Φ_link accumulation (doc 54_ §3). Runs before the port shift
+        # so V_ref is still the just-scattered "during-transit" voltage.
+        # Updated only at A-sites to avoid double-counting (A and B
+        # share the same bond, indexed by the same port number).
+        # ─────────────────────────────────────────────────────────────
+        for port, shift_to_B in enumerate(port_shifts):
+            V_A_ref = self.V_ref[..., port]
+            V_B_shifted = np.roll(
+                self.V_ref[..., port], shift=shift_to_B, axis=(0, 1, 2),
+            )
+            V_avg = 0.5 * (V_A_ref + V_B_shifted)
+            # Accumulate flux linkage at A-sites only
+            self.Phi_link[self.mask_A, port] += V_avg[self.mask_A] * self.dt
 
         if self.op3_bond_reflection:
             eps = 1e-12
@@ -384,6 +417,15 @@ class K4Lattice3D:
         if energy_data:
             result['energy'] = np.array(energy_data)
         return result
+
+    def reset_phi_link(self):
+        """Reset per-bond flux linkage Phi_link to zero.
+
+        Phi_link accumulates monotonically via _connect_all; this provides
+        an explicit reset point (e.g., between sub-experiments in a driver
+        script). Does not touch V_inc / V_ref.
+        """
+        self.Phi_link.fill(0.0)
 
     def inject_point_source(self, x, y, z, amplitude):
         """Isotropic point source into an active node."""

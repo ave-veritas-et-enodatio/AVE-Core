@@ -738,6 +738,16 @@ predictions:
       rate regardless of endpoint saturation → impedance-wall model
       is wrong.
 
+      First-run finding (2026-04-22, commit after Phase 3 ships):
+      under the current single-S symmetric-saturation engine, sat/unsat
+      half-lives come out EQUAL (~3.64 Compton periods each) at
+      amp=0.5·V_SNAP on v2-like geometry. Per doc 54_ §6, this is
+      expected — the Meissner-like Γ=-1 wall requires the asymmetric
+      μ/ε split which Phase 4 introduces. Phase 3 ships the observer
+      infrastructure and reads Φ_link consistently; meaningful
+      pass/fail adjudication of this prediction is DEFERRED to after
+      Phase 4 lands. Re-run the driver then to evaluate properly.
+
   - id: P_phase4_asymmetric
     name: "Chiral drive drives Meissner-like S_μ collapse while S_ε stays finite"
     type: derived_prediction
