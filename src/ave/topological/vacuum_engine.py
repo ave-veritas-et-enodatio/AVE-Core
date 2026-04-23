@@ -428,14 +428,18 @@ class BondObserver(Observer):
         self.saturation_frac = float(saturation_frac)
 
     def _compute_A2_yield(self, engine: "VacuumEngine3D") -> np.ndarray:
+        # Under Vol 4 Ch 1:711 subatomic override, V_yield ≡ V_SNAP.
+        # A²_K4 = V²/V_SNAP² IS canonical r²; no /α needed (R4 direction).
+        # Method name kept as `_compute_A2_yield` for backward-compat; the
+        # returned value is the canonical Pythagorean r²_total per Vol 1
+        # Ch 7:12 + AVE-APU Vol 1 Ch 5. See VACUUM_ENGINE_MANUAL §17 A14 r6.
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A2_k4_SNAP = V_sq / (engine.V_SNAP ** 2)
-        A2_k4_yield = A2_k4_SNAP / ALPHA
-        A2_cos_yield = _cosserat_A_squared(
+        A2_k4 = V_sq / (engine.V_SNAP ** 2)
+        A2_cos = _cosserat_A_squared(
             engine.cos.u, engine.cos.omega, engine.cos.dx,
             engine.cos.omega_yield, engine.cos.epsilon_yield,
         )
-        return A2_k4_yield + A2_cos_yield  # Pythagorean sum
+        return A2_k4 + A2_cos  # Pythagorean sum, both canonical r²
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
         Phi = engine.k4.Phi_link
@@ -527,22 +531,26 @@ class NodeResonanceObserver(Observer):
     """
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
+        # Under Vol 4 Ch 1:711 subatomic override, V_yield ≡ V_SNAP at
+        # VacuumEngine3D's operating scale. A²_K4 = V²/V_SNAP² IS canonical
+        # r² per Vol 1 Ch 7:12; no /α conversion needed. Cosserat's A² is
+        # yield-normalized to its own ε_yield/ω_yield thresholds, also
+        # canonical r² at subatomic scale (ε_yield=1 is TKI-derived).
+        # See research/L3_electron_soliton/50_autoresonant_pair_creation.md
+        # §0.1 r3 and VACUUM_ENGINE_MANUAL §17 A14 r6.
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A2_k4_SNAP = V_sq / (engine.V_SNAP ** 2)
-        # Convert K4 sector to V_yield normalization (doc 54_ §5)
-        A2_k4_yield = A2_k4_SNAP / ALPHA
-        # Cosserat sector is already yield-normalized
-        A2_cos_yield = _cosserat_A_squared(
+        A2_k4 = V_sq / (engine.V_SNAP ** 2)
+        A2_cos = _cosserat_A_squared(
             engine.cos.u, engine.cos.omega, engine.cos.dx,
             engine.cos.omega_yield, engine.cos.epsilon_yield,
         )
         # Pythagorean quadrature sum of orthogonal DoFs (AVE-APU Vol 1 Ch 5)
-        A2_yield_total = A2_k4_yield + A2_cos_yield
+        A2_total = A2_k4 + A2_cos
         # Clip to [0, 1) for numerical safety past saturation
-        A2_yield_clipped = np.clip(A2_yield_total, 0.0, 1.0 - 1e-12)
-        # Axiom-4 saturation kernel on V_yield scale
-        S = np.sqrt(1.0 - A2_yield_clipped)
-        # Ω_node/ω_0 = S^(1/2) = (1 − A²_yield)^(1/4)  (doc 54_ §4)
+        A2_clipped = np.clip(A2_total, 0.0, 1.0 - 1e-12)
+        # Axiom-4 saturation kernel
+        S = np.sqrt(1.0 - A2_clipped)
+        # Ω_node/ω_0 = S^(1/2) = (1 − A²)^(1/4)  (doc 54_ §4)
         omega_ratio = np.sqrt(S)
 
         alive = engine.k4.mask_active
@@ -552,9 +560,9 @@ class NodeResonanceObserver(Observer):
                 "omega_ratio_max": float(omega_ratio[alive].max()),
                 "omega_ratio_mean": float(omega_ratio[alive].mean()),
                 "omega_ratio_min": float(omega_ratio[alive].min()),
-                "A2_yield_max": float(A2_yield_total[alive].max()),
-                "A2_yield_mean": float(A2_yield_total[alive].mean()),
-                "n_saturated": int(np.sum(alive & (A2_yield_total >= 1.0))),
+                "A2_yield_max": float(A2_total[alive].max()),
+                "A2_yield_mean": float(A2_total[alive].mean()),
+                "n_saturated": int(np.sum(alive & (A2_total >= 1.0))),
             }
         return {
             "t": engine.time,

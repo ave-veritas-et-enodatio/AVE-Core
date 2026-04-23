@@ -211,10 +211,13 @@ class TestManifestNormalizationConsistency:
             combined = (entry.get("name", "") + " " + notes).lower()
             has_yield = ("v_yield" in combined or "yield" in combined
                          or "vol 4 ch 1" in combined
-                         or "varactor" in combined)
+                         or "varactor" in combined
+                         or "subatomic override" in combined
+                         or "subatomic v_yield" in combined)
             assert has_yield, (
                 f"Entry {entry['id']}: yield-physics entry must reference "
-                f"V_yield, varactor, or α-conversion in its name or notes"
+                f"V_yield, varactor, subatomic override, or α-conversion "
+                f"in its name or notes"
             )
             checked += 1
         assert checked == len(yield_physics_entries), (

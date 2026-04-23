@@ -38,7 +38,6 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from ave.core.constants import ALPHA
 from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.vacuum_engine import (
     BondObserver,
@@ -194,10 +193,12 @@ class TestPhase3BondObserver:
     def test_observer_partitions_by_saturation(self, engine):
         """Forcing one site past saturation puts its bonds in the saturated
         bucket; other bonds stay in the unsaturated bucket."""
-        # Poke V at an A-site to saturate it via V_yield normalization
+        # Poke V at an A-site to saturate it. Under Vol 4 Ch 1:711 subatomic
+        # override (R4), V_yield ≡ V_SNAP; setting V = V_SNAP gives canonical
+        # A² = V²/V_SNAP² = 1 exactly (Regime IV entry boundary).
         A_idx = np.argwhere(engine.k4.mask_A)
         site = tuple(A_idx[0])
-        V = engine.V_SNAP * np.sqrt(ALPHA)  # Exactly V_yield → A²_yield = 1
+        V = engine.V_SNAP  # Exactly V_yield under subatomic override → A² = 1
         engine.k4.V_inc[site[0], site[1], site[2], 0] = V
         # Also set flux at that bond
         engine.k4.Phi_link[site[0], site[1], site[2], 0] = 2.0

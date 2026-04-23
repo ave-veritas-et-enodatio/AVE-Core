@@ -31,7 +31,6 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
     NodeResonanceObserver,
     VacuumEngine3D,
@@ -91,10 +90,14 @@ class TestPhase2FunctionalForm:
 
     def _poke_single_site_to_a_yield(self, engine, A2_yield_target: float,
                                       site=(4, 4, 4)) -> None:
-        """Set V_inc at one active site so that A²_yield = target."""
-        # A²_yield = V²/V_SNAP² / α = A²_k4_SNAP / α
-        # So V = V_SNAP · √(A²_yield · α)
-        V = engine.V_SNAP * np.sqrt(A2_yield_target * ALPHA)
+        """Set V_inc at one active site so that A² = target.
+
+        Under Vol 4 Ch 1:711 subatomic override (R4), the engine's
+        A² = V²/V_SNAP² IS canonical r². So V = V_SNAP · √(A²_target).
+        Method name retained for backward-compat; "A2_yield" label here
+        equals canonical r² under the subatomic convention.
+        """
+        V = engine.V_SNAP * np.sqrt(A2_yield_target)
         # Put all the amplitude on port 0 so |V|² = V²
         engine.k4.V_inc[:] = 0.0
         engine.k4.V_inc[site[0], site[1], site[2], 0] = V
@@ -205,8 +208,10 @@ class TestPhase2PythagoreanCombination:
         assert len(active_idx) > 0
         site = tuple(active_idx[0])
 
-        # Set K4 strain: A²_k4_yield = 0.3 → V = V_SNAP·√(0.3·α)
-        V = engine.V_SNAP * np.sqrt(0.3 * ALPHA)
+        # Set K4 strain: A²_k4 = 0.3 → V = V_SNAP·√(0.3).
+        # Under Vol 4 Ch 1:711 subatomic override (R4), A²_K4 = V²/V_SNAP²
+        # IS canonical r²; no /α factor needed.
+        V = engine.V_SNAP * np.sqrt(0.3)
         engine.k4.V_inc[site[0], site[1], site[2], 0] = V
 
         obs = NodeResonanceObserver(cadence=1)
