@@ -341,6 +341,96 @@ class EnergyBudgetObserver(Observer):
         }
 
 
+class DarkWakeObserver(Observer):
+    """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
+    propagates backward from any coherent V excitation (per AVE-PONDER
+    vol_ponder/ch01 and AVE-Propulsion simulate_warp_metric_tensors.py:84-85).
+
+    Formula (ported from AVE-Propulsion Ch 5 description):
+        τ_zx(r) ∝ Z_local(r) · ∂/∂x [|V(r)|²/V_SNAP²]
+
+    Physical interpretation (per doc 49_):
+        The dark wake IS the mutual-inductance back-EMF response of the
+        K4 lattice. Any propagating coherent V creates a shear-strain
+        wave behind it, carrying the Newton-3rd-law reaction momentum.
+
+    Captures:
+        tau_zx_slab(y, z): the x-axis-averaged τ_zx, sliced through the
+            lattice — shows the wake pattern in the propagation plane.
+        max_tau_zx: peak magnitude (physically must grow then saturate
+            when A² → 1 regime is entered).
+        wake_centroid_x: x-position of max|τ_zx| to verify backward
+            propagation at c.
+
+    Dimensional note: τ_zx has dimensions [1/length²] (per strain tensor
+    convention); numerically O(|V|² gradient × z_local) in natural units.
+
+    Usage:
+        engine.add_observer(DarkWakeObserver(
+            cadence=5,
+            propagation_axis=0,   # 0=x, 1=y, 2=z
+        ))
+    """
+
+    def __init__(self, cadence: int = 5, propagation_axis: int = 0):
+        super().__init__(cadence=cadence)
+        self.propagation_axis = int(propagation_axis)
+
+    def _capture(self, engine: "VacuumEngine3D") -> dict:
+        # K4 active sites alternate (even,even,even) ⊕ (odd,odd,odd), so
+        # np.gradient with Cartesian centered differences gives 0 at every
+        # active site (both axis-neighbors are inactive). Use the
+        # tetrahedral gradient (cosserat_field_3d module) which computes
+        # via K4 bond directions — same operator the Cosserat code uses
+        # for ε, κ strain tensors.
+        from ave.topological.cosserat_field_3d import tetrahedral_gradient
+
+        V_sq = _v_squared_per_site(engine.k4.V_inc)
+        A_sq = V_sq / (engine.V_SNAP ** 2)
+
+        # tetrahedral_gradient returns shape (nx, ny, nz, 3) — the 3D
+        # vector gradient at each site via K4 bond differences.
+        grad_A_sq = tetrahedral_gradient(A_sq) / engine.k4.dx
+        grad_axis = grad_A_sq[..., self.propagation_axis]
+
+        # τ_zx proportional to z_local · ∂|V|²/∂x (per AVE-Propulsion
+        # simulate_warp_metric_tensors.py:84-85)
+        z_local = engine.k4.z_local_field
+        tau_zx = z_local * grad_axis
+
+        alive = engine.k4.mask_active
+        tau_on_active = tau_zx * alive
+
+        # Slab along the propagation axis — averaged over transverse cells
+        axes = [0, 1, 2]
+        transverse = [a for a in axes if a != self.propagation_axis]
+        tau_slab = np.mean(np.abs(tau_on_active), axis=tuple(transverse))
+
+        # Find wake peak position along the propagation axis (ignore
+        # anything in the PML region — those are boundary artifacts)
+        N = engine.N
+        pml = engine.config.pml
+        interior_slice = slice(pml, N - pml)
+        tau_interior = tau_slab[interior_slice]
+        if tau_interior.max() > 0:
+            peak_idx = int(np.argmax(tau_interior)) + pml
+        else:
+            peak_idx = -1
+
+        # Max |τ_zx| across the whole lattice (excluding PML)
+        interior_mask = np.zeros_like(alive)
+        interior_mask[pml:N - pml, pml:N - pml, pml:N - pml] = True
+        interior_alive = alive & interior_mask
+        max_tau_zx = float(np.abs(tau_zx[interior_alive]).max()) if interior_alive.any() else 0.0
+
+        return {
+            "t": engine.time,
+            "tau_zx_slab": tau_slab,         # 1D along propagation axis
+            "max_tau_zx": max_tau_zx,
+            "wake_peak_x": peak_idx,         # -1 if no wake
+        }
+
+
 # ─────────────────────────────────────────────────────────────────
 # VacuumEngine3D main class
 # ─────────────────────────────────────────────────────────────────
