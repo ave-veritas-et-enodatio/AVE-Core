@@ -969,6 +969,167 @@ class CosseratBeltramiSource(Source):
         return engine.cos.omega[:, :, self.x0]
 
 
+class SpatialDipoleCPSource(Source):
+    """Circularly-polarized K4 V_inc source via spatial-dipole modulation —
+    G-11(a) option per STAGE6_V4_HANDOFF §9.
+
+    Physical approach: two 90°-phase-shifted dipole patterns at the
+    source plane give effectively circularly-polarized EM radiation
+    along the propagation axis. The transverse (y, z) structure is a
+    Gaussian-windowed linear gradient in y AND z, with quadrature phase:
+
+        V(y, z, t) = A · env(t) · [
+            cos(ω·t) · (y − y_c) · exp(−r²/2σ²) · port_weights_y
+            + sin(ω·t) · ε_hand · (z − z_c) · exp(−r²/2σ²) · port_weights_z
+        ]
+
+    where r² = (y−y_c)² + (z−z_c²) and ε_hand ∈ {+1, −1} selects RH/LH.
+
+    Design rationale vs G-11(c) CosseratBeltramiSource:
+        (c) CosseratBeltramiSource bypasses the K4-port circular-
+            polarization ambiguity by injecting ω directly. Useful for
+            MECHANISM tests (chirality→Meissner coupling).
+        (a) SpatialDipoleCPSource drives K4 V_inc directly — the
+            coupling chain K4 V → Cosserat ω → asymmetric saturation
+            is exercised end-to-end. Closer to a physical EM drive
+            (think: a focused CP laser entering the vacuum).
+
+    Port weighting (for propagation_axis=0, +x direction):
+        Forward ports are p₀=(+1,+1,+1) and p₁=(+1,−1,−1). Their y-
+        components are (+1, −1) and z-components are (+1, −1). So:
+            y-dipole weights:  port_0 = +1, port_1 = −1
+            z-dipole weights:  port_0 = +1, port_1 = −1
+        Both dipole patterns share the same port weights because both
+        forward ports have coincident (y+z)-axis alignment (this is
+        the very (y+z)/√2 spanning that motivated the G-11 design
+        question in the first place). Dipole MODULATION g_y(y,z) vs
+        g_z(y,z) is what distinguishes y-pol from z-pol — not port
+        weight differences.
+
+    **Physics caveat:** the resulting wave is a dipole-radiation
+    pattern, NOT a pure plane wave. For Gaussian focal spots (as used
+    in real laser experiments), this is actually closer to physical
+    reality than a flat plane wave would be. Full validation of the
+    CP signature at the source and in the downstream coupling is
+    deferred to Phase 5 + a driver script (see handoff §9-13).
+
+    Args:
+        x0: source plane index along propagation axis
+        propagation_axis: 0/1/2 for x/y/z
+        amplitude: peak V amplitude in user convention (V_SNAP units by default)
+        omega: carrier frequency (natural rad/τ_node)
+        handedness: "RH" or "LH"
+        sigma_yz: Gaussian width of transverse envelope
+        t_ramp, t_sustain, t_decay: envelope timing (CWSource semantics)
+        y_c, z_c: transverse center (default: lattice center)
+
+    References:
+        - STAGE6_V4_HANDOFF.md §9 G-11 option (a)
+        - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §6
+        - existing CWSource for envelope + port-weight conventions
+    """
+
+    def __init__(
+        self,
+        x0: int,
+        propagation_axis: int,
+        amplitude: float,
+        omega: float,
+        handedness: str,
+        sigma_yz: float,
+        t_ramp: float,
+        t_sustain: float,
+        t_decay: Optional[float] = None,
+        y_c: Optional[float] = None,
+        z_c: Optional[float] = None,
+    ):
+        if propagation_axis not in (0, 1, 2):
+            raise ValueError(f"propagation_axis must be 0/1/2, got {propagation_axis}")
+        if handedness not in ("RH", "LH"):
+            raise ValueError(f"handedness must be 'RH' or 'LH', got {handedness!r}")
+        self.x0 = int(x0)
+        self.propagation_axis = int(propagation_axis)
+        self.amplitude = float(amplitude)
+        self.omega = float(omega)
+        self.handedness = str(handedness)
+        self.sigma_yz = float(sigma_yz)
+        self.t_ramp = float(t_ramp)
+        self.t_sustain = float(t_sustain)
+        self.t_decay = float(t_decay) if t_decay is not None else 0.0
+        self.y_c = y_c
+        self.z_c = z_c
+        self._eps_hand = +1 if handedness == "RH" else -1
+        self._trans_axes = tuple(i for i in (0, 1, 2) if i != self.propagation_axis)
+        # Lazy-init: per-direction port weights + dipole profiles
+        self._port_w_prop = None
+        self._g_y_profile = None       # (N, N) y-dipole Gaussian
+        self._g_z_profile = None       # (N, N) z-dipole Gaussian
+        self.cumulative_energy_injected = 0.0
+
+    def envelope(self, t: float) -> float:
+        """Ramp/sustain/decay envelope (same as CWSource)."""
+        if t < 0:
+            return 0.0
+        if t < self.t_ramp:
+            return t / self.t_ramp
+        sustain_end = self.t_ramp + self.t_sustain
+        if t < sustain_end:
+            return 1.0
+        if self.t_decay > 0 and t < sustain_end + self.t_decay:
+            return 1.0 - (t - sustain_end) / self.t_decay
+        return 0.0
+
+    def _init_if_needed(self, engine: "VacuumEngine3D") -> None:
+        if self._port_w_prop is not None:
+            return
+        # Port weights for propagation direction (reuse T₂ projection from CWSource)
+        direction = tuple(
+            1.0 if i == self.propagation_axis else 0.0 for i in range(3)
+        )
+        self._port_w_prop = _forward_t2_port_weights(direction)
+        # Build 2D transverse-plane dipole profiles
+        N = engine.N
+        yc = (N - 1) / 2.0 if self.y_c is None else self.y_c
+        zc = (N - 1) / 2.0 if self.z_c is None else self.z_c
+        j, k = np.indices((N, N), dtype=float)
+        r2 = (j - yc) ** 2 + (k - zc) ** 2
+        gauss_env = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        # y-dipole: Gaussian × (y − y_c)
+        self._g_y_profile = (j - yc) * gauss_env
+        # z-dipole: Gaussian × (z − z_c)
+        self._g_z_profile = (k - zc) * gauss_env
+
+    def apply(self, engine: "VacuumEngine3D", t: float) -> None:
+        """Inject CP V_inc at the source plane via dipole modulation."""
+        self._init_if_needed(engine)
+        env = self.envelope(t)
+        if env <= 0:
+            return
+        c_t = np.cos(self.omega * t)
+        s_t = np.sin(self.omega * t) * self._eps_hand
+        amp_internal = amp_to_vsnap_units(self.amplitude, engine.amplitude_convention)
+        amp_volts = amp_internal * engine.V_SNAP * env
+        if abs(amp_volts) < 1e-30:
+            return
+
+        # Combined spatial pattern at source plane (2D y, z)
+        # Y-pol component (cos) + Z-pol component (sin·ε_hand)
+        pattern = amp_volts * (
+            c_t * self._g_y_profile + s_t * self._g_z_profile
+        )
+        # Respect K4 active mask at source plane
+        active_slice = engine.k4.mask_active[self.x0].astype(float)
+        injection = pattern * active_slice
+
+        per_step_energy = 0.0
+        for n in range(4):
+            if self._port_w_prop[n] != 0:
+                contrib = self._port_w_prop[n] * injection
+                engine.k4.V_inc[self.x0, :, :, n] += contrib
+                per_step_energy += float(np.sum(contrib ** 2))
+        self.cumulative_energy_injected += per_step_energy
+
+
 class DarkWakeObserver(Observer):
     """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
