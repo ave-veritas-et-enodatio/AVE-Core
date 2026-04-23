@@ -341,6 +341,124 @@ class EnergyBudgetObserver(Observer):
         }
 
 
+class AutoresonantCWSource(CWSource):
+    """CW plane source with autoresonant frequency tracking (PLL q-axis analog).
+
+    Per AVE-Propulsion/manuscript/vol_propulsion/chapters/05_autoresonant_dielectric_rupture.tex:
+        "If a fixed-frequency extreme-intensity laser is fired into the vacuum,
+        the increasing metric strain lowers the local vacuum's resonant
+        frequency, and the laser detunes and reflects rather than couples
+        energy. A phase-locked regenerative feedback loop overcomes this
+        limitation."
+
+    Implementation (Stage 4c — novel to AVE-Core, no sibling reference code):
+        The instantaneous local strain A² = V²/V_SNAP² near the source
+        shifts the lattice's effective resonance per Duffing-oscillator
+        behavior. The source tracks this shift by adjusting its drive
+        frequency downward:
+
+            ω(t) = ω_0 · max(ε, 1 - K_drift · A²_probe(t))
+
+        where A²_probe is measured at a downstream probe point. This is
+        the minimum viable autoresonant behavior; Stage 4d runs will
+        validate whether this level of feedback is sufficient, or whether
+        a full PI-PLL with proper phase detection is needed.
+
+    Key implementation detail: maintains an internal PHASE ACCUMULATOR
+    rather than using t directly. Otherwise changes in ω would cause
+    phase discontinuities.
+
+    Args:
+        x0, direction, amplitude, omega, sigma_yz, t_ramp, t_sustain, ...:
+            same as CWSource
+        K_drift: autoresonant shift gain (default 0.5; higher = more
+            aggressive frequency tracking). Tune empirically in 4c.
+        probe_x_offset: cells downstream of x0 to probe for A² (default 4)
+    """
+
+    def __init__(
+        self,
+        x0: int,
+        direction: tuple[float, float, float],
+        amplitude: float,
+        omega: float,
+        sigma_yz: float,
+        t_ramp: float,
+        t_sustain: float,
+        t_decay: Optional[float] = None,
+        y_c: Optional[float] = None,
+        z_c: Optional[float] = None,
+        K_drift: float = 0.5,
+        probe_x_offset: int = 4,
+    ):
+        super().__init__(
+            x0=x0, direction=direction, amplitude=amplitude,
+            omega=omega, sigma_yz=sigma_yz,
+            t_ramp=t_ramp, t_sustain=t_sustain, t_decay=t_decay,
+            y_c=y_c, z_c=z_c,
+        )
+        self.K_drift = float(K_drift)
+        self.probe_x_offset = int(probe_x_offset)
+        self._omega_0 = float(omega)       # nominal (unshifted) frequency
+        self._omega_current = self._omega_0  # shifts over time
+        self._accumulated_phase = 0.0
+        self._last_t = None
+        self._omega_history: list[float] = []
+        self._probe_A_sq_history: list[float] = []
+
+    def _measure_probe_A_sq(self, engine: "VacuumEngine3D") -> float:
+        dx_sign = int(np.sign(self.direction[0])) if self.direction[0] != 0 else 1
+        probe_x = self.x0 + self.probe_x_offset * dx_sign
+        probe_x = int(np.clip(probe_x, 0, engine.N - 1))
+        V_inc_slab = engine.k4.V_inc[probe_x]   # (ny, nz, 4)
+        V_sq = np.sum(V_inc_slab ** 2, axis=-1)  # (ny, nz)
+        active = engine.k4.mask_active[probe_x]
+        if not active.any():
+            return 0.0
+        return float(V_sq[active].max() / (engine.V_SNAP ** 2))
+
+    def apply(self, engine: "VacuumEngine3D", t: float) -> None:
+        self._init_if_needed(engine)
+
+        # Advance phase accumulator by ω_current · dt (dt = outer_dt)
+        dt = engine.outer_dt if self._last_t is not None else 0.0
+        self._accumulated_phase += self._omega_current * dt
+        self._last_t = t
+
+        # Measure probe strain
+        A_sq_probe = self._measure_probe_A_sq(engine)
+        self._probe_A_sq_history.append(A_sq_probe)
+
+        # Autoresonant frequency shift (Duffing: resonance drops with strain)
+        shift_factor = max(1e-3, 1.0 - self.K_drift * A_sq_probe)
+        self._omega_current = self._omega_0 * shift_factor
+        self._omega_history.append(self._omega_current)
+
+        # Envelope (same as CWSource)
+        env = self.envelope(t)
+        if env <= 0:
+            return
+
+        # Oscillator — uses accumulated phase (NOT ω·t directly)
+        osc = np.sin(self._accumulated_phase)
+
+        amp_internal = amp_to_vsnap_units(self.amplitude, engine.amplitude_convention)
+        amp_volts = amp_internal * engine.V_SNAP * env * osc
+        if abs(amp_volts) < 1e-30:
+            return
+
+        active_slice = engine.k4.mask_active[self.x0].astype(float)
+        injection = amp_volts * self._yz_profile * active_slice
+
+        per_step_energy = 0.0
+        for n in range(4):
+            if self._port_w[n] != 0:
+                contrib = self._port_w[n] * injection
+                engine.k4.V_inc[self.x0, :, :, n] += contrib
+                per_step_energy += float(np.sum(contrib ** 2))
+        self.cumulative_energy_injected += per_step_energy
+
+
 class DarkWakeObserver(Observer):
     """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
