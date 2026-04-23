@@ -1130,6 +1130,296 @@ class SpatialDipoleCPSource(Source):
         self.cumulative_energy_injected += per_step_energy
 
 
+class PairNucleationGate(Observer):
+    """Phase 5 pair nucleation gate — observer-with-side-effect per doc 54_ §7.
+
+    The physical event: a Kelvin-style vortex pair nucleates inside a
+    Bingham-plastic capsule. This is the axiom-native AVE picture of an
+    electron-positron pair.
+
+    **Bingham-plastic vacuum** (Vol 4 Ch 1:189-203 TVS Zener / Slipstream
+    Transition):
+        Below V_yield: η_eff = η₀ > 0 — solid, high drag, rigid
+        Above V_yield: η_eff = 0     — Zero-Impedance Slipstream,
+                                       frictionless (the Kelvin regime)
+
+    **Capsule mechanism:** when both endpoints of an A→B bond reach
+    Meissner saturation (A²_μ ≥ 1), the local material is punched past
+    yield into the slipstream regime. Γ → −1 walls form at each
+    endpoint (impedance boundaries between the slipstream pocket and
+    the surrounding sub-yield solid). A Bingham-plastic capsule is
+    formed: flowing-slipstream interior, rigid-solid exterior, Γ=-1
+    walls at A and B. Inside this capsule, Kelvin's "perfect
+    incompressible frictionless fluid" theorem applies — vortex knots
+    are topologically protected (Kelvin 1867: "two ring atoms linked
+    together or one knotted in any manner... can never deviate from
+    its own peculiarity of multiple continuity").
+
+    The gate detects capsule formation and INJECTS the vortex pair:
+        LH Beltrami vortex at r_A
+        RH Beltrami vortex at r_B
+        Φ_link[A, port] = ±Φ_critical  (sign from lattice chirality)
+
+    Gate conditions per doc 54_ §7:
+        C1 (both endpoints Meissner-saturated):
+            A²_μ(r_A) ≥ sat_frac AND A²_μ(r_B) ≥ sat_frac
+        C2 (autoresonant lock at this pair — drive frequency hits
+            the Duffing-softened resonance of the saturated tank):
+            |Ω_node(r_A) − ω_drive| < δ_lock
+            where δ_lock = ω_drive · α (Q = 1/α per doc 27_).
+
+    Zero free parameters: sat_frac = 1 (Ax4 rupture threshold; default
+    0.95 for numerical safety), δ_lock_fraction = α (Q = 1/α derived
+    per doc 27_), Beltrami amp calibrated to bond energy = m_e c²
+    (= 1 in natural units with I_ω = 1).
+
+    Gate never fires twice for the same bond (tracked in _nucleated_bonds).
+
+    **Injection profile (first-pass): point-rotation Beltrami.**
+        ω_A = -amp · p̂_bond    (rotation axis anti-aligned with bond, LH)
+        ω_B = +amp · p̂_bond    (rotation axis aligned, RH)
+        amp = √2  (so ½·I_ω·|ω|² per site = 1 = m_e c² rest energy)
+
+    Per STAGE6_V4_HANDOFF §9 open question #1: if Beltrami pair
+    dissipates faster than 10 Compton periods post-drive-shutoff
+    (pre-registered P_phase5_nucleation), upgrade to localized Hopf
+    fibration or (2,3) torus-knot injection. Grant's chosen test
+    plan (#1): Beltrami first, test persistence, escalate if needed.
+    Kelvin's topological-protection claim is what this tests at
+    discrete-lattice scale.
+
+    References:
+        - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
+        - research/L3_electron_soliton/27_step6_phase_space_Q.md (Q=1/α derivation)
+        - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:189-203
+          (Bingham plastic / TVS Zener / Slipstream)
+        - Kelvin 1867 "On Vortex Atoms" — topological protection in frictionless fluid
+        - STAGE6_V4_HANDOFF.md §9 G-13 / Phase 5 deferred items
+    """
+
+    # Tetrahedral A→B port vectors (from k4_tlm.py:164)
+    _PORT_VECTORS = np.array([
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ], dtype=float)
+
+    def __init__(
+        self,
+        cadence: int = 1,
+        saturation_frac: float = 0.95,
+        delta_lock_fraction: Optional[float] = None,
+        injection_amplitude: Optional[float] = None,
+        phi_critical: float = 1.0,
+    ):
+        """
+        Args:
+            cadence: observer step cadence
+            saturation_frac: C1 threshold on A²_μ per endpoint.
+                0.95 default for numerical safety (exact 1.0 is the
+                Ax4 rupture boundary — near-singular kernel).
+            delta_lock_fraction: fraction of ω_drive for δ_lock
+                tolerance. None → use ALPHA = 7.297e-3 (Q = 1/α per
+                doc 27_). Override only for calibration experiments.
+            injection_amplitude: Beltrami-rotor amplitude per site.
+                None → √2 (calibrated to ½·I_ω·|ω|² = 1 = m_e c² per
+                vortex in natural units, with I_ω = 1).
+            phi_critical: |Φ_link| magnitude at injection time.
+                Default 1.0 = V_SNAP·τ_node natural unit.
+        """
+        super().__init__(cadence=cadence)
+        self.saturation_frac = float(saturation_frac)
+        self.delta_lock_fraction = (
+            float(delta_lock_fraction)
+            if delta_lock_fraction is not None
+            else float(ALPHA)
+        )
+        self.injection_amplitude = (
+            float(injection_amplitude)
+            if injection_amplitude is not None
+            else float(np.sqrt(2.0))
+        )
+        self.phi_critical = float(phi_critical)
+        # Bonds already nucleated — prevent re-firing
+        self._nucleated_bonds: set[tuple[int, int, int, int]] = set()
+        # Total firing count across engine lifetime
+        self._total_firings: int = 0
+
+    def _compute_A2_mu(self, engine: "VacuumEngine3D") -> np.ndarray:
+        """Return A²_μ field across the lattice (magnetic sector only).
+
+        Under Phase 4 asymmetric saturation, A²_μ = κ²/ω_yield² +
+        chirality bias. For gate-detection purposes we compute the
+        per-site A²_μ directly from the Cosserat curvature.
+        """
+        from ave.topological.cosserat_field_3d import (
+            _compute_curvature, KAPPA_CHIRAL_ELECTRON, _beltrami_helicity,
+        )
+        import jax.numpy as jnp
+        w_j = jnp.asarray(engine.cos.omega)
+        kappa = _compute_curvature(w_j, engine.cos.dx)
+        kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
+        A2_mu_base = kappa_sq / (engine.cos.omega_yield ** 2)
+        # Chirality bias (same form as _update_saturation_kernels)
+        h_local = _beltrami_helicity(w_j, engine.cos.dx)
+        kappa_chi = (
+            engine._coupled.kappa_chiral
+            if engine._coupled.use_asymmetric_saturation
+            else 0.0
+        )
+        A2_mu = (1.0 + kappa_chi * h_local) * A2_mu_base
+        return np.asarray(A2_mu)
+
+    def _compute_Omega_node(self, engine: "VacuumEngine3D") -> np.ndarray:
+        """Ω_node / ω_yield = (1 − A²_yield)^(1/4) per doc 54_ §4.
+
+        Same form NodeResonanceObserver uses. Under R4 subatomic
+        override (Vol 4 Ch 1:711), A²_yield = A²_total in the engine's
+        canonical units (no /α conversion).
+        """
+        from ave.topological.cosserat_field_3d import _update_saturation_kernels
+        import jax.numpy as jnp
+        V_sq = _v_squared_per_site(engine.k4.V_inc)
+        S_mu, S_eps = _update_saturation_kernels(
+            jnp.asarray(engine.cos.u), jnp.asarray(engine.cos.omega),
+            jnp.asarray(V_sq), engine.cos.dx, engine.V_SNAP,
+            engine.cos.omega_yield, engine.cos.epsilon_yield,
+            engine._coupled.kappa_chiral,
+        )
+        # Pythagorean-like combined kernel for Ω_node
+        S_combined = np.sqrt(
+            np.asarray(S_mu) * np.asarray(S_eps)
+        )
+        # Ω_node / ω_yield ~ S^(1/2) = (1-A²)^(1/4)
+        return engine.cos.omega_yield * np.sqrt(np.maximum(S_combined, 1e-12))
+
+    def _candidate_bonds(self, engine: "VacuumEngine3D") -> list[tuple]:
+        """Enumerate A-site bonds to scan. Returns list of (A_idx, port, B_idx)."""
+        N = engine.N
+        # Find A-sites (mask_A), check each of 4 ports for in-bounds B-neighbor
+        A_coords = np.argwhere(engine.k4.mask_A)
+        bonds = []
+        for A_coord in A_coords:
+            A_idx = tuple(A_coord)
+            for port in range(4):
+                p = self._PORT_VECTORS[port].astype(int)
+                B_idx = tuple(A_coord + p)
+                # In-bounds + B-site active check
+                if all(0 <= B_idx[i] < N for i in range(3)):
+                    if engine.k4.mask_B[B_idx]:
+                        bonds.append((A_idx, port, B_idx))
+        return bonds
+
+    def _drive_frequencies(self, engine: "VacuumEngine3D") -> list[float]:
+        """Extract drive frequencies from any sources that have an omega."""
+        freqs = []
+        for src in engine._sources:
+            if hasattr(src, "omega"):
+                # For autoresonant sources, use current (shifted) ω
+                if hasattr(src, "_omega_current"):
+                    freqs.append(float(src._omega_current))
+                else:
+                    freqs.append(float(src.omega))
+        return freqs
+
+    def _c2_lock(
+        self,
+        omega_node_at_A: float,
+        drive_freqs: list[float],
+    ) -> Optional[float]:
+        """Return the drive frequency that satisfies C2, or None if none does."""
+        for omega_drive in drive_freqs:
+            delta_lock = self.delta_lock_fraction * omega_drive
+            if abs(omega_node_at_A - omega_drive) < delta_lock:
+                return omega_drive
+        return None
+
+    def _inject_pair(
+        self,
+        engine: "VacuumEngine3D",
+        A_idx: tuple[int, int, int],
+        port: int,
+        B_idx: tuple[int, int, int],
+    ) -> None:
+        """Write the Beltrami vortex pair + Φ_link at the bond.
+
+        LH at A, RH at B, per doc 54_ §7. Point-rotation first-pass
+        profile (see class docstring): rotation axis along bond
+        direction, opposite signs at A and B.
+        """
+        p_vec = self._PORT_VECTORS[port]
+        p_hat = p_vec / np.linalg.norm(p_vec)
+        amp = self.injection_amplitude
+
+        # LH at A: ω antiparallel to p̂_bond
+        engine.cos.omega[A_idx[0], A_idx[1], A_idx[2], :] = -amp * p_hat
+        # RH at B: ω parallel to p̂_bond
+        engine.cos.omega[B_idx[0], B_idx[1], B_idx[2], :] = +amp * p_hat
+
+        # Set velocity to zero at injection (pair born at rest)
+        engine.cos.omega_dot[A_idx[0], A_idx[1], A_idx[2], :] = 0.0
+        engine.cos.omega_dot[B_idx[0], B_idx[1], B_idx[2], :] = 0.0
+
+        # Φ_link on the directed A→B bond (port index)
+        # Lattice-chirality sign: alternating per port index (first-pass;
+        # could be refined via κ_chiral projection on bond direction)
+        sign = +1 if (port % 2 == 0) else -1
+        engine.k4.Phi_link[A_idx[0], A_idx[1], A_idx[2], port] = (
+            sign * self.phi_critical
+        )
+
+    def _capture(self, engine: "VacuumEngine3D") -> dict:
+        """Per-step scan: detect C1 ∧ C2, inject pair if both + not yet nucleated.
+
+        Returns diagnostic dict with firing count + this-step firings.
+        """
+        drive_freqs = self._drive_frequencies(engine)
+        fired_this_step: list[tuple] = []
+
+        if not drive_freqs:
+            # No driving source → C2 cannot be satisfied → gate idle
+            return {
+                "t": engine.time,
+                "n_nucleated_total": self._total_firings,
+                "n_fired_this_step": 0,
+                "fired_bonds": [],
+                "gate_active": False,
+            }
+
+        A2_mu = self._compute_A2_mu(engine)
+        Omega_node = self._compute_Omega_node(engine)
+
+        for A_idx, port, B_idx in self._candidate_bonds(engine):
+            bond_key = (A_idx[0], A_idx[1], A_idx[2], port)
+            if bond_key in self._nucleated_bonds:
+                continue  # Never re-fire the same bond
+            # C1: both endpoints Meissner-saturated
+            if (
+                A2_mu[A_idx] < self.saturation_frac
+                or A2_mu[B_idx] < self.saturation_frac
+            ):
+                continue
+            # C2: autoresonant lock
+            omega_at_A = float(Omega_node[A_idx])
+            locked_drive = self._c2_lock(omega_at_A, drive_freqs)
+            if locked_drive is None:
+                continue
+            # Both conditions met — fire
+            self._inject_pair(engine, A_idx, port, B_idx)
+            self._nucleated_bonds.add(bond_key)
+            self._total_firings += 1
+            fired_this_step.append(bond_key)
+
+        return {
+            "t": engine.time,
+            "n_nucleated_total": self._total_firings,
+            "n_fired_this_step": len(fired_this_step),
+            "fired_bonds": fired_this_step,
+            "gate_active": True,
+        }
+
+
 class DarkWakeObserver(Observer):
     """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
