@@ -415,18 +415,42 @@ class VacuumEngine3D:
     # -----------------------------------------------------------------
     # Thermal initialization (per doc 47_)
     # -----------------------------------------------------------------
-    def initialize_thermal(self, T: float, seed: Optional[int] = None) -> None:
+    def initialize_thermal(self, T: float, seed: Optional[int] = None,
+                           thermalize_V: bool = False) -> None:
         """Initialize (V_inc, u, ω, u_dot, ω_dot) per classical equipartition
         at temperature T. Units: T in m_e c² (so T=1 means kT = electron mass).
 
-        For T > 0, implements the σ values derived in doc 47_:
-            σ_V per port = √(4π·T/α) · V_SNAP
-            σ_ω          = √(T / (4π²·I_ω)) · √(mode_integral)
+        For T > 0:
+            σ_V per port = √(4π·T/α) · V_SNAP   (ONLY if thermalize_V=True)
+            σ_ω          = √(T · 1.14 / (4π²·I_ω))
             σ_ω_dot      = √(T / I_ω)
             σ_u          = √(T / (2π·ρ))
             σ_u_dot      = √(T / ρ)
 
         For T == 0, all fields are set to zero (C1: cold vacuum is deterministic).
+
+        IMPORTANT (added 2026-04-22):
+            The V-thermalization σ_V = √(4π·T/α)·V_SNAP diverges quickly with T:
+            stability requires T < α/(4π) ≈ 5.8e-4 in m_ec² units to keep
+            σ_V < V_SNAP. Above that threshold, the thermal V field alone
+            ruptures the vacuum — the numerical simulation explodes before any
+            source is applied.
+
+            Physically this is CORRECT AVE behavior (the early universe at
+            T >> 10⁷ K was literally above the Schwinger limit and the vacuum
+            was unstable — nucleosynthesis era). But for Phase III-B, we want
+            a CONTROLLED pair-creation experiment: stable cold K4 vacuum,
+            thermal (u, ω) floor to seed Cosserat cascades when driven by CW
+            photon sources.
+
+            Default `thermalize_V=False`: leave V_inc = 0. Only thermalize
+            the Cosserat rotational sector. Physically this is the "cold EM
+            vacuum + warm matter-precursor" approximation valid below the
+            Schwinger temperature.
+
+            Set `thermalize_V=True` explicitly only if simulating the early-
+            universe regime where both sectors are hot. Expect numerical
+            instability above T ~ 1e-3.
         """
         if T <= 0.0:
             self.k4.V_inc[:] = 0.0
@@ -438,12 +462,15 @@ class VacuumEngine3D:
             return
 
         rng = np.random.default_rng(seed)
-        # Scalar V on K4 — Johnson-Nyquist analog
-        sigma_V = np.sqrt(4.0 * np.pi * T / ALPHA) * self.V_SNAP
-        self.k4.V_inc[:] = rng.standard_normal(self.k4.V_inc.shape) * sigma_V
-        # Only keep on active sites
-        self.k4.V_inc *= self.k4.mask_active[..., None]
-        self.k4.V_ref[:] = 0.0  # reflected set to 0 initially
+
+        # Scalar V on K4 — only if thermalize_V (see docstring for stability warning)
+        if thermalize_V:
+            sigma_V = np.sqrt(4.0 * np.pi * T / ALPHA) * self.V_SNAP
+            self.k4.V_inc[:] = rng.standard_normal(self.k4.V_inc.shape) * sigma_V
+            self.k4.V_inc *= self.k4.mask_active[..., None]
+        else:
+            self.k4.V_inc[:] = 0.0
+        self.k4.V_ref[:] = 0.0
 
         # Cosserat ω (massive mode; mode integral ≈ 1.14 for m²=4 per doc 47_)
         mode_int = np.pi - 2.0 * np.arctan(np.pi / 2.0)

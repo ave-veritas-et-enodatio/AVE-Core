@@ -40,17 +40,75 @@ For numerical scales in m_e c² units:
 | Temperature | k_B T / (m_e c²) | ⟨V²⟩_T in V_SNAP² units | σ_V / V_SNAP |
 |---|---|---|---|
 | T = 0 | 0 | 0 | 0 |
-| T = 2.7 K (CMB) | 4.56·10⁻¹⁰ | 1.57·10⁻⁷ (via 4π/α) | 3.96·10⁻⁴ |
-| T = 10⁶ K | 1.69·10⁻⁴ | 5.82·10⁻² | 2.41·10⁻¹ |
-| T = 10⁹ K | 1.69·10⁻¹ | 58.2 | 7.63 (> V_SNAP!) |
+| T = 2.7 K (CMB) | 4.56·10⁻¹⁰ | 1.57·10⁻⁷ | 3.96·10⁻⁴ |
+| T = 3.44 × 10⁶ K (**AVE rupture, see §2.4**) | 5.805·10⁻⁴ | **1.0** | **1.0** |
+| T = 10⁷ K | 1.69·10⁻³ | 2.91 | 1.71 (> V_SNAP) |
+| T = 10⁹ K | 1.69·10⁻¹ | 58.2 | 7.63 |
 
-**Interpretation:** At T = 10⁹ K, the thermal noise amplitude EXCEEDS V_SNAP —
-i.e., the thermal energy exceeds the rupture threshold. Physically, this is
-"above the Schwinger limit from thermal alone" — pair creation should be
-automatic. This matches nucleosynthesis-era expectations.
+### 2.1 Interpretation — vacuum temperature vs. particle-plasma temperature (corrected 2026-04-22)
 
-**Engine default recommendation**: T = 2.7 K (CMB) for "ambient vacuum" runs.
-Phase III-B will test higher T (10⁶-10⁹ K equivalent) to explore the σ(ω, T) landscape.
+**Critical distinction, added after Phase III-B dry runs revealed the scale:**
+
+The "T" in this derivation is the temperature of the K4 LATTICE SUBSTRATE
+itself — the thermal amplitude of the scalar V field on each bond's capacitance.
+It is NOT the kinetic temperature of any particle (electron, ion) residing
+IN the vacuum.
+
+Concrete examples of the distinction:
+
+| System | Vacuum-substrate T | Particle-kinetic T | AVE rupture? |
+|---|---|---|---|
+| CMB | 2.7 K | 2.7 K (photon gas) | No |
+| Earth's atmosphere | ~2.7 K (vacuum) | 300 K (air) | No |
+| Sun's surface | ~2.7 K (vacuum) | 5,800 K (photosphere) | No |
+| **Sun's core** | **~2.7 K (vacuum)** | **1.5 × 10⁷ K (plasma)** | **No — vacuum still cold** |
+| Hypothetical uniformly-heated lattice | **3.44 × 10⁶ K** | any | **YES — V ruptures** |
+| Early universe (nucleosynthesis) | ~10⁹ K (coupled to photon gas) | ~10⁹ K | **YES — pair soup** |
+
+In solar plasma, the particles are hot but they don't thermalize the vacuum substrate
+to their kinetic temperature — the particles are excitations ON TOP of a still-cold
+K4 lattice. Only in the very early universe, when matter-radiation coupling dominates,
+does the substrate itself get heated to particle-like temperatures.
+
+### 2.2 V rupture threshold T_V-rupt
+
+The condition `σ_V = V_SNAP` (vacuum thermally saturates one port's rupture)
+gives the upper bound for thermal V equilibrium to coexist with stable vacuum:
+
+$$\frac{k_B T_{V\text{-rupt}}}{m_e c^2} = \frac{\alpha}{4\pi} \approx 5.805 \times 10^{-4}$$
+
+In SI:
+$$k_B T_{V\text{-rupt}} = 5.805 \times 10^{-4} \cdot (0.511 \text{ MeV}) \approx 296.7 \text{ eV}$$
+$$\boxed{T_{V\text{-rupt}} \approx 3.44 \times 10^{6} \text{ K}}$$
+
+Equivalently: if the K4 substrate itself were in thermal equilibrium at T > 3.44 MK,
+the V fluctuations would exceed V_SNAP and the vacuum would spontaneously rupture
+into pairs. Below this threshold, the vacuum can sustain thermal noise without
+breaking.
+
+This is an AVE-NATIVE PREDICTION analogous to the Schwinger limit, but stated
+as a vacuum-substrate TEMPERATURE rather than field STRENGTH. Falsifiable: if
+any laboratory process succeeds in heating the VACUUM itself (not just plasma)
+above 3.44 MK without spontaneous pair generation, AVE is falsified.
+
+### 2.3 Implication for Phase III-B simulation
+
+For stable numerical simulation of "cold K4 substrate with warm matter-precursor",
+`VacuumEngine3D.initialize_thermal(T, thermalize_V=False)` leaves V_inc = 0 and
+only thermalizes the Cosserat (u, ω) fields. This corresponds to a physical
+state where:
+- The K4 lattice is at T=0 (cold EM vacuum)
+- The rotational sector has a warm-bath initial condition
+- CW photon sources drive coherent V; V is NOT thermal
+
+This is valid for any T < 3.44 MK equivalent. Above this, the "vacuum" cannot
+be in thermal equilibrium — any attempted simulation at higher vacuum-substrate T
+will produce numerical blowup (correctly reflecting the physical instability).
+
+**Engine default recommendation**: T = 2.7 K (CMB) for realistic ambient simulations.
+Phase III-B tests T = 0 (cold null) and T = 0.1 m_e c² = 5.93 × 10⁸ K
+**Cosserat-only** (V_inc forced to zero), representing a "hot matter-precursor
+sector in a cold EM vacuum" — non-equilibrium but numerically stable.
 
 ## 3. Cosserat translational field ⟨u²⟩_T, ⟨u̇²⟩_T
 
@@ -176,8 +234,11 @@ Caveats:
 ### Does:
 - Provides concrete σ values at various T for engine initialization
 - Confirms C1 numerically: at T=2.7 K, σ_ω ~ 10⁻⁶ (effectively zero for pair creation)
-- Confirms intuition that pair creation needs T ≳ 10⁷-10⁸ K equivalent noise
-- Gives Grant a sanity check: my σ=0.01 placeholder corresponds to T ~ 10⁷ K
+- Identifies AVE-native vacuum-substrate rupture temperature: **T_V-rupt ≈ 3.44 × 10⁶ K** (§2.2)
+- Distinguishes vacuum-substrate T from particle-plasma T (§2.1 table) — only the
+  former governs rupture of the LC network itself
+- Phase III-B uses `thermalize_V=False` to simulate "cold EM vacuum + warm matter-precursor"
+  which is valid at arbitrary T since only the Cosserat sector is thermalized
 
 ### Does NOT resolve:
 - Whether CLASSICAL equipartition is the correct long-wavelength limit of AVE
