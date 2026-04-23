@@ -786,6 +786,189 @@ class AutoresonantCWSource(CWSource):
         self.cumulative_energy_injected += per_step_energy
 
 
+class CosseratBeltramiSource(Source):
+    """Direct-injection Cosserat-ω chirality source — Phase 5 prereq G-11(c).
+
+    Bypasses K4-port circular-polarization ambiguity (forward K4 ports
+    p₀=(+1,+1,+1), p₁=(+1,−1,−1) both lie along the (y+z)/√2 transverse
+    axis, so "circular polarization" via port weights is underdetermined)
+    by directly injecting a time-varying helical ω pattern at a source
+    slab. The Cosserat integrator then propagates the helical structure
+    downstream; Phase 4's `_beltrami_helicity` reads h_local from the
+    resulting ω field.
+
+    Physical setup: for a Beltrami wave traveling in +x with ∇×ω = ±k·ω:
+
+        ω(x, t) = A · (0, cos(kx − ω_drive·t), ∓sin(kx − ω_drive·t))
+
+    Sign convention: upper sign is RH (∇×ω = +k·ω, h_local = +1, biases
+    A²_μ higher per doc 54_ §6); lower sign is LH.
+
+    At a fixed source slab x = x₀:
+        RH: ω_source(t) = A · env(t) · (0, cos(ω_drive·t), +sin(ω_drive·t))
+        LH: ω_source(t) = A · env(t) · (0, cos(ω_drive·t), −sin(ω_drive·t))
+
+    Transverse (y, z) profile is a Gaussian (same as CWSource), weighted
+    by the Cosserat active-site mask. ω is OVERWRITTEN at the source slab
+    each step (not added) — additive semantics would accumulate across
+    steps and give non-physical drift.
+
+    Amplitude sizing for Phase 4 Meissner regime:
+        |κ| = |∂_x ω| ~ amp · k on a Beltrami wave
+        A²_μ_base = (|κ| / ω_yield)² = (amp·k/π)²  (with ω_yield=π default)
+        For A²_μ_base = 1 (saturation), amp_sat = π / k = λ / 2
+        Phase III-B canonical λ=3.5: amp_sat ≈ 1.75
+
+    Coupling to K4: this source does NOT inject V. The K4 sector
+    responds to Cosserat ω via the asymmetric coupling path
+    (_update_z_local_total + _compute_coupling_force_on_cosserat).
+    Helical ω → helical Γ² confinement wall → K4 scatter sees modified
+    Z_eff. This tests the Phase 4 Meissner mechanism under driven
+    chirality — the minimum-viable pair-creation-drive scenario.
+
+    References:
+    - doc 54_ §6 (asymmetric μ/ε saturation mechanism)
+    - research/L3_electron_soliton/20_chirality_projection_sub_theorem.md
+      (κ_chiral = 1.2·α derivation for electron (2,3) winding)
+    - STAGE6_V4_HANDOFF §9 G-11 option (c)
+    - Vol 1 Ch 7:252 (symmetric vs asymmetric saturation)
+
+    Usage:
+        engine.add_source(CosseratBeltramiSource(
+            x0=4, propagation_axis=0, amplitude=1.75,
+            omega=2*np.pi/3.5,        # Phase III-B canonical λ
+            handedness="RH",          # or "LH"
+            sigma_yz=3.0,
+            t_ramp=20, t_sustain=200,
+        ))
+
+    Args:
+        x0: source slab index along propagation axis
+        propagation_axis: 0=x, 1=y, 2=z — axis along which the wave
+            propagates; ω rotates in the transverse plane
+        amplitude: peak |ω| magnitude (natural-unit rad; no V_SNAP
+            conversion since this is Cosserat sector, not K4)
+        omega: drive carrier frequency (natural units, rad/τ_node)
+        handedness: "RH" or "LH"
+        sigma_yz: transverse Gaussian width at source slab
+        t_ramp, t_sustain, t_decay: envelope timing (same semantics as CWSource)
+        y_c, z_c: transverse Gaussian center (default: lattice center)
+    """
+
+    def __init__(
+        self,
+        x0: int,
+        propagation_axis: int,
+        amplitude: float,
+        omega: float,
+        handedness: str,
+        sigma_yz: float,
+        t_ramp: float,
+        t_sustain: float,
+        t_decay: Optional[float] = None,
+        y_c: Optional[float] = None,
+        z_c: Optional[float] = None,
+    ):
+        if propagation_axis not in (0, 1, 2):
+            raise ValueError(f"propagation_axis must be 0/1/2, got {propagation_axis}")
+        if handedness not in ("RH", "LH"):
+            raise ValueError(f"handedness must be 'RH' or 'LH', got {handedness!r}")
+        self.x0 = int(x0)
+        self.propagation_axis = int(propagation_axis)
+        self.amplitude = float(amplitude)
+        self.omega = float(omega)
+        self.handedness = str(handedness)
+        self.sigma_yz = float(sigma_yz)
+        self.t_ramp = float(t_ramp)
+        self.t_sustain = float(t_sustain)
+        self.t_decay = float(t_decay) if t_decay is not None else 0.0
+        self.y_c = y_c
+        self.z_c = z_c
+        self._transverse_profile = None
+        # Helicity sign: +1 for RH, -1 for LH
+        self._sign = +1 if handedness == "RH" else -1
+        # Transverse axes (the two axes orthogonal to propagation_axis)
+        self._trans_axes = tuple(i for i in (0, 1, 2) if i != self.propagation_axis)
+        self.cumulative_action_injected = 0.0
+
+    def envelope(self, t: float) -> float:
+        """Ramp/sustain/decay envelope (same as CWSource)."""
+        if t < 0:
+            return 0.0
+        if t < self.t_ramp:
+            return t / self.t_ramp
+        sustain_end = self.t_ramp + self.t_sustain
+        if t < sustain_end:
+            return 1.0
+        if self.t_decay > 0 and t < sustain_end + self.t_decay:
+            return 1.0 - (t - sustain_end) / self.t_decay
+        return 0.0
+
+    def _init_if_needed(self, engine: "VacuumEngine3D") -> None:
+        if self._transverse_profile is not None:
+            return
+        N = engine.N
+        # Build 2D Gaussian profile on the transverse plane
+        ax1, ax2 = self._trans_axes
+        yc = (N - 1) / 2.0 if self.y_c is None else self.y_c
+        zc = (N - 1) / 2.0 if self.z_c is None else self.z_c
+        j, k = np.indices((N, N), dtype=float)
+        r2 = (j - yc) ** 2 + (k - zc) ** 2
+        self._transverse_profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+
+    def apply(self, engine: "VacuumEngine3D", t: float) -> None:
+        """Overwrite ω at source slab with helical drive pattern.
+
+        Strategy: at each step, explicitly SET ω at the source slab to
+        the desired helical pattern. Cosserat velocity-Verlet propagates
+        the pattern downstream. The source slab's ω history acts as a
+        Dirichlet-style boundary condition on the Cosserat dynamics.
+        """
+        self._init_if_needed(engine)
+        env = self.envelope(t)
+        if env <= 0:
+            return
+
+        amp_current = self.amplitude * env
+        # Transverse ω components (the two non-propagation axes)
+        # RH: (cos(ω·t), +sin(ω·t))
+        # LH: (cos(ω·t), −sin(ω·t))
+        c_t = np.cos(self.omega * t)
+        s_t = np.sin(self.omega * t) * self._sign
+
+        # Apply to the propagation-axis slab of the Cosserat ω field
+        # Cosserat ω has shape (N, N, N, 3); we index along propagation_axis
+        active_slab = self._slab_active_mask(engine)   # (N, N)
+        pattern = amp_current * self._transverse_profile * active_slab  # (N, N)
+
+        ax1, ax2 = self._trans_axes
+        # Build full (N, N, N, 3) field with zeros elsewhere, set the slab
+        slab_view = self._slab_omega_view(engine)  # view into ω at x=x0 slab, shape (N, N, 3)
+        # Zero the source slab first (clean overwrite)
+        slab_view[...] = 0.0
+        slab_view[..., ax1] = pattern * c_t
+        slab_view[..., ax2] = pattern * s_t
+
+        # Track injected action (|ω|² integrated, for diagnostics)
+        self.cumulative_action_injected += float(np.sum(pattern ** 2) * (c_t ** 2 + s_t ** 2))
+
+    def _slab_active_mask(self, engine: "VacuumEngine3D") -> np.ndarray:
+        """Return (N, N) boolean mask of active Cosserat sites at x0 slab."""
+        if self.propagation_axis == 0:
+            return engine.cos.mask_alive[self.x0].astype(float)
+        if self.propagation_axis == 1:
+            return engine.cos.mask_alive[:, self.x0].astype(float)
+        return engine.cos.mask_alive[:, :, self.x0].astype(float)
+
+    def _slab_omega_view(self, engine: "VacuumEngine3D") -> np.ndarray:
+        """Return a WRITEABLE view/slice of engine.cos.omega at the source slab."""
+        if self.propagation_axis == 0:
+            return engine.cos.omega[self.x0]
+        if self.propagation_axis == 1:
+            return engine.cos.omega[:, self.x0]
+        return engine.cos.omega[:, :, self.x0]
+
+
 class DarkWakeObserver(Observer):
     """Dark wake diagnostic — the longitudinal shear strain τ_zx wave that
     propagates backward from any coherent V excitation (per AVE-PONDER
