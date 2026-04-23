@@ -389,20 +389,53 @@ class RegimeClassifierObserver(Observer):
 
 
 class TopologyObserver(Observer):
-    """Records Q_H, centroids, shell radii."""
+    """Records Q_H, centroids, shell radii.
 
-    def __init__(self, cadence: int = 5, threshold_frac: float = 0.3):
+    `threshold_frac` is the primary detection threshold and determines the
+    top-level `n_centroids` / `centroids` keys (used by downstream summaries).
+    `threshold_fracs`, if provided, records additional centroid captures at
+    each listed threshold under the `per_threshold` key — for H1-style
+    measurement-sensitivity studies (see 51_handoff §1). When
+    `threshold_fracs` is given and `threshold_frac` is omitted, the smallest
+    value in the list becomes the primary threshold so aggregate counts
+    reflect the most sensitive detection.
+    """
+
+    def __init__(
+        self,
+        cadence: int = 5,
+        threshold_frac: Optional[float] = None,
+        threshold_fracs: Optional[list[float]] = None,
+    ):
         super().__init__(cadence=cadence)
-        self.threshold_frac = threshold_frac
+        if threshold_frac is None:
+            self.threshold_frac = (
+                min(threshold_fracs) if threshold_fracs else 0.3
+            )
+        else:
+            self.threshold_frac = float(threshold_frac)
+        self.threshold_fracs = (
+            [float(t) for t in threshold_fracs] if threshold_fracs else None
+        )
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
         cents = engine.cos.find_soliton_centroids(threshold_frac=self.threshold_frac)
-        return {
+        record = {
             "t": engine.time,
             "Q_hopf": engine.cos.extract_hopf_charge(),
             "n_centroids": len(cents),
             "centroids": cents,
         }
+        if self.threshold_fracs is not None:
+            per = {}
+            for tf in self.threshold_fracs:
+                if tf == self.threshold_frac:
+                    c = cents
+                else:
+                    c = engine.cos.find_soliton_centroids(threshold_frac=tf)
+                per[tf] = {"n_centroids": len(c), "centroids": c}
+            record["per_threshold"] = per
+        return record
 
 
 class EnergyBudgetObserver(Observer):
