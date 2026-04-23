@@ -423,6 +423,50 @@ def tetrahedral_gradient(V):
     return np.asarray(result) if was_np else result
 
 
+def _connected_components_3d(mask: np.ndarray, connectivity: int = 26) -> tuple[np.ndarray, int]:
+    """Connected-components labeling on a 3D boolean mask.
+
+    Pure-numpy implementation (no scipy.ndimage dependency). For the
+    K4 diamond lattice, use connectivity=26 (diagonal neighbors): the
+    A sublattice at (even,even,even) and B at (odd,odd,odd) are only
+    diagonally adjacent, so 6-connectivity sees them as disconnected.
+
+    Returns (labels array with same shape as mask, n_components).
+    Label 0 = background; labels 1..n_components = connected regions.
+    """
+    if connectivity == 26:
+        neighbors = [(di, dj, dk)
+                     for di in (-1, 0, 1)
+                     for dj in (-1, 0, 1)
+                     for dk in (-1, 0, 1)
+                     if not (di == 0 and dj == 0 and dk == 0)]
+    elif connectivity == 6:
+        neighbors = [(+1, 0, 0), (-1, 0, 0), (0, +1, 0),
+                     (0, -1, 0), (0, 0, +1), (0, 0, -1)]
+    else:
+        raise ValueError(f"connectivity must be 6 or 26, got {connectivity}")
+    labels = np.zeros(mask.shape, dtype=np.int32)
+    n_comp = 0
+    nx, ny, nz = mask.shape
+    it = np.nditer(mask, flags=["multi_index"])
+    for val in it:
+        if not val or labels[it.multi_index] != 0:
+            continue
+        n_comp += 1
+        stack = [it.multi_index]
+        labels[it.multi_index] = n_comp
+        while stack:
+            i, j, k = stack.pop()
+            for di, dj, dk in neighbors:
+                ni, nj, nk = i + di, j + dj, k + dk
+                if (0 <= ni < nx and 0 <= nj < ny and 0 <= nk < nz
+                        and mask[ni, nj, nk]
+                        and labels[ni, nj, nk] == 0):
+                    labels[ni, nj, nk] = n_comp
+                    stack.append((ni, nj, nk))
+    return labels, n_comp
+
+
 # ----------------------------------------------------------------------
 # Solver class
 # ----------------------------------------------------------------------
@@ -990,6 +1034,87 @@ class CosseratField3D:
         self.u = np.zeros_like(self.u)
         self.u_dot = np.zeros_like(self.u_dot)
         self.time = 0.0
+
+    # ------------------------------------------------------------------
+    # Phase III diagnostics: Hopf charge + soliton localization
+    # ------------------------------------------------------------------
+    # Rationale (per plan doc-list-for-next-chat Prereq 1):
+    #   `extract_crossing_count` is noisy on time-evolving (u, ω) fields
+    #   because it counts DISCRETE contour crossings that can alias.
+    #   Phase III needs a continuous, topological Q measure, and also
+    #   needs to identify MULTIPLE soliton centroids (for pair creation
+    #   in III-B).
+
+    def extract_hopf_charge(self) -> float:
+        """Topological Hopf invariant Q_H from the Cosserat ω field.
+
+        Uses the existing `_hopf_density` (A·B/2 Chern-Simons density).
+        Integrating it over space gives 4π²·Q_H per §13 of the L3 research.
+
+        Returns a REAL number (not integer-discretized); robust to small
+        field perturbations. For (2,3)-torus-knot electron, Q_H → 6; for
+        vacuum, Q_H = 0; for pair-creation, total Q_H should remain near 0
+        (e+ and e− contribute opposite signs to the regional sum).
+        """
+        w_j = jnp.asarray(self.omega)
+        rho = _hopf_density(w_j, self.dx)
+        mask = jnp.asarray(self.mask_alive).astype(rho.dtype)
+        integral = float(jnp.sum(rho * mask) * (self.dx ** 3))
+        return integral / (4.0 * np.pi ** 2)
+
+    def find_soliton_centroids(
+        self, threshold_frac: float = 0.3, min_cluster_size: int = 8,
+    ) -> list[dict]:
+        """Find localized ω-field concentrations.
+
+        Returns a list of dicts with (center_xyz, peak_mag, n_cells_above)
+        for each spatially-isolated region where |ω|² exceeds
+        `threshold_frac · max(|ω|²)`. Uses connected-component labeling on
+        the thresholded field.
+
+        Critical for Phase III-B: after pair creation, we expect TWO
+        distinct centroids (e+ and e−). This method identifies them.
+        """
+        omega_mag_sq = np.sum(self.omega ** 2, axis=-1) * self.mask_alive
+        if omega_mag_sq.max() <= 1e-30:
+            return []
+        threshold = threshold_frac * omega_mag_sq.max()
+        above = omega_mag_sq > threshold
+
+        # 6-connected components labeling (numpy-only implementation)
+        labels, n_comp = _connected_components_3d(above)
+
+        centroids = []
+        for lab in range(1, n_comp + 1):
+            mask = labels == lab
+            n_cells = int(mask.sum())
+            if n_cells < min_cluster_size:
+                continue
+            idx = np.where(mask)
+            weights = omega_mag_sq[idx]
+            total = weights.sum()
+            cx = float((idx[0] * weights).sum() / total)
+            cy = float((idx[1] * weights).sum() / total)
+            cz = float((idx[2] * weights).sum() / total)
+            peak = float(omega_mag_sq[mask].max())
+            centroids.append({
+                "center": (cx, cy, cz),
+                "peak_mag_sq": peak,
+                "n_cells": n_cells,
+            })
+        return centroids
+
+    def total_omega_energy_local(self, center: tuple[float, float, float], radius: float) -> float:
+        """|ω|² summed over sites within `radius` cells of `center`.
+        For multi-soliton Phase III-B: partition energy between centroids.
+        """
+        cx, cy, cz = center
+        rx = self._i - cx
+        ry = self._j - cy
+        rz = self._k - cz
+        r2 = rx * rx + ry * ry + rz * rz
+        mask = (r2 <= radius ** 2) & self.mask_alive
+        return float(np.sum(np.sum(self.omega ** 2, axis=-1) * mask))
 
     # ------------------------------------------------------------------
     # Diagnostics (numpy-backed)

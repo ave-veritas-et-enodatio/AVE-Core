@@ -209,6 +209,12 @@ class PlaneSource:
         self.y_c = y_c
         self.z_c = z_c
         self._yz_profile_cache: tuple[int, int, np.ndarray] | None = None
+        # Phase III Prereq 2: cumulative energy injected via `apply()`.
+        # Σ_steps Σ_n |injection · port_w[n]|² summed over source-plane sites.
+        # Used for H_drift accounting (subtract source contribution from
+        # total-H change to isolate numerical drift).
+        self.cumulative_energy_injected = 0.0
+        self._n_apply_calls = 0
 
     def _yz_profile(self, ny: int, nz: int) -> np.ndarray:
         if self._yz_profile_cache and self._yz_profile_cache[:2] == (ny, nz):
@@ -229,9 +235,15 @@ class PlaneSource:
         active_slice = lattice.mask_active[self.x0]   # (ny, nz)
         injection = A_t * yz * active_slice.astype(float)
         # T₂-projected weights can be negative (Σw=0); apply to all ports.
+        # Phase III Prereq 2: accumulate injected energy for H-drift accounting.
+        per_step_energy = 0.0
         for n in range(4):
             if self.port_w[n] != 0:
-                lattice.V_inc[self.x0, :, :, n] += self.port_w[n] * injection
+                contribution = self.port_w[n] * injection
+                lattice.V_inc[self.x0, :, :, n] += contribution
+                per_step_energy += float(np.sum(contribution ** 2))
+        self.cumulative_energy_injected += per_step_energy
+        self._n_apply_calls += 1
 
 
 # ─────────────────────────────────────────────────────────────────────
