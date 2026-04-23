@@ -528,6 +528,102 @@ class TestPhase4MeissnerMechanism:
         )
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# Invariant 9 — G-12: AutoresonantCWSource Ax4-native varactor PLL
+# ═══════════════════════════════════════════════════════════════════════════
+class TestG12AutoresonantVaractorForm:
+    """AutoresonantCWSource uses Ax4-native ω(t) = ω_0·(1−A²_probe)^(1/4).
+
+    Pre-G-12 linear-Taylor form `ω_0·(1−K_drift·A²_probe)` diverged from
+    the varactor by ~5 % at A² > 0.3, which is 700× Phase 5's
+    δ_lock = ω_0·α ≈ 7×10⁻³·ω_0 precision window. G-12 replaces with
+    the exact form derived in [doc 54_ §4] and [Vol 4 Ch 1:127-142].
+    """
+
+    def _build_source_with_poked_probe(self, A2_probe_value: float):
+        """Construct an engine + AutoresonantCWSource and poke V_inc at the
+        probe site so that `_measure_probe_A_sq` returns A2_probe_value."""
+        from ave.topological.vacuum_engine import AutoresonantCWSource
+        engine = VacuumEngine3D.from_args(
+            N=16, pml=2, temperature=0.0, amplitude_convention="V_SNAP",
+        )
+        src = AutoresonantCWSource(
+            x0=4, direction=(1.0, 0.0, 0.0),
+            amplitude=0.5, omega=2.0 * np.pi / 3.5,
+            sigma_yz=2.0, t_ramp=1.0, t_sustain=1.0,
+        )
+        engine.add_source(src)
+        # Poke probe site so A²_probe = target (single-port V such that V² = target·V_SNAP²)
+        probe_x = src.x0 + src.probe_x_offset
+        A_idx = np.argwhere(engine.k4.mask_active[probe_x])
+        if len(A_idx) == 0:
+            pytest.skip("No active site at probe offset")
+        y, z = A_idx[0]
+        engine.k4.V_inc[probe_x, y, z, 0] = engine.V_SNAP * np.sqrt(A2_probe_value)
+        return engine, src
+
+    def test_shift_factor_matches_varactor_at_mid_amplitude(self):
+        """At A²_probe = 0.3: varactor gives (0.7)^(1/4) ≈ 0.915.
+        Linear-Taylor K_drift=0.5 would give 0.85 (~7 % low)."""
+        engine, src = self._build_source_with_poked_probe(A2_probe_value=0.3)
+        src.apply(engine, t=0.0)
+        # First apply: _last_t was None so phase didn't advance; but
+        # _omega_current was just updated.
+        expected = src._omega_0 * (0.7 ** 0.25)
+        assert src._omega_current == pytest.approx(expected, rel=1e-6), (
+            f"omega_current = {src._omega_current:.6f}; "
+            f"expected varactor = {expected:.6f}"
+        )
+
+    def test_shift_factor_matches_varactor_at_near_saturation(self):
+        """At A²_probe = 0.9: varactor gives (0.1)^(1/4) ≈ 0.562.
+        Linear-Taylor K_drift=0.5 would give 0.55 (only by coincidence close)."""
+        engine, src = self._build_source_with_poked_probe(A2_probe_value=0.9)
+        src.apply(engine, t=0.0)
+        expected = src._omega_0 * (0.1 ** 0.25)
+        assert src._omega_current == pytest.approx(expected, rel=1e-6)
+
+    def test_shift_factor_floor_at_past_rupture(self):
+        """At A²_probe > 1: clip + floor at 1e-3 prevents ω → 0 blowup."""
+        engine, src = self._build_source_with_poked_probe(A2_probe_value=2.0)
+        src.apply(engine, t=0.0)
+        # Clipped A² = 1 − 1e-12 → (1e-12)^(1/4) ≈ 1e-3, floor wins at 1e-3
+        expected_floor = src._omega_0 * 1e-3
+        assert src._omega_current >= expected_floor * 0.99, (
+            f"omega_current = {src._omega_current}; expected ≥ floor ~{expected_floor}"
+        )
+
+    def test_zero_probe_gives_unshifted_frequency(self):
+        """At A²_probe = 0 (vacuum): shift factor = 1 → ω = ω_0."""
+        engine, src = self._build_source_with_poked_probe(A2_probe_value=0.0)
+        src.apply(engine, t=0.0)
+        assert src._omega_current == pytest.approx(src._omega_0, rel=1e-10)
+
+    def test_k_drift_deprecation_warning(self):
+        """Non-default K_drift emits DeprecationWarning."""
+        from ave.topological.vacuum_engine import AutoresonantCWSource
+        with pytest.warns(DeprecationWarning, match="K_drift is deprecated"):
+            AutoresonantCWSource(
+                x0=4, direction=(1.0, 0.0, 0.0),
+                amplitude=0.5, omega=1.0, sigma_yz=2.0,
+                t_ramp=1.0, t_sustain=1.0,
+                K_drift=1.0,  # non-default → warn
+            )
+
+    def test_default_k_drift_no_warning(self):
+        """Default K_drift=0.5 (backward-compat value) does NOT warn."""
+        from ave.topological.vacuum_engine import AutoresonantCWSource
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")  # any warning → error
+            # This should succeed with no warning emitted
+            AutoresonantCWSource(
+                x0=4, direction=(1.0, 0.0, 0.0),
+                amplitude=0.5, omega=1.0, sigma_yz=2.0,
+                t_ramp=1.0, t_sustain=1.0,
+            )
+
+
 class TestReflectionDensityAsymmetric:
     """Γ² = (1/16) |∇S_μ/S_μ − ∇S_ε/S_ε|² — vanishes when S_μ = S_ε."""
 

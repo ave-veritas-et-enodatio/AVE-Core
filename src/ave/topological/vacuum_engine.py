@@ -649,18 +649,25 @@ class AutoresonantCWSource(CWSource):
         energy. A phase-locked regenerative feedback loop overcomes this
         limitation."
 
-    Implementation (Stage 4c — novel to AVE-Core, no sibling reference code):
+    Implementation (Stage 4c → Phase-5-prep G-12, 2026-04-23):
         The instantaneous local strain A² = V²/V_SNAP² near the source
-        shifts the lattice's effective resonance per Duffing-oscillator
-        behavior. The source tracks this shift by adjusting its drive
-        frequency downward:
+        shifts the lattice's effective resonance per Axiom-4 varactor
+        softening. The source tracks this shift by adjusting its drive
+        frequency via the **axiom-native varactor form**:
 
-            ω(t) = ω_0 · max(ε, 1 - K_drift · A²_probe(t))
+            ω(t) = ω_0 · max(ε, (1 − A²_probe(t))^(1/4))
 
-        where A²_probe is measured at a downstream probe point. This is
-        the minimum viable autoresonant behavior; Stage 4d runs will
-        validate whether this level of feedback is sufficient, or whether
-        a full PI-PLL with proper phase detection is needed.
+        This is the Ω_node / ω_0 softening from Vol 4 Ch 1:127-142 and
+        doc 54_ §4 — the same form implemented in NodeResonanceObserver.
+        Zero free parameters.
+
+        **Previously (Stage 4c, pre-G-12):** linear-Taylor approximation
+            ω(t) = ω_0 · (1 − K_drift · A²_probe)
+        with empirical K_drift = 0.5. The linear form diverges from the
+        varactor by ~5 % at A² > 0.3 — fatal for Phase 5's autoresonant
+        lock condition `|Ω_node − ω_drive| < δ_lock = ω_0·α ≈ 7×10⁻³·ω_0`
+        (700× the precision window). G-12 replaces with the exact form;
+        see VACUUM_ENGINE_MANUAL §17 A7 and plan file Phase 3.5 step 16.
 
     Key implementation detail: maintains an internal PHASE ACCUMULATOR
     rather than using t directly. Otherwise changes in ω would cause
@@ -669,8 +676,9 @@ class AutoresonantCWSource(CWSource):
     Args:
         x0, direction, amplitude, omega, sigma_yz, t_ramp, t_sustain, ...:
             same as CWSource
-        K_drift: autoresonant shift gain (default 0.5; higher = more
-            aggressive frequency tracking). Tune empirically in 4c.
+        K_drift: DEPRECATED as of G-12. Retained for backward-compat of
+            existing driver scripts; not used in the axiom-native form.
+            Non-default values (≠ 0.5) emit DeprecationWarning.
         probe_x_offset: cells downstream of x0 to probe for A² (default 4)
     """
 
@@ -695,7 +703,23 @@ class AutoresonantCWSource(CWSource):
             t_ramp=t_ramp, t_sustain=t_sustain, t_decay=t_decay,
             y_c=y_c, z_c=z_c,
         )
-        self.K_drift = float(K_drift)
+        # K_drift deprecated per G-12 (axiom-native varactor form).
+        # Retained as attribute for backward compat of external inspectors
+        # (e.g., existing driver scripts that log K_drift). Non-default
+        # values emit a DeprecationWarning since the axiom-native form
+        # has no tunable gain.
+        if not np.isclose(K_drift, 0.5):
+            import warnings
+            warnings.warn(
+                "AutoresonantCWSource.K_drift is deprecated (G-12, Phase 5 "
+                "prep). The axiom-native varactor form ω(t) = ω_0·(1−A²)^(1/4) "
+                "replaces the linear-Taylor approximation and has no tunable "
+                "gain. K_drift is ignored. See doc 54_ §4 and VACUUM_ENGINE_"
+                "MANUAL §17 A7.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        self.K_drift = float(K_drift)  # retained as attribute; not used
         self.probe_x_offset = int(probe_x_offset)
         self._omega_0 = float(omega)       # nominal (unshifted) frequency
         self._omega_current = self._omega_0  # shifts over time
@@ -727,8 +751,13 @@ class AutoresonantCWSource(CWSource):
         A_sq_probe = self._measure_probe_A_sq(engine)
         self._probe_A_sq_history.append(A_sq_probe)
 
-        # Autoresonant frequency shift (Duffing: resonance drops with strain)
-        shift_factor = max(1e-3, 1.0 - self.K_drift * A_sq_probe)
+        # Autoresonant frequency shift — Ax4-native varactor form
+        # (G-12, Phase 5 precision prereq). Ω_node / ω_0 = (1 − A²_probe)^(1/4)
+        # per Vol 4 Ch 1:127-142 + doc 54_ §4. Clip A² < 1 for past-rupture
+        # numerical safety; floor shift_factor at 1e-3 to prevent ω → 0
+        # integration singularity (same convention as pre-G-12).
+        A_clipped = min(A_sq_probe, 1.0 - 1e-12)
+        shift_factor = max(1e-3, (1.0 - A_clipped) ** 0.25)
         self._omega_current = self._omega_0 * shift_factor
         self._omega_history.append(self._omega_current)
 
