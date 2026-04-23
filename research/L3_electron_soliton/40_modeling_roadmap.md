@@ -15,6 +15,23 @@ gaps, separate from the calibration-chain gaps.
   Key finding: Cosserat rotational sector natively has a mass gap
   `m² = 4·G_c/I_ω` (factor-of-2 corrected from naive derivation).
   S-gate adjudications laid out in [S_GATES_OPEN.md](S_GATES_OPEN.md).
+- **2026-04-22 (Phase II complete)**: `CoupledK4Cosserat` built, V1/V2/V3
+  validation pass. Results in [42_coupled_simulator_validation.md](42_coupled_simulator_validation.md).
+- **2026-04-22 (Phase III v1)**: First Phase III-B sweep (fixed-f CW) →
+  [48_pair_creation_frequency_sweep.md](48_pair_creation_frequency_sweep.md).
+  Found C1 cold-vacuum determinism CONFIRMED; σ(ω) peak at ω·τ=0.9.
+  AVE Schwinger-vacuum limit T_V-rupt = 3.44 MK identified.
+- **2026-04-22 (Stage 4 — dark-wake + autoresonant FOC)**: Ecosystem research
+  uncovered the AVE-native mechanism ([49_dark_wake_bemf_foc_synthesis.md](49_dark_wake_bemf_foc_synthesis.md)):
+  dark wake τ_zx = lattice back-EMF, autoresonant PLL enables FOC phase-lock.
+  - 4a: synthesis doc 49_
+  - 4b: `DarkWakeObserver` ported from AVE-Propulsion, Pearson r(V², τ_zx) = 0.994
+  - 4c: `AutoresonantCWSource` built, K_drift tuning sweep passed
+  - 4d: Phase III-B v2 sweep → [50_autoresonant_pair_creation.md](50_autoresonant_pair_creation.md).
+    σ(ω) shape changed (monotonic rise vs v1 peak); A²_cos reached **1.009**
+    (first numerical approach of Axiom-4 rupture boundary). Clean pair
+    formation deferred pending (a) lower centroid threshold, (b) point-collision
+    geometry, or (c) augmented S1 coupling.
 
 ## 0. One-paragraph frame
 
@@ -186,18 +203,21 @@ In decreasing order of tractability. Each item references what's
   either tighter dt or multi-rate integrator. Deferred to Phase III of
   the coupled-sim plan (see `S_GATES_OPEN.md` S5).
 
-### 4.3 Medium-term (coupled K4 ⊗ Cosserat)
+### 4.3 Medium-term (coupled K4 ⊗ Cosserat) [✓ DELIVERED]
 
-- **Prototype coupled simulator**: K4 scalar + Cosserat tensor on the same
-  grid, with coupling term `(u, ω) ← f(V_inc)` and `V_inc ← g(strain(u),
-  curvature(ω))`. Design target: the coupling term must *not* introduce
-  tunable parameters beyond the existing ω_yield, ε_yield thresholds that
-  are pinned by Axiom 4.
-- **Photon→electron capture animation**: with coupled sim, launch a
-  photon at saturation amplitude, let it reach a region where Cosserat
-  (u, ω) can respond, observe formation of the (2,3) Clifford shell.
-  This is the true version of the 2026-04-22 Phase C2 attempt. Timescale:
-  ~1 month for the first working prototype.
+- **[✓ DONE 2026-04-22]** Prototype coupled simulator: `CoupledK4Cosserat`
+  in [src/ave/topological/k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py)
+  using S1-D coupling `(V²/V_SNAP²)·W_refl`. Validation in
+  [42_coupled_simulator_validation.md](42_coupled_simulator_validation.md).
+- **[✓ DONE 2026-04-22]** `VacuumEngine3D` — unit-clean refactor at
+  [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py).
+  Supports all four Axiom-4 regimes, thermal init per doc 47_,
+  dark-wake observer (Stage 4b), autoresonant CW source (Stage 4c).
+- **[⚠ PARTIAL 2026-04-22]** Photon→electron capture: Phase III-B v1+v2
+  sweeps ([48_](48_pair_creation_frequency_sweep.md),
+  [50_](50_autoresonant_pair_creation.md)) reached A²_cos = 1.009
+  (Axiom-4 rupture) but did NOT observe localized pair formation at
+  threshold_frac=0.7. Three follow-up paths identified (see doc 50_ §3.4).
 
 ### 4.4 Long-term (extensions to other sectors)
 
