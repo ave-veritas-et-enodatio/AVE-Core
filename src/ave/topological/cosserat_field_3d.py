@@ -27,6 +27,17 @@ jax.config.update("jax_enable_x64", True)
 import jax.numpy as jnp  # noqa: E402
 import numpy as np  # noqa: E402
 
+from ave.core.constants import ALPHA  # noqa: E402
+
+# Phase 4 asymmetric-saturation chirality coupling.
+# κ_chiral = α·pq/(p+q) for (p,q) torus winding — Ax2-DERIVED per
+# [doc 20_ Sub-Theorem 3.1.1](research/L3_electron_soliton/20_chirality_projection_sub_theorem.md).
+# For the electron (2,3) winding: κ_chiral = α · 2·3/(2+3) = 1.2·α.
+# Verified vs AVE-HOPF table 1 empirical benchmark
+# (../../AVE-HOPF/manuscript/03_hopf_01_chiral_verification.tex:72-82).
+# Not a free parameter — parallel-channel impedance combination at TIR boundary.
+KAPPA_CHIRAL_ELECTRON: float = 1.2 * ALPHA  # ≈ 8.757e-3
+
 
 TETRA_OFFSETS: tuple[tuple[int, int, int], ...] = (
     (+1, +1, +1),
@@ -295,6 +306,197 @@ def _reflection_density(
     # (research/L3_electron_soliton/12_ §3.4-3.5). Not a fit parameter.
     reflection = (1.0 / 64.0) * grad_S_sq / (S * S + eps_reg)
     return reflection
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Phase 4 — Asymmetric μ/ε saturation (Vol 1 Ch 7:252, doc 54_ §6)
+# ─────────────────────────────────────────────────────────────────────
+# S1 gate reopened 2026-04-23. Replaces the single-kernel symmetric
+# saturation S = √(1-A²_total) with two independent tracks (S_μ, S_ε)
+# biased by the local Beltrami helicity of the Cosserat ω field.
+#
+# Physical picture (EE-native):
+#   Each K4 node is a 4-port LC tank with BOTH a nonlinear varactor
+#   C_eff(V) = C_0/√(1-(V/V_yield)²) and a nonlinear varinductor
+#   L_eff(I) = L_0/√(1-(I/I_max)²) per Vol 4 Ch 1:127-187. The current
+#   engine collapsed these into a single S kernel (symmetric / Vol 4
+#   Ch 11 Achromatic Impedance Lens — gravity regime). Phase 4 exposes
+#   them as separate tracks; chirality-biased drive saturates μ vs ε
+#   at different rates (Meissner-like), driving Z_eff = Z_0·√(S_μ/S_ε)
+#   to 0 or ∞ per Vol 1 Ch 7:252.
+#
+# Regression (per 3c):
+#   - Symmetric case (h_local = 0 under linear-polarization drive):
+#     A²_μ_base = A²_ε_base → S_μ = S_ε → Z_eff = Z_0 constant
+#     (Achromatic Lens; differs from single-kernel form which had Z
+#     scale with A²_total). The single-kernel behavior was a
+#     simplification, not axiom-faithful.
+#   - Asymmetric case (h_local ≠ 0 under circularly-polarized drive):
+#     A²_μ grows faster than A²_ε under RH drive → S_μ → 0 first →
+#     Z_eff → 0 → Γ → -1 confinement wall forms.
+
+
+def _tetrahedral_curl(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """(∇×ω)_i = ε_ijk ∂_j ω_k on the K4 diamond lattice.
+
+    Uses the same tetrahedral gradient operator as _compute_curvature.
+    grad[..., i, j] = ∂_j ω_i (in natural lattice units), so curl
+    components are:
+        (curl ω)_0 = ∂_1 ω_2 − ∂_2 ω_1 = grad[..., 2, 1] − grad[..., 1, 2]
+        (curl ω)_1 = ∂_2 ω_0 − ∂_0 ω_2 = grad[..., 0, 2] − grad[..., 2, 0]
+        (curl ω)_2 = ∂_0 ω_1 − ∂_1 ω_0 = grad[..., 1, 0] − grad[..., 0, 1]
+
+    Returns (nx, ny, nz, 3) with components in rad / ℓ_node (natural units).
+    """
+    grad = _tetrahedral_gradient(omega) / dx  # (nx, ny, nz, 3, 3)
+    curl_x = grad[..., 2, 1] - grad[..., 1, 2]
+    curl_y = grad[..., 0, 2] - grad[..., 2, 0]
+    curl_z = grad[..., 1, 0] - grad[..., 0, 1]
+    return jnp.stack([curl_x, curl_y, curl_z], axis=-1)
+
+
+def _beltrami_helicity(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
+    """Normalized Beltrami helicity h_local = ω·(∇×ω) / (|ω|·|∇×ω|).
+
+    Per doc 54_ §6 line 220, h_local ∈ [-1, +1] is the local handedness
+    of the Cosserat microrotation field. h_local = +1 for right-handed
+    Beltrami flow (ω parallel to ∇×ω), -1 for left-handed, 0 for
+    non-helical (linear drive or ω = 0).
+
+    Returns (nx, ny, nz) scalar field. Regularized with eps_h = 1e-12 to
+    avoid 0/0 in vacuum sites.
+    """
+    curl = _tetrahedral_curl(omega, dx)
+    dot_ω_curl = jnp.sum(omega * curl, axis=-1)  # (nx, ny, nz)
+    omega_sq = jnp.sum(omega * omega, axis=-1)
+    curl_sq = jnp.sum(curl * curl, axis=-1)
+    eps_h = 1e-12
+    # Regularized norms: sqrt(x² + eps²) is smooth at x=0
+    norm_product = jnp.sqrt((omega_sq + eps_h) * (curl_sq + eps_h))
+    return dot_ω_curl / norm_product
+
+
+def _reflection_density_asymmetric(
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    V_sq: jnp.ndarray,
+    dx: float,
+    V_SNAP: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
+) -> jnp.ndarray:
+    """Asymmetric μ/ε reflection density (Phase 4, doc 54_ §6).
+
+    Splits the single Axiom-4 saturation kernel into two tracks:
+        A²_μ_base = κ²/ω_yield²                       (rotational → magnetic)
+        A²_ε_base = ε_sym²/ε_yield² + V²/V_SNAP²      (strain + K4 V → electric)
+        h_local = Beltrami helicity of ω
+        A²_μ = (1 + κ_chiral · h_local) · A²_μ_base
+        A²_ε = (1 − κ_chiral · h_local) · A²_ε_base
+        S_μ = √(1 − A²_μ),   S_ε = √(1 − A²_ε)
+
+    Asymmetric impedance: Z_eff = Z_0·√(S_μ/S_ε)
+    Reflection coefficient: Γ ≈ (1/2) ∇ln(Z_eff) per doc 54_ §6 Option II
+
+        ∇ln(Z_eff) = (1/(2 S_μ)) ∇S_μ − (1/(2 S_ε)) ∇S_ε
+        Γ ≈ (1/4) [∇S_μ/S_μ − ∇S_ε/S_ε]
+        Γ² = (1/16) |∇S_μ/S_μ − ∇S_ε/S_ε|²
+
+    Vanishes when S_μ = S_ε (symmetric case — Achromatic Impedance Lens,
+    Vol 4 Ch 11; no confinement wall, just wave slowing). Diverges as
+    S_μ → 0 with S_ε finite (Meissner asymmetric — Γ → -1 wall forms).
+
+    V_sq: squared K4 voltage field (nx, ny, nz), already summed over ports.
+    Returns (nx, ny, nz) reflection energy density.
+
+    See VACUUM_ENGINE_MANUAL §17 A14 r6 + doc 50_ r3 §0.1 + doc 54_ §6.
+    """
+    eps = _compute_strain(u, omega, dx)
+    eps_T = jnp.swapaxes(eps, -1, -2)
+    eps_sym = 0.5 * (eps + eps_T)  # symmetric strain → electric sector
+    kappa = _compute_curvature(omega, dx)  # curvature → magnetic sector
+
+    eps_sym_sq = jnp.sum(eps_sym * eps_sym, axis=(-1, -2))
+    kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
+
+    # Base (isotropic) saturation contributions per doc 54_ §6 line 185-186
+    A2_mu_base = kappa_sq / (omega_yield * omega_yield)
+    A2_eps_base = eps_sym_sq / (epsilon_yield * epsilon_yield) + V_sq / (V_SNAP * V_SNAP)
+
+    # Chirality bias per doc 54_ §6 line 218-219 (Form A — instantaneous;
+    # h_local is a property of the current ω field, not an accumulator).
+    h_local = _beltrami_helicity(omega, dx)
+    A2_mu = (1.0 + kappa_chiral * h_local) * A2_mu_base
+    A2_eps = (1.0 - kappa_chiral * h_local) * A2_eps_base
+
+    # Clip to [0, 1-δ) for autograd safety past Regime IV boundary
+    A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
+    A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
+
+    S_mu = jnp.sqrt(1.0 - A2_mu_c)
+    S_eps = jnp.sqrt(1.0 - A2_eps_c)
+
+    # ∇S_μ and ∇S_ε via tetrahedral gradient (same operator as symmetric
+    # W_refl for consistency). Wrap scalars in length-1 vector, take the
+    # gradient, strip the dummy axis.
+    grad_S_mu = _tetrahedral_gradient(S_mu[..., None])[..., 0, :] / dx
+    grad_S_eps = _tetrahedral_gradient(S_eps[..., None])[..., 0, :] / dx
+
+    # Regularized 1/S to avoid autograd divergence at boundary
+    eps_reg = 1e-6
+    inv_S_mu = 1.0 / jnp.sqrt(S_mu * S_mu + eps_reg)
+    inv_S_eps = 1.0 / jnp.sqrt(S_eps * S_eps + eps_reg)
+
+    # Γ_vec = (1/4)[(∇S_μ / S_μ) − (∇S_ε / S_ε)]  per Option II
+    gamma_vec = 0.25 * (grad_S_mu * inv_S_mu[..., None]
+                        - grad_S_eps * inv_S_eps[..., None])
+    gamma_sq = jnp.sum(gamma_vec * gamma_vec, axis=-1)
+
+    return gamma_sq
+
+
+def _update_saturation_kernels(
+    u: jnp.ndarray,
+    omega: jnp.ndarray,
+    V_sq: jnp.ndarray,
+    dx: float,
+    V_SNAP: float,
+    omega_yield: float,
+    epsilon_yield: float,
+    kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
+) -> tuple[jnp.ndarray, jnp.ndarray]:
+    """Return (S_μ, S_ε) per-site saturation kernels for asymmetric form.
+
+    Used by k4_cosserat_coupling._update_z_local_total to compute the
+    asymmetric impedance Z_eff/Z_0 = √(S_μ/S_ε) per doc 54_ §6 line 194.
+
+    Public helper so Phase 4 observers + coupling can share one code path
+    (single source of truth for (S_μ, S_ε) across observer / coupling / test).
+
+    Returns S_μ, S_ε each shape (nx, ny, nz), clipped to (δ, 1].
+    """
+    eps = _compute_strain(u, omega, dx)
+    eps_T = jnp.swapaxes(eps, -1, -2)
+    eps_sym = 0.5 * (eps + eps_T)
+    kappa = _compute_curvature(omega, dx)
+
+    eps_sym_sq = jnp.sum(eps_sym * eps_sym, axis=(-1, -2))
+    kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
+
+    A2_mu_base = kappa_sq / (omega_yield * omega_yield)
+    A2_eps_base = eps_sym_sq / (epsilon_yield * epsilon_yield) + V_sq / (V_SNAP * V_SNAP)
+
+    h_local = _beltrami_helicity(omega, dx)
+    A2_mu = (1.0 + kappa_chiral * h_local) * A2_mu_base
+    A2_eps = (1.0 - kappa_chiral * h_local) * A2_eps_base
+
+    A2_mu_c = jnp.clip(A2_mu, 0.0, 1.0 - 1e-10)
+    A2_eps_c = jnp.clip(A2_eps, 0.0, 1.0 - 1e-10)
+
+    S_mu = jnp.sqrt(1.0 - A2_mu_c)
+    S_eps = jnp.sqrt(1.0 - A2_eps_c)
+    return S_mu, S_eps
 
 
 def _energy_density_bare(

@@ -866,6 +866,11 @@ class EngineConfig:
     coupling_kappa: float = 1.0         # S1-D prefactor (C2 proxy for η_vac)
     axiom_4_enabled: bool = True
     V_SNAP_override: Optional[float] = None  # override if using non-SI
+    # Phase 4 — asymmetric μ/ε saturation (doc 54_ §6, VACUUM_ENGINE_MANUAL
+    # §17 A14 r6 + plan file Phase 3.5 step 17). Default True enables the
+    # axiom-native (S_μ, S_ε) split with chirality bias; False restores the
+    # pre-Phase-4 single-kernel symmetric form (legacy S1=D).
+    use_asymmetric_saturation: bool = True
 
 
 class VacuumEngine3D:
@@ -899,6 +904,7 @@ class VacuumEngine3D:
             N=config.N, pml=config.pml,
             rho=config.rho, I_omega=config.I_omega,
             V_SNAP=self.V_SNAP,
+            use_asymmetric_saturation=config.use_asymmetric_saturation,
         )
 
         self.k4 = self._coupled.k4

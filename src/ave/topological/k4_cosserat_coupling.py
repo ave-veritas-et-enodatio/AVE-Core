@@ -46,9 +46,13 @@ from ave.core.k4_tlm import K4Lattice3D
 from ave.core.constants import V_SNAP as _V_SNAP_CONST
 from ave.topological.cosserat_field_3d import (
     CosseratField3D,
-    _reflection_density,
-    _compute_strain,
+    KAPPA_CHIRAL_ELECTRON,
+    _beltrami_helicity,
     _compute_curvature,
+    _compute_strain,
+    _reflection_density,
+    _reflection_density_asymmetric,
+    _update_saturation_kernels,
 )
 
 
@@ -80,6 +84,11 @@ def _cosserat_A_squared(
 def _coupling_energy_total(u, omega, V_sq, V_SNAP, dx, omega_yield, epsilon_yield):
     """Scalar: ∫ (V²/V_SNAP²) · W_refl(u, ω) dx³.
 
+    Legacy S1=D coupling (symmetric, single-kernel W_refl). Retained for
+    comparison / regression tests that pin pre-Phase-4 behavior. Under
+    Phase 4 `use_asymmetric_saturation=True` (default in CoupledK4Cosserat),
+    `_coupling_energy_total_asymmetric` is called instead.
+
     Differentiating wrt (u, ω) gives the coupling force on Cosserat.
     """
     W_refl = _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
@@ -89,6 +98,39 @@ def _coupling_energy_total(u, omega, V_sq, V_SNAP, dx, omega_yield, epsilon_yiel
 
 _coupling_grad = jax.jit(
     jax.value_and_grad(_coupling_energy_total, argnums=(0, 1))
+)
+
+
+def _coupling_energy_total_asymmetric(
+    u, omega, V_sq, V_SNAP, dx,
+    omega_yield, epsilon_yield, kappa_chiral,
+):
+    """Scalar: ∫ W_refl_asymmetric(u, ω, V²) dx³ — Phase 4 coupling.
+
+    Under doc 54_ §6, V² is embedded into A²_ε (electric saturation
+    sector) rather than applied as a multiplicative factor on W_refl.
+    This supersedes the S1=D multiplicative form at the coupling level;
+    the asymmetric reflection density already contains the K4 voltage
+    contribution internally. No separate (V²/V_SNAP²) factor needed.
+
+    Linear-polarization drive produces zero net Beltrami helicity
+    (h_local = 0), so S_μ = S_ε and the reflection density vanishes
+    (Achromatic Impedance Lens — Vol 4 Ch 11). Chiral drive breaks the
+    symmetry and drives Γ² → large values where S_μ → 0 with S_ε
+    finite, producing the Meissner-like confinement wall per
+    Vol 1 Ch 7:252.
+
+    See VACUUM_ENGINE_MANUAL §17 A14 r6 + doc 50_ r3 §0.1 + doc 54_ §6.
+    """
+    W_refl = _reflection_density_asymmetric(
+        u, omega, V_sq, dx, V_SNAP,
+        omega_yield, epsilon_yield, kappa_chiral,
+    )
+    return jnp.sum(W_refl)
+
+
+_coupling_grad_asymmetric = jax.jit(
+    jax.value_and_grad(_coupling_energy_total_asymmetric, argnums=(0, 1))
 )
 
 
@@ -130,10 +172,19 @@ class CoupledK4Cosserat:
         *,
         V_SNAP: Optional[float] = None,
         cfl_safety: float = 0.3,
+        use_asymmetric_saturation: bool = True,
+        kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
     ):
         self.N = int(N)
         self.pml = int(pml)
         self.cfl_safety = float(cfl_safety)
+        # Phase 4 — Asymmetric μ/ε saturation (S1 gate reopen per doc 54_ §6,
+        # VACUUM_ENGINE_MANUAL §17 A14 r6). Default True enables the
+        # axiom-native (S_μ, S_ε) split with chirality bias; False restores
+        # the pre-Phase-4 single-kernel symmetric form for regression tests
+        # that pin legacy behavior.
+        self.use_asymmetric_saturation = bool(use_asymmetric_saturation)
+        self.kappa_chiral = float(kappa_chiral)
 
         # K4 photon sector: nonlinear=False so K4's node-level saturation
         # doesn't duplicate Cosserat coupling; op3_bond_reflection=True so
@@ -193,31 +244,49 @@ class CoupledK4Cosserat:
     # Coupling computations
     # -----------------------------------------------------------------
     def _update_z_local_total(self) -> None:
-        """Set k4.z_local_field from COMBINED A² = A²_K4 + A²_Cos via Op14.
+        """Set k4.z_local_field from the active saturation model.
 
-        A²_K4 = Σ_n V_inc²/V_SNAP² — already the formula K4 uses when
-                `nonlinear=True`. We compute it explicitly here since we
-                keep `nonlinear=False` (saturation handled once, via this
-                coupling path, not twice).
+        Phase 4 (use_asymmetric_saturation=True, default) — doc 54_ §6:
+            A²_μ = (1 + κ_chiral·h)·κ²/ω_yield²        (magnetic sector)
+            A²_ε = (1 − κ_chiral·h)·(ε²/ε_yield² + V²/V_SNAP²)   (electric)
+            S_μ = √(1−A²_μ), S_ε = √(1−A²_ε)
+            Z_eff/Z_0 = √(S_μ/S_ε)                     (Vol 1 Ch 7:252)
 
-        A²_Cos = ε²/ε_yield² + κ²/ω_yield² — from _cosserat_A_squared.
+          Symmetric case (h=0, linear drive): S_μ = S_ε → Z_eff = Z_0
+          constant (Achromatic Impedance Lens, Vol 4 Ch 11 — gravity).
+          Asymmetric (chiral drive): Z_eff → 0 as S_μ → 0 (Meissner,
+          Γ → -1 confinement wall for pair formation).
 
-        Z_eff/Z_0 = (1 − A²_total)^{−1/4}  (Op14, per k4_tlm.py convention).
+        Legacy (use_asymmetric_saturation=False) — single-kernel Op14:
+            A²_total = V²/V_SNAP² + ε²/ε_yield² + κ²/ω_yield²
+            Z_eff/Z_0 = (1 − A²_total)^{−1/4}
+          Pre-Phase-4 behavior; retained for regression tests pinning
+          the simplified form.
         """
         V_sq = _v_squared_per_site(self.k4.V_inc)
-        A_sq_k4 = V_sq / (self.V_SNAP ** 2)
 
-        A_sq_cos = _cosserat_A_squared(
-            self.cos.u, self.cos.omega, self.cos.dx,
-            self.cos.omega_yield, self.cos.epsilon_yield,
-        )
-
-        A_sq_total = A_sq_k4 + A_sq_cos
-        # Physical clip: A² ∈ [0, 1-ε); A²=1 is the rupture limit (Γ=−1 TIR)
-        A_sq_total = np.clip(A_sq_total, 0.0, 1.0 - 1e-12)
-
-        S = np.sqrt(1.0 - A_sq_total)
-        z_local = 1.0 / np.maximum(np.sqrt(S), 1e-6)
+        if self.use_asymmetric_saturation:
+            S_mu, S_eps = _update_saturation_kernels(
+                jnp.asarray(self.cos.u), jnp.asarray(self.cos.omega),
+                jnp.asarray(V_sq), self.cos.dx, self.V_SNAP,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+                self.kappa_chiral,
+            )
+            # Z_eff/Z_0 = √(S_μ/S_ε) per doc 54_ §6 line 194
+            S_mu_np = np.asarray(S_mu)
+            S_eps_np = np.asarray(S_eps)
+            z_local = np.sqrt(np.maximum(S_mu_np, 1e-12)
+                              / np.maximum(S_eps_np, 1e-12))
+        else:
+            A_sq_k4 = V_sq / (self.V_SNAP ** 2)
+            A_sq_cos = _cosserat_A_squared(
+                self.cos.u, self.cos.omega, self.cos.dx,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+            )
+            A_sq_total = A_sq_k4 + A_sq_cos
+            A_sq_total = np.clip(A_sq_total, 0.0, 1.0 - 1e-12)
+            S = np.sqrt(1.0 - A_sq_total)
+            z_local = 1.0 / np.maximum(np.sqrt(S), 1e-6)
 
         # Inactive sites stay at Z_0 = 1 (unity).
         z_local = np.where(self.k4.mask_active, z_local, 1.0)
@@ -226,16 +295,30 @@ class CoupledK4Cosserat:
     def _compute_coupling_force_on_cosserat(self) -> tuple[np.ndarray, np.ndarray]:
         """Compute (∂L_c/∂u, ∂L_c/∂ω) = grad of coupling energy.
 
+        Under use_asymmetric_saturation=True (Phase 4 default), the coupling
+        Lagrangian is the unified asymmetric W_refl with V² embedded inside
+        A²_ε — no separate (V²/V_SNAP²) multiplicative factor. Under the
+        legacy (False) path, the S1=D multiplicative form is used.
+
         Returns numpy arrays matching the existing energy_gradient shape.
         """
         V_sq = _v_squared_per_site(self.k4.V_inc)
         V_sq_j = jnp.asarray(V_sq)
         u_j = jnp.asarray(self.cos.u)
         w_j = jnp.asarray(self.cos.omega)
-        _, (dEc_du, dEc_dw) = _coupling_grad(
-            u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-            self.cos.omega_yield, self.cos.epsilon_yield,
-        )
+
+        if self.use_asymmetric_saturation:
+            _, (dEc_du, dEc_dw) = _coupling_grad_asymmetric(
+                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+                self.kappa_chiral,
+            )
+        else:
+            _, (dEc_du, dEc_dw) = _coupling_grad(
+                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+            )
+
         mask = self.cos._mask_alive_jax[..., None].astype(dEc_du.dtype)
         return np.asarray(dEc_du * mask), np.asarray(dEc_dw * mask)
 
