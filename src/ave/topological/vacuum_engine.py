@@ -388,6 +388,80 @@ class RegimeClassifierObserver(Observer):
         }
 
 
+class NodeResonanceObserver(Observer):
+    """Read-only observer of per-node LC-tank resonance softening derived
+    from Axiom 4's Vacuum Varactor.
+
+    Each active site's LC tank has a natural resonance `ω_0` (bare
+    Compton frequency at the bond scale per [24_step3 §4.2]) that
+    softens under local saturation per the Vol 4 Ch 1:127-142 varactor:
+
+        C_eff(V) = C_0 / √(1 − (V/V_yield)²) = C_0 / S(V)
+
+    giving a node resonance
+
+        Ω_node(r,t) / ω_0 = S(r,t)^(1/2) = (1 − A²_yield(r,t))^(1/4)
+
+    where `A²_yield = A²_total / α` converts the engine's V_SNAP-
+    normalized saturation (A²_k4 = V²/V_SNAP²) to V_yield normalization
+    per doc 54_ §5. The Cosserat contribution A²_cos is already yield-
+    normalized in its own sector (ε/ε_yield, κ/ω_yield); it is added
+    directly to A²_k4_yield by the Pythagorean vacuum strain theorem
+    (AVE-APU Vol 1 Ch 5:26-37; FUTURE_WORK.md G-7).
+
+    This is a READ-ONLY observer — it does not touch engine dynamics.
+    The ratio is clipped to [0, 1) for numerical safety at saturation.
+
+    Pre-registered prediction P_phase2_omega: the recorded
+    `omega_ratio_*` trajectory must match `(1 - A²_yield)^(1/4)`
+    within 5% across `A² ∈ (0, α/2)` on the v2 headline config.
+
+    References:
+      - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
+      - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
+    """
+
+    def _capture(self, engine: "VacuumEngine3D") -> dict:
+        V_sq = _v_squared_per_site(engine.k4.V_inc)
+        A2_k4_SNAP = V_sq / (engine.V_SNAP ** 2)
+        # Convert K4 sector to V_yield normalization (doc 54_ §5)
+        A2_k4_yield = A2_k4_SNAP / ALPHA
+        # Cosserat sector is already yield-normalized
+        A2_cos_yield = _cosserat_A_squared(
+            engine.cos.u, engine.cos.omega, engine.cos.dx,
+            engine.cos.omega_yield, engine.cos.epsilon_yield,
+        )
+        # Pythagorean quadrature sum of orthogonal DoFs (AVE-APU Vol 1 Ch 5)
+        A2_yield_total = A2_k4_yield + A2_cos_yield
+        # Clip to [0, 1) for numerical safety past saturation
+        A2_yield_clipped = np.clip(A2_yield_total, 0.0, 1.0 - 1e-12)
+        # Axiom-4 saturation kernel on V_yield scale
+        S = np.sqrt(1.0 - A2_yield_clipped)
+        # Ω_node/ω_0 = S^(1/2) = (1 − A²_yield)^(1/4)  (doc 54_ §4)
+        omega_ratio = np.sqrt(S)
+
+        alive = engine.k4.mask_active
+        if alive.any():
+            return {
+                "t": engine.time,
+                "omega_ratio_max": float(omega_ratio[alive].max()),
+                "omega_ratio_mean": float(omega_ratio[alive].mean()),
+                "omega_ratio_min": float(omega_ratio[alive].min()),
+                "A2_yield_max": float(A2_yield_total[alive].max()),
+                "A2_yield_mean": float(A2_yield_total[alive].mean()),
+                "n_saturated": int(np.sum(alive & (A2_yield_total >= 1.0))),
+            }
+        return {
+            "t": engine.time,
+            "omega_ratio_max": 1.0,
+            "omega_ratio_mean": 1.0,
+            "omega_ratio_min": 1.0,
+            "A2_yield_max": 0.0,
+            "A2_yield_mean": 0.0,
+            "n_saturated": 0,
+        }
+
+
 class TopologyObserver(Observer):
     """Records Q_H, centroids, shell radii.
 

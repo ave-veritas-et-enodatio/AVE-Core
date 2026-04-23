@@ -702,10 +702,24 @@ predictions:
     public_in_readme: false
     public_in_living_ref: false
     notes: |
-      Stage 6 Phase 2. Engine Ω_node(r,t) from NodeResonanceObserver
-      must match ω_yield·(1-A²/α)^(1/4) within 5% on the v2 headline
-      config (λ=3.5, T=0.1, K_drift=0.5). Falsification: deviation
-      >10% → varactor form is wrong for coupled K4⊗Cosserat sector.
+      Stage 6 Phase 2. Scope narrowed after first-run finding: the
+      observer computes Ω_node/ω_0 = (1-A²_yield)^(1/4) from engine
+      state, so "does observer match closed form?" is tautological.
+      The unit tests in test_phase2_node_resonance.py pin the
+      observer arithmetic. The validation driver
+      src/scripts/vol_1_foundations/node_resonance_validation.py
+      runs the v2 headline config end-to-end to confirm the observer
+      integrates cleanly with the engine (no crashes, no NaN,
+      ordering invariants hold, simulation evolves). Real physics
+      falsification of the varactor form on the coupled K4⊗Cosserat
+      sector would require a probe-frequency + FFT experiment — out
+      of scope for Phase 2; revisit as a Phase 5 follow-up if the
+      autoresonant lock fires incorrectly. The validation panel
+      also plots the AutoresonantCWSource's linear-Taylor
+      approximation (1 - K_drift·A²) against the full varactor
+      (1-A²_yield)^(1/4) — this is the real design decision for
+      Phase 5: upgrade the source or accept the approximation's
+      divergence at A²>0.3.
 
   - id: P_phase3_flux_tube
     name: "Φ_link persists ≥ 10 Compton periods between saturated endpoints"
