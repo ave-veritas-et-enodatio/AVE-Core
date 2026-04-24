@@ -690,11 +690,13 @@ class CosseratField3D:
         use_saturation: bool = True,
         rho: float = 1.0,
         I_omega: float = 1.0,
+        pml_thickness: int = 0,
     ):
         self.nx = nx
         self.ny = ny
         self.nz = nz
         self.dx = float(dx)
+        self.pml_thickness = int(pml_thickness)
 
         idx = np.indices((nx, ny, nz))
         i, j, k = idx[0], idx[1], idx[2]
@@ -705,6 +707,24 @@ class CosseratField3D:
         self.mask_alive = mask_A | mask_B
         self._i, self._j, self._k = i, j, k
         self._mask_alive_jax = jnp.asarray(self.mask_alive)
+
+        # ---------------------------------------------------------
+        # Cosserat-sector PML (doc 58_ derivation)
+        # ---------------------------------------------------------
+        # Ax1 + Ax3 require all wave-carrying sectors to have an absorbing
+        # boundary at the simulation edge. Mirrors the K4 Sponge PML
+        # (k4_tlm.py:174-190) applied to kinetic fields (u̇, ω̇) rather
+        # than reflected voltages. Interior (d ≥ pml_thickness) has mask=1
+        # and is untouched. See research/L3_electron_soliton/58_cosserat_pml_derivation.md.
+        self.cos_pml_mask = np.ones((nx, ny, nz, 1), dtype=np.float64)
+        if self.pml_thickness > 0:
+            d_x = np.minimum(i, nx - 1 - i)
+            d_y = np.minimum(j, ny - 1 - j)
+            d_z = np.minimum(k, nz - 1 - k)
+            d = np.minimum(np.minimum(d_x, d_y), d_z)
+            pml_region = d < self.pml_thickness
+            attenuation = 1.0 - ((self.pml_thickness - d[pml_region]) / self.pml_thickness) ** 2
+            self.cos_pml_mask[pml_region, 0] = np.maximum(0.0, attenuation)
 
         # State is numpy for easy mutation; converted to jnp at each energy /
         # gradient call. The conversion overhead is small relative to the
@@ -1121,9 +1141,17 @@ class CosseratField3D:
         return self.kinetic_energy() + self.total_energy()
 
     def _zero_velocities_outside_alive(self) -> None:
+        """Enforce mask_alive + PML absorption on kinetic fields (u̇, ω̇).
+
+        Interior (pml_mask=1) unchanged; PML region attenuated; inactive
+        sites zeroed. PML is only present when pml_thickness>0; for
+        pml_thickness=0 this is a pure mask_alive zero-out (legacy behavior).
+        Per doc 58_ Cosserat PML derivation.
+        """
         mask = self.mask_alive[..., None].astype(self.u_dot.dtype)
-        self.u_dot = self.u_dot * mask
-        self.omega_dot = self.omega_dot * mask
+        combined = mask * self.cos_pml_mask.astype(self.u_dot.dtype)
+        self.u_dot = self.u_dot * combined
+        self.omega_dot = self.omega_dot * combined
 
     def step(self, dt: float | None = None) -> None:
         """Advance (u, omega) one timestep via velocity-Verlet.

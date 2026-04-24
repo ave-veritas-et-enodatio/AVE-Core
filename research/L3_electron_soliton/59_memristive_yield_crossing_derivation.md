@@ -21,9 +21,9 @@ Near saturation (A² → 1), Op14 drives `L_eff → ∞`. Lenz's law gives `V_BE
 - [Vol 4 Ch 1:§3.3](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L209-L228): thixotropic hysteresis = time-integrated BEMF history
 
 **Predictions** (§11, three new entries in predictions.yaml):
-- `P_memristor_loop_area`: loop area = ℓ_node²·m_e·c²·f(ωτ) where f peaks at ω·τ_relax ≈ 0.9 (K4-nonlinear correction to Debye)
-- `P_yield_heal_topological_residue`: down-crossing leaves persistent topological defects with density n = Ax-derived formula
-- `P_cooling_rate_defect_density`: linear scaling with cooling rate (NOT Kibble-Zurek power-law) because Ax4 is first-order, not second-order
+- `P_phase5_memristor_loop_area`: loop area = ℓ_node²·m_e·c²·f(ωτ) where f peaks at ω·τ_relax ≈ 0.9 (K4-nonlinear correction to Debye)
+- `P_phase5_yield_heal_residue`: down-crossing leaves persistent topological defects with density n = Ax-derived formula
+- `P_phase5_cooling_rate_density`: linear scaling with cooling rate (NOT Kibble-Zurek power-law) because Ax4 is first-order, not second-order
 
 **What this doc does NOT do:** no engine implementation (Phi_link promotion to dynamical, Op14 relaxation-ODE extension) — §10 scopes that work; it's deferred per Grant's derive-before-simulate directive.
 
@@ -628,25 +628,25 @@ Per Grant's directive: derive before we simulate. Doc 59_ is the derivation. Imp
 
 Four new entries to be added to `manuscript/predictions.yaml`:
 
-### P_memristor_loop_area
+### P_phase5_memristor_loop_area
 
 **Claim:** hysteresis loop area A(ω) = ℓ_node² · m_e c² · f(ω·τ_relax) where f is given by Eq. 6.3 (two-channel approximation). Peak of f lies at ω·τ_relax ∈ [0.88, 0.92] for drive amplitudes Δr ≈ 0.3·V_SNAP around r_0 ≈ 0.7.
 
 **Falsification:** measured peak outside [0.85, 0.95] at matched drive parameters → higher-harmonic corrections, or different axiom-derivation required.
 
-### P_yield_heal_topological_residue
+### P_phase5_yield_heal_residue
 
 **Claim:** down-crossing through V_yield at finite cooling rate leaves topologically non-trivial ω residues. These residues persist for ≥ N Compton periods (N to be computed from Ax3 + Ax1; initial estimate N ≥ 100) in the post-heal solid regime.
 
 **Falsification:** residues decay within ≤ τ_relax of crossing → topology is not frozen (BEMF argument fails), or Ax1 topological protection is not operational in this regime.
 
-### P_cooling_rate_defect_density
+### P_phase5_cooling_rate_density
 
 **Claim:** defect density from cool-from-above scales LINEARLY with the volumetric yield-crossing rate (Eq. 5.2). This is distinctly different from Kibble-Zurek power-law `τ_Q^{-ν/(νz+1)}` because Ax4 is a first-order transition, not second-order.
 
 **Falsification:** observed scaling is power-law with exponent ≠ 1 → AVE's yield transition has a continuous order parameter (which would falsify Ax4's Bingham picture), or our counting argument in §5.2 is incorrect.
 
-### P_chirality_horizon_coupling
+### P_phase5_chirality_horizon
 
 **Claim:** pair nucleations cluster spatially at chirality domain walls (interfaces between +h_local and -h_local regions). Chirality domain walls coincide with impedance-gradient maxima (regions where |∇Z_eff| is large). Testable by running the Phase 5 driver with a pre-imposed spatial impedance gradient (mock horizon) and measuring the spatial correlation function between gate firings and |∇h_local| magnitude.
 
@@ -693,6 +693,6 @@ The complete AVE ↔ SM/QFT/CondMat dictionary is maintained in the session memo
 
 *Derived 2026-04-23 by Opus 4.7 per Grant's directive: "research and do it right, document everything."*
 
-*Round 2 (same day) added §5.3 driven-vs-stochastic chirality, §5.4 lattice-genesis framing, §6.6 KZ-vs-linear crossover, §8.4 lattice-scale matter/antimatter+CPT, §8.5 why-BH-is-black-not-mirror, §8.6 genesis↔BH connection, P_chirality_horizon_coupling prediction, Flag G (pre-genesis plasma axiomatics), Flag H (curved-spacetime CPT), plus spin-Seebeck/baryogenesis/BH-info-paradox landmarks.*
+*Round 2 (same day) added §5.3 driven-vs-stochastic chirality, §5.4 lattice-genesis framing, §6.6 KZ-vs-linear crossover, §8.4 lattice-scale matter/antimatter+CPT, §8.5 why-BH-is-black-not-mirror, §8.6 genesis↔BH connection, P_phase5_chirality_horizon prediction, Flag G (pre-genesis plasma axiomatics), Flag H (curved-spacetime CPT), plus spin-Seebeck/baryogenesis/BH-info-paradox landmarks.*
 
 *Eight flag items in §12 — awaiting adjudication before any engine implementation. Four pre-registered predictions in §11 to be added to predictions.yaml.*

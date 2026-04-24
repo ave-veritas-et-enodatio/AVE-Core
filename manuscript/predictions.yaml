@@ -803,7 +803,7 @@ predictions:
       creation-via-autoresonance story falsifies. Publish as null
       result per 51_handoff §5a if it falls.
 
-  - id: P_memristor_loop_area
+  - id: P_phase5_memristor_loop_area
     name: "Hysteresis loop area peaks at ω·τ_relax ≈ 0.9 (K4-nonlinear Debye)"
     type: derived_prediction
     pre_registered: true
@@ -825,7 +825,7 @@ predictions:
       of S_eq(r) = √(1−r²) near r=1 (K4 lattice topology modifies the
       response).
 
-  - id: P_yield_heal_topological_residue
+  - id: P_phase5_yield_heal_residue
     name: "Yield-heal down-crossing leaves topologically-protected defects (BEMF-blocked unwinding)"
     type: derived_prediction
     pre_registered: true
@@ -849,7 +849,7 @@ predictions:
       argument fails OR Ax1 topological protection not operational in
       this regime.
 
-  - id: P_cooling_rate_defect_density
+  - id: P_phase5_cooling_rate_density
     name: "Defect density scales linearly with volumetric yield-crossing rate (NOT Kibble-Zurek)"
     type: derived_prediction
     pre_registered: true
@@ -873,7 +873,7 @@ predictions:
       matched preparation → Ax4 is NOT first-order in this regime (would
       falsify Bingham picture), OR counting argument in §5.2 is wrong.
 
-  - id: P_chirality_horizon_coupling
+  - id: P_phase5_chirality_horizon
     name: "Pair nucleations cluster at chirality domain walls / impedance-gradient maxima"
     type: derived_prediction
     pre_registered: true

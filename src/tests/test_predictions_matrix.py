@@ -70,6 +70,11 @@ class TestManifestHasStage6Entries:
         "P_phase4_asymmetric",
         "P_phase5_nucleation",
         "P_phase6_autoresonant",
+        # Phase 5.6 — memristive yield-crossing (doc 59_)
+        "P_phase5_memristor_loop_area",
+        "P_phase5_yield_heal_residue",
+        "P_phase5_cooling_rate_density",
+        "P_phase5_chirality_horizon",
     }
 
     def test_all_six_entries_present(self):
@@ -175,6 +180,11 @@ class TestPreRegisteredPaths:
             "src/tests/test_phase4_asymmetric_saturation.py",
             "src/tests/test_phase5_pair_nucleation_gate.py",
             "src/tests/test_phase6_autoresonant_advantage.py",
+            # Phase 5.6 — memristive yield-crossing (doc 59_), engine work pending
+            "src/tests/test_memristive_op14.py",
+            "src/tests/test_yield_heal_residue.py",
+            "src/tests/test_cooling_rate_defect_density.py",
+            "src/tests/test_chirality_horizon_coupling.py",
         }
 
         if path_str in phase_1_tests:

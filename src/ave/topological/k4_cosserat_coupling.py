@@ -204,10 +204,14 @@ class CoupledK4Cosserat:
         # Cosserat soliton sector, natural units (S4-A), linear Lagrangian
         # (Op10, Hopf, reflection all off — reflection is carried by the
         # coupling term, NOT as a standalone energy).
+        # pml_thickness inherits from K4 per doc 58_ §4.3 (same lattice,
+        # same boundary, Ax3 → same rule every sector). pml=0 disables
+        # Cosserat PML (legacy behavior preserved).
         self.cos = CosseratField3D(
             nx=N, ny=N, nz=N, dx=1.0,
             use_saturation=False,
             rho=rho, I_omega=I_omega,
+            pml_thickness=pml,
         )
         self.cos.k_op10 = 0.0
         self.cos.k_refl = 0.0   # carried in coupling
