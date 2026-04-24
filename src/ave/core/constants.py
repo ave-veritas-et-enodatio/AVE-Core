@@ -222,6 +222,15 @@ NATIVE_TO_SI_ENERGY_EV: float = M_E * C_0**2 / e_charge  # 1 native energy [eV] 
 NATIVE_TO_SI_TIME: float = HBAR / (M_E * C_0**2) # 1 native time = ℏ/(m_e c²) [s]
 NATIVE_TO_SI_VELOCITY: float = C_0               # 1 native velocity = c [m/s]
 
+# Thixotropic relaxation time — minimum state-change time of the K4 lattice.
+# Derived from Ax1 (ℓ_node from K4 pitch) + Ax3 (propagation at c) in
+# research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §1.
+# Any saturation-state change must propagate at minimum one lattice spacing
+# at wave speed c; no faster relaxation mode is axiom-permitted.
+# Matches Vol 4 Ch 1:214 (thixotropic hysteresis) exactly.
+TAU_RELAX_SI: float = L_NODE / C_0               # ≈ 1.288e-21 s
+TAU_RELAX_NATIVE: float = 1.0                    # ℓ_node/c = 1 in natural units
+
 # =============================================================================
 # MACROSCOPIC EE TO TOPOLOGICAL KINEMATIC CONVERSIONS (VCA)
 # =============================================================================

@@ -1534,6 +1534,12 @@ class EngineConfig:
     # axiom-native (S_μ, S_ε) split with chirality bias; False restores the
     # pre-Phase-4 single-kernel symmetric form (legacy S1=D).
     use_asymmetric_saturation: bool = True
+    # Phase 5.6 — memristive Op14 (doc 59_ §9-§10). Default False opt-in
+    # preserves legacy instantaneous Op14. When True, K4 per-cell saturation
+    # S(t) evolves via dS/dt = (S_eq − S)/τ_relax with backward Euler —
+    # enables hysteresis, stabilizes sustained high-amplitude drive, and
+    # makes cool-from-above experiments observe correct yield dynamics.
+    use_memristive_saturation: bool = False
 
 
 class VacuumEngine3D:
@@ -1568,6 +1574,7 @@ class VacuumEngine3D:
             rho=config.rho, I_omega=config.I_omega,
             V_SNAP=self.V_SNAP,
             use_asymmetric_saturation=config.use_asymmetric_saturation,
+            use_memristive_saturation=config.use_memristive_saturation,
         )
 
         self.k4 = self._coupled.k4

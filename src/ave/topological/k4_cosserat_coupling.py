@@ -174,6 +174,7 @@ class CoupledK4Cosserat:
         cfl_safety: float = 0.3,
         use_asymmetric_saturation: bool = True,
         kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
+        use_memristive_saturation: bool = False,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -189,10 +190,14 @@ class CoupledK4Cosserat:
         # K4 photon sector: nonlinear=False so K4's node-level saturation
         # doesn't duplicate Cosserat coupling; op3_bond_reflection=True so
         # z_local → bond Γ path is active (per Axiom 4 / Op3).
+        # use_memristive_saturation (opt-in, doc 59_) integrates per-cell
+        # S(t) dynamics — legacy default False preserves instantaneous Op14.
+        self.use_memristive_saturation = bool(use_memristive_saturation)
         self.k4 = K4Lattice3D(
             nx=N, ny=N, nz=N, dx=1.0,
             nonlinear=False, pml_thickness=pml,
             op3_bond_reflection=True,
+            use_memristive_saturation=use_memristive_saturation,
         )
         # Override k4.dt and k4.c to natural units (c = 1, dx = 1, dt = 1/√2)
         # so both sectors share a unit system. This does NOT change K4's
@@ -200,6 +205,9 @@ class CoupledK4Cosserat:
         # time scale label changes.
         self.k4.c = 1.0
         self.k4.dt = 1.0 / np.sqrt(2.0)
+        # τ_relax = ℓ_node / c; must match the overridden c + dt unit system
+        # (engine uses natural units throughout). Per doc 59_ §1.
+        self.k4.tau_relax = self.k4.dx / self.k4.c
 
         # Cosserat soliton sector, natural units (S4-A), linear Lagrangian
         # (Op10, Hopf, reflection all off — reflection is carried by the

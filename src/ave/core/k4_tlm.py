@@ -90,7 +90,8 @@ class K4Lattice3D:
     """
 
     def __init__(self, nx, ny, nz, dx=1.0, nonlinear=False, pml_thickness=0,
-                 op3_bond_reflection=False):
+                 op3_bond_reflection=False, use_memristive_saturation=False,
+                 tau_relax=None):
         """
         Args:
             op3_bond_reflection: If True, applies Op3 reflection at each bond
@@ -101,6 +102,19 @@ class K4Lattice3D:
                 backwards compatibility with existing validator scripts.
                 See research/L3_electron_soliton/L3_PHASE3_SESSION_20260420
                 handoff for the full AVE explanation.
+            use_memristive_saturation: If True (opt-in), replaces the
+                instantaneous Op14 `Z_eff = Z_0/√S_eq(V)` with the full
+                memristive dynamics per doc 59_: integrates a per-cell
+                saturation state S(t) via first-order relaxation
+                `dS/dt = (S_eq(V) − S(t)) / τ_relax` with backward Euler.
+                At ω·τ_relax << 1 (slow drive) this reduces to current Op14.
+                Near yield or at simulation ω·τ_relax ~ 1 (Phase 5 regime),
+                S(t) lags S_eq — giving the pinched-hysteresis loop.
+                Default False preserves legacy behavior exactly.
+            tau_relax: τ_relax = ℓ_node/c per Ax1+Ax3 derivation (doc 59_ §1).
+                If None (default), computed from dx/c so units match self.dt.
+                In SI mode: ≈ 3.34e-9 s. In native units (c=1, dx=1): = 1.0.
+                Override only for tests exploring the fast/slow limit.
         """
         self.nx = nx
         self.ny = ny
@@ -109,10 +123,17 @@ class K4Lattice3D:
         self.nonlinear = nonlinear
         self.pml_thickness = pml_thickness
         self.op3_bond_reflection = op3_bond_reflection
-        
+        self.use_memristive_saturation = bool(use_memristive_saturation)
+
         # Dispersion: wave crossing a 4-port junction is exactly c0 = dx / (dt * sqrt(2))
         self.c = float(C_0)
         self.dt = dx / (self.c * np.sqrt(2.0))
+
+        # τ_relax = ℓ_node / c = dx / c in whatever units dx, c are given.
+        # Matches self.dt's unit system → dt/τ_relax = 1/√2 ≈ 0.707 is a
+        # unit-system-invariant ratio. Engine override of self.c + self.dt
+        # requires updating self.tau_relax to match (see CoupledK4Cosserat).
+        self.tau_relax = float(tau_relax) if tau_relax is not None else (dx / self.c)
         
         # State arrays shape: (nx, ny, nz, 4 ports)
         self.V_inc = np.zeros((nx, ny, nz, 4), dtype=float)
@@ -206,6 +227,12 @@ class K4Lattice3D:
         # For backward compatibility with validation scripts
         self.z_local_field = np.ones((nx, ny, nz), dtype=float)
 
+        # Memristive saturation state S(t). Always allocated for introspection;
+        # only used in dynamics when use_memristive_saturation=True.
+        # Initial state: S=1 (fully unsaturated), matches cold-vacuum V=0.
+        # Per doc 59_ §9: dS/dt = (S_eq(V/V_SNAP) − S)/τ_relax.
+        self.S_field = np.ones((nx, ny, nz), dtype=float)
+
     def _update_z_local_field(self):
         """Compute the local impedance at every active site from the current
         incident voltage magnitude. Needed by op3_bond_reflection to know
@@ -224,12 +251,26 @@ class K4Lattice3D:
         v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
         v_snap = float(V_SNAP)
         strain = v_total / v_snap
-        # S = sqrt(1 - A^2) per universal_saturation.
-        S_factor = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
+        # S_eq = √(1 - A²) per Op2 (Ax4 saturation kernel).
+        S_eq = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
+
+        if self.use_memristive_saturation:
+            # Memristive Op14 (doc 59_ §9): S(t) lags S_eq with backward Euler
+            # integration of dS/dt = (S_eq − S)/τ_relax.
+            # S_{n+1} = (S_n·τ + dt·S_eq) / (τ + dt). Unconditionally stable.
+            dt = self.dt
+            tau = self.tau_relax
+            self.S_field = (self.S_field * tau + dt * S_eq) / (tau + dt)
+            S_used = self.S_field
+        else:
+            # Legacy instantaneous Op14: S = S_eq at each step.
+            self.S_field = S_eq  # keep state consistent for introspection
+            S_used = S_eq
+
         # Op14 canonical: Z_eff = Z_0 / sqrt(S), i.e., Z/Z_0 = 1/(1-A^2)^(1/4).
         # Prior code used S_factor**0.25 (= (1-A^2)^(1/8)) which is off by a factor
         # of 2 in the exponent; corrected to sqrt(S_factor) to match Op14.
-        self.z_local_field = 1.0 / np.maximum(np.sqrt(S_factor), 1e-6)
+        self.z_local_field = 1.0 / np.maximum(np.sqrt(S_used), 1e-6)
         # Inactive sites get baseline Z_0; they contribute nothing physically.
         self.z_local_field[~self.mask_active] = 1.0
 
@@ -252,13 +293,26 @@ class K4Lattice3D:
 
             strained = strain > 0.01
             if np.any(strained):
-                # Op2: S = √(1 - A²), with A = strain/V_SNAP ∈ [0, 1]
-                S_factor = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
+                # Op2: S_eq = √(1 - A²), with A = strain/V_SNAP ∈ [0, 1]
+                S_eq = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
+
+                if self.use_memristive_saturation:
+                    # Memristive Op14 — S(t) lags S_eq with backward Euler
+                    # (same integration used in _update_z_local_field).
+                    # Doc 59_ §9. τ_relax = ℓ_node/c = 1 in native units.
+                    dt = self.dt
+                    tau = self.tau_relax
+                    self.S_field = (self.S_field * tau + dt * S_eq) / (tau + dt)
+                    S_used = self.S_field
+                else:
+                    self.S_field = S_eq
+                    S_used = S_eq
+
                 # Op14: Z_eff = Z_0/√S, i.e., (1-A²)^(-1/4) in natural units.
                 # Previously used S_factor**0.25 which gave (1-A²)^(-1/8); off by 2×.
-                z_strained = 1.0 / np.maximum(np.sqrt(S_factor), 1e-6)
+                z_strained = 1.0 / np.maximum(np.sqrt(S_used), 1e-6)
                 self.z_local_field[strained] = z_strained[strained]
-                
+
                 for idx in zip(*np.where(strained & self.mask_active)):
                     self._S_field[idx] = build_scattering_matrix(z_strained[idx])
                     
