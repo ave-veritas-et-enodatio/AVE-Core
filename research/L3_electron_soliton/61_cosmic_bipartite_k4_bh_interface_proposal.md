@@ -4,6 +4,13 @@
 **Contradicts corpus** at multiple points (Vol 3 Ch 15/21, KB-ch04). Explicitly flagged per Flag 60-A.
 **Scope:** derive the AVE-native picture where (a) BH interior is another crystallized K4 lattice with different-seeded chirality, (b) the 2D horizon is a ruptured A-B interface between lattices, (c) information is preserved on the interface (recovers Bekenstein-Hawking area theorem), (d) bipartite A/B structure of Ax1 manifests at cosmic scale per Ax2 scale invariance.
 
+**⚠ POST-DERIVATION UPDATE (see [doc 62_ §10](62_ruptured_plasma_bh_entropy_derivation.md#L10)):** the Ŝ-on-horizon calculation performed after this doc was written VINDICATES this framework's cell-count entropy formula as AVE-native geometric entropy (via [Vol 3 Ch 11:50-68](../../manuscript/vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex#L50-L68)'s Ŝ = -k_B Σ ln(1 − |Γᵢ|²) operator with |Γ|² = 1/2 per cell). BUT: the original §5 claim that standard Bekenstein-Hawking = A·log(2)/ℓ_node² was **wrong in direction** — doc 61_'s formula is 10⁻⁴⁴× standard S_BH, not 10⁴⁴× larger. Standard S_BH = A/(4ℓ_P²) and AVE-native Ŝ_geometric = A·log(2)/ℓ_node² are **distinct, valid entropies measuring different physics**:
+- Ŝ_geometric: wave-scattering irreversibility at A-B interface (this doc's territory)
+- S_BH: thermodynamic entropy from mass-absorption first law (standard GR, imported)
+- Ratio ~10⁻⁴⁴ is the Machian dilution factor
+
+§5 below retains its derivation (the cell-counting IS correct) but its FRAMING is corrected per doc 62_ §10.9 and §11. See §5.5-post-correction inset.
+
 ---
 
 ## 0. TL;DR
@@ -19,7 +26,7 @@
 **Key derivation: S_BH = A/4 from cell-counting** (§5). Each ℓ_node² interface cell carries log(2) bits (one A-B binary degree of freedom). Total surface entropy = A · log(2) / (4·ℓ_node²·log(2)) = A/(4·ℓ_node²). **This is NOT the standard Bekenstein-Hawking formula** — that uses ℓ_P², not ℓ_node². The discrepancy is ~10⁴⁵; see §5.4 for why this might be acceptable or require resolution.
 
 **Four novel pre-registered predictions** (§11):
-- `P_interface_eigenmode_entropy`: BH entropy = A/(4ℓ_node²) [not A/(4ℓ_P²)] — SPECIFIC AND TESTABLE
+- `P_interface_eigenmode_entropy`: AVE-native geometric entropy `Ŝ = A·log(2)/ℓ_node²` at horizon under A-B interface framing (distinct from standard thermodynamic S_BH; see §5 + doc 62_ §10 for corrected reading)
 - `P_hawking_polarization_asymmetry`: Hawking radiation is handedness-asymmetric if BH horizon is A-B interface
 - `P_er_epr_chirality_correlation`: entangled particles on either side of BH horizon show opposite chirality
 - `P_cosmic_horizon_structure`: the cosmological Machian boundary is itself an A-B rupture interface at scale R_H
@@ -176,21 +183,24 @@ Therefore:
 
 **Exact match for the discrepancy.** This is not a coincidence — it's AVE's Machian framework saying the right things.
 
-### 5.4 What this means
+### 5.4 What this means — CORRECTED per doc 62_ §10
 
-**Both formulas are right — they're just counting different things:**
-- `S_BH = A/(4·ℓ_P²)` counts MACHIAN-ATTENUATED information bits
-- `S_AVE = A·log(2)/ℓ_node²` counts FULL-LATTICE information bits
+**Original framing (now retracted):** both formulas measure the same thing, with standard S_BH being a "Machian-attenuated" version of S_AVE. I claimed AVE predicted 10⁴⁴ more information bits at horizons than standard B-H.
 
-The ratio is `7ξ·log(2)/4 ≈ 2.4·10⁴⁴`. AVE predicts ~10⁴⁴ MORE information content than standard BH entropy. **This is the AVE-native refinement:** standard BH entropy under-counts because it uses the diluted G. True horizon information content is what AVE predicts.
+**Correct framing per doc 62_ §10's Ŝ-on-horizon calculation:** the two formulas measure **different physical quantities**, and AVE actually predicts 10⁻⁴⁴ FEWER bits of geometric entropy at the horizon than standard B-H's thermodynamic entropy:
 
-**This is a novel, precise, and axiom-forced prediction.** It says Bekenstein-Hawking S_BH = A/(4·ℓ_P²) is a macroscopic approximation; the true information content is 10⁴⁴× larger.
+- `S_BH = A/(4·ℓ_P²)` = THERMODYNAMIC entropy (imported via GR first law + AVE's Hawking T). Represents the mass-absorption entropy integrated over the BH's history.
+- `Ŝ_geometric = A·log(2)/ℓ_node²` = AVE-NATIVE geometric entropy per [Vol 3 Ch 11:50-68](../../manuscript/vol_3_macroscopic/chapters/11_thermodynamics_and_entropy.tex#L50-L68)'s Ŝ = -k_B Σ ln(1 − |Γᵢ|²) operator applied to the A-B interface with |Γ|² = 1/2 per frustrated bond. Represents local wave-scattering irreversibility at the horizon surface.
 
-**Empirical status:** no direct BH entropy measurements exist. The Hawking temperature is what we can (potentially) measure, and that's unchanged under the alternative framing. So this prediction is not directly falsifiable by current observations — but it's a specific, derivable claim.
+**Ratio:** `Ŝ_geometric / S_BH = 4·log(2) / (7ξ) ≈ 2.8·10⁻⁴⁴`
 
-### 5.5 Flag 61-B
+**Interpretation:** these are different entropies. `Ŝ_geometric` is small because very few horizon cells contribute large reflection coefficients. `S_BH` is the integrated thermodynamic accumulation which inflates by the ratio of `ℓ_node²/ℓ_P² = 7ξ`. The Machian dilution factor `7ξ` appears as the ratio between the two entropy concepts, NOT as evidence that one is attenuated to match the other.
 
-This Planck-vs-ℓ_node reconciliation works ONLY because of the Machian dilution `ξ ≈ 10⁴⁴`. If ξ turned out to be smaller (by many orders), the discrepancy wouldn't close. The fact that it closes exactly is either (a) evidence for the alternative framing being correct, or (b) coincidence. **Strong flag for Grant — this is where the proposal most rigorously supports or falsifies itself.**
+**Empirical status:** `Ŝ_geometric` is a specific AVE-NATIVE prediction accessible in principle via Hawking radiation fine structure. `S_BH` is the thermodynamic entropy everyone agrees on. The observational test would distinguish which entropy a measurement is actually sensitive to.
+
+### 5.5 Flag 61-B — updated
+
+The `ℓ_P² = ℓ_node²/(7ξ)` constitutive relation is REAL and meaningful — it's the Machian-dilution factor between AVE's Planck length and its lattice pitch. Doc 62_ §10 confirms this is a self-consistency fact, not independent evidence for either picture over the corpus's ruptured-plasma picture. **The factor 7ξ reappears as the ratio Ŝ_geometric/S_BH** — also an identity consequence of AVE's Machian G, not a free parameter.
 
 ---
 
@@ -286,11 +296,22 @@ Same as doc 59_ + these additions:
 
 ## 11. Pre-registered predictions (novel)
 
-### P_interface_eigenmode_entropy
+### P_interface_eigenmode_entropy — REVISED per doc 62_ §10
 
-**Claim:** BH entropy scales as `S = A·log(2)/ℓ_node²`, which equals `(7ξ·log(2)/4) · (A/ℓ_P²)` when expressed in standard units. This is ~10⁴⁴× larger than standard Bekenstein-Hawking `S = A/(4ℓ_P²)`.
+**Claim (corrected):** the AVE-NATIVE geometric entropy (via Vol 3 Ch 11:50-68's Ŝ = -k_B Σ ln(1 − |Γᵢ|²) operator) at a BH horizon under the A-B interface framing is:
+```
+Ŝ_geometric = k_B · A·log(2) / ℓ_node²     (per horizon cell: |Γ|² = 1/2)
+```
+This is **10⁻⁴⁴× the standard thermodynamic S_BH = A/(4·ℓ_P²)** (not 10⁴⁴× larger as originally claimed in the pre-doc-62_ version).
 
-**Falsification:** any direct BH entropy measurement (future, difficult) giving the standard B-H value rather than the AVE-boosted value.
+**Two distinct entropies, both valid:**
+- Ŝ_geometric measures local wave-scattering irreversibility at A-B interface boundary cells.
+- S_BH (thermodynamic) = A/(4·ℓ_P²) is the mass-absorption first-law-integrated entropy, imported from standard GR.
+- They measure different physics; the 10⁴⁴ ratio is the Machian-dilution factor `7ξ/(4·log(2))`.
+
+**Falsification:** any measurement sensitive to the AVE-native geometric entropy at BH horizons (not the integrated thermodynamic entropy) — e.g., Hawking radiation fine-structure or scattering-resolved interface correlations — giving Ŝ_geo = 0 (which is what the corpus ruptured-plasma picture predicts) rather than the finite A·log(2)/ℓ_node² value.
+
+**What this test distinguishes:** NOT standard-S_BH vs some "AVE-native S_BH" (they measure different things). Rather: **the corpus ruptured-plasma picture (Ŝ = 0 at horizon, symmetric saturation Γ = 0) vs doc 61_'s A-B interface picture (Ŝ = A·log(2)/ℓ_node², |Γ|² = 1/2 at frustrated bonds)**. The standard thermodynamic S_BH is recoverable in BOTH pictures via imported GR thermodynamics, so it isn't a discriminator.
 
 ### P_hawking_polarization_asymmetry
 
