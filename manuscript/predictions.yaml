@@ -900,3 +900,96 @@ predictions:
       spatial clustering, which would weaken the §8.5 BH-horizon-as-
       chirality-boundary interpretation.
 
+  # ─── Round 6 single-electron validation (Path A, K4-only) ───────────────────
+  # Doc 66_ pivot: validate that a single (2,3)-wound K4 TLM eigenmode forms
+  # and persists in closed-system evolution BEFORE returning to pair-nucleation
+  # gate work. Path A uses K4 V_inc (2,3) seeding only; no Cosserat dependency.
+  # Path B (coupled K4+Cosserat) follows if Path A passes.
+
+  - id: P_electron_tlm_topological_charge
+    name: "Seeded (2,3) V_inc ansatz preserves N_crossings = 3 under closed-system K4 TLM"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    test_file: "src/tests/test_electron_tlm_eigenmode.py"
+    axioms_used: [1, 3]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Round 6 single-electron validation (Path A, K4-only). At
+      N=96³ periodic BCs, amp=0.9·V_YIELD, 400 steps. Topological crossing
+      count extracted via extract_crossing_count_tlm(lattice, R_major) at
+      run end must equal 3 (electron Hopf charge Q_H = 6 = 2·3 → N_crossings
+      = 3) for BOTH Golden Torus seed AND perturbed seed (+30%/-30%). No
+      tolerance — topological integers. Ax1 (K4 bipartite topology gives
+      crossing-number invariant), Ax3 (c-limit propagation preserves closed
+      loops under closed-system evolution). Falsification: any other integer
+      or 0 (topology dispersed) → (2,3) ansatz is not an eigenmode of K4
+      closed-system dynamics; single-electron representation fails;
+      Stage 6 gate adjudication remains blocked.
+
+  - id: P_electron_tlm_energy_conservation
+    name: "Closed-system K4 TLM conserves total energy to within 0.5% over 400 steps"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    test_file: "src/tests/test_electron_tlm_eigenmode.py"
+    axioms_used: [3]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Round 6 single-electron validation (Path A, K4-only).
+      Integrator-sanity kill-switch. At N=96³ periodic BCs, 400 steps:
+      (E_max - E_min) / E_0 < 0.005. If the K4 TLM integrator does not
+      conserve energy at this tolerance under closed-system evolution,
+      single-electron validation is blocked regardless of other criteria
+      — numerical dissipation would mask or mimic topology-decay failure
+      modes. Falsification: ΔE/E₀ ≥ 0.5% → audit K4Lattice3D.step() for
+      dissipation sources (scatter matrix, Op3 bond reflection, Op14
+      memristive coupling) before further Round 6 validation work.
+
+  - id: P_electron_tlm_golden_torus_convergence
+    name: "Op6 self-consistency converges to R/r = φ² from both Golden Torus and perturbed seeds"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    test_file: "src/tests/test_electron_tlm_eigenmode.py"
+    axioms_used: [1, 2]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Round 6 single-electron validation (Path A, K4-only). Under
+      Op6 self-consistency iteration (solve_eigenmode_self_consistent,
+      max 6 iters, tol 1e-3), time-RMS (R, r) of the (2,3) standing wave
+      must converge to R/r = φ² ≈ 2.618 within ±5% from BOTH Golden Torus
+      seed AND perturbed seed (R+30%/r-30%). Pass: |R/r - φ²| / φ² < 0.05
+      from both seeds AND both converge within 6 iterations. Ax1 (K4
+      topology), Ax2 (topo-kinematic isomorphism → Golden Torus is the
+      (2,3) eigenmode geometry per Vol 1 Ch 8). Falsification: either seed
+      fails to converge, or converges to a geometry away from φ² → (2,3)
+      eigenmode basin does not span the perturbation range, OR Golden
+      Torus is not the self-consistent geometry for this eigenmode.
+
+  - id: P_electron_tlm_alpha_derivation
+    name: "α⁻¹ from DYNAMICAL (2,3) eigenmode (R, r) matches 137.036 within 2%"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    test_file: "src/tests/test_electron_tlm_eigenmode.py"
+    axioms_used: [1, 2]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Round 6 single-electron validation (Path A, K4-only).
+      Distinct from P01 (Ch 8 α-golden-torus) which tests statically-
+      posed Golden Torus geometry giving α⁻¹. This prediction validates
+      that α⁻¹ = 4π³ + π² + π ≈ 137.0363 survives being derived from a
+      DYNAMICALLY-EVOLVED (R_rms, r_rms) extracted from closed-system K4
+      TLM — i.e., the eigenmode that emerges from seed convergence rather
+      than hand-posed. Via Ch 8 multipole decomposition:
+      extract_alpha_inverse(R_rms, r_rms, c=3)['alpha_inv']. Pass: |α⁻¹ -
+      137.0363| / 137.0363 < 0.02 from both Golden Torus seed and perturbed
+      seed. Falsification: > 2% deviation → the dynamical eigenmode does
+      not carry the Ch 8 multipole geometry that yields α⁻¹, and P01's
+      static-geometry derivation does not survive dynamical instantiation.
+

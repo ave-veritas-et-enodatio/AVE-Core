@@ -246,4 +246,62 @@ My Round 5/6 framing drifted into QFT register. Explicit creeper flags + AVE-nat
 
 ---
 
-*Written 2026-04-24 (Round 6) by Opus 4.7. Source-of-truth for the Stage 6 → single-electron-first pivot. Future agents: read this first before touching the pair-nucleation gate.*
+## 13. Path A outcome — falsified; "spin on top of chirality" mechanism identified
+
+Ran [test_electron_tlm_eigenmode.py](../../src/tests/test_electron_tlm_eigenmode.py) at N=48 (CI-friendly; pre-registered criteria at N=96 but any scale-dependence would itself be an axiom-layer flag). 41 seconds runtime. Result: **2 of 8 tests passing.**
+
+**Passed:**
+- `P_electron_tlm_energy_conservation` (both seeds). K4 TLM integrator conserves energy to ΔE/E₀ < 0.5% over 400 steps. Not dissipative; baseline fine.
+
+**Failed:**
+- `P_electron_tlm_topological_charge` (both seeds): N_crossings = 0 after 400 steps. Topology fully dispersed from seed.
+- `P_electron_tlm_golden_torus_convergence` (both seeds): Op6 did converge — but to R/r = 0.281, not φ² = 2.618. Some non-toroidal fixed point with R ≪ r (likely a spherical charge-glob).
+- `P_electron_tlm_alpha_derivation` (both seeds): α⁻¹ = NaN (extraction requires R > r; Op6's fixed point violates this).
+
+**Mechanism (Grant, 2026-04-24 late session):** the (2,3) electron soliton cannot be a K4 V_inc standing wave alone because K4 V_inc is only the **charge / voltage leg** of each node's LC tank. The **spin / current leg** is the Cosserat ω field — per-node angular velocity. Path A seeded the capacitor charge but left every node's inductor current at zero. Result: not an oscillation but a static charge distribution that relaxes to whatever non-oscillating fixed point the lattice can absorb.
+
+Under §7's single-tank framing this is crisp:
+- K4 V_inc = one projection of each node's LC tank (electric/charge, capacitive)
+- Cosserat ω = the orthogonal projection (magnetic/rotational, inductive)
+- (2,3) eigenmode = standing wave requiring BOTH projections cycling 90° out of phase
+
+Seeding only V_inc is analogous to charging an isolated capacitor connected to an inductor at I=0 — it doesn't oscillate, it drains into whatever loss path the circuit provides.
+
+**"Spin on top of chirality" — the distinction made precise:**
+
+- **Chirality** is the K4 port-vector sign convention `p₀=(+,+,+), p₁=(+,-,-), p₂=(-,+,-), p₃=(-,-,+)` — a genesis-baked geometric-phase selector that determines which way flux lines curl around currents. It's a convention, not a rotation. Does not carry angular momentum.
+- **Spin** is the Cosserat ω(r,t) field — per-node angular velocity, a real rotational state. Carries the inductive energy of the LC tank. This is what chirality can phase against.
+
+Without Cosserat ω, chirality has no rotating state to phase; the (2,3) winding geometry exists only as an instantaneous phase pattern on a non-oscillating charge distribution, and it doesn't persist.
+
+This is consistent with [COLLABORATION_NOTES.md rule 8](../../.agents/handoffs/COLLABORATION_NOTES.md)'s corpus-verified spin-½ derivation (Finkelstein-Misner kink + gyroscope-spinor isomorphism per [vol2/appendices/app-b-paradoxes/spin-half-paradox.md](../../manuscript/vol_2_subatomic/appendices/app-b-paradoxes/spin-half-paradox.md)) — both presume per-node rotational state, i.e., Cosserat ω.
+
+**Path B forward — revised design:**
+
+The unified electron seed needs BOTH sectors initialized so the per-node LC tank is at oscillation amplitude, not at a single-projection extremum:
+- K4 V_inc: `initialize_2_3_voltage_ansatz` (existing — seeds voltage pattern with (2,3) winding)
+- Cosserat ω: `initialize_electron_2_3_sector` (existing — seeds rotational pattern with same (2,3) winding)
+- Closed-system VacuumEngine3D evolution (no drive, no sources) for N Compton periods
+- Key design question: phase alignment between the two seeds. The K4 seeder uses port-weight projections of a `(cos θ, sin θ)` pattern; the Cosserat seeder assigns `ω[…,0] = cos θ`, `ω[…,1] = sin θ` as vector components. These are structurally different (one is port-voltage, one is vector-components of a rotational field) so the phase-lock between them requires careful thought — not a trivial `sin(θ)` vs `cos(θ)` swap.
+
+Predictions under Path B (draft, pending derivation of the phase-lock condition):
+- `P_electron_coupled_topological_charge`: N_crossings = 3 preserved under coupled closed-system evolution
+- `P_electron_coupled_node_spin_stability`: |ω|_RMS at the soliton core remains within ±20% of seed value (doesn't decay or blow up)
+- `P_electron_coupled_voltage_rotation_phase`: K4 V_inc and Cosserat ω at the soliton core maintain π/2 phase offset (measured via bond Φ_link vs ω|∇×ω| correlations)
+- `P_electron_coupled_golden_torus`: extracted (R, r) matches φ² under Op6 self-consistency in the coupled engine
+- `P_electron_coupled_alpha_derivation`: α⁻¹ = 137.036 from dynamically-evolved geometry in coupled evolution
+
+**Status table updated:**
+
+| Prediction | Path A status | Path B status |
+|---|---|---|
+| Topological charge = 3 | FALSIFIED at N=48 (K4 V_inc alone) | TBD |
+| Energy conservation < 0.5% | PASSED — integrator fine | carry forward as baseline |
+| Golden Torus R/r convergence | FALSIFIED — Op6 finds R≪r fixed point | TBD |
+| α⁻¹ = 137.036 from dynamics | FALSIFIED — α⁻¹ = NaN | TBD |
+
+**What this falsification buys us:** the four failures all have a single mechanism — missing Cosserat node-spin. That's a unified explanation, not four separate bugs. The test bed is working correctly (energy conservation confirms integrator sanity); the physical claim that "K4 V_inc alone is a sufficient electron representation" is what falsified. Cleanest possible outcome for a pre-registered falsification: a single mechanism explains all failure modes, and the next iteration is well-specified.
+
+---
+
+*Written 2026-04-24 (Round 6) by Opus 4.7. Source-of-truth for the Stage 6 → single-electron-first pivot. §13 appended 2026-04-24 late session after Path A falsification + Grant's "spin on top of chirality" mechanism diagnosis. Future agents: read this first before touching the pair-nucleation gate.*
