@@ -187,6 +187,12 @@ class CoupledK4Cosserat:
         self.use_asymmetric_saturation = bool(use_asymmetric_saturation)
         self.kappa_chiral = float(kappa_chiral)
 
+        # Resolve V_SNAP early so we can pass it to K4 (Flag-5e-A fix).
+        # Engine defaults to natural units (V_SNAP=1) if no override given.
+        # Pre-fix: K4 used module-level SI V_SNAP (~511 kV) while engine
+        # sources inject in natural units, making K4 saturation dormant.
+        resolved_V_SNAP = float(V_SNAP if V_SNAP is not None else _V_SNAP_CONST)
+
         # K4 photon sector: nonlinear=False so K4's node-level saturation
         # doesn't duplicate Cosserat coupling; op3_bond_reflection=True so
         # z_local → bond Γ path is active (per Axiom 4 / Op3).
@@ -198,6 +204,7 @@ class CoupledK4Cosserat:
             nonlinear=False, pml_thickness=pml,
             op3_bond_reflection=True,
             use_memristive_saturation=use_memristive_saturation,
+            V_SNAP=resolved_V_SNAP,
         )
         # Override k4.dt and k4.c to natural units (c = 1, dx = 1, dt = 1/√2)
         # so both sectors share a unit system. This does NOT change K4's
@@ -225,7 +232,7 @@ class CoupledK4Cosserat:
         self.cos.k_refl = 0.0   # carried in coupling
         self.cos.k_hopf = 0.0
 
-        self.V_SNAP = float(V_SNAP if V_SNAP is not None else _V_SNAP_CONST)
+        self.V_SNAP = resolved_V_SNAP
         self.time = 0.0
 
         # Sub-stepping: Cosserat needs N_sub sub-steps per K4 outer dt

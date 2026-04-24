@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import numpy as np
 from ave.core.constants import (
-    C_0, Z_0, V_SNAP, V_YIELD, MU_0, EPSILON_0, P_C
+    C_0, Z_0, V_SNAP as _V_SNAP_MODULE, V_YIELD, MU_0, EPSILON_0, P_C
 )
 from ave.core.universal_operators import (
     universal_saturation
@@ -91,7 +91,7 @@ class K4Lattice3D:
 
     def __init__(self, nx, ny, nz, dx=1.0, nonlinear=False, pml_thickness=0,
                  op3_bond_reflection=False, use_memristive_saturation=False,
-                 tau_relax=None):
+                 tau_relax=None, V_SNAP=None):
         """
         Args:
             op3_bond_reflection: If True, applies Op3 reflection at each bond
@@ -115,6 +115,16 @@ class K4Lattice3D:
                 If None (default), computed from dx/c so units match self.dt.
                 In SI mode: ≈ 3.34e-9 s. In native units (c=1, dx=1): = 1.0.
                 Override only for tests exploring the fast/slow limit.
+            V_SNAP: rupture voltage for saturation kernel normalization in
+                `_update_z_local_field` and `_scatter_all`. If None (default),
+                uses the module-level SI value (~511 kV). When K4Lattice3D is
+                instantiated by CoupledK4Cosserat in engine natural-units
+                context (engine V_SNAP=1), CoupledK4Cosserat passes 1.0 here
+                so the saturation strain calculation matches the engine's
+                V_SNAP convention. Pre-fix behavior (module-level always) was
+                Flag-5e-A: K4 strain = V_inc / V_SNAP_SI gave ~10⁻⁶ at
+                engine amp=0.9·V_SNAP_native, rendering saturation dormant
+                in engine context. Default preserved for standalone SI usage.
         """
         self.nx = nx
         self.ny = ny
@@ -124,6 +134,10 @@ class K4Lattice3D:
         self.pml_thickness = pml_thickness
         self.op3_bond_reflection = op3_bond_reflection
         self.use_memristive_saturation = bool(use_memristive_saturation)
+        # Saturation V_SNAP per Flag-5e-A fix. Default module-level for
+        # standalone SI mode; CoupledK4Cosserat passes engine's natural-
+        # unit value so strain calculation matches engine convention.
+        self.V_SNAP = float(V_SNAP) if V_SNAP is not None else float(_V_SNAP_MODULE)
 
         # Dispersion: wave crossing a 4-port junction is exactly c0 = dx / (dt * sqrt(2))
         self.c = float(C_0)
@@ -249,7 +263,7 @@ class K4Lattice3D:
         V_YIELD ~ sqrt(alpha) * V_SNAP falls inside Regime II, not at yield.
         """
         v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
-        v_snap = float(V_SNAP)
+        v_snap = self.V_SNAP   # Flag-5e-A fix: use instance V_SNAP (defaults to module)
         strain = v_total / v_snap
         # S_eq = √(1 - A²) per Op2 (Ax4 saturation kernel).
         S_eq = np.sqrt(np.maximum(0.0, 1.0 - np.minimum(strain, 1.0)**2))
@@ -288,7 +302,7 @@ class K4Lattice3D:
             # V_YIELD falls inside regime II (at strain = √α ≈ 0.085), not at yield.
             # Corrected 2026-04-21 to match _update_z_local_field convention.
             v_total = np.sqrt(np.sum(self.V_inc**2, axis=-1))
-            v_snap = float(V_SNAP)
+            v_snap = self.V_SNAP   # Flag-5e-A fix: use instance V_SNAP
             strain = v_total / v_snap
 
             strained = strain > 0.01

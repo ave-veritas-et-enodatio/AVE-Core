@@ -232,9 +232,9 @@ class TestEngineIntegration:
         engine = VacuumEngine3D.from_args(
             N=8, pml=2, temperature=0.0, use_memristive_saturation=True,
         )
-        # Drive a realistic strain at one site (V_inc must be in module-V_SNAP
-        # units since K4's _update_z_local_field normalizes by module V_SNAP).
-        engine.k4.V_inc[2, 2, 2, 0] = 0.3 * V_SNAP
+        # Drive a realistic strain. Post-Flag-5e-A: engine K4 uses engine.V_SNAP
+        # (natural units by default), so we inject V in engine-native units.
+        engine.k4.V_inc[2, 2, 2, 0] = 0.3 * engine.V_SNAP
         engine.run(n_steps=10)
         assert np.all(np.isfinite(engine.k4.V_inc))
         assert np.all(np.isfinite(engine.k4.V_ref))
@@ -243,13 +243,18 @@ class TestEngineIntegration:
 
     def test_s_field_exposed_as_engine_state(self):
         """After memristive run, S_field should be non-trivial (not all 1s)
-        at driven sites — confirms the dynamics ran."""
+        at driven sites — confirms the dynamics ran.
+
+        Post-Flag-5e-A fix: engine's K4 uses engine.V_SNAP (natural units,
+        = 1.0 by default), so V_inc is set in engine-native units.
+        """
         engine = VacuumEngine3D.from_args(
             N=8, pml=2, temperature=0.0, use_memristive_saturation=True,
         )
-        # Sustained drive at one site (V_SNAP-units — see above)
+        # Drive at A = 0.5 in engine-native V_SNAP units → A² = 0.25
+        drive_V = 0.5 * engine.V_SNAP
         for _ in range(20):
-            engine.k4.V_inc[2, 2, 2, 0] = 0.5 * V_SNAP
+            engine.k4.V_inc[2, 2, 2, 0] = drive_V
             engine.step()
         # S_field at the driven site should have moved from 1 toward S_eq(0.5²)
         S_driven = engine.k4.S_field[2, 2, 2]
@@ -258,4 +263,6 @@ class TestEngineIntegration:
             f"S_field didn't evolve — still {S_driven:.4f} (memristive off?)"
         )
         # Should have moved toward S_eq (not overshot, not stuck at 1)
-        assert S_driven > S_eq_target - 0.2
+        assert S_driven > S_eq_target - 0.2, (
+            f"S_driven={S_driven:.4f} too far from S_eq_target={S_eq_target:.4f}"
+        )
