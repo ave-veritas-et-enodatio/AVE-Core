@@ -28,7 +28,7 @@
 **Four novel pre-registered predictions** (§11):
 - `P_interface_eigenmode_entropy`: AVE-native geometric entropy `Ŝ = A·log(2)/ℓ_node²` at horizon under A-B interface framing (distinct from standard thermodynamic S_BH; see §5 + doc 62_ §10 for corrected reading)
 - `P_hawking_polarization_asymmetry`: Hawking radiation is handedness-asymmetric if BH horizon is A-B interface
-- `P_er_epr_chirality_correlation`: entangled particles on either side of BH horizon show opposite chirality
+- ~~`P_er_epr_chirality_correlation`~~: RETRACTED per doc 63_ — ER=EPR framing inconsistent with AVE info-loss stance; observable content subsumed by P_hawking_polarization_asymmetry
 - `P_cosmic_horizon_structure`: the cosmological Machian boundary is itself an A-B rupture interface at scale R_H
 
 **This proposal requires corpus revision** if validated:
@@ -117,11 +117,15 @@ Ratio: `S_AVE / S_BH = log(2) · 4·ℓ_P² / ℓ_node² ≈ log(2) · 4 · 10�
 
 When matter falls into the BH, its topological state (winding number, chirality, internal structure) gets encoded on the interface via bond-scattering. The A-B bond network preserves this encoding because no information can escape the lattice — it can only transfer between cells. Information "flows" along the 2D interface, redistributing as new matter falls in, but is never destroyed.
 
-### 3.5 Hawking radiation as information leakage
+### 3.5 Hawking radiation as thermal emission — REVISED per doc 63_
 
-The imperfect phase boundary (Vol 3 Ch 15's residual `∂S/∂r`) allows interface-state excitations to "tunnel" out as Hawking radiation. Over a BH's evaporation lifetime, the complete information content leaks out — **unitarity preserved**.
+**Original claim (RETRACTED):** "the complete information content leaks out — unitarity preserved."
 
-**This contradicts corpus** (KB-ch04 explicitly states information is "permanently erased"). But it is **consistent with** Hawking temperature derivation (the same phase boundary leaks energy and information at matched rates).
+**Corrected per [doc 63_](63_info_loss_stance_reaudit.md):** Vol 3 Ch 11's Ŝ operator (which the cell-count formula in §3.2 reproduces with |Γ|²=1/2) measures entropy GENERATION at scattering events, NOT information capacity. Each scattering event at the A-B interface DESTROYS 1 bit of coherent wave information at rate k_B·log(2) per cell. Hawking radiation leaves as thermal emission — no coherent information carried back. **Unitarity is VIOLATED in agreement with the corpus stance** (Vol 3 Ch 15/21/KB-ch04).
+
+**What DOES distinguish doc 61_'s picture from the corpus ruptured-plasma picture:** the LOCATION of info destruction, not its occurrence. Under doc 61_'s framing, info is destroyed AT the 2D horizon surface (per-cell scattering at A-B interface). Under the corpus framing, info is destroyed IN the 3D interior volume (via thermalization in the ruptured plasma). Both are info-loss; the surface vs volume distinction is observationally distinguishable via `P_interface_eigenmode_entropy` (reframed in §11).
+
+**This aligns doc 61_ with corpus** rather than contradicting it on the unitarity question. AVE as a whole takes the 1970s-Hawking position against modern quantum-gravity consensus (ER=EPR, Page curve, entanglement islands). Load-bearing empirical commitment per doc 63_ Flag 63-B.
 
 ---
 
@@ -319,11 +323,11 @@ This is **10⁻⁴⁴× the standard thermodynamic S_BH = A/(4·ℓ_P²)** (not 
 
 **Falsification:** high-quality polarimetry of Hawking-dominated sources showing unpolarized emission.
 
-### P_er_epr_chirality_correlation
+### ~~P_er_epr_chirality_correlation~~ — RETRACTED per doc 63_
 
-**Claim:** entangled particle pairs emitted from a BH (one escaping, one falling in, via the standard Hawking pair-creation mechanism) show EXACT opposite chirality — not random, not probabilistic, but structurally deterministic at the bond level.
+Retracted — the ER=EPR framing assumed unitarity preservation and coherent entanglement across the horizon, which is inconsistent with AVE's info-loss stance (doc 63_ §3.2). Under Ch 11's correct interpretation of the cell-count formula, Hawking radiation is thermal — no entangled "partners" in the quantum-information sense.
 
-**Falsification:** experimental/observational demonstration that Hawking-pair chirality correlations are random.
+The observable content (chirality correlations in Hawking-like emission) is subsumed by `P_hawking_polarization_asymmetry` above, which does NOT require unitarity-preserved entanglement.
 
 ### P_cosmic_horizon_structure
 
