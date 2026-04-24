@@ -802,3 +802,101 @@ predictions:
       Ch 5's autoresonant mechanism is wrong, and the whole pair-
       creation-via-autoresonance story falsifies. Publish as null
       result per 51_handoff §5a if it falls.
+
+  - id: P_memristor_loop_area
+    name: "Hysteresis loop area peaks at ω·τ_relax ≈ 0.9 (K4-nonlinear Debye)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    test_file: "src/tests/test_memristive_op14.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 5.6. Under small-amplitude drive r(t) = r_0 + Δr·sin(ωt)
+      with r_0 ≈ 0.7 and Δr ≈ 0.3·V_SNAP, the hysteresis loop area as a
+      function of drive frequency follows A(ω) = ℓ_node² · m_e·c² · f(ω·τ_relax)
+      where f is the two-channel form (Eq. 6.3 of doc 59_). Peak at
+      ω·τ_relax ∈ [0.88, 0.92]. Matches doc 48_ empirical observation of
+      peak at 0.90. Falsification: measured peak outside [0.85, 0.95] at
+      matched drive parameters → higher-harmonic corrections needed, or
+      axiom-derivation pathway differs. Distinctly NOT at the naive Debye
+      peak of exactly ω·τ = 1.0 — the shift comes from nonlinear structure
+      of S_eq(r) = √(1−r²) near r=1 (K4 lattice topology modifies the
+      response).
+
+  - id: P_yield_heal_topological_residue
+    name: "Yield-heal down-crossing leaves topologically-protected defects (BEMF-blocked unwinding)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    test_file: "src/tests/test_yield_heal_residue.py"
+    axioms_used: [1, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 5.6. When V(t) drops through V_yield in the Cosserat
+      sector at rate |dV/dt| such that the crossing takes ≳ τ_relax, any
+      topologically non-trivial ω configuration present at the start of
+      the crossing window FREEZES — it cannot unwind because diverging
+      L_eff (Op14 near S=0) generates diverging Lenz back-EMF that blocks
+      dω/dt during the τ_relax window. Residues persist for ≥ 100 Compton
+      periods in the post-heal solid regime. This IS the AVE-native
+      mechanism for matter precipitation from cooling vacuum (cosmological
+      lifecycle, per §8 of doc 59_). NOT a Kibble-Zurek import — derived
+      from Ax1 + Op14 + Lenz's law, no SM/QFT machinery. Falsification:
+      residues decay within ≤ τ_relax of crossing → BEMF-blocking
+      argument fails OR Ax1 topological protection not operational in
+      this regime.
+
+  - id: P_cooling_rate_defect_density
+    name: "Defect density scales linearly with volumetric yield-crossing rate (NOT Kibble-Zurek)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    test_file: "src/tests/test_cooling_rate_defect_density.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 5.6. In a cool-from-above experiment, defect density
+      per unit simulation volume scales LINEARLY with the volumetric rate
+      of vacuum passing through V_yield (Eq. 5.2 of doc 59_):
+          n_defects ≈ (ΔV_cross / V_yield) · (1/ℓ_node³) · f_topo
+      This is distinct from Kibble-Zurek scaling `τ_Q^(-ν/(νz+1))` because
+      Ax4's yield transition is FIRST-ORDER (sharp Bingham step in η_eff),
+      not second-order with diverging correlation length. Each coherence
+      volume ℓ_node³ freezes independently during its local τ_relax window.
+      f_topo is the fraction of coherence volumes carrying non-trivial
+      topology at crossing — expected O(1) for thermally-populated slipstream.
+      Falsification: measured scaling is a power-law with exponent ≠ 1 at
+      matched preparation → Ax4 is NOT first-order in this regime (would
+      falsify Bingham picture), OR counting argument in §5.2 is wrong.
+
+  - id: P_chirality_horizon_coupling
+    name: "Pair nucleations cluster at chirality domain walls / impedance-gradient maxima"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    test_file: "src/tests/test_chirality_horizon_coupling.py"
+    axioms_used: [1, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 6 Phase 5.6 (round 2). Under stochastic-origin chirality
+      (thermal cooling, no external drive — §5.3 of doc 59_), the pre-heal
+      slipstream develops chirality domain walls separating +h_local from
+      -h_local regions. At yield-heal crossing, pair nucleations cluster
+      spatially at these domain walls because the divergent BEMF at the
+      saturation boundary preferentially triggers topology freezing where
+      |∇h_local| is large. Domain walls also coincide with impedance-
+      gradient maxima because h_local enters the Phase 4 asymmetric S_μ/S_ε
+      kernel multiplicatively. Testable via Phase 5 driver with pre-imposed
+      spatial Z gradient (mock horizon); measure spatial correlation
+      function between gate firings and |∇h_local| magnitude. Prediction:
+      correlation coefficient ≥ 0.6 at matched drive parameters. Falsification:
+      firings are spatially uncorrelated with domain-wall locations
+      (correlation ≤ 0.2) → BEMF-at-boundary mechanism doesn't produce the
+      spatial clustering, which would weaken the §8.5 BH-horizon-as-
+      chirality-boundary interpretation.
+
