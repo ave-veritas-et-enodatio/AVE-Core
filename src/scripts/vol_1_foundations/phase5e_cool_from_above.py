@@ -148,21 +148,35 @@ def run_cool_from_above(cfg: RunConfig) -> dict:
     phase_A_firings = 0      # During drive
     phase_B_firings = 0      # During cooling
 
-    # Also track S_field evolution (memristive state)
+    # Also track S_field evolution (memristive state) AND Cosserat A²_μ
+    # (the gate's actual C1 input — step 5a diagnostic)
     S_field_history = []
+    A2_mu_history = []
     S_field_cadence = max(1, cfg.record_cadence * 5)
 
     t0 = time.time()
     for step in range(cfg.n_outer_steps):
         engine.step()
 
-        # Capture S_field snapshot at lower cadence (full 3D field is expensive)
+        # Capture S_field + A²_μ snapshot at lower cadence
         if engine.step_count % S_field_cadence == 0:
             S_field_history.append({
                 "t": engine.time,
                 "S_min": float(engine.k4.S_field[engine.k4.mask_active].min()),
                 "S_mean": float(engine.k4.S_field[engine.k4.mask_active].mean()),
             })
+            # Compute Cosserat A²_μ directly — what the gate actually checks
+            A2_mu_field = gate._compute_A2_mu(engine)
+            # Mask to active Cosserat sites for statistics
+            active = engine.cos.mask_alive
+            if active.any():
+                A2_mu_active = A2_mu_field[active]
+                A2_mu_history.append({
+                    "t": engine.time,
+                    "A2_mu_max": float(A2_mu_active.max()),
+                    "A2_mu_mean": float(A2_mu_active.mean()),
+                    "n_above_c1": int((A2_mu_active >= 0.95).sum()),
+                })
 
     elapsed = time.time() - t0
 
@@ -182,6 +196,7 @@ def run_cool_from_above(cfg: RunConfig) -> dict:
         "regime_history": regime_obs.history,
         "node_history": node_obs.history,
         "S_field_history": S_field_history,
+        "A2_mu_history": A2_mu_history,
         "phase_A_firings": phase_A_firings,
         "phase_B_firings": phase_B_firings,
         "total_firings": gate._total_firings,
@@ -360,6 +375,26 @@ if __name__ == "__main__":
     print(f"Phase A firings (drive):    {verdict['phase_A_firings']}")
     print(f"Phase B firings (cooling):  {verdict['phase_B_firings']}")
     print(f"Total firings:              {verdict['total_firings']}")
+
+    # Cosserat A²_μ diagnostic — step 5a: is Cosserat also saturating?
+    A2_mu_hist = result.get("A2_mu_history", [])
+    if A2_mu_hist:
+        A2_mu_peak = max(h["A2_mu_max"] for h in A2_mu_hist)
+        A2_mu_peak_time = max((h for h in A2_mu_hist), key=lambda h: h["A2_mu_max"])["t"]
+        n_above_c1_peak = max(h["n_above_c1"] for h in A2_mu_hist)
+        print(f"\n── Cosserat A²_μ diagnostic (step 5a) ──")
+        print(f"Max A²_μ ever (gate's C1 input):   {A2_mu_peak:.4f}  (C1 threshold: 0.95)")
+        print(f"  Reached at t/T = {A2_mu_peak_time/cfg.period:.2f}")
+        print(f"Peak # sites with A²_μ ≥ 0.95:     {n_above_c1_peak}")
+        if A2_mu_peak < 0.5:
+            print(f"  → Cosserat A²_μ stays LINEAR even though K4 saturates.")
+            print(f"    K4→Cosserat coupling too weak, OR coupling has unit issue")
+            print(f"    analogous to Flag-5e-A. Step 5b needs Cosserat-side fix.")
+        elif A2_mu_peak < 0.95:
+            print(f"  → Cosserat A²_μ reaches {A2_mu_peak:.2f} — approaching C1 but undershoots.")
+            print(f"    Likely just needs stronger drive or larger N.")
+        else:
+            print(f"  → Cosserat A²_μ crosses C1. Gate should fire if C2 also met.")
 
     save_npz(result)
     render(result)
