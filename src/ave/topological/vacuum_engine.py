@@ -1555,6 +1555,12 @@ class EngineConfig:
     # one step). Test F17-I three-mode under True to validate (2,3)
     # eigenmode formation.
     disable_cosserat_lc_force: bool = False
+    # Restore Cosserat self-terms (k_op10=1, k_refl=1, k_hopf=π/3) under
+    # coupled-engine mode. Legacy disables these because "reflection is
+    # carried by the coupling term"; under A28 (disable_cosserat_lc_force=True),
+    # the coupling term is double-counting and Cosserat needs its self-terms
+    # BACK for topology-stabilizing dynamics. Default False preserves legacy.
+    enable_cosserat_self_terms: bool = False
 
 
 class VacuumEngine3D:
@@ -1592,6 +1598,7 @@ class VacuumEngine3D:
             use_memristive_saturation=config.use_memristive_saturation,
             use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
             disable_cosserat_lc_force=config.disable_cosserat_lc_force,
+            enable_cosserat_self_terms=config.enable_cosserat_self_terms,
         )
 
         self.k4 = self._coupled.k4

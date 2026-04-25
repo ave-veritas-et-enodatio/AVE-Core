@@ -190,6 +190,7 @@ class CoupledK4Cosserat:
         use_memristive_saturation: bool = False,
         use_lagrangian_emf_coupling: bool = False,
         disable_cosserat_lc_force: bool = False,
+        enable_cosserat_self_terms: bool = False,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -270,9 +271,30 @@ class CoupledK4Cosserat:
             rho=rho, I_omega=I_omega,
             pml_thickness=pml,
         )
-        self.cos.k_op10 = 0.0
-        self.cos.k_refl = 0.0   # carried in coupling
-        self.cos.k_hopf = 0.0
+        # Cosserat self-terms: legacy zeros them ("reflection carried by
+        # coupling term"). Under A28 (doc 67_ §15-§16), the coupling term
+        # is double-counting and disable_cosserat_lc_force=True suppresses
+        # it. In that regime, Cosserat needs its self-terms BACK to
+        # provide topology-stabilizing dynamics — but only k_op10 and
+        # k_hopf, NOT k_refl. The Cosserat self-term `k_refl * W_refl` uses
+        # the same `_reflection_density` function as the coupling force;
+        # enabling it under A28 re-introduces the same redundant force
+        # via a different name (empirical: |ω| → 38932 in step 1 with
+        # k_refl=1, vs |ω| < 1 with k_refl=0).
+        self.enable_cosserat_self_terms = bool(enable_cosserat_self_terms)
+        if not self.enable_cosserat_self_terms:
+            # Legacy behavior — zero ALL self-terms (coupling carries reflection)
+            self.cos.k_op10 = 0.0
+            self.cos.k_refl = 0.0
+            self.cos.k_hopf = 0.0
+        else:
+            # Restore Cosserat defaults for k_op10 and k_hopf, but keep k_refl=0
+            # if A28 is also active (suppress redundant reflection-force pathway).
+            # If A28 is off, leave all defaults (legacy + self-terms = stacked
+            # reflection forces; user has explicitly opted into both flags).
+            if self.disable_cosserat_lc_force:
+                self.cos.k_refl = 0.0
+            # k_op10 and k_hopf retain CosseratField3D defaults (1.0, π/3)
 
         self.V_SNAP = resolved_V_SNAP
         self.time = 0.0
