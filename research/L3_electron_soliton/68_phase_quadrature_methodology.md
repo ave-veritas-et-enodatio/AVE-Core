@@ -247,3 +247,41 @@ Phase 3 diagnostic on Path B at N=80 under A28+self-terms returned `peak|V_inc| 
 ---
 
 *§10 added 2026-04-25 — Phase 4 adjudicated case (c). Phase 5 implementation begins.*
+
+---
+
+## 11. Phase 5c-v1 falsification + corpus-grounded v2 plan (2026-04-25)
+
+Phase 5c-v1 ran (`coupled_s11_eigenmode.py`, infrastructure in commit `6158465`). Result: spurious convergence at iteration 21, S₁₁ dropped only 3% by **escaping the bound state** (Cosserat |ω| 0.94 → 2.19, over-saturated past clipping bound). Per [doc 67_ §21](67_lc_coupling_reciprocity_audit.md#L21), this falsifies "unconstrained gradient descent on coupled S₁₁ = bound-state finder."
+
+A Rule 8 corpus-grep across `manuscript/`, `research/L3_electron_soliton/`, AVE-Propulsion, AVE-Protein resolved the methodology question (per [doc 67_ §22](67_lc_coupling_reciprocity_audit.md#L22)):
+
+**Finding:** `S₁₁ minimization IS the right objective` per [doc 34_:142-156](34_x4_constrained_s11.md#L142):
+
+> "The electron is found by imposing these constraints on top of S11 minimization, not by switching to a different objective... three hard algebraic constraints (d = 1, R − r = 1/2, R·r = 1/4) are algebraic pinnings, not emergent minima."
+
+What v1 missed: the Ch 8 Golden Torus geometric constraints (d=1, R−r=1/2, R·r=1/4) must be **explicitly pinned** during descent. doc 34_ X4 pinned them at initialization (Cosserat-only descent didn't escape because gradient flow approximately preserved the manifold). For coupled K4+Cosserat where descent escapes, **AVE-Protein-style Lagrange-penalty enforcement** is the corpus-aligned pattern.
+
+`AVE-Protein/protein_fold.py:97-177` template:
+- Lagrange penalties on bond lengths (Axiom 2 rigid constraint)
+- Lagrange penalties on valence angles
+- Boundary radius penalty for topology
+
+**Phase 5c-v2 corrected plan:** extend `coupled_s11_eigenmode.py` with augmented objective:
+
+```
+total_objective = total_s11_coupled
+              + λ_geom · ‖peak_amplitude_location − Golden_Torus‖²
+              + λ_topo · max(0, 2 - c_cos)²
+              + λ_amp  · Σ_x max(0, A²_total(x) − 1)²
+```
+
+Estimated scope: ~150-200 LOC. Replaces v1's unconstrained descent with constraint-preserving descent.
+
+**Autoresonant route falsified as bound-state finder.** Per [doc 50_:138-154](50_autoresonant_pair_creation.md#L138), Phase III-B v2 autoresonant drive reached Regime III (median 87% of rupture) but 0/20 seeds crossed Regime IV. Autoresonant is the **drive mechanism**, not the eigenmode finder for the electron specifically.
+
+The F17-K Phase 1 framing (Ax-3, phase-space (V_inc, V_ref), |S₁₁|² as action) **holds and is corpus-validated**. v2 is implementation refinement, not framing change.
+
+---
+
+*§11 added 2026-04-25 — Phase 5c-v1 falsified; corpus search resolves v2 direction. S₁₁ remains the objective; constraints are explicit Lagrange penalties per AVE-Protein template. Autoresonant ruled out as bound-state finder. Phase 5c-v2 implements constraint-preserving descent (~150-200 LOC).*

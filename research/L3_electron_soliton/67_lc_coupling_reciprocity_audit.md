@@ -1193,3 +1193,82 @@ Phase 5c-v2 follow-up (not yet run): rerun with tighter tol, larger lr, possibly
 ---
 
 *§21 added 2026-04-25 — Phase 5c-v1: coupled S₁₁ relaxation infrastructure landed; first run produced spurious convergence (Cosserat over-saturated, K4 unchanged, S₁₁ dropped only 3%). Methodology Ax-3 compliant; parameters/objective formulation need refinement. Phase 5c-v2 (parameter sweep + objective reformulation) deferred for next iteration. F17-K plan validated structurally; convergence to single-electron eigenmode pending Phase 5c-v2.*
+
+---
+
+## 22. Corpus search resolves Phase 5c-v2 direction: constrained S₁₁ + Ch 8 algebraic pins (2026-04-25)
+
+After Phase 5c-v1's spurious convergence flagged "global S₁₁ minimization may not be the right objective," I ran a Rule 8 corpus-grep across `manuscript/`, `research/L3_electron_soliton/`, and sibling repos (AVE-Propulsion, AVE-Protein, AVE-HOPF) on bound-state-FINDING vs VERIFYING methodology vocabulary. Two corrective findings invert part of §21's interpretation.
+
+### 22.1 Finding 1: Corpus DOES use S₁₁ as the bound-state objective; constraints are HARD ALGEBRAIC PINS
+
+Direct verbatim from [doc 34_:142-156](34_x4_constrained_s11.md#L142):
+
+> "The electron is found by imposing these constraints on top of S11 minimization, not by switching to a different objective... three hard algebraic constraints (d = 1, R − r = 1/2, R·r = 1/4) are algebraic pinnings, not emergent minima."
+
+So §21's hypothesis ("global S₁₁ minimization may not be the right objective for a bound state") was **partially wrong**. S₁₁ IS the right objective per doc 34_ X4 corpus-canonical pattern. What §21 correctly identified — that unconstrained descent escapes the bound state — is a CONSTRAINT issue, not an OBJECTIVE issue.
+
+The Ch 8 Golden Torus constraints (d = 1, R − r = 1/2, R·r = 1/4) are algebraic pins, not soft objectives. doc 34_ X4 pinned these at initialization (constructed the ansatz at Golden Torus geometry) and the Cosserat-only relaxation didn't escape because the gradient flow approximately preserved the manifold. For coupled K4+Cosserat, the descent space is much larger; without explicit constraint enforcement, gradient flow escapes the Golden Torus manifold via Cosserat over-saturation (Phase 5c-v1: |ω| 0.94 → 2.19 over 21 iterations).
+
+### 22.2 Finding 2: Autoresonant pumping (Phase 5e cool-from-above) is NOT the bound-state finder
+
+The auditor's hypothesis "if autoresonant is the answer, the right operational regime is already in HEAD" deserved a corpus check. Result: **autoresonant is the drive mechanism, not the bound-state finder.**
+
+[`phase5e_cool_from_above.py:1-61`](../../src/scripts/vol_1_foundations/phase5e_cool_from_above.py) is explicitly a **two-phase experiment** (drive to saturation + cool through yield) testing [doc 59_'s](59_memristive_yield_crossing_derivation.md) cool-through-yield mechanism. Commit `098d430` (Flag-5e-A fix) made this empirically observable.
+
+But: [doc 50_:138-154](50_autoresonant_pair_creation.md#L138):
+
+> "In the best-case seed (0.9983), the Cosserat sector reaches 99.8% of the Ax4 Cosserat rupture boundary. In the median seed (0.8683), the Cosserat sector reaches Regime III (yield zone) but does not cross to Regime IV. Zero seeds cross to Regime IV."
+
+Autoresonant pumping reaches Regime III (saturation zone) but doesn't deliver the bound state. It's a **finding methodology for amplitude** (drives system toward saturation), not for the electron eigenmode specifically. The cooled state has no characterized Golden Torus geometry; phase5e_cool_from_above.py measures `S_field` (yield-heal observable) and gate firings, not (R, r, c) topology.
+
+So the auditor's flagged "post-cool-through-yield phase-space-validation diagnostic" would be necessary IF we wanted to use Phase 5e steady-state as a candidate, but the corpus shows Phase 5e doesn't reach the bound state in the first place.
+
+### 22.3 Constrained-descent template exists in AVE-Protein
+
+[`AVE-Protein/protein_fold.py:97-177`](../../../AVE-Protein/protein_fold.py#L97) implements **constraint-preserving gradient descent** with:
+- Lagrange penalties on bond lengths (Axiom 2 rigid constraint)
+- Lagrange penalties on valence angles (next-nearest-neighbor structure)
+- Boundary radius penalty enforcing topology
+
+Pattern: `total_objective = S11 + Σ λ_i · constraint_violation_i²`
+
+Not yet ported to electron soliton. Doc 34_ X4 enforces Ch 8 constraints **algebraically at initialization** (Cosserat-only escape-resistant); for coupled engine where descent escapes, the AVE-Protein **soft-penalty pattern** is the corpus-aligned template.
+
+### 22.4 Phase 5c-v2 corrected plan
+
+**Build constraint-preserving `relax_s11_coupled_constrained`** following AVE-Protein soft-penalty template:
+
+```python
+total_objective(u, ω, V_inc) =
+    total_s11_coupled(u, ω, V_inc)                           # primary objective
+  + λ_geom · ‖peak_amplitude_location − Golden_Torus‖²       # pin (R, r) at φ²
+  + λ_topo · max(0, 2 - c_cos)²                              # penalize c_cos < 2
+  + λ_amp  · Σ_x max(0, A²_total(x) − 1)²                    # penalize over-saturation
+```
+
+Lagrange multipliers λ chosen empirically; AVE-Protein uses ~10× coupling-strength scaling between primary and constraint terms.
+
+**Operational flow:**
+1. Seed: phase-quadrature K4 (V_inc, V_ref at 90° quadrature) + Cosserat ω at Golden Torus
+2. Descend the augmented `total_objective` (not just `total_s11_coupled`)
+3. Constraint penalties prevent escape (over-saturation, topology drift, geometry escape)
+4. Verify at convergence: c=3, A²_shell ≈ 1, R/r = φ², |Γ_shell|²→1, |Γ_ext|²→0
+
+**Estimated scope:** ~150-200 LOC extending [`coupled_s11_eigenmode.py`](../../src/scripts/vol_1_foundations/coupled_s11_eigenmode.py).
+
+### 22.5 Methodology stack now corpus-grounded end-to-end
+
+| Layer | Methodology | Corpus precedent |
+|---|---|---|
+| Action principle | Ax-3 / |S₁₁|² minimization | Vol 4 Ch 1 LC tank, AVE-Protein vol_protein/03_:805 |
+| Eigenmode finder | Constrained gradient descent on coupled S₁₁ with algebraic pins | doc 34_ X4 (algebraic) + AVE-Protein protein_fold.py (soft-penalty) |
+| Constraints | Ch 8 Golden Torus pins (d=1, R−r=1/2, R·r=1/4) + topology (c=3) + saturation onset | Vol 1 Ch 8, doc 03_/29_ |
+| Seed | Phase-coherent (V_inc, V_ref) at 90° quadrature + Cosserat ω at saturation onset | doc 28_ phase-space framing |
+| Diagnostic | E_total conservation, E_cos↔E_k4 anti-phase, phase-space winding (with bipartite-K4 fix) | This session §20.3 |
+
+What §21 framed as "open question — is global S₁₁ minimization the right objective?" is **answered**: yes, with constraints. The corpus has it; my v1 just didn't include them.
+
+---
+
+*§22 added 2026-04-25 — Corpus search resolves §21's open question. S₁₁ remains the AVE-native objective per doc 34_ X4 corpus-canonical pattern; constraints are algebraic pins (Ch 8 Golden Torus + topology + saturation onset) implemented via Lagrange penalties (AVE-Protein protein_fold.py template). Autoresonant pumping is drive mechanism, not bound-state finder. Phase 5c-v2 corrected plan: extend coupled_s11_eigenmode.py with constraint penalties (~150 LOC). Methodology stack now corpus-grounded end-to-end.*
