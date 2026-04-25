@@ -285,3 +285,52 @@ The F17-K Phase 1 framing (Ax-3, phase-space (V_inc, V_ref), |S₁₁|² as acti
 ---
 
 *§11 added 2026-04-25 — Phase 5c-v1 falsified; corpus search resolves v2 direction. S₁₁ remains the objective; constraints are explicit Lagrange penalties per AVE-Protein template. Autoresonant ruled out as bound-state finder. Phase 5c-v2 implements constraint-preserving descent (~150-200 LOC).*
+
+---
+
+## 12. Acoustic-cavity framing + natural-equilibria correction (2026-04-25)
+
+A second corpus search on acoustic-cavity / standing-wave vocabulary surfaced two findings that **refine §11's Lagrange-penalty plan** without inverting Phase 1's framing.
+
+### 12.1 Helmholtz / acoustic-cavity framing is corpus-canonical
+
+[`manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:6`](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):
+
+> "Reinterpret the Schrödinger Wave Equation deterministically as the continuous Helmholtz acoustic resonance of the LC vacuum"
+
+The (2,3) electron is **a trapped bulk-modulus acoustic standing wave** in a cavity defined by saturation-induced impedance discontinuity. Dual to the Vol 4 Ch 1 LC-tank framing. Phase 1's |S₁₁|² action principle is one valid description; Helmholtz acoustic-cavity is the parallel description. They co-imply at the Golden Torus per Q-factor reframe (doc 16_/17_).
+
+### 12.2 Ch 8 constraints are natural equilibria, not hard constraints
+
+[`doc 03_:§4.1-4.3`](03_existence_proof.md#L4):
+- **d=1** emerges from Axiom-4 saturation at Nyquist
+- **R−r=1/2** emerges from dielectric-rupture self-avoidance
+- **R·r=1/4** emerges from topological quantization (SU(2) half-cover)
+
+The Golden Torus IS NOT a constrained minimum — it's a natural equilibrium. §11's Lagrange penalties on geometry/topology IMPOSE what should EMERGE from the right objective + saturation handling.
+
+### 12.3 Corrected v2 plan
+
+**Hard saturation reparameterization** (replaces soft amplitude penalty):
+```
+ω_actual = ω_yield · tanh(ω_param / ω_yield)
+u_actual = ε_yield · tanh(u_param)
+V_actual = V_yield · tanh(V_param / V_yield)
+```
+
+This bounds A² < 1 by construction. Eliminates v1's over-saturation escape.
+
+**Dual descent for falsifiability** (corpus-duality test):
+- Cosserat-energy descent (per doc 03_ §1 — corpus-canonical for static soliton)
+- |S₁₁|² descent in parallel (per doc 34_ X4b precedent)
+- Compare convergence — corpus claim is they co-locate at Golden Torus
+
+**No Lagrange penalties on geometry/topology.** Topology preserved by ansatz; geometry emerges from the right objective. Post-convergence: K4-TLM time-domain stability verification.
+
+### 12.4 F17-K Phase 6 candidate (deferred)
+
+If v2 hits limits at coupled-engine scale, the Helmholtz framing motivates a genuine eigenvalue-problem solver (`scipy.sparse.linalg.eigsh` / Lanczos / Arnoldi) at fixed cavity geometry. Canonical for acoustic-cavity standing-wave finding in continuum mechanics. AVE-Core does NOT currently use sparse eigensolvers for the (2,3) electron — would be new methodology. Don't expand v2 scope; flagged for v3 if needed.
+
+---
+
+*§12 added 2026-04-25 — Acoustic-cavity/Helmholtz framing surfaced as parallel ontological reframe; doc 03_ §4 establishes Ch 8 constraints as natural equilibria not hard constraints. Refines §11 Lagrange-penalty plan: replace with tanh-reparameterization + dual (Cosserat-energy AND S₁₁) descent + K4-TLM verification. Phase 6 (eigenvalue-solver methodology) flagged for v3 if v2 hits limits.*

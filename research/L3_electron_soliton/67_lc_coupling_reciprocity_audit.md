@@ -1272,3 +1272,83 @@ What §21 framed as "open question — is global S₁₁ minimization the right 
 ---
 
 *§22 added 2026-04-25 — Corpus search resolves §21's open question. S₁₁ remains the AVE-native objective per doc 34_ X4 corpus-canonical pattern; constraints are algebraic pins (Ch 8 Golden Torus + topology + saturation onset) implemented via Lagrange penalties (AVE-Protein protein_fold.py template). Autoresonant pumping is drive mechanism, not bound-state finder. Phase 5c-v2 corrected plan: extend coupled_s11_eigenmode.py with constraint penalties (~150 LOC). Methodology stack now corpus-grounded end-to-end.*
+
+---
+
+## 23. Acoustic-cavity corpus search refines §22 — natural equilibria, not constraints (2026-04-25)
+
+A second corpus search (Grant directive: "search acoustic cavities/standing waves") surfaced **two findings that refine §22's Lagrange-penalty plan**.
+
+### 23.1 Acoustic-cavity / Helmholtz framing is corpus-canonical for bound states
+
+[`manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md:6-47`](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md):
+
+> "Reinterpret the Schrödinger Wave Equation deterministically as the continuous Helmholtz acoustic resonance of the LC vacuum... The atomic orbital is the precise radius where this trapped bulk-modulus acoustic wave achieves a lossless resonant impedance match with itself (2πr = nλ)."
+
+> "The electron... represents a permanent macroscopic Impedance Mismatch... it does not travel as a shear wave at c₀; instead, its motion displaces the lattice, generating longitudinal acoustic pressure waves governed by the vacuum's Bulk Modulus."
+
+The (2,3) electron eigenmode is — per AVE — a **trapped bulk-modulus acoustic standing wave** in a cavity defined by saturation-induced impedance discontinuity. This is a **dual ontological framing** alongside Phase 1's transmission-line / |S₁₁|² action principle. Both are corpus-valid:
+
+- **Vol 4 Ch 1 LC tank** (transmission-line / S₁₁): trapped EM standing wave, lossless reactive cycling, |Γ_shell|²→1
+- **Vol 2 Ch 7 acoustic cavity** (Helmholtz / standing wave): bulk-modulus acoustic resonance at cavity boundary, 2πr=nλ
+
+These are dual descriptions of the same physics (cf. doc 16_/17_ Q-factor reframe). The acoustic-cavity framing motivates eventual eigenvalue-problem methodologies (Helmholtz: ∇²ψ + k²ψ = 0 with boundary conditions → discrete spectrum). This connects to **F17-K Phase 6 candidate** flagged in §23.4 below.
+
+### 23.2 Critical methodological correction — Ch 8 constraints are NATURAL EQUILIBRIA, not hard constraints
+
+[doc 03_:§4.1-4.3](03_existence_proof.md#L4):
+
+- **d = 1** emerges from "Axiom-4 saturation forcing the microrotation to saturate at Nyquist across the core-tube thickness." (§4.1)
+- **R − r = 1/2** emerges from "Axiom-4 saturation diverging at strand-overlap points, the dielectric rupture." (§4.2)
+- **R·r = 1/4** emerges from "topological quantization" (SU(2) half-cover area match). (§4.3)
+
+> "Both d = 1 and R − r = 1/2 are genuine dynamical derivations; R·r = 1/4 is a topological identity that the Lagrangian must be *consistent with* but does not by itself produce."
+
+**The Golden Torus is NOT a constrained minimum — it's a natural equilibrium of Cosserat energy + saturation + topology.** §22's "λ_geom · ‖peak − Golden_Torus‖²" geometric pin and "λ_topo · max(0, 2 − c_cos)²" topology pin are corpus-misaligned: they impose what should EMERGE naturally from the right objective + saturation handling.
+
+### 23.3 Corrected v2 plan: tanh reparameterization (hard) + dual-descent test
+
+The corpus methodology pattern (per doc 34_ X4b precedent + AVE-Protein protein_fold.py + universal_operators.py Axiom 4 implementation) is:
+
+**Hard saturation reparameterization** (replaces §22's soft amplitude penalty):
+```python
+omega_actual = omega_yield * tanh(omega_param / omega_yield)
+u_actual     = epsilon_yield_per_grid * tanh(u_param)
+V_inc_actual = V_yield * tanh(V_param / V_yield)
+```
+
+This bounds A² < 1 by construction — no soft penalty needed. The descent variables (ω_param, u_param, V_param) are unconstrained; the engine variables are physically bounded. Eliminates v1's over-saturation escape mode mechanically.
+
+**Geometric and topological "constraints" REMOVED** (per doc 03_ — these emerge naturally if the objective + saturation handling is right). Topology preserved by initial ansatz; verified post-convergence by `extract_crossing_count`.
+
+**Dual descent for falsifiability** (Grant directive — option C):
+- Run **Cosserat-energy** descent (per doc 03_ §1: minimize `E_Cosserat[u, ω]` — corpus-canonical for static soliton)
+- Run **|S₁₁|²** descent in parallel (per doc 34_ X4b precedent — validated objective)
+- Compare convergent (R, r, c, |Γ|²_shell) — corpus claim per Vol 1 Ch 8 is they co-locate at Golden Torus.
+- Result either way is a corpus-validation test: convergence to same point ⟹ duality holds; divergence ⟹ open research question about which framing is operationally correct.
+
+Estimated scope: ~100-200 LOC total (most infrastructure shared between the two objectives).
+
+### 23.4 F17-K Phase 6 candidate flag (eigenvalue-problem methodology)
+
+If Phase 5c-v2 (variational descent — Cosserat-energy or S₁₁) hits limits at coupled-engine scale (e.g., spurious local minima, divergent K4 sector, slow convergence), the Helmholtz framing from §23.1 motivates a genuinely different methodology: **sparse eigenvalue solver at fixed cavity geometry**.
+
+Pattern: linearize the coupled K4+Cosserat dynamics around a Golden-Torus ansatz, build the sparse Jacobian, use scipy.sparse.linalg.eigsh / Lanczos / Arnoldi to extract the (2,3) eigenmode from the spectrum. This is the canonical methodology for acoustic-cavity standing waves in continuum mechanics (separation of variables → eigenvalue problem → discrete spectrum).
+
+AVE-Core does NOT currently use sparse eigensolvers for the (2,3) electron (corpus search confirms only `k4_greens_function.py` uses `scipy.sparse.linalg`, and not for eigenmode extraction). Phase 6 would be new methodology.
+
+**Don't expand v2 scope** to chase Phase 6. Flagged here for future-Round-6 work IF v2 hits limits.
+
+### 23.5 Corrected methodology stack
+
+| Layer | §22 plan | §23 corrected |
+|---|---|---|
+| Objective | S₁₁ + Lagrange penalties on geometry/topology/amplitude | Cosserat-energy AND/OR S₁₁ (dual descent test) |
+| Saturation handling | Soft penalty `λ · max(0, A²−1)²` | **Hard reparameterization** `ω = ω_yield · tanh(ω_param/ω_yield)` |
+| Geometric pin | Soft penalty on (R, r) drift | NONE — emerges naturally per doc 03_ §4.1-4.2 |
+| Topology pin | Soft penalty on c_cos drift | NONE — preserved by ansatz, verified post-convergence |
+| Verification | Convergence + topology check | + K4-TLM time-domain stability test (per `tlm_electron_soliton_eigenmode.py:1-25`) |
+
+---
+
+*§23 added 2026-04-25 — Acoustic-cavity / Helmholtz framing surfaced as parallel ontological reframe (vol2 Ch 7). doc 03_ §4.1-4.3 establishes Ch 8 constraints as natural equilibria, not hard constraints — refines §22's Lagrange-penalty plan. Phase 5c-v2 corrected: tanh-reparameterization (hard saturation bounding) + dual descent (Cosserat-energy AND S₁₁) for corpus-duality test + K4-TLM stability verification at convergence. F17-K Phase 6 candidate flagged: sparse eigensolver methodology if v2 hits limits.*
