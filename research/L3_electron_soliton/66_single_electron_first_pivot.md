@@ -529,12 +529,49 @@ Grant's hypothesis: maybe matter regions in the universe are LOW-density slipstr
 
 **The engine has been computing this correctly all along — it just labels the quantity "saturation" rather than "density."**
 
-Three field contributions feed A²:
-- ε² (Cosserat translational strain) — capacitive sector
-- κ² (Cosserat rotational curvature) — inductive/spin sector
-- V² (K4 port voltage) — capacitive sector under coupled formulation per doc 54_ §6
+#### 17.2.1 Engine field → physical-quantity mapping
 
-A² normalization: `eps_sq/eps_yield² + kappa_sq/omega_yield² + V²/V_SNAP²` (per [cosserat_field_3d.py:245](../../src/ave/topological/cosserat_field_3d.py#L245) for first two; doc 54_ §6 adds V² contribution under K4 augmentation).
+The engine carries multiple fields. Three of them feed the saturation A² sum directly. Each represents a physically distinct energy-storage mode.
+
+**Primary A² contributors (per [cosserat_field_3d.py:245](../../src/ave/topological/cosserat_field_3d.py#L245) + doc 54_ §6 K4 augmentation):**
+
+| Engine field | Physical name | Tensorial type | Energy storage | LC analog |
+|---|---|---|---|---|
+| ε² (Cosserat strain, from u displacement + u-ω cross-coupling per Cosserat elasticity ε_ij = ∂_i u_j − ε_{ijk} ω_k) | **strain** | rank-2 symmetric | **electric / capacitive** (½ε₀E²) — translational deformation polarizes the substrate like a stretched capacitor | C-state of mechanical LC |
+| κ² (Cosserat curvature = ∇ω) | **curvature** | rank-2 antisymmetric | **magnetic / inductive** (½B²/μ₀) — rotational gradient generates B-field-like circulation | L-state of rotational LC |
+| V² (K4 port voltage, between A-B bonded sites) | **pressure** | scalar per port | **stored potential energy** (½CV²) — voltage difference / electrochemical potential between adjacent sublattices | C-state of K4 bond LC |
+
+A² = ε²/ε_yield² + κ²/ω_yield² + V²/V_SNAP² = local sum of energies-from-three-storage-modes, normalized to per-mode rupture limits. Units: dimensionless, ranges [0, 1] before clipping. S = √(1−A²) is the inverse: the local lattice's remaining-capacity / free-substrate density.
+
+#### 17.2.2 Other engine fields and their physical roles
+
+These don't contribute to A² directly but are part of the dynamics:
+
+| Engine field | Physical role | LC-tank role |
+|---|---|---|
+| Cosserat u | translational displacement | C-state position |
+| Cosserat u_dot | translational velocity | L-state (current/momentum analog, electric) |
+| Cosserat ω | angular velocity | L-state (rotational current/spin) |
+| Cosserat ω_dot | angular acceleration | rate-of-change of rotational L-state |
+| K4 V_inc, V_ref | port-voltage waves (forward/reflected) | C-state pressure waves on bonds |
+| K4 Φ_link = ∫V_avg·dt | bond flux linkage | L-state of K4 LC (bond magnetic flux) |
+
+**Conjugate pairs (each pair oscillates 90° phase-locked in a standing wave):**
+- **K4 bond LC:** V_inc ↔ Φ_link
+- **Cosserat translational LC:** u ↔ u_dot
+- **Cosserat rotational LC:** angular position (implicit, integrated from ω) ↔ ω (angular momentum density)
+
+#### 17.2.3 Implication for Path A/B/C seeding
+
+A bound (2,3) eigenmode requires phase relationships across all three LC pairs to be self-consistent under the engine's dynamics. The Path tests seeded only fragments:
+
+- **Path A:** K4 V_inc only (one C-state of one LC pair). Φ_link, u, u_dot, ω all = 0. No oscillation in any pair; lattice is a static charge distribution.
+- **Path B:** Cosserat ω only (L-state of rotational LC). V_inc, Φ_link, u, u_dot all = 0. K4 entirely silent; rotational LC has only momentum, no position.
+- **Path C:** K4 V_inc AND Cosserat ω (mixed C-state + L-state from different LC pairs). Φ_link = 0 in K4, u = 0 in Cosserat. Two LC pairs each half-seeded.
+
+None of these is a complete eigenmode initialization. A proper coupled-eigenmode seed would specify **either C-states everywhere (V_inc, u at amplitude; Φ_link, u_dot, ω at zero) OR L-states everywhere (Φ_link, u_dot, ω at amplitude; V_inc, u at zero)** — never both in the same LC pair. Path C's runaway may have a contribution from this — it didn't cleanly load energy into one half of each pair.
+
+**Followup F17-I (new):** the proper "all-C-state" or "all-L-state" coupled seed has not been tried. Worth attempting before declaring the L_c coupling form structurally broken.
 
 **Implication for Path A/B/C:** the relabeling doesn't change what the engine computes. The failure modes are coupling-dynamics issues, not density-vs-saturation issues. So this reframe doesn't directly unlock Path B; it sharpens the cosmological-scale interpretation.
 
