@@ -1122,3 +1122,74 @@ Estimated scope: ~250 LOC.
 ---
 
 *§20 added 2026-04-25 — Phase 5a-b: phase-quadrature seed under raw step() dynamics fails to produce Ax-3 eigenmode. Five-fallacy audit caught optimistic-interpretation bias; rebuilt diagnostic shows E_total not conserved, no LC anti-phase correlation, no constant angular velocity. Phase 5c (coupled S₁₁ relaxation) is the load-bearing next step — the AVE-native eigenmode finder is gradient descent on |S₁₁|², not time-domain stepping. Methodology stack now complete: phase-quadrature seed + S₁₁ relaxation + phase-space winding diagnostic.*
+
+---
+
+## 21. F17-K Phase 5c v1: coupled S₁₁ relaxation infrastructure built; v1 run is spurious convergence (2026-04-25)
+
+### 21.1 Phase 5c-1/2/3: implementation
+
+[`src/scripts/vol_1_foundations/coupled_s11_eigenmode.py`](../../src/scripts/vol_1_foundations/coupled_s11_eigenmode.py) (~290 LOC) supplies the AVE-native eigenmode finder for the coupled engine:
+
+- `_coupled_a_sq(u, ω, V_inc, ...)` — composes A²_total = V_sq/V_SNAP² + ε²/ε_yield² + κ²/ω_yield² (matches engine's Op14 z_local convention exactly per `k4_cosserat_coupling.py:364-371`)
+- `_s11_density_coupled` — Op14+Op3 chain: A² → S → Z_eff → Σ_p|Γ_p|² per site (mirrors `cosserat_field_3d._s11_density` but with coupled A²)
+- `_total_s11_coupled` — JIT'd, sums over alive mask
+- `_val_and_grad_s11_coupled` — JAX autograd over (u, ω, V_inc) joint state
+- `relax_s11_coupled(engine, max_iter, tol, lr)` — backtracking line-search gradient descent
+
+V_ref is NOT in the gradient state. V_ref is a derived quantity from V_inc via TLM scatter; relaxation operates on V_inc as primary state.
+
+### 21.2 Phase 5c-4: v1 validation run — spurious convergence
+
+Driver: phase-quadrature seed (V_amp=0.05, chirality=1.0) + Cosserat ω (peak |ω|=0.3π) at N=80 under A28+self-terms. Initial coupled S₁₁ = 3261; max_iter=500, tol=1e-7, initial_lr=1e-3.
+
+Result:
+```
+iterations:  21/500
+converged:   True (spurious, see below)
+S11_final:   3.158e+03   (S11/S0 = 0.97 — only 3% reduction)
+c_cos:       3            (target 3, preserved)
+|ω|peak:     2.19         (initial 0.94, DOUBLED — over-saturated)
+|V|peak:     0.15         (unchanged)
+elapsed:     2.1s
+```
+
+### 21.3 Three diagnostic findings (skeptical interpretation per fallacy-audit pattern)
+
+**1. Spurious convergence trigger.** `rel_change < tol=1e-7` fired at iter 21. Absolute S11 change per step was ~50 (against magnitude ~3000), giving relative change ~0.015 → decay path. Threshold of 1e-7 hits when per-step change drops to ~3e-4 absolute, which happened only 21 iterations in. The descent had barely started. Tol must be tightened (1e-10 or absolute-change threshold).
+
+**2. Cosserat over-saturation, not eigenmode.** Cosserat |ω|peak doubled from 0.94 (saturation onset, doc 34_ §9.4 bound-state amplitude) to 2.19. A²_κ ≈ 4.8, way past saturation clipping bound 1. The Op14 chain clips: A²_clipped = 0.999, S = 0.032 → gradient w.r.t. ω vanishes due to clip, NOT due to true minimum. **False stationarity from saturation clipping**, not eigenmode convergence.
+
+**3. K4/Cosserat scale mismatch — Cosserat dominates by 10×.** A²_K4 contribution at seed ≈ 0.09 (V_sq summed over ports / V_SNAP²); A²_Cos contribution ≈ 0.88. Cosserat saturates the budget; K4 gradient is ~10× smaller. **K4 V_inc field barely moves** during relaxation (|V|peak unchanged). Need either:
+- Larger V_amp seed (0.2+, closer to saturation onset)
+- Rescaled K4 gradient in the descent step (preconditioner)
+- Sector-balanced objective
+
+### 21.4 Deeper question — is global S₁₁ minimization the right objective?
+
+Doc 34_ X4b validated `relax_s11` Cosserat-only. There the geometry is simpler: the bound-state shell sits at a specific (R, r) and saturation forms a localized Γ profile. Globally minimizing |Γ|² Cosserat-only finds it because the topology constraint c=3 is preserved through gradient flow.
+
+For the coupled K4+Cosserat engine, global S₁₁ minimization may be too aggressive — it pushes the field toward IMPEDANCE-UNIFORM configurations, but the bound state requires SHARP Γ at the shell boundary (TIR). The topology constraint is what's supposed to keep the shell from dissolving. If gradient flow over-saturates Cosserat (|ω|peak → 2.19), the shell becomes pathologically saturated rather than a clean TIR boundary.
+
+**Possible reformulations** (defer until empirical motivation):
+- Constrained minimization: minimize S₁₁ subject to |Γ|²_shell ≥ 1 (TIR floor)
+- Shell-only S₁₁: minimize |Γ|² only outside the shell, leaving boundary as-is
+- Topology-regularized: add ‖∇topology‖ penalty preventing c=3 winding from drifting
+
+### 21.5 v1 verdict — methodology validated, parameters require tuning
+
+Phase 5c is partially complete:
+- ✓ Infrastructure built and JIT-compiled cleanly
+- ✓ Gradient descent runs without error
+- ✓ c_cos = 3 preserved through descent
+- ✗ S₁₁ reduction marginal (3%), spurious convergence
+- ✗ Cosserat over-saturated (|ω| doubled)
+- ✗ K4 didn't move
+
+Phase 5c-v2 follow-up (not yet run): rerun with tighter tol, larger lr, possibly higher V_amp seed; investigate whether sector-balanced gradient or constrained objective is needed.
+
+**Methodology lesson:** Per-iteration descent reaches a saturation-clipping plateau in ~20 iters. The S₁₁ surface around the seed is locally flat (most sites already impedance-matched in 80³ lattice; only the shell deviates). The descent is finding a saturation-clipping pocket, not a meaningful S₁₁ minimum. **The bound state may not be a global S₁₁ minimum** — it may be a saddle point or constrained minimum that requires explicit topological / saturation constraints to find.
+
+---
+
+*§21 added 2026-04-25 — Phase 5c-v1: coupled S₁₁ relaxation infrastructure landed; first run produced spurious convergence (Cosserat over-saturated, K4 unchanged, S₁₁ dropped only 3%). Methodology Ax-3 compliant; parameters/objective formulation need refinement. Phase 5c-v2 (parameter sweep + objective reformulation) deferred for next iteration. F17-K plan validated structurally; convergence to single-electron eigenmode pending Phase 5c-v2.*
