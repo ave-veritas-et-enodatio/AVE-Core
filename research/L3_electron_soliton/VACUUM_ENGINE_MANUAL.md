@@ -1,7 +1,7 @@
 # VacuumEngine3D — Manual / Datasheet
 
-**Manual revision:** r8 (2026-04-24)
-**Engine version:** 4.0.0 (current HEAD = `815cd40` on branch `research/l3-electron-soliton`; Phase 4 + Phase 5 gate + Cosserat PML + memristive Op14 + Round 6 single-electron-first pivot all landed as commits since r7)
+**Manual revision:** r8.1 (2026-04-24, late-evening)
+**Engine version:** 4.0.2 (current HEAD = `687b18d` on branch `research/l3-electron-soliton`; Phase 4 + Phase 5 gate + Cosserat PML + memristive Op14 + Round 6 single-electron-first pivot + F17-I three-mode coupled-seed test all landed as commits since r7)
 
 **Status (r8 — Round 6 pivot, hybrid scope):** r8 is a hybrid-scope reconcile, not a full rewrite. The framework is in active flux (Path B blocked on strain-mask infrastructure; single-electron validation incomplete) so this revision updates load-bearing-for-new-agents content (front matter, change log, suspended-work flags, framing-correction note) and leaves the §3 physical model and §15 derivation chain bodies for r9 once Round 6 closes. Twenty-three commits landed since r7 spanning four arcs:
 
@@ -1304,9 +1304,27 @@ for edge in active_bonds:
 
 **Path B (Cosserat ω only at corrected amp |ω|=0.3π):** ⏸ BLOCKED. Seeded bound state has right initial structure (shell_Γ²=3.04, R/r=2.56, c=3 — matching doc 34_ X4a within 5%) but **collapses entirely on step 1 of `engine.step()`**: shell_Γ² → 0, energy drops 95%, topology disrupted. Diagnosis: PML truncation artifact at N=48 (soliton outer shell at R+r ≈ 16.5 sits ~7.5 cells from PML inner boundary). Resolution requires strain-determined dynamic-boundary infrastructure (plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`). Alternate causes (asymmetric-init coupling spike, Beltrami helicity boundary truncation, CFL violation) not yet ruled out — one-step diagnostic recommended before infrastructure work.
 
-**Path C (K4 V_inc + Cosserat ω, mixed):** ran, runaway energy. Per [doc 66_ §17.2.3](66_single_electron_first_pivot.md): seeded a C-state of one LC pair AND an L-state of a different LC pair — never both halves of either pair. F17-I "all-C-state or all-L-state coupled seed" is the unattempted candidate.
+**Path C (K4 V_inc + Cosserat ω, mixed):** ran, runaway energy. Per [doc 66_ §17.2.3](66_single_electron_first_pivot.md): seeded a C-state of one LC pair AND an L-state of a different LC pair — never both halves of either pair. F17-I "all-C-state or all-L-state coupled seed" tested next.
 
 **F17-G coupled-eigenmode finder** (`815cd40`): outer-loop self-consistent eigenmode search — seed both sectors → undamped evolve → time-RMS combined-magnitude envelope → extract (R, r) → feedback → check convergence. Termination: converged | diverged | topology_lost | geometry_collapsed | max_iter_no_converge.
+
+**F17-I three LC-pair-coherent seed modes** (`687b18d`, doc 66_ §18): tested all three coupled-seed candidates side-by-side at N=48, R=12, r=R/φ²:
+
+| Seed mode | Fields seeded | Result |
+|---|---|---|
+| `all_c` | V_inc + u (both C-states of their respective LC pairs) | Catastrophic divergence at step 1 (|ω| 0 → 1030) |
+| `all_l` | Φ_link + ω (both L-states) | Energy bounded (E < seed); |ω| relaxes monotonically 0.93 → 0.35; topology dissolves (R/r 2.6 → 0.2, c=0). Stable non-toroidal endpoint. |
+| `mixed` (Path C) | V_inc + ω | Runaway at step 13 |
+
+**Empirical diagnostic of L_c coupling asymmetry.** Pattern across the three modes: one direction explodes, opposite direction relaxes monotonically without back-channel, mixed amplifies. A reciprocal LC coupling would show energy oscillating between sectors at ω_C — observed behavior is unidirectional energy flow Cosserat → K4 in `all_l`, with no reverse channel. **L_c = (V²/V_SNAP²)·W_refl(u, ω) empirically behaves as a one-way energy pump rather than a reciprocal oscillator coupling.**
+
+**F17-H now load-bearing** — audit doc 54_ §6 L_c derivation for axiom-grounding. If L_c is genuinely asymmetric (one-way pump), it cannot host a bound (2,3) eigenmode; that requires reciprocal energy exchange between sectors at the eigen-frequency. The L_c form may be wrong, or it may be correct in some regime but mis-applied in the closed-system Path B/C/F17-I configurations.
+
+**F17-J followup:** characterize `all_l`'s relaxation endpoint — non-toroidal but stable. What is it? Defer until F17-H informs whether L_c is correct.
+
+New seeders introduced in `687b18d`:
+- `cosserat_field_3d.py::initialize_u_displacement_2_3_sector` — seeds Cosserat `u` with (2,3) hedgehog, ω at zero. Companion to existing `initialize_electron_2_3_sector` (which seeds ω with u at zero).
+- `tlm_electron_soliton_eigenmode.py::initialize_phi_link_2_3_ansatz` — seeds K4 Φ_link with (2,3) chiral phasor at A-sites, V_inc at zero. Companion to existing `initialize_2_3_voltage_ansatz`.
 
 **Pre-registered Path B predictions** (provisional pending Grant approval per doc 66_ §14.4):
 - `P_electron_cosserat_topological_charge`: N_crossings = 3 preserved over ≥100 Compton periods
@@ -1616,6 +1634,9 @@ Currently [AVE-APU/vol_1_axiomatic_components/ch05:26–37](../../../AVE-APU/man
 | 2026-04-24 | 815cd40 | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-G): Coupled K4+Cosserat eigenmode finder + field-mapping documentation` — doc 66_ §17.2 three-storage-mode mapping: ε² (strain → electric/capacitive), κ² (curvature → magnetic/inductive), V² (pressure → stored-potential). Three conjugate LC pairs (V_inc↔Φ_link, u↔u_dot, θ↔ω) oscillating 90° phase-locked. New script `coupled_engine_eigenmode.py` — outer-loop self-consistent eigenmode search. F17-I followup: all-C-state or all-L-state coupled seed not yet tried. |
 | 2026-04-24 | — (uncommitted) | session agent | `cosserat_field_3d.py` `initialize_electron_2_3_sector` | Adds `amplitude_scale: float = 1.0` parameter for Path B's |ω|=0.3π correction per doc 66_ §14.3. Default preserves backward-compat; Path B callers pass `amplitude_scale = 0.3π / (√3/2·π) ≈ 0.3464`. |
 | 2026-04-24 | — | session agent (r8 update) | §1 front-matter, new §1.5 Round 6 pivot summary, §2.3 [r8 reframe note], new §11.11 K4-TLM-exhausted, §13.5/§13.5a/§13.5b/§13.5c new entries (Phase 5 suspended, Phase 5e landed, Round 6 path A/B/C, strain-mask infrastructure), §13.7 scope table updated, §16.1 24 commit rows appended, §16.2 engine version history updated, §17 A24/A25/A26 added | **Manual r8 (hybrid scope).** Reflects 23 commits since r7 (a5bd1da → 815cd40) plus Round 6 single-electron-first pivot. Bumps engine to 4.0.0 (memristive Op14 = new state variable; PairNucleationGate = new physical axiom invocation). §1.5 surfaces canonical Round 6 content (three-storage-mode mapping, K4-TLM exhaustion, three-entropy distinction). §3 / §15 / §17.1-3 reorganization deferred to r9 once Round 6 closes. |
+| 2026-04-24 | 4ba20f8 | session agent | — | `docs(L3 Stage 6 Round 6): VACUUM_ENGINE_MANUAL.md r8 hybrid-scope reconcile + first commit` — manual joins source control for the first time. Prior r0-r7 lived as untracked working-tree revisions. Going forward, each engine-changing commit lands with a synchronous manual edit per §1.2 maintenance protocol. |
+| 2026-04-24 | 687b18d | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-I): Three LC-pair-coherent seed modes empirically tested` — adds `initialize_u_displacement_2_3_sector` (Cosserat u seeder) + `initialize_phi_link_2_3_ansatz` (K4 Φ_link seeder) + `seed_mode` parameter on coupled-engine eigenmode finder (mixed | all_c | all_l). Three-mode test at N=48 reveals **L_c coupling asymmetry** — `all_c` catastrophically diverges step 1, `all_l` bounded with monotonic Cosserat→K4 relaxation (no reverse channel), `mixed` runaway. A reciprocal LC coupling would oscillate energy between sectors at ω_C; observed pattern is one-way energy pump. Doc 66_ §18 added. F17-H (audit doc 54_ §6 L_c derivation) now load-bearing. |
+| 2026-04-24 | — | session agent (r8.1 update) | §13.5b F17-I results table, §17.1 A27 new (L_c asymmetry), §17.3 summary + critical-path blockers updated (F17-H now load-bearing) | **Manual r8.1.** First synchronous edit under the "manual joins source control" protocol — reflects F17-I three-mode test commit `687b18d`. Engine version 4.0.0 → 4.0.2 (test-only changes; new seeders + driver parameter, no new engine state). New audit finding A27 (L_c empirical asymmetry); F17-H derivation audit identified as new critical-path blocker. |
 
 ### 16.2 Engine version history (prior to manual creation)
 
@@ -2079,6 +2100,25 @@ strain = v_total / v_snap
 
 **Status:** open until commit + retroactive caller audit. Fix is small (~10 LOC) and Round 6 Path B is blocked on it.
 
+#### A27. `L_c = (V²/V_SNAP²)·W_refl(u, ω)` empirically behaves as a one-way energy pump, not a reciprocal LC coupling (S1 — load-bearing for Stage 6 single-electron representation)
+
+**Where:** [doc 54_ §6 L_c derivation](54_pair_production_axiom_derivation.md) + coupling implementation in [k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py).
+
+**Empirical signature** (commit `687b18d`, F17-I three-mode test): under closed-system evolution at N=48 with seeded coupled eigenmode candidates, the three LC-pair-coherent seed configurations produce three qualitatively different failure modes:
+- `all_c` (V_inc + u): catastrophic divergence at step 1
+- `all_l` (Φ_link + ω): bounded energy, monotonic Cosserat→K4 relaxation, no reverse channel observed
+- `mixed`: runaway
+
+A reciprocal LC coupling would produce energy oscillation between sectors at the eigen-frequency. The observed pattern — one direction explodes, opposite direction relaxes monotonically without back-channel — is the signature of a one-way energy pump.
+
+**Consequence:** L_c as currently formulated cannot host a bound (2,3) eigenmode. Either the form is wrong (axiom-derivation-defective) or correct-but-mis-applied (right for some regime, wrong for closed-system bound-state evolution). Without reciprocal coupling, the engine can saturate K4 from a Cosserat seed but cannot sustain a coupled standing wave between the two sectors.
+
+**Status:** open. **F17-H is the resolution path** — audit doc 54_ §6 L_c derivation for axiom-grounding. If derivation traces to Ax1-4 cleanly and the asymmetric behavior is a feature (not a bug), the bound electron may live in a different regime where the asymmetry doesn't bite. If derivation has a gap, the L_c form needs revision.
+
+**Followup F17-J:** characterize `all_l`'s relaxation endpoint — bounded, non-toroidal, stable. What configuration is it? Deferred until F17-H closes.
+
+**Methodology note:** A27 is a Round 6 finding that depends on engine empirical results, not on static analysis or corpus-search. It exemplifies COLLABORATION_NOTES Rule 10 — empirical drivers catch what static analysis misses. Three sessions of debate over Phase 5 gate firing assumed L_c coupling was reciprocal because the Lagrangian formulation suggested it; empirical test exposed that the implementation does not behave reciprocally.
+
 ### 17.2 Closed findings
 
 #### A14 (closed 2026-04-23, r6) — `BondObserver` extends the A1 normalization discrepancy to three observers
@@ -2221,10 +2261,12 @@ Status column: `Open` = no action yet; `In-flight` = script/PR exists addressing
 | ~~A24~~ | S1 | ~~K4 saturation path dormant in engine context (V_SNAP unit-system mismatch, "Flag-5e-A")~~ | **CLOSED r8 (commit `098d430`)**. K4 V_SNAP plumbed from engine; first empirical cool-through-yield observed. Test-coverage hole closed via retroactive engine saturation invariants (`5f973b6`). |
 | ~~A25~~ | S1 | ~~K4-TLM exhausted at node level for bound electron~~ | **EMPIRICALLY CLOSED r8 (commit `fbbc950`)**. Vol 1 Ch 8:49-50 corpus-confirmed; Path A 4-of-4 falsification empirical. New §11.11 limit added. Methodology lesson: COLLABORATION_NOTES Rule 8 Round 6 strengthening (corpus-search at architectural-decision time). |
 | **A26** | S1 | `initialize_electron_2_3_sector` carries wrong default amplitude (√3/2·π instead of 0.3π) | Open — fix in working tree (uncommitted `amplitude_scale` parameter); retroactive caller audit pending. Round 6 Path B blocked on this. |
+| **A27** | S1 | `L_c = (V²/V_SNAP²)·W_refl(u, ω)` empirically behaves as one-way energy pump, not reciprocal LC coupling | Open — F17-I three-mode test (commit `687b18d`) revealed asymmetry; F17-H L_c-derivation audit is the resolution path. Without reciprocal coupling, no bound (2,3) eigenmode possible. |
 
-**Critical-path blockers (r8):**
+**Critical-path blockers (r8.1):**
 
-1. **Round 6 single-electron validation precondition** — Path A FALSIFIED, Path B BLOCKED on either strain-mask infrastructure or alternative root-cause diagnostic, F17-I "all-C-state or all-L-state coupled seed" not yet tried. Pair-nucleation work suspended pending closure.
+1. **F17-H — audit doc 54_ §6 L_c derivation for axiom-grounding** — newly load-bearing per A27. Either L_c form is wrong (revise) or it's right-but-mis-applied (identify the regime where it bites and the regime where it doesn't). Single-electron representation gated on this.
+2. **Round 6 single-electron validation precondition** — Path A FALSIFIED, Path B BLOCKED on strain-mask infrastructure, F17-I three-mode test ran (`687b18d`) — exposed L_c asymmetry (A27). Pair-nucleation work suspended pending L_c resolution.
 2. **Strain-mask infrastructure adjudication** — plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`; awaits Grant adjudication on threshold value, update frequency, energy-at-flip semantics, and doc 66 §15 framing.
 3. **Amplitude-bug fix (A26)** — uncommitted `amplitude_scale` parameter in `cosserat_field_3d.py`; commit + retroactive caller audit gates Path B re-run.
 4. **Flag 62-A first-law closure (BH thermodynamics)** — Standard S_BH closes via imported GR first law; AVE-native Ŝ_geometric does not satisfy T·dS = dE. Either complete Vol 3 Ch 11:14-48 volume-entropy mechanism for BH interiors or accept S_thermo as a distinct AVE quantity. Orthogonal to single-electron pivot.
