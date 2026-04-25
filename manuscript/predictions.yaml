@@ -786,15 +786,33 @@ predictions:
       aggressively (>1 pair/period) or never fires under C1∧C2.
 
   - id: P_basin_audit_GT_stationarity
-    name: "Engine W basin: GT-family triplet converges to common stationary point at corpus GT"
+    name: "[RETRACTED — superseded by P_phase6_eigensolver_multiseed] Engine W basin: GT-family triplet converges to common stationary point at corpus GT"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/71_basin_audit_methodology.md"
+    research_doc: "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
     test_file: "src/scripts/vol_1_foundations/phase5_basin_audit.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
     public_in_living_ref: false
     notes: |
+      **RETRACTED 2026-04-25 (same fresh session as commit 1bc1652) per Rule 12
+      methodology-bug retraction. Body preserved as audit trail. Superseded by
+      P_phase6_eigensolver_multiseed (multi-seed R7.1 sparse eigensolver sweep)
+      per doc 71_ §13. Two retraction reasons:**
+      (1) **Geometry bug:** R=φ² in literal lattice cells is sub-lattice at any
+      reasonable N (corpus values are RATIOS, not cell counts; F17-K v2-v2
+      already had the right pattern at N=80 R=20). A26 guard fired on first
+      seed, halting the run before any data was collected. See doc 71_ §11.
+      (2) **Methodology framing bug:** TDI gradient descent on Cosserat W is a
+      SM-style minimization where the corpus-native concept for a bound state
+      is a standing-wave eigenmode of K4+Cosserat dynamics (Helmholtz / acoustic
+      cavity formulation per doc 67_ §23.4). R7.1 sparse eigensolver IS the
+      AVE-native tool; basin audit reinvented R7.1's scope under worse
+      framing. Rule 6 / Rule 8 / Rule 10 corollary violation per
+      COLLABORATION_NOTES; A35 in r8.7. See doc 71_ §13.
+
+      Original §6 body (NOT FALSIFIED — never staged) follows for audit trail:
+
       Stage 0 precondition for Round 7 Stages 1+2. Under TDI mode
       (damping_gamma=0.1, no saturation pin, N=24, central bond,
       amplitude_scale = 0.3 / (√3/2) ≈ 0.3464 satisfying A26 contamination
@@ -829,6 +847,84 @@ predictions:
       Driver runs in fresh session per Round 7 discipline. Result conditions
       Round 7 Stage 1 (R7.1 sparse eigensolver linearization point) and
       Stage 2 (R7.2 (2,3)/Hopf injection target geometry) both downstream.
+
+  - id: P_phase6_eigensolver_multiseed
+    name: "R7.1 multi-seed sparse eigensolver: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
+    test_file: "src/scripts/vol_1_foundations/r7_eigensolver_multiseed.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 7 Stage 1 — multi-seed strengthening. Replaces the retracted
+      P_basin_audit_GT_stationarity (basin-audit-as-Stage-0 was Rule 6/8/10
+      violation per doc 71_ §13). Methodology: linearize coupled K4+Cosserat
+      dynamics around each seed ansatz via JAX jacrev; build sparse generalized
+      eigenvalue Jacobian (A u = λ B u, Helmholtz form); use
+      scipy.sparse.linalg.eigsh(A, M=B, k=5, sigma=ω_C², which='LM') to extract
+      eigenmodes near ω_Compton at fixed cavity geometry.
+
+      Lattice: N=32, R_anchor=10. Larger N than the retracted basin audit
+      because F17K_s11 endpoint at R/r=1.03 needs r≈9.71 cells (won't fit at
+      N=24 alive halfwidth=8); N=32 alive halfwidth ≈12 accommodates all
+      three. Sparse Jacobian dim ≈ 6·N³ = 196,608 — tractable for eigsh.
+
+      Engine: A28 + Cosserat self-terms enabled (post-Round-6 default).
+      No saturation pin (audit isolates W gradient flow).
+      A26 guard at step 0 mandatory (peak |ω| ∈ [0.85, 1.15]·0.3π for GT-family).
+
+      Seeds (4 total):
+      - GT_corpus:        R=10, r=10/φ²≈3.82  (corpus claim R/r=φ²)
+      - F17K_cos_endpoint: R=10, r=10/3.40≈2.94 (F17-K v2-v2 Cosserat-energy
+        descent endpoint per commit 4c9fbea / doc 67_ §25)
+      - F17K_s11_endpoint: R=10, r=10/1.03≈9.71 (F17-K v2-v2 coupled-S₁₁
+        descent endpoint per same source)
+      - vacuum_control:    random low-amplitude (peak |ω|=0.05) — negative
+        control. No (2,3) topology present; eigensolver should return only
+        trivial / continuum modes.
+
+      All GT-family seeds use amplitude_scale = 0.3 / (√3/2) ≈ 0.3464
+      (A26-corrected) for the (2,3) hedgehog initialization.
+
+      Eigenmode tolerances:
+      - "exists at ω_Compton" iff |√λ - ω_C| < α · ω_C (fine-structure-constant
+        accuracy per original §R7.1 draft sub-pred)
+      - Q-factor extracted from boundary impedance: pass if
+        |Q - 1/α| / (1/α) < 0.05 (5% relative)
+      - Eigenmode shape match to doc 34_ X4a's amplitude-sweep best-amplitude
+        profile: pass if normalized correlation > 0.85
+
+      PASS:
+      At least one of {GT_corpus, F17K_cos_endpoint, F17K_s11_endpoint}
+      returns an eigenmode at ω_Compton ± α·ω_C with Q-factor 1/α ± 5% AND
+      shape correlation > 0.85 against doc 34_ X4a profile. vacuum_control
+      returns no nontrivial eigenmode in the same window.
+
+      THREE-MODE FALSIFICATION RESOLUTION (which seed succeeds determines
+      the basin question; per doc 71_ §13.4):
+      - (I) GT_corpus passes → corpus Golden Torus geometry vindicated.
+        F17-K v2-v2's R/r=3.40 and 1.03 were dynamical-descent artifacts;
+        spectral bound state is at corpus GT. R7.1 vindicated as scoped.
+      - (II) F17K_cos and/or F17K_s11 passes; GT_corpus fails → engine basin
+        is at F17-K endpoint geometry, NOT corpus GT. Corpus geometric claim
+        (R·r=1/4, R/r=φ²) empirically wrong at coupled-engine scale. Engine
+        W or corpus geometry derivation needs revision.
+      - (III) No seed passes → (2,3) representation needs structural rework.
+        Either the (2,3) ansatz is wrong (winding, amplitude, field sector)
+        or coupled K4+Cosserat dynamics needs additional terms beyond
+        currently implemented. Round 8 architectural rework.
+
+      Negative-control failure: if vacuum_control returns a nontrivial
+      eigenmode at ω_Compton, eigensolver itself is broken (sparse Jacobian
+      assembly bug or continuum-mode misidentification). Methodology
+      issue, not physics finding — re-check Jacobian assembly before
+      interpreting (I)/(II)/(III).
+
+      Driver `r7_eigensolver_multiseed.py` (~300 LOC) deferred to fresh
+      session per Round 7 discipline. This commit lands frozen pre-registration
+      + doc 71_ §13-§14 methodology + retraction of P_basin_audit_GT_stationarity.
 
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
