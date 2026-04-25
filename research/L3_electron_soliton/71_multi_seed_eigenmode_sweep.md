@@ -1,6 +1,8 @@
 # 71 — Multi-seed R7.1 eigenmode sweep (corpus-canonical replacement for the retracted Stage 0 basin audit)
 
-**Status:** 2026-04-25. **REFRAMED.** Originally written as "Stage 0 basin-mapping audit." Self-audit per Grant directive ("review COLLABORATION_NOTES, are you trapped in known patterns?") found the basin-audit framing was a Rule 6 / Rule 8 / Rule 10-corollary violation: gradient-descent on Cosserat W is a SM-style minimization where the corpus-native concept for a bound state is a **standing-wave eigenmode of coupled K4+Cosserat dynamics** (Helmholtz / acoustic-cavity formulation per [doc 67_ §23.4](67_lc_coupling_reciprocity_audit.md#L23)). R7.1's sparse eigensolver IS the corpus-canonical tool; the basin audit reinvented R7.1's scope under a worse framing.
+**Status:** 2026-04-25. **REFRAMED twice.** §13 frozen pre-registration `P_phase6_eigensolver_multiseed` (commit `c69e79c`) is **provisionally retained but conditioned on [doc 72_](72_vacuum_impedance_design_space.md) design-space sign-off**. Audit flags A (V_inc seed at zero produces decoupled Jacobian) and B (shape correlation against pre-coupling X4a is over-strict) surfaced after §13 commit; doc 72_ resolves both by reframing the operator from Hessian-of-W to Helmholtz wave-eigenmode (§13's "sparse generalized-eigenvalue Jacobian" framing is upstream-incorrect — Helmholtz is the AVE-native wave-equation operator). If doc 72_ §1-§5 sign off cleanly, §13 retracts and is replaced by `P_phase6_helmholtz_eigenmode_sweep`; if not, §13 stays.
+
+**Reframe-1 history (this header):** Originally written as "Stage 0 basin-mapping audit." Self-audit per Grant directive ("review COLLABORATION_NOTES, are you trapped in known patterns?") found the basin-audit framing was a Rule 6 / Rule 8 / Rule 10-corollary violation: gradient-descent on Cosserat W is a SM-style minimization where the corpus-native concept for a bound state is a **standing-wave eigenmode of coupled K4+Cosserat dynamics** (Helmholtz / acoustic-cavity formulation per [doc 67_ §23.4](67_lc_coupling_reciprocity_audit.md#L23)). R7.1's sparse eigensolver IS the corpus-canonical tool; the basin audit reinvented R7.1's scope under a worse framing.
 
 **Reframe per Grant 2026-04-25:**
 - §1-§12 below are RETAINED as audit trail and as informational empirical context (TDI flow under W is informative for interpreting "no eigenmode at any seed" outcome, even if it isn't load-bearing for R7.1's go/no-go).
@@ -335,7 +337,18 @@ If all three are go, next step is: update driver, add v2 entry to predictions.ya
 
 ---
 
-## 13. ACTIVE — Multi-seed R7.1 sparse eigensolver sweep (corpus-canonical replacement for §1-§12)
+## 13. RETRACTED — Multi-seed R7.1 sparse eigensolver sweep (Hessian-of-W framing superseded by block Helmholtz per doc 72_)
+
+**Retracted 2026-04-25 same fresh session per Rule 12.** §13 framed R7.1 as "linearize coupled K4+Cosserat dynamics around each seed ansatz, build sparse generalized-eigenvalue Jacobian" — i.e., **Hessian-of-W** eigsolve. External audit on commit `c69e79c` flagged two issues:
+
+- **Flag A:** at V=0 seed, ∂²W/∂V∂ω cross-block of the Hessian vanishes (Op14 is multiplicative in V), decoupling K4↔Cosserat in the Jacobian. Eigsh returns Cosserat-only modes; mode (III) becomes uninterpretable.
+- **Flag B:** shape correlation > 0.85 against pre-coupling doc 34_ X4a profile is over-strict — coupling distorts the bound-state shape; valid eigenmodes could fail the conjunction.
+
+Both flags vanish under the **block Helmholtz on (V, ω) joint** framing per [doc 72_ §3.1](72_vacuum_impedance_design_space.md). The deeper finding from doc 72_'s self-audit: Hessian-of-W is a **SM-style minimization** framing on a wave-propagation substrate (Rule 6 violation by the operator choice itself). Helmholtz wave-eigenmode is the AVE-native operator for bound-state analysis; this is concept §1.1 of doc 72_.
+
+§13 body retained below as audit trail of the methodology iteration (per Rule 12). Active pre-registration is now `P_phase6_helmholtz_eigenmode_sweep` per [§15](#15-active--multi-seed-r71-block-helmholtz-eigenmode-sweep-active-2026-04-25). Original §13 follows:
+
+### Original §13 (Hessian-of-W framing, superseded):
 
 ### 13.1 Why the basin audit was the wrong question
 
@@ -412,7 +425,12 @@ Per session-end discipline (Manual r8.x updates are other-agent's scope per Gran
 
 ---
 
-## 14. Driver scope notes for fresh-session R7.1 implementer (informational, not pre-registered)
+## 14. SUPERSEDED — Driver scope notes for §13 Hessian-of-W framing (informational, not pre-registered)
+
+**Superseded 2026-04-25** alongside §13 retraction. These driver scope notes were for the Hessian-of-W operator (§13 framing). Active driver scope for the block Helmholtz framing lives in [doc 72_ §5](72_vacuum_impedance_design_space.md). The V=0 decoupling subtlety (which was Flag A under Hessian-of-W) is now documented as the desired V-block + ω-block decomposition behavior in [doc 72_ §3.1.1](72_vacuum_impedance_design_space.md). §14 body retained as audit trail of the Hessian-of-W driver-design iteration.
+
+### Original §14 (driver scope notes for retracted §13 Hessian-of-W framing):
+
 
 ### 14.1 Reuse vs. write-new
 
@@ -445,5 +463,43 @@ Write new:
 - If mode (I): R7.2 ((2,3)/Hopf injection per G-13) runs at corpus GT geometry; Round 7 closes.
 - If mode (II): r8.x reconstruction of corpus geometry derivation; Round 7 closes after corpus revision lands.
 - If mode (III): Round 8 architectural rework — likely starting with "where does the bound state live? K4 sector? Coupled non-(2,3) topology? Different field representation?"
+
+*(End of original §13 body — superseded by §14 ACTIVE below.)*
+
+---
+
+## 15. ACTIVE — Multi-seed R7.1 block Helmholtz eigenmode sweep (active 2026-04-25)
+
+Per [doc 72_](72_vacuum_impedance_design_space.md) design-space articulation. The Hessian-of-W framing in §13 is superseded; the AVE-native operator for bound-state analysis is **block Helmholtz on the joint `(V, ω)` state vector**. Active pre-registration is `P_phase6_helmholtz_eigenmode_sweep` (replaces `P_phase6_eigensolver_multiseed`).
+
+### 15.1 Why this isn't reframe 4 / commitment to v2 operator choice
+
+This is **reframe 3** of R7.1 in one session arc (single-seed Hessian → multi-seed Hessian → multi-seed block Helmholtz). Per [doc 72_ §6.1](72_vacuum_impedance_design_space.md): the fresh-session run committed against `P_phase6_helmholtz_eigenmode_sweep` is committed to operator choice. Post-run methodology adjustments are allowed under Rule 10 ("data first, methodology adjustments after"); pre-emptive operator changes before run are not, except for catastrophic methodology error (load-bearing physics error in operator construction itself).
+
+Two prior reframes were both substantive corrections (multi-seed strengthening for Round 7 scoping; block Helmholtz for AVE-native operator). Reframe 4 would be loop continuation; the §6.1 commitment + Rule 10 anchor close that loop.
+
+### 15.2 Quick map of §15 vs §13
+
+| Aspect | §13 (RETRACTED Hessian) | §14 (ACTIVE block Helmholtz) |
+|---|---|---|
+| Operator | `∂²W/∂(u,ω,V,V_ref)²` Hessian, autodiff via JAX jacrev | Block Helmholtz on (V, ω) joint, direct sparse construction |
+| Cross-coupling at V=0 | Vanishes silently → K4↔Cosserat decouple, eigsh returns Cosserat-only modes (Flag A) | Vanishes per §3.1.1 footnote → V-block + ω-block returned simultaneously, sector-energy-split diagnostic reads off "which sector" |
+| Bound-state shape | Correlation > 0.85 against pre-coupling X4a (over-strict, Flag B) | `c_eigvec = 3` binary PASS + shape correlation > 0.60 informational (Q4 two-tier) |
+| Visualization | (R, r) sweep returning {ω_n} | 3D Smith chart Extension A `(Re(Γ), Im(Γ), ω)` per doc 72_ §2.1 |
+| LOC | ~300 | ~290 |
+| Pred | `P_phase6_eigensolver_multiseed` (commit `c69e79c`, retracted) | `P_phase6_helmholtz_eigenmode_sweep` (this commit) |
+
+### 15.3 Read order for fresh-session R7.1 implementer
+
+1. **[Doc 72_](72_vacuum_impedance_design_space.md) in full** — methodology + commitment language + operator framing. §6.1 reframe-3 commitment is load-bearing.
+2. **§14 of this doc** — quick orientation that §13 is superseded; §14's pred is active.
+3. **`P_phase6_helmholtz_eigenmode_sweep` in `manuscript/predictions.yaml`** — frozen pre-registration. Build to match it; halt-and-flag if deviation surfaces, do NOT modify the pred.
+4. **Build driver `r7_helmholtz_eigenmode_sweep.py`** (~290 LOC per doc 72_ §5).
+5. **Run + interpret** against three-mode falsification (mode I / II / III) plus sector-energy-split (V-dominant / hybrid / ω-dominant) plus shape correlation informational. Empirical data first; if unexpected, analyze data before considering methodology revision.
+6. **Write doc 72_ §9 result + adjudication** (or new doc 73_ if appropriate).
+
+### 15.4 What §13 retains (for audit-trail readers)
+
+§13's body retains all the multi-seed scoping logic, three-mode falsification structure, lattice geometry choice, A26 contamination guard, and seed list — all of which carry over to §14 unchanged. The retraction is specifically about **operator choice** (Hessian-of-W → block Helmholtz). Everything else built on §13 is reusable.
 
 ---

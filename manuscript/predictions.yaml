@@ -849,7 +849,7 @@ predictions:
       Stage 2 (R7.2 (2,3)/Hopf injection target geometry) both downstream.
 
   - id: P_phase6_eigensolver_multiseed
-    name: "R7.1 multi-seed sparse eigensolver: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
+    name: "[RETRACTED — superseded by P_phase6_helmholtz_eigenmode_sweep] R7.1 multi-seed sparse eigensolver: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
     type: derived_prediction
     pre_registered: true
     research_doc: "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
@@ -858,6 +858,32 @@ predictions:
     public_in_readme: false
     public_in_living_ref: false
     notes: |
+      **RETRACTED 2026-04-25 (same fresh session as commit c69e79c) per Rule 12
+      methodology-correction retraction. Body preserved as audit trail.
+      Superseded by P_phase6_helmholtz_eigenmode_sweep per doc 72_ §3.1 +
+      doc 71_ §14. Two retraction reasons:**
+      (1) **Operator choice (load-bearing physics):** "Hessian-of-W via JAX
+      jacrev" framing is SM-style minimization on a wave-propagation substrate
+      — Rule 6 violation by the operator choice itself. AVE-native operator
+      for bound-state analysis is block Helmholtz on joint (V, ω) state per
+      doc 72_ §3.1 (Helmholtz wave-eigenmode, NOT Hessian-of-W).
+      (2) **Audit Flag A:** at V=0 seed, ∂²W/∂V∂ω cross-block of Hessian
+      vanishes (Op14 multiplicative in V), decoupling K4↔Cosserat in Jacobian.
+      Eigsh returns Cosserat-only modes; mode (III) becomes uninterpretable.
+      **Audit Flag B:** shape correlation > 0.85 against pre-coupling
+      doc 34_ X4a is over-strict — coupling distorts shape; valid eigenmodes
+      could fail. Both flags vanish under block Helmholtz framing.
+
+      Multi-seed scoping (4 seeds: GT_corpus, F17K_cos_endpoint,
+      F17K_s11_endpoint, vacuum_control), three-mode falsification structure,
+      lattice geometry (N=32, R_anchor=10), and A26 contamination guard all
+      CARRY OVER to P_phase6_helmholtz_eigenmode_sweep unchanged. Only the
+      operator choice is retracted.
+
+      Original §6.2 body (NOT FALSIFIED — never staged because retracted
+      pre-run on operator-choice methodology error per doc 72_ §6.1
+      reframe-3 commitment criteria) follows for audit trail:
+
       Round 7 Stage 1 — multi-seed strengthening. Replaces the retracted
       P_basin_audit_GT_stationarity (basin-audit-as-Stage-0 was Rule 6/8/10
       violation per doc 71_ §13). Methodology: linearize coupled K4+Cosserat
@@ -925,6 +951,103 @@ predictions:
       Driver `r7_eigensolver_multiseed.py` (~300 LOC) deferred to fresh
       session per Round 7 discipline. This commit lands frozen pre-registration
       + doc 71_ §13-§14 methodology + retraction of P_basin_audit_GT_stationarity.
+
+  - id: P_phase6_helmholtz_eigenmode_sweep
+    name: "R7.1 multi-seed block Helmholtz on (V, ω) joint: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/72_vacuum_impedance_design_space.md"
+    test_file: "src/scripts/vol_1_foundations/r7_helmholtz_eigenmode_sweep.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 7 Stage 1 — reframe 3 (final operator choice per doc 72_ §6.1
+      Rule-10 commitment). Replaces retracted P_phase6_eigensolver_multiseed
+      (Hessian-of-W → block Helmholtz on (V, ω) joint per doc 72_ §3.1).
+
+      METHODOLOGY: Build sparse block Helmholtz operator on joint (V, ω)
+      state vector with Op14-modulated impedance set by Cosserat ansatz:
+
+         A · ψ = λ · B · ψ        where ψ = (V, ω)^T, λ = ω_n²
+
+      Block structure:
+         [ K_V       C_Vω  ]              [ M_V    0   ]
+         [                 ] ψ  =  ω_n² · [            ] ψ
+         [ C_ωV     K_ω    ]              [  0    M_ω  ]
+
+      K_V = K4-TLM wave operator on V with z(x;R,r) = z(A²(ω_seed)) per Op14.
+      K_ω = Cosserat sector wave/elastic operator on ω.
+      C_Vω, C_ωV = cross-coupling blocks encoding Op14 K4↔Cosserat coupling.
+      M_V, M_ω = block-diagonal mass matrices.
+
+      AT V=0 SEED (the natural starting point — seed only sets ω): cross-blocks
+      vanish (Op14 multiplicative in V), block matrix decouples. Eigsh returns
+      V-block eigenmodes (K4 wave on Cosserat backdrop) AND ω-block eigenmodes
+      (Cosserat-sector bound state) SIMULTANEOUSLY. This is desired behavior
+      per doc 72_ §3.1.1 footnote — exposes which sector the bound state lives
+      in. CANNOT find genuinely hybrid (V,ω) eigenmodes requiring V≠0 ∧ ω≠0;
+      that's Round 8 if mode (III) at V=0 + evidence to pursue hybrid.
+
+      Lattice: N=32, R_anchor=10. Sparse generalized eigsh dim ≈ 7·N³ ≈ 230K
+      (4 K4-port + 3 ω components per node), tractable for
+      scipy.sparse.linalg.eigsh(A, M=B, k=10, sigma=ω_C², which='LM').
+
+      Engine: A28 + Cosserat self-terms enabled.
+      A26 amplitude guard at step 0 (peak |ω| ∈ [0.85, 1.15]·0.3π for GT-family).
+
+      Seeds (4 total, unchanged from retracted P_phase6_eigensolver_multiseed):
+      - GT_corpus:        R=10, r=10/φ²≈3.82  (corpus claim R/r=φ²)
+      - F17K_cos_endpoint: R=10, r=10/3.40≈2.94 (F17-K v2-v2 Cosserat-energy)
+      - F17K_s11_endpoint: R=10, r=10/1.03≈9.71 (F17-K v2-v2 coupled-S₁₁)
+      - vacuum_control:    random low-amplitude (peak |ω|=0.05) — negative control
+
+      All GT-family seeds use amplitude_scale = 0.3 / (√3/2) ≈ 0.3464.
+
+      EIGENMODE PASS criteria (binary, all three required for headline PASS):
+      - "at ω_Compton": |√λ - ω_C| < α · ω_C
+      - Q-factor from boundary impedance: |Q - 1/α| / (1/α) < 0.05 (5% relative)
+      - Topological crossing-count: c_eigvec = 3 (winding number on
+        (V_n, ω_n) eigenvector via extract_crossing_count)
+
+      INFORMATIONAL DIAGNOSTICS (not PASS criteria, reported per eigenmode
+      passing the binary tier):
+      - Shape correlation > 0.60 against doc 34_ X4a profile (Q4 two-tier per
+        audit; surfaces "passes c=3 but suspicious shape" outcomes for
+        adjudication)
+      - Sector-energy split: fraction_V = ψ^H·M_V·ψ_V / (ψ^H·M·ψ),
+        fraction_ω = 1 - fraction_V (Q1 diagnostic per audit; reads off
+        V-dominant / hybrid / ω-dominant per §3.4 of doc 72_)
+
+      PASS:
+      At least one of {GT_corpus, F17K_cos_endpoint, F17K_s11_endpoint}
+      returns an eigenmode satisfying all three binary criteria.
+      vacuum_control returns no nontrivial eigenmode in the same window.
+
+      THREE-MODE FALSIFICATION RESOLUTION (with sector sub-reading from Q1
+      diagnostic; per doc 72_ §6.2):
+      - (I) GT_corpus passes → corpus Golden Torus geometry vindicated.
+        Sector sub-reading tells whether bound state lives in K4 or Cosserat.
+      - (II) F17K_cos and/or F17K_s11 passes; GT_corpus fails → engine basin
+        is at F17-K endpoint geometry, NOT corpus GT. Engine W or corpus
+        geometry derivation needs revision.
+      - (III) No seed passes at V=0 → either (2,3) representation needs
+        structural rework (Round 8) OR bound state is genuinely hybrid
+        coupled requiring V≠0 ∧ ω≠0 seed (Round 8 sub-question per
+        doc 72_ §3.1.1).
+
+      Negative-control failure: if vacuum_control returns nontrivial
+      eigenmode at ω_Compton, sparse Helmholtz operator has assembly bug
+      or BC issue. Methodology not physics — re-check before interpreting.
+
+      RULE-10 COMMITMENT (per doc 72_ §6.1): this is reframe 3 of R7.1.
+      Subsequent fresh-session run is committed to operator choice barring
+      catastrophic methodology error. Post-run methodology adjustments
+      allowed; pre-run reframe 4 is not, except for catastrophic errors
+      (load-bearing physics error in operator construction itself).
+
+      Driver `r7_helmholtz_eigenmode_sweep.py` (~290 LOC per doc 72_ §5)
+      deferred to fresh session per Round 7 discipline.
 
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
