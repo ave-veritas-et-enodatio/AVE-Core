@@ -481,3 +481,89 @@ Three Round 6 lessons added to [COLLABORATION_NOTES.md](../../.agents/handoffs/C
 ---
 
 *§15 added 2026-04-24 (late session) by Opus 4.7. Status: boundary-architecture plan exists in `~/.claude/plans/read-through-th-kb-reactive-stardust.md` but is gated on the §15.3 diagnostic to confirm which of four candidate causes is actually responsible for the Path B step-1 collapse. Methodology lessons from external review folded into COLLABORATION_NOTES rules 8+10.*
+
+---
+
+## 16. Path B / Path C empirical results + diagnostic findings
+
+**Path B with damping** (`damping_gamma=0.1`, Cosserat-only seed at peak |ω|=0.3π): same step-1 catastrophic energy loss as without damping; thereafter chaotic slow decay over 800 steps. Brief transit through a (2,3)-preserving high-Γ² configuration around step 5 (shell_Γ²≈3.94, R/r≈3.29, c=3) but system leaves it; never settles. Convergence criterion (ΔE/E < 1e-4 AND velocity < 1e-3) never satisfied.
+
+**Path C** (joint K4 V_inc + Cosserat ω seed, undamped): ENERGY RUNAWAY. Energy explodes from 2.59e3 to 1.05e10 by step 20 (factor of 4 million). Same step-5 brief (2,3)-preserving transit as Path B, then runaway amplification. Different failure mode than A or B.
+
+**Diagnosis from three failure modes:** the K4↔Cosserat coupling `L_c = (V²/V_SNAP²)·W_refl(u, ω)` from doc 54_ §6 is multiplicative bilinear and exhibits BOTH known failure modes:
+- No-bootstrap from cold (Round 5 step 5a finding: Cosserat A²_μ stuck at 0.012 under K4-only drive)
+- Runaway from hot (Path C this round: energy → 1e10 from joint seed)
+
+The brief step-5 transit through a (2,3)-preserving high-Γ² configuration appears in BOTH Path B and Path C at the same coordinate values — strongly suggestive of an unstable saddle in the dynamics rather than a stable fixed point. The (2,3) basin of attraction may not exist at all in the current engine's dynamics, OR the L_c coupling form is wrong.
+
+**Status:** Path A/B/C all fail to validate single-electron formation. Round 6's pivot stands but the "single-electron representation" question is itself blocked on either (a) auditing the L_c coupling derivation, (b) building a spectral / scatter-matrix-eigenvalue solver to find true K4-TLM eigenmodes directly, or (c) reframing the problem under Grant's density-vs-saturation reading (§17 below).
+
+---
+
+## 17. Foundational thread: time, density-vs-saturation, universe-as-vortex
+
+Late-session conversation surfaced three foundational reframes that may inform Path A/B/C interpretation. Documented here as Round 6 findings + followups.
+
+### 17.1 Time = local clock rate from lattice strain
+
+Grant's framing: time in AVE is the local refresh rate of the lattice, set by lattice strain. Twice the strain → half the refresh rate. This is gravitational time dilation as a lattice-level mechanism.
+
+**Corpus status:** the chain is implicit but never assembled. [Vol 3 Ch 3 refractive-index-of-gravity](../../manuscript/ave-kb/vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md) explicitly states `c_local = c_0/n(r)` where `n(r) = 1 + 2GM/(c²r)`. [Doc 59_ §1.2](59_memristive_yield_crossing_derivation.md) derives `τ_relax = ℓ_node/c` as a lattice-fundamental time. Combining: `τ_local = ℓ_node/c_local = n(r)·τ_unstrained`. Exactly Grant's "twice strain → half refresh" formula. **The corpus has the pieces but no document writes the one-liner.**
+
+**Engine status:** the engine treats `τ_relax = ℓ_node/c` as a global constant. No spatial n(r) modulation in the integrator. Acceptable for single-electron (gravity negligible), incorrect for cosmological / strong-gravity work.
+
+**Followup F17-A:** add a one-line explicit derivation `τ_local = n(r)·τ_unstrained` to Vol 3 Ch 3. Currently implicit; should be stated.
+
+**Followup F17-B:** when AVE-Core tackles strong-gravity or cosmological-scale work, the engine's τ_relax assumption needs revisiting. For Round 6 Path B/C this isn't blocking.
+
+### 17.2 Density vs saturation — same scalar, two framings
+
+Grant's hypothesis: maybe matter regions in the universe are LOW-density slipstream channels, surrounded by HIGH-density unstrained vacuum. "Density" being potentially distinct from "saturation."
+
+**Resolution after analysis:** the engine's saturation kernel S = √(1 − A²) IS the local lattice density under Grant's framing. Same scalar, different label:
+- A² = local field-energy density (fields² normalized to yield scales)
+- **S = √(1 − A²) = local "free capacity" of lattice substrate = effective density of unfilled vacuum**
+- S = 1 → unstrained vacuum, full capacity, behaviorally "high-density"
+- S → 0 → fully saturated, behaviorally "low-density slipstream" where rupture impends
+- Z_eff = Z₀/√S → ∞ as S → 0: low-density regions present infinite impedance to wave propagation (consistent with "empty space carries no waves")
+
+**The engine has been computing this correctly all along — it just labels the quantity "saturation" rather than "density."**
+
+Three field contributions feed A²:
+- ε² (Cosserat translational strain) — capacitive sector
+- κ² (Cosserat rotational curvature) — inductive/spin sector
+- V² (K4 port voltage) — capacitive sector under coupled formulation per doc 54_ §6
+
+A² normalization: `eps_sq/eps_yield² + kappa_sq/omega_yield² + V²/V_SNAP²` (per [cosserat_field_3d.py:245](../../src/ave/topological/cosserat_field_3d.py#L245) for first two; doc 54_ §6 adds V² contribution under K4 augmentation).
+
+**Implication for Path A/B/C:** the relabeling doesn't change what the engine computes. The failure modes are coupling-dynamics issues, not density-vs-saturation issues. So this reframe doesn't directly unlock Path B; it sharpens the cosmological-scale interpretation.
+
+**Followup F17-C:** add a paragraph to Ax4 documentation (Vol 1 Ch 1 or Vol 4 Ch 1) noting the duality: A² = local energy density, S = local free-capacity density. Both names describe the same scalar; choice of label is contextual (saturation framing for Bingham/yield discussions, density framing for cosmological-scale interpretation).
+
+**Followup F17-D:** the slipstream-vortex cosmology framing (§17.3) needs the density label to make sense; the saturation label confuses "matter region" with "high-strain pocket" rather than "low-density channel."
+
+### 17.3 Universe-as-vortex cosmology
+
+Grant's intuition: maybe the universe is a primordial vortex — slipstream channels along which matter (galaxies, solar systems, stars) flows, surrounded by dense unstrained vacuum. Galaxy rotation curves, voids, large-scale structure as density-gradient phenomena rather than missing-mass phenomena.
+
+**Corpus status:** **silent on vortex cosmology.** The corpus has lattice-genesis crystallization (doc 59_ §5.4, [Vol 3 Ch 4](../../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex)) and Hubble-as-crystallization-rate. Both linear / monotonic processes, no vortex content. [Doc 61_](61_cosmic_bipartite_k4_bh_interface_proposal.md) explores bipartite-A/B-sublattice as dark-matter mechanism — orthogonal to vortex framing.
+
+**Followup F17-E:** if Grant develops the vortex cosmology beyond intuition, it would land as new content in Vol 3 Ch 4 or a new research doc. Major implications:
+- Galaxy rotation curves explained by density-gradient dynamics, no dark matter required
+- Cosmological voids = high-density crystal between slipstream channels
+- Large-scale filaments = vortex tubes
+- The Big Bang as a vortex-seeded crystallization event
+
+This is potentially load-bearing for AVE's cosmological program. Out of scope for Round 6 single-electron work.
+
+### 17.4 Misc followups (independent of foundational reframes)
+
+**Followup F17-F:** [`cosserat_field_3d.py:752`](../../src/ave/topological/cosserat_field_3d.py#L752) hardcodes `omega_yield = π` without a derivation comment. Phase 5e v2 driver uses `omega_carrier = 2π/3.5 ≈ 1.795`. Ratio 0.571 = ω_Compton/ω_yield. Worth: (a) checking whether ω_yield = π has axiomatic justification or is a magic number, (b) documenting wherever it's set, (c) auditing whether "Compton frequency" is ω_yield or something else in the engine's natural units. Suspected dimensional inconsistency.
+
+**Followup F17-G:** `solve_eigenmode_self_consistent` exists in [`tlm_electron_soliton_eigenmode.py:668`](../../src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py#L668) for K4-TLM only. Its analog for full coupled K4+Cosserat under VacuumEngine3D is not yet built. If we eventually want Hamiltonian-stationary fixed-point search in the full engine, this is the natural extension.
+
+**Followup F17-H:** The L_c = (V²/V_SNAP²)·W_refl coupling in doc 54_ §6 is multiplicative bilinear and empirically exhibits BOTH no-bootstrap-from-cold and runaway-from-hot failure modes (per §16). Worth auditing the derivation chain for L_c — was it derived axiom-first or asserted from impedance analogy? If asserted, may need replacement with a coupling form that has stable fixed points at the (2,3) bound state.
+
+---
+
+*§16-§17 added 2026-04-24 (late session). Path A/B/C empirical results documented; foundational reframes (time, density-saturation duality, vortex cosmology) flagged with explicit followup items F17-A through F17-H. Round 6 single-electron validation is currently blocked on either L_c coupling audit (F17-H) or spectral-eigenmode methodology (F17-G); either is research-scope, not a quick patch.*

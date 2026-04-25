@@ -691,6 +691,7 @@ class CosseratField3D:
         rho: float = 1.0,
         I_omega: float = 1.0,
         pml_thickness: int = 0,
+        damping_gamma: float = 0.0,
     ):
         self.nx = nx
         self.ny = ny
@@ -757,6 +758,16 @@ class CosseratField3D:
         # Defaults rho = I_omega = 1 in natural units (phase-I placeholder;
         # S4 adjudication to pin values from measured wave speed).
         self.rho = float(rho)
+
+        # Topological Damped Integrator (TDI) coefficient — drains kinetic
+        # energy on each velocity-Verlet step to enable settling into
+        # Hamiltonian-stationary configurations. Default 0.0 preserves
+        # energy-conserving VV behavior (bit-identical to pre-patch).
+        # Modeled after AVE-Protein's protein_fold.py:295 dv = (F/m − γ·v)·dt
+        # convention. Per Stage 6 Round 6 doc 66_ §16, this enables Path B
+        # to find Hamiltonian-stationary states (joint −∂H/∂u = −∂H/∂ω = 0)
+        # rather than only S₁₁-stationary states like doc 34_'s X4b.
+        self.damping_gamma = float(damping_gamma)
         self.I_omega = float(I_omega)
 
     # ------------------------------------------------------------------
@@ -1208,6 +1219,16 @@ class CosseratField3D:
         self.u_dot = self.u_dot + 0.5 * dt * a_u_new
         self.omega_dot = self.omega_dot + 0.5 * dt * a_w_new
         self._zero_velocities_outside_alive()
+
+        # Topological Damped Integrator (TDI) — multiplicative velocity decay
+        # to drain kinetic energy and settle to Hamiltonian-stationary states.
+        # γ=0 preserves energy-conserving VV; γ>0 enables TDI mode for
+        # finding stable bound configurations per AVE-Protein methodology
+        # (protein_fold.py:295). Stage 6 Round 6 / doc 66_ §16.
+        if self.damping_gamma > 0.0:
+            decay = max(0.0, 1.0 - self.damping_gamma * dt)
+            self.u_dot *= decay
+            self.omega_dot *= decay
 
         self.time += dt
 
