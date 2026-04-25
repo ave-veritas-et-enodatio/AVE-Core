@@ -1352,3 +1352,79 @@ AVE-Core does NOT currently use sparse eigensolvers for the (2,3) electron (corp
 ---
 
 *§23 added 2026-04-25 — Acoustic-cavity / Helmholtz framing surfaced as parallel ontological reframe (vol2 Ch 7). doc 03_ §4.1-4.3 establishes Ch 8 constraints as natural equilibria, not hard constraints — refines §22's Lagrange-penalty plan. Phase 5c-v2 corrected: tanh-reparameterization (hard saturation bounding) + dual descent (Cosserat-energy AND S₁₁) for corpus-duality test + K4-TLM stability verification at convergence. F17-K Phase 6 candidate flagged: sparse eigensolver methodology if v2 hits limits.*
+
+---
+
+## 24. Phase 5c-v2 dual descent: corpus-duality FALSIFIED + tanh-reparam bug suspected (2026-04-25)
+
+### 24.1 Run results
+
+Phase 5c-v2 dual descent at N=80 from same phase-quadrature seed:
+
+| Metric | Energy descent | S₁₁ descent | Corpus claim |
+|---|---|---|---|
+| iterations | 500/500 (lr stalled) | 38/500 (spurious converged) | — |
+| c_cos | 3 ✓ | 3 ✓ | 3 |
+| peak \|ω\| | 0.61 (below sat onset) | 2.31 (over-saturated!) | ≈ 0.94 |
+| peak \|V\| | 0.15 (unchanged) | 0.15 (unchanged) | — |
+| R | 26.4 | 20.4 | 20 (= R_seed) |
+| r | 6.5 | 7.5 | 7.6 (= r_seed) |
+| R/r | **4.08** | **2.73** | **φ² = 2.62** |
+| E_cos | 5559 (down from 11094) | 11095 (unchanged) | — |
+| obj reduction | 97% (5972→175) | 3% (3261→3161) | — |
+| elapsed | 87s | 2.8s | — |
+
+### 24.2 Energy descent: legit but doesn't pin R/r at Golden Torus
+
+Energy descent ran 500 iters with lr decaying to 1e-7 (line search rejecting steps near a stationary point); obj decreased 97%. Topology c=3 preserved. But final geometry R/r=4.08 is significantly off Golden Torus (φ²=2.62). peak|ω|=0.61 is below saturation onset (0.94 = 0.3π).
+
+This is consistent with **doc 03_ §4.3** explicitly:
+
+> "R·r = 1/4: topologically quantized, NOT dynamically derived. ... Both d = 1 and R − r = 1/2 are genuine dynamical derivations; R·r = 1/4 is a topological identity that the Lagrangian must be *consistent with* but does not by itself produce."
+
+Cosserat-energy minimization in the (2,3) topological sector finds a stationary state, but not at the specific Golden Torus geometry. The R·r = 1/4 (and hence R/r = φ²) constraint is **topological quantization**, not energy minimization. Empirical evidence: descent finds a (2,3) stationary state at R/r=4.08, NOT R/r=2.62. The energy functional alone has a continuous family of (2,3) stationary states; topology selects the φ² point from this family.
+
+### 24.3 S₁₁ descent: spurious convergence + tanh-reparam suspected bug
+
+S₁₁ descent shows the SAME v1 pathology: spurious "convergence" at iter 38, obj dropped only 3%, peak|ω|=2.31 (over-saturated). The tanh reparameterization was supposed to bound |ω| < ω_yield by construction; getting 2.31 means either:
+
+- ω_yield isn't 1.0 in the engine (default may be larger), so tanh allows up to ω_yield
+- The reparameterization isn't being correctly applied during gradient flow
+- There's a numerical issue in `_scatter_reparam_state`
+
+The tanh-reparam fix from §23 didn't fix S₁₁ descent's escape mode. Implementation needs debugging before S₁₁ result is trustworthy.
+
+### 24.4 Corpus-duality claim: FALSIFIED at coupled-engine scale (with caveat)
+
+The corpus claim (Vol 1 Ch 8 + doc 03_) was that Cosserat-energy and S₁₁ minima co-locate at Golden Torus. Empirically: energy converges at R/r=4.08; S₁₁ at R/r=2.73 (close to φ² but spurious + over-saturated). They do NOT co-locate.
+
+Three possibilities (per discipline, flagged not adjudicated):
+
+(a) **Tanh-reparam bug** — S₁₁ result is unreliable. Once fixed, S₁₁ may converge somewhere else.
+
+(b) **Implementation gap** — the two objectives are functionally different in my v2 implementation. Cosserat-energy uses the saturated Lagrangian (with G, G_c, gamma, k_op10, k_refl, k_hopf), S₁₁ uses Op14+Op3 chain on coupled A². They are conceptually dual (per Q-factor reframe doc 16_/17_) but the implementations may not actually be equivalent.
+
+(c) **Corpus claim is local, not global** — both objectives may have stationary points at Golden Torus AND elsewhere; descent from non-Golden-Torus seed converges to whichever is closest.
+
+### 24.5 Implications
+
+- **Corpus duality claim needs caveats** at coupled-engine scale. The Cosserat-only X4b verification at Golden Torus (doc 34_) doesn't extend straightforwardly to coupled engine.
+- **doc 03_ §4.3's "topological quantization, not dynamical derivation" is empirically validated**: energy descent in (2,3) sector finds stationary states but NOT at R/r = φ² specifically.
+- **The bound state requires either**: (i) topology-locked initialization (algebraic ansatz at Golden Torus) + small-perturbation verification, or (ii) explicit topological-quantization constraint baked into the descent. F17-K Phase 6 (sparse eigensolver at fixed cavity geometry) addresses this directly.
+- **Tanh-reparam debug is required** before any S₁₁ result is trustworthy. Possible fixes: ensure ω_yield is read correctly from engine; print actual reparam values pre/post step; clamp ω_param to a smaller range.
+
+### 24.6 Phase 5c v2 verdict — partial result, two clean findings
+
+**Real findings** (commit-worthy, corpus-anchored):
+1. Cosserat-energy descent converges to a (2,3) stationary state with R/r=4.08, NOT Golden Torus — empirically validates doc 03_ §4.3 "R·r=1/4 is topologically quantized."
+2. Tanh-reparam alone doesn't fix S₁₁ over-saturation escape; implementation needs debug.
+3. Corpus-duality claim doesn't extend to coupled-engine scale at Golden Torus geometry.
+
+**Open work** (deferred to next iteration or v3):
+- Debug tanh-reparam (verify ω_yield, scatter logic, gradient flow)
+- Investigate why energy descent escapes Golden Torus — algebraic constraint enforcement OR topological-quantization input?
+- F17-K Phase 6 (sparse eigensolver at fixed cavity geometry) becomes more attractive given the doc 03_ §4.3 empirical confirmation that dynamical descent doesn't find R·r=1/4
+
+---
+
+*§24 added 2026-04-25 — Phase 5c-v2 dual descent ran. Cosserat-energy converges to (2,3) stationary state at R/r=4.08, empirically confirming doc 03_ §4.3's "R·r=1/4 is topologically quantized, not dynamically derived" — energy minimization alone doesn't pin Golden Torus. S₁₁ descent shows tanh-reparam bug (peak|ω|=2.31, should be bounded). Corpus-duality claim falsified at coupled-engine scale (or pending tanh-reparam debug). F17-K Phase 6 (eigensolver methodology with topological constraints) becomes load-bearing if dynamical descent fundamentally can't reach Golden Torus.*
