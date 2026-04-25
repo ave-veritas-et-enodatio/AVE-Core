@@ -785,6 +785,51 @@ predictions:
       firings at amp < 0.3·V_SNAP. Falsification: gate fires too
       aggressively (>1 pair/period) or never fires under C1∧C2.
 
+  - id: P_basin_audit_GT_stationarity
+    name: "Engine W basin: GT-family triplet converges to common stationary point at corpus GT"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/71_basin_audit_methodology.md"
+    test_file: "src/scripts/vol_1_foundations/phase5_basin_audit.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Stage 0 precondition for Round 7 Stages 1+2. Under TDI mode
+      (damping_gamma=0.1, no saturation pin, N=24, central bond,
+      amplitude_scale = 0.3 / (√3/2) ≈ 0.3464 satisfying A26 contamination
+      guard), three GT-family seeds {GT_corpus (R=φ², r=1/φ², c=3),
+      GT_perturb_+5% ((1.05·φ², 1.05/φ²)), GT_perturb_-5% ((0.95·φ²,
+      0.95/φ²))} run to TDI convergence (ΔE/E < 1e-6 AND |velocity| < 1e-3
+      over 50-step window) or 1000-step cap.
+
+      PASS criteria (all three required):
+      (a) All three seeds converge to a COMMON (R★, r★):
+          max(|R_i - R_j|) < 0.10·φ² AND max(|r_i - r_j|) < 0.05/φ²
+          across the three runs. → GT region is a basin (common attractor).
+      (b) The common attractor is at corpus GT:
+          |R★ - φ²| < 0.10 AND |r★ - 1/φ²| < 0.05.
+          → engine basin matches corpus.
+      (c) Topology + relaxation:
+          c★ = 3 preserved AND E★ < 0.5·E_seed in all three runs.
+          → topological sector metastable; substantial energy relaxation
+          (not saddle escape to vacuum).
+
+      FALSIFICATION (any one):
+      - (a) fails → GT region is not a basin. ±5% perturbations slide into
+        different attractors. Result reveals local landscape per seed.
+      - (b) fails with (a) passing → basin exists but at a DIFFERENT
+        (R★, r★). F17-K v2-v2's R/r=3.40 (or other point) was the actual
+        engine basin all along. Engine W functional or coefficients need
+        revision before R7.1 linearizes around GT. **Prior-expected outcome.**
+      - (c) fails → topology not preserved by TDI in c=3 sector — matches
+        doc 66:489 framing. Engine has no metastable c=3 attractor at this
+        resolution; bound state requires external pinning.
+
+      Driver runs in fresh session per Round 7 discipline. Result conditions
+      Round 7 Stage 1 (R7.1 sparse eigensolver linearization point) and
+      Stage 2 (R7.2 (2,3)/Hopf injection target geometry) both downstream.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
