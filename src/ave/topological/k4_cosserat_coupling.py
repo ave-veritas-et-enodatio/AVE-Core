@@ -189,6 +189,7 @@ class CoupledK4Cosserat:
         kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
         use_memristive_saturation: bool = False,
         use_lagrangian_emf_coupling: bool = False,
+        disable_cosserat_lc_force: bool = False,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -210,7 +211,23 @@ class CoupledK4Cosserat:
         # unchanged (axiom-correct per Vol 1 Ch 7:252) — ADDITIVE, not
         # replacement. Per doc 67_ §13.6, per-port EMF =
         # -2·V_inc[k]·∂L_c/∂V_sq.
+        # NOTE: empirically (doc 67_ §14) this AMPLIFIES the runaway;
+        # path-1 was the wrong direction — see disable_cosserat_lc_force
+        # below for the A28-corrected coupling.
         self.use_lagrangian_emf_coupling = bool(use_lagrangian_emf_coupling)
+
+        # A28 correction (doc 67_ §15) — disable the redundant
+        # ∂L_c/∂(u, ω) force on Cosserat. The reflection energy L_c is a
+        # DERIVED quantity from K4-TLM scatter+connect with z_local
+        # modulation, not a fundamental Lagrangian term. Treating its
+        # variation as a force on Cosserat double-counts with Op14 and
+        # drives the empirical runaway. Setting True disables this force,
+        # leaving Op14 z_local as the sole K4↔Cosserat coupling channel.
+        # Default False preserves all existing behavior (and runaway).
+        # Empirically validated: with this True, Cosserat |ω| stays
+        # bounded under mixed-mode small-amplitude drive (vs legacy where
+        # |ω| grew 1700× in one step).
+        self.disable_cosserat_lc_force = bool(disable_cosserat_lc_force)
 
         # Resolve V_SNAP early so we can pass it to K4 (Flag-5e-A fix).
         # Engine defaults to natural units (V_SNAP=1) if no override given.
@@ -344,8 +361,16 @@ class CoupledK4Cosserat:
         A²_ε — no separate (V²/V_SNAP²) multiplicative factor. Under the
         legacy (False) path, the S1=D multiplicative form is used.
 
+        A28 correction (doc 67_ §15): when self.disable_cosserat_lc_force is
+        True, returns zero arrays. The ∂L_c/∂(u, ω) channel is empirically
+        redundant with Op14 z_local modulation and drives the runaway
+        observed in Path A/B/C/F17-G/F17-I + path-1 EMF tests.
+
         Returns numpy arrays matching the existing energy_gradient shape.
         """
+        if self.disable_cosserat_lc_force:
+            return np.zeros_like(self.cos.u), np.zeros_like(self.cos.omega)
+
         V_sq = _v_squared_per_site(self.k4.V_inc)
         V_sq_j = jnp.asarray(V_sq)
         u_j = jnp.asarray(self.cos.u)

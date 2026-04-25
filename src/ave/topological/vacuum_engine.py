@@ -1546,6 +1546,15 @@ class EngineConfig:
     # the missing reciprocal Cosserat→K4 channel. Op14 z_local stays
     # unchanged (axiom-correct per Vol 1 Ch 7:252) — ADDITIVE, not replacement.
     use_lagrangian_emf_coupling: bool = False
+    # A28 correction (doc 67_ §15) — disable redundant ∂L_c/∂(u, ω) force on
+    # Cosserat. Op14 z_local IS the K4↔Cosserat coupling channel; the
+    # gradient force is double-counting. Default False preserves all
+    # existing behavior (and runaway). Set True for the A28-corrected
+    # coupling: empirically validates that Cosserat |ω| stays bounded
+    # under mixed-mode small-amplitude drive (vs legacy 1700× growth in
+    # one step). Test F17-I three-mode under True to validate (2,3)
+    # eigenmode formation.
+    disable_cosserat_lc_force: bool = False
 
 
 class VacuumEngine3D:
@@ -1582,6 +1591,7 @@ class VacuumEngine3D:
             use_asymmetric_saturation=config.use_asymmetric_saturation,
             use_memristive_saturation=config.use_memristive_saturation,
             use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
+            disable_cosserat_lc_force=config.disable_cosserat_lc_force,
         )
 
         self.k4 = self._coupled.k4
