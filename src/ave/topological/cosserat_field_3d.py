@@ -843,6 +843,57 @@ class CosseratField3D:
         self.omega = omega
         self.u = np.zeros_like(self.u)
 
+    def initialize_u_displacement_2_3_sector(
+        self,
+        R_target: float,
+        r_target: float,
+        amplitude_scale: float = 0.5,
+    ) -> None:
+        """
+        Initialize the (2,3) torus-knot ansatz on the DISPLACEMENT field u
+        (not ω). This is the C-state seeder for the Cosserat translational LC
+        pair (u ↔ u_dot), complementing initialize_electron_2_3_sector
+        which is the L-state seeder for the rotational LC pair (θ ↔ ω).
+
+        Use case (Round 6 F17-I): for an "all-C-state" coupled eigenmode seed,
+        call this together with initialize_2_3_voltage_ansatz on the K4 side
+        — both at C-state amplitude, all L-states (Φ_link, u_dot, ω) zeroed.
+        Per doc 66_ §17.2.3 this is the natural LC-pair-coherent initial
+        condition that Path A/B/C all violated.
+
+        amplitude_scale: peak |u| = amplitude_scale · r_opt. For ε_yield = 1
+        and r_opt ≈ r_target, |∇u| ≈ amplitude_scale gives strain at that
+        fraction of yield. Default 0.5 keeps strain mid-range.
+
+        Mirrors initialize_electron_2_3_sector exactly (same toroidal coords,
+        same hedgehog envelope shape, same θ = 2φ + 3ψ winding) — but
+        populates self.u and zeros self.omega.
+        """
+        cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
+        x = self._i - cx
+        y = self._j - cy
+        z = self._k - cz
+
+        rho_xy = np.sqrt(x**2 + y**2)
+        rho_tube = np.sqrt((rho_xy - R_target) ** 2 + z**2)
+        phi = np.arctan2(y, x)
+        psi = np.arctan2(z, rho_xy - R_target)
+
+        # Peak |u| = amplitude_scale · r_opt → |∇u| ≈ amplitude_scale at hedgehog peak.
+        r_opt = r_target if r_target > 0 else 1.0
+        envelope = amplitude_scale * r_opt / (1.0 + (rho_tube / r_opt) ** 2)
+
+        theta = 2.0 * phi + 3.0 * psi
+
+        u = np.zeros((self.nx, self.ny, self.nz, 3), dtype=np.float64)
+        u[..., 0] = envelope * np.cos(theta)
+        u[..., 1] = envelope * np.sin(theta)
+        u[..., 2] = 0.0
+        u *= self.mask_alive[..., None]
+
+        self.u = u
+        self.omega = np.zeros_like(self.omega)
+
     def _zero_outside_alive(self) -> None:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
         self.u = self.u * mask

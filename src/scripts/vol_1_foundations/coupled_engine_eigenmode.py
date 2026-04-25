@@ -38,6 +38,7 @@ from ave.topological.cosserat_field_3d import _s11_density
 sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_1_foundations")
 from tlm_electron_soliton_eigenmode import (
     initialize_2_3_voltage_ansatz,
+    initialize_phi_link_2_3_ansatz,
     extract_crossing_count_tlm,
     shell_envelope,
 )
@@ -91,20 +92,74 @@ def _seed_both_sectors(
     r: float,
     cos_amp_scale: float,
     k4_amplitude: float,
+    seed_mode: str = "mixed",
+    u_amp_scale: float = 0.3,
+    phi_link_amplitude: float = 0.4,
 ) -> None:
-    """Seed (2,3) ansatz in both sectors, sharing winding phase θ=2φ+3ψ.
+    """Seed (2,3) ansatz in both sectors per seed_mode.
 
-    Cosserat ω: hedgehog envelope at amplitude_scale (peak |ω|=0.3π
-    when amp_scale=0.3464 per doc 34_ §9.4 / doc 66_ §14.3).
+    Three modes per doc 66_ §17.2.3:
 
-    K4 V_inc: chiral-phasor pattern via initialize_2_3_voltage_ansatz
-    at amplitude k4_amplitude. Same θ winding.
+    - "mixed" (Path C / F17-G original):
+        Cosserat ω at amplitude (L-state of rotational LC)
+        K4 V_inc at amplitude (C-state of K4 bond LC)
+        Φ_link, u, u_dot all zero.
+        This is the inconsistent-fragment seed that ran away in F17-G.
+
+    - "all_c" (F17-I C-state coupled seed):
+        K4 V_inc at amplitude (C-state of K4 LC)
+        Cosserat u at amplitude (C-state of Cosserat translational LC)
+        ω = 0 (rotational L-state at zero)
+        u_dot = 0 (translational L-state at zero)
+        Φ_link = 0 (K4 L-state at zero)
+        ALL C-states at peak, ALL L-states at zero — consistent eigenmode
+        snapshot at one phase of the standing-wave cycle.
+
+    - "all_l" (F17-I L-state coupled seed):
+        Cosserat ω at amplitude (L-state of rotational LC)
+        K4 Φ_link at amplitude (L-state of K4 LC)
+        V_inc = 0, u = 0, u_dot = 0
+        ALL L-states at peak, ALL C-states at zero — consistent eigenmode
+        snapshot at quarter-cycle later than all_c.
+
+    Default amplitudes derived per doc 54_ §3 (Φ_critical) and doc 34_
+    §9.4 (ω at 0.3π); strain at peak for u kept sub-yield via u_amp_scale.
     """
-    engine.cos.initialize_electron_2_3_sector(
-        R_target=R, r_target=r, use_hedgehog=True,
-        amplitude_scale=cos_amp_scale,
-    )
-    initialize_2_3_voltage_ansatz(engine.k4, R=R, r=r, amplitude=k4_amplitude)
+    # Always start from a clean state — no leftover fields from prior init
+    engine.cos.u[:] = 0.0
+    engine.cos.omega[:] = 0.0
+    engine.cos.u_dot[:] = 0.0
+    engine.cos.omega_dot[:] = 0.0
+    engine.k4.V_inc[:] = 0.0
+    engine.k4.V_ref[:] = 0.0
+    engine.k4.Phi_link[:] = 0.0
+
+    if seed_mode == "mixed":
+        engine.cos.initialize_electron_2_3_sector(
+            R_target=R, r_target=r, use_hedgehog=True,
+            amplitude_scale=cos_amp_scale,
+        )
+        initialize_2_3_voltage_ansatz(engine.k4, R=R, r=r, amplitude=k4_amplitude)
+    elif seed_mode == "all_c":
+        # C-states only: K4 V_inc + Cosserat u, all L-states zero
+        initialize_2_3_voltage_ansatz(engine.k4, R=R, r=r, amplitude=k4_amplitude)
+        engine.cos.initialize_u_displacement_2_3_sector(
+            R_target=R, r_target=r, amplitude_scale=u_amp_scale,
+        )
+        # Cosserat init zeros omega; K4 V_inc init doesn't touch Phi_link.
+        # Both already zero from clean-state above. Confirmed consistent.
+    elif seed_mode == "all_l":
+        # L-states only: Cosserat ω + K4 Φ_link, all C-states zero
+        engine.cos.initialize_electron_2_3_sector(
+            R_target=R, r_target=r, use_hedgehog=True,
+            amplitude_scale=cos_amp_scale,
+        )
+        initialize_phi_link_2_3_ansatz(engine.k4, R=R, r=r, amplitude=phi_link_amplitude)
+        # Cosserat init zeros u; Phi_link init doesn't touch V_inc.
+        # Both already zero from clean-state above.
+    else:
+        raise ValueError(f"unknown seed_mode {seed_mode!r}; "
+                         f"must be 'mixed', 'all_c', or 'all_l'")
 
 
 def _run_inner(
@@ -172,6 +227,9 @@ def solve_eigenmode_coupled_engine(
     r_seed: float | None = None,
     cos_amp_scale: float = 0.3 / (np.sqrt(3.0) / 2.0),  # peak |ω|=0.3π per doc 34_ §9.4
     k4_amplitude: float = 0.9 * float(V_YIELD),
+    u_amp_scale: float = 0.3,  # peak strain ε≈ amp_scale·freq_factor, sub-yield
+    phi_link_amplitude: float = 0.4,  # sub-Φ_critical (=√2 per doc 54_ §3)
+    seed_mode: str = "mixed",
     n_steps: int = 50,
     max_iter: int = 4,
     tol: float = 5e-2,
@@ -198,7 +256,12 @@ def solve_eigenmode_coupled_engine(
 
     for outer in range(1, max_iter + 1):
         engine = VacuumEngine3D.from_args(N=N, pml=pml, temperature=0.0)
-        _seed_both_sectors(engine, R_k, r_k, cos_amp_scale, k4_amplitude)
+        _seed_both_sectors(
+            engine, R_k, r_k, cos_amp_scale, k4_amplitude,
+            seed_mode=seed_mode,
+            u_amp_scale=u_amp_scale,
+            phi_link_amplitude=phi_link_amplitude,
+        )
         E_seed = float(engine.cos.total_energy())
 
         if verbose:
@@ -279,28 +342,44 @@ def solve_eigenmode_coupled_engine(
 
 if __name__ == "__main__":
     print("=" * 78)
-    print("  F17-G: Coupled K4+Cosserat eigenmode finder")
-    print("  Per doc 66_ §17 — Round 6 followup")
+    print("  F17-I: Coupled K4+Cosserat eigenmode finder, three seed modes")
+    print("  Per doc 66_ §17.2.3 — Round 6 followup")
     print("=" * 78)
 
-    print("\n--- Run 1: Golden Torus seed, default amps, N=48 ---")
-    result = solve_eigenmode_coupled_engine(
-        N=48, R_seed=12.0,
-        n_steps=50, max_iter=4, tol=5e-2,
-        verbose=True,
-    )
+    summary: list[tuple[str, CoupledEigenmodeResult]] = []
 
-    print(f"\n=== Result ===")
-    print(f"  status:       {result.status}")
-    print(f"  converged:    {result.converged}")
-    print(f"  iterations:   {result.iterations}")
-    print(f"  final (R, r): ({result.final_R:.3f}, {result.final_r:.3f})  "
-          f"R/r = {result.final_R / max(result.final_r, 1e-9):.3f}  "
-          f"(target φ² = {PHI_SQ:.3f})")
-    print(f"  final c:      {result.final_c}  (target 3)")
-    print(f"  final E:      {result.final_E:.3e}")
-    print(f"  final |ω|:    {result.final_peak_omega:.3f}")
-    print(f"  trajectory:")
-    for i, (R, r, c, E, w) in enumerate(result.trajectory):
-        ratio = R / max(r, 1e-9)
-        print(f"    iter {i}: R={R:.2f} r={r:.2f} R/r={ratio:.3f} c={c} E={E:.2e} |ω|={w:.2f}")
+    for mode in ["all_c", "all_l", "mixed"]:
+        print(f"\n{'=' * 78}")
+        print(f"  Run: seed_mode = {mode!r}, Golden Torus seed, N=48")
+        print(f"{'=' * 78}")
+        result = solve_eigenmode_coupled_engine(
+            N=48, R_seed=12.0,
+            seed_mode=mode,
+            n_steps=50, max_iter=4, tol=5e-2,
+            verbose=True,
+        )
+        summary.append((mode, result))
+
+        print(f"\n--- Result for {mode!r} ---")
+        print(f"  status:       {result.status}")
+        print(f"  converged:    {result.converged}")
+        print(f"  iterations:   {result.iterations}")
+        print(f"  final (R, r): ({result.final_R:.3f}, {result.final_r:.3f})  "
+              f"R/r = {result.final_R / max(result.final_r, 1e-9):.3f}  "
+              f"(target φ² = {PHI_SQ:.3f})")
+        print(f"  final c:      {result.final_c}  (target 3)")
+        print(f"  final E:      {result.final_E:.3e}")
+        print(f"  final |ω|:    {result.final_peak_omega:.3f}")
+        print(f"  trajectory:")
+        for i, (R, r, c, E, w) in enumerate(result.trajectory):
+            ratio = R / max(r, 1e-9)
+            print(f"    iter {i}: R={R:.2f} r={r:.2f} R/r={ratio:.3f} c={c} E={E:.2e} |ω|={w:.2f}")
+
+    # Summary table
+    print(f"\n{'=' * 78}")
+    print("  SUMMARY")
+    print(f"{'=' * 78}")
+    print(f"  {'mode':<10} {'status':<24} {'iters':<7} {'R/r':<8} {'c':<3} {'E_final':<12} {'|ω|':<8}")
+    for mode, r in summary:
+        ratio = r.final_R / max(r.final_r, 1e-9)
+        print(f"  {mode:<10} {r.status:<24} {r.iterations:<7} {ratio:<8.3f} {r.final_c:<3} {r.final_E:<12.2e} {r.final_peak_omega:<8.3f}")

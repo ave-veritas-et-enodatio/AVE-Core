@@ -604,3 +604,60 @@ This is potentially load-bearing for AVE's cosmological program. Out of scope fo
 ---
 
 *§16-§17 added 2026-04-24 (late session). Path A/B/C empirical results documented; foundational reframes (time, density-saturation duality, vortex cosmology) flagged with explicit followup items F17-A through F17-H. Round 6 single-electron validation is currently blocked on either L_c coupling audit (F17-H) or spectral-eigenmode methodology (F17-G); either is research-scope, not a quick patch.*
+
+---
+
+## 18. F17-I empirical results — three LC-pair-coherent seed modes
+
+Built two new seeders — `initialize_u_displacement_2_3_sector` (Cosserat u) and `initialize_phi_link_2_3_ansatz` (K4 Φ_link) — and ran [coupled_engine_eigenmode.py](../../src/scripts/vol_1_foundations/coupled_engine_eigenmode.py) with three modes:
+- **all_c**: K4 V_inc + Cosserat u seeded at amplitude (C-states); Φ_link, u_dot, ω = 0
+- **all_l**: K4 Φ_link + Cosserat ω seeded at amplitude (L-states); V_inc, u, u_dot = 0
+- **mixed** (Path C / F17-G original): K4 V_inc + Cosserat ω seeded; Φ_link, u, u_dot = 0
+
+All amplitudes derived from doc 54_ §3 / §4 + doc 34_ §9.4 per Grant's directive (option ii). Sub-yield, sub-Φ_critical.
+
+### 18.1 Results (single outer iter, N=48, R=12, r=R/φ²)
+
+| Mode | Status | Iters | R/r at end | c | E_max/E_seed | peak \|ω\| at end | Mechanism |
+|---|---|---|---|---|---|---|---|
+| all_c | diverged at step 1 | 1 | 2.618 | 0 | 3020 | **1030** | Strain-driven force on ω → catastrophic ω growth in 1 step |
+| **all_l** | **geometry_collapsed** | 2 | 0.20 | 0 | **0.30** | 0.36 | Energy bounded; ω relaxes; geometry diffuses outward |
+| mixed | diverged at step 13 | 1 | 2.618 | 0 | 167 | 261 | Multiplicative L_c amplifies pre-loaded V²·W_refl |
+
+### 18.2 Key empirical finding — all_l doesn't diverge
+
+**all_l is the first seed that didn't blow up energetically.** Energy stayed BELOW seed (E_max/E_seed = 0.9). Peak |ω| DECREASED monotonically (0.93 → 0.55 → 0.35). The system is RELAXING, not amplifying.
+
+But the (2,3) topology dissolves: R drops 12 → 1.5, r grows 4.58 → 7.05, c=0. The toroidal envelope diffuses into something approximately spherical/diffuse. The relaxation is real but it's not toward the (2,3) standing wave.
+
+### 18.3 Diagnosis of the L_c coupling behavior across modes
+
+The three failure modes when read together are diagnostic:
+
+- **all_c (only C-states seeded):** at t=0, ε ≠ 0 from u, but ω = 0. The Hamiltonian's gradient `-∂E/∂ω` is nonzero (Cosserat energy density depends on ε which couples u and ω). Force on ω is large; ω accelerates explosively. This is the kinematic mirror of Path B's u-rolling problem.
+
+- **all_l (only L-states seeded):** at t=0, ω ≠ 0, Φ_link ≠ 0, but u = V_inc = 0. The Hamiltonian's gradient `-∂E/∂u` is moderate. As dynamics releases u, it grows; meanwhile ω drains energy into the K4 sector via L_c coupling. **Result: energy flows Cosserat → K4 unidirectionally; ω relaxes; the toroidal envelope diffuses. There's no reverse channel pumping energy back into the Cosserat sector at the (2,3) frequency.**
+
+- **mixed:** both V² and W_refl are pre-loaded simultaneously, giving positive multiplicative coupling gain. Runaway.
+
+**This is a shape-of-coupling diagnosis.** A reciprocal LC coupling would have energy oscillating between sectors at ω_C — both directions, periodic. What we see in all_l is unidirectional energy flow (Cosserat → K4) without return. Combined with Path C's no-bootstrap-from-cold + runaway-from-hot, the L_c form `(V²/V_SNAP²)·W_refl(u, ω)` empirically behaves as a one-way energy pump rather than a reciprocal oscillator coupling.
+
+### 18.4 Implication — F17-H now load-bearing
+
+Three different LC-pair-coherent seed modes have been tested, all with axiom-derived amplitudes. None produces a (2,3) bound standing wave. Either:
+
+(i) The (2,3) Hopf soliton is genuinely NOT a Hamiltonian fixed point of the current engine's coupled dynamics — the corpus's "electron is a (2,3) torus knot" is wrong-as-stated.
+(ii) The L_c coupling form is the wrong shape — it's not reciprocal at the LC-tank level. Auditing doc 54_ §6 derivation (F17-H) is needed to understand whether L_c was axiom-derived or asserted.
+(iii) The amplitudes ARE wrong despite derivation — some hidden non-linearity makes the bound state live at a different scale than my derivation expects.
+
+(ii) is most consistent with the empirical pattern: all three seeds fail in exactly the way an asymmetric coupling would predict (one direction explodes, opposite direction relaxes monotonically, mixed amplifies). A symmetric LC coupling wouldn't show this asymmetry.
+
+**Recommendation:** F17-H audit before any further engine work on Path B/C. If L_c is axiom-derived correctly, (i) becomes load-bearing and the corpus needs revision. If L_c is asserted, derive a corrected form first.
+
+### 18.5 Followup F17-J — investigate all_l relaxation endpoint
+
+The all_l mode's relaxation IS bounded and converges to SOMETHING (just not the (2,3) electron). What does it converge to? A non-toroidal but stable Hamiltonian fixed point of the current engine? Worth running for more iterations / steps to characterize the endpoint. May reveal whether the engine has any stable bound states under coupled dynamics, even if not the electron specifically. Defer until F17-H informs whether the engine's L_c is correct in the first place.
+
+---
+
+*§18 added 2026-04-24 (late session) by Opus 4.7. F17-I three-seed-mode empirical results: all_c catastrophic divergence, all_l bounded relaxation losing topology, mixed Path-C-style runaway. Pattern across modes empirically suggests asymmetric L_c coupling. F17-H audit becomes load-bearing.*

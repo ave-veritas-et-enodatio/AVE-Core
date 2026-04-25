@@ -125,6 +125,102 @@ def initialize_2_3_voltage_ansatz(
     lattice.V_inc[~lattice.mask_active] = 0.0
 
 
+def initialize_phi_link_2_3_ansatz(
+    lattice: K4Lattice3D,
+    R: float,
+    r: float,
+    amplitude: float = 0.5,
+) -> None:
+    """Populate K4 Phi_link (bond flux linkage) with a (2,3) chiral-phasor
+    pattern at A-sites — the L-state seeder for the K4 LC pair (V_inc ↔ Φ_link).
+
+    Use case (Round 6 F17-I): for an "all-L-state" coupled eigenmode seed,
+    call this together with initialize_electron_2_3_sector on the Cosserat
+    side — both at L-state amplitude, all C-states (V_inc, u) zeroed. Per
+    doc 66_ §17.2.3 this is the LC-pair-coherent counterpart to all-C-state.
+
+    Mirrors initialize_2_3_voltage_ansatz (same toroidal coords, same
+    hedgehog envelope, same θ = 2φ + 3ψ winding, same chirality_weight
+    port projection, same cos-on-ports-0,1 / sin-on-ports-2,3 quadrature)
+    — but populates lattice.Phi_link instead of lattice.V_inc.
+
+    Phi_link is bond-level state (4 ports per A-site, accumulated via
+    V_avg·dt during integration); direct assignment is safe (test_phase3
+    confirms scatter does not touch it). External seed persists and is
+    augmented by integrator's V_avg·dt accumulation.
+
+    amplitude: peak |Phi_link| in same V_avg·dt convention as the
+    integrator. Default 0.5 ≈ V_max/ω_C in V_SNAP·τ_node natural units
+    (V_max = 0.9·V_YIELD, ω_C = 2π/3.5 ≈ 1.795 in Phase 5 driver units).
+
+    Per doc 54_ §3 derivation: Φ_critical = √2 in V_SNAP·τ_node natural
+    units; default 0.5 is sub-critical.
+    """
+    cx = (lattice.nx - 1) / 2.0
+    cy = (lattice.ny - 1) / 2.0
+    cz = (lattice.nz - 1) / 2.0
+
+    idx = np.indices((lattice.nx, lattice.ny, lattice.nz))
+    i, j, k = idx[0], idx[1], idx[2]
+    x = i - cx
+    y = j - cy
+    z = k - cz
+
+    rho_xy = np.sqrt(x**2 + y**2 + 1e-12)
+    rho_tube = np.sqrt((rho_xy - R) ** 2 + z**2 + 1e-12)
+    phi = np.arctan2(y, x)
+    psi = np.arctan2(z, rho_xy - R)
+
+    # Magnitude — power-law hedgehog envelope (same as V_inc seeder)
+    r_opt = max(r, 1.0)
+    envelope = amplitude * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
+
+    # (2,3) knot tangent (un-normalized)
+    dphi_x = -(R + r * np.cos(psi)) * np.sin(phi)
+    dphi_y = (R + r * np.cos(psi)) * np.cos(phi)
+    dphi_z = np.zeros_like(phi)
+    dpsi_x = -r * np.sin(psi) * np.cos(phi)
+    dpsi_y = -r * np.sin(psi) * np.sin(phi)
+    dpsi_z = r * np.cos(psi) * np.ones_like(phi)
+    t_x = 2.0 * dphi_x + 3.0 * dpsi_x
+    t_y = 2.0 * dphi_y + 3.0 * dpsi_y
+    t_z = 2.0 * dphi_z + 3.0 * dpsi_z
+    t_mag = np.sqrt(t_x**2 + t_y**2 + t_z**2 + 1e-12)
+    t_hat_x = t_x / t_mag
+    t_hat_y = t_y / t_mag
+    t_hat_z = t_z / t_mag
+
+    # K4 tetrahedral port directions (same as V_inc seeder)
+    ports = [
+        (+1.0, +1.0, +1.0),
+        (+1.0, -1.0, -1.0),
+        (-1.0, +1.0, -1.0),
+        (-1.0, -1.0, +1.0),
+    ]
+    inv_sqrt3 = 1.0 / np.sqrt(3.0)
+
+    theta_wind = 2.0 * phi + 3.0 * psi
+    cos_theta = np.cos(theta_wind)
+    sin_theta = np.sin(theta_wind)
+
+    # Same port quadrature as V_inc seeder: cos on ports 0,1; sin on ports 2,3.
+    # This preserves the 90° phase relationship across the tetrahedral basis
+    # that the Cosserat-side rotational LC has between θ and ω.
+    for p_idx, (px, py, pz) in enumerate(ports):
+        chirality_weight = inv_sqrt3 * (
+            px * t_hat_x + py * t_hat_y + pz * t_hat_z
+        )
+        if p_idx < 2:
+            phase_pattern = cos_theta
+        else:
+            phase_pattern = sin_theta
+        lattice.Phi_link[..., p_idx] = envelope * chirality_weight * phase_pattern
+
+    # Phi_link is A-site-only state (per k4_tlm.py:391 only A-sites accumulate).
+    # Mask non-A sites to zero.
+    lattice.Phi_link[~lattice.mask_A] = 0.0
+
+
 def _apply_2_3_ansatz_with_envelope(
     lattice: K4Lattice3D,
     R: float,
