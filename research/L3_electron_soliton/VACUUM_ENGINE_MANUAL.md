@@ -1,7 +1,7 @@
 # VacuumEngine3D — Manual / Datasheet
 
-**Manual revision:** r8.2 (2026-04-24, late-evening)
-**Engine version:** 4.0.2 (current HEAD = `687b18d` on branch `research/l3-electron-soliton`; Phase 4 + Phase 5 gate + Cosserat PML + memristive Op14 + Round 6 single-electron-first pivot + F17-I three-mode coupled-seed test all landed as commits since r7)
+**Manual revision:** r8.3 (2026-04-25)
+**Engine version:** 4.0.4 (current HEAD = `ff15c4b` on branch `research/l3-electron-soliton`; r8.3 catches up on three engine-changing commits since r8.2 — F17-H L_c reciprocity audit + path-1 EMF (wrong direction, retracted), A28 double-counting fix, Cosserat self-terms re-enable with smart A28 auto-suppression. **First empirical (2,3) bound state formation in Stage 6**: Path B at N=80 holds c=3 + shell_Γ² ≈ 4 through step 20 under combined fix.)
 
 **Status (r8 — Round 6 pivot, hybrid scope):** r8 is a hybrid-scope reconcile, not a full rewrite. The framework is in active flux (Path B blocked on strain-mask infrastructure; single-electron validation incomplete) so this revision updates load-bearing-for-new-agents content (front matter, change log, suspended-work flags, framing-correction note) and leaves the §3 physical model and §15 derivation chain bodies for r9 once Round 6 closes. Twenty-three commits landed since r7 spanning four arcs:
 
@@ -13,9 +13,17 @@
 
 4. **Phase 5e cool-from-above + Round 6 single-electron pivot.** Phase 5e driver (`1805d14`) on first run exposed **Flag-5e-A** — K4 saturation used module-level V_SNAP (511 kV SI) while engine sources inject in engine-natural V_SNAP=1, rendering the Ax4+Op14+Op3 saturation path DORMANT in any engine-natural-units context. Fixed in `098d430`: K4 V_SNAP plumbed from engine. **First empirical cool-through-yield observed** (S_min = 0.507 during drive, recovers to 0.983 post-drive). Step 5a instrumentation (`0419b7e`) showed Cosserat A²_μ peaks at 0.012 even when K4 saturates — coupling weakness. Step 5b v2 with CosseratBeltramiSource (`d0609ad`) drove Cosserat A² → 3.34 directly but C1∩C2 gate window never satisfied — exposed gate window incompatibility as architectural, not parametric. Retroactive engine saturation invariants (`5f973b6`) closed the test-coverage hole (S-drops-below-1 invariants now enforced in integration tests). **Round 6 pivot** (`453d350`, doc 66_): suspends pair-nucleation gate-adjudication; redirects to single-electron-first validation. Path A falsified 4-of-4 predictions (`fbbc950`) — K4 V_inc alone cannot host bound electron because **K4-TLM is exhausted at node level per Vol 1 Ch 8:49-50** (4-port tetrahedral symmetry → Ax4 saturation no-op; bound electron physically lives in Cosserat sector). Coupled K4+Cosserat eigenmode finder (`815cd40`, doc 66_ §17.2) — three-storage-mode mapping landed: ε² (strain → electric/capacitive), κ² (curvature → magnetic/inductive), V² (pressure → stored-potential) with three conjugate LC pairs.
 
-**Working tree (r8):** uncommitted changes in `cosserat_field_3d.py` (adds `amplitude_scale` parameter to `initialize_electron_2_3_sector` for the **0.3π vs √3/2·π amplitude bug** fix per doc 66_ §14.3; bound-state lives at peak |ω|=0.3π per doc 34 X4a/X4b empirical sweep, but the function hardcoded √3/2·π since commit). Manual itself (this file) remains untracked.
+**Working tree (r8.3):** mid-flight uncommitted changes in `coupled_engine_eigenmode.py` adding `seed_mode="path_b"` and threading `disable_cosserat_lc_force` + `enable_cosserat_self_terms` flags through `solve_eigenmode_coupled_engine` for the in-progress Op6 self-consistency outer loop on Path B. Manual itself now tracked since r8 (`4ba20f8`).
 
-**Critical-path status (r8):** Round 6 single-electron validation is the active frontier. Path B (Cosserat-only seed at amplitude_scale=0.346 ≈ 0.3π/(√3/2·π)) collapses on step 1 of `engine.step()` — diagnosed as PML truncation artifact at N=48; resolution requires strain-determined dynamic-boundary infrastructure (plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`, ~550 LOC opt-in). Path C and F17-G coupled-eigenmode finder (`815cd40`) seeded fragments of the LC pairs; F17-I "all-C-state or all-L-state coupled seed" not yet tried per doc 66_ §17.2.3. Phase 5/6 pair-nucleation work blocked on single-electron passing.
+**Critical-path status (r8.3) — Round 6 inverted in two sessions of audit work:**
+
+Round 6 audit-first methodology produced an unexpected outcome. F17-H (audit doc 54 §6 L_c derivation, flagged as critical-path blocker in r8.1 A27) was carried out across docs 67_ §1-§16. Initial direction (path-1 EMF — ADD a Lagrangian-derived voltage source to Φ_link integration) ran for 14 doc sections + an implementation commit (`3d7fae4`) before a Vol 4 Ch 1 cross-check (relayed audit concern) flipped the conclusion: **the engine has been DOUBLE-COUNTING the K4↔Cosserat coupling since Phase 4 (`a5bd1da`)**. Op14 z_local modulation IS the K4-TLM varactor (Vol 4 Ch 1:130 `C_eff(V) = C₀/S(V)` extended with cross-sector A²_Cos); the separate `_compute_coupling_force_on_cosserat` channel was a redundant implementation of the same physics. Six prior failure modes (Path A / Path B / Path C / F17-G / F17-I / path-1 EMF) all explained by ONE bug.
+
+A28 fix landed (`05b130f` — `disable_cosserat_lc_force` flag, default off preserves legacy). Cosserat self-terms re-enable with smart A28 auto-suppression of redundant k_refl landed (`ff15c4b` — `enable_cosserat_self_terms` flag). **Path B at N=80 forms (2,3) bound state for the first time in Stage 6** — c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; degrades by step 50. Op6 self-consistency outer loop (doc 34 X4b methodology) is the active probe to sustain bound state past 100 Compton periods.
+
+Strain-mask infrastructure (~550 LOC opt-in) declared **deferred** — A28 was the actual gate. Plan-file infrastructure work zeroed out.
+
+Phase 5/6 pair-nucleation work still blocked on single-electron validation closure, but the closure is now one self-consistency loop away rather than gated on infrastructure rebuild.
 
 **Stash status:** one stash present — `stash@{0}: On research/l3-electron-soliton: pre-ee-isomorphism-branch`. Origin unknown (concurrent-writer artifact from earlier session); flagged for audit, not from L3 thread.
 **Maintainer:** L3 electron-soliton thread (Grant Lindblom + session agents)
@@ -470,6 +478,20 @@ ICD-style table. "Source" column cites the authoritative origin (axiom / derivat
 | `ε_floor` | PLL ω lower clip | 1e-3 | [vacuum_engine.py AutoresonantCWSource:529](../../src/ave/topological/vacuum_engine.py#L529) | Empirical (stability guard) |
 | `δ_strain` (CMB) | Thermal α correction | 2.225 × 10⁻⁶ | [constants.py:124](../../src/ave/core/constants.py#L124) | Derived |
 | `K_0` (η_vac proxy) | AVE-PONDER mutual inductance | 0.207973 | AVE-PONDER/generate_ponder_01_spice_netlist.py:90; [46_ §9](46_vacuum_engine_scope.md) | Calibrated (not a user knob, per C2) |
+
+### 6.4a Engine config flags (Round 6 — opt-in behavior switches)
+
+All flags default `False` and live on `EngineConfig` + `CoupledK4Cosserat` constructor + `K4Lattice3D` constructor (where applicable). Backward-compat: legacy default behavior preserved with all flags off.
+
+| Flag | Default | Purpose | Status / Authority |
+|---|---|---|---|
+| `use_asymmetric_saturation` | `True` | Phase 4 asymmetric (S_μ, S_ε) saturation kernel; legacy `False` recovers single-S form | Phase 4, [doc 54_ §6](54_pair_production_axiom_derivation.md), commit `a5bd1da` |
+| `use_memristive_saturation` | `False` | K4-side dynamical S(t) per `dS/dt = (S_eq − S)/τ_relax` with τ_relax = ℓ_node/c (opt-in for Phase 5e cool-from-above experiments) | Phase 5.6, [doc 59_](59_memristive_yield_crossing_derivation.md), commit `49917ff` |
+| `use_lagrangian_emf_coupling` | `False` | Path-1 EMF: adds `(2V·W_refl)/(C·V_SNAP²)` to bond Φ_link integration as voltage source. **KNOWN WRONG-DIRECTION** under A28 reframing — keeping enabled in HEAD as opt-in for now; cleanup follow-up. | F17-H path-1 (RETRACTED), [doc 67_ §3-§14](67_lc_coupling_reciprocity_audit.md), commit `3d7fae4` |
+| `disable_cosserat_lc_force` | `False` | **A28 fix.** When `True`, suppresses `_compute_coupling_force_on_cosserat` returning zero arrays — removes the redundant ∂L_c/∂(u,ω) force that double-counted with Op14 z_local modulation. Legacy default preserves the redundant force for backward-compat. | A28, [doc 67_ §15-§16](67_lc_coupling_reciprocity_audit.md), commit `05b130f` |
+| `enable_cosserat_self_terms` | `False` | Re-enables Cosserat self-Lagrangian terms `k_op10`, `k_refl`, `k_hopf` (currently disabled at init lines 231-233 because the comment said *"reflection is carried by the coupling term"* — which under A28 is no longer the case). When ON together with `disable_cosserat_lc_force=True`, **auto-suppresses `k_refl=0`** (the same redundant reflection force at Cosserat-self level) while keeping `k_op10=1` and `k_hopf=π/3` (different physics). | A28 self-terms re-enable, [doc 67_ §16+](67_lc_coupling_reciprocity_audit.md), commit `ff15c4b` |
+
+**Combined Round 6 fix preset:** `disable_cosserat_lc_force=True` AND `enable_cosserat_self_terms=True` is the configuration under which Path B at N=80 first formed a (2,3) bound state in Stage 6. Six prior failure modes (Path A / Path B / Path C / F17-G / F17-I / path-1 EMF) all explained by the legacy-default redundant-force bug. See §13.5b for empirical results and §17 A28 for the structural derivation.
 
 ### 6.5 Numerical / computational parameters
 
@@ -1070,11 +1092,13 @@ Load-bearing section. The pair-creation null result ([52_](52_h1_threshold_sweep
 
 **Firing status (Round 6, suspended):** at registered config (N=24, amp=0.5·V_SNAP, autoresonant), max A²_total = 0.75-0.91 < sat_frac=0.95 → 0 firings (commit `3f9569b`). Three sessions of follow-up adjudication (C1-C2 window, four Readings of C2 condition, PLL anchor math, K4→Cosserat coupling weakness) **suspended in Round 6 pivot** ([doc 66_](66_single_electron_first_pivot.md)) pending single-electron validation precondition. The structural limit is closed (rule exists in code); the firing question is suspended.
 
-### 11.4 Plane-wave geometry over-symmetrizes at saturation
+### 11.4 ~~Plane-wave geometry over-symmetrizes at saturation~~ — partially closed by Round 6 Path B (`ff15c4b`); resumes if pair-nucleation gate work returns
 
 Plane CW sources produce distributed strain across the full transverse plane. At A²_cos = 1.009 (v2), the entire x = N/2 plane saturates as a single rupture slab, not 2 distinct pair-core regions. H1 result ([52_](52_h1_threshold_sweep.md)) falsified the "threshold too strict" hypothesis; the read in [52_ §3.4](52_h1_threshold_sweep.md) and the synthesis in [53_ §2.1](53_pair_production_flux_tube_synthesis.md) is that C2 (frequency) and C3 (phase) cannot be satisfied at any specific node pair under plane-CW drive because plane symmetry does not pick a preferred pair.
 
-**Resolution path:** two open options:
+**Round 6 partial resolution:** Path B at N=80 with localized (2,3) hedgehog seed in Cosserat ω + A28 fix + Cosserat self-terms re-enabled forms a bound (2,3) state for the first time in Stage 6 (`ff15c4b`, see §13.5b). This validates the "different source geometry" path — single-electron representation works under localized seeding, not plane-CW. The plane-CW limit remains structural for any future pair-nucleation work that returns to driven-source configurations, but is no longer load-bearing for single-electron validation.
+
+**Resolution path** (preserved for if pair-nucleation gate work resumes post-Round-6):
 - Add a `PointCollisionSource` (narrow-Gaussian, localized drive) — H2 from the handoff. Physically what AVE-PONDER and AVE-Propulsion Ch 5 actually describe.
 - Accept that plane-CW is a structural limitation of Phase III-B configuration; pair creation requires a different source geometry. See [51_ §5](51_handoff_followups.md).
 
@@ -1294,7 +1318,7 @@ for edge in active_bonds:
 
 **Residual:** gate still doesn't fire — Cosserat A²_μ peaks at 0.012 even when K4 saturates (Step 5a finding `0419b7e`). Step 5b v2 (`d0609ad`) drove Cosserat directly via CosseratBeltramiSource to A² → 3.34 — C1 satisfied but C2 still never satisfies, exposing gate window incompatibility as architectural. All gate-firing concerns now subsumed under Round 6 single-electron pivot.
 
-### 13.5b Round 6 single-electron validation — Path A FALSIFIED, Path B BLOCKED, Path C runaway
+### 13.5b Round 6 single-electron validation — Path A FALSIFIED, Path B FORMING BOUND STATE under A28 fix (`ff15c4b`), Path C runaway, F17-I three-mode tested
 
 **Authority:** [doc 66_](66_single_electron_first_pivot.md).
 
@@ -1302,7 +1326,21 @@ for edge in active_bonds:
 
 **Path A (K4 V_inc only):** ✅ FALSIFIED (`fbbc950`). 4 of 4 physical predictions failed; energy conservation passed. All four failures trace to K4-TLM exhaustion at node level (§11.11). K4 alone cannot host the bound electron.
 
-**Path B (Cosserat ω only at corrected amp |ω|=0.3π):** ⏸ BLOCKED. Seeded bound state has right initial structure (shell_Γ²=3.04, R/r=2.56, c=3 — matching doc 34_ X4a within 5%) but **collapses entirely on step 1 of `engine.step()`**: shell_Γ² → 0, energy drops 95%, topology disrupted. Diagnosis: PML truncation artifact at N=48 (soliton outer shell at R+r ≈ 16.5 sits ~7.5 cells from PML inner boundary). Resolution requires strain-determined dynamic-boundary infrastructure (plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`). Alternate causes (asymmetric-init coupling spike, Beltrami helicity boundary truncation, CFL violation) not yet ruled out — one-step diagnostic recommended before infrastructure work.
+**Path B (Cosserat ω only at corrected amp |ω|=0.3π):** ✅ FORMING BOUND STATE under A28 + Cosserat self-terms re-enable (`ff15c4b`, 2026-04-25). **First empirical (2,3) bound state formation in Stage 6.** Pre-A28 status was ⏸ BLOCKED — seeded bound state had right initial structure (shell_Γ²=3.04, R/r=2.56, c=3 matching doc 34_ X4a within 5%) but collapsed entirely on step 1 of `engine.step()`. Diagnosis was hypothesized as PML truncation artifact at N=48; resolution required strain-mask infrastructure (~550 LOC). **Actual root cause was A28 double-counting** (engine had redundant `_compute_coupling_force_on_cosserat` channel injecting the same physics as Op14 z_local modulation). Under combined fix (`disable_cosserat_lc_force=True` + `enable_cosserat_self_terms=True` with auto-suppressed `k_refl`), Path B at N=80 holds:
+
+| step | peak \|ω\| | shell_Γ² | R/r | c |
+|---|---|---|---|---|
+| 0 | 0.939 | 3.061 | 2.733 | **3** (seeded) |
+| 1 | 0.149 | 0.001 | 0.976 | 3 |
+| 2 | 0.882 | 3.143 | 2.733 | **3** (recovers) |
+| 5 | 0.940 | 3.947 | 5.000 | 3 |
+| 10 | 0.797 | 3.948 | 1.706 | 3 |
+| 20 | 0.664 | 3.948 | 1.688 | 2 (drift starts) |
+| 50 | 1.494 | 0.000 | 0.500 | 0 (degrades) |
+
+c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; bound state degrades by step 50. Drift attributed to lack of Op6 self-consistency outer loop (doc 34 X4b methodology) — addressed in §13.5d.
+
+**Strain-mask infrastructure declared deferred** (was §13.5c) — A28 was the actual gate. ~550 LOC opt-in collapsed to zero. See §13.5c for the deferred-status note.
 
 **Path C (K4 V_inc + Cosserat ω, mixed):** ran, runaway energy. Per [doc 66_ §17.2.3](66_single_electron_first_pivot.md): seeded a C-state of one LC pair AND an L-state of a different LC pair — never both halves of either pair. F17-I "all-C-state or all-L-state coupled seed" tested next.
 
@@ -1318,9 +1356,9 @@ for edge in active_bonds:
 
 **Empirical diagnostic of L_c coupling asymmetry.** Pattern across the three modes: one direction explodes, opposite direction relaxes monotonically without back-channel, mixed amplifies. A reciprocal LC coupling would show energy oscillating between sectors at ω_C — observed behavior is unidirectional energy flow Cosserat → K4 in `all_l`, with no reverse channel. **L_c = (V²/V_SNAP²)·W_refl(u, ω) empirically behaves as a one-way energy pump rather than a reciprocal oscillator coupling.**
 
-**F17-H now load-bearing** — audit doc 54_ §6 L_c derivation for axiom-grounding. If L_c is genuinely asymmetric (one-way pump), it cannot host a bound (2,3) eigenmode; that requires reciprocal energy exchange between sectors at the eigen-frequency. The L_c form may be wrong, or it may be correct in some regime but mis-applied in the closed-system Path B/C/F17-I configurations.
+**F17-H** — ✅ CLOSED via A28 (not via path-1 EMF). Audit per [doc 67_](67_lc_coupling_reciprocity_audit.md) §1-§16. Initial direction (path-1: ADD a Lagrangian-derived voltage source EMF_c = -2V·W_refl/V_SNAP² to bond Φ_link integration) was the **wrong fix** — implemented in `3d7fae4` then retracted in `85bdb6f` after Vol 4 Ch 1 cross-check. Op14 z_local modulation IS the K4-TLM varactor (Vol 4 Ch 1:130 `C_eff(V) = C₀/S(V)` extended with cross-sector A²_Cos). The legacy `_compute_coupling_force_on_cosserat` channel was a redundant implementation of the same physics — **double-counting since Phase 4** (`a5bd1da`). Removing the redundant force (`05b130f`) + re-enabling Cosserat self-terms while auto-suppressing redundant `k_refl` (`ff15c4b`) is the structural fix. **Six prior failure modes** (Path A / Path B / Path C / F17-G / F17-I / path-1 EMF) all explained by ONE bug. See §17 A28 for the audit-finding write-up.
 
-**F17-J followup:** characterize `all_l`'s relaxation endpoint — non-toroidal but stable. What is it? Defer until F17-H informs whether L_c is correct.
+**F17-J followup:** characterize `all_l`'s pre-A28 relaxation endpoint — non-toroidal but stable. May no longer be load-bearing under A28 fix; revisit if needed.
 
 New seeders introduced in `687b18d`:
 - `cosserat_field_3d.py::initialize_u_displacement_2_3_sector` — seeds Cosserat `u` with (2,3) hedgehog, ω at zero. Companion to existing `initialize_electron_2_3_sector` (which seeds ω with u at zero).
@@ -1333,17 +1371,30 @@ New seeders introduced in `687b18d`:
 - `P_electron_cosserat_golden_torus`: Op6 self-consistency converges to R/r = φ²
 - `P_electron_cosserat_alpha_derivation`: α⁻¹ from coupled dynamics matches 137.036 ±2%
 
-### 13.5c Strain-determined dynamic boundary infrastructure (in design)
+### 13.5c ~~Strain-determined dynamic boundary infrastructure~~ — DEFERRED (A28 was the actual gate)
 
-**Authority:** plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md` (Round 6, post-Path-B-collapse).
+**Status (r8.3):** **Deferred indefinitely.** Plan was drafted at `~/.claude/plans/read-through-th-kb-reactive-stardust.md` to address Path B's step-1 collapse via opt-in `dynamic_mask` flag (~550 LOC; static lattice + dynamic strain-determined active region with hysteresis at A² > α). The plan diagnosed PML truncation as the root cause of Path B failure.
 
-**Change:** static PML + static `mask_alive` → static lattice + dynamic `mask_active_dynamic` recomputed each step from strain field. Threshold at `A² > α ≈ 7.3·10⁻³` (Phase II/III boundary per Vol 4 Ch 1 — axiom-grounded). 10:1 hysteresis to `α/10`. Opt-in via `dynamic_mask: bool = False` flag preserves backward-compat. Outside dynamic mask, fields are zeroed each step (same hard-zero semantics as current PML-region). PML retained as outer safety layer.
+**A28 found the actual root cause** (`05b130f`, 2026-04-24): legacy `_compute_coupling_force_on_cosserat` channel double-counts Op14 z_local modulation. Path B at N=80 with `disable_cosserat_lc_force=True` + `enable_cosserat_self_terms=True` (`ff15c4b`) forms the bound (2,3) state directly — no infrastructure rebuild required. **~550 LOC of planned infrastructure work zeroed out.**
 
-**Scope:** ~550 LOC (~270 test, ~280 impl). New `src/ave/topological/strain_mask.py` (~80 LOC). Wire mask into `CoupledK4Cosserat.step()`. Replace 9 `mask_alive` reads in `cosserat_field_3d.py` and 2 in `k4_tlm.py` with `mask_alive AND mask_active_dynamic`.
+The plan file is preserved as audit trail. If Path B drift past step 20 turns out to need active-region adaptivity (e.g., for moving-soliton work or Phase 5 pair separation), this work can resume. Not blocking single-electron validation.
 
-**Verification gates:** (i) backward-compat regression (1149 pass, 3 skip, 0 fail with default=False); (ii) synthetic strain mask test; (iii) moving-soliton energy conservation; (iv) K4↔Cosserat mask coherence; (v) Path B re-run at N≥80 with `dynamic_mask=True` — pass criterion: shell_Γ² ≥ 2.5, energy variation < 5%, N_crossings = 3 over 200 steps.
+### 13.5d Op6 self-consistency outer loop on Path B (IN PROGRESS)
 
-**Status:** plan drafted; awaits Grant adjudication on four open questions (threshold value, update frequency, energy-at-flip, doc 66 §15 framing). Implementation gated on adjudication.
+**Authority:** [doc 34_ §9.4 X4b methodology](34_x4_constrained_s11.md) for self-consistent (R, r) iteration on the Cosserat-side (2,3) hedgehog.
+
+**Change:** `coupled_engine_eigenmode.py::solve_eigenmode_coupled_engine` extended with `seed_mode="path_b"` and the `disable_cosserat_lc_force` + `enable_cosserat_self_terms` flag plumbing. Outer loop: seed Path B → undamped evolve → time-RMS combined-magnitude envelope → extract (R, r) → feedback → check convergence.
+
+**Status (r8.3):** mid-flight in working tree (uncommitted diff in `coupled_engine_eigenmode.py`). Inner-run verified through step 20 at N=80; outer loop wires up Op6 feedback to drive (R, r) toward self-consistency. If convergence sustains bound state past 100 Compton periods, **single-electron validation closes and Round 6 ends.**
+
+**Pre-registered Path B predictions** (provisional pending Grant approval per [doc 66_ §14.4](66_single_electron_first_pivot.md)):
+- `P_electron_cosserat_topological_charge`: N_crossings = 3 preserved over ≥100 Compton periods. **Currently passing through step 20 at N=80; outer-loop convergence is the gate for ≥100.**
+- `P_electron_cosserat_shell_TIR`: shell_Γ² ≥ 1 at run end. Currently 3.948 through step 20.
+- `P_electron_cosserat_energy_conservation`: ΔE/E₀ < 0.5%. Pending outer-loop instrumentation.
+- `P_electron_cosserat_golden_torus`: Op6 self-consistency converges to R/r = φ². Pending outer-loop result.
+- `P_electron_cosserat_alpha_derivation`: α⁻¹ from coupled dynamics matches 137.036 ±2%. Pending outer-loop result.
+
+**Effort:** ~1-2 hours from Op6 wire-up to first convergence result.
 
 ### 13.6 Phase 6 — Headline autoresonant validation (P_phase6_autoresonant) ⏸ blocked by Phase 5 suspension
 
@@ -1403,10 +1454,11 @@ New seeders introduced in `687b18d`:
 | 5.6 — Memristive Op14 (K4 sector) | ✅ Landed (`49917ff`, doc 59_) | Done | Opt-in dynamical S(t) per dS/dt = (S_eq − S)/τ_relax with τ_relax = ℓ_node/c. |
 | 5.7 — BH-entropy adjudication (docs 60–65) | ✅ Closed | Done | Three distinct entropies; doc 64 derives area theorem from Ax1+Ax4; first law remains imported (Flag 62-A open). |
 | 5e — Cool-from-above driver + Flag-5e-A fix | ✅ Landed (`1805d14`, `098d430`) | Done | First empirical cool-through-yield; S drops 1.0 → 0.507 → 0.983. |
-| **Round 6 — Single-electron-first pivot** | 🔄 ACTIVE (doc 66_) | TBD | Path A FALSIFIED (`fbbc950`); Path B BLOCKED (PML truncation); Path C runaway. F17-G eigenmode finder (`815cd40`) active. Strain-mask infrastructure plan drafted, awaiting Grant adjudication. |
+| **Round 6 — Single-electron-first pivot** | 🔄 ACTIVE (doc 66_) | gated on Op6 convergence | Path A FALSIFIED (`fbbc950`). F17-I three-mode tested (`687b18d`) → exposed L_c asymmetry (A27). F17-H L_c reciprocity audit (`abe23ea`-`85bdb6f`, doc 67_) → A28 double-counting found, path-1 EMF retracted. A28 fix landed (`05b130f`). Cosserat self-terms re-enabled with smart auto-suppress (`ff15c4b`). **Path B at N=80 forms (2,3) bound state through step 20** — first time in Stage 6. Op6 self-consistency outer loop in progress (uncommitted working tree). Strain-mask ~550 LOC infrastructure deferred — A28 was the actual gate. |
 | 6 — Headline autoresonant validation | ⏸ Blocked on Phase 5 resumption | 1–2 days | Blocked on single-electron passing. |
-| F17-I — All-C-state or all-L-state coupled eigenmode seed | Pending | TBD | Per doc 66_ §17.2.3; not yet attempted. |
-| **Remaining critical-path total** | — | **gated on Round 6 closure** | — |
+| F17-J — Characterize all_l's pre-A28 relaxation endpoint | Deferred | TBD | May no longer be load-bearing under A28 fix. |
+| F17-L — V_yield vs V_SNAP scale mismatch (doc 54 §6 vs engine, factor 1/α) | Open | — | Pre-existing per doc 54 §5; flagged in doc 67 §15. Not blocking single-electron validation. |
+| **Remaining critical-path total** | — | **gated on Op6 outer-loop convergence** | If Op6 sustains bound state past 100 Compton periods → Round 6 closes → Phase 5 gate work resumes. |
 
 ---
 
@@ -1638,6 +1690,14 @@ Currently [AVE-APU/vol_1_axiomatic_components/ch05:26–37](../../../AVE-APU/man
 | 2026-04-24 | 687b18d | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-I): Three LC-pair-coherent seed modes empirically tested` — adds `initialize_u_displacement_2_3_sector` (Cosserat u seeder) + `initialize_phi_link_2_3_ansatz` (K4 Φ_link seeder) + `seed_mode` parameter on coupled-engine eigenmode finder (mixed | all_c | all_l). Three-mode test at N=48 reveals **L_c coupling asymmetry** — `all_c` catastrophically diverges step 1, `all_l` bounded with monotonic Cosserat→K4 relaxation (no reverse channel), `mixed` runaway. A reciprocal LC coupling would oscillate energy between sectors at ω_C; observed pattern is one-way energy pump. Doc 66_ §18 added. F17-H (audit doc 54_ §6 L_c derivation) now load-bearing. |
 | 2026-04-24 | — | session agent (r8.1 update) | §13.5b F17-I results table, §17.1 A27 new (L_c asymmetry), §17.3 summary + critical-path blockers updated (F17-H now load-bearing) | **Manual r8.1.** First synchronous edit under the "manual joins source control" protocol — reflects F17-I three-mode test commit `687b18d`. Engine version 4.0.0 → 4.0.2 (test-only changes; new seeders + driver parameter, no new engine state). New audit finding A27 (L_c empirical asymmetry); F17-H derivation audit identified as new critical-path blocker. |
 | 2026-04-24 | — | session agent (r8.2 update) | §11.2 closed (NodeResonanceObserver landed `719f3ec`), §11.3 closed (PairNucleationGate code landed `9ecc2ca`; firing ⏸ suspended in Round 6), §16.3 doc index extended (docs 58-66 + Round 6 era group), §16.4 engine code index Classes column rebuilt (PairNucleationGate, BondObserver, DarkWakeObserver, CosseratBeltramiSource, SpatialDipoleCPSource, helpers, seeders), §16.5 canonical drivers extended (v2_reproducibility_seed_sweep, flux_tube_persistence, node_resonance_validation, phase5*, coupled_engine_eigenmode, tlm_electron_soliton_eigenmode) | **Manual r8.2.** Cleanup pass for stale content I deferred from r8 hybrid scope — §11.2/§11.3 limits closed, §16.3-§16.5 indices extended to current engine + research state. No new engine commits since r8.1; this is documentation-only catch-up to bring the indices in line with the §1.5 / §13 / §16.1 content from r8/r8.1. Engine version unchanged (4.0.2). |
+| 2026-04-24 | abe23ea | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-H): Doc 67_ — L_c coupling reciprocity audit + path 1 derivation` — F17-H derivation. Lagrangian variation `δL_c/δV = 2V·W_refl/V_SNAP²` derived; identifies structural mismatch between Op14 z_local modulation (impedance change) and δL_c/δV-derived EMF source (energy injection). Path-1 EMF derivation (continuous: `dΦ/dt = -V + (2V·W_refl)/(C·V_SNAP²)`; TLM discrete: `Phi_link += (V_avg + EMF_c)·dt`). Four open questions Q67-A through Q67-D. |
+| 2026-04-24 | f6b56dd | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-H): Doc 67_ §12 — Q67-A/B/C/D audit closures` — closes the four open questions from `abe23ea`. |
+| 2026-04-24 | 77a13a3 | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-H): Doc 67_ §13 — closed-form δL_c_asym/δV derivation` — Phase 4 asymmetric L_c variation closes Q67-C: `_coupling_energy_total_asymmetric` (the active default per `use_asymmetric_saturation=True`) gives a structurally different EMF formula. |
+| 2026-04-24 | 3d7fae4 | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-H): Path-1 EMF implementation + §14 Vol 4 Ch 1 redundancy concern (A28-candidate)` — implements path-1 EMF via opt-in `use_lagrangian_emf_coupling` flag. **§14 surfaces Vol 4 Ch 1 redundancy concern** (A28-candidate: Op14 z_local IS the K4-TLM varactor; adding L_c-derived EMF would be a third redundant channel). Path-1 thus implemented THEN pre-emptively flagged as wrong direction. |
+| 2026-04-24 | 85bdb6f | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-H): Doc 67_ §15 — Q67-E reconciliation finds A28 (double-counting hypothesis)` — Vol 4 Ch 1 cross-check confirms the redundancy concern. Three findings: (1) V_yield vs V_SNAP scale mismatch (pre-existing F17-L); (2) Op14 IS the K4-TLM varactor (Vol 4 Ch 1:130 `C_eff(V) = C₀/S(V)` extended with cross-sector A²_Cos); (3) L_c = ∫W_refl_asymmetric dx³ is DERIVED (W_refl emerges from K4-TLM scatter + connect with z_local modulation, not Lagrangian-fundamental). **A28 conclusion: K4↔Cosserat coupling double-counted since Phase 4 (`a5bd1da`).** Path-1 EMF was the wrong fix; correct fix is REMOVE the redundant `_compute_coupling_force_on_cosserat` channel. Methodology slip acknowledged in §15.6 (relayed audit concern #5 — Vol 4 Ch 1 cross-check — would have surfaced this on first reading). |
+| 2026-04-24 | 05b130f | Grant + agent | — | `fix(L3 Stage 6 Round 6 A28): disable_cosserat_lc_force flag — empirically confirmed F17-H resolution` — implements `disable_cosserat_lc_force` flag (default False preserves legacy). When True, `_compute_coupling_force_on_cosserat` returns zero arrays. F17-I three-mode under A28: all_c step-1 \|ω\| 1030 → 0.566; mixed 222 → 0.137; all bounded under 1.0 over 100 steps. **Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) all unified under one bug.** 22/22 backward-compat tests pass with flag off. F17-H STRUCTURAL CONCERN RESOLVED. |
+| 2026-04-25 | ff15c4b | Grant + agent | — | `fix(L3 Stage 6 Round 6): enable_cosserat_self_terms flag + A28 auto-suppresses redundant k_refl + Path B forms bound state at N=80` — `enable_cosserat_self_terms` flag re-enables Cosserat self-terms (`k_op10`, `k_refl`, `k_hopf`) that were disabled at init lines 231-233 because *"reflection is carried by the coupling term."* When BOTH `disable_cosserat_lc_force=True` AND `enable_cosserat_self_terms=True`, **auto-suppresses `k_refl=0`** (the redundant reflection force at Cosserat-self level) while keeping `k_op10=1` and `k_hopf=π/3` (different physics). **Path B at N=80, R=20, r=R/φ², peak \|ω\|=0.3π forms (2,3) bound state for the first time in Stage 6** — c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; degrades by step 50 (drift expected without Op6 self-consistency). 22/22 backward-compat tests pass. F17-I three-mode under combined fix: all_l + mixed both preserve (2,3) c=3 through step 5. |
+| 2026-04-25 | — | session agent (r8.3 update) | §1 front-matter (r8.3, HEAD ff15c4b, engine 4.0.4); new §6.4a engine-config flag table; §11.4 partially closed under Round 6 Path B; §13.5b Path B status FORMING BOUND STATE; §13.5c strain-mask infrastructure DEFERRED; new §13.5d Op6 self-consistency outer loop in progress; §13.7 scope table updated; §16.1 7 commit rows appended; §16.2 engine version history extended (4.0.3, 4.0.4); §16.3 doc 67 added; §17 A27 reframed (closed via A28 not via path-1 EMF), A28 new (double-counting), F17-L new (V_yield/V_SNAP scale mismatch); §17.3 critical-path blockers updated | **Manual r8.3.** Catches up on three engine-changing commits since r8.2 (`3d7fae4`, `05b130f`, `ff15c4b`) plus four research-doc commits (`abe23ea`, `f6b56dd`, `77a13a3`, `85bdb6f`). Major Round 6 result: Path B forms (2,3) bound state at N=80 step 20 first time in Stage 6 under A28 + Cosserat self-terms re-enable. Strain-mask ~550 LOC infrastructure deferred — A28 was the actual gate. F17-H structurally resolved via A28 reframing (path-1 EMF was wrong direction; structural finding inverted from "L_c is non-reciprocal, ADD EMF" to "engine has redundant force, REMOVE it"). Six prior failure modes unified under one bug. Op6 self-consistency outer loop in progress (uncommitted working tree); convergence is the gate for Round 6 closure. |
 
 ### 16.2 Engine version history (prior to manual creation)
 
@@ -1664,12 +1724,16 @@ Currently [AVE-APU/vol_1_axiomatic_components/ch05:26–37](../../../AVE-APU/man
 | **4.0.0** | 2026-04-23 | 49917ff | Stage 6 Phase 5.6: Memristive Op14 (K4 sector). Adds `S(t)` dynamical state variable per first-order relaxation ODE `dS/dt = (S_eq(r) − S)/τ_relax` with `τ_relax = ℓ_node/c`. Opt-in via `use_memristive_saturation: bool = False` flag preserves backward-compat. **Major because new state variable** — first dynamical S(t) in the K4 sector. Combined with Phase 5 PairNucleationGate's new physical-axiom invocation (nucleation rule), bumps to 4.0.0. |
 | 4.0.1 | 2026-04-24 | 098d430 | Stage 6 Flag-5e-A fix: K4 saturation uses engine V_SNAP. Plumbs `V_SNAP` kwarg through `K4Lattice3D` and `CoupledK4Cosserat` so engine-natural-units context (V_SNAP=1) produces correct strain normalization. Pre-fix: K4 saturation path effectively dormant in any engine-context driver. Post-fix: first empirical cool-through-yield observable. Bug-fix → patch. |
 | 4.0.2 | 2026-04-24 | 5f973b6 | Retroactive engine saturation invariants — pinning `S_min < 1.0` actually drops below 1 during the test window in engine integration tests. Closes test-coverage hole that allowed Flag-5e-A to live undetected. Test-only → patch. |
-| **4.0.2 (current HEAD `815cd40`)** | 2026-04-24 | 815cd40 | F17-G coupled K4+Cosserat eigenmode finder (`coupled_engine_eigenmode.py`). New driver script; doc 66_ §17.2 three-storage-mode mapping. No engine change → no version bump. **Current HEAD.** |
+| 4.0.2 | 2026-04-24 | 815cd40 | F17-G coupled K4+Cosserat eigenmode finder (`coupled_engine_eigenmode.py`). New driver script; doc 66_ §17.2 three-storage-mode mapping. No engine change → no version bump. |
+| 4.0.3 | 2026-04-24 | 3d7fae4 | Path-1 EMF: `use_lagrangian_emf_coupling` flag adds δL_c/δV-derived voltage source `(2V·W_refl)/(C·V_SNAP²)` to bond Φ_link integration. Default off preserves legacy. **Subsequently determined to be wrong-direction under A28 reframing — opt-in remains in HEAD pending cleanup.** Minor (new flag; no default behavior change). |
+| 4.0.3 | 2026-04-24 | 05b130f | A28 fix: `disable_cosserat_lc_force` flag suppresses redundant `_compute_coupling_force_on_cosserat` channel that double-counted Op14 z_local modulation. Default off preserves legacy (which is now known-wrong-default). Six prior failure modes unified under this one bug. Bug-fix → patch (no version bump beyond 4.0.3 since flag is opt-in; legacy default unchanged). |
+| **4.0.4 (current HEAD `ff15c4b`)** | 2026-04-25 | ff15c4b | `enable_cosserat_self_terms` flag re-enables Cosserat self-Lagrangian terms (`k_op10`, `k_refl`, `k_hopf`) disabled at init lines 231-233. Smart A28 interaction: when BOTH this flag AND `disable_cosserat_lc_force` are True, auto-suppresses redundant `k_refl=0` while keeping `k_op10=1` and `k_hopf=π/3`. **Path B at N=80 forms (2,3) bound state for the first time in Stage 6** under combined fix. Minor (new flag; no default behavior change). **Current HEAD.** |
 
-**Round 6 pivot note (r8):** the planned 4.0.0 / 4.1.0 progression for Phase 5 / Phase 6 has been suspended pending single-electron validation precondition closing. Phase 5 GATE code is in HEAD (commit `9ecc2ca`); the firing adjudication is what's suspended, not the code.
+**Round 6 outcome note (r8.3):** the planned 4.1.0 / 5.0.0 progression for strain-mask infrastructure / Phase 5 firing has been substantially restructured. Strain-mask infrastructure deferred — A28 was the actual gate. Phase 5 GATE code still in HEAD (commit `9ecc2ca`); firing adjudication still suspended pending single-electron validation Op6 outer-loop convergence (in progress).
 
 **Upcoming anticipated versions:**
-- 4.1.0 — strain-determined dynamic-boundary infrastructure (Round 6 plan; opt-in via `dynamic_mask` flag; ~550 LOC). Minor because new boundary mechanism.
+- 4.0.5 — Op6 self-consistency outer loop result on Path B (in working tree at `coupled_engine_eigenmode.py`). Driver script change → patch.
+- 4.1.0 — Round 6 closure milestone if Op6 sustains bound state past 100 Compton periods. Major if defaults flip to A28-fixed behavior; minor if A28 stays opt-in.
 - 4.2.0 — Cosserat-side memristive Op14 (doc 59_ §10.2 deferred). Minor — symmetric to K4 side.
 - 5.0.0 — Phase 5 PairNucleationGate firing closure once single-electron validation passes. Major because first topology-change event would actually fire. Currently structurally suspended.
 - 5.1.0 — Stage 6 Phase 6 (P_phase6_autoresonant headline validation). Minor.
@@ -1722,6 +1786,7 @@ L3 electron-soliton thread, grouped by phase. Full list in [40_modeling_roadmap.
 
 **Stage 6 Round 6 (single-electron-first pivot):**
 - [66_single_electron_first_pivot.md](66_single_electron_first_pivot.md) — Round 6 pivot canonical doc. §14 amplitude correction (peak |ω|=0.3π not √3/2·π); §17.2 three-storage-mode mapping (ε strain → C-state, κ curvature → L-state, V pressure → C-state); §18 F17-I three-mode coupled-seed test results.
+- [67_lc_coupling_reciprocity_audit.md](67_lc_coupling_reciprocity_audit.md) — F17-H L_c reciprocity audit. §1-§14 derived path-1 EMF as ADD-channel fix; §15 Vol 4 Ch 1 cross-check inverted the conclusion to A28 double-counting hypothesis (REMOVE-redundancy); §16 empirical confirmation under `disable_cosserat_lc_force` flag; six prior failure modes unified under one bug. Path-1 EMF retained as opt-in (`use_lagrangian_emf_coupling`) but known wrong-direction.
 
 **Housekeeping:**
 - [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md)
@@ -2135,11 +2200,54 @@ A reciprocal LC coupling would produce energy oscillation between sectors at the
 
 **Consequence:** L_c as currently formulated cannot host a bound (2,3) eigenmode. Either the form is wrong (axiom-derivation-defective) or correct-but-mis-applied (right for some regime, wrong for closed-system bound-state evolution). Without reciprocal coupling, the engine can saturate K4 from a Cosserat seed but cannot sustain a coupled standing wave between the two sectors.
 
-**Status:** open. **F17-H is the resolution path** — audit doc 54_ §6 L_c derivation for axiom-grounding. If derivation traces to Ax1-4 cleanly and the asymmetric behavior is a feature (not a bug), the bound electron may live in a different regime where the asymmetry doesn't bite. If derivation has a gap, the L_c form needs revision.
+**Status:** ✅ CLOSED 2026-04-25 via A28 reframing — **but the structural finding inverted.** F17-H audit per [doc 67_](67_lc_coupling_reciprocity_audit.md) §1-§16 took two passes:
 
-**Followup F17-J:** characterize `all_l`'s relaxation endpoint — bounded, non-toroidal, stable. What configuration is it? Deferred until F17-H closes.
+- **First pass (`abe23ea`-`3d7fae4`):** derived path-1 EMF as the missing reciprocal channel (`δL_c/δV = 2V·W_refl/V_SNAP²`). Implementation landed via opt-in `use_lagrangian_emf_coupling` flag. Concluded L_c was non-reciprocal and ADD-EMF was the fix.
+- **Second pass (`85bdb6f` after relayed audit concern #5 — Vol 4 Ch 1 cross-check):** the cross-check revealed Op14 z_local IS the K4-TLM varactor (Vol 4 Ch 1:130 `C_eff(V) = C₀/S(V)` extended with cross-sector A²_Cos). The legacy `_compute_coupling_force_on_cosserat` channel is a redundant implementation of the same physics. **Engine has been DOUBLE-COUNTING the K4↔Cosserat coupling since Phase 4 landed (`a5bd1da`).** Path-1 EMF was the wrong fix; correct fix is REMOVE the redundant force, not ADD a third channel. See A28 below for the structural finding.
+- **Empirical confirmation (`05b130f`, `ff15c4b`):** under `disable_cosserat_lc_force=True` + `enable_cosserat_self_terms=True`, Path B at N=80 forms (2,3) bound state for the first time in Stage 6 (c=3 + shell_Γ² ≈ 4 through step 20). Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) all explained by the redundant force.
 
-**Methodology note:** A27 is a Round 6 finding that depends on engine empirical results, not on static analysis or corpus-search. It exemplifies COLLABORATION_NOTES Rule 10 — empirical drivers catch what static analysis misses. Three sessions of debate over Phase 5 gate firing assumed L_c coupling was reciprocal because the Lagrangian formulation suggested it; empirical test exposed that the implementation does not behave reciprocally.
+**A27 is closed, but the empirical signature of "one-way energy pump" was the symptom of A28's double-counting**, not of L_c being structurally non-reciprocal. The Lagrangian form `(V²/V_SNAP²)·W_refl` is fine; the engine just had a redundant injection of the same physics through two code paths.
+
+**Followup F17-J:** characterize `all_l`'s pre-A28 relaxation endpoint — may no longer be load-bearing under A28 fix; revisit if needed.
+
+**Methodology note:** A27 is a Round 6 finding that depends on engine empirical results. It exemplifies COLLABORATION_NOTES Rule 10 (empirical drivers catch what static analysis misses) AND its corollary (prior-agent framings can be creepers): three sessions of debate over Phase 5 gate firing assumed the engine's coupling implementation was right because the Lagrangian formulation looked right. The redundancy was sitting in `k4_cosserat_coupling.py` since Phase 4 landed at `a5bd1da` four sessions earlier; the corpus-search (Vol 4 Ch 1 varactor cross-check) that surfaced it was Rule 8 working at architectural-decision time, just retroactively.
+
+#### A28. K4↔Cosserat coupling double-counted since Phase 4 (`a5bd1da`); legacy default has `_compute_coupling_force_on_cosserat` redundant with Op14 z_local modulation (S1 — structural; six prior failure modes unified) — ✅ CLOSED 2026-04-25 (commit `05b130f` + `ff15c4b`)
+
+**Where:** [k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py) `_compute_coupling_force_on_cosserat` (legacy + Phase 4 asymmetric paths) + [k4_tlm.py](../../src/ave/core/k4_tlm.py) `_update_z_local_field` (Op14 modulation).
+
+**The finding** (per [doc 67_ §15-§16](67_lc_coupling_reciprocity_audit.md)): the engine implements the K4↔Cosserat coupling through **two redundant code paths** that inject the same physics:
+
+1. **Op14 z_local modulation** ([k4_tlm.py](../../src/ave/core/k4_tlm.py)). The K4-TLM varactor per Vol 4 Ch 1:130 — `C_eff(V) = C₀/S(V)` extended with cross-sector saturation `A²_total = A²_K4 + A²_Cos`. This IS the cross-sector coupling channel: the K4 sector's effective impedance modulates based on Cosserat saturation, propagates that change through TLM scatter+connect dynamics. Axiom-correct, Vol 4 Ch 1-grounded.
+
+2. **`_compute_coupling_force_on_cosserat`** ([k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py)). A separate force-on-Cosserat channel computed via `value_and_grad(_coupling_energy_total, argnums=(0, 1))` on `L_c = ∫(V²/V_SNAP²)·W_refl dx³`. Treated as if `L_c` were a fundamental coupling Lagrangian.
+
+**The redundancy:** `W_refl_asymmetric = |Γ|²` where `Γ = ∇ ln Z_eff` is the *reflection energy at impedance gradients* — and those impedance gradients are exactly what Op14 z_local modulation produces. `L_c` is therefore not a fundamental Lagrangian term; it's a *derived consequence* of K4-TLM scatter+connect dynamics with z_local modulation. Treating `L_c`'s variation as a separate force on Cosserat double-counts: same physics, two injection paths.
+
+**Empirical signature.** Six prior failure modes (Path A `fbbc950`, original Path B PML-collapse, Path C runaway, F17-G coupled-eigenmode failures, F17-I three-mode test, path-1 EMF amplification) all manifest as either runaway or premature collapse. **Under A28 fix** (`disable_cosserat_lc_force=True`):
+- F17-I three-mode: all_c step-1 |ω| 1030 → 0.566; mixed 222 → 0.137; bounded under 1.0 across all modes
+- Path B at N=80 (with `enable_cosserat_self_terms=True` adding `k_op10` + `k_hopf` while auto-suppressing redundant `k_refl`): forms (2,3) bound state at step 0, recovers at step 2 (after step-1 transient), holds c=3 + shell_Γ² ≈ 4 through step 20
+
+**One bug, six unified failure modes.** That's the structural signature of a single-mechanism explanation.
+
+**Fix landed in two parts:**
+
+1. **`05b130f`** — `disable_cosserat_lc_force` flag on `EngineConfig` + `CoupledK4Cosserat` constructor + storage + `_compute_coupling_force_on_cosserat`. Default False preserves legacy (which is now known-wrong-default). When True, returns zero arrays. 22/22 backward-compat tests pass with flag off.
+
+2. **`ff15c4b`** — `enable_cosserat_self_terms` flag re-enables Cosserat self-Lagrangian terms (`k_op10`, `k_refl`, `k_hopf`) disabled at `cosserat_field_3d.py:231-233` because the original comment said *"reflection is carried by the coupling term."* Now that the redundant coupling force is removed, those self-terms need to come back. Smart A28 interaction: when BOTH flags are True, **auto-suppresses `k_refl=0`** (the same redundant reflection force at Cosserat-self level) while keeping `k_op10=1` and `k_hopf=π/3` (different physics).
+
+**What's still open:**
+- `disable_cosserat_lc_force` defaults to False (legacy), so HEAD's default behavior still has the bug. Eventual default-flip is its own discipline question.
+- `use_lagrangian_emf_coupling` flag from the path-1 wrong-direction (`3d7fae4`) is still in HEAD as opt-in. Cleanup follow-up — should be removed once A28 is confirmed across more configurations.
+- Path B drift past step 20 — bound state degrades by step 50. Op6 self-consistency outer loop on Path B at N=80 (in working tree at `coupled_engine_eigenmode.py`) is the next probe. If Op6 sustains past 100 Compton periods, single-electron validation closes and Round 6 ends.
+
+**Methodology lesson** (per [doc 67_ §15.6](67_lc_coupling_reciprocity_audit.md)): the agent acknowledged the slip honestly — *"treated `k4_cosserat_coupling.py:23` framing ('Unified Lagrangian S = S_K4 + S_Cos + ∫L_c dx³') as definitive without cross-checking Vol 4 Ch 1's varactor-as-K4-self-Lagrangian-non-linearity. The relayed audit's concern #5 (Vol 4 Ch 1 cross-check) would have surfaced this on first reading. Should have done it upfront."* COLLABORATION_NOTES Rule 8 Round 6 strengthening: corpus-search at architectural-decision time, not just at debug time. The redundancy lived in Phase 4's commit since `a5bd1da`; a Vol 4 Ch 1 cross-check at Phase 4 design-review would have caught it before Phase 5 was even shipped.
+
+#### F17-L. V_yield vs V_SNAP scale mismatch in doc 54_ §6 vs engine — factor 1/α off (S2 — pre-existing; not blocking single-electron validation)
+
+**Where:** [doc 54_ §6](54_pair_production_axiom_derivation.md) specifies `A²_ε = ε_sym²/ε_yield² + V²/V_yield²` (yield convention). The engine implements `V²/V_SNAP²` (Schwinger convention). Differs by factor `1/α` since `V_yield = √α · V_SNAP` (macroscopic) while `V_yield ≡ V_SNAP` (subatomic override per Vol 4 Ch 1:711, see §17.0 R4 adjudication).
+
+**Status:** Pre-existing per [doc 54_ §5](54_pair_production_axiom_derivation.md), which acknowledges and flags the mismatch. Surfaced as a separate flag during F17-H reconciliation per [doc 67_ §15 Finding 1](67_lc_coupling_reciprocity_audit.md). Under R4 subatomic override (which AVE-Core's engine operates under), the convention difference washes out at the engine's actual operating scale — but the doc-vs-engine notation discrepancy remains. Not blocking single-electron validation. Track for v4 universal-lattice-units refactor or doc 54 §6 normalization sweep.
 
 ### 17.2 Closed findings
 
@@ -2282,31 +2390,44 @@ Status column: `Open` = no action yet; `In-flight` = script/PR exists addressing
 | ~~A23~~ | S3 | ~~doc 55_ vs doc 57_ framing tension~~ | **CLOSED 2026-04-23 (r6)** → §17.2. Doc 55_'s R4 banner self-supersedes; doc 57_ reading confirmed by Vol 4 Ch 1:711 spot-check. |
 | ~~A24~~ | S1 | ~~K4 saturation path dormant in engine context (V_SNAP unit-system mismatch, "Flag-5e-A")~~ | **CLOSED r8 (commit `098d430`)**. K4 V_SNAP plumbed from engine; first empirical cool-through-yield observed. Test-coverage hole closed via retroactive engine saturation invariants (`5f973b6`). |
 | ~~A25~~ | S1 | ~~K4-TLM exhausted at node level for bound electron~~ | **EMPIRICALLY CLOSED r8 (commit `fbbc950`)**. Vol 1 Ch 8:49-50 corpus-confirmed; Path A 4-of-4 falsification empirical. New §11.11 limit added. Methodology lesson: COLLABORATION_NOTES Rule 8 Round 6 strengthening (corpus-search at architectural-decision time). |
-| **A26** | S1 | `initialize_electron_2_3_sector` carries wrong default amplitude (√3/2·π instead of 0.3π) | Open — fix in working tree (uncommitted `amplitude_scale` parameter); retroactive caller audit pending. Round 6 Path B blocked on this. |
-| **A27** | S1 | `L_c = (V²/V_SNAP²)·W_refl(u, ω)` empirically behaves as one-way energy pump, not reciprocal LC coupling | Open — F17-I three-mode test (commit `687b18d`) revealed asymmetry; F17-H L_c-derivation audit is the resolution path. Without reciprocal coupling, no bound (2,3) eigenmode possible. |
+| **A26** | S1 | `initialize_electron_2_3_sector` carries wrong default amplitude (√3/2·π instead of 0.3π) | Open — fix in working tree (uncommitted `amplitude_scale` parameter); retroactive caller audit pending. ~~Round 6 Path B blocked on this~~ — superseded by A28 unblock; Path B now forming bound state at N=80 with proper amplitude_scale. |
+| ~~**A27**~~ | S1 | ~~L_c = (V²/V_SNAP²)·W_refl one-way energy pump~~ | **CLOSED r8.3 (commit `05b130f`/`ff15c4b`)** via A28 reframing — empirical "one-way pump" signature was the symptom of A28 double-counting, not L_c being structurally non-reciprocal. L_c form is fine; engine had two redundant code paths injecting the same physics. |
+| **A28** | S1 | K4↔Cosserat coupling double-counted since Phase 4 (`a5bd1da`); `_compute_coupling_force_on_cosserat` redundant with Op14 z_local modulation | **CLOSED r8.3 (commits `05b130f` + `ff15c4b`)** via `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) unified under one bug. **Path B at N=80 forms (2,3) bound state through step 20 — first time in Stage 6.** Methodology lesson: Vol 4 Ch 1 cross-check at architectural-decision time would have caught this at Phase 4 design-review. |
+| **F17-L** | S2 | V_yield vs V_SNAP scale mismatch (doc 54_ §6 vs engine, factor 1/α) | Open — pre-existing per doc 54_ §5; surfaced separately during F17-H reconciliation per doc 67_ §15. Not blocking. Track for v4 universal-lattice-units refactor. |
 
-**Critical-path blockers (r8.1):**
+**Critical-path blockers (r8.3):**
 
-1. **F17-H — audit doc 54_ §6 L_c derivation for axiom-grounding** — newly load-bearing per A27. Either L_c form is wrong (revise) or it's right-but-mis-applied (identify the regime where it bites and the regime where it doesn't). Single-electron representation gated on this.
-2. **Round 6 single-electron validation precondition** — Path A FALSIFIED, Path B BLOCKED on strain-mask infrastructure, F17-I three-mode test ran (`687b18d`) — exposed L_c asymmetry (A27). Pair-nucleation work suspended pending L_c resolution.
+1. **Op6 self-consistency outer loop on Path B at N=80** (in working tree at `coupled_engine_eigenmode.py`). Path B holds bound (2,3) state through step 20; drifts by step 50. Outer-loop convergence is the gate for sustaining past 100 Compton periods. **If Op6 converges, Round 6 closes and Phase 5 gate work resumes.** ~1-2 hours from wire-up to first result.
+2. **A26 fix commit** (`amplitude_scale` parameter) + retroactive caller audit. Currently in working tree.
+3. **`use_lagrangian_emf_coupling` flag cleanup** (path-1 wrong-direction, opt-in in HEAD). Should be removed once A28 confirmed across more configurations. Follow-up.
+4. **Flag 62-A first-law closure (BH thermodynamics)** — orthogonal to single-electron pivot. Standard S_BH closes via imported GR first law; AVE-native Ŝ_geometric does not satisfy T·dS = dE. Either complete Vol 3 Ch 11:14-48 volume-entropy mechanism for BH interiors or accept S_thermo as a distinct AVE quantity.
+5. **F17-L V_yield/V_SNAP scale mismatch** — track for v4 universal-lattice-units refactor; not blocking.
+6. **Commit this manual** — done as of r8 (`4ba20f8`); future updates synchronous per §1.2 protocol.
 2. **Strain-mask infrastructure adjudication** — plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`; awaits Grant adjudication on threshold value, update frequency, energy-at-flip semantics, and doc 66 §15 framing.
 3. **Amplitude-bug fix (A26)** — uncommitted `amplitude_scale` parameter in `cosserat_field_3d.py`; commit + retroactive caller audit gates Path B re-run.
 4. **Flag 62-A first-law closure (BH thermodynamics)** — Standard S_BH closes via imported GR first law; AVE-native Ŝ_geometric does not satisfy T·dS = dE. Either complete Vol 3 Ch 11:14-48 volume-entropy mechanism for BH interiors or accept S_thermo as a distinct AVE quantity. Orthogonal to single-electron pivot.
 5. **Commit this manual** — still untracked in the working tree.
 
-**r5 → r6 → r7 → r8 retraction / closure summary:**
+**r5 → r6 → r7 → r8 → r8.3 retraction / closure summary:**
 
-| Finding | r5 status | r6/r7/r8 status | Rationale |
+| Finding | r5 status | Updated status | Rationale |
 |---|---|---|---|
 | A14 | Open S1 — BLOCKING Phase 4 | Closed r6 | R4 / Vol 4 Ch 1:711 subatomic override — no mixed normalization at engine's scale |
 | A17 | Open S1 — "cause TBD" | Closed r6 | Bisection bit-identical; tail outcome, not regression. Doc 50_ r3 distribution framing is canonical. |
 | A19 | Open S3 — manuscript defect | Closed r6 | Scale-dependent V_yield — not a defect |
 | A20 | Open S2 — calibration question | Closed r6 | TKI gives ε_yield = 1 exactly under subatomic R4 |
 | A23 | Open S3 — framing tension | Closed r6 | Doc 55_ self-superseded via R4 banner |
-| A24 | (new — surfaced by Phase 5e driver) | **Closed r8** | V_SNAP unit-system bug fixed in `098d430`; cool-through-yield now observable |
-| A25 | (new — surfaced by Path A falsification + Vol 1 Ch 8:49-50 corpus-search) | **Empirically closed r8** | K4-TLM exhausted at node level; bound electron lives in Cosserat |
-| A26 | (new — surfaced by Round 6 Path B amplitude correction) | **Open r8** | `initialize_electron_2_3_sector` ships wrong default amplitude; uncommitted fix in working tree |
+| A24 | (new — surfaced by Phase 5e driver) | Closed r8 | V_SNAP unit-system bug fixed in `098d430`; cool-through-yield now observable |
+| A25 | (new — surfaced by Path A falsification + Vol 1 Ch 8:49-50 corpus-search) | Empirically closed r8 | K4-TLM exhausted at node level; bound electron lives in Cosserat |
+| A26 | (new — surfaced by Round 6 Path B amplitude correction) | Open r8 | `initialize_electron_2_3_sector` ships wrong default amplitude; uncommitted fix in working tree |
+| A27 | (new r8.1 — F17-I empirical L_c asymmetry) | **Reframed + closed r8.3** | "One-way pump" empirical signature was symptom of A28 double-counting, not L_c being non-reciprocal. Closed via A28 reframing. |
+| A28 | (new — surfaced by F17-H Vol 4 Ch 1 cross-check) | **Closed r8.3** (`05b130f` + `ff15c4b`) | Engine double-counted K4↔Cosserat coupling since Phase 4 (`a5bd1da`). `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. Path B at N=80 forms (2,3) bound state through step 20 — first time in Stage 6. |
+| F17-L | (new — surfaced during F17-H reconciliation) | Open r8.3 | V_yield vs V_SNAP scale mismatch (doc 54 §6 vs engine, factor 1/α). Pre-existing per doc 54 §5; not blocking. |
 
 ---
 
-*End of manual r8 (Round 6 hybrid-scope reconcile). Next update triggered by: Path B re-run result post-strain-mask-infrastructure landing; F17-I all-C-state coupled seed attempt; A26 fix commit + retroactive caller audit; Flag 62-A first-law closure attempt; or any engine commit per §1.2 maintenance protocol. Full r9 rewrite of §3 (physical model under three-storage-mode framing) and §15 (derivation chain with three-entropy distinction + area theorem + K4-TLM exhaustion) deferred until Round 6 closes — see §1.5 for canonical Round 6 content pointers.*
+*End of manual r8.3 (synchronous edit after Round 6 audit-first inversion). Next update (r8.4) triggered by: Op6 self-consistency outer-loop convergence on Path B (single-electron validation closure); A26 fix commit + retroactive caller audit; `use_lagrangian_emf_coupling` cleanup; default-flip of `disable_cosserat_lc_force`; Flag 62-A first-law closure attempt; or any engine commit per §1.2 maintenance protocol.*
+
+*Full r9 rewrite of §3 (physical model under three-storage-mode framing per [doc 66_ §17.2.1](66_single_electron_first_pivot.md)) and §15 (derivation chain with three-entropy distinction + area theorem from Ax1+Ax4 + K4-TLM exhaustion + A28 double-counting structural finding) still deferred until Round 6 closes — Op6 outer-loop convergence is the gate. See §1.5 for canonical Round 6 content pointers.*
+
+*Round 6 epistemic milestone (r8.3): F17-H structurally resolved via A28; Path B forms (2,3) bound state at N=80 through step 20, first time in Stage 6; six prior failure modes unified under one bug; ~550 LOC of strain-mask infrastructure work zeroed out. Audit-first methodology productive — three sessions from "L_c is non-reciprocal, ADD EMF" (wrong direction) to "engine has redundant force, REMOVE it" (correct direction) inside one F17-H derivation arc.*
