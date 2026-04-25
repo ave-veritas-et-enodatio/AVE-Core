@@ -300,18 +300,23 @@ if __name__ == "__main__":
     run_phase5c_validation(N=80, max_iter=500)
 
 
-# ─── Phase 5c-v2: dual descent with tanh reparameterization ───────────────────
-# Per [doc 67_ §23](../../research/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md#L23):
-# v1's spurious convergence was Cosserat over-saturation (|ω| 0.94 → 2.19). v2
-# fixes this via HARD reparameterization (tanh-bounded amplitude in parameter
-# space) instead of soft Lagrange penalties. Per doc 03_ §4.1-4.3, the Ch 8
-# Golden Torus constraints are NATURAL EQUILIBRIA, not constraints to impose —
-# so v2 has NO geometric or topology penalties. Just amplitude reparameterization.
+# ─── Phase 5c-v2: dual descent with saturation-manifold projection ────────────
+# Per auditor 2026-04-25: v2 v1 used tanh reparameterization with bound at
+# omega_yield = π ≈ 3.14 — way above saturation onset (0.3π ≈ 0.94 per doc 34_
+# §9.4). Tanh BOUNDS amplitude; doesn't PIN at saturation onset. Both descents
+# escaped — energy went sub-saturated (0.61), S₁₁ went over-saturated (2.31)
+# because tanh allows |ω| up to π. Premature "corpus-duality falsified"
+# headline retracted (v3 result will adjudicate properly).
+#
+# v2 v2 fix: HARD PROJECTION onto saturation manifold after each gradient
+# step. peak|ω| = 0.3π ≈ 0.94 by construction. peak|V| bounded by V_SNAP
+# via clip (K4 contribution to A² is small enough that bound suffices).
 #
 # Dual descent runs both objectives from the same seed:
 #   - Cosserat-energy: minimize E_Cos[u, ω] (per doc 03_ §1)
 #   - |S₁₁|² coupled: minimize total_s11_coupled (per doc 34_ X4b template)
-# Corpus claim per Vol 1 Ch 8: they co-locate at Golden Torus.
+# Corpus claim per Vol 1 Ch 8: they co-locate at Golden Torus AT SATURATION
+# ONSET. v2 v2 tests this at correct amplitude.
 
 from ave.topological.cosserat_field_3d import _total_energy_saturated
 
@@ -636,3 +641,294 @@ def run_phase5c_v2_dual_descent(
 
 if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "v2":
     run_phase5c_v2_dual_descent(N=80, max_iter=500)
+
+
+# ─── Phase 5c-v2-v2: hard projection onto saturation manifold ─────────────────
+# Per auditor 2026-04-25: tanh bounds amplitude, doesn't pin at saturation onset.
+# Both v2 descents ran at wrong |ω| (0.61 sub, 2.31 over) because tanh allows
+# |ω| up to ω_yield = π ≈ 3.14 — way above saturation onset 0.3π ≈ 0.94.
+# v2-v2 fix: hard projection onto saturation manifold after each gradient step.
+# peak|ω| = 0.94 by construction. Direct (u, ω, V_inc) gradient (no tanh).
+
+from ave.topological.cosserat_field_3d import _val_and_grad_saturated as _cos_val_and_grad
+
+PEAK_OMEGA_SATURATION_ONSET = 0.3 * np.pi  # 0.9425 — bound-state peak per doc 34_ §9.4
+
+
+def _project_omega_to_saturation(
+    omega: np.ndarray, peak_target: float = PEAK_OMEGA_SATURATION_ONSET,
+) -> np.ndarray:
+    """Rescale ω so peak |ω| = peak_target. Pins amplitude on saturation manifold."""
+    peak = float(np.max(np.linalg.norm(omega, axis=-1)))
+    if peak > 1e-12:
+        return omega * (peak_target / peak)
+    return omega
+
+
+def relax_with_pin(
+    engine: VacuumEngine3D,
+    objective: str = "s11",
+    peak_omega_target: float = PEAK_OMEGA_SATURATION_ONSET,
+    V_clip: float | None = None,
+    max_iter: int = 500,
+    tol: float = 1e-9,
+    initial_lr: float = 1e-3,
+    verbose: bool = False,
+    track_every: int = 25,
+) -> dict:
+    """Phase 5c-v2-v2 descent with HARD projection onto saturation manifold.
+
+    objective ∈ {"s11", "energy"}.
+
+    After each gradient step:
+      ω_new = ω_after_step · (peak_omega_target / peak|ω_after_step|)  # pin
+      V_new = clip(V_after_step, |V| ≤ V_clip)                         # if set
+
+    This pins peak|ω| at saturation onset (0.94 = 0.3π per doc 34_ §9.4) by
+    construction, regardless of gradient magnitude. No tanh reparameterization;
+    direct gradient on engine state. Line search on the projected state.
+    """
+    cos_mask = engine.cos._mask_alive_jax
+    k4_mask = jnp.asarray(engine.k4.mask_active)
+
+    omega_yield = float(engine.cos.omega_yield)
+    epsilon_yield = float(engine.cos.epsilon_yield)
+    V_SNAP = float(engine.V_SNAP)
+    dx = engine.cos.dx
+
+    def _eval(u_, omega_, V_) -> float:
+        if objective == "s11":
+            return float(_total_s11_coupled(
+                jnp.asarray(u_), jnp.asarray(omega_), jnp.asarray(V_),
+                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
+            ))
+        else:
+            return float(_total_energy_saturated(
+                jnp.asarray(u_), jnp.asarray(omega_),
+                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
+                omega_yield, epsilon_yield,
+                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
+            ))
+
+    def _grad(u_, omega_, V_) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        if objective == "s11":
+            _, (gu, gw, gv) = _val_and_grad_s11_coupled(
+                jnp.asarray(u_), jnp.asarray(omega_), jnp.asarray(V_),
+                cos_mask, dx, omega_yield, epsilon_yield, V_SNAP,
+            )
+            cm = cos_mask[..., None].astype(gu.dtype)
+            km = k4_mask[..., None].astype(gv.dtype)
+            return np.asarray(gu * cm), np.asarray(gw * cm), np.asarray(gv * km)
+        else:
+            _, (gu, gw) = _cos_val_and_grad(
+                jnp.asarray(u_), jnp.asarray(omega_),
+                cos_mask, dx, engine.cos.G, engine.cos.G_c, engine.cos.gamma,
+                omega_yield, epsilon_yield,
+                engine.cos.k_op10, engine.cos.k_refl, engine.cos.k_hopf,
+            )
+            cm = cos_mask[..., None].astype(gu.dtype)
+            return np.asarray(gu * cm), np.asarray(gw * cm), np.zeros_like(V_)
+
+    u = np.asarray(engine.cos.u).copy()
+    omega = np.asarray(engine.cos.omega).copy()
+    V_inc = np.asarray(engine.k4.V_inc).copy()
+
+    # Project initial ω to saturation manifold so seed sits on the constraint
+    omega = _project_omega_to_saturation(omega, peak_omega_target)
+    if V_clip is not None:
+        V_inc = np.clip(V_inc, -V_clip, V_clip)
+    engine.cos.omega = omega
+    engine.k4.V_inc = V_inc
+
+    lr = initial_lr
+    history = []
+    trajectory = []
+    obj_prev = _eval(u, omega, V_inc)
+    history.append(obj_prev)
+    noise_floor = 1e-12 * max(abs(obj_prev), 1.0)
+
+    def _snapshot(step: int, obj: float, lr_now: float) -> dict:
+        engine.cos.u = u
+        engine.cos.omega = omega
+        engine.k4.V_inc = V_inc
+        c_cos = int(engine.cos.extract_crossing_count())
+        peak_omega = float(np.max(np.linalg.norm(omega, axis=-1)))
+        peak_V = float(np.max(np.abs(V_inc)))
+        E_cos = float(engine.cos.total_energy())
+        E_k4 = float(np.sum(V_inc ** 2))
+        return {
+            "step": step, "obj": obj, "c_cos": c_cos,
+            "peak_omega": peak_omega, "peak_V": peak_V,
+            "E_cos": E_cos, "E_k4": E_k4, "lr": lr_now,
+        }
+
+    if track_every > 0:
+        snap = _snapshot(0, obj_prev, lr)
+        trajectory.append(snap)
+        if verbose:
+            print(f"  [{objective}-pin] step {0:5d}  obj={snap['obj']:.6e}  "
+                  f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
+                  f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+
+    for step in range(max_iter):
+        gu, gw, gv = _grad(u, omega, V_inc)
+        u_new = u - lr * gu
+        omega_new = omega - lr * gw
+        omega_new = _project_omega_to_saturation(omega_new, peak_omega_target)
+        if objective == "s11":
+            V_new = V_inc - lr * gv
+            if V_clip is not None:
+                V_new = np.clip(V_new, -V_clip, V_clip)
+            V_new = np.where(engine.k4.mask_active[..., None], V_new, 0.0)
+        else:
+            V_new = V_inc
+
+        obj_new = _eval(u_new, omega_new, V_new)
+
+        if obj_new <= obj_prev + noise_floor:
+            rel_change = abs(obj_new - obj_prev) / max(abs(obj_prev), 1e-12)
+            history.append(obj_new)
+            u, omega, V_inc = u_new, omega_new, V_new
+
+            if track_every > 0 and ((step + 1) % track_every == 0):
+                snap = _snapshot(step + 1, obj_new, lr)
+                trajectory.append(snap)
+                if verbose:
+                    print(f"  [{objective}-pin] step {step+1:5d}  obj={snap['obj']:.6e}  "
+                          f"c={snap['c_cos']}  |ω|={snap['peak_omega']:.4f}  "
+                          f"|V|={snap['peak_V']:.4f}  lr={snap['lr']:.2e}")
+
+            if step > 10 and rel_change < tol:
+                engine.cos.u = u
+                engine.cos.omega = omega
+                engine.k4.V_inc = V_inc
+                return {
+                    "iterations": step + 1, "final_obj": obj_new,
+                    "converged": True, "history": history,
+                    "trajectory": trajectory, "lr_final": lr,
+                    "objective": objective,
+                }
+            lr = min(lr * 1.1, 1.0)
+            obj_prev = obj_new
+            noise_floor = 1e-12 * max(abs(obj_prev), 1.0)
+        else:
+            lr *= 0.5
+            if lr < 1e-14:
+                engine.cos.u = u
+                engine.cos.omega = omega
+                engine.k4.V_inc = V_inc
+                return {
+                    "iterations": step + 1, "final_obj": obj_prev,
+                    "converged": False, "history": history,
+                    "trajectory": trajectory, "lr_final": lr,
+                    "objective": objective, "note": "lr collapsed",
+                }
+
+    engine.cos.u = u
+    engine.cos.omega = omega
+    engine.k4.V_inc = V_inc
+    return {
+        "iterations": max_iter, "final_obj": obj_prev,
+        "converged": False, "history": history,
+        "trajectory": trajectory, "lr_final": lr,
+        "objective": objective,
+    }
+
+
+def run_phase5c_v2v2_dual_descent_with_pin(
+    N: int = 80, R: float = 20.0,
+    V_amp: float = 0.05, chirality: float = 1.0,
+    max_iter: int = 500, initial_lr: float = 1e-3,
+) -> dict:
+    """Phase 5c-v2-v2: dual descent with hard projection onto saturation manifold.
+
+    peak|ω| pinned at 0.3π=0.94 (bound-state amplitude per doc 34_ §9.4) by
+    projection after each step. This is the corrected v2 driver — auditor
+    2026-04-25 caught that v2 v1 used tanh BOUND (allows |ω| up to ω_yield=π)
+    rather than PIN at saturation onset (peak=0.94).
+
+    Both descents start at the saturation manifold (initial projection) and
+    stay there through gradient flow. Tests corpus-duality (Vol 1 Ch 8) at
+    correct amplitude.
+    """
+    PHI_SQ = ((1 + np.sqrt(5)) / 2) ** 2
+    r = R / PHI_SQ
+    cos_amp = 0.3 / (np.sqrt(3.0) / 2.0)
+
+    print("=" * 78)
+    print(f"  F17-K Phase 5c-v2-v2: dual descent with saturation-pin at N={N}")
+    print(f"  peak|ω| PINNED at 0.3π={PEAK_OMEGA_SATURATION_ONSET:.4f} via projection")
+    print("=" * 78)
+    print(f"  Seed: phase-quadrature K4 (V_amp={V_amp}, chir={chirality}) + Cos ω")
+    print(f"  R={R}, r={r:.4f}, max_iter={max_iter}, initial_lr={initial_lr}")
+    print()
+
+    from tlm_electron_soliton_eigenmode import initialize_quadrature_2_3_eigenmode
+
+    def build_engine() -> VacuumEngine3D:
+        eng = VacuumEngine3D.from_args(
+            N=N, pml=4, temperature=0.0,
+            disable_cosserat_lc_force=True,
+            enable_cosserat_self_terms=True,
+        )
+        initialize_quadrature_2_3_eigenmode(
+            eng.k4, R=R, r=r, amplitude=V_amp, chirality=chirality,
+        )
+        eng.cos.initialize_electron_2_3_sector(
+            R_target=R, r_target=r, use_hedgehog=True, amplitude_scale=cos_amp,
+        )
+        return eng
+
+    import time
+    results = {}
+    for objective in ["energy", "s11"]:
+        print(f"\n  --- Run: objective={objective!r} ---")
+        engine = build_engine()
+        t0 = time.time()
+        result = relax_with_pin(
+            engine, objective=objective,
+            peak_omega_target=PEAK_OMEGA_SATURATION_ONSET,
+            V_clip=float(engine.V_SNAP),
+            max_iter=max_iter, tol=1e-9,
+            initial_lr=initial_lr, verbose=True, track_every=50,
+        )
+        elapsed = time.time() - t0
+        c_cos = int(engine.cos.extract_crossing_count())
+        peak_omega = float(np.max(np.linalg.norm(engine.cos.omega, axis=-1)))
+        peak_V = float(np.max(np.abs(engine.k4.V_inc)))
+        E_cos = float(engine.cos.total_energy())
+        E_k4 = float(np.sum(engine.k4.V_inc ** 2))
+        R_found, r_found = engine.cos.extract_shell_radii()
+        results[objective] = {
+            **result,
+            "elapsed": elapsed,
+            "final_c": c_cos, "final_peak_omega": peak_omega,
+            "final_peak_V": peak_V, "final_E_cos": E_cos, "final_E_k4": E_k4,
+            "final_R": float(R_found), "final_r": float(r_found),
+        }
+        print(f"\n  --- {objective!r} final ---")
+        print(f"  iters: {result['iterations']}/{max_iter}  converged={result['converged']}")
+        print(f"  obj:   {result['final_obj']:.4e}")
+        print(f"  c_cos: {c_cos}, peak|ω|={peak_omega:.4f}, peak|V|={peak_V:.4f}")
+        print(f"  R/r:   ({R_found:.3f}, {r_found:.3f})  →  {R_found/max(r_found,1e-9):.3f}")
+        print(f"  E_cos: {E_cos:.3e}, E_k4: {E_k4:.3e}")
+        print(f"  elapsed: {elapsed:.1f}s")
+
+    print(f"\n{'=' * 78}")
+    print(f"  CORPUS-DUALITY COMPARISON (peak|ω| PINNED at 0.94)")
+    print(f"{'=' * 78}")
+    print(f"  {'metric':<18}{'energy':<14}{'s11':<14}{'Δ':<14}")
+    for k in ["final_c", "final_peak_omega", "final_peak_V", "final_R", "final_r", "final_E_cos", "final_E_k4"]:
+        e = results["energy"][k]
+        s = results["s11"][k]
+        try:
+            delta = float(s) - float(e)
+            print(f"  {k:<18}{float(e):<14.4f}{float(s):<14.4f}{delta:<+14.4f}")
+        except (TypeError, ValueError):
+            print(f"  {k:<18}{e!s:<14}{s!s:<14}n/a")
+
+    return results
+
+
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "v2v2":
+    run_phase5c_v2v2_dual_descent_with_pin(N=80, max_iter=500)

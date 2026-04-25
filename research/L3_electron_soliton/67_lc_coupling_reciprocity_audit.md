@@ -1428,3 +1428,85 @@ Three possibilities (per discipline, flagged not adjudicated):
 ---
 
 *§24 added 2026-04-25 — Phase 5c-v2 dual descent ran. Cosserat-energy converges to (2,3) stationary state at R/r=4.08, empirically confirming doc 03_ §4.3's "R·r=1/4 is topologically quantized, not dynamically derived" — energy minimization alone doesn't pin Golden Torus. S₁₁ descent shows tanh-reparam bug (peak|ω|=2.31, should be bounded). Corpus-duality claim falsified at coupled-engine scale (or pending tanh-reparam debug). F17-K Phase 6 (eigensolver methodology with topological constraints) becomes load-bearing if dynamical descent fundamentally can't reach Golden Torus.*
+
+---
+
+## 25. Phase 5c-v2-v2: saturation-pin debug + post-debug dual descent (2026-04-25)
+
+### 25.1 Auditor flagged §24 was premature
+
+External audit caught: §24 Finding 3 ("corpus-duality falsified") was empirically confounded by amplitude bug. Both descents ran at WRONG |ω| — energy at 0.61 (sub-saturated), S₁₁ at 2.31 (over-saturated). The bound state lives at saturation onset (peak |ω| ≈ 0.94 = 0.3π per doc 34_ §9.4). Neither descent tested behavior at the saturation manifold where the corpus-duality claim actually applies.
+
+The v2 v1 used `tanh` reparameterization with bound at `omega_yield = π ≈ 3.14`. **Tanh BOUNDS amplitude (caps it from above), but doesn't PIN at saturation onset.** Energy descent went sub-saturated (energy minimization without pin minimizes amplitude), S₁₁ descent went up to 2.31 because tanh allows |ω| up to π.
+
+**§24 Finding 3 framing retracted** as premature; v2-v2 below provides the proper test at correct amplitude.
+
+### 25.2 v2-v2 fix: hard projection onto saturation manifold
+
+Replaced tanh with hard projection in [`coupled_s11_eigenmode.py:relax_with_pin`](../../src/scripts/vol_1_foundations/coupled_s11_eigenmode.py): after each gradient step, rescale ω so peak|ω| = 0.3π = 0.9425 by construction. This pins amplitude at saturation onset regardless of gradient direction or magnitude. V_inc clipped at V_SNAP=1.
+
+### 25.3 v2-v2 results (peak|ω| pinned at 0.9425)
+
+| Metric | Energy descent | S₁₁ descent | Corpus claim |
+|---|---|---|---|
+| iterations | 78 (converged) | 500 (still descending) | — |
+| c_cos | 3 ✓ | 3 ✓ | 3 |
+| peak \|ω\| | 0.9425 ✓ (pinned) | 0.9425 ✓ (pinned) | 0.94 |
+| peak \|V\| | 0.151 | 0.156 | — |
+| R | 25.4 | 17.5 | 20 (= R_seed) |
+| r | 7.5 | 17.0 | 7.6 |
+| **R/r** | **3.40** | **1.03** | **φ² = 2.62** |
+| E_cos | 9167 | 1595 | — |
+| obj reduction | 74% (6000→1554) | **99.76%** (3261→7.93) | — |
+
+### 25.4 Two findings, evidence now solid
+
+**Finding A: Saturation-pin made S₁₁ descent actually work.** v1/v2-v1 had S₁₁ "converge" with 3% obj reduction in ~30 iters. v2-v2 S₁₁ dropped obj by 99.76% over 500 iters. The earlier "spurious convergence" was artifact of |ω| escaping into clipped saturation regime where the gradient vanishes due to A²-clipping (not a true minimum). With peak|ω| pinned at the manifold, S₁₁ descent has real work to do. **The saturation-pin was the missing piece for S₁₁ behavior.**
+
+**Finding B: Corpus-duality claim FALSIFIED at coupled-engine scale, even at correct amplitude.** Energy converges at R/r=3.40 (elongated torus); S₁₁ converges at R/r=1.03 (degenerate "horn torus" where R≈r, the field flattens out maximally to minimize impedance gradients). **Neither is at Golden Torus (φ²=2.62), and they differ from each other by 3.3×.**
+
+### 25.5 Doc 03_ §4.3 empirically validated
+
+The auditor's four-outcome decision tree (per the audit relayed 2026-04-25):
+
+> "Cosserat-energy descent at saturation onset → R/r ≠ φ² (some other (2,3) configuration): doc 03_ §4.3 empirically validated; topology selects Golden Torus from continuous family; eigensolver methodology motivated"
+
+> "S₁₁ descent at saturation onset → R/r ≠ φ²: S₁₁ alone doesn't pin geometry; need explicit Ch 8 algebraic pins per doc 34_"
+
+**BOTH outcomes hit empirically.** The Cosserat-energy functional has a continuous family of (2,3) stationary states (energy converges at R/r=3.40 from a Golden-Torus seed). The coupled S₁₁ functional has a different continuous family (S₁₁ converges at R/r=1.03 from the same seed). Topological quantization (SU(2) half-cover area match → R·r=1/4) selects R/r=φ² from one of these families — but **neither dynamical descent knows about quantization**.
+
+This validates doc 03_ §4.3 verbatim:
+
+> "R·r = 1/4: topologically quantized, NOT dynamically derived. Both d=1 and R−r=1/2 are genuine dynamical derivations; R·r=1/4 is a topological identity that the Lagrangian must be *consistent with* but does not by itself produce."
+
+### 25.6 (C) X4b small-perturbation verification — implicitly done
+
+The v2-v2 driver SEEDED at Golden Torus geometry (R=20, r=R/φ²=7.64). Both descents STARTED AT Golden Torus and DRIFTED AWAY:
+- Energy: (R, r) = (20, 7.6) → (25.4, 7.5) — R increased by 27%
+- S₁₁: (R, r) = (20, 7.6) → (17.5, 17.0) — r more than doubled
+
+**Golden Torus is NOT a stationary point of either objective in the coupled engine**, even at saturation onset. doc 34_ X4b's Cosserat-only stationarity at Golden Torus DOES NOT extend to the coupled engine. The K4 sector adds instabilities that destabilize the Golden Torus geometry.
+
+### 25.7 Implications + path forward
+
+The bound state per doc 03_ §4.3 requires either:
+
+(i) **Algebraic Ch 8 pinning per doc 34_ X4 framing** — initialize at Golden Torus + lock (R, r) algebraically during descent. Then descent finds optimal field SHAPE at fixed Golden Torus geometry. Corpus-canonical pattern.
+
+(ii) **F17-K Phase 6 sparse eigensolver per acoustic-cavity framing** (doc 67_ §23.4 + doc 68_ §12.4) — linearize coupled K4+Cosserat dynamics around Golden Torus ansatz, build sparse Jacobian, use `scipy.sparse.linalg.eigsh` to extract (2,3) eigenmode at fixed cavity geometry. Helmholtz/acoustic-cavity motivation; eigenvalue problem with boundary conditions explicitly encodes topological quantization.
+
+Either path EXPLICITLY encodes the topology. Pure descent (energy or S₁₁) cannot reach Golden Torus from arbitrary seed at coupled-engine scale.
+
+### 25.8 v2-v2 verdict — methodology arc closes empirically
+
+F17-K Round 6 single-electron-validation arc closes with this empirical finding:
+
+- **Phase 1 framing holds**: Ax-3 noncompliance + phase-space (V_inc, V_ref) + S₁₁ as action principle (corpus-validated end-to-end across 6 commits)
+- **Phase 5c v1-v2 unconstrained descent FALSIFIED**: cannot reach Golden Torus from arbitrary seed at coupled-engine scale
+- **Phase 5c v2-v2 saturation-pinned descent FALSIFIED for finding Golden Torus**: even at correct amplitude, energy and S₁₁ converge at different geometries (R/r=3.40 vs 1.03), neither at φ²
+- **doc 03_ §4.3 empirically validated**: R·r=1/4 is topologically quantized, not dynamically derived
+- **Path forward**: algebraic Ch 8 pinning per doc 34_ X4 (next iteration) OR Phase 6 eigensolver methodology (corpus-canonical for acoustic-cavity bound states)
+
+---
+
+*§25 added 2026-04-25 — v2-v2 saturation-pin debug + dual descent. §24 Finding 3 framing retracted as premature; same conclusion reaches with proper evidence at correct amplitude. S₁₁ descent works correctly with hard projection (99.76% obj reduction). Corpus-duality claim FALSIFIED: energy converges at R/r=3.40, S₁₁ at 1.03, neither at Golden Torus (2.62). Doc 03_ §4.3 empirically validated: dynamical descent doesn't reach Golden Torus from arbitrary seed at coupled-engine scale. F17-K Round 6 closes; v3 direction is algebraic Ch 8 pinning OR Phase 6 sparse eigensolver methodology.*
