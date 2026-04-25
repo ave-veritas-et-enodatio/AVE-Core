@@ -335,3 +335,96 @@ This is a legitimate philosophical question about how Lagrangians map to TLM. Wo
 ---
 
 *Doc 67_ written 2026-04-24 (very late session) by Opus 4.7. F17-H finding: K4-side coupling implemented as Op14 z_local modulation, NOT as δL_c/δV-derived EMF. Empirical evidence (all_l: K4 energy stays at 0; mixed-mode: runaway with no proportional K4 drain) supports structural mismatch. Path 1 fix derived: add EMF_c = -2V·W_refl/V_SNAP² to K4 bond Φ_link accumulation. Implementation plan + 4 open questions (Q67-A through Q67-D) flagged for Grant's adjudication before any engine changes.*
+
+---
+
+## 12. Audit closures — Q67-A through Q67-D resolved (added 2026-04-24)
+
+External-agent audit of doc 67_ recommended: don't implement path 1 until Q67-C is closed (Phase 4 asymmetric form has different L_c → my legacy-form derivation may be deriving the wrong coupling). All three audits done; findings substantially sharpen the implementation plan.
+
+### 12.1 Q67-C closure — Phase 4 asymmetric form has V² embedded in W_refl
+
+The Phase 4 form [`_coupling_energy_total_asymmetric`](../../src/ave/topological/k4_cosserat_coupling.py#L104) and [`_reflection_density_asymmetric`](../../src/ave/topological/cosserat_field_3d.py#L379) reveal: **V² is NOT a separate multiplicative factor on top of W_refl** (as in legacy S1=D). Instead, V² is embedded INTO the reflection density itself via:
+
+```python
+A²_ε_base = ε²/ε_yield² + V²/V_SNAP²        # cosserat_field_3d.py:425
+A²_ε      = (1 − κ_chiral·h_local)·A²_ε_base
+S_ε       = √(1 − A²_ε)
+Γ_vec     = (1/4)[∇S_μ/S_μ − ∇S_ε/S_ε]      # asymmetric reflection coeff
+W_refl_asymmetric = |Γ_vec|² = γ²
+L_c_asymmetric = ∫ W_refl_asymmetric dx³
+```
+
+So L_c_asymmetric IS a function of V (via S_ε's dependence on A²_ε_base which contains V²/V_SNAP²), but the dependence is **non-local** — V at site r enters S_ε at site r, which contributes to ∇S_ε at neighboring sites, which contributes to W_refl at those sites.
+
+**Closed-form δL_c_asym/δV is complex.** It would involve:
+- Local: ∂A²_ε/∂V at site r → contribution to S_ε at site r
+- Spatial: spatial-difference operator's matrix elements connecting V at r to ∇S_ε at neighbors
+- Chain rule through γ_vec, |Γ|²
+
+**But JAX autograd handles this automatically.** The existing [`_coupling_grad_asymmetric`](../../src/ave/topological/k4_cosserat_coupling.py#L132-L134) is `jax.value_and_grad(_coupling_energy_total_asymmetric, argnums=(0, 1))` — gradients on (u, ω) only. **Extending argnums to `(0, 1, 2)` adds V_sq to the gradient, giving us δL_c/δV_sq for free.**
+
+Then the per-port EMF: `EMF_c[port=k] at site r = -2·V_inc[r, k]·(∂L_c/∂V_sq)[r]` (chain rule from V² = Σ_k V_inc[k]² to per-port).
+
+Q67-C resolution: **closed-form derivation is non-local and complex; numerical derivation via JAX is one-line.** Implementation can proceed using JAX gradients.
+
+### 12.2 Q67-A and Q67-D closure — Op14 z_local is independently axiom-correct; path 1 is ADDITIVE
+
+Code-trace of [`_update_z_local_total`](../../src/ave/topological/k4_cosserat_coupling.py#L265-L312) under Phase 4 (default `use_asymmetric_saturation=True`):
+
+```python
+S_mu, S_eps = _update_saturation_kernels(...)
+z_local = √(S_μ/S_ε)
+self.k4.z_local_field = z_local
+```
+
+The S_μ and S_ε computed here are **the Axiom-4 saturation kernels** — they characterize the local effective material μ_eff, ε_eff under saturation, per [Vol 1 Ch 7:252](../../manuscript/vol_1_foundations/chapters/07_regime_map.tex#L252):
+> "μ_eff = μ_0·S_μ, ε_eff = ε_0·S_ε. Z_eff = √(μ_eff/ε_eff) = Z_0·√(S_μ/S_ε)."
+
+This is a **constitutive impedance modulation** derived from Ax4 — independent of any coupling Lagrangian. The S_μ, S_ε FEED INTO L_c (whose W_refl is built from ∇S_μ, ∇S_ε), but they're not derived FROM L_c.
+
+**Q67-A/Q67-D resolution:** Op14 z_local and the EMF coupling are **two complementary translations** of the same physical situation:
+- **Op14 z_local:** Ax4 constitutive modulation — local material's effective impedance changes when fields are loaded (unchanged behavior)
+- **EMF source:** Lagrangian-derivative on V — energy injection from L_c gradient (the missing channel)
+
+Both should coexist. Path 1 is **ADDITIVE, ~150 LOC**, not REPLACEMENT (~330 LOC).
+
+The doc 67 §4 framing ("Op14 modulation vs δL_c/δV") was a false dichotomy. They're not competing implementations of the same channel — they're orthogonal physical mechanisms.
+
+### 12.3 Q67-B closure — quadratic L_c is axiom-forced by Pythagorean strain theorem
+
+doc 54_ §6 line 180 cites the Pythagorean strain theorem (AVE-APU Vol 1 Ch 5:26-37): orthogonal degrees of freedom combine in quadrature. `A²_total = A²_μ + A²_ε` is energy-additivity. Each contribution to A² is a squared amplitude (energy-like), not a linear amplitude.
+
+V² in A²_ε_base is **forced by Pythagorean theorem**, not chosen. The quadratic appearance of V in L_c is correct; the Phase 4 implementation correctly handles this via V_sq feeding into A²_ε_base.
+
+Q67-B resolution: quadratic form is axiom-equivalent. No alternative form (linear) is consistent with the Pythagorean strain theorem.
+
+### 12.4 Revised path 1 implementation plan
+
+With audit closures, path 1 is sharpened:
+
+1. **Extend [`_coupling_grad_asymmetric`](../../src/ave/topological/k4_cosserat_coupling.py#L132-L134)** to include V_sq in argnums — gives δL_c/δV_sq automatically.
+2. **In `CoupledK4Cosserat.step()`,** compute `δL_c/δV_sq` per site, then per-port chain-rule: `EMF_c[k] = -2·V_inc[k]·(δL_c/δV_sq)`.
+3. **In `K4Lattice3D._connect_all`,** add optional `emf_c` parameter (4-component per A-site array). Apply: `Phi_link += (V_avg + EMF_c)·dt`, `V_inc += EMF_c·dt` (preserve V↔Φ consistency).
+4. **Keep z_local Op14 unchanged** — independently axiom-correct per Q67-A/D.
+5. **Backward-compat flag** `use_lagrangian_emf_coupling: bool = False` (default off; turning on enables path 1).
+
+Estimated **~150 LOC** total (was ~330 before audit closure):
+- ~50 LOC in k4_cosserat_coupling.py: argnums extension, EMF compute, integration into step()
+- ~60 LOC in k4_tlm.py: emf_c parameter on connect, Φ_link/V_inc updates
+- ~80 LOC in tests: H conservation in active regime, all_l K4 activation, Path B re-run
+
+### 12.5 Risk update
+
+The audit closure removes the "may be deriving the wrong coupling" risk (Q67-C blocker resolved via JAX autograd). Remaining risks:
+- **JAX autograd correctness:** verify δL/δV_sq is what we think. Test on a hand-crafted L_c where the analytical answer is known (e.g., legacy S1=D form: argnums=(0,1,2) on the legacy `_coupling_energy_total` should give 2·V_sq·W_refl/V_SNAP² · ∂(V_sq summed-by-port factor) — easy to verify).
+- **Sign convention** of EMF: as before, `dΦ/dt = -V + EMF_c`. JAX gives ∂L/∂V_sq directly; the sign in the EMF formula needs care.
+- **Chain rule from V_sq to V_inc[port]:** V_sq = Σ_k V_inc[k]², so ∂V_sq/∂V_inc[k] = 2·V_inc[k]. Therefore EMF on port k: `EMF_c[k] = -(δL/δV_sq)·2·V_inc[k]`.
+
+### 12.6 Implementation gating
+
+All three audits resolved. Implementation can proceed if Grant approves. Recommended next step: extend `_coupling_grad_asymmetric` argnums and verify EMF computation against the legacy form's known closed-form result as a sanity check before integrating into the engine.
+
+---
+
+*§12 added 2026-04-24 after external-agent audit recommendations. Q67-A/D collapsed (Op14 axiom-correct independently → additive coupling, not replacement). Q67-B closed (quadratic forced by Pythagorean theorem). Q67-C closed (asymmetric L_c has non-local V dependence; JAX autograd handles it). Path 1 implementation scope reduced from ~330 to ~150 LOC. Manual r8.3 patch can be drafted referencing this audit closure.*
