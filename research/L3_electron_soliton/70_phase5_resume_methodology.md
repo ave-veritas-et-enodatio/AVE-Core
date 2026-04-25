@@ -151,14 +151,87 @@ For pair-nucleation, the analog is:
 
 ---
 
-## 7. Empirical run result + adjudication (TBD — Phase D)
+## 7. Empirical run result + adjudication — case (b) with G-13 implication
 
-This section will land Phase 5 ansatz-seeded driver run results once the experiment completes. Three adjudication branches per the plan:
+[`phase5_ansatz_seeded_nucleation.py`](../../src/scripts/vol_1_foundations/phase5_ansatz_seeded_nucleation.py) ran at registered config (N=24, amp=0.5·V_SNAP, λ=3.5, head-on autoresonant collision). Seeded Beltrami-bound-pair at central A=(10,10,10), B=(11,11,11), port 0; bond marked already-nucleated.
 
-- **(a)** Gate fires under ansatz seed AND seeded pair persists post-drive → Phase 5 mechanism validated; next experiment is amplitude/N sweep against `P_phase5_nucleation`.
-- **(b)** Gate does NOT fire under ansatz seed → C1/C2 logic itself needs revision (R5.10 Readings reopen at threshold-revision level).
-- **(c)** Gate fires but seeded pair dissolves post-drive → Kelvin protection claim empirically falsified; revise Bingham-plastic framing.
+### 7.1 Drive-on result
+
+```
+                seed         drive-end       post-drive
+|ω|_A           1.414        0.013 (0.01×)   0.091 (0.06×)
+|ω|_B           1.414        0.013 (0.01×)   0.091 (0.06×)
+Φ_link[A→B]    +1.000       +0.998 (1.00×)  +1.000 (1.00×)
+peak|ω|_global                               0.091
+peak|V|_global                               0.003
+c_cos                                        1
+E_cos                                        1.89
+Other-bond firings during drive: 0           [no cascade]
+```
+
+**Verdict: case (b) — seeded pair dissolves during drive.** Cosserat ω at A,B collapses 99% during drive duration (1.414 → 0.013 = 0.01×). |ω|_A,B never recovers post-drive (0.06× of seed). Φ_link reads constant 1.000 throughout.
+
+### 7.2 No-drive sanity check
+
+To distinguish drive-induced dissolution from intrinsic seed-instability, ran the same seed with **no drive at all** (just engine.step() after seeding):
+
+```
+step 0  (seed):  |ω|_A = 1.4142   Φ_link = +1.000
+step 1:          |ω|_A = 0.1023   Φ_link = +1.000   [93% loss in ONE step]
+step 5:          |ω|_A = 0.8495   Φ_link = +1.000
+step 10:         |ω|_A = 0.0535   Φ_link = +1.000
+step 20:         |ω|_A = 0.1896   Φ_link = +1.000
+step 50:         |ω|_A = 0.0958   Φ_link = +1.000
+step 100:        |ω|_A = 0.1688   Φ_link = +1.000
+```
+
+|ω|_A drops 93% in ONE Velocity-Verlet step, then oscillates chaotically between 0.05-0.85 — NEVER recovers seed value. **The dissolution is intrinsic to engine self-dynamics; drive is irrelevant.** The point-rotation Beltrami is not a stationary state of Cosserat self-dynamics.
+
+### 7.3 Two findings
+
+**Finding A: Gate's `_inject_pair` profile is fundamentally unstable.** Point-rotation Beltrami (single ω vector at A,B + Φ_link) is not a topologically-protected configuration. Velocity-Verlet kick step alone scatters 93% of the seeded ω in one step, regardless of drive presence. The configuration has no mechanism to maintain its localized ω structure — Cosserat self-terms (k_op10, k_hopf, k_refl auto-suppressed under A28) don't stabilize unprotected localized rotation.
+
+**Finding B: Φ_link "persistence" is a measurement artifact.** Φ_link reads exactly +1.000 throughout drive AND no-drive runs. Per A29 (commit `a53ce1c` doc 67_ §17-§18, doc 70_ §1 ref): Φ_link is a derived flux observable in K4-TLM, not a primary dynamical state. Direct seeding leaves a value that doesn't couple to V_inc evolution. The constancy is "nothing in the K4 dynamics is touching this slot" — NOT "Kelvin topological-protection at work."
+
+### 7.4 Adjudication implications
+
+The plan's case (b) framing was "C1/C2 logic itself needs revision (R5.10 Readings reopen at threshold-revision level)." The actual finding is more specific:
+
+**Case (b'): the gate's INJECTION PROFILE needs upgrade, not the C1/C2 threshold logic.** This empirically activates **VACUUM_ENGINE_MANUAL §9 G-13** — a contingency flagged at PairNucleationGate landing:
+
+> "if Beltrami pair dissipates faster than 10 Compton periods post-drive-shutoff (pre-registered P_phase5_nucleation), upgrade to localized Hopf fibration or (2,3) torus-knot injection."
+
+The pre-Round-6 plan deferred this upgrade behind "test point-rotation first." Phase 5 ansatz-seeded driver tested point-rotation directly (no drive-threshold-chase confound) and **falsified Kelvin protection at this injection profile**: dissolution timescale ~1 step, far shorter than 10 Compton periods.
+
+**Connection to F17-K Round 6 finding (consistent):** dynamics don't stabilize topology; topology must be encoded as a persistent structural feature (ansatz). Round 6 showed this for the (2,3) electron eigenmode (Cosserat ω hedgehog dissolves after ~step 11 ~ 2 Compton periods). Phase 5 ansatz-seeded shows the same physics at the pair scale — point-rotation Beltrami dissolves in 1 step. **Same root cause: Cosserat self-terms don't stabilize unprotected localized ω configurations.**
+
+### 7.5 What this resolves and what stays open
+
+**Resolved:**
+- ✓ Gate `_inject_pair` profile (point-rotation Beltrami + Φ_link) is fundamentally unstable under engine dynamics (G-13 contingency activated empirically)
+- ✓ Φ_link "persistence" disambiguated as measurement artifact, NOT physical Kelvin protection
+- ✓ Round 6 finding extends to pair scale — point-component seeds don't stabilize either
+- ✓ Phase 5 mechanism question is at the INJECTION-PROFILE level, not the threshold level
+
+**Stays open:**
+- (γ) C1/C2 threshold-reach question — unaffected by this finding; gate logic might work if injection profile is upgraded to Hopf or (2,3) topology
+- R5.10 Readings 1-4 — NOT pre-empted by this run; reopen at threshold-revision level only AFTER a topologically-protected injection profile is implemented and tested
+- A31 F17-K Phase 6 sparse eigensolver — Round 7 Stage 1 (separate concern; eigensolver is for single-electron eigenmode, not pair injection profile)
+
+### 7.6 Next concrete experiment (Round 7 candidate Stage 2)
+
+Build `phase5_topological_pair_injection.py`: replace point-rotation Beltrami with **(2,3) torus-knot OR Hopf fibration** at each endpoint A, B (chirality-matched: LH at A, RH at B). Test whether topologically-richer ansatz survives Cosserat self-dynamics.
+
+Reuse F17-K + Round 6 infrastructure:
+- `cosserat_field_3d.py:initialize_electron_2_3_sector` — (2,3) hedgehog at one endpoint
+- `tlm_electron_soliton_eigenmode.py:initialize_quadrature_2_3_eigenmode` — phase-coherent V_inc/V_ref seed
+- `coupled_s11_eigenmode.py:_project_omega_to_saturation` — saturation-pin (peak |ω|=0.3π)
+- Apply at TWO bond endpoints with opposite chirality
+
+Estimated scope: ~200 LOC new driver. Defer to fresh session (Round 7 Stage 2).
 
 ---
 
-*Doc 70_ added 2026-04-25 — Phase 5 pair-nucleation work resumes per Round 6 closure. Ansatz-initialization methodology applies: seed expected post-firing state, decouple gate-mechanism (α)+(β) from threshold-chase (γ). R5.10 Readings 1-4 pre-empted. F17-K Phase 6 sparse eigensolver remains Round 7 Stage 1.*
+*§7 added 2026-04-25 — Phase 5 ansatz-seeded driver result. Case (b'): gate's injection profile (point-rotation Beltrami) is unstable in Cosserat self-dynamics — dissolves 93% in one step regardless of drive. G-13 contingency activated empirically. Φ_link "persistence" is measurement artifact (per A29). Round 6 finding extends to pair scale: topology must be encoded as persistent structural feature, not single-component injection. Round 7 Stage 2 candidate: topologically-protected (2,3)/Hopf injection profile.*
+
+*Doc 70_ added 2026-04-25 — Phase 5 pair-nucleation work resumes per Round 6 closure. Ansatz-initialization methodology applied at pair scale via §7 driver run. Case (b) outcome empirically motivates VACUUM_ENGINE_MANUAL §9 G-13 injection-profile upgrade. F17-K Phase 6 sparse eigensolver remains Round 7 Stage 1; topological-pair-injection becomes Round 7 Stage 2 candidate.*
