@@ -305,3 +305,179 @@ Predictions under Path B (draft, pending derivation of the phase-lock condition)
 ---
 
 *Written 2026-04-24 (Round 6) by Opus 4.7. Source-of-truth for the Stage 6 → single-electron-first pivot. §13 appended 2026-04-24 late session after Path A falsification + Grant's "spin on top of chirality" mechanism diagnosis. Future agents: read this first before touching the pair-nucleation gate.*
+
+---
+
+## 14. Framing corrections + Path B audit (post-Path-A, pre-implementation)
+
+### 14.1 §7's framing was understated; sharper picture
+
+§7 above called K4 V_inc and Cosserat ω "two orthogonal projections of one shared node tank" — that's *understated*. They aren't two projections of the same scalar field; they're **two non-overlapping degree-of-freedom types** of the same local electromagnetic state at each lattice site:
+
+- **K4 carries the translational-EM DOF.** V_inc per port (4 scalars per node) = port voltage / electric pressure. Φ_link per bond (accumulating ∫V_avg·dt) = bond flux. Both are scalars-with-port-direction-implicit. Naturally encodes "voltage at this node along this bond direction." Doesn't naturally encode "the field at this point is rotating around such-and-such axis" — that requires a vector-per-site, which K4's 4-port-scalar representation doesn't have.
+- **Cosserat carries the rotational-EM DOF.** ω (3-vector per node) = local angular velocity of the EM field at that site. u (3-vector per node) = local displacement / mechanical pair to ω under EE↔ME duality. Naturally encodes spin/curl/angular-momentum information that scalar-port-fields cannot.
+
+The two are **complementary**, not different views of the same scalar. K4 is the translational-EM circuit. Cosserat is the rotational-EM circuit. Both live on the same 3D lattice at each site. Together they give the full local EM state.
+
+**Internal conjugate pairs** (these are the actual LC-tank conjugates — in pairs, not across types):
+- K4 conjugate pair: `V_inc ↔ Φ_link` — translational voltage / translational flux. 90° apart in time during oscillation. This is the K4 LC tank.
+- Cosserat conjugate pair: `u ↔ ω` — translational displacement / angular velocity (or position / rotation-rate under the mechanical analog). 90° apart in time. This is the Cosserat LC tank.
+- The two LC tanks share the *same* (2,3) winding phase `θ = 2φ + 3ψ` at each lattice site, but they oscillate independently — coupling between them is via the asymmetric saturation kernel of doc 54_ §6.
+
+Path A seeded ONE field of FOUR (just K4 V_inc). It missed Φ_link (its K4 conjugate), u (Cosserat displacement), and ω (Cosserat angular velocity). Multiple-field deficiency, not just "missing spin."
+
+### 14.2 (2,3)-vs-K4-port mismatch — corpus-acknowledged
+
+K4 has 4 ports per node (tetrahedral). The (2,3) torus knot has p+q = 5 windings. No clean integer relationship between the lattice's port count and the soliton's winding numbers.
+
+[Vol 1 Ch 8:49-50](../../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex#L49-L50) handoff comment, already in the corpus:
+
+> "K4-TLM exhausted (node-level Axiom 4 no-op for 4-port symmetric junctions per 32_ section 10.2)."
+
+K4's perfect 4-port tetrahedral symmetry means every direction at a K4 node looks the same. Ax4 saturation requires *breaking symmetry* to do something — but with 4 equivalent ports, there's nothing to break against. So Ax4 at a K4 node level is a no-op. K4 alone cannot host the bound electron's saturation behavior.
+
+The same Ch 8 handoff (lines 51-55):
+
+> "Cosserat solver (cosserat_field_3d.py) produces stable electron-like bound state at Ch 8 Golden Torus with shell Gamma~-1 TIR structure, saturation-onset amplitude (peak |omega|~0.3*pi, NOT the canonical sqrt(3)/2*pi — see 34_ section 9.4). Half-cover automatic via Rodrigues projection to SO(3)."
+
+Cosserat ω carries the rotational-EM DOFs needed for Ax4 to break symmetry asymmetrically (the rotation axis ω̂ is itself a preferred direction). That's where the electron actually lives.
+
+This is corpus-confirmed Reading I from §13: Cosserat is *not* a representational supplement; it's the field where the bound electron physically resides. Path A's K4-only test was always going to fail — and so was *any* K4-only validation, no matter how the seed was tuned.
+
+### 14.3 Amplitude correction — 0.3π, not √3/2·π
+
+The existing [`initialize_electron_2_3_sector`](../../src/ave/topological/cosserat_field_3d.py#L766-L823) at line 808 sets envelope peak to `(√3/2)·π ≈ 2.72`, calling this "the Regime II→III boundary per AVE-VirtualMedia."
+
+But [doc 34_ §9.1 + §9.4](34_x4_constrained_s11.md#L395-L456), the X4a amplitude sweep on the Cosserat-side (2,3) hedgehog at Golden Torus, gives a different result:
+
+| amp |ω|_peak | shell_Γ²_max | A²_shell_max | regime |
+|---|---|---|---|
+| 0.942 (0.3π) | **3.207** | 1.86 | Regime II/III interface — TIR engaged |
+| 1.571 (0.5π) | 0.982 | 5.16 | partial saturation |
+| 2.199 (0.7π) | 0.000 | 10.11 | Regime III deep |
+| 2.721 (√3/2·π) | **0.000** | 15.47 | **Regime III uniform-saturation, no TIR** |
+| 3.142 (π) | 0.000 | 20.62 | clipped |
+
+Doc 34_ §9.4 conclusion:
+
+> "The electron-like state lives at the *onset* of shell saturation (peak A² ≈ 1 at the shell peak, rest of shell in Regime II), NOT at the 'canonical' √3/2·π amplitude... At amp ≥ √3/2·π: all shell sites at A² >> 1 (clipped to 1) → uniform Z_eff → Γ between sites → 0 → no TIR."
+
+So `initialize_electron_2_3_sector(use_hedgehog=True)` as currently written produces a Regime III uniform-saturation blob, not the TIR-bounded electron. The function has been carrying the wrong default amplitude since it was committed.
+
+**Path B must use peak |ω| ≈ 0.3π, not √3/2·π.** Either:
+- Replace the envelope amplitude in `initialize_electron_2_3_sector` (changes its default behavior — may break other tests that assume √3/2·π)
+- Add an `amplitude_scale` parameter to `initialize_electron_2_3_sector` and pass `0.3π / (√3/2·π) ≈ 0.346` from Path B seeder
+- Write a Path-B-specific seeder that uses the corrected amplitude directly
+
+### 14.4 Path B implementation audit
+
+**What Path B needs to seed (per §14.1 four-field framing):**
+
+1. **Cosserat ω**: (2,3) hedgehog with peak |ω| = 0.3π, phase θ = 2φ + 3ψ. Use existing `initialize_electron_2_3_sector` with corrected amplitude. **PRIMARY field — this is where the bound electron lives.**
+2. **Cosserat u**: companion to ω, 90° phase offset. Currently zeroed by `initialize_electron_2_3_sector` line 823. **Open question:** is u needed as a co-seeded field, or does it develop from ω·dt during evolution? Doc 34_'s X4a/X4b ran with u=0 at init and obtained the bound state at amp=0.942 — suggests u may not need explicit seeding.
+3. **K4 V_inc**: companion translational field. Use existing `initialize_2_3_voltage_ansatz` with phase quadrature pattern (cos θ on ports 0,1; sin θ on ports 2,3). Amplitude needs derivation — the V↔ω relationship through the impedance Z_0 isn't trivially established. **Open question:** does K4 V_inc need ANY explicit seed, or does it develop from Cosserat-side coupling alone?
+4. **K4 Φ_link**: companion to V_inc, 90° phase offset. Currently accumulates from V_avg·dt during evolution; not seeded explicitly. **Open question:** for fast-onset of the bound state (within validation window), does explicit Φ_link seeding accelerate stabilization?
+
+**The audit narrows Path B to a tractable form:**
+
+The simplest valid Path B is "Cosserat-only seeding with corrected amplitude":
+
+- Seed Cosserat ω at peak 0.3π via amplitude-corrected `initialize_electron_2_3_sector`
+- Leave Cosserat u, K4 V_inc, K4 Φ_link all at zero
+- Run VacuumEngine3D (fully coupled K4+Cosserat) closed-system
+- Test whether the bound state forms and persists
+
+This is what doc 34_ X4a/X4b already validated at amp=0.942 — the bound state emerged from Cosserat-only seeding under S11 relaxation. Path B Round 6's job is to confirm this bound state is also stable under the FULL VacuumEngine3D dynamics (not just S11 relaxation), which is the regime Stage 6's pair-gate work depends on.
+
+If "Cosserat-only" Path B passes, the K4 fields develop from coupling and the LC pairs reach equilibrium dynamically — no explicit K4 seeding required. If it fails, escalate to seeding the K4 companion fields.
+
+**Predictions to draft (provisional, pending Grant approval):**
+
+- `P_electron_cosserat_topological_charge`: closed-system VacuumEngine3D evolution from Cosserat (2,3) hedgehog at peak |ω|=0.3π preserves N_crossings = 3 over ≥100 Compton periods.
+- `P_electron_cosserat_shell_TIR`: shell_Γ² ≥ 1 at the (2,3) torus shell at run end (matches doc 34_ X4b's converged value 3.207 within ±50%).
+- `P_electron_cosserat_energy_conservation`: ΔE/E₀ < 0.5% over full run (engine integrator sanity check, matches Path A passing test).
+- `P_electron_cosserat_golden_torus`: Op6 self-consistency in the coupled engine converges to R/r = φ² from both Golden Torus and ±30% perturbed seeds.
+- `P_electron_cosserat_alpha_derivation`: α⁻¹ from coupled-engine dynamically-evolved (R, r) matches 137.036 within 2%.
+
+These five predictions are direct Path B analogs of the four Path A predictions, plus the new shell_Γ² check that's specifically a Cosserat-side observable.
+
+### 14.5 What's NOT yet decided (for Grant)
+
+1. **Amplitude correction strategy**: edit `initialize_electron_2_3_sector` directly (changes default for any other caller) vs add `amplitude_scale` parameter vs new Path-B-specific seeder. Recommend: add parameter (preserves backward compatibility, makes Path B explicit about what it needs).
+2. **K4 companion seeding**: try Cosserat-only first (cleaner, matches doc 34_ X4a/X4b history), or attempt all four fields from the start (more rigorous but more open questions in derivation)?
+3. **Shell_Γ² tolerance**: ±50% is generous. Should it be tighter (e.g., shell_Γ² ∈ [2.5, 4.0] matching doc 34_ X4b's 3.2-3.9 observed range) or looser (just shell_Γ² > 1, "TIR engaged at all")?
+4. **Predictions.yaml update form**: append to Path A entries (which are now FALSIFIED) or land as a new bloc with phase tag updated? Path A entries marked falsified should remain in the manifest as historical record of the falsification — that's part of the scientific archive — but the Path B entries replace them as the active validation.
+
+### 14.6 Open questions surfaced by this audit
+
+- **u and Φ_link seeding**: confirmed both are derived/accumulated rather than primary, per doc 34_'s validation that ω-only seeding produces the bound state. If Cosserat-only Path B fails, these may need explicit seeding — but defer that complexity until empirically required.
+- **The amplitude bug in `initialize_electron_2_3_sector`**: should be corrected as part of Path B. Currently any test or driver calling it gets the wrong amplitude. Worth a separate audit of the engine-wide impact.
+- **Doc 32_ §10.2** (referenced for "K4-TLM exhausted") — should be cross-cited in any future K4-vs-Cosserat documentation; the finding is more general than just the electron.
+
+---
+
+*§14 added 2026-04-24 by Opus 4.7 after Path A falsification adjudication. Establishes sharper K4↔Cosserat framing (translational vs rotational EM DOFs), corpus-confirms K4-only is exhausted for the bound electron (Vol 1 Ch 8:49-50), corrects amplitude to 0.3π per doc 34_ §9.4, and audits the Path B implementation against these findings. Surface open decisions in §14.5 to Grant before drafting code.*
+
+---
+
+## 15. Path B step-1 collapse + boundary-architecture plan (gated on diagnostic)
+
+### 15.1 What Path B's first run revealed
+
+Cosserat-only seed with corrected amplitude (`amplitude_scale = 0.346`, peak |ω|=0.93≈0.3π) gave the **right initial structure** at t=0 — shell_Γ²=3.04 (matching doc 34_'s 3.207 within 5%), R/r=2.56 (matching φ²), N_crossings=3, peak A²=1.8 (matching doc 34_'s 1.86) — but **collapsed entirely on step 1 of `VacuumEngine3D.step()`**. By step 1: shell_Γ²→0, energy drops 95%, topology disrupted (c=8). By step 200: soliton dissolved.
+
+Initial-state correctness rules out the amplitude bug as cause. The catastrophic step-1 energy loss is a real engine-behavior issue with the bound-state seed under coupled K4+Cosserat dynamics.
+
+### 15.2 Four candidate causes (not yet disambiguated)
+
+1. **PML truncation.** Soliton outer shell at R+r ≈ 16.5 sits ~7.5 cells from PML inner boundary at N=48, pml=4. Doc 34_'s X4a/X4b ran on `CosseratField3D` directly with `pml_thickness=0` — different regime.
+2. **Asymmetric-sector initialization.** At t=0, A²_μ ≈ 1.8 (Cosserat κ heavy), A²_ε ≈ 0 (K4 V_inc=0, Cosserat u=0). Asymmetric saturation kernel responds with S_μ→0, S_ε≈1 — that IS the Meissner mechanism, but Op14 dynamic impedance Z_eff = Z₀/√S diverges at K4 sites where coupling pulls energy.
+3. **Beltrami helicity boundary truncation.** h_local has ω·∇×ω in numerator, |ω|·|∇×ω| in denominator. At boundary cells where finite-difference ∇×ω truncates, |∇×ω|→0 → h_local divergence → κ_chiral·h_local pushes saturation kernel to crazy values.
+4. **CFL violation at peak ω=0.93.** Default Cosserat timestep may be calibrated for lower amplitude; higher peak ω could violate wave-stability limit.
+
+### 15.3 Diagnostic gate (~20 min) before any infrastructure work
+
+External-agent audit (2026-04-24) flagged that the plan's PML diagnosis is plausible but not definitive. Running ~550 LOC of dynamic-mask infrastructure when the actual cause is asymmetric-init, helicity-truncation, or CFL would mean redoing the work.
+
+**One-step diagnostic** measures, on the same Path B config that previously collapsed:
+- max |ω|, max h_local, max coupling force per site
+- Δenergy per site, masked by PML-ring vs interior
+- max S_μ, max S_ε per site (look for division-by-near-zero)
+
+**Localization analysis disambiguates the four candidates:**
+- max Δenergy concentrated at PML inner boundary → PML truncation → infrastructure plan is right fix
+- max Δenergy at soliton core → asymmetric-init or helicity-truncation → different remediation
+- spatially distributed Δenergy → CFL violation → timestep adjustment, not boundary architecture
+
+The diagnostic determines whether the strain-determined-boundary plan (§15.4) proceeds, gets revised, or is replaced.
+
+### 15.4 Strain-determined-boundary architecture (proposed, gated)
+
+If the diagnostic confirms PML as cause: replace static-PML active region with **dynamically-recomputed mask based on local strain A²**. Plan resides in `~/.claude/plans/read-through-th-kb-reactive-stardust.md`.
+
+Key design decisions:
+- **Threshold = α ≈ 7.3·10⁻³** (Phase II/III boundary per Vol 4 Ch 1, axiom-grounded, no free parameter)
+- **10:1 hysteresis** (threshold_low = α/10) to prevent flicker at noise floor
+- **Opt-in flag** `dynamic_mask: bool = False` — preserves backward compat for ~30 existing tests that depend on static-boundary semantics
+- **PML retained** as outer safety layer beyond the strain-determined inner mask
+- **Bound-state energy-flip counter must be exactly 0** for closed-system stable-soliton tests (any flip-loss for a claimed bound state means threshold wrong or soliton unbound)
+
+Active-region radius for an electron at threshold α: r_active ≈ 3.84·r_opt ≈ 32 lattice units beyond core. Active-ball diameter ~64+ — needs **N≥80** for comfortable margin.
+
+### 15.5 Risks the plan flags (also gated on diagnostic)
+
+- **Dark-wake silent sink:** doc 49_'s DarkWakeObserver tracks τ_zx back-EMF at A² ≈ 10⁻⁶, far below α threshold. Under `dynamic_mask=True`, the dark wake gets clipped silently. For closed-system bound-state validation, irrelevant. For any DRIVEN experiment (cool-from-above, gate firings, future Hawking work), it's a silent energy sink that corrupts the radiative-tail observable. Explicit warning required in `vacuum_engine.py` docstring + any driven-experiment driver before they can be trusted with `dynamic_mask=True`.
+- **Numerical stability of existing predictions:** dynamic mask changes the simulation domain. All registered `P_phase*_*` and `P_electron_*` predictions must be re-run under both `dynamic_mask` settings and agreement asserted within 5% on observable values. Disagreement above 5% is a flag for Grant — means the mask convention changes physics, not just the domain.
+- **Mask jitter:** sites flickering active/inactive due to A² oscillating across threshold. Mitigated by 10:1 hysteresis; if still observed, add temporal smoothing (mask updated every N≥2 steps).
+- **K4↔Cosserat asymmetry:** both sectors must share the same combined mask. Enforced via assertion in coupled step.
+
+### 15.6 Methodology lessons folded into COLLABORATION_NOTES
+
+Three Round 6 lessons added to [COLLABORATION_NOTES.md](../../.agents/handoffs/COLLABORATION_NOTES.md) rules 8 + 10:
+- Rule 8 strengthening: corpus-search at architectural-decision time, not just at debug time. Vol 1 Ch 8:49-50's K4-TLM-exhausted note had been in the corpus for months while Stage 6 Phase 2/3 built node-level observers on K4 anyway.
+- Rule 10 (new): empirical drivers catch what static analysis + preregistration miss. Three instances this session — Flag-5e-A, K4-exhaustion, Path B step-1. Run drivers early.
+- Rule 10 corollary: prior-agent framings can be creepers like SM/QED imports. The "two-projections-of-one-tank" framing from §7 was repeated until §14.1 corrected it. Pressure-test prior framings against the corpus the same way you pressure-test SM/QED jargon.
+
+---
+
+*§15 added 2026-04-24 (late session) by Opus 4.7. Status: boundary-architecture plan exists in `~/.claude/plans/read-through-th-kb-reactive-stardust.md` but is gated on the §15.3 diagnostic to confirm which of four candidate causes is actually responsible for the Path B step-1 collapse. Methodology lessons from external review folded into COLLABORATION_NOTES rules 8+10.*

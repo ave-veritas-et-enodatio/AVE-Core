@@ -769,6 +769,7 @@ class CosseratField3D:
         r_target: float,
         localization_sigma: float | None = None,
         use_hedgehog: bool = True,
+        amplitude_scale: float = 1.0,
     ) -> None:
         """
         Initialize the (2,3) torus-knot ansatz for the electron.
@@ -788,6 +789,15 @@ class CosseratField3D:
         manuscript/backmatter/02_full_derivation_chain.tex:463) and Q = 3
         for the electron (2,3) winding. So r_opt = 8*pi/3 ~ 8.38 lattice
         units by default, scaled to the r_target passed in.
+
+        amplitude_scale: multiplier applied to the canonical envelope peak.
+        Default 1.0 preserves the original sqrt(3)/2*pi peak (the static
+        Regime II→III boundary). Per doc 34_ §9.4 X4a/X4b empirical sweep,
+        the BOUND-STATE electron lives at peak |omega| ≈ 0.3*pi, NOT
+        sqrt(3)/2*pi — at the canonical amplitude the lattice is in
+        Regime III uniform-saturation with shell_Γ² → 0 (no TIR walls).
+        Path B Round 6 callers should pass amplitude_scale = 0.3/(sqrt(3)/2)
+        ≈ 0.3464 to seed at the empirical bound-state amplitude.
         """
         cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
         x = self._i - cx
@@ -805,11 +815,11 @@ class CosseratField3D:
             # where Gamma rises sharply — the "active core at the stopband" from
             # AVE-VirtualMedia/scripts/generate_reflection_profile.py.
             r_opt = r_target if r_target > 0 else 1.0
-            envelope = (np.sqrt(3.0) / 2.0) * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
+            envelope = amplitude_scale * (np.sqrt(3.0) / 2.0) * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
         else:
             # Legacy Gaussian (QM wavefunction shape — NOT topologically derived).
             sigma = localization_sigma if localization_sigma is not None else r_target
-            envelope = 0.6 * np.pi * np.exp(-(rho_tube**2) / (sigma**2))
+            envelope = amplitude_scale * 0.6 * np.pi * np.exp(-(rho_tube**2) / (sigma**2))
 
         theta = 2.0 * phi + 3.0 * psi
 
