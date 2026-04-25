@@ -1,7 +1,7 @@
 # VacuumEngine3D — Manual / Datasheet
 
-**Manual revision:** r8.3 (2026-04-25)
-**Engine version:** 4.0.4 (current HEAD = `ff15c4b` on branch `research/l3-electron-soliton`; r8.3 catches up on three engine-changing commits since r8.2 — F17-H L_c reciprocity audit + path-1 EMF (wrong direction, retracted), A28 double-counting fix, Cosserat self-terms re-enable with smart A28 auto-suppression. **First empirical (2,3) bound state formation in Stage 6**: Path B at N=80 holds c=3 + shell_Γ² ≈ 4 through step 20 under combined fix.)
+**Manual revision:** r8.4 (2026-04-25, late-night)
+**Engine version:** 4.0.4 (current HEAD = `4c9fbea` on branch `research/l3-electron-soliton`; r8.4 catches up on the F17-K methodology arc — seven research-doc commits since r8.3 culminating in **doc 03_ §4.3 empirical validation**: Golden Torus geometry is topologically selected via SU(2) half-cover quantization, NOT dynamically derived. Corpus-duality (Cosserat-energy ≈ S₁₁ co-locate at Golden Torus per AVE-Protein scale-invariance) FALSIFIED at coupled-engine scale; topology must be encoded explicitly. Engine-changing commits unchanged since r8.3 — F17-K arc was research-doc + driver-script work only.)
 
 **Status (r8 — Round 6 pivot, hybrid scope):** r8 is a hybrid-scope reconcile, not a full rewrite. The framework is in active flux (Path B blocked on strain-mask infrastructure; single-electron validation incomplete) so this revision updates load-bearing-for-new-agents content (front matter, change log, suspended-work flags, framing-correction note) and leaves the §3 physical model and §15 derivation chain bodies for r9 once Round 6 closes. Twenty-three commits landed since r7 spanning four arcs:
 
@@ -13,17 +13,34 @@
 
 4. **Phase 5e cool-from-above + Round 6 single-electron pivot.** Phase 5e driver (`1805d14`) on first run exposed **Flag-5e-A** — K4 saturation used module-level V_SNAP (511 kV SI) while engine sources inject in engine-natural V_SNAP=1, rendering the Ax4+Op14+Op3 saturation path DORMANT in any engine-natural-units context. Fixed in `098d430`: K4 V_SNAP plumbed from engine. **First empirical cool-through-yield observed** (S_min = 0.507 during drive, recovers to 0.983 post-drive). Step 5a instrumentation (`0419b7e`) showed Cosserat A²_μ peaks at 0.012 even when K4 saturates — coupling weakness. Step 5b v2 with CosseratBeltramiSource (`d0609ad`) drove Cosserat A² → 3.34 directly but C1∩C2 gate window never satisfied — exposed gate window incompatibility as architectural, not parametric. Retroactive engine saturation invariants (`5f973b6`) closed the test-coverage hole (S-drops-below-1 invariants now enforced in integration tests). **Round 6 pivot** (`453d350`, doc 66_): suspends pair-nucleation gate-adjudication; redirects to single-electron-first validation. Path A falsified 4-of-4 predictions (`fbbc950`) — K4 V_inc alone cannot host bound electron because **K4-TLM is exhausted at node level per Vol 1 Ch 8:49-50** (4-port tetrahedral symmetry → Ax4 saturation no-op; bound electron physically lives in Cosserat sector). Coupled K4+Cosserat eigenmode finder (`815cd40`, doc 66_ §17.2) — three-storage-mode mapping landed: ε² (strain → electric/capacitive), κ² (curvature → magnetic/inductive), V² (pressure → stored-potential) with three conjugate LC pairs.
 
-**Working tree (r8.3):** mid-flight uncommitted changes in `coupled_engine_eigenmode.py` adding `seed_mode="path_b"` and threading `disable_cosserat_lc_force` + `enable_cosserat_self_terms` flags through `solve_eigenmode_coupled_engine` for the in-progress Op6 self-consistency outer loop on Path B. Manual itself now tracked since r8 (`4ba20f8`).
+**Working tree (r8.4):** clean. F17-K Phase 5c-v2-v2 (`4c9fbea`) committed all in-flight code changes. Manual itself tracked since r8 (`4ba20f8`).
 
-**Critical-path status (r8.3) — Round 6 inverted in two sessions of audit work:**
+**Critical-path status (r8.4) — F17-K methodology arc closes empirically:**
 
-Round 6 audit-first methodology produced an unexpected outcome. F17-H (audit doc 54 §6 L_c derivation, flagged as critical-path blocker in r8.1 A27) was carried out across docs 67_ §1-§16. Initial direction (path-1 EMF — ADD a Lagrangian-derived voltage source to Φ_link integration) ran for 14 doc sections + an implementation commit (`3d7fae4`) before a Vol 4 Ch 1 cross-check (relayed audit concern) flipped the conclusion: **the engine has been DOUBLE-COUNTING the K4↔Cosserat coupling since Phase 4 (`a5bd1da`)**. Op14 z_local modulation IS the K4-TLM varactor (Vol 4 Ch 1:130 `C_eff(V) = C₀/S(V)` extended with cross-sector A²_Cos); the separate `_compute_coupling_force_on_cosserat` channel was a redundant implementation of the same physics. Six prior failure modes (Path A / Path B / Path C / F17-G / F17-I / path-1 EMF) all explained by ONE bug.
+The r8.3 status framing — "Path B at N=80 forms (2,3) bound state through step 20, Op6 self-consistency outer loop is the active probe" — is **walked back here.** Per F17-K Phase 1 audit (`a53ce1c`), that bound-state claim was Ax-3-noncompliant: the measurement used Cartesian shell-radius extraction, not the AVE-native phase-space (V_inc, V_ref) phasor coordinates per [Vol 1 Ch 1:51-75](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L51) Axiom 3 (Effective Action Principle). Per F17-K Phase 5c-v2-v2 empirical run (`4c9fbea`), the seeded configuration also wasn't pinned at saturation onset (peak |ω| ≈ 0.94 = 0.3π per [doc 34_ §9.4](34_x4_constrained_s11.md)). The r8.3 "bound state" claim was twice-confounded: wrong observable AND wrong amplitude.
 
-A28 fix landed (`05b130f` — `disable_cosserat_lc_force` flag, default off preserves legacy). Cosserat self-terms re-enable with smart A28 auto-suppression of redundant k_refl landed (`ff15c4b` — `enable_cosserat_self_terms` flag). **Path B at N=80 forms (2,3) bound state for the first time in Stage 6** — c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; degrades by step 50. Op6 self-consistency outer loop (doc 34 X4b methodology) is the active probe to sustain bound state past 100 Compton periods.
+**The empirical finding, anchored properly at saturation onset under hard projection** (`4c9fbea` Phase 5c-v2-v2):
 
-Strain-mask infrastructure (~550 LOC opt-in) declared **deferred** — A28 was the actual gate. Plan-file infrastructure work zeroed out.
+| Metric | Energy descent | S₁₁ descent | Corpus claim |
+|---|---|---|---|
+| iters to convergence | 78 | 500 (still descending) | — |
+| c_cos | 3 ✓ | 3 ✓ | 3 |
+| peak \|ω\| | 0.9425 ✓ (pinned) | 0.9425 ✓ (pinned) | 0.94 (saturation onset) |
+| R/r | **3.40** | **1.03** | **φ² = 2.62** |
+| obj reduction | 74% | 99.76% | — |
 
-Phase 5/6 pair-nucleation work still blocked on single-electron validation closure, but the closure is now one self-consistency loop away rather than gated on infrastructure rebuild.
+Both objectives have continuous families of (2,3) stationary states; **neither family contains Golden Torus geometry**. The two minima differ from each other by 3.3× and from φ² by 1.30× / 0.39× respectively. **Doc 03_ §4.3 empirically validated:**
+
+> *"R·r = 1/4: topologically quantized, NOT dynamically derived... the Lagrangian must be consistent with but does not by itself produce."*
+
+Single-electron validation does NOT close via dual-objective descent on the unconstrained continuous manifolds. **Topology must be encoded explicitly via either**:
+
+- **(i) Algebraic Ch 8 pinning** per [doc 34_ X4](34_x4_constrained_s11.md) corpus-canonical pattern: initialize at Golden Torus + lock (R, r) algebraically during descent; descent finds optimal field SHAPE at fixed Golden Torus geometry. ~80 LOC, lighter scope.
+- **(ii) F17-K Phase 6 sparse eigensolver** per [doc 67_ §23.4 acoustic-cavity / Helmholtz framing](67_lc_coupling_reciprocity_audit.md): linearize coupled K4+Cosserat dynamics around Golden Torus ansatz, build sparse Jacobian, use `scipy.sparse.linalg.eigsh` to extract (2,3) eigenmode at fixed cavity geometry. Eigenvalue problem with boundary conditions encodes topological quantization explicitly. ~300 LOC new methodology.
+
+**Recommended for v3:** path (i) first (lighter, doc 34 corpus-canonical, directly tests "stable field shape at Golden Torus geometry"); defer (ii) until (i) result — if (i) produces a stable shape, single-electron validation closes; if (i) fails, eigensolver methodology is empirically motivated.
+
+Phase 5/6 pair-nucleation work still blocked on single-electron validation closure. **Strain-mask infrastructure (~550 LOC opt-in) remains deferred** — A28 was the actual gate for the Path B step-1 collapse, not boundary handling. Op6 self-consistency outer loop **deprecated** — F17-K Phase 5c-v2-v2 implicitly verified Golden Torus is not stationary under either coupled descent (both descents drifted away at iteration 1), which is the (C) X4b stationarity test result done on global-flow data rather than strict linear-perturbation data — substantive answer is the same.
 
 **Stash status:** one stash present — `stash@{0}: On research/l3-electron-soliton: pre-ee-isomorphism-branch`. Origin unknown (concurrent-writer artifact from earlier session); flagged for audit, not from L3 thread.
 **Maintainer:** L3 electron-soliton thread (Grant Lindblom + session agents)
@@ -1326,7 +1343,9 @@ for edge in active_bonds:
 
 **Path A (K4 V_inc only):** ✅ FALSIFIED (`fbbc950`). 4 of 4 physical predictions failed; energy conservation passed. All four failures trace to K4-TLM exhaustion at node level (§11.11). K4 alone cannot host the bound electron.
 
-**Path B (Cosserat ω only at corrected amp |ω|=0.3π):** ✅ FORMING BOUND STATE under A28 + Cosserat self-terms re-enable (`ff15c4b`, 2026-04-25). **First empirical (2,3) bound state formation in Stage 6.** Pre-A28 status was ⏸ BLOCKED — seeded bound state had right initial structure (shell_Γ²=3.04, R/r=2.56, c=3 matching doc 34_ X4a within 5%) but collapsed entirely on step 1 of `engine.step()`. Diagnosis was hypothesized as PML truncation artifact at N=48; resolution required strain-mask infrastructure (~550 LOC). **Actual root cause was A28 double-counting** (engine had redundant `_compute_coupling_force_on_cosserat` channel injecting the same physics as Op14 z_local modulation). Under combined fix (`disable_cosserat_lc_force=True` + `enable_cosserat_self_terms=True` with auto-suppressed `k_refl`), Path B at N=80 holds:
+**Path B (Cosserat ω only at corrected amp |ω|=0.3π):** ⚠ **r8.3 "FORMING BOUND STATE" claim WALKED BACK in r8.4** — twice-confounded per F17-K audit (`a53ce1c`, `4c9fbea`).
+
+**Original r8.3 claim (preserved for audit trail):** under A28 + Cosserat self-terms re-enable (`ff15c4b`, 2026-04-25), Path B at N=80 was reported to hold c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² through step 20, with the following table:
 
 | step | peak \|ω\| | shell_Γ² | R/r | c |
 |---|---|---|---|---|
@@ -1338,9 +1357,14 @@ for edge in active_bonds:
 | 20 | 0.664 | 3.948 | 1.688 | 2 (drift starts) |
 | 50 | 1.494 | 0.000 | 0.500 | 0 (degrades) |
 
-c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; bound state degrades by step 50. Drift attributed to lack of Op6 self-consistency outer loop (doc 34 X4b methodology) — addressed in §13.5d.
+**r8.4 walk-back rationale:** the "bound state" reading of the table above is twice-confounded:
 
-**Strain-mask infrastructure declared deferred** (was §13.5c) — A28 was the actual gate. ~550 LOC opt-in collapsed to zero. See §13.5c for the deferred-status note.
+1. **Wrong observable.** Per F17-K Phase 1 audit ([doc 68_](68_phase_quadrature_methodology.md), commit `a53ce1c`), the c_cos and shell_Γ² extraction used Cartesian shell-radius binning, not the AVE-native phase-space (V_inc, V_ref) phasor observable that Vol 1 Ch 1 Axiom 3 (Effective Action Principle) demands. Cartesian shell-radius behavior consistent with a (2,3) ansatz is necessary but not sufficient for "AVE-native bound state."
+2. **Wrong amplitude.** Per F17-K Phase 5c-v2-v2 empirical run ([doc 67_ §25](67_lc_coupling_reciprocity_audit.md), commit `4c9fbea`), the bound state in AVE lives at saturation onset (peak |ω| ≈ 0.94 = 0.3π per [doc 34_ §9.4](34_x4_constrained_s11.md)). The Path B run's peak |ω| oscillated wildly through the table (0.149 → 1.494) without amplitude pinning. Peak |ω| = 0.939 at step 0 corresponds to saturation onset, but this wasn't maintained through descent.
+
+**Reframed r8.4 reading:** Path B at N=80 showed Cartesian-shell behavior consistent with a (2,3) ansatz at the seed and through approximately step 20, but failed AVE-native phase-space validation (F17-K Phase 5a-b at commit `4d4b4aa`) AND failed bound-state-finding under coupled-engine descent at saturation-onset amplitude (F17-K Phase 5c-v2-v2 at commit `4c9fbea`). **Path B is not a closed validation of the bound (2,3) electron in the coupled engine.** See §13.5d for the F17-K methodology arc that empirically resolved this.
+
+**Strain-mask infrastructure declared deferred** (was §13.5c) — A28 was the actual gate for the Path B step-1 collapse. ~550 LOC opt-in collapsed to zero. See §13.5c for the deferred-status note.
 
 **Path C (K4 V_inc + Cosserat ω, mixed):** ran, runaway energy. Per [doc 66_ §17.2.3](66_single_electron_first_pivot.md): seeded a C-state of one LC pair AND an L-state of a different LC pair — never both halves of either pair. F17-I "all-C-state or all-L-state coupled seed" tested next.
 
@@ -1379,22 +1403,68 @@ New seeders introduced in `687b18d`:
 
 The plan file is preserved as audit trail. If Path B drift past step 20 turns out to need active-region adaptivity (e.g., for moving-soliton work or Phase 5 pair separation), this work can resume. Not blocking single-electron validation.
 
-### 13.5d Op6 self-consistency outer loop on Path B (IN PROGRESS)
+### 13.5d ~~Op6 self-consistency outer loop on Path B~~ — DEPRECATED (subsumed by F17-K methodology arc)
 
-**Authority:** [doc 34_ §9.4 X4b methodology](34_x4_constrained_s11.md) for self-consistent (R, r) iteration on the Cosserat-side (2,3) hedgehog.
+**Status (r8.4):** **Deprecated.** The r8.3 plan to wire Op6 self-consistency on Path B at N=80 has been superseded by F17-K Phase 5c-v2-v2 empirical closure (commit `4c9fbea`, see §13.5e). Per F17-K Phase 1 audit (`a53ce1c`), Op6 on Cartesian shell extraction was Ax-3-noncompliant — the wrong observable for AVE-native eigenmode finding. The (C) X4b stationarity question Op6 was meant to answer was empirically resolved by Phase 5c-v2-v2: Golden Torus is NOT a stationary point of either Cosserat-energy or coupled-S₁₁ in the coupled engine (both descents drifted away from the seed at iteration 1).
 
-**Change:** `coupled_engine_eigenmode.py::solve_eigenmode_coupled_engine` extended with `seed_mode="path_b"` and the `disable_cosserat_lc_force` + `enable_cosserat_self_terms` flag plumbing. Outer loop: seed Path B → undamped evolve → time-RMS combined-magnitude envelope → extract (R, r) → feedback → check convergence.
+The Op6 self-consistency methodology remains valid for Cosserat-only relax_s11 per [doc 34_ X4b](34_x4_constrained_s11.md) — that result confirmed Cosserat-only stationarity at Golden Torus, which is what's expected and reproduces the AVE-Core canonical pattern. The K4 sector adds instabilities that destabilize Golden Torus geometry in the coupled engine; this is the Round 6 finding, not an Op6 outer-loop convergence question.
 
-**Status (r8.3):** mid-flight in working tree (uncommitted diff in `coupled_engine_eigenmode.py`). Inner-run verified through step 20 at N=80; outer loop wires up Op6 feedback to drive (R, r) toward self-consistency. If convergence sustains bound state past 100 Compton periods, **single-electron validation closes and Round 6 ends.**
+### 13.5e F17-K methodology arc — Round 6 empirical closure (NEW in r8.4)
 
-**Pre-registered Path B predictions** (provisional pending Grant approval per [doc 66_ §14.4](66_single_electron_first_pivot.md)):
-- `P_electron_cosserat_topological_charge`: N_crossings = 3 preserved over ≥100 Compton periods. **Currently passing through step 20 at N=80; outer-loop convergence is the gate for ≥100.**
-- `P_electron_cosserat_shell_TIR`: shell_Γ² ≥ 1 at run end. Currently 3.948 through step 20.
-- `P_electron_cosserat_energy_conservation`: ΔE/E₀ < 0.5%. Pending outer-loop instrumentation.
-- `P_electron_cosserat_golden_torus`: Op6 self-consistency converges to R/r = φ². Pending outer-loop result.
-- `P_electron_cosserat_alpha_derivation`: α⁻¹ from coupled dynamics matches 137.036 ±2%. Pending outer-loop result.
+**Authority:** [doc 67_ §1-§25](67_lc_coupling_reciprocity_audit.md) (F17-H/F17-K reciprocity audit + acoustic-cavity reframe + dual descent with saturation pin) + [doc 68_](68_phase_quadrature_methodology.md) (Phase 1 Ax-3 noncompliance audit + phase-quadrature methodology) + [doc 03_ §4.3](03_existence_proof.md) corpus reference.
 
-**Effort:** ~1-2 hours from Op6 wire-up to first convergence result.
+**The arc:** seven F17-K commits across ~6 hours, each substantive, each corpus-grounded:
+
+| Commit | Phase | Content |
+|---|---|---|
+| `a53ce1c` | F17-K Phase 1 | Ax-3 noncompliance audit. Identifies that F17-I three-mode (all_c/all_l/mixed), Path B Op6, Cartesian shell extraction were all using time-evolution dynamics + real-space observables instead of AVE-native phase-space (V_inc, V_ref) phasor coordinates per Vol 1 Ch 1:51-75 Axiom 3. |
+| `4d4b4aa` | F17-K Phase 5a-b | Phase-quadrature seed under raw step() empirically falsified. Three seed configs (Path B control, chirality=0, chirality=1) all fail to produce phase-coherent eigenmode under raw `VacuumEngine3D.step()` dynamics. |
+| `6158465` | F17-K Phase 5c v1 | Coupled S₁₁ relaxation infrastructure built (~290 LOC). v1 unconstrained descent on `(u, ω, V_inc)` joint state empirically falsified — descent escaped the bound state by over-saturating Cosserat (peak \|ω\| 0.94 → 2.19, doubling past saturation onset). |
+| `795c4ff` | F17-K corpus search 1 | Doc 34 X4 corpus pattern surfaced: *"imposing constraints on top of S₁₁ minimization, not by switching to a different objective... three hard algebraic constraints (d=1, R−r=1/2, R·r=1/4) are algebraic pinnings."* |
+| `3f6d544` | F17-K corpus search 2 | Acoustic-cavity / Helmholtz framing surfaced: *"Reinterpret the Schrödinger Wave Equation deterministically as the continuous Helmholtz acoustic resonance of the LC vacuum"* (Vol 2 Ch 7). Doc 03 §4.3 natural-equilibria reading: Ch 8 constraints are NOT to be imposed by hand but emerge from Axiom-4 saturation + topology. F17-K Phase 6 (eigensolver) flagged as candidate. |
+| `2c873cf` | F17-K Phase 5c v2 (v1 of v2) | Dual descent (Cosserat-energy + S₁₁) with tanh reparameterization. **Premature Finding 3 ("corpus-duality falsified") landed but was empirically confounded** — both descents ran at wrong amplitude (energy 0.61 sub-saturated, S₁₁ 2.31 over-saturated). Tanh reparameterization BOUNDS amplitude at ω_yield=π but doesn't PIN at saturation onset (peak \|ω\|≈0.94). |
+| `4c9fbea` | F17-K Phase 5c v2-v2 | Saturation-pin replaces tanh: hard projection onto saturation manifold (peak \|ω\| = 0.9425 enforced after each gradient step). Pre-committed retraction of `2c873cf`'s premature Finding 3 honored. **Empirical closure of the F17-K arc.** |
+
+**Final empirical result (commit `4c9fbea` Phase 5c-v2-v2):**
+
+Both objectives correctly pinned at saturation onset (peak \|ω\| = 0.9425 = 0.3π per doc 34 §9.4). Topology preserved (c_cos = 3 in both). Each objective converges to a distinct (R, r) NOT at Golden Torus φ² ≈ 2.62:
+
+| Objective | iters | obj reduction | converged R/r | distance from φ² |
+|---|---|---|---|---|
+| Cosserat-energy | 78 | 74% | **3.40** | 1.30× |
+| coupled S₁₁ | 500 (still descending) | 99.76% | **1.03** | 0.39× |
+| corpus claim | — | — | φ² = 2.62 (Golden Torus) | — |
+
+The two minima differ from each other by 3.3× spread. **Doc 03_ §4.3 empirically validated** at coupled-engine scale:
+
+> *"R·r = 1/4: topologically quantized, NOT dynamically derived... Both d=1 and R−r=1/2 are genuine dynamical derivations; R·r=1/4 is a topological identity that the Lagrangian must be consistent with but does not by itself produce."*
+
+Cosserat-energy and coupled-S₁₁ each have continuous families of (2,3) stationary states; topology (SU(2) half-cover area match → R·r = 1/4) selects R/r = φ² from these families. Neither dynamical descent knows about quantization.
+
+**Corpus-duality falsified at coupled-engine scale.** AVE-Protein Ch 3:805's *"the native fold minimises |S₁₁|²"* template, which Round 6 had been treating as scale-invariant per Axiom 2, **does not extend to the coupled K4+Cosserat single-electron problem.** Protein folding's S₁₁ minimization works because protein topology is selected by chemistry; the bound electron's (2,3) topology requires explicit quantization encoding because gradient descent on continuous objectives can't reach discrete topological invariants.
+
+**(C) X4b stationarity verification — implicitly resolved.** Phase 5c-v2-v2 seeded at Golden Torus geometry (R=20, r=20/φ²=7.64) and ran descent. Both descents drifted at iteration 1: energy moved (R, r) from (20, 7.6) → (25.4, 7.5); S₁₁ moved (20, 7.6) → (17.5, 17.0). The fact that descent moved immediately means **the gradient at Golden Torus is nonzero** in both objectives — Golden Torus is NOT a stationary point. (Strict X4b is small-perturbation linear-stability test; Phase 5c-v2-v2 is global gradient flow. Different empirical content but same answer for the stationarity question because nonzero gradient implies non-stationary.) Doc 34 X4b's Cosserat-only stationarity result does NOT extend to coupled engine; K4 adds instabilities.
+
+### 13.5f F17-K v3 path forward — algebraic Ch 8 pinning OR Phase 6 eigensolver
+
+Two candidate v3 directions, both encoding topology explicitly:
+
+**(i) Algebraic Ch 8 pinning per [doc 34_ X4](34_x4_constrained_s11.md) corpus-canonical pattern** (~80 LOC).
+- Initialize at Golden Torus (R=20, r=R/φ²)
+- Lock (R, r) algebraically during descent (Lagrange constraint, projection, or direct field-shape parametrization at fixed geometry)
+- Descent finds optimal field SHAPE at fixed Golden Torus geometry, not the geometry itself
+- Tests "does the coupled-engine bound state exist at Golden Torus geometry, and what is its field shape?"
+
+**(ii) F17-K Phase 6 sparse eigensolver per [doc 67_ §23.4 acoustic-cavity / Helmholtz framing](67_lc_coupling_reciprocity_audit.md)** (~300 LOC).
+- Linearize coupled K4+Cosserat dynamics around Golden Torus ansatz
+- Build sparse Jacobian via JAX autodiff
+- Use `scipy.sparse.linalg.eigsh` to extract (2,3) eigenmode at fixed cavity geometry
+- Eigenvalue problem with boundary conditions encodes topological quantization explicitly (acoustic-cavity standing-wave physics per Vol 2 Ch 7 Helmholtz framing)
+- Methodologically pure but expensive
+
+**Recommended for v3 (per audit 2026-04-25):** path (i) first — lighter scope, doc 34 corpus-canonical, directly tests "stable field shape at Golden Torus geometry." If (i) produces a stable shape, single-electron validation closes; if (i) fails, eigensolver methodology (ii) is empirically motivated for v3'/v4. Don't expand 300 LOC scope preemptively.
+
+**Effort:** path (i) ~80 LOC, ~1-2 hours implementation + ~30 min run. Round 6 closure is one v3 (i) implementation away.
 
 ### 13.6 Phase 6 — Headline autoresonant validation (P_phase6_autoresonant) ⏸ blocked by Phase 5 suspension
 
@@ -1454,11 +1524,12 @@ The plan file is preserved as audit trail. If Path B drift past step 20 turns ou
 | 5.6 — Memristive Op14 (K4 sector) | ✅ Landed (`49917ff`, doc 59_) | Done | Opt-in dynamical S(t) per dS/dt = (S_eq − S)/τ_relax with τ_relax = ℓ_node/c. |
 | 5.7 — BH-entropy adjudication (docs 60–65) | ✅ Closed | Done | Three distinct entropies; doc 64 derives area theorem from Ax1+Ax4; first law remains imported (Flag 62-A open). |
 | 5e — Cool-from-above driver + Flag-5e-A fix | ✅ Landed (`1805d14`, `098d430`) | Done | First empirical cool-through-yield; S drops 1.0 → 0.507 → 0.983. |
-| **Round 6 — Single-electron-first pivot** | 🔄 ACTIVE (doc 66_) | gated on Op6 convergence | Path A FALSIFIED (`fbbc950`). F17-I three-mode tested (`687b18d`) → exposed L_c asymmetry (A27). F17-H L_c reciprocity audit (`abe23ea`-`85bdb6f`, doc 67_) → A28 double-counting found, path-1 EMF retracted. A28 fix landed (`05b130f`). Cosserat self-terms re-enabled with smart auto-suppress (`ff15c4b`). **Path B at N=80 forms (2,3) bound state through step 20** — first time in Stage 6. Op6 self-consistency outer loop in progress (uncommitted working tree). Strain-mask ~550 LOC infrastructure deferred — A28 was the actual gate. |
+| **Round 6 — Single-electron-first pivot** | 🔄 ACTIVE (doc 66_, doc 67_, doc 68_) | gated on v3 (i) algebraic Ch 8 pin OR v3 (ii) Phase 6 eigensolver | Path A FALSIFIED (`fbbc950`). F17-I three-mode tested (`687b18d`) → A27. F17-H L_c reciprocity audit (`abe23ea`-`85bdb6f`) → A28 double-counting found, path-1 EMF retracted. A28 fix landed (`05b130f`). Cosserat self-terms re-enabled with smart auto-suppress (`ff15c4b`). **r8.3 "Path B forms bound state through step 20" claim WALKED BACK in r8.4** — twice-confounded (wrong observable + wrong amplitude). F17-K methodology arc (`a53ce1c`-`4c9fbea`, 7 commits) closes empirically: **doc 03_ §4.3 validated** — Cosserat-energy and coupled-S₁₁ each have continuous (2,3) stationary-state families; topology (SU(2) half-cover) selects Golden Torus from them, neither dynamical descent reaches it. Corpus-duality (AVE-Protein S₁₁ minimization scale-invariance) FALSIFIED at coupled-engine scale. v3 path forward: (i) algebraic Ch 8 pinning per doc 34 X4 (~80 LOC) first; (ii) sparse eigensolver per acoustic-cavity framing (~300 LOC) deferred. Strain-mask ~550 LOC infrastructure deferred — A28 was the actual gate. |
 | 6 — Headline autoresonant validation | ⏸ Blocked on Phase 5 resumption | 1–2 days | Blocked on single-electron passing. |
-| F17-J — Characterize all_l's pre-A28 relaxation endpoint | Deferred | TBD | May no longer be load-bearing under A28 fix. |
+| F17-J — Characterize all_l's pre-A28 relaxation endpoint | Deferred | TBD | May no longer be load-bearing under A28 fix; subsumed by F17-K closure. |
 | F17-L — V_yield vs V_SNAP scale mismatch (doc 54 §6 vs engine, factor 1/α) | Open | — | Pre-existing per doc 54 §5; flagged in doc 67 §15. Not blocking single-electron validation. |
-| **Remaining critical-path total** | — | **gated on Op6 outer-loop convergence** | If Op6 sustains bound state past 100 Compton periods → Round 6 closes → Phase 5 gate work resumes. |
+| F17-K — L_c reciprocity → Ax-3 noncompliance → saturation-pin → empirical doc 03_ §4.3 validation | ✅ CLOSED 2026-04-25 (`4c9fbea`) | 6 hr / 7 commits | Methodology arc empirically closed. Corpus-duality at coupled-engine scale falsified; topology must be encoded explicitly. v3 path: algebraic Ch 8 pinning (i) first, eigensolver (ii) deferred. |
+| **Remaining critical-path total** | — | **~80 LOC of v3 (i) implementation** | If algebraic Ch 8 pinning at Golden Torus produces a stable field shape under coupled S₁₁ descent → Round 6 closes → Phase 5 gate work resumes. If not, v3 (ii) eigensolver becomes empirically motivated. |
 
 ---
 
@@ -1698,6 +1769,14 @@ Currently [AVE-APU/vol_1_axiomatic_components/ch05:26–37](../../../AVE-APU/man
 | 2026-04-24 | 05b130f | Grant + agent | — | `fix(L3 Stage 6 Round 6 A28): disable_cosserat_lc_force flag — empirically confirmed F17-H resolution` — implements `disable_cosserat_lc_force` flag (default False preserves legacy). When True, `_compute_coupling_force_on_cosserat` returns zero arrays. F17-I three-mode under A28: all_c step-1 \|ω\| 1030 → 0.566; mixed 222 → 0.137; all bounded under 1.0 over 100 steps. **Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) all unified under one bug.** 22/22 backward-compat tests pass with flag off. F17-H STRUCTURAL CONCERN RESOLVED. |
 | 2026-04-25 | ff15c4b | Grant + agent | — | `fix(L3 Stage 6 Round 6): enable_cosserat_self_terms flag + A28 auto-suppresses redundant k_refl + Path B forms bound state at N=80` — `enable_cosserat_self_terms` flag re-enables Cosserat self-terms (`k_op10`, `k_refl`, `k_hopf`) that were disabled at init lines 231-233 because *"reflection is carried by the coupling term."* When BOTH `disable_cosserat_lc_force=True` AND `enable_cosserat_self_terms=True`, **auto-suppresses `k_refl=0`** (the redundant reflection force at Cosserat-self level) while keeping `k_op10=1` and `k_hopf=π/3` (different physics). **Path B at N=80, R=20, r=R/φ², peak \|ω\|=0.3π forms (2,3) bound state for the first time in Stage 6** — c=3 + shell_Γ² ≈ 4 + R/r ≈ φ² preserved through step 20; degrades by step 50 (drift expected without Op6 self-consistency). 22/22 backward-compat tests pass. F17-I three-mode under combined fix: all_l + mixed both preserve (2,3) c=3 through step 5. |
 | 2026-04-25 | — | session agent (r8.3 update) | §1 front-matter (r8.3, HEAD ff15c4b, engine 4.0.4); new §6.4a engine-config flag table; §11.4 partially closed under Round 6 Path B; §13.5b Path B status FORMING BOUND STATE; §13.5c strain-mask infrastructure DEFERRED; new §13.5d Op6 self-consistency outer loop in progress; §13.7 scope table updated; §16.1 7 commit rows appended; §16.2 engine version history extended (4.0.3, 4.0.4); §16.3 doc 67 added; §17 A27 reframed (closed via A28 not via path-1 EMF), A28 new (double-counting), F17-L new (V_yield/V_SNAP scale mismatch); §17.3 critical-path blockers updated | **Manual r8.3.** Catches up on three engine-changing commits since r8.2 (`3d7fae4`, `05b130f`, `ff15c4b`) plus four research-doc commits (`abe23ea`, `f6b56dd`, `77a13a3`, `85bdb6f`). Major Round 6 result: Path B forms (2,3) bound state at N=80 step 20 first time in Stage 6 under A28 + Cosserat self-terms re-enable. Strain-mask ~550 LOC infrastructure deferred — A28 was the actual gate. F17-H structurally resolved via A28 reframing (path-1 EMF was wrong direction; structural finding inverted from "L_c is non-reciprocal, ADD EMF" to "engine has redundant force, REMOVE it"). Six prior failure modes unified under one bug. Op6 self-consistency outer loop in progress (uncommitted working tree); convergence is the gate for Round 6 closure. |
+| 2026-04-25 | a53ce1c | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K Phase 1): Ax-3 noncompliance audit + phase-quadrature methodology` — F17-K Phase 1. Identifies that all six prior Round 6 failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) share a deeper unifying root than A28: methodology was Axiom-3 noncompliant. Per Vol 1 Ch 1:51-75 canonical numbering, Ax 3 = Effective Action Principle = `|S₁₁|²` minimization on phase-space (V_inc, V_ref) phasor coordinates. Cartesian shell extraction + raw `step()` time-evolution were wrong observable + wrong action principle. New doc 68_ + doc 67 §18 + manual A29 land the framing correction. |
+| 2026-04-25 | 4d4b4aa | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K Phase 5a-b): phase-quadrature seed under raw step() dynamics is NOT sufficient` — empirical falsification: three seed configs (Path B control, chirality=0, chirality=1) all fail to produce phase-coherent eigenmode under raw `VacuumEngine3D.step()` dynamics. E_total_cov 0.15-0.67 vs 0.01 threshold; correlation oscillates sign; K4 monotonically drains. Five-fallacy mid-interpretation audit caught + rebuilt diagnostic. |
+| 2026-04-25 | 6158465 | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K Phase 5c v1): coupled S₁₁ relaxation infrastructure built; v1 run is spurious convergence` — Phase 5c-1/2/3 (~290 LOC) implements coupled K4+Cosserat S₁₁ relaxation in `coupled_s11_eigenmode.py` (jit-compiled `_total_s11_coupled`, JAX `value_and_grad` over (u, ω, V_inc), backtracking line-search descent mirroring `cosserat_field_3d.py:relax_s11`). v1 run empirically falsifies unconstrained descent: descent escapes by over-saturating Cosserat (peak \|ω\| 0.94 → 2.19, doubling past saturation onset). Spurious "convergence" at iter 38 with 3% obj reduction. |
+| 2026-04-25 | 795c4ff | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K corpus-search): constrained S₁₁ + Ch 8 algebraic pins resolves Phase 5c-v2 direction` — Rule 8 corpus-grep across manuscript + L3 research + sibling repos. doc 34_ X4 verbatim: *"imposing constraints on top of S11 minimization, not by switching to a different objective... three hard algebraic constraints (d=1, R−r=1/2, R·r=1/4) are algebraic pinnings, not emergent minima."* Phase 5c v2 plan: add Lagrange penalties on Ch 8 geometric constraints. |
+| 2026-04-25 | 3f6d544 | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K acoustic-cavity): natural-equilibria reading + Helmholtz framing refines §22 Lagrange-penalty plan; F17-K Phase 6 flagged` — second corpus search on acoustic-cavity / Helmholtz / standing-wave vocabulary. Two findings: (1) Acoustic-cavity / Helmholtz framing is corpus-canonical (Vol 2 Ch 7 de-broglie-standing-wave: *"reinterpret the Schrödinger Wave Equation deterministically as the continuous Helmholtz acoustic resonance of the LC vacuum"*) — DUAL ontological framing alongside Phase 1 |S₁₁|² action principle. (2) Doc 03_ §4.3 reading: Ch 8 constraints (d=1, R−r=1/2, R·r=1/4) are NATURAL EQUILIBRIA emerging from Axiom-4 saturation + topology, NOT constraints to impose by hand. **F17-K Phase 6 sparse eigensolver flagged** as candidate methodology for v3+ if descent-based methods hit limits. |
+| 2026-04-25 | 2c873cf | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K Phase 5c-v2): dual descent — Cosserat-energy escapes Golden Torus geometry; corpus-duality FALSIFIED at coupled-engine scale` — Phase 5c-v2 (v1 of v2) implements dual descent (Cosserat-energy + |S₁₁|² in parallel) with tanh reparameterization for amplitude bounding (~280 LOC). **Premature Finding 3** ("corpus-duality falsified") landed but was empirically confounded — both descents ran at WRONG amplitude (energy 0.61 sub-saturated, S₁₁ 2.31 over-saturated). tanh BOUNDS amplitude at ω_yield=π but doesn't PIN at saturation onset (peak \|ω\|≈0.94). Pre-committed retraction language in commit message: *"if data changes, Finding 3 gets explicitly retracted."* |
+| 2026-04-25 | 4c9fbea | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-K Phase 5c-v2-v2): saturation-pin debug + dual descent confirms doc 03_ §4.3 empirically — Golden Torus is topologically selected, not dynamically derived` — Phase 5c-v2-v2. Hard projection onto saturation manifold (peak \|ω\| = 0.9425 enforced after each step) replaces tanh reparameterization. Saturation-pin enables real S₁₁ descent (obj reduction 3% → 99.76%). At correct amplitude (saturation onset, both descents pinned), final result: Cosserat-energy converges at R/r=3.40 (78 iters); coupled S₁₁ converges at R/r=1.03 (500 iters, still descending). Neither at Golden Torus φ²=2.62; 3.3× spread between them. **`2c873cf`'s premature Finding 3 explicitly retracted; same conclusion now lands with proper evidence at correct amplitude.** Doc 03_ §4.3 empirically validated: *"R·r = 1/4: topologically quantized, NOT dynamically derived... the Lagrangian must be consistent with but does not by itself produce."* (C) X4b stationarity verification implicitly resolved: Golden Torus is NOT a stationary point of either coupled objective at saturation onset; gradient at Golden Torus is nonzero in both. F17-K methodology arc closes empirically; v3 path forward: (i) algebraic Ch 8 pinning per doc 34 X4 corpus-canonical (~80 LOC), or (ii) sparse eigensolver per Helmholtz framing (~300 LOC). |
+| 2026-04-25 | — | session agent (r8.4 update) | §1 front-matter (r8.4, HEAD `4c9fbea`, engine 4.0.4 unchanged); §13.5b Path B "FORMING BOUND STATE" claim WALKED BACK (twice-confounded: wrong observable + wrong amplitude); §13.5d Op6 outer loop DEPRECATED (subsumed by F17-K); new §13.5e F17-K methodology arc narrative + empirical closure; new §13.5f v3 path forward (algebraic Ch 8 pinning OR sparse eigensolver); §13.7 scope table updated; §16.1 8 commit rows appended; §16.3 doc 67 §18-§25 + doc 68 references; §17 A29 extended with full F17-K arc, A30 new (corpus-duality at coupled-engine scale falsified empirically; doc 03 §4.3 validated), A31 new (Phase 6 sparse eigensolver candidate); §17.3 critical-path blockers updated for v3 path | **Manual r8.4.** Catches up on the F17-K methodology arc — seven research-doc commits since r8.3 (`a53ce1c`-`4c9fbea`). No engine-flag commits. Major Round 6 finding: corpus-duality (S₁₁ ≈ Cosserat-energy minima at Golden Torus per AVE-Protein scale-invariance) FALSIFIED at coupled-engine scale; doc 03_ §4.3 empirically validated (topology is quantized, not dynamically derived). r8.3 "Path B forms bound state through step 20" claim formally walked back as twice-confounded (wrong observable per F17-K Phase 1 + wrong amplitude per F17-K Phase 5c-v2-v2). Round 6 closure now ~80 LOC of v3 (i) algebraic Ch 8 pinning away; if (i) succeeds, single-electron validation closes and Phase 5 gate work resumes; if (i) fails, v3 (ii) sparse eigensolver becomes empirically motivated. |
 
 ### 16.2 Engine version history (prior to manual creation)
 
@@ -1786,7 +1865,8 @@ L3 electron-soliton thread, grouped by phase. Full list in [40_modeling_roadmap.
 
 **Stage 6 Round 6 (single-electron-first pivot):**
 - [66_single_electron_first_pivot.md](66_single_electron_first_pivot.md) — Round 6 pivot canonical doc. §14 amplitude correction (peak |ω|=0.3π not √3/2·π); §17.2 three-storage-mode mapping (ε strain → C-state, κ curvature → L-state, V pressure → C-state); §18 F17-I three-mode coupled-seed test results.
-- [67_lc_coupling_reciprocity_audit.md](67_lc_coupling_reciprocity_audit.md) — F17-H L_c reciprocity audit. §1-§14 derived path-1 EMF as ADD-channel fix; §15 Vol 4 Ch 1 cross-check inverted the conclusion to A28 double-counting hypothesis (REMOVE-redundancy); §16 empirical confirmation under `disable_cosserat_lc_force` flag; six prior failure modes unified under one bug. Path-1 EMF retained as opt-in (`use_lagrangian_emf_coupling`) but known wrong-direction.
+- [67_lc_coupling_reciprocity_audit.md](67_lc_coupling_reciprocity_audit.md) — F17-H L_c reciprocity audit + F17-K methodology arc. §1-§14 derived path-1 EMF as ADD-channel fix; §15 Vol 4 Ch 1 cross-check inverted to A28 double-counting (REMOVE-redundancy); §16 empirical confirmation under `disable_cosserat_lc_force` flag (six prior failure modes unified). §18-§19 F17-I three-mode test under A28; §20 five-fallacy mid-interpretation audit + rebuilt diagnostic; §21-§22 Phase 5c v1 implementation + spurious convergence; §23 corpus search (doc 34 X4 algebraic pins); §24 Phase 5c v2 dual descent (PREMATURE Finding 3 retracted); **§25 Phase 5c v2-v2 saturation-pin + empirical doc 03 §4.3 validation — F17-K arc empirical closure**.
+- [68_phase_quadrature_methodology.md](68_phase_quadrature_methodology.md) — F17-K Phase 1 Ax-3 noncompliance audit. Identifies that all six prior Round 6 failure modes share root: methodology was Ax-3 noncompliant (used time-evolution dynamics + Cartesian shell extraction instead of |S₁₁|² minimization on phase-space (V_inc, V_ref) phasor coordinates). Same Rule 6 slip from session 2026-04-20 caught retroactively. Phase-coherence diagnostic + canonical phase-quadrature seeder (`initialize_quadrature_2_3_eigenmode`) introduced.
 
 **Housekeeping:**
 - [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md)
@@ -2279,6 +2359,62 @@ The session's F17-I → Path B → Op6 line used time-evolution dynamics + Carte
 
 **Methodology lesson** (per [doc 68_ §1.4](68_phase_quadrature_methodology.md#L1-4)): the agent made the same Ax-3 slip from session 2026-04-20 (energy minimization instead of impedance/S₁₁) at session 2026-04-25 with an Op6 self-consistency loop on Cartesian shell extraction. Rule 6 + Rule 8 strengthening compound: at architectural-decision time, **both** ask "what's the AVE-native action principle?" AND grep the corpus for "exhausted/insufficient/cannot" — the F17-I three-mode plan committed code without doing either. Fortunately the phase-coherence diagnostic in F17-K Phase 2 distinguishes "real eigenmode under wrong measurement" from "no eigenmode" cheaply (~1 min run), so the methodology slip is recoverable in one session.
 
+**Update 2026-04-25 r8.4 — F17-K methodology arc extends A29 with empirical closure** (commits `4d4b4aa` → `4c9fbea`, see also A30):
+
+After Phase 1 framing landed (`a53ce1c`), Phase 5a-b empirically falsified phase-quadrature seed under raw `step()` dynamics (`4d4b4aa`). Phase 5c v1 (`6158465`) built coupled S₁₁ relaxation infrastructure (~290 LOC) and empirically falsified unconstrained descent — descent escapes by over-saturating Cosserat. Phase 5c v2 (v1 of v2) (`2c873cf`) added tanh reparameterization but ran at WRONG amplitudes (energy 0.61 sub-saturated, S₁₁ 2.31 over-saturated); premature Finding 3 ("corpus-duality falsified") landed but was confounded.
+
+Phase 5c v2-v2 (`4c9fbea`) replaced tanh BOUND with hard projection PIN onto saturation manifold (peak |ω| = 0.9425 enforced after each gradient step). Both descents at correct amplitude + topology preserved (c_cos=3) → final result: Cosserat-energy converges at R/r=3.40, S₁₁ at R/r=1.03, neither at Golden Torus φ²=2.62. **Doc 03_ §4.3 empirically validated** at coupled-engine scale: *"R·r=1/4 is topologically quantized, NOT dynamically derived; the Lagrangian must be consistent with but does not by itself produce."* See A30 below for the structural finding.
+
+**(C) X4b stationarity verification implicitly resolved by Phase 5c v2-v2:** seed at Golden Torus geometry → both descents drifted at iteration 1 → gradient at Golden Torus is nonzero in both objectives → Golden Torus is NOT a stationary point of either coupled objective. Doc 34 X4b's Cosserat-only stationarity does NOT extend to coupled engine; K4 sector adds instabilities.
+
+**A29 status:** ✅ FULLY CLOSED 2026-04-25 r8.4. F17-K framing (Ax-3, phase-space, S₁₁) held end-to-end across all seven F17-K commits and produced an empirical corpus-validation result (A30) at the end of the arc.
+
+#### A30. Corpus-duality (Cosserat-energy ≈ S₁₁ co-locate at Golden Torus per AVE-Protein scale-invariance) FALSIFIED at coupled-engine scale; doc 03_ §4.3 empirically validated (S1 — substantive cross-scale finding) — ✅ EMPIRICALLY ESTABLISHED 2026-04-25 (commit `4c9fbea`)
+
+**Where:** [doc 67_ §25](67_lc_coupling_reciprocity_audit.md) F17-K Phase 5c-v2-v2 result + [doc 03_ §4.3](03_existence_proof.md) corpus claim + [AVE-Protein vol_protein Ch 3:805](../../../AVE-Protein/manuscript/vol_protein/chapters/03_deterministic_protein_folding.tex#L805) corpus reference.
+
+**The hypothesis (Round 6 working assumption):** Per Axiom 2 (Topo-Kinematic Isomorphism / scale invariance), the AVE-Protein methodology — *"the native fold minimises |S₁₁|²"* — should extend to the bound (2,3) electron in the coupled K4+Cosserat engine. Per Ch 8 corpus claim, S₁₁ minimum and Cosserat-energy minimum should co-locate at the Golden Torus geometry (R/r = φ² ≈ 2.62, R−r = 1/2, R·r = 1/4).
+
+**The empirical result (commit `4c9fbea`):**
+
+Both objectives correctly pinned at saturation onset (peak |ω| = 0.9425 = 0.3π via hard projection per [doc 34_ §9.4](34_x4_constrained_s11.md)). Topology preserved (c_cos = 3 in both descents). Each objective converges to a distinct (R, r) NOT at Golden Torus φ² ≈ 2.62:
+
+| Objective | iters to convergence | obj reduction | converged R/r | distance from φ² |
+|---|---|---|---|---|
+| Cosserat-energy | 78 (line search stalled) | 74% (6000 → 1554) | **3.40** (elongated torus, R > r) | 1.30× |
+| coupled S₁₁ | 500 (still descending) | 99.76% (3261 → 7.93) | **1.03** (degenerate horn torus, R ≈ r) | 0.39× |
+| corpus claim | — | — | φ² = 2.62 (Golden Torus) | — |
+
+The two minima differ from each other by 3.3× spread.
+
+**The structural finding:**
+
+Cosserat-energy and coupled-S₁₁ each have **continuous families of (2,3) stationary states**; topology (SU(2) half-cover area-match constraint → R·r = 1/4) selects R/r = φ² from these families — but **neither dynamical descent knows about quantization**. Per doc 03_ §4.3 verbatim:
+
+> *"R·r = 1/4: topologically quantized, NOT dynamically derived... Both d=1 and R−r=1/2 are genuine dynamical derivations; R·r=1/4 is a topological identity that the Lagrangian must be consistent with but does not by itself produce."*
+
+This is **empirically validated for the first time at coupled-engine scale.** AVE-Protein's S₁₁ minimization works at protein scale because protein topology is selected by chemistry (covalent bonds + folding constraints fix the topology before minimization runs). The bound electron's (2,3) topology is a *quantum* topological invariant set by SU(2) half-cover; dynamical descent on continuous objectives cannot reach it. **Corpus-duality holds at protein scale but does NOT generalize to the bound (2,3) electron.**
+
+**Methodology consequence:** topology must be encoded explicitly. Two candidate v3 directions per §13.5f:
+- (i) Algebraic Ch 8 pinning per doc 34 X4 (lock R, r at Golden Torus during descent)
+- (ii) F17-K Phase 6 sparse eigensolver per doc 67 §23.4 acoustic-cavity / Helmholtz framing
+
+**Status:** ✅ EMPIRICALLY ESTABLISHED 2026-04-25 r8.4. Phase 5c-v2-v2 commit (`4c9fbea`) is the corpus-validating evidence. doc 03 §4.3's quantization claim is now load-bearing for any future Round 7+ work on bound-state finding methodology.
+
+**Methodology note:** A30 is the second instance in 24 hours of corpus-claim empirical validation through Round 6's audit-first methodology. A28 unified six failure modes under one bug (redundant force); A30 unifies the same six failure modes under a deeper finding (descent on continuous objectives can't reach quantized topology). Each correction is corpus-grounded and produced an empirical result, not just a methodology fix. **The framework's Ax2 scale-invariance claim got pressure-tested at the bound-electron / protein-folding boundary and partially failed — a substantive cross-scale finding worth eventual Round 7+ documentation in Vol 1 Ch 1 (Ax2 scope clarification) or Vol 2 Ch 1 (topological-quantization-vs-dynamical-emergence boundary).**
+
+#### A31. F17-K Phase 6 sparse eigensolver candidate — empirically motivated but deferred (S2 — Round 7+ candidate) — FLAGGED 2026-04-25
+
+**Where:** [doc 67_ §23.4](67_lc_coupling_reciprocity_audit.md) acoustic-cavity / Helmholtz framing; doc 67 §25 v3 path forward.
+
+**The candidate:** linearize coupled K4+Cosserat dynamics around a Golden Torus ansatz, build sparse Jacobian via JAX autodiff, use `scipy.sparse.linalg.eigsh` to extract the (2,3) eigenmode at fixed cavity geometry. Eigenvalue problem with boundary conditions encodes topological quantization explicitly — matching the acoustic-cavity standing-wave physics per Vol 2 Ch 7 Helmholtz framing.
+
+**Empirical motivation (per A30):** descent-based methods (Cosserat-energy and coupled S₁₁) cannot reach Golden Torus geometry from arbitrary seeds because they don't know about SU(2) half-cover quantization. Eigenvalue problem methodology ENCODES the constraint via the cavity boundary conditions, allowing the (2,3) eigenmode to be extracted directly without traversing a continuous family of non-topological stationary states.
+
+**Why deferred:** ~300 LOC new methodology vs ~80 LOC for v3 (i) algebraic Ch 8 pinning per doc 34 X4. Latter is corpus-canonical and lighter-touch. v3 (i) directly tests "stable field shape at Golden Torus geometry" — the immediate question. v3 (ii) is empirically motivated for Round 7+ if (i) fails, but premature scope expansion if (i) succeeds.
+
+**Status:** flagged for Round 7+ as candidate methodology. Not blocking Round 6 closure under v3 (i).
+
 #### F17-L. V_yield vs V_SNAP scale mismatch in doc 54_ §6 vs engine — factor 1/α off (S2 — pre-existing; not blocking single-electron validation)
 
 **Where:** [doc 54_ §6](54_pair_production_axiom_derivation.md) specifies `A²_ε = ε_sym²/ε_yield² + V²/V_yield²` (yield convention). The engine implements `V²/V_SNAP²` (Schwinger convention). Differs by factor `1/α` since `V_yield = √α · V_SNAP` (macroscopic) while `V_yield ≡ V_SNAP` (subatomic override per Vol 4 Ch 1:711, see §17.0 R4 adjudication).
@@ -2428,23 +2564,21 @@ Status column: `Open` = no action yet; `In-flight` = script/PR exists addressing
 | ~~A25~~ | S1 | ~~K4-TLM exhausted at node level for bound electron~~ | **EMPIRICALLY CLOSED r8 (commit `fbbc950`)**. Vol 1 Ch 8:49-50 corpus-confirmed; Path A 4-of-4 falsification empirical. New §11.11 limit added. Methodology lesson: COLLABORATION_NOTES Rule 8 Round 6 strengthening (corpus-search at architectural-decision time). |
 | **A26** | S1 | `initialize_electron_2_3_sector` carries wrong default amplitude (√3/2·π instead of 0.3π) | Open — fix in working tree (uncommitted `amplitude_scale` parameter); retroactive caller audit pending. ~~Round 6 Path B blocked on this~~ — superseded by A28 unblock; Path B now forming bound state at N=80 with proper amplitude_scale. |
 | ~~**A27**~~ | S1 | ~~L_c = (V²/V_SNAP²)·W_refl one-way energy pump~~ | **CLOSED r8.3 (commit `05b130f`/`ff15c4b`)** via A28 reframing — empirical "one-way pump" signature was the symptom of A28 double-counting, not L_c being structurally non-reciprocal. L_c form is fine; engine had two redundant code paths injecting the same physics. |
-| **A28** | S1 | K4↔Cosserat coupling double-counted since Phase 4 (`a5bd1da`); `_compute_coupling_force_on_cosserat` redundant with Op14 z_local modulation | **CLOSED r8.3 (commits `05b130f` + `ff15c4b`)** via `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) unified under one bug. **Path B at N=80 forms (2,3) bound state through step 20 — first time in Stage 6.** Methodology lesson: Vol 4 Ch 1 cross-check at architectural-decision time would have caught this at Phase 4 design-review. |
+| **A28** | S1 | K4↔Cosserat coupling double-counted since Phase 4 (`a5bd1da`); `_compute_coupling_force_on_cosserat` redundant with Op14 z_local modulation | **CLOSED r8.3 (commits `05b130f` + `ff15c4b`)** via `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. Six prior failure modes (Path A/B/C/F17-G/F17-I/path-1 EMF) unified under one bug. ~~Path B at N=80 forms (2,3) bound state through step 20~~ — claim WALKED BACK in r8.4 as twice-confounded (wrong observable + wrong amplitude). Methodology lesson: Vol 4 Ch 1 cross-check at architectural-decision time would have caught the redundancy at Phase 4 design-review. |
+| **A29** | S1 | F17-I three-mode framing Ax-3 noncompliant; phase-quadrature S₁₁ methodology supersedes (F17-K Phase 1) | **FRAMING LANDED r8.3 (`a53ce1c`); FULLY CLOSED r8.4** — F17-K methodology arc empirical closure via `4c9fbea` (Phase 5c v2-v2). Same Rule 6 slip from session 2026-04-20 caught + corrected retroactively. |
+| **A30** | S1 | Corpus-duality (S₁₁ ≈ Cosserat-energy at Golden Torus per AVE-Protein scale-invariance) FALSIFIED at coupled-engine scale; doc 03_ §4.3 empirically validated | **EMPIRICALLY ESTABLISHED r8.4 (`4c9fbea`)** — energy at R/r=3.40, S₁₁ at R/r=1.03; neither at φ²=2.62; topology must be encoded explicitly. Substantive cross-scale finding: Ax2 scale-invariance partially fails between protein and bound-electron scales. |
+| **A31** | S2 | F17-K Phase 6 sparse eigensolver candidate (acoustic-cavity / Helmholtz framing) | Flagged r8.4. Empirically motivated by A30; deferred to Round 7+ if v3 (i) algebraic Ch 8 pinning (~80 LOC, doc 34 X4 corpus-canonical) fails. |
 | **F17-L** | S2 | V_yield vs V_SNAP scale mismatch (doc 54_ §6 vs engine, factor 1/α) | Open — pre-existing per doc 54_ §5; surfaced separately during F17-H reconciliation per doc 67_ §15. Not blocking. Track for v4 universal-lattice-units refactor. |
 
-**Critical-path blockers (r8.3):**
+**Critical-path blockers (r8.4):**
 
-1. **Op6 self-consistency outer loop on Path B at N=80** (in working tree at `coupled_engine_eigenmode.py`). Path B holds bound (2,3) state through step 20; drifts by step 50. Outer-loop convergence is the gate for sustaining past 100 Compton periods. **If Op6 converges, Round 6 closes and Phase 5 gate work resumes.** ~1-2 hours from wire-up to first result.
-2. **A26 fix commit** (`amplitude_scale` parameter) + retroactive caller audit. Currently in working tree.
+1. **v3 (i) algebraic Ch 8 pinning per doc 34 X4** (~80 LOC) — single-electron validation closure gate. Initialize at Golden Torus + lock (R, r) algebraically during descent; descent finds optimal field SHAPE at fixed Golden Torus geometry. **If (i) produces a stable field shape under coupled S₁₁ descent, Round 6 closes and Phase 5 gate work resumes.** If (i) fails, v3 (ii) Phase 6 sparse eigensolver becomes empirically motivated (A31).
+2. **A26 fix commit** (`amplitude_scale` parameter for `initialize_electron_2_3_sector`) + retroactive caller audit. Currently in working tree.
 3. **`use_lagrangian_emf_coupling` flag cleanup** (path-1 wrong-direction, opt-in in HEAD). Should be removed once A28 confirmed across more configurations. Follow-up.
 4. **Flag 62-A first-law closure (BH thermodynamics)** — orthogonal to single-electron pivot. Standard S_BH closes via imported GR first law; AVE-native Ŝ_geometric does not satisfy T·dS = dE. Either complete Vol 3 Ch 11:14-48 volume-entropy mechanism for BH interiors or accept S_thermo as a distinct AVE quantity.
 5. **F17-L V_yield/V_SNAP scale mismatch** — track for v4 universal-lattice-units refactor; not blocking.
-6. **Commit this manual** — done as of r8 (`4ba20f8`); future updates synchronous per §1.2 protocol.
-2. **Strain-mask infrastructure adjudication** — plan at `~/.claude/plans/read-through-th-kb-reactive-stardust.md`; awaits Grant adjudication on threshold value, update frequency, energy-at-flip semantics, and doc 66 §15 framing.
-3. **Amplitude-bug fix (A26)** — uncommitted `amplitude_scale` parameter in `cosserat_field_3d.py`; commit + retroactive caller audit gates Path B re-run.
-4. **Flag 62-A first-law closure (BH thermodynamics)** — Standard S_BH closes via imported GR first law; AVE-native Ŝ_geometric does not satisfy T·dS = dE. Either complete Vol 3 Ch 11:14-48 volume-entropy mechanism for BH interiors or accept S_thermo as a distinct AVE quantity. Orthogonal to single-electron pivot.
-5. **Commit this manual** — still untracked in the working tree.
 
-**r5 → r6 → r7 → r8 → r8.3 retraction / closure summary:**
+**r5 → r6 → r7 → r8 → r8.3 → r8.4 retraction / closure summary:**
 
 | Finding | r5 status | Updated status | Rationale |
 |---|---|---|---|
@@ -2457,13 +2591,18 @@ Status column: `Open` = no action yet; `In-flight` = script/PR exists addressing
 | A25 | (new — surfaced by Path A falsification + Vol 1 Ch 8:49-50 corpus-search) | Empirically closed r8 | K4-TLM exhausted at node level; bound electron lives in Cosserat |
 | A26 | (new — surfaced by Round 6 Path B amplitude correction) | Open r8 | `initialize_electron_2_3_sector` ships wrong default amplitude; uncommitted fix in working tree |
 | A27 | (new r8.1 — F17-I empirical L_c asymmetry) | **Reframed + closed r8.3** | "One-way pump" empirical signature was symptom of A28 double-counting, not L_c being non-reciprocal. Closed via A28 reframing. |
-| A28 | (new — surfaced by F17-H Vol 4 Ch 1 cross-check) | **Closed r8.3** (`05b130f` + `ff15c4b`) | Engine double-counted K4↔Cosserat coupling since Phase 4 (`a5bd1da`). `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. Path B at N=80 forms (2,3) bound state through step 20 — first time in Stage 6. |
+| A28 | (new — surfaced by F17-H Vol 4 Ch 1 cross-check) | **Closed r8.3** (`05b130f` + `ff15c4b`) | Engine double-counted K4↔Cosserat coupling since Phase 4 (`a5bd1da`). `disable_cosserat_lc_force` flag + `enable_cosserat_self_terms` smart auto-suppression. ~~Path B at N=80 forms (2,3) bound state through step 20~~ — claim walked back in r8.4 as twice-confounded. |
+| A29 | (new — F17-K Phase 1 Ax-3 noncompliance audit) | **Framing landed r8.3, fully closed r8.4** (`a53ce1c` → `4c9fbea`) | F17-K methodology arc empirical closure. 7 commits, 6 hours. Same Rule 6 slip from 2026-04-20 caught + corrected. |
+| A30 | (new r8.4 — F17-K empirical closure) | **Empirically established r8.4** (`4c9fbea`) | Corpus-duality at coupled-engine scale FALSIFIED. doc 03_ §4.3 validated (R·r=1/4 topologically quantized, NOT dynamically derived). Substantive cross-scale finding: Ax2 partially fails between protein and bound-electron scales. |
+| A31 | (new r8.4 — Phase 6 sparse eigensolver candidate) | Flagged r8.4, deferred Round 7+ | Empirically motivated by A30; defer to Round 7+ if v3 (i) algebraic Ch 8 pinning (lighter, doc 34 corpus-canonical) fails. |
 | F17-L | (new — surfaced during F17-H reconciliation) | Open r8.3 | V_yield vs V_SNAP scale mismatch (doc 54 §6 vs engine, factor 1/α). Pre-existing per doc 54 §5; not blocking. |
 
 ---
 
-*End of manual r8.3 (synchronous edit after Round 6 audit-first inversion). Next update (r8.4) triggered by: Op6 self-consistency outer-loop convergence on Path B (single-electron validation closure); A26 fix commit + retroactive caller audit; `use_lagrangian_emf_coupling` cleanup; default-flip of `disable_cosserat_lc_force`; Flag 62-A first-law closure attempt; or any engine commit per §1.2 maintenance protocol.*
+*End of manual r8.4 (synchronous edit after F17-K methodology arc empirical closure). Next update (r8.5) triggered by: v3 (i) algebraic Ch 8 pinning result on coupled S₁₁ at Golden Torus geometry — single-electron validation closure gate; A26 fix commit + retroactive caller audit; `use_lagrangian_emf_coupling` cleanup; default-flip of `disable_cosserat_lc_force`; Flag 62-A first-law closure attempt; or any engine commit per §1.2 maintenance protocol.*
 
-*Full r9 rewrite of §3 (physical model under three-storage-mode framing per [doc 66_ §17.2.1](66_single_electron_first_pivot.md)) and §15 (derivation chain with three-entropy distinction + area theorem from Ax1+Ax4 + K4-TLM exhaustion + A28 double-counting structural finding) still deferred until Round 6 closes — Op6 outer-loop convergence is the gate. See §1.5 for canonical Round 6 content pointers.*
+*Full r9 rewrite of §3 (physical model under three-storage-mode framing per [doc 66_ §17.2.1](66_single_electron_first_pivot.md)) and §15 (derivation chain with three-entropy distinction + area theorem from Ax1+Ax4 + K4-TLM exhaustion + A28 double-counting structural finding + A30 corpus-duality falsification) still deferred until Round 6 closes — v3 (i) algebraic Ch 8 pinning is the gate. See §1.5 for canonical Round 6 content pointers.*
 
-*Round 6 epistemic milestone (r8.3): F17-H structurally resolved via A28; Path B forms (2,3) bound state at N=80 through step 20, first time in Stage 6; six prior failure modes unified under one bug; ~550 LOC of strain-mask infrastructure work zeroed out. Audit-first methodology productive — three sessions from "L_c is non-reciprocal, ADD EMF" (wrong direction) to "engine has redundant force, REMOVE it" (correct direction) inside one F17-H derivation arc.*
+*Round 6 epistemic milestone (r8.4): F17-K methodology arc empirical closure. Seven commits in 6 hours — Ax-3 noncompliance audit (a53ce1c) → phase-quadrature seed insufficiency (4d4b4aa) → coupled S₁₁ infrastructure + spurious convergence (6158465) → corpus-search-driven algebraic pin direction (795c4ff) → acoustic-cavity / Helmholtz framing + natural-equilibria reading (3f6d544) → tanh-bound dual descent + premature finding (2c873cf) → saturation-pin + empirical doc 03 §4.3 validation (4c9fbea). Final result: corpus-duality (S₁₁ ≈ Cosserat-energy at Golden Torus per AVE-Protein scale-invariance) FALSIFIED at coupled-engine scale; topology must be encoded explicitly (SU(2) half-cover quantization not reachable by gradient descent on continuous objectives).*
+
+*Methodology arc summary across Round 6 (r8.0 → r8.4): A28 + A29 + A30 — three depth-level corrections, all corpus-grounded, each producing an empirical finding rather than just a methodology fix. Audit-first discipline working at full strength: each cycle catches the prior framing's hidden assumption (redundant force → wrong observable → wrong action principle → wrong constraint structure → continuous-vs-quantized dichotomy) and produces empirical evidence. Round 6 closure now ~80 LOC of v3 (i) algebraic Ch 8 pinning away.*
