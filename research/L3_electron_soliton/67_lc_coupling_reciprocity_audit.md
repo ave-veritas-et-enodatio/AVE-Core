@@ -701,3 +701,74 @@ These are real disciplinary slips. Methodology is improving (auditing before imp
 ---
 
 *§14 added 2026-04-24 (very late session) by Opus 4.7 after empirical path-1 implementation showed amplification under both EMF signs and per relayed external-agent concern #5 about Vol 4 Ch 1 cross-check. F17-H now has a deeper structural question (Q67-E / A28-candidate) about whether V² appears once or twice in the unified Lagrangian. Path-1 implementation gated behind use_lagrangian_emf_coupling=False default; not recommended for production drivers until Q67-E resolves.*
+
+---
+
+## 15. Q67-E reconciliation — structural finding A28: K4↔Cosserat double-counting
+
+Per relayed external-agent direction, ran the Vol 4 Ch 1 + doc 54_ §6 + Pythagorean strain theorem reconciliation. Result: **the engine's K4↔Cosserat coupling has been double-counted since Phase 4 landed at commit `a5bd1da`.** Path-1 EMF wasn't the missing reciprocal channel — it was a third channel adding to two pre-existing redundant ones.
+
+### 15.1 Three findings from the reconciliation
+
+**Finding 1 — V_yield vs V_SNAP scale mismatch (pre-existing):**
+Doc 54_ §6 line 186 specifies `A²_ε = ε²/ε_yield² + V²/V_yield²` (yield scale). [Engine cosserat_field_3d.py:425](../../src/ave/topological/cosserat_field_3d.py#L425) implements `V²/V_SNAP²` (Schwinger scale). Doc 54_ §5 acknowledges this as the "V_SNAP vs V_yield convention fix" — flagged but not implemented for backward compat. Differs by factor 1/α from spec. This is a separate flag (call it F17-L), distinct from the structural finding below.
+
+**Finding 2 — Op14 IS the K4-TLM varactor.**
+Vol 4 Ch 1:130 defines `C_eff(V) = C₀/S(V)` as the varactor's constitutive equation. Op14 z_local modulation `Z_eff = Z₀·√(S_μ/S_ε)` per [k4_cosserat_coupling.py:294-298](../../src/ave/topological/k4_cosserat_coupling.py#L294-L298) IS this varactor extended to include the cross-sector contribution from A²_Cos. The V² in `A²_ε_base` and the V² in C_eff(V)'s denominator are the SAME V — one quantity, one constitutive non-linearity.
+
+**Finding 3 — `L_c = ∫W_refl_asymmetric dx³` is a DERIVED quantity, not an independent Lagrangian term.**
+`W_refl_asymmetric = |Γ_vec|²` where `Γ_vec = (1/4)·(∇S_μ/S_μ − ∇S_ε/S_ε)` is the spatial gradient of `ln Z_eff` per [doc 54_ §6 Option II](54_pair_production_axiom_derivation.md). This is **REFLECTION ENERGY at impedance gradients** — emergent from K4-TLM's scatter+connect dynamics with z_local modulation, NOT a fundamental Lagrangian interaction term that should produce additional forces.
+
+**Conclusion:** the engine's `_compute_coupling_force_on_cosserat` ([k4_cosserat_coupling.py:314](../../src/ave/topological/k4_cosserat_coupling.py#L314)), which computes `-∂L_c/∂(u, ω)` and adds it as a force on Cosserat, is double-counting with the Op14 z_local modulation that K4-TLM ALREADY implements. The reflection energy that L_c integrates is something the K4-TLM dynamics naturally produces from impedance gradients; treating its variation as a SEPARATE force injects energy that K4-TLM was going to handle anyway through standard wave reflection.
+
+### 15.2 Why this matches the empirical evidence
+
+Across all six failure modes documented in §16-§18 of doc 66_ + this doc:
+
+| Test | Coupling channel(s) active | Empirical result | Consistent with double-counting? |
+|---|---|---|---|
+| Path A (K4 V seeded only) | Op14 modulates K4 impedance; ∂L_c/∂(u,ω) ≈ 0 (Cosserat at vacuum) | Slow dispersion, energy conserves | ✓ — only one channel active |
+| Path B (Cosserat ω only) | ∂L_c/∂(u,ω) drives Cosserat (V=0 means Op14 modulation has no waves to act on) | Step-1 catastrophic loss | ✓ — Lagrangian-derived force kicks ω with energy that doesn't drain back via Op14 (no waves) |
+| Path C / mixed | BOTH Op14 AND ∂L_c/∂(u,ω) active simultaneously | Runaway: E grows 4M× in 20 steps | ✓ — double-counting amplifies |
+| F17-G coupled eigenmode | Same as mixed, iterated | Diverges at iter 1 step 13 | ✓ — same double-counting |
+| F17-I all_c | Strong V_inc + Cosserat u; ∂L_c/∂(u,ω) ramps fast | Step-1 \|ω\| → 1030 | ✓ — Lagrangian force amplifies via Cosserat-side coupling |
+| F17-I all_l | V=0 means coupling doesn't fire | E_K4 stays at 0; relaxation via PML only | ✓ — without V, neither channel transfers energy |
+| Path-1 EMF (this doc §14) | THREE channels active (Op14 + ∂L_c/∂(u,ω) + new EMF on V_inc) | Amplification 32× legacy at step 5 | ✓ — adding a third redundant channel makes it worse |
+
+**The pattern is consistent: every failure mode is explained by the engine having too many redundant channels for the same physical coupling, not too few.**
+
+### 15.3 The structural fix — REMOVAL, not addition
+
+The right fix to F17-H/A28 is the OPPOSITE of path 1. Rather than ADDING an EMF channel, we should REMOVE the `_compute_coupling_force_on_cosserat` channel. Op14 z_local modulation alone IS the K4↔Cosserat coupling (in both directions, naturally, through wave-scattering dynamics).
+
+Sketch of how this works under removal:
+- K4 V_inc/V_ref evolve via TLM scatter+connect with z_local modulation (Op14)
+- Cosserat (u, ω) evolve under their OWN Lagrangian (kinetic + Op10 + Hopf + reflection terms) WITHOUT a separate ∂L_c/∂(u,ω) force from K4
+- The wave-scattering dynamics provides the reciprocal coupling: when ω changes, Z_eff changes, K4 waves scatter differently, energy redistributes — but Cosserat doesn't get a separate "force from K4"
+- Cosserat's response to K4 comes through the indirect pathway: K4 wave scattering changes total energy distribution; saturation kernels couple back; Cosserat dynamics responds to its own (u, ω) under its own Lagrangian
+
+This is the REMOVAL hypothesis. Untested — but consistent with the empirical pattern.
+
+### 15.4 Open question — what about path A's slow dispersion?
+
+Under removal, Path A's slow Cosserat dispersion would still be expected if Cosserat's self-Lagrangian doesn't have a stable (2,3) attractor (which Vol 1 Ch 8:49-50 warned about — "K4-TLM exhausted at node-level Ax4"). The (2,3) electron's stability under the removal scenario hinges on Cosserat's OWN Lagrangian providing it — the "Op10 + Hopf + reflection" terms that the engine currently disables in coupled mode (see [k4_cosserat_coupling.py:231-233](../../src/ave/topological/k4_cosserat_coupling.py#L231-L233): `self.cos.k_op10 = 0.0; self.cos.k_refl = 0.0; self.cos.k_hopf = 0.0`).
+
+Re-enabling those Cosserat-self terms (which were disabled because "reflection is carried by the coupling term, NOT as a standalone energy") might be part of the removal fix.
+
+### 15.5 Path-1 verdict
+
+Path 1 was the wrong direction. Doc 67_ §1-§13's structural framing ("Op14 modulation isn't δL_c/δV; therefore Cosserat → K4 channel is missing; therefore add EMF") was based on assuming L_c IS a fundamental Lagrangian term. The reconciliation in this section shows L_c is more likely a DERIVED quantity (reflection energy at impedance gradients), in which case the "missing channel" framing was wrong.
+
+The path-1 implementation stays committed for reproducibility (commit 3d7fae4) but is now confidently flagged as the WRONG fix. Recommended next step is the REMOVAL test: temporarily disable `_compute_coupling_force_on_cosserat`'s contribution and re-run the F17-I three-mode test. If the runaway disappears and the system shows stable bound oscillation, removal is correct.
+
+### 15.6 Honest acknowledgment of the §1-§14 path
+
+Doc 67_'s first 14 sections went DEEP on a wrong-direction hypothesis. The structural finding "Op14 isn't δL_c/δV" was correct as a Lagrangian observation but wrong about what to do with it. The right read was "L_c isn't a fundamental Lagrangian term to begin with — it's a derived quantity, and the engine's force-on-Cosserat from -∂L_c/∂(u,ω) is the actual structural problem." The Vol 4 Ch 1 cross-check the relayed audit asked for upfront would have surfaced this on first reading.
+
+The disciplinary slip: I treated `L_c` framing in [k4_cosserat_coupling.py:23](../../src/ave/topological/k4_cosserat_coupling.py#L23) ("Unified Lagrangian S = S_K4 + S_Cos + ∫L_c dx³") as definitive, when it should have been audited against Vol 4 Ch 1's varactor-as-the-K4-self-Lagrangian-non-linearity. Once Op14 IS the varactor implementation, "L_c" in the engine's framing becomes a derived quantity, not a fundamental term.
+
+Methodology lesson: when the engine docstring frames something as "the Lagrangian," cross-check against Vol 4 Ch 1 to see whether the underlying physics is in K4-TLM's TLM dynamics (in which case the "Lagrangian" framing is a layered abstraction that may contradict it) or genuinely separate. Don't trust a single source's framing without cross-corpus verification.
+
+---
+
+*§15 added 2026-04-24 (very late session) by Opus 4.7 after Q67-E reconciliation. Structural finding A28: the engine's K4↔Cosserat coupling has been double-counted since Phase 4 landed (Op14 z_local modulation + ∂L_c/∂(u,ω) force on Cosserat are two views of the same physics, not two complementary channels). Path-1 EMF was the wrong fix; removal of `_compute_coupling_force_on_cosserat`'s contribution + re-enabling Cosserat self-terms is the candidate correct fix. Untested but consistent with all six observed failure modes (Path A through F17-I + path-1). Test: re-run F17-I three-mode with removal hypothesis, see if mixed-mode runaway disappears.*
