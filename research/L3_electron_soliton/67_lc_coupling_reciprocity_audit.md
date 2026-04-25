@@ -618,3 +618,86 @@ Sanity check protocol (§13.8) gives a hand-verifiable reference for the legacy 
 ---
 
 *§13 added 2026-04-24 — closed-form derivation of δL_c_asym/δV per external-agent recommendation. Confirms JAX autograd produces the expected non-local + local structure. Reference values for sanity check provided. Implementation can proceed.*
+
+---
+
+## 14. Path 1 implementation + empirical failure — Vol 4 Ch 1 redundancy concern
+
+Implementation completed (commit pending) and tested empirically. Both signs of the EMF (positive and negative) AMPLIFY rather than restore reciprocity. Per relayed external-agent concern #5 (no Vol 4 Ch 1 cross-check in §12.2's Q67-A/D closure), this is consistent with **path-1 EMF being redundant with Op14's varactor non-linearity** rather than additive.
+
+### 14.1 Empirical results
+
+Same small-amplitude mixed-mode test (V_inc_amp = 0.05·V_YIELD, cos_amp_scale = 0.05) under three configurations:
+
+| Config | Step 5 H_total | Step 100 \|ω\|peak | Step 100 H_total |
+|---|---|---|---|
+| Legacy (no path-1) | 7.59e10 | 773 | 3.36e10 |
+| Path-1, EMF = -2V·∂L/∂V_sq | **1.20e13** (160× legacy) | 2114 | 3.35e10 |
+| Path-1, EMF = +2V·∂L/∂V_sq | **1.20e13** (160× legacy) | 39156 | 2.31e11 |
+
+Both signs produce the same step-5 catastrophic H spike. Sign-flipping doesn't restore reciprocity.
+
+### 14.2 Vol 4 Ch 1 cross-check — the redundancy concern
+
+[Vol 4 Ch 1:127-141](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L127-L141) defines the **Vacuum Varactor Constitutive Equation**:
+```
+C_eff(V) = C_0 / √(1 − (V/V_yield)²) = C_0 / S(V)
+```
+
+Line 137-141 gives the Taylor expansion:
+```
+C_eff(V) = C_0·[1 + (1/2)·(V/V_yield)² + (3/8)·(V/V_yield)⁴ + ...]
+```
+
+The leading correction is **quadratic in V** — exactly the same structure that enters L_c via the V² in A²_ε_base. Vol 4 Ch 1:142 explicitly identifies this as "the Euler-Heisenberg effective Lagrangian of QED" — i.e., this IS the K4 self-Lagrangian's V-dependent contribution.
+
+In the K4-TLM engine, the varactor non-linearity is implemented via **Op14 z_local modulation** (`Z_eff = Z₀/√S(A²_total)` per [k4_cosserat_coupling.py:294-298](../../src/ave/topological/k4_cosserat_coupling.py#L294-L298)). This IS where C_eff(V) lives in the engine — the K4-TLM scatter+connect cycle handles the varactor's V-dependent energy storage through the modulated impedance.
+
+**The structural concern:** if the `(V²/V_SNAP²)` in `A²_ε_base` IS the same V² that produces C_eff(V) via the varactor — and Op14 z_local IS that — then `L_c_asym = ∫W_refl_asymmetric dx³` has its V-dependence from the SAME Lagrangian term as the K4 self-varactor. They're not independent; they're the same coupling viewed differently:
+- Op14 z_local: K4 sees its own (and Cosserat's) saturation kernel applied to its impedance
+- L_c_asym: cross-sector reflection energy at impedance gradients
+
+If both pull from C_eff(V), then path-1's EMF source `δL_c/δV_sq` adds energy that Op14's modulation already accounts for via the LC dynamics. **The two channels become redundant — adding both double-counts.** This explains the empirical amplification: path-1 is injecting energy that the engine already had via Op14.
+
+### 14.3 What this means for §12.2 / Q67-A/D closure
+
+§12.2 closed Q67-A/D as ADDITIVE based on a code-trace showing Op14's z_local computed from S_μ, S_ε independently of L_c. But the deeper question — **is the K4-self-Lagrangian's varactor energy derivable from the same kernel as L_c?** — wasn't asked. The relayed feedback was right: this is the gating question.
+
+If Vol 4 Ch 1's varactor IS the K4 self-Lagrangian's V-dependent term, AND L_c_asym's V-dependence comes through A²_ε_base's `V²/V_SNAP²` AND that's also the varactor argument, then the K4 self-coupling and the L_c cross-coupling share the same V² source. They're aspects of one Lagrangian, not two.
+
+Under this interpretation:
+- L_K4 contains the varactor non-linearity (through C_eff(V))
+- L_c is supposed to add the CROSS-SECTOR contribution
+- But if "cross-sector" V² in L_c is the SAME V² as K4 self-varactor, there's no genuinely new physics — L_c is just reparametrizing what L_K4 already encodes
+
+If correct, path 1 is structurally wrong: **F17-H's Op14-vs-EMF dichotomy was a false dichotomy because they're the same thing.**
+
+### 14.4 Open question — A28 candidate
+
+Concrete physics question to resolve:
+
+**Q67-E (proposed A28):** Is V² in `A²_ε_base = ε²/ε_yield² + V²/V_SNAP²` the SAME V² that enters the K4 self-varactor C_eff(V) per Vol 4 Ch 1:130, or are they two DIFFERENT V² contributions? If same: path 1 is double-counting and should not exist. If different: what physical process produces a SECOND V² contribution beyond the varactor?
+
+This requires careful re-reading of doc 54_ §6 + Vol 4 Ch 1 + the Pythagorean strain theorem (AVE-APU Vol 1 Ch 5:26-37) to establish whether V² appears once (as varactor self-coupling) or twice (varactor + cross-sector L_c).
+
+### 14.5 Implementation status
+
+Path-1 EMF coupling is implemented in `k4_cosserat_coupling.py` behind the flag `use_lagrangian_emf_coupling: bool = False`. Default OFF preserves all existing behavior; turning it ON activates the EMF channel that empirically amplifies rather than balances. **Do NOT enable in any production driver until Q67-E (A28) is resolved.** The implementation is committed for reproducibility of the empirical finding but is NOT recommended as the F17-H fix.
+
+The 22/22 backward-compat regression tests pass with flag default OFF, confirming the implementation doesn't break legacy behavior. The path-1 amplification is only observed when the flag is explicitly enabled.
+
+### 14.6 What the doc 67_ author got wrong
+
+In honest acknowledgment per relayed audit:
+
+1. Did Q67-C (Phase 4 asymmetric form) audit AFTER deriving against legacy form. Should have started with "what's the active form?" and derived against it. Sequencing error.
+2. §12.2 closed Q67-A/D as ADDITIVE without doing the Vol 4 Ch 1 varactor cross-check. The closure was based on incomplete evidence; the deeper question is what §14.4's Q67-E asks.
+3. §10's Q67-D framing as "philosophically biggest" overstated difficulty — it's a concrete code-trace + Vol 4 Ch 1 reading, not philosophy.
+4. Path-1 LOC estimates (§12.4: ~150 LOC ADDITIVE) given before Q67-A/D was actually settled. Wrong sequencing.
+5. Did not predict what TLM's `total_energy = Σ(V_inc² + V_ref²)` measures before running the small-amplitude mixed test (§5.2). Tested first, interpreted second.
+
+These are real disciplinary slips. Methodology is improving (auditing before implementing is the correct direction; structural finding from §3-§5 IS load-bearing); the slips are in sequencing and depth-of-audit, not in the underlying analysis.
+
+---
+
+*§14 added 2026-04-24 (very late session) by Opus 4.7 after empirical path-1 implementation showed amplification under both EMF signs and per relayed external-agent concern #5 about Vol 4 Ch 1 cross-check. F17-H now has a deeper structural question (Q67-E / A28-candidate) about whether V² appears once or twice in the unified Lagrangian. Path-1 implementation gated behind use_lagrangian_emf_coupling=False default; not recommended for production drivers until Q67-E resolves.*

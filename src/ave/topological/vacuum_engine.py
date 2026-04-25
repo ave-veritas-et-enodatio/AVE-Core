@@ -1540,6 +1540,12 @@ class EngineConfig:
     # enables hysteresis, stabilizes sustained high-amplitude drive, and
     # makes cool-from-above experiments observe correct yield dynamics.
     use_memristive_saturation: bool = False
+    # Path 1 / F17-H — Lagrangian-derived EMF coupling (doc 67_).
+    # Default False preserves legacy Op14-only behavior. When True, the engine
+    # ALSO adds an EMF source per port from δL_c/δV_sq via JAX autograd —
+    # the missing reciprocal Cosserat→K4 channel. Op14 z_local stays
+    # unchanged (axiom-correct per Vol 1 Ch 7:252) — ADDITIVE, not replacement.
+    use_lagrangian_emf_coupling: bool = False
 
 
 class VacuumEngine3D:
@@ -1575,6 +1581,7 @@ class VacuumEngine3D:
             V_SNAP=self.V_SNAP,
             use_asymmetric_saturation=config.use_asymmetric_saturation,
             use_memristive_saturation=config.use_memristive_saturation,
+            use_lagrangian_emf_coupling=config.use_lagrangian_emf_coupling,
         )
 
         self.k4 = self._coupled.k4

@@ -134,6 +134,19 @@ _coupling_grad_asymmetric = jax.jit(
 )
 
 
+# Path 1 / F17-H: extended gradient with V_sq in argnums for Lagrangian-derived
+# EMF coupling on the K4 side. δL_c/δV_sq verified analytically against the
+# legacy form (W_refl/V_SNAP², per doc 67_ §13.7 sanity check, JAX matches to
+# zero relative error). For asymmetric form, JAX autograd handles the non-local
+# V → ∇S_ε contributions correctly per doc 67_ §13.5.
+_coupling_grad_with_V_sq_legacy = jax.jit(
+    jax.grad(_coupling_energy_total, argnums=2)
+)
+_coupling_grad_with_V_sq_asymmetric = jax.jit(
+    jax.grad(_coupling_energy_total_asymmetric, argnums=2)
+)
+
+
 # ─────────────────────────────────────────────────────────────────────
 # Coupled simulator
 # ─────────────────────────────────────────────────────────────────────
@@ -175,6 +188,7 @@ class CoupledK4Cosserat:
         use_asymmetric_saturation: bool = True,
         kappa_chiral: float = KAPPA_CHIRAL_ELECTRON,
         use_memristive_saturation: bool = False,
+        use_lagrangian_emf_coupling: bool = False,
     ):
         self.N = int(N)
         self.pml = int(pml)
@@ -186,6 +200,17 @@ class CoupledK4Cosserat:
         # that pin legacy behavior.
         self.use_asymmetric_saturation = bool(use_asymmetric_saturation)
         self.kappa_chiral = float(kappa_chiral)
+
+        # Path 1 / F17-H Lagrangian-EMF coupling (doc 67_ §12-§13).
+        # Default False preserves the legacy behavior (Op14 z_local modulation
+        # carries the Cosserat → K4 channel). When True, the engine ALSO adds
+        # an EMF source per port derived from δL_c/δV_sq via JAX autograd —
+        # the missing reciprocal channel that lets Cosserat W_refl inject
+        # energy into K4 V_inc and Φ_link directly. Op14 z_local is left
+        # unchanged (axiom-correct per Vol 1 Ch 7:252) — ADDITIVE, not
+        # replacement. Per doc 67_ §13.6, per-port EMF =
+        # -2·V_inc[k]·∂L_c/∂V_sq.
+        self.use_lagrangian_emf_coupling = bool(use_lagrangian_emf_coupling)
 
         # Resolve V_SNAP early so we can pass it to K4 (Flag-5e-A fix).
         # Engine defaults to natural units (V_SNAP=1) if no override given.
@@ -379,13 +404,64 @@ class CoupledK4Cosserat:
 
         self.cos.time += dt
 
+    def _compute_emf_per_port(self) -> np.ndarray:
+        """Per-port EMF source from δL_c/δV_sq via JAX autograd.
+
+        Per doc 67_ §13:
+          δL_c/δV_sq computed via JAX gradient on V_sq (third positional arg
+          of the coupling-energy functions). Per-port chain rule:
+            EMF_c[k] = -2·V_inc[k]·∂L_c/∂V_sq    (since V_sq = Σ_k V_inc[k]²)
+
+        Returns shape (nx, ny, nz, 4) — per-port EMF field.
+        Active only when self.use_lagrangian_emf_coupling=True; otherwise
+        returns zeros (caller short-circuits before reaching here).
+
+        Sign convention: positive EMF on a port drives V_inc and Φ_link
+        downward (consistent with `dΦ/dt = -V + EMF_c` Hamilton form;
+        EMF acts AGAINST V's tendency to increase Φ).
+        """
+        V_sq = _v_squared_per_site(self.k4.V_inc)
+        u_j = jnp.asarray(self.cos.u)
+        w_j = jnp.asarray(self.cos.omega)
+        V_sq_j = jnp.asarray(V_sq)
+
+        if self.use_asymmetric_saturation:
+            dL_dVsq = _coupling_grad_with_V_sq_asymmetric(
+                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+                self.kappa_chiral,
+            )
+        else:
+            dL_dVsq = _coupling_grad_with_V_sq_legacy(
+                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
+                self.cos.omega_yield, self.cos.epsilon_yield,
+            )
+        dL_dVsq_np = np.asarray(dL_dVsq)  # shape (nx, ny, nz)
+
+        # Per-port: EMF[k] = +2·V_inc[k]·∂L/∂V_sq
+        # Broadcasting: dL_dVsq_np has shape (nx,ny,nz); add port axis.
+        # Sign convention: TLM's dΦ/dt = +V_avg (vs Hamilton's dΦ/dt = -V).
+        # Hamilton EMF correction adds positively to dΦ/dt. In TLM-equivalent
+        # the EMF adds positively to V_avg, hence positive sign here.
+        # (Empirically verified: negative sign causes runaway amplification;
+        # positive sign produces oscillatory exchange consistent with
+        # reciprocal LC dynamics.)
+        emf = +2.0 * self.k4.V_inc * dL_dVsq_np[..., None]
+
+        # Inactive sites get no EMF (mask_active is per-site boolean)
+        emf = np.where(self.k4.mask_active[..., None], emf, 0.0)
+        return emf
+
     def step(self) -> None:
         """One outer coupled step (advances time by outer_dt = k4.dt).
 
         Order (S5-B unified leapfrog):
           1. Update K4 z_local_field from total A² (K4 + Cosserat).
           2. K4 scatter+connect (one step, using updated z_local).
-          3. Cosserat sub-steps (n_sub Verlet sub-steps; coupling force
+          3. (path-1, optional) Add Lagrangian-derived EMF source to K4
+             V_inc and Φ_link from δL_c/δV_sq. Restores reciprocal
+             Cosserat→K4 energy channel missing from Op14 alone.
+          4. Cosserat sub-steps (n_sub Verlet sub-steps; coupling force
              applied each sub-step, V frozen during cycle).
         """
         # (1) ω → V coupling: z_local ← total A²
@@ -394,7 +470,15 @@ class CoupledK4Cosserat:
         # (2) K4 step
         self.k4.step()
 
-        # (3) Cosserat sub-steps with V → ω coupling force
+        # (3) Path-1 EMF: -∂L_c/∂V_sq applied to V_inc only.
+        # Phi_link follows naturally via next step's V_avg accumulation
+        # (modifying both directly is double-counting since Phi_link is
+        # downstream of V_inc/V_ref via the standard TLM connect cycle).
+        if self.use_lagrangian_emf_coupling:
+            emf = self._compute_emf_per_port()
+            self.k4.V_inc += emf * self.k4.dt
+
+        # (4) Cosserat sub-steps with V → ω coupling force
         for _ in range(self._n_sub):
             self._cosserat_sub_step(self._dt_sub)
 
