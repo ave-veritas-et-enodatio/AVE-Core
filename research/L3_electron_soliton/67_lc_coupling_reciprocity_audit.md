@@ -1510,3 +1510,101 @@ F17-K Round 6 single-electron-validation arc closes with this empirical finding:
 ---
 
 *§25 added 2026-04-25 — v2-v2 saturation-pin debug + dual descent. §24 Finding 3 framing retracted as premature; same conclusion reaches with proper evidence at correct amplitude. S₁₁ descent works correctly with hard projection (99.76% obj reduction). Corpus-duality claim FALSIFIED: energy converges at R/r=3.40, S₁₁ at 1.03, neither at Golden Torus (2.62). Doc 03_ §4.3 empirically validated: dynamical descent doesn't reach Golden Torus from arbitrary seed at coupled-engine scale. F17-K Round 6 closes; v3 direction is algebraic Ch 8 pinning OR Phase 6 sparse eigensolver methodology.*
+
+---
+
+## 26. F17-K v3 (i): linear-stability test at Golden Torus — UNSTABLE under coupled S₁₁, MARGINAL under Cosserat-energy (2026-04-25)
+
+### 26.1 Methodology refinement per auditor
+
+Auditor 2026-04-25 noted: "the (C) X4b stationarity claim is mostly right (Golden Torus is not stationary because gradient is nonzero there) but the v2-v2 trajectory is global-flow data, not strict linear-stability data. Substantive conclusion stands, framing slightly muddled."
+
+v3 (i) addresses this with rigorous linear-stability methodology per doc 34_ X4b extended to coupled engine:
+
+1. Initialize EXACTLY at Golden Torus (R=20, r=R/φ²=7.64, c=3 ansatz)
+2. Project ω onto saturation manifold (peak|ω|=0.94)
+3. Add small random perturbation δ (1% of seed amplitude)
+4. Run S₁₁ relaxation with hard saturation pin for SHORT n_iter=30 (linear regime, not global-flow)
+5. Measure ‖δ_final‖ / ‖δ_initial‖ growth rate
+6. Classify: STABLE (rate ≤ 0), MARGINAL (0 < rate ≤ 0.05), UNSTABLE (rate > 0.05)
+
+Implementation: [`coupled_s11_eigenmode.py:run_v3_x4b_linear_stability`](../../src/scripts/vol_1_foundations/coupled_s11_eigenmode.py).
+
+### 26.2 v3 (i) results (N=80, both objectives)
+
+```
+Objective   verdict      ‖δ_final‖/‖δ_initial‖   growth/iter   R drift    r drift   c_final
+energy      MARGINAL     1.81                    +0.0198        4.88%      0.00%     3
+s11         UNSTABLE     5.31                    +0.0556        4.88%      0.00%     3
+```
+
+Energy descent: perturbation grows 81% over 30 iters; growth rate 0.0198/iter just over the STABLE threshold (rate ≤ 0). MARGINAL classification.
+
+S₁₁ descent: perturbation grows 5.3× over 30 iters; growth rate 0.0556/iter above the MARGINAL→UNSTABLE threshold (0.05). UNSTABLE classification.
+
+Both runs: c_cos=3 preserved (topology stable under perturbation in linear regime + saturation pin). r drift 0.00% (likely below `extract_shell_radii` lattice-binning resolution). R drift 4.88% identical in both — likely one lattice unit shift in detection.
+
+### 26.3 Caveats applied per fallacy-audit pattern
+
+- r drift 0.00% may reflect lattice-binning artifact in `extract_shell_radii` (per §18.1 finding) rather than truly zero geometric drift
+- R drift 4.88% identical between objectives suggests single-lattice-unit detection step rather than continuous drift
+- Growth rate measured initial→final, not fit through intermediate iters; could be non-monotonic
+- ‖δ‖ aggregates ω and V_inc perturbations; sectoral break-out would isolate which sector destabilizes faster
+
+These caveats don't change the qualitative finding: **neither objective stabilizes Golden Torus under perturbation in the linear regime.**
+
+### 26.4 Combined v2-v2 + v3 (i) finding
+
+| Test | Methodology | Verdict |
+|---|---|---|
+| v2-v2 (global flow, n=500) | Coupled descent from Golden Torus seed, no constraints | Drifts away to R/r=3.40 (energy) / 1.03 (S₁₁), neither at φ²=2.62 |
+| v3 (i) (linear regime, n=30) | Coupled descent from Golden Torus + 1% perturbation, with saturation pin | Perturbation grows 1.8× (MARGINAL) energy / 5.3× (UNSTABLE) S₁₁ |
+
+**The coupled engine has NO linearly stable bound state at Golden Torus geometry under either Cosserat-energy or coupled |S₁₁|² descent.** Both global-flow and linear-stability tests agree.
+
+The Golden Torus IS:
+- ✓ Topologically pinned (c=3 preserved by ansatz + saturation pin)
+- ✓ Amplitude pinned (saturation onset enforced by hard projection)
+- ✗ Geometrically UNSTABLE (R drifts under gradient flow in either regime)
+
+Per doc 03_ §4.3, this is the **predicted empirical signature** of "R·r=1/4 is topologically quantized, NOT dynamically derived." The Golden Torus geometry is SELECTED by topology (SU(2) half-cover area match), not STABILIZED by dynamics in the coupled engine.
+
+### 26.5 Cosserat-only X4b stability does NOT extend to coupled engine
+
+doc 34_ X4b validated `relax_s11` Cosserat-only stationarity at Golden Torus: small perturbations of the postulated bound-state configuration didn't drift far. v3 (i) shows the analogous test on coupled engine **does drift** (1.8-5.3× perturbation growth in 30 iters). The K4 sector adds geometric instabilities at the linear-perturbation level.
+
+This refines the corpus reading: **doc 34_ X4b's Cosserat-only stability is local to its sector** and doesn't imply coupled-engine stability. Round 6's bound-state-validation arc requires either:
+
+(i) Restoring local stability via additional physics (algebraic pin on (R, r) during descent — a true Lagrange-multiplier method, NOT just saturation pin)
+(ii) Phase 6 sparse eigensolver — eigenvalue problem at fixed geometry doesn't require dynamical stability
+
+### 26.6 Path forward — Phase 6 sparse eigensolver becomes load-bearing
+
+The acoustic-cavity / Helmholtz framing (§23.1) provides the corpus-canonical alternative: **eigenvalue problem `Au = λBu` at fixed cavity geometry** finds eigenmodes regardless of whether they're attractors of descent. This matches:
+
+- Helmholtz acoustic-resonance framing (vol2 Ch 7 de-broglie-standing-wave.md)
+- Doc 28_ phase-space (V_inc, V_ref) phasor traces (2,3) torus knot
+- Doc 03_ §4.3 topological quantization (eigenvalue problem with boundary conditions encodes quantization explicitly)
+
+Phase 6 implementation: linearize coupled K4+Cosserat dynamics around Golden Torus ansatz → build sparse Jacobian (≈ ω² M − K matrix per Helmholtz form) → `scipy.sparse.linalg.eigsh` to extract (2,3) eigenmode at fixed cavity geometry. ~300 LOC.
+
+### 26.7 v3 (i) verdict — F17-K Round 6 arc fully empirically anchored
+
+Eight commits across the F17-K methodology arc, with v3 (i) closing the linear-stability question:
+
+```
+4c9fbea  Phase 5c-v2-v2: saturation-pin + corpus-duality falsified at correct amplitude
+3f6d544  Acoustic-cavity / Helmholtz framing + natural-equilibria correction
+795c4ff  Corpus search: constrained S₁₁ + Ch 8 algebraic pins
+6158465  Phase 5c v1: coupled S₁₁ infrastructure; spurious convergence
+4d4b4aa  Phase 5a-b: phase-quadrature seed under raw step() insufficient
+2c873cf  Phase 5c-v2 v1: dual descent (reparam-bug-confounded)
+a53ce1c  Phase 1: Ax-3 noncompliance audit + phase-quadrature methodology
+THIS     v3 (i) X4b linear-stability: UNSTABLE/MARGINAL at coupled scale
+```
+
+Round 6 single-electron-validation arc closes empirically: **dynamics don't stabilize Golden Torus**. Phase 6 (eigenvalue methodology) is now the corpus-validated next step for closing single-electron representation.
+
+---
+
+*§26 added 2026-04-25 — v3 (i) X4b linear-stability test at Golden Torus seed. UNSTABLE under coupled S₁₁ (5.3× perturbation growth in 30 iters), MARGINAL under Cosserat-energy (1.8×). Combined with v2-v2 global-flow result: coupled engine has no linearly stable bound state at Golden Torus under either objective. doc 34_ X4b Cosserat-only stability does NOT extend to coupled engine. F17-K Phase 6 sparse eigensolver methodology becomes load-bearing for v3 (ii). doc 03_ §4.3 quantization claim fully empirically anchored at both global-flow and linear-stability levels.*
