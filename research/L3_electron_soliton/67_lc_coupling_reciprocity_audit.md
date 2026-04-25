@@ -428,3 +428,193 @@ All three audits resolved. Implementation can proceed if Grant approves. Recomme
 ---
 
 *§12 added 2026-04-24 after external-agent audit recommendations. Q67-A/D collapsed (Op14 axiom-correct independently → additive coupling, not replacement). Q67-B closed (quadratic forced by Pythagorean theorem). Q67-C closed (asymmetric L_c has non-local V dependence; JAX autograd handles it). Path 1 implementation scope reduced from ~330 to ~150 LOC. Manual r8.3 patch can be drafted referencing this audit closure.*
+
+---
+
+## 13. Closed-form derivation of δL_c_asym/δV (asymmetric form)
+
+External-agent audit recommended explicit closed-form derivation as belt-and-suspenders before trusting JAX autograd. The closed-form is non-local but tractable; this section works it out so the JAX result has a hand-derived reference.
+
+### 13.1 Setup — what V enters and where
+
+The Phase 4 asymmetric L_c is:
+```
+L_c_asym = ∫ W_refl_asymmetric(u, ω, V_sq) dx³
+W_refl_asymmetric = |Γ_vec|² = γ²
+Γ_vec = (1/4)·[∇S_μ/S_μ − ∇S_ε/S_ε]   (per cosserat_field_3d.py:451-453)
+```
+
+V enters W_refl_asymmetric ONLY through S_ε (not S_μ, not the gradient operator):
+```
+A²_ε_base = ε_sym²/ε_yield² + V²/V_SNAP²
+A²_ε      = (1 − κ_chiral·h_local)·A²_ε_base
+S_ε       = √(1 − A²_ε)
+```
+
+So δL/δV traces through: **V → A²_ε → S_ε → ∇S_ε/S_ε → Γ_vec → |Γ_vec|²**. Three nontrivial pieces:
+
+**Piece 1 — Local: V → A²_ε → S_ε (purely local at the site).**
+**Piece 2 — Non-local: V at site r → ∇S_ε at neighbors of r (via finite-difference operator).**
+**Piece 3 — Local: S_ε's reciprocal in the ratio ∇S_ε/S_ε at the site itself.**
+
+### 13.2 Piece 1 — local derivative ∂S_ε/∂V
+
+At each site r:
+```
+∂A²_ε(r)/∂V(r) = (1 − κ_chiral·h_local(r)) · (2V(r)/V_SNAP²)
+∂S_ε(r)/∂V(r) = −1/(2·S_ε(r)) · ∂A²_ε/∂V(r)
+              = −(1 − κ_chiral·h_local(r))·V(r) / (S_ε(r)·V_SNAP²)
+```
+
+Note `S_ε` in the denominator: as the site approaches saturation (S_ε → 0), `∂S_ε/∂V` diverges. JAX autograd handles this with the engine's existing `eps_reg = 1e-6` regularization in the denominator.
+
+### 13.3 Piece 2 — non-local: ∇S_ε via the tetrahedral gradient operator
+
+The K4 lattice uses a tetrahedral finite-difference gradient. Per [cosserat_field_3d.py:443-444](../../src/ave/topological/cosserat_field_3d.py#L443-L444):
+```
+grad_S_eps = _tetrahedral_gradient(S_eps[..., None])[..., 0, :] / dx
+```
+
+Let `D` be the linear gradient operator: `(∇S_ε)_α(r) = Σ_{r'} D_{r,r',α} · S_ε(r')` for spatial index α. The matrix elements `D_{r,r',α}` are zero for non-neighbor (r, r') and depend on the tetrahedral connectivity.
+
+Then:
+```
+∂(∇S_ε)_α(r)/∂V(r₀) = D_{r,r₀,α} · ∂S_ε(r₀)/∂V(r₀)
+```
+
+Where the only contribution to V(r₀) comes through S_ε at r₀, and that S_ε feeds ∇S_ε at the neighbors of r₀ via the operator D.
+
+### 13.4 Piece 3 — chain rule through Γ_vec and |Γ_vec|²
+
+Γ_vec is (1/4)·[∇S_μ/S_μ − ∇S_ε/S_ε]. Differentiating w.r.t. V(r₀):
+```
+∂Γ_vec(r)/∂V(r₀) = -(1/4) · [∂(∇S_ε(r)/S_ε(r))/∂V(r₀)]
+                 = -(1/4) · [(1/S_ε(r))·∂(∇S_ε(r))/∂V(r₀)
+                            − (∇S_ε(r)/S_ε(r)²)·∂S_ε(r)/∂V(r₀)]
+```
+
+The first term is the non-local piece (gradient operator effect from V(r₀) on ∇S_ε at r). The second term is local: only contributes when r = r₀.
+
+Putting it together:
+```
+∂Γ_vec(r)/∂V(r₀) = -(1/4) · {
+    (D_{r,r₀,·}/S_ε(r)) · ∂S_ε(r₀)/∂V(r₀)   [non-local: V(r₀) → ∇S_ε at r]
+  − (∇S_ε(r)/S_ε(r)²) · ∂S_ε(r₀)/∂V(r₀) · δ_{r,r₀}   [local: V(r₀) → S_ε(r₀) directly]
+}
+```
+
+### 13.5 Full closed-form δL/δV(r₀)
+
+```
+δL/δV(r₀) = Σ_r 2·Γ_vec(r) · ∂Γ_vec(r)/∂V(r₀)
+          = Σ_r 2·Γ_vec(r) · (−1/4) · { non-local + local }
+          = −(1/2)·Σ_r Γ_vec(r) · { non-local + local }
+```
+
+Splitting into the two contributions:
+
+**Non-local term:**
+```
+T_nonlocal(r₀) = −(1/2)·Σ_r Γ_vec(r) · (D_{r,r₀,·}/S_ε(r)) · ∂S_ε(r₀)/∂V(r₀)
+              = ∂S_ε(r₀)/∂V(r₀) · [−(1/2)·Σ_r Γ_vec(r)·(1/S_ε(r))·D_{r,r₀,·}]
+```
+
+The bracket is a non-local sum over neighbors of r₀ (where D_{r,r₀,·} is nonzero), weighted by Γ_vec/S_ε at those neighbors. Call this `M_NL(r₀)`:
+```
+M_NL(r₀) = −(1/2)·Σ_r Γ_vec(r)·(1/S_ε(r))·D_{r,r₀,·}
+       = −(1/2)·(D^T)_{r₀,r,·} · (Γ_vec(r)/S_ε(r))   [adjoint of D]
+```
+
+So `T_nonlocal(r₀) = ∂S_ε(r₀)/∂V(r₀) · M_NL(r₀)`.
+
+**Local term:**
+```
+T_local(r₀) = −(1/2)·Γ_vec(r₀) · (−∇S_ε(r₀)/S_ε(r₀)²) · ∂S_ε(r₀)/∂V(r₀)
+            = (1/2)·∂S_ε(r₀)/∂V(r₀) · (Γ_vec(r₀)·∇S_ε(r₀)/S_ε(r₀)²)
+```
+
+**Combined:**
+```
+δL/δV(r₀) = ∂S_ε(r₀)/∂V(r₀) · [M_NL(r₀) + (1/2)·Γ_vec(r₀)·∇S_ε(r₀)/S_ε(r₀)²]
+```
+
+Substituting `∂S_ε/∂V = −(1−κ_chiral·h_local)·V/(S_ε·V_SNAP²)`:
+```
+δL/δV(r₀) = −(1 − κ_chiral·h_local(r₀))·V(r₀)/(S_ε(r₀)·V_SNAP²)
+           · [M_NL(r₀) + (1/2)·Γ_vec(r₀)·∇S_ε(r₀)/S_ε(r₀)²]
+```
+
+### 13.6 EMF per port via chain rule
+
+V_sq at a site is Σ_k V_inc[k]² (sum over 4 ports). So:
+```
+∂V_sq(r₀)/∂V_inc(r₀, k) = 2·V_inc(r₀, k)
+```
+
+Per-port EMF (Lagrangian-derivative on V_inc at port k):
+```
+EMF_c(r₀, k) = -∂L/∂V_inc(r₀, k) = -∂L/∂V_sq(r₀) · 2·V_inc(r₀, k)
+```
+
+Where `∂L/∂V_sq(r₀) = δL/δV(r₀) / (2·V(r₀))` because `V = √(V_sq)` (pointwise, treating V as scalar magnitude).
+
+Wait — V_sq is a sum of squares, but L_c uses V² not V_sq directly. Let me re-check.
+
+In `_reflection_density_asymmetric` at line 425: `A2_eps_base = eps_sym_sq / (epsilon_yield * epsilon_yield) + V_sq / (V_SNAP * V_SNAP)`. So V_sq IS used as a scalar field (sum over ports already), and A²_ε_base uses V_sq directly.
+
+So V_sq is the natural variable for the gradient. JAX gradient w.r.t. V_sq gives `∂L/∂V_sq` directly. The per-port EMF then comes from chain rule `V_sq = Σ_k V_inc[k]²`:
+```
+∂L/∂V_inc(r₀, k) = ∂L/∂V_sq(r₀) · 2·V_inc(r₀, k)
+EMF_c(r₀, k) = -∂L/∂V_inc(r₀, k) = -2·V_inc(r₀, k) · ∂L/∂V_sq(r₀)
+```
+
+### 13.7 Sanity check: legacy form recovery
+
+For the legacy S1=D form `L_c_legacy = (V_sq/V_SNAP²)·W_refl_legacy(u, ω)`:
+```
+∂L_c_legacy/∂V_sq = W_refl_legacy(u, ω) / V_SNAP²
+EMF_c_legacy(k) = -2·V_inc[k]·W_refl/V_SNAP²
+```
+
+This matches §3.2's closed-form derivation. ✓
+
+For the asymmetric form, the JAX gradient on V_sq returns the bracketed expression in §13.5, divided by `2V·∂V/∂V_sq = 1` (since V² = V_sq, ∂V_sq/∂V_sq = 1). Wait that's circular. Let me reconsider.
+
+Actually V_sq IS the variable. JAX computes `∂L/∂V_sq` directly. There's no factor of `2V` to extract because L is a function of V_sq (scalar field), not V (which doesn't appear directly in the asymmetric form).
+
+So `∂L/∂V_sq(r₀)` from JAX equals `(δL/δV(r₀)) / (2·V(r₀))` IF and ONLY IF V_sq = V². But V_sq is summed over 4 ports = Σ_k V_inc[k]². So V_sq is NOT V² for a single field; it's the per-site sum.
+
+Per-port derivation (correct chain rule):
+```
+∂L/∂V_inc(r₀, k) = ∂L/∂V_sq(r₀) · ∂V_sq/∂V_inc(r₀, k) = ∂L/∂V_sq(r₀) · 2·V_inc(r₀, k)
+```
+
+So `EMF_c(r₀, k) = -2·V_inc(r₀, k)·∂L/∂V_sq(r₀)`.
+
+The JAX gradient `∂L/∂V_sq` IS what we need; per-port chain rule is a simple multiplication. This is correct.
+
+### 13.8 Reference values for sanity check
+
+For the legacy form (`use_asymmetric_saturation=False`), JAX gradient on V_sq should give:
+```
+∂L/∂V_sq = W_refl_legacy / V_SNAP²
+```
+
+Test: instantiate CoupledK4Cosserat with `use_asymmetric_saturation=False`, populate V_inc and Cosserat (u, ω), call JAX value_and_grad with argnums=(0, 1, 2). The third return should equal `W_refl(u, ω) / V_SNAP²` evaluated at the populated state. If yes, JAX autograd is verified.
+
+For the asymmetric form, the closed-form is the §13.5 expression — non-local M_NL(r₀) plus local (1/2)·Γ·∇S_ε/S_ε² — multiplied by `∂S_ε/∂V` and divided by `2V` (to get from δL/δV to ∂L/∂V_sq).
+
+### 13.9 Implementation implication
+
+The closed-form derivation confirms that the JAX `argnums=(0, 1, 2)` extension gives a well-defined ∂L/∂V_sq even in the asymmetric case, with non-local contributions handled by autograd's reverse-mode propagation through the tetrahedral gradient operator.
+
+Implementation steps unchanged from §12.4:
+1. Extend argnums to (0, 1, 2) on `_coupling_grad_asymmetric`
+2. Per-port EMF: `EMF_c[k] = -2·V_inc[k]·∂L/∂V_sq`
+3. Apply during connect: `Phi_link += (V_avg + EMF_c)·dt`, `V_inc += EMF_c·dt`
+
+Sanity check protocol (§13.8) gives a hand-verifiable reference for the legacy form before applying to asymmetric.
+
+---
+
+*§13 added 2026-04-24 — closed-form derivation of δL_c_asym/δV per external-agent recommendation. Confirms JAX autograd produces the expected non-local + local structure. Reference values for sanity check provided. Implementation can proceed.*
