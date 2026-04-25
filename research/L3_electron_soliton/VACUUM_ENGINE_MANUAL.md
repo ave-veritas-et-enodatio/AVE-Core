@@ -1,6 +1,6 @@
 # VacuumEngine3D — Manual / Datasheet
 
-**Manual revision:** r8.1 (2026-04-24, late-evening)
+**Manual revision:** r8.2 (2026-04-24, late-evening)
 **Engine version:** 4.0.2 (current HEAD = `687b18d` on branch `research/l3-electron-soliton`; Phase 4 + Phase 5 gate + Cosserat PML + memristive Op14 + Round 6 single-electron-first pivot + F17-I three-mode coupled-seed test all landed as commits since r7)
 
 **Status (r8 — Round 6 pivot, hybrid scope):** r8 is a hybrid-scope reconcile, not a full rewrite. The framework is in active flux (Path B blocked on strain-mask infrastructure; single-electron validation incomplete) so this revision updates load-bearing-for-new-agents content (front matter, change log, suspended-work flags, framing-correction note) and leaves the §3 physical model and §15 derivation chain bodies for r9 once Round 6 closes. Twenty-three commits landed since r7 spanning four arcs:
@@ -1058,17 +1058,17 @@ Load-bearing section. The pair-creation null result ([52_](52_h1_threshold_sweep
 
 **Residual caveat** (see §17 A15): under current symmetric saturation, the bond state exists but flux-tube confinement physics (Γ = −1 walls at saturated endpoints) is not yet realized. Phase 3 ships the *infrastructure*; physics adjudication of P_phase3_flux_tube is deferred to after Phase 4 asymmetric μ/ε saturation. The structural limit is closed; the original motivation (observing confined pair-like standing waves on saturated bonds) remains open until Phase 4 lands.
 
-### 11.2 No per-node rotational resonance `Ω_node(A²)`
+### 11.2 ~~No per-node rotational resonance `Ω_node(A²)`~~ — ✅ CLOSED by Stage 6 Phase 2 (commit `719f3ec` on HEAD)
 
-The Cosserat sector has a single global `ω_yield` scalar and fields `u(r)`, `ω(r)`. It has no per-node tank resonance that softens under local saturation. `AutoresonantCWSource` tracks a Duffing shift at the **source** side (probe-point A² feedback) but the lattice does not report its per-node resonance, so "autoresonant lock at a specific node pair" cannot be tested in the current engine.
+**Resolution:** Phase 2 added `NodeResonanceObserver` computing `Ω_node(r, t) = ω_yield · (1 − A²_yield(r, t))^(1/4)` read-only per the Duffing-softened resonance derivation. See §8.3 for the observer API and §13.2 for the original phase entry. The R4 `/α` removal patch (commit `6e355d1`) corrected the normalization; current observer returns canonical `r²`-form per Vol 4 Ch 1:711 subatomic override (§17.0).
 
-**Resolution path:** Stage 6 Phase 2 adds `NodeResonanceObserver` computing `Ω_node(r, t) = ω_yield · (1 − A²_yield(r, t))^(1/4)` read-only. See §13.2.
+**Residual:** the observer is read-only diagnostic. AutoresonantCWSource still tracks a Duffing shift at the **source-probe** site rather than per-node target site — see plan-file Finding 1 at `~/.claude/plans/read-through-th-kb-reactive-stardust.md` for the PLL anchor-math concern (ω_Compton vs ω_yield, ratio 0.571 always). Under Round 6 pivot, gate-related uses of Ω_node are suspended pending single-electron validation; the observer infrastructure remains useful as diagnostic.
 
-### 11.3 No nucleation rule
+### 11.3 ~~No nucleation rule~~ — ✅ CLOSED (CODE LANDED) by Stage 6 Phase 5 (commit `9ecc2ca`); FIRING ⏸ SUSPENDED in Round 6 pivot
 
-S1-D coupling modulates existing Cosserat structure but has no "trigger at C1 ∧ C2 ∧ C3 → inject topological structure" rule. Per [44_ §3.3](44_pair_creation_from_photon_collision.md) this was Option D from the four coupling-augmentation choices. The engine evolves smoothly through A² = 1 without any discrete topology-change event.
+**Resolution:** Phase 5 added `PairNucleationGate` observer-with-side-effect (commit `9ecc2ca`). Each step scans active A-B bonds; on C1 (A²_μ ≥ sat_frac at both endpoints) ∧ C2 (|Ω_node − ω_drive| < δ_lock), injects a point-rotation Beltrami pair (LH ω_A antiparallel to p̂_bond, RH ω_B parallel; |ω|=√2 such that each site carries ½·I_ω·|ω|² = m_e c²). Bond Φ_link[A, port] = ±Φ_critical; ω̇ zeroed; re-fire prevention via `_nucleated_bonds` set. 32-test suite (`test_phase5_pair_nucleation_gate.py`) pins construction defaults, C1/C2 decision table, δ_lock edges, re-fire prevention, injection profile (LH/RH sign, |ω|=√2, ω̇=0, Φ magnitude+sign), candidate bond topology, drive freq extraction, engine integration. Bingham-plastic capsule + Kelvin topological-protection framing per Vol 4 Ch 1:189-203 + Kelvin 1867. **Zero free parameters** (sat_frac=0.95 numerical, δ_lock = ω₀·α derived). See §13.5 for the original phase entry.
 
-**Resolution path:** Stage 6 Phase 5 adds `PairNucleationGate` observer+injector that fires a Beltrami-vortex boundary condition at `(r_A, r_B)` when C1 ∧ C2 fire. See §13.5.
+**Firing status (Round 6, suspended):** at registered config (N=24, amp=0.5·V_SNAP, autoresonant), max A²_total = 0.75-0.91 < sat_frac=0.95 → 0 firings (commit `3f9569b`). Three sessions of follow-up adjudication (C1-C2 window, four Readings of C2 condition, PLL anchor math, K4→Cosserat coupling weakness) **suspended in Round 6 pivot** ([doc 66_](66_single_electron_first_pivot.md)) pending single-electron validation precondition. The structural limit is closed (rule exists in code); the firing question is suspended.
 
 ### 11.4 Plane-wave geometry over-symmetrizes at saturation
 
@@ -1637,6 +1637,7 @@ Currently [AVE-APU/vol_1_axiomatic_components/ch05:26–37](../../../AVE-APU/man
 | 2026-04-24 | 4ba20f8 | session agent | — | `docs(L3 Stage 6 Round 6): VACUUM_ENGINE_MANUAL.md r8 hybrid-scope reconcile + first commit` — manual joins source control for the first time. Prior r0-r7 lived as untracked working-tree revisions. Going forward, each engine-changing commit lands with a synchronous manual edit per §1.2 maintenance protocol. |
 | 2026-04-24 | 687b18d | Grant + agent | — | `research(L3 Stage 6 Round 6 F17-I): Three LC-pair-coherent seed modes empirically tested` — adds `initialize_u_displacement_2_3_sector` (Cosserat u seeder) + `initialize_phi_link_2_3_ansatz` (K4 Φ_link seeder) + `seed_mode` parameter on coupled-engine eigenmode finder (mixed | all_c | all_l). Three-mode test at N=48 reveals **L_c coupling asymmetry** — `all_c` catastrophically diverges step 1, `all_l` bounded with monotonic Cosserat→K4 relaxation (no reverse channel), `mixed` runaway. A reciprocal LC coupling would oscillate energy between sectors at ω_C; observed pattern is one-way energy pump. Doc 66_ §18 added. F17-H (audit doc 54_ §6 L_c derivation) now load-bearing. |
 | 2026-04-24 | — | session agent (r8.1 update) | §13.5b F17-I results table, §17.1 A27 new (L_c asymmetry), §17.3 summary + critical-path blockers updated (F17-H now load-bearing) | **Manual r8.1.** First synchronous edit under the "manual joins source control" protocol — reflects F17-I three-mode test commit `687b18d`. Engine version 4.0.0 → 4.0.2 (test-only changes; new seeders + driver parameter, no new engine state). New audit finding A27 (L_c empirical asymmetry); F17-H derivation audit identified as new critical-path blocker. |
+| 2026-04-24 | — | session agent (r8.2 update) | §11.2 closed (NodeResonanceObserver landed `719f3ec`), §11.3 closed (PairNucleationGate code landed `9ecc2ca`; firing ⏸ suspended in Round 6), §16.3 doc index extended (docs 58-66 + Round 6 era group), §16.4 engine code index Classes column rebuilt (PairNucleationGate, BondObserver, DarkWakeObserver, CosseratBeltramiSource, SpatialDipoleCPSource, helpers, seeders), §16.5 canonical drivers extended (v2_reproducibility_seed_sweep, flux_tube_persistence, node_resonance_validation, phase5*, coupled_engine_eigenmode, tlm_electron_soliton_eigenmode) | **Manual r8.2.** Cleanup pass for stale content I deferred from r8 hybrid scope — §11.2/§11.3 limits closed, §16.3-§16.5 indices extended to current engine + research state. No new engine commits since r8.1; this is documentation-only catch-up to bring the indices in line with the §1.5 / §13 / §16.1 content from r8/r8.1. Engine version unchanged (4.0.2). |
 
 ### 16.2 Engine version history (prior to manual creation)
 
@@ -1705,9 +1706,22 @@ L3 electron-soliton thread, grouped by phase. Full list in [40_modeling_roadmap.
 - [52_h1_threshold_sweep.md](52_h1_threshold_sweep.md) — H1 falsified
 - [53_pair_production_flux_tube_synthesis.md](53_pair_production_flux_tube_synthesis.md) — structural limits named
 - [54_pair_production_axiom_derivation.md](54_pair_production_axiom_derivation.md) — Stage 6 derivation chain
-- [55_cosserat_normalization_derivation.md](55_cosserat_normalization_derivation.md) — Phase 3.5.A: A1/A14 manuscript-backed adjudication; R3 chosen
+- [55_cosserat_normalization_derivation.md](55_cosserat_normalization_derivation.md) — Phase 3.5.A: A1/A14 manuscript-backed adjudication; **SUPERSEDED** by R4 banner (Vol 4 Ch 1:711 subatomic override)
 - (56_ reserved — Phase 6 headline validation writeup, not yet drafted)
 - [57_universal_lattice_units_v4_refactor.md](57_universal_lattice_units_v4_refactor.md) — v4 refactor plan (post-Stage-6; FUTURE_WORK G-10)
+
+**Stage 6 Phase 5.5+ (Round 6 era):**
+- [58_cosserat_pml_derivation.md](58_cosserat_pml_derivation.md) — Cosserat-sector PML axiomatic derivation (Ax1+Ax3 forced); landed `03cb9d5`
+- [59_memristive_yield_crossing_derivation.md](59_memristive_yield_crossing_derivation.md) — memristive Op14 derivation; τ_relax = ℓ_node/c; BEMF-driven defect freezing; lattice-genesis cosmology framing; landed K4-side `49917ff`, Cosserat-side deferred
+- [60_bh_interior_contradiction_audit.md](60_bh_interior_contradiction_audit.md) — corpus contradiction audit between info-loss stance (Vol 3 Ch 15/21/KB-ch04) and alternative interface-encoding framing (FLAGGED, corpus-contradicting)
+- [61_cosmic_bipartite_k4_bh_interface_proposal.md](61_cosmic_bipartite_k4_bh_interface_proposal.md) — novel proposal: BH horizon as A-B rupture interface; surgically reframed for direction error (10⁴⁴ → 10⁻⁴⁴) and three-entropy distinction
+- [62_ruptured_plasma_bh_entropy_derivation.md](62_ruptured_plasma_bh_entropy_derivation.md) — S_BH adjudication via Vol 3 Ch 11 Ŝ-on-horizon calculation; three-entropy distinction lands as canonical
+- [63_info_loss_stance_reaudit.md](63_info_loss_stance_reaudit.md) — info-loss re-audit; Ŝ measures entropy GENERATION not capacity; AVE aligns with 1970s-Hawking; doc 61_ §3.5 unitarity-preserved retracted
+- [64_first_law_derivation_attempt.md](64_first_law_derivation_attempt.md) — first-law derivation attempt; **area theorem `δA ≥ 0` derived from Ax1+Ax4** (r_sat = 7GM/c²); T·dS = dE fails to close axiom-first by factor 7ξ — Flag 62-A load-bearing
+- [65_flag_62g_discrete_lattice_gamma.md](65_flag_62g_discrete_lattice_gamma.md) — Flag 62-G closure; discrete-lattice Γ at Ax4 boundary gives universal ~8.7·k_B (mass-independent)
+
+**Stage 6 Round 6 (single-electron-first pivot):**
+- [66_single_electron_first_pivot.md](66_single_electron_first_pivot.md) — Round 6 pivot canonical doc. §14 amplitude correction (peak |ω|=0.3π not √3/2·π); §17.2 three-storage-mode mapping (ε strain → C-state, κ curvature → L-state, V pressure → C-state); §18 F17-I three-mode coupled-seed test results.
 
 **Housekeeping:**
 - [BIBLIOGRAPHY.md](BIBLIOGRAPHY.md)
@@ -1717,13 +1731,13 @@ L3 electron-soliton thread, grouped by phase. Full list in [40_modeling_roadmap.
 
 ### 16.4 Engine code index
 
-| File | Purpose | Classes |
+| File | Purpose | Classes / functions |
 |---|---|---|
-| [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py) | Engine facade, sources, observers | VacuumEngine3D, EngineConfig, Source (+3), Observer (+5) |
-| [src/ave/topological/k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py) | S5-B unified integrator | CoupledK4Cosserat |
-| [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) | Cosserat sector (JAX autodiff) | CosseratField3D |
-| [src/ave/core/k4_tlm.py](../../src/ave/core/k4_tlm.py) | K4 TLM substrate | K4Lattice3D, K4Lattice2D |
-| [src/ave/core/constants.py](../../src/ave/core/constants.py) | Physical constants | — |
+| [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py) | Engine facade, sources, observers, gates | VacuumEngine3D, EngineConfig; Sources: PulsedSource, CWSource, AutoresonantCWSource, CosseratBeltramiSource, SpatialDipoleCPSource; Observers: ScalarObserver, RegimeClassifierObserver, NodeResonanceObserver, BondObserver, TopologyObserver, EnergyBudgetObserver, DarkWakeObserver; Gates: PairNucleationGate (observer-with-side-effect) |
+| [src/ave/topological/k4_cosserat_coupling.py](../../src/ave/topological/k4_cosserat_coupling.py) | S5-B unified integrator; coupling dispatch (asymmetric vs legacy); V_SNAP plumbing (Flag-5e-A fix) | CoupledK4Cosserat |
+| [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) | Cosserat sector (JAX autodiff); Phase 4 asymmetric (S_μ, S_ε) helpers; Cosserat PML; (2,3) hedgehog seeders | CosseratField3D; helpers `_beltrami_helicity`, `_tetrahedral_curl`, `_reflection_density_asymmetric`, `_update_saturation_kernels`; seeders `initialize_electron_2_3_sector` (ω), `initialize_u_displacement_2_3_sector` (u) |
+| [src/ave/core/k4_tlm.py](../../src/ave/core/k4_tlm.py) | K4 TLM substrate; K4 PML; opt-in memristive Op14 dynamical S(t); engine-V_SNAP plumbing | K4Lattice3D, K4Lattice2D |
+| [src/ave/core/constants.py](../../src/ave/core/constants.py) | Physical constants; KAPPA_CHIRAL_ELECTRON = 1.2α; TAU_RELAX = ℓ_node/c | — |
 | [src/ave/topological/faddeev_skyrme.py](../../src/ave/topological/faddeev_skyrme.py) | (2,q) torus-knot ansatz | TopologicalHamiltonian1D |
 | [src/ave/core/universal_operators.py](../../src/ave/core/universal_operators.py) | Universal operator catalog (Op1–Op14) | — |
 
@@ -1736,6 +1750,14 @@ L3 electron-soliton thread, grouped by phase. Full list in [40_modeling_roadmap.
 | [src/scripts/vol_1_foundations/vacuum_engine_pair_creation_v3.py](../../src/scripts/vol_1_foundations/vacuum_engine_pair_creation_v3.py) | Stage 5 Phase A H1 sweep |
 | [src/scripts/vol_1_foundations/dark_wake_validation.py](../../src/scripts/vol_1_foundations/dark_wake_validation.py) | Stage 4b validation |
 | [src/scripts/vol_1_foundations/autoresonant_tuning.py](../../src/scripts/vol_1_foundations/autoresonant_tuning.py) | Stage 4c K_drift sweep |
+| [src/scripts/vol_1_foundations/v2_reproducibility_seed_sweep.py](../../src/scripts/vol_1_foundations/v2_reproducibility_seed_sweep.py) | A17 bisection driver (Phase 3.5.A/B) |
+| [src/scripts/vol_1_foundations/flux_tube_persistence.py](../../src/scripts/vol_1_foundations/flux_tube_persistence.py) | Φ_link persistence driver for saturated-endpoint bonds (A15 retest) |
+| [src/scripts/vol_1_foundations/node_resonance_validation.py](../../src/scripts/vol_1_foundations/node_resonance_validation.py) | Phase 2 NodeResonanceObserver smoke driver |
+| [src/scripts/vol_1_foundations/phase5_pair_nucleation.py](../../src/scripts/vol_1_foundations/phase5_pair_nucleation.py) | Phase 5 PairNucleationGate driver (registered N=24 spec; ⏸ Round 6 suspended) |
+| [src/scripts/vol_1_foundations/phase5e_cool_from_above.py](../../src/scripts/vol_1_foundations/phase5e_cool_from_above.py) | Phase 5e cool-from-above driver (Flag-5e-A discovery; first empirical cool-through-yield) |
+| [src/scripts/vol_1_foundations/phase5e_cool_from_above_v2.py](../../src/scripts/vol_1_foundations/phase5e_cool_from_above_v2.py) | Phase 5e v2 with CosseratBeltramiSource (C1-C2 gate window discovery) |
+| [src/scripts/vol_1_foundations/coupled_engine_eigenmode.py](../../src/scripts/vol_1_foundations/coupled_engine_eigenmode.py) | F17-G/F17-I coupled K4+Cosserat eigenmode finder; `seed_mode` parameter for mixed/all_c/all_l three-mode test |
+| [src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py](../../src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py) | Path A K4-only TLM eigenmode driver (4-of-4 falsification, commit `fbbc950`); `initialize_phi_link_2_3_ansatz` Φ_link seeder |
 
 ### 16.6 KB invariants
 
