@@ -1041,3 +1041,84 @@ Total: ~310 LOC. AVE-native methodology fully realized: seed coherent across bot
 ---
 
 *§19 added 2026-04-25 — Phase 3-4 adjudication: case (c). Path B cannot bootstrap K4 under A28 because Op14 modulation is silent at V_inc=0. Phase 5 fires: the AVE-native methodology requires explicit (V_inc, V_ref) phase-coherent seeding + coupled S₁₁ relaxation. Single-electron validation now methodology-clear; implementation begins.*
+
+---
+
+## 20. F17-K Phase 5a-b: phase-quadrature seed under raw step() dynamics is NOT sufficient (2026-04-25)
+
+### 20.1 Phase 5a: `initialize_quadrature_2_3_eigenmode` seeder
+
+[`tlm_electron_soliton_eigenmode.py:initialize_quadrature_2_3_eigenmode`](../../src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py) — phase-coherent (V_inc, V_ref) seed at 90° quadrature in (2,3) phase-space pattern. Per [doc 28_:64-67](28_two_node_electron_synthesis.md#L64) the AVE-native eigenmode initial condition:
+
+    V_inc[..., p] = envelope(x) · port_factor_p · cos(2φ + 3ψ)
+    V_ref[..., p] = envelope(x) · port_factor_p · sin(2φ + 3ψ)
+
+Per-port phasor angle ψ_port(x, p) = arctan2(V_ref, V_inc) = 2φ + 3ψ — the (2,3) phase-space winding the corpus requires. `chirality` parameter blends port-uniform (handedness-symmetric) with chirality-weighted (chiral electron seed) port factors. Default amplitude 0.05 in engine natural units (V_SNAP=1; sub-yield).
+
+### 20.2 Phase 5b smoke test — fallacy interlude
+
+First-pass diagnostic (per-node reactive-energy temporal variance) read positively: cov_shell ≈ 0.04-0.06, |V_inc| stable around 0.13-0.17 throughout 30 steps. I framed this as "phase-coherence is high; eigenmode forming under raw dynamics."
+
+External audit caught five fallacies mid-interpretation:
+
+1. **"K4 is active"** — conflated nonzero amplitude with dynamic engagement. Actually E_k4 monotonically decayed 179 → 151 over 30 steps (~15% drain) — that's dissipation, not LC reactive cycling.
+2. **"Low cov = phase-quadrature"** — coefficient of variation only measures temporal spread, doesn't distinguish "perfectly conserved" from "monotonically draining."
+3. **"phase_winding=0 is just a diagnostic aggregation bug"** — actually the chirality=1.0 seed has π-jumps in per-port phasor angle (χ_p has both signs across tetrahedral ports), breaking clean winding interpretation.
+4. **Wrong winding-number expectation** — major-axis equatorial contour gives winding=2 (toroidal), not 3 (which is the poloidal/minor-axis winding). The (2,3) requires sampling BOTH contours.
+5. **"K4 active but Cosserat collapsing independently"** — Cosserat trajectory was byte-identical to Path B. K4 wasn't coupling to Cosserat; it was just leaking the seed without affecting Cosserat dynamics.
+
+The underlying pattern: optimistic-interpretation bias on numbers that "could be" positive signals. Per COLLABORATION_NOTES Rule 9 (precondition audit): the diagnostic itself was using the wrong observable.
+
+### 20.3 Rebuilt diagnostic — explicit Ax-3 conditions
+
+[`phase_coherence_diagnostic.py`](../../src/scripts/vol_1_foundations/phase_coherence_diagnostic.py) rebuilt to test five distinct Ax-3 observables:
+
+1. **E_total conservation** — std/|mean| of E_cos+E_k4 over a sliding window. Expected <0.01 for an eigenmode.
+2. **E_cos↔E_k4 correlation** — Pearson correlation of detrended series. Expected <-0.5 (anti-phase) for LC coupling firing.
+3. **Phasor angular velocity** — dθ/dt at sampled lattice sites. Expected ≈ ω_C ≈ 1 with low std for steady oscillation.
+4. **Major-axis winding** — toroidal phase-space winding along (R_target, z=center) circle. Expected 2.
+5. **Minor-axis winding** — poloidal phase-space winding along (φ=0, ψ varies, r=r_target) circle. Expected 3.
+
+### 20.4 Phase 5b v2 result — three seeds at N=80
+
+Three back-to-back runs (Path B, chirality=0, chirality=1) at N=80, 20 steps each, A28+self-terms:
+
+| Seed | E_k4 t=0 | E_k4 t=20 | E_total_cov | correlation | dθ/dt std | w_maj | w_min |
+|---|---|---|---|---|---|---|---|
+| Path B | 0 | 0 | 0.16-0.67 | +0.0 | 0.0 | 0 | 0 |
+| chir=0 | 537 | 468 | 0.15-0.63 | ±0.2 | 0.6-0.8 | 0 | 0 |
+| chir=1 | 179 | 164 | 0.16-0.66 | ±0.2 | 1.2-1.4 | 0 | 0 |
+
+**Verdict: NONE of the three seeds produces an Ax-3 phase-coherent eigenmode under raw step() dynamics.**
+
+- E_total_cov 0.15-0.67 — way above 0.01 threshold. Energy not conserved.
+- Correlation oscillates sign — no consistent LC anti-phase exchange.
+- dθ/dt highly variable — no constant Compton-rate angular velocity.
+- E_k4 at chirality=0/1 monotonically drains (15% / 8% over 20 steps) — dissipation, not reactive cycling.
+
+### 20.5 Diagnostic flags surfaced (defer fix)
+
+- **winding_major = 0 even for chirality=0 at step 0** is a diagnostic bug, not physics. K4 is bipartite (only A or B sublattice carries V_inc/V_ref); half the contour samples land on inactive sites where V_inc=V_ref=0 → arctan2(0,0)=0 breaks the winding pattern. The other Ax-3 observables (E_total_cov, correlation, dθ/dt) use full-field aggregation and aren't affected.
+- **E_cos has 2-step alternating oscillation** (1.1e4 ↔ 3.6e2 step-to-step) across all three seeds. That's discrete-time Nyquist period, likely a Verlet kick/drift integrator artifact. Not coupling-driven (same pattern in K4-dormant Path B).
+
+These don't affect the case (b)/(c) verdict but are flags for future Phase 5c diagnostic work.
+
+### 20.6 Implication: Phase 5c (coupled S₁₁ relaxation) is load-bearing
+
+The phase-quadrature seed populates K4 with reactive structure, but raw `VacuumEngine3D.step()` dynamics doesn't preserve it — K4 monotonically drains. This is the Ax-3 noncompliance corrected at one more level of depth:
+
+- **Path B → step-12 Cosserat collapse:** wrong action principle (raw step() instead of S₁₁ relaxation)
+- **F17-I three-mode → all_l ≡ Path B:** wrong seed framing (Φ_link is derived flux, not primary state)
+- **Phase 5b → phase-quadrature seed drains:** wrong eigenmode finder (raw step() doesn't relax to S₁₁ minimum; need explicit gradient descent)
+
+Per AVE-Protein vol_protein Ch 3:805 — "the native fold minimises |S₁₁|²" — the AVE-native eigenmode finder is **gradient descent on |S₁₁|²**, not time-domain dynamics. Doc 34_ X4b already validated this Cosserat-only via [`relax_s11`](../../src/ave/topological/cosserat_field_3d.py#L974). Phase 5c extends to coupled K4+Cosserat:
+
+- Compose `total_s11_coupled(engine) → float` summing K4 reflection + Cosserat |Γ|²
+- Build `relax_s11_coupled(engine, max_iter, tol, lr)` doing joint gradient descent on (V_inc, V_ref, u, ω) state
+- Run from phase-quadrature seed; diagnostic per-iteration; adjudicate convergence
+
+Estimated scope: ~250 LOC.
+
+---
+
+*§20 added 2026-04-25 — Phase 5a-b: phase-quadrature seed under raw step() dynamics fails to produce Ax-3 eigenmode. Five-fallacy audit caught optimistic-interpretation bias; rebuilt diagnostic shows E_total not conserved, no LC anti-phase correlation, no constant angular velocity. Phase 5c (coupled S₁₁ relaxation) is the load-bearing next step — the AVE-native eigenmode finder is gradient descent on |S₁₁|², not time-domain stepping. Methodology stack now complete: phase-quadrature seed + S₁₁ relaxation + phase-space winding diagnostic.*
