@@ -215,7 +215,10 @@ The pre-Round-6 plan deferred this upgrade behind "test point-rotation first." P
 
 **Stays open:**
 - (γ) C1/C2 threshold-reach question — unaffected by this finding; gate logic might work if injection profile is upgraded to Hopf or (2,3) topology
-- R5.10 Readings 1-4 — NOT pre-empted by this run; reopen at threshold-revision level only AFTER a topologically-protected injection profile is implemented and tested
+- **R5.10 Readings 1-4 — two-level status (clarification per external audit 2026-04-25):**
+  - **PRE-EMPTED at original Round 5 framing.** The four Readings (Compton-lock-is-rupture, PLL-chirps-past-lock, drive-health-boolean, parity-chirality-coincidence) argued about how to INTERPRET C2 under ambiguous threshold satisfaction. The ansatz-seed approach made thresholds unambiguous-by-construction, retiring the interpretation debate at this level (this is what §3 / commit `01bbec3` body framing referred to).
+  - **MAY REOPEN at threshold-revision level** — a DIFFERENT question at a higher epistemic level — after a topologically-protected injection profile is implemented and tested. Once point-rotation Beltrami is replaced with (2,3) torus-knot or Hopf fibration, the C1/C2 thresholds may need revision to suit the new injection profile (e.g., what saturation level is "sufficient" for Hopf-injection vs Beltrami-injection?). That revision work re-engages parts of the C2 territory but at a different level than the original Reading interpretations (this is what §7.4 / commit `ede4008` body framing referred to).
+  - Net: not "dead" but not "pending in original form" either. Two separate questions at two different levels.
 - A31 F17-K Phase 6 sparse eigensolver — Round 7 Stage 1 (separate concern; eigensolver is for single-electron eigenmode, not pair injection profile)
 
 ### 7.6 Next concrete experiment (Round 7 candidate Stage 2)
