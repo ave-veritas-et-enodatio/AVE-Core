@@ -122,6 +122,12 @@ def _seed_both_sectors(
         ALL L-states at peak, ALL C-states at zero — consistent eigenmode
         snapshot at quarter-cycle later than all_c.
 
+    - "path_b" (F17-I.J Op6 self-consistency on Path B under A28):
+        Cosserat ω only (no K4 seed). Matches the F17-I.4 manual N=80 run
+        that produced bound (2,3) state at t=0 under A28+self-terms.
+        Engine must be constructed with disable_cosserat_lc_force=True and
+        enable_cosserat_self_terms=True for this mode to behave as in §17.4.
+
     Default amplitudes derived per doc 54_ §3 (Φ_critical) and doc 34_
     §9.4 (ω at 0.3π); strain at peak for u kept sub-yield via u_amp_scale.
     """
@@ -157,9 +163,15 @@ def _seed_both_sectors(
         initialize_phi_link_2_3_ansatz(engine.k4, R=R, r=r, amplitude=phi_link_amplitude)
         # Cosserat init zeros u; Phi_link init doesn't touch V_inc.
         # Both already zero from clean-state above.
+    elif seed_mode == "path_b":
+        # Path B: Cosserat ω only — no K4 seed.
+        engine.cos.initialize_electron_2_3_sector(
+            R_target=R, r_target=r, use_hedgehog=True,
+            amplitude_scale=cos_amp_scale,
+        )
     else:
         raise ValueError(f"unknown seed_mode {seed_mode!r}; "
-                         f"must be 'mixed', 'all_c', or 'all_l'")
+                         f"must be 'mixed', 'all_c', 'all_l', or 'path_b'")
 
 
 def _run_inner(
@@ -168,9 +180,16 @@ def _run_inner(
     energy_seed: float,
     energy_explosion_factor: float,
     rms_avg_last_n: int = 30,
+    seed_mode: str = "mixed",
 ) -> tuple[dict, bool]:
     """Run engine forward n_steps; accumulate combined-magnitude RMS over
     last rms_avg_last_n steps; track per-step energy for divergence detection.
+
+    Topology extraction:
+      - path_b / all_l: Cosserat ω is the seeded topology owner
+        (K4 V_inc starts at 0; using K4 extractor reads an empty lattice
+        and reports c=0 spuriously).
+      - all_c / mixed: K4 V_inc carries the (2,3) winding directly.
 
     Returns (diagnostics, diverged_flag). On divergence, returns early.
     """
@@ -204,7 +223,10 @@ def _run_inner(
         rms_field = _compute_combined_magnitude(engine)
 
     R_rms, r_rms = shell_envelope(rms_field, cx, cy, cz)
-    c_extracted = extract_crossing_count_tlm(engine.k4, R_major=R_rms)
+    if seed_mode in ("path_b", "all_l"):
+        c_extracted = engine.cos.extract_crossing_count()
+    else:
+        c_extracted = extract_crossing_count_tlm(engine.k4, R_major=R_rms)
     peak_omega = float(np.max(np.linalg.norm(np.asarray(engine.cos.omega), axis=-1)))
     final_E = energies[-1] if energies else 0.0
 
@@ -234,6 +256,8 @@ def solve_eigenmode_coupled_engine(
     max_iter: int = 4,
     tol: float = 5e-2,
     energy_explosion_factor: float = 100.0,
+    disable_cosserat_lc_force: bool = False,
+    enable_cosserat_self_terms: bool = False,
     verbose: bool = True,
 ) -> CoupledEigenmodeResult:
     """Iterative self-consistency loop on the COUPLED K4+Cosserat engine.
@@ -255,7 +279,11 @@ def solve_eigenmode_coupled_engine(
     trajectory: list = []
 
     for outer in range(1, max_iter + 1):
-        engine = VacuumEngine3D.from_args(N=N, pml=pml, temperature=0.0)
+        engine = VacuumEngine3D.from_args(
+            N=N, pml=pml, temperature=0.0,
+            disable_cosserat_lc_force=disable_cosserat_lc_force,
+            enable_cosserat_self_terms=enable_cosserat_self_terms,
+        )
         _seed_both_sectors(
             engine, R_k, r_k, cos_amp_scale, k4_amplitude,
             seed_mode=seed_mode,
@@ -271,6 +299,7 @@ def solve_eigenmode_coupled_engine(
         diag, diverged = _run_inner(
             engine, n_steps, E_seed, energy_explosion_factor,
             rms_avg_last_n=min(30, n_steps),
+            seed_mode=seed_mode,
         )
 
         trajectory.append((R_k, r_k, diag["c"], diag["E_final"], diag["peak_omega"]))

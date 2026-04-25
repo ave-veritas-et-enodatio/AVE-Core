@@ -905,3 +905,139 @@ The bound state forms and persists for 20 Compton periods. Pass criteria require
 ---
 
 *§17 added 2026-04-24 — Cosserat self-terms refined: k_refl auto-suppressed under A28 to avoid re-introducing the redundant force; k_op10 and k_hopf preserved. Path B at N=80 forms the (2,3) bound state with shell_Γ²≈3-4, c=3 sustained through step 20. Strain-mask 550 LOC infrastructure collapsed to zero per Grant's prediction. Single-electron validation qualitatively unblocked; quantitative full validation pending Op6 self-consistency outer loop.*
+
+---
+
+## 18. Op6 + per-step + N=120 + all_c/all_l findings (2026-04-25)
+
+**Framing under the corrected methodology** per [doc 68_](68_phase_quadrature_methodology.md): the runs in this section were all conducted under the F17-I three-mode framing, which is **Axiom-3 noncompliant** (uses time-evolution dynamics + Cartesian shell extraction instead of S₁₁ minimization on phase-space (V_inc, V_ref) coordinates). Findings are recorded for audit-trail purposes; their interpretation under the corrected methodology may differ from what's stated below.
+
+### 18.1 Op6 self-consistency on Path B at N=80 — geometry-collapse
+
+Wrapped Path B (Cosserat ω only seed at amp_scale=0.346, peak |ω|=0.3π) in `solve_eigenmode_coupled_engine` outer loop with engine flags `disable_cosserat_lc_force=True, enable_cosserat_self_terms=True`. Inner: 12-step `engine.step()` window (covers steps 0-11, the bound regime per §17.4). Outer: max 8 iterations, tolerance 5%.
+
+Result: max_iter_no_converge with geometry-collapse at iter 5.
+
+| iter | R | r | R/r | c | E | \|ω\|peak |
+|---|---|---|---|---|---|---|
+| 0 (seed) | 20.000 | 7.639 | 2.618 | 0 | 4.37e3 | 0.922 |
+| 1 | 17.457 | 7.4814 | 2.333 | 1 | 3.78e3 | 0.929 |
+| 2 | 16.459 | 7.4814 | 2.200 | 1 | 3.60e3 | 0.926 |
+| 3 | 14.464 | 7.4814 | 1.933 | 1 | 3.25e3 | 0.920 |
+| 4 | 16.459 | 7.4814 | 2.200 | 1 | 3.60e3 | 0.926 |
+| 5 | 14.464 | 7.4814 | 1.933 | 1 | 3.25e3 | 0.920 |
+
+Three structural facts:
+- **r locked at 7.4814 to machine epsilon from iter 1 onward** (Δr/r = 1.187e-16). Lattice-discretization artifact — `extract_shell_radii` bins to specific lattice radii.
+- **R in period-2 attractor**: 16.459 ↔ 14.464. R/r oscillates 2.20 ↔ 1.93, neither matches φ²=2.618.
+- **c=1 stable from iter 1 onward**, but this is a window-edge artifact (see §18.2).
+
+Per §1 audit: this run measures the wrong observable (Cartesian time-RMS shell extraction, not (V_inc, V_ref) phase-space phasor). The geometry-collapse may be a real Hamiltonian instability OR may be the lattice's natural sloshing geometry being mis-projected onto a 2D (R, r) parameter space. Without the phase-coherence diagnostic, can't distinguish.
+
+### 18.2 Per-step c trace at N=80 — bound regime is steps 0-11, not 0-20
+
+Replicated §17.4 manual N=80 run config and captured `engine.cos.extract_crossing_count()` at each of steps 0-30:
+
+```
+Steps 0-7:    c=3 sustained (with one c=2 dip at step 8)
+Steps 9-11:   c=3
+Step 12+:     c oscillates wildly between {0, 1, 2, 3}
+```
+
+§17.4's table sampled at {0, 1, 2, 5, 10, 20, 50, 100, 200} and reported c=3 through step 10, c=2 at step 20. The per-step trace shows the bound regime ends at step ~11, not step 20 — §17.4's "through step 20" overstates by ~2× because the table sampling missed the step-12 transition.
+
+**Reframing under §1 audit:** the c-extractor is reading Cartesian-shell-contour winding, which is the wrong observable for the (2,3) topology that lives in phase-space. The c={0,1,2,3} chaotic fluctuation past step 12 may be the Cartesian shell sloshing while phase-space topology stays locked. **Phase-coherence diagnostic in F17-K Phase 2 is needed to distinguish.**
+
+### 18.3 PML drainage falsified at N=120
+
+Same engine config + seed at N=120 (PML margin grows from 31% to 54% of half-lattice). Step-by-step trace IDENTICAL to N=80 through step 12. Step-12 transition occurs at the same step number with the same R_found, r_found, peak|ω|, E_cos values to 4 significant figures. The dynamics are converged with respect to lattice resolution.
+
+Conclusion: the step-12 degradation is **intrinsic to the integrator + physics, not a finite-domain boundary artifact**. PML drainage hypothesis cleanly falsified.
+
+### 18.4 all_l ≡ Path B (Φ_link is derived flux, not independent state)
+
+Ran F17-I `all_l` mode: Φ_link seeded at amplitude 1.18 (sub-Φ_critical), Cosserat ω at amplitude (peak |ω|=0.3π), V_inc=0, u=0, u_dot=0. Per-step trace:
+
+- **Step-by-step IDENTICAL to Path B**: c_cos, R_found, r_found, peak|ω|, E_cos all bit-identical for 25 steps.
+- **E_k4 stays at exactly 0.000 throughout 25 steps** despite Φ_link seeded at amplitude 1.18.
+
+Φ_link is a derived flux observable in K4-TLM (time-integral of bond V_avg over each bond), not a primary dynamical state. K4 wave dynamics treat V_inc/V_ref as primary state; seeding Φ_link directly leaves a value sitting in memory that doesn't couple back to V_inc evolution.
+
+**Reframing under §1 audit:** the F17-I three-mode framing in [doc 66_ §17.2](66_single_electron_first_pivot.md#L17-2) took TLM language too literally. Φ_link is not an independent L-state of an independent LC pair. The K4 bond LC stores energy in (V_inc, V_ref) wave structure; the L-state vs C-state distinction is encoded in the wave PHASE, not in a separate Φ_link state. doc 66_ §17.2 marked superseded.
+
+### 18.5 all_c has unit-scale bug (separate issue)
+
+`coupled_engine_eigenmode.py` default `k4_amplitude = 0.9 * float(V_YIELD)` mixes SI and natural units: V_YIELD = √α × V_SNAP ≈ 43,652 V (SI) per [`constants.py:284`](../../src/ave/core/constants.py#L284), but engine runs with V_SNAP = 1 (natural units). The all_c seed amplitude is ~10⁵× over-driven.
+
+Visible in the run: |V|=118,257 at step 0; E_k4 = 5.5×10¹³ vs E_cos ~10⁴. K4→Cosserat coupling via Op14 IS firing under the over-driven seed (Cosserat ω grows from 0 to peak 1.5 within 4 steps), but dynamics aren't physically meaningful at this amplitude. Same bug class as [VACUUM_ENGINE_MANUAL.md A26 / Flag-5e-A](VACUUM_ENGINE_MANUAL.md): module-level SI constant used inside engine running natural units.
+
+**Reframing under §1 audit:** the all_c framing is corpus-mismatched (per doc 66_ §17.2 superseded note); the unit bug is moot under the new methodology because the seed will be a phase-coherent (V_inc, V_ref) phasor pair, not a single component variable amplitude. Don't fix the unit bug until Phase 5 if it fires.
+
+### 18.6 Net §18 finding
+
+The Op6 + per-step + N=120 + all_c/all_l data taken together produce a **coherent symptom set**: under the wrong methodology (time-evolution + Cartesian shell extraction), the engine appears to form a (2,3) bound state for ~11 steps then degrade into chaotic c-fluctuation, with no convergence under outer-loop self-consistency on (R, r). Under the corrected methodology (S₁₁ minimization + phase-space (V_inc, V_ref) measurement), the question of whether the (2,3) eigenmode actually exists in the engine's dynamics remains open until F17-K Phase 3 runs the phase-coherence diagnostic.
+
+**Decision per F17-K Phase 4:** if phase-coherence stays high through step 12+ and phase-space winding = 3 sustained, the engine has the (2,3) eigenmode and §17-§18's symptoms are measurement artifacts; Path B is unblocked. If phase-coherence collapses at step 12, explicit phase-quadrature seeding + coupled S₁₁ relaxation is required (Phase 5 fires).
+
+---
+
+*§18 added 2026-04-25 — Op6 + per-step + N=120 + all_c/all_l data recorded under the F17-K methodology correction. The F17-I three-mode framing is superseded; doc 68_ lands the corrected approach. Single-electron validation status: ambiguous-pending-Phase-2-diagnostic — the symptom data could indicate either real eigenmode formation under wrong measurement, or genuine eigenmode absence. F17-K Phase 2 (phase-coherence diagnostic) is the next probe.*
+
+---
+
+## 19. F17-K Phase 3-4: Phase-coherence diagnostic adjudicates case (c) — K4 dormant under Path B (2026-04-25)
+
+### 19.1 Phase 3 run — K4 V_inc = 0 throughout
+
+[`src/scripts/vol_1_foundations/phase_coherence_diagnostic.py`](../../src/scripts/vol_1_foundations/phase_coherence_diagnostic.py) runs Path B (Cosserat ω only seed at amp_scale=0.346) at N=80 under A28+self-terms with per-step phase-coherence + phase-space winding measurement. Result for all 30 steps:
+
+```
+peak|V_inc| = 0.0000  (all 30 steps, exact)
+cov_global  = 0.0000  (mean(E_node) = 0, division undefined)
+cov_shell   = 0.0000
+phase_w     = 0       (phasor angle field identically zero)
+```
+
+The K4 sector's V_inc field stays at exactly zero throughout Path B's evolution. Cosserat ω evolves as before (peak |ω| oscillates 0.15-0.97, c_cos shows the same step-12 transition). K4 is **dormant**.
+
+### 19.2 Adjudication — case (c)
+
+Per [doc 68_ §9](68_phase_quadrature_methodology.md#L9):
+
+> **Case (c)** — Phase-coherence never high in the first place. Path B's seed (Cosserat ω only) doesn't bootstrap K4 phase coherence at all. Validates that phase-quadrature seeding is required from t=0. Build new seeder (Phase 5).
+
+This is unambiguously case (c). The diagnostic value is decisive precisely because the absence of any K4 signal — V_inc = 0 throughout — is the AVE-native answer.
+
+### 19.3 Why under A28 the Cosserat→K4 channel is silent for V_inc=0 seeds
+
+Already flagged in [§13](#13) (path-1 EMF derivation):
+
+> "in all_l, V_inc = 0 makes the asymmetric W_refl's V-derivative small (∂W_refl/∂(u,ω) for V=0 contributes via Cosserat-only fields). The L_c force was small in that mode, so disabling it changes little. This is consistent with the A28 hypothesis (Op14 IS the dominant cross-sector channel, and at V=0 even Op14 doesn't transfer energy because there's nothing to scatter)."
+
+The Phase 3 diagnostic confirms this empirically for Path B. Under A28:
+- **Cosserat→K4:** Op14 z_local modulation modifies K4 *impedance* by Cosserat saturation. Impedance modulation only affects waves IF those waves exist. With V_inc=0 across the lattice, no waves to modulate → no energy transfer → K4 stays at zero.
+- **K4→Cosserat:** K4 waves would scatter through Cosserat-saturated regions, transferring energy. Channel is silent because no K4 waves exist.
+
+A28 correctly removed the legacy `_compute_coupling_force_on_cosserat` redundant force. That force was the ONLY mechanism that could drive Cosserat from non-existent K4 waves (it computed `value_and_grad(L_c)` on (u, ω) using V² as a multiplicative factor; even at V=0, the gradient could be non-zero through gauge artifacts). Under A28, that pathological pathway is removed — physically correct, but it leaves Path B with **no bootstrap to K4**.
+
+### 19.4 Implication: the engine's coupled eigenmode requires explicit (V_inc, V_ref) seeding
+
+Path B can never produce a coupled (K4 + Cosserat) eigenmode from Cosserat-only seed under A28. Empirically:
+- Path A (K4 V_inc only): K4 evolves alone, no Cosserat bootstrap (Cosserat saturation A²_Cos = 0 from u=ω=0). → K4-only is exhausted (Vol 1 Ch 8:49-50)
+- Path B (Cosserat ω only): Cosserat evolves alone, no K4 bootstrap (V=0 means Op14 silent). → bound (2,3) in Cosserat for ~11 steps, then dissolution
+- Coupled eigenmode: requires BOTH sectors at amplitude simultaneously, with phase-coherent (V_inc, V_ref) tracing the (2,3) phase-space pattern per [doc 28_:64-67](28_two_node_electron_synthesis.md#L64).
+
+### 19.5 Phase 5 fires
+
+Per [doc 68_ §9](68_phase_quadrature_methodology.md#L9), Phase 5 implementation:
+
+- **Phase-quadrature seeder** `initialize_quadrature_2_3_eigenmode` populating (V_inc, V_ref) at 90° quadrature with (2,3) winding pattern in phase-space (~80 LOC). Replaces F17-I three-mode framing's component-amplitude seeders.
+- **Coupled `total_s11`** combining K4 reflection (Op2 Γ) + Cosserat |Γ|² (already exists Cosserat-only) (~50 LOC).
+- **Coupled `relax_s11`** — joint gradient descent on (V_inc, V_ref, u, ω) state. Doc 34_ X4b validated the template Cosserat-only at amp=0.942 (Cosserat self-terms find Cosserat-only bound state under S₁₁ relaxation); extending to coupled engine (~100 LOC).
+- **Driver** running phase-quadrature seed + coupled S₁₁ relaxation at N=80, with phase-coherence diagnostic per-step (~80 LOC).
+
+Total: ~310 LOC. AVE-native methodology fully realized: seed coherent across both sectors, eigenmode finder is impedance-matching gradient descent, observable is phase-space winding + S₁₁ minimum.
+
+---
+
+*§19 added 2026-04-25 — Phase 3-4 adjudication: case (c). Path B cannot bootstrap K4 under A28 because Op14 modulation is silent at V_inc=0. Phase 5 fires: the AVE-native methodology requires explicit (V_inc, V_ref) phase-coherent seeding + coupled S₁₁ relaxation. Single-electron validation now methodology-clear; implementation begins.*

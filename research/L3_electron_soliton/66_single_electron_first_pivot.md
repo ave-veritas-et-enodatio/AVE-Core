@@ -563,6 +563,8 @@ These don't contribute to A² directly but are part of the dynamics:
 
 #### 17.2.3 Implication for Path A/B/C seeding
 
+> ⚠ **SUPERSEDED 2026-04-25** by [doc 68_](68_phase_quadrature_methodology.md) §6. The "three LC conjugate pairs" framing below treats Φ_link as an independent dynamical L-state of an independent LC pair. Empirically falsified in session 2026-04-25: the all_l mode (Φ_link + ω at amplitude, V_inc=0) produces step-by-step IDENTICAL trajectory to Path B (Cosserat ω only); E_k4 stays at exactly zero throughout 25 steps despite Φ_link seeded at amplitude. **Φ_link is a derived flux observable in K4-TLM** (time-integral of bond V_avg), not a primary state. The K4 bond LC stores energy in the (V_inc, V_ref) wave-pair structure; the L-state vs C-state distinction is encoded in the wave PHASE, not in a separate Φ_link state. Body preserved per COLLABORATION_NOTES Rule 12 as audit trail.
+
 A bound (2,3) eigenmode requires phase relationships across all three LC pairs to be self-consistent under the engine's dynamics. The Path tests seeded only fragments:
 
 - **Path A:** K4 V_inc only (one C-state of one LC pair). Φ_link, u, u_dot, ω all = 0. No oscillation in any pair; lattice is a static charge distribution.

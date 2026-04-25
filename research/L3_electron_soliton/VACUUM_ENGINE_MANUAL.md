@@ -2243,6 +2243,42 @@ A reciprocal LC coupling would produce energy oscillation between sectors at the
 
 **Methodology lesson** (per [doc 67_ §15.6](67_lc_coupling_reciprocity_audit.md)): the agent acknowledged the slip honestly — *"treated `k4_cosserat_coupling.py:23` framing ('Unified Lagrangian S = S_K4 + S_Cos + ∫L_c dx³') as definitive without cross-checking Vol 4 Ch 1's varactor-as-K4-self-Lagrangian-non-linearity. The relayed audit's concern #5 (Vol 4 Ch 1 cross-check) would have surfaced this on first reading. Should have done it upfront."* COLLABORATION_NOTES Rule 8 Round 6 strengthening: corpus-search at architectural-decision time, not just at debug time. The redundancy lived in Phase 4's commit since `a5bd1da`; a Vol 4 Ch 1 cross-check at Phase 4 design-review would have caught it before Phase 5 was even shipped.
 
+#### A29. F17-I three-mode framing (all_c/all_l/mixed) is Axiom-3 noncompliant; phase-quadrature S₁₁ methodology supersedes (S1 — methodology correction; F17-K) — ✅ FRAMING LANDED 2026-04-25 (doc 68_)
+
+**Where:** [coupled_engine_eigenmode.py](../../src/scripts/vol_1_foundations/coupled_engine_eigenmode.py) `_seed_both_sectors` mode branches (`mixed`, `all_c`, `all_l`, `path_b`) and the F17-I plan (now superseded) in [doc 66_ §17.2.3](66_single_electron_first_pivot.md#L17-2-3).
+
+**The finding:** session 2026-04-25 ran the F17-I three-mode tests under A28+self-terms and uncovered structural problems with the framing itself (per [doc 67_ §18](67_lc_coupling_reciprocity_audit.md#L18) data + [doc 68_](68_phase_quadrature_methodology.md) framing correction):
+
+1. **all_l ≡ Path B step-by-step** — Φ_link is a derived flux observable in K4-TLM (time-integral of bond V_avg), not a primary state. Direct seeding leaves a value that doesn't couple to V_inc evolution. E_k4 stays at exactly zero throughout 25 steps despite Φ_link seeded at amplitude 1.18.
+2. **all_c has a unit-scale bug** — `k4_amplitude = 0.9 * V_YIELD` mixes SI+natural units, ~10⁵× over-driven seed. Same bug class as A26 / Flag-5e-A.
+3. **The deeper issue:** F17-I's "three LC pairs" framing in doc 66_ §17.2 took TLM language too literally. The K4 bond LC stores energy in (V_inc, V_ref) wave-pair structure with energy encoded in the wave PHASE, not in separate L-state vs C-state component variables.
+
+**Per Vol 1 Ch 1:51-75 axiom numbering** (canonical):
+- Ax 1: Substrate Topology (LC Network)
+- Ax 2: TKI
+- **Ax 3: Effective Action Principle (Least Reflected Action) — minimize $S_{AVE}$ / $|S_{11}|^2$**
+- Ax 4: Saturation
+
+The session's F17-I → Path B → Op6 line used time-evolution dynamics + Cartesian shell extraction as eigenmode finder + observable, instead of S₁₁ minimization on phase-space (V_inc, V_ref) coordinates. This is the **same Ax-3 slip from session 2026-04-20** that COLLABORATION_NOTES Rule 6 already records.
+
+**Corpus reframe** (per [doc 68_](68_phase_quadrature_methodology.md)):
+- Golden Torus $R/r=\varphi^2$ is in **phase-space (V_inc, V_ref) phasor coordinates**, not Cartesian. Real-space dimensions (R=0.809, r=0.309 vs d=1) are geometrically impossible per [doc 29_:73-91](29_ch8_audit.md#L73).
+- AVE-native action principle is $|S_{11}|^2$ minimization (per Vol 4 Ch 1 LC tank, AVE-Protein Ch 3, doc 16/17 Q-factor reframe).
+- AVE-native PFC is **chirality matching** (Hopf-coil A∥B alignment per AVE-Propulsion Ch 4), not capacitance/inductance balance.
+
+**Methodology correction in F17-K plan:**
+- Phase 1 (landed today): doc 68_ + doc 67_ §18 + doc 66_ §17.2 superseded note + this A29 entry.
+- Phase 2-3 (next): build phase-coherence diagnostic (per-site (V_inc, V_ref) phase-quadrature score; phase-space winding of phasor trajectory), run on Path B at N=80 under A28+self-terms.
+- Phase 4: adjudicate three cases — (a) phase-coherence high throughout → Path B unblocked via right diagnostic; (b) phase-coherence drops at step 12 → explicit phase-quadrature seeder required; (c) phase-coherence never high → seed required from t=0.
+- Phase 5 (deferred, only if Phase 4 says required): coupled S₁₁ relaxation infrastructure on (V_inc, V_ref, u, ω) joint state.
+
+**What's still open:**
+- Phase 4 adjudication (in progress).
+- The `0.9 * V_YIELD` unit bug in `coupled_engine_eigenmode.py` is left unfixed under A29 because the F17-I three-mode seeding is superseded; under the new methodology the seed is a phase-coherent (V_inc, V_ref) phasor pair, not a single component variable amplitude. Don't fix the unit bug until Phase 5 if it fires.
+- doc 29_ §4 Finding F4 corpus-level gap ("$\alpha^{-1} = \Sigma \Lambda_i$ is asserted, not derived from Q-factor") remains research-grade open (Op21 multi-mode rigorization).
+
+**Methodology lesson** (per [doc 68_ §1.4](68_phase_quadrature_methodology.md#L1-4)): the agent made the same Ax-3 slip from session 2026-04-20 (energy minimization instead of impedance/S₁₁) at session 2026-04-25 with an Op6 self-consistency loop on Cartesian shell extraction. Rule 6 + Rule 8 strengthening compound: at architectural-decision time, **both** ask "what's the AVE-native action principle?" AND grep the corpus for "exhausted/insufficient/cannot" — the F17-I three-mode plan committed code without doing either. Fortunately the phase-coherence diagnostic in F17-K Phase 2 distinguishes "real eigenmode under wrong measurement" from "no eigenmode" cheaply (~1 min run), so the methodology slip is recoverable in one session.
+
 #### F17-L. V_yield vs V_SNAP scale mismatch in doc 54_ §6 vs engine — factor 1/α off (S2 — pre-existing; not blocking single-electron validation)
 
 **Where:** [doc 54_ §6](54_pair_production_axiom_derivation.md) specifies `A²_ε = ε_sym²/ε_yield² + V²/V_yield²` (yield convention). The engine implements `V²/V_SNAP²` (Schwinger convention). Differs by factor `1/α` since `V_yield = √α · V_SNAP` (macroscopic) while `V_yield ≡ V_SNAP` (subatomic override per Vol 4 Ch 1:711, see §17.0 R4 adjudication).

@@ -221,6 +221,106 @@ def initialize_phi_link_2_3_ansatz(
     lattice.Phi_link[~lattice.mask_A] = 0.0
 
 
+def initialize_quadrature_2_3_eigenmode(
+    lattice: K4Lattice3D,
+    R: float,
+    r: float,
+    amplitude: float = 0.05,
+    chirality: float = 1.0,
+) -> None:
+    """F17-K Phase 5 — phase-coherent (V_inc, V_ref) seed at 90° quadrature
+    in (2,3) phase-space pattern.
+
+    AVE-native eigenmode initial condition per [doc 28_:64-67](../../research/L3_electron_soliton/28_two_node_electron_synthesis.md#L64)
+    and [doc 68_ §7](../../research/L3_electron_soliton/68_phase_quadrature_methodology.md#L7):
+    the (V_inc, V_ref) phasor pair traces the (2,3) torus-knot winding
+    pattern in phase-space at R_phase=φ/2, r_phase=(φ-1)/2. At t=0:
+
+        V_inc[..., p] = envelope(x) · chirality_weight_p · cos(2φ + 3ψ)
+        V_ref[..., p] = envelope(x) · chirality_weight_p · sin(2φ + 3ψ)
+
+    Per-port phasor angle ψ_port(x, p) = arctan2(V_ref, V_inc) = 2φ + 3ψ
+    winds 2 times around the major-axis (φ) and 3 times around the
+    minor-axis (ψ). This is the phase-space (2,3) winding doc 28_ §3
+    requires — the actual TKI invariant per Ax 2.
+
+    `chirality` parameter:
+      0.0 → port-uniform (handedness-symmetric, both helicities seeded)
+      1.0 → full chirality projection per port = (p̂_k · t̂_(2,3)), encoding
+            right-handed K4 chirality that distinguishes electron from positron
+            (default — for explicit electron seed)
+
+    `amplitude` defaults to 0.05 in engine natural units (V_SNAP=1).
+    Engine-natural V_yield ≈ √α ≈ 0.0854; default 0.05 is sub-yield.
+    Avoid the F17-I unit bug (`0.9 * V_YIELD` mixes SI+natural — see
+    A29 / Flag-5e-A class).
+
+    Use case: pair with `cos.initialize_electron_2_3_sector` (Cosserat ω
+    at amplitude_scale 0.346, peak |ω|=0.3π) for a fully coupled
+    phase-coherent seed across both K4 and Cosserat sectors. Drives
+    [`coupled_relax_s11`](coupled_engine_eigenmode.py) to find the
+    impedance-matched eigenmode under Ax-3.
+    """
+    cx = (lattice.nx - 1) / 2.0
+    cy = (lattice.ny - 1) / 2.0
+    cz = (lattice.nz - 1) / 2.0
+
+    idx = np.indices((lattice.nx, lattice.ny, lattice.nz))
+    i, j, k = idx[0], idx[1], idx[2]
+    x = i - cx
+    y = j - cy
+    z = k - cz
+
+    rho_xy = np.sqrt(x**2 + y**2 + 1e-12)
+    rho_tube = np.sqrt((rho_xy - R) ** 2 + z**2 + 1e-12)
+    phi = np.arctan2(y, x)
+    psi = np.arctan2(z, rho_xy - R)
+
+    r_opt = max(r, 1.0)
+    envelope = amplitude * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
+
+    # (2,3) knot tangent (same as V_inc seeder)
+    dphi_x = -(R + r * np.cos(psi)) * np.sin(phi)
+    dphi_y = (R + r * np.cos(psi)) * np.cos(phi)
+    dphi_z = np.zeros_like(phi)
+    dpsi_x = -r * np.sin(psi) * np.cos(phi)
+    dpsi_y = -r * np.sin(psi) * np.sin(phi)
+    dpsi_z = r * np.cos(psi) * np.ones_like(phi)
+    t_x = 2.0 * dphi_x + 3.0 * dpsi_x
+    t_y = 2.0 * dphi_y + 3.0 * dpsi_y
+    t_z = 2.0 * dphi_z + 3.0 * dpsi_z
+    t_mag = np.sqrt(t_x**2 + t_y**2 + t_z**2 + 1e-12)
+    t_hat_x = t_x / t_mag
+    t_hat_y = t_y / t_mag
+    t_hat_z = t_z / t_mag
+
+    ports = [
+        (+1.0, +1.0, +1.0),
+        (+1.0, -1.0, -1.0),
+        (-1.0, +1.0, -1.0),
+        (-1.0, -1.0, +1.0),
+    ]
+    inv_sqrt3 = 1.0 / np.sqrt(3.0)
+
+    theta_wind = 2.0 * phi + 3.0 * psi
+    cos_theta = np.cos(theta_wind)
+    sin_theta = np.sin(theta_wind)
+
+    for p_idx, (px, py, pz) in enumerate(ports):
+        chirality_weight = inv_sqrt3 * (
+            px * t_hat_x + py * t_hat_y + pz * t_hat_z
+        )
+        # Blend port-uniform (1.0) with chirality projection per `chirality` knob
+        port_factor = (1.0 - chirality) * 1.0 + chirality * chirality_weight
+        # 90° quadrature: V_inc = cos·factor, V_ref = sin·factor at every port
+        lattice.V_inc[..., p_idx] = envelope * port_factor * cos_theta
+        lattice.V_ref[..., p_idx] = envelope * port_factor * sin_theta
+
+    # Mask inactive sites (only K4-active sites carry V_inc/V_ref dynamics)
+    lattice.V_inc[~lattice.mask_active] = 0.0
+    lattice.V_ref[~lattice.mask_active] = 0.0
+
+
 def _apply_2_3_ansatz_with_envelope(
     lattice: K4Lattice3D,
     R: float,
