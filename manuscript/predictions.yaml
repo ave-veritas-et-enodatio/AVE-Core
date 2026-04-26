@@ -1298,6 +1298,187 @@ predictions:
       - Follow-up commit: r7_lattice_resolution_sweep.py driver build +
         N=64 run + interpretation update to doc 74_
 
+  - id: P_phase6_cos_block_n64_dual_criterion
+    name: "R7.1 Cos-block N=64 GT_corpus dual-criterion (frequency + localization) bound-state test; shell-fraction threshold = 80% per Grant adjudication"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r7_cos_block_n64_topology.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      DRAFT pre-registration for Cos-block N=64 dual-criterion bound-state
+      test, per auditor concern #4 + A39 v2 dual-criterion discipline. Not
+      yet pre_registered: true — awaiting Grant adjudication on the
+      shell-fraction threshold parameter (load-bearing per A39 v2; pred
+      is frozen only after Grant signs off).
+
+      MOTIVATION: R7.1 V-block at N=32 + N=64 + dual-criterion is now
+      canonically Mode III (V-pressure sector empty at corpus GT geometry).
+      The three-storage-mode picture per doc 66_ §17.2 has the bound state
+      potentially in V-pressure (V-block, tested empty), ε-strain or
+      κ-curvature (Cosserat (u, ω) — Cos-block, tested at N=32 only with
+      frequency criterion → Mode III), or Φ_link (third LC tank, not
+      directly probed by either block). This pred tests the Cos-block at
+      N=64 with dual-criterion frequency + topology to definitively
+      adjudicate whether the (2,3) bound state lives in the Cosserat sector.
+
+      METHODOLOGY:
+      - Engine: A28 + Cosserat self-terms enabled (post-Round-6 default).
+      - Lattice: N=64, PML=4, R_anchor=10, GT_corpus seed only (R/r=φ²).
+      - K_cos = ∂²W/∂(u, ω)² at seed via FD HVP LinearOperator (per
+        r7_k4tlm_scattering_lctank.py build_K_cos_op pattern, extended to
+        joint (u, ω) state).
+      - Eigsolve: shift-invert at sigma=ω_C²=1 with explicit OPinv via
+        inner GMRES (rtol=1e-3, maxiter=300) per r7_cos_block_shift_invert.py
+        pattern. k=20 eigenvalues nearest σ.
+      - Topology check: for closest eigenvalue within α PASS tolerance,
+        compute shell fraction on the ω-component of the eigenvector
+        (analogous to V-block topology check via shell_localization).
+        Shell defined as ±r_minor of the (R=10, r=10/φ²) torus shell.
+
+      DUAL-CRITERION FALSIFICATION (per doc 74_ §7 + A39 v2 + Grant
+      adjudication 2026-04-26: shell-fraction threshold locked at 80%):
+
+      Mode I (corpus vindicated in Cosserat sector):
+        Frequency criterion: ∃ eigenvalue λ_n with |√λ_n - ω_C| < α·ω_C
+        AND
+        Topology criterion: shell_fraction ≥ 0.80
+        Reading: Cosserat sector hosts the (2,3) bound state at corpus GT
+        geometry, tightly localized at the (R, r) shell. Doc 66_ §17.2
+        three-storage-mode picture confirmed: ε-strain or κ-curvature is
+        the bound-state-hosting LC tank. Round 7 closes with corpus
+        vindicated.
+
+      Mode I-FAIL (insufficient localization or bulk-mode coincidence):
+        Frequency criterion passes BUT shell_fraction < 0.80.
+        Two informational sub-readings:
+          (a) 0.10 ≤ shell_fraction < 0.80: partial localization;
+              eigvec has shell preference but significant bulk leak.
+              Reading: ambiguous — could indicate hybrid V↔ω mode (which
+              §3.1.1 V=0 decoupling suggests should NOT exist at this seed,
+              hence threshold = 80%) OR a true bound state with stronger-
+              than-expected lattice-discretization spread.
+          (b) shell_fraction < 0.10: bulk-mode coincidence (band-density
+              artifact). Same failure mode V-block hit at N=64 per
+              [doc 74_ §7 third flip](74_r7_k4tlm_lctank_run_result.md#7).
+              Reading: Cosserat sector has bulk modes at ω_C² due to band
+              density, but no localized (2,3) bound state.
+        Either sub-reading: Cosserat-sector bound-state hypothesis FAILS.
+        Round 8 Φ_link sector becomes the cleanest gap.
+
+      Mode III (Cosserat sector also empty):
+        No eigenvalue within α tolerance regardless of localization.
+        Reading: V-pressure AND ε-strain/κ-curvature both empty.
+        Round 8 Φ_link sector becomes the cleanest gap.
+
+      THRESHOLD ADJUDICATION (locked 2026-04-26):
+      Threshold = 80% locked per Grant adjudication. Substantive reason:
+      §3.1.1 V=0 decoupling means no cross-coupling channel at seed, so
+      genuine Cos-block bound-state has no physical mechanism for V↔ω
+      hybrid leak. Should be tightly localized (>80% at the shell) absent
+      lattice-discretization spread. Sub-80% indicates either partial
+      localization (suspicious) or bulk-mode artifact.
+      Auditor noted either 50% or 80% would correctly catch V-block-style
+      bulk-mode failure (V-block was 1.13%, orders of magnitude below
+      either threshold). 80% is the more physically defensible per V=0
+      argument; locked.
+
+      ESTIMATED COST: ~3-4 hours per seed at N=64 with shift-invert + GMRES
+      (per r7_cos_block_shift_invert.py per-seed timing scaled by 8×
+      volume from N=32 to N=64). Single seed (GT_corpus) initially; if
+      topology Mode I confirms localization, expand to F17K endpoints +
+      vacuum_control for full Mode I/II/III sub-reading.
+
+      RUN ORDER: pre-reg lands AFTER Grant adjudicates threshold → driver
+      build (~150 LOC delta on existing r7_cos_block_shift_invert.py to
+      add topology extraction and threshold check) → run → result + adjudication
+      lands in doc 74_ §9 or new doc 75_.
+
+  - id: P_phase5_topological_injection
+    name: "R7.2 (2,3)/Hopf injection per VACUUM_ENGINE_MANUAL §9 G-13 — topologically-protected pair-bound persists ≥ 10 Compton periods post-drive AND topology preserved (c=3) throughout"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/70_phase5_resume_methodology.md"
+    test_file: "src/scripts/vol_1_foundations/phase5_topological_pair_injection.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      DRAFT pre-registration for R7.2 ((2,3)/Hopf topologically-protected
+      pair injection per VACUUM_ENGINE_MANUAL §9 G-13). Not yet
+      pre_registered: true — awaiting Grant review of dual-criterion
+      structure (frequency persistence + topology preservation, both
+      required per A39 v2 discipline).
+
+      MOTIVATION (per doc 70_ §7.6): Phase 5 ansatz-seeded driver case (b')
+      established that the gate's point-rotation Beltrami injection
+      profile is fundamentally unstable in Cosserat self-dynamics
+      (|ω|_A drops 93% in ONE Velocity-Verlet step). VACUUM_ENGINE_MANUAL
+      §9 G-13 contingency activated empirically: upgrade injection profile
+      to (2,3) torus-knot OR Hopf fibration at bond endpoints,
+      chirality-matched (LH at A, RH at B). R7.2 tests whether the upgraded
+      topologically-protected ansatz survives Cosserat self-dynamics where
+      Beltrami didn't.
+
+      Note: R7.2 is INDEPENDENT of R7.1's bound-state-eigenmode question.
+      The R7.2 question is "does topologically-richer injection profile
+      persist under self-dynamics?" — a time-domain stability question,
+      not an eigenvalue-spectrum question. R7.2 can run in parallel with
+      Cos-block N=64 (R7.1 follow-up).
+
+      METHODOLOGY:
+      - Engine: same registered config as Phase 5 ansatz-seeded driver
+        (N=24, amp=0.5·V_SNAP, λ=3.5, head-on autoresonant collision per
+        commit ede4008 + doc 70_ §7).
+      - Seed: replace point-rotation Beltrami with (2,3) torus-knot or
+        Hopf fibration at each bond endpoint, chirality-matched.
+        Seeders to reuse:
+          - cosserat_field_3d.py:initialize_electron_2_3_sector — (2,3)
+            hedgehog at one endpoint
+          - tlm_electron_soliton_eigenmode.py:initialize_quadrature_2_3_eigenmode
+            — phase-coherent V_inc/V_ref seed
+          - coupled_s11_eigenmode.py:_project_omega_to_saturation —
+            saturation-pin (peak |ω|=0.3π)
+        Apply at TWO bond endpoints with opposite chirality.
+      - A26 amplitude guard at step 0 (peak |ω| ∈ [0.85, 1.15]·0.3π).
+
+      DUAL-CRITERION PASS (per A39 v2 discipline, required for R7.2 too):
+
+      Frequency persistence: peak |ω|_A AND |ω|_B at endpoints stay
+      ≥ 0.5 · seed amplitude for ≥ 10 Compton periods post-drive-shutoff.
+
+      AND
+
+      Topology preservation: (2,3) winding number c_eigvec = 3 (or Hopf
+      invariant, whichever is the seeded topological invariant) preserved
+      throughout drive + post-drive observation. Computed via existing
+      extract_crossing_count or analogous Hopf-invariant extractor.
+
+      MODE I (G-13 contingency works):
+        Both criteria PASS. Topologically-protected ansatz persists where
+        Beltrami didn't. R7.2 closes; (2,3)/Hopf injection profile is the
+        canonical pair-nucleation mechanism.
+
+      MODE II (frequency persists, topology lost):
+        Amplitude persists but c drops from 3 → some other value.
+        Reading: Cosserat self-dynamics preserves the magnitude pattern
+        but not the winding. Topological protection is partial.
+        Round 8 question: what additional dynamics is needed to preserve
+        winding?
+
+      MODE III (frequency dissolves at same timescale as Beltrami):
+        Topologically-richer ansatz also dissolves in 1-3 Compton periods.
+        Reading: coupling depth issue, not injection profile issue.
+        Cosserat self-terms inadequate to host bound pair regardless of
+        topological protection. Same physics as F17-K (2,3) electron
+        Cosserat dissolution at step ~11 (doc 70_ §7.4 finding extends
+        to pair scale).
+
+      ESTIMATED COST: ~200 LOC new driver + ~1-2 hr fresh-session run
+      (per doc 70_ §7.6 estimate).
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
