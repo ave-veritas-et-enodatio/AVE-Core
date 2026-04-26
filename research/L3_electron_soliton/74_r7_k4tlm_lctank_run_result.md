@@ -226,18 +226,43 @@ V-block eigsolve at N=64: 349.5s wall time (T_op3 dim 262K, ~2M nonzeros). Tract
 
 ---
 
-## 7. Headline three-mode adjudication (REVISED post-follow-ups, 2026-04-26)
+## 7. Headline three-mode adjudication (TWICE-REVISED post-follow-ups, 2026-04-26)
 
-**Mode I candidate at N=64 V-block GT_corpus.** N=32 Mode III was finite-N artifact. The K4-TLM lattice at N=64, with corpus GT geometry, hosts a V-block eigenmode at gap 0.45% from ω_C·dt — within α=0.73% PASS tolerance. **Corpus geometry may yet be correct.**
+### THIRD FLIP — Mode I candidate FALSIFIED via topology check
 
-Comprehensive coverage matrix (post all three follow-ups):
+The Mode I candidate at N=64 V-block GT_corpus passed the frequency criterion (gap 0.45% < α/√2) but **failed the topology check.** Per [`r7_n64_topology_check.py`](../../src/scripts/vol_1_foundations/r7_n64_topology_check.py):
 
-| Block | N | Coverage method | Seed | Gap | Tolerance | Verdict |
+- Closest V-block eigenvalue at phase 0.710307 rad (gap 3.20e-3 = 0.45% from ω_C·dt) — **frequency PASS**
+- Shell localization of eigvec at seeded (R=10, r=3.82) torus: **1.13%** of total energy
+- Bulk-uniform expectation (random distribution over lattice): **0.6%**
+- **Observed shell fraction is 2.0× bulk-uniform — barely above random.**
+
+Verdict: "WEAK SHELL LOCALIZATION (< 10%): eigvec is spread uniformly across lattice (bulk mode). **NOT a (2,3) bound state. Mode I candidate framing collapses.**"
+
+**The frequency-PASS at N=64 was a band-density artifact.** At higher N the K4-TLM lattice spectrum is dense enough that *some* bulk mode randomly lands within α tolerance of ω_C·dt at GT_corpus seed. The auditor's concern #1 (topology check is load-bearing not confirmatory) was exactly correct.
+
+**The K4-TLM V-block does NOT host the (2,3) bound state at corpus GT geometry at any tested N.** The N=32 Mode III was real Mode III (no eigenmode at all near tolerance); the N=64 frequency-PASS was a band-density coincidence on a delocalized bulk mode. Both readings agree: V-sector is empty of (2,3) bound state.
+
+### Comprehensive coverage matrix (final, post all four follow-ups)
+
+| Block | N | Coverage method | Seed | Gap | Topology check | Verdict |
 |---|---|---|---|---|---|---|
-| V-block | 32 | Shift-invert at exp(i·ω_C·dt) | All 4 | 1.22-1.23% | α/√2 ≈ 0.73% | Mode III (finite-N) |
-| **V-block** | **64** | **Shift-invert at exp(i·ω_C·dt)** | **GT_corpus** | **0.45%** | **α/√2 ≈ 0.73%** | **PASS — Mode I candidate** |
-| Cos-block | 32 | Shift-invert at σ=ω_C², inner GMRES | All 4 | 1.04-2.00% | α ≈ 0.73% | Mode III |
+| V-block | 32 | Shift-invert at exp(i·ω_C·dt) | All 4 | 1.22-1.23% | (n/a — frequency FAIL) | Mode III |
+| V-block | 64 | Shift-invert at exp(i·ω_C·dt) | GT_corpus | 0.45% | **shell fraction 1.13%, bulk mode** | **Mode III** (frequency-PASS via band-density artifact; topology FAIL — no (2,3) localization) |
+| Cos-block | 32 | Shift-invert at σ=ω_C², inner GMRES | All 4 | 1.04-2.00% | (n/a — frequency FAIL) | Mode III |
 | Cos-block | 64 | Not yet run | — | — | — | DEFERRED |
+
+### Methodological lesson: frequency-PASS alone is band-density-vulnerable at high N
+
+This run is the cleanest empirical demonstration in this arc that frequency-only PASS criteria become unreliable at high lattice resolution because mode density grows with lattice volume. **Any "Mode I confirmed" result needs both frequency AND topology criteria.** Updates the A39 finding for r8.9: the rule should be "any Mode I/II/III adjudication at fixed N needs (a) pre-registered larger-N falsification AND (b) topology / localization verification, not just frequency criterion."
+
+### What the run sequence empirically established (3 headline flips in one session)
+
+1. Initial run: comprehensive Mode III at N=32 (V-block + Cos-block both 1-2% off) — looked like Round 8 architectural rework needed.
+2. Pre-registered larger-N sweep at N=64: gap closed to 0.45%, frequency PASS — **headline flipped to Mode I candidate; corpus GT may yet be correct.**
+3. Topology check on N=64 eigvec: shell fraction 1.13% (bulk mode, not (2,3) bound state) — **headline flipped back to Mode III; corpus geometry NOT vindicated by V-sector.**
+
+Each flip was empirically driven and caught real issues that static analysis would have missed. This is Rule 10 working at full strength. **The lesson stays: pre-registration + multiple verification axes is the discipline; single-criterion PASS at one N is insufficient.**
 
 ### 7.1 Mode I candidate caveats
 
@@ -248,18 +273,28 @@ The N=64 V-block PASS at GT_corpus is a **CANDIDATE**, not a confirmed Mode I. O
 3. **F17K endpoint seeds at N=64.** If F17K_cos and F17K_s11 also PASS at N=64, the K4-TLM lattice at N=64 hosts eigenmodes near ω_C·dt at MULTIPLE geometries — could indicate a continuum band rather than a single (R, r) bound state. A "PASS at multiple seeds" outcome would mean Mode I is confirmed by GT_corpus AND signal that the K4-TLM has many candidate (R, r) for the (2,3) eigenmode.
 4. **N=80 follow-up** — if N=32 → N=64 gap-closure is real continuum approach, gap should continue closing as N grows. Strong test of "N=64 PASS is real continuum mode" vs "N=64 PASS is N=64-specific artifact."
 
-### 7.2 Round 8 architectural reading — REVISED
+### 7.2 Round 8 architectural reading — RESTORED
 
-The earlier Mode III finding at N=32 had pointed to Φ_link sector as Round 8 entry candidate. **That reading is now substantially weakened.** The V-block (which DOESN'T directly probe Φ_link state) shows a bound-state-region eigenmode at sufficient lattice resolution. Round 8 architectural rework is no longer the immediate next step.
+The third flip restores the Round 8 architectural reading that the original Mode III at N=32 had pointed toward. **V-block at corpus GT geometry does NOT host the (2,3) bound state at any tested N.** The frequency-PASS at N=64 was a band-density artifact on a bulk-delocalized mode.
 
-The corrected next-step ordering:
+Round 8 entry candidates (probability ordering per auditor + this run's evidence):
 
-1. **Confirm Mode I at N=64** (V-block topology check + Cos-block N=64 + other-seeds at N=64). If confirmed → R7.1 closes with corpus vindicated; R7.2 ((2,3)/Hopf injection per G-13) runs at corpus GT geometry; Round 7 closes.
-2. **N=80 sensitivity** if N=64 is confirmed but borderline. Continuum-limit verification.
-3. **R7.2 pre-registration + run** in parallel with R7.1 follow-ups, since R7.2 is independent of basin/eigenmode question.
-4. **Round 8 questions remain open as fallbacks** if N=64+ confirmation fails: Φ_link sector, hybrid V≠0 ∧ ω≠0, (2,3) structural rework. But they're contingent on N=64+ NOT confirming, not the immediate next step.
+1. **Cos-block at N=64** — most physics-substantive next test. The Cos-block at N=32 was Mode III too, but at a different operator structure (Hessian-of-W on (u, ω) — discrete-LC-tank Cosserat sector). At N=64 the Cosserat spectrum could either also show only bulk modes near ω_C² (then bound state isn't in V OR Cos at corpus GT — points to Φ_link or hybrid), OR localize at the (2,3) shell (then bound state lives in ε-strain sector, which is the Cosserat-side LC-tank per doc 66_ §17.2).
+2. **Φ_link sector** (third LC tank per [doc 66_ §17.2](66_single_electron_first_pivot.md)) — NOT directly probed by V-block (V_inc states) or Cos-block ((u, ω) states). If both are Mode III at corpus GT at high N, Φ_link is the cleanest gap.
+3. **Hybrid V≠0 ∧ ω≠0 mode** — V=0 seed misses any genuinely cross-coupled bound state. Test via quadrature seed at small V_amp.
+4. **(2,3) representation structural rework** — weakest; testable by sweeping (1,2), (2,5), (3,5) windings.
 
-This is a substantively different posture from the original §4 Mode III interpretation. The auditor's concern #3 about pre-registered larger-N sweep was load-bearing — it converted the N=32 result from "Mode III canonical → Round 8 needed" to "Mode III was finite-N → Mode I candidate at N=64 → corpus may be correct."
+### 7.3 Auditor's concerns #2-#4 — re-prioritized after topology FAIL
+
+- **Concern #2 (corpus discrimination via F17K endpoints at N=64):** mostly moot for V-block now. Since the Mode I candidate was bulk-mode (not (2,3) bound state), running F17K endpoints at N=64 V-block would confirm "lattice has bulk modes near ω_C·dt at any seeded geometry due to band density" — informational but doesn't change Mode III adjudication.
+- **Concern #3 (N=80 scaling test):** significantly weakened. The "gap at N=80 ≤ 0.30%" target was relevant if Mode I at N=64 was real. Since N=64 was bulk-mode artifact, gap-closure at N=80 just continues to populate band-density-vulnerable region. Could still test if the AT-LATTICE-MODE-DENSITY gap-closure pattern is uniform (it would be at higher N too) but not load-bearing.
+- **Concern #4 (Cos-block at N=64):** **MOST physics-substantive next step.** Tests whether ε-strain sector hosts the (2,3) bound state at corpus GT. If Cos-block at N=64 shell-localizes, that's the cleanest corpus vindication possible (V-sector empty + ε-strain sector hosts bound state per doc 66_ §17.2). If Cos-block at N=64 is also bulk-mode like V-block at N=64, Round 8 entry strengthens (Φ_link or hybrid).
+
+Recommended next-step ordering REVISED:
+
+1. **Cos-block at N=64 GT_corpus only with topology check** (~3-4 hr at N=64). Both frequency criterion (eigsh shift-invert at σ=ω_C²) AND shell localization on the eigvec. Single seed first; if topology confirms localization, expand to F17K endpoints + vacuum_control for Mode I/II/III sub-reading.
+2. **R7.2 pre-registration** ((2,3)/Hopf injection per G-13) — independent of basin/eigenmode question, can run in parallel. Still needs `P_phase5_topological_injection`.
+3. **Round 8 prep** — Φ_link sector operator construction (third-LC-tank inclusion in eigsolve framework). ~200-400 LOC new methodology; probably reframe-5 territory if it requires a new pred + driver class. Don't start until Cos-block at N=64 result is in.
 
 ---
 
@@ -272,7 +307,7 @@ Per [doc 73_ §7](73_discrete_k4_tlm_lctank_operator.md) prep notes + this doc 7
 - **§16.3 doc index:** doc 73_, doc 74_ entries with §6-§7 post-follow-up state and Mode I candidate framing.
 - **§17.1 A37:** operator-implementation Rule 6 violation (continuum-on-discrete operator-construction error catalyzing reframe 4).
 - **§17.1 A38:** implementation-level bug pattern — operator spec correctly framed but realization in code missed sub-spec details (S(z) being z-invariant under per-node uniform z; null-space artifacts in Hessian eigsolve). Caught by empirical run, fixed in same session per Rule 10.
-- **§17.1 A39 (NEW):** finite-N adjudication discipline — V-block Mode III at N=32 (1.22% gap) was reported as "comprehensive" because shift-invert directly targets the closest eigenvalue. But "comprehensive coverage of the N=32 spectrum" isn't the same as "comprehensive coverage of the K4-TLM dispersion in the continuum-limit sense." Pre-registered larger-N sweep (`P_phase6_lattice_resolution_sweep`) was load-bearing in distinguishing the two. **Lesson: any "Mode III at fixed N" reading must be paired with a pre-registered larger-N falsification before being cited canonically.** Methodology rule generalizes beyond R7.1: discrete-lattice eigenmode results are inherently scale-dependent until verified across at least one larger N.
+- **§17.1 A39 (NEW, REVISED post-topology-FAIL):** dual-criterion bound-state adjudication discipline — frequency-PASS at high lattice resolution is band-density-vulnerable. The N=64 V-block GT_corpus passed the frequency criterion (gap 0.45% < α/√2) but FAILED topology (shell fraction 1.13% — bulk mode, not (2,3) localized). The auditor's concern #1 (topology check is load-bearing not confirmatory) was load-bearing exactly as predicted. **Lesson: any Mode I/II/III adjudication at fixed N needs (a) pre-registered larger-N falsification AND (b) topology / localization verification, not just frequency criterion.** Frequency-only PASS at high lattice resolution is band-density artifact. Both falsifications together are required for canonical citation. Methodology rule generalizes beyond R7.1: discrete-lattice eigenmode results need scale-and-localization verification axes; either one alone is insufficient.
 - **§13.7 critical-path table:** R7.1 status now "Mode I candidate confirmed at N=64 V-block GT_corpus (gap 0.45% < α/√2 PASS tolerance); confirmation pending topology + Cos-block-at-N=64 + other-seeds-at-N=64 + N=80 follow-ups. Round 8 questions deferred contingent on N=64+ confirmation outcome. R7.2 ((2,3)/Hopf injection per G-13) independent, still needs P_phase5_topological_injection pre-reg, can run in parallel."
 - **§6.1 carve-out invocation note** — first invocation in Round 7 on-record per Grant approval 2026-04-25 ("confirmed 6.1"). Round 7 may close at Mode I confirmation without needing a second invocation, contingent on N=64 follow-up results.
 
@@ -280,4 +315,4 @@ Per [doc 73_ §7](73_discrete_k4_tlm_lctank_operator.md) prep notes + this doc 7
 
 ---
 
-*Doc 74_ written 2026-04-25; §6-§8 substantially revised 2026-04-26 covering three auditor follow-ups (Cos-block comprehensive coverage at σ=ω_C², K4-TLM dispersion analytical sanity check, lattice resolution sweep at N=64). HEADLINE FLIPPED: V-block at N=64 GT_corpus has eigenmode at gap 0.45% < α/√2 PASS tolerance — **Mode I candidate** (corpus geometry vindicated). N=32 Mode III was a finite-N artifact, falsified by pre-registered larger-N sweep. Confirmation requires topology (c_eigvec=3) + Cos-block-at-N=64 + other-seeds-at-N=64 + N=80 sensitivity follow-ups. Cos-block comprehensive at N=32 also returns Mode III at all 4 seeds (gap 1.04-2.00%); needs N=64 follow-up. Round 8 architectural rework deferred contingent on N=64+ confirmation.*
+*Doc 74_ written 2026-04-25; §6-§8 substantially revised 2026-04-26 covering four R7.1 follow-ups (Cos-block comprehensive coverage at σ=ω_C², K4-TLM dispersion analytical sanity check, lattice resolution sweep at N=64, **topology check on N=64 V-block eigvec**). **HEADLINE BACK-FLIPPED TWICE: comprehensive Mode III at N=32 → Mode I candidate at N=64 (frequency-PASS) → Mode I FALSIFIED via topology check (shell fraction 1.13%, bulk mode not (2,3) localized).** The K4-TLM V-block does NOT host the (2,3) bound state at corpus GT geometry at any tested N. Frequency-PASS at N=64 was a band-density artifact. Cos-block comprehensive at N=32 also returns Mode III (gap 1.04-2.00%); Cos-block at N=64 + topology check is the most physics-substantive next test. Round 8 architectural questions (Φ_link sector, hybrid V≠0∧ω≠0, (2,3) structural rework) restored as candidate next-steps. Three headline flips in one analytical arc demonstrate Rule 10 empirical-driver discipline at full strength: each flip caught a real issue (auditor concern #3 caught finite-N artifact, then auditor concern #1 caught band-density artifact).*
