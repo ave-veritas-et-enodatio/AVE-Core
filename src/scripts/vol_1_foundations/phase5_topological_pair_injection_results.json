@@ -1,0 +1,22 @@
+{
+  "pre_registration": "P_phase5_topological_injection",
+  "frozen_at_commit": "1c89fa1",
+  "N": 24,
+  "amplitude": 0.5,
+  "compton_periods_covered_post_drive": 14.95025765937284,
+  "omega_seed": 0.12440677975897425,
+  "threshold_omega": 0.06220338987948713,
+  "min_omega_A_post_drive": 0.0412305006118804,
+  "min_omega_B_post_drive": 0.07076219448450745,
+  "frequency_pass_A": false,
+  "frequency_pass_B": true,
+  "frequency_pass": false,
+  "min_c_cos": 0,
+  "max_c_cos": 3,
+  "c_cos_at_end": 2,
+  "topology_preserved": false,
+  "mode": "III",
+  "verdict": "MODE III \u2014 Frequency dissolves at same timescale as Beltrami (case b'). Topologically-richer ansatz also dissolves. Coupling-depth issue, not injection-profile issue. Same physics as F17-K (2,3) electron Cosserat dissolution at step ~11. The bound state requires more than topological richness in the injection profile.",
+  "trajectory_length": 85,
+  "elapsed_seconds": 14.237035036087036
+}

@@ -315,4 +315,87 @@ Per [doc 73_ §7](73_discrete_k4_tlm_lctank_operator.md) prep notes + this doc 7
 
 ---
 
-*Doc 74_ written 2026-04-25; §6-§8 substantially revised 2026-04-26 covering four R7.1 follow-ups (Cos-block comprehensive coverage at σ=ω_C², K4-TLM dispersion analytical sanity check, lattice resolution sweep at N=64, **topology check on N=64 V-block eigvec**). **HEADLINE BACK-FLIPPED TWICE: comprehensive Mode III at N=32 → Mode I candidate at N=64 (frequency-PASS) → Mode I FALSIFIED via topology check (shell fraction 1.13%, bulk mode not (2,3) localized).** The K4-TLM V-block does NOT host the (2,3) bound state at corpus GT geometry at any tested N. Frequency-PASS at N=64 was a band-density artifact. Cos-block comprehensive at N=32 also returns Mode III (gap 1.04-2.00%); Cos-block at N=64 + topology check is the most physics-substantive next test. Round 8 architectural questions (Φ_link sector, hybrid V≠0∧ω≠0, (2,3) structural rework) restored as candidate next-steps. Three headline flips in one analytical arc demonstrate Rule 10 empirical-driver discipline at full strength: each flip caught a real issue (auditor concern #3 caught finite-N artifact, then auditor concern #1 caught band-density artifact).*
+*Doc 74_ written 2026-04-25; §6-§8 substantially revised 2026-04-26 covering four R7.1 follow-ups; §9 added 2026-04-26 with joint R7.1 + R7.2 final closure (see §9 below).*
+
+---
+
+## 9. Joint R7.1 + R7.2 final closure (2026-04-26)
+
+Dual-criterion pre-registrations frozen at commit `1c89fa1`:
+- `P_phase6_cos_block_n64_dual_criterion` (Cos-block N=64 GT_corpus, shell threshold 80%)
+- `P_phase5_topological_injection` (R7.2 (2,3)/Hopf pair injection, frequency persistence + topology preservation dual-criterion)
+
+Both ran in parallel. Both returned **Mode III**.
+
+### 9.1 Cos-block N=64 GT_corpus dual-criterion: Mode III
+
+[`r7_cos_block_n64_topology.py`](../../src/scripts/vol_1_foundations/r7_cos_block_n64_topology.py): shift-invert at σ=ω_C²=1 with inner GMRES OPinv + shell-fraction topology extraction on closest eigvec. Wall time 7506s (~2 hr), 177 OPinv calls, 53,100 inner GMRES iterations.
+
+Result:
+- Closest positive eigenvalue: λ = 1.028073, √λ = 1.013939
+- Frequency criterion: **FAIL** (gap 1.394% > α = 0.7297%, 1.9× outside tolerance)
+- Shell fraction: **0.0151** (1.51%, only 2.63× bulk-uniform expectation 0.0057)
+- Topology criterion: **FAIL** (1.51% << 80% threshold)
+
+**Mode III definitive on Cosserat sector.** Both criteria fail; not even frequency-PASS via band-density artifact (the failure mode that caught V-block at N=64). The Cosserat (u, ω) sector at corpus GT geometry has neither a localized eigenmode at ω_C² nor a frequency-tolerant bulk mode. ε-strain / κ-curvature LC tanks per [doc 66_ §17.2](66_single_electron_first_pivot.md) do NOT host the (2,3) bound state at corpus GT geometry at this N.
+
+### 9.2 R7.2 (2,3)/Hopf pair injection: Mode III
+
+[`phase5_topological_pair_injection.py`](../../src/scripts/vol_1_foundations/phase5_topological_pair_injection.py): seeds (2,3) torus-knot ansatz at chirality-matched bond endpoints (LH at A, RH at B), runs autoresonant drive + post-drive observation per Phase 5 case (b') registered config. Wall time 14.2s.
+
+Result:
+- Frequency persistence: **FAIL** — peak |ω|_A,B drop below 0.5·seed during drive; doesn't persist for 10 Compton periods post-drive
+- Topology preservation: c_cos trajectory min=0, max=3, end=2 (target=3) — drifts; **FAIL**
+- **Mode III**: topologically-richer (2,3) torus-knot ansatz dissolves at the same timescale as Beltrami (Phase 5 case b'). **Coupling-depth issue, not injection-profile issue.**
+
+Methodology caveat on topology criterion: `extract_crossing_count` is global; for a chirality-matched pair-bound state with opposite winding at endpoints, it may read 0 or 6 instead of 3 per endpoint. Initial c=2 reflects this measurement ambiguity. **However, the frequency criterion alone fails decisively** — peak |ω| dissolves regardless of how the topology is measured. Mode III stands.
+
+### 9.3 Joint final headline
+
+**The K4-TLM engine as currently implemented does NOT host the (2,3) electron bound state in V-pressure (V-block) or ε-strain/κ-curvature (Cos-block) sectors at corpus GT geometry, AND topologically-richer pair injection profiles dissolve at the same Cosserat self-dynamics timescale as the Beltrami point-rotation profile.**
+
+Comprehensive empirical state across the full R7.1 + R7.2 arc:
+
+| Test | Sector | Lattice | Result | Gap to PASS | Topology |
+|---|---|---|---|---|---|
+| V-block | V_inc K4 | N=32 | Mode III | 1.22% (1.7× over α/√2) | n/a (freq FAIL) |
+| V-block | V_inc K4 | N=64 | Mode III | 0.45% (PASS freq) | shell 1.13% (bulk) |
+| Cos-block | (u, ω) | N=32 (4 seeds) | Mode III | 1.04-2.00% | n/a (freq FAIL) |
+| Cos-block | (u, ω) | N=64 GT_corpus | Mode III | 1.39% (FAIL) | shell 1.51% (bulk) |
+| R7.2 pair injection | Cosserat ω | N=24 | Mode III | freq dissolves at Beltrami timescale | c=2 at end (FAIL) |
+
+Across five tests at three distinct lattices and two operator framings: **no test detected a (2,3) bound state matching corpus claims.** This is a substantive framework-level negative finding.
+
+### 9.4 Round 8 entry — Φ_link sector
+
+Per [doc 66_ §17.2](66_single_electron_first_pivot.md) three-storage-mode picture, the bound electron at each engine node has THREE LC tank conjugates:
+1. **K4 bond LC**: V_inc ↔ Φ_link (V-block tested empty)
+2. **Cosserat translational LC**: u ↔ u_dot (covered by Cos-block u-component, tested empty)
+3. **Cosserat rotational LC**: angular position ↔ ω (covered by Cos-block ω-component, tested empty)
+
+But Φ_link in the K4 sector is treated as a DERIVED flux observable per [doc 70_ §7.2](70_phase5_resume_methodology.md) (A29 finding: Φ_link is `∫V_avg·dt`, not an independent dynamical state). The V-block eigsolve operates on V_inc state; Φ_link is computed from V_inc trajectories, not eigsolved over.
+
+If the (2,3) electron's bound state lives in the Φ_link DEGREE-OF-FREEDOM (rather than V_inc directly), no V-block or Cos-block eigsolve as currently formulated can find it. **This is the cleanest unprobed gap in the corpus three-storage-mode picture.**
+
+Round 8 entry candidates ordered by current empirical evidence:
+
+1. **Φ_link sector eigsolve** — extend operator framework to include Φ_link as eigenstate (or test whether time-domain Φ_link evolution under driven seed shows (2,3) winding stabilization). New methodology; ~200-400 LOC; likely reframe-5 territory if it requires a new pred + driver class.
+2. **Hybrid V≠0 ∧ ω≠0 modes** — V=0 seed misses by [doc 73_ §3.1.1](73_discrete_k4_tlm_lctank_operator.md). Test via quadrature seed at small V_amp (~0.05·V_SNAP).
+3. **(2,3) representation structural rework** — weakest; testable by sweeping (1,2), (2,5), (3,5), (3,7) windings for any that hosts an eigenmode at ω_C with shell localization.
+
+### 9.5 Methodology lessons (final, for r8.9 §17.1)
+
+- **A37**: continuum-on-discrete operator-construction error catalyzing reframe 4 (§6.1 carve-out invocation #1)
+- **A38**: implementation-level bug pattern (S(z) z-invariance + null-space artifact)
+- **A39 v2**: dual-criterion bound-state adjudication discipline (frequency + localization, both required)
+- **A40 (NEW)**: empirical-driver-arc discipline. R7.1 went through 4 reframes + 3 result flips + 4 follow-ups in this session, each catching a real issue. **The total sequence took ~10 hours of compute + analysis but produced a definitive negative result that single-pass analysis would have miscalled** (originally as Mode III at N=32 → Round 8; then mis-corrected to Mode I at N=64 → corpus vindicated; finally properly as Mode III via dual-criterion + Cos-block coverage). The number of layers and flips in this arc is the upper bound for how many adjudication layers a bound-state-existence question on a discrete-lattice substrate may need. Future questions in this register should pre-register dual-criterion + multi-N + multi-sector from the start to avoid the iterative refinement cost.
+
+### 9.6 Round 7 status
+
+R7.1 closed empirically. R7.2 closed empirically. Both Mode III at corpus GT. Round 7 closes with substantive negative result on the V-block + Cos-block + topologically-richer-injection axes; Round 8 Φ_link sector becomes the next empirical move.
+
+**Round 7 did NOT vindicate corpus geometry empirically; the (2,3) electron bound state at corpus GT is not detectable in the engine's current V/Cos sectors.** This is consistent with [doc 03_ §4.3](03_existence_proof.md) ("R·r=1/4 is topologically quantized, NOT dynamically derived") in the sense that no dynamical descent reaches GT — but stronger: even the eigenvalue-spectrum question at corpus GT returns empty. The bound state, if it exists at corpus GT, lives in either (i) a sector not currently in the eigsolve framework (Φ_link), or (ii) a hybrid (V≠0 ∧ ω≠0) regime, or (iii) requires a different topological winding than (2,3).
+
+---
+
+*§9 added 2026-04-26 — joint R7.1 + R7.2 final closure. Cos-block N=64 GT_corpus dual-criterion: Mode III (freq FAIL 1.39% + topology FAIL 1.51% shell fraction). R7.2 (2,3)/Hopf pair injection: Mode III (frequency dissolves at Beltrami timescale; topology criterion has measurement ambiguity but irrelevant since freq fails). Joint headline: K4-TLM engine does NOT host (2,3) electron bound state in V-pressure or ε-strain sectors at corpus GT, AND topological-richness-only doesn't rescue Beltrami case (b'). Round 8 entry: Φ_link sector (cleanest unprobed gap in three-storage-mode picture). A40 finding (empirical-driver-arc discipline) added to A37/A38/A39 for r8.9.*
