@@ -27,12 +27,15 @@
 >
 > **Violation of this rule is the single most common failure mode in this project.** Every quarantined solver (~2,000+ lines) was written before its physics was derived.
 
-1. **Axiom 1 (Impedance):** The vacuum is an LC resonant network with Z₀ = √(μ₀/ε₀) ≈ 377 Ω
-2. **Axiom 2 (Topo-Kinematic Isomorphism):** Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; α falls out as the Q-factor of the minimum-crossing soliton (Vol 1 Ch 8). α being derived does not reduce the axiom count — the isomorphism, not α's value, is the axiomatic content.
-3. **Axiom 3 (Gravity):** G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²)
+> **Canonical source for axiom statements:** `manuscript/common_equations/eq_axiom_[1-4].tex`. If this list disagrees with those files, the .tex files win and this list is the bug.
+
+1. **Axiom 1 (Impedance):** The vacuum is a discrete LC resonant network with characteristic impedance Z₀ = √(μ₀/ε₀) ≈ 376.73 Ω and lattice pitch ℓ_node = ℏ/(m_e·c) ≈ 3.86×10⁻¹³ m. μ₀ is per-node inductance (rotational inertia); ε₀ is per-node capacitance (elastic compliance).
+2. **Axiom 2 (Fine Structure):** The fine-structure constant couples topology to impedance: α = e²/(4πε₀ℏc) ≈ 1/137.036. α sets the saturation threshold for the dielectric yield voltage: V_yield = √α · V_snap = √α · m_e c²/e ≈ 43.65 kV.
+   - **Axiomatic content vs derived value:** The axiomatic content is the topo-kinematic isomorphism `[Q] ≡ [L]` together with α's role as the saturation threshold. α's *numerical value* is derived in Vol 1 Ch 8 (Golden Torus S₁₁-min) — derivation does not reduce the axiom count.
+3. **Axiom 3 (Gravity):** G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²), where ξ = 4π(R_H/ℓ_node)·α⁻² ≈ 8.15×10⁴³ is the **dimensionless Machian hierarchy coupling** (cosmological-horizon dilution). ⚠ Do not confuse ξ (Machian coupling, dimensionless) with ξ_topo = e/ℓ_node (electromechanical transduction, C/m). They are distinct quantities sharing a Greek letter.
    - **α invariance**: Under Symmetric Gravity, α = e²/(4πε₀ℏc₀) is exactly invariant because ε_local and c_local carry the same n·S factor that cancels. Multi-species Δα/α = 0.
    - **Lattice decomposition**: n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift); n_spatial = (9/7)ε₁₁ (light deflection). Axiom 3's n(r) = 1+2GM/(c²r) is the temporal component only.
-4. **Axiom 4 (Saturation):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes
+4. **Axiom 4 (Universal Saturation Kernel):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes. At A = 0, S = 1 (linear Maxwell recovered); at A → A_yield, S → 0 (saturation).
 
 ### Derived Consequences of Axiom 4
 

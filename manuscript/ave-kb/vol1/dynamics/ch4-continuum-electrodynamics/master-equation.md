@@ -67,7 +67,11 @@ Note: the wave speed *increases* as permittivity drops (thinner dielectric $\to$
 This single line of non-linear differential topology formally replaces the fragmented domains of the Standard Model and General Relativity:
 
 1. **Classical Electromagnetism ($V \ll 43.65\text{ kV}$):** The square root term evaluates to 1. The equation reduces to the linear Maxwellian wave equation used in standard optics and RF engineering.
-2. **Particle Assembly ($V \to 43.65\text{ kV}$):** The local permittivity collapses ($\varepsilon_{eff} \to 0$), forcing the impedance to drop to zero ($Z \to 0$). The accelerating wave continuously reflects off its own self-induced impedance boundary ($\Gamma \to -1$). This traps the wave into a stabilized topological knot (a Fermion), physically generating invariant rest mass without invoking the Higgs Mechanism.
+2. **Particle Assembly ($V \to 43.65\text{ kV}$):** The non-linear regime divides into two distinct saturation symmetries (per Axiom 4 confinement theorem):
+   - *Asymmetric (electric-only) saturation*, where only $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ remains intact, drives $Z = \sqrt{\mu_0/\varepsilon_{eff}} \to \infty$ — the medium becomes electromagnetically opaque (evanescent, no energy transport). This is the dielectric-rupture branch (electric breakdown).
+   - *Particle confinement* proceeds via the magnetic branch instead: at a torus-knot self-intersection the field $\mathbf{B}$ saturates $\mu_{eff}$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The accelerating wave reflects off its own self-induced impedance boundary, trapping into a stabilised topological knot (a Fermion) and physically generating invariant rest mass without invoking the Higgs Mechanism.
+
+   Both branches are governed by the same kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$; they differ in which constitutive parameter saturates first. See LIVING_REFERENCE Axiom 4 derived consequences for the symmetric vs asymmetric tables.
 3. **Gravity:** The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 
 ---

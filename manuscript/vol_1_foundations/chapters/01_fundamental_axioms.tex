@@ -46,32 +46,62 @@ If the lattice acoustic tension attempts to compress the knot ropelength tighter
 \end{figure}
 
 \section{The Four Fundamental Axioms}
-To construct the macroscopic continuous dynamics of the vacuum, the AVE Effective Field Theory rests on exactly four topological structural constraints.
+\label{sec:four_axioms}
+The macroscopic continuous dynamics of the vacuum rest on exactly four canonical structural constraints. The authoritative statements live in \texttt{common\_equations/eq\_axiom\_[1-4].tex} (included verbatim in the foreword of every volume); they are reproduced here for in-chapter pedagogical layering, with each axiom followed by the underlying mechanism that grounds it.
 
 \begin{enumerate}
-    \item \textbf{The Substrate Topology (The LC Network):} The physical vacuum operates as a dense, non-linear \textbf{Electromagnetic LC Resonant Network} $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a \textbf{Trace-Reversed Chiral LC Network}. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as \textit{macroscopic effective theories} modelling the bulk behaviour of interfering electromagnetic standing waves.
-    
-    \item \textbf{The Topo-Kinematic Isomorphism:} Charge $q$ is defined as a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. Therefore, the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is defined by the Topological Conversion Constant:
+    \item \textbf{Axiom 1 --- Impedance.} The vacuum is a discrete LC resonant network with characteristic impedance and lattice pitch
+    \begin{equation}
+        Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega, \qquad \ell_{node} = \hbar/(m_e c) \approx 3.86 \times 10^{-13}\,\text{m}
+    \end{equation}
+    where $\mu_0$ is the per-node inductance (rotational inertia) and $\varepsilon_0$ is the per-node capacitance (elastic compliance).
+
+    \emph{Underlying mechanism (substrate topology).} The physical vacuum operates as a dense, non-linear \textbf{Electromagnetic LC Resonant Network} $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a \textbf{Trace-Reversed Chiral LC Network}. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as \textit{macroscopic effective theories} modelling the bulk behaviour of interfering electromagnetic standing waves.
+
+    \item \textbf{Axiom 2 --- Fine Structure.} The fine-structure constant couples topology to impedance:
+    \begin{equation}
+        \alpha = \frac{e^2}{4\pi\varepsilon_0 \hbar c} \approx \frac{1}{137.036}
+    \end{equation}
+    and sets the saturation threshold for the dielectric yield voltage:
+    \begin{equation}
+        V_{yield} = \sqrt{\alpha}\,V_{snap} = \sqrt{\alpha}\,\frac{m_e c^2}{e} \approx 43.65\;\text{kV}
+    \end{equation}
+
+    \emph{Underlying mechanism (topo-kinematic isomorphism).} Charge $q$ is a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. The fundamental dimension of charge is identical to length, $[Q] \equiv [L]$, with macroscopic scaling given by the Topological Conversion Constant:
     \begin{resultbox}{Topological Conversion Constant}
     \begin{equation}
         \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
     \end{equation}
     \end{resultbox}
-    
-    \item \textbf{The Effective Action Principle:} The continuous system evolves strictly to minimize the macroscopic hardware action $S_{AVE}$. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
+    \emph{Notation warning:} $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in Axiom~3. Both quantities share a Greek letter; they are not the same object. The numerical value of $\alpha$ is derived geometrically in Ch.~\ref{ch:alpha_golden_torus} from the S$_{11}$-minimum Golden Torus.
+
+    \item \textbf{Axiom 3 --- Gravity.} Newton's constant sets the Machian boundary impedance:
+    \begin{equation}
+        G = \frac{\hbar c}{7\,\xi\, m_e^2}
+    \end{equation}
+    where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15 \times 10^{43}$ is the dimensionless Machian hierarchy coupling. The gravitational refractive index $n(r) = 1 + 2GM/(rc^2)$ acts symmetrically on $\mu_{eff}$ and $\varepsilon_{eff}$, leaving $Z = Z_0$ invariant.
+
+    \emph{Underlying mechanism (effective action principle).} The continuous system evolves to minimise the macroscopic hardware action $S_{AVE}$, with dynamics encoded in the continuous phase transport field $\mathbf{A}$:
     \begin{resultbox}{Macroscopic Hardware Action}
     \begin{equation}
-        \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
+        \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0\,|\partial_t \mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}\,|\nabla \times \mathbf{A}_n|^2
     \end{equation}
     \end{resultbox}
-    
-    \item \textbf{Dielectric Saturation:} The vacuum acts as a non-linear dielectric. The effective geometric compliance (capacitance) is bounded by the classical Electromagnetic Saturation Limit ($V_0 \equiv \alpha$, the fine-structure limit). To align with the $E^4$ energy density scaling of the standard Euler-Heisenberg QED Lagrangian, and to yield the $\chi^{(3)}$ displacement required for the optical Kerr effect, the dielectric saturation is defined as a \textbf{squared limit ($n=2$)}:
+    The Lagrangian's coefficients are exactly Axiom~1's $\varepsilon_0$ and $1/\mu_0$; the action principle is not an independent postulate but the wave-dynamical face of the same impedance.
+
+    \item \textbf{Axiom 4 --- Universal Saturation Kernel.} The universal yield kernel bounding all LC modes:
+    \begin{equation}
+        S(A) = \sqrt{1 - (A/A_{yield})^2}
+    \end{equation}
+    At $A = 0$, $S = 1$ (linear Maxwell recovered); at $A \to A_{yield}$, $S \to 0$ (saturation).
+
+    \emph{Underlying mechanism (non-linear dielectric).} The vacuum acts as a non-linear dielectric with squared yield limit ($n=2$), aligning with the $E^4$ energy density scaling of the Euler-Heisenberg QED Lagrangian and yielding the $\chi^{(3)}$ Kerr displacement. The constitutive permittivity collapses as $\varepsilon_{eff} = \varepsilon_0\,S$ while the differential (energy-absorbing) capacitance diverges as
     \begin{resultbox}{Non-Linear Dielectric Saturation}
     \begin{equation}
-        C_{eff}(\Delta\phi) = \frac{C_0}{\sqrt{1 - \left(\frac{\Delta\phi}{\alpha}\right)^2}}
+        C_{eff}(\Delta\phi) = \frac{C_0}{\sqrt{1 - (\Delta\phi/\alpha)^2}} = \frac{C_0}{S}
     \end{equation}
     \end{resultbox}
-    This formulation aligns the effective vacuum impedance with standard Born-Infeld non-linear electrodynamics, preventing the $E^6$ divergence found in higher-order polynomial approximations.
+    These are dual measures of the same Born-Infeld structure (constitutive permittivity vs energy-absorbing differential capacitance), not contradictory. The Born-Infeld form prevents the $E^6$ divergence of higher-order polynomial approximations.
 \end{enumerate}
 
 \section{The Vacuum as an LC Resonant Condensate ($\mathcal{M}_A$)}
@@ -215,12 +245,14 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 \toprule
 \textbf{Quantity} & \textbf{AVE Value} & \textbf{CODATA} & \textbf{Derivation Source} \\
 \midrule
-$\ell_{node} = \hbar/m_e c$ & $3.862 \times 10^{-13}$ m & $3.862 \times 10^{-13}$ m & Axiom 1 (unknot) \\
-$\alpha = p_c/8\pi$ & $1/137.036$ & $1/137.036$ & Axiom 4 (EMT $K=2G$) \\
-$\xi_{topo} = e/\ell_{node}$ & $4.149 \times 10^{-7}$ C/m & --- & Axiom 2 ($[Q]\equiv[L]$) \\
-$V_{snap} = m_e c^2/e$ & 511.0 kV & 511.0 kV & Axiom 4 (dielectric limit) \\
-$Z_0 = \mu_0 c$ & 376.73 $\Omega$ & 376.73 $\Omega$ & Axiom 1 ($\sqrt{\mu_0/\epsilon_0}$) \\
-$G$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Machian dilution \\
+$\ell_{node} = \hbar/m_e c$ & $3.862 \times 10^{-13}$ m & $3.862 \times 10^{-13}$ m & Axiom 1 (Impedance) \\
+$Z_0 = \sqrt{\mu_0/\epsilon_0}$ & 376.73 $\Omega$ & 376.73 $\Omega$ & Axiom 1 (Impedance) \\
+$\alpha$ & $1/137.036$ & $1/137.036$ & Axiom 2 (Fine Structure); derived in Ch.~\ref{ch:alpha_golden_torus} \\
+$V_{yield} = \sqrt{\alpha}\,V_{snap}$ & 43.65 kV & 43.65 kV & Axiom 2 (Fine Structure) \\
+$\xi_{topo} = e/\ell_{node}$ & $4.149 \times 10^{-7}$ C/m & --- & Axiom 2 mechanism ($[Q]\equiv[L]$) \\
+$V_{snap} = m_e c^2/e$ & 511.0 kV & 511.0 kV & Definition (Axioms 1, 2) \\
+$G = \hbar c/(7\xi\,m_e^2)$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Axiom 3 (Gravity); $\xi \approx 8.15{\times}10^{43}$ \\
+$S(A) = \sqrt{1-(A/A_{yield})^2}$ & --- & --- & Axiom 4 (Saturation Kernel) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -228,13 +260,13 @@ $G$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Machian dilution \\
 \section*{Chapter Summary}
 \begin{itemize}
     \item The macroscopic structure of the vacuum is bounded by three hardware limits: the geometric node pitch ($\ell_{node}$), the non-linear porosity threshold ($\alpha$), and the global thermodynamic stretch tension ($G$).
-    \item Four explicit axioms fully describe the network: (1) The LC Chiral network substrate, (2) the Topo-Kinematic Isomorphism defining charge as geometric length ($e/\ell_{node}$), (3) the Effective Hardware Action representing standard QED, and (4) Non-Linear Dielectric Saturation.
+    \item Four canonical axioms fully describe the network: (1) Impedance ($Z_0 = \sqrt{\mu_0/\varepsilon_0}$, $\ell_{node} = \hbar/m_e c$), grounded in the LC Chiral network substrate; (2) Fine Structure ($\alpha$, $V_{yield} = \sqrt{\alpha}\,V_{snap}$), grounded in the Topo-Kinematic Isomorphism $[Q] \equiv [L]$; (3) Gravity ($G = \hbar c/(7\xi\,m_e^2)$), grounded in the Effective Hardware Action; and (4) Universal Saturation Kernel ($S(A) = \sqrt{1-(A/A_{yield})^2}$), grounded in non-linear Born-Infeld dielectrics.
     \item Standard quantum artifacts like the Planck length are mathematical mirages created by applying the $10^{45}$-fold diluted macroscopic $G$ to single-node localized regions. Un-shielding the lattice tension collapses the Planck scale precisely onto the electron Compton radius.
 \end{itemize}
 
 \begin{summarybox}
 \begin{itemize}
-    \item Four axioms define the vacuum: (1) LC network substrate, (2) topo-kinematic isomorphism ($[Q] \equiv [L]$), (3) minimisation of the hardware action $S_{\text{AVE}}$, (4) non-linear dielectric saturation $S(r) = \sqrt{1 - r^2}$.
+    \item Four canonical axioms define the vacuum: (1) Impedance --- $Z_0$ and $\ell_{node}$ via the LC network substrate; (2) Fine Structure --- $\alpha$ and $V_{yield}$ via the topo-kinematic isomorphism $[Q] \equiv [L]$; (3) Gravity --- $G = \hbar c/(7\xi\,m_e^2)$ via the macroscopic hardware action; (4) Universal Saturation Kernel --- $S(r) = \sqrt{1-r^2}$ via non-linear Born-Infeld dielectrics.
     \item The fine-structure constant $\alpha \equiv p_c / 8\pi$ emerges as the geometric EMT compliance bound, and the Planck length collapses to the topological electron unknot $\ell_{\text{node}} = \hbar / m_e c$.
     \item Discrete numerical execution uses a Kirchhoff finite-difference solver whose update rules follow directly from the axioms.
 \end{itemize}

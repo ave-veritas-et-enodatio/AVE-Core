@@ -50,14 +50,14 @@ Individual volumes may use only a subset; resultbox is the most common. Vol 5 us
 
 ### INVARIANT-S2: AVE Axiom numbering
 
-The four AVE axioms carry stable meanings across all volumes:
+The four AVE axioms carry stable meanings across all volumes. Canonical source of truth: `AVE-Core/manuscript/common_equations/eq_axiom_[1-4].tex`. KB documents must use these labels; volume-specific re-instantiations may add a parenthetical domain alias but the canonical name is primary.
 
-- Axiom 1: ABCD cascade / coupled amplitude
-- Axiom 2: Topological phase dislocation
-- Axiom 3: Least reflected action
-- Axiom 4: SiLU / saturation gate (dielectric saturation)
+- Axiom 1: **Impedance** — Z₀ = √(μ₀/ε₀); ℓ_node = ℏ/(m_e·c). (Vol 8 alias: ABCD cascade / coupled amplitude.)
+- Axiom 2: **Fine Structure** — α = e²/(4πε₀ℏc); V_yield = √α · m_e c²/e ≈ 43.65 kV. Includes the topo-kinematic isomorphism `[Q] ≡ [L]` as its underlying mechanism. (Vol 8 alias: topological phase dislocation.)
+- Axiom 3: **Gravity** — G = ℏc/(7ξ·m_e²) with ξ ≈ 8.15×10⁴³ the dimensionless Machian hierarchy coupling (NOT ξ_topo). (Vol 8 alias: least reflected action.)
+- Axiom 4: **Universal Saturation Kernel** — S(A) = √(1 − (A/A_yield)²). (Vol 8 alias: SiLU / saturation gate.)
 
-*Confirmed by: vol1 (originating), vol8 (re-instantiated in virtual media domain)*
+*Confirmed by: vol1 canonical .tex (eq_axiom_[1-4].tex); vol8 (re-instantiated in virtual media domain).*
 
 ### INVARIANT-S3: Shared experimental appendix
 
