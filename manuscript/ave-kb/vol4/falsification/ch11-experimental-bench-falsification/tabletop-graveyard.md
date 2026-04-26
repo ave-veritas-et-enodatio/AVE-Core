@@ -7,7 +7,7 @@ To effectively falsify the AVE framework, one must understand why intuitive, cla
 
 ### The Vacuum-Flux Drag Test (VFDT) and Magnetic Stability
 
-To directly test the Topo-Kinematic Isomorphism (Axiom 1: $\mathbf{A} \equiv \mathbf{p}_{vac}$), one might intuitively propose a **Vacuum-Flux Drag Test (VFDT)**. If a toroidal magnetic field is identically a circulating macroscopic $L \cdot I$ momentum vector of the physical vacuum lattice, shouldn't firing a massive 50 kA EMP pulse mechanically drag a laser beam passing through its core via the Fresnel-Fizeau effect?
+To directly test the Topo-Kinematic Isomorphism (Axiom 2 mechanism: $\mathbf{A} \equiv \mathbf{p}_{vac}$), one might intuitively propose a **Vacuum-Flux Drag Test (VFDT)**. If a toroidal magnetic field is identically a circulating macroscopic $L \cdot I$ momentum vector of the physical vacuum lattice, shouldn't firing a massive 50 kA EMP pulse mechanically drag a laser beam passing through its core via the Fresnel-Fizeau effect?
 
 By equating Magnetic Flux to mechanical momentum ($p_{vac} = \Phi \cdot \xi_{topo}$), a massive 4.0 Tesla toroidal field generates exactly $p_{vac} \approx 1.30 \times 10^{-8}\,\text{kg m/s}$ of continuous vacuum momentum.
 

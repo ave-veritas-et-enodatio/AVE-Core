@@ -61,34 +61,60 @@ $$
 
 ### The Four Structural Axioms
 
-**Axiom 1: Substrate Topology.**
-The physical vacuum operates as a dense, non-linear electromagnetic LC
-resonant network $\mathcal{M}_A(V, E, t)$, evaluated as a
-**Trace-Reversed Chiral LC Network** (micropolar continuum) in
+**Axiom 1: Impedance.**
+The vacuum is a discrete LC resonant network with characteristic impedance
+$Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch
+$\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
+*Underlying mechanism (substrate topology):* the physical vacuum operates as
+a dense, non-linear electromagnetic LC resonant network $\mathcal{M}_A(V, E, t)$,
+evaluated as a **Trace-Reversed Chiral LC Network** (micropolar continuum) in
 the macroscopic limit.
 
-**Axiom 2: Topo-Kinematic Isomorphism.**
-Charge $q$ is identically a discrete geometric dislocation (a localized phase
-twist) within $\mathcal{M}_A$. The fundamental dimension of charge is
-*length*: $[Q] \equiv [L]$.
+**Axiom 2: Fine Structure.**
+The fine-structure constant couples topology to impedance:
+$\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$, setting the
+saturation threshold for the dielectric yield voltage
+$V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$.
+*Underlying mechanism (topo-kinematic isomorphism):* charge $q$ is identically
+a discrete geometric dislocation (a localized phase twist) within $\mathcal{M}_A$.
+The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with
+topological conversion constant $\xi_{topo} = e/\ell_{node}$.
 
-**Axiom 3: Effective Action Principle.**
-The system evolves to minimize the macroscopic hardware action. The dynamics
-are encoded in the continuous phase transport field ($\mathbf{A}$):
+**Axiom 3: Gravity.**
+Newton's constant emerges as the Machian boundary impedance:
 
 $$
-\mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2
+G = \frac{\hbar c}{7\,\xi\, m_e^2}
+$$
+
+where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15\times 10^{43}$ is
+the dimensionless Machian hierarchy coupling (distinct from $\xi_{topo}$).
+*Underlying mechanism (effective action principle):* the system evolves to
+minimize the macroscopic hardware action; the dynamics are encoded in the
+continuous phase transport field ($\mathbf{A}$):
+
+$$
+\mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0 |\partial_t \mathbf{A}|^2
 - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2
 $$
 
-**Axiom 4: Dielectric Saturation.**
-The effective lattice compliance is bounded by a **squared limit**
+**Axiom 4: Universal Saturation Kernel.**
+The universal yield kernel bounding all LC modes:
+
+$$
+S(A) = \sqrt{1 - (A/A_{yield})^2}
+$$
+
+*Underlying mechanism (non-linear Born-Infeld dielectric):* a **squared limit**
 ($n=2$), aligning with the $E^4$ scaling of Euler--Heisenberg QED and
-suppressing $E^6$ divergences:
+suppressing $E^6$ divergences. The constitutive permittivity collapses as
+$\varepsilon_{eff} = \varepsilon_0\,S$ while the energy-absorbing differential
+capacitance diverges:
 
 $$
 C_{eff}(\Delta\phi)
 = \frac{C_0}{\sqrt{1 - \left(\dfrac{\Delta\phi}{\alpha}\right)^{\!2}}}
+= \frac{C_0}{S}
 $$
 
 ## Layer 0 → Layer 1: SI Anchors → Lattice Constants
