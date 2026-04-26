@@ -350,11 +350,11 @@ Result:
 
 Methodology caveat on topology criterion: `extract_crossing_count` is global; for a chirality-matched pair-bound state with opposite winding at endpoints, it may read 0 or 6 instead of 3 per endpoint. Initial c=2 reflects this measurement ambiguity. **However, the frequency criterion alone fails decisively** — peak |ω| dissolves regardless of how the topology is measured. Mode III stands.
 
-### 9.3 Joint final headline
+### 9.3 Joint final headline — unified framework-level statement
 
-**The K4-TLM engine as currently implemented does NOT host the (2,3) electron bound state in V-pressure (V-block) or ε-strain/κ-curvature (Cos-block) sectors at corpus GT geometry, AND topologically-richer pair injection profiles dissolve at the same Cosserat self-dynamics timescale as the Beltrami point-rotation profile.**
+**At corpus Golden Torus geometry (R/r = φ², R·r = 1/4) under the K4-TLM scatter+connect + Cosserat (u, ω) LC-tank Hessian-of-W operator framework (per [doc 73_ §2-§5](73_discrete_k4_tlm_lctank_operator.md)) with A26-canonical amplitude (peak |ω| = 0.3π per [doc 34_ §9.4](34_x4_constrained_s11.md)): the K4-TLM substrate hosts NO (2,3)-localized bound mode in V-pressure (V-block, N=32 + N=64 dual-criterion), NO (2,3)-localized bound mode in ε-strain/κ-curvature (Cos-block, N=32 frequency + N=64 dual-criterion), and NO topologically-protected pair-state persisting under Cosserat self-dynamics post-drive (R7.2 with (2,3)/Hopf injection per VACUUM_ENGINE_MANUAL §9 G-13). Three independent test classes, all Mode III, mutually reinforcing.**
 
-Comprehensive empirical state across the full R7.1 + R7.2 arc:
+The five-test empirical breakdown (each test independently confirms the framework statement):
 
 | Test | Sector | Lattice | Result | Gap to PASS | Topology |
 |---|---|---|---|---|---|
@@ -365,6 +365,8 @@ Comprehensive empirical state across the full R7.1 + R7.2 arc:
 | R7.2 pair injection | Cosserat ω | N=24 | Mode III | freq dissolves at Beltrami timescale | c=2 at end (FAIL) |
 
 Across five tests at three distinct lattices and two operator framings: **no test detected a (2,3) bound state matching corpus claims.** This is a substantive framework-level negative finding.
+
+**On the symmetric Mode III pattern:** V-block N=64 had band-density-artifact frequency-PASS (gap 0.45% with shell 1.13%); Cos-block N=64 didn't even reach frequency-PASS (gap 1.39% with shell 1.51%). Both blocks return shell fractions ~50× below the 80% Mode I threshold and 5-10× below even a 30% lenient threshold. The threshold-adjudication debate (30/50/80%) was less consequential than it felt at adjudication time — both V-block and Cos-block returned shell fractions far below any plausible threshold. **What was load-bearing was the dual-criterion structure itself**, not the threshold value: without topology check, Cos-block N=64 frequency at 1.39% would have read as Mode III by frequency alone (correct verdict but incomplete reasoning), and the band-density-vulnerability lesson wouldn't have been demonstrated symmetrically across both sectors.
 
 ### 9.4 Round 8 entry — Φ_link sector
 
@@ -383,12 +385,21 @@ Round 8 entry candidates ordered by current empirical evidence:
 2. **Hybrid V≠0 ∧ ω≠0 modes** — V=0 seed misses by [doc 73_ §3.1.1](73_discrete_k4_tlm_lctank_operator.md). Test via quadrature seed at small V_amp (~0.05·V_SNAP).
 3. **(2,3) representation structural rework** — weakest; testable by sweeping (1,2), (2,5), (3,5), (3,7) windings for any that hosts an eigenmode at ω_C with shell localization.
 
-### 9.5 Methodology lessons (final, for r8.9 §17.1)
+### 9.5 Methodology lessons (final, for r8.9 §17.1) — split into A40 + A41 per audit recommendation
 
-- **A37**: continuum-on-discrete operator-construction error catalyzing reframe 4 (§6.1 carve-out invocation #1)
-- **A38**: implementation-level bug pattern (S(z) z-invariance + null-space artifact)
-- **A39 v2**: dual-criterion bound-state adjudication discipline (frequency + localization, both required)
-- **A40 (NEW)**: empirical-driver-arc discipline. R7.1 went through 4 reframes + 3 result flips + 4 follow-ups in this session, each catching a real issue. **The total sequence took ~10 hours of compute + analysis but produced a definitive negative result that single-pass analysis would have miscalled** (originally as Mode III at N=32 → Round 8; then mis-corrected to Mode I at N=64 → corpus vindicated; finally properly as Mode III via dual-criterion + Cos-block coverage). The number of layers and flips in this arc is the upper bound for how many adjudication layers a bound-state-existence question on a discrete-lattice substrate may need. Future questions in this register should pre-register dual-criterion + multi-N + multi-sector from the start to avoid the iterative refinement cost.
+- **A37**: continuum-on-discrete operator-construction error catalyzing reframe 4 (§6.1 carve-out invocation #1).
+- **A38**: implementation-level bug pattern (S(z) z-invariance + null-space artifact); operator spec correctly framed but realization in code missed sub-spec details.
+- **A39 v2**: dual-criterion bound-state adjudication discipline (frequency + localization, both required at fixed N to defeat band-density-vulnerability at high lattice resolution; pre-registered larger-N falsification additionally required to defeat finite-N-artifact at low lattice resolution).
+- **A40 (NEW — methodology-meta)**: empirical-driver-arc discipline. R7.1 went through 4 reframes + 3 result flips + 4 follow-ups + 2 final tests in this session, each catching a real issue. **The total sequence took ~10 hours of compute + analysis but produced a definitive negative result that single-pass analysis would have miscalled** (originally as Mode III at N=32 → Round 8; then mis-corrected to Mode I at N=64 → corpus vindicated; finally properly as Mode III via dual-criterion + Cos-block coverage). The number of layers and flips in this arc is the upper bound for how many adjudication layers a bound-state-existence question on a discrete-lattice substrate may need. Future questions in this register should pre-register dual-criterion + multi-N + multi-sector from the start to avoid the iterative refinement cost.
+- **A41 (NEW — structural physics)**: G-13 injection-profile-upgrade falsified at coupling-depth layer; unifies A30/A32/A34 family at deeper layer. Per VACUUM_ENGINE_MANUAL §9 G-13, the contingency for "Beltrami pair dissipates faster than 10 Compton periods" was to upgrade the injection profile to topologically-richer (2,3) torus-knot or Hopf fibration. R7.2 ([`phase5_topological_pair_injection.py`](../../src/scripts/vol_1_foundations/phase5_topological_pair_injection.py)) tested this at the same registered config as Phase 5 case (b'). Result: **the (2,3) torus-knot ansatz also dissolves at the same timescale as the Beltrami point-rotation profile.** Frequency persistence FAIL; topology preservation FAIL.
+
+  **The unifying claim across A30 + A32 + A34 + A41 strengthens at a deeper layer:**
+  - A30 (corpus-duality FALSIFIED): Cosserat-energy descent and coupled-S₁₁ descent converge at different (R, r) endpoints, neither at GT — *dynamical descent doesn't reach GT from arbitrary seed*
+  - A32 (X4b linear-stability UNSTABLE): Golden Torus seed UNSTABLE under coupled S₁₁ descent — *GT isn't even a stable fixed point at coupled scale*
+  - A34 (Beltrami injection profile fundamentally unstable): point-rotation Beltrami at gate's `_inject_pair` profile dissolves 93% in one VV step — *gate's seed is structurally unviable*
+  - A41 (G-13 contingency FALSIFIED): topologically-richer (2,3)/Hopf ansatz also dissolves at the same Cosserat self-dynamics timescale — *injection-profile richness alone is insufficient; coupling depth must sustain the topology*
+
+  **The unified reading was originally "topology must be encoded as ansatz, not derived dynamically" (post-Round-6).** A41 strengthens this to: **"topology must be encoded as ansatz AND the engine's coupling depth must sustain the topological invariant under self-dynamics; injection-profile richness alone is insufficient."** Round 8 entry candidates (Φ_link sector / hybrid V≠0 ∧ ω≠0 / (2,3) representation rework) all fall under "what additional dynamics is needed to provide that coupling depth?" framing. The R7.2 test was load-bearing for this reading — without it, the Round 8 ordering would have weighted (2,3) representation rework higher; with it, the framing shifts toward "the engine's coupling architecture is the gap, not the topological winding choice."
 
 ### 9.6 Round 7 status
 
@@ -398,4 +409,4 @@ R7.1 closed empirically. R7.2 closed empirically. Both Mode III at corpus GT. Ro
 
 ---
 
-*§9 added 2026-04-26 — joint R7.1 + R7.2 final closure. Cos-block N=64 GT_corpus dual-criterion: Mode III (freq FAIL 1.39% + topology FAIL 1.51% shell fraction). R7.2 (2,3)/Hopf pair injection: Mode III (frequency dissolves at Beltrami timescale; topology criterion has measurement ambiguity but irrelevant since freq fails). Joint headline: K4-TLM engine does NOT host (2,3) electron bound state in V-pressure or ε-strain sectors at corpus GT, AND topological-richness-only doesn't rescue Beltrami case (b'). Round 8 entry: Φ_link sector (cleanest unprobed gap in three-storage-mode picture). A40 finding (empirical-driver-arc discipline) added to A37/A38/A39 for r8.9.*
+*§9 added 2026-04-26 — joint R7.1 + R7.2 final closure. Cos-block N=64 GT_corpus dual-criterion: Mode III (freq FAIL 1.39% + topology FAIL 1.51% shell fraction). R7.2 (2,3)/Hopf pair injection: Mode III (frequency dissolves at Beltrami timescale; topology criterion has measurement ambiguity but irrelevant since freq fails). Joint headline (§9.3 unified statement): K4-TLM engine does NOT host (2,3) electron bound state in V-pressure or ε-strain sectors at corpus GT, AND topological-richness-only doesn't rescue Beltrami case (b'). Round 8 entry: Φ_link sector (cleanest unprobed gap in three-storage-mode picture). A40 (empirical-driver-arc discipline, methodology-meta) + A41 (G-13 falsified at coupling-depth layer; unifies A30/A32/A34 at deeper layer; structural physics) split per audit recommendation. Both for r8.9 §17.1.*
