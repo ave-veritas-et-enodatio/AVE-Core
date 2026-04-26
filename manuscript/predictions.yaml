@@ -1479,6 +1479,177 @@ predictions:
       ESTIMATED COST: ~200 LOC new driver + ~1-2 hr fresh-session run
       (per doc 70_ §7.6 estimate).
 
+  - id: P_phase6_cos_block_n64_c_eigvec_recheck
+    name: "R7.1 Test A: Cos-block N=64 GT_corpus c_eigvec re-extraction with 4-category adjudication (corpus-canonical topology = c=3 via Op10 per Doc 07)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r7_cos_block_n64_c_eigvec.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Test A per audit on commit 88ec7c3 — re-extract topology criterion
+      on Cos-block N=64 GT_corpus eigvec using corpus-canonical c=3 via
+      extract_crossing_count (Op10 scalar invariant per Doc 07_ + Doc 28_),
+      replacing the heuristic shell-localization measure that R7.1 originally
+      used. Per A42: corpus-canonical topology measure for the (2,3) electron
+      eigenmode is c=3 (scalar crossing-count via Op10), not real-space
+      shell-localization (which is a heuristic proxy).
+
+      The re-run uses the same operator framework as the original
+      P_phase6_cos_block_n64_dual_criterion (commit 1c89fa1):
+        - K_cos via FD HVP on engine.cos.energy_gradient (joint (u, ω))
+        - shift-invert eigsh at σ=ω_C²=1 with inner GMRES OPinv
+          (rtol=1e-3, maxiter=300; outer eigsh tol=1e-4, maxiter=300)
+        - k=20 eigenvalues nearest σ; closest positive eigenvalue selected
+        - GT_corpus seed only at N=64 (R=10, r=10/φ²)
+        - A26 amplitude guard at step 0
+      Driver modification: SAVE eigvecs to disk + COMPUTE c_eigvec via
+      extract_crossing_count on the ω-component of the closest eigvec.
+
+      FOUR-CATEGORY ADJUDICATION (all required for canonical citation):
+
+      Mode I (corpus vindicated in Cosserat sector):
+        Frequency criterion: ∃ eigenvalue λ_n with |√λ_n - ω_C| < α·ω_C
+        AND
+        Topology criterion: c_eigvec = 3 (Op10 scalar crossing-count per
+        Doc 07_; computed via extract_crossing_count on eigvec's ω-component
+        reshaped to (N, N, N, 3))
+        Reading: Cosserat sector hosts the (2,3) electron eigenmode at
+        corpus GT geometry. Doc 66_ §17.2 three-storage-mode picture
+        confirmed; ε-strain/κ-curvature is the bound-state-hosting LC tank.
+
+      Mode III-freq (topology right, frequency wrong):
+        c_eigvec = 3 BUT |√λ - ω_C| ≥ α·ω_C
+        Reading: Cosserat sector has a (2,3)-topological eigenmode but NOT
+        within α tolerance of ω_C at corpus GT geometry. Bounded statement:
+        the (2,3) topology exists in this seed's spectrum, just at a
+        slightly different frequency than ω_C. Round 8 question reframes
+        to "what (R, r) gives ω = ω_C at this c=3 mode?" — different from
+        Φ_link sector entry. NOT a Mode I outcome.
+
+      Mode III-topo (frequency right, topology wrong):
+        |√λ - ω_C| < α·ω_C BUT c_eigvec ≠ 3
+        Reading: Frequency-PASS via band-density coincidence on a
+        non-(2,3) bulk mode. Same failure mode as the original V-block
+        N=64 result (commit b8d97d9). Cosserat sector has bulk modes
+        at ω_C² but no (2,3) localization.
+
+      Mode III-both (everything fails):
+        Frequency FAIL AND c_eigvec ≠ 3 (could be 0, 1, 2, or any integer
+        other than 3)
+        Reading: Cosserat sector empty at corpus GT both at frequency
+        and topology levels. Round 8 Φ_link sector becomes cleanest gap
+        per original framing.
+
+      CRITICAL: Mode III-freq (c=3 but freq FAIL) is NOT Mode I. The
+      pre-reg locks this distinction — c_eigvec=3 is necessary but not
+      sufficient for canonical citation. Both criteria must pass.
+
+      The Cos-block N=64 GT_corpus result from commit d3adcc2 already
+      established frequency-FAIL at gap 1.39% (1.9× outside α tolerance).
+      This re-run determines which Mode III sub-category — Mode III-freq
+      or Mode III-both — by computing c_eigvec on the same eigvec.
+
+      ESTIMATED COST: ~2 hr wall time at N=64 (re-eigsolve required since
+      original eigvecs not persisted to disk). Same per-step computational
+      cost as the original run.
+
+  - id: P_phase5_bond_scale_phasor_trajectory
+    name: "R7.1 Test B (doc 28_ §5.1): single A-B bond V_inc/V_ref phase-space phasor trajectory traces Golden Torus with R/r ≈ φ²"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/28_two_node_electron_synthesis.md"
+    test_file: "src/scripts/vol_1_foundations/test_b_bond_scale_phasor.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Test B per audit on commit 88ec7c3 + doc 28_ §5.1 specification (test
+      pending since doc 28_ written). Tests the BOND-SCALE phase-space
+      Golden Torus hypothesis — structurally different from R7.1's
+      Cosserat-continuum-scale extended (2,3) bound state test.
+
+      Per doc 28_ two-node-electron synthesis: "The electron is a flux
+      oscillation between two adjacent K4 nodes... The Golden Torus
+      geometry that gives α⁻¹ = 137 lives in PHASE SPACE, not real space."
+
+      The empirical claim per doc 28_ §5.1: extract (V_inc, V_ref) phasor
+      trajectory on a single A-B bond from a driven TLM simulation; in
+      (Re, Im) phase-space the trajectory should trace a Golden Torus
+      with major/minor axis ratio R/r ≈ φ² ≈ 2.618.
+
+      METHODOLOGY:
+      - Engine: VacuumEngine3D at N=32 (sufficient for single-bond
+        physics; smaller N reduces wall time vs doc 28_'s "96³" target).
+        A28 + Cosserat self-terms enabled (post-Round-6 default).
+      - Drive: AutoresonantCWSource at ω = ω_Compton in natural units
+        (= 1.0; carrier wavelength λ = 2π/ω_C ≈ 6.28 cells).
+        Amplitude: 0.1·V_SNAP (small-signal regime to avoid saturation).
+        Drive duration: ramp 5 periods + sustain 50 periods + decay 2.
+      - Site selection: A-B bond near lattice center (per
+        find_central_bond pattern from phase5 drivers).
+      - Recording: V_inc[A_idx, port=0](t) AND V_ref[A_idx, port=0](t)
+        at every K4-TLM substep over the sustain window. Subtract
+        transient (first 10 periods).
+      - Phase-space construction: parametric plot of (V_inc(t), V_ref(t))
+        for t in [transient_end, sustain_end].
+
+      PASS criterion (per doc 28_ §5.1):
+        Trajectory is a closed curve in (V_inc, V_ref) plane with
+        major axis R, minor axis r, satisfying R/r = φ² ± 0.10
+        (within ~4% of corpus claim).
+
+      FAIL conditions:
+        - Trajectory is a single ellipse (single-frequency oscillation,
+          no (2,3) winding) → bond doesn't host (2,3) phase-space pattern
+        - Trajectory is open/chaotic (no steady-state pattern) → drive
+          regime wrong, or bond doesn't ring up at ω_C
+        - Trajectory is closed but R/r ≠ φ² ± 0.10 → bond hosts a
+          phase-space pattern but NOT the corpus Golden Torus
+        - Aspect ratio extraction is dominated by drive transient → run
+          longer sustain, fail by methodology
+
+      DUAL-CRITERION DIAGNOSTICS (informational, not PASS):
+        - Lissajous lobe count: a (2,3) Lissajous figure has specific
+          lobe count (5 or 6 depending on phase). Visual inspection
+          + automated lobe-counting via local-extrema analysis.
+        - Spectral content: FFT(V_inc(t)) for two dominant peaks
+          ω₁, ω₂ with ω₂/ω₁ = 3/2 (or 2/3) consistent with (2,3) winding.
+
+      ADJUDICATION CATEGORIES:
+
+      Mode I (bond-scale hypothesis vindicated):
+        Closed trajectory + R/r = φ² ± 0.10 + (Lissajous structure
+        consistent with (2,3) winding OR spectral 3/2 ratio)
+        Reading: Doc 28_ two-node-electron hypothesis confirmed
+        empirically. The electron at corpus claim IS a single A-B
+        bond LC tank with (2,3) phase-space winding.
+
+      Mode II (closed trajectory, wrong R/r):
+        Closed trajectory + R/r ≠ φ² ± 0.10
+        Reading: Bond hosts a stable phase-space pattern at this
+        drive but NOT the corpus Golden Torus. Could indicate
+        different (R, r) phase-space attractor OR drive amplitude/
+        frequency mismatch from corpus electron config.
+
+      Mode III (no closed pattern):
+        Open trajectory or simple ellipse
+        Reading: Bond-scale (2,3) phase-space hypothesis fails at
+        this drive. The bond LC tank either doesn't ring up at ω_C
+        with this drive, OR doesn't have multi-frequency structure
+        needed for (2,3) winding.
+
+      ESTIMATED COST: ~2-3 hr wall time per doc 28_ §5.1 estimate.
+
+      Test A and Test B together complete the corpus-canonical electron
+      eigenmode test set: Test A probes the Cosserat-continuum-scale
+      extended (2,3) bound state hypothesis; Test B probes the bond-scale
+      phase-space (V_inc, V_ref) Golden Torus hypothesis. Both must
+      land before Round 7 closure narrative is finalized; r8.9 manual
+      consolidates both per Grant cadence directive.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
