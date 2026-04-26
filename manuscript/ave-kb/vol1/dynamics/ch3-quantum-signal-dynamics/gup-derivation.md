@@ -25,7 +25,7 @@ Evaluating the exact commutator of the continuous position operator with this di
 > [\hat{x}, \langle \hat{P} \rangle] = i\hbar \cos\left(\frac{\ell_{node} \hat{p}_c}{\hbar}\right)
 > $$
 
-Applying the generalized Robertson-Schrodinger relation yields the rigorous **Generalized Uncertainty Principle (GUP)** for the discrete vacuum. Because continuous momentum $\Delta x_{SM}$ and the fundamental node spacing are orthogonal hardware constraints, they add in quadrature (Root-Sum-Square):
+Applying the generalized Robertson-Schrödinger relation yields the rigorous **Generalized Uncertainty Principle (GUP)** for the discrete vacuum. The continuous-momentum uncertainty $\Delta x_{SM}$ and the lattice node-spacing uncertainty $\ell_{node}/2$ are statistically independent: the first arises from the Heisenberg lower bound on the continuous canonical operator $\hat{p}_c$ in any single Brillouin zone (the cosine commutator above evaluates to $i\hbar$ in the small-$p_c$ limit, recovering standard Heisenberg); the second arises from the Nyquist resolution floor of the discrete lattice (independent of which Bloch state the wave occupies). Independent variances add — $\sigma^2_{total} = \sigma^2_{SM} + \sigma^2_{lattice}$ — giving the root-sum-square:
 
 > **[Resultbox]** *The Generalized Uncertainty Principle (GUP)*
 >

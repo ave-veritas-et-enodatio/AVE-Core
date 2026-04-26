@@ -93,7 +93,7 @@ Evaluating the exact commutator of the continuous position operator with this di
 \end{equation}
 \end{resultbox}
 
-Applying the generalized Robertson-Schr\"odinger relation yields the rigorous \textbf{Generalized Uncertainty Principle (GUP)} for the discrete vacuum. Because continuous momentum $\Delta x_{SM}$ and the fundamental node spacing are orthogonal hardware constraints, they add in quadrature (Root-Sum-Square):
+Applying the generalized Robertson-Schr\"odinger relation yields the rigorous \textbf{Generalized Uncertainty Principle (GUP)} for the discrete vacuum. The continuous-momentum uncertainty $\Delta x_{SM}$ and the lattice node-spacing uncertainty $\ell_{node}/2$ are statistically independent: the first arises from the Heisenberg lower bound on the continuous canonical operator $\hat{p}_c$ in any single Brillouin zone (the cosine commutator above evaluates to $i\hbar$ in the small-$p_c$ limit, recovering standard Heisenberg); the second arises from the Nyquist resolution floor of the discrete lattice (independent of which Bloch state the wave occupies). Independent variances add --- $\sigma^2_{total} = \sigma^2_{SM} + \sigma^2_{lattice}$ --- giving the root-sum-square:
 \begin{resultbox}{The Generalized Uncertainty Principle (GUP)}
 \begin{equation}
     \Delta x_{AVE} = \sqrt{(\Delta x_{SM})^2 + \left(\frac{\ell_{node}}{2}\right)^2} \ge \frac{\ell_{node}}{2}
@@ -131,20 +131,42 @@ When a topological defect (mass) is synthesized within the graph, it acts as a l
 To map this relativistic classical evolution to non-relativistic quantum states, the \textbf{Paraxial Approximation} is applied, factoring out the rest-mass Compton frequency via a slow-varying envelope function $\mathbf{A}(\mathbf{x},t) = \Psi(\mathbf{x},t) e^{-i \omega_m t}$. 
 
 For non-relativistic speeds ($v \ll c$), the second time derivative of the envelope ($\partial_t^2 \Psi$) is negligible. The strict mass resonance terms precisely cancel out:
-\begin{resultbox}{The Schr\"odinger Equation}
+\begin{resultbox}{The Schr\"odinger Equation (free particle)}
 \begin{equation}
     \nabla^2 \Psi + \frac{2im}{\hbar} \frac{\partial \Psi}{\partial t} = 0 \quad \implies \quad i\hbar \frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m} \nabla^2 \Psi
 \end{equation}
 \end{resultbox}
-The Schr\"odinger Equation evaluates precisely as the paraxial envelope equation of a classical macroscopic pressure wave propagating through the discrete massive $LC$ circuits of the vacuum.
+The free-particle Schr\"odinger Equation evaluates precisely as the paraxial envelope equation of a classical macroscopic pressure wave propagating through the discrete massive $LC$ circuits of the vacuum.
+
+\subsection{Bound-State Form: Spatial Modulation of $\varepsilon_{eff}$ Produces $V(\mathbf{r})\Psi$}
+
+The free-particle form above assumes uniform $\varepsilon_0, \mu_0$ across the lattice. When an external defect (a stationary topological knot, an atomic core, an applied static field) imprints a \textbf{spatial modulation} on the local LC properties, $\varepsilon_{eff}(\mathbf{r}) = \varepsilon_0 [1 + \chi(\mathbf{r})]$ with $|\chi| \ll 1$ in the linear regime, the wave-speed becomes position-dependent: $c_{eff}(\mathbf{r}) = c_0 / \sqrt{1 + \chi(\mathbf{r})}$. The Klein-Gordon equation acquires the corresponding modulated coefficient:
+\begin{equation}
+    \nabla^2 \mathbf{A} - \frac{1}{c_{eff}^2(\mathbf{r})}\frac{\partial^2 \mathbf{A}}{\partial t^2} = \left(\frac{mc}{\hbar}\right)^2 \mathbf{A}
+\end{equation}
+Expanding $1/c_{eff}^2 = (1+\chi(\mathbf{r}))/c_0^2$ and applying the same paraxial factoring $\mathbf{A} = \Psi\,e^{-i\omega_m t}$, the modulation contributes an extra term proportional to $\tfrac{1}{2}\,m c^2\,\chi(\mathbf{r})$ in the envelope equation. Identifying the on-site interaction energy
+\begin{equation}
+    V(\mathbf{r}) \equiv \tfrac{1}{2}\, m c^2\, \chi(\mathbf{r})
+\end{equation}
+yields the \textbf{full Schr\"odinger equation} with external potential:
+\begin{resultbox}{Schr\"odinger Equation with External Potential}
+\begin{equation}
+    i\hbar\,\frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2\Psi + V(\mathbf{r})\,\Psi
+\end{equation}
+\end{resultbox}
+\textbf{Physical reading.} $V(\mathbf{r})$ is the spatially-dependent rest-energy shift induced by the local dielectric perturbation $\chi(\mathbf{r})$. A nuclear Coulomb well, an applied electric field, or another knot's strain field all enter through this same mechanism: by modulating the local lattice constitutive parameters, they shift the local Compton frequency seen by the propagating wave, which becomes a position-dependent potential in the paraxial envelope. Bound-state physics (atomic orbitals, potential wells, tunneling barriers) recovers from this form by standard separation of variables.
+
+\textbf{Magnetic case.} A spatial modulation of $\mu_{eff}(\mathbf{r})$ contributes via the same paraxial argument to a vector-potential coupling $-(e/m c)\mathbf{A}\cdot\mathbf{p}$ at leading order; combined with the scalar $V(\mathbf{r})$ above, the full minimal-coupling Schr\"odinger Hamiltonian $\frac{1}{2m}(\mathbf{p} - e\mathbf{A}/c)^2 + V$ follows. The derivation is mechanically the same as the classical paraxial-wave-in-modulated-medium argument; no quantum postulates are imported.
 
 \section{Wave-Particle Duality and The Zero-Impedance Boundary}
 The framework asserts that subatomic particles are topological knots where the spatial LC metric reaches dielectric saturation. Two distinct thresholds govern this process:
 \begin{itemize}
-    \item \textbf{The Kinetic Yield Limit} ($E_k = \sqrt{\alpha} \cdot m_e c^2 \approx 43.65 \text{ keV}$): the threshold where non-linear saturation effects become dominant and the soliton begins to self-confine.
+    \item \textbf{The Kinetic Yield Limit} ($E_k = \sqrt{\alpha} \cdot m_e c^2 \approx 43.65 \text{ keV}$, equivalently the field threshold $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV): the threshold where non-linear saturation effects become dominant and the soliton begins to self-confine.
     \item \textbf{The Absolute Snap Limit} ($V_{snap} = m_e c^2 / e \approx 511 \text{ kV}$): the maximum inter-node potential difference before the lattice structurally ruptures (derived in Chapter \ref{ch:macroscopic_moduli}).
 \end{itemize}
 The kinetic yield governs mass assembly and confinement; the snap limit governs dielectric breakdown and pair production. The Transmission Line mathematics of the saturation boundary provide a derivation of the physical origin of solid matter and wave-particle duality.
+
+\noindent\textbf{Reconciliation with Ch.~\ref{ch:regime_map} regime map.} Ch.~\ref{ch:regime_map} places $r_3 = 1.0$ at this same $V_{yield} = 43.65$~kV boundary and describes it as ``Regime IV: topology destroyed.'' The two descriptions refer to the \emph{same} phase transition viewed from opposite sides: from a trapped mode below the boundary, the saturating LC reaches $Z \to 0$, $\Gamma \to -1$, the wave reflects inward and forms a standing wave = stable rest mass (\emph{matter assembly} picture); from a propagating mode crossing the boundary, the lattice's dielectric ruptures, $\varepsilon_{eff} \to 0$, the topology of any existing knot is destroyed and the energy radiates as a transverse wave or a pair (\emph{topology destroyed} picture). One transition, two operational faces.
 
 \begin{figure}[h!]
     \centering

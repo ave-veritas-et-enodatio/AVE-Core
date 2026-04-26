@@ -350,6 +350,16 @@ Its mass is set by Bounding Limit 1:
 $m_e = \hbar / (c\,\ell_{node}) \approx 0.511\;\text{MeV}$.
 
 **Three Lepton Generations from Cosserat Mechanics.**
+
+> **Methodology disclosure.** The lepton-generation derivation below uses three identifications that are *matched* against observation rather than derived step-by-step from the four axioms:
+> - The chiral LC lattice has three independent micropolar (Cosserat) coupling sectors → identified with three observed generations. The "three sectors = three generations" matching is a structural assumption consistent with Cosserat micropolar continuum mechanics; it is not derived from Axioms 1–4 alone.
+> - The torsional coupling factor $\alpha\sqrt{3/7}$ (muon) is asserted: $\alpha$ is the dielectric compliance from Axiom 2, $\sqrt{3/7}$ is the PAT torsion-shear projection at $\nu_{vac} = 2/7$. The derivation chain from Cosserat micropolar theory through the unknot's torsional eigenmode to this specific factor is not presented in full.
+> - The bending coupling factor $8\pi/\alpha = p_c/\alpha^2$ (tau) is similarly identified rather than derived from a step-by-step Cosserat calculation.
+>
+> The PMNS sector below carries an analogous status: the three neutrino crossing numbers $c_1=5, c_2=7, c_3=9$ are identified by pattern (consecutive odd integers from the $(2,q)$ torus-knot ladder paired with three regime types), not derived from a unique axiomatic constraint that picks $\{5,7,9\}$ over alternatives.
+>
+> The framework's claim is that *one consistent set of identifications* (three Cosserat sectors, three crossing numbers, the specific projection factors) reproduces three lepton masses, three neutrino masses, and four PMNS angles within ~1.2% of measurement. The structural claim — that three sectors with these matched factors suffice — is falsifiable; the per-step derivation of the factors from axioms is the rigour gap. Same predicted/identified pattern as elsewhere in the framework: structure predicted, specific assignments matched, ensemble falsifiable.
+
 The chiral LC lattice is a micropolar (Cosserat) continuum with three
 independent elastic coupling sectors:
 1. **Translation** (standard elasticity) → Electron.
@@ -426,10 +436,12 @@ $$
 4. **CP phase** (K4 chirality structure):
 
 $$
-\delta_{CP} = \left(1 + \frac{1}{3} + \frac{1}{45}\right)\pi
+\delta_{CP}^{PMNS} = \left(1 + \frac{1}{3} + \frac{1}{45}\right)\pi
 = \frac{61\pi}{45}
 \quad\text{(NuFIT: 1.36}\pi\text{, }\Delta = 0.3\%\text{)}
 $$
+
+(Notation: $\delta_{CP}^{PMNS} \approx 4.26$ rad is the PMNS leptonic CP-violating phase. A *different* CP-violating phase $\delta_{CP}^{B} \approx 0.126$ rad appears in the baryon-asymmetry derivation below — same $\delta_{CP}$ symbol stem, different physics, ~34× different magnitude. The two should not be conflated.)
 
 Three terms: unknot half-turn ($\pi$), K4 bond chirality share ($\pi/3$),
 junction coupling phase ($\pi/45$).
@@ -816,7 +828,7 @@ Every quantity marked $\checkmark$ is computed by the physics engine at import t
 | NS smoothness | Lattice regularization + $\|u\|\le c$ | global | --- | proven |
 | $\theta_{QCD}$ | Unique vacuum topology | $0$ | $<10^{-10}$ | exact |
 | $g_*$ | $7^3/4$ from $\nu_{vac}=2/7$ + K4 | 85.75 | SM: 106.75 | testable |
-| $\eta$ (baryon) | $\delta_{CP}\alpha_W^4 C_{sph}/g_*$ | $6.08\!\times\!10^{-10}$ | $6.1\!\times\!10^{-10}$ | $0.38\%$ |
+| $\eta$ (baryon) | $\delta_{CP}^{B}\alpha_W^4 C_{sph}/g_*$ | $6.08\!\times\!10^{-10}$ | $6.1\!\times\!10^{-10}$ | $0.38\%$ |
 | $\alpha_s$ | $\alpha^{3/7}$ (compliance projection) | 0.1214 | 0.1179 | $2.97\%$ |
 | $m_H$ | $v/\sqrt{N_{K4}} = v/2$ | 124417 MeV | 125100 MeV | $0.55\%$ |
 
@@ -870,16 +882,16 @@ No axion needed. (Vol. III, absorbed cross-scale verification.)
 
 **Baryon Asymmetry: $\eta = 6.08 \times 10^{-10}$.**
 The SRS/K4 lattice is chiral --- not superimposable on its mirror
-image. The CP-violating phase is:
+image. The CP-violating phase entering electroweak baryogenesis (distinct from the PMNS leptonic phase $\delta_{CP}^{PMNS}$ above) is:
 
 $$
-\delta_{CP} = \frac{\pi}{\kappa_{FS}} \approx 0.126
+\delta_{CP}^{B} = \frac{\pi}{\kappa_{FS}} \approx 0.126
 $$
 
 The baryon-to-photon ratio follows from electroweak baryogenesis:
 
 $$
-\eta = \frac{\delta_{CP} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
+\eta = \frac{\delta_{CP}^{B} \cdot \alpha_W^4 \cdot C_{sph}}{g_*}
 = \frac{(\pi/8\pi) \cdot (\alpha/(2/9))^4 \cdot (28/79)}{7^3/4}
 \approx 6.08 \times 10^{-10}
 $$

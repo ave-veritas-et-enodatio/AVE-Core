@@ -30,15 +30,24 @@ $$
 
 Below $r_1$, Axiom 4 corrections are *sub-$\alpha$*: smaller than the lattice's own coupling strength and therefore physically unresolvable. This is the exact analog of small-signal linearization in semiconductor analysis, where perturbations smaller than $V_T = kT/q$ are absorbed by thermal noise.
 
-- **$r_2 = \sqrt{3}/2 \approx 0.8660$ (Avalanche Onset):** The quality factor $Q(r) = 1/S(r)$ measures energy trapping efficiency. A mode with $Q \geq \ell$ stores more energy per cycle than it radiates. The minimum non-trivial multipole is $\ell = 2$ (dipole cannot radiate gravitational waves; monopole cannot radiate at all). The yield regime begins when $Q$ first reaches this minimum:
+- **$r_2 = \sqrt{3}/2 \approx 0.8660$ (Avalanche Onset, spin-2 sector):** The quality factor $Q(r) = 1/S(r)$ measures energy trapping efficiency. A mode with $Q \geq \ell$ stores more energy per cycle than it radiates. For the **spin-2 (gravitational-wave / shear) sector**, the minimum non-trivial multipole is $\ell_{\min} = 2$ (dipole cannot radiate gravitational waves; monopole cannot radiate at all). The yield regime begins when $Q$ first reaches this minimum:
 
 $$
-Q(r) = \frac{1}{S(r)} = \ell_{\min} = 2 \qquad \Longrightarrow \qquad S = \frac{1}{2}, \quad r_2 = \sqrt{1 - \frac{1}{4}} = \frac{\sqrt{3}}{2}
+Q(r) = \frac{1}{S(r)} = \ell_{\min} = 2 \qquad \Longrightarrow \qquad S = \frac{1}{2}, \quad r_2^{(\ell=2)} = \sqrt{1 - \frac{1}{4}} = \frac{\sqrt{3}}{2}
 $$
 
-In semiconductor terms, this is the onset of **avalanche multiplication**: the Miller factor $M = 1/(1-(V_R/V_{BR})^n)$ reaches $M = 2$, meaning each cycle doubles the stored charge.
+**Sector-dependence note.** The $\ell_{\min} = 2$ argument is specific to the spin-2 sector. Other sectors have different minimum multipoles and therefore different $r_2$ boundaries:
+- *Scalar sector* ($\ell_{\min} = 0$): the "$Q \geq \ell$" criterion is trivially satisfied for all $r$; no avalanche-onset boundary in this sector. Practical avalanche onset is set by other physics (e.g., Schwinger pair production at $V_{yield}$).
+- *Photon / vector sector* ($\ell_{\min} = 1$): $Q = 1 \Rightarrow S = 1$, so $r_2^{(\ell=1)} = 0$ — i.e., avalanche onset is concurrent with linear-Maxwell breakdown. The vector sector has no separate "regime III" between linear and yield; the practical photon-sector boundary is again set by $V_{yield}$ (Axiom 2).
+- *Spin-2 sector* ($\ell_{\min} = 2$): $r_2^{(\ell=2)} = \sqrt{3}/2$, as derived above. This is the GW / shear-mode result.
+
+The "universal regime map" framing in the chapter title is the spin-2 form; the lower-spin sectors collapse two boundaries together. When this chapter cites $r_2 = \sqrt{3}/2$ without qualification, the spin-2 sector is implicit.
+
+In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 boundary is the onset of **avalanche multiplication**: the Miller factor $M = 1/(1-(V_R/V_{BR})^n)$ reaches $M = 2$, meaning each cycle doubles the stored charge.
 
 - **$r_3 = 1.0$ (Breakdown):** Axiomatic from Axiom 4. The saturation factor reaches zero, compliance vanishes, and the topology is destroyed. In different domains this manifests as: pair production (EM), event horizon formation (gravity), quark deconfinement (nuclear), or superconducting transition (BCS). In semiconductor terms: $V_R = V_{BR}$, $M \to \infty$, the device is destroyed.
+
+  > **Note (cross-link with Ch.3).** This $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV described in [Ch.3 §3.3 Zero-Impedance Boundary](../../dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md) as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces.
 
 ### Semiconductor Device Analogy
 
