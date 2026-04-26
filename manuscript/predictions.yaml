@@ -953,7 +953,7 @@ predictions:
       + doc 71_ §13-§14 methodology + retraction of P_basin_audit_GT_stationarity.
 
   - id: P_phase6_helmholtz_eigenmode_sweep
-    name: "R7.1 multi-seed block Helmholtz on (V, ω) joint: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
+    name: "[RETRACTED — §6.1 catastrophic-error carve-out invoked on-record per Grant approval; superseded by doc 73_ discrete K4-TLM scatter+connect operator] R7.1 multi-seed block Helmholtz on (V, ω) joint: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
     type: derived_prediction
     pre_registered: true
     research_doc: "research/L3_electron_soliton/72_vacuum_impedance_design_space.md"
@@ -962,6 +962,51 @@ predictions:
     public_in_readme: false
     public_in_living_ref: false
     notes: |
+      **RETRACTED 2026-04-25 (same fresh session as commit 675141e) per §6.1
+      catastrophic-error carve-out invocation. Body preserved as audit trail
+      per Rule 12. First §6.1 invocation in Round 7, on-record per Grant
+      approval ("confirmed 6.1"). Successor pre-registration is
+      P_phase6_k4tlm_scattering_lctank (working name, pending doc 73_ §1-§5
+      sign-off; not yet registered) per doc 73_ §2-§5 discrete operator spec.**
+
+      **Retraction reason (load-bearing physics error in V-block operator
+      construction):** The pred's "block Helmholtz on (V, ω) joint" framing
+      specified the V-block as a continuum Helmholtz operator
+      ∇·(z(x)·∇V) + k²V = 0. The reframe-3 driver
+      (r7_helmholtz_eigenmode_sweep.py at commit 675141e) implemented this
+      as a weighted K4 graph Laplacian — i.e., the *continuum-limit*
+      approximation of K4-TLM. But K4-TLM is fundamentally discrete-time
+      scatter+connect (per k4_tlm.py:36-65 build_scattering_matrix and
+      :291-376 _scatter_all + _connect_all), which does NOT reduce to a
+      graph Laplacian at finite N. At the engine's operating regime (N=32,
+      mode scale ~10 cells) the continuum-vs-discrete corrections are
+      O((10/32)²) ≈ 10%, vs PASS tolerance α ≈ 0.7% — operator error is
+      ~14× the noise floor. Per §6.1 commitment language: load-bearing
+      physics error in operator construction itself that would invalidate
+      any result regardless of what data the run produces.
+
+      Self-audit triggered by Grant pulse-check "are you being an AVE
+      engineer?" 2026-04-25, during smoke test of reframe-3 driver at N=16.
+      Smoke test ran mechanically (driver completes; eigsolve returns finite
+      spectra) but produced eigenvalues nowhere near ω_C² = 1, prompting
+      audit of whether the operator construction faithfully represented
+      K4-TLM. It did not. §6.1 carve-out invocation approved by Grant
+      on-record; doc 73_ articulates the discrete K4-TLM scatter+connect
+      operator + Cosserat (u, ω) LC-tank Hessian-of-W operator + Op14
+      cross-coupling at full mathematical detail.
+
+      Multi-seed scoping (4 seeds: GT_corpus, F17K_cos_endpoint,
+      F17K_s11_endpoint, vacuum_control), three-mode falsification structure,
+      lattice geometry (N=32, R_anchor=10), A26 contamination guard, and
+      sector-energy split + shape correlation diagnostics all CARRY OVER to
+      the successor pred. Only the V-block operator construction is
+      retracted. The Cos-block Hessian-of-W formulation is closer to
+      AVE-native and carries over with extension to (u, ω) joint.
+
+      Original §6.2 body (NOT FALSIFIED — never staged because retracted
+      pre-run on operator-choice catastrophic methodology error per §6.1
+      carve-out criteria) follows for audit trail:
+
       Round 7 Stage 1 — reframe 3 (final operator choice per doc 72_ §6.1
       Rule-10 commitment). Replaces retracted P_phase6_eigensolver_multiseed
       (Hessian-of-W → block Helmholtz on (V, ω) joint per doc 72_ §3.1).

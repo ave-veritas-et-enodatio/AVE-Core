@@ -330,6 +330,44 @@ The frozen pre-reg `P_phase6_eigensolver_multiseed` (commit `c69e79c`) retracts 
 
 ---
 
+## 9. §6.1 catastrophic-error carve-out invocation (on-record, 2026-04-25)
+
+**Reframe-3 framing (this doc §1-§8) is RETRACTED.** Per §6.1 catastrophic-error carve-out, with explicit Grant approval on-record.
+
+### 9.1 Trigger
+
+Self-audit during reframe-3 driver smoke test, triggered by Grant pulse-check ("are you being an AVE engineer?", 2026-04-25). Identified that the V-block operator constructed in `r7_helmholtz_eigenmode_sweep.py` (commit `675141e`) is a **continuum-limit graph Laplacian approximation**, NOT the discrete K4-TLM scatter+connect transmission operator that K4-TLM actually implements at finite N.
+
+### 9.2 §6.1 carve-out criteria — met
+
+Per [§6.1 commitment language](#61-commitment-language-rule-10-anchor--present-in-both-this-doc-and-r88-manual-entry): catastrophic methodology error = "load-bearing physics error in operator construction itself that would invalidate any result regardless of what data the run produces."
+
+Met because at N=32 the continuum-vs-discrete corrections are O((10/32)²) ≈ 10%, which is ~14× the PASS tolerance (α ≈ 0.7%). Mode (III) under graph Laplacian could be misread as "Round 8 architectural rework" when actual cause is "continuum approximation finds modes that don't lift to K4-TLM scatter+connect." See [doc 73_ §1.2](73_discrete_k4_tlm_lctank_operator.md) for full reasoning.
+
+### 9.3 Grant approval
+
+> *Grant 2026-04-25: "confirmed 6.1"*
+
+First §6.1 invocation in Round 7. On-record per auditor recommendation so future audits can verify the carve-out is not becoming a routine escape valve from Rule 10's "data first, methodology after" commitment.
+
+### 9.4 Successor doc
+
+[Doc 73_](73_discrete_k4_tlm_lctank_operator.md) articulates the discrete K4-TLM scatter+connect operator + Cosserat (u, ω) LC-tank Hessian-of-W operator + Op14 cross-coupling at full mathematical detail per auditor's 4-part spec. No new pre-registration in this doc 72_ or doc 73_; pred follows after doc 73_ §1-§5 sign-off.
+
+### 9.5 What stays valid in doc 72_
+
+Doc 72_ §1.1-§1.4 (four AVE-native concepts: wave eigenmode / impedance match / topological quantization / S₁₁-min not W-min) are correct. The conceptual layer was right; the operator-syntax layer (§3.1's `∇·(z(x)·∇V) + k²V = 0` continuum form) was wrong. Doc 73_ keeps the §1.1-§1.4 conceptual framework and replaces the §3.1 operator construction with a discrete K4-TLM scatter+connect formulation.
+
+§2 (3D Smith chart for the vacuum, Extension A `(Re(Γ), Im(Γ), ω)`) also stays valid as the AVE-native visualization for R7.1, just with the discrete-operator interpretation: Γ is computed via `S(z_local)` boundary impedance match, ω is read off the eigenvalue phase `arg(λ) = ω·dt`, and resonance surface in (R, r, ω) volume is mapped via discrete eigsolve rather than continuum eigsolve.
+
+### 9.6 Reframe-5 escalation discipline
+
+Per [doc 73_ §6.1](73_discrete_k4_tlm_lctank_operator.md): a SECOND §6.1 invocation in Round 7 must be paired with formal verification / independent operator-math review before any further code. The first invocation (this one, doc 73_) lands the discrete-operator math at the correct layer; reframe 5 if it surfaces would require heavier scaffolding.
+
 ---
 
-*Doc 72_ written 2026-04-25 — design-space articulation precursor to R7.1 pre-registration. Closes the depth-of-understanding gap that produced three pre-reg retractions earlier in this session. §1 names the four AVE-native concepts (wave eigenmode / impedance match / topological quantization / S₁₁-min not W-min). §2 articulates the 3D Smith chart for the vacuum (three natural extensions; Extension A `(Re(Γ), Im(Γ), ω)` recommended for R7.1; 4D chirality flagged for later). §3 maps R7.1 to Helmholtz wave-eigenmode framing. §4 inventories corpus tools to reuse. §5 estimates ~250 LOC for fresh-session implementation. §6 defers next pre-registration pending §1-§5 sign-off. §8 collects sign-off questions for Grant. Cross-repo references: AVE-HOPF Smith chart (chiral_antenna_q_analysis.py:644), AVE-VirtualMedia three-regime Γ (generate_reflection_profile.py), AVE-Protein TDI canonical (protein_fold.py:260-326).*
+*§9 added 2026-04-25 — §6.1 catastrophic-error carve-out invocation on-record per Grant approval. Reframe-3's V-block continuum-Laplacian approximation identified as load-bearing physics error in operator construction. Successor: doc 73_. §1.1-§1.4 conceptual framework retained; §3.1 operator-syntax layer superseded by discrete K4-TLM scatter+connect formulation in doc 73_.*
+
+---
+
+*Doc 72_ written 2026-04-25 — design-space articulation precursor to R7.1 pre-registration. Closes the depth-of-understanding gap that produced three pre-reg retractions earlier in this session. §1 names the four AVE-native concepts (wave eigenmode / impedance match / topological quantization / S₁₁-min not W-min). §2 articulates the 3D Smith chart for the vacuum (three natural extensions; Extension A `(Re(Γ), Im(Γ), ω)` recommended for R7.1; 4D chirality flagged for later). §3 maps R7.1 to Helmholtz wave-eigenmode framing (RETRACTED §9; superseded by doc 73_ discrete K4-TLM operator). §4 inventories corpus tools to reuse. §5 estimates ~250 LOC for fresh-session implementation. §6 defers next pre-registration pending §1-§5 sign-off. §8 collects sign-off questions for Grant. §9 records §6.1 catastrophic-error carve-out invocation on-record per Grant approval. Cross-repo references: AVE-HOPF Smith chart (chiral_antenna_q_analysis.py:644), AVE-VirtualMedia three-regime Γ (generate_reflection_profile.py), AVE-Protein TDI canonical (protein_fold.py:260-326).*

@@ -468,7 +468,15 @@ Write new:
 
 ---
 
-## 15. ACTIVE — Multi-seed R7.1 block Helmholtz eigenmode sweep (active 2026-04-25)
+## 15. RETRACTED — Multi-seed R7.1 block Helmholtz eigenmode sweep (continuum-Laplacian operator superseded by discrete K4-TLM scatter+connect per doc 73_)
+
+**Retracted 2026-04-25 same fresh session per §6.1 catastrophic-error carve-out invocation, on-record per Grant approval.** §15 framed R7.1 as block Helmholtz on (V, ω) joint with V-block as continuum graph Laplacian. Self-audit during reframe-3 driver smoke test (triggered by Grant pulse-check "are you being an AVE engineer?", 2026-04-25) identified that the continuum-Laplacian V-block is a continuum-limit approximation, NOT the discrete K4-TLM scatter+connect transmission operator. At N=32 the continuum-vs-discrete corrections are ~14× the PASS tolerance — load-bearing physics error per §6.1.
+
+**§6.1 carve-out invoked on-record:** Grant 2026-04-25 "confirmed 6.1." First §6.1 invocation in Round 7. Successor: [doc 73_](73_discrete_k4_tlm_lctank_operator.md) discrete K4-TLM scatter+connect + Cosserat (u, ω) LC-tank Hessian-of-W + Op14 cross-coupling at full math detail.
+
+§15 body retained per Rule 12 as audit trail. Active R7.1 framing now per doc 73_; new pre-registration `P_phase6_k4tlm_scattering_lctank` (working name) pending doc 73_ §1-§5 sign-off. Original §15 follows:
+
+### Original §15 (block Helmholtz framing, RETRACTED — superseded by doc 73_ discrete K4-TLM):
 
 Per [doc 72_](72_vacuum_impedance_design_space.md) design-space articulation. The Hessian-of-W framing in §13 is superseded; the AVE-native operator for bound-state analysis is **block Helmholtz on the joint `(V, ω)` state vector**. Active pre-registration is `P_phase6_helmholtz_eigenmode_sweep` (replaces `P_phase6_eigensolver_multiseed`).
 
