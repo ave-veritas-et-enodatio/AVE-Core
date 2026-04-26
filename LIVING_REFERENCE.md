@@ -260,7 +260,7 @@ future_work/          # Speculative roadmap
 | 24 | α_s (strong coupling) | 2.97% | ✅ α^(3/7) |
 | 25 | m_H (Higgs mass) | 0.55% | ✅ v/√N_K4 |
 | 26 | V_us (Cabibbo) | 1.4% | ✅ λ = sin²θ_W = 2/9 |
-| 27 | V_cb (CKM) | 4.1% | ✅ Aλ² = cos(θ_W)×(2/9)² |
+| 27 | V_cb (CKM) | 6.2% vs PDG 0.0410 (3.5% vs PDG inclusive 0.0421) | ✅ Aλ² = cos(θ_W)×(2/9)² ≈ 0.0436; PDG-reference dependent |
 | 28 | V_ub (CKM) | 1.3% | ✅ 8/2187 |
 | 29 | sin²θ_13 (PMNS) | 1.0% | ✅ 1/(c₁c₃) = 1/45 |
 | 30 | sin²θ_12 (PMNS) | 0.3% | ✅ ν_vac + 1/45 |

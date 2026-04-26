@@ -32,10 +32,16 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 > **[Resultbox]** *Baseline Vacuum Shear Modulus*
 >
 > $$
-> G_{vac} = \frac{T_{EM}}{\ell_{node}} = \frac{m_e c^2}{\ell_{node}^2} \approx 5.48 \times 10^{24} \text{ Pa}
+> G_{vac} = \rho_{bulk} \cdot c^2 \approx 7.11 \times 10^{23} \text{ Pa}
 > $$
 
-(Approximately the density of a White Dwarf core).
+This is the macroscopic 3D shear modulus of the $\mathcal{M}_A$ condensate — the elastic resistance to transverse spatial deformation. It must not be confused with the 1D **string tension modulus**
+
+$$
+G_{string} = \frac{T_{EM}}{\ell_{node}} = \frac{m_e c^2}{\ell_{node}^2} \approx 5.49 \times 10^{11}\;\text{N/m}
+$$
+
+which governs individual edge stiffness but is $\sim 10^{12}\times$ smaller than the collective continuum value. The Cauchy bulk modulus is fixed at $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
 
 ### Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)
 
