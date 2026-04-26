@@ -1094,6 +1094,128 @@ predictions:
       Driver `r7_helmholtz_eigenmode_sweep.py` (~290 LOC per doc 72_ §5)
       deferred to fresh session per Round 7 discipline.
 
+  - id: P_phase6_k4tlm_scattering_lctank
+    name: "R7.1 multi-seed K4-TLM scatter+connect transmission eigenmode + Cosserat (u,ω) LC-tank Hessian: at least one seed returns ω_Compton bound state"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md"
+    test_file: "src/scripts/vol_1_foundations/r7_k4tlm_scattering_lctank.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 7 Stage 1 — reframe 4 (final operator choice per doc 73_ §6.1
+      Rule-10 commitment, §6.1 carve-out invoked on-record per Grant approval
+      "confirmed 6.1" 2026-04-25). Replaces retracted P_phase6_helmholtz_-
+      eigenmode_sweep (continuum-Laplacian V-block → discrete K4-TLM
+      scatter+connect transmission operator per doc 73_ §2-§5).
+
+      METHODOLOGY (per doc 73_ §2-§5):
+
+      V-block — K4-TLM scatter+connect transmission eigenmode:
+        T(z_local) = C · S(z_local)        T : ℂ^{4N_active × 4N_active}
+      where:
+        S(z_local) = block-diagonal scattering matrix per k4_tlm.py:36-65
+                     (4×4 unitary block per active node)
+        C = sparse permutation operator encoding neighbor(i,p) connectivity
+            (per k4_tlm.py:348-426 _connect_all), opposite_port(p) = p
+      Eigenvalue problem (UNITARY, eigenvalues on unit circle):
+        T · ψ_V = exp(i·ω_n·dt) · ψ_V
+      Solve via scipy.sparse.linalg.eigs(T, k=20, sigma=exp(i·ω_C·dt),
+                                         which='LM') with shift-invert at
+      target phase exp(i / √2) ≈ exp(i·0.7071) for ω_C = 1, dt = 1/√2 in
+      natural units. PASS criterion on V-block: ∃ eigenvalue λ_n with
+      |arg(λ_n) - ω_C·dt| < α·ω_C·dt = α/√2 ≈ 0.00516 rad.
+
+      Cos-block — Cosserat (u, ω) LC-tank Hessian-of-W:
+        K_cos · δψ_cos = ω² · M_cos · δψ_cos      (real-symmetric generalized)
+      where:
+        K_cos = ∂²W/∂(u, ω)² evaluated at seed configuration via FD HVP on
+                engine.cos.energy_gradient (returns both dE_du, dE_dw)
+        M_cos = block-diag(ρ·I_{3N³}, I_ω·I_{3N³})    mass matrix
+      Solve via scipy.sparse.linalg.eigsh(K_cos_op, M=M_cos, k=20,
+                                           which='SA', tol=1e-5).
+      PASS criterion on Cos-block: ∃ eigenvalue λ_n > 0 with
+      |√λ_n - ω_C| < α·ω_C ≈ 0.00731 (natural units).
+
+      Op14 cross-coupling at V=0 seed: vanishes per doc 73_ §4.3 (multi-
+      plicative in V; T·ψ_V = 0 when ψ_V = 0). Block decouples; eigsolve
+      V-block and Cos-block independently. Hybrid V≠0 ∧ ω≠0 eigenmodes
+      deferred to Round 8.
+
+      Lattice: N=32, R_anchor=10. K4-TLM active sites = all-even ∪
+      all-odd = 2·(N/2)³ = 8192 at N=32. V-block dim 4·8192 = 32768.
+      Cos-block dim 6·N³ = 196608. Both tractable for sparse eigs/eigsh.
+
+      Engine: A28 + Cosserat self-terms enabled. No saturation pin.
+      A26 amplitude guard at step 0 (peak |ω| ∈ [0.85, 1.15]·0.3π for
+      GT-family seeds).
+
+      Seeds (4 total, unchanged from retracted P_phase6_helmholtz_eigenmode_-
+      sweep):
+      - GT_corpus:        R=10, r=10/φ²≈3.82  (corpus claim R/r=φ²)
+      - F17K_cos_endpoint: R=10, r=10/3.40≈2.94 (F17-K v2-v2 Cosserat-energy)
+      - F17K_s11_endpoint: R=10, r=10/1.03≈9.71 (F17-K v2-v2 coupled-S₁₁)
+      - vacuum_control:    random low-amplitude (peak |ω|=0.05) — negative
+                           control
+
+      All GT-family seeds use amplitude_scale = 0.3 / (√3/2) ≈ 0.3464.
+
+      EIGENMODE PASS criteria (binary, both required for headline PASS):
+      - V-block: ∃ eigenvalue with |arg(λ) - ω_C·dt| < α/√2 ≈ 0.00516 rad
+        AND topological crossing-count of mode shape c_eigvec = 3 (for V-block
+        crossing-count is informational; the discrete K4-TLM scattering mode
+        has port structure that doesn't directly map to Cosserat winding).
+      - OR Cos-block: ∃ positive eigenvalue with |√λ - ω_C| < α·ω_C ≈ 0.00731
+        AND c_eigvec = 3 on the eigenvector (computed via extract_crossing_-
+        count on the ω-component of the eigenvector reshaped to (N, N, N, 3)).
+
+      INFORMATIONAL DIAGNOSTICS (not PASS, reported per eigenmode passing
+      binary):
+      - Shape correlation > 0.60 against doc 34_ X4a profile (Q4 two-tier;
+        only meaningful on Cos-block ω-component)
+      - Sector-energy split: at V=0 seed this is trivially binary by which
+        block returned the eigenmode (V-block dominant or Cos-block dominant);
+        hybrid only at V≠0 seed (Round 8)
+      - Negative eigenvalues at non-stationary Cos-block seeds (per doc 73_
+        §3.6): expected, diagnostic of seed non-stationarity, not error
+
+      PASS:
+      At least one of {GT_corpus, F17K_cos_endpoint, F17K_s11_endpoint}
+      returns an eigenmode satisfying binary PASS criterion in V-block OR
+      Cos-block. vacuum_control returns no nontrivial eigenmode in either.
+
+      THREE-MODE FALSIFICATION RESOLUTION (with sector sub-reading; per
+      doc 73_ §1.1 reframe arc table):
+      - (I) GT_corpus passes → corpus Golden Torus geometry vindicated.
+        Sub-reading: which block hosted the eigenmode (V-sector standing
+        wave OR Cos-sector LC oscillation OR both)
+      - (II) F17K_cos and/or F17K_s11 passes; GT_corpus fails → engine
+        basin at F17-K endpoint geometry, NOT corpus GT. Engine W or
+        corpus geometry derivation needs revision.
+      - (III) No seed passes at V=0 → either (2,3) representation needs
+        structural rework (Round 8) OR bound state is genuinely hybrid
+        coupled requiring V≠0 ∧ ω≠0 seed (Round 8 sub-question per
+        doc 73_ §4.4).
+
+      Negative-control failure: if vacuum_control returns nontrivial
+      eigenmode satisfying binary PASS, sparse operator construction has
+      assembly bug (likely connect-permutation error in V-block OR FD HVP
+      asymmetry in Cos-block). Methodology not physics — re-check operator
+      construction integrity before interpreting (I)/(II)/(III).
+
+      §6.1 carve-out commitment (per doc 73_ §6 + doc 72_ §6.1): this is
+      reframe 4 of R7.1 in this session arc. The fresh-session run
+      committed against this pred is committed to operator choice. Post-run
+      methodology adjustments allowed under Rule 10 ("data first, methodology
+      adjustments after"); pre-emptive operator changes before run are NOT
+      allowed except for catastrophic methodology error. A second §6.1
+      invocation in Round 7 must be paired with formal verification /
+      independent operator-math review before any further code lands.
+
+      Driver `r7_k4tlm_scattering_lctank.py` (~250 LOC per doc 73_ §5)
+      lands in same commit as this pred + run + interpretation in doc 74_.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
