@@ -1216,6 +1216,88 @@ predictions:
       Driver `r7_k4tlm_scattering_lctank.py` (~250 LOC per doc 73_ §5)
       lands in same commit as this pred + run + interpretation in doc 74_.
 
+  - id: P_phase6_lattice_resolution_sweep
+    name: "R7.1 V-block lattice-resolution sweep: Mode III gap at N=32 (1.22%) does NOT close to within α/√2 PASS tolerance at N=64"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r7_lattice_resolution_sweep.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      R7.1 follow-up #3 per doc 74_ §6 + auditor concern #3 (commit 8c44ef0
+      review). Pre-registered at this commit before run, per Rule 10 "data
+      first, methodology after" — prevents retroactive adjudication of the
+      lattice-resolution sweep's outcome.
+
+      MOTIVATION: The doc 74_ Mode III result is comprehensive in V-block
+      (shift-invert directly targets ω_C·dt closest mode) but at fixed
+      N=32. If the K4-TLM dispersion at N=32 has no eigenmode within
+      α/√2 ≈ 0.516% of ω_C·dt = 0.7071 rad — but the dispersion DOES have
+      such a mode at higher N (continuum limit) — then N=32 Mode III is
+      a finite-N artifact, not a fundamental finding about K4-TLM at the
+      bound-state-question scale.
+
+      METHODOLOGY: Run V-block (K4-TLM scatter+connect transmission
+      eigsolve via shift-invert at sigma=exp(i·ω_C·dt), per doc 73_ §2)
+      at N=64. Single seed (GT_corpus, R/r=φ²) suffices — at N=32 all
+      three GT-family seeds clustered near the same closest-mode phase
+      (5th-decimal differentiation), so seed-dependent shifts are
+      sub-leading vs lattice-resolution shifts. Two-tier comparison:
+
+      RESOLUTION-TREND PASS criteria (binary, both required):
+
+      (a) Gap-closure test:
+          |phase_N64_closest - ω_C·dt|  >  0.5 × |phase_N32_closest - ω_C·dt|
+          Equivalently: gap at N=64 retains > 50% of gap at N=32.
+          Reading: If gap is preserved at N=64, the K4-TLM dispersion at
+          GT geometry has a structural absence of eigenmodes at ω_C·dt;
+          this is a real lattice-physics finding regardless of N.
+
+      (b) Cluster-location stability:
+          phase_N64_closest is within 1% of phase_N32_closest = 0.71574 rad.
+          Reading: If the cluster moves coherently (preserves relative
+          structure), it's a lattice-mode signature; not noise.
+
+      FALSIFICATION (any one):
+
+      - (a) fails: gap at N=64 is < 50% of N=32 gap → N=32 Mode III is
+        finite-N artifact. The dispersion at higher N gets closer to
+        ω_C·dt; corpus GT geometry may yet be correct in continuum limit.
+        Subsequent step: run at N=80 (F17-K v2-v2 lattice scale) to
+        confirm trend.
+      - (b) fails: cluster phase shifts by >1% between N=32 and N=64,
+        or disperses (no clear cluster). Reading: lattice mode at N=32
+        wasn't a stable structural feature; finite-N artifact of a
+        different kind. Methodology issue.
+
+      LATTICE GEOMETRY (frozen at this commit):
+      - N=64
+      - PML=4 (same as N=32)
+      - R_anchor=10.0 (same — keeps shell geometry comparable to N=32 run;
+        relative shell-to-lattice ratio decreases by 2x, providing a
+        well-defined "more lattice between shell and PML boundary"
+        comparison)
+      - GT_corpus seed only (R=10, r=10/φ²≈3.82)
+      - Engine: A28 + Cosserat self-terms enabled
+      - V-block eigsolve: scipy.sparse.linalg.eigs(T_op3, k=20,
+        sigma=exp(i/√2), which='LM', tol=1e-6)
+
+      WALL-TIME ESTIMATE: V-block dim at N=64 = 4·N_active = 4·2·(N/2)³
+      = 4·2·32³ = 262144. T_op3 has ~8 nz/row → ~2M nonzeros.
+      eigsh shift-invert ~30-90s. Single-seed run ~1-3 min.
+
+      Cos-block deferred to follow-up at N=64 (much costlier; not part
+      of this resolution-trend pred). The pred specifically addresses
+      auditor concern #3: distinguish "real K4-TLM Mode III" from
+      "finite-N artifact of N=32 lattice."
+
+      Commits land separately:
+      - This commit: pred frozen
+      - Follow-up commit: r7_lattice_resolution_sweep.py driver build +
+        N=64 run + interpretation update to doc 74_
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction

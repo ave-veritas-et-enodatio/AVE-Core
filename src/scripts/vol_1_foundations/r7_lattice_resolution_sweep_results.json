@@ -1,0 +1,17 @@
+{
+  "pre_registration": "P_phase6_lattice_resolution_sweep",
+  "N_baseline": 32,
+  "N_test": 64,
+  "phase_N32_baseline": 0.7157399782985672,
+  "gap_N32_baseline": 0.008633197112019708,
+  "phase_N64": 0.7103068388224355,
+  "gap_N64": 0.003200057635888043,
+  "gap_closure_ratio": 0.37066889523844077,
+  "cluster_shift_relative": 0.00759094034267464,
+  "(a)_gap_closure_pass": "False",
+  "(b)_cluster_stability_pass": true,
+  "verdict": "(a) FAILS, (b) PASSES \u2014 gap closes at N=64; N=32 Mode III is FINITE-N ARTIFACT. Continuum-limit may have eigenmode at \u03c9_C; corpus GT may yet be correct.",
+  "elapsed_seconds": 349.4923982620239,
+  "T_dim": 262144,
+  "T_nnz": 2097152
+}

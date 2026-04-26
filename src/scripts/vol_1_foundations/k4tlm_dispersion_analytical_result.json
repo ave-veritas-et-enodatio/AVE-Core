@@ -1,0 +1,16 @@
+{
+  "doc": "doc 73_ \u00a72 + doc 74_ \u00a74 follow-up (auditor concern #2)",
+  "N": 32,
+  "n_modes_total": 131072,
+  "target_phase": 0.7071067811865475,
+  "observed_cluster_phase": 0.71574,
+  "pass_tolerance_rad": 0.005160007451958226,
+  "nearest_target_phase": 0.7119105680656941,
+  "nearest_target_diff_rad": 0.004803786879146621,
+  "nearest_observed_phase": 0.7165084050624515,
+  "nearest_observed_diff_rad": 0.0007684050624514605,
+  "cluster_on_canonical_dispersion": true,
+  "pass_at_target": true,
+  "modes_within_001rad_of_target": 144,
+  "modes_within_001rad_of_observed": 192
+}
