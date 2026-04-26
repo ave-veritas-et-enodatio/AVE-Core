@@ -18,7 +18,7 @@ Three Cosserat sectors---translation, rotation, curvature-twist---yield exactly 
 
 ### The Nuclear Tension Limit
 
-When constructing atomic nuclei, the same law applies symmetrically. Neon-20 ($Z=10, A=20$) is defined as a 5-node Alpha particle lattice ($5\alpha$). When evaluating the most stable geometric arrangement (a Triangular Bipyramid), the $M \propto 1/d_{ij}$ mutual inductance solver computes the total binding energy as the sum over all $\binom{5}{2} = 10$ pairwise interactions:
+When constructing atomic nuclei, the same $1/r$ tension law applies symmetrically. Neon-20 ($Z=10, A=20$) is modelled as a 5-node Alpha particle lattice ($5\alpha$) in a Triangular Bipyramid arrangement, with the $M \propto 1/d_{ij}$ mutual inductance summed over all $\binom{5}{2} = 10$ pairwise interactions:
 
 > **[Resultbox]** *Bipyramid Pairwise Binding Energy*
 >
@@ -26,7 +26,13 @@ When constructing atomic nuclei, the same law applies symmetrically. Neon-20 ($Z
 > E_{bind} = \sum_{i<j} \frac{K_{mutual}}{d_{ij}} \qquad \text{where} \quad K_{mutual} = T_{nuc} \cdot \ell_{node} = m_p c^2
 > $$
 
-The integrator determines that the optimisation limit occurs when the polar Alphas are suspended at $R_{bipyramid} = 72.081d$. When evaluated at this Cartesian offset, the macroscopic LC integration calculates a topological mass of $18617.730$ MeV, mapping the empirical CODATA target ($18617.729$ MeV) with $<0.001\%$ error.
+**Methodology disclosure (per Vol 6 introduction).** Within the $(Z,A)$-forced bipyramid topology, the inter-alpha distance $R_{bipyramid}$ is the single fitted scalar adjusted per nucleus so the pairwise summation reproduces the CODATA mass.
+- *Predicted (axiom-derived):* the cluster topology as a function of $(Z,A)$ via minimum-impedance packing, the coupling $K_{mutual} = m_p c^2$, and the parameter count (one scalar per nucleus).
+- *Fitted per nucleus:* the numerical value of $R_{bipyramid}$.
+
+The Vol 6 introduction is the canonical statement of this fit/predict split; the Neon-20 result here is one application of that methodology, not a zero-parameter ab-initio prediction. The $5\alpha$ Triangular Bipyramid topology is itself the falsifiable axiomatic content; reproducing every measured nuclear mass under *one* fitted scalar per nucleus (rather than the $\sim 5$ parameters per nucleus required by liquid-drop or shell-model fits) is the structural claim that Vol 6 tests.
+
+The optimizer (`src/scripts/vol_6_periodic_table/simulations/solve_neon.py`, Nelder–Mead with `tol=1e-8`) converges at $R_{bipyramid} \approx 81.158\,d$, at which the topological mass evaluates to $18617.730$ MeV against the CODATA target ($18617.729$ MeV). The reported $<0.001\%$ residual is the optimizer's convergence tolerance on $R$, not an independent prediction error on the mass. (Earlier editions of this chapter cited $R = 72.081\,d$ from a prior solver run with different unit conventions; the current canonical value is $81.158\,d$, matching Vol 6 Period 2.)
 
 > **[Examplebox]** *Calculating the Baseline Nuclear Interaction*
 >

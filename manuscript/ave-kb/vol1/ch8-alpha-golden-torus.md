@@ -58,7 +58,15 @@ $$
 \delta_{\text{strain}} = 1 - \frac{137.035999}{137.036304} \approx 2.225 \times 10^{-6}
 $$
 
-This is the thermal expansion of the spatial metric at the current cosmological epoch ($T_{\text{CMB}} \approx 2.7\,$K).
+This is interpreted as the thermal expansion of the spatial metric at the current cosmological epoch ($T_{\text{CMB}} \approx 2.725\,$K).
+
+**Status disclosure (current edition; predicted/fitted split).**
+
+- *Predicted (axiom-derived):* the cold-lattice asymptote $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$; the existence of a positive thermal running of $\alpha^{-1}$ below this asymptote at any $T > 0$; the sign and the falsifiable claim that $\alpha^{-1}$ decreases further in regions of higher local thermal energy (collider cores, early universe).
+- *Fitted (one scalar at $T_{\text{CMB}}$):* the numerical magnitude $\delta_{strain} \approx 2.225\times 10^{-6}$, computed by back-subtraction from CODATA: $\delta_{strain} \equiv 1 - \alpha^{-1}_{\text{CODATA}}/\alpha^{-1}_{\text{ideal}}$, definitional given the engine's `DELTA_STRAIN = 1 - (1/ALPHA)/ALPHA_COLD_INV` (`src/ave/core/constants.py`). The attribution to spatial-metric thermal expansion at $T_{\text{CMB}} = 2.725\,$K is a physical narrative consistent with the predicted sign; it is not yet a derivation of the magnitude from $T_{\text{CMB}}$ + a lattice elastic modulus.
+- *Tested:* that **one** thermal scalar suffices to bridge the cold-lattice asymptote to the CODATA value. Multiple-temperature measurements of $\alpha$ (collider cores, primordial nucleosynthesis $\alpha$, ultracold cavity experiments) test the same one-scalar structural claim at different $T$.
+
+This is the same disclosure pattern as Vol 6 (one fitted scalar per nucleus, with predicted topology + parameter count): structure predicted, magnitude fitted, falsifiable across the relevant variable. To upgrade $\delta_{strain}$ from a one-scalar fit to a true zero-parameter prediction, the chain needs to compute the lattice's effective thermal expansion coefficient from first principles — the bulk modulus $G_{vac}$ (Vol 1 Ch 4) and the equipartition energy at $T_{\text{CMB}}$ — and verify that the predicted $\delta_{strain}$ matches the back-subtracted value within tolerance. That magnitude-derivation does not currently appear in the corpus.
 
 **Falsifiable prediction:** $\alpha$ is a literal mechanical property of the vacuum LC lattice and must act as a running coupling constant. In regions of extreme localized thermal energy (collider cores, early universe), $\alpha^{-1}$ decreases further below 137.036. The cold-lattice $137.0363038$ is the absolute-zero mathematical asymptote.
 
@@ -68,7 +76,12 @@ This is distinct from the proton thermal softening $\delta_{th} = 1/(14\pi^2) \a
 
 Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron ≡ unknot phase winding on the trefoil). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
 
-The framework is **genuinely zero free parameters**: all 26 Standard Model constants are determined by four axioms plus the topological requirement that the smallest stable soliton is the trefoil ($3_1$).
+**Closure status (honest).** The framework reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms. The "zero free parameters" claim depends on Layer 8 closure of those three, which itself rests on:
+- (a) the Golden Torus $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derivation above at the cold-lattice asymptote (the three regimes are independently grounded; the sum decomposition relies on identifying $\Lambda_{\text{vol}}$, $\Lambda_{\text{surf}}$, $\Lambda_{\text{line}}$ as the three orthogonal contributions);
+- (b) the thermal running $\alpha^{-1}(T) = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain}(T))$: the existence and sign are predicted (positive $\delta_{strain}$ at $T > 0$); the magnitude at $T_{\text{CMB}}$ is currently one fitted scalar (back-subtracted from CODATA — see status disclosure above);
+- (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (the other remaining as the input mass scale).
+
+Conditional on (a)–(c), the framework is zero-free-parameters at the SM level. Under the present edition, the cold-lattice asymptote and the existence + sign of the thermal running are predicted; the magnitude of $\delta_{strain}$ at $T_{\text{CMB}}$ is one fitted scalar — same predicted/fitted disclosure pattern as Vol 6 (predicted: structure; fitted: one scalar). See the [Full Derivation Chain](../common/full-derivation-chain.md) scorecard for the precise accounting.
 
 ---
 

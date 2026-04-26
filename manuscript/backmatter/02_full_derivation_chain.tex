@@ -850,7 +850,7 @@ Table~\ref{tab:sm_params} presents the complete accounting.
 9  & $m_t$ (top)      & Quark & \checkmark & $v/\sqrt{2}$ (EW saturation) & $0.8\%$ \\
 \midrule
 \multicolumn{6}{c}{\cellcolor[HTML]{EFEFEF}\textbf{Charged Lepton Masses (3)}} \\
-10 & $m_e$ (electron)  & Lepton & \checkmark & Unknot ground state: $\hbar/(c\,\ell_{node})$ & input \\
+10 & $m_e$ (electron)  & Lepton & $\circ$ & Unknot ground state: $\hbar/(c\,\ell_{node})$ — circular with $\ell_{node}$ at Layer~1; one of $\{m_e, \ell_{node}\}$ is the input scale, the other is computed. Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus) is the proposed zero-parameter closure. & input scale \\
 11 & $m_\mu$ (muon)    & Lepton & \checkmark & Cosserat torsion: $m_e/(\alpha\sqrt{3/7})$ & $1.24\%$ \\
 12 & $m_\tau$ (tau)     & Lepton & \checkmark & Cosserat bending: $m_e p_c/\alpha^2$ & $0.95\%$ \\
 \midrule
@@ -879,19 +879,14 @@ Table~\ref{tab:sm_params} presents the complete accounting.
 }
 
 \noindent
-\textbf{Scorecard:}
+\textbf{Scorecard.} Counting honestly against the chain's own structure (``three empirically anchored bounding limits and four structural axioms''):
 \begin{itemize}
-    \item \textbf{Derived (\checkmark):} 26 of 26 --- $\alpha$, $\sin^2\theta_W$,
-          $\alpha_s$, 3 charged leptons, 3 neutrinos, 6 quarks, $v$, $m_H$,
-          4 CKM parameters, 4 PMNS parameters, and derived observables $G_F$, $\theta_{QCD}$.
-    \item \textbf{Structurally eliminated ($\varnothing$):} 1 --- $\theta_{QCD}$ (exact zero).
-    \item \textbf{Future targets ($\triangleright$):} 0 --- The Standard Model is complete.
+    \item \textbf{Input scale ($\circ$):} 1 --- $m_e$ (equivalently $\ell_{node}$, related by $\ell_{node} = \hbar/(m_e c)$). One of these is the empirical anchor; the other is computed. Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus) proposes a zero-parameter closure mechanism in which both emerge from the trefoil's S$_{11}$-min geometry; that closure rests on independent claims (the Ch.~\ref{ch:alpha_golden_torus} derivation of $\alpha = 4\pi^3+\pi^2+\pi$ and the CMB-thermal $\delta_{strain}$ correction) that are flagged separately.
+    \item \textbf{Derived from $\{m_e/\ell_{node}, \alpha, G\}$ + four axioms (\checkmark):} 25 of 26 --- $\sin^2\theta_W$, $\alpha_s$, $m_\mu$, $m_\tau$, 3 neutrino masses, 6 quarks, $v$, $m_H$, 4 CKM, 4 PMNS, plus derived observables $G_F$, $\theta_{QCD}$. ($\alpha$ is itself a Layer-8 derived quantity given the Golden Torus closure.)
+    \item \textbf{Structurally eliminated ($\varnothing$):} 1 --- $\theta_{QCD}$ (exact zero by topological CPT).
+    \item \textbf{Future targets ($\triangleright$):} 0.
 \end{itemize}
-\noindent
-Every derived quantity is computed by the physics engine at import time with
-zero curve-fitting or adjustable constants. The 15 remaining targets all
-have identified topological mechanisms; their quantitative resolution requires
-extending the torus knot eigenvalue solver to multi-crossing decomposition.
+\noindent\textbf{Honest framing of ``zero free parameters.''} The chain reduces 26 SM parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms, which is then claimed to close to zero parameters at Layer~8. The headline ``26 / 26 derived'' is correct \emph{conditional on Layer~8 closure holding}; without that closure, the count is ``25 of 26 expressed as functions of three bounding limits, of which one ($m_e$) is the input scale.'' The Layer-8 closure depends on (a) the Golden Torus cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation (Ch.~\ref{ch:alpha_golden_torus}) and (b) the thermal running $\alpha^{-1}(T)$: existence and sign predicted; the magnitude $\delta_{strain}$ at $T_{CMB}$ is one currently-fitted scalar (back-subtracted from CODATA), pending derivation from $G_{vac}$ + equipartition. See Ch.~\ref{ch:alpha_golden_torus} predicted/fitted disclosure. Every quantity marked $\checkmark$ is computed by the physics engine at import time with zero per-parameter curve-fitting; the input scale is calibrated once and propagated. The scope of the ``no curve-fitting'' claim is the SM-parameter table only; nuclear masses (Vol~6) are a separate one-fit-per-nucleus structural claim — see Vol~6 introduction methodology note.
 
 
 %======================================================================
@@ -966,10 +961,10 @@ $m_H$ & $v/\sqrt{N_{K4}} = v/2$ & 124417 MeV & 125100 MeV & $0.55\%$ \\
 
 \bigskip
 \noindent
-\textbf{Total empirical inputs:} 3 (each shown emergent in Layer~8).\\
-\textbf{Phenomenological curve fits:} 0.\\
+\textbf{Empirical inputs (bounding limits):} 3 --- $\{m_e, \alpha, G\}$. Each is \emph{claimed} emergent at Layer~8 (Ch.~\ref{ch:alpha_golden_torus} Golden Torus); the closure rests on the cold-lattice $\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$ derivation, plus a thermal-running correction whose existence and sign are predicted but whose magnitude ($\delta_{strain}$ at $T_{CMB}$) is one currently-fitted scalar --- see Ch.~\ref{ch:alpha_golden_torus} predicted/fitted disclosure.\\
+\textbf{Phenomenological per-parameter curve fits within the SM table:} 0 (one input scale propagates; no per-row tuning). Vol~6 nuclear masses are out of scope of this scorecard --- see Vol~6 introduction for that methodology (one fitted scalar per nucleus, structurally disclosed).\\
 \textbf{Predictions within 5\% of measurement:} 38/38.\\
-\textbf{SM parameters derived or eliminated:} 26/26 (Table~\ref{tab:sm_params}).
+\textbf{SM parameters reduced to 3 bounding limits + 4 axioms:} 26 / 26 (with $\theta_{QCD}$ structurally eliminated; Table~\ref{tab:sm_params}). Whether this counts as ``zero free parameters'' depends on whether Layer~8 closure of $\{m_e, \alpha, G\}$ holds; conditional on Layer~8, yes.
 
 %======================================================================
 \section{Cross-Scale Verification}

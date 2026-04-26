@@ -87,4 +87,44 @@ From these initial geometric anchors and four structural rules, all fundamental 
 - **Gravity, Orbital Mechanics, and Cosmology (Axiom 3):** Projecting a 1D QED string tension into the 3D bulk metric via the trace-reversed tensor yields the $1/7$ isotropic projection factor for massive defects. Integrating the 1D causal chain across the 3D holographic solid angle, bounded by the cross-sectional porosity ($\alpha^2$) of the discrete graph, analytically binds macroscopic gravity ($G = \hbar c/(7\xi\,m_e^2)$) and the Asymptotic de Sitter Expansion Limit ($H_\infty$) into a single, unified mathematical identity. For macroscopic orbital mechanics natively bounded by baryonic crystal arrays (the Geodynamo target layer and the Moons' inductive resonant shell), the structural Sagnac reflection boundary forces a geometric power scaling structurally equal to the Torus knot eigenvalue of the Proton ($m_p/m_e \approx 1836.12$), uniting the quantum mass hierarchy directly to the limits of physical Earth-space topological drag boundaries without arbitrary statistical parameters.
 - **The Dark Sector (Axiom 4):** The strict EFT hardware packing fraction ($p_c \approx 0.1834$) limits excess thermal energy storage during lattice genesis, proving Dark Energy is a mathematically stable phantom energy state ($w \approx -1.0001$). The generative expansion of the lattice sets a fundamental continuous Unruh-Hawking drift. The exact topological derivation of the substrate mass density ($\rho_{bulk}$) and mutual inductance ($\nu_{vac}$) dictates a saturating Dielectric Saturation-plastic transition, mathematically recovering the exact empirical MOND acceleration boundary ($a_{genesis} = c H_\infty / 2\pi$), dynamically yielding flat galactic rotation curves without invoking non-baryonic particulate dark matter.
 
-Because physical parameters flow exclusively outward from initial geometric bounding limits to the macroscopic continuous observables---without looping an output back into an unconstrained input---the AVE framework represents a mathematically closed, predictive, and explicitly falsifiable Topological Effective Field Theory.
+## Explicit Closure DAG
+
+Earlier editions of this section asserted closure narratively without constructing the DAG. The acyclicity check below makes the dependency graph explicit, including back-edges that the Layer-8 closure introduces and the conditions under which it remains acyclic.
+
+### Layer 0 — Inputs
+
+- $m_e$ (or equivalently $\ell_{node} = \hbar/(m_e c)$) — one is the empirical input mass scale; the other is computed from it. **Status:** input scale.
+- $\hbar, c, e, \mu_0, \varepsilon_0$ — SI anchors (definitional under SI 2019).
+- $T_{\text{CMB}} = 2.725\,\text{K}$ — cosmological boundary condition.
+- $\delta_{strain} \approx 2.225\times 10^{-6}$ — **status: structure predicted (existence + sign of α thermal running below cold-lattice asymptote); magnitude at $T_{CMB}$ is one currently-fitted scalar** (back-subtracted from CODATA, pending first-principles derivation from $G_{vac}$ + equipartition). Same predicted/fitted pattern as Vol 6's R per nucleus. See [Vol 1 Ch 8](../vol1/ch8-alpha-golden-torus.md) disclosure.
+- Axioms 1–4 — structural postulates.
+
+### Forward edges (conditional on Axioms 1–4)
+
+The forward DAG is constructed by inspection of the per-row formulas in [the Full Derivation Chain](full-derivation-chain.md); representative edges:
+
+- $\ell_{node} \leftarrow \{m_e, A1\}$;  $\xi_{topo} = e/\ell_{node} \leftarrow \{\ell_{node}, A2\}$;  $T_{EM} = m_e c^2/\ell_{node}$;  $V_{snap} = m_e c^2/e$.
+- $p_c = 8\pi\alpha \leftarrow \{\alpha\}$;  $V_{yield} = \sqrt{\alpha}\,V_{snap} \leftarrow \{\alpha, V_{snap}, A2\}$.
+- $\nu_{vac} = 2/7 \leftarrow \{A1$ LC mechanism, $K=2G$ at $\alpha\}$;  $\sin^2\theta_W = 2/9 \leftarrow \{\nu_{vac}\}$.
+- $M_W \leftarrow \{m_e, \alpha, p_c, \sin^2\theta_W\}$;  $M_Z = (3/\sqrt{7})M_W$.
+- $G_F \leftarrow \{M_W, \sin^2\theta_W, \alpha\}$;  $v_{Higgs} = 1/\sqrt{\sqrt{2}\,G_F}$;  $m_H = v/\sqrt{N_{K4}}$.
+- Lepton spectrum: $m_\mu \leftarrow \{m_e, \alpha, A1$ Cosserat$\}$;  $m_\tau \leftarrow \{m_e, \alpha, p_c\}$.
+- $\alpha_s = \alpha^{3/7}$;  quark masses $\leftarrow$ functions of $\{m_e, m_\mu, m_\tau, \alpha, \alpha_s\}$.
+- CKM $\leftarrow \{\sin^2\theta_W, \nu_{vac}\}$;  PMNS $\leftarrow \{\nu_{vac}, c_1, c_3\}$.
+- $H_\infty = 28\pi m_e^3 c G/(\hbar^2 \alpha^2)$;  $a_0 = c H_\infty / (2\pi)$.
+
+By inspection, the forward graph is acyclic: every derived quantity depends only on Layer-0 inputs and earlier-layer derivations.
+
+### Back-edges (Layer-8 closure attempts)
+
+The framework's "zero free parameters" claim requires closing the Layer-0 inputs $\{m_e, \alpha, G\}$ via back-edges:
+
+- **$\alpha$ closure (Vol 1 Ch 8 Golden Torus):** $\alpha^{-1}_{ideal} = 4\pi^3 + \pi^2 + \pi$ at the cold-lattice asymptote, from the trefoil's three-regime decomposition. Acyclic if the Golden Torus geometry is established independently of $\alpha$'s measured value (the three regimes are individually grounded in the chapter; this can be checked separately). The thermal running $\alpha^{-1}(T) < \alpha^{-1}_{ideal}$ at $T > 0$ is a structural prediction (sign and existence). *Magnitude-derivation gap:* $\delta_{strain}$ at $T_{CMB}$ is currently back-subtracted from CODATA, definitional given the engine's `DELTA_STRAIN = 1 - (1/ALPHA)/ALPHA_COLD_INV`. The cold-lattice $\alpha$ closure itself is acyclic; the magnitude of the thermal correction is fitted (one scalar) until derived from $G_{vac}$ + equipartition. Same predicted/fitted pattern as Vol 6 (predicted: structure; fitted: one scalar) — different physics, same disclosure shape.
+- **$m_e$ closure (Layer 8 via Nyquist):** $m_e$ becomes derivable from $\ell_{node}$ if $\ell_{node}$ is fixed by Nyquist resolution of the smallest stable soliton. Acyclic if Nyquist resolution is established independently of $m_e$ (rather than through "the smallest soliton has rest mass $m_e$").
+- **$G$ closure (Layer 7 via $H_\infty$ + Axiom 3):** $G = \hbar c/(7\xi\,m_e^2)$ with $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$. Once $\alpha$ and $m_e$ are closed and $R_H$ is set by the cosmological generation thermodynamics, $G$ follows. Acyclic conditional on the prior closures.
+
+### Acyclicity verdict
+
+The forward DAG is acyclic. Of the three Layer-8 back-edges, the $G$ closure is acyclic conditional on the other two; the $m_e$ closure depends on whether "smallest stable soliton" is well-defined without circular reference to $m_e$; the $\alpha$ cold-lattice closure ($\alpha^{-1}_{ideal} = 4\pi^3+\pi^2+\pi$) is acyclic by inspection. The thermal-running magnitude $\delta_{strain}$ at $T_{CMB}$ is currently a fitted scalar (one scalar bridging cold-lattice α to CODATA; same predicted/fitted pattern as Vol 6's R per nucleus). Deriving $\delta_{strain}$ from first principles (lattice $G_{vac}$ + equipartition) would upgrade the $\alpha$ closure from "structure predicted, magnitude fit" to fully zero-parameter — that magnitude-derivation is the principal outstanding rigour gap, not a calculational error elsewhere in the chain.
+
+Because the forward DAG is acyclic and the back-edges are individually identifiable and conditional, the AVE framework is a mathematically structured Topological Effective Field Theory whose "zero free parameters" claim is precisely as strong as the Layer-8 closure conditions hold. Earlier editions overclaimed this strength; the present edition documents it.
