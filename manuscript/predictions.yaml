@@ -2152,6 +2152,85 @@ predictions:
         extractions (Q, energy, topology, spatial moments) still
         valid as inputs to Phase 2 alongside Move 7b's FFT/phasor.
 
+  - id: P_phase1_attractor_winding_characterization
+    name: "Round 8 Move 10: characterize Move 5 static fixed point's spatial topology — torus knot vs Hopf-linked vs spherical-harmonic; per-cell A² at top-|ω|² cells (sets up §14.4 σ=4 Cos-block prediction)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_winding_characterization.py"
+    axioms_used: [1, 2]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 10 — frozen at this commit. Dimensionally + saturation-
+      locally NEUTRAL (no ω target, no eigsolve, no drive). Pure
+      characterization of static fixed point's spatial topology pattern.
+
+      CONTEXT (per doc 74_ §13–§14):
+      Move 5+7+7b attractor at t=200P is a STATIC topological fixed point
+      with c=3 via Op10. Audit (§14.2) clarified this is consistent with
+      Op14-induced gravitational-redshift local-clock-freeze at the
+      saturated core (peak |ω|≈0.93 → A²≈0.95 → ω_local at core ≈
+      0.22·ω_global). Op10 c=3 confirms (2,3)-class winding but doesn't
+      distinguish:
+        (a) (2,3) torus knot (corpus seed shape, possibly preserved)
+        (b) (3,2) torus knot (same c=3, different (p, q))
+        (c) Hopf-linked configuration (two linked unknots)
+        (d) Spherical-harmonic Y_{l,m} mode with c=3 from angular nodes
+        (e) Two opposing (2,1) twists on different sublattice halves
+
+      Move 10 distinguishes via 4 post-hoc extractions on the Move-5-
+      reproducible final state (t=200P).
+
+      FROZEN EXTRACTIONS (4 — all reported, no PASS/FAIL):
+
+      (1) TOROIDAL/POLOIDAL WINDING NUMBERS:
+          For each candidate shell radius R_test ∈ [3, 12]:
+            - parametrize cells on torus (R_test, R_test/φ²) by (φ, ψ)
+            - compute winding number p(ψ) along toroidal loops
+              (in (ω_x, ω_y) plane)
+            - compute winding number q(φ) along poloidal loops
+              (in (ω_radial, ω_z) plane)
+            - report mean p, mean q at each shell
+          Corpus (2,3) torus-knot prediction: (p, q) = (2, 3) on shell
+          near (R=10, r=3.82). Differences identify torus knot variant
+          or non-torus topology.
+
+      (2) HOPF LINKING NUMBER (proxy via level-set fiber inside-fraction):
+          Fibers at ω̂_z = ±0.5; coarse linking proxy via fraction of
+          one fiber's points inside the other's centroid neighborhood.
+          Hopf-linked: nonzero. Torus knot: ≈ zero.
+
+      (3) SPHERICAL HARMONIC DECOMPOSITION of |ω|²:
+          Project density onto Y_{l,m} basis at radial bins (l_max=4,
+          8 radial bins). Report top-3 dominant (l, m) per bin.
+          Multipole-dominant configurations are NOT torus knots.
+
+      (4) PER-CELL A² AT TOP-50 |ω|² CELLS (sets up §14.4 prediction):
+          Compute A² = Σ_p V_inc[cell, p]² / V_SNAP² at each cell.
+          Histogram + classify per AVE three-regime convention:
+            Regime I (linear, A² < 2α ≈ 0.0146)
+            Regime II (saturating, A² ∈ [0.0146, 0.75])
+            Regime III (stopband, A² ∈ [0.75, 0.95))
+            Near-rupture (A² ≥ 0.95)
+          Tells us where the load-bearing |ω|² cells sit on the
+          saturation regime — saturated-core (A²>0.95) means the
+          σ=4 Cos-block test should find Mode I in the SHELL not
+          the core.
+
+      NO PASS/FAIL ADJUDICATION. Result IS the characterization.
+      Same A48 frozen-extraction-scope discipline as Move 7.
+
+      ESTIMATED COST: ~5-6 min wall (single Move-5 reproduction +
+      post-hoc analysis; no second pass needed).
+
+      DOWNSTREAM:
+      Move 10's per-cell A² distribution sets up the §14.4 σ=4
+      Cos-block re-run prediction. If most top-|ω|² cells are
+      saturated-core (A² > 0.95), the σ=4 Mode I should localize
+      in the SHELL where A² is moderate (Regime II), not at the
+      core. Move 10 is the prework for that test.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
