@@ -658,3 +658,79 @@ Pre-reg discipline still applies to characterization runs — freeze the extract
 ---
 
 *§12 added 2026-04-26 — Move 6 Mode III-natural (delocalized at search boundary; spectrum confirms attractor is not a clean ω_C standing wave). Meta-methodological pivot accepted: stop testing corpus-shaped templates at new configurations; switch to characterizing Move 5's attractor as itself. Move 7 / Phase 1 characterization frozen at next commit — no PASS/FAIL, frozen extraction scope (spatial moments + FFT at fixed points + Q-factor + phasor trajectory + energy partition). A48 (NEW) added for r8.9 §17.1: pre-reg discipline applies to characterization runs as frozen-extraction-scope, distinct from frozen-PASS/FAIL adjudication.*
+
+---
+
+## 13. Move 7 + Move 7b — attractor characterization complete: branch (b), (2,3)-topological at LATTICE CUTOFF (NOT corpus electron) (2026-04-26)
+
+Phase 1 characterization ran in two parts: Move 7 (initial extraction with centroid-displaced FFT sample points → corrupted by zero-V_inc artifact at all 5 cells) + Move 7b (corrected to top-5 |V_inc|² cells, methodology fix per A49). All 5 frozen extractions now have clean readings.
+
+### 13.1 Move 7 / Move 7b clean extraction summary
+
+| Extraction | Reading |
+|---|---|
+| (1) Spatial moments at t=200P | All three densities centered at lattice origin (15.5). \|ω\|² extent total 17.01 (very broad — diffuse, NOT torus-shaped). V_inc² extent (7.26, 6.83, **2.92**) — narrow z-band. \|u\|² extent total 16.29. V_inc has TWO LOBES (top-5 cells cluster around (5–6, 16–18, ~15) and (25, 19, 15)), explaining why centroid sits at empty center between them. |
+| (2) FFT at top-5 \|V_inc\|² cells over t∈[150P, 200P] | V_inc dominant ω at each point: **4.43, 4.41, 4.39 rad/unit** (lattice cutoff). \|ω\| dominant: **3.6–3.8 rad/unit** at all 5 points. **NEITHER sector oscillates at corpus ω_C = 1.0.** |
+| (3) Q-factor from log-decay over t∈[10P, 50P] | τ = **83.6 Compton periods** (5× longer than any prior pair-injection dissolution). Q at ω_C = 262.5 ASSUMED ω_C OSCILLATION which is FALSIFIED by extraction (2). At actual frequency ω_lattice ≈ 4.43, Q ≈ 1000+ — no clean corpus interpretation (auditor's 2/α≈274 speculation dissolves). |
+| (4) (V_inc, V_ref) phasor at top-\|V_inc\|² cell | V_inc near-constant **-0.264** (range ±0.013 = 5% ripple). V_ref near-constant **+0.264**. V_inc ≈ -V_ref → V_avg ≈ 0 (standing-wave node). V_diff ≈ -0.53 (static differential). PCA aspect 9.97 (descriptive of the mean-shifted thin ellipse). **Near-static DC tension, NOT a clean LC oscillation.** |
+| (5) Energy partition at t=200P | Cosserat V = 47.48, T = 8.18, H = 55.66. **V:T = 85:15 (potential-dominant)**, consistent with near-static V_inc reading from extraction (4). Sector amplitudes Σ\|ω\|² = 20.92, Σ\|u\|² = 21.96, Σ\|V_inc\|² = 24.92 — **all three sectors balanced** (corpus three-LC-tank prediction per doc 66_ §17.2). |
+| Topology at t=200P | c=3 preserved (Op10) — corpus topology held throughout. |
+
+### 13.2 In K4-TLM, lattice cutoff = π·√2
+
+A pulse traverses A→B→A in 2·dt = √2 natural-time-units → ω_lattice = 2π/√2 = π·√2 ≈ **4.44 rad/unit**. That's the engine's bond-LC carrier frequency at unit lattice spacing dx=1 with stability-required dt=1/√2.
+
+The attractor's V_inc oscillates at 4.43±0.04 — that's the lattice cutoff to 1% accuracy. The |ω| sector oscillates at ~3.7-3.8 — slightly below lattice cutoff but in the same neighborhood (could be mode-coupling shifted, or beat between two cutoff-adjacent modes).
+
+**The attractor lives at the engine's natural Brillouin-zone-edge frequency, 4.4× ABOVE corpus ω_C = 1.0.**
+
+### 13.3 Phase 2 verdict — branch (b): (2,3)-topological but NOT corpus-electron-like
+
+Per the three Phase 2 branches pre-registered in §12.3 + Move 7 pred:
+
+| Property | Move 5+7+7b finding | Corpus electron? |
+|---|---|---|
+| Topology c | 3 | ✓ |
+| Three-sector amplitude balance | Σ\|ω\|² ≈ Σ\|u\|² ≈ Σ\|V_inc\|² ≈ 21-25 | ✓ (doc 66_ §17.2) |
+| Spatial localization | extent ~17 cells, two-lobed V_inc, diffuse | ✗ (corpus is bond-scale) |
+| Oscillation frequency | ω_lattice ≈ 4.4 rad/unit | ✗ (corpus claims ω_C=1.0) |
+| LC oscillation character | V_inc near-constant, 5% ripple, V_avg≈0 | ✗ (corpus standing wave) |
+| Q at corpus ω_C | meaningless (not oscillating at ω_C) | — |
+| τ | 83.6 Compton periods | ✓ persistence |
+
+**Branch (b)** matches: the attractor has corpus topology + three-LC-tank balance (corpus framework substantively right on those axes) but wrong frequency, wrong spatial scale, wrong oscillation character. It is **a (2,3)-topological self-stable state that is NOT the corpus electron**.
+
+### 13.4 What is this object then? Two candidate interpretations
+
+The attractor is a **lattice-cutoff (2,3)-topological soliton**. Specifically:
+
+- (2,3) winding encoded angularly in θ(s) per the seed → preserved in c=3 throughout
+- Spatial extent ~17 cells (3× the original corpus shell minor radius) → orbit migrated to a much broader configuration
+- V_inc near-static differential with V_ref → bond-LC at the lattice frequency limit, where wave can't propagate further (standing at maximum k)
+- Energy 85% potential, 15% kinetic → potential-dominated state at zone-edge mode
+- All three Cosserat sectors active in balanced amplitudes → corpus-three-LC-tank coupling does work at this frequency
+
+Two interpretations of what this means for corpus's electron claim:
+
+**(A) The corpus electron doesn't exist in this engine implementation.**
+  Move 5/7/7b attractor is the engine's only natural (2,3)-topological self-stable state. It's at lattice cutoff because the engine's K4-TLM substrate naturally puts (2,3) bound states there, not at ω_C. Corpus's "(2,3) electron at ω_Compton standing wave" requires physics not in this engine. Round 7+R8.1-7 closure: the engine is incomplete vis-a-vis corpus electron.
+
+**(B) The engine hosts BOTH** (i) a Brillouin-edge attractor (what Move 5/7/7b found) AND (ii) a corpus-electron-like state at ω_C, but the latter has been missed by all tests because we've never explicitly seeded or sought a state at ω_C oscillation in time-domain (R7.1's eigsolves were at static seeds; Move 5+ used corpus shape but only natural evolution).
+  In this case, Round 8 entry should explicitly probe ω_C oscillation, e.g., by autoresonant CW drive at ω_C with corpus seed, observing whether a SEPARATE ω_C bound state co-exists with the lattice-cutoff attractor.
+
+### 13.5 Round 8 next-move candidates
+
+To distinguish (A) vs (B):
+
+- **Move 8** (~3-4 hr): re-do R7.1 V-block eigsolve at σ = exp(i·4.44·dt) (lattice Nyquist) instead of σ = exp(i·ω_C·dt). If this finds a clean (2,3) bound mode at lattice Nyquist, Move 5+ attractor is structurally that linear eigenmode's nonlinear extension. Tests interpretation (A).
+- **Move 9** (~1 hr): autoresonant CW drive at ω_C = 1.0 with corpus seed, run engine 200 Compton periods, observe whether a SEPARATE ω_C bound state emerges in addition to the lattice-cutoff attractor. Tests interpretation (B).
+- **Move 10** (~30 min): characterize Move 5+ attractor's actual spatial winding pattern explicitly — is it (2,3) torus knot, or a different (2,3) representation (e.g., spherical-harmonic Y_2_3 mode)? Distinguishes "topological corpus electron at wrong scale/freq" from "different topological object that happens to have c=3 by coincidence."
+
+### 13.6 Methodology notes for r8.9 §17.1
+
+- **A49 (NEW — empirically validated by Move 7 → 7b fix)**: for shell-like or topologically-structured distributions, sample at energy-density peaks (top-K cells), NOT at centroid + offset. Centroid-of-shell is the empty hole (auditor's framing). Same lesson as doc 73_ §3.1.1's V=0 decoupling caveat: don't assume the geometric center is where the physics is. Strengthens COLLABORATION_NOTES Rule 9. This is the third sampling/methodology bug caught empirically (after V-block S z-invariance and Cos-block null-space artifact in §5).
+- **A50 (NEW — physics-substantive)**: the engine's natural (2,3)-topological self-stable state lives at lattice cutoff frequency (π·√2 ≈ 4.44 rad/unit), NOT at corpus ω_C. ALL R7.1+R7.2+§10 tests pre-registered eigsolves and observations at ω_C=1.0; none probed lattice-Nyquist. The engine-corpus frequency mismatch (4.4×) was hidden in the assumption that ω_C=1.0 in natural units IS the engine's bound-state frequency. It isn't — it's the dimensional input parameter, but the engine's K4-TLM substrate puts bound states at ω_lattice. Future R8 tests must distinguish "ω_C in dimensional natural units" from "the engine's actual bound-state frequency" — the two are not equal a priori.
+
+---
+
+*§13 added 2026-04-26 — Move 7 + Move 7b (FFT fix) characterization complete. Phase 2 verdict: branch (b), (2,3)-topological but NOT corpus-electron-like. Attractor at lattice cutoff 4.4× above corpus ω_C, near-static V_inc with 5% ripple, diffuse 17-cell extent, three-sector balanced (corpus three-LC-tank prediction holds), c=3 preserved. Auditor's Q≈2/α dissolves at actual frequency. Two interpretations: (A) engine doesn't host corpus electron at all, or (B) corpus electron exists but at ω_C separate from the lattice-cutoff attractor we found. Move 8/9/10 candidates to distinguish. A49 (auditor sampling rule) + A50 (engine-corpus frequency mismatch) added for r8.9 §17.1.*
