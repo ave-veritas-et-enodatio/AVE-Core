@@ -2231,6 +2231,95 @@ predictions:
       in the SHELL where A² is moderate (Regime II), not at the
       core. Move 10 is the prework for that test.
 
+  - id: P_phase1_attractor_reactance_tracking
+    name: "Round 8 Move 11: time-resolved C-state vs L-state tracking on Move 5 fixed point — closes A-011 reactance gap, PRE-MOVE-9 PRECONDITION"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_phase1_reactance_tracking.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 11 — frozen at this commit. Closes A-011 reactance
+      tracking gap surfaced by audit on §14.
+
+      AUDIT GAP (per §15.5):
+        Move 7+7b energy partition was a SNAPSHOT at t=200P
+        (V:T = 47.5/8.2 = 85:15). For an LC oscillator, snapshot
+        V:T depends on phase — peak displacement V:T≈100:0,
+        peak velocity V:T≈0:100, time-averaged ≈50:50. A
+        snapshot CANNOT distinguish "static fixed point with
+        sub-percent ripple" from "oscillator caught at peak."
+
+        K4 Φ_link = ∫V_avg·dt is computed every step
+        (k4_tlm.py:384-391) but no Move has read it. Cosserat
+        ω_dot also never measured. Both inductive-side
+        observables; without them, the LC sectors aren't
+        characterized.
+
+      The "static fixed point" verdict in §13–§15 is CONDITIONAL
+      on Move 11 closure.
+
+      FROZEN EXTRACTIONS (5 — all reported, no PASS/FAIL):
+
+      (1) GLOBAL ENERGY TIME SERIES over t∈[150P, 200P]:
+          T_cos(t), V_cos(t), H_cos(t), Σ|V_inc|²(t), Σ|V_ref|²(t),
+          Σ|Φ_link|²(t) — every step (~444 samples)
+          H std/mean → energy conservation diagnostic
+          T:V time-averaged ratio (compare to snapshot 85:15)
+
+      (2) K4 LC-PAIR PHASE at top-5 |V_inc|² bonds:
+          V_avg(t) (C-state, capacitive)
+          Φ_link(t) (L-state, inductive — engine.k4.Phi_link[mask_A, port])
+          Pearson ρ(V_avg, Φ_link)
+          LC reactance signature: 90° phase lag (Φ lags V_avg
+          since Φ = ∫V dt accumulator)
+          Static signature: ρ ≈ 0 or undefined (both flat)
+
+      (3) COSSERAT ω-PAIR PHASE at top-5 |ω|² cells:
+          |ω|(t) (C-state magnitude)
+          |ω̇|(t) (L-state magnitude — engine.cos.omega_dot)
+          Pearson ρ(|ω|, |ω̇|)
+          LC reactance: anti-correlated at 90° phase
+          Static: |ω̇|(t) ≈ 0 throughout
+
+      (4) FFT TOP FREQUENCIES of:
+          T_cos(t), V_cos(t), H(t), Σ|V_inc|²(t), Σ|Φ_link|²(t),
+          |ω|(t), |ω̇|(t) at cell 0, V_avg(t), Φ_link(t) at bond 0
+          Top-3 frequencies per signal; distinguishes
+          coherent-tone (oscillator) from adjacent-bin spectral
+          leakage (static + noise) from multi-frequency
+          (mixed mode).
+
+      (5) ANTI-CORRELATION T_cos(t) vs V_cos(t):
+          Pearson ρ(T, V) over the recording window.
+          LC oscillator predicts ρ ≈ -1.
+          Static fixed point predicts ρ undefined or |ρ| ≈ 0.
+
+      NO PASS/FAIL. Result IS the characterization.
+
+      OUTCOME-SPACE READINGS (informational, not pre-committed):
+        - All time series flat (sub-percent ripple) → static
+          fixed point CONFIRMED. Move 9 needs to plan for
+          driving against a static state.
+        - T(t), V(t) anti-correlated + 90° phase lag in
+          Φ_link vs V_avg + non-zero |ω̇|(t) → reactive
+          oscillator confirmed at FFT-identified frequency.
+          Move 9 uses that frequency.
+        - Mixed signals → sector-asymmetry empirical finding;
+          Move 9 design adjusts.
+
+      ESTIMATED COST: ~10 min wall (two ~5-min Move 5
+      reproductions; deterministic, identical to Move 7+7b
+      structure but with Φ_link + ω_dot + T(t) + V(t) recorded).
+
+      DOWNSTREAM:
+      Move 11 is PRE-MOVE-9 PRECONDITION. Move 9 (autoresonant
+      CW at ω=2 per §14.1 reconciliation B) cannot distinguish
+      "drive engages LC mode" from "drive heats system" without
+      baseline reactance signature.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
