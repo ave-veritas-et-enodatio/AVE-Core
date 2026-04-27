@@ -601,3 +601,60 @@ If Mode III-geometry: orbit is genuinely delocalized despite topological invaria
 ---
 
 *§11 added 2026-04-26 — Round 8 Move 5 result. Mode III-orbit per pre-reg (persistence 0.329 < 0.50, topology criterion failed mid-transient at c=0 t=10P/25P). BUT empirical plateau at t∈[50P, 200P]: peak |ω|=0.3044 to 4 decimals across 150 consecutive Compton periods, c=3 preserved continuously, orbit migrated off corpus shell (shell_frac 0.79 → 0.14). The engine hosts a self-stable nonlinear (2,3) orbit at sub-corpus parameters. Move 6 (settled-orbit geometry mapping) becomes load-bearing Round 8 next test, ahead of Move 3 (hybrid eigsolve). A45+A46+A47 added for r8.9 §17.1.*
+
+---
+
+## 12. Move 6 — natural-attractor geometry/phasor/spectrum: Mode III-natural (delocalized) → meta-methodological pivot (2026-04-26)
+
+Move 6 ran per [`P_phase6_natural_attractor_characterization`](../../manuscript/predictions.yaml) frozen at commit `97178c6`. Three integrated extractions on the Move 5 attractor:
+
+### 12.1 Result summary
+
+| Extraction | Output | Reading |
+|---|---|---|
+| (a) GEOMETRY shell-fit | R_opt = 14.00, r_opt = 6.00 (search boundary), shell_frac_opt = 0.231 | **Pegged at search-grid boundary** with sub-threshold localization (0.231 < 0.40). Orbit is delocalized — no clean torus shell. |
+| (b) PHASOR R_spatial / r_spatial | 2.46 (vs corpus φ² = 2.618), rel_std = 0.41 | Ratio close-ish to φ² but rel_std 41% means very high spatial variability across 8 sample cells; not a clean phase-space torus signal. |
+| (c) SPECTRUM peak \|ω\|(t) | top freqs (natural ω): 0.020, 0.030, 0.040 rad/unit | All three top freqs are very low — this is the slow drift in peak position, NOT oscillation at ω_C = 1.0. |
+| (c) SPECTRUM peak \|V_inc\|(t) | top freqs: 4.44, 0.010, 4.43 rad/unit | 4.44 ≈ π·√2 = lattice-timestep frequency (2π/dt at dt=1/√2). Near-Nyquist content, not physical. |
+
+**Verdict: Mode III-natural** (delocalized — shell_frac_opt < 0.40 threshold). Spectrum confirms: ω is drifting slowly (not oscillating), V_inc has lattice-Nyquist artifact content. The attractor has corpus-canonical c=3 topology preserved, but it is NOT a clean standing-wave at ω_C in either the V or ω sector.
+
+### 12.2 Meta-methodological audit
+
+Across §1–§11 (R7.1 + R7.2 + §10 follow-ups + Move 5) and §12 (Move 6), the cumulative pattern:
+
+- **Tests run:** ≥9 distinct configurations — V-block eigsolve at 4 seeds × N=32+N=64; Cos-block eigsolve dual-criterion at N=32 + N=64 (shell + Op10); R7.2 (2,3)/Hopf pair injection; Test B v1/v1-retry single-port temporal; Test B v2/v3 multi-port spatial at linear + saturation; Move 5 single-electron self-consistent orbit; Move 6 natural-attractor geometry/phasor/spectrum.
+- **Results:** all Mode III against the question "does the corpus electron live at this configuration?" Move 5 produced a self-stable (2,3) plateau but at sub-corpus parameters; Move 6 confirmed the plateau is delocalized and not a clean ω_C standing wave.
+- **Question structure:** every test pre-registered "is corpus electron at config X?" → got Mode III → next test asked "is corpus electron at config Y?" Search through configuration space, looking under streetlights.
+
+**The accumulated signal is already substantive: the engine does not produce a corpus-electron-shaped object at any pre-specifiable corpus-claimed configuration.** Continuing to specify configurations elaborates the same finding at higher resolution. Move 6's framing ("does R/r = φ² at the natural attractor?") was the same pattern at higher resolution — Mode III-natural confirms the question shape doesn't fit the data either.
+
+### 12.3 Pivot — characterize the attractor as itself
+
+Per audit on Move 6 result: **stop pre-registering "is corpus electron at config Y?" tests.** Switch frame: the engine produced a system-found stable c=3 attractor at t=200P. We extracted persistence + binary verdict, but never asked **what kind of object it is**.
+
+Move 7 / Phase 1 characterization (frozen at next commit, characterization-only, no PASS/FAIL):
+
+- **Spatial moments**: at t=200P, compute centroid (cx, cy, cz) of |ω|² density, second moments (extent in x, y, z), principal axes via PCA on the energy distribution. Get R_eff and r_eff via geometric extent, not torus-shell template fit.
+- **FFT at FIXED spatial points** (not peak-tracking): record V_inc(t) and ω(t) at 5 fixed lattice points (centroid + 4 displaced) over t=150P→200P window. FFT each. Identify true dominant frequencies in the temporal evolution, distinct from the slow drift in peak position that Move 6 measured.
+- **Q-factor from transient**: fit log(peak |ω|) vs t over t=10P→50P decay phase. Slope gives 1/τ; Q = ω_C·τ/2 if assuming oscillation at ω_C.
+- **(V_inc, V_ref) phasor trajectory at the centroid**: sample the (V_inc, V_ref) at the spatial centroid over t=150P→200P; plot in 2D phase space, compute closed-trajectory aspect ratio (is this ANY clean standing wave? What ratio?).
+- **Energy partition**: at t=200P, total energy split across K4 V-pressure sector, Cosserat ω² sector, Cosserat |u|² sector, Cosserat |∇u|² sector. Where does the energy actually live?
+
+This is **descriptive characterization**, not a hypothesis test. The result is the attractor's properties as measured. Phase 2 (post-Phase-1 decision) follows based on what those properties show:
+
+- If the attractor has electron-like properties (Q ≈ 137, frequency at ω_C or simple multiple, c = 3, energy ~ m_e c² in natural units): the corpus electron IS in the engine, just at different parameters than corpus seed assumed. Round 7+8 closure narrative changes substantially.
+- If the attractor is electron-like in topology + amplitude but not frequency/Q: partial match — engine hosts a (2,3)-topological object but it isn't the corpus electron.
+- If the attractor has none of the electron-like properties: structural finding — engine missing physics, OR corpus claim about engine-electron correspondence at this engine implementation is wrong.
+
+Each branch implies a different next move. Currently we're in the third branch (testing more configurations) without distinguishing the branches.
+
+### 12.4 Methodology lesson — A48 (NEW for r8.9 §17.1)
+
+**A48: pre-reg discipline + dual-criterion adjudication is the right discipline for "is X at config Y?" questions but produces clean negative results to a malformed question when the question itself is wrong.** When cumulative tests across an arc all return Mode III, the meta-question to ask is "what kind of question would have a non-Mode-III answer?" — not "what's the next config to specify?" Phase 1 / Move 7 characterization is the first such inverted question in this arc: not "is the engine producing X?" but "what is the engine producing?"
+
+Pre-reg discipline still applies to characterization runs — freeze the extraction scope before extracting, to prevent post-hoc cherry-picking of which property to report. But "frozen extraction" is a different discipline structure from "frozen PASS/FAIL adjudication." Move 7 will be frozen-extraction-scope, no adjudication categories.
+
+---
+
+*§12 added 2026-04-26 — Move 6 Mode III-natural (delocalized at search boundary; spectrum confirms attractor is not a clean ω_C standing wave). Meta-methodological pivot accepted: stop testing corpus-shaped templates at new configurations; switch to characterizing Move 5's attractor as itself. Move 7 / Phase 1 characterization frozen at next commit — no PASS/FAIL, frozen extraction scope (spatial moments + FFT at fixed points + Q-factor + phasor trajectory + energy partition). A48 (NEW) added for r8.9 §17.1: pre-reg discipline applies to characterization runs as frozen-extraction-scope, distinct from frozen-PASS/FAIL adjudication.*
