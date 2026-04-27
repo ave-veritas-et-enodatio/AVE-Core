@@ -1913,6 +1913,105 @@ predictions:
       - Move 3 alone CAN'T distinguish "no linear cross-coupled mode" from
         "no orbit at all"; Move 5 + Move 3 together CAN.
 
+  - id: P_phase6_natural_attractor_characterization
+    name: "Round 8 Move 6: characterize Move 5's settled (2,3) attractor — fit (R_relaxed, r_relaxed) and test whether R/r = φ² at non-corpus absolute scale"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_natural_attractor_characterization.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 6 — frozen at this commit per audit on Move 5 result.
+
+      MOVE 5 RESULT (PROMPT FOR MOVE 6):
+      Move 5 returned Mode III-orbit per pre-reg threshold (peak |ω|
+      persistence 0.329 < 0.50 + c=0 at t=10P, 25P), but trajectory
+      data shows the system did NOT dissolve. It RELAXED to a
+      sub-corpus (2,3) attractor:
+        Plateau (t ∈ [50P, 200P]):
+          peak |ω| = 0.3044 to 4 decimals across 150 consecutive
+          Compton periods (NOT decaying)
+          c = 3 preserved continuously
+          shell_frac drifted 0.31 → 0.14 (orbit migrated off corpus
+          shell to non-corpus geometry)
+
+      The engine HOSTS a self-stable nonlinear (2,3) orbit at
+      sub-corpus parameters. Corpus's specific (R=10, r=R/φ²,
+      peak |ω|=0.3π) parameters wrong on geometry/amplitude side, but
+      the (2,3) self-trapped soliton FRAMEWORK is empirically supported.
+
+      MOVE 6 GOAL: characterize the natural attractor — answer "where
+      is the engine's actual self-stable (2,3) orbit?" before deciding
+      Round 8 next test (Move 3 hybrid eigsolve, Move 4 (p,q) sweep).
+
+      THREE INTEGRATED EXTRACTIONS:
+
+      (a) GEOMETRY (PRIMARY CRITERION):
+          Re-run Move 5 deterministically; snapshot full ω + V_inc at
+          t = {100, 150, 200} Compton periods. Sweep candidate
+          (R, r) ∈ [2, 14] × [0.5, 6] torus shells centered on lattice
+          center; fit (R_opt, r_opt) by maximizing shell-localized
+          fraction of ω-energy on the t=200P snapshot. Report
+          R_opt/r_opt vs corpus φ² = 2.618.
+
+      (b) PHASOR (DIAGNOSTIC SUB-CRITERION):
+          Select 8 highest-|ω|² cells on the relaxed shell. Compute
+          per-cell time-averaged V_inc magnitude across the 3 snapshots
+          → spatial envelope R_spatial = mean, r_spatial = std.
+          R_spatial/r_spatial vs corpus φ². This is doc 28_ §5.1's
+          actual test (corpus phase-space (2,3) Golden Torus) on the
+          ENGINE'S NATURAL ATTRACTOR rather than on a corpus-imposed
+          seed (which is what Test B v1+v2+v3 did and got Mode III).
+
+      (c) SPECTRUM (DIAGNOSTIC SUB-CRITERION):
+          FFT of peak |ω|(t) and peak |V_inc|(t) over recording window
+          (t = 100P → 200P, ~888 timesteps). Confirm dominant frequency
+          at ω_C = 1.0 in natural units. Look for (2,3)-signature 3:2
+          harmonic ratio in the top peaks.
+
+      ADJUDICATION (3-mode primary on geometry):
+
+      Mode I-natural (CORPUS ASPECT-RATIO VINDICATED at non-corpus scale):
+        well-defined shell (shell_frac_opt ≥ 0.4)
+        AND R_opt/r_opt = φ² ± 0.10
+        Reading: corpus's R/r = φ² claim empirically validated. The
+        corpus seed at (R=10, r=R/φ²=3.82) had the WRONG ABSOLUTE
+        SCALE; the engine's natural electron lives at (R_opt, r_opt)
+        with the same aspect ratio. Round 7+8 narrative inverts
+        substantially — corpus qualitatively right, only R_anchor
+        calibration was wrong.
+
+      Mode II-natural (corpus ratio falsified):
+        well-defined shell (shell_frac_opt ≥ 0.4)
+        AND R_opt/r_opt ≠ φ² ± 0.10
+        Reading: engine's natural electron exists with (2,3) topology
+        but at a DIFFERENT aspect ratio than corpus claims. Corpus
+        φ² ratio empirically falsified at the natural attractor.
+
+      Mode III-natural (delocalized):
+        shell_frac_opt < 0.4
+        Reading: (2,3) topology preserved (c=3 stable) but energy
+        density doesn't localize on any clean torus shell. Different
+        methodology needed.
+
+      ESTIMATED COST: ~5 min wall (deterministic Move 5 reproduction +
+      shell-fit sweep). Adds full-field snapshots at 3 timesteps.
+
+      RELATIONSHIP TO ROUND 8 ENTRY:
+      - If Mode I-natural: corpus R/r=φ² claim vindicated; Round 8
+        next is to redo R7.1 V-block + Cos-block eigsolve at the
+        engine's natural (R_opt, r_opt) seed instead of corpus
+        (10, 3.82). Move 3 (hybrid eigsolve) becomes useful AFTER
+        Move 6 lands.
+      - If Mode II-natural: corpus φ² ratio wrong; Round 8 entry
+        candidate is to characterize WHICH ratio the engine prefers
+        and trace its corpus-physics implications.
+      - If Mode III-natural: Round 8 entry candidate is to run the
+        engine longer (1000+ Compton periods) to see if attractor
+        crystallizes, OR test perturbations.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
