@@ -323,15 +323,19 @@ def spherical_harmonic_decompose(omega_density, center, l_max=4,
     phi = np.arctan2(y, x)                 # azimuthal angle ∈ [-π, π]
 
     # Real spherical harmonics Y_l_m(θ, φ) for l = 0..l_max
+    # scipy 1.15+ uses sph_harm_y(n, m, theta, phi) where theta is polar
+    # (colatitude) and phi is azimuthal — swapped argument order vs old
+    # sph_harm(m, n, theta_azimuthal, phi_polar).
+    from scipy.special import sph_harm_y
+
     def Y_lm(l, m, theta, phi):
-        # Use scipy.special.sph_harm if available; otherwise hand-coded
-        from scipy.special import sph_harm
-        # scipy returns complex; convert to real using
-        # Y_real_{l,m} = Re(Y_l^|m|) for m≥0, Im(Y_l^|m|) for m<0
+        # New API: sph_harm_y(n, m, theta_polar, phi_azimuthal)
+        # Returns complex; convert to real:
+        #   Y_real_{l,m} = Re(Y_l^|m|) for m ≥ 0, Im(Y_l^|m|) for m < 0
         if m >= 0:
-            return np.real(sph_harm(m, l, phi, theta))
+            return np.real(sph_harm_y(l, m, theta, phi))
         else:
-            return np.imag(sph_harm(abs(m), l, phi, theta))
+            return np.imag(sph_harm_y(l, abs(m), theta, phi))
 
     r_max = min(nx, ny, nz) // 2 - 2
     radial_bins = np.linspace(1, r_max, n_radial_bins + 1)
