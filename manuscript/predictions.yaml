@@ -2012,6 +2012,97 @@ predictions:
         engine longer (1000+ Compton periods) to see if attractor
         crystallizes, OR test perturbations.
 
+  - id: P_phase1_attractor_characterization
+    name: "Round 8 Move 7 / Phase 1: characterize Move 5's settled (2,3) attractor as itself — descriptive, no PASS/FAIL adjudication, frozen extraction scope"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_characterization.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 7 / Phase 1 — frozen at this commit per audit on
+      Move 6 result (meta-methodological pivot, doc 74_ §12).
+
+      PIVOT FROM PRIOR PATTERN:
+        Round 7 + §10 + Move 5 + Move 6 ran ≥9 distinct configurations
+        all pre-registered as "is corpus electron at config X?" — all
+        Mode III. Continuing to specify configurations elaborates the
+        same finding at higher resolution.
+
+        Move 7 inverts the question. Move 5 produced a system-found
+        stable c=3 attractor at t=200P; we extracted persistence +
+        binary verdict but never characterized WHAT KIND OF OBJECT
+        IT IS. Move 7 does the descriptive characterization with a
+        FROZEN EXTRACTION SCOPE — NO PASS/FAIL adjudication. The
+        result IS the characterization.
+
+      A48 distinction: pre-reg discipline applies to characterization
+      runs as FROZEN-EXTRACTION-SCOPE (prevents post-hoc cherry-picking
+      of which property to report), distinct from FROZEN-PASS/FAIL
+      adjudication structure of all prior preds in this arc.
+
+      FROZEN EXTRACTIONS (5 — all reported, no selection):
+
+      (1) SPATIAL MOMENTS at t=200P:
+          - Centroid (cx, cy, cz) of |ω|² density
+          - Centroid of V_inc² density
+          - Centroid of |u|² density
+          - Per-axis std-dev (sqrt of second central moment) for each
+          - Total density (energy proxy) for each
+
+      (2) FFT AT 5 FIXED SPATIAL POINTS over t∈[150P, 200P]:
+          - Centroid + 4 displaced points (±2 cells in x and y)
+          - V_inc trace (port-0-sum) at each point
+          - |ω| trace at each point
+          - Top 3 frequencies (rad/natural-time-unit) per signal per point
+
+      (3) Q-FACTOR from log(peak |ω|) decay over t∈[10P, 50P]:
+          - Linear fit slope → 1/τ
+          - τ in Compton periods (frequency-agnostic decay timescale)
+          - Q_at_omega_C = ω_C·τ/2 (assumes ω_C oscillation)
+          - Note: Q is a derived assumption-laden number; τ_Compton is
+            the frequency-agnostic primary
+
+      (4) (V_inc, V_ref) PHASOR TRAJECTORY at centroid P0 over
+          t∈[150P, 200P]:
+          - Sample V_inc[centroid, port=0](t) and V_ref[centroid, port=0](t)
+          - PCA aspect ratio R/r (descriptive only)
+          - Closed-trajectory diagnostic via amplitude drift over 5 chunks
+          - NO comparison to φ²
+
+      (5) ENERGY PARTITION at t=200P:
+          - Cosserat potential V via engine.cos.total_energy()
+          - Cosserat kinetic T via engine.cos.kinetic_energy()
+          - Cosserat Hamiltonian H = V + T
+          - Amplitude proxies: Σ|ω|², Σ|u|², Σ|V_inc|² at active sites
+          - Where energy lives (no corpus comparison)
+
+      RUN STRUCTURE: deterministic Move 5 reproduction, two passes.
+        Pass 1: run to t=200P, record peak|ω| stream over decay window
+                (extraction 3 input), capture final-step state for
+                spatial moments + energy partition (extractions 1+5).
+        Pass 2: re-run with recording at 5 fixed points (chosen from
+                Pass 1's centroid) during t∈[150P, 200P] (extractions
+                2+4 input).
+
+      ESTIMATED COST: ~10 min wall (two ~5-min Move 5 reproductions).
+
+      POST-EXTRACTION DECISION (Phase 2, NOT in this run):
+        Based on the 5 extracted properties, decide which branch:
+          (a) electron-like: Q ≈ 137, dominant ω near ω_C or simple
+              multiple, c=3, energy in Cosserat ω-sector dominant
+          (b) (2,3)-topological but not electron-like (mismatched Q
+              or freq, energy distribution doesn't match m_e c²
+              partition)
+          (c) none of the above (engine missing physics, OR corpus
+              claim about engine-electron correspondence at this
+              implementation is wrong)
+        Each branch implies different Round 8+ next move. Phase 2
+        decision happens after Phase 1 reports — no decision rules
+        pre-committed, this is a genuinely descriptive run.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
