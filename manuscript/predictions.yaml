@@ -2392,6 +2392,90 @@ predictions:
         - Real H_total drift → Diag 4 (dt sensitivity) before E-069
         - Coherent source → debug engine state (drive should be 0)
 
+  - id: P_ax5_cosserat_wave_speed_amplitude_dependence
+    name: "Diag A: Cosserat wave-speed amplitude dependence — empirically detect/fix the V·S vs T·1 saturation asymmetry that violates Ax 3 energy conservation in the Cosserat sector"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
+    test_file: "src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py"
+    axioms_used: [3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Frozen at this commit. Diag A is a pre-fix detection +
+      post-fix verification of the conservation-of-energy violation
+      diagnosed in doc 75_.
+
+      VIOLATION (per Phase 1 audit):
+        cosserat_field_3d.py:545–587 (`_energy_density_saturated`)
+          multiplies G, G_c, K terms by S_eps_sq and S_kappa_sq
+          → V_potential saturates as V·S
+        cosserat_field_3d.py:1204–1209 (`kinetic_energy()`)
+          uses constant ρ = 1 (line 760), I_ω = 1 (line 771)
+          → T_kinetic does NOT saturate
+        Asymmetric saturation breaks Lagrangian time-translation
+        symmetry → Noether energy not conserved when A²(x,t) varies.
+
+      MATHEMATICAL CONSEQUENCE:
+        c_T = √(G·S/ρ) drifts as √S
+        c_R = √(γ·S/I_ω) drifts as √S
+        m_Cosserat² = 4·G_c·S/I_ω drifts as S
+        All Cosserat eigenfrequencies drift with amplitude → fixed-σ
+        eigsolve unreliable → R7+R8 universal Mode III is the signature.
+
+      EMPIRICAL SIGNATURE (Move 11/11b):
+        H_cos drift 5.5% over 50 Compton periods, ρ(T_cos, V_cos)=+0.366
+        (sectors grow/shrink together, NOT LC reactance signature).
+
+      DIAG A METHODOLOGY:
+        Cosserat-only rotational wavepacket at varying packet amplitude
+        A ∈ {0.01, 0.1, 0.5, 1.0, 2.0}. As packet amplitude grows, local
+        |∇ω|² at packet location grows; saturation kernel S_kappa_sq
+        drops; under V·S, T·1 asymmetry, observed wave speed drifts.
+
+      Fixed setup per amplitude:
+        - Lattice N=32, wavelength λ=12, σ=3, n_steps=200
+        - G_c=0 (gapless rotational), γ=1, ρ=1, I_ω=1
+        - use_saturation=True; topology terms (Op10, Hopf, refl) disabled
+        - Wavepacket seed via initialize_gaussian_wavepacket_omega
+          on axis=2 propagating +x
+        - Measure c via centroid-tracking polynomial fit
+          (mirrors cosserat_wave_test._packet_centroid_axis pattern)
+
+      3-MODE ADJUDICATION on pre-fix curve:
+        Mode I (Ax 3 already satisfied):
+          c(amplitude) is amplitude-invariant within ±5% across all
+          amplitudes. Some unmapped path preserves wave speed despite
+          V·S, T·1. Doc 75_ becomes informational; engine fix not
+          needed; post-fix verification not run.
+        Mode II (Ax 3 violated as predicted):
+          c(amplitude) drifts monotonically (drop ≥5% from low to
+          high amplitude); V·S, T·1 asymmetry empirically confirmed.
+          Engine fix applied (T_kinetic gets S factor: ρ → ρ·S,
+          I_ω → I_ω·S in kinetic_energy + step integrator). Post-fix
+          re-run expected to give amplitude-invariance.
+        Mode III (anomalous):
+          c drifts non-monotonically or in non-√S form. Investigate
+          before fix.
+
+      POST-FIX VERIFICATION (binary, conditional on Mode II):
+        c(amplitude) / c_0 = 1 ± 5% across all tested amplitudes.
+
+      DOWNSTREAM (conditional on Mode II + post-fix Mode I):
+        R7.1 V-block + Cos-block eigsolves rerun against post-fix
+        engine — corpus-electron empirical question revisited with a
+        substrate that preserves Ax 3.
+        Move 5 self-consistent orbit hunt rerun.
+        R7.2 (2,3)/Hopf pair injection rerun.
+
+      ESTIMATED COST: ~10 min wall pre-fix Pass 1, ~30 min engine fix
+      implementation in cosserat_field_3d.py, ~10 min wall post-fix
+      Pass 2, ~10 min sanity verification (cosserat_wave_test.py
+      T1/T2/T3 unchanged with fix in place).
+
+      NO PASS/FAIL on overall test (frozen-extraction-scope per A48
+      discipline). Result IS the c(amplitude) curve + adjudicated mode.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
