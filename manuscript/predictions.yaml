@@ -2103,6 +2103,55 @@ predictions:
         decision happens after Phase 1 reports — no decision rules
         pre-committed, this is a genuinely descriptive run.
 
+  - id: P_phase1_attractor_characterization_v2_fft_fix
+    name: "Round 8 Move 7b: FFT fix — sample at top-5 |V_inc|² cells (not |ω|² centroid-displaced); other 4 extractions re-emitted unchanged"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_characterization_v2_fft_fix.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 7b — methodology fix to Move 7's FFT extraction.
+
+      Move 7 selected 5 sample points displaced ±2 cells from the |ω|²
+      density centroid (15, 15, 16). All 5 cells returned IDENTICALLY
+      ZERO V_inc across 447 timesteps; FFT picked up only lattice-Nyquist
+      numerical artifacts (4.43, 4.41, 1.61 rad/unit at every point).
+
+      DIAGNOSIS: |ω|² density is shell-distributed (peak ω at non-zero
+      radius from lattice center); the centroid sits in the empty hole
+      of the shell. V_inc² has narrow z-extent (2.92 cells); centroid-
+      displaced points landed in zero-V_inc territory. Index parity at
+      displaced cells was uniformly even (15+15+16=46, all displaced
+      points preserve parity), possibly compounding via K4 sublattice
+      structure.
+
+      FIX: select sample points by ENERGY-DENSITY ON V_inc DIRECTLY.
+      At t=200P, compute V_inc² density per cell (sum of port-squared
+      amplitudes), pick top 5 cells. Guarantees non-zero V_inc trace
+      at every sample point and probes where V-sector energy actually
+      lives.
+
+      OTHER EXTRACTIONS (1, 3, 5, topology) unchanged from Move 7;
+      re-emitted in this run for completeness:
+        (1) Spatial moments at t=200P
+        (3) Q-factor from log-decay over t∈[10P, 50P]
+        (5) Energy partition at t=200P
+        topology: c via Op10 at t=200P
+
+      SAME FROZEN-EXTRACTION-SCOPE DISCIPLINE (A48). NO PASS/FAIL
+      adjudication. Result IS the characterization.
+
+      ESTIMATED COST: ~10 min wall (two ~5-min Move 5 reproductions,
+      identical to Move 7).
+
+      PHASE 2 BRANCH DECISION:
+        Held until Move 7b's corrected FFT lands. Move 7's clean
+        extractions (Q, energy, topology, spatial moments) still
+        valid as inputs to Phase 2 alongside Move 7b's FFT/phasor.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
