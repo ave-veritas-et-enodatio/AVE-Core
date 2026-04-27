@@ -2476,6 +2476,122 @@ predictions:
       NO PASS/FAIL on overall test (frozen-extraction-scope per A48
       discipline). Result IS the c(amplitude) curve + adjudicated mode.
 
+  - id: P_phase6_photon_tail_dual_seed
+    name: "Photon-tail dual seed: K4 V_inc + Cosserat ω at corpus (2,3) topology, engine-representable scale (R=4, r=1.5 at N=64); test corpus electron via 4-criterion phasor + winding + LC reactance + topology adjudication"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_photon_tail_dual_seed.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 photon-tail framing test. Frozen at this commit per
+      Grant + auditor 4-criterion structure.
+
+      CONTEXT (per Grant's reframe, doc 28_ §1+§3+§4):
+        R7+R8's 30+ commits seeded only the Cosserat (B-field) half via
+        initialize_electron_2_3_sector with V_inc held at zero. Result:
+        engine produces (2,3)-topological attractors (Move 5/7/10/11)
+        but always with K4 V_inc DC — half-electron signature.
+
+        Photon-tail framing: a self-trapped photon catching its own
+        tail in (2,3) torus-knot loop IS the electron. E and B fields
+        wind along the loop, oscillating perpendicular to path,
+        90° phase offset. Frequency = c/L_loop in real space.
+
+        Per doc 28_ §3+§4: corpus PASS criterion is phasor-space
+        (V_inc, V_ref) ellipse aspect R_phase/r_phase = φ², measured
+        at any single loop node. R_real (real-space loop dimensions)
+        is a DIFFERENT quantity from R_phase (phasor-space ratio);
+        they need not match. Real-space frequency ω_natural ≠ ω_C is
+        forced by lattice resolution (dx = ℓ_node) and is NOT
+        load-bearing for corpus validation.
+
+      LATTICE-RESOLUTION CHOICE — N=64 minimum:
+        At N=32 (Move 5+ scale): can't simultaneously have loop fits
+        in active region AND (2,3) winding resolved (sub-Nyquist
+        below r ≈ 1 cell).
+        At N=64 with R=4, r=1.5: loop length ~55 cells in 56³ active
+        region; (2,3) toroidal cycle ~13 cells, poloidal cycle ~3
+        cells — both above Nyquist. First lattice that supports a
+        meaningful photon-tail test.
+
+      INITIAL CONDITION — path (a) standing-wave IC:
+        Both fields seeded at peak displacement at t=0 with existing
+        seeders (initialize_2_3_voltage_ansatz for K4 V_inc;
+        initialize_electron_2_3_sector for Cosserat ω). Zero initial
+        velocities. Free evolution for 200 Compton periods.
+
+        Caveat: Move 5's standing-wave-IC outcome was static c=3
+        hedgehog, NOT propagating mode. If this test returns Mode III,
+        path (b) propagating IC (set ω_dot, V_ref velocities consistent
+        with photon along loop tangent) becomes natural follow-up
+        before declaring photon-tail framing falsified.
+
+      4-CRITERION ADJUDICATION:
+
+        C1 — Single-node ellipse aspect:
+          For each of 30 sampled loop nodes, fit ellipse to
+          (V_inc, V_ref)(t) trajectory at the chosen tangent-aligned
+          port over t∈[150P, 200P]. Compute R_phase/r_phase via PCA.
+          Take median across loop nodes.
+          PASS: median R_phase/r_phase = φ² ± 5%.
+          (Necessary but not sufficient — generic LC at golden ratio
+          could also give φ².)
+
+        C2 — Spatial winding rotation:
+          Track ellipse orientation angle (PCA major axis) at each
+          loop node. Unwrap the angle vs arc length along the loop.
+          Total winding = 2 toroidal + 3 poloidal = 5 × 2π over
+          one full loop traversal.
+          PASS: total winding = 5 × 2π ± 30%.
+          (Distinguishes corpus (2,3) topology from generic LC.)
+
+        C3 — LC reactance:
+          Cross-correlation ρ(Σ|V_inc|²(t), Σ|Φ_link|²(t)) over
+          recording window. K4↔K4-inductive trading via the bond LC
+          tank.
+          PASS: ρ ∈ (-1.2, -0.8). Confirms LC oscillation.
+
+        C4 — Topology preservation:
+          c via engine.cos.extract_crossing_count() at end of run.
+          PASS: c = 3.
+
+        Mode I (corpus electron at engine scale): all 4 PASS.
+        Mode III variants: at least one FAIL. The failure pattern
+        names which axis is broken (aspect / winding / reactance /
+        topology). Specific failures inform whether path (b)
+        propagating IC is the next move.
+
+      RECORDING WINDOW:
+        t ∈ [150P, 200P], 50 Compton periods. With photon-loop
+        period T_loop ≈ 60 natural-time-units (at R=4, r=1.5),
+        recording covers ~5 full loop traversals. Adequate for
+        ellipse trace at each node.
+
+      ESTIMATED COST:
+        N=64 single run with full recording: ~40 min wall time
+        (1777 timesteps, ~8× N=32 baseline).
+
+      DOWNSTREAM IF MODE I:
+        Photon-tail framing empirically validates corpus electron
+        at engine-representable scale. Round 7+8 closes with
+        positive empirical result. Doc 75_ becomes a reframing
+        of "30 commits found half the corpus electron because
+        only the Cosserat-half was seeded; dual-seed at corpus
+        topology with 90° phase relation reveals the full
+        electron at engine-representable scale."
+
+      DOWNSTREAM IF MODE III:
+        Failure pattern names what's wrong. Most likely: C1+C2
+        (no clean ellipse, no winding) → standing-wave IC didn't
+        find propagating attractor → run path (b) with
+        propagating IC. Or C3 fails (no LC reactance) → K4 LC
+        tank doesn't sustain bond LC even with E-field seeded →
+        deeper issue with K4-Cosserat coupling. Or C4 fails (c
+        degrades) → topology not preserved despite seed.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
