@@ -410,3 +410,88 @@ R7.1 closed empirically. R7.2 closed empirically. Both Mode III at corpus GT. Ro
 ---
 
 *§9 added 2026-04-26 — joint R7.1 + R7.2 final closure. Cos-block N=64 GT_corpus dual-criterion: Mode III (freq FAIL 1.39% + topology FAIL 1.51% shell fraction). R7.2 (2,3)/Hopf pair injection: Mode III (frequency dissolves at Beltrami timescale; topology criterion has measurement ambiguity but irrelevant since freq fails). Joint headline (§9.3 unified statement): K4-TLM engine does NOT host (2,3) electron bound state in V-pressure or ε-strain sectors at corpus GT, AND topological-richness-only doesn't rescue Beltrami case (b'). Round 8 entry: Φ_link sector (cleanest unprobed gap in three-storage-mode picture). A40 (empirical-driver-arc discipline, methodology-meta) + A41 (G-13 falsified at coupling-depth layer; unifies A30/A32/A34 at deeper layer; structural physics) split per audit recommendation. Both for r8.9 §17.1.*
+
+---
+
+## 10. Three follow-up empirical tests close the negative-result envelope (2026-04-26)
+
+Per audits on commits `8c44ef0` (Φ_link creeper flag → A43), `88ec7c3` (corpus-canonical topology measure for c via Op10 → A42 Test A re-extraction), and `53c2ce9` (Test B single-port sampling can't answer doc 28_ §5.1's spatial-winding question → A44 spatial-vs-temporal phasor distinction), three follow-up tests were frozen and run before doc 74_ closure. **All three returned Mode III**, extending the §9.3 unified framework-level statement across two new axes (corpus-canonical Cosserat topology + bond-cluster spatial envelope).
+
+### 10.1 Test A — Cos-block N=64 GT_corpus c_eigvec re-extraction: Mode III-both
+
+[`r7_cos_block_n64_c_eigvec.py`](../../src/scripts/vol_1_foundations/r7_cos_block_n64_c_eigvec.py) — re-runs the Cos-block N=64 GT_corpus dual-criterion eigsolve from §9.1 but replaces the shell-localization heuristic with **corpus-canonical c via Op10** (`extract_crossing_count` on the ω-component of the joint (u, ω) eigvec, per Doc 07_). 4-category adjudication per `P_phase6_cos_block_n64_c_eigvec_recheck` frozen at commit `53c2ce9`.
+
+| Metric | Value | Threshold | PASS? |
+|---|---|---|---|
+| Closest λ | 1.0252 | — | — |
+| √λ_closest | 1.0125 | ω_C = 1.0 | — |
+| rel_diff | **1.2509%** | α = 0.7297% | **NO (1.7× over)** |
+| c_eigvec via Op10 | **0** | 3 | **NO** |
+
+**Mode III-both** — both criteria fail. Cosserat sector at corpus GT is empty in BOTH frequency and corpus-canonical topology axes.
+
+The shell-localization-heuristic finding from §9.1 (1.51% shell fraction << 80% threshold) is now **independently confirmed** by the corpus-canonical c measure. The closest eigvec at √λ=1.0125 has zero (2,3) winding by Op10's scalar crossing count — not just delocalized in real space, but topologically trivial in the corpus's own measurement convention.
+
+A42 (corpus-canonical c via Op10 ≠ shell-localization heuristic) is empirically validated: both measures agree on Mode III at this seed/lattice, but the c-via-Op10 measure is the load-bearing one for r8.9 citation per Doc 07_'s §6.2 framing. Wall time 8003s (~2.2 hr), 189 OPinv calls, 56,700 inner GMRES iterations.
+
+### 10.2 Test B v1 + retry Mode II-temporal at single port: amplitude-invariant, can't answer doc 28_ §5.1
+
+[`test_b_bond_scale_phasor.py`](../../src/scripts/vol_1_foundations/test_b_bond_scale_phasor.py) (v1, 0.1·V_SNAP) and [`test_b_bond_scale_phasor_retry.py`](../../src/scripts/vol_1_foundations/test_b_bond_scale_phasor_retry.py) (v1-retry, 0.5·V_SNAP) sample temporal (V_inc(t), V_ref(t)) at port 0 of A=(14,14,14), compute PCA-derived R/r aspect.
+
+| Drive amp | A² | R/r temporal | Mode |
+|---|---|---|---|
+| 0.1·V_SNAP | 0.01 | 19.00 | II |
+| 0.5·V_SNAP | 0.25 | 19.20 | II |
+
+R/r is amp-invariant within ~1% across two orders of magnitude in A². **Audit catch on commit 53c2ce9**: doc 26_ §1's standing wave is `ψ(s, t) = V₀·A(s)·exp(i(ωt+θ(s)))` — at fixed s, (V_inc, V_ref) traces a CIRCLE (single frequency, no torus). Doc 26_ §3 defines R_phase, r_phase as **spatial** averages over s. A single-port sample is one s value → one circle → R/r = aspect of small-signal ellipse, not the corpus phase-space torus. v1 and v1-retry asked the wrong question.
+
+A44 (NEW for r8.9 §17.1) — **spatial-vs-temporal phasor distinction**: when testing "phase-space torus" claims under doc 26_'s framing, sample multiple spatial points and compute spatial mean/std over the s-axis envelope. Single-point temporal sampling at any drive amplitude returns a circle whose aspect is determined by drive ellipticity, not by corpus θ(s) winding. Methodology rule for future bond-scale phasor tests: minimum 8 spatial samples (e.g., 4 ports × 2 nodes) before computing R_phase / r_phase.
+
+### 10.3 Test B v2 + v3 multi-port spatial sampling: Mode III-spatial at both linear and saturation regimes
+
+[`test_b_v2_multipoint_phasor.py`](../../src/scripts/vol_1_foundations/test_b_v2_multipoint_phasor.py) (v2, 0.5·V_SNAP) and [`test_b_v3_multipoint_phasor_satsweep.py`](../../src/scripts/vol_1_foundations/test_b_v3_multipoint_phasor_satsweep.py) (v3, 0.85·V_SNAP) sample 4 ports of A=(14,14,14) + 4 ports of B=(15,15,15) = 8 spatial samples spanning the local A-B bond cluster. Per-port `ρ_i = √(⟨V_inc²⟩_t + ⟨V_ref²⟩_t)` over steady state. Spatial R = mean(ρ), r = std(ρ) over 8 samples per doc 26_ §3.
+
+| Drive amp | A² | R_spatial | r_spatial | rel_std r/R | Mode |
+|---|---|---|---|---|---|
+| 0.5·V_SNAP (v2) | 0.25 | 0.0994 | 0.0039 | **0.0392** | III-spatial |
+| 0.85·V_SNAP (v3) | 0.72 | 0.1367 | 0.0065 | **0.0474** | III-spatial |
+
+Per-port ρ values (v3 saturation regime):
+- A: 0.1363, 0.1301, 0.1295, 0.1295
+- B: 0.1363, 0.1487, 0.1415, 0.1415
+
+The 12-14% per-port range is dominated by **drive-direction asymmetry** — B sites lie downstream of the +x autoresonant source, so wave amplitude is slightly higher there. This is wave-propagation geometry, not (2,3) winding. Both v2 and v3 fall below the pre-registered rel_std threshold of 0.05 → **Mode III-spatial**: bond cluster is essentially uniform, no spatial envelope structure that could carry corpus θ(s) winding.
+
+**Op14 nonlinearity engagement past saturation onset (A² = 0.72) doesn't change the answer.** The bond cluster develops a 5% spatial asymmetry from drive geometry but no (2,3) topology. Single-bond hypothesis per doc 28_ §5.1 falsified at bond-cluster scale across both linear and saturation drive regimes.
+
+### 10.4 Updated framework-level statement (extends §9.3)
+
+Five test classes, three lattices, two operator framings, two amplitude regimes, two topology measures (shell-localization + corpus-canonical c via Op10). All Mode III:
+
+| Test | Sector | Lattice | Drive | Result | Topology measure |
+|---|---|---|---|---|---|
+| V-block | V_inc K4 | N=32 | seed-init | Mode III | n/a (freq FAIL) |
+| V-block | V_inc K4 | N=64 | seed-init | Mode III | shell 1.13% (bulk) |
+| Cos-block (§9.1) | (u, ω) | N=64 | seed-init | Mode III | shell 1.51% (bulk) |
+| **Cos-block c (Test A)** | (u, ω) | N=64 | seed-init | **Mode III-both** | **c=0 via Op10** |
+| R7.2 pair injection | Cosserat ω | N=24 | autoresonant | Mode III | c=2 (drift) |
+| Bond v2 (Test B v2) | V_inc bond cluster | N=32 | 0.5·V_SNAP CW | Mode III-spatial | rel_std 0.039 |
+| Bond v3 (Test B v3) | V_inc bond cluster | N=32 | 0.85·V_SNAP CW | Mode III-spatial | rel_std 0.047 |
+
+**Across seven tests at three lattices and three operator framings (eigsolve + driven phasor + autoresonant pair injection), at two amp regimes (linear + saturation), under two topology measures (shell-localization + Op10 corpus-canonical): no test detected (2,3) bound state structure at corpus GT geometry.**
+
+The §9.3 framework-level negative result holds under the §10 follow-up audits' stronger criteria. Round 8 entry candidates (Φ_link sector / hybrid V≠0 ∧ ω≠0 / (2,3) representation rework) remain ordered as in §9.4.
+
+### 10.5 Methodology lessons added in this section (for r8.9 §17.1)
+
+- **A42 (existing — empirically validated by Test A)**: corpus-canonical (2,3) topology measure is c via Op10 + extract_crossing_count per Doc 07_, NOT real-space shell-localization. Both measures agree on Mode III at the §9.1 / §10.1 seed, but Op10's c is the load-bearing measure for r8.9 citation.
+- **A43 (existing — confirmed during the test sequence)**: Φ_link sector is NOT directly probed by V-block (which operates on V_inc states); Φ_link is derived from V_inc trajectories per A29 (`Φ_link = ∫V_avg·dt`). The "Φ_link sector" Round 8 entry candidate per §9.4 should be framed as "test whether time-domain Φ_link evolution under driven seed shows (2,3) winding stabilization," not as an independent eigsolve sector.
+- **A44 (NEW — methodology-meta)**: spatial-vs-temporal phasor distinction. Doc 26_'s standing-wave equation `ψ(s, t) = V₀·A(s)·exp(i(ωt+θ(s)))` has the (2,3) winding in spatial θ(s), not temporal harmonics. At fixed s, (V_inc, V_ref) traces a CIRCLE — single frequency, no torus structure regardless of drive amp. Doc 26_ §3's R_phase, r_phase are SPATIAL averages over s. Future bond-scale phasor tests under this corpus framing must sample multiple spatial points (minimum: all ports of two adjacent nodes for K4-TLM) and compute mean/std over the spatial envelope, not PCA on a single-port temporal trajectory. v1 + v1-retry's amplitude-invariant R/r=19 result was the smoking gun — temporal aspect ratio at one port doesn't engage spatial structure at all.
+
+### 10.6 Round 7 final closure
+
+R7.1 + R7.2 closed empirically across §1-§9; §10 follow-ups extend the closure across the two audit-flagged dimensions (corpus-canonical topology + spatial-vs-temporal phasor distinction). **All seven tests Mode III. The bond-scale single-bond hypothesis per doc 28_ §5.1 joins the framework-level §9.3 statement at bond-cluster scale.** Round 8 Φ_link sector (re-framed per A43) becomes the cleanest unprobed empirical gap; (3,5)/(2,5) winding sweeps and hybrid V≠0 ∧ ω≠0 seeds remain Round 8 candidates per §9.4.
+
+---
+
+*§10 added 2026-04-26 covering three follow-up empirical tests (Test A Mode III-both via Op10 c=0; Test B v2 Mode III-spatial at 0.5·V_SNAP; Test B v3 Mode III-spatial at 0.85·V_SNAP). Audit-flagged findings A42 (corpus-canonical c via Op10) empirically validated, A43 (Φ_link derived not eigsolved) confirmed in framing, A44 (spatial-vs-temporal phasor distinction) added as new methodology-meta finding. Updated framework-level statement (§10.4): seven tests, four lattices, three operator framings, two amp regimes, two topology measures — all Mode III at corpus GT.*
