@@ -840,3 +840,85 @@ Move 8 (eigsolve at lattice cutoff π·√2) stays deprioritized — that hypoth
 ---
 
 *§14 added 2026-04-26 covering two-layer dimensional reconciliation. Layer 1 (spin-½ half-cover): Reconciliation B confirmed canonical, factor 2 between m_Cosserat and ω_C is exactly the SU(2) double-cover signature corpus already invokes for spin. Layer 2 (Op14 saturation as gravitational redshift): NEW — same formula c_eff = c·√(1-A²) as Schwarzschild dτ/dt, with A² as metric perturbation; corpus seed core (A²≈0.95) has local clock frozen to 0.22·ω_global, explaining Move 5+7+7b static fixed point as saturation-frozen-core. Combined picture: σ=4 Cos-block test should find Mode I in shell (not core); per-cell A² + shell-vs-core localization are load-bearing sub-criteria. A50/A51 revised; A52 (Op14 = gravitational time dilation, cross-ref E-015) + A53 (spin-½ half-cover propagates to mass scale) added for r8.9 §17.1. Move 10 → σ=4 Cos-block → Move 9-at-ω=2 sequencing reconfirmed.*
+
+---
+
+## 15. Move 10 results — fixed point isn't shell-shaped; sectors spatially decoupled; §14.4 σ=4 prediction needs revision (2026-04-26)
+
+Move 10 ran per [`P_phase1_attractor_winding_characterization`](../../manuscript/predictions.yaml) frozen at commit `d4fda36`. Initial run crashed in extraction (3) on `from scipy.special import sph_harm` (scipy 1.15+ rename to `sph_harm_y` with swapped argument order); fixed at `c9e38c4` and re-ran successfully. Four frozen extractions all landed.
+
+### 15.1 Result summary
+
+| Extraction | Result | Reading |
+|---|---|---|
+| (1) Torus winding (p, q) per shell | All near zero (`|p|, |q| ≤ 0.25` at every R∈[3,12], including corpus shell R=10 r=3.82 where mean p=+0.04, mean q=0.00) | **NOT a torus knot.** Corpus seed had (p,q)=(2,3) at t=0 by construction; those windings are GONE by t=200P. |
+| (2) Hopf linking proxy | 0.09 (≈ noise floor) | **NOT Hopf-linked.** |
+| (3) Y_{l,m} decomposition of \|ω\|² | Y_{0,0} dominant at every radial bin (~5× over Y_{2,0} next-largest); all other coefficients at 10⁻⁵ ≈ noise | **\|ω\|² magnitude density is roughly SPHERICALLY SYMMETRIC.** No angular structure in magnitude. |
+| (4) A² at top-50 \|ω\|² cells | All 50 cells in Regime I (A² ∈ [0.0, 0.015]); A² mean = 0.0 | **V_inc ≈ 0 where ω is highest.** Sectors spatially decoupled in the relaxed state. |
+
+c=3 via Op10 preserved at t=200P (Op10 measures vector-direction crossing-count in ω̂, not magnitude — so c=3 is encoded in the direction field, NOT in any toroidal/poloidal/Hopf/multipole pattern of the magnitude).
+
+### 15.2 §14.3 reading revised — fixed point isn't saturation-frozen-core anymore
+
+§14.3 framing: "static fixed point ↔ Op14-induced gravitational-redshift local-clock-freeze at the saturated core (A²≈0.95)." That was right for the **seed state at t=0** (corpus shell at R=10 r=3.82 with peak |ω|=0.93 → A²≈0.95 at core).
+
+But **the relaxation moves the configuration AWAY from the saturated-core regime**. By t=200P:
+- ω migrated INWARD from corpus shell to a centered, broad, spherically-symmetric magnitude distribution (extents ~17 cells, no angular structure in |ω|², top-|ω| cells at A² ≈ 0)
+- V_inc migrated to two off-center lobes (Move 7b), where |ω| ≈ 0
+- Op14 z-modulation **inactive** at the relaxed top-|ω| cells (A²=0 means S=1, z=1, no impedance modulation, no local-clock effect)
+
+The "static fixed point" verdict in §14.3 is correct as a state characterization (configuration is essentially fixed) but the **mechanism** isn't gravitational-redshift core-freeze in the relaxed state — that was the seed-state mechanism. The relaxed state has no saturated core; it has decoupled sectors with no Op14 cross-coupling. **The relaxation is what removed the saturated core**, not the fixed-point structure.
+
+### 15.3 §14.4 σ=4 Cos-block prediction needs revision
+
+§14.4 frozen prediction:
+> Cos-block at σ=4 should find Mode I LOCALIZED IN THE SHELL (moderate A²), NOT the core (saturated, ω_local << 2). Test PASSes if (i) freq matches, (ii) c=3, (iii) shell_frac ≥ 50% on moderate-A² annulus, (iv) per-cell A² at load-bearing sites in [0.121, 0.7].
+
+Move 10 falsifies the assumption underlying (iii) and (iv): **the relaxed fixed point isn't shell-shaped**. The natural ω-distribution is a centered Y_{0,0}-dominant blob, NOT an annulus.
+
+The σ=4 Cos-block eigsolve will still happen, but the spatial-localization sub-criteria need re-framing:
+- (iii') The eigvec should have shell_frac on a *fitted* shell — but if Move 10's natural state is spherical, the shell-fitting from §11.5 / Move 6 (which already returned shell_frac=0.23 at search-grid boundary) is the right framing. The eigvec might similarly delocalize.
+- (iv') Per-cell A² at the eigvec's load-bearing sites — informational, but the relaxed natural ω-energy is at A²=0, so the eigsolve is operating on a NEAR-VACUUM background, not a saturated background. ω_local(r) at top-|ω| cells in the relaxed state is essentially ω_global with no redshift.
+
+**The σ=4 test now reads as**: does the engine's K_cos Hessian admit an eigenmode at λ=4 with c=3 winding, against the relaxed (near-vacuum-locally) background? It's a cleaner question than the saturated-background framing assumed in §14.4.
+
+### 15.4 New question raised by Move 10: what IS the c=3 carrier?
+
+The static fixed point's c=3 (preserved through 150 Compton periods) isn't:
+- (a) (2,3) torus knot (extraction 1 zeros)
+- (b) (3,2) torus knot (same)
+- (c) Hopf-linked unknots (extraction 2 ≈ noise)
+- (d) Y_{l,m} multipole (extraction 3 only Y_{0,0} above noise — and that's a monopole, not a multipole)
+- (e) Two opposing twists (extraction 1 zeros at every shell)
+
+So Op10's `extract_crossing_count` returns 3 from a configuration that is none of the standard topology types. Possibilities:
+- **The c=3 is encoded in the direction-field's local hedgehog structure**, not in any global winding pattern. A radial hedgehog (ω(r) ∝ r̂) has crossing-count 1 in some conventions. A modified hedgehog with sign-changing radial profile could give c=3.
+- **The c=3 is a numerical artifact of `extract_crossing_count` on a field with spherically-symmetric magnitude but spatially-varying direction** that doesn't correspond to a clean topological class. Worth checking against `extract_crossing_count` on synthetic test cases.
+
+This is **a new structural question for Round 8+**: characterize Op10's c=3 measure on this specific direction-field topology. Move 10 doesn't fully resolve what kind of c=3 carrier the relaxed state actually is — extractions 1-3 ruled out the standard candidates without identifying the actual structure.
+
+### 15.5 Reactance-tracking gap (per audit on §14)
+
+Move 7+7b energy partition was a **snapshot at t=200P**: V:T = 47.5:8.2 = 85:15. For an LC oscillator, snapshot V:T depends on phase — at peak displacement V:T ≈ 100:0, at peak velocity V:T ≈ 0:100, time-averaged 50:50. **A snapshot doesn't distinguish "static fixed point with sub-percent ripple" from "oscillator caught near peak displacement."**
+
+The K4 inductive-side observable Φ_link = ∫V_avg·dt (per A29 + doc 54_ §3) IS computed every step by the engine but **no Move has read it**. ω_dot (Cosserat L-state) similarly never measured. **Reactance tracking is the gap that distinguishes static from oscillating.**
+
+Move 11 (frozen at next commit) extracts:
+- T_cos(t), V_cos(t), H(t) at every step over t∈[150P, 200P]
+- Φ_link(t), V_avg(t) at top-|V_inc|² bonds
+- |ω|(t), |ω̇|(t) at top-|ω|² cells
+- Cross-correlations: T(t) vs V(t), Φ_link(t) vs V_avg(t), |ω|(t) vs |ω̇|(t) — looking for 90° phase lags (LC reactance signature) vs 0° phase lock (static)
+
+The "static fixed point" verdict in §13–§15 is **conditional on Move 11's reactance closure**. If reactance tracking shows T(t) and V(t) trading off at any frequency, the static reading is wrong. If T and V are both near-constant, static reading confirmed.
+
+**Move 11 is a precondition for Move 9** (autoresonant CW at ω=2): without baseline reactance signature, we can't distinguish "drive engages an LC mode" from "drive heats the system." Sequential ordering: Move 11 → revised σ=4 Cos-block → Move 9.
+
+### 15.6 Methodology notes (for r8.9 §17.1)
+
+- **A54 (NEW)**: Op10's `extract_crossing_count` returns c=3 on a configuration that is NOT a torus knot, NOT Hopf-linked, NOT a Y_{l,m} multipole, AND has spherically-symmetric magnitude. Op10 measures direction-field winding, not magnitude angular structure. Future c-based topology adjudications should report which kind of c carrier is operative — torus winding, Hopf linking, multipole, or "uncategorized direction-field winding" — not just c integer value.
+- **A55 (NEW — substrate-structure rule)**: when reconciling test-target frequency to engine quantities, walk the substrate's physical structure (Cosserat dispersion, K4 lattice, Op14 saturation, SU(2) topology) before menuing reconciliation candidates. Framework-menu thinking ("re-pin moduli vs accept m_Cosserat=2") is the fallback when the substrate's actual structure hasn't been engaged. Per audit's Rule 14 (NEW): the SU(2) double-cover identification was directly derivable from corpus + Axiom 2; menus mean we hadn't walked the substrate.
+- **A56 (NEW — reactance gap, conditional on Move 11)**: snapshot V:T energy partition cannot distinguish static from oscillator-at-peak. For any LC characterization, BOTH C-state AND L-state observables must be tracked over time. Engine computes Φ_link every step but no Move has read it; ω_dot similarly. Static-fixed-point verdict in §13–§15 is conditional on Move 11's reactance closure.
+
+---
+
+*§15 added 2026-04-26 — Move 10 four-extraction results. (1) zero torus winding, (2) ≈zero Hopf linking, (3) Y_{0,0}-dominant (spherically symmetric magnitude), (4) A²≈0 at top-|ω| cells (V_inc-ω spatially decoupled). §14.3 saturation-frozen-core mechanism only applies to seed-state, not relaxed state. §14.4 shell-localization prediction needs revision — relaxed state isn't shell-shaped. Op10 c=3 is preserved by some non-standard direction-field winding (not torus, not Hopf, not multipole) — open question for Round 8+. §15.5 surfaces reactance-tracking gap from audit: snapshot V:T can't distinguish static from oscillator-at-peak; Φ_link + ω_dot computed but never read. Move 11 frozen next as PRE-MOVE-9 precondition. A54 (Op10 c without standard topology), A55 (substrate-walk before framework-menu), A56 (snapshot V:T insufficient) for r8.9 §17.1.*
