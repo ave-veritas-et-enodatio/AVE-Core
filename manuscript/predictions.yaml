@@ -2320,6 +2320,78 @@ predictions:
       "drive engages LC mode" from "drive heats system" without
       baseline reactance signature.
 
+  - id: P_phase1_attractor_reactance_tracking_v2
+    name: "Round 8 Move 11b: reactance tracking with PML-filtered cell selection + full time series saved + drive verification + Pearson cross-correlation matrix between sectors (Diag 1, Diag 3)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_phase1_reactance_tracking_v2.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 11b — three fixes to Move 11 per audit:
+
+      MOVE 11 ISSUES:
+      (1) PML cell-selection bug: top-5 |ω|² cells all at lattice edges
+          (j=0/31, i=0/31), where PML mask attenuates dynamics (|ω|
+          std=0, |ω̇|=0 to machine precision). Methodology bug.
+      (2) Time series not saved (only summary stats), preventing
+          downstream diagnostics post-hoc.
+      (3) Only ρ(T_cos, V_cos) reported. Missing cross-correlations
+          across sectors needed for Diag 3 H_total partition test.
+
+      FIXES IN MOVE 11b:
+
+      Fix 1 (PML filter): make_interior_mask with [PML+1, N-PML-2]
+        on each axis. Top-K |ω|² and |V_inc|² cell selection both
+        filter to interior only.
+
+      Fix 2 (full time series + Diag 1 drive verification):
+        Save T_cos(t), V_cos(t), Σ|V_inc|²(t), Σ|V_ref|²(t),
+        Σ|Φ_link|²(t) full series for downstream diagnostics
+        post-hoc without re-run. Diag 1: assert
+        len(engine.sources)==0 → rules out trivial "drive
+        accidentally on" cause for Move 11's H_cos drift.
+
+      Fix 3 (Diag 3 Pearson cross-correlation matrix):
+        Compute ρ(s1, s2) for all pairs of {T_cos, V_cos, H_cos,
+        Σ|V_inc|², Σ|V_ref|², Σ|Φ_link|²} time series.
+        Reading guide:
+          Op14 trading (sectors trade energy):
+            H_cos vs Σ|V_inc|² or Σ|Φ_link|² ≈ -1
+            → Cosserat sector loses energy when K4 sector gains it
+            → H_total approximately conserved despite H_cos drift
+            → engine working as designed; static-fixed-point reading
+              survives in modified form (sectors-trading-but-stable)
+          Real conservation violation (no Op14 trading):
+            All H_cos ↔ K4 cross-correlations ≈ 0
+            → H_total NOT conserved
+            → Diag 4 (dt sensitivity) or E-069 warranted
+          Coherent source (everything growing):
+            All cross-correlations ≈ +1
+            → external pumping (some accidentally-active drive or
+              numerical anti-dissipation source)
+
+      Move 11's reading: ρ(T_cos, V_cos) = +0.366 (positive — sectors
+      grow/shrink together, NOT LC reactance). H_cos drift 5.5%.
+      Move 11b's Diag 3 disambiguates: is K4 anti-correlated with
+      Cosserat (Op14 trading), independent (real H_total drift), or
+      co-correlated (external pumping)?
+
+      NO PASS/FAIL ADJUDICATION. Result IS the diagnostic.
+      Same A48 frozen-extraction-scope discipline.
+
+      ESTIMATED COST: ~10 min wall (two ~5-min Move 5 reproductions,
+      identical structure to Move 11).
+
+      DOWNSTREAM:
+      Based on Diag 3 result:
+        - Op14 trading reading → static-fixed-point survives, but
+          K4 sector ALSO has dynamics that V_inc-near-static missed
+        - Real H_total drift → Diag 4 (dt sensitivity) before E-069
+        - Coherent source → debug engine state (drive should be 0)
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
