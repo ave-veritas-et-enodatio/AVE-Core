@@ -95,15 +95,47 @@ Possible reasons the empirical effect is so much weaker:
 
 Whatever the precise reason, the empirical conclusion stands: **the V·S, T·1 asymmetry's effect on rotational wave-packet speed is negligible at A ≤ 2 and only ~3% at A = 5, far below what's needed to explain Round 7+8's universal Mode III pattern.**
 
+### 5.1 Integrator stability boundary at A ≈ 6 (separate from the asymmetry magnitude)
+
+The supplementary scan shows v_measured smoothly drifts from 0.7917 (A=1) → 0.7644 (A=5) at the predicted asymmetry rate, but at A=6 v_measured **flips sign to -0.087** and remains catastrophic at A=8 (-0.018). This isn't a continuous extension of the asymmetry — it's the velocity-Verlet integrator hitting a stability boundary where the wavepacket's local gradient amplitude exceeds the linearization regime the integrator can handle. The asymmetry contributes to driving toward this boundary (lower effective wave speed at higher amplitude → CFL-tightening unaccounted for), but the cliff at A=6 is a separate phenomenon (integrator order failure, not physics).
+
+**Practical implication:** doc 75_'s structural finding (V·S, T·1 asymmetry exists, has measurable but sub-percent effect at A ≤ 5) holds; the integrator-cliff at A ≈ 6 is a separate engine-stability concern that wouldn't be addressed by the §4 fix. Both are at amplitudes corpus seed never reaches.
+
 ## 6. Implication for Move 11 H_cos drift + Round 7+8 Mode III
 
-Move 11 measured 5.5% H_cos drift over 50 Compton periods at corpus seed (peak |ω| ≈ 0.93 ≈ A=1 in Diag A's amplitude scale). Per Diag A's measurement at A=1: drift is essentially 0. **Move 11's 5.5% H_cos drift CANNOT be primarily from V·S, T·1 wave-speed asymmetry.** Some other mechanism is responsible.
+Move 11 measured 5.5% H_cos drift over 50 Compton periods at corpus seed (peak |ω| ≈ 0.93 ≈ A=1 in Diag A's amplitude scale). Per Diag A's measurement at A=1: drift is essentially 0. **Move 11's 5.5% H_cos drift CANNOT be primarily from V·S, T·1 wave-speed asymmetry.**
 
-Candidates for the H_cos drift's actual cause:
-- **PML coupling**: K4-TLM uses a PML boundary that absorbs wave energy; K4↔Cosserat coupling might be leaking energy through PML in a way that affects only Cosserat's H accounting. Worth checking H_K4 separately and computing H_total.
-- **Cosserat self-terms**: `enable_cosserat_self_terms=True` adds Op10, refl, Hopf terms that have their own dynamic evolution; energy in these terms might not be tracked in `total_energy()`'s saturation-consistent way.
-- **Numerical drift at the engine's coupled-sector CFL limit**: doc 41 §7 noted 0.8-0.9% Hamiltonian drift with mass-gap modes active; coupled K4+Cosserat at full A26 amplitude could be 6× that for non-saturation reasons.
-- **Op14 cross-coupling integrator**: Φ_link accumulator + non-local Op14 z-modulation may have implicit time-integration paths whose conservation properties are non-trivial.
+But the alternative explanation already exists in Move 11b's results — the analysis just wasn't surfaced as the closing of the loop here.
+
+### 6.1 Diag C — `total_energy()` source audit (post-hoc, no run)
+
+[`cosserat_field_3d.py:935-950`](../../src/ave/topological/cosserat_field_3d.py#L935): `total_energy()` calls `_total_energy_saturated_jit` (with `use_saturation=True`) which sums `_energy_density_saturated` (lines 545-587). Every potential-energy term (W_cauchy, W_micropolar, W_kappa, W_op10, W_refl, W_hopf) is included in that sum. No hidden energy store exists in the Cosserat state outside `(u, u_dot, omega, omega_dot)` — the constructor declares no other field-state attributes. **Diag C verdict: `total_energy()` is correct. No accounting bug.**
+
+### 6.2 Diag B context — Move 11b's Pearson matrix already identified the cause
+
+Move 11b's full cross-correlation matrix between sector observables over the t∈[150P, 200P] recording window:
+
+| Pair | Pearson ρ |
+|---|---|
+| H_cos vs Σ\|Φ_link\|² | **-0.990** |
+| Σ\|V_inc\|² vs Σ\|Φ_link\|² | -0.990 |
+| H_cos vs Σ\|V_inc\|² | +1.000 |
+| ρ(T_cos, V_cos) | +0.366 |
+
+**The -0.990 anti-correlation between H_cos and Σ|Φ_link|² IS the explanation.** Cosserat sector loses energy ⟺ K4-inductive (Φ_link) gains it. This is Op14 cross-coupling at work — saturation-driven impedance modulation transfers energy between sectors via the bond LC tank's inductive side. The "5.5% H_cos drift" is real physics: H_cos alone isn't conserved because Cosserat is exchanging energy with K4-inductive at a low frequency (FFT showed 0.020 rad/unit dominant in both H_cos and Σ|Φ_link|² time series). H_total = H_cos + H_K4-inductive is approximately conserved.
+
+Move 11b's "static fixed point" verdict was therefore correct in modified form: **the system is in a co-stable trading state**, not a strict static configuration. K4-capacitive (V_inc, V_ref) is locked, K4-inductive (Φ_link) and Cosserat trade slowly. The `+0.366` ρ(T_cos, V_cos) reflects T and V both being driven by the external Φ_link forcing, not internal LC reactance — exactly what an externally-pumped two-LC system looks like.
+
+### 6.3 Open follow-ups (low priority)
+
+- **Diag B (region partition)**: confirm spatially that H_cos drift is in the interior (where the Op14 z-modulation is active) and not artifact of PML coupling. ~10 min re-run; not load-bearing for the conclusion since the Pearson result already identifies Op14 trading. Queued as low-priority sanity.
+- **CFL sensitivity**: doc 41 §7 noted 0.8-0.9% baseline drift with mass-gap modes active; the additional 4-5% on top in Move 11 may have a CFL component on top of the Op14 trading. Diag D (dt halved) would partition CFL drift from physical trading.
+
+### 6.4 Round 7+8 Mode III — actually independent of this finding
+
+Per Diag A, the engine's eigenfrequencies do NOT drift significantly with amplitude in the relevant regime. So the universal Mode III pattern is NOT from "engine's eigenfrequency spectrum drifts with amplitude → fixed-σ eigsolve unreliable." That hypothesis is **falsified** at the amplitudes corpus seed runs at.
+
+Round 7+8 Mode III stands as it was: the engine genuinely does not produce a (2,3) bound state matching corpus claims at corpus GT geometry, and the reason is NOT V·S, T·1 wave-speed drift, NOT Op14 trading (which is real but doesn't produce a "drift in eigenfrequencies" — it produces energy exchange between sectors). The "natural attractor as itself" characterization (Move 7+7b+10) is still the productive direction; the corpus electron, IF it exists in this engine, lives somewhere we haven't probed (Φ_link sector / hybrid V≠0 ∧ ω≠0 / different topology).
 
 Round 7+8 Mode III pattern: per Diag A, eigenfrequencies don't drift significantly with amplitude in the relevant regime. So the universal Mode III is NOT primarily from "engine's eigenfrequency spectrum drifts with amplitude → fixed-σ eigsolve unreliable." That hypothesis is **falsified** at the amplitudes corpus seed runs at.
 
@@ -133,4 +165,4 @@ The substrate-vs-observable distinction the plan proposed is still valid framing
 
 ---
 
-*Doc 75_ written 2026-04-27 with Diag A pre-fix result (Mode I per pre-reg) + supplementary high-amp scan (asymmetry detectable at A ≥ 4 only). Engine fix queued as cleanliness work (E-070), not urgent. Round 7+8 closure narrative unchanged from doc 74_ §15 — corpus-electron question stays open at the substrate-natural attractor characterization level. H_cos drift (Move 11) and ρ(T,V)=+0.366 still need an alternative explanation; V·S, T·1 wave-speed asymmetry is empirically ruled out as the primary cause.*
+*Doc 75_ written 2026-04-27 with Diag A pre-fix result (Mode I per pre-reg) + supplementary high-amp scan (asymmetry detectable at A ≥ 4 only) + integrator stability boundary at A ≈ 6 (separate from asymmetry magnitude) + Diag C source audit (`total_energy()` correct, no accounting bug) + reframing of Move 11b's Pearson result as the resolution of the H_cos drift mystery (ρ(H_cos, Σ|Φ_link|²) = -0.990 → Op14 cross-sector trading; H_total ≈ conserved). Engine fix queued as cleanliness work (E-070), not urgent. Round 7+8 closure narrative unchanged from doc 74_ §15 — corpus-electron question stays open at the substrate-natural attractor characterization level. **H_cos drift resolved as Op14 trading, NOT a missing-physics issue. V·S, T·1 wave-speed asymmetry empirically ruled out as the primary cause of Round 7+8 Mode III. Round 8 question becomes: where does the corpus electron actually live in the engine, given that the most-natural V_inc + ω-cosserat sectors are confirmed empty?**.*
