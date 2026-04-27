@@ -750,3 +750,93 @@ The static-fixed-point reading reorders Round 8 priorities. **Move 9 becomes the
 ---
 
 *§13 added 2026-04-26 — Move 7 + Move 7b (FFT fix) characterization complete. Initial interpretation (lattice-cutoff oscillator) corrected via dimensional analysis check: adjacent FFT bins were spectral leakage from sub-percent ripple, NOT a clean tone. Phase 2 verdict revised to branch (b)′: STATIC (2,3)-topological fixed point. Attractor has corpus topology + three-LC-tank balance + 17-cell extent + 85:15 V:T potential dominance — characteristic of a non-trivial fixed point of K4-TLM scatter+connect, NOT an oscillating standing wave. τ = 83.6 Compton periods is relaxation-toward-fixed-point timescale, not oscillation period. Auditor's Q ≈ 2/α speculation dissolves (no oscillation to define Q). Move 9 (autoresonant CW drive at ω_C) becomes load-bearing next test; Move 8 (eigsolve at ω_lattice) deprioritized. A49 (sampling at energy peaks) + A50 (FFT-leakage caveat, revised) + A51 (engine admits static fixed point with corpus topology) for r8.9 §17.1.*
+
+---
+
+## 14. Two-layer dimensional reconciliation: spin-½ half-cover (B) + Op14 saturation as local frequency modulation (NEW) (2026-04-26)
+
+Audit on §13 added a second dimensional layer I missed entirely. §13 proposed reconciliation A vs B between corpus ω_C = 1 and engine m_Cosserat = 2. Audit confirmed B (with spin-½ identification) AND surfaced a second, distinct mechanism: **Op14 saturation locally modulates ω at every cell as a function of A²(r)**.
+
+The two layers compose. §14 makes both explicit.
+
+### 14.1 Layer 1 — Reconciliation B confirmed: spin-½ half-cover (NOT a discrepancy)
+
+Cosserat structural mode `m² = 4·G_c/I_ω = 4` → **m_Cosserat = 2** in engine natural units (Axiom-1-pinned `G_c = I_ω = 1`, doc 41_ §T2 empirically validated to 0.35%). Corpus electron at `ω_C = m_e c²/ℏ = 1` in same natural units.
+
+Factor of 2 between them is **not a conflict** — it is the spin-½ / SU(2) half-cover signature, the same factor doc 03_ §4.3 already invokes for angular structure. The relation:
+
+```
+m_Cosserat (medium, full SO(3) cover, 2π period)        = 2
+m_e c²/ℏ  (electron, SU(2) half-cover, 4π spinor period) = 1
+```
+
+A spin-½ rotation by 2π gives -ψ; only 4π returns to identity. So the **observable electron's apparent frequency is half the medium's underlying twist frequency**. Same factor 2 propagates from angular cover to mass.
+
+**Reconciliation A** (re-pin G_c = 1/4 or I_ω = 4 to make m_Cosserat = 1) is **rejected**. It would break Axiom 1's natural-units pinning AND retract doc 41_ §T2's empirical mass-gap calibration.
+
+**Reconciliation B** (accept m_Cosserat = 2, identify as full-cover, electron is half-cover spinor projection at ω_C = 1) is **canonical**. No engine surgery. No corpus retraction. The factor of 2 is exactly what should be there.
+
+### 14.2 Layer 2 — Op14 saturation = local frequency modulation (NEW)
+
+Per Vol 3 Ch 3 + Op14: `Z_eff(r) = Z_0/√S(r)` where `S(r) = √(1 - A²(r))`. By the standard impedance-as-refractive-index identification, local wave speed is
+
+```
+c_eff(r) = c · √(1 - A²(r))
+```
+
+For a fixed spatial mode, local angular frequency scales the same way:
+
+```
+ω_local(r) = ω_global · √(1 - A²(r))
+```
+
+This is **the same formula as the gravitational time-dilation `dτ = √(1 - r_s/r)·dt`** (E-015 catalog entry covers gravity case). Op14 saturation is the gravitational-redshift mechanism applied locally per cell, where A²(r) plays the role of the Schwarzschild metric perturbation.
+
+Regimes:
+- **A² ≈ 0** (vacuum): ω_local ≈ ω_global. No clock effect.
+- **A² ≈ √(2α) ≈ 0.121** (saturation onset, AVE three-regime Regime I/II boundary): ω_local ≈ 0.94·ω_global (6% slowdown).
+- **A² ≈ 0.5** (mid Regime II): ω_local ≈ 0.71·ω_global (29% slowdown).
+- **A² → 1** (rupture boundary): ω_local → 0. **Local clock freezes.**
+
+Move 5+7+7b corpus seed had peak |ω| ≈ 0.93 (A² ≈ 0.95 at the seed's core) → ω_local at core ≈ ω_global·√0.05 ≈ **0.22·ω_global**. The seed's load-bearing core sites have local clock running at <¼ of the global frequency.
+
+### 14.3 Combined picture: fixed point ↔ saturation-frozen core
+
+§13's "static fixed point" reading collapses naturally into the saturation-as-local-clock framing:
+
+The Move 5+7+7b attractor isn't "engine has no oscillator." It's **engine showing what happens when the seed's load-bearing core is gravitationally-redshifted to ω_local ≈ 0**. The core can't host any propagating mode at any global frequency (whether ω_C = 1 or m_Cosserat = 2 or anything else) because the saturation locally freezes the clock there.
+
+The 17-cell diffuse extent + 85:15 V:T potential split + V_inc near-constant ±0.264 + c=3 preserved are all consistent with this: outside the core, fields exist; at the core, no time evolution; the configuration sits on the frozen-core boundary as a static topological defect.
+
+### 14.4 Testable prediction at σ = 4 (the sharpest test in this arc)
+
+Cos-block re-run at σ = 4 (= m_Cosserat², the medium's full-cover structural mode) should find a Mode I eigenmode **localized in the shell** (moderate A², ω_local close enough to m_Cosserat = 2) — NOT in the core (saturated, ω_local ≈ 0.4 << 2 — no mode supportable there).
+
+PASS criteria for σ=4 Cos-block re-run:
+- (i) freq: |λ - 4| / 4 < α (|√λ - 2|/2 < α/2)
+- (ii) topology: c_via_Op10 = 3
+- (iii) **spatial localization in shell, NOT core**: shell_frac on the moderate-A² annulus ≥ 50%; reported alongside per-cell A² distribution at the eigvec's load-bearing sites
+- (iv) per-cell A² at load-bearing sites: should be in [0.121, 0.7] (Regime II, where ω_local ∈ [1.1, 1.9] — consistent with engaging m=2 mode)
+
+If (i)+(ii)+(iii)+(iv) all PASS: **corpus electron empirically vindicated** at the medium's full-cover structural frequency, with the spinor projection at ω_C = 1 emerging as the SU(2) half-cover. Round 7+8 closure inverts substantially.
+
+If any of (i)–(iv) fails: closure narrative depends on which. If (i) PASSES but (iii) shows core-localization, the saturation-frozen-core reading is wrong. If (iii) PASSES but (i)–(ii) fail, mode exists but isn't (2,3) at σ=4.
+
+### 14.5 Round 8 next-move ordering (reconfirmed)
+
+1. **Move 10** (~30 min): characterize static fixed point's spatial winding. Dimensionally + saturation-locally **neutral** (post-hoc on existing simulation state). What topology IS the engine carrying at the frozen-core configuration? — torus knot, Hopf-linked, Y_{2,3} spherical harmonic, or other (2,3) representation?
+2. **Cos-block re-run at σ = 4** (~2-3 hr): explicit dimensional test of (B) at the medium-structural-mode frequency, with per-cell A² reporting and shell-vs-core localization. Tests the §14.4 prediction.
+3. **Move 9 at ω = 2** (~1 hr): autoresonant CW drive at medium's full-cover twist mode (NOT at corpus ω_C = 1). Either sustained shell-mode (2,3) emerges (B vindicated dynamically, in addition to eigsolve), or relaxes to fixed point regardless of drive (deeper issue).
+
+Move 8 (eigsolve at lattice cutoff π·√2) stays deprioritized — that hypothesis required FFT-leakage misread.
+
+### 14.6 Methodology notes (for r8.9 §17.1)
+
+- **A50 REVISED (extended)**: dimensional analysis must include local-frequency-modulation when the seed has spatially-varying saturation. Global σ targeting in eigsolve doesn't distinguish "no mode at this frequency anywhere" from "no global mode because local saturation modulates ω_local across the seed." Future bound-state preds must report per-cell A² distribution alongside shell-fraction localization.
+- **A51 REVISED (extended)**: the engine's static (2,3)-topological fixed point at corpus seed is consistent with Op14-induced gravitational-redshift local-clock-freeze at the saturated core. It's not "engine doesn't host an electron"; it's "the seed's saturation pattern locally disables time evolution at the core, forcing the configuration onto a static-defect manifold." A different (less core-saturated) seed AND a different ω target may engage the medium's structural mode.
+- **A52 (NEW — physics-substantive, layer 2)**: Op14 saturation acts as gravitational time dilation. The formula `c_eff = c·√(1-A²)` (Vol 3 Ch 3) IS the formula `c_eff = c·√(1 - r_s/r)` for Schwarzschild metric in the limit r_s/r ≪ 1, with A²(r) playing the role of the metric perturbation. Cross-ref E-015 (gravity case in tracker). **Op14 isn't just an impedance modulation; it's the engine's representation of a generally-relativistic local clock rate.** When A²(r) → 1 (rupture boundary), the local clock freezes — exactly as at a Schwarzschild horizon. This is a structural insight about what Op14 actually means physically.
+- **A53 (NEW — methodology)**: spin-½ half-cover applies to ALL frequency-related quantities tied to the electron, not only angular structure. Doc 03_ §4.3 invokes half-cover for SO(3) → SU(2) at the angular level; the same factor 2 propagates to mass-gap, Compton frequency, and any other observable derived from the underlying medium's structural rotation. Reconciliation B's identification: the medium oscillates at m_Cosserat = 2 (full SO(3) cover); the electron's apparent frequency is ω_C = 1 (SU(2) half-cover spinor projection). Future R8+ tests must distinguish "medium full-cover mode" (drive at 2, eigsolve at σ=4) from "spinor half-cover observable" (corpus's ω_C = 1).
+
+---
+
+*§14 added 2026-04-26 covering two-layer dimensional reconciliation. Layer 1 (spin-½ half-cover): Reconciliation B confirmed canonical, factor 2 between m_Cosserat and ω_C is exactly the SU(2) double-cover signature corpus already invokes for spin. Layer 2 (Op14 saturation as gravitational redshift): NEW — same formula c_eff = c·√(1-A²) as Schwarzschild dτ/dt, with A² as metric perturbation; corpus seed core (A²≈0.95) has local clock frozen to 0.22·ω_global, explaining Move 5+7+7b static fixed point as saturation-frozen-core. Combined picture: σ=4 Cos-block test should find Mode I in shell (not core); per-cell A² + shell-vs-core localization are load-bearing sub-criteria. A50/A51 revised; A52 (Op14 = gravitational time dilation, cross-ref E-015) + A53 (spin-½ half-cover propagates to mass scale) added for r8.9 §17.1. Move 10 → σ=4 Cos-block → Move 9-at-ω=2 sequencing reconfirmed.*
