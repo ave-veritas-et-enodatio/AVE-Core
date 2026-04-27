@@ -1751,6 +1751,61 @@ predictions:
         non-corpus ratio — informative for which (R, r) attractor
         the engine actually settles into.
 
+  - id: P_phase5_bond_scale_phasor_v3_satsweep
+    name: "R7.1 Test B v3 (saturation-regime check): multi-port phasor envelope at amp=0.85·V_SNAP gives spatial R/r ≈ φ²"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/26_step5_phase_space_RR.md"
+    test_file: "src/scripts/vol_1_foundations/test_b_v3_multipoint_phasor_satsweep.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Test B v3 per audit on commit 53c2ce9 + Test B v2 returning
+      Mode III-spatial at 0.5·V_SNAP. Last empirical check that
+      Op14 nonlinearity engagement past saturation onset doesn't
+      change the bond-cluster spatial-envelope answer.
+
+      v2 RESULT (recap): at 0.5·V_SNAP, A² = 0.25 (halfway to
+      saturation onset ≈ 0.5), per-port ρ_i ranged 0.0956-0.1075
+      across 8 spatial samples → rel_std r/R = 0.0392 < 0.05
+      → Mode III-spatial. Variation was dominantly drive-direction
+      asymmetry (B downstream of +x drive), not (2,3) winding.
+
+      v3 setup: identical to v2 EXCEPT drive amp = 0.85·V_SNAP
+      (A² ≈ 0.72, comfortably past saturation onset). All other
+      parameters held: N=32, ω_C=1.0, drive duration ramp 5 +
+      sustain 50 + decay 2 periods, 8-port spatial sampling
+      (4 ports of A=(14,14,14) + 4 ports of B=(15,15,15)).
+
+      ADJUDICATION (same 3-mode structure as v2):
+      Mode I-spatial:    R_spatial/r_spatial = φ² ± 0.10 AND
+                         rel_std r/R ≥ 0.05
+                         Reading: corpus vindicated at saturation
+                         regime (Op14 nonlinearity unlocks (2,3)
+                         spatial winding even though linear regime
+                         doesn't).
+      Mode II-spatial:   R_spatial/r_spatial ≠ φ² ± 0.10 AND
+                         rel_std r/R ≥ 0.05
+                         Reading: saturation regime engages spatial
+                         envelope but at a non-corpus attractor.
+      Mode III-spatial:  rel_std r/R < 0.05
+                         Reading: even at A² = 0.72 the bond cluster
+                         is spatially uniform — no (2,3) winding
+                         emerges from saturation engagement either.
+                         Single-bond (2,3) hypothesis falsified at
+                         bond-cluster scale; doc 28_ §5.1 closure
+                         joins doc 74_ §9 framework-level Mode III.
+
+      ESTIMATED COST: ~10 min wall time at N=32, identical to v2.
+
+      RELATIONSHIP: v3 is the third and final Test B variant in the
+      arc. v1 single-port temporal at 0.1·V_SNAP → Mode II R/r=19;
+      v1-retry single-port temporal at 0.5·V_SNAP → Mode II R/r=19.2
+      (amp-invariant single-frequency ellipse); v2 multi-port spatial
+      at 0.5·V_SNAP → Mode III-spatial uniform; v3 multi-port spatial
+      at 0.85·V_SNAP → final saturation-regime check.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
