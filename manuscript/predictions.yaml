@@ -1650,6 +1650,107 @@ predictions:
       land before Round 7 closure narrative is finalized; r8.9 manual
       consolidates both per Grant cadence directive.
 
+      SUPERSEDED 2026-04-26 by P_phase5_bond_scale_phasor_v2_multipoint:
+      audit on commit 53c2ce9 caught that single-port temporal sampling
+      cannot answer doc 28_ §5.1's question — the (2,3) winding lives
+      in spatial θ(s) along the bond per doc 26_ §1, not in temporal
+      harmonics at one s. Single-port temporal phasor traces a CIRCLE
+      regardless of drive amp; v1 Mode II (R/r = 19) at 0.1·V_SNAP
+      and v1-retry Mode II (R/r = 19.2) at 0.5·V_SNAP are consistent
+      with a single-frequency ellipse at one spatial point. v2 below
+      replaces this pred with the spatially-correct test.
+
+  - id: P_phase5_bond_scale_phasor_v2_multipoint
+    name: "R7.1 Test B v2 (doc 26_ §3 spatial reading): multi-port phasor envelope across A-B bond cluster gives spatial R/r ≈ φ²"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/26_step5_phase_space_RR.md"
+    test_file: "src/scripts/vol_1_foundations/test_b_v2_multipoint_phasor.py"
+    axioms_used: [1, 2, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Test B v2 per audit catch on commit 53c2ce9 + doc 26_ §1-§3
+      careful re-read. Replaces P_phase5_bond_scale_phasor_trajectory
+      (single-port temporal sampling) with spatial sampling across
+      multiple ports of the A-B bond cluster.
+
+      AUDIT CATCH: Doc 26_ §1 standing-wave equation
+        ψ(s, t) = V_0 · A(s) · exp(i (ωt + θ(s)))
+      encodes (2,3) winding in spatial θ(s), not temporal harmonics.
+      Doc 26_ §3 defines phase-space torus dimensions as SPATIAL
+      averages:
+        R_phase = ⟨A(s)⟩_s   (spatial mean of envelope)
+        r_phase = std(A(s))   (spatial std of envelope)
+      At fixed s, (V_inc, V_ref) traces a CIRCLE — single frequency,
+      no torus structure. The torus emerges only when varying s.
+
+      v1 + v1-retry (single-port temporal sampling at port 0 of
+      A=(14,14,14)) returned Mode II R/r = 19 at both 0.1·V_SNAP and
+      0.5·V_SNAP — consistent with a small-signal ellipse at one
+      spatial point. R/r is amplitude-invariant because the bond
+      cluster runs in a single-frequency regime at this drive.
+
+      METHODOLOGY:
+      - Engine: VacuumEngine3D at N=32, A28 + Cosserat self-terms
+        enabled (post-Round-6 default). Match v1-retry's setup.
+      - Drive: AutoresonantCWSource at ω = ω_C = 1.0 in natural
+        units, amp = 0.5·V_SNAP (matches v1-retry for direct
+        single-port-vs-multi-port comparison; saturation-onset
+        regime per Op14 nonlinearity).
+      - Drive duration: ramp 5 + sustain 50 + decay 2 periods.
+      - Spatial sampling: 4 ports of A=(14,14,14) + 4 ports of
+        B=(15,15,15) = 8 spatial samples spanning the local A-B
+        bond cluster. (Each port of A connects to a different
+        neighbor; 4 ports × 2 nodes give 8 boundary samples of
+        the local bond fan, the closest discrete-K4-TLM analog
+        of multiple s along ψ(s, t).)
+      - Per-port ρ_i = √(⟨V_inc²⟩_t + ⟨V_ref²⟩_t) computed over
+        the steady-state window (skip ramp + 10 sustain periods).
+      - Spatial: R_spatial = mean(ρ) over 8 samples,
+        r_spatial = std(ρ) over 8 samples.
+
+      ADJUDICATION CATEGORIES:
+
+      Mode I-spatial (corpus vindicated at bond cluster):
+        R_spatial / r_spatial = φ² ± 0.10 AND
+        spatial structure present (rel_std r/R ≥ 0.05)
+        Reading: Doc 28_ §5.1 + doc 26_ §3 vindicated empirically.
+        The bond cluster's 8-port amplitude envelope traces the
+        corpus phase-space Golden Torus.
+
+      Mode II-spatial (spatial structure but wrong ratio):
+        R_spatial / r_spatial ≠ φ² ± 0.10 AND rel_std r/R ≥ 0.05
+        Reading: Bond cluster has spatial amplitude variation but
+        not the corpus φ² ratio. Different attractor or drive
+        regime mismatch from corpus electron config.
+
+      Mode III-spatial (spatially uniform — no envelope structure):
+        rel_std r/R < 0.05
+        Reading: Drive is spatially uniform across the 8-port bond
+        cluster. The standing-wave amplitude A(s) is essentially
+        flat — there's no spatial phase profile θ(s) that could
+        carry (2,3) winding. Bond LC tank doesn't develop the
+        spatial structure doc 26_ §1 requires.
+
+      ESTIMATED COST: ~10 min wall time at N=32.
+
+      RELATIONSHIP TO PRIOR TESTS:
+      - Independent of Test A (Cos-block N=64 c_eigvec re-check) —
+        Test A probes ε-strain sector; Test B v2 probes V-pressure
+        sector at bond scale. Orthogonal axes.
+      - If Mode III-spatial: bond cluster has no spatial envelope
+        at 0.5·V_SNAP. Test B v3 at 0.85·V_SNAP (saturation regime,
+        A² ≈ 0.72) becomes warranted as final empirical check that
+        Op14 nonlinearity engagement doesn't change the answer.
+      - If Mode I-spatial: doc 28_ §5.1 + doc 26_ §3 vindicated at
+        bond cluster scale — substantively re-opens Round 7
+        narrative beyond the framework-level Mode III statement
+        currently in doc 74_ §9.
+      - If Mode II-spatial: bond cluster has structure but at a
+        non-corpus ratio — informative for which (R, r) attractor
+        the engine actually settles into.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction

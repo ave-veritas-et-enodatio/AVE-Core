@@ -1,0 +1,48 @@
+{
+  "pre_registration": "P_phase5_bond_scale_phasor_trajectory",
+  "test": "Test B per audit + doc 28_ \u00a75.1",
+  "N": 32,
+  "drive_amp": 0.5,
+  "drive_omega": 1.0,
+  "drive_periods": {
+    "ramp": 5.0,
+    "sustain": 50.0,
+    "decay": 2.0
+  },
+  "n_samples": 507,
+  "transient_steps_skipped": 133,
+  "elapsed_seconds": 108.1565580368042,
+  "bond": {
+    "A_idx": [
+      14,
+      14,
+      14
+    ],
+    "port": 0,
+    "B_idx": [
+      "15",
+      "15",
+      "15"
+    ]
+  },
+  "A_side_analysis": {
+    "R": 0.09678321012083084,
+    "r": 0.00504089928479172,
+    "R_over_r": 19.19959210707177,
+    "is_closed": true,
+    "amplitude_drift": 0.009127746543633733,
+    "lobe_count_x": 41,
+    "lobe_count_y": 42,
+    "dominant_freqs": [
+      0.1122994652406417,
+      0.10962566844919786,
+      0.11497326203208555
+    ],
+    "freq_ratio": 1.024390243902439
+  },
+  "R_over_r_target": 2.618033988749895,
+  "R_over_r_tol": 0.1,
+  "R_over_r_pass": false,
+  "mode": "II",
+  "verdict": "MODE II \u2014 Closed trajectory but R/r = 19.1996 \u2260 corpus \u03c6\u00b2 = 2.6180 (off by 16.5816, tolerance 0.1). Bond hosts a stable phase-space pattern at this drive but NOT the corpus Golden Torus. Could indicate different (R, r) attractor OR drive amplitude/frequency mismatch from corpus electron config."
+}
