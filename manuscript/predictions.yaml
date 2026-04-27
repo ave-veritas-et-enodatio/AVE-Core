@@ -1806,6 +1806,113 @@ predictions:
       at 0.5·V_SNAP → Mode III-spatial uniform; v3 multi-port spatial
       at 0.85·V_SNAP → final saturation-regime check.
 
+  - id: P_phase6_self_consistent_orbit_hunt
+    name: "Round 8 Move 5: single-electron (V≠0 ∧ ω≠0) ansatz at corpus GT settles into self-stable nonlinear orbit at ω_C with (2,3) topology preserved"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    test_file: "src/scripts/vol_1_foundations/r8_self_consistent_orbit_hunt.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 8 Move 5 — frozen at this commit per audit on Round 8 ranking
+      proposal (Move 5 sharper than auditor-recommended Move 3 because it
+      tests the ACTUAL corpus claim (self-stable nonlinear standing wave),
+      while eigsolve at any static seed only tests linearization).
+
+      HYPOTHESIS: the corpus (2,3) electron at corpus GT (R=10, r=R/φ²
+      ≈ 3.82) is a SELF-STABLE NONLINEAR standing-wave orbit at ω_C —
+      not a linear eigenmode. A nonlinear self-trapped orbit only exists
+      at finite amplitude (small-amplitude limit lacks self-trapping);
+      linearized eigsolve at ANY static seed (V=0 or V≠0) necessarily
+      misses it.
+
+      WHAT R7.1+§10 CLOSED VS WHAT MOVE 5 OPENS:
+      - R7.1 V-block (V=0 seed): Mode III at all 4 seeds, N=32 + N=64
+      - R7.1 Cos-block (V=0 seed): Mode III at all 4 seeds, N=32 + N=64
+        dual-criterion (frequency + corpus-canonical c via Op10)
+      - Test B v1+v2+v3 (driven CW response): Mode III-spatial,
+        bond-cluster envelope uniform across linear + saturation regimes
+      - R7.2 (pair injection per G-13): Mode III, dissolves at
+        Beltrami timescale
+      - Move 5: TIME-DOMAIN orbit hunt — seed full corpus (V_inc, ω)
+        ansatz at corpus GT representing one phase of the proposed
+        standing-wave cycle, run engine forward WITHOUT external drive,
+        observe whether orbit self-stabilizes
+
+      METHODOLOGY:
+      - Engine: VacuumEngine3D at N=32, A28 + Cosserat self-terms
+        (post-Round-6 default), no external drive
+      - Seed ω: corpus (2,3) hedgehog via initialize_electron_2_3_sector,
+        peak |ω| = 0.3π via A26 amplitude scale (matches R7.1 GT_corpus
+        seed)
+      - Seed V_inc: corpus (2,3) chiral-phasor voltage ansatz via
+        initialize_2_3_voltage_ansatz at amp = 0.14 → peak v_total ≈
+        0.5·V_SNAP (mid Regime II, saturation actively engaged per
+        AVE three-regime convention; Op14 z modulation non-trivial at
+        every cell with V_inc > 0)
+      - Phase relationship: initialize_2_3_voltage_ansatz uses
+        cos(2φ+3ψ) on ports 0,1 / sin(2φ+3ψ) on ports 2,3 — natural
+        90° phase quadrature consistent with one phase of standing-wave
+        cycle (matches the spatial structure of doc 26_ §1's
+        ψ(s,t) = V₀·A(s)·exp(i(ωt+θ(s))) at one t)
+      - Evolution: 200 Compton periods (≈ 1777 steps at dt = 1/√2)
+      - Sample at t ∈ {0, 5, 10, 25, 50, 100, 150, 200} Compton periods:
+          peak |ω|, peak |V_inc|, c via engine.cos.extract_crossing_count()
+          (corpus-canonical Op10 per Doc 07_), shell-localized ω-energy
+          fraction
+      - Dual-criterion adjudication: persistence of peak |ω| AND
+        topology preservation (c=3) at all post-transient samples (t≥10P)
+
+      ADJUDICATION CATEGORIES:
+
+      Mode I-orbit (CORPUS VINDICATED):
+        peak |ω|(t=200P) ≥ 0.80·peak |ω|(t=0)  [strong persistence]
+        AND c = 3 at every sample with t ≥ 10P    [topology preserved]
+        Reading: corpus single-electron orbit IS a self-stable nonlinear
+        soliton at corpus GT. R7.1 eigsolve Mode III was correct on the
+        linearized question (no LINEAR mode) but missed the NONLINEAR
+        self-trapped orbit. Round 7 closure narrative changes
+        substantially.
+
+      Mode II-orbit (orbit persists, wrong topology):
+        peak |ω|(t=200P) ≥ 0.80·peak |ω|(t=0)
+        AND c ≠ 3 at any sample with t ≥ 10P
+        Reading: engine hosts SOME self-stable orbit at corpus GT but
+        not the corpus-claimed (2,3). Substantively informative.
+
+      Mode III-orbit (orbit dissolves):
+        peak |ω|(t=200P) < 0.50·peak |ω|(t=0)
+        Reading: corpus single-electron is NOT self-stable as a
+        nonlinear orbit at corpus GT. Combined with R7.1+§10's
+        eigsolve closure, no LINEAR mode AND no NONLINEAR orbit at
+        corpus GT. Round 8 follow-up: Move 3 (hybrid V≠0 ∧ ω≠0
+        eigsolve) and Move 4 ((p,q) sweep) become cleaner with this
+        time-domain falsification in hand.
+
+      Mode IV-orbit (marginally stable, topology preserved):
+        persistence ∈ [0.50, 0.80) AND c = 3 throughout post-transient
+        Reading: topology held but amplitude decays. Warrants
+        longer-time investigation (1000 Compton periods) to distinguish
+        slow-decay-to-zero from settling-at-finite-amplitude (true
+        marginal orbit).
+
+      ESTIMATED COST: ~30-60 min wall at N=32, 1777 steps. Roughly
+      10× cheaper than Move 3 (joint eigsolve at hybrid seed, ~6-8 hr
+      including methodology dev for cross-block operator).
+
+      WHY MOVE 5 BEFORE MOVE 3 (per Round 8 ranking discussion):
+      - Tests the ACTUAL corpus claim (self-stable standing wave) more
+        directly than any eigsolve. Move 3 still tests linearization,
+        just at a different seed.
+      - If Mode I-orbit: Round 7+8 close immediately at corpus
+        vindication; Move 3 becomes superfluous.
+      - If Mode III-orbit: Move 3 becomes the cleanest follow-up
+        (rules out nonlinear orbit, then test linear cross-coupled modes).
+      - Move 3 alone CAN'T distinguish "no linear cross-coupled mode" from
+        "no orbit at all"; Move 5 + Move 3 together CAN.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
