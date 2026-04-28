@@ -48,7 +48,7 @@ The AVE framework synthesizes several historically siloed theoretical breakthrou
 ### Chapter Summary
 
 - AVE is an Effective Field Theory mapping the vacuum to a trace-reversed Chiral LC Network.
-- The framework is genuinely zero-parameter: $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derives from Golden Torus geometry (Ch.8), and $\ell_{node}$ and $G$ are also derived.
+- The framework is structurally zero-parameter (conditional on thermal closure of $\delta_{strain}$ at $T_{CMB}$): $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derives from Golden Torus geometry (Ch.8), and $\ell_{node}$ and $G$ are also derived; one currently-fitted thermal scalar bridges the cold-lattice asymptote to CODATA pending derivation from $G_{vac}$ + equipartition.
 - Classical phenomena like gravity and MOND, as well as particle generation, are reframed as continuous mechanics arising naturally from this saturated medium.
 
 ---

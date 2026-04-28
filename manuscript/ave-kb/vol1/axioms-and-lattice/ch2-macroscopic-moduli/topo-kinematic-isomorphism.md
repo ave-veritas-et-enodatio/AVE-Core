@@ -12,7 +12,7 @@
 | Current $I$ | C/s | Velocity $v$ | $\xi_{topo}$ m/s |
 | Impedance $Z$ | V/A | Kinematic impedance | $\xi_{topo}^{-2}$ kg/s |
 | Inductance $L$ | H | Mass $m$ | $\xi_{topo}^{-2}$ kg |
-| Capacitance $C$ | F | Compliance $1/k$ | $\xi_{topo}^{2}$ N$^{-1}$ |
+| Capacitance $C$ | F | Compliance $1/k$ | $\xi_{topo}^{2}$ m/N |
 | $\mu_0$ | H/m | Linear density $\rho_L$ | $\xi_{topo}^{-2}$ kg/m |
 | $\epsilon_0$ | F/m | Inverse tension | $\xi_{topo}^{2}$ N$^{-1}$ |
 

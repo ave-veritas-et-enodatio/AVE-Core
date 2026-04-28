@@ -553,8 +553,8 @@ The strong-force string tension between confined quarks:
 $$
 F_{conf}
 = 3\!\left(\frac{m_p}{m_e}\right)\alpha^{-1}\,T_{EM}
-\approx 160{,}584\;\text{N}
-\approx 1.002\;\text{GeV/fm}
+\approx 160{,}037\;\text{N}
+\approx 0.999\;\text{GeV/fm}
 $$
 
 ## Layer 6 → Layer 7: Cosmology and the Dark Sector
@@ -668,8 +668,9 @@ exist as a physical parameter; $\ell_{node}$ evaluates as the dimensionless
 integer **1**.
 
 > **[Resultbox]** *Result*
-> The AVE framework is a closed, zero-parameter Topological
-> Effective Field Theory. Physical parameters flow exclusively outward from
+> The AVE framework is a closed, structurally zero-parameter Topological
+> Effective Field Theory (conditional on Layer 8 thermal closure of $\delta_{strain}$
+> at $T_{CMB}$). Physical parameters flow exclusively outward from
 > geometric bounding limits to macroscopic observables, without looping any
 > output back into an unconstrained input.
 
@@ -833,7 +834,7 @@ Every quantity marked $\checkmark$ is computed by the physics engine at import t
 | **Layer 6: Baryons** | | | | |
 | $\kappa_{FS}$ | $p_c/\alpha$ | $8\pi$ | --- | derived |
 | $m_p/m_e$ | Faddeev--Skyrme eigenvalue | 1836 | 1836.15 | $0.002\%$ |
-| $F_{conf}$ | $3(m_p/m_e)\alpha^{-1}T_{EM}$ | 1.002 GeV/fm | $\sim$1 GeV/fm | $\sim\!0.2\%$ |
+| $F_{conf}$ | $3(m_p/m_e)\alpha^{-1}T_{EM}$ | 0.999 GeV/fm | $\sim$1 GeV/fm | $\sim\!0.1\%$ |
 | **Layer 7: Cosmology** | | | | |
 | $H_\infty$ | $28\pi m_e^3 cG/(\hbar^2\alpha^2)$ | 69.32 km/s/Mpc | 67--73 | in range |
 | $a_{genesis}$ | $cH_\infty/(2\pi)$ | $1.07\!\times\!10^{-10}$ m/s$^2$ | $1.2\!\times\!10^{-10}$ | $10.7\%$ |

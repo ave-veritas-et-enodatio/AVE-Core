@@ -104,9 +104,9 @@ Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect e
 ## The Zero-Free-Parameter Chain
 
 $$
-\ell_{node} \xrightarrow{\text{Axiom 1}} \alpha \xrightarrow{\text{Axiom 2}} \xi_{topo} = e/\ell_{node} \xrightarrow{\text{Translation}} \begin{cases} L = \xi^{-2} m & \text{(inductance)} \\ C = \xi^{2} \kappa & \text{(capacitance)} \\ Z = \xi^{-2} \eta & \text{(impedance)} \end{cases}
+\{m_e, \ell_{node}\} \xrightarrow[\text{Ch.8 Golden Torus}]{\text{Axioms 1--4 + }\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2} \alpha \xrightarrow{\text{Axiom 2}} \xi_{topo} = e/\ell_{node} \xrightarrow{\text{Translation}} \begin{cases} L = \xi^{-2} m & \text{(inductance)} \\ C = \xi^{2} \kappa & \text{(capacitance)} \\ Z = \xi^{-2} \eta & \text{(impedance)} \end{cases}
 $$
 
-Every measurable quantity in the AVE framework ultimately traces through this chain. No free parameters are introduced at any point.
+$\alpha$ is derived from the Golden Torus closure (Vol 1 Ch 8) — all four axioms plus the Clifford-torus geometric closure on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$, not from Axiom 1 alone. $\xi_{topo}$ is then the Axiom 2 topo-kinematic conversion that bridges the discrete vacuum lattice to the macroscopic measurable kinematic quantities (mass $m$, mechanical compliance $\kappa$, kinematic impedance $\eta$). Every measurable quantity in the AVE framework ultimately traces through this chain (conditional on the thermal closure of $\delta_{strain}$ at $T_{CMB}$ — see `mathematical-closure.md`).
 
 ---
