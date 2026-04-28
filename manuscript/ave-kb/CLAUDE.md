@@ -50,14 +50,18 @@ Individual volumes may use only a subset; resultbox is the most common. Vol 5 us
 
 ### INVARIANT-S2: AVE Axiom numbering
 
-The four AVE axioms carry stable meanings across all volumes:
+The four AVE axioms carry stable meanings across all volumes. Canonical statement per [`manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:51-75`](../vol_1_foundations/chapters/01_fundamental_axioms.tex):
 
-- Axiom 1: ABCD cascade / coupled amplitude
-- Axiom 2: Topological phase dislocation
-- Axiom 3: Least reflected action
-- Axiom 4: SiLU / saturation gate (dielectric saturation)
+- **Axiom 1 — Substrate Topology (LC Network):** vacuum is a non-linear EM LC Resonant Network $\mathcal{M}_A(V,E,t)$, modeled in continuum as a Trace-Reversed Chiral LC Network. Operational signatures: K4 graph, ABCD cascade, ℓ_node, Z₀ = √(μ₀/ε₀).
+- **Axiom 2 — Topo-Kinematic Isomorphism:** charge as discrete geometric dislocation in $\mathcal{M}_A$; $[Q] \equiv [L]$; $\xi_{topo} = e/\ell_{node}$. Operational signatures: TKI, (2,q) torus knot, topological phase dislocation, chiral SRS.
+- **Axiom 3 — Effective Action Principle:** system minimizes hardware action $S_{AVE}$; $\mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0|\partial_t\mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}_n|^2$. Operational signatures: least reflected action, S₁₁ minimization, lossless reactive cycling.
+- **Axiom 4 — Dielectric Saturation:** non-linear $C_{eff}(\Delta\phi) = C_0/\sqrt{1-(\Delta\phi/\alpha)^2}$ (squared / n=2 Born-Infeld kernel); saturation factor $S(r) = \sqrt{1-r^2}$. Operational signatures: saturation gate, V_snap, B_snap, Regime IV, yield boundary.
 
-*Confirmed by: vol1 (originating), vol8 (re-instantiated in virtual media domain)*
+**NOT axioms** (calibration constants per Vol 1 Ch 1:14-21): $\ell_{node}$, $\alpha$, $G$. Gravity is the Machian boundary impedance, derived from Ax 1 + Ax 4 symmetric scaling, not a primitive axiom.
+
+**Stale-signature warning:** prior versions of this invariant used "SiLU / saturation gate" for Ax 4. SiLU is a neural-net activation $x\cdot\sigma(x)$, structurally different from AVE's $\sqrt{1-A^2}$ Born-Infeld kernel. The "SiLU" label was an APU-domain accidental import per Grant 2026-04-20; corrected here per axiom homologation 2026-04-27.
+
+*Confirmed by: Vol 1 Ch 1 (canonical), backmatter/02_full_derivation_chain.tex, research/L3_electron_soliton/00_scoping.md, plus 8 downstream repos (AVE-APU, AVE-VirtualMedia, AVE-HOPF, AVE-Propulsion, AVE-PONDER, AVE-Metamaterials, AVE-Fusion, AVE-Protein) using Scheme A naming consistently.*
 
 ### INVARIANT-S3: Shared experimental appendix
 
