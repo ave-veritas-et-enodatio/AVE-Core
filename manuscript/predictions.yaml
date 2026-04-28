@@ -3009,3 +3009,117 @@ predictions:
         first), A40 (prospective dual-criterion + multi-N), A45 (corpus-
         canonical-test-precondition), A48 (frozen-extraction-scope)
 
+  - id: P_phase9_path_alpha
+    name: "Round 9 path α: doc 79_ v3.1 bond-pair phasor on Move 5 fresh attractor — dual-criterion R/r=φ²+5% per-cluster + chirality consensus via Hilbert transform"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    test_file: "src/scripts/vol_1_foundations/r9_path_alpha_bond_pair_phasor.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 9 path α empirical test per doc 79_ v3.1 §7. Decides positive
+      vs negative L3 closure under the lemniscate-with-q-half-twists
+      bond-pair object class.
+
+      THIS RESOLVES P_phase8 r9's three methodology gaps (A59):
+      1. Persistence guard violated → recording window moved EARLIER:
+         t ∈ [15, 50] P (fresh attractor pre-decay) instead of [50, 200] P
+      2. Chirality cross-product noise dominance → REPLACED with
+         Hilbert-transform analytic signal phase difference;
+         sign(mean(sin(Δφ))) gives chirality direction
+      3. Bipolar +x/−x R/r distribution → per-cluster adjudication
+         (group bond-pairs by spatial location, adjudicate per-cluster)
+
+      FOURTH METHODOLOGY FIX per doc 79_ §6.6 + auditor item 7:
+      Sampler changed from top-K SINGLE CELLS to top-K SATURATED
+      A-B BOND PAIRS per K4 tetrahedral port offsets. Doc 37 §1
+      framing: electron lives on bond between two saturated nodes;
+      sample (V_inc, V_ref) AT THAT BOND's A-side port.
+
+      METHODOLOGY:
+      - Engine setup IDENTICAL to Move 5 + r9 (N=32, R=10, r=R/φ²,
+        A28+Cosserat self-terms, no drive, peak |ω|=0.3π via A26 scale,
+        V_amp=0.14)
+      - Pre-evolve: t ∈ [0, 10] P (transient settle; Move 5's c=3 plateau
+        established by t=10P per c772211 commit)
+      - Selection window: t ∈ [10, 15] P (5 P; accumulate per-cell
+        |V_inc[port 0]|² mean over interior cells, PML-excluded; identify
+        top-8 candidates)
+      - Bond-pair identification: for each top candidate, check K4
+        tetrahedral port offsets [(+1,+1,+1), (+1,-1,-1), (-1,+1,-1),
+        (-1,-1,+1)]; if a port-neighbor is also in top candidates,
+        register as bond-pair (cell_A, port_idx, cell_B). Yields up to 4
+        bond-pairs.
+      - Recording window: t ∈ [15, 50] P (35 P; capture (V_inc, V_ref)
+        at each bond-pair's A-side port per step)
+      - Per-bond analysis:
+          * PCA on (V_inc, V_ref) point cloud → R_phase, r_phase via
+            covariance eigenvalues
+          * Hilbert transform on V_inc(t), V_ref(t) → analytic signals
+            → instantaneous phases → phase difference Δφ(t) → mean of
+            sin(Δφ) gives chirality magnitude + sign
+      - Per-cluster grouping: bond-pairs grouped by spatial location
+        (e.g., +x-quadrant cluster, −x-quadrant cluster); adjudicate
+        each cluster separately
+
+      DUAL-CRITERION ADJUDICATION (per A39 v2 + A40):
+
+      C1 (LOAD-BEARING): per-cluster median R_phase/r_phase = φ²=2.618
+        ± 5% (PASS range [2.487, 2.749]) — FOR EACH CLUSTER, not just
+        global median. Both clusters must PASS.
+
+      C2 (LOAD-BEARING): per-cluster chirality consensus ≥ 75% via
+        Hilbert mean(sin(Δφ)) sign — FOR EACH CLUSTER, both clusters
+        same direction (right-handed K4 substrate prediction: same sign
+        across all bonds at all locations because chirality is
+        substrate-fossilized, not particle-distinguishing across
+        spatial regions of one electron).
+
+      Persistence guard (NOT load-bearing, caveat trigger): peak |ω|
+        at recording window end ≥ 70% of initial (vs r9's 40%; tighter
+        because window is shorter and earlier).
+
+      ADJUDICATION CATEGORIES:
+
+      Mode I (POSITIVE L3 CLOSURE): C1 + C2 PASS in BOTH clusters →
+        corpus electron empirically confirmed as lemniscate-with-twist
+        bond-pair object at engine-representable scale; doc 79_ closure
+        synthesis lands as final positive close; seven prior Mode III
+        tests retroactively reread as wrong-sampler.
+
+      Mode II-aspect (partial): C2 PASS but C1 FAIL → consistent
+        chirality but R/r ≠ φ²; substrate hosts a stable phasor
+        signature with chirality but at a different aspect; characterize
+        as itself.
+
+      Mode II-chirality (partial): C1 PASS but C2 FAIL → R/r matches
+        φ² but chirality inconsistent across clusters; closed ellipse
+        at right aspect but not a coherent vortex.
+
+      Mode III (NEGATIVE L3 CLOSURE): C1 + C2 both FAIL → bond-pair
+        framing also fails. Either (a) substrate doesn't host (2,q)
+        lemniscate-with-twist at engine-representable scale, (b) deeper
+        reframe needed, or (c) engine V·S/T·1 implementation gap is
+        load-bearing (post-doc-75-fix rerun changes result).
+
+      Mode III-with-asymmetric-clusters: per-cluster adjudication
+        diverges (one cluster passes, other fails) → genuinely bipolar
+        substrate response that needs separate physical explanation.
+
+      ESTIMATED COST: ~5-10 min wall at N=32, ~445 steps recording
+      (vs r9's ~1334 steps; reduced because earlier window is shorter).
+      Single coherent commit unit per A48.
+
+      CITATIONS:
+      - doc 79_ v3.1 §1-§8 (lemniscate-with-twist framework)
+      - doc 78_ §7 + A59 (methodology fixes from r9)
+      - doc 37 §1 (bond-pair object class)
+      - doc 28 §5.1 + §5.4 (phase-space framing)
+      - doc 07 §3 (scalar c, not winding pair)
+      - manuscript/ave-kb/common/axiom-homologation.md (Scheme A)
+      - COLLABORATION_NOTES Rule 14 (substrate decides), Rule 16 (Grant
+        plumber-physical input), A40 (dual-criterion + multi-N), A48
+        (frozen-extraction-scope), A59 (phase-space methodology)
+
