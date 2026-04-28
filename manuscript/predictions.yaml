@@ -2592,6 +2592,102 @@ predictions:
         deeper issue with K4-Cosserat coupling. Or C4 fails (c
         degrades) → topology not preserved despite seed.
 
+  - id: P_phase6_photon_tail_propagating_ic
+    name: "Photon-tail propagating IC test (path b): set ω_dot per ω_loop-rotation; tests photon-tail framework with corpus-correct propagating mode IC; 3/3 of C1/C2/C3 PASS = Mode I (C4 informational per A57)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
+    test_file: "src/scripts/vol_1_foundations/r8_photon_tail_propagating_ic.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Path (b) follow-up to path (a) Photon-Tail Dual Seed test
+      (P_phase6_photon_tail_dual_seed at fb2e4f1, ran with Mode III
+      0/4 at 13b2017). Per Grant + auditor consensus, path (b) is
+      THE Rule-11 closure test for the photon-tail framework.
+
+      KEY DIFFERENCE FROM PATH (A):
+        Path (a): Cosserat ω seeded at peak displacement, ω_dot = 0
+                  (standing-wave IC). Mode III with sector asymmetry —
+                  Cosserat dissolved (4.3% retention) while K4 partially
+                  survived (66%). Standing-wave neighborhood doesn't
+                  contain photon-tail attractor's basin.
+
+        Path (b): Cosserat ω seeded with ω_dot ≠ 0 consistent with
+                  propagation along loop tangent at speed c. Specifically
+                  for omega = envelope·(cos(θ), sin(θ), 0) propagating
+                  at frequency ω_loop = 2π·c/L_loop:
+                    omega_dot[..., 0] = +ω_loop · omega[..., 1]
+                    omega_dot[..., 1] = -ω_loop · omega[..., 0]
+                    omega_dot[..., 2] = 0
+                  This is omega rotating in (x, y) plane at ω_loop —
+                  equivalent to (2,3) pattern (θ = 2φ + 3ψ) translating
+                  along loop arc.
+
+        K4 V_inc seed unchanged from path (a). V_ref starts at 0
+        (forward-traveling default for K4-TLM). K4 dynamics evolve
+        V_ref naturally via scatter+connect.
+
+      C4 INFORMATIONAL PER A57:
+        At (R=4, r=1.5) on N=64, (2,3) poloidal feature size ≈ 3.14
+        cells = Nyquist boundary. Op10 aliases c=3 to c=2 at t=0.
+        C4 "c=3 maintained" cannot meaningfully test from sub-Nyquist
+        seed. Per A57 (doc 75_ §10.6), C4 demoted to INFORMATIONAL.
+        Mode I = 3/3 of C1/C2/C3 PASS (load-bearing). C4 reported
+        as informational diagnostic alongside c(t) trajectory tracker.
+
+      C(T) TRAJECTORY TRACKER (informational diagnostic):
+        Sample c via engine.cos.extract_crossing_count() every
+        10 Compton periods throughout evolution. If c climbs from
+        sub-Nyquist seed value (2) to 3 during evolution, that's
+        a positive signal independent of C4's strict criterion —
+        suggests propagating dynamics drives topology to corpus value.
+        If c stays at 2 or degrades, that's a different failure mode
+        than path (a).
+
+      LOAD-BEARING ADJUDICATION (Mode I = all three PASS):
+        C1 — Single-node ellipse aspect at 30 sampled loop nodes
+             via PCA on (V_inc, V_ref)(t) over t∈[150P, 200P]:
+             median R_phase/r_phase = φ² ± 5%
+        C2 — Spatial winding rotation: total ellipse-orientation
+             change along loop arc = 5 × 2π ± 30%
+        C3 — LC reactance: ρ(Σ|V_inc|²(t), Σ|Φ_link|²(t))
+             ∈ (-1.2, -0.8)
+
+      INFORMATIONAL (NOT load-bearing for Mode I):
+        C4 — Topology preservation: c via Op10 at end = 3
+             (will likely fail from sub-Nyquist seed)
+        c(t) trajectory: did c climb to 3 during evolution?
+
+      PER PRE-REG THRESHOLD (Grant + auditor agreement):
+        If path (b) Mode III (any of C1/C2/C3 fails), photon-tail
+        branch CLOSES. No path (c), (d), etc. variations within
+        the same picture. Round 8 closes with cumulative empirical
+        statement that engine doesn't host corpus electron at any
+        tested configuration accessible to N=64. Round 9 (if exists)
+        escalates to N=128+ or reframes corpus prediction.
+
+      ESTIMATED COST: ~40 min wall at N=64 (1778 timesteps,
+      same scale as path (a) for direct comparison).
+
+      DOWNSTREAM IF MODE I:
+        Photon-tail framework empirically validated at engine-
+        representable scale. Round 7+8 closes positive — 30+ commits
+        found half the corpus electron because only Cosserat-half
+        was seeded; dual-seed at corpus topology + propagating IC
+        reveals full electron. Doc 75_ becomes corpus electron
+        empirical anchor.
+
+      DOWNSTREAM IF MODE III:
+        Photon-tail branch closed. Round 8 closes negative.
+        Open candidates for Round 9: (a) N=128 lattice-resolution
+        escalation; (b) reframed corpus prediction (engine fundamentally
+        cannot host corpus electron at any tractable N); (c) accept
+        substrate-natural attractor characterization (Move 7+7b+10)
+        as the empirical finding and corpus-engine mismatch as the
+        framework-level open question.
+
   - id: P_phase6_autoresonant
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
