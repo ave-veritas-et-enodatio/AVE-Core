@@ -236,7 +236,7 @@ The photon-tail framing (path b propagating IC) targets path-integrated phase as
 
 Current text: *"saturation IS the lattice's intrinsic refractive-index source."* Correct framing but doesn't cite [`eq_axiom_3.tex`](../../manuscript/common_equations/eq_axiom_3.tex) as the corpus statement of refractive index, nor [`eq_axiom_4.tex:25`](../../manuscript/common_equations/eq_axiom_4.tex#L25) as the corpus statement of c_eff = c_0·√S.
 
-**Recommended A-010 amendment:** add explicit citations to `eq_axiom_3.tex` and `eq_axiom_4.tex` derived consequences. Frame the lesson as: *"Op14 lattice-level saturation is the substrate-native realization of Ax 3's gravitational refractive index + Ax 4's c_eff modulation; engine measurements at single nodes report local clock rate ω_local = ω_substrate·S, NOT global frequency ω_substrate."*
+**Recommended A-010 amendment:** add explicit citations to `eq_gravity_derived.tex` and `eq_axiom_4.tex` derived consequences. Frame the lesson as: *"Op14 lattice-level saturation is the substrate-native realization of Ax 4's saturation kernel + the gravitational refractive index derivation (in `eq_gravity_derived.tex`); engine measurements at single nodes report local clock rate ω_local = ω_substrate·S, NOT global frequency ω_substrate."* (Pre-supersession version of this line cited `eq_axiom_3.tex` for gravity content, which was Scheme B framing; corrected here to point at canonical Scheme A's `eq_gravity_derived.tex`.)
 
 ### 6.2 Engine observer recommendation (E-072)
 

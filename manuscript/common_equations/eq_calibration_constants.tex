@@ -1,0 +1,68 @@
+% eq_calibration_constants.tex — Three Initial Hardware Boundaries (Calibration Constants)
+% Single source of truth. \input this wherever the macroscopic calibration scale
+% is formally restated.
+%
+% Per Vol 1 Ch 1's canonical structure (manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex
+% lines 14-21 + 218-222): the macroscopic continuum dynamics rests on FOUR
+% foundational axioms (eq_axiom_{1,2,3,4}.tex). The numerical calibration
+% boundaries below are DERIVED from those axioms; they set the empirical scale
+% at which the axioms operate.
+%
+% Axiom attributions per Vol 1 Ch 1:218-222 master constants table:
+%   Z_0      <- Axiom 1 (LC network, sqrt(mu_0/epsilon_0))
+%   ell_node <- Axiom 1 (unknot ground-state ropelength)
+%   alpha    <- Axiom 4 (EMT K=2G operating point)
+%   xi_topo  <- Axiom 2 ([Q] equiv [L])
+%   V_snap   <- Axiom 4 (dielectric snap voltage)
+%   V_yield  <- Axiom 4 (dielectric yield, sqrt(alpha)*V_snap)
+%
+% Newton's constant G is a fourth derived calibration parameter, emerging from
+% Machian thermodynamic equilibrium of the LC lattice. Its formal definition and
+% the gravitational refractive-index derivation it generates appear in
+% eq_gravity_derived.tex (separated because gravity is a derived consequence of
+% Ax 1 + Ax 4 under Symmetric Scaling, not a primitive axiom).
+%
+\begin{resultbox}{Master Calibration Constants}
+The numerical scale of the macroscopic continuum is set by the following constants,
+each derived from the four foundational axioms (cited inline):
+
+\medskip
+
+\noindent\textbf{Lattice Pitch} (per Axiom 1, unknot ropelength):
+\begin{equation}
+    \ell_{node} = \frac{\hbar}{m_e c} \approx 3.86 \times 10^{-13}\;\text{m}
+    \label{eq:cal_lnode}
+\end{equation}
+
+\noindent\textbf{Vacuum Impedance} (per Axiom 1, LC constituents):
+\begin{equation}
+    Z_0 = \sqrt{\frac{\mu_0}{\varepsilon_0}} \approx 376.73\;\Omega
+    \label{eq:cal_z0}
+\end{equation}
+where $\mu_0$ is the per-node inductance (rotational inertia) and
+$\varepsilon_0$ is the per-node capacitance (elastic compliance).
+
+\noindent\textbf{Topological Conversion Constant} (per Axiom 2, $[Q]\equiv[L]$):
+\begin{equation}
+    \xi_{topo} \equiv \frac{e}{\ell_{node}} \approx 4.149 \times 10^{-7}\;\text{C/m}
+    \label{eq:cal_xi_topo}
+\end{equation}
+
+\noindent\textbf{Fine-Structure Constant} (per Axiom 4, EMT $K = 2G$ trace-reversal operating point):
+\begin{equation}
+    \alpha = \frac{e^2}{4\pi\varepsilon_0\hbar c} = \frac{p_c}{8\pi} \approx \frac{1}{137.036}
+    \label{eq:cal_alpha}
+\end{equation}
+
+\noindent\textbf{Dielectric Snap Voltage} (per Axiom 4, saturation limit):
+\begin{equation}
+    V_{snap} = \frac{m_e c^2}{e} \approx 511.0\;\text{kV}
+    \label{eq:cal_vsnap}
+\end{equation}
+
+\noindent\textbf{Dielectric Yield Voltage} (per Axiom 4, saturation activates at $\sqrt{\alpha}$ fraction of $V_{snap}$):
+\begin{equation}
+    V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65\;\text{kV}
+    \label{eq:cal_vyield}
+\end{equation}
+\end{resultbox}

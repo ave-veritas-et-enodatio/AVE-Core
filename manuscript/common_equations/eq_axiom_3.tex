@@ -1,45 +1,21 @@
-% eq_axiom_3.tex — Axiom 3 (Gravity)
+% eq_axiom_3.tex — Axiom 3 (Effective Action Principle)
 % Single source of truth. \input this wherever Axiom 3 is formally restated.
+% Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:61-66.
 %
-\begin{resultbox}{Axiom 3 — Gravity}
-Newton's constant sets the Machian boundary impedance:
+% PROVENANCE: pre-2026-04-27 this file was titled "Axiom 3 — Gravity" and
+% documented Newton's constant G, the gravitational refractive index n(r),
+% Symmetric Gravity, and alpha-invariance under gravitational strain. Per axiom
+% homologation 2026-04-27, gravity is a derived consequence of Axiom 1 + Axiom 4
+% (Symmetric Scaling), not a primitive axiom; G is a calibration constant
+% emerging from Machian thermodynamic equilibrium. The gravity content has been
+% moved to eq_gravity_derived.tex. This file now states the canonical primitive
+% Axiom 3 from Vol 1 Ch 1.
+%
+\begin{resultbox}{Axiom 3 — Effective Action Principle}
+The continuous system evolves strictly to minimize the macroscopic hardware action $S_{AVE}$. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
 \begin{equation}
-    G = \frac{\hbar c}{7\xi \cdot m_e^2}
-    \label{eq:axiom3_gravity}
+    \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
+    \label{eq:axiom3_lagrangian}
 \end{equation}
-where $\xi = 4\pi(R_H / \ell_{node})\alpha^{-2} \approx 8.15 \times 10^{43}$ is the Machian hierarchy coupling.
-The gravitational refractive index is
-\begin{equation}
-    n(r) = 1 + \frac{2GM}{rc^2}
-    \label{eq:axiom3_refraction}
-\end{equation}
-with Symmetric Gravity: $\mu_{eff} = \mu_0 \cdot n(r)$,\;
-$\varepsilon_{eff} = \varepsilon_0 \cdot n(r)$,\;
-$Z = Z_0$ (invariant).
+The action principle minimizes $S_{AVE} = \int \mathcal{L}_{node}\, d^4x$ across the network. Equivalently, in operational form: the system evolves to minimize reflection $|\Gamma|^2$ at all internal impedance boundaries (least reflected action / S$_{11}$ minimization). Energy conservation, Lorentz invariance, and gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
 \end{resultbox}
-
-\noindent\textbf{Derived Consequence 1: $\alpha$ Invariance.}
-Under Symmetric Gravity, both constitutive parameters scale by the same factor $n \cdot S$
-(including Axiom~4 saturation). The fine-structure constant is therefore
-\textit{exactly invariant} under gravitational strain:
-\begin{equation}
-    \alpha = \frac{e^2}{4\pi\,\varepsilon_{local}\,\hbar\,c_{local}}
-           = \frac{e^2}{4\pi\,(\varepsilon_0 n S)\,\hbar\,(c_0/(nS))}
-           = \frac{e^2}{4\pi\,\varepsilon_0\,\hbar\,c_0}
-           = \alpha_0
-    \label{eq:alpha_invariance}
-\end{equation}
-Multi-species clock comparisons at different gravitational potentials predict a
-\textbf{null result} for $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
-
-\noindent\textbf{Derived Consequence 2: Temporal vs.\ Spatial Lattice Compression.}
-The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically.
-The refractive index decomposes into:
-\begin{align}
-    n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
-    n_{spatial} &= \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
-    \label{eq:lattice_decomposition}
-\end{align}
-Axiom~3 uses only the temporal component for gravitational redshift ($z \approx GM/(c^2 r)$).
-The spatial component governs light bending and frame dragging.
-

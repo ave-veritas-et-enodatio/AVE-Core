@@ -1,0 +1,56 @@
+% eq_gravity_derived.tex — Gravity as Derived Consequence of Ax 1 + Ax 4 (Symmetric Scaling)
+% Single source of truth for the gravitational refractive index, Symmetric Gravity
+% derivation, and alpha-invariance under gravitational strain. \input this wherever
+% the gravity content is formally restated.
+%
+% PROVENANCE: This file documents content that historically lived in eq_axiom_3.tex
+% (Scheme B framing of "Axiom 3 = Gravity"). Per axiom homologation 2026-04-27 +
+% Vol 1 Ch 1's canonical Scheme A: Axiom 3 is the Effective Action Principle
+% (eq_axiom_3.tex); the gravitational refractive index n(r) and Symmetric Gravity
+% scaling are derived consequences of Axiom 1 (LC network) + Axiom 4 (dielectric
+% saturation applied symmetrically to mu and epsilon). Newton's constant G is a
+% calibration constant emerging from Machian thermodynamic equilibrium of the LC
+% lattice (per Vol 1 Ch 1:14-21 and Vol 1 Ch 1 Section 3.2).
+%
+\begin{resultbox}{Macroscopic Gravity (Derived from Ax 1 + Ax 4 Symmetric Scaling)}
+Newton's constant sets the Machian boundary impedance:
+\begin{equation}
+    G = \frac{\hbar c}{7\xi \cdot m_e^2}
+    \label{eq:gravity_newton}
+\end{equation}
+where $\xi = 4\pi(R_H / \ell_{node})\alpha^{-2} \approx 8.15 \times 10^{43}$ is the Machian hierarchy coupling.
+The gravitational refractive index is
+\begin{equation}
+    n(r) = 1 + \frac{2GM}{rc^2}
+    \label{eq:gravity_refraction}
+\end{equation}
+with Symmetric Gravity (Axiom 4 dielectric saturation applied to both inductive and capacitive constituents):
+$\mu_{eff} = \mu_0 \cdot n(r)$,\;
+$\varepsilon_{eff} = \varepsilon_0 \cdot n(r)$,\;
+$Z = Z_0$ (invariant).
+\end{resultbox}
+
+\noindent\textbf{Derived Consequence 1: $\alpha$ Invariance.}
+Under Symmetric Gravity, both constitutive parameters scale by the same factor $n \cdot S$
+(combining gravitational refraction with Axiom 4 saturation). The fine-structure constant is therefore
+\textit{exactly invariant} under gravitational strain:
+\begin{equation}
+    \alpha = \frac{e^2}{4\pi\,\varepsilon_{local}\,\hbar\,c_{local}}
+           = \frac{e^2}{4\pi\,(\varepsilon_0 n S)\,\hbar\,(c_0/(nS))}
+           = \frac{e^2}{4\pi\,\varepsilon_0\,\hbar\,c_0}
+           = \alpha_0
+    \label{eq:alpha_invariance}
+\end{equation}
+Multi-species clock comparisons at different gravitational potentials predict a
+\textbf{null result} for $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
+
+\noindent\textbf{Derived Consequence 2: Temporal vs.\ Spatial Lattice Compression.}
+The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically.
+The refractive index decomposes into:
+\begin{align}
+    n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
+    n_{spatial} &= \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
+    \label{eq:lattice_decomposition}
+\end{align}
+The temporal component governs gravitational redshift ($z \approx GM/(c^2 r)$);
+the spatial component governs light bending and frame dragging.

@@ -1,17 +1,17 @@
-% eq_axiom_1.tex — Axiom 1 (Impedance)
+% eq_axiom_1.tex — Axiom 1 (Substrate Topology / LC Network)
 % Single source of truth. \input this wherever Axiom 1 is formally restated.
+% Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:51-52.
 %
-\begin{resultbox}{Axiom 1 — Impedance}
-The vacuum is a discrete LC resonant network with characteristic impedance
-\begin{equation}
-    Z_0 = \sqrt{\frac{\mu_0}{\varepsilon_0}} \approx 376.73\;\Omega
-    \label{eq:axiom1_impedance}
-\end{equation}
-and lattice pitch
-\begin{equation}
-    \ell_{node} = \frac{\hbar}{m_e c} \approx 3.86 \times 10^{-13}\;\text{m}
-    \label{eq:axiom1_pitch}
-\end{equation}
-$\mu_0$ is the per-node inductance (rotational inertia) and $\varepsilon_0$
-is the per-node capacitance (elastic compliance).
+% PROVENANCE: pre-2026-04-27 this file was titled "Axiom 1 — Impedance" and
+% documented the calibration constants Z_0 and ell_node. Per axiom homologation
+% 2026-04-27, those constants are derived from Axiom 1 (not the axiom itself);
+% they have been moved to eq_calibration_constants.tex. This file now states
+% the canonical primitive Axiom 1 from Vol 1 Ch 1.
+%
+\begin{resultbox}{Axiom 1 — Substrate Topology (LC Network)}
+The physical vacuum operates as a dense, non-linear \textbf{Electromagnetic LC Resonant Network} $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a \textbf{Trace-Reversed Chiral LC Network}. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as \textit{macroscopic effective theories} modelling the bulk behaviour of interfering electromagnetic standing waves.
+
+\medskip
+
+\noindent The numerical scale of this substrate is set by the calibration constants $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ (vacuum impedance) and $\ell_{node} = \hbar/(m_e c)$ (lattice pitch); see \texttt{eq\_calibration\_constants.tex} for tabulated values.
 \end{resultbox}

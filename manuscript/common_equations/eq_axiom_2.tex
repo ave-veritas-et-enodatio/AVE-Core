@@ -1,15 +1,19 @@
-% eq_axiom_2.tex — Axiom 2 (Fine Structure)
+% eq_axiom_2.tex — Axiom 2 (Topo-Kinematic Isomorphism)
 % Single source of truth. \input this wherever Axiom 2 is formally restated.
+% Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:54-59.
 %
-\begin{resultbox}{Axiom 2 — Fine Structure}
-The fine-structure constant couples topology to impedance:
+% PROVENANCE: pre-2026-04-27 this file was titled "Axiom 2 — Fine Structure" and
+% documented the calibration constants alpha and V_yield. Per axiom homologation
+% 2026-04-27, those constants are derived (alpha from Axiom 4's EMT operating
+% point; V_yield from Axiom 4's saturation activation threshold); they have been
+% moved to eq_calibration_constants.tex. This file now states the canonical
+% primitive Axiom 2 from Vol 1 Ch 1.
+%
+\begin{resultbox}{Axiom 2 — Topo-Kinematic Isomorphism}
+Charge $q$ is defined as a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. Therefore, the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is defined by the Topological Conversion Constant:
 \begin{equation}
-    \alpha = \frac{e^2}{4\pi\varepsilon_0\hbar c} \approx \frac{1}{137.036}
-    \label{eq:axiom2_alpha}
+    \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
+    \label{eq:axiom2_xi_topo}
 \end{equation}
-$\alpha$ sets the saturation threshold for the dielectric yield voltage:
-\begin{equation}
-    V_{yield} = \sqrt{\alpha} \cdot V_{snap} = \sqrt{\alpha} \cdot \frac{m_e c^2}{e} \approx 43.65\;\text{kV}
-    \label{eq:axiom2_v_yield}
-\end{equation}
+Numerical value $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m; see \texttt{eq\_calibration\_constants.tex}.
 \end{resultbox}
