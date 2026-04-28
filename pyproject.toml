@@ -19,8 +19,8 @@ dependencies = [
     "pandas>=2.0.0",
     "jupyter>=1.0.0",
     "jax>=0.4.30",
+    "jax-metal>=0.1.1; sys_platform == 'darwin'",
     "pytest>=8.4.2",
-    "jax-metal>=0.1.1",
 ]
 
 [project.optional-dependencies]
