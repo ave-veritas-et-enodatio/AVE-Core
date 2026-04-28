@@ -57,6 +57,8 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
 	@echo "\n[Verify] Running Ch 8 α closure: Clifford half-cover rigor..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_clifford_half_cover.py
+	@echo "\n[Verify] Running Ch 8 α closure: λ_line rigor..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_lambda_line.py
 	@echo "\n[Verify] Running Ch 8 α closure: ropelength → Golden Torus..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
