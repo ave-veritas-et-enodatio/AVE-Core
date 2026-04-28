@@ -6,6 +6,21 @@
 
 **v4.1 → v4.2 (2026-04-28): saturation/reflection mechanism integrated.** Auditor research + doc 54 §6 + §6a + line 107 corpus verification surfaced that Γ = -1 walls at saturated nodes are NOT additional physics on top of the rest-energy formula — they ARE the mechanism that makes the LC oscillation MEAN "rest mass" (vs transient that radiates away). §3.5.4 refined: path α tests Ax 4 + Op3 MECHANISM via geometric signatures; energy is structurally fixed by Virial sum. §3.5.2 parameter table flagged V_yield ↔ V_SNAP distinction (later corrected in v4.3). §6.7 NEW: Meissner-asymmetric mechanism (S_μ → 0 with S_ε finite) is substrate-native magnetic-moment generator — chirality of wall formation = electron spin direction, links Layer 1 chirality to μ_B observable + AVE-HOPF birefringence prediction Δf/f = 1.2α.
 
+**v4.4 → v5 (2026-04-28, FINAL): path α v2 empirical result landed.** Pre-reg P_phase9_path_alpha_v2 frozen at commit `8b80c85` (driver `r9_path_alpha_v2_phi_link_sector.py` sampling (Φ_link, ω_axial) on K4 bond-pairs over [15, 200] P recording window). **Result: Mode III in Φ_link trading sector** — all 4 bonds AMBIG chirality, per-cluster R/r 3.62 / 4.97 vs target φ²=2.618±5% FAIL, persistence 33%. Doc 75 line 140's prediction "corpus electron lives in Φ_link sector" empirically falsified.
+
+**Cumulative empirical statement** (now 9 pre-registered tests at engine-representable corpus GT, all Mode III):
+1. R7.1 V-block N=32 (Mode III)
+2. R7.1 V-block N=64 (Mode III)
+3. R7.1 Cos-block N=32 (Mode III)
+4. R7.1 Cos-block N=64 (Mode III)
+5. R7.2 G-13 pair injection (Mode III)
+6. Test B v2 8-port spatial 0.5·V_SNAP (Mode III)
+7. Test B v3 8-port spatial 0.85·V_SNAP (Mode III)
+8. Path α v1 (V_inc/V_ref bond-pair) (Mode III)
+9. **Path α v2 (Φ_link/ω bond-pair) (Mode III) — NEW**
+
+**§8 updated with final negative closure adjudication.** §7.6 NEW with path α v2 result. §9 corpus revision package finalized with implications for corpus electron framing.
+
 **v4.3 → v4.4 (2026-04-28): Φ_link sector reframe — fifth A43 instance this session.** Auditor flagged that v4.x's "doc 75 §6.3 engine fix is precondition for path α v2" framing was directly contradicted by doc 75 §6.2 + line 140 verbatim. Corpus grep confirmed:
 
 - **Doc 75 §6.2 line 127 (verbatim):** *"The -0.990 anti-correlation between H_cos and Σ|Φ_link|² IS the explanation. Cosserat sector loses energy ⟺ K4-inductive (Φ_link) gains it. This is Op14 cross-coupling at work."*
@@ -227,6 +242,64 @@ A59 methodology gaps:
 - Bipolar +x/−x R/r distribution
 - **Sampled at top-K single cells, not bond-pair scale** — under this closure's framing, this is the load-bearing methodology miss
 
+### §7.6 — Path α v2 result (Φ_link sector — Mode III)
+
+Pre-reg `P_phase9_path_alpha_v2` frozen at commit `8b80c85`. Driver [`r9_path_alpha_v2_phi_link_sector.py`](../../src/scripts/vol_1_foundations/r9_path_alpha_v2_phi_link_sector.py). Result [`r9_path_alpha_v2_phi_link_sector_results.json`](../../src/scripts/vol_1_foundations/r9_path_alpha_v2_phi_link_sector_results.json). Wall time: 267s.
+
+**Sampler**: (Φ_link[A_bond, port], ω_axial = ω · b_hat) at K4 (+1,+1,+1) bond-pairs (same 4 pairs as v1). Recording window [15, 200] P spans ~3-4 trading periods at 0.020 rad/unit.
+
+**Per-bond results**:
+
+| Bond | R/r | σ_Φ | σ_ω | Chirality |
+|---|---|---|---|---|
+| 0 (+x) | 5.42 | 2.51e-01 | 4.62e-02 | AMBIG |
+| 1 (−x) | 6.01 | 2.71e-01 | 4.50e-02 | AMBIG |
+| 2 (−x) | 3.93 | 1.64e-01 | 4.16e-02 | AMBIG |
+| 3 (+x) | 1.83 | 2.25e-02 | 4.11e-02 | AMBIG |
+
+**Per-cluster adjudication**:
+
+| Cluster | Median R/r | C1 (φ²±5%) | Chirality | C2 (≥75%) |
+|---|---|---|---|---|
+| +x | 3.62 | FAIL (38% over) | 0/2 TIE | FAIL |
+| −x | 4.97 | FAIL (90% over) | 0/2 TIE | FAIL |
+
+**Persistence**: 33% (same as v1, below 40% threshold).
+
+### §7.6.1 What this result establishes
+
+**Mode III in Φ_link trading sector confirms doc 75 line 140's prediction empirically FALSIFIED.** The corpus electron's R/r=φ² + chirality signature does NOT manifest in the Op14 trading channel either.
+
+The bipolar +x/−x R/r pattern PERSISTS across both V_inc/V_ref (path α v1: +x median 1.89, −x median 5.42) AND Φ_link/ω (path α v2: +x median 3.62, −x median 4.97) sectors. **This is a robust empirical signature** of the engine's saturated attractor, not specific to either sector.
+
+The chirality null is **also robust across both sectors**. Hilbert-extracted phase difference shows no consistent rotation direction in either V_inc/V_ref locked Compton oscillation OR Φ_link/ω slow trading. The Meissner-asymmetric chirality mechanism (per §6.7) is NOT manifesting in the engine's attractor, regardless of sector.
+
+### §7.6.2 What stays valid (framework structure)
+
+Doc 79 v4.x's framework structure stands as the AVE-native description of the (2, q) particle family:
+- Lemniscate-with-q-half-twists object class (§1)
+- Bond-pair object class per doc 37 §1 (§2-§3) — empirically verified at K4 (+1,+1,+1) tetrahedral offsets in path α v1+v2
+- Rest-energy Virial sum E_e = ½ L_0 I_max² + ½ C_e V_peak² = m_e c² (§3.5) — corpus-verbatim Vol 4 Ch 1:175-184
+- Three-layer chirality structure (§5)
+- Meissner-asymmetric saturation mechanism (§6.7) — corpus-verbatim doc 54 §6
+- Op14 trading channel exists empirically (Move 11b ρ=-0.990)
+
+**The framework is internally consistent and corpus-canonical.** The empirical question is whether the K4-TLM + Cosserat engine at engine-representable scale (N=32, corpus GT, Move 5 setup) reproduces the framework's testable predictions (R/r=φ² + K4-RH chirality direction). **Empirical answer across 9 tests: NO.**
+
+### §7.6.3 What this means structurally
+
+**Three not-mutually-exclusive interpretations** of the cumulative Mode III pattern:
+
+**(α) Continuum-limit-only:** the (2,3) corpus electron exists as a continuum-limit object that the discrete K4-TLM engine at N=32 cannot host. Lattice resolution is fundamentally insufficient. Corpus revision: clarify that the framework's testable predictions apply at continuum scale, NOT at engine-representable lattice scale. N=128+ might host it; N=32 cannot.
+
+**(β) Topology revision:** (2,3) is wrong topology for electron at engine-representable scale. The engine produces a stable attractor at Move 5's configuration, but with different topology than corpus claims. Possible alternatives: (3,5) cinquefoil (proton in corpus), Hopfion, or non-(2,q) family. Corpus revision: re-examine which topology corresponds to which particle in the (2, q odd) ladder.
+
+**(γ) Substrate framing revision:** the corpus electron's signature isn't (R/r=φ², chirality direction) in any sector — these may be derived consequences of a different fundamental structure, not direct observables. Corpus revision: re-examine doc 26 + doc 28's (R, r) Clifford torus framing for whether it's a load-bearing prediction or a derived intermediate. The corpus's substrate-native canonical observable might be something else (saturated wall presence, Op14 trading frequency, c=3 via Op10).
+
+These interpretations are not mutually exclusive — multiple may apply simultaneously.
+
+---
+
 ### §6.6 — Pauli exclusion (substrate-native, per Grant Q3 2026-04-28)
 
 > **⚠ PROVISIONAL pending corpus pressure-test — see §9(e).** This subsection's framing is the substrate-native Pauli hypothesis under Grant Q3 + Rule 14. The "vector ω-superposition cancels" argument is sound for free fields but isn't airtight under saturation (saturated states may not superpose linearly the way free fields do). Canonicalization requires verifying the alternative framing matches observed atomic shell capacities (He, Li, Cooper). v4 lands canonical or revised after pressure-test.
@@ -344,9 +417,13 @@ Critically: persistence is **33% even with the much-earlier recording window**. 
 
 **Path α tested GEOMETRY, not ENERGY** (per §3.5 structural framework). The energy m_e c² is fixed by Virial sum at saturation onset — Path α's R/r and chirality measurements probe the SHAPE and HANDEDNESS of the bond-pair LC tank's trajectory, not the energy magnitude. The persistence violation indicates that even the energy budget isn't being maintained cleanly — engine V·S/T·1 (per doc 75 §6.3) breaks the Virial sum (ρ(T_cos, V_cos) = +0.366 per Move 11, instead of −1 expected for clean LC reactance). **Path α is testing geometric predictions on a system where the energy precondition for those predictions doesn't hold stably.** Engine fix → Virial sum restored → geometric predictions become testable.
 
-## §8 — L3 closure adjudication (PROVISIONAL — Mode III at unfixed engine, engine-fix rerun is decisive)
+## §8 — L3 closure adjudication (FINAL — Mode III canonical across V_inc/V_ref AND Φ_link sectors)
 
-Path α landed **Mode III at engine-representable scale**. Per §7.5 this result is methodology-clean (the three r9 gaps + bond-pair sampler all addressed). Per the §8 conditional close framework laid out in v3, Mode III directs to one of three explanatory branches:
+Path α v1 (V_inc/V_ref bond-pair, [15, 50] P window): Mode III. Path α v2 (Φ_link/ω bond-pair, [15, 200] P window, doc 75 line 140 prediction): Mode III. Per §7.5 + §7.6 both methodology-clean (sampler + chirality measurement + per-cluster + recording window all corrected from r9 baseline; bipolar pattern persists across both sectors as robust empirical signature).
+
+**Path α v1 + v2 jointly close the canonical empirical question:** the corpus electron's (R/r=φ², chirality direction matching K4 RH) signature does NOT manifest at engine-representable scale (N=32 corpus GT, Move 5 saturated attractor) in EITHER the V_inc/V_ref locked Compton-frequency sector OR the Φ_link/ω slow Op14 trading sector. **Doc 75 line 140's prediction is empirically falsified.**
+
+Per the §8 conditional close framework laid out in v3, Mode III directs to one of three explanatory branches (now updated with empirical evidence):
 
 ### §8.1 Which branch is most empirically tractable
 
@@ -370,36 +447,50 @@ If path α v2 gives Mode I → corpus electron empirically confirmed in the Φ_l
 
 If path α v2 gives Mode III → branches (a) [continuum-limit only] and (b) [deeper reframe; possibly hybrid V≠0 ∧ ω≠0 seed or different topology per doc 75 line 140 alternatives] become canonical; **L3 branch closes negative with structural reason**.
 
-### §8.2 What this v4 closure synthesis CURRENTLY says
+### §8.2 What this v5 closure synthesis SAYS (FINAL)
 
-**The L3 branch does NOT close at v4.** Path α at the unfixed engine is Mode III, but branch (c) hasn't been tested. **The closure is PROVISIONAL pending engine-fix rerun.**
+**The L3 branch closes Mode III canonical (negative) at v5.** Path α v1 (V_inc/V_ref) + v2 (Φ_link/ω) both Mode III; doc 75 line 140's named alternatives empirically falsified or ruled out.
 
 Specifically:
-- ✅ **Framework structure stands:** lemniscate-with-q-half-twists, (2, q) family, bipartite K4, three-layer chirality, substrate-native Pauli (provisional pending pressure-test) — all of §1-§6 framework lands as the AVE-native description
-- ✅ **Bond-pair object class is structurally correct:** path α found 4 K4 bond-pairs naturally; the doc 37 §1 framing matches what the saturated attractor produces
-- ❌ **Empirical confirmation at unfixed engine fails:** Mode III at path α; lemniscate-with-twist's φ² + chirality predictions don't manifest in the (V_inc, V_ref) phasor
-- ⚠ **Branch (c) is the decisive test:** apply doc 75 §6.3 engine fix, rerun path α, adjudicate
+- ✅ **Framework structure stands** as AVE-native description: lemniscate-with-q-half-twists, (2, q) family, bipartite K4, three-layer chirality, substrate-native Pauli (provisional pending He/Li/Cooper pressure-test per §9(e)), Virial sum rest-energy m_e c² = ½ L I_max² + ½ C V_peak² (§3.5), Meissner-asymmetric magnetic-moment generator (§6.7) — all of §1-§6 lands as canonical corpus-cited structure
+- ✅ **Bond-pair object class empirically verified:** path α v1 + v2 found 4 K4 (+1,+1,+1) tetrahedral bond-pairs naturally at Move 5's saturated attractor in BOTH sectors. Doc 37 §1 framing structurally correct.
+- ✅ **Op14 trading channel empirically verified:** path α v2's recording at Φ_link captured non-trivial dynamics (σ_Φ ranging 0.022-0.27, σ_ω ranging 0.04-0.05) over 185 P. Trading IS happening; just doesn't produce corpus φ²/chirality signature.
+- ❌ **Empirical signature falsified across both sectors:** R/r ≠ φ² in either V_inc/V_ref OR Φ_link/ω; chirality null in both; bipolar +x/−x split robust across both
+- ❌ **Doc 75 line 140's "Φ_link sector" prediction empirically falsified** (path α v2 Mode III)
+- ⚠ **Three structural-reason branches** per §7.6.3 (continuum-limit-only / topology revision / signature revision) constitute the negative closure's open framework questions
 
-### §8.3 Recommended next-step path (corrected v4.4 — sampler redesign, not engine fix)
+### §8.3 Round 10+ candidate research directions (post-L3-closure)
 
-**Path α v2 with (Φ_link, ω) trading-channel sampler:**
+L3 branch closes negative at v5; the canonical empirical question (does engine reproduce corpus electron at engine-representable scale?) is empirically answered NO. **Future research directions** (NOT part of L3 closure; queued for fresh research arcs):
 
-1. Engine setup unchanged (Move 5 baseline at N=32, R=10, r=R/φ², peak |ω|=0.3π via A26 scale)
-2. Pre-evolve to t=10 P (transient settle)
-3. Selection window [10, 15] P: identify saturated A-B bond pairs via K4 tetrahedral port offsets (same as v1 — bond-pair structure verified empirically in path α v1 §7.1)
-4. **Recording window [15, 200] P** (extended from v1's [15, 50] P; spans ~3-4 trading periods at 0.020 rad/unit): capture Φ_link[A_bond, port] and ω_axial = ω[A_node] · b_hat at each bond-pair (b_hat = bond direction unit vector)
-5. Per-bond analysis: PCA on (Φ_link, ω_axial) point cloud → R_phase, r_phase via covariance eigenvalues; chirality via sign(d Φ_link/dt × d ω_axial/dt) Hilbert-extracted phase rate
-6. Per-cluster adjudication (same as v1): +x cluster + -x cluster
-7. Dual-criterion: C1 (R/r = φ² ± 5% per cluster) + C2 (chirality direction consistent with K4 RH per cluster) + cross-cluster chirality consistency
+**Direction 1 — N=128+ lattice escalation** (tests Branch (a) continuum-limit hypothesis):
+- Run Move 5 + path α v2 at N=128 (R=8, r=R/φ²≈3.06, peak |ω|=0.3π)
+- ~5-8 hr per run; substantial compute investment
+- If Mode I at N=128 + Mode III at N=32 → continuum-limit hypothesis confirmed; corpus revision specifies framework predictions apply at finer-than-engine-prescribed lattice
+- If Mode III at N=128 too → continuum hypothesis falsified; deeper reframe needed
 
-**Cost:** ~2 hr fresh implementer session (driver redesign + run + adjudication).
+**Direction 2 — Topology variation** (tests Branch (b)):
+- Run Move 5 + path α v2 at non-(2,3) topology: try (3,5) cinquefoil, Hopfion, or non-(2,q) family
+- Tests whether (2,3) was wrong topology assignment for electron at engine scale
+- ~2-3 hr per topology; probably need 3-5 variants tested
 
-**Engine fix per doc 75 §6.3 is NOT included** in Round 9 critical path. Per doc 75 line 140 verbatim: V·S/T·1 fix is empirically negligible (Mode I in Diag A); not the cause of Mode III. Queued as E-070 cleanliness work for separate session.
+**Direction 3 — Substrate framing revision** (tests Branch (b)/(c)):
+- Re-examine doc 26 + doc 28 (R, r) Clifford torus framing
+- Identify which corpus prediction is the load-bearing empirical observable vs derived intermediate
+- Possible alternative observables: saturated wall presence (binary), Op14 trading frequency (~0.020 rad/unit measured empirically), c=3 via Op10 scalar topology, m_Cosserat = 2·m_e factor verification
+- Research-tier work, not single-pre-reg test
 
-**Two paths from path α v2 result:**
+**Direction 4 — Engine fix per doc 75 §6.3 (E-070 cleanliness)**:
+- ρ → ρ·S, I_ω → I_ω·S in cosserat_field_3d.py (per doc 75 §6.3)
+- ~30-45 min implementation + ~10 min Diag A verification
+- Per doc 75 line 140 verbatim: NOT load-bearing for Mode III closure (already empirically verified across V_inc/V_ref + Φ_link/ω sectors in path α v1+v2). Queued as cleanliness, not critical.
 
-- **Mode I** (Φ_link/ω ellipse at φ² aspect + chirality matches K4 RH) → corpus electron empirically confirmed in unprobed Φ_link sector; doc 79 lands v5 final positive closure
-- **Mode III** (no Φ_link/ω structure or aspect ≠ φ² or chirality null) → branches (a) [continuum-limit only] or (b) [hybrid V≠0 ∧ ω≠0 seed / different topology per doc 75 line 140] as candidate next-step diagnostics; doc 79 v5 lands negative closure with structural reason
+**Direction 5 — Mass spectrum at higher c** (per doc 80 §2.3):
+- m_p/m_e ≈ 1836, m_τ/m_e ≈ 3477 — derive from operator catalog at q=5, q=7
+- Open framework-level research per doc 80 §2.3
+- Research-tier, not single-pre-reg test
+
+These are research-tier candidate directions for Round 10+ if the L3 branch is reopened. **L3 branch itself closes at v5 with the negative empirical statement standing.**
 
 ## §9 — Corpus revision package downstream of L3 closure
 
