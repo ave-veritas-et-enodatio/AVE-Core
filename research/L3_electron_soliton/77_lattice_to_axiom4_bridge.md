@@ -1,6 +1,6 @@
 # 77 — Lattice-Level Op14 Saturation as Substrate Realization of Ax 4 (Local Clock Rate, R7+R8 Empirical Reframe)
 
-**Status:** auditor-drafted research doc, 2026-04-27. Reframes [doc 76_'s](76_lattice_to_axiom3_bridge.md) lattice→corpus axiom-bridge content under canonical Scheme A per [`.agents/handoffs/axiom_homologation.md`](../../.agents/handoffs/axiom_homologation.md). Doc 76_ retained as Rule 12 supersession record; this doc supersedes its substantive content.
+**Status:** auditor-drafted research doc, 2026-04-27. Reframes [doc 76_'s](76_lattice_to_axiom3_bridge.md) lattice→corpus axiom-bridge content under canonical Scheme A per [`manuscript/ave-kb/common/axiom-homologation.md`](../../manuscript/ave-kb/common/axiom-homologation.md). Doc 76_ retained as Rule 12 supersession record; this doc supersedes its substantive content.
 
 **Companion docs:** [doc 75_](75_cosserat_energy_conservation_violation.md) (Cosserat sector engine implementation; doc 75_'s engine fix discussed in §6.3 below); [doc 76_](76_lattice_to_axiom3_bridge.md) (superseded predecessor written under Scheme B framing; Rule 12 audit trail); [doc 28_](28_two_node_electron_synthesis.md) (real-space vs phase-space coordinate distinction); [doc 20_](20_chirality_projection_sub_theorem.md) (chirality-from-(2,3)-topology parallel-impedance derivation); [doc 10_](10_chirality_accounting_narrative.md) (§8 open item closed by §6.4 below).
 
@@ -21,7 +21,7 @@ The four canonical AVE axioms (Scheme A per [`manuscript/vol_1_foundations/chapt
 
 **Macroscopic gravity** (NOT a primitive axiom; derived consequence of Ax 1 + Ax 4 under Symmetric Scaling): [`eq_gravity_derived.tex`](../../manuscript/common_equations/eq_gravity_derived.tex) — G, n(r), Symmetric Gravity, α-invariance under gravitational strain, n_temporal/n_spatial 2/7+9/7 Poisson decomposition.
 
-**Canonicalization audit** (full cross-repo evidence + inconsistency punch list + P1-P5 fix log): [`.agents/handoffs/axiom_homologation.md`](../../.agents/handoffs/axiom_homologation.md).
+**Canonicalization audit** (full cross-repo evidence + inconsistency punch list + P1-P5 fix log): [`manuscript/ave-kb/common/axiom-homologation.md`](../../manuscript/ave-kb/common/axiom-homologation.md).
 
 ---
 
@@ -214,6 +214,6 @@ Per [Rule 15 lane discipline](../../.agents/handoffs/COLLABORATION_NOTES.md), th
 - **§17 critical-path:** E-072 engine observer (per-cell local clock rate) — implementation candidate post-doc-75_-fix
 - **§A48-A58 audit catalog:** A58 (path-(a)/path-(b) empirical equivalence per doc 75_ §11.6), Round 8 photon-tail closure, axiom homologation discipline (Rule 12 supersession of doc 76_ → doc 77_)
 - **Cross-reference to doc 75_ §11.5:** R7+R8 cumulative empirical statement; engine doesn't host corpus electron at any tested configuration accessible to N=64
-- **Cross-reference to axiom_homologation.md** as the canonicalization audit anchor
+- **Cross-reference to [`manuscript/ave-kb/common/axiom-homologation.md`](../../manuscript/ave-kb/common/axiom-homologation.md)** as the canonicalization audit anchor
 
 This doc 77_ is the canonical Scheme A bridge between lattice Op14 implementation and corpus-level Ax 4 + derived gravity statements; future agents should cite this doc rather than doc 76_ for the substrate-realization framing.

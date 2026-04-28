@@ -30,3 +30,4 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 | [Appendix C: Derived Numerology](appendix-derived-numerology.md) | All APU hardware constants ($Z_0$, $V_{snap}$, $V_{yield}$, $\phi_{yield}$, $\nu_{vac}$, $z_0$, $U_{kink}$, etc.) with full axiom traces |
 | [Appendix D: VCA Symbols](appendix-vca-symbols.md) | 17-component VCA schematic symbol catalogue with EE equivalents and key parameters |
 | [Appendix: SPICE Verification](appendix-spice-verification.md) | ngspice validation pipeline, compiler architecture, `AVE_VACUUM_CELL` tier structure |
+| [Axiom Homologation](axiom-homologation.md) | Cross-repo audit of axiom-numbering schemes (A / B / C / vestige) used across AVE-Core + 8 sibling repos; canonicalization to Scheme A (Vol 1 Ch 1) per homologation P1-P5 commits; living record |
