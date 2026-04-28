@@ -2896,3 +2896,116 @@ predictions:
       not carry the Ch 8 multipole geometry that yields α⁻¹, and P01's
       static-geometry derivation does not survive dynamical instantiation.
 
+  - id: P_phase8_canonical_phase_space_phasor
+    name: "Round 9 entry: doc 28 §5.1 canonical phase-space (V_inc, V_ref) phasor at single A-B bond on Move 5's settled attractor — dual-criterion R_phase/r_phase = φ² ± 5% + chirality direction matches K4 right-handed substrate"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/78_canonical_phase_space_phasor.md"
+    test_file: "src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 9 entry per Grant plumber reframe (electron = trapped node
+      vortex, intrinsic per-node L+C, genesis chirality) + auditor pattern
+      thesis (R, r are phase-space per doc 28 §5.4 + doc 29 §3; Op10 c is
+      scalar per doc 07 §3, NOT a (p,q) winding pair; (2,3)-as-Hopfion-pair
+      was a Vol 1 Ch 8 creeper).
+
+      WHAT THIS TEST IS: doc 28 §5.1's canonical single-bond phasor test
+      in its corpus-canonical phase-space interpretation. Per doc 28 §5.4:
+      "Step 5 reinterpreted Ch 8's R, r as phase-space parameters." Per
+      doc 29 §3.3: "If the three are all phase-space quantities of a
+      unified 3D phase manifold, the dimensions (V_inc real, V_inc imag,
+      temporal phase) give a natural 3-torus with radii (R, r, r_phase)."
+
+      WHAT THIS TEST IS NOT: not the spatial multi-cell torus framing
+      that the seven Mode III tests (R7.1 V-block + Cos-block at N=32+64,
+      R7.2 pair injection, Test B v2/v3 8-port spatial, path (a)/(b)
+      12-loop-node) all tested. Those tested for spatial winding that
+      AVE's universal operators don't predict per doc 07 §3.
+
+      METHODOLOGY:
+      - Engine setup IDENTICAL to Move 5 (P_phase6_self_consistent_orbit_hunt):
+        VacuumEngine3D at N=32, A28 + Cosserat self-terms, no external drive,
+        seed both V_inc and ω with corpus (2,3) ansatz at corpus GT (R=10,
+        r=R/φ²), peak |ω| = 0.3π via A26 amplitude scale, V_amp=0.14 (peak
+        v_total ≈ 0.5·V_SNAP, mid Regime II)
+      - Evolution: 200 Compton periods (≈ 1777 steps at dt = 1/√2)
+      - Recording window: t ∈ [50, 200] Compton periods (post-transient,
+        per Move 5's c=3 plateau established by t=10P, settled attractor
+        from t=50P onward)
+      - Sampler addition: at every step in recording window, capture
+        (V_inc[cell, port], V_ref[cell, port]) at top-K=4 bonds selected
+        by peak |V_inc|² over the recording window's first 10 P,
+        with PML interior filter per Rule 10 PML-cell-exclusion corollary
+        (interior region: pml ≤ {i,j,k} ≤ N − pml − 1)
+      - Per bond: trajectory (V_inc(t), V_ref(t)) is a 2D point cloud in
+        phase space; fit ellipse via PCA on the centered point cloud
+        (eigenvalues of covariance matrix give major/minor axis lengths)
+      - R_phase = √λ_max (major axis); r_phase = √λ_min (minor axis);
+        R_phase/r_phase = √(λ_max/λ_min)
+      - Chirality direction: at each step, compute (V_inc(t+dt) - V_inc(t))
+        × (V_ref(t+dt) - V_ref(t)) (cross product in 2D = scalar);
+        sign of mean over recording window = CCW (positive) or CW (negative)
+
+      DUAL-CRITERION ADJUDICATION (per A39 v2 + A40 prospective discipline):
+
+      C1 (LOAD-BEARING): median R_phase/r_phase across top-K=4 bonds
+        equals φ² = 2.618 within ±5% tolerance (PASS range [2.487, 2.749])
+
+      C2 (LOAD-BEARING): consistent chirality direction across top-K bonds:
+        ≥ 75% of bonds show same sign (CCW or CW) of mean cross-product
+
+      C3 (INFORMATIONAL): chirality direction matches substrate prediction
+        (right-handed K4 expected via genesis chirality; CCW in standard
+        orientation). NOT load-bearing because the substrate-prediction
+        chirality direction at this seed configuration is open per doc 77_
+        §7 Q4 (substrate-time discretization).
+
+      C4 (INFORMATIONAL): Op10 c at the local field configuration of the
+        sampled bonds matches Move 5's prior c=3 plateau finding.
+        Sanity check, not load-bearing for the phase-space framing.
+
+      ADJUDICATION CATEGORIES (Mode I requires C1 AND C2):
+
+      Mode I (CORPUS VINDICATED at canonical phase-space scale):
+        C1+C2 PASS → trapped-node-vortex picture confirmed empirically;
+        L3 branch closes positive at canonical doc 28 §5.1 single-bond
+        phase-space test; the seven Mode III tests retroactively reread
+        as testing wrong (spatial multi-cell) sampler; closure doc 78_
+        anchors the per-node phase-space framing as canonical.
+
+      Mode II (partial — phase-space ellipse exists but not at φ²):
+        C1 FAIL but C2 PASS → bond hosts a stable phase-space ellipse
+        with consistent chirality but not at φ² aspect; characterize
+        as itself per Rule 10 characterize-as-itself corollary; may
+        reflect sub-corpus attractor's actual aspect ratio (Move 5's
+        peak |ω|=0.3π is at saturation onset, not equilibrium).
+
+      Mode III (phasor framing also fails):
+        C1+C2 FAIL → trapped-node-vortex picture also empirically fails;
+        deeper reframe needed; closure doc 78_ adjudicates Mode III with
+        structural reason (substrate fundamentally doesn't host the
+        corpus electron at any test type tried, including phase-space).
+
+      Mode IV (chirality consistent but no closed ellipse):
+        C2 PASS but trajectory is open spiral / decaying / drifting →
+        partial chirality signature without LC reactance closure; rare
+        but possible if engine's V·S/T·1 asymmetry per doc 75_ §6.3
+        causes amplitude drift that swamps the LC closure.
+
+      ESTIMATED COST: ~10-15 min wall (matches Move 5's ~12 min run,
+      plus sampler overhead < 5%). ~80 LOC driver script. Single coherent
+      commit unit per A48: pre-reg + driver + result + doc 78_.
+
+      CITATIONS:
+      - Doc 28 §5.1 + §5.4: phase-space (R, r) reinterpretation
+      - Doc 29 §3.3: phase-space 3-torus reading is consistent
+      - Doc 07 §3: c is scalar invariant via Op10, NOT (p,q) winding pair
+      - Doc 26 §1: standing wave ψ(s,t) = V₀·A(s)·exp(i(ωt+θ(s)))
+      - manuscript/ave-kb/common/axiom-homologation.md: Scheme A canonical
+      - COLLABORATION_NOTES Rule 14 (substrate decides), Rule 16 (ask Grant
+        first), A40 (prospective dual-criterion + multi-N), A45 (corpus-
+        canonical-test-precondition), A48 (frozen-extraction-scope)
+
