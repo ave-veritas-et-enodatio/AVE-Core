@@ -8,6 +8,8 @@
 
 **Amendment workflow:** if the plan needs revision (new findings during execution, scope changes, etc.), edit this file and commit; reference the prior commit hash for delta tracking. No closure-doc-style version-numbering required (this is planning, not empirical record).
 
+**Amendment 2026-04-28 v2 (in-flight per Phase 0.2 grep-verification):** Direction 3.4 (Op20) + Direction 3.5 (Op22) corrected per A43 v10/v11 catches in [`manuscript/ave-kb/common/operators.md` §5](../../manuscript/ave-kb/common/operators.md). Op20 formula `ω_regime = ℓ·c_wave/r_eff` is synthesis (no canonical Vol 1 Ch 6 formula); pre-reg P_phase10_op20_omega_regime requires synthesis-label at freeze time per per-pre-reg A43 v2 verification gate. Op22 formula corrected from `M = 1/(1-S(V))` (synthesis from doc 81 §2.2) to canonical `M = 1/S² = 1/(1 - r²)` per `backmatter/appendix_c_derived_numerology.tex:78`. Both are A43 lane-symmetric implementer-side instances; auditor-lane post-closure bundle will land them as v10 + v11 worked examples (cumulative total 11 across the session arc).
+
 **Amendment 2026-04-28 (auditor review):** five refinements applied to original plan per auditor's pre-Phase-0 audit:
 1. **Phase 1 reassessment checkpoint** — formal mid-arc gate after Direction 3 + Direction 3' results land; reassess Phase 2/3/4 scope before committing 12-21 more sessions (guards against test-cycle pattern over 20-33 session horizon per A62 information-per-cost discriminator)
 2. **Direction 3'.5 He/Li pressure-test reframed from optional → load-bearing** for §6.6 PROVISIONAL Pauli framing canonicalization (per doc 79 §6.6 itself: "Canonicalization requires verifying ... He, Li, Cooper")
@@ -114,13 +116,15 @@ Five new observers + joint adjudication on Move 5 saved state. Each observer is 
 - Critical files: same observer pattern; new driver
 
 **3.4 — Op20 ω_regime regime-eigenvalue observer (~1 session)**
-- ω_regime = ℓ·c_wave/r_eff at saturated bound state; topology rupture trigger at Regime III→IV transition
-- Pre-reg `P_phase10_op20_omega_regime`: Mode I if ω_regime matches ω_C = m_e c²/ℏ ± 5%
+- **Op20 formula caveat (per A43 v10 catch in [operators.md §5](../../manuscript/ave-kb/common/operators.md)):** Vol 1 Ch 6 §1.20 line 320 specifies only "Defines the 5-step regime-crossing scalar target" — NO explicit formula in canonical manuscript source. The framing `ω_regime = ℓ·c_wave/r_eff` originated in [doc 81 §2.2](81_l3_followup_questions.md) implementer-synthesis and was propagated here; it is SYNTHESIS, not corpus. Pre-reg `P_phase10_op20_omega_regime` should explicitly label the formula as "synthesis from doc 81 §2.2 + this plan; canonical Vol 1 Ch 6 narrative does not specify a formula" and propose Mode I criterion against the synthesis form (or alternative observable derivable from "5-step regime-crossing scalar target" if such derivation lands during Phase 1 implementation).
+- Implementation note: synthesis form `ω_regime = ℓ·c_wave/r_eff` at saturated bound state; topology rupture trigger at Regime III→IV transition (synthesis interpretation, not canonical)
+- Pre-reg `P_phase10_op20_omega_regime`: Mode I if synthesis ω_regime form matches ω_C = m_e c²/ℏ ± 5%; per A43 v10 + per-pre-reg verification gate, the synthesis label is required at freeze time
 - Critical files: same observer pattern; new driver
 
 **3.5 — Op22 M avalanche cascade observer (~1 session)**
-- M = 1/(1-S(V)) per cell; nonlinear yield amplification at saturation onset
-- Pre-reg `P_phase10_op22_avalanche`: Mode I if M-factor profile at saturated walls matches corpus prediction; tests semiconductor-to-nucleosynthesis cascade mechanism
+- **Op22 formula correction (per A43 v11 catch in [operators.md §5](../../manuscript/ave-kb/common/operators.md)):** canonical formula per [`backmatter/appendix_c_derived_numerology.tex:78`](../../manuscript/backmatter/appendix_c_derived_numerology.tex) + [`ave-kb/common/appendix-derived-numerology.md:50`](../../manuscript/ave-kb/common/appendix-derived-numerology.md) is **`M = 1/S² = 1/(1 - r²)`**, NOT the `M = 1/(1 - S(V))` form previously cited (from doc 81 §2.2 synthesis). As S → 0 these diverge differently: canonical M → ∞ (avalanche cascades to infinity at saturation onset, per Axiom 4 power conservation effective n=2 exponent); doc 81 synthesis form M → 1 (no cascade). Use canonical formula.
+- Implementation: M = 1/S² per cell where S = √(1-r²); nonlinear yield amplification at saturation onset; cascade-to-infinity mechanism per Axiom 4
+- Pre-reg `P_phase10_op22_avalanche`: Mode I if canonical M-factor profile at saturated walls matches corpus prediction (specifically M → ∞ as S → 0 within numerical resolution); tests semiconductor-to-nucleosynthesis cascade mechanism per Axiom 4 power conservation
 - Critical files: same observer pattern; new driver
 
 **3.6 — Multi-operator joint adjudication (~1-2 sessions)**
