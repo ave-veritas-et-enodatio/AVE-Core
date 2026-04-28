@@ -13,7 +13,7 @@ The full closed-form derivation of $\alpha$ is in Vol 1 Ch 8 (Zero-Parameter Clo
 - **Crossings regime** (transverse self-avoidance at trefoil crossings): $2(R - r) = d \Rightarrow R - r = 1/2$.
 - **Screening regime** (spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$): $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$.
 
-Solving: $R = \varphi/2$, $r = (\varphi-1)/2$ (Golden Torus; $\varphi$ = golden ratio). The holomorphic multipole decomposition at this geometry gives:
+Solving: $R = \varphi/2$, $r = (\varphi-1)/2$ (Golden Torus; $\varphi$ = golden ratio). The multipole decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ at this geometry gives:
 
 > **[Resultbox]** *Cold-lattice $\alpha$ from Golden Torus*
 >

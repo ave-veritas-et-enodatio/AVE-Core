@@ -2,9 +2,9 @@
 Verify the rigorous derivation of Λ_surf = π² from spin-1/2 half-cover
 of the Clifford torus T² ⊂ S³ ⊂ ℂ².
 
-This closes the one remaining theoretical gap in Ch.8's α derivation:
-justifying the specific normalization π² for the holomorphic screening
-area.
+This closes the Λ_surf = π² step of Ch.8's α derivation: justifying
+the specific normalization π² for the Clifford-torus screening area.
+The parallel rigor for Λ_line = π·d lives in verify_lambda_line.py.
 
 ─── Theoretical statement ────────────────────────────────────────────
 The Clifford torus in S³ ⊂ ℂ² parameterized as

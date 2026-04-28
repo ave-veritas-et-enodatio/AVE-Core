@@ -6,7 +6,7 @@
     \item Close the AVE framework's logical loop: derive the Fine Structure Constant $\alpha$ from first principles, with zero free numerical inputs.
     \item Identify the electron natively as the minimum-crossing Trefoil Knot ($3_1$) tensioned to dielectric ropelength on the discrete chiral lattice.
     \item Derive the Golden Torus geometry ($R = \varphi/2$, $r = (\varphi-1)/2$) from $S_{11}$ minimization (Universal Operator~6) plus Nyquist core-thickness constraint (Axiom~1).
-    \item Evaluate the holomorphic multipole decomposition to obtain $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ at $T \to 0$.
+    \item Evaluate the multipole decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ to obtain $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ at $T \to 0$.
     \item Introduce the Vacuum Strain Coefficient $\delta_{\text{strain}}$ as the CMB-induced thermal correction bridging the cold asymptote to the measured CODATA value.
     \item State the falsifiable prediction: $\alpha$ runs with local thermal energy; the cold $137.0363$ is the absolute-zero mathematical asymptote.
 \end{itemize}
@@ -29,7 +29,7 @@ We define the knot's internal geometry using the mathematical limits of \textbf{
 
     \item \textbf{The Self-Avoidance Constraint ($R - r = 1/2$):} As the knot pulls tight, the internal strands passing through the central hole of the torus compress against each other. To prevent the flux lines from attempting to occupy the exact same discrete node (which would trigger catastrophic dielectric rupture), the distance between their centerlines must be at least the tube diameter ($d=1$). For a torus knot, the closest geometric approach of the strands is $2(R-r)$. The physical packing limit structurally enforces $2(R-r) = 1 \implies R - r = 1/2$.
 
-    \item \textbf{The Holomorphic Screening Limit ($R \cdot r = 1/4$):} The $S_{11}$ minimization principle (Universal Reflection Coefficient, \S\ref{sec:universal_gamma}) applied to the closed flux loop enforces that the holomorphic surface screening area evaluates optimally at $\Lambda_{surf} = (2\pi R)(2\pi r) = \pi^2$. This normalization is \emph{not} arbitrary: it is the area of a half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$, derived rigorously from the spin-1/2 structure of the electron. See the rigorous derivation in the next subsection.
+    \item \textbf{The Clifford-Torus Screening Limit ($R \cdot r = 1/4$):} The $S_{11}$ minimization principle (Universal Reflection Coefficient, \S\ref{sec:universal_gamma}) applied to the closed flux loop enforces that the surface screening area evaluates optimally at $\Lambda_{surf} = (2\pi R)(2\pi r) = \pi^2$. This normalization is \emph{not} arbitrary: it is the area of a half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$, derived rigorously from the spin-1/2 structure of the electron. See the rigorous derivation in the next subsection.
 \end{enumerate}
 
 \subsection{Rigorous Derivation of $\Lambda_{\text{surf}} = \pi^2$ from Spin-1/2 Half-Cover}
@@ -86,14 +86,41 @@ Where $\varphi$ is the Golden Ratio. The electron is structurally locked not to 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{trefoil_alpha_qfactor.png}
-    \caption{\textbf{The Electron Soliton at Dielectric Ropelength.} The self-intersecting geometry forces extreme flux crowding at the core, constrained by the discrete $\ell_{node}$ scale strictly to the Golden Torus limit ($R=\varphi/2$, $r=(\varphi-1)/2$). Evaluating the Holomorphic Impedance at this absolute hardware boundary natively yields the geometric Q-factor ($\alpha^{-1} \approx 137.036$).}
+    \caption{\textbf{The Electron Soliton at Dielectric Ropelength.} The self-intersecting geometry forces extreme flux crowding at the core, constrained by the discrete $\ell_{node}$ scale strictly to the Golden Torus limit ($R=\varphi/2$, $r=(\varphi-1)/2$). Evaluating the Clifford-torus multipole impedance at this absolute hardware boundary natively yields the geometric Q-factor ($\alpha^{-1} \approx 137.036$).}
     \label{fig:trefoil_soliton}
 \end{figure}
 
-\section{Holomorphic Decomposition of the Fine Structure Constant ($\alpha$)}
+\subsection{Derivation of $\Lambda_{\text{line}} = \pi \cdot d$ from Nyquist Quantization and Cross-Section 1-Cycle Integration}
+\label{sec:lambda_line_rigor}
+
+The line shape factor $\Lambda_{\text{line}} = \pi \cdot d$ rests on two ingredients drawn from the same regime structure that fixed $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$: regime~(a) Nyquist quantization of the tube diameter, and the multipole-expansion identification of the 1-codimensional integral with the cross-section perimeter. The factor $\pi$ (not $2\pi$) is forced by the regime-(b) self-avoidance convention which makes $d$ a diameter rather than a radius. Each step is parallel in rigor to the Clifford-torus half-cover argument of \S\ref{sec:pi_squared_rigor}.
+
+\paragraph{Identification of $\Lambda_{\text{line}}$ as the 1-cycle integral.}
+The multipole decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ assigns one shape factor per geometric codimension: $\Lambda_{\text{vol}}$ to the 3-cycle phase volume, $\Lambda_{\text{surf}}$ to the 2-cycle Clifford-torus surface, and $\Lambda_{\text{line}}$ to the 1-cycle around the flux tube's transverse cross-section. On the LC network (Axiom~1), this 1-cycle integral is realized physically as the Amp\`ere loop $\oint \mathbf{B} \cdot d\boldsymbol{\ell}$ that links transverse flux to circulating displacement current --- the natural 1-D codimension integral on a Maxwell network. The line shape factor is the dimensionless length of this Amp\`ere loop.
+
+\paragraph{Diameter convention from regime~(b).}
+Regime~(b) self-avoidance imposes $2(R - r) = d$, where $2(R - r)$ is the closest centerline-to-centerline approach of the trefoil's strands at a topologically-marked crossing. For two flux tubes to just touch at their edges (without dielectric rupture), this centerline separation must equal the tube \emph{diameter}, not its radius. This makes $d$ unambiguously the tube diameter throughout the closure system; the corresponding tube radius is $d/2$.
+
+\paragraph{Nyquist-quantized cross-section perimeter.}
+Regime~(a) Nyquist quantizes the minimum lattice-resolvable tube diameter at $d = 1\,\ell_{\text{node}}$. Below this scale, the discrete LC network cannot represent any transverse cross-section structure at all --- sub-pitch ``shape'' distinctions are unphysical. The 1-cycle integral evaluated around the tube cross-section --- in the LC network's continuous-mode envelope, which is the only meaningful representation at the Nyquist resolving limit --- gives the standard perimeter form for a closed 1-cycle of diameter $d$:
+\begin{equation}
+    \Lambda_{\text{line}} \;=\; 2\pi \cdot (d/2) \;=\; \pi \cdot d
+    \label{eq:lambda_line_form}
+\end{equation}
+This is the \emph{full} perimeter of a 1-cycle of diameter $d$ (equivalently $2\pi$ times its radius $d/2$). The factor $\pi$, rather than $2\pi$, is the necessary consequence of $d$ being expressed as a diameter (regime~(b) convention); there is no half-loop. The $\pi$ itself is the standard continuous angular factor of the closed 1-cycle integral, structurally parallel to the $2\pi$ factors that enter $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$ through their 2- and 3-cycle integrals on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$.
+
+\paragraph{Closure.}
+At the Nyquist-quantized minimum $d = 1\,\ell_{\text{node}}$:
+\begin{equation}
+    \Lambda_{\text{line}} \;=\; \pi \cdot d \;=\; \pi
+    \label{eq:lambda_line_value}
+\end{equation}
+Each of the three multipole shape factors now carries the same structural form: a continuous angular factor (powers of $\pi$ from the closed cycles on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$) multiplied by a regime-fixed scale. $R \cdot r = 1/4$ from regimes~(b)$\wedge$(c) fixes the scales of $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$; $d = 1$ from regime~(a) Nyquist fixes the scale of $\Lambda_{\text{line}}$. The three regimes do uniform structural work across the three multipoles --- $\Lambda_{\text{line}}$ is no longer the odd one out. Numerical verification: \texttt{verify\_lambda\_line.py}.
+
+\section{Multipole Decomposition of the Fine Structure Constant ($\alpha$) on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$}
 \label{sec:alpha_decomposition}
 
-The Fine Structure Constant ($\alpha$) is not a randomly ``tuned'' magical scalar. It is identically the dimensionless topological self-impedance (Q-Factor) of this maximal-strain ground state. The total geometric impedance ($\alpha^{-1}$) is obtained by the exact Holomorphic Decomposition of the Golden Torus's energy functional into its three orthogonal geometric dimensions (volumetric, surface, line).
+The Fine Structure Constant ($\alpha$) is not a randomly ``tuned'' magical scalar. It is identically the dimensionless topological self-impedance (Q-Factor) of this maximal-strain ground state. The total geometric impedance ($\alpha^{-1}$) is obtained by the exact multipole decomposition of the Golden Torus's energy functional into its three orthogonal geometric dimensions (volumetric, surface, line) on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$.
 
 \paragraph{Identification step.} The sum decomposition
 \[
@@ -139,7 +166,8 @@ Implementation: computed at engine import-time from pure geometric constants; se
 \begin{itemize}
     \item \texttt{derive\_alpha\_from\_golden\_torus.py} --- evaluates the multipole decomposition at the Golden Torus, renders Fig.~\ref{fig:trefoil_soliton}, asserts agreement with \texttt{ALPHA\_COLD\_INV} to machine precision.
     \item \texttt{verify\_clifford\_half\_cover.py} --- rigorously derives $\Lambda_{\text{surf}} = \pi^2$ from the spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$. Verifies each step analytically + numerically.
-    \item \texttt{ropelength\_trefoil\_golden\_torus.py} --- minimizes the composite S$_{11}$-free-energy (ropelength + self-avoidance + screening penalties) from arbitrary initial $(R, r)$; converges to $(\varphi/2, (\varphi-1)/2)$ to 7 decimal places as penalty weights $\to \infty$.
+    \item \texttt{verify\_lambda\_line.py} --- rigorously derives $\Lambda_{\text{line}} = \pi \cdot d$ from regime~(a) Nyquist quantization plus the regime-(b) diameter convention; verifies the multipole closure under varying $d$ and the structural symmetry of the three shape factors.
+    \item \texttt{ropelength\_trefoil\_golden\_torus.py} --- minimizes the composite S$_{11}$-free-energy (ropelength + self-avoidance + Clifford-torus screening penalties) from arbitrary initial $(R, r)$; converges to $(\varphi/2, (\varphi-1)/2)$ to 7 decimal places as penalty weights $\to \infty$.
     \item \texttt{verify\_golden\_torus\_s11.py} --- ABCD cascade infrastructure + algebraic verification of the constraint system.
 \end{itemize}
 The derivation is algebraically closed and numerically grounded end-to-end.

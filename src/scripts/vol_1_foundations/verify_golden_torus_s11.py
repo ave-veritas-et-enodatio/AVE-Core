@@ -7,7 +7,7 @@ The derivation in `manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.t
 asserts two geometric constraints on the tight trefoil:
 
     (1) Self-avoidance        R - r = 1/2   (internal strands ≥ tube diameter)
-    (2) Holomorphic screening R · r = 1/4   (surface area = π² at S₁₁ minimum)
+    (2) Clifford-torus screening R · r = 1/4   (surface area = π² at S₁₁ minimum)
 
 Solving → R = φ/2, r = (φ-1)/2 (Golden Torus; φ = golden ratio).
 
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     print()
     print("  FULL NUMERICAL VERIFICATION (companion script):")
     print("    → See `ropelength_trefoil_golden_torus.py` in this directory.")
-    print("    • Minimizes arc length + self-avoidance + holomorphic screening")
+    print("    • Minimizes arc length + self-avoidance + Clifford-torus screening")
     print("      (composite S₁₁-min free energy)")
     print("    • Converges to (R, r) = (φ/2, (φ-1)/2) = (0.809017, 0.309017) to 7")
     print("      decimal places from arbitrary starting point.")

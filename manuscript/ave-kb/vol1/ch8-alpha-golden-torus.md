@@ -7,8 +7,9 @@
 
 **Scripts:**
 - [`derive_alpha_from_golden_torus.py`](../../../src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py) — multipole evaluation, renders Fig. of trefoil at Golden Torus
-- [`verify_clifford_half_cover.py`](../../../src/scripts/vol_1_foundations/verify_clifford_half_cover.py) — rigorous 5-step derivation of $\Lambda_{\text{surf}} = \pi^2$ from spin-1/2 half-cover
-- [`ropelength_trefoil_golden_torus.py`](../../../src/scripts/vol_1_foundations/ropelength_trefoil_golden_torus.py) — numerical convergence of composite ropelength + screening objective to Golden Torus
+- [`verify_clifford_half_cover.py`](../../../src/scripts/vol_1_foundations/verify_clifford_half_cover.py) — rigorous 5-step derivation of $\Lambda_{\text{surf}} = \pi^2$ from spin-1/2 half-cover of $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$
+- [`verify_lambda_line.py`](../../../src/scripts/vol_1_foundations/verify_lambda_line.py) — rigorous derivation of $\Lambda_{\text{line}} = \pi \cdot d$ from regime (a) Nyquist + regime (b) diameter convention; verifies multipole closure
+- [`ropelength_trefoil_golden_torus.py`](../../../src/scripts/vol_1_foundations/ropelength_trefoil_golden_torus.py) — numerical convergence of composite ropelength + Clifford-torus screening objective to Golden Torus
 - [`verify_golden_torus_s11.py`](../../../src/scripts/vol_1_foundations/verify_golden_torus_s11.py) — ABCD cascade infrastructure + algebraic verification
 
 **Engine constants** (from [`ave.core.constants`](../../../src/ave/core/constants.py)):
@@ -34,9 +35,37 @@ R(R - 1/2) = 1/4 \implies 2R^2 - R - 1/2 = 0 \implies R = \frac{1 + \sqrt{5}}{4}
 $$
 giving the **Golden Torus**: $R = \varphi/2 \approx 0.809$, $r = (\varphi-1)/2 \approx 0.309$.
 
-## Holomorphic Multipole Decomposition
+## Derivation of $\Lambda_{\text{line}} = \pi \cdot d$ from Nyquist Quantization and 1-Cycle Integration
 
-At the Golden Torus, the holomorphic impedance decomposes into three orthogonal geometric dimensions. With $R \cdot r = 1/4$ and $d = 1$:
+The line shape factor $\Lambda_{\text{line}} = \pi \cdot d$ rests on two ingredients drawn from the same regime structure that fixed $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$: regime (a) Nyquist quantization of the tube diameter, and the multipole-expansion identification of the 1-codimensional integral with the cross-section perimeter. The factor $\pi$ (not $2\pi$) is forced by the regime-(b) self-avoidance convention which makes $d$ a diameter rather than a radius. Each step is parallel in rigor to the Clifford-torus half-cover argument above.
+
+**Identification of $\Lambda_{\text{line}}$ as the 1-cycle integral.**
+The multipole decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ assigns one shape factor per geometric codimension: $\Lambda_{\text{vol}}$ to the 3-cycle phase volume, $\Lambda_{\text{surf}}$ to the 2-cycle Clifford-torus surface, and $\Lambda_{\text{line}}$ to the 1-cycle around the flux tube's transverse cross-section. On the LC network (Axiom 1), this 1-cycle integral is realized physically as the Ampère loop $\oint \mathbf{B} \cdot d\boldsymbol{\ell}$ that links transverse flux to circulating displacement current — the natural 1-D codimension integral on a Maxwell network. The line shape factor is the dimensionless length of this Ampère loop.
+
+**Diameter convention from regime (b).**
+Regime (b) self-avoidance imposes $2(R - r) = d$, where $2(R - r)$ is the closest centerline-to-centerline approach of the trefoil's strands at a topologically-marked crossing. For two flux tubes to just touch at their edges (without dielectric rupture), this centerline separation must equal the tube *diameter*, not its radius. This makes $d$ unambiguously the tube diameter throughout the closure system; the corresponding tube radius is $d/2$.
+
+**Nyquist-quantized cross-section perimeter.**
+Regime (a) Nyquist quantizes the minimum lattice-resolvable tube diameter at $d = 1\,\ell_{\text{node}}$. Below this scale, the discrete LC network cannot represent any transverse cross-section structure at all — sub-pitch "shape" distinctions are unphysical. The 1-cycle integral evaluated around the tube cross-section — in the LC network's continuous-mode envelope, which is the only meaningful representation at the Nyquist resolving limit — gives the standard perimeter form for a closed 1-cycle of diameter $d$:
+
+$$
+\Lambda_{\text{line}} = 2\pi \cdot (d/2) = \pi \cdot d
+$$
+
+This is the *full* perimeter of a 1-cycle of diameter $d$ (equivalently $2\pi$ times its radius $d/2$). The factor $\pi$, rather than $2\pi$, is the necessary consequence of $d$ being expressed as a diameter (regime (b) convention); there is no half-loop. The $\pi$ itself is the standard continuous angular factor of the closed 1-cycle integral, structurally parallel to the $2\pi$ factors that enter $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$ through their 2- and 3-cycle integrals on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$.
+
+**Closure.**
+At the Nyquist-quantized minimum $d = 1\,\ell_{\text{node}}$:
+
+$$
+\Lambda_{\text{line}} = \pi \cdot d = \pi
+$$
+
+Each of the three multipole shape factors now carries the same structural form: a continuous angular factor (powers of $\pi$ from the closed cycles on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$) multiplied by a regime-fixed scale. $R \cdot r = 1/4$ from regimes (b) ∧ (c) fixes the scales of $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$; $d = 1$ from regime (a) Nyquist fixes the scale of $\Lambda_{\text{line}}$. The three regimes do uniform structural work across the three multipoles — $\Lambda_{\text{line}}$ is no longer the odd one out. Numerical verification: [`verify_lambda_line.py`](../../../src/scripts/vol_1_foundations/verify_lambda_line.py).
+
+## Multipole Decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$
+
+At the Golden Torus, the multipole impedance decomposes into three orthogonal geometric dimensions. With $R \cdot r = 1/4$ and $d = 1$:
 
 | Shape factor | Formula | Value | Physical meaning |
 |---|---|---|---|
