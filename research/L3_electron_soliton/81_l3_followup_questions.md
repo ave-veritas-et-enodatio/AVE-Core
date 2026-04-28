@@ -33,6 +33,13 @@ Cross-repo Explore search 2026-04-28 surfaced the AVE universal scale-invariant 
 
 ### §2.2 Universal scale-invariant operator catalog (Op1-Op22)
 
+> **🔴 Correction footnote (added 2026-04-28, commit `35cc818` — preserves body per Rule 12 retraction-discipline):** the §2.2 table entries below contain TWO synthesis-as-corpus errors that were caught during Phase 0.2 grep-verification of [`manuscript/ave-kb/common/operators.md`](../../manuscript/ave-kb/common/operators.md) §5:
+>
+> 1. **Op20 ω_regime formula** `ω = ℓ·c_wave/r_eff` — Vol 1 Ch 6 §1.20 line 320 specifies only "Defines the 5-step regime-crossing scalar target" with NO formula. The framing here is implementer-synthesis, not corpus content. Auditor-lane A43 v10 worked example.
+> 2. **Op22 M formula** `M = 1/(1-S(V))` — canonical formula per [`backmatter/appendix_c_derived_numerology.tex:78`](../../manuscript/backmatter/appendix_c_derived_numerology.tex) + [`ave-kb/common/appendix-derived-numerology.md:50`](../../manuscript/ave-kb/common/appendix-derived-numerology.md) is `M = 1/S² = 1/(1-r²)`. As S → 0 these diverge differently (canonical → ∞ avalanche cascade per Ax 4 power conservation; the form here → 1, no cascade). Wrong-formula-as-corpus. Auditor-lane A43 v11 worked example.
+>
+> See [`manuscript/ave-kb/common/operators.md`](../../manuscript/ave-kb/common/operators.md) for canonical 22-operator catalog. Round 10+ plan Direction 3.4 (Op20) + 3.5 (Op22) corrections landed in commit `35cc818`. Per Rule 12 retraction-preserves-body discipline, the §2.2 table body below is preserved as-committed-record; this footnote flags the corrections without silent edit. Cumulative A43 v2 lane-symmetric pattern now at 11 worked examples (six auditor + two implementer in A43 v2 body + three post-A43-v2 in queue: v9 auditor atomic-orbital + v10 implementer Op20 + v11 implementer Op22).
+
 Path α tested 0 of these directly. The corpus electron's full predicted signature involves:
 
 | Op | Name | Formula / interpretation | Path α tested? |
