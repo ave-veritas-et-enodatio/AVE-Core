@@ -42,11 +42,13 @@ This explicit two-step numerical engine enforces local gauge invariance and ener
 
 | **Quantity** | **AVE Value** | **CODATA** | **Derivation Source** |
 |---|---|---|---|
-| $\ell_{node} = \hbar/m_e c$ | $3.862 \times 10^{-13}$ m | $3.862 \times 10^{-13}$ m | Axiom 1 (unknot) |
-| $\alpha = p_c/8\pi$ | $1/137.036$ | $1/137.036$ | Axiom 4 (EMT $K=2G$) |
-| $\xi_{topo} = e/\ell_{node}$ | $4.149 \times 10^{-7}$ C/m | --- | Axiom 2 ($[Q]\equiv[L]$) |
-| $V_{snap} = m_e c^2/e$ | 511.0 kV | 511.0 kV | Axiom 4 (dielectric limit) |
-| $Z_0 = \mu_0 c$ | 376.73 $\Omega$ | 376.73 $\Omega$ | Axiom 1 ($\sqrt{\mu_0/\epsilon_0}$) |
-| $G$ | $6.674 \times 10^{-11}$ | $6.674 \times 10^{-11}$ | Machian dilution |
+| $\ell_{node} = \hbar/m_e c$ | $3.862 \times 10^{-13}$ m | $3.862 \times 10^{-13}$ m | Axiom 1 (Impedance) |
+| $Z_0 = \sqrt{\mu_0/\epsilon_0}$ | 376.73 $\Omega$ | 376.73 $\Omega$ | Axiom 1 (Impedance) |
+| $\alpha$ | $1/137.036$ | $1/137.036$ | Axiom 2 (Fine Structure); derived in [Ch.8 Golden Torus](../../ch8-alpha-golden-torus.md) |
+| $V_{yield} = \sqrt{\alpha}\,V_{snap}$ | 43.65 kV | 43.65 kV | Axiom 2 (Fine Structure) |
+| $\xi_{topo} = e/\ell_{node}$ | $4.149 \times 10^{-7}$ C/m | --- | Axiom 2 mechanism ($[Q]\equiv[L]$) |
+| $V_{snap} = m_e c^2/e$ | 511.0 kV | 511.0 kV | Definition (Axioms 1, 2) |
+| $G = \hbar c/(7\xi\,m_e^2)$ | $6.674 \times 10^{-11}$ | $6.674 \times 10^{-11}$ | Axiom 3 (Gravity); $\xi \approx 8.15\times 10^{43}$ |
+| $S(A) = \sqrt{1-(A/A_{yield})^2}$ | --- | --- | Axiom 4 (Saturation Kernel) |
 
 ---
