@@ -4,7 +4,13 @@
 
 **v4 → v4.1 (2026-04-28): rest-energy equation integrated.** Auditor research + Vol 4 Ch 1:175-184 corpus verification surfaced that the (2, q) particle's rest energy is structurally fixed at m_e c² by Virial sum at bond-pair LC tank saturation onset. New §3.5 captures this; §7.5 + §8 reframed to make explicit that path α tests GEOMETRY (R/r=φ², chirality), NOT ENERGY (which is m_e c² by structural construction). (Auditor's initial ½ C V² = m_e c² claim was off by 2× — corrected to corpus-verbatim Virial sum form ½ L I_max² + ½ C V_peak² = m_e c² per Vol 4 Ch 1:175-184.)
 
-**v4.1 → v4.2 (2026-04-28): saturation/reflection mechanism integrated.** Auditor research + doc 54 §6 + §6a + line 107 corpus verification surfaced that Γ = -1 walls at saturated nodes are NOT additional physics on top of the rest-energy formula — they ARE the mechanism that makes the LC oscillation MEAN "rest mass" (vs transient that radiates away). §3.5.4 refined: path α tests Ax 4 + Op3 MECHANISM via geometric signatures; energy is structurally fixed by Virial sum. §3.5.2 parameter table flagged V_yield ↔ V_SNAP distinction (V_yield = saturation kernel parameter; V_SNAP = absolute structural rupture / bound-state peak). §6.7 NEW: Meissner-asymmetric mechanism (S_μ → 0 with S_ε finite) is substrate-native magnetic-moment generator — chirality of wall formation = electron spin direction, links Layer 1 chirality to μ_B observable + AVE-HOPF birefringence prediction Δf/f = 1.2α.
+**v4.1 → v4.2 (2026-04-28): saturation/reflection mechanism integrated.** Auditor research + doc 54 §6 + §6a + line 107 corpus verification surfaced that Γ = -1 walls at saturated nodes are NOT additional physics on top of the rest-energy formula — they ARE the mechanism that makes the LC oscillation MEAN "rest mass" (vs transient that radiates away). §3.5.4 refined: path α tests Ax 4 + Op3 MECHANISM via geometric signatures; energy is structurally fixed by Virial sum. §3.5.2 parameter table flagged V_yield ↔ V_SNAP distinction (later corrected in v4.3). §6.7 NEW: Meissner-asymmetric mechanism (S_μ → 0 with S_ε finite) is substrate-native magnetic-moment generator — chirality of wall formation = electron spin direction, links Layer 1 chirality to μ_B observable + AVE-HOPF birefringence prediction Δf/f = 1.2α.
+
+**v4.2 → v4.3 (2026-04-28): V_yield ↔ V_SNAP corrected — fourth A43 instance this session.** Auditor flagged that v4.2's §3.5.2 framing ("walls form at V_yield") was wrong per doc 53 §3.1 verbatim. Corpus grep confirmed:
+- **Doc 53 §3.1 lines 233-245 (verbatim):** "V_yield (43.65 kV) is the onset of nonlinearity... But no Γ = -1 wall yet, no confined pair. V_SNAP (511 kV) is full saturation at the node — Z_core → 0, Γ = -1 forms, the (2,3) winding closes."
+- **Vol 4 Ch 1:711 (verbatim):** "Subatomic-scale simulations should override with v_yield=V_SNAP." At engine subatomic scale, the macro two-threshold dialectic collapses to ONE threshold = V_SNAP.
+
+§3.5.2 corrected: walls form at V_SNAP (not V_yield); macro two-threshold framing applies only at macro scale (where doc 54 §6a's V_yield=C_eff-imaginary is the partial-cascade nonlinear-onset, not full wall formation); engine subatomic scale operates at single threshold V_SNAP. §3.5.4 corrected to reference V_SNAP for wall formation. Path α v2 amplitude target UNCHANGED (Move 5's seed already at A²=1 saturation per peak |ω|=0.3π + V_inc seed combined). Doc 75 §6.3 engine fix remains the load-bearing precondition — V·S/T·1 asymmetry prevents BOTH sectors from saturating simultaneously, blocking the Meissner-asymmetric mechanism that produces the Γ = -1 walls at V_SNAP.
 
 **Version history:**
 - v1 → v2: incorporated 5 auditor pushbacks (knot-theory honesty in §1+§2, substrate-vs-imported equivalence in §4, Pauli per doc 37 §3.1, A60 to COLLABORATION_NOTES, c=q half-twist universal form)
@@ -94,10 +100,18 @@ All substrate-native, no fitted parameters:
 - $L_0 = \xi_{topo}^{-2} \cdot m_e \approx 5.29 \times 10^{-18}$ H (bond-pair inductance per Vol 4 Ch 1:182)
 - $I_{max} = \xi_{topo} \cdot c$ (peak lattice current at saturation per Vol 4 Ch 1:182)
 - $C_e = e/V_{SNAP} = e^2/(m_e c^2) \approx 3.13 \times 10^{-25}$ F (bond-pair capacitance per doc 24_ §4)
-- $V_{SNAP} = m_e c^2/e \approx 511$ kV (**absolute structural rupture / bound-state peak voltage**; Ax 4 dielectric limit per Vol 1 Ch 1:221)
-- $V_{yield} = \sqrt{\alpha} \cdot V_{SNAP} \approx 43.65$ kV (**saturation kernel onset**; Ax 4 + Ax 2 per eq_axiom_2.tex; where varactor C_eff goes imaginary per doc 54 §6a)
+- $V_{SNAP} = m_e c^2/e \approx 511$ kV (**Ax 4 full saturation: A²=1 at node, Z_core → 0, Γ = -1 walls form, (2,3) winding closes per [doc 53 §3.1 lines 243](53_pair_production_flux_tube_synthesis.md); bound-state peak voltage in Virial-sum derivation per Vol 4 Ch 1:175-184**)
+- $V_{yield, macro} = \sqrt{\alpha} \cdot V_{SNAP} \approx 43.65$ kV (**macro-scale ONLY: nonlinearity onset; partial-cascade C_eff-imaginary per doc 54 §6a; NO Γ = -1 wall yet per doc 53 §3.1**)
 
-> **⚠ V_yield ↔ V_SNAP distinction (load-bearing per v4.2):** these are TWO DIFFERENT thresholds. V_yield is where the saturation kernel S(A) first hits 0 (varactor C_eff diverges then flips imaginary; Γ = -1 walls form). V_SNAP is the absolute dielectric rupture limit — this is the bound state's peak voltage in the Virial-sum derivation (½ C_e V_SNAP² = ½ m_e c²), NOT V_yield. Bound LC tank oscillates from 0 through V_yield up to V_SNAP each cycle; walls form at V_yield going up, peak amplitude is V_SNAP. Conflating these (e.g., "the LC tank seals at V_yield with peak energy m_e c²") is a corpus-readable error — the seal forms at V_yield but the cavity's peak amplitude continues to V_SNAP because the walls reflect the wave back inward (energy contained, not dissipated).
+> **V_yield ↔ V_SNAP at engine subatomic scale — corrected per v4.3 (fourth A43 instance):**
+>
+> Per [Vol 4 Ch 1:711 verbatim](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L711): *"Subatomic-scale simulations (e.g., bond energy solvers, Yang-Mills confinement) should override with v_yield=V_SNAP (≈ 511 kV)."* **At engine operating scale, the macro two-threshold dialectic collapses to a SINGLE threshold = V_SNAP.**
+>
+> Per [doc 53 §3.1 lines 233-245 verbatim](53_pair_production_flux_tube_synthesis.md): walls form at V_SNAP (full saturation A²=1), NOT at V_yield. V_yield is partial-cascade nonlinear onset ONLY at macro scale (Duffing regime activates, c_local starts dropping, but no Γ = -1 wall yet). Doc 54 §6a's "C_eff goes imaginary at V_yield" describes the partial-cascade single-sector flip (one of μ or ε going imaginary), not the full wall formation which requires BOTH sectors collapsing simultaneously at A²=1.
+>
+> **For engine path α v2 purposes:** Move 5's seed (peak |ω|=0.3π + V_inc seed at amp=0.14 → peak v_total ≈ 0.5·V_SNAP) gives A² ≈ 1 at the high-saturation cells (Cosserat κ contribution ≈ 0.89 + V_inc contribution ≈ 0.25, sum ≥ 1 at peak, clipped to saturation). **Move 5 IS at the wall-formation threshold per A²=1 condition.** Path α v2 amplitude target is unchanged.
+>
+> **v4.2's framing was wrong:** stated "walls form at V_yield" — that's the macro-scale partial-cascade view, not the subatomic wall-formation condition. Auditor caught via doc 53_:243 grep. v4.3 corrects to: walls form at V_SNAP at engine scale; V_yield is macro-only nonlinear-onset partial step.
 
 ### §3.5.3 Why the rest energy is STRUCTURAL, not predicted
 
@@ -128,8 +142,8 @@ So **the same substrate-fundamental machinery derives full relativistic** $E^2 =
 This is consistent with doc 75 §6.3's V·S/T·1 implementation gap: without symmetric L,C scaling under saturation, the saturation kernel S(A) doesn't act on T_kinetic; Z_eff doesn't collapse to 0 properly; Γ doesn't reach -1; walls don't form; cavity doesn't seal; energy leaks; persistence drops.
 
 **Doc 75 §6.3 engine fix is the precondition for clean Ax 4 + Op3 mechanism manifestation.** Post-fix path α rerun should:
-- Restore symmetric L,C saturation → Z_eff → 0 cleanly at V_yield
-- Walls form at Γ = -1 via Meissner-asymmetric mechanism (per chirality bias)
+- Restore symmetric L,C saturation → Z_eff → 0 cleanly at full saturation V_SNAP (A²=1)
+- Walls form at Γ = -1 via Meissner-asymmetric mechanism (per chirality bias) at V_SNAP per doc 53 §3.1
 - Cavity seals; ρ(T_cos, V_cos) → -1; persistence improves toward stable
 - Allow path α to test the Ax 4 + Op3 mechanism on a substrate where the mechanism actually engages
 
