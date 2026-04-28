@@ -1,6 +1,11 @@
 # 80 — Kelvin / Helmholtz / Faddeev-Niemi as Historical Precedent for AVE Knotted-Particle Framework
 
-**Status:** auditor-drafted historical-precedent research note, 2026-04-28. Companion to [doc 79_ §11](79_l3_branch_closure_synthesis.md). Traces the 19th-century vortex-atom lineage that anticipates AVE's (2, q) torus knot framework, identifies specific Kelvin/Helmholtz intuitions worth deepening for AVE-specific work, and flags open research questions. **Background context, not closure-blocking.**
+**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v1.1. Companion to [doc 79_ §11](79_l3_branch_closure_synthesis.md). Traces the 19th-century vortex-atom lineage that anticipates AVE's (2, q) torus knot framework, identifies specific Kelvin/Helmholtz intuitions worth deepening for AVE-specific work, and flags open research questions. **Background context, not closure-blocking.**
+
+**v1 → v1.1 (2026-04-28 auditor pushback round 2):**
+- §5 specified target chapter for Kelvin/Helmholtz/Faddeev-Niemi citations: Vol 2 Ch 4 (quantum spin) primary; Vol 1 Ch 1 intro secondary
+- §2.1 + §2.2 priority-bumped as **HIGHEST-LEVERAGE** post-closure framework deepening (Helmholtz vortex theorem portability + helicity-as-Hopf-invariant)
+- Lane attribution fixed: "implementer-drafted with auditor + Grant pushback" per Rule 15 (was incorrectly "auditor-drafted" in v1)
 
 **Trigger:** Grant directive 2026-04-28 — *"knot theory has been a productive avenue to follow and was somewhat stated by Lord Kelvin's vortices of atoms. Any intuition from Lord Kelvin we should research?"*
 
@@ -22,7 +27,7 @@
 
 Per Grant's directive — what's in Kelvin's vortex-atom papers that AVE could productively adopt or refine?
 
-### §2.1 Topological stability via vortex linking number
+### §2.1 Topological stability via vortex linking number  **[HIGHEST-LEVERAGE post-closure framework deepening]**
 
 Kelvin's stability argument (1867): you can't continuously deform one knot type into another within a fluid that obeys Helmholtz's theorems. The knot type is conserved by the dynamics. Therefore particles (= specific knot types) are stable indefinitely.
 
@@ -30,7 +35,7 @@ Kelvin's stability argument (1867): you can't continuously deform one knot type 
 
 **Open research:** does AVE's saturation-envelope-confinement stability proof port from Helmholtz's fluid argument, or does it need its own discrete-substrate derivation?
 
-### §2.2 Helicity ∫A·B dV as topological invariant (Hopf invariant)
+### §2.2 Helicity ∫A·B dV as topological invariant (Hopf invariant)  **[HIGHEST-LEVERAGE post-closure framework deepening]**
 
 Helmholtz's helicity is the integral of velocity field's parallel component along its own curl: H = ∫ u·(∇×u) dV. For a knotted vortex, this evaluates to the Hopf linking number multiplied by circulation²; it's a topological invariant of the vortex configuration.
 
@@ -102,11 +107,23 @@ Three structural takeaways from the Kelvin/Helmholtz precedent:
 
 ## §5 — Recommended follow-up
 
-- Add Kelvin / Helmholtz / Faddeev-Niemi citations to Vol 1 Ch 1 introduction or Vol 2 Ch 4 quantum spin (post-closure manuscript revision)
-- Consider deepening §2.1 + §2.2 — does the Helmholtz vortex theorem + helicity calculation port to K4-TLM substrate, or does AVE need its own proofs?
-- Consider §2.3 open question — derive (2, q odd) stability rule structurally from K4 bipartite + Cosserat dynamics rather than relying on Faddeev-Niemi field-theoretic argument
+**Citation landing target (post-closure manuscript revision):**
 
-These are research-tier open questions, not closure-blocking.
+- **Primary target — Vol 2 Ch 4 (quantum spin):** the chapter already has gyroscopic precession + half-cover material; Kelvin/Helmholtz/Faddeev-Niemi citations land naturally in the existing physics-derivation flow. Add a "Historical Precedent" subsection or footnote at the chapter's introduction citing Helmholtz 1858, Kelvin 1867, Tait knot tables, and Faddeev-Niemi 1997 as the lineage from which AVE's (2, q odd) framework descends.
+- **Secondary target — Vol 1 Ch 1 introduction:** brief foundational mention as part of the framework's historical context. One sentence + citations is sufficient; the substantive lineage discussion stays in Vol 2 Ch 4.
+
+**Highest-leverage research-tier open questions (post-closure framework deepening priority):**
+
+- **§2.1 — Helmholtz vortex theorem portability:** does the continuous-fluid stability proof (Kelvin 1867 via Helmholtz 1858) port to K4-TLM discrete substrate, or does AVE need its own substrate-native stability proof? Currently relying on Faddeev-Niemi field-theoretic stability + empirical Move 5 observation. A genuine K4-TLM-substrate-native derivation would be the cleanest closure of the (2, q odd) stability framework.
+- **§2.2 — Helicity-as-Hopf-invariant equivalence:** is doc 20_'s parallel-impedance χ = α·pq/(p+q) reducible to a Helmholtz-Kelvin helicity calculation in K4-TLM language? If yes, AVE's chirality coupling has a clean topological-invariant grounding. If no, the parallel-impedance is genuinely substrate-specific (K4-TLM-native, not portable).
+
+**Lower-priority research-tier questions:**
+
+- §2.3 — derive (2, q odd) selection rule structurally from K4 bipartite + Cosserat dynamics rather than relying on Faddeev-Niemi field-theoretic argument
+- §2.4 — full audit of which Kelvin/Helmholtz arguments survive transfer to AVE substrate, which require modification, and which don't apply
+- §2.5 — substrate-genesis chirality mechanism: is K4 right-handed bipartite genesis-conditional, and does this connect to cosmological matter/antimatter asymmetry?
+
+These are research-tier open questions, not closure-blocking. §2.1 + §2.2 are flagged as highest-leverage because they would substantially strengthen AVE's framework foundations if closed.
 
 ---
 

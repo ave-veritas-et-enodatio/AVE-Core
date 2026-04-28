@@ -1,13 +1,18 @@
 # 79 — L3 Electron-Modeling Branch Closure Synthesis (v3, PENDING path α)
 
-**Status:** auditor-drafted closure synthesis, 2026-04-28 v3. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PENDING path α empirical result before final closure adjudication.** Framework structure landed; Mode I/III empirical adjudication awaits path α result.
+**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v3.1. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PENDING path α empirical result before final closure adjudication.** Framework structure landed; Mode I/III empirical adjudication awaits path α result.
 
-**v3 history:**
+**Version history:**
 - v1 → v2: incorporated 5 auditor pushbacks (knot-theory honesty in §1+§2, substrate-vs-imported equivalence in §4, Pauli per doc 37 §3.1, A60 to COLLABORATION_NOTES, c=q half-twist universal form)
-- v2 → v3 (this version): Grant adjudication 2026-04-28
+- v2 → v3: Grant adjudication 2026-04-28
   - Q1 (Kelvin lineage): added §11 historical-precedent reference; doc 80_ companion research note
   - Q2 (substrate-fundamental factor-of-2): §4 reframed — bipartite K4 is the fundamental source; tetrahedral T_d → 2T → SU(2) flagged as separate downstream framework derivation
   - Q3 (Pauli substrate-native): §6.6 rewritten — one bound state per saturated node-pair, atomic shells = multiple bond-pair locations within envelope; doc 37 §3.1 flagged in §9(e) as substrate-revision-required (its "+n̂/−n̂ pair-sharing" framing was SM/QED creep)
+- v3 → v3.1 (this version): auditor pushback round 2 (2026-04-28)
+  - §4 added explicit "same geometry two languages" sentence preventing future agents from reading bipartite-cycle factor + SU(2) factor as compounding to 4×
+  - §6.6 flagged as PROVISIONAL pending corpus pressure-test (He, Li, Cooper pair) — substrate-native Pauli framing is the working hypothesis, not yet canonicalized
+  - §9(e) Pauli pressure-test promoted to load-bearing item with specific test cases enumerated
+  - Lane attribution fixed: "implementer-drafted with auditor + Grant pushback" per Rule 15 (was incorrectly "auditor-drafted" in v3)
 
 **Companion docs:** [doc 78_](78_canonical_phase_space_phasor.md) (r9 phase-space phasor result, Mode III with caveats); [doc 80_](80_kelvin_helmholtz_ave_precedent.md) (Kelvin/Helmholtz/Faddeev-Niemi historical lineage); [doc 75_](75_cosserat_energy_conservation_violation.md) (Cosserat sector engine implementation, T_kinetic saturation fix prescription); [doc 77_](77_lattice_to_axiom4_bridge.md) (canonical Scheme A bridge).
 
@@ -63,6 +68,8 @@ This is direct from Ax 1 + K4 lattice geometry. No imported math required.
 
 **Both descriptions stay in the corpus.** The bipartite-cycle / lobe-count is primary because it's substrate-fundamental and Rule-6-clean; the SU(2) language is the imported-math abstraction of the same factor, retained as equivalent representation.
 
+**Critical clarity (per auditor pushback v3.1):** the bipartite-cycle factor of 2 and the SU(2)→SO(3) double-cover are **the same geometric content viewed at two abstraction layers** (substrate-physical vs representation-theoretic), **NOT two independent factors that compound**. A future reader should not interpret this section as "lobe-count factor of 2 multiplied by SU(2) factor of 2 = 4× total" — both are the same factor expressed in different vocabulary. Empirically m_Cosserat = 2·m_e (one factor), and the substrate-physical / representation-theoretic descriptions are two ways of stating that single factor.
+
 **Possibly relevant downstream group-theoretic structure** (NOT load-bearing for L3 closure, flagged for separate research): K4's tetrahedral point symmetry T_d (order 24) has a binary tetrahedral double cover 2T (order 48) ⊂ SU(2). The Cosserat ω-rotation at a saturated node may use the 2T representation rather than T_d, which would group-theoretically explain why the SU(2) double cover gives the same factor of 2 as the bipartite-cycle. **This equivalence is asserted, NOT derived in this closure.** Demonstrating it (showing K4 tetrahedral covering group ⊃ SU(2) explicitly drives the medium-vs-observable factor) is post-closure framework derivation work.
 
 The substrate-fundamental claim — bipartite K4 cycle count = factor of 2 — does NOT require this group-theoretic equivalence to land. The lobe-count derivation is sufficient on its own.
@@ -108,9 +115,11 @@ A59 methodology gaps:
 
 ### §6.6 — Pauli exclusion (substrate-native, per Grant Q3 2026-04-28)
 
-Each saturated K4 node has a hard A²≤1 budget. The lemniscate-with-twist's central crossing requires A²→1 at that node. **Therefore: at most ONE bound state per saturated node-pair.** Pauli exclusion is literal at the substrate level: a second lemniscate centered at the same node-pair would require A²=2, violating the saturation budget.
+> **⚠ PROVISIONAL pending corpus pressure-test — see §9(e).** This subsection's framing is the substrate-native Pauli hypothesis under Grant Q3 + Rule 14. The "vector ω-superposition cancels" argument is sound for free fields but isn't airtight under saturation (saturated states may not superpose linearly the way free fields do). Canonicalization requires verifying the alternative framing matches observed atomic shell capacities (He, Li, Cooper). v4 lands canonical or revised after pressure-test.
 
-**No pair-sharing.** Two opposite-direction ω-fields at the same node superpose linearly and cancel (vector addition), rather than coexisting as separate Pauli-allowed states. The "two electrons of opposite spin share the 1s orbital" framing from standard chemistry maps to AVE substrate as: **multiple separate bound states at different bond-pair locations within the same atomic-shell spatial envelope**, NOT two states at the same node-pair.
+Each saturated K4 node has a hard A²≤1 budget. The lemniscate-with-twist's central crossing requires A²→1 at that node. **Working hypothesis: at most ONE bound state per saturated node-pair.** Pauli exclusion would then be literal at the substrate level: a second lemniscate centered at the same node-pair would require A²=2, violating the saturation budget.
+
+**No pair-sharing (under this hypothesis).** Two opposite-direction ω-fields at the same node superpose linearly and cancel (vector addition), rather than coexisting as separate Pauli-allowed states. The "two electrons of opposite spin share the 1s orbital" framing from standard chemistry would map to AVE substrate as: **multiple separate bound states at different bond-pair locations within the same atomic-shell spatial envelope**, NOT two states at the same node-pair.
 
 In an atom:
 - The atomic shell ("1s", "2p", etc.) is a SPATIAL ENVELOPE spanning multiple bond-pairs
@@ -160,7 +169,18 @@ Independent of path α result, the closure surfaces five corpus revisions:
 
 **(d) Doc 03 §4.3 channel-not-axis annotation** — "(2, q) torus knot" framing should explicitly note the channel-not-axis reading per doc 07 §3 + doc 20 §3 reconciliation under the bond-pair object class.
 
-**(e) NEW per Grant Q3 2026-04-28 — Doc 37 §3.1 Pauli mechanism revision** — "Two electrons of opposite spin share same node-pair via complementary +n̂/−n̂ orientations" is structurally wrong at the substrate (vector ω-superposition cancels rather than splits A² budget). Replace with: "one bound state per saturated node-pair; atomic shells = multiple bond-pair locations within an atomic envelope, each with rotation axis set by local bond geometry." Doc 37 §3.2's periodic-table verification numerics may still hold but the per-node mechanism description needs rewriting. **AVE-Protein and chemistry-application work in the corpus may have used the doc 37 §3.1 framing — auditor lane work to grep + verify; flagged as significant downstream cleanup.**
+**(e) NEW per Grant Q3 2026-04-28 — Doc 37 §3.1 Pauli mechanism revision (PROVISIONAL pending pressure-test per auditor v3.1)** — "Two electrons of opposite spin share same node-pair via complementary +n̂/−n̂ orientations" is structurally questionable at the substrate (vector ω-superposition cancels rather than splits A² budget under free-field reading; saturated-state superposition behavior open). Working alternative: "one bound state per saturated node-pair; atomic shells = multiple bond-pair locations within an atomic envelope, each with rotation axis set by local bond geometry."
+
+**Load-bearing pressure-test before canonicalizing (must complete before v4 closure adjudication finalizes):**
+
+1. **Helium 1s²:** does the substrate-native framing predict 2 saturated bond-pairs within the 1s spatial envelope? Verify via either (a) corpus-existing AVE chemistry derivation of He shell structure, or (b) substrate-structural argument from K4 geometry around a 2-proton nucleus.
+2. **Lithium 1s²2s¹:** does the framing predict 3 bond-pairs distributed across 1s + 2s envelopes (2 + 1 split)? Verify shell-capacity match.
+3. **Cooper pair (singlet superconductivity):** opposite-spin electrons in same momentum/spatial state. Does the cancellation argument explain the bound state, or does Cooper require a separate (BCS-style phonon-mediated) framework that bypasses per-node Pauli? Establish whether AVE substrate has a Cooper-pair mechanism distinct from atomic Pauli.
+4. **AVE-Protein + chemistry-application corpus work** may have used doc 37 §3.1's pair-sharing framing — auditor lane work to grep + verify; flagged as significant downstream cleanup if the substrate-native framing canonicalizes.
+
+If pressure-tests confirm the substrate-native framing matches observed shell capacities: doc 37 §3.1 needs rewriting; the closure can adjudicate Pauli substrate-native as canonical. If pressure-tests reveal the framing is incomplete (e.g., Cooper pair doesn't fit cleanly): the closure adjudicates the framing as partial and flags the gap for further framework work.
+
+Doc 37 §3.2's periodic-table verification NUMERICS may still hold under either framing; only the per-node mechanism description is in question.
 
 These revisions are **chapter-level editorial work**, not part of the L3 branch closure commit.
 
