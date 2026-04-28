@@ -66,11 +66,13 @@ Consequently, the cross-product vector ($\nabla V_1 \times \nabla V_2$) evaluate
 
 The $6^3_2$ Borromean linkage consists of three mutually orthogonal loops, each pair of which crosses exactly twice. The total number of pairwise orthogonal crossings is therefore $\binom{3}{2} \times 2 = 6$. By the $\mathbb{Z}_3$ permutation symmetry of the linkage, all six crossings are geometrically equivalent under discrete rotation.
 
-### The Derived Saturation Threshold
+### The Saturation Threshold (Under a Gaussian Flux-Tube Ansatz)
 
-The critical advance in evaluating $\mathcal{V}_{total}$ is determining the density threshold at which the combined flux-tube field becomes topologically locked. This threshold is derived from the mutual inductance coupling between the orthogonal LC flux loops at their crossings.
+The critical advance in evaluating $\mathcal{V}_{total}$ is determining the density threshold at which the combined flux-tube field becomes topologically locked. This threshold is derived from the mutual inductance coupling between the orthogonal LC flux loops at their crossings, conditional on the radial profile of the flux tube.
 
-Each flux tube is a Gaussian LC resonant loop with FWHM $= \ell_{node}$ (Axiom 1), giving a Gaussian dispersion $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$. At a pairwise crossing, the tubes are separated by the skew offset $d = \ell_{node}/2$. The mutual inductance coupling coefficient between two perpendicular tubes at this separation is:
+**Profile ansatz (open derivation gap).** The σ derivation below assumes a **Gaussian flux-tube radial profile** with FWHM $= \ell_{node}$. Axiom 1 fixes the FWHM (Nyquist content: the smallest unambiguously-resolvable transverse feature is one lattice pitch), but it does not specify the functional form. The Gaussian is an *ansatz* for tractability; other LC-soliton profiles (sech² kink, Bessel $J_0$ waveguide fundamental, the algebraic Axiom 4 kernel $\sqrt{1-r^2}$) would yield different mutual-coupling kernels and a different $\rho_{threshold}$. Either deriving the Gaussian profile from Axiom 4 LC dynamics, or replacing it with the framework-consistent profile and re-evaluating $\mathcal{V}_{total}$, is a documented outstanding rigour gap (see [`mathematical-closure.md`](../../../common/mathematical-closure.md) §Outstanding Rigour Gaps). The result below is internally consistent and parameter-free *conditional on the Gaussian ansatz*; the empirical constraint $\mathcal{V}_{total} = 2.0$ at FEM convergence remains binding on whatever profile ultimately emerges.
+
+Each flux tube is taken as a Gaussian LC resonant loop with FWHM $= \ell_{node}$, giving a Gaussian dispersion $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$. At a pairwise crossing, the tubes are separated by the skew offset $d = \ell_{node}/2$. The mutual inductance coupling coefficient between two perpendicular tubes at this separation is:
 
 > **[Resultbox]** *Orthogonal Flux Tube Mutual Coupling*
 >
@@ -88,7 +90,7 @@ The saturation threshold is where the combined inductive field density ($\rho_{t
 
 The factor of 4 in $\sigma/4$ is not arbitrary: it is the *same* 4 appearing in the mutual inductance exponent $\exp(-d^2/4\sigma^2)$. When two Gaussians of dispersion $\sigma$ overlap mutually, their convolution kernel has effective width $\sqrt{2\sigma^2 + 2\sigma^2} = 2\sigma$, and the coupling integral evaluates against $4\sigma^2$. The threshold excess $\sigma/4$ is therefore the mutual field density contribution from two coplanar Gaussian modes overlapping at their natural convolution scale---a direct consequence of the Gaussian arithmetic, not a fitted parameter.
 
-This is a **zero-parameter result**: it depends only on the Gaussian geometry of the flux tube profile as set by Axiom 1.
+This is a **closed-form result with no fitted parameters**, conditional on the Gaussian flux-tube ansatz declared above. Axiom 1 fixes the FWHM; the Gaussian *profile* is the open derivation gap that, when closed, will determine whether the closed form remains $1.1062$ or shifts to a different value with the framework-consistent profile.
 
 **FEM convergence.** High-resolution 3D finite-element integration of the full Borromean topology at this derived threshold yields:
 
