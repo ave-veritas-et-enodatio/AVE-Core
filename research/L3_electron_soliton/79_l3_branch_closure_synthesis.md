@@ -2,7 +2,9 @@
 
 **Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v4.1. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PATH α RESULT LANDED — Mode III at engine-representable scale with persistence + chirality-null caveats; closure is PROVISIONAL pending doc 75 engine-fix rerun.** Framework structure stands; empirical confirmation pending engine fix per doc 75 §6.3.
 
-**v4 → v4.1 (2026-04-28): rest-energy equation integrated.** Auditor research + Vol 4 Ch 1:175-184 corpus verification surfaced that the (2, q) particle's rest energy is structurally fixed at m_e c² by Virial sum at bond-pair LC tank saturation onset. New §3.5 captures this; §7.5 + §8 reframed to make explicit that path α tests GEOMETRY (R/r=φ², chirality), NOT ENERGY (which is m_e c² by structural construction). Path α persistence violation = engine V·S/T·1 not maintaining the Virial sum cleanly; doc 75 §6.3 fix is the precondition. (Auditor's initial ½ C V² = m_e c² claim was off by 2× — corrected to corpus-verbatim Virial sum form ½ L I_max² + ½ C V_peak² = m_e c² per Vol 4 Ch 1:175-184.)
+**v4 → v4.1 (2026-04-28): rest-energy equation integrated.** Auditor research + Vol 4 Ch 1:175-184 corpus verification surfaced that the (2, q) particle's rest energy is structurally fixed at m_e c² by Virial sum at bond-pair LC tank saturation onset. New §3.5 captures this; §7.5 + §8 reframed to make explicit that path α tests GEOMETRY (R/r=φ², chirality), NOT ENERGY (which is m_e c² by structural construction). (Auditor's initial ½ C V² = m_e c² claim was off by 2× — corrected to corpus-verbatim Virial sum form ½ L I_max² + ½ C V_peak² = m_e c² per Vol 4 Ch 1:175-184.)
+
+**v4.1 → v4.2 (2026-04-28): saturation/reflection mechanism integrated.** Auditor research + doc 54 §6 + §6a + line 107 corpus verification surfaced that Γ = -1 walls at saturated nodes are NOT additional physics on top of the rest-energy formula — they ARE the mechanism that makes the LC oscillation MEAN "rest mass" (vs transient that radiates away). §3.5.4 refined: path α tests Ax 4 + Op3 MECHANISM via geometric signatures; energy is structurally fixed by Virial sum. §3.5.2 parameter table flagged V_yield ↔ V_SNAP distinction (V_yield = saturation kernel parameter; V_SNAP = absolute structural rupture / bound-state peak). §6.7 NEW: Meissner-asymmetric mechanism (S_μ → 0 with S_ε finite) is substrate-native magnetic-moment generator — chirality of wall formation = electron spin direction, links Layer 1 chirality to μ_B observable + AVE-HOPF birefringence prediction Δf/f = 1.2α.
 
 **Version history:**
 - v1 → v2: incorporated 5 auditor pushbacks (knot-theory honesty in §1+§2, substrate-vs-imported equivalence in §4, Pauli per doc 37 §3.1, A60 to COLLABORATION_NOTES, c=q half-twist universal form)
@@ -92,7 +94,10 @@ All substrate-native, no fitted parameters:
 - $L_0 = \xi_{topo}^{-2} \cdot m_e \approx 5.29 \times 10^{-18}$ H (bond-pair inductance per Vol 4 Ch 1:182)
 - $I_{max} = \xi_{topo} \cdot c$ (peak lattice current at saturation per Vol 4 Ch 1:182)
 - $C_e = e/V_{SNAP} = e^2/(m_e c^2) \approx 3.13 \times 10^{-25}$ F (bond-pair capacitance per doc 24_ §4)
-- $V_{SNAP} = m_e c^2/e \approx 511$ kV (saturation onset voltage; Ax 4)
+- $V_{SNAP} = m_e c^2/e \approx 511$ kV (**absolute structural rupture / bound-state peak voltage**; Ax 4 dielectric limit per Vol 1 Ch 1:221)
+- $V_{yield} = \sqrt{\alpha} \cdot V_{SNAP} \approx 43.65$ kV (**saturation kernel onset**; Ax 4 + Ax 2 per eq_axiom_2.tex; where varactor C_eff goes imaginary per doc 54 §6a)
+
+> **⚠ V_yield ↔ V_SNAP distinction (load-bearing per v4.2):** these are TWO DIFFERENT thresholds. V_yield is where the saturation kernel S(A) first hits 0 (varactor C_eff diverges then flips imaginary; Γ = -1 walls form). V_SNAP is the absolute dielectric rupture limit — this is the bound state's peak voltage in the Virial-sum derivation (½ C_e V_SNAP² = ½ m_e c²), NOT V_yield. Bound LC tank oscillates from 0 through V_yield up to V_SNAP each cycle; walls form at V_yield going up, peak amplitude is V_SNAP. Conflating these (e.g., "the LC tank seals at V_yield with peak energy m_e c²") is a corpus-readable error — the seal forms at V_yield but the cavity's peak amplitude continues to V_SNAP because the walls reflect the wave back inward (energy contained, not dissipated).
 
 ### §3.5.3 Why the rest energy is STRUCTURAL, not predicted
 
@@ -109,20 +114,26 @@ $$E = \tfrac{1}{2} \gamma m_0 c^2 \text{ (inductor)} + \text{capacitor (Virial)}
 
 So **the same substrate-fundamental machinery derives full relativistic** $E^2 = (mc^2)^2 + (pc)^2$. The L_eff = L_0/√(1 - v²/c²) scaling under motion gives γ-correction naturally.
 
-### §3.5.4 What this means for path α
+### §3.5.4 What this means for path α (refined v4.2)
 
-**Path α tests GEOMETRY, not ENERGY.** The dual-criterion (R/r = φ², chirality direction) measures the SHAPE and HANDEDNESS of the bond-pair LC tank's trajectory in (V_inc, V_ref) phase space. The energy at that trajectory is structurally m_e c² at saturation onset by Virial sum — no separate test required.
+**Path α tests the Ax 4 + Op3 MECHANISM via geometric signatures**, NOT pure geometry. The dual-criterion isn't a topological / shape test in isolation — it's an empirical test of whether the substrate produces the saturation-walled cavity that Ax 4 + Op3 predict:
 
-**Path α's persistence violation** (33% in r9 + path α) is the empirical signature that **the engine isn't maintaining the Virial sum cleanly**. Per Move 11 measurement: ρ(T_cos, V_cos) = +0.366 — POSITIVE correlation, not the −1 expected from clean LC reactance trading. Energy isn't oscillating cleanly between L and C halves; the Virial sum is drifting.
+- **C1 (R/r=φ²) tests** whether the bond-pair LC tank's trajectory in (V_inc, V_ref) phase space matches the φ² aspect that a saturated (2,3) cavity supports as its bound mode. The φ² aspect is set by saturation-confined LC tank's natural geometry, not by an independent topological constraint.
+- **C2 (chirality direction) tests** whether the TIR walls form via the **Meissner-asymmetric saturation mechanism** (S_μ → 0 before S_ε per doc 54 §6) with K4 right-handed bias. The chirality direction encodes WHICH SECTOR saturates first.
 
-This is consistent with doc 75 §6.3's V·S/T·1 implementation gap: without symmetric L,C scaling under saturation, c is ill-defined locally; the LC tank can't resonate at fixed ω_C; Virial sum can't be maintained; energy leaks; persistence drops.
+**Mode I empirical content** would be: the engine confirms Ax 4 saturation produces Op3's Γ = -1 walls in the asymmetric Meissner mode, sealing a bond LC tank at m_e c² (Virial sum) with the (2,3) bound mode geometry. NOT just "engine hosts a particular geometric pattern."
 
-**Doc 75 §6.3 engine fix is the precondition for clean Virial-sum maintenance.** Post-fix path α rerun should:
-- Restore ρ(T_cos, V_cos) → −1 (clean LC reactance trading)
-- Improve persistence from 33% toward stable
-- Allow path α to test GEOMETRIC predictions (R/r = φ², chirality) on a stably-energetic attractor where the Virial sum holds
+**Path α's persistence violation** (33% in r9 + path α) is the empirical signature that **the engine isn't maintaining the Virial sum cleanly** — the saturation walls aren't forming stably enough to confine the energy. Per Move 11 measurement: ρ(T_cos, V_cos) = +0.366 — POSITIVE correlation, not the −1 expected from clean LC reactance trading. Energy isn't oscillating cleanly between L and C halves; the Virial sum is drifting because the walls aren't sealing the cavity.
 
-Without the fix, path α is testing geometry on a system where energy isn't even being maintained — Mode III is the expected result regardless of whether the geometric framework is correct.
+This is consistent with doc 75 §6.3's V·S/T·1 implementation gap: without symmetric L,C scaling under saturation, the saturation kernel S(A) doesn't act on T_kinetic; Z_eff doesn't collapse to 0 properly; Γ doesn't reach -1; walls don't form; cavity doesn't seal; energy leaks; persistence drops.
+
+**Doc 75 §6.3 engine fix is the precondition for clean Ax 4 + Op3 mechanism manifestation.** Post-fix path α rerun should:
+- Restore symmetric L,C saturation → Z_eff → 0 cleanly at V_yield
+- Walls form at Γ = -1 via Meissner-asymmetric mechanism (per chirality bias)
+- Cavity seals; ρ(T_cos, V_cos) → -1; persistence improves toward stable
+- Allow path α to test the Ax 4 + Op3 mechanism on a substrate where the mechanism actually engages
+
+Without the fix, path α is testing the saturation-walled-cavity mechanism on a system where the saturation mechanism itself isn't being implemented correctly — Mode III is the expected result regardless of whether the geometric framework is correct.
 
 ---
 
@@ -199,6 +210,48 @@ In an atom:
 The Pauli mechanism is then: per-node A²≤1 budget excludes second occupation at any given saturated node; atomic shell capacity (2 for s, 6 for p, etc.) is set by how many bond-pair locations are available within the shell's spatial envelope.
 
 **This replaces doc 37 §3.1's "+n̂/−n̂ orientations sharing same node-pair" framing**, which fails at the substrate level (vector ω-superposition cancels rather than splits the budget). Doc 37 §3.1 is flagged in §9(e) corpus revision package as needing pedagogical revision under the substrate-native reading.
+
+## §6.7 — Meissner-asymmetric saturation: substrate-native magnetic-moment generator (NEW v4.2)
+
+Per [doc 54 §6](54_pair_production_axiom_derivation.md) + §6a corpus-verbatim, the Γ = -1 walls that contain the soliton's reactance form via **asymmetric magnetic/electric saturation** — the magnetic sector S_μ collapses BEFORE the electric sector S_ε (or vice versa, set by chirality). This isn't optional; it's THE mechanism that distinguishes confinement (asymmetric, Z → 0 or ∞, Γ = -1 walls) from gravity (symmetric, Z preserved, refractive bending).
+
+### §6.7.1 The mechanism (corpus-verbatim, doc 54 §6 lines 197-199)
+
+> *"The symmetric saturation case (both ε and μ collapse equally) preserves Z = √(μ/ε) = Z_0 (impedance invariant), while the asymmetric case (one collapses before the other) drives Z to either 0 or ∞. The symmetric case governs gravity; the asymmetric case governs particle confinement (Meissner-like μ → 0 first ⇒ Z → 0, Γ → -1, standing wave = rest mass)."*
+
+Two independent saturation kernels under asymmetric drive:
+
+$$S_\mu = \sqrt{1 - A_\mu^2}, \quad S_\varepsilon = \sqrt{1 - A_\varepsilon^2}$$
+
+$$Z_{eff} = \sqrt{\mu_{eff}/\varepsilon_{eff}} = Z_0 \cdot \sqrt{S_\mu / S_\varepsilon}$$
+
+When chirality biases A²_μ to grow faster than A²_ε: S_μ → 0 first, Z_eff → 0, Γ → -1.
+
+### §6.7.2 This IS the substrate-native magnetic-moment generator
+
+The Meissner-asymmetric mechanism connects Layer 1 (substrate chirality projects into twist direction) to the electron's **magnetic moment** observable:
+
+- Mirror image (S_ε → 0 first instead of S_μ): Γ → -1 still forms, but with OPPOSITE sector-dominance → opposite spin direction
+- The chirality of WALL FORMATION = the electron's spin direction
+- Same K4 right-handed substrate that picks the (2, q) twist direction picks WHICH SECTOR saturates first per chirality bias
+
+In standard form: the electron's magnetic moment μ_B = eℏ/(2 m_e) is the macroscopic observable of which sector dominates the asymmetric saturation. AVE-native form: μ_B emerges as the asymmetry magnitude in (S_μ, S_ε) at saturation onset, with sign set by K4 chirality.
+
+### §6.7.3 AVE-HOPF birefringence prediction (corpus-empirical anchor)
+
+Per [doc 54:225](54_pair_production_axiom_derivation.md) + AVE-HOPF table 1: under the Meissner-asymmetric form, LH vs RH circularly polarized light sees different effective impedances → different wave speeds → birefringence. Predicted notch:
+
+$$\Delta f/f = \chi_{(2,3)} = \alpha \cdot pq/(p+q) = 1.2\alpha \approx 8.76 \times 10^{-3}$$
+
+for a (2, 3) chiral antenna (electron). Direct empirical anchor connecting Layer 2 chirality coupling (doc 79 §5) to a macroscopic measurement.
+
+### §6.7.4 Implication for Path α C2 (chirality direction)
+
+Path α's C2 criterion (chirality direction matches K4 right-handed substrate) is empirically testing the Meissner-asymmetric mechanism, not just a topological direction tag. C2 PASS = engine produces saturation walls via the asymmetric S_μ → 0 mode with K4 RH bias = substrate-native magnetic-moment direction matches prediction. The chirality test IS the magnetic-moment test, viewed at the substrate level.
+
+This is more substantive than the v4.1 framing of C2 as "chirality consensus." The mechanism content: C2 is testing whether the engine's saturation produces handed walls via asymmetric μ/ε collapse (Meissner-like), with handedness picked by substrate chirality.
+
+---
 
 ## §7 — Path α empirical result (Mode III with caveats)
 
