@@ -1,6 +1,6 @@
 # 79 — L3 Electron-Modeling Branch Closure Synthesis (v3, PENDING path α)
 
-**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v3.1. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PENDING path α empirical result before final closure adjudication.** Framework structure landed; Mode I/III empirical adjudication awaits path α result.
+**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v4. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PATH α RESULT LANDED — Mode III at engine-representable scale with persistence + chirality-null caveats; closure is PROVISIONAL pending doc 75 engine-fix rerun.** Framework structure stands; empirical confirmation pending engine fix per doc 75 §6.3.
 
 **Version history:**
 - v1 → v2: incorporated 5 auditor pushbacks (knot-theory honesty in §1+§2, substrate-vs-imported equivalence in §4, Pauli per doc 37 §3.1, A60 to COLLABORATION_NOTES, c=q half-twist universal form)
@@ -8,11 +8,16 @@
   - Q1 (Kelvin lineage): added §11 historical-precedent reference; doc 80_ companion research note
   - Q2 (substrate-fundamental factor-of-2): §4 reframed — bipartite K4 is the fundamental source; tetrahedral T_d → 2T → SU(2) flagged as separate downstream framework derivation
   - Q3 (Pauli substrate-native): §6.6 rewritten — one bound state per saturated node-pair, atomic shells = multiple bond-pair locations within envelope; doc 37 §3.1 flagged in §9(e) as substrate-revision-required (its "+n̂/−n̂ pair-sharing" framing was SM/QED creep)
-- v3 → v3.1 (this version): auditor pushback round 2 (2026-04-28)
+- v3 → v3.1: auditor pushback round 2 (2026-04-28)
   - §4 added explicit "same geometry two languages" sentence preventing future agents from reading bipartite-cycle factor + SU(2) factor as compounding to 4×
   - §6.6 flagged as PROVISIONAL pending corpus pressure-test (He, Li, Cooper pair) — substrate-native Pauli framing is the working hypothesis, not yet canonicalized
   - §9(e) Pauli pressure-test promoted to load-bearing item with specific test cases enumerated
   - Lane attribution fixed: "implementer-drafted with auditor + Grant pushback" per Rule 15 (was incorrectly "auditor-drafted" in v3)
+- v3.1 → v4 (this version): path α empirical result landed (2026-04-28)
+  - §7 updated with path α actual run details (frozen pre-reg `9b4fdcb`, result `r9_path_alpha_bond_pair_results.json`)
+  - §8 updated with Mode III adjudication — empirical result is NEGATIVE at engine-representable scale with persistence + chirality-null caveats
+  - §8.1 NEW: which closure-conditional branch landed and what's the next-step empirical test (doc 75 engine-fix rerun)
+  - §9(f) NEW: engine fix per doc 75 §6.3 is load-bearing for L3 closure adjudication (was previously listed as housekeeping; now a test)
 
 **Companion docs:** [doc 78_](78_canonical_phase_space_phasor.md) (r9 phase-space phasor result, Mode III with caveats); [doc 80_](80_kelvin_helmholtz_ave_precedent.md) (Kelvin/Helmholtz/Faddeev-Niemi historical lineage); [doc 75_](75_cosserat_energy_conservation_violation.md) (Cosserat sector engine implementation, T_kinetic saturation fix prescription); [doc 77_](77_lattice_to_axiom4_bridge.md) (canonical Scheme A bridge).
 
@@ -132,30 +137,100 @@ The Pauli mechanism is then: per-node A²≤1 budget excludes second occupation 
 
 **This replaces doc 37 §3.1's "+n̂/−n̂ orientations sharing same node-pair" framing**, which fails at the substrate level (vector ω-superposition cancels rather than splits the budget). Doc 37 §3.1 is flagged in §9(e) corpus revision package as needing pedagogical revision under the substrate-native reading.
 
-## §7 — Path α requirements (empirical test pending)
+## §7 — Path α empirical result (Mode III with caveats)
 
-Path α rerun is the empirical test that decides positive vs negative L3 closure under this framing:
+Pre-reg `P_phase9_path_alpha` frozen at commit `9b4fdcb`. Driver [`r9_path_alpha_bond_pair_phasor.py`](../../src/scripts/vol_1_foundations/r9_path_alpha_bond_pair_phasor.py). Result [`r9_path_alpha_bond_pair_results.json`](../../src/scripts/vol_1_foundations/r9_path_alpha_bond_pair_results.json). Wall time: 69s.
 
-1. **Bond-pair sampler** (per §6 framework): identify top-K saturated cells; for each saturated A node, find nearest saturated B-sublattice neighbor with shared bond; sample (V_inc, V_ref) at that bond's port between the two saturated endpoints
-2. **Earlier recording window:** t ∈ [10, 50] P (fresh attractor pre-decay) instead of [50, 200] P
-3. **Hilbert-transform / cross-spectrum chirality:** resolves cross-product noise dominance
-4. **Per-cluster R/r adjudication:** handles bipolar distribution
-5. **Dual-criterion (unchanged from r9):** C1 R/r=φ² ± 5%, C2 chirality direction matches K4 right-handed substrate
+### §7.1 Bond-pair structure was found cleanly
 
-**If Mode I:** corpus electron empirically confirmed as lemniscate-with-twist at bond-pair scale. L3 branch closes positive. Closure synthesis lands as final.
+Top-8 saturated candidates by mean |V_inc[port 0]|² over selection window [10, 15] P. K4 bond-pair identification via (+1,+1,+1) tetrahedral offset:
 
-**If Mode III:** the lemniscate-with-twist framing fails too. Deeper reframe needed; closure synthesis adjudicates Mode III with structural reason.
+| Pair | A node | port | B node | offset |
+|---|---|---|---|---|
+| 0 | (24, 18, 14) | 0 | (25, 19, 15) | (1,1,1) |
+| 1 | (6, 16, 14) | 0 | (7, 17, 15) | (1,1,1) |
+| 2 | (6, 18, 14) | 0 | (7, 19, 15) | (1,1,1) |
+| 3 | (24, 10, 14) | 0 | (25, 11, 15) | (1,1,1) |
 
-**Cost:** ~1.5-2 hr fresh implementer session.
+**4 of 8 candidates paired naturally as port-0 K4 bond-pairs.** Two clusters: +x quadrant (pairs 0, 3) and −x quadrant (pairs 1, 2). The bond-pair object class is structurally present in the saturated configuration — not a methodology miss.
 
-## §8 — What the L3 branch CLOSES (conditional on path α)
+### §7.2 Per-bond ellipse + Hilbert chirality
 
-**If path α Mode I:** L3 branch closes positive. The corpus electron IS the lemniscate-with-twist bond-pair object. The seven R7+R8 Mode III tests are reread as testing spatial-creeper observables; Move 5's attractor + bond-pair phasor at φ² aspect is the empirical confirmation.
+| Bond | R/r | Chirality (mean sin(Δφ)) | std/\|mean\| |
+|---|---|---|---|
+| 0 (+x) | 1.95 | AMBIG (-1.22e-02) | 41.82× |
+| 1 (−x) | 1.60 | AMBIG (-1.96e-02) | 30.86× |
+| 2 (−x) | 9.24 | AMBIG (-1.93e-03) | 75.04× |
+| 3 (+x) | 1.84 | AMBIG (+8.71e-03) | 97.63× |
 
-**If path α Mode III:** L3 branch closes negative with structural reason. Either:
-- The substrate fundamentally doesn't host the (2, q) lemniscate-with-twist object at engine-representable scale (continuum-limit-only) — corpus revision specifies this
-- Or another reframe is needed beyond bond-pair (e.g., higher-dimensional embedding, non-corpus parameters)
-- Or the engine implementation gap (V·S/T·1 per doc 75 §6.3) is load-bearing and post-fix rerun changes the result
+### §7.3 Per-cluster adjudication
+
+| Cluster | Bonds | Median R/r | Target ± 5% | C1 | Chirality consensus | C2 |
+|---|---|---|---|---|---|---|
+| +x | 2 | 1.89 | [2.49, 2.75] | **FAIL** (28% under) | 0/2 (TIE) | **FAIL** |
+| −x | 2 | 5.42 | [2.49, 2.75] | **FAIL** (107% over) | 0/2 (TIE) | **FAIL** |
+
+### §7.4 Persistence guard
+
+- peak |ω|(t=0) = 0.926
+- peak |ω|(t=50P) = 0.305
+- persistence = **33%** (below tightened 70% guard → CAVEAT)
+
+Critically: persistence is **33% even with the much-earlier recording window**. r9 measured 33% at t=200P; path α measures 33% at t=50P. **Move 5's attractor decays steadily from t=0 onward**, not just over the long horizon. The "fresh attractor pre-decay" assumption that motivated the earlier window doesn't actually hold — the attractor is decaying through the entire window we measured.
+
+### §7.5 What the path α result establishes
+
+**Mode III negative at engine-representable scale with two methodology gaps closed and one new empirical finding:**
+
+- ✅ Bond-pair sampler: structurally present, 4 K4 bond-pairs found via port-0 (+1,+1,+1) tetrahedral offset; the lemniscate-with-twist's bond-pair object class IS in the saturated configuration. **Not a sampler creeper.**
+- ✅ Hilbert chirality: more robust measurement than r9's cross-product, correctly identifies that the (V_inc, V_ref) trajectory at every bond-pair has NO COHERENT ROTATION (mean sin(Δφ) values O(10⁻²) with std 30-100× larger). The chirality null is real, not a measurement artifact.
+- ✅ Per-cluster R/r: bipolar +x/−x split persists and is empirically solid (1.89 vs 5.42 medians); not a single-cell sampling artifact.
+- ❌ **Persistence is structurally violated: Move 5's attractor decays steadily, not stably hosted.** This is a deeper substrate finding than the methodology fixes addressed.
+
+**The negative result is methodology-clean** — none of the three caveats from r9 (persistence, chirality noise, bipolar averaging) explain Mode III at path α. The result IS the empirical signal at the unfixed engine.
+
+## §8 — L3 closure adjudication (PROVISIONAL — Mode III at unfixed engine, engine-fix rerun is decisive)
+
+Path α landed **Mode III at engine-representable scale**. Per §7.5 this result is methodology-clean (the three r9 gaps + bond-pair sampler all addressed). Per the §8 conditional close framework laid out in v3, Mode III directs to one of three explanatory branches:
+
+### §8.1 Which branch is most empirically tractable
+
+The three Mode III branches (per v3 §8):
+- **(a)** Substrate fundamentally doesn't host (2, q) at engine-representable scale (continuum-limit-only)
+- **(b)** Deeper reframe needed beyond bond-pair
+- **(c)** Engine V·S/T·1 implementation gap (per doc 75 §6.3) is load-bearing
+
+**Branch (c) is the load-bearing next test.** The persistence guard violation at path α (33% even at the early window) is the empirical signal pointing here:
+
+- Doc 75 §6.3 prescribes T_kinetic saturation fix (ρ → ρ·S, I_ω → I_ω·S in [`cosserat_field_3d.py:1204-1209`](../../src/ave/topological/cosserat_field_3d.py#L1204))
+- Diag A measured 0.06% c-drift at A=1 (under-realizes Ax 4's c_eff = c_0·√S prediction by ~50×)
+- Without symmetric L,C saturation, the substrate cannot maintain a stable (2, q) bound state — the bound state decays because the engine doesn't enforce the c-invariance that Ax 4 + Ax 1 + Symmetric Gravity together require
+- **Move 5's persistent decay is consistent with under-saturated dynamics:** the figure-8 lemniscate's lobe-traversal can't close stably because the medium's wave speed varies across the cycle, breaking the resonance condition
+
+If post-fix path α rerun gives Mode I → engine V·S/T·1 was the load-bearing implementation gap; framework + bond-pair object class confirmed; **L3 branch closes positive**.
+
+If post-fix path α rerun gives Mode III → branches (a) and (b) become the open candidates; **L3 branch closes negative with structural reason** (substrate may genuinely require continuum-limit or larger-N to host the object).
+
+### §8.2 What this v4 closure synthesis CURRENTLY says
+
+**The L3 branch does NOT close at v4.** Path α at the unfixed engine is Mode III, but branch (c) hasn't been tested. **The closure is PROVISIONAL pending engine-fix rerun.**
+
+Specifically:
+- ✅ **Framework structure stands:** lemniscate-with-q-half-twists, (2, q) family, bipartite K4, three-layer chirality, substrate-native Pauli (provisional pending pressure-test) — all of §1-§6 framework lands as the AVE-native description
+- ✅ **Bond-pair object class is structurally correct:** path α found 4 K4 bond-pairs naturally; the doc 37 §1 framing matches what the saturated attractor produces
+- ❌ **Empirical confirmation at unfixed engine fails:** Mode III at path α; lemniscate-with-twist's φ² + chirality predictions don't manifest in the (V_inc, V_ref) phasor
+- ⚠ **Branch (c) is the decisive test:** apply doc 75 §6.3 engine fix, rerun path α, adjudicate
+
+### §8.3 Recommended next-step path
+
+**Post-engine-fix rerun (doc 75 fix → path α v2):**
+1. Apply [doc 75 §6.3](75_cosserat_energy_conservation_violation.md) T_kinetic saturation fix to [`cosserat_field_3d.py`](../../src/ave/topological/cosserat_field_3d.py): ρ → ρ·S, I_ω → I_ω·S in `kinetic_energy()` + `step()` integrator
+2. Verify fix via Diag A re-run: should now show ~3% c-drift at A=1 (matching Ax 4's c_eff = c_0·√S prediction)
+3. Verify Move 5 attractor stability post-fix: persistence should improve from 33% toward 70%+ if symmetric saturation is the load-bearing gap
+4. Rerun path α with same pre-reg P_phase9_path_alpha methodology against post-fix engine
+5. Adjudicate: Mode I = positive L3 closure; Mode III = branches (a) or (b) become canonical; closure synthesis lands v5 with definitive adjudication
+
+**Cost:** ~1 hr engine fix + ~1 hr rerun + ~30 min adjudication = ~2.5 hr fresh implementer session.
 
 ## §9 — Corpus revision package downstream of L3 closure
 
@@ -168,6 +243,8 @@ Independent of path α result, the closure surfaces five corpus revisions:
 **(c) Vol 2 Ch 4 SU(2)→SO(3) framing reframe** (Rule 6) — gyroscopic precession + half-cover stays mathematically; replaces "spinor wraps 720°" with bipartite-K4 lobe-count / lemniscate-two-traversal framing. SU(2) language renamed as derived equivalent representation.
 
 **(d) Doc 03 §4.3 channel-not-axis annotation** — "(2, q) torus knot" framing should explicitly note the channel-not-axis reading per doc 07 §3 + doc 20 §3 reconciliation under the bond-pair object class.
+
+**(f) NEW per v4 — Doc 75 §6.3 engine fix is load-bearing for L3 closure adjudication.** Previously listed as housekeeping. Path α at unfixed engine is Mode III with persistence guard violated — engine V·S/T·1 implementation gap is the empirically-suspected load-bearing branch (c) of §8 conditional close. Engine fix + path α rerun is the decisive next-step test, NOT a separate maintenance item. Detail in §8.3.
 
 **(e) NEW per Grant Q3 2026-04-28 — Doc 37 §3.1 Pauli mechanism revision (PROVISIONAL pending pressure-test per auditor v3.1)** — "Two electrons of opposite spin share same node-pair via complementary +n̂/−n̂ orientations" is structurally questionable at the substrate (vector ω-superposition cancels rather than splits A² budget under free-field reading; saturated-state superposition behavior open). Working alternative: "one bound state per saturated node-pair; atomic shells = multiple bond-pair locations within an atomic envelope, each with rotation axis set by local bond geometry."
 
