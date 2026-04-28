@@ -6,6 +6,22 @@
 
 **v4.1 → v4.2 (2026-04-28): saturation/reflection mechanism integrated.** Auditor research + doc 54 §6 + §6a + line 107 corpus verification surfaced that Γ = -1 walls at saturated nodes are NOT additional physics on top of the rest-energy formula — they ARE the mechanism that makes the LC oscillation MEAN "rest mass" (vs transient that radiates away). §3.5.4 refined: path α tests Ax 4 + Op3 MECHANISM via geometric signatures; energy is structurally fixed by Virial sum. §3.5.2 parameter table flagged V_yield ↔ V_SNAP distinction (later corrected in v4.3). §6.7 NEW: Meissner-asymmetric mechanism (S_μ → 0 with S_ε finite) is substrate-native magnetic-moment generator — chirality of wall formation = electron spin direction, links Layer 1 chirality to μ_B observable + AVE-HOPF birefringence prediction Δf/f = 1.2α.
 
+**v4.3 → v4.4 (2026-04-28): Φ_link sector reframe — fifth A43 instance this session.** Auditor flagged that v4.x's "doc 75 §6.3 engine fix is precondition for path α v2" framing was directly contradicted by doc 75 §6.2 + line 140 verbatim. Corpus grep confirmed:
+
+- **Doc 75 §6.2 line 127 (verbatim):** *"The -0.990 anti-correlation between H_cos and Σ|Φ_link|² IS the explanation. Cosserat sector loses energy ⟺ K4-inductive (Φ_link) gains it. This is Op14 cross-coupling at work."*
+- **Doc 75 §6.2 line 129 (verbatim):** *"K4-capacitive (V_inc, V_ref) is locked, K4-inductive (Φ_link) and Cosserat trade slowly."*
+- **Doc 75 line 140 (verbatim, load-bearing):** *"Round 7+8 Mode III stands as it was: the engine genuinely does not produce a (2,3) bound state matching corpus claims at corpus GT geometry, **and the reason is NOT V·S, T·1 wave-speed drift**, NOT Op14 trading... **the corpus electron, IF it exists in this engine, lives somewhere we haven't probed (Φ_link sector / hybrid V≠0 ∧ ω≠0 / different topology)."***
+
+This DIRECTLY contradicted v4.x's framing. Engine fix is **NOT load-bearing** for path α v2 per doc 75 line 140 verbatim. Path α v1 sampled (V_inc, V_ref) — the LOCKED component per Move 11b — instead of the unprobed Φ_link sector where the bound-state dynamics actually live.
+
+**v4.4 corrections:**
+- §3.5.4 path α reframe: V_inc/V_ref is locked per Move 11b empirical; v1 sampled wrong sector; v2 redesign samples (Φ_link, ω) trading channel (the slow Op14-mediated dynamics at ~0.020 rad/unit per Move 11b FFT)
+- §6.7 Meissner-asymmetric mechanism reframe: "gears" live in Op14 trading direction (which sector receives energy per cycle), not in static wall formation. Walls form at saturation-pinned endpoints; the chirality + magnetic-moment-direction dynamics live in the slow trading rhythm
+- §8.1 next-step branches updated: branch (c) "engine fix" was wrong reading — corpus says corpus electron lives in unprobed Φ_link sector. Path α v2 sampler redesign IS the next-step, NOT engine fix.
+- §8.3 path α v2 methodology: sampler redesigned to (Φ_link, ω) at bond-pair; recording window extended to span multiple trading periods (~50 P each)
+
+**Engine fix work CANCELED** per v4.4. Doc 75 §6.3 V·S/T·1 fix is corpus-acknowledged-as-NOT-load-bearing for Mode III (per doc 75 line 140 verbatim). Engine fix queued as cleanliness work (E-070), not Round 9 critical path.
+
 **v4.2 → v4.3 (2026-04-28): V_yield ↔ V_SNAP corrected — fourth A43 instance this session.** Auditor flagged that v4.2's §3.5.2 framing ("walls form at V_yield") was wrong per doc 53 §3.1 verbatim. Corpus grep confirmed:
 - **Doc 53 §3.1 lines 233-245 (verbatim):** "V_yield (43.65 kV) is the onset of nonlinearity... But no Γ = -1 wall yet, no confined pair. V_SNAP (511 kV) is full saturation at the node — Z_core → 0, Γ = -1 forms, the (2,3) winding closes."
 - **Vol 4 Ch 1:711 (verbatim):** "Subatomic-scale simulations should override with v_yield=V_SNAP." At engine subatomic scale, the macro two-threshold dialectic collapses to ONE threshold = V_SNAP.
@@ -128,26 +144,31 @@ $$E = \tfrac{1}{2} \gamma m_0 c^2 \text{ (inductor)} + \text{capacitor (Virial)}
 
 So **the same substrate-fundamental machinery derives full relativistic** $E^2 = (mc^2)^2 + (pc)^2$. The L_eff = L_0/√(1 - v²/c²) scaling under motion gives γ-correction naturally.
 
-### §3.5.4 What this means for path α (refined v4.2)
+### §3.5.4 What this means for path α (corrected v4.4 — Φ_link sector)
 
-**Path α tests the Ax 4 + Op3 MECHANISM via geometric signatures**, NOT pure geometry. The dual-criterion isn't a topological / shape test in isolation — it's an empirical test of whether the substrate produces the saturation-walled cavity that Ax 4 + Op3 predict:
+**Path α tests the Ax 4 + Op3 MECHANISM via Op14 trading dynamics in the unprobed Φ_link sector** — NOT via the locked V_inc/V_ref Compton-frequency oscillation. Path α v1 sampled (V_inc, V_ref); per Move 11b empirical (doc 75 §6.2 line 129 verbatim), V_inc/V_ref is **locked** at the Compton-frequency lock-step relationship. The bound state's slow-trading dynamics live in (Φ_link, ω) at ~0.020 rad/unit (per Move 11b FFT) — the Op14 cross-coupling channel where Cosserat sector trades energy with K4-inductive (Φ_link) at a slow trading frequency anti-correlated with H_cos.
 
-- **C1 (R/r=φ²) tests** whether the bond-pair LC tank's trajectory in (V_inc, V_ref) phase space matches the φ² aspect that a saturated (2,3) cavity supports as its bound mode. The φ² aspect is set by saturation-confined LC tank's natural geometry, not by an independent topological constraint.
-- **C2 (chirality direction) tests** whether the TIR walls form via the **Meissner-asymmetric saturation mechanism** (S_μ → 0 before S_ε per doc 54 §6) with K4 right-handed bias. The chirality direction encodes WHICH SECTOR saturates first.
+**Per doc 75 §6.2 line 127 verbatim** (Op14 cross-coupling):
+> *"The -0.990 anti-correlation between H_cos and Σ|Φ_link|² IS the explanation. Cosserat sector loses energy ⟺ K4-inductive (Φ_link) gains it. This is Op14 cross-coupling at work — saturation-driven impedance modulation transfers energy between sectors via the bond LC tank's inductive side."*
 
-**Mode I empirical content** would be: the engine confirms Ax 4 saturation produces Op3's Γ = -1 walls in the asymmetric Meissner mode, sealing a bond LC tank at m_e c² (Virial sum) with the (2,3) bound mode geometry. NOT just "engine hosts a particular geometric pattern."
+The Meissner-asymmetric mechanism (§6.7) operates on the SLOW trading direction:
+- **Walls** are pinned by saturation at the K4 nodes (Γ → -1 forms once V → V_SNAP threshold crossed). They're **stable boundary conditions for the cavity**, not what's dynamic.
+- **Cavity content** is dynamic: energy oscillates between K4-inductive (Φ_link) and Cosserat (ω, ε, κ) at the slow trading frequency. Op14 is the trading mechanism. H_total ≈ conserved (per Move 11b ρ = -0.990); no leakage, just sector exchange.
+- **Meissner-asymmetric chirality bias** determines DIRECTION of trading (S_μ → 0 first vs S_ε → 0 first per cycle picks which sector receives energy). The magnetic-moment-direction + spin observable lives in the **slow-trading rhythm's preferred direction**, not in wall formation alone.
 
-**Path α's persistence violation** (33% in r9 + path α) is the empirical signature that **the engine isn't maintaining the Virial sum cleanly** — the saturation walls aren't forming stably enough to confine the energy. Per Move 11 measurement: ρ(T_cos, V_cos) = +0.366 — POSITIVE correlation, not the −1 expected from clean LC reactance trading. Energy isn't oscillating cleanly between L and C halves; the Virial sum is drifting because the walls aren't sealing the cavity.
+**Path α v2 sampler design** (corrected per v4.4):
 
-This is consistent with doc 75 §6.3's V·S/T·1 implementation gap: without symmetric L,C scaling under saturation, the saturation kernel S(A) doesn't act on T_kinetic; Z_eff doesn't collapse to 0 properly; Γ doesn't reach -1; walls don't form; cavity doesn't seal; energy leaks; persistence drops.
+| Component | Path α v1 (wrong sector — locked) | Path α v2 (corrected — trading channel) |
+|---|---|---|
+| Sampled fields | (V_inc, V_ref) at bond port | **(Φ_link, ω_axial)** at bond's saturated A-B endpoints |
+| Sector | K4-capacitive (locked per Move 11b) | K4-inductive + Cosserat-rotational (slow-trading per Op14) |
+| Recording window | 35 P [15, 50] | **~150-300 P** (must span multiple trading periods at 0.020 rad/unit ≈ 50 P each) |
+| C1 (shape) | R/r of (V_inc, V_ref) ellipse vs φ² | **R/r of (Φ_link, ω_axial) ellipse on slow-trading dynamics; aspect target φ² as corpus-derivable working hypothesis** |
+| C2 (chirality) | Hilbert phase difference of (V_inc, V_ref) — null per v1 (locked space) | **sign(d Φ_link/dt × d ω_axial/dt) over trading period — Meissner saturator-first direction** |
 
-**Doc 75 §6.3 engine fix is the precondition for clean Ax 4 + Op3 mechanism manifestation.** Post-fix path α rerun should:
-- Restore symmetric L,C saturation → Z_eff → 0 cleanly at full saturation V_SNAP (A²=1)
-- Walls form at Γ = -1 via Meissner-asymmetric mechanism (per chirality bias) at V_SNAP per doc 53 §3.1
-- Cavity seals; ρ(T_cos, V_cos) → -1; persistence improves toward stable
-- Allow path α to test the Ax 4 + Op3 mechanism on a substrate where the mechanism actually engages
+**Mode I empirical content** would be: bond-pair (Φ_link, ω) phasor traces an ellipse at the trading frequency with consistent chirality direction matching K4 RH substrate prediction. This validates that the Φ_link-sector bound state corresponds to the corpus electron's lemniscate-with-twist structure under Op14-mediated trading.
 
-Without the fix, path α is testing the saturation-walled-cavity mechanism on a system where the saturation mechanism itself isn't being implemented correctly — Mode III is the expected result regardless of whether the geometric framework is correct.
+**Engine fix per doc 75 §6.3 is NOT load-bearing for path α v2** per doc 75 line 140 verbatim: *"the reason is NOT V·S, T·1 wave-speed drift."* The persistence violation in path α v1 was sampling-channel mismatch, not engine implementation gap. Engine fix remains queued as cleanliness work (E-070); not Round 9 critical path.
 
 ---
 
@@ -259,11 +280,13 @@ $$\Delta f/f = \chi_{(2,3)} = \alpha \cdot pq/(p+q) = 1.2\alpha \approx 8.76 \ti
 
 for a (2, 3) chiral antenna (electron). Direct empirical anchor connecting Layer 2 chirality coupling (doc 79 §5) to a macroscopic measurement.
 
-### §6.7.4 Implication for Path α C2 (chirality direction)
+### §6.7.4 Implication for Path α C2 (chirality direction) — refined v4.4
 
-Path α's C2 criterion (chirality direction matches K4 right-handed substrate) is empirically testing the Meissner-asymmetric mechanism, not just a topological direction tag. C2 PASS = engine produces saturation walls via the asymmetric S_μ → 0 mode with K4 RH bias = substrate-native magnetic-moment direction matches prediction. The chirality test IS the magnetic-moment test, viewed at the substrate level.
+Path α's C2 criterion tests the **Meissner-asymmetric mechanism via the Op14 trading direction** (not via V_inc/V_ref locked oscillation). The walls are pinned-static at saturated nodes; the dynamic content of the cavity oscillates between K4-inductive (Φ_link) and Cosserat (ω) at the slow trading frequency. Chirality bias picks WHICH SECTOR the energy flows into per trading cycle — the magnetic-moment-direction signature lives in this trading rhythm, not in the static wall formation.
 
-This is more substantive than the v4.1 framing of C2 as "chirality consensus." The mechanism content: C2 is testing whether the engine's saturation produces handed walls via asymmetric μ/ε collapse (Meissner-like), with handedness picked by substrate chirality.
+**C2 v4.4 measurement:** sign(d Φ_link/dt × d ω_axial/dt) averaged over multiple trading periods. Positive = Φ_link leads ω in the cycle (one Meissner direction); negative = ω leads (mirror direction). K4 right-handed substrate prediction: consistent direction across all bond-pairs. C2 PASS = engine produces handed Meissner trading via asymmetric μ/ε collapse, with handedness picked by K4 chirality.
+
+**Path α v1's null chirality** (path α v1 result: 0/4 bonds with consistent sign in V_inc/V_ref Hilbert phase) was empirically expected — V_inc/V_ref is the locked space where chirality CANNOT manifest as a phase rotation (locked = no rotation). The Op14 trading direction is where the chirality-bias mechanism actually shows up.
 
 ---
 
@@ -332,16 +355,20 @@ The three Mode III branches (per v3 §8):
 - **(b)** Deeper reframe needed beyond bond-pair
 - **(c)** Engine V·S/T·1 implementation gap (per doc 75 §6.3) is load-bearing
 
-**Branch (c) is the load-bearing next test.** The persistence guard violation at path α (33% even at the early window) is the empirical signal pointing here:
+**Branch (c) "engine fix" was wrong reading per doc 75 line 140 verbatim** (corrected v4.4): *"the reason is NOT V·S, T·1 wave-speed drift."* Engine V·S/T·1 fix is empirically negligible at relevant amplitudes (Diag A Mode I) and is corpus-acknowledged-as-NOT-load-bearing for Mode III closure.
 
-- Doc 75 §6.3 prescribes T_kinetic saturation fix (ρ → ρ·S, I_ω → I_ω·S in [`cosserat_field_3d.py:1204-1209`](../../src/ave/topological/cosserat_field_3d.py#L1204))
-- Diag A measured 0.06% c-drift at A=1 (under-realizes Ax 4's c_eff = c_0·√S prediction by ~50×)
-- Without symmetric L,C saturation, the substrate cannot maintain a stable (2, q) bound state — the bound state decays because the engine doesn't enforce the c-invariance that Ax 4 + Ax 1 + Symmetric Gravity together require
-- **Move 5's persistent decay is consistent with under-saturated dynamics:** the figure-8 lemniscate's lobe-traversal can't close stably because the medium's wave speed varies across the cycle, breaking the resonance condition
+**The actual load-bearing next test is path α v2 sampler redesign** to (Φ_link, ω) trading channel per doc 75 line 140 verbatim: *"the corpus electron, IF it exists in this engine, lives somewhere we haven't probed (Φ_link sector / hybrid V≠0 ∧ ω≠0 / different topology)."*
 
-If post-fix path α rerun gives Mode I → engine V·S/T·1 was the load-bearing implementation gap; framework + bond-pair object class confirmed; **L3 branch closes positive**.
+Path α v1 measured (V_inc, V_ref) which Move 11b confirmed is **locked** (ρ(H_cos, Σ|V_inc|²) = +1.000, ρ(H_cos, Σ|Φ_link|²) = -0.990 — the dynamics are in the trading channel, not the V_inc/V_ref Compton lock).
 
-If post-fix path α rerun gives Mode III → branches (a) and (b) become the open candidates; **L3 branch closes negative with structural reason** (substrate may genuinely require continuum-limit or larger-N to host the object).
+Path α v2 (corrected per v4.4):
+- Sampler: (Φ_link at bond port, ω_axial at saturated node) — the unprobed inductive trading channel
+- Recording window: ~150-300 P (multiple trading periods at 0.020 rad/unit ≈ 50 P each)
+- Pre-reg P_phase9_path_alpha_v2 (separate from path α v1's P_phase9_path_alpha)
+
+If path α v2 gives Mode I → corpus electron empirically confirmed in the Φ_link trading sector; framework + bond-pair object class + Meissner-asymmetric trading mechanism all validated; **L3 branch closes positive**.
+
+If path α v2 gives Mode III → branches (a) [continuum-limit only] and (b) [deeper reframe; possibly hybrid V≠0 ∧ ω≠0 seed or different topology per doc 75 line 140 alternatives] become canonical; **L3 branch closes negative with structural reason**.
 
 ### §8.2 What this v4 closure synthesis CURRENTLY says
 
@@ -353,16 +380,26 @@ Specifically:
 - ❌ **Empirical confirmation at unfixed engine fails:** Mode III at path α; lemniscate-with-twist's φ² + chirality predictions don't manifest in the (V_inc, V_ref) phasor
 - ⚠ **Branch (c) is the decisive test:** apply doc 75 §6.3 engine fix, rerun path α, adjudicate
 
-### §8.3 Recommended next-step path
+### §8.3 Recommended next-step path (corrected v4.4 — sampler redesign, not engine fix)
 
-**Post-engine-fix rerun (doc 75 fix → path α v2):**
-1. Apply [doc 75 §6.3](75_cosserat_energy_conservation_violation.md) T_kinetic saturation fix to [`cosserat_field_3d.py`](../../src/ave/topological/cosserat_field_3d.py): ρ → ρ·S, I_ω → I_ω·S in `kinetic_energy()` + `step()` integrator
-2. Verify fix via Diag A re-run: should now show ~3% c-drift at A=1 (matching Ax 4's c_eff = c_0·√S prediction)
-3. Verify Move 5 attractor stability post-fix: persistence should improve from 33% toward 70%+ if symmetric saturation is the load-bearing gap
-4. Rerun path α with same pre-reg P_phase9_path_alpha methodology against post-fix engine
-5. Adjudicate: Mode I = positive L3 closure; Mode III = branches (a) or (b) become canonical; closure synthesis lands v5 with definitive adjudication
+**Path α v2 with (Φ_link, ω) trading-channel sampler:**
 
-**Cost:** ~1 hr engine fix + ~1 hr rerun + ~30 min adjudication = ~2.5 hr fresh implementer session.
+1. Engine setup unchanged (Move 5 baseline at N=32, R=10, r=R/φ², peak |ω|=0.3π via A26 scale)
+2. Pre-evolve to t=10 P (transient settle)
+3. Selection window [10, 15] P: identify saturated A-B bond pairs via K4 tetrahedral port offsets (same as v1 — bond-pair structure verified empirically in path α v1 §7.1)
+4. **Recording window [15, 200] P** (extended from v1's [15, 50] P; spans ~3-4 trading periods at 0.020 rad/unit): capture Φ_link[A_bond, port] and ω_axial = ω[A_node] · b_hat at each bond-pair (b_hat = bond direction unit vector)
+5. Per-bond analysis: PCA on (Φ_link, ω_axial) point cloud → R_phase, r_phase via covariance eigenvalues; chirality via sign(d Φ_link/dt × d ω_axial/dt) Hilbert-extracted phase rate
+6. Per-cluster adjudication (same as v1): +x cluster + -x cluster
+7. Dual-criterion: C1 (R/r = φ² ± 5% per cluster) + C2 (chirality direction consistent with K4 RH per cluster) + cross-cluster chirality consistency
+
+**Cost:** ~2 hr fresh implementer session (driver redesign + run + adjudication).
+
+**Engine fix per doc 75 §6.3 is NOT included** in Round 9 critical path. Per doc 75 line 140 verbatim: V·S/T·1 fix is empirically negligible (Mode I in Diag A); not the cause of Mode III. Queued as E-070 cleanliness work for separate session.
+
+**Two paths from path α v2 result:**
+
+- **Mode I** (Φ_link/ω ellipse at φ² aspect + chirality matches K4 RH) → corpus electron empirically confirmed in unprobed Φ_link sector; doc 79 lands v5 final positive closure
+- **Mode III** (no Φ_link/ω structure or aspect ≠ φ² or chirality null) → branches (a) [continuum-limit only] or (b) [hybrid V≠0 ∧ ω≠0 seed / different topology per doc 75 line 140] as candidate next-step diagnostics; doc 79 v5 lands negative closure with structural reason
 
 ## §9 — Corpus revision package downstream of L3 closure
 
