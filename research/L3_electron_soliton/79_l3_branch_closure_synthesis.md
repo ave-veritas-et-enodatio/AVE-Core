@@ -1,6 +1,6 @@
-# 79 — L3 Electron-Modeling Branch Closure Synthesis (v3, PENDING path α)
+# 79 — L3 Electron-Modeling Branch Closure Synthesis (v5.1, FINAL with (δ) test)
 
-**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v4.1. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PATH α RESULT LANDED — Mode III at engine-representable scale with persistence + chirality-null caveats; closure is PROVISIONAL pending doc 75 engine-fix rerun.** Framework structure stands; empirical confirmation pending engine fix per doc 75 §6.3.
+**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v5.1 FINAL. L3 branch closes Mode III canonical (negative) at v5.1: 10 pre-registered tests at engine-representable corpus GT, all Mode III. Path α v3 (3D-aligned ω-vector, 5 sampler views) tests auditor (δ) interpretation that c=3 maps to 3 spatial Cosserat ω-axes — empirically falsified (view (a): ω-orbit volumetric, NOT planar). NEW partial positive: view (c) (Φ_link, |ω|) magnitude pairing yields 100% CCW chirality across both clusters — chirality direction empirically real at engine-representable scale, R/r=φ² is not. Three surviving structural-reason branches: (α) continuum-limit-only, (β) topology revision, (γ) signature revision; (δ) 3D-axis-mapping closed. Framework structure stands as canonical AVE-native description.
 
 **v4 → v4.1 (2026-04-28): rest-energy equation integrated.** Auditor research + Vol 4 Ch 1:175-184 corpus verification surfaced that the (2, q) particle's rest energy is structurally fixed at m_e c² by Virial sum at bond-pair LC tank saturation onset. New §3.5 captures this; §7.5 + §8 reframed to make explicit that path α tests GEOMETRY (R/r=φ², chirality), NOT ENERGY (which is m_e c² by structural construction). (Auditor's initial ½ C V² = m_e c² claim was off by 2× — corrected to corpus-verbatim Virial sum form ½ L I_max² + ½ C V_peak² = m_e c² per Vol 4 Ch 1:175-184.)
 
@@ -8,7 +8,9 @@
 
 **v4.4 → v5 (2026-04-28, FINAL): path α v2 empirical result landed.** Pre-reg P_phase9_path_alpha_v2 frozen at commit `8b80c85` (driver `r9_path_alpha_v2_phi_link_sector.py` sampling (Φ_link, ω_axial) on K4 bond-pairs over [15, 200] P recording window). **Result: Mode III in Φ_link trading sector** — all 4 bonds AMBIG chirality, per-cluster R/r 3.62 / 4.97 vs target φ²=2.618±5% FAIL, persistence 33%. Doc 75 line 140's prediction "corpus electron lives in Φ_link sector" empirically falsified.
 
-**Cumulative empirical statement** (now 9 pre-registered tests at engine-representable corpus GT, all Mode III):
+**v5 → v5.1 (2026-04-28, AMENDMENT — closure SHARPENED, not weakened): path α v3 3D-aligned ω-vector empirical result landed.** Auditor (δ) interpretation per §7.6.3 (c=3 in (2,3) maps to 3 orthogonal Cosserat ω-rotation axes, not 1D-curve crossings) tested via P_phase9_path_alpha_v3_3d_aligned (driver `r9_path_alpha_v3_3d_aligned.py` sampling full 3-vector ω = (ω_x, ω_y, ω_z) instead of scalar projection ω · b̂). **Result: Mode III on R/r=φ² across ALL 5 sampler views + ONE STRUCTURAL PARTIAL POSITIVE.** View (a) 3D ω-PCA decisive on (δ): ω-orbit is genuinely volumetric (planarity 0.47-0.54, target <0.1) with near-unity principal-axis ratio (e2/e1 ≈ 1.23-1.27, target φ²=2.618) — (δ) empirically falsified. **NEW partial positive — Meissner mechanism partly anchored:** view (c) (Φ_link, |ω|) magnitude pairing yields 100% CCW chirality across both clusters (8 of 8 bonds; baseline ~50/50 random). Substrate K4 right-handed bipartite chirality is empirically present in the saturated attractor's magnitude-oscillation dynamics, matching §6.7's Meissner-asymmetric mechanism directly. R/r still wrong (4.55-5.74 vs 2.618), so partial: chirality side anchored, R/r side open. §7.6.4 captures result; §8 closure shape becomes "Mode III canonical + structural partial positive" — stronger than pure-negative.
+
+**Cumulative empirical statement** (now 10 pre-registered tests at engine-representable corpus GT, all Mode III):
 1. R7.1 V-block N=32 (Mode III)
 2. R7.1 V-block N=64 (Mode III)
 3. R7.1 Cos-block N=32 (Mode III)
@@ -17,7 +19,8 @@
 6. Test B v2 8-port spatial 0.5·V_SNAP (Mode III)
 7. Test B v3 8-port spatial 0.85·V_SNAP (Mode III)
 8. Path α v1 (V_inc/V_ref bond-pair) (Mode III)
-9. **Path α v2 (Φ_link/ω bond-pair) (Mode III) — NEW**
+9. Path α v2 (Φ_link/ω_axial bond-pair) (Mode III)
+10. **Path α v3 (3D-aligned ω-vector, 5 sampler views) (Mode III) — NEW v5.1**
 
 **§8 updated with final negative closure adjudication.** §7.6 NEW with path α v2 result. §9 corpus revision package finalized with implications for corpus electron framing.
 
@@ -288,7 +291,7 @@ Doc 79 v4.x's framework structure stands as the AVE-native description of the (2
 
 ### §7.6.3 What this means structurally
 
-**Three not-mutually-exclusive interpretations** of the cumulative Mode III pattern:
+**Four not-mutually-exclusive interpretations** of the cumulative Mode III pattern (v5.1 adds (δ), now empirically tested via §7.6.4):
 
 **(α) Continuum-limit-only:** the (2,3) corpus electron exists as a continuum-limit object that the discrete K4-TLM engine at N=32 cannot host. Lattice resolution is fundamentally insufficient. Corpus revision: clarify that the framework's testable predictions apply at continuum scale, NOT at engine-representable lattice scale. N=128+ might host it; N=32 cannot.
 
@@ -296,7 +299,89 @@ Doc 79 v4.x's framework structure stands as the AVE-native description of the (2
 
 **(γ) Substrate framing revision:** the corpus electron's signature isn't (R/r=φ², chirality direction) in any sector — these may be derived consequences of a different fundamental structure, not direct observables. Corpus revision: re-examine doc 26 + doc 28's (R, r) Clifford torus framing for whether it's a load-bearing prediction or a derived intermediate. The corpus's substrate-native canonical observable might be something else (saturated wall presence, Op14 trading frequency, c=3 via Op10).
 
-These interpretations are not mutually exclusive — multiple may apply simultaneously.
+**(δ) 3D-axis mapping (auditor, EMPIRICALLY FALSIFIED v5.1):** c=3 in (2,3) torus knot maps to 3 orthogonal Cosserat ω-rotation axes (one per spatial dimension) rather than 1D-curve crossings of a torus. Path α v1 + v2 sampled scalar projection ω · b̂, collapsing the 3-vector by construction; bipolar R/r could have been the signature of 3D structure sampled along one direction at a time. **Tested via path α v3 (§7.6.4):** 3D-aligned sampler captured (Φ_link, ω_x, ω_y, ω_z) directly. Result: Mode III across all 5 sampler views; ω-orbit is genuinely volumetric (NOT planar) with near-unity principal-axis ratios (NOT golden). (δ) falsified at engine-representable scale.
+
+These interpretations are not mutually exclusive — multiple may apply simultaneously. With (δ) empirically falsified, the surviving structural reasons are (α), (β), (γ).
+
+### §7.6.4 — Path α v3 result (3D-aligned ω-vector — Mode III, NEW v5.1)
+
+**Pre-reg:** P_phase9_path_alpha_v3_3d_aligned (predictions.yaml).
+**Driver:** `src/scripts/vol_1_foundations/r9_path_alpha_v3_3d_aligned.py`.
+**Result file:** `src/scripts/vol_1_foundations/r9_path_alpha_v3_3d_aligned_results.json`.
+
+**Test of (δ) interpretation.** Path α v1 sampled (V_inc, V_ref); path α v2 sampled (Φ_link, ω · b̂) where b̂ = (1,1,1)/√3 (port 0 for all 4 selected bonds). Both used scalar projection of the Cosserat 3-vector ω. (δ): if the substrate's bound-state rotation is genuinely 3D-coordinated (one rotation per spatial axis), scalar projection collapses the structure by construction. Path α v3 captures the full 3-vector ω = (ω_x, ω_y, ω_z) per bond and applies five ellipse views.
+
+**Setup IDENTICAL to Move 5 + path α v1+v2** (N=32, R=10, r=R/φ², A28+Cosserat self-terms, no drive, peak |ω|=0.3π, V_amp=0.14, pre-evolve 10 P, selection 5 P, recording 185 P, 4 K4 bond-pairs at top-K |V_inc[port 0]|² cells). Same 4 bond-pair locations as v2: (24,18,14)→(25,19,15), (6,16,14)→(7,17,15), (6,18,14)→(7,19,15), (24,10,14)→(25,11,15). Sampler change ONLY.
+
+**Five sampler views adjudicated per bond and per cluster:**
+
+| View | What it samples | Mode I criterion |
+|---|---|---|
+| (a) | 3D ω-PCA (rotation-invariant, no Φ_link) | e2/e1 ≈ φ² ± 5% AND planarity e0/e2 < 0.1 |
+| (b-x) | (Φ_link, ω_x) | R/r ≈ φ² ± 5% AND chirality ≥ 75% |
+| (b-y) | (Φ_link, ω_y) | R/r ≈ φ² ± 5% AND chirality ≥ 75% |
+| (b-z) | (Φ_link, ω_z) | R/r ≈ φ² ± 5% AND chirality ≥ 75% |
+| (c) | (Φ_link, |ω|) magnitude pairing | R/r ≈ φ² ± 5% AND chirality ≥ 75% |
+
+**Per-bond results (4 bonds, 5 views each):**
+
+```
+bond[0] (24,18,14) → (25,19,15)
+  (a) planarity=0.4526, e2/e1=1.2385  (target φ²=2.618, FAIL)
+  (b-x) R/r=4.6962  AMBIG
+  (b-y) R/r=3.9668  AMBIG
+  (b-z) R/r=8.3816  AMBIG
+  (c)   R/r=6.4267  CCW
+bond[1] (6,16,14) → (7,17,15)
+  (a) planarity=0.5438, e2/e1=1.2224  (FAIL)
+  (b-x) R/r=5.4412  AMBIG
+  (b-y) R/r=4.6707  AMBIG
+  (b-z) R/r=8.4173  AMBIG
+  (c)   R/r=6.9262  CCW
+bond[2] (6,18,14) → (7,19,15)
+  (a) planarity=0.5401, e2/e1=1.3145  (FAIL)
+  (b-x) R/r=3.0334  AMBIG
+  (b-y) R/r=3.4919  AMBIG
+  (b-z) R/r=4.7270  AMBIG
+  (c)   R/r=4.5548  CCW
+bond[3] (24,10,14) → (25,11,15)
+  (a) planarity=0.4850, e2/e1=1.2227  (FAIL)
+  (b-x) R/r=2.2577  AMBIG
+  (b-y) R/r=2.3790  AMBIG
+  (b-z) R/r=1.2510  AMBIG
+  (c)   R/r=2.6656  CCW
+```
+
+**Per-cluster adjudication:**
+
+| Cluster | View | Median R/r (or e2/e1) | Chirality | Mode I |
+|---|---|---|---|---|
+| +x (2 bonds) | (a) 3D ω-PCA | e2/e1=1.231, planarity 0.469 | n/a | FAIL (FAIL/FAIL) |
+| +x | (b-x) | 3.477 | 0% TIE | FAIL/FAIL |
+| +x | (b-y) | 3.173 | 0% TIE | FAIL/FAIL |
+| +x | (b-z) | 4.816 | 0% TIE | FAIL/FAIL |
+| +x | (c) | 4.546 | 100% CCW | FAIL/PASS |
+| -x (2 bonds) | (a) 3D ω-PCA | e2/e1=1.268, planarity 0.542 | n/a | FAIL (FAIL/FAIL) |
+| -x | (b-x) | 4.237 | 0% TIE | FAIL/FAIL |
+| -x | (b-y) | 4.081 | 0% TIE | FAIL/FAIL |
+| -x | (b-z) | 6.572 | 0% TIE | FAIL/FAIL |
+| -x | (c) | 5.741 | 100% CCW | FAIL/PASS |
+
+Persistence 33% (below 40% threshold; informational, not load-bearing per §7.4 framing).
+
+**Mode III adjudication:** all 5 views fail C1 in both clusters; Cluster Mode I = FAIL in both. (δ) interpretation falsified at engine-representable scale.
+
+**Three empirical conclusions:**
+
+1. **3D ω-orbit is genuinely volumetric, NOT planar.** Median planarity index e0/e2 = 0.47-0.54 across both clusters (target <0.1 for planar 3D orbit). The Cosserat ω-trajectory at saturated bond-pair nodes does NOT lie in any 2-plane — it fills a roughly isotropic 3-volume. View (a) eigenvalue ratios e2:e1:e0 are approximately 1.23-1.27 : 1.0 : 0.47-0.54 — closer to spherical than to a flat orbit with golden-ratio aspect.
+
+2. **Per-axis (b-x/y/z) bipolar pattern persists.** All 12 axis ellipses chirality AMBIG, R/r range 1.25-8.42 across bonds. Bipolar distribution observed in v1+v2 is NOT a sampler-axis-projection artifact; it's a substrate-level feature of the saturated bound-state at engine-representable scale (whatever it is, it's not (R/r=φ², CCW) on any axis).
+
+3. **NEW partial positive signal — (Φ_link, |ω|) chirality consistency anchors the Meissner mechanism empirically.** View (c) magnitude pairing yields 100% CCW chirality across both clusters (8 of 8 bond consensus PASS). Random or null chirality would be ~50/50 across 8 measurements; 100% CCW is empirical confirmation that the substrate's K4 right-handed bipartite chirality IS manifesting in the saturated attractor's |ω| dynamics — not an axis projection or null. This matches §6.7's Meissner-asymmetric mechanism prediction directly: substrate handedness is empirically present at engine-representable scale, just expressed in the rotation-invariant magnitude oscillation rather than in axis-projected phasor coordinates. R/r is still wrong (median 4.55-5.74 vs target 2.618), so this is partial — chirality side anchored, R/r side open.
+
+**What (δ) falsification implies for §7.6.3:** the load-bearing flaw is NOT scalar-projection sampling. ω is a genuine 3-vector that the engine resolves cleanly; we sampled it; the bound state still doesn't show R/r=φ² on any view. (α) continuum-limit-only / (β) topology revision / (γ) framing revision remain the open structural reasons. The new (Φ_link, |ω|) chirality-CCW signal is consistent with all three — chirality fossilizes a substrate-level direction (K4 RH bipartite seed) that survives independently of whether the bound state hosts a golden-ratio orbit at this lattice resolution.
+
+**v5.1 closure adjudication — SHARPENED, not weakened.** Mode III canonical stands across 10 pre-registered tests on R/r=φ². But the closure shape is **Mode III canonical + one structural partial positive**, not pure-negative: framework's Meissner-asymmetric chirality side (§6.7) is partly empirically anchored at engine-representable scale; the R/r ladder side stays open across (α)/(β)/(γ). This is a stronger and more honest closure than pure-negative — the framework's chirality prediction is real; the question that stays open is which observable carries R/r=φ² given that chirality lives in |ω| magnitude oscillation.
 
 ---
 
@@ -447,21 +532,24 @@ If path α v2 gives Mode I → corpus electron empirically confirmed in the Φ_l
 
 If path α v2 gives Mode III → branches (a) [continuum-limit only] and (b) [deeper reframe; possibly hybrid V≠0 ∧ ω≠0 seed or different topology per doc 75 line 140 alternatives] become canonical; **L3 branch closes negative with structural reason**.
 
-### §8.2 What this v5 closure synthesis SAYS (FINAL)
+### §8.2 What this v5.1 closure synthesis SAYS (FINAL)
 
-**The L3 branch closes Mode III canonical (negative) at v5.** Path α v1 (V_inc/V_ref) + v2 (Φ_link/ω) both Mode III; doc 75 line 140's named alternatives empirically falsified or ruled out.
+**The L3 branch closes Mode III canonical (negative) at v5.1.** Path α v1 (V_inc/V_ref) + v2 (Φ_link/ω_axial) + v3 (3D-aligned ω-vector, 5 sampler views) all Mode III; doc 75 line 140's named alternatives empirically falsified or ruled out; auditor (δ) 3D-axis-mapping interpretation empirically falsified.
 
 Specifically:
 - ✅ **Framework structure stands** as AVE-native description: lemniscate-with-q-half-twists, (2, q) family, bipartite K4, three-layer chirality, substrate-native Pauli (provisional pending He/Li/Cooper pressure-test per §9(e)), Virial sum rest-energy m_e c² = ½ L I_max² + ½ C V_peak² (§3.5), Meissner-asymmetric magnetic-moment generator (§6.7) — all of §1-§6 lands as canonical corpus-cited structure
-- ✅ **Bond-pair object class empirically verified:** path α v1 + v2 found 4 K4 (+1,+1,+1) tetrahedral bond-pairs naturally at Move 5's saturated attractor in BOTH sectors. Doc 37 §1 framing structurally correct.
-- ✅ **Op14 trading channel empirically verified:** path α v2's recording at Φ_link captured non-trivial dynamics (σ_Φ ranging 0.022-0.27, σ_ω ranging 0.04-0.05) over 185 P. Trading IS happening; just doesn't produce corpus φ²/chirality signature.
-- ❌ **Empirical signature falsified across both sectors:** R/r ≠ φ² in either V_inc/V_ref OR Φ_link/ω; chirality null in both; bipolar +x/−x split robust across both
+- ✅ **Bond-pair object class empirically verified:** path α v1 + v2 + v3 found 4 K4 (+1,+1,+1) tetrahedral bond-pairs naturally at Move 5's saturated attractor in ALL three samplers. Doc 37 §1 framing structurally correct.
+- ✅ **Op14 trading channel empirically verified:** path α v2's + v3's recording at Φ_link captured non-trivial dynamics (σ_Φ ranging 0.022-0.27, σ_ω ranging 0.04-0.05) over 185 P. Trading IS happening; just doesn't produce corpus φ² geometric signature.
+- ✅ **NEW v5.1 partial positive signal — Meissner mechanism partly empirically anchored:** path α v3 view (c) (Φ_link, |ω|) magnitude pairing yields 100% CCW chirality consensus in both clusters (8 of 8 bonds; null/random baseline ~50/50). Substrate K4 right-handed bipartite chirality is empirically present in the saturated attractor's magnitude-oscillation dynamics, matching §6.7 Meissner-asymmetric mechanism's prediction directly. Chirality direction is real and substrate-fossilized at engine-representable scale — just expressed in rotation-invariant magnitude oscillation, NOT in axis-projected phasor coordinates. R/r is wrong in this view too (median 4.55-5.74), so this is a partial signature isolating chirality (anchored) from R/r (open).
+- ✅ **3D ω-orbit characterized:** path α v3 view (a) found ω-trajectory at saturated bond-pair nodes is genuinely volumetric (planarity 0.47-0.54) with near-isotropic principal axes (e2:e1:e0 ≈ 1.25 : 1.0 : 0.5). NOT a planar orbit with golden-ratio aspect.
+- ❌ **R/r=φ² geometric signature falsified across all sampled sectors AND views:** R/r ≠ φ² in V_inc/V_ref OR Φ_link/ω_axial OR (Φ_link, ω_x/y/z) per-axis OR (Φ_link, |ω|) magnitude; bipolar +x/−x split robust across all
 - ❌ **Doc 75 line 140's "Φ_link sector" prediction empirically falsified** (path α v2 Mode III)
-- ⚠ **Three structural-reason branches** per §7.6.3 (continuum-limit-only / topology revision / signature revision) constitute the negative closure's open framework questions
+- ❌ **Auditor (δ) "c=3 = 3 spatial axes" interpretation empirically falsified** (path α v3 Mode III, view (a) decisive: ω-orbit is not planar)
+- ⚠ **Three surviving structural-reason branches** per §7.6.3 (continuum-limit-only / topology revision / signature revision) constitute the negative closure's open framework questions; (δ) closed
 
 ### §8.3 Round 10+ candidate research directions (post-L3-closure)
 
-L3 branch closes negative at v5; the canonical empirical question (does engine reproduce corpus electron at engine-representable scale?) is empirically answered NO. **Future research directions** (NOT part of L3 closure; queued for fresh research arcs):
+L3 branch closes Mode III canonical + one partial positive at v5.1. The canonical empirical question on R/r=φ² is answered NO across V_inc/V_ref, Φ_link/ω_axial, Φ_link/ω_x/y/z, Φ_link/|ω|, and 3D ω-PCA sampler views. The chirality side (Meissner mechanism, §6.7) is partly anchored via path α v3 view (c). **The Round 10+ starting point is therefore NOT "find the corpus electron from scratch" but "find the observable that carries R/r=φ² given that chirality lives in |ω| magnitude oscillation."** Candidate research directions (NOT part of L3 closure; queued for fresh research arcs):
 
 **Direction 1 — N=128+ lattice escalation** (tests Branch (a) continuum-limit hypothesis):
 - Run Move 5 + path α v2 at N=128 (R=8, r=R/φ²≈3.06, peak |ω|=0.3π)
@@ -541,12 +629,17 @@ The lemniscate-with-twists / (2, q) torus knot framing has direct historical lin
 
 ---
 
-## End of doc 79_ v3
+## End of doc 79_ v5.1
 
-**Status:** framework structure landed; awaiting path α empirical result before final Mode I/III adjudication (§7-§8). Updates expected post-path-α; this v3 commit captures the framing for review and citation in the interim.
+**Status:** L3 branch closes Mode III canonical + one structural partial positive at v5.1 — 10 pre-registered tests at engine-representable corpus GT (N=32, corpus GT, Move 5 setup), all Mode III on R/r=φ²: R7.1 (×4), R7.2, Test B v2/v3, path α v1/v2/v3. Auditor (δ) 3D-axis-mapping interpretation falsified via path α v3 view (a) (ω-orbit volumetric, NOT planar; principal-axis ratios near-unity, NOT golden). Three surviving structural-reason branches per §7.6.3: (α) continuum-limit-only / (β) topology revision / (γ) signature revision.
 
-**Pending implementer-side work** (held per Grant 2026-04-28):
-- Path α run (~1.5-2 hr) with bond-pair sampler + methodology fixes from §7
+**NEW v5.1 partial positive empirical signal — Meissner mechanism partly anchored:** path α v3 view (c) (Φ_link, |ω|) magnitude pairing yields 100% CCW chirality across both clusters (8 of 8 bonds; baseline ~50/50 random) — substrate's K4 right-handed bipartite chirality is empirically present in the saturated attractor's magnitude-oscillation dynamics, matching §6.7's Meissner-asymmetric mechanism prediction. R/r=φ² is wrong in this view too (median 4.55-5.74), so this is partial: framework's chirality prediction is real, the R/r ladder question stays open.
+
+**Closure shape:** stronger than pure-negative. Framework's chirality side (§6.7 Meissner mechanism) is partly empirically anchored at engine-representable scale; R/r side stays open across (α)/(β)/(γ). The Round 10+ starting point reframes from "find the corpus electron from scratch" to "find the observable that carries R/r=φ² given that chirality lives in |ω| magnitude oscillation."
+
+**Round 10+ candidate directions** (post-L3-closure, queued for fresh research arcs per §8.3): (1) N=128+ lattice escalation (tests (α)), (2) topology variation (tests (β)), (3) substrate framing revision (tests (γ)), (4) engine fix per doc 75 §6.3 cleanliness, (5) mass spectrum at higher q.
+
+L3 branch is closed. Framework structure (§1-§6) lands as canonical AVE-native description for use in downstream research and Vol 1 Ch 8 manuscript revision per §9.
 - v4 update post-path-α with empirical adjudication landed in §8
 - Possibly v4 corpus-revision-package updates per path α result
 

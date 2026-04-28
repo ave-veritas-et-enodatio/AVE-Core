@@ -3212,3 +3212,98 @@ predictions:
         A43 (auditor must grep before asserting — fifth instance
         validated by this v2 reframe), A48 (frozen-extraction-scope)
 
+  - id: P_phase9_path_alpha_v3_3d_aligned
+    name: "Round 9 path α v3: 3D-aligned ω-vector sampler — auditor (δ) interpretation that c=3 in (2,3) maps to 3 spatial Cosserat ω-rotation axes"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    test_file: "src/scripts/vol_1_foundations/r9_path_alpha_v3_3d_aligned.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 9 path α v3 — auditor (δ) interpretation per doc 79_ v5
+      §7.6.3 candidate amendment. Path α v1 + v2 both reduced ω to a
+      scalar projection ω · b_hat where b_hat is the K4 bond direction
+      (1,1,1)/√3 (port 0 for all 4 selected bonds). This collapses the
+      3D Cosserat ω-vector into 1 scalar component.
+
+      AUDITOR (δ) INTERPRETATION: c=3 in the corpus (2,3) torus knot
+      may not refer to 1D-curve crossings on a torus — it may refer to
+      3 orthogonal Cosserat ω-rotations (one per spatial axis). Move 10
+      empirical (doc 74_ §15.4 + VACUUM_ENGINE_MANUAL.md) found that
+      "Op10 c=3 carrier matches NONE of standard topology types
+      (torus knot, Hopf-linked, Y_lm)" — c=3 is preserved by some
+      non-standard direction-field winding, open question for Round 8+.
+
+      If (δ) is correct, sampling ω · b_hat (a scalar) projects out
+      2 of 3 ω components by construction; the bipolar R/r distribution
+      observed in v1 (clusters 1.89/5.42) and v2 (clusters 3.62/4.97)
+      is the signature of a 3D-coordinated rotation sampled along
+      one direction at a time.
+
+      PATH α v3 — METHODOLOGY:
+      Engine setup IDENTICAL to Move 5 + path α v1 + path α v2
+      (N=32, R=10, r=R/φ², A28+Cosserat self-terms, no drive,
+      peak |ω|=0.3π, V_amp=0.14, pre-evolve 10 P, selection 5 P,
+      record 185 P).
+
+      Bond-pair selection logic UNCHANGED (top-K |V_inc[port 0]|² then
+      K4 tetrahedral nearest-neighbor pairing).
+
+      Sampler change: capture (Φ_link[A,port], ω_x, ω_y, ω_z) per bond
+      per step instead of (Φ_link, ω_axial). 4 channels per bond.
+
+      THREE PER-BOND ELLIPSE TESTS:
+      (a) 3D ω-trajectory PCA (rotation-invariant, no Φ_link):
+          eigenvalues e0 ≤ e1 ≤ e2 of cov(ω_x, ω_y, ω_z).
+          Planarity index = e0 / e2 (small → orbit is planar).
+          In-plane aspect = e2 / e1.
+          Mode I criterion: e2/e1 ≈ φ² ± 5% AND planarity e0/e2 < 0.1
+          (orbit lies in 2-plane with golden-ratio principal axes).
+      (b) Per-axis (Φ_link, ω_i) for i ∈ {x, y, z}:
+          three ellipse fits per bond.
+          Mode I criterion: ANY axis yields R/r = φ² ± 5% with
+          chirality consensus ≥ 75% via Hilbert mean(sin(Δφ)).
+      (c) (Φ_link, |ω|) scalar magnitude pairing:
+          one ellipse fit per bond on rotation-invariant magnitude.
+          Mode I criterion: R/r = φ² ± 5% AND chirality ≥ 75%.
+
+      DUAL-CRITERION FOR MODE I CLOSURE (per cluster, both must pass):
+        C1 (load-bearing): ANY of (a), (b-x), (b-y), (b-z), (c) yields
+          R/r = φ² ± 5% across the cluster's bonds (median criterion);
+          which sampler-view passes is itself diagnostic of the
+          structural reason (a → planar 3D orbit, b-i → axis-aligned
+          rotation, c → magnitude oscillation)
+        C2: chirality consensus ≥ 75% on the passing sampler-view
+
+      ADJUDICATION CATEGORIES:
+      - Mode I (POSITIVE L3 REOPEN): any sampler-view yields C1+C2 in
+        both clusters → c=3 means 3D Cosserat axes confirmed empirically;
+        L3 branch reopens positive; doc 79_ v5.1 amendment lands
+        positive Mode I closure with structural-reason isolation
+      - Mode II-3D-planar: (a) yields planar orbit (e0/e2 < 0.1) but
+        e2/e1 ≠ φ² → 3D structure exists but not golden-ratio
+      - Mode II-axis: ONE of (b-i) yields R/r = φ² but not consistent
+        across cluster → asymmetric axis preference
+      - Mode III: all sampler-views fail across both clusters →
+        (δ) interpretation falsified at engine-representable scale;
+        L3 closure stays Mode III canonical; doc 79_ v5.1 amendment
+        hardens the closure with sampler-exhaustion evidence
+
+      ESTIMATED COST: ~5-7 min wall (same recording window as v2,
+      ~1644 steps; sampler is 4 channels per bond instead of 2,
+      negligible overhead).
+
+      CITATIONS:
+      - doc 79_ v5 §7.6 candidate structural reasons (existing α/β/γ
+        + this v3 adds (δ) 3D-axis-mapping)
+      - doc 74_ §15.4 (Move 10 c=3 non-standard topology empirical)
+      - VACUUM_ENGINE_MANUAL.md (Move 10 c=3 carrier note)
+      - doc 79_ v5 §8.3 candidate Round 10+ directions (this is now
+        being executed as v5.1 amendment instead of queued)
+      - COLLABORATION_NOTES Rule 14 (substrate decides), Rule 16 (Grant
+        adjudicated this as run-now option (b)), A40 (dual-criterion
+        + multi-N + multi-sector pre-registered up-front), A48
+        (frozen-extraction-scope), A59 (phase-space methodology)
+
