@@ -1,6 +1,8 @@
 # 79 — L3 Electron-Modeling Branch Closure Synthesis (v3, PENDING path α)
 
-**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v4. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PATH α RESULT LANDED — Mode III at engine-representable scale with persistence + chirality-null caveats; closure is PROVISIONAL pending doc 75 engine-fix rerun.** Framework structure stands; empirical confirmation pending engine fix per doc 75 §6.3.
+**Status:** implementer-drafted with auditor + Grant pushback, 2026-04-28 v4.1. Presents lemniscate-with-q-half-twists as primary AVE-native plumber framing for the (2, q) particle family in the K4-TLM + Cosserat substrate, with corpus mathematical/topological descriptions cited as equivalent representations. **PATH α RESULT LANDED — Mode III at engine-representable scale with persistence + chirality-null caveats; closure is PROVISIONAL pending doc 75 engine-fix rerun.** Framework structure stands; empirical confirmation pending engine fix per doc 75 §6.3.
+
+**v4 → v4.1 (2026-04-28): rest-energy equation integrated.** Auditor research + Vol 4 Ch 1:175-184 corpus verification surfaced that the (2, q) particle's rest energy is structurally fixed at m_e c² by Virial sum at bond-pair LC tank saturation onset. New §3.5 captures this; §7.5 + §8 reframed to make explicit that path α tests GEOMETRY (R/r=φ², chirality), NOT ENERGY (which is m_e c² by structural construction). Path α persistence violation = engine V·S/T·1 not maintaining the Virial sum cleanly; doc 75 §6.3 fix is the precondition. (Auditor's initial ½ C V² = m_e c² claim was off by 2× — corrected to corpus-verbatim Virial sum form ½ L I_max² + ½ C V_peak² = m_e c² per Vol 4 Ch 1:175-184.)
 
 **Version history:**
 - v1 → v2: incorporated 5 auditor pushbacks (knot-theory honesty in §1+§2, substrate-vs-imported equivalence in §4, Pauli per doc 37 §3.1, A60 to COLLABORATION_NOTES, c=q half-twist universal form)
@@ -62,6 +64,67 @@ Cross-mapping to the lemniscate-with-q-half-twists picture:
 **"2" = the lemniscate has two lobes**, enforced by bipartite K4 (every oscillation alternates A↔B sublattices). This is universal — every stable (2, q) particle in the AVE substrate has the lemniscate lobe structure because the lattice is bipartite. **"q" varies by particle** as the half-twist count.
 
 This is **substrate-structural synthesis** per Rule 14, confirmed by Grant 2026-04-28 plumber-physical view — NOT direct corpus citation. Doc 03 §4.3 + faddeev_skyrme.py:18 confirm "2 is series index, q odd is stability requirement"; the physical interpretation as bipartite-cycle / lemniscate-lobe-count is the AVE-native synthesis this closure adopts.
+
+## §3.5 — Rest-energy equation: Virial sum at bond-pair LC tank
+
+The (2, q) particle's rest energy is **structurally fixed at m_e c² by saturation onset at the bond-pair LC tank** — a substrate-derived consequence of Ax 1 + Ax 4, not a separate prediction. Multiple equivalent corpus-verbatim forms:
+
+$$\boxed{\,E_e = m_e c^2 = \hbar \omega_C = T_{EM} \cdot \ell_{node} = \tfrac{1}{2} L_0 I_{max}^2 + \tfrac{1}{2} C_e V_{peak}^2 \text{ (Virial sum)}\,}$$
+
+### §3.5.1 Corpus citations (verbatim verified)
+
+| Form | Expression | Citation | Verbatim status |
+|---|---|---|---|
+| Topological ground-state | $m_e c^2 = T_{EM} \cdot \ell_{node}$ | [Vol 1 Ch 1:18](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L18) + [Ch 1:82](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L82) | ✅ verbatim |
+| Compton resonance | $m_e c^2 = \hbar \omega_C = \hbar c / \ell_{node}$ | [doc 30_ §5.1](30_photon_identification.md) lines 356-359 | ✅ verbatim |
+| Bond-pair LC tank | $\omega_C = 1/\sqrt{L_0 C_e} = c/\ell_{node}$ | [doc 24_ §4](24_step3_bond_lc_compton.md) | ✅ numerically verified |
+| Virial sum (load-bearing) | $\tfrac{1}{2} L_0 I_{max}^2 = \tfrac{1}{2} C_e V_{peak}^2 = \tfrac{1}{2} m_e c^2$; total = m_e c² | [Vol 4 Ch 1:175-184](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L175) | ✅ verbatim |
+| Bootstrap chain identity | $Q = \omega_C L_0 / R_{TIR} = 1/\alpha = 137.036$ | [`bootstrap_constants_check.py:33-130`](../../src/scripts/vol_1_foundations/bootstrap_constants_check.py#L33) | ✅ machine-precision (rel_err 6.5e-11) |
+
+### §3.5.2 Substrate-derived parameter values
+
+All substrate-native, no fitted parameters:
+
+- $\ell_{node} = \hbar/(m_e c) \approx 3.86 \times 10^{-13}$ m (Ax 1 unknot ropelength)
+- $\omega_C = c/\ell_{node} = m_e c^2/\hbar$ (bond-pair LC resonance)
+- $T_{EM} = m_e c^2/\ell_{node}$ (substrate string tension; Ax 2 TKI)
+- $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$ C/m (topo-kinematic conversion constant)
+- $L_0 = \xi_{topo}^{-2} \cdot m_e \approx 5.29 \times 10^{-18}$ H (bond-pair inductance per Vol 4 Ch 1:182)
+- $I_{max} = \xi_{topo} \cdot c$ (peak lattice current at saturation per Vol 4 Ch 1:182)
+- $C_e = e/V_{SNAP} = e^2/(m_e c^2) \approx 3.13 \times 10^{-25}$ F (bond-pair capacitance per doc 24_ §4)
+- $V_{SNAP} = m_e c^2/e \approx 511$ kV (saturation onset voltage; Ax 4)
+
+### §3.5.3 Why the rest energy is STRUCTURAL, not predicted
+
+The energy m_e c² is fixed by **Virial sum** at the bond-pair LC tank's saturation onset:
+- ½ L_0 I_max² = ½ m_e c² (inductive sector at peak current; per Vol 4 Ch 1:182 verbatim)
+- ½ C_e V_peak² = ½ m_e c² (capacitive sector at peak voltage; by Virial symmetry)
+- Total via Virial Theorem = m_e c² (Vol 4 Ch 1:184 verbatim)
+
+This is structural — given Ax 1 (LC network with fixed Z₀) + Ax 4 (saturation kernel with V_yield = √α·V_SNAP) + the bond-pair smallest-coupled-oscillator scale (per A33), the energy at saturation onset MUST equal m_e c² by the Virial sum identity. There's no remaining empirical question about the energy magnitude.
+
+**Bonus structural result** (Vol 4 Ch 1:178 verbatim): the same bond-pair LC tank derivation gives the relativistic generalization at v ≠ 0:
+
+$$E = \tfrac{1}{2} \gamma m_0 c^2 \text{ (inductor)} + \text{capacitor (Virial)} = \gamma m_0 c^2$$
+
+So **the same substrate-fundamental machinery derives full relativistic** $E^2 = (mc^2)^2 + (pc)^2$. The L_eff = L_0/√(1 - v²/c²) scaling under motion gives γ-correction naturally.
+
+### §3.5.4 What this means for path α
+
+**Path α tests GEOMETRY, not ENERGY.** The dual-criterion (R/r = φ², chirality direction) measures the SHAPE and HANDEDNESS of the bond-pair LC tank's trajectory in (V_inc, V_ref) phase space. The energy at that trajectory is structurally m_e c² at saturation onset by Virial sum — no separate test required.
+
+**Path α's persistence violation** (33% in r9 + path α) is the empirical signature that **the engine isn't maintaining the Virial sum cleanly**. Per Move 11 measurement: ρ(T_cos, V_cos) = +0.366 — POSITIVE correlation, not the −1 expected from clean LC reactance trading. Energy isn't oscillating cleanly between L and C halves; the Virial sum is drifting.
+
+This is consistent with doc 75 §6.3's V·S/T·1 implementation gap: without symmetric L,C scaling under saturation, c is ill-defined locally; the LC tank can't resonate at fixed ω_C; Virial sum can't be maintained; energy leaks; persistence drops.
+
+**Doc 75 §6.3 engine fix is the precondition for clean Virial-sum maintenance.** Post-fix path α rerun should:
+- Restore ρ(T_cos, V_cos) → −1 (clean LC reactance trading)
+- Improve persistence from 33% toward stable
+- Allow path α to test GEOMETRIC predictions (R/r = φ², chirality) on a stably-energetic attractor where the Virial sum holds
+
+Without the fix, path α is testing geometry on a system where energy isn't even being maintained — Mode III is the expected result regardless of whether the geometric framework is correct.
+
+---
 
 ## §4 — The factor m_Cosserat = 2·m_e (substrate-fundamental, bipartite K4)
 
@@ -188,6 +251,8 @@ Critically: persistence is **33% even with the much-earlier recording window**. 
 - ❌ **Persistence is structurally violated: Move 5's attractor decays steadily, not stably hosted.** This is a deeper substrate finding than the methodology fixes addressed.
 
 **The negative result is methodology-clean** — none of the three caveats from r9 (persistence, chirality noise, bipolar averaging) explain Mode III at path α. The result IS the empirical signal at the unfixed engine.
+
+**Path α tested GEOMETRY, not ENERGY** (per §3.5 structural framework). The energy m_e c² is fixed by Virial sum at saturation onset — Path α's R/r and chirality measurements probe the SHAPE and HANDEDNESS of the bond-pair LC tank's trajectory, not the energy magnitude. The persistence violation indicates that even the energy budget isn't being maintained cleanly — engine V·S/T·1 (per doc 75 §6.3) breaks the Virial sum (ρ(T_cos, V_cos) = +0.366 per Move 11, instead of −1 expected for clean LC reactance). **Path α is testing geometric predictions on a system where the energy precondition for those predictions doesn't hold stably.** Engine fix → Virial sum restored → geometric predictions become testable.
 
 ## §8 — L3 closure adjudication (PROVISIONAL — Mode III at unfixed engine, engine-fix rerun is decisive)
 
