@@ -98,7 +98,9 @@ References
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+import json
+from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Any, Callable, Optional
 
 import numpy as np
@@ -1617,6 +1619,75 @@ class VacuumEngine3D:
         """Convenience constructor: VacuumEngine3D.from_args(N=64, temperature=0.0, ...)."""
         cfg_kwargs = {k: v for k, v in kwargs.items() if k in EngineConfig.__dataclass_fields__}
         return cls(EngineConfig(**cfg_kwargs))
+
+    # -----------------------------------------------------------------
+    # State persistence (Phase 0.1, per round_10_plan.md)
+    # -----------------------------------------------------------------
+    # Save the engine's live state (K4 + Cosserat field arrays + time + config)
+    # to a single .npz file. Sources + observers are NOT serialized — re-attach
+    # after load. Use case: cache mid-run attractor states (e.g., Move 5 saturated
+    # attractor at 15 P) to amortize pre-evolve + selection overhead across
+    # multiple post-cache experiments.
+
+    def save(self, path: str | Path) -> Path:
+        """Save engine state to .npz. Returns the resolved path written.
+
+        Captures:
+          - K4: V_inc, V_ref, Phi_link, S_field
+          - Cosserat: u, omega, u_dot, omega_dot
+          - engine.time
+          - EngineConfig dataclass (JSON-encoded inside the npz)
+
+        Sources + observers are NOT serialized; re-attach after load.
+        """
+        path = Path(path)
+        if not path.suffix:
+            path = path.with_suffix(".npz")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        config_json = json.dumps(asdict(self.config))
+        np.savez_compressed(
+            path,
+            V_inc=self.k4.V_inc,
+            V_ref=self.k4.V_ref,
+            Phi_link=self.k4.Phi_link,
+            S_field=self.k4.S_field,
+            u=self.cos.u,
+            omega=self.cos.omega,
+            u_dot=self.cos.u_dot,
+            omega_dot=self.cos.omega_dot,
+            time=np.asarray(self.time),
+            config_json=np.asarray(config_json),
+        )
+        return path
+
+    @classmethod
+    def load(cls, path: str | Path) -> "VacuumEngine3D":
+        """Load engine state from .npz. Rebuilds engine via from_args(config),
+        then overwrites live state arrays. Returns new engine matching the saved
+        instance at engine.time. Sources + observers are NOT restored.
+        """
+        path = Path(path)
+        if not path.suffix:
+            path = path.with_suffix(".npz")
+        data = np.load(path, allow_pickle=False)
+        config_dict = json.loads(str(data["config_json"]))
+        config = EngineConfig(**config_dict)
+        engine = cls(config)
+        engine.k4.V_inc[:] = data["V_inc"]
+        engine.k4.V_ref[:] = data["V_ref"]
+        engine.k4.Phi_link[:] = data["Phi_link"]
+        engine.k4.S_field[:] = data["S_field"]
+        engine.cos.u[:] = data["u"]
+        engine.cos.omega[:] = data["omega"]
+        engine.cos.u_dot[:] = data["u_dot"]
+        engine.cos.omega_dot[:] = data["omega_dot"]
+        # _coupled.time is the source of truth (step() does self.time = self._coupled.time
+        # at the end of every step). Restoring engine.time alone leaves _coupled.time at 0;
+        # the next step() then clobbers engine.time back to dt instead of saved_time + dt.
+        t_saved = float(data["time"])
+        engine._coupled.time = t_saved
+        engine.time = t_saved
+        return engine
 
     # -----------------------------------------------------------------
     # Thermal initialization (per doc 47_)
