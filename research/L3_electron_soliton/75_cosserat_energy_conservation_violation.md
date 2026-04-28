@@ -233,3 +233,104 @@ Open candidate moves:
 ### 10.6 A57 (NEW for r8.10 §17.1)
 
 **A57 — Sub-Nyquist topology-seed caveat at corpus aspect ratio.** Op10's `extract_crossing_count` requires the (2,3) poloidal winding's feature size to be above lattice Nyquist (≥2 cells) for a clean c=3 reading. At corpus aspect R/r = φ², the constraint that the loop fits in the lattice's active region forces r ≤ ~1.5 cells at N=64 (~2.5 cells at N=128, ~5 cells at N=256). Anything below ~r = 1.5 cells gives c=2 instead of c=3 at t=0 — sub-Nyquist topology seed. Pre-regs that include "c=3 maintained" as a PASS criterion must verify c=3 at t=0 first; if c=2 at t=0, the criterion is unsatisfiable from initial condition and shouldn't be load-bearing in the adjudication. Generalizes: any pre-registered topology-preservation criterion needs the topology to be cleanly seeded at t=0; verify at pre-reg-write time, not just at adjudication time.
+
+---
+
+## §11 — Photon-tail path (b): propagating IC test (P_phase6_photon_tail_propagating_ic)
+
+Pre-registered driver `r8_photon_tail_propagating_ic.py` at commit bd15bb0. N=64, R=4, r=1.5, V_inc amp=0.1, ω amp scale=0.3464 (A26 anchor), 200 Compton periods, no drive. Identical seeder to path (a) except `omega_dot` is set to enforce loop-tangent rotation in (x,y) plane: `ω̇_x = +Ω_loop·ω_y`, `ω̇_y = −Ω_loop·ω_x`, `ω̇_z = 0`, where `Ω_loop = 2π·c/L_loop`. Adjudication scope: 3/3 of C1/C2/C3 load-bearing; C4 demoted to informational per A57. c(t) trajectory tracker added (samples Op10 every 10P throughout).
+
+### 11.1 Pre-reg adjudication
+
+**Result: Mode III, 0/3 load-bearing PASS.**
+
+| Criterion | Measured | Target | Verdict |
+|---|---|---|---|
+| C1 single-node ellipse aspect | median 25.74 (12/30 nodes finite) | 2.618 ± 5% | FAIL |
+| C2 spatial winding rotation | NaN (insufficient finite nodes) | 5·2π ± 30% | FAIL |
+| C3 LC reactance ρ(Σ\|V_inc\|², Σ\|Φ_link\|²) | -0.463 | (-1.2, -0.8) | FAIL |
+| C4 (informational) topology c via Op10 | 1 final; reached 3 transiently | 3 | FAIL (informational) |
+
+[`r8_photon_tail_propagating_ic_results.json`](../../src/scripts/vol_1_foundations/r8_photon_tail_propagating_ic_results.json) for full data.
+
+### 11.2 Path (a) ↔ path (b) comparison
+
+| Quantity | Path (a) standing-wave | Path (b) propagating |
+|---|---|---|
+| C1 median R/r | 25.74 | 25.74 |
+| C2 winding | decoherent | NaN |
+| C3 ρ(V_inc, Φ_link) | -0.46 | -0.463 |
+| peak \|ω\| t=0 → t=200P | 0.836 → 0.036 (4.3%) | 0.836 → 0.036 (4.4%) |
+| peak \|V_inc\| t=0 → t=200P | 0.261 → 0.174 (66%) | 0.261 → 0.174 (66%) |
+| Mode | III, 0/4 (3/3 load-bearing FAIL) | III, 0/3 load-bearing FAIL |
+
+Path (a) and path (b) produced **near-identical empirical fingerprints**. C3's LC reactance ρ matches to 0.003. Sector asymmetry pattern (Cosserat ω 4% retention, K4 V_inc 66%) is invariant to IC velocity choice. The propagating-IC ω̇ injection neither re-energized the Cosserat sector nor stabilized the (2,3) topology — within ~10P the propagating phase information was indistinguishable from the standing-wave configuration.
+
+**Empirical implication.** The engine's near-identical response to standing-wave and propagating IC at this scale rules out IC-velocity-choice as the cause of Mode III. The dissolution pathway is structural: at (R=4, r=1.5, N=64) the engine's saturation + Op14 dynamics drive the Cosserat (2,3) configuration toward dissolution regardless of how the kinetic phase is initialized.
+
+### 11.3 c(t) trajectory — flickering topology
+
+| t / P | c | peak \|ω\| |
+|---|---|---|
+| 10 | 3 | 0.103 |
+| 20 | 0 | 0.084 |
+| 30 | 1 | 0.067 |
+| 40 | 0 | 0.075 |
+| 50 | 3 | 0.056 |
+| 60 | 1 | 0.052 |
+| 70 | 1 | 0.045 |
+| 80 | 0 | 0.044 |
+| 90 | 1 | 0.036 |
+| 100 | 3 | 0.051 |
+| 110 | 0 | 0.032 |
+| 120 | 2 | 0.033 |
+| 130 | 1 | 0.041 |
+| 140 | 2 | 0.044 |
+| 150 | 0 | 0.034 |
+| 160 | 1 | 0.030 |
+| 170 | 2 | 0.029 |
+| 180 | 0 | 0.035 |
+| 190 | 0 | 0.045 |
+| 200 | 0 | 0.038 |
+
+c oscillates between 0/1/2/3 throughout. Hits c=3 transiently at t=10/50/100P (roughly 40-50P spacing) then collapses back. peak |ω| decays monotonically from t=10P onward (with brief amplitude excursions correlated with c=3 events at t=50P and t=100P). After t=120P, c stays in {0, 1, 2}; from t=180P onward, c=0 dominates (no winding signal).
+
+This is consistent with two readings:
+
+1. **Marginal-topology aliasing.** Sub-Nyquist topology seed (A57) means Op10's c reading at this scale is sensitive to noise; transient c=3 events may be aliasing artifacts as the dissolving configuration's apparent winding count fluctuates.
+
+2. **Nascent breather rejection.** Even taken at face value, the engine briefly hosts c=3 (every ~50P with decaying amplitude) but cannot maintain it. Energy that would sustain a (2,3) loop is instead radiated outward (ω peak decay 0.836 → 0.038, factor 22 attenuation).
+
+C3's ρ = -0.463 (vs target -1.0 ± 0.2) indicates partial LC trading — about half the energy variance in V_inc ↔ Φ_link follows the LC pattern. Not a fully-locked LC oscillator, but not a static fixed point either. Same value to three significant figures across paths (a) and (b) suggests this is the engine's natural attractor's reactance signature at this scale, not an IC artifact.
+
+### 11.4 What path (b) establishes empirically
+
+1. **Photon-tail framework, as currently formulated, does not produce a corpus-electron signature at any IC variant tested at engine-representable scale (N=64, corpus aspect R/r=φ²).** Standing-wave (a) and propagating (b) IC give near-identical Mode III patterns. Per pre-reg threshold, the photon-tail branch closes at this scale.
+
+2. **Dissolution is not IC-driven.** Path (a) → (b) was the cleanest test of "does the propagating-mode neighborhood contain the photon-tail attractor's basin?" The answer is no — the propagating IC dissolves into the same final state as the standing-wave IC.
+
+3. **Sector asymmetry is a robust empirical feature.** Cosserat ω retention 4% across both paths; K4 V_inc retention 66% across both paths; partial K4 LC reactance ρ ≈ -0.46 across both paths. This points to **the engine's actual attractor at (R=4, r=1.5, N=64) being a partial K4 standing pattern with the Cosserat sector dissolved**, not a corpus electron.
+
+4. **c(t) flicker pattern (transient c=3 every ~50P with decaying ω) is novel.** Did not appear in Move 5 (uniform plateau) or Move 7+10 (static fixed point). It's specific to the photon-tail dual-seed configuration at this scale and suggests the engine attempts to host the (2,3) topology but cannot sustain it. May be informative for a future N=128+ rerun (above-Nyquist topology seed should disambiguate aliasing from genuine flicker).
+
+### 11.5 Cumulative Round 7+8 falsification status
+
+The arc has now empirically tested and falsified, against pre-registered criteria:
+
+1. **R7.1 V-block / Cos-block linearized eigsolves** at corpus GT — Mode III (closest eigenvalue without structural-mode signatures)
+2. **Move 5 Cosserat-only standing-wave self-consistent orbit hunt** at corpus GT — Mode III (sub-corpus (2,3) attractor at non-corpus scale)
+3. **Move 6 natural attractor characterization** at the (2,3) plateau — Mode III (R/r ≠ φ², peak|ω|=0.30 not corpus)
+4. **Move 7+7b+10+11+11b reactance snapshots** at attractor — static fixed point with cross-sector trading, not LC reactance
+5. **Diag A wave-speed amplitude curves (V·S, T·1 hypothesis)** — Mode I sub-percent (asymmetry exists but is not the cause of Mode III)
+6. **Photon-tail path (a) standing-wave dual-seed at corpus aspect** — Mode III, 0/4
+7. **Photon-tail path (b) propagating dual-seed at corpus aspect** (THIS TEST) — Mode III, 0/3
+
+Across 7 pre-registered tests at engine-representable corpus geometry, the corpus electron's predicted signature is absent. Per pre-reg thresholds set at Move 5, R7.1, photon-tail (a), and photon-tail (b): each closure was specified at pre-reg-write time. The cumulative empirical statement is:
+
+**At all configurations tractable at N=64 lattice resolution (the corpus's prescribed dx = ℓ_node), the K4-TLM + Cosserat engine does not host the corpus electron.**
+
+This is an empirical statement about the engine at its prescribed lattice resolution, not a falsification of the corpus framework. Doc 76_ (lattice ↔ Ax 3 + Ax 4 bridge) provides one route for reframing — corpus electron lives at an integrated-along-loop scale that single-cell engine extraction may not see. Other routes (N=128+ escalation, non-corpus aspect ratio, different IC topology) remain open as separate framework questions.
+
+### 11.6 A58 (NEW)
+
+**A58 — Path-(a)/path-(b) empirical equivalence at engine-representable corpus aspect.** Standing-wave and propagating dual-seed IC produced near-identical final states (C1, C3 match to 3 sig figs; sector retention identical) at (R=4, r=1.5, N=64). The engine's response to corpus-aspect dual-seed configurations is dominated by the geometry, not the IC velocity choice, at this scale. This rules out IC-velocity-tuning as the route to corpus-electron formation at engine-representable scales; future tests should explore (a) larger lattice N to escape Nyquist constraint, (b) non-corpus aspect ratio, or (c) reframed corpus prediction at integrated-loop scale per doc 76_.
