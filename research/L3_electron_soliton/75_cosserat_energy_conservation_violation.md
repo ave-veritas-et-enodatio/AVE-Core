@@ -166,3 +166,70 @@ The substrate-vs-observable distinction the plan proposed is still valid framing
 ---
 
 *Doc 75_ written 2026-04-27 with Diag A pre-fix result (Mode I per pre-reg) + supplementary high-amp scan (asymmetry detectable at A ≥ 4 only) + integrator stability boundary at A ≈ 6 (separate from asymmetry magnitude) + Diag C source audit (`total_energy()` correct, no accounting bug) + reframing of Move 11b's Pearson result as the resolution of the H_cos drift mystery (ρ(H_cos, Σ|Φ_link|²) = -0.990 → Op14 cross-sector trading; H_total ≈ conserved). Engine fix queued as cleanliness work (E-070), not urgent. Round 7+8 closure narrative unchanged from doc 74_ §15 — corpus-electron question stays open at the substrate-natural attractor characterization level. **H_cos drift resolved as Op14 trading, NOT a missing-physics issue. V·S, T·1 wave-speed asymmetry empirically ruled out as the primary cause of Round 7+8 Mode III. Round 8 question becomes: where does the corpus electron actually live in the engine, given that the most-natural V_inc + ω-cosserat sectors are confirmed empty?**.*
+
+---
+
+## 10. Photon-Tail Dual Seed test — Mode III, sector asymmetry surfaced (2026-04-27)
+
+After Diag A ruled out V·S/T·1 wave-speed drift as the Mode III cause, Grant proposed the photon-tail framing: corpus electron = self-trapped photon catching its own tail in (2,3) torus-knot loop, with E + B fields winding along the path 90° out of phase. Per doc 28_ §3+§4, the corpus PASS criterion is phasor-space ellipse aspect R_phase/r_phase = φ², measured at any single loop node — distinct from real-space frequency ω_C which is forced sub-Nyquist by `dx = ℓ_node`.
+
+Ran [`P_phase6_photon_tail_dual_seed`](../../manuscript/predictions.yaml) at N=64, (R=4, r=1.5), standing-wave dual-seed IC with both K4 V_inc (corpus (2,3) chiral-phasor) AND Cosserat ω (corpus (2,3) hedgehog) at the same engine-representable scale.
+
+### 10.1 Result — Mode III, 0/4 criteria PASS
+
+| Criterion | Measured | Target | Verdict |
+|---|---|---|---|
+| C1 single-node ellipse aspect | median 25.74 | 2.618 ± 5% | FAIL |
+| C2 spatial winding rotation | NaN (only 12/30 nodes finite) | 5·2π ± 30% | FAIL |
+| C3 LC reactance ρ(Σ\|V_inc\|², Σ\|Φ_link\|²) | -0.463 | (-1.2, -0.8) | FAIL |
+| C4 topology preservation c via Op10 | 1 (initial 2) | 3 | FAIL |
+
+[`r8_photon_tail_dual_seed_results.json`](../../src/scripts/vol_1_foundations/r8_photon_tail_dual_seed_results.json) for full data.
+
+### 10.2 Sector-asymmetry empirical signal
+
+| Quantity | t=0 | t=200P | Retention |
+|---|---|---|---|
+| peak \|ω\| | 0.8359 | **0.0361** | 4.3% |
+| peak \|V_inc\| | 0.2611 | 0.1735 | 66% |
+| c (Op10) | 2 | 1 | degraded |
+
+K4 V_inc partially survived; Cosserat ω dissolved catastrophically. ρ(K4_V², K4_Φ²) = -0.46 shows partial K4-INTERNAL LC reactance (V_inc ↔ Φ_link bond LC trading) but not full LC. Cosserat side decoupled and decayed.
+
+Compare to Move 5 (Cosserat-only seed at R=10, r=3.82, N=32): peak |ω| retention 32% with c=3 plateau locked across 150 Compton periods. **Adding K4 V_inc seed at smaller (R, r) destabilized Cosserat from "marginal but stable" to "near-total dissolution."**
+
+### 10.3 The c=2 initial state — sub-Nyquist topology seed at this scale
+
+The initial seed gave c=2 at t=0, NOT 3. At (R=4, r=1.5) on a unit-spacing lattice, the (2,3) poloidal winding has feature size 2π·1.5/3 ≈ 3.14 cells — exactly at the Nyquist boundary. Op10's `extract_crossing_count` cannot resolve the third poloidal winding cleanly; aliases to c=2.
+
+This is the lattice-resolution constraint flagged in the implementer audit: corpus aspect R/r=φ² at loop length ≤ 56 cells (active region of N=64) FORCES (R, r) close to (4, 1.5), which is exactly at the Nyquist boundary for poloidal winding. To cleanly seed c=3 at corpus aspect, need either:
+- N=128+ with larger (R, r) (e.g., R=8, r=3) — ~5 hr per run wall
+- Non-corpus aspect at smaller R/r (e.g., R=3, r=2) with c=3 resolvable — but tests photon-tail at non-corpus aspect
+
+C4's "c=3 maintained" criterion was therefore unsatisfiable from t=0 in this configuration. C4 FAIL is partially a methodology artifact (sub-Nyquist seed) on top of the genuine topology decay (c degraded from 2 to 1).
+
+### 10.4 What this test established empirically
+
+1. **Standing-wave dual-seed IC at engine-representable corpus-aspect scale does NOT find the photon-tail attractor.** Cosserat dissolves; phase-space ellipses at loop nodes don't trace golden-ratio aspect (median 25.7, off by 10×); spatial winding decoheres.
+
+2. **Sector asymmetry: K4 sector is more stable than Cosserat at this small scale.** K4 V_inc retained 66% with partial LC reactance signature (ρ ≈ -0.46); Cosserat ω retained only 4.3%. Adding the K4 seed actively destabilized the Cosserat (2,3) configuration vs Move 5's Cosserat-only setup at larger scale.
+
+3. **Sub-Nyquist topology seed (c=2 instead of 3) at corpus aspect ratio + loop-fits-active-region forces a methodology artifact** that C4 inherits. Future photon-tail tests at corpus aspect need N=128+ to cleanly seed c=3 and have C4 be a meaningful criterion rather than a Nyquist-bounded one.
+
+4. **Path (b) propagating-IC is now strongly motivated.** Standing-wave IC was the cheapest test; its catastrophic failure pattern (Cosserat 4% retention, ellipse aspect 10× wrong, winding decoherent) suggests the standing-wave neighborhood doesn't contain the photon-tail attractor's basin. Setting ω_dot, V_ref velocities consistent with photon traveling along loop tangent would seed the propagating mode directly. ~2-3 hr to build the propagating seeder, then ~40 min run at N=64. If path (b) also Mode III, photon-tail framing as currently formulated is empirically falsified at engine-representable scale.
+
+### 10.5 Round 8 status — open questions
+
+The arc now has TWO empirically-falsified hypotheses for Round 7+8 Mode III:
+- **V·S, T·1 wave-speed asymmetry** (Diag A Mode I, §6) — sub-percent effect at corpus amplitudes; not the primary cause
+- **Photon-tail dual-seed standing-wave IC at corpus aspect** (this test) — Mode III on all 4 criteria; sector asymmetry suggests the photon-tail framing might still hold at propagating IC OR at larger lattice (N=128+)
+
+Open candidate moves:
+1. **Path (b) propagating IC photon-tail** — directly seed propagating-mode initial conditions instead of standing-wave; the cleanest follow-up given the asymmetry observed
+2. **N=128 photon-tail at corpus-aspect** — escape sub-Nyquist topology seed; ~5 hr per run, expensive
+3. **Photon-tail at non-corpus aspect** — relax R/r=φ² constraint, allow larger r so c=3 cleanly seeded; tests the framework but at non-corpus geometry
+4. **Accept empirical pattern** — Round 7+8 has shown the engine doesn't host corpus electron at any tractable configuration tested; close the arc with substrate-natural attractor characterization (Move 7+7b+10) as the empirical finding and corpus mismatch as the open framework question
+
+### 10.6 A57 (NEW for r8.10 §17.1)
+
+**A57 — Sub-Nyquist topology-seed caveat at corpus aspect ratio.** Op10's `extract_crossing_count` requires the (2,3) poloidal winding's feature size to be above lattice Nyquist (≥2 cells) for a clean c=3 reading. At corpus aspect R/r = φ², the constraint that the loop fits in the lattice's active region forces r ≤ ~1.5 cells at N=64 (~2.5 cells at N=128, ~5 cells at N=256). Anything below ~r = 1.5 cells gives c=2 instead of c=3 at t=0 — sub-Nyquist topology seed. Pre-regs that include "c=3 maintained" as a PASS criterion must verify c=3 at t=0 first; if c=2 at t=0, the criterion is unsatisfiable from initial condition and shouldn't be load-bearing in the adjudication. Generalizes: any pre-registered topology-preservation criterion needs the topology to be cleanly seeded at t=0; verify at pre-reg-write time, not just at adjudication time.
