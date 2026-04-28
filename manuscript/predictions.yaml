@@ -3123,3 +3123,92 @@ predictions:
         plumber-physical input), A40 (dual-criterion + multi-N), A48
         (frozen-extraction-scope), A59 (phase-space methodology)
 
+  - id: P_phase9_path_alpha_v2
+    name: "Round 9 path α v2: Φ_link sector phasor (Op14 trading channel) — corrected sampler per doc 75 line 140 verbatim"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    test_file: "src/scripts/vol_1_foundations/r9_path_alpha_v2_phi_link_sector.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 9 path α v2 — corrected sampler per doc 79_ v4.4 §3.5.4 +
+      §8.3 + auditor flag of fifth A43 instance. Path α v1 sampled
+      (V_inc, V_ref) — the LOCKED Compton-frequency channel per Move 11b
+      (doc 75 §6.2 line 129 verbatim: "K4-capacitive (V_inc, V_ref) is
+      locked, K4-inductive (Φ_link) and Cosserat trade slowly").
+
+      Per doc 75 line 140 verbatim: "the corpus electron, IF it exists in
+      this engine, lives somewhere we haven't probed (Φ_link sector /
+      hybrid V≠0 ∧ ω≠0 / different topology)."
+
+      Path α v2 samples the unprobed Φ_link sector trading channel where
+      the bound state's slow Op14-mediated dynamics live (~0.020 rad/unit
+      per Move 11b FFT, period ~50 P).
+
+      WHAT THIS RESOLVES vs path α v1:
+      1. Sampler: (Φ_link[A_bond, port], ω_axial = ω · b_hat at A_node)
+         instead of (V_inc, V_ref). The (Φ_link, ω) phasor lives in the
+         slow trading channel where bound-state structure should manifest.
+      2. Recording window: [15, 200] P (extended from v1's [15, 50] P;
+         spans ~3-4 trading periods at 50 P each).
+      3. Persistence guard relaxed to 40% (recording over 185 P, decay
+         expected). Persistence is informational, not load-bearing —
+         the trading dynamics are the signature, not amplitude conservation.
+      4. Engine fix per doc 75 §6.3 NOT INCLUDED (per doc 75 line 140
+         verbatim: "the reason is NOT V·S, T·1 wave-speed drift").
+         Engine fix queued as E-070 cleanliness work, not Round 9
+         critical path.
+
+      ENGINE SETUP IDENTICAL to Move 5 + path α v1 (N=32, R=10, r=R/φ²,
+      A28+Cosserat self-terms, no drive, peak |ω|=0.3π, V_amp=0.14).
+      Bond-pair selection logic unchanged (path α v1 §7.1 verified the
+      bond-pair structure exists at K4 (+1,+1,+1) tetrahedral offsets).
+
+      DUAL-CRITERION (per cluster, both must pass for Mode I):
+        C1 (load-bearing): R_phase/r_phase = φ²=2.618 ± 5% on
+          (Φ_link, ω_axial) ellipse — corpus prediction is φ² aspect
+          for the bound state's Clifford torus, applied to trading
+          channel as natural extension (doc 26 §3 + doc 28 §5.1
+          generalize from V_inc/V_ref to the actual dynamic sector)
+        C2 (load-bearing): chirality consensus ≥ 75% via Hilbert
+          mean(sin(Δφ)) sign, measuring Meissner-asymmetric trading
+          direction (which sector receives energy per cycle per
+          §6.7.4 v4.4 framing)
+
+      Plus cross-cluster chirality consistency (substrate-fossilized
+      K4 RH chirality should give consistent direction across all
+      bond-pairs in one electron object).
+
+      ADJUDICATION CATEGORIES:
+      - Mode I (POSITIVE L3 CLOSURE): C1+C2 PASS in both clusters AND
+        cross-cluster consistent → corpus electron empirically confirmed
+        in Φ_link trading sector per doc 75 line 140 prediction;
+        L3 closure synthesis lands as final positive close
+      - Mode II-aspect: C2 PASS but C1 FAIL → consistent chirality but
+        R/r ≠ φ²; partial signature
+      - Mode II-chirality: C1 PASS but C2 FAIL → R/r matches φ² but
+        chirality inconsistent
+      - Mode III-asymmetric: clusters diverge
+      - Mode III: NEGATIVE L3 CLOSURE — Φ_link sector framing also
+        fails. Per doc 75 line 140 alternatives, deeper reframe needed:
+        hybrid V≠0 ∧ ω≠0 seed, different topology (e.g., (3,5) instead
+        of (2,3)), or continuum-limit-only object
+
+      ESTIMATED COST: ~5-7 min wall (~1644 recording steps + 45 selection +
+      89 pre-evolve = ~1778 steps total at N=32, similar to Move 5).
+      Single coherent commit unit per A48.
+
+      CITATIONS:
+      - doc 79_ v4.4 §3.5.4 + §6.7.4 + §8.3 (corrected framing)
+      - doc 75 §6.2 line 127, 129 (Op14 trading + V_inc/V_ref locked)
+      - doc 75 line 140 (corpus electron lives in Φ_link sector)
+      - Move 11b empirical: ρ(H_cos, Σ|Φ_link|²) = -0.990, FFT 0.020 rad/unit
+      - doc 37 §1 (bond-pair object class — unchanged from v1)
+      - doc 26 §3 + doc 28 §5.4 (phase-space (R, r) framing,
+        generalized to trading channel)
+      - COLLABORATION_NOTES Rule 14 (substrate decides),
+        A43 (auditor must grep before asserting — fifth instance
+        validated by this v2 reframe), A48 (frozen-extraction-scope)
+
