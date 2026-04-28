@@ -1,12 +1,21 @@
 # Round 10+ Research Plan — Six-Direction Comprehensive Sequencing
 
-**Status:** planning doc, approved 2026-04-28 by Grant. Tracked in repo for auditor review + version control.
+**Status:** planning doc, approved 2026-04-28 by Grant + refined 2026-04-28 per auditor review. Tracked in repo for auditor review + version control.
 
-**Plan-mode source:** `~/.claude/plans/yes-bring-notes-up-binary-giraffe.md` (Claude-internal canonical location). This file is a copy committed into the repo so the auditor can review directly and future amendments are version-controlled via standard commit workflow.
+**Plan-mode source:** `~/.claude/plans/yes-bring-notes-up-binary-giraffe.md` (Claude-internal canonical location, original draft). This file is the canonical version committed into the repo so the auditor can review directly and future amendments are version-controlled via standard commit workflow.
 
 **Document type:** research-tier planning doc, NOT an empirical-result doc. Distinct from numbered docs (78-81 = closure-arc results; 82-88 = Round 10+ result docs to land per this plan). Future planning docs follow same convention: `<arc>_plan.md` non-numbered prefix to avoid colliding with result-doc numbering.
 
 **Amendment workflow:** if the plan needs revision (new findings during execution, scope changes, etc.), edit this file and commit; reference the prior commit hash for delta tracking. No closure-doc-style version-numbering required (this is planning, not empirical record).
+
+**Amendment 2026-04-28 (auditor review):** five refinements applied to original plan per auditor's pre-Phase-0 audit:
+1. **Phase 1 reassessment checkpoint** — formal mid-arc gate after Direction 3 + Direction 3' results land; reassess Phase 2/3/4 scope before committing 12-21 more sessions (guards against test-cycle pattern over 20-33 session horizon per A62 information-per-cost discriminator)
+2. **Direction 3'.5 He/Li pressure-test reframed from optional → load-bearing** for §6.6 PROVISIONAL Pauli framing canonicalization (per doc 79 §6.6 itself: "Canonicalization requires verifying ... He, Li, Cooper")
+3. **Mode II partial criteria for Direction 5** mass-ratio predictions: tiered Mode I (5%) / Mode II partial (5-20% → mechanism captured, coupling open) / Mode III (>20%) instead of binary 5%-or-fail
+4. **Phase 4.1 cost adjusted** from ~1 session to ~2-3 sessions; Phase 4 total from 1-2 to 2-4 (state-dependent inertia in symplectic integrator requires extended-Hamiltonian / RATTLE-style / implicit-stepping approaches, all genuinely non-trivial)
+5. **A43 v2 per-pre-reg verification gate** added: every P_phase10_*/P_phase11_* pre-reg requires verbatim citation grep-verification + synthesis-claim labeling at freeze time per [COLLABORATION_NOTES Rule 8 A43 v2 lines 107-122](.agents/handoffs/COLLABORATION_NOTES.md)
+
+Total session estimate adjusts from 20-33 to 21-35 (Phase 1 reassessment may reduce downstream scope, partly offsetting Phase 4 cost increase). Auditor's refinement 1 (doc 81 §3.4 amendment) lands separately auditor-lane.
 
 ---
 
@@ -150,11 +159,13 @@ Significantly smaller scope than v5.1 / doc 81 implied per Phase 1 Agent 3 findi
 - **Mode I (ε confirmed):** specific (n, l) prediction matches empirical R/r within 10%; Move 5 attractor identified as that bound state; doc 79 v5.1 closure interpretation reframes
 - **Mode III (ε falsified):** no (n, l) prediction matches; (ε) interpretation falsified; restricts surviving structural reasons to (α)/(β)/(γ)
 
-**3'.5 — He / Li pressure-test (~1 session, optional)**
+**3'.5 — He / Li pressure-test (~1 session, LOAD-BEARING for §6.6 canonicalization)**
+- **NOT optional.** Doc 79 §6.6 explicitly states: "Canonicalization requires verifying the alternative framing matches observed atomic shell capacities (He, Li, Cooper). v4 lands canonical or revised after pressure-test." This pressure-test IS the canonicalization gate per §6.6 itself.
 - Extends KB vol2 Ch.7 MCL solver per [`helium-symmetric-cavity.md`](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md) (period 2 mean error 1.2% currently)
 - Verify K4-coordinate map predicts He 1s² + Li 1s²2s¹ shell-filling correctly (canonicalizes [doc 79 §6.6 PROVISIONAL Pauli framing](79_l3_branch_closure_synthesis.md))
-- Mode I: He IE prediction within 1% of CODATA (24.587 eV); Li 1s²2s¹ structure correctly populated
-- Mode III: pressure-test fails; §6.6 PROVISIONAL Pauli framing requires revision
+- Mode I: He IE prediction within 1% of CODATA (24.587 eV); Li 1s²2s¹ structure correctly populated → §6.6 PROVISIONAL → CANONICAL
+- Mode III: pressure-test fails; §6.6 PROVISIONAL Pauli framing requires revision (substrate-native Pauli mechanism doesn't match atomic shell empirical observations; framework-level reframe needed)
+- Same priority as 3'.4 (predicted-vs-empirical R/r comparison); both are load-bearing for adjudicating (ε) and §6.6 PROVISIONAL marker simultaneously
 
 **Phase 1 critical files:**
 - [`src/ave/topological/vacuum_engine.py`](../../src/ave/topological/vacuum_engine.py) — 5 new Observer subclasses
@@ -264,11 +275,18 @@ Per [doc 80 §2.3 line 52](80_kelvin_helmholtz_ave_precedent.md): "the (2, q odd
 **5.2 — Operator catalog at q=5 (proton, ~1 session)**
 - Apply universal-operator catalog (Phase 0.2) at (p=2, q=5) parameter set
 - Predict: m_p/m_e ratio from operator combinations at q=5 vs q=3 baseline
-- Pre-reg `P_phase11_mass_ratio_proton`: predicted m_p/m_e within 5% of measured 1836.15
+- Pre-reg `P_phase11_mass_ratio_proton` (tiered adjudication for first-principles framework-level prediction across 3+ orders of magnitude):
+  - **Mode I:** predicted m_p/m_e within 5% of measured 1836.15 → quantitative match; substrate mechanism + coupling factors all correct
+  - **Mode II partial:** predicted within 5-20% → "substrate mechanism captured; quantitative coupling factor open" — framework qualitatively right, sub-leading terms missing
+  - **Mode III:** predicted off by >20% OR wrong order of magnitude → substrate mechanism for q-dependent mass scaling is wrong
+  - Rationale for tiered structure: 5% from first principles for a 3+ orders-of-magnitude prediction is tight; getting within 20% is already a meaningful framework signal even if quantitative coupling factors need refinement. Tier structure documents the gradient between "framework right + coupling exact" vs "framework right + coupling approximate" vs "framework wrong"
 
 **5.3 — Operator catalog at q=7 (tau, ~1 session)**
 - Same approach at (p=2, q=7); predict m_τ/m_e
-- Pre-reg `P_phase11_mass_ratio_tau`: predicted m_τ/m_e within 5% of measured 3477.23
+- Pre-reg `P_phase11_mass_ratio_tau` (same tiered structure as 5.2):
+  - **Mode I:** predicted m_τ/m_e within 5% of measured 3477.23
+  - **Mode II partial:** predicted within 5-20% → mechanism captured, coupling open
+  - **Mode III:** predicted off by >20% OR wrong order of magnitude
 
 **5.4 — Joint mass-spectrum adjudication (~3-4 hr)**
 - Output: which operators in the catalog set the q-dependent mass scaling? Is the "(2, q odd) restriction" derivable, or does it remain a postulated rule?
@@ -285,16 +303,23 @@ Per [doc 80 §2.3 line 52](80_kelvin_helmholtz_ave_precedent.md): "the (2, q odd
 
 ---
 
-## Phase 4 — Engine fix cleanliness (~1-2 fresh sessions, low priority)
+## Phase 4 — Engine fix cleanliness (~2-4 fresh sessions, low priority)
 
 Direction 4 — apply [doc 75 §6.3](75_cosserat_energy_conservation_violation.md) T_kinetic saturation fix. Independent of all other phases; can interleave anywhere.
 
-### 4.1 — T_kinetic saturation fix (~1 session)
+### 4.1 — T_kinetic saturation fix (~2-3 sessions)
 
-Per Phase 1 Agent 1 finding, fix prescription clear:
+Per Phase 1 Agent 1 finding, fix prescription clear at the formula level:
 - Modulate kinetic energy in [`src/ave/topological/cosserat_field_3d.py:1204-1209`](../../src/ave/topological/cosserat_field_3d.py): `T = ½·(ρ·S)·|u̇|² + ½·(I_ω·S)·|ω̇|²`
 - Update `step()` integrator at `cosserat_field_3d.py:1228-1285` to use `ρ·S` and `I_ω·S` (currently constants)
-- Note: integrator update is non-trivial; requires careful rewrite of velocity-Verlet step to preserve symplectic structure with state-dependent inertia
+
+**Implementation difficulty (revised cost ~2-3 sessions, not 1):** state-dependent inertia in a symplectic integrator is genuinely hard. Velocity-Verlet with constant ρ and I_ω is straightforward; with ρ·S(A(t)) and I_ω·S(A(t)), the standard explicit symplectic structure breaks. Three viable approaches, each non-trivial:
+
+1. **Extended Hamiltonian formulation:** add S(A) as a phase-space variable with conjugate momentum; symplectic flow on the augmented manifold preserves total H but requires new integrator with multi-step coupling.
+2. **RATTLE / SHAKE-style constrained integrator:** treat A·S(A) relationship as a constraint; iterative projection at each step. Symplectic but adds inner-loop convergence overhead.
+3. **Implicit time stepping:** trapezoidal or backward-Euler variant; loses explicit symplectic structure but preserves energy conservation under fixed-point iteration. Simpler to implement; substantial wall-clock cost increase.
+
+Choice depends on engine performance constraints + how strictly symplectic structure is required. ~2-3 sessions to implement + verify; not 1.
 
 ### 4.2 — Diag A high-amp scan rerun (~3-4 hr)
 
@@ -336,6 +361,33 @@ Per Phase 1 Agent 1 finding, fix prescription clear:
 
 ---
 
+## Phase 1 reassessment checkpoint (formal mid-arc gate)
+
+**After Phase 1 results land (Direction 3 multi-operator + Direction 3' substrate-(n,l,m_l)), pause for explicit reassessment before committing to Phase 2/3/4 (~12-21 remaining sessions).**
+
+The 20-33 session arc is long enough that committing to all four downstream phases up-front risks the test-cycle pattern Grant flagged in COLLABORATION_NOTES Rule 9 v2 + auditor's A62 (information-per-cost discriminator). Phase 1 results materially change downstream priority:
+
+**Reassessment questions** (to answer at the checkpoint):
+
+1. **Did any Phase 1 sub-direction land Mode I?** If Direction 3 found a load-bearing operator subset matching corpus prediction, OR Direction 3' identified Move 5 attractor as specific (n, l) bound state, the closure interpretation reframes — and several downstream directions lose motivation:
+   - If (γ) signature revision confirmed via Direction 3 → Direction 1 (N=128) becomes lower priority (corpus electron is already at engine scale, just on different observable)
+   - If (ε) bound-state-vs-free-state confirmed via Direction 3' → Direction 1 (N=128) AND Direction 2 ((p,q) sweep) become lower priority (corpus electron is at engine scale, just in non-ground-state quantum config)
+   - Either Mode I outcome means Phase 2 + Phase 3 work re-scopes from "test alternative structural reasons" to "characterize the Mode I result more deeply"
+
+2. **Did all Phase 1 sub-directions land Mode III?** If both Direction 3 and Direction 3' failed:
+   - (γ) and (ε) both falsified at engine-representable scale
+   - Phase 2 (N=128) becomes higher priority — (α) continuum-limit is now the leading remaining candidate
+   - Phase 3 Direction 2 ((p,q) sweep) becomes higher priority — (β) topology revision is the other remaining candidate
+   - Phase 3 Direction 5 (mass spectrum) stays research-tier regardless (independent of L3 closure question)
+
+3. **What's the Phase 1 information-per-cost yield?** If Direction 3 + 3' produced ~10 sessions of work for 1 partial signal (similar to v1+v2+v3 chirality CCW), that's the test-cycle pattern flag — Phase 2/3 may need scope reduction. If Phase 1 produced multiple decisive Mode I/Mode III adjudications, the arc is on track and Phase 2/3 can proceed at planned scope.
+
+**Reassessment output:** Phase 1 reassessment lands as a section in [`research/L3_electron_soliton/82_multi_operator_signature_result.md`](82_multi_operator_signature_result.md) (or as separate doc if length warrants) documenting: which directions Mode I/II/III, scope changes for Phase 2/3/4 based on results, updated session-count estimate. Auditor reviews before Phase 2 starts.
+
+**Why this matters:** without a formal gate, the natural pull is to execute the full plan as drafted. Phase 1 results may reframe what's load-bearing. The gate is auditor-flagged structural discipline (per A62 information-per-cost), not just a soft "adapt as we go" caveat.
+
+---
+
 ## Adjudication framework: which structural reason wins?
 
 Round 10+ closure adjudication after all phases complete:
@@ -367,18 +419,29 @@ Round 10+ closure adjudication after all phases complete:
 
 ## Verification
 
+**Per-pre-reg verification gate (NEW per refinement 6, A43 v2 lane-symmetric discipline):**
+
+Every P_phase10_*/P_phase11_* pre-reg in `manuscript/predictions.yaml` MUST include the following at freeze time:
+
+1. **Verbatim citations grep-confirmed:** any quote attributed to a corpus doc must be grep-verified at the cited line numbers BEFORE pre-reg freeze. Drop the attribution if grep returns zero matches; replace with synthesis framing.
+2. **Synthesis claims labeled explicitly:** any claim that's implementer/auditor synthesis from cumulative state (rather than verbatim corpus content) must be labeled "synthesis from [test-catalog / cumulative state / external reasoning]" — NOT presented as corpus statement.
+3. **Promotion threshold (Rule 12 v2):** a synthesis claim becomes "corpus content" only when verified at ≥3 citations + grep-confirmed verbatim across tracked files. Until then, label synthesis explicitly.
+
+This is the lane-symmetric A43 discipline (per [COLLABORATION_NOTES Rule 8 A43 v2 lines 107-122](.agents/handoffs/COLLABORATION_NOTES.md)) applied prospectively at pre-reg freeze rather than retroactively at result-doc-commit. Cheaper than retroactive grep-verification; catches synthesis-as-corpus at the earliest possible point in the workflow.
+
 **Per-phase verification:**
 
 | Phase | Verification |
 |---|---|
 | 0.1 | Move 5 cached state loads; engine.step() produces identical next-state to fresh-run baseline |
 | 0.2 | operators.md has all 22 entries with formula + scale-invariance + citation; cross-references resolve |
-| 1 Direction 3 | 5 pre-regs (P_phase10_*) frozen; observers pass smoke tests; joint adjudication doc 82 lands with Mode-I/II/III conclusions per operator |
-| 1 Direction 3' | 3'.1 derivability gate decided; if YES → 3'.2-3'.5 land with substrate-(n,l,m_l) map + multiorbital R/r prediction + Move 5 (n,l) match adjudication + He/Li pressure-test |
-| 2 | N=128 path α + multi-operator results land; (α) Mode-I/II/III adjudication |
-| 3 Direction 2 | (p,q) parametrization passes path α v1 (2,3) regression test (no behavior change at (p,q)=(2,3)); (3,5)/(2,5)/(2,7)/Hopfion runs land; (β) adjudication |
-| 3 Direction 5 | mass-ratio predictions land for q=5, q=7 within 5% of measured |
-| 4 | Diag A passes Mode I across A∈[0.1,5]; path α v3 reproduces Mode III (negligibility verified) |
+| 1 Direction 3 | 5 pre-regs (P_phase10_*) frozen WITH per-pre-reg A43 v2 citation-grep gate; observers pass smoke tests; joint adjudication doc 82 lands with Mode-I/II/III conclusions per operator |
+| 1 Direction 3' | 3'.1 derivability gate decided; if YES → 3'.2-3'.5 land with substrate-(n,l,m_l) map + multiorbital R/r prediction + Move 5 (n,l) match adjudication + He/Li pressure-test (3'.5 load-bearing for §6.6 canonicalization, NOT optional) |
+| 1 reassessment | Phase 1 reassessment checkpoint section lands in doc 82 documenting Mode I/II/III per direction, downstream scope changes, updated session estimate; auditor reviews before Phase 2 starts |
+| 2 | N=128 path α + multi-operator results land; (α) Mode-I/II/III adjudication; per-pre-reg A43 v2 gate applied |
+| 3 Direction 2 | (p,q) parametrization passes path α v1 (2,3) regression test (no behavior change at (p,q)=(2,3)); (3,5)/(2,5)/(2,7)/Hopfion runs land; (β) adjudication; per-pre-reg A43 v2 gate applied |
+| 3 Direction 5 | mass-ratio predictions land for q=5, q=7 with tiered Mode I (5%) / Mode II partial (5-20%) / Mode III (>20%) adjudication; per-pre-reg A43 v2 gate applied |
+| 4 | Diag A passes Mode I across A∈[0.1,5]; path α v3 reproduces Mode III (negligibility verified); per-pre-reg A43 v2 gate applied |
 
 **Round 10+ closure verification:**
 - All phases land their pre-reg results in [`manuscript/predictions.yaml`](../../manuscript/predictions.yaml) + corresponding research docs (82-87)
@@ -393,11 +456,11 @@ Round 10+ closure adjudication after all phases complete:
 |---|---|---|
 | Phase 0 | 1-2 | Infrastructure prereqs |
 | Phase 1 Direction 3 | 5-8 | 5 observer subgroups + joint adjudication |
-| Phase 1 Direction 3' | 3-5 | Pre-test + derivation + comparison + pressure-test |
+| Phase 1 Direction 3' | 3-5 | Pre-test + derivation + comparison + pressure-test (3'.5 load-bearing for §6.6 canonicalization) |
 | Phase 2 | 4-6 | Profile + N=64 + N=128 + multi-op rerun |
 | Phase 3 Direction 2 | 3-5 | Refactor + 4 topology runs + adjudication |
-| Phase 3 Direction 5 | 3-5 | c=7 + q=5,7 mass ratios + adjudication |
-| Phase 4 | 1-2 | Cleanliness, interleavable |
-| **Total** | **20-33** | Over ~8-16 weeks at current cadence |
+| Phase 3 Direction 5 | 3-5 | c=7 + q=5,7 mass ratios + adjudication (Mode II partial tier for first-principles 3-orders-of-magnitude predictions) |
+| Phase 4 | 2-4 | Cleanliness, interleavable; Phase 4.1 state-dependent-inertia integrator update genuinely non-trivial |
+| **Total** | **21-35** | Over ~8-16 weeks at current cadence; Phase 1 reassessment checkpoint may reduce Phase 2-4 scope |
 
-Branches at Phase 1: if Direction 3 OR Direction 3' lands Mode I, several downstream directions may lose motivation (e.g., if (γ) signature revision confirmed, Direction 1 N=128 escalation becomes lower priority). Plan adapts based on Phase 1 results.
+Phase 1 reassessment checkpoint (formal mid-arc gate) re-evaluates Phase 2-4 scope after Direction 3 + Direction 3' results land. If any Phase 1 sub-direction lands Mode I, several downstream directions lose motivation and arc may close earlier. If all Phase 1 land Mode III, Phase 2-4 proceed at planned scope. Plan adapts based on Phase 1 results — gate is auditor-flagged structural discipline per A62 information-per-cost, not soft "adapt as we go."
