@@ -44,6 +44,16 @@ At the Golden Torus, the holomorphic impedance decomposes into three orthogonal 
 | $\Lambda_{\text{surf}}$ | $(2\pi R)(2\pi r) = 4\pi^2(R \cdot r)$ | $\pi^2 \approx 9.870$ | Clifford torus ($S^1 \times S^1$) half-cover |
 | $\Lambda_{\text{line}}$ | $\pi \cdot d$ | $\pi \approx 3.142$ | Core-loop magnetic moment at min. node thickness $d = 1$ |
 
+**Identification step.** The sum decomposition
+
+$$
+\alpha^{-1}_{\text{ideal}} \;\equiv\; \Lambda_{\text{vol}} + \Lambda_{\text{surf}} + \Lambda_{\text{line}}
+$$
+
+is the *identification* of the three orthogonal codimensions of the Clifford torus embedding (3-torus phase volume, 2-torus surface, 1-loop line) with the three independent contributions to the dimensionless self-impedance of the trefoil soliton. Orthogonality of the three sectors — volumetric phase ($\propto R\,r\,r_{\text{phase}}$), surface area ($\propto R\,r$), and line magnetic moment ($\propto d$) — is what justifies the absence of cross-terms; each sector saturates a different geometric codimension. This is a *multipole identification*, parallel in spirit to the multipole expansion of any extended electromagnetic source, and not an additional derivation step beyond the three-regime closure above.
+
+**Unified axiomatic origin of the $4\pi$ and $\pi^2$ factors.** Both the temporal double-cover (factor $4\pi$ in $\Lambda_{\text{vol}}$, via $r_{\text{phase}} = 2$) and the spatial half-cover (factor $\pi^2$ in $\Lambda_{\text{surf}}$) derive from the *same* structural fact: spin-1/2 is a representation of $SU(2)$, the double cover of $SO(3)$. The electron's internal phase space must traverse $4\pi$ of temporal phase to return to its initial spinorial state, but only $2\pi$ of spatial phase to close the spatial loop. The $4\pi$ factor in $\Lambda_{\text{vol}}$ and the half-cover in $\Lambda_{\text{surf}}$ are temporal and spatial expressions of the identical SU(2) double-cover structure — parallel, not ad hoc.
+
 > **[Resultbox]** *Cold-Lattice Fine-Structure Constant*
 >
 > $$

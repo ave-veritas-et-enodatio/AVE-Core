@@ -177,11 +177,24 @@ $$
 
 ## Layer 1 → Layer 2: Dielectric Rupture and the Packing Fraction
 
-The fine-structure constant is *derived*, not assumed. The derivation
-proceeds by equating two independently defined energy densities.
+**Framing (consistency check, not derivation of α).**
+This layer establishes a consistency relation between the QED Schwinger
+limit (taken as an external input here) and the AVE lattice's geometric
+packing fraction $p_c$. The numerical value of $\alpha$ itself is *not*
+derived in this layer — that derivation appears in Ch.8 (Golden Torus
+closure), surfaced as Layer 8 below. The identity $p_c = 8\pi\alpha$
+that appears at the end of this layer is $\alpha$'s SI definition rearranged
+via $p_c$, as confirmed in §Closure (Layer 8): "the Layer 2 identity
+$p_c = 8\pi\alpha$ ... is a downstream algebraic consequence of this
+closure, not the closure mechanism." What this layer *does* establish
+is that the AVE lattice's packing fraction sits at the EMT trace-reversal
+operating point $K = 2G$ when one matches the discrete fundamental
+mass-gap to the continuum QED vacuum-breakdown limit.
 
-**Step 1: Schwinger Critical Energy Density.**
-The QED vacuum-breakdown limit bounds the maximum sustained energy density:
+**Step 1: Schwinger Critical Energy Density (external QED input).**
+The QED vacuum-breakdown limit bounds the maximum sustained energy
+density. *This expression is taken here as an external QED input*; deriving it
+from the four AVE axioms is not attempted in this layer.
 
 $$
 u_{sat}
@@ -198,7 +211,7 @@ V_{node}
 = \frac{2\,e^2 \hbar^2}{\epsilon_0\,m_e^3 c^4}
 $$
 
-**Step 3: Packing Fraction.**
+**Step 3: Packing Fraction (consistency identity).**
 The geometric packing fraction is the ratio of the node volume to the
 cubed pitch ($\ell_{node}^3 = \hbar^3 / m_e^3 c^3$):
 
@@ -208,11 +221,13 @@ p_c
 = \frac{2\,e^2 \hbar^2}{\epsilon_0\,m_e^3 c^4}
   \cdot \frac{m_e^3 c^3}{\hbar^3}
 = \frac{2\,e^2}{\epsilon_0\,\hbar\,c}
-= 8\pi\!\left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right)
+\equiv 8\pi\!\left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right)
 = \boxed{8\pi\alpha}
 $$
 
-Numerically: $p_c \approx 0.1834$. Equivalently:
+The final step is $\alpha$'s SI definition rearranged via $p_c$, not
+an independent determination of $\alpha$. Numerically: $p_c \approx 0.1834$.
+Equivalently, given $\alpha$ from Layer 8 (Ch.8 Golden Torus closure):
 
 $$
 \alpha^{-1} = \frac{8\pi}{p_c} \approx 137.036

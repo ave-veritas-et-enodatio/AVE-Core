@@ -2,7 +2,7 @@
 
 # Axioms and Lattice
 
-The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network ($\mathcal{M}_A$), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$), and the fine-structure constant emerges as the geometric packing fraction where the bulk-to-shear modulus ratio satisfies the trace-reversal identity.
+The AVE framework rests on four topological axioms defining the vacuum as a non-linear electromagnetic LC resonant network ($\mathcal{M}_A$), with three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$). The macroscopic moduli of this micropolar continuum are derived from the topo-kinematic isomorphism ($[Q] \equiv [L]$). The geometric packing fraction $p_c = 8\pi\alpha$ is established here as a *consistency relation* between the QED Schwinger limit and $\alpha$'s SI definition; $\alpha$'s numerical value is derived from first principles in [Ch.8 (Golden Torus closure)](../ch8-alpha-golden-torus.md), and Ch.2 then shows the resulting $p_c$ sits at the bulk-to-shear trace-reversal operating point ($K = 2G$).
 
 ## Key Results
 

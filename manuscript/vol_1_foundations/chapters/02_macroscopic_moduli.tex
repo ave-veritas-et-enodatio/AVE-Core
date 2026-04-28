@@ -6,7 +6,7 @@
 \begin{itemize}
     \item Understand the Implosion Paradox and why the vacuum must operate as a Micropolar (chiral LC) continuum.
     \item Apply the Topo-Kinematic Isomorphism to map electromagnetic parameters ($\mu_0, \epsilon_0$) to mechanical moduli.
-    \item Derive the fine-structure constant ($\alpha$) from the geometric trace-reversal packing fraction.
+    \item Establish the consistency relation $p_c = 8\pi\alpha$ between the QED Schwinger limit and the EMT trace-reversal operating point. (The numerical value of $\alpha$ itself is derived from first principles in Ch.~\ref{ch:alpha_golden_torus}.)
 \end{itemize}
 \end{objectivebox}
 
@@ -47,7 +47,11 @@ In Vacuum Engineering, $\mu_{0}$ and $\epsilon_{0}$ are defined as the constitut
 \end{itemize}
 
 \section{Dielectric Rupture and The Volumetric Energy Collapse}
-In Quantum Electrodynamics, the critical electric field required to produce an electron-positron pair from the vacuum bounds the macroscopic Schwinger yield energy density at $u_{sat} = \frac{1}{2} \epsilon_0 (m_e^2 c^3 / e \hbar)^2$. By anchoring the maximum node saturation to the ground-state electron mass, the required volumetric packing fraction geometrically forces the emergence of the dimensionless fine-structure constant ($\alpha$), evaluating to $p_c = 8\pi\alpha$, ensuring mathematical closure of the derivation.
+\label{sec:dielectric_rupture}
+
+\paragraph{Framing (consistency check, not derivation of $\alpha$).} The numerical value of $\alpha$ is derived from first principles in Ch.~\ref{ch:alpha_golden_torus} (Golden Torus three-regime closure). The present section establishes a different result: it shows that the AVE lattice's packing fraction $p_c$ sits at the EMT trace-reversal operating point $K = 2G$ when the discrete fundamental mass-gap is matched to the continuum QED vacuum-breakdown limit. The identity $p_c = 8\pi\alpha$ that emerges is $\alpha$'s definition rearranged via $p_c$ --- a \emph{consistency relation} between two independent characterizations of the saturation density, not an independent derivation of $\alpha$'s numerical value. Read this section as: ``given $\alpha$'s value from Ch.~\ref{ch:alpha_golden_torus}, the QED Schwinger limit places the lattice at $p_c \approx 0.1834$, which is precisely the $K=2G$ operating point.''
+
+In Quantum Electrodynamics, the critical electric field required to produce an electron-positron pair from the vacuum bounds the macroscopic Schwinger yield energy density at $u_{sat} = \frac{1}{2} \epsilon_0 (m_e^2 c^3 / e \hbar)^2$. \emph{This expression is taken here as an external QED input}; deriving it from the four AVE axioms is not attempted in this chapter. Anchoring the maximum node saturation to the ground-state electron mass and dividing by $u_{sat}$ defines a discrete Voronoi cell volume; this volume's packing fraction against $\ell_{node}^3$ is then algebraically identical to $8\pi\alpha$ by $\alpha$'s definition (see below).
 
 Because Axiom 1 calibrates the framework to the fundamental fermion, the structural saturation energy of a single discrete geometric cell ($E_{sat}$) cannot exceed the electron rest mass ($m_e c^2$). By dividing this bounded node energy by the macroscopic continuum yield density, the physical volume of a single discrete Voronoi cell ($V_{node}$) is defined:
 \begin{resultbox}{Discrete Voronoi Cell Volume}
@@ -56,21 +60,23 @@ Because Axiom 1 calibrates the framework to the fundamental fermion, the structu
 \end{equation}
 \end{resultbox}
 
-To determine the emergent fine-structure constant ($\alpha$), equating the macroscopic topological packing fraction ($p_c$) to this yield volume evaluated against the cubed fundamental spatial pitch ($\ell_{node}^3 = \hbar^3 / m_e^3 c^3$):
-\begin{resultbox}{Vacuum Packing Fraction}
+Equating the topological packing fraction ($p_c$) to this yield volume evaluated against the cubed fundamental spatial pitch ($\ell_{node}^3 = \hbar^3 / m_e^3 c^3$) yields the algebraic identity
+\begin{resultbox}{Vacuum Packing Fraction (consistency identity)}
 \begin{equation}
-    p_c = \frac{V_{node}}{\ell_{node}^3} = \frac{2 e^2 \hbar^2}{\epsilon_0 m_e^3 c^4} \left( \frac{m_e^3 c^3}{\hbar^3} \right) = \frac{2 e^2}{\epsilon_0 \hbar c} \equiv 8\pi \left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right) = \mathbf{8\pi\alpha}
+    p_c \;=\; \frac{V_{node}}{\ell_{node}^3} \;=\; \frac{2 e^2 \hbar^2}{\epsilon_0 m_e^3 c^4} \left( \frac{m_e^3 c^3}{\hbar^3} \right) \;=\; \frac{2 e^2}{\epsilon_0 \hbar c} \;\equiv\; 8\pi \left(\frac{e^2}{4\pi\epsilon_0 \hbar c}\right) \;=\; \mathbf{8\pi\alpha}
 \end{equation}
 \end{resultbox}
 
-Rearranging this rigorously defines the inverse fine-structure constant geometrically as a direct function of the network's EMT trace-reversal operating point ($p_c$):
-\begin{resultbox}{Inverse Fine-Structure Constant}
+The final step ``$\equiv 8\pi \cdot e^2/(4\pi\epsilon_0 \hbar c) = 8\pi\alpha$'' is $\alpha$'s SI definition rearranged --- the $4\pi$ in the denominator of $\alpha = e^2/(4\pi\epsilon_0 \hbar c)$ is the same $4\pi$ that cancels with the $8\pi$ in the numerator of $p_c$. The identity is a rearrangement, not a derivation of $\alpha$'s numerical value.
+
+Equivalently, given $\alpha$ from Ch.~\ref{ch:alpha_golden_torus}, the inverse fine-structure constant relates to $p_c$ as:
+\begin{resultbox}{Inverse Fine-Structure Constant (consistency relation)}
 \begin{equation}
     \mathbf{\alpha^{-1} = \frac{8\pi}{p_c}}
 \end{equation}
 \end{resultbox}
 
-This demonstrates that bridging the continuous macroscopic QED breakdown limit with the discrete fundamental mass-gap forces the manifold's spatial geometry to a volumetric packing density of $p_c \approx 0.1834$, yielding $1/137.036$ from topology.
+\paragraph{What this section actually establishes.} Bridging the continuous macroscopic QED Schwinger breakdown limit with the discrete fundamental mass-gap is \emph{consistent} with the lattice operating at packing fraction $p_c \approx 0.1834$, given $\alpha$'s geometrically-derived value of $1/137.036$ from Ch.~\ref{ch:alpha_golden_torus}. The non-trivial physical content of the present section is that this same $p_c$ is precisely the EMT trace-reversal operating point ($K = 2G$); see Fig.~\ref{fig:emt_landscape} below.
 
 \begin{figure}[h]
     \centering
@@ -140,14 +146,14 @@ $\epsilon_0$     & F/m    & Inverse tension     & $\xi_{topo}^{2}$ N$^{-1}$ \\
 \begin{itemize}
     \item A classical Cauchy solid with transverse waves requires MacCullagh's condition, which yields a negative bulk modulus---triggering an implosion paradox. The vacuum evades this because it is a Micropolar LC continuum allowing independent rotational degrees of freedom.
     \item The Topo-Kinematic Isomorphism proves that electrical impedance ($1\,\Omega$) evaluates dimensionally and physically to macroscopic kinematic impedance ($1\,\text{kg/s}$ scaled by $\xi_{topo}^{-2}$).
-    \item The fine-structure constant ($\alpha$) emerges as the required geometric packing fraction ($p_c = 8\pi\alpha \approx 0.1834$) where the Bulk-to-Shear modulus ratio perfectly balances the trace-reversal requirements of gravitation ($K = 2G$).
+    \item The fine-structure constant ($\alpha$), as derived from first principles in Ch.~\ref{ch:alpha_golden_torus}, fixes the required geometric packing fraction ($p_c = 8\pi\alpha \approx 0.1834$) at the value where the Bulk-to-Shear modulus ratio perfectly balances the trace-reversal requirements of gravitation ($K = 2G$). This chapter establishes that consistency relation, taking the QED Schwinger limit as external input.
 \end{itemize}
 
 \begin{summarybox}
 \begin{itemize}
     \item The vacuum must be a Micropolar (Cosserat) continuum to support transverse EM waves without the Implosion Paradox ($K < 0$).
     \item The Topo-Kinematic Isomorphism maps $(\mu_0, \epsilon_0)$ to mechanical moduli via $\xi_{\text{topo}} = e\,m_e\,c/\hbar$, unifying electromagnetism and elasticity.
-    \item The fine-structure constant is derived as the trace-reversal packing fraction of a 3D amorphous central-force network.
+    \item The trace-reversal packing fraction $p_c = 8\pi\alpha$ is a consistency identity between the QED Schwinger limit (taken as external input) and $\alpha$'s SI definition; $\alpha$'s numerical value is fixed in Ch.~\ref{ch:alpha_golden_torus}, not in this chapter.
 \end{itemize}
 \end{summarybox}
 
