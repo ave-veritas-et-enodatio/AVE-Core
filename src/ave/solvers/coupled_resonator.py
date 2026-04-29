@@ -46,6 +46,8 @@ ARCHITECTURE NOTE (2026-03-13):
   solver (Approach 22). The N-port Y-matrix extension is in development.
 """
 
+import logging
+
 import numpy as np
 
 from ave.core.constants import (
@@ -64,6 +66,8 @@ from ave.core.constants import P_C as _P_C
 from ave.core.constants import (
     e_charge,
 )
+
+logger = logging.getLogger(__name__)
 
 # ─────────────────────────────────────────────────────────────────
 # Fundamental circuit parameters (from axioms)
@@ -424,12 +428,22 @@ def ionization_energy_circuit(Z: int, n_resonators: int | None = None) -> float:
 
 
 def ionization_energy_cavity(Z: int, n_resonators: int | None = None) -> float:
-    r"""First ionization energy from AVE mutual cavity loading.
+    r"""First ionization energy from AVE mutual cavity loading — FALLBACK ONLY.
+
+    .. warning:: PITFALL #8 — DO NOT USE AS PRIMARY PATH
+        This solver uses ``Z_eff² Ry / n²`` (the Bohr formula) as its
+        base energy, which is the canonical Pitfall #8 QM contamination
+        flagged in LIVING_REFERENCE.md. It is retained as the fallback
+        for ``ionization_energy()`` only because some pathological inputs
+        may still cause the axiom-compliant E2k solver to fail; in that
+        regime a finite (if structurally limited) answer is preferable
+        to an exception. Callers should use ``ionization_energy()``
+        (which dispatches to ``radial_eigenvalue.ionization_energy_e2k``
+        as the primary path) or call ``ionization_energy_e2k`` directly.
 
     .. warning:: STRUCTURAL LIMITATION
-        This solver uses Z_eff² Ry / n² as a base energy.
-        This is correct ONLY for l≥1 (p-block: B–Ne, Al–Ar) where
-        Gauss screening is exact. Fails for s-orbitals (Li, Be, Na).
+        Correct ONLY for l≥1 (p-block: B–Ne, Al–Ar) where Gauss
+        screening is exact. Fails for s-orbitals (Li, Be, Na).
         See radial_eigenvalue.radial_eigenvalue_abcd() for s-block.
 
     Architecture (Mutual Cavity Loading):
@@ -515,23 +529,43 @@ def ionization_energy_cavity(Z: int, n_resonators: int | None = None) -> float:
 
 
 def ionization_energy(Z: int, n_resonators: int | None = None) -> float:
-    r"""First ionization energy — dispatches to AVE mutual cavity loading solver.
+    r"""First ionization energy — axiom-compliant E2k solver.
 
-    .. warning::
-        Currently dispatches to ionization_energy_cavity(), which is
-        structurally limited to p-block (l≥1) atoms. Does NOT handle
-        s-orbital penetration (Li, Be, Na fail at −37% to −71%).
-        For s-block atoms, use radial_eigenvalue.ionization_energy_e2k()
-        or radial_eigenvalue.radial_eigenvalue_abcd() directly.
+    Primary path: ``radial_eigenvalue.ionization_energy_e2k()``, the
+    axiom-compliant ABCD-cascade solver (no Bohr formula, valid across
+    s- and p-blocks).
+
+    Fallback path: ``ionization_energy_cavity()`` — taken only if the
+    primary path raises. The fallback uses ``Z_eff² Ry / n²`` (Pitfall #8)
+    and is structurally limited to p-block atoms; a WARNING is logged
+    when it executes.
 
     Args:
         Z: Atomic number.
-        n_resonators: Number of electrons (default: Z).
+        n_resonators: Number of electrons (default: Z, neutral atom).
+            Note: the E2k primary path solves for the neutral atom; the
+            ``n_resonators`` parameter only affects the fallback path.
 
     Returns:
         f_eigen_eV in eV.
     """
-    return ionization_energy_cavity(Z, n_resonators)
+    # Local import to avoid a circular import at module load time:
+    # radial_eigenvalue.py and coupled_resonator.py are peers in
+    # ave.solvers and may share constants via ave.core.
+    from ave.solvers.radial_eigenvalue import ionization_energy_e2k
+
+    try:
+        return ionization_energy_e2k(Z)
+    except Exception as exc:  # noqa: BLE001 — fallback must catch broadly
+        logger.warning(
+            "ionization_energy_e2k(Z=%d) failed (%s: %s); falling back to "
+            "ionization_energy_cavity (Bohr Z_eff² Ry / n², Pitfall #8, "
+            "p-block only).",
+            Z,
+            type(exc).__name__,
+            exc,
+        )
+        return ionization_energy_cavity(Z, n_resonators)
 
 
 def atom_port_impedance(Z: int, f_eigen_eV: float) -> float:

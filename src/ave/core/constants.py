@@ -352,6 +352,7 @@ _a_emt = P_C
 _b_emt = 2.0 * P_C - 10.0
 _c_emt = 12.0
 _disc = _b_emt**2 - 4.0 * _a_emt * _c_emt
+assert _disc >= 0, f"Z_COORDINATION discriminant negative: {_disc}"
 Z_COORDINATION: float = (-_b_emt + _disc**0.5) / (2.0 * _a_emt)  # ≈ 51.25
 
 # Rigidity percolation threshold  p_G = 6/z₀ ≈ 0.117

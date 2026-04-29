@@ -64,6 +64,7 @@ def reflection_coefficient(Z_knot: float, Z_vac: float = Z_0) -> float:
 
     Delegates to ``scale_invariant.reflection_coefficient``.
     """
+    # Args reversed: upstream uses (Z1_src, Z2_tgt); we map (Z_vac, Z_knot) to yield (Z_knot-Z_vac)/(Z_knot+Z_vac).
     return float(_si_reflection_coefficient(Z_vac, Z_knot))
 
 
