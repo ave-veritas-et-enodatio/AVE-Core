@@ -29,9 +29,6 @@ def germanium_band_gap() -> dict[str, float | str]:
 
     # We apply the true VCA phase ratio: ratio of alpha nodes
     # E_G structurally approaches 0 as V_R/V_BR -> 1.
-    # e_gap_derivation = si_gap * (1.0 - V_R_OVER_V_BR_GE) * 500  # Topological approximation  # bulk lint fixup pass
-    # Geometrically: 1.0496 * (0.0013) * 500 = 0.682 eV
-    # E_gap_Ge = si_gap * (1.0 - V_R_OVER_V_BR_GE) * (1.0 / 0.050) * 0.65  # bulk lint fixup pass
     return {
         "E_gap_eV": 0.681,  # Axiomatically derived scale around ~0.68V
         "model": "Geometric Large Signal Matrix",

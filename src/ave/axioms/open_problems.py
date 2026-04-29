@@ -338,7 +338,6 @@ def impedance_hubble_correction(n_e_local: float = 0.05, n_e_cmb_path: float = 0
 
     # This affects H₀ because H = v/d, and d is inferred from
     # luminosity distance which depends on c_eff
-    # H0_corrected = H0_PLANCK * (1 + delta_c_over_c * 1e8)  # Enhancement factor scaled  # bulk lint fixup pass
 
     # The plasma dispersion effect at CMB frequencies is tiny
     # (~10⁻¹² level), so it can't explain the full tension.

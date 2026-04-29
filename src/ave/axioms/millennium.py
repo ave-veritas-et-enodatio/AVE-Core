@@ -166,9 +166,6 @@ def test_birch_swinnerton_dyer() -> dict:
     Returns:
         Dictionary evaluating the physical mapping.
     """
-    # The number of stable baryon states maps to stable rational knots
-    # baryon_knots = list(BARYON_LADDER.keys())  # bulk lint fixup pass
-
     return {
         "problem": "Birch and Swinnerton-Dyer Conjecture",
         "domain": "Algebraic Geometry / Number Theory",
@@ -274,7 +271,6 @@ def formal_proof_summary() -> dict:
     ym_proof = full_mass_gap_proof()
     verify_osterwalder_schrader()
     ym_proven = ym_proof["MASS_GAP_PROVEN"]
-    # ym_os_all = ym_os["all_OS_satisfied"]  # bulk lint fixup pass
 
     # ── Navier-Stokes ─────────────────────────────────────────────────
     ns_proof = full_navier_stokes_proof()

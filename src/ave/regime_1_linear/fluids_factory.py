@@ -297,7 +297,6 @@ class FluidImpedanceFactory:
             stacklevel=2,
         )
         T_K = T_celsius + 273.15
-        # kT = K_B * T_K  # bulk lint fixup pass
 
         # Volume of tetrahedral unit cell
         r_inter = self.fluid.bond_length + self.fluid.inter_bond_length

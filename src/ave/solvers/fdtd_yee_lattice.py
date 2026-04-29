@@ -37,7 +37,6 @@ def main() -> None:
     c0 = 1.0  # Speed of light in vacuum
     dt = 1.0  # Time step
     dx = 2.0  # Grid spatial step
-    # dy = 2.0  # bulk lint fixup pass
 
     # The Courant–Friedrichs–Lewy (CFL) limit for 2D is:
     # c * dt / dx <= 1 / sqrt(2)

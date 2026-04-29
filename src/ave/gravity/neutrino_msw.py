@@ -92,8 +92,6 @@ def matter_potential(n_e: float) -> float:
     """
     # Convert n_e to natural units: n_e [m⁻³] → [(ℏc)⁻³ eV³]
     # V_CC = √2 G_F n_e [eV] (using G_F in appropriate units)
-    # hbar_c_m = HBAR_EV_S * C_0  # ℏc [eV·m]
-    # n_e_natural = n_e * hbar_c_m**3  # [eV³]  # bulk lint fixup pass
     # G_F is in GeV⁻² = 10⁻⁶ eV⁻²... but we need consistent units
     # Simpler: V_CC = √2 × 1.1664e-5 GeV⁻² × (ℏc)³ × n_e
     # In SI: V_CC [eV] = √2 × G_F [GeV⁻²] × (ℏc)³ [GeV³·m³] × n_e [m⁻³]
@@ -137,7 +135,6 @@ def effective_mixing_angle(
     if abs(denominator) < EPS_CLIP:
         return np.pi / 4  # Resonance → maximal mixing
 
-    # tan2theta_m = sin2 / denominator  # bulk lint fixup pass
     theta_m = 0.5 * np.arctan2(sin2, denominator)
 
     # Keep in [0, π/2]

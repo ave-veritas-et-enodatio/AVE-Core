@@ -425,7 +425,6 @@ def defect_energy_vs_volume(crossing_number: int = 5, box_sizes_Rp: list[float] 
 
     results = []
     for L_ratio in box_sizes_Rp:
-        # L_box = L_ratio * r_conf  # in ℓ_node units  # bulk lint fixup pass
         # Energy is ALWAYS I_scalar × (geometric constants)
         # regardless of L_box, because the integral domain is [0, r_conf]
         results.append(
