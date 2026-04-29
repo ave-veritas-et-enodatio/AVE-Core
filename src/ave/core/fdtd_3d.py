@@ -22,7 +22,7 @@ Includes 1st-order Mur Absorbing Boundary Conditions (ABCs).
 import numpy as np
 
 from ave.axioms.scale_invariant import saturation_factor
-from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
+from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, MU_0, V_YIELD
 
 
 class FDTD3DEngine:
@@ -208,7 +208,7 @@ class FDTD3DEngine:
 
         # Clip to prevent numerical instability near exact saturation
         # (ratio_sq >= 1.0 would mean dielectric rupture)
-        ratio_sq = np.clip(ratio_sq, 0.0, 1.0 - 1e-12)
+        ratio_sq = np.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
 
         # Base permittivity includes material: ε₀ × ε_r
         # Slice eps_r to match the shape of E_component if needed
@@ -235,7 +235,7 @@ class FDTD3DEngine:
         if max_r > self.max_mag_strain:
             self.max_mag_strain = max_r
 
-        ratio_sq = np.clip(ratio_sq, 0.0, 1.0 - 1e-12)
+        ratio_sq = np.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
 
         if H_component.shape == self.mu_r.shape:
             mu_base = self.mu_0 * self.mu_r

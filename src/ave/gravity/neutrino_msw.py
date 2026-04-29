@@ -35,7 +35,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ave.axioms.scale_invariant import reflection_coefficient
-from ave.core.constants import C_0, G_F, HBAR_EV_S, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
+from ave.core.constants import C_0, EPS_CLIP, G_F, HBAR_EV_S, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Physical constants for neutrino physics
@@ -131,7 +131,10 @@ def effective_mixing_angle(
     cos2 = np.cos(2 * theta_vac)
 
     denominator = cos2 - A
-    if abs(denominator) < 1e-15:
+    # MSW resonance occurs when cos(2θ_vac) = A; the denominator vanishes and
+    # mixing becomes maximal. EPS_CLIP (1e-15, the float64 tight bound) is the
+    # singularity threshold below which we short-circuit to the limit value.
+    if abs(denominator) < EPS_CLIP:
         return np.pi / 4  # Resonance → maximal mixing
 
     # tan2theta_m = sin2 / denominator  # bulk lint fixup pass

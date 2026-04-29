@@ -26,7 +26,7 @@ import jax.numpy as jnp
 import numpy as np
 from jax import jit
 
-from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
+from ave.core.constants import B_SNAP, C_0, EPS_SAT_RATIO, EPSILON_0, MU_0, V_YIELD
 
 # Enable float64 to match numpy precision for numerical equivalence
 jax.config.update("jax_enable_x64", True)
@@ -58,7 +58,7 @@ def _compute_local_epsilon_kernel(
     """
     V_local = jnp.abs(E_component) * dx
     ratio_sq = (V_local / v_yield) ** 2
-    ratio_sq = jnp.clip(ratio_sq, 0.0, 1.0 - 1e-12)
+    ratio_sq = jnp.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
     return eps_base * jnp.sqrt(1.0 - ratio_sq)
 
 
@@ -83,7 +83,7 @@ def _compute_local_mu_kernel(
     """
     B_local = mu_0 * jnp.abs(H_component)
     ratio_sq = (B_local / b_yield) ** 2
-    ratio_sq = jnp.clip(ratio_sq, 0.0, 1.0 - 1e-12)
+    ratio_sq = jnp.clip(ratio_sq, 0.0, 1.0 - EPS_SAT_RATIO)
     return mu_base * jnp.sqrt(1.0 - ratio_sq)
 
 
@@ -350,14 +350,14 @@ def _total_field_energy_jax(
         # Electric sector
         E_mag = jnp.sqrt(E_sq)
         V_local = E_mag * dx
-        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - 1e-12)
+        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
         # Magnetic sector
         H_mag = jnp.sqrt(H_sq)
         B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - 1e-12)
+        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
         mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
         u_m = 0.5 * mu_local * H_sq
 
@@ -399,13 +399,13 @@ def _energy_density_jax(
     else:
         E_mag = jnp.sqrt(E_sq)
         V_local = E_mag * dx
-        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - 1e-12)
+        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
         H_mag = jnp.sqrt(H_sq)
         B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - 1e-12)
+        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - EPS_SAT_RATIO)
         mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
         u_m = 0.5 * mu_local * H_sq
 

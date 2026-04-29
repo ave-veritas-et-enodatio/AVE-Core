@@ -37,6 +37,8 @@ from typing import Sequence
 
 import numpy as np
 
+from ave.core.constants import EPS_NUMERICAL
+
 # ====================================================================
 # NumPy backend (analysis, plotting)
 # ====================================================================
@@ -323,7 +325,7 @@ def abcd_cascade_jax(seg_Zc, cosh_arr, sinh_arr, seg_Y, n_segs, n_junctions):
         A, B, C, D = state[0], state[1], state[2], state[3]
         ch = cosh_arr[i]
         sh = sinh_arr[i]
-        Zc = seg_Zc[i] + 1e-12
+        Zc = seg_Zc[i] + EPS_NUMERICAL
 
         # TL segment: standard ABCD multiplication
         A_n = A * ch + B * (sh / Zc)

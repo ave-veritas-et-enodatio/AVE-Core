@@ -329,8 +329,24 @@ R_III: float = 1.0  # Saturated -> Rupture
 # The guards must be defined before _compute_i_scalar_dynamic() runs.
 
 EPS_NUMERICAL: float = 1e-12  # Reflection / impedance guards
-EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling
+EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling (tight bound)
 EPS_DIVZERO: float = 1e-30  # Hard division-by-zero floor
+
+# EPS_SAT_RATIO — saturation-ratio clamp ceiling for the Axiom 4 macroscopic
+# kernel  ε_eff = ε₀·√(1 − r²),  r = V/V_yield (or B/B_yield).
+#
+# Distinct from EPS_CLIP: both clamp √(1 − x²) near x = 1, but they operate at
+# different scales. EPS_CLIP (1e-15) is the analytical tight bound used by the
+# axiom-level scale_invariant operators where the input is already known to be
+# at its limit. EPS_SAT_RATIO (1e-12) is the numerically-conservative ceiling
+# used inside the FDTD time-stepping loop, where the saturation ratio is a
+# function of free-running grid fields and needs ~6 orders of magnitude of
+# headroom in √(1 − r²) to remain stable under accumulated round-off across
+# many timesteps. Numerically EPS_SAT_RATIO matches EPS_NUMERICAL (1e-12), but
+# the names are kept distinct: EPS_NUMERICAL is for impedance/reflection
+# denominators (additive guard), EPS_SAT_RATIO is for the saturation-ratio
+# clamp itself (subtractive bound on r²).
+EPS_SAT_RATIO: float = 1e-12  # FDTD saturation-ratio clamp: r² ≤ 1 − EPS_SAT_RATIO
 
 
 # =============================================================================
