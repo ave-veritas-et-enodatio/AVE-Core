@@ -1,0 +1,196 @@
+{
+  "scope": "Round 11 (vi) v10 (i-a) test: finer K4 sampling spectrum trajectory",
+  "ring_nodes": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      2,
+      2
+    ],
+    [
+      -1,
+      3,
+      1
+    ],
+    [
+      -2,
+      2,
+      0
+    ],
+    [
+      -1,
+      1,
+      -1
+    ]
+  ],
+  "continuum_11_at_corpus_k_lnode": 6.362265131567328,
+  "compton_k_lnode": 1.0,
+  "trajectory": [
+    {
+      "max_steps": 1,
+      "n_total": 18,
+      "shell_counts": {
+        "0": 6,
+        "1": 12,
+        "2": 0,
+        "3": 0
+      },
+      "spectrum_max_magnitude": 0.9001115539943936,
+      "spectrum_max_k_lnode": 0.5196796479993555,
+      "spectrum_max_to_continuum_ratio": 0.0816810977161334,
+      "top_5_ring_localized_modes": [
+        {
+          "eigenvalue_real": 0.9001115539943912,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9001115539943912,
+          "ring_localization": 0.8419835076069029,
+          "k_lnode": 0.5196796479993542
+        },
+        {
+          "eigenvalue_real": 0.9001115539943936,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9001115539943936,
+          "ring_localization": 0.8419835076069028,
+          "k_lnode": 0.5196796479993555
+        },
+        {
+          "eigenvalue_real": -0.9001115539943909,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9001115539943909,
+          "ring_localization": 0.8419835076069028,
+          "k_lnode": 0.519679647999354
+        },
+        {
+          "eigenvalue_real": -0.9001115539943934,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9001115539943934,
+          "ring_localization": 0.8419835076069027,
+          "k_lnode": 0.5196796479993554
+        },
+        {
+          "eigenvalue_real": 0.8594512435197206,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.8594512435197206,
+          "ring_localization": 0.7437913588935232,
+          "k_lnode": 0.4962044068014693
+        }
+      ],
+      "top_ring_localized_k_lnode": 0.5196796479993542,
+      "top_ring_localized_loc": 0.8419835076069029
+    },
+    {
+      "max_steps": 2,
+      "n_total": 50,
+      "shell_counts": {
+        "0": 6,
+        "1": 12,
+        "2": 32,
+        "3": 0
+      },
+      "spectrum_max_magnitude": 0.9435892661948674,
+      "spectrum_max_k_lnode": 0.5447815168420481,
+      "spectrum_max_to_continuum_ratio": 0.08562650564136368,
+      "top_5_ring_localized_modes": [
+        {
+          "eigenvalue_real": 0.9425861852036403,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9425861852036403,
+          "ring_localization": 0.6455078229559917,
+          "k_lnode": 0.5442023877617442
+        },
+        {
+          "eigenvalue_real": -0.9425861852036397,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9425861852036397,
+          "ring_localization": 0.6455078229559917,
+          "k_lnode": 0.5442023877617439
+        },
+        {
+          "eigenvalue_real": -0.9425861852036356,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9425861852036356,
+          "ring_localization": 0.6455078229559916,
+          "k_lnode": 0.5442023877617415
+        },
+        {
+          "eigenvalue_real": 0.9425861852036364,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9425861852036364,
+          "ring_localization": 0.6455078229559903,
+          "k_lnode": 0.5442023877617419
+        },
+        {
+          "eigenvalue_real": 0.9355073104435822,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9355073104435822,
+          "ring_localization": 0.5435679752779006,
+          "k_lnode": 0.5401153975134649
+        }
+      ],
+      "top_ring_localized_k_lnode": 0.5442023877617442,
+      "top_ring_localized_loc": 0.6455078229559917
+    },
+    {
+      "max_steps": 3,
+      "n_total": 94,
+      "shell_counts": {
+        "0": 6,
+        "1": 12,
+        "2": 32,
+        "3": 44
+      },
+      "spectrum_max_magnitude": 0.9602442070445778,
+      "spectrum_max_k_lnode": 0.5543972514249658,
+      "spectrum_max_to_continuum_ratio": 0.08713786703314301,
+      "top_5_ring_localized_modes": [
+        {
+          "eigenvalue_real": 0.9602442070445761,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9602442070445761,
+          "ring_localization": 0.5147553325383545,
+          "k_lnode": 0.5543972514249648
+        },
+        {
+          "eigenvalue_real": -0.9602442070445734,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9602442070445734,
+          "ring_localization": 0.5147553325383389,
+          "k_lnode": 0.5543972514249632
+        },
+        {
+          "eigenvalue_real": -0.9602442070445778,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9602442070445778,
+          "ring_localization": 0.5147553325383364,
+          "k_lnode": 0.5543972514249658
+        },
+        {
+          "eigenvalue_real": 0.9602442070445761,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.9602442070445761,
+          "ring_localization": 0.5147553325383296,
+          "k_lnode": 0.5543972514249648
+        },
+        {
+          "eigenvalue_real": -0.958677269106208,
+          "eigenvalue_imag": 0.0,
+          "magnitude": 0.958677269106208,
+          "ring_localization": 0.2932675959799994,
+          "k_lnode": 0.5534925793844445
+        }
+      ],
+      "top_ring_localized_k_lnode": 0.5543972514249648,
+      "top_ring_localized_loc": 0.5147553325383545
+    }
+  ],
+  "interpretation": "STRUCTURAL (cap below Compton)"
+}
