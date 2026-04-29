@@ -3434,3 +3434,54 @@ predictions:
       - COLLABORATION_NOTES Rule 14 (substrate-derives), Rule 16 (Grant
         approved this run), A40 (dual-criterion), A43 v2 (per-pre-reg
         verification gate, refinement 6), A48 (frozen-extraction-scope)
+
+  - id: P_phase11_path_alpha_v4b_n2_per_port
+    name: "Round 10+ Phase 1 path α v4b: n=2-per-port follow-up to v4 — disambiguates LH-internal Δ=23% as statistical noise vs real substrate asymmetry"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/round_10_plan.md"
+    test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v4b_n2_per_port.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Cheaper auditor-recommended diagnostic before substrate-native seed
+      reform. Path α v4 (commit 2a684a4) found LH-internal Δ=23% (port 1
+      = 1.348, port 3 = 1.092) at n=1-per-port. Cause unresolved between:
+      (i) statistical noise at n=1
+      (ii) real substrate asymmetry between LH ports
+      (iii) IC seed asymmetry
+
+      This test: rerun v4 with top-2-per-port selection (8 bonds total,
+      2 each at ports 0/1/2/3). Cheap (~5-7 min on cached Move 5 state
+      from Phase 0.1, commit 999d2ac). Decisive on (i): if RH-internal
+      and LH-internal spreads are comparable at n=2 → noise. If LH-internal
+      spread persists while RH-internal stays tight → real asymmetry
+      between RH-pair and LH-pair internal coherence.
+
+      ADJUDICATION:
+      Mode I-noise: RH-internal-spread ~ LH-internal-spread (both small or
+        both spread comparably) → v4's LH-Δ=23% was noise; substrate-
+        native seed reform is solving a non-problem; original Cartesian-z
+        seed may be acceptable
+      Mode II-real-asymmetry: RH-internal stays tight (Δ < 5%) but
+        LH-internal spread (Δ > 15%) → real substrate property; needs
+        structural explanation (substrate-native seed reform candidate
+        for explaining)
+      Mode III: noise OR pattern doesn't fit → other source
+
+      PRE-PRE-REG A43 v2 GATE: verbatim citations grep-confirmed in v4
+      pre-reg + commit 2a684a4. Synthesis claim "LH-internal Δ=23% real
+      asymmetry" labeled — this test is the empirical resolution.
+
+      ESTIMATED COST: ~5-7 min wall on cached state; single coherent A48
+      commit. Driver is small modification of r10_path_alpha_v4_port_mixed.py
+      (top-2 per port instead of top-1).
+
+      CITATIONS:
+      - Path α v4 commit 2a684a4 (LH-internal Δ=23% baseline)
+      - Phase 0.1 commit 999d2ac (cached Move 5 state)
+      - Auditor recommendation 2026-04-28 (D) before substrate-native
+        seed reform per Rule 9 v2 + cheaper-diagnostics-first
+      - COLLABORATION_NOTES Rule 14 (substrate-derives), A40 (dual-criterion),
+        A43 v2 (per-pre-reg verification), A48 (frozen-extraction-scope)
