@@ -243,9 +243,19 @@ Mode II falls short of strict closure. Per the proliferation-of-tests concern, M
 
 ### §7.2 — Locked gate decision
 
-This commit endorses **Reading A with explicit v8 scope cap**:
+This commit endorses **Reading A with explicit v8 scope cap** — **PROVISIONAL pending v8 empirical verification**.
 
-**v7 Mode II reading:** trapping mechanism at bond-pair scale is empirically supported (persistence + ring localization PASS, thermally robust across 5 orders of magnitude in T). Beltrami parallelism + loop-flux topology measurements have identified mechanical causes (not framework findings).
+> **🟡 PROVISIONAL FLAG (added 2026-04-28 post-audit per Rule 12 retraction-preserves-body + A47):** Reading A is the working hypothesis, NOT proven. Three pieces of evidence cite Reading A as suggestive:
+>
+> 1. `cos_sim(ω, k·A_0) = 1.0000` at IC by construction (Beltrami eigenvector sanity check) — IC IS a Beltrami eigenmode at t=0
+> 2. Loop flux bit-identical +496.23 across 5 orders of magnitude in T — consistent with pure deterministic accumulator behavior (no T-dependent physics in the metric)
+> 3. Beltrami |cos_sim| oscillates between -0.5 and +0.5 with non-zero mean magnitude 0.52 (NOT decay-to-zero, which is what framework rejection would look like)
+>
+> Each is suggestive, none is decisive. **Until v8 with corrected measurement methods either lands Mode I (proving the physics WAS Beltrami, just measurement masked it) or fails again with corrected methods (proving Beltrami WASN'T present in the dynamics), Reading A is provisional.**
+>
+> Per A47 (pre-reg verdict vs narrative reading discipline): the empirical 4-criterion adjudication says Mode II at every T value. Reading A is the implementer's narrative interpretation of why Mode II isn't framework-rejection. The narrative MUST be empirically tested at v8 before being treated as established. If v8 fails, Reading B (Mode II = framework reframe) becomes the operative reading by §7.6 trigger.
+
+**v7 Mode II reading (provisional):** trapping mechanism at bond-pair scale is empirically supported (persistence + ring localization PASS, thermally robust across 5 orders of magnitude in T). Beltrami parallelism + loop-flux topology measurements have identified mechanical causes that v8 will test by replacing them with corrected methods.
 
 **v8 scope (ONE cycle MAX):**
 - Implement Moore-Penrose pseudo-inverse for Phi_link → A-vec reconstruction (clean roundtrip)
@@ -280,7 +290,89 @@ This is consistent with A40's anticipated arc length bound. Proceeding past v8 w
 This §7 gate decision is committed with the v7 A48 unit (driver + pre-reg + result + this doc 86). The next session reading this commit message + doc 86 §7 sees:
 - v8 scope is FIXED (Phi_link → A pseudo-inverse + instantaneous A; no IC changes)
 - Round 11 trigger is AUTO-FIRE if v8 doesn't land Mode I
-- The decision is on-record per Rule 12 retraction-preserves-body — even if I'm wrong about Reading A, the gate logic stands and triggers reframe at the right point
+- The decision is on-record per Rule 12 retraction-preserves-body — even if Reading A turns out wrong, the gate logic stands and triggers reframe at the right point
+
+### §7.5 — v8 pre-flight requirements (added 2026-04-28 post-audit)
+
+Before v8 driver implementation begins, the following pre-flight items must be completed and documented as a small commit on top of v7 (BEFORE v8 driver code is written, per the cadence locked in §7.4):
+
+**(1) A43 v2 corpus-grep on canonical V-to-A relationship.**
+
+The Reading A "measurement-method-only" claim depends on Phi_link being canonically interpreted as `∫V dt ≈ A integrated along bond direction`, NOT as a primary state. Per A43 v2 anyone-must-grep, this mapping must be verified explicitly:
+
+- Grep [`src/ave/core/k4_tlm.py`](../../src/ave/core/k4_tlm.py) docstrings (especially around line 156-167 Phi_link definition and line 391 Phi_link update) for the canonical relationship between V_inc, V_avg, Phi_link, and A
+- Grep [Vol 1 Ch 3:21-29 Lagrangian](../../manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex#L21-L29) + [Vol 1 Ch 4:21-26 Cosserat E/B](../../manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex#L21-L26) for the canonical V↔E and Phi↔A mappings
+- Grep [Vol 4 Ch 1:22-99 Topo-Kinematic identity table](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L22-L99) for V↔Force, I↔v, L↔mass mappings; check whether A appears with its own canonical mapping
+- Output: explicit citation chain in a v8 pre-flight doc OR doc 86 addendum, listing the canonical V-to-A relationship verbatim from corpus
+
+If the corpus-grep produces a DIFFERENT canonical V-to-A relationship than my "Phi_link ≈ ∫V dt ≈ A integrated along bond" assumption, v8 A-proxy method must be revised before implementation.
+
+**(2) Concrete A-proxy method specification.**
+
+Replace doc 85 §7.1's sketch ("Moore-Penrose pseudo-inverse") with explicit formula. Default candidate:
+
+```
+A_vec(node) = (P^T P)^(-1) P^T · Phi_vec
+```
+
+where:
+- P is the 4×3 matrix of port direction unit vectors (rows = ports 0,1,2,3; columns = x,y,z components)
+- Phi_vec is the 4-vector of Phi_link[port] values at the node (or A-neighbor lookup for B-sites)
+- The (P^T P)^(-1) P^T = pseudo-inverse handles the over-determined linear map cleanly
+
+Alternative: instantaneous A-vec from V_inc + V_ref via dPhi_link/dt finite difference:
+
+```
+V_avg[port, t] = ½ (V_inc[port, t] + V_ref[port, t])
+A_along_bond[port, t] ≈ V_avg[port, t] · dt  (instantaneous local contribution to A)
+A_vec(node, t) = (P^T P)^(-1) P^T · A_along_bond_vec(t)
+```
+
+Choose ONE method before v8 IC. If neither method produces clean roundtrip (cos_sim(A_reconstructed, k·A_0_target) ≈ 1.0 at IC), v8 IC has a deeper issue requiring §7.6 Round 11 trigger.
+
+**(3) Concrete loop-flux method specification.**
+
+Replace doc 85 §7.2's "Stokes' integral ∮A·dl ≈ 2π" sketch with explicit formula using INSTANTANEOUS A (not Phi_link accumulator):
+
+```
+loop_flux_instantaneous(t) = Σ over 6 bonds {
+    A_avg_along_bond[bond, t] · bond_length · traversal_sign
+}
+```
+
+where A_avg_along_bond[bond, t] is computed from V_avg per (2) above, NOT from Phi_link.
+
+Verify the corrected loop-flux method is **thermally sensitive**: at T>0, the metric should pick up some non-zero thermal scatter (vs T=0 baseline). If bit-identical across T (like v7's Phi_link-based loop flux), the method isn't picking up thermal physics and is suspect.
+
+Smoke check: run the corrected metric at T=0 and T=1e-1·T_V-rupt for ~20 P each; verify Δ(loop_flux) > thermal_noise_floor.
+
+**(4) Round 11 sketch verification.**
+
+Before v8 commits, the §7.6 Round 11 candidate enumeration must be locked. Without it, Round 11 trigger fires into ambiguity (auditor concern 2026-04-28).
+
+---
+
+### §7.6 — Round 11 candidate enumeration (added 2026-04-28 post-audit)
+
+If v8 with corrected measurement methods produces Mode II/III, Round 11 trigger fires per §7.2. Round 11 candidates are the framework-level reframings the trigger fires INTO. First-pass candidate selection becomes itself a Round 11 step, not the trigger's responsibility.
+
+**Scale clarification header** (per A-016 + doc 83): v6 + v7 operate at bond-pair scale (6-node hexagonal chair-ring at lattice center, ~ℓ_node radius per Vol 1 Ch 1:32). This is DISTINCT from path α v1-v4(b)'s bond-cluster scale (R=10·ℓ_node) per doc 83's Phase 1 reframe. A-014's "10 pre-reg tests Mode III on R/r=φ²" closure was at bond-cluster scale; v6/v7's Mode II is at bond-pair scale and is NEW data not bound by A-014's closure. Round 11 candidates below assume bond-pair scale as the operating regime; "rerun at bond-pair scale" is NOT a Round 11 candidate (already done in v6/v7).
+
+**Round 11 candidates:**
+
+**(i) Continuum-vs-discrete substrate.** The 6-node K4 chair-ring is too coarse a sampling of the continuum unknot Beltrami eigenmode; corpus electron requires continuum substrate or finer-than-K4 discretization. Maps to: increase N (e.g., 64³, 128³) at constant chair-ring scale to test convergence; OR test in continuum FDTD solver instead of K4-TLM.
+
+**(ii) Multi-loop coupling (linked vortex pair).** Single isolated chair-ring isn't a sufficient model; corpus electron requires two coupled rings (linked vortex per Hopf framework). Maps to: IC two chair-rings at unit linking number; test joint trapping.
+
+**(iii) Topology variant.** Different K4 closed loop than 6-node chair-ring (e.g., 8-node, 12-node, or non-K4 cycle). Maps to: enumerate K4 cycles of length 8, 12, ...; test trapping at each.
+
+**(iv) Cosserat-only mode.** Electron is purely a Cosserat soliton, not a coupled K4-Cosserat mode. Undermines doc 85 §4's Cosserat-as-d-q-decomposition framing. Maps to: IC with V_inc=0 throughout (true Phase A) + ω helical Beltrami; test if Cosserat sector alone supports stable trapping. (Note: this requires fixing the engine's K4-Cosserat coupling so that V_inc=0 IC doesn't disable K4 dynamics — engine modification, not just IC change.)
+
+**(v) Phase-space (2,3) reinstated as primary framing.** Doc 28 §3's phase-space (2,3) winding becomes primary; real-space unknot becomes derived/degenerate-limit. **Tracker flag (per auditor 2026-04-28):** if (v) fires, partial walkback of doc 79 §1 + §9(a) lemniscate-with-q-half-twists primary framing + the E-086 tracker entry. This would be a substantive corpus revision, not just framework framing change. Round 11 (v) MUST explicitly check doc 79 closure against the new framing before committing; doc 28 §3 phase-space framing is corpus-cited and was preserved as derived equivalent under the lemniscate-primary reframe. Reinstating it as primary requires revisiting the closure decision.
+
+**(vi) Continuum chair-ring eigenmode re-derivation.** The (1,1) Beltrami eigenmode formula k² = (p/r)² + (q/R)² is for smooth torus geometry. Re-derive it for the SPECIFIC discrete chair-ring metric on K4 (Frenet frame variation across nodes, non-planar ring axis, tetrahedral bond geometry). Maps to: explicit eigenvalue analysis on the 6-node chair-ring graph Laplacian + Beltrami operator; possibly different k_C and helical-pitch-ratio than continuum.
+
+**Note:** candidates aren't exclusive. Round 11 may combine multiple (e.g., (i) + (vi) = redo eigenmode analysis on continuum chair-ring of fine sampling).
 
 ---
 
