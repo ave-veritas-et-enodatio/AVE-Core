@@ -3782,3 +3782,136 @@ predictions:
       - Auditor pre-flight A43 v2 grep on doc 85 (FOC time vs space;
         R/r = 2π synthesis flag; discrete-vs-continuum eigenmode)
       - Auditor + Grant T-sweep request (thermal robustness)
+
+  - id: P_phase11_path_alpha_v8_corrected_measurements
+    name: "Round 10+ Phase 1 Direction 3'.2 path α v8: corrected measurements (Phi_link detrend) + thermal sweep — Mode II at every T → Round 11 trigger fires per doc 86 §7.6 gate; dimensional audit reveals IC was traveling-wave NOT Beltrami standing-wave"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/87_path_alpha_v8_round_11_ignition.md"
+    test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v8_corrected_measurements.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Successor to v7 (P_phase11_path_alpha_v7_helical_beltrami_chair_ring_IC)
+      which Mode II'd at every T value with Beltrami / loop-flux measurement-
+      method failures. v8 = locked ONE-cycle measurement-method redesign per
+      doc 86 §7.4: NO IC modifications, NO additional adjudication criteria,
+      only corrected measurements.
+
+      v8 EMPIRICAL RESULT (T=0 + T sweep at 1e-3, 1e-2, 1e-1 · T_V-rupt):
+      - Mode II 2/4 PASS at every T value
+      - Persistence (199.98 P) PASS at every T
+      - Ring localization 0.9617-0.9618 PASS at every T  (thermally invariant)
+      - A²_mean steady 0.9020 invariant across T
+      - Beltrami |cos_sim(A_oscillating, ω)| 0.5144-0.5154 FAIL at every T
+        (corrected via Phi_link detrending; Moore-Penrose mathematically
+        equivalent in direction; cos_sim is scale-invariant)
+      - Loop flux ∮A·dl bit-identical RMS 0.7393 / peak 1.2659 at every T
+        FAIL (corrected target 2π = 6.28 in V_SNAP-natural units; original
+        v7 +496 growing was secular accumulator drift, fixed by detrending)
+
+      Per doc 86 §7.2 + §7.6 gate: Mode II at v8 → Round 11 trigger FIRES.
+      A40 budget (3 layers: v6 IC mode-structure + v7 implementation bugs +
+      v8 measurement methods) consumed; no v9 IC tweak path.
+
+      DIMENSIONAL AUDIT (added 2026-04-28 post-Grant + auditor; doc 87 §8):
+      Three substantive issues caught before commit:
+
+      1. K_BELTRAMI=1 conflates dispersion-wavenumber with curl-eigenvalue;
+         (1,1) Beltrami at corpus R/r=2π gives k_Beltrami ≈ √(4π²+1) ≈ 6.36
+         not 1. Sub-issue (A43 v14 candidate): R/r=2π is implementer-synthesis
+         from Vol 1 Ch 1:18 + minor radius derivation, not direct corpus
+         citation; Round 11 (vi) must grep-verify or derive from first
+         principles.
+
+      2. Loop flux target was wrong-amplitude calibration: 2π·e in V_SNAP-
+         natural units assumes |A_tor| at charge-quantization value, but
+         v8 IC has |A_tor| = 0.951/(2π) = 0.151 → corrected target ≈ 0.95.
+         Measured peak 1.27 is 35% over corrected target (modest miscalibration,
+         not 5× framework refutation as initially framed).
+
+      3. (LOAD-BEARING) IC was traveling wave, NOT Beltrami standing wave:
+         V_inc cos(2π·n/6) + Phi_link sin(2π·n/6) = different bonds at
+         different time-phases = traveling wave snapshot. A Beltrami standing
+         wave has UNIFORM time-phase across all bonds with magnitudes per
+         A_0(node) eigenmode shape. The Beltrami eigenvector sanity check
+         cos_sim(ω, k·A_0)=1.000 was self-confirming (ω set directly from
+         A_0 by construction), not independent validation that V_inc +
+         Phi_link encode Beltrami structure as a system.
+
+         REFRAMES v6/v7/v8 EMPIRICAL INTERPRETATION:
+         - Defensible: "engine hosts a trapped configuration at canonical
+           topology + canonical scale" (96% localization + thermal robustness
+           + 200P persistence are real)
+         - NOT-yet-demonstrated: "engine hosts the corpus electron at
+           canonical Beltrami structure" (requires Round 11 (vi) proper
+           Beltrami standing wave IC test)
+
+      ROUND 11 SCOPING per dimensional audit + auditor 2026-04-28:
+      - (vi) discrete chair-ring eigenmode rederivation: LOAD-BEARING PRIMARY
+        (auditor elevation; not one of six options)
+      - (i) continuum-vs-discrete: SECONDARY, contingent on (vi) outcome
+      - (ii) multi-loop: SECONDARY (no clear evidence at v8 corrected target)
+      - (iii) topology variant: SECONDARY (6-node corpus-canonical per Vol 1 Ch 1:32)
+      - (iv) Cosserat-only: UNLIKELY (Phase A IC empirical failure at v7)
+      - (v) phase-space (2,3) reinstated: DOWNGRADED per §8.2 corrected math
+        (5× discrepancy was wrong-target; corrected 35% fits in (vi) framework);
+        tracker flag for doc 79 §9(a) + E-086 walkback still stands IF (v)
+        fires, but priority below (vi)
+
+      AUDITOR-LANE QUEUE ADDITIONS:
+      - A43 v14 candidate: R/r=2π corpus-citation status (doc 85 §5.2 has
+        synthesis flag; elevate to formal A43 entry)
+      - v7 closure-narrative refinement: doc 87 §3.4 carries the walkback
+        on-record per Rule 12 retraction-preserves-body (doc 86 + commit
+        617e352 not edited)
+      - Doc 85 §5.1 amendment: 2π·e charge-quantization vs |A_tor|·2π·R
+        Beltrami amplitude are separate claims; should be derived
+        independently
+
+      PRE-PRE-REG A43 v2 GATE: all citations grep-verified at freeze:
+      - Vol 1 Ch 3:24 verbatim "Magnetic Vector Potential (A) defining the
+        magnetic flux linkage per unit length" ✓
+      - Vol 4 Ch 1:223 verbatim "Φ(t) = ∫_{-∞}^{t} V(τ) dτ" ✓
+      - k4_tlm.py:156-167 docstring "Phi_link = ∫V_bond dt" ✓
+      - All v7 citations carry forward (Vol 1 Ch 1:18,32; Ch 4:21-26; Ch 8;
+        Vol 4 Ch 1:419,430-468,711; eq_axiom_4.tex; backmatter/05) ✓
+
+      ESTIMATED COST: ~25 min wall (4 runs × 5-7 min each) + post-process
+      detrend ~3 s. Single A48 commit unit (driver + pre-reg + result JSON
+      + doc 87 with §8 dimensional audit + §3 closure refinement +
+      §3.2 Round 11 (vi) elevation).
+
+      OUT OF SCOPE: Round 11 (vi) discrete eigenmode derivation work
+      (separate analytical sessions, not v8 empirical scope).
+
+      CITATIONS:
+      (Manuscript-canonical, all grep-verified)
+      - Vol 1 Ch 3:24 (A as magnetic flux linkage per unit length)
+      - Vol 4 Ch 1:223 (Φ(t) = ∫V dτ)
+      - All v7 citations carry forward
+      - k4_tlm.py:156-167, 391 (Phi_link convention)
+
+      (Research-tier, this session)
+      - research/L3_electron_soliton/85 §5.2 footnote (R/r=2π synthesis flag)
+      - research/L3_electron_soliton/86 §7 (gate decision; Round 11 enumeration)
+      - research/L3_electron_soliton/87 §8 (dimensional audit; this v8 doc)
+
+      (Discipline)
+      - COLLABORATION_NOTES Rule 11 (clean falsification), Rule 12
+        (retraction-preserves-body), Rule 14 (substrate-derives), A40
+        (empirical-driver-arc), A43 v2 (anyone-must-grep), A43 v14
+        candidate (R/r=2π synthesis flag), A47 (provisional-vs-narrative),
+        A48 (frozen-extraction-scope)
+      - feedback_manuscript_over_research, feedback_research_before_asking
+
+      (Auditor 2026-04-28)
+      - 3-issue dimensional audit endorsement
+      - (vi) elevated to load-bearing primary Round 11 candidate
+      - (v) phase-space (2,3) downgraded per §8.2 corrected math
+      - A43 v14 candidate flag for R/r=2π corpus-citation status
+      - v7 closure-narrative walkback ("trapped configuration of some
+        kind, NOT confirmed Beltrami standing wave") on-record at
+        doc 87 §3.4
+
