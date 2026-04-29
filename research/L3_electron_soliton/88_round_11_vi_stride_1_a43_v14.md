@@ -129,6 +129,27 @@ The dimensional inconsistency above is **load-bearing for Stride 2**. The deriva
 
 Without this resolution, Stride 2 work risks producing more dimensionally-inconsistent IC structures (like v6/v7/v8 did).
 
+### §2.5 — Auditor sharpening (added 2026-04-29 post-audit)
+
+The auditor 2026-04-29 added two substantive sharpenings to the §2 analysis:
+
+**Physics interpretation of k ≈ 6.36 in natural units.** ω_Beltrami = k_Beltrami · c = 6.36/ℓ_node·c = 6.36·ω_C. In SI: 6.36 × 0.511 MeV ≈ **3.25 MeV** (or more precisely 2π × 0.511 MeV ≈ 3.21 MeV if k_Beltrami ≈ 2π exactly). This is hard X-ray / soft gamma frequency. It does NOT match any known particle rest mass. Suggests the (1,1) Beltrami eigenmode at R/r=2π is **not a particle mode at all** — it's a transient eigenfrequency at non-physical mass scale. This is independent evidence that the (1,1) at corpus framing is wrong.
+
+**Resolution candidate (3) sharpening — dispersion vs curl eigenvalue.** The framework's "trapped photon at Compton frequency on Beltrami eigenmode" claim uses TWO different k's that may not coincide:
+
+- **Dispersion wavenumber** k_dispersion = ω/c. For a free wave at frequency ω_C, k_dispersion = 1/ℓ_node = 1 in natural units.
+- **Beltrami curl eigenvalue** k_Beltrami such that ∇×A = k_Beltrami·A. For (1,1) at corpus geometry: k_Beltrami ≈ 6.36.
+
+For a free propagating EM wave, dispersion and curl eigenvalues coincide (∇×A_plane_wave = i·k·A → magnitude k, with k = ω/c). For a BOUND Beltrami eigenmode on a topological closed loop, they may be **independent**:
+
+- Time-domain oscillation frequency ω_temporal = m_e·c²/ℏ = ω_C (set by rest-mass / energy of trapped state)
+- Spatial curl eigenvalue k_Beltrami = √((p/r)² + (q/R)²) (set by torus geometry + (p,q) winding)
+- The relationship ω = k·c is the FREE-WAVE dispersion relation; doesn't necessarily apply to bound-state Beltrami eigenmodes.
+
+If this resolution is canonical, then v6/v7/v8 driver's K_BELTRAMI = 1 (assumed ω = k·c at Compton frequency) was conflating dispersion and curl eigenvalue. The correct setting would be K_BELTRAMI = k_Beltrami_discrete (whatever the discrete chair-ring eigenmode value turns out to be), which need NOT equal 1 in natural units.
+
+This is the auditor's strongest pointer for Stride 2: derive both quantities (dispersion and curl eigenvalue) on the discrete chair-ring substrate explicitly, and check whether they're equal (Beltrami = free wave) or independent (Beltrami = bound eigenmode at non-trivial geometry).
+
 ---
 
 ## §3 — Recommendations + auditor-lane queue updates
@@ -141,11 +162,29 @@ Formal A43 v14 entry to be added to [COLLABORATION_NOTES.md](../../.agents/hando
 
 ### §3.2 — Manuscript editorial queue additions
 
-- **Vol 1 Ch 1:18 + Vol 2 Ch 7:357 tube radius inconsistency:** ℓ_node/(2π) vs ℓ_node — same physical quantity, different value across two chapters. Either contextual (different scales) or notational (different "tube radius" definitions). Editorial review needed; recommend choosing one canonical value or explicitly stating the contextual difference.
+- **A43 v15 candidate (added 2026-04-29 per auditor):** tube radius corpus-inconsistency. Vol 1 Ch 1:18 says ℓ_node/(2π); Vol 2 Ch 7:357 says ℓ_node. Same physical quantity, different value across two chapters by factor 2π. Either contextual (different scales) or notational (different "tube radius" definitions). Editorial review needed; recommend choosing one canonical value or explicitly stating the contextual difference. Auditor flagged as separate A43 entry from v14 (R/r ratio inconsistency) since the tube-radius issue is a single-quantity-multiple-values inconsistency vs v14's compound-quantity-derivation issue.
 
 - **Vol 1 Ch 1:18 "circumference" disambiguation:** tube vs loop circumference is ambiguous in the verbatim text. Recommend explicit qualifier: "the loop has [tube/loop] circumference..."
 
 - **Vol 1 Ch 8 §1 trefoil framing:** chapter's own handoff comment flags as broken; needs body revision per backmatter/05:302 unknot canonical. Already on doc 84/85/86 editorial queue.
+
+### §3.2.1 — Closure-narrative walkback sharpening (added 2026-04-29 post-audit)
+
+Per auditor 2026-04-29, the closure-narrative walkback initiated at doc 87 §3.4 is **bigger than the v8 dimensional audit (Issue 3 IC-as-traveling-wave) framed**. Even setting aside whether the IC was traveling-wave or standing-wave:
+
+The framework's claim "**(1,1) Beltrami at Compton frequency lives at corpus geometry**" appears to have **NO consistent solution** at any of the three R/r framings (A/B/C in §1.1). v6/v7/v8's 96% ring localization + thermal robustness + 200 P persistence are real signals — but they're signals for a configuration that may not be the canonical Beltrami trapped CP photon **in any rigorous sense**, regardless of IC class.
+
+Updated empirical anchoring claim:
+
+- **Defensible:** "engine hosts a trapped configuration at canonical topology + canonical scale (6-node chair-ring at ℓ_node)"
+- **NOT-yet-demonstrated:** "engine hosts the corpus electron at canonical Beltrami structure" — depends on Stride 2 resolving the dimensional inconsistency
+- **NEW from auditor:** "(1,1) Beltrami at Compton frequency at corpus geometry doesn't have a consistent dimensional solution" — pending Stride 2 resolution per (1)-(5) candidates in §2.4
+
+If Stride 2 resolves cleanly (most likely path: candidate (1) discrete-vs-continuum eigenmode correction, OR candidate (3) dispersion-vs-curl-eigenvalue distinction per §2.5): framework recovers dimensional rigor; v9 has a real shot at Mode I; doc 87 §3.4 walkback can be quantified ("the configuration the engine hosts IS the (corrected) discrete chair-ring (1,1)-equivalent eigenmode at the corrected dispersion identification").
+
+If Stride 2 cannot resolve cleanly: framework has a structural problem at the electron-eigenmode level that requires substantial reframe (not just IC tweak). This would be a Round 11 secondary candidate trigger (e.g., (i) continuum-vs-discrete substrate or (iii) topology variant becomes load-bearing).
+
+Either outcome is valuable per the auditor's 40-50% gut-read framing: the discipline is forcing the framework to face its own dimensional consistency before another empirical iteration. Stride 2 is the load-bearing analytical work.
 
 ### §3.3 — Stride 2 plan (deferred to fresh session)
 
