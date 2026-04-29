@@ -45,10 +45,18 @@ import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize
 
-# NOTE: Cannot import EPS_NUMERICAL from ave.core.constants here because
-# constants.py calls _compute_i_scalar_dynamic() → TopologicalHamiltonian1D
-# during module initialization, creating a circular import.  Use the
-# canonical value directly (kept in sync with constants.EPS_NUMERICAL).
+# NOTE: Cannot import EPS_NUMERICAL or CROSSING_NUMBER_CINQUEFOIL from
+# ave.core.constants here because constants.py calls _compute_i_scalar_dynamic()
+# → TopologicalHamiltonian1D during its module initialization.  When this
+# module is the FIRST one loaded (e.g. via a test that imports it directly),
+# importing ave.core.constants would re-enter this module before
+# TopologicalHamiltonian1D is defined, raising a circular ImportError.
+#
+# These two values are kept in sync with the canonical home in
+# src/ave/core/constants.py:
+#   _EPS_NUMERICAL              ↔ EPS_NUMERICAL
+#   CROSSING_NUMBER_CINQUEFOIL  ↔ CROSSING_NUMBER_PROTON / CROSSING_NUMBER_CINQUEFOIL
+# A consistency assertion at the bottom of constants.py guards against drift.
 _EPS_NUMERICAL = 1e-12
 
 # Crossing number of the (2,5) cinquefoil torus knot.

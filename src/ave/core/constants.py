@@ -36,6 +36,7 @@ EPSILON_0: float = 1.0 / (MU_0 * C_0**2)  # Vacuum permittivity [F/m]
 Z_0: float = np.sqrt(MU_0 / EPSILON_0)  # Characteristic impedance [Ω] ≈ 376.73
 HBAR: float = 1.054571817e-34  # reduced Planck constant [J·s]
 e_charge: float = 1.602176634e-19  # Elementary charge [C]
+HBAR_EV_S: float = HBAR / e_charge  # reduced Planck constant [eV·s] ≈ 6.582e-16
 # Note: K_B defines the Kelvin scale relative to Joules. It is a definitional mapping,
 # not a free parameter of the vacuum topology.
 K_B: float = 1.380649e-23  # Boltzmann conversion constant [J/K] (exact, 2019 SI)
@@ -533,6 +534,9 @@ KAPPA_FS_COLD: float = 8.0 * pi  # = 25.1327...
 # The proton's cinquefoil crossing number c = 5 gives:
 #   r_opt = κ_eff / 5 ≈ 4.97 ℓ_node
 CROSSING_NUMBER_PROTON: int = 5  # (2,5) cinquefoil
+# Alias: the (2,5) torus knot is also called the cinquefoil. Same value, kept
+# for callers that refer to the knot by its name rather than the proton role.
+CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 
 # ---- Thermal softening of κ_FS ----
 #
@@ -585,6 +589,18 @@ def _compute_i_scalar_dynamic(crossing_number: int = 5) -> float:
 
 
 I_SCALAR_1D: float = _compute_i_scalar_dynamic(crossing_number=5)
+
+# Consistency check: the cinquefoil literal in faddeev_skyrme.py must match
+# the canonical value here.  The literal cannot be removed from that module
+# (circular-import constraint — see faddeev_skyrme.py header), so we guard
+# against drift by asserting equality at constants-import time.
+from ave.topological.faddeev_skyrme import CROSSING_NUMBER_CINQUEFOIL as _FS_CINQUEFOIL  # noqa: E402
+
+assert _FS_CINQUEFOIL == CROSSING_NUMBER_CINQUEFOIL, (
+    f"faddeev_skyrme.CROSSING_NUMBER_CINQUEFOIL ({_FS_CINQUEFOIL}) != "
+    f"constants.CROSSING_NUMBER_CINQUEFOIL ({CROSSING_NUMBER_CINQUEFOIL})"
+)
+del _FS_CINQUEFOIL
 
 # Toroidal halo geometric volume (Borromean link tensor crossing integral)
 # ────────────────────────────────────────────────────────────────────────

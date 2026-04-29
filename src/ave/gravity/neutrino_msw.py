@@ -35,7 +35,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ave.axioms.scale_invariant import reflection_coefficient
-from ave.core.constants import C_0, G_F, HBAR, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
+from ave.core.constants import C_0, G_F, HBAR_EV_S, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Physical constants for neutrino physics
@@ -57,7 +57,7 @@ THETA_13 = np.arcsin(np.sqrt(SIN2_THETA_13))  # Reactor: 1/(c₁c₃) = 1/45
 
 # Conversion factors
 EV_TO_JOULE = float(e_charge)  # from constants.py
-HBAR_EV_S = HBAR / e_charge  # ℏ [eV·s]
+# HBAR_EV_S imported from ave.core.constants (single source of truth)
 MEV_TO_JOULE = EV_TO_JOULE * 1e6
 
 

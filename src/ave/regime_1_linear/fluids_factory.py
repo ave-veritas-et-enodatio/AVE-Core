@@ -42,7 +42,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ave.core.constants import C_0, HBAR, K_B
+from ave.core.constants import C_0, HBAR, K_B, M_U
 from ave.core.constants import e_charge as EV_TO_J
 
 # Physical constants
@@ -124,8 +124,8 @@ class WaterMolecule(MolecularFluid):
 
     # Mass constants — fundamental (Axiom 4)
     # M_U imported from constants.py (single source of truth for Dalton)
-    m_center: float = 15.999 * 1.66053906660e-27  # O nucleus [kg] — uses M_U precision
-    m_ligand: float = 1.008 * 1.66053906660e-27  # H nucleus [kg] — uses M_U precision
+    m_center: float = 15.999 * M_U  # O nucleus [kg]
+    m_ligand: float = 1.008 * M_U  # H nucleus [kg]
     n_ligands: int = 2
 
     # Engine-derived via Coulomb bond force constant solver (no spectroscopic input)
