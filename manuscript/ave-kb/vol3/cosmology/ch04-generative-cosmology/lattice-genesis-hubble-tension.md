@@ -21,11 +21,11 @@ This baseline relationship lies between the Early Universe measurements (Planck 
 
 | **Source** | **$H_0$ [km/s/Mpc]** | **Method** | **vs. AVE** |
 |---|---|---|---|
-| **AVE** $H_\infty$ | **69.33** | First principles | --- |
+| **AVE** $H_\infty$ | **69.33** | Geometric consistency | --- |
 | Planck 2018 (CMB) | $67.4 \pm 0.5$ | Early universe | $+2.9\%$ |
 | SH0ES (Cepheids) | $73.0 \pm 1.4$ | Late universe | $-5.0\%$ |
 | TRGB (Chicago) | $69.8 \pm 1.7$ | Tip of red giant | $-0.7\%$ |
 
-The AVE prediction ($69.33$ km/s/Mpc) is computed from $m_e$, $c$, $\hbar$, $G$, and $\alpha$ alone---zero free parameters. It falls within $1\sigma$ of the TRGB distance-ladder measurement and resolves the Planck/SH0ES tension as a regime-dependent measurement artefact.
+The geometric consistency relation evaluates to $69.33$ km/s/Mpc when $G$ is taken from CODATA. As established in [Vol 3 Ch 1 §Asymptotic Hubble Constant](../../gravity/ch01-gravity-yield/asymptotic-hubble-constant.md), this equation does not predict $H_\infty$ from first principles alone; it is a consistency proof showing that macroscopic gravity ($G$) and the cosmological horizon ($H_\infty$) are the same geometric limit evaluated from different topological reference frames. Specifically, $R_H \equiv c/H_\infty$ enters the Machian integration that defines $G$ via $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$, so substituting back to "compute" $H_\infty$ from $G$ is structurally an identity rearrangement, not an independent prediction. The agreement to within $1\sigma$ of the TRGB distance-ladder measurement is therefore a geometric self-consistency check (the framework's geometric constraint between $G$ and $H_\infty$ is internally compatible with both empirical values simultaneously), not an independent prediction. Promoting this relation to a true downstream prediction requires deriving $G$ from a thermodynamic balance whose closure conditions are local (lattice tension, equipartition, generation rate per node) rather than horizon-scale; that derivation is currently open — see [Outstanding Rigour Gaps](../../../common/mathematical-closure.md).
 
 ---
