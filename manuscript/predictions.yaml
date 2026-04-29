@@ -3307,3 +3307,130 @@ predictions:
         + multi-N + multi-sector pre-registered up-front), A48
         (frozen-extraction-scope), A59 (phase-space methodology)
 
+
+
+  - id: P_phase11_path_alpha_v4_port_mixed
+    name: "Round 10+ Phase 1 path α v4: port-mixed bond-pair selection — empirically resolves whether bare TLM is C_4 symmetric across all 4 K4 ports OR chirality-pairing creates RH/LH dynamic asymmetry"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/round_10_plan.md"
+    test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v4_port_mixed.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Round 10+ Phase 1 supplementary test resolving the 4:3:1 ω-orbit
+      asymmetry origin question that surfaced during Direction 3'.1
+      derivability gate-decision dialogue with Grant.
+
+      EMPIRICAL ANCHOR (verified):
+      Path α v3 (commit 6d27e58) found 3D ω-orbit at saturated bond-pair
+      has principal-axis variance ratios e2:e1:e0 ≈ 1.25:1:0.5 (median
+      planarity 0.47-0.54) — three distinct values, NOT 1:1:1 isotropic
+      and NOT 1:1:0 planar. All 4 selected bonds in v3 used port 0
+      saturated direction.
+
+      CANDIDATE SOURCES OF ASYMMETRY (synthesis from Phase 1 dialogue):
+      (a) Bare K4 TLM C_4 asymmetry from chirality pairing — IF TRUE,
+          ports 0+2 (RH per k4_tlm.py:521-524) and ports 1+3 (LH) would
+          give DIFFERENT ω-orbit ratios. RETRACTED per auditor catch:
+          bare scatter S_ij = 0.5 - δ_ij is C_4 symmetric; chirality
+          computation in k4_tlm.py:521-529 is DIAGNOSTIC (helicity
+          readout from V_inc port pairs), NOT a coupling-strength
+          modifier in the dynamics.
+      (b) Cosserat self-coupling under Meissner-asymmetric saturation
+          per doc 79 §6.7 (S_μ vs S_ε saturating differently at h_local
+          ≠ 0) — IF TRUE, would produce dynamic chirality asymmetry but
+          via Cosserat sector, NOT K4 scatter+connect.
+      (c) IC seed asymmetry — initialize_2_3_voltage_ansatz at
+          tlm_electron_soliton_eigenmode.py:33-122 has theta = 2*phi +
+          3*psi + tetrahedral chirality weighting; specific seed
+          orientation may break C_4 symmetry at IC, propagated through
+          evolution.
+      (d) Sampling artifact — path α v3 selected 4 bonds all at port 0
+          via top-K |V_inc[port 0]|². If port 0 has structurally
+          privileged spatial position (e.g., the (2,3) seed's torus
+          axis aligns with port 0), measurements at port 0 are
+          systematically asymmetric in a way port-mixed sampling would
+          symmetrize.
+
+      TEST DESIGN:
+      Same engine setup as path α v3 (N=32, R=10, r=R/φ², peak |ω|=0.3π,
+      A28+Cosserat self-terms, no drive). Use Phase 0.1 cached Move 5
+      state at t=15P (commit 999d2ac, file data/move5_attractor_15p.npz)
+      for engine initialization — saves pre-evolve + selection overhead.
+
+      Bond-pair selection (NEW vs path α v3): pick 1 top-amplitude bond
+      per port direction (4 bonds total, 1 each at port 0, 1, 2, 3).
+      Each bond: argmax over interior (PML-excluded) cells of
+      |V_inc[port_i]|². This may give 4 spatially-distinct bonds at
+      different lattice locations — all possible since each port has
+      its own field state at every cell.
+
+      Recording window: 185 P (1644 steps), same as path α v3 sampler:
+      (Φ_link[A,port_i], ω_x, ω_y, ω_z) per bond.
+
+      Per-bond analysis: 3D ω-orbit PCA → eigenvalue ratios e2:e1:e0.
+      Compare ratios across the 4 ports.
+
+      DUAL-CRITERION ADJUDICATION (per A40):
+      C1 (mode-discrimination on ratios): ratios across the 4 ports are
+        CONSISTENT (within 10% relative variation) OR DIFFERENT
+        (>20% relative variation between RH-saturated [ports 0, 2]
+        average vs LH-saturated [ports 1, 3] average)
+      C2 (chirality consensus on (Φ_link, |ω|) per bond): does the
+        100% CCW signature from path α v3 view (c) hold at all 4 ports,
+        OR do RH/LH-saturated bonds show CCW/CW mirror?
+
+      ADJUDICATION CATEGORIES (sharpened per auditor framing):
+      - Mode I-C4-symmetric: ratios consistent across 4 ports + chirality
+        consistent across 4 ports → bare TLM C_4 symmetry confirmed;
+        4:3:1 asymmetry source is candidate (c) IC asymmetry or (d)
+        sampling artifact (NOT bare-TLM). Direction 3'.2 work focuses on
+        Cosserat self-coupling (b) or IC reform (c).
+      - Mode I-chirality-mirror: same ratios magnitudes but mirror-image
+        chirality on RH vs LH ports → bipartite helicity sign-flip is
+        the only chirality dynamic effect; magnitudes C_4 symmetric.
+        Path-similar to Mode I-C4-symmetric but isolates the helicity
+        sign-flip mechanism.
+      - Mode II-RH-LH-asymmetric: ratios differ between RH-saturated and
+        LH-saturated → chirality-pairing creates dynamic asymmetry in
+        bare TLM (contradicts auditor's framing; would require revising
+        understanding of K4 scatter+connect symmetries).
+      - Mode III: ratios differ unpredictably across all 4 ports → IC or
+        sampling-specific source; not chirality-pairing.
+
+      PRE-PRE-REG A43 v2 VERIFICATION GATE (per round_10_plan.md
+      refinement 6):
+      Verbatim citations grep-confirmed:
+      - "Port 0,2 are right-handed. Port 1,3 are left-handed based on
+        tetrahedral pairs" — verified at src/ave/core/k4_tlm.py:524
+      - "S_ij = 0.5 - delta_ij" — verified at src/ave/core/k4_tlm.py:54
+      - "1.22-1.31" e2/e1 ratios from path α v3 — verified at
+        r9_path_alpha_v3_3d_aligned_results.json (commit 6d27e58)
+      Synthesis claims explicitly labeled:
+      - "Chirality-pairing creates RH/LH dynamic asymmetry" — RETRACTED
+        synthesis per auditor catch; this test is the empirical
+        resolution
+      - "C_4 symmetric scatter+connect" — corpus-derivable from
+        Op5 (Vol 1 Ch 6 §1.5) S = (I+Y)⁻¹(I-Y) reducing to S_ij =
+        0.5 - δ_ij at equal admittances; C_4-symmetric by inspection
+      - "4:3:1 from candidate (b)/(c)/(d)" — synthesis from Phase 1
+        dialogue, not corpus-derived; this test discriminates among them
+
+      ESTIMATED COST: ~5-7 min wall (cached state load + 185P recording
+      + per-port PCA). Single coherent A48 commit.
+
+      CITATIONS:
+      - round_10_plan.md Phase 1 Direction 3'.1 (this test was added
+        as supplementary evidence-gathering during gate-decision dialogue)
+      - Phase 0.1 commit 999d2ac (engine save/load + cached Move 5 state)
+      - r9_path_alpha_v3_3d_aligned.py + results JSON (path α v3 baseline
+        for comparison)
+      - k4_tlm.py:521-529 (RH/LH port pairing diagnostic)
+      - k4_tlm.py:54 (bare scatter matrix S_ij = 0.5 - δ_ij)
+      - doc 79 §6.7 Meissner-asymmetric mechanism (candidate (b))
+      - doc 59 §5.4 lattice-genesis chirality inheritance
+      - COLLABORATION_NOTES Rule 14 (substrate-derives), Rule 16 (Grant
+        approved this run), A40 (dual-criterion), A43 v2 (per-pre-reg
+        verification gate, refinement 6), A48 (frozen-extraction-scope)
