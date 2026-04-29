@@ -270,7 +270,7 @@ def formal_proof_summary() -> dict:
     # ── Yang-Mills ────────────────────────────────────────────────────
     ym_proof = full_mass_gap_proof()
     verify_osterwalder_schrader()
-    ym_proven = ym_proof["MASS_GAP_PROVEN"]
+    ym_proven = ym_proof["MASS_GAP_AXIOM_CONSISTENT"]
 
     # ── Navier-Stokes ─────────────────────────────────────────────────
     ns_proof = full_navier_stokes_proof()

@@ -175,7 +175,7 @@ class TestOsterwalderSchrader:
         from ave.axioms.yang_mills import full_mass_gap_proof
 
         proof = full_mass_gap_proof()
-        assert proof["MASS_GAP_PROVEN"], "MASS_GAP_PROVEN flag must be True"
+        assert proof["MASS_GAP_AXIOM_CONSISTENT"], "MASS_GAP_AXIOM_CONSISTENT flag must be True"
         assert "Part_E_Osterwalder_Schrader" in proof, "Part E must be present in full proof output"
 
 

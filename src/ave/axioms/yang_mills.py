@@ -1,27 +1,56 @@
 """
-Yang-Mills Mass Gap: Rigorous Treatment from AVE First Principles
+Yang-Mills Mass Gap: AVE Axiom-Consistency Check
 =================================================================
 
-This module extends spectral_gap.py with the rigorous mathematical
-structure needed to address the Clay Millennium Prize problem.
+SCOPE AND CAVEATS
+-----------------
+This module performs an *axiom-consistency check* for the Yang-Mills
+mass gap within the AVE framework.  It is NOT a Clay Prize-level
+mathematical proof.
 
-THE FULL ARGUMENT (from AVE Axioms 1-4):
+Specifically:
+
+  * The gap value Δ = m_e c² is *derived from calibration inputs*
+    (the electron rest energy m_e c²), not independently predicted
+    from first principles.  The unknot energy is set by Bounding
+    Limit 1, which itself uses m_e as input.
+
+  * The boolean ``MASS_GAP_AXIOM_CONSISTENT`` indicates that the
+    AVE axioms (1-4 plus the topological/Osterwalder-Schrader
+    structure assembled here) are *internally consistent* with a
+    positive mass gap.  Internal consistency is a NECESSARY but
+    NOT SUFFICIENT condition for the Clay Mass Gap problem, which
+    additionally requires a continuum SU(N) Yang-Mills theory
+    constructed independently of phenomenological inputs.
+
+  * The Faddeev-Skyrme variational bounds and the OS axiom checks
+    use lattice-level / two-mode truncations.  They demonstrate
+    that the constructed objects do not contradict the OS axioms
+    on the truncations examined; they do not constitute a full
+    constructive proof in continuum field theory.
+
+THE STRUCTURE OF THE CHECK (from AVE Axioms 1-4):
 
 Part A: THE LATTICE HAMILTONIAN
   Derive the explicit Hamiltonian H on the discrete lattice from
-  Axioms 1-4. Show it is bounded below and self-adjoint.
+  Axioms 1-4.  Show it is bounded below and self-adjoint.
 
 Part B: GAUGE-TOPOLOGY CORRESPONDENCE
   Show that SU(N) gauge structure emerges from (2,q) torus knot
-  topology on the lattice. N = floor(q/2) + 1.
+  topology on the lattice.  N = floor(q/2) + 1.
 
-Part C: SPECTRAL GAP THEOREM
-  Prove H has a positive mass gap Δ > 0 using the variational
-  principle and the confinement bound.
+Part C: SPECTRAL GAP (axiom-consistency)
+  Show H admits a positive mass gap Δ > 0 consistent with the
+  variational principle and the confinement bound, given the
+  calibration Δ = m_e c².
 
 Part D: INFINITE-VOLUME LIMIT
-  Prove the gap survives as lattice size → ∞ because topological
+  Show the gap is preserved as lattice size → ∞ because topological
   defects are localized and their energy is volume-independent.
+
+Part E: OSTERWALDER-SCHRADER AXIOMS
+  Verify OS1-OS5 on the lattice / two-mode truncation as an
+  axiom-consistency check against the OS reconstruction theorem.
 """
 
 import numpy as np
@@ -698,7 +727,11 @@ def full_mass_gap_proof() -> dict:
             "all_OS_satisfied": os_check["all_OS_satisfied"],
             "reconstruction_theorem": os_check["reconstruction_theorem"],
         },
-        "MASS_GAP_PROVEN": (
+        # Axiom-consistency flag: TRUE iff every Part A-E check passes.
+        # This signals internal consistency of the AVE axioms with a
+        # positive mass gap; it is NOT a Clay Prize-level proof.  See
+        # the module docstring for scope and caveats.
+        "MASS_GAP_AXIOM_CONSISTENT": (
             H_props["bounded_below"]
             and H_props["self_adjoint"]
             and gap["gap_positive"]

@@ -173,12 +173,12 @@ class TestInfiniteVolume:
 
 class TestFullProof:
 
-    def test_mass_gap_proven(self) -> None:
-        """The complete 4-part mass gap proof passes."""
+    def test_mass_gap_axiom_consistent(self) -> None:
+        """The complete 4-part mass gap axiom-consistency check passes."""
         proof = full_mass_gap_proof()
         assert proof["Part_A_Hamiltonian"]["bounded_below"]
         assert proof["Part_A_Hamiltonian"]["self_adjoint"]
         assert proof["Part_B_Gauge_Topology"]["correspondence_valid"]
         assert proof["Part_C_Spectral_Gap"]["gap_positive"]
         assert proof["Part_D_Infinite_Volume"]["volume_independent"]
-        assert proof["MASS_GAP_PROVEN"]
+        assert proof["MASS_GAP_AXIOM_CONSISTENT"]
