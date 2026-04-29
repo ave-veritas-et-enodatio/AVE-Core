@@ -270,6 +270,79 @@ Per "appropriate strides to maintain rigor": Stride 3 outputs the eigenmode + v9
 
 ---
 
+## §10 — Resolution: k physical meaning per Grant 2026-04-29
+
+> **🟢 RESOLUTION (added 2026-04-29 post-Grant "what is K physically?" pushback):** the Q1-Q4 open questions in §6 are resolved by identifying what k physically represents in the Beltrami eigenvalue context.
+
+### §10.1 — k is the inverse helical pitch of A along its direction
+
+For a Beltrami field ∇×A = k·A, the vector potential rotates by 1 radian per `1/k` units of length as you move along its direction. **k is a geometric property of the field's helical structure**, not a frequency.
+
+Physical interpretation for our discrete eigenmode:
+- k = 1.56 in 1/ℓ_node units → helical pitch λ_helix = 2π/k ≈ 4·ℓ_node
+- Chair-ring perimeter = 6·√3·ℓ_node ≈ 10.4·ℓ_node
+- A makes ~2.5 full helical rotations as you traverse the chair-ring once
+
+The continuum (1,1) prediction at k=6.36 would mean ~10 rotations per traversal — a much tighter helix the discrete chair-ring can't host.
+
+### §10.2 — Two distinct k's (free vs bound)
+
+**Free-wave dispersion wavenumber** (free EM plane wave):
+- k_dispersion = 2π/λ = ω/c (dispersion relation)
+- For Compton frequency ω_C: k_dispersion = 1/ℓ_node = 1 in natural units
+- Equals curl eigenvalue for plane waves (∇×A_plane = i·k×A)
+
+**Bound-state Beltrami curl eigenvalue** (trapped standing wave):
+- k_Beltrami = curl operator eigenvalue, set by substrate geometry and mode
+- For the discrete chair-ring + 1-step K4: top ring-localized at k=1.56 in 1/ℓ_node
+- NOT necessarily equal to ω/c for bound states
+
+These coincide for free waves but diverge for bound states. The framework's "Compton-frequency Beltrami at corpus geometry" claim conflated them.
+
+### §10.3 — Where rest mass comes from
+
+For the trapped state at saturation:
+- Total stored energy in fields = m_e·c² (Virial split: ½ε₀|E|²·V + ½B²/μ₀·V)
+- Saturation amplitude (V_inc → V_SNAP at ring nodes) sets field magnitudes
+- Field MAGNITUDES → total stored energy → rest mass (per Ax 4 + Confinement Bubble)
+- Field SPATIAL STRUCTURE (helical pitch k) → set by Beltrami eigenmode
+
+These are **independent**. The trapped state at chair-ring k=1.56 can have rest mass = m_e·c² because saturation amplitude drives it there, **regardless of k value**.
+
+This is the canonical resolution of the dispersion-vs-curl-eigenvalue distinction from doc 88 §2.5: for bound states, k_curl (geometric) and ω_temporal = m_e·c²/ℏ (rest-mass derived) are independent. They're related by saturation amplitude (V_SNAP at ring nodes) but not by the free-wave dispersion ω = k·c.
+
+### §10.4 — Q1-Q4 resolved
+
+**Q1: Which discrete eigenvalue identifies the corpus electron?**
+**A: The most ring-localized eigenmode (k=1.56 in 1/ℓ_node units).** That's the Beltrami eigenmode the chair-ring + 1-step K4 substrate naturally supports. Rest mass = m_e·c² at saturation amplitude regardless of k.
+
+**Q2: Is rest mass = ℏ·k·c (free-wave dispersion)?**
+**A: NO, not for bound states.** Rest mass = total stored energy at saturation = m_e·c². The "rest mass = ℏ·k·c" identification is free-wave dispersion only.
+
+**Q3: Test v9 IC at k=1.56 even if k ≠ Compton?**
+**A: YES.** It's the substrate-native Beltrami eigenmode at chair-ring + 1-step K4 scale. Compton-frequency mismatch is the dispersion-vs-curl-eigenvalue distinction, not a framework problem.
+
+**Q4: Substrate-native scale m_e·c²?**
+**A: Determined by saturation amplitude** (Ax 4: V_SNAP at ring nodes drives saturation; total stored energy = m_e·c² via Virial split). NOT determined by curl eigenvalue.
+
+### §10.5 — Closure-narrative further refined
+
+Per doc 87 §3.4 + doc 88 §3.2.1 + doc 89 §7.5: v6/v7/v8's empirical anchoring claim of "trapped configuration of some kind, NOT confirmed Beltrami." With §10 resolution: the framework's k=Compton identification was wrong (free-wave dispersion conflated with bound-state curl eigenvalue), but the Beltrami trapped photon framing IS load-bearing — just at the substrate-native curl eigenvalue (k=1.56), not at Compton frequency (k=1).
+
+v9 IC at the discrete eigenvector with saturation amplitude drives rest mass = m_e·c² and tests whether the trapped state IS Beltrami at k=1.56. Mode I result would confirm: corpus electron at chair-ring + 1-step K4 scale = Beltrami eigenmode at k=1.56 with rest mass m_e·c² from saturation. Doc 85 §3.2 would need amendment: the (1,1) torus framework was wrong projection; substrate-native Beltrami eigenmode is the right one.
+
+### §10.6 — Reframing implications for doc 85, 86, 87
+
+Doc 85 §3.2 used the continuum (1,1) Beltrami eigenmode formula k² = (p/r)² + (q/R)², predicting k = 6.36 at corpus geometry. **This formula was wrong-substrate** (assumes 2-torus + free-wave dispersion). Substrate-native correct formula: solve `M·A = k·A` on the chair-ring + K4 neighborhood graph, giving discrete spectrum with top eigenvalue k = 1.56.
+
+Doc 85 §5.1 charge quantization `∮A·dl = 2π·e` assumed |A_tor| = some specific value. Per §10.3: rest mass and curl eigenvalue are independent. The corpus electron's `∮A·dl` is determined by the eigenvector A_0 magnitudes at saturation amplitude, NOT by 2π·e directly. Doc 85 §5.1 needs amendment.
+
+Doc 86 §7.4 v8 scope was "ONE-cycle measurement-method redesign." With §10 resolution, the Mode II at v8 was framework-level (wrong k identification), not measurement-method. v8's gate locked Round 11 trigger correctly; this stride (Stride 3 + §10) IS Round 11 (vi)'s analytical resolution.
+
+Doc 87 §3.4 closure-narrative walkback: still stands (v6/v7/v8 didn't test the right Beltrami), but the path to Mode I is now concrete (v9 IC at k=1.56 substrate-native eigenmode).
+
+---
+
 ## §9 — References
 
 - [Doc 87](87_path_alpha_v8_round_11_ignition.md), [Doc 88](88_round_11_vi_stride_1_a43_v14.md), [Doc 89](89_round_11_vi_stride_2_topological_mismatch.md) — Round 11 (vi) Strides 1-2

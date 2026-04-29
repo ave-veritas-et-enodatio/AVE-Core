@@ -1,0 +1,60 @@
+{
+  "pre_registration": "P_phase11_path_alpha_v9_discrete_eigenmode",
+  "test": "v9 driver per Stride 3 eigenmode + Phase B IC + corrected k physical interpretation",
+  "lattice": {
+    "N": 32,
+    "pml": 4,
+    "center": [
+      16,
+      16,
+      16
+    ]
+  },
+  "ic": {
+    "n_nodes_seeded": 18,
+    "scale_factor": 1.9655089761235263,
+    "saturation_amp_target": 0.95,
+    "k_eigenvalue_natural": 0.9001115539943936,
+    "k_in_lnode_units": 1.5590389439980663,
+    "ring_localization_eigenmode": 0.8419835076069029
+  },
+  "thresholds": {
+    "persistence_periods": 100.0,
+    "A2_mean_threshold": 0.5,
+    "beltrami_parallelism": 0.8,
+    "loop_flux_target_eigenvector_derived": 5.920958168204038e-14,
+    "loop_flux_tolerance": 0.3,
+    "ring_localization": 0.5
+  },
+  "elapsed_seconds": 269.28362011909485,
+  "initial_state": {
+    "A2_per_node": [
+      0.22744925106955582,
+      0.17900986081018308,
+      0.6743988734790461,
+      1.2182272764072974,
+      1.266666666666667,
+      0.771277653997788
+    ],
+    "A2_min": 0.17900986081018308,
+    "A2_mean": 0.722838263738423,
+    "ring_localization": 0.8419835076069029
+  },
+  "results": {
+    "persistence_periods": 0.0,
+    "A2_mean_steady": 0.49538006235035426,
+    "beltrami_cos_sim_steady": 0.49384192558408885,
+    "loop_flux_rms_steady": 0.008267512215945065,
+    "loop_flux_peak_steady": 0.01808015504638795,
+    "ring_localization_steady": 0.6953036083600808
+  },
+  "criteria_pass": {
+    "persistence": false,
+    "beltrami": false,
+    "loop_flux": false,
+    "ring_localization": true,
+    "n_pass": 1
+  },
+  "mode": "III",
+  "verdict": "Mode III: 1/4 PASS \u2014 persist=False (0.0P), beltrami=False (0.494), flux=False (RMS=0.008 peak=0.018 target=0.000), loc=True (0.695)"
+}
