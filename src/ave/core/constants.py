@@ -310,6 +310,7 @@ R_III: float = 1.0  # Saturated -> Rupture
 #   EPS_NUMERICAL  — Impedance ratios, reflection coefficients, normalisation
 #                    denominators.  Chosen so that Z/(Z+eps) ≈ 1 to within
 #                    float64 precision for any physical impedance value.
+#                    Also the Faddeev-Skyrme integrand's 1/r² regulator.
 #
 #   EPS_CLIP       — Saturation operator clip (√(1 − x²) near x=1).
 #                    Must be small enough that S(A_yield − δ) ≈ 0 to float64
@@ -321,12 +322,6 @@ R_III: float = 1.0  # Saturated -> Rupture
 #
 # Dimensional note: these constants are DIMENSIONLESS ratios applied to
 # already-normalised quantities.  They carry no units and no physics.
-#
-# IMPORTANT: These are defined EARLY in this file (before the derived nuclear
-# constants) because the Faddeev-Skyrme solver calls universal_operators
-# during constants initialization, creating a dependency chain:
-#   constants.py → faddeev_skyrme.py → universal_operators.py → constants.py
-# The guards must be defined before _compute_i_scalar_dynamic() runs.
 
 EPS_NUMERICAL: float = 1e-12  # Reflection / impedance guards
 EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling (tight bound)
@@ -587,36 +582,17 @@ KAPPA_FS: float = KAPPA_FS_COLD * (1.0 - DELTA_THERMAL)
 
 
 # Dynamic 1D Faddeev-Skyrme scalar trace
-# Computed by minimizing the 1D radial Skyrmion energy functional
-# with the thermally softened coupling constant.
-def _compute_i_scalar_dynamic(crossing_number: int = 5) -> float:
-    """Compute I_scalar from the Faddeev-Skyrme solver at import time.
-
-    Args:
-        crossing_number: Torus knot crossing number.  Default 5 (proton).
-    """
-    from ave.topological.faddeev_skyrme import TopologicalHamiltonian1D
-
-    solver = TopologicalHamiltonian1D(
-        node_pitch=HBAR / (M_E * C_0),  # = L_NODE (avoid circular ref)
-        scaling_coupling=KAPPA_FS,
-    )
-    return solver.solve_scalar_trace(crossing_number=crossing_number)
-
-
-I_SCALAR_1D: float = _compute_i_scalar_dynamic(crossing_number=5)
-
-# Consistency check: the cinquefoil literal in faddeev_skyrme.py must match
-# the canonical value here.  The literal cannot be removed from that module
-# (circular-import constraint — see faddeev_skyrme.py header), so we guard
-# against drift by asserting equality at constants-import time.
-from ave.topological.faddeev_skyrme import CROSSING_NUMBER_CINQUEFOIL as _FS_CINQUEFOIL  # noqa: E402
-
-assert _FS_CINQUEFOIL == CROSSING_NUMBER_CINQUEFOIL, (
-    f"faddeev_skyrme.CROSSING_NUMBER_CINQUEFOIL ({_FS_CINQUEFOIL}) != "
-    f"constants.CROSSING_NUMBER_CINQUEFOIL ({CROSSING_NUMBER_CINQUEFOIL})"
-)
-del _FS_CINQUEFOIL
+# ────────────────────────────────────────────────────────────────────────
+# Stored as a literal (P5-A): historically computed at import time via
+# scipy.optimize, which forced a circular dependency
+# constants.py → faddeev_skyrme.py → universal_operators.py → constants.py.
+# The literal is now the canonical value; its agreement with the live
+# Faddeev-Skyrme solver is verified by
+# tests/test_constants_literals.py::test_i_scalar_1d_matches_computation,
+# which calls ave.core._constants_compute._compute_i_scalar_dynamic() and
+# asserts equality.  When the underlying physics changes (integrand, ansatz,
+# coupling), that test will fail and the literal must be updated.
+I_SCALAR_1D: float = 1161.9870305252678
 
 # Toroidal halo geometric volume (Borromean link tensor crossing integral)
 # ────────────────────────────────────────────────────────────────────────
@@ -653,9 +629,6 @@ T_NUC: float = T_EM * PROTON_ELECTRON_RATIO
 # topological LC node field. This matches the exact proton mass eigenvalue.
 MACROSCOPIC_BARYON_PHASE_SCALAR: float = PROTON_ELECTRON_RATIO
 
-# MeV conversion factor: mass [kg] → energy [MeV]
-_KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
-
 # =============================================================================
 # BARYON RESONANCE LADDER — (2,q) Torus Knot Spectrum
 # =============================================================================
@@ -676,28 +649,41 @@ _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 
 TORUS_KNOT_CROSSING_NUMBERS: list[int] = [5, 7, 9, 11, 13]
 
-
-def _compute_baryon_ladder() -> dict[int, dict[str, float]]:
-    """Compute the full baryon resonance ladder at import time."""
-    ladder = {}
-    for c in TORUS_KNOT_CROSSING_NUMBERS:
-        if c == 5:
-            # Proton already computed above
-            i_scalar = I_SCALAR_1D
-        else:
-            i_scalar = _compute_i_scalar_dynamic(crossing_number=c)
-        x_core = i_scalar / (1.0 - V_TOROIDAL_HALO * P_C)
-        ratio = x_core + 1.0
-        mass_mev = ratio * M_E * _KG_TO_MEV
-        ladder[c] = {
-            "i_scalar": i_scalar,
-            "ratio": ratio,
-            "mass_mev": mass_mev,
-        }
-    return ladder
-
-
-BARYON_LADDER: dict[int, dict[str, float]] = _compute_baryon_ladder()
+# Stored as a literal (P5-A): historically computed at import time by running
+# the Faddeev-Skyrme solver once per crossing number.  Each entry is the
+# eigenvalue solution to:
+#     m(c)/m_e = I_scalar(κ_FS, c) / (1 − V_TOROIDAL_HALO · P_C) + 1
+# Verified by
+# tests/test_constants_literals.py::test_baryon_ladder_matches_computation,
+# which re-runs ave.core._constants_compute._compute_baryon_ladder() and
+# asserts each numeric entry agrees within tolerance.
+BARYON_LADDER: dict[int, dict[str, float]] = {
+    5: {
+        "i_scalar": 1161.9870305252678,
+        "ratio": 1836.1170402290593,
+        "mass_mev": 938.2538796271142,
+    },
+    7: {
+        "i_scalar": 1561.9131656550887,
+        "ratio": 2467.7172613416174,
+        "mass_mev": 1261.0009294329766,
+    },
+    9: {
+        "i_scalar": 1959.9539370768518,
+        "ratio": 3096.3399422779116,
+        "mass_mev": 1582.2264593351968,
+    },
+    11: {
+        "i_scalar": 2347.3910619755025,
+        "ratio": 3708.216367092627,
+        "mass_mev": 1894.8946699429232,
+    },
+    13: {
+        "i_scalar": 2718.809573226044,
+        "ratio": 4294.794720505286,
+        "mass_mev": 2194.635592627271,
+    },
+}
 
 # =============================================================================
 # NUCLEAR MUTUAL COUPLING CONSTANT (Periodic Table Solver)

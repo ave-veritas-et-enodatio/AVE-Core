@@ -45,24 +45,12 @@ import numpy as np
 from scipy.integrate import quad
 from scipy.optimize import minimize
 
-# NOTE: Cannot import EPS_NUMERICAL or CROSSING_NUMBER_CINQUEFOIL from
-# ave.core.constants here because constants.py calls _compute_i_scalar_dynamic()
-# → TopologicalHamiltonian1D during its module initialization.  When this
-# module is the FIRST one loaded (e.g. via a test that imports it directly),
-# importing ave.core.constants would re-enter this module before
-# TopologicalHamiltonian1D is defined, raising a circular ImportError.
-#
-# These two values are kept in sync with the canonical home in
-# src/ave/core/constants.py:
-#   _EPS_NUMERICAL              ↔ EPS_NUMERICAL
-#   CROSSING_NUMBER_CINQUEFOIL  ↔ CROSSING_NUMBER_PROTON / CROSSING_NUMBER_CINQUEFOIL
-# A consistency assertion at the bottom of constants.py guards against drift.
-_EPS_NUMERICAL = 1e-12
-
-# Crossing number of the (2,5) cinquefoil torus knot.
-# This is the next entry in the phase winding ladder after the electron's c=3.
-# The (2,q) torus knot progression uses only odd q: 3, 5, 7, ...
-CROSSING_NUMBER_CINQUEFOIL: int = 5
+# As of P5-A the historical circular dependency between this module and
+# ave.core.constants has been eliminated: constants.py no longer runs the
+# Faddeev-Skyrme solver at import time (its outputs are stored as verified
+# literals there).  EPS_NUMERICAL and CROSSING_NUMBER_CINQUEFOIL therefore
+# live canonically in ave.core.constants and are imported from there.
+from ave.core.constants import CROSSING_NUMBER_CINQUEFOIL, EPS_NUMERICAL
 
 
 class TopologicalHamiltonian1D:
@@ -151,7 +139,7 @@ class TopologicalHamiltonian1D:
         # Quartic stabilization term (Skyrme/Faddeev Tensor repulsion)
         # Prevents the defect from collapsing to a singularity
         # In 1D radial projection, sin²(phi)/r² dominates
-        skyrme_term = 0.5 * (np.sin(phi1) ** 2) / (r**2 + _EPS_NUMERICAL)
+        skyrme_term = 0.5 * (np.sin(phi1) ** 2) / (r**2 + EPS_NUMERICAL)
 
         # Total density scaled spherically
         density = 4 * np.pi * (r**2) * (kinetic_term + (self.kappa**2) * skyrme_term * dphi_dr_eff**2)
