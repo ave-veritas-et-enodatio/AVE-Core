@@ -3634,3 +3634,151 @@ predictions:
         (collapsed (2,3)-vs-unknot via backmatter grep + Q1 lattice-
         genesis spin-as-selection-bias + Q3 chirality projection
         structure)
+
+  - id: P_phase11_path_alpha_v7_helical_beltrami_chair_ring_IC
+    name: "Round 10+ Phase 1 Direction 3'.2 path α v7: helical Beltrami trapped-photon unknot + corrected adjudication criteria + thermal robustness sweep"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/85_kelvin_beltrami_foc_axiom_grounded_derivation.md"
+    test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v7_helical_beltrami_chair_ring.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Successor to v6 (P_phase11_path_alpha_v6_unknot_chair_ring_IC) which
+      Mode III'd at 1/4 strict criteria (96% ring localization PASS;
+      Beltrami / centroid-flux failures). v7 implements the helical Beltrami +
+      FOC d-q IC restructure derived in doc 85 + thermal-robustness sweep
+      requested by Grant + auditor 2026-04-28.
+
+      KEY CHANGES FROM v6:
+      1. Helical Cosserat ω structure: ω(n) = k·A_0(n) where A_0(n) has
+         BOTH poloidal (rotating in local Frenet plane, 60°/node)
+         AND toroidal (along bond tangent, with helical pitch ratio
+         |A_tor|/|A_pol| = 1/(2π) per (1,1) Beltrami eigenmode at
+         R/r=2π corpus aspect — synthesis from Vol 1 Ch 1:18 + Ch 1:32
+         per doc 85 §5.2 footnote)
+      2. IC time-phase: REVERTED from Phase A (V_inc=0) after empirical
+         failure — engine has no mechanism to evolve V_inc from V_inc=0
+         IC (Phi_link is a derived accumulator, not independent state).
+         Switched to v6-style V_inc/Phi_link spatial-phase pattern
+         (cos/sin around 6 bonds = different time-phases at different
+         spatial positions, natural for closed-loop trapped wave).
+      3. Corrected adjudication criteria per doc 85 §7:
+         (a) Persistence: A²_mean ≥ 0.5 (NOT A²_min) — accommodates IC
+             pattern's natural 4-vs-2 saturation asymmetry per
+             cos(60°·n) phase pattern around 6 bonds.
+         (b) Beltrami: A-vec from Phi_link integration (NOT V_inc) —
+             Phi_link ∝ A (integrated voltage along bond), V_inc = E
+             (instantaneous). Phi_link-derived A-vec roundtrip has
+             reconstruction error (orthogonality-of-port-directions
+             issue); IC sanity check uses ω vs k·A_0 directly which
+             returns 1.000 by construction.
+         (c) Loop-flux Stokes integral ∮A·dl ≈ 2π — substrate-native
+             topology measure replacing v6's geometric centroid-flux
+             estimate. NOTE: empirically this measurement is broken
+             on the discrete chair-ring because Phi_link is
+             accumulator (∫V dt grows with time), not instantaneous
+             A; loop-flux trajectory grows linearly with t. Treat as
+             informational diagnostic, not load-bearing PASS/FAIL.
+         (d) Ring localization unchanged from v6 (worked: 96-98%).
+      4. Pre-evolution Beltrami eigenvector sanity check: ω(n) = k·A_0(n)
+         by construction → cos_sim ≈ 1.0 at IC ✓
+      5. Phi_link IC smoke test: 1-step engine evolution to verify
+         scatter+connect handles IC. Failed with Phase A IC (V_inc=0
+         doesn't evolve), passes with hybrid IC.
+
+      THERMAL SWEEP per Grant + auditor request:
+      - Run T=0 baseline first (idealization, deterministic vacuum)
+      - If Mode I OR Mode II with persistence+localization PASS at T=0:
+        run additional 3 cases at T = {1e-3, 1e-2, 1e-1} · T_V-rupt where
+        T_V-rupt = α/(4π) ≈ 5.81e-4 in m_e c² natural units
+        (engine docstring [vacuum_engine.py:1701]: σ_V = √(4π·T/α)·V_SNAP;
+        T_V-rupt = T at which σ_V_thermal = V_SNAP)
+      - Track persistence, ring localization, A²_mean, Beltrami |cos_sim|,
+        loop-flux RMS across the 4 T values
+      - Mode I-thermal-robust: persistence + localization PASS at all 4 T
+      - Mode II-T-dependent: trapping holds at low T but degrades at high T
+      - Mode III-T0-only: trapping only at T=0 → idealization artifact
+
+      ADJUDICATION (per individual T):
+      Mode I requires ALL FOUR:
+        (1) Persistence A²_mean ≥ 0.5 maintained for ≥ 100 P
+        (2) Beltrami |cos_sim| ≥ 0.8 (broken measurement; Phi_link issue)
+        (3) Loop-flux ∮A·dl within 2π·(1±0.20) (broken measurement;
+            accumulator issue)
+        (4) Ring localization ≥ 0.5
+
+      Mode II partial: 2-3 of 4 — diagnose subset
+      Mode III: ≤ 1
+
+      Per the broken Beltrami + loop-flux measurements, even a
+      "perfect" trapped-photon unknot might Mode II at best until
+      better measurement methods are developed (v8 candidate).
+
+      PRE-PRE-REG A43 v2 GATE: all citations grep-verified at freeze
+      time:
+      - Vol 1 Ch 1:18, 32 (unknot ropelength + 6-node perimeter) ✓
+      - Vol 1 Ch 3:25-29 (Lagrangian L_AVE) ✓
+      - Vol 1 Ch 3:402 (Beltrami standing wave on chiral K4) ✓
+      - Vol 1 Ch 4:14-15 (Trace-Reversed Chiral LC Network) ✓
+      - Vol 1 Ch 4:21-26 (Cosserat translation/rotation = E/B) ✓
+      - Vol 1 Ch 8:112-125 (Möbius half-cover Λ_surf = π²) ✓
+      - Vol 4 Ch 1:419, 430-468, 711 (Virial split, Confinement Bubble,
+        subatomic-scale override) ✓
+      - common_equations/eq_axiom_4.tex (canonical S(A)) ✓
+      - backmatter/05:128-156, 281-302 (FOC d-q, phase vs group velocity,
+        electron = unknot 0_1 NOT (2,3)) ✓
+      Synthesis claims labeled per doc 85 §10:
+      - R/r = 2π corpus aspect: two-source synthesis from Vol 1 Ch 1:18 +
+        Ch 1:32 (per doc 85 §5.2 footnote)
+      - FOC d-q within-LC-tank time-phase split: implementer terminology
+        (per doc 85 §4.2 footnote)
+      - Helical pitch ratio 1/(2π): continuum (1,1) Beltrami formula
+        applied to discrete K4 chair-ring (discrete-vs-continuum check
+        is empirical via run)
+      - Loop-flux topology target 2π: Stokes' integral normalization
+        (untested empirically; may need recalibration)
+
+      ESTIMATED COST: ~5 min wall per run × 4 runs = ~20-30 min wall
+      total. Single coherent A48 commit unit (driver + pre-reg + result
+      JSON + doc 86 with full analysis + commit message documenting
+      Mode adjudication per T + Phase A IC failure lesson).
+
+      OUT OF SCOPE: doc 83 / doc 85 amendments with empirical findings
+      (lands AFTER all Mode adjudications, not before per Rule 12);
+      v8 measurement-method redesign (Phi_link-derived A-vec
+      reconstruction, loop-flux normalization, etc.) — separate test
+      cycle if needed.
+
+      CITATIONS:
+      (Manuscript-canonical, all grep-verified)
+      - Vol 1 Ch 1:18, 32; Ch 3:25-29, 402; Ch 4:14-15, 21-26; Ch 8:112-125
+      - Vol 4 Ch 1:419, 430-468, 711
+      - common_equations/eq_axiom_4.tex
+      - backmatter/05:128-156, 281-302
+      - vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md,
+        analog-ladder-filter.md, de-broglie-standing-wave.md
+      - ave-kb/CLAUDE.md INVARIANT-S2
+
+      (Research-tier, this session)
+      - research/L3_electron_soliton/83 — Phase 1 reframe
+      - research/L3_electron_soliton/84 — v6 first run
+      - research/L3_electron_soliton/85 — Kelvin Beltrami + FOC derivation
+
+      (Discipline)
+      - COLLABORATION_NOTES Rule 6 (substrate-native operator), Rule 14
+        (substrate-derives), Rule 16 (ask-Grant-fundamental-physics),
+        A39 v2 (dual-criterion), A40 (empirical-driver-arc), A43 v2
+        (anyone-must-grep), A46 (coordinate discipline), A48 (frozen-
+        extraction-scope)
+      - feedback_manuscript_over_research, feedback_research_before_asking
+
+      (Grant + auditor dialogue 2026-04-28)
+      - Grant Q1: lattice-genesis spin-as-selection-bias
+      - Grant Q2: full-wavelength interpretation, ℓ_node = reduced
+        Compton wavelength
+      - Grant Q3: chirality projection structure (4 distinct chiralities)
+      - Auditor pre-flight A43 v2 grep on doc 85 (FOC time vs space;
+        R/r = 2π synthesis flag; discrete-vs-continuum eigenmode)
+      - Auditor + Grant T-sweep request (thermal robustness)

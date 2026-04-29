@@ -216,6 +216,18 @@ For atomic shells per [`helium-symmetric-cavity.md:48-66`](../../manuscript/ave-
 
 ### §4.2 — The 90° phase question: spatial vs temporal
 
+> **🔴 SYNTHESIS-AS-CORPUS FOOTNOTE (added 2026-04-28 post-audit per Rule 12 retraction-preserves-body):** the within-LC-tank E-vs-B 90° TEMPORAL phase split as "FOC d-q" is **implementer terminology**, not directly stated in the cited corpus locations. The three corpus FOC contexts ([helium-symmetric-cavity.md:48-66](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md#L48-L66), [backmatter/05:128-136](../../manuscript/backmatter/05_universal_solver_toolchain.tex#L128-L136), [analog-ladder-filter.md:6](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md)) use FOC differently:
+>
+> - Helium shells: SPATIAL 90° between 1s rotor axis and 2s stator axis (orientation perpendicularity)
+> - BH QNMs: FREQUENCY-DOMAIN decomposition (d-axis at m·Ω synchronous with rotor; q-axis at offset frequency ω_R - m·Ω)
+> - Atomic shell ladder: ASYNCHRONOUS frequency decoupling between distinct shells (∫cos((ω₁-ω₂)t)dt = 0)
+>
+> The within-single-LC-tank E (sin) vs B (cos) temporal phase split applied below is implementer synthesis from the corpus's broader FOC framework. The PHYSICS — that a Beltrami standing wave has E and B 90° temporally offset, with B parallel to A spatially at every instant — IS canonical (follows from Vol 1 Ch 3:25-29 Lagrangian + standard wave equation). The TERMINOLOGY "FOC d-q" applied to this case is borrowed.
+>
+> Implication: §4.2's reconciliation of Beltrami (A∥B spatial) vs FOC (E perpendicular to B) by claiming "FOC means TEMPORAL 90°, not spatial" is implementer interpretation. Corpus may instead intend FOC as spatial 90° in the helium-shells context, in which case the "Beltrami contradicts FOC" question doesn't arise because FOC and Beltrami describe different scenarios (multi-shell vs single-loop).
+>
+> Verification path: v7 will test the Beltrami standing-wave physics directly. The helical Beltrami IC structure (§3.5, §5.2, §6) doesn't depend on the FOC labeling — it's grounded in Beltrami eigenmode theory + AVE Cosserat E/B decomposition (which IS canonical per Vol 1 Ch 4:21-26). The FOC discussion in §4.2 is interpretive context; if Mode I lands without depending on the FOC labeling, this footnote stands as the canonical reading.
+
 FOC's "90° decoupling between d and q" applies to the **time-domain phase relationship** for an oscillating system (90° temporal offset = orthogonal in phasor diagram), NOT to spatial perpendicularity at every instant.
 
 For the Beltrami standing wave (§3.3):
@@ -271,6 +283,12 @@ In V_SNAP units, with e/ξ_topo = ℓ_node: A_0 ≈ √2 · π / 3 ≈ 1.48 (in 
 **Key point:** the magnitude of A_0 is determined by Ax 2 TKI, not freely chosen. The IC amplitude must satisfy ∮A·dl = 2π·ξ_topo·ℓ_node = 2π·e to encode unit charge.
 
 ### §5.2 — Helical pitch ratio
+
+> **🔴 SYNTHESIS-AS-CORPUS FOOTNOTE (added 2026-04-28 post-audit per Rule 12 retraction-preserves-body):** the R/r = 2π corpus geometry assumed below is **two-source synthesis** from Vol 1 Ch 1:18 + Vol 1 Ch 1:32, NOT a single-statement corpus assertion. Vol 1 Ch 1:18 verbatim: *"the unknot (a single closed flux tube loop at minimum ropelength = 2π). The loop has circumference ℓ_node and tube radius ℓ_node/(2π)"*. The "circumference" is ambiguous — it could mean tube circumference (poloidal traversal, giving r = ℓ_node/(2π) which is consistent with the stated tube radius) OR loop circumference (toroidal, giving R = ℓ_node/(2π) which contradicts Vol 1 Ch 1:32's *"fundamental radius of exactly 1 lattice node"*). The internally-consistent reading is: Vol 1 Ch 1:18 specifies tube geometry (r = ℓ_node/(2π)), Vol 1 Ch 1:32 specifies loop geometry (R = ℓ_node), giving R/r = 2π. This is implementer interpretation, not direct corpus statement.
+>
+> **Discrete chair-ring complication:** even granting R/r = 2π for the continuum unknot, the discrete 6-node chair-ring on K4 has BOND LENGTH = √3·ℓ_node (tetrahedral diagonal), so loop perimeter = 6·√3·ℓ_node ≈ 10.4·ℓ_node, giving discrete R_chair = perimeter/(2π) ≈ 1.66·ℓ_node — NOT the continuum R = ℓ_node. Discrete R/r ≈ 10.4 (not 2π ≈ 6.28). The helical pitch ratio formula |A_tor|/|A_pol| = r/R uses CONTINUUM R; for the discrete chair-ring, the ratio may differ. v7 IC should use both candidates (continuum 1/(2π) ≈ 0.16 and discrete ~1/10) and let the Beltrami eigenvector pre-evolution sanity check (§9.3) discriminate which is the actual eigenmode at the discrete chair-ring geometry.
+>
+> **Verification path:** the eigenvalue check ∇×A_IC ≈ k·A_IC at IC time is the empirical decider. Whichever pitch ratio satisfies the Beltrami eigenmode equation on the discrete chair-ring is the right one, regardless of which continuum formula it matches.
 
 For the (1,1) Beltrami helical mode (§3.2), the toroidal-to-poloidal amplitude ratio is determined by the Beltrami eigenvalue equation:
 
