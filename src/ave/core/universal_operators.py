@@ -1,12 +1,6 @@
+import jax
+import jax.numpy as jnp
 import numpy as np
-
-try:
-    import jax
-    import jax.numpy as jnp  # noqa: F401  (referenced by guarded code paths)
-
-    _JAX_AVAILABLE = True
-except ImportError:
-    _JAX_AVAILABLE = False
 
 from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
 
@@ -194,7 +188,7 @@ def universal_pairwise_energy(
             return result
 
 
-def universal_pairwise_energy_jax(r: "jax.Array", K: float, d_sat: float) -> "jax.Array":
+def universal_pairwise_energy_jax(r: jax.Array, K: float, d_sat: float) -> jax.Array:
     """
     Operator 4 (JAX-only): JIT-safe pairwise impedance potential.
 
@@ -685,6 +679,7 @@ def universal_topological_curl(
     return cx / dx, cy / dx, cz / dx
 
 
+@jax.jit
 def universal_topological_divergence(
     Vx: np.ndarray,
     Vy: np.ndarray,
@@ -709,10 +704,7 @@ def universal_topological_divergence(
     return (div_x[:, :-1, :-1] + div_y[:-1, :, :-1] + div_z[:-1, :-1, :]) / dx
 
 
-if _JAX_AVAILABLE:
-    universal_topological_divergence = jax.jit(universal_topological_divergence)
-
-
+@jax.jit
 def universal_d_alembertian(
     Phi_current: np.ndarray,
     Phi_past: np.ndarray,
@@ -746,10 +738,6 @@ def universal_d_alembertian(
     # (Phi_next - 2*Phi_current + Phi_past) / dt^2 = c^2 * Laplacian
     Phi_next = 2 * Phi_current[1:-1, 1:-1, 1:-1] - Phi_past[1:-1, 1:-1, 1:-1] + (c_squared * (dt**2)) * laplacian
     return Phi_next
-
-
-if _JAX_AVAILABLE:
-    universal_d_alembertian = jax.jit(universal_d_alembertian)
 
 
 def universal_dynamic_impedance(
