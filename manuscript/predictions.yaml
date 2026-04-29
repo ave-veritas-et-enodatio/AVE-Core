@@ -3485,3 +3485,152 @@ predictions:
         seed reform per Rule 9 v2 + cheaper-diagnostics-first
       - COLLABORATION_NOTES Rule 14 (substrate-derives), A40 (dual-criterion),
         A43 v2 (per-pre-reg verification), A48 (frozen-extraction-scope)
+
+  - id: P_phase11_path_alpha_v6_unknot_chair_ring_IC
+    name: "Round 10+ Phase 1 Direction 3'.2 path α v6: trapped-photon unknot at bond-pair scale — 6-node hexagonal chair-ring IC, manuscript-canonical (NOT (2,3) phase-space)"
+    type: derived_prediction
+    pre_registered: true
+    research_doc: "research/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md"
+    test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v6_unknot_chair_ring.py"
+    axioms_used: [1, 2, 3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      Direction 3'.2 reframe per dialogue 2026-04-28: pivot from
+      research-tier "phase-space (2,3) winding" framing (doc 28 §5.1) to
+      manuscript-canonical "unknot 0_1 Beltrami standing wave" framing.
+      Per backmatter/05_universal_solver_toolchain.tex line 302 verbatim:
+      "The trefoil (2,3) soliton at 637 MeV is NOT the electron (which
+      is an unknot 0_1, NOT a torus knot); it corresponds to a hypothetical
+      light baryon or constituent diquark." The (2,3) framing in path α
+      v1-v4(b) (R=10 bond-cluster IC) was empirically Mode III on R/r=φ²;
+      this test pivots to the corpus-canonical object class.
+
+      PHYSICAL PICTURE (trapped CP photon, settled via Grant dialogue
+      2026-04-28):
+      - Free CP photon at ω_C on chiral K4 substrate self-saturates at
+        its own field strain → Γ=-1 walls form (Vol 4 Ch 1:430-468
+        Confinement Bubble) → photon trapped in self-created bubble →
+        standing-wave LC tank at m_e·c² (Virial split, Vol 4 Ch 1:419)
+      - Real-space topology: 0_1 unknot, ropelength 2π, circumference
+        ℓ_node = full Compton wavelength λ_C, tube radius ℓ_node/(2π)
+        (Vol 1 Ch 1:18 verbatim grep-confirmed)
+      - Engine-representable: 6-node hexagonal chair-conformation closed
+        ring on K4 diamond at lattice center, perimeter = 6 lattice
+        spacings = 2π·ℓ_node = λ_C, ~6× Nyquist oversampling
+        (Vol 1 Ch 1:32 verbatim: "The unknot has a fundamental radius
+        of exactly 1 lattice node. The perimeter is a small integer
+        (e.g., N=6). Here, π = N/2 → 3.0.")
+      - Möbius half-twist substrate-inherited from K4 chirality
+        (distributed over 6 nodes; not manually imposed in IC); chiral
+        labyrinth requires 720° per cycle → spin-1/2 half-cover observable
+        per Vol 1 Ch 3:402 verbatim grep-confirmed
+      - c_eff → 0 at saturated ring nodes per canonical eq_axiom_4.tex
+        verbatim ("c_eff = c_0 · S^(1/2)... → 0... Wave packet confined
+        (mass)"); Vol 1 Ch 4:64-67 ε-only formula gives c→∞ but is
+        ε-only-modeled and contradicts canonical (revision queued)
+      - Single intrinsic chirality globally per Vol 1 Ch 4:14-15
+        "Trace-Reversed Chiral LC Network"; spin up/down is measurement-
+        frame selection bias from local gravity/apparatus gradient (NOT
+        intrinsic electron property) per Grant Q1 lattice-genesis
+        pushback 2026-04-28
+      - Charge sign = loop-traversal direction (Ax 2 TKI winding); CCW
+        chosen here (electron, charge -e)
+
+      IC SPECIFICATION:
+      - 6-node hexagonal chair-ring at lattice center (16,16,16) on
+        N=32 K4 diamond, traversal:
+          A(16,16,16) port 0 → B(17,17,17)
+          B(17,17,17) port 1 → A(16,18,18)
+          A(16,18,18) port 2 → B(15,19,17)
+          B(15,19,17) port 0 → A(14,18,16)
+          A(14,18,16) port 1 → B(15,17,15)
+          B(15,17,15) port 2 → A(16,16,16) closes
+      - V_inc at A-site of each bond, on the bond's port: V_amp · cos(2π·n/6)
+        for bond n=0..5 (one full polarization cycle distributed over 6 bonds)
+      - Phi_link 90° quadrature: phi_amp · sin(2π·n/6)
+      - Cosserat ω at ring nodes in local poloidal plane (Frenet
+        radial × binormal), phase-advance 60° per node CCW
+      - Amplitudes V=Φ=ω=0.95 in V_SNAP units (subatomic-scale override
+        per Vol 4 Ch 1:711 verbatim grep-confirmed: "Subatomic-scale
+        simulations should override with v_yield=V_SNAP (≈ 511 kV)");
+        drives A² → ~0.9 saturation onset at ring nodes
+      - Outside ring: V=Phi_link=ω=u=0 (cold vacuum)
+      - Loop axis arbitrary (no spin-direction at IC; gradient-selection
+        outside scope per Q1)
+
+      ADJUDICATION (4-criterion dual-criterion per A39 v2 + A40):
+      Mode I requires ALL FOUR:
+        (1) Persistence: A²_min(ring nodes) ≥ 0.5 maintained for ≥ 100
+            Compton periods
+        (2) Beltrami parallelism: |cos_sim(A_vec, B_vec)| ≥ 0.8 mean
+            steady-state (after 25% transient window); A_vec from
+            Σ V_inc[port]·port_dir, B_vec = Cosserat ω at ring nodes
+            (Vol 1 Ch 4:21-26 Cosserat: B = rotational/inductive DOF)
+        (3) Centroid flux: |Σ ω·n̂_plane| / mean(|ω|) RMS < 0.05 over
+            steady-state; verifies spin-1/2 half-cover net-flux-=0
+            mechanism per Vol 1 Ch 8:112-125
+        (4) Ring localization: ring-node energy fraction ≥ 0.5 of total
+            interior (non-PML) energy at steady state; trapped state
+            stays localized at the 6-node ring, not dissolved into bulk
+
+      Mode II partial: 2-3 of 4 criteria pass — diagnose specifically
+      which fail and surface to Grant before further work
+      Mode III: ≤1 criterion passes — bond-pair-scale unknot Beltrami
+      framing fails, OR engine doesn't host this configuration
+
+      PRE-PRE-REG A43 v2 GATE: all citations grep-verified at freeze
+      time:
+      - Vol 1 Ch 1:18 unknot ropelength 2π circumference ℓ_node ✓
+        (grep manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex)
+      - Vol 1 Ch 1:32 perimeter ~6 nodes at discrete π=3.0 ✓
+      - Vol 1 Ch 3:402 Beltrami standing wave on chiral K4, Möbius 720° ✓
+      - Vol 1 Ch 4:14-15 Trace-Reversed Chiral LC Network ✓
+      - Vol 1 Ch 4:21-26 Cosserat translation↔E, rotation↔B ✓
+      - Vol 1 Ch 8:112-125 Möbius half-cover Λ_surf = π² ✓
+      - Vol 4 Ch 1:430-468 Confinement Bubble Γ=-1 derivation ✓
+      - Vol 4 Ch 1:711 subatomic-scale v_yield=V_SNAP override ✓
+      - eq_axiom_4.tex c_eff = c_0·S^(1/2) → 0 canonical ✓
+      - backmatter/05:302 electron = unknot, (2,3) = baryon ✓
+      Synthesis claim flagged: the specific phase-pattern IC (60° advance
+      per bond, ω in local Frenet poloidal plane) is implementer
+      synthesis from manuscript-canonical CP-photon-trapped-on-chiral-K4
+      framing. Worked Grant dialogue 2026-04-28 collapsed (2,3)-vs-unknot
+      ambiguity to unknot per backmatter and electron = unknot Beltrami
+      standing wave per Vol 1 Ch 3:402.
+
+      ESTIMATED COST: ~5-7 min wall (similar to path α v3/v4); single
+      coherent A48 commit unit (driver + pre-reg + result JSON +
+      commit message documenting Mode + manuscript citations).
+
+      OUT OF SCOPE: doc 83 amendment with empirical findings (lands
+      AFTER Mode adjudication, not before per Rule 12); other Round
+      10+ directions; manuscript editorial revisions (Vol 1 Ch 4:64-67
+      c_eff formula, Vol 1 Ch 3:402 n̂ interpretation, Vol 1 Ch 8 §1
+      body trefoil framing) are queued for separate auditor pass.
+
+      CITATIONS:
+      - Vol 1 Ch 1:18 (unknot ropelength + circumference)
+      - Vol 1 Ch 1:32 (6-node perimeter discrete π=3)
+      - Vol 1 Ch 3:402 (Beltrami standing wave, Möbius half-cover)
+      - Vol 1 Ch 4:14-15 (Trace-Reversed Chiral LC Network)
+      - Vol 1 Ch 4:21-26 (Cosserat E/B translation/rotation DOF)
+      - Vol 1 Ch 8:112-125 (Möbius half-cover Λ_surf = π² Clifford torus)
+      - Vol 4 Ch 1:419 (Virial energy split ½m_e c² + ½m_e c²)
+      - Vol 4 Ch 1:430-468 (Confinement Bubble Γ=-1 derivation)
+      - Vol 4 Ch 1:711 (subatomic-scale v_yield=V_SNAP override)
+      - common_equations/eq_axiom_4.tex (canonical c_eff = c_0·S^(1/2) → 0)
+      - backmatter/05_universal_solver_toolchain.tex:302 (electron =
+        unknot 0_1 NOT (2,3); trefoil = baryon)
+      - research/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md
+        (Phase 1 reframe: bond-cluster v1-v4(b) tested wrong object class)
+      - COLLABORATION_NOTES Rule 14 (substrate-derives), Rule 16 (ask-
+        Grant-fundamental-physics), A39 v2 (dual-criterion), A40
+        (empirical-driver-arc), A43 v2 (anyone-must-grep), A46 (phase-
+        space-vs-real-space coordinate discipline), A48 (frozen-
+        extraction-scope), feedback_manuscript_over_research,
+        feedback_research_before_asking
+      - Grant dialogue 2026-04-28 trapped-photon thought experiment
+        (collapsed (2,3)-vs-unknot via backmatter grep + Q1 lattice-
+        genesis spin-as-selection-bias + Q3 chirality projection
+        structure)
