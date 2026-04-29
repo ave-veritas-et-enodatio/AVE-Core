@@ -140,6 +140,97 @@ The walkback is cleaner now: v6/v7/v8 didn't fail to test Beltrami; they tested 
 
 ---
 
+## §7 — Correction per Grant 2026-04-29: K4 is 3D-connected; chair-ring isn't pure 1-graph
+
+> **🟡 SUBSTANTIVE CORRECTION (added 2026-04-29 post-Grant pushback per Rule 12 retraction-preserves-body):** §1.2's claim that "the 6-node chair-ring is a 1-graph (closed cycle), not a 2-torus surface" is **overstated**. The chair-ring graph as the in-ring-bonds-only subgraph IS a 1-graph (6 nodes, 6 in-ring bonds, closed cycle). But the chair-ring NODES embedded in the full K4 lattice are **3D-connected** — each ring node has 4 K4 ports providing access in 4 tetrahedral directions, of which only 2 are in-ring and 2 are out-of-ring.
+
+### §7.1 — Correct K4 structure at chair-ring nodes
+
+At each chair-ring node, the 4 K4 ports decompose:
+
+| Port | Direction (A-site) | Connects to | Role at chair-ring |
+|---|---|---|---|
+| 0 | (+1,+1,+1)/√3 | tetrahedral B-neighbor | IN-RING or OUT-OF-RING (depends on which node) |
+| 1 | (+1,-1,-1)/√3 | tetrahedral B-neighbor | IN-RING or OUT-OF-RING |
+| 2 | (-1,+1,-1)/√3 | tetrahedral B-neighbor | IN-RING or OUT-OF-RING |
+| 3 | (-1,-1,+1)/√3 | tetrahedral B-neighbor | IN-RING or OUT-OF-RING |
+
+For ring node 0 = A(0,0,0): in-ring ports 0 (toward ring node 1) and 2 (toward ring node 5); out-of-ring ports 1 and 3 (toward non-ring K4 lattice nodes).
+
+The 2 out-of-ring ports point in directions that approximately span the **local poloidal plane** (perpendicular to the ring tangent at that node). They DO provide spatial degrees of freedom for poloidal-direction A field components.
+
+### §7.2 — What v6/v7/v8 actually did wrong
+
+v6/v7/v8 IC explicitly **zeroed the out-of-ring ports**:
+
+```python
+# Only set V_inc + Phi_link on the bond's IN-RING port
+engine.k4.V_inc[ix_a, iy_a, iz_a, port_a] = v_value  # in-ring port only
+engine.k4.Phi_link[ix_a, iy_a, iz_a, port_a] = phi_value  # in-ring port only
+# Out-of-ring ports stayed at zero
+```
+
+The empirical observation "0% energy at near-ring shell" wasn't because the substrate is 1D — it's because **the IC didn't seed the poloidal direction**. The trapped state stayed 1D because the IC never gave it transverse degrees of freedom to populate.
+
+This is a substantively different finding than §1.5 / §3 claimed. Corrections to those sections:
+
+- **§1.5 retracted:** the chair-ring is NOT topologically forbidden from hosting (p,q) torus modes. The substrate has 3D access via out-of-ring ports.
+- **§2 (1) "Continuum formula doesn't apply" still partially correct** but for a different reason: discretization density, not topological completeness.
+- **§2 (5) "Beltrami isn't load-bearing in (p,q) sense" overstated** — Vol 1 Ch 3:402's "Beltrami on chiral K_4 graph" might still refer to (p,q) torus Beltrami if the K4 graph hosts the 2-torus structure via 3D port access.
+
+### §7.3 — What survives: poloidal sampling density issue
+
+The §1.5 finding is weaker than originally framed but not entirely wrong. The full (p,q) torus Beltrami framework requires continuous variation in the poloidal direction (p winding cycles around the cross-section). For p ≥ 1 winding:
+
+- **Need at least 3 poloidal samples per cross-section** (Nyquist + 1 for one full cycle)
+- **Chair-ring has 2 out-of-ring ports per ring node → 2 poloidal samples per cross-section**
+- **2 samples is sub-Nyquist for p ≥ 1**
+
+So the chair-ring + 1-step K4 neighborhood CAN host approximate poloidal structure (better than the 1D-only IC of v6/v7/v8), but is sub-Nyquist for full (p,q) winding representation. This is a **discretization-density issue**, not a topological-completeness issue. To get above Nyquist for p=1, would need more poloidal sampling — e.g., chair-ring + 2-step K4 neighborhood (more out-of-ring nodes) might give 4+ poloidal samples per cross-section.
+
+### §7.4 — Updated Stride 3 plan
+
+Replaces §3:
+
+1. **Choose framing path:** the canonical Vol 1 Ch 3:402 reading is "Beltrami on chiral K4 graph." Stride 3 derives the eigenmode in this framework, using the FULL K4 4-port structure at each chair-ring node (not just in-ring bonds).
+
+2. **Define discrete operators on the chair-ring + K4 neighborhood:**
+   - Vector field A: 3D vector at each chair-ring node + immediate K4 neighbors (≥ 18 nodes total: 6 ring + 12 out-of-ring 1-step neighbors)
+   - Discrete Laplacian on the K4 graph (uses all 4 ports per node, not just in-ring 2)
+   - Discrete curl on the chiral K4 graph (uses local 4-port structure with chirality)
+
+3. **Beltrami eigenvalue problem:** find A such that ∇×A = k·A on the chair-ring + K4 neighborhood graph. Output: discrete A_0(node) eigenvector + corresponding k_Beltrami_discrete value.
+
+4. **Compton-frequency identification:** is the canonical k for the corpus electron set by ω_C/c (free-wave dispersion)? Or determined by the standing-wave time-domain oscillation independent of spatial curl eigenvalue? Stride 3 must adjudicate.
+
+5. **TRUE Beltrami standing wave IC for v9:**
+   - Set V_inc and Phi_link on **ALL 4 ports** of each ring node (not just in-ring 2)
+   - Magnitudes per the discrete A_0(node) eigenvector
+   - Includes out-of-ring port contributions for poloidal direction
+   - Uniform time-phase across all bonds
+
+6. **Sampling-density check:** with 2 poloidal samples per cross-section (chair-ring + 1-step K4 neighborhood), is the (1,1) Beltrami mode adequately represented at K4 resolution? If sub-Nyquist warning fires, may need to extend to 2-step K4 neighborhood (more poloidal sampling).
+
+Estimated cost: 2-3 fresh sessions; output v9 IC specification.
+
+### §7.5 — Closure-narrative implications
+
+The doc 87 §3.4 + doc 88 §3.2.1 walkback ("trapped configuration of some kind, NOT confirmed Beltrami") is **slightly less severe** than I framed it after doc 89. Specifically:
+
+- The framework's "(p,q) Beltrami at corpus geometry" claim isn't topologically impossible; it's substrate-resolution-limited at K4 scale
+- v6/v7/v8 didn't fail to test (p,q) Beltrami due to topological mismatch — they failed because the IC zeroed the poloidal port directions
+- v9 with corrected IC seeding all 4 ports at each ring node IS a legitimate test of the (p,q) Beltrami framework on the K4 substrate
+
+The walkback still stands ("trapped configuration of some kind") because v6/v7/v8 didn't seed poloidal direction. But the path forward is clearer: v9 must include out-of-ring port seeding.
+
+### §7.6 — A43 v16 candidate
+
+Per A43 v2 lane-symmetric anyone-must-grep: the "chair-ring is 1-graph" framing in §1.5 was implementer overstatement that propagated through Stride 2's commit and the v8 commit message walkback. Caught by Grant's "3-connected graph" pushback within ~1 turn — clean cross-lane catch.
+
+Auditor-lane queue addition: A43 v16 — chair-ring 1-graph overstatement (substrate is 3D-connected via K4 4-port structure; in-ring bonds form 1-cycle but full K4 lattice connectivity is 3D). Catches a topological-vs-substrate-sampling distinction that wasn't cleanly separated in §1-§3.
+
+---
+
 ## §6 — References
 
 - [Doc 87](87_path_alpha_v8_round_11_ignition.md), [Doc 88](88_round_11_vi_stride_1_a43_v14.md) — Stride 1 + audit-integration addendum
