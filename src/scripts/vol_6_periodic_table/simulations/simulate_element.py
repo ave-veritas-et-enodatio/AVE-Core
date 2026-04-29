@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Import derived constants from the AVE physics engine
-from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, K_MUTUAL, M_E, M_N_MEV_TARGET, M_P_MEV_TARGET, e_charge
+from ave.core.constants import ALPHA, C_0, D_PROTON, HBAR, K_MUTUAL, M_E, M_N_MEV_TARGET, M_P_MEV_AVE, e_charge
 
 # Custom Modules
 # Ensure local module resolution
@@ -27,7 +27,7 @@ PROJECT_ROOT = next(p for p in Path(__file__).parents if (p / ".git").is_dir())
 # Fundamental Constants (MeV domain)
 # ME_MEV imported from physics engine for cross-validation
 ME_MEV = M_E * C_0**2 / e_charge * 1e-6  # Convert kg → MeV
-M_P_RAW = M_P_MEV_TARGET  # re-export for backward compatibility
+M_P_RAW = M_P_MEV_AVE  # re-export for backward compatibility (framework-derived)
 M_N_RAW = M_N_MEV_TARGET  # re-export for backward compatibility
 
 # Coulomb constant in MeV·fm for proton-proton repulsion

@@ -16,7 +16,7 @@ from scipy.optimize import minimize
 from ave.core.constants import D_PROTON as D_0
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
-from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
+from ave.core.constants import M_P_MEV_AVE as M_P_RAW
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target Empirical CODATA Nuclear Mass for Neon-20 (MeV)

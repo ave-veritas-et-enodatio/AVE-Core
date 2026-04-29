@@ -7,7 +7,7 @@ from scipy.optimize import basinhopping
 from ave.core.constants import D_PROTON as D_MIN
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
-from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
+from ave.core.constants import M_P_MEV_AVE as M_P_RAW
 
 
 def evaluate_binding_energy(positions: np.ndarray) -> float:

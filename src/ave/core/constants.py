@@ -743,11 +743,25 @@ HBAR_C_MEV_FM: float = HBAR * C_0 / e_charge * 1e15 * 1e-6  # ≈ 197.327 MeV·f
 K_MUTUAL: float = (CROSSING_NUMBER_PROTON * pi / 2.0) * ALPHA * HBAR_C_MEV_FM / (1.0 - ALPHA / 3.0)
 
 # =============================================================================
-# NUCLEON MASS CONSTANTS (CODATA 2018 empirical — used as binding energy targets)
+# NUCLEON MASS CONSTANTS
 # =============================================================================
-# These are the experimentally measured isolated nucleon rest masses.
-# They serve as the target boundary conditions for the topological binding engine.
-M_P_MEV_TARGET: float = 938.272088  # Proton mass [MeV/c²]  (CODATA 2018)
+# Two values are exposed for the proton mass:
+#
+#   M_P_MEV_AVE    — framework-derived prediction.  Equals
+#                    PROTON_ELECTRON_RATIO * (M_E * c²) expressed in MeV.
+#                    Use this in any formula that produces a downstream
+#                    AVE prediction (e.g. raw_mass = Z * M_P + N * M_N).
+#
+#   M_P_MEV_CODATA — CODATA 2018 experimental anchor (formerly named
+#                    M_P_MEV_TARGET).  Use this only when comparing an
+#                    AVE prediction against the experimental value.
+#
+# Keeping both lets every callsite express its intent: prediction or
+# validation.  The two agree to ≈ 0.002 % — well inside the framework's
+# stated precision.  M_N_MEV_TARGET remains a CODATA anchor; no
+# framework derivation has yet been adopted for the neutron mass.
+M_P_MEV_AVE: float = PROTON_ELECTRON_RATIO * M_E * C_0**2 / e_charge * 1e-6  # ≈ 938.2539 MeV
+M_P_MEV_CODATA: float = 938.272088  # Proton mass [MeV/c²]  (CODATA 2018, experimental anchor)
 M_N_MEV_TARGET: float = 939.565420  # Neutron mass [MeV/c²] (CODATA 2018)
 
 # =============================================================================

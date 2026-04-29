@@ -39,7 +39,7 @@ from ave.core.constants import (
     HBAR,
     K_MUTUAL,
     M_N_MEV_TARGET,
-    M_P_MEV_TARGET,
+    M_P_MEV_AVE,
     e_charge,
 )
 
@@ -57,7 +57,7 @@ ALPHA_HC = ALPHA * (HBAR * C_0 / e_charge) * 1e9  # MeV·fm
 
 # Proton / Neutron masses
 # Proton / Neutron masses — from physics engine
-M_P = M_P_MEV_TARGET  # MeV
+M_P = M_P_MEV_AVE  # MeV (framework-derived: PROTON_ELECTRON_RATIO * m_e c²)
 M_N = M_N_MEV_TARGET  # MeV
 
 # Alpha cluster mass (4 nucleons − intra-alpha binding)

@@ -59,7 +59,7 @@ from ave.core.constants import (
     K_COUPLING,
     M_E,
     M_N_MEV_TARGET,
-    M_P_MEV_TARGET,
+    M_P_MEV_AVE,
     NU_VAC,
 )
 from ave.core.constants import P_C as _P_C
@@ -197,7 +197,7 @@ def nuclear_mass(Z: int, A: int, n_alphas: int | None = None) -> tuple[float, fl
         Z_binding_target_MeV: Total Z_binding_target_MeV energy [MeV] (strong - Coulomb)
     """
     N_n = A - Z
-    raw_mass = Z * M_P_MEV_TARGET + N_n * M_N_MEV_TARGET
+    raw_mass = Z * M_P_MEV_AVE + N_n * M_N_MEV_TARGET
 
     # Strong Z_binding_target_MeV from coupled resonator model
     if A == 2:

@@ -21,7 +21,7 @@ from matplotlib.patches import Patch
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_TARGET  # noqa: E402
+from ave.core.constants import ALPHA, D_PROTON, HBAR_C_MEV_FM, K_MUTUAL, M_N_MEV_TARGET, M_P_MEV_AVE  # noqa: E402
 
 # ═════════════════════════════════════════════════════════════════
 # CODATA Nuclear Mass Table (selected stable isotopes, Z=1-118)
@@ -158,7 +158,7 @@ def compute_binding_energy(nodes: list[tuple[float, ...]], Z: int, A: int) -> fl
 def predict_mass(Z: int, A: int) -> float:
     """Predict nuclear mass using Fibonacci sphere packing."""
     N = A - Z
-    raw = Z * M_P_MEV_TARGET + N * M_N_MEV_TARGET
+    raw = Z * M_P_MEV_AVE + N * M_N_MEV_TARGET
     nodes = fibonacci_sphere_coordinates(Z, A)
     be = compute_binding_energy(nodes, Z, A)
     return raw - be
@@ -245,7 +245,7 @@ print("\n  Binding Energy per Nucleon Saturation:")
 print(f"  {'Element':>10s} {'B/A [MeV]':>12s} {'Regime':>14s}")
 for r in results:
     N = r["A"] - r["Z"]
-    raw = r["Z"] * M_P_MEV_TARGET + N * M_N_MEV_TARGET
+    raw = r["Z"] * M_P_MEV_AVE + N * M_N_MEV_TARGET
     be = raw - r["codata"]
     ba = be / r["A"]
     print(f"  {r['name']:>10s} {ba:12.4f} {r['regime']:>14s}")
@@ -267,7 +267,7 @@ for r in results:
     # This is the ratio of Coulomb repulsion to surface tension
     vr_vbr = (Z**2 / A ** (1.0 / 3.0)) / (26**2 / 56 ** (1.0 / 3.0))
     N = A - Z
-    raw = Z * M_P_MEV_TARGET + N * M_N_MEV_TARGET
+    raw = Z * M_P_MEV_AVE + N * M_N_MEV_TARGET
     ba = (raw - r["codata"]) / A
 
     # Classify stability
@@ -326,7 +326,7 @@ ax = axes[0, 1]
 ba_vals = []
 for r in results:
     N = r["A"] - r["Z"]
-    raw = r["Z"] * M_P_MEV_TARGET + N * M_N_MEV_TARGET
+    raw = r["Z"] * M_P_MEV_AVE + N * M_N_MEV_TARGET
     ba_vals.append((raw - r["codata"]) / r["A"])
 ax.scatter(zvals, ba_vals, c=colors, s=40, alpha=0.8, edgecolors="white", linewidth=0.5)
 ax.axvline(26, color="#ffff44", linestyle=":", alpha=0.5, label="Fe-56 (B/A max)")

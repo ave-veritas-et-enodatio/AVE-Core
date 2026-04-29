@@ -64,7 +64,7 @@ from ave.core.constants import (
     K_MUTUAL,
     L_NODE,
     M_N_MEV_TARGET,
-    M_P_MEV_TARGET,
+    M_P_MEV_AVE,
     PROTON_ELECTRON_RATIO,
     e_charge,
 )
@@ -74,7 +74,7 @@ from ave.core.constants import (
 # =============================================================================
 
 # Masses [MeV] — from physics engine
-M_P = M_P_MEV_TARGET
+M_P = M_P_MEV_AVE  # framework-derived: PROTON_ELECTRON_RATIO * m_e c²
 M_N = M_N_MEV_TARGET
 M_E_AVE = 0.511  # Electron (Axiom 1 anchor)
 
@@ -83,9 +83,11 @@ M_E_AVE = 0.511  # Electron (Axiom 1 anchor)
 # d = 4 × lambda_p = 4 × ℏ / (m_p c)
 # Since lambda_p = ℓ_node / (m_p/m_e), d = 4 × ℓ_node / (m_p/m_e)
 L_NODE_FM = L_NODE * 1e15
-d = 4 * L_NODE_FM / PROTON_ELECTRON_RATIO  # ≈ 0.838 fm (AVE), 0.841 fm (CODATA)
-# For compatibility with standard mass defect tables, we use the CODATA m_p ratio:
-d = 4 * HBAR / (M_P * 1e6 * e_charge / C_0**2 * C_0) * 1e15  # 0.8412 fm
+# Both expressions below use the AVE-derived proton mass (PROTON_ELECTRON_RATIO ·
+# m_e c²) and therefore agree numerically (≈ 0.8413 fm).  The second form is
+# kept for legibility — it makes the m_p dependence explicit.
+d = 4 * L_NODE_FM / PROTON_ELECTRON_RATIO
+d = 4 * HBAR / (M_P * 1e6 * e_charge / C_0**2 * C_0) * 1e15  # ≈ 0.8413 fm
 
 D_INTRA = d * np.sqrt(8.0)  # Intra-alpha distance (tetrahedron edge)
 
