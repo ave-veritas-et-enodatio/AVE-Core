@@ -1,0 +1,26 @@
+{
+  "test": "O.1c: corrected V_inc real-space winding",
+  "config": {
+    "N": 48,
+    "PML": 4,
+    "R": 8.0,
+    "r": 4.0,
+    "amp": 0.1
+  },
+  "windings_at_t0": {
+    "toroidal_raw": 0.0,
+    "toroidal_chirality_normalized": -1.4135798584282297e-16,
+    "poloidal_chirality_normalized": 1.0
+  },
+  "windings_at_t50P": {
+    "toroidal_raw": -1.0,
+    "toroidal_chirality_normalized": -1.0,
+    "poloidal_chirality_normalized": 1.0
+  },
+  "verdict": {
+    "toroidal_pass": false,
+    "poloidal_pass": false,
+    "real_space_2_3_sustained": false
+  },
+  "elapsed_total_s": 190.0319790840149
+}

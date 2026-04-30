@@ -1,0 +1,45 @@
+{
+  "test": "Control B1: HELICAL_PITCH=0 FFT control",
+  "V_AMP": 0.95,
+  "HELICAL_PITCH": 0.0,
+  "n_steps": 1777,
+  "elapsed_recording_s": 251.85540890693665,
+  "v_inc_top3_peaks": [
+    [
+      222,
+      0.2355254394949941,
+      0.34893694519996643
+    ],
+    [
+      666,
+      0.7065763184849824,
+      0.1293080449104309
+    ],
+    [
+      223,
+      0.2365863648981247,
+      0.0698515847325325
+    ]
+  ],
+  "omega_top3_peaks": [
+    [
+      598,
+      0.6344333910721013,
+      3.911672830581665
+    ],
+    [
+      599,
+      0.6354943164752318,
+      2.4213457107543945
+    ],
+    [
+      3,
+      0.003182776209391812,
+      1.7752176523208618
+    ]
+  ],
+  "v_inc_dominant_ratio_to_fC": 1.4798499809019616,
+  "baseline_v_inc_dominant_ratio_to_fC": 1.4798,
+  "delta_from_baseline": 4.998090196162153e-05,
+  "verdict": "SUBSTRATE-FORCED \u2014 engine frequency unchanged with HELICAL_PITCH=0"
+}

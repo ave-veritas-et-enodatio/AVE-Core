@@ -1,0 +1,28 @@
+{
+  "test": "O.1d: multiplicative winding extraction",
+  "config": {
+    "N": 48,
+    "amp": 0.1,
+    "R": 8.0,
+    "r": 4.0
+  },
+  "windings_ic": {
+    "toroidal_at_psi_pi_4": 0.0,
+    "poloidal_at_phi_0p1": 1.0,
+    "c0_signs_changes_toroidal": 2,
+    "c2_signs_changes_toroidal": 2
+  },
+  "windings_50P": {
+    "toroidal_at_psi_pi_4": -1.0,
+    "poloidal_at_phi_0p1": 1.0
+  },
+  "ic_pass": {
+    "toroidal": false,
+    "poloidal": false
+  },
+  "evolution_pass": {
+    "toroidal": false,
+    "poloidal": false
+  },
+  "elapsed_total_s": 181.5468189716339
+}

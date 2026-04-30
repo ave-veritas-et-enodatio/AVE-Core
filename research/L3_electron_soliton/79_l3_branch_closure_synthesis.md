@@ -657,3 +657,59 @@ L3 branch is closed. Framework structure (§1-§6) lands as canonical AVE-native
 ---
 
 *Doc 79_ v3 written 2026-04-28. Closure synthesis framework finalized pending empirical adjudication via path α. Per A48 frozen-extraction-scope: framework + methodology fixes + dual-criterion are pre-registered structurally; specific pre-reg P_phase9_path_alpha to be frozen separately when path α runs.*
+
+---
+
+## v5.2 Second Addendum — Three-Layer Convergent Refutation (2026-04-29)
+
+**Status:** added 2026-04-29 post-Round-11 (vi) closure + Phase A EE-toolkit arc + B5 far-field + B6 long-window stability. Per Rule 12 retraction-preserves-body, this addendum refines the v5.1 closure framing with empirical findings from the post-v5.1 work.
+
+**v5.1 closure shape (preserved):** "Mode III canonical + one structural partial positive (Meissner-mechanism chirality)" at engine-representable corpus GT (N=32, R/r=φ²). Three surviving structural-reason branches per §7.6.3.
+
+**v5.2 update (this addendum):** the post-v5.1 work produced a much sharper closure shape. **Round 11 closes via THREE INDEPENDENT EMPIRICAL LAYERS of refutation against the corpus-electron test at chair-ring + K4 + ℓ_node + v8 engine config:**
+
+| Layer | Test | Finding | Reference |
+|---|---|---|---|
+| 1. **Substrate-geometric** | Discrete Beltrami eigenvalue at chair-ring | Wavelength λ_C = 2π·ℓ_node fits at non-integer wavenumber on 6-bond loop; Nyquist closure violated by 65% | [doc 92](92_round_11_vi_v10_finer_sampling_structural.md) |
+| 2. **Engine-architectural** | LC-coupled re-run + code-grep | A28 architectural choice (doc 67 §15) suppresses V↔B direct coupling because it's empirically unstable across 5+ test paths; Op14 z_local modulation substitutes; Faraday-law BEMF at the loop level NOT enforced by construction | [doc 94 §13](94_ee_phase_a_universal_solver_match.md#13) (RETRACTED + corrected) + [doc 95 §4](95_b5_far_field_three_layer_closure.md#4--b6-long-window-stability-test-bemf-question-grant-2026-04-29) |
+| 3. **Standard-physics-external** | Far-field E and B characterization | Mode II partial (3/5) with both load-bearing Coulomb 1/r²/dipole 1/r³ slope criteria FAILing; 1/r intermediate-regime decay; multipole content at engine noise floor (10⁻¹¹ V_SNAP/ℓ_node); not point-particle | [doc 95](95_b5_far_field_three_layer_closure.md) (B5 + B5b SNR > 10²²) |
+
+Three INDEPENDENT layers all refuting "chair-ring at v8 config hosts the corpus electron." Per Rule 11 (clean falsification at full strength): definitive negative across multiple framings, no escape hatches.
+
+### Updated v5.1 → v5.2 closure narrative
+
+**v5.1:** "Mode III canonical + Meissner partial positive at chair-ring scale; framework's R/r side stays open across (α)/(β)/(γ)."
+
+**v5.2:** "Three-layer convergent refutation at chair-ring + K4 + ℓ_node + v8 config (substrate-geometric + engine-architectural + standard-physics-external). Framework's R/r side resolved as 'wrong substrate-scale-and-config combination'; corpus electron substrate is elsewhere (sub-ℓ_node FDTD per (i-b) original handoff, OR a different scale entirely)."
+
+### Substantive POSITIVE empirical findings standing alongside the refutation
+
+The same disciplined arc that produced the three-layer refutation produced four positive structural findings on substrate behavior:
+
+1. **Substrate-canonical ℓ=2 GW-analog cavity mode at chair-ring + saturation** (doc 94 §12). 4-axis empirical confirmation (frequency, spatial saturation Fourier, real-power azimuthal, cavity geometry). Per Q3 reframe: this is scale invariance — universal solver formula working at 5th data point (BH/proton/pion/protein/K4-cavity).
+
+2. **ω-sector ℓ=5 cinquefoil-baryon-analog FFT signature** (doc 94 §3). Single-axis match (frequency at 2.8% off universal-solver ℓ=5 prediction). Spatial confirmation pending (not feasible at v8 config).
+
+3. **Engine architecture works as designed (Op14 feedback)** (doc 95 §4 / B6). A28's architectural choice (Op14 z_local modulation substituting for V↔B direct coupling) IS empirically effective at bounding saturation rectification. 700P stability with < 0.2% V_DC drift.
+
+4. **1/r far-field decay consistent with classical loop-near-field** at intermediate regime r/r_eff ∈ [1.8, 6] (doc 95 §2 / B5+B5b). Real signal (SNR > 10²²), structurally consistent with extended ring source. Not the corpus electron, but substrate-canonically interpretable as a current-carrying displacement-current loop per Vol 6 Ch 1 verbatim.
+
+The v5.1 partial positive (Meissner mechanism chirality at 100% CCW per path α v3 view (c)) STANDS as a 5th structural positive at the chair-ring substrate.
+
+### Round 11 closure: framework decision pending
+
+Three pending moves per the original handoff + arc evolution:
+
+- **(i) (i-b) FDTD substrate test** — sub-ℓ_node Yee grid bypasses A28 architectural constraint AND substrate Nyquist limit. Phase A toolkit ports cleanly. ~weeks.
+- **(ii) Pivot to mass spectrum / pair creation / different physics** — Round 11 closes; new direction. Mass spectrum (Round 10+ Direction 5) load-bearing for framework validation, never touched.
+- **(iii) Engine-architectural research thread** — investigate whether stable formulation of V↔B direct coupling exists that A28's empirical-instability findings missed. Theoretical/numerical project.
+
+Grant's call.
+
+### A40 budget consumed
+
+v6 → v7 → v8 (3 layers) → DC/AC re-analysis (1) → V_DC characterization (1) → V_AMP/HELICAL_PITCH scan (1) → Phase A1-A7 (1) → B1 (1) → B2 (1) → B3 impedance landscape (1) → B4 LC-coupled (1) → Q1 engine investigation (1) → B5 far-field (1) → B5b noise floor (1) → B6 long-window (1) = **13 layers in this arc.** A40 anticipated empirical-driver-arcs of ~3 layers; we've crossed that bound 4× over. Further iteration at chair-ring + K4 + ℓ_node has zero remaining diminishing returns. Per A40 + Rule 9 v2: framework-level decision is the load-bearing next move.
+
+---
+
+*v5.2 second addendum written 2026-04-29 by implementer. Round 11 closes empirically clean. Framework decision (i)/(ii)/(iii) pending Grant adjudication. Successor auditor handoff doc + canonical record updates queued.*

@@ -1,0 +1,192 @@
+{
+  "candidate_omegas": {
+    "\u03c9_TL = \u03c9_C/\u221a3": 0.5773502691896258,
+    "\u03c9_C (corpus)": 1.0,
+    "1.5\u00b7\u03c9_C (Test 1 finding)": 1.5,
+    "\u03c0/\u221a3 (half-wave)": 1.8137993642342178,
+    "2\u00b71.48 = 2.96\u00b7\u03c9_C": 2.96,
+    "Nyquist \u03c0\u00b7\u221a2": 4.442882938158366
+  },
+  "results": [
+    {
+      "label": "N=8, V=0.01, CosSelf=False",
+      "N": 8,
+      "PML": 2,
+      "v_pulse": 0.01,
+      "enable_cosserat_self_terms": false,
+      "n_periods": 100,
+      "elapsed_s": 12.006540060043335,
+      "candidate_mags": {
+        "\u03c9_TL = \u03c9_C/\u221a3": {
+          "omega_target": 0.5773502691896258,
+          "mag": 5.443570891014826e-05
+        },
+        "\u03c9_C (corpus)": {
+          "omega_target": 1.0,
+          "mag": 3.305865712412055e-05
+        },
+        "1.5\u00b7\u03c9_C (Test 1 finding)": {
+          "omega_target": 1.5,
+          "mag": 2.4403731224941264e-05
+        },
+        "\u03c0/\u221a3 (half-wave)": {
+          "omega_target": 1.8137993642342178,
+          "mag": 2.201623490687255e-05
+        },
+        "2\u00b71.48 = 2.96\u00b7\u03c9_C": {
+          "omega_target": 2.96,
+          "mag": 2.4511742626252105e-05
+        },
+        "Nyquist \u03c0\u00b7\u221a2": {
+          "omega_target": 4.442882938158366,
+          "mag": 0.00019367901440125123
+        }
+      },
+      "v_traj_rms": 0.00022975254060451184
+    },
+    {
+      "label": "N=16, V=0.01, CosSelf=False",
+      "N": 16,
+      "PML": 4,
+      "v_pulse": 0.01,
+      "enable_cosserat_self_terms": false,
+      "n_periods": 100,
+      "elapsed_s": 29.91076683998108,
+      "candidate_mags": {
+        "\u03c9_TL = \u03c9_C/\u221a3": {
+          "omega_target": 0.5773502691896258,
+          "mag": 0.00010462238955564469
+        },
+        "\u03c9_C (corpus)": {
+          "omega_target": 1.0,
+          "mag": 6.468673125719813e-05
+        },
+        "1.5\u00b7\u03c9_C (Test 1 finding)": {
+          "omega_target": 1.5,
+          "mag": 7.204893020748443e-05
+        },
+        "\u03c0/\u221a3 (half-wave)": {
+          "omega_target": 1.8137993642342178,
+          "mag": 4.9594291863033355e-05
+        },
+        "2\u00b71.48 = 2.96\u00b7\u03c9_C": {
+          "omega_target": 2.96,
+          "mag": 7.819069074312555e-05
+        },
+        "Nyquist \u03c0\u00b7\u221a2": {
+          "omega_target": 4.442882938158366,
+          "mag": 1.9752776636353806
+        }
+      },
+      "v_traj_rms": 0.003316995255185431
+    },
+    {
+      "label": "N=24, V=0.01, CosSelf=False",
+      "N": 24,
+      "PML": 6,
+      "v_pulse": 0.01,
+      "enable_cosserat_self_terms": false,
+      "n_periods": 100,
+      "elapsed_s": 57.83309078216553,
+      "candidate_mags": {
+        "\u03c9_TL = \u03c9_C/\u221a3": {
+          "omega_target": 0.5773502691896258,
+          "mag": 3.7687514110121425e-05
+        },
+        "\u03c9_C (corpus)": {
+          "omega_target": 1.0,
+          "mag": 5.064074246279891e-05
+        },
+        "1.5\u00b7\u03c9_C (Test 1 finding)": {
+          "omega_target": 1.5,
+          "mag": 0.0002610251643011436
+        },
+        "\u03c0/\u221a3 (half-wave)": {
+          "omega_target": 1.8137993642342178,
+          "mag": 4.9904124364880504e-05
+        },
+        "2\u00b71.48 = 2.96\u00b7\u03c9_C": {
+          "omega_target": 2.96,
+          "mag": 0.0002622666933375525
+        },
+        "Nyquist \u03c0\u00b7\u221a2": {
+          "omega_target": 4.442882938158366,
+          "mag": 2.0775565613518827
+        }
+      },
+      "v_traj_rms": 0.0034847796490386513
+    },
+    {
+      "label": "N=16, V=0.95, CosSelf=False",
+      "N": 16,
+      "PML": 4,
+      "v_pulse": 0.95,
+      "enable_cosserat_self_terms": false,
+      "n_periods": 100,
+      "elapsed_s": 29.32901096343994,
+      "candidate_mags": {
+        "\u03c9_TL = \u03c9_C/\u221a3": {
+          "omega_target": 0.5773502691896258,
+          "mag": 0.01635300146177192
+        },
+        "\u03c9_C (corpus)": {
+          "omega_target": 1.0,
+          "mag": 0.010930870591655689
+        },
+        "1.5\u00b7\u03c9_C (Test 1 finding)": {
+          "omega_target": 1.5,
+          "mag": 0.011678912783154659
+        },
+        "\u03c0/\u221a3 (half-wave)": {
+          "omega_target": 1.8137993642342178,
+          "mag": 0.010088868696323602
+        },
+        "2\u00b71.48 = 2.96\u00b7\u03c9_C": {
+          "omega_target": 2.96,
+          "mag": 0.015699905226432175
+        },
+        "Nyquist \u03c0\u00b7\u221a2": {
+          "omega_target": 4.442882938158366,
+          "mag": 0.2700850627794123
+        }
+      },
+      "v_traj_rms": 0.31853634404205333
+    },
+    {
+      "label": "N=16, V=0.01, CosSelf=True",
+      "N": 16,
+      "PML": 4,
+      "v_pulse": 0.01,
+      "enable_cosserat_self_terms": true,
+      "n_periods": 100,
+      "elapsed_s": 29.14991593360901,
+      "candidate_mags": {
+        "\u03c9_TL = \u03c9_C/\u221a3": {
+          "omega_target": 0.5773502691896258,
+          "mag": 0.00010462238955564469
+        },
+        "\u03c9_C (corpus)": {
+          "omega_target": 1.0,
+          "mag": 6.468673125719813e-05
+        },
+        "1.5\u00b7\u03c9_C (Test 1 finding)": {
+          "omega_target": 1.5,
+          "mag": 7.204893020748443e-05
+        },
+        "\u03c0/\u221a3 (half-wave)": {
+          "omega_target": 1.8137993642342178,
+          "mag": 4.9594291863033355e-05
+        },
+        "2\u00b71.48 = 2.96\u00b7\u03c9_C": {
+          "omega_target": 2.96,
+          "mag": 7.819069074312555e-05
+        },
+        "Nyquist \u03c0\u00b7\u221a2": {
+          "omega_target": 4.442882938158366,
+          "mag": 1.9752776636353806
+        }
+      },
+      "v_traj_rms": 0.003316995255185431
+    }
+  ]
+}

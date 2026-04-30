@@ -1,0 +1,161 @@
+{
+  "test": "Foundation Audit Test 3: Impedance Spectroscopy",
+  "drive_frequencies": [
+    0.3,
+    0.5,
+    0.577,
+    0.7,
+    0.9,
+    1.0,
+    1.2,
+    1.4,
+    1.5,
+    1.6,
+    1.7,
+    1.81,
+    2.0,
+    2.5,
+    2.96,
+    3.5,
+    4.0
+  ],
+  "results": [
+    {
+      "omega_drive": 0.3,
+      "v_rms_steady": 0.00035759112800180386,
+      "v_peak_steady": 0.0005058440749109995,
+      "amplitude_at_drive_freq": 0.000505569969606679,
+      "phase_at_drive_freq": -3.013940676776225,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 0.5,
+      "v_rms_steady": 0.00038375524571923283,
+      "v_peak_steady": 0.0005427590869638233,
+      "amplitude_at_drive_freq": 0.0005426176357239285,
+      "phase_at_drive_freq": -2.8848790581665784,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 0.577,
+      "v_rms_steady": 0.00039560925661963846,
+      "v_peak_steady": 0.0005580654804483924,
+      "amplitude_at_drive_freq": 0.000560885508580225,
+      "phase_at_drive_freq": -2.817044494704748,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 0.7,
+      "v_rms_steady": 0.0004048703619359562,
+      "v_peak_steady": 0.0005725405969639477,
+      "amplitude_at_drive_freq": 0.0005725773345796132,
+      "phase_at_drive_freq": -2.699573082222662,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 0.9,
+      "v_rms_steady": 0.0004049607957026315,
+      "v_peak_steady": 0.0005725844906139225,
+      "amplitude_at_drive_freq": 0.0005728019769395826,
+      "phase_at_drive_freq": -2.545452999735855,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.0,
+      "v_rms_steady": 0.0004142789757743478,
+      "v_peak_steady": 0.0005857342330910143,
+      "amplitude_at_drive_freq": 0.0005860181946746298,
+      "phase_at_drive_freq": -2.492687876925245,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.2,
+      "v_rms_steady": 0.0004693329862647374,
+      "v_peak_steady": 0.0006635044189480401,
+      "amplitude_at_drive_freq": 0.0006639641122857336,
+      "phase_at_drive_freq": -2.360878101715455,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.4,
+      "v_rms_steady": 0.0006062496077939266,
+      "v_peak_steady": 0.0008570462805437351,
+      "amplitude_at_drive_freq": 0.0008576712269695076,
+      "phase_at_drive_freq": -2.089171009523318,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.5,
+      "v_rms_steady": 0.000672835859151243,
+      "v_peak_steady": 0.0009513964632506612,
+      "amplitude_at_drive_freq": 0.0009516850089900032,
+      "phase_at_drive_freq": -1.753843991117047,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.6,
+      "v_rms_steady": 0.0005981936904198157,
+      "v_peak_steady": 0.0008460518008950137,
+      "amplitude_at_drive_freq": 0.0008458594541167257,
+      "phase_at_drive_freq": -1.425823110875836,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.7,
+      "v_rms_steady": 0.000550091835132301,
+      "v_peak_steady": 0.0007781680155244697,
+      "amplitude_at_drive_freq": 0.0007777016777035607,
+      "phase_at_drive_freq": -1.2161789274054633,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 1.81,
+      "v_rms_steady": 0.0005026332560993281,
+      "v_peak_steady": 0.000711110038785499,
+      "amplitude_at_drive_freq": 0.0007105671047068127,
+      "phase_at_drive_freq": -0.8383666808632574,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 2.0,
+      "v_rms_steady": 0.00024690431630206906,
+      "v_peak_steady": 0.0003491455197223419,
+      "amplitude_at_drive_freq": 0.0003492050794771717,
+      "phase_at_drive_freq": -0.1345379091733483,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 2.5,
+      "v_rms_steady": 0.00032506151564230974,
+      "v_peak_steady": 0.00045937268464859237,
+      "amplitude_at_drive_freq": 0.00045997232175646984,
+      "phase_at_drive_freq": -2.820859835717783,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 2.96,
+      "v_rms_steady": 0.0006704386747048649,
+      "v_peak_steady": 0.0009483710254465813,
+      "amplitude_at_drive_freq": 0.0009474576456512025,
+      "phase_at_drive_freq": -1.3195151764863242,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 3.5,
+      "v_rms_steady": 0.0004078324669616041,
+      "v_peak_steady": 0.0005762511076699656,
+      "amplitude_at_drive_freq": 0.0005772560033602604,
+      "phase_at_drive_freq": -0.6167993653498394,
+      "n_steps": 444
+    },
+    {
+      "omega_drive": 4.0,
+      "v_rms_steady": 0.00037647002391129537,
+      "v_peak_steady": 0.0005310408265543217,
+      "amplitude_at_drive_freq": 0.0005337765833165499,
+      "phase_at_drive_freq": -0.2165893505420917,
+      "n_steps": 444
+    }
+  ],
+  "elapsed_total_s": 247.89143180847168
+}

@@ -1,0 +1,24 @@
+{
+  "test": "Control B2: refined Faraday's law check",
+  "loop_V_DC": 0.0007159432364154023,
+  "expected_dPhi_B_dt": -0.0007159432364154023,
+  "ring_omega_normal_mean": 5.936952837119159e-06,
+  "centroid_omega_normal_mean": 2.4950291419413774e-21,
+  "ratio_centroid_to_ring": 4.202541624285604e-16,
+  "estimator_i_ring_only": {
+    "dPhi_B_dt": -1.0797395409910168e-07,
+    "residual": 0.0007158352624613032,
+    "pct_of_loop_V": 99.98491864318187
+  },
+  "estimator_ii_centroid_only": {
+    "dPhi_B_dt": -6.434566937525694e-23,
+    "residual": 0.0007159432364154023,
+    "pct_of_loop_V": 100.0
+  },
+  "estimator_iii_simpson_6tri": {
+    "dPhi_B_dt": -7.198263606606752e-08,
+    "residual": 0.0007158712537793362,
+    "pct_of_loop_V": 99.98994576212125
+  },
+  "verdict": "FARADAY VIOLATED at all sampling refinements (residual 100.0%). Discrete K4-TLM does not preserve Faraday at the closure-loop level. DC EMF is a discrete-scheme gauge artifact, not a real magnetic flux."
+}

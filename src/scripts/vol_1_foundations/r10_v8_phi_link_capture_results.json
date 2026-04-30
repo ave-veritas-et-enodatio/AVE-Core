@@ -1,0 +1,24 @@
+{
+  "test": "Phi_link Sector Measurement (T-ST v1 regime)",
+  "config": {
+    "N": 48,
+    "PML": 4,
+    "amplitude_VSNAP": 0.1,
+    "omega": 1.0
+  },
+  "energy_at_t7P": {
+    "v_inc": 7.4857825107927445,
+    "phi_link": 1.9570566636921036,
+    "phi_v_ratio": 0.26143648454526786
+  },
+  "energy_at_t49P": {
+    "v_inc": 5.903138464798574e-06,
+    "phi_link": 7.120564138610163e-06,
+    "phi_v_ratio": 1.2062336299701093
+  },
+  "phi_link_spatial_peak_x": 8,
+  "v_inc_spatial_peak_x": 8,
+  "phi_link_peak_freq": 2.96,
+  "v_inc_peak_freq": 2.96,
+  "elapsed_total_s": 186.95134282112122
+}
