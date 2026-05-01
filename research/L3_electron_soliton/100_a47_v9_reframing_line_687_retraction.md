@@ -626,19 +626,115 @@ Once Q1/Q2/Q3 adjudicated, surgical fix shape:
 
 The empirical bisection has narrowed the question from "manuscript-vs-code drift" (vague, large surface) to "three specific axiom-form questions about ABCD-cascade screening, centrifugal-barrier eigenvalue form, and full-shell TIR boundary condition" (sharp, code-anchored, plumber-physics-tractable).
 
-### §9.6 — Implications for prior framings
+[note: orphaned duplicate §9.6/§9.7 sections previously appeared here from an earlier draft state; superseded content is at §9.6 (line 238 "drift is purely post-2026-04-09") and §9.7 (line 253 "Provenance now-fully-resolved"). Removed as part of doc cleanup.]
 
-- **A47 v9 reframing extends:** original A47 v9 said "Li discrepancy +5.5% deterministic." The deeper read: the entire 14-row table is anchored to a snapshot that has since been rewritten. The 8/14 rows that still reproduce within 0.5% are the rows where 11 commits of post-manuscript modifications happened to land near the original values; the 6/14 that don't are where the algorithm drifted further. The "stable rows" reproducing within 0.5% may be coincidence at refit, not robustness.
-- **A47 v11b (substitution-not-retraction discipline):** the line-687 fabrication WAS the substitution behavior — when "missing parent port" was falsified, "missing line-687 implementation" was invented. The actual answer is the third option neither agent named: **the corrections all exist; the algorithm has been rewritten 11 times since the manuscript was generated.**
-- **A47 v11c candidate (corpus-vs-code drift discipline):** when manuscript text claims numerical precision against a named solver function, the manuscript file's commit SHA + the solver's commit SHA at table-generation time should be co-anchored. Currently `ionization-energy-validation.md` cites `ionization_energy_e2k(Z)` without anchoring to which version of that function. 11 commits of solver evolution have invalidated the table without flagging the manuscript.
+### §10.14 — Q2 empirical sweep (per Grant 2026-04-30 directive — pre-adjudication test)
 
-### §9.7 — Pending verification work
+Auditor and Grant requested empirical Q2 test before commitment. **The sweep surfaced unexpected codebase state: HEAD already has MIXED ℓ-eigenvalue forms.**
 
-- (a) Check out parent repo at commit `0401388` and re-run `ionization_energy_e2k(Z)` for Z=1-14; compare to manuscript table values. If reproduces: confirms hypothesis. If doesn't reproduce: deeper provenance question (table was hand-computed even at 0401388).
-- (b) Walk the 11 post-0401388 commits to identify which substantively changed Period 1-3 IE values. Knowing where the drift accumulated could close A47 v9 cleanly with a list of "the manuscript table is consistent through commit X; subsequent commit Y changed Z element from A to B."
-- (c) Adjudication options for Grant (separate question, not auditor's a/b/c lane question):
-  - (α) Re-run solver at HEAD, update manuscript table; "±2.8%" claim adjusted to actual HEAD precision.
-  - (β) Pin manuscript table provenance to commit `0401388` with explicit footnote; claim becomes "validated against solver at SHA 0401388, not HEAD."
-  - (γ) Identify last commit where manuscript table reproduced; cherry-pick or branch from there if forward work needs the original numerical anchor.
-  - (δ) Manuscript table is actively wrong for HEAD; either manuscript or code is corpus-canonical and the other follows. Grant adjudicates which.
+**Pre-test grep at HEAD (`grep -n "l_out \* (l_out + 1)\|float(l_out)\*\*2\|float(l)\*\*2\|l \* (l + 1)" radial_eigenvalue.py`):**
+
+| Line | Function | Form | Source |
+|---:|---|---|---|
+| 316 | `_radial_envelope` (V_centrifugal) | ℓ(ℓ+1) | (pre-7fa60b7, intact) |
+| 427 | wavenumber from E_J | ℓ(ℓ+1) | (pre-7fa60b7, intact) |
+| 546 | `_sir_mode_weighted_base` | ℓ(ℓ+1) | f23ec7b reverted from 7fa60b7's ℓ² |
+| 637 | `_radial_ode` (RK45 integrand) | ℓ² | 7fa60b7, NOT reverted by f23ec7b |
+| 715 | `_abcd_section` | ℓ² | 7fa60b7, NOT reverted by f23ec7b |
+| 1486 | `_direct_ODE_eigenvalue` | ℓ(ℓ+1) | f23ec7b reverted from 7fa60b7's ℓ² |
+
+f23ec7b ("Re-implement 3D Helmholtz l(l+1) constraints mapping Z=1-30 convergence natively") **partially reverted 7fa60b7** — restored the eigenvalue-determining sites (546, 1486) to ℓ(ℓ+1) but left the integration-only sites (637, 715) at ℓ². The current HEAD reflects this partial revert. **§10.6's verdict on 7fa60b7 needs amendment: 7fa60b7 was partially reverted by f23ec7b for the IE-determining path; the residual ℓ² remnants at 637+715 are not load-bearing for IE.**
+
+**f23ec7b commit comment (verbatim from line 543-545 at HEAD):**
+> *"Centrifugal reactance strictly maps the 3D Spherical Helmholtz Harmonic Eigenvalue mapping l(l+1) bounds geometrically, fully accounting for acoustic LC resonance volumes mapped natively across the vacuum grid without utilizing probabilistic QM assumptions."*
+
+Per this comment, ℓ(ℓ+1) is claimed by f23ec7b as **AVE-native** (acoustic LC resonance volumes on the vacuum grid), explicitly *not* a QM-imported SO(3) Casimir. This contradicts 7fa60b7's framing that ℓ² is winding-native and ℓ(ℓ+1) is QM-imported. **Both commits are by Grant; the codebase contains both axiom positions iterated in Apr 2026.**
+
+**Test 1 — flip the remaining ℓ² sites (637, 715) to ℓ(ℓ+1):**
+
+| Z | Q2-test1 (637+715 flipped) | vs HEAD |
+|:---:|:---:|:---:|
+| 1-14 | identical to HEAD within 0.001% | ≈0 |
+
+**Conclusion:** sites 637 + 715 are NOT load-bearing for `ionization_energy_e2k(Z)` outputs. The IE Newton search uses `_eigenvalue_condition` which calls `_direct_ODE_eigenvalue` (line 1486, already ℓ(ℓ+1)) and `_sir_mode_weighted_base` (line 546, already ℓ(ℓ+1)). The ℓ² remnants at 637+715 live in helper functions exercised by other callers (or by integration paths not gated to IE).
+
+**Test 2 — flip the eigenvalue-path sites (546, 1486) FROM ℓ(ℓ+1) TO ℓ²:**
+
+| Z | Q2-test2 (546+1486 flipped to ℓ²) | vs HEAD |
+|:---:|:---:|:---:|
+| 1-12 | identical to HEAD within 0.001% | ≈0 |
+| **13 Al** | **9.1510 eV** | **+37.8%** ⚠ catastrophic |
+| **14 Si** | **12.0540 eV** | **+36.6%** ⚠ catastrophic |
+
+**The eigenvalue-path ℓ(ℓ+1) at HEAD is what prevents Al/Si from blowing up to +50% errors vs CODATA.** Switching to ℓ² catastrophically breaks Period 3 p-block (Al/Si). All other elements (Z=1-12) unaffected.
+
+### §10.15 — Q2 closure: ℓ(ℓ+1) is empirically + axiomatically correct at the eigenvalue path
+
+**Three reads of the result:**
+
+1. **f23ec7b's framing is corpus-canonical (current HEAD comment):** ℓ(ℓ+1) is the AVE-native acoustic LC resonance volume eigenvalue, NOT a QM-imported quantity. The shape happens to match the SO(3) Casimir but the physics is substrate-derived. Per this read, Q2=ℓ(ℓ+1) at all sites; flipping 637+715 for code consistency is a low-priority hygiene fix.
+
+2. **Both forms are partial:** ℓ² is winding-squared (topological invariant per Ax-2), ℓ(ℓ+1) is the operator eigenvalue at the radial Schrödinger boundary. Different physics. The empirical agreement of ℓ(ℓ+1) at the eigenvalue path means that's the load-bearing centrifugal-barrier form for atomic IE; ℓ² may be load-bearing elsewhere (e.g., higher-l excitations, free electrons, plasma).
+
+3. **Mixed state is intentional:** the radial_ode/abcd_section may target different physics (e.g., dispersive propagation, plasma-soliton extension) than the IE Newton search. Different physics, different operator forms. The mix is a feature, not a bug.
+
+**Most defensible position (per Rule 16 + auditor's "substrate-native erosion" pattern):** the f23ec7b commit comment's claim that ℓ(ℓ+1) is corpus-canonical-substrate-native is the canonical AVE position for the IE-determining path. **Q2 effectively closes: keep ℓ(ℓ+1) at the eigenvalue path** (already at HEAD via f23ec7b revert).
+
+The remaining ℓ² sites at 637 + 715 don't affect IE values; whether to flip for code consistency is a low-priority hygiene question, separate from manuscript-table reproducibility.
+
+### §10.16 — Adjudication state post-Q2-sweep
+
+| Question | Status | Decision basis |
+|---|---|---|
+| **Q1** (Helmholtz CDF vs step at Bohr) | **Adjudicated by Grant 2026-04-30**: revert to Helmholtz CDF. | Both axiom-chain (old form has explicit Ax-1+2 derivation; new form claims Ax-3 without operational chain) AND empirical (old reproduces 0401388 precision; new drifts 6/8 elements). |
+| **Q2** (ℓ(ℓ+1) vs ℓ²) | **Empirically closed by §10.14-§10.15**: ℓ(ℓ+1) at eigenvalue path. | f23ec7b commit comment claims ℓ(ℓ+1) IS AVE-native (acoustic LC resonance, not QM-imported); empirical sweep confirms ℓ(ℓ+1) is necessary at sites 546+1486 (flipping breaks Al/Si by +37%). Q2 sites 637+715 not load-bearing for IE. |
+| **Q3** (perfect-mirror at full-shell+gamma<0) | **Adjudicated by Grant 2026-04-30**: narrow gate to Z≥31 (or reformulate with explicit mechanism). | Op3 reflection physics gives partial reflection (|Γ|²=0.25 for Si); no axiom-stated mechanism promotes partial→perfect at full-shell closure. |
+
+### §10.17 — Surgical-fix prescription (final, post-adjudication)
+
+Two surgical commits land per Grant's Q1/Q3 adjudication + Q2 empirical closure:
+
+**Surgical Commit A — revert Q1 (`_z_net` to Helmholtz CDF):**
+- File: `src/ave/solvers/radial_eigenvalue.py`
+- Action: restore the pre-7fa60b7 `_z_net` function with `_enclosed_charge_fraction_1s` / `_enclosed_charge_fraction_n2` CDF-based screening; restore the auxiliary functions `_enclosed_charge_fraction_1s` and `_enclosed_charge_fraction_n2` if 7fa60b7 also removed them (need to verify diff).
+- Axiom basis: Ax-1 → Helmholtz solution of K4-LC network → |ψ|² standing-wave amplitude integral → Ax-2 Gauss-derived CDF σ_n(r). Direct chain.
+- Empirical effect: Li/Be/Na shift back toward 0401388 values (manuscript precision restored for s-block).
+
+**Surgical Commit B — narrow Q3 perfect-mirror gate to Z≥31:**
+- File: `src/ave/solvers/radial_eigenvalue.py`, Op10 loop in `ionization_energy_e2k`
+- Action: change `if mirrored_away or (is_full_shell and gamma < 0): Y_loss = 0.0` to `if mirrored_away: Y_loss = 0.0`
+- Axiom basis: Op3 reflection at impedance step is partial unless |Γ|²=1. For Si at gamma=-0.5, |Γ|²=0.25; no axiom-anchored mechanism promotes this to perfect mirror absent further saturation. The Z≥31 narrowing matches `mirrored_away`'s long-distance amplification framing.
+- Empirical effect: Al/Si recover from HEAD's +11% to closer to f23ec7b's +3-4% (partial; full restoration depends on whether 046a233's Op10 promotion interacts).
+
+**Optional Hygiene Commit C — flip Q2 remaining sites for code consistency:**
+- File: `src/ave/solvers/radial_eigenvalue.py`, lines 637 + 715
+- Action: change `float(l)**2` → `float(l * (l + 1))` to match f23ec7b's eigenvalue-path forms
+- Empirical effect: zero change to IE values (per §10.14 Test 1)
+- Justification: code consistency only; eigenvalue path already correct.
+
+**Post-surgical-commits verification:** full Z=1-14 sweep against (a) 0401388 manuscript table and (b) CODATA. Expected: Li/Be/Na within 0401388-class precision; Al/Si improved (likely not fully restored if 046a233's Op10 promotion has independent effect, which would be residual scope for further investigation).
+
+### §10.18 — Substrate-native erosion methodology pattern (auditor 2026-04-30)
+
+Auditor's pattern observation across the three Q's:
+
+> *"Q1 lost a substrate-derived form for a hydrogenic heuristic. Q2 lost a winding-native form for a spherical-Laplacian fact. Q3 lost an empirical Z-threshold for an unstated mechanism. The post-0401388 refinement direction was toward QM-textbook forms and away from substrate-anchored ones — three independent commits, same drift signature."*
+
+(Note: Q2 is more nuanced per §10.15 — the f23ec7b code comment claims ℓ(ℓ+1) IS substrate-native (acoustic LC resonance volumes), not QM-imported. The auditor's pattern still holds for Q1 and Q3, and for the 7fa60b7 → ℓ² direction within Q2.)
+
+**A47 v11d candidate — substrate-native erosion review at PR time (auditor-lane, COLLABORATION_NOTES):** when a refactor commit replaces an axiom-chain-anchored form (with explicit derivation chain in docstring) with a different form, require explicit Ax-1...4 + Op-N derivation chain in the new docstring. If no chain provided, the refactor is "claim-without-receipt" and should be flagged for review before merge.
+
+The three commits in this case (7fa60b7, 046a233 Op10 promotion aspect, 87b4114 Y_loss=0 broadening) all replaced anchored forms with new forms whose docstrings claim axiom-compliance without showing the operational derivation chain. The 7fa60b7 `_z_net` docstring claim ("Ax 3 dictates discrete impedance steps") had no operational chain; the original `_z_net` docstring had explicit Ax-1 → Helmholtz → Ax-2 → Gauss chain.
+
+**Discipline rule for Grant adjudication:** A47 v11c (commit-SHA anchoring at manuscript table-generation) + A47 v11d (axiom-chain-required-in-docstring at PR time) are paired manuscript-vs-code provenance disciplines. v11c is the post-hoc detection rule; v11d is the prevention rule. Both should land in COLLABORATION_NOTES per auditor-lane handoff.
+
+### §10.19 — Authorization needed before surgical commits
+
+Per memory rule "flag don't fix" + "executing actions with care," surgical commits A + B modify canonical engine code (`radial_eigenvalue.py`), which has downstream physics implications beyond IE. Before proceeding:
+
+- **Surgical Commit A (Q1 revert)**: requires explicit Grant authorization. The revert restores Helmholtz CDF screening which Grant already adjudicated as correct, but the implementation requires reading the pre-7fa60b7 function bodies and restoring them; this is non-trivial code restoration, not a single-line revert. Approach: extract pre-7fa60b7 `_z_net` + `_enclosed_charge_fraction_*` from commit `8acadcd` (or earliest commit having them) and surgically restore.
+- **Surgical Commit B (Q3 narrowing)**: simpler — single-line change. Still requires authorization since it modifies canonical code.
+- **Optional Hygiene Commit C**: lowest priority; can defer or skip.
+
+**Status:** standing by for Grant's go-ahead on Surgical Commits A + B. Worktree at `/tmp/ave-at-0401388` retained for implementation work. Doc 100 §10.17 prescription is the implementation specification.
 
