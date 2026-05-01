@@ -1977,3 +1977,123 @@ The investigation took ~6 chat turns + ~3 driver runs to converge. **Each Grant 
 
 This is a sharper version of A47 v11c (commit-SHA-anchoring) + A47 v11d (axiom-chain-required-in-docstring): also need *measurement-definition-explicit-in-output*. Auditor-lane recommendation for COLLABORATION_NOTES landing.
 
+---
+
+## §17 — §16 corrections per auditor review (post-§16-commit pass)
+
+Auditor reviewed §16 and flagged three issues: (i) algorithm sketch off by factor of 2, (ii) scaffold-preservation claim is synthesis-from-indirect-evidence, (iii) seeder-mapping needs A-021 grep. All three are correct. Applying corrections per Rule 12 preserve-body — original §16 retained, corrections appended here.
+
+### §17.1 — Correction (i): algorithm sketch fix
+
+§16.1 prose said `r = HWHM / 2`. The actual code is:
+
+```python
+r = float(0.5 * (right - left))   # right - left = FWHM
+                                   # so r = 0.5 * FWHM = HWHM
+```
+
+So `r = HWHM`, NOT `r = HWHM/2`. The §16.1 comparison TABLE correctly says "half-width-half-max" = HWHM; the prose sketch contradicted the table. Sketch is wrong, table is right. Doesn't affect the structural argument that extracted r ≠ scaffold r — just a typo in the prose summary.
+
+**Corrected sketch:**
+```python
+omega_mag = sqrt(sum(omega², axis=-1))
+slice_z = omega_mag[:, :, kz]
+rho = sqrt((x-cx)² + (y-cy)²)
+profile = histogram(rho, weights=|ω|).normalize()
+R = centers[argmax(profile)]              # ρ at amplitude PEAK
+half_max = 0.5 * profile.max()
+above = profile >= half_max
+r = 0.5 * (right_edge - left_edge)        # = HWHM (not HWHM/2 as previously written)
+```
+
+### §17.2 — Correction (iii): seeder mapping (A-021 grep)
+
+Per A-021 pre-flight discipline applied retroactively. Read [`cosserat_field_3d.py:777-845`](../../src/ave/topological/cosserat_field_3d.py#L777-L845) `initialize_electron_2_3_sector` body:
+
+```python
+rho_xy = sqrt(x² + y²)
+rho_tube = sqrt((rho_xy - R_target)² + z²)   # distance to torus centerline
+phi = arctan2(y, x)
+psi = arctan2(z, rho_xy - R_target)
+r_opt = r_target if r_target > 0 else 1.0
+envelope = amplitude_scale * (sqrt(3)/2) * π / (1 + (rho_tube / r_opt)²)
+theta = 2*phi + 3*psi                          # (2,3) winding
+omega[..., 0] = envelope * cos(theta)
+omega[..., 1] = envelope * sin(theta)
+```
+
+**Confirmed:**
+- `r_opt = r_target` directly (not r_target → r_t through some intermediate transform)
+- Envelope is **Lorentzian in `rho_tube`** with HWHM = `r_opt = r_target`. Half-max occurs at `rho_tube = r_opt`.
+- The (2,3) winding via `theta` only affects angular phase, NOT |omega| (since |envelope·cos|² + |envelope·sin|² = |envelope|²). So |omega| profile is the smooth Lorentzian envelope.
+
+At z=0 slice (where extract_shell_radii operates), `rho_tube = |rho_xy - R_target|`, so envelope simplifies to:
+
+```
+envelope(rho_xy) = peak / (1 + ((rho_xy - R_target) / r_target)²)
+```
+
+A Lorentzian peaked at `rho_xy = R_target` with **HWHM = r_target**. So:
+- True profile peak at `R_target = 8.0` cells
+- True profile HWHM at `r_target = 3.06` cells
+- True scaffold ratio: R_target / r_target = 8.0 / 3.06 = 2.618 = φ²
+
+**But empirical extraction gives R=7.47, r=2.49, R/r=3.0.** This is the binning + discretization effect. With `n_bins = round(rho_max)` ≈ 22 for nx=32 (rho_max ≈ 15.5·√2 ≈ 21.92), bin centers fall at 0.498 + k·0.996. For k=7: center=7.47. So the argmax bin (where the Lorentzian peak is) has center 7.47, not 8.0.
+
+The 18% discrepancy between r_target=3.06 and r_extracted=2.49 comes from binning the Lorentzian + threshold-crossing effects (above-half-max spans only fully-above-half-max bins, undercounting the true HWHM).
+
+**The intuitive "Sutcliffe hedgehog FWHM < r_torus" framing in §16 was loose.** The actual relationship is: extracted R, r are binned/thresholded approximations of the true Lorentzian peak position and HWHM. The bin width and half-max threshold both contribute to the discrepancy. Not a separate scaffold-vs-FWHM physics distinction — a discretization-of-extraction effect.
+
+This actually STRENGTHENS the structural disambiguation (§16): the extraction returns binned amplitude statistics, not scaffold geometry. The seeder's r_target IS the geometric scaffold minor radius. They're related by extraction discretization.
+
+### §17.3 — Correction (ii): scaffold-preservation is synthesis-from-indirect-evidence (auditor flag)
+
+§16.4 claimed "geometric scaffold preserved at Vol 1 Ch 8 (R, r) values" under relaxation. **Auditor caught this is synthesis, not direct measurement.** Direct measurements are:
+- (a) c=3 preserved (topology)
+- (b) extract_shell_radii output R/r ≈ 3.0 invariant under relaxation (amplitude statistics)
+
+Neither directly measures the scaffold (R_t, r_t). c=3 holds under continuous deformation of (R_t, r_t) — a (2,3) knot stays topologically (2,3) regardless of torus geometry. Extraction stability could mask scaffold contraction (e.g., if both R_t and r_t contracted by the same fraction, ratio stays φ², extraction ratio stays 3.0, but scaffold shifted).
+
+**Honest framing of §16.5 status:**
+
+The Cosserat finding is split into two distinct claims, each with different empirical confidence:
+
+| Claim | Direct measurement | Status |
+|---|---|---|
+| **§16 structural disambiguation**: extract_shell_radii returns amplitude statistics (peak position + HWHM), NOT scaffold geometry | Yes — verified by code reading (cosserat_field_3d.py:1435-1466) + seeder grep (§17.2) | ✅ confirmed |
+| **§16.4(2) scaffold preservation**: relaxation preserves seeded (R_t=8, r_t=3.06) at Vol 1 Ch 8 ratio | No — inferred from c=3 + extraction stability | ⚠ pending direct measurement |
+
+**Updated §16.5 empirical state of the fundamental electron model (corrected):**
+
+- ✅ Atomic IE 14/14 manuscript precision
+- ✅ Theorem 3.1 dual-angle α⁻¹ machine precision
+- ✅ AVE-HOPF (2,3) Beltrami framework
+- ✅ TLM tests xfail-clean per Rule 11
+- ✅ **§16 structural disambiguation** — extract_shell_radii measures amplitude statistics, not scaffold; corpus comparison was apples-to-oranges
+- ⚠ **Scaffold preservation under Cosserat relaxation** — indirect inference (c=3 + extraction stability), direct scaffold check pending
+- 🟡 g-2 P2.1 OPEN
+
+**Net: 5 ✅ + 1 🟡 + 1 ⚠ + 0 🔴.** Materially the same as §16's claim, but the ⚠ is preserved for the scaffold-preservation question that wasn't directly measured.
+
+### §17.4 — How to close the ⚠ properly
+
+Per auditor recommendation, two paths to defensible ⚠ → ✅:
+
+**Path 1 (cheap, ~10 min):** Direct scaffold check via amplitude profile fit. After relaxation, fit the binned profile to a Lorentzian `peak / (1 + ((rho - R_fit) / r_fit)²)`. If R_fit ≈ R_target and r_fit ≈ r_target, scaffold is preserved. If they shifted, scaffold deformed.
+
+**Path 2 (~30 min):** Direct curve-trajectory test. Identify cells where |omega| is locally maximal along the (2,3) trajectory. Fit those to a torus parameterization. Extract (R_torus_fit, r_torus_fit). Compare to seeded values.
+
+Path 1 is cheapest and decisive at the amplitude-profile level.
+
+### §17.5 — Methodology lessons consolidated
+
+Three landed in this auditor pass:
+
+1. **A-021 pre-flight discipline applies retroactively when commit prose makes structural claims.** §16's claims about seeder mapping (§16.1 algorithm sketch + §16.2 "FWHM smaller than r_torus") were intuitive plausibility, not corpus-verified. A-021 grep at commit time would have caught the algorithm sketch typo + clarified the seeder/extraction relationship.
+
+2. **Topology preservation ≠ geometry preservation.** c=3 is preserved by any continuous deformation. Extraction-output stability is preserved by any deformation that keeps the binned-amplitude statistics constant. Neither directly measures scaffold geometry. The synthesis "topology + extraction stability ⟹ scaffold preserved" is a plausibility argument, not an entailment.
+
+3. **A47 v11d-extension** (measurement-definition-explicit-in-output, §16.6): endorsed by auditor for COLLABORATION_NOTES landing as auditor-lane catalog entry.
+
+Doc 100 §17 documents all three corrections per Rule 12 preserve-body. Original §16 body retained; corrections appended.
+
