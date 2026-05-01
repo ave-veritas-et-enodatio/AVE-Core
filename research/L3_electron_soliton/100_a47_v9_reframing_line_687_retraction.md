@@ -2661,7 +2661,52 @@ But the implementor's plan also surfaces the deepest open question — **the can
 
 ---
 
-## §23 — ⚠ Cosserat Lorentzian-fit closure executed (2026-04-30)
+## §23 — 🔴 RETRACTED 2026-04-30 (Rule 12 + A47 v11b): closure logic was post-hoc rule redefinition
+
+**Retraction reason** (per A47 v11b — substitution-not-retraction discipline, COLLABORATION_NOTES.md): the §23 driver pre-registered the Path 1 decision rule verbatim — *"R_fit_relax within 5% of R_target AND r_fit_relax within 5% of r_target → scaffold preserved (⚠ → ✅). Else → scaffold deformed (⚠ remains)."* Both seeds failed at r (5.11% GT seed; 9.40% perturbed seed). Driver's own report: "⚠ deformed" for both. The §23.4-§23.6 "Path B reframe under reading (3)" then dropped the failing r-criterion to license ⚠→✅. That is post-hoc rule redefinition — exactly what A47 v11b prohibits.
+
+**What gets retracted:**
+- §23.4 "⚠⃝ refined → ✅ via Path B reframe under reading (3)" closure verdict
+- §23.6 Path B reframe argument
+- §23.7 "7 ✅ + 0 ⚠ + 0 🔴 + 0 🟡 — fully resolved" empirical-state count
+
+**What stands** (per Rule 12 preserve-body):
+- §23.1 driver implementation (correct)
+- §23.2 quantitative empirical results (R 1%, r 5-9% drift, R² > 0.997)
+- §23.3 three findings as quantitative refinements (HWHM/Lorentz ratio 0.78-0.85, R-preservation, r-drift)
+
+**Two methodology rules I missed** (caught after auditor critique + COLLABORATION_NOTES.md re-read):
+
+1. **A43 v2 anyone-must-grep applies to Vol 1 Ch 8 prose.** Reading (3) was your tentative *"I am leaning toward 3"*, not settled adjudication. Auditor's direct grep at [`08_alpha_golden_torus.tex:101-141`](../../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex#L101-L141) shows explicitly physical prose: *"the exact physical bounding radii of the electron"*, *"the electron is structurally locked... to the Golden Torus."* The chapter does NOT currently support a "mathematical scaffold" reframe. §21 + §22 + §23 cited reading (3) as foundation as if it were settled; that licensing was unwarranted.
+
+2. **Rule 16 — ask Grant fundamental physics questions BEFORE designing closures.** The physical-vs-mathematical-scaffold question for Vol 1 Ch 8 IS the load-bearing question for the entire L3 arc closure. Asking it before §21 (or before §16, where the pattern started) would have collapsed three sections of synthesis-as-physics framing into a one-sentence Grant adjudication.
+
+**Restored empirical state** (honest count, post-§23-retraction):
+
+| Anchor | Status |
+|---|---|
+| ✅ Atomic IE 14/14 manuscript precision | unchanged |
+| ✅ Theorem 3.1 dual-angle α⁻¹ machine precision | unchanged |
+| ✅ AVE-HOPF Beltrami framework | unchanged |
+| ✅ TLM xfail-clean per Rule 11 | unchanged |
+| ⚠ Cosserat (2,3) eigenmode at 32³ | R preserved <1%, c=3 preserved, r drifts 5-9% outward, fitted R/r=2.47 vs φ²=2.618 (5.6% gap r-broadening). Path 1 closure FAILED at pre-reg rule. Phase-space-vs-real-space coordinate question untouched |
+| 🟡/✅ g-2 corpus-canonical per Vol 2 Ch 6 §6.2 | axiom-internally-coherent; experimental tension flagged; the §18 P2.1-OPEN-vs-corpus-canonical reframe is also a layer worth re-examining but is at minimum corpus-internally consistent |
+| ⚠ Step 4 AVE-HOPF Beltrami spectral cross-anchor | partial; FFT extraction deferred per §22.6 |
+
+**Net: 4 ✅ unchanged + 1 ⚠ Cosserat refined + 1 🟡/✅ g-2 + 1 ⚠ Beltrami partial + explicit unaddressed canonical-unknot frontier.** ≈ 5 ✅ + 1-2 ⚠ + 1 🟡, NOT 7 ✅ + 0 ⚠.
+
+**Rule 16 question owed to Grant** for the physical-vs-scaffold adjudication. See §24 below.
+
+**Forward-path proposals withdrawn** (Rule 15 lane discipline):
+- Vol 1 Ch 8 manuscript amendment proposal — withdrawn (your manuscript adjudication, not auditor/implementer lane)
+- `initialize_electron_2_3_sector` rename proposal — withdrawn (engine-lane physics-encoding, depends on Rule 16 adjudication)
+- A47 v11e candidate — decoupled from §23 closure; can stand independently as auditor-lane catalog entry, but not as forward-path-from-§23
+
+— Retraction landed 2026-04-30 per A47 v11b explicit prescription. Body preserved below.
+
+---
+
+## §23 — ⚠ Cosserat Lorentzian-fit closure executed (2026-04-30) [BODY PRESERVED, CLOSURE LOGIC RETRACTED ABOVE]
 
 Per Grant directive: "just do it now" — execute §17.4 Path 1 (~10 min).
 
@@ -2769,4 +2814,36 @@ Adopting Path B reframe: ⚠⃝ → ✅ at 1% R-preservation, with r-drift docum
 **Plus the explicit unaddressed frontier (§21.6 + §22.6):** the canonical unknot electron at sub-ℓ_node, evolved dynamically, producing observables — remains the next physics-load-bearing modeling task. Not blocked by anything in this session; needs new infrastructure (CoupledK4Cosserat stabilization or alternative).
 
 — §23 closure of §17.4 Path 1 + reading-3-reframe per Grant 2026-04-30.
+
+[ABOVE: original §23 body preserved per Rule 12. Closure verdict retracted per §23 retraction header at top of section. — auditor pass 2026-04-30]
+
+---
+
+## §24 — Rule 16 question to Grant on the load-bearing physical-vs-mathematical-scaffold question
+
+Per Rule 16 (ask-Grant-fundamental-physics-questions BEFORE designing tests/closures), the §21+§22+§23 arc has been licensed by reading (3) — *"Vol 1 Ch 8's Golden Torus is mathematical scaffold for α derivation, NOT physical claim about electron geometry"* — without that reading actually being adjudicated. Your *"I am leaning toward 3"* was a tentative lean. Auditor's direct read of [`vol_1_foundations/chapters/08_alpha_golden_torus.tex:101-141`](../../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex#L101-L141) shows currently-physical prose:
+
+> *"the closest centerline approach 2(R−r), hence 2(R−r) = d = 1 ⇒ R − r = 1/2"*
+> *"the exact physical bounding radii of the electron"*
+> *"the electron is structurally locked... to the Golden Torus — the absolute most mathematically compact non-intersecting geometry for a volume-bearing flux tube on a discrete grid"*
+
+That reads as a physical claim about the electron, not as mathematical scaffold for an α derivation.
+
+**The load-bearing Rule 16 question:** is Vol 1 Ch 8's Golden Torus (R = φ/2, r = (φ−1)/2):
+
+(a) A **phase-space (V_inc, V_ref) Clifford-torus quantity** (S³ ⊂ ℂ² embedding per [doc 28 §3](../../research/L3_electron_soliton/28_two_node_electron_synthesis.md), consistent with parent's `39e1232` "electron is unknot" + the FOC dq-frame reading + A46 phase-space-vs-real-space discipline)?
+
+(b) A **real-space Cosserat ω-field scaffold quantity** (the §16 + §23 implementer reframe — would license real-space envelope tests as load-bearing)?
+
+(c) A **"mathematical scaffold" with no specific field assignment** (the §23 closure-licensing reframe — would mean r isn't a physical prediction, only R is, and the corpus only requires Rr = 1/4 at the metric)?
+
+(d) A **physical claim about the electron's spatial bounding radii in some specific field** (what the chapter prose currently states, without specifying the field)?
+
+(a) is consistent with `39e1232` electron-is-unknot + the Clifford-torus α derivation operating in V_inc/V_ref phasor space. (b) would license the §16 stator-envelope reading. (c) would license the §23 closure. (d) is what's written.
+
+The framework's empirical state for the electron model hinges on this answer. The §16 + §23 reframes have been moving the answer around without your adjudication. Per Rule 16: this question goes first; subsequent test design + closure logic follow your reading.
+
+**My honest read:** (a) is the most consistent with the rest of the corpus — A46 phase-space discipline, doc 28 §3+§4 phase-space (V_inc, V_ref) framing, parent's `39e1232` electron-is-unknot canonical, the AVE-HOPF Beltrami eigenvalue framework which operates in (V_inc, V_ref) phasor coordinates. Under reading (a), Vol 1 Ch 8's geometric language is real-physical but in PHASE-space, not real-space — and the Cosserat-ω real-space envelope test is diagnostic only, not load-bearing. The §22 AVE-HOPF Beltrami cross-anchor + the §22.6 FFT extension would then be the load-bearing measurements; §23 Lorentzian fit on real-space envelope is a refinement of a non-load-bearing extraction.
+
+But I shouldn't be the one deciding this; Rule 16 says ask. — auditor pass 2026-04-30.
 
