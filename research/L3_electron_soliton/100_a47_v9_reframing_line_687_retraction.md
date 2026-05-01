@@ -2278,3 +2278,145 @@ Net for "did we model it" — unchanged: we have multiple corpus-canonical predi
 
 **The session's net empirical-state-table: 6 ✅ + 1 ⚠ + 1 🔴 + 0 🟡**, with the 🔴 being the already-known L3 closure outcome at the dq-frame layer that §16 had inadvertently masked.
 
+---
+
+## §20 — Corpus drift finding: Golden Torus is post-IP-separation addition
+
+Per Grant directive 2026-04-30 ("search electron in the applied-vacuum-engineering old archive/repo, and see if the engine or any changes in the manuscript show an issue that crept in. The golden taurus is a newer addition if I recall right"):
+
+### §20.1 — Vol 1 Ch 8 was created in AVE-Core 2026-04-19, post-IP-separation
+
+A-021 git archeology in parent repo (Applied-Vacuum-Engineering):
+
+```
+Parent repo: manuscript/vol_1_foundations/chapters/ contains 00-07 + _manifest.tex.
+NO chapter 08. The "alpha_golden_torus.tex" file does not exist in parent.
+
+AVE-Core: created 2026-04-19 at commit 3367c7b
+  "feat: zero-parameter closure — α from Golden Torus S₁₁-min (Ch 8)"
+```
+
+Vol 1 Ch 8 is **AVE-Core-only content created post-IP-separation**. The parent corpus does NOT have this chapter or the Golden Torus α derivation.
+
+### §20.2 — Two structurally-different α derivations now coexist in the corpus
+
+**Parent canonical** (Vol 1 Ch 1 + backmatter, present since Feb 2026):
+
+> α ≡ p_c / 8π ≈ 1/137.036
+>
+> where p_c = 0.1834 is the QED packing fraction at the K=2G EMT (Effective Medium Theory) condition for 3D amorphous central-force networks.
+
+This is the **packing-fraction-of-substrate** derivation. Geometric, but through the LATTICE'S DENSITY.
+
+**AVE-Core Vol 1 Ch 8 addition** (created 2026-04-19):
+
+> α⁻¹ = 4π³ + π² + π ≈ 137.036
+>
+> from multipole sum (Λ_vol + Λ_surf + Λ_line) on Golden Torus with R=φ/2, r=(φ-1)/2
+
+This is the **multipole-sum-on-torus-geometry** derivation. Geometric, but through TORUS DIMENSIONS.
+
+**Both produce the numerical value 137.036.** But through structurally different physical mechanisms — one is about substrate packing density, the other is about torus geometry. They're not necessarily inconsistent, but they're not explicitly reconciled either.
+
+### §20.3 — Tension with parent's earlier "electron is unknot" canonical fix
+
+Parent commit [`39e1232` (2026-03-02)](../../../Applied-Vacuum-Engineering) explicitly fixed the electron's topology:
+
+> *"Fix mass gap: electron is unknot (0₁), exact Δ = m_e c² = 0.511 MeV"*
+>
+> *"The electron is NOT a trefoil (c=3 torus knot). It is the unknot (0₁) — a simple closed flux loop. Its energy is exact by Bounding Limit 1, not subject to Faddeev-Skyrme variational bounds."*
+>
+> *"Old: Δ = (2π³/κ_FS) × 3 × m_e c² ≈ 3.8 MeV (loose bound > actual)*
+> *New: Δ = m_e c² = 0.511 MeV (exact, by definition)"*
+
+This fix was made in `src/ave/axioms/yang_mills.py` + tests. It explicitly retracts the electron-as-trefoil framing in favor of electron-as-unknot.
+
+Vol 1 Ch 8 (added 6 weeks later) derives α from a "Golden Torus" with TWO radii (R, r) at the φ/2, (φ-1)/2 values. **An unknot has ONE radius (the loop itself), not two.** The R/r=φ² geometry implicitly requires a torus structure that an unknot doesn't have.
+
+Either Vol 1 Ch 8 contradicts `39e1232` (electron is trefoil-on-Golden-Torus, retracting the unknot fix), OR Vol 1 Ch 8's "Golden Torus" refers to something other than the electron's intrinsic geometry (e.g., the lattice projection / wake cavity per Grant's 2026-04-30 framing).
+
+**Vol 1 Ch 8's text doesn't explicitly clarify which.** It treats the Golden Torus as the canonical geometry-of-the-electron without addressing the unknot/trefoil distinction.
+
+### §20.4 — Reconciliation per Grant's 2026-04-30 plumber-physics framing
+
+Per Grant's earlier framing (chat 2026-04-30): "O1 unknot flux tube + lattice projection (standing-wave/wake cavity at K4 nodes acting as LC tank, same way orbitals form)."
+
+This RECONCILES the two pictures:
+- The SOLITON (electron particle) is unknot — per `39e1232` parent fix
+- The LATTICE PROJECTION (wake cavity) is at Golden Torus geometry — per Vol 1 Ch 8 AVE-Core addition
+- α can be derived from EITHER side: from substrate packing (parent) OR from wake-cavity multipole sum (Vol 1 Ch 8)
+- Both should give 137.036 because the framework is internally consistent at multiple operational levels
+
+**But Vol 1 Ch 8 doesn't say "wake cavity."** It would need explicit framing as "the lattice's projected response to the unknot soliton, geometrically a Golden Torus" — paired with the parent's `39e1232` "electron is unknot" canonical position.
+
+Without that explicit reconciliation, Vol 1 Ch 8 reads as if the electron itself has Golden Torus geometry — which would contradict `39e1232`.
+
+### §20.5 — Empirical layer: dq-frame Golden Torus is Mode III
+
+Per §19 + L3 closure A-014: the dq-frame phasor (V_inc, V_ref on Clifford torus) test for R/r=φ² Golden Torus was conducted as doc 28 §5.1 Test B v1-v3, all **Mode III in saturation regime**. The engine does NOT empirically realize Vol 1 Ch 8's Golden Torus at the dq-frame layer at K4-TLM-at-ℓ_node sampling.
+
+This is consistent with:
+- The Golden Torus is the wake cavity (per Grant's reconciliation)
+- The wake cavity at K4-TLM-at-ℓ_node sampling DOESN'T empirically realize the corpus-predicted geometry
+- Mode III is the honest empirical state per Rule 11
+
+### §20.6 — Corpus drift signature pattern
+
+This is a **A47 v11d signature applied at the corpus level**:
+
+| Pre-March 2026 | parent has α = p_c/8π; electron mass framing being worked (variously trefoil-vs-unknot) |
+| March 2, 2026 (`39e1232`) | parent fixes "electron is unknot, NOT trefoil; m_e c² exact"; updates yang_mills.py + tests |
+| March 12, 2026 (`cabc486`) | parent creates Vol I structure: chapters 00-07, NO Ch 8 |
+| April 19, 2026 (`3367c7b`, AVE-Core only post-IP-separation) | Vol 1 Ch 8 added: α via Golden Torus + R/r=φ² implying torus-on-trefoil-style geometry — without explicit reconciliation with `39e1232` unknot canonical |
+| Subsequent AVE-Core work | builds on Golden Torus framing (Theorem 3.1 dual-angle, electron_tank_q_factor.py, doc 28 §5.1 Test B) — all assume the Golden Torus as canonical |
+| Test B v2/v3 (engine empirical test) | Mode III at saturation regime → Vol 1 Ch 8 dq-frame phasor NOT realized at K4-TLM-at-ℓ_node |
+
+The Golden Torus framing crept in post-IP-separation as a parallel α-derivation overlay. Without explicit reconciliation, downstream work assumed it as canonical, and the engine's empirical test got Mode III at the dq-frame.
+
+### §20.7 — A47 v11d at corpus level — recommendation
+
+**A47 v11e candidate** (auditor-lane, COLLABORATION_NOTES): manuscript additions that overlay new derivations on existing physics (e.g., adding a parallel α derivation on top of an existing one) MUST explicitly reconcile against the existing canonical position. If the new derivation supersedes (e.g., new is correct and old is wrong), that's a Rule 12 retraction of the old. If the new is at a different operational level (e.g., parent's α at substrate-density level vs Vol 1 Ch 8's α at wake-cavity-geometry level), the manuscript must explicitly state both and how they relate.
+
+Without this discipline at manuscript-add time, downstream corpus work assumes the most-recently-added framing as canonical, leading to drift. Vol 1 Ch 8 → Theorem 3.1 → doc 28 §5.1 Test B is exactly this drift cascade.
+
+### §20.8 — What this means for the fundamental electron model
+
+**Updated framing post-§20:**
+
+The framework's electron has TWO possible canonical positions, depending on which corpus layer we read:
+- **Parent canonical (March 2026)**: electron is unknot (c=0), m_e c² exact, α = p_c/8π
+- **AVE-Core Vol 1 Ch 8 (April 2026)**: α = 4π³+π²+π via Golden Torus (R, r)=(φ/2, (φ-1)/2)
+
+Reconciliation via "soliton + wake cavity" framing requires Vol 1 Ch 8 to explicitly state it's about the wake projection. Currently it doesn't.
+
+**Empirical state (corrected with corpus context):**
+
+| State | Interpretation |
+|---|---|
+| ✅ Atomic IE 14/14 | Track B doesn't depend on Golden Torus framing — uses radial transmission line + ABCD cascade |
+| ✅ Theorem 3.1 dual-angle α⁻¹ machine precision | Algebraic identity at the chosen (R, r). Self-consistent IF Golden Torus is canonical. |
+| ✅ AVE-HOPF Beltrami framework | Hardware antenna eigenmodes; corpus-pre-reg; doesn't directly test Vol 1 Ch 8 Golden Torus |
+| ✅ TLM tests xfail-clean per Rule 11 | L3 closure A-014 falsification record |
+| ✅ Cosserat real-space stator-envelope | Correct in scope; doesn't address dq-frame question |
+| ✅ g-2 corpus-canonical per Vol 2 Ch 6 §6.2 | AVE-axiom-compliant prediction; experimental tension noted |
+| ⚠ Cosserat scaffold-preservation indirect inference | Closeable via Lorentzian fit |
+| 🔴 Cosserat dq-frame phasor at Vol 1 Ch 8 Golden Torus | Mode III per L3 closure; empirically unrealized at K4-TLM-at-ℓ_node |
+| 🔴 **Corpus consistency**: Vol 1 Ch 8 Golden Torus framing not explicitly reconciled with parent's `39e1232` "electron is unknot" canonical | manuscript-level inconsistency requires Grant adjudication |
+
+**Net: 6 ✅ + 1 ⚠ + 2 🔴.** The second 🔴 is at the manuscript layer, not the engine layer — it's about whether Vol 1 Ch 8 is structurally consistent with the parent's earlier canonical fixes.
+
+### §20.9 — Forward direction (Rule 16 plumber-physics for Grant)
+
+The corpus drift finding raises a fundamental question:
+
+**Is the Golden Torus (Vol 1 Ch 8, R=φ/2, r=(φ-1)/2) the geometry of:**
+1. The electron itself? (then Vol 1 Ch 8 contradicts `39e1232` unknot fix)
+2. The lattice projection / wake cavity emerging from the unknot soliton? (then Vol 1 Ch 8 needs explicit framing as such)
+3. Something else? (Grant adjudication)
+
+The engine's empirical answer at the dq-frame phasor layer: Mode III at K4-TLM-at-ℓ_node sampling. So whatever the Golden Torus IS, the engine doesn't empirically realize it at that layer — consistent with reading (2) (sub-ℓ_node soliton + multi-node wake, neither resolvable at K4-TLM ℓ_node sampling) but doesn't directly confirm it.
+
+**Per Rule 16 — this is a Grant adjudication question.** The corpus has internal tension between `39e1232` canonical and Vol 1 Ch 8 framing. Grant's plumber-physics intuition resolves it: which IS the Golden Torus geometrically? Once that's settled, Vol 1 Ch 8's prose can be amended to match (per Rule 12 preserve-body — add explicit framing without retracting the body), and the corpus drift is closed.
+
+**Note: this isn't a session-time fix.** It's a manuscript-revision question that needs Grant + auditor + downstream-corpus-cross-checking. Surfaced honestly here as the deepest finding from the "search electron in old archive" investigation per Grant directive.
+
