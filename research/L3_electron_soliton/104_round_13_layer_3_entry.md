@@ -281,3 +281,89 @@ The structural picture stabilizes:
 (β) is engineering blocker work; (γ) is hours of new infrastructure; (δ) is Grant's lane.
 
 — §8 closure of Round 13 (α) execution per Grant directive 2026-05-01 ("proceed"). Mode III decisive at lattice-resolved scale + canonical quadrature IC. Rule 9 v2 trigger fired (8 cumulative Mode III tests). Forward-direction recommendation: characterize-engine's-natural-output per Rule 10 corollary; defer pre-registration of Round 14 to Grant's reflection.
+
+---
+
+## §8.10 — Self-audit corrections per Grant directive 2026-05-01 (Rule 12 + A47 v11b)
+
+Grant prompted self-audit on the §8 framing: "do you agree?" — Rule 9 v2 strategic-pivot signal asking implementer to step back. Honest answer: **partial agreement; substantial reservations on §8 framing.** Four corrections owed per Rule 12 preserve-body discipline. §8.1-§8.9 preserved verbatim above; corrections appended here.
+
+### §8.10.1 — 🔴 promotion in §8.8 was premature
+
+§8.8 promoted "K4 V_inc/V_ref Layer 3 canonical eigenmode test" to 🔴 status post-Round 13 (α). This was over-reach. Round 13 (α) tested at chair-ring scale (R=8 cells) which IS a corpus-electron-related geometry. Per doc 92 §6, K4-substrate-at-ℓ_node cannot host the corpus electron at any tested corpus-related scale (Nyquist limit, sub-ℓ_node corpus electron). **Round 13 (α) is one more confirmation of doc 92 §6's already-known structural closure, not a new 🔴 finding.**
+
+The honest contribution of Round 13 (α) narrows to: confirms that swapping V_inc-only IC for canonical-quadrature IC at the SAME chair-ring scale produces the SAME DC-dominated residual. Closes the narrow question "does the V_inc-only seeder differentiate from quadrature?" — answer: no, both produce identical failure mode at corpus-electron-scale geometry. That's narrower than a Layer 3 falsification.
+
+**Corrected entry:** Layer 3 K4 canonical eigenmode test status remains ⏸ with structural-context per doc 92 §6 closure. NOT 🔴.
+
+### §8.10.2 — Rule 9 v2 trigger framing in §8.6 was over-stated
+
+§8.6 listed 8 cumulative Mode III tests and claimed Rule 9 v2 trigger fires per "varied configurations all returning Mode III in the same direction → suspect question pattern." But the 8 tests are all at corpus-electron-related scales (chair-ring, bond-pair, bond-cluster — all targeting corpus-electron geometry on K4-at-ℓ_node). They're 8 manifestations of doc 92 §6's structural Nyquist closure, not 8 independent failures spanning "varied configurations" in the Rule 9 v2 sense.
+
+The cumulative pattern signal IS doc 92 §6's closure showing up across tests, NOT a new question-pattern signal that requires Rule 9 v2 reframe. The reframe was already documented in doc 92 §6: K4-at-ℓ_node-spacing cannot host sub-ℓ_node corpus electron.
+
+**Layer 3 phase-space (V_inc, V_ref) (2,3)-winding eigenmode at scales INDEPENDENT of corpus-electron geometry has NOT been tested.** So claiming "Layer 3 falsified" overstates what was empirically tested.
+
+**Corrected reading:** Round 13 (α) at chair-ring is a confirmation event for doc 92 §6, not a new Rule 9 v2 trigger. Layer 3 testing at scales independent of corpus-electron geometry is genuinely-not-yet-tested and remains a candidate forward direction.
+
+### §8.10.3 — A47 v11b substitution-not-retraction near-miss caught
+
+I substituted the dramatic reading ("🔴 Layer 3 falsified" + "Rule 9 v2 reframe required") for the simpler accurate reading ("Round 13 (α) confirms doc 92 §6 with canonical IC; closes the V_inc-vs-quadrature differentiation question; doesn't extend the closure beyond what's already known").
+
+This is the same A47 v11b pattern caught in §16 / §22 / §23 / §24 last round — labeling-as-closure (or, here, labeling-as-falsification) rather than reporting-as-data. The Rule 12 preserve-body fix: keep §8.6 + §8.8 verbatim, append this §8.10 with the corrected reading.
+
+### §8.10.4 — Rule 14 substrate-derives skipped
+
+§8 reported the DC-dominated residual + labeled it Mode III but did NOT walk substrate-physics for WHY the residual occurs. Per Rule 14 (substrate-derives-the-answer), this is the disciplined first move.
+
+Substrate-physics candidate explanations (Rule 14 walk, this turn):
+
+- **Saturation engagement is marginal.** IC has A²_max(t=0) = 0.032. V_yield engine-natural ≈ √α ≈ 0.0854 → A²_yield ≈ 0.0073, so the IC IS above yield. But the saturation cusp (per A47 v2) is at A²_op14 = √(2α) ≈ 0.121, well above the IC's 0.032. **Saturation is engaged but not at the cusp** — Op14 reflection coefficient |Γ|² is small but nonzero.
+
+- **Cosserat unsourced → no Op14 K4-Cosserat coupling target.** Per doc 103 §4.6: the canonical electron requires BOTH Cosserat ω AND K4 V_inc/V_ref structure simultaneously coupled via Op14. With Cosserat ω = 0, Op14 cross-block is one-sided (K4 → Cosserat radiation but no return); V_inc/V_ref energy disperses without a coupling-target to refresh.
+
+- **Chair-ring R=8 cells is ~50× corpus-electron scale.** If a K4 cavity mode exists, this scale isn't where it sits. The IC is exciting bulk waves on the K4 substrate at a wavelength much larger than the corpus-electron's tube radius.
+
+- **PML absorption.** N=48 lattice with PML thickness=4 leaves active region 40³. Energy retention 50P = 0.485 means ~half the energy was absorbed by the PML — consistent with bulk waves dispersing outward to the absorbing boundary instead of being trapped.
+
+**Honest substrate-physics interpretation:** the engine evolved the IC into bulk waves that disperse outward, leaving a low-amplitude DC residual at the IC's spatial pattern. This is straightforward K4-TLM behavior at ℓ_node sampling for an unbound IC at sub-saturation amplitude with no Cosserat coupling. **NOT a falsification of any specific corpus-canonical claim** — it's the engine doing exactly what the substrate allows under these conditions.
+
+The corpus electron's claim is a SELF-MAINTAINING TRAP (per doc 103 §4.2 + §3.2): saturation IS where the field IS, the field IS where saturation traps it, topologically protected. Round 13 (α) at sub-cusp A² + no Cosserat coupling cannot test the trap mechanism — neither the saturation-cusp threshold nor the K4-Cosserat coupling channel is engaged.
+
+### §8.10.5 — Revised honest empirical state
+
+Per §8.10.1 + §8.10.2 corrections, the §8.8 table:
+
+| Anchor | Status |
+|---|---|
+| Parent's `39e1232` electron-is-unknot canonical | ✅ |
+| Parent's α = p_c/8π packing-fraction canonical | ✅ |
+| Atomic IE 14/14 manuscript precision | ✅ |
+| TLM xfail-clean per Rule 11 | ✅ |
+| Theorem 3.1 Method 1 (LC-tank reactance) | ✅ |
+| AVE-HOPF λ(p,q) framework | ✅ |
+| Cosserat unknot Layer 1+2 (Round 12) | ✅ |
+| g-2 corpus-canonical per Vol 2 Ch 6 §6.2 | 🟡 |
+| K4 V_inc/V_ref Layer 3 canonical eigenmode test | ⏸ structural-context per doc 92 §6 closure (corpus-electron-scale only; Layer 3 at scales independent of corpus-electron not yet tested) |
+| Theorem 3.1 Method 2 (multipole sum) | ⏸ pending |
+| §22 Cosserat-AVE-HOPF cross-anchor | ⏸ pending |
+| Cosserat ⚠ scaffold-preservation Lorentzian | ⏸ methodology only |
+| Sub-ℓ_node corpus-electron-as-physical-object | ⏸ structurally blocked at K4-at-ℓ_node sampling per doc 92 §6 |
+
+**Revised net: 7 ✅ + 1 🟡 + 5 ⏸.** NOT 7 ✅ + 1 🟡 + 1 🔴 + 4 ⏸. The 🔴 promotion was premature; the cleaner reading is ⏸ with structural-context.
+
+### §8.10.6 — Corrected forward direction for Round 14
+
+The §8.9 forward direction (α'/β/γ/δ) framings were sound in spirit but follow from the corrected (not-falsified) Round 13 reading:
+
+- **(α')** Characterize-engine's-natural-output: still right per Rule 9 v2 catalog text *"characterize THAT object as itself"*. The DC residual at chair-ring with canonical quadrature IC IS an attractor (stable across 50P). Characterize: spatial distribution, port structure, FFT content beyond DC, sensitivity to IC amplitude / chirality / scale. **This was the disciplined Round 13 follow-up that should have been done in §8 itself, not labeled as Round 14 candidate.**
+
+- **(β)** CoupledK4Cosserat 4M× runaway: per §8.10.4 substrate walk — the canonical electron requires K4-Cosserat coupling. Round 13 (α) without Cosserat seed is a one-sided test. Round 14 (β) would address the coupling-channel question that Round 13's substrate walk surfaces.
+
+- **(γ)** Sub-ℓ_node infrastructure: still relevant for testing corpus-electron-at-canonical-scale.
+
+- **(δ)** Framework reflection: per the corrected reading, no new Rule 9 v2 trigger fires. Doc 92 §6 closure stands; the cumulative Mode III pattern is doc 92 §6 manifesting in subsequent tests, not new evidence of question-pattern wrongness. Framework reflection on α-derivation finding (auditor's prior critique) remains its own separate audit item.
+
+**Implementer-lean revised:** (α') as immediate forward — characterize the DC residual as itself per Rule 14 + Rule 9 v2 catalog text. Use the data already collected by Round 13 (α) — spatial structure of the residual, FFT content per cell beyond DC, sensitivity scan if needed. Then (β) coupling-channel work as Round 15+, (γ) sub-ℓ_node infrastructure as longer-term.
+
+— §8.10 self-audit corrections per Rule 12 preserve-body + A47 v11b substitution-not-retraction discipline + Rule 14 substrate-derives + Rule 9 v2 catalog-text-precision. §8.1-§8.9 body preserved; corrected reading appended.
