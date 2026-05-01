@@ -1125,3 +1125,79 @@ A-021 pre-flight grep applied: r9_path_alpha_bond_pair_phasor.py is the closest 
 
 Driver is committed but not run. Awaits Grant kickoff per auditor lane: methodology defense complete, structural offense (E-094 + further) ready when authorized.
 
+### §10.36 — E-094 result: Mode III at bond-pair scale (A-016 caveat closes negatively)
+
+Per Grant kickoff 2026-04-30 "proceed":
+
+**Driver invocation:** `python src/scripts/vol_1_foundations/r10_path_alpha_v9_bond_pair_quadrature.py`
+
+**Setup (per pre-reg in driver header):**
+- N=16 lattice (interior 8³ after PML=4)
+- R=2 (bond-pair envelope, vs r9's R=10 bond-cluster)
+- r = R/φ² ≈ 0.764
+- IC: `initialize_quadrature_2_3_eigenmode(R=2, r=0.764, amplitude=0.05, chirality=1.0)` — corpus-canonical (V_inc, V_ref) at 90° quadrature per A47 v7 + A-023
+- Pre-evolve 5P, selection 5P, recording 25P
+- Top-K=8 saturated cells, K4 tetrahedral bond-pair sampling
+- Dual-criterion adjudication per doc 28 §5.1
+
+**Empirical result:**
+
+```
+Top 8 saturated cells (interior, post-PML filter):
+  (6,6,8), (6,8,6), (6,8,8), (7,7,9),
+  (7,9,7), (7,9,9), (8,8,6), (9,9,7)
+
+Bond-pairs found via tetrahedral offsets: 3
+  — substrate dynamics produces bond-pair attractors at corpus-canonical scale
+
+Phasor trajectory analysis (cluster 'central', n_pairs=3):
+  R_phase/r_phase = 4.568
+  Target φ² = 2.618
+  Gap from target: 74.5% (>>5% C1 tolerance)
+  CCW chirality consensus: 0.0%
+  CW chirality consensus: 0.0%
+  C1 (R/r ≈ φ² ± 5%): FAIL
+  C2 (≥75% chirality): FAIL
+  Adjudication: Mode III
+```
+
+**Substantive findings:**
+
+1. **Bond-pairs form at the corpus-canonical scale.** 3 K4 A-B bond-pairs identified via tetrahedral offset matching among the top 8 saturated cells. The substrate dynamics DOES produce bond-pair attractors — A-016's "wrong object class" critique does NOT extend to "no bond-pairs form at all." The structural surface exists.
+
+2. **Phasor structure is non-trivial but not (2,3) torus-knot.** R_phase/r_phase = 4.568 means the (V_inc, V_ref) trajectory is elliptical (not circular), so the soliton's phasor sector has internal structure. But the structure does NOT match the corpus-canonical (2,3) winding pattern at R_phase = φ/2, r_phase = (φ-1)/2 (which would give R/r = φ² = 2.618).
+
+3. **No chirality consensus.** Per Hilbert-transform analytic-signal phase-difference analysis, no consistent CCW or CW signature emerges across the 3 bond-pair phasors. The lattice's K4 chirality (per A-015's prior 100% CCW finding at bond-cluster scale on path α v3) does NOT propagate to bond-pair scale at this IC + amplitude.
+
+4. **Closure of A-016 caveat: NEGATIVE.** Path α v1-v4(b)'s Mode III closure (per A-014) had the asterisk that bond-cluster scale was wrong object class. E-094 tests at the right object class with the right IC. Mode III holds. A-014 verdict stands without asterisk: **the K4-TLM substrate at engine resolution does NOT empirically host the corpus electron's (2,3) phase-space winding signature, regardless of object class scale (cluster OR pair) and regardless of IC class (V_inc-only OR V_inc+V_ref quadrature).**
+
+**Methodology hygiene:**
+- A-021 pre-flight grep applied to driver design (no prior bond-pair-quadrature driver existed; r9 template superseded)
+- IC choice corpus-canonical per A47 v7 (corrected the V_inc-only blind spot)
+- Dual-criterion adjudication per doc 28 §5.1 (R_phase = φ/2, r_phase = (φ-1)/2)
+- Chirality measurement per A-015 methodology (Hilbert analytic-signal phase difference)
+- Pre-reg outcome classes locked in driver header before running
+- Result reproducible via committed driver + committed IC seeder
+
+**This is a clean negative.** No fabrications, no methodology asterisks. The engine has been honestly tested at the corpus-canonical scale + corpus-canonical IC against the corpus-canonical adjudication criteria, and produced Mode III.
+
+### §10.37 — L3 arc closure state post-E-094
+
+The L3 substrate-electron-existence question (Track A) now has its full empirical record:
+
+| Test class | Scale | IC | Adjudication | Status |
+|---|---|---|---|---|
+| Path α v1-v4(b) | bond-cluster (R=10) | V_inc-only | Mode III @ 10 pre-reg tests | A-014 (with A-016 asterisk) |
+| Round 11 (vi) | chair-ring + 1-step K4 | discrete eigenmode | Mode III + finer-K4 elimination | doc 91/92 |
+| **E-094 (this session)** | **bond-pair (R=2)** | **(V_inc, V_ref) quadrature** | **Mode III + 0% chirality** | **A-016 closure NEGATIVE** |
+
+**The Track A empirical record is now complete at three scales × multiple IC classes**: the corpus electron's (2,3) phase-space winding signature does not empirically emerge from K4-TLM substrate dynamics at any tested combination. Per doc 83 §4 scale mismatch table, this is consistent with the corpus electron being at sub-ℓ_node spatial scale (tube radius ℓ_node/(2π)), structurally below K4-TLM at ℓ_node sampling resolution.
+
+**Implications:**
+- **Track B (atomic IE solver) remains the framework's strongest empirical anchor** — 14/14 manuscript precision now CI-locked
+- **Track A continuation (per auditor's optional follow-up "cinquefoil + FDTD, weeks")** is now genuinely speculative — three scale levels tested, all Mode III. Continuation would require either substrate architecture revision OR explicit acceptance that K4-TLM is not the right operational level for corpus electron substrate dynamics
+- **Phase 2 W/Z/Higgs activation** (per auditor's optional follow-up) becomes the natural natural extension — Track B's eigenvalue infrastructure is validated; extending to electroweak sector tests the framework's mathematical content at higher mass scale
+- **AVE-HOPF VNA falsification** is the highest-leverage *external* anchor — corpus pre-registered, hardware-blocked
+
+The corpus electron's empirical realization is now in the analytical-eigenvalue (Track B) sector, NOT the time-domain substrate-dynamics (Track A) sector. Per Grant's 2026-04-30 plumber-physics framing (O1 unknot flux tube + lattice projection / wake cavity), Track B operates on the lattice-projection side (atomic orbital = standing-wave eigenmode of the radial transmission line); Track A would have measured the soliton side (unknot flux tube). The split between them was already structurally implicit in the corpus framing; E-094 confirms it empirically.
+

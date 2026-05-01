@@ -1,0 +1,75 @@
+{
+  "lattice_N": 16,
+  "R": 2.0,
+  "r": 0.7639320225002103,
+  "amplitude": 0.05,
+  "ic_seeder": "initialize_quadrature_2_3_eigenmode",
+  "n_bond_pairs": 3,
+  "bond_pairs": [
+    {
+      "A": [
+        "8",
+        "8",
+        "6"
+      ],
+      "B": [
+        "9",
+        "9",
+        "7"
+      ],
+      "offset": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "A": [
+        "7",
+        "7",
+        "9"
+      ],
+      "B": [
+        "6",
+        "8",
+        "8"
+      ],
+      "offset": [
+        -1,
+        1,
+        -1
+      ]
+    },
+    {
+      "A": [
+        "6",
+        "8",
+        "6"
+      ],
+      "B": [
+        "7",
+        "9",
+        "7"
+      ],
+      "offset": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "adjudication": {
+    "central": {
+      "mode": "Mode III",
+      "n_pairs": 3,
+      "ratio": 4.568069883554095,
+      "phi_sq_target": 2.618033988749895,
+      "ratio_gap_pct": 74.484743253289,
+      "mean_chirality": 0.005655733657297938,
+      "ccw_consensus_frac": 0.0,
+      "cw_consensus_frac": 0.0,
+      "c1_pass": false,
+      "c2_pass": false
+    }
+  }
+}
