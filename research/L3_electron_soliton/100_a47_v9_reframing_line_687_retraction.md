@@ -2422,7 +2422,27 @@ The engine's empirical answer at the dq-frame phasor layer: Mode III at K4-TLM-a
 
 ---
 
-## §21 — Grant adjudication 2026-04-30: Reading (3) is canonical
+## §21 — 🔴 RETRACTED 2026-04-30 (Rule 12 + A47 v11b): "reading (3) canonical" misread Grant's tentative lean
+
+**Retraction reason** (per A47 v11b substitution-not-retraction discipline + A43 v2 anyone-must-grep): the implementer treated Grant's *"I am leaning toward 3"* as settled adjudication and built §21 + §22 + §23 on it as foundation. Per Grant's later 2026-04-30 reframe ("the packing fraction was the original relationship; AVE-Core's Vol 1 Ch 8 Golden Torus was added to try to patch the zero-parameter claim — let's ignore the Golden Torus derivation for now"), the actual lean was NOT "Vol 1 Ch 8 is mathematical scaffold for α derivation" (reading 3) but "Vol 1 Ch 8 is a post-IP-separation patch-attempt to make parameter-freedom appear cleaner than parent's actual canonical." Different framing, different forward direction.
+
+**What gets retracted:**
+- §21.1-§21.6 reading-3-licensing framework
+- "Reading (3) collapses three apparent tensions cleanly" — the tensions weren't collapsed; they were licensed away by an unverified premise
+- The §21.5 auditor-lane proposals (manuscript amendment, function rename) — withdrawn
+
+**What stands per Rule 12 preserve-body:** the §21 narrative is preserved below as audit trail. Implementer's good-faith misreading is part of the methodology evidence.
+
+**What §21 was actually trying to do** (correct version, per §25 reframe):
+- §20 corpus-drift finding (Vol 1 Ch 8 added 2026-04-19 post-IP-separation, structurally distinct from parent) is REAFFIRMED as correct
+- The drift was a patch-attempt, not a "different operational layer"
+- Forward direction: bracket Vol 1 Ch 8, re-ground on parent's canonical α = p_c/8π + electron-is-unknot
+
+— Retraction landed 2026-04-30 per §25 bracket-Golden-Torus reframe. Body preserved below.
+
+---
+
+## §21 — Grant adjudication 2026-04-30: Reading (3) is canonical [BODY PRESERVED, RETRACTED ABOVE]
 
 Per Grant 2026-04-30 ("I am leaning toward 3"): the Vol 1 Ch 8 Golden Torus is a **mathematical scaffold for the α derivation**, NOT a physical claim about the electron's geometry.
 
@@ -2550,7 +2570,37 @@ This is the cleanest end-state for the session: 6 ✅ verifications of various c
 
 ---
 
-## §22 — Four-anchor empirical execution per `implementors_plan.md` (2026-04-30)
+## §22 — 🔴 PARTIAL RETRACTION 2026-04-30 (Rule 12 + A47 v11b): four-anchor synthesis was Golden-Torus-tied at the cross-anchor row
+
+**Retraction scope** (per §25 bracket-Golden-Torus reframe + auditor pass-3): the §22.5 four-anchor synthesis table presented Cosserat (2,3)-eigenmode + Theorem 3.1 Q-factor + g-2 + AVE-HOPF Beltrami cross-anchor as four independent corpus-canonical anchors all on "the same physical object (the electron)." Under bracket-Golden-Torus framing, the cross-anchor row is no longer load-bearing as stated.
+
+**What stands** (Golden-Torus-independent):
+- §22.1 — Cosserat 30/30 unit tests PASS at HEAD ✅
+- §22.2 — Cosserat (2,3)-eigenmode topology preservation (c=3 both seeds) ✅ — but as a test of (2,3)-topology dynamics, NOT as a test of "the corpus electron" (which under packing-fraction canonical IS unknot, not (2,3))
+- §22.3 — g-2 corpus-canonical per Vol 2 Ch 6 §6.2 (axiom-internally coherent; experimental tension flagged) ✅/🟡
+- §22.3 — Theorem 3.1 Method 1 (LC-tank reactance) ✅ — Golden-Torus-INDEPENDENT, derives α⁻¹ from ξ_topo + L_e + ω_C + Z_0 alone
+
+**What brackets with Golden Torus:**
+- §22.3 — Theorem 3.1 Method 2 (multipole sum at hardcoded R = φ/2, r = (φ-1)/2) — Golden-Torus-derived; brackets with Vol 1 Ch 8
+- §22.4 — Cosserat-AVE-HOPF Beltrami cross-anchor at "Cosserat-relaxed (R, r)" — used Golden-Torus-seeded geometry (R=8, r=3.06 grid units = grid-equivalent of φ/2, (φ-1)/2). Length-scale consistency claim is Golden-Torus-tied
+- §22.5 — "Three operational levels exercised on the same physical claim (the electron)" — under bracket-Golden-Torus, the (2,3)-topology level is NOT testing the corpus electron (which is unknot per `electron-unknot.md`, not (2,3))
+
+**What §22 framing got wrong:**
+- Treated (2,3)-topology Cosserat dynamics as canonical electron measurement; canonical electron is unknot
+- Treated "four-anchor synthesis on same physical object" as load-bearing; three of four anchors had Golden-Torus dependencies the synthesis didn't surface
+
+**What §22 framing got right:**
+- Cosserat solver is production-sound (30/30 tests)
+- g-2 axiom-compliance + experimental tension framing was correct
+- Theorem 3.1 Method 1 IS Golden-Torus-independent and stands
+
+**Honest residual count from §22 alone**: 3 ✅ (Cosserat tests pass, g-2 axiom-compliant, Theorem 3.1 Method 1) + 2 ⏸ (Cosserat (2,3) topology vs unknot canonical, AVE-HOPF cross-anchor at Golden-Torus-seeded values).
+
+— Partial retraction landed 2026-04-30 per §25 bracket-Golden-Torus reframe. Body preserved below.
+
+---
+
+## §22 — Four-anchor empirical execution per `implementors_plan.md` (2026-04-30) [BODY PRESERVED, CROSS-ANCHOR ROW PARTIALLY RETRACTED ABOVE]
 
 Per Grant's "10 points" challenge against the auditor's Tier B → A recommendation. The plan was to operationally exercise the corpus-canonical electron solvers end-to-end on existing infrastructure and surface the empirical state honestly.
 
@@ -2819,7 +2869,30 @@ Adopting Path B reframe: ⚠⃝ → ✅ at 1% R-preservation, with r-drift docum
 
 ---
 
-## §24 — Rule 16 question to Grant on the load-bearing physical-vs-mathematical-scaffold question
+## §24 — 🔴 RETRACTED 2026-04-30 (Rule 12 + A47 v11b): (a)/(b)/(c)/(d) menu presupposed Golden Torus is canonical
+
+**Retraction reason** (per §25 bracket-Golden-Torus reframe): the §24 menu (a)/(b)/(c)/(d) framed Vol 1 Ch 8's Golden Torus as a load-bearing canonical requiring interpretation between four readings. Grant's actual 2026-04-30 reframe ("the packing fraction was the original relationship; AVE-Core's Vol 1 Ch 8 Golden Torus was added to try to patch the zero-parameter claim — let's ignore the Golden Torus derivation for now") makes the entire menu moot. Vol 1 Ch 8 is a patch-attempt; the canonical is parent's α = p_c/8π + electron-is-unknot. There's no reading-(a)/(b)/(c)/(d) adjudication owed because the question itself was framed inside the patch-attempt's framing.
+
+**Implementer's substrate-walk in the prior turn** (Rule 14 walk concluding "Clifford torus IS phase-space; Vol 1 Ch 8's R, r ARE physical phasor radii on the bond LC's Clifford torus") was internally rigorous IF Golden Torus is canonical. With Golden Torus bracketed, the walk landed at a non-load-bearing layer. Endorsement withdrawn.
+
+**Two-manuscripts-in-tension framing** (auditor pass-2 amendment to §24): also moot. Under packing-fraction canonical, parent's `39e1232` electron-is-unknot + α=p_c/8π is the singular canonical; AVE-Core's post-2026-04-19 Vol 1 Ch 8 IS the patch-attempt that drifted. Not "two manuscript-tier sources in tension" — one canonical, one drift.
+
+**What gets retracted:**
+- The (a)/(b)/(c)/(d) menu itself
+- The "load-bearing Rule 16 question" framing
+- The forward-path map per reading
+- The implementer's "honest read leans (a)" endorsement
+- The auditor's two-manuscripts-in-tension structural framing
+
+**What stands per Rule 12 preserve-body:** the §24 narrative is preserved below as audit trail. The Rule-14-failure-mode catch is part of the methodology evidence (presented framework-comparison menu instead of walking substrate; substrate-walk in NEXT turn ALSO landed at non-load-bearing layer because the substrate being walked was Golden-Torus-licensed).
+
+**The actual Rule 16 questions owed to Grant** (per §25 bracket-Golden-Torus reframe): three specific questions about the packing-fraction canonical's chain, Cosserat reframe against unknot, and AVE-HOPF cross-anchor reframe. See §25.4.
+
+— Retraction landed 2026-04-30 per §25 bracket-Golden-Torus reframe. Body preserved below.
+
+---
+
+## §24 — Rule 16 question to Grant on the load-bearing physical-vs-mathematical-scaffold question [BODY PRESERVED, RETRACTED ABOVE]
 
 Per Rule 16 (ask-Grant-fundamental-physics-questions BEFORE designing tests/closures), the §21+§22+§23 arc has been licensed by reading (3) — *"Vol 1 Ch 8's Golden Torus is mathematical scaffold for α derivation, NOT physical claim about electron geometry"* — without that reading actually being adjudicated. Your *"I am leaning toward 3"* was a tentative lean. Auditor's direct read of [`vol_1_foundations/chapters/08_alpha_golden_torus.tex:101-141`](../../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex#L101-L141) shows currently-physical prose:
 
@@ -2864,4 +2937,128 @@ But I shouldn't be the one deciding this; Rule 16 says ask. — auditor pass 202
 - **Reading (b):** Cosserat ω real-space scaffold IS the corpus electron's home. §16 stator-envelope reading is load-bearing. A47 v3's "different field" framing was wrong. r-drift in §23 is a real physics observation needing investigation, not closure.
 - **Reading (c):** Vol 1 Ch 8 is mathematical scaffold for α derivation only. Manuscript amendment owed to clarify "only Rr = 1/4 is the canonical constraint." Cosserat r-drift is irrelevant; ⚠ closes via R-preservation alone (which is what §23 attempted, post-hoc-but-legitimate-under-(c)).
 - **Reading (d):** Vol 1 Ch 8 prose is canonical-as-written. Cosserat 5.6% Lorentzian-fit-r drift in real-space is a real disagreement. ⚠ stays open and the L3 arc has been measuring the right observable.
+
+---
+
+## §25 — Bracket Golden Torus reframe per Grant 2026-04-30: re-ground L3 arc on packing-fraction canonical
+
+### §25.1 — Grant's adjudication
+
+Per Grant 2026-04-30 (verbatim, reframing the prior "I am leaning toward 3" tentative lean):
+
+> *"The packing fraction was the og relationship established. The AVE-Core Golden Torus was added to try to patch the zero-parameter claim. Let's ignore the Golden Torus derivation for now."*
+
+This is a structurally different framing from reading (3) ("Vol 1 Ch 8 is mathematical scaffold for α derivation"). It's:
+
+- Vol 1 Ch 8's α⁻¹ = 4π³ + π² + π = 137.036 derivation is a **post-IP-separation patch-attempt** to make parameter-freedom appear cleaner than parent's actual canonical
+- Parent's α = p_c/(8π) (axiomatic, Bounding Limit 2 in `manuscript/backmatter/02_full_derivation_chain.tex:63-65`) IS canonical
+- Parent's `39e1232` (2026-03-02) electron-is-unknot IS canonical: circumference = ℓ_node, tube radius = ℓ_node/(2π), R/r = 1, m_e = ℏ/(ℓ_node·c)
+- Implementer's prior reading-3 framing + auditor's two-manuscripts-in-tension framing both miss this — the actual relationship is **canonical vs patch-attempt**, not "two layers" or "two manuscript-tier sources"
+
+### §25.2 — What gets bracketed
+
+**Bracketed at the framing level** (set aside as derivation framework, not retracted as chapter prose):
+- Vol 1 Ch 8 R = φ/2, r = (φ-1)/2 as canonical electron geometry
+- Vol 1 Ch 8 R/r = φ² ≈ 2.618 as canonical electron ratio
+- Vol 1 Ch 8 multipole-sum α⁻¹ = 4π³ + π² + π = 137.036 as canonical α derivation
+- The Λ_vol = 16π³·R·r, Λ_surf = 4π²·R·r, Λ_line = π·d decomposition
+
+**Not bracketed** (because they're orthogonal to the patch-attempt):
+- Vol 1 Ch 8 prose itself (manuscript-author lane, Rule 15)
+- Hardcoded production-code references to ALPHA_COLD_INV (manuscript-author lane)
+- Tests + verification scripts that depend on Golden Torus (manuscript-author lane)
+- The prior Theorem 3.1 Method 1 result (LC-tank reactance) which is Golden-Torus-INDEPENDENT
+
+### §25.3 — What stands under packing-fraction canonical
+
+**Parent's α = p_c/(8π) chain** (verified at `manuscript/backmatter/`):
+- `02_full_derivation_chain.tex:63-65` — α ≡ p_c/(8π) ≈ 1/137.036, Bounding Limit 2
+- `appendix_c_derived_numerology.tex:58-72` — p_c via Feng-Thorpe-Garboczi EMT quadratic at K/G = 2 trace-reversal
+- p_c is the **lattice geometry constant** from EMT, Axiom 4 grounded
+- Coordination z₀ ≈ 51.25 emerges from the EMT quadratic
+
+**Parent's electron-is-unknot canonical** (verified at `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md:1-27`):
+- electron = O₁ unknot = simple closed flux loop, ropelength = 2π
+- circumference = ℓ_node = ℏ/(m_e c) (reduced Compton wavelength)
+- tube radius = ℓ_node/(2π)
+- m_e = T_EM · ℓ_node/c² = ℏ/(ℓ_node · c) (exact via Bounding Limit 1)
+- **R/r = 1 for unknot**, structurally NOT φ²
+
+### §25.4 — Implication for prior session sections
+
+Per Rule 12 retraction-preserves-body + A47 v11b substitution-not-retraction discipline:
+
+| Section | Status post-§25 | Action |
+|---|---|---|
+| §16 (Cosserat ⚠ structural disambiguation) | Retraction landed correctly | No change |
+| §17 (auditor's §16 corrections) | Stands as audit trail | No change |
+| §18 (g-2 closure per Vol 2 Ch 6 §6.2) | Stands — corpus-internal axiom-coherence is independent of Golden Torus | No change |
+| §19 (FOC analogy reveals §16 layer conflation) | Stands — FOC stator-vs-rotor is substrate-physics, independent of Golden Torus | No change |
+| §20 (corpus drift finding) | **REAFFIRMED** — original framing was correct; the just-proposed correction does NOT land | The auditor's pass-2 critique was right: Vol 1 Ch 8 IS a drift in the patch-attempt sense |
+| §21 (reading-3 lean canonical) | **🔴 RETRACTED** | Header landed; body preserved |
+| §22 (four-anchor synthesis) | **🔴 PARTIAL RETRACTION** | Header landed; cross-anchor row brackets, three rows stand |
+| §23 (Lorentzian-fit closure) | Retraction landed correctly | No change — ⏸ pending Q2 reframe |
+| §24 ((a)/(b)/(c)/(d) menu) | **🔴 RETRACTED** | Header landed; body preserved |
+
+**Implementer's substrate-walk endorsement** in the turn before this §25 (Rule 14 walk concluding Clifford torus IS phase-space; Vol 1 Ch 8 R, r are physical phasor radii) — was internally rigorous under the assumption that Golden Torus is canonical. Under bracket-Golden-Torus, the walk landed at a non-load-bearing layer. Endorsement withdrawn. The walk itself is valuable methodology evidence; the conclusion's load-bearing-status is not.
+
+### §25.5 — Recalibrated honest empirical state under packing-fraction canonical
+
+| Anchor | Status | Comment |
+|---|---|---|
+| Parent's `39e1232` electron-is-unknot canonical | ✅ | Manuscript canonical (parent + AVE-Core ave-kb) |
+| Parent's α = p_c/8π packing-fraction canonical | ✅ | Backmatter axiomatic (Bounding Limit 2 + EMT) |
+| Atomic IE 14/14 manuscript precision | ✅ | Orbital solver, independent of α derivation framing |
+| TLM xfail-clean per Rule 11 | ✅ | L3 closure A-014 + E-094 + Flag 2; falsification record |
+| Theorem 3.1 Method 1 (LC-tank reactance α⁻¹) | ✅ | Golden-Torus-INDEPENDENT; uses ξ_topo + L_e + ω_C + Z_0 alone |
+| AVE-HOPF λ(p,q) framework | ✅ | Generic formula; (p,q)-torus-knot eigenmode analytics |
+| g-2 corpus-canonical per Vol 2 Ch 6 §6.2 | 🟡 | Axiom-internally-coherent; ppm experimental tension flagged honestly |
+| Theorem 3.1 Method 2 (multipole sum) | ⏸ | Golden-Torus-arithmetic; brackets with Vol 1 Ch 8 |
+| §22 Cosserat-AVE-HOPF cross-anchor | ⏸ | Used Golden-Torus-seeded (R, r) grid values; needs re-evaluation against unknot canonical |
+| Cosserat ⚠ scaffold-preservation | ⏸ | Was vs Golden-Torus reference; needs reframe against unknot R = r = ℓ_node/(2π) |
+
+**Net: 6 ✅ + 1 🟡 + 3 ⏸ pending reframe.** Down from prior implementer-framing of 7 ✅ + 0 ⚠ (which auditor correctly diagnosed as Golden-Torus-licensed synthesis).
+
+The 6 ✅ are independent of Golden Torus framing. The 3 ⏸ are operationally bracketed pending Grant's adjudication on Q2/Q3 below — not retracted, not falsified, just not load-bearing under the packing-fraction canonical until the framework's geometric reference is re-established at the unknot.
+
+### §25.6 — Three Rule 16 questions for Grant on forward direction
+
+Per Rule 16 (ask Grant fundamental physics questions BEFORE designing forward tests):
+
+**Q1 — α = p_c/(8π) numerical evaluation chain.** What computes p_c independently?
+
+The backmatter chain reads: α ≡ p_c/(8π) is axiomatic (Bounding Limit 2). p_c is determined via EMT quadratic at K/G = 2 trace-reversal, which yields coordination z₀ ≈ 51.25. But that chain doesn't surface a clear independent path to p_c numerically — the EMT quadratic is `p* = (10z₀-12)/(z₀(z₀+2))` solved at K/G = 2; substituting z₀ ≈ 51.25 gives p_c, but z₀ itself comes from a relation involving... what?
+
+If the framework derives p_c → z₀ (independently of α), then α = p_c/(8π) is genuinely zero-parameter. If the framework uses observed α to back-compute p_c via p_c = 8π·α ≈ 0.18335, the chain is circular and the multipole approach (Vol 1 Ch 8) was a patch-attempt to give it an independent geometric grounding. **Need plumber-physics adjudication: does parent's canonical have an independent p_c calculation, or was the Vol 1 Ch 8 patch responding to a real gap in the canonical's parameter-freedom?**
+
+This question matters: if (a) parent is genuinely zero-parameter, Vol 1 Ch 8 is a redundant geometric verification that drifted into reading-as-canonical. If (b) parent has an unsurfaced parameter-freedom question, the Vol 1 Ch 8 patch was attempting to close a real gap, and bracketing it leaves the gap exposed.
+
+**Q2 — Cosserat reframe against unknot canonical.** The canonical electron geometry under packing-fraction framing is unknot with R = r = ℓ_node/(2π) per `electron-unknot.md`. The CosseratField3D (2,3)-eigenmode work tested torus-knot dynamics, NOT unknot dynamics. Should Cosserat scaffold-preservation be reframed by:
+
+- (i) Re-running with `initialize_electron_2_3_sector(R = r = ℓ_node/(2π))` — but R = r breaks the (2,3)-torus-knot embedding (no separation between major and minor radii)
+- (ii) Adding an unknot-seed initializer (`initialize_electron_unknot_sector(R = ℓ_node/(2π))`) and rerunning vs unknot canonical — would require new code in `cosserat_field_3d.py`
+- (iii) Setting Cosserat ⚠ aside as "tests (2,3)-topology dynamics, not the canonical electron" — same engine-lane recommendation §21.5 made, but now without the reading-3 baggage
+- (iv) Different framing entirely (e.g., "Cosserat tests rotational-sector dynamics regardless of topology; unknot just doesn't have an interesting rotational seed")
+
+**Q3 — §22 Cosserat-AVE-HOPF cross-anchor.** AVE-HOPF λ(p,q) = √(p²/R² + q²/r²) at unknot's geometry (R = r = ℓ_node/(2π)) gives λ_unknot = √(p² + q²)·(2π/ℓ_node). For p = q = 1 (unknot has no winding, so this reduces to Beltrami fundamental): λ = √2·(2π/ℓ_node). Should the §22 cross-anchor be:
+
+- (i) Re-run at unknot's canonical geometry — but the unknot's (p, q) reduces, the formula changes character
+- (ii) Bracketed entirely — the AVE-HOPF framework operates on (p, q)-torus knots structurally; unknot is the (1, 0) or trivial limit and may not have a meaningful Beltrami eigenvalue in the same sense
+- (iii) Reframed as testing torus-knot Beltrami eigenmodes generally (which AVE-HOPF does well) without claiming the cross-anchor tests "the corpus electron" (which is unknot, not (2, 3))
+
+### §25.7 — Forward direction: hold for Q1/Q2/Q3
+
+Implementer holds. Production code unchanged this session. Manuscript prose unchanged this session. Predictions.yaml unchanged this session. The bracket-Golden-Torus reframe is documentation-only at this layer — the actual decision tree on which Golden-Torus dependencies in production code to keep / archive / reframe is manuscript-author-lane (Grant's call per Rule 15).
+
+What gets unblocked when Q1/Q2/Q3 adjudicate:
+
+- **If Q1 → parent has independent p_c chain:** Vol 1 Ch 8 is fully redundant and bracketing is forward. Production code's ALPHA_COLD_INV gets retired as a derived diagnostic, not a primary constant.
+- **If Q1 → parent has parameter-freedom gap:** the L3 arc surfaces a real corpus-foundation question. Forward physics is "what's the genuinely zero-parameter chain for α?" — bigger task than this session's scope.
+- **If Q2 → adopt option (iii):** Cosserat ⚠ resolves cleanly as "tests (2,3)-topology not electron." Engine-lane rename `initialize_electron_2_3_sector` → `initialize_2_3_torus_knot_sector` becomes a clean cleanup.
+- **If Q2 → adopt option (ii):** new unknot-seed initializer is real engineering work (~hours). Forward direction.
+- **If Q3 → adopt option (iii):** AVE-HOPF framework stands as torus-knot Beltrami eigenmodes; the §22 cross-anchor row gets reframed as informational diagnostic rather than load-bearing.
+
+This is a methodology-disciplined hold, not a stuck position. The Rule 16 questions are concrete; once adjudicated, forward direction follows.
+
+— §25 closure of bracket-Golden-Torus reframe per Grant 2026-04-30 + auditor pass-3 + implementer Rule 14 catch + COLLABORATION_NOTES.md re-grounding.
 
