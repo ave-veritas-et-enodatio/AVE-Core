@@ -251,3 +251,72 @@ It also clarifies what the L3 arc has been struggling with:
 The §5 substrate-perspective view doesn't solve the engineering blocker, but it CLARIFIES what the engine needs to deliver: stable saturation-coupled K4 + Cosserat dynamics with both sectors carrying their canonical-electron structure simultaneously.
 
 — Doc 103 closure of substrate-perspective walk per Grant 2026-04-30 ("what does the lattice see and react"). Operational physics view of the canonical electron from the lattice's frame; clarifies Round 13+ direction.
+
+---
+
+## §8 — Auditor pass-4 corrections to doc 103 (2026-05-01)
+
+Auditor reviewed doc 103 same-day. Substantive endorsement of substrate inventory + emergent-macroscopic-properties framing + Round 13 path naming + honest Round 14 framing. Three substantive corrections owed:
+
+### §8.1 — A43 v2 grep gaps closed (substrate-walk claims now corpus-cited)
+
+Auditor flagged that several substrate-walk claims in §4 lacked explicit corpus citations. Grep verification this turn:
+
+**§4.2 "Self-maintaining trap... unknot is the topological ground state"** — corpus citation:
+- [`manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex:203`](../../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex#L203) uses the verbatim phrase "stable topological ground state"
+- [`electron-unknot.md:55`](../../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md#L55) + [`manuscript/vol_2_subatomic/chapters/01_topological_matter.tex:77`](../../manuscript/vol_2_subatomic/chapters/01_topological_matter.tex#L77): *"the unknot... establishing the electron's physical role as the structural mass-gap of the spatial medium"*
+
+**§4.5 / §3.2 "TIR wall at loop surface"** — corpus citation:
+- [`manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:423`](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex#L423): "Total Internal Reflection: The Confinement Bubble" — canonical Vol 4 Ch 1 §...
+- [`manuscript/vol_4_engineering/chapters/20_optical_caustic_resolution.tex:34`](../../manuscript/vol_4_engineering/chapters/20_optical_caustic_resolution.tex#L34): "Total Internal Reflection of the Vacuum"
+- [`manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex:192`](../../manuscript/vol_2_subatomic/chapters/12_the_millennium_prizes.tex#L192): *"Γ = -1 is a perfect electromagnetic mirror (total reflection with phase inversion), permanently trapping the dynamic wave energy inside the topological knot. This is the physical mechanism of colour confinement..."*
+
+The substrate-walk's "self-formed TIR wall via |∇Z_eff|" is the same mechanism the corpus calls the "Confinement Bubble" / "perfect electromagnetic mirror." Mapping: substrate-walk Z_eff gradient → corpus Γ = -1 mirror at the saturation boundary.
+
+**§4.5 "Op14 long-range tail → gravitational refractive index"** — corpus citation:
+- [`manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:35`](../../manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex#L35): *"both constitutive parameters scale with the refractive index n(r) = 1 + 2GM/(rc²)"*
+- [`manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex:109`](../../manuscript/vol_3_macroscopic/chapters/02_general_relativity_and_gravity.tex#L109): *"Op14 saturation profile, increasing their refractive capture radius"* — explicit Op14 → refractive-index chain
+- [`manuscript/common_equations/eq_gravity_derived.tex`](../../manuscript/common_equations/eq_gravity_derived.tex) is the single-source-of-truth for n(r) = 1 + 2GM/(rc²), Symmetric Gravity per Ax 1 + Ax 4
+
+The substrate-walk's "Op14 long-range tail → gravitational mass + light bending + clock slowing" is the corpus's canonical Symmetric-Gravity-per-Ax-1+Ax-4 derivation. Vol 3 Ch 2+3 carries the chain end-to-end.
+
+**A43 v2 status: closed.** All three substrate-walk claims are corpus-supported with verbatim phrases or explicit derivation chains. Per Rule 12 preserve-body, the original §4 prose stands; this §8.1 anchors it via citation.
+
+### §8.2 — Layer 2 reference adjudication chain
+
+Auditor flagged §4.4's "g=2 from SU(2) bundle (Layer 2)" as licensing further work on a pending three-layer adjudication. Status check:
+
+- **Grant chat 2026-04-30** explicitly endorsed three-layer walk: *"you're seeing exactly what im seeing"* (covering Layers 1 + 2 + 3 framing)
+- **Auditor pass-3** explicit endorsement: *"Layers 1 and 2 are structurally sound — endorse... This is consistent with the corpus-internal substrate-walk parent's vol2/particle-physics/ch04-quantum-spin/spin-gyroscopic-isomorphism.md already does"*
+- **Doc 101 §10** landed auditor's pass-3 corrections (Layer 3 specific (R, r) values pending; corpus tension grep-verified)
+
+Layer 2 specifically is corpus-supported via:
+- A-008 (SO(3)/SU(2) double-cover at substrate level)
+- [`spin-gyroscopic-isomorphism.md`](../../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md) (numerically verified Δ < 10⁻⁸ between Dirac spinor and classical gyroscope ODEs)
+- [`larmor-derivation.md`](../../manuscript/ave-kb/vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md) (g=2 emerges from Newton's rotational laws on the topological flywheel)
+
+So Layer 2 is corpus-canonical AND adjudicated. Doc 103 §4.4 reference is on solid ground.
+
+**Layer 3 specifically remains pending.** Doc 103 §4.6 explicitly caveats Layer 3 ("hypothetical pending Layer 3 audit"). §6's Round 13 path uses A47 v7's existing seeder which is corpus-canonical via doc 28 §5.1 + A45 corpus-canonical-test-precondition INDEPENDENT of Layer 3 framing — the test stands regardless of how Layer 3 adjudicates.
+
+### §8.3 — α derivation finding NOT addressed by doc 103 (acknowledged)
+
+Per auditor: *"the α derivation finding is still open and doc 103 doesn't address it. The substrate-perspective walk for emergent macroscopic properties is consistent with the framework's stated philosophy — but it doesn't restore the 'α derivation parameter-free at machine precision' claim."*
+
+Acknowledged. Doc 103's macroscopic-emergence framing is about HOW properties emerge from substrate state. It does NOT speak to:
+- Whether α = p_c/(8π) is independently zero-parameter (Q1 closed via Grant 2026-04-30 chat — yes, K/G=2 trace-reversal — but the audit-level "is the chain SI substitution or not?" is separate)
+- Theorem 3.1 Method 1's chain (α⁻¹ from ξ_topo + L_e + ω_C + Z_0; dimensional consistency ≠ independent derivation)
+- Vol 1 Ch 8 multipole sum (Method 2; brackets with bracketed chapter)
+
+These are separate audits at separate layers. Doc 103 does NOT change their status. Per auditor's "two questions and both are still open" — accepted.
+
+### §8.4 — Net status post-§8
+
+Doc 103 substantive content stands per auditor's substantive endorsement. Three corrections landed:
+- §8.1 closes A43 v2 grep gap (citations now explicit)
+- §8.2 confirms Layer 2 adjudication chain (Grant chat + auditor pass-3 + corpus content)
+- §8.3 acknowledges α derivation is separate audit, not addressed by doc 103
+
+Round 13 path (K4 V_inc/V_ref Layer 3 test via A47 v7 seeder) is independently corpus-justified per doc 28 §5.1 + A45, regardless of three-layer Layer 3 adjudication status.
+
+— §8 closure of auditor pass-4 corrections per A43 v2 + Rule 12 preserve-body. Doc 103 substantive content unchanged; citations + caveats anchored.
