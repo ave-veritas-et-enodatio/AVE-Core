@@ -2420,3 +2420,131 @@ The engine's empirical answer at the dq-frame phasor layer: Mode III at K4-TLM-a
 
 **Note: this isn't a session-time fix.** It's a manuscript-revision question that needs Grant + auditor + downstream-corpus-cross-checking. Surfaced honestly here as the deepest finding from the "search electron in old archive" investigation per Grant directive.
 
+---
+
+## §21 — Grant adjudication 2026-04-30: Reading (3) is canonical
+
+Per Grant 2026-04-30 ("I am leaning toward 3"): the Vol 1 Ch 8 Golden Torus is a **mathematical scaffold for the α derivation**, NOT a physical claim about the electron's geometry.
+
+### §21.1 — What reading (3) means operationally
+
+Vol 1 Ch 8's α⁻¹ = 4π³ + π² + π = 137.036:
+
+- A **mathematical identity** that holds at any geometry satisfying the multipole-sum constraints (R·r = 1/4 + R+r = φ + ...). The Golden Torus is one such parameterization.
+- NOT a claim that the physical electron has Golden Torus geometry.
+- The "Golden Torus" name is a coordinate-system label for the multipole sum, not a literal description of what the electron physically is.
+
+The physical electron, per the parent corpus canonical:
+- Per [`39e1232` (2026-03-02)](../../../Applied-Vacuum-Engineering): **electron = unknot (0₁)**, simple closed flux loop, c=0
+- Per Vol 2 Ch 1: circumference = ℓ_node, tube radius = ℓ_node/(2π), Beltrami standing wave
+- Per [parent Vol 1 Ch 1](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex): m_e c² = ℏc/ℓ_node = T_EM · ℓ_node (mass from ropelength of unknot at minimum ℓ_node)
+- α derivable from substrate packing fraction: α = p_c/8π
+
+Vol 1 Ch 8 supplements this with the multipole-sum α derivation as an INDEPENDENT mathematical identity. The Golden Torus parameterization is mathematically convenient for the multipole sum but doesn't claim the electron physically IS that torus shape.
+
+### §21.2 — What this resolves
+
+**Three apparent tensions collapse under reading (3):**
+
+**Tension 1: Vol 1 Ch 8 vs `39e1232` electron-is-unknot fix.**
+- Resolution: no contradiction. Vol 1 Ch 8 is mathematical α derivation, not geometric claim about electron. The unknot canonical stands.
+
+**Tension 2: §19 dq-frame Test B v2/v3 Mode III result.**
+- Pre-(3) framing: Mode III = engine doesn't realize Vol 1 Ch 8 Golden Torus = empirical falsification of electron prediction.
+- Post-(3) framing: Test B was testing whether the engine realizes a (2,3)-torus-knot geometry that was never the canonical electron prediction in the first place. Mode III is not a falsification; it's a finding that the engine's wake-geometry / scaffold-geometry doesn't match the (2,3)-torus mathematical scaffold from Vol 1 Ch 8 — but Vol 1 Ch 8 didn't claim that geometry as physical.
+- The test wasn't testing the canonical electron. The Mode III result has lower load-bearing weight than previously framed.
+
+**Tension 3: Cosserat seeder uses (2,3) trefoil-on-Golden-Torus ansatz.**
+- Pre-(3) framing: Cosserat is testing the canonical electron model.
+- Post-(3) framing: Cosserat is testing a (2,3)-topology mathematical structure that may correspond to the wake cavity or to a higher-c topology class (like baryons), but isn't the canonical electron itself. The canonical electron is an unknot — much simpler — and would need a different IC seeder.
+
+**The Cosserat infrastructure (`initialize_electron_2_3_sector`) is misnamed under reading (3).** It seeds a (2,3)-topology, which is NOT the unknot electron. Auditor-lane recommendation: rename to `initialize_2_3_sector` (no "electron") and add separate `initialize_unknot_electron_sector` for the canonical electron model if needed.
+
+### §21.3 — Updated empirical state of the fundamental electron model under reading (3)
+
+**Cleaner table now that reading (3) is canonical:**
+
+| State | Pre-(3) framing | Post-(3) framing |
+|---|---|---|
+| Atomic IE 14/14 manuscript precision | ✅ | ✅ unchanged — Track B doesn't depend on Vol 1 Ch 8 |
+| Theorem 3.1 dual-angle α⁻¹ machine precision | ✅ | ✅ — pure algebraic identity verified, no physical-geometry claim required |
+| AVE-HOPF Beltrami framework (5 torus knots) | ✅ | ✅ — hardware antenna eigenmodes, not specifically the electron |
+| TLM tests xfail-clean per Rule 11 | ✅ | ✅ unchanged — falsification record |
+| Cosserat real-space stator-envelope | ✅ | ✅ — but tested object is (2,3)-topology, not the canonical unknot electron |
+| g-2 corpus-canonical (Vol 2 Ch 6 §6.2) | ✅ | ✅ unchanged |
+| Cosserat scaffold-preservation indirect inference | ⚠ | ⚠ — Lorentzian fit closeable; tests (2,3) scaffold not the unknot electron |
+| Cosserat dq-frame phasor at Vol 1 Ch 8 Golden Torus | 🔴 | **Reattributed**: was testing a non-electron mathematical scaffold; Mode III result has lower load-bearing weight. The Vol 1 Ch 8 Golden Torus was never claimed as the electron's physical geometry. |
+| Corpus consistency: Vol 1 Ch 8 vs `39e1232` | 🔴 | **Resolved**: no contradiction under reading (3) — Vol 1 Ch 8 is math, `39e1232` is physics. |
+
+**Net under reading (3): 6 ✅ + 1 ⚠ + 0 🔴 + 0 🟡.**
+
+The two 🔴 entries from §20 are resolved or reattributed. The fundamental electron model is in cleaner state.
+
+### §21.4 — What didn't get modeled (sharpened under reading (3))
+
+The "did we model it" question (Grant 2026-04-30) sharpens under reading (3):
+
+The CANONICAL electron per the parent corpus is:
+- Unknot (0₁) — single closed flux loop
+- Circumference = ℓ_node (Compton wavelength factor)
+- Tube radius = ℓ_node/(2π) (sub-cell at K4-TLM ℓ_node sampling)
+- Beltrami standing wave on the loop
+- Mass m_e c² = ℏc/ℓ_node (from ropelength + EM tension)
+- Spin-1/2 from SU(2)/SO(3) double-cover (per A-008)
+- α = p_c/8π or 4π³+π²+π (mathematical identity)
+
+**NONE of the session's Cosserat work tested this object directly.** The Cosserat `initialize_electron_2_3_sector` seeds a (2,3)-topology that's NOT the canonical unknot electron. The dq-frame Test B was testing the (2,3)-torus geometry, not the unknot loop.
+
+**Modeling the canonical unknot electron** would require:
+- A solver that handles unknot soliton (single closed flux loop) at sub-ℓ_node spatial scale
+- Beltrami standing wave on the unknot
+- Coupling to K4 lattice for wake/projection
+- Measurement of m_e c² as eigenvalue, charge as topological invariant, magnetic moment as spin-1/2 emergent
+
+The closest existing infrastructure is `radial_eigenvalue.py` (Track B atomic IE), but that takes the electron as INPUT and computes orbital eigenvalues — doesn't model the electron particle itself.
+
+**The CoupledK4Cosserat exists** but with the (2,3)-topology IC, plus 4M× energy runaway — it's modeling the wrong object AND it's unstable. The actual unknot-electron modeling test needs:
+- Different IC: `initialize_unknot_electron_sector` (doesn't exist)
+- Stable coupled-engine dynamics
+- Sub-ℓ_node sampling capability
+
+This is the actual "model the electron" frontier — and it's clearly not the verification-of-corpus-claims work this session did.
+
+### §21.5 — Auditor-lane consequences of reading (3)
+
+**Manuscript amendment recommendation (auditor lane):**
+
+Vol 1 Ch 8 should be amended to explicitly state that the Golden Torus is a **mathematical scaffold** for the α multipole-sum derivation, not a physical claim about the electron's geometry. Add cross-reference to parent's `39e1232` "electron is unknot" canonical fix. Per Rule 12 preserve-body: amend prose with explicit framing; don't retract the body.
+
+**Code amendment recommendation (engine lane, not auditor):**
+
+`src/ave/topological/cosserat_field_3d.py:777` — `initialize_electron_2_3_sector(R_target, r_target)` should be renamed to `initialize_2_3_torus_knot_sector(R_target, r_target)` (drop "electron"). Add `initialize_unknot_electron_sector()` as the canonical electron seeder if/when modeling work needs it. Per Rule 12 preserve-body: keep old name as alias, deprecation-warn.
+
+**Test infrastructure recommendation:**
+
+`src/tests/test_electron_tlm_eigenmode.py` is currently 6 xfail / 2 pass per §13. The xfail tests are about the (2,3)-topology Golden Torus framing — under reading (3), they're testing scaffold geometry, not the canonical electron. Either rename the file (to indicate "tests of (2,3) topology" not "tests of electron"), OR keep but with even more explicit xfail reasoning that cites reading (3).
+
+**A47 v11e candidate (auditor-lane, COLLABORATION_NOTES) strengthened:**
+
+The §20 finding was that Vol 1 Ch 8 was added without explicit reconciliation against `39e1232`. Reading (3) shows the resolution is "Vol 1 Ch 8 is mathematical, not physical" — which is a load-bearing distinction the manuscript should make explicitly. A47 v11e: when a manuscript adds a new derivation that uses geometric structures, it must explicitly state whether the structure is (a) a physical claim, (b) a mathematical scaffold for a derivation, or (c) something else. Without explicit framing, downstream corpus + engine work conflates the layers.
+
+### §21.6 — Final empirical state of the fundamental AVE electron model post-§21
+
+**6 ✅ + 1 ⚠ + 0 🔴 + 0 🟡:**
+
+- ✅ Atomic IE 14/14 manuscript precision (Track B)
+- ✅ Theorem 3.1 dual-angle α⁻¹ at machine precision (algebraic identity)
+- ✅ AVE-HOPF Beltrami framework (hardware antenna eigenmodes)
+- ✅ TLM tests xfail-clean per Rule 11 (falsification record)
+- ✅ Cosserat real-space stator-envelope (correctly scoped, tests (2,3)-topology not electron)
+- ✅ g-2 corpus-canonical per Vol 2 Ch 6 §6.2 (with experimental tension noted)
+- ⚠ Cosserat scaffold-preservation indirect inference (closeable via Lorentzian fit, ~10 min)
+
+**Resolved under reading (3):**
+- The Vol 1 Ch 8 Golden Torus tension with `39e1232` unknot canonical
+- The dq-frame Test B Mode III result (reattributed as scaffold geometry, not electron)
+
+**The canonical unknot electron model itself has NOT been instantiated and tested in code.** That's the actual "model the electron" frontier per Grant's earlier question. The existing infrastructure tests (2,3)-topology + atomic orbitals + algebraic identities + hardware Beltrami + g-2 — all corpus-relevant, none of them is "the canonical unknot electron at sub-ℓ_node scale, evolved dynamically, producing observables."
+
+This is the cleanest end-state for the session: 6 ✅ verifications of various corpus claims, 1 ⚠ closeable item, 0 unresolved 🔴, and explicit acknowledgment that the canonical electron itself remains to be modeled-as-physical-object.
+
