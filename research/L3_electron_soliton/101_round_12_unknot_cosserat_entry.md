@@ -164,3 +164,125 @@ Given Reading B canonical: add 1-2 hours for `electron-unknot.md` corpus reconci
 This is a Round 12 entry doc, surfacing the visualization gap that gates the round's pre-registration. Per Rule 16 + Rule 14 discipline, the gap goes to Grant first; design follows.
 
 — Doc 101 created 2026-05-01 as Round 12 entry per Grant directive 2026-04-30 ("just start the next doc; what's the specific physical picture you can't visualize here?"). The visualization gap is in §2 (line-9-vs-line-55 inconsistency in `electron-unknot.md`); §3 lists the derivative gaps that follow; §4 surfaces the Rule 16 question; §5 pre-registers methodology disciplines; §6 maps forward direction post-adjudication.
+
+---
+
+## §9 — Three-layer canonical confirmed by Grant 2026-04-30 plumber-physics walk
+
+Same-day Grant adjudication: implementer-proposed three-layer picture is *"exactly what im seeing."* The canonical electron has THREE separable topological structures at THREE distinct layers, and the corpus has been mixing them:
+
+| Layer | Topological structure | Real-world manifestation | What was conflated |
+|---|---|---|---|
+| **1. Real-space curve** | Unknot 0₁ | Single closed flux loop, c=0, ropelength 2π | Vol 1 Ch 8's "physical bounding radii of the electron" was reading layer 3 as layer 1 |
+| **2. Field bundle over the curve** | SU(2) double-cover of SO(3) | 4π closure period; ω-field executes spinor twist as transported around the loop | A-008 substrate-level mechanism; doesn't depend on crossings (works for unknot too) |
+| **3. Phase-space (V_inc, V_ref) on Clifford torus** | (2,3)-trefoil knot 3₁ pattern | Phasor pair traces (2,3)-winding on S³ ⊂ ℂ² | Vol 1 Ch 8's (R, r) = (φ/2, (φ-1)/2) describes layer 3, not layer 1; doc 28 §3+§4 had this right ("phase-space R/r = φ², real-space R/r ≠ φ², they needn't match") |
+
+### §9.1 — How this resolves the apparent corpus tensions
+
+**Tension 1: ch01 unknot vs ch04 trefoil.** [`manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md:5-9`](../../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md#L5-L9) says "electron is the fundamental ground-state topological defect: an Electromagnetic Unknot — a single closed flux tube loop." [`manuscript/ave-kb/vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md:6`](../../manuscript/ave-kb/vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md#L6) says *"the electron is a literal macro-physical 3₁ Trefoil knot storing inductive kinetic energy."*
+
+Under three-layer framing, ch01's "unknot" is layer 1 (real-space curve) and ch04's "trefoil" is layer 3 (phase-space (V_inc, V_ref) Clifford-torus winding). Both are correct at their layer. The manuscript's "literal macro-physical 3₁ Trefoil" language in ch04 is the layer-conflation needing flag.
+
+**Tension 2: Vol 1 Ch 8's (R = φ/2, r = (φ-1)/2) vs parent's `39e1232` electron-is-unknot.** Vol 1 Ch 8 was describing layer 3's Clifford-torus phase-space geometry; got read as layer 1's real-space bounding radii. Doc 100 §20's original "corpus drift" finding was correct in flagging the addition; doc 100 §25's bracket-Golden-Torus decision still stands (Vol 1 Ch 8 was a layer-conflated description, even if its layer-3 content might be load-bearing); the three-layer framing clarifies WHAT KIND of drift Vol 1 Ch 8 was (layer-conflation, not parameter-freedom-patch as the Grant 2026-04-30 framing suggested).
+
+This is a **refinement** of doc 100 §25's bracket-Golden-Torus reframe, not a reversal. Vol 1 Ch 8 stays bracketed because it was layer-conflated and confused the L3 arc; whether its layer-3 content is independently load-bearing is a separate question that depends on whether layer 3 (phase-space (2,3)-winding) is actually canonical for the electron.
+
+**Tension 3: Cosserat (2,3)-eigenmode dynamics testing what?** Cosserat ω-field IS SO(3) per A-008. The `initialize_electron_2_3_sector(R, r)` seeder seeded a (2,3)-Sutcliffe ansatz on the ω-field. Under three-layer framing, that's seeding the (2,3) winding pattern in the substrate's REAL-SPACE Cosserat ω-field — which is layer 1 + layer 2 description, not layer 3. The (2,3) seeder may have been seeding the wrong layer's topology onto the wrong field.
+
+If layer 1 is unknot in real-space and layer 3 is (2,3) in phase-space (V_inc, V_ref), then:
+- Cosserat ω-field (real-space) should host UNKNOT (layer 1) seeding, not (2,3)
+- K4 V_inc/V_ref (phase-space) should host (2,3) seeding (layer 3)
+- The (2,3)-Cosserat-seed work tested (2,3)-topology dynamics on the wrong field
+
+A47 v3 already flagged this: *"the engine's Op10 implementation on Cosserat ω measures a DIFFERENT topology than the corpus's claim for the electron."* The three-layer framing makes A47 v3 explicit: Cosserat ω hosts layer 1 + layer 2; K4 V_inc/V_ref hosts layer 3.
+
+### §9.2 — Visualization gaps from §3 closed by three-layer
+
+**§3.1 closed (field structure on unknot loop):** The Cosserat ω-field on the unknot's real-space tube has SU(2) spinor character (layer 2) — phase varies as half-integer multiple of toroidal angle around the loop. Returns to original after 4π (two full toroidal revolutions). Ansatz form is NOT analogous to (2,3) Sutcliffe hedgehog; it's the SU(2) double-cover of a single closed loop in SO(3). Closer to the spin-gyroscopic-isomorphism mapping per [`spin-gyroscopic-isomorphism.md`](../../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md).
+
+**§3.2 closed (spin-1/2 mechanism without crossings):** From layer 2 — the SU(2) bundle over the unknot curve. Doesn't need crossings. The Cosserat ω-field IS SO(3) by construction; transporting around the loop accumulates the SO(3) → SU(2) double-cover phase. The "operational observable" at the field level is the rotation rate of the ω-field along the loop axis (φ-dependent twist).
+
+**§3.3 partially closed (Beltrami fundamental k):** Layer 2's SU(2) bundle has an analytical structure independent of layer 1's specific (R, r). The Beltrami fundamental on a horn torus with SU(2) field bundle is computable; just hasn't been worked out in this doc. Still partial, but the path forward is clear: solve ∇×A = kA for the SU(2) line bundle on the unknot's tube.
+
+### §9.3 — §4 Rule 16 question reframed
+
+Original §4 question (Reading A vs Reading B): which sets the unknot's (R, r)?
+
+Reframed under three-layer: layer 1 real-space curve (R_loop, r_tube) is whatever the corpus pre-specifies for the physical flux tube. `electron-unknot.md` line 9 + Examplebox give Reading A (R = r = ℓ_node/(2π) at horn torus). Line 55's lattice-pitch constraint is from Vol 1 Ch 8's framing and is a layer-conflated import that needs separate adjudication. Reading A is the layer-1 canonical until Grant says otherwise.
+
+The (φ/2, (φ-1)/2) values from Vol 1 Ch 8 are the layer-3 Clifford-torus radii in (V_inc, V_ref) phase space — NOT the layer-1 real-space curve geometry.
+
+So **§4 Rule 16 question status: clarified, not adjudicated.** Layer 1 = Reading A horn torus per electron-unknot.md (R = r = ℓ_node/(2π)). Layer 3 = (R = φ/2, r = (φ-1)/2) Clifford-torus radii in (V_inc, V_ref). These are different (R, r) at different layers; both can stand simultaneously.
+
+### §9.4 — §6 Forward direction reframed
+
+Original §6 (layer-1 + layer-2 only): build `initialize_electron_unknot_sector` for Cosserat ω-field at horn torus geometry.
+
+Reframed under three-layer: the FULL canonical electron test requires BOTH:
+
+- **Cosserat sector (layer 1 + layer 2):** unknot at real-space horn torus, ω-field with SU(2) spinor character. New `initialize_electron_unknot_sector(R = r = ℓ_node/(2π))` seeder.
+- **K4 sector (layer 3):** (V_inc, V_ref) phasor pair at (2,3)-quadrature on Clifford torus. Existing `initialize_quadrature_2_3_eigenmode` seeder per A47 v7 at [`tlm_electron_soliton_eigenmode.py:224`](../../src/scripts/vol_1_foundations/tlm_electron_soliton_eigenmode.py#L224).
+- **Coupled via Op14:** the substrate's bond LC ↔ Cosserat ω coupling channel. Requires `CoupledK4Cosserat` infrastructure from session 2026-04-22 — but that solver had 4M× energy runaway during pair-creation work.
+
+**New methodology question:** is the canonical electron testable at all three layers simultaneously, or do tests at layers 1+2 (Cosserat-only) decouple from tests at layer 3 (K4 V_inc/V_ref-only)?
+
+Per §3.1 + §3.2 closure: layer 1 + layer 2 are TIGHTLY COUPLED (the SU(2) bundle is over the unknot curve; can't have one without the other). They live together in the Cosserat sector. So `initialize_electron_unknot_sector` tests layers 1+2 jointly.
+
+Layer 3 lives in K4 V_inc/V_ref. Existing infrastructure (`initialize_quadrature_2_3_eigenmode`) seeds it directly. Tests of layer 3 alone don't require Cosserat coupling.
+
+So a partial canonical test is possible WITHOUT CoupledK4Cosserat:
+1. Test layers 1+2: Cosserat-only with unknot seed
+2. Test layer 3: K4-only with (2,3)-quadrature seed
+
+The FULL canonical test (all three layers coupled) needs CoupledK4Cosserat stable. The partial tests don't.
+
+### §9.5 — Auditor-lane finding (catalog candidate)
+
+**A48 (?) candidate — corpus layer-conflation between curve topology and field-bundle/phase-space topology** (added 2026-04-30, Round 12 entry doc, lane-symmetric).
+
+Pattern: corpus statements about "the electron is a [topology]" can refer to (a) real-space curve topology, (b) field-bundle topology over the curve, OR (c) phase-space (V_inc, V_ref) winding pattern on Clifford torus. These are mathematically distinct at different layers; statements without explicit layer-attribution create apparent contradictions where there are none.
+
+Three confirmed corpus instances of layer-conflation:
+1. ch01 `electron-unknot.md` (correctly layer 1: real-space unknot)
+2. ch04 `larmor-derivation.md` ("literal macro-physical 3₁ Trefoil knot" — likely layer 3 phase-space mis-described as macro-physical layer 1)
+3. Vol 1 Ch 8 `08_alpha_golden_torus.tex` (Clifford torus geometry described as "exact physical bounding radii of the electron" — layer 3 mis-described as layer 1; this is the patch-attempt that drifted in layer-conflation form)
+
+**Discipline rule candidate:** any corpus statement of the form "electron [or other particle] is a [topology]" must explicitly cite which of (real-space curve / field bundle over curve / phase-space (V_inc, V_ref) on Clifford torus) is intended. Layer-implicit statements are corpus-tension candidates.
+
+This is auditor-lane catalog material; flagging here for Round 12 closure pickup or COLLABORATION_NOTES.md addition.
+
+### §9.6 — Implication for doc 100 §25 ⏸ items
+
+Three ⏸ items from doc 100 §25.5 reframe under three-layer:
+
+| ⏸ Item | Pre-three-layer framing | Post-three-layer framing |
+|---|---|---|
+| Theorem 3.1 Method 2 (multipole sum) | "Golden-Torus arithmetic, brackets" | Layer 3 Clifford-torus geometry calculation; might be load-bearing for layer-3 tests if layer 3 is canonical |
+| §22 Cosserat-AVE-HOPF cross-anchor | "Used Golden-Torus-seeded values" | Mixed-layer: Cosserat seed was layer-1+2 attempt with (2,3) topology (wrong layer); AVE-HOPF λ(p,q) on torus knots is layer-3-adjacent. Cross-anchor framing was layer-confused |
+| Cosserat ⚠ scaffold-preservation | "Was vs Golden-Torus reference" | Cosserat (2,3)-seed was layer-confused; under three-layer, Cosserat hosts layers 1+2 (unknot + SU(2) bundle), NOT (2,3). The scaffold-preservation ⚠ was measuring the wrong-layer topology |
+
+These don't fully resolve via three-layer alone — Q1/Q2/Q3 from doc 100 §25.6 need to be re-asked under three-layer:
+
+- **Q1 ✅ (already closed):** parent's α = p_c/8π chain is independent of all three layers
+- **Q2 reframed:** Cosserat unknot-seed for layers 1+2; (2,3)-seed gets renamed to indicate it tests (2,3)-topology in real-space (which under three-layer is wrong-layer for canonical electron, but valid as test of (2,3)-torus-knot dynamics for OTHER particles like the proton 5₁/5₂ family)
+- **Q3 reframed:** AVE-HOPF λ(p,q) on torus knots IS layer-3-adjacent — but layer 3 lives in (V_inc, V_ref) phase space, not real-space tube geometry. AVE-HOPF's (R, r) parameters are real-space hardware-coil radii; not directly the same as layer-3 Clifford-torus radii. The framework is its own thing; cross-anchor with corpus electron requires deciding which (R, r) parameter the AVE-HOPF formula is being evaluated at
+
+### §9.7 — Round 12 forward direction (confirmed)
+
+Per Grant's three-layer confirmation:
+
+**Step 1** (substrate walk + analytical, ~1-2 hr): work out the SU(2) bundle structure on the unknot's tube. What's the analytical form of the Cosserat ω-field for a Beltrami eigenmode that has 4π closure on a horn-torus? This determines the ansatz for the unknot seeder.
+
+**Step 2** (engine code, ~1-2 hr): implement `initialize_electron_unknot_sector(R = r = ℓ_node/(2π))` per Step 1's analytical form. Axiom-chain in docstring (Ax 1+2+3+4 + Bounding Limit 1 + ropelength minimum + SO(3)/SU(2) substrate identification). Old `initialize_electron_2_3_sector` stays + gets renamed to `initialize_2_3_torus_knot_sector` (engine-lane cleanup).
+
+**Step 3** (unit tests, ~30-60 min): localization sanity, energy finite, ω-field magnitude profile centered at R_loop, Hopf charge Q_H ≈ 0 (zero linking), c=0, AND the SU(2) bundle test (4π closure observable somehow — needs definition).
+
+**Step 4** (validation driver, ~1-2 hr): `validate_cosserat_unknot_eigenmode.py` at multi-N (32³, 64³). Pre-registered binary criteria per Rule 11. Test layer 1 (loop topology preserved) AND layer 2 (SU(2) bundle character preserved) jointly.
+
+**Step 5** (engine cleanup, ~30 min): rename `initialize_electron_2_3_sector` → `initialize_2_3_torus_knot_sector`. Add `initialize_electron_unknot_sector` as canonical electron seeder.
+
+**Step 6** (closure doc, ~30-60 min): doc 102 documenting Round 12 outcome. If layers 1+2 land cleanly via Cosserat-only test, that's the partial canonical test of the unknot canonical. Layer 3 (K4 V_inc/V_ref (2,3)-quadrature) is separate Round 13 work; full coupled test needs CoupledK4Cosserat stabilization Round 14+.
+
+Total Round 12: ~5-8 hours (single fresh-context session).
+
+— §9 closure of Grant's plumber-physics walk 2026-04-30. Visualization gap from §2-§3 closed via three-layer framing. Forward direction confirmed: Round 12 is layer-1+2 Cosserat-only unknot seeder work.
