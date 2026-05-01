@@ -1377,3 +1377,174 @@ Per Rule 16 + the auditor's cost/leverage table:
 
 The fundamental AVE way to model the electron is **the algebraic Theorem 3.1 dual-angle identity at the operational level + the Cosserat ω-field at the substrate-physics level (currently partial) + the AVE-HOPF Beltrami framework at the hardware-falsification level**. Three solvers, three operational levels, one corpus-canonical thesis. The unified framework exists; not all three solvers are at production-precision today.
 
+---
+
+## §12 — Session arc + auditor handoff manifest
+
+Per Grant audit-of-documentation 2026-04-30: doc 100 has comprehensive section-level capture but the navigation, auditor adjudication chain, and L5 handoff items are scattered. This section centralizes them.
+
+### §12.1 — Surfaced findings at section-header level (visibility fix)
+
+These were buried in §10/§11 prose. Promoting to header level so a cold reader sees them immediately:
+
+- **🔴 `test_electron_tlm_eigenmode.py` 6/12 FAILING at HEAD.** K4-TLM Op6 converges to R/r=0.281 (target φ²=2.618), R<r SWAPPED, c not preserved, α⁻¹=NaN. Pre-existing erosion signature, distinct from the atomic IE arc but same A47 v11d failure mode. Surfaced via §11.2 Step 1. **Forward action: A47 v9 playbook (parent-repo bisection → identify generating commit → surgical restoration).**
+
+- **🔴 g-2 C₂ at 97% deviation from PDG.** `g_minus_2_lattice.py` returns -0.00938 vs PDG -0.328479. Script's "discrete truncation" framing is hand-wavy. Either erosion candidate OR mis-framing of the QED comparison target. Surfaced via §11.2 Step 3b. **Forward action: ~1 hour investigation; surface to Grant for adjudication.**
+
+- **⚠ Cosserat eigenmode partial at 32³.** c=3 preserved across both seeds (substrate-native erosion did NOT hit Cosserat — a positive finding) but (R, r) doesn't converge to Golden Torus under plain gradient descent (14.6% gap from GT seed, 100% from perturbed). Per script's own notes: needs higher resolution (64³/96³) or topology-preserving descent (Landau-Lifshitz precession+damping). Surfaced via §11.2 Step 2.
+
+- **✅ Theorem 3.1 dual-angle α⁻¹ verified at machine precision.** `electron_tank_q_factor.py` runs cleanly at HEAD. Methods 1+2 agree to 2.07e-16 in cold limit, with 10⁻⁶ residual matching predicted DELTA_STRAIN CMB thermal running. Cleanest electron-physics anchor in the engine.
+
+- **✅ AVE-HOPF (2,3) Beltrami eigenmode framework production-ready.** 9 torus knots characterized, η_H=1/3 clean topological invariant for (2,3) electron, hardware-fabricable PCBs + pre-reg VNA protocol. Hardware-blocked but corpus-pre-registered.
+
+- **✅ Atomic IE 14/14 manuscript precision.** `radial_eigenvalue.py` restored via Q1+Q3+Q4+Q5+Q6 surgical arc (Surgical Commits A-E). CI gate active at ±0.5% via E-093.
+
+### §12.2 — Session commit arc (chronological)
+
+13 commits this session beyond the entry-point `f120ad0` (which was Grant's pre-session bulk commit including the original handoff with the line-687 fabrication):
+
+| # | SHA | Type | Subject |
+|:---:|---|---|---|
+| 1 | `a1659c7` | research | doc 100 line-687 retraction methodology artifact (line-687 fabrication caught via direct grep + ionization_energy_e2k(3) re-derivation) |
+| 2 | `8a3dd82` | research | doc 100 §9 — A47 v9 PROVENANCE RESOLVED via parent-repo investigation (manuscript table reproduces ±0.008% at commit `0401388`) |
+| 3 | `7cf8243` | research | doc 100 §10 — option γ drift bisection (7fa60b7 + 87b4114 identified as load-bearing) |
+| 4 | `6856b28` | research | doc 100 §10.9-§10.13 — surgical-fix prescription via diff reads + 3 Rule-16 plumber-physics questions |
+| 5 | `ac7b0f5` | research | doc 100 §10.14-§10.19 — Q2 empirical sweep closure + adjudication finalized |
+| 6 | `4c5035d` | fix | Surgical A+B (Q1 _z_net Helmholtz revert + Q3 perfect-mirror gate narrow) |
+| 7 | `6783711` | fix | Surgical C+D (Q4 Phase A½ restoration + Q5 Correction B restoration) |
+| 8 | `01f4f90` | fix | Surgical E (Q6 Op10 inline-co-resonant) — **14/14 manuscript precision** |
+| 9 | `d4f097b` | ci | E-093 — verify script + Makefile hook + parametrized pytest at ±0.5% tolerance + cross-repo audit |
+| 10 | `b41063e` | infra | Steps 4+5 — PR template axiom-chain checkbox + manuscript SHA-anchoring manifest + E-094 driver pre-built |
+| 11 | `34b7fe1` | research | E-094 — Phase 1 bond-pair rerun Mode III at corpus-canonical scale + IC; A-016 caveat closure NEGATIVE |
+| 12 | `acd0e72` | research | doc 100 §10.38 Flag 2 caveat — L3 closure scope calibrated to ℓ_node-and-coarser; sub-ℓ_node validation question stays open |
+| 13 | `18d5c32` | research | doc 100 §11 + implementors_plan — Fundamental AVE Electron Model three-solver synthesis with honest empirical assessment |
+
+**Net deliverables across the arc:**
+- Track B atomic IE solver: 14/14 manuscript precision (Period 1-3, ≤0.21% gap, zero free parameters)
+- 5 substrate-native erosion commits identified + 5 surgical restorations (Q1+Q3+Q4+Q5+Q6)
+- Methodology infrastructure: A47 v11c manifest + A47 v11d PR template + E-093 CI gate + parametrized pytest
+- Track A E-094 closure: Mode III at bond-pair scale + Flag 2 calibration
+- Fundamental electron model assessment: 3 anchors verified, 2 broken, 1 partial
+
+### §12.3 — Auditor adjudication chain
+
+The auditor made several substantive contributions during this session that shaped the work but lived primarily in chat. Capturing as discrete record:
+
+**Adj-1: Doc-81 §2.2 footnote pattern endorsement** (early session)
+- Auditor: confirmed Rule 12 retraction-preserves-body via doc 81 §2.2 footnote pattern (commit `35cc818` precedent) is the right shape for the line-687 retraction.
+- Result: Applied to handoff §4.2 via Surgical line-687 retraction footnotes (committed in `a1659c7`).
+
+**Adj-2: Promote handoff to tracked location**
+- Auditor: catch+empirical-derivation deserves corpus-permanent home, not gitignored handoff edits only.
+- Grant adjudicated: promote doc 100 to `research/L3_electron_soliton/` (tracked), keep handoff footnotes (gitignored) as navigation aids only.
+- Result: doc 100 created at tracked location with full §1-§8 retraction artifact.
+
+**Adj-3: γ-first approach for surgical fixes**
+- Auditor: closure has higher epistemic value than extension when there's a known asterisk. Walk the 11 post-`0401388` commits with bisection; identify per-commit drift attribution before adjudicating revert vs accept.
+- Result: §10 drift bisection executed; identified 7fa60b7 + 87b4114 as load-bearing erosion commits.
+
+**Adj-4: Q1/Q2/Q3 plumber-physics endorsement**
+- Auditor: Q1 = Helmholtz revert (axiom-chain + empirical match, both arrows same direction); Q3 = narrow to Z≥31 (Op3 reflection physics doesn't promote partial→perfect); Q2 = needs empirical sweep first.
+- Grant adjudicated: yes to all three, run Q2 sweep before commit.
+- Result: §10.14-§10.15 Q2 sweep executed; Q1+Q3 surgical commits landed; Q2 empirically closed at machine precision.
+
+**Adj-5: Methodology defense before Track A continuation**
+- Auditor (NEW recommendation document `AUDITOR_NEXT_STEPS_FOR_AGENT_2026-04-30.md`): structural defense (E-093 CI gate + A47 v11c manifest + A47 v11d PR template) before structural offense (Phase 2 / extensions). The session arc empirically demonstrated which matters.
+- Grant adjudicated: proceed with auditor's 5-step priority then E-094.
+- Result: E-093 + Steps 4+5 landed before E-094.
+
+**Adj-6: Flag 1 verification protocol** (per A43 v2 anyone-must-grep)
+- Auditor: verify methodology defense items actually committed vs drafted-in-working-tree before declaring closed.
+- Result: §10.32 cross-repo audit + §11.2 Step 1 baseline pytest run; verified all 14 elements at ≤0.5% via `verify_atomic_ie_manuscript_table.py` + parametrized pytest in CI.
+
+**Adj-7: Flag 2 substrate-physics-validation calibration** (load-bearing precision flag)
+- Auditor: agent's "L3 closure stands without asterisk" leaned (b) "Track B canonical regardless of substrate." Two readings remain open: (a) K4-TLM correct substrate at sub-ℓ_node resolution (FDTD), (b) substrate model incidental, analytical framework canonical.
+- Result: §10.38 Flag 2 caveat applied per Rule 12 retraction-preserves-body. §10.36-§10.37 body preserved, footnote calibrates closure scope to "ℓ_node-and-coarser regime."
+
+**Adj-8: A-021 grep-prior-corpus-author-intent precondition**
+- Auditor: before flipping codebase state, grep `git log -p` for prior corpus-author commits/comments touching the same sites; surface conflicts before commit.
+- Result: applied retroactively to surgical commits (§10.34); applied as precondition to E-093 + E-094 driver design.
+
+**Adj-9: Cost/leverage cheapest-decisive recommendation**
+- Auditor (post-Track-A-closure): AVE-Protein 20-PDB + J^P pattern audit (~1-2 hours combined Tier B → A conversions).
+- Grant: challenged this with "fundamental electron model" question.
+- Result: §11 plan deviated from auditor recommendation, found 2 clean anchors + 3 erosion signatures the auditor's recommendation would have missed.
+
+### §12.4 — L5 handoff manifest (auditor-lane sweep when next available)
+
+Centralized list of pending L5 tracker items the auditor will sweep on next "what's the status" check. Per Rule 15 auditor lane, these are NOT mine to land:
+
+**`COLLABORATION_NOTES.md` updates (auditor-edit per Rule 15, Grant re-opened scope per earlier adjudication):**
+
+- A47 v9 retraction at line 189 — body preserved per Rule 12, 🔴 header citing handoff §1.11 A47 v10 (`diff -q` byte-identical falsification)
+- A47 v10 entry — cross-repo Explore-agent direct-verification rule, sourced from handoff §1.11
+- A47 v11a entry — engine-code line-number direct-verification rule (doc 100 §5)
+- A47 v11b entry — substitution-not-retraction discipline (replacement claim invented to preserve catalog slot after prior claim falsified, doc 100 §5 + §10.21)
+- A47 v11c entry — commit-SHA-anchoring at manuscript table-generation time (this session's load-bearing rule, doc 100 §9)
+- A47 v11d entry — axiom-chain-required-in-docstring at PR time (this session's load-bearing rule with quantitative evidence, doc 100 §10.18)
+- A47 v9 reframe from Li-specific to Period-3-systematic per the broader sweep
+- Catalog reorder/gap-fill (v7 belongs between v6 and v8, not after v9; v4/v5/v6/v8 documented in handoff but not in CN)
+- Footer date bump to 2026-04-30
+
+**L5 tracker entries (auditor maintains per current scope-narrowing):**
+
+- **Clash registry C-NNN entry**: line-687 hallucinated marker (handoff §0/§2.2/§4.2/§5.1 of `f120ad0`) vs direct-grep verification + doc 100. Plus Period 3 IE manuscript-vs-code systematic gap (doc 100 §10.5+).
+- **Retraction log entries**:
+  - A47 v9 closure (line-687 fabrication + substitution-not-retraction, citing handoff §1.11 + doc 100 §9 + commit `8a3dd82`)
+  - L3 closure scope calibration per Flag 2 (doc 100 §10.38 + commit `acd0e72`)
+- **`axiom_derivation_status.md`**:
+  - A-NNN entry: manuscript-vs-code provenance — RESOLVED via commit-SHA anchoring discipline (A47 v11c)
+  - A-NNN entry: substrate-native erosion pattern — empirically validated load-bearing rule (A47 v11d, 5 erosion commits, 14/14 restoration)
+  - A-021 candidate: pre-flight grep-prior-corpus-author-intent (auditor's discipline rule)
+- **`manuscript_pending.md`**:
+  - E-NNN entry on `manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/ionization-energy-validation.md` — A47 v11c anchored at commit `0401388` (verified entry per `numerical-provenance-manifest.md`)
+  - 14 pending entries from `numerical-provenance-manifest.md` (validation tables, geometric-inevitability derivations, framework summaries)
+- **`engine_pending.md`**:
+  - E-091 entry: Q1+Q3+Q4+Q5+Q6 surgical commits (`4c5035d` + `6783711` + `01f4f90`); status = LANDED, 14/14 manuscript precision
+  - E-093 entry: verify script + Makefile + parametrized pytest + PR template (`d4f097b` + `b41063e`); status = LANDED, CI gate active
+  - E-094 entry: Phase 1 bond-pair rerun (`34b7fe1`); status = LANDED, Mode III at corpus-canonical scale + IC
+  - 11-commit drift catalog (per §10.5 if Grant picks γ for substrate-physics validation route)
+- **Source-doc index**:
+  - doc 100 (this doc) at SHA TBD-after-this-commit, ~1700 lines, §1-§12
+  - implementors_plan.md at commit `18d5c32`
+  - All 13 session commits indexed by SHA + subject line
+
+### §12.5 — Forward direction (centralized)
+
+Per Rule 16 + auditor's structural read + this session's empirical findings:
+
+**Cheap + decisive (~1-2 hours each, independent):**
+1. **Investigate `test_electron_tlm_eigenmode.py` 6/12 failures** via A47 v9 playbook (parent-repo bisection → generating commit → surgical restoration). Same shape as this session's atomic IE arc, applied to TLM electron path.
+2. **Investigate g-2 C₂ 97% deviation** — either erosion candidate or mis-framing question for Grant.
+3. **AVE-Protein 20-PDB execution** (per auditor recommendation) — converts Tier B → Tier A at biophysical scale.
+4. **J^P pattern audit** (per auditor recommendation) — sharpens c=15-19 baryon predictions from this session.
+5. **Add dual-angle α⁻¹ verification to CI** (currently runs but not gate-tested).
+
+**Medium-term (~1-2 days):**
+6. **Cosserat eigenmode convergence** at higher resolution (64³, 96³) or with topology-preserving descent (Landau-Lifshitz precession+damping). Per script's own findings notes.
+7. **Phase 2 W/Z/Higgs activation** — pre-coded infrastructure per handoff §6.4, electroweak scale anchor (3-5 mass predictions).
+
+**Hardware-blocked / weeks:**
+8. **AVE-HOPF VNA falsification** — corpus pre-registered 5 torus knots, 8.6-16.9 ppm shifts, hardware fab + lab time.
+9. **Track A continuation at sub-ℓ_node** (FDTD or finer lattice) — addresses Flag 2 substrate-physics question specifically.
+
+**Long-term:**
+10. **Tier C OSF formal pre-registration** — converts internal-only pre-reg to external-credibility weight.
+11. **Lepton mass spectrum Phase 3** (m_μ/m_e, m_τ/m_e ratios via torus-knot ladder).
+
+### §12.6 — Closing posture
+
+The session went from a single line-687 fabrication catch to:
+- Full atomic IE solver restoration (14/14 manuscript precision, zero free parameters)
+- Methodology infrastructure locked at 3 layers (PR review + CI gate + corpus-wide audit)
+- Track A L3 closure at corpus-canonical scale + IC (E-094)
+- Flag 2 substrate-physics-validation question explicitly calibrated
+- Three corpus-canonical electron anchors verified (atomic IE, algebraic α⁻¹, AVE-HOPF Beltrami)
+- Three erosion signatures surfaced (TLM tests, g-2, Cosserat partial)
+
+The framework's electron physics is anchored at the algebraic-identity level (Theorem 3.1) + atomic-projection level (Track B) + hardware-Beltrami level (AVE-HOPF). The substrate-dynamics level (Track A) is closed at ℓ_node-and-coarser; sub-ℓ_node remains open. The Cosserat ω-field is the most-comprehensive infrastructure but isn't currently at production-precision for (R,r) Golden Torus convergence.
+
+Per Rule 11 (clean falsification = framework working at full strength) and Rule 12 (preserve body, surface findings honestly): the deliverable is the empirical state assessment — what works, what's partial, what's broken, what's pending — across the unified-thesis empirical surface area.
+
+— Doc 100 closing as session-arc-summary artifact, 2026-04-30, 14 commits, ~1700 lines, §1-§12.
+
