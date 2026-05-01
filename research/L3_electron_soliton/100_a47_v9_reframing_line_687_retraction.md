@@ -469,7 +469,162 @@ The four α/β/γ/δ options are insufficient. The empirical bisection identifie
 
 This produces an axiom-grounded surgical-fix prescription rather than choosing between α (re-run + accept HEAD) and β (pin to stale `0401388`). **The goal is HEAD-with-7fa60b7-and-87b4114-refined-correctly producing 0401388-class precision via axiom-native code paths.**
 
-Pending diff reads + Op6/Op10/Op14 manuscript-canonical cross-checks.
+### §10.9 — Diff-level reading of 7fa60b7 (continuum→discrete substitution)
+
+`git show 7fa60b7 -- src/ave/solvers/radial_eigenvalue.py` shows two substantive changes (138 lines, +24/-114):
+
+**Change A: `_z_net` — Helmholtz CDF → step function at Bohr radii**
+
+Old (lines 132-178 pre-7fa60b7):
+```python
+def _z_net(r, Z, shells):
+    """Effective nuclear charge at radius r — AXIOM-DERIVED SCREENING.
+
+    Each inner shell's enclosed charge fraction σ(r) is computed from
+    the hydrogenic standing wave solution on the LC lattice:
+        Axiom 1 → Helmholtz equation → |ψₙₗ(r)|²
+        Axiom 2 → Gauss's law → CDF σₙₗ(r)
+    """
+    z = float(Z); z_eff_inner = float(Z)
+    for n_shell, N_a in shells:
+        if n_shell == 1:
+            sigma = _enclosed_charge_fraction_1s(r, z_eff_inner)
+        elif n_shell == 2:
+            sigma = _enclosed_charge_fraction_n2(r, z_eff_inner, N_2s, N_2p)
+        else:  # n>=3
+            ...  # scaled-1s approximation
+        z -= N_a * sigma
+        z_eff_inner -= N_a
+    return max(z, 0.0)
+```
+
+New (post-7fa60b7):
+```python
+def _z_net(r, Z, shells):
+    """
+    Computes the effective nuclear charge Z_eff(r) traversing radially inward
+    across exact geometrical boundary limits.
+
+    AVE Axiom 3 dictates crossing spatial boundaries natively imposes discrete
+    impedance steps, fully resolving geometric bounding regions natively without
+    using arbitrary probabilistic charge smearing formulas.
+    """
+    Z_eff = float(Z); z_eff_inner = float(Z)
+    for n_shell, count in shells:
+        r_shell = float(n_shell)**2 * A_0 / max(1.0, z_eff_inner)
+        if r > r_shell:
+            Z_eff -= float(count)
+        z_eff_inner -= float(count)
+    return max(1.0, Z_eff)
+```
+
+**The axiom rationalization shifted:**
+- **OLD (Ax-1 → Helmholtz CDF chain):** σ_n(r) IS the standing-wave amplitude integral on the LC lattice. Both Ax-1 (LC Network solution) and Ax-2 (Gauss → CDF from |ψ|²) directly chain to the CDF form. This IS continuum-limit AVE-native (the K4-LC network's continuum solution).
+- **NEW (Ax-3 → discrete impedance steps):** screening is a step function at Bohr boundaries. The new docstring claims Ax-3 "dictates" this, but Ax-3 (Effective Action Principle, S₁₁ minimization) has no operational signature for "screening must be step function." The discrete-step claim is *auxiliary inference*, not direct axiom statement.
+
+**Both forms are axiom-derivable in principle.** OLD uses the continuum-limit Ax-1+Ax-2 solution; NEW uses a literal-lattice Ax-1 discretization. Per Rule 6, NEW is more discrete-axiom-native; per empirical CODATA agreement, OLD performs better.
+
+**Change B: angular reactance `l(l+1)` → `l²` (4 sites)**
+
+Old: `ang_react = l * (l + 1) / r_mid**2`
+New: `ang_react = float(l)**2 / r_mid**2`
+
+Comment: *"Centrifugal reactance strictly maps rotation geometry proportional to the Torus phase bounds squared (q²). l_out² enforces strict whole-integer twist limits, structurally omitting probabilistic continuous off-axis displacements."*
+
+**Axiom analysis:**
+- ℓ(ℓ+1) is the eigenvalue of the angular Laplacian — the operator-canonical form for the radial Schrödinger equation's centrifugal term. SO(3) representation theory.
+- ℓ² is the squared winding number — Ax-2 (TKI) topological invariant per (2,q) torus knot framework.
+- For ℓ=0 (s): both give 0 (no effect on s-electrons including Li, Na).
+- For ℓ=1 (p): ℓ(ℓ+1) = 2, ℓ² = 1 — half the centrifugal barrier in NEW form.
+- For ℓ=2 (d): ℓ(ℓ+1) = 6, ℓ² = 4 — two-thirds the barrier in NEW form.
+
+**The change reduces centrifugal barrier for ℓ≥1 → bound-state energy lower → IE larger.**
+
+Empirical match to data: Li and Na (l=0) drift comes entirely from Change A (_z_net). Be (l=0 outer) also from Change A. B/C/N/O/F/Ne (p-block) drift comes from BOTH A and B. Period 3 p-block (Al/Si) most affected because cumulative Phase A + Phase B + Op10 + their downstream interactions amplify.
+
+### §10.10 — Diff-level reading of 87b4114 (regression candidate — perfect-mirror claim)
+
+`git show 87b4114 -- src/ave/solvers/radial_eigenvalue.py` shows three changes (62 lines, +58/-4):
+
+**Change A:** added `target_nodes += core_d_knots` in `_direct_ODE_eigenvalue` (Z<31 unaffected — `core_d_knots=0`).
+
+**Change B:** added `E_base *= (core_d_knots + 1)` in `ionization_energy_e2k` (Z<31 unaffected — `core_d_knots=0`, multiplier=1).
+
+**Change C — THE Period 3 SPILLOVER:** the Op10 `Y_loss` gating logic was changed:
+
+Pre-87b4114 (from 046a233):
+```python
+if is_half_shell or is_full_shell:
+    Y_loss *= 0.5
+```
+
+Post-87b4114:
+```python
+mirrored_away = False
+if Z >= 31 and n_out >= 4 and n_shell <= 3:
+    mirrored_away = True
+if Z >= 49 and n_out >= 5 and n_shell <= 4:
+    mirrored_away = True
+if Z >= 81 and n_out >= 6 and n_shell <= 5:
+    mirrored_away = True
+
+if mirrored_away or (is_full_shell and gamma < 0):
+    Y_loss = 0.0
+elif is_half_shell or is_full_shell:
+    Y_loss *= 0.5
+```
+
+The new gate `(is_full_shell and gamma < 0) → Y_loss = 0.0` applies to **any element with a full inner shell and negative gamma** — NOT just heavy elements. The commit message ("Heavy Elements") and the heavy-element-specific `mirrored_away` flag suggest the author thought Z≥31 was the scope, but the `is_full_shell + gamma<0` condition is broader.
+
+**For Al/Si (Z=13/14, 3p block):** inner shell n=2 has 8 electrons (full 2s²+2p⁶), `is_full_shell=True` (l_barrier=1, N_sub=6). Gamma is negative (z_out < z_in). So the new code zeroes Y_loss where the old code halved it. **Op10 attenuation removed → E_base unchanged where previously E_base was attenuated → bound state more negative → IE larger.**
+
+**Axiom analysis (Rule 16 question for Grant):**
+- The "polar conjugate mirror" claim says: full inner Torus closure + impedance step inward = perfect TIR (no transmission, no scattering loss).
+- Per Ax 4 (Saturation): saturated boundaries can act as TIR mirrors at Regime IV (yield boundary).
+- Per Ax 1 (LC Network): impedance steps cause partial reflection per Op3 (`Γ = (Z_out−Z_in)/(Z_out+Z_in)`); only at Z_out=0 or Z_in=∞ is reflection perfect.
+- For a full inner shell at Period 3 p-block, gamma is finite (≈0.85 for Si: z_in=14-2=12, z_out=12-8=4, gamma=-(8/16)=-0.5; |Γ|²=0.25). NOT perfect reflection per Op3.
+
+**The perfect-mirror claim contradicts Op3 reflection physics for Period 3.** Either there's a missing axiom-anchored mechanism that promotes partial reflection to perfect at full-shell closures, or the perfect-mirror gating is too broad and should be restricted to literal Z>=31 heavy-element cases.
+
+### §10.11 — Diff-level reading of 046a233 (Phase C unification c=n(n-1))
+
+`git show 046a233 -- src/ave/solvers/radial_eigenvalue.py`: relocated Op10 logic from inside `_sir_mode_weighted_base` to global scope inside `ionization_energy_e2k`.
+
+Pre-046a233: Op10 was inside SIR with `c_intersections = 2` (Malus's law fixed: 2 crossings per radial oscillation). Only triggered for specific co-resonant boundary cases per the deleted docstring "*This shell is co-resonant with the valence soliton (adjacent n)*."
+
+Post-046a233: Op10 in main pipeline with `c_intersections = n_shell*(n_shell-1)`. Applied to all elements with l_out>0.
+
+The relocation broadened Op10's applicability from "co-resonant adjacent-n" to "all inner shells with l_A ≤ l_out." For Al (Z=13): pre-046a233 used c=2 fixed → small Y_loss; post-046a233 uses c=n(n-1)=2 (n_shell=2 inner) → same numerical c but applied at different gating, yielding +0.43 IE shift.
+
+87b4114 then changed `c_intersections` formula from `n_shell*(n_shell-1)` to `l_barrier*(l_barrier+1)`. For Al/Si with l_barrier=1, l_barrier*(l_barrier+1) = 2 — same numerical value as n_shell*(n_shell-1) for n=2. So the c-formula change in 87b4114 doesn't affect Al/Si numerically; the spillover is from the Y_loss=0 perfect-mirror gate (Change C above).
+
+### §10.12 — Surgical-fix prescription (Rule 16 — questions for Grant)
+
+Per Rule 16 (ask Grant fundamental physics questions when corpus + engine conflict), three plumber-physics questions emerge from the diff reads:
+
+**Q1 (7fa60b7 Change A — `_z_net` form):** Which form of effective nuclear charge is corpus-canonical AVE physics?
+- Form (i): σ_n(r) from Helmholtz CDF, derived as the standing-wave-amplitude integral on the K4-LC network in continuum limit. Old code, OLD docstring chains explicitly through Ax 1 + Ax 2.
+- Form (ii): step function at Bohr radii, literal-lattice discretization. New code, NEW docstring claims Ax 3 dictates this without showing operational chain.
+- Empirical: form (i) reproduces 0401388 manuscript precision (±0.008%); form (ii) drifts 6/8 affected Period 1-3 elements away from CODATA.
+
+**Q2 (7fa60b7 Change B — angular reactance form):** ℓ(ℓ+1)/r² (Laplacian eigenvalue) or ℓ²/r² (Ax-2 winding-number squared)? Both are corpus-anchorable; current code uses ℓ². For ℓ=0 it doesn't matter; for ℓ≥1 it halves/two-thirds the centrifugal barrier.
+
+**Q3 (87b4114 Change C — perfect-mirror at full-shell + gamma<0):** Is the polar-conjugate-mirror claim (Y_loss = 0 at `is_full_shell and gamma<0`) physically correct, or should it be restricted to literal Z≥31 heavy-element cases? Per Op3, gamma=-0.5 at Si is partial (|Γ|²=0.25), not perfect. The perfect-reflection gate may be too broad.
+
+### §10.13 — Forward direction with Grant adjudication
+
+Once Q1/Q2/Q3 adjudicated, surgical fix shape:
+
+- **If Q1 = (i):** revert `_z_net` change in 7fa60b7; keep angular-reactance change conditional on Q2.
+- **If Q1 = (ii):** the discrete-step formula needs additional sophistication (e.g., transition-zone width, per-shell Bohr-radius scaling factor, or different impedance-step formula). Tuning work.
+- **If Q2 = ℓ(ℓ+1):** revert that change in 7fa60b7. Also implies Op10 c_intersections returns to ℓ(ℓ+1) form (where 87b4114 currently has it for the wrong reason).
+- **If Q2 = ℓ²:** keep, but ensure all centrifugal-barrier instances are consistent (currently mixed across the file post-7fa60b7).
+- **If Q3 = perfect-mirror correct:** keep 87b4114 broadly, accept Period 3 drift as physics; manuscript table needs update.
+- **If Q3 = restrict to Z≥31:** narrow the gate to `mirrored_away` only (drop the `or (is_full_shell and gamma<0)` clause); Period 3 returns to pre-87b4114 values.
+
+**Most rigorous AVE-engineering-axiom-compliant path forward:** Grant adjudicates Q1/Q2/Q3 in plumber-physics terms (one paragraph each); surgical commits land per adjudication; full Z=1-14 sweep re-verifies; manuscript table either pins to refined HEAD or stays at `0401388` per outcome.
+
+The empirical bisection has narrowed the question from "manuscript-vs-code drift" (vague, large surface) to "three specific axiom-form questions about ABCD-cascade screening, centrifugal-barrier eigenvalue form, and full-shell TIR boundary condition" (sharp, code-anchored, plumber-physics-tractable).
 
 ### §9.6 — Implications for prior framings
 
