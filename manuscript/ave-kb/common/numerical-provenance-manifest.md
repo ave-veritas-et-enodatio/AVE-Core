@@ -21,6 +21,21 @@
 
 ---
 
+## Open peer-review remediation entries (Rule 11 falsification-record / honest-framing)
+
+### `src/ave/solvers/g_minus_2_lattice.py` — P2.1 OPEN
+
+- **Numerical claim**: NONE — explicitly OPEN. Script outputs lattice-derived C₂ ≈ -0.00938 vs QED/PDG target -0.328479 (97% deviation, NOT a passing match).
+- **Origin**: peer-review remediation P2.1, committed 2026-04-15 in `908b077` with message *"P2.1 C_2 anomaly reframed as an open measurement vs integration limits."*
+- **Status**: OPEN. Schwinger 1st-order a_e = α/(2π) IS derived in Vol 2 Ch 6 (verified at corpus level). The 2nd-order C₂ via K4 structural reflection at the script's default parameters (depth=3, branch=NU_VAC, boundary=1.0) does NOT reproduce QED's value.
+- **Two open candidate explanations** (per script docstring 2026-04-30):
+  - (a) The K4 structural reflection at this depth/boundary is a different physical quantity than QED's 2nd-order loop coefficient; comparison is structurally mismatched.
+  - (b) Different (depth, branch_y, boundary_y, coordination_z) parameters would close the gap; this default invocation is one of many possible computations, not the canonical one.
+- **Forward action**: Grant adjudication on which reading is correct, OR investigation of parameter space at varying depths to test reading (b).
+- **NOT a corpus-canonical electron-physics anchor at present.** Recorded as exploratory empirical data per Rule 11. Distinct from anchored claims like Schwinger 1st-order or Theorem 3.1 dual-angle α⁻¹.
+
+---
+
 ## Pending verification (registered for forward-direction work)
 
 The following manuscript files contain numerical claims about solver outputs but their generating-SHA + date have NOT yet been verified empirically. Each entry marks scope for future A47 v11c verification work — by analogy to the IE table arc (read manuscript-add commit, run solver at that SHA, confirm reproduction within tolerance, lock at CI gate).
