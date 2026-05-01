@@ -73,26 +73,110 @@ from ave.core.universal_operators import universal_reflection, universal_saturat
 # Step 1: Piece-wise radial potential
 # ---------------------------------------------------------------------------
 
-# [Legacy CDF Gaussian charge smearing equations securely eliminated per Axiomatic topology derivations.]
+def _enclosed_charge_fraction_1s(r, Z_shell):
+    """Enclosed charge CDF for hydrogenic 1s shell.
+
+    Axiom chain: Axiom 1 (Helmholtz) → ψ₁ₛ ∝ e^(-Zr/a₀)
+                 Axiom 2 (Gauss)     → CDF σ₁ₛ(x)
+
+    σ₁ₛ(x) = 1 - (1 + x + x²/2) e^(-x),  x = 2Zr/a₀
+    """
+    import math
+    x = 2.0 * Z_shell * r / A_0
+    if x > 500:
+        return 1.0
+    return 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+
+
+def _enclosed_charge_fraction_n2(r, Z_shell, N_2s, N_2p):
+    """Enclosed charge CDF for combined n=2 shell (2s + 2p).
+
+    Axiom chain: Axiom 1 (Helmholtz) → ψ₂ₛ, ψ₂p standing waves
+                 Axiom 2 (Gauss)     → per-subshell CDFs
+
+    Both CDFs use u = Zr/a₀ (NOT 2Zr/a₀) because the n=2 exponential
+    squared gives e^(-Zr/a₀):
+        ψ₂ₛ ∝ (2-u)e^(-u/2)  →  |ψ|²r² ∝ (2-u)²u² e^(-u)
+        ψ₂p ∝ u·e^(-u/2)     →  |ψ|²r² ∝ u⁴ e^(-u)
+
+    Analytic CDFs (verified against numerical integration to 1e-16):
+        σ₂ₛ(u) = 1 - e^(-u)(1 + u + u²/2 + u⁴/8)        [no u³ term!]
+        σ₂p(u) = 1 - e^(-u)(1 + u + u²/2 + u³/6 + u⁴/24)
+
+    Combined: σ₂(u) = (N_2s·σ₂ₛ + N_2p·σ₂p) / (N_2s + N_2p)
+    """
+    import math
+    N_total = N_2s + N_2p
+    if N_total <= 0:
+        return 0.0
+
+    u = Z_shell * r / A_0
+    if u > 500:
+        return 1.0
+
+    eu = math.exp(-u)
+    u2 = u * u
+    u3 = u2 * u
+    u4 = u3 * u
+
+    sigma_2s = 1.0 - eu * (1.0 + u + 0.5 * u2 + u4 / 8.0)
+    sigma_2p = 1.0 - eu * (1.0 + u + 0.5 * u2 + u3 / 6.0 + u4 / 24.0)
+
+    return (N_2s * sigma_2s + N_2p * sigma_2p) / N_total
+
+
+# Legacy alias
+def _enclosed_charge_fraction(r, Z_shell):
+    """1s CDF — kept for backward compatibility with tests."""
+    return _enclosed_charge_fraction_1s(r, Z_shell)
 
 
 def _z_net(r, Z, shells):
-    """
-    Computes the effective nuclear charge Z_eff(r) traversing radially inward
-    across exact geometrical boundary limits. 
+    """Effective nuclear charge at radius r — AXIOM-DERIVED SCREENING.
 
-    AVE Axiom 3 dictates crossing spatial boundaries natively imposes discrete
-    impedance steps, fully resolving geometric bounding regions natively without
-    using arbitrary probabilistic charge smearing formulas.
+    Each inner shell's enclosed charge fraction σ(r) is computed from
+    the hydrogenic standing wave solution on the LC lattice:
+        Axiom 1 → Helmholtz equation → |ψₙₗ(r)|²
+        Axiom 2 → Gauss's law → CDF σₙₗ(r)
+
+    The effective charge at radius r:
+        Z_net(r) = Z - Σᵢ Nᵢ · σᵢ(r)
+
+    Shell-specific CDFs:
+        n=1 (1s):    σ₁ₛ(x), x = 2Zr/a₀   [tightly bound, peaks at r ≈ a₀/Z]
+        n=2 (2s+2p): σ₂(u),  u = Zr/a₀     [extends ~4× further than 1s]
+        n≥3:         σ₁ₛ with scaled variable [approximation, sufficient for inner shells]
+
+    [Restored 2026-04-30 per Q1 adjudication, doc 100 §10.16+§10.17 — pre-7fa60b7
+    Helmholtz CDF chain (Ax-1+Ax-2 explicit) is corpus-canonical for IE solver.
+    Reverts step-function-at-Bohr-radii substitution from commit 7fa60b7.]
     """
-    Z_eff = float(Z)
+    z = float(Z)
     z_eff_inner = float(Z)
-    for n_shell, count in shells:
-        r_shell = float(n_shell)**2 * A_0 / max(1.0, z_eff_inner)
-        if r > r_shell:
-            Z_eff -= float(count)
-        z_eff_inner -= float(count)
-    return max(1.0, Z_eff)
+
+    for n_shell, N_a in shells:
+        if n_shell == 1:
+            # 1s shell: use exact 1s CDF
+            sigma = _enclosed_charge_fraction_1s(r, z_eff_inner)
+        elif n_shell == 2:
+            # n=2 shell: use combined 2s+2p CDF
+            # Filling order: first 2 electrons are 2s, rest are 2p
+            N_2s = min(N_a, 2)
+            N_2p = max(0, N_a - 2)
+            sigma = _enclosed_charge_fraction_n2(r, z_eff_inner, N_2s, N_2p)
+        else:
+            # n≥3: approximate with 1s CDF at scaled variable
+            # 2Z/(n·a₀) instead of 2Z/a₀ to account for larger orbital radius
+            import math
+            x = 2.0 * z_eff_inner * r / (float(n_shell) * A_0)
+            if x > 500:
+                sigma = 1.0
+            else:
+                sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+        z -= N_a * sigma
+        z_eff_inner -= N_a
+
+    return max(z, 0.0)
 
 
 # ---------------------------------------------------------------------------
@@ -1750,7 +1834,13 @@ def ionization_energy_e2k(Z, f_val=1.0):
                 if Z >= 81 and n_out >= 6 and n_shell <= 5:
                     mirrored_away = True
                     
-                if mirrored_away or (is_full_shell and gamma < 0):
+                # [Q3 narrowing 2026-04-30 per doc 100 §10.16: dropped
+                #  `or (is_full_shell and gamma < 0)` clause from Y_loss=0 gate.
+                #  Op3 reflection at impedance step is partial (|Γ|² < 1) unless
+                #  Γ=±1; full-shell-closure does not promote partial→perfect
+                #  reflection without an axiom-anchored mechanism. Z≥31
+                #  long-distance amplification stays via `mirrored_away`.]
+                if mirrored_away:
                     Y_loss = 0.0
                 elif is_half_shell or is_full_shell:
                     Y_loss *= 0.5
