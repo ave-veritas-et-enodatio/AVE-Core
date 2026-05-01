@@ -2829,6 +2829,17 @@ Per Rule 16 (ask-Grant-fundamental-physics-questions BEFORE designing tests/clos
 
 That reads as a physical claim about the electron, not as mathematical scaffold for an α derivation.
 
+**Structural framing (per auditor 2026-04-30 pass-2):** the (a)/(b)/(c)/(d) ambiguity is undersettled because the corpus contains TWO manuscript-tier sources in tension — not just one chapter requiring interpretation:
+
+| Source | Reading | Tier |
+|---|---|---|
+| Vol 1 Ch 8 prose at lines 101-141 | (d) — "exact physical bounding radii of the electron" + "electron is structurally locked to Golden Torus" | Manuscript canonical (AVE-Core, post-2026-04-19 addition per §20.1) |
+| Doc 28 §3+§4 | (a) — explicit "phase-space R_phase/r_phase = φ², real-space R_real/r_real ≠ φ², they needn't match" | Research-tier |
+| Parent repo `39e1232` (2026-03-02) | (a) — "electron is unknot" canonical | Manuscript canonical (parent, pre-IP-separation) |
+| AVE-Core post-2026-04-19 Vol 1 Ch 8 addition | (d) — structurally distinct from parent's electron-is-unknot per §20 corpus drift | Manuscript canonical (post-divergence) |
+
+Per "manuscript over research" calibration, manuscript wins. But TWO manuscript-tier sources are in tension: parent's `39e1232` electron-is-unknot canonical (consistent with (a)) and AVE-Core's post-2026-04-19 Vol 1 Ch 8 prose (reads (d)). Which manuscript is canonical for THIS framework version is a corpus-author call. The §20 corpus drift finding identified this divergence; §21 prematurely resolved it via reading (3) lean; §24 surfaces it as the actual Rule 16 question owed.
+
 **The load-bearing Rule 16 question:** is Vol 1 Ch 8's Golden Torus (R = φ/2, r = (φ−1)/2):
 
 (a) A **phase-space (V_inc, V_ref) Clifford-torus quantity** (S³ ⊂ ℂ² embedding per [doc 28 §3](../../research/L3_electron_soliton/28_two_node_electron_synthesis.md), consistent with parent's `39e1232` "electron is unknot" + the FOC dq-frame reading + A46 phase-space-vs-real-space discipline)?
@@ -2846,4 +2857,11 @@ The framework's empirical state for the electron model hinges on this answer. Th
 **My honest read:** (a) is the most consistent with the rest of the corpus — A46 phase-space discipline, doc 28 §3+§4 phase-space (V_inc, V_ref) framing, parent's `39e1232` electron-is-unknot canonical, the AVE-HOPF Beltrami eigenvalue framework which operates in (V_inc, V_ref) phasor coordinates. Under reading (a), Vol 1 Ch 8's geometric language is real-physical but in PHASE-space, not real-space — and the Cosserat-ω real-space envelope test is diagnostic only, not load-bearing. The §22 AVE-HOPF Beltrami cross-anchor + the §22.6 FFT extension would then be the load-bearing measurements; §23 Lorentzian fit on real-space envelope is a refinement of a non-load-bearing extraction.
 
 But I shouldn't be the one deciding this; Rule 16 says ask. — auditor pass 2026-04-30.
+
+**Forward-path map per adjudication (auditor 2026-04-30 pass-2):**
+
+- **Reading (a):** Vol 1 Ch 8 prose has drifted from parent's electron-is-unknot canonical. Manuscript amendment owed (auditor-lane, your call) to clarify (R, r) are phase-space (V_inc, V_ref) Clifford-torus radii. §22.6 FFT extraction in (V_inc, V_ref) phasor coordinates is the load-bearing next test. Cosserat real-space envelope is diagnostic-only.
+- **Reading (b):** Cosserat ω real-space scaffold IS the corpus electron's home. §16 stator-envelope reading is load-bearing. A47 v3's "different field" framing was wrong. r-drift in §23 is a real physics observation needing investigation, not closure.
+- **Reading (c):** Vol 1 Ch 8 is mathematical scaffold for α derivation only. Manuscript amendment owed to clarify "only Rr = 1/4 is the canonical constraint." Cosserat r-drift is irrelevant; ⚠ closes via R-preservation alone (which is what §23 attempted, post-hoc-but-legitimate-under-(c)).
+- **Reading (d):** Vol 1 Ch 8 prose is canonical-as-written. Cosserat 5.6% Lorentzian-fit-r drift in real-space is a real disagreement. ⚠ stays open and the L3 arc has been measuring the right observable.
 
