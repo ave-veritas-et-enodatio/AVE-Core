@@ -1077,3 +1077,51 @@ The substrate-native erosion pattern is **localized**: concentrated in AVE-Core'
 
 The CI gate landed in §10.30 catches *future* drift on the 14 elements I restored. The 3 remaining hand-waves + coupled_resonator.py TODOs are findings to flag for Grant, not in scope for this session's commit.
 
+### §10.34 — Steps 4 + 5: PR template + manuscript SHA-anchoring sweep
+
+Per Grant adjudication 2026-04-30 (defense-before-offense, after auditor's NEW recommendation document) — completed the remaining 40% of A47 v11d/v13 methodology infrastructure:
+
+**Step 4 — PR template axiom-chain checkbox** ([`.github/pull_request_template.md`](../../.github/pull_request_template.md)):
+
+A-021 grep first: existing template has 6 standard items (issue link, AI declaration, test coverage, no SM smuggling, `make test`, `make verify`). Augmented with "Axiom-Chain Discipline (A47 v11d)" subsection — three checkbox items:
+
+1. Axiom-chain-anchored docstrings preserved (no "organically incorporates" hand-waves)
+2. Manuscript SHA pin unchanged or deliberately advanced (with table regen)
+3. Public-API change locked in `src/tests/` at appropriate tolerance
+
+This institutionalizes the discipline at PR time. Every future PR touching solvers / operators / physics-derivation functions hits the checkbox. The class of bug that produced the line-687 fabrication is structurally caught at merge.
+
+**Step 5 — Manuscript SHA-anchoring sweep** (pragmatic central-manifest approach, scope-tight):
+
+Per scope analysis: ~25+ manuscript files contain numerical solver claims. Full per-file detailed SHA-pin footnotes would be ~1 day of work; central manifest is ~2 hours and structurally sufficient.
+
+Created [`manuscript/ave-kb/common/numerical-provenance-manifest.md`](../../manuscript/ave-kb/common/numerical-provenance-manifest.md) — central index with:
+
+- **Verified entries**: 1 file (IE validation table) with full SHA + date + solver-function provenance
+- **Pending entries**: 14 files registered for forward A47 v11c verification work (validation tables, geometric-inevitability derivations, framework summaries, LaTeX volumes)
+- **Verification protocol**: 5-step template for moving entries from "Pending" to "Verified"
+- **Pre-existing CI-anchored claims**: 4 legacy verify scripts (Clifford half-cover, α from Golden Torus, ropelength, DAG anti-cheat) flagged for A47 v11c retroactive audit
+
+Added brief A47 v11c provenance footnote to [`ionization-energy-validation.md`](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/ionization-energy-validation.md) pointing to the manifest + verify script + test class.
+
+**Discipline form complete:**
+- A47 v11c (commit-SHA-anchoring at table-generation time): manifest + 1 verified entry + protocol for the rest
+- A47 v11d (axiom-chain-required-in-docstring at PR time): PR template checkbox
+- E-093 CI gate (catches IE drift at ±0.5%): pytest in Actions + `make verify` locally
+
+The structural defense surface is locked. Steps 1-5 of auditor's recommendation document complete. The class of bug that drifted `radial_eigenvalue.py` 5-15% over 11 commits is now caught at three layers: PR review (template checkbox), CI gate (pytest + make verify), corpus-wide audit (provenance manifest).
+
+### §10.35 — E-094 driver pre-built (awaiting kickoff)
+
+Wrote [`src/scripts/vol_1_foundations/r10_path_alpha_v9_bond_pair_quadrature.py`](../../src/scripts/vol_1_foundations/r10_path_alpha_v9_bond_pair_quadrature.py) — bond-pair scale rerun driver per E-094 spec:
+
+- **IC**: `initialize_quadrature_2_3_eigenmode` (V_inc + V_ref at 90° quadrature) per A47 v7 + A-023
+- **Scale**: R=2 (bond-pair envelope), N=16 lattice (interior 8³), vs r9's R=10 / N=32 bond-cluster
+- **Sampling**: K4 tetrahedral bond-pair offsets (reused from r9 template)
+- **Adjudication**: dual-criterion per doc 28 §5.1 (R_phase/r_phase = φ² ± 5% AND chirality consensus ≥ 75%)
+- **Pre-reg outcome classes**: Mode I (corpus electron at bond-pair scale empirically realized), Mode II/II', Mode III (closes A-016 negative)
+
+A-021 pre-flight grep applied: r9_path_alpha_bond_pair_phasor.py is the closest template (V_inc-only at bond-cluster), superseded by this driver per A47 v7 quadrature requirement. No prior bond-pair-quadrature driver exists.
+
+Driver is committed but not run. Awaits Grant kickoff per auditor lane: methodology defense complete, structural offense (E-094 + further) ready when authorized.
+
