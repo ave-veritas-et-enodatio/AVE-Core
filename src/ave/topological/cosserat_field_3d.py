@@ -894,6 +894,104 @@ class CosseratField3D:
         self.u = u
         self.omega = np.zeros_like(self.omega)
 
+    def initialize_electron_unknot_sector(
+        self,
+        R_target: float,
+        r_target: float | None = None,
+        amplitude_scale: float = 1.0,
+        use_hedgehog: bool = True,
+    ) -> None:
+        """
+        Canonical electron unknot ansatz for the Cosserat ω-field.
+
+        Per `manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/
+        electron-unknot.md`: the electron is a 0₁ unknot — a single closed
+        flux tube loop carrying a Beltrami standing wave (∇×A = kA), at
+        horn-torus geometry (R_loop = r_tube; Reading A canonical:
+        R = r = ℓ_node/(2π)).
+
+        The Cosserat ω-field is seeded TANGENT TO THE LOOP (ê_φ direction)
+        with localization profile peaking at the tube centerline. NO (p,q)
+        winding — this distinguishes the unknot from the (2,3) torus-knot
+        ansatz hosted by `initialize_electron_2_3_sector`.
+
+        Per research/L3_electron_soliton/101_ §9 (three-layer canonical):
+            Layer 1 (real-space curve): unknot 0₁ (this seeder)
+            Layer 2 (field bundle):    SU(2) double-cover via SO(3) → SU(2)
+                                       Rodrigues projection of ω
+                                       (post-processing observable; NOT
+                                       seeder-encoded — ω has SO(3) period
+                                       2π by construction)
+            Layer 3 (phase-space):     (V_inc, V_ref) (2,3) winding on
+                                       Clifford torus — NOT in scope of
+                                       Cosserat sector; lives in K4 V-tank.
+
+        Axiom chain:
+          Ax 1 (LC substrate)        — Cosserat ω is SO(3)-valued substrate
+                                       microrotation.
+          Ax 2 (TKI)                 — closed flux loop topology, c=0
+                                       unknot, Q_H=0; loop is the
+                                       topological defect.
+          Ax 3 (Effective Action)    — Beltrami eigenmode ∇×ω = kω at
+                                       fundamental k ≈ 1/R_loop.
+          Ax 4 (Saturation)          — saturation kernel determines tube
+                                       cross-section profile via hedgehog
+                                       envelope.
+          Bounding Limit 1           — m_e = ℏ/(ℓ_node·c); circumference
+                                       = ℓ_node.
+          Ropelength bound           — minimum ropelength = 2π for unknot
+                                       at horn torus.
+
+        Parameters:
+          R_target: Loop major radius (grid units). Reading A canonical:
+                    R = ℓ_node/(2π) ≈ 0.16 cells (sub-grid at dx=1.0).
+                    For lattice-resolved diagnostic tests, R ≥ 4 cells.
+          r_target: Tube minor radius (grid units). Default = R_target
+                    (horn torus, Reading A canonical). Pass r ≠ R only
+                    for non-canonical diagnostic tests of standard-torus
+                    geometry.
+          amplitude_scale: Peak |ω| multiplier. Default 1.0 sets peak |ω|
+                    ≈ √3/2·π (matches `initialize_electron_2_3_sector`
+                    Regime II/III boundary convention).
+          use_hedgehog: True (default) uses AVE-canonical power-law hedgehog
+                    π/(1 + (ρ/r_opt)²); False uses Gaussian (legacy QM
+                    shape, NOT topologically derived).
+        """
+        if r_target is None:
+            r_target = R_target  # horn torus default per Reading A
+
+        cx, cy, cz = (self.nx - 1) / 2.0, (self.ny - 1) / 2.0, (self.nz - 1) / 2.0
+        x = self._i - cx
+        y = self._j - cy
+        z = self._k - cz
+
+        rho_xy = np.sqrt(x**2 + y**2)
+        rho_tube = np.sqrt((rho_xy - R_target) ** 2 + z**2)
+        phi = np.arctan2(y, x)
+
+        if use_hedgehog:
+            # AVE-canonical power-law hedgehog (matches initialize_electron_2_3_sector).
+            # Peak amplitude = sqrt(3)/2 * pi at Regime II/III boundary.
+            r_opt = r_target if r_target > 0 else 1.0
+            envelope = amplitude_scale * (np.sqrt(3.0) / 2.0) * np.pi / (1.0 + (rho_tube / r_opt) ** 2)
+        else:
+            # Legacy Gaussian (QM wavefunction shape — NOT topologically derived).
+            sigma = r_target if r_target > 0 else 1.0
+            envelope = amplitude_scale * 0.6 * np.pi * np.exp(-(rho_tube**2) / (sigma**2))
+
+        # ω = envelope · ê_φ where ê_φ = (-sin φ, cos φ, 0).
+        # NO (p,q) winding — distinguishes unknot from torus-knot ansatz.
+        # 2π closure of ω (SO(3) period); SU(2) double-cover is observable
+        # via Rodrigues projection, not encoded in the seed.
+        omega = np.zeros((self.nx, self.ny, self.nz, 3), dtype=np.float64)
+        omega[..., 0] = -envelope * np.sin(phi)
+        omega[..., 1] = envelope * np.cos(phi)
+        omega[..., 2] = 0.0
+        omega *= self.mask_alive[..., None]
+
+        self.omega = omega
+        self.u = np.zeros_like(self.u)
+
     def _zero_outside_alive(self) -> None:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
         self.u = self.u * mask
