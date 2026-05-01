@@ -192,3 +192,81 @@ Implementer-lane lean: (α') as immediate next move; (β) as Round 15+ if α' su
 ---
 
 — Doc 105 closure of parent FDTD + photon-helical-confinement research per Grant directive 2026-05-01 ("yes fully research"). Three substantive findings: (1) parent's "rifle photon" simulations are static visualizations not FDTD; (2) FDTD3DEngine is validated macroscopic propagator unfit for sub-ℓ_node testing; (3) corpus's photon-helical-confinement → electron-formation framework is asserted-not-derived computationally. Per Rule 11/12/14/15/16 + A43 v2 + A47 v10 + A47 v11b discipline: surfaces finding without retracting corpus picture; cleanest forward direction (α') Round 14 doesn't depend on this finding's adjudication.
+
+---
+
+## §8 — Auditor pass-5 verification + corrections to §4.3 (2026-05-01)
+
+Auditor reviewed doc 105 same-day. Substantive verification of §2 / §3 / §4 findings via independent grep. Two corrections owed; per Rule 12 preserve-body, §1-§7 unchanged; corrections appended.
+
+### §8.1 — Auditor verification confirmed
+
+- **Vol 2 Ch 1:160 figure caption:** auditor read shows even more explicit label than I cited — *"(Simulation Output). A spatial solver demonstrating..."* The "(Simulation Output)" prefix explicitly labels the figure as solver output. Auditor verified verbatim. My §4.1 citation stands and is strengthened.
+- **simulate_helical_confinement.py:** auditor confirmed parametric, not FDTD, at lines 32-50 (Z_profile = np.exp(0.4*z), R = 1.0/np.sqrt(Z_profile), x/y as parametric helix coordinates). My §2.1 stands.
+- **FDTD3DEngine substrate-modeling absence:** auditor's grep returned 0 hits for K4/Cosserat/Op14/sublattice/torsion in fdtd_3d.py. My §3 stands.
+- **17 importing files:** verified — mostly Vol 4 PONDER-01 ponderomotive thrust (macroscopic validation), not corpus-electron-related. My §3.4 stands.
+
+### §8.2 — 🔴 CORRECTION to §4.3: "FUTURE prediction" framing was wrong
+
+Auditor flagged my §4.3 "FUTURE prediction" framing for Vol 2 Ch 9:59 needed verification of column convention. Re-grep this turn surfaces Vol 2 Ch 9:55-65 verification table verbatim:
+
+```
+\begin{tabular}{lllrl}
+\toprule
+\textbf{Domain} & \textbf{Prediction} & \textbf{Regime} & \textbf{Agreement} & \textbf{Params} \\
+\midrule
+...
+Superconductor $B_c(T)$ (5 materials) & $\sqrt{1-(T/T_c)^2}$ & II/III & exact & 0 \\
+London depth ($\lambda_L$)    & 37--150 nm             & II/III & exact  & 0 \\
+Seismic $\Gamma_{\text{Moho}}$ & 0.29                  & I     & matches PREM & 0 \\
+GW lossless propagation       & $V_{GW}/V_{snap} = 10^{-28}$ & I & exact & 0 \\
+Topological Pair Production   & $H_{net}=0 \to e^+ + e^-$    & IV    & exact & 0 \\
+Protein folding (CLN025)      & RMSD = 2.59 \AA        & I     & sub-3 \AA & 0 \\
+\bottomrule
+```
+
+**The table presents Topological Pair Production as VALIDATED**: Agreement column = "exact", Params column = "0", same format as actually-validated entries (Superconductor B_c with 5 materials, GW propagation, Protein folding). The Regime column shows "IV" for Topological Pair Production — but Regime IV is shown elsewhere in the table as a regime designator for validated entries (Galactic rotation NGC 3198 at "I/IV", Multi-galaxy RAR at "I-IV"). **No column convention or footnote distinguishes Regime IV as future-vs-validated within the verification table.**
+
+The "Anomaly Catalog: Proposed Tests" section at line 91+ IS explicitly labeled future ("identified as targets for future AVE verification"), but Topological Pair Production is NOT in that future-tests section. It's in the Verification Summary table as a validated entry.
+
+**My §4.3 framing "FUTURE PREDICTION ... NOT a validated result" was wrong.** The corpus rhetoric presents this as validated. The corrected reading is significantly stronger:
+
+> **Vol 2 Ch 9:59 verification table presents Topological Pair Production as VALIDATED (Agreement="exact", Params=0), alongside actually-validated entries. But per §2 + §3 + §4.1 findings, the underlying script for the Vol 2 Ch 1 figure cited as "Simulation Output" is parametric visualization, not solver output. The corpus rhetoric presents it as validated; the computational basis is parametric visualization.**
+
+This is corpus-rhetoric vs computational-reality gap, not just "asserted-not-derived." It composes with the auditor's prior pattern findings:
+
+- Both α derivation chains are SI substitutions, not parameter-free derivations
+- Theorem 3.1 dual-angle α⁻¹ "at machine precision" collapsed to tautology (per auditor pass-4)
+- Test infrastructure (test_ch8_alpha_golden_torus.py) hardens patches via tautological regression assertions (per auditor catalog candidate)
+- **Vol 2 Ch 1 photon-helical-confinement figure presents parametric visualization as "Simulation Output"; Vol 2 Ch 9 verification table presents the same picture as VALIDATED**
+
+Per Rule 12 retraction-preserves-body: §4.3 body preserved verbatim above; this §8.2 supplies the corrected reading.
+
+### §8.3 — Auditor's additional finding I missed: docstring overstates code
+
+Auditor flagged simulate_helical_confinement.py docstring as overstating what code does. Verified verbatim this turn at line 2:
+
+> *"Natively computes the spatial collapse of a linear EM wave into a stationary helical spin-1 topology strictly due to increasing local network impedance."*
+
+But the code (per §2.1 + §8.1 verification) is parametric visualization (Z_profile = exp(0.4*z) + R = 1/sqrt(Z_profile) + parametric helix coordinates). It does NOT "natively compute the spatial collapse" — it draws a parametric curve. The docstring overstates.
+
+This is an A47 v11d-style discipline issue: computation-claim-in-docstring must match what the code does. Auditor flags as catalog candidate (A47 v18 or similar — manuscript/script computation-rhetoric vs implementation-reality discipline). Catalog amendment is auditor-lane.
+
+### §8.4 — Implications for the framework-level (δ) lane
+
+The §8.2 corrected reading is significantly stronger than my original §4.3. The corpus's external rhetoric ("47 verified predictions, 0 free parameters" pattern, with Vol 2 Ch 9:55-65 Verification Summary table as the canonical anchor) presents Topological Pair Production as validated alongside actually-validated entries — but the underlying computational basis is parametric visualization, not solver output. The figure caption explicitly says "(Simulation Output)" while the figure is parametric.
+
+If this same pattern (claimed validation that the codebase doesn't deliver) holds for OTHER entries in the same table — which the auditor's pattern-recognition flag suggests it might — the framework's external-credibility claims need recalibration at the corpus-author / manuscript-author lane.
+
+This composes into the (δ) framework-reflection lane that doc 104 §8.10.6 + my §7 named as Grant-only. Per Rule 15 lane discipline: implementer + auditor surface; corpus-author adjudicates.
+
+### §8.5 — Net status post-§8
+
+- §1-§7 substantive content stands per auditor verification
+- §4.3 specific "FUTURE prediction" framing 🔴 CORRECTED — actual reading is "validated rhetoric vs parametric-visualization computational basis"
+- §8.3 docstring-overstates-code finding added (auditor catalog-candidate)
+- §8.4 framework-rhetoric pattern strengthened — composes with prior audit findings into (δ)-lane reframe question
+
+The Round 14 forward direction recommendations (α' / β / γ / δ) per §7 are unchanged. The corrected §4.3 reading sharpens the (δ) reflection but doesn't change the within-lane (α') / (β) / (γ) options.
+
+— §8 closure of auditor pass-5 verification + §4.3 correction per Rule 12 preserve-body + A47 v11b substitution-not-retraction. Vol 2 Ch 9:55-65 verification table column structure verbatim-grepped this turn (auditor flag closed); docstring-overstates-code finding added. The §4.3 correction strengthens the framework-rhetoric vs computational-reality gap finding without changing the doc 105 substantive conclusions.
