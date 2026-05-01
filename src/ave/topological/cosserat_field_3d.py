@@ -783,7 +783,26 @@ class CosseratField3D:
         amplitude_scale: float = 1.0,
     ) -> None:
         """
-        Initialize the (2,3) torus-knot ansatz for the electron.
+        Initialize the (2,3) torus-knot ansatz on the Cosserat ω-field.
+
+        DEPRECATION NOTE (per research/L3_electron_soliton/101_ §9 three-layer
+        canonical, Grant 2026-04-30): the original "electron" naming is
+        misleading. Per the three-layer canonical:
+          Layer 1 (real-space curve): electron is 0₁ UNKNOT — not (2,3)
+          Layer 3 (phase-space):      (V_inc, V_ref) traces (2,3) winding on
+                                      Clifford torus — but that's K4 V-tank,
+                                      NOT Cosserat ω real-space
+        Cosserat ω hosts Layer 1 (real-space curve) + Layer 2 (SU(2) bundle).
+        This seeder writes a (2,3) torus-knot ansatz onto Cosserat ω — which
+        is testing (2,3)-torus-knot dynamics in REAL SPACE (a separate
+        physics question; valid for proton 5₁/5₂ family etc.), NOT the
+        canonical electron.
+
+        For the canonical electron, use `initialize_electron_unknot_sector`
+        instead. The canonical alias `initialize_2_3_torus_knot_sector` on
+        this class delegates to this method — preferred for any future code
+        that wants (2,3) topology testing without the misleading "electron"
+        label.
 
         If use_hedgehog=True (default): uses the AVE-canonical power-law
         hedgehog profile phi(R) = pi / (1 + (R/r_opt)^2) with the peak
@@ -991,6 +1010,34 @@ class CosseratField3D:
 
         self.omega = omega
         self.u = np.zeros_like(self.u)
+
+    def initialize_2_3_torus_knot_sector(
+        self,
+        R_target: float,
+        r_target: float,
+        localization_sigma: float | None = None,
+        use_hedgehog: bool = True,
+        amplitude_scale: float = 1.0,
+    ) -> None:
+        """
+        Canonical name (per research/L3_electron_soliton/101_ §9, Grant
+        2026-04-30 three-layer canonical) for seeding a (2,3)-torus-knot
+        ansatz on the Cosserat ω-field. Delegates to the historical
+        `initialize_electron_2_3_sector`; preserved as backward-compat alias.
+
+        For the canonical electron, use `initialize_electron_unknot_sector`
+        instead — the canonical electron is 0₁ unknot at Layer 1, NOT (2,3).
+        This method tests (2,3)-torus-knot dynamics in real-space, which is
+        valid physics for OTHER particles (e.g., proton 5₁/5₂ family, baryons
+        with c ≥ 3 crossings) but not for the canonical electron.
+        """
+        self.initialize_electron_2_3_sector(
+            R_target=R_target,
+            r_target=r_target,
+            localization_sigma=localization_sigma,
+            use_hedgehog=use_hedgehog,
+            amplitude_scale=amplitude_scale,
+        )
 
     def _zero_outside_alive(self) -> None:
         mask = self.mask_alive[..., None].astype(self.u.dtype)
