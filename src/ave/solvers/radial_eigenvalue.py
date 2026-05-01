@@ -581,12 +581,47 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     #   n_out=4, n_inner=2  →  16/4 = 4 ≥ 4  → enclosed, SIR applies ✅
     #   n_out=4, n_inner=3  →  16/9 = 1.78 < 4 → NOT enclosed, skip ✅
     # CONSEQUENCE: If a shell isn't strictly nested inside 1/4 the volume, it isn't an SIR!
-    # Op10 Torus scaling has been promoted to the global evaluation scope.
     if l_out > 0:
         for n_shell, _N_a in shells:
             nesting_ratio = float(n_out)**2 / float(n_shell)**2
             if nesting_ratio < 4.0:
-                # E_base was already natively scattered by the Torus Knot boundary in the main pipeline.
+                # ── Op10 Junction Projection at Co-Resonant Shell Boundary ──
+                #
+                # [Restored 2026-04-30 per Q6 adjudication, doc 100 §10.24+ —
+                # pre-046a233 inline-co-resonant Op10 with c=2 fixed crossings
+                # per Op3→Op10 Malus's law bridge. Reverts deletion by 046a233
+                # (Op10 promoted to global scope with c=n(n-1) → c=l(l+1) post-87b4114).]
+                #
+                # This shell is co-resonant with the valence soliton (adjacent n).
+                # Full SIR mode-weighting is too aggressive (overcorrects ~40%),
+                # but smooth CDF misses the discrete impedance step (E_base
+                # overshoot ~12%).
+                #
+                # Physics: the p-soliton's radial wavefunction crosses the
+                # Pauli-saturated inner torus boundary twice per oscillation
+                # (inward + outward), losing energy via junction projection.
+                #
+                # Axiom chain:
+                #   Axiom 2 (Gauss)  → Z_in, Z_out at co-resonant boundary
+                #   Op3 (Reflection) → |Γ|² = ((Z_out−Z_in)/(Z_out+Z_in))²
+                #   Op3 → Op10 bridge: cos θ = 1 − 2|Γ|² (Malus's law)
+                #   Op10 (Junction)  → Y = c(1−cos θ)/(2π²), c=2 crossings
+                #   Axiom 1 (E ~ k², quadratic dispersion) → E × (1−Y)²
+                #
+                # Verified at 0401388: Al −0.84%, Si −0.05%.
+                import math
+                N_deeper = sum(Na for ni, Na in shells if ni < n_shell)
+                z_in = float(Z) - N_deeper
+                z_out = float(Z) - N_deeper - _N_a
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    # Op3 → Op10 bridge: Malus's law projection
+                    cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
+                    # Op10: c=2 crossings per radial oscillation
+                    Y_loss = 2.0 * (1.0 - cos_theta) / (2.0 * math.pi**2)
+                    # Quadratic dispersion: E ~ k²
+                    E_base_eV = E_base_eV * (1.0 - Y_loss) ** 2
                 return E_base_eV
 
     # ── All CDFs enclosed: apply SIR mode-weighted correction ──
@@ -1822,97 +1857,64 @@ def ionization_energy_e2k(Z, f_val=1.0):
     E_base *= (core_d_knots + 1)
 
 
-    # ── Universal Topological Torus Knot Boundary Saturation (Op10) ──
-    import math
-    for n_shell, _N_a in cross_shells:
-        if n_shell > n_out: continue
-        # Safely extract the max dimensional bounds of the scattering Torus (n_shell)
-        remaining_barrier = Z
-        l_barrier = 0
-        N_sub = 0
-        eff_N_a = 0.0
-        for n_A, l_A, cap in _AUFBAU:
-            c_count = min(remaining_barrier, cap)
-            if n_A == n_shell and c_count > 0:
-                # ── The Projection Loss Law (Orthogonal Bypass) ──
-                # Topo-Kinematic strings traversing deeper inner boundaries organically
-                # strictly bypass manifolds scaling dimensionally orthogonally to their 
-                # tracking trajectory natively. If l_inner > l_outer, the orthogonal twist
-                # completely rotates out of the continuous boundary projection plane dynamically!
-                if l_A <= l_out:
-                    eff_N_a += float(c_count)
-                    l_barrier = max(l_barrier, l_A)
-                    if l_A == l_barrier:
-                        N_sub = c_count
-            remaining_barrier -= c_count
-            if remaining_barrier <= 0: break
-            
-        # ── AVE Topological Torus Mapping ──
-        # Longitudinal breathing waves (s-shells, l=0) linearly bypass knot transversal 
-        # boundaries natively because 1D spherical strings organically map parallel across
-        # intersections. Consequently, mapping limits strictly evaluating Phase C 
-        # geometric drag exclusively operate purely on l > 0 crossings.
-        if l_out > 0 and eff_N_a > 0.0:
-            N_deeper = sum(Na for ni, Na in cross_shells if ni < n_shell)
-            z_in = float(Z) - N_deeper
-            z_out = z_in - eff_N_a
-            if z_in > 0 and z_out > 0:
-                gamma = (z_out - z_in) / (z_out + z_in)
-                gamma_sq = gamma * gamma
-                cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
-                
-                # The unified intersection bounds scale natively driven dynamically
-                # around the deepest transverse inner constraint knot natively.
-                # Under the Topo-Kinematic TIR law, fully completed identically inner structures 
-                # (e.g. 3d10) structurally geometrically shadow nested elements natively.
-                # Therefore, intersections strictly accumulate purely along the transverse angular 
-                # boundaries that structurally "survive" the symmetric closure: l(l+1).
-                c_intersections = float(l_barrier * (l_barrier + 1))
-                Y_loss = c_intersections * (1.0 - cos_theta) / (2.0 * math.pi**2)
-                
-                # ── L=0 Spherical Symmetry Isotropy Limit ──
-                # If the boundary barrier is composed of a perfectly balanced half or full knot 
-                # matrix (e.g. 3p^3, 3p^6, 3d^5, 3d^10), it dynamically forms a dimensionally completed
-                # spherical shell natively. The transversal geometric drag limits therefore scale 
-                # identically downward symmetrically (x 0.5) because string topology overlaps continuously.
-                is_half_shell = (
-                    (l_barrier == 1 and N_sub == 3) or
-                    (l_barrier == 2 and N_sub == 5) or
-                    (l_barrier == 3 and N_sub == 7)
-                )
-                is_full_shell = (
-                    (l_barrier == 1 and N_sub == 6) or
-                    (l_barrier == 2 and N_sub == 10) or
-                    (l_barrier == 3 and N_sub == 14)
-                )
-                
-                # ── Polar Conjugate Reflection Limit ──
-                # Under Topo-Kinematic TIR law, if the wave transverses a perfectly closed Torus sequence 
-                # (is_full_shell) and reflects against an impedance step bounding inwards (gamma < 0),
-                # the boundary physically acts as a perfect polar conjugate mirror (pi-phase flip).
-                # Because the string perfectly reflects, topological scattering loss is essentially zero!
-                # Furthermore, any bounding shell located deeper geometrically than core_d_knots TIR 
-                # boundaries is completely physically inaccessible to the valence mode.
-                mirrored_away = False
-                if Z >= 31 and n_out >= 4 and n_shell <= 3:
-                    mirrored_away = True
-                if Z >= 49 and n_out >= 5 and n_shell <= 4:
-                    mirrored_away = True
-                if Z >= 81 and n_out >= 6 and n_shell <= 5:
-                    mirrored_away = True
-                    
-                # [Q3 narrowing 2026-04-30 per doc 100 §10.16: dropped
-                #  `or (is_full_shell and gamma < 0)` clause from Y_loss=0 gate.
-                #  Op3 reflection at impedance step is partial (|Γ|² < 1) unless
-                #  Γ=±1; full-shell-closure does not promote partial→perfect
-                #  reflection without an axiom-anchored mechanism. Z≥31
-                #  long-distance amplification stays via `mirrored_away`.]
-                if mirrored_away:
-                    Y_loss = 0.0
-                elif is_half_shell or is_full_shell:
-                    Y_loss *= 0.5
-                
-                E_base = E_base * (1.0 - Y_loss) ** 2
+    # ── Heavy-Element Polar Conjugate Mirror (Op10 Z≥31 path) ──
+    # [Q6 restructure 2026-04-30 per doc 100 §10.24: gated to Z≥31 only.
+    # Co-resonant inline Op10 (c=2 fixed crossings) restored to
+    # _sir_mode_weighted_base for Period 1-3 cases per pre-046a233 form.
+    # Heavy-element TIR mirror logic (originally introduced post-0401388
+    # for Z≥31 work) preserved here as extension scope, not applied to
+    # Period 1-3 to prevent the 046a233 global-promotion drift.]
+    if Z >= 31:
+        import math
+        for n_shell, _N_a in cross_shells:
+            if n_shell > n_out: continue
+            remaining_barrier = Z
+            l_barrier = 0
+            N_sub = 0
+            eff_N_a = 0.0
+            for n_A, l_A, cap in _AUFBAU:
+                c_count = min(remaining_barrier, cap)
+                if n_A == n_shell and c_count > 0:
+                    if l_A <= l_out:
+                        eff_N_a += float(c_count)
+                        l_barrier = max(l_barrier, l_A)
+                        if l_A == l_barrier:
+                            N_sub = c_count
+                remaining_barrier -= c_count
+                if remaining_barrier <= 0: break
+
+            if l_out > 0 and eff_N_a > 0.0:
+                N_deeper = sum(Na for ni, Na in cross_shells if ni < n_shell)
+                z_in = float(Z) - N_deeper
+                z_out = z_in - eff_N_a
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
+                    c_intersections = float(l_barrier * (l_barrier + 1))
+                    Y_loss = c_intersections * (1.0 - cos_theta) / (2.0 * math.pi**2)
+                    is_half_shell = (
+                        (l_barrier == 1 and N_sub == 3) or
+                        (l_barrier == 2 and N_sub == 5) or
+                        (l_barrier == 3 and N_sub == 7)
+                    )
+                    is_full_shell = (
+                        (l_barrier == 1 and N_sub == 6) or
+                        (l_barrier == 2 and N_sub == 10) or
+                        (l_barrier == 3 and N_sub == 14)
+                    )
+                    mirrored_away = False
+                    if Z >= 31 and n_out >= 4 and n_shell <= 3:
+                        mirrored_away = True
+                    if Z >= 49 and n_out >= 5 and n_shell <= 4:
+                        mirrored_away = True
+                    if Z >= 81 and n_out >= 6 and n_shell <= 5:
+                        mirrored_away = True
+                    if mirrored_away:
+                        Y_loss = 0.0
+                    elif is_half_shell or is_full_shell:
+                        Y_loss *= 0.5
+                    E_base = E_base * (1.0 - Y_loss) ** 2
 
     E_mcl_base = _sir_mode_weighted_base(E_base, Z, n_out, l_out, cross_shells, N_out)
 
