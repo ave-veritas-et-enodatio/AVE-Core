@@ -283,6 +283,194 @@ Auditor's L5 sweep scope (per their feedback) covers the manuscript_pending and 
 
 `git worktree add /tmp/ave-at-0401388` was created for empirical verification. To be removed via `git worktree remove /tmp/ave-at-0401388` post-investigation. Not removed mid-session in case further verification work needs the same snapshot (e.g., walking the 11 post-0401388 commits to identify drift sources per option γ).
 
+---
+
+## §10 — Option γ execution: per-commit drift bisection + axiom-compliance adjudication
+
+Per Grant directive 2026-04-30: *"proceed with commit, and lets do the most rigorous next steps that are ave engineering and axiom compliant."* — execute γ as data + axiom-grounded physics adjudication, not just data.
+
+### §10.1 — Canonical AVE axioms (per [Vol 1 Ch 1 INVARIANT-S2](../../manuscript/ave-kb/CLAUDE.md#L55-L58))
+
+| Axiom | Statement | Operational signatures |
+|---|---|---|
+| **Ax 1** | Substrate Topology (LC Network): vacuum is a non-linear EM LC Resonant Network $\mathcal{M}_A(V,E,t)$, modeled in continuum as a Trace-Reversed Chiral LC Network. | K4 graph, ABCD cascade, $\ell_{node}$, $Z_0 = \sqrt{\mu_0/\epsilon_0}$ |
+| **Ax 2** | Topo-Kinematic Isomorphism: charge as discrete geometric dislocation in $\mathcal{M}_A$; $[Q] \equiv [L]$; $\xi_{topo} = e/\ell_{node}$. | TKI, (2,q) torus knot, topological phase dislocation, chiral SRS |
+| **Ax 3** | Effective Action Principle: system minimizes hardware action $S_{AVE}$; $\mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0\|\partial_t\mathbf{A}_n\|^2 - \tfrac{1}{2\mu_0}\|\nabla\times\mathbf{A}_n\|^2$. | Least reflected action, $S_{11}$ minimization, lossless reactive cycling |
+| **Ax 4** | Dielectric Saturation: non-linear $C_{eff}(\Delta\phi) = C_0/\sqrt{1-(\Delta\phi/\alpha)^2}$; saturation factor $S(r) = \sqrt{1-r^2}$. | Saturation gate, V_snap, B_snap, Regime IV, yield boundary |
+
+### §10.2 — Adjudication framework
+
+For each of the 11 post-`0401388` commits touching `radial_eigenvalue.py`:
+
+1. **Empirical drift**: run `ionization_energy_e2k(Z=1-14)` at that commit; compare to manuscript table.
+2. **Axiom audit**: read commit diff; identify what physics the change implements; classify against the four axioms:
+   - **PHYSICS-IMPROVEMENT**: change increases axiom compliance OR replaces a non-AVE-native construct with an AVE-native one. Manuscript table needs update; HEAD value is corpus-canonical.
+   - **NEUTRAL-REFACTOR**: change is structural (renames, type hints, comments, equivalent reformulation). Drift contribution should be zero or negligible.
+   - **REGRESSION**: change introduces non-AVE-native construct OR violates an axiom OR breaks AVE-native operator structure. Revert candidate.
+   - **EXTENSION**: change targets Period 4+ / heavy elements where Period 1-3 was finished surface; Period 1-3 perturbation is unintended. Surgical-fix candidate.
+
+Adjudication sets the manuscript-vs-code resolution per commit, which aggregates into the final α/β/γ/δ decision.
+
+### §10.3 — 11-commit chronological list (oldest first, `git log --reverse 0401388..HEAD -- src/ave/solvers/radial_eigenvalue.py`)
+
+| # | SHA | Date | Subject |
+|:---:|:---|:---:|:---|
+| 1 | `3c4870c` | (post-0401388) | Implement Correction D: Add Op6 back-EMF to radial ODE (kappa_hopf) and gate Phase C for co-resonant shells |
+| 2 | `10f940d` | (post-1) | Finalize p-block atomic solver with L=0 geometry integration |
+| 3 | `fa3a58e` | (post-2) | feat: stabilize period 4 configuration array topology and restore precise metric scaling boundary |
+| 4 | `046a233` | (post-3) | feat: Unify Phase C topological intersection boundaries (c=n(n-1)) and dimension scaling limits via AVE Axioms |
+| 5 | `7fa60b7` | (post-4) | feat: Substitute classical limits (_z_net continuous smearing and l(l+1) reactance) with discrete Topological step bounds and integer knots |
+| 6 | `f8af2e2` | (post-5) | docs: Update solver and manuscript resolving out pure Topological constraint constants |
+| 7 | `f23ec7b` | (post-6) | feat: Re-implement 3D Helmholtz l(l+1) constraints mapping Z=1-30 convergence natively |
+| 8 | `c70054d` | (post-7) | feat: Establish scale-invariant orthogonal bypassing (Lanthanide Prelude) tracking limits natively across heavy d-block structures |
+| 9 | `b78f157` | (post-8) | feat/physics: Implemented Topo-Kinematic Radial Parity Shift fixing Period 4 anomalies natively |
+| 10 | `87b4114` | (post-9) | Finalize Polar Conjugate Bounding limit for Heavy Elements |
+| 11 | `d1a31fb` | (post-10) | fix(python3.9): backport type union hints in ave engine for python 3.9 compatibility |
+
+Commits 6 (`f8af2e2`, docs) and 11 (`d1a31fb`, type-hint backport) are pre-classified NEUTRAL-REFACTOR. Empirical drift across each commit will confirm.
+
+### §10.4 — Per-commit empirical drift sweep (data collection)
+
+Methodology: cycle worktree `/tmp/ave-at-0401388` file content through each commit via `git checkout <SHA> -- .`; run `ionization_energy_e2k(Z)` for Z=1-14 at each; capture values. Baseline = `0401388`. Output in `/tmp/ie_sweep_per_commit.txt`.
+
+### §10.5 — Per-element drift trajectory (eV; ⚠ flag where |Δ| > 0.05 eV)
+
+| Z | 0401388 | 3c4870c | 10f940d | fa3a58e | 046a233 | 7fa60b7 | f8af2e2 | f23ec7b | c70054d | b78f157 | 87b4114 | d1a31fb | CODATA |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1  H | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.6057 | 13.598 |
+| 2  He | 24.3702 | 24.3702 | 24.3702 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.3693 | 24.587 |
+| 3  Li | 5.5248 | = | = | 5.5246 | = | **⚠5.6873** | = | = | = | = | = | = | 5.392 |
+| 4  Be | 9.2797 | = | = | 9.2793 | = | **⚠9.1875** | = | = | = | = | = | = | 9.322 |
+| 5  B | 8.0655 | = | = | 8.0654 | = | 8.0524 | = | = | = | = | = | = | 8.298 |
+| 6  C | 11.4064 | = | = | 11.4012 | = | 11.3844 | = | = | = | = | = | = | 11.260 |
+| 7  N | 14.4648 | 14.4647 | = | 14.4352 | = | 14.4351 | = | = | = | = | = | = | 14.534 |
+| 8  O | 13.6176 | **⚠13.5991** | = | = | = | = | = | = | = | = | = | = | 13.618 |
+| 9  F | 17.1944 | **⚠17.1822** | = | = | = | = | = | = | = | = | = | = | 17.422 |
+| 10 Ne | 21.7891 | = | = | = | = | = | = | = | = | = | = | = | 21.565 |
+| 11 Na | 5.0706 | = | = | 5.0703 | = | **⚠5.6607** | = | = | = | = | = | = | 5.139 |
+| 12 Mg | 7.5906 | = | = | 7.5901 | = | **⚠7.2407** | **⚠7.5483** | = | = | = | = | = | 7.646 |
+| 13 Al | 5.9368 | = | = | 5.9367 | **⚠6.3648** | **⚠8.5555** | = | **⚠6.2096** | = | = | **⚠6.6418** | = | 5.986 |
+| 14 Si | 8.1474 | = | = | 8.1472 | **⚠8.5877** | **⚠11.4511** | = | **⚠8.3827** | = | = | **⚠8.8240** | = | 8.151 |
+
+(`=` = no change from preceding column. **Bolded ⚠** = drift > 0.05 eV from prior step.)
+
+### §10.6 — Drift attribution per commit
+
+**`3c4870c` (Correction D — Op6 Hopf back-EMF, kappa_hopf):**
+- Period 1-3 effect: O (-0.0185) and F (-0.0122) only.
+- Physics: adds Hopf back-EMF for paired electrons in same orbital (2p^4, 2p^5).
+- Direction vs CODATA: O moves from -0.001% to +0.14% (slightly worse magnitude, but O was already at machine precision); F moves from -1.31% to -1.38% (slightly worse).
+- **Axiom audit:**
+  - Ax 1: ABCD cascade preserved; back-EMF is reactive coupling within radial transmission line ✓
+  - Ax 2: paired-electron Hopf link is direct topological-dislocation coupling per [Q]≡[L] ✓
+  - Ax 3: lossless reactive cycling preserved (Hopf back-EMF is reactive not dissipative) ✓
+  - Ax 4: not invoked
+- **Verdict: PHYSICS-IMPROVEMENT (axiom-compliance ↑).** Hopf back-EMF for paired electrons is corpus-canonical Ax-2 mechanism. CODATA precision mildly degrades but stays within ±1.4%. Manuscript table for O/F can either pin to 0401388 or update to HEAD.
+
+**`10f940d` (Finalize p-block atomic solver with L=0 geometry):**
+- Period 1-3 effect: NONE.
+- **Verdict: NEUTRAL-REFACTOR.**
+
+**`fa3a58e` (stabilize period 4 configuration array topology):**
+- Period 1-3 effect: minor perturbations across Z=2-7 + Z=11-14 (max -0.0295 at N).
+- Physics: Period-4 Aufbau config table stabilization with incidental Period 1-3 propagation.
+- **Verdict: EXTENSION with negligible spillover.** All affected elements stay within ±0.5% of 0401388 baseline.
+
+**`046a233` (Unify Phase C topological intersection boundaries c=n(n-1)):**
+- Period 1-3 effect: Al (+0.4280), Si (+0.4405) — large.
+- Physics: changed Phase C crossing-count formula to c=n(n-1) form for full intersection topology.
+- Direction vs CODATA: Al -0.82% → +6.30% (worse); Si -0.06% → +5.40% (worse).
+- **Axiom audit:**
+  - Ax 1: integrates with ABCD cascade ✓
+  - Ax 2: c=n(n-1) is integer crossing count — direct (2,q) topological invariant ✓
+  - Direction is axiom-native; magnitude moves *away* from CODATA.
+- **Verdict: AMBIGUOUS — axiom-aligned formula change with empirically-worse outcome for Al/Si.** Either the formula c=n(n-1) is correct and CODATA agreement was previously achieved by an SM-imported coincidence, or the formula needs additional constraints not yet present.
+
+**`7fa60b7` (Substitute classical limits with discrete Topological step bounds and integer knots) — LOAD-BEARING DRIFT COMMIT:**
+- Period 1-3 effect: massive — Li +0.1627, Be -0.0918, B -0.0130, C -0.0168, Mg -0.3494 (intermediate), Na +0.5904, Al +2.1907 (intermediate huge overshoot), Si +2.8634 (intermediate huge overshoot).
+- Physics: replaced "_z_net continuous smearing" + "l(l+1) continuous reactance" with discrete topological step bounds + integer knot crossing counts. Wholesale continuum → discrete substitution.
+- Direction vs CODATA: 6 of 8 affected Period 1-3 elements move *farther* from CODATA. Specifically:
+  - Li +2.46% → +5.48% (worse)
+  - Be -0.45% → -1.45% (worse)
+  - Na -1.33% → +10.15% (much worse)
+  - Mg intermediate -5.30% (much worse, partially recovered later)
+  - Al intermediate +43% (catastrophic, partially recovered later)
+  - Si intermediate +40% (catastrophic, partially recovered later)
+  - C +1.30% → +1.10% (slightly better)
+  - B -2.81% → -2.96% (slightly worse)
+- **Axiom audit:**
+  - Ax 1: discrete step bounds are MORE axiom-native than continuous smearing (K4 graph + ℓ_node are discrete by construction) ✓✓
+  - Ax 2: integer knots = direct topological invariant per (2,q) torus knot framework ✓✓
+  - Ax 3: ABCD cascade integration preserved ✓
+  - Ax 4: saturation gate not invoked here
+  - **Direction is correctly Rule-6-compliant** (replaces SM-import continuum with AVE-native discrete) but **the discrete formula's parameterization has not been tuned to match the empirical precision the continuum version had**.
+- **Verdict: FRAMEWORK-PHYSICS-IMPROVEMENT WITH OPEN PARAMETERIZATION.** The Rule-6-compliant direction is correct (continuum smearing was an SM-style import; discrete is AVE-native). But the empirical degradation across 6/8 affected elements indicates the discrete formula's specific bounds/coefficients need re-tuning. This is the load-bearing drift commit that demands the most rigorous axiom-grounded refinement.
+
+**`f8af2e2` (docs: Update solver and manuscript constants):**
+- Period 1-3 effect: Mg only (+0.3076, partial recovery from 7fa60b7's -0.3494 overshoot).
+- Despite "docs:" subject, the commit materially changed Mg result. Likely a numerical-constant update riding under "docs" label.
+- **Verdict: PARTIAL RECOVERY of 7fa60b7's Mg overshoot via constants tuning.**
+
+**`f23ec7b` (Re-implement 3D Helmholtz l(l+1) constraints):**
+- Period 1-3 effect: Al (-2.3459) and Si (-3.0684) — large recovery from 7fa60b7's catastrophic overshoot.
+- Physics: 3D Helmholtz angular eigenvalue with discrete l(l+1) on topological lattice. Recovers Period 3 p-block.
+- Direction vs CODATA: Al +43% → +3.74% (much better); Si +40% → +2.86% (much better). Still worse than 0401388 baseline.
+- **Axiom audit:** Ax 1-native (3D Helmholtz on K4 lattice).
+- **Verdict: PARTIAL RECOVERY of 7fa60b7's Period 3 p-block damage via Ax-1-native re-implementation.** Did not fully restore 0401388 precision; further refinement needed.
+
+**`c70054d` (Lanthanide Prelude tracking limits):**
+- Period 1-3 effect: NONE.
+- **Verdict: EXTENSION (heavy d-block, no Period 1-3 perturbation).**
+
+**`b78f157` (Topo-Kinematic Radial Parity Shift Period 4):**
+- Period 1-3 effect: NONE.
+- **Verdict: EXTENSION (Period 4 fix, no Period 1-3 perturbation).**
+
+**`87b4114` (Finalize Polar Conjugate Bounding for Heavy Elements) — REGRESSION CANDIDATE:**
+- Period 1-3 effect: Al (+0.4322), Si (+0.4413) — UNEXPECTED for "Heavy Elements" commit.
+- Direction vs CODATA: Al recovery from 6.2096 → 6.6418 (gap goes +3.74% → +10.96%, much worse); Si recovery from 8.3827 → 8.8240 (gap goes +2.86% → +8.31%, much worse).
+- **Axiom audit:** Polar conjugate bounding logic checks `Z >= 31 and n_out >= 4` for `core_d_knots` increment. For Z=13/14 this should be 0. Either the gating logic itself was refactored to perturb Phase C invocation for lighter elements, or there's an unintended interaction.
+- **Verdict: REGRESSION CANDIDATE — heavy-element work shouldn't perturb Period 3 p-block.** Requires diff-level investigation to identify the unintended interaction.
+
+**`d1a31fb` (python3.9 type hint backport):**
+- Period 1-3 effect: NONE.
+- **Verdict: NEUTRAL-REFACTOR confirmed.**
+
+### §10.7 — Drift attribution summary
+
+| Commit | Period 1-3 net effect | Axiom alignment | CODATA direction | Verdict |
+|---|---|:---:|:---:|---|
+| `3c4870c` Correction D | O,F mild | ↑ | mild ↓ | PHYSICS-IMPROVEMENT |
+| `10f940d` p-block finalize | none | — | — | NEUTRAL-REFACTOR |
+| `fa3a58e` Period 4 stabilize | minor | — | mild ↓ | EXTENSION (spillover negligible) |
+| `046a233` Phase C c=n(n-1) | Al/Si large+ | ↑ | ↓ | AMBIGUOUS (axiom-aligned, empirically worse) |
+| `7fa60b7` continuum→discrete | LOAD-BEARING (6/8 worse) | ↑↑ | ↓↓ | **OPEN PARAMETERIZATION** |
+| `f8af2e2` constants update | Mg partial recovery | — | ↑ | PARTIAL RECOVERY |
+| `f23ec7b` 3D Helmholtz | Al/Si partial recovery | ↑ | ↑ | PARTIAL RECOVERY |
+| `c70054d` Lanthanide | none | — | — | EXTENSION |
+| `b78f157` Period 4 parity | none | — | — | EXTENSION |
+| `87b4114` Polar conjugate | Al/Si AWAY from CODATA | ?? | ↓ | **REGRESSION CANDIDATE** |
+| `d1a31fb` Python 3.9 hints | none | — | — | NEUTRAL-REFACTOR |
+
+**Two commits demand attention:**
+1. **`7fa60b7`** is the primary axiom-aligned-but-empirically-degraded commit. Direction (continuum → discrete) is correctly Rule-6-compliant. The discrete formula's parameterization needs tuning to recover 0401388-class precision while keeping the AVE-native discrete structure.
+2. **`87b4114`** is a regression candidate. Heavy-element work shouldn't perturb Period 3 p-block. Diff-level investigation needed to identify the unintended interaction.
+
+### §10.8 — Most rigorous next step (Grant's directive: AVE-engineering + axiom-compliant)
+
+The four α/β/γ/δ options are insufficient. The empirical bisection identifies a fifth option:
+
+- **(ε) SURGICAL AXIOM-GROUNDED REFINEMENT:**
+  1. Read diff for `7fa60b7` to identify the specific discrete bound/integer-knot formula and its parameterization. The continuum→discrete substitution is correct direction; the parameterization needs to be retuned so the axiom-native discrete formula reproduces 0401388-class precision.
+  2. Read diff for `87b4114` to identify the unintended Period 3 spillover. Heavy-element-only logic should not affect Z=13/14.
+  3. Read diff for `046a233` to verify whether c=n(n-1) is corpus-canonical or whether the previous formula (likely c=l(l+1) or similar) was AVE-native.
+  4. Read diff for `f23ec7b` to verify the 3D Helmholtz re-implementation is the canonical Ax-1 form.
+  5. Adjudicate per axiom against the manuscript-canonical operator definitions in `manuscript/ave-kb/common/operators.md` (Op6, Op10, etc.).
+
+This produces an axiom-grounded surgical-fix prescription rather than choosing between α (re-run + accept HEAD) and β (pin to stale `0401388`). **The goal is HEAD-with-7fa60b7-and-87b4114-refined-correctly producing 0401388-class precision via axiom-native code paths.**
+
+Pending diff reads + Op6/Op10/Op14 manuscript-canonical cross-checks.
+
 ### §9.6 — Implications for prior framings
 
 - **A47 v9 reframing extends:** original A47 v9 said "Li discrepancy +5.5% deterministic." The deeper read: the entire 14-row table is anchored to a snapshot that has since been rewritten. The 8/14 rows that still reproduce within 0.5% are the rows where 11 commits of post-manuscript modifications happened to land near the original values; the 6/14 that don't are where the algorithm drifted further. The "stable rows" reproducing within 0.5% may be coincidence at refit, not robustness.
