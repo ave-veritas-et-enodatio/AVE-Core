@@ -535,3 +535,136 @@ def test_reflection_gradient_matches_finite_difference():
             fd = (E_plus - E_minus) / (2.0 * h)
             analytical = float(dE_dw[ix, iy, iz, k])
             np.testing.assert_allclose(analytical, fd, rtol=1e-3, atol=1e-4)
+
+
+# ------------------------------------------------------------------
+# Unknot canonical electron seeder (Round 12)
+# Per research/L3_electron_soliton/101_ §9 three-layer canonical:
+#   Layer 1 (real-space curve): unknot 0₁ at horn torus R = r
+#   Layer 2 (field bundle):     SU(2) double-cover via SO(3) → SU(2)
+#                               Rodrigues projection of ω
+# Per research/L3_electron_soliton/102_ §2.6 pre-registered binary criteria.
+# ------------------------------------------------------------------
+
+def test_unknot_seeder_omega_is_loop_tangent():
+    """ω should point along ê_φ everywhere (perpendicular to ê_ρ in xy-plane,
+    z-component zero). Verify ω · ê_ρ = 0 at sample points away from the loop axis."""
+    solver = CosseratField3D(32, 32, 32)
+    R = 8.0
+    solver.initialize_electron_unknot_sector(R_target=R)
+    # ω_z must be identically zero (loop tangent in xy-plane)
+    np.testing.assert_allclose(solver.omega[..., 2], 0.0, atol=1e-12)
+    # ω · ê_ρ = ω_x · cos(φ) + ω_y · sin(φ) ≈ 0 at sites where field is significant
+    cx, cy = (solver.nx - 1) / 2.0, (solver.ny - 1) / 2.0
+    x = solver._i - cx
+    y = solver._j - cy
+    rho_xy = np.sqrt(x**2 + y**2)
+    eps_rho = 1e-6
+    cos_phi = np.where(rho_xy > eps_rho, x / np.maximum(rho_xy, eps_rho), 0.0)
+    sin_phi = np.where(rho_xy > eps_rho, y / np.maximum(rho_xy, eps_rho), 0.0)
+    omega_dot_rho = solver.omega[..., 0] * cos_phi + solver.omega[..., 1] * sin_phi
+    omega_mag = np.sqrt(np.sum(solver.omega**2, axis=-1))
+    significant = omega_mag > 0.5
+    if np.any(significant):
+        # ω perpendicular to ê_ρ at significant sites
+        np.testing.assert_allclose(omega_dot_rho[significant], 0.0, atol=1e-10)
+
+
+def test_unknot_seeder_no_winding():
+    """Unknot seed should have NO (p, q) winding — ω at fixed φ is ψ-independent.
+    Compare ω at two poloidal positions on the same toroidal angle:
+    ω(ρ_xy = R + r, z = 0) and ω(ρ_xy = R - r, z = 0) should be parallel
+    (both ê_φ at the same φ), differing only in magnitude profile.
+    """
+    solver = CosseratField3D(48, 48, 48)
+    R, r = 12.0, 4.0  # standard torus (R > r) for clean ψ-distinction
+    solver.initialize_electron_unknot_sector(R_target=R, r_target=r)
+    # Sample two grid cells on the +x axis (φ = 0): one at outer tube edge, one at inner
+    cx, cy, cz = (solver.nx - 1) / 2.0, (solver.ny - 1) / 2.0, (solver.nz - 1) / 2.0
+    ix_outer = int(round(cx + R + r))  # outer poloidal point at φ=0
+    ix_inner = int(round(cx + R - r))  # inner poloidal point at φ=0
+    iy = int(round(cy))
+    iz = int(round(cz))
+    # At φ=0: ê_φ = (0, 1, 0). So ω should point along +y at both points.
+    # ω_x should be ≈ 0 (proportional to -sin 0 = 0)
+    # ω_y should be > 0 (proportional to +cos 0 = 1)
+    # Both at outer and inner positions should have same direction (both +y)
+    assert abs(solver.omega[ix_outer, iy, iz, 0]) < 0.1, "ω_x not ≈ 0 at outer φ=0"
+    assert abs(solver.omega[ix_inner, iy, iz, 0]) < 0.1, "ω_x not ≈ 0 at inner φ=0"
+    assert solver.omega[ix_outer, iy, iz, 1] > 0.0, "ω_y not positive at outer"
+    assert solver.omega[ix_inner, iy, iz, 1] > 0.0, "ω_y not positive at inner"
+
+
+def test_unknot_seeder_topology_c_zero():
+    """Pre-registered binary criterion C1: extract_crossing_count = 0 for unknot."""
+    solver = CosseratField3D(32, 32, 32)
+    solver.initialize_electron_unknot_sector(R_target=8.0)
+    c = solver.extract_crossing_count()
+    assert c == 0, f"Unknot seed must have c=0, got c={c}"
+
+
+def test_unknot_seeder_hopf_charge_zero():
+    """Pre-registered binary criterion C2: extract_hopf_charge ≈ 0 for unknot
+    (zero linking number for a single unlinked closed loop)."""
+    solver = CosseratField3D(32, 32, 32)
+    solver.initialize_electron_unknot_sector(R_target=8.0)
+    Q_H = solver.extract_hopf_charge()
+    assert abs(Q_H) < 1e-3, f"Unknot Q_H must be ≈ 0, got Q_H={Q_H}"
+
+
+def test_unknot_seeder_horn_torus_default():
+    """Default r_target = R_target (horn torus). extract_shell_radii should
+    return R ≈ r within a few percent (HWHM convention slight underestimate)."""
+    solver = CosseratField3D(32, 32, 32)
+    solver.initialize_electron_unknot_sector(R_target=8.0)  # r defaults to 8.0
+    R_extracted, r_extracted = solver.extract_shell_radii()
+    # R_extract ≈ R_target via HWHM (known ~7% systematic underestimate)
+    assert abs(R_extracted - 8.0) / 8.0 < 0.10
+    # Horn torus: r_extract should equal R_extract (within HWHM-vs-loop convention)
+    assert abs(R_extracted - r_extracted) / max(R_extracted, 1e-9) < 0.05
+
+
+def test_unknot_seeder_energy_finite_nonneg_nontrivial():
+    """Pre-registered binary criteria C5 + C6: total_energy finite, ≥ 0, and
+    ≫ vacuum-floor noise (seeded state has real physics, not collapsed)."""
+    solver = CosseratField3D(32, 32, 32, use_saturation=True)
+    solver.initialize_electron_unknot_sector(R_target=8.0)
+    E = solver.total_energy()
+    assert np.isfinite(E)
+    assert E >= 0.0
+    assert E > 1.0  # ≫ vacuum noise; unknot seed at scale-1 amplitude has E ~ 1e5
+
+
+def test_unknot_seeder_amplitude_scale_linear():
+    """Doubling amplitude_scale should ~quadruple energy density (W ∝ |ω|² leading order)."""
+    solver_a = CosseratField3D(24, 24, 24, use_saturation=False)  # disable saturation for cleaner test
+    solver_b = CosseratField3D(24, 24, 24, use_saturation=False)
+    solver_a.initialize_electron_unknot_sector(R_target=6.0, amplitude_scale=1.0)
+    solver_b.initialize_electron_unknot_sector(R_target=6.0, amplitude_scale=2.0)
+    omega_max_a = float(np.max(np.sqrt(np.sum(solver_a.omega**2, axis=-1))))
+    omega_max_b = float(np.max(np.sqrt(np.sum(solver_b.omega**2, axis=-1))))
+    # Peak ω scales linearly with amplitude_scale
+    np.testing.assert_allclose(omega_max_b / omega_max_a, 2.0, rtol=1e-6)
+
+
+def test_unknot_seeder_distinct_from_2_3_torus_knot():
+    """The new unknot seeder should produce DIFFERENT ω-field topology
+    than the existing (2,3) torus-knot seeder. Specifically:
+    - unknot: c = 0, no (p, q) winding
+    - (2,3) seed: c ≥ 2 (target c = 3 by Sutcliffe ansatz)"""
+    solver_unknot = CosseratField3D(32, 32, 32)
+    solver_2_3 = CosseratField3D(32, 32, 32)
+    solver_unknot.initialize_electron_unknot_sector(R_target=8.0)
+    solver_2_3.initialize_electron_2_3_sector(R_target=8.0, r_target=3.0)
+    c_unknot = solver_unknot.extract_crossing_count()
+    c_2_3 = solver_2_3.extract_crossing_count()
+    assert c_unknot == 0
+    assert c_2_3 >= 2  # (2,3) seed produces c=2 or 3 depending on extraction
+    assert c_unknot != c_2_3, f"Unknot and (2,3) seeds produced same c={c_unknot}"
+
+
+def test_unknot_seeder_u_field_zero():
+    """u (translation) should be zero — only ω is seeded."""
+    solver = CosseratField3D(16, 16, 16)
+    solver.initialize_electron_unknot_sector(R_target=4.0)
+    np.testing.assert_allclose(solver.u, 0.0)
