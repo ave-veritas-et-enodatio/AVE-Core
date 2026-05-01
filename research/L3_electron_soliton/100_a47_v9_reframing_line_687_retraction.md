@@ -1730,3 +1730,90 @@ The pattern is consistent: **author committed honestly, prose drifted into hand-
 
 The framework's empirical posture is materially stronger than the original §12.1 framing implied: 4 ✅, 1 🟡, 1 ⚠, 0 🔴.
 
+---
+
+## §15 — Cosserat eigenmode investigation: LL-descent rules out amplitude-decay; scale-dependence finding
+
+Per Grant directive 2026-04-30 (continue per §11.5 medium-term: "Cosserat eigenmode convergence at higher resolution or with topology-preserving descent (Landau-Lifshitz)").
+
+### §15.1 — Step 1: 64³ resolution test (plain gradient, completed)
+
+Bumped resolution from 32³ to 64³, kept dx=1, kept plain gradient descent. Ran near-Golden seed for 1500 iterations (162.6s wall time, JAX JIT first-compile included).
+
+| Resolution | Wall | iters | converged | R/r | gap % | c |
+|---|---|---|---|---|---|---|
+| 32³ | (earlier) | 1500 | False | 3.0000 | 14.6% | 3 ✓ |
+| 64³ | 162.6s | 1500 | False | 3.0000 | 14.59% | 3 ✓ |
+
+**Identical R/r within 4 decimal places.** Resolution doubling does NOT change the result. Boundary effects ruled out (24 vacuum cells of buffer at 64³ vs 8 at 32³).
+
+### §15.2 — Step 2: LL-projected descent test (topology-preserving)
+
+Implemented Landau-Lifshitz-style projected descent in [`src/scripts/vol_1_foundations/validate_cosserat_ll_descent.py`](../../src/scripts/vol_1_foundations/validate_cosserat_ll_descent.py).
+
+Algorithm: projects gradient on omega to subspace perpendicular-to-omega per cell, preserving |omega|² to first order in lr. Plain gradient on u (translation unconstrained). Backtracking line search same as `relax_to_ground_state`.
+
+```python
+omega_sq = sum(omega² , axis=-1, keepdims=True) + 1e-20
+omega_dot_grad = sum(omega · dE_dw, axis=-1, keepdims=True)
+dE_dw_perp = dE_dw - (omega_dot_grad / omega_sq) * omega
+omega ← omega - lr * dE_dw_perp
+```
+
+**Empirical result (32³):**
+
+| seed | method | R/r | gap % | c | omega-preserve violations |
+|---|---|---|---|---|---|
+| near-Golden | plain | 3.0000 | 14.59% | 3 | N/A |
+| **near-Golden** | **LL** | **3.0000** | **14.59%** | **3** | **4 cells** |
+| perturbed | plain | 5.2500 | 100.50% | 3 | N/A |
+| **perturbed** | **LL** | **5.2500** | **100.53%** | **3** | **6 cells** |
+
+**LL-descent gives IDENTICAL results to plain gradient — both R/r and c match to numerical precision.** Only 4-6 cells (out of ~16k active) show >0.1% fractional |omega|² drift, confirming LL projection is preserving |omega|² as designed.
+
+### §15.3 — Hypothesis falsified, scale-dependence surfaced
+
+**The validate script's findings notes hypothesis was WRONG:**
+
+> *"Plain gradient descent does not preserve topology under lattice tearing. A topology-preserving variant (constrained gradient, projected descent, or Landau-Lifshitz-style precession-plus-damping) may be required."*
+
+c=3 is preserved by BOTH methods. The R/r=3.0 attractor is NOT amplitude-decay-induced; it IS the energy functional's genuine minimum at this lattice scale.
+
+**The actual issue is scale-dependence.** Re-reading the validate script docstring (lines 17-23):
+
+> *"Absolute alpha^-1 = 4 pi^3 + pi^2 + pi ≈ 137.036 requires working in Ch 8's natural units where R = phi/2 ≈ 0.81 and r = (phi-1)/2 ≈ 0.31. On a discrete lattice with ell_node = 1 these are sub-unit; to resolve, we use dx < 1 and express R, r in grid cells."*
+
+**The Cosserat solver runs at R=8 cells at dx=1.** That's a scaled-up geometry. The Vol 1 Ch 8 prediction is at R=0.81 (sub-cell at dx=1). Saturation kernel uses absolute thresholds (omega_yield=π, epsilon_yield=1.0), so it's non-scale-invariant — the energy minimum at large R differs from the Ch 8 prediction at small R.
+
+**Three readings of the R/r=3.0 result:**
+
+(a) **Right physics, wrong scale.** Cosserat solver tests a scaled-up version of the (2,3) geometry. R/r=3.0 is the energy minimum at THIS scale. The Vol 1 Ch 8 prediction R/r=φ² applies at sub-cell scale (R=0.81, r=0.31). To test it directly: run at dx<1 to resolve sub-unit radii.
+
+(b) **Right scale, energy functional incomplete.** R=8 IS supposed to map to Ch 8 geometry under scale invariance. R/r=3.0 means the energy functional is missing terms that would make φ² the minimum. Candidate missing: explicit Hopf-coupling term, additional Op-N saturation kernels, or scale-invariance restorer.
+
+(c) **Genuine empirical signal.** Cosserat at this scale finds R/r=3.0 honestly. The Vol 1 Ch 8 R/r=φ² may not be empirically realized in this solver's energy landscape; the prediction needs revision OR the solver's energy functional needs auditing.
+
+These are distinguishable via dx<1 sub-cell test.
+
+### §15.4 — A47 v11d signal: validate script's findings notes also need honest framing
+
+The validate script's findings hypothesis ("plain gradient doesn't preserve topology...") was empirically wrong (LL-descent gives identical result, c=3 preserved by both). This is the same A47 v11d substrate-native erosion pattern but applied to script-prose rather than docstring axiom-chains: the script's findings prose drifted into a hypothesis that the empirical data doesn't support.
+
+Per Rule 12 preserve-body: the validate script's findings prose should be updated to reflect what's empirically established (LL ≡ plain gradient at this scale, R/r=3.0 is genuine energy minimum, scale-dependence is the actual question). NOT modifying script computation; only honest framing in the prose.
+
+### §15.5 — Forward direction (per Rule 16)
+
+The Cosserat ⚠ partial state from §11/§14 needs Grant adjudication on the three readings (a/b/c above) before further empirical work:
+
+- If (a) — sub-cell scale test (dx<1) at R=0.81 cells. Tests Vol 1 Ch 8 prediction directly. Cheap (~minutes).
+- If (b) — energy functional audit. What scale-invariance-restorer is missing? Plumber-physics question for Grant.
+- If (c) — accept R/r=3.0 at scaled-up geometry as empirical finding; figure out what physical regime corresponds.
+
+**Updated empirical state of the fundamental electron model post-§15:**
+
+- ✅ 4 verified anchors: atomic IE 14/14, α⁻¹ Theorem 3.1 dual-angle, AVE-HOPF Beltrami framework, TLM tests xfail-clean per Rule 11
+- 🟡 1 OPEN (peer-review remediation): g-2 C₂ — P2.1 reframed as open
+- ⚠ 1 partial: Cosserat eigenmode at 32³+64³ + plain+LL — converges to R/r=3.0 at this scale, NOT R/r=φ²; Vol 1 Ch 8 prediction NOT empirically validated by this solver's energy minimum at this scale; sub-cell or scale-invariance question for Grant
+
+**Net: the Cosserat ⚠ state is unchanged in count but sharper in characterization.** No longer "32³ resolution insufficient" — empirically R/r=3.0 is robust to resolution AND to descent algorithm. The actual question is scale-mapping between Cosserat solver coordinates and Vol 1 Ch 8 natural units.
+
