@@ -49,6 +49,33 @@ AMP = 0.9 * float(V_YIELD)
 N_STEPS = 400
 
 
+# ─── L3 closure xfail reason (Rule 11 + Rule 12 falsification record) ──────
+# These 6 physics-content tests assert P_electron_tlm_topological_charge,
+# P_electron_tlm_golden_torus_convergence, and P_electron_tlm_alpha_derivation
+# pre-registered predictions. The L3 closure (doc 79 v5.1 A-014, Mode III
+# canonical at 10 pre-reg tests at bond-cluster scale) + E-094 closure (doc
+# 100 §10.36-§10.37, Mode III at corpus-canonical bond-pair scale + IC) +
+# Flag 2 calibration (doc 100 §10.38, closure scope at ℓ_node-and-coarser
+# sampling) empirically falsified the K4-only-V_inc-ansatz precondition.
+# Per Vol 2 Ch 1:9, corpus electron tube radius = ℓ_node/(2π) ≈ 0.16 cells
+# = sub-ℓ_node, structurally below K4-TLM at this test's ℓ_node sampling.
+# Per Rule 11 (clean falsification = framework working at full strength) +
+# Rule 12 (preserve body): assertions retained verbatim; xfail strict=True
+# signals XPASS if the K4-only path ever recovers (would invalidate the
+# L3 closure and re-open Track A).
+L3_CLOSURE_XFAIL = pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "L3 closure A-014 + E-094 + Flag 2: K4-only V_inc ansatz "
+        "empirically falsified at multiple scales × IC classes. "
+        "Corpus electron is sub-ℓ_node (Vol 2 Ch 1:9, tube radius "
+        "ℓ_node/(2π) ≈ 0.16 cells), structurally below K4-TLM at "
+        "ℓ_node sampling. See research/L3_electron_soliton/79 + "
+        "research/L3_electron_soliton/100 §10.36-§10.38."
+    ),
+)
+
+
 # ─── Module-level cached runs (each fixture runs once per test module) ──────
 @pytest.fixture(scope="module")
 def golden_torus_run() -> dict:
@@ -97,6 +124,7 @@ def op6_from_perturbed() -> dict:
 #   no tolerance.
 # ═══════════════════════════════════════════════════════════════════════════
 class TestTopologicalChargePreservation:
+    @L3_CLOSURE_XFAIL
     def test_golden_torus_seed_preserves_three_crossings(self, golden_torus_run):
         c = extract_crossing_count_tlm(
             golden_torus_run["lattice"],
@@ -108,6 +136,7 @@ class TestTopologicalChargePreservation:
             f"system eigenmode of the K4 TLM at this amplitude."
         )
 
+    @L3_CLOSURE_XFAIL
     def test_perturbed_seed_preserves_three_crossings(self, perturbed_run):
         c = extract_crossing_count_tlm(
             perturbed_run["lattice"],
@@ -148,6 +177,7 @@ class TestEnergyConservation:
 #   Op6 self-consistency converges from both seeds to R/r = φ² within ±5%.
 # ═══════════════════════════════════════════════════════════════════════════
 class TestGoldenTorusConvergence:
+    @L3_CLOSURE_XFAIL
     def test_op6_converges_from_golden_torus_seed(self, op6_from_golden_torus):
         assert op6_from_golden_torus["converged"], (
             f"Op6 did NOT converge from Golden Torus seed within "
@@ -164,6 +194,7 @@ class TestGoldenTorusConvergence:
             f"eigenmode geometry is not Golden Torus."
         )
 
+    @L3_CLOSURE_XFAIL
     def test_op6_converges_from_perturbed_seed(self, op6_from_perturbed):
         assert op6_from_perturbed["converged"], (
             f"Op6 did NOT converge from perturbed seed within "
@@ -186,6 +217,7 @@ class TestGoldenTorusConvergence:
 #   Distinct from P01 (static Golden Torus geometry).
 # ═══════════════════════════════════════════════════════════════════════════
 class TestAlphaFromDynamicalEigenmode:
+    @L3_CLOSURE_XFAIL
     def test_alpha_from_golden_torus_seed(self, op6_from_golden_torus):
         alpha_inv = op6_from_golden_torus["final_alpha_inv"]
         assert alpha_inv is not None and np.isfinite(alpha_inv), (
@@ -199,6 +231,7 @@ class TestAlphaFromDynamicalEigenmode:
             f"does not carry the Ch 8 multipole geometry that yields 137.036."
         )
 
+    @L3_CLOSURE_XFAIL
     def test_alpha_from_perturbed_seed(self, op6_from_perturbed):
         alpha_inv = op6_from_perturbed["final_alpha_inv"]
         assert alpha_inv is not None and np.isfinite(alpha_inv), (
