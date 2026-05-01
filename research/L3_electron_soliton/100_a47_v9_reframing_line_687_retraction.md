@@ -800,10 +800,61 @@ For Na (Z=11, 3s¹, n_adjacent=2 with 2s²+2p⁶ inner): Z_in=11, Z_out=3, γ �
 
 **Pattern observation hardens (auditor's "substrate-native erosion"):** five deletions/promotions across Apr-9-11 commits, all with explicit Ax-N+Op-M chains in original docstrings replaced by "organically" claims without operational chains. The pattern is reproducible, quantitatively measurable, and corpus-detectable. **A47 v11d (axiom-chain-required-in-docstring at PR time) is now load-bearing-rule-with-empirical-evidence, not candidate.**
 
-### §10.23 — Standing by
+### §10.23 — Q4 + Q5 applied per Grant authorization 2026-04-30 "yes proceed with 4/5"
 
-- Surgical Commits A + B applied + committed: Period 2 recovered to manuscript precision; Period 3 partial; Period 3 s-block + Li regressed pending Q4/Q5.
-- Worktree `/tmp/ave-at-0401388` retained for Q4/Q5 implementation if authorized.
-- Q4 (Phase A½ restoration) + Q5 (Correction B restoration) are the next surgical commits if Grant adjudicates substrate-native erosion scope to extend to f8af2e2's deletions.
-- 046a233's Op10 promotion (potential Q6) leaves residual Period 3 p-block drift after Q1+Q3.
+**Surgical Commit C (Q4 — Phase A½ restoration):**
+- Restored `_sblock_chain_correction` function (Ax-1 + Ax-3 + ν_vac=2/7 chain) before `ionization_energy_e2k` definition.
+- Restored Phase A½ call site in `ionization_energy_e2k`'s `if N_out <= 1:` early-return path.
+
+**Surgical Commit D (Q5 — Correction B restoration):**
+- Replaced the `pass` stub in `ionization_energy_e2k`'s s-block `else:` branch (`n_adjacent != 1` case) with the full Correction B Op3 reflection block.
+- Op3 + Ax-2 + Ax-3 chain restored: `ΔE = -|Γ|² × (P_C/2) × E_base` where `|Γ|² = ((Z_out-Z_in)/(Z_out+Z_in))²` and `P_C/2 = 4πα`.
+
+**Post-A+B+C+D sweep (12 of 14 elements within manuscript precision):**
+
+| Z | manuscript | new | gap | status |
+|:---:|:---:|:---:|:---:|:---:|
+| 1 H | 13.606 | 13.6057 | -0.002% | ✓ |
+| 2 He | 24.370 | 24.3693 | -0.003% | ✓ |
+| 3 Li | 5.525 | **5.5246** | **-0.008%** | **✓ closed** |
+| 4 Be | 9.280 | 9.2793 | -0.007% | ✓ |
+| 5 B | 8.065 | 8.0654 | +0.005% | ✓ |
+| 6 C | 11.406 | 11.4012 | -0.042% | ✓ |
+| 7 N | 14.465 | 14.4352 | -0.206% | ✓ |
+| 8 O | 13.618 | 13.5991 | -0.139% | ✓ |
+| 9 F | 17.194 | 17.1822 | -0.069% | ✓ |
+| 10 Ne | 21.789 | 21.7891 | +0.000% | ✓ |
+| 11 Na | 5.071 | **5.0703** | **-0.014%** | **✓ closed** |
+| 12 Mg | 7.591 | **7.5901** | **-0.011%** | **✓ closed** |
+| 13 Al | 5.937 | 6.3648 | +7.21% | residual |
+| 14 Si | 8.147 | 8.5877 | +5.41% | residual |
+
+**Period 1 + Period 2 + Period 3 s-block: fully restored to manuscript precision.** Maximum gap across 12 elements: 0.21% (N).
+
+**Residual Al/Si drift is isolated to Q6 (046a233's Op10 promotion):** the Period 3 p-block elements have residual drift attributable to 046a233's promotion of Op10 from inline-SIR-co-resonant-only-c=2 to global-pipeline-c=l(l+1). Q1/Q3/Q4/Q5 were not expected to close Period 3 p-block; only Q6 adjudication will.
+
+### §10.24 — Q6 candidate (Period 3 p-block residual; pending Grant adjudication)
+
+**Q6 — Op10 inline-co-resonant vs global-pipeline:** does Op10 junction projection apply only at the co-resonant inner-shell boundary (per pre-046a233 inline form with c=2 fixed crossings) or to all l>0 cases globally (per post-046a233 form with c=l(l+1) or n(n-1))?
+
+- Pre-046a233: Op10 inside `_sir_mode_weighted_base`, gated to co-resonant boundary case only, c=2 (Malus's law fixed crossings per Op3→Op10 bridge in original docstring).
+- Post-046a233 + 87b4114: Op10 in main `ionization_energy_e2k` pipeline, c=l(l+1), applied to all elements with l>0.
+- Empirical: 046a233 caused +0.43 jump for Al/Si. Reverting to inline form would close Al to within 0.21% of manuscript and Si similarly.
+
+**Pattern continuation:** 046a233's docstring claimed "E_base was already natively scattered by the Torus Knot boundary in the main pipeline" — same "organically incorporates" hand-wave pattern as 7fa60b7 / f8af2e2 / 87b4114. Same A47 v11d signature.
+
+**Standing by on Q6.** If you adjudicate Q6 = revert to inline-co-resonant form, the surgical fix will close Period 3 p-block, completing 14/14 manuscript-precision recovery.
+
+### §10.25 — Net result of restoration arc
+
+The substrate-native erosion arc identified five Apr-2026 commits replacing axiom-chain-anchored forms with "organically incorporates" hand-waves:
+1. ✅ 7fa60b7 `_z_net` Helmholtz CDF (Q1 — restored)
+2. ⏸ 046a233 Op10 inline → global (Q6 — pending)
+3. ✅ f8af2e2 Phase A½ deletion (Q4 — restored)
+4. ✅ f8af2e2 Correction B deletion (Q5 — restored)
+5. ✅ 87b4114 perfect-mirror broadening (Q3 — narrowed)
+
+After 4 of 5 surgical fixes (A+B+C+D), 12/14 elements at manuscript precision (matching the `0401388` snapshot to ≤0.21%). Q6 (046a233 revert) would close the remaining 2/14.
+
+This empirically validates the auditor's "substrate-native erosion" pattern and quantifies A47 v11d's load-bearing-rule status: restoring axiom-chain-anchored forms reproduces 0401388 manuscript precision to <0.21%; replacing with hand-waves degraded by 5-15%. The PR-time discipline rule (axiom chain required in docstring) would have prevented this drift.
 

@@ -1669,14 +1669,81 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     return E_gauss
 
 
+def _sblock_chain_correction(E_base, n_out, l_out, shells):
+    """Compressional chain coupling correction for l=0 (s) solitons.
+
+    [Restored 2026-04-30 per Q4 adjudication, doc 100 §10.21+§10.22 — pre-7fa60b7
+    Phase A½ correction with explicit Ax-1+Ax-3+ν_vac=2/7 chain. Reverts deletion
+    by commit 7fa60b7 (continuum→discrete substitution arc).]
+
+    All l=0 solitons share the 2 compressional compliance modes of the
+    K4 lattice (ν_vac = 2/7 = 2 modes / 7 total, Cosserat Translation
+    sector).  Inner s-resonators appear as ABCD stubs at the inner port
+    of the outer s-cavity, shifting its S₁₁=0 eigenvalue.
+
+    The stub's topological parameter γ is the Bohr-radius fractional
+    mismatch between shell scales (Axiom 1, r_n = n²a₀/Z_eff):
+
+        γ = |n_out² − n_in²| / (n_out × n_in)
+
+    Energy shift from Y-matrix stub loading (Op5/Op6):
+
+        ΔE_chain = − E_base / (2 × N_s_in × cosh²(γ))
+
+    Cosserat compliance mapping (same as MCL weights at Phase B):
+        l=0 → Translation sector → compressional → coupling weight 1.0
+        l≥1 → Rotation/Curvature sector → transverse → coupling weight 0.0
+    Therefore only s-electrons (l=0) in each inner shell contribute.
+    N_s_in = min(N_a, 2) extracts the l=0 count from each n-shell.
+
+    Axiom chain:
+        Axiom 1:  r_n = n²a₀/Z → γ (Bohr radius geometric mismatch)
+        Axiom 1:  Y-matrix ABCD stub: y_mutual = -csch(γ)/Z_geo
+        Axiom 3:  S₁₁=0 eigenvalue shift → ΔE = -E/(2 N_s_in cosh²γ)
+        ν_vac:    2/7 compressional modes → only l=0 enters the stub
+
+    Args:
+        E_base:   Phase A eigenvalue [eV].
+        n_out:    Valence soliton winding number.
+        l_out:    Angular winding number (correction only applies for l=0).
+        shells:   Inner shell config [(n_in, N_a), ...] from _fill_config.
+
+    Returns:
+        delta_E [eV], ≤ 0 (always lowers IE). 0.0 if l_out ≠ 0.
+    """
+    import numpy as np
+    if l_out != 0:
+        return 0.0  # transverse solitons: zero compressional chain coupling
+
+    delta_E = 0.0
+    for (n_in, N_a) in shells:
+        if n_in >= n_out:
+            continue  # only inner shells load the outer cavity
+        # Extract l=0 electron count from this shell.
+        # n=1: all 2 electrons are 1s (l=0).
+        # n=2: first 2 electrons are 2s (l=0), remaining are 2p (l=1, transverse).
+        # n≥3: first 2 electrons are ns (l=0), remaining are transverse.
+        # This mirrors the Cosserat sector split already in Phase B MCL.
+        N_s_in = min(int(N_a), 2)
+        if N_s_in == 0:
+            continue
+        gamma = abs(float(n_out)**2 - float(n_in)**2) / float(n_out * n_in)
+        delta_E -= E_base / (2.0 * N_s_in * np.cosh(gamma)**2)
+    return delta_E
+
+
 def ionization_energy_e2k(Z, f_val=1.0):
     """Compute Ionization Energy using the E2k Atomic Approach.
 
     AVE Axiomatic Mapping:
       Phase A:  Continuous single-body integration of the spatial cavity.
                 Includes centrifugal barriers (l) and Op3 reflections.
+      Phase A½: Compressional chain coupling (l=0 solitons only).
+                Inner s-resonators act as ABCD stubs at the outer s-cavity
+                inner port, shifting its S11=0 eigenvalue downward.
+                Indexed by winding-number mismatch gamma (Axiom 1).
       Phase B:  Lumped identical-shell interaction matrix (MCL).
-                Applies K=2G scale loading to the Phase A base.
+                Applies K=2G scale loading to the Phase A½ base.
       Phase C:  Topological Pairing Penalty (Axiom 3 crossing scattering).
     """
 
@@ -1851,7 +1918,27 @@ def ionization_energy_e2k(Z, f_val=1.0):
 
     # Phase B: Mutual Cavity Loading — Same-Shell (Lumped LC)
     if N_out <= 1:
-        # Naked un-coupled elements natively fall strictly entirely over purely geometric evaluation bonds.
+        # Phase A½: Compressional Chain Coupling (single s-valence only).
+        #
+        # [Restored 2026-04-30 per Q4 adjudication. Pre-7fa60b7 Phase A½
+        # applied here for single-s-electron valence (Li 2s¹, Na 3s¹, etc.).]
+        #
+        # All l=0 solitons share the 2 compressional compliance modes of K4
+        # (ν_vac = 2/7).  Inner s-resonators act as ABCD stubs at the inner
+        # port of the outer s-cavity, shifting its S₁₁=0 eigenvalue by:
+        #
+        #     ΔE = −E_base / (2 × N_s_in × cosh²(γ))
+        #     γ  = |n_out² − n_in²| / (n_out × n_in)   [Bohr-radius mismatch]
+        #
+        # Gate condition: N_out = 1 means the valence shell has exactly
+        # one s-electron.  For fully-paired outer shells (Be 2s², Mg 3s²),
+        # Phase B's Hopf formula already captures the intra-shell correlation;
+        # applying the chain correction before Phase B amplifies ΔE by the
+        # Hopf factor, overcorrecting the IE.  The single-electron case has
+        # no Phase B amplification (we return E_base directly).
+        #
+        # Cosserat gate: only l=0 (compressional sector) triggers correction.
+        E_base = E_base + _sblock_chain_correction(E_base, n_out, l_out, cross_shells)
         return E_base
 
 
@@ -1912,10 +1999,40 @@ def ionization_energy_e2k(Z, f_val=1.0):
                     k_inner = (2.0 / z_eff_in) * (1.0 - P_C / 2.0)
                     k_pair = k_pair / (1.0 + k_inner) ** 0.25
         else:
-            # ── Discrete Torus Geometry Reflection (Merged inherently to Phase A) ──
-            # Phase A organically incorporates discrete geometric Op3 bounds stepping
-            # string limits instantly natively! Bypassing original Correction B duplicates.
-            pass
+            # ── Correction B: SIR Boundary Reflection (Op3 + Axiom 3) ──
+            #
+            # [Restored 2026-04-30 per Q5 adjudication, doc 100 §10.21+§10.22 —
+            # pre-f8af2e2 Op3 reflection at saturated inner torus with explicit
+            # Ax-2+Op3+Ax-3 chain. Reverts deletion by commit f8af2e2 (the
+            # "docs:" commit that also deleted Helmholtz CDF helpers).]
+            #
+            # When the adjacent inner shell has p-subshells (n ≥ 2),
+            # it forms a Pauli-saturated torus that presents a discrete
+            # impedance step.  The smooth CDF misses the Op3 reflection
+            # at this step, overestimating inner-lobe nuclear penetration.
+            #
+            # The crossing scattering at the step removes energy:
+            #     ΔE = −|Γ|² × (P_C/2) × E_base
+            #
+            # where:
+            #   |Γ|² = [(Z_out − Z_in)/(Z_out + Z_in)]²  (Op3)
+            #   P_C/2 = 4πα = crossing scattering fraction (Axiom 3)
+            #   E_base = Phase A cavity eigenvalue
+            #
+            # Cross-scale audit:
+            #   Op3 → scale_invariant.py:reflection_coefficient()
+            #   P_C/2 → coupled_resonator.py:389 (Hopf link crossing)
+            for n_in, N_a_in in cross_shells:
+                if n_in != n_adjacent:
+                    continue
+                # Z_net contrast at the saturated torus boundary
+                N_deeper = sum(Na for ni, Na in cross_shells if ni < n_in)
+                z_in = float(Z) - N_deeper         # screened by deeper shells only
+                z_out = float(Z) - N_deeper - N_a_in  # screened by this shell too
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    E_base = E_base * (1.0 - gamma_sq * P_C / 2.0)
 
         N_s = N_s_count
         if N_s == 2:
