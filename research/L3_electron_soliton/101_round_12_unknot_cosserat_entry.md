@@ -286,3 +286,67 @@ Per Grant's three-layer confirmation:
 Total Round 12: ~5-8 hours (single fresh-context session).
 
 — §9 closure of Grant's plumber-physics walk 2026-04-30. Visualization gap from §2-§3 closed via three-layer framing. Forward direction confirmed: Round 12 is layer-1+2 Cosserat-only unknot seeder work.
+
+---
+
+## §10 — Auditor pass-3 corrections to §9 three-layer framing (2026-04-30)
+
+Auditor reviewed §9 same-day (post-commit `a180c6e`). Three substantive corrections owed; each handled here per Rule 12 retraction-preserves-body discipline (§9 body stands; refinements appended).
+
+### §10.1 — Layer 3 over-imported Vol 1 Ch 8's specific (R = φ/2, r = (φ-1)/2) values
+
+§9.1 wrote: *"Vol 1 Ch 8's R/r = φ² geometry = phase-space Clifford-torus geometry of the (2,3) winding."* This re-introduced the bracketed chapter's specific values as load-bearing for Layer 3. The Vol 1 Ch 8 (R, r) values are bracketed per doc 100 §25; using them as Layer 3 anchors re-imports the bracket.
+
+**Corrected Layer 3 framing (auditor pass-3, refines §9.1 row 3):**
+
+> Layer 3 — Field phase-space topology: (V_inc, V_ref) phasor traces (2,3) trajectory on Clifford torus in S³ ⊂ ℂ². Specific (R_phase, r_phase) values pending independent re-anchor in canonical (non-Vol-1-Ch-8) physics.
+
+The structural framing — that (V_inc, V_ref) phasor pair traces (2,3) winding on the Clifford torus — stands on [doc 28 §3+§4](28_two_node_electron_synthesis.md) alone. That research-doc statement does NOT depend on Vol 1 Ch 8's specific R/r ratio; it just asserts the phase-space coordinate system + winding pattern. The φ² value is a Vol 1 Ch 8 derivation that brackets with the chapter; if Layer 3's specific (R_phase, r_phase) values turn out to be (φ/2, (φ-1)/2), they need independent corpus grounding (NOT Vol 1 Ch 8).
+
+§9.4 + §9.6 references to layer-3 (R, r) values inherit this caveat. Corrected layer-3 framing carries forward to §9.7 forward-direction (which already implicitly uses doc 28 framing for layer 3, just with Vol 1 Ch 8's values attached).
+
+### §10.2 — A43 v2 grep verification of corpus tension claim
+
+§9.1 claimed corpus tension between [`electron-unknot.md`](../../manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md) (layer-1 unknot) and [`larmor-derivation.md`](../../manuscript/ave-kb/vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md) (layer-3-mis-attributed-as-layer-1 trefoil). Auditor flagged that I had verbatim grep for larmor-derivation.md's claim but NOT for electron-unknot.md's 0₁ classification — A43 v2 verification gap.
+
+**Verbatim grep verification this turn** (closes A43 v2 gap):
+
+`grep -n "0_1\|unknot\|electron is\|fundamental ground.state\|topological defect" manuscript/ave-kb/vol2/particle-physics/ch01-topological-matter/electron-unknot.md` returned five explicit instances:
+
+- Line 5 (heading): *"## The Electron: The Fundamental Unknot ($0_1$)"*
+- Line 7: *"the electron ($e^-$) is identified as the fundamental ground-state topological defect: an **Electromagnetic Unknot**---a single closed flux tube loop at minimum ropelength $= 2\pi$"*
+- Line 13 (Examplebox): *"The electron is modelled as the ground-state $0_1$ unknot"*
+- Line 27: *"the geometric circumference of the $0_1$ unknot"*
+- Line 39: *"$0_1$ unknot perimeter"*
+
+Three explicit "$0_1$ unknot" classifications + heading + body statement. Layer-1 unknot classification is unambiguous corpus-canonical at electron-unknot.md.
+
+Larmor-derivation.md line 6 verbatim (already verified §9 pre-commit): *"the electron is a literal macro-physical $3_1$ Trefoil knot storing inductive kinetic energy."*
+
+The corpus tension is real and grep-verified. Per A47 v3 + the three-layer framing, the trefoil claim is most parsimoniously read as layer-3 phase-space (V_inc, V_ref) winding mis-attributed as "macro-physical" (real-space). Whether this reading IS canonical is a separate corpus-author call — flagging the tension, not adjudicating it.
+
+### §10.3 — Three-layer framing does NOT bear on α-derivation finding
+
+Auditor flagged: even with layers 1+2 right and layer 3 corrected, the framework's α derivation is still SI substitution on both parent and AVE-Core paths. The three-layer topological picture is independent of the α-derivation question.
+
+**Acknowledgment:**
+
+- Parent's α = p_c/(8π) at K/G = 2 trace-reversal IS a derivation-chain (per Q1 closure 2026-04-30); but whether it bottoms out in independent p_c calculation OR in algebraic substitution back from observed α is a separate audit-tier question
+- Theorem 3.1 Method 1 (LC-tank reactance) yields α⁻¹ = 137.036 from (ξ_topo, L_e, ω_C, Z_0) — the chain is dimensionally consistent but doesn't independently FIX α; it derives α once ℓ_node is set, which itself uses α via ℓ_node = ℏ/(m_e c) and m_e is set by Bounding Limit 1 + ω_C
+- Theorem 3.1 Method 2 (multipole sum) is Vol 1 Ch 8 numerology, brackets with chapter
+
+The three-layer topology resolution doesn't restore "parameter-free α derivation" rhetoric. These are separate audits at separate layers (topology vs. α derivation chain). The §9 walk does real work on the topology layer; doesn't bear on the α layer.
+
+This caveat appends to the §9.5 auditor-lane finding (A48 candidate) — corpus-layer-conflation discipline applies to topology AND to the α-derivation chain (which has its own audit trail per A47 v9 + A47 v11d work in doc 100). The two are decoupled.
+
+### §10.4 — §9 status post-corrections
+
+§9's three-layer framework + Grant's "exactly what im seeing" confirmation stands. Corrections refine specific over-claims:
+
+- Layer 3's specific (R_phase, r_phase) values are NOT Vol 1 Ch 8's (φ/2, (φ-1)/2) under bracket-Golden-Torus; pending re-anchor
+- Corpus tension between ch01 and ch04 is grep-verified (A43 v2 closed)
+- Three-layer framing doesn't address α-derivation audit (those stay separate)
+
+§9.7 Round 12 forward direction (Cosserat unknot seeder for layers 1+2) is unaffected by these corrections — Cosserat sector hosts layers 1+2 only, doesn't touch layer 3 or α-derivation chain.
+
+— §10 closure of auditor pass-3 corrections to §9. Round 12 forward direction confirmed; proceeding to doc 102 working doc per Grant directive 2026-04-30 ("document as you go and proceed").
