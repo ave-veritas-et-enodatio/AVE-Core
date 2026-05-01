@@ -61,6 +61,8 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
+	@echo "\n[Verify] Running Vol 2 Ch 7 atomic IE manuscript-table reproducibility..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_atomic_ie_manuscript_table.py
 	@echo "\n[Verify] Running defense-context checker (warning-only)..."
 	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
 	@echo "\n[Verify] Running claim-graph validator..."
