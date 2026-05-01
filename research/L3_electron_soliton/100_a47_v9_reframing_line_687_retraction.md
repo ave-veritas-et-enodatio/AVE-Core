@@ -1201,3 +1201,45 @@ The L3 substrate-electron-existence question (Track A) now has its full empirica
 
 The corpus electron's empirical realization is now in the analytical-eigenvalue (Track B) sector, NOT the time-domain substrate-dynamics (Track A) sector. Per Grant's 2026-04-30 plumber-physics framing (O1 unknot flux tube + lattice projection / wake cavity), Track B operates on the lattice-projection side (atomic orbital = standing-wave eigenmode of the radial transmission line); Track A would have measured the soliton side (unknot flux tube). The split between them was already structurally implicit in the corpus framing; E-094 confirms it empirically.
 
+### §10.38 — Flag 2 caveat (auditor 2026-04-30 post-Track-A-closure precision flag, Rule 12 footnote)
+
+Auditor's Flag 2 surfaced a load-bearing precision: the §10.36-§10.37 framing leans toward reading (b) — *"Track B already IS the combined picture, just in operational form"* — which bypasses a corpus claim that's stronger than what's been validated.
+
+**The framing's nuance:** Track A's Mode III × 3 scales is consistent with two distinct readings, not one:
+
+(a) **Correct substrate, wrong scale:** K4-TLM-with-ℓ_node-spacing IS the vacuum's actual structure; the soliton needs sub-ℓ_node resolution (FDTD or finer lattice) to be hosted dynamically. Per A37 substrate-Nyquist limit + Vol 2 Ch 1:9 (tube radius ℓ_node/(2π) ≈ 0.16 cells = sub-resolution at ℓ_node sampling).
+
+(b) **Substrate model incidental, analytical framework canonical:** Track B's eigenvalue solver works at the operational level (impedance → eigenmode → manuscript precision); whether K4-TLM is the literal vacuum structure or an approximate substrate model is a separate question.
+
+**Empirical state per all tests run:**
+
+| Track A scale tested | Sampling regime | Mode |
+|---|---|---|
+| Chair-ring (R=8) | ℓ_node-and-coarser | III |
+| Bond-cluster (R=10) | ℓ_node-and-coarser | III |
+| Bond-pair (R=2) | ℓ_node-and-coarser | III |
+| **Sub-ℓ_node** | **NOT TESTED** | — |
+
+All three scales tested were AT or ABOVE ℓ_node sampling. The corpus places the soliton's tube radius at sub-ℓ_node (≈0.16 cells per Vol 2 Ch 1:9). **No test in this session reached the corpus-canonical scale class.**
+
+**Corrected closure framing:**
+
+Track A's closure is honest at the **ℓ_node-and-coarser** sampling regime: across multiple object classes (cluster, chair-ring, pair) and IC classes (V_inc-only, V_inc+V_ref quadrature, discrete eigenmode), no test produces the (2,3) phase-space winding signature. Per Rule 11, that's clean falsification within the regime tested.
+
+Track A's closure is NOT yet at the corpus-canonical sub-ℓ_node regime. The corpus's substrate claim (K4-TLM-with-ℓ_node-spacing IS the vacuum's actual structure, with the soliton hosted dynamically) hasn't been falsified — it's been **un-tested at the regime where the corpus places the soliton**.
+
+**What this means for the unified-thesis articulation:**
+
+The §10.37 statement "Track A door is closed honestly" stands within its scope — at ℓ_node-and-coarser sampling. The stronger reading "K4-TLM substrate definitively cannot host the corpus electron" is NOT supported by the empirical record; it would require sub-ℓ_node testing (FDTD continuum or finer-than-ℓ_node lattice).
+
+**The combined-picture claim** ("Track B already IS the combined picture") is correct in operational form (analytical-eigenvalue level reproduces manuscript precision via topology→impedance→eigenmode chain). It does NOT standalone-validate that K4-TLM-with-ℓ_node-spacing is the literal substrate. Validation of the substrate-physics framework specifically requires Track A continuation at sub-ℓ_node resolution (auditor's "Track A continuation: cinquefoil + FDTD, weeks" optional follow-up).
+
+**Reading retained:**
+- (b) is empirically supported: Track B's analytical framework operates and reproduces experiment regardless of substrate model
+- (a) is **not yet tested**: K4-TLM-as-literal-vacuum at sub-ℓ_node remains an open empirical question
+- Both can be true simultaneously: the analytical framework can be canonical AND the substrate model can be the literal vacuum structure — the frameworks aren't mutually exclusive
+
+**Per A47 v11d (axiom-chain-required-in-docstring) discipline applied to claims:** the agent's earlier "L3 closure stands without asterisk" framing in §10.37 should be read as "L3 closure stands at ℓ_node-and-coarser sampling regime per E-094 + path α v1-v4(b) + Round 11 (vi); sub-ℓ_node substrate-physics validation question remains open per Flag 2."
+
+Body of §10.36-§10.37 preserved per Rule 12 retraction-preserves-body. This footnote calibrates the closure scope without rewriting the empirical record.
+
