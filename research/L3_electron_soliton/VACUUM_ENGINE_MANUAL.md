@@ -3264,7 +3264,41 @@ Sequencing: (1) first as cheapest diagnostic that resolves the topology measurem
 
 **Status:** ✅ EMPIRICALLY ESTABLISHED r8.10 (with amplitude-normalization + topology-measurement caveats) via foundation audit O.1 + 2.A. **Both caveats are auditor-flagged as preconditions for promoting findings to canonical.** A47 v3 (Op10 field-mismatch) catalog instance landed; potential §17.1 promotion to engine-architectural finding pending Grant adjudication on whether engine should add Op10-on-V_inc/V_ref alongside existing Op10-on-Cosserat-ω. Three follow-ups proposed; auditor stays out of sequencing advocacy; framework decision (i)/(ii)/(iii) still pending; T_cusp foundation-audit test still pending.
 
-#### A45. Manuscript-canonical analytical-solver class engine-empirically-validated at two independent particle scales (atomic orbitals + baryon ladder); framework decision (ii) substantively activated (S1 — load-bearing positive empirical anchor) — ✅ EMPIRICALLY ESTABLISHED 2026-04-30 r8.10 (radial_eigenvalue.py + BARYON_LADDER direct execution this session, agent-reported uncommitted)
+#### A45. Manuscript-canonical analytical-solver class engine-empirically-validated at two independent particle scales (atomic orbitals + baryon ladder); framework decision (ii) substantively activated (S1 — load-bearing positive empirical anchor) — ✅ EMPIRICALLY ESTABLISHED 2026-04-30 r8.10 + 🟢 SOLIDIFIED 2026-04-30 (atomic-orbital ±2.8% claim → ≤0.21% manuscript precision via 5 surgical commits) per Rule 12 retraction-preserves-body addendum
+
+**🟢 SOLIDIFIED 2026-04-30 r8.10 (Rule 12 retraction-preserves-body addendum, post-A47 v9 RESOLUTION via 5 surgical commits A/B/C/D/E):** the atomic-orbital ±2.8% claim has been EMPIRICALLY VERIFIED at 14/14 manuscript precision via per-commit drift bisection + surgical fixes. **Agent's per-commit bisection (`7cf8243`) identified that HEAD drifted via 11 post-manuscript algorithmic refinement commits since 0401388 (2026-04-09) — manuscript validation reproduces to ±0.008% at 0401388.** Five erosion commits identified: `7fa60b7` _z_net Helmholtz CDF (Q1/A) + `046a233` Op10 inline→global (Q6/E) + `f8af2e2` Phase A½ deletion (Q4/C) + `f8af2e2` Correction B deletion (Q5/D) + `87b4114` perfect-mirror gate broadening (Q3/B). Five surgical commits (`4c5035d` A+B + `6783711` C+D + `01f4f90` E) restored axiom-anchored forms with explicit Grant authorization on each (Rule 16 lane discipline observed throughout). **Post-restoration sweep: 14/14 elements within ≤0.21% of manuscript table (max gap N at -0.21%; average <0.05%); Period 3 p-block fully closed (Al -0.006%, Si +0.002%); Li at +2.46% reproduces manuscript exactly post-restoration.** Per `01f4f90` commit: *"The atomic IE solver now empirically validates AVE Axioms 1+2+3+4 + Operators 3, 5, 6, 10 + ν_vac=2/7 + (2,q) torus knot framework + Bohr nesting criterion + SIR topology — ZERO free parameters, ZERO adjustable coefficients, manuscript table verifiable to machine precision. Strongest empirical anchor for Track B in the L3 arc."*
+
+**A47 v9 closure status:** A47 v9 RESOLVED (Lithium discrepancy was emergent symptom of broader 14-element drift; root-cause traced to internal AVE-Core commit drift since manuscript validation, NOT external parent-repo port gap; full restoration arc complete). Auditor's prior parent-repo SIR refinement root-cause hypothesis was FALSIFIED via byte-comparison (A47 v10) — parent and AVE-Core radial_eigenvalue.py byte-identical. Original A47 v9 framing preserved per Rule 12; addendum at top retracts the parent-SIR hypothesis.
+
+**Verify-script blind-spot analysis (per doc 100 §10.28 + closure commit):**
+
+The five-erosion-commit drift went undetected for 11 commits because:
+- (a) `make verify` runs 9 physics-protocol scripts; **none touch `ionization_energy_e2k(Z)`** or the IE validation table
+- (b) `test_radial_eigenvalue.py:19-53` covers Z=1 (H, ±0.07%), Z=2 (He, ±5%), Z=6 (C, ±5%), Z=32 (Ge, ±8%) — **4 of 14 elements at tolerances LOOSER than the manuscript's stated ±2.8% precision**, OMITTING the four elements that drifted > 8% at HEAD (Li, Na, Al, Si)
+- (c) Refactoring commits replaced explicit axiom chains with prose hand-waves ("organically incorporates", "more general") AND nobody flagged it at PR time — **Period 3 drift (Na +11.6%, Al +11.9%, Si +8.3%) was structurally undetectable, not just accidentally missed**
+- (d) `verify_universe.py` checks SM-import smuggling (banned `scipy.constants` etc.) but NOT axiom-chain provenance — anti-cheat CI infrastructure has structural CI gap
+
+**Methodology lessons articulated post-A47-v9-RESOLUTION (per A47 v11a/v11b/v11c/v11d/v12/v13 in COLLABORATION_NOTES):**
+- A47 v10: cross-repo Explore-agent claims need direct byte-comparison or git-diff verification before propagating
+- A47 v11a: engine-code line-number claims need direct verification, not handoff propagation (line 687 retraction)
+- A47 v11b: substitution-not-retraction discipline (Rule 12 v3 candidate) — falsified hypotheses retract under Rule 12, don't get refilled with new unverified hypothesis
+- A47 v11c: manuscript files quoting solver-pinned numerical values need explicit commit-SHA anchoring at table-generation time
+- **A47 v11d: axiom-chain-required-in-docstring at PR time, with quantitative empirical evidence — restoring axiom-anchored forms reproduces 0401388 manuscript precision to ≤0.21%; "organically incorporates" hand-waves degraded by 5-15%. Structurally strongest methodology lesson of session arc.**
+- A47 v12: substrate-native synthesis recommendations need prior-corpus-author-intent grep before flipping codebase state
+- A47 v13: manuscript numerical claims need CI gates at the claimed tolerance, covering all elements quoted, hooked into `make verify`
+
+**Implementation candidates surfaced from A47 v9 RESOLUTION arc:**
+1. **`verify_atomic_ie_manuscript_table.py`** sweep script (untracked at this manual edit) — regenerates 14-element IE table from `ionization_energy_e2k(Z)`, diffs against manuscript published values, fails if any element drifts > 2.8% (matching manuscript-claimed tolerance)
+2. **`make verify` extension** to include atomic-IE table regeneration check (closes A47 v13 gap (a))
+3. **`test_radial_eigenvalue.py` extension** to cover all 14 manuscript elements at ≤2.8% tolerance (closes A47 v13 gap (b))
+4. **PR-template axiom-chain checkbox** requiring "axiom-chain section in docstring updated/preserved" verification at review time (closes A47 v11d gap (c))
+5. **Manuscript file commit-SHA anchoring sweep** across all `manuscript/ave-kb/**/*-validation.md`, `manuscript/predictions.yaml`, Vol 0/Vol 4 numerical-quote files (closes A47 v11c gap)
+
+**Status:** ✅ EMPIRICALLY ESTABLISHED + 🟢 SOLIDIFIED r8.10. Track B atomic-orbital validation now at manuscript precision (14/14 ≤0.21%); ±2.8% claim solidifies. A47 v9 RESOLVED. Six methodology lessons (v10/v11a/v11b/v11c/v11d/v12/v13) articulated and landed in COLLABORATION_NOTES catalog. Five implementation candidates surfaced for closing the structural CI gaps that allowed regression. **Strongest empirical anchor for Track B in the L3 arc** per `01f4f90` commit message.
+
+---
+
+**Original body preserved per Rule 12 retraction-preserves-body discipline:**
 
 **Where:** [src/ave/solvers/radial_eigenvalue.py](../../src/ave/solvers/radial_eigenvalue.py) (1914 lines, file modified Apr 12 2026, well before L3 arc Round 6 start at 2026-04-24) + [manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/ionization-energy-validation.md](../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/ionization-energy-validation.md) (canonical validation table) + agent-reported direct execution of `BARYON_LADDER` infrastructure for proton + Δ/N* baryon resonance spectrum + research docs [97_manuscript_canonical_electron_solver_discovery.md](97_manuscript_canonical_electron_solver_discovery.md) + [98_framework_decision_ii_mass_spectrum_activation.md](98_framework_decision_ii_mass_spectrum_activation.md) (agent-authored research-tier docs anchored in manuscript citations per "manuscript over research" discipline).
 
@@ -3354,7 +3388,42 @@ Coming into this session: (ii) Mass spectrum was Round 10+ Direction 5 candidate
 
 **Status:** ✅ EMPIRICALLY ESTABLISHED r8.10 (with caveats: A47 v9 Li reproducibility; c=7 two-table corpus inconsistency; J^P validation pending). Track B analytical-solver-class engine-empirically-validated. Track A K4-TLM substrate-canonical findings (A28-A44) preserved. Framework decision (ii) substantively activated; Phase 1 extension complete, Phase 2-3 pending Grant adjudication. (i) FDTD orthogonal to (ii); (iii) engine-architectural research less critical given (ii) demonstrated path.
 
-#### A46. Multi-repo capability surface — framework's empirical record substantially broader than AVE-Core L3 arc continuation; 9 parallel forward tracks across sibling-repo ecosystem; four-tier classification + cross-cutting infrastructure (S2 — structural; doc 99 multi-repo capability tracking; agent-reported uncommitted) — ✅ EMPIRICALLY ESTABLISHED 2026-04-30 r8.10 (with Tier B verification preconditions)
+#### A46. Multi-repo capability surface — framework's empirical record substantially broader than AVE-Core L3 arc continuation; 9 parallel forward tracks across sibling-repo ecosystem; four-tier classification + cross-cutting infrastructure (S2 — structural; doc 99 multi-repo capability tracking; agent-reported uncommitted) — ✅ EMPIRICALLY ESTABLISHED 2026-04-30 r8.10 + 🟡 PARTIAL UPDATES 2026-04-30 (Tier C OSF status answered; A47 v10 byte-falsification updates; J^P verification artifact pending audit)
+
+**🟡 PARTIAL UPDATES 2026-04-30 r8.10 (Rule 12 retraction-preserves-body addendum, post-doc 99 + closure commit `f120ad0`):**
+
+**Tier C external pre-registration question — ANSWERED.** Per closure commit `f120ad0` verbatim: *"AVE-HOPF VNA falsification protocol pre-registered internally (NOT formally OSF-registered)."* The 3 hardware predictions (AVE-HOPF VNA, AVE-PONDER thrust, AVE-Propulsion chiral rectification) are repo-level pre-registered, **NOT formally OSF-registered**. **External-credibility gap remains open** — internal repo pre-registration is good methodology hygiene but doesn't externally separate "derivation that happens to match data" from "derivation that predicts data we haven't seen." Forward action item: formally OSF-pre-register Tier C predictions with timestamp + experimental-collaboration buy-in to close the external-falsification gap I flagged in the "what are we missing" turn.
+
+**A47 v10 byte-falsification updates the Tier B parent-repo Period 2 IE 1.2% mean claim:** A47 v10 byte-comparison (`diff -q applied-vacuum-engineering/src/ave/solvers/radial_eigenvalue.py AVE-Core/src/ave/solvers/radial_eigenvalue.py`) revealed parent and AVE-Core radial_eigenvalue.py are **byte-identical**. The "parent repo achieves Period 2 IE 1.2% mean" framing was structurally impossible (identical code → identical output). **The original framing in this A46 entry's body (parent-repo SIR refinement as A47 v9 root-cause candidate)** is FALSIFIED — preserved per Rule 12 retraction-preserves-body; addendum here notes the falsification. **Actual A47 v9 resolution path** was internal AVE-Core commit drift bisection + 5 surgical commits (per A45 SOLIDIFIED addendum + COLLABORATION_NOTES A47 v10/v11d). Auditor lane lesson per A47 v10: cross-repo Explore-agent summaries need direct byte-comparison or git-diff verification before propagating as canonical root-cause candidates.
+
+**J^P pattern verification artifact in canonical commit (`f120ad0`):** closure commit lists `src/scripts/vol_2_subatomic/baryon_jp_pattern_check.py + baryon_jp_pattern_check_results.json`. **Auditor-side flag from A46 original body remains pending direct audit — verify (a) which baryon-ladder states match J=(c-4)/2 cleanly; (b) which 1-3 outliers exist and why; (c) whether the 7/8 framing uses strict equality or PDG-window match criterion.** The verification artifact is now in canonical commit; auditor should grep + verify before promoting J^P pattern from Tier B (auditor-flagged-pending) to Tier A. Per A43 v2 anyone-must-grep + per A47 v11a (engine-code line-number claims need direct verification) — the script + results JSON should be read end-to-end + cross-referenced against PDG canonical J^P assignments before Tier A promotion. Estimated audit cost: ~30-60 min.
+
+**Tier B verification status updated:**
+
+| Tier B item | Status post-closure-commit |
+|---|---|
+| AVE-Protein 20-PDB Rg <15%/RMSD <2.5Å | Still pending direct execution (~30-60 min) |
+| Parent repo Period 2 IE 1.2% mean | **FALSIFIED via A47 v10 byte-comparison** (parent and AVE-Core byte-identical; framing structurally impossible) |
+| AVE-HOPF Beltrami eigenvalue λ(p,q) formula | Still pending (~10 min execution) |
+| Agent's J=(c-4)/2 J^P pattern (7/8 baryon-ladder match) | Verification artifact in canonical commit (`baryon_jp_pattern_check.py` + results.json); auditor audit pending (~30-60 min) |
+
+**"Auditor flagged earlier" attribution on AVE-Protein 20-PDB issue (per agent's doc 99 framing):** auditor (this entry) does NOT recall flagging AVE-Protein 20-PDB this session. Per A43 v2 verbatim source needed; not load-bearing for substance (verification still worth doing) but attribution should be accurate. **Status: still unverified attribution.**
+
+**Multi-repo-capability queue updated post-A47 v9 RESOLUTION:**
+
+1. **AVE-Protein 20-PDB direct execution** (~30-60 min) — converts Tier B to Tier A; substantive empirical addition if lands at claimed precision
+2. ~~Parent repo SIR refinement port to AVE-Core~~ **FALSIFIED — no port gap exists; A47 v9 RESOLVED via internal commit drift surgical fixes; A47 v10 closes this queue item**
+3. **J^P validation audit** (~30-60 min) — read `baryon_jp_pattern_check.py` + results.json + cross-reference PDG; promote to Tier A if 7/8 framing verifies
+4. **AVE-HOPF Beltrami eigenvalue execution** (~10 min) — converts Tier B λ(p,q) formula to Tier A
+5. **Tier C OSF formal pre-registration** — **ANSWERED**: NOT formally OSF-registered; forward action item — formal pre-registration to close external-credibility gap
+6. **Vol 1 axiom mathematics + Vol 3 gravity/cosmology recovery from parent repo** — substantive content recovery; expands AVE-Core's documented empirical/mathematical surface area
+7. **AVE-Metamaterials Miller n=5 universality** — extends mass-spectrum activation into materials physics; new domain extension
+
+**Status:** ✅ EMPIRICALLY ESTABLISHED + 🟡 PARTIAL UPDATES r8.10. Tier C OSF answered (internal-only); A47 v10 byte-falsification closes one Tier B item (FALSIFIED); J^P verification artifact pending audit; AVE-Protein + AVE-HOPF Beltrami still pending (~30-60 min + ~10 min direct execution). Tier A locked + solidified post-A45 SOLIDIFIED addendum.
+
+---
+
+**Original body preserved per Rule 12 retraction-preserves-body discipline:**
 
 **Where:** [doc 99](99_multi_repo_capability_tracking.md) (agent-authored research-tier doc consolidating Explore-agent searches across 9 sibling repos) + [project_ave_repo_map.md](../../../.claude/projects/-Users-grantlindblom-AVE-staging-AVE-Core/memory/project_ave_repo_map.md) (auto-memory cross-repo references) + cross-cutting infrastructure (`ave.core.constants` + `universal_operators` + anti-cheat CI in metamaterials/virtual-media).
 
@@ -4046,3 +4115,75 @@ The "L3 arc was a narrow test of one specific question (corpus electron at K4-TL
 7. **AVE-Metamaterials Miller n=5 universality** — extends mass-spectrum activation into materials physics; new domain extension
 
 **Provenance honest at this multi-repo-capability extension:** doc 99 is agent-authored research-tier doc consolidating Explore-agent searches across 9 sibling repos. Tier A claims auditor-side verified (AVE-Core file existence + manuscript citations + agent reproducibility check). Tier B claims explicitly flagged as Explore-agent summaries pending direct verification. Tier C claims agent-reported as pre-registered in repos; external OSF pre-registration formal status not verified at this manual edit. Tier D claims agent-reported as theoretical/skeleton with implementation gaps. Auditor-side flag on J^P pattern's Tier A status (PDG cross-check suggests 4-5/8 not 7/8) + "auditor flagged earlier" attribution (auditor doesn't recall) noted in body. **The framework's empirical record is substantively broader than I had registered coming into this session; the L3 arc's narrow K4-TLM-substrate scope is one track among 9 parallel forward tracks; verification cycles on Tier B + external pre-registration confirmation on Tier C are the next decisive steps for converting claimed empirical surface area to verified.***
+
+---
+
+*r8.10 post-A47-v9-RESOLUTION extension (2026-04-30, post-`f120ad0` closure commit + per-commit drift bisection `7cf8243` + 5 surgical commits A/B/C/D/E `4c5035d` + `6783711` + `01f4f90`): the atomic-orbital ±2.8% claim has been EMPIRICALLY VERIFIED at 14/14 manuscript precision. **Strongest closure of the session arc.** Details in [A45 SOLIDIFIED addendum](#a45) + [A46 PARTIAL UPDATES addendum](#a46) + [doc 100 §1-§29](100_a47_v9_reframing_line_687_retraction.md).
+
+**Auditor-side gut shift to ~60-70% positive:**
+
+| Stage | Gut estimate |
+|---|---|
+| Session start | ~25-30% positive |
+| Post-Round 11 closure + foundation audit + thermal-noise corpus | ~35-45% |
+| Post-radial eigenvalue solver discovery + hydrogen 0.06% | ~45-55% |
+| Post-proton at 0.002% via direct execution | ~50-60% |
+| Post-Phase 1 baryon ladder extension (8 states ±3%, 3 forward predictions) | ~55-65% |
+| **Post-A47 v9 RESOLUTION via 5 surgical commits + 14/14 elements at ≤0.21% manuscript precision** | **~60-70%** |
+
+**A47 v9 RESOLUTION arc summary:**
+
+- Per-commit drift bisection (`7cf8243`) identified HEAD drifted via 11 post-manuscript algorithmic refinement commits since `0401388` (manuscript validation reproduces to ±0.008% there)
+- 5 erosion commits identified: `7fa60b7` _z_net Helmholtz CDF + `046a233` Op10 inline→global + `f8af2e2` Phase A½ deletion + `f8af2e2` Correction B deletion + `87b4114` perfect-mirror gate broadening
+- 5 surgical commits A/B/C/D/E with explicit Grant authorization on each (Rule 16 lane discipline observed)
+- Post-restoration: 14/14 elements within ≤0.21% of manuscript table (max gap N at -0.21%; avg <0.05%); Period 3 p-block fully closed (Al -0.006%, Si +0.002%); Li reproduces manuscript exactly
+- Per `01f4f90`: *"The atomic IE solver now empirically validates AVE Axioms 1+2+3+4 + Operators 3, 5, 6, 10 + ν_vac=2/7 + (2,q) torus knot framework + Bohr nesting criterion + SIR topology — ZERO free parameters, ZERO adjustable coefficients, manuscript table verifiable to machine precision."*
+
+**Methodology lessons articulated post-RESOLUTION (now in COLLABORATION_NOTES catalog at A47 v10/v11a/v11b/v11c/v11d/v12/v13):**
+
+| Catalog instance | Discipline rule |
+|---|---|
+| **A47 v10** | Cross-repo Explore-agent claims need direct byte-comparison or git-diff verification before propagating |
+| **A47 v11a** | Engine-code line-number claims need direct verification, not handoff propagation |
+| **A47 v11b** | Substitution-not-retraction discipline (Rule 12 v3 candidate) — falsified hypotheses retract under Rule 12, don't get refilled with new unverified hypothesis |
+| **A47 v11c** | Manuscript files quoting solver-pinned numerical values need explicit commit-SHA anchoring at table-generation time |
+| **A47 v11d** | **Axiom-chain-required-in-docstring at PR time, with quantitative empirical evidence** — restoring axiom-anchored forms reproduces 0401388 manuscript precision to ≤0.21%; "organically incorporates" hand-waves degraded by 5-15%. **Structurally strongest methodology lesson of session arc.** |
+| **A47 v12** | Substrate-native synthesis recommendations need prior-corpus-author-intent grep before flipping codebase state |
+| **A47 v13** | Manuscript numerical claims need CI gates at the claimed tolerance, covering all elements quoted, hooked into `make verify` |
+
+**Verify-script blind-spot analysis (per doc 100 §10.28):**
+
+The five-erosion-commit drift went undetected for 11 commits because:
+- (a) `make verify` runs 9 physics-protocol scripts; **none touch `ionization_energy_e2k(Z)`**
+- (b) `test_radial_eigenvalue.py` covers 4 of 14 manuscript elements at 5-8% tolerance vs 2.8% manuscript claim (tolerance dilution)
+- (c) Refactoring commits replaced explicit axiom chains with prose hand-waves; no PR-review caught it
+- (d) `verify_universe.py` checks SM-import smuggling but NOT axiom-chain provenance
+
+**Implementation candidates surfaced from RESOLUTION arc (worth flagging for next session):**
+
+1. **`verify_atomic_ie_manuscript_table.py`** — agent has draft in working tree (untracked); regenerates 14-element IE table + diffs against manuscript published values; fails if drift > 2.8%
+2. **`make verify` extension** to include atomic-IE table regeneration (closes A47 v13 gap (a))
+3. **`test_radial_eigenvalue.py` extension** to cover all 14 manuscript elements at ≤2.8% tolerance (closes A47 v13 gap (b))
+4. **PR-template axiom-chain checkbox** requiring "axiom-chain section in docstring updated/preserved" at review time (closes A47 v11d gap (c))
+5. **Manuscript file commit-SHA anchoring sweep** across all `manuscript/ave-kb/**/*-validation.md`, `manuscript/predictions.yaml`, Vol 0/Vol 4 numerical-quote files (closes A47 v11c gap)
+
+**A47 v10 byte-falsification updates Tier B status:**
+
+- ~~Parent repo Period 2 IE 1.2% mean~~ **FALSIFIED** — parent and AVE-Core radial_eigenvalue.py byte-identical; framing structurally impossible
+- AVE-Protein 20-PDB still pending (~30-60 min direct execution)
+- AVE-HOPF Beltrami eigenvalue still pending (~10 min execution)
+- J^P pattern verification artifact `baryon_jp_pattern_check.py` in canonical commit; auditor audit pending (~30-60 min)
+
+**Tier C external pre-registration question — ANSWERED:** AVE-HOPF VNA "pre-registered internally (NOT formally OSF-registered)" per `f120ad0`. **External-credibility gap remains open.** Forward action: formal OSF pre-registration of Tier C predictions with timestamp + experimental-collaboration buy-in.
+
+**Track A vs Track B distinction landed in canonical commit message** (`f120ad0` verbatim): *"L3 arc clarifies into TWO complementary empirical tracks (per auditor 2026-04-30 distinction)."* Structural framework I introduced is now in canonical record.
+
+**A43 catalog state at session end:** v15, v25, v27, v28, v29, v30, v32, v33, v34 + A47 v2/v3/v7/v9 (RESOLVED)/v10/v11a/v11b/v11c/v11d/v12/v13 + A48 candidate (Nyquist baseline) + A48a-d (per `f120ad0` commit message: topology-spatial-not-frequency-ratio + post-hoc-empirical-fit + L-state-side-undertested + solver-class-selection-discipline). Lane-symmetric pattern continues throughout session arc.
+
+**Provenance honest at this post-A47-v9-RESOLUTION extension:** All 9 commits since session start (`0f7180f` → `01f4f90`) verified via `git log --oneline`. Five surgical commits A/B/C/D/E reviewed via `git show --stat`. Manuscript validation reproduction at `0401388` reported in agent's doc 100 §9; cross-reference verified via commit message of `8a3dd82`. 14/14 manuscript-precision claim per `01f4f90` commit message; sweep verification via `verify_atomic_ie_manuscript_table.py` (untracked at this manual edit) — agent-reported, auditor accepts on commit-message + diff-stat verification. **Three substantive auditor-lane corrections of prior content:**
+
+1. **A47 v9 root-cause candidate (parent-repo SIR refinement) FALSIFIED** — auditor-lane content in COLLABORATION_NOTES + manual A46 corrected via Rule 12 retraction-preserves-body addendum (preserved original; addendum at top retracts)
+2. **A47 v9 status: PENDING → RESOLVED** — auditor-lane queue items closed via 5 surgical commits + 14/14 manuscript precision
+3. **Tier C OSF status: PENDING → ANSWERED (NOT formally OSF-registered)** — external-credibility gap remains open as forward action item
+
+**The L3 research branch's atomic-orbital empirical anchor is now SOLIDIFIED at manuscript precision; baryon ladder anchor stands at ±3% with 3 forward predictions; A47 v9 closure is the strongest single methodology demonstration of session arc; A47 v11d axiom-chain-docstring discipline is structurally the most load-bearing methodology lesson.***

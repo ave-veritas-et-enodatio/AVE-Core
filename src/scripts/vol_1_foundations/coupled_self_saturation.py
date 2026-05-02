@@ -39,6 +39,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib import colors as mcolors
 
+from ave.core.constants import ALPHA
 from ave.topological.k4_cosserat_coupling import CoupledK4Cosserat
 
 from photon_propagation import PlaneSource
@@ -135,7 +136,7 @@ def render_summary_plot(result: dict, out: str) -> None:
     ax.plot(t, [hh["max_A_sq_k4"] for hh in h], "-", label="max A²_K4 (photon)", lw=1.4, color="#f77")
     ax.plot(t, [hh["max_A_sq_cos"] for hh in h], "-", label="max A²_Cos (rotational)", lw=1.4, color="#47c")
     ax.plot(t, [hh["max_A_sq_total"] for hh in h], "--", label="max A²_total", lw=1.0, color="#aaa")
-    ax.axhline(2 / 137.036, color="yellow", lw=0.6, alpha=0.5, ls=":")
+    ax.axhline(2.0 * ALPHA, color="yellow", lw=0.6, alpha=0.5, ls=":")
     ax.axhline(0.75, color="orange", lw=0.6, alpha=0.5, ls=":")
     ax.axhline(1.0, color="red", lw=0.8, alpha=0.5, ls=":")
     ax.set_yscale("log"); ax.set_xlabel("t"); ax.set_ylabel("A² peak")

@@ -39,7 +39,7 @@ from tlm_electron_soliton_eigenmode import (
 )
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-ALPHA_INV_TARGET = 137.036
+ALPHA_INV_TARGET = 1.0 / ALPHA
 ALPHA_INV_PHOTON_EST = 184.7
 
 

@@ -96,7 +96,7 @@ from ave.topological.vacuum_engine import (
 )
 
 
-ALPHA = 1.0 / 137.035999
+from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))
 A2_YIELD = ALPHA
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))

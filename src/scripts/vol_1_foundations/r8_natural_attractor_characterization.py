@@ -80,7 +80,6 @@ from tlm_electron_soliton_eigenmode import initialize_2_3_voltage_ansatz
 
 PHI = 0.5 * (1.0 + np.sqrt(5.0))
 PHI_SQ = PHI * PHI
-ALPHA = 1.0 / 137.036
 
 N_LATTICE = 32
 PML = 4

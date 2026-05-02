@@ -64,7 +64,7 @@ from ave.topological.vacuum_engine import (
 )
 
 
-ALPHA = 1.0 / 137.035999
+from ave.core.constants import ALPHA
 OMEGA_C = 1.0
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)

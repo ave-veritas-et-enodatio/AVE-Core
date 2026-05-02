@@ -46,7 +46,7 @@ PHI = 0.5 * (1.0 + np.sqrt(5.0))
 PHI_SQ = PHI * PHI
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
-ALPHA = 1.0 / 137.036
+from ave.core.constants import ALPHA
 OMEGA_COMPTON = 1.0
 SIGMA_TARGET = OMEGA_COMPTON ** 2  # = 1.0
 LAMBDA_TOL_COS = ALPHA * OMEGA_COMPTON  # ≈ 0.00731 on √λ

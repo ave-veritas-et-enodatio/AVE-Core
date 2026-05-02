@@ -62,7 +62,7 @@ PHI_SQ = PHI * PHI                          # ≈ 2.618
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)  # ≈ 0.3464 (recovers 0.3π peak from √3/2·π canonical)
 GT_PEAK_OMEGA = 0.3 * np.pi                 # ≈ 0.9425
 
-ALPHA = 1.0 / 137.036
+from ave.core.constants import ALPHA
 OMEGA_COMPTON = 1.0                         # native units (ℓ_node = 1, c = 1, ℏ = 1, m_e = 1)
 LAMBDA_TARGET = OMEGA_COMPTON ** 2          # = 1.0
 

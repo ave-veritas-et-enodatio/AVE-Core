@@ -33,10 +33,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from ave.core.constants import ALPHA
 from ave.topological.cosserat_field_3d import CosseratField3D
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-ALPHA_INV_TARGET = 137.036
+ALPHA_INV_TARGET = 1.0 / ALPHA
 
 
 def run_cosserat_relax(

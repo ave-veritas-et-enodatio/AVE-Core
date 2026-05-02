@@ -27,7 +27,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
 
-from ave.core.constants import V_SNAP as _V_SNAP_CONST
+from ave.core.constants import V_SNAP as _V_SNAP_CONST, ALPHA
 from ave.topological.k4_cosserat_coupling import (
     CoupledK4Cosserat,
     _v_squared_per_site,
@@ -36,7 +36,6 @@ from ave.topological.k4_cosserat_coupling import (
 
 
 # Regime thresholds (Axiom-4, Regime I/II/III from Vol 4 Ch 1)
-ALPHA = 1.0 / 137.036
 A2_REGIME_I_II = 2.0 * ALPHA          # ≈ 0.0146   (√(2α) in A, but A² here)
 A2_REGIME_II_III = 3.0 / 4.0          # = 0.75     ((√3/2)² = 3/4)
 A2_RUPTURE = 1.0                      # rupture limit

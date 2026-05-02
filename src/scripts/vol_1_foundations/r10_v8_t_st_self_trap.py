@@ -120,7 +120,7 @@ from ave.topological.vacuum_engine import (
 
 
 # Constants in natural units
-ALPHA = 1.0 / 137.035999
+from ave.core.constants import ALPHA
 V_YIELD = float(np.sqrt(ALPHA))     # ≈ 0.0854 V_SNAP
 A2_YIELD = ALPHA                    # A² at saturation onset
 A2_OP14 = float(np.sqrt(2.0 * ALPHA))  # ≈ 0.117 (Op14 engagement)

@@ -125,7 +125,7 @@ SPH_HARM_L_MAX = 4
 TOP_K_OMEGA_CELLS = 50
 
 # AVE three-regime A² boundaries (per AVE-VirtualMedia convention)
-ALPHA = 1.0 / 137.036
+from ave.core.constants import ALPHA
 A2_REGIME_I_II = 2.0 * ALPHA                     # ≈ 0.0146 (peak strain)
 A2_REGIME_II_III = 0.75                           # 3/4 (per (√3/2)²)
 A2_RUPTURE = 1.0

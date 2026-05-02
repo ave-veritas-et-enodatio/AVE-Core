@@ -1,0 +1,120 @@
+{
+  "prereg": {
+    "C-A1a_T2_projected_v_over_c_min": 0.95,
+    "C-A1a_T2_projected_v_over_c_max": 1.05,
+    "C-A1b_no_projection_v_over_c_min": 1.3435028842544403,
+    "C-A1b_no_projection_v_over_c_max": 1.48492424049175,
+    "C-A2_diagonal_v_over_c_min": 0.95,
+    "C-A2_diagonal_v_over_c_max": 1.05,
+    "C-A3_energy_conservation_max_drift": 0.0001,
+    "C-A4_op14_ratio_min": 0.7,
+    "C-A4_op14_ratio_max": 1.3
+  },
+  "a1": {
+    "test": "A.1",
+    "result_T2_true": {
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "project_T2": true,
+      "N": 96,
+      "pml": 8,
+      "lambda_cells": 10.0,
+      "amp_frac_vsnap": 0.01,
+      "source_x": 24,
+      "x_a": 44,
+      "x_b": 84,
+      "t_arrival_a_s": 1.2736733418448293e-07,
+      "t_arrival_b_s": 2.193548533177206e-07,
+      "v_meas_mps": 434841600.0007862,
+      "c_ratio": 1.45047544858779,
+      "port_w": [
+        -0.5,
+        -0.5,
+        0.5,
+        0.5
+      ],
+      "port_w_sum": 0.0
+    },
+    "result_T2_false": {
+      "direction": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "project_T2": false,
+      "N": 96,
+      "pml": 8,
+      "lambda_cells": 10.0,
+      "amp_frac_vsnap": 0.01,
+      "source_x": 24,
+      "x_a": 44,
+      "x_b": 84,
+      "t_arrival_a_s": 1.2736733418448293e-07,
+      "t_arrival_b_s": 2.193548533177206e-07,
+      "v_meas_mps": 434841600.0007862,
+      "c_ratio": 1.45047544858779,
+      "port_w": [
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "port_w_sum": 1.0
+    },
+    "pass_C_A1a": false,
+    "pass_C_A1b": true,
+    "decision": "BOTH_SQRT2_PROJECTION_BROKEN_OR_DOCSTRING_DERIVATION_WRONG"
+  },
+  "a2": {
+    "test": "A.2",
+    "result": {
+      "direction": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "project_T2": true,
+      "N": 96,
+      "pml": 8,
+      "lambda_cells": 10.0,
+      "amp_frac_vsnap": 0.01,
+      "source_x": 24,
+      "x_a": 44,
+      "x_b": 84,
+      "t_arrival_a_s": 1.2736733418448293e-07,
+      "t_arrival_b_s": 2.193548533177206e-07,
+      "v_meas_mps": 434841600.0007862,
+      "c_ratio": 1.45047544858779,
+      "port_w": [
+        -0.8660254037844387,
+        0.288675134594813,
+        0.288675134594813,
+        0.288675134594813
+      ],
+      "port_w_sum": 2.220446049250313e-16
+    },
+    "expected_v_x_if_diagonal_at_c": 0.5773502691896258,
+    "expected_v_x_if_diagonal_at_sqrt2c": 0.8164965809277261,
+    "pass_C_A2_at_c": false,
+    "pass_C_A2_at_sqrt2c": false,
+    "note": "A.2 measurement convention: +x\u0302 source plane with direction=(1,1,1)/\u221a3 measures v_x = v_diagonal / \u221a3, NOT v_diagonal directly. To test v_diagonal/c \u2208 [0.95, 1.05] (C-A2) directly, a tilted source plane perpendicular to the (1,1,1) axis is needed. Current measurement tests v_x consistency with v_diag = c (=0.577) vs v_diag = \u221a2c (=0.816)."
+  },
+  "a3": {
+    "test": "A.3",
+    "N": 48,
+    "pml": 2,
+    "n_steps": 100,
+    "n_quiescent_samples": 2,
+    "E_drift": 0.15138930032624165,
+    "pass_C_A3": false
+  },
+  "a4": {
+    "test": "A.4",
+    "status": "deferred",
+    "note": "A.4 requires explicit Z_eff-step infrastructure (amplitude-driven Op14 saturation in half-domain). Not implemented in this driver \u2014 defer to follow-up driver. Does not block Phase A.1-A.3 / Phase B / Phase C / Phase D.",
+    "pass_C_A4": null
+  }
+}

@@ -51,7 +51,7 @@ S_UNIFORM = 0.5 * np.ones((4, 4)) - np.eye(4)
 # Target phase from the multi-seed run
 TARGET_PHASE_OMEGA_C = 1.0 / np.sqrt(2.0)  # ω_C·dt = 1/√2 ≈ 0.7071 rad
 OBSERVED_CLUSTER_PHASE = 0.71574  # GT_corpus closest mode phase (doc 74_ §2)
-ALPHA = 1.0 / 137.036
+from ave.core.constants import ALPHA
 PASS_TOL = ALPHA * TARGET_PHASE_OMEGA_C  # ≈ 0.00516 rad
 
 

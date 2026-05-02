@@ -24,7 +24,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from ave.core.constants import V_SNAP
+from ave.core.constants import V_SNAP, ALPHA
 
 # Reuse the §8 machinery — only the nonlinear flag differs
 from phase3b_axiom_compliant import (
@@ -33,7 +33,7 @@ from phase3b_axiom_compliant import (
 from tlm_electron_soliton_eigenmode import extract_alpha_inverse
 
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
-ALPHA_INV_TARGET = 137.036
+ALPHA_INV_TARGET = 1.0 / ALPHA
 
 
 def main():

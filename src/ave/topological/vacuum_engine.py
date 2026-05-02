@@ -1430,6 +1430,25 @@ class DarkWakeObserver(Observer):
     Formula (ported from AVE-Propulsion Ch 5 description):
         τ_zx(r) ∝ Z_local(r) · ∂/∂x [|V(r)|²/V_SNAP²]
 
+    Axiom chain (per A47 v11d discipline, added 2026-05-01):
+      • Ax 1 (LC network substrate) provides the local impedance Z_local
+        through the bond-LC structure; Z_local = √(L_bond / C_bond) at the
+        node level, modulated by the saturation kernel.
+      • Ax 2 (topo-kinematic isomorphism [Q] ≡ [L]) gives the topological
+        charge → flux-linkage equivalence that makes the V_inc/V_ref
+        scattering cycle observable as a propagating standing-wave packet.
+      • Ax 3 (effective action principle) → Noether currents → momentum
+        conservation. The dark wake IS the field-theoretic form of the
+        Newton-3rd-law back-reaction: every forward soliton/photon must
+        carry an equal-and-opposite longitudinal-shear-strain wave behind
+        it, mass-equivalent to the inductive back-EMF (M_inertial ≡ L_drag,
+        per higgs_impedance_mapping.py:48-52).
+      • Ax 4 (Op14 saturation kernel S(A) = √(1 − A²)) modulates Z_local
+        spatially: at A² → A²_yield, Z_eff steepens locally, creating the
+        gradient that drives ∂|V|²/∂x → τ_zx. Without saturation modulation,
+        the back-EMF response would be uniform; saturation gives it spatial
+        structure.
+
     Physical interpretation (per doc 49_):
         The dark wake IS the mutual-inductance back-EMF response of the
         K4 lattice. Any propagating coherent V creates a shear-strain

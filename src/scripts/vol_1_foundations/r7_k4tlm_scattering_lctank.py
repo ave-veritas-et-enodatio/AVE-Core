@@ -43,7 +43,7 @@ PHI_SQ = PHI * PHI
 A26_AMP_SCALE = 0.3 / (np.sqrt(3.0) / 2.0)
 GT_PEAK_OMEGA = 0.3 * np.pi
 
-ALPHA = 1.0 / 137.036
+from ave.core.constants import ALPHA
 OMEGA_COMPTON = 1.0
 DT = 1.0 / np.sqrt(2.0)        # K4-TLM timestep dt = dx/(c·√2) per k4_tlm.py:144
 TARGET_PHASE = OMEGA_COMPTON * DT      # ≈ 0.7071 rad — V-block target eigenvalue phase

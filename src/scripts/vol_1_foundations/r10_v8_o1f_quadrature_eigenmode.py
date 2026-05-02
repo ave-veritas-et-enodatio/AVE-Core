@@ -70,7 +70,6 @@ from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
 
 COMPTON_PERIOD = 2.0 * np.pi
 DT = 1.0 / np.sqrt(2.0)
-ALPHA = 1.0 / 137.035999
 PHI = (1.0 + np.sqrt(5.0)) / 2.0
 PHI_SQ = PHI * PHI
 

@@ -61,6 +61,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import VacuumEngine3D
 
 
@@ -485,7 +486,6 @@ def main():
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
 
-    ALPHA = 1.0 / 137.036
     T_V_RUPT = ALPHA / (4.0 * np.pi)
     print(f"\nT_V-rupt ≈ α/(4π) = {T_V_RUPT:.4e} in m_e·c² natural units\n")
 

@@ -29,14 +29,75 @@ import numpy as np  # noqa: E402
 
 from ave.core.constants import ALPHA  # noqa: E402
 
-# Phase 4 asymmetric-saturation chirality coupling.
-# κ_chiral = α·pq/(p+q) for (p,q) torus winding — Ax2-DERIVED per
-# [doc 20_ Sub-Theorem 3.1.1](research/L3_electron_soliton/20_chirality_projection_sub_theorem.md).
-# For the electron (2,3) winding: κ_chiral = α · 2·3/(2+3) = 1.2·α.
+# ─────────────────────────────────────────────────────────────────────────
+# Phase 4 asymmetric-saturation chirality coupling
+# ─────────────────────────────────────────────────────────────────────────
+# Structure per [doc 20_ Sub-Theorem 3.1.1](research/L3_electron_soliton/
+# 20_chirality_projection_sub_theorem.md):
+#
+#   κ_chiral = α · κ̃    where κ̃ = (p·q) / (p+q)  for (p,q) torus winding
+#
+# The dimensionless topological factor κ̃ is purely geometric — derived from
+# the (p,q) torus knot winding numbers, INDEPENDENT of α. The α prefactor
+# is the calibration input. This separation matters for emergence testing:
+# if the chiral LC substrate's K(p)/G(p) curve crosses K/G=2 at a packing
+# fraction p_c that is a pure dimensionless multiple of α (specifically
+# p_c/α = 8π per Axiom 4 framing), then the "8π" emerges from substrate
+# physics with κ̃ as topological input — α anchors the absolute scale.
+#
+# For the electron (2,3) winding:  κ̃ = 2·3/(2+3) = 6/5 = 1.2
+# For the (1,1) Beltrami:           κ̃ = 1·1/(1+1) = 1/2 = 0.5
+#
 # Verified vs AVE-HOPF table 1 empirical benchmark
 # (../../AVE-HOPF/manuscript/03_hopf_01_chiral_verification.tex:72-82).
-# Not a free parameter — parallel-channel impedance combination at TIR boundary.
-KAPPA_CHIRAL_ELECTRON: float = 1.2 * ALPHA  # ≈ 8.757e-3
+# Not a free parameter — parallel-channel impedance combination at TIR
+# boundary; the (p,q) topology determines κ̃, α determines absolute scale.
+#
+# Refactored 2026-05-02 to expose κ̃ as separate dimensionless constant for
+# emergence testing per doc 108 §11.5 + Grant directive 2026-05-02:
+# "p_c is where the chiral LC vacuum hits K/G=2."
+
+# Dimensionless topological factor for the (p,q) torus winding.
+# For electron (2,3): pq/(p+q) = 6/5 = 1.2.
+# This is INDEPENDENT of α — purely geometric / topological.
+KAPPA_TILDE_ELECTRON: float = 6.0 / 5.0  # = 1.2 (electron (2,3) winding)
+KAPPA_TILDE_BELTRAMI_11: float = 1.0 / 2.0  # = 0.5 ((1,1) Beltrami)
+
+
+def kappa_tilde_torus(p: int, q: int) -> float:
+    """Dimensionless topological factor κ̃ = pq/(p+q) for (p,q) torus knot.
+
+    Independent of α and any CODATA value. Pure topological/geometric input.
+    Use as the substrate-physics-native chiral coupling parameter for
+    emergence testing where α should NOT be an input.
+
+    Args:
+        p, q: torus winding numbers (e.g., p=2, q=3 for electron)
+    Returns:
+        κ̃ = pq/(p+q) — dimensionless, geometric.
+    """
+    if p + q == 0:
+        raise ValueError(f"kappa_tilde_torus: p+q must be nonzero, got p={p}, q={q}")
+    return float(p * q) / float(p + q)
+
+
+def kappa_chiral_from_topology(p: int, q: int, alpha: float = ALPHA) -> float:
+    """Total chiral coupling κ_chiral = α · κ̃(p,q) for (p,q) torus knot.
+
+    Args:
+        p, q: torus winding numbers
+        alpha: calibration input (default: CODATA α from constants module)
+    Returns:
+        κ_chiral with units matching α (dimensionless).
+    """
+    return float(alpha) * kappa_tilde_torus(p, q)
+
+
+# Total chiral coupling for the electron (2,3) winding.
+# Numerically identical to prior `1.2 * ALPHA` (≈ 8.757e-3) but structure
+# now exposed: KAPPA_CHIRAL_ELECTRON = ALPHA × KAPPA_TILDE_ELECTRON, where
+# the topological factor is separable from the calibration input.
+KAPPA_CHIRAL_ELECTRON: float = ALPHA * KAPPA_TILDE_ELECTRON  # ≈ 8.757e-3
 
 
 TETRA_OFFSETS: tuple[tuple[int, int, int], ...] = (

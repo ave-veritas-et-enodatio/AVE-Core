@@ -40,7 +40,7 @@ sys.path.insert(0, "/Users/grantlindblom/AVE-staging/AVE-Core/src")
 from ave.core.k4_tlm import K4Lattice3D
 from ave.core.constants import (
     C_0 as C_SI, M_E as M_E_SI,
-    ALPHA, Z_0, L_NODE as ELL_NODE,
+    ALPHA, Z_0, L_NODE as ELL_NODE, HBAR,
 )
 
 
@@ -170,7 +170,7 @@ def main(N: int = 8, n_steps: int = 200, V_amp: float = 0.05) -> None:
 
     # SI-units interpretation
     omega_measured_SI = omega_dt / lattice.dt  # rad/s in SI
-    omega_compton_SI = M_E_SI * C_SI ** 2 / (1.054571817e-34)  # ℏ in SI
+    omega_compton_SI = M_E_SI * C_SI ** 2 / HBAR  # ℏ in SI
     print()
     print(f"  SI-units cross-check:")
     print(f"    ω_measured     = {omega_measured_SI:.4e} rad/s")
