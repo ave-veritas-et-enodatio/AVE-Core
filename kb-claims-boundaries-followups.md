@@ -206,6 +206,14 @@ Issues surfaced during execution of the kb-claims-boundaries plan that are outsi
 
 ---
 
+## 2026-05-02 — Cross-cutting α-invariance citation corrected (D12c Finding 7 closed)
+
+- **Action taken:** The cross-cutting α-invariance entry's References footer previously cited "CLAUDE.md Axiom 3 entry ('α invariance' sub-bullet)" as the invariant-level source. CLAUDE.md INVARIANT-S2 carries the four axioms in bare form; the α-invariance sub-bullet (and the temporal/spatial lattice-decomposition sub-bullet) actually lives in LIVING_REFERENCE.md's Axiom 3 entry. Corrected the citation to point at LIVING_REFERENCE.md and noted CLAUDE.md's bare-form scope explicitly. The boundaries-mechanism routing path (entry-point bootstrap → cross-cutting sidecar → this entry) is unchanged; this is a citation-fidelity fix, not a structural change.
+- **Closes:** D12c Finding 7 (citation-fidelity hairline).
+- **Severity:** n/a — closure record
+
+---
+
 ## 2026-05-02 — Subtopic-index bootstrap directive coverage extended (post-D12 followup)
 
 - **Action taken:** Bootstrap directive blockquote added to all 26 subtopic-level `index.md` files (one level below volume) with adjusted relative paths: `../claims-boundaries.md` for volume scope, `../../claims-boundaries.md` for cross-cutting. Chapter-level (level 3+) indexes intentionally not yet covered — defer until measurement shows residual need.
