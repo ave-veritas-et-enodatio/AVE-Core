@@ -4,7 +4,7 @@
 >
 > **Severity post-bounding rule:** items that the claims-boundaries mechanism (`kb/claims-boundaries.md` and `kb/volN/claims-boundaries.md`) makes downstream-safe have their priority adjusted to reflect that consumers traversing the directives are protected; the underlying source-text fix is still needed but no longer urgent for downstream correctness.
 >
-> **Total actionable: 36 items** (3 CRITICAL, 13 MAJOR, 11 MINOR, 9 TRIVIAL).
+> **Total actionable: 35 items** (2 CRITICAL, 13 MAJOR, 11 MINOR, 9 TRIVIAL).
 
 ---
 
@@ -12,7 +12,6 @@
 
 | ID | Finding | Files | Owner |
 |---|---|---|---|
-| **B1** | Axiom numbering drifts incompatibly across `axiom-definitions.md`, `mathematical-closure.md`, KB CLAUDE.md, LIVING_REFERENCE.md. KB CLAUDE.md INVARIANT-S2 + LIVING_REFERENCE are now consistent with each other; `axiom-definitions.md` and `mathematical-closure.md` still drift. All downstream "Axiom N" citations are ambiguous until reconciled. | `axiom-definitions.md`, `mathematical-closure.md` | kb-content-distiller + kb-taxonomy-architect |
 | **B4** | `translation-particle-physics.md` Higgs VEV formula wrong by ~3500×: "v = m_ec²/α = 246 GeV" (actual: 70.0 MeV). Correct AVE formula: v = 1/√(√2·G_F) = 248.8 GeV (already in `full-derivation-chain.md`). | `common/translation-tables/translation-particle-physics.md` | kb-content-distiller |
 | **B8** | G_vac = m_ec²/ℓ_node² has wrong units (J/m² = N/m, not Pa) and value off by 10¹³ (5.49×10¹¹ N/m vs claimed 5.48×10²⁴ Pa). Correct shear-modulus formula: m_ec²/ℓ_node³. Downstream: v_longitudinal computation gives 3.93c, not the claimed √2·c. | `vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md`, `mond-hoop-stress.md` | vol1 domain author |
 
@@ -100,10 +99,12 @@ These should be picked up in a separate dispatch sized to the agents/MAD repos.
 
 | Tier | Count |
 |---|---:|
-| CRITICAL | 3 |
+| CRITICAL | 2 |
 | MAJOR | 13 |
 | MINOR | 11 |
 | TRIVIAL | 9 |
-| **Total actionable** | **36** |
+| **Total actionable** | **35** |
+
+> **Closed in earlier passes (not in this list):** B1 (axiom numbering drift) was resolved by the "phase 1 — axiom numbering consistency" commit `8538e5f` plus follow-ups `f41d612`, `aa172ef`. `axiom-definitions.md`, `mathematical-closure.md`, CLAUDE.md INVARIANT-S2, and LIVING_REFERENCE.md now all use the canonical Axiom 1=Impedance / 2=Fine Structure / 3=Gravity / 4=Saturation Kernel ordering.
 
 Source: `kb-burndown-unified.md` (commit `bccfa1e`); branch `kb-claims-boundaries`.
