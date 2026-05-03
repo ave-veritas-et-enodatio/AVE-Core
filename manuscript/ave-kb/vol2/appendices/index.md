@@ -1,5 +1,7 @@
 [↑ Vol 2 — The Subatomic Scale](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Appendices
 
 The appendices collect cross-domain reference material: the complete interdisciplinary translation matrix mapping AVE concepts to eight established disciplines, theoretical stress tests resolving classical objections to a discrete vacuum, a summary of exact analytical derivations, the computational graph architecture for numerical simulation, the DCVE specification for discrete engine instantiation, and the universal solver toolchain documenting the regime-boundary eigenvalue method applied across all domains.

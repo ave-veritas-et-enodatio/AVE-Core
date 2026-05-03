@@ -1,5 +1,7 @@
 [↑ Vol 6: Periodic Table](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Period 3: Sodium through Silicon
 
 Period 3 spans four elements ($Z=11$--$14$) that complete the transition from alkali metals through the semiconductor boundary. Three are core-plus-halo structures ($n\alpha + ^3\text{H}$) inheriting a deeply bound alpha-cluster core with a polar Tritium triangle; the fourth (Magnesium) is a pure $6\alpha$ Octahedron. The period terminates at Silicon-28, the last element in the Small Signal regime ($V_R/V_{BR} = 0.050$), whose position at the avalanche boundary defines semiconductor behavior.

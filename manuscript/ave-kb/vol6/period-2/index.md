@@ -1,5 +1,7 @@
 [↑ Vol 6: Periodic Table](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Period 2: Lithium through Neon
 
 Period 2 spans $Z=3$ to $Z=10$, covering the progressive assembly of multi-nucleon topologies from the first core-plus-halo structures (Li, Be, B) through the first symmetric multi-alpha geometries (C, N, O), to the most extreme core-halo asymmetry (F) and the second closed noble-gas shell (Ne). The semiconductor binding engine transitions from single-junction linear devices to exact multi-alpha solvers across this period, with all elements classified in the Small Signal regime ($M = 1$).

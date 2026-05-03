@@ -1,5 +1,7 @@
 [↑ Vol 2 — The Subatomic Scale](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Proofs and Computation
 
 This domain presents the computational verification apparatus for the AVE framework: scale-invariance proofs spanning 39 orders of magnitude, numerical precision policies, methodological contamination safeguards, and a universal topological optimisation engine that replaces domain-specific supercomputing algorithms.

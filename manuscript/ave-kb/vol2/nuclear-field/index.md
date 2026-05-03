@@ -1,5 +1,7 @@
 [↑ Vol. 2: Subatomic Physics](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Nuclear and Field Physics
 
 This domain addresses the Planck scale, string theory, open problems in fundamental physics, and the Millennium Prize problems --- all reinterpreted through the AVE discrete LC lattice framework.

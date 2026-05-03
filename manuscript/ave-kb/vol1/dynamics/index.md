@@ -1,5 +1,7 @@
 [↑ Vol 1: Foundations](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Dynamics
 
 Quantum formalism and continuum electrodynamics are derived from the discrete signal dynamics of the $\mathcal{M}_A$ lattice. The Generalized Uncertainty Principle emerges from finite-bandwidth Nyquist sampling, the Schrodinger equation from LC circuit resonance, and the Born rule from Ohmic impedance loading. The unifying AVE master equation replaces linear $\varepsilon_0$ with non-linear $\varepsilon_{eff}(V)$, producing classical EM, particle assembly, gravity, and the dark sector from a single non-linear wave equation.

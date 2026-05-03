@@ -1,5 +1,7 @@
 [↑ Vol 4: Applied Vacuum Engineering](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Advanced Applications
 
 This domain extends the VCA framework into high-energy and materials-science applications: topological SMES energy storage, metric-catalyzed fusion (resolving the tokamak ignition paradox via the $V_{yield} = 43.65$ kV dielectric limit), antimatter annihilation as flywheel collision mechanics, topological quantum computing immune to thermal decoherence, and active topological metamaterials that port the biological LLCP mechanism into solid-state engineering.

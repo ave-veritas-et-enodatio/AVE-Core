@@ -206,6 +206,16 @@ Issues surfaced during execution of the kb-claims-boundaries plan that are outsi
 
 ---
 
+## 2026-05-02 — Subtopic-index bootstrap directive coverage extended (post-D12 followup)
+
+- **Action taken:** Bootstrap directive blockquote added to all 26 subtopic-level `index.md` files (one level below volume) with adjusted relative paths: `../claims-boundaries.md` for volume scope, `../../claims-boundaries.md` for cross-cutting. Chapter-level (level 3+) indexes intentionally not yet covered — defer until measurement shows residual need.
+- **Closes:** "Bootstrap directive coverage gap on subtopic / chapter indexes" (D12c) — partially. Subtopic level addressed; chapter level still open as explicit deferral.
+- **Closes:** "vol4 up-link label diverges from sibling volumes" (D12b Warning 2) — fixed `[↑ Entry Point]` → `[↑ AVE Knowledge Base]`.
+- **Closes:** "Missing `<!-- leaf: verbatim -->` marker on two vol3 leaves" (D6a Note 8) — added marker to `sonoluminescence-derivation.md` and `kolmogorov-spectral-cutoff.md`.
+- **Severity:** n/a — closure record
+
+---
+
 ## 2026-05-02 — D12 final validation findings closed within scope
 
 - **Surfaced by:** kb-accuracy-reviewer (D12a) and kb-structure-reviewer (D12b)

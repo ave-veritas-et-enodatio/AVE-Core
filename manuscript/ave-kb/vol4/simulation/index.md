@@ -1,5 +1,7 @@
 [↑ Vol 4: Engineering](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Simulation
 
 SPICE circuit simulations that model AVE vacuum phenomena as analog transmission-line transients. Each chapter defines a physical mechanism — particle decay, autoresonant dielectric breakdown, Sagnac inductive drag — and provides a complete, runnable SPICE netlist derived from zero free parameters.

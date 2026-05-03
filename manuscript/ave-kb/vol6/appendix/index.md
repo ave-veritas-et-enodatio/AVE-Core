@@ -1,5 +1,7 @@
 [↑ Vol 6: Periodic Table](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Vol 6: Appendix
 
 The appendix extends the periodic table framework beyond Silicon ($Z=14$) and derives the geometric origin of numerical constants that appear across physical scales. The heavy element catalog covers Z=15--119 using the semiconductor binding engine with Fibonacci lattice packing ($<0.5\%$ error across 105 elements). The geometric inevitability chapter traces "mystical" constants ($\varphi$, Fibonacci, $\pi$, magic numbers, $g_*$, $\alpha_s$, $\lambda_H$, $n_{coop}$) to deterministic packing theorems.

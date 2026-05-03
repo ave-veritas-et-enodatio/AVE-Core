@@ -1,5 +1,7 @@
 [↑ Vol 5: Topological Biology](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Molecular Foundations
 
 This domain establishes the atomic translation layer that converts AVE lattice parameters into biological circuit quantities. Ch. 1 derives the protein backbone length scale from $\ell_{node}$. Ch. 2 derives the electromechanical transduction constant $\xi_\text{topo} = e/\ell_\text{node}$, maps atomic mass to inductance ($L = m/\xi^2$) and bond stiffness to capacitance ($C = \xi^2/k$), validates amino acid SPICE models against FTIR spectroscopy, derives all biological force constants from first principles via Fabry-Perot bond eigenvalues, computes the hydrogen bond from Op4 equilibrium ($d_\text{HB} = 1.754$ Å, $E_\text{HB} = 4.98$ kcal/mol), and establishes membrane phase buffering.

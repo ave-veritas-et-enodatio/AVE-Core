@@ -1,5 +1,7 @@
 [↑ Vol 6: Periodic Table](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Framework
 
 The framework domain establishes the computational and conceptual machinery used throughout Vol 6 to derive nuclear masses, binding energies, and chemical properties from topological mutual impedance. It includes the mass defect summary table, the executive abstract, the full computational derivation chain (nucleon spacing, coupling constant, semiconductor analysis), and a chemistry translation guide.

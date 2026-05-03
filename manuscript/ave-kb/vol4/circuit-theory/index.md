@@ -1,5 +1,7 @@
 [↑ Vol 4: Applied Vacuum Engineering](../index.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Circuit Theory
 
 This domain establishes the foundational Vacuum Circuit Analysis (VCA) framework: the exact dimensional isomorphism between continuum spatial mechanics and electrical network theory via the Topological Conversion Constant $\xi_{topo}$. From this mapping, non-linear constitutive models are derived for extreme-field regimes, $Z_0 = 376.73\;\Omega$ is shown to emerge from the discrete lattice, and the chiral acoustic rectification thrust mechanism is derived from first principles.
