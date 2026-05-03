@@ -1,5 +1,7 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about cross-volume material here, load [`./claims-boundaries.md`](./claims-boundaries.md) and [`../claims-boundaries.md`](../claims-boundaries.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # AVE Common Resources
 
 Cross-volume reference material shared across all AVE volumes. Contains the unified experimental falsification index, the complete derivation chain from four axioms + three (now-derived) hardware scales to zero free parameters, the universal solver toolchain, system verification trace, the interdisciplinary translation matrix, and domain-specific translation tables mapping established physics disciplines to AVE equivalents. The zero-parameter closure is finalized by the Golden Torus $\alpha$ derivation (Vol 1 Ch 8).

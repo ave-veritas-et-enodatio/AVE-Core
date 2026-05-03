@@ -1,5 +1,7 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claims-boundaries.md`](./claims-boundaries.md) and [`../claims-boundaries.md`](../claims-boundaries.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Vol 5: Topological Biology
 
 Vol 5 derives a complete biological circuit framework from the AVE vacuum lattice axioms, with zero free parameters. The electromechanical transduction constant $\xi_\text{topo} = e/\ell_\text{node}$ maps atomic mass to inductance and bond stiffness to capacitance, enabling amino acids to be modeled as SPICE electronic circuits. The protein folding problem is reformulated as deterministic impedance matching on a transmission line network, validated against PDB structures.

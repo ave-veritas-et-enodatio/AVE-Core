@@ -107,6 +107,16 @@ In both cases it immediately follows the last structural annotation line, with n
 
 **Navigation-pointer index exception:** An index document that contains no original results — it only points to child leaves that carry results — may substitute a `> **Navigation note:**` blockquote for `## Key Results`. The Navigation note must explicitly state that results reside in the destination leaves. Two confirmed instances: `common/translation-tables/index.md` and `vol5/common/index.md`. Reviewers: treat absence of `## Key Results` in an index as a signal to check for a Navigation note blockquote, not automatically as a structural defect.
 
+### INVARIANT-S7: Canonicality of leaves
+
+Leaves are canonical. Intermediate, index, and entry-point nodes are *derived* via summarization; even faithfully executed, a summary may suggest implications not present in or supported by the leaves. Summary content is a routing aid, not a source of claims.
+
+Cross-cutting boundary content lives in [`claims-boundaries.md`](claims-boundaries.md) (KB root). Per-volume boundary content lives in `volN/claims-boundaries.md` — one each for [vol1](vol1/claims-boundaries.md), [vol2](vol2/claims-boundaries.md), [vol3](vol3/claims-boundaries.md), [vol4](vol4/claims-boundaries.md), [vol5](vol5/claims-boundaries.md), [vol6](vol6/claims-boundaries.md), and [common](common/claims-boundaries.md). Every consumer (agent or human) forming a claim about an AVE result must consult the cited leaf — and, where a relevant `claims-boundaries.md` entry exists, that boundary entry — before treating a summary statement as a claim source.
+
+The volume `index.md` files and `entry-point.md` carry blockquoted bootstrap directives instructing consumers to load the relevant boundaries documents on entry; these directives are binding on agents that visit those files.
+
+*Confirmed by: convention spec at `AVE-Core/kb-claims-boundaries-convention.md` (gestation; promoted to `CONVENTIONS.md` in Dispatch 8); plan at `mad-review/kb-claims-boundaries-plan.md` (umbrella).*
+
 ---
 
 ## Cross-Volume Physical Constants

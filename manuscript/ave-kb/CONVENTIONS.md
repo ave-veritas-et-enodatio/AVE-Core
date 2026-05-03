@@ -51,6 +51,72 @@ Key Results content is verbatim from the source. Derivations and Detail links mu
 
 **Navigation-pointer index exception:** An index that contains no original results — only pointers to child leaves — may replace `## Key Results` with a `> **Navigation note:**` blockquote stating explicitly that results reside in the destination leaves. Two confirmed instances: `common/translation-tables/index.md`, `vol5/common/index.md`. Absence of `## Key Results` is not a defect if a Navigation note is present.
 
+### Claim Boundaries Sidecar (INVARIANT-S7)
+
+A derived artifact that bounds the claim space for a volume (or for the whole KB at the cross-cutting level). Sidecars exist because index and entry-point documents are *summaries* of leaves, and a summary may suggest implications not actually supported by the leaves. The sidecar identifies, per principle/equation/result, what the framework specifically claims and what it specifically does NOT claim.
+
+Locations:
+- Cross-cutting (project-wide tripwires that appear in two or more volumes): `claims-boundaries.md` (KB root)
+- Per volume: `volN/claims-boundaries.md` and `common/claims-boundaries.md`
+
+Structure:
+
+```
+Line 1: # [Scope] — Claim Boundaries
+Line 2: (blank)
+Line 3: <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from {scope}/index.md bootstrap directive -->
+Line 4: (blank)
+Line 5: > **Canonicality:** (preamble — see canonicality preamble below)
+Line 6: (blank)
+        ... entries ...
+```
+
+Note: this differs from INVARIANT-S6's index-document line-2 placement for PATH-STABLE. Sidecars carry no up-link, so the annotation sits below the H1 with a blank-line separator for readability. Convention spec §3 is the authoritative source for this placement.
+
+Sidecar files **do not** carry an up-link. They are not navigation nodes in the leaf/index tree; they are referenced only via bootstrap directives in `entry-point.md` and `volN/index.md`.
+
+Entry format (principle-keyed):
+
+```markdown
+## [Principle / Equation / Constant Name]
+
+- [formula/equation/constant — if necessary]
+- _Specific Claims_
+  - [Claim 1]
+  - ...
+- _Specific Non-Claims and Caveats_
+  - [Non-claim or caveat 1]
+  - ...
+
+> **Leaf references:** [honest provenance — leaves where the claim is established, OR CLAUDE.md / LIVING_REFERENCE.md when the bound lives at invariant level rather than in any leaf]
+```
+
+Canonicality preamble (cross-cutting sidecar — verbatim):
+
+```markdown
+> **Canonicality preamble.** Leaves are canonical. Intermediate, index, and entry-point nodes are derived summaries and may suggest implications not supported by the leaves. Each entry below identifies a principle the AVE framework asserts and bounds it precisely: what is claimed, and what is NOT claimed even though a summary or external reading might suggest it.
+```
+
+Canonicality preamble (volume sidecar — short reference):
+
+```markdown
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth; do not infer the list from this preamble). Entries below are scoped to Vol N; cross-cutting tripwires with vol N-specific manifestations are noted but not duplicated.
+```
+
+Sourcing rule (priority order):
+1. Leaves under the sidecar's scope (canonical primary source).
+2. CLAUDE.md invariants — when a bound is asserted at structural-invariant level but not explicitly stated in any leaf.
+3. LIVING_REFERENCE.md "Common Pitfalls" / "Critical Distinctions" — explicit project-wide tripwires.
+4. Master Prediction Table classification note — for the meta-tripwire about reading prediction-table cells.
+
+Indexes are NEVER a source for boundary claims (circular: indexes are what's being bounded).
+
+Provenance honesty: every entry's "Leaf references" footer must honestly identify the source. Inventing leaf citations for content that does not appear in the cited leaf is a Critical error.
+
+Routing rule (cross-cutting vs volume-specific): a boundary entry goes in the cross-cutting sidecar if the claim appears in two or more volumes' leaves as a tripwire; otherwise volume-specific.
+
+Sidecar-vs-leaf contradiction resolution: leaves win; the sidecar gets fixed.
+
 ---
 
 ## Structural Annotations
@@ -194,3 +260,4 @@ See `CLAUDE.md` for full definitions. Quick reference:
 | N4 | `$S_{11}$` means reflection coefficient in vol 4/vol 7; folding objective function in vol 5 |
 | S1 | tcolorbox environments render as `> **[Type]** *Title*` blockquotes with a blank `>` line between title and body; see INVARIANT-S1 in `CLAUDE.md` |
 | S2 | Four AVE axioms carry stable cross-volume meanings — do not redefine |
+| S7 | Leaves are canonical; index/entry-point are derived. Cross-cutting bounds in `claims-boundaries.md` (KB root); per-volume bounds in `volN/claims-boundaries.md`. Bootstrap directives in entry-point and volume indexes are binding |

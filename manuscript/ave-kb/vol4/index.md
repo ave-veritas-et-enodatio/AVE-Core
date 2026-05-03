@@ -1,5 +1,7 @@
 [↑ Entry Point](../entry-point.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claims-boundaries.md`](./claims-boundaries.md) and [`../claims-boundaries.md`](../claims-boundaries.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Vol 4: Applied Vacuum Engineering
 
 Volume 4 translates the AVE theoretical framework into engineering practice. It establishes the Vacuum Circuit Analysis (VCA) framework — an exact dimensional isomorphism between continuum spatial mechanics and electrical network theory via $\xi_{topo} \equiv e/\ell_{node}$ — then applies it to derive falsifiable experimental programs (HOPF-01 chiral antenna, PONDER-05 DC-biased quartz thruster) and advanced applications (metric-catalyzed fusion, topological SMES, quantum computing, active metamaterials).

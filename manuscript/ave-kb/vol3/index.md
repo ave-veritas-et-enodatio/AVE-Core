@@ -1,5 +1,7 @@
 [↑ AVE Knowledge Base](../entry-point.md)
 
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claims-boundaries.md`](./claims-boundaries.md) and [`../claims-boundaries.md`](../claims-boundaries.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+
 # Vol 3: Macroscopic Physics
 
 Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravity, general relativity, the optical metric, gravitational waves, superconductivity, material properties, thermodynamics, stellar interiors, ideal gas law, and geophysics. All domains use the same impedance operators (reflection coefficient, saturation, mode coupling) applied at macroscopic scales.
