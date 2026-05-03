@@ -20,7 +20,7 @@ The Periodic Table of Knots derives the absolute 3D nucleonic geometry and nucle
 | Binding energy ceiling | $E_{\text{binding(max)}} = \alpha \cdot M_{\text{proton}} c^2 \approx 6.847$ MeV |
 | Breakdown voltage | $V_{BR} = 6\,\alpha\hbar c / D_{\text{intra}} \approx 3.631$ MeV |
 | Complete binding formula | $M_{\text{nucleus}} = N_\alpha M_\alpha - \sum K/r_{ij} + M \cdot \sum f_{pp}\,\alpha\hbar c/r_{ij}$ |
-| Mass defect accuracy | $0.00001\%$ (H-1) to $0.02739\%$ (Mg-24) across $Z=1$--$14$ |
+| Mass defect accuracy | $0.00001\%$ (H-1) to $0.02739\%$ (Mg-24) across $Z=1$–$14$ — *optimizer convergence tolerance on the per-nucleus fitted $R$, not ab-initio prediction error*; structural claim is one fitted scalar per nucleus (see [framework methodology](framework/computational-mass-defect/semiconductor-nuclear-analysis.md)) |
 | Derived P-Block IE Resolvers | Corrections A--D: hierarchical cascade, SIR boundary, Op10 junction, Polar Conjugate TIR ($Z=1$--$14$, $Z=31$--$36$; sub-$5\%$ to $Z=86$) |
 
 ## Derivations and Detail

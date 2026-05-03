@@ -1,6 +1,6 @@
 # AVE KB Burndown — Actionable Items Only
 
-**Total actionable: 13 items** (0 CRITICAL, 2 MAJOR, 3 MINOR, 8 TRIVIAL).
+**Total actionable: 5 items** (0 CRITICAL, 2 MAJOR, 3 MINOR, 0 TRIVIAL).
 
 ---
 
@@ -23,21 +23,6 @@
 
 ---
 
-## TRIVIAL — Polish; address opportunistically
-
-| ID | Finding | Files | Owner |
-|---|---|---|---|
-| **KB-2** | Hubble Key Results row in `vol3/index.md` shows H_∞ ≈ 69.32 km/s/Mpc with no qualifier. Boundaries cover; index headline still misleads direct readers. Add asterisk/footnote referencing `lattice-genesis-hubble-tension.md`'s consistency-proof framing. | `vol3/index.md` line 14 | kb-content-distiller |
-| **KB-3** | Hubble value 69.32 (LIVING_REFERENCE, entry-point.md) vs 69.33 (`lattice-genesis-hubble-tension.md` table) — last-digit inconsistency. Pick one; reconcile. | `LIVING_REFERENCE.md` row #23, `entry-point.md`, `lattice-genesis-hubble-tension.md` | kb-content-distiller |
-| **KB-4** | `common/index.md` Key Results: "8 derivation layers → genuinely zero free parameters" lacks the conditional qualifier (one currently-fitted δ_strain scalar). Boundaries cover; index headline still over-broad. | `common/index.md` | kb-content-distiller |
-| **KB-6** | vol5 η_eq packing-fraction formula and S₁₁ folding-functional definition have no derivation leaf in this repo (functional-definition leaves are in private `AVE-Protein`). Either replicate sanitized leaves or accept honest invariant-doc provenance. | vol5 sidecar references | kb-content-distiller |
-| **KB-8** | `optical-caustic-resolution/index.md` Key Results: "E_max = E_YIELD = √α·m_ec²/e ≈ 43.65 kV/m" — formula evaluates to 43.65 **kV** (voltage), not kV/m (field). Macroscopic field equivalent: ~1.13×10¹⁷ V/m. Units glitch only; substantive bound is correct. | `vol4/advanced-applications/ch20-optical-caustic-resolution/index.md` (~line 14) | kb-content-distiller |
-| **KB-10** | vol6 `mass-defect-summary.md` and index Key Results show 0.00001%–0.02739% errors without the fit-vs-prediction qualifier present in `semiconductor-nuclear-analysis.md` (per-nucleus geometric fit). Boundaries cover; summary still misleads. | `vol6/framework/mass-defect-summary.md`, `vol6/index.md` | kb-content-distiller |
-| **KB-11** | vol6 heavy-element catalog "<0.5% across 105 elements" headline — typical-case figure. `full-element-table.md` shows worst case Cl-35 at 1.465%, several others above 0.5%. Boundaries tier the accuracy; headline still clean. | `vol6/appendix/heavy-element-catalog/index.md`, `vol6/index.md` | kb-content-distiller |
-| **KB-13** | vol6 ABCD transfer-matrix open-problem caveat (gates Z ≥ 15 catalog results) not surfaced from `full-element-table.md` or `appendix/heavy-element-catalog/index.md`. Add cross-link from heavy-element catalog to `abcd-transfer-matrix.md`. | `vol6/appendix/heavy-element-catalog/index.md`, `full-element-table.md` | kb-content-distiller |
-
----
-
 ## Out of this scope (tracked elsewhere)
 
 These are part of the broader plan but outside the AVE-Core repo:
@@ -55,5 +40,5 @@ These are part of the broader plan but outside the AVE-Core repo:
 | CRITICAL | 0 |
 | MAJOR | 2 |
 | MINOR | 3 |
-| TRIVIAL | 8 |
-| **Total actionable** | **13** |
+| TRIVIAL | 0 |
+| **Total actionable** | **5** |

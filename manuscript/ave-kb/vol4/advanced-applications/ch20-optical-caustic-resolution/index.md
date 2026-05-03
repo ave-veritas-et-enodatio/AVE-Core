@@ -11,7 +11,7 @@ Classical geometric ray optics predicts infinite intensity at the focal point of
 
 | Result | Statement |
 |---|---|
-| Maximum focal intensity | $E_{\max} = E_{YIELD} = \sqrt{\alpha} \cdot m_e c^2 / e \approx 43.65$ kV/m |
+| Maximum focal yield voltage | $V_{\max} = V_{YIELD} = \sqrt{\alpha} \cdot m_e c^2 / e \approx 43.65$ kV (macroscopic-field equivalent at lattice scale: $E_{yield} = V_{yield}/\ell_{node} \approx 1.13\times 10^{17}$ V/m) |
 | Saturation mechanism | As $A \to 0$, strain $r \to 1$, impedance $Z_{eff} = Z_0 / \sqrt{S} \to \infty$ |
 | Reflection coefficient | $\Gamma = (Z_{next} - Z_{prev})/(Z_{next} + Z_{prev}) \to 1$ at focus |
 | Physical mechanism | Self-induced impedance gradient reflects converging rays backward |

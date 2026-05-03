@@ -5,6 +5,8 @@
 
 The Topological network maps strictly to empirical observables without hidden variables by calculating overlapping geometry using a simple $1/d_{ij}$ summation. As elements grow progressively more complex, the physical geometry perfectly yields the standard CODATA mass metrics.
 
+> **Methodology qualifier (per [`semiconductor-nuclear-analysis.md`](computational-mass-defect/semiconductor-nuclear-analysis.md)):** within the $(Z,A)$-forced cluster topology, the inter-alpha distance $R$ is the **single fitted scalar adjusted per nucleus** so the pairwise summation reproduces the CODATA mass. The errors below reflect the optimizer's convergence tolerance on $R$, **not** independent ab-initio mass-prediction errors. The structural claim is that *one* fitted scalar per nucleus suffices (vs $\sim 5$ parameters per nucleus in shell or liquid-drop models), and that the cluster topology itself is axiom-derived. See the canonical fit-vs-predict split at the head of [Vol 6](../index.md).
+
 | **Element** | **Z** | **A** | **Empirical (MeV)** | **Topological (MeV)** | **Error (%)** |
 |---|---|---|---|---|---|
 | Hydrogen-1 | 1 | 1 | 938.272 | 938.272 | 0.00001% |
