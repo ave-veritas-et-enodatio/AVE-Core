@@ -117,6 +117,49 @@ Routing rule (cross-cutting vs volume-specific): a boundary entry goes in the cr
 
 Sidecar-vs-leaf contradiction resolution: leaves win; the sidecar gets fixed.
 
+#### Bootstrap directive (required on `entry-point.md` and every `volN/index.md` and `common/index.md`)
+
+Sidecars are discovered through bootstrap directives placed at the top of `entry-point.md` and every volume `index.md`. Without the directive, a consumer reading the index will not know to load the sidecar. Placement is **line 3** of a volume `index.md` (after the line-1 up-link and a line-2 blank), or near-top of `entry-point.md` (after the H1).
+
+For `volN/index.md` and `common/index.md`:
+
+```markdown
+[↑ AVE Knowledge Base](../entry-point.md)
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claims-boundaries.md`](./claims-boundaries.md) and [`../claims-boundaries.md`](../claims-boundaries.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+```
+
+For subtopic-level `index.md` (one level below volume), relative paths shift by one:
+
+```markdown
+> ⛔ **Bootstrap.** ... load [`../claims-boundaries.md`](../claims-boundaries.md) (volume scope) and [`../../claims-boundaries.md`](../../claims-boundaries.md) (cross-cutting). ...
+```
+
+For `entry-point.md` (no up-link):
+
+```markdown
+# Applied Vacuum Engineering — Knowledge Base
+
+> ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claims-boundaries.md`](./claims-boundaries.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claims-boundaries.md), [vol2](./vol2/claims-boundaries.md), ... [common](./common/claims-boundaries.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+```
+
+Marker character: `⛔` (U+26D4). Form is blockquoted, imperative, single-paragraph. The marker is the machine-checkable signal that a directive is present (`grep -l "⛔ \*\*Bootstrap"`).
+
+#### Maintenance cadence
+
+Sidecars are derived artifacts. Refresh when:
+- A leaf under the sidecar's scope is added, edited, or removed.
+- `LIVING_REFERENCE.md` "Common Pitfalls" or "Critical Distinctions" is added or revised.
+- A MAD review surfaces a new tripwire.
+
+Refresh is the same cadence as summary-mode distillation. Until `kb-content-distiller` carries an explicit Boundaries Mode (see `CLAUDE.md` INVARIANT-S7 followups), refresh requires a one-off `generalist-coder` dispatch with a custom brief that points at the convention spec sections above.
+
+#### Compactness budget
+
+Per-volume sidecars target **under ~500 lines**. This is a validation criterion, not a hard cap. If a volume sidecar materially exceeds the budget, the sidecar architecture should be reconsidered (the per-subtopic embedded-section approach was the rejected alternative; reopening it is appropriate if the sidecar form scales poorly).
+
+Worked-example entries demonstrating the format on real principles live in `claims-boundaries.md` (cross-cutting sidecar) — the four original entries (Master Prediction Table reading conventions, Symmetric vs Asymmetric Saturation, α Invariance under Symmetric Gravity, BCS $B_c(T)$ axiom manifestation) are the canonical references for entry style.
+
 ---
 
 ## Structural Annotations

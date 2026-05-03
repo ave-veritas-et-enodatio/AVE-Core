@@ -206,6 +206,15 @@ Issues surfaced during execution of the kb-claims-boundaries plan that are outsi
 
 ---
 
+## 2026-05-02 — Convention spec promotion completed; gestation file deleted
+
+- **Action taken:** The bootstrap directive template (for entry-point.md, volume index.md, subtopic index.md), maintenance cadence rule, and compactness budget were promoted from `kb-claims-boundaries-convention.md` (gestation) into `manuscript/ave-kb/CONVENTIONS.md` (canonical). Worked examples are not promoted — they live as actual entries in the cross-cutting `claims-boundaries.md` sidecar, which CONVENTIONS.md now points to as the canonical reference for entry style.
+- **Then:** The gestation file `kb-claims-boundaries-convention.md` was deleted per its own header instruction. CONVENTIONS.md is the sole source of truth for the convention going forward.
+- **Not promoted (intentionally):** the gestation file's "Followups Discipline" section (process-spec, not KB convention — lives in the umbrella plan), and "Out-of-Scope Items" section (gestation-specific scope-cut documentation).
+- **Severity:** n/a — closure record
+
+---
+
 ## 2026-05-02 — α invariance + lattice decomposition propagated from LaTeX source to leaves (D12c Finding 5 closed; D2 original content gap closed)
 
 - **Action taken:** The α-invariance bound and the temporal/spatial lattice decomposition were already in the canonical LaTeX source `manuscript/common_equations/eq_axiom_3.tex` (Derived Consequences 1 and 2, lines 21–44) but had never been distilled into KB leaves. Authored two new verbatim-from-LaTeX leaves under `vol3/gravity/ch01-gravity-yield/`:
