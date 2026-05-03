@@ -19,6 +19,8 @@ Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}
 | Physical Causal Horizon | $R_H \approx 1.334 \times 10^{26}$ m (14.1 Gly) |
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV |
 | Static Nodal Tension | $T_{static} = m_{e}c^{2}/(2\pi\, \ell_{node}) \approx 0.0338$ N |
+| α Invariance Under Symmetric Gravity | $\alpha = e^2/(4\pi\varepsilon_0\hbar c_0) = \alpha_0$ exactly; multi-species $\Delta\alpha/\alpha = 0$ |
+| Temporal vs Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (redshift); $n_{spatial} = (9/7)\varepsilon_{11}$ (light deflection) |
 
 ## Derivations and Detail
 
@@ -35,6 +37,8 @@ Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}
 | [Kinetic Yield Threshold](kinetic-yield-threshold.md) | Microscopic point-yield and the $\sqrt{\alpha}\, m_e c^2$ bound |
 | [Static Nodal Tension](static-nodal-tension.md) | Electron ropelength tension $T_{static} \approx 0.0338$ N |
 | [Leaky Cavity Decay](leaky-cavity-decay.md) | Muon/Tau exceed yield limit; leaky cavity mechanism of weak decay |
+| [α Invariance Under Symmetric Gravity](alpha-invariance-symmetric-gravity.md) | Derived Consequence 1 of Axiom 3: ε·c cancellation gives exact α invariance under gravitational strain; multi-species $\Delta\alpha/\alpha = 0$ |
+| [Temporal vs Spatial Lattice Decomposition](temporal-spatial-lattice-decomposition.md) | Derived Consequence 2 of Axiom 3: $n_{temporal}$ governs redshift, $n_{spatial}$ governs light deflection |
 | [Remaining Ch.1 Results](remaining-ch01-results.md) | Stub redirecting to optical-refraction-gravity.md |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.

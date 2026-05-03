@@ -18,6 +18,8 @@ Macroscopic gravity derived from the $\mathcal{M}_A$ LC network. The trace-rever
 | Planck Mass | $m_{P} = m_{e}\sqrt{7\xi}$ [Ch.1](./ch01-gravity-yield/planck-mass.md) |
 | Physical Causal Horizon | $R_H \approx 1.334 \times 10^{26}$ m (14.1 Gly; $H_\infty \approx 69.32$ km/s/Mpc) [Ch.1](./ch01-gravity-yield/optical-refraction-gravity.md) |
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV [Ch.1](./ch01-gravity-yield/kinetic-yield-threshold.md) |
+| α Invariance Under Symmetric Gravity | $\alpha = \alpha_0$ exactly; multi-species $\Delta\alpha/\alpha = 0$ [Ch.1](./ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) |
+| Temporal/Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$; $n_{spatial} = (9/7)\varepsilon_{11}$ [Ch.1](./ch01-gravity-yield/temporal-spatial-lattice-decomposition.md) |
 | Einstein Field Equation (AVE mapping) | $T_{\mu\nu} \equiv U_{\mu\nu}$; $g_{\mu\nu} \leftrightarrow (\varepsilon_{eff}, \mu_{eff})$ [Ch.2](./ch02-general-relativity/einstein-field-equation.md) |
 | Symmetric Gravity Impedance | $Z(r) = Z_0$ (invariant) [Ch.2](./ch02-general-relativity/einstein-field-equation.md) |
 | Gordon Optical Metric | $g_{\mu\nu}^{AVE} = \eta_{\mu\nu} + (1 - 1/n^{2}) u_{\mu} u_{\nu}$ [Ch.3](./ch03-macroscopic-relativity/gordon-optical-metric.md) |

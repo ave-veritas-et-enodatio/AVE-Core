@@ -35,7 +35,7 @@
   - "Speed of light slows near mass" ($c_{local} = c_0/n$) is **local phase velocity**, not energy transport speed. See cross-cutting Symmetric vs Asymmetric Saturation entry: the impedance is invariant ($Z = Z_0$), so this is not a dispersive medium in the dissipative sense.
   - The $c_{max}$ inference (intergalactic $c$ exceeds local $c$ by $\sim 3{,}600$ m/s, "warp transit baseline") is an extrapolation of the same local refraction relation to $\Phi \to 0$; treat as illustrative of the framework's interpretation, not as an experimentally validated prediction.
 
-> **Leaf references:** `gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`, `gravity/ch03-macroscopic-relativity/transverse-refractive-index.md`, `gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`.
+> **Leaf references:** Canonical for the temporal/spatial split: `gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (Derived Consequence 2 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Refractive-index derivations: `gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`, `transverse-refractive-index.md`, `einstein-lensing-deflection.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`. Companion bound on α invariance under symmetric gravity: `gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`.
 
 ---
 

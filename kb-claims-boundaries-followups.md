@@ -206,6 +206,20 @@ Issues surfaced during execution of the kb-claims-boundaries plan that are outsi
 
 ---
 
+## 2026-05-02 — α invariance + lattice decomposition propagated from LaTeX source to leaves (D12c Finding 5 closed; D2 original content gap closed)
+
+- **Action taken:** The α-invariance bound and the temporal/spatial lattice decomposition were already in the canonical LaTeX source `manuscript/common_equations/eq_axiom_3.tex` (Derived Consequences 1 and 2, lines 21–44) but had never been distilled into KB leaves. Authored two new verbatim-from-LaTeX leaves under `vol3/gravity/ch01-gravity-yield/`:
+  - `alpha-invariance-symmetric-gravity.md` — Derived Consequence 1: ε·c cancellation gives exact α invariance under gravitational strain; multi-species Δα/α = 0.
+  - `temporal-spatial-lattice-decomposition.md` — Derived Consequence 2: $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (redshift); $n_{spatial} = (9/7)\varepsilon_{11}$ (light deflection).
+- Propagated to Key Results in `vol3/gravity/ch01-gravity-yield/index.md` and `vol3/gravity/index.md`. Updated Derivations and Detail tables.
+- Updated cross-cutting `claims-boundaries.md` α-invariance entry's References footer to cite the new canonical leaves; removed the "leaf-level statement is a KB content gap" disclaimer (no longer true).
+- Updated `vol3/claims-boundaries.md` Refractive Index of Gravity entry to cite the new lattice-decomposition leaf as canonical for the temporal/spatial split.
+- **Closes:** D12c Finding 5 (leaf-canonicality inversion); D2 original finding (leaves silent on α invariance under gravity); leaf-content gap noted in the original 2026-05-02 followup at the top of this file.
+- **Note:** The bound was always in the LaTeX source; this dispatch only translated it. Per the verbatim-from-LaTeX leaf rule, no convention amendment was needed.
+- **Severity:** n/a — closure record
+
+---
+
 ## 2026-05-02 — Cross-cutting α-invariance citation corrected (D12c Finding 7 closed)
 
 - **Action taken:** The cross-cutting α-invariance entry's References footer previously cited "CLAUDE.md Axiom 3 entry ('α invariance' sub-bullet)" as the invariant-level source. CLAUDE.md INVARIANT-S2 carries the four axioms in bare form; the α-invariance sub-bullet (and the temporal/spatial lattice-decomposition sub-bullet) actually lives in LIVING_REFERENCE.md's Axiom 3 entry. Corrected the citation to point at LIVING_REFERENCE.md and noted CLAUDE.md's bare-form scope explicitly. The boundaries-mechanism routing path (entry-point bootstrap → cross-cutting sidecar → this entry) is unchanged; this is a citation-fidelity fix, not a structural change.
