@@ -6,6 +6,94 @@
 
 > **Status:** active. Initially seeded with the four most prominent cross-cutting tripwires; enriched in Dispatch 11 with five more (V_SNAP ≠ V_YIELD, ξ_topo, Hubble derivation, Framework-Derived vs Clay-Rigorous, Derived-as-Given hazard discipline) drawn from tripwires surfaced across two or more per-volume sidecars during Dispatch 9. Future enrichment: any new tripwire appearing in 2+ volume sidecars is migrated up here per the routing rule in `CONVENTIONS.md` (INVARIANT-S7).
 
+## Quality Convention (per-entry assessment format)
+
+> **Status:** new — applied to entries as they are reviewed; back-filled across existing entries during ongoing claim-quality sweeps. The format is described here once; per-entry Quality sections appear in this file and in per-volume `claims-boundaries.md` files.
+
+Each claim entry carries a `## Quality` section that records the entry's current assessment. Format:
+
+```markdown
+## Quality
+- confidence: 0.X
+- depends-on:
+  - <id> — Other Entry Title (solidity 0.X)
+  - [...]
+- solidity: 0.X (build-status phrase)
+- rationale: one-sentence statement of why
+- strengthen-by:
+  - [specific derivation, proof, simulation run, or experimental validation that would raise confidence or close a dependency]
+  - [...]
+```
+
+`depends-on` is omitted when there are no entry-level dependencies; in that case `solidity = confidence`.
+
+### Entry identifiers (stable IDs)
+
+Each claim entry carries a stable 6-character lowercase-alphanumeric identifier on the line immediately following the heading, in an HTML comment matching the existing `path-stable` convention pattern:
+
+```markdown
+## Some Entry Title
+<!-- id: 52de10 -->
+
+(... entry body ...)
+```
+
+IDs are randomly generated (`LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 6`) and never derived from the entry title — this makes them stable across title revisions and prose drift. The $36^6 \approx 2.18$ billion namespace is far more than sufficient for the project's lifetime.
+
+`depends-on` references must lead with the dependency's ID. The ID is the canonical reference; the title is for human readability (and may drift); the solidity is for audit at write-time. To find an entry's canonical home, grep for its ID across the KB. To find all references TO an entry, grep for its ID and inspect the depends-on contexts.
+
+A new entry assigns its ID at creation time and never changes it. If an entry is split, retired, or merged, the git change history records the lineage; new IDs are generated for new sub-entries, never reused.
+
+### Confidence rubric
+
+`confidence` is **local quality only** — how well does this entry do its own work, ignoring whether the claims it depends on are themselves solid? Bands are anchor points; intermediate values are permitted (e.g., 0.65, 0.85).
+
+| Confidence | Meaning |
+|------------|---------|
+| **1.0** | Identity / definition / by construction (no derivation in scope) |
+| **0.9** | Derived end-to-end from axioms; canonical chain present in leaf; matches measurement within stated tolerance |
+| **0.7** | Derived with disclosed methodology bound (one fitted scalar, identification step) but core mechanism sound |
+| **0.5** | Derived with substantive open dependency (e.g., Gaussian ansatz, identification step not derived from axioms) |
+| **0.3** | Asserted with partial justification; key step open |
+| **0.1** | Asserted without supporting derivation |
+| **0.0** | Refuted |
+
+### Solidity computation
+
+`solidity` is the effective quality for downstream build decisions. It captures the "weakest link in the chain" property — building on a claim is only as safe as its weakest dependency.
+
+**Rule**: `solidity = confidence × min(dependency_solidity_values)`. For an entry with no entry-level dependencies, `solidity = confidence`.
+
+**Framework inputs** ($m_e$, $\hbar$, $c$, $e$, $\mu_0$, $\varepsilon_0$, $T_{CMB}$, plus the four axioms) are treated as `solidity 1.0` — they are the framework's accepted baseline. Open questions about whether any of these can themselves be derived from deeper principles (e.g., $m_e$ closure via Nyquist independence) are tracked in the Zero-Parameter Closure Status entry's strengthen-by list, **not** as recurring dependencies on every entry that uses them. This avoids double-counting.
+
+**Dependencies** are other entries (in this file or in per-volume `claims-boundaries.md` files) whose claims this entry's claims rely on. List them by name with their current solidity values for audit. When a dependency's solidity changes, downstream entries' solidity values must be recomputed.
+
+**Confidence vs solidity**: confidence is "how well does this entry do its own work?" — local only. Solidity is "how safely can this be built on?" — local quality bounded by the weakest dependency. They coincide for entries with no entry-level dependencies; they diverge when an entry's claims rest on other entries' claims.
+
+### Build-status legend (mapped from solidity)
+
+The build-status phrase is mechanically derivable from the `solidity` value (NOT from confidence). If a reviewer feels the operational status doesn't match the band, that signals either local-confidence miscalibration or a dependency's solidity shift — not that the legend should be overridden.
+
+| Solidity range | Build-status phrasing |
+|----------------|-----------------------|
+| 0.85 ≤ solidity ≤ 1.00 | `(ok to build on)` |
+| 0.65 ≤ solidity < 0.85 | `(ok to build on, see caveats)` |
+| 0.45 ≤ solidity < 0.65 | `(use as input only, don't build deeper)` |
+| 0.20 ≤ solidity < 0.45 | `(do not build on, rework needed)` |
+| 0.00 ≤ solidity < 0.20 | `(refuted, do not use)` |
+
+### Reading the Quality section
+
+The Quality section is the operational decision layer over an entry's existing Specific Claims / Specific Non-Claims and Caveats. The boundary text remains canonical for *what is claimed* and *what is bounded*; the Quality section adds *how confident we are locally*, *how solid the claim is for downstream building given its dependencies*, and *what would close any open gaps*.
+
+Consumers (humans, agents, kb-docent) building on a claim should read the Quality section's build-status phrase first. The `solidity` value calibrates that decision; `confidence` plus the dependency chain reveal where any weakness comes from; the `strengthen-by` list specifies the work that would raise solidity (either by raising local confidence or by strengthening a dependency).
+
+A high-confidence entry with low solidity tells you the entry's own work is sound but its dependency chain is the weakness — the highest-leverage work is closing the weakest dependency, not improving this entry. A low-confidence entry tells you the entry's own work is the weakness, regardless of its dependency status.
+
+`strengthen-by` items are the same kind of work-item that `common/mathematical-closure.md` "Outstanding Rigour Gaps" enumerates; over time, that document can become a derived index over all open `strengthen-by` items across boundary entries rather than a parallel register.
+
+---
+
 ## Reading Conventions for the Master Prediction Table (Project-Wide Meta-Tripwire)
 
 The Master Prediction Table in `LIVING_REFERENCE.md` (47 entries) and the Key Results tables in volume indexes mix **four kinds of claim** under uniform "Δ%" and ✅ formatting. The classification matters for what each entry actually asserts.
