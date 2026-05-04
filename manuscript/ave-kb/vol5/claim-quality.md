@@ -1,8 +1,8 @@
-# Vol 5 — Topological Biology — Claim Boundaries
+# Vol 5 — Topological Biology — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol5/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 5; cross-cutting tripwires with vol5-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 5; cross-cutting tripwires with vol5-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -204,7 +204,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 ## Symmetric vs Asymmetric Saturation — Vol 5 Manifestation
 
-The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting boundaries](../claims-boundaries.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
+The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting boundaries](../claim-quality.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
 
 - _Specific Claims_
   - The biological circuitry table (`first-principles-bond-force-constants.md` → "Regime Classification of Biological Length Scales") asserts: covalent bond core in **Regime II** (yield onset, $\Delta\phi/\alpha \sim 0.5$); backbone, R-groups, peptide chains, and folded proteins all in **Regime I** (linear, lossless).
@@ -213,7 +213,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting b
   - Does NOT claim biology operates anywhere close to the dielectric saturation $V_\text{yield} = 43.65$ kV; biological circuitry is asserted to be in Regime I at the chain/network scale, with only the covalent bond core entering Regime II — and bond-core Regime II is what makes covalent bonds stable solitons, not what makes them break.
   - The cross-cutting non-claim "EM phase velocity goes to **infinity** at saturation, not zero" applies here too — a vol5 reader should not read $S \to 0$ at membrane yield as "wave speed goes to zero" in the EM sense; the relevant "wave" at membrane yield is the cooperative thermal-strain mode.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md` (regime classification), `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`. Cross-cutting: see [Symmetric vs Asymmetric Saturation](../claims-boundaries.md).
+> **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md` (regime classification), `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`. Cross-cutting: see [Symmetric vs Asymmetric Saturation](../claim-quality.md).
 
 ---
 
@@ -226,6 +226,6 @@ The cross-cutting "Reading Conventions for the Master Prediction Table" entry ap
 - The H-bond $E_\text{HB} = 4.98$ kcal/mol vs $5.02 \pm 0.05$ kcal/mol ($<0.9\%$) is closest to category (iv) — an axiom-derived value compared to a measured target — but the void-fraction projection $(1-\phi)$ is structurally motivated within AVE; treat as derived prediction.
 - The Chignolin RMSD of 2.59 Å is a **coarse-correctness** result (Level 6 emergence per the leaf), not a category (iv) precision prediction.
 
-A reader summarising vol5 results must consult the per-result classification before treating any single number as evidence of a specific claim type. See cross-cutting [Reading Conventions for the Master Prediction Table](../claims-boundaries.md) for the global framing.
+A reader summarising vol5 results must consult the per-result classification before treating any single number as evidence of a specific claim type. See cross-cutting [Reading Conventions for the Master Prediction Table](../claim-quality.md) for the global framing.
 
 > **Leaf references:** see per-entry footers above; classification pattern from `LIVING_REFERENCE.md` Master Prediction Table classification note.

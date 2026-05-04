@@ -1,4 +1,4 @@
-# AVE Claim Boundaries
+# AVE Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from every volN/index.md bootstrap directive -->
 
@@ -8,7 +8,7 @@
 
 ## Quality Convention (per-entry assessment format)
 
-> **Status:** new — applied to entries as they are reviewed; back-filled across existing entries during ongoing claim-quality sweeps. The format is described here once; per-entry Quality sections appear in this file and in per-volume `claims-boundaries.md` files.
+> **Status:** new — applied to entries as they are reviewed; back-filled across existing entries during ongoing claim-quality sweeps. The format is described here once; per-entry Quality sections appear in this file and in per-volume `claim-quality.md` files.
 
 Each claim entry carries a `## Quality` section that records the entry's current assessment. Format:
 
@@ -66,7 +66,7 @@ A new entry assigns its ID at creation time and never changes it. If an entry is
 
 **Framework inputs** ($m_e$, $\hbar$, $c$, $e$, $\mu_0$, $\varepsilon_0$, $T_{CMB}$, plus the four axioms) are treated as `solidity 1.0` — they are the framework's accepted baseline. Open questions about whether any of these can themselves be derived from deeper principles (e.g., $m_e$ closure via Nyquist independence) are tracked in the Zero-Parameter Closure Status entry's strengthen-by list, **not** as recurring dependencies on every entry that uses them. This avoids double-counting.
 
-**Dependencies** are other entries (in this file or in per-volume `claims-boundaries.md` files) whose claims this entry's claims rely on. List them by name with their current solidity values for audit. When a dependency's solidity changes, downstream entries' solidity values must be recomputed.
+**Dependencies** are other entries (in this file or in per-volume `claim-quality.md` files) whose claims this entry's claims rely on. List them by name with their current solidity values for audit. When a dependency's solidity changes, downstream entries' solidity values must be recomputed.
 
 **Confidence vs solidity**: confidence is "how well does this entry do its own work?" — local only. Solidity is "how safely can this be built on?" — local quality bounded by the weakest dependency. They coincide for entries with no entry-level dependencies; they diverge when an entry's claims rest on other entries' claims.
 

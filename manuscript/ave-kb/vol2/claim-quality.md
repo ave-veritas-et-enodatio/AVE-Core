@@ -1,8 +1,8 @@
-# Vol 2 — Subatomic — Claim Boundaries
+# Vol 2 — Subatomic — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol2/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 2; cross-cutting tripwires with vol2-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 2; cross-cutting tripwires with vol2-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -258,7 +258,7 @@
 
 ## Hubble Constant $H_\infty \approx 69.32$ km/s/Mpc — Vol 2 Framing
 
-See cross-cutting [Master Prediction Table reading conventions](../claims-boundaries.md). Vol3 sidecar carries the full $H_\infty$ entry (lattice-genesis circularity caveat; CODATA $G$ substitution; geometric self-consistency proof, not first-principles ab initio prediction). Vol2 framing notes:
+See cross-cutting [Master Prediction Table reading conventions](../claim-quality.md). Vol3 sidecar carries the full $H_\infty$ entry (lattice-genesis circularity caveat; CODATA $G$ substitution; geometric self-consistency proof, not first-principles ab initio prediction). Vol2 framing notes:
 
 - _Specific Claims_
   - Vol 2 Ch 10's Hubble Tension leaf presents $H_\infty = 28\pi m_e^3 c G/(\hbar^2 \alpha^2) \approx 69.32$ km/s/Mpc as "every factor rigorously derived from lattice structure and bounding limits", positioned $+2.9\%$ above Planck (CMB) and $-5.1\%$ below SH0ES (local).

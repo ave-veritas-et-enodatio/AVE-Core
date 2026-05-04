@@ -1,8 +1,8 @@
-# Vol 6 — Periodic Table of Knots — Claim Boundaries
+# Vol 6 — Periodic Table of Knots — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol6/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 6; cross-cutting tripwires with vol6-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 6; cross-cutting tripwires with vol6-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -77,7 +77,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
   - Does NOT claim the topology assignments for $Z \ge 28$ are first-principles-derived in vol6. The mass-prediction-accuracy leaf calls Tier C "Fibonacci lattice packing as a geometric proxy"; the abcd-transfer-matrix leaf (`abcd-transfer-matrix.md`) explicitly states the port-connected network topology for $Z \ge 15$ is the **key open problem** — the current heavy-element predictions use sphere packing rather than the deterministic ABCD cascade.
   - The Large-Signal $0.000\%$ for S-32 and Ca-40 is one specific instance of the cross-cutting Master-Prediction-Table tripwire: "$0.000\%$" entries are not all the same category. These two are zero-parameter Large-Signal closures (closer to category iv "derived prediction" given the avalanche $M$ also derives from $c_{\text{proton}} = 5$); Ar-40 / Ti-48 / Cr-52 / Fe-56 are geometric-identity packing solutions; Tier-C entries are proxy fits. Do not present a global "AVE achieves $< 0.5\%$ across $Z=15$–$119$" claim without per-tier breakout.
 
-> **Leaf references:** `appendix/heavy-element-catalog/full-element-table.md`; `appendix/heavy-element-catalog/mass-prediction-accuracy.md`; `appendix/heavy-element-catalog/index.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/platonic-progression.md`; `framework/computational-mass-defect/abcd-transfer-matrix.md` (ABCD cascade as the open problem). Cross-cutting: Master Prediction Table reading conventions in `../claims-boundaries.md`.
+> **Leaf references:** `appendix/heavy-element-catalog/full-element-table.md`; `appendix/heavy-element-catalog/mass-prediction-accuracy.md`; `appendix/heavy-element-catalog/index.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/platonic-progression.md`; `framework/computational-mass-defect/abcd-transfer-matrix.md` (ABCD cascade as the open problem). Cross-cutting: Master Prediction Table reading conventions in `../claim-quality.md`.
 
 ---
 
@@ -143,7 +143,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - $g_*$: the "$0.38\%$" baryon-asymmetry agreement uses $g_*$ together with $\alpha_W^4$, $C_{\text{sph}} = 28/79$, and $\kappa_{FS} = 8\pi$ — a multi-factor formula with several lattice-derived inputs. Treat as a composite consistency check, not a single-quantity prediction. (This entry overlaps with vol3's `effective-degrees-of-freedom` boundary; the bound there applies here too.)
   - All three sit in the Master Prediction Table at category (iv) "derived prediction" classification; the cross-cutting Master-Prediction-Table tripwire applies — these are not "0.00% identities" and the per-row classification matters.
 
-> **Leaf references:** `appendix/geometric-inevitability/alpha-s-derivation.md`; `appendix/geometric-inevitability/lambda-higgs-derivation.md`; `appendix/geometric-inevitability/g-star-derivation.md`; `appendix/geometric-inevitability/derived-numerical-constants.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claims-boundaries.md`.
+> **Leaf references:** `appendix/geometric-inevitability/alpha-s-derivation.md`; `appendix/geometric-inevitability/lambda-higgs-derivation.md`; `appendix/geometric-inevitability/g-star-derivation.md`; `appendix/geometric-inevitability/derived-numerical-constants.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
 ---
 
@@ -204,7 +204,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 ## Semiconductor / Operating Regimes — Vol6-Specific Manifestation
 
-The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claims-boundaries.md`) covers the universal $S$-kernel framing. Vol 6 specializes this into nuclear operating regimes.
+The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality.md`) covers the universal $S$-kernel framing. Vol 6 specializes this into nuclear operating regimes.
 
 - _Specific Claims_
   - Three regimes: Linear (Small Signal, $V \ll V_{\text{yield}}$, $\epsilon_{\text{eff}} \approx \epsilon_0$), Non-Linear (Large Signal, $V_{\text{yield}} \le V < V_{\text{snap}}$), Saturated (Breakdown, $V \ge V_{\text{snap}}$, $\epsilon_{\text{eff}} \to 0$).
@@ -215,7 +215,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claims-bounda
   - Does NOT claim the $\sim 75$ MeV endothermic figure for $^{28}\text{Si} + \alpha \to ^{32}\text{S}$ is AVE-derived — it is the empirical $Q$-value cited as evidence of the regime transition.
   - V_YIELD vs V_SNAP distinction is project-wide (LIVING_REFERENCE.md Critical Distinctions #1): V_SNAP $= 511$ kV (absolute destruction), V_YIELD $= 43.65$ kV (kinetic onset of nonlinearity). Vol 6 nuclear binding operates at $V_{BR} \approx 3.631$ MeV per alpha cluster, which is the **alpha-cluster internal Coulomb capacity**, not the lattice V_YIELD or V_SNAP. The three voltage scales (V_YIELD, V_SNAP, V_BR) live at different scales; reviewers should not conflate them.
 
-> **Leaf references:** `framework/computational-mass-defect/operating-regimes.md`; `framework/computational-mass-defect/semiconductor-nuclear-analysis.md`; `period-3/silicon/symmetric-core-collapse.md`. Cross-cutting: Symmetric vs Asymmetric Saturation in `../claims-boundaries.md`; LIVING_REFERENCE.md Critical Distinctions #1.
+> **Leaf references:** `framework/computational-mass-defect/operating-regimes.md`; `framework/computational-mass-defect/semiconductor-nuclear-analysis.md`; `period-3/silicon/symmetric-core-collapse.md`. Cross-cutting: Symmetric vs Asymmetric Saturation in `../claim-quality.md`; LIVING_REFERENCE.md Critical Distinctions #1.
 
 ---
 

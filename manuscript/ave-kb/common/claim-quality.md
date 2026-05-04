@@ -1,8 +1,8 @@
-# Common (Cross-Volume Resources) — Claim Boundaries
+# Common (Cross-Volume Resources) — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from common/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this directory's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to the common/ directory's substantive content (mathematical closure status, derivation chain, falsification index, translation tables, solver toolchain).
+> **Canonicality:** Leaves are canonical; this directory's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to the common/ directory's substantive content (mathematical closure status, derivation chain, falsification index, translation tables, solver toolchain).
 
 ---
 
@@ -113,10 +113,10 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
   - Does NOT claim the protein backbone result is a parameter-free prediction of $f$ alone. The 0.1% match uses the **measured** $v_{backbone}$; the sub-derivation gives $-5.2\%$ on $v_{backbone}$ itself. Treat $f = 21.7$ THz as a mode-number + Poisson-correction prediction conditional on $v_{backbone}$, with the framework's first-principles wave-speed prediction carrying its own ~5% bound.
   - The Kerr $Q$ formula degrades at $a_* > 0.9$ (error grows to ~40% at $a_* = 0.99$); the LIGO-band claim does not extend to extremal Kerr.
   - The Field-Oriented Control / Park transform analogy and the BLDC motor cross-scale row are **structural isomorphism** statements — same operator form across domains — not novel motor-engineering or motor-control predictions.
-  - The "BH transistor datasheet" and "semiconductor junction analogy" tables are presented as systematic parameter-extraction templates; rows like Hawking temperature inherit the cross-cutting Hawking caveat (alternative mechanism, same value — see [`vol3/claims-boundaries.md`](../vol3/claims-boundaries.md) Hawking Temperature entry).
+  - The "BH transistor datasheet" and "semiconductor junction analogy" tables are presented as systematic parameter-extraction templates; rows like Hawking temperature inherit the cross-cutting Hawking caveat (alternative mechanism, same value — see [`vol3/claim-quality.md`](../vol3/claim-quality.md) Hawking Temperature entry).
   - The torus knot ladder $c = 3$ trefoil entry (637 MeV) is **not** the electron — the electron is the unknot $0_1$. The leaf flags this. Summaries that read the ladder as "electron at $c = 3$" misread the leaf.
 
-> **Leaf references:** `solver-toolchain.md` §Regime-Boundary Eigenvalue Method, §Protein Backbone Eigenvalue, §Nuclear Eigenvalue, §Cross-Scale Isomorphism Table; cross-cutting Symmetric vs Asymmetric Saturation in [`../claims-boundaries.md`](../claims-boundaries.md); BH-specific tripwires in [`vol3/claims-boundaries.md`](../vol3/claims-boundaries.md).
+> **Leaf references:** `solver-toolchain.md` §Regime-Boundary Eigenvalue Method, §Protein Backbone Eigenvalue, §Nuclear Eigenvalue, §Cross-Scale Isomorphism Table; cross-cutting Symmetric vs Asymmetric Saturation in [`../claim-quality.md`](../claim-quality.md); BH-specific tripwires in [`vol3/claim-quality.md`](../vol3/claim-quality.md).
 
 ## Quality
 - confidence: 0.65
@@ -232,7 +232,7 @@ The Interdisciplinary Translation Matrix appendix includes "Theoretical Stress T
   - The Computational Graph Architecture and DCVE specifications are simulation-engine constraints (Poisson-disk genesis, Chiral LC over-bracing $C_{ratio} \approx 1.187$, Symplectic Euler updates). They are **engineering specs for instantiating AVE in a discrete computer**, not physical claims about the vacuum.
   - The "AQUAL Galactic Dynamics" subsection inherits the cross-cutting MOND boundary: $a_0 = c H_\infty / (2\pi)$ is derived (10.7% below empirical) and applies in the unsaturated regime only (Vol 3 MOND entry). The appendix's reference is structural, not a separate validation.
 
-> **Leaf references:** `appendices-overview.md` §Theoretical Stress Tests, §Summary of Exact Analytical Derivations, §Computational Graph Architecture; MOND entry at [`vol3/claims-boundaries.md`](../vol3/claims-boundaries.md).
+> **Leaf references:** `appendices-overview.md` §Theoretical Stress Tests, §Summary of Exact Analytical Derivations, §Computational Graph Architecture; MOND entry at [`vol3/claim-quality.md`](../vol3/claim-quality.md).
 
 ## Quality
 - confidence: 0.75

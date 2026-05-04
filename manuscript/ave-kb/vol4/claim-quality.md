@@ -1,8 +1,8 @@
-# Vol 4 — Applied Vacuum Engineering — Claim Boundaries
+# Vol 4 — Applied Vacuum Engineering — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol4/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 4; cross-cutting tripwires with vol4-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 4; cross-cutting tripwires with vol4-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -72,7 +72,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "$S_{11}$ Return Loss of $-\infty$ dB" for the universe is a structural / interpretive consequence of perfect impedance matching, not an independent observable claim.
   - The $c \to c_0/n$ "speed of light slows in gravity" usage is **local phase velocity** — see Vol 3 cross-volume entry on temporal-vs-spatial $n$ decomposition.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`. Cross-cutting: see Symmetric vs Asymmetric Saturation in `../claims-boundaries.md`.
+> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`. Cross-cutting: see Symmetric vs Asymmetric Saturation in `../claim-quality.md`.
 
 ---
 
@@ -335,7 +335,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Per-row Δ% in the retrospective matches mixes "0.00%" (proton) with $\sim 2.4\%$ (top of error bar) — these are category (iv) derived predictions per the Master Prediction Table classification, but the proton 0.00% and the 2.40% are not the same kind of claim. The forward predictions inherit at least the 0.27%-2.40% scatter of the established matches.
   - Does NOT claim the forward predictions have been confirmed. They are open experimental targets.
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claims-boundaries.md`.
+> **Leaf references:** `falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
 ---
 

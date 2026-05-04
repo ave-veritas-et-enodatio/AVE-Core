@@ -1,8 +1,8 @@
-# Vol 3 — Macroscopic Physics — Claim Boundaries
+# Vol 3 — Macroscopic Physics — Claim Quality
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol3/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claims-boundaries.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 3; cross-cutting tripwires with vol3-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 3; cross-cutting tripwires with vol3-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -235,7 +235,7 @@
 
 ## Superconductor Type Classification ($\kappa = \lambda_L/\xi_0$)
 
-See cross-cutting [BCS Critical Field $B_c(T)$](../claims-boundaries.md) for the $B_c(T)$ axiom-manifestation tripwire. Vol3-specific aspects:
+See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_c(T)$ axiom-manifestation tripwire. Vol3-specific aspects:
 
 - $\kappa < 1/\sqrt{2}$: Type I (uniform $\mu \to 0$); $\kappa > 1/\sqrt{2}$: Type II (vortex lattice)
 - _Specific Claims_

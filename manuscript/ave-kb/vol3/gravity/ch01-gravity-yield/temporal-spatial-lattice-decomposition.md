@@ -1,6 +1,6 @@
 [↑ Ch.1 Gravity and Yield](index.md)
 <!-- leaf: verbatim -->
-<!-- path-stable: referenced from kb/claims-boundaries.md "α Invariance Under Symmetric Gravity" entry and from vol3/claims-boundaries.md "Refractive Index of Gravity" entry -->
+<!-- path-stable: referenced from kb/claim-quality.md "α Invariance Under Symmetric Gravity" entry and from vol3/claim-quality.md "Refractive Index of Gravity" entry -->
 
 ---
 
