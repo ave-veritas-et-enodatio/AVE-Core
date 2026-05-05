@@ -1,5 +1,6 @@
 [↑ Ch.16: Sagnac Inductive Drag](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: cbwd77 -->
 
 ## The Rotating LC Frame
 

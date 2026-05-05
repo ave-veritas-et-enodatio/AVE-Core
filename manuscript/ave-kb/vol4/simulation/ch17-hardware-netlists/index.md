@@ -1,4 +1,5 @@
 [↑ Vol 4: Simulation](../index.md)
+<!-- claim-quality (subtree): 7tynm2, vjv4zf -->
 
 # Ch.17: Hardware Netlists — PONDER-01 and the EE Bench
 

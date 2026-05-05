@@ -1,5 +1,6 @@
 [↑ Ch.12 Index](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: to41c7 -->
 
 ## Baryon Mass Predictions (Torus Knot Ladder)
 

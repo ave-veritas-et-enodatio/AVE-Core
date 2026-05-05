@@ -1,5 +1,6 @@
 [↑ Ch.17: Hardware Netlists](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 7tynm2 -->
 
 ## PONDER-01: Cascaded Transmission-Line Thrust Model
 

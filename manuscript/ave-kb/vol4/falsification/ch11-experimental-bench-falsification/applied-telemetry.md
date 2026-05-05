@@ -1,5 +1,6 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: p12mem -->
 
 ## Applied Telemetry: Boundary Layer and Cavitation Monitors
 

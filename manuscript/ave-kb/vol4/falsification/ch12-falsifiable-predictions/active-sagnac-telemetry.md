@@ -1,5 +1,6 @@
 [↑ Ch.12 Index](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qx9bb8 -->
 
 ## Active Sagnac Interferometry & Metric Telemetry
 

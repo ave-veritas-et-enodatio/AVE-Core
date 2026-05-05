@@ -1,5 +1,6 @@
 [↑ Ch.8 Applied Fusion](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: pcute0 -->
 
 ## Topological Mechanics of Nuclear Fission (U-235 vs U-238)
 

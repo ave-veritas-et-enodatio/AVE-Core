@@ -1,5 +1,5 @@
 [↑ Vol 4: Engineering](../index.md)
-<!-- claim-quality (subtree): 9sujp8, c54kdd, vjv4zf -->
+<!-- claim-quality (subtree): 7tynm2, 9sujp8, c54kdd, cbwd77, vjv4zf -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

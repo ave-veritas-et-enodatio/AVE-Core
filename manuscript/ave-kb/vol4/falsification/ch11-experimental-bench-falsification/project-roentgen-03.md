@@ -1,5 +1,6 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qsgl7d -->
 
 ## Project ROENTGEN-03: Solid-State Sagnac Induction
 

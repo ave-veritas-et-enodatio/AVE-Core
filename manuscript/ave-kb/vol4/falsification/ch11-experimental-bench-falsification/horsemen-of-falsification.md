@@ -1,5 +1,6 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: fh6w3y -->
 
 ## Resolving the "Horsemen of Falsification"
 

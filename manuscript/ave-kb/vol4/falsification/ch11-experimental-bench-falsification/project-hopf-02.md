@@ -1,5 +1,6 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: wzezvt -->
 
 ## Project HOPF-02: The S-Parameter VNA Falsification
 
