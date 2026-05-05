@@ -1,6 +1,9 @@
 [↑ Ch.2 Macroscopic Moduli](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 9s9apq -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [9s9apq]
+-->
 
 ## Section 2.3: Dielectric Rupture and The Volumetric Energy Collapse
 

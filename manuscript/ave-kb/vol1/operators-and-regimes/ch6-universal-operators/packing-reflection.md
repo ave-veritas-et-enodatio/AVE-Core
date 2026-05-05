@@ -1,7 +1,10 @@
 [↑ Ch.6 Universal Operators](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as sec:universal_packing -->
-<!-- claim-quality: gdd70j -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [gdd70j]
+path-stable: "referenced from vol1 as sec:universal_packing"
+-->
 
 ## Section 6.8: The Universal Packing Reflection
 

@@ -1,6 +1,9 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: k6olj8 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [k6olj8]
+-->
 
 ## The Torus Knot Phase Winding Ladder
 

@@ -1,6 +1,9 @@
 [↑ Vol 1: Foundations](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 3zz0f6, 5xon03, 0ktpcn -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [3zz0f6, 5xon03, 0ktpcn]
+-->
 
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
 <!-- claim-quality: 0ktpcn -->

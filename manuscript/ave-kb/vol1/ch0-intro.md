@@ -1,6 +1,9 @@
 [↑ Vol 1: Foundations](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5xon03 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5xon03]
+-->
 
 ## Introduction
 

@@ -1,6 +1,9 @@
 [↑ Ch.11 Index](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: baoa36 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [baoa36]
+-->
 
 ## Why Intuitive Tabletop Tests Fail
 

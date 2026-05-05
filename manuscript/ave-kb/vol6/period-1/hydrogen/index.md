@@ -1,5 +1,9 @@
 [↑ Period 1](../index.md)
-<!-- claim-quality (subtree): a95yx1, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [a95yx1, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc]
+-->
 
 # Hydrogen (Z=1)
 

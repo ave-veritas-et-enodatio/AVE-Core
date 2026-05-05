@@ -1,6 +1,9 @@
 [↑ Ch.5 Universal Spatial Tension](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: zw6mut -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [zw6mut]
+-->
 
 ## Section 5.2: Scale Invariance across the Framework
 

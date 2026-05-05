@@ -1,6 +1,9 @@
 [↑ Ch.11 Index](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: cltls0, kl1ern, qsgl7d, wzezvt, ydksh6 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [cltls0, kl1ern, qsgl7d, wzezvt, ydksh6]
+-->
 
 ## PCBA Bench Protocols
 

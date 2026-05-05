@@ -1,6 +1,9 @@
 [↑ Ch. 11: The Standard Model Overdrive](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: dboxok -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [dboxok]
+-->
 
 ## Overdriving AlphaFold: First-Principles Protein Folding
 

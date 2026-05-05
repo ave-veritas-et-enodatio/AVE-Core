@@ -1,9 +1,13 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ome498 -->
-<!-- PATH-STABLE: sec:derived_numerology -->
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [ome498]
+-->
+
+<!-- PATH-STABLE: sec:derived_numerology -->
 <!-- Cross-volume refs in this leaf:
+
   eq:H_infinity → vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md
   sec:galactic_saturation → vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md
   sec:membrane_phase_buffering → vol5/protein-folding-engine/ (exact path TBD)

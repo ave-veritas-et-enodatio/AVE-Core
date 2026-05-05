@@ -1,7 +1,10 @@
 [↑ Organic Circuitry](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:hbond_derivation -->
-<!-- claim-quality: j9l3ww, uowffm -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [j9l3ww, uowffm]
+path-stable: "referenced from vol3 as sec:hbond_derivation"
+-->
 
 ---
 

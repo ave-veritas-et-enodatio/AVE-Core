@@ -1,5 +1,9 @@
 [↑ Cosmology](../index.md)
-<!-- claim-quality (subtree): 395gps, c6k5om, ir8h78, x19btt -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [395gps, c6k5om, ir8h78, x19btt]
+-->
 
 # Ch.15: Black Holes as Macroscopic Electron Orbitals
 

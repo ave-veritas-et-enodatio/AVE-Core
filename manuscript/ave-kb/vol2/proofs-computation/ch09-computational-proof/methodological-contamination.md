@@ -1,6 +1,9 @@
 [↑ Ch. 9: Computational Proof and Anomaly Catalog](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oltvwy, ak97cb -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oltvwy, ak97cb]
+-->
 
 ## Avoidance of Methodological Contamination
 <!-- claim-quality: ak97cb -->

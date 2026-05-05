@@ -1,5 +1,9 @@
 [↑ Vol 6: Framework](../index.md)
-<!-- claim-quality (subtree): jqnzz7, jy8h1x -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [jqnzz7, jy8h1x]
+-->
 
 # Chemistry Translation Guide
 

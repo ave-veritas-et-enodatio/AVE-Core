@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: gw2wgc, om0rtq, pp3qwf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [gw2wgc, om0rtq, pp3qwf]
+-->
 
 ## The Epistemology of Falsification
 <!-- claim-quality: om0rtq -->

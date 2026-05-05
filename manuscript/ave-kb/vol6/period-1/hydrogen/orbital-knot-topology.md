@@ -1,6 +1,9 @@
 [↑ Hydrogen (Z=1)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: a95yx1, y7uvdc -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [a95yx1, y7uvdc]
+-->
 
 ## Orbital Knot Topology
 <!-- claim-quality: a95yx1 (Bohr radius / Rydberg / de Broglie quantization derivations from $l_{node}$ and $\alpha$) -->

@@ -1,6 +1,9 @@
 [↑ Silicon (Z=14)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: jy8h1x -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [jy8h1x]
+-->
 
 ## Symmetric Core Collapse
 

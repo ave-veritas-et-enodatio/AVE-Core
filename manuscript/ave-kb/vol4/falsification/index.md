@@ -1,5 +1,9 @@
 [↑ Vol 4 Index](../index.md)
-<!-- claim-quality (subtree): 5s5b0d, 7tynm2, 9sujp8, baoa36, cltls0, cwjd8t, fh6w3y, gw2wgc, h55fy1, i02mhk, iz3svl, k9up5c, kl1ern, oiw6cb, om0rtq, p12mem, pp3qwf, qagkgy, qsgl7d, qx9bb8, to41c7, trgqtf, ui3m8a, wqmb19, wzezvt, ydksh6 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [5s5b0d, 7tynm2, 9sujp8, baoa36, cltls0, cwjd8t, fh6w3y, gw2wgc, h55fy1, i02mhk, iz3svl, k9up5c, kl1ern, oiw6cb, om0rtq, p12mem, pp3qwf, qagkgy, qsgl7d, qx9bb8, to41c7, trgqtf, ui3m8a, wqmb19, wzezvt, ydksh6]
+-->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

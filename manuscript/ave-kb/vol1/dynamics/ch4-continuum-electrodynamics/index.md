@@ -1,5 +1,9 @@
 [↑ Dynamics](../index.md)
-<!-- claim-quality (subtree): 8ep2b4, crbl60, efo113, lv3uw1, m3z5ux, xy252u -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [8ep2b4, crbl60, efo113, lv3uw1, m3z5ux, xy252u]
+-->
 
 # Ch.4: Continuum Electrodynamics and The Dark Sector
 

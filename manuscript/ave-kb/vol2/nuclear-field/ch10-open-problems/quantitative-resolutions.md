@@ -1,6 +1,9 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 4vwsjc, gfs4j8, mroghg, xhdai6 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [4vwsjc, gfs4j8, mroghg, xhdai6]
+-->
 
 ## Quantitative Resolutions
 

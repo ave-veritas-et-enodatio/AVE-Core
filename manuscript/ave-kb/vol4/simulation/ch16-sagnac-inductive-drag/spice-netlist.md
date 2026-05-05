@@ -1,6 +1,9 @@
 [↑ Ch.16: Sagnac Inductive Drag](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: cbwd77 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [cbwd77]
+-->
 
 ## SPICE Netlist: Sagnac Inductive Drag (sagnac_ring.cir) — Single Node
 

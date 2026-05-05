@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oltvwy, w6kk5y -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oltvwy, w6kk5y]
+-->
 
 ## Phase 5: Sub-Shell Junction Scattering (Op10)
 <!-- claim-quality: w6kk5y -->

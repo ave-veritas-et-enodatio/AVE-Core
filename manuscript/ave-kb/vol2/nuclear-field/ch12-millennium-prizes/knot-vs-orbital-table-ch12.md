@@ -1,6 +1,10 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
-<!-- no-claim: placeholder/routing — content lives in sibling millennium-prize leaves -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: placeholder/routing — content lives in sibling millennium-prize leaves
+-->
+
 <!-- GAP: tab:knot_vs_orbital referenced in taxonomy skeleton for ch12 but source table is located at ch07 lines 3519-3549; no corresponding content exists in ch12 source -->
 
 ## Knot vs Orbital Table (Ch. 12)

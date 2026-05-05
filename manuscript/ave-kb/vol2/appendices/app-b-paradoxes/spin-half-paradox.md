@@ -1,6 +1,9 @@
 [↑ App B: Theoretical Stress Tests](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: salw2h -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [salw2h]
+-->
 
 ## The Spin-1/2 Paradox
 

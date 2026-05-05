@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: baoa36 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [baoa36]
+-->
 
 ## The Tabletop Graveyard: Why Intuitive Tests Fail
 

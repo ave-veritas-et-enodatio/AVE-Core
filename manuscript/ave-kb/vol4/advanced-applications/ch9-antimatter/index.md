@@ -1,5 +1,9 @@
 [↑ Advanced Applications](../index.md)
-<!-- claim-quality (subtree): 5rigtn -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [5rigtn]
+-->
 
 # Ch.9 Antimatter Annihilation and Parity Inversion
 

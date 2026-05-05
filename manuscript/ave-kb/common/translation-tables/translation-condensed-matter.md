@@ -1,6 +1,9 @@
 [↑ Translation Tables](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: fy05jc -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [fy05jc]
+-->
 
 # Condensed Matter ↔ AVE Translation
 

@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: wqmb19 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [wqmb19]
+-->
 
 ## Protocol 11: Sagnac-Parallax (Galactic Wind Vectoring)
 

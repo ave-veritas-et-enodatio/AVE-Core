@@ -1,6 +1,9 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ou2jym -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ou2jym]
+-->
 
 ## Regime Classification of Topological Matter
 

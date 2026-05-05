@@ -1,5 +1,9 @@
 [↑ Appendices](../index.md)
-<!-- claim-quality (subtree): pf84ng -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [pf84ng]
+-->
 
 # App D: Computational Graph Architecture
 

@@ -1,5 +1,9 @@
 [↑ Vol 2 — The Subatomic Scale](../index.md)
-<!-- claim-quality (subtree): ak97cb, d5jhku, d9ivj1, dboxok, e1pdfd, ghs75o, k6olj8, nhlo1e, o3q9ul, oltvwy, pf84ng, salw2h -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [ak97cb, d5jhku, d9ivj1, dboxok, e1pdfd, ghs75o, k6olj8, nhlo1e, o3q9ul, oltvwy, pf84ng, salw2h]
+-->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

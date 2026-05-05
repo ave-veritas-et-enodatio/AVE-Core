@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: i9l284 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [i9l284]
+-->
 
 ## The Topo-Kinematic Circuit Identity
 

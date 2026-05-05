@@ -16,7 +16,7 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-claim-quality test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-claim-quality refresh-kb-metadata test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -72,8 +72,12 @@ verify: verify-claim-quality
 	@echo "=================================================="
 
 verify-claim-quality:
-	@echo "Running KB claim-quality framework integrity check..."
+	@echo "Running KB claim-quality framework integrity check (read-only)..."
 	$(PYTHON) manuscript/ave-kb/tools/check-claim-quality.py
+
+refresh-kb-metadata:
+	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
+	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
 
 
 # =============================================================================

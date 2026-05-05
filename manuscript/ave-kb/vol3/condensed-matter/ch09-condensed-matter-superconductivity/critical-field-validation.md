@@ -1,6 +1,9 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 3dc9qt, qky559 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [3dc9qt, qky559]
+-->
 
 ---
 

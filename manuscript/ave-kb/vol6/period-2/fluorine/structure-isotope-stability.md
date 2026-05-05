@@ -1,6 +1,9 @@
 [↑ Fluorine (Z=9)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 8psuqe, f5ucdo -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [8psuqe, f5ucdo]
+-->
 
 ## Fluorine-19 ($^{19}_{9}\text{F}$): The Halogen Halo
 <!-- claim-quality: f5ucdo (per-element manifestation: $4\alpha$ Oxygen core + Tritium halo identification) -->

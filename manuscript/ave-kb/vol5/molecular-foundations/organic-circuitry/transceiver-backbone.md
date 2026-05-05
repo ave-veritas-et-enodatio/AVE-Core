@@ -1,6 +1,9 @@
 [↑ Organic Circuitry](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: huhz7r -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [huhz7r]
+-->
 
 ---
 

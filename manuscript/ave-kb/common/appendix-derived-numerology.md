@@ -1,6 +1,9 @@
 [↑ Common](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: zi6t1e -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [zi6t1e]
+-->
 
 # Appendix C: Derived Hardware Numerology
 

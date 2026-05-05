@@ -1,6 +1,9 @@
 [↑ Up](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7tk051 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7tk051]
+-->
 
 ## Ionization Energy: Op10 Junction Projection (Correction~C)
 

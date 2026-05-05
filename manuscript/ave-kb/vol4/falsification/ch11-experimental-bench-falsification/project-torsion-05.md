@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: kl1ern -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [kl1ern]
+-->
 
 ## Project TORSION-05: Horizontal Metric Rectification
 

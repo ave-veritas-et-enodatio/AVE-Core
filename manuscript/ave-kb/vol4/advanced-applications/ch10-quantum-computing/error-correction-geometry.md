@@ -1,6 +1,9 @@
 [↑ Ch.10 Quantum Computing](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 07wvul -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [07wvul]
+-->
 
 ## Casimir Cavity Shielding: Filtering the Vacuum Impedance
 

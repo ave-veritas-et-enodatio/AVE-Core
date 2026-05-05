@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 2dwzib, lv3uw1, b9eura -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [2dwzib, lv3uw1, b9eura]
+-->
 
 ## Section 3.3: Wave-Particle Duality and The Zero-Impedance Boundary
 <!-- claim-quality: 2dwzib -->

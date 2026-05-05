@@ -1,6 +1,9 @@
 [↑ Silicon Design Engine](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 0hwopi -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [0hwopi]
+-->
 
 # Topological Transistor Mechanics (BJT Gain)
 

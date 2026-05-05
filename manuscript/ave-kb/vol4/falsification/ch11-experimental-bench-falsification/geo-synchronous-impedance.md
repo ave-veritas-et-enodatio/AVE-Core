@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: cwjd8t -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [cwjd8t]
+-->
 
 ## Protocol 12: GEO-Synchronous Impedance Differential
 

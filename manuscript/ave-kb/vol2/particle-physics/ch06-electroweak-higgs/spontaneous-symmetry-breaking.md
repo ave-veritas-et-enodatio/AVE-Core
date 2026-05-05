@@ -1,6 +1,9 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: p7rfkb, q8un7j -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [p7rfkb, q8un7j]
+-->
 
 ## The W and Z Boson Masses
 <!-- claim-quality: q8un7j -->

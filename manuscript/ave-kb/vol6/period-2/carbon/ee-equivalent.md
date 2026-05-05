@@ -1,6 +1,9 @@
 [↑ Carbon (Z=6)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: sd04x4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sd04x4]
+-->
 
 ## Electrical Engineering Equivalent: The 3-Phase Delta-Wye Map
 

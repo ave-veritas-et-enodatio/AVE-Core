@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oltvwy, qde5gn -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oltvwy, qde5gn]
+-->
 
 ## Objectives
 

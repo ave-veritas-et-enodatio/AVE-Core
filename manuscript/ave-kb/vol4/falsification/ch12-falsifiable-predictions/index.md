@@ -1,5 +1,9 @@
 [↑ Falsification](../index.md)
-<!-- claim-quality (subtree): 9sujp8, gw2wgc, i02mhk, om0rtq, pp3qwf, qx9bb8, to41c7, trgqtf, wqmb19 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [9sujp8, gw2wgc, i02mhk, om0rtq, pp3qwf, qx9bb8, to41c7, trgqtf, wqmb19]
+-->
 
 # Ch.12: Falsifiable Predictions and Experimental Blueprints
 

@@ -1,7 +1,10 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as eq:nonlinear_wave -->
-<!-- claim-quality: ph2uux -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ph2uux]
+path-stable: "referenced from vol1 as eq:nonlinear_wave"
+-->
 
 ## Section 3.6: Non-Linear Dynamics and Topological Shockwaves
 

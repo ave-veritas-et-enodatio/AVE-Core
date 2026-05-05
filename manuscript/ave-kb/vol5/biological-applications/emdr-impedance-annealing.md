@@ -1,6 +1,9 @@
 [↑ Biological Applications](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 8zwyl3 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [8zwyl3]
+-->
 
 # EMDR as Impedance Annealing of Trauma Defects
 

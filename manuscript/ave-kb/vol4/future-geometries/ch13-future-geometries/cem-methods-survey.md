@@ -1,6 +1,9 @@
 [↑ Ch.13: Future Geometries](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: hd9bee, u462e4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [hd9bee, u462e4]
+-->
 
 ## Computational Verification: Mapping CEM Solvers to the Chiral Lattice
 <!-- claim-quality: u462e4 -->

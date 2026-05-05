@@ -1,6 +1,9 @@
 [↑ Boron (Z=5)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: f5ucdo, l416hl -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [f5ucdo, l416hl]
+-->
 
 ## Topological Structure and Isotope Stability
 <!-- claim-quality: f5ucdo (per-element manifestation: $1\alpha + ^3$H halo geometry; $R_{halo}$ as per-nucleus fitted scalar) -->

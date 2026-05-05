@@ -1,5 +1,9 @@
 [↑ Condensed Matter](../index.md)
-<!-- claim-quality (subtree): nxfmh0 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [nxfmh0]
+-->
 
 # Ch.10: Deriving Macroscopic Material Properties
 

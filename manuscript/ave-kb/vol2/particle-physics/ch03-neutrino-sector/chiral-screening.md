@@ -1,7 +1,10 @@
 [↑ Ch.3 — Neutrino Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 as sec:chiral_screening, eq:chiral_threshold -->
-<!-- claim-quality: 7o8clt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7o8clt]
+path-stable: "referenced from vol2 as sec:chiral_screening, eq:chiral_threshold"
+-->
 
 ## Step 1: Chiral Screening Threshold
 

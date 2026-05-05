@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: w6kk5y -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [w6kk5y]
+-->
 
 ## Stage E1: Same-Shell Bonding Mode
 

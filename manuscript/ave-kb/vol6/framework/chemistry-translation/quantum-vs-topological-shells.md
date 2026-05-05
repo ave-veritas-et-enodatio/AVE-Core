@@ -1,6 +1,9 @@
 [↑ Chemistry Translation Guide](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: jqnzz7 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [jqnzz7]
+-->
 
 ## Quantum Orbitals vs. Topological Shells
 

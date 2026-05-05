@@ -1,6 +1,9 @@
 [↑ Ch.14 Orbital Mechanics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: qyn8t0 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [qyn8t0]
+-->
 
 ## The Saturn Ring Integrator
 

@@ -1,6 +1,9 @@
 [↑ Ch.1 Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: salw2h -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [salw2h]
+-->
 
 # Spin ↔ Gyroscopic Precession Isomorphism
 

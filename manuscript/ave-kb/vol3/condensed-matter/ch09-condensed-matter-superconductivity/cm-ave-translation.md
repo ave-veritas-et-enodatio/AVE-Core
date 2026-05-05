@@ -1,6 +1,9 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
-<!-- leaf: verbatim -->
-<!-- no-claim: routing forwarder to common/translation-tables/ -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: routing forwarder to common/translation-tables/
+-->
 
 ---
 

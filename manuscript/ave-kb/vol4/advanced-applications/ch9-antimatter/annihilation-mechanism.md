@@ -1,6 +1,9 @@
 [↑ Ch.9 Antimatter Annihilation](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5rigtn -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5rigtn]
+-->
 
 ## Matter-Antimatter Annihilation as Flywheel Collisions
 

@@ -1,6 +1,9 @@
 [↑ Vol 6: Framework](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: llqd1n -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [llqd1n]
+-->
 
 ## Macroscopic Mass Defect Summary
 

@@ -1,6 +1,9 @@
 [↑ Ch.2 Topological Thrust Mechanics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7tynm2 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7tynm2]
+-->
 
 ## Chiral Acoustic Rectification (The Vacuum Varactor)
 

@@ -1,6 +1,9 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: mroghg -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [mroghg]
+-->
 
 ## The Hubble Tension
 

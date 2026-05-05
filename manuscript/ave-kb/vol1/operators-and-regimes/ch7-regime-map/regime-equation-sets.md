@@ -1,6 +1,9 @@
 [↑ Ch.7 Regime Map](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: lv3uw1, b2anl4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [lv3uw1, b2anl4]
+-->
 
 ## Section 7.3: Regime-Specific Equation Sets
 

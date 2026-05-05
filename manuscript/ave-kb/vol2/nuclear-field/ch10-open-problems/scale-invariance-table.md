@@ -1,6 +1,9 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: xhdai6 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [xhdai6]
+-->
 
 ## The Scale Invariance Principle
 

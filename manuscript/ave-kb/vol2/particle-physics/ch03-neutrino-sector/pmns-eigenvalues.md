@@ -1,7 +1,10 @@
 [↑ Ch.3 — Neutrino Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 as sec:pmns_eigenvalues, eq:theta12_leading, eq:theta23_leading, eq:theta13 -->
-<!-- claim-quality: 7o8clt, rji99i -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7o8clt, rji99i]
+path-stable: "referenced from vol2 as sec:pmns_eigenvalues, eq:theta12_leading, eq:theta23_leading, eq:theta13"
+-->
 
 ## Step 2: Regime Boundary Eigenvalues in Mode Space
 <!-- claim-quality: 7o8clt -->

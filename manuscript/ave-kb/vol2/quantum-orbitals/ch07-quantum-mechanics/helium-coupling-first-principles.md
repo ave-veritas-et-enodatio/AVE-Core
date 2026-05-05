@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oltvwy, w6kk5y -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oltvwy, w6kk5y]
+-->
 
 ## Helium Coupling from First Principles
 

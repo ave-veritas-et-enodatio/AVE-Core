@@ -1,6 +1,10 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: mlwm3h -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [mlwm3h]
+-->
+
 <!-- PATH-STABLE: sec:golden_ratio_emergence -->
 
 ## The Golden Ratio: Minimum Impedance at 12 Nodes

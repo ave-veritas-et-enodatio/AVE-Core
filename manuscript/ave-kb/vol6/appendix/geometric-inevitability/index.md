@@ -1,5 +1,9 @@
 [↑ Vol 6: Appendix](../index.md)
-<!-- claim-quality (subtree): l416hl, llqd1n, mlwm3h, nk6c43, ome498, sjixaw -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [l416hl, llqd1n, mlwm3h, nk6c43, ome498, sjixaw]
+-->
 
 # Geometric Inevitability --- From Numerology to Derivation
 

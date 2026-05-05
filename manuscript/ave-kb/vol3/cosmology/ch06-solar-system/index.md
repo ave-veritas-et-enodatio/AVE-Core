@@ -1,5 +1,9 @@
 [↑ Cosmology](../index.md)
-<!-- claim-quality (subtree): 3kmt3p -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [3kmt3p]
+-->
 
 # Ch.6: Solar System Impedance
 

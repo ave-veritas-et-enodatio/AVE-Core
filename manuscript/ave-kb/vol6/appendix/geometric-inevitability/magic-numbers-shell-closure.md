@@ -1,6 +1,10 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: sjixaw -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sjixaw]
+-->
+
 <!-- PATH-STABLE: sec:magic_numbers -->
 
 > ↗ See also: [Torus Knot Baryon Predictions](../../../vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) — forward mass predictions from $(p,q)$ knot ladder

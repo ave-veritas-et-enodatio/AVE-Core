@@ -1,7 +1,10 @@
 [↑ Ch.3 — Neutrino Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 as sec:delta_cp, eq:delta_cp_pmns -->
-<!-- claim-quality: 7o8clt, rji99i -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7o8clt, rji99i]
+path-stable: "referenced from vol2 as sec:delta_cp, eq:delta_cp_pmns"
+-->
 
 ## Step 4: CP-Violating Phase
 <!-- claim-quality: 7o8clt -->

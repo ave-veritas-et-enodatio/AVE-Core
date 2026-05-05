@@ -1,7 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:d_derivation -->
-<!-- claim-quality: llqd1n, lqanmt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [llqd1n, lqanmt]
+path-stable: "referenced from vol6 as sec:d_derivation"
+-->
 
 > ↗ See also: [Axiom 1 — Lattice Structure](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — standing-wave condition on the $\mathcal{M}_A$ lattice that sets $d$
 

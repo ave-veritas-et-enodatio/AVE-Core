@@ -1,5 +1,9 @@
 [↑ Cosmology](../index.md)
-<!-- claim-quality (subtree): a71inj, av2o4v, qyn8t0 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [a71inj, av2o4v, qyn8t0]
+-->
 
 # Ch.14: Macroscopic Orbital Mechanics
 

@@ -1,7 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:abcd_cascade -->
-<!-- claim-quality: nk6c43, 5965y1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [nk6c43, 5965y1]
+path-stable: "referenced from vol6 as sec:abcd_cascade"
+-->
 
 ## Transfer Matrix Cascade (ABCD Framework)
 <!-- claim-quality: 5965y1 -->

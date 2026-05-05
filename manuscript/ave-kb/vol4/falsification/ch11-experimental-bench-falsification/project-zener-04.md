@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: cltls0 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [cltls0]
+-->
 
 ## Project ZENER-04: The Impedance Avalanche Detector
 

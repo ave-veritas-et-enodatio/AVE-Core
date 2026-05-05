@@ -1,6 +1,9 @@
 [↑ Carbon (Z=6)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: f8k2um -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [f8k2um]
+-->
 
 ## Topological Area of Interest: Organic Catenation & Diamond Lattices
 

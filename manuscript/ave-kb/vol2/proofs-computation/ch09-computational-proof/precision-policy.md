@@ -1,6 +1,9 @@
 [↑ Ch. 9: Computational Proof and Anomaly Catalog](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ak97cb -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ak97cb]
+-->
 
 ## Numerical Precision and Dimensional Coordination
 

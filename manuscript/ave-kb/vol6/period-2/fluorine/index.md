@@ -1,5 +1,9 @@
 [↑ Period 2](../index.md)
-<!-- claim-quality (subtree): 8psuqe, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [8psuqe, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc]
+-->
 
 # Fluorine (Z=9)
 

@@ -1,6 +1,9 @@
 [↑ Common](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: io8hft -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [io8hft]
+-->
 
 # Appendix D: VCA Schematic Symbol Reference
 

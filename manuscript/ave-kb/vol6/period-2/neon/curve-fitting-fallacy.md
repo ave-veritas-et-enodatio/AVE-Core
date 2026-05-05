@@ -1,6 +1,9 @@
 [↑ Neon (Z=10)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 8psuqe -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [8psuqe]
+-->
 
 ## Addressing the Curve-Fitting Fallacy
 

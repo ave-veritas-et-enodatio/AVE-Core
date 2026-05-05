@@ -1,6 +1,10 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: q8un7j, rji99i -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [q8un7j, rji99i]
+-->
+
 <!-- NOTE: eq:muon_twist_angle is in this section (§6.5), not §6.2 -->
 
 ## The Three-Generation Lepton Spectrum

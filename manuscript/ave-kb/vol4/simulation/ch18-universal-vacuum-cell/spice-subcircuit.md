@@ -1,6 +1,9 @@
 [↑ Ch.18 Universal Vacuum Cell](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: vjv4zf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [vjv4zf]
+-->
 
 # SPICE Subcircuit Specification
 

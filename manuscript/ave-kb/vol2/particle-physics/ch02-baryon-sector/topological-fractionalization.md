@@ -1,6 +1,9 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: mnb3lt, 67jn9o -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [mnb3lt, 67jn9o]
+-->
 
 ## Topological Fractionalization: The Origin of Quarks
 <!-- claim-quality: 67jn9o -->

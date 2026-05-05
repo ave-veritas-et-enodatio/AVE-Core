@@ -1,6 +1,9 @@
 [↑ Ch.2 Macroscopic Moduli](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: dfaiwj -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [dfaiwj]
+-->
 
 ## Section 2.2: The Constitutive Moduli of the Void
 

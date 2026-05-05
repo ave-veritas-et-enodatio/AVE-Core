@@ -1,6 +1,9 @@
 [↑ Ch.7 Topological SMES](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 6btlq3 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [6btlq3]
+-->
 
 ## Topological Superconducting Magnetic Energy Storage (SMES)
 

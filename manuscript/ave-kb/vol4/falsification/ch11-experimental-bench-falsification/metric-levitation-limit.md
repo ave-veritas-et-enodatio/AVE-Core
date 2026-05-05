@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ui3m8a -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ui3m8a]
+-->
 
 ## The Absolute Hardware Limit of Metric Levitation
 

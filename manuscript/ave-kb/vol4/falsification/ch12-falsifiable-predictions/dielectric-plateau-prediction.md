@@ -1,6 +1,9 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: trgqtf, pp3qwf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [trgqtf, pp3qwf]
+-->
 
 <!-- NOTE: sec:ee_bench label is ABSENT from Ch.12 source. Inbound \ref{sec:ee_bench} from Ch.11 is a dangling reference. This section is the intended target. -->
 

@@ -1,6 +1,9 @@
 [↑ Ch.14: Leaky Cavity Particle Decay](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: c54kdd -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [c54kdd]
+-->
 
 ## SPICE Netlist: Particle Decay (leaky_cavity.cir)
 

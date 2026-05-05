@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: nq2kcc -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [nq2kcc]
+-->
 
 ## Section 3.2.2: The Generalized Uncertainty Principle (GUP)
 

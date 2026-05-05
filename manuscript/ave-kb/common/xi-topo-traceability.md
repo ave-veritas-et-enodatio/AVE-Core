@@ -1,6 +1,9 @@
 [↑ Common Index](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: sxn6eo, hmiytz -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sxn6eo, hmiytz]
+-->
 
 # $\xi_{topo}$ Traceability Map
 <!-- claim-quality: hmiytz -->

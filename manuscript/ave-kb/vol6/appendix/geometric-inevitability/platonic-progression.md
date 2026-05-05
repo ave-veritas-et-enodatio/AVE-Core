@@ -1,6 +1,10 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: llqd1n, nk6c43, sjixaw -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [llqd1n, nk6c43, sjixaw]
+-->
+
 <!-- NOTE: No \label{} on this section in source -->
 
 ## The Platonic Progression

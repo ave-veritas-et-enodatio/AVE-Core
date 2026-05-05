@@ -1,5 +1,9 @@
 [↑ Period 2](../index.md)
-<!-- claim-quality (subtree): f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc]
+-->
 
 # Oxygen (Z=8)
 

@@ -1,6 +1,9 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 9sujp8 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [9sujp8]
+-->
 
 ## Autoresonant Dielectric Rupture (The Schwinger Limit)
 

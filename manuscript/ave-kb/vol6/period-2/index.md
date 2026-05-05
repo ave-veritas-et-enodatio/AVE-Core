@@ -1,5 +1,9 @@
 [↑ Vol 6: Periodic Table](../index.md)
-<!-- claim-quality (subtree): 7tk051, 8psuqe, f5ucdo, f8k2um, h8nmpu, l416hl, rw7jqo, sd04x4, y7uvdc -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [7tk051, 8psuqe, f5ucdo, f8k2um, h8nmpu, l416hl, rw7jqo, sd04x4, y7uvdc]
+-->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

@@ -1,7 +1,10 @@
 [↑ Ch.7 Regime Map](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as sec:dimensional_analysis -->
-<!-- claim-quality: rtgmg5 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [rtgmg5]
+path-stable: "referenced from vol1 as sec:dimensional_analysis"
+-->
 
 ## Section 7.4: Cross-Domain Dimensional Analysis
 

@@ -1,6 +1,9 @@
 [↑ Ch.6 Solar System](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 3kmt3p -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [3kmt3p]
+-->
 
 ## Internal Plasma Pressure
 

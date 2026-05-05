@@ -1,5 +1,9 @@
 [↑ Circuit Theory](../index.md)
-<!-- claim-quality (subtree): 8nkvwy, i9l284, kezk9z, o2shcn, p5cf3t, pp3qwf, u462e4, v6ti0v, vjv4zf -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [8nkvwy, i9l284, kezk9z, o2shcn, p5cf3t, pp3qwf, u462e4, v6ti0v, vjv4zf]
+-->
 
 # Ch.1 Vacuum Circuit Analysis
 

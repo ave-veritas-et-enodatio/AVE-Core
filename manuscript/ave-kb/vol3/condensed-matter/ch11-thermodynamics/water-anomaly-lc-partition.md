@@ -1,6 +1,9 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: jpfbm6 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [jpfbm6]
+-->
 
 ---
 

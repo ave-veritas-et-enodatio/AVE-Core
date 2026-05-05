@@ -1,5 +1,9 @@
 [↑ Applied Physics](../index.md)
-<!-- claim-quality (subtree): cul4it -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [cul4it]
+-->
 
 # Ch.12: The Ideal Gas Law and Fluid Pressure
 

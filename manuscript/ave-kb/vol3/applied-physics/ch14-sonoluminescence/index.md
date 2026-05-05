@@ -1,5 +1,9 @@
 [↑ Applied Physics](../index.md)
-<!-- claim-quality (subtree): 91adfe -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [91adfe]
+-->
 
 # Ch.14: Sonoluminescence and Tabletop Relativity
 

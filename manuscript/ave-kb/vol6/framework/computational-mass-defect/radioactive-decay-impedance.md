@@ -1,6 +1,9 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: o9xphr -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [o9xphr]
+-->
 
 ## Radioactive Decay as Impedance Mismatch
 

@@ -1,6 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 3ii690 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [3ii690]
+-->
 
 ## The CMB as an Asymptotic Thermal Attractor
 

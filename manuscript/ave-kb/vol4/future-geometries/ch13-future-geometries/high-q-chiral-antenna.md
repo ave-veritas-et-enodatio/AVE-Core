@@ -1,6 +1,9 @@
 [↑ Ch.13: Future Geometries](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: wzezvt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [wzezvt]
+-->
 
 ## Toroidal and Poloidal Fusion
 

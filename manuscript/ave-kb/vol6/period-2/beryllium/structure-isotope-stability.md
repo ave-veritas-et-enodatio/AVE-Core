@@ -1,6 +1,9 @@
 [↑ Beryllium (Z=4)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: f5ucdo -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [f5ucdo]
+-->
 
 ## Topological Structure and Isotope Stability
 

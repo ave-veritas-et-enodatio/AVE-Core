@@ -1,6 +1,9 @@
 [↑ Ch.1 — Topological Matter](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oygz1i -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oygz1i]
+-->
 
 ## The Mathematical Topology of Mass
 

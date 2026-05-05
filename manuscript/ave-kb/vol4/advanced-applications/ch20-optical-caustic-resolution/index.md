@@ -1,6 +1,9 @@
 [↑ Advanced Applications](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: uosu8w -->
+
+<!-- kb-frontmatter
+kind: leaf-as-index
+claims: [uosu8w]
+-->
 
 # Ch.20: Optical Caustic Singularity Resolution
 

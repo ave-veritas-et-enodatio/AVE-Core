@@ -1,7 +1,10 @@
 [↑ Organic Circuitry](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:membrane_phase_buffering -->
-<!-- claim-quality: uowffm, x5z09x -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [uowffm, x5z09x]
+path-stable: "referenced from vol6 as sec:membrane_phase_buffering"
+-->
 
 ---
 

@@ -1,5 +1,9 @@
 [↑ Operators and Regimes](../index.md)
-<!-- claim-quality (subtree): gdd70j -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [gdd70j]
+-->
 
 # Ch.6: Universal Operators: Z, $S$, $\Gamma$
 

@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: oltvwy -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [oltvwy]
+-->
 
 ## De Broglie Refractive Index on the AVE Lattice
 

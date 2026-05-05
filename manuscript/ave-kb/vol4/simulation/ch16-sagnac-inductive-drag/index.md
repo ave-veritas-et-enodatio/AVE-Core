@@ -1,5 +1,9 @@
 [↑ Vol 4: Simulation](../index.md)
-<!-- claim-quality (subtree): cbwd77 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [cbwd77]
+-->
 
 # Ch.16: Sagnac Macroscopic Inductive Drag
 

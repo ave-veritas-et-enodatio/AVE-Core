@@ -1,6 +1,9 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: d9ivj1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [d9ivj1]
+-->
 
 ## The Semiconductor Junction Analogy
 

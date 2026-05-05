@@ -1,6 +1,9 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: o9xphr, qjwj12 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [o9xphr, qjwj12]
+-->
 
 ## Topological Circuit Conventions
 <!-- claim-quality: qjwj12 (mass-as-inductance / EE-mapping conventions) -->

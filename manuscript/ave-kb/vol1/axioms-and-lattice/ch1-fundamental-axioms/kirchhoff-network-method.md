@@ -1,6 +1,9 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: q39qct -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [q39qct]
+-->
 
 ## Section 1.5: Methodology: Explicit Discrete Kirchhoff Execution
 

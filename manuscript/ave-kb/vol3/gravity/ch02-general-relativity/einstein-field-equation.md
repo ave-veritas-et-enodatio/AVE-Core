@@ -1,6 +1,9 @@
 [↑ Ch.2 General Relativity](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 07kd5v, 8nkvwy, y9old1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [07kd5v, 8nkvwy, y9old1]
+-->
 
 ---
 

@@ -1,7 +1,10 @@
 [↑ Ch.3 Macroscopic Relativity](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:dielectric_rupture -->
-<!-- claim-quality: ir8h78 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ir8h78]
+path-stable: "referenced from vol3 as sec:dielectric_rupture"
+-->
 
 ---
 

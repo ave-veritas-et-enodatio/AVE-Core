@@ -1,6 +1,9 @@
 [↑ Ch.1 Gravity and Yield](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: rd9cjm -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [rd9cjm]
+-->
 
 ---
 

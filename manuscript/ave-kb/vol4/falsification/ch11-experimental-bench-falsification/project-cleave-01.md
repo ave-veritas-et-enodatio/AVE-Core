@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ydksh6 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ydksh6]
+-->
 
 ## Project CLEAVE-01: The Femto-Coulomb Electrometer
 

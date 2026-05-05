@@ -1,5 +1,9 @@
 [↑ Circuit Theory](../index.md)
-<!-- claim-quality (subtree): 0vxzfu, 7tynm2, trgqtf -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [0vxzfu, 7tynm2, trgqtf]
+-->
 
 # Ch.2 Topological Thrust Mechanics
 

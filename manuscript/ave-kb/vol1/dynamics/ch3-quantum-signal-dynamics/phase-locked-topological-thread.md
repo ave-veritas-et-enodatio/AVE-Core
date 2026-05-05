@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: zuf7g1, b9eura -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [zuf7g1, b9eura]
+-->
 
 ## Quantum Entanglement: The Phase-Locked Topological Thread
 <!-- claim-quality: zuf7g1 -->

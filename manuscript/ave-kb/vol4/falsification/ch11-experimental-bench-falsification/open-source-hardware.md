@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7tynm2, wzezvt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7tynm2, wzezvt]
+-->
 
 ## Open-Source Hardware: The EE Build Guide
 

@@ -1,6 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ak97cb, oltvwy -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ak97cb, oltvwy]
+-->
 
 ## Numerical Verification: ODE Eigenvalue Solver
 <!-- claim-quality: oltvwy -->

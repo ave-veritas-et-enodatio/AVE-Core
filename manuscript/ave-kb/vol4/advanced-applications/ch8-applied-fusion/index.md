@@ -1,5 +1,9 @@
 [↑ Advanced Applications](../index.md)
-<!-- claim-quality (subtree): pcute0, qagkgy -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [pcute0, qagkgy]
+-->
 
 # Ch.8 Applied Fusion and Dielectric Limits
 

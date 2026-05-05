@@ -1,6 +1,9 @@
 [↑ Orbital Mechanics](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: av2o4v -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [av2o4v]
+-->
 
 # Lunar Inductive Heating (VCA Power Transfer Bridge)
 

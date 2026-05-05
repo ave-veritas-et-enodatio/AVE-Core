@@ -1,6 +1,9 @@
 [↑ Beryllium (Z=4)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: f8k2um -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [f8k2um]
+-->
 
 ## Topological Area of Interest: Mechanical Fuses & Secondary Fusion Triggers
 

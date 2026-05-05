@@ -1,7 +1,10 @@
 [↑ Ch.3 — Neutrino Sector](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol2 as sec:pmns_junction, eq:pmns_13, eq:pmns_12, eq:pmns_23 -->
-<!-- claim-quality: 7o8clt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7o8clt]
+path-stable: "referenced from vol2 as sec:pmns_junction, eq:pmns_13, eq:pmns_12, eq:pmns_23"
+-->
 
 ## Step 3: Perturbative Junction Corrections
 

@@ -1,6 +1,9 @@
 [↑ Ch.11 Thermodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: hk81zp -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [hk81zp]
+-->
 
 # Kolmogorov Spectral Cutoff
 

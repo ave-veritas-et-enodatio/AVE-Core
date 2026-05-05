@@ -1,6 +1,9 @@
 [↑ Silicon (Z=14)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: h8nmpu -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [h8nmpu]
+-->
 
 ## Continuous Vacuum Density Flux
 

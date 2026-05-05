@@ -1,6 +1,9 @@
 [↑ Ch.11 Index](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5s5b0d, cwjd8t, h55fy1, k9up5c, wqmb19 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5s5b0d, cwjd8t, h55fy1, k9up5c, wqmb19]
+-->
 
 ## Advanced Falsification Protocols
 

@@ -1,6 +1,9 @@
 [↑ Up](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7tk051 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7tk051]
+-->
 
 # First Ionization Energy Summary
 

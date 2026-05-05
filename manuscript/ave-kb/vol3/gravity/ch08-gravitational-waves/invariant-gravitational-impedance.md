@@ -1,7 +1,10 @@
 [↑ Ch.8 Gravitational Waves](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as eq:Z_grav -->
-<!-- claim-quality: 07kd5v -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [07kd5v]
+path-stable: "referenced from vol3 as eq:Z_grav"
+-->
 
 ---
 

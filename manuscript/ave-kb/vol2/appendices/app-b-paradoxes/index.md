@@ -1,5 +1,9 @@
 [↑ Appendices](../index.md)
-<!-- claim-quality (subtree): ghs75o, nhlo1e, salw2h -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [ghs75o, nhlo1e, salw2h]
+-->
 
 # App B: Theoretical Stress Tests — Surviving Standard Disproofs
 

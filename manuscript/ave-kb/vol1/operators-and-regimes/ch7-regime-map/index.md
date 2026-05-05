@@ -1,5 +1,9 @@
 [↑ Operators and Regimes](../index.md)
-<!-- claim-quality (subtree): 2dwzib, 82dxbj, b2anl4, lv3uw1, rtgmg5 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [2dwzib, 82dxbj, b2anl4, lv3uw1, rtgmg5]
+-->
 
 # Ch.7: The Universal Regime Map
 

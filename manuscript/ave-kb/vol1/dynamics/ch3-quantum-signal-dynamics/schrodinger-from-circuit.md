@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7zuwtm -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7zuwtm]
+-->
 
 ## Section 3.2.3: Deriving the Schrodinger Equation from Circuit Resonance
 

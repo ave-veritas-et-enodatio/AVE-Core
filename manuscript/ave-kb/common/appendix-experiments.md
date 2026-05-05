@@ -1,7 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1,vol2,vol3,vol4,vol5,vol7,vol8 as app:unified_experiments -->
-<!-- claim-quality: t5ybqw -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [t5ybqw]
+path-stable: "referenced from vol1,vol2,vol3,vol4,vol5,vol7,vol8 as app:unified_experiments"
+-->
 
 # Appendix: Unified Index of Experimental Falsifications
 

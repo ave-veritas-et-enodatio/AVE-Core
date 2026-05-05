@@ -1,5 +1,9 @@
 [↑ Proofs and Computation](../index.md)
-<!-- claim-quality (subtree): dboxok -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [dboxok]
+-->
 
 # Ch. 11: The Standard Model Overdrive
 

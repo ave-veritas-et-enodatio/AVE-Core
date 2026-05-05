@@ -1,6 +1,9 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5zuo7g, p7rfkb -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5zuo7g, p7rfkb]
+-->
 
 ## Reinterpretation of the Higgs Mechanism
 <!-- claim-quality: p7rfkb -->

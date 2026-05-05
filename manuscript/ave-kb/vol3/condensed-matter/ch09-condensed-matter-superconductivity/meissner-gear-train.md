@@ -1,6 +1,9 @@
 [↑ Up](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: qky559 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [qky559]
+-->
 
 ## The Meissner Effect: A Phase-Locked Gear Train
 

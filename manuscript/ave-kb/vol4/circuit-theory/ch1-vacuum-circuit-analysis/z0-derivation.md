@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: i9l284, kezk9z -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [i9l284, kezk9z]
+-->
 
 ## The Impedance of Free Space ($Z_0$)
 

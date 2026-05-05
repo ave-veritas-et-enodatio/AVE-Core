@@ -1,5 +1,9 @@
 [↑ Particle Physics](../index.md)
-<!-- claim-quality (subtree): 5zuo7g, jkpfd4, q8un7j -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [5zuo7g, jkpfd4, q8un7j]
+-->
 
 # Ch.5 — Electroweak Mechanics and Gauge Symmetries
 

@@ -1,6 +1,9 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: d9ivj1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [d9ivj1]
+-->
 
 ## Derived Numerology
 
@@ -57,4 +60,3 @@ is a first-principles prediction of a hadronic mass from two topological invaria
 Note: $G_{string}$ and $G_{vac}$ are distinct quantities. The manuscript (Vol 1, §3.7 rev.0) previously conflated them, quoting $G_{vac} \approx 5.48 \times 10^{24}$ Pa — a 13-order-of-magnitude error. The correct 3D shear modulus is $\rho \cdot c^2$, verified by the cross-check $v_T = \sqrt{G/\rho} = c$.
 
 ---
-

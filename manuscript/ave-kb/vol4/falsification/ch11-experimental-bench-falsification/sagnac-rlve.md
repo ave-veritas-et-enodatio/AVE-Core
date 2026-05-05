@@ -1,6 +1,9 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: wqmb19 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [wqmb19]
+-->
 
 ## The Ultimate Kill-Switch: The Sagnac-RLVE
 

@@ -1,6 +1,9 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: q5izb7 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [q5izb7]
+-->
 
 ## The Yang-Mills Mass Gap: Steps 3-5
 

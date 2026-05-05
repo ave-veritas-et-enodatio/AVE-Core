@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: kezk9z, p5cf3t -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [kezk9z, p5cf3t]
+-->
 
 ## Topological Defects as Resonant LC Solitons
 

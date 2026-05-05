@@ -1,5 +1,9 @@
 [↑ Particle Physics](../index.md)
-<!-- claim-quality (subtree): 7o8clt, rji99i -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [7o8clt, rji99i]
+-->
 
 # Ch.3 — The Neutrino Sector: Chiral Unknots
 

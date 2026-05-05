@@ -1,6 +1,9 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: om0rtq -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [om0rtq]
+-->
 
 ## The Epistemology of Falsification
 

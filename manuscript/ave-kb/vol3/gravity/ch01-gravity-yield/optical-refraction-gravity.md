@@ -1,6 +1,9 @@
 [↑ Ch.1 Gravity and Yield](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: wx5324, rd9cjm, 1klgo2 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [wx5324, rd9cjm, 1klgo2]
+-->
 
 ---
 

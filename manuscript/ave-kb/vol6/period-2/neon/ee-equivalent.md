@@ -1,6 +1,9 @@
 [↑ Neon (Z=10)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: sd04x4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sd04x4]
+-->
 
 ## Electrical Engineering Equivalent: The 5-Phase Ring Oscillator
 

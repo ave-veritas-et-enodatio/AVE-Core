@@ -1,7 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:semiconductor_nuclear -->
-<!-- claim-quality: llqd1n, jy8h1x, 6tuqjh -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [llqd1n, jy8h1x, 6tuqjh]
+path-stable: "referenced from vol6 as sec:semiconductor_nuclear"
+-->
 
 ## Semiconductor Circuit Analysis of Nuclear Binding
 

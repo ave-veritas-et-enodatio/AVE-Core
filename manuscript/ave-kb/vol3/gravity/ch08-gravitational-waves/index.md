@@ -1,5 +1,9 @@
 [↑ Gravity](../index.md)
-<!-- claim-quality (subtree): 07kd5v -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [07kd5v]
+-->
 
 # Ch.8: Gravitational Waves
 

@@ -1,6 +1,10 @@
 [↑ Ch. 11: The Standard Model Overdrive](./index.md)
-<!-- leaf: verbatim -->
-<!-- no-claim: placeholder/routing index over ch11 overdrive content -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: placeholder/routing index over ch11 overdrive content
+-->
+
 <!-- GAP: axiom-survey — no axiombox environments found in ch11 source (11_standard_model_overdrive.tex); see Ambiguity A-M3 in extraction spec -->
 
 ## Axiom Survey (Ch. 11)

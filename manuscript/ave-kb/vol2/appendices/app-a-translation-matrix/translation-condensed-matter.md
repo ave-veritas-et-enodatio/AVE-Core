@@ -1,6 +1,9 @@
 [↑ App A: The Interdisciplinary Translation Matrix](./index.md)
-<!-- leaf: verbatim -->
-<!-- no-claim: routing forwarder to common/translation-tables/ -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: routing forwarder to common/translation-tables/
+-->
 
 ## Translation Table: Condensed Matter / Superconductivity
 

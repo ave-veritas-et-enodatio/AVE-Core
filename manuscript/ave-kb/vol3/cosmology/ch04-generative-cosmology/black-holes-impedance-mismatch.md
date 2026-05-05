@@ -1,6 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ir8h78, c6k5om -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ir8h78, c6k5om]
+-->
 
 ## Black Holes and The Absolute Impedance Mismatch ($\Gamma = -1$)
 <!-- claim-quality: ir8h78 (this leaf states the BH-interior phase transition / Axiom 4 dielectric saturation rupture; note: the $\Gamma = -1$ "absolute mismatch" framing here is reconciled in einstein-field-equation.md and in the entry's caveats — under Symmetric Gravity $Z = Z_0$ everywhere, so $\Gamma = 0$ across the horizon, with the topological-rupture / phase-transition content being the surviving claim) -->

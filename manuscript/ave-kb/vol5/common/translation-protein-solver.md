@@ -1,6 +1,9 @@
 [↑ Vol 5 Translation Tables](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: enjq28 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [enjq28]
+-->
 
 ---
 

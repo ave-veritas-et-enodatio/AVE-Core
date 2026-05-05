@@ -1,5 +1,9 @@
 [↑ Molecular Foundations](../index.md)
-<!-- claim-quality (subtree): 4jy0t8, f4osd7, huhz7r, j20lz8, j9l3ww, lm9b3j, oilm45, r6uef4, rppigm, uowffm, x5z09x, yyhczl -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [4jy0t8, f4osd7, huhz7r, j20lz8, j9l3ww, lm9b3j, oilm45, r6uef4, rppigm, uowffm, x5z09x, yyhczl]
+-->
 
 # Organic Circuitry
 

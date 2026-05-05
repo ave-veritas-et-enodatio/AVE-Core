@@ -1,6 +1,9 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 3kzmt9, 219e8j -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [3kzmt9, 219e8j]
+-->
 
 ## Section 1.3: The Vacuum as an LC Resonant Condensate ($\mathcal{M}_A$)
 

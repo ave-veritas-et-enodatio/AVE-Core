@@ -1,7 +1,10 @@
 [↑ Ch.13: Future Geometries](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:k4_tlm -->
-<!-- claim-quality: wzezvt, hd9bee -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [wzezvt, hd9bee]
+path-stable: "referenced from vol3 as sec:k4_tlm"
+-->
 
 ## K4-TLM: Native Lattice Dynamics Simulator
 <!-- claim-quality: hd9bee -->

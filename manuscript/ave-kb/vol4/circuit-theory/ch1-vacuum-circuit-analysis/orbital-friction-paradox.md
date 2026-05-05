@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: v6ti0v -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [v6ti0v]
+-->
 
 ## Real vs. Reactive Power: The Orbital Friction Paradox
 

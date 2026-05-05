@@ -1,6 +1,9 @@
 [↑ Boron (Z=5)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: y7uvdc -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [y7uvdc]
+-->
 
 ## Orbital Knot Topology
 

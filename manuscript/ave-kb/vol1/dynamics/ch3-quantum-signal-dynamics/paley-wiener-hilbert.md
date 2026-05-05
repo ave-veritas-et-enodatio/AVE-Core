@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: yc7fgm -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [yc7fgm]
+-->
 
 ## Section 3.2.1: The Paley-Wiener Hilbert Space
 

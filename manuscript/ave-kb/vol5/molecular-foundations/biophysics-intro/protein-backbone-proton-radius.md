@@ -1,6 +1,10 @@
 [↑ Biophysics Introduction](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: u4vmgk, a3rby3 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [u4vmgk, a3rby3]
+-->
+
 <!-- original-label: sec:protein_bridge DUPLICATE (also in Ch.3) -->
 
 ---

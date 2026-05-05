@@ -1,7 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1,vol2 as app:full_derivation_chain -->
-<!-- claim-quality: sxn6eo, ibfyda -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sxn6eo, ibfyda]
+path-stable: "referenced from vol1,vol2 as app:full_derivation_chain"
+-->
 
 # Full Derivation Chain: From Three Limits to Zero Parameters
 <!-- claim-quality: ibfyda -->

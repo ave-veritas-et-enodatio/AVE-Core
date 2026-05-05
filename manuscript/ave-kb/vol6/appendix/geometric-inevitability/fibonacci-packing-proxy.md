@@ -1,6 +1,10 @@
 [↑ Geometric Inevitability](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: nk6c43, mlwm3h -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [nk6c43, mlwm3h]
+-->
+
 <!-- PATH-STABLE: sec:fibonacci_packing -->
 
 ## The Fibonacci Sequence: Convergent Ratio as Packing Proxy

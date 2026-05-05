@@ -1,6 +1,9 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ak97cb, oltvwy -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ak97cb, oltvwy]
+-->
 
 ## Standard Model Translation
 

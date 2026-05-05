@@ -1,7 +1,10 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:achromatic_lens -->
-<!-- claim-quality: k9up5c -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [k9up5c]
+path-stable: "referenced from vol3 as sec:achromatic_lens"
+-->
 
 ## Protocol 9: The Achromatic Impedance Lens
 

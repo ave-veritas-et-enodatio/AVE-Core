@@ -1,5 +1,9 @@
 [↑ Appendices](../index.md)
-<!-- claim-quality (subtree): ak97cb, d5jhku, d9ivj1, dboxok, k6olj8, oltvwy -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [ak97cb, d5jhku, d9ivj1, dboxok, k6olj8, oltvwy]
+-->
 
 # App F: Universal Solver Toolchain
 

@@ -1,5 +1,9 @@
 [↑ Vol 4: Simulation](../index.md)
-<!-- claim-quality (subtree): c54kdd -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [c54kdd]
+-->
 
 # Ch.14: The Leaky Cavity — Simulating Particle Decay
 

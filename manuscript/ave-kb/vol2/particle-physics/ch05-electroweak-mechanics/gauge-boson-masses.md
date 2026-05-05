@@ -1,6 +1,9 @@
 [↑ Ch.5 — Electroweak Mechanics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5zuo7g, q8un7j -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5zuo7g, q8un7j]
+-->
 
 ## Electrodynamics: The Gradient of Topological Phase
 

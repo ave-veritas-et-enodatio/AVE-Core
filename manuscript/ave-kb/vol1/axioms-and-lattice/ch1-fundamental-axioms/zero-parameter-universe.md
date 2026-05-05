@@ -1,6 +1,9 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 9s9apq -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [9s9apq]
+-->
 
 ## Section 1.4: The Pathway to a Zero-Parameter Universe
 

@@ -1,6 +1,9 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: efo113, lv3uw1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [efo113, lv3uw1]
+-->
 
 > ↗ See also: [Particle Physics (Torus Knot Ladder)](../../../vol2/particle-physics/index.md) — trapped knots yield baryon mass spectrum
 > ↗ See also: [Gravity (Metric Refraction)](../../../vol3/gravity/index.md) — refractive gradient produces gravitational acceleration

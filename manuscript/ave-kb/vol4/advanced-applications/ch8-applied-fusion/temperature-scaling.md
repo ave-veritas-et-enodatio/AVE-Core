@@ -1,6 +1,9 @@
 [↑ Ch.8 Applied Fusion](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: qagkgy -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [qagkgy]
+-->
 
 ## WKB Derivation of Temperature Scaling
 

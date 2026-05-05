@@ -1,5 +1,9 @@
 [↑ Proofs and Computation](../index.md)
-<!-- claim-quality (subtree): ak97cb, oltvwy, z73h6n -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [ak97cb, oltvwy, z73h6n]
+-->
 
 # Ch. 9: Computational Proof and Anomaly Catalog
 

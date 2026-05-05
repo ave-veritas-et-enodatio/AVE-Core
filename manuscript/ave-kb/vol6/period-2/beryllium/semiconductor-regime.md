@@ -1,6 +1,9 @@
 [↑ Beryllium (Z=4)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: rw7jqo -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [rw7jqo]
+-->
 
 ## Semiconductor Regime Classification
 

@@ -1,7 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as app:verification -->
-<!-- claim-quality: sxn6eo, ibfyda -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [sxn6eo, ibfyda]
+path-stable: "referenced from vol1 as app:verification"
+-->
 
 # System Verification Trace
 <!-- claim-quality: sxn6eo -->

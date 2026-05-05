@@ -1,5 +1,9 @@
 [↑ Advanced Applications](../index.md)
-<!-- claim-quality (subtree): 6btlq3 -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [6btlq3]
+-->
 
 # Ch.7 Topological SMES
 

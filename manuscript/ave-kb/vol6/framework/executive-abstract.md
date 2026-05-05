@@ -1,6 +1,9 @@
 [↑ Vol 6: Framework](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: mlwm3h -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [mlwm3h]
+-->
 
 ## Executive Abstract: The Topological Nucleus
 

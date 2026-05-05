@@ -1,6 +1,9 @@
 [↑ Biophysics Introduction](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 239tr4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [239tr4]
+-->
 
 ---
 

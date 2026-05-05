@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: vjv4zf, pp3qwf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [vjv4zf, pp3qwf]
+-->
 
 ## Condensate IMD Spectroscopy: The Harmonic Fingerprint
 

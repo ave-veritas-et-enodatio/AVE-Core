@@ -1,7 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:K_derivation -->
-<!-- claim-quality: llqd1n, lqanmt -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [llqd1n, lqanmt]
+path-stable: "referenced from vol6 as sec:K_derivation"
+-->
 
 > ↗ See also: [Axiom 2 — $\xi_{topo}$](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — $\alpha\hbar c$ coupling derived from Axiom 2
 > ↗ See also: [Torus Knot Mass Ladder](../../../vol2/particle-physics/ch01-topological-matter/index.md) — proton as $(2,5)$ cinquefoil knot with $c=5$ crossings

@@ -1,6 +1,9 @@
 [↑ Ch.18 Active Topological Metamaterials](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ffa5sq -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ffa5sq]
+-->
 
 ## Transcribing Biology into Solid-State
 

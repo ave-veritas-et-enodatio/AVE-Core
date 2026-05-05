@@ -1,6 +1,9 @@
 [↑ Ch.11 Index](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: iz3svl, p12mem, ui3m8a -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [iz3svl, p12mem, ui3m8a]
+-->
 
 ## Industrial Scale-Up
 

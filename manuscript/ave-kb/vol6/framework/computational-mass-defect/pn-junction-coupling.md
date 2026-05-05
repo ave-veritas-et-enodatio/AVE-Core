@@ -1,7 +1,10 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol6 as sec:pn_junction -->
-<!-- claim-quality: 86gq2d -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [86gq2d]
+path-stable: "referenced from vol6 as sec:pn_junction"
+-->
 
 ## Proton--Neutron Junction Coupling
 

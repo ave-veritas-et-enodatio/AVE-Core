@@ -1,6 +1,9 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: m3z5ux -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [m3z5ux]
+-->
 
 ## Section 4.6: The Bullet Cluster: Refractive Tensor Shockwaves
 

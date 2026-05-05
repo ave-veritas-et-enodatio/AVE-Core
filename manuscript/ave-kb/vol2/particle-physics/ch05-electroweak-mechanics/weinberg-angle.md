@@ -1,6 +1,9 @@
 [↑ Ch.5 — Electroweak Mechanics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 5zuo7g -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [5zuo7g]
+-->
 
 ## Deriving the Weak Mixing Angle via Isotropic Elasticity
 

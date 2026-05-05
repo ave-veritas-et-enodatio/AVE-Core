@@ -1,6 +1,9 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: ir8h78 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [ir8h78]
+-->
 
 ## Interior Topology and Singularity Resolution
 

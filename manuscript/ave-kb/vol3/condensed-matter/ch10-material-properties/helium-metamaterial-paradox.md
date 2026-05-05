@@ -1,6 +1,9 @@
 [↑ Ch.10: Deriving Macroscopic Material Properties](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: nxfmh0 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [nxfmh0]
+-->
 
 ---
 

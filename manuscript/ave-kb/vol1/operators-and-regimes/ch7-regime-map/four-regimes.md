@@ -1,6 +1,9 @@
 [↑ Ch.7 Regime Map](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 2dwzib, b2anl4 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [2dwzib, b2anl4]
+-->
 
 ## Section 7.1: The Four Universal Regimes
 

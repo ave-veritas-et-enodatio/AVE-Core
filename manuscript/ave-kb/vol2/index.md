@@ -1,5 +1,10 @@
 [↑ AVE Knowledge Base](../entry-point.md)
-<!-- claim-quality (subtree): 4vwsjc, 5zuo7g, 67jn9o, 7o8clt, ak97cb, bh9p6s, c8q0z5, d5jhku, d9ivj1, dboxok, e1pdfd, g6e3zw, gfs4j8, ghs75o, h9aqmt, hb2xmj, jkpfd4, jwyy6l, k6olj8, knveh6, mnb3lt, mroghg, nhlo1e, o3q9ul, oltvwy, ou2jym, oygz1i, p7rfkb, pf84ng, q5izb7, q8un7j, qde5gn, rji99i, salw2h, stgx1i, w6kk5y, xhdai6, z73h6n -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [4vwsjc, 5zuo7g, 67jn9o, 7o8clt, ak97cb, bh9p6s, c8q0z5, d5jhku, d9ivj1, dboxok, e1pdfd, g6e3zw, gfs4j8, ghs75o, h9aqmt, hb2xmj, jkpfd4, jwyy6l, k6olj8, knveh6, mnb3lt, mroghg, nhlo1e, o3q9ul, oltvwy, ou2jym, oygz1i, p7rfkb, pf84ng, q5izb7, q8un7j, qde5gn, rji99i, salw2h, stgx1i, w6kk5y, xhdai6, z73h6n]
+bootstrap: true
+-->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

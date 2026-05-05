@@ -1,5 +1,10 @@
 [↑ Appendices](../index.md)
-<!-- claim-quality (subtree): -->
+
+<!-- kb-frontmatter
+kind: index
+subtree-claims: []
+-->
+
 <!-- All 8 children are documented no-claim translation-table forwarders; canonical translation content lives in common/translation-tables/ -->
 
 # App A: The Interdisciplinary Translation Matrix

@@ -1,6 +1,9 @@
 [↑ Magnesium (Z=12)](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: jy8h1x -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [jy8h1x]
+-->
 
 ## The Symmetric Shell Collapse
 

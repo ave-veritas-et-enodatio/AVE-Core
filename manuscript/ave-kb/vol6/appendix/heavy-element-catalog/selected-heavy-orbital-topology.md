@@ -1,6 +1,9 @@
 [↑ Heavy Element Catalog](../index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: nk6c43 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [nk6c43]
+-->
 
 ## Orbital Topology of Selected Heavy Elements
 

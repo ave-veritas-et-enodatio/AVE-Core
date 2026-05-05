@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: yiyyi3 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [yiyyi3]
+-->
 
 ## Section 3.1: The Dielectric Lagrangian: Hardware Mechanics
 

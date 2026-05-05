@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: o2shcn -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [o2shcn]
+-->
 
 ## The Viscoelastic TVS Zener Diode (Phase Transition)
 

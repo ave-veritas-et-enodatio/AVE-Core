@@ -1,6 +1,9 @@
 [↑ Ch.8 Applied Fusion](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: qagkgy -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [qagkgy]
+-->
 
 ## The Tokamak Ignition Paradox (The 60.3 kV Alignment)
 

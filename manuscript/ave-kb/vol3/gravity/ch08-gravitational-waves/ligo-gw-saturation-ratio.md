@@ -1,6 +1,9 @@
 [↑ Ch.8 Gravitational Waves](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 07kd5v -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [07kd5v]
+-->
 
 ---
 

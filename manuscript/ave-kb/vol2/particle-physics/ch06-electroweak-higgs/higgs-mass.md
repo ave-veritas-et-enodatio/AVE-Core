@@ -1,6 +1,9 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: q8un7j, p7rfkb, stgx1i -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [q8un7j, p7rfkb, stgx1i]
+-->
 
 ## The Neutrino Mass Spectrum
 <!-- claim-quality: p7rfkb (Higgs-sector mass-generation framework: $m_\nu \propto m_e/M_W$ uses the W-boson scale that this section's Higgs-mechanism reinterpretation establishes) -->

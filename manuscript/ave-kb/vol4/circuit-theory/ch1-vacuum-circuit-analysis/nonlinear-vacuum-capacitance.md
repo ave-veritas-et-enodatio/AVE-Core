@@ -1,6 +1,9 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 8nkvwy, vjv4zf -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [8nkvwy, vjv4zf]
+-->
 
 ## Constitutive Circuit Models for Vacuum Non-Linearities
 

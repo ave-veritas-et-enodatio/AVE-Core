@@ -1,6 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 7zuwtm, ldmvwi, zuf7g1 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [7zuwtm, ldmvwi, zuf7g1]
+-->
 
 ## Section 3.5: Deterministic Interference and The Measurement Effect
 <!-- claim-quality: 7zuwtm -->

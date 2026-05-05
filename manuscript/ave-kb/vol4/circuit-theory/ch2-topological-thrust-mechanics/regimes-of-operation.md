@@ -1,6 +1,9 @@
 [↑ Ch.2 Topological Thrust Mechanics](index.md)
-<!-- leaf: verbatim -->
-<!-- claim-quality: 0vxzfu, trgqtf, 7tynm2 -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [0vxzfu, trgqtf, 7tynm2]
+-->
 
 ## Regimes of Operation
 <!-- claim-quality: trgqtf -->
