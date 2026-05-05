@@ -6,6 +6,37 @@
 
 ---
 
+## Electron as Topological Unknot ($0_1$) — Identity, Mass, and Self-Energy Resolution
+<!-- id: h9aqmt -->
+
+- $e^- \equiv 0_1$ ground-state topological unknot; ropelength $= 2\pi$ at minimum tube diameter $d \equiv 1\,\ell_{node}$; circumference $C_{loop} = \ell_{node}$; tube radius $\ell_{node}/(2\pi)$.
+- $m_e = T_{EM} \cdot \ell_{node}/c^2 = \hbar/(\ell_{node}\,c)$ from the scale-invariant string tension $T_{EM} = m_e c^2/\ell_{node}$ integrated along $C_{loop} = \ell_{node}$.
+- _Specific Claims_
+  - The electron's identification as a Beltrami standing-wave unknot ($\nabla \times \mathbf{A} = k\mathbf{A}$, mutually orthogonal $\mathbf{E}$ and $\mathbf{B}$ in a closed flux loop) is the **primary topological identity** that all downstream particle-sector derivations (proton mass eigenvalue, torus-knot baryon ladder, lepton mass spectrum, $a_e$, neutrino spectrum, electroweak masses) depend on. This is a **category (i) ontological reinterpretation** with an attached **category (iii) parameter-elimination** consequence (the reduced Compton wavelength $\ell_{node} = \hbar/(m_e c)$ becomes the geometric circumference of the unknot, not an independent length scale).
+  - The classical electrostatic self-energy divergence $U_{\text{classical}} \to \infty$ (3D volumetric integration of $\varepsilon_0 |\mathbf{E}|^2/2$ as $r \to 0$) is **finitely resolved** by replacing the 3D point-volume integral with the 1D ropelength integral: $U_{\text{AVE}} = \oint_{C_{loop}} T_{EM}\,ds = T_{EM} \cdot \ell_{node} = 1.0\,m_e c^2$. The integration is over the topological perimeter, not a surrounding sphere.
+  - The minimum ropelength $2\pi$ is **forced**, not chosen: it is the unique minimum-non-self-intersecting closed loop length on a discrete lattice of pitch $\ell_{node}$ when the flux-tube diameter is bounded by Axiom 1's hard-sphere exclusion ($d \equiv 1\,\ell_{node}$). The electron's role as the "structural mass-gap" of $\mathcal{M}_A$ follows directly.
+  - Brief running-coupling content in the leaf: Axiom 4 dynamic capacitive yielding $C_{eff}(\Delta\phi) = C_0/\sqrt{1 - (\Delta\phi/\alpha)^2}$ provides the continuous-mechanical analog of the QED running of $\alpha$. **This is a sketch**, not a quantitative reproduction of the QED $\beta$-function; treat as a mechanism claim, not as a numerical-prediction match.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim independent first-principles derivation of $m_e$ as a numerical mass — the absolute scale of $m_e$ enters via $T_{EM} = m_e c^2/\ell_{node}$ and $\ell_{node} = \hbar/(m_e c)$, which is a definitional couple, not a downstream prediction. The framework's claim is that the **geometric content** ($0_1$ unknot, ropelength $2\pi$, $C_{loop} = \ell_{node}$) is forced by the lattice axioms; the absolute numerical anchor is the same as in standard physics.
+  - Does NOT claim the brief running-coupling derivation reproduces QED's $\beta$-function. The Resultbox $C_{eff}(\Delta\phi) = C_0/\sqrt{1-(\Delta\phi/\alpha)^2}$ is the static dielectric-saturation form, not a momentum-dependent renormalization-group flow. A rigorous AVE running-coupling derivation is an open problem.
+  - The g=2 mention is brief; the canonical claim-quality entry for spin-1/2 gyroscopic precession is "Spin-1/2 as Macroscopic Gyroscopic Precession" (`salw2h`) with the canonical leaf at `spin-gyroscopic-isomorphism.md` and the spin chapter. This entry's mention is pedagogical, not the canonical g=2 derivation.
+  - Does NOT claim the Beltrami / $\nabla \times \mathbf{A} = k\mathbf{A}$ form is a derivation; it is an **ansatz** for the closed-loop standing-wave structure consistent with the topological unknot identification.
+
+> **Leaf references:** `particle-physics/ch01-topological-matter/electron-unknot.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (lattice pitch $\ell_{node}$)
+  - INVARIANT-S2 / Axiom 4 (saturation kernel — for the running-coupling sketch)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
 ## Proton Mass Eigenvalue ($m_p/m_e \approx 1836.12$)
 <!-- id: mnb3lt -->
 

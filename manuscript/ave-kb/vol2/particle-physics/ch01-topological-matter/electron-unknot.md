@@ -1,6 +1,7 @@
 [↑ Ch.1 — Topological Matter](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol2 as eq:dynamic_capacitance_yield -->
+<!-- claim-quality: h9aqmt -->
 
 ## The Electron: The Fundamental Unknot ($0_1$)
 
