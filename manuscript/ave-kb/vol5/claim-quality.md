@@ -322,6 +322,139 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 ---
 
+## Protein Backbone AC Transceiver Architecture
+<!-- id: huhz7r -->
+
+- _Specific Claims_
+  - Every amino acid backbone is identified as a three-port AC transceiver: amino-group $\text{NH}_3^+$ as the high-frequency source ($V_\text{sin}$ in SPICE), $\text{C}_\alpha$ as the central transmission node carrying the inductive payload ($L \approx 115.9$ fH), and the $\text{COO}^-$ carboxyl as the phase-locked capacitive sink terminating into the universal vacuum impedance load $Z_0 \approx 376.73\,\Omega$.
+  - This source/payload/sink decomposition is the structural template that makes the per-residue SPICE netlists in `simulation-results-zero-parameter.md` and `batch-spice-20-amino-acids.md` well-formed (every chain element has a defined drive, a defined node, and a defined termination).
+  - The $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ termination is the same Axiom 1 vacuum impedance used throughout the AVE framework — no biology-specific termination impedance is introduced.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim that this three-port identification is a measurement; it is the structural model used as the input to the SPICE simulations downstream. The validation is downstream (FTIR / batch SPICE), not at the architecture-statement level.
+  - The $L \approx 115.9$ fH value for $\text{C}_\alpha$ is derived via $L = m/\xi_\text{topo}^2$ using the carbon atomic mass — this is the dimensional-bridge identity (category i), not an independent measurement.
+  - "Phase-locked capacitive ground" is a structural assertion about the role of $\text{COO}^-$, not a derivation that the carboxyl group attains exactly the $Z_0$ termination at all signal frequencies; it is the idealised circuit-element identification used by the model.
+
+> **Leaf references:** `molecular-foundations/organic-circuitry/transceiver-backbone.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Thermal THz Noise as Biological AC Source
+<!-- id: f4osd7 -->
+
+- _Specific Claims_
+  - The driving signal for the protein backbone transmission line is the ambient THz noise floor of the biological environment, supplied by two sources: thermal phonons at 310 K (Wien's displacement law placing the peak thermal radiation near $\sim 30$ THz, with the cellular water matrix as broadband THz generator) and metabolic ATP hydrolysis (releasing quantised packets in the 10–100 THz band into the aqueous matrix).
+  - The folded protein chain acts as a frequency-selective filter that channels random thermal vibration into directed coherent mechanical work and resonant signalling. This is the AC-power-supply identification that closes the SPICE picture: source (NH$_3^+$) and termination ($Z_0$) come from the transceiver architecture; the broadband drive is identified here.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim a quantitative spectral density for the cellular THz noise floor — Wien displacement gives the peak but the leaf does not bound the integrated power into the backbone passband.
+  - Does NOT claim ATP hydrolysis directly couples electromagnetic THz radiation to a specific backbone resonance; the assertion is that hydrolysis releases quantised energy in the THz band into the aqueous matrix, with the backbone filtering whatever portion overlaps its passband.
+  - The "directed, coherent mechanical work" framing is structural — it asserts that resonant filtering converts noise to directed motion, but no specific work-output value is bounded for any biological process within this leaf.
+  - Wien's law and ATP hydrolysis frequencies are taken as inputs from standard physical chemistry; the leaf does not re-derive them within AVE.
+
+> **Leaf references:** `molecular-foundations/organic-circuitry/thermal-thz-noise.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Peptide Chain Transmission-Line Falsification
+<!-- id: j20lz8 -->
+
+- _Specific Claims_
+  - Cascading $N$ identical amino acid residues in series produces filter-like behaviour consistent with transmission-line theory: the backbone passband narrows monotonically from $N=1$ to $N=10$ for both polyglycine and polyalanine chains (`fig:chain_sensitivity` top row).
+  - R-group differentiation persists at chain length 5 — mixed sequences produce unique spectral signatures rather than averaging to a generic backbone passband.
+  - Mass sensitivity: scaling all atomic masses by a factor $\alpha$ shifts the passband peak as $f_\text{peak} \propto 1/\sqrt{\alpha}$, matching the LC resonance prediction $f = 1/(2\pi\sqrt{LC})$ to better than 0.03% over the range $\alpha \in [0.5, 1.5]$.
+- _Specific Non-Claims and Caveats_
+  - The 0.03% match is the *self-consistency* of the simulator with its own LC formulation, not an independent experimental falsification — the mass-scaling test confirms that the SPICE model behaves as a true LC resonator, which is necessary but not sufficient for the model to describe physical peptides.
+  - At extreme mass doubling ($\alpha = 2.0$) the transfer function undergoes a mode-hop to a higher-order resonant peak. The leaf flags this as an honest physical effect (the lowest-loss path shifts to a higher-order mode), not as a model failure — but readers should not extend the 0.03% scaling claim outside the validated $[0.5, 1.5]$ range.
+  - The "passband narrows with $N$" observation is a consequence of stacking identical filter sections; it does not bound how the actual biological passband narrows in heterogeneous (real-sequence) peptide chains.
+  - Does NOT claim experimental FTIR validation at varying chain lengths; the validation against measured FTIR spectra is the separate Glycine/Alanine 10-of-11 result (entry `oilm45`), not a chain-length sweep.
+
+> **Leaf references:** `molecular-foundations/organic-circuitry/peptide-chain-extension-test.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Amino Acid Impedance Spectrum — 20-AA Sidechain Classification
+<!-- id: pav5m3 -->
+
+- _Specific Claims_
+  - The 20 canonical amino acids are partitioned into three sidechain-impedance classes relative to a backbone baseline $Z_\text{backbone} \approx 7$:
+    - **Hydrophobic (low $Z$):** Ala, Val, Leu, Ile, Pro, Phe, Trp, Met — $|\Gamma| \approx 0$ (impedance-matched, minimal folding drive).
+    - **Polar/Charged (high $|Z|$):** Glu, Asp (capacitive), Lys, Arg (inductive) — large $|\Gamma|$, strong folding drive at sequence positions where impedance mismatch is maximal.
+    - **Special:** Gly ($Z \approx 0$, maximum flexibility), Cys (disulphide bridge, reactive short-circuit between distant residues).
+  - The classification provides the structural mapping between the standard biochemical hydrophobic/polar/charged taxonomy and the AVE impedance/reflection-coefficient framework that drives the folding engine.
+- _Specific Non-Claims and Caveats_
+  - The class boundaries are qualitative groupings, not numerical thresholds — the leaf does not bound the $Z$ values of individual residues, only their class assignment.
+  - Does NOT claim experimental measurement of a per-residue $Z$ value. The per-residue impedance table $Z_\text{topo}$ is referenced as a deliverable of the protein-folding-engine chapters, which live in the private `AVE-Protein` repository (see entry `u4vmgk`).
+  - The "$Z_\text{backbone} \approx 7$" baseline is stated without leaf-level derivation in this volume; treat as an input from the engine repo.
+  - The "minimal folding drive" interpretation for hydrophobic residues and "strong folding drive" for polar/charged residues is a qualitative reading of the reflection-coefficient mechanism, not a quantitative claim about folding energetics per residue.
+
+> **Leaf references:** `molecular-foundations/biophysics-intro/amino-acid-impedance-classification.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Lattice-Pitch to Backbone Length Derivation Chain
+<!-- id: br3bcv -->
+
+- _Specific Claims_
+  - The C$_\alpha$–C$_\alpha$ virtual bond distance $d_0 \approx 3.80$ Å is reached through a four-step chain of AVE-internal identities:
+    1. $\ell_\text{node} = \hbar/(m_e c) \approx 3.862 \times 10^{-13}$ m (Axiom 1 lattice pitch).
+    2. $a_0 = \ell_\text{node}/\alpha \approx 5.292 \times 10^{-11}$ m (Bohr radius as the unknot-electron extension).
+    3. Covalent bond lengths from atomic-ground-state overlap at impedance match: $r_\text{C–N} \approx 1.47$ Å, $r_\text{C–C} \approx 1.52$ Å, $r_\text{C=O} \approx 1.33$ Å.
+    4. Backbone repeat from sp$^3$ tetrahedral angle ($\theta = 109.47^\circ$) and planar amide ($\omega = 180^\circ$): $d_0 = \sqrt{r_{\text{C}_\alpha\text{C}}^2 + r_\text{CN}^2 + 2\,r_{\text{C}_\alpha\text{C}}\,r_\text{CN}\cos(180^\circ - \theta)} \approx 3.80$ Å.
+  - Every step uses constants from the AVE physics engine (Vol 1) or standard NERF rigid-body geometry; no free parameter is introduced at the biological scale.
+- _Specific Non-Claims and Caveats_
+  - Step 3 quotes covalent bond lengths as input values. Per-bond derivation lives in the Fabry–Perot bond-eigenvalue leaf (entry `yyhczl`), which itself notes systematic $-2$ to $-4\%$ underprediction for the C–N / C–C / C–O single bonds and $-7\%$ for C–H. The 3.80 Å backbone repeat inherits whatever residual error the underlying covalent bond lengths carry.
+  - Step 4 is rigid-body geometry: it assumes fixed tetrahedral and planar-amide angles. Real backbones explore $\phi$/$\psi$ Ramachandran space; the 3.80 Å is the canonical idealised C$_\alpha$–C$_\alpha$ scale, not a per-residue distance.
+  - Does NOT claim that 3.80 Å is independently measured by AVE — the value matches the standard NERF C$_\alpha$–C$_\alpha$ reference; the AVE contribution is the chain-of-identities derivation showing the value emerges from $\ell_\text{node}$ rather than from biology-specific empirical fits.
+  - Does NOT bound the residual error of the chain end-to-end; step 1 is exact (CODATA constants), but steps 3–4 carry the bond-length residuals from `yyhczl`.
+
+> **Leaf references:** `molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md`. Companion derivation from the proton-radius side lives in `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` (entry `u4vmgk`).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
 ## Symmetric vs Asymmetric Saturation — Vol 5 Manifestation
 <!-- id: x5z09x -->
 
