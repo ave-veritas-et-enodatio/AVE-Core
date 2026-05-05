@@ -1,5 +1,5 @@
 [↑ Vol 1: Foundations](../index.md)
-<!-- claim-quality (subtree): 2dwzib, 7zuwtm, 8ep2b4, b9eura, crbl60, efo113, ldmvwi, lv3uw1, m3z5ux, nq2kcc, t1okz0, zuf7g1 -->
+<!-- claim-quality (subtree): 2dwzib, 7zuwtm, 8ep2b4, b9eura, crbl60, efo113, ldmvwi, lv3uw1, m3z5ux, nq2kcc, ph2uux, t1okz0, xy252u, yc7fgm, yiyyi3, zuf7g1 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

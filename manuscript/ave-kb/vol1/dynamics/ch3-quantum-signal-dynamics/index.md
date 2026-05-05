@@ -1,5 +1,5 @@
 [↑ Dynamics](../index.md)
-<!-- claim-quality (subtree): 2dwzib, 7zuwtm, b9eura, ldmvwi, lv3uw1, nq2kcc, t1okz0, zuf7g1 -->
+<!-- claim-quality (subtree): 2dwzib, 7zuwtm, b9eura, ldmvwi, lv3uw1, nq2kcc, ph2uux, t1okz0, yc7fgm, yiyyi3, zuf7g1 -->
 
 # Ch.3: Quantum Formalism and Signal Dynamics
 

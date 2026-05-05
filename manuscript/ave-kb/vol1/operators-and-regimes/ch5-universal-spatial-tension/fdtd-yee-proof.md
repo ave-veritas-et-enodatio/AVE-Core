@@ -1,5 +1,6 @@
 [↑ Ch.5 Universal Spatial Tension](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: nu1ir7 -->
 
 ## Section 5.3: Continuous FDTD Yee Lattice Proof
 

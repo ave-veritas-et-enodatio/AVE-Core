@@ -1,5 +1,5 @@
 [↑ Axioms and Lattice](../index.md)
-<!-- claim-quality (subtree): 219e8j, 3kzmt9, 5xon03, 9s9apq, dfaiwj -->
+<!-- claim-quality (subtree): 219e8j, 3kzmt9, 5xon03, 9s9apq, dfaiwj, q39qct -->
 
 # Ch.1: The Four Fundamental Axioms and Network Architecture
 

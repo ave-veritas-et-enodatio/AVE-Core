@@ -4,6 +4,7 @@
 
 ## Section 7.3: Regime-Specific Equation Sets
 
+<!-- claim-quality: b2anl4 -->
 For each regime, the constitutive parameters simplify. Two saturation symmetries arise (per LIVING_REFERENCE Axiom 4 derived consequences); each gets its own table.
 
 ### Symmetric saturation (gravity, BH interior, GW shear)
