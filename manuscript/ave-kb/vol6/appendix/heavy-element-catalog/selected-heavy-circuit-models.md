@@ -1,5 +1,6 @@
 [↑ Heavy Element Catalog](../index.md)
 <!-- leaf: verbatim -->
+<!-- no-claim: figure captions only - circuit diagram visualisations -->
 
 ## Equivalent Circuit Models of Selected Heavy Elements
 

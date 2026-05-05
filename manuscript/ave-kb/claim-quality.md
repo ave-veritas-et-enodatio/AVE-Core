@@ -33,7 +33,7 @@ Each claim entry carries a stable 6-character lowercase-alphanumeric identifier 
 
 ```markdown
 ## Some Entry Title
-<!-- id: 52de10 -->
+<!-- id: xxxxxx -->
 
 (... entry body ...)
 ```
@@ -93,25 +93,6 @@ A high-confidence entry with low solidity tells you the entry's own work is soun
 `strengthen-by` items are the same kind of work-item that `common/mathematical-closure.md` "Outstanding Rigour Gaps" enumerates; over time, that document can become a derived index over all open `strengthen-by` items across claim-quality entries rather than a parallel register.
 
 ---
-
-## Reading Conventions for the Master Prediction Table (Project-Wide Meta-Tripwire)
-<!-- id: dht3su -->
-
-The Master Prediction Table in `LIVING_REFERENCE.md` (47 entries) and the Key Results tables in volume indexes mix **four kinds of claim** under uniform "Δ%" and ✅ formatting. The classification matters for what each entry actually asserts.
-
-- _Specific Claims_
-  - **(i) Identities** — entries where 0.00% or "Exact" is definitionally true. Example: $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ is how $Z_0$ is defined; the 0.00% is not a derivation result.
-  - **(ii) Axiom manifestations** — entries where the prediction IS one of the four axioms expressed at a new scale. Example: BCS $B_c(T) = B_{c,0} \cdot S(T/T_c)$ IS Axiom 4 applied at thermal scaling. The 0.00% match is the same operator, not a fit.
-  - **(iii) Consistency checks** — entries where the framework reproduces a standard result via an alternative mechanism. Example: solar deflection reproducing the GR value via metric-refraction.
-  - **(iv) Derived predictions** — entries where the framework outputs a novel numerical value not taken as input. Example: W/Z masses, neutrino mass, $\sin^2\theta_W = 2/9$, $H_\infty$.
-  - The classification of any specific row lives with the leaf; the table summary does not surface it.
-- _Specific Non-Claims and Caveats_
-  - A global "AVE achieves N predictions at low Δ%" claim is meaningless without the per-row classification. (i) and (ii) and (iii) and (iv) cohabiting under the same Δ% column **collapses meaningful distinctions**.
-  - "0.00%" or "Exact" entries do NOT all mean the same thing. An identity (i) is definitionally exact; an axiom-manifestation (ii) is the same operator at a new scale, not a fit; a consistency check (iii) reproduces a standard value via a different mechanism; a derived prediction (iv) at "0.00%" would be a substantive zero-parameter match.
-  - Reviewers and summarizers must consult the per-row classification before treating any prediction-table cell as evidence of a specific claim type.
-  - This meta-tripwire is documented in the LIVING_REFERENCE.md Master Prediction Table classification note ("Classification note") and in `docs/framing_and_presentation.md` §A1, §A2.
-
-> **Leaf references:** see `LIVING_REFERENCE.md` Master Prediction Table classification note; per-row classification lives in the leaf for each entry.
 
 ## Quality
 - confidence: 0.90
@@ -207,24 +188,6 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
 
 ---
 
-## V_SNAP ≠ V_YIELD
-<!-- id: lrw0q9 -->
-
-LIVING_REFERENCE.md "Critical Distinctions" #1. Surfaces in vol1 and vol4 sidecars; relevant wherever lab-scale dielectric breakdown is being discussed.
-
-- $V_{snap} = m_e c^2 / e \approx 511$ kV (absolute dielectric destruction)
-- $V_{yield} = \sqrt{\alpha} \cdot V_{snap} = \sqrt{\alpha} \cdot m_e c^2/e \approx 43.65$ kV (kinetic onset of measurable nonlinearity)
-- _Specific Claims_
-  - $V_{snap}$ marks absolute breakdown — the voltage at which the lattice topology ruptures.
-  - $V_{yield}$ marks the onset of measurable nonlinear response in laboratory-scale fields. Lab experiments operate near $V_{yield}$, not $V_{snap}$.
-  - The relation $V_{yield} = \sqrt{\alpha} \cdot V_{snap}$ comes from Axiom 2 (fine-structure constant sets the saturation threshold).
-- _Specific Non-Claims and Caveats_
-  - Does NOT claim laboratory experiments at "kV-scale fields" automatically encounter Axiom-4 saturation. Sub-$V_{yield}$ operation is in Regime I (linear Maxwell recovered).
-  - Does NOT claim $V_{snap}$ has been experimentally observed; 511 kV remains beyond standard lab capability.
-  - LIVING_REFERENCE.md Critical Distinction #1 explicitly: confusing $V_{snap}$ and $V_{yield}$ leads to mis-classifying lab regimes (e.g., a 30 kV experiment is in Regime II below $V_{yield}$, not approaching $V_{snap}$).
-
-> **References:** Vol 4 leaves ($V_{snap}$ definition, lab regime classification); Vol 1 leaves ($V_{yield}$ derivation from Axiom 2); LIVING_REFERENCE.md "Critical Distinctions" #1.
-
 ## Quality
 - confidence: 0.95
 - depends-on:
@@ -292,23 +255,6 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
 
 ---
 
-## Framework-Derived vs Clay-Rigorous (Yang-Mills, Navier-Stokes, Strong CP)
-<!-- id: rrgk6f -->
-
-Master Prediction Table entries #14 (Yang-Mills mass gap), #15 (Navier-Stokes smoothness), #16 (Strong CP) are marked ✅ but with explicit "framework-derived (lattice-conditional; not Clay-rigorous)" caveats. Surfaces in vol2 (Yang-Mills, NS, Strong CP) and vol3 (Kolmogorov spectral cutoff cites NS).
-
-- _Specific Claims_
-  - Within the AVE discrete-lattice framework, the three Millennium-class results follow from explicit constructions: lattice cutoff and Picard-Lindelöf for NS; vacuum topology for Strong CP; lattice + boundary conditions for Yang-Mills mass gap.
-  - The lattice cutoff $k_{\max} = \pi/\ell_{node}$ provides a constructive enstrophy bound for NS; the saturation envelope rolls the inertial spectrum smoothly to zero. Within this framework, global regularity is structural.
-  - Yang-Mills mass gap is positive within the framework's lattice-conditional construction.
-  - Strong CP $\theta = 0$ is exact within the framework's unique-vacuum-topology construction.
-- _Specific Non-Claims and Caveats_
-  - Does NOT claim Clay-Prize-rigorous proofs in any of the three cases. The proofs are framework-derived (lattice-conditional and reliant on AVE's specific operator structure), not continuum-rigorous in the formal-mathematics sense the Clay Mathematics Institute requires.
-  - Does NOT claim equivalence between AVE's lattice-conditional construction and a continuum proof; promotion to continuum-rigorous standing is an open problem.
-  - LIVING_REFERENCE.md Master Prediction Table entries #14, #15, #16 carry the same caveat language; vol2 sidecar covers Yang-Mills/NS/Strong CP individually with these caveats; vol3 sidecar's Kolmogorov entry references it.
-
-> **References:** Master Prediction Table #14, #15, #16; KB leaves under `vol2/nuclear-field/ch12-millennium-prizes/` (e.g., `yang-mills-steps1-2.md`, `yang-mills-steps3-5.md`, `navier-stokes-prize.md`, `index.md`); vol2 sidecar entries for Yang-Mills, Navier-Stokes, Strong CP carry the volume-scoped versions of these caveats; vol3 sidecar's Kolmogorov entry references the NS lattice-conditional construction. Underlying source material: `manuscript/common_equations/the_millennium_prizes.tex` and `10_open_problems.tex` (LaTeX origin, not a KB leaf — content is distilled into the listed KB leaves).
-
 ## Quality
 - confidence: 0.80
 - solidity: 0.80 (ok to build on, see caveats)
@@ -317,26 +263,6 @@ Master Prediction Table entries #14 (Yang-Mills mass gap), #15 (Navier-Stokes sm
   - Promote any of the three results to continuum-rigorous standing (e.g., derive a continuum-limit equivalence that doesn't rely on the lattice cutoff). This is a deep research project, not entry-local work; flagged here as the open path that would close the framework-vs-Clay gap.
 
 ---
-
-## Derived-as-Given Hazard Discipline (QM Vocabulary, Bohr Formula, σ-Arithmetic)
-<!-- id: vbvugz -->
-
-LIVING_REFERENCE.md Pitfalls #8–#11 catalogue project-wide contamination patterns where reasoners (or summaries) introduce derived quantities as if they were given. Surfaces in vol2 (atomic IE, methodological contamination) and vol6 (Bohr radius, IE correction stack).
-
-- _Specific Claims_
-  - The framework derives quantities that **correspond to** standard physics constants and concepts (GR, QM, standard model). It does **not** take them as inputs.
-  - Atomic ionization energy is solved by the AVE radial eigenvalue solver (`radial_eigenvalue.py`) — ODE cavity eigenvalue + Hopf mode split + corrections A/B/C/D — NOT by the Bohr formula $E = Z_{eff}^2 Ry/n^2$.
-  - Pairwise interactions are computed from Op4 ($U = -K/r \times (T^2 - \Gamma^2)$), NOT from ad-hoc energy formulas.
-  - The lattice defect dispersion is named "$n_{dB}(r)$" (de Broglie refractive index), distinct from the medium impedance $Z_0 = 377\,\Omega$.
-- _Specific Non-Claims and Caveats_
-  - Does NOT claim the framework reproduces QM by importing Schrödinger / Bohr / Hartree-Fock. Where QM-corresponding results appear, they are derived from AVE operators; importing the QM derivation IS the failure mode being warned against.
-  - Does NOT claim "any framework summary using QM vocabulary is wrong" — vocabulary used in the *source's* framing is fine. The hazard is summaries that introduce QM vocabulary the source does not use, which makes the framework appear to assume what it derives.
-  - Pitfall #8: $E = Z_{eff}^2 Ry/n^2$ is the Bohr formula, not AVE — using it is contamination.
-  - Pitfall #9: $V_{ee} = J \times Z \times Ry$ is ad-hoc — must come from Op4.
-  - Pitfall #10: De Broglie defect dispersion is NOT the lattice impedance.
-  - Pitfall #11: A Pauli-saturated inner shell creates a discrete impedance step the smooth CDF misses; SIR correction required for shells with p-subshells.
-
-> **References:** LIVING_REFERENCE.md Pitfalls #8, #9, #10, #11; LIVING_REFERENCE.md §"Red flags for QM contamination"; vol2 sidecar (atomic IE solver entry); vol6 sidecar (Bohr radius entry, IE correction stack).
 
 ## Quality
 - confidence: 0.90

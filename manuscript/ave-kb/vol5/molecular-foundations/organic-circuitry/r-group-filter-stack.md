@@ -1,5 +1,6 @@
 [↑ Organic Circuitry](../index.md)
 <!-- leaf: verbatim -->
+<!-- no-claim: notational framework / pure structural definition -->
 
 ---
 

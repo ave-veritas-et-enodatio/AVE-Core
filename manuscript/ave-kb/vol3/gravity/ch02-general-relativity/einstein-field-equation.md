@@ -1,6 +1,6 @@
 [↑ Ch.2 General Relativity](index.md)
 <!-- leaf: verbatim -->
-<!-- claim-quality: 07kd5v, y9old1 -->
+<!-- claim-quality: 07kd5v, 8nkvwy, y9old1 -->
 
 ---
 
@@ -34,6 +34,7 @@ In the AVE framework, the Stress-Energy Tensor ($T_{\mu\nu}$) on the right side 
 Furthermore, the mathematical Metric Tensor ($g_{\mu\nu}$) describing the curvature on the left side of the equation is isomorphic to the macroscopic structural variable impedance parameters ($\varepsilon_{eff}, \mu_{eff}$) of the dielectric matrix. Under **Symmetric Gravity**, both constitutive parameters scale with the refractive index $n(r) = 1 + 2GM/(rc^2)$:
 
 <!-- claim-quality: 07kd5v (canonical statement of Symmetric-Gravity invariant impedance $Z(r) \equiv Z_0$ implying $\Gamma = 0$ across any gravitational gradient — the lossless-LIGO consistency claim) -->
+<!-- claim-quality: 8nkvwy (Symmetric saturation case: both $\mu$ and $\varepsilon$ scale by $n \cdot S$ → $Z = Z_0$ invariant; this is the canonical statement of the symmetric branch of the Universal Saturation Kernel) -->
 > **[Resultbox]** *Symmetric Gravity Impedance*
 >
 > $$

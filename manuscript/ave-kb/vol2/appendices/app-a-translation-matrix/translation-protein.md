@@ -1,5 +1,6 @@
 [↑ App A: The Interdisciplinary Translation Matrix](./index.md)
 <!-- leaf: verbatim -->
+<!-- no-claim: routing forwarder to common/translation-tables/ -->
 
 ## Translation Table: Protein Folding (Biology $\leftrightarrow$ EE)
 

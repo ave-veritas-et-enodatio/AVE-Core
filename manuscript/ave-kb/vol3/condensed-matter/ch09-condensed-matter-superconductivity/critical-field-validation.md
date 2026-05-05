@@ -1,6 +1,6 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
 <!-- leaf: verbatim -->
-<!-- claim-quality: qky559 -->
+<!-- claim-quality: 3dc9qt, qky559 -->
 
 ---
 
@@ -9,6 +9,8 @@
 The superconductor engine (`ave.plasma.superconductor`) validates the Axiom 4 isomorphism against experimental data for four materials.
 
 ### $B_c(T) = B_{c0} \cdot S(T/T_c)$: Exact Match
+<!-- claim-quality: 3dc9qt (the BCS critical field IS the Universal Saturation Kernel applied at thermal scaling — Axiom 4 manifestation, not a curve fit) -->
+<!-- claim-quality: qky559 (universal saturation operator: BCS, type-I/II, London depth, coherence — same operator, four domains) -->
 
 The critical field formula is not merely *similar* to the saturation operator---it IS the operator. The engine function `critical_field(T, T_c, B_c0)` calls `saturation_factor(T, T_c)` directly. Validation across four materials at six temperatures each yields:
 

@@ -1,5 +1,6 @@
 [↑ App A: The Interdisciplinary Translation Matrix](./index.md)
 <!-- leaf: verbatim -->
+<!-- no-claim: routing forwarder to common/translation-tables/ -->
 
 ## Translation Table: General Relativity / Gravity
 

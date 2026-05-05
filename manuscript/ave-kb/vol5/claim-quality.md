@@ -480,20 +480,6 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
 
 ---
 
-## Master Prediction Table Reading — Vol 5 Manifestation
-<!-- id: ivdcxm -->
-
-The cross-cutting "Reading Conventions for the Master Prediction Table" entry applies to vol5 entries that surface in `LIVING_REFERENCE.md`:
-
-- **#39 Protein Rg (Villin), 0.8%**: category (iv) **derived prediction** ($R_g$ from $\eta_\text{eq} = P_C(1-\nu)$, validated against one globular protein).
-- The $L = m/\xi^2$ and $C = \xi^2/k$ dimensional bridges (this volume's foundational identities) are category (i) **identities** under the same classification — they convert mechanical inputs to electrical units; the predictive content is downstream.
-- The H-bond $E_\text{HB} = 4.98$ kcal/mol vs $5.02 \pm 0.05$ kcal/mol ($<0.9\%$) is closest to category (iv) — an axiom-derived value compared to a measured target — but the void-fraction projection $(1-\phi)$ is structurally motivated within AVE; treat as derived prediction.
-- The Chignolin RMSD of 2.59 Å is a **coarse-correctness** result (Level 6 emergence per the leaf), not a category (iv) precision prediction.
-
-A reader summarising vol5 results must consult the per-result classification before treating any single number as evidence of a specific claim type. See cross-cutting [Reading Conventions for the Master Prediction Table](../claim-quality.md) for the global framing.
-
-> **Leaf references:** see per-entry footers above; classification pattern from `LIVING_REFERENCE.md` Master Prediction Table classification note.
-
 ## Quality
 - confidence: *pending*
 - depends-on:

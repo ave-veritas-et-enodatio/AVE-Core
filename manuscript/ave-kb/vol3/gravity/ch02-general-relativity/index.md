@@ -1,5 +1,5 @@
 [↑ Gravity](../index.md)
-<!-- claim-quality (subtree): 07kd5v, rd9cjm, y9old1 -->
+<!-- claim-quality (subtree): 07kd5v, 8nkvwy, rd9cjm, y9old1 -->
 
 # Ch.2: General Relativity and Gravitational Waves
 

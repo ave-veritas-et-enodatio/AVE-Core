@@ -2,23 +2,27 @@
 """Mechanical integrity check for the AVE knowledge-base claim-quality framework.
 
 Enforces INVARIANT-S5, INVARIANT-S7, and INVARIANT-S8 from
-``manuscript/ave-kb/CLAUDE.md``. Six checks, all hard fail-loud:
+``manuscript/ave-kb/CLAUDE.md``. Eight checks, all hard fail-loud:
 
-    1. Tier 1 coverage: every leaf has a Tier 1 line, OR is in the
-       documented NO_CLAIM allowlist below.
-    2. Tier 2 coverage: every multi-claim leaf has proximal markers
-       for each ID in its Tier 1 list.
+    1. Tier 1 coverage: every leaf has either a Tier 1 line OR an inline
+       ``<!-- no-claim: <reason> -->`` marker. The reason lives with the
+       leaf (not in this script).
+    2. Tier 2 coverage: every multi-claim leaf has proximal markers for
+       each ID in its Tier 1 list.
     3. ID uniqueness: no canonical ``<!-- id: xxxxxx -->`` appears twice.
+       Canonical IDs are detected outside fenced code blocks only —
+       example IDs inside docs don't count.
     4. Orphan refs: every Tier 1 ID resolves to a canonical entry.
     5. Index subtree-ID line: every ``index.md`` carries a subtree
        line, except leaf-as-index documents (line 2 = leaf marker).
     6. Subtree consistency: each index's declared subtree-ID list
        equals the union of Tier 1 IDs from leaves below it.
-
-A seventh diagnostic (warning, not failure) reports canonical entries
-with no back-linking leaf — entries that exist in a claim-quality.md
-but no leaf cites their ID via Tier 1. That's a hygiene signal, not
-a structural defect.
+    7. Bidirectional coverage: every canonical entry is back-linked by
+       at least one leaf's Tier 1 line. Meta-claims and reading-hazards
+       have no leaf origin and don't belong here — they live in
+       CLAUDE.md / CONVENTIONS.md / LIVING_REFERENCE.md instead.
+    8. No-claim consistency: a leaf cannot carry both a Tier 1 line and
+       a no-claim marker.
 
 Run from the repository root::
 
@@ -26,7 +30,7 @@ Run from the repository root::
 
 Or via the build system::
 
-    make verify
+    make verify-claim-quality
 """
 
 from __future__ import annotations
@@ -34,82 +38,44 @@ from __future__ import annotations
 import os
 import re
 import sys
-from collections import Counter, defaultdict
+from collections import defaultdict
 from pathlib import Path
 
 KB = Path("manuscript/ave-kb")
-
-# Documented no-claim leaves. Each entry MUST have a one-line reason.
-# Add to this allowlist when promoting a leaf to no-claim status; remove
-# when a previously-no-claim leaf gains substantive content.
-NO_CLAIM: dict[str, str] = {
-    # vol1
-    "vol1/axioms-and-lattice/ch1-fundamental-axioms/lattice-structure.md":
-        "pure forward-reference to kirchhoff-network-method.md",
-    # vol2 — translation-table forwarders (8 leaves)
-    "vol2/appendices/app-a-translation-matrix/translation-circuit.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-condensed-matter.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-cosmology.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-gravity.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-particle-physics.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-protein-solver.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-protein.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/appendices/app-a-translation-matrix/translation-qm.md":
-        "routing forwarder to common/translation-tables/",
-    # vol2 — other no-claim
-    "vol2/nuclear-field/ch12-millennium-prizes/knot-vs-orbital-table-ch12.md":
-        "placeholder/routing — content lives in sibling millennium-prize leaves",
-    "vol2/particle-physics/ch03-neutrino-sector/neutrino-translation-table.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/particle-physics/ch06-electroweak-higgs/sm-ave-translation.md":
-        "routing forwarder to common/translation-tables/",
-    "vol2/proofs-computation/ch09-computational-proof/anomaly-catalog.md":
-        "research agenda / future work — no falsifiable claim asserted",
-    "vol2/proofs-computation/ch11-overdrive/axiom-survey.md":
-        "placeholder/routing index over ch11 overdrive content",
-    # vol3 — aggregators and routing
-    "vol3/condensed-matter/ch09-condensed-matter-superconductivity/cm-ave-translation.md":
-        "routing forwarder to common/translation-tables/",
-    "vol3/condensed-matter/ch09-condensed-matter-superconductivity/remaining-ch09-results.md":
-        "aggregator/forward-reference to sibling resultboxes",
-    "vol3/condensed-matter/ch11-thermodynamics/ch11-remaining-resultboxes.md":
-        "aggregator/forward-reference to sibling resultboxes",
-    "vol3/cosmology/ch04-generative-cosmology/remaining-ch04-results.md":
-        "aggregator/forward-reference to sibling resultboxes",
-    "vol3/cosmology/ch15-black-hole-orbitals/remaining-ch15-results.md":
-        "aggregator/forward-reference to sibling resultboxes",
-    "vol3/gravity/ch01-gravity-yield/remaining-ch01-results.md":
-        "aggregator/forward-reference to sibling resultboxes",
-    "vol3/gravity/ch02-general-relativity/gr-ave-translation-dictionary.md":
-        "routing/dispatcher to GR↔AVE translation content",
-    # vol5
-    "vol5/molecular-foundations/organic-circuitry/r-group-filter-stack.md":
-        "notational framework / pure structural definition",
-    # vol6 — figure-only and code listings
-    "vol6/appendix/heavy-element-catalog/selected-heavy-circuit-models.md":
-        "figure captions only — circuit diagram visualisations",
-    "vol6/appendix/heavy-element-catalog/selected-heavy-strain-fields.md":
-        "figure captions only — strain-field visualisations",
-    "vol6/framework/computational-mass-defect/python-simulator.md":
-        "code listing / methodology pointer — no standalone claim",
-}
 
 ID_PATTERN = re.compile(r"\b([a-z0-9]{6})\b")
 CQ_BLOCK = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 CANONICAL_ID = re.compile(r"<!-- id: ([a-z0-9]{6}) -->")
 SUBTREE_LINE = re.compile(r"<!--\s*claim-quality \(subtree\):\s*([^>]*?)\s*-->")
+NO_CLAIM_MARKER = re.compile(r"<!--\s*no-claim:\s*(.+?)\s*-->", re.DOTALL)
+FENCE = re.compile(r"^```")
 
 
-def find_leaves() -> list[tuple[Path, list[str]]]:
-    """Return ``[(path, tier1_ids)]`` for every leaf in the KB."""
-    leaves: list[tuple[Path, list[str]]] = []
+def strip_code_fences(text: str) -> str:
+    """Return text with fenced code blocks removed (keeping line count via blanks).
+
+    Canonical-ID detection should ignore example IDs that appear inside
+    documentation code blocks; only IDs in actual entry positions count.
+    """
+    out_lines = []
+    in_fence = False
+    for line in text.splitlines():
+        if FENCE.match(line):
+            in_fence = not in_fence
+            out_lines.append("")
+            continue
+        out_lines.append("" if in_fence else line)
+    return "\n".join(out_lines)
+
+
+def find_leaves() -> list[tuple[Path, list[str], str | None]]:
+    """Return ``[(path, tier1_ids, no_claim_reason)]`` for every leaf in the KB.
+
+    A leaf is any ``.md`` file (not ``claim-quality.md``) whose line 2 is
+    ``<!-- leaf: verbatim -->``. ``no_claim_reason`` is the body of the
+    inline ``<!-- no-claim: ... -->`` marker if present, else ``None``.
+    """
+    leaves: list[tuple[Path, list[str], str | None]] = []
     for root, _, files in os.walk(KB):
         for f in files:
             if not f.endswith(".md") or f == "claim-quality.md":
@@ -135,35 +101,43 @@ def find_leaves() -> list[tuple[Path, list[str]]]:
                 )
                 if m:
                     ids = ID_PATTERN.findall(m.group(1))
-            leaves.append((p, ids))
+            no_claim_reason = None
+            for line in lines[:12]:
+                m = NO_CLAIM_MARKER.match(line.strip())
+                if m:
+                    no_claim_reason = m.group(1).strip()
+                    break
+            leaves.append((p, ids, no_claim_reason))
     return leaves
 
 
 def collect_canonical_ids() -> list[tuple[str, str]]:
-    """Return ``[(id, claim-quality.md path)]`` for every canonical entry."""
+    """Return ``[(id, claim-quality.md path)]`` for every canonical entry.
+
+    IDs inside fenced code blocks are ignored — they are documentation
+    examples, not actual entries.
+    """
     out: list[tuple[str, str]] = []
     for p in KB.rglob("claim-quality.md"):
-        for m in CANONICAL_ID.findall(p.read_text()):
+        scrubbed = strip_code_fences(p.read_text())
+        for m in CANONICAL_ID.findall(scrubbed):
             out.append((m, str(p.relative_to(KB))))
     return out
 
 
-def check_tier1_coverage(
-    leaves: list[tuple[Path, list[str]]],
-) -> list[str]:
+def check_tier1_coverage(leaves: list[tuple[Path, list[str], str | None]]) -> list[str]:
     failures = []
-    for p, ids in leaves:
-        rel = str(p.relative_to(KB))
-        if not ids and rel not in NO_CLAIM:
-            failures.append(rel)
+    for p, ids, no_claim in leaves:
+        if not ids and not no_claim:
+            failures.append(str(p.relative_to(KB)))
     return failures
 
 
 def check_tier2_coverage(
-    leaves: list[tuple[Path, list[str]]],
+    leaves: list[tuple[Path, list[str], str | None]],
 ) -> list[tuple[str, list[str], list[str]]]:
     failures = []
-    for p, ids in leaves:
+    for p, ids, _ in leaves:
         if len(ids) < 2:
             continue
         text = p.read_text()
@@ -189,11 +163,11 @@ def check_id_uniqueness(canonical: list[tuple[str, str]]) -> dict[str, list[str]
 
 
 def check_orphan_refs(
-    leaves: list[tuple[Path, list[str]]],
+    leaves: list[tuple[Path, list[str], str | None]],
     canonical_set: set[str],
 ) -> dict[str, list[str]]:
     orphans: dict[str, list[str]] = defaultdict(list)
-    for p, ids in leaves:
+    for p, ids, _ in leaves:
         for i in ids:
             if i not in canonical_set:
                 orphans[i].append(str(p.relative_to(KB)))
@@ -215,7 +189,7 @@ def check_index_subtree_lines() -> list[str]:
 
 
 def check_subtree_consistency(
-    leaves: list[tuple[Path, list[str]]],
+    leaves: list[tuple[Path, list[str], str | None]],
 ) -> list[tuple[str, list[str], list[str]]]:
     """Each index's declared subtree-ID list must equal the union of Tier 1
     IDs from leaves under its directory. Leaf-as-index documents are
@@ -232,12 +206,12 @@ def check_subtree_consistency(
             continue
         m = SUBTREE_LINE.search(text)
         if not m:
-            continue  # caught by check_index_subtree_lines
+            continue
         declared = set(ID_PATTERN.findall(m.group(1)))
 
         idx_dir = idx.parent
         expected: set[str] = set()
-        for leaf, ids in leaves:
+        for leaf, ids, _ in leaves:
             try:
                 leaf.relative_to(idx_dir)
             except ValueError:
@@ -253,18 +227,35 @@ def check_subtree_consistency(
 
 def check_uncited_entries(
     canonical: list[tuple[str, str]],
-    leaves: list[tuple[Path, list[str]]],
+    leaves: list[tuple[Path, list[str], str | None]],
 ) -> list[tuple[str, str]]:
-    """Diagnostic (warning): canonical entries that no leaf cites via Tier 1."""
+    """Every canonical entry must be cited by ≥1 leaf. Meta-claims that
+    don't bind to a leaf belong in CLAUDE.md / CONVENTIONS.md /
+    LIVING_REFERENCE.md, not in claim-quality.md.
+    """
     cited: set[str] = set()
-    for _, ids in leaves:
+    for _, ids, _ in leaves:
         cited.update(ids)
     return [(cid, path) for cid, path in canonical if cid not in cited]
 
 
+def check_no_claim_consistency(
+    leaves: list[tuple[Path, list[str], str | None]],
+) -> list[str]:
+    """A leaf cannot carry both a Tier 1 line and a no-claim marker."""
+    failures = []
+    for p, ids, no_claim in leaves:
+        if ids and no_claim:
+            failures.append(str(p.relative_to(KB)))
+    return failures
+
+
 def main() -> int:
     if not KB.is_dir():
-        print(f"[claim-quality] FAIL — {KB} not found. Run from repository root.", file=sys.stderr)
+        print(
+            f"[claim-quality] FAIL — {KB} not found. Run from repository root.",
+            file=sys.stderr,
+        )
         return 2
 
     leaves = find_leaves()
@@ -278,20 +269,16 @@ def main() -> int:
         "orphan_refs": check_orphan_refs(leaves, canonical_set),
         "index_subtree_lines": check_index_subtree_lines(),
         "subtree_consistency": check_subtree_consistency(leaves),
-    }
-    warnings = {
         "uncited_entries": check_uncited_entries(canonical, leaves),
+        "no_claim_consistency": check_no_claim_consistency(leaves),
     }
 
-    # Stale NO_CLAIM entries — leaves that were marked no-claim but no longer exist
-    leaf_paths = {str(p.relative_to(KB)) for p, _ in leaves}
-    stale_no_claim = sorted(p for p in NO_CLAIM if p not in leaf_paths)
-
-    n_with_t1 = sum(1 for _, ids in leaves if ids)
-    n_multi = sum(1 for _, ids in leaves if len(ids) >= 2)
+    n_with_t1 = sum(1 for _, ids, _ in leaves if ids)
+    n_no_claim = sum(1 for _, _, nc in leaves if nc)
+    n_multi = sum(1 for _, ids, _ in leaves if len(ids) >= 2)
     print(
         f"[claim-quality] Scanned {len(leaves)} leaves "
-        f"({n_with_t1} with Tier 1, {len(NO_CLAIM)} documented no-claim, "
+        f"({n_with_t1} with Tier 1, {n_no_claim} no-claim, "
         f"{n_multi} multi-claim) and {len(canonical)} canonical entries."
     )
 
@@ -299,12 +286,15 @@ def main() -> int:
 
     if failures["tier1_coverage"]:
         has_failures = True
-        print(f"\n[FAIL] {len(failures['tier1_coverage'])} leaves missing Tier 1 annotation:")
+        print(
+            f"\n[FAIL] {len(failures['tier1_coverage'])} leaves have neither "
+            f"a Tier 1 line nor a no-claim marker:"
+        )
         for p in failures["tier1_coverage"]:
             print(f"  {p}")
         print(
-            "  → Add a Tier 1 line, OR add the file to NO_CLAIM in this script "
-            "with a one-line reason."
+            "  → Add `<!-- claim-quality: <id>, ... -->` after the leaf marker, "
+            "OR add `<!-- no-claim: <reason> -->` if the leaf carries no claim."
         )
 
     if failures["tier2_coverage"]:
@@ -332,11 +322,12 @@ def main() -> int:
             f"to a canonical entry:"
         )
         for cid, leaves_citing in failures["orphan_refs"].items():
-            print(f"  {cid} (cited by {len(leaves_citing)} leaf{'s' if len(leaves_citing) != 1 else ''})")
+            n = len(leaves_citing)
+            print(f"  {cid} (cited by {n} leaf{'s' if n != 1 else ''})")
             for path in leaves_citing[:3]:
                 print(f"    {path}")
-            if len(leaves_citing) > 3:
-                print(f"    ... and {len(leaves_citing) - 3} more")
+            if n > 3:
+                print(f"    ... and {n - 3} more")
 
     if failures["index_subtree_lines"]:
         has_failures = True
@@ -362,27 +353,29 @@ def main() -> int:
                 print(f"    extra in declared list: {extra}")
         print("  → Regenerate the subtree-ID line from the union of leaf Tier 1 IDs.")
 
-    if stale_no_claim:
+    if failures["uncited_entries"]:
         has_failures = True
         print(
-            f"\n[FAIL] {len(stale_no_claim)} stale NO_CLAIM entries point to "
-            f"non-existent leaves:"
+            f"\n[FAIL] {len(failures['uncited_entries'])} canonical entries "
+            f"have no leaf citation:"
         )
-        for p in stale_no_claim:
-            print(f"  {p}")
-        print("  → Remove these from NO_CLAIM in this script.")
-
-    if warnings["uncited_entries"]:
-        print(
-            f"\n[WARN] {len(warnings['uncited_entries'])} canonical entries are "
-            f"not back-linked by any leaf Tier 1:"
-        )
-        for cid, path in warnings["uncited_entries"]:
+        for cid, path in failures["uncited_entries"]:
             print(f"  {cid} (in {path})")
         print(
-            "  → Either back-link them from the relevant leaves, or remove the "
-            "canonical entry. (Warning only; does not fail the check.)"
+            "  → Either back-link each from the relevant leaves' Tier 1 lines, "
+            "or remove the entry. Meta-claims and reading-hazards belong in "
+            "CLAUDE.md / CONVENTIONS.md / LIVING_REFERENCE.md, not here."
         )
+
+    if failures["no_claim_consistency"]:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(failures['no_claim_consistency'])} leaves carry "
+            f"BOTH a Tier 1 line and a no-claim marker (mutually exclusive):"
+        )
+        for p in failures["no_claim_consistency"]:
+            print(f"  {p}")
+        print("  → Remove one or the other.")
 
     if has_failures:
         print("\n[claim-quality] FAIL — fix the above and re-run.")

@@ -1,5 +1,6 @@
 [↑ Heavy Element Catalog](../index.md)
 <!-- leaf: verbatim -->
+<!-- no-claim: figure captions only - strain-field visualisations -->
 
 ## Nuclear Strain Fields of Selected Heavy Elements
 

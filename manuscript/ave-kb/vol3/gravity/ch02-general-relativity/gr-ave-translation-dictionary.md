@@ -1,6 +1,7 @@
 [↑ Ch.2 General Relativity](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol3 as sec:gr_ave_translation -->
+<!-- no-claim: routing/dispatcher to GR/AVE translation content -->
 
 ---
 
