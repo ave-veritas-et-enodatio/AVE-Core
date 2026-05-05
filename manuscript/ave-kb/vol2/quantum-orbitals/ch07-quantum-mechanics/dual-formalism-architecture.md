@@ -1,5 +1,6 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: oltvwy -->
 
 ## E2 Summary --- Dual-Formalism Architecture
 

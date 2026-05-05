@@ -1,5 +1,6 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ak97cb, oltvwy -->
 
 ## Standard Model Translation
 
@@ -15,6 +16,8 @@
 | $\varepsilon_{11} = 7M_g/r$ | (Not in GR) | `gravity.principal_radial_strain` |
 | $V_{\mathrm{SNAP}}$ | Planck energy (approx) | `constants.V_SNAP` |
 
+<!-- claim-quality: ak97cb -->
+<!-- claim-quality: oltvwy -->
 ### Quantum Mechanics and Atomic Physics
 
 | AVE Descriptor | Standard QM | Physical Origin / Engine Function |

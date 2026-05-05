@@ -1,5 +1,6 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: dboxok -->
 
 ## Cross-Domain Physics Mappings
 

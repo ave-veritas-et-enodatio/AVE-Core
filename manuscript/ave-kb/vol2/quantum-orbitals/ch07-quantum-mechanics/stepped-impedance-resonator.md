@@ -1,5 +1,6 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: oltvwy -->
 
 ## The Atom as a Stepped Impedance Resonator
 

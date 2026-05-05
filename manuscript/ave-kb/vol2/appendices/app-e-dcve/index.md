@@ -1,4 +1,5 @@
 [↑ Appendices](../index.md)
+<!-- claim-quality (subtree): o3q9ul -->
 
 # App E: Rigorous Foundations of Discrete Chiral LC Vacuum Electrodynamics (DCVE)
 
