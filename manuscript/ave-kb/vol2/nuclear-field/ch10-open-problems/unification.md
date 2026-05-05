@@ -1,5 +1,6 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: xhdai6 -->
 
 ## Unification: All 26 Standard Model Parameters
 

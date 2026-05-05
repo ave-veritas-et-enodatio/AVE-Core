@@ -1,7 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: oltvwy, w6kk5y -->
 
 ## The Chiral Factor: $p_c$ as Topological Coupling
+<!-- claim-quality: w6kk5y -->
 
 The $p_c/2$ correction in the coupling $k$ is not a fit or hypothesis. It is the **packing fraction**---the volume fraction of a lattice node that is saturated by the electron defect (Axiom 4).
 
@@ -25,6 +27,7 @@ The same $8\pi$ governs three distinct physical sectors:
 | Antenna (Vol. IV HOPF-01) | $\chi = \alpha \times f(\text{knot})$ | Chirality-shifted $f_{res}$ |
 
 ### Unification with the HOPF-01 Antenna
+<!-- claim-quality: oltvwy -->
 
 The HOPF-01 experimental antenna models torus knot resonators stitched on a PCB substrate. For each $(p,q)$ torus knot, the AVE topological coupling shifts the resonant frequency by a chiral factor $\chi_\text{knot} = \alpha \times pq/(p+q)$. The atom-antenna isomorphism maps each circuit element directly:
 

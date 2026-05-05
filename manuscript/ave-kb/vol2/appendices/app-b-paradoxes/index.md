@@ -1,5 +1,5 @@
 [↑ Appendices](../index.md)
-<!-- claim-quality (subtree): nhlo1e, salw2h -->
+<!-- claim-quality (subtree): ghs75o, nhlo1e, salw2h -->
 
 # App B: Theoretical Stress Tests — Surviving Standard Disproofs
 

@@ -1,5 +1,6 @@
 [↑ Ch.1 — Topological Matter](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: hb2xmj -->
 
 ## Chirality and Antimatter Disintegration
 

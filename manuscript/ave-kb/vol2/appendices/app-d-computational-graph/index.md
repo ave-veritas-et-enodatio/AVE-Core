@@ -1,4 +1,5 @@
 [↑ Appendices](../index.md)
+<!-- claim-quality (subtree): pf84ng -->
 
 # App D: Computational Graph Architecture
 

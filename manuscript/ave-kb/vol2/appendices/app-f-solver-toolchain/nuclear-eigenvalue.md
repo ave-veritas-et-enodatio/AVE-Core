@@ -1,5 +1,6 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: d9ivj1 -->
 
 ## Nuclear Eigenvalue: Worked Examples
 

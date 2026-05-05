@@ -1,5 +1,6 @@
 [↑ Ch. 9: Computational Proof and Anomaly Catalog](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: z73h6n -->
 
 ## Computational Proof of Scale Invariance
 

@@ -1,7 +1,9 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: p7rfkb, q8un7j -->
 
 ## The W and Z Boson Masses
+<!-- claim-quality: q8un7j -->
 
 ### Derivation of $M_W$
 
@@ -67,6 +69,7 @@ $$
 This defines the evanescent decay length of the Cosserat (torsional) sector of the lattice.
 
 ## W and Z Bosons as Dielectric Plasma Arcs
+<!-- claim-quality: p7rfkb -->
 
 The Weak Nuclear Force is allegedly mediated by massive W ($\sim 80 \text{ GeV}$) and Z ($\sim 91 \text{ GeV}$) bosons. Because they are so massive, Heisenberg's Uncertainty Principle restricts their existence to vanishingly tiny fractions of a second, necessitating their classification as "virtual" mediators during Beta Decay.
 

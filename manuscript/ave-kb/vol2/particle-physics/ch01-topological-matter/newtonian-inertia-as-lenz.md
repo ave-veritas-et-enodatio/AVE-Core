@@ -1,5 +1,6 @@
 [↑ Ch.1 — Topological Matter](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: jwyy6l -->
 
 ## Newtonian Inertia as Macroscopic Lenz's Law
 
