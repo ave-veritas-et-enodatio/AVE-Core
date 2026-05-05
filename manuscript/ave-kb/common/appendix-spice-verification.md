@@ -1,4 +1,5 @@
 [↑ Common Resources](index.md)
+<!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol4 as app:spice_verification -->
 <!-- claim-quality: pfocn6 -->
 

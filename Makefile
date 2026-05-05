@@ -47,7 +47,9 @@ setup:
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
 verify:
-	@echo "[Verify] Running DAG Anti-Cheat Scan..."
+	@echo "[Verify] Running KB claim-quality framework integrity check..."
+	$(PYTHON) manuscript/ave-kb/tools/check-claim-quality.py
+	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_4_engineering/visualize_impedance_rupture.py
