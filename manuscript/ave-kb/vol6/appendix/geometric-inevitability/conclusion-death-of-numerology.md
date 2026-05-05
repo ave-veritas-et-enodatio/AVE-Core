@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: mlwm3h -->
 
 ## Conclusion: The Death of Numerology
 

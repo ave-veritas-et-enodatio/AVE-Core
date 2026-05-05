@@ -1,10 +1,12 @@
 [↑ Computational Mass Defect](../index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol6 as sec:d_derivation -->
+<!-- claim-quality: llqd1n, lqanmt -->
 
 > ↗ See also: [Axiom 1 — Lattice Structure](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — standing-wave condition on the $\mathcal{M}_A$ lattice that sets $d$
 
 ## Derivation of the Nucleon Spacing ($d$) from Axiom 1
+<!-- claim-quality: lqanmt (the $D_{\rm intra} = d\sqrt{8}$ derived here is the geometric input substituted into the mutual-coupling-constant computation $K \approx 11.337$ MeV·fm) -->
 
 The fundamental spatial scale of the nuclear LC network is the **proton spin radius** $d$---the radius of a single nucleon's gyroscopic orbit. This is derived directly from the substrate topology (Axiom 1) and the torus knot isomorphism (Axiom 2).
 
@@ -26,6 +28,7 @@ $$
 
 This follows from the FCC close-packing condition: four spheres of diameter $d$ touch at vertices of a tetrahedron whose edge length is $d\sqrt{8}$. Therefore the nearest-neighbor nucleon separation within the alpha is:
 
+<!-- claim-quality: llqd1n (the $D_{\rm intra}$ value here is the axiom-derived geometric input that the per-nucleus $R$ fit references — the catalog masses are reported as multiples of $d$, and the fitting tolerance is computed against this canonical scale) -->
 $$
 \boxed{D_{\text{intra}} = d\sqrt{8} = \frac{4\hbar}{m_p c} \cdot \sqrt{8} \approx 2.379 \text{ fm}}
 $$

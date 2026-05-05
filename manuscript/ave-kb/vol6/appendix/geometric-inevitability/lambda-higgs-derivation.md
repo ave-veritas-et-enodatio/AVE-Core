@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ome498 -->
 <!-- PATH-STABLE: sec:lambda_higgs_derivation -->
 
 ## $\lambda_H = 1/8$: Higgs Quartic Coupling

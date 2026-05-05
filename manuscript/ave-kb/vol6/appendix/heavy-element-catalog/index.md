@@ -1,4 +1,5 @@
 [↑ Vol 6: Appendix](../index.md)
+<!-- claim-quality (subtree): nk6c43 -->
 
 # Catalog of Heavy Elements (Z=15 to Z=119)
 

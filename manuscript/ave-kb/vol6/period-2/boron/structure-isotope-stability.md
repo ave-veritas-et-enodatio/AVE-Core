@@ -1,5 +1,6 @@
 [↑ Boron (Z=5)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: l416hl -->
 
 ## Topological Structure and Isotope Stability
 

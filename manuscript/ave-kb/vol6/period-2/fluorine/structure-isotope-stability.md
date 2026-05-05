@@ -1,5 +1,6 @@
 [↑ Fluorine (Z=9)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 8psuqe -->
 
 ## Fluorine-19 ($^{19}_{9}\text{F}$): The Halogen Halo
 

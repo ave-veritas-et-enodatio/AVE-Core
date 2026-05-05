@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: l416hl -->
 <!-- PATH-STABLE: sec:pi_horizon -->
 
 ## Pi and the Topological Horizon

@@ -1,4 +1,5 @@
 [↑ Period 2](../index.md)
+<!-- claim-quality (subtree): 8psuqe -->
 
 # Fluorine (Z=9)
 

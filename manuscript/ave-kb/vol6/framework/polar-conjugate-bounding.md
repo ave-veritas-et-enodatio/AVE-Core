@@ -1,5 +1,6 @@
 [↑ Up](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 7tk051 -->
 
 # Polar Conjugate Topo-Kinematic Bounding Limit (Heavy Elements)
 

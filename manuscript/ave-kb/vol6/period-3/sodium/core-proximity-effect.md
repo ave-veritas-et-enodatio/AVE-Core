@@ -1,5 +1,6 @@
 [↑ Sodium (Z=11)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 8psuqe -->
 
 ## The Core Proximity Effect ($351d$ vs $50d$)
 

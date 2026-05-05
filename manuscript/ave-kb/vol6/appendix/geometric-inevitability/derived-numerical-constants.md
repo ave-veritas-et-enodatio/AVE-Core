@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ome498 -->
 <!-- PATH-STABLE: sec:derived_numerology -->
 
 <!-- Cross-volume refs in this leaf:

@@ -1,4 +1,5 @@
 [↑ Period 2](../index.md)
+<!-- claim-quality (subtree): 7tk051 -->
 
 # Beryllium (Z=4)
 

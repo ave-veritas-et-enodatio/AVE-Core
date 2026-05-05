@@ -1,6 +1,7 @@
 [↑ Computational Mass Defect](../index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol6 as sec:K_derivation -->
+<!-- claim-quality: llqd1n, lqanmt -->
 
 > ↗ See also: [Axiom 2 — $\xi_{topo}$](../../../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — $\alpha\hbar c$ coupling derived from Axiom 2
 > ↗ See also: [Torus Knot Mass Ladder](../../../vol2/particle-physics/ch01-topological-matter/index.md) — proton as $(2,5)$ cinquefoil knot with $c=5$ crossings
@@ -40,10 +41,12 @@ K &= \underbrace{c_{\text{proton}}}_{= \, 5}
 \end{align}
 $$
 
+<!-- claim-quality: lqanmt -->
 $$
 \boxed{K = \frac{5\pi}{2} \cdot \frac{\alpha \hbar c}{1 - \alpha/3} \approx 11.337 \text{ MeV}\cdot\text{fm}}
 $$
 
+<!-- claim-quality: llqd1n (the He-4 case is the only nucleus where the geometry is not fit — its high-symmetry single-tank topology has no per-nucleus $R$ scalar adjusted; the headline $0.001\%$ here is therefore a genuine ab-initio agreement, distinct from the fit-residual interpretation that applies to the rest of the catalog) -->
 This derived value, applied to the symmetric Helium-4 Alpha particle (6 pairs at uniform distance $d_{\text{core}}\sqrt{8}$), predicts a total nuclear mass of $3727.380$ MeV---matching the CODATA empirical limit of $3727.379$ MeV to within $0.001\%$.
 
 When this same coupling constant is applied to the asymmetrical Lithium-7 dual-shell topology, the spatial distance mapping that satisfies the empirical CODATA mass of $6533.832$ MeV requires the outer shell (1 proton, 2 neutrons) to rest at a distance exactly $9.72\times$ the radius of the inner ultra-dense Alpha core.

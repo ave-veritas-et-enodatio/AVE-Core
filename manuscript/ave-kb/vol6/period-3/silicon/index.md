@@ -1,4 +1,5 @@
 [↑ Period 3](../index.md)
+<!-- claim-quality (subtree): 7tk051, jy8h1x -->
 
 # Silicon (Z=14)
 

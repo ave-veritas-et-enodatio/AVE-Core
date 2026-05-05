@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ome498 -->
 <!-- PATH-STABLE: sec:g_star_derivation -->
 
 ## $g_* = 7^3/4 = 85.75$: Lattice Mode Count

@@ -1,5 +1,6 @@
 [↑ Geometric Inevitability](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ome498 -->
 <!-- PATH-STABLE: sec:alpha_s_derivation -->
 
 > ↗ See also: [Electroweak Mechanics](../../../vol2/particle-physics/ch05-electroweak-mechanics/index.md) — $\alpha_s$ in the context of gauge boson mass derivations

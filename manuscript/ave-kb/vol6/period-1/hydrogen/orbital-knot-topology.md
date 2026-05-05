@@ -1,5 +1,6 @@
 [↑ Hydrogen (Z=1)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: a95yx1 -->
 
 ## Orbital Knot Topology
 

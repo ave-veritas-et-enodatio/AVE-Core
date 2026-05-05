@@ -7,6 +7,7 @@
 ---
 
 ## Mass-Defect Accuracy: Fitted Geometry, Not Ab-Initio Mass Prediction
+<!-- id: llqd1n -->
 
 The vol6 index, framework summary, and per-element leaves report mass-defect errors of $0.00001\%$ (H-1) to $0.02739\%$ (Mg-24) across $Z=1$–$14$, with several entries marked $0.0000\%$. These figures read like ab-initio predictions but are **fit residuals** under a one-parameter-per-nucleus geometry fit.
 
@@ -24,9 +25,19 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 
 > **References:** `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` (methodology note explicitly flags fit-vs-prediction); `framework/mass-defect-summary.md` (the table that omits the qualifier); `framework/computational-mass-defect/mutual-coupling-constant.md` (zero-parameter $K$ derivation); `framework/computational-mass-defect/nucleon-spacing-derivation.md` (zero-parameter $d$, $D_{\text{intra}}$); `appendix/geometric-inevitability/platonic-progression.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Mutual Coupling Constant $K \approx 11.337$ MeV·fm — Derived but Path-Dependent
+<!-- id: lqanmt -->
 
 - $K = (5\pi/2) \cdot \alpha\hbar c / (1 - \alpha/3) \approx 11.337$ MeV·fm
 - _Specific Claims_
@@ -40,9 +51,19 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 
 > **Leaf references:** `framework/computational-mass-defect/mutual-coupling-constant.md`; `framework/computational-mass-defect/nucleon-spacing-derivation.md`. Cross-volume: vol2 torus-knot identification of the proton as $(2,5)$ cinquefoil ($c=5$).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Period 1–3 Per-Element IE Accuracy and Correction Stack
+<!-- id: 7tk051 -->
 
 The atomic ionization solver `radial_eigenvalue.py` computes first IEs for $Z=1$–$14$ with three corrections (A: hierarchical cascade for Be-type; B: SIR boundary for Mg-type; C: Op10 junction projection for Al/Si-type co-resonant shells) and for $Z=31$–$36$ with Correction D (Topo-Kinematic Polar Conjugate Mirror).
 
@@ -60,9 +81,19 @@ The atomic ionization solver `radial_eigenvalue.py` computes first IEs for $Z=1$
 
 > **References:** `framework/ionization-energy-summary.md` (full table, $Z=1$–$14$ and $Z=31$–$36$); `period-2/beryllium/ionization-energy-correction.md` (A); `period-3/magnesium/ionization-energy-correction.md` (B); `period-3/aluminum/ionization-energy-correction.md`, `period-3/silicon/ionization-energy-correction.md` (C); `framework/polar-conjugate-bounding.md` (D). Cross-cutting: LIVING_REFERENCE.md Common Pitfalls #7, #8, #9, #10, #11; "4. Axioms in the Atomic Domain" Corrections A–D.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Heavy Element Catalog ($Z=15$–$119$): Accuracy Tiers, Not a Uniform Bound
+<!-- id: nk6c43 -->
 
 The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the index summarizes "Fibonacci proxy accuracy $< 0.5\%$ across 105 elements." The actual error distribution is tiered and the entries are not all the same kind of result.
 
@@ -79,9 +110,19 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
 
 > **Leaf references:** `appendix/heavy-element-catalog/full-element-table.md`; `appendix/heavy-element-catalog/mass-prediction-accuracy.md`; `appendix/heavy-element-catalog/index.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/platonic-progression.md`; `framework/computational-mass-defect/abcd-transfer-matrix.md` (ABCD cascade as the open problem). Cross-cutting: Master Prediction Table reading conventions in `../claim-quality.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Topological Horizon at Boron-11 ($R = 4\pi - \sqrt{2}/2 \approx 11.86\,d$)
+<!-- id: l416hl -->
 
 - $\text{Horizon}_{\text{limit}} = 4\pi - \sqrt{2}/2 \approx 11.859$; $R_{\text{halo}}(^{11}\text{B}) = 11.8404\,d$
 - _Specific Claims_
@@ -95,9 +136,19 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
 
 > **Leaf references:** `period-2/boron/structure-isotope-stability.md`; `appendix/geometric-inevitability/pi-topological-horizon.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Topology-Determined Halo Distance: Structure, Not Curve Fit
+<!-- id: 8psuqe -->
 
 The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same Tritium halo across cores: F-19 at $\sim 398d$, Na-23 at $\sim 50d$, Al-27 at $\sim 53d$. The vol6 narrative argues this proves the framework is not curve-fitting because the variation predicts the observed chemistry (Halogen vs Alkali vs post-transition metal).
 
@@ -112,9 +163,19 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 
 > **Leaf references:** `period-2/neon/curve-fitting-fallacy.md`; `period-2/fluorine/structure-isotope-stability.md`; `period-3/sodium/core-proximity-effect.md`; `period-3/aluminum/gradual-halo-separation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Magic Numbers as Geometric Closure (Partial Coverage)
+<!-- id: sjixaw -->
 
 - _Specific Claims_
   - The first four nuclear magic numbers ($Z = 2, 8, 20, 28$) are identified with closed Platonic / Archimedean alpha-cluster packings: Single Tank, Tetrahedron, Bicapped Antiprism, FCC-14 respectively.
@@ -127,9 +188,19 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 
 > **Leaf references:** `appendix/geometric-inevitability/magic-numbers-shell-closure.md`; `appendix/geometric-inevitability/platonic-progression.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Geometric-Inevitability Constants: $\alpha_s$, $\lambda_H$, $g_*$
+<!-- id: ome498 -->
 
 Vol 6 appendix asserts derivations for three SM-relevant constants from lattice geometry. Each carries its own provenance.
 
@@ -145,9 +216,19 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `appendix/geometric-inevitability/alpha-s-derivation.md`; `appendix/geometric-inevitability/lambda-higgs-derivation.md`; `appendix/geometric-inevitability/g-star-derivation.md`; `appendix/geometric-inevitability/derived-numerical-constants.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Golden Ratio $\varphi$ and Fibonacci Lattice — Forced, Not Mystical
+<!-- id: mlwm3h -->
 
 - _Specific Claims_
   - $\varphi$ appears in Cr-52 (centered-icosahedron, $0.0001\%$) because the icosahedron is the unique Thomson-problem solution at $N=12$ and its vertex coordinates are permutations of $(0, \pm 1, \pm \varphi)$. Forced by geometry, not chosen.
@@ -159,9 +240,19 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `appendix/geometric-inevitability/golden-ratio-min-impedance.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/conclusion-death-of-numerology.md`; `framework/executive-abstract.md` ($\varphi$ at 13-alpha shell).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Binding Energy Ceiling $E_{\text{binding(max)}} = \alpha \cdot M_p c^2 \approx 6.847$ MeV
+<!-- id: 86gq2d -->
 
 - _Specific Claims_
   - The "$\sim 8$ MeV per nucleon" SEMF curve maximum is reinterpreted as a deterministic Axiom-4 yield ceiling: per-nucleon binding cannot exceed $\alpha \cdot M_p c^2 \approx 6.847$ MeV before the localized phase geometry ruptures.
@@ -171,6 +262,15 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - Does NOT claim a quantitative derivation of the gap between $6.847$ MeV (base ceiling) and $\sim 8.79$ MeV (Fe-56 peak) at the level of the geometric-inevitability appendix entries. The bridge is via Miller amplification with $n = c_{\text{proton}} = 5$; does NOT claim this amplification factor reproduces the entire empirical binding curve at sub-percent accuracy. (The mass-defect entries cover what the framework actually validates per-element.)
 
 > **Leaf references:** `framework/computational-mass-defect/pn-junction-coupling.md` (resultbox); `framework/index.md` (Key Results "Binding energy ceiling" row).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
 
 ---
 
@@ -190,6 +290,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 ---
 
 ## ABCD Transfer Matrix Cascade — Open Problem for $Z \ge 15$
+<!-- id: 5965y1 -->
 
 - _Specific Claims_
   - The bare $K/r$ all-pairs summation is acknowledged as an over-counting model; the physically accurate framework is an ABCD transfer-matrix cascade through nucleon ports (each Alpha as a 4-port resonator).
@@ -200,9 +301,19 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `framework/computational-mass-defect/abcd-transfer-matrix.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Semiconductor / Operating Regimes — Vol6-Specific Manifestation
+<!-- id: jy8h1x -->
 
 The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality.md`) covers the universal $S$-kernel framing. Vol 6 specializes this into nuclear operating regimes.
 
@@ -217,9 +328,19 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 
 > **Leaf references:** `framework/computational-mass-defect/operating-regimes.md`; `framework/computational-mass-defect/semiconductor-nuclear-analysis.md`; `period-3/silicon/symmetric-core-collapse.md`. Cross-cutting: Symmetric vs Asymmetric Saturation in `../claim-quality.md`; LIVING_REFERENCE.md Critical Distinctions #1.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Bohr Radius and Rydberg Energy via Topological Hydrogen
+<!-- id: a95yx1 -->
 
 The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \times 10^{-11}$ m and $E_0 = (1/2) m_e (\alpha c)^2 \approx 13.606$ eV from topological standing-wave conditions on the trefoil-electron / Borromean-proton system.
 
@@ -233,9 +354,19 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
 
 > **Leaf references:** `period-1/hydrogen/orbital-knot-topology.md`. Cross-cutting: LIVING_REFERENCE.md Pitfall #8.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Notation Carryover: $\ell_{node}$ vs $l_{node}$ in Vol 6
+<!-- id: 6tuqjh -->
 
 Per CLAUDE.md INVARIANT-N2, Vol 6 source uses **roman ell** ($l_{node}$) as the primary form (not the script $\ell_{node}$ used in Vols 1–5). This is a notation convention, not a claim.
 
@@ -246,3 +377,12 @@ Per CLAUDE.md INVARIANT-N2, Vol 6 source uses **roman ell** ($l_{node}$) as the 
   - Reviewers checking summaries that quote Vol 6 results into Vol 1–5 contexts (or vice versa) should preserve source notation in each direction.
 
 > **References:** CLAUDE.md INVARIANT-N2; vol6 leaves throughout (e.g., `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` parameter table uses `L_NODE`).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
