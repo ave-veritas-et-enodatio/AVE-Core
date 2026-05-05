@@ -265,3 +265,36 @@ The SPICE Verification Manual documents the Tier 1 → Tier 2 → Tier 3 archite
 - rationale: The Tier 1 → Tier 2 → Tier 3 architecture (constants → solvers → SPICE compiler) is well-documented and the verification protocol (compile → write → ngspice → compare) provides a sound internal cross-check. The boundary correctly self-bounds: SPICE simulation validates Python-solver vs SPICE-netlist agreement (a code-correctness check), NOT AVE physics against experimental measurement. Per LIVING_REFERENCE.md Critical Distinction #5, some SPICE wrappers (e.g., RC muon model) are pedagogical; quantitative work happens in the solver layer. Dependencies (ngspice ≥ 42, Python ≥ 3.10) are explicit. No scored entry-level dependencies — toolchain status is independent of any specific physics claim.
 - strengthen-by:
   - none entry-local — toolchain documentation is correctly bounded; physics-correctness validation lives in per-domain leaves with their own quality entries
+
+---
+
+## VCA Schematic Symbol Vocabulary — Geometry-Encoded Component Catalogue
+<!-- id: io8hft -->
+
+Appendix D establishes the schematic-symbol vocabulary for Vacuum Circuit Architecture (VCA): seventeen named components, seven canonical visual markers, and five symbol design rules. The boundary is that each symbol is a **geometric encoding** of an axiom-derived hardware element (Axiom 4 saturation kernel, $V_{snap}$, $V_{yield}$, topological winding number $Q$, characteristic impedance $Z_0$), not an arbitrary draughting convention.
+
+- _Specific Claims_
+  - The five design rules — (1) Waveguide-not-wire (every connection is a distributed transmission line, parallel double-line microstrip notation); (2) Encode-the-saturation-kernel (every active symbol carries a visual marker at the Axiom 4 saturation point $S(V) = \sqrt{1 - (V/V_{yield})^2}$); (3) Geometry-IS-the-component (symbols are literal geometric cross-sections of the waveguide structure); (4) Mark-the-impedance-domain ($Z_0$-preserving / continuously-transforming / catastrophic-reflection); (5) Topological-charge-as-winding-number (loops/knots encode $Q$) — are framework-binding conventions, not stylistic preferences.
+  - The seven canonical visual markers (filled red dot = Axiom 4 saturation point $S \to 0$; open blue ring = compliance expansion zone; red rotation arrow = chiral rotation / TRS breaking; purple $\infty$ = topological winding number $Q = 1$; teal zigzag = phase-velocity retardation; orange wedge = continuous impedance gradient; red thick bar = total reflection $\Gamma = 1$) each map to a specific axiom-derived physical regime.
+  - The seventeen-component catalogue (Geometric Diode, Geometric Triode, Strain Reservoir, Soliton Kink Trap, Dielectric Corrugation, Topological Y-Junction, Chiral Wave Circulator, Thermal Baffle, Klopfenstein Taper, Topological Ring Oscillator, Coanda Amplifier, Axiomatic Transducer, Geometric Tesla Valve, Fabry-Perot Resonance Cavity, Tensor Plate ALU, Interference Wave Router, Topological DAC Synthesizer) maps each entry to an EE equivalent and an axiom-derived key parameter (e.g., Geometric Diode: $V_{snap} = m_e c^2/e \approx 511$ kV; Geometric Triode: $S(V) = \sqrt{1 - (V_{sum}/V_{snap})^2}$; Soliton Kink Trap: sine-Gordon kink $\phi(x) = 4\arctan(e^{\gamma(x-vt)})$; Chiral Wave Circulator: $Z_0 = 376.73\,\Omega$; Topological Ring Oscillator: $f = c_0/(\sqrt{\epsilon_r}\cdot 2L_{loop})$).
+  - The Axiomatic Transducer entry asserts $\Gamma = 0$ matching from the canonical $Z_0 = 376.73\,\Omega$ vacuum impedance to the conventional 50 Ω laboratory line — a Klopfenstein-class continuous taper, not a discrete impedance step.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim the seventeen components have been built and characterized. The leaf is a **schematic vocabulary specification**: the symbols are the contract for VCA netlists; hardware validation lives in the experimental `AVE-APU` private repository per the leaf's KB-Boundary footnote. Public-KB readers should treat the components as design targets, not as fabricated devices.
+  - Does NOT claim the EE-equivalent column (P-N junction diode, MOSFET/FET, capacitor, flash/NAND, RC delay, XOR gate, RF ferrite circulator, heat sink, impedance transformer, quartz crystal/PLL, op-amp, SMA/balun, RF choke, LC tank, ALU/multiplier, MZI/phase-MUX, R-2R DAC) is a functional drop-in replacement at standard EE specs. The mapping is **operational-role isomorphism** under the AVE picture, not parameter-for-parameter substitutability.
+  - Does NOT claim the listed key parameters are validated to the precision quoted. $V_{snap} \approx 511$ kV and $V_{yield} \approx 43.65$ kV are framework constants (CLAUDE.md INVARIANT-C1 for $V_{yield}$); their exactness is exact-given-the-axioms, not exact against any specific bench measurement.
+  - The Coanda Amplifier "no $kT$ barrier" annotation is a structural Axiom-4-saturation claim — operation in a regime where Landauer's $\Delta Q \geq kT \ln 2$ does not bound a fluidic-boundary-steering computation. It is not a thermodynamic-second-law violation; it is a claim that the relevant computation does not pass through a charge-erasure step that would invoke the Landauer bound.
+  - The Topological DAC Synthesizer's $V_{analog} = \sum w_i V_i$ description is the analog-summation interface; the underlying topological-winding mechanism that realizes the weighted sum is in the cited APU work, not the public KB.
+  - The catalogue is **not closed under composition**. Higher-level VCA blocks (logic arrays, memory hierarchies) are built from these primitives; their schematic conventions extend the seventeen-component vocabulary but are out of this leaf's scope.
+
+> **Leaf references:** `appendix-vca-symbols.md` §Five Symbol Design Rules, §Seven Canonical VCA Markers, §Canonical Symbol Catalogue (17 Components); $V_{yield}$ canonical value at [CLAUDE.md INVARIANT-C1](../CLAUDE.md#invariant-c1-dielectric-yield-limit); Axiom 4 saturation kernel at [CLAUDE.md INVARIANT-S2](../CLAUDE.md#invariant-s2-ave-axiom-numbering).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - INVARIANT-S2 / Axiom 4 (universal saturation kernel — markers and active-symbol semantics)
+  - INVARIANT-C1 ($V_{yield} \approx 43.65$ kV — referenced in the catalogue's key-parameter column)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
