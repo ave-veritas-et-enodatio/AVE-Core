@@ -142,6 +142,10 @@ The ID list enumerates every claim-quality entry that references the leaf (wheth
 
 The subtree-IDs list is the union of all leaf-level Tier 1 IDs under the index.
 
+**Leaf-as-index exception.** When `index.md` is itself a leaf (per the INVARIANT-S5 single-leaf-as-index exception — `<!-- leaf: verbatim -->` on line 2, no sibling files in the directory), the Tier 1 line subsumes the subtree summary; no separate `<!-- claim-quality (subtree): ... -->` line is required, since the Tier 1 ID list is by definition the complete subtree set. Adding one would be redundant and is to be avoided.
+
+**Empty subtree exception.** When all leaves in a subtree are documented no-claim (e.g., a directory of pure routing forwarders), the parent index still carries an explicit empty subtree line, `<!-- claim-quality (subtree): -->`, with an adjacent comment explaining why the set is empty. The line's presence — even empty — signals "I checked; nothing to summarize" rather than "annotation forgotten".
+
 **Grep guarantee.** `grep -r "<id>"` across the KB returns: the canonical entry in the appropriate `claim-quality.md`, every dependent / strengthen-by reference, every Tier 1 leaf annotation, every Tier 2 inline marker, and every intermediate-index summary that scopes the entry. Walking from a claim-quality entry to its supporting derivations (and back) is mechanical.
 
 *Confirmed by: convention spec at `CONVENTIONS.md` Claim Quality Sidecar §; propagation script lives in this repo's commit history at the rollout commit. New leaves and entries must carry the propagation; consistency is checked at refresh cadence (same as Tier 1 sidecar refresh).*
