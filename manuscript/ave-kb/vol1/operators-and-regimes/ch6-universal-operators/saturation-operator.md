@@ -1,6 +1,7 @@
 [↑ Ch.6 Universal Operators](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1 as sec:universal_saturation -->
+<!-- claim-quality: gdd70j -->
 
 > ↗ See also: [Nonlinear Constitutive Models](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — Axiom 4 as metric varactor in circuit engineering
 > ↗ See also: [Galactic Rotation / MOND](../../../vol3/cosmology/index.md) — saturation as galactic rotation floor

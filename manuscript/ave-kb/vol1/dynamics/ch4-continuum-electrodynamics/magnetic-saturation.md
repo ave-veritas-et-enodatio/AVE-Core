@@ -1,5 +1,6 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 8ep2b4 -->
 
 ## Section 4.4: The Macroscopic Yield Limit: The Magnetic Saturation Transition
 

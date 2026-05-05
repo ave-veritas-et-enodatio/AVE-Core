@@ -1,7 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 2dwzib, lv3uw1, b9eura -->
 
 ## Section 3.3: Wave-Particle Duality and The Zero-Impedance Boundary
+<!-- claim-quality: 2dwzib -->
 
 The framework asserts that subatomic particles are topological knots where the spatial LC metric reaches dielectric saturation. Two distinct thresholds govern this process:
 
@@ -41,10 +43,12 @@ By evaluating the ratio at the saturated knot boundary ($Z_{knot} = 0 \ \Omega$)
 A Reflection Coefficient of $-1$ signifies total reflectance.
 
 ### Internal Confinement and Matter Assembly
+<!-- claim-quality: lv3uw1 -->
 
 Because the boundary of the saturated knot represents a steep impedance gradient dropping to $0 \ \Omega$, any acoustic energy circulating *inside* the knot is fully reflected inward. A subatomic particle in this model is a stable, self-sustaining acoustic standing wave trapped inside a spherical $0 \ \Omega$ impedance boundary of its own geometric creation.
 
 ### Scattering and The Pauli Exclusion Principle
+<!-- claim-quality: b9eura -->
 
 Conversely, when an external wave (such as a photon) travels through the $377 \ \Omega$ relaxed vacuum and encounters the knot, it meets the same $0 \ \Omega$ boundary. The photon cannot penetrate the saturated volume; it experiences total reflection.
 

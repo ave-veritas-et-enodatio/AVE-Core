@@ -1,6 +1,7 @@
 [↑ Ch.7 Regime Map](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1 as sec:domain_catalog -->
+<!-- claim-quality: b2anl4, 82dxbj -->
 
 ## Section 7.2: Domain Control Parameter Catalog
 

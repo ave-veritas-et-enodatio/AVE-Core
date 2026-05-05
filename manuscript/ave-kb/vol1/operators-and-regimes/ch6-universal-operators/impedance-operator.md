@@ -1,6 +1,7 @@
 [↑ Ch.6 Universal Operators](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1 as sec:universal_impedance -->
+<!-- claim-quality: gdd70j -->
 
 ## Section 6.1: The Universal Impedance Operator
 

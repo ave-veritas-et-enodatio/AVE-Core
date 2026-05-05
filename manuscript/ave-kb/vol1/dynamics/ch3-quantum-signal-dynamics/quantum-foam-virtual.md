@@ -1,5 +1,6 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: t1okz0 -->
 
 ## Section 3.4: The Physical Origin of Quantum Foam and Virtual Particles
 

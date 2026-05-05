@@ -1,4 +1,5 @@
 [↑ Operators and Regimes](../index.md)
+<!-- claim-quality (subtree): gdd70j -->
 
 # Ch.6: Universal Operators: Z, $S$, $\Gamma$
 

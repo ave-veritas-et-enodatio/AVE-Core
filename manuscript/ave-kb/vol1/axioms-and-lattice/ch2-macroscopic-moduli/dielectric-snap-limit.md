@@ -1,5 +1,6 @@
 [↑ Ch.2 Macroscopic Moduli](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 9s9apq, 2dwzib -->
 
 > ↗ See also: [EE Bench Dielectric Plateau](../../../vol4/falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md) — experimental measurement of $V_{yield}$ rolloff
 > ↗ See also: [Autoresonant PLL](../../../vol4/simulation/ch15-autoresonant-breakdown/index.md) — bypassing Schwinger limit via resonance tracking

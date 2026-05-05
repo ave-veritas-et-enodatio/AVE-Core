@@ -1,6 +1,7 @@
 [↑ Common Resources](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix -->
+<!-- claim-quality: yawl6z -->
 
 # The Interdisciplinary Translation Matrix
 

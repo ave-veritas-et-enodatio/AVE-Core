@@ -1,4 +1,5 @@
 [↑ Gravity](../index.md)
+<!-- claim-quality (subtree): 3zz0f6 -->
 
 # Ch.1: Trace-Reversal, Gravity, and Macroscopic Yield
 

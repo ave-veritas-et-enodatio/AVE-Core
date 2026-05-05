@@ -1,5 +1,6 @@
 [↑ Translation Tables](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: fy05jc -->
 
 # Topo-Kinematic Circuit Identity
 

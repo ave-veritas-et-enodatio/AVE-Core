@@ -1,6 +1,7 @@
 [↑ Common Resources](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1,vol2,vol5 as app:solver_toolchain -->
+<!-- claim-quality: m7qd0w -->
 
 # Universal Solver Toolchain
 

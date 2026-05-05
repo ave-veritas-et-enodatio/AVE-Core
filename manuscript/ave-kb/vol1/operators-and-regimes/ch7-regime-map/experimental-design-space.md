@@ -1,5 +1,6 @@
 [↑ Ch.7 Regime Map](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 82dxbj -->
 
 ## Section 7.5: The Experimental Design Space
 

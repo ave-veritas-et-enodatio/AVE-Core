@@ -1,4 +1,5 @@
 [↑ Operators and Regimes](../index.md)
+<!-- claim-quality (subtree): zw6mut -->
 
 # Ch.5: Universal Spatial Tension ($M \propto 1/r$)
 

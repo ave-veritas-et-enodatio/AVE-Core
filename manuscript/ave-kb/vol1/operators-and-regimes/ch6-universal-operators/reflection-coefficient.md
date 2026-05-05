@@ -1,6 +1,7 @@
 [↑ Ch.6 Universal Operators](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1 as sec:universal_gamma -->
+<!-- claim-quality: gdd70j -->
 
 ## Section 6.3: The Universal Reflection Coefficient
 

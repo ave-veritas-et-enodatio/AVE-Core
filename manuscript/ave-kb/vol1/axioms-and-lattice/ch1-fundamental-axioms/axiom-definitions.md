@@ -1,5 +1,6 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 3kzmt9, dfaiwj -->
 
 > ↗ See also: [VCA Topo-Kinematic Identity](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — Axiom 2 ($\xi_{topo}$) applied to engineering
 > ↗ See also: [Protein Folding Engine](../../../vol5/protein-folding-engine/index.md) — Axioms 1-4 applied to biological systems

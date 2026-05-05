@@ -1,5 +1,6 @@
 [↑ Ch.4 Generative Cosmology](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 2e9j97 -->
 
 ## Lattice Genesis: The Origin of Metric Expansion
 

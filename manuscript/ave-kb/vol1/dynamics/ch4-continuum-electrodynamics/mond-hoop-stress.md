@@ -1,6 +1,7 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol6 as sec:galactic_saturation and eq:H_infinity -->
+<!-- claim-quality: m3z5ux -->
 
 ## Section 4.5: Deriving MOND from Unruh-Hawking Hoop Stress
 

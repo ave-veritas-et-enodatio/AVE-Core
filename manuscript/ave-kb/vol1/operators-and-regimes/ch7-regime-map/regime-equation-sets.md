@@ -1,5 +1,6 @@
 [↑ Ch.7 Regime Map](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: lv3uw1, b2anl4 -->
 
 ## Section 7.3: Regime-Specific Equation Sets
 
@@ -33,6 +34,7 @@ Only $\varepsilon$ scales by $S$; $\mu$ is unchanged. The EM impedance diverges 
 | $C_{eff}$ | $C_0$ | $C_0 / \sqrt{1-r^2}$ | $\to \infty$ | $\infty$ |
 | $Q$ | $\sim 1$ | $1/\sqrt{1-r^2}$ | $\gg 1$ | $\infty$ |
 
+<!-- claim-quality: lv3uw1 -->
 **Particle confinement** proceeds via the magnetic branch (a third sub-case of the symmetric sector): at a torus-knot self-intersection, the magnetic field saturates $\mu$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The standing wave that results is rest mass.
 
 ---

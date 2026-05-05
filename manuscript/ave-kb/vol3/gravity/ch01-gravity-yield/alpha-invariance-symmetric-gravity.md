@@ -1,6 +1,7 @@
 [↑ Ch.1 Gravity and Yield](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 (via cross-cutting α invariance entry) and from kb/claim-quality.md "α Invariance Under Symmetric Gravity" entry -->
+<!-- claim-quality: 3zz0f6 -->
 
 ---
 

@@ -159,6 +159,50 @@ For `entry-point.md` (no up-link):
 
 Marker character: `⛔` (U+26D4). Form is blockquoted, imperative, single-paragraph. The marker is the machine-checkable signal that a directive is present (`grep -l "⛔ \*\*Bootstrap"`).
 
+#### Claim-quality ID propagation (Tier 1 + Tier 2)
+
+Each entry's stable 6-character ID propagates downward through the KB so the dependency graph is greppable end-to-end. See `CLAUDE.md` INVARIANT-S8 for the full specification; this section gives the placement rules.
+
+**Tier 1 — leaf-level back-reference (mandatory, mechanical).** Every leaf referenced by a claim-quality entry's "Leaf references" line carries a back-reference annotation. Placement: immediately after the up-link, leaf-marker, and any `path-stable` annotation:
+
+```markdown
+[↑ Parent](index.md)
+<!-- leaf: verbatim -->
+<!-- claim-quality: 0ktpcn, 5xon03 -->
+```
+
+The ID list is the complete set of claim-quality entries that reference the leaf (per-volume + cross-cutting + common). Auto-generatable from the existing "Leaf references" data; refresh whenever the upstream `claim-quality.md` changes.
+
+**Tier 2 — section / equation-level inline markers (selective, manual).** For multi-claim leaves where section boundaries align with different claim-quality IDs, individual markers are placed adjacent to the specific equation, named principle, or section that maps to a particular ID. Examples:
+
+```markdown
+### Internal Confinement and Matter Assembly
+<!-- claim-quality: lv3uw1 -->
+
+(content for the magnetic-branch confinement section)
+```
+
+```markdown
+   - <!-- claim-quality: lv3uw1 --> *Particle confinement* proceeds via the magnetic branch instead: ...
+```
+
+```markdown
+> **Note (cross-link with Ch.3).** <!-- claim-quality: 2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield}$...
+```
+
+Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains the complete index. Tier 2 is added when positional precision would help a reader navigate. Skip Tier 2 when IDs apply uniformly across the leaf — leaf-level annotation is sufficient.
+
+**Intermediate-index subtree annotation (mandatory, mechanical).** Each `index.md` (volume root, subtopic) carries a one-line summary of the IDs scoping leaves under its subtree:
+
+```markdown
+[↑ AVE Knowledge Base](../entry-point.md)
+<!-- claim-quality (subtree): 0ktpcn, 5xon03, 9s9apq, 2dwzib, ... -->
+```
+
+The subtree-IDs list is the union of all leaf-level Tier 1 IDs under the index. Auto-generatable from leaf annotations.
+
+**Grep guarantee.** `grep -r "<id>"` across the KB returns: canonical entry in `claim-quality.md`, every depends-on / strengthen-by reference, every Tier 1 leaf annotation, every Tier 2 inline marker, every intermediate-index subtree summary. Walking from claim-quality entry to its supporting leaves (and back) is fully mechanical.
+
 #### Maintenance cadence
 
 Sidecars are derived artifacts. Refresh when:

@@ -117,6 +117,35 @@ The volume `index.md` files and `entry-point.md` carry blockquoted bootstrap dir
 
 *Confirmed by: convention spec at `AVE-Core/kb-claims-boundaries-convention.md` (gestation; promoted to `CONVENTIONS.md` in Dispatch 8); plan at `mad-review/kb-claims-boundaries-plan.md` (umbrella).*
 
+### INVARIANT-S8: Claim-quality ID propagation
+
+Each entry in a `claim-quality.md` file carries a stable 6-character lowercase-alphanumeric identifier (`<!-- id: xxxxxx -->`). These IDs propagate downward through the KB so any consumer can grep an ID and reach every location that participates in the claim:
+
+**Tier 1 — leaf-level annotation (mandatory, mechanical).** Every leaf referenced by a claim-quality entry's "Leaf references" line carries a back-pointer near the top of the leaf, after the up-link / leaf-marker / path-stable annotations:
+
+```markdown
+[↑ Parent](index.md)
+<!-- leaf: verbatim -->
+<!-- claim-quality: <id1>, <id2>, ... -->
+```
+
+The ID list enumerates every claim-quality entry that references the leaf (whether from the per-volume sidecar or the cross-cutting register). Tier 1 annotations are auto-generatable from the existing "Leaf references" data and should be regenerated whenever a `claim-quality.md` entry's references change.
+
+**Tier 2 — section / equation-level inline markers (selective, manual).** When a leaf is multi-claim and section boundaries align with different claim-quality IDs, individual `<!-- claim-quality: <id> -->` markers are placed adjacent to the specific equation, named principle, or section that maps to a particular ID. Tier 2 supplements (does not replace) Tier 1; the Tier 1 line at the top remains the complete index. Tier 2 is added when positional precision would help a reader navigate; it is not required when the IDs apply uniformly to the whole leaf.
+
+**Intermediate-index annotation.** Each `index.md` (volume root, subtopic) carries a single-line summary of the IDs scoping its subtree:
+
+```markdown
+[↑ AVE Knowledge Base](../entry-point.md)
+<!-- claim-quality (subtree): <id1>, <id2>, ... -->
+```
+
+The subtree-IDs list is the union of all leaf-level Tier 1 IDs under the index.
+
+**Grep guarantee.** `grep -r "<id>"` across the KB returns: the canonical entry in the appropriate `claim-quality.md`, every dependent / strengthen-by reference, every Tier 1 leaf annotation, every Tier 2 inline marker, and every intermediate-index summary that scopes the entry. Walking from a claim-quality entry to its supporting derivations (and back) is mechanical.
+
+*Confirmed by: convention spec at `CONVENTIONS.md` Claim Quality Sidecar §; propagation script lives in this repo's commit history at the rollout commit. New leaves and entries must carry the propagation; consistency is checked at refresh cadence (same as Tier 1 sidecar refresh).*
+
 ---
 
 ## Cross-Volume Physical Constants

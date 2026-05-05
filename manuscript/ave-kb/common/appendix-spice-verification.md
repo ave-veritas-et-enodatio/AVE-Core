@@ -1,5 +1,6 @@
 [↑ Common Resources](index.md)
 <!-- path-stable: referenced from vol4 as app:spice_verification -->
+<!-- claim-quality: pfocn6 -->
 
 # Appendix: SPICE Verification Manual
 

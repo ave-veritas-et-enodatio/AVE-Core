@@ -1,5 +1,6 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 5xon03 -->
 
 ## Section 1.1: The Calibration of the Effective Cutoff Scales
 

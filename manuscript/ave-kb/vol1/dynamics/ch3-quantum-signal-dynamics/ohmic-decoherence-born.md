@@ -1,5 +1,6 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 7zuwtm, ldmvwi, zuf7g1 -->
 
 ## Section 3.5: Deterministic Interference and The Measurement Effect
 
@@ -8,6 +9,7 @@ In the Double Slit Experiment, the topological defect (particle) passes through 
 <!-- Figure: fig:double_slit_wake — Thermodynamic Wavefunction Collapse (Simulation Output). Case A (Unmeasured): topological defect through Slit 1, transverse acoustic wake through both slits. Case B (Measured): Ohmic detector at Slit 2 thermalizes acoustic phase energy, deterministically destroying phase coherence. -->
 
 ### Ohmic Decoherence and the Born Rule
+<!-- claim-quality: ldmvwi -->
 
 To measure a quantum state, a macroscopic detector must physically couple to the vacuum lattice. By Axiom 1, any device that couples to the $\mathbf{A}$-field and extracts kinetic energy acts as a resistive mechanical load (where $1 \, \Omega \equiv \xi_{topo}^{-2} \text{ kg/s}$). The physical work extracted into the detector over a measurement interval $\Delta t$ is governed by classical continuous Joule heating ($P = V^2 / R$):
 

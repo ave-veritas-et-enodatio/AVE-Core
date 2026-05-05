@@ -1,4 +1,5 @@
 [↑ Axioms and Lattice](../index.md)
+<!-- claim-quality (subtree): 2dwzib, 9gh0a1, 9s9apq, dfaiwj -->
 
 # Ch.2: Macroscopic Moduli and The Volumetric Energy Collapse
 

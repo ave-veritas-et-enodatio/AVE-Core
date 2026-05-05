@@ -1,4 +1,5 @@
 # Applied Vacuum Engineering — Knowledge Base
+<!-- claim-quality (subtree): 0ktpcn, 219e8j, 2dwzib, 2e9j97, 3kzmt9, 3zz0f6, 5xon03, 7zuwtm, 82dxbj, 8ep2b4, 9gh0a1, 9s9apq, b2anl4, b9eura, crbl60, dfaiwj, efo113, fy05jc, gdd70j, hmiytz, ibfyda, ldmvwi, lv3uw1, m3z5ux, m7qd0w, nq2kcc, pfocn6, rppigm, sxn6eo, t1okz0, t5ybqw, yawl6z, zi6t1e, zuf7g1, zw6mut -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claim-quality.md`](./claim-quality.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claim-quality.md), [vol2](./vol2/claim-quality.md), [vol3](./vol3/claim-quality.md), [vol4](./vol4/claim-quality.md), [vol5](./vol5/claim-quality.md), [vol6](./vol6/claim-quality.md), [common](./common/claim-quality.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

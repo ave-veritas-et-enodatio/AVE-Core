@@ -1,5 +1,6 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: crbl60 -->
 
 ## Section 4.2: Continuum Electrodynamics of the LC Condensate
 

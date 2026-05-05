@@ -1,5 +1,6 @@
 [↑ Ch.2 Macroscopic Moduli](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 9gh0a1 -->
 
 ## Section 2.1: The Implosion Paradox: Why The Vacuum Must Be Micropolar
 

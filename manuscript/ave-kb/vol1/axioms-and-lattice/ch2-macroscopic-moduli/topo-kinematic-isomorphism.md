@@ -1,5 +1,6 @@
 [↑ Ch.2 Macroscopic Moduli](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: dfaiwj -->
 
 > ↗ See also: [Six-Row Translation Table](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — expanded engineering translation in Vol 4
 > ↗ See also: [Electromechanical Transduction Constant](../../../vol5/molecular-foundations/index.md) — $\xi_{topo}$ applied to biological mass/stiffness
