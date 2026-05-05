@@ -1,4 +1,5 @@
 [↑ Period 2](../index.md)
+<!-- claim-quality (subtree): f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
 
 # Lithium (Z=3)
 

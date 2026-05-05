@@ -1,5 +1,6 @@
 [↑ Helium (Z=2)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f5ucdo -->
 
 ## Topological Structure and Isotope Stability
 

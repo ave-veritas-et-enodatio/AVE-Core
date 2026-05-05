@@ -1,5 +1,6 @@
 [↑ Beryllium (Z=4)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: The AC Wheatstone Bridge
 

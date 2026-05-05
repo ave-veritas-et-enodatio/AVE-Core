@@ -1,5 +1,6 @@
 [↑ Aluminum (Z=13)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: The Metalloid Boundary & Semiconductor Substrate
 

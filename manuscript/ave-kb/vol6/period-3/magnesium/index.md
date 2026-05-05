@@ -1,5 +1,5 @@
 [↑ Period 3](../index.md)
-<!-- claim-quality (subtree): 7tk051 -->
+<!-- claim-quality (subtree): 7tk051, f5ucdo, f8k2um, h8nmpu, jy8h1x, rw7jqo, sd04x4, y7uvdc -->
 
 # Magnesium (Z=12)
 

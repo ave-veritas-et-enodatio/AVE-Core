@@ -1,5 +1,6 @@
 [↑ Lithium (Z=3)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: y7uvdc -->
 
 ## Orbital Knot Topology
 

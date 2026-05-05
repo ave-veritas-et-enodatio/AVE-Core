@@ -1,5 +1,6 @@
 [↑ Chemistry Translation Guide](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: jy8h1x -->
 
 > ↗ See also: [Four Universal Regimes](../../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — Small-Signal / Large-Signal / Avalanche classification
 > ↗ See also: [Condensed Matter Translation](../../../common/translation-tables/translation-condensed-matter.md) — BCS / fluid / phase state impedance mappings

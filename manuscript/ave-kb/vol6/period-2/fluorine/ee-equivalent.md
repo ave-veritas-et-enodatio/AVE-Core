@@ -1,5 +1,6 @@
 [↑ Fluorine (Z=9)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 <!-- NOTE: Source §4 "Topological Area of Interest: Electronegativity as Asymmetric Inductance" is mapped to the ee-equivalent leaf position because it contains the EE circuit figure (fig:circuit_f19). Fluorine's source has no separate \section{Electrical Engineering Equivalent}. The orbital topology figure (fig:fluorine_19_topo) is also embedded within this section. -->
 

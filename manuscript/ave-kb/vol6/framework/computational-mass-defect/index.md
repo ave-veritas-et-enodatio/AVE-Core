@@ -1,5 +1,5 @@
 [↑ Vol 6: Framework](../index.md)
-<!-- claim-quality (subtree): 5965y1, 6tuqjh, 86gq2d, jy8h1x, llqd1n, lqanmt, nk6c43 -->
+<!-- claim-quality (subtree): 5965y1, 6tuqjh, 86gq2d, jy8h1x, llqd1n, lqanmt, nk6c43, o9xphr, qjwj12 -->
 
 # Computational Mass Defect via Mutual Impedance
 

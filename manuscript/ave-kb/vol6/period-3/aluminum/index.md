@@ -1,5 +1,5 @@
 [↑ Period 3](../index.md)
-<!-- claim-quality (subtree): 7tk051, 8psuqe -->
+<!-- claim-quality (subtree): 7tk051, 8psuqe, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
 
 # Aluminum (Z=13)
 

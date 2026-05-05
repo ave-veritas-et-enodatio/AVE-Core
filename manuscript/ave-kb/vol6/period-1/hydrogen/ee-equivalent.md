@@ -1,5 +1,6 @@
 [↑ Hydrogen (Z=1)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: The Isolated LC Tank
 

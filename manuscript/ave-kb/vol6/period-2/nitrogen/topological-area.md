@@ -1,5 +1,6 @@
 [↑ Nitrogen (Z=7)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: Atmospheric Scattering & Inert Triple Bonds
 

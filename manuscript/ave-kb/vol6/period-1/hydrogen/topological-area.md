@@ -1,5 +1,6 @@
 [↑ Hydrogen (Z=1)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: Stellar Compression & S-Parameters
 
