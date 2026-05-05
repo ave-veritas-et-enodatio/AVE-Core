@@ -1,5 +1,6 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: pp3qwf -->
 
 ## The Vacuum Birefringence Limit: $E^2$ vs $E^4$
 

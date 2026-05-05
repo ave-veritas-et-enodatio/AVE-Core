@@ -1,5 +1,6 @@
 [↑ Ch.18 Active Topological Metamaterials](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ffa5sq -->
 
 ## The Fabrication Bottleneck: Dynamic Acoustic Cavities
 

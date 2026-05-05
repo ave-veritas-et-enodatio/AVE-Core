@@ -1,5 +1,6 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: iz3svl -->
 
 ## The Sapphire Phonon Centrifuge
 

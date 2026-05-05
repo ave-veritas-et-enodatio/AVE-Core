@@ -1,4 +1,5 @@
 [↑ Advanced Applications](../index.md)
+<!-- claim-quality (subtree): ffa5sq -->
 
 # Ch.18 Active Topological Metamaterials: The Inorganic LLCP
 

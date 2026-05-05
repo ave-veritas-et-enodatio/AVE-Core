@@ -1,5 +1,6 @@
 [↑ Ch.10 Quantum Computing](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 07wvul -->
 
 ## The Transmon: A Fragile LC Standing Wave
 

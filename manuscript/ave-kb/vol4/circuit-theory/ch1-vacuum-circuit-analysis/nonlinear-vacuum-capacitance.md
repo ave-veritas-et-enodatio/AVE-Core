@@ -1,5 +1,6 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: vjv4zf -->
 
 ## Constitutive Circuit Models for Vacuum Non-Linearities
 

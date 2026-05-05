@@ -7,6 +7,7 @@
 ---
 
 ## Topological Conversion Constant $\xi_{topo} = e/\ell_{node}$
+<!-- id: i9l284 -->
 
 The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomorphism between continuum spatial mechanics and electrical network theory.
 
@@ -22,9 +23,19 @@ The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomor
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md`, `circuit-theory/ch1-vacuum-circuit-analysis/translation-circuit.md`, `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`. Cross-cutting note on $\xi$ vs $\xi_{topo}$: CLAUDE.md (Axiom 3 entry) and LIVING_REFERENCE.md.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $V_{yield}$ vs $V_{snap}$ — Two Distinct Dielectric Thresholds
+<!-- id: 0vxzfu -->
 
 A volume-wide reading hazard: Vol 4 uses two yield voltages with different physical meanings, often in adjacent paragraphs. This is also flagged as project-wide Critical Distinction #1 in LIVING_REFERENCE.md.
 
@@ -41,9 +52,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md` (definitive selection table), `circuit-theory/ch2-topological-thrust-mechanics/dielectric-yield-thresholds.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #1.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Nonlinear Vacuum Capacitance $C_{eff}(V) = C_0/S(V)$ — Macroscopic Saturation
+<!-- id: vjv4zf -->
 
 - $C_{eff}(V) = C_0 / \sqrt{1 - (V/V_{yield})^2}$ (Axiom 4 applied to the electric sector)
 - _Specific Claims_
@@ -57,9 +78,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `simulation/ch18-universal-vacuum-cell/spice-subcircuit.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $Z_0$ from Discrete LC Ladder, and Gravitational Stealth
+<!-- id: kezk9z -->
 
 - $Z_0 = \sqrt{L_{cell}/C_{cell}} = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ (lattice pitch cancels)
 - _Specific Claims_
@@ -74,9 +105,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`. Cross-cutting: see Symmetric vs Asymmetric Saturation in `../claim-quality.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Relativistic Inductor and SPICE Native Special Relativity
+<!-- id: p5cf3t -->
 
 - $L_{eff}(I) = L_0/\sqrt{1 - (I/I_{max})^2}$, $I_{max} = \xi_{topo}\, c \approx 124.4$ A
 - _Specific Claims_
@@ -89,9 +130,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Operating Regime for PONDER and Lab Devices — Regime I
+<!-- id: trgqtf -->
 
 - $E/E_{yield}$ classification: I ($< 0.1$), II ($0.1$-$0.5$), III ($0.5$-$1.0$), IV ($\ge 1.0$); $E_{yield} \approx 1.13 \times 10^{17}$ V/m
 - _Specific Claims_
@@ -104,9 +155,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`, `falsification/ch12-falsifiable-predictions/ee-bench-plateau.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Chiral Acoustic Rectification Thrust (PONDER-01)
+<!-- id: 7tynm2 -->
 
 - $F_{total} = N \cdot \nu_{vac} \cdot \delta(Q,\beta) \cdot P_{in}/c$ with $\nu_{vac} = 2/7$
 - _Specific Claims_
@@ -123,9 +184,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md`, `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch11-experimental-bench-falsification/open-source-hardware.md` (PONDER-01 build guide). PONDER-05 number sourced only from `vol4/index.md`; no leaf supports it.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## HOPF-01 Chiral Antenna $\Delta f/f = \alpha \cdot pq/(p+q)$
+<!-- id: wzezvt -->
 
 - Predicted resonance shift: $\Delta f/f = \alpha \cdot pq/(p+q)$ for a $(p,q)$ torus knot
 - _Specific Claims_
@@ -140,9 +211,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/open-source-hardware.md`, `future-geometries/ch13-future-geometries/high-q-chiral-antenna.md`, `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## K4-TLM Diamond Lattice — Unitarity to Machine Epsilon
+<!-- id: hd9bee -->
 
 - $S^{(0)}_{ij} = \tfrac{1}{2} - \delta_{ij}$ (4-port scattering matrix); $\max|S^\dagger S - I| = 2.2 \times 10^{-16}$
 - _Specific Claims_
@@ -157,9 +238,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`, `future-geometries/ch13-future-geometries/open-universe-boundaries.md`, `future-geometries/ch13-future-geometries/cem-methods-survey.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## CEM Method Mappings (MoM, FDTD, FEM, TLM, CMA, PO/GO)
+<!-- id: u462e4 -->
 
 - $[\mathbf{Z}][\mathbf{I}] = [\mathbf{V}]$ (MoM); $[\mathbf{S}]\{\mathbf{E}\} = k_0^2[\mathbf{T}]\{\mathbf{E}\}$ (FEM); etc.
 - _Specific Claims_
@@ -171,9 +262,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `future-geometries/ch13-future-geometries/cem-methods-survey.md`, `circuit-theory/ch1-vacuum-circuit-analysis/computational-solver-selection.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Tokamak Ignition Paradox and Metric-Catalyzed Fusion ($n^* = 1.114$)
+<!-- id: qagkgy -->
 
 - $V_{topo}$(D-T at 15 keV) $\approx 60.3$ kV $> V_{yield}$; $n^* = (V_{topo,0}/V_{yield})^{1/3} \approx 1.114$
 - _Specific Claims_
@@ -190,9 +291,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch8-applied-fusion/tokamak-paradox.md`, `advanced-applications/ch8-applied-fusion/ignition-criterion.md`, `advanced-applications/ch8-applied-fusion/ave-fusion-device.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Topological SMES (Beltrami $(p,q)$ Torus Knot)
+<!-- id: 6btlq3 -->
 
 - 87.9% reduction in external stray flux for a $(150, 3)$ torus knot vs solenoid of identical volume/current
 - _Specific Claims_
@@ -205,9 +316,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch7-topological-smes/smes-topology.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Topological Qubit (Gauss Linking) and Casimir Cavity Shielding
+<!-- id: 07wvul -->
 
 - Stored state: integer Gauss linking number $\mathcal{L}$
 - _Specific Claims_
@@ -221,9 +342,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch10-quantum-computing/topological-qubit-model.md`, `advanced-applications/ch10-quantum-computing/decoherence-as-impedance.md`, `advanced-applications/ch10-quantum-computing/error-correction-geometry.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Active Topological Metamaterials (Inorganic LLCP)
+<!-- id: ffa5sq -->
 
 - Polythiophene + 1.0 nm $C_{60}$ at $\phi = 0.7405$; predicted $-20$°C to $100$°C ambient superconducting band
 - _Specific Claims_
@@ -237,9 +368,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch18-active-topological-metamaterials/active-feedback-design.md`, `advanced-applications/ch18-active-topological-metamaterials/metamaterial-band-structure.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Native Silicon Design Engine (Doping, BJT $\beta$, `atopile` Compilation)
+<!-- id: 0hwopi -->
 
 - BJT gain: $\beta = (T^2_{EB})^{N_{gap}} / (1 - (T^2_{EB})^{N_{gap}})$ from cascaded boundary $T^2$
 - _Specific Claims_
@@ -255,9 +396,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch19-silicon-design-engine/doping-geometric-perturbation.md`, `advanced-applications/ch19-silicon-design-engine/topological-bjt-gain.md`, `advanced-applications/ch19-silicon-design-engine/declarative-ato-compilation.md`, `advanced-applications/ch19-silicon-design-engine/native-spice-subcircuit.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Sagnac-RLVE: Tabletop Falsification, $\Delta\phi \approx 2.07$ rad, $\Psi \approx 7.15$
+<!-- id: wqmb19 -->
 
 - $\Delta\phi = 4\pi L_{fiber} v_{network} / (\lambda c) \approx 2.07$ rad (Tungsten rotor, 200 m fiber, 10k RPM)
 - _Specific Claims_
@@ -272,9 +423,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`, `falsification/ch11-experimental-bench/sagnac-rlve.md` (consolidated), `falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $\sqrt{\alpha}$ Yield Limit Predictions: Levitation 1.846 g, $E_{yield} = 1.13 \times 10^{17}$ V/m
+<!-- id: ui3m8a -->
 
 - $m_{max} = V_{yield} \cdot \xi_{topo} / g = 1.846$ g; $E_{yield} = V_{yield}/\ell_{node} \approx 1.13 \times 10^{17}$ V/m
 - _Specific Claims_
@@ -289,9 +450,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/zero-parameter-derivations.md`, `falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md`, `falsification/ch11-experimental-bench-falsification/ybco-phased-array.md`, `falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Vacuum Impedance Mirror $\Gamma(V) = (Z_{local}/Z_0 - 1)/(Z_{local}/Z_0 + 1)$
+<!-- id: 5s5b0d -->
 
 - $Z_{local}(V) = Z_0 (1 - (V/V_{yield})^2)^{-1/4}$ → $\Gamma \to 1$ as $V \to V_{yield}$
 - _Specific Claims_
@@ -306,9 +477,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Vacuum Birefringence Discriminator: $E^4$ vs $E^2$
+<!-- id: pp3qwf -->
 
 - AVE: $\Delta n \propto E^4$ (Taylor of $1 - \sqrt{1 - (E/E_{yield})^2}$); QED: $\Delta n \propto E^2$ (Euler-Heisenberg)
 - _Specific Claims_
@@ -321,9 +502,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Torus Knot Baryon Forward Predictions $(2,17), (2,19), (2,21)$
+<!-- id: to41c7 -->
 
 - $(2,17)$: $\sim 2742$ MeV, $(2,19)$: $\sim 2983$ MeV, $(2,21)$: $\sim 3199$ MeV; $\sim 170$ MeV per crossing
 - _Specific Claims_
@@ -337,9 +528,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## SPICE Particle Decay (Leaky Cavity) — Qualitative Muon Model
+<!-- id: c54kdd -->
 
 - LC tank ($L = 1$ mH, $C = 1$ nF, IC = 150 kV) discharging through voltage-controlled switch at $V > V_{yield}$
 - _Specific Claims_
@@ -352,9 +553,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `simulation/ch14-leaky-cavity-particle-decay/theory.md`, `simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #5.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Autoresonant PLL — Schwinger Limit Bypass Mechanism
+<!-- id: 9sujp8 -->
 
 - $C_{eff}(V) = C_0 \sqrt{1 - (V/V_{60k})^2}$ detunes a fixed-frequency drive; PLL tracks the dropping resonant frequency
 - _Specific Claims_
@@ -367,9 +578,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `simulation/ch15-autoresonant-breakdown/theory.md`, `falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md`, `falsification/ch12-falsifiable-predictions/autoresonant-helicity.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Sapphire Phonon Centrifuge — Predicted 6.35 G Artificial Gravity
+<!-- id: iz3svl -->
 
 - $a_{LT} = v_{vac}^2 / r$ with $v_{vac} = v_{sound} \times (\rho_{Al_2O_3}/\rho_{bulk})$
 - _Specific Claims_
@@ -381,9 +602,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Optical Caustic Singularity Resolution
+<!-- id: uosu8w -->
 
 - $E_{\max}$ at focus bounded by $E_{YIELD} \approx 43.65$ kV/m (note: kV/m, not kV/m converted from $E_{yield}$)
 - _Specific Claims_
@@ -396,9 +627,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch20-optical-caustic-resolution/index.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Annihilation and Pair Production as Topological Mechanics
+<!-- id: 5rigtn -->
 
 - $E_{knot} = \tfrac{1}{2}I\omega^2 \to E_{photon} = h\nu$; thresholds $2m_e c^2 = 1.022$ MeV ($\gamma\gamma$), $2m_p c^2 \approx 1876.5$ MeV ($p\bar p$)
 - _Specific Claims_
@@ -412,9 +653,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch9-antimatter/annihilation-mechanism.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Definitive Binary Kill-Switches (Neutrino Parity, GRB Dispersion)
+<!-- id: gw2wgc -->
 
 - _Specific Claims_
   - Detection of a stable, freely propagating right-handed neutrino permanently falsifies the $\tfrac{1}{3}G_{vac}$ microrotational boundary condition of the chiral LC bandgap → destroys the AVE Weak Force derivation.
@@ -425,9 +676,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/binary-kill-switches.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Orbital Friction Paradox — Reactive vs Real Power
+<!-- id: v6ti0v -->
 
 - $P_{real} = F_g \cdot v_{orb} \cos(90°) \equiv 0$ W for a stable circular orbit
 - _Specific Claims_
@@ -438,5 +699,14 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Does NOT account for measurable orbital decay where $\theta \neq 90°$ (gravitational-wave inspiral, atmospheric drag, tidal dissipation) — these are framed as "$\theta \neq 90°$" perturbations consistent with the same framework. No quantitative match to observed inspiral rates is claimed in-leaf.
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
 
 ---

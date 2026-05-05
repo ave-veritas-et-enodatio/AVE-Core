@@ -1,5 +1,6 @@
 [↑ Ch.12 Index](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: trgqtf -->
 
 ## EE Bench: Macroscopic Dielectric Plateau
 

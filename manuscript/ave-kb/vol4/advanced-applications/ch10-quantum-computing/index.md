@@ -1,4 +1,5 @@
 [↑ Advanced Applications](../index.md)
+<!-- claim-quality (subtree): 07wvul -->
 
 # Ch.10 Quantum Computing and Topological Immunity
 

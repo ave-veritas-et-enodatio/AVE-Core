@@ -1,5 +1,6 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: to41c7 -->
 
 ## The Torus Knot Ladder: Baryon Resonance Mass Predictions
 

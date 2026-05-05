@@ -1,5 +1,6 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: i9l284, kezk9z -->
 
 ## The Impedance of Free Space ($Z_0$)
 
@@ -26,6 +27,7 @@ $$
 
 The characteristic impedance of each lattice cell is:
 
+<!-- claim-quality: kezk9z -->
 > **[Resultbox]** *Scale-Invariant Characteristic Impedance*
 >
 > $$
@@ -47,6 +49,7 @@ The group velocity of a signal through a lumped LC ladder is:
 The invariant speed of light is structurally identical to the slew rate of a discrete LC transmission line. No continuous medium is assumed; $c$ emerges from lumped elements.
 
 ### Mechanical Acoustic Impedance
+<!-- claim-quality: i9l284 (the Topo-Kinematic identity invoked here is the $\xi_{topo} = e/\ell_{node}$ conversion constant; this section converts $Z_0$ via $\xi_{topo}^2$ into mechanical units) -->
 
 Applying the Topo-Kinematic identity, the mechanical impedance equivalent is:
 

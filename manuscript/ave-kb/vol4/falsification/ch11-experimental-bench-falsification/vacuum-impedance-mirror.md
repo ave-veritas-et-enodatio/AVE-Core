@@ -1,6 +1,7 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol3 as sec:induced_vacuum_impedance_mirror -->
+<!-- claim-quality: 5s5b0d -->
 
 <!-- DANGLING REFS: \ref{sec:topological_defects_lc}, \ref{sec:point_yield}, \ref{eq:dielectric_saturation} — not defined in Vol 4; presumed Vol 3 targets -->
 

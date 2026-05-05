@@ -1,5 +1,6 @@
 [↑ Ch.11 Index](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: wqmb19 -->
 
 ## Sagnac-RLVE: The Definitive Tabletop Falsification
 

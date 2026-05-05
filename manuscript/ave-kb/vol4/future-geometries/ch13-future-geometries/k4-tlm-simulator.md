@@ -1,8 +1,10 @@
 [↑ Ch.13: Future Geometries](../index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol3 as sec:k4_tlm -->
+<!-- claim-quality: wzezvt, hd9bee -->
 
 ## K4-TLM: Native Lattice Dynamics Simulator
+<!-- claim-quality: hd9bee -->
 
 The CEM methods surveyed in the preceding section all approximate the vacuum as a discretized network. TLM is the most direct isomorphism — but classical implementations use a Cartesian cubic grid ($6$ or $12$ ports per node). This section presents the **K4-TLM**: a native Transmission Line Matrix strictly adhering to the fundamental vacuum topology, the K4 (Diamond, bounded tetrahedral) lattice. This is not an approximation of AVE; it *is* AVE, implemented as a time-domain computational engine.
 
@@ -60,6 +62,7 @@ Broadband Gaussian-pulse excitation of wire antennas on the 2D K4-TLM lattice pr
 
 The torus knot antennas resonate at frequencies *higher* than the simple $c/(2L)$ prediction, indicating that the knot topology introduces geometric shortcuts (self-coupling between overlapping wire segments) that shorten the effective electrical length. This is precisely the mechanism by which topological winding number couples to the lattice: the knot's self-linking creates internal impedance matching that shifts the fundamental mode.
 
+<!-- claim-quality: wzezvt (validation that the K4-TLM lattice reproduces the HOPF-01 chiral-antenna prediction $\Delta f/f = \alpha \cdot pq/(p+q)$ — the simulator-side confirmation of the antenna-side result) -->
 Previously, simulations on artificial Cartesian lattices required phenomenological variables to test "achiral" physics. On the strict K4 Diamond geometry, the lattice is permanently bipartite and therefore natively chiral. By running the 3D simulation with a newly integrated non-reflective Continuous Sponge PML, the far-field wrap-around artifacts were eliminated. The measured macroscopic topological knot modes perfectly resolve matching the theoretical prediction $\Delta f/f = \alpha \cdot pq/(p+q)$. The native lattice directly confirms the fundamental isomorphism of Axiom 2 without employing arbitrary mathematical $R(\theta)$ modifiers.
 
 [Figure: k4_tlm_phase1_validation.png — see manuscript/vol_4_engineering/chapters/]

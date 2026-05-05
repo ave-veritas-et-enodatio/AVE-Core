@@ -1,5 +1,6 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: wqmb19 -->
 
 ## The Sagnac Effect and RLVG Impedance Drag
 

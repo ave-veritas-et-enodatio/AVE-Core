@@ -1,5 +1,6 @@
 [↑ Silicon Design Engine](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 0hwopi -->
 
 # Doping as Geometric Perturbation
 

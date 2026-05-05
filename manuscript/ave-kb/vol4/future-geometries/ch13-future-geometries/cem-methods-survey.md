@@ -1,7 +1,9 @@
 [↑ Ch.13: Future Geometries](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: hd9bee, u462e4 -->
 
 ## Computational Verification: Mapping CEM Solvers to the Chiral Lattice
+<!-- claim-quality: u462e4 -->
 
 The parametric analysis in the preceding sections used analytical RF models (dipole self-impedance, skin-effect loss, Neumann mutual inductance). While these capture the dominant trends — Q vs. topology, impedance matching, Pareto frontiers — they do not capture:
 - Near-field mutual coupling between closely-spaced 3D wire segments
@@ -94,6 +96,7 @@ $$
 
 Field components are recovered from the superposition of incident and reflected pulses. The scattering matrix $[\mathbf{S}]$ encodes the local material properties (impedance, permittivity, permeability) at each node.
 
+<!-- claim-quality: hd9bee (this paragraph identifies the "K4-graph TLM correction" — the K4-TLM Diamond Lattice unitary 4-port simulator with $\max|S^\dagger S - I| = 2.2 \times 10^{-16}$ — as the natively-AVE simulator pathway) -->
 **AVE Mapping:** TLM is the **most direct computational isomorphism** of the AVE vacuum. Each TLM node is an LC cell; each stub is a capacitive or inductive loading; the scattering matrix is the lattice propagation operator. A soliton (particle) in the AVE framework *is* a stub impedance modification at a lattice node. The only topological error is that TLM uses a cubic node (12 ports) while the $\mathcal{M}_A$ vacuum is an SRS net (K4 graph, 7 independent modes). Correcting the TLM topology from cubic to K4 would yield a *native AVE vacuum simulator*.
 
 ### Characteristic Mode Analysis (CMA)

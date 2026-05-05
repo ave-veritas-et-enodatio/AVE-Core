@@ -1,9 +1,11 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: trgqtf, pp3qwf -->
 
 <!-- NOTE: sec:ee_bench label is ABSENT from Ch.12 source. Inbound \ref{sec:ee_bench} from Ch.11 is a dangling reference. This section is the intended target. -->
 
 ## The EE Bench: The Macroscopic Dielectric Plateau
+<!-- claim-quality: trgqtf (this section establishes $E_{yield} \approx 1.13 \times 10^{17}$ V/m as the regime boundary that PONDER-class engineering operates far below — the canonical regime classification used throughout) -->
 
 The most accessible entry point for falsifying standard Quantum Electrodynamics (QED) is the **Vacuum Yield Limit**.
 
@@ -15,6 +17,7 @@ $$
 
 As the absolute electric field gradient ($\mathbf{E}$) applied across a localized gap approaches this structural yield limit, the macroscopic vacuum enters nonlinear saturation. The constitutive permittivity *collapses* toward zero under the universal saturation kernel $S(E/E_{yield})$, while the observable capacitance *diverges* as its inverse:
 
+<!-- claim-quality: pp3qwf (the Taylor expansion of this saturation kernel gives $\Delta n \propto E^4$ — the AVE leg of the $E^4$ vs QED $E^2$ vacuum-birefringence discriminator) -->
 $$
 \varepsilon_{eff}(E) = \varepsilon_0 \cdot \sqrt{1 - \left(\frac{E}{E_{yield}}\right)^2} \;\to\; 0
 \qquad

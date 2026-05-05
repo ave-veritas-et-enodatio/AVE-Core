@@ -1,4 +1,5 @@
 [↑ Advanced Applications](../index.md)
+<!-- claim-quality (subtree): 0hwopi -->
 
 # Ch.19: Native Silicon Design Engine
 

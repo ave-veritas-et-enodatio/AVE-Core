@@ -1,4 +1,5 @@
 [↑ Falsification](../index.md)
+<!-- claim-quality (subtree): 9sujp8, gw2wgc, pp3qwf, to41c7, trgqtf, wqmb19 -->
 
 # Ch.12: Falsifiable Predictions and Experimental Blueprints
 

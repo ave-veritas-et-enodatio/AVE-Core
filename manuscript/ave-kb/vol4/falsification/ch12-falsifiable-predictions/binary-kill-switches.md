@@ -1,5 +1,6 @@
 [↑ Ch.12: Falsifiable Predictions](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: gw2wgc -->
 
 ## Definitive Binary Kill-Switches
 

@@ -1,4 +1,5 @@
 [↑ Vol 4: Future Geometries](../index.md)
+<!-- claim-quality (subtree): hd9bee, u462e4, wzezvt -->
 
 # Ch.13: Future Geometries — Hopf Coils and Phased Arrays
 

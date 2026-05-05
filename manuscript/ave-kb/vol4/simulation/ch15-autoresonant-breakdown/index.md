@@ -1,4 +1,5 @@
 [↑ Vol 4: Simulation](../index.md)
+<!-- claim-quality (subtree): 9sujp8 -->
 
 # Ch.15: Autoresonant Dielectric Breakdown — Bypassing the Schwinger Limit
 

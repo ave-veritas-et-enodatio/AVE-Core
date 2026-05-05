@@ -1,4 +1,5 @@
 [↑ Ch.18 Universal Vacuum Cell](index.md)
+<!-- claim-quality: vjv4zf -->
 
 # SPICE Subcircuit Specification
 

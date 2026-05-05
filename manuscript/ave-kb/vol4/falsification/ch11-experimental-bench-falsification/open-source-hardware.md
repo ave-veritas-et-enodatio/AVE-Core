@@ -1,11 +1,13 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 7tynm2, wzezvt -->
 
 ## Open-Source Hardware: The EE Build Guide
 
 To permanently democratize the verification of the AVE framework, this section provides the specific, actionable Printed Circuit Board Assembly (PCBA) guidelines required to test macroscopic metric engineering using commercial-off-the-shelf (COTS) electronics.
 
 ### Project HOPF-01: The Chiral VNA Antenna
+<!-- claim-quality: wzezvt -->
 
 **Objective:** Prove the vacuum is a chiral LC Resonant Network by demonstrating an anomalous $S_{11}$ frequency shift that scales as $\alpha \cdot pq/(p+q)$ across five torus knot topologies.
 
@@ -16,6 +18,7 @@ To permanently democratize the verification of the AVE framework, this section p
 **The Falsification Protocol:** Measure all six antennas with a calibrated VNA (SOL calibration) in air, then submerge in mineral oil ($\varepsilon_r \approx 2.1$). Plot $\Delta f/f$ vs. $pq/(p+q)$. If the data is linear through the origin with slope $\alpha$ and substrate-independent, AVE is confirmed. If zero, random, or substrate-dependent, AVE is falsified at this scale.
 
 ### Project PONDER-01: The Solid-State Micro-Drive
+<!-- claim-quality: 7tynm2 -->
 
 **Objective:** Prove that the metric refractive index ($n_{scalar}$) can be artificially shifted using high-k dielectrics, resulting in measurable macroscopic ponderomotive acceleration ($a = c^2 \nabla n$).
 

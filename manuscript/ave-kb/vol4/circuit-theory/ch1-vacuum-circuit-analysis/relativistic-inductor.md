@@ -1,5 +1,6 @@
 [↑ Ch.1 Vacuum Circuit Analysis](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: p5cf3t -->
 
 ## The Relativistic Inductor (Lorentz Saturation)
 

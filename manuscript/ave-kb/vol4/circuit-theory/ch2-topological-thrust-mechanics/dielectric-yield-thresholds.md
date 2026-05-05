@@ -1,5 +1,6 @@
 [↑ Up](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 0vxzfu -->
 
 > **[Resultbox]** *Dielectric Yield Thresholds*
 >

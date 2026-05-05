@@ -1,4 +1,5 @@
 [↑ Circuit Theory](../index.md)
+<!-- claim-quality (subtree): 0vxzfu, 7tynm2, trgqtf -->
 
 # Ch.2 Topological Thrust Mechanics
 

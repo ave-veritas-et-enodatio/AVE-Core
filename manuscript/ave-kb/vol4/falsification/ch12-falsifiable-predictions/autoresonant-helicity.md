@@ -1,5 +1,6 @@
 [↑ Ch.12 Index](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 9sujp8 -->
 
 ## Autoresonant Rupture & Helicity Injection
 
