@@ -1,5 +1,5 @@
 [↑ Molecular Foundations](../index.md)
-<!-- claim-quality (subtree): rppigm -->
+<!-- claim-quality (subtree): 4jy0t8, j9l3ww, lm9b3j, oilm45, r6uef4, rppigm, uowffm, x5z09x, yyhczl -->
 
 # Organic Circuitry
 

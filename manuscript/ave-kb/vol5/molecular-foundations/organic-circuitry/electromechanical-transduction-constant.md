@@ -1,13 +1,15 @@
 [↑ Organic Circuitry](../index.md)
 <!-- leaf: verbatim -->
-<!-- claim-quality: rppigm -->
+<!-- claim-quality: rppigm, lm9b3j -->
 
 ---
 
 ## The Electromechanical Transduction Constant
+<!-- claim-quality: rppigm (this section is Vol 5's manifestation of the cross-cutting Topological Conversion Constant — same $\xi_{topo} = e/\ell_{node}$ value, here used as the mechanical/biological bridge) -->
 
 The vacuum lattice (Axiom 1) has per-unit-length parameters $\mu_0$ [H/m] and $\varepsilon_0$ [F/m]. The topological conversion constant $\xi_\text{topo}$ maps charge dislocation to spatial dislocation:
 
+<!-- claim-quality: lm9b3j -->
 > **[Resultbox]** *The Electromechanical Transduction Constant*
 >
 > $$

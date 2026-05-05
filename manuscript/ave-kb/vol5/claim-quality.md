@@ -7,6 +7,7 @@
 ---
 
 ## Electromechanical Transduction Constant $\xi_\text{topo}$
+<!-- id: lm9b3j -->
 
 - $\xi_\text{topo} \equiv e/\ell_\text{node} = e\,m_e\,c/\hbar \approx 4.149 \times 10^{-7}$ C/m
 - _Specific Claims_
@@ -19,9 +20,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`, `molecular-foundations/organic-circuitry/mass-to-inductance.md`, `molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C2.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Hydrogen Bond Canonical Values $d_\text{HB}$, $E_\text{HB}$
+<!-- id: j9l3ww -->
 
 - $d_\text{HB} = 1.754$ Å; $E_\text{HB} = U_\text{raw} \times (1-\phi) = 0.832\,\text{eV} \times 0.2595 = 0.2158\,\text{eV} = 4.98$ kcal/mol
 - _Specific Claims_
@@ -38,9 +49,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C3.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Bond Eigenvalue $d_\text{eq}$ — Fabry–Perot Loaded Cavity
+<!-- id: yyhczl -->
 
 - $d_\text{eq} = \sqrt{2}\,\sqrt{r_A \cdot r_B} \times \sqrt{T^2(N_\text{eff})/T^2(2)}$ with $T^2(N) = 4N/(1+N)^2$ and $N_\text{eff} = 2(\text{Bond Order}) + \max(N_{s_A}, N_{s_B})/2$
 - _Specific Claims_
@@ -56,9 +77,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Batch SPICE — 18/20 Amino Acids at 1192 cm$^{-1}$
+<!-- id: 4jy0t8 -->
 
 - _Specific Claims_
   - Native MNA solver applied to first-principles SPICE netlists for all 20 standard L-amino acids produces a **shared primary absorption notch at 1192.1 cm$^{-1}$** for 18 of 20 amino acids (depths $-73$ to $-79$ dB), with Valine at 1343.9 cm$^{-1}$ and Glycine at 2819.1 cm$^{-1}$.
@@ -72,9 +103,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/batch-spice-20-amino-acids.md`, `molecular-foundations/organic-circuitry/simulation-results-zero-parameter.md`, `molecular-foundations/organic-circuitry/ftir-falsification-test.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## FTIR Falsification — 10/11 Peaks Within Predicted Passband
+<!-- id: oilm45 -->
 
 - _Specific Claims_
   - For Glycine and Alanine independently, 10 of 11 known NIST FTIR absorption peaks fall within the predicted backbone passband ($|H|^2 > -60$ dB) — measured against a **fixed** frequency scale with no parameter tuning.
@@ -86,9 +127,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/ftir-falsification-test.md`, `molecular-foundations/organic-circuitry/self-consistency-verification.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Membrane Yield Temperature $T_c \approx 278.3$ K
+<!-- id: uowffm -->
 
 - $T_c = E_\text{HB} / (n_\text{coop} \cdot k_B)$ with $n_\text{coop} = 9$
 - _Specific Claims_
@@ -103,9 +154,19 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`, `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Chignolin Validation — 2.59 Å Backbone RMSD
+<!-- id: u4vmgk -->
 
 - _Specific Claims_
   - The 10-residue Chignolin mini-protein (CLN025: YYDPETGTWY) folds via the AVE engine to backbone RMSD $= 2.59$ Å vs experimental structure with **zero adjustable parameters**.
@@ -119,9 +180,19 @@
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/chignolin-validation.md`, `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md`. External engine: see LIVING_REFERENCE.md "Protein Folding Engine" section.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $S_{11}$ Folding Functional — Vol 5 Notation Hazard
+<!-- id: a3rby3 -->
 
 - $S_{11}$ in Vol 5 = protein-folding free-energy / objective functional whose minimisation yields the native fold (impedance matching across the residue cascade)
 - _Specific Claims_
@@ -135,9 +206,19 @@
 
 > **References:** Bound asserted at invariant level — see [`CLAUDE.md`](../CLAUDE.md) INVARIANT-N4. Supporting context: `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` and `molecular-foundations/biophysics-intro/chignolin-validation.md` (which name $S_{11}$ in the folding-engine context). The functional definition leaves are in the private engine repo (see LIVING_REFERENCE.md "Protein Folding Engine").
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Protein Compaction Packing Fraction $\eta_\text{eq} = P_C(1-\nu) = P_C \times 5/7$
+<!-- id: enjq28 -->
 
 - $\eta_\text{eq} = P_C(1 - \nu_\text{vac}) = P_C \times 5/7$ with $\nu_\text{vac} = 2/7$; Master Prediction Table entry #39 lists Villin Rg at $0.8\%$ via $R_g = r_{Ca}(N/\eta_\text{eq})^{1/3}\sqrt{3/5}$.
 - _Specific Claims_
@@ -151,9 +232,19 @@
 
 > **References:** `common/translation-protein-solver.md` (formula appears in tab:trans_protein_solver row "Protein compaction"). Master Prediction Table entry #39 (LIVING_REFERENCE.md). Derivation leaf is in the private `AVE-Protein` engine repository (see LIVING_REFERENCE.md "Protein Folding Engine" section); leaf-level statement is a KB content gap (logged to followups).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Biological Applications (Ch. 6) — Hypothesis Status, Not Derived Predictions
+<!-- id: 8zwyl3 -->
 
 The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `methylene-blue-bridge.md`, `creatine-neural-capacitor.md`, `consciousness-cavity-eigenmode.md`, `emdr-impedance-annealing.md`) are **explicitly classified as hypotheses with predictions, not as derived results**. The chapter index states: "No resultboxes; all content is hypothesis and prediction."
 
@@ -172,9 +263,19 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `biological-applications/index.md` (status statement), `biological-applications/cancer-impedance-decoupling.md`, `biological-applications/red-light-therapy.md`, `biological-applications/methylene-blue-bridge.md`, `biological-applications/creatine-neural-capacitor.md`, `biological-applications/consciousness-cavity-eigenmode.md`, `biological-applications/emdr-impedance-annealing.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Chiral FRET Parallax — Currently Unfalsifiable
+<!-- id: 239tr4 -->
 
 - _Specific Claims_
   - The Molecular Chiral FRET Parallax test is proposed to map the AVE-predicted chiral metric bias underlying L-amino-acid dominance in terrestrial biology.
@@ -187,9 +288,19 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/chiral-fret-parallax.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Chirality as Phase Polarity — Structural Identification
+<!-- id: r6uef4 -->
 
 - _Specific Claims_
   - L-amino-acid chirality is identified with the **physical winding direction of the core inductor sequence**; an L-string carries a $+90^\circ$ intrinsic phase difference (current leads voltage), preventing destructive interference along extended peptide chains.
@@ -200,9 +311,19 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/chirality-phase-polarity.md`, `common/translation-protein.md` (row "L-amino acid chirality" mapping to "Non-reciprocal waveguide").
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Symmetric vs Asymmetric Saturation — Vol 5 Manifestation
+<!-- id: x5z09x -->
 
 The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting claim-quality register](../claim-quality.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
 
@@ -215,9 +336,19 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md` (regime classification), `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`. Cross-cutting: see [Symmetric vs Asymmetric Saturation](../claim-quality.md).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Master Prediction Table Reading — Vol 5 Manifestation
+<!-- id: ivdcxm -->
 
 The cross-cutting "Reading Conventions for the Master Prediction Table" entry applies to vol5 entries that surface in `LIVING_REFERENCE.md`:
 
@@ -229,3 +360,12 @@ The cross-cutting "Reading Conventions for the Master Prediction Table" entry ap
 A reader summarising vol5 results must consult the per-result classification before treating any single number as evidence of a specific claim type. See cross-cutting [Reading Conventions for the Master Prediction Table](../claim-quality.md) for the global framing.
 
 > **Leaf references:** see per-entry footers above; classification pattern from `LIVING_REFERENCE.md` Master Prediction Table classification note.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*

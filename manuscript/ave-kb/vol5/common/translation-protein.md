@@ -1,5 +1,6 @@
 [↑ Vol 5 Translation Tables](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: r6uef4 -->
 
 ---
 

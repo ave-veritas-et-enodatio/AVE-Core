@@ -1,5 +1,6 @@
 [↑ Biological Applications](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 8zwyl3 -->
 
 # Methylene Blue as a Molecular Impedance Bridge
 
