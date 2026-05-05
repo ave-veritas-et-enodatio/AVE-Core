@@ -619,3 +619,194 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
   - Strengthen Master Equation EFT Validity (`efo113`); $\Gamma \to -1$ at saturation depends on master-equation dynamics correctly describing $\mu_{eff} \to 0$
   - Resolve the cross-leaf $Z$-behavior tension between Vol 1 (saturated knot core: $Z \to 0$) and Vol 3 GW horizons ($Z = Z_0$ invariant in symmetric saturation); either disambiguate the contexts explicitly or correct whichever leaf is wrong
   - Provide an axiom-grounded derivation that Pauli exclusion's NO-OVERLAP constraint follows from the impedance mismatch (currently a structural identification, not a derivation that produces fermion statistics)
+
+---
+
+## Discrete Kirchhoff Network Solver Methodology
+<!-- id: q39qct -->
+
+Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the four axioms into Symplectic Euler updates on a graph of $C$-nodes and $L$-edges, and tabulates the master-constants pipeline.
+
+- _Specific Claims_
+  - The simulation engine is a strict Discrete Kirchhoff Network Solver (e.g., `simulate_ponder_01_srs_lc_mesh.py`); the continuous PDE evaluations elsewhere in the manuscript are a macroscopic-fluid approximation, not the canonical engine.
+  - Edge-strain and node-displacement updates take the explicit Symplectic-Euler form $I_{new} = I_{old} + (\Delta t/L)(V_A - V_B)$ and $V_{new} = V_{old} + (\Delta t/C)(\sum I_{in} - \sum I_{out})$ respectively, enforcing local gauge invariance and energy conservation across the discrete crystal.
+  - The §1.5 master-constants table maps each AVE quantity ($\ell_{node}$, $Z_0$, $\alpha$, $V_{yield}$, $\xi_{topo}$, $V_{snap}$, $G$, $S(A)$) to a single derivation source (Axiom 1 / Axiom 2 / Axiom 2 mechanism / Axiom 3 / Axiom 4 / Ch.8 Golden Torus).
+- _Specific Non-Claims and Caveats_
+  - Symplectic Euler is **first-order**; it preserves an approximate energy invariant on bounded steps but is not a long-time-stable symplectic integrator on its own. Quantitative claims that depend on long-horizon integration accuracy require a higher-order method or step-size control; the leaf does not characterize the regime of validity.
+  - The §1.5 master-constants pipeline is a **routing summary**, not an independent derivation. Each row's derivation lives in the cited source (notably $\alpha$ in Ch.8 Golden Torus, $G$'s $\xi$ closure in Vol 1 Ch.4 / Vol 3); summarizing this table as "all constants derived in §1.5" misreads the routing.
+  - The 3-strut-per-node connectivity assumption is the K4/SRS choice elaborated in Ch.2; this leaf states it as a methodology fixture, not a derivation. The justification for $z = 3$ (over Cauchy-Delaunay $z \approx 6$) lives in `dielectric-rupture.md` (`9s9apq`), not here.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/kirchhoff-network-method.md`](./axioms-and-lattice/ch1-fundamental-axioms/kirchhoff-network-method.md); [`axioms-and-lattice/ch1-fundamental-axioms/lattice-structure.md`](./axioms-and-lattice/ch1-fundamental-axioms/lattice-structure.md) (forward-reference stub).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - 9s9apq — EMT Consistency Relation (for $z = 3$ chiral-SRS justification used by the 3-strut-per-node connectivity)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Dielectric Lagrangian and Vector Potential as Mass Flow
+<!-- id: yiyyi3 -->
+
+- $\mathcal{L}_{AVE} = \tfrac{1}{2}\epsilon_0|\partial_t\mathbf{A}|^2 - \tfrac{1}{2\mu_0}|\nabla\times\mathbf{A}|^2$; $[\mathbf{A}] = \xi_{topo}^{-1}\,[\text{kg/s}]$
+- _Specific Claims_
+  - The standard QFT electromagnetic Lagrangian density is recast as bulk continuous mechanical stress (Pa) on the $\mathcal{M}_A$ manifold via the topological conversion $\xi_{topo} = e/\ell_{node}$; capacitive edge energy plays the role of kinetic, inductive node energy the role of potential.
+  - Dimensional analysis with $\xi_{topo}$ substitution shows $[\mathbf{A}] = \xi_{topo}^{-1}\,[\text{kg/s}]$ (mass flow rate scaled by $\xi_{topo}^{-1}$), and the kinetic-energy density $\tfrac{1}{2}\epsilon_0|\partial_t\mathbf{A}|^2$ reduces to $[\text{N/m}^2]$ once $\epsilon_0 \equiv \xi_{topo}^2[\text{N}^{-1}]$ cancels the topological factor.
+  - Minimizing the quantum action is therefore mathematically equivalent to minimizing inductive bulk stress in Pa.
+- _Specific Non-Claims and Caveats_
+  - This is a **dimensional / SI-units identification**: $[\mathbf{A}]$ acquires mass-flow units after multiplying by $\xi_{topo}^{-1}$, but the operational measurement of $\mathbf{A}$ does not change. It is a framework-internal isomorphism, not a new observable.
+  - Does NOT derive the form of the Lagrangian from the four axioms; the standard EM Lagrangian is taken from Maxwell theory and rewritten in mechanical units. The identification of $\mathcal{T}$ with capacitive energy and $\mathcal{U}$ with inductive energy follows from Axiom 1 + the choice of $\mathbf{A}$ as the canonical field variable (whose generalized velocity is $\mathbf{E}$).
+  - $\xi_{topo}$ is INVARIANT-C2; this leaf is one of the canonical Vol 1 sites where it is exercised (see `dfaiwj` Topo-Kinematic Isomorphism for the standalone identity).
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md`](./dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - dfaiwj — Topo-Kinematic Isomorphism $[Q] \equiv [L]$ (for $\xi_{topo} = e/\ell_{node}$ used throughout)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Paley-Wiener / Quantum Hilbert-Space Isomorphism
+<!-- id: yc7fgm -->
+
+- $\Psi(\mathbf{x},t) = \mathbf{A}(\mathbf{x},t) + i\,\mathcal{H}_{transform}[\mathbf{A}(\mathbf{x},t)]$
+- _Specific Claims_
+  - The $\mathcal{M}_A$ lattice acts as a spatial Nyquist sampling grid; band-limited signals on it form a Reproducing Kernel Hilbert Space — the Paley-Wiener space $PW_{\pi/\ell_{node}}$ with maximum spatial frequency $k_{max} = \pi/\ell_{node}$.
+  - The complex quantum state vector $\Psi(\mathbf{x},t)$ is constructed from the real lattice potential $\mathbf{A}(\mathbf{x},t)$ via the standard signal-processing Hilbert transform (analytic-signal extension).
+  - The complex Hilbert space of standard QM is **formally identical** to the Paley-Wiener / analytic-signal representation of the discrete vacuum hardware.
+- _Specific Non-Claims and Caveats_
+  - The identification is a **formal isomorphism** between two function spaces (band-limited signals on a Nyquist grid $\leftrightarrow$ complex QM state vectors) — it does not by itself derive the dynamical evolution (Schrödinger equation), the Born rule, or operator algebra. Those derivations live in sister leaves (`7zuwtm` Schrödinger from circuit, `ldmvwi` Born rule).
+  - The Paley-Wiener / analytic-signal construction is **standard signal-processing mathematics**; the AVE-specific claim is the identification of the discrete lattice with the Nyquist grid (Axiom 1), not the analytic-signal machinery itself.
+  - Does NOT claim the Hilbert transform is an operationally distinguishing experiment vs. standard QM; once the isomorphism is established, all standard-QM Hilbert-space predictions transfer automatically.
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md`](./dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - nq2kcc — GUP / Brillouin Zone (same Nyquist / discrete-graph foundation; both rest on Axiom 1's lattice pitch)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Nonlinear Telegrapher / Euler-Heisenberg $E^4$ / Kerr $\chi^{(3)}$
+<!-- id: ph2uux -->
+
+- $U \approx \tfrac{1}{2}\epsilon_0(\Delta\phi)^2 - \tfrac{3}{8\alpha^2}\epsilon_0(\Delta\phi)^4$
+- _Specific Claims_
+  - The 1D continuous-transmission-line nonlinear telegrapher equation is the dimensional-homogeneity-preserving form on a single-edge limit of the Master Equation, with $\epsilon(\Delta\phi)$ supplied by Axiom 4's saturation kernel.
+  - Taylor-expanding $\epsilon(\Delta\phi) = \epsilon_0\sqrt{1-(\Delta\phi/\alpha)^2}$ to leading order produces the $D \propto (\Delta\phi)^3$ Kerr ($\chi^{(3)}$) optical nonlinearity and the $U \propto (\Delta\phi)^4$ correction structurally identical to the **Euler-Heisenberg QED Lagrangian** density.
+  - As $\Delta\phi \to \alpha$, the local wave speed $c_{eff} = c_0[1-(\Delta\phi/\alpha)^2]^{-1/4}$ diverges; the high-amplitude peak overruns its base, producing a forward structural shockwave that provides a continuous-mechanical origin for discrete pair-production.
+- _Specific Non-Claims and Caveats_
+  - The Euler-Heisenberg / Kerr identification is a **structural / dimensional match** at leading order in $\Delta\phi/\alpha$: the AVE expansion produces the same polynomial-in-field structure that QED produces. It does **not** independently derive the Euler-Heisenberg coefficient from the four AVE axioms vs. the QED loop-integral derivation; both arrive at compatible leading-order forms but the higher-order coefficients are derived from different machinery and have not been compared term-by-term.
+  - Inherits the same EFT-validity caveat as `efo113` (Master Equation EFT Validity): the 1D telegrapher form drops field-gradient corrections that may matter near $\Delta\phi \to \alpha$.
+  - The "shockwave produces pair-production" claim is **mechanical / heuristic**; it does not predict the Schwinger pair-production rate $\propto \exp(-\pi m_e^2 c^3/(eE\hbar))$ from the shockwave dynamics. The $u_{sat}$ Schwinger threshold is treated as an external QED input elsewhere (`9s9apq`).
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/nonlinear-telegrapher.md`](./dynamics/ch3-quantum-signal-dynamics/nonlinear-telegrapher.md).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - efo113 — Master Equation EFT Validity (the 1D telegrapher inherits the same EFT-validity caveat near $\Delta\phi \to \alpha$)
+  - 0ktpcn — Golden Torus α Derivation (the $\alpha$ in $\epsilon(\Delta\phi)$ enters the $1/\alpha^2$ coefficient of the $E^4$ correction)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Three-Regime Fluidic Classification (Ch.4 Operating Regimes)
+<!-- id: xy252u -->
+
+- _Specific Claims_
+  - Vol 1 Ch.4.3 categorises the spatial medium into **three** fluidic operating regimes by control parameter $\Delta\phi/\alpha$: Linear Acoustic ($\ll 1$, $C_{eff} \approx C_0$), Non-Linear Tensor ($\to 1$, $C_{eff} \propto 1/\sqrt{1-x^2}$), Dielectric Rupture ($\ge 1$, $\eta \to 0$).
+  - The Dielectric Rupture regime is identified with Black-Hole Event Horizons, Tokamak L-H transitions, and thermal fusion ignition limits via the $V_{yield} \approx 43.65$ kV topological yield bound.
+  - Linear Maxwell + scalar Newtonian gravity produce negligible error in Regime I; the full nonlinear stress-energy tensors (GR / nonlinear electrodynamics) are required as $\Delta\phi \to \alpha$ in Regime II.
+- _Specific Non-Claims and Caveats_
+  - This three-regime fluidic table is **coarser** than the Ch.7 four-regime universal map (`b2anl4`): Ch.7 splits "Non-Linear Tensor" into "Nonlinear" and "Yield" via the spin-2 sector boundary $r_2 = \sqrt{3}/2$; Ch.4's "Dielectric Rupture" corresponds to Ch.7's "Ruptured" ($r \ge 1$). The two classifications are **the same physics expressed at different granularities** — they should not be cited as independent regime maps.
+  - The dielectric-rupture-as-event-horizon identification is a **structural / interpretive** claim within the LC-substrate ontology; quantitative event-horizon predictions (e.g., $r_s = 7GM/c^2$ AVE compactness limit) live in `82dxbj` Domain Catalog and the Vol 3 gravity sidecar, not in this leaf.
+  - The L-H transition and fusion-ignition identifications are **structural** (same Axiom 4 saturation operator); per-domain numerical agreement with tokamak / ICF experimental thresholds is the responsibility of the per-domain leaves, not of this regime-table summary.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/operating-regimes-table.md`](./dynamics/ch4-continuum-electrodynamics/operating-regimes-table.md). Cross-reference: see `b2anl4` (Ch.7 four-regime map) for the finer sector-dependent classification.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - b2anl4 — Four-Regime Map (the same physical regime structure at finer granularity)
+  - 0ktpcn — Golden Torus α Derivation (the $\alpha$ control-parameter denominator)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## FDTD Yee Lattice Determinism (Continuous Maxwellian Propagation)
+<!-- id: nu1ir7 -->
+
+- _Specific Claims_
+  - Continuous spatial propagation of LC impedance via a Transverse-Magnetic (TMz) FDTD Yee lattice is sufficient to execute topological geometric defects (e.g., the $0_1$ Unknot) without invoking discrete "virtual photons" as force mediators.
+  - In the Yee scheme, $\vec E$ and $\vec H$ tensors are staggered by half a phase step, eliminating division-by-zero in macroscopic curl operations and generating the invariant $c$ limit from the discrete-update structure.
+  - The FDTD environment is **deterministic**; ontological probability is reframed as a finite-resolution observation artifact of high-frequency phase-locking dynamics, not a fundamental property.
+- _Specific Non-Claims and Caveats_
+  - The "no virtual photons needed" claim is **mechanism-level** (continuous Maxwellian update vs. perturbative QED quanta exchange); it does not derive QED scattering cross-sections from the FDTD update at a quantitative level. Operational equivalence with QED at the level of measurable scattering observables is asserted, not demonstrated, in this leaf.
+  - The "ontological probability is an illusion" framing is an **interpretive ontological** claim. It does not produce a falsifiable distinction between FDTD determinism and standard QM at any current laboratory scale; falsifiability rests on unrelated AVE predictions (running $\alpha$, GUP cutoff, decoherence-onset $T_{pair}$ — see `zuf7g1`), not on the determinism reframe per se.
+  - The Yee lattice is a **standard computational electrodynamics** scheme; the AVE-specific claim is the identification of the physical $\mathcal{M}_A$ lattice with the Yee grid, not the Yee scheme itself. Methodological details (numerical stability, Courant condition $c\Delta t \le \Delta x/\sqrt{D}$) are not derived in this leaf.
+
+> **Leaf references:** [`operators-and-regimes/ch5-universal-spatial-tension/fdtd-yee-proof.md`](./operators-and-regimes/ch5-universal-spatial-tension/fdtd-yee-proof.md).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - t1okz0 — Quantum Foam as RMS Noise (companion reframing of QFT virtual particles in mechanical-substrate ontology)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Universal Dimensionless Master Equation
+<!-- id: rtgmg5 -->
+
+- $\partial^2\phi/\partial t^2 = c_0^2(1-r^2)^{1/2}\,\nabla^2\phi$
+- _Specific Claims_
+  - When the equations of motion in any AVE domain are expressed in the dimensionless control parameter $r = A/A_c$, they take a **single universal form**: $\partial_t^2\phi = c_0^2 S(r)\,\nabla^2\phi$ with $S(r) = (1-r^2)^{1/2}$.
+  - $\phi$ is the generalized displacement field (voltage, strain, temperature, GW perturbation, etc.); the domain merely specifies the physical meaning of $\phi$, $A$, and $A_c$.
+  - This is "a single equation governing all of physics" (the leaf's framing) under the unifying-form interpretation.
+- _Specific Non-Claims and Caveats_
+  - The universality claim is **structural / dimensional**: domain-specific substitution of $\phi$, $A$, $A_c$ recovers the master equation, but the equation does not by itself predict the $A_c$ values. Each $A_c$ comes from per-domain physics (cataloged in `domain-catalog.md`, scored under `82dxbj`); the dimensionless form is the **wrapper**, not a parameter-free derivation of every domain's threshold.
+  - The form $S(r) = \sqrt{1-r^2}$ is the symmetric-saturation kernel; asymmetric (electric-only) saturation produces $Z = Z_0/(1-r^2)^{1/4}$ instead of the symmetric $Z = Z_0$ invariant. The dimensionless master equation as written assumes the **symmetric** sector (per `regime-equation-sets.md`).
+  - The "single equation governing all of physics" framing is **rhetorically strong**; it captures the recurring leading-order EFT structure across domains but elides regime-specific corrections (Tier-1 EFT validity caveat from `efo113`; sector-specific $\ell_{\min}$ from `b2anl4`).
+
+> **Leaf references:** [`operators-and-regimes/ch7-regime-map/dimensional-analysis.md`](./operators-and-regimes/ch7-regime-map/dimensional-analysis.md).
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - efo113 — Master Equation EFT Validity (the dimensionless form is the same leading-order EFT, recast in $r$)
+  - b2anl4 — Four-Regime Map (sector-specific structure underlying the $r$-control-parameter classification)
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
