@@ -1,8 +1,9 @@
 [↑ Boron (Z=5)](../index.md)
 <!-- leaf: verbatim -->
-<!-- claim-quality: l416hl -->
+<!-- claim-quality: f5ucdo, l416hl -->
 
 ## Topological Structure and Isotope Stability
+<!-- claim-quality: f5ucdo (per-element manifestation: $1\alpha + ^3$H halo geometry; $R_{halo}$ as per-nucleus fitted scalar) -->
 
 Boron-11 ($Z=5$, $A=11$) represents a critical phase transition in the topological assembly of the periodic table. While elements like Beryllium construct linear crystalline lattices (dual cores), Boron returns to a spherical concentric arrangement around a single $^4He$ Alpha Core.
 
@@ -17,6 +18,8 @@ R_{halo} = 11.8404 d
 $$
 
 Where $d = 4\hbar/m_pc \approx 0.841$ fm is the axiom-derived proton charge radius (gyroscopic spin radius of the cinquefoil knot).
+
+<!-- claim-quality: l416hl (Topological Horizon $4\pi - \sqrt{2}/2 \approx 11.86$ as the structural bound on B-11 halo) -->
 
 This specific scalar multiplier ($11.84$) is not an arbitrary empirical fitting artifact. In the topology of isotropic wave propagation expanding from a saturated point source (the Alpha core), the total structural strain cannot exceed the bounding spherical surface area integrating into the ambient $3D$ Euclidean metric. Mathematically, the ultimate maximum perimeter offset before the knot strain completely loses reactive coherence is defined by the full isotropic solid angle bounding horizon multiplied by the fundamental radial vector:
 

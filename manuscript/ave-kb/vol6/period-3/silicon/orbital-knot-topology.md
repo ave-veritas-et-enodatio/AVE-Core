@@ -1,5 +1,6 @@
 [↑ Silicon (Z=14)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: y7uvdc -->
 
 <!-- GAP: No \section{Orbital Knot Topology} in 16_silicon.tex. Topology figure fig:silicon_28_topo is embedded in §5 (Topological Area of Interest). Content is included in topological-area.md. -->
 

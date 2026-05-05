@@ -1,5 +1,6 @@
 [↑ Computational Mass Defect](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: o9xphr -->
 
 ## Radioactive Decay as Impedance Mismatch
 

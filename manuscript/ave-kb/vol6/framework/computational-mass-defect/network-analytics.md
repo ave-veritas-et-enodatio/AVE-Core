@@ -1,5 +1,6 @@
 [↑ Computational Mass Defect](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: o9xphr -->
 
 ## Network Analytics: Q-Factor and S-Parameters
 

@@ -1,5 +1,6 @@
 [↑ Neon (Z=10)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f5ucdo -->
 
 <!-- NOTE: Source file 12_neon.tex has no \section{Topological Structure and Isotope Stability}. This thin leaf extracts the unnumbered introductory paragraphs (lines 1–9 of the chapter body, before §1) which contain the structural description of Neon-20. -->
 

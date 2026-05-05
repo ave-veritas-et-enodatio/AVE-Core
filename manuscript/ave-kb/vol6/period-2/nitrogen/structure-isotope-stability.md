@@ -1,5 +1,6 @@
 [↑ Nitrogen (Z=7)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f5ucdo -->
 
 ## Nitrogen (Z=7): Algorithmic Topologies
 

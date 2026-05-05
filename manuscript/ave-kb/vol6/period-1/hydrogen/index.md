@@ -1,5 +1,5 @@
 [↑ Period 1](../index.md)
-<!-- claim-quality (subtree): a95yx1 -->
+<!-- claim-quality (subtree): a95yx1, f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc -->
 
 # Hydrogen (Z=1)
 

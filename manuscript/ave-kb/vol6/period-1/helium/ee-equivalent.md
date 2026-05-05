@@ -1,5 +1,6 @@
 [↑ Helium (Z=2)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: Polyphase Resonant Transformer
 

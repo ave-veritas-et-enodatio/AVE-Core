@@ -1,5 +1,6 @@
 [↑ Computational Mass Defect](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qjwj12 -->
 
 ## Mass as a Localized Reactive Load
 

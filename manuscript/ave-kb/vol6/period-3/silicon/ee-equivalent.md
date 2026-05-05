@@ -1,5 +1,6 @@
 [↑ Silicon (Z=14)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: The 7-Phase Pentagonal Bipyramid Network
 

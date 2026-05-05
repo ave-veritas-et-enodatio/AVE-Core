@@ -1,5 +1,6 @@
 [↑ Lithium (Z=3)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: Air-Core Transformer
 

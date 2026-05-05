@@ -1,5 +1,5 @@
 [↑ Period 2](../index.md)
-<!-- claim-quality (subtree): l416hl -->
+<!-- claim-quality (subtree): f5ucdo, f8k2um, h8nmpu, l416hl, rw7jqo, sd04x4, y7uvdc -->
 
 # Boron (Z=5)
 

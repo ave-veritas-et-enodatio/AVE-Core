@@ -1,5 +1,6 @@
 [↑ Helium (Z=2)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: Master Shielding & High-Q Resonance
 

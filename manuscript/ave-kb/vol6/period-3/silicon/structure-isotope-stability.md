@@ -1,5 +1,6 @@
 [↑ Silicon (Z=14)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f5ucdo -->
 
 ## Topological Structure and Isotope Stability
 

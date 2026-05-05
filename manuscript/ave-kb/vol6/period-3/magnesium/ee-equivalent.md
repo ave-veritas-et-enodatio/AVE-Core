@@ -1,5 +1,6 @@
 [↑ Magnesium (Z=12)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: The 6-Phase Balanced Bridge
 

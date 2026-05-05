@@ -1,5 +1,6 @@
 [↑ Boron (Z=5)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: sd04x4 -->
 
 ## Electrical Engineering Equivalent: Massive Parasitic Array
 

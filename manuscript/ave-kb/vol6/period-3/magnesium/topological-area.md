@@ -1,5 +1,6 @@
 [↑ Magnesium (Z=12)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: The Structural Backbone of Lightweight Alloys
 

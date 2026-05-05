@@ -1,5 +1,6 @@
 [↑ Silicon (Z=14)](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: f8k2um -->
 
 ## Topological Area of Interest: The Foundation of Semiconductor Microelectronics
 
