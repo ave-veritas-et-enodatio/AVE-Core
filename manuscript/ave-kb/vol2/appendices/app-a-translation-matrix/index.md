@@ -1,4 +1,6 @@
 [↑ Appendices](../index.md)
+<!-- claim-quality (subtree): -->
+<!-- All 8 children are documented no-claim translation-table forwarders; canonical translation content lives in common/translation-tables/ -->
 
 # App A: The Interdisciplinary Translation Matrix
 

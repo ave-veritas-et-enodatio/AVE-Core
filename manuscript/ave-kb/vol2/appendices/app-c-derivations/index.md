@@ -2,6 +2,7 @@
 <!-- leaf: verbatim -->
 <!-- Anomaly A10: App C has no \label in source; content exists as itemised lists but no labelled entry points -->
 <!-- claim-quality: e1pdfd -->
+<!-- claim-quality (subtree): e1pdfd -->
 
 # App C: Summary of Exact Analytical Derivations
 

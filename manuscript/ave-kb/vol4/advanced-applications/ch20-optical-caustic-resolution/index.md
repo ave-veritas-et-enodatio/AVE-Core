@@ -1,5 +1,6 @@
 [↑ Advanced Applications](../index.md)
 <!-- claim-quality: uosu8w -->
+<!-- claim-quality (subtree): uosu8w -->
 
 # Ch.20: Optical Caustic Singularity Resolution
 
