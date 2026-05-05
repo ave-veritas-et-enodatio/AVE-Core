@@ -111,9 +111,9 @@ In both cases it immediately follows the last structural annotation line, with n
 
 Leaves are canonical. Intermediate, index, and entry-point nodes are *derived* via summarization; even faithfully executed, a summary may suggest implications not present in or supported by the leaves. Summary content is a routing aid, not a source of claims.
 
-Cross-cutting boundary content lives in [`claim-quality.md`](claim-quality.md) (KB root). Per-volume boundary content lives in `volN/claim-quality.md` — one each for [vol1](vol1/claim-quality.md), [vol2](vol2/claim-quality.md), [vol3](vol3/claim-quality.md), [vol4](vol4/claim-quality.md), [vol5](vol5/claim-quality.md), [vol6](vol6/claim-quality.md), and [common](common/claim-quality.md). Every consumer (agent or human) forming a claim about an AVE result must consult the cited leaf — and, where a relevant `claim-quality.md` entry exists, that boundary entry — before treating a summary statement as a claim source.
+Cross-cutting claim-quality content lives in [`claim-quality.md`](claim-quality.md) (KB root). Per-volume claim-quality content lives in `volN/claim-quality.md` — one each for [vol1](vol1/claim-quality.md), [vol2](vol2/claim-quality.md), [vol3](vol3/claim-quality.md), [vol4](vol4/claim-quality.md), [vol5](vol5/claim-quality.md), [vol6](vol6/claim-quality.md), and [common](common/claim-quality.md). Every consumer (agent or human) forming a claim about an AVE result must consult the cited leaf — and, where a relevant `claim-quality.md` entry exists, that claim-quality entry — before treating a summary statement as a claim source.
 
-The volume `index.md` files and `entry-point.md` carry blockquoted bootstrap directives instructing consumers to load the relevant boundaries documents on entry; these directives are binding on agents that visit those files.
+The volume `index.md` files and `entry-point.md` carry blockquoted bootstrap directives instructing consumers to load the relevant claim-quality documents on entry; these directives are binding on agents that visit those files.
 
 *Confirmed by: convention spec at `AVE-Core/kb-claims-boundaries-convention.md` (gestation; promoted to `CONVENTIONS.md` in Dispatch 8); plan at `mad-review/kb-claims-boundaries-plan.md` (umbrella).*
 

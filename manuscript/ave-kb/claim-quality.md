@@ -90,11 +90,12 @@ Consumers (humans, agents, kb-docent) building on a claim should read the Qualit
 
 A high-confidence entry with low solidity tells you the entry's own work is sound but its dependency chain is the weakness — the highest-leverage work is closing the weakest dependency, not improving this entry. A low-confidence entry tells you the entry's own work is the weakness, regardless of its dependency status.
 
-`strengthen-by` items are the same kind of work-item that `common/mathematical-closure.md` "Outstanding Rigour Gaps" enumerates; over time, that document can become a derived index over all open `strengthen-by` items across boundary entries rather than a parallel register.
+`strengthen-by` items are the same kind of work-item that `common/mathematical-closure.md` "Outstanding Rigour Gaps" enumerates; over time, that document can become a derived index over all open `strengthen-by` items across claim-quality entries rather than a parallel register.
 
 ---
 
 ## Reading Conventions for the Master Prediction Table (Project-Wide Meta-Tripwire)
+<!-- id: dht3su -->
 
 The Master Prediction Table in `LIVING_REFERENCE.md` (47 entries) and the Key Results tables in volume indexes mix **four kinds of claim** under uniform "Δ%" and ✅ formatting. The classification matters for what each entry actually asserts.
 
@@ -112,9 +113,18 @@ The Master Prediction Table in `LIVING_REFERENCE.md` (47 entries) and the Key Re
 
 > **Leaf references:** see `LIVING_REFERENCE.md` Master Prediction Table classification note; per-row classification lives in the leaf for each entry.
 
+## Quality
+- confidence: 0.90
+- solidity: 0.90 (ok to build on)
+- rationale: Meta-classification of prediction-table entries into four kinds (identity / axiom manifestation / consistency check / derived prediction). The classification taxonomy is well-defined and the boundary correctly insists on per-row classification before treating any "0.00%" or "Exact" cell as evidence of a specific claim type. Documentation is sound; this is the right kind of meta-tripwire to have at project-wide level.
+- strengthen-by:
+  - Apply per-row classification to every entry in the Master Prediction Table (LIVING_REFERENCE.md) and surface the classification visibly in the table itself (currently classification lives in the leaf)
+  - Add a lint check that validates classification tags exist for any new prediction-table addition
+
 ---
 
 ## Symmetric vs Asymmetric Saturation
+<!-- id: 8nkvwy -->
 
 The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is applied in two distinct symmetry cases. Confusing them is the most common source of error in summary-derived claims about AVE.
 
@@ -131,9 +141,17 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
 
 > **Leaf references:** Axiom 4 statement leaves in `vol1/`; symmetric-case mapping in `vol3/gravity/` (BH interior, GW propagation); asymmetric-case mapping in `vol4/circuit-theory/` (nonlinear constitutive); particle-confinement in `vol2/particle-physics/`.
 
+## Quality
+- confidence: 0.85
+- solidity: 0.85 (ok to build on)
+- rationale: Two symmetry cases derived by applying Axiom 4's saturation kernel to ε and μ separately or together. The Z, $c_{EM}$, $c_{shear}$ formulas in each case are direct impedance algebra given the kernel. The boundary correctly disambiguates the cases (most importantly: $Z_{sym} = Z_0$ invariant — perfect absorber, NOT opaque) and explicitly bounds Pitfall #5 (the $\Delta\alpha/\alpha$-from-gravity contamination is a misreading of symmetric cancellation). No entry-level scored dependencies — the case identification is structural over Axiom 4 (framework input).
+- strengthen-by:
+  - none entry-local — Axiom 4 is framework input; the symmetric/asymmetric case identification is structural and the disambiguation is correctly bounded
+
 ---
 
 ## α Invariance Under Symmetric Gravity
+<!-- id: 3zz0f6 -->
 
 Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
 
@@ -150,9 +168,20 @@ Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\vare
 
 > **References:** Canonical leaf for the bound: [`vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`](vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (Derived Consequence 1 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Companion leaf for the temporal/spatial decomposition: [`vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`](vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md) (Derived Consequence 2). Cross-volume invariant restatement: `LIVING_REFERENCE.md` Axiom 3 entry ("α invariance" and "Lattice decomposition" sub-bullets); LIVING_REFERENCE.md Pitfall #5 for the contamination warning. Note: [`CLAUDE.md`](./CLAUDE.md) INVARIANT-S2 lists the four AVE axioms in their bare form; the derived-consequence sub-bullets under Axiom 3 are in LIVING_REFERENCE.md, not in CLAUDE.md. The α thermal-running effect derivation is in [`vol1/ch8-alpha-golden-torus.md`](vol1/ch8-alpha-golden-torus.md).
 
+## Quality
+- confidence: 0.85
+- depends-on:
+  - 8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
+- solidity: 0.72 (ok to build on, see caveats) [= 0.85 × 0.85]
+- rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
+- strengthen-by:
+  - Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)
+  - Strengthen Symmetric vs Asymmetric Saturation (`8nkvwy`); the symmetric-case identification is the dependency
+
 ---
 
 ## BCS Critical Field $B_c(T)$ — Axiom Manifestation, Not Curve Fit
+<!-- id: 3dc9qt -->
 
 Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The "0.00%" reads like a numerical fit but is not — it indicates that the BCS empirical curve **is** the AVE saturation operator at thermal scaling.
 
@@ -169,9 +198,17 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
 
 > **Leaf references:** Axiom 4 statement leaves in `vol1/`; BCS mapping leaves in `vol3/condensed-matter/`.
 
+## Quality
+- confidence: 0.85
+- solidity: 0.85 (ok to build on)
+- rationale: $B_c(T) = B_{c,0} \cdot S(T/T_c)$ is direct application of the Axiom 4 saturation kernel at thermal scaling — the same operator at a different scale, by construction (axiom manifestation, category ii). The 0.00% match for Al, Pb, Nb, MgB$_2$ is structural agreement, not a curve fit. $B_{c,0}$ is correctly disclosed as material-specific input, not AVE-derived. Boundary correctly bounds the entry as instance-of-Pitfall #5-meta-tripwire (any "0.00% / Exact" cell needs per-row classification before being treated as evidence). No entry-level scored dependencies — Axiom 4 is framework input.
+- strengthen-by:
+  - none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input
+
 ---
 
 ## V_SNAP ≠ V_YIELD
+<!-- id: lrw0q9 -->
 
 LIVING_REFERENCE.md "Critical Distinctions" #1. Surfaces in vol1 and vol4 sidecars; relevant wherever lab-scale dielectric breakdown is being discussed.
 
@@ -188,9 +225,19 @@ LIVING_REFERENCE.md "Critical Distinctions" #1. Surfaces in vol1 and vol4 sideca
 
 > **References:** Vol 4 leaves ($V_{snap}$ definition, lab regime classification); Vol 1 leaves ($V_{yield}$ derivation from Axiom 2); LIVING_REFERENCE.md "Critical Distinctions" #1.
 
+## Quality
+- confidence: 0.95
+- depends-on:
+  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $V_{yield}$'s $\sqrt{\alpha}$ factor numerical value]
+- solidity: 0.52 (use as input only, don't build deeper) [= 0.95 × 0.55]
+- rationale: Cross-cutting mirror of vol1's `2dwzib` entry. Both thresholds are direct from axiom-level definitions: $V_{snap} = m_e c^2/e$ by definition (per-node energy-equivalent voltage); $V_{yield} = \sqrt{\alpha}\cdot V_{snap}$ from Axiom 2 (kinetic onset of nonlinearity at the saturation threshold). The distinction-and-non-conflation work is rock-solid and explicitly catalogued as Critical Distinction #1. $V_{snap}$ alone has solidity ≈ 0.95; $V_{yield}$ inherits α via $\sqrt{\alpha}$, dropping the entry's solidity to 0.52.
+- strengthen-by:
+  - Strengthen Golden Torus α Derivation (`0ktpcn`); $V_{yield}$ numerical inheritance is the only solidity reduction
+
 ---
 
 ## Topological Conversion Constant ξ_topo (Not a Free Parameter)
+<!-- id: rppigm -->
 
 CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The bridge between AVE lattice parameters and mechanical/biological/circuit quantities. Surfaces in vol2 (atomic orbitals), vol4 (VCA derivations), vol5 (mass-to-inductance, bond stiffness-to-capacitance), vol6 (heavy-element coupling).
 
@@ -206,9 +253,17 @@ CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The brid
 
 > **References:** CLAUDE.md INVARIANT-C2; canonical definition leaf in `vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`; vol4/vol6 manifestations cited in their respective sidecars.
 
+## Quality
+- confidence: 0.90
+- solidity: 0.90 (ok to build on)
+- rationale: $\xi_{topo} = e/\ell_{node}$ is an algebraic identity built from four CODATA inputs ($e$, $\hbar$, $m_e$, $c$); no fitting. Used as a dimensional conversion constant across volumes (vol2, vol4, vol5, vol6) — the cross-volume reuse is structural, not 51 independent confirmations. Correctly distinguished from $\xi$ (Machian dilution, dimensionless ≈ 8.15×10⁴³ from Axiom 3). Mirrors vol1's Topo-Kinematic Isomorphism (`dfaiwj`) and common's $\xi_{topo}$ Traceability (`hmiytz`). No entry-level scored dependencies — $\xi_{topo}$'s definition uses only framework inputs.
+- strengthen-by:
+  - none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded
+
 ---
 
 ## Hubble Constant Derivation — Consistency Proof, Not Independent Prediction
+<!-- id: 2e9j97 -->
 
 $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "Key Result" in vol1, vol2, and vol3 indexes.
 
@@ -224,9 +279,21 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
 
 > **References:** Master Prediction Table #23; canonical leaf `vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`. Vol1 sidecar carries an "Asymptotic Hubble Constant $H_\infty$ and MOND $a_0$" entry; vol3 sidecar carries the full "Asymptotic Hubble Constant $H_\infty$" entry. Vol2 sidecar does not currently carry a Hubble entry — vol2 leaves do touch $H_\infty$ in cosmology framing, so a vol2 entry that cross-references back here would be appropriate (logged as followup, not blocking).
 
+## Quality
+- confidence: 0.85
+- depends-on:
+  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $H_\infty$'s $\alpha^{-2}$ factor]
+  - 5xon03 — Zero-Parameter Closure Status (solidity 0.70) [for the consistency-proof framing of $H_\infty$ vs $G$]
+- solidity: 0.47 (use as input only, don't build deeper) [= 0.85 × min(0.55, 0.70) = 0.85 × 0.55]
+- rationale: The boundary correctly frames the $H_\infty$ formula as a **geometric self-consistency relation**, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The Hubble Tension framing — both Planck and SH0ES are compatible with the same geometric constraint at different thermodynamic regimes — is correctly bounded as NOT a tension-resolution-via-AVE-output. Local confidence high (0.85) for the meta-disclosure work; solidity α-bounded for any numerical use.
+- strengthen-by:
+  - Promote the Hubble identity to a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes Closure Status open item; closing this lifts the framework-level claim from consistency-proof to derived-prediction)
+  - Strengthen Golden Torus α Derivation (`0ktpcn`); the $\alpha^{-2}$ factor in $H_\infty$ amplifies α's solidity into the strongest dependence
+
 ---
 
 ## Framework-Derived vs Clay-Rigorous (Yang-Mills, Navier-Stokes, Strong CP)
+<!-- id: rrgk6f -->
 
 Master Prediction Table entries #14 (Yang-Mills mass gap), #15 (Navier-Stokes smoothness), #16 (Strong CP) are marked ✅ but with explicit "framework-derived (lattice-conditional; not Clay-rigorous)" caveats. Surfaces in vol2 (Yang-Mills, NS, Strong CP) and vol3 (Kolmogorov spectral cutoff cites NS).
 
@@ -242,9 +309,17 @@ Master Prediction Table entries #14 (Yang-Mills mass gap), #15 (Navier-Stokes sm
 
 > **References:** Master Prediction Table #14, #15, #16; KB leaves under `vol2/nuclear-field/ch12-millennium-prizes/` (e.g., `yang-mills-steps1-2.md`, `yang-mills-steps3-5.md`, `navier-stokes-prize.md`, `index.md`); vol2 sidecar entries for Yang-Mills, Navier-Stokes, Strong CP carry the volume-scoped versions of these caveats; vol3 sidecar's Kolmogorov entry references the NS lattice-conditional construction. Underlying source material: `manuscript/common_equations/the_millennium_prizes.tex` and `10_open_problems.tex` (LaTeX origin, not a KB leaf — content is distilled into the listed KB leaves).
 
+## Quality
+- confidence: 0.80
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: The boundary correctly distinguishes **framework-derived** (lattice-conditional, structured around AVE operators) from **continuum-rigorous** (the Clay-prize standard). The three Millennium-class results (Yang-Mills mass gap, Navier-Stokes smoothness, Strong CP $\theta = 0$) are honestly framed as lattice-conditional within the AVE framework, NOT as Clay-rigorous proofs. This is the right meta-disclosure: it prevents misreading "framework-derived ✅" as "continuum-proof ✅" while still recording that the framework's own constructions go through. No entry-level scored dependencies — meta-classification work, not a derivation.
+- strengthen-by:
+  - Promote any of the three results to continuum-rigorous standing (e.g., derive a continuum-limit equivalence that doesn't rely on the lattice cutoff). This is a deep research project, not entry-local work; flagged here as the open path that would close the framework-vs-Clay gap.
+
 ---
 
 ## Derived-as-Given Hazard Discipline (QM Vocabulary, Bohr Formula, σ-Arithmetic)
+<!-- id: vbvugz -->
 
 LIVING_REFERENCE.md Pitfalls #8–#11 catalogue project-wide contamination patterns where reasoners (or summaries) introduce derived quantities as if they were given. Surfaces in vol2 (atomic IE, methodological contamination) and vol6 (Bohr radius, IE correction stack).
 
@@ -262,3 +337,10 @@ LIVING_REFERENCE.md Pitfalls #8–#11 catalogue project-wide contamination patte
   - Pitfall #11: A Pauli-saturated inner shell creates a discrete impedance step the smooth CDF misses; SIR correction required for shells with p-subshells.
 
 > **References:** LIVING_REFERENCE.md Pitfalls #8, #9, #10, #11; LIVING_REFERENCE.md §"Red flags for QM contamination"; vol2 sidecar (atomic IE solver entry); vol6 sidecar (Bohr radius entry, IE correction stack).
+
+## Quality
+- confidence: 0.90
+- solidity: 0.90 (ok to build on)
+- rationale: Methodological discipline catalogue, correctly framed: the framework derives quantities corresponding to QM/GR/SM concepts but does NOT take them as inputs. Pitfalls #8–#11 explicitly name the four contamination patterns ($E = Z_{eff}^2 Ry/n^2$ Bohr formula; $V_{ee} = J\cdot Z\cdot Ry$ ad-hoc; de Broglie defect dispersion confused with lattice impedance; smooth CDF used where Pauli-saturated inner shells need SIR correction). The boundary's distinction between "the framework derives" and "summaries introduce QM vocabulary that the source does not use" is exactly the right meta-discipline. No entry-local dependencies — this is methodological discipline, not a derivation.
+- strengthen-by:
+  - none entry-local — the only "strengthening" is ongoing vigilance against the named contamination patterns; periodic audit of summaries (volume indexes, entry-point.md, prediction-table descriptions) for QM-vocabulary contamination is the maintenance task

@@ -53,7 +53,7 @@ Key Results content is verbatim from the source. Derivations and Detail links mu
 
 ### Claim Quality Sidecar (INVARIANT-S7)
 
-A derived artifact that bounds the claim space for a volume (or for the whole KB at the cross-cutting level). Sidecars exist because index and entry-point documents are *summaries* of leaves, and a summary may suggest implications not actually supported by the leaves. The sidecar identifies, per principle/equation/result, what the framework specifically claims and what it specifically does NOT claim.
+A derived artifact that records the per-claim status of the framework's load-bearing claims for a volume (or for the whole KB at the cross-cutting level): what is claimed, what is NOT claimed, how confident we are in each claim locally, how solidly each claim can be built on (given its dependencies), and what work would strengthen it. Sidecars exist because index and entry-point documents are *summaries* of leaves, and a summary may suggest implications not actually supported by the leaves OR may obscure how solid those implications are. The sidecar identifies, per principle/equation/result, both the boundaries (claims and non-claims) and the quality (confidence, solidity, dependency chain, strengthen-by) of each.
 
 Locations:
 - Cross-cutting (project-wide tripwires that appear in two or more volumes): `claim-quality.md` (KB root)
@@ -79,6 +79,7 @@ Entry format (principle-keyed):
 
 ```markdown
 ## [Principle / Equation / Constant Name]
+<!-- id: <6-char-alphanumeric> -->
 
 - [formula/equation/constant — if necessary]
 - _Specific Claims_
@@ -89,7 +90,20 @@ Entry format (principle-keyed):
   - ...
 
 > **Leaf references:** [honest provenance — leaves where the claim is established, OR CLAUDE.md / LIVING_REFERENCE.md when the bound lives at invariant level rather than in any leaf]
+
+## Quality
+- confidence: 0.X
+- depends-on:
+  - <other-id> — Other Entry Title (solidity 0.X)
+  - [...]
+- solidity: 0.X (build-status phrase)
+- rationale: one-sentence statement of why
+- strengthen-by:
+  - [specific work that would raise confidence or close a dependency]
+  - [...]
 ```
+
+The Quality Convention preamble at the top of the cross-cutting `claim-quality.md` is the canonical spec for the confidence rubric, the solidity computation rule (`solidity = confidence × min(dependency solidity)` for entries with dependencies; `solidity = confidence` otherwise), the build-status legend, and the 6-character stable-ID format. Read that preamble before editing or scoring entries; this section gives the format only.
 
 Canonicality preamble (cross-cutting sidecar — verbatim):
 
@@ -100,7 +114,7 @@ Canonicality preamble (cross-cutting sidecar — verbatim):
 Canonicality preamble (volume sidecar — short reference):
 
 ```markdown
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth; do not infer the list from this preamble). Entries below are scoped to Vol N; cross-cutting tripwires with vol N-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting claim-quality register](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth; do not infer the list from this preamble). Entries below are scoped to Vol N; cross-cutting tripwires with vol N-specific manifestations are noted but not duplicated.
 ```
 
 Sourcing rule (priority order):
@@ -109,11 +123,11 @@ Sourcing rule (priority order):
 3. LIVING_REFERENCE.md "Common Pitfalls" / "Critical Distinctions" — explicit project-wide tripwires.
 4. Master Prediction Table classification note — for the meta-tripwire about reading prediction-table cells.
 
-Indexes are NEVER a source for boundary claims (circular: indexes are what's being bounded).
+Indexes are NEVER a source for claim entries (circular: indexes are what's being bounded).
 
 Provenance honesty: every entry's "Leaf references" footer must honestly identify the source. Inventing leaf citations for content that does not appear in the cited leaf is a Critical error.
 
-Routing rule (cross-cutting vs volume-specific): a boundary entry goes in the cross-cutting sidecar if the claim appears in two or more volumes' leaves as a tripwire; otherwise volume-specific.
+Routing rule (cross-cutting vs volume-specific): a claim-quality entry goes in the cross-cutting sidecar if the claim appears in two or more volumes' leaves as a tripwire; otherwise volume-specific.
 
 Sidecar-vs-leaf contradiction resolution: leaves win; the sidecar gets fixed.
 
@@ -126,7 +140,7 @@ For `volN/index.md` and `common/index.md`:
 ```markdown
 [↑ AVE Knowledge Base](../entry-point.md)
 
-> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 ```
 
 For subtopic-level `index.md` (one level below volume), relative paths shift by one:
@@ -140,7 +154,7 @@ For `entry-point.md` (no up-link):
 ```markdown
 # Applied Vacuum Engineering — Knowledge Base
 
-> ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claim-quality.md`](./claim-quality.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claim-quality.md), [vol2](./vol2/claim-quality.md), ... [common](./common/claim-quality.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the boundaries documents.
+> ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claim-quality.md`](./claim-quality.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claim-quality.md), [vol2](./vol2/claim-quality.md), ... [common](./common/claim-quality.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 ```
 
 Marker character: `⛔` (U+26D4). Form is blockquoted, imperative, single-paragraph. The marker is the machine-checkable signal that a directive is present (`grep -l "⛔ \*\*Bootstrap"`).
@@ -152,7 +166,7 @@ Sidecars are derived artifacts. Refresh when:
 - `LIVING_REFERENCE.md` "Common Pitfalls" or "Critical Distinctions" is added or revised.
 - A MAD review surfaces a new tripwire.
 
-Refresh is the same cadence as summary-mode distillation. Until `kb-content-distiller` carries an explicit Boundaries Mode (see `CLAUDE.md` INVARIANT-S7 followups), refresh requires a one-off `generalist-coder` dispatch with a custom brief that points at the convention spec sections above.
+Refresh is the same cadence as summary-mode distillation. Until `kb-content-distiller` carries an explicit Claim-Quality Mode (see `CLAUDE.md` INVARIANT-S7 followups), refresh requires a one-off `generalist-coder` dispatch with a custom brief that points at the convention spec sections above.
 
 #### Compactness budget
 

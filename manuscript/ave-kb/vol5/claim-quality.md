@@ -2,7 +2,7 @@
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol5/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 5; cross-cutting tripwires with vol5-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting claim-quality register](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 5; cross-cutting tripwires with vol5-specific manifestations are noted but not duplicated.
 
 ---
 
@@ -204,7 +204,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 ## Symmetric vs Asymmetric Saturation — Vol 5 Manifestation
 
-The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting boundaries](../claim-quality.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
+The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting claim-quality register](../claim-quality.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
 
 - _Specific Claims_
   - The biological circuitry table (`first-principles-bond-force-constants.md` → "Regime Classification of Biological Length Scales") asserts: covalent bond core in **Regime II** (yield onset, $\Delta\phi/\alpha \sim 0.5$); backbone, R-groups, peptide chains, and folded proteins all in **Regime I** (linear, lossless).

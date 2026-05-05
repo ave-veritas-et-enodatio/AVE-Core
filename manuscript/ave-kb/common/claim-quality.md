@@ -2,7 +2,7 @@
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from common/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this directory's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to the common/ directory's substantive content (mathematical closure status, derivation chain, falsification index, translation tables, solver toolchain).
+> **Canonicality:** Leaves are canonical; this directory's indexes are derived summaries. See [cross-cutting claim-quality register](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to the common/ directory's substantive content (mathematical closure status, derivation chain, falsification index, translation tables, solver toolchain).
 
 ---
 

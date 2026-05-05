@@ -2,7 +2,7 @@
 
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from vol2/index.md bootstrap directive -->
 
-> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting boundaries](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 2; cross-cutting tripwires with vol2-specific manifestations are noted but not duplicated.
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting claim-quality register](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth for which tripwires are project-wide; do not infer the list from this preamble). Entries below are scoped to Vol 2; cross-cutting tripwires with vol2-specific manifestations are noted but not duplicated.
 
 ---
 
