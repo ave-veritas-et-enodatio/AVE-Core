@@ -1,6 +1,7 @@
 [↑ Ch.2 — Baryon Sector](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol2 as eq:torus_knot_ladder -->
+<!-- claim-quality: k6olj8 -->
 
 ## The Baryon Resonance Spectrum: The Torus Knot Ladder
 

@@ -1,4 +1,5 @@
 [↑ Particle Physics](../index.md)
+<!-- claim-quality (subtree): 5zuo7g, p7rfkb, q8un7j, rji99i, stgx1i -->
 
 # Ch.6 — The Subatomic Scale: Electroweak and Higgs Sectors
 

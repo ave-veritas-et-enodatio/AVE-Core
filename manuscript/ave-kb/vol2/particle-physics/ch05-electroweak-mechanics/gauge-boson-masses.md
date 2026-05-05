@@ -1,5 +1,6 @@
 [↑ Ch.5 — Electroweak Mechanics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 5zuo7g, q8un7j -->
 
 ## Electrodynamics: The Gradient of Topological Phase
 
@@ -30,6 +31,7 @@ This paradox is resolved via the **Helmholtz Decomposition Theorem** in classica
 Because the $\mathcal{M}_A$ vacuum is incompressible ($K = 2G$), an irrotational flow field generates no localised compression ($-\partial_t \mathbf{A}$), no transverse vorticity ($\nabla \times \mathbf{A}$), and no topological defects. It is isomorphic to performing a **Galilean or Lorentz coordinate boost** of the observer's reference frame. Gauge invariance is not violated; it is revealed to be the classical network-dynamic freedom to shift the irrotational background coordinate velocity without altering the physical transverse observables.
 
 ## The Weak Interaction: Inductive Cutoff Dynamics
+<!-- claim-quality: 5zuo7g (the $m_W/m_Z = \sqrt{7}/3$ ratio derived in this section gives the on-shell Weinberg angle) -->
 
 In classical electrodynamics, the ratio of the LC network's microrotational bending inductance ($\gamma_c$) to the macroscopic optical shear modulus ($G_{vac}$) defines a fundamental **Characteristic Length Scale** ($l_c = \sqrt{\gamma_c/G_{vac}}$). This length scale is identified as the physical origin of the weak force range ($r_W \approx 10^{-18}$ m).
 
@@ -42,6 +44,7 @@ Weak interactions lack the kinetic energy required to overcome the ambient LC ro
 > $$
 
 ### Deriving the Gauge Bosons ($W^{\pm}/Z^{0}$) as Evanescent Modes
+<!-- claim-quality: q8un7j -->
 
 The gauge bosons of the weak interaction represent the fundamental macroscopic evanescent cutoff excitations required to mechanically induce a localized phase twist.
 

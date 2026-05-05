@@ -1,5 +1,6 @@
 [↑ Quantum Orbitals](../index.md)
 <!-- path-stable: referenced from vol5 as ch:quantum_mechanics (source label in vol2: ch:quantum_orbitals) -->
+<!-- claim-quality (subtree): ak97cb, w6kk5y -->
 
 # Ch. 7: Quantum Mechanics and Atomic Orbitals
 

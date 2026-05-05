@@ -1,4 +1,5 @@
 [↑ Particle Physics](../index.md)
+<!-- claim-quality (subtree): k6olj8, salw2h -->
 
 # Ch.1 — Topological Matter: Fermion Generations
 

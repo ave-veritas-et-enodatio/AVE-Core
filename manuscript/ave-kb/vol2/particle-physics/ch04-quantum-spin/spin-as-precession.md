@@ -1,5 +1,6 @@
 [↑ Ch.4 — Quantum Spin](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: salw2h -->
 
 ## Introduction
 

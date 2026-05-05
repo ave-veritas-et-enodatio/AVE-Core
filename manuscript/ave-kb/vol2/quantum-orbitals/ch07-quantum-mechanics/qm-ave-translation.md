@@ -1,5 +1,6 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ak97cb -->
 <!-- structural note: sec:qm_ave_translation is nested inside sec:helium_symmetric_cavity in the source -->
 
 ## QM ↔ AVE Translation Dictionary

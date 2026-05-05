@@ -1,8 +1,10 @@
 [↑ Ch.6 — Electroweak and Higgs](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: q8un7j, rji99i -->
 <!-- NOTE: eq:muon_twist_angle is in this section (§6.5), not §6.2 -->
 
 ## The Three-Generation Lepton Spectrum
+<!-- claim-quality: rji99i (Cosserat lepton sector framework also produces neutrino mass spectrum via crossing-number splitting) -->
 
 Each charged lepton maps to one sector of the Cosserat micropolar Lagrangian applied to the unknot ground state.
 
@@ -66,7 +68,7 @@ $$
 | $e$ | $m_e$ | 0.511 MeV | 0.511 MeV | Input |
 | $\mu$ | $m_e/(\alpha\sqrt{3/7})$ | 107.0 MeV | 105.66 MeV | $+1.24\%$ |
 | $\tau$ | $m_e \cdot p_c/\alpha^2$ | 1,760 MeV | 1,776.9 MeV | $-0.95\%$ |
-| $W$ | $m_e/(\alpha^2 p_c \sqrt{3/7})$ | 79,923 MeV | 80,379 MeV | $-0.57\%$ |
-| $Z$ | $M_W \cdot 3/\sqrt{7}$ | 90,624 MeV | 91,188 MeV | $-0.62\%$ |
+| $W$ | $m_e/(\alpha^2 p_c \sqrt{3/7})$ | 79,923 MeV | 80,379 MeV | $-0.57\%$ | <!-- claim-quality: q8un7j -->
+| $Z$ | $M_W \cdot 3/\sqrt{7}$ | 90,624 MeV | 91,188 MeV | $-0.62\%$ | <!-- claim-quality: q8un7j -->
 
 ---

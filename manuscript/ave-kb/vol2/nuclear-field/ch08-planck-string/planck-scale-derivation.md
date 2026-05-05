@@ -1,5 +1,6 @@
 [↑ Ch. 8: The Planck Scale and String Theory](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: g6e3zw -->
 
 ## The Planck Scale and String Theory
 

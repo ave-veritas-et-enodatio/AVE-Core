@@ -1,8 +1,11 @@
 [↑ Ch.2 — Baryon Sector](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: mnb3lt, 67jn9o -->
 
 ## Topological Fractionalization: The Origin of Quarks
+<!-- claim-quality: 67jn9o -->
 
+<!-- claim-quality: mnb3lt (proton total charge $Q_{total}=+1e$ derives from the Borromean structure that fixes the proton-mass eigenvalue) -->
 In the AVE framework, charge is defined as an integer topological winding number ($N \in \mathbb{Z}$). True fractional twists are mechanically forbidden, as they would sever the continuous manifold. The fractional quark charge paradox is resolved via the mathematics of **Topological Fractionalization** on a frustrated discrete graph. The proton possesses a total, integer effective electric charge of $Q_{total} = +1e$. Because the three loops of the $6^3_2$ Borromean linkage are mutually entangled, the total global phase twist is distributed across a degenerate structural ground state. In a non-linear dielectric substrate, a composite defect with internal permutation symmetry generates a discrete CP-violating $\theta$-vacuum phase. By the **Witten Effect**, a topological magnetic defect embedded in a $\theta$-vacuum acquires a fractionalized effective electric charge:
 
 > **[Resultbox]** *Topological Fractionalization (Witten Effect)*

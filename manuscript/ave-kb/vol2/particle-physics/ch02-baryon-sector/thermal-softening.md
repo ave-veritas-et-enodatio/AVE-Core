@@ -1,6 +1,7 @@
 [↑ Ch.2 — Baryon Sector](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol2 as sec:thermal_softening -->
+<!-- claim-quality: mnb3lt -->
 
 ## Thermal Lattice Softening ($\delta_{th}$)
 

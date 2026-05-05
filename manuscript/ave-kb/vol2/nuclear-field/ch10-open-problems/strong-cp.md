@@ -1,5 +1,6 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: gfs4j8 -->
 
 ## The Strong CP Problem
 

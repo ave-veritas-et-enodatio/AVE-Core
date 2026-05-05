@@ -1,5 +1,6 @@
 [↑ App B: Theoretical Stress Tests](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: nhlo1e -->
 
 ## The Holographic Information Paradox
 

@@ -1,5 +1,6 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 4vwsjc -->
 
 ## Derivation: $g_* = 85.75$
 

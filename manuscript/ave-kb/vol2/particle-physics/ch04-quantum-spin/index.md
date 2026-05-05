@@ -1,4 +1,5 @@
 [↑ Particle Physics](../index.md)
+<!-- claim-quality (subtree): salw2h -->
 
 # Ch.4 — Quantum Spin as Classical Gyroscopic Precession
 

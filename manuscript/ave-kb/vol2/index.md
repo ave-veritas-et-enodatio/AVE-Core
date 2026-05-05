@@ -1,4 +1,5 @@
 [↑ AVE Knowledge Base](../entry-point.md)
+<!-- claim-quality (subtree): 4vwsjc, 5zuo7g, 67jn9o, 7o8clt, ak97cb, c8q0z5, dboxok, g6e3zw, gfs4j8, k6olj8, mnb3lt, mroghg, nhlo1e, oltvwy, p7rfkb, q5izb7, q8un7j, rji99i, salw2h, stgx1i, w6kk5y -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

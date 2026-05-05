@@ -1,5 +1,6 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: w6kk5y -->
 
 ## The Screening Rule: Two Distinct Physics
 

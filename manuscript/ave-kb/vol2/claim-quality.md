@@ -7,6 +7,7 @@
 ---
 
 ## Proton Mass Eigenvalue ($m_p/m_e \approx 1836.12$)
+<!-- id: mnb3lt -->
 
 - $x_{core} = \mathcal{I}_{scalar} + (\mathcal{V}_{total}\cdot p_c)\,x_{core}$ with $\mathcal{V}_{total} = 2.0$, $p_c = 8\pi\alpha$, $\mathcal{I}_{scalar} \approx 1162$, plus $+1$ integer twist for charge → $x = 1836.12$.
 - _Specific Claims_
@@ -20,9 +21,19 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md` (eigenvalue closure), `particle-physics/ch02-baryon-sector/thermal-softening.md` ($\delta_{th}$, $\kappa_{FS}$, Gaussian-ansatz gap), `particle-physics/ch02-baryon-sector/topological-fractionalization.md` (Borromean topology and Witten Effect).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Torus Knot Baryon Ladder
+<!-- id: k6olj8 -->
 
 - $m(c) = \mathcal{I}_{scalar}(\kappa_{FS}/c)/(1 - \mathcal{V}_{total}\cdot p_c) + 1$ for odd $c = 3, 5, 7, 9, \ldots$
 - _Specific Claims_
@@ -35,9 +46,19 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md`, `particle-physics/ch01-topological-matter/torus-knot-ladder.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Weinberg Angle $\sin^2\theta_W = 2/9$ (On-Shell Only)
+<!-- id: 5zuo7g -->
 
 - $\sin^2\theta_W = 1 - (M_W/M_Z)^2 = 1 - 1/(1+\nu_{vac}) = 1 - 7/9 = 2/9 \approx 0.2222$
 - _Specific Claims_
@@ -50,9 +71,19 @@
 
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weinberg-angle.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`. Bound on scheme specificity asserted at invariant level — see `LIVING_REFERENCE.md` Critical Distinctions #2.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $W$/$Z$ Boson Masses
+<!-- id: q8un7j -->
 
 - $m_W = m_e/(\alpha^2 p_c \sqrt{3/7})$, $m_Z = m_W \cdot 3/\sqrt{7}$
 - _Specific Claims_
@@ -64,9 +95,19 @@
 
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weak-coupling.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch06-electroweak-higgs/higgs-mass.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Higgs Mechanism Reinterpretation
+<!-- id: p7rfkb -->
 
 - _Specific Claims_
   - AVE identifies the Standard Model VEV $v = 246$ GeV with the **characteristic impedance of free space** $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$. Inertial mass is reinterpreted as Lenz's-law induction drag against this baseline impedance.
@@ -79,9 +120,19 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## $g-2$ Anomaly: Schwinger's Result $a_e = \alpha/(2\pi)$
+<!-- id: stgx1i -->
 
 - $a_e = (1/\pi^2) \times (\pi\alpha/2) = \alpha/(2\pi) \approx 0.001161$ (Master Prediction Table #3, $+0.09\%$)
 - _Specific Claims_
@@ -94,9 +145,19 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md` (the Schwinger derivation appears in this leaf's "Schwinger's Anomalous Magnetic Moment" section).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## PMNS Mixing Angles and CP Phase $\delta_{CP} = 61\pi/45$
+<!-- id: 7o8clt -->
 
 - $\sin^2\theta_{12} = \nu_{vac} + 1/45 = 2/7 + 1/45$; $\sin^2\theta_{13} = 1/(c_1 c_3) = 1/45$; $\sin^2\theta_{23} = 1/2 + 2/45$; $\delta_{CP} = (1 + 1/3 + 1/45)\pi$
 - _Specific Claims_
@@ -112,9 +173,19 @@
 
 > **Leaf references:** `particle-physics/ch03-neutrino-sector/chiral-screening.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Neutrino Mass and Hierarchy
+<!-- id: rji99i -->
 
 - $m_\nu \approx m_e\,\alpha\,(m_e/M_W) \approx 0.024$ eV per flavor; $\sum m_\nu \approx 0.054$ eV
 - _Specific Claims_
@@ -128,9 +199,19 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Quark Charges via Witten Effect on $\mathbb{Z}_3$ Borromean Symmetry
+<!-- id: 67jn9o -->
 
 - $q_{eff} = n + (\theta/2\pi)e$ with $\theta \in \{0, \pm 2\pi/3, \pm 4\pi/3\}$
 - _Specific Claims_
@@ -142,9 +223,19 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/topological-fractionalization.md`, `particle-physics/ch02-baryon-sector/quark-flavors.md` (stub redirecting to topological-fractionalization).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Atomic Ionization Energy Solver (Z = 1–14, Max 2.8% Error)
+<!-- id: oltvwy -->
 
 - Three-phase pipeline: Phase A cavity eigenvalue + Phase B Hopf mode splitting (Corrections A/B/C/D from `LIVING_REFERENCE.md` §"Axioms in the Atomic Domain") + Phase C crossing scattering. Solver: `radial_eigenvalue.py` / `ionization_energy_e2k(Z)`.
 - _Specific Claims_
@@ -165,9 +256,19 @@
 
 > **References:** Bound on the Z = 1–14 validity range and the four correction gates is asserted at invariant level — see `LIVING_REFERENCE.md` §"Axioms in the Atomic Domain" (Corrections A–D specifications) and Pitfalls #6, #7, #8, #9, #10, #11. Supporting derivation steps appear in `quantum-orbitals/ch07-quantum-mechanics/` leaves: `radial-eigenvalue-solver.md`, `ionization-energy-validation.md`, `screening-rule.md`, `de-broglie-n.md`, `de-broglie-standing-wave.md`, `bonding-mode-formula.md`, `chiral-factor.md`, `helium-symmetric-cavity.md`, `hierarchical-cascade-correction.md`, `orbital-penetration-penalties.md`. The proofs-computation leaf `proofs-computation/ch09-computational-proof/methodological-contamination.md` documents the Bohr/Schrödinger contamination hazard explicitly.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Hopf-Pair Coupling and Same-Shell vs Cross-Shell Screening
+<!-- id: w6kk5y -->
 
 - Cross-shell: $\sigma_{cross} = N_{inner}$ (Gauss, Axiom 2). Same-shell: $\sigma_{same} = (N_{same} - 1) \times J_{shell}$, $J_{1s^2} = (1+p_c)/2 \approx 0.5917$ (Axiom 4).
 - _Specific Claims_
@@ -180,9 +281,19 @@
 
 > **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/screening-rule.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md`, `quantum-orbitals/ch07-quantum-mechanics/hierarchical-cascade-correction.md`, `quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md`, `quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Spin-1/2 as Macroscopic Gyroscopic Precession
+<!-- id: salw2h -->
 
 - $d\mathbf{L}/dt = \gamma\,\mathbf{L} \times \mathbf{B}$; classical-vs-quantum deviation $\sim 10^{-8}$ at machine precision.
 - _Specific Claims_
@@ -195,9 +306,19 @@
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md`, `particle-physics/ch04-quantum-spin/spin-as-precession.md`, `particle-physics/ch04-quantum-spin/larmor-derivation.md`, `appendices/app-b-paradoxes/spin-half-paradox.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Yang-Mills Mass Gap (Framework-Conditional, Not Clay-Rigorous)
+<!-- id: q5izb7 -->
 
 - $\Delta = m_e c^2 \approx 0.511$ MeV; Bogomol'nyi bound $E[\phi] \ge 2\pi^3 c/\kappa_{FS} > 0$
 - _Specific Claims_
@@ -211,9 +332,19 @@
 
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md`, `nuclear-field/ch12-millennium-prizes/yang-mills-steps3-5.md`, `nuclear-field/ch12-millennium-prizes/index.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table notes #14, #15, #16.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Navier-Stokes Smoothness (Framework-Conditional, Not Clay-Rigorous)
+<!-- id: c8q0z5 -->
 
 - $\|\nabla^2_\ell\| = 4/\ell^2$ (bounded discrete Laplacian); $\Omega \le 2Nc^2/\ell$ (bounded enstrophy); Picard-Lindelöf on bounded Lipschitz domain.
 - _Specific Claims_
@@ -225,9 +356,19 @@
 
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #15.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Strong CP Problem ($\theta = 0$ Exactly)
+<!-- id: gfs4j8 -->
 
 - _Specific Claims_
   - On the AVE lattice the vacuum angle $\theta = 0$ exactly: the unique ground state has $\mathbf{E}_n = \mathbf{B}_n = 0$ and zero topological charge. Transitions between $\theta$-sectors require creating a topological defect, which costs energy $\ge \Delta$ (the mass gap), so the vacuum cannot tunnel between sectors.
@@ -238,9 +379,19 @@
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/strong-cp.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #16.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Baryon Asymmetry $\eta = 6.08 \times 10^{-10}$
+<!-- id: 4vwsjc -->
 
 - $\eta = \delta_{CP} \cdot \alpha_W^4 \cdot C_{sph} / g_*$ with $\delta_{CP} = \pi/\kappa_{FS}$, $\alpha_W = \alpha/\sin^2\theta_W$, $C_{sph} = 28/79$, $g_* = 7^3/4 = 85.75$
 - _Specific Claims_
@@ -254,9 +405,19 @@
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/baryon-asymmetry.md`, `nuclear-field/ch10-open-problems/g-star-derivation.md`, `nuclear-field/ch10-open-problems/g-star-prediction.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Hubble Constant $H_\infty \approx 69.32$ km/s/Mpc — Vol 2 Framing
+<!-- id: mroghg -->
 
 See cross-cutting [Master Prediction Table reading conventions](../claim-quality.md). Vol3 sidecar carries the full $H_\infty$ entry (lattice-genesis circularity caveat; CODATA $G$ substitution; geometric self-consistency proof, not first-principles ab initio prediction). Vol2 framing notes:
 
@@ -268,9 +429,19 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/hubble-tension.md`. Cross-cutting caveat documented in vol3 sidecar's Asymptotic Hubble Constant entry; bound asserted at the kb-claims-boundaries-followups level (see `kb-claims-boundaries-followups.md` 2026-05-02 entry on vol3 index circularity framing).
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## String Theory Translation: Regge Slope $\alpha' \approx 0.75$ GeV$^{-2}$
+<!-- id: g6e3zw -->
 
 - $T_{AVE} = m_e^2 c^3/\hbar \approx 0.212$ N; $\alpha' = 1/(2\pi T_{AVE}) \approx 0.75$ GeV$^{-2}$; $\alpha'_{baryon} = \alpha'/(m_p/m_e) \approx 4.09\times 10^{-4}$ GeV$^{-2}$
 - _Specific Claims_
@@ -283,9 +454,19 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch08-planck-string/planck-scale-derivation.md`, `nuclear-field/ch08-planck-string/string-theory-translation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Universal Strain Energy Functional and Overdrive Demonstrations
+<!-- id: dboxok -->
 
 - $U_{total} = \sum_{i<j} K_{mutual}/d_{ij} + \sum_i U_{bond}(\theta_i, \phi_i)$; nuclear $K_{mutual} = (5\pi/2)\,\alpha\hbar c/(1 - \alpha/3) \approx 11.337$ MeV·fm
 - _Specific Claims_
@@ -299,9 +480,19 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `proofs-computation/ch11-overdrive/index.md`, `proofs-computation/ch11-overdrive/universal-energy.md`, `proofs-computation/ch11-overdrive/overdrive-nuclear.md`, `proofs-computation/ch11-overdrive/overdrive-protein.md`, `proofs-computation/ch11-overdrive/overdrive-comparison.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Methodological Contamination Discipline (Project-Wide Hazard, Vol2 Manifestation)
+<!-- id: ak97cb -->
 
 - _Specific Claims_
   - The framework requires all atomic energy states to emerge from the 5-step universal regime-boundary eigenvalue method. The Rydberg energy $Ry = \alpha^2 m_e c^2/2$ is **emergent** from the electron cavity saturation boundary, not a postulate.
@@ -312,9 +503,19 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **References:** Discipline asserted at invariant level — see `LIVING_REFERENCE.md` "Common Pitfalls" #7–#11 and Critical Distinctions; "Red flags for QM contamination" checklist therein. Supporting derivation-discipline statements appear in `proofs-computation/ch09-computational-proof/methodological-contamination.md`, `proofs-computation/ch09-computational-proof/precision-policy.md`, and the QM-translation appendix `quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Holographic Principle Recovery (Stress Test, Not Independent Prediction)
+<!-- id: nhlo1e -->
 
 - _Specific Claims_
   - Even though the AVE vacuum is a discrete 3D lattice, the Holographic Principle's $R^2$ entropy scaling is recovered: information transmission traverses 1D inductive flux tubes whose bandwidth is bounded by their 2D cross-sectional porosity $\Phi_A \equiv \alpha^2$. Nyquist-Shannon projects channel capacity onto the 2D causal-horizon bounding surface.
@@ -323,3 +524,12 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Does NOT claim falsification of any specific holographic-duality framework (AdS/CFT, dS/CFT). The framework asserts the principle is recoverable in AVE, not that competing formulations are excluded.
 
 > **Leaf references:** `appendices/app-b-paradoxes/holographic-paradox.md`.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*

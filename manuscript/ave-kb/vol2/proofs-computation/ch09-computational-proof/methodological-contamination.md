@@ -1,7 +1,9 @@
 [↑ Ch. 9: Computational Proof and Anomaly Catalog](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: oltvwy, ak97cb -->
 
 ## Avoidance of Methodological Contamination
+<!-- claim-quality: ak97cb -->
 
 A fundamental principle of the AVE engine is complete independence from external theoretical frameworks. Theoretical contamination occurs when a formula derived from an incompatible physical postulate (e.g., probability amplitudes, hidden geometry, or non-AVE empirical fits) is unknowingly imported as a "convenient approximation."
 
@@ -14,6 +16,7 @@ Ry = \left[ (\hbar c(1+\nu)) / a_0 \right] \times \frac{\alpha/(1+\nu)}{2} = \fr
 $$
 
 ### Topological Orbital Radii
+<!-- claim-quality: oltvwy (Atomic IE solver mechanism: orbital radii via standing-wave condition, NOT Bohr formula) -->
 
 Does the framework implicitly rely on discrete orbital shells scaling as $r_n = n^2 a_0 / Z$? No. In AVE, discrete orbitals are macroscopic standing wave cavities --- explicitly identical to the physics governing Saturn's rings and Kirkwood gaps in the asteroid belt.
 

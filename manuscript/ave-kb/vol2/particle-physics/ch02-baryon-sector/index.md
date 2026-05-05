@@ -1,4 +1,5 @@
 [↑ Particle Physics](../index.md)
+<!-- claim-quality (subtree): 67jn9o, k6olj8, mnb3lt -->
 
 # Ch.2 — The Baryon Sector: Confinement and Fractional Quarks
 

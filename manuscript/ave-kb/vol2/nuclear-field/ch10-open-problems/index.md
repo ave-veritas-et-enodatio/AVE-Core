@@ -1,4 +1,5 @@
 [↑ Nuclear and Field Physics](../index.md)
+<!-- claim-quality (subtree): 4vwsjc, gfs4j8, mroghg -->
 
 # Ch. 10: Three Open Problems from Lattice Topology
 
