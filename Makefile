@@ -72,7 +72,7 @@ verify: verify-claim-quality
 	@echo "=================================================="
 
 verify-claim-quality:
-	@echo "[$@] Running KB claim-quality framework integrity check..."
+	@echo "Running KB claim-quality framework integrity check..."
 	$(PYTHON) manuscript/ave-kb/tools/check-claim-quality.py
 
 
