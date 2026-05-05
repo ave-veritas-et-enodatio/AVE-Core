@@ -1,5 +1,6 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: c6k5om -->
 
 ## Hawking Radiation as Spontaneous Emission
 

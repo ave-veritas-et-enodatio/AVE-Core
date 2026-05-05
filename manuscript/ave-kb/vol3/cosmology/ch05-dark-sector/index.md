@@ -1,4 +1,5 @@
 [↑ Cosmology](../index.md)
+<!-- claim-quality (subtree): u86caq -->
 
 # Ch.5: Galactic Rotation from Axiom 4
 

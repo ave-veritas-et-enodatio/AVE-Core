@@ -1,5 +1,6 @@
 [↑ Ch.11 Thermodynamics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: hk81zp -->
 
 # Kolmogorov Spectral Cutoff
 

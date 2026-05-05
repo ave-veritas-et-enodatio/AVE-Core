@@ -1,5 +1,6 @@
 [↑ Ch.14: Sonoluminescence](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 91adfe -->
 
 # Sonoluminescence: Saturated Rayleigh-Plesset Derivation
 

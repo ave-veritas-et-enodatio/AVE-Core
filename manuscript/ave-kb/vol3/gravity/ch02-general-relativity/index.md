@@ -1,4 +1,5 @@
 [↑ Gravity](../index.md)
+<!-- claim-quality (subtree): 07kd5v, y9old1 -->
 
 # Ch.2: General Relativity and Gravitational Waves
 

@@ -1,4 +1,5 @@
 [↑ Condensed Matter](../index.md)
+<!-- claim-quality (subtree): hk81zp, uu6dl5 -->
 
 # Ch.11: Thermodynamics and The Arrow of Time
 

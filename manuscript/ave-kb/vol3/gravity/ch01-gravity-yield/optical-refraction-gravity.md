@@ -1,9 +1,11 @@
 [↑ Ch.1 Gravity and Yield](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: wx5324, rd9cjm, 1klgo2 -->
 
 ---
 
 ## Macroscopic Gravity as Optical Refraction
+<!-- claim-quality: rd9cjm (this section establishes the refractive-index gravity ontology; the explicit $n(r) = 1 + 2GM/(c^2 r)$ form is invoked at the start in eq. for $n_{\perp}$) -->
 
 Gravity is traditionally modeled as the geometric curvature of spacetime resulting from mass. However, in the Electromagnetic $\mathcal{M}_A$ framework, "Mass" is simply localized, tightly confined electromagnetic wave energy (Hopfions), and "Gravity" is the phenomenological illusion of **Optical Refraction**.
 
@@ -55,6 +57,7 @@ Integrating the dimensionless radial distance ($r/\ell_{node}$) out to the topol
 
 By applying the $1/7$ tensor projection, Macroscopic Gravity is defined as $G = c^{4}/(7\xi T_{EM})$. Because standard cosmology defines the asymptotic causal horizon as $R_{H} \equiv c/H_{\infty}$, substituting this into the integration binds the fundamental constants into a single geometric equivalence:
 
+<!-- claim-quality: wx5324 -->
 > **[Resultbox]** *The Asymptotic Hubble Constant*
 >
 > $$
@@ -63,6 +66,7 @@ By applying the $1/7$ tensor projection, Macroscopic Gravity is defined as $G = 
 
 This equation does not "predict" the Hubble constant from first principles alone; rather, it represents a consistency proof. It shows that Macroscopic Gravity ($G$) and the Cosmological Horizon ($H_{\infty}$) are not independent physical phenomena---they are the same geometric limit evaluated from different topological reference frames.
 
+<!-- claim-quality: 1klgo2 -->
 **Deriving Dirac's Large Numbers Hypothesis:** By rearranging this geometric limit, one can analytically derive Dirac's famous Large Numbers Hypothesis. Starting from the derived gravitational coupling $G = c^{4}/(7\xi T_{EM})$ and substituting the baseline tension ($T_{EM} = m_{e}c^{2}/\ell_{node}$) and the spatial cutoff ($\ell_{node} \equiv \hbar/m_{e}c$):
 
 > **[Resultbox]** *Gravitational Coupling Constant*

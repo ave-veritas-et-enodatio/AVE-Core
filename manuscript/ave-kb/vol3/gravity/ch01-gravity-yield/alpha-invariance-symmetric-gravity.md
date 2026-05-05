@@ -1,12 +1,14 @@
 [↑ Ch.1 Gravity and Yield](index.md)
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 (via cross-cutting α invariance entry) and from kb/claim-quality.md "α Invariance Under Symmetric Gravity" entry -->
-<!-- claim-quality: 3zz0f6 -->
+<!-- claim-quality: 3zz0f6, rd9cjm -->
 
 ---
 
 ## Derived Consequence 1: α Invariance
+<!-- claim-quality: 3zz0f6 -->
 
+<!-- claim-quality: rd9cjm (the "$n \cdot S$" factor invoked here is the Symmetric Gravity refractive-index machinery whose temporal/spatial decomposition lives in Refractive Index of Gravity) -->
 Under Symmetric Gravity, both constitutive parameters scale by the same factor $n \cdot S$ (including Axiom 4 saturation). The fine-structure constant is therefore *exactly invariant* under gravitational strain:
 
 $$

@@ -1,5 +1,6 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: uu6dl5 -->
 
 ---
 

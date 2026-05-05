@@ -1,5 +1,6 @@
 [↑ Ch.4 Generative Cosmology](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 9fnieq -->
 
 ## Mutual Inductive Accretion Time Constant
 

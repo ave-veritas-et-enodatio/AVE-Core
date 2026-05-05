@@ -1,5 +1,6 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: x19btt -->
 
 ## The Compactness Limit (AVE Buchdahl Bound)
 

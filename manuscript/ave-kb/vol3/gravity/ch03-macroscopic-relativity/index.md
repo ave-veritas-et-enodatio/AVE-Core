@@ -1,4 +1,5 @@
 [↑ Gravity](../index.md)
+<!-- claim-quality (subtree): ir8h78, rd9cjm -->
 
 # Ch.3: Macroscopic Relativity: The Optical Metric
 

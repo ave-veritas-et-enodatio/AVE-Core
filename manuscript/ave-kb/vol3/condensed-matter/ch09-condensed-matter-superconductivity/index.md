@@ -1,4 +1,5 @@
 [↑ Condensed Matter](../index.md)
+<!-- claim-quality (subtree): qky559 -->
 
 # Ch.9: Condensed Matter and Superconductivity
 

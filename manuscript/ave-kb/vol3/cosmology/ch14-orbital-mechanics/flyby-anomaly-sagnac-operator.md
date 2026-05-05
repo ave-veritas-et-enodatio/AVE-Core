@@ -1,5 +1,6 @@
 [↑ Orbital Mechanics](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: a71inj -->
 
 # The Flyby Anomaly as an Acoustic Shear Operator
 

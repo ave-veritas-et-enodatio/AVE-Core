@@ -7,6 +7,7 @@
 ---
 
 ## Asymptotic Hubble Constant $H_\infty$
+<!-- id: wx5324 -->
 
 - $H_{\infty} = 28\pi m_{e}^{3}cG / (\hbar^{2}\alpha^{2}) \approx 69.32$ km/s/Mpc
 - _Specific Claims_
@@ -20,9 +21,19 @@
 
 > **Leaf references:** `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`, `cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Refractive Index of Gravity $n(r) = 1 + 2GM/(c^2 r)$
+<!-- id: rd9cjm -->
 
 - $n(r) = 1 + \nu_{vac}\,\varepsilon_{11} = 1 + (2/7)\,\varepsilon_{11}$ with $\varepsilon_{11}(r) = 7GM/(c^2 r)$
 - _Specific Claims_
@@ -37,9 +48,19 @@
 
 > **Leaf references:** Canonical for the temporal/spatial split: `gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (Derived Consequence 2 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Refractive-index derivations: `gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`, `transverse-refractive-index.md`, `einstein-lensing-deflection.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`. Companion bound on α invariance under symmetric gravity: `gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Gravitational Wave Propagation — Invariant Impedance
+<!-- id: 07kd5v -->
 
 - $Z(r) = \sqrt{\mu_{eff}(r)/\varepsilon_{eff}(r)} \equiv Z_0$; $\Gamma = 0$ across any gravitational gradient
 - _Specific Claims_
@@ -54,9 +75,19 @@
 
 > **Leaf references:** `gravity/ch08-gravitational-waves/invariant-gravitational-impedance.md`, `gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, `gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md`, `gravity/ch02-general-relativity/einstein-field-equation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Black Hole Interior — Lattice Phase Transition, Not Impedance Mismatch
+<!-- id: ir8h78 -->
 
 - $r_{sat} = 7GM/c^2 = 3.5\,r_s$ (saturation boundary); interior: $G_{shear} \to 0$, $c_g \to 0$
 - _Specific Claims_
@@ -72,9 +103,19 @@
 
 > **Leaf references:** Primary for $\Gamma = 0$ (BH boundary absorbs, no reflection): `cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md` (states "no impedance mismatch and no reflection coefficient ($\Gamma = 0$ everywhere)"). Phase-transition / saturation framing: `cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`, `gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md`. Note: `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md` carries "$\Gamma = -1$" in its title and uses different framing — see followups (interpretive tension between leaves on horizon impedance). Cross-cutting: see Symmetric vs Asymmetric Saturation.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## AVE Compactness Limit ($2/7$ vs Buchdahl)
+<!-- id: x19btt -->
 
 - $R > 7GM/c^2 \;\Longleftrightarrow\; 2GM/(c^2 R) < 2/7 = \nu_{vac}$
 - _Specific Claims_
@@ -88,9 +129,19 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md`, `gravity/ch01-gravity-yield/vacuum-poisson-ratio.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## AVE Merger Ringdown $\omega_R M_g = 18/49$
+<!-- id: 395gps -->
 
 - $\omega_R \cdot M_g = \ell(1 + \nu_{vac})/x_{sat} = 18/49 \approx 0.3673$ for $\ell = 2$
 - _Specific Claims_
@@ -105,9 +156,19 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md`, `cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Hawking Temperature as Classical Nyquist Noise
+<!-- id: c6k5om -->
 
 - $T_H = \hbar c^3 / (8\pi G M k_B)$ (numerically the standard Hawking formula)
 - _Specific Claims_
@@ -122,9 +183,19 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md`, `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## MOND Acceleration Scale $a_0$ (Derived but Regime-Gated)
+<!-- id: u86caq -->
 
 - $a_0 = c H_\infty / (2\pi) \approx 1.07 \times 10^{-10}$ m/s²
 - _Specific Claims_
@@ -140,9 +211,19 @@
 
 > **Leaf references:** `cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md`, `cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md`, `cosmology/ch05-dark-sector/asymptotic-limits.md`, `cosmology/ch05-dark-sector/multi-galaxy-validation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Anomalous Perihelion Advance — Consistency Check
+<!-- id: qyn8t0 -->
 
 - $\Delta\phi = 6\pi G M_\odot / (c^2 a (1-e^2))$
 - _Specific Claims_
@@ -155,9 +236,19 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Solar System Boundaries (Oort, Kirkwood, Magnetopause)
+<!-- id: 3kmt3p -->
 
 - _Specific Claims_
   - Oort Cloud inner edge: $r_{sat} = \sqrt{GM_\odot/a_0} \approx 7{,}400$ AU — the radius where solar $g_N$ drops to the MOND threshold. Falls within the observed Hills Cloud range (2,000–5,000 AU); reported as "consistent with" rather than as a sub-percent match.
@@ -170,9 +261,19 @@
 
 > **Leaf references:** `cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md`, `cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md`, `cosmology/ch06-solar-system/planetary-magnetopause-standoff.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Flyby Anomaly — Sagnac Shear Reinterpretation
+<!-- id: a71inj -->
 
 - $\Delta V_{flyby} = V_\infty \cdot 2 (U_\oplus / c_0) \cos(\alpha_{geo}) \cos(\delta_{geo}) \approx 13.4$ mm/s
 - _Specific Claims_
@@ -186,9 +287,19 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Lunar Inductive Heating — Tidal Inputs Required
+<!-- id: av2o4v -->
 
 - $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification of standard tidal formula
 - _Specific Claims_
@@ -200,9 +311,19 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Geodynamo as VCA Back-EMF
+<!-- id: wd5rs0 -->
 
 - $M_\oplus \approx 1.5 \times 10^{23}$ A·m² vs empirical $8.0 \times 10^{22}$ A·m²
 - _Specific Claims_
@@ -215,9 +336,19 @@
 
 > **Leaf references:** `applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Sonoluminescence as Tabletop Relativity
+<!-- id: 91adfe -->
 
 - $\rho_{eff} = \rho_0 / (1 - \mathrm{M}^2)^{3/2}$, Mach number $\mathrm{M} = |\dot{R}|/c_{sound}$
 - _Specific Claims_
@@ -231,9 +362,19 @@
 
 > **Leaf references:** `applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Superconductor Type Classification ($\kappa = \lambda_L/\xi_0$)
+<!-- id: qky559 -->
 
 See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_c(T)$ axiom-manifestation tripwire. Vol3-specific aspects:
 
@@ -249,9 +390,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md`, `condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md`, `condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md`, `condensed-matter/ch09-condensed-matter-superconductivity/universal-saturation-operator.md`. Cross-cutting: see BCS Critical Field $B_c(T)$.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Effective Degrees of Freedom $g_* = 343/4 = 85.75$
+<!-- id: uu6dl5 -->
 
 - $g_* = n^3/N_{K4} = 7^3/4 = 85.75$
 - _Specific Claims_
@@ -264,9 +415,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/effective-dof-g-star.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry-derivation.md`, `condensed-matter/ch11-thermodynamics/thermal-softening-correction.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Kolmogorov Spectral Cutoff and Bounded Enstrophy
+<!-- id: hk81zp -->
 
 - $k_{\max} = \pi/\ell_{node}$; $E(k) = C_K \varepsilon^{2/3} k^{-5/3} S(k/k_{\max})$; $n_{3D} = 38/21$
 - _Specific Claims_
@@ -280,9 +441,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Per-Element Impedance Table (Two Families)
+<!-- id: nxfmh0 -->
 
 - _Specific Claims_
   - Diagonalising the nuclear Hessian for Z = 1–14 yields a binary partition: closed-shell alpha cores ($Z_{atom} \approx 1.37$, $Q = 2.0$, $E_{rupt} \approx 0.82$ MeV) vs open-shell halo elements ($Z_{atom} \sim 0.37$–$0.46$, $Q = 3$–$16$, $E_{rupt} \ll 0.82$).
@@ -295,9 +466,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch10-material-properties/per-element-impedance-table.md`, `condensed-matter/ch10-material-properties/nuclear-hessian.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Dirac Large Numbers and Planck Mass
+<!-- id: 1klgo2 -->
 
 - $\alpha_G = G m_e^2 / (\hbar c) = 1/(7\xi)$; $m_P = m_e\sqrt{7\xi}$; $R_H/\ell_{node} = \alpha^2/(28\pi\alpha_G)$
 - _Specific Claims_
@@ -310,9 +491,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `gravity/ch01-gravity-yield/gravitational-coupling-constant.md`, `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/planck-mass.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## JWST Exponential Accretion Time Constant $\tau_{ind} \approx 65.1$ Myr
+<!-- id: 9fnieq -->
 
 - $M(t) = M_{seed} e^{t/\tau_{ind}}$
 - _Specific Claims_
@@ -324,9 +515,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `cosmology/ch04-generative-cosmology/jwst-constraint-equation.md`, `cosmology/ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Phantom Energy Equation of State $w < -1$
+<!-- id: 3ii690 -->
 
 - $w_{vac} = -1 - \rho_{latent}/\rho_{vac}$
 - _Specific Claims_
@@ -339,9 +540,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md`, `cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Einstein Field Equation Reinterpretation
+<!-- id: y9old1 -->
 
 - $R_{\mu\nu} - \tfrac{1}{2}R g_{\mu\nu} + \Lambda g_{\mu\nu} = (8\pi G/c^4) T_{\mu\nu}$ with $T_{\mu\nu} \equiv U_{\mu\nu}$ (LC EM energy density)
 - _Specific Claims_
@@ -354,9 +565,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `gravity/ch02-general-relativity/einstein-field-equation.md`, `gravity/ch02-general-relativity/stress-energy-lc-density.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Seismic Reflection Coefficient (Moho)
+<!-- id: zsqh87 -->
 
 - $\Gamma_{Moho} = (\rho_2 V_{p2} - \rho_1 V_{p1})/(\rho_2 V_{p2} + \rho_1 V_{p1}) \approx 0.29$
 - _Specific Claims_
@@ -367,9 +588,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `applied-physics/ch13-geophysics/seismic-reflection-coefficient-moho.md`, `applied-physics/ch13-geophysics/constitutive-mapping.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Ideal Gas Law as LC Energy Balance
+<!-- id: cul4it -->
 
 - $U \cdot V = N \cdot k_B \cdot \overline{T_{jitter}}$ → recovers $PV = nRT$ at STP
 - _Specific Claims_
@@ -380,9 +611,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `applied-physics/ch12-ideal-gas-law/ideal-gas-law.md`, `applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md`, `applied-physics/ch12-ideal-gas-law/recovering-r-at-stp.md`.
 
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+
 ---
 
 ## Neutrino MSW Matter Potential
+<!-- id: o6kgkz -->
 
 - $V_{CC} = \sqrt{2}\, G_F\, n_e$
 - _Specific Claims_
@@ -390,3 +631,12 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 - _Specific Non-Claims and Caveats_
   - Does NOT claim a novel matter-potential formula. The leaf reproduces the SM expression; the AVE input is the value of $G_F$, not the form of the potential.
   - LIVING_REFERENCE.md Critical Distinctions #5 caveat applies: SPICE RC muon model is qualitative; quantitative neutrino-related lifetimes go through the standard Fermi formula with AVE $G_F$.
+
+## Quality
+- confidence: *pending*
+- depends-on:
+  - *pending — full enumeration deferred to quality evaluation pass*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*

@@ -1,5 +1,5 @@
 [↑ Vol 3: Macroscopic Physics](../index.md)
-<!-- claim-quality (subtree): 3zz0f6 -->
+<!-- claim-quality (subtree): 07kd5v, 1klgo2, 3zz0f6, ir8h78, rd9cjm, wx5324, x19btt, y9old1 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
 

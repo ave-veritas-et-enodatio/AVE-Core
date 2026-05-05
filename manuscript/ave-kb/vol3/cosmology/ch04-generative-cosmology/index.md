@@ -1,5 +1,5 @@
 [↑ Cosmology](../index.md)
-<!-- claim-quality (subtree): 2e9j97 -->
+<!-- claim-quality (subtree): 2e9j97, 3ii690, 9fnieq, c6k5om, ir8h78, wx5324 -->
 
 # Ch.4: Generative Cosmology and Thermodynamic Attractors
 

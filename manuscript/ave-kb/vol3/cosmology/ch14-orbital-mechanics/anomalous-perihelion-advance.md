@@ -1,5 +1,6 @@
 [↑ Ch.14 Orbital Mechanics](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qyn8t0 -->
 
 ## Anomalous Precession (Mercury and Venus)
 

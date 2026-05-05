@@ -1,4 +1,5 @@
 [↑ Applied Physics](../index.md)
+<!-- claim-quality (subtree): wd5rs0, zsqh87 -->
 
 # Ch.13: Geophysics: Seismic Waves
 

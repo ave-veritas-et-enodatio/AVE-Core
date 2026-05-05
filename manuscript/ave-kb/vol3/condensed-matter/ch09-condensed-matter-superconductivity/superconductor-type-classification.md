@@ -1,5 +1,6 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qky559 -->
 
 ---
 
