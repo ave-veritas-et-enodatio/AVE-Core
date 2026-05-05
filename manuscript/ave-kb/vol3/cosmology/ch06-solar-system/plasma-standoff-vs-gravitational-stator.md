@@ -1,5 +1,6 @@
 [↑ Solar System Impedance](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 3kmt3p -->
 
 # The Plasma Standoff vs. The Gravitational Stator
 

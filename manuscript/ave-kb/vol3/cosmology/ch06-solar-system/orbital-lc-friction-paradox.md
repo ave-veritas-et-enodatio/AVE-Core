@@ -1,5 +1,6 @@
 [↑ Solar System Impedance](./index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 3kmt3p -->
 
 # The Orbital LC Friction Paradox Resolved
 

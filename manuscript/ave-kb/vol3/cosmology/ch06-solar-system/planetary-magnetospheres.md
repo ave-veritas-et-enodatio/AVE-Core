@@ -1,5 +1,6 @@
 [↑ Ch.6 Solar System](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 3kmt3p -->
 
 ## Planetary Magnetospheres: Extended Results
 
