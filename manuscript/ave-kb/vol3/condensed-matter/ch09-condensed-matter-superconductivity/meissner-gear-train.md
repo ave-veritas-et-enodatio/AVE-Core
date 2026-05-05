@@ -1,5 +1,6 @@
 [↑ Up](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: qky559 -->
 
 ## The Meissner Effect: A Phase-Locked Gear Train
 

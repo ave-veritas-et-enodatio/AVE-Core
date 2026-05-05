@@ -1,5 +1,6 @@
 [↑ Ch.8 Gravitational Waves](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: 07kd5v -->
 
 ---
 

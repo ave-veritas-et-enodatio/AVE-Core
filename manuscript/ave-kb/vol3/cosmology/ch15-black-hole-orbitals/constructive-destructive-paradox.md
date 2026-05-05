@@ -1,5 +1,6 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: ir8h78 -->
 
 ## The Constructive vs. Destructive Paradox
 

@@ -1,5 +1,6 @@
 [↑ Ch.13: Geophysics: Seismic Waves](../index.md)
 <!-- leaf: verbatim -->
+<!-- claim-quality: zsqh87 -->
 
 ---
 
