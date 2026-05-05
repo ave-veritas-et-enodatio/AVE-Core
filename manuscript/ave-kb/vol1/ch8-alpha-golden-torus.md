@@ -3,6 +3,7 @@
 <!-- claim-quality: 3zz0f6, 5xon03, 0ktpcn -->
 
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
+<!-- claim-quality: 0ktpcn -->
 
 **Source:** [`manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex`](../../vol_1_foundations/chapters/08_alpha_golden_torus.tex)
 
@@ -91,6 +92,7 @@ is the *identification* of the three orthogonal codimensions of the Clifford tor
 > $$
 
 ## CMB Thermal Correction (Running $\alpha$)
+<!-- claim-quality: 3zz0f6 -->
 
 The experimentally measured CODATA value is $\alpha^{-1}_{\text{exp}} = 137.035999$. This is below the cold-lattice asymptote by a fractional amount identified as the Vacuum Strain Coefficient:
 
@@ -113,6 +115,7 @@ This is the same disclosure pattern as Vol 6 (one fitted scalar per nucleus, wit
 This is distinct from the proton thermal softening $\delta_{th} = 1/(14\pi^2) \approx 7.21 \times 10^{-3}$ at the $10^{13}$ K proton core — different temperature regime, different physical quantity (Skyrme coupling $\kappa_{FS}$), not $\alpha$ directly.
 
 ## Mathematical Closure
+<!-- claim-quality: 5xon03 -->
 
 Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron ≡ unknot phase winding on the trefoil). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
 

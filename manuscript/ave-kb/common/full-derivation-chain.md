@@ -4,6 +4,7 @@
 <!-- claim-quality: sxn6eo, ibfyda -->
 
 # Full Derivation Chain: From Three Limits to Zero Parameters
+<!-- claim-quality: ibfyda -->
 
 This appendix presents the complete, self-contained algebraic derivation chain
 of the Applied Vacuum Engineering (AVE) framework. Every derived quantity is
@@ -631,6 +632,7 @@ w_{vac} = -1 - \frac{\rho_{latent}}{\rho_{vac}} < -1
 $$
 
 ## Layer 7 → Layer 8: Zero-Parameter Closure
+<!-- claim-quality: sxn6eo -->
 
 Finally, the three initial bounding limits are themselves shown to be
 geometrically emergent---not independent empirical inputs---formally reducing

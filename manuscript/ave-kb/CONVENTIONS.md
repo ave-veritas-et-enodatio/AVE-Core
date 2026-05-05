@@ -173,7 +173,7 @@ Each entry's stable 6-character ID propagates downward through the KB so the dep
 
 The ID list is the complete set of claim-quality entries that reference the leaf (per-volume + cross-cutting + common). Auto-generatable from the existing "Leaf references" data; refresh whenever the upstream `claim-quality.md` changes.
 
-**Tier 2 — section / equation-level inline markers (selective, manual).** For multi-claim leaves where section boundaries align with different claim-quality IDs, individual markers are placed adjacent to the specific equation, named principle, or section that maps to a particular ID. Examples:
+**Tier 2 — section / equation-level inline markers (mandatory for multi-claim leaves, manual placement).** When a leaf carries more than one ID in its Tier 1 list, every claim must have a proximal marker placed adjacent to the specific equation, named principle, section, or block that maps to that ID. Tier 1 alone is insufficient on multi-claim leaves — without inline markers, the leaf-level list says "something here maps to these IDs" without identifying which is which. Examples:
 
 ```markdown
 ### Internal Confinement and Matter Assembly
@@ -190,7 +190,7 @@ The ID list is the complete set of claim-quality entries that reference the leaf
 > **Note (cross-link with Ch.3).** <!-- claim-quality: 2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield}$...
 ```
 
-Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains the complete index. Tier 2 is added when positional precision would help a reader navigate. Skip Tier 2 when IDs apply uniformly across the leaf — leaf-level annotation is sufficient.
+Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains the complete index. For single-claim leaves (one ID in the Tier 1 list), Tier 2 is not required — the Tier 1 list is unambiguous. For multi-claim leaves, Tier 2 markers are mandatory at every claim that maps to a non-default ID; if claims are integrated rather than separated by sections, place markers at the most granular point that disambiguates (resultbox header, named-principle paragraph, key equation block).
 
 **Intermediate-index subtree annotation (mandatory, mechanical).** Each `index.md` (volume root, subtopic) carries a one-line summary of the IDs scoping leaves under its subtree:
 

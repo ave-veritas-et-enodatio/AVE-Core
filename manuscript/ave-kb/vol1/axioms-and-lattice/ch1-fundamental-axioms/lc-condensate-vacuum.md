@@ -10,6 +10,7 @@ Standard cosmology often assumes the absolute microscopic limit of spacetime is 
 
 If the un-shielded 1D electromagnetic gravitational tension bounding the topological network is evaluated by inverting the standard Newtonian dimensional relationship ($F = c^4/G \implies G = c^4/F$) and substituting the lattice string tension $T_{EM} = m_e c^2 / \ell_{node}$:
 
+<!-- claim-quality: 3kzmt9 -->
 > **[Resultbox]** *True Gravitational Coupling*
 >
 > $$
@@ -18,6 +19,7 @@ If the un-shielded 1D electromagnetic gravitational tension bounding the topolog
 
 This establishes $G_{true}$ as the un-shielded gravitational coupling evaluated at a single lattice node, prior to the $\sim 10^{40}$-fold Machian dilution that produces the macroscopic $G$. Substituting $G_{true}$ back into the standard Planck length equation:
 
+<!-- claim-quality: 219e8j -->
 > **[Resultbox]** *The True Planck Length*
 >
 > $$

@@ -3,6 +3,7 @@
 <!-- claim-quality: zuf7g1, b9eura -->
 
 ## Quantum Entanglement: The Phase-Locked Topological Thread
+<!-- claim-quality: zuf7g1 -->
 
 A central result of standard Quantum Mechanics is "Non-Locality" — the observation that two entangled particles exhibit correlated measurement outcomes regardless of spatial separation, as formalised by Bell's Theorem and confirmed by Clauser-Horne-Shimony-Holt (CHSH) inequality violations ($|S| = 2\sqrt{2} > 2$).
 
@@ -83,6 +84,7 @@ The standing wave mode on the entanglement thread locks the two particle endpoin
 When Alice's detector couples to particle A (an Ohmic load applying localised torque), she is not probing an isolated defect: she is turning one gear in a locked train. The winding constraint of the entire chain — a global topological invariant of the connected graph — constrains the outcome at particle B.
 
 #### Universal $\Gamma \to -1$ Translation Matrix
+<!-- claim-quality: b9eura -->
 
 The entanglement thread is one instance of a universal mechanism: every phenomenon in the AVE framework where a boundary saturates to $\Gamma = -1$ is the same operator (Axiom 4) applied to a different sector. The complete cross-discipline isomorphism is:
 
