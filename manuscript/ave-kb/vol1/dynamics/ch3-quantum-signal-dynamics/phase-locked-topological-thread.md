@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [zuf7g1, b9eura]
+claims: [zuf7g1, b9eura, unk0bd]
 -->
 
 ## Quantum Entanglement: The Phase-Locked Topological Thread
@@ -108,6 +108,7 @@ All four phenomena are evaluated by the same function `saturation_factor()` from
 
 The angular dependence of the entanglement correlation derives from three AVE ingredients:
 
+<!-- claim-quality: unk0bd -->
 1. **Spin-1/2 as Möbius topology (Axiom 1).** The electron unknot ($0_1$) is a Beltrami standing wave ($\nabla \times \mathbf{A} = k\mathbf{A}$) on the chiral $K_4$ graph. The Möbius-strip topology of the chiral labyrinth requires $720°$ for a complete cycle, producing a physical **half-angle coupling**: when a detector axis $\hat{a}$ makes angle $\theta$ with the defect's rotation axis $\hat{n}$, the effective phase mismatch is $\theta/2$.
 
 2. **Binary outcome from saturation (Axiom 4).** The particle's saturated boundary ($\Gamma = -1$) supports a standing wave with exactly two antinodes. The detector couples to whichever antinode has lower impedance mismatch, producing a binary ($\pm$) outcome.

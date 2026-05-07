@@ -19,7 +19,7 @@ The CP-violating phase accumulates three contributions as the torsional mode pro
 
 Each term has a distinct physical origin:
 
-1. $\pi$: The base torsional half-turn of the $0_1$ unknot phase winding.
+1. $\pi$: The base torsional half-turn of the neutrino's helical screw dislocation (one half-period of the propagating Cosserat coil; per the corrected Ch.3 model in `index.md`, the neutrino is an open helix in the torsional sector, *not* a closed unknot phase winding).
 2. $\pi/3$: One K4 bond's share of the structural chirality. Because the lattice is 3-connected, each bond carries $1/3$ of the total chiral phase. Equivalently, $1/c_{\text{trefoil}} = 1/3$ --- the trefoil has $c = 3$ crossings *because* the K4 lattice is 3-connected. These are the same geometric fact.
 3. $\pi/45$: The boundary junction coupling phase, $1/(c_1 c_3) = 1/45$ --- the same perturbative crossing overlap that governs $\theta_{13}$.
 

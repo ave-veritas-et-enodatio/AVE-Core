@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [nu1ir7, zw6mut]
+subtree-claims: [nu1ir7, unk0bd, zw6mut]
 -->
 
 # Ch.5: Universal Spatial Tension ($M \propto 1/r$)

@@ -38,7 +38,7 @@ The particle-physics domain derives the full spectrum of elementary particles �
 |---|---|
 | [Ch.1 — Topological Matter](ch01-topological-matter/index.md) | Fermion generations as torus knot standing-wave topologies; Faddeev-Skyrme functional; electron unknot; dynamic capacitive yielding |
 | [Ch.2 — Baryon Sector](ch02-baryon-sector/index.md) | Borromean confinement; proton mass eigenvalue; torus knot baryon ladder; topological fractionalization; Hierarchy Bridge |
-| [Ch.3 — Neutrino Sector](ch03-neutrino-sector/index.md) | Chiral unknots; PMNS mixing angles from regime-boundary eigenvalues; CP-violating phase; neutrino mass hierarchy |
+| [Ch.3 — Neutrino Sector](ch03-neutrino-sector/index.md) | Helical torsional screw defects (Cosserat sector — open helix with $c$ turns paired to baryon ladder $c = 5, 7, 9$; *not* a closed loop; supersedes earlier "twisted unknot" framing); PMNS mixing angles from regime-boundary eigenvalues; CP-violating phase; neutrino mass hierarchy |
 | [Ch.4 — Quantum Spin](ch04-quantum-spin/index.md) | Spin as gyroscopic precession of topological LC flywheel; Larmor derivation; Bloch sphere equivalence |
 | [Ch.5 — Electroweak Mechanics](ch05-electroweak-mechanics/index.md) | Gauge boson masses as evanescent cutoffs; Weinberg angle from Perpendicular Axis Theorem; U(1) and SU(3) gauge structure |
 | [Ch.6 — Electroweak and Higgs](ch06-electroweak-higgs/index.md) | Higgs mechanism as dielectric saturation; W/Z masses; three-generation lepton spectrum; Schwinger anomalous magnetic moment |

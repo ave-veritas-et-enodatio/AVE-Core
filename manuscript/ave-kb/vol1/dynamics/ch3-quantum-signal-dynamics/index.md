@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [2dwzib, 7zuwtm, b9eura, ldmvwi, lv3uw1, nq2kcc, ph2uux, t1okz0, yc7fgm, yiyyi3, zuf7g1]
+subtree-claims: [2dwzib, 7zuwtm, b9eura, ldmvwi, lv3uw1, nq2kcc, ph2uux, t1okz0, unk0bd, yc7fgm, yiyyi3, zuf7g1]
 -->
 
 # Ch.3: Quantum Formalism and Signal Dynamics
