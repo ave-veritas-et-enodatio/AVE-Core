@@ -42,6 +42,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
+from ave.core.constants import ALPHA
 from ave.topological.vacuum_engine import (
     VacuumEngine3D,
     CosseratBeltramiSource,
@@ -252,7 +253,7 @@ def render_panels(rh: dict, lh: dict, eval_result: dict, out_png: str) -> None:
         a2_lh = [h["max_A2_total"] if "max_A2_total" in h else h.get("max_A2_k4", 0) for h in lh["regime_history"]]
         ax.plot(t_rh, a2_rh, "b-", lw=1.4, label="RH A²_max")
         ax.plot(t_rh, a2_lh, "r-", lw=1.4, label="LH A²_max")
-        ax.axhline(np.sqrt(2 * 1 / 137.036), color="orange", ls="--", label="cusp √(2α)")
+        ax.axhline(np.sqrt(2 * ALPHA), color="orange", ls="--", label="cusp √(2α)")
     ax.set_xlabel("t (nat units)")
     ax.set_ylabel("A²_max")
     ax.set_title("Regime classification (A²_total over time)")
