@@ -44,6 +44,7 @@ sim_outputs/
 #.claude/memory/
 #.claude/agent-memory/
 .claude/local-settings.json
+.claude/settings.local.json
 
 # transient topic handoff file
 manuscript/ave-kb/session/new_topic.md
