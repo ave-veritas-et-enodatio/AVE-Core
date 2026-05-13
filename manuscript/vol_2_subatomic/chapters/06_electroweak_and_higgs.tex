@@ -452,9 +452,15 @@ On the AVE lattice, the isomorphic computation is the \textbf{Multi-Port Nodal A
 \paragraph{Topological Derivation.}
 Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/solvers/g_minus_2_lattice.py}), the $S_{11}$ structural limit is computed physically from a terminating Bethe tree bounded by the macroscopic transition limit (Regime~I/II boundary, $Y_0=1$).
 
-\noindent\textbf{Engine cross-check \& The Continuum Breakdown:} The numeric topological solver explicitly computes $C_2 \approx -0.0094$. This structural lattice calculation dramatically diverges (by roughly $97\%$) from the Petermann continuum limit of $-0.328$.
+\noindent\textbf{Engine cross-check \& The K4-Bethe-Tree Substrate Was Wrong:}\footnote{Annotation updated 2026-05-13 evening. Original framing (K4 substrate gives $-0.0094$, claimed to be ``where QED breaks down'') was refuted by Route~B closure on the Cosserat unknot substrate.} The earlier \texttt{g\_minus\_2\_lattice.py} solver (radial K4 Bethe tree at depth 3) computed $C_2 \approx -0.0094$, deviating from the Petermann continuum limit ($-0.328$) by approximately $97\%$. This was originally framed as ``where continuous QED mathematics breaks down against the discrete vacuum hardware.''
 
-Rather than being a failure of the model, this deviation represents exactly where \textbf{continuous QED mathematics breaks down against the discrete vacuum hardware}. By forcing integration to continuous spatial infinity, QED artificially incorporates macroscopic boundary modes that the genuine local discrete string geometry suppresses. Zero parameters were fudged to close this gap.
+\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\texttt{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \texttt{research/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-wake $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
+\begin{equation*}
+C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,\tau_{zx}\rangle = -0.32846
+\end{equation*}
+matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$). The full derivation is in \texttt{AVE-QED/docs/analysis/2026-05-13\_Q-G19alpha\_route\_B\_petermann\_match.md} and \texttt{2026-05-13\_Q-G19alpha\_saliency\_closure.md}; key ingredients are the natural QED-form normalization (Schwinger ring-in-cell $1/\pi^2$ form factor, QED loop coupling $\alpha/\pi$) and the saliency $\delta = -3\alpha/2 = -\alpha n_q/2$ where $n_q = 3$ is the q-axis trefoil winding number. \textbf{Zero parameters were fudged.} The 97\% K4-Bethe-tree result was substrate misidentification, not a feature.
+
+\noindent The legacy \texttt{g\_minus\_2\_lattice.py} engine should be considered superseded; the Route~B framework on the Cosserat substrate is canonical.
 
 \section{The Higgs Boson Mass}
 \label{sec:higgs_mass_derivation}

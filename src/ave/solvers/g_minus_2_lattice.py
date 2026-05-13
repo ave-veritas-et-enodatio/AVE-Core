@@ -1,7 +1,33 @@
 #!/usr/bin/env python3
 """
-Higher-Order Anomalous Magnetic Moment (C2) — AVE Corpus-Canonical Prediction
-=============================================================================
+Higher-Order Anomalous Magnetic Moment (C2) — SUPERSEDED 2026-05-13 evening
+===========================================================================
+
+⚠️ SUPERSEDED 2026-05-13 evening. This K4-Bethe-tree S_11 engine returns
+C_2 ≈ -0.0094, deviating 97% from PDG Petermann (-0.328). It was originally
+framed as "where continuous QED mathematics breaks down against the discrete
+vacuum hardware" (Vol 2 Ch 6:455-457, also superseded). This framing was
+REFUTED by Route B closure 2026-05-13 evening:
+
+  - The K4 Bethe-tree was the wrong substrate. Canonical AVE electron =
+    (2,3) Cosserat unknot (src/ave/topological/cosserat_field_3d.py).
+  - On the Cosserat substrate, Route B (dark-wake × kernel-asymmetry
+    correlation with QED-form normalization + saliency δ = -3α/2) gives
+    C_2 = -0.32846, matching PDG (-0.32848) to 50 ppm (0.005%).
+  - Zero parameters fudged.
+
+See full closure:
+  AVE-QED/docs/analysis/2026-05-13_Q-G19alpha_route_B_petermann_match.md
+  AVE-QED/docs/analysis/2026-05-13_Q-G19alpha_saliency_closure.md
+  AVE-QED/scripts/g2_research/q_g19_alpha_route_b_petermann.py
+  AVE-QED/scripts/g2_research/q_g19_alpha_saliency_sweep.py
+
+This script is preserved for historical reference. DO NOT cite its result
+(-0.0094) as the AVE prediction for C_2. The canonical AVE C_2 is now
+-0.32846 (50 ppm match to PDG Petermann -0.32848) via Route B.
+
+ORIGINAL HEADER (superseded):
+-----------------------------
 
 CORPUS-CANONICAL per [Vol 2 Ch 6 §6.2 lines 429-457](manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex#L429):
 
