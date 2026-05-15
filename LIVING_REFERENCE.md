@@ -1,5 +1,5 @@
 # AVE Project — Living Reference Document
-> **Last Updated:** 2026-04-08  
+> **Last Updated:** 2026-05-15  
 > **Purpose:** Canonical reference for all AI assistants and collaborators. Any chat session should read this file first.
 >
 > **Companion:** [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) captures recurring patterns that create friction between AVE and reviewers trained in SM/QED/continuum-GR physics — with specific anti-patterns, corrected framings, and remediation targets. Read it before presenting AVE externally or reviewing it.
@@ -12,6 +12,27 @@
 | **Repo** | [github.com/ave-veritas-et-enodatio/AVE-Core](https://github.com/ave-veritas-et-enodatio/AVE-Core) |
 | **Author** | Grant Lindblom |
 | **Status** | Active development — Phase D/E |
+
+## 📚 Knowledge Base Canonicality
+
+As of **2026-05-07**, the KB markdown tree (`manuscript/ave-kb/`) is the **sole canonical source** for all AVE results, derivations, and prose. The LaTeX manuscript (`manuscript/vol_*/`) is a **derived publication artifact** that mirrors KB state, not its inverse.
+
+This inverts the original intake-era framing (where the inherited LaTeX manuscript was canonical and the KB was a hierarchical projection of it). The author now works primarily *in* the KB; LaTeX is updated periodically to reflect KB state, not the other way around.
+
+**Implications for agents and collaborators:**
+
+- **KB wins disputes.** When a KB leaf and the LaTeX disagree, the KB is right and the LaTeX is stale.
+- **Edits flow KB → LaTeX, not LaTeX → KB.** Update the KB leaf first (with frontmatter, claim-quality propagation, subtree aggregation), then sync to LaTeX as a downstream publication step if in scope.
+- **LaTeX silence is not authority.** A KB leaf documenting a result that LaTeX has not yet caught up to still stands.
+- **Corrigenda live in the KB.** Superseding prior framing (e.g., the 2026-05-06 neutrino screw-dislocation corrigendum) is recorded in the KB leaf/index first; the LaTeX mirrors it as a downstream sync.
+
+**What this does *not* change:**
+
+- Historical extraction work — distilling a not-yet-touched LaTeX section into a new KB leaf for the first time — still treats LaTeX as the input for that first extraction. The inversion applies once a region of the KB has been authored or revised in-place.
+- The claim-quality propagation discipline (INVARIANT-S5/S8 in `manuscript/ave-kb/CLAUDE.md`, subtree aggregation, verifier gates) is unchanged. Those structural rules apply to the KB regardless of where canonicity sits.
+- LaTeX must still be kept in sync for publication. It is derived, but it is not optional.
+
+See `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale and open follow-ups.
 
 ## ⛔ Prime Directive: Derive Before You Code
 
