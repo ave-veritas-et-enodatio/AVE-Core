@@ -480,6 +480,35 @@ The combination converts three "named-but-uncodified discipline rules" into "cod
 - **Status:** open — infrastructure landed; sweep + practice instances pending.
 - **Cross-refs:** A-018 (originating incident — manuscript IE table provenance), A-019 (operationalized), A-021 (operationalized), A-022 (operationalized), A-024 (sibling 2026-04-30 to 2026-05-01 framework-level landing — A-024 is physics framework, A-025 is methodology framework), E-090 + E-092 (manuscript-side editorial sweep — A-025 SHA-anchoring manifest is the machine-readable companion to the prose-footnote convention)
 
+### A-029 — Secondary scale $r_{\text{secondary}}/d \approx 1.187$ is geometric (shared-B-node distance), NOT a separate physical scaffold (Grant adjudication 2026-05-15 via shared-spring reframe)
+
+**CANONICAL 2026-05-15** via Grant adjudication: *"I would think the springs are shared, how else would gravity project?"*
+
+The K4 lattice has exactly ONE scaffold of physical bonds — the 4 primary K4 bonds per node, **each shared between exactly two endpoint cells**. The "secondary scale at $r_{\text{secondary}}/d \approx 1.187$" that appears in Q-G47 Session 4 over-bracing math is NOT a separate physical scaffold of springs (the pre-2026-05-15 A1 reading I initially proposed) and is NOT a magic-angle emergent dynamical coupling (the A2 reading I initially proposed as fallback). It is a **purely geometric statement**: two A-nodes that share a B-neighbor are at distance $\approx 1.187\,d$ apart, measured through the K4 tetrahedral $A_1 \to B \to A_2$ path.
+
+**Sharing a primary neighbor IS the secondary coupling.** Two A-nodes are coupled because they share that B-node's microrotation field $\omega_B$. Integrating out $u_B$ and $\omega_B$ in the Cosserat equations gives the effective $A_1$-$A_2$ propagator:
+
+$$\text{effective coupling}_{A_1 A_2} = \frac{k_{A_1 B}\, k_{B A_2}}{k_{B B}^{\text{self}} + \rho_B\, \omega^2}$$
+
+(schematic — full form includes microrotation cross-terms via $\sigma^A_{AB}$). The propagator's coupling distance is the geometric A₁-B-A₂ path length, which evaluates to $\approx 1.187\,d$ for tetrahedral K4.
+
+**Why this matters — gravity projection.** The shared-spring picture is the substrate's intrinsic mechanism for transmitting deformation between cells. A localized mass at A₀ creates strain that pulls on all 4 shared bonds; each B-neighbor responds; the B-neighbors transmit to their A-neighbors via the same propagator; the result is a strain field $u(r)$ that decays with distance, giving Newtonian $1/r$ gravity in the continuum limit (Vol 3 Ch 3:125-142 refractive-index-of-gravity).
+
+**Without the shared-spring structure**, there is no mechanism for gravity to project across the substrate. Each cell would be causally disconnected from its neighbors. Grant's pushback question identifies this as a necessary structural feature, not an optional addition.
+
+**Implication for Q-G47 Session 5 (golden-torus integration framework):** the magic-angle closure derivation no longer needs to derive $r_{\text{secondary}}/d$ from a self-consistency requirement — it's GEOMETRY. The only parameter remaining to be set by the magic-angle condition is the relationship between $u_0$ (over-bracing magnitude) and the Cosserat couple-stress modulus $G_c$. This simplifies the Session 5 closure substantially.
+
+**Implication for α-as-calibration (A-001):** if $r_{\text{secondary}}/d$ is geometric (fixed by K4 topology), then the only freeze-in-dependent quantity is $u_0$, which is set by $\Omega_{\text{freeze}}$ per A-027 (two-engine architecture). Therefore $\alpha$ is anchored to a single cosmological initial-data parameter — $\Omega_{\text{freeze}}$ — through the chain: $\Omega_{\text{freeze}} \to u_0 \to (K = 2G$ at magic-angle$) \to \alpha$.
+
+- **Current corpus status:** **canonical** as of 2026-05-15. Reflected in `manuscript/ave-kb/common/trampoline-framework.md` §1.3 Step 3 (over-bracing) + §5 (Inter-cell coupling and gravity projection).
+- **Audited status:** **canonical, Grant-confirmed.** Resolves the pre-2026-05-15 A1/A2 ambiguity by reframing the question entirely.
+- **Sources:** Grant adjudication 2026-05-15 evening (this commit); [Q-G47 Session 4 over-bracing framework](`/Users/grantlindblom/AVE-staging/AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`) at AVE-QED `ce34645` 2026-05-14; Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); Vol 3 Ch 3:125-142 (refractive-index-of-gravity canonical)
+- **Manuscript impact:** trampoline-framework.md §1.3 + §5 (canonical); should propagate to Vol 3 Ch 1 §sec:over-bracing as the explicit shared-spring mechanism (queued for E-NNN entry in `manuscript_pending.md` — Vol 3 Ch 1).
+- **Engine impact:** the K4-TLM engine `src/ave/core/k4_tlm.py` already implements primary-bond-only connectivity (no separate secondary bonds). The shared-bond ownership is intrinsic to the graph structure. No engine changes needed; this canonicalization clarifies that the engine's connectivity model is correct.
+- **Closure path:** no gap — canonical. Future work propagates the shared-spring mechanism through Vol 3 Ch 1 (gravity yield) and Vol 1 Ch 4 (continuum EM coupling structure).
+- **Status:** closed (Grant adjudication 2026-05-15)
+- **Cross-refs:** A-001 (α-as-calibration, now single-parameter via $\Omega_{\text{freeze}}$); A-026 (substrate-observability rule, upstream framing); A-027 (two-engine architecture); E-094 (App G propagation); Q-G47 Session 5 (golden-torus integration, simplified per A-029); E-017 (genesis-chirality, mechanized via phase-transition-while-spinning hypothesis in trampoline-framework.md §1.3); E-019 (universe-as-vortex, now microscopic mechanism)
+
 ### A-026 — Substrate-observability rule canonical (Grant-confirmed 2026-05-14 via boundary-envelope reformulation)
 
 **CANONICAL 2026-05-14** via Grant adjudication. The substrate observes a boundary, not its interior — for any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$, only three integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are visible externally; the interior structure (topology, eigenmode wavelength, microrotation profile) is invisible to the substrate. Same mechanism at all scales — Schwarzschild horizon at $r_s = 2GM/c^2$ is structurally identical to horn-torus tube wall at $\ell_{\text{node}}/(2\pi)$.
