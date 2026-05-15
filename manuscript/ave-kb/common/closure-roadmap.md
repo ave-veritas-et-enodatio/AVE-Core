@@ -20,7 +20,7 @@
 |---|---|---|---|---|
 | 0 | Structural closure declared | ✓ DONE | — | `fb2ac44` 2026-05-15 |
 | 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | pending | E-094 | — |
-| 1 | E-101 Three substrate invariants observables module | pending | E-101 | — |
+| 1 | E-101 Three substrate invariants observables module | **APPLIED** 2026-05-15 (13/13 tests PASS; rigorous M + first-pass Q,J) | E-101 | (this commit) |
 | 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | (this commit) |
 | 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | (this commit) |
 | 1 | AVE-QED App F cosmic-𝒥 row explicit | **APPLIED** 2026-05-15 | (cross-repo) | (this commit) |
