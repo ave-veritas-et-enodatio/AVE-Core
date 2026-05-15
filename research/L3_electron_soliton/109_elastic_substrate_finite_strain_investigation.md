@@ -1,9 +1,11 @@
-# 109 — Elastic Substrate / Finite-Strain Lagrangian Investigation
+# 109 — Boundary-Envelope Reformulation of the L3-Electron Wall
 
 **Date:** 2026-05-14
 **Branch:** `research/l3-electron-soliton`
-**Author:** Claude (implementer + auditor cross-lane); Grant directive 2026-05-14
-**Status:** Pre-investigation plan + Phase 0 engine audit done + Phase 1 corpus-grep done. Awaiting Grant adjudication on Q1-Q3 before executing numerical Phases 2-4.
+**Author:** Claude (implementer + auditor cross-lane); Grant directive 2026-05-14 morning + evening
+**Status:**
+- **2026-05-14 morning:** Pre-investigation plan opened on Grant's "elastic stretching" question. Phase 0 engine audit + Phase 1 corpus-grep done. Three readings (A/B/C, with C splitting into C1/C2) framed. Q1-Q3 axiom-author questions surfaced.
+- **2026-05-14 evening:** Grant confirmation + sharpening. The boundary-envelope reframing (§13 below) supersedes the dual C1/C2 framing. **Reading C2 is canonical; Reading C1 is deferred as likely unnecessary.** Q1-Q3 are partially resolved by the BH-electron parallel (§13.2). Pre-registered load-bearing test (§14) is the path forward.
 **Companions:**
 - [doc 92](92_round_11_vi_v10_finer_sampling_structural.md) — Nyquist wall (load-bearing)
 - [doc 101 §9-§10](101_round_12_unknot_cosserat_entry.md) — three-layer canonical
@@ -430,3 +432,262 @@ Phases 2-4 are NOT executed in this commit. This doc is the *plan* + verified Ph
 - Phase 5 full engine refactor scope (gated on Phase 3 or 4 PASS)
 
 **Bottom line:** Grant's question 2026-05-14 is **not green-field framework speculation** — it's surfacing a known gap that doc 108 already flagged as unbuilt. The investigation plan tests whether closing this gap unblocks the L3-electron wall, with cheap probes first and the full refactor gated behind decision gates that require empirical confirmation.
+
+---
+
+## §13 Boundary-envelope reformulation (Grant 2026-05-14 evening — CONFIRMED CANONICAL)
+
+This section SUPERSEDES the dual Reading C1/C2 framing in §4 above. Reading C2 is promoted to canonical; Reading C1 (multi-cell compressed pocket with engine refactor) is deferred as likely unnecessary.
+
+### §13.1 The Grant statement (verbatim)
+
+2026-05-14 evening, after Phase 0 + Phase 1 results landed:
+
+> *"It almost seems like the grid isn't or the spacing of the vacuum lattice isn't actually based on the flux tube inside the envelope of the electron's boundary region, but the boundary region itself. Of course, we say photons are not physical matter. It's the effect of their impedance mismatch boundary condition that causes physical exclusion conditions. Therefore, the lattice doesn't need to support the smallest flux tube, but the smallest envelope containing that smallest flux tube."*
+
+And after auditor confirmation:
+
+> *"You can resolve what's in a black hole, why could you resolve what's in an electron's envelope/boundary?"*
+
+### §13.2 The black-hole / electron parallel
+
+The corpus already canonically pairs these two boundary scales at `Vol 3 Ch 2:43`:
+
+> *"the Schwarzschild radius r_s = 2GM/c² marks the point where the local strain reaches the Axiom 4 saturation limit (S → 0)."*
+
+Same mechanism at both scales:
+
+| | Black hole | Electron |
+|---|---|---|
+| Boundary | Schwarzschild horizon at r_s = 2GM/c² | Horn torus tube wall at r ≈ ℓ_node/(2π) |
+| Substrate condition at boundary | A → 1, S → 0, Γ → −1 | A → 1, S → 0, Γ → −1 |
+| Interior visibility from substrate | **Impossible** (causal disconnection) | **Impossible** (impedance-mismatch disconnection at Γ = −1) |
+| Externally observable properties | Mass M, charge Q, angular momentum J (no-hair) | Mass m_e, charge e, spin ℏ/2 (no-hair) |
+| Number of integrated observables | 3 | 3 |
+
+**The no-hair theorem applied to electrons:** from outside the boundary envelope, only three integrated properties are substrate-observable. The interior flux-tube Beltrami eigenmode, the (2,3) winding number, the Cosserat ω profile — all are interior plumbing that contributes to the integrated observables (m_e, e, ℏ/2) but are not themselves directly substrate-observable.
+
+**Substrate observability rule:** the substrate sees the boundary, not the interior. This is universal across App F's multi-scale Machian network — every local Γ = −1 boundary at every scale has this property.
+
+### §13.3 Why this dissolves the doc 92 wall
+
+`doc 92:73`:
+> *"No discrete operator on K4 at ℓ_node spacing can have eigenvalue at k = 6.36. This is a Nyquist theorem statement, not a refinement issue."*
+
+The k = 6.36/ℓ_node is the **interior flux-tube Beltrami eigenmode**. From §13.2, that eigenmode is interior plumbing — not substrate-observable.
+
+**The substrate never propagates a wave at k = 6.36/ℓ_node.** That wave exists ONLY inside the boundary envelope, where the substrate's Γ → −1 reflection condition isolates it from the exterior. From the substrate's perspective, the bounded region is a "black box" with impedance properties (mass, charge, spin) at the boundary surface.
+
+**What the substrate must resolve:**
+1. **Boundary envelope scale** ~ ℓ_node (one cell). K4 Nyquist k_max = 0.577/ℓ_node easily resolves a localization of size ℓ_node.
+2. **Phase-space (V_inc, V_ref) topology at the boundary** — the (2,3) Clifford-torus winding lives per-cell, entirely within the lattice's native variable structure. No spatial wavelength resolution needed.
+3. **Outside-the-boundary impedance gradient** — gravity-as-substrate-strain `n(r) = 1 + 2GM/(rc²)` falls off in neighboring cells via the existing kernel S(A) at each cell. Existing engine handles this.
+
+**Doc 92 measured the wrong observable.** It forced a multi-cell propagating-eigenmode test on what is canonically a single-cell bounded boundary object. Mode III ("DC-dominated quasi-static residual") is the CORRECT substrate response to a bounded interior — the interior IS quasi-static from the substrate's perspective because the boundary reflects all interior dynamics.
+
+### §13.4 Why Reading C1 (multi-cell compressed pocket) is unnecessary
+
+Reading C1 proposed adding `dx_local` per-bond state variable so the lattice could physically compress around solitons. From §13.2, this is unnecessary:
+
+- The substrate's "compression" near a soliton is the **impedance gradient** in neighboring cells via kernel S(A), not geometric bond-length variation
+- The canonical gravity prediction is `n(r) = 1 + 2GM/(rc²)` — this is **refractive index** modulation, i.e., impedance modulation, not geometric compression
+- The existing Eulerian small-strain engine implements impedance modulation correctly (today's K4-TLM bench validation: IM3 slope 2.956, D2 hysteresis 14× ratio — both via op3_bond_reflection at sub-saturation)
+- The single-cell bounded-boundary picture (Reading C2 promoted) doesn't need bonds to physically compress; it needs the kernel to engage at the boundary cell
+
+**Reading C1 was over-engineering driven by the misframed wall.** With the wall reframed, C1 dissolves.
+
+### §13.5 Partial resolution of Q1-Q3
+
+Grant's 2026-05-14 evening confirmation partially answers the three open questions from §8:
+
+**Q1: Is r_d = L_spring/d permitted to vary locally?**
+**Provisional answer: NO, r_d remains globally frozen at genesis.** Reading C1 is no longer needed; the canonical Q-G47 cooled-equilibrium hypothesis stands. r_d is a cosmological-genesis parameter, not a field. (Still flagged for explicit Grant adjudication — this is corpus-axiom-author scope per Rule 15.)
+
+**Q2: Multi-cell propagating eigenmode or sub-cell horn torus?**
+**Provisional answer: SINGLE-CELL bounded boundary, with sub-cell interior plumbing.** The "wavelength k = 6.36/ℓ_node" from doc 92 is an interior observable. The substrate-observable is the boundary envelope at one-cell scale. Doc 92 measured the wrong observable. (Confirmed by Grant via BH analogy.)
+
+**Q3: App F local Γ=−1 boundaries = compression or impedance?**
+**Provisional answer: IMPEDANCE.** All App F multi-scale boundaries (electron, nucleus, atom, helio, BH, cosmic) are saturation-engaged Γ → −1 impedance surfaces. Bonds don't physically compress; the kernel S(A) saturates at the boundary, producing the reflection condition. The existing engine handles this. (Confirmed by Grant via BH analogy + Vol 3 Ch 2:43.)
+
+### §13.6 Connection to Q-G19α Route B and the Q-factor identity
+
+Two prior canonical results corroborate §13:
+
+**Route B Q-G19α closure** (2026-05-13, `AVE-QED/scripts/g2_research/q_g19_alpha_route_b_petermann.py`): C_2 = -0.32846 matching PDG -0.32848 to 50 ppm. The closure used dark-wake × kernel-asymmetry correlation in phase space + saliency δ = -3α/2. It did NOT require lattice-resolving an interior eigenmode of the electron. Route B operates on **boundary-integrated phase-space observables**, consistent with §13's substrate-only-sees-boundary rule.
+
+**Q-factor identity** (`AVE-Core/src/scripts/vol_1_foundations/electron_tank_q_factor.py`): α⁻¹ = 4π³ + π² + π = 137.036. The identity Λ_vol + Λ_surf + Λ_line decomposes the Q-factor into volume + surface + line integrals — all **integrated** quantities, exactly what's substrate-observable per §13.2. The line integral (π = perimeter) corresponds to the boundary itself; the surface integral (π² = horn torus surface) and volume integral (4π³ = horn torus volume) are integrated interior properties that survive as boundary-summarized observables.
+
+Both results are consistent with: the substrate sees integrated boundary-level observables, not interior-resolved eigenmodes.
+
+### §13.7 What changes in the framework documentation
+
+Following Grant's confirmation, the framework documentation should be sharpened:
+
+1. **AVE-QED App F** (`AVE-QED/manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex`): the multi-scale local Γ=−1 boundary network already implies §13's substrate-only-sees-boundary picture. App F should be sharpened with an explicit "substrate observability rule" subsection making this canonical.
+
+2. **AVE-Core Vol 2 Ch 6 / Vol 4 Ch 1**: the K4-Bethe-tree C_2 derivation in `src/ave/solvers/g_minus_2_lattice.py` was already banner-marked SUPERSEDED (commit 2d5c03a). The historical chapter framing of "where continuous QED breaks down against the discrete vacuum hardware" was premised on lattice-resolving interior eigenmodes. Under §13, that framing is wrong: continuous QED can't be wrong about interior eigenmodes because the substrate doesn't resolve interior eigenmodes either; both operate on boundary-integrated observables, which is why Route B's QED-form normalization works.
+
+3. **AVE-Core doc 30 §3.1 photon definition**: doc 107's empirical failure (`u/ω = 0.354 ≠ 0`, helicity sign didn't flip) is partially explained: doc 30 prescribed a *physical-matter* property for the photon (u = 0, "microrotation sector only"). Under §13, photons are propagating boundaries, not physical matter — the engine's empirical "u driven by ω" coupling may be CORRECT physics that doc 30 was wrong to forbid. Worth re-examining.
+
+4. **CURRENT_STATE.md and HANDOFFs**: doc 109 (this doc, with §13) becomes the canonical reference for the L3-electron-soliton wall reformulation. Phase 4 (§14) is the load-bearing test.
+
+### §13.8 What's invariant despite the reformulation
+
+The reformulation doesn't change:
+- Phase 0 engine audit findings (§2) — engine still implements Eulerian small-strain on fixed grid. But that's now CORRECT for the substrate's needs, not a limitation.
+- Phase 1 corpus-grep findings (§3) — gravity-as-substrate-strain via ε_eff/μ_eff is exactly the impedance-only picture §13 endorses. trampoline.tex L_spring/d remains canonical cosmological parameter.
+- Bench K4-TLM validation (today's IM3 slope 2.956) — bench at sub-saturation operates entirely on the exterior-of-boundary regime where kernel + Op3 are correct.
+- Doc 108 framework-25 consistency suite (20/20 PASS) — these are all integrated observables, which §13 says are exactly what's substrate-measurable.
+- Three-layer canonical (doc 101 §9-§10): Layer 1 real-space unknot + Layer 2 SU(2) bundle + Layer 3 phase-space (2,3) winding. **All three layers are properties of the single-cell boundary object.**
+
+---
+
+## §14 Pre-registered load-bearing test: single-cell bounded-boundary electron
+
+Per ave-prereg discipline (Step 3 prereg before any new derivation/script). This test replaces the deferred Phases 2 + 3 from §6 and refines Phase 4.
+
+### §14.1 Target
+
+**Derive empirically:** does the K4-TLM + CosseratField3D coupled engine host a stable bounded Γ = −1 boundary at one active cell, with (2,3) phase-space winding conserved, with impedance-gradient profile in neighboring cells matching `n(r) = 1 + 2GM/(rc²)` per Vol 3 Ch 2:35, with Q-factor measured as integrated boundary observable matching α⁻¹ = 137.036?
+
+### §14.2 Corpus state from Phase 1 corpus-grep (already done)
+
+- (a) CLOSED: substrate's boundary observability rule (§13.2 confirmed by Grant; canonical via App F + Vol 3 Ch 2:43)
+- (a) CLOSED: electron horn torus geometry R = r = ℓ_node/(2π) (doc 101 §10)
+- (a) CLOSED: three-layer canonical (doc 101 §9; unknot + SU(2) + (2,3) Clifford)
+- (a) CLOSED: Q-factor identity α⁻¹ = 4π³ + π² + π = 137.036 (electron_tank_q_factor.py)
+- (b) PARTIAL: which (V_inc, V_ref) parameterization plants the (2,3) Clifford-torus winding correctly at a single cell — corpus has the three-layer description but not the seeder code
+
+### §14.3 Prediction
+
+**Most likely (Mode I PASS):** the engine hosts a stable bounded boundary at one active cell. Three observables (peak |ω|, winding number, outside-cell impedance gradient) match canonical predictions to within 5%. Q-factor integral matches α⁻¹ = 137.036 to within ~1%.
+
+**Why:** the existing engine implements kernel + Op3 + Cosserat dynamics that ARE the correct physics for boundary-only substrate observability. The Mode III result from Round 13 was measuring the wrong observable. The right observable is integrated boundary signatures, which should be present in the engine output if §13 is correct.
+
+**Alternative outcomes (Mode II/III):**
+- Mode II (engine basin ≠ corpus): boundary persists but observables don't match canonical predictions. Indicates the engine implements correct boundary-only physics but at the wrong operating point.
+- Mode III (no stable boundary): boundary decays. Indicates §13 is wrong, OR the seeder is wrong, OR additional physics (vacuum coupling between Cosserat ω and K4 V at the boundary) is missing.
+
+### §14.4 Discriminating outcomes
+
+| Outcome | Boundary persistence > 1000 dt | (2,3) winding conserved | Outside gradient matches n(r) | Q-factor ≈ 137.036 | Interpretation |
+|---|---|---|---|---|---|
+| Mode I (corpus vindicated) | ✓ | ✓ | ✓ | ✓ | §13 confirmed canonical; L3-electron program unblocked; pivot to mass spectrum + g-2 + multi-particle tests |
+| Mode I-partial | ✓ | ✓ | ✓ | ✗ | Boundary forms and is stable, but Q-factor doesn't integrate correctly. Seeder ω profile is non-canonical. |
+| Mode I-partial alt | ✓ | ✓ | ✗ | ✓ | Boundary forms, but gravity profile doesn't match. Engine's outside-cell coupling needs review. |
+| Mode II | ✓ | ✗ | ✓ | depends | Boundary forms but (2,3) topology decays. Phase-space coupling at single-cell scale is broken or the (2,3) Clifford-torus seeder is wrong. |
+| Mode III | ✗ | n/a | n/a | n/a | No stable bounded boundary in current engine. §13 may be wrong, OR additional physics (vacuum→ω→V_inc coupling beyond current model) is required. |
+
+### §14.5 Falsifier
+
+**§13 (boundary-only substrate observability) is falsified if:**
+- Mode III result reproduces across 4+ independent seed parameterizations (saturated-V_inc, Clifford-torus, unknot Cosserat, Beltrami eigenmode at boundary radius)
+- AND the engine instabilities are not numerical (verified via CFL reduction, alternative integrators)
+- AND no operationally-canonical seed produces a bounded boundary
+
+In which case, the wall is genuinely structural: the K4-TLM + Cosserat coupled engine cannot host even the BOUNDARY of a bounded soliton, and Reading A or B from doc 92 would need to be revisited.
+
+### §14.6 Test driver (to be authored next session)
+
+File: `src/scripts/vol_1_foundations/r10_path_alpha_v14_single_cell_boundary.py`
+
+Pseudocode:
+```python
+from ave.topological.vacuum_engine import VacuumEngine3D
+
+# §14.6a Setup: small lattice, one active K4 cell at center
+N = 16
+engine = VacuumEngine3D.from_args(
+    N=N, pml=4, temperature=0.0,
+    amplitude_convention="V_SNAP",
+    enable_op3_bond_reflection=True,  # PER 2026-05-14 K4-TLM bench validation
+)
+
+# §14.6b Plant Γ = −1 boundary at one active cell
+center = (N//2, N//2, N//2)  # all-even, A-site (active per K4 parity)
+amplitude = 0.95  # near saturation; high V_inc on all 4 ports
+for port in range(4):
+    engine.k4.V_inc[center[0], center[1], center[2], port] = amplitude / 2.0
+    # Plant (2,3) Clifford-torus winding in (V_inc, V_ref) phase space:
+    # V_ref initialized π/2-out-of-phase per port with (2,3) winding modulation
+    port_phase_2 = 2 * (port * np.pi / 2)  # toroidal winding 2
+    port_phase_3 = 3 * (port * np.pi / 2)  # poloidal winding 3
+    engine.k4.V_ref[center[0], center[1], center[2], port] = \
+        amplitude / 2.0 * np.cos(port_phase_2 + port_phase_3)
+
+# §14.6c Plant Cosserat unknot at horn-torus scale
+# (existing API; sub-cell scale)
+engine.cos.initialize_electron_unknot_sector(
+    R_target=0.16,  # ℓ_node/(2π) in lattice units (sub-cell)
+    r_target=0.16,
+    amplitude_scale=0.35,  # bound-state operating amplitude per Path B Round 6
+)
+
+# §14.6d Run dynamics
+n_steps = 2000  # ~2 Compton periods at dt = ℓ_node/(c√2)
+for step in range(n_steps):
+    engine.step()
+    if step % 100 == 0:
+        # Diagnostic: boundary persistence, winding conservation, outside-cell
+        # impedance gradient, Q-factor integral
+        log_boundary_persistence(engine, center)
+        log_phase_space_winding(engine, center)
+        log_outside_impedance_gradient(engine, center)
+        log_q_factor_integral(engine, center)
+
+# §14.6e Verdict
+adjudicate_mode_i_through_mode_iii(observables, prereg=__file__)
+```
+
+Estimated: ~500 LOC including diagnostics + 4 observables. ~1 day to author + debug + run.
+
+### §14.7 Acceptance criteria (frozen pre-reg)
+
+**Mode I PASS (§14.3 most-likely):**
+- Boundary peak |V_inc| at center cell > 0.5 of initial amplitude at t > 1000 dt
+- Phase-space winding number 2 and 3 conserved to within ±0.1 over the run
+- Outside-cell impedance gradient z_local(r=2dx) / z_local(r=4dx) within ±15% of n(2dx)/n(4dx) predicted from `n(r) = 1 + 2GM/(rc²)` with M = m_e in lattice units
+- Q-factor integral (V_inc² × volume + V_inc × surface + V_inc × line) at boundary matches α⁻¹·(V_inc_peak)² to within 5%
+
+**Mode III FAIL (§14.5 falsifier):**
+- Boundary peak |V_inc| < 0.1 of initial amplitude at t = 500 dt
+- AND ω-field at horn-torus radius decays to noise floor
+- AND no integrated observable shows bounded-state signature
+
+### §14.8 Pre-execution gating
+
+Before executing §14.6 driver:
+
+1. ✓ Phase 0 engine audit (done, §2)
+2. ✓ Phase 1 corpus-grep (done, §3)
+3. ✓ Boundary-envelope reformulation framed (§13)
+4. ✓ Grant adjudication on §13 framing (CONFIRMED 2026-05-14 evening)
+5. ☐ ave-prereg formal pre-registration commit (this section)
+6. ☐ Verify `enable_op3_bond_reflection=True` is the canonical flag in VacuumEngine3D.from_args (today's bench validation discovered this is required; needs to be confirmed exposed in the engine constructor)
+7. ☐ Verify `initialize_electron_unknot_sector(R, r)` accepts sub-cell scale (R = r = 0.16 in lattice units); current API may need to extend
+8. ☐ Author the driver per §14.6 pseudocode
+9. ☐ Run + adjudicate
+
+Items 5-9 are next-session work.
+
+---
+
+## §15 Doc 109 status after Grant confirmation
+
+**Promoted to canonical:** §13 boundary-envelope reformulation. Reading C2 = single-cell bounded-boundary picture.
+
+**Demoted to deferred:** Reading C1 (multi-cell compressed pocket with `dx_local` engine refactor). Likely unnecessary; canonically inconsistent with gravity-as-impedance per Vol 3 Ch 2.
+
+**Pre-registered:** §14 load-bearing test (single-cell bounded-boundary persistence + winding + gradient + Q-factor).
+
+**Still open (Rule 16 axiom-author scope, but PARTIALLY answered by Grant's BH analogy):**
+- Q1 (r_d as local field): provisional NO (Reading C1 unnecessary)
+- Q2 (multi-cell vs single-cell electron): provisional SINGLE-CELL
+- Q3 (App F = compression vs impedance): provisional IMPEDANCE
+
+**Cross-references update needed:**
+- `AVE-QED/manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` — add explicit "substrate observability rule" subsection
+- `AVE-Core/research/L3_electron_soliton/CURRENT_STATE.md` (local-only) — note this doc as canonical for L3-electron framing post-2026-05-14 evening
+- `AVE-Core/research/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md` — annotate engine's Eulerian small-strain dynamics as CORRECT for boundary-only substrate observability, not a limitation
+
+**The wall (doc 92) is reframed, not refuted:** Doc 92's Nyquist analysis was numerically correct for the question it asked (can K4 host k=6.36/ℓ_node propagating eigenmode? No). The question itself was misframed for the substrate's perspective. The right question (does K4 host a bounded boundary at one-cell scale with the right integrated observables?) is empirically open and will be answered by §14's test next session.
