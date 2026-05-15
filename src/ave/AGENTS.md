@@ -4,6 +4,20 @@ What an AI coding agent must know before modifying this codebase.
 
 ---
 
+## 0. Documentation Canonicality (KB leaves > LaTeX)
+
+As of **2026-05-07**, the KB markdown tree (`manuscript/ave-kb/`) is the **sole canonical source** for AVE results, derivations, and prose. The LaTeX manuscript (`manuscript/vol_*/`) is a **derived publication artifact** that mirrors KB state, not its inverse.
+
+For engine work, the practical implications:
+
+- When an engine change produces a new or revised result, document the result in the **KB leaf first** — with frontmatter `claims:`, Tier 2 inline markers, and subtree-claims aggregation per INVARIANT-S5/S8 in `manuscript/ave-kb/CLAUDE.md`. Sync to LaTeX as a downstream step.
+- When LaTeX and KB disagree about a result, the KB is right; treat the LaTeX as stale until synced.
+- This inverts the older intake-era framing where LaTeX was canonical and the KB was a projection. Rule 9 of `LIVING_REFERENCE.md` ("Engine architecture changes must propagate to LaTeX") should be read in light of this: propagate to **KB first**, then LaTeX.
+
+See `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale and open follow-ups.
+
+---
+
 ## 1. The Zero Free Parameters Constraint
 
 **This is the single most important rule.**
