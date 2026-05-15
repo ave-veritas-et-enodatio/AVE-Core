@@ -1,8 +1,29 @@
 # AVE Project — Living Reference Document
-> **Last Updated:** 2026-04-08  
+> **Last Updated:** 2026-05-15 (structural closure declared)
 > **Purpose:** Canonical reference for all AI assistants and collaborators. Any chat session should read this file first.
 >
 > **Companion:** [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) captures recurring patterns that create friction between AVE and reviewers trained in SM/QED/continuum-GR physics — with specific anti-patterns, corrected framings, and remediation targets. Read it before presenting AVE externally or reviewing it.
+
+## 🎯 Framework Status — Structural Closure (2026-05-15)
+
+The AVE framework reached **structural closure** on 2026-05-15. Five criteria met:
+1. ✓ Six-step ground-up build maps every step to math structure (trampoline-framework.md §1.1-§1.7)
+2. ✓ Every macroscopic observable has derivation path (α, G, m_e, V_yield all derive from u_0* + intrinsic substrate parameters)
+3. ✓ Framework identifies its own irreducible epistemic horizon ("God's Hand" — what set Ω_freeze at lattice genesis)
+4. ✓ Free parameters minimized: 1 cosmological IC (Ω_freeze) + 1 scale (ℓ_node) + 4 axioms (reduces standard physics' 19+ free parameters)
+5. ✓ Three-route falsifiability: α + G + cosmic 𝒥 must give same u_0* or framework fails
+
+**Canonical entry points** (read these for AVE physics):
+- **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — single canonical reference covering substrate vocabulary, ground-up build, three substrate invariants 𝓜/𝓠/𝓙, substrate-observability rule (fractal application), inter-cell coupling and gravity projection, two-engine architecture, "God's Hand" cosmic IC.
+- **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact, 7 tiers, 28 actions tracked.
+- **L5 axiom-status:** [`research/L5/axiom_derivation_status.md`](research/L5/axiom_derivation_status.md) — A-001 through A-031 framework-level claims (canonical / open / closed).
+- **L5 manuscript queue:** [`research/L5/manuscript_pending.md`](research/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
+
+**Path forward:**
+- **Theoretical closure** pending: Q-G47 Session 6+ (THE keystone, 5-session plan at `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md`); Vol 3 Ch 4 explicit ξ derivation; three-route consistency verification.
+- **Empirical closure** pending: IVIM bench Phase 2A; cosmic 𝒥_cosmic observational campaign (CMB + LSS anomaly review).
+
+**Reference for picture-first discipline:** any new physics claim destined for the manuscript must first be reflected in `trampoline-framework.md`. Chapter edits cite the canonical picture, not the reverse.
 
 ## Project Identity
 

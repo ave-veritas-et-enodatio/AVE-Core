@@ -9,6 +9,18 @@
 
 ---
 
+> ## 🎯 Framework Status: Structural Closure (2026-05-15)
+>
+> The AVE framework reached **structural closure** on 2026-05-15. The conceptual structure is now visible end-to-end; every step of the construction maps cleanly to a math structure; the epistemic horizon is explicitly named; the falsification test is specified.
+>
+> **Canonical entry point for the framework picture:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — picture-first / mechanism-first reference covering the six-step ground-up build (rubber sheet → trampoline → springs too long → press center → bubble wand → 3D sphere) and the substrate-observability rule applied at every scale including ourselves.
+>
+> **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact tracking 28 actions across 7 tiers from structural closure to theoretical + empirical closure. Status dashboard updated per session.
+>
+> **The single-cosmological-parameter claim:** α, G, and cosmic angular momentum 𝒥_cosmic all derive from one cosmological initial-data parameter Ω_freeze (the rotation rate at lattice genesis). Three independent observational routes must give the same $u_0^*$ operating-point value or the framework is falsified. See `trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC") and `research/L5/axiom_derivation_status.md` A-030 + A-031.
+
+---
+
 ## Overview
 
 Applied Vacuum Engineering is a **parameter-free physics framework** that derives 47 verified predictions—from the electron g−2 anomaly to galactic rotation curves—from exactly **4 axioms** and **zero free parameters**. The fine-structure constant α itself is derived: from the Golden Torus S₁₁-minimum geometry of the trefoil electron soliton, $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ (cold lattice), with a CMB-induced thermal strain coefficient bringing it to the CODATA value $137.035999$.

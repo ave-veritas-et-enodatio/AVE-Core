@@ -21,12 +21,12 @@
 | 0 | Structural closure declared | ✓ DONE | — | `fb2ac44` 2026-05-15 |
 | 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | pending | E-094 | — |
 | 1 | E-101 Three substrate invariants observables module | pending | E-101 | — |
-| 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | pending | E-102 | — |
+| 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | (this commit) |
 | 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | (this commit) |
-| 1 | AVE-QED App F cosmic-𝒥 row explicit | pending | (new) | — |
-| 1 | README + LIVING_REFERENCE structural-closure declaration | pending | (new) | — |
-| 1 | v14 Mode I regression test in `make verify` | pending | (new) | — |
-| 1 | Figure 2 storage-modes layout fix | pending | n/a | — |
+| 1 | AVE-QED App F cosmic-𝒥 row explicit | **APPLIED** 2026-05-15 | (cross-repo) | (this commit) |
+| 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | (this commit) | (this commit) |
+| 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | (this commit) | (this commit) |
+| 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | (this commit) |
 | 2 | **Q-G47 Session 6+ keystone u_0* derivation** | pending (THE keystone) | Q-G47 / A-027 / A-029 / A-030 | — |
 | 3 | T_EM(u_0*) explicit closed-form | pending (Tier 2 dep) | Q-G47 closure | — |
 | 3 | Vol 3 Ch 4 explicit ξ(R_H, ℓ_node) derivation | pending (independent of Q-G47) | (new) | — |
