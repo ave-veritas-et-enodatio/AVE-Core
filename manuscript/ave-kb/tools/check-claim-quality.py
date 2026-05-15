@@ -4,7 +4,7 @@
 Read-only. Never modifies any file. Reads the unified ``kb-frontmatter`` block
 (see ``mad-review/kb-metadata-spine-spec.md``).
 
-Eight checks, all hard fail-loud:
+Eleven checks, all hard fail-loud:
 
     1. Tier 1 coverage: every leaf has either ``claims:`` or ``no-claim:`` in
        its frontmatter (mutually exclusive).
@@ -21,6 +21,17 @@ Eight checks, all hard fail-loud:
     7. Bidirectional coverage: every canonical entry is back-linked by at
        least one leaf's frontmatter.
     8. No-claim/claims exclusivity: no leaf carries both fields.
+    9. Index files well-formed: each ``.index/*.jsonl`` exists, every line
+       parses as a JSON object, and the file ends with exactly one ``\\n``.
+       Missing files and EOF defects are refresh-fixable; malformed JSON is
+       not (indicates a bug or merge corruption).
+   10. Index freshness: each ``.index/*.jsonl`` matches the canonical
+       byte-for-byte serialization of the in-memory record set built from
+       the canonical KB sources. (refresh-fixable.)
+   11. Index referential integrity: every claim id referenced in
+       depends-on / strengthen-by / cites / subtree-aggregates appears as
+       a record in claims.jsonl. (Not refresh-fixable; symptom of a build
+       bug.)
 
 Failure categories are tagged refresh-fixable or manual-fix. If any
 refresh-fixable failures are present, the report ends with a hint to run
@@ -34,15 +45,33 @@ Run via::
 
 from __future__ import annotations
 
+import argparse
+import json
 import os
 import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
+# Make the sibling kb_index_lib importable regardless of invocation cwd.
+_TOOLS_DIR = Path(__file__).resolve().parent
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
+
+import kb_index_lib  # noqa: E402
+
 KB = Path("manuscript/ave-kb")
 
-EXCLUDE_DIRS = {"session"}
+# Documented JSONL files emitted by the index pipeline (short names).
+INDEX_FILES = (
+    "claims",
+    "depends-on",
+    "strengthen-by",
+    "cites",
+    "subtree-aggregates",
+)
+
+EXCLUDE_DIRS = {"session", ".index"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
@@ -228,7 +257,166 @@ def check_uncited_entries(canonical: list[tuple[str, str]],
     return [(cid, path) for cid, path in canonical if cid not in cited]
 
 
-def main() -> int:
+def check_index_well_formed(index_dir: Path):
+    """Validate each .index JSONL file: exists, parses, has clean EOF.
+
+    Returns (missing, malformed, eof_defects):
+
+    * ``missing``: list of short names absent from disk. Refresh-fixable.
+    * ``malformed``: list of (short_name, lineno, snippet) for lines that
+      either fail to parse as JSON or parse to a non-object. NOT
+      refresh-fixable; signals a deeper bug.
+    * ``eof_defects``: list of (short_name, reason) for files with a
+      missing or doubled trailing newline. Refresh-fixable.
+    """
+    missing: list[str] = []
+    malformed: list[tuple[str, int, str]] = []
+    eof_defects: list[tuple[str, str]] = []
+    for short in INDEX_FILES:
+        path = index_dir / f"{short}.jsonl"
+        if not path.exists():
+            missing.append(short)
+            continue
+        raw = path.read_bytes()
+        if not raw:
+            # An empty file is well-formed per write_jsonl semantics, but
+            # for the real KB every file is non-empty; if it is empty we
+            # treat that as a freshness defect, caught by check_index_fresh.
+            continue
+        if not raw.endswith(b"\n"):
+            eof_defects.append((short, "missing final newline"))
+        elif raw.endswith(b"\n\n"):
+            eof_defects.append((short, "multiple trailing newlines"))
+        text = raw.decode("utf-8", errors="replace")
+        for lineno, line in enumerate(text.split("\n"), start=1):
+            # Last element after a trailing newline is the empty string;
+            # don't treat it as a malformed record.
+            if line == "":
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError as exc:
+                snippet = line if len(line) <= 80 else line[:77] + "..."
+                malformed.append((short, lineno, f"{exc.msg}: {snippet}"))
+                continue
+            if not isinstance(obj, dict):
+                malformed.append(
+                    (short, lineno, f"line is not a JSON object: {type(obj).__name__}")
+                )
+    return missing, malformed, eof_defects
+
+
+def check_index_fresh(index_dir: Path):
+    """Diff each on-disk JSONL against canonical serialization of expected records.
+
+    Returns a list of (short_name, expected_count, actual_count) for files
+    whose bytes diverge from canonical. Refresh-fixable.
+
+    Files that are missing or malformed are skipped here — the well-formed
+    check already surfaces those; running a byte-diff on a malformed file
+    would be misleading noise.
+    """
+    state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
+    expected = kb_index_lib.build_all_records(state)
+
+    drift: list[tuple[str, int, int]] = []
+    for short in INDEX_FILES:
+        path = index_dir / f"{short}.jsonl"
+        if not path.exists():
+            continue
+        expected_bytes = kb_index_lib.serialize_records(expected[short])
+        actual_bytes = path.read_bytes()
+        if actual_bytes == expected_bytes:
+            continue
+        expected_count = len(expected[short])
+        actual_count = sum(1 for ln in actual_bytes.decode("utf-8", errors="replace").split("\n") if ln)
+        drift.append((short, expected_count, actual_count))
+    return drift, expected
+
+
+def check_index_referential_integrity(index_dir: Path):
+    """Every claim id in any non-claims index file must appear in claims.jsonl.
+
+    Returns a list of (short_name, claim_id, location) tuples for orphan
+    references. NOT refresh-fixable; indicates a build bug (refresh should
+    never emit an orphan).
+
+    Skipped silently if claims.jsonl is missing or malformed — the
+    well-formed check surfaces that.
+    """
+    claims_path = index_dir / "claims.jsonl"
+    if not claims_path.exists():
+        return []
+    try:
+        canonical = {
+            json.loads(ln)["id"]
+            for ln in claims_path.read_text(encoding="utf-8").split("\n")
+            if ln
+        }
+    except (json.JSONDecodeError, KeyError):
+        return []
+
+    violations: list[tuple[str, str, str]] = []
+
+    def _check_lines(short: str, key_funcs):
+        path = index_dir / f"{short}.jsonl"
+        if not path.exists():
+            return
+        for lineno, line in enumerate(
+            path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            for key, getter in key_funcs:
+                ids = getter(rec)
+                for cid in ids:
+                    if cid not in canonical:
+                        violations.append((short, cid, f"line {lineno}, {key}"))
+
+    _check_lines(
+        "depends-on",
+        [
+            ("source", lambda r: [r.get("source")] if r.get("source") else []),
+            ("target", lambda r: [r.get("target")] if r.get("target") else []),
+        ],
+    )
+    _check_lines(
+        "strengthen-by",
+        [("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else [])],
+    )
+    _check_lines(
+        "cites",
+        [("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else [])],
+    )
+    _check_lines(
+        "subtree-aggregates",
+        [("subtree_claims", lambda r: list(r.get("subtree_claims") or []))],
+    )
+
+    return violations
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Mechanical KB claim-quality and derived-index verifier."
+    )
+    parser.add_argument(
+        "--index-dir",
+        type=Path,
+        default=None,
+        help=(
+            "Directory containing the .index/*.jsonl files. Defaults to "
+            "manuscript/ave-kb/.index/. Used by tests to point at a synthetic "
+            "index tree without disturbing the canonical one."
+        ),
+    )
+    args = parser.parse_args(argv)
+    index_dir = args.index_dir if args.index_dir is not None else (KB / ".index")
+
     if not KB.is_dir():
         print(f"FAIL: {KB} not found. Run from repository root.", file=sys.stderr)
         return 2
@@ -257,6 +445,22 @@ def main() -> int:
         f"({n_with_fm} with frontmatter, {n_leaves} leaves, "
         f"{n_with_claims} with claims, {n_no_claim} no-claim, "
         f"{n_multi} multi-claim) and {len(canonical)} canonical entries."
+    )
+
+    # Index-state checks.
+    missing_index, malformed_index, eof_defects = check_index_well_formed(index_dir)
+    fresh_drift, expected_records = check_index_fresh(index_dir)
+    ref_violations = check_index_referential_integrity(index_dir)
+
+    # Index summary line — counts come from the canonical (expected) record
+    # set so the line is meaningful even when on-disk files are stale.
+    print(
+        f"[index] {len(INDEX_FILES)} JSONL files "
+        f"({len(expected_records['claims'])} claims, "
+        f"{len(expected_records['depends-on'])} depends-on, "
+        f"{len(expected_records['strengthen-by'])} strengthen-by, "
+        f"{len(expected_records['cites'])} citations, "
+        f"{len(expected_records['subtree-aggregates'])} aggregates)."
     )
 
     has_failures = False
@@ -324,6 +528,69 @@ def main() -> int:
             "  → Either back-link from a leaf's claims, or remove the entry. "
             "Meta-claims and reading-hazards belong in CLAUDE.md / "
             "CONVENTIONS.md / LIVING_REFERENCE.md, not here."
+        )
+
+    if missing_index:
+        has_failures = True
+        refresh_fixable = True
+        print(
+            f"\n[FAIL] {len(missing_index)} .index JSONL file(s) missing from "
+            f"{index_dir}:"
+        )
+        for short in missing_index:
+            print(f"  {short}.jsonl")
+
+    if eof_defects:
+        has_failures = True
+        refresh_fixable = True
+        print(f"\n[FAIL] {len(eof_defects)} .index file(s) with EOF defects:")
+        for short, reason in eof_defects:
+            print(f"  {short}.jsonl: {reason}")
+
+    if malformed_index:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(malformed_index)} malformed line(s) in .index "
+            f"JSONL (not well-formed JSON):"
+        )
+        for short, lineno, detail in malformed_index:
+            print(f"  {short}.jsonl:{lineno}: {detail}")
+        print(
+            "  → This is not refresh-fixable. Investigate the build pipeline "
+            "or a merge corruption; the file should be regenerable from "
+            "canonical sources only after the cause is identified."
+        )
+
+    if fresh_drift:
+        has_failures = True
+        refresh_fixable = True
+        print(f"\n[FAIL] {len(fresh_drift)} .index file(s) stale vs canonical state:")
+        for short, expected_count, actual_count in fresh_drift:
+            print(
+                f"  {short}.jsonl: {expected_count} expected vs "
+                f"{actual_count} actual records"
+            )
+
+    if ref_violations:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(ref_violations)} referential-integrity violation(s) "
+            f"in .index/ — claim ids cited outside claims.jsonl:"
+        )
+        # Group by (short, cid) to keep output compact.
+        grouped: dict[tuple[str, str], list[str]] = defaultdict(list)
+        for short, cid, location in ref_violations:
+            grouped[(short, cid)].append(location)
+        for (short, cid), locations in grouped.items():
+            n = len(locations)
+            print(f"  {short}.jsonl: orphan id {cid!r} ({n} occurrence{'s' if n != 1 else ''})")
+            for loc in locations[:3]:
+                print(f"    {loc}")
+            if n > 3:
+                print(f"    ... and {n - 3} more")
+        print(
+            "  → Not refresh-fixable. Indicates a bug in the index builder "
+            "(refresh should never emit an orphan reference)."
         )
 
     if has_failures:

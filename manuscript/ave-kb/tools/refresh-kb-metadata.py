@@ -16,14 +16,33 @@ afterward to confirm the result is internally consistent.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
 from pathlib import Path
 
-KB = Path("manuscript/ave-kb")
+# Make the sibling kb_index_lib importable regardless of invocation cwd.
+_TOOLS_DIR = Path(__file__).resolve().parent
+if str(_TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TOOLS_DIR))
 
-EXCLUDE_DIRS = {"session"}
+import kb_index_lib  # noqa: E402
+
+KB = Path("manuscript/ave-kb")
+INDEX_DIR = KB / ".index"
+
+# JSONL files emitted by the index-emission phase. Order is the documented
+# file inventory order from SCHEMA.md.
+INDEX_FILES = (
+    "claims",
+    "depends-on",
+    "strengthen-by",
+    "cites",
+    "subtree-aggregates",
+)
+
+EXCLUDE_DIRS = {"session", ".index"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
@@ -112,6 +131,44 @@ def collect_leaves() -> dict[Path, list[str]]:
     return leaves
 
 
+def _emit_jsonl_indexes() -> tuple[int, int]:
+    """Write the five JSONL files under ``KB/.index/``.
+
+    Returns ``(written, unchanged)``. A file is "unchanged" when its on-disk
+    bytes already match the freshly serialized payload; in that case the
+    write is skipped to keep mtime stable and avoid spurious ``git status``
+    noise. Otherwise the file is written atomically (rename over existing).
+    """
+    INDEX_DIR.mkdir(exist_ok=True)
+    state = kb_index_lib.discover_kb(KB)
+    all_records = kb_index_lib.build_all_records(state)
+
+    written = 0
+    unchanged = 0
+    for short_name in INDEX_FILES:
+        records = all_records[short_name]
+        out_path = INDEX_DIR / f"{short_name}.jsonl"
+        # Re-serialize using the library's canonical format so we can compare
+        # byte-for-byte against the on-disk file before deciding to write.
+        lines = [
+            json.dumps(rec, ensure_ascii=False, separators=(", ", ": "))
+            for rec in records
+        ]
+        body = "\n".join(lines)
+        if body:
+            body += "\n"
+        new_bytes = body.encode("utf-8")
+        if out_path.exists() and out_path.read_bytes() == new_bytes:
+            unchanged += 1
+            continue
+        # Atomic rewrite: write to sibling temp file, then rename.
+        tmp_path = out_path.with_suffix(out_path.suffix + ".tmp")
+        tmp_path.write_bytes(new_bytes)
+        os.replace(tmp_path, out_path)
+        written += 1
+    return written, unchanged
+
+
 def main() -> int:
     if not KB.is_dir():
         print(f"FAIL: {KB} not found. Run from repository root.", file=sys.stderr)
@@ -168,6 +225,15 @@ def main() -> int:
     print(f"[refresh] Updated {updated} subtree-claims field(s).")
     if skipped:
         print(f"[refresh] Skipped {skipped} index files lacking frontmatter.")
+
+    # Phase 2: emit derived JSONL index files. The frontmatter writes above
+    # are already on disk, so discover_kb here picks up the just-written
+    # subtree-claims values when materializing subtree-aggregates.jsonl.
+    written, unchanged = _emit_jsonl_indexes()
+    print(
+        f"[refresh-index] Wrote {written} file(s) under "
+        f"{INDEX_DIR.as_posix()}/ ({unchanged} unchanged)."
+    )
     return 0
 
 
