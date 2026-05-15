@@ -480,6 +480,67 @@ The combination converts three "named-but-uncodified discipline rules" into "cod
 - **Status:** open — infrastructure landed; sweep + practice instances pending.
 - **Cross-refs:** A-018 (originating incident — manuscript IE table provenance), A-019 (operationalized), A-021 (operationalized), A-022 (operationalized), A-024 (sibling 2026-04-30 to 2026-05-01 framework-level landing — A-024 is physics framework, A-025 is methodology framework), E-090 + E-092 (manuscript-side editorial sweep — A-025 SHA-anchoring manifest is the machine-readable companion to the prose-footnote convention)
 
+### A-026 — Substrate-observability rule canonical (Grant-confirmed 2026-05-14 via boundary-envelope reformulation)
+
+**CANONICAL 2026-05-14** via Grant adjudication. The substrate observes a boundary, not its interior — for any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$, only three integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are visible externally; the interior structure (topology, eigenmode wavelength, microrotation profile) is invisible to the substrate. Same mechanism at all scales — Schwarzschild horizon at $r_s = 2GM/c^2$ is structurally identical to horn-torus tube wall at $\ell_{\text{node}}/(2\pi)$.
+
+Grant's framing pushback during the trampoline-springs question: *"You can resolve what's in a black hole, why could you resolve what's in an electron's envelope/boundary?"* This collapsed multiple distinct framework tensions in one move: (a) doc 92's Nyquist-wall measurement of interior eigenmode $k = 6.36/\ell_{\text{node}}$ was the wrong observable; (b) the framework's "the lattice has to resolve the electron's flux tube" framing was wrong — it only needs to resolve the **boundary envelope**; (c) the doc-101 three-layer canonical (unknot in real space + SU(2) in bundle + (2,3) in phase space) lives inside the envelope where the substrate can't see it.
+
+**Pre-2026-05-14 framing** (now superseded): "The K4 lattice must resolve the smallest topological structure inside the electron flux tube." This forced multi-cell propagating-eigenmode tests on what is canonically a single-cell bounded boundary object. Doc 92's Nyquist-wall finding was interpreted as evidence the electron is sub-lattice; correct interpretation per substrate-observability rule is that doc 92 measured the wrong observable.
+
+**Post-2026-05-14 canonical:** ℓ_node sets the envelope scale (~10⁻¹³ m for electron, consistent with classical electron radius); interior eigenmode wavelength (~10⁻¹⁴ m if exists) is not substrate-visible. v14 Mode I PASS on Master Equation FDTD (doc 113) validated the engine hosts the breathing soliton boundary — the canonical observable per this rule.
+
+- **Current corpus status:** **canonical** as of 2026-05-14. Implicit in pre-existing corpus content: Ch 6 vacuum polarization line 233 (*"the interior is saturated, contributes via boundary conditions"*); App B QED creep guardrail lines 107-112 (*"saturated interior contributes via boundary conditions, not via integration"*); Vol 3 Ch 2:43 same-mechanism BH-electron framing. **Made explicit** in AVE-QED App G §3 (substrate-observability rule) + AVE-Core doc 109 §13 (boundary-envelope reformulation).
+- **Audited status:** **canonical, Grant-confirmed.** No gap.
+- **Sources:** [doc 109_ §13-§15](../L3_electron_soliton/109_elastic_substrate_finite_strain_investigation.md) (`ad90c87`, 2026-05-14, Grant-confirmed canonical); [AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` §3](../../../AVE-QED/manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex) (`ce34645`, 2026-05-14, formal canonical statement)
+- **Manuscript impact:** E-094 (App G propagation to AVE-Core); E-096 (boundary-envelope reformulation in Vol 1 Ch 4/7); systemic — every chapter discussing electron/nucleus/BH/atom/cosmic boundary now invokes this rule implicitly.
+- **Engine impact:** E-101 (engine-side computation of $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ at boundary $\partial\Omega$ as canonical observables); reframes doc 92 Nyquist wall (preserved as empirical finding, but interpretation updated: measured interior observable, not substrate-visible). Future engine work (Cosserat coupling on Master Equation FDTD, multi-soliton dynamics) operates within this rule.
+- **Closure path:** no gap — canonical. Future work propagates the rule through manuscript chapters per E-094.
+- **Status:** closed (Grant-confirmed canonical)
+- **Cross-refs:** A-027 (two-engine architecture, downstream consequence), A-028 (three substrate invariants, downstream observables), E-094, E-096, E-101; doc 109 §13 (Grant-confirmed canonical adjudication)
+
+### A-027 — Two-engine architecture canonical (Master Equation FDTD + K4-TLM cover disjoint operating regimes)
+
+**CANONICAL 2026-05-14** via doc 113 §3.2. The canonical engine architecture covers two disjoint operating regimes with two specialized engines, both Axiom-1/2/3/4 compliant:
+
+- **K4-TLM** (`src/ave/core/k4_tlm.py`): canonical for **sub-saturation bench regime**. Linear response + weakly nonlinear up to $V_{\text{yield}}$ onset; op3_bond_reflection for memristive Op14 dynamics; bench-validated D10 IM3 cubic V³ slope 2.956 vs target 3.0 (AVE-Bench-VM `0599a10`). Tests across v14a/b/d/e variants returned Mode III at corpus Golden Torus geometry (doc 110) — empirical evidence that this engine alone does not host the bound state, NOT framework failure.
+
+- **Master Equation FDTD** (`src/ave/core/master_equation_fdtd.py`): canonical for **bound-state regime**. $A \to 1$ saturation with $c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$ modulation; breathing soliton solutions; v14 Mode I PASS on breathing-soliton criterion (4/4, doc 113).
+
+**The pre-2026-05-14 single-engine architecture** (K4-TLM + Cosserat coupling for everything) is superseded. K4-TLM's bound-state limitation was diagnosed structurally in doc 111 §3: K4-TLM has $Z(V)$ modulation but lacks $c_{\text{eff}}(V)$ — the missing ingredient that lets the substrate slow waves enough to localize them as bound state. Master Equation FDTD has both. The two engines are not competing; they are specialized for different parts of the substrate's operating range.
+
+- **Current corpus status:** **canonical** as of 2026-05-14 per doc 113 §3.2. Reflected in src/ave/core/ module structure (both engines coexist). Manuscript-side reflection pending E-097 (Vol 1 Ch 6 or Ch 7 regime map).
+- **Audited status:** **canonical, doc 113 closure.** No gap.
+- **Sources:** [doc 111_ §3-§4](../L3_electron_soliton/111_master_equation_audit_and_engine_gap.md) (`3815158`, 2026-05-14, audit identifying K4-TLM c_eff(V) gap); [doc 113_ §3.2](../L3_electron_soliton/113_v14_closure_master_equation_fdtd_mode_I.md) (`345d55d`, 2026-05-14, two-engine architecture canonical statement)
+- **Manuscript impact:** E-095 (Master Equation FDTD canonical reference in Vol 1 Ch 4); E-097 (two-engine regime map in Vol 1 Ch 6/7); systemic — Vol 4 Ch 1 bench predictions now reference K4-TLM specifically; Vol 1 Ch 4 bound-state discussion references Master Equation FDTD.
+- **Engine impact:** structurally landed. E-099 (engine-side canonical entry for master_equation_fdtd.py); E-100 (k4_tlm.py v14 additions); E-101 (three substrate invariants observables, applies to both engines at boundary).
+- **Closure path:** no gap — canonical. Cosserat coupling on Master Equation FDTD (doc 113 §5.4) is medium-term work for framework completeness, not closure-load-bearing.
+- **Status:** closed (doc 113 canonical)
+- **Cross-refs:** A-026 (substrate-observability rule, upstream framing), A-028 (three substrate invariants, observable layer), E-095, E-097, E-099, E-100; doc 111, 112, 113 (the engine-diagnosis-and-Path-B-execution arc)
+
+### A-028 — Three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ as canonical boundary observables (Grant-locked 2026-05-14 evening)
+
+**CANONICAL 2026-05-14** via Q1 closure (Grant adjudication). The substrate observes three and only three integrated invariants at any local $\Gamma = -1$ boundary $\partial\Omega$:
+
+| Symbol | Canonical name | Operational definition | EE projection | QFT projection |
+|---|---|---|---|---|
+| $\mathcal{M}$ | Integrated strain integral | $\int_\Omega (n(\mathbf{r}) - 1)\,dV$ | mass / inductance $L$ | rest energy $m c^2$ |
+| $\mathcal{Q}$ | Boundary linking number | $\mathrm{Link}(\partial\Omega, \mathbf{F}_{\text{substrate}}) \in \mathbb{Z}$ | charge $Q$ | electromagnetic charge |
+| $\mathcal{J}$ | Boundary winding number | $\mathrm{Wind}(\partial\Omega)$, half-integer per SU(2) double-cover | spin / magnetic moment | spin $J$ |
+
+These are the substrate-native names; the standard physics names (mass / charge / spin) are projections through specific probe types. **No other quantities are substrate-visible** at the boundary. This is the no-hair theorem applied at every scale: same three observables from outside a BH ($M, Q, J$) as from outside an electron ($m_e, e, \hbar/2$); same structure, scale-invariant.
+
+The canonical names are deliberately chosen to be substrate-native (relational, integrated, dimensionless or substrate-natural-units): **Integrated strain integral** for $\mathcal{M}$ (substrate strain is the load-bearing concept, not "mass" — mass is the QFT projection); **Boundary linking number** for $\mathcal{Q}$ (charge is the integer count of substrate-flux-linking, not an intrinsic property); **Boundary winding number** for $\mathcal{J}$ (spin is the half-integer count from SU(2) → SO(3) double-cover, not an intrinsic property).
+
+- **Current corpus status:** **canonical** as of 2026-05-14 Grant Q1 closure. Reflected in: AVE-QED App G §4 (formal definitions); AVE-QED `docs/glossary.md` §5m (three-invariants canonical names table); AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md` (Q1 names matrix with cross-scale + cross-projection tables); AVE-QED A_foundations.tex L194-215 (extended 3-column Rosetta-stone with $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ in substrate-native column).
+- **Audited status:** **canonical, Grant-confirmed.** No gap.
+- **Sources:** [AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` §4](../../../AVE-QED/manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex) (`ce34645`, 2026-05-14, canonical definitions); [AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md`](../../../AVE-QED/docs/analysis/2026-05-14_three_substrate_invariants_matrix.md) (`c30c351`, 2026-05-14, Q1 names matrix); doc 109 §13-§15 (boundary-envelope reformulation; canonicalizes "what the substrate observes")
+- **Manuscript impact:** E-094 (App G propagation to AVE-Core); systemic — Vol 2 Ch 1 "rest mass is contained reactance" canonical now identifiable with $\mathcal{M}_{\text{electron}} = T_{EM} \cdot \ell_{\text{node}}$; Vol 3 Ch 2 GR cross-references $\mathcal{M} \to M_{ADM}$ projection; charge / spin discussions cross-reference $\mathcal{Q}, \mathcal{J}$.
+- **Engine impact:** E-101 (engine-side computation of $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ at boundary as canonical observables; replaces interior eigenmode measurements per substrate-observability rule); future engine tests assert these three observables converge to the canonical electron values ($\mathcal{M}_e, \mathcal{Q}_e = 1, \mathcal{J}_e = 1/2$).
+- **Closure path:** no gap — canonical. Operationalization in engine via E-101.
+- **Status:** closed (Grant Q1 closure 2026-05-14 evening)
+- **Cross-refs:** A-026 (substrate-observability rule, upstream framing), A-027 (two-engine architecture, where these invariants are computed), E-094, E-101; Grant Q1 closure at AVE-QED commit `d9e2942` "Q1 RESOLVED"
+
 ### A-008 — Cosserat mass-gap (m = 2 per F1) vs Compton-frequency target (ω_C = 1) — RESOLVED via spin-½ half-cover identification (Reconciliation B canonical, A + C superseded)
 
 **RESOLVED 2026-04-27** via geometry-axiom synthesis: m_Cosserat = 2 is the medium's full-cover SO(3) twist rate; ω_C = m_e = 1 is the spin-½ projection of that medium twist (SU(2) → SO(3) is 2-to-1). The factor of 2 IS the half-cover, exactly per [doc 03_ §4.3](../L3_electron_soliton/03_existence_proof.md#L143)'s topological quantization claim — just propagated from the geometric scale (R·r = 1/4) to the mass scale (m_Cosserat = 2·m_e). Both "ω_C = 1" and "m_Cosserat = 2" are correct; they describe different aspects of the SAME spinor quantization.

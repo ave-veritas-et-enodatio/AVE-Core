@@ -2,6 +2,15 @@
 
 Read-only synthesis layer over `research/L3_electron_soliton/`. Tracks what the active research thread is producing that the manuscript or engine has not yet absorbed. **Source docs are not edited from this layer** — all writes happen here, all reads happen there.
 
+**Last comprehensive sweep:** 2026-05-15. Post-sweep state:
+- Added E-094 through E-101 (8 new entries) covering post-2026-05-02 canonical work — substrate-vocabulary discipline (App G propagation), Master Equation FDTD canonical engine, boundary-envelope reformulation, two-engine architecture, cubic K4 anisotropy, k4_tlm.py v14 additions, three substrate invariants observables module.
+- Added A-026, A-027, A-028 (3 new axiom-status entries) capturing canonical closures: substrate-observability rule (Grant-confirmed via boundary-envelope reformulation); two-engine architecture (Master Equation FDTD + K4-TLM cover disjoint operating regimes); three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ as canonical boundary observables (Grant Q1 closure).
+- `terminology_canonical.md` §0 added with AVE-QED App G three-column substrate-native/EE/ME vocabulary as canonical reference + three substrate invariants table + substrate-observability rule statement.
+- Living tracker rows added for docs 109-114 (post-2026-05-02 canonical work).
+- Cross-repo references updated with AVE-QED + AVE-Bench-VacuumMirror citations.
+
+**Upstream canonical for substrate vocabulary:** AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` (App G, 7 sections, ~340 lines, committed `ce34645` 2026-05-14). All L5 entries authored or refreshed during this sweep use App G substrate-native vocabulary (substrate / node / bond / state / boundary / envelope / linking $\mathcal{Q}$ / winding $\mathcal{J}$ / integrated strain integral $\mathcal{M}$) where the projection-frame names would obscure the substrate-native concept.
+
 ## Files
 
 | File | Purpose |

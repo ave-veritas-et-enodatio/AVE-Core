@@ -15,12 +15,14 @@ Flat catalog of every cross-repo path cited in the L3 corpus. Sibling repos evol
 | Repo | Purpose (per cross-refs) | Last verified-on |
 |---|---|---|
 | AVE-APU | Pythagorean strain theorem (Vol 1 Ch 5); geometric-triodes (Vol 1 Ch 5) | — |
+| AVE-Bench-VacuumMirror | IVIM bench predictions; D10 IM3 cubic V³ slope 2.956; HV PSU procurement | 2026-05-14 (commits `0599a10` + bench_signal_predictions_summary) |
 | AVE-Fusion | L-H transition mechanism (Ch 5) | — |
 | AVE-HOPF | Chiral antenna Q-analysis; Beltrami Hopf coil; classical-vs-mutual inductance decomposition; 2D Smith-chart code | — |
 | AVE-Metamaterials | (no L3 cross-refs yet — reserved) | — |
 | AVE-PONDER | Dark-wake τ_zx back-propagation; η_vac quantification | — |
 | AVE-Propulsion | Topological power factor corrector / chiral impedance matching (Ch 4); autoresonant dielectric rupture (Ch 5); warp metric tensors driver | — |
 | AVE-Protein | Deterministic protein folding via S₁₁-min (Ch 3); constrained-descent template `protein_fold.py:97-177` | — |
+| AVE-QED | **Substrate vocabulary canonical (App G); three substrate invariants 𝓜/𝓠/𝓙 matrix; multi-scale Machian network (App F); Q-G19α Route B g-2 closure scripts** | 2026-05-14 (commits `ce34645` + `d9e2942` + `c30c351`) |
 | AVE-VirtualMedia | Three-regime Γ visualization convention | — |
 
 ---
@@ -47,6 +49,15 @@ Flat catalog of every cross-repo path cited in the L3 corpus. Sibling repos evol
 | `AVE-Protein/src/ave_protein/engines/s11_fold_engine_v4_ymatrix.py:543` | doc 68_ §4 | — | — |
 | `AVE-Protein/src/ave_protein/regime_2_nonlinear/protein_fold.py:260-326` | doc 72_ §3 (TDI canonical) | E-051 | — |
 | `AVE-VirtualMedia/scripts/generate_reflection_profile.py` | doc 72_ §4.1 (three-regime Γ visualization convention) | E-051 | — |
+| `AVE-QED/manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` | doc 109 §13-§15 + E-094 + A-026/A-027/A-028 (canonical substrate vocabulary; substrate-observability rule; three substrate invariants formal definitions) | E-094, E-096, E-101 | 2026-05-14 (`ce34645`) |
+| `AVE-QED/manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` | doc 109 §13 multi-scale boundary network; A-026 same-mechanism-at-all-scales claim | E-094 | 2026-05-14 (commit `a9dd860` App F canonization + diagrams already in place) |
+| `AVE-QED/manuscript/vol_qed_replacement/appendices/A_foundations.tex` L194-215 | doc 114 §1.2 (extended 3-column Rosetta-stone with substrate-native column) | E-094 | 2026-05-14 (`ce34645`) |
+| `AVE-QED/docs/glossary.md` §5m | doc 109 §13 + E-094 (14-row × 3-column substrate-native/EE/ME vocab table; three-invariants canonical names table) | E-094 | 2026-05-14 (`ce34645`) |
+| `AVE-QED/docs/analysis/2026-05-14_three_substrate_invariants_matrix.md` | A-028 + Grant Q1 closure (canonical names matrix with cross-scale + cross-projection tables) | E-094, E-101 | 2026-05-14 (`c30c351`) |
+| `AVE-QED/docs/analysis/2026-05-14_universal_substrate_vocabulary_refactor_plan.md` | doc 114 §1.2 (refactor plan canonized in AVE-QED) | E-094 | 2026-05-14 (`47dcc7e`) |
+| `AVE-QED/scripts/g2_research/` | Q-G19α Route B 50 ppm to PDG closure (canonical empirical record per doc 114 §2 status table) | A-001 (α-as-calibration upstream of Q-factor identity) | 2026-05-14 (canonical empirical) |
+| `AVE-Bench-VacuumMirror/docs/2026-05-14_bench_signal_predictions_summary.md` | doc 114 §7 bench preparation (procurement-mature state for 1517 pitch); D10 IM3 cubic slope 2.956; cost model $45-55k median | E-097 (two-engine architecture, K4-TLM is bench-validated engine) | 2026-05-14 (procurement-mature) |
+| `AVE-Bench-VacuumMirror/...` (K4-TLM IM3 slope 2.956 bench validation, commit `0599a10`) | doc 110 §1 K4-TLM canonical-engine cross-corroboration; doc 114 §1.3 cross-repo state | E-097, E-100 | 2026-05-14 (`0599a10`) |
 
 ---
 

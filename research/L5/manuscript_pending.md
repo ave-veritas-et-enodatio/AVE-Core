@@ -41,6 +41,25 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Action:** wherever Ax 4 is presented (currently constitutive form `C_eff(Δφ) = C_0/√(1−(Δφ/α)²)` per [01_fundamental_axioms.tex:68-74](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L68-L74)), add a parallel "flux-density ceiling" framing: A²=1 means every bond at maximum Φ_link, no more flux lines fit, topology must rearrange. Both framings are physically identical (constitutive singularity = elastic response diverges; flux-density ceiling = flux counting maxes out). The ceiling framing makes Ax 4 countable and engineering-intuitive. Engine math unchanged. (Flag 66-G — defer to Vol 1 revision pass.)
   - **Status:** queued
   - **Cross-refs:** —
+
+- **[E-094] Substrate-native vocabulary discipline — AVE-QED App G propagation to AVE-Core**
+  - **Sources:** [AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex`](../../../AVE-QED/manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex) (`ce34645`, 2026-05-14); [AVE-QED `docs/glossary.md` §5m](../../../AVE-QED/docs/glossary.md) (`ce34645`, 2026-05-14); [AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md`](../../../AVE-QED/docs/analysis/2026-05-14_three_substrate_invariants_matrix.md) (`c30c351`, 2026-05-14); [doc 109_ §13-§15 boundary-envelope reformulation](../L3_electron_soliton/109_elastic_substrate_finite_strain_investigation.md) (`ad90c87`, 2026-05-14, Grant-confirmed canonical)
+  - **Action:** AVE-QED canonized the substrate-native vocabulary in App G (~340 lines) + glossary §5m. The three substrate invariants $\mathcal{M}$ (integrated strain integral), $\mathcal{Q}$ (boundary linking number), $\mathcal{J}$ (boundary winding number) are the canonical names (Grant-locked 2026-05-14 evening, Q1 closure). The substrate-observability rule (substrate observes boundary, not interior) is canonical (doc 109 §13 Grant-confirmed). Propagation needed to AVE-Core: **(1) Vol 1 Ch 1** (Axioms) add substrate-vocabulary box near Ax 1 statement; **(2) Vol 1 Ch 4** (Continuum EM) reference App G near eq:master_wave; **(3) Vol 2 Ch 1** (Topological Matter) cross-ref at "rest mass is contained reactance" canonical statement L35 with $\mathcal{M} = T_{EM}\,\ell_{\text{node}}$ identity; **(4) Vol 3 Ch 2** (GR) substrate-observability rule cross-reference at L35-43 with $\mathcal{M} \to M_{ADM}$ projection mapping; **(5) Vol 4 Ch 1** extend the existing Rosetta-stone (source for AVE-QED `A_foundations.tex`) to 3-column form (substrate-native / EE / ME); **(6) `docs/glossary.md`** (if exists; else create) mirror AVE-QED §5m; **(7) `src/ave/core/constants.py` module docstring** add cross-reference to App G. ~5-8 hours focused authoring. Mostly additive (no destructive rewrites).
+  - **Status:** queued (HIGH PRIORITY — load-bearing for substrate-native discipline going forward)
+  - **Cross-refs:** E-085 (Vol 4 Ch 1 Virial sum already canonical), A-026 (substrate-observability rule), A-028 (three substrate invariants); doc 109 §13 (Grant-confirmed canonical)
+
+- **[E-096] Boundary-envelope reformulation — substrate observes boundary not interior (Grant-confirmed canonical)**
+  - **Sources:** [doc 109_ §13-§15](../L3_electron_soliton/109_elastic_substrate_finite_strain_investigation.md) (`ad90c87`, 2026-05-14, Grant-confirmed canonical); [doc 92 Nyquist wall reframe](../L3_electron_soliton/92_round_11_vi_v10_finer_sampling_structural.md) (now reframed: measured wrong observable per substrate-observability rule)
+  - **Action:** Vol 1 Ch 7 (Regime Map) and Vol 1 Ch 4 (Continuum EM) need the boundary-envelope reformulation as a canonical principle: **the lattice doesn't need to support the smallest flux tube; it needs to support the smallest envelope containing that flux tube.** Doc 92's Nyquist wall ($k = 6.36/\ell_{\text{node}}$ vs K4 Nyquist 0.577) measured an interior observable that is not substrate-visible — the substrate only sees the boundary envelope's three invariants. Same mechanism at BH (Schwarzschild) and electron (horn-torus tube wall): "You can resolve what's in a black hole? Why could you resolve what's in an electron's envelope/boundary?" (Grant 2026-05-14). Reframing un-blocks lattice scale: ℓ_node sets envelope scale (~10⁻¹³ m for electron), not interior eigenmode wavelength (~10⁻¹⁴ m). Engine consequence: subsequent simulations target boundary envelope on the lattice, not interior structure.
+  - **Status:** queued (Grant-confirmed canonical — HIGH PRIORITY)
+  - **Cross-refs:** E-094 (substrate-vocabulary), A-026 (substrate-observability rule axiom-status)
+
+- **[E-098] Cubic K4 anisotropy at saturation collapse — empirically observable substrate-symmetry**
+  - **Sources:** [doc 114_ §1.1 + §1.5](../L3_electron_soliton/114_next_steps_consolidation_plan.md) (`fd19914`, 2026-05-14); [src/scripts/vol_1_foundations/r10_master_equation_v14_anisotropy.py](../../src/scripts/vol_1_foundations/r10_master_equation_v14_anisotropy.py) (commit `160498d`, 2026-05-14); empirical artifact `assets/sim_outputs/v14_collapse_cubic_emergence.png` (gitignored, regenerable)
+  - **Action:** Vol 1 Ch 1 (Axioms) or Vol 1 Ch 6 (Universal Operators) — add a brief empirical-observation note: at low-amplitude saturation collapse on Master Equation FDTD, the breathing soliton's collapse is **visibly cubic** (Pearson(V_peak, asphericity) = −0.191; collapse axis/diagonal ratio 1.089 cubic, vs 0.937 spherical at high-phase). The substrate's intrinsic K4 tetrahedral symmetry — which Axiom 1 declares but which past simulations didn't make visually evident — is empirically observable in the FDTD time-domain evolution. Cubic symmetry emerges naturally from the K4 bipartite lattice's 4-port topology. Reframes K4 substrate from "an abstract topological structure" to "a substrate whose intrinsic symmetry is empirically visible in dynamics."
+  - **Status:** queued
+  - **Cross-refs:** E-095 (Master Equation FDTD engine), E-097 (two-engine architecture)
+
 ### Ch 2 — Macroscopic Moduli (`02_macroscopic_moduli.tex`)
 ### Ch 3 — Quantum and Signal Dynamics (`03_quantum_and_signal_dynamics.tex`)
 
@@ -56,6 +75,13 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Action:** Vol 1 Ch 4 (continuum EM) and any Ch 6 universal-operators-photon discussion currently lacks an explicit identification of the K4-TLM photon mode. Per doc 30_: the photon for +x̂ propagation is the **linear T₂ mode T_a** (port amplitudes (+1,-1,+1,-1)), NOT a circular mode. Has direct implications for engine source design (`PlaneSource`, `AutoresonantCWSource`). Add a manuscript box identifying the photon's K4-TLM port-amplitude pattern + the electron-photon duality mechanism (doc 30_ §3-§5). Cross-ref to engine [`vacuum_engine.py photon_propagation` source classes](../../src/ave/topological/vacuum_engine.py).
   - **Status:** queued
   - **Cross-refs:** E-045
+
+- **[E-095] Master Equation FDTD engine — canonical bound-state regime engine, v14 Mode I PASS empirical**
+  - **Sources:** [doc 111_](../L3_electron_soliton/111_master_equation_audit_and_engine_gap.md) (`3815158`, 2026-05-14, audit identifying c_eff(V) gap in K4-TLM-only architecture); [doc 112_](../L3_electron_soliton/112_master_equation_fdtd_first_iteration.md) (`6a40610`, 2026-05-14, Path B first iteration); [doc 113_ §0-§4](../L3_electron_soliton/113_v14_closure_master_equation_fdtd_mode_I.md) (`345d55d`, 2026-05-14, Mode I PASS canonical closure on breathing-soliton criterion); [Vol 1 Ch 4 eq:master_wave:L73](../../manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex#L73) (canonical equation); [src/ave/core/master_equation_fdtd.py](../../src/ave/core/master_equation_fdtd.py) (canonical engine module)
+  - **Action:** Vol 1 Ch 4's canonical Master Equation $\nabla^2 V - \mu_0\varepsilon_0 \sqrt{1-(V/V_{\text{yield}})^2}\,\partial_t^2 V = 0$ (eq:master_wave, line 73) now has a canonical FDTD engine in `src/ave/core/master_equation_fdtd.py`. Add a manuscript reference near eq:master_wave: (a) cite the engine module as the canonical numerical realization; (b) cite doc 113_ as the empirical v14 Mode I PASS validation (breathing-soliton on K4 substrate, 4/4 on breathing-soliton-appropriate criterion); (c) note the two-engine architecture (see E-097). Engine implements leapfrog on eq:master_wave with $c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$ and saturation kernel $S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical form). PML radiation absorber + native-units mode + SI-units mode. ~9.7KB module, currently passing smoke tests + import-test on merged research branch.
+  - **Status:** queued
+  - **Cross-refs:** E-097 (two-engine architecture), E-099 (engine-side canonical entry), A-027 (axiom-status entry for two-engine architecture)
+
 ### Ch 5 — Universal Spatial Tension (`05_universal_spatial_tension.tex`)
 ### Ch 6 — Universal Operators (`06_universal_operators.tex`)
 
@@ -64,6 +90,13 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Action:** when Vol 1 Ch 6 (or Ch 7 regime map) discusses the K4-TLM dispersion relation, add a footnote/note: cardinal-axis signal speed in K4-TLM is `c·√2`, not `c`. The factor √2 reflects the tetrahedral port-vector geometry (each step propagates one bond-length per timestep, but the bond projects onto cardinal x at length 1/√2 per port). This is engine-fundamental: CFL timestep is `dt = ℓ_node/(c·√2)`. Easy reader-misread without the note. Connects to E-046 (mass-gap correction also tied to natural-units scaling).
   - **Status:** queued
   - **Cross-refs:** E-046
+
+- **[E-097] Two-engine architecture canonical — K4-TLM (sub-saturation bench) + Master Equation FDTD (bound-state)**
+  - **Sources:** [doc 111_ §3-§4](../L3_electron_soliton/111_master_equation_audit_and_engine_gap.md) (`3815158`, 2026-05-14, audit identifying c_eff(V) gap in K4-TLM); [doc 113_ §3.2](../L3_electron_soliton/113_v14_closure_master_equation_fdtd_mode_I.md) (`345d55d`, 2026-05-14, two-engine architecture canonical statement); [src/ave/core/k4_tlm.py](../../src/ave/core/k4_tlm.py) (K4-TLM canonical engine — sub-saturation bench regime); [src/ave/core/master_equation_fdtd.py](../../src/ave/core/master_equation_fdtd.py) (Master Equation FDTD canonical engine — bound-state regime)
+  - **Action:** add a "regime-map" subsection (Vol 1 Ch 6 universal operators or Vol 1 Ch 7 regime map) declaring the canonical two-engine architecture: **K4-TLM hosts the sub-saturation bench regime** (linear response, weakly nonlinear up to V_yield onset, op3_bond_reflection for memristive Op14 dynamics); **Master Equation FDTD hosts the bound-state regime** (A → 1 saturation, c_eff(V) modulation, breathing soliton solutions). Both are Axiom-1/2/3/4 compliant; they cover different operating regimes. K4-TLM is the bench-validated engine (D10 IM3 cubic V³, slope 2.956 vs target 3.0 — AVE-Bench-VM `0599a10`). Master Equation FDTD is the bound-state engine (v14 Mode I PASS on breathing-soliton criterion, 4/4 — doc 113). The pre-2026-05-14 architecture (K4-TLM + Cosserat coupling for everything) is superseded; Cosserat coupling on Master Equation FDTD is deferred (doc 113 §5.4) but not load-bearing.
+  - **Status:** queued
+  - **Cross-refs:** E-095 (Master Eq FDTD canonical engine), E-099 (engine-side canonical entry), A-027 (axiom-status entry for two-engine architecture)
+
 ### Ch 7 — Regime Map (`07_regime_map.tex`)
 
 - **[E-043] V_YIELD = 1 in lattice natural units — explicit annotation**
@@ -397,4 +430,4 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
 
 ---
 
-**Next free entry ID:** E-090
+**Next free entry ID:** E-102 (post-2026-05-14 sweep — E-094 through E-098 added for substrate-vocab + Master Eq FDTD + boundary-envelope + two-engine arch + cubic anisotropy; E-099 through E-101 used in engine_pending.md)

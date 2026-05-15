@@ -2,15 +2,72 @@
 
 **Purpose.** Single source of truth for translating common physics terms (SM / QFT / CondMat / cosmology / standard EE) into their AVE-native equivalents. Prevents framework leakage: terms like "Kibble-Zurek", "Meissner effect", "Hopfion" import their parent framework's conceptual baggage if used unreflectively in AVE derivations.
 
+**Last comprehensive sweep:** 2026-05-14. **Upstream canonical:** AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` (App G) + `docs/glossary.md` §5m. All entries below have been audited for compatibility with App G's substrate-native vocabulary. Where this file uses older language ("vacuum" instead of "substrate", "field" instead of "state"), the projection is harmless if the row's mapping target is unambiguous; the substrate-native default is documented in §0 below.
+
 **Rules of use:**
 1. In a derivation, use the AVE-native term throughout.
 2. When citing an SM/QFT analog, use "[AVE term] (analogous to [SM term])" — only in comparison paragraphs, never in the derivation chain.
 3. Never import functional forms from the SM/QFT concept (e.g., do not assume Kibble-Zurek scaling until the AVE-native derivation has produced its own scaling; only compare at the end).
 4. When a mapping is missing, STOP — either find the AVE-native equivalent or flag to Grant for adjudication. Do not paper over.
+5. **Default to substrate-native vocabulary** (per §0 / App G). Name the projection (EE / ME) explicitly when the math is committed to an observation frame.
 
 **Marker conventions:**
 - **(CREEPER)** — a phrase that recurs in prior agents' framing despite being incorrect; treat as a red flag when seen.
 - **(IMPORTED)** — a result/concept currently used in AVE that is not yet axiom-derived; candidate for derivation work.
+- **(SUBSTRATE-NATIVE)** — term carries no projection-frame baggage; usable in any context.
+
+---
+
+## §0 — Substrate-native vocabulary (canonical, 2026-05-14, AVE-QED App G)
+
+The substrate is a wave-supporting topological network. Every observable physical quantity is a relational integral over a boundary or between boundaries (substrate-observability rule). No quantity is intrinsic to "matter"; every quantity is Machian. **Default to these terms when writing about substrate dynamics without committing to an observation-frame projection.**
+
+| Substrate-native | EE projection | ME projection | Use when |
+|---|---|---|---|
+| **Substrate** | (vacuum / EM field) | (spacetime / elastic medium) | Default. Reserve EE/ME for when probe is specific. |
+| **Node** | (circuit node) | (lattice point) | Default. The K4 4-port tetrahedral active site. |
+| **Bond** | Transmission line | Spring | Default. Inter-node connection carrying state. |
+| **State** | Voltage / V_inc | Force / displacement | Default. Oriented propagating quantity on a bond. |
+| **Propagation** | Current flow | (no clean analog) | Default. How state evolves between nodes. |
+| **Impedance** $Z$ | already universal | already universal | Use freely. |
+| **Saturation kernel** $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. |
+| **Boundary** | (charged surface) | (yield surface) | Default. Localized region where $\Gamma \to -1$. NOT "particle" or "horizon" — those are projections. |
+| **Envelope** | (wavefunction support) | (zone of influence) | Default. What the substrate **actually sees**, per substrate-observability rule. |
+| **Linking** $\mathcal{Q}$ | charge $Q$ | (no clean analog) | Use universal substrate; project to $Q$ for standard physics. Integer per boundary. |
+| **Winding** $\mathcal{J}$ | spin $J$ / mag.~moment | rotation | Use universal substrate; project for QFT / ME. Half-integer per SU(2) double-cover. |
+| **Integrated strain integral** $\mathcal{M}$ | inductance $L$ / inertia (kg) | inertia | Use universal substrate. The mass-equivalent boundary observable. |
+| **Strain** $A$ | voltage gradient | already universal | Default: substrate. Local deviation from equilibrium. |
+| **Machian** | (no clean analog) | (no clean analog) | Use freely. A boundary's relational property w.r.t. the rest of the substrate. |
+| **Kernel** | (no clean analog) | (no clean analog) | Use freely; Axiom 4 canonical operator. |
+
+### Three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ (Grant-locked 2026-05-14 evening, AVE-QED Q1 closure)
+
+| Symbol | Canonical name | Operational definition |
+|---|---|---|
+| $\mathcal{M}$ | Integrated strain integral | $\int_\Omega (n(\mathbf{r}) - 1)\,dV$; mass quantum $\hbar/(\ell_{\text{node}} c)$ |
+| $\mathcal{Q}$ | Boundary linking number | $\mathrm{Link}(\partial\Omega, \mathbf{F}_{\text{substrate}}) \in \mathbb{Z}$ |
+| $\mathcal{J}$ | Boundary winding number | $\mathrm{Wind}(\partial\Omega)$; half-integer per SU(2) double-cover |
+
+**These are the only three integrated invariants the substrate observes at any local $\Gamma = -1$ boundary.** No-hair theorem applied at every scale — same mechanism at BH horizon and electron horn-torus tube wall (Vol 3 Ch 2:43; App F multi-scale Machian network).
+
+### Substrate-observability rule (canonical, doc 109 §13 + AVE-QED App G §3)
+
+The substrate observes a boundary, not its interior. For any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$:
+
+1. The boundary is an impedance-mismatch surface; substrate waves are totally reflected (outside) or totally trapped (inside).
+2. The interior is causally / impedance-disconnected from the substrate. Only the three integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are visible externally.
+3. The interior structure (topology, eigenmode wavelength, microrotation profile) is invisible to the substrate.
+4. **Same mechanism at all scales** (App F): Schwarzschild horizon $r_s = 2GM/c^2$ is structurally identical to horn-torus tube wall at $\ell_{\text{node}}/(2\pi)$.
+
+**Operational consequence:** a substrate-native simulation does NOT need to resolve interior eigenmode wavelengths. Only the boundary envelope plus its three integrated observables need to be resolvable on the lattice. The pre-2026-05-14 framing (forcing multi-cell propagating-eigenmode tests on what is canonically a single-cell bounded boundary object) was a misframing. Doc 92 Nyquist wall ($k = 6.36/\ell_{\text{node}}$) measured an interior observable that is not substrate-visible.
+
+### Cross-references
+
+- **Upstream canonical:** AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` (full 7-section appendix)
+- **Upstream glossary:** AVE-QED `docs/glossary.md` §5m
+- **Grant adjudication:** AVE-Core `research/L3_electron_soliton/109_elastic_substrate_finite_strain_investigation.md` §13 (boundary-envelope reformulation, Grant-confirmed canonical)
+- **Multi-scale extension:** AVE-QED `manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` (electron / nucleus / atom / helio / BH / cosmic boundaries)
+- **Three substrate invariants matrix:** AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md`
 
 ---
 
