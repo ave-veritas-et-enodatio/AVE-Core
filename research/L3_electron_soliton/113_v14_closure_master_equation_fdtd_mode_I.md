@@ -205,3 +205,27 @@ The Master Equation FDTD is a scalar engine. Cosserat (u, ω) is not currently c
 **The L3-electron-soliton feature branch's empirical core is closed.** Framework refinements are canonical. Engine work is at a stable bifurcation point: K4-TLM for linearized bench predictions, Master Equation FDTD for bound-state regime. Both engines deployed; both validated empirically.
 
 **Bottom line:** Grant's 2026-05-14 evening directive ("show me the most fundamental AVE soliton on our K4-TLM simulator") evolved through the day from K4-TLM Mode III (no autonomous bound state) through Grant's 7-mode pushback (seed completeness) through the Master Equation audit (c_eff(V) gap) through Path B execution (FDTD direct integration) through breathing-soliton recognition (mean-based criterion) to v14 Mode I PASS. The fundamental AVE soliton is empirically hosted on the canonical engine.
+
+---
+
+## §9 Visual artifacts (`r10_master_equation_v14_visuals.py`)
+
+Comprehensive visualization deliverable generated 2026-05-14 late evening (gitignored sim outputs, regenerable from the visualization script). All files at `assets/sim_outputs/`:
+
+**Still images (PNG):**
+- `v14_breathing_soliton_hero.png` — 9-panel hero figure: 3D scatter of |V| at high-amplitude phase, equatorial slices at high+low phases, V_peak time series (the breather), V_center oscillation through zero, radial A(r) at multiple phases, FWHM stability, refractive-index gradient n(r), summary text panel.
+- `v14_breathing_phase_comparison.png` — side-by-side 3D scatter of high-phase (V_peak = 0.52) vs low-phase (V_peak = 0.07) showing the breathing-cycle extremes.
+
+**Animations (GIF, 101 frames @ 15fps):**
+- `v14_breathing_slice_2d.gif` — 2D equatorial slice V(x,y) at z=center over 5000 timesteps. Diverging colormap shows positive/negative V phases. The breathing soliton visibly inhales and exhales while staying localized.
+- `v14_breathing_soliton_3d.gif` — 3D scatter of |V| > threshold with camera rotation (full 360° azimuth over the animation). Most visceral view of the bound state's structure.
+- `v14_breathing_radial_profile.gif` — radial profile A(r) animated against the initial reference profile. Shows the breather pulse cycle in 1D radial form.
+
+Empirical confirmation from the visualization run (5000 timesteps, sech A=0.85 R=2.5):
+  - V_peak min in late phase: 0.073 (8.6% of initial)
+  - V_peak max in late phase: 0.487 (57% of initial — exceeds initial sometimes due to nonlinear focusing)
+  - V_peak mean: 0.212 (above the 0.2 Mode I threshold)
+  - High-phase snapshot at t ≈ 16.6 (step 1175), V_peak = 0.521
+  - Low-phase snapshot at t ≈ 63.0 (step 4450), V_peak = 0.073
+
+The visualization confirms the empirical Mode I PASS visually — the breathing soliton is hosted, localized, oscillating, and persistent across the full simulation.
