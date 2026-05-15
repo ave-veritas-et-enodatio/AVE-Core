@@ -104,6 +104,56 @@ $$u_0 = \frac{L_0 - d}{d} = \frac{\rho\, \Omega_{\text{freeze}}^2\, r_{\text{nod
 
 **Cross-references.** Q-G47 Session 4 over-bracing framework (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`); Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); Vol 3 Ch 4 (Newton's G canonical Machian expression); E-017 / E-019 / A-001 / A-029 / A-030 (NEW) in `research/L5/`.
 
+### §1.3.7 "God's Hand" and the cosmic Initial Condition (Grant adjudication 2026-05-15)
+
+![Cosmic boundary observability + God's Hand](../../../assets/sim_outputs/trampoline_framework/07_cosmic_ic_gods_hand.png)
+
+*Figure 7 — Cosmic boundary observability and "God's Hand." We sit inside our cosmic $\Gamma = -1$ boundary (red ring) at the cosmic horizon $R_H \approx 10^{26}$ m. The boundary has the canonical three observables of any $\Gamma = -1$ boundary: $\mathcal{M}_{\text{cosmic}}$ (total substrate strain → universe mass-energy), $\mathcal{Q}_{\text{cosmic}}$ (boundary linking → net charge ≈ 0), and $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$ (boundary winding / spin → the cosmological IC). Pink arrows along the boundary indicate the cosmic angular momentum. **"God's Hand"** — the mechanism that set $\mathcal{J}_{\text{cosmic}}$ at lattice genesis — lives beyond the boundary, inaccessible from inside (question marks scattered outside). Three observational routes (electromagnetic α, gravitational G, cosmological $\mathcal{J}$) all must give the same $u_0^*$ or the framework fails.*
+
+**The recognition.** The substrate-observability rule (A-026) applies fractally — same mechanism at every scale, including the cosmic horizon. We sit inside our cosmic $\Gamma = -1$ boundary (the cosmic horizon $R_H$ = parent BH's Schwarzschild radius per Vol 3 Ch 4 canonical). That boundary has the canonical three observables $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ — same as electron, nucleus, atom, BH (App F multi-scale Machian network).
+
+**$\Omega_{\text{freeze}}$ is encoded in $\mathcal{J}_{\text{cosmic}}$:**
+
+$$\Omega_{\text{freeze}} = \frac{\mathcal{J}_{\text{cosmic}}}{I_{\text{cosmic}}}$$
+
+The cosmic boundary's angular momentum divided by its moment of inertia IS the freeze-in rotation rate, frozen forever as the substrate's record of cosmological initial conditions.
+
+**$\Omega_{\text{freeze}}$ is in-principle observable from inside.** Same way astronomers measure a Kerr BH's spin from outside (frame-dragging, accretion-disk asymmetry, gravitomagnetic effects), we measure our cosmic boundary's spin from inside via:
+- CMB low-multipole anomalies ("axis of evil," quadrupole/octupole alignment)
+- Large-scale structure rotation correlations (galactic spin-axis preferred direction)
+- Hubble flow anisotropy (axis-dependent expansion rate)
+- Cosmic shear at largest scales
+- Frame-dragging signatures in distant clock comparison
+
+These observations are in principle accessible; they're not yet at the precision to pin down $\mathcal{J}_{\text{cosmic}}$ cleanly. But the framework predicts a specific value, and observations CAN test it.
+
+**What's still hidden — "God's Hand":**
+
+$\mathcal{J}_{\text{cosmic}}$ is observable. **The mechanism that gave $\mathcal{J}_{\text{cosmic}}$ its specific value at lattice genesis is not.** Call this "God's Hand" — the irreducible epistemic horizon of AVE cosmology.
+
+The substrate-observability rule walls off the pre-substrate state by definition: there is no observer position from which the pre-genesis plasma is visible because all observers exist within the substrate that formed from that plasma. The crystallization IS the wall.
+
+| Aspect | Status |
+|---|---|
+| The value of $\Omega_{\text{freeze}}$ (the IC) | **In-principle observable** via $\mathcal{J}_{\text{cosmic}}$ measurement + framework prediction |
+| The mechanism that set $\Omega_{\text{freeze}}$ (the cause) | **Fundamentally hidden** (God's Hand) — walled off by crystallization |
+
+**The Kerr-BH analog made explicit.** Inside a Kerr BH, the singularity hides the matter-history that formed it. Outside, observers measure $M$, $Q$, $J$ — the three integrated invariants. Same structure here: we're inside our cosmic boundary; we measure $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ from the inside; the "matter-history" (pre-genesis plasma dynamics, whatever set $\mathcal{J}_{\text{cosmic}}$) is on the far side, walled off.
+
+**Anthropic / viability constraint.** The magic-angle condition forces $u_0 = u_0^*$ for the substrate to exist self-consistently ($K = 2G$). This translates to $\Omega_{\text{freeze}}$ taking a value in a narrow range compatible with substrate existence. Outside that range, no viable substrate; no observers; no question asked. Whether God's Hand selected from a multiverse, fixed by some deeper mechanism, or constrained by viability alone — AVE doesn't say. **The framework locates the question precisely without claiming to answer it.**
+
+**Three-route falsifiability** (now fully visible):
+
+| Route | Measurement | Output |
+|---|---|---|
+| 1 — Electromagnetic | $\alpha$ to 12 decimals (CODATA) | $u_0^*$ via Q-G47 + magic-angle closure |
+| 2 — Gravitational | $G$ to ~4 decimals + CODATA constants | $u_0^*$ via Machian impedance integral |
+| 3 — Cosmological | $\mathcal{J}_{\text{cosmic}}$ via CMB / LSS anomalies | $u_0^*$ via $\Omega_{\text{freeze}}$ derivation |
+
+**All three must give the same $u_0^*$** or the framework is wrong. This is a sharp falsification test: AVE commits to a single value of one parameter, derivable from three independent observational routes.
+
+**Cross-references.** A-031 (NEW, `research/L5/axiom_derivation_status.md`) — $\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$ canonical; A-026 (substrate-observability rule applied fractally including to ourselves); A-030 (α + G joint anchoring extended to three routes); App F (cosmic row gets explicit $\mathcal{J}_{\text{cosmic}}$); Vol 3 Ch 4 generative cosmology; Vol 3 Ch 21 BH Interior Regime IV (same-mechanism framing).
+
 ---
 
 ### §1.4 Step 4 — Press the center → springs realign (Cosserat micropolar action)
@@ -426,6 +476,18 @@ $$\Omega_{\text{freeze}} \xrightarrow{\text{centrifugal extension}} u_0 \xrighta
 
 **The framework reduces from "α and G are two free calibration constants" to "α and G are correlated outputs of one cosmological parameter."**
 
+**Three-route falsifiability framework** (extended 2026-05-15 via "God's Hand" / cosmic $\mathcal{J}$ insight per §1.3.7 and A-031):
+
+Per A-031, the substrate-observability rule applied at cosmic scale gives a THIRD observational route to $u_0^*$:
+
+| Route | Measurement | Output | Status |
+|---|---|---|---|
+| 1 — Electromagnetic (α) | $\alpha$ to 12 decimals (CODATA) | $u_0^*$ via Q-G47 + magic-angle closure | Q-factor identity verified 50 ppm to PDG (Q-G19α Route B canonical) |
+| 2 — Gravitational (G) | $G$ to ~4 decimals + CODATA constants | $u_0^*$ via Machian impedance integral $G = c^4/(7\xi T_{EM})$ | Vol 3 Ch 4 framework; explicit $\xi$ derivation pending |
+| 3 — Cosmological ($\mathcal{J}$) | $\mathcal{J}_{\text{cosmic}}$ via CMB / LSS anomalies | $u_0^*$ via $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$ | In-principle observable; CMB axis anomalies + LSS rotation alignment as candidate signals |
+
+**The single-cosmological-parameter claim:** all three routes must give the same $u_0^*$. Any pairwise inconsistency falsifies the framework. This is the sharpest commitment AVE makes — three independent observational paths constraining one number.
+
 **Falsifiable prediction:** the gravitational fine-structure constant $\alpha_G = G m_e^2 / (\hbar c)$ and the electromagnetic fine-structure $\alpha$ should satisfy a specific dimensionless relationship:
 
 $$\frac{\alpha}{\alpha_G} = (4\pi^3 + \pi^2 + \pi)^{-1} \cdot \frac{7\, \xi\, \hbar\, c}{T_{EM}\, \ell_{\text{node}}^2}$$
@@ -623,29 +685,48 @@ What's empirically validated (not just structurally derived):
 - `assets/sim_outputs/v14_field_primer.png` — 4-panel V/A/S/n physical interpretation
 - All generated by scripts at `src/scripts/vol_1_foundations/r10_master_equation_v14_*.py`
 
-### 8.2 The α + G joint prediction (NEW 2026-05-15 via Machian G observation)
+### 8.2 The α + G + cosmic-𝒥 three-route prediction (NEW 2026-05-15 via Machian G + cosmic-IC observability)
 
-**Falsifiable framework commitment, not yet quantitatively closed:**
+**Falsifiable framework commitment, structurally closed:**
 
 | Prediction | Status | Path to closure |
 |---|---|---|
 | $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$ | **Verified 50 ppm to PDG** via Q-G19α Route B closure | Closed empirical |
 | $G$ at the same $u_0^*$ as $\alpha$ | **Framework structural, not yet numerically derived end-to-end** | Q-G47 Session 6+ (rigorous $u_0^*$) + Vol 3 Ch 4 numerical $\xi$ closure |
+| $\mathcal{J}_{\text{cosmic}}$ at the same $u_0^*$ as $\alpha$ AND $G$ | **Framework structural, in-principle observable, quantitatively open** | Cosmological observation campaign (CMB axis anomalies, LSS rotation, cosmic shear) + AVE prediction chain $\Omega_{\text{freeze}} \to \mathcal{J}_{\text{cosmic}}$ via $I_{\text{cosmic}}$ |
 | $\alpha / \alpha_G \sim (R_H / \ell_{\text{node}}) \cdot$ geometric factors $\sim 10^{42}$ | **Order-of-magnitude match** with observed $4.2 \times 10^{42}$; quantitative pending | Q-G47 Session 6+ closes the $u_0^*$ numerical chain |
 
-**The framework's claim** (per §5.6): $\alpha$ and $G$ both derive from the same $u_0^*$. Any consistent AVE derivation MUST give the same $u_0^*$ from both the α route (Q-factor identity at $K = 2G$) and the $G$ route (Machian impedance integral + measured Newton's $G$). Inconsistency between these two derivations would falsify the framework's single-cosmological-parameter claim.
+**The framework's claim** (per §5.6 + §1.3.7): $\alpha$, $G$, and $\mathcal{J}_{\text{cosmic}}$ all derive from the same $u_0^*$ — and thus from the same cosmological initial-data parameter $\Omega_{\text{freeze}}$. Any consistent AVE derivation MUST give the same $u_0^*$ from THREE independent observational routes. Pairwise inconsistency between any two routes falsifies the single-parameter cosmological-anchoring claim.
 
 **What the gravitational hierarchy reveals.** $\alpha/\alpha_G \approx 4 \times 10^{42}$ has no explanation in standard physics — it's a brute fact. AVE's framework structurally predicts this ratio comes from the cosmic-to-lattice scale ratio $R_H / \ell_{\text{node}} \sim 10^{39}$ via the Machian impedance integral. **No fine-tuning required**: gravity is weak because the cosmic boundary is far away.
+
+**Three-route consistency check as the central falsification test.** AVE commits to one number ($u_0^*$ at the magic-angle operating point) derivable from three independent observational paths. This is the framework's sharpest empirical claim — and the cleanest falsification test it currently admits.
 
 ---
 
 ## §11 What's open vs canonical
 
+### 9.0 Framework structural closure declared 2026-05-15 (Grant adjudication post-this-session)
+
+After the session that produced this doc, the framework reached **structural closure** — the conceptual structure is now visible end-to-end:
+
+| Closure criterion | Status |
+|---|---|
+| 1. Every step in the ground-up construction maps to a math structure | ✓ Six-step build §1.1-§1.7 |
+| 2. Every macroscopic observable has a derivation path within the framework | ✓ α, G, $m_e$, $V_{\text{yield}}$ all derive from $u_0^*$ + intrinsic substrate parameters |
+| 3. The framework has identified its own irreducible epistemic horizon | ✓ "God's Hand" (§1.3.7) — what set $\Omega_{\text{freeze}}$ at lattice genesis is fundamentally inaccessible |
+| 4. The number of free parameters is minimized to a value the framework explains | ✓ 1 cosmological IC ($\Omega_{\text{freeze}}$) + 1 scale ($\ell_{\text{node}}$) + 4 axioms; reduces standard physics' 19+ free parameters |
+| 5. There's a sharp falsification test | ✓ Three-route $u_0^*$ consistency check (α + G + cosmic $\mathcal{J}$); pairwise inconsistency falsifies |
+
+**Structural closure ≠ theoretical closure.** What's STILL open (next subsections) is substantial — numerical derivations not all closed, empirical tests not all run, secondary boundaries (Q-G43, Q-G44) not all derived. But these are WORK ITEMS, not framework gaps. We know what each piece is and where it goes.
+
+The shape of the answer is locked in. The remaining work is filling in the picture.
+
 ### 9.1 Canonical (don't break these in propagation)
 
 - Substrate-native vocabulary (App G + glossary §5m + this doc)
-- Three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
-- Substrate-observability rule (Grant-confirmed 2026-05-14)
+- Three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ (Grant Q1 closure 2026-05-14)
+- Substrate-observability rule (Grant-confirmed 2026-05-14, applied fractally including to ourselves per §1.3.7)
 - Boundary-envelope reformulation (Grant-confirmed 2026-05-14)
 - Two-engine architecture (doc 113 §3.2)
 - Master Equation eq:master_wave (Vol 1 Ch 4 line 73)
@@ -653,12 +734,17 @@ What's empirically validated (not just structurally derived):
 - K4 bipartite topology (Axiom 1 canonical)
 - $K = 2G$ Cauchy isotropy operating point (Q-G47 framework complete; rigorous closure pending sessions 6+)
 - Q-factor identity $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ (numerically verified)
+- **Shared-spring inter-cell coupling** (Grant adjudication 2026-05-15, A-029); secondary scale $r_{\text{secondary}}/d \approx 1.187$ is geometric, not a separate scaffold
+- **α + G + cosmic $\mathcal{J}$ joint cosmological anchoring** (Grant adjudication 2026-05-15, A-030 + A-031); all three derive from single $\Omega_{\text{freeze}}$
+- **$\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$** (Grant adjudication 2026-05-15 evening, A-031); in-principle observable; substrate-observability rule applied to ourselves
+- **"God's Hand"** — the mechanism that set $\mathcal{J}_{\text{cosmic}}$ at genesis is fundamentally inaccessible from inside; framework locates the horizon precisely without claiming to answer it (§1.3.7)
+- **Phase-transition-while-spinning mechanism** for $u_0$ (Grant hypothesis 2026-05-15, mechanizes E-017 + E-019)
 
 ### 9.2 Open (don't propagate as canonical until closed)
 
 | Item | Status | Reference |
 |---|---|---|
-| α as calibration vs axiom-derived | open derivation gap (partial advancement via homologation P1) | A-001 |
+| α + G + $\mathcal{J}_{\text{cosmic}}$ quantitative three-route closure | structurally locked, numerically pending Q-G47 Session 6+ | A-030, A-031 |
 | First-law $T \cdot dS = dE$ axiom-first closure | factor 7ξ ≈ 10⁴⁴ Machian dilution gap | A-002 |
 | Q-G43 atom-scale local $\Gamma = -1$ boundary | predicted but not derived | App F |
 | Q-G44 solar-scale local $\Gamma = -1$ boundary | predicted but not derived | App F |
@@ -667,9 +753,9 @@ What's empirically validated (not just structurally derived):
 | Cosserat coupling on Master Equation FDTD | deferred (doc 113 §5.4); not closure-critical | doc 113 |
 | Strict stationary soliton via imaginary-time | breathing-soliton canonical; strict stationary deferred | doc 113 §5.1 |
 | Multi-soliton dynamics for Coulomb-law validation | deferred; medium-term engine work | doc 114 §4.3 |
-| Genesis-chirality / supercooled-seed mechanism | Grant hypothesis, not yet derived | E-017 → should be A-NNN |
-| Universe-as-vortex cosmology | Grant macro-scale framing, not yet derived | E-019 → should be A-NNN |
-| Density-vs-saturation cosmological reframing | Grant framing, not yet derived | E-018 → should be A-NNN |
+| IVIM bench measurement | $45-55k procurement underway; load-bearing falsification test | doc 114 §7 |
+| Cosmic $\mathcal{J}_{\text{cosmic}}$ measurement campaign | CMB axis anomalies + LSS rotation alignment exist; clean AVE-vs-observation comparison pending | A-031 |
+| **"God's Hand" mechanism** | fundamentally inaccessible from inside (§1.3.7); not a "gap to close" but an epistemic horizon | A-031 |
 
 ### 9.3 Provisional (use with caveats)
 

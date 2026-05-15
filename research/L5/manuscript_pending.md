@@ -181,6 +181,12 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Cross-refs:** E-016
 ### Ch 4 — Generative Cosmology (`04_generative_cosmology.tex` + KB `vol3/cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md`)
 
+- **[E-102] Cosmic $\mathcal{J}_{\text{cosmic}}$ as the cosmological IC — explicit identification (Grant adjudication 2026-05-15 evening)**
+  - **Sources:** **A-031** (`research/L5/axiom_derivation_status.md`, Grant adjudication 2026-05-15 evening); `manuscript/ave-kb/common/trampoline-framework.md` §1.3.7 + §5.6 + §8.2 (canonical "God's Hand" framing + three-route falsifiability); Vol 3 Ch 4 current canonical $G = c^4/(7\xi T_{EM})$; AVE-QED `manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` (multi-scale Machian network — cosmic row)
+  - **Action:** Vol 3 Ch 4 (generative cosmology) currently presents Newton's $G$ as the Machian impedance integral $G = c^4/(7\xi T_{EM})$. Add explicit identification of the cosmic boundary's THIRD invariant: $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$ is the cosmological initial-data parameter, encoding the freeze-in rotation rate at lattice genesis. The substrate-observability rule applies fractally — we sit inside our cosmic $\Gamma=-1$ boundary; we observe $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ from inside; we cannot observe what set them ("God's Hand"). Specifically add: (a) §sec:cosmic_horizon — explicit statement that the cosmic horizon has three integrated observables; (b) §sec:cosmological_origin — universe-as-vortex framing (E-019 MECHANIZED) tying $\mathcal{J}_{\text{cosmic}}$ to the freeze-in vortex; (c) §sec:falsifiability — three-route consistency check ($\alpha$ + $G$ + $\mathcal{J}_{\text{cosmic}}$ must give same $u_0^*$). Cross-ref to trampoline-framework.md §1.3.7 as picture-first reference; cross-ref to A-031 in L5 axiom-derivation-status.
+  - **Status:** queued (high priority — completes Vol 3 Ch 4 structural closure on the cosmic IC)
+  - **Cross-refs:** A-031 (canonical); A-001 (α-as-calibration, sharpened); A-030 (α + G + $\mathcal{J}$ three-route); E-019 (MECHANIZED, manuscript-side companion); E-094 (App G propagation); E-095 (Master Equation FDTD canonical); cross-repo: AVE-QED App F multi-scale Machian network
+
 - **[E-024] Explicit acknowledgment of AVE's 1970s-Hawking info-loss alignment**
   - **Sources:** [doc 63_ §5:L121-L131, Flag 63-B:L161](../L3_electron_soliton/63_info_loss_stance_reaudit.md#L121) (`740b1a3`, 2026-04-24)
   - **Action:** in KB-ch04 `black-holes-impedance-mismatch.md` (the corpus already says "explicitly sides with Hawking's original assessment"), and in Vol 3 Ch 4 / Vol 3 Ch 11 wherever info-loss is discussed, add an explicit publication-level note: AVE's info-loss stance is the 1970s-Hawking position, AGAINST modern QG consensus (post-Maldacena AdS/CFT, Susskind complementarity, Almheiri-Marolf-Polchinski-Sully firewalls, Maldacena-Susskind ER=EPR, post-2019 entanglement islands + Page-curve resolution). This is a load-bearing empirical commitment — observationally distinguishable in principle. AVE is taking the unpopular-but-specific side; this is a legitimate scientific posture worth honest acknowledgment.
@@ -206,11 +212,11 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Status:** queued
   - **Cross-refs:** E-017, E-019
 
-- **[E-019] Universe-as-vortex cosmology — Grant's macro-scale framing**
-  - **Sources:** [doc 66_ §17.3:L584-L596](../L3_electron_soliton/66_single_electron_first_pivot.md#L584) (`a53ce1c`, 2026-04-25)
-  - **Action:** formalize Grant's universe-as-vortex framing as a macroscopic application of the lattice-genesis + density-vs-saturation reframings (E-017, E-018). The universe IS a vortex in the pre-genesis plasma; the crystallized lattice is the vortex's coherent body. Specific manuscript section TBD — likely Vol 3 Ch 4 §sec:cosmological_origin or Vol 3 Ch 5 §sec:dark_sector intro.
-  - **Status:** queued
-  - **Cross-refs:** E-017, E-018
+- **[E-019] Universe-as-vortex cosmology — Grant's macro-scale framing (MECHANIZED 2026-05-15 evening via A-031 cosmic-$\mathcal{J}$ identification)**
+  - **Sources:** [doc 66_ §17.3:L584-L596](../L3_electron_soliton/66_single_electron_first_pivot.md#L584) (`a53ce1c`, 2026-04-25); **A-031** (Grant adjudication 2026-05-15 evening — $\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$); **`manuscript/ave-kb/common/trampoline-framework.md` §1.3.7** ("God's Hand and the cosmic IC"); [E-017 phase-transition-while-spinning mechanism in trampoline-framework.md §1.3]
+  - **Action:** formalize Grant's universe-as-vortex framing as a macroscopic application of the lattice-genesis + density-vs-saturation reframings (E-017, E-018). The universe IS a vortex in the pre-genesis plasma; the crystallized lattice is the vortex's coherent body. **MECHANIZED 2026-05-15 evening:** the vortex IS the freeze-in rotating region; the cosmic angular momentum $\mathcal{J}_{\text{cosmic}}$ is the macroscopic signature of this vortex; $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$ is the IC. Three observational routes (α, G, $\mathcal{J}_{\text{cosmic}}$) constrain the same $u_0^*$. **Manuscript section:** Vol 3 Ch 4 §sec:cosmological_origin or new §sec:universe_as_vortex_machian — should explicitly state vortex = freeze-in rotating region, with cross-ref to trampoline-framework.md §1.3.7 and A-031.
+  - **Status:** MECHANIZED 2026-05-15 evening (framework-level closure); manuscript propagation still queued. Specific Vol 3 Ch 4 / Vol 3 Ch 5 edits pending.
+  - **Cross-refs:** E-017 (genesis-chirality, mechanized via same phase-transition-while-spinning); E-018 (density-vs-saturation cosmological reframing); A-031 (cosmic-$\mathcal{J}$ IC identification); A-030 (α + G + cosmic-$\mathcal{J}$ three-route); A-001 (α-as-calibration, sharpened); trampoline-framework.md §1.3.7 (canonical "God's Hand" framing)
 ### Ch 6 — Solar System (`06_solar_system.tex`)
 ### Ch 7 — Stellar Interiors (`07_stellar_interiors.tex`)
 ### Ch 8 — Gravitational Waves (`08_gravitational_waves.tex`)
@@ -256,6 +262,12 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
   - **Action:** Vol 3 Ch 21 (or Ch 15) should explicitly call out: AVE predicts the BH horizon at r_sat = 7GM/c², which is **3.5× the standard Schwarzschild radius** r_s = 2GM/c². This is a falsifiable observational prediction for any high-gravity test (EHT imaging, gravitational-wave ringdown, gravitational lensing of nearby objects). Box this prediction with its derivation chain so it's findable by reviewers. The factor-of-7 vs factor-of-2 reflects AVE's stricter Buchdahl bound per Vol 3 Ch 15:291-355 — derived from Ax2+Ax3 Poisson-ratio projection (ν_vac = 2/7).
   - **Status:** queued
   - **Cross-refs:** E-025, predictions.yaml entry should follow (track in engine_pending under predictions.yaml as part of the BH-prediction registration)
+
+- **[E-103] Same-epistemic-horizon framing — BH interior vs cosmic interior (Grant adjudication 2026-05-15 evening via A-031)**
+  - **Sources:** **A-031** (Grant adjudication 2026-05-15 evening); `manuscript/ave-kb/common/trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC"); Vol 3 Ch 2:43 (canonical same-mechanism BH-electron framing)
+  - **Action:** Vol 3 Ch 21 (BH Interior Regime IV) should add a brief cross-cutting note: the substrate-observability rule's "you can characterize the boundary but not what set it" structure applies fractally at every scale. Just as we (inside our cosmic boundary) can measure cosmic $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ but cannot see "God's Hand" beyond — outside observers of a BH measure $M, Q, J$ at the horizon but cannot see the matter-history that formed it. **Same epistemic horizon, applied at different scales.** Cross-ref to trampoline-framework.md §1.3.7 + A-031.
+  - **Status:** queued (low priority — completeness, not load-bearing)
+  - **Cross-refs:** A-031; A-026 (substrate-observability rule); E-102 (Vol 3 Ch 4 cosmic-$\mathcal{J}$ companion); Vol 3 Ch 2:43 BH-electron parallel
 
 ## Vol 4 — Engineering
 
@@ -430,4 +442,4 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
 
 ---
 
-**Next free entry ID:** E-102 (post-2026-05-14 sweep — E-094 through E-098 added for substrate-vocab + Master Eq FDTD + boundary-envelope + two-engine arch + cubic anisotropy; E-099 through E-101 used in engine_pending.md)
+**Next free entry ID:** E-104 (post-2026-05-15 evening sweep — added E-102 (Vol 3 Ch 4 cosmic-$\mathcal{J}$ identification per A-031) + E-103 (Vol 3 Ch 21 same-epistemic-horizon framing). Sweep history: E-094-E-098 substrate-vocab + Master Eq FDTD + boundary-envelope + two-engine arch + cubic anisotropy (2026-05-14); E-099-E-101 used in engine_pending.md; E-102-E-103 cosmic IC framing (2026-05-15 evening structural-closure capture).)
