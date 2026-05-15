@@ -18,11 +18,10 @@ Geometries are taken directly from the semiconductor_binding_engine.py:
   Fe-56: 14α FCC-14
 """
 
-import subprocess
 import os
-import sys
+import subprocess
 
-OUTDIR = os.path.join(os.path.dirname(__file__), '..', '..', 'periodic_table', 'figures')
+OUTDIR = os.path.join(os.path.dirname(__file__), "..", "..", "periodic_table", "figures")
 
 # ============================================================================
 # Common preamble and styles
@@ -68,7 +67,9 @@ POSTAMBLE = r"""
 # Sulfur-32: 8α Cube
 # ============================================================================
 
-tex_s32 = PREAMBLE + r"""
+tex_s32 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Sulfur-32 ($8\alpha$ Cube Architecture)};
 
@@ -110,13 +111,17 @@ tex_s32 = PREAMBLE + r"""
     Each $\alpha$ encapsulates a 4-nucleon LC mesh.\\
     \textit{Total Network: 496 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 # ============================================================================
 # Argon-40: 10α Bicapped Square Antiprism
 # ============================================================================
 
-tex_ar40 = PREAMBLE + r"""
+tex_ar40 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Argon-40 ($10\alpha$ Bicapped Antiprism)};
 
@@ -162,13 +167,17 @@ tex_ar40 = PREAMBLE + r"""
     45 inter-alpha coupling pairs.\\
     \textit{Total Network: 780 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 # ============================================================================
 # Calcium-40: 10α Bicapped Square Antiprism (Large Signal)
 # ============================================================================
 
-tex_ca40 = PREAMBLE + r"""
+tex_ca40 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Calcium-40 ($10\alpha$ Large Signal)};
 
@@ -213,13 +222,17 @@ tex_ca40 = PREAMBLE + r"""
     Avalanche multiplication required for mass closure.\\
     \textit{Total Network: 780 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 # ============================================================================
 # Titanium-48: 12α Cuboctahedron
 # ============================================================================
 
-tex_ti48 = PREAMBLE + r"""
+tex_ti48 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Titanium-48 ($12\alpha$ Cuboctahedron)};
 
@@ -277,13 +290,17 @@ tex_ti48 = PREAMBLE + r"""
     Each $\alpha$ encapsulates a 4-nucleon LC mesh.\\
     \textit{Total Network: 1128 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 # ============================================================================
 # Chromium-52: 13α Centered Icosahedron
 # ============================================================================
 
-tex_cr52 = PREAMBLE + r"""
+tex_cr52 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Chromium-52 ($13\alpha$ Centered Icosahedron)};
 
@@ -330,13 +347,17 @@ tex_cr52 = PREAMBLE + r"""
     78 inter-alpha coupling pairs.\\
     \textit{Total Network: 1326 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 # ============================================================================
 # Iron-56: 14α FCC-14
 # ============================================================================
 
-tex_fe56 = PREAMBLE + r"""
+tex_fe56 = (
+    PREAMBLE
+    + r"""
 % Title
 \node[text=white, font=\bfseries\Large] at (0, 6) {Iron-56 ($14\alpha$ FCC Architecture)};
 
@@ -378,7 +399,9 @@ tex_fe56 = PREAMBLE + r"""
     91 inter-alpha coupling pairs.\\
     \textit{Total Network: 1540 discrete connections.}
 };
-""" + POSTAMBLE
+"""
+    + POSTAMBLE
+)
 
 
 # ============================================================================
@@ -386,37 +409,39 @@ tex_fe56 = PREAMBLE + r"""
 # ============================================================================
 
 circuits = {
-    'circuit_s32': tex_s32,
-    'circuit_ar40': tex_ar40,
-    'circuit_ca40': tex_ca40,
-    'circuit_ti48': tex_ti48,
-    'circuit_cr52': tex_cr52,
-    'circuit_fe56': tex_fe56,
+    "circuit_s32": tex_s32,
+    "circuit_ar40": tex_ar40,
+    "circuit_ca40": tex_ca40,
+    "circuit_ti48": tex_ti48,
+    "circuit_cr52": tex_cr52,
+    "circuit_fe56": tex_fe56,
 }
 
 os.makedirs(OUTDIR, exist_ok=True)
 
 for name, tex in circuits.items():
-    tex_path = os.path.join(OUTDIR, f'{name}.tex')
-    pdf_path = os.path.join(OUTDIR, f'{name}.pdf')
-    
-    with open(tex_path, 'w') as f:
+    tex_path = os.path.join(OUTDIR, f"{name}.tex")
+    pdf_path = os.path.join(OUTDIR, f"{name}.pdf")
+
+    with open(tex_path, "w") as f:
         f.write(tex)
     print(f"Wrote {tex_path}")
-    
+
     # Compile to PDF
     result = subprocess.run(
-        ['pdflatex', '-interaction=nonstopmode', '-output-directory', OUTDIR, tex_path],
-        capture_output=True, text=True, cwd=OUTDIR
+        ["pdflatex", "-interaction=nonstopmode", "-output-directory", OUTDIR, tex_path],
+        capture_output=True,
+        text=True,
+        cwd=OUTDIR,
     )
     if result.returncode == 0:
         print(f"  ✓ Compiled {name}.pdf")
     else:
         print(f"  ✗ FAILED {name}: {result.stderr[-200:]}")
-    
+
     # Clean aux/log files
-    for ext in ['.aux', '.log']:
-        auxfile = os.path.join(OUTDIR, f'{name}{ext}')
+    for ext in [".aux", ".log"]:
+        auxfile = os.path.join(OUTDIR, f"{name}{ext}")
         if os.path.exists(auxfile):
             os.remove(auxfile)
 

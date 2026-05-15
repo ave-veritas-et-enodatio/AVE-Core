@@ -1,11 +1,13 @@
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Import exactly what simulate_element uses to ensure mathematical fidelity
-from scripts.vol_6_periodic_table.simulations.simulate_element import get_nucleon_coordinates, K_MUTUAL
+from scripts.vol_6_periodic_table.simulations.simulate_element import K_MUTUAL, get_nucleon_coordinates
 
-def calculate_network_parameters(Z, A):
+
+def calculate_network_parameters(Z: int, A: int) -> tuple[float, float, float]:
     """
     Calculates the Theoretical EE Network Parameters for the given element topology.
     Returns:
@@ -24,7 +26,7 @@ def calculate_network_parameters(Z, A):
     # It represents the total Mutual Inductance (M_ij) of the network.
     U_stored = 0
     for i in range(N):
-        for j in range(i+1, N):
+        for j in range(i + 1, N):
             pt1 = np.array(nodes[i])
             pt2 = np.array(nodes[j])
             dist = np.linalg.norm(pt1 - pt2)
@@ -59,16 +61,17 @@ def calculate_network_parameters(Z, A):
     # 3. S11 Reflection Cross-Section (Scattering Parameter)
     # The physical "hardness" of the nucleus to incoming wave scattering.
     # Area = pi * r^2.
-    S11_area = np.pi * (effective_radius ** 2)
+    S11_area = np.pi * (effective_radius**2)
 
     return U_stored, Q_factor, S11_area
+
 
 if __name__ == "__main__":
     elements = [
         {"Z": 1, "A": 1, "name": "Hydrogen-1 (Protium)"},
         {"Z": 2, "A": 4, "name": "Helium-4 (Alpha Core)"},
         {"Z": 3, "A": 7, "name": "Lithium-7 (Asymmetric)"},
-        {"Z": 4, "A": 9, "name": "Beryllium-9 (Dual-Core)"}
+        {"Z": 4, "A": 9, "name": "Beryllium-9 (Dual-Core)"},
     ]
 
     names = []
@@ -92,28 +95,28 @@ if __name__ == "__main__":
     # We normalize Q-factors relative to Helium-4 to show it as the "Indestructible Gold Standard"
     q_norm = [q / q_factors[1] for q in q_factors]
 
-    bars1 = ax1.bar(names, q_norm, color=['silver', 'gold', 'lightcoral', 'orchid'])
-    ax1.set_title('Topological Quality Factor ($Q$)\n(Stability & Resonance)', fontsize=14)
-    ax1.set_ylabel('Normalized $Q$ (Relative to $^4He$)', fontsize=12)
-    ax1.grid(axis='y', linestyle='--', alpha=0.7)
+    bars1 = ax1.bar(names, q_norm, color=["silver", "gold", "lightcoral", "orchid"])
+    ax1.set_title("Topological Quality Factor ($Q$)\n(Stability & Resonance)", fontsize=14)
+    ax1.set_ylabel("Normalized $Q$ (Relative to $^4He$)", fontsize=12)
+    ax1.grid(axis="y", linestyle="--", alpha=0.7)
 
     for bar in bars1:
         yval = bar.get_height()
-        ax1.text(bar.get_x() + bar.get_width()/2.0, yval, f'{yval:.2f}x', va='bottom', ha='center')
+        ax1.text(bar.get_x() + bar.get_width() / 2.0, yval, f"{yval:.2f}x", va="bottom", ha="center")
 
     # S11 Cross Section Plot
-    bars2 = ax2.bar(names, s11_areas, color=['lightblue', 'dodgerblue', 'navy', 'mediumblue'])
-    ax2.set_title('Topological Scattering ($S_{11}$) Cross-Section\n(Radar/Acoustic Hardness)', fontsize=14)
-    ax2.set_ylabel(r'Effective Area ($\pi r^2$)', fontsize=12)
-    ax2.set_yscale('log') # Log scale because Li7 is massive
-    ax2.grid(axis='y', linestyle='--', alpha=0.7)
+    bars2 = ax2.bar(names, s11_areas, color=["lightblue", "dodgerblue", "navy", "mediumblue"])
+    ax2.set_title("Topological Scattering ($S_{11}$) Cross-Section\n(Radar/Acoustic Hardness)", fontsize=14)
+    ax2.set_ylabel(r"Effective Area ($\pi r^2$)", fontsize=12)
+    ax2.set_yscale("log")  # Log scale because Li7 is massive
+    ax2.grid(axis="y", linestyle="--", alpha=0.7)
 
     for bar in bars2:
         yval = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2.0, yval, f'{yval:.1f}', va='bottom', ha='center')
+        ax2.text(bar.get_x() + bar.get_width() / 2.0, yval, f"{yval:.1f}", va="bottom", ha="center")
 
     plt.tight_layout()
 
     os.makedirs("tests/outputs", exist_ok=True)
-    plt.savefig("tests/outputs/ee_network_analysis.png", dpi=300, bbox_inches='tight')
+    plt.savefig("tests/outputs/ee_network_analysis.png", dpi=300, bbox_inches="tight")
     print("\n[+] Exported graphical analysis to tests/outputs/ee_network_analysis.png")

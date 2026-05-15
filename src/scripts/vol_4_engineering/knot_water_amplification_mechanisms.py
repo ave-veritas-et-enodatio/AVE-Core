@@ -24,24 +24,22 @@ Usage:
 """
 
 import numpy as np
-import sys, pathlib
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.parent))
 
-from ave.core.constants import ALPHA, C_0, EPSILON_0, MU_0, Z_0, NU_VAC, K_B
+from ave.core.constants import ALPHA, C_0, EPSILON_0, K_B, Z_0
 
 # ═══════════════════════════════════════════════════════════════════
 # Physical constants
 # ═══════════════════════════════════════════════════════════════════
-eps_r_water = 80.0              # water dielectric constant at 1 GHz
-sigma_water = 5.5e-6            # conductivity of pure water (S/m)
-rho_water = 998.0               # kg/m³
-g = 9.807                       # m/s²
-gamma_st = 71.97e-3             # surface tension (N/m)
-nu_kin = 1.004e-6               # kinematic viscosity (m²/s)
-mu_dyn = 1.002e-3               # dynamic viscosity (Pa·s)
-c_sound = 1500.0                # m/s in water
+eps_r_water = 80.0  # water dielectric constant at 1 GHz
+sigma_water = 5.5e-6  # conductivity of pure water (S/m)
+rho_water = 998.0  # kg/m³
+g = 9.807  # m/s²
+gamma_st = 71.97e-3  # surface tension (N/m)
+nu_kin = 1.004e-6  # kinematic viscosity (m²/s)
+mu_dyn = 1.002e-3  # dynamic viscosity (Pa·s)
+c_sound = 1500.0  # m/s in water
 l_c = np.sqrt(gamma_st / (rho_water * g))  # capillary length ≈ 2.7 mm
-Z0 = float(Z_0)                # 377 Ω
+Z0 = float(Z_0)  # 377 Ω
 alpha = float(ALPHA)
 
 print("=" * 80)
@@ -53,7 +51,7 @@ print("=" * 80)
 # BASELINE: what does raw radiation pressure give?
 # ═══════════════════════════════════════════════════════════════════
 print(f"\n{'─'*80}")
-print(f"  BASELINE: Raw Radiation Pressure on Water")
+print("  BASELINE: Raw Radiation Pressure on Water")
 print(f"{'─'*80}")
 
 P_rf = 50.0  # watts of RF power
@@ -62,9 +60,9 @@ R_dish = 0.05  # 5 cm radius dish
 A_beam = np.pi * 0.01**2  # 1 cm radius beam spot
 
 # Reflection at air-water interface
-n_water = np.sqrt(eps_r_water)           # ≈ 8.94
+n_water = np.sqrt(eps_r_water)  # ≈ 8.94
 Gamma_refl = (1 - n_water) / (1 + n_water)
-R_power = abs(Gamma_refl)**2             # ≈ 0.64
+R_power = abs(Gamma_refl) ** 2  # ≈ 0.64
 
 F_rad = P_rf / float(C_0) * (1 + R_power)  # reflection adds momentum
 dh_rad = F_rad / (rho_water * g * A_beam)
@@ -73,7 +71,7 @@ print(f"  P_rf = {P_rf:.0f} W at {f_rf/1e9:.0f} GHz")
 print(f"  Γ (air→water) = {Gamma_refl:.3f} → R = {R_power:.3f} ({R_power*100:.0f}% reflected)")
 print(f"  F_rad = P/c × (1+R) = {F_rad*1e9:.1f} nN")
 print(f"  Δh = {dh_rad*1e9:.1f} nm  (beam radius {np.sqrt(A_beam/np.pi)*100:.0f} cm)")
-print(f"  → INVISIBLE. Need ≥ 10 μm for Schlieren, ≥ 1 mm for eye.")
+print("  → INVISIBLE. Need ≥ 10 μm for Schlieren, ≥ 1 mm for eye.")
 
 # ═══════════════════════════════════════════════════════════════════
 # CHANNEL 1: RESONANT ACCUMULATION
@@ -81,16 +79,15 @@ print(f"  → INVISIBLE. Need ≥ 10 μm for Schlieren, ≥ 1 mm for eye.")
 # AM modulate the RF at the dish resonance → Q amplification
 # ═══════════════════════════════════════════════════════════════════
 print(f"\n{'='*80}")
-print(f"  CHANNEL 1: RESONANT ACCUMULATION")
-print(f"  AM modulate RF at water surface mode frequency")
+print("  CHANNEL 1: RESONANT ACCUMULATION")
+print("  AM modulate RF at water surface mode frequency")
 print(f"{'='*80}")
 
 # Fundamental gravity-capillary mode of circular dish
 # f₀₁ ≈ (1/2π) √(g × k₀₁ × tanh(k₀₁ h))
 k_01 = 3.832 / R_dish  # first zero of J'₀, divided by R
 h_water = 0.05  # 5 cm water depth
-omega_01 = np.sqrt(g * k_01 * np.tanh(k_01 * h_water)
-                   + gamma_st * k_01**3 / rho_water * np.tanh(k_01 * h_water))
+omega_01 = np.sqrt(g * k_01 * np.tanh(k_01 * h_water) + gamma_st * k_01**3 / rho_water * np.tanh(k_01 * h_water))
 f_surface = omega_01 / (2 * np.pi)
 
 # Q of surface wave mode (viscous damping)
@@ -111,11 +108,11 @@ print(f"  Mode Q (viscous): Q = ω/(2νk²) = {Q_surface:.0f}")
 print(f"  Resonant force: F = {F_resonant*1e6:.2f} μN")
 print(f"  Resonant Δh = {dh_resonant*1e6:.1f} μm")
 if dh_resonant > 1e-6:
-    print(f"  → DETECTABLE by Schlieren imaging (threshold ~1 μm)")
+    print("  → DETECTABLE by Schlieren imaging (threshold ~1 μm)")
 else:
-    print(f"  → Below Schlieren threshold (~1 μm)")
+    print("  → Below Schlieren threshold (~1 μm)")
 if dh_resonant > 1e-3:
-    print(f"  → VISIBLE TO EYE (≥ 1 mm)")
+    print("  → VISIBLE TO EYE (≥ 1 mm)")
 
 # Higher power?
 for P in [50, 200, 500, 1000]:
@@ -133,11 +130,12 @@ for P in [50, 200, 500, 1000]:
 # The bifurcation amplifies the seed into macroscopic standing waves.
 # ═══════════════════════════════════════════════════════════════════
 print(f"\n{'='*80}")
-print(f"  CHANNEL 2: FARADAY WAVE BIFURCATION")
-print(f"  Use the knot's radiation pattern as a SEED near a bifurcation")
+print("  CHANNEL 2: FARADAY WAVE BIFURCATION")
+print("  Use the knot's radiation pattern as a SEED near a bifurcation")
 print(f"{'='*80}")
 
-print(f"""
+print(
+    """
   KEY INSIGHT: Near a dynamical bifurcation, the system's response to
   perturbations diverges. Even α-level perturbations select which
   of the degenerate modes grows.
@@ -162,19 +160,20 @@ print(f"""
   select DIFFERENT rotation directions of the Faraday waves.
 
   This is a MACROSCOPIC amplification of α-level chirality!
-""")
+"""
+)
 
 # Faraday threshold parameters
 f_drive = 2 * f_surface  # parametric drive at 2f₀₁
 # Critical acceleration for Faraday waves:  a_c = 4νk²ω
 a_c = 4 * nu_kin * k_01**2 * omega_01
 # Displacement amplitude at threshold:
-x_c = a_c / (2 * np.pi * f_drive)**2
+x_c = a_c / (2 * np.pi * f_drive) ** 2
 
 print(f"  Faraday drive frequency: 2f₀₁ = {f_drive:.2f} Hz")
 print(f"  Critical acceleration: a_c = {a_c*1000:.4f} mm/s²")
 print(f"  Critical displacement: x_c = {x_c*1e6:.1f} μm")
-print(f"  (Achievable with a speaker or piezo shaker)")
+print("  (Achievable with a speaker or piezo shaker)")
 
 # Thermal noise floor for comparison
 T = 293  # room temperature
@@ -189,9 +188,10 @@ print(f"  EM perturbation (non-resonant): x_EM ≈ {x_em*1e9:.1f} nm")
 print(f"  EM perturbation (resonant): x_EM ≈ {dh_resonant*1e6:.1f} μm")
 print(f"  x_EM / x_thermal = {x_em/x_thermal:.0f}× (non-resonant)")
 print(f"  x_EM / x_thermal = {dh_resonant/x_thermal:.0f}× (resonant)")
-print(f"  → EM perturbation DOMINATES over thermal noise ✓")
+print("  → EM perturbation DOMINATES over thermal noise ✓")
 
-print(f"""
+print(
+    f"""
   EXPERIMENT DESIGN:
   ──────────────────
   1. Circular glass dish (R=5cm) on a piezo shaker
@@ -215,7 +215,8 @@ print(f"""
 
   This requires NO high voltage, NO torsion balance, NO MV fields.
   Just a PCB antenna, a speaker, a dish of water, and a camera.
-""")
+"""
+)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -224,8 +225,8 @@ print(f"""
 # gradient → Marangoni convection → visible flow pattern
 # ═══════════════════════════════════════════════════════════════════
 print(f"{'='*80}")
-print(f"  CHANNEL 3: ABSORPTION-DRIVEN MARANGONI FLOW")
-print(f"  GHz absorption → temperature → surface tension gradient → flow")
+print("  CHANNEL 3: ABSORPTION-DRIVEN MARANGONI FLOW")
+print("  GHz absorption → temperature → surface tension gradient → flow")
 print(f"{'='*80}")
 
 # Absorption depth in water at 1 GHz
@@ -273,11 +274,12 @@ print(f"  Marangoni number: Ma = {Ma:.1f}")
 print(f"  Estimated flow velocity: v ≈ {v_marangoni*100:.2f} cm/s")
 
 if v_marangoni > 0.001:
-    print(f"  → VISIBLE Marangoni flow (trackable with dye/particles)")
+    print("  → VISIBLE Marangoni flow (trackable with dye/particles)")
 else:
-    print(f"  → Below visible threshold")
+    print("  → Below visible threshold")
 
-print(f"""
+print(
+    """
   WHY THE KNOT SHAPE MATTERS FOR MARANGONI:
   ──────────────────────────────────────────
   The knot antenna's near-field pattern has OAM structure.
@@ -294,7 +296,8 @@ print(f"""
   by ≈ 3° relative to the antenna orientation.
 
   A 3° rotation is measurable with careful photography/video!
-""")
+"""
+)
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -303,7 +306,7 @@ print(f"""
 # Water's ε_r = 80 dramatically changes the cavity modes
 # ═══════════════════════════════════════════════════════════════════
 print(f"{'='*80}")
-print(f"  CHANNEL 4: COUPLED RESONATOR (Antenna + Water Cavity)")
+print("  CHANNEL 4: COUPLED RESONATOR (Antenna + Water Cavity)")
 print(f"{'='*80}")
 
 # The antenna above water forms a resonant cavity
@@ -337,7 +340,8 @@ print(f"  Electrostriction force: F_es = {float(F_es)*1e6:.2f} μN")
 dh_es = float(F_es) / (rho_water * g * A_beam)
 print(f"  Electrostriction Δh = {dh_es*1e6:.1f} μm")
 
-print(f"""
+print(
+    f"""
   COUPLED RESONATOR INSIGHT:
   ──────────────────────────────────────────
   The water surface acts as a high-reflectivity mirror (R={R_power*100:.0f}%).
@@ -353,17 +357,19 @@ print(f"""
   This is CLASSICAL — but if the antenna is a torus knot,
   the cavity modes have OAM structure. The electrostriction
   pattern on the water has the knot's topological signature.
-""")
+"""
+)
 
 
 # ═══════════════════════════════════════════════════════════════════
 # SYNTHESIS: Which channel is the best path?
 # ═══════════════════════════════════════════════════════════════════
 print(f"{'='*80}")
-print(f"  SYNTHESIS: THE FOUR CHANNELS RANKED")
+print("  SYNTHESIS: THE FOUR CHANNELS RANKED")
 print(f"{'='*80}")
 
-print(f"""
+print(
+    f"""
   ┌───────────────────────────────────────────────────────────────────────┐
   │ Channel              │ Signal │ AVE-specific? │ Visible? │ Cost      │
   ├───────────────────────────────────────────────────────────────────────┤
@@ -417,19 +423,21 @@ print(f"""
   ─────────────────────────────────────────────────────────────────────
   Use the Marangoni flow as an INDEPENDENT confirmation channel.
   Seed particles (lycopodium powder) float on the water surface.
-  
+
   Phase 1: Shaker OFF, antenna ON → observe Marangoni spiral direction
   Phase 2: Shaker at threshold, antenna ON → observe Faraday pattern
   Phase 3: Switch antenna handedness → observe if pattern flips
 
   Two independent channels, same apparatus, same cost.
-""")
+"""
+)
 
 # EE mapping back to AVE axioms
 print(f"{'='*80}")
-print(f"  AVE AXIOM TRACEABILITY")
+print("  AVE AXIOM TRACEABILITY")
 print(f"{'='*80}")
-print(f"""
+print(
+    """
   Every element traces to an axiom:
 
   • Axiom 1 (K4 lattice): The vacuum IS the medium. EM waves in the
@@ -456,6 +464,7 @@ print(f"""
 
   This is the AVE analogue of a COMPARATOR, not an AMPLIFIER.
   You don't need gain when you just need to detect handedness.
-""")
+"""
+)
 
 print("=" * 80)

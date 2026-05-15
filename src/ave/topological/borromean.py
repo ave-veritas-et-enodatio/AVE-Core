@@ -9,13 +9,13 @@ Includes:
 - 3_1 Trefoil Knot (used in HOPF-01 antenna topology, NOT the electron)
 - 6^3_2 Borromean Link (Fundamental Baryon / Proton)
 """
-from __future__ import annotations
 
 import numpy as np
 
+
 class FundamentalTopologies:
     @staticmethod
-    def generate_unknot_0_1(radius: float, resolution: int = 1000):
+    def generate_unknot_0_1(radius: float, resolution: int = 1000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a 0_1 Unknot.
         In the AVE framework, this is the fundamental lepton topology:
@@ -42,7 +42,7 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_trefoil_3_1(radius: float, resolution: int = 1000):
+    def generate_trefoil_3_1(radius: float, resolution: int = 1000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a 3_1 Trefoil Knot.
         NOTE: This is used for the HOPF-01 antenna topology and torus knot
@@ -75,30 +75,30 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_borromean_6_3_2(radius: float, eccentricity: float = 1.6, resolution: int = 1000):
+    def generate_borromean_6_3_2(radius: float, eccentricity: float = 1.6, resolution: int = 1000) -> list[np.ndarray]:
         """
         Generates the 3D parametric coordinates of the 6^3_2 Borromean Link.
         Consists of three mutually interlocking independent discrete rings.
         In the AVE framework, this defines the topological geometry of the Proton.
-        
+
         Args:
             radius (float): The bounding scale of the overall structure.
             eccentricity (float): Flattening of the individual elliptical links.
             resolution (int): Points per individual ring.
-            
+
         Returns:
-            list of np.ndarray: A list containing three [N, 3] coordinate arrays, 
+            list of np.ndarray: A list containing three [N, 3] coordinate arrays,
                                 one for each intersecting loop.
         """
-        # The Borromean rings can be parametrized as 3 mutually perpendicular, 
+        # The Borromean rings can be parametrized as 3 mutually perpendicular,
         # undulating ellipses that interlock without touching.
-        
+
         t = np.linspace(0, 2 * np.pi, resolution)
-        
+
         # Undulation parameters to guarantee the over/under braided weaving
         # (Standard L-G topological formulation)
         base_r = radius
-        
+
         # Ring 1 (Primarily along X-Y plane, undulating in Z)
         x1 = base_r * np.cos(t)
         y1 = base_r * eccentricity * np.sin(t)
@@ -116,12 +116,11 @@ class FundamentalTopologies:
         y3 = base_r * 0.3 * np.cos(3 * t)
         z3 = base_r * np.cos(t)
         ring_3 = np.vstack((x3, y3, z3)).T
-        
+
         return [ring_1, ring_2, ring_3]
 
     @staticmethod
-    def generate_torus_knot_2q(q: int, R: float = 1.0, r: float = 0.4,
-                                resolution: int = 2000):
+    def generate_torus_knot_2q(q: int, R: float = 1.0, r: float = 0.4, resolution: int = 2000) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a (2,q) torus knot.
 
@@ -156,9 +155,9 @@ class FundamentalTopologies:
         return coords
 
     @staticmethod
-    def generate_screw_dislocation(pitch_count: int, length: float = 1.0,
-                                    radius: float = 0.1,
-                                    resolution: int = 2000):
+    def generate_screw_dislocation(
+        pitch_count: int, length: float = 1.0, radius: float = 0.1, resolution: int = 2000
+    ) -> np.ndarray:
         """
         Generates the 3D parametric coordinates of a screw dislocation
         (helical coil).

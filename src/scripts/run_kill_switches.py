@@ -15,25 +15,10 @@ Run:
 All arithmetic uses the physics engine (src/ave/core/constants.py).
 No magic numbers.
 """
-from __future__ import annotations
-
-import sys
-import os
-
-# Ensure the source tree is importable
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
 import numpy as np
-from ave.core.constants import (
-    ALPHA, Z_0, C_0, EPSILON_0, MU_0,
-    XI_TOPO, L_NODE, V_YIELD, V_SNAP, M_E, HBAR, e_charge,
-    RHO_BULK,
-)
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-    impedance_at_strain,
-    reflection_coefficient,
-)
+
+from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import ALPHA, EPSILON_0, L_NODE, RHO_BULK, V_SNAP, V_YIELD, XI_TOPO
 
 # ─────────────────────────────────────────────────────────────────────
 # ANSI formatting helpers
@@ -46,18 +31,18 @@ RED = "\033[91m"
 RESET = "\033[0m"
 
 
-def header(title: str):
+def header(title: str) -> None:
     print(f"\n{'='*72}")
     print(f"{BOLD}{CYAN}{title}{RESET}")
     print(f"{'='*72}")
 
 
-def result(label: str, value: str, unit: str = ""):
+def result(label: str, value: str, unit: str = "") -> None:
     suffix = f" {unit}" if unit else ""
     print(f"  {GREEN}→{RESET} {label}: {BOLD}{value}{RESET}{suffix}")
 
 
-def compare(label: str, ave_val: str, sm_val: str):
+def compare(label: str, ave_val: str, sm_val: str) -> None:
     print(f"  {YELLOW}AVE predicts:{RESET} {ave_val}")
     print(f"  {RED}Std Model:  {RESET} {sm_val}")
 
@@ -65,7 +50,7 @@ def compare(label: str, ave_val: str, sm_val: str):
 # =====================================================================
 # KILL SWITCH 1 — AXIOM 1: Chiral VNA Antenna (Hopf Coil S₁₁ Test)
 # =====================================================================
-def kill_switch_1():
+def kill_switch_1() -> float:
     header("KILL SWITCH 1 — AXIOM 1: LC IMPEDANCE")
     print(f"  {BOLD}Chiral VNA Antenna (Hopf Coil S₁₁ Test){RESET}")
     print()
@@ -84,7 +69,7 @@ def kill_switch_1():
     compare(
         "Hopf coil shows anomalously deep S₁₁ notch (Δf/f = α·pq/(p+q))",
         f"Δf/f ≈ {delta_f_over_f:.4e}",
-        "Both coils show identical S₁₁ curves (no chiral vacuum coupling)"
+        "Both coils show identical S₁₁ curves (no chiral vacuum coupling)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -99,7 +84,7 @@ def kill_switch_1():
 # =====================================================================
 # KILL SWITCH 2 — AXIOM 2: Femto-Coulomb Electrometer
 # =====================================================================
-def kill_switch_2():
+def kill_switch_2() -> float:
     header("KILL SWITCH 2 — AXIOM 2: TOPOLOGICAL PHASE TWIST")
     print(f"  {BOLD}Femto-Coulomb Electrometer (Piezo Cleavage Test){RESET}")
     print()
@@ -123,7 +108,7 @@ def kill_switch_2():
     compare(
         f"Clean {V_output*1e3:.1f} mV step per μm of displacement",
         f"V = {V_output*1e3:.1f} mV / μm",
-        "V = 0.0 mV (no charge generated from mechanical separation)"
+        "V = 0.0 mV (no charge generated from mechanical separation)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -140,7 +125,7 @@ def kill_switch_2():
 # =====================================================================
 # KILL SWITCH 3 — AXIOM 3: Sagnac Mutual Inductance
 # =====================================================================
-def kill_switch_3():
+def kill_switch_3() -> float:
     header("KILL SWITCH 3 — AXIOM 3: LEAST REFLECTED ACTION (GRAVITY)")
     print(f"  {BOLD}Sagnac Mutual Inductance (Density-Dependent Rotor Test){RESET}")
     print()
@@ -169,7 +154,7 @@ def kill_switch_3():
     compare(
         f"Phase shift ratio Ψ = {Psi:.2f}× between W and Al rotors",
         f"Δφ_W / Δφ_Al = {Psi:.2f}",
-        "Δφ_W / Δφ_Al = 1.00 (GR: no material dependence in Sagnac)"
+        "Δφ_W / Δφ_Al = 1.00 (GR: no material dependence in Sagnac)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -187,7 +172,7 @@ def kill_switch_3():
 # =====================================================================
 # KILL SWITCH 4 — AXIOM 4: EE Bench Dielectric Plateau
 # =====================================================================
-def kill_switch_4():
+def kill_switch_4() -> None:
     header("KILL SWITCH 4 — AXIOM 4: UNIVERSAL SATURATION")
     print(f"  {BOLD}EE Bench Dielectric Plateau (Vacuum Gap C(V) Curve){RESET}")
     print()
@@ -220,18 +205,18 @@ def kill_switch_4():
         ratio = V / V_YIELD
         if ratio >= 1.0:
             S_val = 0.0
-            C_ratio = float('inf')
+            C_ratio = float("inf")
             print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {'∞':>10}")
         else:
             S_val = float(saturation_factor(np.array([V]), yield_limit=V_YIELD)[0])
-            C_ratio = 1.0 / S_val if S_val > 1e-15 else float('inf')
+            C_ratio = 1.0 / S_val if S_val > 1e-15 else float("inf")
             print(f"  {V_kV:10.1f}  {ratio:10.4f}  {S_val:10.4f}  {C_ratio:10.4f}")
 
     print()
     compare(
         "C(V)/C₀ diverges asymptotically as V → 43.65 kV",
         "C/C₀ → ∞ at V_yield",
-        "C/C₀ = 1.00 (flat, linear ε₀, no saturation)"
+        "C/C₀ = 1.00 (flat, linear ε₀, no saturation)",
     )
     print()
     print(f"  {BOLD}Estimated BOM (placeholder — needs vendor quotes):{RESET}")
@@ -248,10 +233,10 @@ def kill_switch_4():
 # =====================================================================
 # MAIN
 # =====================================================================
-def main():
+def main() -> None:
     print(f"\n{BOLD}{'='*72}")
-    print(f"  THE 4 KILL SWITCHES")
-    print(f"  Applied Vacuum Engineering — Experimental Falsification Program")
+    print("  THE 4 KILL SWITCHES")
+    print("  Applied Vacuum Engineering — Experimental Falsification Program")
     print(f"{'='*72}{RESET}")
     print()
     print("  Each test targets one axiom with a binary, tabletop-measurable")
@@ -270,7 +255,10 @@ def main():
     print(f"  {'#':>3}  {'Axiom':<28}  {'Test':<30}  {'Prediction':<20}")
     print(f"  {'-'*84}")
     print(f"  {'1':>3}  {'LC Impedance (Z₀=377Ω)':<28}  {'Chiral VNA S₁₁':<30}  {'Δf/f = ' + f'{delta_f:.4e}':<20}")
-    print(f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}  {f'{V_out*1e3:.1f} mV/μm':<20}")
+    print(
+        f"  {'2':>3}  {'Topological Phase (ξ_topo)':<28}  {'Femto-Coulomb Electrometer':<30}"
+        f"  {f'{V_out*1e3:.1f} mV/μm':<20}"
+    )
     print(f"  {'3':>3}  {'Gravity (G → ρ_bulk)':<28}  {'Sagnac Density Ratio':<30}  {f'Ψ = {Psi:.2f}':<20}")
     print(f"  {'4':>3}  {'Saturation (S=√(1-A²))':<28}  {'EE Bench C(V) Divergence':<30}  {'C/C₀ → ∞ @ 43.65kV':<20}")
     print()

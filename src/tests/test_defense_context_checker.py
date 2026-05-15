@@ -9,19 +9,10 @@ Each rule gets two fixtures:
 
 Reference: src/scripts/defense_context_checker.py
 """
-from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
-
-from scripts.defense_context_checker import (
-    RULES,
-    Rule,
-    Finding,
-    scan_file,
-    discover_targets,
-)
+from scripts.defense_context_checker import RULES, Rule, discover_targets, scan_file
 
 
 def _write(tmp_path: Path, name: str, content: str) -> Path:
@@ -40,18 +31,18 @@ def _rules_for(rule_id: str) -> list[Rule]:
 # CRIT-1: known-stale 139/450 arithmetic
 # ───────────────────────────────────────────────────────────────────────────
 class TestKnownStaleArithmetic:
-    def test_bare_fraction_fires(self, tmp_path):
+    def test_bare_fraction_fires(self, tmp_path: Path) -> None:
         p = _write(tmp_path, "bad.md", "sin²θ₁₂ = 2/7 + 1/45 = 139/450.")
         findings = scan_file(p, _rules_for("CRIT-1"))
         assert len(findings) == 1
         assert findings[0].severity == "critical"
 
-    def test_latex_frac_fires(self, tmp_path):
+    def test_latex_frac_fires(self, tmp_path: Path) -> None:
         p = _write(tmp_path, "bad.tex", r"\frac{2}{7} + \frac{1}{45} = \frac{139}{450}")
         findings = scan_file(p, _rules_for("CRIT-1"))
         assert len(findings) == 1
 
-    def test_correct_97_315_no_fire(self, tmp_path):
+    def test_correct_97_315_no_fire(self, tmp_path: Path) -> None:
         p = _write(tmp_path, "good.md", "sin²θ₁₂ = 2/7 + 1/45 = 97/315.")
         findings = scan_file(p, _rules_for("CRIT-1"))
         assert findings == []
@@ -61,7 +52,7 @@ class TestKnownStaleArithmetic:
 # B1: α as free/input parameter without Golden-Torus derivation cross-ref
 # ───────────────────────────────────────────────────────────────────────────
 class TestAlphaAsInput:
-    def test_alpha_free_parameter_no_mitigator_fires(self, tmp_path):
+    def test_alpha_free_parameter_no_mitigator_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.tex",
@@ -73,7 +64,7 @@ class TestAlphaAsInput:
         assert len(findings) >= 1
         assert findings[0].severity == "warn"
 
-    def test_alpha_with_ch8_ref_no_fire(self, tmp_path):
+    def test_alpha_with_ch8_ref_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.tex",
@@ -85,7 +76,7 @@ class TestAlphaAsInput:
         findings = scan_file(p, _rules_for("B1"))
         assert findings == []
 
-    def test_alpha_with_prose_mitigator_no_fire(self, tmp_path):
+    def test_alpha_with_prose_mitigator_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.md",
@@ -101,27 +92,25 @@ class TestAlphaAsInput:
 # B2: Millennium-problem proof claim without engineering-physics caveat
 # ───────────────────────────────────────────────────────────────────────────
 class TestMillenniumProofs:
-    def test_yang_mills_proof_no_caveat_fires(self, tmp_path):
+    def test_yang_mills_proof_no_caveat_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.md",
-            "The Yang-Mills mass gap is proved via the Axiom 4 saturation "
-            "kernel applied to the Wilson action.",
+            "The Yang-Mills mass gap is proved via the Axiom 4 saturation " "kernel applied to the Wilson action.",
         )
         findings = scan_file(p, _rules_for("B2"))
         assert len(findings) >= 1
 
-    def test_navier_stokes_solved_no_caveat_fires(self, tmp_path):
+    def test_navier_stokes_solved_no_caveat_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.md",
-            "The Navier-Stokes smoothness problem is solved by the discrete "
-            "lattice floor at ℓ_node.",
+            "The Navier-Stokes smoothness problem is solved by the discrete " "lattice floor at ℓ_node.",
         )
         findings = scan_file(p, _rules_for("B2"))
         assert len(findings) >= 1
 
-    def test_strong_cp_with_caveat_no_fire(self, tmp_path):
+    def test_strong_cp_with_caveat_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.md",
@@ -132,7 +121,7 @@ class TestMillenniumProofs:
         findings = scan_file(p, _rules_for("B2"))
         assert findings == []
 
-    def test_millennium_with_ch12_ref_no_fire(self, tmp_path):
+    def test_millennium_with_ch12_ref_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.tex",
@@ -147,7 +136,7 @@ class TestMillenniumProofs:
 # A3: non-integer coordination z_0 ≈ 51.25 without amorphous framing
 # ───────────────────────────────────────────────────────────────────────────
 class TestNonIntegerCoordination:
-    def test_z0_51_25_no_amorphous_fires(self, tmp_path):
+    def test_z0_51_25_no_amorphous_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.tex",
@@ -158,7 +147,7 @@ class TestNonIntegerCoordination:
         findings = scan_file(p, _rules_for("A3"))
         assert len(findings) >= 1
 
-    def test_z0_with_amorphous_prelude_no_fire(self, tmp_path):
+    def test_z0_with_amorphous_prelude_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.tex",
@@ -169,12 +158,11 @@ class TestNonIntegerCoordination:
         findings = scan_file(p, _rules_for("A3"))
         assert findings == []
 
-    def test_z0_with_phillips_thorpe_no_fire(self, tmp_path):
+    def test_z0_with_phillips_thorpe_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.tex",
-            r"In the Phillips-Thorpe rigidity framework, $z_0 \approx 51.25$ "
-            r"is the glass-transition coordination.",
+            r"In the Phillips-Thorpe rigidity framework, $z_0 \approx 51.25$ " r"is the glass-transition coordination.",
         )
         findings = scan_file(p, _rules_for("A3"))
         assert findings == []
@@ -184,18 +172,17 @@ class TestNonIntegerCoordination:
 # A1: 0.00% / Exact in prediction tables without identity classification
 # ───────────────────────────────────────────────────────────────────────────
 class TestExactPredictionClassification:
-    def test_exact_table_row_no_identity_fires(self, tmp_path):
+    def test_exact_table_row_no_identity_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.md",
-            "| 2 | Z₀ from Axiom 1 | 0.00% | ✅ |\n"
-            "| 42 | α invariance under gravity | Exact | ✅ |",
+            "| 2 | Z₀ from Axiom 1 | 0.00% | ✅ |\n" "| 42 | α invariance under gravity | Exact | ✅ |",
         )
         findings = scan_file(p, _rules_for("A1"))
         assert len(findings) >= 1
         assert findings[0].severity == "info"
 
-    def test_exact_with_identity_tag_no_fire(self, tmp_path):
+    def test_exact_with_identity_tag_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.md",
@@ -204,7 +191,7 @@ class TestExactPredictionClassification:
         findings = scan_file(p, _rules_for("A1"))
         assert findings == []
 
-    def test_exact_with_axiom_manifestation_no_fire(self, tmp_path):
+    def test_exact_with_axiom_manifestation_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.md",
@@ -218,18 +205,17 @@ class TestExactPredictionClassification:
 # C2: anti-cheat badge overclaim
 # ───────────────────────────────────────────────────────────────────────────
 class TestAntiCheatBadgeScope:
-    def test_zero_smuggled_no_scope_fires(self, tmp_path):
+    def test_zero_smuggled_no_scope_fires(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "bad.md",
-            "The verify_universe.py scan confirms zero smuggled parameters "
-            "across the entire codebase.",
+            "The verify_universe.py scan confirms zero smuggled parameters " "across the entire codebase.",
         )
         findings = scan_file(p, _rules_for("C2"))
         assert len(findings) >= 1
         assert findings[0].severity == "info"
 
-    def test_zero_smuggled_with_scope_no_fire(self, tmp_path):
+    def test_zero_smuggled_with_scope_no_fire(self, tmp_path: Path) -> None:
         p = _write(
             tmp_path,
             "good.md",
@@ -246,7 +232,7 @@ class TestAntiCheatBadgeScope:
 # Meta: discovery and end-to-end
 # ───────────────────────────────────────────────────────────────────────────
 class TestDiscovery:
-    def test_discover_targets_includes_readme(self, tmp_path):
+    def test_discover_targets_includes_readme(self, tmp_path: Path) -> None:
         # Simulate minimal repo layout
         (tmp_path / "manuscript").mkdir()
         (tmp_path / "manuscript" / "ave-kb").mkdir()
@@ -262,7 +248,7 @@ class TestDiscovery:
         assert "test.tex" in names
         assert "test.md" in names
 
-    def test_discover_excludes_claude_md(self, tmp_path):
+    def test_discover_excludes_claude_md(self, tmp_path: Path) -> None:
         (tmp_path / "manuscript" / "ave-kb").mkdir(parents=True)
         _write(tmp_path / "manuscript" / "ave-kb", "CLAUDE.md", "invariants")
         _write(tmp_path / "manuscript" / "ave-kb", "regular.md", "content")
@@ -274,23 +260,24 @@ class TestDiscovery:
 
 
 class TestEndToEnd:
-    def test_all_rules_compile(self):
+    def test_all_rules_compile(self) -> None:
         """Every rule's pattern and mitigator must be valid regex."""
         import re
+
         for rule in RULES:
             re.compile(rule.pattern)
             if rule.mitigator is not None:
                 re.compile(rule.mitigator)
 
-    def test_rule_ids_unique(self):
+    def test_rule_ids_unique(self) -> None:
         ids = [r.id for r in RULES]
         assert len(ids) == len(set(ids))
 
-    def test_rule_severities_valid(self):
+    def test_rule_severities_valid(self) -> None:
         for rule in RULES:
             assert rule.severity in {"critical", "warn", "info"}
 
-    def test_all_rules_have_see_pointer(self):
+    def test_all_rules_have_see_pointer(self) -> None:
         """Every rule must point at either the framing doc or an audit playbook."""
         for rule in RULES:
             assert rule.see, f"Rule {rule.id} missing 'see' pointer"

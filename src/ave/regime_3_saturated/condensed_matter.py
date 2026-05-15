@@ -37,57 +37,50 @@ Models
 4. **Dielectric breakdown field**:  E_bd = B_bond / d_eq
    Field that delivers one bond-quantum of energy per lattice cell.
 """
-from __future__ import annotations
-
 
 import numpy as np
-import jax
-import jax.numpy as jnp
 
-from ave.core.constants import (
-    K_B,        # Boltzmann constant [J/K]
-    e_charge,   # Elementary charge [C]
-    M_PROTON,   # Proton mass [kg] (used as m_u ≈ 1 amu)
-    M_U,        # Atomic mass unit (Dalton) [kg] — single source of truth
-)
+from ave.core.constants import K_B  # Boltzmann constant [J/K]
+from ave.core.constants import M_U  # Atomic mass unit (Dalton) [kg] — single source of truth
+from ave.core.constants import e_charge  # Elementary charge [C]
 from ave.solvers.coupled_resonator import (
-    ionization_energy_circuit,
     atom_port_impedance,
+    ionization_energy_circuit,
     molecular_bond_distance,
     molecular_bond_energy,
 )
 
-
 # Alias for local readability (imported from constants.py)
 _M_U = M_U
 
-def ave_stable_mass(Z) -> float:
+
+def ave_stable_mass(Z: int) -> float:
     """
     First-principles prediction of the mass of the most stable isotope
     for a given atomic number Z.
-    
-    This replaces empirical atomic weight lookup tables (which are contaminated 
-    by Earth's accidental historical nucleosynthesis ratios) with a geometric 
+
+    This replaces empirical atomic weight lookup tables (which are contaminated
+    by Earth's accidental historical nucleosynthesis ratios) with a geometric
     derivation of the topological mass defect.
-    
+
     - Optimal neutrons N to balance Coulomb repulsion: N = Z + (1.2*α)Z²
     - Mass defect derived from lattice saturation coupling
     """
-    from ave.core.constants import M_PROTON, ALPHA, C_0, e_charge
-    
+    from ave.core.constants import ALPHA, M_PROTON
+
     # Structural requirement for stability:
-    # Protons create a 1/r^2 capacitive strain. Neutrons provide interstitial 
+    # Protons create a 1/r^2 capacitive strain. Neutrons provide interstitial
     # structural nodes to bridge the Coulomb gap without adding charge.
     # The required neutron fraction scales with Z^2 (Coulomb energy).
     # In AVE, maximum saturation coupling (Axiom 4) yields a ratio:
     coulomb_penalty = 1.2 * ALPHA  # 1.2 / 137.036 ≈ 0.00875
-    
+
     N_opt = Z + coulomb_penalty * Z**2
     A_opt = Z + N_opt
-    
+
     # Baseline unstructured mass (using proton mass for both nucleons as m_n-m_p is < 0.1%)
-    m_unbound = A_opt * M_PROTON 
-    
+    m_unbound = A_opt * M_PROTON
+
     # Topological mass defect (Binding Energy):
     # The maximum geometric binding is the saturation energy of the internucleon LC link.
     # We explicitly FORBID empirical Standard Model estimates (like the ~8 MeV average).
@@ -95,7 +88,7 @@ def ave_stable_mass(Z) -> float:
     # E_binding_max = alpha * M_proton * c^2  (the electrostatic strain limit before rupture)
     # alpha * 938 MeV ≈ 6.84 MeV (Exact AVE geometric correlation)
     m_defect_per_nucleon = ALPHA * M_PROTON
-    
+
     return m_unbound - A_opt * m_defect_per_nucleon
 
 
@@ -103,7 +96,8 @@ def ave_stable_mass(Z) -> float:
 # Common Pipeline — shared by all four models
 # ═════════════════════════════════════════════════════════════════════════════
 
-def _element_bond_properties(Z, A=None):
+
+def _element_bond_properties(Z: int, A: int | None = None) -> tuple[float, float, float, float, float, float]:
     """
     Compute the valence bond properties for element Z.
 
@@ -151,7 +145,8 @@ def _element_bond_properties(Z, A=None):
 # Model 1: Melting Temperature
 # ═════════════════════════════════════════════════════════════════════════════
 
-def melting_temperature(Z, A=None):
+
+def melting_temperature(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict melting temperature from first principles.
 
@@ -191,13 +186,13 @@ def melting_temperature(Z, A=None):
     T_melt_K = B_bond_J / (3.0 * K_B)
 
     return T_melt_K, {
-        'Z': Z,
-        'f_eigen_eV': f_eigen_eV,
-        'r_val_m': r_val,
-        'd_eq_m': d_eq,
-        'B_bond_eV': B_bond_eV,
-        'k_eff': k_eff,
-        'm_atom_kg': m_atom_kg,
+        "Z": Z,
+        "f_eigen_eV": f_eigen_eV,
+        "r_val_m": r_val,
+        "d_eq_m": d_eq,
+        "B_bond_eV": B_bond_eV,
+        "k_eff": k_eff,
+        "m_atom_kg": m_atom_kg,
     }
 
 
@@ -205,7 +200,8 @@ def melting_temperature(Z, A=None):
 # Model 2: Longitudinal Sound Speed
 # ═════════════════════════════════════════════════════════════════════════════
 
-def sound_speed(Z, A=None):
+
+def sound_speed(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict longitudinal sound speed from first principles.
 
@@ -247,12 +243,12 @@ def sound_speed(Z, A=None):
     c_sound = np.sqrt(B_bond_J / m_atom_kg)
 
     return c_sound, {
-        'Z': Z,
-        'f_eigen_eV': f_eigen_eV,
-        'd_eq_m': d_eq,
-        'B_bond_eV': B_bond_eV,
-        'K_spring_N_m': B_bond_J / d_eq**2,
-        'm_atom_kg': m_atom_kg,
+        "Z": Z,
+        "f_eigen_eV": f_eigen_eV,
+        "d_eq_m": d_eq,
+        "B_bond_eV": B_bond_eV,
+        "K_spring_N_m": B_bond_J / d_eq**2,
+        "m_atom_kg": m_atom_kg,
     }
 
 
@@ -260,7 +256,8 @@ def sound_speed(Z, A=None):
 # Model 3: Band Gap Energy
 # ═════════════════════════════════════════════════════════════════════════════
 
-def band_gap_energy(Z, A=None):
+
+def band_gap_energy(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict band gap energy from first principles.
 
@@ -309,11 +306,11 @@ def band_gap_energy(Z, A=None):
     E_gap_eV = f_eigen_eV * (1.0 - k / np.sqrt(1.0 + k))
 
     return E_gap_eV, {
-        'Z': Z,
-        'f_eigen_eV': f_eigen_eV,
-        'k_saturation': k,
-        'bandwidth_eV': 2.0 * f_eigen_eV * k / np.sqrt(1.0 + k),
-        'gap_fraction': 1.0 - k / np.sqrt(1.0 + k),
+        "Z": Z,
+        "f_eigen_eV": f_eigen_eV,
+        "k_saturation": k,
+        "bandwidth_eV": 2.0 * f_eigen_eV * k / np.sqrt(1.0 + k),
+        "gap_fraction": 1.0 - k / np.sqrt(1.0 + k),
     }
 
 
@@ -321,7 +318,8 @@ def band_gap_energy(Z, A=None):
 # Model 4: Dielectric Breakdown Field
 # ═════════════════════════════════════════════════════════════════════════════
 
-def breakdown_field(Z, A=None):
+
+def breakdown_field(Z: int, A: int | None = None) -> tuple[float, dict[str, float]]:
     r"""
     Predict dielectric breakdown field from first principles.
 
@@ -356,14 +354,14 @@ def breakdown_field(Z, A=None):
 
     # E_bd = B_bond [eV] / d_eq [m]  →  units: eV/m = V (since eV = e × V)
     # Actually: E_bd = B_bond [J] / (e × d_eq) = B_bond [eV] / d_eq  [V/m]
-    E_bd = B_bond_eV / d_eq   # [V/m]
+    E_bd = B_bond_eV / d_eq  # [V/m]
 
     return E_bd, {
-        'Z': Z,
-        'f_eigen_eV': f_eigen_eV,
-        'd_eq_m': d_eq,
-        'B_bond_eV': B_bond_eV,
-        'V_breakdown_per_cell': B_bond_eV,  # Voltage drop per lattice cell [V]
+        "Z": Z,
+        "f_eigen_eV": f_eigen_eV,
+        "d_eq_m": d_eq,
+        "B_bond_eV": B_bond_eV,
+        "V_breakdown_per_cell": B_bond_eV,  # Voltage drop per lattice cell [V]
     }
 
 
@@ -371,7 +369,8 @@ def breakdown_field(Z, A=None):
 # Summary Table — All 4 predictions for a given element
 # ═════════════════════════════════════════════════════════════════════════════
 
-def element_summary(Z, A=None):
+
+def element_summary(Z: int, A: int | None = None) -> dict[str, float]:
     """
     Compute all four condensed matter predictions for element Z.
 
@@ -384,14 +383,14 @@ def element_summary(Z, A=None):
     E_bd, d4 = breakdown_field(Z, A)
 
     return {
-        'Z': Z,
-        'm_atom_kg': d1['m_atom_kg'],
-        'f_eigen_eV': d1['f_eigen_eV'],
-        'r_val_m': d1['r_val_m'],
-        'd_eq_m': d1['d_eq_m'],
-        'B_bond_eV': d1['B_bond_eV'],
-        'T_melt_K': T_melt,
-        'c_sound_m_s': c_sound,
-        'E_gap_eV': E_gap,
-        'E_breakdown_V_m': E_bd,
+        "Z": Z,
+        "m_atom_kg": d1["m_atom_kg"],
+        "f_eigen_eV": d1["f_eigen_eV"],
+        "r_val_m": d1["r_val_m"],
+        "d_eq_m": d1["d_eq_m"],
+        "B_bond_eV": d1["B_bond_eV"],
+        "T_melt_K": T_melt,
+        "c_sound_m_s": c_sound,
+        "E_gap_eV": E_gap,
+        "E_breakdown_V_m": E_bd,
     }

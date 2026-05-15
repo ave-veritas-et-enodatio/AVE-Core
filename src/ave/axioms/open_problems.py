@@ -25,20 +25,16 @@ PROBLEM 3: HUBBLE TENSION
     CMB photons travel through low-density voids (high Z, slow),
     local measurements traverse denser structures (lower Z, faster).
 """
-from __future__ import annotations
-
 
 import numpy as np
-from ave.core.constants import (
-    C_0, HBAR, L_NODE, M_E, ALPHA, MU_0, EPSILON_0, Z_0,
-    KAPPA_FS, e_charge, BARYON_LADDER, CROSSING_NUMBER_PROTON,
-)
-from ave.axioms.yang_mills import torus_knot_gauge_rank
 
+from ave.axioms.yang_mills import torus_knot_gauge_rank
+from ave.core.constants import ALPHA, C_0, EPSILON_0, KAPPA_FS, M_E, Z_0, e_charge
 
 # ════════════════════════════════════════════════════════════════════
 # PROBLEM 1: STRONG CP — θ = 0 from Torus Knot Quantization
 # ════════════════════════════════════════════════════════════════════
+
 
 def torus_knot_phase_winding(q: int) -> float:
     """
@@ -115,10 +111,10 @@ def vacuum_angle_quantization() -> dict:
         phi = torus_knot_phase_winding(q)
         theta_mod_2pi = phi % (2 * np.pi)
         windings[q] = {
-            'q': q,
-            'total_phase': phi,
-            'theta_mod_2pi': theta_mod_2pi,
-            'gauge_group': f'SU({torus_knot_gauge_rank(q)})',
+            "q": q,
+            "total_phase": phi,
+            "theta_mod_2pi": theta_mod_2pi,
+            "gauge_group": f"SU({torus_knot_gauge_rank(q)})",
         }
 
     # The ground state θ
@@ -130,21 +126,22 @@ def vacuum_angle_quantization() -> dict:
     theta_experimental_bound = 1e-10
 
     return {
-        'theta_ground_state': 0.0,
-        'theta_is_zero': True,
-        'reason': 'Unique vacuum (ψ=0) has zero topological charge → θ=0',
-        'cost_of_theta_nonzero_eV': gap_eV,
-        'experimental_bound': theta_experimental_bound,
-        'prediction_satisfied': 0.0 < theta_experimental_bound,
-        'no_axion_needed': True,
-        'phase_windings': windings,
-        'STRONG_CP_SOLVED': True,
+        "theta_ground_state": 0.0,
+        "theta_is_zero": True,
+        "reason": "Unique vacuum (ψ=0) has zero topological charge → θ=0",
+        "cost_of_theta_nonzero_eV": gap_eV,
+        "experimental_bound": theta_experimental_bound,
+        "prediction_satisfied": 0.0 < theta_experimental_bound,
+        "no_axion_needed": True,
+        "phase_windings": windings,
+        "STRONG_CP_SOLVED": True,
     }
 
 
 # ════════════════════════════════════════════════════════════════════
 # PROBLEM 2: BARYON ASYMMETRY from Lattice Chirality
 # ════════════════════════════════════════════════════════════════════
+
 
 def lattice_chirality() -> dict:
     """
@@ -239,27 +236,25 @@ def lattice_chirality() -> dict:
     eta_observed = 6.1e-10
 
     return {
-        'lattice_is_chiral': True,
-        'torus_knot_is_chiral': True,
-        'C_violated': True,
-        'CP_violated': True,
-        'sakharov_conditions_met': True,
-        'delta_CP': delta_CP,
-        'alpha_W': alpha_W,
-        'N_f': N_f,
-        'N_H': N_H,
-        'C_sph': C_sph,
-        'g_star': g_star,
-        'g_star_derivation': '7³/4 = 343/4 (Poisson ν=2/7 → 7 modes, K4 → 4 nodes)',
-        'eta_predicted': eta_predicted,
-        'eta_observed': eta_observed,
-        'ratio_predicted_observed': eta_predicted / eta_observed,
-        'error_pct': abs(eta_predicted - eta_observed) / eta_observed * 100,
-        'order_of_magnitude_match': abs(np.log10(eta_predicted / eta_observed)) < 1,
-        'mechanism': (
-            'Lattice chirality → δ_CP = π/κ_FS, '
-            'sphaleron 28/79 (N_f=3, N_H=1), '
-            'g* = 7³/4 from ν_vac = 2/7'
+        "lattice_is_chiral": True,
+        "torus_knot_is_chiral": True,
+        "C_violated": True,
+        "CP_violated": True,
+        "sakharov_conditions_met": True,
+        "delta_CP": delta_CP,
+        "alpha_W": alpha_W,
+        "N_f": N_f,
+        "N_H": N_H,
+        "C_sph": C_sph,
+        "g_star": g_star,
+        "g_star_derivation": "7³/4 = 343/4 (Poisson ν=2/7 → 7 modes, K4 → 4 nodes)",
+        "eta_predicted": eta_predicted,
+        "eta_observed": eta_observed,
+        "ratio_predicted_observed": eta_predicted / eta_observed,
+        "error_pct": abs(eta_predicted - eta_observed) / eta_observed * 100,
+        "order_of_magnitude_match": abs(np.log10(eta_predicted / eta_observed)) < 1,
+        "mechanism": (
+            "Lattice chirality → δ_CP = π/κ_FS, " "sphaleron 28/79 (N_f=3, N_H=1), " "g* = 7³/4 from ν_vac = 2/7"
         ),
     }
 
@@ -269,16 +264,15 @@ def lattice_chirality() -> dict:
 # ════════════════════════════════════════════════════════════════════
 
 # Observed H₀ values
-H0_PLANCK = 67.4    # km/s/Mpc (Planck Collaboration 2020, CMB)
-H0_SHOES = 73.04    # km/s/Mpc (Riess et al. 2022, Cepheids)
+H0_PLANCK = 67.4  # km/s/Mpc (Planck Collaboration 2020, CMB)
+H0_SHOES = 73.04  # km/s/Mpc (Riess et al. 2022, Cepheids)
 H0_TENSION = H0_SHOES - H0_PLANCK  # ≈ 5.6 km/s/Mpc (>4σ)
 
 # Cosmological constants
-MPC = 3.0857e22     # Megaparsec [m]
+MPC = 3.0857e22  # Megaparsec [m]
 
 
-def impedance_hubble_correction(n_e_local: float = 0.05,
-                                 n_e_cmb_path: float = 0.01) -> dict:
+def impedance_hubble_correction(n_e_local: float = 0.05, n_e_cmb_path: float = 0.01) -> dict:
     """
     Explain the Hubble tension from impedance variation.
 
@@ -319,8 +313,8 @@ def impedance_hubble_correction(n_e_local: float = 0.05,
         Dictionary with Hubble tension analysis.
     """
     # Convert cm⁻³ to m⁻³
-    n_local = n_e_local * 1e6      # m⁻³
-    n_cmb = n_e_cmb_path * 1e6     # m⁻³
+    n_local = n_e_local * 1e6  # m⁻³
+    n_cmb = n_e_cmb_path * 1e6  # m⁻³
 
     # CMB frequency
     nu_cmb = 160e9  # Hz (peak of CMB)
@@ -332,19 +326,19 @@ def impedance_hubble_correction(n_e_local: float = 0.05,
     omega_p_cmb = np.sqrt(n_cmb * e**2 / (M_E * EPSILON_0))
 
     # Refractive indices
-    n_ref_local = np.sqrt(1 - (omega_p_local / omega_cmb)**2)
-    n_ref_cmb = np.sqrt(1 - (omega_p_cmb / omega_cmb)**2)
+    n_ref_local = np.sqrt(1 - (omega_p_local / omega_cmb) ** 2)
+    n_ref_cmb = np.sqrt(1 - (omega_p_cmb / omega_cmb) ** 2)
 
     # Effective speed of light
     c_local = C_0 / n_ref_local
     c_cmb = C_0 / n_ref_cmb
 
     # Fractional speed difference
-    delta_c_over_c = (c_local - c_cmb) / C_0
+    (c_local - c_cmb) / C_0
 
     # This affects H₀ because H = v/d, and d is inferred from
     # luminosity distance which depends on c_eff
-    H0_corrected = H0_PLANCK * (1 + delta_c_over_c * 1e8)  # Enhancement factor scaled
+    # H0_corrected = H0_PLANCK * (1 + delta_c_over_c * 1e8)  # Enhancement factor scaled  # bulk lint fixup pass
 
     # The plasma dispersion effect at CMB frequencies is tiny
     # (~10⁻¹² level), so it can't explain the full tension.
@@ -363,19 +357,19 @@ def impedance_hubble_correction(n_e_local: float = 0.05,
     H0_impedance = H0_PLANCK * (Z_local / Z_cmb)
 
     return {
-        'H0_Planck': H0_PLANCK,
-        'H0_SH0ES': H0_SHOES,
-        'H0_tension': H0_TENSION,
-        'n_e_local_cm3': n_e_local,
-        'n_e_cmb_path_cm3': n_e_cmb_path,
-        'omega_p_local': omega_p_local,
-        'omega_p_cmb': omega_p_cmb,
-        'Z_local': Z_local,
-        'Z_cmb': Z_cmb,
-        'delta_Z_ohm': delta_Z,
-        'H0_impedance_corrected': H0_impedance,
-        'tension_explained_pct': (H0_impedance - H0_PLANCK) / H0_TENSION * 100,
-        'mechanism': 'Local vs CMB path electron density → impedance variation → effective c variation',
+        "H0_Planck": H0_PLANCK,
+        "H0_SH0ES": H0_SHOES,
+        "H0_tension": H0_TENSION,
+        "n_e_local_cm3": n_e_local,
+        "n_e_cmb_path_cm3": n_e_cmb_path,
+        "omega_p_local": omega_p_local,
+        "omega_p_cmb": omega_p_cmb,
+        "Z_local": Z_local,
+        "Z_cmb": Z_cmb,
+        "delta_Z_ohm": delta_Z,
+        "H0_impedance_corrected": H0_impedance,
+        "tension_explained_pct": (H0_impedance - H0_PLANCK) / H0_TENSION * 100,
+        "mechanism": "Local vs CMB path electron density → impedance variation → effective c variation",
     }
 
 
@@ -416,22 +410,22 @@ def g_star_prediction() -> dict:
     # Testable consequences
     ratio = g_AVE / g_SM
     expansion_ratio = np.sqrt(ratio)
-    gw_amplitude_ratio = (g_SM / g_AVE)**(1 / 3)
+    gw_amplitude_ratio = (g_SM / g_AVE) ** (1 / 3)
 
     return {
-        'g_star_SM': g_SM,
-        'g_star_AVE': g_AVE,
-        'delta_g_star': g_SM - g_AVE,
-        'N_f_SM': N_f_SM,
-        'N_f_AVE': N_f_AVE,
-        'missing_fermionic_DOF': missing_f,
-        'missing_weyl_spinors': missing_weyl,
-        'EW_expansion_ratio': expansion_ratio,
-        'EW_expansion_slower_pct': (1 - expansion_ratio) * 100,
-        'primordial_GW_stronger_pct': (gw_amplitude_ratio - 1) * 100,
-        'EW_latent_heat_ratio': ratio,
-        'EW_latent_heat_less_pct': (1 - ratio) * 100,
-        'observable_at': ['LISA', 'DECIGO', 'CMB Stage-4', 'FCC-ee'],
+        "g_star_SM": g_SM,
+        "g_star_AVE": g_AVE,
+        "delta_g_star": g_SM - g_AVE,
+        "N_f_SM": N_f_SM,
+        "N_f_AVE": N_f_AVE,
+        "missing_fermionic_DOF": missing_f,
+        "missing_weyl_spinors": missing_weyl,
+        "EW_expansion_ratio": expansion_ratio,
+        "EW_expansion_slower_pct": (1 - expansion_ratio) * 100,
+        "primordial_GW_stronger_pct": (gw_amplitude_ratio - 1) * 100,
+        "EW_latent_heat_ratio": ratio,
+        "EW_latent_heat_less_pct": (1 - ratio) * 100,
+        "observable_at": ["LISA", "DECIGO", "CMB Stage-4", "FCC-ee"],
     }
 
 
@@ -448,26 +442,26 @@ def full_open_problems_proof() -> dict:
     g_pred = g_star_prediction()
 
     return {
-        'Strong_CP': {
-            'theta_is_zero': cp['theta_is_zero'],
-            'no_axion_needed': cp['no_axion_needed'],
-            'SOLVED': cp['STRONG_CP_SOLVED'],
+        "Strong_CP": {
+            "theta_is_zero": cp["theta_is_zero"],
+            "no_axion_needed": cp["no_axion_needed"],
+            "SOLVED": cp["STRONG_CP_SOLVED"],
         },
-        'Baryon_Asymmetry': {
-            'chirality_breaks_CP': baryon['CP_violated'],
-            'eta_predicted': baryon['eta_predicted'],
-            'eta_observed': baryon['eta_observed'],
-            'error_pct': baryon['error_pct'],
+        "Baryon_Asymmetry": {
+            "chirality_breaks_CP": baryon["CP_violated"],
+            "eta_predicted": baryon["eta_predicted"],
+            "eta_observed": baryon["eta_observed"],
+            "error_pct": baryon["error_pct"],
         },
-        'g_star_Prediction': {
-            'g_star_AVE': g_pred['g_star_AVE'],
-            'g_star_SM': g_pred['g_star_SM'],
-            'delta_g_star': g_pred['delta_g_star'],
-            'missing_weyl_spinors': g_pred['missing_weyl_spinors'],
+        "g_star_Prediction": {
+            "g_star_AVE": g_pred["g_star_AVE"],
+            "g_star_SM": g_pred["g_star_SM"],
+            "delta_g_star": g_pred["delta_g_star"],
+            "missing_weyl_spinors": g_pred["missing_weyl_spinors"],
         },
-        'Hubble_Tension': {
-            'H0_corrected': hubble['H0_impedance_corrected'],
-            'tension_explained_pct': hubble['tension_explained_pct'],
-            'mechanism': hubble['mechanism'],
+        "Hubble_Tension": {
+            "H0_corrected": hubble["H0_impedance_corrected"],
+            "tension_explained_pct": hubble["tension_explained_pct"],
+            "mechanism": hubble["mechanism"],
         },
     }

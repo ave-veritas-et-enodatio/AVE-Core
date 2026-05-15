@@ -18,6 +18,7 @@ path.
 
 References: research/L3_electron_soliton/02_, 03_, 04_, 07_, 08_, 09_.
 """
+
 from __future__ import annotations
 
 import jax
@@ -203,7 +204,7 @@ def _op10_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
     n_hat = _project_omega_to_nhat(omega)
     grad_n = _tetrahedral_gradient(n_hat) / dx  # shape (nx,ny,nz,3,3), [..., comp, spatial]
     # G_ij = d_i n . d_j n = sum_a grad_n[...,a,i] * grad_n[...,a,j]
-    G = jnp.einsum('...ai,...aj->...ij', grad_n, grad_n)
+    G = jnp.einsum("...ai,...aj->...ij", grad_n, grad_n)
     diag = jnp.diagonal(G, axis1=-2, axis2=-1)
     tr_G = jnp.sum(diag, axis=-1)
     sq_G = jnp.sum(G * G, axis=(-2, -1))
@@ -510,8 +511,7 @@ def _reflection_density_asymmetric(
     inv_S_eps = 1.0 / jnp.sqrt(S_eps * S_eps + eps_reg)
 
     # Γ_vec = (1/4)[(∇S_μ / S_μ) − (∇S_ε / S_ε)]  per Option II
-    gamma_vec = 0.25 * (grad_S_mu * inv_S_mu[..., None]
-                        - grad_S_eps * inv_S_eps[..., None])
+    gamma_vec = 0.25 * (grad_S_mu * inv_S_mu[..., None] - grad_S_eps * inv_S_eps[..., None])
     gamma_sq = jnp.sum(gamma_vec * gamma_vec, axis=-1)
 
     return gamma_sq
@@ -592,14 +592,7 @@ def _energy_density_bare(
     W_op10 = _op10_density(omega, dx)
     W_refl = _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
     W_hopf = _hopf_density(omega, dx)
-    W = (
-        W_cauchy * G
-        + W_micropolar * G_c
-        + W_kappa * gamma
-        + W_op10 * k_op10
-        + W_refl * k_refl
-        + W_hopf * k_hopf
-    )
+    W = W_cauchy * G + W_micropolar * G_c + W_kappa * gamma + W_op10 * k_op10 + W_refl * k_refl + W_hopf * k_hopf
     return W * mask_alive.astype(W.dtype)
 
 
@@ -649,15 +642,21 @@ def _energy_density_saturated(
 
 
 def _total_energy_bare(u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield):
-    return jnp.sum(_energy_density_bare(
-        u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield
-    ))
+    return jnp.sum(
+        _energy_density_bare(
+            u, omega, mask_alive, dx, G, G_c, gamma, k_op10, k_refl, k_hopf, omega_yield, epsilon_yield
+        )
+    )
 
 
-def _total_energy_saturated(u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf):
-    return jnp.sum(_energy_density_saturated(
-        u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf
-    ))
+def _total_energy_saturated(
+    u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf
+):
+    return jnp.sum(
+        _energy_density_saturated(
+            u, omega, mask_alive, dx, G, G_c, gamma, omega_yield, epsilon_yield, k_op10, k_refl, k_hopf
+        )
+    )
 
 
 # JIT-compiled energy-and-gradient functions.
@@ -698,14 +697,15 @@ def _connected_components_3d(mask: np.ndarray, connectivity: int = 26) -> tuple[
     Label 0 = background; labels 1..n_components = connected regions.
     """
     if connectivity == 26:
-        neighbors = [(di, dj, dk)
-                     for di in (-1, 0, 1)
-                     for dj in (-1, 0, 1)
-                     for dk in (-1, 0, 1)
-                     if not (di == 0 and dj == 0 and dk == 0)]
+        neighbors = [
+            (di, dj, dk)
+            for di in (-1, 0, 1)
+            for dj in (-1, 0, 1)
+            for dk in (-1, 0, 1)
+            if not (di == 0 and dj == 0 and dk == 0)
+        ]
     elif connectivity == 6:
-        neighbors = [(+1, 0, 0), (-1, 0, 0), (0, +1, 0),
-                     (0, -1, 0), (0, 0, +1), (0, 0, -1)]
+        neighbors = [(+1, 0, 0), (-1, 0, 0), (0, +1, 0), (0, -1, 0), (0, 0, +1), (0, 0, -1)]
     else:
         raise ValueError(f"connectivity must be 6 or 26, got {connectivity}")
     labels = np.zeros(mask.shape, dtype=np.int32)
@@ -722,9 +722,7 @@ def _connected_components_3d(mask: np.ndarray, connectivity: int = 26) -> tuple[
             i, j, k = stack.pop()
             for di, dj, dk in neighbors:
                 ni, nj, nk = i + di, j + dj, k + dk
-                if (0 <= ni < nx and 0 <= nj < ny and 0 <= nk < nz
-                        and mask[ni, nj, nk]
-                        and labels[ni, nj, nk] == 0):
+                if 0 <= ni < nx and 0 <= nj < ny and 0 <= nk < nz and mask[ni, nj, nk] and labels[ni, nj, nk] == 0:
                     labels[ni, nj, nk] = n_comp
                     stack.append((ni, nj, nk))
     return labels, n_comp
@@ -1124,17 +1122,33 @@ class CosseratField3D:
         w_j = jnp.asarray(self.omega)
         if self.use_saturation:
             rho = _energy_density_saturated(
-                u_j, w_j, self._mask_alive_jax, self.dx,
-                self.G, self.G_c, self.gamma,
-                self.omega_yield, self.epsilon_yield,
-                self.k_op10, self.k_refl, self.k_hopf,
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                self.omega_yield,
+                self.epsilon_yield,
+                self.k_op10,
+                self.k_refl,
+                self.k_hopf,
             )
         else:
             rho = _energy_density_bare(
-                u_j, w_j, self._mask_alive_jax, self.dx,
-                self.G, self.G_c, self.gamma,
-                self.k_op10, self.k_refl, self.k_hopf,
-                self.omega_yield, self.epsilon_yield,
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                self.k_op10,
+                self.k_refl,
+                self.k_hopf,
+                self.omega_yield,
+                self.epsilon_yield,
             )
         return np.asarray(rho)
 
@@ -1142,18 +1156,38 @@ class CosseratField3D:
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         if self.use_saturation:
-            return float(_total_energy_saturated_jit(
-                u_j, w_j, self._mask_alive_jax, self.dx,
-                self.G, self.G_c, self.gamma,
-                self.omega_yield, self.epsilon_yield,
-                self.k_op10, self.k_refl, self.k_hopf,
-            ))
-        return float(_total_energy_bare_jit(
-            u_j, w_j, self._mask_alive_jax, self.dx,
-            self.G, self.G_c, self.gamma,
-            self.k_op10, self.k_refl, self.k_hopf,
-            self.omega_yield, self.epsilon_yield,
-        ))
+            return float(
+                _total_energy_saturated_jit(
+                    u_j,
+                    w_j,
+                    self._mask_alive_jax,
+                    self.dx,
+                    self.G,
+                    self.G_c,
+                    self.gamma,
+                    self.omega_yield,
+                    self.epsilon_yield,
+                    self.k_op10,
+                    self.k_refl,
+                    self.k_hopf,
+                )
+            )
+        return float(
+            _total_energy_bare_jit(
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                self.k_op10,
+                self.k_refl,
+                self.k_hopf,
+                self.omega_yield,
+                self.epsilon_yield,
+            )
+        )
 
     def total_s11(self) -> float:
         """Field-level S11 objective: sum of |Gamma|^2 over tetrahedral
@@ -1161,18 +1195,28 @@ class CosseratField3D:
         research/L3_electron_soliton handoff 2026-04-20."""
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
-        return float(_total_s11_jit(
-            u_j, w_j, self._mask_alive_jax, self.dx,
-            self.omega_yield, self.epsilon_yield,
-        ))
+        return float(
+            _total_s11_jit(
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.omega_yield,
+                self.epsilon_yield,
+            )
+        )
 
     def s11_gradient(self) -> tuple[np.ndarray, np.ndarray]:
         """Gradient of the S11 objective wrt (u, omega)."""
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         _, (dS_du, dS_dw) = _val_and_grad_s11(
-            u_j, w_j, self._mask_alive_jax, self.dx,
-            self.omega_yield, self.epsilon_yield,
+            u_j,
+            w_j,
+            self._mask_alive_jax,
+            self.dx,
+            self.omega_yield,
+            self.epsilon_yield,
         )
         mask = self._mask_alive_jax[..., None].astype(dS_du.dtype)
         return np.asarray(dS_du * mask), np.asarray(dS_dw * mask)
@@ -1223,7 +1267,9 @@ class CosseratField3D:
                     c_s = self.extract_crossing_count()
                     trajectory.append({"step": step + 1, "S11": S11_new, "R": R_s, "r": r_s, "c": c_s, "lr": lr})
                     if verbose:
-                        print(f"  step {step+1:4d}  S11 = {S11_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}")
+                        print(
+                            f"  step {step+1:4d}  S11 = {S11_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
+                        )
 
                 if step > 10 and rel_change < tol:
                     return {
@@ -1267,17 +1313,33 @@ class CosseratField3D:
         w_j = jnp.asarray(self.omega)
         if self.use_saturation:
             _, (dE_du, dE_dw) = _val_and_grad_saturated(
-                u_j, w_j, self._mask_alive_jax, self.dx,
-                self.G, self.G_c, self.gamma,
-                self.omega_yield, self.epsilon_yield,
-                self.k_op10, self.k_refl, self.k_hopf,
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                self.omega_yield,
+                self.epsilon_yield,
+                self.k_op10,
+                self.k_refl,
+                self.k_hopf,
             )
         else:
             _, (dE_du, dE_dw) = _val_and_grad_bare(
-                u_j, w_j, self._mask_alive_jax, self.dx,
-                self.G, self.G_c, self.gamma,
-                self.k_op10, self.k_refl, self.k_hopf,
-                self.omega_yield, self.epsilon_yield,
+                u_j,
+                w_j,
+                self._mask_alive_jax,
+                self.dx,
+                self.G,
+                self.G_c,
+                self.gamma,
+                self.k_op10,
+                self.k_refl,
+                self.k_hopf,
+                self.omega_yield,
+                self.epsilon_yield,
             )
         mask = self._mask_alive_jax[..., None].astype(dE_du.dtype)
         return np.asarray(dE_du * mask), np.asarray(dE_dw * mask)
@@ -1337,7 +1399,9 @@ class CosseratField3D:
                     c_s = self.extract_crossing_count()
                     trajectory.append({"step": step + 1, "E": E_new, "R": R_s, "r": r_s, "c": c_s, "lr": lr})
                     if verbose:
-                        print(f"  step {step+1:4d}  E = {E_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}")
+                        print(
+                            f"  step {step+1:4d}  E = {E_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
+                        )
 
                 if step > 10 and rel_change < tol:
                     return {
@@ -1528,7 +1592,7 @@ class CosseratField3D:
         rz = self._k - z0
         r2 = rx * rx + ry * ry + rz * rz
 
-        envelope = np.exp(-r2 / (2.0 * sigma ** 2))
+        envelope = np.exp(-r2 / (2.0 * sigma**2))
         phase = k_vec[0] * rx + k_vec[1] * ry + k_vec[2] * rz
         carrier_cos = np.cos(phase)
         carrier_sin = np.sin(phase)
@@ -1541,9 +1605,7 @@ class CosseratField3D:
         # Velocity chosen so (cos·f(r) at t=0, sin-like time evolution) forms a
         # traveling wave at speed c_T along +d̂. omega(r, t) ~ cos(k·r − ω t)
         # ⇒ ∂_t omega|_{t=0} = ω · sin(k·r) = c_T·|k|·sin(k·r).
-        omega_dot_field[..., axis] = (
-            c_T * np.linalg.norm(k_vec) * amplitude * envelope * carrier_sin
-        )
+        omega_dot_field[..., axis] = c_T * np.linalg.norm(k_vec) * amplitude * envelope * carrier_sin
 
         # Enforce active-site mask.
         mask4 = self.mask_alive[..., None].astype(omega_field.dtype)
@@ -1577,11 +1639,13 @@ class CosseratField3D:
         w_j = jnp.asarray(self.omega)
         rho = _hopf_density(w_j, self.dx)
         mask = jnp.asarray(self.mask_alive).astype(rho.dtype)
-        integral = float(jnp.sum(rho * mask) * (self.dx ** 3))
-        return integral / (4.0 * np.pi ** 2)
+        integral = float(jnp.sum(rho * mask) * (self.dx**3))
+        return integral / (4.0 * np.pi**2)
 
     def find_soliton_centroids(
-        self, threshold_frac: float = 0.3, min_cluster_size: int = 8,
+        self,
+        threshold_frac: float = 0.3,
+        min_cluster_size: int = 8,
     ) -> list[dict]:
         """Find localized ω-field concentrations.
 
@@ -1593,7 +1657,7 @@ class CosseratField3D:
         Critical for Phase III-B: after pair creation, we expect TWO
         distinct centroids (e+ and e−). This method identifies them.
         """
-        omega_mag_sq = np.sum(self.omega ** 2, axis=-1) * self.mask_alive
+        omega_mag_sq = np.sum(self.omega**2, axis=-1) * self.mask_alive
         if omega_mag_sq.max() <= 1e-30:
             return []
         threshold = threshold_frac * omega_mag_sq.max()
@@ -1615,11 +1679,13 @@ class CosseratField3D:
             cy = float((idx[1] * weights).sum() / total)
             cz = float((idx[2] * weights).sum() / total)
             peak = float(omega_mag_sq[mask].max())
-            centroids.append({
-                "center": (cx, cy, cz),
-                "peak_mag_sq": peak,
-                "n_cells": n_cells,
-            })
+            centroids.append(
+                {
+                    "center": (cx, cy, cz),
+                    "peak_mag_sq": peak,
+                    "n_cells": n_cells,
+                }
+            )
         return centroids
 
     def total_omega_energy_local(self, center: tuple[float, float, float], radius: float) -> float:
@@ -1631,8 +1697,8 @@ class CosseratField3D:
         ry = self._j - cy
         rz = self._k - cz
         r2 = rx * rx + ry * ry + rz * rz
-        mask = (r2 <= radius ** 2) & self.mask_alive
-        return float(np.sum(np.sum(self.omega ** 2, axis=-1) * mask))
+        mask = (r2 <= radius**2) & self.mask_alive
+        return float(np.sum(np.sum(self.omega**2, axis=-1) * mask))
 
     # ------------------------------------------------------------------
     # Diagnostics (numpy-backed)
@@ -1755,10 +1821,7 @@ class CosseratField3D:
         if any_reliable:
             return max_reliable_winding
         # Fallback: if no reliable contour, take the max winding read regardless.
-        return max(
-            single_contour_winding(r_minor)[0]
-            for r_minor in np.linspace(1.0, max(3.0, R_found * 0.5), 5)
-        )
+        return max(single_contour_winding(r_minor)[0] for r_minor in np.linspace(1.0, max(3.0, R_found * 0.5), 5))
 
     def extract_quality_factor(self) -> float:
         R, r = self.extract_shell_radii()

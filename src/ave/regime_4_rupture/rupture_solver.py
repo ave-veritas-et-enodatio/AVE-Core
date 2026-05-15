@@ -54,16 +54,16 @@ In Regime IV (r >= 1.0):
     c_shear = 0: topology melted, no transverse propagation.
     Z_asym → ∞ (dielectric void), Z_sym = Z₀ (perfect absorber, Γ=0).
 """
-from __future__ import annotations
-
 
 import numpy as np
-from ave.core.constants import C_0, Z_0, EPSILON_0, MU_0
+
+from ave.core.constants import C_0, EPSILON_0, MU_0, Z_0
 from ave.core.universal_operators import universal_saturation
+
 
 class TopologicalRuptureSolver:
     @staticmethod
-    def evaluate_rupture_state(r_param: float | np.ndarray) -> dict:
+    def evaluate_rupture_state(r_param: float | np.ndarray) -> dict[str, np.ndarray | bool]:
         """
         Evaluate the macroscopic state variables of a system at saturation r.
 
@@ -97,46 +97,46 @@ class TopologicalRuptureSolver:
         """
         r_arr = np.atleast_1d(np.asarray(r_param, dtype=float))
         S = np.array([universal_saturation(float(x), 1.0) for x in r_arr])
-        S_safe = np.maximum(S, 1e-14)   # guard for division at exact rupture boundary
+        S_safe = np.maximum(S, 1e-14)  # guard for division at exact rupture boundary
 
         is_ruptured = r_arr >= 1.0
 
         # ── SYMMETRIC saturation (both μ,ε scale by S) ────────────────────────
         eps_eff_sym = float(EPSILON_0) * S
-        mu_eff_sym  = float(MU_0) * S
-        Z_sym       = np.full_like(S, float(Z_0))           # Z₀ exactly (S cancels)
-        c_EM_sym    = float(C_0) / S_safe                   # c₀/S → ∞ inside BH
+        mu_eff_sym = float(MU_0) * S
+        Z_sym = np.full_like(S, float(Z_0))  # Z₀ exactly (S cancels)
+        c_EM_sym = float(C_0) / S_safe  # c₀/S → ∞ inside BH
 
         # ── ASYMMETRIC saturation (only ε scales by S) ────────────────────────
         eps_eff_asym = float(EPSILON_0) * S
-        mu_eff_asym  = np.full_like(S, float(MU_0))
-        Z_asym       = float(Z_0) / np.sqrt(S_safe)         # Z₀/√S → ∞ (opaque)
-        c_EM_asym    = float(C_0) / np.sqrt(S_safe)         # c₀/√S → ∞ (evanescent)
+        mu_eff_asym = np.full_like(S, float(MU_0))
+        Z_asym = float(Z_0) / np.sqrt(S_safe)  # Z₀/√S → ∞ (opaque)
+        c_EM_asym = float(C_0) / np.sqrt(S_safe)  # c₀/√S → ∞ (evanescent)
 
         # ── SHEAR WAVE / GW speed — from G_shear = G₀·S ═══════════════════════
         # Derivation: c_shear = √(G_shear/ρ) = c₀·√(G₀·S/G₀) = c₀·√S
         # Equivalently: c₀·(1−r²)^(1/4) since √S = (1−r²)^(1/4)
         # This → 0 at rupture: topology melted, transverse propagation ceases.
-        c_shear = float(C_0) * np.sqrt(S)                   # c₀·√S = c₀·(1−r²)^{1/4}
+        c_shear = float(C_0) * np.sqrt(S)  # c₀·√S = c₀·(1−r²)^{1/4}
 
         return {
-            'r':             r_arr,
-            'S':             S,
-            'is_ruptured':   is_ruptured,
+            "r": r_arr,
+            "S": S,
+            "is_ruptured": is_ruptured,
             # symmetric
-            'eps_eff_sym':   eps_eff_sym,
-            'mu_eff_sym':    mu_eff_sym,
-            'Z_sym':         Z_sym,
-            'c_EM_sym':      c_EM_sym,
+            "eps_eff_sym": eps_eff_sym,
+            "mu_eff_sym": mu_eff_sym,
+            "Z_sym": Z_sym,
+            "c_EM_sym": c_EM_sym,
             # asymmetric
-            'eps_eff_asym':  eps_eff_asym,
-            'mu_eff_asym':   mu_eff_asym,
-            'Z_asym':        Z_asym,
-            'c_EM_asym':     c_EM_asym,
+            "eps_eff_asym": eps_eff_asym,
+            "mu_eff_asym": mu_eff_asym,
+            "Z_asym": Z_asym,
+            "c_EM_asym": c_EM_asym,
             # shear / GW
-            'c_shear':       c_shear,
+            "c_shear": c_shear,
             # backward-compat alias (was 'c_eff' = c_shear in original code)
-            'c_eff':         c_shear,
-            'eps_eff':       eps_eff_asym,   # backward-compat: was eps_eff_asym
-            'Z_eff':         Z_asym,         # backward-compat: was Z_asym
+            "c_eff": c_shear,
+            "eps_eff": eps_eff_asym,  # backward-compat: was eps_eff_asym
+            "Z_eff": Z_asym,  # backward-compat: was Z_asym
         }

@@ -11,14 +11,17 @@ physics — every axiom-derived constant, every nonlinear saturation
 curve, every curl stencil is numerically identical.
 """
 
-import numpy as np
 import time
+
+import numpy as np
 
 from ave.core.fdtd_3d import FDTD3DEngine
 from ave.core.fdtd_3d_jax import FDTD3DEngineJAX
 
 
-def test_equivalence(nx=20, ny=20, nz=20, n_steps=50, linear_only=False, use_pml=False):
+def test_equivalence(
+    nx: int = 20, ny: int = 20, nz: int = 20, n_steps: int = 50, linear_only: bool = False, use_pml: bool = False
+) -> None:
     """Compare numpy and JAX engines for n_steps with a point source."""
     label = f"{'linear' if linear_only else 'nonlinear'}, {'PML' if use_pml else 'Mur'}"
     print(f"\n  Test: {label}  ({nx}×{ny}×{nz}, {n_steps} steps)")
@@ -38,17 +41,17 @@ def test_equivalence(nx=20, ny=20, nz=20, n_steps=50, linear_only=False, use_pml
         t = eng_np.dt * step
         signal = np.sin(2 * np.pi * freq * t) * 100.0
 
-        eng_np.inject_soft_source('Ez', cx, cy, cz, signal)
+        eng_np.inject_soft_source("Ez", cx, cy, cz, signal)
         eng_np.step()
 
-        eng_jax.inject_soft_source('Ez', cx, cy, cz, signal)
+        eng_jax.inject_soft_source("Ez", cx, cy, cz, signal)
         eng_jax.step()
     dt_total = time.time() - t0
 
     # Compare fields
     jax_fields = eng_jax.to_numpy()
     max_diffs = {}
-    for name in ['Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz']:
+    for name in ["Ex", "Ey", "Ez", "Hx", "Hy", "Hz"]:
         np_field = getattr(eng_np, name)
         jax_field = jax_fields[name]
         max_diff = np.max(np.abs(np_field - jax_field))
@@ -80,7 +83,7 @@ def test_equivalence(nx=20, ny=20, nz=20, n_steps=50, linear_only=False, use_pml
     assert all_pass, f"JAX/numpy mismatch in {label}"
 
 
-def main():
+def main() -> None:
     print("=" * 60)
     print("  FDTD3DEngine: numpy vs JAX Numerical Equivalence Test")
     print("=" * 60)

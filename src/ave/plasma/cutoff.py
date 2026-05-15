@@ -17,18 +17,20 @@ The FDTD engine already implements this: when E > V_snap/dx,
 ε_eff → 0 and the field is expelled — exactly like a conductor
 (plasma screening / Meissner effect analog).
 """
-from __future__ import annotations
 
+from dataclasses import dataclass
+from typing import Callable
 
 import numpy as np
-from dataclasses import dataclass
-from ave.core.constants import C_0, EPSILON_0, MU_0, V_SNAP, ALPHA, L_NODE, e_charge, M_E, K_B
-from ave.axioms.scale_invariant import saturation_factor, epsilon_eff as _si_epsilon_eff
+
+from ave.axioms.scale_invariant import epsilon_eff as _si_epsilon_eff
+from ave.core.constants import C_0, EPSILON_0, K_B, L_NODE, M_E, V_SNAP, e_charge
 
 
 @dataclass
 class PlasmaParameters:
     """Plasma properties from electron density."""
+
     n_e: float  # Electron density [m⁻³]
 
     @property
@@ -56,12 +58,12 @@ class PlasmaParameters:
         return np.sqrt(EPSILON_0 * K_B * T_K / (self.n_e * e_charge**2))
 
     @property
-    def dielectric_function(self) -> callable:
+    def dielectric_function(self) -> Callable[[float], float]:
         """
         Returns ε(ω) = 1 - (ω_p/ω)² (Drude model).
         """
         omega_p = self.plasma_frequency
-        return lambda omega: 1.0 - (omega_p / omega)**2
+        return lambda omega: 1.0 - (omega_p / omega) ** 2
 
     @property
     def critical_density(self) -> float:
@@ -113,7 +115,7 @@ def dielectric_function_ave(omega: float, E_field: float) -> float:
     # Drude term
     omega_p = ave_plasma_frequency()
     if omega > 0:
-        drude = 1.0 - (omega_p / omega)**2
+        drude = 1.0 - (omega_p / omega) ** 2
     else:
         drude = 0.0
 
@@ -142,11 +144,11 @@ def electron_density_from_frequency(f_hz: float) -> float:
 # ============================================================
 
 COMMON_PLASMAS = {
-    "Solar corona":       PlasmaParameters(n_e=1e15),
-    "Solar wind":         PlasmaParameters(n_e=1e7),
-    "Ionosphere (F2)":    PlasmaParameters(n_e=1e12),
-    "Fluorescent lamp":   PlasmaParameters(n_e=1e18),
-    "Fusion plasma":      PlasmaParameters(n_e=1e20),
-    "Metal (Cu)":         PlasmaParameters(n_e=8.5e28),
+    "Solar corona": PlasmaParameters(n_e=1e15),
+    "Solar wind": PlasmaParameters(n_e=1e7),
+    "Ionosphere (F2)": PlasmaParameters(n_e=1e12),
+    "Fluorescent lamp": PlasmaParameters(n_e=1e18),
+    "Fusion plasma": PlasmaParameters(n_e=1e20),
+    "Metal (Cu)": PlasmaParameters(n_e=8.5e28),
     "Dense astrophysical": PlasmaParameters(n_e=1e30),
 }

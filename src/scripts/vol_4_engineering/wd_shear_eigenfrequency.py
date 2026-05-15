@@ -32,24 +32,18 @@ USAGE:
 
 import math
 
-from ave.core.constants import G, C_0, NU_VAC, M_SUN, ALPHA
-from ave.gravity import (
-    principal_radial_strain,
-    refractive_index,
-    shear_modulus_factor,
-    saturation_radius,
-)
-
+from ave.core.constants import ALPHA, C_0, M_SUN, NU_VAC, G
+from ave.gravity import principal_radial_strain, refractive_index, saturation_radius, shear_modulus_factor
 
 # ═══════════════════════════════════════
 # WD Catalog
 # ═══════════════════════════════════════
 
 WD_CATALOG = [
-    {"name": "Sirius B",     "M_solar": 1.018, "R_km": 5_800,  "T_eff_K": 25_200},
-    {"name": "40 Eridani B", "M_solar": 0.573, "R_km": 9_000,  "T_eff_K": 16_500},
-    {"name": "Procyon B",    "M_solar": 0.602, "R_km": 8_600,  "T_eff_K": 7_740},
-    {"name": "Stein 2051 B", "M_solar": 0.675, "R_km": 8_000,  "T_eff_K": 7_120},
+    {"name": "Sirius B", "M_solar": 1.018, "R_km": 5_800, "T_eff_K": 25_200},
+    {"name": "40 Eridani B", "M_solar": 0.573, "R_km": 9_000, "T_eff_K": 16_500},
+    {"name": "Procyon B", "M_solar": 0.602, "R_km": 8_600, "T_eff_K": 7_740},
+    {"name": "Stein 2051 B", "M_solar": 0.675, "R_km": 8_000, "T_eff_K": 7_120},
     {"name": "GD 358 (ZZ Ceti prototype)", "M_solar": 0.61, "R_km": 8_800, "T_eff_K": 24_900},
 ]
 
@@ -59,7 +53,7 @@ LISA_BAND = (1e-4, 1.0)
 ET_BAND = (1.0, 10000.0)  # Einstein Telescope
 
 
-def wd_eigenfrequency(M_kg, R_m, ell):
+def wd_eigenfrequency(M_kg: float, R_m: float, ell: int) -> dict:
     """
     5-step eigenvalue method for WD surface shear cavity.
 
@@ -90,7 +84,7 @@ def wd_eigenfrequency(M_kg, R_m, ell):
 
     # Step 5: Quality factor and decay time
     Q = ell
-    tau = Q / (math.pi * f_hz) if f_hz > 0 else float('inf')
+    tau = Q / (math.pi * f_hz) if f_hz > 0 else float("inf")
 
     # Shear wave speed at WD surface
     # v_shear = c * S^(1/2) (from Axiom 4: c_eff = c₀·S^(1/2))
@@ -124,7 +118,7 @@ def wd_eigenfrequency(M_kg, R_m, ell):
     }
 
 
-def main():
+def main() -> None:
     print("=" * 78)
     print("AVE White Dwarf Standing Shear Wave Eigenfrequencies")
     print("5-Step Regime-Boundary Eigenvalue Method")
@@ -139,16 +133,16 @@ def main():
         R_m = wd["R_km"] * 1000.0
 
         print("-" * 78)
-        print(f"  {wd['name']}  (M = {wd['M_solar']:.3f} M☉,  R = {wd['R_km']} km,"
-              f"  T_eff = {wd['T_eff_K']} K)")
+        print(f"  {wd['name']}  (M = {wd['M_solar']:.3f} M☉,  R = {wd['R_km']} km," f"  T_eff = {wd['T_eff_K']} K)")
         print("-" * 78)
 
         # Compute for ℓ=1,2,3 first to get common properties
         r0 = wd_eigenfrequency(M_kg, R_m, 2)
-        print(f"  ε₁₁ = {r0['eps11']:.4e}    Regime {r0['regime']}"
-              f"    S = {r0['S']:.10f}    n(R) = {r0['n_r']:.8f}")
-        print(f"  r_eff = {r0['r_eff_km']:.0f} km    r_sat = {r0['r_sat_km']:.4f} km"
-              f"    g = {r0['g_surface']:.3e} m/s²")
+        print(f"  ε₁₁ = {r0['eps11']:.4e}    Regime {r0['regime']}" f"    S = {r0['S']:.10f}    n(R) = {r0['n_r']:.8f}")
+        print(
+            f"  r_eff = {r0['r_eff_km']:.0f} km    r_sat = {r0['r_sat_km']:.4f} km"
+            f"    g = {r0['g_surface']:.3e} m/s²"
+        )
         print()
 
         hdr = f"  {'ℓ':>3s} {'f [Hz]':>12s} {'τ [ms]':>10s} {'Q':>4s} {'LIGO':>6s} {'ET':>6s} {'LISA':>6s}"
@@ -161,8 +155,10 @@ def main():
             ligo_mark = "✓" if r["in_ligo"] else "-"
             et_mark = "✓" if r["in_et"] else "-"
             lisa_mark = "✓" if r["in_lisa"] else "-"
-            print(f"  {ell:>3d} {r['f_hz']:>12.2f} {tau_ms:>10.4f} {r['Q']:>4d}"
-                  f" {ligo_mark:>6s} {et_mark:>6s} {lisa_mark:>6s}")
+            print(
+                f"  {ell:>3d} {r['f_hz']:>12.2f} {tau_ms:>10.4f} {r['Q']:>4d}"
+                f" {ligo_mark:>6s} {et_mark:>6s} {lisa_mark:>6s}"
+            )
 
         print()
 
@@ -184,9 +180,9 @@ def main():
         tau_bh = Q_bh / (math.pi * f_bh)
 
         # GR comparison: dimensionless ω_R · M_geom ≈ 0.3737  (M_geom = GM/c³)
-        M_geom = G * M_kg / float(C_0)**3  # geometric mass [seconds]
+        M_geom = G * M_kg / float(C_0) ** 3  # geometric mass [seconds]
         omega_bh = 2.0 * math.pi * f_bh
-        omega_M = omega_bh * M_geom         # dimensionless
+        omega_M = omega_bh * M_geom  # dimensionless
         f_gr_approx = 0.3737 / (2.0 * math.pi * M_geom)
 
         print(f"  {M_label}:")

@@ -31,20 +31,13 @@ References:
     - Micheli et al. (2018): 'Oumuamua non-gravitational acceleration
     - Bialy & Loeb (2018): Radiation pressure on thin body
 """
-from __future__ import annotations
 
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import (
-    G, C_0, Z_0, EPSILON_0, MU_0,
-    M_E, e_charge, M_SUN,
-)
-from ave.axioms.scale_invariant import (
-    reflection_coefficient, saturation_factor, impedance,
-)
+from ave.axioms.scale_invariant import reflection_coefficient, saturation_factor
+from ave.core.constants import C_0, EPSILON_0, M_E, M_SUN, Z_0, G, e_charge
 from ave.regime_3_saturated.galactic_rotation import A0_LATTICE
 
 # Alias for readability in formulas
@@ -55,19 +48,19 @@ E_CHARGE = e_charge
 # Solar system constants
 # ═══════════════════════════════════════════════════════════════
 
-R_SUN = 6.957e8         # Solar radius [m]
-AU = 1.496e11           # Astronomical unit [m]
-KPC = 3.0857e19         # Kiloparsec [m]
+R_SUN = 6.957e8  # Solar radius [m]
+AU = 1.496e11  # Astronomical unit [m]
+KPC = 3.0857e19  # Kiloparsec [m]
 
 # Solar wind at 1 AU (typical slow wind)
-N_E_1AU = 5e6           # electrons/m³ at 1 AU
-V_SW_1AU = 400e3        # Solar wind speed at 1 AU [m/s]
-T_SW_1AU = 1e5          # Temperature at 1 AU [K]
-B_SW_1AU = 5e-9         # Magnetic field at 1 AU [T]
+N_E_1AU = 5e6  # electrons/m³ at 1 AU
+V_SW_1AU = 400e3  # Solar wind speed at 1 AU [m/s]
+T_SW_1AU = 1e5  # Temperature at 1 AU [K]
+B_SW_1AU = 5e-9  # Magnetic field at 1 AU [T]
 
 # ISM properties
-N_E_ISM = 0.1e6         # electrons/m³ in local ISM
-T_ISM = 7000            # ISM temperature [K]
+N_E_ISM = 0.1e6  # electrons/m³ in local ISM
+T_ISM = 7000  # ISM temperature [K]
 
 # Heliopause distance
 R_HELIOPAUSE = 120 * AU  # ~120 AU (Voyager 1 crossed at ~121.6 AU)
@@ -76,6 +69,7 @@ R_HELIOPAUSE = 120 * AU  # ~120 AU (Voyager 1 crossed at ~121.6 AU)
 # ═══════════════════════════════════════════════════════════════
 # Heliospheric impedance profile
 # ═══════════════════════════════════════════════════════════════
+
 
 def solar_wind_density(r_m: float) -> float:
     """
@@ -139,7 +133,7 @@ def heliospheric_impedance_profile(
     r_min_au: float = 0.1,
     r_max_au: float = 300.0,
     freq_hz: float = 1e6,
-) -> dict:
+) -> dict[str, np.ndarray | float]:
     """
     Build a full radial impedance profile from near-Sun to beyond heliopause.
 
@@ -158,10 +152,7 @@ def heliospheric_impedance_profile(
     g_solar = G * M_SUN / r_m**2
 
     # Saturation factor (Axiom 4)
-    sigma = np.array([
-        saturation_factor(g, A0_LATTICE) if g > 0 else 1.0
-        for g in g_solar
-    ])
+    sigma = np.array([saturation_factor(g, A0_LATTICE) if g > 0 else 1.0 for g in g_solar])
 
     # Heliopause reflection coefficient
     Z_heliopause = solar_wind_impedance(R_HELIOPAUSE, freq_hz)
@@ -169,14 +160,14 @@ def heliospheric_impedance_profile(
     Gamma_hp = float(reflection_coefficient(Z_heliopause, Z_ism))
 
     return {
-        'r_au': r_au,
-        'r_m': r_m,
-        'n_e': n_e,
-        'f_p_hz': f_p,
-        'Z_sw': Z_sw,
-        'g_solar': g_solar,
-        'sigma_sat': sigma,
-        'Gamma_heliopause': Gamma_hp,
+        "r_au": r_au,
+        "r_m": r_m,
+        "n_e": n_e,
+        "f_p_hz": f_p,
+        "Z_sw": Z_sw,
+        "g_solar": g_solar,
+        "sigma_sat": sigma,
+        "Gamma_heliopause": Gamma_hp,
     }
 
 
@@ -184,15 +175,17 @@ def heliospheric_impedance_profile(
 # 'Oumuamua anomalous acceleration
 # ═══════════════════════════════════════════════════════════════
 
+
 @dataclass
 class InterstellarObject:
     """Properties of an interstellar object."""
+
     name: str
     mass_kg: float
-    area_m2: float          # Cross-sectional area
-    thickness_m: float      # Thickness (for radiation pressure)
+    area_m2: float  # Cross-sectional area
+    thickness_m: float  # Thickness (for radiation pressure)
     perihelion_au: float
-    v_inf_km_s: float       # Velocity at infinity
+    v_inf_km_s: float  # Velocity at infinity
 
     @property
     def area_to_mass(self) -> float:
@@ -206,9 +199,9 @@ class InterstellarObject:
 #   → mass ≈ A × thickness × density = 1.2e5 × 5e-4 × 2000 = 1.2×10⁵ kg
 OUMUAMUA = InterstellarObject(
     name="1I/'Oumuamua",
-    mass_kg=1.2e5,           # ~1.2×10⁵ kg (thin sheet, Bialy & Loeb)
-    area_m2=1.2e5,           # ~120,000 m² (if pancake ~115m × ~111m)
-    thickness_m=0.5e-3,      # ~0.5 mm (if light sail)
+    mass_kg=1.2e5,  # ~1.2×10⁵ kg (thin sheet, Bialy & Loeb)
+    area_m2=1.2e5,  # ~120,000 m² (if pancake ~115m × ~111m)
+    thickness_m=0.5e-3,  # ~0.5 mm (if light sail)
     perihelion_au=0.2553,
     v_inf_km_s=26.33,
 )
@@ -281,7 +274,7 @@ def oumuamua_impedance_acceleration(r_m: float, obj: InterstellarObject = OUMUAM
     return a_rad
 
 
-def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict:
+def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict[str, float | bool | str]:
     """
     Complete 'Oumuamua analysis at perihelion and 1 AU.
 
@@ -302,22 +295,23 @@ def oumuamua_summary(obj: InterstellarObject = OUMUAMUA) -> dict:
     g_1au = G * M_SUN / r_1au**2
 
     return {
-        'name': obj.name,
-        'area_to_mass_m2_kg': obj.area_to_mass,
-        'a_rad_perihelion_m_s2': a_peri,
-        'a_rad_1au_m_s2': a_1au,
-        'a_obs_1au_m_s2': a_obs_1au,
-        'ratio_predicted_observed': a_1au / a_obs_1au,
-        'g_perihelion_m_s2': g_peri,
-        'g_1au_m_s2': g_1au,
-        'a_rad_over_g_at_1au': a_1au / g_1au,
-        'scales_as_1_over_r2': True,  # Both P_rad and observation scale as 1/r²
+        "name": obj.name,
+        "area_to_mass_m2_kg": obj.area_to_mass,
+        "a_rad_perihelion_m_s2": a_peri,
+        "a_rad_1au_m_s2": a_1au,
+        "a_obs_1au_m_s2": a_obs_1au,
+        "ratio_predicted_observed": a_1au / a_obs_1au,
+        "g_perihelion_m_s2": g_peri,
+        "g_1au_m_s2": g_1au,
+        "a_rad_over_g_at_1au": a_1au / g_1au,
+        "scales_as_1_over_r2": True,  # Both P_rad and observation scale as 1/r²
     }
 
 
 # ═══════════════════════════════════════════════════════════════
 # Oort Cloud as impedance boundary
 # ═══════════════════════════════════════════════════════════════
+
 
 def saturation_radius_au() -> float:
     """
@@ -335,7 +329,7 @@ def saturation_radius_au() -> float:
     return r_sat / AU
 
 
-def oort_cloud_prediction() -> dict:
+def oort_cloud_prediction() -> dict[str, float | int | str]:
     """
     AVE prediction for the Oort Cloud location.
 
@@ -350,18 +344,18 @@ def oort_cloud_prediction() -> dict:
 
     # Observed Oort Cloud inner edge: ~2,000-5,000 AU (Hills cloud)
     # Outer edge: ~50,000-200,000 AU
-    r_hills_inner = 2000   # AU
-    r_hills_outer = 5000   # AU
+    r_hills_inner = 2000  # AU
+    r_hills_outer = 5000  # AU
     r_oort_outer = 100000  # AU
 
     return {
-        'r_saturation_au': r_sat_au,
-        'r_saturation_ly': r_sat_au * AU / (9.461e15),
-        'r_hills_inner_au': r_hills_inner,
-        'r_hills_outer_au': r_hills_outer,
-        'r_oort_outer_au': r_oort_outer,
-        'prediction': 'Inner Oort Cloud coincides with g=a₀ transition',
-        'g_at_saturation': A0_LATTICE,
+        "r_saturation_au": r_sat_au,
+        "r_saturation_ly": r_sat_au * AU / (9.461e15),
+        "r_hills_inner_au": r_hills_inner,
+        "r_hills_outer_au": r_hills_outer,
+        "r_oort_outer_au": r_oort_outer,
+        "prediction": "Inner Oort Cloud coincides with g=a₀ transition",
+        "g_at_saturation": A0_LATTICE,
     }
 
 
@@ -370,9 +364,9 @@ def oort_cloud_prediction() -> dict:
 # ═══════════════════════════════════════════════════════════════
 
 # Jupiter orbital parameters
-M_JUPITER = 1.898e27    # kg
+M_JUPITER = 1.898e27  # kg
 A_JUPITER = 5.2038 * AU  # Semi-major axis [m]
-T_JUPITER = 11.862       # Orbital period [years]
+T_JUPITER = 11.862  # Orbital period [years]
 
 
 def kirkwood_gap_radius(p: int, q: int) -> float:
@@ -393,7 +387,7 @@ def kirkwood_gap_radius(p: int, q: int) -> float:
     return (A_JUPITER / AU) * (q / p) ** (2.0 / 3.0)
 
 
-def kirkwood_impedance_model() -> list:
+def kirkwood_impedance_model() -> list[dict[str, float | str | None]]:
     """
     Model Kirkwood gaps as impedance cavity modes.
 
@@ -410,11 +404,11 @@ def kirkwood_impedance_model() -> list:
     """
     # Known Kirkwood gaps (resonance p:q with Jupiter)
     resonances = [
-        (4, 1, '4:1'),
-        (3, 1, '3:1'),
-        (5, 2, '5:2'),
-        (7, 3, '7:3'),
-        (2, 1, '2:1'),
+        (4, 1, "4:1"),
+        (3, 1, "3:1"),
+        (5, 2, "5:2"),
+        (7, 3, "7:3"),
+        (2, 1, "2:1"),
     ]
 
     gaps = []
@@ -423,29 +417,35 @@ def kirkwood_impedance_model() -> list:
 
         # Observed gap centers (from asteroid surveys)
         observed = {
-            '4:1': 2.06,
-            '3:1': 2.50,
-            '5:2': 2.82,
-            '7:3': 2.95,
-            '2:1': 3.28,
+            "4:1": 2.06,
+            "3:1": 2.50,
+            "5:2": 2.82,
+            "7:3": 2.95,
+            "2:1": 3.28,
         }
 
         # Jupiter's gravitational perturbation strength at gap
         r_gap_m = r_gap * AU
-        F_jupiter = G * M_JUPITER / (A_JUPITER - r_gap_m)**2
+        F_jupiter = G * M_JUPITER / (A_JUPITER - r_gap_m) ** 2
         F_sun = G * M_SUN / r_gap_m**2
 
         # Impedance mismatch at resonance
         Z_ratio = F_jupiter / F_sun  # Perturbation strength
 
-        gaps.append({
-            'resonance': label,
-            'r_predicted_au': r_gap,
-            'r_observed_au': observed.get(label, None),
-            'error_pct': abs(r_gap - observed.get(label, r_gap)) / observed.get(label, r_gap) * 100 if label in observed else None,
-            'Z_perturbation_ratio': Z_ratio,
-            'cavity_order': p - q,  # Mode number
-        })
+        gaps.append(
+            {
+                "resonance": label,
+                "r_predicted_au": r_gap,
+                "r_observed_au": observed.get(label, None),
+                "error_pct": (
+                    abs(r_gap - observed.get(label, r_gap)) / observed.get(label, r_gap) * 100
+                    if label in observed
+                    else None
+                ),
+                "Z_perturbation_ratio": Z_ratio,
+                "cavity_order": p - q,  # Mode number
+            }
+        )
 
     return gaps
 
@@ -455,15 +455,15 @@ def kirkwood_impedance_model() -> list:
 # ═══════════════════════════════════════════════════════════════
 
 # Saturn system constants
-M_SATURN = 5.6834e26    # Saturn mass [kg]
-R_SATURN = 5.8232e7     # Saturn equatorial radius [m]
+M_SATURN = 5.6834e26  # Saturn mass [kg]
+R_SATURN = 5.8232e7  # Saturn equatorial radius [m]
 
 # Saturn moon semi-major axes [m]
-A_MIMAS = 185_539e3     # Mimas
-A_ENCELADUS = 238_042e3 # Enceladus
-A_TETHYS = 294_672e3    # Tethys
-A_JANUS = 151_460e3     # Janus (co-orbital with Epimetheus)
-A_PAN = 133_584e3       # Pan (inside Encke Gap)
+A_MIMAS = 185_539e3  # Mimas
+A_ENCELADUS = 238_042e3  # Enceladus
+A_TETHYS = 294_672e3  # Tethys
+A_JANUS = 151_460e3  # Janus (co-orbital with Epimetheus)
+A_PAN = 133_584e3  # Pan (inside Encke Gap)
 
 
 def saturn_gap_radius(p: int, q: int, a_moon: float) -> float:
@@ -491,7 +491,7 @@ def saturn_gap_radius(p: int, q: int, a_moon: float) -> float:
     return a_moon * (q / p) ** (2.0 / 3.0)
 
 
-def saturn_ring_gap_model() -> list:
+def saturn_ring_gap_model() -> list[dict[str, float | str]]:
     """
     Model Saturn ring gaps as impedance cavity modes.
 
@@ -528,9 +528,9 @@ def saturn_ring_gap_model() -> list:
     resonances = [
         # Cassini Division inner edge: 2:1 with Mimas
         # The strongest and best-established ring resonance
-        (2, 1, A_MIMAS, 'Cassini (2:1 Mimas)', 117_580),
+        (2, 1, A_MIMAS, "Cassini (2:1 Mimas)", 117_580),
         # Encke Gap: maintained by Pan (moonlet AT the gap)
-        (1, 1, A_PAN, 'Encke (Pan)', 133_584),
+        (1, 1, A_PAN, "Encke (Pan)", 133_584),
     ]
 
     gaps = []
@@ -542,18 +542,20 @@ def saturn_ring_gap_model() -> list:
         error_pct = abs(r_pred_km - obs_km) / obs_km * 100
 
         # Saturn's gravitational perturbation at gap
-        F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
-        Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)
+        # F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
+        # Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)  # bulk lint fixup pass
 
-        gaps.append({
-            'gap_name': label,
-            'r_predicted_km': r_pred_km,
-            'r_observed_km': obs_km,
-            'r_predicted_Rs': r_pred_Rs,
-            'error_pct': error_pct,
-            'resonance_p_q': f'{p}:{q}',
-            'moon_a_km': a_moon / 1e3,
-        })
+        gaps.append(
+            {
+                "gap_name": label,
+                "r_predicted_km": r_pred_km,
+                "r_observed_km": obs_km,
+                "r_predicted_Rs": r_pred_Rs,
+                "error_pct": error_pct,
+                "resonance_p_q": f"{p}:{q}",
+                "moon_a_km": a_moon / 1e3,
+            }
+        )
 
     return gaps
 
@@ -562,8 +564,8 @@ def saturn_ring_gap_model() -> list:
 # Earth flyby anomaly
 # ═══════════════════════════════════════════════════════════════
 
-R_EARTH = 6.371e6       # Earth radius [m]
-M_EARTH = 5.972e24      # Earth mass [kg]
+R_EARTH = 6.371e6  # Earth radius [m]
+M_EARTH = 5.972e24  # Earth mass [kg]
 OMEGA_EARTH = 7.292e-5  # Earth rotation rate [rad/s]
 
 # Earth magnetopause parameters
@@ -618,7 +620,7 @@ def flyby_anomaly_impedance(
     periapsis_Re: float,
     declination_in: float,
     declination_out: float,
-) -> dict:
+) -> dict[str, float | str]:
     """
     AVE impedance interpretation of the flyby anomaly.
 
@@ -666,7 +668,7 @@ def flyby_anomaly_impedance(
     dv_anderson = flyby_anomaly_anderson(v_inf, declination_in, declination_out)
 
     # AVE impedance gradient at periapsis
-    r_peri = periapsis_Re * R_EARTH
+    # r_peri = periapsis_Re * R_EARTH  # bulk lint fixup pass
     v_rot_equator = OMEGA_EARTH * R_EARTH
 
     # Gravitomagnetic coefficient
@@ -679,19 +681,19 @@ def flyby_anomaly_impedance(
     Gamma_mp = float(reflection_coefficient(Z_inside, Z_outside))
 
     return {
-        'v_inf_km_s': v_inf / 1e3,
-        'periapsis_Re': periapsis_Re,
-        'declination_in_deg': declination_in,
-        'declination_out_deg': declination_out,
-        'dv_predicted_mm_s': dv_anderson,
-        'K_gravitomagnetic': K_gm,
-        'v_rot_equator_m_s': v_rot_equator,
-        'Gamma_magnetopause': Gamma_mp,
-        'mechanism': 'Rotating frame impedance asymmetry (gravitomagnetic)',
+        "v_inf_km_s": v_inf / 1e3,
+        "periapsis_Re": periapsis_Re,
+        "declination_in_deg": declination_in,
+        "declination_out_deg": declination_out,
+        "dv_predicted_mm_s": dv_anderson,
+        "K_gravitomagnetic": K_gm,
+        "v_rot_equator_m_s": v_rot_equator,
+        "Gamma_magnetopause": Gamma_mp,
+        "mechanism": "Rotating frame impedance asymmetry (gravitomagnetic)",
     }
 
 
-def flyby_catalog() -> list:
+def flyby_catalog() -> list[dict[str, float | str]]:
     """
     Known Earth flyby anomalies and AVE predictions.
 
@@ -702,24 +704,23 @@ def flyby_catalog() -> list:
     """
     # Known flybys: (name, v_inf [km/s], periapsis [R_E], δ_in [°], δ_out [°], Δv_obs [mm/s])
     flybys = [
-        ('Galileo I (1990)',     8.949, 1.97, -12.5,  -34.2,  3.92),
-        ('Galileo II (1992)',    8.877, 1.48, -4.9,   -4.9,   -4.60),
-        ('NEAR (1998)',          6.851, 1.23,  20.8,  -71.9,  13.46),
-        ('Cassini (1999)',      16.010, 1.18,  12.9,  -5.0,   -2.00),
-        ('Rosetta I (2005)',     3.863, 1.32, -2.8,  -34.3,   1.80),
-        ('Messenger (2005)',     4.056, 3.35,  31.4,  -31.4,  0.02),
-        ('Rosetta II (2007)',    9.392, 1.81, -12.5,  -34.3,  0.00),
+        ("Galileo I (1990)", 8.949, 1.97, -12.5, -34.2, 3.92),
+        ("Galileo II (1992)", 8.877, 1.48, -4.9, -4.9, -4.60),
+        ("NEAR (1998)", 6.851, 1.23, 20.8, -71.9, 13.46),
+        ("Cassini (1999)", 16.010, 1.18, 12.9, -5.0, -2.00),
+        ("Rosetta I (2005)", 3.863, 1.32, -2.8, -34.3, 1.80),
+        ("Messenger (2005)", 4.056, 3.35, 31.4, -31.4, 0.02),
+        ("Rosetta II (2007)", 9.392, 1.81, -12.5, -34.3, 0.00),
     ]
 
     results = []
     for name, v_inf_kms, peri_Re, d_in, d_out, dv_obs in flybys:
         v_inf_ms = v_inf_kms * 1e3
         result = flyby_anomaly_impedance(v_inf_ms, peri_Re, d_in, d_out)
-        result['name'] = name
-        result['dv_observed_mm_s'] = dv_obs
-        result['error_mm_s'] = abs(result['dv_predicted_mm_s'] - dv_obs)
+        result["name"] = name
+        result["dv_observed_mm_s"] = dv_obs
+        result["error_mm_s"] = abs(result["dv_predicted_mm_s"] - dv_obs)
 
         results.append(result)
 
     return results
-

@@ -1,4 +1,3 @@
-from __future__ import annotations
 """
 Axiom 4: Dielectric Saturation
 ================================
@@ -27,7 +26,13 @@ Key functions:
 """
 
 import numpy as np
-from ave.core.constants import EPSILON_0, MU_0, C_0, ALPHA, V_SNAP, V_YIELD, Z_0
+
+# Import the scale-invariant canonical implementations for wrapping
+from ave.axioms.scale_invariant import epsilon_eff as _si_epsilon_eff
+from ave.axioms.scale_invariant import impedance_at_strain as _si_impedance_at_strain
+from ave.axioms.scale_invariant import local_wave_speed as _si_local_wave_speed
+from ave.axioms.scale_invariant import reflection_coefficient as _si_reflection_coefficient
+from ave.core.constants import ALPHA, C_0, EPSILON_0, V_YIELD, Z_0
 
 # ═══════════════════════════════════════════════════════════════
 # Re-exports from scale_invariant.py (single source of truth)
@@ -37,27 +42,13 @@ from ave.core.constants import EPSILON_0, MU_0, C_0, ALPHA, V_SNAP, V_YIELD, Z_0
 # The canonical implementations live in scale_invariant.py.
 # Import from either location — they are the same function.
 
-from ave.axioms.scale_invariant import (
-    saturation_factor,
-    impedance,
-    transmission_coefficient,
-)
-
-# Import the scale-invariant canonical implementations for wrapping
-from ave.axioms.scale_invariant import (
-    epsilon_eff as _si_epsilon_eff,
-    mu_eff as _si_mu_eff,
-    reflection_coefficient as _si_reflection_coefficient,
-    local_wave_speed as _si_local_wave_speed,
-    impedance_at_strain as _si_impedance_at_strain,
-)
-
 
 # ═══════════════════════════════════════════════════════════════
 # Thin wrappers with Axiom-4 defaults
 # ═══════════════════════════════════════════════════════════════
 
-def epsilon_eff(V, V_yield: float = V_YIELD):
+
+def epsilon_eff(V: float | np.ndarray, V_yield: float = V_YIELD) -> float | np.ndarray:
     """
     Non-linear effective permittivity: ε_eff(V) = ε₀ · √(1 − (V/V_yield)²)
 
@@ -101,6 +92,7 @@ def impedance_at_strain(V: np.ndarray, V_yield: float = V_YIELD) -> np.ndarray:
 # Unique domain-specific functions (NOT in scale_invariant)
 # ═══════════════════════════════════════════════════════════════
 
+
 def capacitance_eff(
     dphi: np.ndarray | float,
     alpha: float = ALPHA,
@@ -122,12 +114,9 @@ def capacitance_eff(
     Returns:
         Effective capacitance ratio (C_eff / C₀).
     """
-    ratio_sq = np.asarray(dphi, dtype=float)**2 / alpha**2
+    ratio_sq = np.asarray(dphi, dtype=float) ** 2 / alpha**2
     if np.any(ratio_sq >= 1.0):
-        raise ValueError(
-            f"Capacitance singularity: |Δφ/α| ≥ 1.0. "
-            f"Max ratio² = {np.max(ratio_sq):.6f}."
-        )
+        raise ValueError(f"Capacitance singularity: |Δφ/α| ≥ 1.0. " f"Max ratio² = {np.max(ratio_sq):.6f}.")
     return 1.0 / np.sqrt(1.0 - ratio_sq)
 
 

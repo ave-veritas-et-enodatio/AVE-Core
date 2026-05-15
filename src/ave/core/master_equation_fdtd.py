@@ -27,6 +27,7 @@ The engine numerically caps A < A_cap (default 0.99) to stay in Regime II
 and avoid Regime III where the substrate phase-transitions (out of scope
 for FDTD on the scalar Master Equation).
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -108,9 +109,7 @@ class MasterEquationFDTD:
         if self.pml_thickness > 0:
             in_pml = d < self.pml_thickness
             # Quadratic attenuation: 1.0 at interior, 0.7-ish at outermost
-            attenuation = 1.0 - 0.05 * (
-                (self.pml_thickness - d[in_pml]) / self.pml_thickness
-            ) ** 2
+            attenuation = 1.0 - 0.05 * ((self.pml_thickness - d[in_pml]) / self.pml_thickness) ** 2
             damping[in_pml] = np.maximum(0.5, attenuation)
         self.damping = damping
 
@@ -123,24 +122,27 @@ class MasterEquationFDTD:
         """
         L = np.zeros_like(V)
         L[1:-1, 1:-1, 1:-1] = (
-            V[2:, 1:-1, 1:-1] + V[:-2, 1:-1, 1:-1]
-            + V[1:-1, 2:, 1:-1] + V[1:-1, :-2, 1:-1]
-            + V[1:-1, 1:-1, 2:] + V[1:-1, 1:-1, :-2]
+            V[2:, 1:-1, 1:-1]
+            + V[:-2, 1:-1, 1:-1]
+            + V[1:-1, 2:, 1:-1]
+            + V[1:-1, :-2, 1:-1]
+            + V[1:-1, 1:-1, 2:]
+            + V[1:-1, 1:-1, :-2]
             - 6 * V[1:-1, 1:-1, 1:-1]
-        ) / (self.dx ** 2)
+        ) / (self.dx**2)
         return L
 
     def saturation_kernel(self, V):
         """S(A) = √(1 - A²) with A = |V|/V_yield, clipped to [S_min, 1]."""
         A = np.abs(V) / self.V_yield
         A_clipped = np.minimum(A, self.A_cap)
-        S = np.sqrt(np.maximum(1.0 - A_clipped ** 2, self.S_min ** 2))
+        S = np.sqrt(np.maximum(1.0 - A_clipped**2, self.S_min**2))
         return S
 
     def c_eff_squared(self, V):
         """c_eff²(V) = c₀² / S(V/V_yield) per Master Equation."""
         S = self.saturation_kernel(V)
-        return (self.c0 ** 2) / np.maximum(S, self.S_min)
+        return (self.c0**2) / np.maximum(S, self.S_min)
 
     def strain_field(self):
         """Local strain A = |V|/V_yield at each cell."""
@@ -154,13 +156,13 @@ class MasterEquationFDTD:
         refractive-index gradient n(r) = 1 + 2GM/(rc²).
         """
         S = self.saturation_kernel(self.V)
-        return S ** 0.25
+        return S**0.25
 
     def step(self):
         """One leapfrog timestep of the Master Equation."""
         c_eff_sq = self.c_eff_squared(self.V)
         L = self._laplacian(self.V)
-        V_new = 2.0 * self.V - self.V_prev + (self.dt ** 2) * c_eff_sq * L
+        V_new = 2.0 * self.V - self.V_prev + (self.dt**2) * c_eff_sq * L
         # Apply PML damping
         V_new *= self.damping
         # Update state
@@ -169,8 +171,7 @@ class MasterEquationFDTD:
         self.time += self.dt
         self.step_count += 1
 
-    def run(self, n_steps: int, source_fn=None, source_pos=None,
-            probe_pos=None, source_mode="hard"):
+    def run(self, n_steps: int, source_fn=None, source_pos=None, probe_pos=None, source_mode="hard"):
         """
         Run n_steps; optionally inject a source and probe a location.
 
@@ -199,14 +200,14 @@ class MasterEquationFDTD:
 
         At linear regime, this ~ field intensity. At saturation, V dominates.
         """
-        return float(np.sum(self.V ** 2))
+        return float(np.sum(self.V**2))
 
     def inject_gaussian(self, center, sigma, amplitude):
         """Plant a Gaussian V profile at center with width sigma."""
         cx, cy, cz = center
         i, j, k = np.indices((self.N, self.N, self.N))
         r_sq = (i - cx) ** 2 + (j - cy) ** 2 + (k - cz) ** 2
-        self.V += amplitude * np.exp(-r_sq / (2.0 * sigma ** 2))
+        self.V += amplitude * np.exp(-r_sq / (2.0 * sigma**2))
         # Set V_prev = V to give zero initial time derivative
         # (stationary initial state)
         self.V_prev = self.V.copy()
@@ -225,7 +226,7 @@ class MasterEquationFDTD:
         if profile == "sech":
             self.V += amplitude / np.cosh(r / radius)
         elif profile == "gaussian":
-            self.V += amplitude * np.exp(-(r ** 2) / (2.0 * radius ** 2))
+            self.V += amplitude * np.exp(-(r**2) / (2.0 * radius**2))
         elif profile == "lorentzian":
             self.V += amplitude / (1.0 + (r / radius) ** 2)
         else:

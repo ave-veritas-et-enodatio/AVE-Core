@@ -45,19 +45,25 @@ ARCHITECTURE NOTE (2026-03-13):
   The ionization_energy_circuit() function below is the same-shell-only
   solver (Approach 22). The N-port Y-matrix extension is in development.
 """
-from __future__ import annotations
-
 
 import numpy as np
-from ave.core.constants import (
-    ALPHA, HBAR, C_0, e_charge, D_PROTON, NU_VAC,
-    M_P_MEV_TARGET, M_N_MEV_TARGET, HBAR_C_MEV_FM,
-    K_COUPLING,
-    OMEGA_0_NUCLEAR as _OMEGA_0_CONST,
-    E_0_NUCLEAR as _E_0_CONST,
-    M_E,
-)
 
+from ave.core.constants import (
+    ALPHA,
+    C_0,
+    D_PROTON,
+    HBAR,
+    HBAR_C_MEV_FM,
+    K_COUPLING,
+    M_E,
+    M_N_MEV_TARGET,
+    M_P_MEV_TARGET,
+    NU_VAC,
+)
+from ave.core.constants import P_C as _P_C
+from ave.core.constants import (
+    e_charge,
+)
 
 # ─────────────────────────────────────────────────────────────────
 # Fundamental circuit parameters (from axioms)
@@ -66,21 +72,25 @@ from ave.core.constants import (
 # Uncoupled resonant frequency: ω₀ = c / r_eff where r_eff = d_p/(1+ν)
 R_EFF = D_PROTON * 1e-15 / (1.0 + NU_VAC)
 F_BASE_RESONANCE = C_0 / R_EFF
-Z_RESONANCE_MEV = HBAR * F_BASE_RESONANCE / (e_charge * 1e6)   # ≈ 301.6 MeV
-
+Z_RESONANCE_MEV = HBAR * F_BASE_RESONANCE / (e_charge * 1e6)  # ≈ 301.6 MeV
 
 
 # ─────────────────────────────────────────────────────────────────
 # Complete graph adjacency eigenvalues
 # ─────────────────────────────────────────────────────────────────
 
-def complete_graph_eigenvalues(n):
+
+def complete_graph_eigenvalues(n: int) -> np.ndarray:
     """Eigenvalues of the adjacency matrix of K_n: [n-1, -1, -1, ..., -1]."""
     return np.array([n - 1] + [-1] * (n - 1), dtype=float)
 
 
-def coupled_resonator_binding(n_resonators, k, f_base_resonance=F_BASE_RESONANCE,
-                              adjacency_eigenvalues=None):
+def coupled_resonator_binding(
+    n_resonators: int,
+    k: float,
+    f_base_resonance: float = F_BASE_RESONANCE,
+    adjacency_eigenvalues: np.ndarray | None = None,
+) -> tuple[float, np.ndarray]:
     r"""
     Compute Z_binding_target_MeV energy from coupled resonator normal mode splitting.
 
@@ -107,7 +117,7 @@ def coupled_resonator_binding(n_resonators, k, f_base_resonance=F_BASE_RESONANCE
         adjacency_eigenvalues = complete_graph_eigenvalues(n_resonators)
 
     from ave.core.universal_operators import universal_coupled_mode_frequency
-    
+
     # Normal mode frequencies
     f_coupled_modes = universal_coupled_mode_frequency(f_base_resonance, k, adjacency_eigenvalues)
 
@@ -118,7 +128,11 @@ def coupled_resonator_binding(n_resonators, k, f_base_resonance=F_BASE_RESONANCE
     return Z_binding_target_MeV, f_coupled_modes
 
 
-def hierarchical_binding(n_alphas, k_intra=K_COUPLING, k_inter=K_COUPLING):
+def hierarchical_binding(
+    n_alphas: int,
+    k_intra: float = K_COUPLING,
+    k_inter: float = K_COUPLING,
+) -> tuple[float, float, float]:
     r"""
     Hierarchical Z_binding_target_MeV: alphas at level 1, then alpha assembly at level 2.
 
@@ -157,7 +171,7 @@ def hierarchical_binding(n_alphas, k_intra=K_COUPLING, k_inter=K_COUPLING):
     return Z_binding_target_MeV, Z_alpha_binding_MeV, Z_inter_binding_MeV
 
 
-def nuclear_mass(Z, A, n_alphas=None):
+def nuclear_mass(Z: int, A: int, n_alphas: int | None = None) -> tuple[float, float]:
     r"""
     Compute nuclear mass from the coupled resonator model.
 
@@ -198,12 +212,12 @@ def nuclear_mass(Z, A, n_alphas=None):
             f_alpha_resonance = F_BASE_RESONANCE / np.sqrt(1.0 + 3 * K_COUPLING)
             for _ in range(n_valence):
                 Z_val_binding_MeV = HBAR * (f_alpha_resonance - f_alpha_resonance / np.sqrt(1 + K_COUPLING))
-                Z_val_binding_MeV /= (e_charge * 1e6)
+                Z_val_binding_MeV /= e_charge * 1e6
                 Z_binding_target_MeV += Z_val_binding_MeV
 
     # Coulomb correction: stored electrostatic energy between Z protons
     # R = d_p × A^(1/3) is the nuclear charge radius (Axiom 1 length scale)
-    alpha_hc = ALPHA * HBAR_C_MEV_FM   # αℏc ≈ 1.44 MeV·fm
+    alpha_hc = ALPHA * HBAR_C_MEV_FM  # αℏc ≈ 1.44 MeV·fm
     R_nucleus = D_PROTON * A ** (1.0 / 3.0)
     capacitive_bias_MeV = 0.6 * Z * (Z - 1) * alpha_hc / R_nucleus
 
@@ -229,9 +243,9 @@ def nuclear_mass(Z, A, n_alphas=None):
 
 # Atomic scale constants (all from axioms)
 _M_E = float(M_E)  # electron mass from constants.py [kg]
-_A0 = HBAR / (_M_E * C_0 * ALPHA)   # Bohr radius [m]
-_RY_EV = _M_E * C_0**2 * ALPHA**2 / (2.0 * e_charge)   # Rydberg [eV]
-_PROJECTION = 1.0 / (2.0 * (1.0 + 2.0/7.0))  # 7/18 projection of eigenvalue
+_A0 = HBAR / (_M_E * C_0 * ALPHA)  # Bohr radius [m]
+_RY_EV = _M_E * C_0**2 * ALPHA**2 / (2.0 * e_charge)  # Rydberg [eV]
+_PROJECTION = 1.0 / (2.0 * (1.0 + 2.0 / 7.0))  # 7/18 projection of eigenvalue
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -243,29 +257,29 @@ _PROJECTION = 1.0 / (2.0 * (1.0 + 2.0/7.0))  # 7/18 projection of eigenvalue
 # This is first-principles under AVE: the LC cavity eigenvalue for
 # orbital (n,l) scales with n+l (nuclear penetration), not just n.
 _AUFBAU_ORDER = [
-    (1, 0, 2),   # 1s
-    (2, 0, 2),   # 2s
-    (2, 1, 6),   # 2p
-    (3, 0, 2),   # 3s
-    (3, 1, 6),   # 3p
-    (4, 0, 2),   # 4s
+    (1, 0, 2),  # 1s
+    (2, 0, 2),  # 2s
+    (2, 1, 6),  # 2p
+    (3, 0, 2),  # 3s
+    (3, 1, 6),  # 3p
+    (4, 0, 2),  # 4s
     (3, 2, 10),  # 3d
-    (4, 1, 6),   # 4p
-    (5, 0, 2),   # 5s
+    (4, 1, 6),  # 4p
+    (5, 0, 2),  # 5s
     (4, 2, 10),  # 4d
-    (5, 1, 6),   # 5p
-    (6, 0, 2),   # 6s
+    (5, 1, 6),  # 5p
+    (6, 0, 2),  # 6s
     (4, 3, 14),  # 4f
     (5, 2, 10),  # 5d
-    (6, 1, 6),   # 6p
-    (7, 0, 2),   # 7s
+    (6, 1, 6),  # 6p
+    (7, 0, 2),  # 7s
     (5, 3, 14),  # 5f
     (6, 2, 10),  # 6d
-    (7, 1, 6),   # 7p
+    (7, 1, 6),  # 7p
 ]
 
 
-def _fill_shells(n_resonators):
+def _fill_shells(n_resonators: int) -> list[tuple[int, int]]:
     """Fill electron shells using Aufbau (Madelung n+l) order.
 
     Returns [(n, count), ...] grouped by principal quantum number n.
@@ -276,6 +290,7 @@ def _fill_shells(n_resonators):
     (not 9 in n=3, which was the previous bug).
     """
     from collections import defaultdict
+
     shell_counts = defaultdict(int)
     remaining = n_resonators
     for n, l, capacity in _AUFBAU_ORDER:
@@ -285,6 +300,7 @@ def _fill_shells(n_resonators):
         shell_counts[n] += count
         remaining -= count
     return sorted(shell_counts.items())
+
 
 # ─────────────────────────────────────────────────────────────────
 # QUARANTINE: atom_total_energy(), _scf_z_eff() removed
@@ -296,7 +312,8 @@ def _fill_shells(n_resonators):
 # Active f_eigen_eV Solver: Approach 22 (AVE Coupled LC + Hopf Link)
 # ─────────────────────────────────────────────────────────────────
 
-def _shell_config(n_resonators):
+
+def _shell_config(n_resonators: int) -> list[tuple[int, int, int]]:
     """Return outermost subshell (n, l, count) for f_eigen_eV calculation.
 
     Uses Aufbau order to fill shells, returning the complete electronic configuration up to the outermost structure.
@@ -312,10 +329,7 @@ def _shell_config(n_resonators):
     return subshells
 
 
-from ave.core.constants import P_C as _P_C
-
-
-def ionization_energy_circuit(Z, n_resonators=None):
+def ionization_energy_circuit(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy from AVE coupled LC resonator model.
 
     .. warning:: STRUCTURAL LIMITATION
@@ -368,7 +382,7 @@ def ionization_energy_circuit(Z, n_resonators=None):
         if n < n_out:
             N_inner += count
         elif n == n_out:
-            # Lateral co-radial shielding: Orthogonal subshells (like 3s screening 3p) 
+            # Lateral co-radial shielding: Orthogonal subshells (like 3s screening 3p)
             # do not spherically enclose each other. They interact via the K4 lattice
             # transverse Poisson ratio limit. A geometry mapping coefficient of 0.5 is applied.
             N_lateral += count * 0.5
@@ -397,7 +411,7 @@ def ionization_energy_circuit(Z, n_resonators=None):
     # For N=2: f_eigen_eV = f_0_resonance_eV * (2/sqrt(1+k_pair) - 1)
     # General: f_eigen_eV = f_0_resonance_eV * (N*omega(N) - (N-1)*omega(N-1))
     from ave.core.universal_operators import universal_coupled_mode_frequency
-    
+
     if N_same == 2:
         f_bond_2 = universal_coupled_mode_frequency(1.0, k_pair, 1.0)
         f_eigen_eV = f_0_resonance_eV * (2.0 * f_bond_2 - 1.0)
@@ -409,7 +423,7 @@ def ionization_energy_circuit(Z, n_resonators=None):
     return max(0.0, f_eigen_eV)
 
 
-def ionization_energy_cavity(Z, n_resonators=None):
+def ionization_energy_cavity(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy from AVE mutual cavity loading.
 
     .. warning:: STRUCTURAL LIMITATION
@@ -500,7 +514,7 @@ def ionization_energy_cavity(Z, n_resonators=None):
     return max(0.0, f_eigen_eV)
 
 
-def ionization_energy(Z, n_resonators=None):
+def ionization_energy(Z: int, n_resonators: int | None = None) -> float:
     r"""First ionization energy — dispatches to AVE mutual cavity loading solver.
 
     .. warning::
@@ -520,7 +534,7 @@ def ionization_energy(Z, n_resonators=None):
     return ionization_energy_cavity(Z, n_resonators)
 
 
-def atom_port_impedance(Z, f_eigen_eV):
+def atom_port_impedance(Z: int, f_eigen_eV: float) -> float:
     r"""
     Atom's port impedance = valence orbital radius.
 
@@ -542,14 +556,21 @@ def atom_port_impedance(Z, f_eigen_eV):
 # all operators inside V_eff(r), one-pass ABCD cascade.
 # ─────────────────────────────────────────────────────────────────
 
-def molecular_bond_distance(r_A, r_B, Z_A=1, Z_B=1, bond_order=1):
+
+def molecular_bond_distance(
+    r_A: float,
+    r_B: float,
+    Z_A: int = 1,
+    Z_B: int = 1,
+    bond_order: int = 1,
+) -> float:
     r"""
     Bond distance as Fabry-Perot cavity eigenvalue with unified mode loading.
 
-    The effective loading of the cavity (N_eff) counts the continuous 
+    The effective loading of the cavity (N_eff) counts the continuous
     longitudinal modes bounded by the two nuclear singularities:
         - 2 electrons per bond order (\sigma = 2, \pi = 2).
-        - The spherically-symmetric s^2 shells (if present) degenerate-hybridize 
+        - The spherically-symmetric s^2 shells (if present) degenerate-hybridize
           into a single contiguous mode, contributing 1.0 (2 electrons / 2).
 
     N_eff = 2 * bond_order + \max(N_{s_A}, N_{s_B}) / 2
@@ -564,24 +585,32 @@ def molecular_bond_distance(r_A, r_B, Z_A=1, Z_B=1, bond_order=1):
         Z_B: Atomic number of atom B (to determine s-shell loading).
         bond_order: Number of structural bonds (1=single, 2=double, 3=triple).
     """
+
     # Non-bonding 2s^2 electrons loading the bond cavity.
     # For H (Z=1), N_s = 0. For heavier atoms with filled s-shells, N_s = 2.
-    def get_ns(z): return 0 if z == 1 else 2
-    
+    def get_ns(z):
+        return 0 if z == 1 else 2
+
     N_eff = 2.0 * bond_order + max(get_ns(Z_A), get_ns(Z_B)) / 2.0
-    
+
     d_base = np.sqrt(2.0) * np.sqrt(r_A * r_B)
-    
+
     from ave.core.universal_operators import universal_power_transmission
-    
+
     # Baseline unloaded cavity is N_eff = 2 (e.g., H-H bond)
     if N_eff <= 2.0:
         return d_base
-        
+
     return d_base * np.sqrt(universal_power_transmission(N_eff) / universal_power_transmission(2.0))
 
 
-def molecular_bond_energy(f_eigen_A_eV, f_eigen_B_eV, r_val_A, r_val_B, d_bond):
+def molecular_bond_energy(
+    f_eigen_A_eV: float,
+    f_eigen_B_eV: float,
+    r_val_A: float,
+    r_val_B: float,
+    d_bond: float,
+) -> tuple[float, float]:
     r"""Molecular bond energy from coupled resonant cavities.
 
     PHYSICAL MODEL:
@@ -617,15 +646,17 @@ def molecular_bond_energy(f_eigen_A_eV, f_eigen_B_eV, r_val_A, r_val_B, d_bond):
     x = (r_val_A * r_val_B) / d_bond**2
     if x > 10.0:
         import logging
+
         logging.warning("AVE Limit Warning: Molecular bond structural strain exceeded local percolation limits")
     k_eff = x / np.sqrt(1.0 + x**2)
 
     from ave.core.universal_operators import universal_coupled_mode_frequency
-    
+
     # Bond energy from Axiom 5
     f_coupled = universal_coupled_mode_frequency(f_eff_resonance, k_eff, 1.0)
     B_eV = 2.0 * (f_eff_resonance - f_coupled)
     return B_eV, k_eff
+
 
 # ─────────────────────────────────────────────────────────────────
 # QUARANTINE: QM radial potentials, atomic_resonance, and

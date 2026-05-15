@@ -5,34 +5,35 @@ Verifies the 3-step Navier-Stokes smoothness proof.
 """
 
 import numpy as np
+
 from ave.axioms.navier_stokes import (
+    continuum_limit_ns,
+    enstrophy_bound,
+    enstrophy_maximum,
+    full_navier_stokes_proof,
     lattice_laplacian_1d,
     lattice_laplacian_operator_norm,
     lattice_ns_degrees_of_freedom,
+    lattice_ns_global_existence,
     maximum_lattice_velocity,
     velocity_bound_ratio,
-    enstrophy_bound,
-    enstrophy_maximum,
-    lattice_ns_global_existence,
-    continuum_limit_ns,
-    full_navier_stokes_proof,
 )
 from ave.core.constants import C_0, L_NODE
-
 
 # ════════════════════════════════════════════════════════════════════
 # Step 1: Lattice Properties
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestLatticeProperties:
 
-    def test_laplacian_of_constant_is_zero(self):
+    def test_laplacian_of_constant_is_zero(self) -> None:
         """∇²(const) = 0."""
         u = np.ones(100) * 5.0
         lap = lattice_laplacian_1d(u, 1.0)
         assert np.allclose(lap, 0.0, atol=1e-12)
 
-    def test_laplacian_of_quadratic(self):
+    def test_laplacian_of_quadratic(self) -> None:
         """∇²(x²) = 2 (exact for quadratic)."""
         dx = 0.01
         x = np.arange(0, 1, dx)
@@ -41,18 +42,18 @@ class TestLatticeProperties:
         # Interior points should be ≈ 2
         assert np.allclose(lap[2:-2], 2.0, atol=1e-4)
 
-    def test_laplacian_bounded(self):
+    def test_laplacian_bounded(self) -> None:
         """||∇²|| ≤ 4/dx² (bounded operator)."""
         norm = lattice_laplacian_operator_norm(L_NODE)
         assert np.isfinite(norm)
         assert norm > 0
 
-    def test_dof_finite(self):
+    def test_dof_finite(self) -> None:
         """DOF = N³ × 4 for a 3D lattice."""
         dof = lattice_ns_degrees_of_freedom(10)
         assert dof == 10**3 * 4 == 4000
 
-    def test_dof_scales_cubically(self):
+    def test_dof_scales_cubically(self) -> None:
         """DOF ∝ N³."""
         d1 = lattice_ns_degrees_of_freedom(10)
         d2 = lattice_ns_degrees_of_freedom(20)
@@ -63,31 +64,32 @@ class TestLatticeProperties:
 # Step 2: Velocity Bound
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestVelocityBound:
 
-    def test_max_velocity_is_c(self):
+    def test_max_velocity_is_c(self) -> None:
         """Maximum lattice velocity = c."""
         assert maximum_lattice_velocity() == C_0
 
-    def test_velocity_bound_tiny(self):
+    def test_velocity_bound_tiny(self) -> None:
         """v_water / c ≈ 3.3×10⁻⁹ (deep linear regime)."""
         ratio = velocity_bound_ratio()
         assert ratio < 1e-8
         assert ratio > 1e-10
 
-    def test_enstrophy_zero_for_constant(self):
+    def test_enstrophy_zero_for_constant(self) -> None:
         """Enstrophy of a uniform flow = 0."""
         u = np.ones(100) * 10.0
         omega = enstrophy_bound(u, 1.0)
         assert omega < 1e-20
 
-    def test_enstrophy_positive_for_varying(self):
+    def test_enstrophy_positive_for_varying(self) -> None:
         """Enstrophy > 0 for a non-uniform field."""
         u = np.sin(np.linspace(0, 2 * np.pi, 100))
         omega = enstrophy_bound(u, 0.01)
         assert omega > 0
 
-    def test_enstrophy_bounded_above(self):
+    def test_enstrophy_bounded_above(self) -> None:
         """Enstrophy ≤ Ω_max for any field."""
         N = 100
         dx = 1.0
@@ -102,40 +104,42 @@ class TestVelocityBound:
 # Step 3: Global Existence
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestGlobalExistence:
 
-    def test_picard_lindelof_applies(self):
+    def test_picard_lindelof_applies(self) -> None:
         """Picard-Lindelöf theorem applies to lattice NS."""
         result = lattice_ns_global_existence()
-        assert result['DOF_finite']
-        assert result['laplacian_bounded']
-        assert result['v_bounded']
-        assert result['lipschitz_finite']
-        assert result['picard_lindelof_applies']
-        assert result['GLOBAL_EXISTENCE_PROVEN']
+        assert result["DOF_finite"]
+        assert result["laplacian_bounded"]
+        assert result["v_bounded"]
+        assert result["lipschitz_finite"]
+        assert result["picard_lindelof_applies"]
+        assert result["GLOBAL_EXISTENCE_PROVEN"]
 
-    def test_continuum_limit(self):
+    def test_continuum_limit(self) -> None:
         """Continuum NS recovered with velocity bound."""
         cl = continuum_limit_ns()
-        assert cl['discrete_laplacian_converges']
-        assert cl['convergence_order'] == 2
-        assert cl['velocity_bound_persists']
-        assert cl['continuum_NS_recovered']
-        assert cl['smoothness_preserved']
+        assert cl["discrete_laplacian_converges"]
+        assert cl["convergence_order"] == 2
+        assert cl["velocity_bound_persists"]
+        assert cl["continuum_NS_recovered"]
+        assert cl["smoothness_preserved"]
 
 
 # ════════════════════════════════════════════════════════════════════
 # The Complete Proof
 # ════════════════════════════════════════════════════════════════════
 
+
 class TestFullProof:
 
-    def test_ns_smoothness_proven(self):
+    def test_ns_smoothness_proven(self) -> None:
         """The complete Navier-Stokes smoothness proof passes."""
         proof = full_navier_stokes_proof()
-        assert proof['Step_1_Lattice']['DOF_finite']
-        assert proof['Step_1_Lattice']['laplacian_bounded']
-        assert proof['Step_2_Velocity_Bound']['v_bounded']
-        assert proof['Step_3_Global_Existence']['GLOBAL_EXISTENCE_PROVEN']
-        assert proof['Step_4_Continuum_and_Sobolev']['smoothness_preserved']
-        assert proof['NS_SMOOTHNESS_PROVEN']
+        assert proof["Step_1_Lattice"]["DOF_finite"]
+        assert proof["Step_1_Lattice"]["laplacian_bounded"]
+        assert proof["Step_2_Velocity_Bound"]["v_bounded"]
+        assert proof["Step_3_Global_Existence"]["GLOBAL_EXISTENCE_PROVEN"]
+        assert proof["Step_4_Continuum_and_Sobolev"]["smoothness_preserved"]
+        assert proof["NS_SMOOTHNESS_PROVEN"]

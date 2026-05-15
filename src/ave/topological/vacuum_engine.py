@@ -96,6 +96,7 @@ References
 - AVE-Propulsion/manuscript/vol_propulsion/chapters/05_autoresonant_dielectric_rupture.tex (PLL picture)
 - AVE-PONDER/src/scripts/generate_ponder_01_spice_netlist.py (η_vac calibration K_0=0.208)
 """
+
 from __future__ import annotations
 
 import json
@@ -108,10 +109,9 @@ import numpy as np
 from ave.core.constants import ALPHA
 from ave.topological.k4_cosserat_coupling import (
     CoupledK4Cosserat,
-    _v_squared_per_site,
     _cosserat_A_squared,
+    _v_squared_per_site,
 )
-
 
 # ─────────────────────────────────────────────────────────────────
 # K4 port-direction geometry (for plane-source port weighting)
@@ -119,9 +119,15 @@ from ave.topological.k4_cosserat_coupling import (
 # Port-direction unit vectors (A→B direction vectors, normalized).
 # Needed here to avoid a library-imports-from-script dependency on
 # photon_propagation.py (where this logic previously lived).
-_PORT_HAT = np.array([
-    [+1, +1, +1], [+1, -1, -1], [-1, +1, -1], [-1, -1, +1],
-], dtype=float) / np.sqrt(3.0)
+_PORT_HAT = np.array(
+    [
+        [+1, +1, +1],
+        [+1, -1, -1],
+        [-1, +1, -1],
+        [-1, -1, +1],
+    ],
+    dtype=float,
+) / np.sqrt(3.0)
 
 
 def _forward_t2_port_weights(direction: tuple[float, float, float]) -> np.ndarray:
@@ -135,7 +141,7 @@ def _forward_t2_port_weights(direction: tuple[float, float, float]) -> np.ndarra
     d = np.asarray(direction, dtype=float)
     d = d / np.linalg.norm(d)
     w = np.maximum(0.0, -_PORT_HAT @ d)
-    w = w - w.mean()   # project onto T₂
+    w = w - w.mean()  # project onto T₂
     norm = np.sqrt((w * w).sum())
     if norm > 0:
         w = w / norm
@@ -150,8 +156,8 @@ def _forward_t2_port_weights(direction: tuple[float, float, float]) -> np.ndarra
 # User's `amp` parameter is always relative to their convention, converted
 # to V_SNAP-units internally.
 _V_YIELD_FRAC = np.sqrt(ALPHA)  # ≈ 0.0854
-_REGIME_I_BOUND_A2 = 2.0 * ALPHA          # ≈ 0.0146
-_REGIME_II_BOUND_A2 = 3.0 / 4.0           # = 0.75
+_REGIME_I_BOUND_A2 = 2.0 * ALPHA  # ≈ 0.0146
+_REGIME_II_BOUND_A2 = 3.0 / 4.0  # = 0.75
 _RUPTURE_BOUND_A2 = 1.0
 
 
@@ -162,8 +168,7 @@ def amp_to_vsnap_units(amp: float, convention: str) -> float:
     elif convention == "V_YIELD":
         return float(amp) * _V_YIELD_FRAC
     else:
-        raise ValueError(f"Unknown convention {convention!r}; "
-                         "use 'V_SNAP' or 'V_YIELD'")
+        raise ValueError(f"Unknown convention {convention!r}; " "use 'V_SNAP' or 'V_YIELD'")
 
 
 def amp_to_display(amp_vsnap: float, convention: str) -> float:
@@ -199,8 +204,8 @@ class PulsedSource(Source):
         self,
         x0: int,
         direction: tuple[float, float, float],
-        amplitude: float,            # in user convention units
-        omega: float,                # carrier frequency (natural units)
+        amplitude: float,  # in user convention units
+        omega: float,  # carrier frequency (natural units)
         sigma_yz: float,
         t_center: float,
         t_sigma: float,
@@ -230,11 +235,11 @@ class PulsedSource(Source):
         zc = (nz - 1) / 2.0 if self.z_c is None else self.z_c
         j, k = np.indices((ny, nz), dtype=float)
         r2 = (j - yc) ** 2 + (k - zc) ** 2
-        self._yz_profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        self._yz_profile = np.exp(-r2 / (2.0 * self.sigma_yz**2))
 
     def apply(self, engine: "VacuumEngine3D", t: float) -> None:
         self._init_if_needed(engine)
-        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma ** 2))
+        env = np.exp(-((t - self.t_center) ** 2) / (2.0 * self.t_sigma**2))
         osc = np.sin(self.omega * (t - self.t_center))
         # Convert user amp to V_SNAP-internal
         amp_internal = amp_to_vsnap_units(self.amplitude, engine.amplitude_convention)
@@ -248,7 +253,7 @@ class PulsedSource(Source):
             if self._port_w[n] != 0:
                 contrib = self._port_w[n] * injection
                 engine.k4.V_inc[self.x0, :, :, n] += contrib
-                per_step_energy += float(np.sum(contrib ** 2))
+                per_step_energy += float(np.sum(contrib**2))
         self.cumulative_energy_injected += per_step_energy
 
 
@@ -265,7 +270,7 @@ class CWSource(Source):
         self,
         x0: int,
         direction: tuple[float, float, float],
-        amplitude: float,            # in user convention units
+        amplitude: float,  # in user convention units
         omega: float,
         sigma_yz: float,
         t_ramp: float,
@@ -310,7 +315,7 @@ class CWSource(Source):
         zc = (nz - 1) / 2.0 if self.z_c is None else self.z_c
         j, k = np.indices((ny, nz), dtype=float)
         r2 = (j - yc) ** 2 + (k - zc) ** 2
-        self._yz_profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        self._yz_profile = np.exp(-r2 / (2.0 * self.sigma_yz**2))
 
     def apply(self, engine: "VacuumEngine3D", t: float) -> None:
         self._init_if_needed(engine)
@@ -329,7 +334,7 @@ class CWSource(Source):
             if self._port_w[n] != 0:
                 contrib = self._port_w[n] * injection
                 engine.k4.V_inc[self.x0, :, :, n] += contrib
-                per_step_energy += float(np.sum(contrib ** 2))
+                per_step_energy += float(np.sum(contrib**2))
         self.cumulative_energy_injected += per_step_energy
 
 
@@ -370,10 +375,13 @@ class RegimeClassifierObserver(Observer):
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A2_k4 = V_sq / (engine.V_SNAP ** 2)
+        A2_k4 = V_sq / (engine.V_SNAP**2)
         A2_cos = _cosserat_A_squared(
-            engine.cos.u, engine.cos.omega, engine.cos.dx,
-            engine.cos.omega_yield, engine.cos.epsilon_yield,
+            engine.cos.u,
+            engine.cos.omega,
+            engine.cos.dx,
+            engine.cos.omega_yield,
+            engine.cos.epsilon_yield,
         )
         A2 = A2_k4 + A2_cos
         alive = engine.k4.mask_active
@@ -383,7 +391,10 @@ class RegimeClassifierObserver(Observer):
         rupture = int(np.sum(alive & (A2 >= _RUPTURE_BOUND_A2)))
         return {
             "t": engine.time,
-            "rg_I": rg1, "rg_II": rg2, "rg_III": rg3, "rupture": rupture,
+            "rg_I": rg1,
+            "rg_II": rg2,
+            "rg_III": rg3,
+            "rupture": rupture,
             "max_A2_k4": float(A2_k4[alive].max()) if alive.any() else 0.0,
             "max_A2_cos": float(A2_cos[alive].max()) if alive.any() else 0.0,
             "max_A2_total": float(A2[alive].max()) if alive.any() else 0.0,
@@ -436,10 +447,13 @@ class BondObserver(Observer):
         # returned value is the canonical Pythagorean r²_total per Vol 1
         # Ch 7:12 + AVE-APU Vol 1 Ch 5. See VACUUM_ENGINE_MANUAL §17 A14 r6.
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A2_k4 = V_sq / (engine.V_SNAP ** 2)
+        A2_k4 = V_sq / (engine.V_SNAP**2)
         A2_cos = _cosserat_A_squared(
-            engine.cos.u, engine.cos.omega, engine.cos.dx,
-            engine.cos.omega_yield, engine.cos.epsilon_yield,
+            engine.cos.u,
+            engine.cos.omega,
+            engine.cos.dx,
+            engine.cos.omega_yield,
+            engine.cos.epsilon_yield,
         )
         return A2_k4 + A2_cos  # Pythagorean sum, both canonical r²
 
@@ -449,7 +463,7 @@ class BondObserver(Observer):
 
         # Site-level A²_yield for saturation detection
         A2_yield = self._compute_A2_yield(engine)
-        saturated_site = (A2_yield >= self.saturation_frac)
+        saturated_site = A2_yield >= self.saturation_frac
 
         # Each bond has an A-site and a B-site endpoint.
         # Bond is "saturated" when BOTH endpoints are saturated.
@@ -462,8 +476,8 @@ class BondObserver(Observer):
 
         # Phi restricted to A-sites (the canonical bond-index location)
         # We'll partition by whether each bond's B-neighbor is saturated
-        phi_sat_flat = []       # bonds with both endpoints saturated
-        phi_unsat_flat = []     # bonds with at least one unsaturated endpoint
+        phi_sat_flat = []  # bonds with both endpoints saturated
+        phi_unsat_flat = []  # bonds with at least one unsaturated endpoint
         for port, shift_to_B in enumerate(port_shifts):
             # To get the B-neighbor's A²_yield at each A-site position,
             # we roll the saturated_site field OPPOSITE the shift_to_B
@@ -471,7 +485,9 @@ class BondObserver(Observer):
             # storage slot — see the k4_tlm.py connect step comments).
             inverse_shift = tuple(-s for s in shift_to_B)
             sat_B_at_A = np.roll(
-                saturated_site, shift=inverse_shift, axis=(0, 1, 2),
+                saturated_site,
+                shift=inverse_shift,
+                axis=(0, 1, 2),
             )
             bond_both_sat = mask_A & saturated_site & sat_B_at_A
             bond_any_unsat = mask_A & ~(saturated_site & sat_B_at_A)
@@ -486,7 +502,7 @@ class BondObserver(Observer):
         all_A_phi = Phi[mask_A, :]
 
         def _rms(x: np.ndarray) -> float:
-            return float(np.sqrt(np.mean(x ** 2))) if x.size > 0 else 0.0
+            return float(np.sqrt(np.mean(x**2))) if x.size > 0 else 0.0
 
         return {
             "t": engine.time,
@@ -541,10 +557,13 @@ class NodeResonanceObserver(Observer):
         # See research/L3_electron_soliton/50_autoresonant_pair_creation.md
         # §0.1 r3 and VACUUM_ENGINE_MANUAL §17 A14 r6.
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A2_k4 = V_sq / (engine.V_SNAP ** 2)
+        A2_k4 = V_sq / (engine.V_SNAP**2)
         A2_cos = _cosserat_A_squared(
-            engine.cos.u, engine.cos.omega, engine.cos.dx,
-            engine.cos.omega_yield, engine.cos.epsilon_yield,
+            engine.cos.u,
+            engine.cos.omega,
+            engine.cos.dx,
+            engine.cos.omega_yield,
+            engine.cos.epsilon_yield,
         )
         # Pythagorean quadrature sum of orthogonal DoFs (AVE-APU Vol 1 Ch 5)
         A2_total = A2_k4 + A2_cos
@@ -598,14 +617,10 @@ class TopologyObserver(Observer):
     ):
         super().__init__(cadence=cadence)
         if threshold_frac is None:
-            self.threshold_frac = (
-                min(threshold_fracs) if threshold_fracs else 0.3
-            )
+            self.threshold_frac = min(threshold_fracs) if threshold_fracs else 0.3
         else:
             self.threshold_frac = float(threshold_frac)
-        self.threshold_fracs = (
-            [float(t) for t in threshold_fracs] if threshold_fracs else None
-        )
+        self.threshold_fracs = [float(t) for t in threshold_fracs] if threshold_fracs else None
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
         cents = engine.cos.find_soliton_centroids(threshold_frac=self.threshold_frac)
@@ -700,10 +715,16 @@ class AutoresonantCWSource(CWSource):
         probe_x_offset: int = 4,
     ):
         super().__init__(
-            x0=x0, direction=direction, amplitude=amplitude,
-            omega=omega, sigma_yz=sigma_yz,
-            t_ramp=t_ramp, t_sustain=t_sustain, t_decay=t_decay,
-            y_c=y_c, z_c=z_c,
+            x0=x0,
+            direction=direction,
+            amplitude=amplitude,
+            omega=omega,
+            sigma_yz=sigma_yz,
+            t_ramp=t_ramp,
+            t_sustain=t_sustain,
+            t_decay=t_decay,
+            y_c=y_c,
+            z_c=z_c,
         )
         # K_drift deprecated per G-12 (axiom-native varactor form).
         # Retained as attribute for backward compat of external inspectors
@@ -712,6 +733,7 @@ class AutoresonantCWSource(CWSource):
         # has no tunable gain.
         if not np.isclose(K_drift, 0.5):
             import warnings
+
             warnings.warn(
                 "AutoresonantCWSource.K_drift is deprecated (G-12, Phase 5 "
                 "prep). The axiom-native varactor form ω(t) = ω_0·(1−A²)^(1/4) "
@@ -723,7 +745,7 @@ class AutoresonantCWSource(CWSource):
             )
         self.K_drift = float(K_drift)  # retained as attribute; not used
         self.probe_x_offset = int(probe_x_offset)
-        self._omega_0 = float(omega)       # nominal (unshifted) frequency
+        self._omega_0 = float(omega)  # nominal (unshifted) frequency
         self._omega_current = self._omega_0  # shifts over time
         self._accumulated_phase = 0.0
         self._last_t = None
@@ -734,12 +756,12 @@ class AutoresonantCWSource(CWSource):
         dx_sign = int(np.sign(self.direction[0])) if self.direction[0] != 0 else 1
         probe_x = self.x0 + self.probe_x_offset * dx_sign
         probe_x = int(np.clip(probe_x, 0, engine.N - 1))
-        V_inc_slab = engine.k4.V_inc[probe_x]   # (ny, nz, 4)
-        V_sq = np.sum(V_inc_slab ** 2, axis=-1)  # (ny, nz)
+        V_inc_slab = engine.k4.V_inc[probe_x]  # (ny, nz, 4)
+        V_sq = np.sum(V_inc_slab**2, axis=-1)  # (ny, nz)
         active = engine.k4.mask_active[probe_x]
         if not active.any():
             return 0.0
-        return float(V_sq[active].max() / (engine.V_SNAP ** 2))
+        return float(V_sq[active].max() / (engine.V_SNAP**2))
 
     def apply(self, engine: "VacuumEngine3D", t: float) -> None:
         self._init_if_needed(engine)
@@ -784,7 +806,7 @@ class AutoresonantCWSource(CWSource):
             if self._port_w[n] != 0:
                 contrib = self._port_w[n] * injection
                 engine.k4.V_inc[self.x0, :, :, n] += contrib
-                per_step_energy += float(np.sum(contrib ** 2))
+                per_step_energy += float(np.sum(contrib**2))
         self.cumulative_energy_injected += per_step_energy
 
 
@@ -916,7 +938,7 @@ class CosseratBeltramiSource(Source):
         zc = (N - 1) / 2.0 if self.z_c is None else self.z_c
         j, k = np.indices((N, N), dtype=float)
         r2 = (j - yc) ** 2 + (k - zc) ** 2
-        self._transverse_profile = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        self._transverse_profile = np.exp(-r2 / (2.0 * self.sigma_yz**2))
 
     def apply(self, engine: "VacuumEngine3D", t: float) -> None:
         """Overwrite ω at source slab with helical drive pattern.
@@ -940,7 +962,7 @@ class CosseratBeltramiSource(Source):
 
         # Apply to the propagation-axis slab of the Cosserat ω field
         # Cosserat ω has shape (N, N, N, 3); we index along propagation_axis
-        active_slab = self._slab_active_mask(engine)   # (N, N)
+        active_slab = self._slab_active_mask(engine)  # (N, N)
         pattern = amp_current * self._transverse_profile * active_slab  # (N, N)
 
         ax1, ax2 = self._trans_axes
@@ -952,7 +974,7 @@ class CosseratBeltramiSource(Source):
         slab_view[..., ax2] = pattern * s_t
 
         # Track injected action (|ω|² integrated, for diagnostics)
-        self.cumulative_action_injected += float(np.sum(pattern ** 2) * (c_t ** 2 + s_t ** 2))
+        self.cumulative_action_injected += float(np.sum(pattern**2) * (c_t**2 + s_t**2))
 
     def _slab_active_mask(self, engine: "VacuumEngine3D") -> np.ndarray:
         """Return (N, N) boolean mask of active Cosserat sites at x0 slab."""
@@ -1064,8 +1086,8 @@ class SpatialDipoleCPSource(Source):
         self._trans_axes = tuple(i for i in (0, 1, 2) if i != self.propagation_axis)
         # Lazy-init: per-direction port weights + dipole profiles
         self._port_w_prop = None
-        self._g_y_profile = None       # (N, N) y-dipole Gaussian
-        self._g_z_profile = None       # (N, N) z-dipole Gaussian
+        self._g_y_profile = None  # (N, N) y-dipole Gaussian
+        self._g_z_profile = None  # (N, N) z-dipole Gaussian
         self.cumulative_energy_injected = 0.0
 
     def envelope(self, t: float) -> float:
@@ -1085,9 +1107,7 @@ class SpatialDipoleCPSource(Source):
         if self._port_w_prop is not None:
             return
         # Port weights for propagation direction (reuse T₂ projection from CWSource)
-        direction = tuple(
-            1.0 if i == self.propagation_axis else 0.0 for i in range(3)
-        )
+        direction = tuple(1.0 if i == self.propagation_axis else 0.0 for i in range(3))
         self._port_w_prop = _forward_t2_port_weights(direction)
         # Build 2D transverse-plane dipole profiles
         N = engine.N
@@ -1095,7 +1115,7 @@ class SpatialDipoleCPSource(Source):
         zc = (N - 1) / 2.0 if self.z_c is None else self.z_c
         j, k = np.indices((N, N), dtype=float)
         r2 = (j - yc) ** 2 + (k - zc) ** 2
-        gauss_env = np.exp(-r2 / (2.0 * self.sigma_yz ** 2))
+        gauss_env = np.exp(-r2 / (2.0 * self.sigma_yz**2))
         # y-dipole: Gaussian × (y − y_c)
         self._g_y_profile = (j - yc) * gauss_env
         # z-dipole: Gaussian × (z − z_c)
@@ -1116,9 +1136,7 @@ class SpatialDipoleCPSource(Source):
 
         # Combined spatial pattern at source plane (2D y, z)
         # Y-pol component (cos) + Z-pol component (sin·ε_hand)
-        pattern = amp_volts * (
-            c_t * self._g_y_profile + s_t * self._g_z_profile
-        )
+        pattern = amp_volts * (c_t * self._g_y_profile + s_t * self._g_z_profile)
         # Respect K4 active mask at source plane
         active_slice = engine.k4.mask_active[self.x0].astype(float)
         injection = pattern * active_slice
@@ -1128,7 +1146,7 @@ class SpatialDipoleCPSource(Source):
             if self._port_w_prop[n] != 0:
                 contrib = self._port_w_prop[n] * injection
                 engine.k4.V_inc[self.x0, :, :, n] += contrib
-                per_step_energy += float(np.sum(contrib ** 2))
+                per_step_energy += float(np.sum(contrib**2))
         self.cumulative_energy_injected += per_step_energy
 
 
@@ -1200,12 +1218,15 @@ class PairNucleationGate(Observer):
     """
 
     # Tetrahedral A→B port vectors (from k4_tlm.py:164)
-    _PORT_VECTORS = np.array([
-        [+1, +1, +1],
-        [+1, -1, -1],
-        [-1, +1, -1],
-        [-1, -1, +1],
-    ], dtype=float)
+    _PORT_VECTORS = np.array(
+        [
+            [+1, +1, +1],
+            [+1, -1, -1],
+            [-1, +1, -1],
+            [-1, -1, +1],
+        ],
+        dtype=float,
+    )
 
     def __init__(
         self,
@@ -1232,15 +1253,9 @@ class PairNucleationGate(Observer):
         """
         super().__init__(cadence=cadence)
         self.saturation_frac = float(saturation_frac)
-        self.delta_lock_fraction = (
-            float(delta_lock_fraction)
-            if delta_lock_fraction is not None
-            else float(ALPHA)
-        )
+        self.delta_lock_fraction = float(delta_lock_fraction) if delta_lock_fraction is not None else float(ALPHA)
         self.injection_amplitude = (
-            float(injection_amplitude)
-            if injection_amplitude is not None
-            else float(np.sqrt(2.0))
+            float(injection_amplitude) if injection_amplitude is not None else float(np.sqrt(2.0))
         )
         self.phi_critical = float(phi_critical)
         # Bonds already nucleated — prevent re-firing
@@ -1255,21 +1270,21 @@ class PairNucleationGate(Observer):
         chirality bias. For gate-detection purposes we compute the
         per-site A²_μ directly from the Cosserat curvature.
         """
-        from ave.topological.cosserat_field_3d import (
-            _compute_curvature, KAPPA_CHIRAL_ELECTRON, _beltrami_helicity,
-        )
         import jax.numpy as jnp
+
+        from ave.topological.cosserat_field_3d import (
+            KAPPA_CHIRAL_ELECTRON,
+            _beltrami_helicity,
+            _compute_curvature,
+        )
+
         w_j = jnp.asarray(engine.cos.omega)
         kappa = _compute_curvature(w_j, engine.cos.dx)
         kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
-        A2_mu_base = kappa_sq / (engine.cos.omega_yield ** 2)
+        A2_mu_base = kappa_sq / (engine.cos.omega_yield**2)
         # Chirality bias (same form as _update_saturation_kernels)
         h_local = _beltrami_helicity(w_j, engine.cos.dx)
-        kappa_chi = (
-            engine._coupled.kappa_chiral
-            if engine._coupled.use_asymmetric_saturation
-            else 0.0
-        )
+        kappa_chi = engine._coupled.kappa_chiral if engine._coupled.use_asymmetric_saturation else 0.0
         A2_mu = (1.0 + kappa_chi * h_local) * A2_mu_base
         return np.asarray(A2_mu)
 
@@ -1280,19 +1295,23 @@ class PairNucleationGate(Observer):
         override (Vol 4 Ch 1:711), A²_yield = A²_total in the engine's
         canonical units (no /α conversion).
         """
-        from ave.topological.cosserat_field_3d import _update_saturation_kernels
         import jax.numpy as jnp
+
+        from ave.topological.cosserat_field_3d import _update_saturation_kernels
+
         V_sq = _v_squared_per_site(engine.k4.V_inc)
         S_mu, S_eps = _update_saturation_kernels(
-            jnp.asarray(engine.cos.u), jnp.asarray(engine.cos.omega),
-            jnp.asarray(V_sq), engine.cos.dx, engine.V_SNAP,
-            engine.cos.omega_yield, engine.cos.epsilon_yield,
+            jnp.asarray(engine.cos.u),
+            jnp.asarray(engine.cos.omega),
+            jnp.asarray(V_sq),
+            engine.cos.dx,
+            engine.V_SNAP,
+            engine.cos.omega_yield,
+            engine.cos.epsilon_yield,
             engine._coupled.kappa_chiral,
         )
         # Pythagorean-like combined kernel for Ω_node
-        S_combined = np.sqrt(
-            np.asarray(S_mu) * np.asarray(S_eps)
-        )
+        S_combined = np.sqrt(np.asarray(S_mu) * np.asarray(S_eps))
         # Ω_node / ω_yield ~ S^(1/2) = (1-A²)^(1/4)
         return engine.cos.omega_yield * np.sqrt(np.maximum(S_combined, 1e-12))
 
@@ -1367,9 +1386,7 @@ class PairNucleationGate(Observer):
         # Lattice-chirality sign: alternating per port index (first-pass;
         # could be refined via κ_chiral projection on bond direction)
         sign = +1 if (port % 2 == 0) else -1
-        engine.k4.Phi_link[A_idx[0], A_idx[1], A_idx[2], port] = (
-            sign * self.phi_critical
-        )
+        engine.k4.Phi_link[A_idx[0], A_idx[1], A_idx[2], port] = sign * self.phi_critical
 
     def _capture(self, engine: "VacuumEngine3D") -> dict:
         """Per-step scan: detect C1 ∧ C2, inject pair if both + not yet nucleated.
@@ -1397,10 +1414,7 @@ class PairNucleationGate(Observer):
             if bond_key in self._nucleated_bonds:
                 continue  # Never re-fire the same bond
             # C1: both endpoints Meissner-saturated
-            if (
-                A2_mu[A_idx] < self.saturation_frac
-                or A2_mu[B_idx] < self.saturation_frac
-            ):
+            if A2_mu[A_idx] < self.saturation_frac or A2_mu[B_idx] < self.saturation_frac:
                 continue
             # C2: autoresonant lock
             omega_at_A = float(Omega_node[A_idx])
@@ -1486,7 +1500,7 @@ class DarkWakeObserver(Observer):
         from ave.topological.cosserat_field_3d import tetrahedral_gradient
 
         V_sq = _v_squared_per_site(engine.k4.V_inc)
-        A_sq = V_sq / (engine.V_SNAP ** 2)
+        A_sq = V_sq / (engine.V_SNAP**2)
 
         # tetrahedral_gradient returns shape (nx, ny, nz, 3) — the 3D
         # vector gradient at each site via K4 bond differences.
@@ -1519,15 +1533,15 @@ class DarkWakeObserver(Observer):
 
         # Max |τ_zx| across the whole lattice (excluding PML)
         interior_mask = np.zeros_like(alive)
-        interior_mask[pml:N - pml, pml:N - pml, pml:N - pml] = True
+        interior_mask[pml : N - pml, pml : N - pml, pml : N - pml] = True
         interior_alive = alive & interior_mask
         max_tau_zx = float(np.abs(tau_zx[interior_alive]).max()) if interior_alive.any() else 0.0
 
         return {
             "t": engine.time,
-            "tau_zx_slab": tau_slab,         # 1D along propagation axis
+            "tau_zx_slab": tau_slab,  # 1D along propagation axis
             "max_tau_zx": max_tau_zx,
-            "wake_peak_x": peak_idx,         # -1 if no wake
+            "wake_peak_x": peak_idx,  # -1 if no wake
         }
 
 
@@ -1541,13 +1555,14 @@ class EngineConfig:
     All amplitudes use V_SNAP internally. User-side `amplitude_convention`
     controls what gets passed IN.
     """
+
     N: int
     pml: int = 6
-    temperature: float = 0.0            # in m_e c² units (dimensionless)
+    temperature: float = 0.0  # in m_e c² units (dimensionless)
     amplitude_convention: str = "V_SNAP"
     rho: float = 1.0
     I_omega: float = 1.0
-    coupling_kappa: float = 1.0         # S1-D prefactor (C2 proxy for η_vac)
+    coupling_kappa: float = 1.0  # S1-D prefactor (C2 proxy for η_vac)
     axiom_4_enabled: bool = True
     V_SNAP_override: Optional[float] = None  # override if using non-SI
     # Phase 4 — asymmetric μ/ε saturation (doc 54_ §6, VACUUM_ENGINE_MANUAL
@@ -1605,15 +1620,14 @@ class VacuumEngine3D:
         self.N = config.N
         self.amplitude_convention = config.amplitude_convention
         self.coupling_kappa = config.coupling_kappa
-        self.V_SNAP = (
-            config.V_SNAP_override if config.V_SNAP_override is not None
-            else 1.0     # natural units by default
-        )
+        self.V_SNAP = config.V_SNAP_override if config.V_SNAP_override is not None else 1.0  # natural units by default
 
         # Core physics: delegate to CoupledK4Cosserat
         self._coupled = CoupledK4Cosserat(
-            N=config.N, pml=config.pml,
-            rho=config.rho, I_omega=config.I_omega,
+            N=config.N,
+            pml=config.pml,
+            rho=config.rho,
+            I_omega=config.I_omega,
             V_SNAP=self.V_SNAP,
             use_asymmetric_saturation=config.use_asymmetric_saturation,
             use_memristive_saturation=config.use_memristive_saturation,
@@ -1711,8 +1725,7 @@ class VacuumEngine3D:
     # -----------------------------------------------------------------
     # Thermal initialization (per doc 47_)
     # -----------------------------------------------------------------
-    def initialize_thermal(self, T: float, seed: Optional[int] = None,
-                           thermalize_V: bool = False) -> None:
+    def initialize_thermal(self, T: float, seed: Optional[int] = None, thermalize_V: bool = False) -> None:
         """Initialize (V_inc, u, ω, u_dot, ω_dot) per classical equipartition
         at temperature T. Units: T in m_e c² (so T=1 means kT = electron mass).
 
@@ -1770,7 +1783,7 @@ class VacuumEngine3D:
 
         # Cosserat ω (massive mode; mode integral ≈ 1.14 for m²=4 per doc 47_)
         mode_int = np.pi - 2.0 * np.arctan(np.pi / 2.0)
-        sigma_omega = np.sqrt(T * mode_int / (4.0 * np.pi ** 2 * self.cos.I_omega))
+        sigma_omega = np.sqrt(T * mode_int / (4.0 * np.pi**2 * self.cos.I_omega))
         sigma_omega_dot = np.sqrt(T / self.cos.I_omega)
         self.cos.omega[:] = rng.standard_normal(self.cos.omega.shape) * sigma_omega
         self.cos.omega_dot[:] = rng.standard_normal(self.cos.omega_dot.shape) * sigma_omega_dot

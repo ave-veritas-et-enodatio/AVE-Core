@@ -25,25 +25,17 @@ Key insight: LIGO is NOT "measuring spacetime curvature."
 It is measuring the IMPEDANCE PERTURBATION of a lossless
 transmission line caused by passing inductive shear waves.
 """
-from __future__ import annotations
 
+from dataclasses import dataclass
 
 import numpy as np
-from dataclasses import dataclass
-from typing import Optional
 
-from ave.core.constants import (
-    C_0, EPSILON_0, MU_0, Z_0, V_SNAP, HBAR, L_NODE, ALPHA,
-)
-from ave.axioms.scale_invariant import (
-    impedance,
-    reflection_coefficient,
-)
-
+from ave.core.constants import C_0, HBAR, V_SNAP, Z_0
 
 # ═══════════════════════════════════════════════════════════════
 # Detector configurations
 # ═══════════════════════════════════════════════════════════════
+
 
 @dataclass
 class GWDetector:
@@ -57,12 +49,13 @@ class GWDetector:
       - Laser power P provides the readout photon flux
       - The GW strain h modulates the cavity impedance
     """
+
     name: str
-    arm_length_m: float        # Physical arm length [m]
-    n_bounces: int             # Number of light bounces (finesse)
-    laser_power_w: float       # Circulating laser power [W]
+    arm_length_m: float  # Physical arm length [m]
+    n_bounces: int  # Number of light bounces (finesse)
+    laser_power_w: float  # Circulating laser power [W]
     laser_wavelength_m: float  # Laser wavelength [m]
-    bandwidth_hz: float        # Detection bandwidth [Hz]
+    bandwidth_hz: float  # Detection bandwidth [Hz]
 
     @property
     def effective_length_m(self) -> float:
@@ -90,29 +83,29 @@ class GWDetector:
 # ═══════════════════════════════════════════════════════════════
 
 DETECTOR_CATALOG = {
-    'LIGO': GWDetector(
-        name='LIGO',
-        arm_length_m=4000,           # 4 km arms
-        n_bounces=280,               # Finesse ≈ 450 → ~280 bounces
-        laser_power_w=750e3,         # 750 kW circulating
+    "LIGO": GWDetector(
+        name="LIGO",
+        arm_length_m=4000,  # 4 km arms
+        n_bounces=280,  # Finesse ≈ 450 → ~280 bounces
+        laser_power_w=750e3,  # 750 kW circulating
         laser_wavelength_m=1064e-9,  # Nd:YAG
-        bandwidth_hz=100,            # ~100 Hz optimal band
+        bandwidth_hz=100,  # ~100 Hz optimal band
     ),
-    'LISA': GWDetector(
-        name='LISA',
-        arm_length_m=2.5e9,          # 2.5 million km
-        n_bounces=1,                  # No cavity, single pass
-        laser_power_w=2.0,            # 2 W
+    "LISA": GWDetector(
+        name="LISA",
+        arm_length_m=2.5e9,  # 2.5 million km
+        n_bounces=1,  # No cavity, single pass
+        laser_power_w=2.0,  # 2 W
         laser_wavelength_m=1064e-9,
-        bandwidth_hz=1e-3,            # mHz band
+        bandwidth_hz=1e-3,  # mHz band
     ),
-    'Einstein_Telescope': GWDetector(
-        name='Einstein Telescope',
-        arm_length_m=10000,           # 10 km arms
-        n_bounces=560,                # Higher finesse
-        laser_power_w=3e6,            # 3 MW circulating
+    "Einstein_Telescope": GWDetector(
+        name="Einstein Telescope",
+        arm_length_m=10000,  # 10 km arms
+        n_bounces=560,  # Higher finesse
+        laser_power_w=3e6,  # 3 MW circulating
         laser_wavelength_m=1064e-9,
-        bandwidth_hz=10,              # Lower frequency target
+        bandwidth_hz=10,  # Lower frequency target
     ),
 }
 
@@ -120,6 +113,7 @@ DETECTOR_CATALOG = {
 # ═══════════════════════════════════════════════════════════════
 # Detection physics
 # ═══════════════════════════════════════════════════════════════
+
 
 def impedance_modulation(h: float, Z0: float = Z_0) -> float:
     r"""
@@ -144,8 +138,7 @@ def impedance_modulation(h: float, Z0: float = Z_0) -> float:
     return Z0 * h
 
 
-def phase_shift(h: float, detector: GWDetector,
-                gw_freq_hz: float = 100.0) -> float:
+def phase_shift(h: float, detector: GWDetector, gw_freq_hz: float = 100.0) -> float:
     r"""
     Phase shift accumulated by laser in a Fabry-Pérot arm.
 
@@ -168,8 +161,7 @@ def phase_shift(h: float, detector: GWDetector,
     return omega_gw * L_eff * h / C_0
 
 
-def shot_noise_strain(detector: GWDetector,
-                       gw_freq_hz: float = 100.0) -> float:
+def shot_noise_strain(detector: GWDetector, gw_freq_hz: float = 100.0) -> float:
     r"""
     Shot-noise-limited strain sensitivity.
 
@@ -195,15 +187,11 @@ def shot_noise_strain(detector: GWDetector,
     # Phase noise from shot noise: δφ = 1/√N_photons
     # N_photons per measurement = P × τ / (ℏω)
     # τ = 1/(2π f_gw)
-    h_shot = (1.0 / L_eff) * np.sqrt(
-        HBAR * C_0 * lam / (2 * np.pi * P)
-    )
+    h_shot = (1.0 / L_eff) * np.sqrt(HBAR * C_0 * lam / (2 * np.pi * P))
     return h_shot
 
 
-def radiation_pressure_strain(detector: GWDetector,
-                                gw_freq_hz: float = 100.0,
-                                mirror_mass_kg: float = 40.0) -> float:
+def radiation_pressure_strain(detector: GWDetector, gw_freq_hz: float = 100.0, mirror_mass_kg: float = 40.0) -> float:
     r"""
     Radiation pressure noise strain.
 
@@ -228,15 +216,11 @@ def radiation_pressure_strain(detector: GWDetector,
     L = detector.arm_length_m
     m = mirror_mass_kg
 
-    h_rp = (1.0 / (m * L * omega_gw**2)) * np.sqrt(
-        2 * HBAR * omega_laser * P / C_0**2
-    )
+    h_rp = (1.0 / (m * L * omega_gw**2)) * np.sqrt(2 * HBAR * omega_laser * P / C_0**2)
     return h_rp
 
 
-def total_strain_sensitivity(detector: GWDetector,
-                              freq_hz: np.ndarray,
-                              mirror_mass_kg: float = 40.0) -> np.ndarray:
+def total_strain_sensitivity(detector: GWDetector, freq_hz: np.ndarray, mirror_mass_kg: float = 40.0) -> np.ndarray:
     r"""
     Total strain sensitivity curve (shot + radiation pressure).
 
@@ -255,13 +239,11 @@ def total_strain_sensitivity(detector: GWDetector,
         Array of strain sensitivities [1/√Hz].
     """
     h_s = np.array([shot_noise_strain(detector, f) for f in freq_hz])
-    h_r = np.array([radiation_pressure_strain(detector, f, mirror_mass_kg)
-                     for f in freq_hz])
+    h_r = np.array([radiation_pressure_strain(detector, f, mirror_mass_kg) for f in freq_hz])
     return np.sqrt(h_s**2 + h_r**2)
 
 
-def gw_power_absorbed(h: float, gw_freq_hz: float,
-                       source_distance_m: float) -> float:
+def gw_power_absorbed(h: float, gw_freq_hz: float, source_distance_m: float) -> float:
     r"""
     Power carried by a GW through a cross-section.
 
@@ -279,6 +261,7 @@ def gw_power_absorbed(h: float, gw_freq_hz: float,
         Power flux [W/m²].
     """
     from ave.core.constants import G
+
     omega = 2 * np.pi * gw_freq_hz
     return (C_0**3 / (16 * np.pi * G)) * h**2 * omega**2
 
@@ -298,12 +281,12 @@ def lattice_voltage_ratio(h: float, gw_freq_hz: float = 100.0) -> float:
         V_GW / V_SNAP (dimensionless, << 1 for all physical GW).
     """
     from ave.gravity.gw_propagation import gw_strain_to_voltage
+
     V_gw = gw_strain_to_voltage(h, gw_freq_hz)
     return V_gw / V_SNAP
 
 
-def detector_summary(detector_name: str = 'LIGO',
-                      h: float = 1e-21) -> dict:
+def detector_summary(detector_name: str = "LIGO", h: float = 1e-21) -> dict[str, float | int | str | np.ndarray]:
     """
     Generate a summary of detector properties and sensitivity.
 
@@ -319,16 +302,16 @@ def detector_summary(detector_name: str = 'LIGO',
     sens = total_strain_sensitivity(det, freq)
 
     return {
-        'name': det.name,
-        'arm_length_m': det.arm_length_m,
-        'effective_length_m': det.effective_length_m,
-        'n_bounces': det.n_bounces,
-        'laser_power_w': det.laser_power_w,
-        'photon_flux': det.photon_flux,
-        'phase_shift_rad': phase_shift(h, det),
-        'impedance_modulation_ohm': impedance_modulation(h),
-        'lattice_voltage_ratio': lattice_voltage_ratio(h),
-        'shot_noise_100hz': shot_noise_strain(det, 100.0),
-        'freq_hz': freq,
-        'sensitivity_curve': sens,
+        "name": det.name,
+        "arm_length_m": det.arm_length_m,
+        "effective_length_m": det.effective_length_m,
+        "n_bounces": det.n_bounces,
+        "laser_power_w": det.laser_power_w,
+        "photon_flux": det.photon_flux,
+        "phase_shift_rad": phase_shift(h, det),
+        "impedance_modulation_ohm": impedance_modulation(h),
+        "lattice_voltage_ratio": lattice_voltage_ratio(h),
+        "shot_noise_100hz": shot_noise_strain(det, 100.0),
+        "freq_hz": freq,
+        "sensitivity_curve": sens,
     }

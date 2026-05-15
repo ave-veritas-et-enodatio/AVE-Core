@@ -35,13 +35,13 @@ Usage:
 """
 
 import os
-import sys
 import pathlib
+
 import numpy as np
 from stl import mesh as stl_mesh
 
 # Engine imports — all physics constants from the single source of truth
-from ave.core.constants import KAPPA_FS, L_NODE, ALPHA, P_C, NU_VAC
+from ave.core.constants import KAPPA_FS, P_C
 from ave.topological.borromean import FundamentalTopologies
 
 # ═══════════════════════════════════════════════════════════════════
@@ -67,7 +67,8 @@ LEPTON_VISUAL_SCALE = 6.0  # [RENDERING] Magnify leptons 6× for printability
 # Mesh Generation Core: Frenet-Serret Tube Sweeper
 # ═══════════════════════════════════════════════════════════════════
 
-def compute_frenet_frame(curve):
+
+def compute_frenet_frame(curve: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute the Frenet-Serret frame (T, N, B) along a 3D curve.
 
@@ -80,12 +81,12 @@ def compute_frenet_frame(curve):
     Returns:
         T, N, B: each [M, 3] arrays of unit tangent, normal, binormal vectors.
     """
-    M = len(curve)
+    # M = len(curve)  # bulk lint fixup pass
 
     # Tangent via central differences (wrap for closed curves)
     T = np.zeros_like(curve)
     T[1:-1] = curve[2:] - curve[:-2]
-    T[0] = curve[1] - curve[-2]   # wrap
+    T[0] = curve[1] - curve[-2]  # wrap
     T[-1] = curve[1] - curve[-2]  # wrap
 
     # Normalise tangent
@@ -105,7 +106,7 @@ def compute_frenet_frame(curve):
     N_norm = np.linalg.norm(N, axis=1, keepdims=True)
 
     # Fallback for degenerate normals: use perpendicular to T
-    degenerate = (N_norm.flatten() < 1e-8)
+    degenerate = N_norm.flatten() < 1e-8
     if np.any(degenerate):
         # Pick arbitrary perpendicular vector
         for i in np.where(degenerate)[0]:
@@ -131,8 +132,14 @@ def compute_frenet_frame(curve):
     return T, N, B
 
 
-def sweep_tube(curve, tube_radius, n_radial=24, twist_turns=0,
-               curvature_amplitude=0.0, curvature_lobes=0):
+def sweep_tube(
+    curve: np.ndarray,
+    tube_radius: float,
+    n_radial: int = 24,
+    twist_turns: float = 0,
+    curvature_amplitude: float = 0.0,
+    curvature_lobes: int = 0,
+) -> stl_mesh.Mesh:
     """
     Generate a watertight triangle mesh by sweeping a circular cross-section
     along a 3D curve using the Frenet-Serret frame.
@@ -165,8 +172,7 @@ def sweep_tube(curve, tube_radius, n_radial=24, twist_turns=0,
 
         # Curvature undulation: modulate tube radius
         if curvature_amplitude > 0 and curvature_lobes > 0:
-            r_mod = tube_radius * (1.0 + curvature_amplitude *
-                                   np.sin(2 * np.pi * curvature_lobes * frac))
+            r_mod = tube_radius * (1.0 + curvature_amplitude * np.sin(2 * np.pi * curvature_lobes * frac))
         else:
             r_mod = tube_radius
 
@@ -191,17 +197,17 @@ def sweep_tube(curve, tube_radius, n_radial=24, twist_turns=0,
             v3 = vertices[i_next, j]
 
             # Triangle 1: v0, v1, v2
-            faces['vectors'][face_idx] = [v0, v1, v2]
+            faces["vectors"][face_idx] = [v0, v1, v2]
             face_idx += 1
             # Triangle 2: v0, v2, v3
-            faces['vectors'][face_idx] = [v0, v2, v3]
+            faces["vectors"][face_idx] = [v0, v2, v3]
             face_idx += 1
 
     result = stl_mesh.Mesh(faces)
     return result
 
 
-def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
+def sweep_tube_open(curve: np.ndarray, tube_radius: float, n_radial: int = 24, cap: bool = True) -> stl_mesh.Mesh:
     """
     Generate a watertight triangle mesh for an OPEN curve (not closed loop).
     Used for neutrino screw dislocation helices.
@@ -236,7 +242,7 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
     N_norm = np.linalg.norm(N, axis=1, keepdims=True)
 
     # Fallback for degenerate normals
-    degenerate = (N_norm.flatten() < 1e-8)
+    degenerate = N_norm.flatten() < 1e-8
     if np.any(degenerate):
         for i in np.where(degenerate)[0]:
             abs_t = np.abs(T[i])
@@ -260,8 +266,7 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
     vertices = np.zeros((M, n_radial, 3))
     for i in range(M):
         for j in range(n_radial):
-            offset = tube_radius * (np.cos(phi[j]) * N[i] +
-                                    np.sin(phi[j]) * B[i])
+            offset = tube_radius * (np.cos(phi[j]) * N[i] + np.sin(phi[j]) * B[i])
             vertices[i, j] = curve[i] + offset
 
     # Count faces: M-1 quads × n_radial × 2 triangles + 2 caps
@@ -278,25 +283,21 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
             v1 = vertices[i, j_next]
             v2 = vertices[i + 1, j_next]
             v3 = vertices[i + 1, j]
-            faces['vectors'][face_idx] = [v0, v1, v2]
+            faces["vectors"][face_idx] = [v0, v1, v2]
             face_idx += 1
-            faces['vectors'][face_idx] = [v0, v2, v3]
+            faces["vectors"][face_idx] = [v0, v2, v3]
             face_idx += 1
 
     # End caps (fan triangulation)
     if cap:
         # Start cap
-        center_start = curve[0]
+        # center_start = curve[0]  # bulk lint fixup pass
         for j in range(n_radial - 2):
-            faces['vectors'][face_idx] = [vertices[0, 0],
-                                          vertices[0, j + 2],
-                                          vertices[0, j + 1]]
+            faces["vectors"][face_idx] = [vertices[0, 0], vertices[0, j + 2], vertices[0, j + 1]]
             face_idx += 1
         # End cap
         for j in range(n_radial - 2):
-            faces['vectors'][face_idx] = [vertices[-1, 0],
-                                          vertices[-1, j + 1],
-                                          vertices[-1, j + 2]]
+            faces["vectors"][face_idx] = [vertices[-1, 0], vertices[-1, j + 1], vertices[-1, j + 2]]
             face_idx += 1
 
     result = stl_mesh.Mesh(faces[:face_idx])
@@ -307,7 +308,10 @@ def sweep_tube_open(curve, tube_radius, n_radial=24, cap=True):
 # Particle Model Generators
 # ═══════════════════════════════════════════════════════════════════
 
-def make_baryon_stl(q, scale_mm=MM_PER_L_NODE, n_radial=24, resolution=2000):
+
+def make_baryon_stl(
+    q: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 2000
+) -> stl_mesh.Mesh:
     """
     Generate a (2,q) torus knot STL mesh for a baryon.
 
@@ -322,24 +326,22 @@ def make_baryon_stl(q, scale_mm=MM_PER_L_NODE, n_radial=24, resolution=2000):
     Returns:
         stl.mesh.Mesh
     """
-    r_opt = KAPPA_FS / q               # [DERIVED] confinement radius in ℓ_node
-    R_mm = r_opt * scale_mm            # major radius in mm
+    r_opt = KAPPA_FS / q  # [DERIVED] confinement radius in ℓ_node
+    R_mm = r_opt * scale_mm  # major radius in mm
     r_tube_physical = R_mm / (2 * np.pi)  # [DERIVED] tube orbit from ropelength
-    tube_r = r_tube_physical * 0.5     # [RENDERING] 50% of physical for printability
+    tube_r = r_tube_physical * 0.5  # [RENDERING] 50% of physical for printability
 
     # Torus minor radius: sets the amplitude of the knot's excursion off
     # the torus center plane.  For visual clarity, set to 35% of major radius.
-    torus_minor = R_mm * 0.35          # [RENDERING] knot amplitude scaling
+    torus_minor = R_mm * 0.35  # [RENDERING] knot amplitude scaling
 
     # Generate centerline
-    curve = FundamentalTopologies.generate_torus_knot_2q(
-        q=q, R=R_mm, r=torus_minor, resolution=resolution
-    )
+    curve = FundamentalTopologies.generate_torus_knot_2q(q=q, R=R_mm, r=torus_minor, resolution=resolution)
 
     return sweep_tube(curve, tube_r, n_radial=n_radial)
 
 
-def make_electron_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_electron_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the electron unknot: a smooth torus ring.
 
@@ -354,21 +356,19 @@ def make_electron_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     Visual magnification applied for printability (see LEPTON_VISUAL_SCALE).
     """
     # Physical dimensions (in ℓ_node)
-    R_physical = 1.0 / (2 * np.pi)    # [DERIVED] ℓ_node/(2π)
+    R_physical = 1.0 / (2 * np.pi)  # [DERIVED] ℓ_node/(2π)
     tube_r_physical = 1.0 / (2 * np.pi)  # [DERIVED] ℓ_node/(2π)
 
     # Apply visual scaling for printability
     R_mm = R_physical * scale_mm * LEPTON_VISUAL_SCALE
     tube_r = tube_r_physical * scale_mm * LEPTON_VISUAL_SCALE
 
-    curve = FundamentalTopologies.generate_unknot_0_1(
-        radius=R_mm, resolution=resolution
-    )
+    curve = FundamentalTopologies.generate_unknot_0_1(radius=R_mm, resolution=resolution)
 
     return sweep_tube(curve, tube_r, n_radial=n_radial)
 
 
-def make_muon_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_muon_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the muon: unknot with Cosserat torsional twist.
 
@@ -398,18 +398,15 @@ def make_muon_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     R_mm = R_physical * scale_mm * LEPTON_VISUAL_SCALE
     tube_r = tube_r_physical * scale_mm * LEPTON_VISUAL_SCALE
 
-    curve = FundamentalTopologies.generate_unknot_0_1(
-        radius=R_mm, resolution=resolution
-    )
+    curve = FundamentalTopologies.generate_unknot_0_1(radius=R_mm, resolution=resolution)
 
     # Torsional twist = √(3/7) turns per revolution            [DERIVED]
     # From the PAT torsion-shear projection with ν_vac = 2/7
     twist_turns_derived = np.sqrt(3.0 / 7.0)  # ≈ 0.6547 turns = 236°
-    return sweep_tube(curve, tube_r, n_radial=n_radial,
-                      twist_turns=twist_turns_derived)
+    return sweep_tube(curve, tube_r, n_radial=n_radial, twist_turns=twist_turns_derived)
 
 
-def make_tau_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
+def make_tau_stl(scale_mm: float = MM_PER_L_NODE, n_radial: int = 24, resolution: int = 1000) -> stl_mesh.Mesh:
     """
     Generate the tau: unknot with curvature-twist undulation.
 
@@ -427,18 +424,16 @@ def make_tau_stl(scale_mm=MM_PER_L_NODE, n_radial=24, resolution=1000):
     R_mm = R_physical * scale_mm * LEPTON_VISUAL_SCALE
     tube_r = tube_r_physical * scale_mm * LEPTON_VISUAL_SCALE
 
-    curve = FundamentalTopologies.generate_unknot_0_1(
-        radius=R_mm, resolution=resolution
-    )
+    curve = FundamentalTopologies.generate_unknot_0_1(radius=R_mm, resolution=resolution)
 
     # 7 curvature lobes from the 7-mode compliance manifold    [DERIVED]
     # Amplitude = p_c ≈ 0.18 = maximum pre-saturation bending  [DERIVED]
-    return sweep_tube(curve, tube_r, n_radial=n_radial,
-                      curvature_amplitude=P_C, curvature_lobes=7)
+    return sweep_tube(curve, tube_r, n_radial=n_radial, curvature_amplitude=P_C, curvature_lobes=7)
 
 
-def make_neutrino_stl(crossing_number, scale_mm=MM_PER_L_NODE,
-                       n_radial=16, resolution=2000):
+def make_neutrino_stl(
+    crossing_number: int, scale_mm: float = MM_PER_L_NODE, n_radial: int = 16, resolution: int = 2000
+) -> stl_mesh.Mesh:
     """
     Generate a neutrino screw dislocation: open helical coil.
 
@@ -456,22 +451,23 @@ def make_neutrino_stl(crossing_number, scale_mm=MM_PER_L_NODE,
     Args:
         crossing_number: Baryon partner crossing number (5, 7, or 9).
     """
-    helix_radius = 0.5 * scale_mm      # [RENDERING] 5 mm coil radius
-    helix_length = 2.0 * scale_mm      # [RENDERING] 20 mm total length
-    tube_r = 0.5                        # [RENDERING] 0.5 mm tube diameter
+    helix_radius = 0.5 * scale_mm  # [RENDERING] 5 mm coil radius
+    helix_length = 2.0 * scale_mm  # [RENDERING] 20 mm total length
+    tube_r = 0.5  # [RENDERING] 0.5 mm tube diameter
 
     curve = FundamentalTopologies.generate_screw_dislocation(
-        pitch_count=crossing_number,    # [DERIVED] baryon partner c
+        pitch_count=crossing_number,  # [DERIVED] baryon partner c
         length=helix_length,
         radius=helix_radius,
-        resolution=resolution
+        resolution=resolution,
     )
 
     return sweep_tube_open(curve, tube_r, n_radial=n_radial, cap=True)
 
 
-def make_proton_borromean_stl(scale_mm=MM_PER_L_NODE, n_radial=20,
-                               resolution=1000):
+def make_proton_borromean_stl(
+    scale_mm: float = MM_PER_L_NODE, n_radial: int = 20, resolution: int = 1000
+) -> stl_mesh.Mesh:
     """
     Generate the proton internal structure: Borromean 6³₂ link.
 
@@ -482,16 +478,14 @@ def make_proton_borromean_stl(scale_mm=MM_PER_L_NODE, n_radial=20,
     eccentricity = 1.6: pre-existing borromean.py parameter    [RENDERING]
     tube_r factor 0.35: thinner tubes for visual clarity       [RENDERING]
     """
-    r_opt = KAPPA_FS / 5               # [DERIVED] proton confinement radius
+    r_opt = KAPPA_FS / 5  # [DERIVED] proton confinement radius
     R_mm = r_opt * scale_mm
     r_tube_physical = R_mm / (2 * np.pi)  # [DERIVED] ropelength tube radius
-    tube_r = r_tube_physical * 0.35    # [RENDERING] thinner for visual clarity
+    tube_r = r_tube_physical * 0.35  # [RENDERING] thinner for visual clarity
 
     # Generate the three Borromean rings
     rings = FundamentalTopologies.generate_borromean_6_3_2(
-        radius=R_mm,
-        eccentricity=1.6,               # [RENDERING] pre-existing parameter
-        resolution=resolution
+        radius=R_mm, eccentricity=1.6, resolution=resolution  # [RENDERING] pre-existing parameter
     )
 
     # Sweep tubes around each ring and combine
@@ -509,7 +503,8 @@ def make_proton_borromean_stl(scale_mm=MM_PER_L_NODE, n_radial=20,
 # Main Script
 # ═══════════════════════════════════════════════════════════════════
 
-def main():
+
+def main() -> None:
     project_root = pathlib.Path(__file__).parent.parent.parent.parent
     output_dir = project_root / "assets" / "3d_models"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -575,18 +570,20 @@ def main():
     print("  " + "─" * 50)
 
     baryon_data = [
-        (5,  "Proton (p)",  "proton_2_5.stl"),
-        (7,  "Δ(1232)",     "delta1232_2_7.stl"),
-        (9,  "Δ(1620)",     "delta1620_2_9.stl"),
-        (11, "Δ(1950)",     "delta1950_2_11.stl"),
-        (13, "N(2250)",     "n2250_2_13.stl"),
+        (5, "Proton (p)", "proton_2_5.stl"),
+        (7, "Δ(1232)", "delta1232_2_7.stl"),
+        (9, "Δ(1620)", "delta1620_2_9.stl"),
+        (11, "Δ(1950)", "delta1950_2_11.stl"),
+        (13, "N(2250)", "n2250_2_13.stl"),
     ]
     for c, name, fname in baryon_data:
         r_opt = KAPPA_FS / c
         R_mm = r_opt * MM_PER_L_NODE
-        print(f"    Generating {name} (2,{c}) "
-              f"r_opt={r_opt:.2f} ℓ_node = {R_mm:.0f}mm...",
-              end="", flush=True)
+        print(
+            f"    Generating {name} (2,{c}) " f"r_opt={r_opt:.2f} ℓ_node = {R_mm:.0f}mm...",
+            end="",
+            flush=True,
+        )
         m = make_baryon_stl(c)
         path = output_dir / fname
         m.save(str(path))

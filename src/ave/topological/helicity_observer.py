@@ -19,6 +19,7 @@ References:
   - doc 20 chirality projection sub-theorem (κ_chiral = 1.2·α)
   - doc 54 §6 (asymmetric μ/ε saturation, h_local role)
 """
+
 from __future__ import annotations
 
 from typing import Any
@@ -27,6 +28,7 @@ import numpy as np
 
 try:
     from ave.topological.cosserat_field_3d import _beltrami_helicity
+
     _has_jax = True
 except ImportError:
     _has_jax = False

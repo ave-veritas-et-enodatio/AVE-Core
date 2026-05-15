@@ -7,14 +7,21 @@ against manuscript-stated values in Volume 2.
 
 Run: PYTHONPATH=src python src/scripts/peer_review/spot_check_vol2.py
 """
-import sys
-sys.path.insert(0, "src")
 
 from ave.core.constants import (
-    ALPHA, HBAR, C_0, M_E, e_charge, L_NODE, A_0, RY_EV,
-    PROTON_ELECTRON_RATIO, M_P_MEV_TARGET, D_PROTON,
-    SIN2_THETA_W, ALPHA_S, M_W_MEV, M_Z_MEV, M_HIGGS_MEV,
-    NU_VAC, BARYON_LADDER, CROSSING_NUMBER_PROTON,
+    A_0,
+    ALPHA_S,
+    BARYON_LADDER,
+    C_0,
+    CROSSING_NUMBER_PROTON,
+    D_PROTON,
+    M_E,
+    M_HIGGS_MEV,
+    M_W_MEV,
+    M_Z_MEV,
+    PROTON_ELECTRON_RATIO,
+    SIN2_THETA_W,
+    e_charge,
 )
 
 # Derived proton mass from engine
@@ -25,16 +32,16 @@ proton_entry = BARYON_LADDER.get(5, {})
 
 CHECKS = [
     # (Name, Engine Value, Manuscript/CODATA Value, Unit, Tolerance %)
-    ("m_p/m_e (Proton-Electron Ratio)",     PROTON_ELECTRON_RATIO,  1836.153,   "",       0.01),
-    ("m_p (Proton Mass)",                   m_p_derived_mev,         938.272,    "MeV",    0.01),
-    ("sin²θ_W (Weak Mixing, On-Shell)",     SIN2_THETA_W,           0.2222,     "",       0.1),
-    ("α_s (Strong Coupling)",               ALPHA_S,                0.1214,     "",       0.1),
-    ("a₀ (Bohr Radius = ℓ/α)",             A_0,                    5.2918e-11, "m",      0.01),
-    ("M_W (W Boson Mass)",                  M_W_MEV,                80377.0,    "MeV",    1.0),
-    ("M_Z (Z Boson Mass)",                  M_Z_MEV,                91188.0,    "MeV",    3.0),
-    ("M_H (Higgs Mass)",                    M_HIGGS_MEV,            125100.0,   "MeV",    2.0),
-    ("D_PROTON (Charge Radius)",            D_PROTON,               0.8414,     "fm",     0.1),
-    ("Proton Crossing Number",              CROSSING_NUMBER_PROTON, 5,          "",       0.001),
+    ("m_p/m_e (Proton-Electron Ratio)", PROTON_ELECTRON_RATIO, 1836.153, "", 0.01),
+    ("m_p (Proton Mass)", m_p_derived_mev, 938.272, "MeV", 0.01),
+    ("sin²θ_W (Weak Mixing, On-Shell)", SIN2_THETA_W, 0.2222, "", 0.1),
+    ("α_s (Strong Coupling)", ALPHA_S, 0.1214, "", 0.1),
+    ("a₀ (Bohr Radius = ℓ/α)", A_0, 5.2918e-11, "m", 0.01),
+    ("M_W (W Boson Mass)", M_W_MEV, 80377.0, "MeV", 1.0),
+    ("M_Z (Z Boson Mass)", M_Z_MEV, 91188.0, "MeV", 3.0),
+    ("M_H (Higgs Mass)", M_HIGGS_MEV, 125100.0, "MeV", 2.0),
+    ("D_PROTON (Charge Radius)", D_PROTON, 0.8414, "fm", 0.1),
+    ("Proton Crossing Number", CROSSING_NUMBER_PROTON, 5, "", 0.001),
 ]
 
 print("=" * 90)
@@ -47,7 +54,7 @@ print("-" * 90)
 all_pass = True
 for name, engine_val, target_val, unit, tol_pct in CHECKS:
     if target_val == 0:
-        delta_pct = 0.0 if engine_val == 0 else float('inf')
+        delta_pct = 0.0 if engine_val == 0 else float("inf")
     else:
         delta_pct = abs(engine_val / target_val - 1.0) * 100.0
 
@@ -72,7 +79,7 @@ print(f"  {'c':<6s} {'Derived MeV':>14s} {'PDG MeV':>12s} {'Δ%':>8s}")
 pdg_targets = {5: 938.272, 7: 1232.0, 9: 1600.0, 11: 1900.0, 13: 2190.0}
 for c, entry in sorted(BARYON_LADDER.items()):
     pdg = pdg_targets.get(c, None)
-    mass = entry['mass_mev']
+    mass = entry["mass_mev"]
     if pdg:
         delta = abs(mass / pdg - 1.0) * 100.0
         print(f"  {c:<6d} {mass:>14.1f} {pdg:>12.1f} {delta:>7.2f}%")

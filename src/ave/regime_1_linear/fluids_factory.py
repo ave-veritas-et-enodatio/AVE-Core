@@ -37,34 +37,35 @@ Physical constants for H₂O:
   H-bond energy:      ~0.23 eV (23 kJ/mol)
   Molecular mass:     18.015 g/mol
 """
-from __future__ import annotations
 
-
-import numpy as np
 from dataclasses import dataclass
 
-from ave.core.constants import HBAR, C_0, K_B, e_charge as EV_TO_J, N_A
+import numpy as np
+
+from ave.core.constants import C_0, HBAR, K_B
+from ave.core.constants import e_charge as EV_TO_J
 
 # Physical constants
-H_BAR = float(HBAR)      # ℏ [J·s] — from constants.py
+H_BAR = float(HBAR)  # ℏ [J·s] — from constants.py
 
 
 @dataclass
 class MolecularFluid:
     """Generalized AVE impedance model for an arbitrary fluid molecule."""
-    bond_length: float           # Primary intra-molecular bond [m]
-    bond_angle: float            # Primary bending angle [degrees]
-    inter_bond_length: float     # Inter-molecular cohesive bond [m]
-    inter_bond_energy: float     # Inter-molecular cohesive energy [J]
-    
+
+    bond_length: float  # Primary intra-molecular bond [m]
+    bond_angle: float  # Primary bending angle [degrees]
+    inter_bond_length: float  # Inter-molecular cohesive bond [m]
+    inter_bond_energy: float  # Inter-molecular cohesive energy [J]
+
     # Masses
-    m_center: float              # Central nucleus mass [kg]
-    m_ligand: float              # Attached ligand mass [kg]
-    n_ligands: int               # Number of attached ligands
-    
-    vdw_radius: float            # Van der Waals radius [m]
-    wavenumber_cm_inv: float     # Intramolecular stretching [cm^-1]
-    
+    m_center: float  # Central nucleus mass [kg]
+    m_ligand: float  # Attached ligand mass [kg]
+    n_ligands: int  # Number of attached ligands
+
+    vdw_radius: float  # Van der Waals radius [m]
+    wavenumber_cm_inv: float  # Intramolecular stretching [cm^-1]
+
     @property
     def total_mass(self) -> float:
         """Total molecular mass [kg]."""
@@ -120,10 +121,11 @@ class WaterMolecule(MolecularFluid):
         inter_bond_length: Op4 pairwise potential equilibrium
         inter_bond_energy: Γ²αℏc void-fraction bounded coupling
     """
+
     # Mass constants — fundamental (Axiom 4)
     # M_U imported from constants.py (single source of truth for Dalton)
-    m_center: float = 15.999 * 1.66053906660e-27   # O nucleus [kg] — uses M_U precision
-    m_ligand: float = 1.008 * 1.66053906660e-27    # H nucleus [kg] — uses M_U precision
+    m_center: float = 15.999 * 1.66053906660e-27  # O nucleus [kg] — uses M_U precision
+    m_ligand: float = 1.008 * 1.66053906660e-27  # H nucleus [kg] — uses M_U precision
     n_ligands: int = 2
 
     # Engine-derived via Coulomb bond force constant solver (no spectroscopic input)
@@ -131,17 +133,15 @@ class WaterMolecule(MolecularFluid):
 
     # Engine-derived defaults (overridden in __post_init__)
     bond_length: float = 0.0
-    bond_angle: float = 0.0                  # Derived from Op3: arccos(-1/(3(1+Γ)))
+    bond_angle: float = 0.0  # Derived from Op3: arccos(-1/(3(1+Γ)))
     inter_bond_length: float = 0.0
     inter_bond_energy: float = 0.0
     vdw_radius: float = 0.0
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Derive geometric constants from the AVE physics engine."""
-        from ave.solvers.coupled_resonator import (
-            ionization_energy, atom_port_impedance, molecular_bond_distance,
-        )
         from ave.core.constants import ALPHA, RY_EV
+        from ave.solvers.coupled_resonator import atom_port_impedance, ionization_energy, molecular_bond_distance
 
         # Ionization energies from Mutual Cavity Loading solver
         IE_O = ionization_energy(8)
@@ -165,17 +165,16 @@ class WaterMolecule(MolecularFluid):
         #   cos(θ_HOH) = cos(θ_tet) / (1 + Γ) = -1/(3(1+Γ))
         # Large-signal check: arccos(-φ/3) = 104.29° (Op8 packing, 0.19° gap)
         Gamma_bond = (r_O - r_H) / (r_O + r_H)
-        self.bond_angle = float(np.degrees(
-            np.arccos(-1.0 / (3.0 * (1.0 + Gamma_bond)))
-        ))  # → 104.48° (exp: 104.45°, error: +0.03°)
+        self.bond_angle = float(
+            np.degrees(np.arccos(-1.0 / (3.0 * (1.0 + Gamma_bond))))
+        )  # → 104.48° (exp: 104.45°, error: +0.03°)
 
         # Van der Waals radius: Op9 steric exclusion envelope.
         # The molecular collision boundary is the furthest atomic shell edge
-        # from the center of mass. For H₂O, each H sits at (bond_length) from O 
+        # from the center of mass. For H₂O, each H sits at (bond_length) from O
         # at angle ±(bond_angle/2) from the bisector. The CoM is offset from O:
         theta_rad = np.deg2rad(self.bond_angle)
-        com_offset = (self.n_ligands * self.m_ligand * self.bond_length 
-                      * np.cos(theta_rad / 2.0)) / self.total_mass
+        com_offset = (self.n_ligands * self.m_ligand * self.bond_length * np.cos(theta_rad / 2.0)) / self.total_mass
         # H distance from CoM (in molecular plane):
         H_along = self.bond_length * np.cos(theta_rad / 2.0) - com_offset
         H_perp = self.bond_length * np.sin(theta_rad / 2.0)
@@ -187,9 +186,10 @@ class WaterMolecule(MolecularFluid):
         # K = Γ²αℏc (partial charge coupling from Op3 impedance mismatch)
         # d_sat = r_H + r_O (saturation at atomic contact)
         # d_eq = Op4 potential minimum (universal_pairwise_energy)
-        from ave.core.universal_operators import universal_pairwise_energy
-        from ave.core.constants import HBAR, C_0
         import numpy as _np
+
+        from ave.core.constants import C_0, HBAR
+        from ave.core.universal_operators import universal_pairwise_energy
 
         Gamma = (r_O - r_H) / (r_O + r_H)
         K_hbond = Gamma**2 * float(ALPHA * HBAR * C_0)  # J·m
@@ -202,12 +202,11 @@ class WaterMolecule(MolecularFluid):
 
         # H-bond energy: from the Op4 well depth at equilibrium
         # The H-bond is an interstitial topological linkage connecting two non-overlapping
-        # atomic spheres. The maximum available storable potential is bounded by the 
+        # atomic spheres. The maximum available storable potential is bounded by the
         # interstitial Void Fraction (1 - \phi_pack) between molecular nodes.
         from ave.core.constants import N_PHI_PACK
-        base_U = abs(float(_U[_i])) if 0 < _i < len(_r) - 1 else (
-            3.0 * float(ALPHA) * float(RY_EV) * EV_TO_J
-        )
+
+        base_U = abs(float(_U[_i])) if 0 < _i < len(_r) - 1 else (3.0 * float(ALPHA) * float(RY_EV) * EV_TO_J)
         self.inter_bond_energy = base_U * (1.0 - float(N_PHI_PACK))
 
         # O-H spring constant: Coulomb bond force constant solver
@@ -216,35 +215,52 @@ class WaterMolecule(MolecularFluid):
         #   2. Three-phase balance (1/√3 for terminal H)
         #   3. Lone-pair dynamic softening (O has 4 lone-pair electrons)
         # All inputs are Z_a, Z_b, ε₀, m_e, ℏ, e — AVE axioms only.
-        from ave.topological.soliton_bond_solver import (
-            compute_bond_curve, extract_force_constant,
-        )
+        from ave.topological.soliton_bond_solver import compute_bond_curve, extract_force_constant
+
         _d_bond, _E_bond = compute_bond_curve(8, 1, 2, d_min=0.3e-10, d_max=4.0e-10, n_points=300)
         _, self._k_OH_engine, _ = extract_force_constant(_d_bond, _E_bond, Z_a=8, Z_b=1, n_shared=2)
 
     # Compatibility properties mathematically re-routed to generalized variables
     @property
-    def m_O(self) -> float: return self.m_center
+    def m_O(self) -> float:
+        return self.m_center
+
     @property
-    def m_H(self) -> float: return self.m_ligand
+    def m_H(self) -> float:
+        return self.m_ligand
+
     @property
-    def oh_bond_length(self) -> float: return self.bond_length
+    def oh_bond_length(self) -> float:
+        return self.bond_length
+
     @property
-    def hoh_angle(self) -> float: return self.bond_angle
+    def hoh_angle(self) -> float:
+        return self.bond_angle
+
     @property
-    def hbond_length(self) -> float: return self.inter_bond_length
+    def hbond_length(self) -> float:
+        return self.inter_bond_length
+
     @property
-    def hbond_energy(self) -> float: return self.inter_bond_energy
+    def hbond_energy(self) -> float:
+        return self.inter_bond_energy
+
     @property
-    def reduced_mass_oh(self) -> float: return self.reduced_mass
+    def reduced_mass_oh(self) -> float:
+        return self.reduced_mass
+
     @property
-    def oh_spring_constant(self) -> float: return self.spring_constant
+    def oh_spring_constant(self) -> float:
+        return self.spring_constant
+
     @property
     def spring_constant(self) -> float:
         """Engine-derived O-H spring constant from Coulomb bond solver [N/m]."""
         return self._k_OH_engine
+
     @property
-    def oh_resonant_frequency(self) -> float: return self.resonant_frequency
+    def oh_resonant_frequency(self) -> float:
+        return self.resonant_frequency
 
 
 class FluidImpedanceFactory:
@@ -253,45 +269,49 @@ class FluidImpedanceFactory:
     Derives macroscopic continuum fields (density, dielectric bounds) exclusively
     from the topological LC mechanics of individual molecules.
     """
-    def __init__(self, fluid: MolecularFluid):
+
+    def __init__(self, fluid: MolecularFluid) -> None:
         self.fluid = fluid
 
     def compute_density(self, T_celsius: float, P_pascal: float = 101325.0) -> float:
         """
         SM-LEGACY: Two-state volume mixture model.
-        
+
         WARNING: This function uses Statistical Mechanics concepts:
           - Two-state (tetrahedral/RCP) volume mixing
           - Population-weighted structural fraction
           - Classical thermal expansion
-        
+
         These are NOT derived from AVE axioms. This function is retained
         for backward compatibility with existing pipeline scripts.
-        
+
         For axiom-derived quantities, use CooperativeHexagonalLattice:
           - T_m: melting point (Axiom 1 + Op4)
           - T(ρ_max): density maximum temperature (Axiom 2)
         """
         import warnings
+
         warnings.warn(
             "compute_density uses SM two-state mixture model. "
             "Use CooperativeHexagonalLattice for axiom-derived quantities.",
             stacklevel=2,
         )
         T_K = T_celsius + 273.15
-        kT = K_B * T_K
+        # kT = K_B * T_K  # bulk lint fixup pass
 
         # Volume of tetrahedral unit cell
         r_inter = self.fluid.bond_length + self.fluid.inter_bond_length
         a_lattice = r_inter * 4.0 / np.sqrt(3.0)
-        V_I = (a_lattice**3) / 8.0 
+        V_I = (a_lattice**3) / 8.0
 
         # FCC collapse volume (Axiom 2: K=2G → FCC packing)
         from ave.core.constants import N_PHI_PACK
+
         V_II = V_I * float(N_PHI_PACK)
 
         # SM-LEGACY: structural fraction (inlined from removed method)
         from ave.regime_1_linear.hexagonal_lattice import CooperativeHexagonalLattice
+
         lattice_solver = CooperativeHexagonalLattice(
             E_hb_joules=self.fluid.inter_bond_energy,
             d_hb_meters=self.fluid.inter_bond_length,
@@ -318,18 +338,18 @@ class FluidImpedanceFactory:
 
         # Structural Phase interpolation (Phase I vs Phase II)
         # Note: We completely explicitly discard classical continuous thermal expansion
-        # which erroneously artificially stretches the entire macroscopic structure 
+        # which erroneously artificially stretches the entire macroscopic structure
         # using local 1D harmonic approximations. Geometric bounds dominate the VCA fluid model.
-        V_avg = f_I * V_I + (1.0 - f_I) * V_II 
+        V_avg = f_I * V_I + (1.0 - f_I) * V_II
         return self.fluid.total_mass / V_avg
-        
+
     def compute_dielectric(self, T_celsius: float, P_pascal: float = 101325.0) -> float:
         """Generalized Kirkwood-Fröhlich dielectric constant solver."""
         from ave.core.constants import EPSILON_0, e_charge
-        
+
         T_K = T_celsius + 273.15
         kT = K_B * T_K
-        
+
         theta_rad = np.deg2rad(self.fluid.bond_angle)
         # Op3 impedance mismatch: charge transfer Γ at the bond junction.
         # The bond connects two atomic cavities with port impedances r_A, r_B
@@ -338,19 +358,21 @@ class FluidImpedanceFactory:
         #   Γ = (r_center - r_ligand) / (r_center + r_ligand)
         # For O-H: r_O = 1.059 Å (n=2), r_H = 0.529 Å (n=1)
         # Γ = (1.059 - 0.529)/(1.059 + 0.529) ≈ 1/3  (derived, not fitted)
-        from ave.solvers.coupled_resonator import ionization_energy, atom_port_impedance
-        IE_c = ionization_energy(8)   # Oxygen
-        IE_l = ionization_energy(1)   # Hydrogen
+        from ave.solvers.coupled_resonator import atom_port_impedance, ionization_energy
+
+        IE_c = ionization_energy(8)  # Oxygen
+        IE_l = ionization_energy(1)  # Hydrogen
         r_c = atom_port_impedance(8, IE_c)
         r_l = atom_port_impedance(1, IE_l)
         Gamma = (r_c - r_l) / (r_c + r_l)
         q_eff = Gamma * e_charge
         mu = 2.0 * q_eff * self.fluid.bond_length * np.cos(theta_rad / 2.0)
-        
+
         n_density = self.compute_density(T_celsius, P_pascal) / self.fluid.total_mass
-        
+
         # SM-LEGACY: structural fraction (inlined)
         from ave.regime_1_linear.hexagonal_lattice import CooperativeHexagonalLattice
+
         lattice_solver = CooperativeHexagonalLattice(
             E_hb_joules=self.fluid.inter_bond_energy,
             d_hb_meters=self.fluid.inter_bond_length,
@@ -362,9 +384,10 @@ class FluidImpedanceFactory:
         T_m = lattice_solver.T_m_K
         if T_K < T_m:
             delta_x = np.sqrt(K_B * T_K / k_hb)
-            f_I = 1.0 - (delta_x / d_hb)**2 / 2.0
+            f_I = 1.0 - (delta_x / d_hb) ** 2 / 2.0
         else:
             from ave.core.constants import N_PHI_PACK
+
             excess_kT = K_B * (T_K - T_m)
             r_excess = np.sqrt(excess_kT / k_hb) / d_hb if excess_kT > 0 else 0.0
             if r_excess >= 1.0:
@@ -372,16 +395,16 @@ class FluidImpedanceFactory:
             else:
                 p_survive = 1.0 - r_excess**2
                 f_I = float(N_PHI_PACK) + p_survive * (1.0 - float(N_PHI_PACK))
-        
-        g_kirkwood = 1.0 + 4.0 * np.cos(theta_rad/2.0)**2 * f_I
+
+        g_kirkwood = 1.0 + 4.0 * np.cos(theta_rad / 2.0) ** 2 * f_I
         eps_r = 1.0 + 3.0 * (n_density * mu**2 * g_kirkwood) / (3.0 * EPSILON_0 * kT)
         return eps_r
 
     def compute_surface_tension(self, T_celsius: float) -> float:
         """
-        Derives macroscopic surface tension [N/m] via stereological projection 
+        Derives macroscopic surface tension [N/m] via stereological projection
         of the Axiom 4 (Op4) cohesive topology bound by the Vol 7 FCC fluid state.
-        
+
         Derivation chain:
         1. State II (liquid) structural volume is V_II = V_I * φ_FCC.
         2. A continuous dividing surface intersects the topological nodes
@@ -389,59 +412,61 @@ class FluidImpedanceFactory:
            (Delesse's stereological principle).
         3. The densest FCC plane (111) area per node gives the baseline 2D density.
         4. Surface tension is exactly: gamma = n_s * E_hb * P_C.
-        
+
         Args:
             T_celsius: Temperature [°C] (linear thermal softening to be added)
-            
+
         Returns:
             Surface tension gamma [N/m] derived entirely from first principles.
         """
         from ave.core.constants import N_PHI_PACK, P_C
-        
+
         # 1. State I Rigid unit volume V_I
         r_inter = self.fluid.bond_length + self.fluid.inter_bond_length
         a_lattice = r_inter * 4.0 / np.sqrt(3.0)
         V_I = (a_lattice**3) / 8.0
-        
-        # 2. State II Topo-collapsed fluid volume 
+
+        # 2. State II Topo-collapsed fluid volume
         V_II = V_I * float(N_PHI_PACK)
-        
+
         # 3. Geometric nodal density on the (111) maximally packed plane
-        a_fcc = (4.0 * V_II)**(1.0 / 3.0)
+        a_fcc = (4.0 * V_II) ** (1.0 / 3.0)
         area_per_node_111 = a_fcc**2 * np.sqrt(3.0) / 4.0
         n_s_raw = 1.0 / area_per_node_111
-        
+
         # 4. Stereological Topological boundary limit
         gamma_static = n_s_raw * self.fluid.inter_bond_energy * float(P_C)
-        
-        # Simple thermal softening approximation for liquid boundary 
+
+        # Simple thermal softening approximation for liquid boundary
         # based on thermal strain r = sqrt(kT / E_hb)
         T_K = T_celsius + 273.15
         r_strain = np.sqrt(K_B * T_K / self.fluid.inter_bond_energy)
         # S(r) = sqrt(1-r^2) ~ (1 - 0.5 r^2)
         thermal_factor = np.sqrt(1.0 - r_strain**2) if r_strain < 1.0 else 0.0
-        
+
         return gamma_static * thermal_factor
+
 
 # =========================================================================
 # Legacy Abstraction Pipelines (SM-LEGACY)
 # =========================================================================
 
+
 def ave_density_model(T_celsius: float, P_pascal: float = 101325.0) -> float:
     """SM-LEGACY: see FluidImpedanceFactory.compute_density docstring."""
     import warnings
+
     warnings.warn("ave_density_model is SM-legacy.", stacklevel=2)
     factory = FluidImpedanceFactory(WaterMolecule())
     return factory.compute_density(T_celsius, P_pascal)
+
 
 def dielectric_constant_water(T_celsius: float, P_pascal: float = 101325.0) -> float:
     factory = FluidImpedanceFactory(WaterMolecule())
     return factory.compute_dielectric(T_celsius, P_pascal)
 
 
-
-
-def find_density_maximum() -> tuple:
+def find_density_maximum() -> tuple[float, float]:
     """
     Find the temperature of maximum density in the AVE model.
 

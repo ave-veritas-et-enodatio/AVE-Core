@@ -1,4 +1,3 @@
-from __future__ import annotations
 r"""
 1D FDTD Bond Energy Solver — First-Principles Force Constants
 =============================================================
@@ -31,11 +30,10 @@ Algorithm
 
 import numpy as np
 
-from ave.core.constants import (
-    C_0, MU_0, EPSILON_0, M_E, V_SNAP, B_SNAP, L_NODE,
-    HBAR, e_charge, ALPHA,
-)
 from ave.axioms.scale_invariant import saturation_factor
+from ave.core.constants import ALPHA, B_SNAP, C_0, EPSILON_0, L_NODE, M_E
+from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
+from ave.core.constants import MU_0, V_SNAP
 
 
 class BondFDTD1D:
@@ -67,7 +65,7 @@ class BondFDTD1D:
         self._dt_set = False
         self.dt = dx / (2.0 * C_0)
 
-    def _update_dt(self):
+    def _update_dt(self) -> None:
         """Recompute dt based on the maximum μ_r·ε_r product (adaptive CFL)."""
         # Local wave speed: v = c / √(μ_r · ε_r_avg)
         # ε at H-nodes = average of adjacent E-nodes
@@ -77,7 +75,7 @@ class BondFDTD1D:
         self.dt = self.dx / (2.0 * C_0 * slowdown)
         self._dt_set = True
 
-    def place_nuclear_defect(self, site: int, mass_kg: float, n_resonators: int = 0):
+    def place_nuclear_defect(self, site: int, mass_kg: float, n_resonators: int = 0) -> None:
         """
         Place a massive nuclear defect at the given lattice site.
 
@@ -104,24 +102,24 @@ class BondFDTD1D:
         # Recompute CFL
         self._update_dt()
 
-    def _epsilon_eff(self):
+    def _epsilon_eff(self) -> np.ndarray:
         """Local ε with Axiom 4 saturation."""
         V_local = np.abs(self.E) * self.dx
         return EPSILON_0 * self.eps_r * saturation_factor(V_local, V_SNAP)
 
-    def _mu_eff(self):
+    def _mu_eff(self) -> np.ndarray:
         """Local μ with Axiom 4 saturation."""
         B_local = MU_0 * np.abs(self.H)
         return MU_0 * self.mu_r * saturation_factor(B_local, B_SNAP)
 
-    def seed_thermal_field(self, amplitude: float = 1e-12):
+    def seed_thermal_field(self, amplitude: float = 1e-12) -> None:
         """Initialize with very low-amplitude thermal noise."""
         rng = np.random.default_rng(42)
         # Scale to V_SNAP/dx for E, B_SNAP/μ₀ for H — but at tiny amplitude
         self.E[:] = amplitude * V_SNAP * rng.standard_normal(self.n) / self.dx
         self.H[:] = amplitude * B_SNAP * rng.standard_normal(self.n - 1) / MU_0
 
-    def step(self, n_steps: int = 1):
+    def step(self, n_steps: int = 1) -> None:
         """Advance the simulation with adaptive CFL and optional damping."""
         if not self._dt_set:
             self._update_dt()
@@ -190,7 +188,6 @@ class BondFDTD1D:
         return float(np.sum(E_per_cell))
 
 
-
 def compute_bond_energy_curve(
     mass_a_kg: float,
     mass_b_kg: float,
@@ -201,7 +198,7 @@ def compute_bond_energy_curve(
     lattice_padding: int = 200,
     use_fdtd: bool = False,
     n_equilibration_steps: int = 2000,
-) -> tuple:
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Compute total energy vs separation for two nuclear defects.
 
@@ -261,7 +258,7 @@ def compute_bond_energy_curve(
     return d_range, energies
 
 
-def extract_force_constant(d_array, E_array):
+def extract_force_constant(d_array: np.ndarray, E_array: np.ndarray) -> tuple[float, float, float]:
     """
     Extract equilibrium distance and force constant from an E(d) curve.
 
@@ -277,8 +274,13 @@ def extract_force_constant(d_array, E_array):
     dd = d_array[1] - d_array[0]
     if 1 < i_min < len(d_array) - 2:
         # 5-point stencil for smoother second derivative
-        k = (-E_array[i_min-2] + 16*E_array[i_min-1] - 30*E_array[i_min]
-             + 16*E_array[i_min+1] - E_array[i_min+2]) / (12 * dd**2)
+        k = (
+            -E_array[i_min - 2]
+            + 16 * E_array[i_min - 1]
+            - 30 * E_array[i_min]
+            + 16 * E_array[i_min + 1]
+            - E_array[i_min + 2]
+        ) / (12 * dd**2)
     elif 0 < i_min < len(d_array) - 1:
         k = (E_array[i_min + 1] - 2 * E_array[i_min] + E_array[i_min - 1]) / dd**2
     else:
@@ -296,44 +298,61 @@ def extract_force_constant(d_array, E_array):
 # ═══════════════════════════════════════════════════════════
 # ATOMIC MASSES (CODATA 2018)
 # ═══════════════════════════════════════════════════════════
-from ave.core.constants import M_U as _DA  # kg per Dalton — single source of truth
 
 NUCLEAR_MASSES = {
-    'H':  1.00794 * _DA,
-    'C': 12.0107 * _DA,
-    'N': 14.0067 * _DA,
-    'O': 15.9994 * _DA,
-    'S': 32.065 * _DA,
+    "H": 1.00794 * _DA,
+    "C": 12.0107 * _DA,
+    "N": 14.0067 * _DA,
+    "O": 15.9994 * _DA,
+    "S": 32.065 * _DA,
 }
 
 # Bond definitions: (atom_a, atom_b, n_shared_electrons)
 BOND_DEFS = {
-    'C-H': ('C', 'H', 2),
-    'C-C': ('C', 'C', 2),
-    'C=C': ('C', 'C', 4),
-    'C-N': ('C', 'N', 2),
-    'C~N': ('C', 'N', 3),   # peptide bond (partial double, amide)
-    'C=O': ('C', 'O', 4),
-    'C-O': ('C', 'O', 2),
-    'N-H': ('N', 'H', 2),
-    'O-H': ('O', 'H', 2),
-    'S-H': ('S', 'H', 2),
-    'C-S': ('C', 'S', 2),
-    'S-S': ('S', 'S', 2),
+    "C-H": ("C", "H", 2),
+    "C-C": ("C", "C", 2),
+    "C=C": ("C", "C", 4),
+    "C-N": ("C", "N", 2),
+    "C~N": ("C", "N", 3),  # peptide bond (partial double, amide)
+    "C=O": ("C", "O", 4),
+    "C-O": ("C", "O", 2),
+    "N-H": ("N", "H", 2),
+    "O-H": ("O", "H", 2),
+    "S-H": ("S", "H", 2),
+    "C-S": ("C", "S", 2),
+    "S-S": ("S", "S", 2),
 }
 
 # Known IR-derived force constants for comparison [N/m]
 KNOWN_K = {
-    'C-H': 494, 'C-C': 354, 'C=C': 965, 'C-N': 461, 'C~N': 640,
-    'C=O': 1170, 'C-O': 489, 'N-H': 641, 'O-H': 745,
-    'S-H': 390, 'C-S': 253, 'S-S': 236,
+    "C-H": 494,
+    "C-C": 354,
+    "C=C": 965,
+    "C-N": 461,
+    "C~N": 640,
+    "C=O": 1170,
+    "C-O": 489,
+    "N-H": 641,
+    "O-H": 745,
+    "S-H": 390,
+    "C-S": 253,
+    "S-S": 236,
 }
 
 # Known crystallographic bond lengths for comparison [m]
 KNOWN_D = {
-    'C-H': 1.09e-10, 'C-C': 1.54e-10, 'C=C': 1.34e-10, 'C-N': 1.47e-10, 'C~N': 1.33e-10,
-    'C=O': 1.23e-10, 'C-O': 1.43e-10, 'N-H': 1.01e-10, 'O-H': 0.96e-10,
-    'S-H': 1.34e-10, 'C-S': 1.82e-10, 'S-S': 2.05e-10,
+    "C-H": 1.09e-10,
+    "C-C": 1.54e-10,
+    "C=C": 1.34e-10,
+    "C-N": 1.47e-10,
+    "C~N": 1.33e-10,
+    "C=O": 1.23e-10,
+    "C-O": 1.43e-10,
+    "N-H": 1.01e-10,
+    "O-H": 0.96e-10,
+    "S-H": 1.34e-10,
+    "C-S": 1.82e-10,
+    "S-S": 2.05e-10,
 }
 
 
@@ -346,8 +365,7 @@ if __name__ == "__main__":
     print(f"  m_e = {M_E:.4e} kg,  α = {ALPHA:.6e}")
 
     print("\n" + "=" * 70)
-    print(f"  {'Bond':>6}  {'d_eq (Å)':>10}  {'d_known':>8}  "
-          f"{'k (N/m)':>10}  {'k_known':>8}  {'k_ratio':>8}")
+    print(f"  {'Bond':>6}  {'d_eq (Å)':>10}  {'d_known':>8}  " f"{'k (N/m)':>10}  {'k_known':>8}  {'k_ratio':>8}")
     print("-" * 70)
 
     for bond, (atom_a, atom_b, n_e) in BOND_DEFS.items():
@@ -365,5 +383,7 @@ if __name__ == "__main__":
         k_known = KNOWN_K[bond]
         d_known = KNOWN_D[bond]
 
-        print(f"  {bond:>6}  {d_eq*1e10:>10.3f}  {d_known*1e10:>8.2f}  "
-              f"{k_pred:>10.1f}  {k_known:>8}  {k_pred/k_known:>8.3f}")
+        print(
+            f"  {bond:>6}  {d_eq*1e10:>10.3f}  {d_known*1e10:>8.2f}  "
+            f"{k_pred:>10.1f}  {k_known:>8}  {k_pred/k_known:>8.3f}"
+        )

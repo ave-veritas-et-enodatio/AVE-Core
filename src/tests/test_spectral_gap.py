@@ -7,40 +7,42 @@ Verifies the 4-step mass gap argument:
   3. Confinement (Γ → -1)
   4. Positive mass gap for all crossing numbers
 """
-import pytest
+
 import numpy as np
+import pytest
+
 from ave.axioms.spectral_gap import (
+    boundary_reflection_coefficient,
+    brillouin_zone_edge,
+    confinement_radius,
     lattice_degrees_of_freedom,
     lattice_dispersion,
-    brillouin_zone_edge,
+    mass_gap_energy,
+    mass_gap_is_positive,
     maximum_frequency,
     minimum_excitation_energy,
     minimum_excitation_energy_eV,
-    confinement_radius,
-    boundary_reflection_coefficient,
-    mass_gap_energy,
-    mass_gap_is_positive,
 )
-from ave.core.constants import L_NODE, C_0, HBAR, M_E, KAPPA_FS
-
+from ave.core.constants import C_0, KAPPA_FS, L_NODE, M_E
 
 # ── Step 1: Lattice Existence ──
 
+
 class TestLatticeExistence:
 
-    def test_dof_positive(self):
+    def test_dof_positive(self) -> None:
         """Any finite volume has finite DOF."""
         N = lattice_degrees_of_freedom(1.0)  # 1 m³
         assert N > 0
         assert np.isfinite(N)
 
-    def test_dof_scales_with_volume(self):
+    def test_dof_scales_with_volume(self) -> None:
         """DOF scales linearly with volume."""
         N1 = lattice_degrees_of_freedom(1.0)
         N2 = lattice_degrees_of_freedom(2.0)
         assert abs(N2 / N1 - 2.0) < 1e-10
 
-    def test_dof_per_cell(self):
+    def test_dof_per_cell(self) -> None:
         """One cell = one DOF."""
         V_cell = L_NODE**3
         assert abs(lattice_degrees_of_freedom(V_cell) - 1.0) < 1e-10
@@ -48,26 +50,27 @@ class TestLatticeExistence:
 
 # ── Step 2: Discrete Dispersion ──
 
+
 class TestDispersion:
 
-    def test_zero_at_zero(self):
+    def test_zero_at_zero(self) -> None:
         """ω(k=0) = 0 — the DC mode."""
         assert lattice_dispersion(0.0) == 0.0
 
-    def test_low_k_linear(self):
+    def test_low_k_linear(self) -> None:
         """At low k, ω ≈ ck (recovers continuum Maxwell)."""
         k = 1e6  # Much less than π/ℓ ≈ 8.13e12
         omega = lattice_dispersion(k)
         omega_continuum = C_0 * k
         assert abs(omega / omega_continuum - 1.0) < 1e-6
 
-    def test_brillouin_zone_maximum(self):
+    def test_brillouin_zone_maximum(self) -> None:
         """Maximum frequency at k = π/ℓ."""
         k_max = brillouin_zone_edge()
         omega_max = lattice_dispersion(k_max)
         assert abs(omega_max - maximum_frequency()) < 1.0  # numerics
 
-    def test_dispersion_bounded(self):
+    def test_dispersion_bounded(self) -> None:
         """ω cannot exceed 2c/ℓ (the UV cutoff)."""
         omega_max = maximum_frequency()
         # Try k beyond the Brillouin zone — should fold back
@@ -75,13 +78,13 @@ class TestDispersion:
         omegas = lattice_dispersion(k_values)
         assert np.all(omegas <= omega_max + 1.0)
 
-    def test_minimum_energy_is_electron_mass(self):
+    def test_minimum_energy_is_electron_mass(self) -> None:
         """E_min = ℏc/ℓ_node = m_e c²."""
         E_min = minimum_excitation_energy()
         E_electron = M_E * C_0**2
         assert abs(E_min / E_electron - 1.0) < 1e-10
 
-    def test_minimum_energy_eV(self):
+    def test_minimum_energy_eV(self) -> None:
         """E_min ≈ 511 keV."""
         E_eV = minimum_excitation_energy_eV()
         assert abs(E_eV / 511e3 - 1.0) < 0.01  # Within 1%
@@ -89,9 +92,10 @@ class TestDispersion:
 
 # ── Step 3: Confinement ──
 
+
 class TestConfinement:
 
-    def test_confinement_decreases_with_crossing(self):
+    def test_confinement_decreases_with_crossing(self) -> None:
         """Higher crossing number → smaller confinement radius."""
         r5 = confinement_radius(KAPPA_FS, 5)
         r7 = confinement_radius(KAPPA_FS, 7)
@@ -99,22 +103,22 @@ class TestConfinement:
         assert r7 < r5
         assert r9 < r7
 
-    def test_confinement_positive(self):
+    def test_confinement_positive(self) -> None:
         """Confinement radius is always positive."""
         for c in [3, 5, 7, 9, 11, 13]:
             assert confinement_radius(KAPPA_FS, c) > 0
 
-    def test_confinement_rejects_low_crossing(self):
+    def test_confinement_rejects_low_crossing(self) -> None:
         """Crossing number < 3 is invalid."""
         with pytest.raises(ValueError):
             confinement_radius(KAPPA_FS, 2)
 
-    def test_total_reflection_at_boundary(self):
+    def test_total_reflection_at_boundary(self) -> None:
         """Γ → -1 when Z_knot → 0 (total reflection)."""
         Gamma = boundary_reflection_coefficient(Z_knot=0.0)
         assert abs(Gamma - (-1.0)) < 1e-10
 
-    def test_near_total_reflection(self):
+    def test_near_total_reflection(self) -> None:
         """Γ ≈ -1 for very small Z_knot (total reflection)."""
         Gamma = boundary_reflection_coefficient(Z_knot=1e-10)
         # For Z_knot → 0, the explicit Z=0 branch returns -1.
@@ -124,27 +128,28 @@ class TestConfinement:
 
 # ── Step 4: Mass Gap ──
 
+
 class TestMassGap:
 
-    def test_electron_mass_gap(self):
+    def test_electron_mass_gap(self) -> None:
         """Δ(c=3) ≈ 0.511 MeV (electron mass)."""
         delta = mass_gap_energy(crossing_number=3)
         assert abs(delta - 0.511) < 0.01  # Within 10 keV
 
-    def test_proton_mass_gap(self):
+    def test_proton_mass_gap(self) -> None:
         """Δ(c=5) ≈ 938 MeV (proton mass)."""
         delta = mass_gap_energy(crossing_number=5)
         assert abs(delta / 938.0 - 1.0) < 0.01  # Within 1%
 
-    def test_gap_positive_all_crossings(self):
+    def test_gap_positive_all_crossings(self) -> None:
         """Mass gap Δ > 0 for all crossing numbers 3-13."""
         result = mass_gap_is_positive(max_crossing=13)
-        assert result['gap_positive'] is True
-        for c, data in result['crossings'].items():
-            assert data['gap_positive'] is True
-            assert data['mass_MeV'] > 0
+        assert result["gap_positive"] is True
+        for c, data in result["crossings"].items():
+            assert data["gap_positive"] is True
+            assert data["mass_MeV"] > 0
 
-    def test_mass_increases_with_crossing(self):
+    def test_mass_increases_with_crossing(self) -> None:
         """Higher crossing number → heavier particle."""
         m3 = mass_gap_energy(3)
         m5 = mass_gap_energy(5)
@@ -152,8 +157,8 @@ class TestMassGap:
         assert m5 > m3
         assert m7 > m5
 
-    def test_gap_is_electron(self):
+    def test_gap_is_electron(self) -> None:
         """The absolute minimum mass is the electron."""
         result = mass_gap_is_positive()
-        assert result['gap_particle'] == 'electron'
-        assert result['mass_gap_MeV'] < 1.0  # < 1 MeV
+        assert result["gap_particle"] == "electron"
+        assert result["mass_gap_MeV"] < 1.0  # < 1 MeV

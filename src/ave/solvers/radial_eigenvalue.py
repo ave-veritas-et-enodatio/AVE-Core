@@ -40,7 +40,7 @@ Each solver step maps to a universal operator:
 
     ¹ The capacitive bias V = −Z·αℏc/r is the nuclear-scale pairwise
       energy.  For the ODE approach this is a coefficient, not a
-      separate function call. 
+      separate function call.
 
     ² Impedance Z_TL = ℏk/m_e appears implicitly in the ODE's k(r)
       term.  The transfer matrix M encodes the distributed impedance
@@ -58,20 +58,19 @@ CONSTANTS
     All from ave.core.constants: ALPHA, HBAR, C_0, M_E, A_0, RY_EV, e_charge
     Zero hardcoded values.  Zero imported numbers. Zero continuous hacks.
 """
+
 from __future__ import annotations
-
-
 
 import numpy as np
 from scipy import integrate
 
-from ave.core.constants import ALPHA, HBAR, C_0, M_E, A_0, RY_EV, e_charge, P_C, L_NODE
+from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
 from ave.core.universal_operators import universal_reflection, universal_saturation
-
 
 # ---------------------------------------------------------------------------
 # Step 1: Piece-wise radial potential
 # ---------------------------------------------------------------------------
+
 
 def _enclosed_charge_fraction_1s(r, Z_shell):
     """Enclosed charge CDF for hydrogenic 1s shell.
@@ -82,6 +81,7 @@ def _enclosed_charge_fraction_1s(r, Z_shell):
     σ₁ₛ(x) = 1 - (1 + x + x²/2) e^(-x),  x = 2Zr/a₀
     """
     import math
+
     x = 2.0 * Z_shell * r / A_0
     if x > 500:
         return 1.0
@@ -106,6 +106,7 @@ def _enclosed_charge_fraction_n2(r, Z_shell, N_2s, N_2p):
     Combined: σ₂(u) = (N_2s·σ₂ₛ + N_2p·σ₂p) / (N_2s + N_2p)
     """
     import math
+
     N_total = N_2s + N_2p
     if N_total <= 0:
         return 0.0
@@ -168,6 +169,7 @@ def _z_net(r, Z, shells):
             # n≥3: approximate with 1s CDF at scaled variable
             # 2Z/(n·a₀) instead of 2Z/a₀ to account for larger orbital radius
             import math
+
             x = 2.0 * z_eff_inner * r / (float(n_shell) * A_0)
             if x > 500:
                 sigma = 1.0
@@ -182,6 +184,7 @@ def _z_net(r, Z, shells):
 # ---------------------------------------------------------------------------
 # Step 1b: Crossing potential — lumped shunt ABCD (Approach 24, E2k)
 # ---------------------------------------------------------------------------
+
 
 def _crossing_data(n_outer, l_outer, n_inner, l_inner, Z_eff_inner):
     """Compute crossing count, radius, and angle between two solitons.
@@ -213,11 +216,11 @@ def _crossing_data(n_outer, l_outer, n_inner, l_inner, Z_eff_inner):
     # Eq. crossing_radius:  r_cross = n² a₀ / Z_eff
     # Use the inner shell's n and Z_eff (crossings occur at the inner
     # shell's orbital radius where both solitons overlap)
-    r_cross = float(n_inner)**2 * A_0 / max(float(Z_eff_inner), 1.0)
+    r_cross = float(n_inner) ** 2 * A_0 / max(float(Z_eff_inner), 1.0)
 
     # Eq. crossing_angle: cos θ from torus geometry
     # Aspect ratio R/a = n²/(Z·α)
-    R_over_a = float(n_inner)**2 / (max(float(Z_eff_inner), 1.0) * ALPHA)
+    R_over_a = float(n_inner) ** 2 / (max(float(Z_eff_inner), 1.0) * ALPHA)
     R2 = R_over_a**2
 
     num = p1 * p2 + q1 * q2 * R2
@@ -354,9 +357,7 @@ def _crossing_abcd(n_outer, l_outer, shells, Z):
         # The outer soliton's (n, 0) torus knot crosses the inner
         # shell's (n_inner, l_inner) knots at this radius.
         for l_inner in range(n_shell):
-            I, r_cross, cos_theta = _crossing_data(
-                n_outer, l_outer, n_shell, l_inner, z_eff_k
-            )
+            I, r_cross, cos_theta = _crossing_data(n_outer, l_outer, n_shell, l_inner, z_eff_k)
             if I == 0:
                 continue  # no topological crossings
 
@@ -367,8 +368,7 @@ def _crossing_abcd(n_outer, l_outer, shells, Z):
             # V₀ = energy × tube_width = [J] × [m] = [J·m]
             # The δ-function has units [1/m], so V₀δ(r) = [J·m/m] = [J] ✓
             # L_NODE is the flux tube diameter (Axiom 1 ropelength)
-            V0 = angle_factor * (P_C / (2.0 * c_link)) * \
-                 ALPHA * HBAR * C_0 / r_cross * L_NODE
+            V0 = angle_factor * (P_C / (2.0 * c_link)) * ALPHA * HBAR * C_0 / r_cross * L_NODE
             Y = _crossing_shunt_admittance(V0 * N_a)
             M_cross = np.array([[1.0, 0.0], [Y, 1.0]])
             M_total = M_cross @ M_total
@@ -405,6 +405,7 @@ def _vacuum_strain_eff(r, Z, l, shells):
 # Step 2: Local wavenumber
 # ---------------------------------------------------------------------------
 
+
 def _k_local(r, E, Z, l, shells):
     """Local soliton wavenumber k(r) = √(2m_e(E - V_eff)) / ℏ.
 
@@ -422,6 +423,7 @@ def _k_local(r, E, Z, l, shells):
 # ---------------------------------------------------------------------------
 # Step 2b: SIR Mode-Weighted Charge (Axiom 3 — Least Reflected Action)
 # ---------------------------------------------------------------------------
+
 
 def _compute_r95_shell(Z_eff, n_shell, N_a):
     """Compute the 95th-percentile radius of an inner shell's CDF.
@@ -454,7 +456,7 @@ def _compute_r95_shell(Z_eff, n_shell, N_a):
     import math
 
     # Bracket: r_lo = 0, r_hi = generous upper bound
-    r_hi = 10.0 * float(n_shell)**2 * A_0 / max(float(Z_eff), 1.0)
+    r_hi = 10.0 * float(n_shell) ** 2 * A_0 / max(float(Z_eff), 1.0)
     r_lo = 0.0
 
     for _ in range(80):  # bisection iterations (converges to machine precision)
@@ -583,7 +585,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     # CONSEQUENCE: If a shell isn't strictly nested inside 1/4 the volume, it isn't an SIR!
     if l_out > 0:
         for n_shell, _N_a in shells:
-            nesting_ratio = float(n_out)**2 / float(n_shell)**2
+            nesting_ratio = float(n_out) ** 2 / float(n_shell) ** 2
             if nesting_ratio < 4.0:
                 # ── Op10 Junction Projection at Co-Resonant Shell Boundary ──
                 #
@@ -610,6 +612,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
                 #
                 # Verified at 0401388: Al −0.84%, Si −0.05%.
                 import math
+
                 N_deeper = sum(Na for ni, Na in shells if ni < n_shell)
                 z_in = float(Z) - N_deeper
                 z_out = float(Z) - N_deeper - _N_a
@@ -632,7 +635,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     # Phase A bounds must strictly remain natively outside the ruptured Regime IV vacuum!
     r_yield = float(Z) * ALPHA**2 * A_0
     r_min = max(0.001 * A_0, r_yield * 1.05)
-    r_max = max(3.0 * float(n_out)**2 * A_0 / z_outer, 7.0 * A_0)
+    r_max = max(3.0 * float(n_out) ** 2 * A_0 / z_outer, 7.0 * A_0)
 
     # Inner BC matching _direct_ODE_eigenvalue exactly
     if l_out == 0:
@@ -640,30 +643,30 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
         psi0 = r_min * (1.0 - x)
         dpsi0 = 1.0 - 2.0 * x
     else:
-        psi0 = r_min**(l_out + 1)
+        psi0 = r_min ** (l_out + 1)
         dpsi0 = (l_out + 1) * r_min**l_out
 
     # Integrate with discrete TMM Cascade (matching the eigenvalue solver)
     r_grid = np.geomspace(r_min, r_max, 400)
     psi_grid = np.zeros(len(r_grid))
     psi_grid[0] = psi0
-    
+
     psi = psi0
     dpsi = dpsi0
     success = True
-    
-    for i in range(len(r_grid)-1):
-        r1, r2 = r_grid[i], r_grid[i+1]
+
+    for i in range(len(r_grid) - 1):
+        r1, r2 = r_grid[i], r_grid[i + 1]
         dr = r2 - r1
         r_mid = 0.5 * (r1 + r2)
         z_net = _z_net(r_mid, Z, shells)
-        
+
         # AVE Topological Wrapping:
-        # Centrifugal reactance strictly maps the 3D Spherical Helmholtz Harmonic Eigenvalue 
+        # Centrifugal reactance strictly maps the 3D Spherical Helmholtz Harmonic Eigenvalue
         # mapping l(l+1) bounds geometrically, fully accounting for acoustic LC resonance volumes
         # mapped natively across the vacuum grid without utilizing probabilistic QM assumptions.
         ang_react = float(l_out * (l_out + 1)) / (r_mid**2)
-        
+
         cap_bias = 2.0 * M_E * z_net * ALPHA * C_0 / (HBAR * r_mid)
         ind_phase = 2.0 * M_E * E_J / HBAR**2
 
@@ -673,7 +676,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
 
         k2_coeff = (cap_bias + ind_phase) / S_r
         K2_mid = ang_react - k2_coeff
-        
+
         if K2_mid > 0:
             gamma = np.sqrt(K2_mid)
             cosh_g = np.cosh(gamma * dr)
@@ -690,13 +693,13 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
             B = sin_k / k if k > 1e-15 else dr
             C = -k * sin_k
             D = cos_k
-            
+
         psi_next = A * psi + B * dpsi
         dpsi_next = C * psi + D * dpsi
-        
+
         psi = psi_next
         dpsi = dpsi_next
-        psi_grid[i+1] = psi
+        psi_grid[i + 1] = psi
 
     if not success:
         return E_base_eV  # fallback
@@ -716,7 +719,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     z_eff_mode = np.trapezoid(energy_density * z_net_arr, r_grid)
 
     # Uniform-cavity eigenvalue at the mode-weighted charge
-    E_mcl_base_eV = z_eff_mode**2 * RY_EV / float(n_out)**2
+    E_mcl_base_eV = z_eff_mode**2 * RY_EV / float(n_out) ** 2
 
     return E_mcl_base_eV
 
@@ -724,6 +727,7 @@ def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
 # ---------------------------------------------------------------------------
 # Step 3: Radial ODE solver (Eq. radial_wave from LaTeX)
 # ---------------------------------------------------------------------------
+
 
 def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """Right-hand side of the radial lattice cavity ODE.
@@ -753,15 +757,15 @@ def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """
     psi, dpsi = y
     # Effective potential coefficient (1/r² and 1/r terms)
-    angular_reactance_gradient = float(l)**2 / r**2
+    angular_reactance_gradient = float(l) ** 2 / r**2
     capacitive_bias = 2.0 * M_E * Z_net * ALPHA * C_0 / (HBAR * r)
     inductive_phase_target = 2.0 * M_E * E_eigen_J / HBAR**2
 
     V_strain_J = Z_net * ALPHA * HBAR * C_0 / r
     local_strain_amplitude = V_strain_J / (M_E * C_0**2)
-    
+
     # Relativistic Core Limit (Regime III):
-    # At Z >= 15, the unshielded nuclear charge drives V_strain past V_yield 
+    # At Z >= 15, the unshielded nuclear charge drives V_strain past V_yield
     # near the origin (r -> 0), naturally establishing an acoustic saturation core.
     S_r = universal_saturation(local_strain_amplitude, 1.0)
 
@@ -771,8 +775,7 @@ def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     return [dpsi, d2psi]
 
 
-def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l,
-                      kappa_hopf=0.0, n_points=500):
+def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l, kappa_hopf=0.0, n_points=500):
     """Integrate the radial wave equation from r_start to r_end.
 
     Uses scipy.integrate.solve_ivp with RK45 (adaptive step).
@@ -796,10 +799,14 @@ def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l,
     r_eval = np.linspace(r_start, r_end, n_points)
 
     sol = solve_ivp(
-        _radial_ode, [r_start, r_end], [psi0, dpsi0],
+        _radial_ode,
+        [r_start, r_end],
+        [psi0, dpsi0],
         args=(E_eigen_J, Z_net, l, kappa_hopf),
-        t_eval=r_eval, method='RK45',
-        rtol=1e-12, atol=1e-14
+        t_eval=r_eval,
+        method="RK45",
+        rtol=1e-12,
+        atol=1e-14,
     )
 
     return sol.t, sol.y[0], sol.y[1]
@@ -808,6 +815,7 @@ def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l,
 # ---------------------------------------------------------------------------
 # Step 4: ABCD transfer matrix per section (Eq. abcd_section)
 # ---------------------------------------------------------------------------
+
 
 def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """Build the 2×2 ABCD transfer matrix for one radial TL section.
@@ -830,8 +838,8 @@ def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """
     r_mid = 0.5 * (r1 + r2)
     dr = r2 - r1
-    
-    ang_react = float(l)**2 / r_mid**2
+
+    ang_react = float(l) ** 2 / r_mid**2
     cap_bias = 2.0 * M_E * Z_net * ALPHA * C_0 / (HBAR * r_mid)
     ind_phase = 2.0 * M_E * E_eigen_J / HBAR**2
 
@@ -841,7 +849,7 @@ def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
 
     k2_coeff = (cap_bias + ind_phase) / ((1.0 + kappa_hopf) * S_r)
     K2_mid = ang_react - k2_coeff
-    
+
     if K2_mid > 0:
         gamma = np.sqrt(K2_mid)
         cosh_g = np.cosh(gamma * dr)
@@ -858,17 +866,15 @@ def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
         B = sin_k / k if k > 1e-15 else dr
         C = -k * sin_k
         D = cos_k
-        
-    ABCD = np.array([
-        [A, B],
-        [C, D]
-    ])
+
+    ABCD = np.array([[A, B], [C, D]])
     return ABCD
 
 
 # ---------------------------------------------------------------------------
 # Step 5: Eigenvalue condition (Eq. abcd_eigenvalue from LaTeX)
 # ---------------------------------------------------------------------------
+
 
 def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
     """Eigenvalue target for the ABCD cascade — graded taper model (E2f).
@@ -909,7 +915,7 @@ def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
         psi_init = r_min * (1.0 - x)
         dpsi_init = 1.0 - 2.0 * x
     else:
-        psi_init = r_min**(l + 1)
+        psi_init = r_min ** (l + 1)
         dpsi_init = (l + 1) * r_min**l
 
     # Outer boundary
@@ -933,13 +939,15 @@ def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
     for r_cross, V0 in cross_list:
         # Find which section this crossing falls into
         idx = np.searchsorted(edges, r_cross) - 1
-        if idx < 0: idx = 0 # If crossing is before r_min, apply at first section
-        if idx >= N_sec: idx = N_sec - 1 # If crossing is after r_max, apply at last section
-        
+        if idx < 0:
+            idx = 0  # If crossing is before r_min, apply at first section
+        if idx >= N_sec:
+            idx = N_sec - 1  # If crossing is after r_max, apply at last section
+
         # Create a shunt matrix for this crossing
         Y = _crossing_shunt_admittance(V0)
         M_shunt = np.array([[1.0, 0.0], [Y, 1.0]])
-        
+
         if idx not in cross_at_section:
             cross_at_section[idx] = []
         cross_at_section[idx].append(M_shunt)
@@ -995,7 +1003,7 @@ def radial_eigenvalue_abcd(Z, n, l, shells):
     N_inner = sum(N_a for _, N_a in shells)
     z_screened = max(Z - N_inner, 1.0)
 
-    E_hi = float(Z)**2 * RY_EV / n**2   # bare Coulomb
+    E_hi = float(Z) ** 2 * RY_EV / n**2  # bare Coulomb
     E_lo = z_screened**2 * RY_EV / n**2  # full screening
 
     # No shells or trivial: return exact
@@ -1015,20 +1023,20 @@ def radial_eigenvalue_abcd(Z, n, l, shells):
         E_scan = np.linspace(E_lo, E_hi, 200)
         f_scan = [_eigenvalue_condition(E, Z, n, l, shells) for E in E_scan]
         for i in range(len(f_scan) - 1):
-            if f_scan[i] * f_scan[i+1] < 0:
-                E_lo, E_hi = E_scan[i], E_scan[i+1]
+            if f_scan[i] * f_scan[i + 1] < 0:
+                E_lo, E_hi = E_scan[i], E_scan[i + 1]
                 break
         else:
             return z_screened**2 * RY_EV / n**2  # fallback
 
-    E_root = brentq(lambda E: _eigenvalue_condition(E, Z, n, l, shells),
-                    E_lo, E_hi, xtol=1e-6, rtol=1e-10)
+    E_root = brentq(lambda E: _eigenvalue_condition(E, Z, n, l, shells), E_lo, E_hi, xtol=1e-6, rtol=1e-10)
     return E_root
 
 
 # ---------------------------------------------------------------------------
 # Step 5b: Self-consistent iteration (E2h, lattice fluid mechanics)
 # ---------------------------------------------------------------------------
+
 
 def _eigenvalue_condition_general(f_eigen_eV, Z, n, l, z_net_func, N_inner):
     """Eigenvalue condition with a GENERAL z_net function.
@@ -1057,7 +1065,7 @@ def _eigenvalue_condition_general(f_eigen_eV, Z, n, l, z_net_func, N_inner):
         psi_init = r_min * (1.0 - x)
         dpsi_init = 1.0 - 2.0 * x
     else:
-        psi_init = r_min**(l + 1)
+        psi_init = r_min ** (l + 1)
         dpsi_init = (l + 1) * r_min**l
 
     z_outer = max(Z - N_inner, 1.0)
@@ -1110,7 +1118,7 @@ def _extract_wavefunction(f_eigen_eV, Z, n, l, z_net_func, N_inner, n_grid=200):
         psi_init = r_min * (1.0 - x)
         dpsi_init = 1.0 - 2.0 * x
     else:
-        psi_init = r_min**(l + 1)
+        psi_init = r_min ** (l + 1)
         dpsi_init = (l + 1) * r_min**l
 
     N_sec = 20
@@ -1125,9 +1133,7 @@ def _extract_wavefunction(f_eigen_eV, Z, n, l, z_net_func, N_inner, n_grid=200):
         r_mid = 0.5 * (r1 + r2)
         z_seg = z_net_func(r_mid)
 
-        r_arr, psi_arr, dpsi_arr = _solve_radial_ode(
-            r1, r2, psi0, dpsi0, E_eigen_J, z_seg, l, n_points=n_grid
-        )
+        r_arr, psi_arr, dpsi_arr = _solve_radial_ode(r1, r2, psi0, dpsi0, E_eigen_J, z_seg, l, n_points=n_grid)
         all_r.append(r_arr)
         all_psi.append(psi_arr)
         psi0, dpsi0 = psi_arr[-1], dpsi_arr[-1]
@@ -1153,9 +1159,8 @@ def _numerical_enclosed_charge(r_grid, psi_grid):
     Returns:
         sigma:    Enclosed fraction at each r_grid point [0→1].
     """
-    integrand = np.abs(psi_grid)**2 * 4.0 * np.pi * r_grid**2
-    cumulative = np.cumsum(0.5 * (integrand[:-1] + integrand[1:])
-                          * np.diff(r_grid))
+    integrand = np.abs(psi_grid) ** 2 * 4.0 * np.pi * r_grid**2
+    cumulative = np.cumsum(0.5 * (integrand[:-1] + integrand[1:]) * np.diff(r_grid))
     cumulative = np.insert(cumulative, 0, 0.0)  # σ(0) = 0
     total = cumulative[-1]
     if total > 0:
@@ -1188,8 +1193,8 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
         f_eigen_eV:   Converged eigenvalue [eV].
         info:   Dict with iteration history.
     """
-    from scipy.optimize import brentq
     from scipy.interpolate import interp1d
+    from scipy.optimize import brentq
 
     N_inner = sum(N_a for _, N_a in inner_shells)
 
@@ -1208,12 +1213,9 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
     for iteration in range(1, max_iter + 1):
         # --- Extract 2s wavefunction at current eigenvalue ---
         z_net_current = z_net_analytic if iteration == 1 else z_net_updated
-        r_2s, psi_2s = _extract_wavefunction(
-            E_prev, Z, n, l, z_net_current, N_inner
-        )
+        r_2s, psi_2s = _extract_wavefunction(E_prev, Z, n, l, z_net_current, N_inner)
         sigma_2s = _numerical_enclosed_charge(r_2s, psi_2s)
-        sigma_2s_interp = interp1d(r_2s, sigma_2s, bounds_error=False,
-                                    fill_value=(0.0, 1.0))
+        sigma_2s_interp = interp1d(r_2s, sigma_2s, bounds_error=False, fill_value=(0.0, 1.0))
 
         # --- Solve each 1s electron with updated screening ---
         # Each 1s sees: Z − σ_other_1s(r) − σ_2s(r)
@@ -1229,29 +1231,29 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
         n_1s = inner_shells[0][0]  # n=1
         r_min_1s = 0.005 * A_0
         r_max_1s = 5.0 * A_0  # 1s decays fast
-        E_1s_J = -float(Z)**2 * RY_EV * e_charge  # approximate 1s energy
+        E_1s_J = -float(Z) ** 2 * RY_EV * e_charge  # approximate 1s energy
 
         r_1s_grid = np.linspace(r_min_1s, r_max_1s, 500)
         # Integrate 1s ODE with position-dependent Z_net
         psi0 = r_min_1s
         dpsi0 = 1.0
         from scipy.integrate import solve_ivp
+
         def ode_1s(r, y):
             z = z_net_1s(r)
             V = -z * ALPHA * HBAR * C_0 / r
             k_sq = 2.0 * M_E * (E_1s_J + abs(V)) / HBAR**2
             return [y[1], -k_sq * y[0]]
 
-        sol = solve_ivp(ode_1s, [r_min_1s, r_max_1s], [psi0, dpsi0],
-                        t_eval=r_1s_grid, method='RK45',
-                        rtol=1e-12, atol=1e-14)
+        sol = solve_ivp(
+            ode_1s, [r_min_1s, r_max_1s], [psi0, dpsi0], t_eval=r_1s_grid, method="RK45", rtol=1e-12, atol=1e-14
+        )
         r_1s = sol.t
         psi_1s = sol.y[0]
 
         # Compute updated σ₁ₛ from numerical 1s density
         sigma_1s_num = _numerical_enclosed_charge(r_1s, psi_1s)
-        sigma_1s_interp = interp1d(r_1s, sigma_1s_num, bounds_error=False,
-                                    fill_value=(0.0, 1.0))
+        sigma_1s_interp = interp1d(r_1s, sigma_1s_num, bounds_error=False, fill_value=(0.0, 1.0))
 
         # --- Build updated z_net for 2s cascade ---
         N_1s = inner_shells[0][1]  # number of 1s electrons
@@ -1261,42 +1263,39 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
             return max(float(Z) - N_1s * sig, 0.0)
 
         # --- Solve 2s with updated screening ---
-        E_hi = float(Z)**2 * RY_EV / n**2 * 1.05
+        E_hi = float(Z) ** 2 * RY_EV / n**2 * 1.05
         E_lo = z_outer**2 * RY_EV / n**2 * 0.95
 
-        f_hi = _eigenvalue_condition_general(E_hi, Z, n, l, z_net_updated,
-                                             N_inner)
-        f_lo = _eigenvalue_condition_general(E_lo, Z, n, l, z_net_updated,
-                                             N_inner)
+        f_hi = _eigenvalue_condition_general(E_hi, Z, n, l, z_net_updated, N_inner)
+        f_lo = _eigenvalue_condition_general(E_lo, Z, n, l, z_net_updated, N_inner)
 
         if f_hi * f_lo > 0:
             E_scan = np.linspace(E_lo, E_hi, 200)
             for i in range(len(E_scan) - 1):
-                fa = _eigenvalue_condition_general(E_scan[i], Z, n, l,
-                                                    z_net_updated, N_inner)
-                fb = _eigenvalue_condition_general(E_scan[i+1], Z, n, l,
-                                                    z_net_updated, N_inner)
+                fa = _eigenvalue_condition_general(E_scan[i], Z, n, l, z_net_updated, N_inner)
+                fb = _eigenvalue_condition_general(E_scan[i + 1], Z, n, l, z_net_updated, N_inner)
                 if fa * fb < 0:
-                    E_lo, E_hi = E_scan[i], E_scan[i+1]
+                    E_lo, E_hi = E_scan[i], E_scan[i + 1]
                     break
             else:
                 break  # can't find bracket
 
         E_new = brentq(
-            lambda E: _eigenvalue_condition_general(E, Z, n, l,
-                                                     z_net_updated, N_inner),
-            E_lo, E_hi, xtol=1e-6, rtol=1e-10
+            lambda E: _eigenvalue_condition_general(E, Z, n, l, z_net_updated, N_inner),
+            E_lo,
+            E_hi,
+            xtol=1e-6,
+            rtol=1e-10,
         )
 
         history.append(E_new)
 
         if abs(E_new - E_prev) < tol:
-            return E_new, {'iterations': iteration, 'history': history,
-                           'converged': True}
+            return E_new, {"iterations": iteration, "history": history, "converged": True}
         E_prev = E_new
 
-    return E_prev, {'iterations': max_iter, 'history': history,
-                    'converged': False}
+    return E_prev, {"iterations": max_iter, "history": history, "converged": False}
+
 
 # ---------------------------------------------------------------------------
 # QUARANTINE: _reflection_phase, _total_phase, radial_eigenvalue
@@ -1306,6 +1305,7 @@ def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
 # _eigenvalue_condition() and radial_eigenvalue_abcd().
 # Quarantined 2026-04-06.
 # ---------------------------------------------------------------------------
+
 
 def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
     """Phase shift from reflection at shell boundary R_a.
@@ -1337,6 +1337,7 @@ def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
 # Step 5: Eigenvalue condition (Op6) — root-finding target
 # ---------------------------------------------------------------------------
 
+
 def _total_phase(f_eigen_eV, Z, n, l, shells):
     """Total radial phase for trial energy E.
 
@@ -1345,7 +1346,7 @@ def _total_phase(f_eigen_eV, Z, n, l, shells):
     At the eigenvalue: f(E) = 0.
     """
     E_eigen_J = -abs(f_eigen_eV) * e_charge  # convert to Joules (binding = negative)
-    n_r = n - l - 1               # radial node count
+    n_r = n - l - 1  # radial node count
 
     if n_r < 0:
         return 1e10  # invalid quantum numbers
@@ -1383,8 +1384,7 @@ def _total_phase(f_eigen_eV, Z, n, l, shells):
         return 1e10
 
     # Collect all boundaries within [r_min, r_max]
-    boundaries = sorted([R_a for R_a, _ in shells
-                         if r_min < R_a < r_max])
+    boundaries = sorted([R_a for R_a, _ in shells if r_min < R_a < r_max])
 
     # Build list of integration segments
     segment_edges = [r_min] + boundaries + [r_max]
@@ -1439,8 +1439,8 @@ def radial_eigenvalue(Z, n, l, shells, E_guess_eV=None):
     N_inner = sum(N_a for _, N_a in shells)
     z_screened = max(Z - N_inner, 1.0)
 
-    E_hi = float(Z)**2 * RY_EV / n**2       # bare Coulomb (deep binding)
-    E_lo = z_screened**2 * RY_EV / n**2      # full screening (shallow)
+    E_hi = float(Z) ** 2 * RY_EV / n**2  # bare Coulomb (deep binding)
+    E_lo = z_screened**2 * RY_EV / n**2  # full screening (shallow)
 
     # For no shells: E_hi = E_lo, return exact answer
     if not shells or abs(E_hi - E_lo) < 1e-10:
@@ -1458,20 +1458,18 @@ def radial_eigenvalue(Z, n, l, shells, E_guess_eV=None):
         # No sign change — scan for it
         n_scan = 100
         E_scan = np.linspace(E_lo, E_hi, n_scan)
-        f_scan = np.array([_total_phase(E, Z, n, l, shells)
-                           for E in E_scan])
+        f_scan = np.array([_total_phase(E, Z, n, l, shells) for E in E_scan])
         for i in range(len(f_scan) - 1):
-            if f_scan[i] * f_scan[i+1] < 0:
+            if f_scan[i] * f_scan[i + 1] < 0:
                 E_lo = E_scan[i]
-                E_hi = E_scan[i+1]
+                E_hi = E_scan[i + 1]
                 break
         else:
             # Still no bracket — return first-order estimate
             return z_screened**2 * RY_EV / n**2
 
     # Brent's method for robust root-finding (Op6)
-    E_root = brentq(lambda E: _total_phase(E, Z, n, l, shells),
-                    E_lo, E_hi, xtol=1e-6, rtol=1e-10)
+    E_root = brentq(lambda E: _total_phase(E, Z, n, l, shells), E_lo, E_hi, xtol=1e-6, rtol=1e-10)
 
     return E_root
 
@@ -1482,10 +1480,25 @@ def radial_eigenvalue(Z, n, l, shells, E_guess_eV=None):
 
 # Filling order: (n, l, capacity)
 _AUFBAU = [
-    (1, 0, 2), (2, 0, 2), (2, 1, 6), (3, 0, 2), (3, 1, 6),
-    (4, 0, 2), (3, 2, 10), (4, 1, 6), (5, 0, 2), (4, 2, 10),
-    (5, 1, 6), (6, 0, 2), (4, 3, 14), (5, 2, 10), (6, 1, 6),
-    (7, 0, 2), (5, 3, 14), (6, 2, 10), (7, 1, 6)
+    (1, 0, 2),
+    (2, 0, 2),
+    (2, 1, 6),
+    (3, 0, 2),
+    (3, 1, 6),
+    (4, 0, 2),
+    (3, 2, 10),
+    (4, 1, 6),
+    (5, 0, 2),
+    (4, 2, 10),
+    (5, 1, 6),
+    (6, 0, 2),
+    (4, 3, 14),
+    (5, 2, 10),
+    (6, 1, 6),
+    (7, 0, 2),
+    (5, 3, 14),
+    (6, 2, 10),
+    (7, 1, 6),
 ]
 
 
@@ -1507,10 +1520,11 @@ def _fill_config(Z):
                        Same-n shells are excluded entirely.
     """
     from collections import defaultdict
+
     shell_counts = defaultdict(int)
     subshell_counts = defaultdict(lambda: defaultdict(int))
     remaining = Z
-    
+
     for n, l, cap in _AUFBAU:
         if remaining <= 0:
             break
@@ -1522,8 +1536,8 @@ def _fill_config(Z):
     # ── Topo-Kinematic Collapse (Isotropic Half/Full Boundary Shift) ──
     # A d-subshell (l=2) defines a double-wrapped Torus Knot (q=2). When it sits exactly
     # 1 electron away from resolving an Isotropic spherical structure (L=0) — which occurs
-    # at perfectly half-capacity (5) or full-capacity (10) — the lattice void exerts a 
-    # constructive boundary pull. If the bounding adjacent s-orbital is populated, the 
+    # at perfectly half-capacity (5) or full-capacity (10) — the lattice void exerts a
+    # constructive boundary pull. If the bounding adjacent s-orbital is populated, the
     # system drops into the collapsed isotropic state continuously. This natively mathematically
     # tracks the Chromium (Z=24) and Copper (Z=29) structural shifts.
     for n_d in list(subshell_counts.keys()):
@@ -1542,7 +1556,7 @@ def _fill_config(Z):
     # Target the highest active azimuthal configuration dynamically mapped to the outer shell
     # For Chromium 4s1 3d5, n_out = 4. The only occupied subshell in n=4 is 4s (l=0).
     l_out = max(l for l, c in subshell_counts[n_out].items() if c > 0)
-    
+
     N_out = shell_counts[n_out]
     cross_shells = sorted([(n, c) for n, c in shell_counts.items() if n != n_out])
 
@@ -1551,26 +1565,26 @@ def _fill_config(Z):
 
 def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     """Finds the true Phase A unbroken single-electron eigenvalue.
-    
+
     Axiomatically integrates the LC continuous cavity mode (Axiom 1),
     naturally resolving all Op3 impedance step partial reflections
     at the Gauss screening boundaries (Axiom 2).
     """
+    import numpy as np
     from scipy.integrate import solve_ivp
     from scipy.optimize import brentq
-    import numpy as np
-    
+
     N_inner = sum(N_a for _, N_a in shells)
     z_outer = max(float(Z) - N_inner, 1.0)
-    
+
     # Bracket based on scale limits
-    E_gauss = z_outer**2 * RY_EV / float(n_out)**2
-    E_unscreened = float(Z)**2 * RY_EV / float(n_out)**2
-    
+    E_gauss = z_outer**2 * RY_EV / float(n_out) ** 2
+    E_unscreened = float(Z) ** 2 * RY_EV / float(n_out) ** 2
+
     def get_nodes_and_res(E_eV):
         E_J = -abs(E_eV) * e_charge
         kappa = np.sqrt(2.0 * M_E * abs(E_J)) / HBAR
-        
+
         # ── Axiom 4 / Universal Saturation: Regime IV Bound ──
         # The atomic core generates intense local geometric strain. When strain_amp > 1.0,
         # the vacuum yields structurally (S(r) = 0), shattering wave limits into transverse loops (d-orbitals).
@@ -1578,15 +1592,15 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
         # the 5% margin to successfully establish the un-yielded standing wave topology limit mathematically!
         r_yield = float(Z) * ALPHA**2 * A_0
         r_min = max(0.001 * A_0, r_yield * 1.05)
-        r_max = max(3.0 * float(n_out)**2 * A_0 / z_outer, 7.0 * A_0)
-        
+        r_max = max(3.0 * float(n_out) ** 2 * A_0 / z_outer, 7.0 * A_0)
+
         # Proper inner BC for this specific l (centrifugal barrier)
         if l_out == 0:
             x = float(Z) * r_min / A_0
             psi0 = r_min * (1.0 - x)
             dpsi0 = 1.0 - 2.0 * x
         else:
-            psi0 = r_min**(l_out + 1)
+            psi0 = r_min ** (l_out + 1)
             dpsi0 = (l_out + 1) * r_min**l_out
         # ---- Topological ABCD Matrix Cascade ----
         # Replaces continuous RK45 ODE with discrete structural impedance slabs (Stepped Impedance Resonator)
@@ -1594,13 +1608,13 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
         psi = psi0
         dpsi = dpsi0
         nodes = 0
-        
-        for i in range(len(r_grid)-1):
-            r1, r2 = r_grid[i], r_grid[i+1]
+
+        for i in range(len(r_grid) - 1):
+            r1, r2 = r_grid[i], r_grid[i + 1]
             dr = r2 - r1
             r_mid = 0.5 * (r1 + r2)
             z_net = _z_net(r_mid, Z, shells)
-            
+
             # 3D Spherical Helmholtz Acoustic Bound
             ang_react = float(l_out * (l_out + 1)) / (r_mid**2)
             cap_bias = 2.0 * M_E * z_net * ALPHA * C_0 / (HBAR * r_mid)
@@ -1608,15 +1622,15 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
 
             V_strain_J = z_net * ALPHA * HBAR * C_0 / r_mid
             strain_amp = V_strain_J / (M_E * C_0**2)
-            
-            # The Relativistic Core Limit: at Z>=19, the strain inside r=0.001 a0 
-            # exceeds m_e c^2 (strain_amp >= 1.0). The saturation limit naturally 
+
+            # The Relativistic Core Limit: at Z>=19, the strain inside r=0.001 a0
+            # exceeds m_e c^2 (strain_amp >= 1.0). The saturation limit naturally
             # renders the core impenetrable.
             S_r = max(universal_saturation(strain_amp, 1.0), 1e-10)
 
             k2_coeff = (cap_bias + ind_phase) / ((1.0 + kappa_hopf) * S_r)
             K2_mid = ang_react - k2_coeff
-            
+
             if K2_mid > 0:
                 gamma = np.sqrt(K2_mid)
                 cosh_g = np.cosh(gamma * dr)
@@ -1633,31 +1647,31 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
                 B = sin_k / k if k > 1e-15 else dr
                 C = -k * sin_k
                 D = cos_k
-                
+
             psi_next = A * psi + B * dpsi
             dpsi_next = C * psi + D * dpsi
-            
+
             if psi * psi_next < 0:
                 nodes += 1
-                
+
             # Normalize to avert floating-point overflow
             if abs(psi_next) > 1e150:
                 norm = 1e-150
                 psi_next *= norm
                 dpsi_next *= norm
-                
+
             psi = psi_next
             dpsi = dpsi_next
-            
+
         psi_out = psi
         dpsi_out = dpsi
-        
+
         f = dpsi_out + kappa * psi_out
         scale = max(abs(dpsi_out), abs(kappa * psi_out), 1e-30)
         return nodes, f / scale
 
     target_nodes = n_out - l_out - 1
-    
+
     # ── Topo-Kinematic Radial Parity Shift ──
     # Inner completed transition metal layers (d-shells) enforce transverse Torus boundary structures
     # that map additional structural nodes into the integration.
@@ -1671,15 +1685,15 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     if Z >= 81 and n_out >= 6:
         # Period 6 enclosing 3d10, 4d10, and 5d10
         core_d_knots = 3
-        
+
     target_nodes += core_d_knots
-    
+
     # 2. Bracket via geometric log-space to catch the loosely bound valence states natively
     # kappa_hopf reduces wavenumber, requiring a wider lower bound than pure Gauss
-    # As atoms dynamically transfer their native integration limits (r_min shifts geometrically outwards 
+    # As atoms dynamically transfer their native integration limits (r_min shifts geometrically outwards
     # to avert the deep Regime IV vacuum limits), their lowest stable eigenvalue drops heavily below classical spans.
     scan = np.geomspace(E_gauss * 0.20, E_unscreened * 1.05, 180)
-    
+
     # 3. Dynamic Node-Tracker scan
     res_vals = []
     node_vals = []
@@ -1687,19 +1701,20 @@ def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
         n, r = get_nodes_and_res(e)
         res_vals.append(r)
         node_vals.append(n)
-        
-    for i in range(len(scan)-1):
-        if res_vals[i] * res_vals[i+1] < 0:
-            # We found a root boundary! Only accept it if it represents the TRUE topological mode 
+
+    for i in range(len(scan) - 1):
+        if res_vals[i] * res_vals[i + 1] < 0:
+            # We found a root boundary! Only accept it if it represents the TRUE topological mode
             # (exactly n - l - 1 nodes) and NOT a ghost trap of a deeper sub-level.
-            if node_vals[i] == target_nodes or node_vals[i+1] == target_nodes:
+            if node_vals[i] == target_nodes or node_vals[i + 1] == target_nodes:
                 try:
-                    root = brentq(lambda e: get_nodes_and_res(e)[1], scan[i], scan[i+1], xtol=1e-5, rtol=1e-8)
+                    root = brentq(lambda e: get_nodes_and_res(e)[1], scan[i], scan[i + 1], xtol=1e-5, rtol=1e-8)
                     return root
                 except ValueError:
                     continue
-                
+
     import logging
+
     logging.warning(f"AVE Limit Warning: Phase A cavity ODE failed for Z={Z}, reverting to Gauss.")
     return E_gauss
 
@@ -1747,11 +1762,12 @@ def _sblock_chain_correction(E_base, n_out, l_out, shells):
         delta_E [eV], ≤ 0 (always lowers IE). 0.0 if l_out ≠ 0.
     """
     import numpy as np
+
     if l_out != 0:
         return 0.0  # transverse solitons: zero compressional chain coupling
 
     delta_E = 0.0
-    for (n_in, N_a) in shells:
+    for n_in, N_a in shells:
         if n_in >= n_out:
             continue  # only inner shells load the outer cavity
         # Extract l=0 electron count from this shell.
@@ -1762,8 +1778,8 @@ def _sblock_chain_correction(E_base, n_out, l_out, shells):
         N_s_in = min(int(N_a), 2)
         if N_s_in == 0:
             continue
-        gamma = abs(float(n_out)**2 - float(n_in)**2) / float(n_out * n_in)
-        delta_E -= E_base / (2.0 * N_s_in * np.cosh(gamma)**2)
+        gamma = abs(float(n_out) ** 2 - float(n_in) ** 2) / float(n_out * n_in)
+        delta_E -= E_base / (2.0 * N_s_in * np.cosh(gamma) ** 2)
     return delta_E
 
 
@@ -1783,24 +1799,31 @@ def ionization_energy_e2k(Z, f_val=1.0):
     """
 
     import numpy as np
+
     if Z == 1:
         return RY_EV
 
     n_out, l_out, N_out, cross_shells = _fill_config(Z)
 
     remaining = N_out
-    N_s_count = 0 
-    N_p_count = 0 
+    N_s_count = 0
+    N_p_count = 0
     N_d_count = 0
     N_f_count = 0
     for n, l, cap in _AUFBAU:
-        if n != n_out: continue
-        if remaining <= 0: break
+        if n != n_out:
+            continue
+        if remaining <= 0:
+            break
         count = min(remaining, cap)
-        if l == 0: N_s_count += count   # compressional (K)
-        elif l == 1: N_p_count += count # transversal (q=1 Torus)
-        elif l == 2: N_d_count += count # Double-wrapped (q=2 Torus)
-        else:        N_f_count += count # Triple-wrapped (q=3 Torus)
+        if l == 0:
+            N_s_count += count  # compressional (K)
+        elif l == 1:
+            N_p_count += count  # transversal (q=1 Torus)
+        elif l == 2:
+            N_d_count += count  # Double-wrapped (q=2 Torus)
+        else:
+            N_f_count += count  # Triple-wrapped (q=3 Torus)
         remaining -= count
 
     # Dynamically extract topological parity based on active transversing orbital dimension
@@ -1811,7 +1834,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
         n_pairs = max(0, N_d_count - 5)
     elif l_out == 3:
         n_pairs = max(0, N_f_count - 7)
-    
+
     # ── Correction D: Hopf Back-EMF with Radial Node Inductance ──
     # The paired electrons (same spatial orbital, opposite spin) form a Hopf link.
     # The magnetic coupling depends on the phase of the continuous radial LC current:
@@ -1821,11 +1844,11 @@ def ionization_energy_e2k(Z, f_val=1.0):
     #   Subshells resolving d-orbital structures (l=2) utilize exclusively double-wrapped (q=2)
     #   tori bindings ensuring their Hopf parity interactions resolve uniformly constructively.
     n_r = n_out - l_out - 1
-    
+
     # ── Topo-Kinematic Radial Parity Shift ──
     # The presence of an orthogonal Torus Knot (d-subshell, l=2) dynamically slices the LC
-    # boundary into discrete transversal reflection boundaries natively. This organically 
-    # maps exactly one effective topological radial node (+1) to the outer wave parity 
+    # boundary into discrete transversal reflection boundaries natively. This organically
+    # maps exactly one effective topological radial node (+1) to the outer wave parity
     # sequence dynamically! Core 3d and 4d topologies systematically reverse Hopf polarities!
     core_d_knots = 0
     if Z >= 31 and n_out >= 4:
@@ -1837,13 +1860,13 @@ def ionization_energy_e2k(Z, f_val=1.0):
     if Z >= 81 and n_out >= 6:
         # Period 6 elements enclose 3d10, 4d10, and 5d10 topologies natively
         core_d_knots = 3
-        
+
     n_r_eff = n_r + core_d_knots
 
     if l_out == 2 and n_pairs > 0:
         kappa_hopf = P_C / 2.0
     else:
-        kappa_hopf = (P_C / 2.0) * (-1)**n_r_eff if (l_out >= 1 and n_pairs > 0) else 0.0
+        kappa_hopf = (P_C / 2.0) * (-1) ** n_r_eff if (l_out >= 1 and n_pairs > 0) else 0.0
 
     # Phase A: Cavity Mode Base State (Distributed TL)
     E_base = _direct_ODE_eigenvalue(Z, n_out, l_out, cross_shells, kappa_hopf)
@@ -1851,11 +1874,10 @@ def ionization_energy_e2k(Z, f_val=1.0):
     # ── Topo-Kinematic Energy Compression (Polar Conjugate Mirror) ──
     # Under the TIR scaling laws, fully saturated Torus boundaries act as a geometric short (\Gamma < 0).
     # Because Phase A continuously tracks the global ODE envelope, the returned string dynamically
-    # spans length L_total. However, the geometric mirrors physically compartmentalize the atom into 
+    # spans length L_total. However, the geometric mirrors physically compartmentalize the atom into
     # independent cavities! The valence wave is rigidly trapped in precisely the outermost segment:
     # L_val = L_total / (core_d_knots + 1). Consequently, resonance frequency scales by exactly this integer!
-    E_base *= (core_d_knots + 1)
-
+    E_base *= core_d_knots + 1
 
     # ── Heavy-Element Polar Conjugate Mirror (Op10 Z≥31 path) ──
     # [Q6 restructure 2026-04-30 per doc 100 §10.24: gated to Z≥31 only.
@@ -1866,8 +1888,10 @@ def ionization_energy_e2k(Z, f_val=1.0):
     # Period 1-3 to prevent the 046a233 global-promotion drift.]
     if Z >= 31:
         import math
+
         for n_shell, _N_a in cross_shells:
-            if n_shell > n_out: continue
+            if n_shell > n_out:
+                continue
             remaining_barrier = Z
             l_barrier = 0
             N_sub = 0
@@ -1881,7 +1905,8 @@ def ionization_energy_e2k(Z, f_val=1.0):
                         if l_A == l_barrier:
                             N_sub = c_count
                 remaining_barrier -= c_count
-                if remaining_barrier <= 0: break
+                if remaining_barrier <= 0:
+                    break
 
             if l_out > 0 and eff_N_a > 0.0:
                 N_deeper = sum(Na for ni, Na in cross_shells if ni < n_shell)
@@ -1894,14 +1919,14 @@ def ionization_energy_e2k(Z, f_val=1.0):
                     c_intersections = float(l_barrier * (l_barrier + 1))
                     Y_loss = c_intersections * (1.0 - cos_theta) / (2.0 * math.pi**2)
                     is_half_shell = (
-                        (l_barrier == 1 and N_sub == 3) or
-                        (l_barrier == 2 and N_sub == 5) or
-                        (l_barrier == 3 and N_sub == 7)
+                        (l_barrier == 1 and N_sub == 3)
+                        or (l_barrier == 2 and N_sub == 5)
+                        or (l_barrier == 3 and N_sub == 7)
                     )
                     is_full_shell = (
-                        (l_barrier == 1 and N_sub == 6) or
-                        (l_barrier == 2 and N_sub == 10) or
-                        (l_barrier == 3 and N_sub == 14)
+                        (l_barrier == 1 and N_sub == 6)
+                        or (l_barrier == 2 and N_sub == 10)
+                        or (l_barrier == 3 and N_sub == 14)
                     )
                     mirrored_away = False
                     if Z >= 31 and n_out >= 4 and n_shell <= 3:
@@ -1943,7 +1968,6 @@ def ionization_energy_e2k(Z, f_val=1.0):
         E_base = E_base + _sblock_chain_correction(E_base, n_out, l_out, cross_shells)
         return E_base
 
-
     # ── Phase B dispatch ──
     # Same-l same-shell electrons are IDENTICAL resonators → coupled LC
     # Different-l same-shell electrons are NON-identical → MCL loading
@@ -1963,6 +1987,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
         # Source: KB helium-symmetric-cavity.md, scale-separation.md
         # Validated: He = 24.37 eV (−0.88%), no free parameters
         import math
+
         N_inner = sum(N_a for _, N_a in cross_shells)
         Z_eff_s = max(1.0, float(Z) - N_inner)
         k_pair = (2.0 / Z_eff_s) * (1.0 - P_C / 2.0)
@@ -1996,8 +2021,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
                     continue
                 N_s_in = min(N_a_in, 2)
                 if N_s_in >= 2:
-                    z_eff_in = max(1.0, float(Z) - sum(
-                        Na for ni, Na in cross_shells if ni < n_in))
+                    z_eff_in = max(1.0, float(Z) - sum(Na for ni, Na in cross_shells if ni < n_in))
                     k_inner = (2.0 / z_eff_in) * (1.0 - P_C / 2.0)
                     k_pair = k_pair / (1.0 + k_inner) ** 0.25
         else:
@@ -2029,7 +2053,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
                     continue
                 # Z_net contrast at the saturated torus boundary
                 N_deeper = sum(Na for ni, Na in cross_shells if ni < n_in)
-                z_in = float(Z) - N_deeper         # screened by deeper shells only
+                z_in = float(Z) - N_deeper  # screened by deeper shells only
                 z_out = float(Z) - N_deeper - N_a_in  # screened by this shell too
                 if z_in > 0 and z_out > 0:
                     gamma = (z_out - z_in) / (z_out + z_in)
@@ -2052,7 +2076,7 @@ def ionization_energy_e2k(Z, f_val=1.0):
     # Subshell loading weights fundamentally scale by physical dimensional bounds transversed.
     # Dimensions correlate mathematically identically: w_l = 1 / (l + 1)
     #   s (1D Long): 1.0
-    #   p (2D Torus): 0.5 (1/2) 
+    #   p (2D Torus): 0.5 (1/2)
     #   d (3D d-Torus): 0.333 (1/3) -> completely resolves Transition Metal loading organically!
     #   f (4D f-Torus): 0.25 (1/4)
     n_s_eff = N_s_count * 1.0
@@ -2080,8 +2104,9 @@ def ionization_energy_e2k(Z, f_val=1.0):
         N_eff_m1 = n_s_eff + N_p_count * w_p + load_d + max(N_f_count - 1, 0) * w_f
 
     def _cavity_transmission_sq(n_load):
-        if n_load <= 0.0: return 0.0
-        return 4.0 * n_load / (1.0 + n_load)**2
+        if n_load <= 0.0:
+            return 0.0
+        return 4.0 * n_load / (1.0 + n_load) ** 2
 
     E_total_N = N_eff * E_mcl_base * _cavity_transmission_sq(N_eff)
     E_total_Nm1 = N_eff_m1 * E_mcl_base * _cavity_transmission_sq(N_eff_m1)

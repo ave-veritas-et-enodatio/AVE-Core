@@ -18,27 +18,31 @@ Usage:
   Drop-in replacement for FDTD3DEngine.  Change import:
     from ave.core.fdtd_3d_jax import FDTD3DEngineJAX as FDTD3DEngine
 """
-from __future__ import annotations
 
+from functools import partial
 
 import jax
 import jax.numpy as jnp
-from jax import jit, lax
-from functools import partial
 import numpy as np
+from jax import jit
+
+from ave.core.constants import B_SNAP, C_0, EPSILON_0, MU_0, V_YIELD
 
 # Enable float64 to match numpy precision for numerical equivalence
 jax.config.update("jax_enable_x64", True)
-
-from ave.core.constants import C_0, MU_0, EPSILON_0, V_SNAP, V_YIELD, B_SNAP
-
 
 # =====================================================================
 # Pure-function kernels (JIT-compiled, no side effects)
 # =====================================================================
 
+
 @jit
-def _compute_local_epsilon_kernel(E_component, eps_base, dx, v_yield):
+def _compute_local_epsilon_kernel(
+    E_component: jax.Array,
+    eps_base: jax.Array,
+    dx: float,
+    v_yield: float,
+) -> jax.Array:
     """
     Axiom 4 — Dielectric saturation (electric sector).
 
@@ -59,7 +63,12 @@ def _compute_local_epsilon_kernel(E_component, eps_base, dx, v_yield):
 
 
 @jit
-def _compute_local_mu_kernel(H_component, mu_base, mu_0, b_yield):
+def _compute_local_mu_kernel(
+    H_component: jax.Array,
+    mu_base: jax.Array,
+    mu_0: float,
+    b_yield: float,
+) -> jax.Array:
     """
     Axiom 4 — Inductive saturation (magnetic sector).
 
@@ -80,10 +89,15 @@ def _compute_local_mu_kernel(H_component, mu_base, mu_0, b_yield):
 
 @partial(jit, static_argnums=(7,))
 def _update_fields_step(
-    Ex, Ey, Ez, Hx, Hy, Hz,
-    params,
-    linear_only,
-):
+    Ex: jax.Array,
+    Ey: jax.Array,
+    Ez: jax.Array,
+    Hx: jax.Array,
+    Hy: jax.Array,
+    Hz: jax.Array,
+    params: dict,
+    linear_only: bool,
+) -> tuple[jax.Array, jax.Array, jax.Array, jax.Array, jax.Array, jax.Array]:
     """
     One complete Yee-cell timestep: H-update (Faraday) then E-update (Ampere).
 
@@ -95,14 +109,14 @@ def _update_fields_step(
       - ε_eff, μ_eff = Axiom 4 saturation curves
       - dt, dx = CFL-stable discretisation of the LC continuum
     """
-    dt = params['dt']
-    dx = params['dx']
-    epsilon_0 = params['epsilon_0']
-    mu_0 = params['mu_0']
-    v_yield = params['v_yield']
-    b_yield = params['b_yield']
-    eps_r = params['eps_r']
-    mu_r = params['mu_r']
+    dt = params["dt"]
+    dx = params["dx"]
+    epsilon_0 = params["epsilon_0"]
+    mu_0 = params["mu_0"]
+    v_yield = params["v_yield"]
+    b_yield = params["b_yield"]
+    eps_r = params["eps_r"]
+    mu_r = params["mu_r"]
 
     # ─────────────────────────────────────────────────────────
     # 1. MAGNETIC FIELD UPDATE  (Faraday's Law: ∂H/∂t = -∇×E / μ)
@@ -172,10 +186,24 @@ def _update_fields_step(
 
 
 @jit
-def _apply_mur_abc_jax(Ex, Ey, Ez, abc_coef,
-                        ex_y0, ex_yn, ex_z0, ex_zn,
-                        ey_x0, ey_xn, ey_z0, ey_zn,
-                        ez_x0, ez_xn, ez_y0, ez_yn):
+def _apply_mur_abc_jax(
+    Ex: jax.Array,
+    Ey: jax.Array,
+    Ez: jax.Array,
+    abc_coef: float,
+    ex_y0: jax.Array,
+    ex_yn: jax.Array,
+    ex_z0: jax.Array,
+    ex_zn: jax.Array,
+    ey_x0: jax.Array,
+    ey_xn: jax.Array,
+    ey_z0: jax.Array,
+    ey_zn: jax.Array,
+    ez_x0: jax.Array,
+    ez_xn: jax.Array,
+    ez_y0: jax.Array,
+    ez_yn: jax.Array,
+) -> tuple[jax.Array, jax.Array, jax.Array, tuple]:
     """
     1st-Order Mur Absorbing Boundary Conditions on all six faces.
 
@@ -215,15 +243,36 @@ def _apply_mur_abc_jax(Ex, Ey, Ez, abc_coef,
     Ey = Ey.at[:, :, -1].set(ey_zn + c1 * (Ey[:, :, -2] - Ey[:, :, -1]))
     new_ey_zn = Ey[:, :, -2]
 
-    abc_mem = (new_ex_y0, new_ex_yn, new_ex_z0, new_ex_zn,
-               new_ey_x0, new_ey_xn, new_ey_z0, new_ey_zn,
-               new_ez_x0, new_ez_xn, new_ez_y0, new_ez_yn)
+    abc_mem = (
+        new_ex_y0,
+        new_ex_yn,
+        new_ex_z0,
+        new_ex_zn,
+        new_ey_x0,
+        new_ey_xn,
+        new_ey_z0,
+        new_ey_zn,
+        new_ez_x0,
+        new_ez_xn,
+        new_ez_y0,
+        new_ez_yn,
+    )
 
     return Ex, Ey, Ez, abc_mem
 
 
 @jit
-def _apply_pml_jax(Ex, Ey, Ez, Hx, Hy, Hz, bx, by, bz):
+def _apply_pml_jax(
+    Ex: jax.Array,
+    Ey: jax.Array,
+    Ez: jax.Array,
+    Hx: jax.Array,
+    Hy: jax.Array,
+    Hz: jax.Array,
+    bx: jax.Array,
+    by: jax.Array,
+    bz: jax.Array,
+) -> tuple[jax.Array, jax.Array, jax.Array, jax.Array, jax.Array, jax.Array]:
     """
     PML absorbing boundaries using exponential conductivity damping.
 
@@ -266,7 +315,16 @@ def _apply_pml_jax(Ex, Ey, Ez, Hx, Hy, Hz, bx, by, bz):
 
 
 @partial(jit, static_argnums=(7,))
-def _total_field_energy_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
+def _total_field_energy_jax(
+    Ex: jax.Array,
+    Ey: jax.Array,
+    Ez: jax.Array,
+    Hx: jax.Array,
+    Hy: jax.Array,
+    Hz: jax.Array,
+    params: dict,
+    linear_only: bool,
+) -> jax.Array:
     """
     Total electromagnetic energy in the grid:
 
@@ -274,13 +332,13 @@ def _total_field_energy_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
 
     Uses Axiom 4 nonlinear ε/μ when in nonlinear mode.
     """
-    dx = params['dx']
-    epsilon_0 = params['epsilon_0']
-    mu_0 = params['mu_0']
-    v_yield = params['v_yield']
-    b_yield = params['b_yield']
-    eps_r = params['eps_r']
-    mu_r = params['mu_r']
+    dx = params["dx"]
+    epsilon_0 = params["epsilon_0"]
+    mu_0 = params["mu_0"]
+    v_yield = params["v_yield"]
+    b_yield = params["b_yield"]
+    eps_r = params["eps_r"]
+    mu_r = params["mu_r"]
 
     E_sq = Ex**2 + Ey**2 + Ez**2
     H_sq = Hx**2 + Hy**2 + Hz**2
@@ -292,14 +350,14 @@ def _total_field_energy_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
         # Electric sector
         E_mag = jnp.sqrt(E_sq)
         V_local = E_mag * dx
-        ratio_sq = jnp.clip((V_local / v_yield)**2, 0.0, 1.0 - 1e-12)
+        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - 1e-12)
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
         # Magnetic sector
         H_mag = jnp.sqrt(H_sq)
         B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield)**2, 0.0, 1.0 - 1e-12)
+        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - 1e-12)
         mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
         u_m = 0.5 * mu_local * H_sq
 
@@ -307,7 +365,16 @@ def _total_field_energy_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
 
 
 @partial(jit, static_argnums=(7,))
-def _energy_density_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
+def _energy_density_jax(
+    Ex: jax.Array,
+    Ey: jax.Array,
+    Ez: jax.Array,
+    Hx: jax.Array,
+    Hy: jax.Array,
+    Hz: jax.Array,
+    params: dict,
+    linear_only: bool,
+) -> jax.Array:
     """
     EM energy density u(x,y,z) per cell [J/m³].
 
@@ -315,13 +382,13 @@ def _energy_density_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
 
     Axiom 4 nonlinear ε/μ used when in nonlinear mode.
     """
-    dx = params['dx']
-    epsilon_0 = params['epsilon_0']
-    mu_0 = params['mu_0']
-    v_yield = params['v_yield']
-    b_yield = params['b_yield']
-    eps_r = params['eps_r']
-    mu_r = params['mu_r']
+    dx = params["dx"]
+    epsilon_0 = params["epsilon_0"]
+    mu_0 = params["mu_0"]
+    v_yield = params["v_yield"]
+    b_yield = params["b_yield"]
+    eps_r = params["eps_r"]
+    mu_r = params["mu_r"]
 
     E_sq = Ex**2 + Ey**2 + Ez**2
     H_sq = Hx**2 + Hy**2 + Hz**2
@@ -332,13 +399,13 @@ def _energy_density_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
     else:
         E_mag = jnp.sqrt(E_sq)
         V_local = E_mag * dx
-        ratio_sq = jnp.clip((V_local / v_yield)**2, 0.0, 1.0 - 1e-12)
+        ratio_sq = jnp.clip((V_local / v_yield) ** 2, 0.0, 1.0 - 1e-12)
         eps_local = epsilon_0 * eps_r * jnp.sqrt(1.0 - ratio_sq)
         u_e = 0.5 * eps_local * E_sq
 
         H_mag = jnp.sqrt(H_sq)
         B_local = mu_0 * H_mag
-        mag_ratio_sq = jnp.clip((B_local / b_yield)**2, 0.0, 1.0 - 1e-12)
+        mag_ratio_sq = jnp.clip((B_local / b_yield) ** 2, 0.0, 1.0 - 1e-12)
         mu_local = mu_0 * mu_r * jnp.sqrt(1.0 - mag_ratio_sq)
         u_m = 0.5 * mu_local * H_sq
 
@@ -348,6 +415,7 @@ def _energy_density_jax(Ex, Ey, Ez, Hx, Hy, Hz, params, linear_only):
 # =====================================================================
 # Engine Class (stateful wrapper around JIT-compiled kernels)
 # =====================================================================
+
 
 class FDTD3DEngineJAX:
     """
@@ -377,7 +445,7 @@ class FDTD3DEngineJAX:
         b_yield: float = B_SNAP,
         use_pml: bool = False,
         pml_layers: int = 8,
-    ):
+    ) -> None:
         self.nx = nx
         self.ny = ny
         self.nz = nz
@@ -423,14 +491,20 @@ class FDTD3DEngineJAX:
         self.abc_coef = abc_coef
 
         # ABC boundary memory (JAX arrays)
-        self.ex_y0 = jnp.zeros((nx, nz)); self.ex_yn = jnp.zeros((nx, nz))
-        self.ex_z0 = jnp.zeros((nx, ny)); self.ex_zn = jnp.zeros((nx, ny))
+        self.ex_y0 = jnp.zeros((nx, nz))
+        self.ex_yn = jnp.zeros((nx, nz))
+        self.ex_z0 = jnp.zeros((nx, ny))
+        self.ex_zn = jnp.zeros((nx, ny))
 
-        self.ey_x0 = jnp.zeros((ny, nz)); self.ey_xn = jnp.zeros((ny, nz))
-        self.ey_z0 = jnp.zeros((nx, ny)); self.ey_zn = jnp.zeros((nx, ny))
+        self.ey_x0 = jnp.zeros((ny, nz))
+        self.ey_xn = jnp.zeros((ny, nz))
+        self.ey_z0 = jnp.zeros((nx, ny))
+        self.ey_zn = jnp.zeros((nx, ny))
 
-        self.ez_x0 = jnp.zeros((ny, nz)); self.ez_xn = jnp.zeros((ny, nz))
-        self.ez_y0 = jnp.zeros((nx, nz)); self.ez_yn = jnp.zeros((nx, nz))
+        self.ez_x0 = jnp.zeros((ny, nz))
+        self.ez_xn = jnp.zeros((ny, nz))
+        self.ez_y0 = jnp.zeros((nx, nz))
+        self.ez_yn = jnp.zeros((nx, nz))
 
         # PML initialization
         if self.use_pml:
@@ -443,23 +517,23 @@ class FDTD3DEngineJAX:
 
         # Params dict for JIT kernels (static across steps)
         self._params = {
-            'dt': self.dt,
-            'dx': self.dx,
-            'epsilon_0': self.epsilon_0,
-            'mu_0': self.mu_0,
-            'v_yield': self.v_yield,
-            'b_yield': self.b_yield,
-            'eps_r': self.eps_r,
-            'mu_r': self.mu_r,
+            "dt": self.dt,
+            "dx": self.dx,
+            "epsilon_0": self.epsilon_0,
+            "mu_0": self.mu_0,
+            "v_yield": self.v_yield,
+            "b_yield": self.b_yield,
+            "eps_r": self.eps_r,
+            "mu_r": self.mu_r,
         }
 
-    def _init_cpml(self):
+    def _init_cpml(self) -> None:
         """Initialize CPML conductivity profiles and ψ accumulator arrays."""
         d = self.pml_layers
         m = 3  # cubic grading
         sigma_max = (m + 1) / (150.0 * np.pi * self.dx)
 
-        def _build_sigma(n_cells, n_pml):
+        def _build_sigma(n_cells: int, n_pml: int) -> np.ndarray:
             sigma = np.zeros(n_cells)
             for i in range(n_pml):
                 val = sigma_max * ((n_pml - i) / n_pml) ** m
@@ -476,56 +550,86 @@ class FDTD3DEngineJAX:
         self.by = jnp.array(np.exp(-sigma_y * self.dt / self.epsilon_0))
         self.bz = jnp.array(np.exp(-sigma_z * self.dt / self.epsilon_0))
 
-    def _sync_params(self):
+    def _sync_params(self) -> None:
         """Update params dict when eps_r or mu_r change (numpy→JAX conversion)."""
-        self._params['eps_r'] = jnp.array(self.eps_r)
-        self._params['mu_r'] = jnp.array(self.mu_r)
+        self._params["eps_r"] = jnp.array(self.eps_r)
+        self._params["mu_r"] = jnp.array(self.mu_r)
 
-    def inject_soft_source(self, field: str, x: int, y: int, z: int, amplitude: float):
+    def inject_soft_source(self, field: str, x: int, y: int, z: int, amplitude: float) -> None:
         """Inject a soft source (additive) into a field component at (x, y, z)."""
-        if field == 'Ex':
+        if field == "Ex":
             self.Ex = self.Ex.at[x, y, z].add(amplitude)
-        elif field == 'Ey':
+        elif field == "Ey":
             self.Ey = self.Ey.at[x, y, z].add(amplitude)
-        elif field == 'Ez':
+        elif field == "Ez":
             self.Ez = self.Ez.at[x, y, z].add(amplitude)
 
-    def step(self):
+    def step(self) -> None:
         """Execute one complete dt timestep of the Maxwell Yee-cell algorithm."""
         # Sync material maps (numpy→JAX) before computation
         self._sync_params()
         # Field updates (JIT-compiled)
-        self.Ex, self.Ey, self.Ez, self.Hx, self.Hy, self.Hz = \
-            _update_fields_step(
-                self.Ex, self.Ey, self.Ez,
-                self.Hx, self.Hy, self.Hz,
-                self._params,
-                self.linear_only,
-            )
+        self.Ex, self.Ey, self.Ez, self.Hx, self.Hy, self.Hz = _update_fields_step(
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Hx,
+            self.Hy,
+            self.Hz,
+            self._params,
+            self.linear_only,
+        )
 
         # Boundary conditions
         if self.use_pml:
-            self.Ex, self.Ey, self.Ez, self.Hx, self.Hy, self.Hz = \
-                _apply_pml_jax(
-                    self.Ex, self.Ey, self.Ez,
-                    self.Hx, self.Hy, self.Hz,
-                    self.bx, self.by, self.bz,
-                )
+            self.Ex, self.Ey, self.Ez, self.Hx, self.Hy, self.Hz = _apply_pml_jax(
+                self.Ex,
+                self.Ey,
+                self.Ez,
+                self.Hx,
+                self.Hy,
+                self.Hz,
+                self.bx,
+                self.by,
+                self.bz,
+            )
         else:
-            self.Ex, self.Ey, self.Ez, abc_mem = \
-                _apply_mur_abc_jax(
-                    self.Ex, self.Ey, self.Ez, self.abc_coef,
-                    self.ex_y0, self.ex_yn, self.ex_z0, self.ex_zn,
-                    self.ey_x0, self.ey_xn, self.ey_z0, self.ey_zn,
-                    self.ez_x0, self.ez_xn, self.ez_y0, self.ez_yn,
-                )
-            (self.ex_y0, self.ex_yn, self.ex_z0, self.ex_zn,
-             self.ey_x0, self.ey_xn, self.ey_z0, self.ey_zn,
-             self.ez_x0, self.ez_xn, self.ez_y0, self.ez_yn) = abc_mem
+            self.Ex, self.Ey, self.Ez, abc_mem = _apply_mur_abc_jax(
+                self.Ex,
+                self.Ey,
+                self.Ez,
+                self.abc_coef,
+                self.ex_y0,
+                self.ex_yn,
+                self.ex_z0,
+                self.ex_zn,
+                self.ey_x0,
+                self.ey_xn,
+                self.ey_z0,
+                self.ey_zn,
+                self.ez_x0,
+                self.ez_xn,
+                self.ez_y0,
+                self.ez_yn,
+            )
+            (
+                self.ex_y0,
+                self.ex_yn,
+                self.ex_z0,
+                self.ex_zn,
+                self.ey_x0,
+                self.ey_xn,
+                self.ey_z0,
+                self.ey_zn,
+                self.ez_x0,
+                self.ez_xn,
+                self.ez_y0,
+                self.ez_yn,
+            ) = abc_mem
 
         self.timestep += 1
 
-    def run(self, n_steps: int):
+    def run(self, n_steps: int) -> "FDTD3DEngineJAX":
         """Run n_steps timesteps. Returns self for chaining."""
         for _ in range(n_steps):
             self.step()
@@ -537,24 +641,34 @@ class FDTD3DEngineJAX:
         U = Σ (½ε_eff|E|² + ½μ_eff|H|²) · dx³
         """
         u = _total_field_energy_jax(
-            self.Ex, self.Ey, self.Ez,
-            self.Hx, self.Hy, self.Hz,
-            self._params, self.linear_only,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Hx,
+            self.Hy,
+            self.Hz,
+            self._params,
+            self.linear_only,
         )
         return float(u)
 
-    def energy_density(self):
+    def energy_density(self) -> jax.Array:
         """
         Compute EM energy density u(x,y,z) per cell [J/m³].
         u = ½ε_eff|E|² + ½μ_eff|H|²
         """
         return _energy_density_jax(
-            self.Ex, self.Ey, self.Ez,
-            self.Hx, self.Hy, self.Hz,
-            self._params, self.linear_only,
+            self.Ex,
+            self.Ey,
+            self.Ez,
+            self.Hx,
+            self.Hy,
+            self.Hz,
+            self._params,
+            self.linear_only,
         )
 
-    def ponderomotive_force(self) -> tuple:
+    def ponderomotive_force(self) -> tuple[jax.Array, jax.Array, jax.Array]:
         """
         Compute the ponderomotive force density F = −∇u [N/m³].
         Returns (Fx, Fy, Fz) arrays.
@@ -572,9 +686,13 @@ class FDTD3DEngineJAX:
 
         return Fx, Fy, Fz
 
-    def to_numpy(self):
+    def to_numpy(self) -> dict[str, np.ndarray]:
         """Return numpy copies of all field arrays (for matplotlib etc.)."""
         return {
-            'Ex': np.array(self.Ex), 'Ey': np.array(self.Ey), 'Ez': np.array(self.Ez),
-            'Hx': np.array(self.Hx), 'Hy': np.array(self.Hy), 'Hz': np.array(self.Hz),
+            "Ex": np.array(self.Ex),
+            "Ey": np.array(self.Ey),
+            "Ez": np.array(self.Ez),
+            "Hx": np.array(self.Hx),
+            "Hy": np.array(self.Hy),
+            "Hz": np.array(self.Hz),
         }

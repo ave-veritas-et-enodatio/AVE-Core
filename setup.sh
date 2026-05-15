@@ -24,6 +24,8 @@ if ! command -v uv &> /dev/null; then
 fi
 
 uv sync
+uv tool install pre-commit
+pre-commit install
 
 # Optional: SPICE verification toolchain
 # ngspice is required for SPICE-based verification tests (src/tests/test_spice_*)

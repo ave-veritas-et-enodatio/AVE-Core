@@ -22,27 +22,13 @@ References:
   - Engine: coupled_resonator.py (molecular_bond_distance, molecular_bond_energy)
   - Engine: transmission_line.py (ABCD cascade)
 """
-from __future__ import annotations
 
-
-import numpy as np
 from math import pi
 
-from ave.core.constants import (
-    HBAR, C_0, e_charge,
-    ALPHA,
-)
-from ave.nuclear.silicon_atom import (
-    R_VAL_SI,
-    IE_SI_NIST,
-    N_SP3_ORBITALS,
-    SP3_ANGLE_DEG,
-)
-from ave.solvers.coupled_resonator import (
-    molecular_bond_distance,
-    molecular_bond_energy,
-)
+import numpy as np
 
+from ave.nuclear.silicon_atom import IE_SI_NIST, R_VAL_SI
+from ave.solvers.coupled_resonator import molecular_bond_distance, molecular_bond_energy
 
 # ═══════════════════════════════════════════════════════════════════
 # Si-Si BOND PARAMETERS
@@ -50,12 +36,20 @@ from ave.solvers.coupled_resonator import (
 
 # Si-Si single bond (sp³ → sp³)
 D_SI_SI: float = molecular_bond_distance(
-    R_VAL_SI, R_VAL_SI, Z_A=14, Z_B=14, bond_order=1,
+    R_VAL_SI,
+    R_VAL_SI,
+    Z_A=14,
+    Z_B=14,
+    bond_order=1,
 )
 
 # Bond energy and coupling constant
 B_SI_SI_EV, K_SI_SI = molecular_bond_energy(
-    IE_SI_NIST, IE_SI_NIST, R_VAL_SI, R_VAL_SI, D_SI_SI,
+    IE_SI_NIST,
+    IE_SI_NIST,
+    R_VAL_SI,
+    R_VAL_SI,
+    D_SI_SI,
 )
 
 # Diamond cubic lattice constant: a = d × 4/√3
@@ -63,9 +57,9 @@ B_SI_SI_EV, K_SI_SI = molecular_bond_energy(
 A_LATTICE: float = D_SI_SI * 4.0 / np.sqrt(3.0)
 
 # Experimental references [m]
-D_SI_SI_EXP: float = 2.352e-10   # Experimental Si-Si bond distance
+D_SI_SI_EXP: float = 2.352e-10  # Experimental Si-Si bond distance
 A_LATTICE_EXP: float = 5.431e-10  # Experimental lattice constant
-E_GAP_EXP: float = 1.12           # Experimental band gap [eV]
+E_GAP_EXP: float = 1.12  # Experimental band gap [eV]
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -78,24 +72,26 @@ E_GAP_EXP: float = 1.12           # Experimental band gap [eV]
 #
 # Each atom bonds to 4 nearest neighbors at distance a√3/4.
 
-FRAC_COORDS = np.array([
-    # FCC lattice 1
-    [0.00, 0.00, 0.00],
-    [0.50, 0.50, 0.00],
-    [0.50, 0.00, 0.50],
-    [0.00, 0.50, 0.50],
-    # FCC lattice 2 (offset by [1/4, 1/4, 1/4])
-    [0.25, 0.25, 0.25],
-    [0.75, 0.75, 0.25],
-    [0.75, 0.25, 0.75],
-    [0.25, 0.75, 0.75],
-])
+FRAC_COORDS = np.array(
+    [
+        # FCC lattice 1
+        [0.00, 0.00, 0.00],
+        [0.50, 0.50, 0.00],
+        [0.50, 0.00, 0.50],
+        [0.00, 0.50, 0.50],
+        # FCC lattice 2 (offset by [1/4, 1/4, 1/4])
+        [0.25, 0.25, 0.25],
+        [0.75, 0.75, 0.25],
+        [0.75, 0.25, 0.75],
+        [0.25, 0.75, 0.75],
+    ]
+)
 
 N_ATOMS_CELL: int = 8
 COORD_NUMBER: int = 4
 
 
-def build_unit_cell_bonds():
+def build_unit_cell_bonds() -> list[tuple[int, int, np.ndarray]]:
     """Find nearest-neighbor bonds in the diamond cubic unit cell.
 
     Returns list of (i, j, displacement_vector) tuples, where i,j are
@@ -121,7 +117,6 @@ def build_unit_cell_bonds():
                         if abs(dist - nn_dist_frac) < 0.01:
                             bonds.append((i, j, shift))
     return bonds
-
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -173,7 +168,7 @@ def build_unit_cell_bonds():
 K_CRYSTAL: float = K_SI_SI / float(COORD_NUMBER)
 
 
-def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
+def dispersion_periodic_lc(q_points: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """Dispersion relation for periodic LC network with 2-atom basis.
 
     Two LC resonators per cell, coupling k_crystal between neighbors.
@@ -189,8 +184,8 @@ def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
     Returns:
         (E_bonding, E_antibonding): Two branch energies [eV].
     """
-    omega_0 = IE_SI_NIST   # Atomic resonance energy [eV]
-    k = K_CRYSTAL           # Per-bond coupling
+    omega_0 = IE_SI_NIST  # Atomic resonance energy [eV]
+    k = K_CRYSTAL  # Per-bond coupling
 
     qa = q_points * pi
 
@@ -200,7 +195,7 @@ def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
     cos_factor = 2.0 * np.abs(np.cos(qa / 2.0))
 
     from ave.core.universal_operators import universal_coupled_mode_frequency
-    
+
     # Bonding branch (lower energy, electrons occupy this)
     E_bonding = universal_coupled_mode_frequency(omega_0, k, cos_factor)
 
@@ -211,7 +206,7 @@ def dispersion_periodic_lc(q_points: np.ndarray) -> tuple:
     return E_bonding, E_antibonding
 
 
-def silicon_band_gap() -> dict:
+def silicon_band_gap() -> dict[str, float | int]:
     """Extract the silicon band gap from coordination-loaded coupling.
 
     The crystal band gap is the energy difference between the top
@@ -225,38 +220,38 @@ def silicon_band_gap() -> dict:
     k = K_CRYSTAL
 
     from ave.core.universal_operators import universal_coupled_mode_frequency
-    
+
     # Bonding-antibonding split with per-bond coupling k_crystal
-    E_bonding = universal_coupled_mode_frequency(omega_0, k, 1.0)        # Bonding band top
-    E_antibonding = universal_coupled_mode_frequency(omega_0, -k, 1.0)   # Antibonding band bottom
+    E_bonding = universal_coupled_mode_frequency(omega_0, k, 1.0)  # Bonding band top
+    E_antibonding = universal_coupled_mode_frequency(omega_0, -k, 1.0)  # Antibonding band bottom
 
     # Band gap = antibonding bottom - bonding top
     E_gap = E_antibonding - E_bonding
 
     # Also compute at zone boundary (q=π/a, minimum gap)
     # At zone boundary: cos(qa/2) = 0, so E_± = ω₀ (degenerate)
-    E_gap_zone_edge = 0.0  # For a monatomic chain with equal bonds
+    # E_gap_zone_edge = 0.0  # For a monatomic chain with equal bonds  # bulk lint fixup pass
 
     # The zone-center gap is the physically meaningful one for
     # the coordination-loaded model
-    E_gap_at_zone_center = E_gap
+    # E_gap_at_zone_center = E_gap  # bulk lint fixup pass
 
     return {
-        'E_gap_eV': E_gap,
-        'E_gap_exp_eV': E_GAP_EXP,
-        'error_pct': (E_gap - E_GAP_EXP) / E_GAP_EXP * 100.0,
-        'E_bonding_eV': E_bonding,
-        'E_antibonding_eV': E_antibonding,
-        'k_molecular': K_SI_SI,
-        'k_crystal': K_CRYSTAL,
-        'N_coord': COORD_NUMBER,
-        'omega_0_eV': omega_0,
-        'd_si_si_angstrom': D_SI_SI * 1e10,
-        'a_lattice_angstrom': A_LATTICE * 1e10,
+        "E_gap_eV": E_gap,
+        "E_gap_exp_eV": E_GAP_EXP,
+        "error_pct": (E_gap - E_GAP_EXP) / E_GAP_EXP * 100.0,
+        "E_bonding_eV": E_bonding,
+        "E_antibonding_eV": E_antibonding,
+        "k_molecular": K_SI_SI,
+        "k_crystal": K_CRYSTAL,
+        "N_coord": COORD_NUMBER,
+        "omega_0_eV": omega_0,
+        "d_si_si_angstrom": D_SI_SI * 1e10,
+        "a_lattice_angstrom": A_LATTICE * 1e10,
     }
 
 
-def print_silicon_crystal_report():
+def print_silicon_crystal_report() -> None:
     """Print comprehensive silicon crystal report."""
     result = silicon_band_gap()
     bonds = build_unit_cell_bonds()
@@ -265,22 +260,25 @@ def print_silicon_crystal_report():
     print("SILICON CRYSTAL — DIAMOND CUBIC AVE CIRCUIT")
     print("=" * 65)
 
-    print(f"\n--- Bond Parameters ---")
-    print(f"  Si-Si distance:  {result['d_si_si_angstrom']:.4f} Å  (exp: 2.352 Å, "
-          f"err: {(result['d_si_si_angstrom']-2.352)/2.352*100:+.1f}%)")
-    print(f"  Bond energy:     {B_SI_SI_EV:.3f} eV  (exp: ~3.39 eV, "
-          f"err: {(B_SI_SI_EV-3.39)/3.39*100:+.1f}%)")
+    print("\n--- Bond Parameters ---")
+    print(
+        f"  Si-Si distance:  {result['d_si_si_angstrom']:.4f} Å  (exp: 2.352 Å, "
+        f"err: {(result['d_si_si_angstrom']-2.352)/2.352*100:+.1f}%)"
+    )
+    print(f"  Bond energy:     {B_SI_SI_EV:.3f} eV  (exp: ~3.39 eV, " f"err: {(B_SI_SI_EV-3.39)/3.39*100:+.1f}%)")
     print(f"  k_molecular:     {result['k_molecular']:.6f}")
     print(f"  k_crystal:       {result['k_crystal']:.6f}  (= k_mol / {result['N_coord']})")
-    print(f"  Lattice const:   {result['a_lattice_angstrom']:.4f} Å  (exp: 5.431 Å, "
-          f"err: {(result['a_lattice_angstrom']-5.431)/5.431*100:+.1f}%)")
+    print(
+        f"  Lattice const:   {result['a_lattice_angstrom']:.4f} Å  (exp: 5.431 Å, "
+        f"err: {(result['a_lattice_angstrom']-5.431)/5.431*100:+.1f}%)"
+    )
 
-    print(f"\n--- Unit Cell ---")
+    print("\n--- Unit Cell ---")
     print(f"  Atoms per cell: {N_ATOMS_CELL}")
     print(f"  Coordination:   {COORD_NUMBER} (tetrahedral)")
     print(f"  Bonds found:    {len(bonds)}")
 
-    print(f"\n--- Band Gap (Coordination-Loaded Coupled Resonator) ---")
+    print("\n--- Band Gap (Coordination-Loaded Coupled Resonator) ---")
     print(f"  ω₀ (atomic):      {result['omega_0_eV']:.3f} eV")
     print(f"  k_crystal:         {result['k_crystal']:.6f}")
     print(f"  E_bonding:         {result['E_bonding_eV']:.4f} eV")
@@ -290,4 +288,3 @@ def print_silicon_crystal_report():
     print(f"  Error:             {result['error_pct']:+.1f}%")
 
     print(f"\n{'=' * 65}")
-

@@ -17,15 +17,13 @@ Usage:
     python src/scripts/vol_2_subatomic/simulate_g2.py
 """
 
-import numpy as np
 from math import pi, sqrt
-from ave.core.constants import (
-    ALPHA, C_0, EPSILON_0, MU_0, HBAR, M_E, L_NODE, V_SNAP,
-)
+
+from ave.core.constants import ALPHA, C_0, EPSILON_0, L_NODE, M_E, V_SNAP
 from ave.topological.cosserat import G_MINUS_2_TREE
 
 MeV = float(e_charge) * 1e6  # from constants.py (e × 10⁶)
-e = float(e_charge)           # from constants.py
+e = float(e_charge)  # from constants.py
 m_e_J = M_E * C_0**2
 l = L_NODE
 
@@ -44,16 +42,16 @@ print()
 
 E_peak = sqrt(m_e_J / (EPSILON_0 * l**3))
 V_peak = E_peak * l
-strain_sq = (V_peak / V_SNAP)**2
+strain_sq = (V_peak / V_SNAP) ** 2
 
-print(f"  STEP 1: On-site strain")
+print("  STEP 1: On-site strain")
 print(f"    E_peak    = {E_peak:.4e} V/m")
 print(f"    V_peak    = {V_peak:.0f} V")
 print(f"    V_snap    = {V_SNAP:.0f} V")
 print(f"    (V/V_s)²  = {strain_sq:.8f}")
 print(f"    4πα        = {4*pi*ALPHA:.8f}")
 print(f"    Match     = {strain_sq/(4*pi*ALPHA):.10f}")
-print(f"    → (V_peak/V_snap)² = 4πα  ✓ EXACT")
+print("    → (V_peak/V_snap)² = 4πα  ✓ EXACT")
 print()
 
 # ================================================================
@@ -64,7 +62,7 @@ print()
 # <δε/ε> = -<(V/V_s)²>/2 = -πα
 
 eps_correction = -pi * ALPHA
-print(f"  STEP 2: Capacitance correction")
+print("  STEP 2: Capacitance correction")
 print(f"    <δε/ε>   = -πα = {eps_correction:.6f}")
 print()
 
@@ -74,7 +72,7 @@ print()
 # ω = 1/√(LC), δω/ω = -δC/(2C) = πα/2
 
 freq_shift = pi * ALPHA / 2
-print(f"  STEP 3: LC frequency shift")
+print("  STEP 3: LC frequency shift")
 print(f"    δω/ω     = πα/2 = {freq_shift:.6f}")
 print()
 
@@ -88,21 +86,21 @@ angular_factor = 1 / pi**2
 a_e = angular_factor * freq_shift
 a_e_schwinger = ALPHA / (2 * pi)
 
-print(f"  STEP 4: Spin-orbit angular projection")
+print("  STEP 4: Spin-orbit angular projection")
 print(f"    Factor   = 1/π² = {angular_factor:.6f}")
-print(f"    a_e      = (1/π²)(πα/2) = α/(2π)")
+print("    a_e      = (1/π²)(πα/2) = α/(2π)")
 print()
 
 # ================================================================
 # FINAL RESULT
 # ================================================================
 print(f"  {'='*50}")
-print(f"  RESULT")
+print("  RESULT")
 print(f"  {'='*50}")
 print(f"    a_e (derived)   = {a_e:.8f}")
 print(f"    a_e (Schwinger) = {a_e_schwinger:.8f}")
-print(f"    a_e (exp)       = 0.00115966")
-print(f"    Match: EXACT (algebraically identical)")
+print("    a_e (exp)       = 0.00115966")
+print("    Match: EXACT (algebraically identical)")
 print()
 print(f"    G_MINUS_2_TREE  = {G_MINUS_2_TREE:.8f}")
 print()
@@ -110,11 +108,11 @@ print()
 # ================================================================
 # PHYSICAL INTERPRETATION
 # ================================================================
-print(f"  PHYSICAL INTERPRETATION:")
-print(f"    α = e²/(4πε₀ℏc) = the on-site electric strain squared / (4π)")
-print(f"    The fine structure constant IS the fractional electric")
-print(f"    stress that the unknot imposes on each lattice node.")
-print(f"    The Axiom 4 nonlinear back-reaction to this stress,")
-print(f"    projected onto the spin degree of freedom, gives the")
-print(f"    anomalous magnetic moment.")
-print(f"    No renormalization needed — the lattice IS the regulator.")
+print("  PHYSICAL INTERPRETATION:")
+print("    α = e²/(4πε₀ℏc) = the on-site electric strain squared / (4π)")
+print("    The fine structure constant IS the fractional electric")
+print("    stress that the unknot imposes on each lattice node.")
+print("    The Axiom 4 nonlinear back-reaction to this stress,")
+print("    projected onto the spin degree of freedom, gives the")
+print("    anomalous magnetic moment.")
+print("    No renormalization needed — the lattice IS the regulator.")

@@ -34,6 +34,7 @@ Usage:
     sim.total_hamiltonian()
     sim.total_topological_charge()
 """
+
 from __future__ import annotations
 
 from typing import Optional
@@ -42,11 +43,11 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from ave.core.k4_tlm import K4Lattice3D
 from ave.core.constants import V_SNAP as _V_SNAP_CONST
+from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.cosserat_field_3d import (
-    CosseratField3D,
     KAPPA_CHIRAL_ELECTRON,
+    CosseratField3D,
     _beltrami_helicity,
     _compute_curvature,
     _compute_strain,
@@ -61,12 +62,15 @@ from ave.topological.cosserat_field_3d import (
 # ─────────────────────────────────────────────────────────────────────
 def _v_squared_per_site(V_inc: np.ndarray) -> np.ndarray:
     """|V|² = Σ_n V_inc[...,n]² per lattice site. Shape (nx, ny, nz)."""
-    return np.sum(V_inc ** 2, axis=-1)
+    return np.sum(V_inc**2, axis=-1)
 
 
 def _cosserat_A_squared(
-    u: np.ndarray, omega: np.ndarray, dx: float,
-    omega_yield: float, epsilon_yield: float,
+    u: np.ndarray,
+    omega: np.ndarray,
+    dx: float,
+    omega_yield: float,
+    epsilon_yield: float,
 ) -> np.ndarray:
     """Total saturation amplitude² from Cosserat strain + curvature.
         A² = ε²/ε_yield² + κ²/ω_yield²
@@ -77,7 +81,7 @@ def _cosserat_A_squared(
     kappa = _compute_curvature(w_j, dx)
     eps_sq = jnp.sum(eps * eps, axis=(-1, -2))
     kappa_sq = jnp.sum(kappa * kappa, axis=(-1, -2))
-    A_sq = eps_sq / (epsilon_yield ** 2) + kappa_sq / (omega_yield ** 2)
+    A_sq = eps_sq / (epsilon_yield**2) + kappa_sq / (omega_yield**2)
     return np.asarray(A_sq)
 
 
@@ -92,18 +96,22 @@ def _coupling_energy_total(u, omega, V_sq, V_SNAP, dx, omega_yield, epsilon_yiel
     Differentiating wrt (u, ω) gives the coupling force on Cosserat.
     """
     W_refl = _reflection_density(u, omega, dx, omega_yield, epsilon_yield)
-    integrand = (V_sq / (V_SNAP ** 2)) * W_refl
+    integrand = (V_sq / (V_SNAP**2)) * W_refl
     return jnp.sum(integrand)
 
 
-_coupling_grad = jax.jit(
-    jax.value_and_grad(_coupling_energy_total, argnums=(0, 1))
-)
+_coupling_grad = jax.jit(jax.value_and_grad(_coupling_energy_total, argnums=(0, 1)))
 
 
 def _coupling_energy_total_asymmetric(
-    u, omega, V_sq, V_SNAP, dx,
-    omega_yield, epsilon_yield, kappa_chiral,
+    u,
+    omega,
+    V_sq,
+    V_SNAP,
+    dx,
+    omega_yield,
+    epsilon_yield,
+    kappa_chiral,
 ):
     """Scalar: ∫ W_refl_asymmetric(u, ω, V²) dx³ — Phase 4 coupling.
 
@@ -123,15 +131,19 @@ def _coupling_energy_total_asymmetric(
     See VACUUM_ENGINE_MANUAL §17 A14 r6 + doc 50_ r3 §0.1 + doc 54_ §6.
     """
     W_refl = _reflection_density_asymmetric(
-        u, omega, V_sq, dx, V_SNAP,
-        omega_yield, epsilon_yield, kappa_chiral,
+        u,
+        omega,
+        V_sq,
+        dx,
+        V_SNAP,
+        omega_yield,
+        epsilon_yield,
+        kappa_chiral,
     )
     return jnp.sum(W_refl)
 
 
-_coupling_grad_asymmetric = jax.jit(
-    jax.value_and_grad(_coupling_energy_total_asymmetric, argnums=(0, 1))
-)
+_coupling_grad_asymmetric = jax.jit(jax.value_and_grad(_coupling_energy_total_asymmetric, argnums=(0, 1)))
 
 
 # Path 1 / F17-H: extended gradient with V_sq in argnums for Lagrangian-derived
@@ -139,12 +151,8 @@ _coupling_grad_asymmetric = jax.jit(
 # legacy form (W_refl/V_SNAP², per doc 67_ §13.7 sanity check, JAX matches to
 # zero relative error). For asymmetric form, JAX autograd handles the non-local
 # V → ∇S_ε contributions correctly per doc 67_ §13.5.
-_coupling_grad_with_V_sq_legacy = jax.jit(
-    jax.grad(_coupling_energy_total, argnums=2)
-)
-_coupling_grad_with_V_sq_asymmetric = jax.jit(
-    jax.grad(_coupling_energy_total_asymmetric, argnums=2)
-)
+_coupling_grad_with_V_sq_legacy = jax.jit(jax.grad(_coupling_energy_total, argnums=2))
+_coupling_grad_with_V_sq_asymmetric = jax.jit(jax.grad(_coupling_energy_total_asymmetric, argnums=2))
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -243,8 +251,12 @@ class CoupledK4Cosserat:
         # S(t) dynamics — legacy default False preserves instantaneous Op14.
         self.use_memristive_saturation = bool(use_memristive_saturation)
         self.k4 = K4Lattice3D(
-            nx=N, ny=N, nz=N, dx=1.0,
-            nonlinear=False, pml_thickness=pml,
+            nx=N,
+            ny=N,
+            nz=N,
+            dx=1.0,
+            nonlinear=False,
+            pml_thickness=pml,
             op3_bond_reflection=True,
             use_memristive_saturation=use_memristive_saturation,
             V_SNAP=resolved_V_SNAP,
@@ -266,9 +278,13 @@ class CoupledK4Cosserat:
         # same boundary, Ax3 → same rule every sector). pml=0 disables
         # Cosserat PML (legacy behavior preserved).
         self.cos = CosseratField3D(
-            nx=N, ny=N, nz=N, dx=1.0,
+            nx=N,
+            ny=N,
+            nz=N,
+            dx=1.0,
             use_saturation=False,
-            rho=rho, I_omega=I_omega,
+            rho=rho,
+            I_omega=I_omega,
             pml_thickness=pml,
         )
         # Cosserat self-terms: legacy zeros them ("reflection carried by
@@ -350,21 +366,27 @@ class CoupledK4Cosserat:
 
         if self.use_asymmetric_saturation:
             S_mu, S_eps = _update_saturation_kernels(
-                jnp.asarray(self.cos.u), jnp.asarray(self.cos.omega),
-                jnp.asarray(V_sq), self.cos.dx, self.V_SNAP,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                jnp.asarray(self.cos.u),
+                jnp.asarray(self.cos.omega),
+                jnp.asarray(V_sq),
+                self.cos.dx,
+                self.V_SNAP,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
                 self.kappa_chiral,
             )
             # Z_eff/Z_0 = √(S_μ/S_ε) per doc 54_ §6 line 194
             S_mu_np = np.asarray(S_mu)
             S_eps_np = np.asarray(S_eps)
-            z_local = np.sqrt(np.maximum(S_mu_np, 1e-12)
-                              / np.maximum(S_eps_np, 1e-12))
+            z_local = np.sqrt(np.maximum(S_mu_np, 1e-12) / np.maximum(S_eps_np, 1e-12))
         else:
-            A_sq_k4 = V_sq / (self.V_SNAP ** 2)
+            A_sq_k4 = V_sq / (self.V_SNAP**2)
             A_sq_cos = _cosserat_A_squared(
-                self.cos.u, self.cos.omega, self.cos.dx,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                self.cos.u,
+                self.cos.omega,
+                self.cos.dx,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
             )
             A_sq_total = A_sq_k4 + A_sq_cos
             A_sq_total = np.clip(A_sq_total, 0.0, 1.0 - 1e-12)
@@ -400,14 +422,24 @@ class CoupledK4Cosserat:
 
         if self.use_asymmetric_saturation:
             _, (dEc_du, dEc_dw) = _coupling_grad_asymmetric(
-                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                u_j,
+                w_j,
+                V_sq_j,
+                self.V_SNAP,
+                self.cos.dx,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
                 self.kappa_chiral,
             )
         else:
             _, (dEc_du, dEc_dw) = _coupling_grad(
-                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                u_j,
+                w_j,
+                V_sq_j,
+                self.V_SNAP,
+                self.cos.dx,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
             )
 
         mask = self.cos._mask_alive_jax[..., None].astype(dEc_du.dtype)
@@ -474,14 +506,24 @@ class CoupledK4Cosserat:
 
         if self.use_asymmetric_saturation:
             dL_dVsq = _coupling_grad_with_V_sq_asymmetric(
-                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                u_j,
+                w_j,
+                V_sq_j,
+                self.V_SNAP,
+                self.cos.dx,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
                 self.kappa_chiral,
             )
         else:
             dL_dVsq = _coupling_grad_with_V_sq_legacy(
-                u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-                self.cos.omega_yield, self.cos.epsilon_yield,
+                u_j,
+                w_j,
+                V_sq_j,
+                self.V_SNAP,
+                self.cos.dx,
+                self.cos.omega_yield,
+                self.cos.epsilon_yield,
             )
         dL_dVsq_np = np.asarray(dL_dVsq)  # shape (nx, ny, nz)
 
@@ -550,19 +592,19 @@ class CoupledK4Cosserat:
         u_j = jnp.asarray(self.cos.u)
         w_j = jnp.asarray(self.cos.omega)
         E_c, _ = _coupling_grad(
-            u_j, w_j, V_sq_j, self.V_SNAP, self.cos.dx,
-            self.cos.omega_yield, self.cos.epsilon_yield,
+            u_j,
+            w_j,
+            V_sq_j,
+            self.V_SNAP,
+            self.cos.dx,
+            self.cos.omega_yield,
+            self.cos.epsilon_yield,
         )
         return float(E_c)
 
     def total_hamiltonian(self) -> float:
         """H = E_K4 + E_Cos(kinetic + potential) + E_coupling."""
-        return (
-            self.k4_energy()
-            + self.cosserat_kinetic_energy()
-            + self.cosserat_energy()
-            + self.coupling_energy()
-        )
+        return self.k4_energy() + self.cosserat_kinetic_energy() + self.cosserat_energy() + self.coupling_energy()
 
     def total_topological_charge(self) -> int:
         """Q = winding number from extract_crossing_count (S6-A: diagnostic)."""
@@ -576,10 +618,13 @@ class CoupledK4Cosserat:
     def max_A_squared(self) -> float:
         """Peak A²_total value — locates saturated regions."""
         V_sq = _v_squared_per_site(self.k4.V_inc)
-        A_sq_k4 = V_sq / (self.V_SNAP ** 2)
+        A_sq_k4 = V_sq / (self.V_SNAP**2)
         A_sq_cos = _cosserat_A_squared(
-            self.cos.u, self.cos.omega, self.cos.dx,
-            self.cos.omega_yield, self.cos.epsilon_yield,
+            self.cos.u,
+            self.cos.omega,
+            self.cos.dx,
+            self.cos.omega_yield,
+            self.cos.epsilon_yield,
         )
         A_sq_total = A_sq_k4 + A_sq_cos
         alive = self.k4.mask_active
@@ -591,10 +636,13 @@ class CoupledK4Cosserat:
     def snapshot_scalars(self) -> dict:
         """Single-timestep summary of all key observables."""
         V_sq = _v_squared_per_site(self.k4.V_inc)
-        A_sq_k4 = V_sq / (self.V_SNAP ** 2)
+        A_sq_k4 = V_sq / (self.V_SNAP**2)
         A_sq_cos = _cosserat_A_squared(
-            self.cos.u, self.cos.omega, self.cos.dx,
-            self.cos.omega_yield, self.cos.epsilon_yield,
+            self.cos.u,
+            self.cos.omega,
+            self.cos.dx,
+            self.cos.omega_yield,
+            self.cos.epsilon_yield,
         )
         alive = self.k4.mask_active
         return {

@@ -12,11 +12,8 @@ Constant:
 This module provides exact dimensional conversion functions between
 electrical and mechanical domains.
 """
-from __future__ import annotations
 
-
-import numpy as np
-from ave.core.constants import XI_TOPO, L_NODE, e_charge
+from ave.core.constants import XI_TOPO
 
 
 def charge_to_length(charge_coulombs: float) -> float:

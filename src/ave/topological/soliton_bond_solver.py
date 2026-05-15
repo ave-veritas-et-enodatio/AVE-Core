@@ -1,4 +1,3 @@
-from __future__ import annotations
 r"""
 Coulomb Bond Force Constant Solver
 ===================================
@@ -19,7 +18,7 @@ Key corrections derived from lattice topology:
 
 import numpy as np
 
-from ave.core.constants import EPSILON_0, M_E, HBAR, e_charge
+from ave.core.constants import EPSILON_0, HBAR, M_E, e_charge
 
 # ═══════════════════════════════════════════════════════════
 # CONSTANTS
@@ -36,14 +35,16 @@ def _slater_z_eff(Z: int) -> float:
 
 def _n_star(Z: int) -> float:
     """Effective principal quantum number of valence shell."""
-    if Z <= 2: return 1.0
-    if Z <= 10: return 2.0
+    if Z <= 2:
+        return 1.0
+    if Z <= 10:
+        return 2.0
     return 3.0
 
 
 def _slater_orbital_radius(Z: int) -> float:
     """Most probable radius of Slater orbital [m]: r = n*² · a₀ / Z_eff."""
-    return _n_star(Z)**2 * A_BOHR / _slater_z_eff(Z)
+    return _n_star(Z) ** 2 * A_BOHR / _slater_z_eff(Z)
 
 
 def _electronegativity(Z: int) -> float:
@@ -61,8 +62,8 @@ def _is_terminal(Z: int) -> bool:
 # BOND ENERGY MODEL
 # ═══════════════════════════════════════════════════════════
 
-def bond_energy(d: float, Z_a: int, Z_b: int, n_shared: int,
-                theta: float = 0.0) -> float:
+
+def bond_energy(d: float, Z_a: int, Z_b: int, n_shared: int, theta: float = 0.0) -> float:
     """
     Total energy of a covalent bond at internuclear distance d [m].
 
@@ -110,7 +111,7 @@ def bond_energy(d: float, Z_a: int, Z_b: int, n_shared: int,
     # At θ=0: full overlap → PI_COUPLING × 1.
     # At θ=π/2: zero overlap → PI_COUPLING × (1 - S²).
     S_bond = _bond_overlap(Z_a, Z_b, d) if n_pi > 0 else 0.0
-    torsion_factor = 1.0 - S_bond**2 * np.sin(theta)**2
+    torsion_factor = 1.0 - S_bond**2 * np.sin(theta) ** 2
     PI_COUPLING = (4.0 / 9.0) * (1.0 - polar_slip) * torsion_factor
 
     # 1. Nuclear-nuclear Coulomb repulsion
@@ -123,15 +124,15 @@ def bond_energy(d: float, Z_a: int, Z_b: int, n_shared: int,
         center = d * chi_b / (chi_a + chi_b)
 
     r_avg_a = np.sqrt(center**2 + r_e**2)
-    r_avg_b = np.sqrt((d - center)**2 + r_e**2)
+    r_avg_b = np.sqrt((d - center) ** 2 + r_e**2)
 
     n_eff_en = n_sigma + PI_COUPLING * n_pi
     E_en = -_k_coul * n_eff_en * (Z_eff_a / r_avg_a + Z_eff_b / r_avg_b)
 
     # 3. Kinetic energy (exact STO value, constant in d)
     E_h = _k_coul / A_BOHR
-    T_a = Z_eff_a**2 * E_h / (2 * _n_star(Z_a)**2)
-    T_b = Z_eff_b**2 * E_h / (2 * _n_star(Z_b)**2)
+    T_a = Z_eff_a**2 * E_h / (2 * _n_star(Z_a) ** 2)
+    T_b = Z_eff_b**2 * E_h / (2 * _n_star(Z_b) ** 2)
     E_kin = (n_shared / 2) * (T_a + T_b)
 
     # 4. Electron-electron repulsion
@@ -150,13 +151,15 @@ def bond_energy(d: float, Z_a: int, Z_b: int, n_shared: int,
 
 N_LONE = {1: 0, 6: 0, 7: 2, 8: 4, 16: 4}
 
+
 def _overlap_1s(za: float, zb: float, d: float) -> float:
     """Mulliken overlap integral for 1s-type Slater orbitals."""
     zp = za + zb
     zg = np.sqrt(za * zb)
-    pre = (2.0 * zg / zp)**3
-    poly = 1.0 + 0.5 * zp * d + (zp * d)**2 / 12.0
+    pre = (2.0 * zg / zp) ** 3
+    poly = 1.0 + 0.5 * zp * d + (zp * d) ** 2 / 12.0
     return pre * np.exp(-0.5 * zp * d) * poly
+
 
 def _bond_overlap(Z_a: int, Z_b: int, d: float) -> float:
     """Calculate the overlap integral parameter-free via Slater functions."""
@@ -166,14 +169,18 @@ def _bond_overlap(Z_a: int, Z_b: int, d: float) -> float:
     return min(_overlap_1s(za / max(na, 1.0), zb / max(nb, 1.0), d), 1.0)
 
 
-def compute_bond_curve(Z_a, Z_b, n_shared, d_min=0.5e-10, d_max=4.0e-10, n_points=200):
+def compute_bond_curve(
+    Z_a: int, Z_b: int, n_shared: int, d_min: float = 0.5e-10, d_max: float = 4.0e-10, n_points: int = 200
+) -> tuple[np.ndarray, np.ndarray]:
     """Compute E(d) for a given bond. Returns (d [m], E [J])."""
     d_range = np.linspace(d_min, d_max, n_points)
     energies = np.array([bond_energy(d, Z_a, Z_b, n_shared) for d in d_range])
     return d_range, energies
 
 
-def compute_torsion_curve(Z_a, Z_b, n_shared, d_eq=None, n_points=100):
+def compute_torsion_curve(
+    Z_a: int, Z_b: int, n_shared: int, d_eq: float | None = None, n_points: int = 100
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Compute E(θ) at fixed d=d_eq for torsion angles 0 to π.
 
@@ -187,14 +194,13 @@ def compute_torsion_curve(Z_a, Z_b, n_shared, d_eq=None, n_points=100):
         d_arr, E_arr = compute_bond_curve(Z_a, Z_b, n_shared)
         d_eq = d_arr[np.argmin(E_arr)]
     theta_range = np.linspace(0.0, np.pi, n_points)
-    energies = np.array([
-        bond_energy(d_eq, Z_a, Z_b, n_shared, theta=th)
-        for th in theta_range
-    ])
+    energies = np.array([bond_energy(d_eq, Z_a, Z_b, n_shared, theta=th) for th in theta_range])
     return theta_range, energies
 
 
-def extract_torsional_constant(Z_a, Z_b, n_shared, d_eq=None):
+def extract_torsional_constant(
+    Z_a: int, Z_b: int, n_shared: int, d_eq: float | None = None
+) -> tuple[float, float, float]:
     r"""
     Torsional (bending) force constant from the power factor decomposition.
 
@@ -232,9 +238,7 @@ def extract_torsional_constant(Z_a, Z_b, n_shared, d_eq=None):
 
     # Get the stretching force constant
     d_arr, E_arr = compute_bond_curve(Z_a, Z_b, n_shared)
-    _, k_stretch, _ = extract_force_constant(d_arr, E_arr,
-                                              Z_a=Z_a, Z_b=Z_b,
-                                              n_shared=n_shared)
+    _, k_stretch, _ = extract_force_constant(d_arr, E_arr, Z_a=Z_a, Z_b=Z_b, n_shared=n_shared)
 
     # Coupling filter 1: σ→π geometric coupling
     chi_a = _electronegativity(Z_a)
@@ -257,28 +261,29 @@ def extract_torsional_constant(Z_a, Z_b, n_shared, d_eq=None):
 
 def extract_peptide_kbend() -> float:
     r"""
-    Derives the out-of-plane bending constant (kbend ≈ 14.6 N/m) natively from the 
+    Derives the out-of-plane bending constant (kbend ≈ 14.6 N/m) natively from the
     2D angular topological strain (E(d, theta)) of the resonating amide plane.
-    
-    The amide plane is a conjugate resonant system blending the C-N (single) 
+
+    The amide plane is a conjugate resonant system blending the C-N (single)
     and C=O (double) torsional stiffness.
-    
+
     DERIVATION:
     1. The topological strain pushes across both orthogonal modes simultaneously.
        (Geometric orthogonality resolves via the root-sum-square of the compliances).
-    2. The Cα-hinge bend discontinuity applies the universal 0.75 scaling factor 
+    2. The Cα-hinge bend discontinuity applies the universal 0.75 scaling factor
        derived from Q_BACKBONE = 0.75π².
     """
     _, k_lin_cn, _ = extract_torsional_constant(Z_a=6, Z_b=7, n_shared=3, d_eq=1.33e-10)
     _, k_lin_co, _ = extract_torsional_constant(Z_a=6, Z_b=8, n_shared=4, d_eq=1.23e-10)
-    
+
     # Resolving orthogonal 2D coupling under native Q factor attenuation
     k_bend = 0.75 * np.sqrt(k_lin_cn**2 + k_lin_co**2)
     return k_bend
 
 
-
-def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_shared: int = 2):
+def extract_force_constant(
+    d_array: np.ndarray, E_array: np.ndarray, Z_a: int = 6, Z_b: int = 6, n_shared: int = 2
+) -> tuple[float, float, float]:
     """
     Extract d_eq [m] and k [N/m] from E(d) curve.
 
@@ -307,7 +312,7 @@ def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_share
     if n_terminal == 0:
         na, nb = _n_star(Z_a), _n_star(Z_b)
         # Core area expansion relative to period-2 baseline
-        area_expansion = (na / 2.0)**2 * (nb / 2.0)**2
+        area_expansion = (na / 2.0) ** 2 * (nb / 2.0) ** 2
         # Turns ratio for asymmetric core transition
         turns_ratio = min(na, nb) / max(na, nb)
         transformer_factor = area_expansion * turns_ratio
@@ -327,9 +332,12 @@ def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_share
 
         # Only count lone pairs on heavy (non-terminal) atoms
         lp_total = 0
-        if _is_terminal(Z_a): lp_total = N_LONE.get(Z_b, 0)
-        elif _is_terminal(Z_b): lp_total = N_LONE.get(Z_a, 0)
-        else: lp_total = N_LONE.get(Z_a, 0) + N_LONE.get(Z_b, 0)
+        if _is_terminal(Z_a):
+            lp_total = N_LONE.get(Z_b, 0)
+        elif _is_terminal(Z_b):
+            lp_total = N_LONE.get(Z_a, 0)
+        else:
+            lp_total = N_LONE.get(Z_a, 0) + N_LONE.get(Z_b, 0)
 
         # Lone pair coupling fraction = S^2 * n_lp / n_shared * (1/9)
         alpha_lp = (S**2 * lp_total * (1.0 / 9.0)) / max(n_shared, 1)
@@ -341,7 +349,7 @@ def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_share
             # This broadens the well and geometrically softens k
             T_dyn = np.zeros_like(d_array)
             mask = d_array > 0
-            T_dyn[mask] = alpha_lp * n_shared * np.pi**2 * HBAR**2 / (2 * M_E * d_array[mask]**2)
+            T_dyn[mask] = alpha_lp * n_shared * np.pi**2 * HBAR**2 / (2 * M_E * d_array[mask] ** 2)
             E_eff_array += T_dyn
 
     i_min = np.argmin(E_eff_array)
@@ -349,10 +357,15 @@ def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_share
     E_min = E_eff_array[i_min]
     dd = d_array[1] - d_array[0]
     if 1 < i_min < len(d_array) - 2:
-        k_raw = (-E_eff_array[i_min-2] + 16*E_eff_array[i_min-1] - 30*E_eff_array[i_min]
-                 + 16*E_eff_array[i_min+1] - E_eff_array[i_min+2]) / (12 * dd**2)
+        k_raw = (
+            -E_eff_array[i_min - 2]
+            + 16 * E_eff_array[i_min - 1]
+            - 30 * E_eff_array[i_min]
+            + 16 * E_eff_array[i_min + 1]
+            - E_eff_array[i_min + 2]
+        ) / (12 * dd**2)
     elif 0 < i_min < len(d_array) - 1:
-        k_raw = (E_eff_array[i_min+1] - 2*E_eff_array[i_min] + E_eff_array[i_min-1]) / dd**2
+        k_raw = (E_eff_array[i_min + 1] - 2 * E_eff_array[i_min] + E_eff_array[i_min - 1]) / dd**2
     else:
         k_raw = 0.0
     return d_eq, abs(k_raw) * correction, E_min
@@ -363,22 +376,45 @@ def extract_force_constant(d_array, E_array, Z_a: int = 6, Z_b: int = 6, n_share
 # ═══════════════════════════════════════════════════════════
 
 BOND_DEFS = {
-    'C-H': (6, 1, 2),   'C-C': (6, 6, 2),   'C=C': (6, 6, 4),
-    'C-N': (6, 7, 2),   'C=O': (6, 8, 4),   'C-O': (6, 8, 2),
-    'N-H': (7, 1, 2),   'O-H': (8, 1, 2),   'S-H': (16, 1, 2),
-    'C-S': (6, 16, 2),  'S-S': (16, 16, 2),
+    "C-H": (6, 1, 2),
+    "C-C": (6, 6, 2),
+    "C=C": (6, 6, 4),
+    "C-N": (6, 7, 2),
+    "C=O": (6, 8, 4),
+    "C-O": (6, 8, 2),
+    "N-H": (7, 1, 2),
+    "O-H": (8, 1, 2),
+    "S-H": (16, 1, 2),
+    "C-S": (6, 16, 2),
+    "S-S": (16, 16, 2),
 }
 
 KNOWN_K = {
-    'C-H': 494, 'C-C': 354, 'C=C': 965, 'C-N': 461,
-    'C=O': 1170, 'C-O': 489, 'N-H': 641, 'O-H': 745,
-    'S-H': 390, 'C-S': 253, 'S-S': 236,
+    "C-H": 494,
+    "C-C": 354,
+    "C=C": 965,
+    "C-N": 461,
+    "C=O": 1170,
+    "C-O": 489,
+    "N-H": 641,
+    "O-H": 745,
+    "S-H": 390,
+    "C-S": 253,
+    "S-S": 236,
 }
 
 KNOWN_D = {
-    'C-H': 1.09e-10, 'C-C': 1.54e-10, 'C=C': 1.34e-10, 'C-N': 1.47e-10,
-    'C=O': 1.23e-10, 'C-O': 1.43e-10, 'N-H': 1.01e-10, 'O-H': 0.96e-10,
-    'S-H': 1.34e-10, 'C-S': 1.82e-10, 'S-S': 2.05e-10,
+    "C-H": 1.09e-10,
+    "C-C": 1.54e-10,
+    "C=C": 1.34e-10,
+    "C-N": 1.47e-10,
+    "C=O": 1.23e-10,
+    "C-O": 1.43e-10,
+    "N-H": 1.01e-10,
+    "O-H": 0.96e-10,
+    "S-H": 1.34e-10,
+    "C-S": 1.82e-10,
+    "S-S": 2.05e-10,
 }
 
 
@@ -390,8 +426,10 @@ if __name__ == "__main__":
     print(f"  Isotropy:  interior-interior = 1/3 = {1/3:.4f}")
     print(f"             interior-terminal = 1/(3√3) = {1/(3*np.sqrt(3)):.4f}")
 
-    print(f"\n  {'Bond':>6}  {'d_eq(Å)':>9}  {'d_known':>8}  "
-          f"{'k(N/m)':>9}  {'k_known':>8}  {'k_ratio':>8}  {'d_ratio':>8}")
+    print(
+        f"\n  {'Bond':>6}  {'d_eq(Å)':>9}  {'d_known':>8}  "
+        f"{'k(N/m)':>9}  {'k_known':>8}  {'k_ratio':>8}  {'d_ratio':>8}"
+    )
     print("-" * 80)
 
     for bond, (za, zb, ne) in BOND_DEFS.items():
@@ -399,6 +437,8 @@ if __name__ == "__main__":
         d_eq, k_pred, E_min = extract_force_constant(d, E, za, zb, ne)
         k_known = KNOWN_K[bond]
         d_known = KNOWN_D[bond]
-        print(f"  {bond:>6}  {d_eq*1e10:>9.3f}  {d_known*1e10:>8.2f}  "
-              f"{k_pred:>9.1f}  {k_known:>8}  {k_pred/k_known:>8.3f}  "
-              f"{d_eq/d_known:>8.3f}")
+        print(
+            f"  {bond:>6}  {d_eq*1e10:>9.3f}  {d_known*1e10:>8.2f}  "
+            f"{k_pred:>9.1f}  {k_known:>8}  {k_pred/k_known:>8.3f}  "
+            f"{d_eq/d_known:>8.3f}"
+        )

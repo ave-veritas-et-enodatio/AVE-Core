@@ -94,16 +94,10 @@ a separate matter for Grant adjudication and forward investigation).
 """
 
 import numpy as np
-import sys
-from pathlib import Path
-
-# Add src to path to allow direct execution
-src_path = str(Path(__file__).parent.parent.parent)
-if src_path not in sys.path:
-    sys.path.append(src_path)
 
 from ave.core.constants import NU_VAC
-from ave.solvers.transmission_line import s11_from_y_matrix, build_radial_tree_admittance
+from ave.solvers.transmission_line import build_radial_tree_admittance, s11_from_y_matrix
+
 
 def compute_c2_structural() -> float:
     """
@@ -113,18 +107,19 @@ def compute_c2_structural() -> float:
     # before reaching the effective infinite continuum regime.
     # We use tracking parameters for the K4 geometry (coordination_z=4).
     Y = build_radial_tree_admittance(depth=3, branch_y=NU_VAC, boundary_y=1.0, coordination_z=4)
-    
+
     # The source injects from the origin (port 0) with vacuum characteristic impedance
     s11 = s11_from_y_matrix(Y, port=0, Y0=1.0)
-    
+
     return float(np.real(s11))
+
 
 if __name__ == "__main__":
     c2 = compute_c2_structural()
     c2_pdg = -0.328478965
-    
+
     error = abs(c2 - c2_pdg) / abs(c2_pdg) * 100
-    
+
     print("==========================================================")
     print("  AVE ENGINE: 2ND-ORDER g-2 (C_2) — CORPUS-CANONICAL       ")
     print("  Per Vol 2 Ch 6 §6.2 (manuscript/vol_2_subatomic/...)     ")
