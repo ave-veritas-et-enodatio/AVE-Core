@@ -27,7 +27,7 @@
 | 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | (this commit) | (this commit) |
 | 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | (this commit) | (this commit) |
 | 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | (this commit) |
-| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | pending (THE keystone) | Q-G47 / A-027 / A-029 / A-030 | — |
+| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Session 6 LANDED 2026-05-15** (magic-angle equation explicit, sensitivity sweep verifies solution exists, χ_K≈12 gives u_0*≈0.188 ≈ A-029 geometric scale); Sessions 7-10 remaining | Q-G47 / A-027 / A-029 / A-030 | (this commit) |
 | 3 | T_EM(u_0*) explicit closed-form | pending (Tier 2 dep) | Q-G47 closure | — |
 | 3 | Vol 3 Ch 4 explicit ξ(R_H, ℓ_node) derivation | pending (independent of Q-G47) | (new) | — |
 | 3 | Three-route α/G/𝒥 consistency verification | pending (Tier 3 deps) | A-030 + A-031 | — |
