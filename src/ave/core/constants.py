@@ -2,11 +2,26 @@
 Core physical primitives and invariant constants for the
 Applied Vacuum Electrodynamics (AVE) Framework.
 
-=== THREE CALIBRATION INPUTS ===
-The entire framework is parameterized by exactly three empirical measurements:
-  1. The spatial cutoff (ℓ_node)             → Lattice pitch
-  2. The fine-structure constant (α)          → Dielectric saturation bound
-  3. The gravitational constant (G)           → Machian boundary impedance
+=== STRUCTURAL CLOSURE FRAMING (post 2026-05-15) ===
+
+Per the framework's structural closure declaration (`manuscript/ave-kb/common/
+trampoline-framework.md` §11.0 + `closure-roadmap.md` §1), the parameter count
+has been sharpened:
+
+  STANDARD framing (pre-2026-05-15): three calibration inputs (ℓ_node, α, G)
+  STRUCTURAL CLOSURE framing (current): one scale (ℓ_node) + one cosmological
+    initial-data parameter (Ω_freeze = 𝒥_cosmic / I_cosmic) + four axioms.
+    α and G are JOINTLY cosmologically anchored — both derive from u_0* at
+    the magic-angle operating point, which derives from Ω_freeze via the
+    phase-transition-while-spinning mechanism. See L5 A-001 / A-030 / A-031.
+
+The framework's three observational routes to constrain u_0* (sharpest
+empirical commitment):
+  Route 1 — Electromagnetic: α to 12 decimals (CODATA) → u_0* via Q-G47
+  Route 2 — Gravitational: G to ~4 decimals → u_0* via Machian impedance integral
+  Route 3 — Cosmological: 𝒥_cosmic via CMB/LSS anomalies → u_0* via Ω_freeze
+
+All three routes must give the same u_0* or framework is falsified.
 
 The electron rest mass is NOT an independent input. It is the ground-state
 energy of the simplest topological object on the lattice: the unknot
@@ -19,8 +34,25 @@ the electron is the minimal-energy stable loop, with circumference ℓ_node
 and tube radius ℓ_node/(2π). Its mass is set entirely by the lattice
 tension and the unknot ropelength.
 
-All other constants are DERIVED from these three plus the SI definitions
+In substrate-native vocabulary (per AVE-QED App G + AVE-Core
+`docs/glossary.md`), the electron's substrate-observable mass is
+𝓜_electron = m_e (the integrated strain integral at the horn-torus tube
+wall boundary). See A-028 canonical for the three substrate invariants
+𝓜, 𝓠, 𝓙 and `src/ave/core/boundary_invariants.py` for engine implementation.
+
+All other constants are DERIVED from these inputs plus the SI definitions
 of ε₀, μ₀, c, ℏ, and e.
+
+=== CROSS-REFERENCES ===
+- Picture-first framework: `manuscript/ave-kb/common/trampoline-framework.md`
+- Substrate-native vocabulary: AVE-QED `appendices/G_substrate_vocabulary.tex` +
+  AVE-Core `docs/glossary.md`
+- Three substrate invariants engine module: `src/ave/core/boundary_invariants.py`
+- Master Equation FDTD canonical engine: `src/ave/core/master_equation_fdtd.py`
+- K4-TLM canonical engine: `src/ave/core/k4_tlm.py`
+- Closure-path planning: `manuscript/ave-kb/common/closure-roadmap.md`
+- L5 framework status: `research/L5/axiom_derivation_status.md`
+  (A-001, A-026 through A-031 canonical)
 """
 
 from math import pi

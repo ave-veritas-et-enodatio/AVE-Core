@@ -83,6 +83,38 @@ This single line of non-linear differential topology formally replaces the fragm
     \item \textbf{Gravity:} The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 \end{enumerate}
 
+\paragraph{Canonical engine for the Master Equation: Master Equation FDTD.}
+\textbf{(Added per E-094 / E-095 / E-097, structural-closure propagation 2026-05-15.)}
+Eq.~\ref{eq:master_wave} has a canonical numerical realization in
+\texttt{src/ave/core/master\_equation\_fdtd.py} (the \texttt{MasterEquationFDTD}
+class), validated empirically by the v14 Mode I PASS on the breathing-soliton
+criterion (4/4 strict) per research doc 113. The engine implements 3D leapfrog
+integration on eq.~\ref{eq:master_wave} with saturation kernel
+$S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical) and effective wave speed
+$c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$.
+
+The framework's canonical two-engine architecture (doc 113 \S{}3.2): \textbf{K4-TLM}
+(\texttt{src/ave/core/k4\_tlm.py}) is canonical for the sub-saturation bench
+regime; \textbf{Master Equation FDTD} (\texttt{src/ave/core/master\_equation\_fdtd.py})
+is canonical for the bound-state regime. Both are Axiom-1/2/3/4 compliant; they
+cover different operating regimes of the same substrate.
+
+\paragraph{Substrate-observability rule near saturation boundaries.}
+\textbf{(Added per A-026 / E-094 / E-096.)} When the saturation kernel reaches
+$S(A) \to 0$ (the local $\Gamma = -1$ surface), the substrate is causally
+disconnected from the interior of the saturated region. The only externally
+observable invariants are the three integrated boundary observables:
+$\mathcal{M}$ (integrated strain integral, mass-equivalent), $\mathcal{Q}$
+(boundary linking number, charge-equivalent), $\mathcal{J}$ (boundary winding
+number, spin-equivalent per SU(2) double-cover). The interior --- topology,
+eigenmode wavelength, microrotation profile --- is invisible. Engine implementation:
+\texttt{src/ave/core/boundary\_invariants.py}. \textbf{Canonical picture-first
+reference:} \texttt{manuscript/ave-kb/common/trampoline-framework.md} \S{}4
+(boundaries and envelopes), \S{}5 (inter-cell coupling and gravity projection).
+\textbf{Formal canonical statement:} AVE-QED
+\texttt{manuscript/vol\_qed\_replacement/appendices/G\_substrate\_vocabulary.tex}
+\S{}3-\S{}4. \textbf{L5 status:} A-026, A-028, A-029.
+
 \section{Continuum Electrodynamics of the LC Condensate}
 \subsection{The Dimensionally Exact Mass Density ($\rho_{bulk}$)}
 Previous classical aether models failed because they incorrectly attempted to map vacuum mass density directly to the magnetic permeability constant ($\mu_0$), violating SI dimensional analysis ($[\text{H/m}] \neq [\text{kg/m}^3]$).

@@ -19,7 +19,7 @@
 | Tier | Action | Status | L5 ID | Last touch (SHA / date) |
 |---|---|---|---|---|
 | 0 | Structural closure declared | ✓ DONE | — | `fb2ac44` 2026-05-15 |
-| 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | pending | E-094 | — |
+| 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | **APPLIED** 2026-05-15 (all 7 targets: Vol 1 Ch 1/4, Vol 2 Ch 1, Vol 3 Ch 2, Vol 4 Ch 1, glossary, constants.py) | E-094 | (this commit) |
 | 1 | E-101 Three substrate invariants observables module | **APPLIED** 2026-05-15 (13/13 tests PASS; rigorous M + first-pass Q,J) | E-101 | (this commit) |
 | 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | (this commit) |
 | 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | (this commit) |
