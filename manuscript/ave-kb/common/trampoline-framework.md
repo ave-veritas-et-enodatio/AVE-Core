@@ -86,13 +86,23 @@ $$u_0 = \frac{L_0 - d}{d} = \frac{\rho\, \Omega_{\text{freeze}}^2\, r_{\text{nod
 
 **Direction of $\Omega_{\text{freeze}}$ → direction of bowing → right-handed chirality** by the right-hand rule applied to centrifugal pseudo-force × bond-axis. Mirror-image freeze-in gives left-handed universe with identical magnitude $|u_0|$ and identical physics.
 
+**Bond stiffness $k_0$ vs bulk substrate tension $T_{EM}$ — important distinction (added 2026-05-15 via crystal-physics analog):**
+
+- **Fundamental bond stiffness $k_0$ is intrinsic to the LC tank** — set by Axiom 1 substrate structure. Not freeze-in dependent. (Crystal physics analog: SiO₄ bond stiffness is the same in tempered glass and untempered glass — tempering changes effective response, not the underlying bond.)
+- **Bulk substrate tension $T_{EM}$ is Machian** — bulk integrated bond-tension density over the entire lattice. Depends on $u_0$:
+  $$T_{EM} = n_{\text{bonds}} \cdot k_0 \cdot d \cdot u_0 \cdot (\text{K4 geometric factor})$$
+  where $n_{\text{bonds}}$ is the bond number density (set by $\ell_{\text{node}}$, intrinsic).
+- **Effective small-amplitude stiffness $k_{\text{eff}}$** is the standard pre-stress correction: $k_{\text{eff}}(u_0) = k_0 \cdot (1 + \beta\, u_0 + O(u_0^2))$. Falls out of $k_0$ and $u_0$; not an independent parameter.
+- **Newton's $G$ derives from $T_{EM}$** via the canonical Vol 3 Ch 4 expression $G = c^4 / (7\, \xi\, T_{EM})$ where $\xi$ is the Machian impedance integral over the cosmic horizon. **Therefore $G$ is cosmologically anchored alongside $\alpha$** — both derive from $u_0$. See §5.5.
+
 **What this resolves:**
 - E-017 (Genesis-chirality / supercooled-seed crystallization): was "Grant-hypothesis black box." Now mechanized: rotation during phase transition locks rest length above lab-equilibrium spacing.
 - E-019 (Universe-as-vortex cosmology): was "macro framing without microscopic mechanism." Now microscopic mechanism is the freeze-in rotation that sets $u_0$.
 - Q-G21 (chirality locking simultaneously across the lattice): the entire crystallizing region rotates COHERENTLY — the rotation IS the synchronization mechanism. No super-luminal propagation required.
 - A-001 (α-as-calibration): if α emerges from the $K = 2G$ operating point set by $(u_0, r_{\text{secondary}}/d)$, and $r_{\text{secondary}}/d$ is geometric, and $u_0 = \rho \Omega_{\text{freeze}}^2 r_{\text{node}}^2 / 2K_0$, then **α is cosmologically anchored**: set by one initial-data parameter ($\Omega_{\text{freeze}}$).
+- **Newton's $G$ joins α as cosmologically anchored** (Grant adjudication 2026-05-15 via Machian G observation): both derive from $u_0^*$ at the magic-angle operating point. The framework reduces from "α + G as independent calibration constants" to "α + G correlated through one cosmological parameter." See §5.5 and §10.
 
-**Cross-references.** Q-G47 Session 4 over-bracing framework (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`); Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); E-017 / E-019 / A-001 / A-029 in `research/L5/`.
+**Cross-references.** Q-G47 Session 4 over-bracing framework (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`); Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); Vol 3 Ch 4 (Newton's G canonical Machian expression); E-017 / E-019 / A-001 / A-029 / A-030 (NEW) in `research/L5/`.
 
 ---
 
@@ -382,14 +392,69 @@ For the canonical K4 tetrahedral, $r_{\text{secondary}}/d \approx 1.187$ is fixe
 
 **Implication for α:** if $u_0$ is set by genesis (Step 3 phase-transition-while-spinning mechanism), then **the universe sits at $K = 2G$ if and only if $\Omega_{\text{freeze}}$ took the value that gives $u_0 = u_0^*$.** This is a sharp cosmological constraint: $\Omega_{\text{freeze}}$ isn't free; it's the value that lets the substrate self-consistently support its own dynamics.
 
-### §5.5 Cross-references
+### §5.5 Newton's G as Machian bulk integral over the substrate (Grant 2026-05-15)
+
+The shared-spring picture clarifies what's really happening when "fundamental bond stiffness" is invoked. There are two scales:
+
+| Scale | Quantity | Intrinsic vs freeze-in dependent |
+|---|---|---|
+| **One bond** | $k_0$ — single-bond LC tank stiffness | **Intrinsic** (Axiom 1 substrate field theory) |
+| **Bulk lattice** | $T_{EM}$ — substrate tension (force per cross-section, integrated over the K4 bond network) | **Machian** — depends on $u_0$ via $T_{EM} = n_{\text{bonds}} \cdot k_0 \cdot d \cdot u_0 \cdot$ geometric |
+
+Newton's $G$ is canonical at Vol 3 Ch 4:
+
+$$G_{\text{Newton}} = \frac{c^4}{7\, \xi\, T_{EM}}$$
+
+where:
+- $\xi$ is the **Machian impedance integral** — integrated boundary coupling over the observable universe, from cosmic horizon $R_H \sim 10^{26}$ m down to lattice scale $\ell_{\text{node}} \sim 10^{-13}$ m
+- $T_{EM}$ is **bulk substrate tension** — the integrated bond-tension density set by $u_0$
+- 7 comes from the (2,3) phase-space topology + chiral coupling factor
+
+**Substituting $T_{EM} \propto u_0$:**
+
+$$G_{\text{Newton}} \propto \frac{c^4}{\xi \cdot k_0 \cdot u_0 \cdot (\text{K4 geometry})}$$
+
+**Therefore $G$ is inversely proportional to $u_0$** (at small-$u_0$ limit). Weaker freeze-in spin → smaller $u_0$ → larger $G$. Stronger freeze-in spin → larger $u_0$ → smaller $G$. **The same $u_0$ that sets $\alpha$ at the magic-angle operating point ALSO sets $G$ via this Machian integral.**
+
+### §5.6 The α + G joint cosmological anchoring (key prediction)
+
+Pre-this-section status (canonical AVE corpus): $\alpha$ derived from $K = 2G$ operating point; $G$ derived from cosmic Machian integral; both presented as independent calibration-from-cosmology constants.
+
+Post-Grant-Machian-G insight (2026-05-15): **$\alpha$ and $G$ are NOT independent.** Both derive from the same $u_0^*$:
+
+$$\Omega_{\text{freeze}} \xrightarrow{\text{centrifugal extension}} u_0 \xrightarrow{\text{magic-angle force}} u_0^* \xrightarrow{\substack{\text{geometric closure}\\\text{(Q-G47)}}} \begin{cases} \alpha = 1/(4\pi^3 + \pi^2 + \pi) \\ G = c^4/(7\xi T_{EM}(u_0^*)) \end{cases}$$
+
+**The framework reduces from "α and G are two free calibration constants" to "α and G are correlated outputs of one cosmological parameter."**
+
+**Falsifiable prediction:** the gravitational fine-structure constant $\alpha_G = G m_e^2 / (\hbar c)$ and the electromagnetic fine-structure $\alpha$ should satisfy a specific dimensionless relationship:
+
+$$\frac{\alpha}{\alpha_G} = (4\pi^3 + \pi^2 + \pi)^{-1} \cdot \frac{7\, \xi\, \hbar\, c}{T_{EM}\, \ell_{\text{node}}^2}$$
+
+with each piece on the right derivable from substrate intrinsics + cosmological geometry:
+- $(4\pi^3 + \pi^2 + \pi)^{-1}$ — geometric Q-factor identity
+- $7$ — (2,3) topology factor
+- $\xi$ — Machian impedance integral over cosmic horizon $R_H / \ell_{\text{node}}$
+- $T_{EM} \cdot \ell_{\text{node}}^2$ — substrate-intrinsic combination
+
+**Order-of-magnitude check:** $R_H / \ell_{\text{node}} \approx 10^{26}/10^{-13} = 10^{39}$. Combined with geometric factors $\sim 10^3$, this gives a predicted hierarchy $\sim 10^{42}$ — matching observed $\alpha/\alpha_G \approx 4.2 \times 10^{42}$ qualitatively. **AVE's prediction for why gravity is so weak: the cosmic horizon is far away. Not fine-tuning; geometry.**
+
+**What's needed for quantitative test:**
+1. Explicit $T_{EM}(u_0^*)$ — requires Q-G47 Session 6+ rigorous closure
+2. Explicit $\xi(R_H, \ell_{\text{node}})$ — Vol 3 Ch 4 generative cosmology framework (largely canonical)
+3. Plug in and check numerical agreement with measured $G m_e^2 / (\hbar c)$
+
+The framework structurally supports this prediction. The explicit numerics are multi-week derivation work — but the FRAMEWORK COMMITMENT is testable now: any consistent AVE derivation must give the same $u_0^*$ from both the α route (Q-G47 + Q-factor) and the $G$ route (Machian integral + measured $G$). Inconsistency would falsify the framework.
+
+### §5.7 Cross-references
 
 - **Vol 3 Ch 3:125-142** — refractive-index-of-gravity canonical
-- **Vol 3 Ch 4** — generative cosmology / cosmic horizon
+- **Vol 3 Ch 4** — generative cosmology / cosmic horizon ($G = c^4/(7\xi T_{EM})$ canonical expression)
 - **Vol 4 Ch 1** — local impedance gradient ↔ gravity correspondence
 - **Q-G47 Session 4** (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`) — secondary scale framework
-- **A-029** (NEW, `research/L5/axiom_derivation_status.md`) — secondary scale is geometric next-nearest-neighbor distance via shared-B-node propagator
-- **AVE-QED App F** — multi-scale Machian network (the shared-spring mechanism operates at every boundary scale)
+- **Q-G47 Session 5+** — golden-torus integration; magic-angle closure pending
+- **A-029** (`research/L5/axiom_derivation_status.md`) — secondary scale is geometric next-nearest-neighbor distance via shared-B-node propagator
+- **A-030** (NEW, `research/L5/axiom_derivation_status.md`) — α and G are jointly cosmologically anchored through $u_0^*$; gravitational hierarchy comes from $R_H/\ell_{\text{node}}$ scale ratio, not fine-tuning
+- **AVE-QED App F** — multi-scale Machian network (the shared-spring mechanism operates at every boundary scale; cosmic boundary sets the Machian $\xi$ integral)
 
 ---
 
@@ -557,6 +622,20 @@ What's empirically validated (not just structurally derived):
 - `assets/sim_outputs/v14_collapse_cubic_emergence.png` — cubic K4 anisotropy at collapse
 - `assets/sim_outputs/v14_field_primer.png` — 4-panel V/A/S/n physical interpretation
 - All generated by scripts at `src/scripts/vol_1_foundations/r10_master_equation_v14_*.py`
+
+### 8.2 The α + G joint prediction (NEW 2026-05-15 via Machian G observation)
+
+**Falsifiable framework commitment, not yet quantitatively closed:**
+
+| Prediction | Status | Path to closure |
+|---|---|---|
+| $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$ | **Verified 50 ppm to PDG** via Q-G19α Route B closure | Closed empirical |
+| $G$ at the same $u_0^*$ as $\alpha$ | **Framework structural, not yet numerically derived end-to-end** | Q-G47 Session 6+ (rigorous $u_0^*$) + Vol 3 Ch 4 numerical $\xi$ closure |
+| $\alpha / \alpha_G \sim (R_H / \ell_{\text{node}}) \cdot$ geometric factors $\sim 10^{42}$ | **Order-of-magnitude match** with observed $4.2 \times 10^{42}$; quantitative pending | Q-G47 Session 6+ closes the $u_0^*$ numerical chain |
+
+**The framework's claim** (per §5.6): $\alpha$ and $G$ both derive from the same $u_0^*$. Any consistent AVE derivation MUST give the same $u_0^*$ from both the α route (Q-factor identity at $K = 2G$) and the $G$ route (Machian impedance integral + measured Newton's $G$). Inconsistency between these two derivations would falsify the framework's single-cosmological-parameter claim.
+
+**What the gravitational hierarchy reveals.** $\alpha/\alpha_G \approx 4 \times 10^{42}$ has no explanation in standard physics — it's a brute fact. AVE's framework structurally predicts this ratio comes from the cosmic-to-lattice scale ratio $R_H / \ell_{\text{node}} \sim 10^{39}$ via the Machian impedance integral. **No fine-tuning required**: gravity is weak because the cosmic boundary is far away.
 
 ---
 

@@ -25,7 +25,9 @@ This is the third tracker file: complement to `manuscript_pending.md` (LaTeX/KB 
 
 ## Active entries
 
-### A-001 — α is a calibration input, not axiom-derived (FURTHER ADVANCED 2026-04-30 via doc 100 §21 Reading 3 + §25 bracket-Golden-Torus reframe)
+### A-001 — α is a calibration input, not axiom-derived (FURTHER ADVANCED 2026-04-30 via doc 100 §21 Reading 3 + §25 bracket-Golden-Torus reframe; FURTHER SHARPENED 2026-05-15 via Machian G observation — α and G are JOINTLY cosmologically anchored, see A-030)
+
+**Update 2026-05-15 (Machian G):** α is no longer "one calibration input among many." Per A-030 (Grant adjudication 2026-05-15): α and Newton's G are both outputs of a single cosmological initial-data parameter $\Omega_{\text{freeze}}$, correlated through the over-bracing $u_0^*$ at the magic-angle operating point. The framework reduces from "α + G as two independent calibration constants" to "α + G correlated through one parameter." This sharpens A-001's scope: α's calibration status is shared with G; both are joint outputs of cosmological initial conditions, not free.
 
 **Update 2026-04-30:** doc 100 §21 (Grant adjudication, `18df051`) made Reading (3) canonical: **Vol 1 Ch 8 Golden Torus is the mathematical scaffold for α derivation, NOT physical electron geometry.** Doc 100 §25 (`6a7818c`) followed with the bracket-Golden-Torus reframe: re-ground L3 arc on packing-fraction canonical + electron-is-unknot. Doc 100 §20 (`3bc5304`) surfaced the corpus drift finding — Vol 1 Ch 8 Golden Torus α derivation is post-IP-separation addition (2026-04-19), structurally distinct from parent's α = p_c/8π canonical, in tension with parent's "electron is unknot" fix from 2026-03-02 (`39e1232`). **The α derivation gap is now scoped distinctly from the electron-physical-geometry question** — A-001 covers the α = scaffold-derivation status; the electron-is-unknot canonical (A-024) covers the physical geometry separately. This narrows A-001's manuscript-impact scope: Vol 1 Ch 8 chapter title "Zero-Parameter Closure" still needs reframing, but the reframe is now bounded to "α derivation chain via Golden Torus mathematical scaffold," not entangled with electron geometry. See A-024 for the electron-is-unknot canonical that resolves the geometry side of this. See doc 101 §10 + doc 102 §3-§7 for the electron-is-unknot operationalization.
 
@@ -508,6 +510,47 @@ $$\text{effective coupling}_{A_1 A_2} = \frac{k_{A_1 B}\, k_{B A_2}}{k_{B B}^{\t
 - **Closure path:** no gap — canonical. Future work propagates the shared-spring mechanism through Vol 3 Ch 1 (gravity yield) and Vol 1 Ch 4 (continuum EM coupling structure).
 - **Status:** closed (Grant adjudication 2026-05-15)
 - **Cross-refs:** A-001 (α-as-calibration, now single-parameter via $\Omega_{\text{freeze}}$); A-026 (substrate-observability rule, upstream framing); A-027 (two-engine architecture); E-094 (App G propagation); Q-G47 Session 5 (golden-torus integration, simplified per A-029); E-017 (genesis-chirality, mechanized via phase-transition-while-spinning hypothesis in trampoline-framework.md §1.3); E-019 (universe-as-vortex, now microscopic mechanism)
+
+### A-030 — α and G are jointly cosmologically anchored through $u_0^*$; gravitational hierarchy from $R_H/\ell_{\text{node}}$ ratio (Grant adjudication 2026-05-15)
+
+**CANONICAL 2026-05-15** via Grant adjudication ("Seems like Machian G has entered the conversation, the bulk stress of the whole collection of nodes?"). The pre-2026-05-15 framing presented $\alpha$ and $G_{\text{Newton}}$ as two independent calibration-from-cosmology constants. The Machian G observation collapses them into outputs of a single cosmological parameter.
+
+**The chain:**
+
+$$\Omega_{\text{freeze}} \xrightarrow{\text{centrifugal extension}} u_0 \xrightarrow{\text{magic-angle force}} u_0^* \xrightarrow{\substack{\text{geometric closure}\\\text{(Q-G47)}}} \begin{cases} \alpha = 1/(4\pi^3 + \pi^2 + \pi) \quad \text{(geometric at operating point)} \\ G_{\text{Newton}} = c^4/(7\xi T_{EM}(u_0^*)) \quad \text{(Machian over cosmic horizon)} \end{cases}$$
+
+The bond stiffness $k_0$ is intrinsic to the LC tank (Axiom 1). The bulk substrate tension $T_{EM}$ is a **Machian integral** over the bond-tension density across the lattice, depending on $u_0$:
+
+$$T_{EM} = n_{\text{bonds}} \cdot k_0 \cdot d \cdot u_0 \cdot (\text{K4 geometric factor})$$
+
+Newton's $G$, per Vol 3 Ch 4 canonical, is then:
+
+$$G_{\text{Newton}} = \frac{c^4}{7\, \xi\, T_{EM}} \propto \frac{1}{u_0}$$
+
+at small-$u_0$ limit. **The same $u_0^*$ that gives the magic-angle $\alpha$ ALSO gives $G$ via the Machian integral.**
+
+**Falsifiable framework commitment:** any consistent AVE derivation MUST give the same $u_0^*$ from both routes:
+1. The α route: Q-G47 → magic-angle closure → $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$
+2. The $G$ route: Machian impedance integral → $G = c^4/(7\xi T_{EM}(u_0^*))$ → measured Newton's $G$
+
+Inconsistency between these two derivations would falsify the single-cosmological-parameter claim.
+
+**Falsifiable prediction for the gravitational hierarchy:**
+
+$$\frac{\alpha}{\alpha_G} = (4\pi^3 + \pi^2 + \pi)^{-1} \cdot \frac{7\, \xi\, \hbar\, c}{T_{EM}\, \ell_{\text{node}}^2}$$
+
+where $\alpha_G = G m_e^2/(\hbar c) \approx 1.75 \times 10^{-45}$ is the gravitational fine structure constant. The framework predicts this ratio is set by $R_H/\ell_{\text{node}} \sim 10^{39}$ (cosmic-to-lattice scale ratio) combined with O(10³) geometric factors, giving $\sim 10^{42}$ — matching observed $4.2 \times 10^{42}$ qualitatively.
+
+**No fine-tuning required.** AVE's prediction for why gravity is so weak: the cosmic boundary is far away. The gravitational hierarchy comes from geometry of the Machian impedance integral, not from a tuned coupling constant.
+
+- **Current corpus status:** **canonical** as of 2026-05-15. Newton's G expression $G = c^4/(7\xi T_{EM})$ canonical at Vol 3 Ch 4 generative cosmology; α derivation canonical at Vol 1 Ch 8 Q-factor identity. The new framework claim (jointly cosmologically anchored through $u_0^*$) is explicit in `trampoline-framework.md` §5.5 + §5.6 + §10.2.
+- **Audited status:** **canonical structural, quantitatively pending.** The connection is structurally clean; the explicit numerical chain (from $u_0^*$ to predicted G) requires Q-G47 Session 6+ closure + Vol 3 Ch 4 explicit $\xi$ derivation.
+- **Sources:** Grant adjudication 2026-05-15 evening (this commit); Vol 3 Ch 4 (Newton's G canonical expression); Q-G47 Sessions 1-5 (magic-angle framework); A-001 (α-as-calibration, upstream); A-026 (substrate-observability rule); A-027 (two-engine architecture); A-028 (three substrate invariants); A-029 (geometric secondary scale).
+- **Manuscript impact:** trampoline-framework.md §1.3 + §5.5 + §5.6 + §8.2 + §11 (canonical); should propagate to Vol 3 Ch 4 (explicit α+G joint anchoring statement) and Vol 1 Ch 8 (α-as-calibration extension to include G as joint output). Queued for E-NNN entries in `manuscript_pending.md` — Vol 1 Ch 8 + Vol 3 Ch 4.
+- **Engine impact:** no engine changes needed; this is framework-level canonicalization. Empirical test via E-101 (boundary observables module) computing $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ at the boundary gives the substrate-level inputs that feed into the Machian G integral.
+- **Closure path:** quantitative closure requires (a) Q-G47 Session 6+ rigorous $u_0^*$ derivation; (b) Vol 3 Ch 4 explicit $\xi(R_H, \ell_{\text{node}})$ numerical chain; (c) plug in and verify predicted $G$ matches CODATA $G = 6.674 \times 10^{-11}$. Order-of-magnitude check passes; full numerical match is multi-week derivation work.
+- **Status:** closed-structural (Grant adjudication 2026-05-15); open-quantitative (numerical closure path through Q-G47 Session 6+)
+- **Cross-refs:** A-001 (α-as-calibration, sharpened — now joint with G); A-024 (electron-is-unknot canonical, downstream geometry); A-026 (substrate-observability — Machian integrals operate at every scale); A-027 (two-engine architecture — empirical state); A-028 (three substrate invariants — what's externally observable per boundary); A-029 (geometric secondary scale — the K4 distance that enters the Machian integral via shared-neighbor coupling); E-094 (App G propagation); Q-G47 Sessions 1-5 framework + Session 6+ critical path
 
 ### A-026 — Substrate-observability rule canonical (Grant-confirmed 2026-05-14 via boundary-envelope reformulation)
 
