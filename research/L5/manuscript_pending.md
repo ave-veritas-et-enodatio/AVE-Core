@@ -266,7 +266,7 @@ KB leaves at `manuscript/ave-kb/vol*/` are tracked alongside their parent chapte
 - **[E-103] Same-epistemic-horizon framing — BH interior vs cosmic interior (Grant adjudication 2026-05-15 evening via A-031)**
   - **Sources:** **A-031** (Grant adjudication 2026-05-15 evening); `manuscript/ave-kb/common/trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC"); Vol 3 Ch 2:43 (canonical same-mechanism BH-electron framing)
   - **Action:** Vol 3 Ch 21 (BH Interior Regime IV) should add a brief cross-cutting note: the substrate-observability rule's "you can characterize the boundary but not what set it" structure applies fractally at every scale. Just as we (inside our cosmic boundary) can measure cosmic $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ but cannot see "God's Hand" beyond — outside observers of a BH measure $M, Q, J$ at the horizon but cannot see the matter-history that formed it. **Same epistemic horizon, applied at different scales.** Cross-ref to trampoline-framework.md §1.3.7 + A-031.
-  - **Status:** queued (low priority — completeness, not load-bearing)
+  - **Status:** **APPLIED 2026-05-15** — landed as new §sec:substrate_observability_horizon in Vol 3 Ch 21 between exercisebox + summarybox; updated summarybox with same-epistemic-horizon framing bullet
   - **Cross-refs:** A-031; A-026 (substrate-observability rule); E-102 (Vol 3 Ch 4 cosmic-$\mathcal{J}$ companion); Vol 3 Ch 2:43 BH-electron parallel
 
 ## Vol 4 — Engineering
