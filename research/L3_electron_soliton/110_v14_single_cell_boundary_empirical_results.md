@@ -13,17 +13,34 @@ Per Grant directive 2026-05-14 evening — *"let's go full steam ahead on A, sho
 
 **Outcomes by test:**
 
-| Test (per §14.7) | v14a (single-cell, A=0.6) | v14b (shell, A=0.95) | v14d (Cosserat-only seed) |
-|---|---|---|---|
-| 1. Boundary persistence | FAIL (ratio 0.000) | FAIL (ratio 0.025) | FAIL (no V_inc to persist) |
-| 2. Winding persistence | FAIL (ratio 0.100) | PASS (Cosserat blew up 10⁴×) | FAIL (ratio 0.100) |
-| 3. Outside gradient | FAIL (no measurable) | FAIL (no measurable) | FAIL (no measurable) |
-| 4. Q-factor integral | FAIL (zero V_inc → zero Λ) | FAIL (numerical instability) | FAIL (zero V_inc → zero Λ) |
-| **Mode adjudication** | **III** | **III** (with instability) | **III** |
+| Test (per §14.7) | v14a (2/7 modes) | v14b (shell A=0.95) | v14d (Cosserat-only) | **v14e (7/7 modes)** |
+|---|---|---|---|---|
+| 1. Boundary persistence | FAIL (0.000) | FAIL (0.025) | FAIL | FAIL (0.000) |
+| 2. Winding persistence (ω+u) | FAIL (0.100) | PASS via blow-up 10⁴× | FAIL (0.100) | FAIL (ω 0.100, u 0.151) |
+| 3. Outside gradient | FAIL | FAIL | FAIL | FAIL |
+| 4. Q-factor integral | FAIL (zero Λ) | FAIL (instability) | FAIL (zero Λ) | FAIL (Λ_total 13.7 vs 137.0, 90% off) |
+| **Mode adjudication** | **III** | **III** | **III** | **III** |
 
-**Driver:** `src/scripts/vol_1_foundations/r10_path_alpha_v14_single_cell_boundary.py`
-**Soliton seed visualizer:** `src/scripts/vol_1_foundations/r10_path_alpha_v14_soliton_visualizer.py`
-**Visual artifact:** `assets/sim_outputs/r10_path_alpha_v14_soliton_seed.png` (the soliton AS PLANTED at t=0)
+**v14e seed completeness (per Grant pushback 2026-05-14 evening):** "did you forget your seven modes of compliance?" — yes, v14a/b/d only seeded 2 of 7 canonical bubble modes (ω_x, ω_y tangent-to-loop). The 7-mode canonical per `AVE-QED chapters/11_tensioned_trampoline.tex:946-1056`:
+
+| Mode group | Cosserat field | Count | v14a seed | v14e seed |
+|---|---|---|---|---|
+| Translational (kinetic) | u_x, u_y, u_z | 3 | 0 (all zero) | **3 (hedgehog tangent)** |
+| Rotational (μ-side L) | ω_x, ω_y, ω_z | 3 | 2 (no ω_z) | **3 (tangent + bulk-spin ω_z)** |
+| Volumetric breathing (ε-side C) | K4 V_inc common-mode | 1 | partial | **1 (shell common-mode)** |
+| (Phase-space layer) | V_ref (2,3) winding | aux | partial | **aux (2,3) port pattern** |
+| **Total seeded** | | **7** | **2** | **7** |
+
+v14e Λ_surf went from 0 → 6.787, Λ_line from 0 → 5.913 (Λ_vol still small at 1.012). The 7-mode seed IS more thorough — but the engine still damps to the same Cosserat standalone attractor (|ω|_peak 10% of initial, |u|_peak 14% of initial). **The mode count was not the root cause of Mode III.**
+
+**Drivers:**
+- `src/scripts/vol_1_foundations/r10_path_alpha_v14_single_cell_boundary.py` (v14a/b/d)
+- `src/scripts/vol_1_foundations/r10_path_alpha_v14e_seven_mode_seed.py` (v14e, full 7-mode)
+- `src/scripts/vol_1_foundations/r10_path_alpha_v14_soliton_visualizer.py` (seed visualizer)
+
+**Visual artifacts:**
+- `assets/sim_outputs/r10_path_alpha_v14_soliton_seed.png` (the soliton AS PLANTED at t=0)
+- `assets/sim_outputs/r10_path_alpha_v14e_seven_mode.png` (7-mode test with full diagnostics)
 
 ---
 
@@ -49,9 +66,24 @@ When the Cosserat unknot hedgehog is planted alone (V_inc = 0), the K4 V_inc nev
 
 **Mechanism:** the engine's ω → K4 coupling (Op14 z_local pathway) doesn't autonomously source V_inc — it only modifies the K4 scattering when V_inc is already non-zero. The Cosserat hedgehog can't generate K4 dynamics from a zero-V_inc initial condition.
 
-### §1.4 Cross-variant interpretation
+### §1.4 v14e — full 7-mode seed (post-Grant pushback)
 
-All three failure modes are distinct but point to the same root: **the K4-TLM + Cosserat coupled engine as currently implemented does not autonomously host a stable single-cell bounded boundary** in any of the three tested seed configurations. The bound state at scale ~ℓ_node (one cell), with Cosserat unknot interior plumbing and ω-K4 mutual sustainment, does not form spontaneously.
+Grant 2026-05-14 evening called out the missing modes after v14a/b/d returned Mode III: *"did you forget your seven modes of compliance?"* The four prior variants seeded only 2 of 7 canonical bubble modes. v14e re-runs with the full 7-mode coupled seed:
+
+- **3 rotational ω**: hedgehog tangent (ω_x, ω_y) + bulk-spin axis (ω_z = 0.15 × envelope)
+- **3 translational u**: hedgehog tangent in (u_x, u_y) — Cosserat C-state per doc 66 §17.2.3
+- **1 volumetric**: K4 V_inc common-mode (equal on all 4 ports) at horn-torus shell cells
+- **(2,3) phase-space**: V_ref port-asymmetry pattern (Layer 3 winding)
+
+**Result:** Mode III. ALL FOUR acceptance criteria FAIL. The 7-mode seed measurably populates more of the canonical structure (Λ_surf = 6.787 and Λ_line = 5.913 are now non-zero where they were zero in v14a) but the engine still damps to the **Cosserat standalone attractor** (|ω|_peak → 10%, |u|_peak → 14% of initial) with V_inc shell radiating through PML.
+
+**This is the diagnostic finding:** the missing modes were a real seed-completeness issue, but they were not the root cause of Mode III. Even with all 7 modes excited at canonical amplitudes, the K4-Cosserat coupled dynamics do not produce a self-consistent autonomous bound state.
+
+### §1.5 Cross-variant interpretation
+
+All four failure modes are distinct but point to the same root: **the K4-TLM + Cosserat coupled engine as currently implemented does not autonomously host a stable single-cell bounded boundary** in any of the four tested seed configurations (including the full 7-mode seed). The bound state at scale ~ℓ_node (one cell), with Cosserat 7-mode bubble + ω-K4 mutual sustainment, does not form spontaneously.
+
+The Cosserat sector shows a **standalone attractor** at ~10-15% of initial amplitude across all variants — the Cosserat field DOES support stable modes by itself, but those modes are **decoupled from K4** (don't autonomously source V_inc, no impedance gradient backreaction). The coupled K4-Cosserat bound state at the 7-mode canonical configuration is what the engine fails to host.
 
 This is consistent with L3 doc 92 §6 Nyquist wall finding (eight independent Mode III results documented as of 2026-05-01 in doc 104 §8) and L3 doc 108 §11.5 explicit acknowledgment that *"the L3 arc question that's been Mode III for weeks ... empirically suggested doesn't happen at corpus parameters."*
 
