@@ -229,3 +229,70 @@ Empirical confirmation from the visualization run (5000 timesteps, sech A=0.85 R
   - Low-phase snapshot at t ≈ 63.0 (step 4450), V_peak = 0.073
 
 The visualization confirms the empirical Mode I PASS visually — the breathing soliton is hosted, localized, oscillating, and persistent across the full simulation.
+
+---
+
+## §10 Lattice boundary vs soliton boundary — conceptual clarification
+
+Grant directive 2026-05-14 late evening: *"what about the simulations lattice boundaries? the simulation and the soliton both need those three numbers or just the boundary? or how do those boundaries relate to the sims"*
+
+**THREE distinct levels of "boundary" exist in the v14 simulation, only one of which is physical:**
+
+### §10.1 Level 1 — Lattice domain edge (computational)
+
+The N×N×N simulation box's outer surface. Just our computational window onto the substrate. **No physical meaning.** Going to a larger lattice doesn't change the physics — it just gives more far-field space. Has no 𝓜, 𝓠, 𝓙.
+
+### §10.2 Level 2 — PML region (sponge-layer absorber)
+
+The cells within `pml_thickness` of the box edge. A numerical trick: outgoing waves entering this region get progressively damped, simulating radiation-to-infinity. **No physical meaning** in itself; it's the engine's way of preventing artificial reflections from the box edge. Has no 𝓜, 𝓠, 𝓙.
+
+The PML's purpose is to make the simulation behave as if the lattice is **embedded in infinite vacuum** — waves leave the local region cleanly without bouncing back. In real physics, this is what radiation does (goes to infinity / cosmic horizon and never returns).
+
+### §10.3 Level 3 — Soliton's Γ→−1 envelope (physical)
+
+The surface (in 3D) or curve (in 2D slice) where local strain A → 1, kernel S(A) → 0, impedance Z_eff → ∞. **This is the canonical AVE physical boundary** per doc 109 §13. Has **𝓜, 𝓠, 𝓙** — the substrate-observable invariants.
+
+The soliton boundary is an **emergent, dynamic** feature of the substrate's nonlinear wave dynamics. It moves and breathes; its size depends on the soliton's amplitude and the substrate's saturation kernel.
+
+### §10.4 Which boundary has the three numbers? ONLY Level 3.
+
+**The three substrate invariants 𝓜, 𝓠, 𝓙 are properties of Γ=−1 boundaries — the canonical physical objects of AVE per doc 109 §13.** They are NOT properties of computational artifacts.
+
+| Boundary | Physical? | Has 𝓜, 𝓠, 𝓙? | Removable? |
+|---|---|---|---|
+| Level 1 (lattice edge) | No | No | Yes (bigger lattice) |
+| Level 2 (PML shell) | No | No | Yes (different absorber) |
+| Level 3 (soliton envelope) | **Yes** | **Yes** | No (it IS the soliton) |
+
+### §10.5 Conservation: lattice totals → soliton invariants asymptotically
+
+In the absence of radiation loss (closed system, no PML), the LATTICE's integrated totals would equal the SOLITON's invariants exactly:
+- Total ∫(n(r)−1)dV across lattice = soliton's 𝓜
+- Total topological linking summed over lattice = soliton's 𝓠
+- Total winding number across lattice = soliton's 𝓙
+
+In our v14 simulation, the PML absorbs SOME initial radiation as the seed relaxes toward the breathing attractor. After this transient, the LATTICE TOTALS should equal the SOLITON's invariants. This is the conservation law: substrate-observable invariants are integrated over the boundary envelope, not over the computational lattice.
+
+### §10.6 Multi-scale Machian network connection (App F)
+
+Per AVE-QED `appendices/F_local_machian_network.tex`, Γ=−1 boundaries exist at every scale (electron, nucleus, atom, helio, BH, cosmic). Our v14 simulation has ONE such boundary (the soliton's). A real physical universe has many nested boundaries:
+- The electron's horn-torus tube wall (𝓜=m_e, 𝓠=±e, 𝓙=ℏ/2)
+- The nucleus's Borromean envelope (composite 𝓜, 𝓠, 𝓙)
+- The atom's outer-shell envelope (Q-G43, open)
+- The cosmic horizon at R_H (parent BH Schwarzschild)
+
+A simulation could in principle have multiple nested Γ=−1 boundaries — each with its own 𝓜, 𝓠, 𝓙. Our v14 simulates the simplest case: one electron soliton in otherwise-vacuum substrate, with the lattice's PML simulating radiation-to-infinity. **The three numbers are properties of physical boundaries, not the lattice that hosts them.**
+
+### §10.7 Visual artifacts (v2 — clearer rendering with hierarchy visible)
+
+Per Grant's "those are somewhat hard to see" feedback, v2 visualizations explicitly show all three boundary levels (gitignored sim outputs, regenerable):
+
+- `assets/sim_outputs/v14_lattice_pml_soliton_hierarchy.png` — annotated 3D figure with lattice wireframe (gray) + PML shell (orange dashed) + soliton core/envelope (red/yellow marching-cubes isosurfaces). Single hero figure showing the hierarchy.
+
+- `assets/sim_outputs/v14_equatorial_three_boundaries.png` — 2D equatorial slice with all three levels annotated: lattice edge (gray border) + PML hatched region (orange) + soliton envelope contours (yellow + red) + center marker. Clearest single-image view.
+
+- `assets/sim_outputs/v14_breathing_with_lattice.gif` — 3D isosurface animation with camera rotation, lattice + PML wireframes visible throughout. Shows soliton breathing INSIDE the labeled computational structure.
+
+- `assets/sim_outputs/v14_breathing_equatorial_annotated.gif` — 2D animated heatmap with PML hatching + envelope contours overlaid. Best view of the breathing dynamics with hierarchy context.
+
+Generated by `src/scripts/vol_1_foundations/r10_master_equation_v14_visuals_v2.py`. Uses skimage marching_cubes for proper isosurface rendering (cleaner than the v1 3D scatter).
