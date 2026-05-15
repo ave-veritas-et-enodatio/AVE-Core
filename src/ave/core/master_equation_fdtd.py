@@ -170,18 +170,25 @@ class MasterEquationFDTD:
         self.step_count += 1
 
     def run(self, n_steps: int, source_fn=None, source_pos=None,
-            probe_pos=None):
+            probe_pos=None, source_mode="hard"):
         """
         Run n_steps; optionally inject a source and probe a location.
 
         source_fn: callable(t) → amplitude to inject at source_pos each step
         source_pos: (i, j, k) tuple for source injection
         probe_pos: (i, j, k) tuple to record V at each step (or None)
+        source_mode: "hard" (replace V at source) or "soft" (add dt·source)
+
+        Hard source is the correct mode for clean spectral analysis (no DC drift).
+        Soft source is appropriate for current-density-like injection.
         """
         probe_data = [] if probe_pos is not None else None
         for _ in range(n_steps):
             if source_fn is not None and source_pos is not None:
-                self.V[source_pos] += source_fn(self.time)
+                if source_mode == "hard":
+                    self.V[source_pos] = source_fn(self.time)
+                else:
+                    self.V[source_pos] += self.dt * source_fn(self.time)
             self.step()
             if probe_pos is not None:
                 probe_data.append(float(self.V[probe_pos]))
