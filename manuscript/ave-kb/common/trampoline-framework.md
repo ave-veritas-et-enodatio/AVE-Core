@@ -48,6 +48,21 @@ Build the substrate one physical concept at a time. Each step adds exactly one n
 
 ### §1.2 Step 2 — Replace with trampoline (springs + nodes)
 
+> **⚠ Discretization-vs-continuum framing (Grant 2026-05-15 post-Q-G47-Session-15):**
+> The "springs + nodes" picture in this step is a **discretization** of the
+> underlying continuous Cosserat micropolar field (Axiom 1). The springs
+> are **NOT discrete physical elements** — they're visualizations of the
+> continuous stress field propagating between K4 sampling points. The K4
+> lattice nodes are where soliton bound-states sit; the substrate itself
+> is continuous everywhere. Discrete-bond calculations (e.g., Q-G47
+> Sessions 12-15 in AVE-QED) are useful sanity-check approximations of
+> the continuous-field physics, not independent regimes. The
+> `K = 4 k_a + 8 k_s`-style results from discrete sweeps map onto the
+> continuous Cosserat constitutive tensor via Session 9's
+> `χ_K = (ℓ_c/d)²` identification. See AVE-QED `docs/analysis/
+> 2026-05-15_Q-G47_session16_continuous_field_recasting.md` for the full
+> dictionary discrete↔continuous.
+
 **Picture.** Look closely at the rubber sheet. It's actually a network — fabric crossing points (nodes) connected by springs (bonds). The continuum was the coarse-grain of this discrete structure.
 
 **Math added.** Graph $G(V, E)$ replaces continuum. Each bond carries a Hookean response $F_{\text{bond}} = k\, \Delta L$. $K$ and $G$ are no longer free constants — they're **derived** from (a) bond stiffness $k$, (b) graph connectivity $z$, (c) geometry.
