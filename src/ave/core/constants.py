@@ -23,6 +23,16 @@ empirical commitment):
 
 All three routes must give the same u_0* or framework is falsified.
 
+A-034 UNIVERSAL KERNEL (canonical 2026-05-15 late evening): the constants
+defined below (V_SNAP, V_YIELD, ℓ_node, T_EM, etc.) parameterize the
+substrate-scale instance of A-034 (Universal Saturation-Kernel Strain-Snap
+Mechanism). The same kernel S(A) = √(1−A²) governs 19 catalog instances
+spanning 21 orders of magnitude — the constants below ARE the substrate-
+scale values; the kernel form is universal. Q-G47 Sessions 9-18
+(2026-05-15 evening) closed Q-G47 at substrate level: K(u_0*) = 2 G(u_0*)
+is the substrate-scale expression of S(A*) = 0. See L5 A-034 + Vol 3 Ch 4
+§sec:tki_strain_snap + Backmatter Ch 7 (catalog).
+
 The electron rest mass is NOT an independent input. It is the ground-state
 energy of the simplest topological object on the lattice: the unknot
 (a single closed flux tube loop at minimum ropelength = 2π).

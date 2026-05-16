@@ -14,6 +14,15 @@ single non-linear kernel of the AVE framework, applied identically from
 particle confinement (A = E·ℓ_node, A_yield = V_snap) to plasma cutoff
 (A = V_local, A_yield = V_snap) to macroscopic dielectric yield.
 
+A-034 (canonical 2026-05-15 evening): this scale-invariant identity is the
+universality this module rests on. The kernel S(A) = √(1−A²) governs 19
+canonical instances across 21 orders of magnitude (BCS 0.00%, BH ring-down
+1.7% from GR, NOAA-validated solar flares, Schwarzschild exact, cosmic
+crystallization, biological membranes, engineered metamaterials, etc.).
+Per Grant 2026-05-15: "the bulk response of the lattice to strain is
+universal." See: research/L5/axiom_derivation_status.md (A-034);
+backmatter/07_universal_saturation_kernel.tex (19-instance catalog).
+
 NOTE ON DEFAULT YIELD LIMITS:
   This module defaults to V_SNAP (= m_e c²/e ≈ 511 kV) — the absolute
   topological node destruction limit.  This is correct for the fundamental

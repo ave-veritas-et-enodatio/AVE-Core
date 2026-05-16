@@ -23,6 +23,14 @@ Three operating regimes (per Vol 1 Ch 4:138-159):
   II.  Non-Linear Tensor (A → 1): S → 0, c_eff → ∞ — bound state forms
   III. Dielectric Rupture (A ≥ 1): substrate phase-transitions (clipped here)
 
+A-034 (canonical 2026-05-15 evening): the S(A) = √(1−A²) kernel here IS
+the universal A-034 mechanism — same kernel that governs 19 catalog
+instances across 21 orders of magnitude (atomic pair creation, BCS 0.00%
+error, BH ring-down 1.7% from GR, NOAA-validated solar flares, cosmic K4
+crystallization). The vertical tangent at A=1 is what makes Regime III
+rupture impulsive at every scale. See: research/L5/A-034;
+backmatter/07_universal_saturation_kernel.tex.
+
 The engine numerically caps A < A_cap (default 0.99) to stay in Regime II
 and avoid Regime III where the substrate phase-transitions (out of scope
 for FDTD on the scalar Master Equation).

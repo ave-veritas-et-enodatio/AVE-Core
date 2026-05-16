@@ -2,6 +2,12 @@
 Axiomatic Kolmogorov Turbulence Cutoff
 ======================================
 
+A-034 instance (canonical 2026-05-15): Kolmogorov spectral cutoff is the
+turbulence-scale row in the A-034 catalog — wavenumber k serves as A,
+lattice wavenumber k_node serves as A_yield. Same kernel S(A) = √(1−A²)
+as atomic dielectric breakdown, BCS, and BH event horizon. See: backmatter
+Ch 7 (Universal Saturation-Kernel Catalog); L5 A-034.
+
 Implements the resolution to the classical continuous Navier-Stokes
 singularity (the infinite energy cascade) by applying the AVE discrete
 LC lattice properties.
