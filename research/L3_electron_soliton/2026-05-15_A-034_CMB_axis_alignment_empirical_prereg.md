@@ -130,6 +130,35 @@ empirically observed.
 
 ---
 
+## 1.6. EXTENDED prediction set — Observable 6 (NEW 2026-05-16, per Entry 002 discussion follow-up)
+
+Per [research/discussions/discussion_followups.md Entry 002](../discussions/discussion_followups.md) (orbital dynamics as macroscopic grain/chirality projection) + [ave-kb/common/omega-freeze-cosmic-grain-cascade.md §3.1](../../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md), the A-034 multi-axis alignment test extends to a **6th observable channel**:
+
+### 6. Orbital-plane alignment statistics
+
+**Pre-registered hypothesis (NEW 2026-05-16)**: orbital-plane orientations at every accessible scale should show non-random alignment with the $\Omega_{\text{freeze}}$ axis (the same axis as Observables 1–5).
+
+**Specific sub-observables**:
+
+| Sub-test | Observable | Data source | Significance |
+|---|---|---|---|
+| **6a — Ecliptic normal vs A-034 axis** | Solar-system ecliptic normal direction; single data point | Pre-existing solar-system geometry | **A-034 prereg §2 already notes** the CMB axis-of-evil is anomalously aligned with the ecliptic plane — standard cosmology has no explanation. AVE prediction: this IS a leak of $\Omega_{\text{freeze}}$ into solar-system formation. |
+| 6b — Solar-system prograde fraction | 8/8 planets prograde orbit; Venus + Uranus retrograde spin | JPL ephemeris + planetary spin catalogs | Spin/orbit decomposition vs $\Omega_{\text{freeze}}$ axis |
+| 6c — Binary star orbital planes | ~10⁵ resolved binaries | Gaia DR3 | Large-N statistical test |
+| 6d — Galactic disk axes | Galactic spin axes | SDSS (already Observable 3, but extended here to orbital-plane-normal alignment specifically) | Cross-check with Observable 3 |
+| 6e — LIGO/Virgo binary inspiral planes | ~100 events; rapidly growing | LIGO/Virgo O3/O4/O5+ runs | Future-data-growth test |
+
+**Methodology** (extends §3 4-axis test): for each orbital system, compute angular separation between orbital-plane normal and the $\Omega_{\text{freeze}}$ axis $(l = 174°, b = -5°)$; test against isotropic null at $> 3\sigma$ significance per data class.
+
+**Pre-registered outcomes (additions to §4)**:
+
+- **Outcome A++ (CONFIRMATION + orbital cascade)**: 4-axis alignment + E/B decoupling alignment + orbital-plane alignment → A-034 + nested-cascade-through-rotators framework supported; cosmic-grain projection through all observable scales.
+- **Outcome F (orbital-plane only, primary 4 don't align)**: orbital planes align with some axis but Observables 1–4 don't → orbital alignment is NOT a leak of $\Omega_{\text{freeze}}$; framework needs refinement to identify the alternative mechanism.
+
+**Why this 6th observable is a sharp test**: standard cosmology has no mechanism for orbital-plane orientations to systematically align across cosmic scales. The ecliptic-vs-CMB-axis-of-evil alignment is a known observational anomaly (A-034 §2 already cites it) without standard explanation. AVE-distinct prediction is that this anomaly is the **tip of an iceberg** — orbital planes at every scale (binaries, galactic disks, BBH inspirals) should track $\Omega_{\text{freeze}}$ at $> 3\sigma$ statistical significance.
+
+---
+
 ## 2. Background: what's already known observationally
 
 **CMB axis-of-evil (Planck data):**

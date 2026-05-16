@@ -5,16 +5,16 @@
 
 The same solver applies at every scale:
 
-| | BH QNM | Electron | Nuclear | Protein | Antenna | Tokamak | BLDC Motor |
-|---|---|---|---|---|---|---|---|
-| Saturation | $\varepsilon_{11} = 1$ | $V = \alpha$ | $V_R / V_{BR} \to 1$ | Pauli exclusion | $V_{\mathrm{SNAP}}$ | $\beta$ limit | Back-EMF = $V_{supply}$ |
-| $r_{\mathrm{sat}}$ | $7M_g$ | $l_{node}$ | $V_{BR} = 6\alpha\hbar c/D$ | $d_0 = 3.80$ A | Stub length | Wall radius | Stall current |
-| $\nu$ correction | 2/7 | $\alpha$ | $\alpha$ | 2/7 | 2/7 | 2/7 | Winding factor |
-| Mode $\ell$ | 2 (GW) | $n,l$ | 5 (cinquefoil) | 7 ($d_0/a_0$) | $\lambda/4$ | Alfven | Pole pairs |
-| $Q$ source | $Q = \ell$ | Spectral width | Miller stages | $Q = 7$ | BW | Confinement | $Q = \ell$ (mech.) |
-| Co-rotation | Frame drag $\Omega$ | --- | Shell rotation | --- | --- | Plasma rot. | Rotor $\theta_r$ (FOC) |
-| Regime I | Flat space | Bound | Sub-critical | Folded | Short | Core | Motoring |
-| Regime II | Curved | Free | Avalanche | Unfolded | Open | SOL | Generating |
+| | BH QNM | Electron | Nuclear | Protein | Antenna | Tokamak | BLDC Motor | **Solar System** | **Galactic** |
+|---|---|---|---|---|---|---|---|---|---|
+| Saturation | $\varepsilon_{11} = 1$ | $V = \alpha$ | $V_R / V_{BR} \to 1$ | Pauli exclusion | $V_{\mathrm{SNAP}}$ | $\beta$ limit | Back-EMF = $V_{supply}$ | **MOND $a_0$ boundary** | **MOND $a_0$ boundary** |
+| $r_{\mathrm{sat}}$ | $7M_g$ | $l_{node}$ | $V_{BR} = 6\alpha\hbar c/D$ | $d_0 = 3.80$ A | Stub length | Wall radius | Stall current | **Hill sphere $\sim r(M_p/3M_\odot)^{1/3}$** | **$R_{\text{halo}}$ at $g_N = a_0$** |
+| $\nu$ correction | 2/7 | $\alpha$ | $\alpha$ | 2/7 | 2/7 | 2/7 | Winding factor | **2/7 (cosmic Buchdahl)** | **2/7 (cosmic Buchdahl)** |
+| Mode $\ell$ | 2 (GW) | $n,l$ | 5 (cinquefoil) | 7 ($d_0/a_0$) | $\lambda/4$ | Alfven | Pole pairs | **Orbital harmonics (Saturn rings $n$)** | **Spiral-arm $m$ (typical $m = 2$)** |
+| $Q$ source | $Q = \ell$ | Spectral width | Miller stages | $Q = 7$ | BW | Confinement | $Q = \ell$ (mech.) | **$Q = $ orbital persistence (Mercury) ↔ Cassini gap widths** | **$Q = $ pattern-speed persistence vs winding-up** |
+| Co-rotation | Frame drag $\Omega$ | --- | Shell rotation | --- | --- | Plasma rot. | Rotor $\theta_r$ (FOC) | **Ecliptic normal vs $\Omega_{\text{freeze}}$ axis (NEW per A-034 Obs 6)** | **Galactic disk axis vs $\Omega_{\text{freeze}}$ (A-034 Obs 3, ~1-2σ contested)** |
+| Regime I | Flat space | Bound | Sub-critical | Folded | Short | Core | Motoring | **Newtonian** ($g_N > a_0$) | **Newtonian** (inner galaxy) |
+| Regime II | Curved | Free | Avalanche | Unfolded | Open | SOL | Generating | **Deep-MOND** ($g_N < a_0$) | **Deep-MOND** (outer halo) |
 
 For each domain, the procedure is identical:
 
