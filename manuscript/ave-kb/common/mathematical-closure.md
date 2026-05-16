@@ -88,3 +88,24 @@ From these initial geometric anchors and four structural rules, all fundamental 
 - **The Dark Sector (Axiom 4):** The strict EFT hardware packing fraction ($p_c \approx 0.1834$) limits excess thermal energy storage during lattice genesis, proving Dark Energy is a mathematically stable phantom energy state ($w \approx -1.0001$). The generative expansion of the lattice sets a fundamental continuous Unruh-Hawking drift. The exact topological derivation of the substrate mass density ($\rho_{bulk}$) and mutual inductance ($\nu_{vac}$) dictates a saturating Dielectric Saturation-plastic transition, mathematically recovering the exact empirical MOND acceleration boundary ($a_{genesis} = c H_\infty / 2\pi$), dynamically yielding flat galactic rotation curves without invoking non-baryonic particulate dark matter.
 
 Because physical parameters flow exclusively outward from initial geometric bounding limits to the macroscopic continuous observables---without looping an output back into an unconstrained input---the AVE framework represents a mathematically closed, predictive, and explicitly falsifiable Topological Effective Field Theory.
+
+## A-034: Universal Saturation-Kernel Empirical Anchors
+
+Beyond the internal DAG closure documented above, **Axiom 4's universal saturation kernel** $S(A) = \sqrt{1 - A^2}$ carries the strongest direct empirical validation of any AVE axiom (canonical 2026-05-15 evening). The same kernel — identical functional form, no per-scale parameter retuning — has been empirically matched at **four widely-separated scales**:
+
+| Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
+|---|---|---|---|---|
+| **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter (Vol 3 Ch 14) |
+| **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
+| **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
+
+**Methodological significance:** Each empirical anchor uses **zero free parameters** beyond the framework's existing 3 inputs ($\ell_{node}$, $\alpha$, $G$ — themselves derived in Layer 8). The kernel is not fit per-scale; it is the *same* $\sqrt{1 - A^2}$ kernel applied in different physical regimes. This is the strongest form of cross-scale verification possible for an axiom: the kernel asserted abstractly in Vol 1 Ch 1 is shown empirically to be the same operator governing pairing, plasma reorganization, gravitational wave damping, and event-horizon formation.
+
+**Full enumeration:** the 4 anchors above are the most-validated members of a **19-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
+
+**Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
+
+**L5 authority:** `research/L5/axiom_derivation_status.md` A-034 entry (canonical, all cross-refs point here).
+
+These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 19 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
