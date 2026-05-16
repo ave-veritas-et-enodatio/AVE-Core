@@ -41,6 +41,8 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Intermodulation Distortion](intermodulation-distortion.md) | Vacuum IMD spectroscopy; IM3 prediction; IP3 derivation; QED comparison |
 | [Translation Circuit](translation-circuit.md) | Cross-reference to common translation table |
 | [Solver Selection](solver-selection.md) | FDTD vs K4-TLM decision matrix, boundary conditions, default yield thresholds |
+| [Theorem 3.1 Q-Factor Reframe](theorem-3-1-q-factor.md) | $\alpha^{-1} = Q_{\text{tank}} = Q_{\text{vol}} + Q_{\text{surf}} + Q_{\text{line}} = 4\pi^3 + \pi^2 + \pi$ at Golden Torus; two independent paths (LC-tank + multipole) agree to $\delta_{\text{strain}}$ (2.225e-6 CMB thermal); supersedes Neumann-integral framing |
+| [Op14 Local Clock Modulation](op14-local-clock-modulation.md) | A-010 canonical: $\omega_{\text{local}}(r) = \omega_{\text{global}}\sqrt{1 - A^2(r)}$; substrate-native time dilation; cross-volume parallel to gravitational $\tau_{\text{local}} = n(r)\tau_{\text{unstrained}}$; three regime distinction (reactive slowing vs damping vs spatially-varying) |
 
 > **Note:** `summarybox` and `exercisebox` environments in the source chapter are not extracted as leaves in this KB.
 

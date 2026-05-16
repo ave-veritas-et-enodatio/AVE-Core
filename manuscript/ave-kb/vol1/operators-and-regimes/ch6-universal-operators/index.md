@@ -28,3 +28,4 @@ Eight universal operators govern physics at all spatial scales without domain-sp
 | [Eigenvalue Target](./eigenvalue-target.md) | Ground state as zero singular value of $[S]$ |
 | [Spectral Analyser](./spectral-analyser.md) | Spatial Fourier transform of impedance sequences |
 | [Packing Reflection](./packing-reflection.md) | Equilibrium packing fraction, $R_{g,target}$, $\Gamma_{pack}$ |
+| [Lattice Impedance Decomposition](./lattice-impedance-decomposition.md) | $Z_0$ / $Z_{\text{cell}}$ / $Z_{\text{eff}}(r)$ / $\eta_{\text{vac}}$ / $Z_{\text{mech}}$ / $Z_{\text{EH}}$ canonical decomposition; numerical equality $Z_{\text{cell}} = Z_0$ from $\ell_{\text{node}}$ cancellation; $V_{\text{YIELD}} = 1$ in lattice natural units (not $V_{\text{SNAP}}$); dimensional analysis + Axiom → Operator → Engine map |

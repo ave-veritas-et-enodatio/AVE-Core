@@ -16,24 +16,24 @@
 
 ## Execution status (live ledger)
 
-### PROMOTE-T1 (14 total; 4 done as of 2026-05-16)
+### PROMOTE-T1 (14 total; 13 DONE as of 2026-05-16, 1 deferred)
 
 | Doc | Topic | Status | Landed KB path |
 |---|---|---|---|
-| L5 A-034 | Universal saturation-kernel 19-instance cross-scale catalog | PENDING | proposed: `common/universal-saturation-kernel-catalog.md` |
-| doc 113 | v14 Mode I PASS — breathing soliton on Master Equation FDTD | **DONE** | `vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md` |
-| doc 41 §2-§3 (F1) | Cosserat mass-gap `m² = 4·G_c/I_ω` (0.35% confirmed) | PENDING | proposed: `vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md` |
-| doc 103 | Substrate-perspective view of canonical electron | PENDING | proposed: `vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md` |
-| doc 45 | Lattice impedance decomposition (Z_0/Z_cell/Z_eff/Z_local) | PENDING | proposed: `vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md` |
-| A-010 + docs 16/17 | Op14 local clock modulation `ω_local(r) = ω_global·√(1−A²(r))` | PENDING | proposed: `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md` |
-| docs 53, 54 | Pair production = saturated flux-tube rupture (4-axiom derivation) | PENDING | proposed: `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md` |
-| docs 16, 17, 24, 27 | Theorem 3.1 v2 — α⁻¹ as phase-space Q-factor of electron LC tank at TIR boundary | PENDING | proposed: `vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` |
-| A-032 + doc 22 | \|T\|=12 universality across K4 4×3 mode spaces (four-route convergence) | PARTIAL | exists in `vol1/axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md`; deserves expansion |
-| docs 30, 107 | Photon = T₂-only Cosserat ω microrotation (single-sector canonical) | PENDING | proposed: `vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md` |
-| doc 106 | Photon propagation v_meas/c = √2 cardinal-axis baseline empirical | PENDING | proposed: `vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md` |
-| doc 109 §13-§15 | Boundary-envelope reformulation (substrate observes boundary, not interior) | **DONE** | augmented `common/boundary-observables-m-q-j.md` §"Implications" |
-| doc 79 §6.7 + doc 54 §6 + A-015 | Meissner-asymmetric magnetic-moment generator (κ_chiral = 1.2·α) | **DONE** | covered in `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md` §6 |
-| docs 49, 80, 85 | Dark wake + back-EMF + FOC d-q axiom-grounded derivation | DEFER | cross-repo synthesis (AVE-PONDER + AVE-Propulsion + AVE-Fusion); awaiting Grant adjudication on sibling-repo scope (Q2 below) |
+| L5 A-034 | Universal saturation-kernel 19-instance cross-scale catalog | **DONE** | `common/universal-saturation-kernel-catalog.md` (commit 849b2d2) |
+| doc 113 | v14 Mode I PASS — breathing soliton on Master Equation FDTD | **DONE** | `vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md` (commit 5487ede) |
+| doc 41 §2-§3 (F1) | Cosserat mass-gap `m² = 4·G_c/I_ω` (0.35% confirmed) | **DONE** | `vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md` (commit 849b2d2) |
+| doc 103 | Substrate-perspective view of canonical electron | **DONE** | `vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md` (commit 849b2d2) |
+| doc 45 | Lattice impedance decomposition (Z_0/Z_cell/Z_eff/Z_local) | **DONE** | `vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md` (commit 849b2d2) |
+| A-010 + docs 16/17 | Op14 local clock modulation `ω_local(r) = ω_global·√(1−A²(r))` | **DONE** | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md` (this commit) |
+| docs 53, 54 | Pair production = saturated flux-tube rupture (4-axiom derivation) | **DONE** | `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md` (commit 849b2d2) |
+| docs 16, 17, 24, 27 | Theorem 3.1 v2 — α⁻¹ as phase-space Q-factor of electron LC tank at TIR boundary | **DONE** | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` (commit 849b2d2) |
+| A-032 + doc 22 | \|T\|=12 universality across K4 4×3 mode spaces (four-route convergence) | **SUFFICIENT** | existing `vol1/axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md` already comprehensive (all 4 routes + Q-G47 cross-ref); auditor's PARTIAL flag was Session 19+ rigorous $\xi_{K1}, \xi_{K2}$ derivation pending — research-tier, not KB-tier gap |
+| docs 30, 107 | Photon = T₂-only Cosserat ω microrotation (single-sector canonical) | **DONE** | `vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md` (commit 849b2d2) |
+| doc 106 | Photon propagation v_meas/c = √2 cardinal-axis baseline empirical | **DONE** | `vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md` (commit 849b2d2) |
+| doc 109 §13-§15 | Boundary-envelope reformulation (substrate observes boundary, not interior) | **DONE** | augmented `common/boundary-observables-m-q-j.md` §"Implications" (commit 5487ede) |
+| doc 79 §6.7 + doc 54 §6 + A-015 | Meissner-asymmetric magnetic-moment generator (κ_chiral = 1.2·α) | **DONE** | covered in `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md` §6 (commit 5487ede) |
+| docs 49, 80, 85 | Dark wake + back-EMF + FOC d-q axiom-grounded derivation | **DEFER** | cross-repo synthesis (AVE-PONDER + AVE-Propulsion + AVE-Fusion); awaiting Grant adjudication on sibling-repo scope (Q2 below) |
 
 ### PROMOTE-T2 (18 total; 0 done)
 
