@@ -673,6 +673,31 @@ If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symme
 - ⚠ Cosserat $\mu_c$ derivation for K4 + per-path $\gamma_{\text{per-path}}$ still pending Session 8+
 - Status: structural-hypothesis with T-group choice canonical; pending Session 8 $\mu_c$ derivation
 
+**Session 8 dimensional flag (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session8_alpha_reconciliation_attempt.md`):**
+- ⚠ Naive Maxwell–Cremona path-count attempt on $\chi_K$ produced units of [m²·G] (length² × shear modulus), NOT dimensionless. Cannot be a multiplicative coupling.
+- Diagnosis: Hookean-spring bond model misses moment transmission. K4 bonds need to be Cosserat rods (force + torque).
+- Status: structural-hypothesis with dimensional flag PENDING Session 9 resolution
+
+**Session 9 dimensional resolution (2026-05-15 evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session9_cosserat_mu_c_dimensional_resolution.md`):**
+
+Cosserat micropolar elasticity framework setup with correct dimensional anchors:
+- **Couple-stress moduli** (α, β, γ in Eringen 1966) have SI units of **[N]** (newton, force), not stress
+- **Cosserat characteristic length squared**: $\ell_c^2 \equiv (\beta+\gamma)/[2(\mu+\kappa)]$ has units [m²]
+- **Dimensionless lattice ratio**: $\boxed{\chi_K \equiv \mu_c/(G\,d^2) = (\ell_c/d)^2}$ ✓
+- **Controlling modulus identification**: $\mu_c = \beta + \gamma$ (symmetric couple-stress, isotropic Cosserat-rod limit)
+- **Canonical bond model**: isotropic Cosserat rod with $k_a = k_b$, $n_{\text{eff}} = 1$ (point-rotor canonical)
+- **T-orbit sum**: $\chi_K = \sum_{g \in T} \gamma_{g\text{-path}} = 12 \cdot \gamma_{\text{canonical}}$
+- **Working hypothesis**: $\gamma_{\text{canonical}} = 1$ in canonical normalization → $\chi_K = 12$ ✓ (matches A-032 path-count)
+- **Cross-check**: $\chi_K = 12$ + $\chi_G = 3$ (T_t triplet, Session 7) → $u_0^* \approx 0.187 \approx$ A-029 geometric ✓
+
+Status migration: **structural-hypothesis with dimensional flag** (Session 8) → **dimensionally resolved with $\gamma_{\text{canonical}} = 1$ working hypothesis** (Session 9). The remaining derivation work is to PROVE $\gamma_{\text{canonical}} = 1$ from first-principles canonical Cosserat-rod magic-angle physics — currently asserted as a normalization choice. Session 10 target.
+
+**Open Session 10+ targets:**
+1. Derive $\gamma_{\text{canonical}} = 1$ from canonical Cosserat-rod bond physics at K4 magic angle (not just asserted)
+2. Derive $\chi_G = 3$ from T_t translational triplet (7-mode = $T \oplus T \oplus A$ decomposition)
+3. Numerical Cosserat K4 lattice simulation (4-12 nodes, periodic) → compute $\chi_K$, $\chi_G$ directly; compare to predictions
+4. Bridge to Master Equation FDTD: verify $\chi_K = 12$ coupling enters $K(u_0)$ bulk modulus dressing correctly
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
