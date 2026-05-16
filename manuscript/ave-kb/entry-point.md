@@ -1,6 +1,6 @@
 # Applied Vacuum Engineering — Knowledge Base
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). The framework is **genuinely zero-parameter**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), CMB-corrected to CODATA $137.035999$.
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron unknot $0_1$ (real-space topology) with (2,3) phase-space Clifford-torus winding (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). The framework is **structurally zero-parameter (conditional on thermal closure)**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), bridged to CODATA $137.035999$ by one currently-fitted thermal scalar $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ at $T_{\text{CMB}}$ pending first-principles derivation from $G_{\text{vac}}$ + equipartition. See [Common: A-031 refined cosmic-parameter horizon](common/cosmic-parameter-horizon-a031-refinement.md) for the **one-cosmological-parameter** ($\Omega_{\text{freeze}}$) + **three-route framework commitment** ($\alpha + G + \mathcal{J}_{\text{cosmic}}$ all converging on the same $u_0^*$ or framework falsified).
 
 > **⚡ A-034 Canonical Unification (2026-05-15 evening): Universal
 > Saturation-Kernel Strain-Snap Mechanism.** Axiom 4's saturation kernel
@@ -9,11 +9,11 @@ The AVE framework models the physical vacuum as a discrete amorphous LC resonant
 > Per Grant 2026-05-15: *"the bulk response of the lattice to strain is
 > universal."* Empirical anchors: BCS $B_c(T)$ at 0.00% error; BH merger
 > ring-down at 1.7% from GR; NOAA-validated 40-yr solar flare statistics;
-> Schwarzschild radius exact. See [common/trampoline-framework §7.5](common/trampoline-framework.md)
-> for the user-facing synthesis; Vol 3 Ch 4 §sec:tki_strain_snap +
-> backmatter/07_universal_saturation_kernel.tex for the canonical
-> manuscript treatments; [L5 A-034](../../research/L5/axiom_derivation_status.md)
-> for the load-bearing entry.
+> Schwarzschild radius exact. **Canonical manuscript source:**
+> [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../backmatter/07_universal_saturation_kernel.tex)
+> (19-instance catalog + 3-way SYM/ASYM-N/ASYM-E classification +
+> measurement-hierarchy framing). KB synthesis: [common/trampoline-framework §7.5](common/trampoline-framework.md);
+> Vol 3 Ch 4 §sec:tki_strain_snap for cosmic-scale derivation.
 
 ---
 

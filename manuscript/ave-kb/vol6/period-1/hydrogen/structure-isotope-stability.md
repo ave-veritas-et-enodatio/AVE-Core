@@ -3,7 +3,7 @@
 
 ## Topological Structure and Isotope Stability
 
-The simplest possible atomic state consists of a singular $6^3_2$ Borromean proton defect anchored by the $3_1$ trefoil electron defect orbiting its refractive gravity well.
+The simplest possible atomic state consists of a singular $6^3_2$ Borromean proton defect anchored by the electron unknot ($0_1$ in real-space topology, with $(2,3)$ phase-space Clifford-torus winding pattern) orbiting its refractive gravity well.
 
 The addition of a neutron ($6^3_2 + \text{axial twist}$) geometrically links with the proton, forming a heavily anisotropic "dumbbell" defect. This significantly alters the local spatial drag and acoustic cross-section, forming Deuterium ($^2$H).
 

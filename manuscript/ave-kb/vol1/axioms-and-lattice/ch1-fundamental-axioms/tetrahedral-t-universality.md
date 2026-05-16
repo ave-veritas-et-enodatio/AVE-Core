@@ -35,7 +35,7 @@ The four-route convergence is therefore expected — but the four-way independen
 
 ## Status
 
-**Structural-hypothesis** per L5 A-032 entry. The four-route convergence is verified; rigorous Session 19+ derivation of $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration is pending (multi-week analytical work). If that derivation explicitly recovers $\xi_{K2}/\xi_{K1} = 12$, route 4 is rigorously closed and the four-route convergence becomes a four-route theorem.
+**Structural-hypothesis.** The four-route convergence is verified; rigorous Session 19+ derivation of $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration is pending (multi-week analytical work, per [closure-roadmap §12.5 Open-Derivation Queue](../../../common/closure-roadmap.md)). If that derivation explicitly recovers $\xi_{K2}/\xi_{K1} = 12$, route 4 is rigorously closed and the four-route convergence becomes a four-route theorem.
 
 ## Cross-references
 

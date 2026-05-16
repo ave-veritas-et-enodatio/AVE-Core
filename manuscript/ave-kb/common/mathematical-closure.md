@@ -77,7 +77,7 @@ The entirety of the framework's predictive power is derived by bridging **Three 
 3. **Parameter 3 (The Machian Boundary):** Macroscopic Gravity ($G$) acts as the structural impedance parameter defining the causal limits of the manifold.
 4. **Axiom 1 (Topo-Kinematic Isomorphism):** Charge is identically equal to spatial dislocation ($[Q] \equiv [L]$).
 5. **Axiom 2 (Chiral LC Elasticity):** The macroscopic vacuum acts as an effective trace-free chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect) supporting microrotations via per-node Cosserat rotational DOFs.
-6. **Axiom 3 (Discrete Action Principle):** The macroscopic system minimizes Hamiltonian action across the localized phase transport field ($\mathbf{A}$).
+6. **Axiom 3 (Minimum Reflection Principle):** The substrate minimizes the boundary reflection $|\Gamma|^2$ at every internal impedance boundary (substrate-native, names the externally-observable quantity); equivalently, the macroscopic system extremizes Hamiltonian action across the localized phase transport field ($\mathbf{A}$). Legacy names: *Effective Action Principle*, *Discrete Action Principle*.
 7. **Axiom 4 (Dielectric Saturation):** The effective lattice compliance is bounded by a squared mathematical limit ($n=2$). Taylor expanding this squared limit bounds the volumetric energy required by the standard QED Euler-Heisenberg Lagrangian.
 
 From these initial geometric anchors and four structural rules, all fundamental constants dynamically emerge as the strict mechanical limits of the EFT:
@@ -106,6 +106,6 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 
 **Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
 
-**L5 authority:** `research/L5/axiom_derivation_status.md` A-034 entry (canonical, all cross-refs point here).
+**Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) (all cross-refs point here).
 
 These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 19 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.

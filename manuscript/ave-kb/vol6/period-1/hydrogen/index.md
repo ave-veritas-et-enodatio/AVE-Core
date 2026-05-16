@@ -2,7 +2,7 @@
 
 # Hydrogen (Z=1)
 
-Hydrogen is the simplest possible atomic state: a singular $6^3_2$ Borromean proton defect anchored by the $3_1$ trefoil electron defect. It exists below the semiconductor binding engine's domain---one oscillator, zero coupling pairs. Its orbital knot topology derives the Bohr radius, Rydberg energy, and de Broglie quantization from deterministic topological mechanics.
+Hydrogen is the simplest possible atomic state: a singular $6^3_2$ Borromean proton defect anchored by the electron unknot ($0_1$ in real-space topology, with $(2,3)$ phase-space Clifford-torus winding pattern). It exists below the semiconductor binding engine's domain---one oscillator, zero coupling pairs. Its orbital knot topology derives the Bohr radius, Rydberg energy, and de Broglie quantization from deterministic topological mechanics.
 
 ## Key Results
 

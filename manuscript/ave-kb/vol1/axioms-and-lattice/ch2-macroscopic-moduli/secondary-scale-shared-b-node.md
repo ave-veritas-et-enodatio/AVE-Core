@@ -46,7 +46,7 @@ See [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-uni
 
 ## Status
 
-**Canonical** per L5 A-029 + Grant adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry.
+**Canonical** per Grant adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry. Canonical manuscript source: [Vol 1 Ch 2 (Macroscopic Moduli)](../../../../vol_1_foundations/chapters/02_macroscopic_moduli.tex).
 
 ## Cross-references
 

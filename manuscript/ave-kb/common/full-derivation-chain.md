@@ -862,7 +862,7 @@ empirical anchor: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../.
 
 Canonical synthesis (user-facing): [trampoline-framework.md §7.5](trampoline-framework.md).
 
-L5 authority: `research/L5/axiom_derivation_status.md` A-034 entry.
+Canonical manuscript source: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 ## Layer 8+: Millennium Problems and Open Problems
 

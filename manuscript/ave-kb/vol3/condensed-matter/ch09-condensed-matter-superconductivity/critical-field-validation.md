@@ -1,7 +1,7 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
 <!-- leaf: verbatim -->
 
-> **A-034 anchor (canonical 2026-05-15 evening).** BCS $B_c(T)$ is the **strongest empirical anchor** in the Universal Saturation-Kernel Catalog — Type-I/II superconductor critical-field datasets match $S(A) = \sqrt{1 - A^2}$ at **0.00% error** across all measured materials. This is the condensed-matter row (SYM symmetry class) in the 19-instance cross-scale catalog. Same kernel governs BH ring-down (1.7% from GR), NOAA-validated solar flares, and cosmic K4 crystallization. See also: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md); full catalog at `manuscript/backmatter/07_universal_saturation_kernel.tex` (Vol 0); L5 authority: `research/L5/axiom_derivation_status.md` A-034.
+> **A-034 anchor (canonical 2026-05-15 evening).** BCS $B_c(T)$ is the **strongest empirical anchor** in the Universal Saturation-Kernel Catalog — Type-I/II superconductor critical-field datasets match $S(A) = \sqrt{1 - A^2}$ at **0.00% error** across all measured materials. This is the condensed-matter row (SYM symmetry class) in the 19-instance cross-scale catalog. Same kernel governs BH ring-down (1.7% from GR), NOAA-validated solar flares, and cosmic K4 crystallization. **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
 
 ---
 

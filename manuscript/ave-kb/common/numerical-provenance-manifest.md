@@ -6,7 +6,7 @@
 
 **Discipline rule (A47 v11d):** any manuscript file added or modified with numerical solver outputs MUST register here with verified SHA + date + solver function. Companion to PR-template axiom-chain checkbox at [`.github/pull_request_template.md`](../../../.github/pull_request_template.md).
 
-**Methodology backstory:** the substrate-native erosion arc documented at [`research/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md`](../../../research/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md) found `radial_eigenvalue.py` had drifted 5-15% across 11 commits from its manuscript-table-generation state, with no test or CI gate detecting the drift. The drift was structurally invisible because manuscript prose claimed precision the code no longer delivered. This manifest closes that hole at the corpus-wide level.
+**Methodology backstory:** prior substrate-native erosion arc found `radial_eigenvalue.py` had drifted 5-15% across 11 commits from its manuscript-table-generation state, with no test or CI gate detecting the drift. The drift was structurally invisible because manuscript prose claimed precision the code no longer delivered. This manifest closes that hole at the corpus-wide level.
 
 ---
 
@@ -19,7 +19,7 @@
 - **Generating SHA:** `0401388` (Applied-Vacuum-Engineering parent repo, 2026-04-09)
 - **Locked at AVE-Core HEAD:** confirmed reproducible to ≤0.21% via `verify_atomic_ie_manuscript_table.py` after Q1+Q3+Q4+Q5+Q6 surgical restoration (commits `4c5035d`, `6783711`, `01f4f90`)
 - **CI gate:** `make verify` + `pytest src/tests/test_radial_eigenvalue.py::TestManuscriptTableReproducibility` at ±0.5% tolerance
-- **Verification doc:** [`research/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md §10.16-§10.32`](../../../research/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md)
+- **Verification:** see `src/tests/test_radial_eigenvalue.py::TestManuscriptTableReproducibility` for the live regression test enforcing the table-generation reproducibility
 
 ---
 

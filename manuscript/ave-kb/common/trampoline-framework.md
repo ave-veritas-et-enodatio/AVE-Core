@@ -164,7 +164,7 @@ The substrate-observability rule walls off the pre-substrate state by definition
 
 **All three must give the same $u_0^*$** or the framework is wrong. This is a sharp falsification test: AVE commits to a single value of one parameter, derivable from three independent observational routes.
 
-**Cross-references.** A-031 (NEW, `research/L5/axiom_derivation_status.md`) — $\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$ canonical; A-026 (substrate-observability rule applied fractally including to ourselves); A-030 (α + G joint anchoring extended to three routes); App F (cosmic row gets explicit $\mathcal{J}_{\text{cosmic}}$); Vol 3 Ch 4 generative cosmology; Vol 3 Ch 21 BH Interior Regime IV (same-mechanism framing).
+**Cross-references.** A-031 refined ($\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$; canonical at [Common: A-031 cosmic-parameter horizon refinement](cosmic-parameter-horizon-a031-refinement.md)); A-026 (substrate-observability rule applied fractally including to ourselves; canonical at [Common: Three Boundary Observables M, Q, J](boundary-observables-m-q-j.md)); A-030 (α + G joint anchoring extended to three routes; same A-031 leaf); multi-scale Machian network (Vol 3 Ch 4 generative cosmology + §7 of this doc); [Vol 3 Ch 4 generative cosmology](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex); [Vol 3 Ch 21 BH Interior Regime IV](../../vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex) (same-mechanism framing).
 
 ---
 
@@ -764,7 +764,7 @@ This is a major epistemological softening. The original framing implied the enti
 3. **Power-law avalanche statistics** at solar flare scale should be related to ring-down QNM frequency distribution and geomagnetic reversal interval distribution cross-scale.
 4. **CMB power-spectrum peaks** should match the parent BH's QNM $\ell$-spectrum.
 
-Empirical pre-registration of the multi-observable axis-alignment test: `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`.
+Empirical pre-registration of the multi-observable axis-alignment test: see [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) §CMB axis-alignment test pre-reg.
 
 **Cross-references for A-034:**
 - **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 19-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
@@ -839,7 +839,7 @@ Two specialized engines cover disjoint operating regimes; both are Axiom-1/2/3/4
 - **doc 112** — Path B execution first iteration
 - **doc 113 §0-§4** — v14 Mode I PASS canonical closure
 - **doc 113 §3.2** — two-engine architecture canonical statement
-- **`research/L5/axiom_derivation_status.md` A-027** — two-engine architecture canonical entry
+- **[Common: A-027 Two-Engine Architecture](two-engine-architecture-a027.md)** — two-engine architecture canonical KB leaf
 
 ---
 
