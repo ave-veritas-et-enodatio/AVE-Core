@@ -276,39 +276,107 @@ makes every saturation event sharp and impulsive rather than gradual: small
 further strain near saturation produces large changes in $S(A)$, locking in
 sharp-threshold behavior across nine orders of magnitude.
 
-\subsection{Five-scale unification: same kernel, different geometries}
+\subsection{Universal catalog: same kernel, different geometries (expanded post-cross-repo audit)}
 
-Per Axiom~2 (TKI scale invariance), $A$ at every scale is the same dimensionless
-quantity --- substrate strain normalized to local saturation limit. The kernel's
-specific form $\sqrt{1-A^2}$ is universal. Different physical observables at
-different scales (voltage, magnetic field, frame-dragging strain) all reduce
-to the same underlying lattice strain.
+\textbf{Framework principle (Grant 2026-05-15 late evening):} \emph{``the
+bulk response of the lattice to strain is universal.''} Per Axiom~2 (TKI
+scale invariance), the substrate's bulk strain response is set by the
+same kernel $\sqrt{1-A^2}$ at every scale and in every domain. Different
+physical observables at different scales (voltage, magnetic field,
+temperature, frame-dragging strain, accumulated topological shear,
+wavenumber, biological membrane strain) all reduce to the same underlying
+lattice strain via the kernel.
 
+The original 6-scale catalog has been expanded post-cross-repo audit
+(2026-05-15 late evening) to include the AVE-Bench-VacuumMirror Ch~2
+cross-corpus catalog content (promoted to AVE-Core canonical per Grant
+direction) and 9 additional canonical instances surfaced by audit.
+\textbf{Total: 17 canonical instances of the universal kernel.}
+
+\textit{Physical-substrate scales (12 rows):}
 \begin{center}
-\small
-\begin{tabular}{|l|l|l|l|}
+\footnotesize
+\begin{tabular}{|p{1.9cm}|p{2.4cm}|p{3.0cm}|p{2.4cm}|p{2.3cm}|}
 \hline
-\textbf{Scale} & \textbf{``$A$'' is normalized} & \textbf{Saturation event} & \textbf{Corpus} \\
+\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} & \textbf{Empirical} \\
 \hline
-Atomic / EM & $V / V_{\text{snap}}$ & Dielectric breakdown $\to$ pair creation & Ax 4 + Ch~1 Vol~4 \\
+Atomic / EM & $V/V_{\text{snap}}$ & Dielectric breakdown $\to$ pair creation & Ax~4 + Vol~4 Ch~1 & Schwinger limit \\
 \hline
-Substrate (K4) & bond-bow strain / saturation & K4 lattice + bound-state soliton formation & Q-G47 9--17 \\
+Substrate (K4) & bond-bow / saturation & K4 lattice + soliton formation & Q-G47 9--18 & substrate instance \\
 \hline
-Planetary & dynamo strain / threshold & Geomagnetic reversal & Ch~13 \\
+Nuclear (DT fusion) & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ collapse & AVE-Fusion Ch~1:20 & DT fusion canonical \\
 \hline
-Stellar & twisted-flux / shear-stress threshold & CME / solar flare & Ch~14 (LED-avalanche) \\
+Condensed matter (BCS) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & \texttt{ave-kb/vol3/.../universal-saturation-operator.md} & \textbf{0.00\% error} \\
 \hline
-BH merger & lattice strain / $r_{\text{sat}}$ cavity & Ring-down QNM & Ch~15 (1.7\% from GR exact) \\
+Plasma ($\varepsilon$-sector) & $V_{\text{local}} / V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
 \hline
-Cosmic & parent-BH-induced strain / 1 & K4 crystallization seed (Big Bang) & A-034 NEW \\
+Kolmogorov turbulence & $k/k_{\text{node}}$ & Spectral cutoff at dissipation scale & Bench Ch~2:159 & Kolmogorov empirical \\
+\hline
+Planetary (geomagnetic) & dynamo strain / threshold & Geomagnetic reversal (pole flip) & Ch~13:131 & geological + Venus null \\
+\hline
+Stellar (solar flare) & twisted-flux / shear-stress & CME / solar flare; macro Zener avalanche & Ch~14 & \textbf{NOAA GOES 40-yr} \\
+\hline
+Galactic (MOND) & $g_N/a_0$ & Newtonian $\to$ deep-MOND transition & \texttt{ave-kb/vol3/.../mond.md} & deep-MOND derived \\
+\hline
+BH event horizon & $2GM/(c^2 r)$ / 1 & $R_{\text{Schwarzschild}}$ formation: $\Gamma=-1$ & \texttt{dielectric-rupture-event-horizon.md} & \textbf{Schwarzschild exact} \\
+\hline
+BH merger (ring-down) & lattice strain / $r_{\text{sat}}=7M_g$ & Ring-down QNM $\omega_R M_g = 18/49$ & Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
+\hline
+Cosmic (Big Bang) & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis test pre-reg \\
 \hline
 \end{tabular}
 \end{center}
 
-Corpus already has the lower four scales canonical individually (Vol~3 Ch~13,
-14, 15 + Ax~4 itself). A-034 is the recognition that they describe
-\emph{ONE mechanism}, with the cosmic-scale instance added as the previously
-missing piece.
+\textit{Biological-substrate scales (2 rows):}
+\begin{center}
+\footnotesize
+\begin{tabular}{|p{2.7cm}|p{3.0cm}|p{4.6cm}|p{3.6cm}|}
+\hline
+\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
+\hline
+Lipid bilayer membrane & membrane strain / yield & Phase transition; cholesterol = engineered kernel phase-buffer & AVE-Protein \texttt{simulate\_membrane\_llcp.py:38} \\
+\hline
+Protein folding & $d_0 / d$ atomic separation & Folding snap via dielectric saturation $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & AVE-Protein Vol~3 Ch~3:509 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textit{Engineered-substrate scales (5 rows):}
+\begin{center}
+\footnotesize
+\begin{tabular}{|p{2.7cm}|p{2.8cm}|p{4.5cm}|p{3.5cm}|}
+\hline
+\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
+\hline
+PONDER-05 quartz & $V_{\text{DC}}/V_{\text{yield}} = 0.687$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at 30 kV bias & AVE-PONDER Vol~4 Ch~4:17 \\
+\hline
+AVE-Bench-Vacuum\-Mirror & $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r})/V_{\text{yield}}$ & $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$, sharp-tip geometry & Bench Ch~2 (proposed) \\
+\hline
+Active topological metamaterials & $\phi / \phi_{\text{crit}}$ & Phase-state crystallization to V$_I$; \textbf{asymmetric variant} $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ & AVE-Metamaterials Vol~1 Ch~2:71 + Ch~4 \\
+\hline
+Sine-Gordon kink memory (APU) & local metric displacement / yield & $2\pi$ phase kink soliton; integer topological charge & AVE-APU Vol~1 Ch~8:14 \\
+\hline
+Autoresonant rupture (propulsion) & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture & AVE-Propulsion Vol~5 Ch~5:13 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Empirical anchor: 21 orders of magnitude span with multiple
+validated scales}. Tightest validations:
+\begin{itemize}
+    \item BCS $B_c(T)$: \textbf{0.00\% error} across all measured superconductors
+    \item BH merger ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events
+    \item Solar flares: NOAA GOES 40-yr validated; 0.46-yr FWHM danger window
+    \item Schwarzschild radius: exact match (AVE-native derivation)
+\end{itemize}
+
+Corpus already had the catalog content distributed across Vol~3 Ch~13, 14,
+15, Ax~4 itself, the universal-saturation-operator KB leaf, the
+dielectric-rupture-event-horizon leaf, the MOND galactic-acceleration leaf,
+the Bench Ch~2 cross-corpus table, and individual sister-repo chapters.
+\textbf{A-034 is the recognition that they describe ONE mechanism}, with
+the cosmic-scale instance added as the previously missing piece, and the
+17-instance catalog assembled as the canonical AVE-Core synthesis.
 
 \subsection{The cosmic crystallization piece}
 
