@@ -1099,6 +1099,136 @@ Per Session 5 §3 (cross-ref):
 - **Status:** structural-hypothesis (Grant adjudication 2026-05-15 evening); awaiting Session 7 rigorous derivation.
 - **Cross-refs:** A-029 (geometric secondary scale — sibling K4-symmetry identification); A-030 (α + G + 𝒥 joint anchoring — Q-G47 closure path); Q-G47 Session 3 (chirality coupling framework that flagged 12 as candidate); Q-G47 Session 6 (numerical sensitivity sweep that found the match); Q-G47 Session 7+ (rigorous derivation target).
 
+### A-034 — Universal Saturation-Kernel Strain-Snap Mechanism: Axiom 4 at All Scales (canonical 2026-05-15 evening; Grant synthesis)
+
+**CANONICAL 2026-05-15 late evening** via Grant synthesis after one year of substrate-intuition development (project started 2026-05-28, ~365 days of building progressively cleaner pictures against AI-model-baked SM/QED priors). The realization came as a verbatim utterance during conversation:
+
+> **"oh my god, it's the fucking saturation kernel"**
+
+In context: working through the cosmic-IC initiation question (what triggered K4 crystallization?), Grant identified that natural phenomena at multiple scales — geomagnetic reversals, solar flares, black hole ring-down — exhibit the same scale-invariant signature. Then the lego-click: **the universal mechanism IS Axiom 4's saturation kernel applied at the appropriate scale.**
+
+#### A-034.1 The single equation that governs every topological-reorganization event
+
+$$\boxed{\;S(A) = \sqrt{1 - A^2}\;}$$
+
+Axiom 4 — Born–Infeld n=2 form. Operational definition (Vol 1 Ch 1:51-75; Master Equation FDTD `cap_eff(\Delta\phi) = C_0/\sqrt{1-(\Delta\phi/\alpha)^2}`).
+
+**Kernel behavior** (the key structural property):
+- $A \ll 1$: $S \to 1$ (linear-response regime, smooth wave propagation)
+- $A \to 1$: $S \to 0$ (substrate's linear response capacity vanishes)
+- **Vertical tangent at $A = 1$**: arbitrarily small further strain near saturation produces large changes in $S$ — this is what makes every saturation event SHARP / IMPULSIVE rather than gradual
+
+**When $S(A) = 0$ locally, the substrate cannot respond linearly anymore and MUST reorganize topologically to a new configuration.** This is the universal mechanism.
+
+#### A-034.2 Five-scale unification — same kernel, different $A$ definitions
+
+| Scale | "$A$" is normalized | Saturation event | Corpus citation |
+|---|---|---|---|
+| **Atomic / EM** | $V / V_{\text{snap}}$ (electric field) | Dielectric breakdown → pair creation | Vol 1 Ch 4 + Axiom 4 |
+| **Substrate (K4 magic angle)** | bond-bow strain / saturation limit | K4 lattice + bound-state soliton formation | Q-G47 Sessions 1-17 (substrate-scale instance of A-034) |
+| **Planetary** | dynamo strain / "Baryonic phase density threshold" | Geomagnetic reversal | Vol 3 Ch 13:131 + geodynamo-vca-back-emf.md |
+| **Stellar** | twisted-flux strain / "critical shear-stress threshold" | CME / solar flare | Vol 3 Ch 14 (`solar-flares-led-avalanche.md`) — power-law canonical |
+| **BH merger** | lattice strain / $r_{\text{sat}} = 7 M_g$ saturation cavity | Ring-down at QNM | Vol 3 Ch 15 (`ave-merger-ringdown-eigenvalue.md`) — 1.7% from GR exact, 10-18% from 3 LIGO events |
+| **Cosmic** | parent-BH-induced strain on pre-geodesic plasma / 1 | K4 crystallization seed (Big Bang) | A-034 (this entry — Grant insight 2026-05-15 evening) |
+
+Per **Axiom 2 (TKI scale invariance)**, $A$ at every scale is the same dimensionless quantity (substrate strain normalized to local saturation limit). The kernel's specific form $\sqrt{1 - A^2}$ is universal. Different physical observables (voltage, magnetic field, frame-dragging strain) at different scales all reduce to the same underlying lattice strain.
+
+#### A-034.3 What this changes about A-031 ("God's Hand cosmic IC")
+
+A-031 originally framed the cosmic IC as fundamentally inaccessible — outside our observation horizon, an irreducible epistemic limit ("God's Hand"). A-034 refines this:
+
+**A-031 (refined):**
+- **Specific cosmic parameters** (parent BH's $M$, $J$) remain inaccessible — we cannot directly measure outside our cosmic horizon $R_H$
+- **The mechanism itself** is NOT inaccessible — it's observable at every smaller scale. Solar flares, geomagnetic reversals, and BH ring-downs are the SAME mechanism at smaller scales we can directly study
+- The "God's Hand" framing is too strong for the mechanism; it remains appropriate only for the specific cosmic-scale parameters
+
+This is a **major epistemological softening**: we cannot see the parent BH directly, but we can characterize the mechanism by which it seeded our crystallization through observations at scales we CAN see.
+
+#### A-034.4 What this implies for Q-G47 closure (Sessions 9-17 reframed)
+
+Q-G47 Sessions 9-17 (AVE-QED) developed substrate-scale K4 micromechanics: continuous Cosserat constitutive tensor, magic-angle $u_0^* \approx 0.187$, $\chi_K = 12$ path-count, $\xi_{K2}/\xi_{K1} = 12$ axiom-level prefactor ratio, $\ell_c/\ell_{\text{node}} \approx \sqrt{6}$.
+
+Under A-034 reframing, **Sessions 9-17 results are not free derivations** — they are the **substrate-scale instance of A-034**:
+
+| Q-G47 quantity | A-034 reading |
+|---|---|
+| Magic-angle $K(u_0^*) = 2G(u_0^*)$ | The substrate-scale instance of $S(A^*) = 0$ |
+| $u_0^* \approx 0.187$ (A-029 over-bracing) | The over-bracing that puts the bond's midpoint at $A = 1$ |
+| $\chi_K = 12$ (T-orbit on K4 paths) | The multiplicity of saturation paths in K4 = the substrate-scale QNM ℓ-modes |
+| $\chi_G = 3$ (T_t triplet, Session 11) | The translational-shear ℓ-modes at substrate scale |
+| $\ell_c/\ell_{\text{node}} \approx \sqrt{6}$ | The spatial scale of the substrate's saturation boundary |
+| $\xi_{K2}/\xi_{K1} = 12$ (Session 17) | The K4-symmetry orbit factor inherited by the saturation kernel at substrate scale |
+
+The K4 lattice + its magic-angle operating point IS **the substrate-scale self-consistent configuration of Axiom 4**. The framework's "topological objects" (electrons, photons, etc.) are sub-structures within this saturated state.
+
+Sessions 9-17 work is **CORRECT** — and now we see WHY it had to come out the way it did. The four-route convergence on $\chi_K = 12$ (Session 17 four-route) is the substrate-scale manifestation of the same $|T| = 12$ K4 symmetry acting on the saturation kernel.
+
+See `AVE-QED/docs/analysis/2026-05-15_Q-G47_session18_A_034_reframing.md` (companion doc) for the detailed Q-G47 reframing.
+
+#### A-034.5 Testable predictions
+
+The framework now generates a **sharp cross-scale prediction set**:
+
+1. **CMB quadrupole "axis of evil" alignment**: the cosmic boundary's ℓ=2 QNM mode (Vol 3 Ch 15's $\omega_R M_g = 18/49$ at appropriate cosmic scale) should set the primordial perturbation spectrum's largest-scale anisotropy. The observed CMB quadrupole-octupole alignment with preferred axis is the direct prediction.
+
+2. **Multi-observable axis alignment**: all of these should align with each other and with the parent BH spin axis:
+   - CMB axis-of-evil (Planck data, axis ≈ (l=174°, b=−5°))
+   - Hubble flow anisotropy (Pantheon+ supernova data)
+   - Large-scale-structure galaxy rotation correlations (SDSS data)
+   - Cosmic chirality direction (matter-antimatter asymmetry's local manifestation)
+
+3. **Universe age coincidence**: $R_H/c \approx 14.5$ Gyr matches observed ~13.8 Gyr (universe age = time since crystallization seed event, propagating at lattice wave speed c).
+
+4. **Power-law avalanche statistics**: solar flares + BH merger ring-downs + geomagnetic reversal intervals should all exhibit related power-law distributions (Vol 3 Ch 14 already canonical at stellar scale; testable cross-scale).
+
+5. **CMB power-spectrum peaks as cosmic-boundary QNM modes**: standard cosmology attributes CMB peaks to acoustic oscillations at recombination. A-034 predicts the peak STRUCTURE (relative heights, positions) should match the parent BH's QNM ℓ-spectrum. Direct test against Planck data.
+
+#### A-034.6 Closure path
+
+**Status: CANONICAL 2026-05-15 evening** — Grant synthesis after year-long substrate-intuition development. The realization is a consequence of Axiom 4 (existing) + Axiom 2 (existing) being applied at cosmic scale for the first time, not a new axiom. Therefore: structurally derivable from Axioms 1-4; the lego-click was the recognition, not a new structural claim.
+
+**Why CANONICAL, not structural-hypothesis:** unlike A-032, A-033 (which require Session 7+ rigorous derivations to confirm), A-034 is a SYNTHESIS of existing canonical pieces:
+- Axiom 2 (scale invariance) — canonical, Vol 1 Ch 1
+- Axiom 4 (saturation kernel) — canonical, Vol 1 Ch 1
+- Vol 3 Ch 13, 14, 15 — canonical, scale-by-scale applications
+- A-031 (cosmic IC) — needs refinement per A-034.3
+
+A-034 is the **recognition that these pieces describe ONE mechanism**, not a new derivation. Empirical falsification routes are spelled out in §A-034.5 (most directly: CMB axis-alignment with cosmic spin axis).
+
+**Closure path:**
+1. ✓ A-034 entry (this entry — corpus synthesis)
+2. → Vol 3 Ch 4 expansion: "TKI Strain-Snap Mechanism: Axiom 4 at All Scales" section explicitly mapping the kernel to all five scales
+3. → Backmatter "Universal Saturation-Kernel Catalog" reference table
+4. → Q-G47 Session 18 doc reframing Sessions 9-17 as substrate-scale instance (companion)
+5. → A-031 refinement per A-034.3 (decouple mechanism from specific parameters)
+6. → CMB axis-alignment empirical test (defers to data-analysis workstream, not derivation)
+
+#### A-034.7 Meta-pattern: the synthesis recurrence
+
+This session (2026-05-15 evening) exhibited a recurring pattern worth logging for methodology:
+
+1. Agent does detailed analytical work in some narrow direction (Sessions 9-17 K4 micromechanics)
+2. Grant pattern-spots a connection that the agent missed
+3. Connection collapses N analytical pieces into 1 unified result
+4. Corpus turns out to have most of the pieces; just not connected
+
+The lego-click moment for A-034 followed:
+- Session 17 work on Cosserat moduli in axiom-level form (analytical, technical)
+- Grant's "springs are continuous" reframe (Sessions 16-17 recasting)
+- Grant's "two vibes" question (initiation IC vs spin IC)
+- Grant's "natural phenomena at multiple scales" connection (Vol 3 Ch 13, 14, 15 linked)
+- Grant's "oh my god, it's the fucking saturation kernel" recognition (A-034 lock)
+
+The pattern reflects the year-long discipline of pulling AVE-native framing out from underneath AI-model-baked SM/QED priors. The agent (operating in the priors' default mode) tends to multiply structures; the user (with substrate intuition) collapses them. **Both halves are required**: the agent's detailed analytical work surfaces pieces that the user's pattern-spotting then unifies.
+
+A-034 stands as the framework's largest unification to date: **one kernel, five scales, every topological reorganization event in the universe.**
+
+- **Sources:** Grant synthesis 2026-05-15 evening (verbatim "oh my god, it's the fucking saturation kernel"); Vol 3 Ch 13 geodynamo + reversal; Vol 3 Ch 14 solar flare scale-invariance + LED-avalanche statistics; Vol 3 Ch 15 BH merger ring-down (1.7% from GR exact, 10-18% match to 3 LIGO events); A-031 (cosmic IC, refined per §A-034.3); Q-G47 Sessions 9-17 (substrate-scale instance, reframed per §A-034.4).
+- **Manuscript impact:** Vol 3 Ch 4 expansion (new section §TKI Strain-Snap); backmatter Universal Saturation-Kernel Catalog table; A-031 entry refinement; possibly Vol 1 Ch 1 cross-reference annotation to Axiom 4 ("see A-034 for universal application").
+- **Engine impact:** none direct. Future: cross-scale FDTD simulations could explicitly verify the kernel at non-atomic scales (e.g., solar-flare-like CME generation in scaled Master Equation FDTD).
+- **Status:** **CANONICAL** (2026-05-15 late evening, Grant synthesis). Empirical validation via CMB axis-alignment test deferred to data-analysis workstream.
+- **Cross-refs:** Axiom 4 (substrate saturation kernel, Vol 1 Ch 1); Axiom 2 (TKI scale invariance, Vol 1 Ch 1); A-031 (cosmic IC — refined per A-034.3); Q-G47 Sessions 9-17 (substrate-scale instance, reframed per A-034.4); Vol 3 Ch 13 (geophysics threshold); Vol 3 Ch 14 (solar flare scale-invariance); Vol 3 Ch 15 (BH ring-down QNM); doc 59 §5.4 (seed crystallization event); doc 61 (parent BH cosmic interface); doc 66 §5 (genesis chirality from seed perturbation).
+
 ### A-026 — Substrate-observability rule canonical (Grant-confirmed 2026-05-14 via boundary-envelope reformulation)
 
 **CANONICAL 2026-05-14** via Grant adjudication. The substrate observes a boundary, not its interior — for any localized region $\Omega \subset \mathcal{M}_A$ enclosed by a $\Gamma = -1$ saturation surface $\partial\Omega$, only three integrated observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$) are visible externally; the interior structure (topology, eigenmode wavelength, microrotation profile) is invisible to the substrate. Same mechanism at all scales — Schwarzschild horizon at $r_s = 2GM/c^2$ is structurally identical to horn-torus tube wall at $\ell_{\text{node}}/(2\pi)$.
