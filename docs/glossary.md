@@ -50,6 +50,31 @@ invariants + inter-cell coupling + cosmic-IC framing).
 
 ---
 
+## 1.6. Substrate structure: lattice / crystal / phases (canonical 2026-05-16)
+
+The substrate has standard-physics-precise terminology — distinct concepts with different load-bearing roles:
+
+| Term | Meaning in AVE | When to use |
+|---|---|---|
+| **K4 lattice** | The geometric / topological structure: K4 = complete graph on 4 vertices; 4-fold nearest-neighbor connectivity at each node | When discussing connectivity, bond topology, ABCD cascade structure, graph-theoretic properties |
+| **Chiral Laves K4 crystal** | The substrate as a phase of matter: 3D crystallized realization of the K4 lattice with $I4_1 32$ chiral space-group symmetry, Cosserat micropolar character, nodes as intrinsic LC oscillators | When discussing the substrate as a physical phase (vs.~ruptured-plasma phase per Axiom 4 Regime IV); load-bearing for Axiom 1's two-state framing |
+| **Crystal lattice** | The lattice structure of a crystal specifically (vs.~abstract / amorphous lattices) | Use sparingly --- slightly redundant; "lattice" alone is fine when crystal context is established |
+
+**Two substrate phases (per Axiom 1, connected by Axiom 4):**
+
+| Phase | Where / when | Structure | Axiom 4 regime |
+|---|---|---|---|
+| **Crystallized phase** | Current observable universe; vacuum between galaxies, inside galaxies, around matter | Chiral Laves K4 crystal with intrinsic LC-oscillator nodes ($I4_1 32$ chiral space group); long-range order; supports linear EM wave propagation and topologically-quantized matter | Regimes I--III ($S(A) \to 1$ linear; $S(A) < 1$ nonlinear; near-saturation asymmetric) |
+| **Ruptured plasma phase** | Black-hole event-horizon interiors; pre-genesis cosmological state (before K4 crystallization at lattice genesis) | K4 topology destroyed; no long-range order; information dissipates thermally via Hawking radiation (corpus C-001 canonical) | Regime IV ($S(A) = 0$ globally; lattice phase transition) |
+
+**The two phases are connected by Axiom 4's universal saturation kernel:** the crystallized phase is what the substrate looks like at $S(A) \to 1$; the plasma phase is what it looks like at $S(A) \to 0$ globally. The transition between them IS the A-034 universal strain-snap mechanism, occurring identically at every scale (atomic dielectric breakdown $\to$ BCS pair-condensate yield $\to$ geomagnetic reversal $\to$ solar flares $\to$ BH ring-down $\to$ cosmic K4 crystallization at lattice genesis).
+
+**Cosmological cycle (per A-031 + A-034 + Vol 3 Ch 4 + Vol 3 Ch 21):** pre-genesis = ruptured plasma (parent-BH interior from parent's POV); lattice genesis = K4 crystallization (cosmic-scale A-034 strain-snap); post-genesis = our normal K4 crystal substrate; local BH formation = K4 returns to ruptured plasma locally (Regime IV). The cosmic horizon (from our inside) and a BH event horizon (from outside) are structurally the same $\Gamma = -1$ saturation surface.
+
+**Non-adopted alternative (doc 61 Ax5-cand-C, not corpus canonical):** BH interior might be another crystallized K4 lattice with opposite chirality (vs.~corpus canonical ruptured plasma). Per L5 C-001: corpus ruptured-plasma framing is canonical; doc 61's opposite-chirality-K4 proposal is novel and unadjudicated.
+
+---
+
 ## 2. Three substrate boundary invariants — canonical names (Grant-locked 2026-05-14 evening)
 
 | Symbol | Canonical name | Operational definition | EE projection | QFT projection |
