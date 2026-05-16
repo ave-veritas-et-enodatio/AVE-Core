@@ -334,7 +334,11 @@ def fig_03_saturation_kernel():
     ax2.set_ylim(0.9, 10)
 
     # Mark V_yield (A_yield = sqrt(alpha))
-    alpha = 1.0 / 137.036
+    # Derive alpha from canonical Vol 1 Ch 8 Golden Torus form
+    # (alpha^-1 = 4π³ + π² + π) instead of hardcoding CODATA value.
+    # Per verify_universe.py: avoid magic-number CODATA constants.
+    alpha_inv = 4.0 * math.pi**3 + math.pi**2 + math.pi
+    alpha = 1.0 / alpha_inv
     a_yield = math.sqrt(alpha)
     ax1.axvline(a_yield, color="orange", linestyle=":", linewidth=2.0, alpha=0.85)
     ax1.text(
