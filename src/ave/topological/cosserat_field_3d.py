@@ -17,6 +17,32 @@ hand-derived version (now removed) which disagreed with FD on the saturation
 path.
 
 References: research/L3_electron_soliton/02_, 03_, 04_, 07_, 08_, 09_.
+
+Q-G47 SUBSTRATE-SCALE CLOSURE (Sessions 9-18, 2026-05-15 evening):
+This module implements the continuous Cosserat micropolar field whose
+substrate-scale instance of A-034 (Universal Saturation-Kernel Strain-Snap
+Mechanism) defines the K4 lattice's magic-angle operating point. Key
+axiom-level relations (per Q-G47 Session 17):
+
+  μ + κ = ξ_K1 · T_EM            (Cauchy + micropolar moduli, [Pa])
+  β + γ = ξ_K2 · T_EM · ℓ_node²  (couple-stress moduli, [N])
+  ℓ_c² = (β + γ) / [2(μ + κ)]    (Cosserat char length, Eringen 1966)
+  ξ_K2 / ξ_K1 = 12               (K4-symmetry-forced via |T|=12 universality)
+  ℓ_c / ℓ_node ≈ √6              (substrate's saturation-boundary scale)
+
+NAMESPACE: ξ_K1, ξ_K2 are SUBSTRATE-scale O(1) Cosserat prefactors —
+DISTINCT from Vol 3 Ch 1's Machian ξ = 4π(R_H/ℓ_node)α⁻² (~10⁴³, cosmological
+scope, same letter). Explicitly de-collided in
+ave-kb/common/xi-topo-traceability.md.
+
+CONTINUOUS-FIELD reading (per Grant 2026-05-15 "the springs are continuous"):
+this module operates in the continuous-field regime; the K4 lattice is a
+sampling structure, not the physics. Sessions 12-15 discrete-bond scaffolds
+(scripts/verify/q_g47_session12/14/15_*.py) are sanity-check discretizations.
+
+A-034 cross-refs: research/L5/axiom_derivation_status.md (A-032 + A-034);
+backmatter/07_universal_saturation_kernel.tex (catalog);
+AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md (chain).
 """
 
 from __future__ import annotations
