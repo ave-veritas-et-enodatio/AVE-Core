@@ -767,6 +767,38 @@ If (b) holds, the unified picture is: **12 is the universal orbit-size of T-acti
 
 **Status migration**: A-032 path-count of 12 **NUMERICALLY CONFIRMED at baseline**; dressing-vs-baseline interpretation **PENDING Session 13** refinements (fix Cauchy baseline, fix measurement protocol, separate coordination from dressing).
 
+**Session 13 K_0 vs χ_K puzzle resolved (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session13_K0_dressing_resolution.md`):**
+
+Diagnostic sweep with varied bond stiffnesses produced analytical formula:
+
+$$K_0 = 4 k_a + 8 k_s, \;\; G_0 = (4/3) k_a + (8/3) k_s, \;\; K_0/G_0 = 3 \text{ (always)}$$
+
+**Decomposition of "12" in $K_0 = 12 k_0$** (canonical $k_a = k_s = 1$):
+- $4 = $ K4 coordination (primary bonds per node)
+- $8 = 2 \times 4 = $ transverse DOF per bond × coordination
+- $12 = 4 \times (1 + 2) = $ coordination × DOF-per-bond
+
+**A-032's $\chi_K = 12$ path-count** is a DIFFERENT mathematical object:
+- $12 = 4$ B-neighbors × $3$ other-A's per B = secondary paths
+
+Both are **distinct mathematical objects** ($K_0$ ≠ $\chi_K$) but BOTH reflect the same **K4 = 4 × 3 connectivity** at different levels (primary bonds vs secondary paths). Both are **orbits of T-action with trivial stabilizer** on K4 mode spaces, giving orbit size $|T| / |\text{stab}| = 12 / 1 = 12$ each time.
+
+**Deeper structural insight — "$|T| = 12$ universality":**
+
+$T$ (proper tetrahedral rotation group, $|T| = 12$) acts transitively on multiple K4 mode spaces:
+
+1. **Bond × DOF space** (4 × 3): appears in $K_0$ baseline as $K_0 = 12 k_0$
+2. **Secondary path space** (4 × 3): appears in A-032 dressing as $\chi_K = 12$
+3. **Possibly more** (sublattice-relaxation modes, etc., to be checked Session 14+)
+
+Wherever $T$ acts transitively on a 4 × 3 K4 mode decomposition, the number **12 emerges as the orbit size**. **A-032's $\chi_K = 12$ and $K_0 = 12$ are both manifestations of this universality.**
+
+**Cauchy $K_0/G_0 = 5/3$ vs scaffold $K_0/G_0 = 3$ discrepancy diagnosed:** the simplified 2-site unit cell lacks sublattice relaxation. Standard Born–Huang internal-strain fix needed for the refined scaffold (Session 14 target).
+
+**Falsifier for $|T| = 12$ universality**: if any K4 T-orbit has size ≠ 12, the universality breaks. Candidates to check: rotational sublattice modes, hexagonal cross-sections, $Fd\bar{3}m$ space-group features.
+
+**Status migration**: A-032 status enriches from "structural-hypothesis: path-count = 12" to "**$|T| = 12$ universality**: 12 appears in K4 lattice physics wherever T acts transitively on a 4 × 3 mode space — including BOTH baseline coordination AND Cosserat dressing." Both Session 6-10 framing and Session 12 baseline finding are **internally consistent manifestations** of the same K4 T-symmetry.
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
