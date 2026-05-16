@@ -818,6 +818,33 @@ This upgrades AVE's Cosserat framework justification from **soft** ("natural for
 
 **Status migration**: AVE Cosserat micropolar framework now has a **forcing argument** (K4 stability requires it), not just a "natural framework" justification. Session 15 target: add couple-stress terms to scaffold and verify $G > 0$ stability under relaxation; then extract $\chi_K, \chi_G$ as couple-stress dressing coefficients.
 
+**Session 15 Keating stabilization confirmed (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session15_stabilized_scaffold.md` + `AVE-Core/src/scripts/verify/q_g47_session15_k4_cosserat_stabilized.py`):**
+
+Implemented Keating K4 bond (axial $k_a$ + bond-bending $k_\theta$) with sublattice relaxation. **Numerically verified Session 14's prediction**:
+
+- $k_\theta = 0$: $G_{\text{relaxed}} = 0$ (Session 14's central-force instability) ✓
+- $k_\theta > 0$: $G_{\text{relaxed}} > 0$ ✓ (Keating bond-bending stabilizes)
+- K/G ratio fully determined by $k_\theta/k_a$ ratio
+- $k_\theta/k_a \approx 0.15$ → Cauchy K/G = 5/3 (Session 2 baseline)
+- $k_\theta/k_a = 1$ (Session 12 canonical) → K/G = 2/3
+
+**Bond-stiffness sweep table:**
+
+| $k_\theta/k_a$ | K/G (relaxed) | Note |
+|---|---|---|
+| 0 | ∞ (G=0) | central-force unstable |
+| 0.10 | 2.67 | weak bending |
+| 0.15 | ≈ 5/3 | **Cauchy ν = 1/4** |
+| 0.20 | 1.56 | diamond experimental Keating |
+| 1.00 | 0.67 | Session 12 canonical isotropic |
+| 10.0 | 0.47 | bending-dominated |
+
+**Numerically confirms** Session 14's architectural claim: Cosserat couple-stress moduli (α, β, γ from Session 9) = Keating bond-bending $k_\theta$ at the bond level. The framework choice is forced (central-force unstable) **and** numerically verified (couple-stress restores stability).
+
+**Status migration**: AVE Cosserat framework justification is now FULLY VALIDATED — forced theoretically (Session 14) + verified numerically (Session 15). The remaining free piece in the K4 bond model is the **Keating ratio $k_\theta/k_a$**.
+
+**Session 16+ targets:** principled determination of $k_\theta/k_a$ (Cauchy 0.15 vs diamond 0.2 vs canonical 1); implement $u_0$ dressing extraction; identify magic-angle $u_0^*$ and compare to A-029 prediction 0.187.
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
