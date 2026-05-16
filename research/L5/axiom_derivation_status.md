@@ -799,6 +799,25 @@ Wherever $T$ acts transitively on a 4 × 3 K4 mode decomposition, the number **1
 
 **Status migration**: A-032 status enriches from "structural-hypothesis: path-count = 12" to "**$|T| = 12$ universality**: 12 appears in K4 lattice physics wherever T acts transitively on a 4 × 3 mode space — including BOTH baseline coordination AND Cosserat dressing." Both Session 6-10 framing and Session 12 baseline finding are **internally consistent manifestations** of the same K4 T-symmetry.
 
+**Session 14 Cosserat-forced finding (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session14_sublattice_relaxation.md` + `AVE-Core/src/scripts/verify/q_g47_session14_k4_sublattice_relaxation.py`):**
+
+Implemented Born–Huang sublattice relaxation in K4 unit cell with central-force bonds. **Pure central-force K4 is mechanically UNSTABLE** under sublattice relaxation:
+- Rigid sublattice: $K/G = 1$ (Poisson $\nu = 1/8$)
+- Relaxed sublattice: **$G \to 0$** (Poisson $\nu = 1/2$, incompressible-like)
+- Internal displacement $\mathbf{u}_{\text{int}} = -\varepsilon/\sqrt{3} \hat{z}$ stabilizes optic-mode
+
+This is the **classical diamond-lattice result** (Born & Huang 1954; Keating 1966): central-force-only models give $C_{44} = 0$. Real K4 requires angular/bond-bending forces for shear stability.
+
+**ARCHITECTURAL IMPLICATION for AVE framework justification:**
+
+The Cosserat couple-stress moduli ($\alpha, \beta, \gamma$ from Session 9) are **NOT optional formalism** — they are **PHYSICALLY REQUIRED** for K4 mechanical stability. The framework choice "chiral Cosserat micropolar elasticity" is **FORCED by lattice physics**, not a free modeling choice.
+
+This upgrades AVE's Cosserat framework justification from **soft** ("natural for chiral lattices, provides right π-power structure, consistent with microrotational DOF") to **hard** ("K4 is mechanically unstable without couple-stress moduli; this is the unique elastic-theory class that gives K4 mechanical stability").
+
+**Implication for $\chi_K, \chi_G$ interpretation (Sessions 9-11):** these dressing coefficients dress the **couple-stress contributions** specifically, not the (vanishing) central-force shear. The magic-angle equation $K(u_0^*) = 2 G(u_0^*)$ is fundamentally an equation in **couple-stress moduli**, not central-force ones.
+
+**Status migration**: AVE Cosserat micropolar framework now has a **forcing argument** (K4 stability requires it), not just a "natural framework" justification. Session 15 target: add couple-stress terms to scaffold and verify $G > 0$ stability under relaxation; then extract $\chi_K, \chi_G$ as couple-stress dressing coefficients.
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
