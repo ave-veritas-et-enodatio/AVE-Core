@@ -29,3 +29,4 @@ Matter is defined as localised, self-sustaining topological knots of confined el
 | [Torus Knot Ladder](torus-knot-ladder.md) | $(2,q)$ torus knot phase winding ladder for stable topological defects |
 | [Chirality and Antimatter](chirality-and-antimatter.md) | Topological twist direction as charge polarity; optical phase cancellation annihilation |
 | [Spin ↔ Gyroscopic Precession](spin-gyroscopic-isomorphism.md) | Quantum spin as classical gyroscopic precession of the $0_1$ unknot; zero-deviation proof |
+| [Q-G18 Schwinger Pair Production WKB Closure](q-g18-schwinger-pair-wkb.md) | Saturation-kernel WKB integral $\int_0^1\sqrt{1-A^2}\,dA = \pi/4$ generates QED's $\exp(-\pi E_S/E)$ Schwinger exponent identically (same integral, different physical labels); no fit parameters; AVE-distinct predictions at sharp lattice cutoff + autoresonant sub-Schwinger PLL |

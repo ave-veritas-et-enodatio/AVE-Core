@@ -1,6 +1,8 @@
 [↑ Ch.14 Orbital Mechanics](index.md)
 <!-- leaf: verbatim -->
 
+> **⚡ A-034 Empirical Anchor: NOAA GOES 40-yr solar-flare validation.** This is one of the four canonical A-034 Universal Saturation-Kernel empirical anchors (alongside BCS $B_c(T)$ at 0.00% error, BH ring-down at 1.7% from GR exact, and Schwarzschild radius exact). The CME / solar flare event is the stellar-scale instance of $S(A) = \sqrt{1-A^2}$ governing topological reorganization at saturation; NOAA GOES 40-yr telemetry validates the kernel-driven avalanche statistics. See [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) for the full 19-instance catalog.
+
 ## Stellar Magnetic Topology and Solar Flares
 
 Because AVE maps magnetic flux directly to the physical rotational velocity (sheer vector) of the $1/d$ dielectric vacuum, the macroscopic magnetic fields of stars are highly susceptible to mechanical twisting.

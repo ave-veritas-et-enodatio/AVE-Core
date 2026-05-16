@@ -34,6 +34,7 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Z0 Derivation](z0-derivation.md) | Discrete LC ladder; $Z_0$ scale invariance; gravitational stealth; black hole echoes |
 | [Relativistic Inductor](relativistic-inductor.md) | Current-dependent inductance; $E = mc^2$ from inductor energy; SPICE enforcement of $c$ |
 | [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
+| [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 | [TVS Transition](tvs-transition.md) | Solid-to-slipstream phase transition as TVS Zener diode |
 | [Resonant LC Solitons](resonant-lc-solitons.md) | Particles as LC tanks; Virial theorem; total internal reflection; Pauli exclusion |
 | [Orbital Friction Paradox](orbital-friction-paradox.md) | Real vs. reactive power; lossless orbit as LC tank at $\theta = 90°$ |

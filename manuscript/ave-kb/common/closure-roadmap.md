@@ -582,6 +582,36 @@ After every significant work session:
 
 ---
 
+## §12.5 Open-Derivation Queue (known-open Q-G## items, surfaced 2026-05-16)
+
+The following Q-G## items are **structurally open** (foundational or QED-loop derivations still pending) and are surfaced here to prevent silent absence. Each has an analysis-doc trail but no canonical KB leaf yet because closure is genuinely incomplete.
+
+### Foundational (blocking cosmology / structure derivations)
+
+| Q-G## | Topic | Effort | Blocker / dependency |
+|---|---|---|---|
+| **Q-G34** | Axiom 0: pre-geodesic plasma axiomatization | 2-3 sessions | Foundational — deepest open piece; needed for Q-G31, Q-G33, Q-G35 |
+| **Q-G40** | First-principles K4 → 7-mode derivation (not reverse-interpretation) | 2-3 sessions | Foundational; separates 7 as derivative vs primary; underlies $\nu_{\text{vac}} = 2/7$ |
+| **Q-G41** | Derive $K = 2G$ from K4 topology as topological inevitability | multi-week | Parent question to Q-G47; deepest substrate invariant |
+
+### QED loop observables (remaining pieces)
+
+| Q-G## | Topic | Effort | Blocker / dependency |
+|---|---|---|---|
+| **Q-G17** | Mass spectrum from knot topology (full derivation) | multi-month | Foundational; tau g-2 + lepton hierarchy quantitative |
+| **Q-G20b** | Hyperfine 21 cm | multi-week | Q-G17 (proton structure dependency) |
+| **Q-G20g** | Vertex form factor $F_1(q^2)$ tensor structure | 2-3 sessions | Round 12 Cosserat field-ansatz dependency |
+
+### Ropelength-minimality (single open piece for α derivation)
+
+| Item | Topic | Effort | Closure target |
+|---|---|---|---|
+| **Vol 1 Ch 8 chapter-header note** | Prove ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ | Phase-1 classical-topology question (1-3 sessions) | Closes the single remaining open formal-rigor sub-item for the AVE-native α derivation (SU(2) half-cover already AVE-native via $K_4 \to A_4 \to 2T \subset SU(2)$ chain + Finkelstein-Misner) |
+
+Status is **deliberately surfaced** here, not silently absent. When closures land, each gets a dedicated KB leaf following the Phase B pattern (substrate-native, no research-folder paths).
+
+---
+
 ## §13 Maintenance
 
 This doc is **canonical living planning artifact**. Update when:

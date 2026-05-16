@@ -13,6 +13,8 @@ In the construction of any macroscopic field theory, the mathematical formalism 
 
 By evaluating these three geometric constraints, all subsequent macroscopic behaviors, mass-generation, force unification, and relativistic kinematics are deterministically derived purely from the continuous topological evaluation of this emergent electromagnetic hardware.
 
+> **Framework closure status (refined 2026-05-15 evening):** The three calibration scales above are not three independent parameters — they collapse to a **one-cosmological-parameter framework** with three observational windows. The single cosmological initial-data parameter $\Omega_{\text{freeze}}$ (the substrate's rotation rate at lattice genesis) sets the magic-angle operating point $u_0^*$, from which $\alpha$, $G$, and $\mathcal{J}_{\text{cosmic}}$ all derive. All three observational routes must converge on the same $u_0^*$ or the framework is falsified — see [Common: A-031 Refined Cosmic-Parameter Horizon](../../../common/cosmic-parameter-horizon-a031-refinement.md) for the full three-route framework commitment.
+
 <!-- Figure: fig:calibration_flowchart — AVE Constants Derivation Pipeline. The three initial empirical calibrations (Planck's constant, speed of light, elementary charge) define the M_A LC network properties, which in turn deterministically generate all macroscopic continuum moduli. -->
 
 ---

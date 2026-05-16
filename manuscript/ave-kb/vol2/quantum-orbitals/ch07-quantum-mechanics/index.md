@@ -54,3 +54,4 @@ Chapter 7 reinterprets the Schrödinger wave equation as the continuous Helmholt
 | [Hierarchical Cascade Correction](./hierarchical-cascade-correction.md) | Hierarchical Cascade Correction for Be |
 | [Ionization Energy Validation](./ionization-energy-validation.md) | Ionization Energy Validation: Z = 1 to 14 |
 | [Orbital Penetration Penalties](./orbital-penetration-penalties.md) | 1/d ABCD impedance mismatch breaks $l$-degeneracy; Lithium 2s/2p splitting validation |
+| [Q-G20a Lamb Shift Structural Closure (0.65%)](./q-g20a-lamb-shift-structural-closure.md) | Hydrogen 2S-2P Lamb shift at $\approx +1051$ MHz vs measured $+1057.85$ MHz via three composing closures: finite-size self-energy ($+1010$ MHz) + Q-G20f vacuum polarization ($-27$ MHz) + Q-G19α anomalous moment ($+68$ MHz); 0.65% structural-precision match at leading order |
