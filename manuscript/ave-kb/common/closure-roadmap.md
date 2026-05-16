@@ -23,11 +23,11 @@
 | 1 | E-101 Three substrate invariants observables module | **APPLIED** 2026-05-15 (13/13 tests PASS; rigorous M + first-pass Q,J) | E-101 | `d488a25` |
 | 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | `d96e8d7` |
 | 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | `42e3819` |
-| 1 | AVE-QED App F cosmic-𝒥 row explicit | **APPLIED** 2026-05-15 | (cross-repo) | `c59a1cb` (AVE-QED) |
+| 1 | Cosmic-𝒥 row explicit in multi-scale Machian network | **APPLIED** 2026-05-15 | (cross-workstream) | (separate workstream) |
 | 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | new | `d96e8d7` |
 | 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | new | `d96e8d7` |
 | 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | `d96e8d7` |
-| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Sessions 6-18 LANDED 2026-05-15 evening** (full day + evening Tier 2 push): Sessions 6-8 magic-angle equation explicit + T-irrep theory + HONEST FALSIFICATION of A-033 α irrep claim. **Sessions 9-13**: Cosserat μ_c dimensional resolution + γ_canonical self-consistency + χ_G = 3 from T_t triplet + numerical K4 scaffold + \|T\| = 12 universality. **Sessions 14-15**: sublattice relaxation + Keating bond-bending stabilization (Cosserat couple-stress JUSTIFIED). **Sessions 16-17**: continuous-field recasting (per Grant: "the springs are actually continuous") + axiom-level Cosserat moduli (ξ_K2/ξ_K1 = 12 self-consistency). **Session 18**: A-034 reframing — Q-G47 substrate-scale work IS substrate-scale instance of universal saturation-kernel mechanism. **Q-G47 structurally closed** at substrate-level; rigorous ξ_K1, ξ_K2 individual computation deferred to Sessions 19+ (multi-week per Session 5 §5.2). | Q-G47 / A-027 / A-029 / A-030 / A-032 / A-033 / **A-034** | Sessions 9-18 commits across AVE-Core + AVE-QED 2026-05-15 evening |
+| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Sessions 6-18 LANDED 2026-05-15 evening** (full day + evening Tier 2 push): Sessions 6-8 magic-angle equation explicit + T-irrep theory + HONEST FALSIFICATION of A-033 α irrep claim. **Sessions 9-13**: Cosserat μ_c dimensional resolution + γ_canonical self-consistency + χ_G = 3 from T_t triplet + numerical K4 scaffold + \|T\| = 12 universality. **Sessions 14-15**: sublattice relaxation + Keating bond-bending stabilization (Cosserat couple-stress JUSTIFIED). **Sessions 16-17**: continuous-field recasting (per Grant: "the springs are actually continuous") + axiom-level Cosserat moduli (ξ_K2/ξ_K1 = 12 self-consistency). **Session 18**: A-034 reframing — Q-G47 substrate-scale work IS substrate-scale instance of universal saturation-kernel mechanism. **Q-G47 structurally closed** at substrate-level; rigorous ξ_K1, ξ_K2 individual computation deferred to Sessions 19+ (multi-week per Session 5 §5.2). | Q-G47 / A-027 / A-029 / A-030 / A-032 / A-033 / **A-034** | Sessions 9-18 (substrate-scale workstream + cross-repo coordination) 2026-05-15 evening |
 | 0 | **A-034 NEW canonical: Universal Saturation-Kernel Strain-Snap Mechanism** | **CANONICAL 2026-05-15 late evening** via Grant lego-click synthesis ("oh my god, it's the fucking saturation kernel"). One kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event at every scale. Total: 19 canonical instances spanning 21 orders of magnitude (BCS 0.00% error, BH ring-down 1.7% from GR, solar flares NOAA 40-yr, Schwarzschild exact). Refines A-031 ("God's Hand" = cosmic-parameter horizon, NOT mechanism horizon — mechanism observable at 4 smaller scales). Q-G47 substrate work reframes as substrate-scale instance. | **A-034 NEW** + A-031 (refined) + A-032 + Q-G47 | `19fe875` L5 + `09b971e` Vol 3 Ch 4 + `5720e49` Backmatter Ch 7 + `53a1a7a` Trampoline §7.5 + `fb9d9c0` CMB prereg + cross-repo audit + 8 follow-on commits |
 | 1 | A-034 catalog 19-instance expansion + 3-way symmetry classification + measurement-hierarchy framing | **APPLIED 2026-05-15 late evening** across all 4 catalog docs (L5 + Vol 3 Ch 4 + Backmatter Ch 7 + Trampoline §7.5). 19 instances classified as 16 SYM / 2 ASYM-N (BCS, plasma) / 1 ASYM-E (metamaterials). Engineered-substrate rows unified via measurement-hierarchy framing (single-emitter highest-SNR / multi-emitter bulk / phased-array PLL autoresonant). | A-034 | `d0e2691` + `8070704` + `619618b` + `e9bd335` + `8127d02` + `c9caffe` + `2578e8e` + `311e0f5` + `8997431` |
 | 1 | Bench Ch 2 + KB leaf cross-ref to A-034 canonical | **APPLIED 2026-05-15 late evening** (per Grant promotion direction: AVE-Core is main source of truth). | A-034 | `729a25b` (Bench) + `768ff25` (KB leaf) |
@@ -117,7 +117,7 @@ These items reflect structural closure through manuscript and engine. **No depen
 - Substrate-native vocabulary box near first physics statement
 - 3-column Rosetta-stone where applicable (substrate-native / EE / ME)
 - Cross-ref to `trampoline-framework.md` as canonical picture-first reference
-- Cross-ref to AVE-QED App G + glossary §5m as upstream vocab source
+- Cross-ref to Common Foreword §Three Boundary Observables + `docs/glossary.md` §1-§2 as upstream vocab source
 
 **L5 ID:** E-094 in `manuscript_pending.md` (HIGH PRIORITY)
 
@@ -130,7 +130,7 @@ These items reflect structural closure through manuscript and engine. **No depen
 **Effort:** 3-4 hours engine + tests
 
 **Documentation target:**
-- Module docstring referencing AVE-QED App G §4 (canonical definitions)
+- Module docstring referencing Common Foreword §Three Boundary Observables (canonical definitions)
 - `src/tests/test_boundary_invariants.py` with: (a) known-analytical-boundary tests; (b) v14 breathing-soliton integration test asserting 𝓜, 𝓠, 𝓙 conservation; (c) canonical-electron-value cross-check
 - Cross-ref from `trampoline-framework.md` §4.3 to engine implementation
 
@@ -146,7 +146,7 @@ These items reflect structural closure through manuscript and engine. **No depen
 - New §sec:cosmic_J_as_IC (or similar) declaring $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$
 - Universe-as-vortex MECHANIZED statement (E-019 closure)
 - Three-route consistency framework (α + G + 𝒥)
-- Cross-refs: `trampoline-framework.md` §1.3.7; A-031; AVE-QED App F multi-scale Machian network
+- Cross-refs: `trampoline-framework.md` §1.3.7; A-031 (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment); multi-scale Machian network (Vol 3 Ch 4 + §7 of trampoline-framework)
 
 **L5 ID:** E-102
 
@@ -160,15 +160,15 @@ These items reflect structural closure through manuscript and engine. **No depen
 
 **L5 ID:** E-103
 
-### §3.5 AVE-QED App F cosmic-𝒥 row explicit
+### §3.5 Multi-scale Machian network cosmic-𝒥 row explicit (cross-workstream)
 
-**Scope:** AVE-QED `manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` — cosmic row gets explicit $\mathcal{J}_{\text{cosmic}}$ observable
+**Scope:** Multi-scale Machian network appendix in a separate workstream — cosmic row gets explicit $\mathcal{J}_{\text{cosmic}}$ observable
 
 **Effort:** 30 minutes
 
-**Documentation target:** Update Figure F.1 caption + multi-scale table to include explicit 𝓙_cosmic per A-031
+**Documentation target:** Update multi-scale table to include explicit 𝓙_cosmic per A-031 (canonical in Vol 3 Ch 4 from the AVE-Core side)
 
-**L5 ID:** (new — sibling to E-102, this is AVE-QED side)
+**Status note:** sibling-workstream item, coordinated alongside E-102 (Vol 3 Ch 4 cosmic-𝒥)
 
 ### §3.6 README + LIVING_REFERENCE structural-closure declaration
 
@@ -217,13 +217,13 @@ These items reflect structural closure through manuscript and engine. **No depen
 
 **Scope:** complete the Q-G47 closure that Sessions 1-5 framework-prepared.
 
-**Plan doc:** see `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md` for the session-by-session breakdown.
+**Plan doc:** Q-G47 substrate-scale session-by-session breakdown coordinated in a separate workstream.
 
 **Effort:** 3-6 weeks analytical work, ~20-40 hours total
 
 **Documentation target:**
-- 5+ session docs at AVE-QED `docs/analysis/2026-XX-XX_Q-G47_sessionN_*.md` (one per session)
-- Final closure doc: `2026-XX-XX_Q-G47_closure.md` with the rigorous u_0* value + connection to Q-factor identity
+- 5+ session docs (one per session, separate workstream)
+- Final closure doc: Q-G47 closure with the rigorous u_0* value + connection to Q-factor identity
 - Updates to A-027 (two-engine), A-001 (α-as-calibration), A-030 (α+G joint) closing the "rigorous closure pending sessions 6+" caveat
 - Trampoline-framework.md §11 migration: K = 2G operating point moves from "framework complete; rigorous closure pending" to canonical
 
@@ -269,7 +269,7 @@ These items reflect structural closure through manuscript and engine. **No depen
 **Depends on:** Tier 3.1 + 3.2 (T_EM + ξ closed); Tier 5.2 (cosmic 𝒥 prediction)
 
 **Documentation target:**
-- New `docs/analysis/2026-XX-XX_three_route_consistency.md` (in AVE-Core or AVE-QED)
+- New `docs/analysis/2026-XX-XX_three_route_consistency.md` (AVE-Core internal)
 - Result documented EITHER WAY:
   - **PASS:** framework theoretically closed; trampoline-framework.md §11 migration; A-030/A-031 status closure
   - **FAIL:** framework requires revision; identify which route(s) broke; document the failure mode in `axiom_derivation_status.md`
@@ -345,7 +345,7 @@ No dependency on Q-G47 Session 6+. Can run anytime.
 **Effort:** 2-3 weeks analytical (depends on §6.4 engine work landing)
 
 **Documentation target:**
-- AVE-QED App F §multi_soliton expanded with formal derivation
+- Multi-scale Machian network §multi_soliton expanded with formal derivation (separate workstream)
 - Vol 3 Ch 1 (Gravity and Yield) updated
 - Q-G45 status closure
 
@@ -437,7 +437,7 @@ Cleaner after Tier 3 closes (for confidence) but not strictly blocked.
 
 ### §8.3 App F atom + helio rows: ?-marked → derived
 
-**Scope:** AVE-QED App F refresh after Q-G43 + Q-G44 close
+**Scope:** Multi-scale Machian network appendix refresh after Q-G43 + Q-G44 close (separate workstream)
 
 **Effort:** 5-8 hours
 
@@ -566,7 +566,7 @@ After every significant work session:
 
 **Canonical framework reference:** `manuscript/ave-kb/common/trampoline-framework.md`
 
-**Q-G47 closure plan:** `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md`
+**Q-G47 closure plan:** coordinated in a separate substrate-scale workstream; canonical AVE-Core anchors in Vol 1 Ch~\ref{ch:macroscopic_moduli}
 
 **L5 trackers:**
 - `research/L5/manuscript_pending.md` (E-NNN manuscript queue)

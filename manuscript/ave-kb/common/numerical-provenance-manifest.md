@@ -42,7 +42,7 @@ The following manuscript files contain numerical claims about solver outputs but
 ### Validation tables
 
 - **`vol3/gravity/ch02-general-relativity/k4-tlm-lensing-validation.md`** — gravitational-lensing K4-TLM validation. SHA pin: PENDING.
-- **`vol5/molecular-foundations/biophysics-intro/chignolin-validation.md`** — Chignolin protein-fold prediction (3.82 Å). SHA pin: PENDING. Likely solver: AVE-Protein s11_fold_engine.
+- **`vol5/molecular-foundations/biophysics-intro/chignolin-validation.md`** — Chignolin protein-fold prediction (3.82 Å). SHA pin: PENDING. Likely solver: protein-fold S₁₁ engine (separate biology engineering compendium).
 - **`vol2/appendices/app-f-solver-toolchain/protein-eigenvalue.md`** — protein eigenvalue solver outputs. SHA pin: PENDING.
 
 ### Geometric-inevitability derivations (Vol 6 appendix)

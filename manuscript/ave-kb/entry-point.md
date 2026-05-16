@@ -126,7 +126,7 @@ The hardware validation, declarative topology compilation (atopile), and physica
 
 **Key results:** $V_{snap} = m_e c^2/e \approx 511$ kV; $V_{yield} = \sqrt{\alpha} \cdot V_{snap} \approx 43.65$ kV; soliton density $\rho_{kink} \approx 4.34 \times 10^{20}$ knots/mm²; $P_{drag} \approx 19.8$ W
 
-> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are explored in the experimental `ave-veritas-et-enodatio/AVE-APU` repository.
+> ↗ **KB Boundary:** Hardened hardware implementations and VCA layout specifications are held in a separate hardware engineering compendium.
 
 ---
 

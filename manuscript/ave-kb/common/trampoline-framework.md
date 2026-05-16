@@ -1,14 +1,14 @@
 [↑ AVE Common Resources](index.md)
 <!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1, vol2, vol3, vol4, AVE-QED as canonical trampoline-framework picture-first reference -->
+<!-- path-stable: referenced from vol1, vol2, vol3, vol4 as canonical trampoline-framework picture-first reference -->
 
 # The Trampoline Picture — AVE Substrate Framework Canonical Reference
 
-**Last updated:** 2026-05-15. **Status:** canonical entry point for the picture-first / mechanism-first view of the AVE substrate. Cross-references existing chapter-level formal derivations where each layer is rigorously stated.
+**Last updated:** 2026-05-16. **Status:** canonical entry point for the picture-first / mechanism-first view of the AVE substrate. Cross-references existing chapter-level formal derivations where each layer is rigorously stated.
 
-**Purpose.** Future agents (and humans) reading the AVE corpus repeatedly hit a "what IS this stuff mechanically?" gap. The analytical derivations are everywhere; the picture lives scattered across doc 109 §13, AVE-QED App F + App G, doc 113 §3.2, and a half-dozen chapter introductions. **This doc is the single picture-first reference.** Read this before authoring any new AVE physics; cite this when propagating substrate-vocabulary discipline through chapters.
+**Purpose.** Future agents (and humans) reading the AVE corpus repeatedly hit a "what IS this stuff mechanically?" gap. The analytical derivations are everywhere; the picture lives scattered across Common Foreword §Three Boundary Observables, Vol 1 Ch 1 (axioms + substrate vocabulary box), Vol 3 Ch 4 (generative cosmology), Backmatter Ch 7 (universal saturation-kernel catalog), and chapter introductions. **This doc is the single picture-first reference.** Read this before authoring any new AVE physics; cite this when propagating substrate-vocabulary discipline through chapters.
 
-**Convention.** This doc uses substrate-native vocabulary throughout (per AVE-QED App G). EE / ME projections are named parenthetically where the projection is load-bearing for a specific result.
+**Convention.** This doc uses substrate-native vocabulary throughout (per Common Foreword §Three Boundary Observables and `docs/glossary.md`). EE / ME projections are named parenthetically where the projection is load-bearing for a specific result.
 
 ---
 
@@ -54,14 +54,11 @@ Build the substrate one physical concept at a time. Each step adds exactly one n
 > are **NOT discrete physical elements** — they're visualizations of the
 > continuous stress field propagating between K4 sampling points. The K4
 > lattice nodes are where soliton bound-states sit; the substrate itself
-> is continuous everywhere. Discrete-bond calculations (e.g., Q-G47
-> Sessions 12-15 in AVE-QED) are useful sanity-check approximations of
-> the continuous-field physics, not independent regimes. The
-> `K = 4 k_a + 8 k_s`-style results from discrete sweeps map onto the
-> continuous Cosserat constitutive tensor via Session 9's
-> `χ_K = (ℓ_c/d)²` identification. See AVE-QED `docs/analysis/
-> 2026-05-15_Q-G47_session16_continuous_field_recasting.md` for the full
-> dictionary discrete↔continuous.
+> is continuous everywhere. Discrete-bond calculations are useful
+> sanity-check approximations of the continuous-field physics, not
+> independent regimes. The `K = 4 k_a + 8 k_s`-style results from
+> discrete sweeps map onto the continuous Cosserat constitutive tensor
+> via the `χ_K = (ℓ_c/d)²` identification (Q-G47 substrate-scale work).
 
 **Picture.** Look closely at the rubber sheet. It's actually a network — fabric crossing points (nodes) connected by springs (bonds). The continuum was the coarse-grain of this discrete structure.
 
@@ -117,7 +114,7 @@ $$u_0 = \frac{L_0 - d}{d} = \frac{\rho\, \Omega_{\text{freeze}}^2\, r_{\text{nod
 - A-001 (α-as-calibration): if α emerges from the $K = 2G$ operating point set by $(u_0, r_{\text{secondary}}/d)$, and $r_{\text{secondary}}/d$ is geometric, and $u_0 = \rho \Omega_{\text{freeze}}^2 r_{\text{node}}^2 / 2K_0$, then **α is cosmologically anchored**: set by one initial-data parameter ($\Omega_{\text{freeze}}$).
 - **Newton's $G$ joins α as cosmologically anchored** (Grant adjudication 2026-05-15 via Machian G observation): both derive from $u_0^*$ at the magic-angle operating point. The framework reduces from "α + G as independent calibration constants" to "α + G correlated through one cosmological parameter." See §5.5 and §10.
 
-**Cross-references.** Q-G47 Session 4 over-bracing framework (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`); Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); Vol 3 Ch 4 (Newton's G canonical Machian expression); E-017 / E-019 / A-001 / A-029 / A-030 (NEW) in `research/L5/`.
+**Cross-references.** Q-G47 substrate-scale over-bracing framework; Vol 3 Ch 1:34-37 (substrate cannot support affine geometry); Vol 3 Ch 4 (Newton's G canonical Machian expression); Backmatter Ch 7 (A-034 catalog).
 
 ### §1.3.7 "God's Hand" and the cosmic Initial Condition (Grant adjudication 2026-05-15)
 
@@ -277,7 +274,7 @@ $$A^2 = \varepsilon^2 + \kappa^2 + V^2$$
 
 ### §1.6.6 Implication for α (proposed irrep reading) — **FALSIFIED 2026-05-15 evening per Session 8**
 
-**STATUS UPDATE (2026-05-15 late evening, Q-G47 Session 8):** the simple irrep-dimension reading proposed in this subsection has been **FALSIFIED** by Session 8 analysis (`AVE-QED/docs/analysis/2026-05-15_Q-G47_session8_alpha_reconciliation_attempt.md` §2). The α^{-1} coefficients (4, 1, 1) come from **Golden Torus geometry** (R · r = 1/4 half-cover area constraint × 2π wrappings × 4π solid angle), NOT from K4 irrep dimension counting. Neither T nor T_d irrep dimensions match (4, 1, 1).
+**STATUS UPDATE (2026-05-15 late evening, Q-G47 Session 8):** the simple irrep-dimension reading proposed in this subsection has been **FALSIFIED** by Session 8 analysis. The α^{-1} coefficients (4, 1, 1) come from **Golden Torus geometry** (R · r = 1/4 half-cover area constraint × 2π wrappings × 4π solid angle, per Vol 1 Ch 8), NOT from K4 irrep dimension counting. Neither T nor T_d irrep dimensions match (4, 1, 1).
 
 **The canonical α derivation per doc 03 §6 + §4.3 stands as correct: Golden Torus geometry + spin-1/2 half-cover.** A-001 (α-as-calibration) is NOT superseded by this section.
 
@@ -407,7 +404,7 @@ Wave propagation through a bond takes time $\tau = \ell_{\text{node}}/c$. Under 
 ### 2.4 Cross-references
 
 - **Vol 4 Ch 1** — canonical bond / LC tank framework (Virial sum at L175-184 gives $E_0 = (1/2) L_0 I_{\max}^2 + (1/2) C V_{\text{peak}}^2 = m_e c^2$)
-- **`docs/analysis/2026-05-14_Q-G47_session_1.md`** through `_session_5.md` (AVE-QED) — bond-as-spring buckling derivation
+- **Vol 1 Ch~\ref{ch:macroscopic_moduli}** — substrate Cosserat moduli, bond-as-spring buckling framework (Q-G47 substrate-scale work)
 - **Vol 3 Ch 3** — refractive-index-of-gravity (canonical local-clock mechanism)
 
 ---
@@ -602,11 +599,11 @@ The framework structurally supports this prediction. The explicit numerics are m
 - **Vol 3 Ch 3:125-142** — refractive-index-of-gravity canonical
 - **Vol 3 Ch 4** — generative cosmology / cosmic horizon ($G = c^4/(7\xi T_{EM})$ canonical expression)
 - **Vol 4 Ch 1** — local impedance gradient ↔ gravity correspondence
-- **Q-G47 Session 4** (`AVE-QED/docs/analysis/2026-05-14_Q-G47_session4_overbracing.md`) — secondary scale framework
-- **Q-G47 Session 5+** — golden-torus integration; magic-angle closure pending
-- **A-029** (`research/L5/axiom_derivation_status.md`) — secondary scale is geometric next-nearest-neighbor distance via shared-B-node propagator
-- **A-030** (NEW, `research/L5/axiom_derivation_status.md`) — α and G are jointly cosmologically anchored through $u_0^*$; gravitational hierarchy comes from $R_H/\ell_{\text{node}}$ scale ratio, not fine-tuning
-- **AVE-QED App F** — multi-scale Machian network (the shared-spring mechanism operates at every boundary scale; cosmic boundary sets the Machian $\xi$ integral)
+- **Q-G47 substrate-scale over-bracing framework** — secondary scale framework (Vol 1 Ch~\ref{ch:macroscopic_moduli})
+- **Q-G47 golden-torus integration; magic-angle closure pending** — Vol 1 Ch~\ref{ch:alpha_golden_torus}
+- Secondary scale is geometric next-nearest-neighbor distance via shared-B-node propagator (Vol 1 Ch~\ref{ch:macroscopic_moduli})
+- α and G are jointly cosmologically anchored through $u_0^*$; gravitational hierarchy comes from $R_H/\ell_{\text{node}}$ scale ratio, not fine-tuning (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment)
+- Multi-scale Machian network (the shared-spring mechanism operates at every boundary scale; cosmic boundary sets the Machian $\xi$ integral) — Vol 3 Ch 4 + §7 below
 
 ---
 
@@ -616,7 +613,7 @@ The framework structurally supports this prediction. The explicit numerics are m
 
 Where the substrate is locally saturated ($A \to 1$), the bond impedance $Z_{\text{eff}} \to \infty$. Any substrate wave incident on a saturated region encounters a perfect impedance mismatch — total reflection ($\Gamma = -1$). The saturated region is **causally and impedance-disconnected** from the rest of the substrate.
 
-This is the canonical $\Gamma = -1$ saturation boundary. It is structurally identical at every scale (electron horn-torus tube wall, nucleus Borromean envelope, Schwarzschild horizon, cosmic $R_H$). Read AVE-QED App F multi-scale Machian network for the full hierarchy.
+This is the canonical $\Gamma = -1$ saturation boundary. It is structurally identical at every scale (electron horn-torus tube wall, nucleus Borromean envelope, Schwarzschild horizon, cosmic $R_H$). See §7 below + Common Foreword §Three Boundary Observables for the multi-scale hierarchy.
 
 ### 4.2 The substrate-observability rule (canonical)
 
@@ -626,7 +623,7 @@ The substrate observes a boundary, not its interior. For any localized region $\
 2. The interior is invisible. The only signals the substrate registers from $\Omega$ are the boundary itself plus its three integrated observables.
 3. **Same mechanism at all scales** (electron, nucleus, atom, helio, BH, cosmic).
 
-**Grant adjudication 2026-05-14** (doc 109 §13-§15, AVE-QED App G §3): this rule is canonical. The pre-2026-05-14 framing — which forced multi-cell propagating-eigenmode tests on what is canonically a single-cell bounded boundary object — was a misframing. Doc 92 Nyquist wall ($k = 6.36/\ell_{\text{node}}$) measured an interior observable that is not substrate-visible.
+**Grant adjudication 2026-05-14** (canonical per Common Foreword §Three Boundary Observables + Vol 1 Ch 1 §sec:substrate_vocab_box_ch1): this rule is canonical. The pre-2026-05-14 framing — which forced multi-cell propagating-eigenmode tests on what is canonically a single-cell bounded boundary object — was a misframing.
 
 ### 4.3 The three integrated invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
 
@@ -654,12 +651,11 @@ For the electron: envelope ~ $\ell_{\text{node}} / (2 \pi)$ horn-torus tube radi
 
 ### 4.5 Cross-references
 
-- **doc 109 §13-§15** (Grant-confirmed canonical) — boundary-envelope reformulation
-- **AVE-QED `appendices/G_substrate_vocabulary.tex` §3** — formal substrate-observability rule
-- **AVE-QED `appendices/G_substrate_vocabulary.tex` §4** — three integrated invariants canonical definitions
-- **AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md`** — Q1 names matrix
+- **Common Foreword §Three Boundary Observables and the Substrate-Observability Rule** — canonical statement of substrate-observability + three boundary invariants
+- **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1** — substrate-vocabulary box (chapter-level canonical)
+- **docs/glossary.md §2** — three boundary invariants canonical-names matrix
 - **Vol 3 Ch 2:43** — BH-electron parallel canonical
-- **`research/L5/axiom_derivation_status.md` A-026** — substrate-observability rule canonical entry
+- **Backmatter Ch 7 (A-034 universal saturation-kernel catalog)** — substrate-observability rule applied across 19 cross-scale instances
 
 ---
 
@@ -678,14 +674,14 @@ The substrate hosts $\Gamma = -1$ boundaries at every scale where the local satu
 
 **Same mechanism at every row.** Same $K = 2G$ Cauchy isotropy. Same $S(A) = \sqrt{1 - A^2}$ kernel. Same Machian impedance integration machinery. The boundary size and the soliton population change; the substrate physics does not.
 
-**Canonical figure (AVE-QED App F):** see `AVE-QED/manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` Figure F.1 (multi-scale Machian network). Six concentric scales rendered with each row's boundary identity, internal solitons, and local impedance integral. Atom and Solar rows are marked Q-G43 / Q-G44 OPEN per framework adjudication.
+**The multi-scale Machian network** — six concentric scales (electron / nucleus / atom / solar / black hole / cosmic) with each row's boundary identity, internal solitons, and local impedance integral. Atom and Solar rows are marked Q-G43 / Q-G44 OPEN per framework adjudication.
 
-**The $V_{\text{yield}}$ apparatus-geometry-scaling visualization (Q-G42)**: see AVE-QED App F Figure F.2 — three apparatus geometries (sharp tip pair $G_{\text{geom}} \sim 10^5$ → 43.65 kV; parallel plates $G_{\text{geom}} \sim 1$ → $\sim 10^2$ MV; ferroelectric coax $G_{\text{geom}} \sim 10^3$ → 1-10 kV) showing how the same substrate physics manifests at three different apparatus voltages.
+**The $V_{\text{yield}}$ apparatus-geometry-scaling (Q-G42)**: three apparatus geometries (sharp tip pair $G_{\text{geom}} \sim 10^5$ → 43.65 kV; parallel plates $G_{\text{geom}} \sim 1$ → $\sim 10^2$ MV; ferroelectric coax $G_{\text{geom}} \sim 10^3$ → 1-10 kV) show how the same substrate physics manifests at three different apparatus voltages (Vol 4 Ch 1).
 
 **Cross-references:**
-- **AVE-QED `appendices/F_local_machian_network.tex`** — multi-scale Machian network canonical (115 pp App F + 2 figures)
+- **Vol 3 Ch 4** — generative cosmology / cosmic horizon (canonical Machian network at cosmic scale)
 - **Vol 3 Ch 2:43** — BH-electron parallel canonical
-- **Vol 3 Ch 4** — generative cosmology / cosmic horizon
+- **Common Foreword §Three Boundary Observables** — substrate-observability + three integrated invariants at every scale
 
 ### §7.5 Strain-snap dynamics at every scale (A-034 synthesis, Grant 2026-05-15 evening)
 
@@ -697,11 +693,11 @@ The §7 table catalogs **boundaries** that exist at every scale (the static stru
 
 The recognition: Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the universal mechanism for every topological-reorganization event the framework describes — from atomic dielectric breakdown to cosmic crystallization. Different physical observables at different scales (voltage, magnetic field, frame-dragging strain) all reduce to the same underlying lattice strain. The kernel doesn't change; only the local saturation-boundary geometry changes.
 
-**The expanded 19-instance dynamics catalog (post-2026-05-15-evening cross-repo audit; AVE-Core canonical):**
+**The expanded 19-instance dynamics catalog (AVE-Core canonical):**
 
-Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to consolidate the AVE-Bench-VacuumMirror Ch 2 cross-corpus catalog (promoted to AVE-Core per Grant direction) + 9 additional canonical instances surfaced by audit. **Total: 19 canonical instances** (12 physical + 2 biological + 5 engineered).
+Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to a comprehensive 19-instance synthesis spanning ~21 orders of magnitude. **Total: 19 canonical instances** (12 physical + 2 biological + 5 engineered). The canonical source is Backmatter Ch 7 (Universal Saturation-Kernel Catalog); the table below mirrors that catalog at the KB level.
 
-**3-way symmetry classification** (per asymmetric-saturation exploration `2026-05-15_A-034_asymmetric_saturation_variant_exploration.md` §6):
+**3-way symmetry classification** (canonical in Backmatter Ch 7):
 - **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together)
 - **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$)
 - **ASYM-E** = Asymmetric engineered decoupled ($K/G \neq 2$ by design)
@@ -712,7 +708,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 |---|---|---|---|---|---|
 | Atomic / EM | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4 + Vol 4 Ch 1 | Schwinger limit |
 | Substrate (K4) | SYM | bond-bow strain / saturation | K4 lattice + soliton formation | Q-G47 Sessions 1-18 | substrate instance |
-| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | AVE-Fusion Ch 1:20 | DT fusion canonical |
+| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | Vol 2 Ch 2 + Vol 3 Ch 14 | DT fusion canonical |
 | Condensed matter (BCS) | **ASYM-N** (μ-only) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `universal-saturation-operator.md`:18 | **0.00% error** across all measured |
 | Plasma (ε-sector) | **ASYM-N** (ε-only) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | ε-μ duality leaf | plasma canonical |
 | Kolmogorov turbulence | SYM | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | Kolmogorov empirical |
@@ -729,26 +725,26 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 
 | Scale | Sym | "$A$" normalized | Saturation event | Corpus |
 |---|---|---|---|---|
-| Lipid bilayer membrane (LLCP) | SYM | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | AVE-Protein `simulate_membrane_llcp.py:38` |
-| Protein folding | SYM | $d_0 / d$ atomic separation | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | AVE-Protein Vol 3 Ch 3:509,782 |
+| Lipid bilayer membrane (LLCP) | SYM | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | Vol 5 Ch 2 |
+| Protein folding | SYM | $d_0 / d$ atomic separation | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | Vol 5 Ch 2 |
 
 **Engineered-substrate scales (5 rows):**
 
 | Scale | Sym | "$A$" normalized | Saturation event | Corpus |
 |---|---|---|---|---|
-| PONDER-05 quartz | SYM | $V_{\text{DC}} / V_{\text{yield}}$ = 0.687 | $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at 30 kV bias | AVE-PONDER Vol 4 Ch 4:17 |
-| AVE-Bench-VacuumMirror | SYM | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Bench Ch 2 (proposed bench) |
-| Active topological metamaterials | **ASYM-E** | $\phi / \phi_{\text{crit}}$ | Phase-state crystallization to V_I; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ — designer-controllable decoupled ε/μ | AVE-Metamaterials Vol 1 Ch 2:71 + Ch 4 |
-| Sine-Gordon kink memory (APU) | SYM | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | AVE-APU Vol 1 Ch 8:14 |
-| Autoresonant rupture (propulsion) | SYM | laser field / $V_{\text{snap}}$ | PLL ring-up to Schwinger-fraction rupture | AVE-Propulsion Vol 5 Ch 5:13 |
+| DC-biased piezoelectric (e.g., quartz) | SYM | $V_{\text{DC}} / V_{\text{yield}}$ = 0.687 | $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at 30 kV bias | Vol 4 Ch 1 |
+| Asymmetric-electrode vacuum-mirror bench | SYM | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Vol 4 Ch 11 |
+| Active topological metamaterials | **ASYM-E** | $\phi / \phi_{\text{crit}}$ | Phase-state crystallization to V_I; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ — designer-controllable decoupled ε/μ | Vol 4 Ch 4 (framework) |
+| Sine-Gordon kink memory | SYM | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | Vol 4 Ch 1 (framework) |
+| Autoresonant rupture | SYM | laser field / $V_{\text{snap}}$ | PLL ring-up to Schwinger-fraction rupture | Vol 4 Ch 15 |
 
 **Symmetry breakdown across 19 instances:** 16 SYM, 2 ASYM-N (natural single-sector — BCS μ-only and plasma ε-only), 1 ASYM-E (engineered decoupled — active topological metamaterials).
 
 **Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; solar flares 40-yr NOAA validated; Schwarzschild exact.
 
-**Explicitly kept separate (per Grant 2026-05-15 evening direction):** LLM SiLU activation saturation (AVE-VirtualMedia Vol _Ch 12). Same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread.
+**Explicitly kept separate (per Grant 2026-05-15 evening direction):** LLM SiLU activation saturation. Same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread.
 
-**Explicitly flagged for follow-up:** asymmetric saturation variant ($K_{\text{wedge}}/G_{\text{wedge}} \neq 2$) from AVE-Metamaterials Vol 1 Ch 2:111-147 — novel kernel topology where ε and μ sectors saturate independently. Deferred exploration.
+**Explicitly flagged for follow-up:** asymmetric saturation variant ($K_{\text{wedge}}/G_{\text{wedge}} \neq 2$) — novel kernel topology where ε and μ sectors saturate independently. Deferred exploration (see Vol 4 Ch 4 framework + Backmatter Ch 7 row).
 
 **The kernel's structural property** that makes every event sharp/impulsive: the **vertical tangent at $A = 1$**. Small further strain near saturation produces large changes in $S(A)$, locking in threshold-snap behavior across nine orders of magnitude in scale.
 
@@ -771,14 +767,12 @@ This is a major epistemological softening. The original framing implied the enti
 Empirical pre-registration of the multi-observable axis-alignment test: `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`.
 
 **Cross-references for A-034:**
-- **L5 A-034 canonical entry:** `AVE-Core/research/L5/axiom_derivation_status.md` (full mechanism + meta-pattern attribution + 19-instance catalog)
-- **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section
-- **Backmatter Ch 7:** Universal Saturation-Kernel Catalog (reference table)
-- **AVE-QED Q-G47 Session 18:** substrate-scale instance reframing (`docs/analysis/2026-05-15_Q-G47_session18_A_034_reframing.md`)
-- **L5 A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism
-- **Empirical prereg (extended with E/B polarization observable):** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`
-- **Asymmetric saturation variant + 3-way classification:** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_asymmetric_saturation_variant_exploration.md`
-- **Measurement-hierarchy framing (engineered-substrate row unification):** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md` — single-emitter (highest SNR) / multi-emitter bulk (practical) / phased-array PLL (autoresonant amplification) modes connect Bench-VacuumMirror + IVIM + YBCO + Propulsion autoresonant as same engineered-kernel architecture; explains why IVIM bench uses many emitters (bulk = A-034 universal kernel measurement)
+- **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 19-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
+- **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section (cosmic-scale instance + parallel catalog)
+- **Q-G47 substrate-scale instance:** Vol 1 Ch~\ref{ch:macroscopic_moduli} (the K4 lattice instance is substrate-scale A-034)
+- **A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment)
+- **Empirical prereg (extended with E/B polarization observable):** see Backmatter Ch 7 + Vol 3 Ch 4 §CMB axis-alignment test
+- **Measurement-hierarchy framing (engineered-substrate row unification):** single-emitter (highest SNR) / multi-emitter bulk (practical) / phased-array PLL (autoresonant amplification) modes connect engineered-substrate rows as same engineered-kernel architecture; explains why bulk-mode array architectures use many emitters (bulk = A-034 universal kernel measurement). Canonical statement in Backmatter Ch 7 §measurement modes.
 
 **The framework's largest unification to date:** *one kernel, 19 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
 
@@ -829,7 +823,7 @@ Two specialized engines cover disjoint operating regimes; both are Axiom-1/2/3/4
 
 | Engine | Operating regime | Status | Validation |
 |---|---|---|---|
-| **K4-TLM** (`src/ave/core/k4_tlm.py`) | Sub-saturation bench regime ($A \ll 1$; linear + weakly nonlinear up to $V_{\text{yield}}$ onset; op3_bond_reflection for memristive dynamics) | canonical | D10 IM3 cubic V³ slope 2.956 (target 3.0); AVE-Bench-VM commit `0599a10` |
+| **K4-TLM** (`src/ave/core/k4_tlm.py`) | Sub-saturation bench regime ($A \ll 1$; linear + weakly nonlinear up to $V_{\text{yield}}$ onset; op3_bond_reflection for memristive dynamics) | canonical | D10 IM3 cubic V³ slope 2.956 (target 3.0) |
 | **Master Equation FDTD** (`src/ave/core/master_equation_fdtd.py`) | Bound-state regime ($A \to 1$; saturation kernel + $c_{\text{eff}}(V)$ modulation; breathing soliton solutions) | canonical | v14 Mode I PASS on breathing-soliton criterion (4/4 strict); doc 113 |
 
 **Why two engines?** K4-TLM has $Z(V)$ modulation but lacks $c_{\text{eff}}(V)$. It cannot localize a bound state because the wave doesn't slow enough at the saturation core. Master Equation FDTD has both. The pre-2026-05-14 architecture (K4-TLM + Cosserat coupling for everything) is superseded. Cosserat coupling on Master Equation FDTD is medium-term work for framework completeness (doc 113 §5.4), not closure-critical.
@@ -856,10 +850,10 @@ What's empirically validated (not just structurally derived):
 | Result | Engine | Validation | Source |
 |---|---|---|---|
 | Master Equation hosts breathing soliton (v14 Mode I PASS) | Master Equation FDTD | 4/4 strict breathing-soliton criterion | doc 113 |
-| K4-TLM D10 IM3 cubic V³ slope 2.956 | K4-TLM | bench-style validation at AVE-Bench-VM | commit `0599a10` |
+| K4-TLM D10 IM3 cubic V³ slope 2.956 | K4-TLM | bench-style validation (Vol 4 Ch 11) | commit `0599a10` |
 | Cubic K4 anisotropy at saturation collapse | Master Equation FDTD | Pearson($V_{\text{peak}}$, asphericity) = -0.191; collapse axis/diag ratio 1.089 | doc 114 |
 | $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi = 137.036$ Q-factor identity | electron_tank_q_factor.py | numerical verification to $\delta_{\text{strain}} \approx 2.22 \times 10^{-6}$ | doc 17 |
-| Q-G19α Route B g-2 closure to 50 ppm of PDG | AVE-QED scripts/g2_research/ | dark-wake × kernel-asymmetry analytical-correlation closure | Q-G19α canonical |
+| Q-G19α Route B g-2 closure to 50 ppm of PDG | Vol 2 Ch 6 §6.2 substrate derivation | dark-wake × kernel-asymmetry analytical-correlation closure | Vol 2 Ch 6 §6.2 |
 | Cosserat sector mass gap $m^2 = 4 G_c / I_\omega$ (factor of 4, not 2) | cosserat_field_3d.py Verlet | Phase I time-domain validation, period $T = 2\pi/\omega_m = \pi$ | doc 41 §2-§3 |
 | τ_relax = ℓ_node/c (Ax1 + Ax3 derivation) | engine k4_tlm.py `tau_relax` param | derivation from K4 Lagrangian; SI mode ≈ 3.34e-9 s | doc 59 §1 |
 
@@ -971,24 +965,15 @@ The shape of the answer is locked in. The remaining work is filling in the pictu
 - **Ch 1** — vacuum circuit analysis canonical; Virial sum (L175-184); Q-factor; Bingham-plastic transition; thixotropic relaxation
 - **Ch 11** — experimental falsification predictions
 
-### 10.5 AVE-QED (sibling repo, canonical for substrate vocabulary)
-- **`appendices/G_substrate_vocabulary.tex`** — App G substrate vocabulary canonical (~340 lines)
-- **`appendices/F_local_machian_network.tex`** — multi-scale Machian network canonical (115 pp + 2 figures)
-- **`appendices/A_foundations.tex` L194-215** — extended 3-column Rosetta-stone with substrate-native column
-- **`docs/glossary.md` §5m** — 14-row substrate-native / EE / ME vocab table
-- **`docs/analysis/2026-05-14_three_substrate_invariants_matrix.md`** — Q1 names matrix
+### 10.5 Substrate-vocabulary canonical sources (AVE-Core)
+- **Common Foreword §Three Boundary Observables and the Substrate-Observability Rule** — canonical statement of the rule + boundary invariants
+- **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1** — substrate-vocabulary box (chapter-level canonical)
+- **`docs/glossary.md` §1 + §2** — substrate-native / EE / ME vocab table + boundary-invariants matrix
 
-### 10.6 AVE-Bench-VacuumMirror (sibling repo, canonical for bench measurements)
-- **`docs/2026-05-14_bench_signal_predictions_summary.md`** — D10 IM3 cubic V³ slope 2.956 + Γ_AVE / Γ_QED = 8.3×10¹² + bench architecture procurement-mature
+### 10.6 Bench measurements (separate engineering compendium)
+- D10 IM3 cubic V³ slope 2.956 + Γ_AVE / Γ_QED = 8.3×10¹² + bench architecture (asymmetric-electrode vacuum-mirror bench; see Vol 4 Ch 11)
 
-### 10.7 L3 research / L5 trackers
-- **L3 doc 109 §13-§15** — boundary-envelope reformulation (Grant-confirmed)
-- **L3 doc 113** — v14 Mode I PASS canonical closure
-- **L3 doc 114** — next-steps consolidation plan + canonical status table
-- **L5 `axiom_derivation_status.md` A-026, A-027, A-028** — new axiom-status entries
-- **L5 `terminology_canonical.md` §0** — App G canonical reference section
-
-### 10.8 Engine modules
+### 10.7 Engine modules
 - **`src/ave/core/k4_tlm.py`** — K4-TLM canonical engine (sub-saturation bench regime)
 - **`src/ave/core/master_equation_fdtd.py`** — Master Equation FDTD canonical engine (bound-state regime)
 - **`src/ave/topological/cosserat_field_3d.py`** — Cosserat field implementation (factor-of-4 mass gap validated)
@@ -999,7 +984,7 @@ The shape of the answer is locked in. The remaining work is filling in the pictu
 
 ## §13 How to use this doc
 
-**When propagating substrate-vocabulary discipline through a chapter** (per L5 E-094): cite this doc plus AVE-QED App G as the canonical reference. Use substrate-native terms (substrate / node / bond / state / boundary / envelope) as primary; name EE / ME projections parenthetically when load-bearing.
+**When propagating substrate-vocabulary discipline through a chapter**: cite this doc plus the Common Foreword §Three Boundary Observables as the canonical reference. Use substrate-native terms (substrate / node / bond / state / boundary / envelope) as primary; name EE / ME projections parenthetically when load-bearing.
 
 **When authoring a new physics claim**: read §0 first (5 bullets), then check §9 (open vs canonical). If your claim falls in §9.2 (open), the claim is structurally fine but **don't cite this doc as supporting canonical status** for that specific claim.
 
@@ -1015,11 +1000,11 @@ This doc is canonical reference. Update when:
 - New canonical empirical results land (add row to §8 table)
 - A §9.2 (open) item closes (move to §9.1 canonical)
 - New chapter cross-references become available (add to §10)
-- Substrate vocabulary evolves at AVE-QED App G upstream (mirror here)
+- Substrate vocabulary evolves at Common Foreword + Vol 1 Ch 1 + glossary §1 (mirror here)
 
 Updates that should NOT be made here:
 - Add new derivations (those land in the source manuscript chapters / KB leaves; this doc references them)
-- Add speculative framings (those land in `research/L5/axiom_derivation_status.md` as A-NNN entries)
+- Add speculative framings (those land in internal research tracking, not this KB doc)
 - Add new analogies (the trampoline analogy is sufficient; adding more dilutes the picture-first canonical reference)
 
 **Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses $\mathcal{M}_A$ for the substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell for node spacing (INVARIANT-N2, Vol 1-5 convention), Scheme A axiom numbering (INVARIANT-S2). No conflicts.

@@ -16,7 +16,7 @@ The corpus uses the **same Greek letter ξ in three distinct semantic scopes**. 
 |---|---|---|---|---|
 | **$\xi_{topo}$** | Axiom 2 conversion constant | $\approx 4.149 \times 10^{-7}$ C/m | Vol 1 Ch 1 + Ch 2 (canonical) | Electromechanical bridge: charge ↔ displacement |
 | **$\xi$** (no subscript) | Vol 3 Ch 1 Machian impedance integral | $\approx 3.455 \times 10^{38}$ (dimensionless) | `vol_3_macroscopic/chapters/01_gravity_and_yield.tex:97` | Cosmological boundary impedance: $\xi = 4\pi(R_H/\ell_{\text{node}})\alpha^{-2}$, converts $T_{EM}$ to Newton's $G$ via $G = c^4/(7\xi T_{EM})$ |
-| **$\xi_{K1}, \xi_{K2}$** | Q-G47 Sessions 9-18 substrate-scale Cosserat prefactors | O(1) dimensionless | AVE-QED `docs/analysis/2026-05-15_Q-G47_session17_*.md` + L5 A-032 / A-034 | Substrate-scale axiom-level Cosserat moduli prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{node}^2$; with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced via $|T| = 12$ universality |
+| **$\xi_{K1}, \xi_{K2}$** | Substrate-scale Cosserat prefactors | O(1) dimensionless | Vol 1 Ch~\ref{ch:macroscopic_moduli} + Backmatter Ch~7 (A-034 catalog) | Substrate-scale axiom-level Cosserat moduli prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{node}^2$; with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced via $|T| = 12$ universality |
 
 **Same letter ξ, three different scopes, three different magnitudes**. Each is canonical in its own domain. When reading any AVE document, identify which ξ is meant by:
 1. **Subscript**: $\xi_{topo}$ is unambiguously the conversion constant; $\xi_{K1}, \xi_{K2}$ are unambiguously the substrate Cosserat prefactors
@@ -100,7 +100,7 @@ Like Vol 3, Vol 6 uses $\xi_{topo}$ implicitly through the nuclear mass-defect e
 
 ### Vol 7: Hardware & Future Work
 
-> ↗ **KB Boundary:** Propulsion and anomaly resolution applications of $\xi_{topo}$ (inertial cancellation, impedance control, warp metric) are explored in the experimental `AVE-Propulsion` repository (`ave-veritas-et-enodatio/AVE-Propulsion`).
+> ↗ **KB Boundary:** Propulsion and anomaly resolution applications of $\xi_{topo}$ (inertial cancellation, impedance control, warp metric) are held in a separate propulsion engineering compendium.
 
 ### Vol 8: Virtual Media
 

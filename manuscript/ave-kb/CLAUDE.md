@@ -61,7 +61,7 @@ The four AVE axioms carry stable meanings across all volumes. Canonical statemen
 
 **Stale-signature warning:** prior versions of this invariant used "SiLU / saturation gate" for Ax 4. SiLU is a neural-net activation $x\cdot\sigma(x)$, structurally different from AVE's $\sqrt{1-A^2}$ Born-Infeld kernel. The "SiLU" label was an APU-domain accidental import per Grant 2026-04-20; corrected here per axiom homologation 2026-04-27.
 
-*Confirmed by: Vol 1 Ch 1 (canonical), backmatter/02_full_derivation_chain.tex, research/L3_electron_soliton/00_scoping.md, plus 8 downstream repos (AVE-APU, AVE-VirtualMedia, AVE-HOPF, AVE-Propulsion, AVE-PONDER, AVE-Metamaterials, AVE-Fusion, AVE-Protein) using Scheme A naming consistently.*
+*Confirmed by: Vol 1 Ch 1 (canonical), backmatter/02_full_derivation_chain.tex, and downstream applied engineering compendia using Scheme A naming consistently.*
 
 ### INVARIANT-S3: Shared experimental appendix
 
