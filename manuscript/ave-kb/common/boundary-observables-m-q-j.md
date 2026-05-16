@@ -66,6 +66,14 @@ For any localized region $\Omega$ in the substrate:
 3. **Compare against measured observables** (mass, charge, spin or angular momentum in the appropriate projection).
 4. **The interior topology is invisible from outside** — only the boundary integrals matter.
 
+## Implications: interior eigenmodes and "substrate compression"
+
+The substrate-observability rule has two non-obvious consequences that supersede prior framings (doc 109 §13, Grant 2026-05-14 evening):
+
+**Interior eigenmodes are not lattice-Nyquist-constrained.** Any interior Beltrami / phase-space eigenmode of a bounded soliton (e.g., the electron's horn-torus interior at $k \approx 6.36 / \ell_{\text{node}}$) lives entirely inside the $\Gamma = -1$ wall and is causally disconnected from the exterior substrate. The K4 Nyquist limit $k_{\max} = 0.577 / \ell_{\text{node}}$ does NOT apply to interior structure because the substrate never propagates that wave through the lattice — it lives only in the bounded interior cell. Forcing a multi-cell propagating-eigenmode test on a bounded interior is a category error; the substrate-correct test measures integrated boundary observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$).
+
+**"Substrate compression" near a soliton is impedance gradient, not geometric.** The canonical gravity-as-substrate-strain prediction $n(r) = 1 + 2GM/(rc^2)$ is **refractive index** modulation (i.e., impedance modulation $\varepsilon_{\text{eff}}, \mu_{\text{eff}}$ via Axiom 4 kernel $S(A)$ at each cell), NOT geometric bond-length compression. The substrate's "compression" near matter is an impedance gradient via the kernel saturating at the boundary; bond rest length $L_{\text{spring}}$ is a cosmological-genesis frozen value (per Q-G47 cooled-equilibrium), not a per-cell dynamic field. Engine implementations using fixed `dx` Eulerian small-strain on rigid grid geometry are CORRECT for substrate-observability purposes — not a limitation, the right physics for boundary-only observability.
+
 ## We sit inside the cosmic $\Gamma = -1$ boundary
 
 The substrate-observability rule applies to ourselves. We are inside the cosmic $\Gamma = -1$ surface (the cosmic horizon = parent-black-hole Schwarzschild radius per the generative cosmology, [Vol 3 Ch 4 (Generative Cosmology)](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex)). We measure $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ from inside via local-physics consequences: CMB anomalies, large-scale-structure rotation, Hubble flow anisotropy. The mechanism that set $\mathcal{J}_{\text{cosmic}}$ at lattice genesis is the universal Axiom 4 strain-snap mechanism (A-034) — directly observable at every smaller scale.
