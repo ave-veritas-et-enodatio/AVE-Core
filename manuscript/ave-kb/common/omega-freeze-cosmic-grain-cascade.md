@@ -117,17 +117,33 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 | LLCP critical point: LDL (State I) vs HDL (State II) selected by local conditions at nucleation | Cosmic critical point: R-handed vs L-handed I4₁32 selected by cosmic angular momentum at nucleation |
 | Kirkwood-Frohlich $g = 1 + z\cos^2(\theta/2) f_I$ projects structural fraction $f_I$ onto macroscopic $\varepsilon$ ($z=4$ tetrahedral symmetry) | Analogous projection: chirality fraction $f_{R}$ projects onto macroscopic $G$ anisotropy via K4 coordination |
 
-### Open derivation work
+### Open derivation work — substrate-native path identified
 
-The mechanism class is established (strain-induced ordering during a substrate phase change with the same Axiom-4 yield boundary that governs water). The specific formalism is open and needs material-science-literate work, including:
+The mechanism class is established (strain-induced ordering during a substrate phase change with the same Axiom-4 yield boundary that governs water). The specific Landau formalism is **already substantially developed** in the AVE-QED Q-G47 work — not in classical materials-science traditions.
 
-- **Closest materials-science analog**: candidates include ferromagnetic Curie field-cooling, chiral nematic LC alignment, multiferroic magneto-elastic coupling, spin-glass field-freezing. Each implies a different order-parameter structure and a different Landau free-energy form. The substrate's actual order-parameter symmetry (read off Axiom 1) determines which analog applies.
-- **Coupling-constant derivation**: the substrate chirality-stress coupling has potential substrate-level grounding via the $K_4 \to A_4 \to 2T \subset SU(2)$ chain plus the Cosserat micropolar tensor (per [Q-G47 substrate-scale closure leaf](q-g47-substrate-scale-cosserat-closure.md)) — needs to be made explicit.
-- **Texture projection onto macroscopic G**: the cosmic-scale analog of water-anomaly's Kirkwood-Frohlich projection of $f_I$ onto $\varepsilon$ — but $G$ is longitudinal-acoustic, not transverse-EM, so the angular factor / coordination number may not transfer cleanly.
-- **Engine**: cosmic-scale analog of `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` (already in `regime_1_linear/hexagonal_lattice.py` per water-anomaly leaf). The water-anomaly leaf notes the 3D structural melting grid is NP-Hard — cooperative-LC tracking is the natural approach at any scale.
+**Substrate-native Landau form (Q-G47 Sessions 3 + 17, AVE-QED 2026-05-14/15):**
+
+The chiral-Cosserat coupling energy density (analog of the Landau expansion's $\chi \cdot \eta \cdot L$ term):
+
+$$U_{\text{chiral}}^{\text{add}} = \chi_1 \cdot \varepsilon_{ij} \cdot \kappa_{ji} + \chi_2 \cdot \varepsilon_{[ij]} \cdot \kappa^{ji} + \chi_3 \cdot (\text{tr}\,\varepsilon)(\text{tr}\,\kappa) + \ldots$$
+
+where:
+- $\varepsilon_{ij}$ = strain (applied stress; for Ω_freeze: cosmic angular momentum projected onto substrate strain tensor)
+- $\kappa_{ji}$ = micro-curvature (chirality order parameter; the I4₁32 R-vs-L handedness manifests as a curvature gradient)
+- $\chi_1, \chi_2, \chi_3$ = substrate chirality moduli (Q-G47 Session 3)
+- $\xi_{K2}/\xi_{K1} = 12 = |T|$ self-consistency from continuous-field recasting (Q-G47 Session 17)
+
+This IS the Landau expansion in micropolar-elasticity dialect — the chirality moduli $\chi_i$ are exactly the coupling between order parameter (curvature κ ~ microrotation gradient) and applied stress (strain ε). Classical materials-science analogs (Curie field-cooling, chiral-nematic alignment, multiferroic ME, spin-glass freezing) **do not exist in any AVE sibling repo** — the substrate-native path goes through Q-G47, not through textbook materials literature.
+
+**What remains open**:
+
+- **Recast as Ω_freeze-driven Landau minimization**: identify $L \leftrightarrow$ applied cosmic angular momentum as far-field driver in Q-G47's $U_{\text{chiral}}^{\text{add}}$ — structurally small step.
+- **Parent-BH-spin → daughter-K4-chirality lock**: per AVE-QED `2026-05-13_universes_inside_black_holes.md:58, 156`, this is the Q-G21 closure providing the proximate cosmic-spin source for $\Omega_{\text{freeze}}$ via $u_0 = \rho \Omega_{\text{freeze}}^2 r_{\text{node}}^2 / 2K_0$ (`2026-05-15_Q-G47_session_6_plus_plan.md:239`).
+- **Texture projection onto macroscopic G**: the cosmic-scale analog of water-anomaly's Kirkwood-Frohlich projection of $f_I$ onto $\varepsilon$ — but $G$ is longitudinal-acoustic, not transverse-EM, so the angular factor / coordination number may not transfer cleanly. **This is the genuinely open piece — no projection-onto-G work exists in any sibling.**
+- **Engine**: cosmic-scale analog of `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` (already in `regime_1_linear/hexagonal_lattice.py` per water-anomaly leaf).
 - **Empirical anchor**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ direction; JPL planetary-ephemerides at $10^{-11}$ precision. The Nilsson 2026 X-ray LLCP measurement is the laboratory-scale empirical proof-of-concept that the two-state LC partition IS observable; the cosmic-scale instance should produce an analogous orientation signature.
 
-Scope is genuinely TBD pending the analog choice + coupling derivation.
+**Scope refinement**: the Cosserat chiral-coupling framework existing in AVE-QED Q-G47 reduces the cosmic-scale derivation to (a) recast Q-G47's $U_{\text{chiral}}^{\text{add}}$ with $L_{\text{cosmic}}$ as applied stress, (b) derive the κ-curvature projection onto macroscopic G via cosmic-scale Kirkwood-Frohlich-analog. Both are concrete, scoped pieces of work — not the multi-week analog-hunt the original framing implied.
 
 ### What was abandoned (2026-05-16)
 
