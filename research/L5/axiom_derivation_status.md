@@ -1136,41 +1136,47 @@ Axiom 4 — Born–Infeld n=2 form. Operational definition (Vol 1 Ch 1:51-75; Ma
 
 **EXPANDED CATALOG (post-2026-05-15-evening cross-repo audit + Grant promotion direction):** the original 6-scale catalog has been expanded to include the AVE-Bench-VacuumMirror Ch 2 cross-corpus catalog content (promoted to AVE-Core canonical per Grant) + 9 additional canonical instances surfaced by cross-repo audit. **All instances are physical-substrate / biological-substrate / engineered-substrate manifestations of the same bulk strain response.** LLM SiLU activation (information substrate) is intentionally kept as a separate thread per Grant's direction (the operator is the same form but applied during training, not the same A-034 strain-snap).
 
+**3-way symmetry classification** (per asymmetric-saturation exploration `2026-05-15_A-034_asymmetric_saturation_variant_exploration.md` §6):
+
+- **SYM** = Symmetric (substrate at vacuum K=2G; ε and μ sectors saturate together — locked by Axiom 2 trace-free condition)
+- **ASYM-N** = Asymmetric natural (single-sector saturation: only ε or only μ saturates; substrate effectively non-trace-free for one channel; ε-μ duality from `universal-saturation-operator.md`)
+- **ASYM-E** = Asymmetric engineered decoupled (substrate deliberately engineered with K/G ≠ 2; both sectors saturate independently at different operating points)
+
 **Physical-substrate scales:**
 
-| Scale | "$A$" normalized | Saturation event | Corpus | Empirical agreement |
-|---|---|---|---|---|
-| **Atomic / EM** | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Vol 1 Ch 4 + Axiom 4 | (Schwinger limit; engineering validated) |
-| **Substrate (K4)** | bond-bow strain / saturation | K4 lattice + bound-state soliton formation | Q-G47 Sessions 1-18 | (substrate-scale instance) |
-| **Nuclear (DT fusion)** | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV neutron ejection + ⁴He alpha collapse | AVE-Fusion Vol 1 Ch 1:20 | (DT fusion canonical) |
-| **Condensed matter (BCS)** | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `ave-kb/vol3/condensed-matter/ch09-...universal-saturation-operator.md`:18 + Bench Ch 2 | **0.00% error** across all measured BCS superconductors |
-| **Plasma (ε-sector)** | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$, capacitor shorts) | `universal-saturation-operator.md` ε-μ duality + Bench Ch 2 | (plasma physics canonical) |
-| **Kolmogorov turbulence** | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | (Kolmogorov empirical) |
-| **Planetary (geomagnetic)** | dynamo strain / "Baryonic phase density threshold" | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13:131 | (geological record; Venus null result canonical) |
-| **Stellar (solar flare)** | twisted-flux / shear-stress threshold | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 (`solar-flares-led-avalanche.md`) | **NOAA GOES 40-yr validated** (0.46-yr FWHM danger window per 11-yr cycle) |
-| **Galactic (MOND)** | $g_N / a_0$ | Newtonian → deep-MOND galactic dynamics transition | `ave-kb/vol3/cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md` + Bench Ch 2 | (deep-MOND derived; rotation curves match) |
-| **BH event horizon** | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild radius formation: $\Gamma = -1$, $Z_{\text{eff}} \to \infty$ | `ave-kb/vol3/gravity/ch03-...dielectric-rupture-event-horizon.md` + Bench Ch 2 | **Schwarzschild exact** |
-| **BH merger (ring-down)** | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 (`ave-merger-ringdown-eigenvalue.md`) | **1.7% from GR exact**; 10-18% match to 3 LIGO events (GW150914, GW170104, GW151226) |
-| **Cosmic (Big Bang)** | parent-BH-induced strain on pre-geodesic plasma / 1 | K4 crystallization seed event | A-034 NEW (this entry) | (predicted; CMB axis-alignment test pre-registered) |
+| Scale | Sym | "$A$" normalized | Saturation event | Corpus | Empirical agreement |
+|---|---|---|---|---|---|
+| **Atomic / EM** | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Vol 1 Ch 4 + Axiom 4 | (Schwinger limit; engineering validated) |
+| **Substrate (K4)** | SYM | bond-bow strain / saturation | K4 lattice + bound-state soliton formation | Q-G47 Sessions 1-18 | (substrate-scale instance) |
+| **Nuclear (DT fusion)** | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV neutron ejection + ⁴He alpha collapse | AVE-Fusion Vol 1 Ch 1:20 | (DT fusion canonical) |
+| **Condensed matter (BCS)** | **ASYM-N** (μ-only) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$; $\mu_{\text{eff}} \to 0$ (inductor shorts) | `universal-saturation-operator.md`:18 + Bench Ch 2 | **0.00% error** across all measured BCS superconductors |
+| **Plasma (ε-sector)** | **ASYM-N** (ε-only) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$, capacitor shorts) | `universal-saturation-operator.md` ε-μ duality + Bench Ch 2 | (plasma physics canonical) |
+| **Kolmogorov turbulence** | SYM | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | (Kolmogorov empirical) |
+| **Planetary (geomagnetic)** | SYM | dynamo strain / "Baryonic phase density threshold" | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13:131 | (geological record; Venus null result canonical) |
+| **Stellar (solar flare)** | SYM | twisted-flux / shear-stress threshold | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 (`solar-flares-led-avalanche.md`) | **NOAA GOES 40-yr validated** (0.46-yr FWHM danger window per 11-yr cycle) |
+| **Galactic (MOND)** | SYM | $g_N / a_0$ | Newtonian → deep-MOND galactic dynamics transition | `effective-galactic-acceleration-mond.md` + Bench Ch 2 | (deep-MOND derived; rotation curves match) |
+| **BH event horizon** | SYM | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild radius formation: $\Gamma = -1$, $Z_{\text{eff}} \to \infty$ | `dielectric-rupture-event-horizon.md` + Bench Ch 2 | **Schwarzschild exact** |
+| **BH merger (ring-down)** | SYM | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 (`ave-merger-ringdown-eigenvalue.md`) | **1.7% from GR exact**; 10-18% match to 3 LIGO events |
+| **Cosmic (Big Bang)** | SYM (presumed) | parent-BH-induced strain on pre-geodesic plasma / 1 | K4 crystallization seed event | A-034 NEW (this entry) | (predicted; CMB axis-alignment test pre-registered; **symmetry status testable via CMB E/B polarization**) |
 
 **Biological-substrate scales:**
 
-| Scale | "$A$" normalized | Saturation event | Corpus |
-|---|---|---|---|
-| **Lipid bilayer membrane (LLCP)** | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | AVE-Protein `simulate_membrane_llcp.py:38` |
-| **Protein folding** | $d_0 / d$ (atomic separation) | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | AVE-Protein Vol 3 Ch 3:509,782 |
+| Scale | Sym | "$A$" normalized | Saturation event | Corpus |
+|---|---|---|---|---|
+| **Lipid bilayer membrane (LLCP)** | SYM | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | AVE-Protein `simulate_membrane_llcp.py:38` |
+| **Protein folding** | SYM | $d_0 / d$ (atomic separation) | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | AVE-Protein Vol 3 Ch 3:509,782 |
 
 **Engineered-substrate scales (lab + design):**
 
-| Scale | "$A$" normalized | Saturation event | Corpus |
-|---|---|---|---|
-| **PONDER-05 quartz** | $V_{\text{DC}} / V_{\text{yield}}$ (engineered to 0.687) | $\varepsilon_{\text{eff}}$ collapses 27.4%, $C_{\text{eff}}$ rises 37.7% at 30 kV bias on quartz at 68.7% V_yield | AVE-PONDER Vol 4 Ch 4:17 |
-| **AVE-Bench-VacuumMirror** | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Bench Ch 2 (proposed bench) |
-| **Active topological metamaterials** | $\phi / \phi_{\text{crit}}$ | Engineered phase-state crystallization to V_I config; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ (Metamaterials novel kernel topology) | AVE-Metamaterials Vol 1 Ch 2:71 + Ch 4 |
-| **Sine-Gordon kink memory (APU)** | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | AVE-APU Vol 1 Ch 8:14 |
-| **Autoresonant rupture (propulsion)** | extreme-intensity laser field / $V_{\text{snap}}$ | Phase-locked-loop ring-up to Schwinger-fraction rupture (autoresonant frequency-pull) | AVE-Propulsion Vol 5 Ch 5:13 |
+| Scale | Sym | "$A$" normalized | Saturation event | Corpus |
+|---|---|---|---|---|
+| **PONDER-05 quartz** | SYM | $V_{\text{DC}} / V_{\text{yield}}$ (engineered to 0.687) | $\varepsilon_{\text{eff}}$ collapses 27.4%, $C_{\text{eff}}$ rises 37.7% at 30 kV bias on quartz at 68.7% V_yield | AVE-PONDER Vol 4 Ch 4:17 |
+| **AVE-Bench-VacuumMirror** | SYM | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Bench Ch 2 (proposed bench) |
+| **Active topological metamaterials** | **ASYM-E** | $\phi / \phi_{\text{crit}}$ | Engineered phase-state crystallization to V_I config; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ — designer-controllable decoupled ε/μ saturation | AVE-Metamaterials Vol 1 Ch 2:71 + Ch 4 |
+| **Sine-Gordon kink memory (APU)** | SYM | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | AVE-APU Vol 1 Ch 8:14 |
+| **Autoresonant rupture (propulsion)** | SYM | extreme-intensity laser field / $V_{\text{snap}}$ | Phase-locked-loop ring-up to Schwinger-fraction rupture (autoresonant frequency-pull) | AVE-Propulsion Vol 5 Ch 5:13 |
 
-**Total: 17 canonical instances** of the universal kernel, all on physical / biological / engineered substrates. The framework's empirical anchor spans from $\ell_{\text{node}} \sim 10^{-13}$ m (atomic) through molecular (lipid bilayer $\sim 10^{-9}$ m, protein $\sim 10^{-8}$ m), mesoscopic (BCS $T_c$ thermal), planetary, stellar, galactic, BH-merger, cosmic — and into engineered lab scales. **21 orders of magnitude span with empirical validation at multiple scales** (Bench Ch 2 framing).
+**Total: 19 canonical instances** (12 physical + 2 biological + 5 engineered). Symmetry breakdown: **16 SYM, 2 ASYM-N (natural single-sector — BCS μ-only and plasma ε-only), 1 ASYM-E (engineered decoupled — active topological metamaterials)**. All on physical / biological / engineered substrates. The framework's empirical anchor spans from $\ell_{\text{node}} \sim 10^{-13}$ m (atomic) through molecular (lipid bilayer $\sim 10^{-9}$ m, protein $\sim 10^{-8}$ m), mesoscopic (BCS $T_c$ thermal), planetary, stellar, galactic, BH-merger, cosmic — and into engineered lab scales. **21 orders of magnitude span with empirical validation at multiple scales** (Bench Ch 2 framing).
 
 **Notable empirical anchors (the kernel's tightest validations):**
 - **BCS $B_c(T)$**: 0.00% error across all measured superconductors (the single tightest validation)
