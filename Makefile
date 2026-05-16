@@ -16,7 +16,7 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-claim-quality refresh-kb-metadata test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -47,7 +47,7 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify: verify-claim-quality
+verify: verify-kb-metadata
 	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
@@ -72,7 +72,7 @@ verify: verify-claim-quality
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
 
-verify-claim-quality:
+verify-kb-metadata:
 	@echo "Running KB claim-quality framework integrity check (read-only)..."
 	$(PYTHON) manuscript/ave-kb/tools/check-claim-quality.py
 

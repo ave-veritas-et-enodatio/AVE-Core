@@ -8,7 +8,7 @@ This directory is **derived** from canonical sources:
 - Tier 2 inline markers (`<!-- claim-quality: <id> ... -->`) in multi-claim leaves.
 - Claim-quality entries in every `claim-quality.md` register (root, per-volume, common).
 
-Every file here is regeneratable from those canonical sources via `make refresh-kb-metadata`. If any file here disagrees with what regeneration would produce, the canonical sources win and the file is rebuilt. The freshness verifier (`make verify-claim-quality`) runs the build in dry-run and diffs against on-disk; non-empty diff = stale index = hard failure.
+Every file here is regeneratable from those canonical sources via `make refresh-kb-metadata`. If any file here disagrees with what regeneration would produce, the canonical sources win and the file is rebuilt. The freshness verifier (`make verify-kb-metadata`) runs the build in dry-run and diffs against on-disk; non-empty diff = stale index = hard failure.
 
 ---
 
@@ -28,7 +28,7 @@ All files are JSONL — one JSON object per line, no trailing whitespace, single
 
 ## Build invariants
 
-These hold across every regeneration. They are checked by `personant verify`-style operations (`make verify-claim-quality` extended):
+These hold across every regeneration. They are checked by `personant verify`-style operations (`make verify-kb-metadata` extended):
 
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
@@ -286,7 +286,7 @@ files                                                    WRITTEN (new)
 - **One file or several?** Settled: five files split by edge type (claims, depends-on, strengthen-by, cites, subtree-aggregates).
 - **Deterministic ordering?** Settled: per-file sort key documented above.
 - **Incremental or full-rebuild?** Settled v0: always full-rebuild. Revisit if rebuild time crosses a few seconds (~400 leaves currently rebuilds in well under 1 s).
-- **Pre-commit vs CI freshness check?** v0: only the verifier (`make verify-claim-quality`) checks. Pre-commit hook can be added separately when the user installs one.
+- **Pre-commit vs CI freshness check?** v0: only the verifier (`make verify-kb-metadata`) checks. Pre-commit hook can be added separately when the user installs one.
 
 ---
 
@@ -310,6 +310,6 @@ The verifier reports counts at every run. The numbers that define success for v0
 - `cites.jsonl` line count == sum of `len(claims)` across all leaves with `claims:` frontmatter.
 - `subtree-aggregates.jsonl` line count == number of `kind: index` files + 1 (entry-point).
 - Every id referenced in any non-claims `.jsonl` file appears in `claims.jsonl`.
-- `make verify-claim-quality` exits 0 after `make refresh-kb-metadata` on the current canonical state.
+- `make verify-kb-metadata` exits 0 after `make refresh-kb-metadata` on the current canonical state.
 
 If those five numbers match, v0 is mechanically complete.

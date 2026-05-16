@@ -17,7 +17,7 @@ Currently regenerates:
 
 Future: bootstrap directive blockquote text (currently hand-maintained).
 
-This script does NOT verify; it ONLY refreshes. Run ``make verify-claim-quality``
+This script does NOT verify; it ONLY refreshes. Run ``make verify-kb-metadata``
 afterward to confirm the result is internally consistent.
 """
 

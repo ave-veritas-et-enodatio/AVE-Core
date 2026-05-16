@@ -118,7 +118,7 @@ path-stable: "referenced from vol2 as eq:dynamic_capacitance_yield"
 
 **Maintenance pipeline:**
 - `make refresh-kb-metadata` regenerates derived fields (`subtree-claims` on index frontmatter; `solidity` — value, build-status phrase, and depends-on `(solidity X)` annotations — in every `claim-quality.md` claim entry). Idempotent. Run after any change to leaf claims or to a claim's authored `confidence`.
-- `make verify-claim-quality` is read-only — never modifies. Failures tagged refresh-fixable suggest running refresh first; manual-fix failures must be repaired by hand.
+- `make verify-kb-metadata` is read-only — never modifies. Failures tagged refresh-fixable suggest running refresh first; manual-fix failures must be repaired by hand.
 
 *Confirmed by: convention spec at `mad-review/kb-metadata-spine-spec.md`; migration script and standing refresh+verify scripts at `manuscript/ave-kb/tools/`.*
 
@@ -152,7 +152,7 @@ Each entry in a `claim-quality.md` file carries a stable ID of the form `clm-` p
 
 **Query index.** The claim graph is also materialized as JSONL under `manuscript/ave-kb/.index/` (claim nodes, dependency edges, citations, subtree aggregates) and queryable via the `ave-kb` CLI and the `ave.kb.index` module — faster and more precise than grep for dependency, solidity, and citation questions. See `manuscript/ave-kb/.index/SCHEMA.md`.
 
-*Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-claim-quality`.*
+*Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-kb-metadata`.*
 
 ---
 

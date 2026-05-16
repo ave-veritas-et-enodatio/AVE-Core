@@ -55,7 +55,7 @@ refresh-fixable failures are present, the report ends with a hint to run
 Run via::
 
     ./.venv/bin/python manuscript/ave-kb/tools/check-claim-quality.py
-    make verify-claim-quality
+    make verify-kb-metadata
 """
 
 from __future__ import annotations
