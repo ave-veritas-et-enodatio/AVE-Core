@@ -69,13 +69,24 @@ This also clarifies what vacuum is: vacuum is the absence of closed tubes. Where
 
 3. **Inertia from Lenz back-EMF on closure.** A massive particle's resistance to acceleration follows directly from its closed-tube LC oscillation: forcing the closed tube to change velocity changes its mutual inductance with the surrounding lattice, producing a back-EMF that opposes the change. See [Newtonian Inertia as Lenz](newtonian-inertia-as-lenz.md).
 
-> **TODO** (flagged 2026-05-16): the relationship between Mass-Closure and the existing Vol 2 Ch 6 Higgs leafs (`higgs-mass.md`, `higgs-mechanism.md`, `spontaneous-symmetry-breaking.md`) needs explicit review before propagating any claims about Higgs being superseded / complemented / orthogonal. Mass-Closure says rest energy = stored reactive energy of a saturation-locked closure; whether AVE's Higgs role is complementary, replaced, or orthogonal to that is a framework-positioning call that has not been made in this leaf.
+### Relationship to AVE-native Higgs reinterpretation
+
+The existing [Higgs Mechanism](../ch06-electroweak-higgs/higgs-mechanism.md) leaf already canonicalizes the AVE-native reinterpretation: *"mass generation does not require a separate scalar field. Instead, it emerges naturally from the impedance structure of the LC condensate"* and *"$M_{inertial} \equiv L_{drag}(Z_0)$"* with the 246 GeV Higgs VEV physically reinterpreted as the characteristic impedance of free space $Z_0 \approx 376.73\,\Omega$.
+
+Mass-Closure is **complementary** to that leaf, not in conflict:
+
+- **Higgs leaf framing**: mass as the inductance-drag a closed knot experiences accelerating through the $Z_0$ baseline LC mesh — focuses on dynamics ($M_{inertial}$ as Lenz back-EMF on $Z_0$)
+- **Mass-Closure framing**: mass as the reactive energy stored in the closed-tube standing-wave — focuses on the static $mc^2 = E_{\text{reactive}}$ identity and the per-axiom mechanism that forms the closure
+
+The two leafs describe the same physics from complementary angles: the closure (this leaf) creates the standing-wave LC tank; the $Z_0$ drag (Higgs leaf) is what that closure feels when accelerated. The 125 GeV LHC resonance is interpreted by the Higgs leaf as a transient acoustic mode of node relaxation, consistent with this framework: it's a structural relaxation event of the LC condensate, not a coupling to a separate scalar field.
 
 ### Cross-references
 
 > → Primary: [Electron Unknot ($0_1$)](electron-unknot.md) — the canonical instance: $m_e c^2 = T_{EM} \cdot \ell_{node}/c^2$ with $T_{EM} = \hbar/c$ giving the reduced Compton wavelength as the unknot circumference
 >
 > → Primary: [Mathematical Topology of Mass](mathematical-topology-of-mass.md) — Faddeev-Skyrme energy functional formulation; Hopf charge / Gauss linking number as the topological invariant
+>
+> → Primary: [Higgs Mechanism](../ch06-electroweak-higgs/higgs-mechanism.md) — complementary dynamics-side framing: $M_{inertial} = L_{drag}(Z_0)$ with the 246 GeV VEV reinterpreted as $Z_0 \approx 376.73\,\Omega$; 125 GeV LHC peak as transient acoustic mode
 >
 > ↗ See also: [Pair Production Axiom Derivation](pair-production-axiom-derivation.md) — closure-and-rupture as the particle-antiparticle generation mechanism
 >

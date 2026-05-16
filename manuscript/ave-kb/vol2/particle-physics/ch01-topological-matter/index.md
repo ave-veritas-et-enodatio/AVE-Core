@@ -23,7 +23,7 @@ Matter is defined as localised, self-sustaining topological knots of confined el
 | Document | Contents |
 |---|---|
 | [Mathematical Topology of Mass](mathematical-topology-of-mass.md) | Faddeev-Skyrme energy functional; Gauss Linking Number / Hopf Charge |
-| [Mass-Closure Theorem ($mc^2 = E_{\text{reactive}}$)](mass-closure-theorem.md) | Derived theorem (NOT new axiom) from Axioms 1+2+4: mass is the reactive energy of a saturation-locked closed-tube standing wave; vacuum is the absence of closed tubes. Relationship to Vol 2 Ch 6 Higgs leafs flagged TODO pending review |
+| [Mass-Closure Theorem ($mc^2 = E_{\text{reactive}}$)](mass-closure-theorem.md) | Derived theorem (NOT new axiom) from Axioms 1+2+4: mass is the reactive energy of a saturation-locked closed-tube standing wave; vacuum is the absence of closed tubes. Complementary to [Vol 2 Ch 6 Higgs Mechanism leaf](../ch06-electroweak-higgs/higgs-mechanism.md): closure (this leaf) creates the standing-wave LC tank; $Z_0$ drag (Higgs leaf) is what that closure feels when accelerated |
 | [Newtonian Inertia as Lenz's Law](newtonian-inertia-as-lenz.md) | Inductance-to-mass mapping; back-EMF derivation of $F = ma$ |
 | [Electron Unknot](electron-unknot.md) | $0_1$ unknot geometry; ropelength limit; dynamic capacitive yielding (eq:dynamic_capacitance_yield) |
 | [Regime Classification](regime-classification.md) | Classification of particles by Axiom 4 saturation regime |

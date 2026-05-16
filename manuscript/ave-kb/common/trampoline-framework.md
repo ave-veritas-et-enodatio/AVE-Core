@@ -695,9 +695,9 @@ The §7 table catalogs **boundaries** that exist at every scale (the static stru
 
 The recognition: Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the universal mechanism for every topological-reorganization event the framework describes — from atomic dielectric breakdown to cosmic crystallization. Different physical observables at different scales (voltage, magnetic field, frame-dragging strain) all reduce to the same underlying lattice strain. The kernel doesn't change; only the local saturation-boundary geometry changes.
 
-**The expanded 20-instance dynamics catalog (AVE-Core canonical):**
+**The expanded 21-instance dynamics catalog (AVE-Core canonical):**
 
-Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to a comprehensive 20-instance synthesis spanning ~21 orders of magnitude. **Total: 20 canonical instances** (13 physical + 2 biological + 5 engineered). The canonical source is Backmatter Ch 7 (Universal Saturation-Kernel Catalog); the table below mirrors that catalog at the KB level.
+Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to a comprehensive 21-instance synthesis spanning ~21 orders of magnitude. **Total: 21 canonical instances** (14 physical + 2 biological + 5 engineered). The canonical source is Backmatter Ch 7 (Universal Saturation-Kernel Catalog); the table below mirrors that catalog at the KB level.
 
 **3-way symmetry classification** (canonical in Backmatter Ch 7):
 - **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together)
@@ -741,7 +741,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 | Sine-Gordon kink memory | SYM | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | Vol 4 Ch 1 (framework) |
 | Autoresonant rupture | SYM | laser field / $V_{\text{snap}}$ | PLL ring-up to Schwinger-fraction rupture | Vol 4 Ch 15 |
 
-**Symmetry breakdown across 20 instances:** 17 SYM, 2 ASYM-N (natural single-sector — BCS μ-only and plasma ε-only), 1 ASYM-E (engineered decoupled — active topological metamaterials).
+**Symmetry breakdown across 21 instances:** 18 SYM, 2 ASYM-N (natural single-sector — BCS μ-only and plasma ε-only), 1 ASYM-E (engineered decoupled — active topological metamaterials).
 
 **Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; solar flares 40-yr NOAA validated; Schwarzschild exact.
 
@@ -770,14 +770,14 @@ This is a major epistemological softening. The original framing implied the enti
 Empirical pre-registration of the multi-observable axis-alignment test: see [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) §CMB axis-alignment test pre-reg.
 
 **Cross-references for A-034:**
-- **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 20-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
+- **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 21-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)
 - **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section (cosmic-scale instance + parallel catalog)
 - **Q-G47 substrate-scale instance:** Vol 1 Ch~\ref{ch:macroscopic_moduli} (the K4 lattice instance is substrate-scale A-034)
 - **A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment)
 - **Empirical prereg (extended with E/B polarization observable):** see Backmatter Ch 7 + Vol 3 Ch 4 §CMB axis-alignment test
 - **Measurement-hierarchy framing (engineered-substrate row unification):** single-emitter (highest SNR) / multi-emitter bulk (practical) / phased-array PLL (autoresonant amplification) modes connect engineered-substrate rows as same engineered-kernel architecture; explains why bulk-mode array architectures use many emitters (bulk = A-034 universal kernel measurement). Canonical statement in Backmatter Ch 7 §measurement modes.
 
-**The framework's largest unification to date:** *one kernel, 20 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
+**The framework's largest unification to date:** *one kernel, 21 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
 
 ---
 
