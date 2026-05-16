@@ -64,7 +64,7 @@ This reframing eliminates a class of "discrete vs continuous" framing confusions
 
 ## A-034 substrate-scale instance interpretation
 
-Per Session 18, the Q-G47 substrate-scale work is one of the 19 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
+Per Session 18, the Q-G47 substrate-scale work is one of the 20 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
 
 | Q-G47 Result | A-034 Reading |
 |---|---|
@@ -97,7 +97,7 @@ The empirical validation of A-034 at four other scales (BCS $B_c(T) = B_{c0}\sqr
 - **Canonical manuscript anchors:**
   - [Vol 1 Ch 2 (Macroscopic Moduli)](../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — substrate Cosserat moduli + over-bracing framework
   - [Vol 1 Ch 1 (Four Axioms)](../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
-  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../backmatter/07_universal_saturation_kernel.tex) — A-034 19-instance catalog including substrate-scale K4 instance
+  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../backmatter/07_universal_saturation_kernel.tex) — A-034 20-instance catalog including substrate-scale K4 instance
 - **KB cross-cutting:**
   - [closure-roadmap.md](closure-roadmap.md) — Q-G47 Sessions 6–18 status row
   - [xi-topo-traceability.md](xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ vs Machian $\xi$ vs $\xi_{\text{topo}}$ namespace

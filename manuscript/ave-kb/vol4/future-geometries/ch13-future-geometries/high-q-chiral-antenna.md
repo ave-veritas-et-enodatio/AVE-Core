@@ -63,7 +63,7 @@ In the language of Newtonian mechanics: the array pushes the structured vacuum s
 
 ## Engineering the High-Q Chiral Impedance Antenna
 
-The HOPF-01 chapter (Chapter 3) established a zero-parameter falsification test: a wire-stitched $(p,q)$ torus knot on FR-4 with $Q \approx 500$--$700$. That design is optimized for *detection* — it radiates efficiently and provides a clean $S_{11}$ dip. This section addresses the complementary engineering problem: *what topology, material, and matching network maximize the coupling of macroscopic energy into or out of the chiral vacuum lattice?*
+The HOPF-01 chapter (Chapter 3) established a one-parameter ($\alpha$ as calibration input) falsification test: a wire-stitched $(p,q)$ torus knot on FR-4 with $Q \approx 500$--$700$. (Historical note: earlier framings called this "zero-parameter"; superseded 2026-05-05 per HOPF reconciliation — $\alpha$ is calibration input #2 of $\{\ell_{node}, \alpha, G\}$, not derived from Axiom 2.) That design is optimized for *detection* — it radiates efficiently and provides a clean $S_{11}$ dip. This section addresses the complementary engineering problem: *what topology, material, and matching network maximize the coupling of macroscopic energy into or out of the chiral vacuum lattice?*
 
 We define two operational modes:
 - **Receiver (RX):** Maximize sensitivity to the chiral signal $\Delta f/f = \alpha \cdot pq/(p+q)$, measured as a VNA $S_{11}$ or $S_{21}$ shift. This is the *measurement antenna*.

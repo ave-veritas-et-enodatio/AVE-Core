@@ -23,6 +23,7 @@ Matter is defined as localised, self-sustaining topological knots of confined el
 | Document | Contents |
 |---|---|
 | [Mathematical Topology of Mass](mathematical-topology-of-mass.md) | Faddeev-Skyrme energy functional; Gauss Linking Number / Hopf Charge |
+| [Mass-Closure Theorem ($mc^2 = E_{\text{reactive}}$)](mass-closure-theorem.md) | Derived theorem (NOT new axiom) from Axioms 1+2+4: mass is the reactive energy of a saturation-locked closed-tube standing wave; vacuum is the absence of closed tubes; Higgs not needed for mass generation; particle mass spectrum is the spectrum of closed-tube standing-wave eigenvalues |
 | [Newtonian Inertia as Lenz's Law](newtonian-inertia-as-lenz.md) | Inductance-to-mass mapping; back-EMF derivation of $F = ma$ |
 | [Electron Unknot](electron-unknot.md) | $0_1$ unknot geometry; ropelength limit; dynamic capacitive yielding (eq:dynamic_capacitance_yield) |
 | [Regime Classification](regime-classification.md) | Classification of particles by Axiom 4 saturation regime |

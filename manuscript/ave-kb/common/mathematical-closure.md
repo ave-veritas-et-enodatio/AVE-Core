@@ -102,10 +102,10 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 
 **Methodological significance:** Each empirical anchor uses **zero free parameters** beyond the framework's existing 3 inputs ($\ell_{node}$, $\alpha$, $G$ — themselves derived in Layer 8). The kernel is not fit per-scale; it is the *same* $\sqrt{1 - A^2}$ kernel applied in different physical regimes. This is the strongest form of cross-scale verification possible for an axiom: the kernel asserted abstractly in Vol 1 Ch 1 is shown empirically to be the same operator governing pairing, plasma reorganization, gravitational wave damping, and event-horizon formation.
 
-**Full enumeration:** the 4 anchors above are the most-validated members of a **19-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
+**Full enumeration:** the 4 anchors above are the most-validated members of a **20-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 **Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
 
 **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) (all cross-refs point here).
 
-These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 19 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
+These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 20 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.

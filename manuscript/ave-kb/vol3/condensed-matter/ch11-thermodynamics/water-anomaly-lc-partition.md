@@ -36,3 +36,22 @@ Furthermore, the macroscopic fluid Dielectric Constant---normally plotted strict
 **Empirical Calibration (The 2026 X-Ray Validation).** This non-linear transition directly maps to the physical Liquid-Liquid Critical Point (LLCP) observed in supercooled water. Recent sub-femtosecond X-ray laser measurements \cite{nilsson2026llcp} empirically intercepted water structurally splitting into two disjoint macroscopic geometries at bridging boundaries. Under the AVE structural lens, their "Low-Density Liquid" (LDL) equates flawlessly to the expanded tetrahedral phase ($V_I$) aligned with the vacuum void fraction, while their "High-Density Liquid" (HDL) captures the collapse into uniform random-close-packing ($V_{II}$). Their observed rapid, unstable structural fluctuations near the critical threshold perfectly corroborate the mathematical limits of the cooperative lattice yield. It confirms that the $+4\,^{\circ}\text{C}$ density maximum is fundamentally a supercritical statistical average of this dual-geometric struggle, exactly as derived.
 
 ---
+
+## Cross-scale instance: cosmic K4 crystallization (Ω_freeze)
+
+The two-state LC partition + Axiom-4 yield boundary ($r_{\text{crit}} = \sqrt{2\alpha}$) is **not unique to water**. It governs any substrate undergoing a first-order structural phase transition under applied stress. The cosmic-scale instance is the **K4 lattice freezing into the I4₁32 ordered ground state** during BBN-era crystallization, with cosmic angular momentum playing the role water's local thermal gradient plays at nucleation:
+
+| Water → Ice (this leaf) | K4 substrate → I4₁32 (cosmic) |
+|---|---|
+| State I tetrahedral H-bond network | I4₁32 ordered chiral ground state |
+| State II FCC close-pack collapse | Pre-crystallization disordered substrate |
+| Yield $r_{\text{crit}} = \sqrt{2\alpha}$ | Same Axiom-4 kernel, same value |
+| LLCP critical point selects LDL vs HDL | Cosmic LLCP-equivalent selects R-handed vs L-handed I4₁32 |
+| Kirkwood-Frohlich projects $f_I \to \varepsilon$ | Same projection: $f_R \to G$ anisotropy |
+| Applied: local thermal gradient at nucleation | Applied: cosmic angular momentum at nucleation |
+
+The macroscopic engineering analog is **ferromagnetic Curie-point field-cooling** (Cullity & Graham): a ferromagnet cooled through $T_C$ under applied field locks the easy-axis to the field direction. The substrate at $\Omega_{\text{freeze}}$ does the same — the I4₁32 chirality locks to the cosmic angular-momentum direction at the critical point. The resulting $\Delta G/G$ anisotropy is the cosmic-scale Kirkwood-Frohlich projection of the chirality fraction $f_R$, computable from the same `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` engine pattern at cosmic scale.
+
+> ↗ See also: [Ω_freeze Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) §6 — full derivation path; cross-link to canonical materials-science analog (this leaf)
+
+---

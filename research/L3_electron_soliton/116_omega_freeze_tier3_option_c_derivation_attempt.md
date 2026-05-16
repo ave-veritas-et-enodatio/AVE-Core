@@ -2,7 +2,11 @@
 
 **Date:** 2026-05-16
 **Branch:** `research/l3-electron-soliton`
-**Status:** **Attempted under assumption Grant implicitly endorses option (c)** per "let's pursue 1" directive without explicit (a)/(b)/(c) pick. **Flag if (a) or (b) was intended instead.** Derivation chain assembled with physical-input-required gaps explicitly flagged for Grant's intuition.
+**Status: RETRACTED 2026-05-16 (same day).** Per Grant: *"It's just applying stress to a substrate while it goes through a material phase change, isn't this common physics in material science?"* and *"water to ice silly, review the water chapter in the core kb."* The three sub-mechanism approach (c-i baryon-asymmetry / c-ii nested-rotator / c-iii galactic-averaging) was unmoored from established materials physics. The correct framework is already in Core: `manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md` — Ω_freeze is the cosmic-scale instance of the same two-state LC partition + Axiom-4 $r_{\text{crit}} = \sqrt{2\alpha}$ yield boundary that produces water's +4°C density anomaly. The right derivation path is standard strain-induced chirality texturing during phase change (analog: ferromagnetic Curie field-cooling), with Kirkwood-Frohlich-style projection at cosmic scale to compute $\Delta G/G$. Replacement framing landed in `common/omega-freeze-cosmic-grain-cascade.md` §6. **Content below preserved for audit trail only.** Do not cite as canonical.
+
+---
+
+**Original framing (RETRACTED):**
 **Per `omega-freeze-cosmic-grain-cascade.md` §6 Tier-3 physical dilemma**: option (c) is particle-level (2,q) trefoil anisotropy α-suppression × cosmic-scale averaging, with predicted ΔG/G ~ 10⁻⁸ to 10⁻¹² (testable at JPL planetary-ephemeris 10⁻¹¹ precision).
 
 ---

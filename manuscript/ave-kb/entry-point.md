@@ -5,13 +5,13 @@ The AVE framework models the physical vacuum as a discrete amorphous LC resonant
 > **⚡ A-034 Canonical Unification (2026-05-15 evening): Universal
 > Saturation-Kernel Strain-Snap Mechanism.** Axiom 4's saturation kernel
 > $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event
-> at every scale — 19 canonical instances spanning 21 orders of magnitude.
+> at every scale — 20 canonical instances spanning 21 orders of magnitude.
 > Per Grant 2026-05-15: *"the bulk response of the lattice to strain is
 > universal."* Empirical anchors: BCS $B_c(T)$ at 0.00% error; BH merger
 > ring-down at 1.7% from GR; NOAA-validated 40-yr solar flare statistics;
 > Schwarzschild radius exact. **Canonical manuscript source:**
 > [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../backmatter/07_universal_saturation_kernel.tex)
-> (19-instance catalog + 3-way SYM/ASYM-N/ASYM-E classification +
+> (20-instance catalog + 3-way SYM/ASYM-N/ASYM-E classification +
 > measurement-hierarchy framing). KB synthesis: [common/trampoline-framework §7.5](common/trampoline-framework.md);
 > Vol 3 Ch 4 §sec:tki_strain_snap for cosmic-scale derivation.
 

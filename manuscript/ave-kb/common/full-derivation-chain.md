@@ -103,7 +103,7 @@ $$
 
 **A-034 universality (canonical 2026-05-15 evening).** The same kernel
 $S(A) = \sqrt{1 - A^2}$ governs **every topological-reorganization event at every
-scale** — 19 catalog instances spanning 21 orders of magnitude
+scale** — 20 catalog instances spanning 21 orders of magnitude
 (atomic dielectric breakdown $\to$ BCS superconductivity at 0.00% error $\to$
 NOAA-validated solar flares $\to$ BH ring-down at 1.7% from GR exact $\to$
 cosmic K4 crystallization). 3-way symmetry classification: SYM / ASYM-N / ASYM-E.
@@ -833,7 +833,7 @@ code path in `src/ave/axioms/scale_invariant.py`.
 
 ### A-034: Formal Universal Saturation-Kernel Catalog
 
-The cross-scale verification has been promoted to a formal **19-instance catalog**
+The cross-scale verification has been promoted to a formal **20-instance catalog**
 (canonical 2026-05-15 evening) demonstrating that Axiom 4's saturation kernel
 $S(A) = \sqrt{1 - A^2}$ is the **same operator at every scale** for every
 topological-reorganization event:
@@ -848,7 +848,7 @@ topological-reorganization event:
 | Gravitational | BH ring-down (QNM) | $\omega_R M_g = 18/49$ at **1.7% from GR exact** (3 LIGO events, Vol 3 Ch 15) |
 | Cosmic | TKI strain-snap (K4 crystallization) | CMB axis-alignment prereg (L3 research dir, 2026-05-15; Vol 3 Ch 4 §sec:tki_strain_snap) |
 
-**3-way symmetry classification** of the 19 instances:
+**3-way symmetry classification** of the 20 instances:
 - **SYM** (symmetric collapse): BCS, dielectric breakdown, Chandrasekhar collapse, ...
 - **ASYM-N** (asymmetric, neutral mediator): MOND-acceleration boundary, geomagnetic reversal, ...
 - **ASYM-E** (asymmetric, energy-mediator): BH ring-down, solar flare, cosmic K4 crystallization, ...
@@ -857,7 +857,7 @@ topological-reorganization event:
 multi-emitter bulk (BCS, condensed-matter) /
 phased-array PLL autoresonant (BH ring-down, cosmic-scale).
 
-Full catalog with all 19 instances + per-row symmetry / measurement tier /
+Full catalog with all 20 instances + per-row symmetry / measurement tier /
 empirical anchor: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 Canonical synthesis (user-facing): [trampoline-framework.md §7.5](trampoline-framework.md).

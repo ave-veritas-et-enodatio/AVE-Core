@@ -2,13 +2,13 @@
 <!-- leaf: verbatim -->
 <!-- path-stable: referenced from vol1, vol3, vol4, vol5 + backmatter Ch 7 as canonical A-034 cross-scale catalog -->
 
-# Universal Saturation-Kernel Catalog: A-034 at 19 Scales
+# Universal Saturation-Kernel Catalog: A-034 at 20 Scales
 
 A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every topological-reorganization event in the universe.** The Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ — Born–Infeld $n = 2$ squared-limit form — applies at every scale of physical phenomenon per Axiom 2 (TKI scale invariance). $A$ is the same dimensionless quantity (substrate strain / local saturation) regardless of whether the physical observable manifests as voltage, magnetic field, frame-dragging strain, or something else. When $S(A) = 0$ locally, the substrate cannot continue linear response and **must reorganize topologically** to a new configuration with $A < 1$. The kernel's vertical tangent at $A = 1$ is what makes every reorganization event sharp and impulsive across all scales.
 
 > → Primary: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — canonical manuscript chapter with full per-row notes.
 
-## Key Result: 19 canonical instances of one kernel
+## Key Result: 20 canonical instances of one kernel
 
 | Result | Statement |
 |---|---|
@@ -17,11 +17,11 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 | Cross-scale span | 21 orders of magnitude (atomic $\sim 10^{-15}$ m to cosmic $\sim 10^{26}$ m) |
 | Tightest single-instance validation | BCS $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ at **0.00% error** |
 | Most direct cross-scale experimental validation | BH merger ring-down $\omega_R M_g = 18/49$ (1.7% from GR exact; 10–18% from 3 LIGO events) |
-| Symmetry classes | SYM (16) / ASYM-N (2: BCS $\mu$-only, plasma $\varepsilon$-only) / ASYM-E (1: engineered metamaterials) |
+| Symmetry classes | SYM (17) / ASYM-N (2: BCS $\mu$-only, plasma $\varepsilon$-only) / ASYM-E (1: engineered metamaterials) |
 
-## The 19-instance catalog
+## The 20-instance catalog
 
-### Physical-substrate scales (12 rows)
+### Physical-substrate scales (13 rows)
 
 | Scale | Sym | $A$ definition | Saturation event | Empirical anchor |
 |---|---|---|---|---|
@@ -29,6 +29,7 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 | Substrate (K4) | SYM | bond-bow / saturation | K4 lattice + soliton formation | substrate instance |
 | Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + $^4$He $\alpha$ | DT fusion canonical |
 | Condensed matter (BCS) | **ASYM-N** ($\mu$) | $T / T_c$ | Cooper-pair form; $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ | **0.00% error** |
+| Fluid two-state LC partition (water) | SYM | $r_{th} / r_{\text{crit}} = \sqrt{2\alpha}$ | First-order avalanche: State I tetrahedral H-bond → State II FCC close-pack; +4°C density max as supercritical statistical average | **Nilsson 2026 X-ray LLCP** (LDL = State I, HDL = State II directly observed) |
 | Plasma ($\varepsilon$-sector) | **ASYM-N** ($\varepsilon$) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | plasma canonical |
 | Kolmogorov turbulence | SYM | $k / k_{\text{node}}$ | Spectral cutoff at dissipation | Kolmogorov empirical |
 | Planetary (geomagnetic) | SYM | dynamo / threshold | Pole flip | geology + Venus null |
@@ -61,7 +62,7 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 
 Per the asymmetric-saturation exploration (Grant 2026-05-15 evening):
 
-- **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 16 instances
+- **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 17 instances
 - **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$): 2 instances — BCS $\mu$-only, plasma $\varepsilon$-only
 - **ASYM-E** = Asymmetric engineered decoupled ($K/G \neq 2$ by design): 1 instance — active topological metamaterials
 
@@ -71,9 +72,11 @@ The asymmetric-saturation variant ($K_{\text{wedge}} / G_{\text{wedge}} \neq 2$)
 
 **Pre-A-034:** each row was treated as a separate framework result — [Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex) had geomagnetic reversal; [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) had solar flares; [Vol 3 Ch 15 (BH Orbital Resonance)](../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as "God's Hand" inaccessible.
 
-**Post-A-034:** *all 19 rows are the same physics*, with the kernel inherited from Axiom 4 + Axiom 2 (scale invariance) and the phenomenology determined by the local saturation-boundary geometry.
+**Post-A-034:** *all 20 rows are the same physics*, with the kernel inherited from Axiom 4 + Axiom 2 (scale invariance) and the phenomenology determined by the local saturation-boundary geometry.
 
-This is the framework's largest unification to date: **one kernel, 19 scales, every topological reorganization event in the universe.** The framework simplifies rather than complicates as evidence accumulates — the kernel doesn't change, only the lattice scale changes.
+This is the framework's largest unification to date: **one kernel, 20 scales, every topological reorganization event in the universe.** The framework simplifies rather than complicates as evidence accumulates — the kernel doesn't change, only the lattice scale changes.
+
+**Catalog growth note (2026-05-16):** water two-state LC partition added as 13th physical instance (per Grant: cosmic Ω_freeze IS water → ice at different scale — both same Axiom-4 kernel with $r_{\text{crit}} = \sqrt{2\alpha}$). See [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) for the canonical Vol 3 derivation and the cosmic-scale instance cross-link.
 
 ## Cross-scale validation paths
 

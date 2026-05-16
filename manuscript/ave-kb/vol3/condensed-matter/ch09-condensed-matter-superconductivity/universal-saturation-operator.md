@@ -9,7 +9,7 @@
 > universal-saturation-operator framing on this leaf is one of the original
 > corpus instances of the scale-invariant kernel. It is canonicalized as
 > the A-034 Universal Saturation-Kernel Strain-Snap Mechanism with a
-> **19-instance catalog** spanning ~21 orders of magnitude. The ε-μ
+> **20-instance catalog** spanning ~21 orders of magnitude. The ε-μ
 > duality and BCS $B_c(T)$ identification below remain canonical for this
 > leaf's domain; for the full cross-scale catalog see Vol 3 Ch 4
 > §sec:tki_strain_snap + Backmatter Ch 7 (Universal Saturation-Kernel

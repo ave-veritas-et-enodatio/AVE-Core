@@ -131,6 +131,6 @@ This is **Option D** (topological boundary condition) made concrete, NOT Option 
   - [Theorem 3.1 Q-factor](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — $Q = 1/\alpha$ signature of TIR-confined electron
   - [Chirality and Antimatter](chirality-and-antimatter.md) — annihilation mechanism (reverse process)
   - [L3 Electron-Soliton Closure Synthesis](l3-electron-soliton-synthesis.md) — broader framework context
-  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — pair production as atomic-EM-scale row of the 19-instance catalog
+  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — pair production as atomic-EM-scale row of the 20-instance catalog
 - **Canonical scripts:**
   - `src/scripts/vol_1_foundations/r9_path_*.py` — empirical sweeps at engine-representable scale (Mode III + partial chirality positive per L3 closure)

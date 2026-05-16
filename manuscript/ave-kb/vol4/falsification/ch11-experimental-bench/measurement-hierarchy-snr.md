@@ -19,7 +19,7 @@ A-034 measurement-hierarchy framing for engineered-substrate kernel measurements
 
 ## §1 — The three measurement architectures
 
-A-034's universal kernel $S(A) = \sqrt{1 - A^2}$ is the same physics across many scales (see [Universal Saturation-Kernel Catalog](../../../common/universal-saturation-kernel-catalog.md) for the 19-instance catalog). The engineered-substrate rows of the catalog use **three distinct bench architectures** to access the kernel:
+A-034's universal kernel $S(A) = \sqrt{1 - A^2}$ is the same physics across many scales (see [Universal Saturation-Kernel Catalog](../../../common/universal-saturation-kernel-catalog.md) for the 20-instance catalog). The engineered-substrate rows of the catalog use **three distinct bench architectures** to access the kernel:
 
 | Architecture | Setup | SNR scaling | Example |
 |---|---|---|---|
@@ -114,7 +114,7 @@ The same three-architecture hierarchy applies across the A-034 catalog scales:
   - Vol 4 Ch 11 — bulk-response IVIM bench
   - Vol 4 Ch 15 — autoresonant dielectric rupture (phased-array PLL)
 - **KB cross-cutting:**
-  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 19-instance catalog; engineered-substrate rows
+  - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 20-instance catalog; engineered-substrate rows
   - [Op14 Local Clock Modulation](../../circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md) — Duffing softening at autoresonant lock
   - [Pair Production Axiom Derivation](../../../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) — autoresonant rupture as pair-production mechanism
 - **Sibling repos:**

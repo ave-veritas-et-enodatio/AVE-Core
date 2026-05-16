@@ -100,66 +100,57 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 | **Tier 2b** | Cross-scale isomorphism table extension: solar-system + galactic columns | ~1-2 sessions | **DONE** (this commit, vol2 app F) |
 | **Tier 3** | K4-stiffness-tensor $\Delta G/G$ anisotropy derivation; 10⁻¹¹ JPL planetary-ephemerides test | Multi-week | **DEPENDS** on Grant's mechanism-pick (see §6 physical dilemma) |
 
-## §6 — Tier 3 physical dilemma (for Grant's plumber intuition)
+## §6 — Tier 3 derivation path: Ω_freeze IS water → ice at cosmic scale
 
 **Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality (I4₁32 right-handed at Axiom 1). Gravity is the macroscopic refractive-index modulation of the substrate ([Vol 3 Ch 2-3](../../vol_3_macroscopic/chapters/)). [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
 
-**The dilemma**: at what order does the substrate's frozen $\Omega_{\text{freeze}}$ chirality leak into the gravitational coupling $G$? Three possible orders, each with a different physical mechanism, each with a different empirical signature:
+**Reframe (2026-05-16, per Grant)**: this is not a novel cosmic mechanism. It is a cosmic-scale instance of standard materials-science physics — **applying stress to a substrate while it undergoes a material phase change**. The canonical AVE example is already in Core: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md).
 
-### Option (a): Bipartite K4 A-B sublattice averaging
+### The water → ice / K4 → I4₁32 correspondence
 
-**Mechanism**: The bipartite K4 lattice has opposite chirality on A vs B sublattices. At macro scale, the two sublattices average together. Residual chirality leakage = how strongly the A-B sublattices fail to cancel.
+| Water → Ice (Vol 3 Ch 11) | K4 substrate → I4₁32 ground state (Vol 3 Ch 4) |
+|---|---|
+| **State I (Intact Impedance Lock)**: open tetrahedral H-bond network, $V = a^3$ with $a = 4r_{OO}/\sqrt{3}$ | I4₁32 ordered chiral ground state, $\ell_{node}$ set by saturation closure |
+| **State II (Thermal Shattering)**: thermal noise exceeds H-bond phase gap → FCC close-packing collapse ($\varphi = \pi\sqrt{2}/6$) | Pre-crystallization hot disordered substrate, no long-range chirality |
+| Yield boundary: $S(r) = f_{\text{yield}} \cdot \sqrt{1 - (r_{th}/r_{\text{crit}})^2}$ with $r_{\text{crit}} = \sqrt{2\alpha}$ | **Same Axiom-4 kernel, same critical strain** |
+| First-order discontinuous avalanche at $T_m = 279.5$ K (proton-transfer eigenmode of O-H...O bridge) | First-order discontinuous avalanche at BBN-era crystallization temperature |
+| LLCP critical point: LDL (State I) vs HDL (State II) selected by local conditions at nucleation | Cosmic critical point: R-handed vs L-handed I4₁32 selected by cosmic angular momentum at nucleation |
+| Kirkwood-Frohlich $g = 1 + z\cos^2(\theta/2) f_I$ projects structural fraction $f_I$ onto macroscopic $\varepsilon$ ($z=4$ tetrahedral symmetry) | Analogous projection: chirality fraction $f_{R}$ projects onto macroscopic $G$ anisotropy via K4 coordination |
 
-**Suppression order**: $(\ell_{\text{node}} / R_H)^n$ for some $n$
-- $n = 1$: $10^{-38}$ (way below detection)
-- $n = 1/2$: $10^{-19}$ (still below detection)
-- $n = 2$: even smaller
+### The mechanism
 
-**Empirical signature**: $\Delta G / G \sim 10^{-19}$ to $10^{-38}$. **Below all current measurement precision.**
+Ω_freeze is **strain-induced chirality texturing during the K4 crystallization phase change**. The analog is precisely **magnetic field annealing of a ferromagnet through the Curie point** — the field at the critical transition sets the easy-axis orientation that locks into the ordered ground state. For the substrate:
 
-**Plumber analogy**: think of a twisted rope where the right-handed twist on the outer fibers is canceled by the left-handed twist on the inner fibers. Looking at the rope from outside, you see no net twist effect — until you ask about modes that distinguish inner vs outer fibers (which only exist at the lattice-pitch scale).
+- **Order parameter**: I4₁32 right-handedness (η, binary R vs L)
+- **Applied stress**: cosmic angular momentum $L_{\text{cosmic}}$ (from parent BH)
+- **Coupling**: chiral-rotational coupling $\chi_{\text{chir}}$ (substrate analog of magneto-elastic coupling)
+- **Critical threshold**: $r_{\text{crit}} = \sqrt{2\alpha}$ (Axiom 4 kernel, same value as water)
 
-### Option (b): Cosserat micropolar coupling activation under $\Omega_{\text{freeze}}$
+Landau-style free energy near the critical point:
+$$F = F_0(\eta) + \chi_{\text{chir}}\, \eta\, L_{\text{cosmic}} + \kappa L_{\text{cosmic}}^2 + \ldots$$
 
-**Mechanism**: The Cosserat $\omega$ microrotation field is the substrate-native chirality carrier (per Axiom 1 Cosserat character). Normally suppressed compared to translational $u$ displacement. Under $\Omega_{\text{freeze}}$-aligned global rotation, Cosserat coupling becomes anisotropic → anisotropic $G$.
+The resulting macroscopic $G$ anisotropy follows from standard texture analysis (March-Dollase pole figures or equivalent), applied to the projection:
+$$G(\hat{n}) = G_{\text{iso}} \left[ 1 + \chi_{\text{chir}} \cdot \cos^2(\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}}/2) \cdot f_R \right]$$
 
-**Suppression order**: set by Cosserat micropolar coupling strength relative to bulk = $\chi_K = 12$ (the $|T| = 12$ universality factor)
-- $1/\chi_K = 1/12 \approx 8\%$ effect on $G$ — **already ruled out** (CODATA $G$ to 4 decimals = 0.01% precision)
-- $1/\chi_K^2 = 1/144 \approx 0.7\%$ — **also ruled out**
-- Need higher-order suppression to be below current G precision
+where $f_R$ is the R-handed chirality fraction (cosmic-scale analog of water's structural fraction $f_I$).
 
-**Empirical signature**: $\Delta G / G \sim 1/\chi_K^n$ for some $n > 2$. **Ruled out at low n, contrived at high n.**
+### Derivation path
 
-**Plumber analogy**: think of the rope's twist as torsional waves that couple weakly to longitudinal sound. The coupling is set by the rope's torsional-modulus / bulk-modulus ratio. If that ratio is 1/12, the twist signature on longitudinal waves would be 8% — but we'd have measured that by now.
+1. **Identify the closest materials-science analog precisely** (most likely ferromagnetic Curie field-cooling; alternatives: chiral nematic LC alignment, multiferroic ME coupling, spin-glass field freezing). Read the substrate's order-parameter structure off Axiom 1.
 
-### Option (c): Particle-level $(2, q)$ trefoil anisotropy projected through cosmic averaging
+2. **Write the Landau free energy** with chirality-angular-momentum coupling. The coupling constant $\chi_{\text{chir}}$ has a substrate-level derivation from $K_4 \to A_4 \to 2T \subset SU(2)$ chain plus Cosserat micropolar tensor (already in Q-G47 substrate-scale closure leaf).
 
-**Mechanism**: Particle-level chirality (electron's $(2, 3)$ trefoil) has inherent d-axis vs q-axis anisotropy at α-suppressed order (per **Q-G19α saliency derivation just landed in commit 9e5df08** — δ = $-3α/2$). At macroscopic scale, particles' anisotropies tend to average out, but with **residual that tracks $\Omega_{\text{freeze}}$**.
+3. **Apply texture analysis** (Kirkwood-Frohlich-style projection at cosmic scale) to compute $\Delta G/G$ as a function of $f_R$ and $\hat{\Omega}_{\text{freeze}}$ direction.
 
-**Suppression order**: $\alpha \times$ (cosmic-scale averaging factor)
-- $\alpha \approx 7 \times 10^{-3}$
-- Cosmic-scale averaging factor: $\sim 10^{-5}$ (galactic-cluster scale) to $10^{-9}$ (cosmic-horizon scale)
-- Net: $\Delta G / G \sim 10^{-8}$ to $10^{-12}$
-- **Testable at JPL planetary-ephemerides precision (10⁻¹¹ level)** ✓
+4. **Engine**: cosmic-scale analog of `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` (already in `regime_1_linear/hexagonal_lattice.py` per water-anomaly leaf). The water-anomaly leaf explicitly notes: *"infinite 3D structural melting grids are computationally NP-Hard"* — same complexity at cosmic scale; cooperative-LC tracking is the right approach.
 
-**Empirical signature**: $\Delta G / G \sim 10^{-8}$ to $10^{-12}$, **detectable at JPL precision**, and AVE-distinct prediction would be a SPECIFIC orientation correlation with $\Omega_{\text{freeze}}$ direction.
+5. **Empirical anchor**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ direction, plus JPL planetary-ephemerides at $10^{-11}$ precision. The Nilsson 2026 X-ray LLCP measurement is the laboratory-scale empirical proof-of-concept that the two-state LC partition IS observable; the cosmic-scale instance should produce the analogous orientation signature.
 
-**Plumber analogy**: think of the rope as bundled twisted threads (each thread = a particle's (2,q) trefoil). Each thread has a tiny α-suppressed asymmetry. When you bundle many threads, the asymmetries mostly cancel — but if all the threads were laid down with a preferred axis (the cosmic Ω_freeze axis), there's a tiny residual orientation that survives the bundling.
+### What was abandoned (2026-05-16)
 
-### The dilemma (for Grant)
+Earlier framings of this leaf's §6 posited three exotic cosmic mechanisms — bipartite K4 sublattice averaging, Cosserat micropolar activation, particle-level $(2,q)$ trefoil cosmic averaging — and asked which sets the $\Delta G/G$ order. These were unmoored from established materials physics. The honest answer: this is standard strain-induced texturing during phase change, with the same Axiom-4 yield boundary that already governs water. The derivation reduces to applying Kirkwood-Frohlich-style projection at cosmic scale to the K4 chirality order parameter.
 
-Which of (a), (b), (c) is the **load-bearing mechanism** for cosmic-grain → gravitational-anisotropy?
-
-- **(a)** is structurally clean (bipartite averaging) but suppression is too strong → undetectable
-- **(b)** is structurally simple (Cosserat coupling) but suppression is too weak → ruled out (or contrived at high-n)
-- **(c)** is the **testable middle ground** but compounds two mechanisms (particle-level α-suppression + cosmic averaging)
-
-**If you pick one with a one-line physical argument**, the multi-week derivation timeline collapses dramatically:
-- Pick (a) → derivation closes negatively (no testable signature; framework drops Route-2-as-anisotropy claim, keeps Route 2 isotropic)
-- Pick (b) → derivation needs to identify what symmetry suppresses at higher than 1/144 (research-tier)
-- Pick (c) → derivation = compute the cosmic-averaging factor explicitly from $(2, q)$ Cosserat micropolar tensor projected through nested-rotator angular-momentum-cascade (~1-2 sessions of focused calculation, paired with JPL ephemeris data analysis)
-
-**Your call.**
+**Estimated scope**: ~1 focused session for the Landau expansion + texture-analysis projection (rather than the multi-week scoping of the abandoned three-mechanism approach).
 
 ## §7 — Cross-references
 

@@ -368,7 +368,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - Vol 3 Ch 1 (Gravity and Yield) — $K = 2G$ canonical + Machian impedance integral
   - Vol 3 Ch 4 (Generative Cosmology) — Ω_freeze cosmic-spin freeze-in
   - Vol 3 Ch 21 (BH Interior Regime IV) — pre-geodesic plasma framing
-  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 19 scales
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 20 scales
 - **Cross-cutting KB leafs**:
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](boundary-observables-m-q-j.md) — substrate-observability rule
   - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $K = 2G$ derivation framework + Session log
