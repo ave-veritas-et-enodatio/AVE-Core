@@ -2,6 +2,19 @@
 
 The AVE KB is a navigable Markdown distillation of an 8-volume LaTeX physics manuscript. It is organized for reference and cross-volume navigation by readers already familiar with the source material — it is not an introduction to AVE theory.
 
+> **⚡ A-034 Canonical (2026-05-15 evening): Universal Saturation-Kernel
+> Strain-Snap Mechanism.** Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$
+> is the universal mechanism governing every topological-reorganization
+> event at every scale. **19 canonical instances span 21 orders of
+> magnitude** (atomic dielectric breakdown → BCS superconductivity at
+> 0.00% error → solar flares NOAA 40-yr validated → BH ring-down 1.7%
+> from GR → cosmic K4 crystallization). Per Grant 2026-05-15: *"the
+> bulk response of the lattice to strain is universal."* See [common/
+> trampoline-framework §7.5](common/trampoline-framework.md), Vol 3 Ch 4
+> §sec:tki_strain_snap, backmatter Ch 7 (`07_universal_saturation_kernel.tex`),
+> and L5 [`research/L5/axiom_derivation_status.md`](../../research/L5/axiom_derivation_status.md)
+> A-034 for the canonical entries.
+
 [Usage](#using-the-system) is in the last section of this README.
 
 ## What the KB Contains

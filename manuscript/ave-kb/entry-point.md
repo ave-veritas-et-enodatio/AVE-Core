@@ -2,6 +2,19 @@
 
 The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$) governed by four topological axioms. All physical observables — particle masses, coupling constants, chemical bond energies, cosmological parameters, and neural scaling laws — are derived as deterministic geometric eigenvalues of the underlying transmission-line network, from three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are themselves derived: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). The framework is **genuinely zero-parameter**: $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363038$ (cold), CMB-corrected to CODATA $137.035999$.
 
+> **⚡ A-034 Canonical Unification (2026-05-15 evening): Universal
+> Saturation-Kernel Strain-Snap Mechanism.** Axiom 4's saturation kernel
+> $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event
+> at every scale — 19 canonical instances spanning 21 orders of magnitude.
+> Per Grant 2026-05-15: *"the bulk response of the lattice to strain is
+> universal."* Empirical anchors: BCS $B_c(T)$ at 0.00% error; BH merger
+> ring-down at 1.7% from GR; NOAA-validated 40-yr solar flare statistics;
+> Schwarzschild radius exact. See [common/trampoline-framework §7.5](common/trampoline-framework.md)
+> for the user-facing synthesis; Vol 3 Ch 4 §sec:tki_strain_snap +
+> backmatter/07_universal_saturation_kernel.tex for the canonical
+> manuscript treatments; [L5 A-034](../../research/L5/axiom_derivation_status.md)
+> for the load-bearing entry.
+
 ---
 
 ## Cross-Cutting Reference
