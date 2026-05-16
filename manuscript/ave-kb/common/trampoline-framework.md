@@ -232,6 +232,62 @@ $$A^2 = \varepsilon^2 + \kappa^2 + V^2$$
 
 ---
 
+### §1.6.5 Where torus-knot labels (p, q) come from — K4 symmetry irrep decomposition (A-033 structural-hypothesis, 2026-05-15 evening)
+
+**Added per A-033 (Grant pattern-spotting following A-032 χ_K = 12 identification).** The (p, q) torus-knot labels on AVE solitons are not free parameters — they are **dimensions / rotation orders of the K4 tetrahedral symmetry group**. Same K4 symmetry that produces χ_K = 12 via its rotation-group structure also forces the (p, q) labels on bound and propagating modes.
+
+**The K4 has exactly two characteristic rotation orders.** Per the structure of the proper tetrahedral group $T$ ($|T| = 12$):
+
+| Rotation axis type | Count | Order | Symmetry character |
+|---|---|---|---|
+| Body-diagonal (vertex-to-vertex) | 4 | 3 (120°, 240°) | **3-fold structure** → propagating modes |
+| Face-axis (edge midpoint) | 3 | 2 (180°) | **2-fold structure** → trapping mechanism |
+
+**These two orders are the only ones K4 admits.** The (p, q) torus-knot labels are simply combinations of these:
+
+| Soliton | (p, q) | K4 reading |
+|---|---|---|
+| **Photon** (K4-TLM linear T_2 mode per doc 30) | (0, 3) | T_2 irrep alone (3-fold) → propagating |
+| **Electron** (canonical (2, 3) phase-space torus knot) | (2, 3) | E ⊗ T_2 = T_1 ⊕ T_2 (2-fold × 3-fold combination) → BOUND |
+| **Nucleus** ((2, 5) Borromean cinquefoil, Vol 2 Ch 1) | (2, 5) | Higher-order combination — open Q-G42 (may require SU(3) projection beyond T_d) |
+
+**Photon = T_2 alone canonical** per doc 30 §1: K4 4-port valence decomposes as $V_{4\text{-port}} = A_1 \oplus T_2$ ($\dim 4 = 1 + 3$). The K4-TLM photon for +x propagation IS the linear T_2 mode (port amplitudes (+1, -1, +1, -1)). Three-dimensional propagating vector mode — corresponds to pure 3-fold body-axis structure.
+
+**Electron = E ⊗ T_2 mechanism.** The 6-dimensional product space E ⊗ T_2 = T_1 ⊕ T_2 hosts the (2, 3) phase-space torus knot:
+- The "2" labels the E rep (2-dim, face-axis 2-fold symmetry)
+- The "3" labels the T_2 rep (3-dim, body-axis 3-fold symmetry)
+- Combined: a propagating T_2 wave is locked into a bound state by the 2-fold E-rep face-axis "trap"
+
+**Mechanistically: photon → electron via 2-fold trap.** Adding face-axis (2-fold) chirality structure to a propagating body-axis (3-fold) wave converts a free photon into a bound electron-like soliton. The K4 substrate's intrinsic two-symmetry structure (2-fold + 3-fold) provides the kinematic ingredients for both propagation AND trapping.
+
+### §1.6.6 Implication for α (proposed irrep reading)
+
+**If A-033 confirms (Session 8+ verification),** the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor decomposition might map to K4 irrep integrations:
+
+| Term | Geometric reading (per Q-G47 Session 5) | Proposed K4 irrep reading |
+|---|---|---|
+| $4\pi^3$ | 3D volumetric × K4 4-bond | $V_{4\text{-port}} = A_1 \oplus T_2$ × 3-fold integration |
+| $\pi^2$ | Surface (Euler buckling + Γ=-1 envelope) | E irrep (2-dim) integration |
+| $\pi$ | 1D Cauchy axial | A_1 trivial rep (1-dim) integration |
+
+**Dimensional ladder:** $\dim(A_1) + \dim(T_2) = 1 + 3 = 4$, $\dim(E) = 2$, $\dim(A_1) = 1$. Each π-power in $\alpha^{-1}$ might correspond to integration over an irrep, with the irrep dimension setting the term coefficient.
+
+**If true:** $\alpha$ is forced by K4 representation theory — not a calibration constant. α-as-calibration (A-001) supersedes to α-as-forced-by-symmetry.
+
+### §1.6.7 Status
+
+**This is structural-hypothesis** (A-033), not yet rigorously derived. Three independent corpus elements converge:
+
+1. K4 4-port irrep decomposition $A_1 \oplus T_2$ (doc 30 canonical)
+2. (2, 3) electron labels match K4 characteristic rotation orders (2-fold + 3-fold)
+3. Q-G47 Session 5 π-power decomposition matches irrep-dimension ladder
+
+**Session 8+ verification target:** explicit irrep-product calculation of $\alpha^{-1}$. If the integration over E ⊗ T_2 × A_1 gives $4\pi^3 + \pi^2 + \pi$ exactly, the framework's α derivation closes via symmetry theory alone.
+
+**Cross-references:** A-033 (full L5 entry); A-032 (sibling K4-symmetry χ_K identification); A-024 (electron-is-unknot canonical, COMPATIBLE: unknot is real-space; (2, 3) is phase-space irrep label); doc 30 (K4 4-port decomposition); doc 17 (α^{-1} Q-factor); Q-G47 Session 5 + Session 8+ verification.
+
+---
+
 ### §1.7 Summary — one analogy → one math structure per step
 
 | Step | Physical addition | Math structure added | AVE canonical anchor |

@@ -27,7 +27,7 @@
 | 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | (this commit) | (this commit) |
 | 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | (this commit) | (this commit) |
 | 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | (this commit) |
-| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Session 6 LANDED 2026-05-15** (magic-angle equation explicit; sensitivity sweep gives χ_K=12 → u_0*=0.188 matching A-029 geometric scale); **A-032 structural-hypothesis** (χ_K = 12 = K4 tetrahedral symmetry order; Grant pattern-spotting 2026-05-15 evening; Session 7 to verify rigorously); Sessions 7-10 remaining | Q-G47 / A-027 / A-029 / A-030 / **A-032 (NEW)** | (this commit) |
+| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Session 6 LANDED 2026-05-15** (magic-angle equation explicit; sensitivity sweep gives χ_K=12 → u_0*=0.188 matching A-029 geometric scale); **A-032 + A-033 structural-hypotheses** (χ_K = 12 from K4 path-count multiplicity; (p,q) torus-knot labels = K4 irrep decomposition → electron in E⊗T₂, photon = T₂ alone; Grant pattern-spotting 2026-05-15 evening; Sessions 7-10 to verify rigorously) | Q-G47 / A-027 / A-029 / A-030 / **A-032 (NEW) / A-033 (NEW)** | (this commit) |
 | 3 | T_EM(u_0*) explicit closed-form | pending (Tier 2 dep) | Q-G47 closure | — |
 | 3 | Vol 3 Ch 4 explicit ξ(R_H, ℓ_node) derivation | pending (independent of Q-G47) | (new) | — |
 | 3 | Three-route α/G/𝒥 consistency verification | pending (Tier 3 deps) | A-030 + A-031 | — |

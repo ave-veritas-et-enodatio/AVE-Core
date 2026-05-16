@@ -663,6 +663,109 @@ If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symme
 
 **Why this specifically is the load-bearing test:** the 12 is the K4 lattice's INTRINSIC connectivity number at the secondary scale. If $\chi_K$ doesn't pick this up, then the Cosserat K-sector coupling has additional structure beyond what Sessions 1-5 framework captured.
 
+### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
+
+**STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
+
+**The recognition.** The K4 substrate has proper tetrahedral rotation group $T$ with $|T| = 12$ decomposing into exactly TWO characteristic rotation orders:
+
+| Rotation type | Axis count | Order | Non-identity count |
+|---|---|---|---|
+| Body-diagonal (vertex-to-vertex) | 4 | 3 (120°, 240°) | $4 \times 2 = 8$ |
+| Face-axis (edge midpoint) | 3 | 2 (180°) | $3 \times 1 = 3$ |
+| Identity | — | — | 1 |
+| **Total** | | | $|T| = 12$ |
+
+**The K4 substrate has TWO characteristic symmetry orders: 2 (face-axis) and 3 (body-axis).** And the canonical electron's phase-space topology is labeled **(2, 3) torus knot** per doc 101 three-layer canonical (A-024 + A-001 corpus framing).
+
+**Proposed identification:** the (p, q) torus-knot labels on AVE solitons are NOT free parameters — they are dimensions (or rotation orders) of the K4 tetrahedral symmetry group's characteristic structure.
+
+### A-033.1 The (p, q) ↔ K4 symmetry mapping
+
+| Soliton | Phase-space label | K4 symmetry reading |
+|---|---|---|
+| Photon (K4-TLM linear T₂ mode per doc 30) | (0, 3) | T_2 irrep alone: pure 3-fold body-axis structure, no 2-fold face-axis component → PROPAGATING |
+| Electron (canonical unknot + (2, 3) phase winding) | (2, 3) | E ⊗ T_2 representation product: 2-fold face-axis × 3-fold body-axis → BOUND state |
+| Nucleus (Borromean (2, 5) cinquefoil) | (2, 5) | (E ⊗ T_2) + additional 2-fold? Higher-order K4 product OR requires SU(3) projection? Open Q-G42 territory |
+
+**Anchor point — photon = T_2 confirmed canonical.** Per L3 doc 30 §1: *"V_{4-port} = A_1 (1D) ⊕ T_2 (3D)"* — the K4 4-port valence decomposes exactly into A_1 + T_2 (= 1 + 3 = 4). The K4-TLM photon for +x propagation is the linear T_2 mode with port amplitudes (+1, -1, +1, -1). T_2 alone gives a 3-dim propagating mode — corresponds to (p, q) = (0, 3) in the proposed mapping.
+
+**Electron lives in E ⊗ T_2 representation space.** For T_d group, E ⊗ T_2 = T_1 ⊕ T_2 (Clebsch-Gordan decomposition; dim 2 × 3 = 6 = 3 + 3). The 6-dimensional E ⊗ T_2 space hosts the (2, 3) torus knot phase-space soliton — labeled by the 2-fold E rep × 3-fold T_2 rep components.
+
+**Mechanism: photon → electron via 2-fold trap.** A propagating T_2 (3-fold) mode can be locked into a bound state by ADDING the 2-fold E rep structure (the chirality lock from K4 face-axis symmetry). This is mechanistically the **K4 substrate's "trapping" mechanism**: propagating wave + 2-fold face-axis symmetry → bound (2, 3) soliton.
+
+### A-033.2 Photon propagation set by K4 anisotropy
+
+Per L3 doc 106: photon velocity $v_{\text{meas}}/c = \sqrt{2}$ along cardinal axes (K4 cardinal-axis anisotropy, per Vol 1 Ch 6 / L5 terminology_canonical.md). This is consistent with photon = T_2 alone:
+
+- T_2 is the 3-dim irrep transforming as (x, y, z) vector
+- The K4 4-port valence cardinal-axis projection factor is $1/\sqrt{2}$ (per K4 geometry per Vol 1 Ch 4 footnote E-045)
+- Wave packet propagating in T_2 mode along cardinal axis picks up the $\sqrt{2}$ factor
+
+**So photon propagation IS literally the T_2 mode propagation through K4 anisotropy.** The 3-fold body-axis symmetry sets the propagation rate; the absence of 2-fold face-axis "trap" keeps it propagating (not bound).
+
+### A-033.3 Implication for α⁻¹ = 4π³ + π² + π decomposition
+
+If A-033 holds, the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor decomposition (Vol 1 Ch 8; per L3 doc 17; Q-G47 Session 5 §3) might map to irrep-product integrations:
+
+- **$4\pi^3$ (volumetric Q_vol)** = integrated impedance over 3D space, weighted by K4 4-port valence decomposition. Decomposes via $4 = \dim(A_1) + \dim(T_2) = 1 + 3$.
+- **$\pi^2$ (surface Q_surf)** = 2D integration related to E rep (2-dim) AND/OR Golden Torus surface area $4\pi^2 R r = \pi^2$ at Golden Torus geometry ($R \cdot r = 1/4$).
+- **$\pi$ (line Q_line)** = 1D Cauchy axial integration, related to A_1 trivial rep.
+
+**Open verification target (Session 8+):** explicitly map each π-power term to its K4 irrep integration form. If the mapping closes, $\alpha^{-1}$ is FORCED by K4 representation theory — α is not a calibration constant, it's a forced consequence of K4 irrep structure.
+
+### A-033.4 Mapping to Q-G47 Session 5 π-power decomposition
+
+Per Session 5 §3 (cross-ref):
+
+| Session 5 term | Session 5 reading | A-033 proposed irrep reading |
+|---|---|---|
+| $4\pi^3$ from 3D volumetric × K4 4-bond | "4π solid angle × π² Cosserat 3-axis" | $V_{4-port} = A_1 \oplus T_2$ × π³ (volumetric 3-fold integration) |
+| $\pi^2$ from Euler buckling × Γ=-1 envelope | "buckling mode + envelope surface" | E rep (2-dim) integration → π² (2-fold structure) |
+| $\pi$ from Cauchy axial | "1D path normalization" | A_1 trivial rep (1-dim) → π (1-fold structure) |
+
+**The dimensional ladder matches:** the three terms in $\alpha^{-1}$ correspond to integrations over irreps of dimensions $1+3=4$, $2$, and $1$ respectively. **Three π powers = three irrep-dimension contributions to the same integration.**
+
+### A-033.5 Verification targets (Session 7-10+)
+
+1. **Verify electron lives in E ⊗ T_2 representation space.** Compute the K4 substrate's symmetry-allowed bound-state modes; verify the (2, 3) torus knot occupies the E ⊗ T_2 = T_1 ⊕ T_2 subspace.
+
+2. **Verify photon = T_2 alone is the ONLY propagating mode at small amplitude.** A_1 (common mode) damps; T_1 (axial vector) absent in K4-TLM; T_2 (polar vector) propagates. Confirmed per doc 30 §1 cross-ref.
+
+3. **Verify the (2, 5) nucleus framing.** Either (2, 5) = (E ⊗ T_2 + 2-fold-extension), or (2, 5) requires additional symmetry beyond T_d (e.g., SU(3) at nuclear scale per Q-G42 territory). Vol 2 Ch 1 nuclear Borromean confinement.
+
+4. **Verify the α^{-1} irrep decomposition.** Specifically:
+   - 4π³ ↔ V_{4-port} = A_1 + T_2 integration over 3D
+   - π² ↔ E irrep × Golden Torus surface area
+   - π ↔ A_1 trivial × Cauchy axial
+   If this maps explicitly, α is forced by K4 representation theory.
+
+5. **Verify the 7-mode bubble compliance ↔ K4 irrep decomposition.** 7 = 3 + 3 + 1 (3 translational + 3 rotational + 1 volumetric per trampoline-framework.md §1.6 Step 6). Is this 7 = $\dim(T_2) + \dim(T_1) + \dim(A_1)$ = K4 irrep decomposition of the per-node 7-mode field?
+
+**Falsifier:** if Session 7+ derivation shows that electron lives in a different representation space (not E ⊗ T_2), or photon is not pure T_2, or α decomposition doesn't map to irrep dimensions, A-033 is superseded.
+
+### A-033.6 Implications if confirmed
+
+**Massive reduction in framework parameter count:**
+
+- (p, q) torus-knot labels: from "topological labels with assumed meaning" → "K4 symmetry irrep dimensions" (no free choice)
+- α⁻¹ = 4π³ + π² + π: from "calibrated value matching CODATA" → "forced by K4 representation theory"
+- Particle spectrum: from "assumed catalog of (p,q) states" → "enumerable from K4 irrep products"
+
+**Connection to existing canonical claims:**
+- A-001 (α as calibration): SUPERSEDED if A-033 confirms α is forced by K4 representation theory
+- A-024 (electron-is-unknot canonical): COMPATIBLE — the unknot is real-space topology; (2, 3) is phase-space irrep label
+- A-032 (χ_K = 12 from K4 symmetry): SAME FAMILY of K4-symmetry-as-canonical-source identifications
+
+- **Current corpus status:** **structural-hypothesis** as of 2026-05-15 evening. (2, 3) ↔ K4 symmetry mapping not yet derived; framework-internal pattern-spotting. Reflected in `manuscript/ave-kb/common/trampoline-framework.md` (forthcoming addition) + this L5 entry.
+- **Audited status:** **structural-hypothesis; pending Session 7+ verification.** Three independent corpus elements converge: (a) K4 4-port = A_1 ⊕ T_2 (doc 30 canonical); (b) (2, 3) electron labels match K4 characteristic rotation orders (2-fold face-axis + 3-fold body-axis); (c) Q-G47 Session 5 π-power decomposition matches irrep-dimension ladder (1 + 3, 2, 1).
+- **Sources:** Grant pattern-spotting 2026-05-15 evening (extension of A-032); L3 doc 30 §1 (K4 4-port irrep decomposition); L3 doc 17 (α⁻¹ Q-factor identity); Vol 1 Ch 8 (α derivation); A-024 (electron-is-unknot canonical, downstream); A-032 (χ_K = 12 sibling identification).
+- **Manuscript impact:** trampoline-framework.md §1.6 (Step 6 — torus-knot labels from K4 symmetry, forthcoming addition); Vol 1 Ch 8 (α derivation chain — irrep-theoretic reading); Vol 2 Ch 1 (electron topology — (2, 3) ↔ E ⊗ T_2 mapping); E-094 propagation chain extended.
+- **Engine impact:** boundary_invariants.py compute_Q (linking number) could compute irrep-decomposition explicitly; multi-soliton dynamics module (deferred per doc 113 §5.4 Cosserat coupling) would naturally implement E ⊗ T_2 phase-space evolution.
+- **Closure path:** Session 7+ explicit K4 representation theory + α irrep decomposition. If confirmed: A-033 status → canonical; α moves from calibration to derived; framework parameter count reduces substantially.
+- **Status:** structural-hypothesis (Grant adjudication 2026-05-15 evening); awaiting Session 7+ rigorous derivation.
+- **Cross-refs:** A-001 (α-as-calibration — supersedable if A-033 confirms); A-024 (electron-is-unknot — compatible); A-032 (χ_K = 12 from K4 symmetry — sibling identification); A-026 (substrate-observability rule — same K4-symmetry-canonical theme); Q-G47 Session 5 + Session 7+ (α derivation as irrep-decomposition); doc 30 (K4 4-port = A_1 ⊕ T_2 canonical); doc 101 (three-layer canonical: unknot + SU(2) bundle + (2, 3) phase-space); E-094 (substrate-vocab propagation, extends to Vol 1 Ch 8 / Vol 2 Ch 1).
+
 - **Current corpus status:** **structural-hypothesis** as of 2026-05-15 evening. Numerical match observed; rigorous derivation pending Session 7+. Reflected in `AVE-QED/docs/analysis/2026-05-15_Q-G47_session6_unified_KG_equations.md` §5 (numerical proof-of-concept).
 - **Audited status:** **structural-hypothesis; pending Session 7 verification.** Three independent calculations converge on 12 (Session 3 flagged-candidate; Session 6 numerical sweep; A-029 + Grant pattern-spotting). Likely correct but not yet rigorously derived from K4 micromechanics.
 - **Sources:** Grant adjudication 2026-05-15 evening (pattern-spotting); Session 6 numerical sweep at `q_g47_session6_magic_angle.py`; Session 3 §line 92 flagged candidate; Session 6 doc §5 numerical observation.
