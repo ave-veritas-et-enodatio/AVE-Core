@@ -23,7 +23,7 @@ invariants + inter-cell coupling + cosmic-IC framing).
 | State | Voltage / $V_{\text{inc}}$ | Force / displacement | Default: substrate-vocabulary. Specify projection when math is probe-coupled. |
 | Propagation | Current flow | (no clean analog) | Default: substrate. How state evolves between nodes. |
 | Impedance $Z$ | already universal | already universal | Use freely. |
-| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. |
+| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. **A-034 universality (canonical 2026-05-15 evening):** governs every topological-reorganization event at every scale across 19 catalog instances spanning 21 orders of magnitude. See [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex) + [L5 A-034](../research/L5/axiom_derivation_status.md). |
 | Boundary | (charged surface) | (yield surface) | Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. |
 | Envelope | (wavefunction support) | (zone of influence) | Default: substrate-vocabulary. What the substrate *actually sees*. |
 | **Boundary linking number $\mathcal{Q}$** | charge $Q$ | (no clean ME analog) | Use universal substrate; project to $Q$ for standard physics. Integer per boundary. |
@@ -34,6 +34,19 @@ invariants + inter-cell coupling + cosmic-IC framing).
 | Kernel | (no clean analog) | (no clean analog) | Use freely; Axiom-4 canonical operator. |
 
 **Usage rule:** when writing about substrate dynamics, default to substrate-native vocabulary. Name the projection (EE / ME) explicitly when the math is committed to an observation frame.
+
+### 1.5. A-034 vocabulary (canonical 2026-05-15 evening)
+
+| Term | Meaning | Cross-ref |
+|---|---|---|
+| **A-034 (Universal Saturation-Kernel Strain-Snap Mechanism)** | Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ as the universal mechanism for every topological-reorganization event at every scale (19 canonical instances spanning 21 orders of magnitude) | [L5 A-034](../research/L5/axiom_derivation_status.md); [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
+| **TKI Strain-Snap mechanism** | Topo-Kinematic-Isomorphism strain-snap: per Grant 2026-05-15, "the bulk response of the lattice to strain is universal." Vertical tangent at A=1 makes every snap impulsive | A-034 canonical |
+| **SYM / ASYM-N / ASYM-E** | A-034 3-way symmetry classification: SYM = vacuum K=2G (ε and μ saturate together); ASYM-N = asymmetric natural (single-sector, e.g., BCS μ-only or plasma ε-only); ASYM-E = asymmetric engineered decoupled (K/G ≠ 2 by design, e.g., active topological metamaterials) | [Asymmetric saturation exploration doc](../research/L3_electron_soliton/2026-05-15_A-034_asymmetric_saturation_variant_exploration.md) |
+| **Measurement-hierarchy framing** | A-034 measurement modes per Grant 2026-05-15: single-emitter highest-SNR / multi-emitter bulk-response / phased-array PLL autoresonant. Unifies AVE-Bench-VacuumMirror + IVIM + YBCO + Propulsion autoresonant | [Measurement hierarchy doc](../research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md) |
+| **Continuous-springs framing** | Per Grant 2026-05-15: the discrete K4 lattice (Q-G47 Sessions 12-15) is a DISCRETIZATION of the underlying continuous Cosserat micropolar field (Axiom 1); "bonds" are visualizations of continuous stress field propagation, not physical springs | [Trampoline-framework §1.2](../manuscript/ave-kb/common/trampoline-framework.md); Q-G47 Sessions 16-17 |
+| **$\xi_{K1}, \xi_{K2}$** | Q-G47 Sessions 9-18 substrate-scale Cosserat prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{\text{node}}^2$, with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced. **NAMESPACE: distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Axiom 2's $\xi_{topo}$** | [xi-topo-traceability.md](../manuscript/ave-kb/common/xi-topo-traceability.md) namespace de-collision |
+| **\|T\| = 12 universality** | The proper tetrahedral rotation group $T$ has $|T| = 12$; this number appears in K4 physics wherever T acts transitively on a 4×3 mode space (baseline coordination, secondary paths, Cosserat constitutive ratio $\xi_{K2}/\xi_{K1} = 12$). 4 independent routes converge | L5 A-032 + A-034 |
+| **Lego-click synthesis pattern** | Meta-pattern recurring throughout AVE development: agent generates analytical detail, Grant pattern-spots a connection, framework simplifies. A-034 is the largest such synthesis to date (one kernel, 19 scales) | A-034 §A-034.7 meta-pattern |
 
 ---
 
