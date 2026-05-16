@@ -646,6 +646,13 @@ def parse_claim_quality_file(
                         nxt_strip = nxt.strip()
                         if re.match(r"^- (confidence|solidity|rationale|depends-on):", nxt_strip):
                             break
+                        # The Quality section is bounded by the next `## `
+                        # heading, so qlines includes the entry-separating
+                        # `---` rule. strengthen-by is the last field, so its
+                        # loop must stop there or it swallows `---` into the
+                        # final bullet's text.
+                        if nxt_strip == "---":
+                            break
                         sb_lines.append(nxt)
                         i += 1
                     strengthen_items = _parse_strengthen_by_lines(

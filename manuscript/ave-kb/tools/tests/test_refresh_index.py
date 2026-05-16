@@ -406,7 +406,7 @@ _SYNTHETIC_BLOCKED_CQ = """\
 
 Body.
 
-## Quality
+### Quality
 - confidence: *pending*
 - solidity: *pending*
 - rationale: *pending*
@@ -420,7 +420,7 @@ Body.
 
 Body.
 
-## Quality
+### Quality
 - confidence: 0.90
 - depends-on:
   - clm-pppppp — Pending Upstream Claim (solidity 0.42) [stale numeric annotation]

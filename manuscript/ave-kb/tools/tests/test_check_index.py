@@ -328,6 +328,124 @@ class TestCheckIndex(unittest.TestCase):
         self.assertEqual(check.check_solidity_cycle(state), [])
 
 
+# A clean synthetic register: one well-formed claim with a `### Quality` block
+# that carries both its `## <title>` heading and its `<!-- id: -->` marker.
+_CLEAN_REGISTER = """\
+# Synthetic Register
+
+## A Real Claim
+<!-- id: clm-abc123 -->
+
+Body text.
+
+### Quality
+- confidence: 0.50
+- solidity: 0.50 (use as input only, don't build deeper)
+- rationale: synthetic.
+- strengthen-by:
+  - assess.
+"""
+
+# Same register with an orphan `### Quality` block appended after a `---`
+# separator: it has no `## <title>` and no `<!-- id: -->` marker.
+_ORPHAN_REGISTER = _CLEAN_REGISTER + """\
+
+---
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - *pending*
+"""
+
+# A register whose only `### Quality` heading sits inside a fenced code block
+# (the format-example case from the Quality Convention preamble). It must NOT
+# be flagged — strip_code_fences blanks it before the section scan.
+_FENCED_EXAMPLE_REGISTER = """\
+# Quality Convention Preamble
+
+The format of a Quality section:
+
+```markdown
+### Quality
+- confidence: 0.X
+- solidity: 0.X (build-status phrase)
+```
+
+Prose continues.
+"""
+
+
+class TestQualityBlockIntegrity(unittest.TestCase):
+    """The orphan/malformed `### Quality` detection check.
+
+    Drives ``check_quality_block_integrity`` against synthetic register
+    trees by repointing the checker module's ``KB`` global at a temp dir.
+    This is the regression guard that makes the orphan-Quality defect class
+    non-recurring.
+    """
+
+    def _run_against(self, register_text: str):
+        """Write a synthetic claim-quality.md and run the integrity check."""
+        check = _load_checker_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = Path(tmp)
+            (kb / "claim-quality.md").write_text(register_text, encoding="utf-8")
+            original_kb = check.KB
+            try:
+                check.KB = kb
+                return check.check_quality_block_integrity()
+            finally:
+                check.KB = original_kb
+
+    def test_clean_register_passes(self):
+        """A well-formed register reports zero failures."""
+        self.assertEqual(self._run_against(_CLEAN_REGISTER), [])
+
+    def test_orphan_block_is_flagged(self):
+        """An orphan `### Quality` block (no title, no id) is a failure."""
+        failures = self._run_against(_ORPHAN_REGISTER)
+        self.assertEqual(len(failures), 1)
+        rel, line, reason = failures[0]
+        self.assertEqual(rel, "claim-quality.md")
+        self.assertIn("orphan", reason.lower())
+        self.assertIn("title", reason)
+        self.assertIn("marker", reason)
+
+    def test_fenced_example_quality_not_flagged(self):
+        """A `### Quality` heading inside a code fence is exempt."""
+        self.assertEqual(self._run_against(_FENCED_EXAMPLE_REGISTER), [])
+
+    def test_real_kb_passes_quality_block_integrity(self):
+        """The canonical KB has zero orphan/malformed `### Quality` blocks."""
+        check = _load_checker_module()
+        self.assertEqual(check.check_quality_block_integrity(), [])
+
+    def test_orphan_block_fails_full_verifier(self):
+        """An orphan block in a real register fails the end-to-end verifier.
+
+        Appends an orphan `### Quality` block to vol5/claim-quality.md, runs
+        the verifier, expects a non-zero exit naming the file, then restores.
+        """
+        cq = _KB_ROOT / "vol5" / "claim-quality.md"
+        original = cq.read_bytes()
+        try:
+            orphan = (
+                b"\n\n---\n\n### Quality\n- confidence: *pending*\n"
+                b"- solidity: *pending*\n- rationale: *pending*\n"
+                b"- strengthen-by:\n  - *pending*\n"
+            )
+            cq.write_bytes(original + orphan)
+            result = _run_checker()
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("orphan/malformed", result.stdout)
+            self.assertIn("vol5/claim-quality.md", result.stdout)
+        finally:
+            cq.write_bytes(original)
+
+
 def _load_checker_module():
     """Import check-claim-quality.py as a module (its name has a hyphen)."""
     import importlib.util

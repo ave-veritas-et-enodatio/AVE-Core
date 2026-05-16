@@ -1,6 +1,6 @@
-{"claim_id": "clm-07kd5v", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-07wvul", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-0hwopi", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-07kd5v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-07wvul", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-0hwopi", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 0, "text": "**Reframe or close the sum-decomposition combination rule.** Two acceptable closure paths:", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 1, "text": "(a) Demonstrate that the EM bilinear kernel on $\\mathbb{T}^2 \\subset S^3 \\subset \\mathbb{C}^2$ respects an $SU(2) \\times SU(2)$ symmetry under which the three Λ-projections sit in distinct irreps (orthogonality then by Schur's lemma). Non-trivial because the embedded Clifford torus breaks part of the symmetry; the kernel's behavior under the broken-symmetry restriction must be checked explicitly.", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 2, "text": "(b) Honestly reframe the leaf prose: replace \"graded-orthogonal multipole decomposition with no cross-terms\" with \"a particular dimensionally-compatible combination of Clifford-embedded geometric integrals that hits CODATA to $10^{-6}$ — orthogonality of the three contributions is not established.\" Dropping the implied orthogonality theorem narrows the claim but stays honest.", "mentioned_ids": []}
@@ -13,247 +13,247 @@
 {"claim_id": "clm-0ktpcn", "item_idx": 9, "text": "**Lattice dimensionality (3D spatial + phase fiber) vs. ambient $\\mathbb{T}^2 \\subset S^3 \\subset \\mathbb{C}^2$ lift.** The leaf computes the multipole decomposition on $\\mathbb{T}^2 \\subset S^3 \\subset \\mathbb{C}^2$ but does not state that $S^3$ is the spin-1/2 phase-space lift, not the physical lattice. Three readings are plausible: (A) physical lattice is 3D, $S^3$ is the phase-space lift for spin-1/2 calculations because $S^3 = SU(2)$; (B) physical vacuum is 4D with $S^3$ as actual spatial structure; (C) 4D spacetime with $S^3$ as the spatial part. Reading (A) is consistent with Axiom 1's 3D LC network (lattice pitch $\\ell_{\\text{node}} \\approx 3.86 \\times 10^{-13}$ m in physical 3D meters) and is the most charitable reading, but the leaf does not commit. The choice affects what $\\Lambda_{\\text{vol}}$ actually integrates over (2 physical dimensions × 1 phase dimension under (A); 3 physical dimensions under (B)).", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 10, "text": "**Discrete lattice $\\leftrightarrow$ continuous Golden Torus reconciliation.** The leaf computes integrals on a smooth 2D Golden Torus surface (continuous geometry), but Axiom 1 specifies a discrete LC network. The trefoil's tube diameter equals exactly one lattice unit (regime (a): $d = 1 \\cdot \\ell_{\\text{node}}$), placing the soliton at the absolute boundary where envelope-style continuous descriptions begin to break down rather than in the far-continuum regime. The leaf does not explicitly bridge the discrete-lattice physics with the continuous-style integration that produces $\\alpha^{-1} = 4\\pi^3 + \\pi^2 + \\pi$. Three plausible reconciliations: (a) continuous-mode envelope description (analogous to long-wavelength elastic-wave description of phonons); (b) orientational averaging (the discrete trefoil pattern manifests differently at different orientations, time-averaging to the continuous envelope); (c) discrete approximation of a continuous limiting target. The numerical evidence is the `ropelength_trefoil_golden_torus.py` script converging to the Golden Torus geometry from arbitrary starting points; the analytical bridge is not present in the leaf material.", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 11, "text": "**The \"smallest-stable-and-identity-fixed soliton\" ansatz.** The leaf's regime (a) — \"smallest stable soliton = trefoil\" — implicitly treats the electron as the smallest representable stable soliton on the lattice and calibrates $\\ell_{\\text{node}} = \\hbar / (m_e \\cdot c)$ accordingly. The justification is empirical: no smaller particle is observed that is both stable in existence AND fixed in identity (transients decay; protean objects like neutrinos morph between flavor configurations). This is not derived from the four axioms; it is a calibration ansatz acknowledged in the leaf's \"Closure status (honest)\" section as one of three open closure conditions. The leaf would benefit from making this ansatz explicit at the regime-(a) statement, including the \"stable + identity-fixed\" criterion that excludes neutrinos from the would-be-counterexample category. Note: in AVE's deterministic worldview, neutrino flavor \"oscillation\" is a definite-state morphing through Cosserat-sector configurations, not a QM superposition of mass eigenstates.", "mentioned_ids": []}
-{"claim_id": "clm-0ktpcn", "item_idx": 12, "text": "**Phase coverage of the Clifford torus as the basis for $\\Lambda_{\\text{surf}}$ integration.** The leaf integrates $\\Lambda_{\\text{surf}}$ over a 2D surface on the Clifford torus, but the electron's instantaneous spatial structure in physical 3D space is a 1D curve (the trefoil flux-tube centerline) on the Golden Torus surface. The cleanest reading of why the integration is over a 2D surface rather than a 1D curve: the electron's spin-1/2 phase rotation, acting on $S^3$ via SU(2), sweeps the trefoil's phase-space state around the entire Clifford torus over a phase-rotation cycle — so the time-averaged phase-space coverage IS the 2D Clifford torus surface, justifying the surface integration. The leaf does not make this bridge explicit, leaving the surface-integration step structurally unclear. ---", "mentioned_ids": []}
-{"claim_id": "clm-0vxzfu", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-1klgo2", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-219e8j", "item_idx": 0, "text": "none — algebraic identity within the framework's existing definitions; the entry is correctly self-bounded as interpretive ---", "mentioned_ids": []}
-{"claim_id": "clm-239tr4", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-2dwzib", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (the only dependency reducing this entry's solidity; closing it lifts $V_{yield}$ numerical solidity to the local-confidence level of 0.95) ---", "mentioned_ids": []}
+{"claim_id": "clm-0ktpcn", "item_idx": 12, "text": "**Phase coverage of the Clifford torus as the basis for $\\Lambda_{\\text{surf}}$ integration.** The leaf integrates $\\Lambda_{\\text{surf}}$ over a 2D surface on the Clifford torus, but the electron's instantaneous spatial structure in physical 3D space is a 1D curve (the trefoil flux-tube centerline) on the Golden Torus surface. The cleanest reading of why the integration is over a 2D surface rather than a 1D curve: the electron's spin-1/2 phase rotation, acting on $S^3$ via SU(2), sweeps the trefoil's phase-space state around the entire Clifford torus over a phase-rotation cycle — so the time-averaged phase-space coverage IS the 2D Clifford torus surface, justifying the surface integration. The leaf does not make this bridge explicit, leaving the surface-integration step structurally unclear.", "mentioned_ids": []}
+{"claim_id": "clm-0vxzfu", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-1klgo2", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-219e8j", "item_idx": 0, "text": "none — algebraic identity within the framework's existing definitions; the entry is correctly self-bounded as interpretive", "mentioned_ids": []}
+{"claim_id": "clm-239tr4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-2dwzib", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (the only dependency reducing this entry's solidity; closing it lifts $V_{yield}$ numerical solidity to the local-confidence level of 0.95)", "mentioned_ids": []}
 {"claim_id": "clm-2e9j97", "item_idx": 0, "text": "Promote the Hubble identity to a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes Closure Status open item; closing this lifts the framework-level claim from consistency-proof to derived-prediction)", "mentioned_ids": []}
-{"claim_id": "clm-2e9j97", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\\alpha^{-2}$ factor in $H_\\infty$ amplifies α's solidity into the strongest dependence ---", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-395gps", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-3dc9qt", "item_idx": 0, "text": "none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input ---", "mentioned_ids": []}
-{"claim_id": "clm-3ii690", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-3kmt3p", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-2e9j97", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\\alpha^{-2}$ factor in $H_\\infty$ amplifies α's solidity into the strongest dependence", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-395gps", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-3dc9qt", "item_idx": 0, "text": "none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input", "mentioned_ids": []}
+{"claim_id": "clm-3ii690", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-3kmt3p", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-3kzmt9", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (dominant solidity bottleneck for $\\xi$)", "mentioned_ids": []}
-{"claim_id": "clm-3kzmt9", "item_idx": 1, "text": "Close the $H_\\infty/R_H$ circularity via independent $G$ derivation (raises Closure Status solidity, tightening $\\xi$'s secondary bound) ---", "mentioned_ids": []}
+{"claim_id": "clm-3kzmt9", "item_idx": 1, "text": "Close the $H_\\infty/R_H$ circularity via independent $G$ derivation (raises Closure Status solidity, tightening $\\xi$'s secondary bound)", "mentioned_ids": []}
 {"claim_id": "clm-3zz0f6", "item_idx": 0, "text": "Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)", "mentioned_ids": []}
-{"claim_id": "clm-3zz0f6", "item_idx": 1, "text": "Strengthen Symmetric vs Asymmetric Saturation (`clm-8nkvwy`); the symmetric-case identification is the dependency ---", "mentioned_ids": ["clm-8nkvwy"]}
-{"claim_id": "clm-4jy0t8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-4vwsjc", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-5965y1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-5rigtn", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-5s5b0d", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-3zz0f6", "item_idx": 1, "text": "Strengthen Symmetric vs Asymmetric Saturation (`clm-8nkvwy`); the symmetric-case identification is the dependency", "mentioned_ids": ["clm-8nkvwy"]}
+{"claim_id": "clm-4jy0t8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-4vwsjc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-5965y1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-5rigtn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-5s5b0d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 0, "text": "Derive $\\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA)", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 1, "text": "Demonstrate Nyquist-resolution-of-smallest-stable-soliton without circular reference to $m_e$ (closes the $\\{m_e, \\ell_{node}\\}$ input scale)", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 2, "text": "Derive $G$ from local thermodynamic balance (lattice tension, equipartition, generation rate per node) independent of $R_H$ (closes the $H_\\infty$ identity into a true downstream prediction)", "mentioned_ids": []}
-{"claim_id": "clm-5xon03", "item_idx": 3, "text": "Resolve body-topology conflict (`clm-trf3bd` vs `clm-unk0bd`) at author level. If trefoil resolution: rederive closure condition (c) from trefoil ropelength on the Golden Torus, replacing the unknot-2π formulation. If unknot resolution: reconcile with the trefoil framework that Vol 1 Ch 8 and Vol 6 currently rely on for α and atomic structure. ---", "mentioned_ids": ["clm-trf3bd", "clm-unk0bd"]}
-{"claim_id": "clm-5zuo7g", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-67jn9o", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-6btlq3", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-6tuqjh", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-7o8clt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-7tk051", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-7tynm2", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-5xon03", "item_idx": 3, "text": "Resolve body-topology conflict (`clm-trf3bd` vs `clm-unk0bd`) at author level. If trefoil resolution: rederive closure condition (c) from trefoil ropelength on the Golden Torus, replacing the unknot-2π formulation. If unknot resolution: reconcile with the trefoil framework that Vol 1 Ch 8 and Vol 6 currently rely on for α and atomic structure.", "mentioned_ids": ["clm-trf3bd", "clm-unk0bd"]}
+{"claim_id": "clm-5zuo7g", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-67jn9o", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-6btlq3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-6tuqjh", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-7o8clt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-7tk051", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-7tynm2", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-7zuwtm", "item_idx": 0, "text": "Derive the spatially uniform Klein-Gordon mass term from the LC network's response to a localized topological defect (e.g., via long-wavelength averaging over distributed knot density, or via spectral analysis showing the localized resonance acts as a uniform background mode for waves in the surrounding medium)", "mentioned_ids": []}
-{"claim_id": "clm-7zuwtm", "item_idx": 1, "text": "Provide the explicit derivation of hydrogenic energy levels from the impedance-matching condition $2\\pi r = n\\lambda$ (currently cross-referenced to Vol 2 Ch 7, not present in this leaf) ---", "mentioned_ids": []}
+{"claim_id": "clm-7zuwtm", "item_idx": 1, "text": "Provide the explicit derivation of hydrogenic energy levels from the impedance-matching condition $2\\pi r = n\\lambda$ (currently cross-referenced to Vol 2 Ch 7, not present in this leaf)", "mentioned_ids": []}
 {"claim_id": "clm-82dxbj", "item_idx": 0, "text": "Validate the AVE-internal compactness bound ($R_{\\min} = 7GM/c^2$) against observed neutron-star equations of state (currently disclosed as not-validated)", "mentioned_ids": []}
 {"claim_id": "clm-82dxbj", "item_idx": 1, "text": "Reconcile the galactic operating-point's use of empirical $a_0 \\approx 1.2\\times 10^{-10}$ with the AVE-derived $a_0 \\approx 1.07\\times 10^{-10}$ from Asymptotic Hubble Constant + MOND (`clm-m3z5ux`); using empirical introduces an undeclared empirical input", "mentioned_ids": ["clm-m3z5ux"]}
 {"claim_id": "clm-82dxbj", "item_idx": 2, "text": "Strengthen Four-Regime Map (`clm-b2anl4`); regime-boundary numerical solidity propagates here", "mentioned_ids": ["clm-b2anl4"]}
-{"claim_id": "clm-82dxbj", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`) transitively ---", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-86gq2d", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-82dxbj", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`) transitively", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-86gq2d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 0, "text": "Justify (or replace) the use of proton-specific 6-crossing Borromean topology ($\\mathcal{V}_{total} = 2.0$) in a formula governing macroscopic / cosmological lattice mechanics; either derive why proton topology is universally embedded in the macroscopic vacuum, or replace with a generic topological factor derived from lattice properties alone", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 1, "text": "Quantify the predicted Sagnac-RLVE phase shift (currently \"asserted in principle, not characterized in detail\")", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 2, "text": "Quantitatively match \"asteroid belt / Oort cloud\" formation positions to $\\tau_{yield}$ isoclines (currently interpretive, not numerical)", "mentioned_ids": []}
-{"claim_id": "clm-8ep2b4", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $p_c = 8\\pi\\alpha$ enters the formula ---", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-8nkvwy", "item_idx": 0, "text": "none entry-local — Axiom 4 is framework input; the symmetric/asymmetric case identification is structural and the disambiguation is correctly bounded ---", "mentioned_ids": []}
-{"claim_id": "clm-8psuqe", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-8zwyl3", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-91adfe", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-9fnieq", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-9gh0a1", "item_idx": 0, "text": "none — the no-go argument is correctly self-bounded; further pin-down of \"the substrate must be chiral SRS specifically\" lives in EMT (`clm-9s9apq`) and Vacuum Bulk Mass Density (`clm-crbl60`) entries ---", "mentioned_ids": ["clm-9s9apq", "clm-crbl60"]}
+{"claim_id": "clm-8ep2b4", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $p_c = 8\\pi\\alpha$ enters the formula", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-8nkvwy", "item_idx": 0, "text": "none entry-local — Axiom 4 is framework input; the symmetric/asymmetric case identification is structural and the disambiguation is correctly bounded", "mentioned_ids": []}
+{"claim_id": "clm-8psuqe", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-8zwyl3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-91adfe", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-9fnieq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-9gh0a1", "item_idx": 0, "text": "none — the no-go argument is correctly self-bounded; further pin-down of \"the substrate must be chiral SRS specifically\" lives in EMT (`clm-9s9apq`) and Vacuum Bulk Mass Density (`clm-crbl60`) entries", "mentioned_ids": ["clm-9s9apq", "clm-crbl60"]}
 {"claim_id": "clm-9s9apq", "item_idx": 0, "text": "Derive $u_{sat}$ from the four AVE axioms (currently taken as external QED input) — would close the only remaining unrepaired input local to this entry", "mentioned_ids": []}
-{"claim_id": "clm-9s9apq", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (the dominant solidity bottleneck for this entry; closing its identification-step gap raises this entry's solidity proportionally toward local-confidence 0.85) ---", "mentioned_ids": []}
-{"claim_id": "clm-9sujp8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-a3rby3", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-a71inj", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-a95yx1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ak97cb", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-av2o4v", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-9s9apq", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (the dominant solidity bottleneck for this entry; closing its identification-step gap raises this entry's solidity proportionally toward local-confidence 0.85)", "mentioned_ids": []}
+{"claim_id": "clm-9sujp8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-a3rby3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-a71inj", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-a95yx1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ak97cb", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-av2o4v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-b2anl4", "item_idx": 0, "text": "Derive the sector-specific $\\ell_{\\min}$ values (scalar 0, vector 1, spin-2 2, ...) from axiom-grounded multipole decomposition rather than pattern-matching to \"minimum non-trivial multipole\"", "mentioned_ids": []}
-{"claim_id": "clm-b2anl4", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $r_1 = \\sqrt{2\\alpha}$ inherits α's solidity for numerical evaluation ---", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-b2anl4", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $r_1 = \\sqrt{2\\alpha}$ inherits α's solidity for numerical evaluation", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-b9eura", "item_idx": 0, "text": "Strengthen Master Equation EFT Validity (`clm-efo113`); $\\Gamma \\to -1$ at saturation depends on master-equation dynamics correctly describing $\\mu_{eff} \\to 0$", "mentioned_ids": ["clm-efo113"]}
 {"claim_id": "clm-b9eura", "item_idx": 1, "text": "Resolve the cross-leaf $Z$-behavior tension between Vol 1 (saturated knot core: $Z \\to 0$) and Vol 3 GW horizons ($Z = Z_0$ invariant in symmetric saturation); either disambiguate the contexts explicitly or correct whichever leaf is wrong", "mentioned_ids": []}
-{"claim_id": "clm-b9eura", "item_idx": 2, "text": "Provide an axiom-grounded derivation that Pauli exclusion's NO-OVERLAP constraint follows from the impedance mismatch (currently a structural identification, not a derivation that produces fermion statistics) ---", "mentioned_ids": []}
-{"claim_id": "clm-baoa36", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-bh9p6s", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-br3bcv", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-c54kdd", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-c8q0z5", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-cbwd77", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-cltls0", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-b9eura", "item_idx": 2, "text": "Provide an axiom-grounded derivation that Pauli exclusion's NO-OVERLAP constraint follows from the impedance mismatch (currently a structural identification, not a derivation that produces fermion statistics)", "mentioned_ids": []}
+{"claim_id": "clm-baoa36", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-bh9p6s", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-br3bcv", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-c54kdd", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-c8q0z5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-cbwd77", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-cltls0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 0, "text": "Derive the $\\kappa \\equiv \\alpha$ identification (geometric scattering threshold = packing-fraction-derived self-coupling) from first principles rather than asserting", "mentioned_ids": []}
-{"claim_id": "clm-crbl60", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $\\rho_{bulk}$, $G_{vac}$, and $\\nu_{kin}$ all inherit α numerically through $p_c$ and $\\nu_{kin}$'s factor ---", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-cul4it", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-cwjd8t", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-crbl60", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $\\rho_{bulk}$, $G_{vac}$, and $\\nu_{kin}$ all inherit α numerically through $p_c$ and $\\nu_{kin}$'s factor", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-cul4it", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-cwjd8t", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-d5jhku", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-d9ivj1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-dboxok", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-dfaiwj", "item_idx": 0, "text": "none entry-local — the isomorphism is correctly self-bounded as a dimensional identity given Axiom 2's mechanism ---", "mentioned_ids": []}
-{"claim_id": "clm-e1pdfd", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-eaiqj1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-efo113", "item_idx": 0, "text": "Derive whether $\\nabla\\varepsilon_{eff}\\cdot\\nabla V$ gradient corrections vanish by symmetry at saturation, OR carry the higher-order EFT correction and re-evaluate the particle-confinement and standing-wave claims at $V \\to V_{yield}$ with the corrected form ---", "mentioned_ids": []}
-{"claim_id": "clm-enjq28", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-f4osd7", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-f5ucdo", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-f8k2um", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ffa5sq", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-fh6w3y", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-fy05jc", "item_idx": 0, "text": "none entry-local — translation tables are correctly self-bounded as notation maps; substantive predictions live in the per-volume target leaves with their own quality entries ---", "mentioned_ids": []}
-{"claim_id": "clm-g6e3zw", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-gdd70j", "item_idx": 0, "text": "none entry-local — per-domain numerical validations live in their own claim-quality entries; this entry's claim is just the operator-reuse structural identity, which is correctly bounded ---", "mentioned_ids": []}
-{"claim_id": "clm-gfs4j8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ghs75o", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-gw2wgc", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-h55fy1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-d9ivj1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-dboxok", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-dfaiwj", "item_idx": 0, "text": "none entry-local — the isomorphism is correctly self-bounded as a dimensional identity given Axiom 2's mechanism", "mentioned_ids": []}
+{"claim_id": "clm-e1pdfd", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-eaiqj1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-efo113", "item_idx": 0, "text": "Derive whether $\\nabla\\varepsilon_{eff}\\cdot\\nabla V$ gradient corrections vanish by symmetry at saturation, OR carry the higher-order EFT correction and re-evaluate the particle-confinement and standing-wave claims at $V \\to V_{yield}$ with the corrected form", "mentioned_ids": []}
+{"claim_id": "clm-enjq28", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-f4osd7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-f5ucdo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-f8k2um", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ffa5sq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-fh6w3y", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-fy05jc", "item_idx": 0, "text": "none entry-local — translation tables are correctly self-bounded as notation maps; substantive predictions live in the per-volume target leaves with their own quality entries", "mentioned_ids": []}
+{"claim_id": "clm-g6e3zw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-gdd70j", "item_idx": 0, "text": "none entry-local — per-domain numerical validations live in their own claim-quality entries; this entry's claim is just the operator-reuse structural identity, which is correctly bounded", "mentioned_ids": []}
+{"claim_id": "clm-gfs4j8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ghs75o", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-gw2wgc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-h55fy1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-h8nmpu", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-h9aqmt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-hb2xmj", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-hd9bee", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-hk81zp", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-hmiytz", "item_idx": 0, "text": "none entry-local for the traceability claim — the chain-of-conditionality referenced in the Zero-Free-Parameter Chain sub-claim is tracked via Closure Status (`clm-sxn6eo`) ---", "mentioned_ids": ["clm-sxn6eo"]}
-{"claim_id": "clm-huhz7r", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-i02mhk", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-i9l284", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-h9aqmt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-hb2xmj", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-hd9bee", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-hk81zp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-hmiytz", "item_idx": 0, "text": "none entry-local for the traceability claim — the chain-of-conditionality referenced in the Zero-Free-Parameter Chain sub-claim is tracked via Closure Status (`clm-sxn6eo`)", "mentioned_ids": ["clm-sxn6eo"]}
+{"claim_id": "clm-huhz7r", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-i02mhk", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-i9l284", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ibfyda", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-ibfyda", "item_idx": 1, "text": "Derive the three-Cosserat-sectors → three-lepton-generations identification from the four axioms (currently matched-not-derived per the leaf's Methodology disclosure)", "mentioned_ids": []}
-{"claim_id": "clm-ibfyda", "item_idx": 2, "text": "Derive the PMNS torsional defects pattern $\\{5, 7, 9\\}$ uniquely (currently identified by pattern as consecutive odd integers) ---", "mentioned_ids": []}
+{"claim_id": "clm-ibfyda", "item_idx": 2, "text": "Derive the PMNS torsional defects pattern $\\{5, 7, 9\\}$ uniquely (currently identified by pattern as consecutive odd integers)", "mentioned_ids": []}
 {"claim_id": "clm-io8hft", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-ir8h78", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-iz3svl", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-j20lz8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-j9l3ww", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-jkpfd4", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-ir8h78", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-iz3svl", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-j20lz8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-j9l3ww", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-jkpfd4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-jpfbm6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-jqnzz7", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-jwyy6l", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-jy8h1x", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-k6olj8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-k9up5c", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-kezk9z", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-kl1ern", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-knveh6", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-l416hl", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-jqnzz7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-jwyy6l", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-jy8h1x", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-k6olj8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-k9up5c", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-kezk9z", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-kl1ern", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-knveh6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-l416hl", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ldmvwi", "item_idx": 0, "text": "Derive the \"click probability $\\propto$ extracted work\" identification from an explicit stochastic-threshold model of thermal detectors (Poisson shot-noise statistics with detector dead-time corrections), not as an asserted thermal-substrate property", "mentioned_ids": []}
 {"claim_id": "clm-ldmvwi", "item_idx": 1, "text": "Derive uniqueness of the $|\\Psi|^2$ form vs. alternative powers $|\\Psi|^p$ for $p \\neq 2$ given the stochastic-threshold detector framework (currently presumes $p = 2$ from the Joule-heating $V^2$ structure but does not establish uniqueness)", "mentioned_ids": []}
-{"claim_id": "clm-ldmvwi", "item_idx": 2, "text": "Validate quantitatively against single-photon detector statistics (detector dead time, non-Poissonian regimes) to bound the regime of applicability ---", "mentioned_ids": []}
-{"claim_id": "clm-llqd1n", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-lm9b3j", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-lqanmt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-ldmvwi", "item_idx": 2, "text": "Validate quantitatively against single-photon detector statistics (detector dead time, non-Poissonian regimes) to bound the regime of applicability", "mentioned_ids": []}
+{"claim_id": "clm-llqd1n", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-lm9b3j", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-lqanmt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-lv3uw1", "item_idx": 0, "text": "Strengthen Master Equation EFT Validity (the dominant solidity bottleneck for this entry; closing the gradient-corrections-at-saturation assumption raises this entry's solidity to local-confidence level)", "mentioned_ids": []}
-{"claim_id": "clm-lv3uw1", "item_idx": 1, "text": "Provide an axiom-grounded derivation that the standing-wave reflected mode at $\\Gamma \\to -1$ quantitatively reproduces invariant rest-mass spectra (currently a structural identification, not a derivation of mass values) ---", "mentioned_ids": []}
+{"claim_id": "clm-lv3uw1", "item_idx": 1, "text": "Provide an axiom-grounded derivation that the standing-wave reflected mode at $\\Gamma \\to -1$ quantitatively reproduces invariant rest-mass spectra (currently a structural identification, not a derivation of mass values)", "mentioned_ids": []}
 {"claim_id": "clm-m3z5ux", "item_idx": 0, "text": "Resolve the longitudinal wave speed formula in `mond-hoop-stress.md` (currently $\\sqrt{2}c$; standard isotropic elasticity at $K=2G$ gives $c\\sqrt{10/3}$); either derive the AVE-specific formula from the micropolar / chiral LC continuum (which decouples transverse propagation from bulk modulus) or correct the leaf", "mentioned_ids": []}
 {"claim_id": "clm-m3z5ux", "item_idx": 1, "text": "Derive the hoop-stress projection factor $1/(2\\pi)$ from AVE's micropolar dynamics rather than importing the classical continuum-mechanics result", "mentioned_ids": []}
 {"claim_id": "clm-m3z5ux", "item_idx": 2, "text": "Close the MOND $a_0$ -10.7% deficit by carrying higher-order corrections OR by re-deriving the hoop-stress geometry from AVE first principles", "mentioned_ids": []}
 {"claim_id": "clm-m3z5ux", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\\alpha^{-2}$ factor in $H_\\infty$ amplifies α's solidity into the strongest dependence", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-m3z5ux", "item_idx": 4, "text": "Close the Hubble identity into a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes the Closure Status entry) ---", "mentioned_ids": []}
+{"claim_id": "clm-m3z5ux", "item_idx": 4, "text": "Close the Hubble identity into a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes the Closure Status entry)", "mentioned_ids": []}
 {"claim_id": "clm-m7qd0w", "item_idx": 0, "text": "Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\\nu_{vac})$ from a unique axiomatic constraint (currently asserted as \"transverse Poisson coupling for 3D\"; alternatives $r_{sat}\\sqrt{1+\\nu}$, $r_{sat}(1+\\nu)$ not ruled out)", "mentioned_ids": []}
 {"claim_id": "clm-m7qd0w", "item_idx": 1, "text": "Improve the protein backbone wave speed sub-derivation ($v_{backbone}$ predicted $-5.2\\%$ vs measured)", "mentioned_ids": []}
-{"claim_id": "clm-m7qd0w", "item_idx": 2, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`) — α propagates through several per-domain rows numerically ---", "mentioned_ids": ["clm-0ktpcn"]}
-{"claim_id": "clm-mlwm3h", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-mnb3lt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-mroghg", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-nhlo1e", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-nk6c43", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-nq2kcc", "item_idx": 0, "text": "Derive statistical independence of SM continuous-momentum uncertainty and lattice node-spacing uncertainty from the underlying Bloch-state theory of the discrete-graph wavefunction, OR derive the corrected combination rule (covariance-aware) if the variances are not independent ---", "mentioned_ids": []}
-{"claim_id": "clm-nu1ir7", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-nxfmh0", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-o2shcn", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-o3q9ul", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-o6kgkz", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-o9xphr", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-oilm45", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-oiw6cb", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-oltvwy", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-om0rtq", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ome498", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ou2jym", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-oygz1i", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-p12mem", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-p5cf3t", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-p7rfkb", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-pav5m3", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-pcute0", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-pf84ng", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-pfocn6", "item_idx": 0, "text": "none entry-local — toolchain documentation is correctly bounded; physics-correctness validation lives in per-domain leaves with their own quality entries ---", "mentioned_ids": []}
-{"claim_id": "clm-ph2uux", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-pp3qwf", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-q39qct", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-q5izb7", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-q8un7j", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qagkgy", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qde5gn", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qjwj12", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qky559", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qsgl7d", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qx9bb8", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-qyn8t0", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-r6uef4", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-rd9cjm", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-refjr6", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-rji99i", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-rppigm", "item_idx": 0, "text": "none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded ---", "mentioned_ids": []}
+{"claim_id": "clm-m7qd0w", "item_idx": 2, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`) — α propagates through several per-domain rows numerically", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-mlwm3h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-mnb3lt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-mroghg", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-nhlo1e", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-nk6c43", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-nq2kcc", "item_idx": 0, "text": "Derive statistical independence of SM continuous-momentum uncertainty and lattice node-spacing uncertainty from the underlying Bloch-state theory of the discrete-graph wavefunction, OR derive the corrected combination rule (covariance-aware) if the variances are not independent", "mentioned_ids": []}
+{"claim_id": "clm-nu1ir7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-nxfmh0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-o2shcn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-o3q9ul", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-o6kgkz", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-o9xphr", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-oilm45", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-oiw6cb", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-oltvwy", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-om0rtq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ome498", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ou2jym", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-oygz1i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-p12mem", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-p5cf3t", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-p7rfkb", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-pav5m3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-pcute0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-pf84ng", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-pfocn6", "item_idx": 0, "text": "none entry-local — toolchain documentation is correctly bounded; physics-correctness validation lives in per-domain leaves with their own quality entries", "mentioned_ids": []}
+{"claim_id": "clm-ph2uux", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-pp3qwf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-q39qct", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-q5izb7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-q8un7j", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qagkgy", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qde5gn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qjwj12", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qky559", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qsgl7d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qx9bb8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-qyn8t0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-r6uef4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-rd9cjm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-refjr6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-rji99i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-rppigm", "item_idx": 0, "text": "none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-rw7jqo", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-salw2h", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-sd04x4", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-sjixaw", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-stgx1i", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-rw7jqo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-salw2h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-sd04x4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-sjixaw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-stgx1i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-sxn6eo", "item_idx": 0, "text": "Derive $\\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA — one fitted scalar)", "mentioned_ids": []}
 {"claim_id": "clm-sxn6eo", "item_idx": 1, "text": "Demonstrate Nyquist-resolution-of-smallest-stable-soliton without circular reference to $m_e$ (closes the $\\{m_e, \\ell_{node}\\}$ input scale)", "mentioned_ids": []}
 {"claim_id": "clm-sxn6eo", "item_idx": 2, "text": "Replace the Vol 2 Layer-6 proton flux-tube Gaussian ansatz with an axiom-derived profile (sech² kink, Bessel J₀ fundamental, or Axiom-4 algebraic kernel); re-evaluate $\\rho_{threshold}$ and $\\mathcal{V}_{total}$ against the new profile", "mentioned_ids": []}
-{"claim_id": "clm-sxn6eo", "item_idx": 3, "text": "Derive $G$ from local thermodynamic balance independent of $R_H$, promoting the $H_\\infty$ identity to a true downstream prediction ---", "mentioned_ids": []}
-{"claim_id": "clm-t05mvx", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-sxn6eo", "item_idx": 3, "text": "Derive $G$ from local thermodynamic balance independent of $R_H$, promoting the $H_\\infty$ identity to a true downstream prediction", "mentioned_ids": []}
+{"claim_id": "clm-t05mvx", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-t1okz0", "item_idx": 0, "text": "Quantitatively map AVE thermal-noise-floor predictions to specific QFT virtual-particle calculations at the perturbative level, establishing operational equivalence (or producing a falsifiable divergence)", "mentioned_ids": []}
-{"claim_id": "clm-t1okz0", "item_idx": 1, "text": "Connect to the Vol 3 dark-energy / phantom-energy chain to clarify what the \"failed topologies\" reframe predicts (vs reframes) about cosmological-constant magnitude ---", "mentioned_ids": []}
+{"claim_id": "clm-t1okz0", "item_idx": 1, "text": "Connect to the Vol 3 dark-energy / phantom-energy chain to clarify what the \"failed topologies\" reframe predicts (vs reframes) about cosmological-constant magnitude", "mentioned_ids": []}
 {"claim_id": "clm-t5ybqw", "item_idx": 0, "text": "Run the listed bench protocols (PONDER-N, CLEAVE-01, HOPF-N, ROENTGEN-03, ZENER-04, TORSION-05) and update entries with results when available", "mentioned_ids": []}
-{"claim_id": "clm-t5ybqw", "item_idx": 1, "text": "Add explicit status flags (designed / in-progress / completed / inconclusive) per entry to distinguish \"catalog target\" from \"test pending\" from \"test completed\" ---", "mentioned_ids": []}
-{"claim_id": "clm-to41c7", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-t5ybqw", "item_idx": 1, "text": "Add explicit status flags (designed / in-progress / completed / inconclusive) per entry to distinguish \"catalog target\" from \"test pending\" from \"test completed\"", "mentioned_ids": []}
+{"claim_id": "clm-to41c7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-trf3bd", "item_idx": 0, "text": "**Resolve the cross-leaf conflict with `clm-unk0bd` via author-level decision (Grant).** Three plausible diagnoses to be selected from: (a) trefoil supersedes unknot, with Chs. 1/3/5 needing migration to the trefoil framing; (b) the two coexist as different abstraction levels with explicit reconciliation prose; (c) genuinely open theoretical question requiring parallel-path tracking via tagged claim entries. Without this resolution, the framework's body-topology foundation is currently unspecified.", "mentioned_ids": ["clm-unk0bd"]}
 {"claim_id": "clm-trf3bd", "item_idx": 1, "text": "Derive the (3, 2) winding numbers from a uniqueness argument — why is the lightest stable lepton specifically the (3, 2) torus knot rather than (4, 3), (5, 2), or higher windings? Connect to Cosserat-sector lepton hierarchy (currently formulated in unknot terms via `clm-zw6mut`).", "mentioned_ids": ["clm-zw6mut"]}
-{"claim_id": "clm-trf3bd", "item_idx": 2, "text": "Rederive m_e = ℏ/(c·ℓ_node) from the trefoil's specific ropelength on the Golden Torus, replacing the unknot-style 2π-ropelength derivation that the trefoil framework currently inherits. Verify that ℓ_node calibration absorbs the geometric-difference factor consistently. ---", "mentioned_ids": []}
-{"claim_id": "clm-trgqtf", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-u462e4", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-u4vmgk", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-u86caq", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ui3m8a", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-trf3bd", "item_idx": 2, "text": "Rederive m_e = ℏ/(c·ℓ_node) from the trefoil's specific ropelength on the Golden Torus, replacing the unknot-style 2π-ropelength derivation that the trefoil framework currently inherits. Verify that ℓ_node calibration absorbs the geometric-difference factor consistently.", "mentioned_ids": []}
+{"claim_id": "clm-trgqtf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-u462e4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-u4vmgk", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-u86caq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ui3m8a", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 0, "text": "**Resolve the cross-leaf conflict with `clm-trf3bd` via author-level decision (Grant).** See `clm-trf3bd`'s strengthen-by for the three plausible diagnoses.", "mentioned_ids": ["clm-trf3bd"]}
 {"claim_id": "clm-unk0bd", "item_idx": 1, "text": "Derive an α value from the unknot framing that matches CODATA, OR concede that α derivation requires the trefoil and that the unknot framing is foundational-but-α-incomplete (transitively dependent on the trefoil framework for α). The current state — using the trefoil for α while keeping the unknot for foundations — is incoherent.", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 2, "text": "Address the photon compatibility issue: explain why the lattice's chiral $K_4$ Möbius structure produces 720° behavior for closed solitons (electron-as-unknot) but 360° behavior for open EM waves (photons). Without this explanation, the Beltrami-$K_4$ spin-1/2 derivation is not photon-consistent.", "mentioned_ids": []}
-{"claim_id": "clm-unk0bd", "item_idx": 3, "text": "Consider whether the unknot framing might survive at a *different abstraction level* — e.g., the orbital-path topology around a nucleus (which IS an unknot circling the nucleus, distinct from the body topology), or the phase-winding topology (winding number 1 = unknot in the phase fiber of the trefoil body). Both are valid uses of \"unknot\" that are NOT mutually exclusive with `clm-trf3bd`. Distinguishing these uses from the body-topology claim would clarify which uses survive a body-topology-resolution decision in favor of the trefoil. ---", "mentioned_ids": ["clm-trf3bd"]}
-{"claim_id": "clm-uosu8w", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-uowffm", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-uu6dl5", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-v6ti0v", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-vjv4zf", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-w6kk5y", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-wd5rs0", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-wqmb19", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-wx5324", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-wzezvt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-x19btt", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-x5z09x", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-xhdai6", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-xy252u", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-y7uvdc", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-y9old1", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-yawl6z", "item_idx": 0, "text": "none entry-local — solidity for the underlying stress-test resolutions and summary derivations is bounded by the canonical per-claim entries (Closure Status, Golden Torus α, etc.) ---", "mentioned_ids": []}
-{"claim_id": "clm-yc7fgm", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-ydksh6", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-yiyyi3", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-yyhczl", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
-{"claim_id": "clm-z73h6n", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-unk0bd", "item_idx": 3, "text": "Consider whether the unknot framing might survive at a *different abstraction level* — e.g., the orbital-path topology around a nucleus (which IS an unknot circling the nucleus, distinct from the body topology), or the phase-winding topology (winding number 1 = unknot in the phase fiber of the trefoil body). Both are valid uses of \"unknot\" that are NOT mutually exclusive with `clm-trf3bd`. Distinguishing these uses from the body-topology claim would clarify which uses survive a body-topology-resolution decision in favor of the trefoil.", "mentioned_ids": ["clm-trf3bd"]}
+{"claim_id": "clm-uosu8w", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-uowffm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-uu6dl5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-v6ti0v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-vjv4zf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-w6kk5y", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-wd5rs0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-wqmb19", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-wx5324", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-wzezvt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-x19btt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-x5z09x", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-xhdai6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-xy252u", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-y7uvdc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-y9old1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-yawl6z", "item_idx": 0, "text": "none entry-local — solidity for the underlying stress-test resolutions and summary derivations is bounded by the canonical per-claim entries (Closure Status, Golden Torus α, etc.)", "mentioned_ids": []}
+{"claim_id": "clm-yc7fgm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ydksh6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-yiyyi3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-yyhczl", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-z73h6n", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-zi6t1e", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-zi6t1e", "item_idx": 1, "text": "Validate the $n_{3D} \\approx 1.8095$ prediction against a broader empirical avalanche dataset (currently a single-figure structural agreement)", "mentioned_ids": []}
-{"claim_id": "clm-zi6t1e", "item_idx": 2, "text": "Quantify the per-application hardware constants (e.g., $V_{write}$, $P_{drag}$, $\\rho_{kink}$) against the AVE-APU private-repo measurements as those become available ---", "mentioned_ids": []}
-{"claim_id": "clm-zsqh87", "item_idx": 0, "text": "*pending* ---", "mentioned_ids": []}
+{"claim_id": "clm-zi6t1e", "item_idx": 2, "text": "Quantify the per-application hardware constants (e.g., $V_{write}$, $P_{drag}$, $\\rho_{kink}$) against the AVE-APU private-repo measurements as those become available", "mentioned_ids": []}
+{"claim_id": "clm-zsqh87", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-zuf7g1", "item_idx": 0, "text": "Strengthen Born Rule from Ohmic Measurement Work (`clm-ldmvwi`) — the dominant solidity bottleneck for this entry", "mentioned_ids": ["clm-ldmvwi"]}
 {"claim_id": "clm-zuf7g1", "item_idx": 1, "text": "Derive the structural identification \"phase-locked topological thread = lossless short-short LC resonator with $Z_0 \\approx 377\\,\\Omega$, $Q = \\infty$\" from first principles (currently asserted as a constructive identification of the Bell-correlation carrier)", "mentioned_ids": []}
 {"claim_id": "clm-zuf7g1", "item_idx": 2, "text": "Document the spin-1/2 Möbius half-angle coupling derivation explicitly (currently summarized; the Finkelstein-Misner kink construction needs to be present here or pointed at an explicit derivation leaf)", "mentioned_ids": []}
-{"claim_id": "clm-zuf7g1", "item_idx": 3, "text": "Add a separate claim-quality entry for the spin-1/2 Möbius half-angle coupling derivation so the dependency chain is fully scored ---", "mentioned_ids": []}
+{"claim_id": "clm-zuf7g1", "item_idx": 3, "text": "Add a separate claim-quality entry for the spin-1/2 Möbius half-angle coupling derivation so the dependency chain is fully scored", "mentioned_ids": []}
 {"claim_id": "clm-zw6mut", "item_idx": 0, "text": "Derive the three-Cosserat-sectors-to-three-lepton-generations identification (translation/torsion/curvature-twist) from the four axioms (currently a structural identification with sector-specific coupling factors $\\alpha\\sqrt{3/7}$ and $8\\pi/\\alpha$ that are asserted, not derived)", "mentioned_ids": []}
 {"claim_id": "clm-zw6mut", "item_idx": 1, "text": "Reduce the lepton-mass deviations (muon $+1.24\\%$, tau $-0.95\\%$) by carrying higher-order corrections in the Cosserat sector chain", "mentioned_ids": []}
 {"claim_id": "clm-zw6mut", "item_idx": 2, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α appears in both muon and tau sector factors", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-zw6mut", "item_idx": 3, "text": "Resolve body-topology conflict (`clm-trf3bd` vs `clm-unk0bd`) at author level. The current leaves' \"ground-state unknot\" formulation is load-bearing here; under a trefoil resolution, both the lepton mass formula and the Cosserat-sector hierarchy need rederivation.", "mentioned_ids": ["clm-trf3bd", "clm-unk0bd"]}
-{"claim_id": "clm-zw6mut", "item_idx": 4, "text": "Add a separate claim-quality entry for the proton mass derivation; it feeds the Vol 6 nuclear methodology and the Vol 1 Neon-20 application as an unscored upstream input ---", "mentioned_ids": []}
+{"claim_id": "clm-zw6mut", "item_idx": 4, "text": "Add a separate claim-quality entry for the proton mass derivation; it feeds the Vol 6 nuclear methodology and the Vol 1 Neon-20 application as an unscored upstream input", "mentioned_ids": []}

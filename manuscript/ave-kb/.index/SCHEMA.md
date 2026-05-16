@@ -245,9 +245,10 @@ ave-kb deps -i <claim_id>           # inverse: ids that depend on X
 ave-kb gated-on <claim_id>          # claims whose strengthen-by mentions X
 ave-kb cited-by <claim_id>          # leaves citing X
 ave-kb solidity-below <threshold>   # claims with solidity < N
+ave-kb weak-points                  # shaky AND load-bearing claims (rework targets)
 ave-kb subtree <path>               # ids in subtree
-ave-kb show <claim_id>              # full record for one claim
-ave-kb verify                       # run freshness check (delegates to check-claim-quality)
+ave-kb show <claim_id>              # full record for one node (claim, invariant, axiom)
+ave-kb stats                        # counts summary
 ```
 
 JSON output via `--json` flag for piping to `jq`.

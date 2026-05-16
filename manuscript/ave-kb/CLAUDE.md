@@ -150,6 +150,8 @@ Each entry in a `claim-quality.md` file carries a stable ID of the form `clm-` p
 
 **Grep guarantee.** `grep -r "clm-<id>"` across the KB returns: the canonical entry in `claim-quality.md`, every leaf whose frontmatter cites the ID, every Tier 2 inline marker, and every intermediate-index `subtree-claims` summary that scopes the entry. The `clm-` prefix makes IDs unambiguously greppable — `\bclm-[a-z0-9]{6}\b` matches IDs and nothing else, never an English or physics word. Walking from a claim-quality entry to its supporting derivations (and back) is mechanical and bidirectional.
 
+**Query index.** The claim graph is also materialized as JSONL under `manuscript/ave-kb/.index/` (claim nodes, dependency edges, citations, subtree aggregates) and queryable via the `ave-kb` CLI and the `ave.kb.index` module — faster and more precise than grep for dependency, solidity, and citation questions. See `manuscript/ave-kb/.index/SCHEMA.md`.
+
 *Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-claim-quality`.*
 
 ---

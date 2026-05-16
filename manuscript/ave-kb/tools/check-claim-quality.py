@@ -4,8 +4,14 @@
 Read-only. Never modifies any file. Reads the unified ``kb-frontmatter`` block
 (see ``mad-review/kb-metadata-spine-spec.md``).
 
-Thirteen checks, all hard fail-loud:
+Fourteen checks, all hard fail-loud:
 
+    0. Quality-block integrity: every ``### Quality`` heading in a
+       ``claim-quality.md`` register sits within a ``---``-delimited section
+       that also carries the claim's ``## <title>`` heading and its
+       ``<!-- id: clm-xxxxxx -->`` marker. An orphan ``### Quality`` block is
+       a hard failure. (Not refresh-fixable; delete the orphan or restore the
+       missing title/id.)
     1. Tier 1 coverage: every leaf has either ``claims:`` or ``no-claim:`` in
        its frontmatter (mutually exclusive).
     2. Tier 2 coverage: every multi-claim leaf has proximal inline markers
@@ -148,6 +154,70 @@ def collect_canonical_ids() -> list[tuple[str, str]]:
         for m in CANONICAL_ID.findall(scrubbed):
             out.append((m, str(p.relative_to(KB))))
     return out
+
+
+def check_quality_block_integrity():
+    """Every `### Quality` heading must sit in a well-formed claim section.
+
+    Walks each ``claim-quality.md`` register, splits it into ``---``-delimited
+    sections (after blanking fenced code blocks so the Quality Convention
+    preamble's format-example snippet does not count), and requires that any
+    section carrying a ``### Quality`` heading also carries a ``## <title>``
+    heading AND a ``<!-- id: clm-xxxxxx -->`` marker. An orphan ``### Quality``
+    block — one with no claim title and no canonical id — is a hard failure;
+    it is the defect this check makes non-recurring.
+
+    Returns a list of (register_path, line, reason) for each malformed block.
+    Line numbers are 1-based and point at the offending ``### Quality``
+    heading. Scoped to the registers; the preamble's ``## Quality Convention``
+    section is exempt because its example ``### Quality`` lives inside a code
+    fence (blanked by ``strip_code_fences``).
+    """
+    failures: list[tuple[str, int, str]] = []
+    for p in sorted(KB.rglob("claim-quality.md")):
+        rel = str(p.relative_to(KB))
+        # Scrub fenced code blocks so the preamble's format-example snippet
+        # (a fenced `### Quality` / `<!-- id: clm-xxxxxx -->`) is not parsed
+        # as a real claim section.
+        lines = strip_code_fences(p.read_text()).splitlines()
+
+        # Split into `---`-delimited sections, tracking 1-based start lines.
+        # A bare `---` line is a section separator.
+        sections: list[tuple[int, list[str]]] = []
+        current: list[str] = []
+        current_start = 1
+        for lineno, line in enumerate(lines, start=1):
+            if line.strip() == "---":
+                sections.append((current_start, current))
+                current = []
+                current_start = lineno + 1
+            else:
+                current.append(line)
+        sections.append((current_start, current))
+
+        for sec_start, sec_lines in sections:
+            quality_idx = next(
+                (i for i, ln in enumerate(sec_lines)
+                 if ln.strip() == "### Quality"),
+                None,
+            )
+            if quality_idx is None:
+                continue
+            has_title = any(ln.startswith("## ") for ln in sec_lines)
+            has_id = any(CANONICAL_ID.match(ln.strip()) for ln in sec_lines)
+            if has_title and has_id:
+                continue
+            missing = []
+            if not has_title:
+                missing.append("`## <title>` heading")
+            if not has_id:
+                missing.append("`<!-- id: clm-... -->` marker")
+            failures.append(
+                (rel, sec_start + quality_idx,
+                 "orphan/malformed `### Quality` block — missing "
+                 + " and ".join(missing))
+            )
+    return failures
 
 
 def check_frontmatter_presence(files: list[tuple[Path, dict | None]]):
@@ -631,6 +701,7 @@ def main(argv: list[str] | None = None) -> int:
     canonical_set = {cid for cid, _ in canonical}
 
     fm_missing = check_frontmatter_presence(files)
+    quality_block_failures = check_quality_block_integrity()
     t1_failures = check_tier1_coverage(files)
     t2_failures = check_tier2_coverage(files)
     id_dupes = check_id_uniqueness(canonical)
@@ -696,6 +767,21 @@ def main(argv: list[str] | None = None) -> int:
         print(f"\n[FAIL] {len(fm_missing)} files missing frontmatter:")
         for p in fm_missing:
             print(f"  {p}")
+
+    if quality_block_failures:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(quality_block_failures)} orphan/malformed "
+            f"`### Quality` block(s) in claim-quality registers:"
+        )
+        for rel, line, reason in quality_block_failures:
+            print(f"  {rel}:{line}: {reason}")
+        print(
+            "  → Each `### Quality` block must sit within a `---`-delimited "
+            "section that also carries the claim's `## <title>` heading and "
+            "its `<!-- id: clm-... -->` marker. Not refresh-fixable; delete "
+            "the orphan block or restore its missing title/id."
+        )
 
     if t1_failures:
         has_failures = True
