@@ -1,7 +1,7 @@
 {"source": "clm-0ktpcn", "target": "clm-trf3bd", "target_kind": "claim", "target_solidity_recorded": 0.75, "context": "the entire α derivation builds on the trefoil's (3, 2)-torus-knot geometry on the Golden Torus"}
 {"source": "clm-2dwzib", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "for $V_{yield}$'s $\\sqrt{\\alpha}$ factor"}
-{"source": "clm-2e9j97", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
-{"source": "clm-2e9j97", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.7, "context": "for the consistency-proof framing of $H_\\infty$ vs $G$"}
+{"source": "clm-2e9j97", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
+{"source": "clm-2e9j97", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.28, "context": "for the consistency-proof framing of $H_\\infty$ vs $G$"}
 {"source": "clm-3kzmt9", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "for $\\xi$'s $\\alpha^{-2}$ factor"}
 {"source": "clm-3kzmt9", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.28, "context": "for $\\xi$'s $R_H/H_\\infty$ factor — $H_\\infty$ is a consistency identity conditional on $G$ closure"}
 {"source": "clm-3zz0f6", "target": "clm-8nkvwy", "target_kind": "claim", "target_solidity_recorded": 0.85, "context": "the cancellation argument depends on the symmetric case"}
@@ -16,14 +16,14 @@
 {"source": "clm-h9aqmt", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "saturation kernel — for the running-coupling sketch"}
 {"source": "clm-h9aqmt", "target": "axiom-1", "target_kind": "axiom", "target_solidity_recorded": null, "context": "lattice pitch $\\ell_{node}$"}
 {"source": "clm-h9aqmt", "target": "axiom-4", "target_kind": "axiom", "target_solidity_recorded": null, "context": "saturation kernel — for the running-coupling sketch"}
-{"source": "clm-ibfyda", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "α appears at multiple layers; α-bottleneck cascades through chain"}
+{"source": "clm-ibfyda", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "α appears at multiple layers; α-bottleneck cascades through chain"}
 {"source": "clm-io8hft", "target": "INVARIANT-C1", "target_kind": "invariant", "target_solidity_recorded": null, "context": "$V_{yield} \\approx 43.65$ kV — referenced in the catalogue's key-parameter column"}
 {"source": "clm-io8hft", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "universal saturation kernel — markers and active-symbol semantics"}
 {"source": "clm-io8hft", "target": "axiom-4", "target_kind": "axiom", "target_solidity_recorded": null, "context": "universal saturation kernel — markers and active-symbol semantics"}
 {"source": "clm-lv3uw1", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": 0.5, "context": null}
 {"source": "clm-m3z5ux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
 {"source": "clm-m3z5ux", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.28, "context": "for the consistency-proof framing of $H_\\infty$"}
-{"source": "clm-m7qd0w", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "α appears in BH $r_{eff} = r_{sat}/(1+\\nu_{vac})$, pion via $m_p$, etc."}
+{"source": "clm-m7qd0w", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "α appears in BH $r_{eff} = r_{sat}/(1+\\nu_{vac})$, pion via $m_p$, etc."}
 {"source": "clm-nu1ir7", "target": "clm-t1okz0", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
 {"source": "clm-ph2uux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
 {"source": "clm-ph2uux", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
@@ -34,7 +34,7 @@
 {"source": "clm-xy252u", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
 {"source": "clm-yc7fgm", "target": "clm-nq2kcc", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
 {"source": "clm-yiyyi3", "target": "clm-dfaiwj", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-zi6t1e", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "α-dependent constants throughout: $V_{yield}$, $p_c$, etc."}
+{"source": "clm-zi6t1e", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "α-dependent constants throughout: $V_{yield}$, $p_c$, etc."}
 {"source": "clm-zuf7g1", "target": "clm-ldmvwi", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "Bell-correlation derivation uses Born rule as one of three ingredients"}
 {"source": "clm-zw6mut", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.41, "context": "for muon's $\\alpha\\sqrt{3/7}$ and tau's $8\\pi/\\alpha$ sector factors"}
 {"source": "clm-zw6mut", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": 0.4, "context": "the \"ground-state unknot\" framing is load-bearing for the lepton mass formula and the \"three structural dimensions of the unknot\" Cosserat-sector argument"}

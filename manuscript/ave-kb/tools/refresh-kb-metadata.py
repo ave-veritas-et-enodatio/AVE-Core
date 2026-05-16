@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """Regenerate derived KB metadata fields from leaf claims.
 
-Side-effecting: writes to index.md and entry-point.md frontmatter blocks.
+Side-effecting: writes to index.md / entry-point.md frontmatter blocks and to
+the derived ``solidity`` fields of every ``claim-quality.md`` register.
 Idempotent. Run via ``make refresh-kb-metadata``.
 
 Currently regenerates:
     * ``subtree-claims`` on every ``kind: index`` file
     * ``subtree-claims`` on the ``kind: entry-point`` file
+    * the ``- solidity:`` line of every claim entry in every ``claim-quality.md``
+      register — value, build-status phrase, and arithmetic trace are all
+      derived from the hand-authored ``confidence`` values via
+      ``kb_index_lib.compute_solidity``
+    * the ``(solidity X)`` annotation in every claim-target depends-on bullet,
+      synced to the depended-on claim's computed solidity
 
 Future: bootstrap directive blockquote text (currently hand-maintained).
 
@@ -131,6 +138,217 @@ def collect_leaves() -> dict[Path, list[str]]:
     return leaves
 
 
+CANONICAL_ID_LINE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
+SOLIDITY_LINE = re.compile(r"^(\s*)-\s*solidity:")
+# Matches a depends-on (solidity X) annotation in either rendering: a numeric
+# value or the *pending* form (target has no computable solidity). Matching
+# both keeps the annotation sync correct across numeric<->pending transitions.
+SOLIDITY_ANNOTATION = re.compile(
+    r"\(solidity\s+(?:-?\d+(?:\.\d+)?|\*pending\*)\)"
+)
+CLAIM_ID_TOKEN = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+
+
+def _fmt(value: float) -> str:
+    """Format a solidity / confidence value as a 2-dp decimal string.
+
+    Mirrors the existing claim-quality.md convention (every value is written
+    with two decimal places, e.g. ``0.90``, ``0.41``).
+    """
+    return f"{value:.2f}"
+
+
+SOLIDITY_PENDING_LINE = "- solidity: *pending*"
+
+
+def _solidity_line(entry, solidity, min_dep) -> str:
+    """Build the canonical ``- solidity:`` line for one claim entry.
+
+    ``solidity`` is the entry's computed value; ``min_dep`` is the minimum
+    dependency solidity (or ``None`` when the entry has no depends-on edges).
+    With dependencies the line carries an arithmetic trace
+    ``[= <confidence> × <min-dep-solidity>]``; without, the trace is omitted
+    (solidity trivially equals confidence).
+
+    When ``solidity`` is ``None`` the claim has no computable solidity — its
+    ``confidence`` is ``*pending*`` OR a dependency's solidity is ``*pending*``
+    (pending-ness propagates transitively, like NaN). Both render the same:
+    the bare ``- solidity: *pending*`` form, no phrase, no arithmetic trace.
+    """
+    if solidity is None:
+        return SOLIDITY_PENDING_LINE
+    phrase = kb_index_lib.build_status_phrase(solidity)
+    base = f"- solidity: {_fmt(solidity)} ({phrase})"
+    if min_dep is None:
+        return base
+    return f"{base} [= {_fmt(entry.confidence)} × {_fmt(min_dep)}]"
+
+
+def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
+    """Map each claim id to the raw line range of its ``## Quality`` section.
+
+    Mirrors ``kb_index_lib.parse_claim_quality_file``'s section-location
+    logic, but returns raw line indices (``[start, end)`` over ``lines``,
+    where ``start`` is the line AFTER the ``## Quality`` heading) so the
+    write-back can edit lines surgically. Code fences do not shift line
+    numbers, so indices computed on fence-scrubbed text equal raw indices.
+
+    An entry with no ``## Quality`` section is omitted.
+    """
+    scrubbed = kb_index_lib._strip_code_fences("\n".join(lines)).splitlines()
+    # Locate every (id_line_idx, claim_id).
+    id_lines: list[tuple[int, str]] = []
+    for i, line in enumerate(scrubbed):
+        m = CANONICAL_ID_LINE.match(line.strip())
+        if m:
+            id_lines.append((i, m.group(1)))
+
+    ranges: dict[str, tuple[int, int]] = {}
+    for id_line, claim_id in id_lines:
+        qstart: int | None = None
+        for j in range(id_line + 1, len(scrubbed)):
+            if scrubbed[j].strip() == "## Quality":
+                qstart = j
+                break
+            if scrubbed[j].startswith("## ") and scrubbed[j].strip() != "## Quality":
+                break
+        if qstart is None:
+            continue
+        qend = len(scrubbed)
+        for j in range(qstart + 1, len(scrubbed)):
+            if scrubbed[j].startswith("## "):
+                qend = j
+                break
+        ranges[claim_id] = (qstart + 1, qend)
+    return ranges
+
+
+def _rewrite_claim_quality_solidity(
+    path: Path, entries, solidity: dict[str, float]
+) -> tuple[int, list[tuple[str, str, str]], list[tuple[str, str, str]]]:
+    """Rewrite derived solidity content in a single ``claim-quality.md`` file.
+
+    For every claim entry, rewrites:
+
+    * the ``- solidity:`` line in its ``## Quality`` section. A claim with a
+      computable solidity gets the numeric form (value, build-status phrase,
+      arithmetic trace); a claim with no computable solidity — confidence is
+      ``*pending*`` OR a dependency is ``*pending*`` — gets the bare
+      ``- solidity: *pending*`` form. Pending-ness propagates transitively
+      (like NaN through arithmetic): "absent from the ``compute_solidity``
+      result" is treated identically to "pending-confidence", regardless of
+      the claim's own local confidence.
+    * the ``(solidity X)`` annotation on each claim-target depends-on bullet,
+      synced to the depended-on claim's solidity. A bullet whose target has
+      no computable solidity gets ``(solidity *pending*)``.
+
+    Framework-target depends-on bullets carry no ``(solidity X)`` token and
+    are untouched. Lines already in their canonical form are left
+    byte-identical, so the rewrite is idempotent.
+
+    Returns ``(files_changed, solidity_changes, annotation_changes)`` where
+    ``files_changed`` is 0 or 1 and the change lists hold ``(claim_id, old,
+    new)`` tuples for reporting.
+    """
+    text = path.read_text()
+    had_final_newline = text.endswith("\n")
+    lines = text.split("\n")
+    if had_final_newline:
+        # split() leaves a trailing "" element; drop it so indices line up
+        # with the visible content lines, restore the newline at write time.
+        lines = lines[:-1]
+
+    by_id = {e.id: e for e in entries}
+    ranges = _quality_section_ranges(lines)
+
+    solidity_changes: list[tuple[str, str, str]] = []
+    annotation_changes: list[tuple[str, str, str]] = []
+
+    for claim_id, (qstart, qend) in ranges.items():
+        entry = by_id.get(claim_id)
+        if entry is None:
+            continue
+        # ``computed`` is None when this claim has no computable solidity:
+        # its confidence is *pending* OR a dependency is *pending*. Both
+        # cases render as the *pending* solidity line — pending-ness is
+        # decided by presence in ``solidity``, NOT by local confidence.
+        computed = solidity.get(claim_id)
+        min_dep = kb_index_lib.min_dependency_solidity(entry, solidity)
+
+        for idx in range(qstart, qend):
+            line = lines[idx]
+            # (1) The solidity line.
+            if SOLIDITY_LINE.match(line):
+                new_line = _solidity_line(entry, computed, min_dep)
+                if new_line != line:
+                    solidity_changes.append((claim_id, line, new_line))
+                    lines[idx] = new_line
+                continue
+            # (2) A claim-target depends-on bullet's (solidity X) annotation.
+            if "(solidity" not in line:
+                continue
+            head = kb_index_lib._depends_on_bullet_head(
+                re.sub(r"^\s*-\s*", "", line.strip())
+            )
+            targets = CLAIM_ID_TOKEN.findall(head)
+            if not targets:
+                continue
+            # A claim depends-on bullet leads with exactly one claim id; its
+            # (solidity X) annotation is that target's solidity. A target
+            # with no computable solidity renders as (solidity *pending*).
+            target_solidity = solidity.get(targets[0])
+            if target_solidity is None:
+                replacement = "(solidity *pending*)"
+            else:
+                replacement = f"(solidity {_fmt(target_solidity)})"
+            new_line = SOLIDITY_ANNOTATION.sub(replacement, line, count=1)
+            if new_line != line:
+                annotation_changes.append((claim_id, line, new_line))
+                lines[idx] = new_line
+
+    new_text = "\n".join(lines)
+    if had_final_newline:
+        new_text += "\n"
+    if new_text != text:
+        path.write_text(new_text)
+        return 1, solidity_changes, annotation_changes
+    return 0, solidity_changes, annotation_changes
+
+
+def _refresh_solidity() -> tuple[int, list, list]:
+    """Rewrite derived solidity content across every ``claim-quality.md``.
+
+    ``solidity`` is computed ONCE via ``kb_index_lib.compute_solidity`` over
+    the whole KB claim graph; the same map drives both the solidity-line
+    write-back and the depends-on annotation sync (and, downstream, the
+    ``.index/claims.jsonl`` fields). Raises ``kb_index_lib.SolidityCycleError``
+    if the claim depends-on graph has a cycle — refresh refuses to write
+    solidity in that case rather than emit undefined values.
+
+    Returns ``(files_changed, solidity_changes, annotation_changes)``.
+    """
+    state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
+    solidity = kb_index_lib.compute_solidity(state.claim_entries)
+
+    # Group parsed entries by their canonical claim-quality.md file.
+    entries_by_file: dict[str, list] = {}
+    for entry in state.claim_entries:
+        entries_by_file.setdefault(entry.canonical_path, []).append(entry)
+
+    files_changed = 0
+    all_solidity_changes: list = []
+    all_annotation_changes: list = []
+    for rel_path, entries in sorted(entries_by_file.items()):
+        path = KB / rel_path
+        changed, sol_ch, ann_ch = _rewrite_claim_quality_solidity(
+            path, entries, solidity
+        )
+        files_changed += changed
+        all_solidity_changes.extend((rel_path, *c) for c in sol_ch)
+        all_annotation_changes.extend((rel_path, *c) for c in ann_ch)
+    return files_changed, all_solidity_changes, all_annotation_changes
+
+
 def _emit_jsonl_indexes() -> tuple[int, int]:
     """Write the five JSONL files under ``KB/.index/``.
 
@@ -225,6 +443,32 @@ def main() -> int:
     print(f"[refresh] Updated {updated} subtree-claims field(s).")
     if skipped:
         print(f"[refresh] Skipped {skipped} index files lacking frontmatter.")
+
+    # Phase 1b: rewrite the derived solidity content (solidity lines +
+    # depends-on (solidity X) annotations) in every claim-quality.md register.
+    try:
+        sol_files, sol_changes, ann_changes = _refresh_solidity()
+    except kb_index_lib.SolidityCycleError as exc:
+        print(f"\nFAIL: {exc}", file=sys.stderr)
+        print(
+            "  → solidity is undefined for cycle members; refusing to write. "
+            "Break the cycle in the claim depends-on graph and re-run.",
+            file=sys.stderr,
+        )
+        return 1
+    print(
+        f"[refresh] Rewrote solidity in {sol_files} claim-quality.md file(s) "
+        f"({len(sol_changes)} solidity line(s), "
+        f"{len(ann_changes)} depends-on annotation(s) changed)."
+    )
+    for rel, cid, old, new in sol_changes:
+        print(f"  [solidity] {rel}:{cid}")
+        print(f"    - {old.strip()}")
+        print(f"    + {new.strip()}")
+    for rel, cid, old, new in ann_changes:
+        print(f"  [depends-on] {rel}:{cid}")
+        print(f"    - {old.strip()}")
+        print(f"    + {new.strip()}")
 
     # Phase 2: emit derived JSONL index files. The frontmatter writes above
     # are already on disk, so discover_kb here picks up the just-written

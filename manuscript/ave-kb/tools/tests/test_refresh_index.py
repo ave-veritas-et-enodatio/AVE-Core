@@ -24,9 +24,11 @@ state, so this leaves the working tree in the same state it found.
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -289,6 +291,208 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
             for ln in _read_jsonl_lines(_INDEX_DIR / "subtree-aggregates.jsonl")
         ]
         self.assertEqual(agg_keys, sorted(agg_keys))
+
+
+_CQ_FILES = (
+    "claim-quality.md",
+    "vol1/claim-quality.md",
+    "vol2/claim-quality.md",
+    "vol3/claim-quality.md",
+    "vol4/claim-quality.md",
+    "vol5/claim-quality.md",
+    "vol6/claim-quality.md",
+    "common/claim-quality.md",
+)
+
+
+class TestRefreshSolidityWriteBack(unittest.TestCase):
+    """Refresh writes derived solidity into claim-quality.md, idempotently.
+
+    These tests run refresh against the real KB. Refresh is idempotent, so on
+    an already-refreshed KB they are non-mutating; the assertions hold whether
+    or not the KB needed correction.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        # First run: bring the KB to a fully-refreshed state.
+        first = _run_refresh()
+        assert first.returncode == 0, first.stderr
+        cls.cq_hashes = {
+            rel: _hash_file(_KB_ROOT / rel) for rel in _CQ_FILES
+        }
+
+    def test_solidity_lines_idempotent(self):
+        # A second refresh must leave every claim-quality.md byte-identical.
+        second = _run_refresh()
+        self.assertEqual(second.returncode, 0, second.stderr)
+        for rel in _CQ_FILES:
+            with self.subTest(file=rel):
+                self.assertEqual(
+                    self.cq_hashes[rel],
+                    _hash_file(_KB_ROOT / rel),
+                    f"{rel} changed on a second refresh (not idempotent)",
+                )
+
+    def test_known_entries_carry_derived_solidity(self):
+        # After refresh, on-disk solidity equals compute_solidity output.
+        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        sol = lib.compute_solidity(state.claim_entries)
+        by_id = {e.id: e for e in state.claim_entries}
+        for cid, expected in (
+            ("clm-0ktpcn", 0.41),
+            ("clm-2e9j97", 0.24),
+            ("clm-zi6t1e", 0.29),
+            ("clm-ibfyda", 0.27),
+            ("clm-m7qd0w", 0.27),
+        ):
+            with self.subTest(claim=cid):
+                self.assertEqual(sol[cid], expected)
+                # The on-disk solidity line (parsed back) matches.
+                self.assertEqual(by_id[cid].solidity, expected)
+
+    def test_solidity_line_has_arithmetic_trace_when_deps_present(self):
+        # clm-2e9j97 has dependencies → its solidity line carries a [= ...]
+        # trace; clm-trf3bd has none → no trace.
+        text = (_KB_ROOT / "claim-quality.md").read_text()
+        line = next(
+            ln
+            for ln in text.splitlines()
+            if ln.startswith("- solidity:") and "0.24" in ln
+        )
+        self.assertIn("[= 0.85 × 0.28]", line)
+
+    def test_depends_on_annotations_synced(self):
+        # Every claim-target depends-on (solidity X) annotation equals the
+        # target's computed solidity after refresh.
+        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        sol = lib.compute_solidity(state.claim_entries)
+        for entry in state.claim_entries:
+            for edge in entry.depends_on:
+                if edge.target_kind != "claim":
+                    continue
+                if edge.target_solidity_recorded is None:
+                    continue
+                with self.subTest(claim=entry.id, target=edge.target):
+                    self.assertAlmostEqual(
+                        edge.target_solidity_recorded,
+                        sol[edge.target],
+                        places=2,
+                    )
+
+
+def _load_refresh_module():
+    """Import refresh-kb-metadata.py as a module (its name has a hyphen)."""
+    if "_refresh_kb_metadata_mod" in sys.modules:
+        return sys.modules["_refresh_kb_metadata_mod"]
+    spec = importlib.util.spec_from_file_location(
+        "_refresh_kb_metadata_mod", str(_SCRIPT)
+    )
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["_refresh_kb_metadata_mod"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+# A synthetic claim-quality.md exercising the dormant numeric-confidence-
+# blocked-by-pending-dependency path. ``clm-pppppp`` has pending confidence;
+# ``clm-aaaaaa`` has numeric confidence (0.90) but depends on it — so its
+# solidity is *pending* too. Both the solidity line and the (solidity X)
+# annotation below carry STALE numeric values that refresh must correct to
+# the *pending* form.
+_SYNTHETIC_BLOCKED_CQ = """\
+## Pending Upstream Claim
+<!-- id: clm-pppppp -->
+
+Body.
+
+## Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- strengthen-by:
+  - Assess this claim.
+
+---
+
+## Numeric Claim Blocked By A Pending Dependency
+<!-- id: clm-aaaaaa -->
+
+Body.
+
+## Quality
+- confidence: 0.90
+- depends-on:
+  - clm-pppppp — Pending Upstream Claim (solidity 0.42) [stale numeric annotation]
+- solidity: 0.85 (ok to build on) [= 0.90 × 0.95]
+- rationale: A numeric-confidence claim whose only dependency is pending.
+- strengthen-by:
+  - Assess the upstream claim.
+"""
+
+
+class TestRefreshSolidityPendingWriteBack(unittest.TestCase):
+    """Refresh renders a numeric-confidence-blocked claim as ``*pending*``.
+
+    The real KB is a closed subgraph — no numeric-confidence claim depends on
+    a pending one — so this consumer path is dormant against canonical
+    content. This test drives the solidity write-back over a synthetic
+    fixture that DOES exercise it, locking the audit-item-1 fix: a numeric
+    claim blocked by a pending dependency must get the ``- solidity:
+    *pending*`` line (not a stale numeric value, not a crash), and a
+    depends-on bullet pointing at it must get ``(solidity *pending*)``.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.kb_root = Path(self._tmp.name)
+        self.cq_path = self.kb_root / "claim-quality.md"
+        self.cq_path.write_text(_SYNTHETIC_BLOCKED_CQ, encoding="utf-8")
+        self.refresh = _load_refresh_module()
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _rewrite(self):
+        entries = lib.parse_claim_quality_file(self.cq_path, self.kb_root)
+        solidity = lib.compute_solidity(entries)
+        # The blocked claim must be absent from compute_solidity's result.
+        self.assertNotIn("clm-aaaaaa", solidity)
+        self.assertNotIn("clm-pppppp", solidity)
+        self.refresh._rewrite_claim_quality_solidity(
+            self.cq_path, entries, solidity
+        )
+        return self.cq_path.read_text(encoding="utf-8")
+
+    def test_blocked_claim_solidity_line_rewritten_to_pending(self):
+        text = self._rewrite()
+        # The stale numeric solidity line is gone; the *pending* form is in.
+        self.assertNotIn("- solidity: 0.85", text)
+        self.assertNotIn("ok to build on", text)
+        # Exactly two *pending* solidity lines: the upstream claim and the
+        # now-corrected blocked claim.
+        pending_lines = [
+            ln for ln in text.splitlines()
+            if ln.strip() == "- solidity: *pending*"
+        ]
+        self.assertEqual(len(pending_lines), 2)
+
+    def test_blocked_target_annotation_rewritten_to_pending(self):
+        text = self._rewrite()
+        # The depends-on bullet's stale (solidity 0.42) annotation is synced
+        # to the pending form.
+        self.assertNotIn("(solidity 0.42)", text)
+        self.assertIn("(solidity *pending*)", text)
+
+    def test_rewrite_is_idempotent(self):
+        first = self._rewrite()
+        # A second pass over the now-corrected content changes nothing.
+        entries = lib.parse_claim_quality_file(self.cq_path, self.kb_root)
+        solidity = lib.compute_solidity(entries)
+        self.refresh._rewrite_claim_quality_solidity(
+            self.cq_path, entries, solidity
+        )
+        self.assertEqual(first, self.cq_path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

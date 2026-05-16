@@ -57,10 +57,10 @@ Despite the name, `claims.jsonl` holds **three node types** — a type-tagged un
   title: string,                 // text from the ## heading containing this id
   canonical_path: string,        // e.g. "vol1/claim-quality.md"
   canonical_anchor: string,      // GitHub-style anchor for the heading
-  confidence: number,            // 0.0 .. 1.0; from Quality section
-  solidity: number,              // 0.0 .. 1.0; from Quality section
-  build_status: string,          // parenthetical phrase after solidity, e.g. "ok to build on"
-  build_band: string,            // one of: ok-to-build, ok-with-caveats, input-only, do-not-build, refuted
+  confidence: number,            // 0.0 .. 1.0; hand-authored, from Quality section
+  solidity: number,              // 0.0 .. 1.0; DERIVED by compute_solidity (null if confidence unset)
+  build_status: string,          // DERIVED phrase from solidity band, e.g. "ok to build on" (null if solidity null)
+  build_band: string,            // DERIVED from solidity: ok-to-build, ok-with-caveats, input-only, do-not-build, refuted
   rationale: string,             // text after "rationale:" — preserved as single line (LF → ' ')
   depends_on_count: integer,     // count of edges in depends-on.jsonl with source == this id
   strengthen_by_count: integer,  // count of items in strengthen-by.jsonl with claim_id == this id
@@ -102,6 +102,10 @@ Framework field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_
 | 0.00 ≤ s < 0.20 | `refuted` |
 
 This mirrors the build-status legend in the root `claim-quality.md` and provides a machine-stable enum for filtering even if the human-readable `build_status` phrasing drifts.
+
+**Solidity is derived, not parsed.** `solidity`, `build_status`, and `build_band` are NOT read from the claim-quality.md `solidity` line — they are computed by `kb_index_lib.compute_solidity` from the hand-authored `confidence` values and the depends-on DAG (`solidity = round-half-up-2dp(confidence × min(dependency solidities))`; framework-target dependencies contribute 1.0). The claim-quality.md `solidity` line is itself a write-back of the same computation (`make refresh-kb-metadata`). The freshness verifier hard-fails if the on-disk claim-quality.md solidity content or these JSONL fields disagree with the recomputed values.
+
+**HARD RULE — `*pending*` propagates transitively (NaN semantics).** A claim's solidity is `*pending*` (uncomputable) if its `confidence` is `*pending*` (not yet quality-assessed) **OR** any of its dependencies' solidity is `*pending*` — **regardless of the claim's own local `confidence`**. A claim with `confidence: 1.0` that depends on one pending claim still has solidity `*pending*`. Pending-ness propagates through the depends-on DAG exactly like NaN through arithmetic. Framework-node dependencies (invariant / axiom targets) are **never** pending — they are solidity-1.0 bedrock by definition, so a claim depending only on framework nodes is not pending (its solidity equals its confidence). A claim with a pending solidity carries `null` for `solidity`, `build_status`, and `build_band` in `claims.jsonl`, the bare `- solidity: *pending*` line in claim-quality.md, and `(solidity *pending*)` wherever it is a depends-on target. Every consumer treats "absent from `compute_solidity`'s result" identically to "pending".
 
 **Rationale-text normalization:** preserve text verbatim except for collapsing internal line breaks to single spaces (so rationale is one-line JSON-safe). Inline markdown (backticks, asterisks) is preserved.
 
@@ -268,9 +272,11 @@ files                                                    WRITTEN (new)
 
 `check-claim-quality.py` (extended):
 - Runs all existing checks (Tier 1, Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity).
-- **NEW:** runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
-- **NEW:** validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
-- **NEW:** validates referential integrity (every id referenced in any non-claims file appears in claims.jsonl).
+- runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
+- validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
+- validates referential integrity (every id referenced in any non-claims file appears in claims.jsonl).
+- **NEW (Push 3):** checks the claim depends-on graph is acyclic (a cycle makes solidity undefined — hard failure, not refresh-fixable).
+- **NEW (Push 3):** checks solidity freshness — every claim-quality.md `solidity` line, its build-status phrase, the depends-on `(solidity X)` annotations, and the `claims.jsonl` solidity fields must equal `compute_solidity`'s output (`refresh-fixable`).
 
 ---
 
@@ -291,7 +297,7 @@ These were considered and deferred to keep v0 small and reviewable:
 - **Embeddings / full-text search.** Out of scope per kb-improvements.md §2 ("Separate concern. If needed, layer on top.").
 - **Synonym resolution.** Whether two surface forms refer to the same claim is currently encoded by id only; no aliasing.
 - **History queries.** `git log .index/claims.jsonl` already provides this for free; no separate module needed.
-- **Solidity recomputation.** v0 records solidity as written in claim-quality.md. Recomputing `solidity = confidence × min(dep_solidity)` and flagging drift is a verifier extension for v0.1.
+- ~~**Solidity recomputation.**~~ *Done (Push 3).* `solidity` is now a derived field: `compute_solidity` computes `solidity = round-half-up-2dp(confidence × min(dep_solidity))` over the depends-on DAG, `refresh-kb-metadata` writes it back to claim-quality.md and the JSONL, and `check-claim-quality` carries a standing freshness check (plus a depends-on graph acyclicity check).
 - **Cross-claim consistency** (e.g., mutual-exclusion checks like `clm-trf3bd`/`clm-unk0bd`). Encoded informally in prose now; could become a structured `excludes` edge in v0.1.
 
 ---

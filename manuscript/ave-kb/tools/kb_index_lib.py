@@ -18,6 +18,7 @@ import json
 import re
 import sys
 from dataclasses import dataclass, field
+from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 from typing import TextIO
 
@@ -821,6 +822,215 @@ def derive_build_band(solidity: float | None) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Solidity computation (derived field)
+# ---------------------------------------------------------------------------
+#
+# ``solidity`` is a *derived* quality field: it is computed mechanically from
+# the hand-authored ``confidence`` values and the claim depends-on graph, not
+# hand-maintained. The build-status phrase and the depends-on ``(solidity X)``
+# annotations are likewise derived. ``refresh-kb-metadata`` owns writing all
+# three back; ``check-claim-quality`` verifies the on-disk values match.
+
+# Build-status phrase bands (mapped from solidity), mirroring the
+# "Build-status legend" table in the root claim-quality.md preamble. The
+# phrases here are the parenthetical text WITHOUT the surrounding parens.
+_BUILD_STATUS_BANDS: tuple[tuple[float, str], ...] = (
+    (0.85, "ok to build on"),
+    (0.65, "ok to build on, see caveats"),
+    (0.45, "use as input only, don't build deeper"),
+    (0.20, "do not build on, rework needed"),
+    (0.00, "refuted, do not use"),
+)
+
+
+def build_status_phrase(solidity: float | None) -> str | None:
+    """Map a solidity value to its build-status phrase.
+
+    Returns the band phrase (without surrounding parens) for a numeric
+    solidity, or ``None`` when ``solidity`` is ``None`` (an entry whose
+    confidence is unset — its solidity is undefined and not written).
+    The bands mirror the legend table in the root ``claim-quality.md``.
+    """
+    if solidity is None:
+        return None
+    for threshold, phrase in _BUILD_STATUS_BANDS:
+        if solidity >= threshold:
+            return phrase
+    # solidity < 0.0 is out of the documented [0, 1] domain; treat as refuted.
+    return _BUILD_STATUS_BANDS[-1][1]
+
+
+def round_half_up_2dp(value: float) -> float:
+    """Round ``value`` to 2 decimal places using round-half-up.
+
+    The KB convention rounds solidity at the 0.005 boundary AWAY from zero
+    (round-half-up), NOT with Python's built-in banker's rounding. Using
+    ``Decimal`` keeps the boundary deterministic and matches what a human
+    auditing the arithmetic by hand would write.
+    """
+    return float(
+        Decimal(str(value)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    )
+
+
+class SolidityCycleError(ValueError):
+    """Raised when the claim depends-on graph contains a cycle.
+
+    Solidity is undefined for the members of a dependency cycle (the
+    bottom-up recurrence has no base case). The offending claim ids are
+    available on ``cycle_members``.
+    """
+
+    def __init__(self, cycle_members: list[str]) -> None:
+        self.cycle_members = cycle_members
+        joined = ", ".join(cycle_members)
+        super().__init__(
+            f"claim depends-on graph has a cycle among {len(cycle_members)} "
+            f"claim(s): {joined}"
+        )
+
+
+def compute_solidity(claim_entries) -> dict[str, float]:
+    """Compute the derived ``solidity`` for every numeric-confidence claim.
+
+    ``solidity = round_half_up_2dp(confidence × min(dependency solidities))``,
+    computed bottom-up over the claim depends-on DAG (Kahn topological sort):
+
+    * A claim's dependencies are its ``depends-on`` edges. A ``claim``-target
+      edge contributes that dependency's already-computed (and already-rounded)
+      solidity; an ``invariant`` / ``axiom`` edge contributes ``1.0``
+      (framework bedrock — solidity-1.0 by definition).
+    * A claim with no depends-on edges has ``solidity = confidence``.
+    * Propagation uses each dependency's *rounded* solidity, so a human
+      auditing ``0.85 × min(0.41, 0.28)`` against the written values gets the
+      same answer the tool does.
+
+    HARD RULE — ``*pending*`` propagates transitively, exactly like NaN
+    through arithmetic. A claim's solidity is ``*pending*`` (undefined) if its
+    ``confidence`` is ``*pending*`` (parsed as ``None`` — not yet quality
+    assessed) OR any of its dependencies' solidity is ``*pending*``,
+    REGARDLESS of the claim's own local ``confidence``. A claim with
+    ``confidence: 1.0`` that depends on one pending claim still has a pending
+    solidity. Framework-node dependencies (invariant / axiom targets) are
+    never pending — they are solidity-1.0 bedrock by definition, so a claim
+    that depends only on framework nodes is NOT pending (its solidity equals
+    its confidence).
+
+    A claim with a pending solidity is OMITTED from the returned mapping: the
+    dict contains an entry only for claims with a fully-computable numeric
+    solidity. Every consumer must treat "absent from this result" identically
+    to "pending" — render/record it as ``*pending*`` / ``null``. The current
+    KB is a closed subgraph (no numeric-confidence claim depends on a pending
+    claim), so the blocked-by-pending-dependency path is dormant; it activates
+    the first time a volume is assessed while a volume it depends on is still
+    pending.
+
+    Returns ``{claim_id: solidity}`` for every claim with a computable
+    solidity. Raises :class:`SolidityCycleError` if the claim depends-on
+    subgraph contains a cycle (Kahn's algorithm detects this for free).
+    """
+    entries = {e.id: e for e in claim_entries}
+
+    # Restrict the computation to claims whose confidence is set; a claim with
+    # None confidence cannot be scored and is excluded from the graph.
+    computable = {eid for eid, e in entries.items() if e.confidence is not None}
+
+    # Claim-target dependency edges, restricted to edges whose target is itself
+    # a computable claim. (Framework targets and pending/unknown claim targets
+    # do not become graph edges — framework deps contribute a constant 1.0;
+    # a pending/unknown claim target makes the depender uncomputable, handled
+    # below.)
+    indegree: dict[str, int] = {eid: 0 for eid in computable}
+    dependents: dict[str, list[str]] = {eid: [] for eid in computable}
+    # A computable claim is "blocked" if it depends on a non-computable claim
+    # (pending confidence or an unknown id) — its solidity cannot be derived.
+    blocked: set[str] = set()
+    for eid in computable:
+        for edge in entries[eid].depends_on:
+            if edge.target_kind != "claim":
+                continue
+            if edge.target in computable:
+                indegree[eid] += 1
+                dependents[edge.target].append(eid)
+            else:
+                blocked.add(eid)
+
+    # Kahn's algorithm over the computable subgraph.
+    queue = sorted(eid for eid in computable if indegree[eid] == 0)
+    order: list[str] = []
+    while queue:
+        node = queue.pop(0)
+        order.append(node)
+        for dep in sorted(dependents[node]):
+            indegree[dep] -= 1
+            if indegree[dep] == 0:
+                queue.append(dep)
+                queue.sort()
+
+    if len(order) != len(computable):
+        # Nodes never reaching indegree 0 are exactly the cycle members
+        # (plus claims downstream of a cycle). Report the still-blocked set.
+        cycle_members = sorted(eid for eid in computable if indegree[eid] > 0)
+        raise SolidityCycleError(cycle_members)
+
+    solidity: dict[str, float] = {}
+    for eid in order:
+        if eid in blocked:
+            # Depends on a non-computable claim — solidity is undefined.
+            continue
+        entry = entries[eid]
+        claim_dep_solidities: list[float] = []
+        ok = True
+        for edge in entry.depends_on:
+            if edge.target_kind == "claim":
+                if edge.target not in solidity:
+                    # Dependency itself uncomputable (blocked upstream).
+                    ok = False
+                    break
+                claim_dep_solidities.append(solidity[edge.target])
+            else:
+                # Framework dependency (invariant / axiom): solidity 1.0.
+                claim_dep_solidities.append(1.0)
+        if not ok:
+            continue
+        confidence = entry.confidence
+        assert confidence is not None  # computable ⇒ confidence is set
+        if claim_dep_solidities:
+            raw = confidence * min(claim_dep_solidities)
+        else:
+            raw = confidence
+        solidity[eid] = round_half_up_2dp(raw)
+    return solidity
+
+
+def min_dependency_solidity(
+    entry: ClaimEntry, solidity: dict[str, float]
+) -> float | None:
+    """Return the minimum dependency solidity feeding ``entry``.
+
+    A ``claim``-target edge contributes the dependency's computed solidity
+    (from ``solidity``); an ``invariant`` / ``axiom`` edge contributes ``1.0``.
+    Returns ``None`` when ``entry`` has no depends-on edges (``solidity``
+    trivially equals ``confidence`` — no arithmetic trace) or when any claim
+    dependency is itself uncomputable (so the minimum is undefined).
+
+    This is the value ``refresh-kb-metadata`` writes into the
+    ``[= <confidence> × <min-dep-solidity>]`` trace on the solidity line.
+    """
+    dep_solidities: list[float] = []
+    for edge in entry.depends_on:
+        if edge.target_kind == "claim":
+            if edge.target not in solidity:
+                return None
+            dep_solidities.append(solidity[edge.target])
+        else:
+            dep_solidities.append(1.0)
+    if not dep_solidities:
+        return None
+    return min(dep_solidities)
+
+
+# ---------------------------------------------------------------------------
 # Record builders
 # ---------------------------------------------------------------------------
 
@@ -844,6 +1054,12 @@ def build_claims_records(state: KbState) -> list[dict]:
     Claim counts (depends_on_count, strengthen_by_count, citation_count) are
     derived from the same state so they're internally consistent with the
     other record files this module emits.
+
+    ``solidity`` / ``build_status`` / ``build_band`` are **derived** — computed
+    by :func:`compute_solidity` from the hand-authored ``confidence`` values
+    and the depends-on DAG, NOT re-parsed from the claim-quality.md ``solidity``
+    line. A claim whose confidence is unset (so solidity is uncomputable)
+    carries ``null`` for all three fields.
     """
     # Citation counts derived from leaves once.
     cite_counts: dict[str, int] = {}
@@ -851,8 +1067,13 @@ def build_claims_records(state: KbState) -> list[dict]:
         for cid in leaf.claims:
             cite_counts[cid] = cite_counts.get(cid, 0) + 1
 
+    # Solidity is the single derived computation — shared with the
+    # claim-quality.md write-back; never computed twice.
+    solidity = compute_solidity(state.claim_entries)
+
     out: list[dict] = []
     for entry in state.claim_entries:
+        computed_solidity = solidity.get(entry.id)
         out.append(
             {
                 "node_type": "claim",
@@ -861,9 +1082,9 @@ def build_claims_records(state: KbState) -> list[dict]:
                 "canonical_path": entry.canonical_path,
                 "canonical_anchor": entry.canonical_anchor,
                 "confidence": entry.confidence,
-                "solidity": entry.solidity,
-                "build_status": entry.build_status,
-                "build_band": derive_build_band(entry.solidity),
+                "solidity": computed_solidity,
+                "build_status": build_status_phrase(computed_solidity),
+                "build_band": derive_build_band(computed_solidity),
                 "rationale": entry.rationale,
                 "depends_on_count": len(entry.depends_on),
                 "strengthen_by_count": len(entry.strengthen_by),
@@ -1069,6 +1290,11 @@ __all__ = [
     "collect_known_claim_ids",
     "discover_kb",
     "derive_build_band",
+    "build_status_phrase",
+    "round_half_up_2dp",
+    "compute_solidity",
+    "min_dependency_solidity",
+    "SolidityCycleError",
     "build_claims_records",
     "build_depends_on_records",
     "build_strengthen_by_records",

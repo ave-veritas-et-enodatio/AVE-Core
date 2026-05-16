@@ -60,8 +60,8 @@ The full derivation chain document is a single long appendix presenting Layers 0
 ## Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears at multiple layers; α-bottleneck cascades through chain]
-- solidity: 0.36 (do not build on, rework needed) [= 0.65 × 0.55]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α appears at multiple layers; α-bottleneck cascades through chain]
+- solidity: 0.27 (do not build on, rework needed) [= 0.65 × 0.41]
 - rationale: The chain documentation is honest and well-structured — forward DAG verified acyclic; Layer 2 $p_c = 8\pi\alpha$ correctly disclosed as algebraic-not-derivation; Layer 5 lepton spectrum carries an explicit Methodology disclosure (Cosserat sectors → generations identification, $\alpha\sqrt{3/7}$ muon coupling, $8\pi/\alpha$ tau coupling, PMNS $\{c_1, c_2, c_3\} = \{5,7,9\}$ pattern-identified). The substantive open elements (Layer 5 sector identifications matched-not-derived; PMNS pattern-identified) hold local confidence at 0.65. Solidity is heavily α-bounded because α appears in many later-layer formulas. Note: $\delta_{CP}^B \neq \delta_{CP}^{PMNS}$ — the leaf correctly disambiguates the symbol-stem collision.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas
@@ -121,8 +121,8 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 ## Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
-- solidity: 0.36 (do not build on, rework needed) [= 0.65 × 0.55]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
+- solidity: 0.27 (do not build on, rework needed) [= 0.65 × 0.41]
 - rationale: The five-step procedure (identify $\varepsilon_{11}$ → locate $r_{sat}$ → apply $\nu_{vac}$ Poisson → eigenfrequency $\omega = \ell c/r_{eff}$ → $Q = \ell$) is structurally consistent across BH QNM (1.7% error), pion mass (0.9% conditional on $m_p$), protein backbone (0.1% conditional on measured $v_{backbone}$ — the sub-derivation gives $-5.2\%$). The boundary correctly self-bounds: cross-domain table is operator-reuse evidence, not independent per-domain validation. The Schwarzschild Poisson-correction form $r_{eff} = r_{sat}/(1+\nu_{vac})$ is asserted as one of several valid 3D projections; this is the substantive open element. Local confidence held at 0.65. Solidity α-bounded.
 - strengthen-by:
   - Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\nu_{vac})$ from a unique axiomatic constraint (currently asserted as "transverse Poisson coupling for 3D"; alternatives $r_{sat}\sqrt{1+\nu}$, $r_{sat}(1+\nu)$ not ruled out)
@@ -207,8 +207,8 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 ## Quality
 - confidence: 0.70
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
-- solidity: 0.39 (do not build on, rework needed) [= 0.70 × 0.55]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
+- solidity: 0.29 (do not build on, rework needed) [= 0.70 × 0.41]
 - rationale: Each tabulated constant carries an explicit axiom-trace column. The $z_0 \approx 51.25$ effective-coordination-number derivation is sound (Feng-Thorpe-Garboczi EMT quadratic at $K=2G$). The FDTD numerical-damping factor is **explicitly excluded** as a numerical-stability artifact — this is the model for honest numerology. The $n_{3D} = 38/21 \approx 1.8095$ avalanche exponent is within $\sim 0.5\%$ of the empirical solar-flare value (single empirical figure, not a precision dataset match — correctly disclosed). The $C_K = 4/3$ Kolmogorov constant matches the classical empirical value structurally. Solidity α-bounded because many constants depend on α numerically.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically

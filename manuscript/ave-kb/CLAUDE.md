@@ -117,7 +117,7 @@ path-stable: "referenced from vol2 as eq:dynamic_capacitance_yield"
 - *Navigation-pointer index*: an index that delegates results to children may use a `> **Navigation note:**` blockquote in lieu of `## Key Results`. Treat absence of `## Key Results` as a signal to check for a Navigation note, not automatically a defect.
 
 **Maintenance pipeline:**
-- `make refresh-kb-metadata` regenerates derived fields (currently `subtree-claims`). Idempotent. Run after any change to leaf claims.
+- `make refresh-kb-metadata` regenerates derived fields (`subtree-claims` on index frontmatter; `solidity` — value, build-status phrase, and depends-on `(solidity X)` annotations — in every `claim-quality.md` claim entry). Idempotent. Run after any change to leaf claims or to a claim's authored `confidence`.
 - `make verify-claim-quality` is read-only — never modifies. Failures tagged refresh-fixable suggest running refresh first; manual-fix failures must be repaired by hand.
 
 *Confirmed by: convention spec at `mad-review/kb-metadata-spine-spec.md`; migration script and standing refresh+verify scripts at `manuscript/ave-kb/tools/`.*

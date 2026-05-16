@@ -219,7 +219,7 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [for $\xi$'s $\alpha^{-2}$ factor]
   - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.28) [for $\xi$'s $R_H/H_\infty$ factor — $H_\infty$ is a consistency identity conditional on $G$ closure]
-- solidity: 0.25 (do not build on, rework needed) [= 0.90 × min(0.41, 0.28) = 0.90 × 0.28]
+- solidity: 0.25 (do not build on, rework needed) [= 0.90 × 0.28]
 - rationale: Local distinction work is correctly enforced — $\xi_{topo} = e/\ell_{node}$ from Axiom 2's topo-kinematic isomorphism mechanism; $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from Axiom 3's Machian dilution. Solidity bounded by the Closure Status entry $clm-5xon03$ (now 0.28, the tighter bottleneck after rebinding to `clm-unk0bd`) over the α dependency $clm-0ktpcn$ (0.41, rebound to `clm-trf3bd`). $\xi_{topo}$'s numerical value alone carries solidity 0.90 (depends only on framework inputs); $\xi$ inherits the dependency chain. (Solidity dropped from 0.50 to 0.25 in 2026-05-06 session as both upstream entries rebound to body-topology dependencies.)
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (dominant solidity bottleneck for $\xi$)
@@ -294,7 +294,7 @@ The two saturation symmetry cases are catalogued in the cross-cutting [Symmetric
 - confidence: 0.65
 - depends-on:
   - clm-efo113 — Master Equation EFT Validity (solidity 0.50)
-- solidity: 0.32 (do not build on, rework needed) [= 0.65 × 0.50]
+- solidity: 0.33 (do not build on, rework needed) [= 0.65 × 0.50]
 - rationale: The structural classification — magnetic branch as a sub-case of the symmetric sector ($Z \to 0$ via $\mu_{eff} \to 0$); asymmetric/electric branch with $Z \to \infty$ via $\varepsilon_{eff} \to 0$ alone; both governed by the same kernel $S(A)$ — is sound algebra given the impedance and saturation definitions. However, the load-bearing AVE claim — that magnetic-branch confinement at a torus-knot self-intersection IS the mechanism for invariant particle rest mass — depends on the leading-order Master Equation EFT remaining valid through saturation, which itself is asserted-not-derived (gradient corrections negligible by symmetry). The classification alone has local quality ≈ 0.65; the rest-mass mechanism claim transitively inherits Master Equation EFT Validity's 0.50, dropping this entry to 0.32 overall.
 - strengthen-by:
   - Strengthen Master Equation EFT Validity (the dominant solidity bottleneck for this entry; closing the gradient-corrections-at-saturation assumption raises this entry's solidity to local-confidence level)
@@ -454,7 +454,7 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [for $H_\infty$'s $\alpha^{-2}$ factor]
   - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.28) [for the consistency-proof framing of $H_\infty$]
-- solidity: 0.17 (do not build on, rework needed) [= 0.60 × min(0.41, 0.28) = 0.60 × 0.28]
+- solidity: 0.17 (refuted, do not use) [= 0.60 × 0.28]
 - rationale: The $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ formula is correctly disclosed as a consistency-proof, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The MOND $a_0 = cH_\infty/(2\pi)$ hoop-stress projection produces a $-10.7\%$ deficit vs empirical $1.2\times 10^{-10}$ m/s² — a real numerical gap. Local confidence is held below 0.7 because the underlying `mond-hoop-stress.md` leaf carries an unresolved longitudinal wave-speed formula ($v_L = \sqrt{2G/\rho} = \sqrt{2}c$ vs standard isotropic-elasticity $v_L = c\sqrt{10/3} \approx 1.826c$ for $K=2G$), and the hoop-stress projection factor $1/(2\pi)$ is asserted from classical continuum mechanics rather than derived from AVE micropolar dynamics. (Solidity dropped from 0.33 to 0.17 in 2026-05-06 session as both `clm-0ktpcn` and `clm-5xon03` rebound to body-topology dependencies; the Closure Status now-0.28 is the tighter bottleneck.)
 - strengthen-by:
   - Resolve the longitudinal wave speed formula in `mond-hoop-stress.md` (currently $\sqrt{2}c$; standard isotropic elasticity at $K=2G$ gives $c\sqrt{10/3}$); either derive the AVE-specific formula from the micropolar / chiral LC continuum (which decouples transverse propagation from bulk modulus) or correct the leaf
@@ -516,7 +516,7 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [for muon's $\alpha\sqrt{3/7}$ and tau's $8\pi/\alpha$ sector factors]
   - clm-unk0bd — Electron Body Topology = Unknot (solidity 0.40) [the "ground-state unknot" framing is load-bearing for the lepton mass formula and the "three structural dimensions of the unknot" Cosserat-sector argument]
-- solidity: 0.24 (do not build on, rework needed) [= 0.60 × min(0.41, 0.40) = 0.60 × 0.40]
+- solidity: 0.24 (do not build on, rework needed) [= 0.60 × 0.40]
 - rationale: The cross-scale operator framing — same universal $1/r$ tension governs lepton and nuclear binding — is structurally claimed but the three-Cosserat-sector-to-three-lepton-generation identification (translation/torsion/curvature-twist) is asserted, not derived from the four axioms. Lepton-mass deviations are non-trivial: muon $+1.24\%$, tau $-0.95\%$ — correctly disclosed but not sub-percent. Nuclear methodology is honestly disclosed as **one fitted scalar per nucleus** (Vol 6); the Vol 1 Neon-20 mention is one application. The reported "$<0.001\%$ Neon-20 residual" is the optimizer convergence tolerance, not an independent prediction error — claim-quality entry correctly flags this. Local confidence held at 0.6 because the structural identifications and the residual lepton-mass percentages are real open work. **Body-topology dependency (2026-05-06 session):** the cited leaves (`scale-invariance.md`, `scale-invariant-predictions.md`, `mass-unification.md`) explicitly use the "ground-state unknot" framing for the electron and "the three structural dimensions of the unknot" for the lepton-generation hierarchy. Under `clm-unk0bd`'s solidity 0.40 (cross-leaf inconsistency vs `clm-trf3bd`), this entry inherits the lower bound. If the body-topology conflict resolves in favor of the trefoil, the Cosserat-sector mapping needs rederivation in trefoil terms; the asserted "three structural dimensions" argument is unknot-specific.
 - strengthen-by:
   - Derive the three-Cosserat-sectors-to-three-lepton-generations identification (translation/torsion/curvature-twist) from the four axioms (currently a structural identification with sector-specific coupling factors $\alpha\sqrt{3/7}$ and $8\pi/\alpha$ that are asserted, not derived)

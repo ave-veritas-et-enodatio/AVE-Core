@@ -457,6 +457,26 @@ class TestBuildClaimsRecords(unittest.TestCase):
         # clm-unk0bd has solidity 0.40 -> do-not-build
         self.assertEqual(self.by_id["clm-unk0bd"]["build_band"], "do-not-build")
 
+    def test_solidity_field_is_computed_not_parsed(self):
+        # claims.jsonl solidity must match compute_solidity, NOT the value
+        # parsed off the claim-quality.md solidity line.
+        sol = lib.compute_solidity(self.state.claim_entries)
+        for cid in ("clm-0ktpcn", "clm-2e9j97", "clm-zi6t1e", "clm-ibfyda"):
+            self.assertEqual(self.by_id[cid]["solidity"], sol[cid])
+        # clm-2e9j97 is a multi-dep entry: 0.24 derived, build-status follows.
+        self.assertEqual(self.by_id["clm-2e9j97"]["solidity"], 0.24)
+        self.assertEqual(
+            self.by_id["clm-2e9j97"]["build_status"],
+            "do not build on, rework needed",
+        )
+
+    def test_pending_confidence_claim_has_null_derived_fields(self):
+        # clm-h9aqmt confidence is *pending* → solidity uncomputable → null.
+        rec = self.by_id["clm-h9aqmt"]
+        self.assertIsNone(rec["confidence"])
+        self.assertIsNone(rec["solidity"])
+        self.assertIsNone(rec["build_status"])
+
     def test_counts_are_accurate(self):
         # clm-5xon03 depends on clm-unk0bd (1 edge).
         self.assertEqual(self.by_id["clm-5xon03"]["depends_on_count"], 1)
@@ -589,6 +609,294 @@ class TestJsonlIo(unittest.TestCase):
             p.write_text('{"ok": 1}\nnot-json\n', encoding="utf-8")
             with self.assertRaises(ValueError):
                 lib.read_jsonl(p)
+
+
+def _edge(source, target, kind="claim", recorded=None):
+    """Build a DependsOnEdge for synthetic-graph tests."""
+    return lib.DependsOnEdge(
+        source=source,
+        target=target,
+        target_kind=kind,
+        target_solidity_recorded=recorded,
+        context=None,
+    )
+
+
+def _claim(cid, confidence, depends_on=()):
+    """Build a minimal ClaimEntry for synthetic compute_solidity tests."""
+    return lib.ClaimEntry(
+        id=cid,
+        title=cid,
+        canonical_path="test/claim-quality.md",
+        canonical_anchor=cid,
+        confidence=confidence,
+        solidity=None,
+        build_status=None,
+        rationale="",
+        depends_on=tuple(depends_on),
+        strengthen_by=(),
+    )
+
+
+class TestRoundHalfUp(unittest.TestCase):
+    """round_half_up_2dp rounds AWAY from zero at the 0.005 boundary."""
+
+    def test_boundary_rounds_up(self):
+        # Banker's rounding (Python round()) would give 0.12 for 0.125.
+        self.assertEqual(lib.round_half_up_2dp(0.125), 0.13)
+        self.assertEqual(lib.round_half_up_2dp(0.005), 0.01)
+        self.assertEqual(lib.round_half_up_2dp(0.015), 0.02)
+
+    def test_below_boundary_rounds_down(self):
+        self.assertEqual(lib.round_half_up_2dp(0.1249), 0.12)
+        self.assertEqual(lib.round_half_up_2dp(0.324), 0.32)
+
+    def test_lv3uw1_boundary_case(self):
+        # 0.65 × 0.50 = 0.325 → round-half-up → 0.33 (the clm-lv3uw1 case).
+        self.assertEqual(lib.round_half_up_2dp(0.65 * 0.50), 0.33)
+
+
+class TestBuildStatusPhrase(unittest.TestCase):
+    """build_status_phrase maps solidity bands to legend phrases."""
+
+    def test_band_boundaries(self):
+        self.assertEqual(lib.build_status_phrase(1.00), "ok to build on")
+        self.assertEqual(lib.build_status_phrase(0.85), "ok to build on")
+        self.assertEqual(
+            lib.build_status_phrase(0.84), "ok to build on, see caveats"
+        )
+        self.assertEqual(
+            lib.build_status_phrase(0.65), "ok to build on, see caveats"
+        )
+        self.assertEqual(
+            lib.build_status_phrase(0.45),
+            "use as input only, don't build deeper",
+        )
+        self.assertEqual(
+            lib.build_status_phrase(0.20), "do not build on, rework needed"
+        )
+        self.assertEqual(
+            lib.build_status_phrase(0.19), "refuted, do not use"
+        )
+        self.assertEqual(lib.build_status_phrase(0.0), "refuted, do not use")
+
+    def test_none_returns_none(self):
+        self.assertIsNone(lib.build_status_phrase(None))
+
+
+class TestComputeSolidity(unittest.TestCase):
+    """compute_solidity over synthetic graphs: the core derivation."""
+
+    def test_no_dependencies_equals_confidence(self):
+        sol = lib.compute_solidity([_claim("clm-aaaaaa", 0.85)])
+        self.assertEqual(sol["clm-aaaaaa"], 0.85)
+
+    def test_single_claim_dependency(self):
+        a = _claim("clm-aaaaaa", 0.75)
+        b = _claim("clm-bbbbbb", 0.55, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        sol = lib.compute_solidity([a, b])
+        self.assertEqual(sol["clm-aaaaaa"], 0.75)
+        # 0.55 × 0.75 = 0.4125 → round-half-up → 0.41
+        self.assertEqual(sol["clm-bbbbbb"], 0.41)
+
+    def test_framework_dependency_contributes_one(self):
+        # An entry depending only on framework nodes → solidity == confidence.
+        e = _claim(
+            "clm-aaaaaa",
+            0.90,
+            [
+                _edge("clm-aaaaaa", "INVARIANT-S2", kind="invariant"),
+                _edge("clm-aaaaaa", "axiom-4", kind="axiom"),
+            ],
+        )
+        sol = lib.compute_solidity([e])
+        self.assertEqual(sol["clm-aaaaaa"], 0.90)
+
+    def test_min_over_multiple_dependencies(self):
+        a = _claim("clm-aaaaaa", 0.41)  # leaf, solidity 0.41
+        b = _claim("clm-bbbbbb", 0.28)  # leaf, solidity 0.28
+        c = _claim(
+            "clm-cccccc",
+            0.85,
+            [_edge("clm-cccccc", "clm-aaaaaa"), _edge("clm-cccccc", "clm-bbbbbb")],
+        )
+        sol = lib.compute_solidity([a, b, c])
+        # 0.85 × min(0.41, 0.28) = 0.85 × 0.28 = 0.238 → 0.24
+        self.assertEqual(sol["clm-cccccc"], 0.24)
+
+    def test_framework_and_claim_dependency_mixed(self):
+        a = _claim("clm-aaaaaa", 0.50)
+        b = _claim(
+            "clm-bbbbbb",
+            0.80,
+            [
+                _edge("clm-bbbbbb", "clm-aaaaaa"),
+                _edge("clm-bbbbbb", "INVARIANT-S2", kind="invariant"),
+            ],
+        )
+        sol = lib.compute_solidity([a, b])
+        # min(0.50 [claim], 1.0 [framework]) = 0.50 → 0.80 × 0.50 = 0.40
+        self.assertEqual(sol["clm-bbbbbb"], 0.40)
+
+    def test_propagation_uses_rounded_dependency_solidity(self):
+        # a: 0.55 → leaf. b depends on a: 0.55 × 0.55 = 0.3025 → 0.30.
+        # c depends on b: 0.90 × 0.30 (rounded) = 0.27, NOT 0.90 × 0.3025.
+        a = _claim("clm-aaaaaa", 0.55)
+        b = _claim("clm-bbbbbb", 0.55, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        c = _claim("clm-cccccc", 0.90, [_edge("clm-cccccc", "clm-bbbbbb")])
+        sol = lib.compute_solidity([a, b, c])
+        self.assertEqual(sol["clm-bbbbbb"], 0.30)
+        self.assertEqual(sol["clm-cccccc"], 0.27)
+
+    def test_pending_confidence_omitted(self):
+        # An entry with confidence None is uncomputable — omitted from output.
+        a = _claim("clm-aaaaaa", None)
+        b = _claim("clm-bbbbbb", 0.85)
+        sol = lib.compute_solidity([a, b])
+        self.assertNotIn("clm-aaaaaa", sol)
+        self.assertIn("clm-bbbbbb", sol)
+
+    def test_entry_depending_on_pending_claim_omitted(self):
+        # A numeric entry whose dependency is pending cannot be scored.
+        a = _claim("clm-aaaaaa", None)
+        b = _claim("clm-bbbbbb", 0.85, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        sol = lib.compute_solidity([a, b])
+        self.assertNotIn("clm-bbbbbb", sol)
+
+    def test_cycle_raises(self):
+        a = _claim("clm-aaaaaa", 0.80, [_edge("clm-aaaaaa", "clm-bbbbbb")])
+        b = _claim("clm-bbbbbb", 0.80, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        with self.assertRaises(lib.SolidityCycleError) as ctx:
+            lib.compute_solidity([a, b])
+        self.assertEqual(
+            set(ctx.exception.cycle_members), {"clm-aaaaaa", "clm-bbbbbb"}
+        )
+
+    def test_self_loop_raises(self):
+        a = _claim("clm-aaaaaa", 0.80, [_edge("clm-aaaaaa", "clm-aaaaaa")])
+        with self.assertRaises(lib.SolidityCycleError):
+            lib.compute_solidity([a])
+
+
+class TestSolidityPendingPropagation(unittest.TestCase):
+    """The hard rule: ``*pending*`` propagates transitively, like NaN.
+
+    A claim's solidity is ``*pending*`` (omitted from ``compute_solidity``'s
+    result) if its confidence is ``*pending*`` OR any dependency's solidity is
+    ``*pending*`` — regardless of its own local confidence. Framework-node
+    dependencies are never pending. The current KB has no numeric-confidence
+    claim depending on a pending claim, so this path is exercised only by
+    these synthetic graphs.
+    """
+
+    def test_direct_dependency_on_pending_claim_is_pending(self):
+        # A (numeric) depends directly on P (pending) → A is pending.
+        p = _claim("clm-pppppp", None)
+        a = _claim("clm-aaaaaa", 0.85, [_edge("clm-aaaaaa", "clm-pppppp")])
+        sol = lib.compute_solidity([p, a])
+        self.assertNotIn("clm-pppppp", sol)
+        self.assertNotIn("clm-aaaaaa", sol)
+
+    def test_transitive_propagation_through_numeric_chain(self):
+        # A (numeric) → B (numeric) → P (pending). Both A and B are pending:
+        # pending-ness propagates the full length of the dependency chain.
+        p = _claim("clm-pppppp", None)
+        b = _claim("clm-bbbbbb", 0.90, [_edge("clm-bbbbbb", "clm-pppppp")])
+        a = _claim("clm-aaaaaa", 0.90, [_edge("clm-aaaaaa", "clm-bbbbbb")])
+        sol = lib.compute_solidity([p, b, a])
+        self.assertNotIn("clm-bbbbbb", sol)
+        self.assertNotIn("clm-aaaaaa", sol)
+
+    def test_pending_regardless_of_local_confidence(self):
+        # confidence 1.0 does NOT rescue a claim that depends on a pending
+        # one — "regardless of local confidence" is load-bearing.
+        p = _claim("clm-pppppp", None)
+        a = _claim("clm-aaaaaa", 1.0, [_edge("clm-aaaaaa", "clm-pppppp")])
+        sol = lib.compute_solidity([p, a])
+        self.assertNotIn("clm-aaaaaa", sol)
+
+    def test_framework_only_dependency_is_not_pending(self):
+        # Framework nodes (invariant / axiom) are solidity-1.0 bedrock, never
+        # pending → a claim depending only on them is NOT pending.
+        a = _claim(
+            "clm-aaaaaa",
+            0.77,
+            [
+                _edge("clm-aaaaaa", "INVARIANT-S2", kind="invariant"),
+                _edge("clm-aaaaaa", "axiom-3", kind="axiom"),
+            ],
+        )
+        sol = lib.compute_solidity([a])
+        self.assertIn("clm-aaaaaa", sol)
+        self.assertEqual(sol["clm-aaaaaa"], 0.77)  # solidity == confidence
+
+    def test_one_pending_dep_poisons_a_numeric_dep_mix(self):
+        # A claim with one numeric claim-dep AND one pending claim-dep is
+        # pending — the pending dependency poisons the result.
+        good = _claim("clm-gggggg", 0.60)
+        pend = _claim("clm-pppppp", None)
+        a = _claim(
+            "clm-aaaaaa",
+            0.95,
+            [
+                _edge("clm-aaaaaa", "clm-gggggg"),
+                _edge("clm-aaaaaa", "clm-pppppp"),
+            ],
+        )
+        sol = lib.compute_solidity([good, pend, a])
+        self.assertEqual(sol["clm-gggggg"], 0.60)  # the numeric dep is fine
+        self.assertNotIn("clm-aaaaaa", sol)        # but A is poisoned
+
+    def test_numeric_sibling_of_blocked_claim_still_scored(self):
+        # Pending-ness does not leak sideways: a numeric claim that does NOT
+        # depend on the pending one is still scored normally.
+        p = _claim("clm-pppppp", None)
+        blocked = _claim(
+            "clm-bbbbbb", 0.85, [_edge("clm-bbbbbb", "clm-pppppp")]
+        )
+        sibling = _claim("clm-ssssss", 0.70)
+        sol = lib.compute_solidity([p, blocked, sibling])
+        self.assertNotIn("clm-bbbbbb", sol)
+        self.assertEqual(sol["clm-ssssss"], 0.70)
+
+
+class TestComputeSolidityRealKB(unittest.TestCase):
+    """compute_solidity against the real KB: known-entry correctness."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.sol = lib.compute_solidity(cls.state.claim_entries)
+
+    def test_real_kb_graph_is_acyclic(self):
+        # compute_solidity returning without raising == graph is a DAG.
+        self.assertIsInstance(self.sol, dict)
+
+    def test_known_entry_solidities(self):
+        # The Push-3 derived values for the drift-corrected entries.
+        self.assertEqual(self.sol["clm-0ktpcn"], 0.41)
+        self.assertEqual(self.sol["clm-2e9j97"], 0.24)
+        self.assertEqual(self.sol["clm-zi6t1e"], 0.29)
+        self.assertEqual(self.sol["clm-ibfyda"], 0.27)
+        self.assertEqual(self.sol["clm-m7qd0w"], 0.27)
+
+    def test_no_deps_entry_solidity_equals_confidence(self):
+        # clm-trf3bd has no entry-level dependencies → solidity == confidence.
+        trf = next(
+            e for e in self.state.claim_entries if e.id == "clm-trf3bd"
+        )
+        self.assertEqual(self.sol["clm-trf3bd"], trf.confidence)
+
+    def test_min_dependency_solidity_no_deps_is_none(self):
+        trf = next(
+            e for e in self.state.claim_entries if e.id == "clm-trf3bd"
+        )
+        self.assertIsNone(lib.min_dependency_solidity(trf, self.sol))
+
+    def test_min_dependency_solidity_picks_minimum(self):
+        # clm-2e9j97 depends on clm-0ktpcn (0.41) and clm-5xon03 (0.28).
+        e = next(e for e in self.state.claim_entries if e.id == "clm-2e9j97")
+        self.assertEqual(lib.min_dependency_solidity(e, self.sol), 0.28)
 
 
 if __name__ == "__main__":

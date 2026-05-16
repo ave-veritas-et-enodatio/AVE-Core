@@ -238,6 +238,110 @@ class TestCheckIndex(unittest.TestCase):
         self.assertIn("[claim-quality] Scanned", result.stdout)
         self.assertIn("canonical entries.", result.stdout)
 
+    def test_check_detects_stale_solidity_line(self):
+        """Hand-editing a solidity value fails the freshness check.
+
+        Mutates a real claim-quality.md solidity line, runs the verifier,
+        expects a refresh-fixable failure, then restores the file.
+        """
+        cq = _KB_ROOT / "common" / "claim-quality.md"
+        original = cq.read_bytes()
+        try:
+            text = original.decode("utf-8")
+            # clm-ibfyda's correct solidity is 0.27; inject 0.99.
+            stale = text.replace(
+                "- solidity: 0.27 (do not build on, rework needed) "
+                "[= 0.65 × 0.41]",
+                "- solidity: 0.99 (ok to build on) [= 0.65 × 0.41]",
+                1,
+            )
+            self.assertNotEqual(stale, text, "fixture solidity line not found")
+            cq.write_bytes(stale.encode("utf-8"))
+            result = _run_checker()
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("solidity freshness", result.stdout)
+            self.assertIn("clm-ibfyda", result.stdout)
+            self.assertIn("make refresh-kb-metadata", result.stdout)
+        finally:
+            cq.write_bytes(original)
+
+    def test_check_detects_stale_depends_on_annotation(self):
+        """A wrong (solidity X) annotation fails the freshness check."""
+        cq = _KB_ROOT / "claim-quality.md"
+        original = cq.read_bytes()
+        try:
+            text = original.decode("utf-8")
+            # clm-2e9j97 depends on clm-0ktpcn at solidity 0.41; inject 0.55.
+            stale = text.replace(
+                "clm-0ktpcn — Golden Torus α Derivation (solidity 0.41)",
+                "clm-0ktpcn — Golden Torus α Derivation (solidity 0.55)",
+                1,
+            )
+            self.assertNotEqual(stale, text, "fixture annotation not found")
+            cq.write_bytes(stale.encode("utf-8"))
+            result = _run_checker()
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("solidity freshness", result.stdout)
+            self.assertIn("clm-0ktpcn", result.stdout)
+        finally:
+            cq.write_bytes(original)
+
+    def test_solidity_cycle_check_function(self):
+        """check_solidity_cycle reports cycle members on a cyclic graph.
+
+        The real KB is acyclic, so this exercises the check directly with a
+        synthetic two-node cycle.
+        """
+        check = _load_checker_module()
+        lib = sys.modules["kb_index_lib"]
+
+        def mk(cid, deps):
+            return lib.ClaimEntry(
+                id=cid, title=cid, canonical_path="t/claim-quality.md",
+                canonical_anchor=cid, confidence=0.8, solidity=None,
+                build_status=None, rationale="", strengthen_by=(),
+                depends_on=tuple(
+                    lib.DependsOnEdge(cid, d, "claim", None, None) for d in deps
+                ),
+            )
+
+        cyclic = lib.KbState(
+            claim_entries=(mk("clm-aaaaaa", ["clm-bbbbbb"]),
+                           mk("clm-bbbbbb", ["clm-aaaaaa"])),
+            leaves=(), indexes=(), framework_nodes=(),
+        )
+        members = check.check_solidity_cycle(cyclic)
+        self.assertEqual(set(members), {"clm-aaaaaa", "clm-bbbbbb"})
+
+        acyclic = lib.KbState(
+            claim_entries=(mk("clm-aaaaaa", []),
+                           mk("clm-bbbbbb", ["clm-aaaaaa"])),
+            leaves=(), indexes=(), framework_nodes=(),
+        )
+        self.assertEqual(check.check_solidity_cycle(acyclic), [])
+
+    def test_real_kb_passes_cycle_check(self):
+        """The real KB's claim depends-on graph is acyclic."""
+        check = _load_checker_module()
+        lib = sys.modules["kb_index_lib"]
+        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        self.assertEqual(check.check_solidity_cycle(state), [])
+
+
+def _load_checker_module():
+    """Import check-claim-quality.py as a module (its name has a hyphen)."""
+    import importlib.util
+
+    if "_check_claim_quality_mod" in sys.modules:
+        return sys.modules["_check_claim_quality_mod"]
+    spec = importlib.util.spec_from_file_location(
+        "_check_claim_quality_mod", str(_CHECK_SCRIPT)
+    )
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["_check_claim_quality_mod"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
 
 if __name__ == "__main__":
     unittest.main()
