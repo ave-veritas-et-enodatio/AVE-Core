@@ -117,40 +117,21 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 | LLCP critical point: LDL (State I) vs HDL (State II) selected by local conditions at nucleation | Cosmic critical point: R-handed vs L-handed I4₁32 selected by cosmic angular momentum at nucleation |
 | Kirkwood-Frohlich $g = 1 + z\cos^2(\theta/2) f_I$ projects structural fraction $f_I$ onto macroscopic $\varepsilon$ ($z=4$ tetrahedral symmetry) | Analogous projection: chirality fraction $f_{R}$ projects onto macroscopic $G$ anisotropy via K4 coordination |
 
-### The mechanism
+### Open derivation work
 
-Ω_freeze is **strain-induced chirality texturing during the K4 crystallization phase change**. The analog is precisely **magnetic field annealing of a ferromagnet through the Curie point** — the field at the critical transition sets the easy-axis orientation that locks into the ordered ground state. For the substrate:
+The mechanism class is established (strain-induced ordering during a substrate phase change with the same Axiom-4 yield boundary that governs water). The specific formalism is open and needs material-science-literate work, including:
 
-- **Order parameter**: I4₁32 right-handedness (η, binary R vs L)
-- **Applied stress**: cosmic angular momentum $L_{\text{cosmic}}$ (from parent BH)
-- **Coupling**: chiral-rotational coupling $\chi_{\text{chir}}$ (substrate analog of magneto-elastic coupling)
-- **Critical threshold**: $r_{\text{crit}} = \sqrt{2\alpha}$ (Axiom 4 kernel, same value as water)
+- **Closest materials-science analog**: candidates include ferromagnetic Curie field-cooling, chiral nematic LC alignment, multiferroic magneto-elastic coupling, spin-glass field-freezing. Each implies a different order-parameter structure and a different Landau free-energy form. The substrate's actual order-parameter symmetry (read off Axiom 1) determines which analog applies.
+- **Coupling-constant derivation**: the substrate chirality-stress coupling has potential substrate-level grounding via the $K_4 \to A_4 \to 2T \subset SU(2)$ chain plus the Cosserat micropolar tensor (per [Q-G47 substrate-scale closure leaf](q-g47-substrate-scale-cosserat-closure.md)) — needs to be made explicit.
+- **Texture projection onto macroscopic G**: the cosmic-scale analog of water-anomaly's Kirkwood-Frohlich projection of $f_I$ onto $\varepsilon$ — but $G$ is longitudinal-acoustic, not transverse-EM, so the angular factor / coordination number may not transfer cleanly.
+- **Engine**: cosmic-scale analog of `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` (already in `regime_1_linear/hexagonal_lattice.py` per water-anomaly leaf). The water-anomaly leaf notes the 3D structural melting grid is NP-Hard — cooperative-LC tracking is the natural approach at any scale.
+- **Empirical anchor**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ direction; JPL planetary-ephemerides at $10^{-11}$ precision. The Nilsson 2026 X-ray LLCP measurement is the laboratory-scale empirical proof-of-concept that the two-state LC partition IS observable; the cosmic-scale instance should produce an analogous orientation signature.
 
-Landau-style free energy near the critical point:
-$$F = F_0(\eta) + \chi_{\text{chir}}\, \eta\, L_{\text{cosmic}} + \kappa L_{\text{cosmic}}^2 + \ldots$$
-
-The resulting macroscopic $G$ anisotropy follows from standard texture analysis (March-Dollase pole figures or equivalent), applied to the projection:
-$$G(\hat{n}) = G_{\text{iso}} \left[ 1 + \chi_{\text{chir}} \cdot \cos^2(\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}}/2) \cdot f_R \right]$$
-
-where $f_R$ is the R-handed chirality fraction (cosmic-scale analog of water's structural fraction $f_I$).
-
-### Derivation path
-
-1. **Identify the closest materials-science analog precisely** (most likely ferromagnetic Curie field-cooling; alternatives: chiral nematic LC alignment, multiferroic ME coupling, spin-glass field freezing). Read the substrate's order-parameter structure off Axiom 1.
-
-2. **Write the Landau free energy** with chirality-angular-momentum coupling. The coupling constant $\chi_{\text{chir}}$ has a substrate-level derivation from $K_4 \to A_4 \to 2T \subset SU(2)$ chain plus Cosserat micropolar tensor (already in Q-G47 substrate-scale closure leaf).
-
-3. **Apply texture analysis** (Kirkwood-Frohlich-style projection at cosmic scale) to compute $\Delta G/G$ as a function of $f_R$ and $\hat{\Omega}_{\text{freeze}}$ direction.
-
-4. **Engine**: cosmic-scale analog of `CooperativeHexagonalLattice.evaluate_structural_fraction(T)` (already in `regime_1_linear/hexagonal_lattice.py` per water-anomaly leaf). The water-anomaly leaf explicitly notes: *"infinite 3D structural melting grids are computationally NP-Hard"* — same complexity at cosmic scale; cooperative-LC tracking is the right approach.
-
-5. **Empirical anchor**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ direction, plus JPL planetary-ephemerides at $10^{-11}$ precision. The Nilsson 2026 X-ray LLCP measurement is the laboratory-scale empirical proof-of-concept that the two-state LC partition IS observable; the cosmic-scale instance should produce the analogous orientation signature.
+Scope is genuinely TBD pending the analog choice + coupling derivation.
 
 ### What was abandoned (2026-05-16)
 
-Earlier framings of this leaf's §6 posited three exotic cosmic mechanisms — bipartite K4 sublattice averaging, Cosserat micropolar activation, particle-level $(2,q)$ trefoil cosmic averaging — and asked which sets the $\Delta G/G$ order. These were unmoored from established materials physics. The honest answer: this is standard strain-induced texturing during phase change, with the same Axiom-4 yield boundary that already governs water. The derivation reduces to applying Kirkwood-Frohlich-style projection at cosmic scale to the K4 chirality order parameter.
-
-**Estimated scope**: ~1 focused session for the Landau expansion + texture-analysis projection (rather than the multi-week scoping of the abandoned three-mechanism approach).
+Earlier framings of this leaf's §6 posited three exotic cosmic mechanisms — bipartite K4 sublattice averaging, Cosserat micropolar activation, particle-level $(2,q)$ trefoil cosmic averaging — and asked which sets the $\Delta G/G$ order. Per Grant, these were unmoored from established materials physics; the honest framework is standard strain-induced ordering during phase change, with the same Axiom-4 yield boundary that already governs water. The specific Landau formalism + materials-science analog choice are still open.
 
 ## §7 — Cross-references
 
