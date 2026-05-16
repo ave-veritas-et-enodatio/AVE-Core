@@ -17,6 +17,36 @@ Boltzmann fluid hacks. Instead, it strictly tiles 4-port LC junctions
    Lense-Thirring via Op14 non-reciprocal impedance gradients.
 
 All constants derived correctly from `ave.core.constants`.
+
+Q-G47 SUBSTRATE-SCALE CLOSURE (Sessions 9-18, 2026-05-15 evening):
+The K4 lattice + magic-angle operating point IS the substrate-scale instance
+of A-034 (Universal Saturation-Kernel Strain-Snap Mechanism). The magic-
+angle equation K(u_0*) = 2 G(u_0*) IS the substrate-scale expression of
+S(A*) = 0 — i.e., the K4 lattice is "frozen at the saturation boundary"
+where the substrate's linear response capacity vanishes and topological
+reorganization (bound-state soliton stabilization) occurs.
+
+Key results:
+  - χ_K = 12 (K4 path-count multiplicity = |T| proper-rotation orbit size)
+  - χ_G = 3 (T_t translational triplet dimension)
+  - ℓ_c/ℓ_node ≈ √6 (Cosserat characteristic length / lattice spacing)
+  - ξ_K2/ξ_K1 = 12 (axiom-level Cosserat moduli ratio, K4-symmetry-forced)
+
+CONTINUOUS-SPRINGS FRAMING (per Grant 2026-05-15 evening): the discrete-bond
+K4 lattice is a DISCRETIZATION of the continuous Cosserat micropolar field
+(Axiom 1). Discrete bond stiffnesses (k_axial, k_θ) are samplings of the
+continuous constitutive tensor (μ + κ, β + γ). The "bonds" between K4 nodes
+are visualizations of the continuous stress field, not physical springs.
+
+NAMESPACE CAVEAT: The "ξ" symbol used by Vol 3 Ch 1 for the Machian
+impedance integral (ξ = 4π(R_H/ℓ_node)α⁻², magnitude ~10⁴³) is DISTINCT
+from ξ_K1, ξ_K2 used at substrate scale here (Cosserat prefactors, O(1)).
+Different scopes, same letter; explicitly disambiguated in
+`manuscript/ave-kb/common/xi-topo-traceability.md`.
+
+See: research/L5/axiom_derivation_status.md (A-032, A-034);
+AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md (substrate-
+scale derivation chain).
 """
 
 from __future__ import annotations
