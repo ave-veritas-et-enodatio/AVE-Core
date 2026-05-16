@@ -108,7 +108,7 @@ Table~the main text consolidates the six identities into a single reference dict
 \subsection{Substrate-Native Vocabulary --- Three-Column Rosetta-Stone Extension}
 \label{sec:rosetta_stone_3col}
 
-\textbf{Added per E-094 (Grant adjudication 2026-05-14 evening, structural-closure
+\textbf{Substrate-native vocabulary convention (canonical 2026-05-14, structural-closure
 propagation 2026-05-15).} The translation dictionary above maps EE projection
 quantities to ME projections. AVE-QED's universal substrate vocabulary
 (canonical at AVE-QED \texttt{appendices/G\_substrate\_vocabulary.tex}; locked
@@ -131,7 +131,7 @@ Node & circuit node & lattice point &
   Default: substrate-vocabulary. The K4 4-port tetrahedral active site. \\
 \hline
 Bond & transmission line & spring &
-  Default: bond. \emph{Spring} acceptable when invoking Q-G47 buckling pedagogy. \\
+  Default: bond. \emph{Spring} acceptable when invoking the substrate-scale Cosserat micropolar pedagogy (Vol 1 Ch~\ref{ch:macroscopic_moduli}). \\
 \hline
 State & voltage / $V_{\text{inc}}$ & force / displacement &
   Default: substrate. Specify projection when math is probe-coupled. \\
@@ -167,11 +167,12 @@ Machian & (no clean analog) & (no clean analog) & Use freely; relational substra
 \end{center}
 
 \paragraph{The three substrate boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
-(Grant Q1-locked 2026-05-14 evening).} These three integers/half-integer are the
+(canonical 2026-05-14 evening).} These three integers/half-integer are the
 only externally observable invariants at any local $\Gamma = -1$ boundary
-(substrate-observability rule canonical per A-026, A-028). This is the no-hair
-theorem applied at every scale: from outside a BH, observers see $M, Q, J$; from
-outside an electron, observers see $m_e, e, \hbar/2$. Same structure, scale-invariant.
+(substrate-observability rule, Common Foreword $\S$``Three Boundary Observables
+and the Substrate-Observability Rule''). This is the no-hair theorem applied at
+every scale: from outside a BH, observers see $M, Q, J$; from outside an electron,
+observers see $m_e, e, \hbar/2$. Same structure, scale-invariant.
 
 \begin{center}\small
 \begin{tabular}{|p{1.3cm}|p{4.5cm}|p{6cm}|}
@@ -188,27 +189,25 @@ $\mathcal{J}$ & Boundary winding number & $\mathrm{Wind}(\partial\Omega)$; half-
 \end{center}
 
 \textbf{Engine implementation:} \texttt{src/ave/core/boundary\_invariants.py}
-(13/13 tests PASS per E-101) provides reference implementations:
-\texttt{compute\_M}, \texttt{compute\_Q}, \texttt{compute\_J} for scalar substrate
-fields (e.g., from MasterEquationFDTD).
+(13/13 tests PASS) provides reference implementations: \texttt{compute\_M},
+\texttt{compute\_Q}, \texttt{compute\_J} for scalar substrate fields
+(e.g., from MasterEquationFDTD).
 
 \textbf{Cross-references:}
 \begin{itemize}\itemsep 0pt
-\item \textbf{Canonical picture-first reference:} the
-  \texttt{trampoline-framework.md} KB doc (ground-up build + three
-  storage modes + substrate-observability rule + multi-scale boundaries)
-\item \textbf{Cosmic-scale application (A-031, 2026-05-15 evening):}
+\item \textbf{Canonical statement:} Common Foreword $\S$``Three Boundary
+  Observables and the Substrate-Observability Rule'' --- formal definitions,
+  same-mechanism-at-all-scales claim, how to analyze any boundary in AVE.
+\item \textbf{Cosmic-scale application:}
   $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$
-  encodes the cosmological initial condition (Vol~3 Ch~4 \S{}sec:cosmic\_J\_as\_IC)
-\item \textbf{Formal upstream:} AVE-QED \texttt{appendices/G\_substrate\_vocabulary.tex}
-  \S{}4 (canonical definitions); \texttt{docs/glossary.md} \S{}5m (14-row vocab table)
-\item \textbf{L5 status:} A-026 (substrate-observability rule), A-028 (three
-  substrate invariants canonical names), A-029 (shared-spring inter-cell coupling),
-  A-031 (cosmic-$\mathcal{J}$ as IC; refined per A-034 2026-05-15 evening:
-  ``God's Hand'' decoupled into cosmic-parameter horizon vs observable mechanism),
-  \textbf{A-034} (Universal Saturation-Kernel Strain-Snap Mechanism, 19-instance
-  cross-scale catalog spanning 21 orders of magnitude; see Vol~0 backmatter);
-  E-094 / E-101 (this implementation)
+  encodes the cosmological initial condition (Vol~3 Ch~4 \S\ref{sec:tki_strain_snap}).
+\item \textbf{Substrate vocabulary table:} \texttt{docs/glossary.md} (canonical
+  substrate-native / EE / ME projection table).
+\item \textbf{Universal Saturation-Kernel Catalog:} Backmatter
+  Ch~\ref{app:universal_saturation_kernel} --- the A-034 catalog refines the
+  cosmic-mechanism horizon (``God's Hand'') into a cosmic-parameter horizon vs.
+  observable mechanism; the saturation-kernel mechanism IS observable at four
+  smaller scales (BCS, NOAA solar flares, BH ring-down, Schwarzschild exact).
 \end{itemize}
 
 \subsection{Self-Consistency Verification}

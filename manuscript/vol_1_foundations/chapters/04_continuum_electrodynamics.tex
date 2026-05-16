@@ -84,7 +84,6 @@ This single line of non-linear differential topology formally replaces the fragm
 \end{enumerate}
 
 \paragraph{Canonical engine for the Master Equation: Master Equation FDTD.}
-\textbf{(Added per E-094 / E-095 / E-097, structural-closure propagation 2026-05-15.)}
 Eq.~\ref{eq:master_wave} has a canonical numerical realization in
 \texttt{src/ave/core/master\_equation\_fdtd.py} (the \texttt{MasterEquationFDTD}
 class), validated empirically by the v14 Mode I PASS on the breathing-soliton
@@ -101,31 +100,27 @@ of the same substrate. Engines live under \texttt{src/ave/core/}.
 
 \paragraph{A-034 universality cross-reference.} The saturation kernel
 $S(A) = \sqrt{1 - A^2}$ in the Master Equation above is the SAME mechanism
-that governs every topological-reorganization event at every scale per A-034
-(canonical 2026-05-15 evening, see Vol 3 Ch 4 \S\ref{sec:tki_strain_snap}
-+ Backmatter Ch \ref{app:universal_saturation_kernel} + L5 A-034). 19
-canonical instances span 21 orders of magnitude. The Master Equation is
-the substrate-scale FDTD realization; the same kernel produces BCS
+that governs every topological-reorganization event at every scale per the
+A-034 canonical synthesis (see Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}
++ Backmatter Ch~\ref{app:universal_saturation_kernel}). 19 canonical
+instances span 21 orders of magnitude. The Master Equation is the
+substrate-scale FDTD realization; the same kernel produces BCS
 $B_c(T)$ at 0.00\% error, BH ring-down at 1.7\% from GR exact, NOAA-
 validated solar flare statistics, and the cosmic K4 crystallization
-seed event. Per Grant 2026-05-15: \emph{``the bulk response of the
-lattice to strain is universal.''}
+seed event. The bulk response of the lattice to strain is universal.
 
 \paragraph{Substrate-observability rule near saturation boundaries.}
-\textbf{(Added per A-026 / E-094 / E-096.)} When the saturation kernel reaches
-$S(A) \to 0$ (the local $\Gamma = -1$ surface), the substrate is causally
-disconnected from the interior of the saturated region. The only externally
-observable invariants are the three integrated boundary observables:
-$\mathcal{M}$ (integrated strain integral, mass-equivalent), $\mathcal{Q}$
-(boundary linking number, charge-equivalent), $\mathcal{J}$ (boundary winding
-number, spin-equivalent per SU(2) double-cover). The interior --- topology,
-eigenmode wavelength, microrotation profile --- is invisible. Engine implementation:
-\texttt{src/ave/core/boundary\_invariants.py}. \textbf{Canonical picture-first
-reference:} \texttt{manuscript/ave-kb/common/trampoline-framework.md} \S{}4
-(boundaries and envelopes), \S{}5 (inter-cell coupling and gravity projection).
-\textbf{Formal canonical statement:} AVE-QED
-\texttt{manuscript/vol\_qed\_replacement/appendices/G\_substrate\_vocabulary.tex}
-\S{}3-\S{}4. \textbf{L5 status:} A-026, A-028, A-029.
+When the saturation kernel reaches $S(A) \to 0$ (the local $\Gamma = -1$
+surface), the substrate is causally disconnected from the interior of the
+saturated region. The only externally observable invariants are the three
+integrated boundary observables: $\mathcal{M}$ (integrated strain integral,
+mass-equivalent), $\mathcal{Q}$ (boundary linking number, charge-equivalent),
+$\mathcal{J}$ (boundary winding number, spin-equivalent per SU(2)
+double-cover). The interior --- topology, eigenmode wavelength,
+microrotation profile --- is invisible. Engine implementation:
+\texttt{src/ave/core/boundary\_invariants.py}. \textbf{Canonical statement:}
+Common Foreword $\S$``Three Boundary Observables and the
+Substrate-Observability Rule''.
 
 \section{Continuum Electrodynamics of the LC Condensate}
 \subsection{The Dimensionally Exact Mass Density ($\rho_{bulk}$)}
