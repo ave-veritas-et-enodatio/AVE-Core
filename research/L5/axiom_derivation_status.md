@@ -667,6 +667,12 @@ If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symme
 
 **T vs T_d ambiguity** (flagged by corpus-grep): A-032 uses T (proper rotations, |T| = 12). A-033 uses T_d (with reflections, |T_d| = 24). Per doc 22 §5 (`22_step1_k4_rotation_action.md:146-149`): *"if we restrict to rotations only (T = A_4), A and B sublattices are preserved separately. To get an A↔B SWAP (needed for the bipartite-spinor argument), we need to include reflections (full T_d = S_4)."* The chirality lock at lattice genesis breaks T_d down to T (proper rotations only), which is the canonical group for the chiral substrate. A-032's |T| = 12 reading is the CORRECT group for the Cosserat K-sector coupling (chiral). Session 7 should explicitly state this in the derivation.
 
+**Session 7 status migration (2026-05-15 evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session7_T_irrep_structure.md`):**
+- ✓ T vs T_d ambiguity RESOLVED: T (proper rotations) canonical for chiral substrate per chirality-lock argument (Session 7 §2.1)
+- ✓ A-032's $\chi_K = 12$ via |T| reading confirmed correct group choice
+- ⚠ Cosserat $\mu_c$ derivation for K4 + per-path $\gamma_{\text{per-path}}$ still pending Session 8+
+- Status: structural-hypothesis with T-group choice canonical; pending Session 8 $\mu_c$ derivation
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
@@ -767,6 +773,17 @@ Per Session 5 §3 (cross-ref):
 - T vs T_d ambiguity resolution (~0.5 session, framework-level reading)
 
 **Revised estimate:** ~3-5 sessions instead of the original 5 (Sessions 7-10 plan). Each session focused on one bounded analytical task.
+
+**Session 7 LANDED 2026-05-15 evening** (`AVE-QED/docs/analysis/2026-05-15_Q-G47_session7_T_irrep_structure.md`):
+- ✓ T proper-rotation irrep structure complete (A, E, T with dims 1, 2, 3 over R; 4 complex irreps with dims 1,1,1,3 over C)
+- ✓ T_d → T branching rules explicit (A_1, A_2 → A; E → E; T_1, T_2 → T)
+- ✓ T vs T_d ambiguity RESOLVED (T canonical for chiral substrate; A-032 ✓ uses correct group)
+- ✓ Structural argument for electron in $E \otimes T = T \oplus T$ phase-space (6-dim, matches (2,3) torus knot $C_2 \times C_3$ structure)
+- ✓ Photon = T irrep alone under T (recovers doc 30 anchor)
+- ✓ **VERIFICATION TARGET #10 CLOSED: 7-mode bubble = $T \oplus T \oplus A$** (dim 3+3+1=7); electron's $E \otimes T = T \oplus T$ uses 2 of the 7 modes; breathing-soliton bound state per doc 113 uses A irrep alone
+- ⚠ α irrep mapping PARTIAL (2 of 3 terms verified: $\Lambda_{\text{vol}}$ matches $A \oplus T$ coefficient 4 = 1+3; $\Lambda_{\text{line}}$ matches A coefficient 1; $\Lambda_{\text{surf}} = \pi^2$ coefficient 1 vs expected dim(E)=2 — needs spin-1/2 half-cover factor reconciliation)
+- ⚠ Rigorous K4 bound-state mode occupancy still pending Session 8+
+- Status: structural-hypothesis substantially advanced; pending Session 8+ rigorous K4 bound-state derivation for full closure
 
 ### A-033.6 Implications if confirmed
 
