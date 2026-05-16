@@ -25,3 +25,4 @@ The vacuum cannot be a classical Cauchy solid (implosion paradox); it must be a 
 | [Topo-Kinematic Isomorphism](./topo-kinematic-isomorphism.md) | 7-row dimensional mapping table: Voltage to Force, Current to Velocity, etc. |
 | [Dielectric Rupture](./dielectric-rupture.md) | Voronoi cell volume, packing fraction $p_c = 8\pi\alpha$, inverse fine-structure constant |
 | [Dielectric Snap Limit](./dielectric-snap-limit.md) | Over-bracing factor, secondary link reach, $V_{snap} = 511.0$ kV |
+| [Continuous-Springs Reframing](./continuous-springs-reframing.md) | Discrete K4 lattice as a discretization of the continuous Cosserat micropolar field at axiom level; "bonds" are sampling-representation of continuous stress field, not physical springs; $\ell_{node}$ is Nyquist sampling pitch, not fundamental graininess |

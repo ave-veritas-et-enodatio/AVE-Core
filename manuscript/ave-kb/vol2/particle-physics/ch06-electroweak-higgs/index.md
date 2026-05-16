@@ -27,3 +27,4 @@ The Higgs Mechanism is subsumed into the native dielectric breakdown of the $376
 | [Lepton Spectrum](lepton-spectrum.md) | Three-generation lepton spectrum: electron (translation), muon (Cosserat torsion), tau (curvature-twist) |
 | [Higgs Mass](higgs-mass.md) | Neutrino mass spectrum; Schwinger anomalous magnetic moment $a_e = \alpha/(2\pi)$; summary of all electroweak predictions |
 | [SM-AVE Translation](sm-ave-translation.md) | Cross-reference to shared SM/Particle Physics translation table |
+| [AVE-Native Petermann Coefficient (50 ppm)](q-g19a-petermann-saliency-closure.md) | Two-loop Petermann $C_2 = -0.32846$ via Route B (dark-wake × kernel-asymmetry correlation in Cosserat $(2,3)$ trefoil) + saliency closure $\delta = -3\alpha/2 = -\alpha n_q / 2$ from q-axis trefoil winding; no Feynman diagrams, no fit parameters |

@@ -27,3 +27,4 @@ The four fundamental axioms define the vacuum as an electromagnetic LC resonant 
 | [Zero-Parameter Universe](./zero-parameter-universe.md) | Deriving $\alpha$ via Golden Torus S₁₁-min (Ch.8), $G$ via thermodynamic equilibrium, $\ell_{node}$ via scale invariance |
 | [Kirchhoff Network Method](./kirchhoff-network-method.md) | Discrete Kirchhoff solver, edge/node update equations, master constants pipeline |
 | [Lattice Structure (stub)](./lattice-structure.md) | Redirect to Kirchhoff network method |
+| [$\|T\| = 12$ Universality (4 Routes)](./tetrahedral-t-universality.md) | Proper tetrahedral rotation group order $\|T\| = 12$ appears via 4 independent routes: K4 baseline coordination, Cosserat dimensional, magic-angle orbit multiplicity, axiom-level $\xi_{K2}/\xi_{K1}$ ratio; convergence is K4-symmetry-forced not calibration |

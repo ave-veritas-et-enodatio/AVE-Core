@@ -33,6 +33,7 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Nonlinear Vacuum Capacitance](nonlinear-vacuum-capacitance.md) | Metric varactor; vacuum memristor; thixotropic relaxation; skin depth |
 | [Z0 Derivation](z0-derivation.md) | Discrete LC ladder; $Z_0$ scale invariance; gravitational stealth; black hole echoes |
 | [Relativistic Inductor](relativistic-inductor.md) | Current-dependent inductance; $E = mc^2$ from inductor energy; SPICE enforcement of $c$ |
+| [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
 | [TVS Transition](tvs-transition.md) | Solid-to-slipstream phase transition as TVS Zener diode |
 | [Resonant LC Solitons](resonant-lc-solitons.md) | Particles as LC tanks; Virial theorem; total internal reflection; Pauli exclusion |
 | [Orbital Friction Paradox](orbital-friction-paradox.md) | Real vs. reactive power; lossless orbit as LC tank at $\theta = 90°$ |
