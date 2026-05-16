@@ -866,6 +866,38 @@ Grant flagged: **the springs in the trampoline analogy are continuous, not discr
 
 **Status migration**: A-032's $\chi_K = 12$ identification stays canonical (orbit-size / path-count invariant, symmetry-group result independent of discretization). The Sessions 12-15 discrete numerics survive as sanity-check support, properly read as discretized illustrations of the continuous-field framework, not independent physical regimes.
 
+**Session 16 continuous-field recasting committed (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session16_continuous_field_recasting.md`):**
+
+Formal Session 16 doc captures the continuous-field recasting in full:
+
+**The dictionary** (discrete ↔ continuous):
+| Discrete | Continuous |
+|---|---|
+| $k_a$ axial bond stiffness | $\mu + \kappa$ shear modulus sampled at bond |
+| $k_\theta$ bond-bending | $\beta + \gamma$ couple-stress sampled at bond |
+| $k_\theta/(k_a d^2)$ | $(\ell_c/d)^2$ from continuous constitutive tensor |
+| Keating ratio "free piece" | $(\ell_c/d)^2$ = determined by axioms + lattice geometry |
+
+**Load-bearing survives** the recasting:
+- Substrate IS continuous Cosserat micropolar (Axiom 1)
+- $\chi_K = (\ell_c/d)^2$ (Session 9)
+- $\chi_K = 12$ from |T|-orbit on K4 paths (A-032, symmetry-group invariant)
+- $\chi_G = 3$ from T_t triplet (Session 11)
+- $|T| = 12$ universality on K4 4×3 mode spaces (Session 13)
+
+**Discretization framings dissolve** in continuous reading:
+- "Central-force unstable, Cosserat stabilizes" → "substrate IS Cosserat from Axiom 1" (more direct)
+- "Keating ratio as remaining free piece" → ratio IS $(\ell_c/d)^2$, determined
+- "Three candidates: 0.15 vs 0.2 vs 1" → no free parameter to choose
+
+**Session 17 target** (replaces Session 15 §4.2 "Keating ratio determination"):
+1. Compute $\mu, \kappa, \beta, \gamma$ from axiom-level $T_{EM}, \ell_{\text{node}}, V_{\text{snap}}$
+2. Form $\ell_c = \sqrt{(\beta+\gamma)/[2(\mu+\kappa)]}$ in axiom-level quantities
+3. Verify $\ell_c/d \approx \sqrt{6}$ (gives $\chi_K = 12$ per Session 9 §3.3)
+4. Form magic-angle equation; verify $u_0^* \approx 0.187$ (A-029)
+
+**Framework is SIMPLER after Session 16**, not more complex. Sessions 12-15 discrete machinery retained as diagnostic infrastructure (`q_g47_session12-15_*.py` scripts reusable for numerical sanity checks against future analytical continuous-field results).
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
