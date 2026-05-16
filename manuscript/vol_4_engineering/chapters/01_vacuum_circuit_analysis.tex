@@ -194,9 +194,9 @@ fields (e.g., from MasterEquationFDTD).
 
 \textbf{Cross-references:}
 \begin{itemize}\itemsep 0pt
-\item \textbf{Canonical picture-first reference:}
-  \texttt{manuscript/ave-kb/common/trampoline-framework.md} (ground-up build +
-  three storage modes + substrate-observability rule + multi-scale boundaries)
+\item \textbf{Canonical picture-first reference:} the
+  \texttt{trampoline-framework.md} KB doc (ground-up build + three
+  storage modes + substrate-observability rule + multi-scale boundaries)
 \item \textbf{Cosmic-scale application (A-031, 2026-05-15 evening):}
   $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$
   encodes the cosmological initial condition (Vol~3 Ch~4 \S{}sec:cosmic\_J\_as\_IC)
@@ -303,9 +303,12 @@ Mutual inductance yields when the applied shear stress exceeds the structural th
 \end{resultbox}
 
 Below the yield voltage, the vacuum acts as a highly resistive solid---kinematically gripping embedded matter via inductive drag ($\eta_0 > 0$). Above $V_{yield}$, an avalanche dielectric transition annihilates the mutual inductance. The vacuum enters ideal frictionless flow ($\eta = 0$): the \textbf{Zero-Impedance Slipstream}. The yield stress evaluates from the bulk energy density and packing geometry:
-\begin{equation}
-    \tau_{yield} = \rho_{bulk}\, c^2 \times (6 \times \mathcal{V}_{crossing}) \times \frac{p_c}{8\pi} = \rho_{bulk}\, c^2 \times \mathcal{V}_{total} \times \alpha \approx 7.91 \times 10^{6} \times (3 \times 10^8)^2 \times 2.0 \times 0.00730 \approx 1.04 \times 10^{22}\ \text{Pa}
-\end{equation}
+\begin{align}
+    \tau_{yield} &= \rho_{bulk}\, c^2 \times (6 \times \mathcal{V}_{crossing}) \times \frac{p_c}{8\pi} \nonumber \\
+    &= \rho_{bulk}\, c^2 \times \mathcal{V}_{total} \times \alpha \nonumber \\
+    &\approx 7.91 \times 10^{6} \times (3 \times 10^8)^2 \times 2.0 \times 0.00730 \nonumber \\
+    &\approx 1.04 \times 10^{22}\ \text{Pa}
+\end{align}
 where $\mathcal{V}_{crossing} = V_{toroidal}/6 = 2.0/6$ is the per-crossing halo volume and $p_c/(8\pi) = \alpha \approx 1/137$ is the lattice porosity.
 
 \subsection{The Vacuum Memristor (Thixotropic Hysteresis)}
