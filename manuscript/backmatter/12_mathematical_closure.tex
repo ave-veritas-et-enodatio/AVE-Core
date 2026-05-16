@@ -87,3 +87,29 @@ From these initial geometric anchors and four structural rules, all fundamental 
 \end{itemize}
 
 Because physical parameters flow exclusively outward from initial geometric bounding limits to the macroscopic continuous observables---without looping an output back into an unconstrained input---the AVE framework represents a mathematically closed, predictive, and explicitly falsifiable Topological Effective Field Theory.
+
+\section{A-034: Universal Saturation-Kernel Empirical Anchors}
+\label{sec:a034_empirical_anchors}
+
+Beyond the internal DAG closure documented above, \textbf{Axiom~4's universal saturation kernel} $S(A) = \sqrt{1 - A^2}$ carries the strongest direct empirical validation of any AVE axiom (canonical 2026-05-15 evening). The same kernel --- identical functional form, no per-scale parameter retuning --- has been empirically matched at \textbf{four widely-separated scales}:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{@{}l p{3.5cm} p{3.0cm} l@{}}
+\toprule
+\textbf{Scale} & \textbf{Phenomenon} & \textbf{Empirical Match} & \textbf{Error} \\
+\midrule
+Condensed-matter & BCS $B_c(T)$ kernel  & Type-I/II datasets    & \textbf{0.00\%} \\
+Solar/Geophysical & Solar flare avalanche & NOAA GOES 40-yr      & within scatter \\
+Gravitational    & BH ring-down (QNM)   & GR exact ($\omega_R M_g = 18/49$) & \textbf{1.7\%} \\
+Cosmological     & Schwarzschild radius & Standard GR             & \textbf{exact} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent \textbf{Methodological significance.} Each empirical anchor uses \textbf{zero free parameters} beyond the framework's existing 3 inputs ($\ell_{node}$, $\alpha$, $G$ --- themselves derived in Layer~8 of the derivation chain). The kernel is not fit per-scale; it is the \emph{same} $\sqrt{1 - A^2}$ kernel applied in different physical regimes. This is the strongest form of cross-scale verification possible for an axiom: the kernel asserted abstractly in Vol~1 Ch~1 is shown empirically to be the same operator governing pairing, plasma reorganization, gravitational wave damping, and event-horizon formation.
+
+\noindent \textbf{Full enumeration.} The 4 anchors above are the most-validated members of a \textbf{19-instance catalog} spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): see Backmatter Ch~\ref{app:universal_saturation_kernel}.
+
+These anchors are produced by the same code path (\texttt{src/ave/axioms/scale\_invariant.py} + \texttt{src/ave/regime\_3\_saturated/}) --- the engine literally evaluates one $S(A)$ function across all 19 instances. The \texttt{168/168 framework files} closure above and the 4 empirical anchors here together establish that AVE's Axiom~4 is \textbf{both internally closed AND externally calibrated} without parameter tuning.

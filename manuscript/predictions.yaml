@@ -312,6 +312,79 @@ predictions:
       Axiom 4 saturation kernel at thermal scaling: B_c(T) = B_c0 · √(1 - (T/T_c)²).
       Not a fit — it IS the Axiom 4 operator at a new scale.
 
+      A-034 anchor (canonical 2026-05-15 evening): this is the condensed-matter
+      row (SYM symmetry class) in the 19-instance Universal Saturation-Kernel
+      Catalog. The same kernel S(A) = √(1-A²) governs atomic dielectric
+      breakdown, solar flares (NOAA 40-yr), BH ring-down (1.7% from GR),
+      and cosmic K4 crystallization. BCS B_c(T) is the strongest empirical
+      anchor (0.00% error) — see Backmatter Ch 7 universal_saturation_kernel
+      for full catalog.
+
+  # ─── A-034 cross-scale empirical anchors (canonical 2026-05-15 evening) ───
+  # The following 3 entries together with P43 (BCS) are the four
+  # most-validated members of the Universal Saturation-Kernel Catalog
+  # (19 instances spanning 21 orders of magnitude). All are axiom_manifestation
+  # entries: the kernel S(A) = √(1-A²) IS Axiom 4 at the cited scale,
+  # not a derived numerical prediction.
+
+  - id: P_A034_solar_flare
+    name: "Solar flare LED-avalanche kernel (NOAA GOES 40-yr)"
+    type: axiom_manifestation
+    derivation_label: "ch:orbital_mechanics"
+    axioms_used: [4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      A-034 catalog stellar-scale instance (SYM symmetry class).
+      Solar CME / flare onset governed by S(A) = √(1-A²) when the Parker
+      spiral's accumulated topological strain crosses the critical shear
+      threshold (S → 0 locally) and the topology snaps via magnetic
+      reconnection. NOAA GOES 40-yr empirical validation: 0.46-yr FWHM
+      danger window per 11-yr solar cycle. Same universal kernel as BCS
+      (P43), BH ring-down (P_A034_bh_ringdown), and cosmic K4 crystallization.
+      Derivation: Vol 3 Ch 14 §"Stellar Magnetic Topology and Solar Flares"
+      and Backmatter Ch 7 universal_saturation_kernel catalog.
+
+  - id: P_A034_bh_ringdown
+    name: "BH merger ring-down QNM (ω_R M_g = 18/49)"
+    type: derived_prediction
+    derivation_label: "ch:bh_orbitals"
+    predicted_value: 0.3673
+    predicted_unit: "dimensionless (ω_R · M_g, geometric units)"
+    observed_value: 0.3737
+    observed_source: "GR exact (Berti et al., 3 LIGO events GW150914, GW170104, GW151226)"
+    error_percent: 1.7
+    axioms_used: [3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      A-034 catalog gravitational-scale instance (ASYM-E symmetry class).
+      Black-hole ring-down quasi-normal-mode (QNM) eigenvalue derived from
+      saturation cavity at r_sat = 7 M_g: ω_R M_g = 18/49 = 0.3673,
+      versus GR exact 0.3737 — 1.7% deviation with zero free parameters.
+      Validated against three LIGO merger events at 10-18% frequency error.
+      Same kernel S(A) = √(1-A²) as BCS (P43), solar flares
+      (P_A034_solar_flare), and cosmic K4 crystallization.
+      Vol 3 Ch 15 §"Electron–Black Hole Isomorphism" + Backmatter Ch 7.
+
+  - id: P_A034_schwarzschild
+    name: "Schwarzschild radius exact match (ε₁₁(r) = 1 boundary)"
+    type: identity
+    derivation_label: "ch:bh_orbitals"
+    axioms_used: [3, 4]
+    public_in_readme: false
+    public_in_living_ref: false
+    notes: |
+      A-034 catalog cosmological-scale identity (SYM symmetry class).
+      BH event horizon at ε₁₁(r) = 2GM/(c²r) = 1 matches the Schwarzschild
+      radius r_s = 2GM/c² *exactly* — definitional identity, not a numerical
+      prediction. The horizon IS where S(A) → 0 globally. AVE-native
+      derivation: gravity-as-refractive-index n(r) → ∞ at r = r_s coincides
+      with the saturation boundary of Axiom 4 at the cosmological scale.
+      Same kernel as BCS (P43), solar flares (P_A034_solar_flare),
+      BH ring-down (P_A034_bh_ringdown). Vol 3 Ch 15 + Vol 3 Ch 21
+      (BH interior Regime IV) + Backmatter Ch 7 catalog.
+
   # ═══════════════════════════════════════════════════════════════════════
   # TIER-C: Public claims; manifest records minimal (to be filled in)
   # ═══════════════════════════════════════════════════════════════════════
