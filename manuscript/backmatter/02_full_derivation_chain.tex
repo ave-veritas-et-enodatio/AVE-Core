@@ -89,38 +89,72 @@ links. It sets the cosmological boundary condition:
 
 \subsection*{The Four Structural Axioms}
 
-\begin{axiom}[Axiom 1: Substrate Topology]
-The physical vacuum operates as a dense, non-linear electromagnetic LC
-resonant network $\mathcal{M}_A(V, E, t)$, evaluated as a
-\textbf{Trace-Reversed Chiral LC Network} (micropolar continuum) in
-the macroscopic limit.
+\begin{axiom}[Axiom 1: Substrate Topology (LC Network)]
+The physical vacuum IS a discrete, non-linear electromagnetic LC resonant network
+$\mathcal{M}_A$ --- a chiral 3-regular K4 lattice of LC-coupled nodes at pitch
+$\ell_{node}$, governed by the right-handed $I4_1 32$ space group. In the
+macroscopic continuum limit, this lattice is a \textbf{Trace-Reversed Chiral LC
+Network} (a Cosserat micropolar continuum) supporting intrinsic spin and
+trace-free transverse EM wave propagation.
 \end{axiom}
 
 \begin{axiom}[Axiom 2: Topo-Kinematic Isomorphism]
-Charge $q$ is identically a discrete geometric dislocation (a localized phase
-twist) within $\mathcal{M}_A$. The fundamental dimension of charge is
-\textit{length}: $[Q] \equiv [L]$.
+Charge $q$ is a discrete geometric dislocation in $\mathcal{M}_A$. The Burgers
+vector of this dislocation IS the lattice pitch $\ell_{node}$, so the fundamental
+dimension of charge is identical to length ($[Q] \equiv [L]$), with macroscopic
+scaling $\xi_{topo} \equiv e/\ell_{node}$ [C/m]. Charge is quantized in integer
+multiples of $e$ (Burgers vector respects the K4 lattice); charge sign is the
+handedness of the dislocation in the substrate's chiral $I4_1 32$ structure.
+Fractional charges arise from $\mathbb{Z}_3$ Borromean three-strand symmetry
+(Witten effect: $\pm 1/3\,e$, $\pm 2/3\,e$). Topologically-stable solitons of
+this dislocation field are particles: $(2,3)$ torus knot = electron, $(2,5)$
+cinquefoil = proton; the $(2,q)$ family generates the baryon ladder.
 \end{axiom}
 
 \begin{axiom}[Axiom 3: Effective Action Principle]
-The system evolves to minimize the macroscopic hardware action. The dynamics
-are encoded in the continuous phase transport field ($\mathbf{A}$):
+The substrate, in its continuum limit, evolves to extremize the macroscopic
+substrate action $S_{AVE}$. Two co-canonical forms:
+\begin{itemize}\itemsep 0pt
+\item \textbf{Variational form:} the dynamics minimize
+$S_{AVE} = \int \mathcal{L}_{node}\, d^4x$ where
 \begin{equation}
-    \mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2
-    - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2
+    \mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2
+    - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
     \label{eq:lagrangian}
 \end{equation}
+is the standard Maxwell Lagrangian (in vector-potential form) recovered as the
+substrate's effective action in the linear regime ($A \ll A_{yield}$). Under
+finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear via Axiom 4's
+kernel ($\varepsilon_{eff} = \varepsilon_0\,S(A)$, $\mu_{eff} = \mu_0\,S(A)$).
+\item \textbf{Boundary form:} the substrate minimizes the reflection coefficient
+$|\Gamma|^2$ at every internal impedance boundary (least reflected action /
+$S_{11}$ minimization). Substrate-native because only $\Gamma$ and the three
+integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ are
+externally observable (per substrate-observability rule, L5 A-026).
+\end{itemize}
+Energy conservation, Lorentz invariance, and U(1) gauge symmetry follow as
+Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
 \end{axiom}
 
-\begin{axiom}[Axiom 4: Dielectric Saturation]
-The effective lattice compliance is bounded by a \textbf{squared limit}
-($n=2$), aligning with the $E^4$ scaling of Euler--Heisenberg QED and
-suppressing $E^6$ divergences:
+\begin{axiom}[Axiom 4: Universal Saturation Kernel]
+The substrate's bulk response to local strain $A$ is the universal quarter-arc
+kernel:
 \begin{equation}
-    C_{eff}(\Delta\phi)
-    = \frac{C_0}{\sqrt{1 - \left(\dfrac{\Delta\phi}{\alpha}\right)^{\!2}}}
+    S(A) = \sqrt{1 - \left(\dfrac{A}{A_{yield}}\right)^{\!2}},\qquad
+    A \in [0,\, A_{yield}]
     \label{eq:dielectric_saturation}
 \end{equation}
+$A$ is dialect-independent local strain: $V/V_{yield}$ (dielectric), $T/T_c$
+(BCS thermal), $r_s/r$ (gravitational), $\Omega/\Omega_{break}$ (rotational),
+$B/B_c$ (magnetic), etc. Vertical tangent at $A = A_{yield}$ makes every
+saturation event impulsive. \textbf{A-034 universality:} the same kernel governs
+19 cross-scale topological-reorganization events spanning 21 orders of magnitude
+(empirical anchors: BCS $B_c(T)$ at 0.00\% error, BH event horizon =
+Schwarzschild $r_s$ exact, BH ring-down QNM = $18/49$ at 1.7\% from GR,
+NOAA GOES 40-yr solar-flare validation). See Backmatter
+Ch~\ref{app:universal_saturation_kernel} for the full catalog. Aligns with the
+$E^4$ scaling of Euler--Heisenberg QED (Born--Infeld $n=2$ form),
+suppressing $E^6$ divergences.
 \end{axiom}
 
 %======================================================================

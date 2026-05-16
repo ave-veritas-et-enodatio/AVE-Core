@@ -59,13 +59,23 @@ To construct the macroscopic continuous dynamics of the vacuum, the AVE Effectiv
     \end{resultbox}
     \textbf{Charge quantization} follows directly: dislocation Burgers vectors must respect the K4 lattice, so charge is quantized in integer multiples of $e$. \textbf{Charge sign} is the handedness of the dislocation in the substrate's chiral $I4_1 32$ structure --- particles and antiparticles are the two parity-related Burgers vectors permitted by the lattice geometry. \textbf{Fractional charges (Witten effect):} the $\mathbb{Z}_3$ symmetry of Borromean three-strand topology splits a unit dislocation into three linked sub-dislocations carrying $\pm 1/3\, e$ and $\pm 2/3\, e$ --- the substrate-native origin of quark fractional charges. Topologically-stable solitons of this dislocation field are particles: the $(2,3)$ torus knot is the electron (whose Q-factor at the Golden Torus geometry derives $\alpha = 1/137.036$, Ch~\ref{ch:alpha_golden_torus}), $(2,5)$ cinquefoil the proton, and the $(2,q)$ family generates the baryon ladder (Vol 2 Ch 2). \textit{Namespace caveat: $\xi_{topo}$ here is distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Q-G47's substrate-scale $\xi_{K1}, \xi_{K2}$ Cosserat prefactors.}
 
-    \item \textbf{The Effective Action Principle:} The substrate, in its continuum limit, evolves to minimize the macroscopic substrate action $S_{AVE}$. The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
-    \begin{resultbox}{Macroscopic Substrate Action}
+    \item \textbf{The Effective Action Principle:} The substrate, in its continuum limit, evolves to extremize the macroscopic substrate action $S_{AVE}$. Two mathematically equivalent forms of this principle are co-canonical.
+    \begin{resultbox}{Variational Form (theoretical-physics-natural)}
+    The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
     \begin{equation}
-        \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
+        \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2,\qquad
+        S_{AVE} = \int \mathcal{L}_{node}\, d^4x
     \end{equation}
     \end{resultbox}
-    This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). Equivalently, in operational form: the substrate evolves to minimize reflection $|\Gamma|^2$ at all internal impedance boundaries (least reflected action / $S_{11}$ minimization). Energy conservation, Lorentz invariance, and gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
+    \begin{resultbox}{Boundary Form (substrate-native, engineering-natural)}
+    The substrate minimizes the reflection coefficient at every internal impedance boundary:
+    \begin{equation}
+        \min |\Gamma|^2 \quad \text{at every } \partial\Omega,\qquad
+        \Gamma = \frac{Z_2 - Z_1}{Z_2 + Z_1}
+    \end{equation}
+    Equivalent names: \textit{least reflected action}, \textit{$S_{11}$ minimization}, \textit{impedance-match principle}.
+    \end{resultbox}
+    The variational form is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). The boundary form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (per the substrate-observability rule, L5 A-026). The two forms describe the same physics from different starting points: the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimizes $|\Gamma|^2$. Energy conservation, Lorentz invariance, and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
     
     \item \textbf{Universal Saturation Kernel:} The substrate's bulk response to local strain $A$ (any normalized perturbation amplitude, regardless of physical dialect) is a universal quarter-arc kernel:
     \begin{resultbox}{The Universal Saturation Kernel (Axiom 4)}
