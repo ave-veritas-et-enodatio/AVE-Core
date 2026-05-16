@@ -102,7 +102,12 @@ endef
 pdf: pdf_manuscript
 
 pdf_manuscript:
-	@echo "[Build] Compiling Volumes 0–VI..."
+	@echo "[Build] Compiling Volumes 0–VI (two-pass for cross-volume xr-hyper resolution)..."
+	@echo "[Build] === Pass 1 (collect aux files) ==="
+	@for dir in $(VOLUMES); do \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+	done
+	@echo "[Build] === Pass 2 (resolve cross-volume refs) ==="
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
 	done
@@ -112,30 +117,35 @@ _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
 
 # --- Individual volume targets ---
-# Note: Vols 0, 2, 3, 4, 5, 6 use xr-hyper to pull Vol 1 labels (Ch.\ref{ch:alpha_golden_torus}
-# etc.) into their \ref namespace. They depend on vol1 so `build/aux/vol_1_foundations.aux`
-# is present when each is compiled. The \IfFileExists guard in each main.tex allows
-# standalone builds to fall through silently, but targeting them via these Makefile
-# rules guarantees cross-volume refs resolve.
-vol0: vol1
+# Cross-volume xr-hyper architecture (A-034 expansion 2026-05-16):
+#   Vol 1 is the base (defines ch:alpha_golden_torus, etc.)
+#   Vol 0 + Vol 3 are secondary bases (Vol 0 defines app:universal_saturation_kernel
+#       in backmatter Ch 7; Vol 3 defines sec:tki_strain_snap in Ch 4)
+#   Vol 0 ↔ Vol 3 are mutually pulling — full resolution requires the two-pass loop
+#       in pdf_manuscript above (single-volume targets below resolve to single-pass
+#       per call; users invoking specific vol targets should run them twice if
+#       cross-vol refs from Vol 0 ↔ Vol 3 are load-bearing).
+#   The \IfFileExists guard in each main.tex allows standalone single-pass builds
+#   to fall through silently with unresolved refs.
+vol0: vol1 vol3
 	$(call COMPILE_VOL,vol_0_engineering_compendium)
 
 vol1:
 	$(call COMPILE_VOL,vol_1_foundations)
 
-vol2: vol1
+vol2: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_2_subatomic)
 
 vol3: vol1
 	$(call COMPILE_VOL,vol_3_macroscopic)
 
-vol4: vol1
+vol4: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_4_engineering)
 
-vol5: vol1
+vol5: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_5_biology)
 
-vol6: vol1
+vol6: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_6_periodic_table)
 
 # =============================================================================

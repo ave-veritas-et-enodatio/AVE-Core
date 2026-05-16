@@ -20,6 +20,16 @@
 }{%
     \typeout{[xr-hyper] vol_1_foundations.aux not found — cross-vol refs will be unresolved. Run `make vol1` first.}%
 }
+\IfFileExists{../../build/aux/vol_0_engineering_compendium.aux}{%
+    \externaldocument{../../build/aux/vol_0_engineering_compendium}%
+}{%
+    \typeout{[xr-hyper] vol_0_engineering_compendium.aux not found — Vol 0 backmatter refs (e.g. app:universal_saturation_kernel) will be unresolved. Run `make vol0` first.}%
+}
+\IfFileExists{../../build/aux/vol_3_macroscopic.aux}{%
+    \externaldocument{../../build/aux/vol_3_macroscopic}%
+}{%
+    \typeout{[xr-hyper] vol_3_macroscopic.aux not found — Vol 3 chapter refs (e.g. sec:tki_strain_snap) will be unresolved. Run `make vol3` first.}%
+}
 
 % =========================================
 % DOCUMENT STRUCTURE
@@ -31,7 +41,7 @@
 \frontmatter
 
 \input{frontmatter/00_title.tex}
-\input{../frontmatter/00_foreword_lean.tex}
+\input{../frontmatter/00_foreword.tex}
 
 \tableofcontents
 

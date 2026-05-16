@@ -12,10 +12,10 @@
 % Axiom 3 from Vol 1 Ch 1.
 %
 \begin{resultbox}{Axiom 3 — Effective Action Principle}
-The continuous system evolves strictly to minimize the macroscopic hardware action $S_{AVE}$. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
+The substrate, in its continuum limit, evolves to minimize the macroscopic substrate action $S_{AVE}$. The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
 \begin{equation}
     \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
     \label{eq:axiom3_lagrangian}
 \end{equation}
-The action principle minimizes $S_{AVE} = \int \mathcal{L}_{node}\, d^4x$ across the network. Equivalently, in operational form: the system evolves to minimize reflection $|\Gamma|^2$ at all internal impedance boundaries (least reflected action / S$_{11}$ minimization). Energy conservation, Lorentz invariance, and gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
+This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). The action principle minimizes $S_{AVE} = \int \mathcal{L}_{node}\, d^4x$ across the network. Equivalently, in operational form: the substrate evolves to minimize reflection $|\Gamma|^2$ at all internal impedance boundaries (least reflected action / $S_{11}$ minimization). Energy conservation, Lorentz invariance, and gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
 \end{resultbox}

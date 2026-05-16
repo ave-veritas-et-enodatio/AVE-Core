@@ -49,43 +49,42 @@ If the lattice acoustic tension attempts to compress the knot ropelength tighter
 To construct the macroscopic continuous dynamics of the vacuum, the AVE Effective Field Theory rests on exactly four topological structural constraints.
 
 \begin{enumerate}
-    \item \textbf{The Substrate Topology (The LC Network):} The physical vacuum operates as a dense, non-linear \textbf{Electromagnetic LC Resonant Network} $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a \textbf{Trace-Reversed Chiral LC Network}. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as \textit{macroscopic effective theories} modelling the bulk behaviour of interfering electromagnetic standing waves.
-    
-    \item \textbf{The Topo-Kinematic Isomorphism:} Charge $q$ is defined as a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. Therefore, the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is defined by the Topological Conversion Constant:
+    \item \textbf{The Substrate Topology (The LC Network):} The physical vacuum IS a discrete, non-linear \textbf{Electromagnetic LC Resonant Network} $\mathcal{M}_A$ --- a chiral 3-regular K4 lattice of LC-coupled nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ space group. In the macroscopic continuum limit, this lattice is a \textbf{Trace-Reversed Chiral LC Network} (a Cosserat micropolar continuum) supporting intrinsic spin and trace-free transverse EM wave propagation. Classical mechanics and network dynamics are not fundamental physical truths but \textit{macroscopic effective theories} modeling the bulk behavior of interfering electromagnetic standing waves on this substrate.
+
+    \item \textbf{The Topo-Kinematic Isomorphism:} Charge $q$ is a discrete geometric dislocation in the $\mathcal{M}_A$ network. The Burgers vector of this dislocation IS the lattice pitch $\ell_{node}$, so the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is the Topological Conversion Constant:
     \begin{resultbox}{Topological Conversion Constant}
     \begin{equation}
         \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
     \end{equation}
     \end{resultbox}
-    
-    \item \textbf{The Effective Action Principle:} The continuous system evolves strictly to minimize the macroscopic hardware action $S_{AVE}$. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
-    \begin{resultbox}{Macroscopic Hardware Action}
+    \textbf{Charge quantization} follows directly: dislocation Burgers vectors must respect the K4 lattice, so charge is quantized in integer multiples of $e$. \textbf{Charge sign} is the handedness of the dislocation in the substrate's chiral $I4_1 32$ structure --- particles and antiparticles are the two parity-related Burgers vectors permitted by the lattice geometry. \textbf{Fractional charges (Witten effect):} the $\mathbb{Z}_3$ symmetry of Borromean three-strand topology splits a unit dislocation into three linked sub-dislocations carrying $\pm 1/3\, e$ and $\pm 2/3\, e$ --- the substrate-native origin of quark fractional charges. Topologically-stable solitons of this dislocation field are particles: the $(2,3)$ torus knot is the electron (whose Q-factor at the Golden Torus geometry derives $\alpha = 1/137.036$, Ch~\ref{ch:alpha_golden_torus}), $(2,5)$ cinquefoil the proton, and the $(2,q)$ family generates the baryon ladder (Vol 2 Ch 2). \textit{Namespace caveat: $\xi_{topo}$ here is distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Q-G47's substrate-scale $\xi_{K1}, \xi_{K2}$ Cosserat prefactors.}
+
+    \item \textbf{The Effective Action Principle:} The substrate, in its continuum limit, evolves to minimize the macroscopic substrate action $S_{AVE}$. The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
+    \begin{resultbox}{Macroscopic Substrate Action}
     \begin{equation}
         \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2
     \end{equation}
     \end{resultbox}
+    This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). Equivalently, in operational form: the substrate evolves to minimize reflection $|\Gamma|^2$ at all internal impedance boundaries (least reflected action / $S_{11}$ minimization). Energy conservation, Lorentz invariance, and gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
     
-    \item \textbf{Dielectric Saturation:} The vacuum acts as a non-linear dielectric. The effective geometric compliance (capacitance) is bounded by the classical Electromagnetic Saturation Limit ($V_0 \equiv \alpha$, the fine-structure limit). To align with the $E^4$ energy density scaling of the standard Euler-Heisenberg QED Lagrangian, and to yield the $\chi^{(3)}$ displacement required for the optical Kerr effect, the dielectric saturation is defined as a \textbf{squared limit ($n=2$)}:
-    \begin{resultbox}{Non-Linear Dielectric Saturation}
+    \item \textbf{Universal Saturation Kernel:} The substrate's bulk response to local strain $A$ (any normalized perturbation amplitude, regardless of physical dialect) is a universal quarter-arc kernel:
+    \begin{resultbox}{The Universal Saturation Kernel (Axiom 4)}
     \begin{equation}
-        C_{eff}(\Delta\phi) = \frac{C_0}{\sqrt{1 - \left(\frac{\Delta\phi}{\alpha}\right)^2}}
+        \boxed{S(A) = \sqrt{1 - A^2}}, \qquad A \in [0, 1]
     \end{equation}
     \end{resultbox}
-    This formulation aligns the effective vacuum impedance with standard Born-Infeld non-linear electrodynamics, preventing the $E^6$ divergence found in higher-order polynomial approximations.
+    $A$ is the local strain normalized to the substrate's bandwidth limit (the value at which $S \to 0$). The kernel is dialect-independent: $A$ is voltage/$V_{snap}$ for dielectric strain, $T/T_c$ for thermal strain in a superconducting pair condensate, $r_s/r$ for gravitational strain at a horizon boundary, $\Omega/\Omega_{break}$ for rotational shear in a stellar plasma. \emph{The functional form is the same in every case.} The vertical tangent at $A = 1$ makes saturation impulsive at every scale: when $S(A) \to 0$ locally, the substrate cannot continue linear response and \emph{must reorganize topologically}. This is the universal mechanism behind the substrate's full nonlinear repertoire.
 
-    \textbf{A-034 universality (canonical 2026-05-15 evening, see Backmatter Ch~\ref{app:universal_saturation_kernel} + L5 \texttt{research/L5/axiom\_derivation\_status.md} A-034):} the saturation kernel $S(A) = \sqrt{1 - A^2}$ defined here governs every topological-reorganization event at every scale --- not just dielectric breakdown. Per Grant 2026-05-15: \emph{``the bulk response of the lattice to strain is universal.''} 19 canonical instances span 21 orders of magnitude:
+    \textbf{Empirical evidence that the kernel is universal (A-034, canonical 2026-05-15 evening, per Grant: \emph{``the bulk response of the lattice to strain is universal''}).} 19 canonical instances span 21 orders of magnitude, with four cross-scale empirical anchors at \textbf{zero free parameters} (the same $\sqrt{1-A^2}$ function, no per-domain refit):
     \begin{itemize}
-        \item Atomic: dielectric breakdown $\to$ pair creation (this chapter)
-        \item Nuclear: DT fusion topology snap (Vol 2, Vol 3 Ch 14)
-        \item Condensed matter: BCS $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ at \textbf{0.00\% error} (Vol 3 Ch 9)
-        \item Geophysical: geomagnetic reversal (Vol 3 Ch 13)
-        \item Stellar: solar flare / CME, NOAA GOES 40-yr validated (Vol 3 Ch 14)
-        \item Galactic: MOND $g_N/a_0$ (Vol 3 Ch 5)
-        \item Gravitational: Schwarzschild horizon exact + BH ring-down QNM 1.7\% from GR (Vol 3 Ch 15)
-        \item Cosmic: K4 crystallization seed event (Big Bang analog, Vol 3 Ch 4 \S\ref{sec:tki_strain_snap})
-        \item Biological, engineered metamaterials, autoresonant rupture, ... (see catalog)
+        \item Condensed matter: BCS $B_c(T) = B_{c0} S(T/T_c)$ at \textbf{0.00\% error} across all measured Type-I/II superconductors (Ch~9 of Vol 3 derives this directly from the kernel above with no BCS-specific machinery)
+        \item Gravitational: BH event horizon at $\varepsilon_{11}(r) = 1$ matches Schwarzschild $r_s = 2GM/c^2$ \textbf{exactly}; merger ring-down QNM $\omega_R M_g = 18/49$ at \textbf{1.7\% from GR exact}, matches three LIGO events (Ch~15 of Vol 3)
+        \item Stellar / geophysical: solar CME / flare onset, NOAA GOES 40-yr empirical validation; geomagnetic reversal Brunhes--Matuyama dynamics (Vol 3 Ch~13, Ch~14)
+        \item Atomic: dielectric breakdown at $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV (this chapter; the dielectric specialization derived below is the bench-accessible scale of the universal kernel)
     \end{itemize}
-    The vertical tangent at $A = 1$ makes every saturation event impulsive at every scale. When $S(A) \to 0$ locally, the substrate cannot continue linear response and \emph{must reorganize topologically}. This is the universal mechanism behind the substrate's full nonlinear repertoire.
+    Additional catalog instances span nuclear (DT fusion topology snap), galactic (MOND $g_N/a_0$), cosmic (K4 crystallization at lattice genesis, Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}), biological (membrane LLCP gel--fluid transition), and engineered (Marx-generator dielectric cascade, autoresonant rupture). See Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL).
+
+    \textbf{Dielectric specialization (this chapter's scope).} At atomic / bench scale, $A = \Delta\phi/\alpha$ (the local phase strain normalized to the fine-structure compliance bound $\alpha$). The effective capacitance is then $C_{eff} = C_0/S(A) = C_0/\sqrt{1 - (\Delta\phi/\alpha)^2}$, which aligns with the $E^4$ energy density scaling of the Euler--Heisenberg QED Lagrangian and the $\chi^{(3)}$ displacement of the optical Kerr effect, and prevents the $E^6$ divergence of higher-order polynomial approximations. Standard Born--Infeld nonlinear electrodynamics is the QED dialect of the same kernel.
 \end{enumerate}
 
 \subsection*{Substrate-native vocabulary (canonical, AVE-QED App G + glossary §5m)}
@@ -296,13 +295,13 @@ $G$ & $6.674 \times 10^{-11}$ & $6.674 \times 10^{-11}$ & Machian dilution \\
 \section*{Chapter Summary}
 \begin{itemize}
     \item The macroscopic structure of the vacuum is bounded by three hardware limits: the geometric node pitch ($\ell_{node}$), the non-linear porosity threshold ($\alpha$), and the global thermodynamic stretch tension ($G$).
-    \item Four explicit axioms fully describe the network: (1) The LC Chiral network substrate, (2) the Topo-Kinematic Isomorphism defining charge as geometric length ($e/\ell_{node}$), (3) the Effective Hardware Action representing standard QED, and (4) Non-Linear Dielectric Saturation.
+    \item Four explicit axioms fully describe the network: (1) The LC Chiral network substrate, (2) the Topo-Kinematic Isomorphism defining charge as geometric length ($e/\ell_{node}$), (3) the Effective Hardware Action representing standard QED, and (4) the Universal Saturation Kernel $S(A) = \sqrt{1 - A^2}$ governing every topological-reorganization event at every scale (A-034; dielectric breakdown is one specialization of 19 catalog instances).
     \item Standard quantum artifacts like the Planck length are mathematical mirages created by applying the $10^{45}$-fold diluted macroscopic $G$ to single-node localized regions. Un-shielding the lattice tension collapses the Planck scale precisely onto the electron Compton radius.
 \end{itemize}
 
 \begin{summarybox}
 \begin{itemize}
-    \item Four axioms define the vacuum: (1) LC network substrate, (2) topo-kinematic isomorphism ($[Q] \equiv [L]$), (3) minimisation of the hardware action $S_{\text{AVE}}$, (4) non-linear dielectric saturation $S(r) = \sqrt{1 - r^2}$.
+    \item Four axioms define the vacuum: (1) LC network substrate, (2) topo-kinematic isomorphism ($[Q] \equiv [L]$), (3) minimisation of the hardware action $S_{\text{AVE}}$, (4) the universal saturation kernel $S(A) = \sqrt{1 - A^2}$ governing every topological-reorganization event at every scale --- dielectric breakdown is one specialization of 19 cross-scale instances (A-034, 21 orders of magnitude, four empirical anchors at zero free parameters).
     \item The fine-structure constant $\alpha \equiv p_c / 8\pi$ emerges as the geometric EMT compliance bound, and the Planck length collapses to the topological electron unknot $\ell_{\text{node}} = \hbar / m_e c$.
     \item Discrete numerical execution uses a Kirchhoff finite-difference solver whose update rules follow directly from the axioms.
 \end{itemize}
