@@ -76,7 +76,7 @@ Example: **Autoresonant dielectric rupture** (Vol 4 Ch 15, AVE-Propulsion):
 
 - $N$ emitters phase-locked
 - Autoresonant feedback: drive frequency $\omega_{\text{drive}}(t)$ tracks lattice's instantaneous Duffing-softened resonance $\Omega_{\text{lattice}}(A^2(t))$
-- As $A^2 \to 1$: $\Omega_{\text{lattice}} \to 0$ ([Op14 local clock modulation](../../../circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md)); drive locks more tightly
+- As $A^2 \to 1$: $\Omega_{\text{lattice}} \to 0$ ([Op14 local clock modulation](../../circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md)); drive locks more tightly
 - **Exponential amplification near rupture**: $\text{SNR} \propto \exp(N \cdot \log Q)$ where $Q$ is the lock-quality factor
 
 **Pros**: Reaches Schwinger-fraction rupture conditions with practical laser intensities
