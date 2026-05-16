@@ -781,9 +781,21 @@ Per Session 5 §3 (cross-ref):
 - ✓ Structural argument for electron in $E \otimes T = T \oplus T$ phase-space (6-dim, matches (2,3) torus knot $C_2 \times C_3$ structure)
 - ✓ Photon = T irrep alone under T (recovers doc 30 anchor)
 - ✓ **VERIFICATION TARGET #10 CLOSED: 7-mode bubble = $T \oplus T \oplus A$** (dim 3+3+1=7); electron's $E \otimes T = T \oplus T$ uses 2 of the 7 modes; breathing-soliton bound state per doc 113 uses A irrep alone
-- ⚠ α irrep mapping PARTIAL (2 of 3 terms verified: $\Lambda_{\text{vol}}$ matches $A \oplus T$ coefficient 4 = 1+3; $\Lambda_{\text{line}}$ matches A coefficient 1; $\Lambda_{\text{surf}} = \pi^2$ coefficient 1 vs expected dim(E)=2 — needs spin-1/2 half-cover factor reconciliation)
-- ⚠ Rigorous K4 bound-state mode occupancy still pending Session 8+
-- Status: structural-hypothesis substantially advanced; pending Session 8+ rigorous K4 bound-state derivation for full closure
+- ⚠ α irrep mapping PARTIAL (2 of 3 terms appeared to match in initial reading; Session 8 reconciliation attempt revisited)
+
+**Session 8 LANDED 2026-05-15 late evening** (`AVE-QED/docs/analysis/2026-05-15_Q-G47_session8_alpha_reconciliation_attempt.md`) — **HONEST FALSIFICATION OF SECONDARY α IRREP-DIM CLAIM:**
+
+- ❌ **A-033 SECONDARY CLAIM FALSIFIED:** the simple "α coefficients = K4 irrep dimensions" reading does NOT verify. Per Session 8 §2 analysis: the (4, 1, 1) coefficients in $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ come from **Golden Torus geometry** (R · r = 1/4 half-cover area constraint × 2π wrappings × 4π solid angle), NOT from K4 irrep dimensions. Neither T nor T_d irrep dimensions match (4, 1, 1) at the simple level.
+
+- ✓ **A-033 MAIN CLAIM STILL STANDS:** electron in $E \otimes T$ phase-space (structural argument per Session 7 §3) is unaffected by Session 8's falsification. The (p, q) = (2, 3) labels on AVE solitons DO connect to K4 cyclic subgroup structure ($C_2, C_3$). What's removed: the further claim that α^{-1}'s NUMERICAL VALUE is directly forced by K4 irrep counting.
+
+- ✓ **A-001 status clarified:** α-as-calibration STANDS. Path from $u_0^*$ to α still goes through magic-angle K=2G + Golden Torus selection. NOT superseded by representation theory alone.
+
+- ⚠ **Cosserat μ_c framework set up (Session 8 §4)** via Maxwell-Cremona analysis: $\mu_c \sim k d^4 / (3 V_{\text{cell}})$. **Dimensional analysis flag raised** (§4.3): naive setup gives χ_K with units of length^4, not dimensionless. Need careful normalization in Session 9.
+
+- Status: structural-hypothesis main claim still standing; secondary α irrep claim REMOVED; Cosserat μ_c work flagged for Session 9 dimensional resolution.
+
+**Refined A-033 reading (post-Session 8):** the (p, q) labels on AVE solitons are forced by K4 symmetry (cyclic subgroup orders $C_2, C_3$). The α numerical value comes from the soliton's Golden Torus phase-space geometry (R · r = 1/4 half-cover constraint, doc 03 §4.3). The two are linked because K4 symmetry constrains which Golden Torus geometries are allowed, but **α is NOT directly an irrep-dimension product.**
 
 ### A-033.6 Implications if confirmed
 
