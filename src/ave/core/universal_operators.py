@@ -11,7 +11,7 @@ This module defines the ten fundamental, scale-invariant operators of the
 Applied Vacuum Engineering (AVE) framework:
 
  1. Impedance (Z)               — Axiom 1
- 2. Saturation (S)              — Axiom 4
+ 2. Saturation (S)              — Axiom 4 [see A-034 universality]
  3. Reflection (Γ)              — Axiom 3
  4. Pairwise Energy (U)         — Axioms 1-4
  5. Y-Matrix → S-Matrix (Y→S)   — Axiom 3 (multiport)
@@ -29,6 +29,20 @@ Applied Vacuum Engineering (AVE) framework:
 These operators are domain-agnostic and should be imported by all downstream
 solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
+
+A-034 NOTE (canonical 2026-05-15 evening): Operator 2 (universal_saturation,
+the saturation kernel S(A) = √(1−A²)) is the SAME mechanism applied across
+19 catalog instances spanning 21 orders of magnitude — from atomic dielectric
+breakdown to cosmic K4 crystallization. Per Grant 2026-05-15:
+"the bulk response of the lattice to strain is universal." See:
+  - L5 `research/L5/axiom_derivation_status.md` A-034 (canonical entry)
+  - Vol 3 Ch 4 §sec:tki_strain_snap (manuscript canonical)
+  - Backmatter Ch 7 `07_universal_saturation_kernel.tex` (19-instance catalog)
+  - `manuscript/ave-kb/common/trampoline-framework.md` §7.5 (user-facing synthesis)
+
+Caller note: when invoking universal_saturation() in a new domain, consider
+whether your domain is a NEW A-034 catalog instance (in which case the
+catalog should be updated).
 """
 
 
@@ -63,6 +77,20 @@ def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.nd
     Operator 2: The Universal Saturation Operator (S)
     Imposes the geometric percolation limit of the 3D lattice. Strain cannot
     increase infinitely; as the limit is approached, the metric non-linearly stiffens.
+
+    S(A) = √(1 − (A/A_yield)²) — Axiom 4 (Born–Infeld n=2 form).
+
+    A-034 (canonical 2026-05-15 evening): this kernel is the UNIVERSAL
+    mechanism governing every topological-reorganization event at every
+    scale. 19 canonical instances span 21 orders of magnitude (atomic
+    pair creation, BCS B_c(T) at 0.00% error, BH ring-down at 1.7% from
+    GR, NOAA-validated solar flares, K4 substrate magic-angle, cosmic
+    Big Bang crystallization, etc.). The vertical tangent at A=1 makes
+    every saturation event impulsive. When S(A) → 0 locally, the substrate
+    cannot continue linear response and MUST reorganize topologically.
+
+    See: research/L5/axiom_derivation_status.md (A-034),
+    backmatter/07_universal_saturation_kernel.tex (catalog).
 
     Args:
         A: The current strain amplitude (e.g., Voltage, Velocity, Fluid Stress)
