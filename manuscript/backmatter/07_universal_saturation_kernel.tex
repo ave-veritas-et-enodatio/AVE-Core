@@ -32,10 +32,7 @@ citation; the unification across rows is A-034's contribution.
 \textbf{Framework principle (Grant 2026-05-15 late evening):} \emph{``the
 bulk response of the lattice to strain is universal.''} Per Axiom~2 (TKI
 scale invariance), the substrate's bulk strain response is set by the
-same kernel $\sqrt{1-A^2}$ at every scale and in every domain. Expanded
-post-2026-05-15-evening cross-repo audit + Grant promotion direction
-(consolidating AVE-Bench-VacuumMirror Ch~2's independently-built
-catalog + 9 additional instances from sister-repo audit).
+same kernel $\sqrt{1-A^2}$ at every scale and in every domain.
 
 \textbf{3-way symmetry classification} per asymmetric-saturation
 exploration:
@@ -58,7 +55,7 @@ Atomic / EM & SYM & $V / V_{\text{snap}}$ & Dielectric breakdown $\to$ pair crea
 \hline
 Substrate (K4) & SYM & bond-bow / saturation & K4 lattice + soliton formation & Vol 1 Ch~\ref{ch:macroscopic_moduli} & substrate instance \\
 \hline
-Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ & AVE-Fusion Ch~1:20 & DT fusion canonical \\
+Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ & Vol 2 Ch 2 + Vol 3 Ch 14 & DT fusion canonical \\
 \hline
 Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$) & $T/T_c$ & Cooper-pair form; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & KB \texttt{ch09} leaf & \textbf{0.00\% error} \\
 \hline
@@ -91,9 +88,9 @@ Cosmic (Big Bang) & SYM* & parent-BH strain / 1 & K4 crystallization seed event 
 \hline
 \textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
 \hline
-Lipid bilayer membrane & SYM & strain / yield & Phase transition; cholesterol = engineered phase-buffer & AVE-Protein engine \\
+Lipid bilayer membrane & SYM & strain / yield & Phase transition; cholesterol = engineered phase-buffer holding membrane at $K = 2G$ yield & Vol 5 Ch 2 \\
 \hline
-Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap: $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & AVE-Protein Vol~3 Ch~3:509 \\
+Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap: $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ at $d_0$/$d$ near unity; native conformation is the kernel's eigenstate & Vol 5 Ch 2 (framework) \\
 \hline
 \end{tabular}
 \end{center}
@@ -107,15 +104,15 @@ Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap: $C_{\text{ef
 \hline
 \textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
 \hline
-PONDER-05 quartz & SYM & $V_{\text{DC}}/V_{\text{yield}} = 0.687$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at 30 kV bias & AVE-PONDER Vol~4 Ch~4:17 \\
+DC-biased piezoelectric (e.g., quartz) & SYM & $V_{\text{DC}}/V_{\text{yield}}$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at $V_{\text{DC}}/V_{\text{yield}} = 0.687$ (bench-measurable at $\sim$30 kV bias) & Vol 4 Ch 1 \\
 \hline
-AVE-Bench-VacuumMirror & SYM & $A_{\text{DC}}(\mathbf{r})$ field profile & $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path & Bench Ch~2 (proposed) \\
+Asymmetric-electrode vacuum-mirror bench & SYM & $A_{\text{DC}}(\mathbf{r})$ field profile & $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path; cross-polarized vacuum birefringence at $\sim 10^{12}$ departure from QED & Vol 4 Ch 11 \\
 \hline
-Active topological metamaterials & \textbf{ASYM-E} & $\phi / \phi_{\text{crit}}$ & Phase crystallization V$_I$; \textbf{asymmetric saturation variant} $K/G \neq 2$ --- designer-controllable decoupled $\varepsilon/\mu$ & AVE-Metamaterials Vol~1 Ch~2:71 + Ch~4 \\
+Active topological metamaterials & \textbf{ASYM-E} & $\phi / \phi_{\text{crit}}$ & Phase crystallization V$_I$; \textbf{asymmetric saturation variant} $K/G \neq 2$ --- designer-controllable decoupled $\varepsilon/\mu$ saturation & Vol 4 Ch 4 (framework) \\
 \hline
-Sine-Gordon kink memory (APU) & SYM & metric displacement / yield & $2\pi$ phase kink; integer topological charge & AVE-APU Vol~1 Ch~8:14 \\
+Sine-Gordon kink memory & SYM & metric displacement / yield & $2\pi$ phase kink with integer topological charge; substrate-native non-volatile memory primitive & Vol 4 Ch 1 (framework) \\
 \hline
-Autoresonant rupture (propulsion) & SYM & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture & AVE-Propulsion Vol~5 Ch~5:13 \\
+Autoresonant rupture & SYM & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture; coherent standing-wave amplification of the saturation kernel & Vol 4 Ch 15 \\
 \hline
 \end{tabular}
 \end{center}
@@ -285,7 +282,7 @@ Path prefix \texttt{AVE-Core/} is implicit throughout.
     rows unified): same date in the research directory. Explains why
     bench design uses many emitters (bulk-response = A-034 universal kernel
     measurement) and how single-emitter / multi-emitter / phased-array
-    PLL modes connect AVE-Bench-VacuumMirror, IVIM, YBCO phased array,
-    and Propulsion autoresonant rupture as the same engineered-kernel
-    architecture.
+    PLL modes connect single-emitter sharp-tip benches, multi-emitter
+    bulk-response benches (IVIM, YBCO phased array), and phased-array
+    PLL autoresonant rupture as the same engineered-kernel architecture.
 \end{itemize}

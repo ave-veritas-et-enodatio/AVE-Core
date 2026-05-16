@@ -9,7 +9,7 @@
 
 To construct the macroscopic continuous dynamics of the vacuum, the AVE Effective Field Theory rests on exactly four topological structural constraints.
 
-1. **The Substrate Topology (The LC Network):** The physical vacuum operates as a dense, non-linear **Electromagnetic LC Resonant Network** $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a **Trace-Reversed Chiral LC Network**. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as *macroscopic effective theories* modelling the bulk behaviour of interfering electromagnetic standing waves.
+1. **The Substrate Topology (Chiral Laves K4 Cosserat Crystal):** The physical vacuum IS a **chiral Laves K4 Cosserat crystal** $\mathcal{M}_A$ — a 3D crystallized substrate of micropolar nodes (Cosserat-type) at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ chiral space group with 4-fold K4 nearest-neighbor connectivity. Each node carries six intrinsic DOFs: three translational (capacitive $\varepsilon_0$ → E-field) and three microrotational (inductive $\mu_0$ → B-field). **The Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin** — macroscopic angular momentum, the EM magnetic field, and QM electron spin are three projections of the same per-node rotational coordinate. Every node is intrinsically an LC oscillator. In the macroscopic continuous limit, evaluated as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum) supporting trace-free transverse EM wave propagation. Classical mechanics and network dynamics are *macroscopic effective theories* modelling the bulk behaviour of interfering electromagnetic standing waves, not fundamental primitives. Legacy short name: *Chiral Laves K4 Crystal* / *LC Network*.
 
 2. **The Topo-Kinematic Isomorphism:** Charge $q$ is defined as a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. Therefore, the fundamental dimension of charge is identical to length ($[Q] \equiv [L]$). The macroscopic scaling is defined by the Topological Conversion Constant:
 
@@ -21,7 +21,7 @@ To construct the macroscopic continuous dynamics of the vacuum, the AVE Effectiv
 > \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
 > $$
 
-3. **The Effective Action Principle:** The continuous system evolves strictly to minimize the macroscopic hardware action $S_{AVE}$. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
+3. **The Minimum Reflection Principle:** The substrate minimizes the boundary reflection $|\Gamma|^2$ at every internal impedance boundary (substrate-native, names the externally-observable quantity); equivalently, the continuous system extremizes the macroscopic hardware action $S_{AVE}$. Two co-canonical forms (boundary + variational). Legacy name: *Effective Action Principle*. The dynamics are encoded entirely in the continuous phase transport field ($\mathbf{A}$):
 
 > **[Resultbox]** *Macroscopic Hardware Action*
 >

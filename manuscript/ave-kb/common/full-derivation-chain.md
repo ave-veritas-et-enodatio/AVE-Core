@@ -61,25 +61,35 @@ $$
 
 ### The Four Structural Axioms
 
-**Axiom 1: Substrate Topology.**
-The physical vacuum operates as a dense, non-linear electromagnetic LC
-resonant network $\mathcal{M}_A(V, E, t)$, evaluated as a
-**Trace-Reversed Chiral LC Network** (micropolar continuum) in
-the macroscopic limit.
+**Axiom 1: Substrate Topology (Chiral Laves K4 Cosserat Crystal).**
+The physical vacuum IS a **chiral Laves K4 Cosserat crystal**
+$\mathcal{M}_A$ — a 3D crystallized substrate with $I4_1 32$ chiral
+space-group symmetry. Each node is micropolar (Cosserat-type), carrying
+six intrinsic DOFs: three translational (→ E-field via $\varepsilon_0$)
+and three microrotational (→ B-field via $\mu_0$; this rotational DOF
+IS the substrate-native origin of intrinsic spin). Nodes act as
+intrinsic LC oscillators. In the macroscopic continuum limit, evaluated
+as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum).
+Legacy short name: *Chiral Laves K4 Crystal*.
 
 **Axiom 2: Topo-Kinematic Isomorphism.**
 Charge $q$ is identically a discrete geometric dislocation (a localized phase
 twist) within $\mathcal{M}_A$. The fundamental dimension of charge is
 *length*: $[Q] \equiv [L]$.
 
-**Axiom 3: Effective Action Principle.**
-The system evolves to minimize the macroscopic hardware action. The dynamics
-are encoded in the continuous phase transport field ($\mathbf{A}$):
+**Axiom 3: Minimum Reflection Principle.**
+The substrate minimizes the boundary reflection $|\Gamma|^2$ at every
+internal impedance boundary (substrate-native, names the externally-observable
+quantity per the substrate-observability rule); equivalently, it extremizes
+the macroscopic hardware action $S_{AVE}$. Dynamics encoded in the continuous
+phase transport field ($\mathbf{A}$):
 
 $$
 \mathcal{L}_{node} = \tfrac{1}{2}\epsilon_0 |\partial_t \mathbf{A}|^2
 - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2
 $$
+
+Legacy name: *Effective Action Principle*.
 
 **Axiom 4: Dielectric Saturation.**
 The effective lattice compliance is bounded by a **squared limit**

@@ -1,17 +1,25 @@
-% eq_axiom_3.tex — Axiom 3 (Effective Action Principle)
+% eq_axiom_3.tex — Axiom 3 (Minimum Reflection Principle)
 % Single source of truth. \input this wherever Axiom 3 is formally restated.
 % Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:61-66.
 %
-% PROVENANCE: pre-2026-04-27 this file was titled "Axiom 3 — Gravity" and
-% documented Newton's constant G, the gravitational refractive index n(r),
-% Symmetric Gravity, and alpha-invariance under gravitational strain. Per axiom
-% homologation 2026-04-27, gravity is a derived consequence of Axiom 1 + Axiom 4
-% (Symmetric Scaling), not a primitive axiom; G is a calibration constant
-% emerging from Machian thermodynamic equilibrium. The gravity content has been
-% moved to eq_gravity_derived.tex. This file now states the canonical primitive
-% Axiom 3 from Vol 1 Ch 1.
+% PROVENANCE:
+% (1) Pre-2026-04-27 this file was titled "Axiom 3 — Gravity" and documented
+%     Newton's constant G, the gravitational refractive index n(r), Symmetric
+%     Gravity, and alpha-invariance under gravitational strain. Per axiom
+%     homologation 2026-04-27, gravity is a derived consequence of Axiom 1 +
+%     Axiom 4 (Symmetric Scaling), not a primitive axiom; G is a calibration
+%     constant emerging from Machian thermodynamic equilibrium. The gravity
+%     content has been moved to eq_gravity_derived.tex.
+% (2) Pre-2026-05-16 this axiom was named "Effective Action Principle." Per
+%     Grant 2026-05-16, renamed to "Minimum Reflection Principle" because the
+%     substrate-observable quantity is the boundary reflection |Γ|² (per the
+%     substrate-observability rule), not the interior Lagrangian density.
+%     The variational form (Maxwell Lagrangian) and the boundary form
+%     (min|Γ|² at every ∂Ω) are co-canonical; both extremize the same
+%     externally-observable quantity. The legacy name "Effective Action
+%     Principle" remains a valid equivalent.
 %
-\begin{resultbox}{Axiom 3 — Effective Action Principle}
+\begin{resultbox}{Axiom 3 — Minimum Reflection Principle}
 The substrate, in its continuum limit, evolves to extremize the macroscopic substrate action $S_{AVE}$. Two mathematically equivalent forms of this principle are co-canonical:
 
 \medskip\noindent\textbf{Variational form} (theoretical-physics-natural). The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
@@ -28,7 +36,7 @@ This is the standard Maxwell Lagrangian (in vector-potential form), recovered as
     \Gamma = \frac{Z_2 - Z_1}{Z_2 + Z_1}
     \label{eq:axiom3_boundary}
 \end{equation}
-Equivalent names: \textit{least reflected action}, \textit{$S_{11}$ minimization}, \textit{impedance-match principle}. This form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (substrate-observability rule, formalized in the Common Foreword $\S$``Three Boundary Observables'').
+Equivalent names: \textit{Minimum Reflection Principle} (substrate-native, this axiom's canonical name), \textit{minimum-$|\Gamma|^2$ principle}, \textit{minimum boundary reflection}, \textit{least reflected action}, \textit{impedance-match principle}, \textit{Effective Action Principle} (legacy variational-dialect name). This form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (substrate-observability rule, formalized in the Common Foreword $\S$``Three Boundary Observables''). The axiom name follows the substrate-observable: the externally-measurable quantity being extremized is the boundary reflection $|\Gamma|^2$, not the interior action.
 
 \medskip\noindent\textbf{Equivalence.} The variational extremum (Eq.~\ref{eq:axiom3_lagrangian}) corresponds bijectively to the boundary reflection minimum (Eq.~\ref{eq:axiom3_boundary}): the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimizes $|\Gamma|^2$. The two forms describe the same physics from different starting points --- volumetric Lagrangian (standard QFT dialect) vs.~boundary impedance (engineering / substrate-native dialect).
 \end{resultbox}

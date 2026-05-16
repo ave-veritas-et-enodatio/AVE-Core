@@ -1465,14 +1465,16 @@ class DarkWakeObserver(Observer):
         τ_zx(r) ∝ Z_local(r) · ∂/∂x [|V(r)|²/V_SNAP²]
 
     Axiom chain (per A47 v11d discipline, added 2026-05-01):
-      • Ax 1 (LC network substrate) provides the local impedance Z_local
-        through the bond-LC structure; Z_local = √(L_bond / C_bond) at the
-        node level, modulated by the saturation kernel.
+      • Ax 1 (K4 Cosserat crystal; legacy: LC network substrate) provides
+        the local impedance Z_local through the bond-LC structure;
+        Z_local = √(L_bond / C_bond) at the node level, modulated by the
+        saturation kernel.
       • Ax 2 (topo-kinematic isomorphism [Q] ≡ [L]) gives the topological
         charge → flux-linkage equivalence that makes the V_inc/V_ref
         scattering cycle observable as a propagating standing-wave packet.
-      • Ax 3 (effective action principle) → Noether currents → momentum
-        conservation. The dark wake IS the field-theoretic form of the
+      • Ax 3 (Minimum Reflection Principle; legacy: effective action
+        principle) → Noether currents → momentum conservation. The dark
+        wake IS the field-theoretic form of the
         Newton-3rd-law back-reaction: every forward soliton/photon must
         carry an equal-and-opposite longitudinal-shear-strain wave behind
         it, mass-equivalent to the inductive back-EMF (M_inertial ≡ L_drag,

@@ -7,10 +7,11 @@ dissipative trajectory." Both have low temporal variance over short
 windows. New diagnostic tests the actual Ax-3 conditions explicitly.
 
 Per [doc 68_](../../../research/L3_electron_soliton/68_phase_quadrature_methodology.md)
-the AVE-native (Axiom-3 / Effective Action Principle / Least Reflected
-Action) eigenmode condition is impedance-matching reactive cycling. To
-distinguish reactive cycling from dissipation, this diagnostic measures
-five distinct AVE-native observables:
+the AVE-native (Axiom-3 / Minimum Reflection Principle; legacy names:
+Effective Action Principle, Least Reflected Action) eigenmode condition
+is impedance-matching reactive cycling — equivalently, minimum |Γ|² at
+every internal impedance boundary. To distinguish reactive cycling from
+dissipation, this diagnostic measures five distinct AVE-native observables:
 
 (1) **Total energy conservation** — E_total = E_cos + E_k4 should be
     conserved for an Ax-3 eigenmode. Reports std/mean over a sliding

@@ -1,11 +1,10 @@
 # AVE-Core Glossary — Substrate-Native Vocabulary
 
-**Created 2026-05-15** per E-094 substrate-vocab propagation (Tier 1 closure-roadmap).
-Mirrors AVE-QED `docs/glossary.md` §5m (Grant Q1 closure 2026-05-14 evening, canonical).
-
-**Upstream canonical:** AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex`
-(7-section appendix) + AVE-QED `docs/glossary.md` §5m (14-row substrate-native /
-EE / ME table). When this glossary diverges from upstream, upstream is canonical.
+**Created 2026-05-15.** Canonical substrate-native vocabulary for the
+AVE-Core manuscript. The same vocabulary table is reproduced in the
+**Common Foreword** (§Three Boundary Observables / §Substrate Vocabulary)
+and in **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1**; when this glossary
+diverges from those manuscript anchors, the manuscript is canonical.
 
 **Picture-first reference:** `manuscript/ave-kb/common/trampoline-framework.md`
 (six-step ground-up build + substrate-observability rule + three substrate
@@ -23,7 +22,7 @@ invariants + inter-cell coupling + cosmic-IC framing).
 | State | Voltage / $V_{\text{inc}}$ | Force / displacement | Default: substrate-vocabulary. Specify projection when math is probe-coupled. |
 | Propagation | Current flow | (no clean analog) | Default: substrate. How state evolves between nodes. |
 | Impedance $Z$ | already universal | already universal | Use freely. |
-| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. **A-034 universality (canonical 2026-05-15 evening):** governs every topological-reorganization event at every scale across 19 catalog instances spanning 21 orders of magnitude. See [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex) + [L5 A-034](../research/L5/axiom_derivation_status.md). |
+| Saturation kernel $S(A) = \sqrt{1-A^2}$ | Schwinger / breakdown | yield / rupture | Use freely; Axiom 4 canonical. **A-034 universality (canonical 2026-05-15 evening):** governs every topological-reorganization event at every scale across 19 catalog instances spanning 21 orders of magnitude. See [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex). |
 | Boundary | (charged surface) | (yield surface) | Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. |
 | Envelope | (wavefunction support) | (zone of influence) | Default: substrate-vocabulary. What the substrate *actually sees*. |
 | **Boundary linking number $\mathcal{Q}$** | charge $Q$ | (no clean ME analog) | Use universal substrate; project to $Q$ for standard physics. Integer per boundary. |
@@ -39,14 +38,14 @@ invariants + inter-cell coupling + cosmic-IC framing).
 
 | Term | Meaning | Cross-ref |
 |---|---|---|
-| **A-034 (Universal Saturation-Kernel Strain-Snap Mechanism)** | Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ as the universal mechanism for every topological-reorganization event at every scale (19 canonical instances spanning 21 orders of magnitude) | [L5 A-034](../research/L5/axiom_derivation_status.md); [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
+| **A-034 (Universal Saturation-Kernel Strain-Snap Mechanism)** | Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ as the universal mechanism for every topological-reorganization event at every scale (19 canonical instances spanning 21 orders of magnitude) | [Backmatter Ch 7](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
 | **TKI Strain-Snap mechanism** | Topo-Kinematic-Isomorphism strain-snap: per Grant 2026-05-15, "the bulk response of the lattice to strain is universal." Vertical tangent at A=1 makes every snap impulsive | A-034 canonical |
-| **SYM / ASYM-N / ASYM-E** | A-034 3-way symmetry classification: SYM = vacuum K=2G (ε and μ saturate together); ASYM-N = asymmetric natural (single-sector, e.g., BCS μ-only or plasma ε-only); ASYM-E = asymmetric engineered decoupled (K/G ≠ 2 by design, e.g., active topological metamaterials) | [Asymmetric saturation exploration doc](../research/L3_electron_soliton/2026-05-15_A-034_asymmetric_saturation_variant_exploration.md) |
-| **Measurement-hierarchy framing** | A-034 measurement modes per Grant 2026-05-15: single-emitter highest-SNR / multi-emitter bulk-response / phased-array PLL autoresonant. Unifies AVE-Bench-VacuumMirror + IVIM + YBCO + Propulsion autoresonant | [Measurement hierarchy doc](../research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md) |
-| **Continuous-springs framing** | Per Grant 2026-05-15: the discrete K4 lattice (Q-G47 Sessions 12-15) is a DISCRETIZATION of the underlying continuous Cosserat micropolar field (Axiom 1); "bonds" are visualizations of continuous stress field propagation, not physical springs | [Trampoline-framework §1.2](../manuscript/ave-kb/common/trampoline-framework.md); Q-G47 Sessions 16-17 |
-| **$\xi_{K1}, \xi_{K2}$** | Q-G47 Sessions 9-18 substrate-scale Cosserat prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{\text{node}}^2$, with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced. **NAMESPACE: distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Axiom 2's $\xi_{topo}$** | [xi-topo-traceability.md](../manuscript/ave-kb/common/xi-topo-traceability.md) namespace de-collision |
-| **\|T\| = 12 universality** | The proper tetrahedral rotation group $T$ has $|T| = 12$; this number appears in K4 physics wherever T acts transitively on a 4×3 mode space (baseline coordination, secondary paths, Cosserat constitutive ratio $\xi_{K2}/\xi_{K1} = 12$). 4 independent routes converge | L5 A-032 + A-034 |
-| **Lego-click synthesis pattern** | Meta-pattern recurring throughout AVE development: agent generates analytical detail, Grant pattern-spots a connection, framework simplifies. A-034 is the largest such synthesis to date (one kernel, 19 scales) | A-034 §A-034.7 meta-pattern |
+| **SYM / ASYM-N / ASYM-E** | A-034 3-way symmetry classification: SYM = vacuum K=2G (ε and μ saturate together); ASYM-N = asymmetric natural (single-sector, e.g., BCS μ-only or plasma ε-only); ASYM-E = asymmetric engineered decoupled (K/G ≠ 2 by design, e.g., active topological metamaterials) | [Backmatter Ch 7 §3-way classification](../manuscript/backmatter/07_universal_saturation_kernel.tex) |
+| **Measurement-hierarchy framing** | A-034 measurement modes per Grant 2026-05-15: single-emitter highest-SNR / multi-emitter bulk-response / phased-array PLL autoresonant. The same engineered-kernel architecture applied to different goals via different measurement modes | [Backmatter Ch 7 §measurement modes](../manuscript/backmatter/07_universal_saturation_kernel.tex); [Vol 3 Ch 4 §sec:tki_strain_snap](../manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex) |
+| **Continuous-springs framing** | Per Grant 2026-05-15: the discrete K4 lattice is a DISCRETIZATION of the underlying continuous Cosserat micropolar field (Axiom 1); "bonds" are visualizations of continuous stress field propagation, not physical springs | [Trampoline-framework §1.2](../manuscript/ave-kb/common/trampoline-framework.md) |
+| **$\xi_{K1}, \xi_{K2}$** | Substrate-scale Cosserat prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{\text{node}}^2$, with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced. **NAMESPACE: distinct from Vol 3 Ch 1's Machian $\xi \sim 10^{38}$ and Axiom 2's $\xi_{topo}$** | [xi-topo-traceability.md](../manuscript/ave-kb/common/xi-topo-traceability.md) namespace de-collision |
+| **\|T\| = 12 universality** | The proper tetrahedral rotation group $T$ has $|T| = 12$; this number appears in K4 physics wherever T acts transitively on a 4×3 mode space (baseline coordination, secondary paths, Cosserat constitutive ratio $\xi_{K2}/\xi_{K1} = 12$). 4 independent routes converge | Backmatter Ch 7 + Vol 1 Ch 1 Axiom 4 |
+| **Lego-click synthesis pattern** | Meta-pattern recurring throughout AVE development: agent generates analytical detail, Grant pattern-spots a connection, framework simplifies. A-034 is the largest such synthesis to date (one kernel, 19 scales) | A-034 §A-034.7 meta-pattern (Backmatter Ch 7) |
 
 ---
 
@@ -57,14 +56,14 @@ The substrate has standard-physics-precise terminology — distinct concepts wit
 | Term | Meaning in AVE | When to use |
 |---|---|---|
 | **K4 lattice** | The geometric / topological structure: K4 = complete graph on 4 vertices; 4-fold nearest-neighbor connectivity at each node | When discussing connectivity, bond topology, ABCD cascade structure, graph-theoretic properties |
-| **Chiral Laves K4 crystal** | The substrate as a phase of matter: 3D crystallized realization of the K4 lattice with $I4_1 32$ chiral space-group symmetry, Cosserat micropolar character, nodes as intrinsic LC oscillators | When discussing the substrate as a physical phase (vs.~ruptured-plasma phase per Axiom 4 Regime IV); load-bearing for Axiom 1's two-state framing |
+| **Chiral Laves K4 Cosserat crystal** (canonical 2026-05-16 v2) | The substrate as a phase of matter: 3D crystallized realization of the K4 lattice with $I4_1 32$ chiral space-group symmetry; nodes are **micropolar (Cosserat-type)**, carrying six intrinsic DOFs per node — three translational (→ E-field) and three microrotational (→ B-field, source of intrinsic spin); nodes act as intrinsic LC oscillators | When discussing the substrate as a physical phase (vs.~ruptured-plasma phase per Axiom 4 Regime IV); load-bearing for Axiom 1's two-state framing. Legacy short name: *Chiral Laves K4 crystal* (Cosserat character bundled into the meaning rather than the name). |
 | **Crystal lattice** | The lattice structure of a crystal specifically (vs.~abstract / amorphous lattices) | Use sparingly --- slightly redundant; "lattice" alone is fine when crystal context is established |
 
 **Two substrate phases (per Axiom 1, connected by Axiom 4):**
 
 | Phase | Where / when | Structure | Axiom 4 regime |
 |---|---|---|---|
-| **Crystallized phase** | Current observable universe; vacuum between galaxies, inside galaxies, around matter | Chiral Laves K4 crystal with intrinsic LC-oscillator nodes ($I4_1 32$ chiral space group); long-range order; supports linear EM wave propagation and topologically-quantized matter | Regimes I--III ($S(A) \to 1$ linear; $S(A) < 1$ nonlinear; near-saturation asymmetric) |
+| **Crystallized phase** | Current observable universe; vacuum between galaxies, inside galaxies, around matter | Chiral Laves K4 Cosserat crystal with intrinsic LC-oscillator nodes ($I4_1 32$ chiral space group, 6-DOF micropolar nodes); long-range order; supports linear EM wave propagation and topologically-quantized matter | Regimes I--III ($S(A) \to 1$ linear; $S(A) < 1$ nonlinear; near-saturation asymmetric) |
 | **Ruptured plasma phase** | Black-hole event-horizon interiors; pre-genesis cosmological state (before K4 crystallization at lattice genesis) | K4 topology destroyed; no long-range order; information dissipates thermally via Hawking radiation (corpus C-001 canonical) | Regime IV ($S(A) = 0$ globally; lattice phase transition) |
 
 **The two phases are connected by Axiom 4's universal saturation kernel:** the crystallized phase is what the substrate looks like at $S(A) \to 1$; the plasma phase is what it looks like at $S(A) \to 0$ globally. The transition between them IS the A-034 universal strain-snap mechanism, occurring identically at every scale (atomic dielectric breakdown $\to$ BCS pair-condensate yield $\to$ geomagnetic reversal $\to$ solar flares $\to$ BH ring-down $\to$ cosmic K4 crystallization at lattice genesis).
@@ -125,15 +124,10 @@ All three must give the same $u_0^*$ or the single-cosmological-parameter framew
 - **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](../manuscript/ave-kb/common/trampoline-framework.md) — single canonical picture-first reference
 - **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact
 
-### Upstream canonical (AVE-QED)
-- AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` (formal 7-section appendix)
-- AVE-QED `manuscript/vol_qed_replacement/appendices/F_local_machian_network.tex` (multi-scale Machian network)
-- AVE-QED `docs/glossary.md` §5m (vocab table source)
-- AVE-QED `docs/analysis/2026-05-14_three_substrate_invariants_matrix.md` (Q1 closure matrix)
-
-### L5 framework tracking
-- [`research/L5/axiom_derivation_status.md`](../research/L5/axiom_derivation_status.md) — A-026 / A-028 / A-029 / A-030 / A-031 canonical entries
-- [`research/L5/manuscript_pending.md`](../research/L5/manuscript_pending.md) — E-094 (this entry) + propagation status
+### Canonical manuscript anchors (substrate vocabulary + boundary invariants)
+- **Common Foreword §Three Boundary Observables** — canonical $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$ definitions + substrate-observability rule
+- **Vol 1 Ch 1 §sec:substrate_vocab_box_ch1** — canonical substrate-vocabulary box (in-chapter version of §1 table above)
+- **Backmatter Ch~7 (Universal Saturation-Kernel Catalog)** — canonical A-034 19-instance catalog with SYM/ASYM-N/ASYM-E classification
 
 ### Chapter cross-references
 - Vol 1 Ch 1 §sec:substrate_vocab_box_ch1 — substrate-vocabulary box near Axiom 1
@@ -155,11 +149,11 @@ All three must give the same $u_0^*$ or the single-cosmological-parameter framew
 ## 6. Maintenance
 
 Update this glossary when:
-- New canonical substrate-native term added (sync from AVE-QED upstream)
-- New chapter cross-reference comes online (E-094 status migration in manuscript_pending.md)
-- New L5 A-NNN canonical entry affects vocabulary (sync to top tables)
+- New canonical substrate-native term added (sync from Common Foreword or Vol 1 Ch 1)
+- New chapter cross-reference comes online
+- New A-NNN catalog entry affects vocabulary (sync to top tables)
 
 Updates that should NOT be made here:
 - New derivations (those land in chapters; this glossary references them)
-- Speculative framings (those land in L5 axiom_derivation_status.md as A-NNN entries)
+- Speculative framings (those land in internal research tracking, not this user-facing glossary)
 - New analogies (the trampoline analogy is sufficient; adding more dilutes the picture-first canonical reference)

@@ -3,7 +3,15 @@
 
 # AVE Axiom Homologation — Cross-Repo Inventory
 
-> **Cross-cutting framework reference per [INVARIANT-S3 / cross-cutting-notes pattern](../CLAUDE.md).** Documents distinct axiom-numbering schemes used across the AVE org (Schemes A / B / C / vestige), their reconciliation, and the load-bearing canonical naming (Scheme A per Vol 1 Ch 1:51-75). **Living record** — future audits surfacing new scheme variants, additional inconsistencies, or downstream homologation work should land as amendments here, not as parallel docs. Last revised: 2026-04-27 (homologation P1-P5 + doc 75_ framing-error pass + promotion from `.agents/handoffs/` to `manuscript/ave-kb/common/`).
+> **Cross-cutting framework reference per [INVARIANT-S3 / cross-cutting-notes pattern](../CLAUDE.md).** Documents distinct axiom-numbering schemes used across the AVE org (Schemes A / B / C / vestige), their reconciliation, and the load-bearing canonical naming (Scheme A per Vol 1 Ch 1:51-75). **Living record** — future audits surfacing new scheme variants, additional inconsistencies, or downstream homologation work should land as amendments here, not as parallel docs. Last revised: 2026-05-16 (Axiom 3 rename: "Effective Action Principle" → "Minimum Reflection Principle"; historical body preserved per Rule 12).
+
+> **§0 RENAME NOTES (2026-05-16).** Two axioms were renamed per Grant 2026-05-16 to make their substrate-native content visible in the name itself:
+>
+> **Axiom 1**: "LC Network Substrate" / "Substrate Topology (Chiral Laves K4 Crystal)" → **"Substrate Topology (Chiral Laves K4 Cosserat Crystal)"**. The constitutive nature is promoted into the name: Cosserat = micropolar = nodes carry six intrinsic DOFs (3 translational ↔ E, 3 microrotational ↔ B); the rotational DOF IS the substrate-native origin of intrinsic spin. The shorter legacy names *"Chiral Laves K4 Crystal"* and *"LC Network"* remain valid aliases (the Cosserat character was bundled into the meaning rather than the name in the prior canonicalization).
+>
+> **Axiom 3**: "Effective Action Principle" → **"Minimum Reflection Principle"**. The new name follows the substrate-observable: the externally-measurable quantity being extremized is the boundary reflection $|\Gamma|^2$ (per the substrate-observability rule, $\Gamma$ + $\mathcal{M},\mathcal{Q},\mathcal{J}$ are the externally-observable boundary invariants), not the interior Lagrangian density $\mathcal{L}_{node}$. The variational form (Maxwell Lagrangian, $S_{AVE} = \int \mathcal{L}_{node}\, d^4x$) and the boundary form ($\min |\Gamma|^2$ at every $\partial\Omega$) are co-canonical; both extremize the same externally-observable quantity. The legacy name *"Effective Action Principle"* remains a valid equivalent (variational-dialect form). The historical "$S_{11}$ minimization" operational-signature wording is the EE-projection-specific form of the substrate-native "minimum boundary reflection" / minimum-$|\Gamma|^2$.
+>
+> The historical body below preserves the legacy naming as written; the substance of both axioms is unchanged.
 
 **Status:** auditor-drafted handoff, 2026-04-27, per Grant directive: *"fully document in a new artifact, all of the places you've seen the axioms and the different schemes they have... be incredibly pedantic, search the full github org/all repos."*
 

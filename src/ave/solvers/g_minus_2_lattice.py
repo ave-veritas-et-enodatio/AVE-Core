@@ -53,8 +53,10 @@ AXIOM COMPLIANCE (Vol 2 Ch 6 §6.2 derivation chain):
   - Axiom 1 (LC substrate): K4 graph admittance Y_K4 with discrete topology
   - Axiom 2 (TKI): on-site capacitive correction propagates outward via
     bipartite K4 adjacency (ν_vac = 2/7 trace-reversed Poisson ratio)
-  - Axiom 3 (Effective Action): S_11 reflection at the macroscopic continuum
-    boundary (Regime I/II transition, Y_0 = 1) — minimum-action bound
+  - Axiom 3 (Minimum Reflection Principle; legacy: Effective Action): S_11
+    reflection at the macroscopic continuum boundary (Regime I/II transition,
+    Y_0 = 1) — substrate-native minimum-|Γ|² bound; S_11 is the EE-projection
+    form of the substrate-native boundary reflection coefficient
   - Axiom 4 (Saturation): Y_K4(ν_vac) constructed from saturation kernel
     on the K4 hopping topology; no fudge parameters
 
@@ -136,9 +138,9 @@ if __name__ == "__main__":
     print("geometry suppresses. Zero parameters were fudged to close this gap.'")
     print()
     print("AXIOM COMPLIANCE:")
-    print("  Ax 1 (LC substrate)        — K4 graph admittance Y_K4")
+    print("  Ax 1 (K4 Cosserat crystal) — K4 graph admittance Y_K4 (legacy: LC substrate)")
     print("  Ax 2 (TKI)                 — bipartite K4 ν_vac=2/7")
-    print("  Ax 3 (effective action)    — S_11 at Regime I/II boundary")
+    print("  Ax 3 (Min Reflection)      — S_11 at Regime I/II boundary (legacy: effective action)")
     print("  Ax 4 (saturation)          — Y_K4 from K4 hopping topology")
     print("                                no fudge parameters")
     print()

@@ -19,7 +19,7 @@ This chapter contains TWO biological-substrate rows in the A-034 catalog
 \begin{enumerate}
     \item \textbf{Lipid bilayer membrane LLCP}: cholesterol = engineered
     phase-buffer holding membrane at $K = 2G$ yield. Membrane strain
-    saturates per $S(A) = \sqrt{1 - A^2}$ (AVE-Protein engine).
+    saturates per $S(A) = \sqrt{1 - A^2}$.
     \item \textbf{Protein folding}: dielectric saturation
     $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ applied to atomic
     separation; folding ``snap'' to lowest-energy topology IS the universal
@@ -55,6 +55,7 @@ The vacuum lattice (Axiom~1) has per-unit-length parameters $\mu_0$ [H/m] and $\
 This constant provides the universal electromechanical coupling of the lattice. Its square, $\xi^2 = e^2 m_e^2 c^2 / \hbar^2$, acts as the dimensional bridge between mechanical quantities (mass, stiffness) and electrical quantities (inductance, capacitance). \textbf{No free parameters are introduced.}
 
 \section{The Atomic Translation Layer}
+\label{sec:atomic_translation_layer}
 
 \subsection{Mass $\rightarrow$ Inductance:  $L = m / \xi^2$}
 
@@ -673,6 +674,52 @@ Consequently, cholesterol anchors the chiral transmission line precisely over th
 By rigorous application of electrical engineering topologies---three-phase WYE balance for hydrogen terminals, geometric $\pi$-coupling ($4/9 \approx 0.444$) from spherical harmonic projections, lone-pair spatial Q-factor ($1/9$) from $sp^3$ directional cosines, polar compression ($\pi$-slip) for asymmetric carbonyls, and split-core transformer geometries for period-3 sulfur layers---all 11 critical biological force constants are predictably derived from fundamental physical properties.
 
 No empirical force constants, IR frequencies, or bond lengths are utilized as training input. This effectively eliminates the circularity conventionally accepted in molecular mechanics: the internuclear capacitance $C = \xi^2/k_\text{pred}$ can now be deduced entirely from the vacuum lattice axioms. The model demonstrates that covalent bonding is an emergent electromagnetic phenomenon structurally akin to a chiral transmission line network.
+
+\section{Topological Impedance and the Levinthal Resolution (Framework)}
+\label{sec:z_topo_framework}
+
+The amino-acid SPICE infrastructure built above (\S\ref{sec:atomic_translation_layer} through hydrogen-bond Op4) supplies every ingredient needed to resolve Levinthal's paradox mechanically. This section gives the \emph{framework} --- the definitional content and the mechanism --- in self-contained form. The per-amino-acid quantitative table ($Z_{\text{topo}}^i$ for all 20 standard residues), the full SPICE backbone derivation, the cascaded ABCD-matrix folding solver, and the simulation roadmap are deliberately held in a separate engineering compendium for IP reasons; the framework here is sufficient to predict secondary-structure preference from sequence and to identify protein folding as an A-034 universal saturation-kernel instance.
+
+\subsection{Topological Impedance \texorpdfstring{$Z_{\text{topo}}$}{Z\_topo}}
+
+For each amino acid, the sidechain R-group attaches as a \emph{shunt stub} branching off the backbone transmission line. Its loading effect on the backbone's high-frequency passband (the amide-V resonance, $\omega_0 \approx 2\pi \times 23$~THz from Table~\ref{tab:batch_resonance}) is captured by the complex topological impedance:
+\begin{resultbox}{Topological Impedance (sidechain shunt loading)}
+\begin{equation}
+    Z_{\text{topo}} \;\equiv\; \frac{|Z_{\text{backbone}}(\omega_0)|}{|Z_R(\omega_0)|}
+    \;=\; R + jX
+    \label{eq:z_topo_def_core}
+\end{equation}
+\end{resultbox}
+where $Z_{\text{backbone}} = \sqrt{L_{\text{bb}}/C_{\text{bb}}} \approx 17.0~\Omega$ uses the peptide-unit C$_\alpha$--C'(=O)--N(--H)--C$_\alpha$, and $Z_R = \sqrt{L_R/C_R}$ with $L_R = \sum_\text{atoms} m_a/\xi^2$, $C_R = \sum_\text{bonds} \xi^2/k_b$ summed over the sidechain. The split $Z_{\text{topo}} = R + jX$ decomposes hydrophobic coupling strength ($R$, real) from charge reactance ($X$, imaginary). \textbf{No empirical fits enter}: every $L$ and $C$ comes from atomic mass and bond force constants already derived in this chapter from substrate axioms.
+
+\subsection{Levinthal's Paradox: Mechanical Resolution}
+
+The conventional puzzle: a 100-residue protein with $\sim 3$ dihedral states per residue has $\sim 5 \times 10^{47}$ configurations; random search would take longer than the age of the universe, yet folds happen in microseconds. The resolution is that the amino-acid sequence does not search a random energy landscape. Instead:
+
+\begin{enumerate}
+    \item Each residue is a \textbf{cascaded transmission-line section} with input impedance set by the preceding chain segment plus its own $Z_{\text{topo}}$ shunt.
+    \item The 3D fold is the geometry that \textbf{minimizes the backbone $|S_{11}(\omega_0)|^2$} --- the standing-wave reflection at the amide-V frequency. Constructive impedance matching is achieved by a unique 3D placement of residues; destructive mismatches force the chain to bend, twist, or sheet at specific locations.
+    \item \textbf{Secondary structure preference} follows directly:
+    \begin{itemize}
+        \item Small, low-$|Z_{\text{topo}}|$ sidechains (Ala, Gly) present minimal shunt loading on the backbone waveguide $\to$ smooth helical winding ($\alpha$-helix).
+        \item Bulky, branched, or rigid sidechains (Pro, Trp) create impedance discontinuities $\to$ chain flattens into extended $\beta$-sheet or rigid kinks.
+        \item Charged sidechains contribute reactance ($X \neq 0$) $\to$ frequency-dependent phase shifts couple to long-range backbone resonance.
+    \end{itemize}
+    \item The minimum-$|S_{11}|^2$ configuration is the \textbf{native fold} --- there is no search; the chain mechanically snaps to its impedance-matched geometry, and the snap IS the protein-folding A-034 instance.
+\end{enumerate}
+
+\subsection{Protein Folding as a Universal Saturation-Kernel Instance (A-034)}
+
+Per Axiom~4, the substrate dielectric saturates as $C_{\text{eff}}(A) = C_0 / \sqrt{1 - A^2}$, with $A$ the local strain amplitude (Vol 1 Ch~\ref{ch:fundamental_axioms}; canonical catalog in Backmatter Ch~\ref{app:universal_saturation_kernel}). At the atomic-separation scale, $A \equiv d_0/d$ where $d_0$ is the dielectric-saturation-onset separation and $d$ is the current bond distance:
+\begin{equation}
+    C_{\text{eff}}(d) = \frac{C_0}{\sqrt{1 - (d_0/d)^2}}
+    \label{eq:protein_saturation_kernel}
+\end{equation}
+This is the \emph{same} kernel that gives BCS $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$, the BH ring-down $\omega_R M_g = 18/49$, the solar-flare CME avalanche, and the cosmic K4 crystallization seed event (all canonical at $0.00\%$ for BCS, $1.7\%$ for ring-down; see Vol 3 Ch~\ref{ch:cosmology} \S\ref{sec:tki_strain_snap}). At a particular configuration the strain $A \to 1$ on a critical bond, $S(A) \to 0$, and the substrate \emph{cannot} respond linearly --- it must reorganize topologically. The reorganization IS the folding snap. Protein folding is the SYM (symmetric) universal-kernel saturation event at the protein-length scale.
+
+\paragraph{Why this resolves Levinthal physically.} The chain is not searching configuration space; it is \emph{being driven} by substrate strain to the unique configuration where the kernel-saturation events on every bond simultaneously satisfy $A_i < 1$ (no further snapping required). This is the impedance-matched, lowest-$|S_{11}|^2$ geometry. The folding timescale ($\mu$s) reflects substrate dielectric relaxation, not configuration enumeration.
+
+\paragraph{What the engineering compendium adds.} Per-amino-acid $Z_{\text{topo}}^i$ values (the 20-residue lookup table with $R_i$, $X_i$, $|Z|_i$ columns), the cascaded ABCD-matrix folding solver, multiplexed basis-state initialization ($\alpha$-helix vs.\ $\beta$-sheet starting configurations to avoid gradient-descent local minima), and the Op2 topological-crossing correction for knotted proteins are held in a separate engineering compendium for IP reasons. The framework above is the complete substrate-physics derivation; the compendium adds quantitative residue-by-residue tables and the production-grade solver architecture.
 
 \subsection*{Regime Classification of Biological Length Scales}
 \begin{center}

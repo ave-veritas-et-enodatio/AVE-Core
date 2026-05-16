@@ -1031,13 +1031,16 @@ class CosseratField3D:
                                        Cosserat sector; lives in K4 V-tank.
 
         Axiom chain:
-          Ax 1 (LC substrate)        — Cosserat ω is SO(3)-valued substrate
-                                       microrotation.
+          Ax 1 (K4 Cosserat crystal) — Cosserat ω is SO(3)-valued substrate
+                                       microrotation (legacy: LC substrate).
+                                       Cosserat rotational DOF = substrate-native
+                                       intrinsic spin.
           Ax 2 (TKI)                 — closed flux loop topology, c=0
                                        unknot, Q_H=0; loop is the
                                        topological defect.
-          Ax 3 (Effective Action)    — Beltrami eigenmode ∇×ω = kω at
-                                       fundamental k ≈ 1/R_loop.
+          Ax 3 (Min Reflection)      — Beltrami eigenmode ∇×ω = kω at
+                                       fundamental k ≈ 1/R_loop (legacy
+                                       name: Effective Action Principle).
           Ax 4 (Saturation)          — saturation kernel determines tube
                                        cross-section profile via hedgehog
                                        envelope.
