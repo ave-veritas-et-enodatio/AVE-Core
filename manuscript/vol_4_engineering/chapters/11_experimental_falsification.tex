@@ -9,6 +9,43 @@
 \end{itemize}
 \end{objectivebox}
 
+\textbf{A-034 measurement-hierarchy framing (canonical 2026-05-15 evening,
+per Grant verbatim insight):}
+
+\begin{quote}
+\itshape ``It's why we have to use a lot of emitters for the IVIM test, you
+can measure the effect of a single node, literally the highest SNR in the
+universe (I think). But if you press enough of them at once, you're
+measuring their BULK response. You do a phased array, you're creating a
+standing wave (if PLL/autoresonant).''
+\end{quote}
+
+The bench architectures catalogued in this chapter operate in three
+measurement modes of A-034 (Universal Saturation-Kernel Strain-Snap
+Mechanism):
+
+\begin{enumerate}
+    \item \textbf{Single-emitter sharp-tip} (highest possible SNR in the
+    universe; substrate fundamental response): AVE-Bench-VacuumMirror
+    $\Gamma_{\text{bench}}$ measurement. Tiny signal but ultra-clean.
+    \item \textbf{Multi-emitter bulk-response} (practical detectable signal,
+    SNR scales as $\sqrt{N}$): IVIM bench Path C measures the BULK lattice
+    strain response, which IS the A-034 universal kernel manifestation.
+    Necessarily uses many emitters because single-node signal is below
+    detection threshold.
+    \item \textbf{Phased-array + PLL autoresonant} (coherent standing wave,
+    SNR amplified by quality factor $Q$): YBCO phased array (Ch~12) and
+    autoresonant rupture (Ch~\ref{ch:schwinger_autoresonance}) implement
+    this mode. Same mechanism as the cosmic crystallization seed event,
+    applied to engineered measurement / actuation.
+\end{enumerate}
+
+A well-designed bench portfolio includes all three modes for cross-
+validation of the universal kernel at substrate scale. See
+\texttt{research/L3\_electron\_soliton/2026-05-15\_A-034\_measurement\_hierarchy\_phased\_array\_SNR.md}
+for the full framing + Backmatter Ch~\ref{app:universal_saturation_kernel}
+for the 19-instance A-034 catalog.
+
 \section{The Epistemology of Falsification}
 
 A scientific framework is only as robust as its capacity to be definitively and empirically proven wrong. Theoretical physics over the last century has suffered a severe crisis of epistemology, generating highly parameterized, abstract mathematical models (e.g., String Theory, Supersymmetry) that effortlessly evade experimental falsification by constantly shifting their mathematical goalposts into unobservable, trans-Planckian energy regimes.
