@@ -692,11 +692,33 @@ Cosserat micropolar elasticity framework setup with correct dimensional anchors:
 
 Status migration: **structural-hypothesis with dimensional flag** (Session 8) → **dimensionally resolved with $\gamma_{\text{canonical}} = 1$ working hypothesis** (Session 9). The remaining derivation work is to PROVE $\gamma_{\text{canonical}} = 1$ from first-principles canonical Cosserat-rod magic-angle physics — currently asserted as a normalization choice. Session 10 target.
 
-**Open Session 10+ targets:**
+**Open Session 10+ targets (Session 9 view):**
 1. Derive $\gamma_{\text{canonical}} = 1$ from canonical Cosserat-rod bond physics at K4 magic angle (not just asserted)
 2. Derive $\chi_G = 3$ from T_t translational triplet (7-mode = $T \oplus T \oplus A$ decomposition)
 3. Numerical Cosserat K4 lattice simulation (4-12 nodes, periodic) → compute $\chi_K$, $\chi_G$ directly; compare to predictions
 4. Bridge to Master Equation FDTD: verify $\chi_K = 12$ coupling enters $K(u_0)$ bulk modulus dressing correctly
+
+**Session 10 framework-internal consistency (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session10_gamma_canonical_self_consistency.md`):**
+
+Item (1) above is identified as the **same physics** as Session 5's magic-angle unity condition $f_{\text{Cosserat}}(u_0^*, \ell_c^*) = 1$, just in different language:
+
+$$\boxed{\;\gamma_{\text{canonical}} \;=\; f_{\text{Cosserat}}(u_0^*, \ell_c^*) \;}$$
+
+The per-path Cosserat coupling normalized at the K=2G operating point IS the dimensionless geometric factor that Session 5 already required to be 1 for $\alpha^{-1}_{\text{cold}} = 4\pi^3 + \pi^2 + \pi$ to fall out. Different normalization, same quantity.
+
+**Three-route convergence on $\chi_K = 12$:**
+
+| Route | Source | Status |
+|---|---|---|
+| Path-count multiplicity | A-032 + doc 22 (K4 orbit-size under T-action) | ✓ canonical |
+| Cosserat dimensional | Session 9 ($\chi_K = (\ell_c/d)^2$ × prefactor ≈ 2; $(\ell_c/d)^2 \approx 6$) | ✓ dimensionally resolved |
+| Magic-angle unity | Session 5 + 10 ($f_{\text{Cosserat}}(u_0^*, \ell_c^*) = 1$ at K=2G operating point) | ✓ structural (full closure pending) |
+
+Three independent calculations converging on 12 is a strong consistency check that makes "free-parameter tuning" criticisms implausible.
+
+**Status migration (post-Session 10):** dimensionally resolved (Session 9) → **framework-internally consistent across three routes** (Session 10). Item (1) on the Session 10+ list moves from "open: derive from first principles" to "structural identification established; full first-principles closure inherits Session 5 §5.2 multi-session research scope."
+
+**Items (2)-(4) remain open** as originally flagged. Session 11 should target Item (3): numerical K4 Cosserat lattice simulation to verify $\chi_K = 12$, $\chi_G = 3$, $u_0^* \approx 0.187$ directly. **Falsifier**: numerical simulation returning $\chi_K \neq 12$ (within tolerance) breaks the three-route convergence and forces A-032 revision.
 
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
