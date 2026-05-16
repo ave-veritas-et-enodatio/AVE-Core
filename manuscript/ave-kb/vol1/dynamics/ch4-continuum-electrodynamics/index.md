@@ -30,5 +30,8 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | [MOND from Hoop Stress](./mond-hoop-stress.md) | $H_\infty$ derivation, hoop stress projection, geometric drift acceleration |
 | [Dark Sector Comparison](./dark-sector.md) | AVE vs observation: $H_\infty$, $a_0$, dark matter, dark energy |
 | [Bullet Cluster](./bullet-cluster.md) | Refractive tensor shockwaves, DAMA/LIBRA vs XENONnT resolution |
+| [Photon Identification (T₂-only Cosserat ω)](./photon-identification.md) | Canonical AVE-native photon: K4 4-port = $A_1 \oplus T_2$, $A_1$ dissipates monotonically, $T_2$ survives as photon; single-sector (microrotation $\omega$, $u = 0$); electron = photon + Axiom 4 TIR confinement at $V_{\text{yield}} = \sqrt{\alpha} V_{\text{snap}}$; Compton frequency as dynamical threshold for three regimes (transparent / bound / Compton-scatter) |
+| [Photon Propagation Baseline ($v/c = \sqrt{2}$)](./photon-propagation-baseline.md) | Canonical empirical baseline: free photon on K4-TLM linear vacuum propagates at $v = c\sqrt{2}$ cardinal-axis (pure substrate-geometry, native Axiom 1); $v = c$ diagonal-axis; substrate-perspective verification of $T_2$-only, no-saturation, linear regime |
+| [Breathing Soliton v14 Mode I PASS](./breathing-soliton-v14-mode-i.md) | Master Equation FDTD hosts breathing soliton at 4/4 acceptance criteria: $V_{\text{peak}}$ mean $= 0.250$, FWHM stable, $\Delta n = 0.0111$ measurable, Q-factor $102.8$ vs $137$; validates boundary-envelope reformulation at dynamic engine level; three-level boundary distinction |
 
 > Primary: [MOND Hoop Stress](./mond-hoop-stress.md) — path-stable leaf referenced from vol6 as `sec:galactic_saturation` and `eq:H_infinity`
