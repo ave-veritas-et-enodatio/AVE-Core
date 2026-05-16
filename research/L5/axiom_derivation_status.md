@@ -1186,6 +1186,13 @@ Axiom 4 — Born–Infeld n=2 form. Operational definition (Vol 1 Ch 1:51-75; Ma
 
 **Implementation note (Grant 2026-05-15 evening direction):** AVE-Core is the canonical source of truth for this catalog. AVE-Bench-VacuumMirror Ch 2 (which independently constructed its own catalog before A-034 was named) cross-references A-034 as the canonical synthesis going forward. Sibling-repo catalogs should point UP to AVE-Core A-034. The `ave-kb/vol3/condensed-matter/ch09-...universal-saturation-operator.md` KB leaf retains the BCS / plasma ε-μ duality derivation; A-034 inherits and synthesizes it.
 
+**Measurement-hierarchy framing (Grant 2026-05-15 late evening; see `2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md`):** the 5 engineered-substrate catalog entries (PONDER-05, AVE-Bench-VacuumMirror, Active topological metamaterials, Sine-Gordon kink memory APU, Autoresonant rupture propulsion) are NOT 5 unrelated systems — they are the SAME ENGINEERED-KERNEL ARCHITECTURE applied to different goals via different measurement/actuation modes:
+- **Single-emitter, sharp-tip** (highest SNR in universe, smallest signal) → AVE-Bench-VacuumMirror $\Gamma_{\text{bench}}$ measurement
+- **Multi-emitter, bulk-response** (practical detectable signal, $\sqrt{N}$ SNR) → IVIM bench / PONDER-05 quartz measurement
+- **Phased-array + PLL, autoresonant** (coherent standing wave, $Q\sqrt{N}$ SNR) → YBCO phased-array actuation (lift); Propulsion autoresonant rupture (energy delivery); active topological metamaterials phase-state engineering
+
+This hierarchy unifies the engineered-substrate row of the catalog and explains why bench design at substrate scale necessarily uses many emitters (bulk = the A-034 universal kernel measurement). See the measurement-hierarchy doc for the full framing including SNR analysis, cross-application connections, and the "highest SNR in the universe" structural claim.
+
 #### A-034.3 What this changes about A-031 ("God's Hand cosmic IC")
 
 A-031 originally framed the cosmic IC as fundamentally inaccessible — outside our observation horizon, an irreducible epistemic limit ("God's Hand"). A-034 refines this:
@@ -1280,7 +1287,7 @@ A-034 stands as the framework's largest unification to date: **one kernel, five 
 - **Manuscript impact:** Vol 3 Ch 4 expansion (new section §TKI Strain-Snap); backmatter Universal Saturation-Kernel Catalog table; A-031 entry refinement; possibly Vol 1 Ch 1 cross-reference annotation to Axiom 4 ("see A-034 for universal application").
 - **Engine impact:** none direct. Future: cross-scale FDTD simulations could explicitly verify the kernel at non-atomic scales (e.g., solar-flare-like CME generation in scaled Master Equation FDTD).
 - **Status:** **CANONICAL** (2026-05-15 late evening, Grant synthesis). Empirical validation via CMB axis-alignment test deferred to data-analysis workstream.
-- **Cross-refs:** Axiom 4 (substrate saturation kernel, Vol 1 Ch 1); Axiom 2 (TKI scale invariance, Vol 1 Ch 1); A-031 (cosmic IC — refined per A-034.3); Q-G47 Sessions 9-17 (substrate-scale instance, reframed per A-034.4); Vol 3 Ch 13 (geophysics threshold); Vol 3 Ch 14 (solar flare scale-invariance); Vol 3 Ch 15 (BH ring-down QNM); doc 59 §5.4 (seed crystallization event); doc 61 (parent BH cosmic interface); doc 66 §5 (genesis chirality from seed perturbation).
+- **Cross-refs:** Axiom 4 (substrate saturation kernel, Vol 1 Ch 1); Axiom 2 (TKI scale invariance, Vol 1 Ch 1); A-031 (cosmic IC — refined per A-034.3); Q-G47 Sessions 9-17 (substrate-scale instance, reframed per A-034.4); Vol 3 Ch 13 (geophysics threshold); Vol 3 Ch 14 (solar flare scale-invariance); Vol 3 Ch 15 (BH ring-down QNM); doc 59 §5.4 (seed crystallization event); doc 61 (parent BH cosmic interface); doc 66 §5 (genesis chirality from seed perturbation); `2026-05-15_A-034_asymmetric_saturation_variant_exploration.md` (3-way symmetry classification); `2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md` (engineered-substrate measurement-hierarchy unification); `2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md` (cosmic-scale empirical test with E/B polarization refinement).
 
 ### A-026 — Substrate-observability rule canonical (Grant-confirmed 2026-05-14 via boundary-envelope reformulation)
 

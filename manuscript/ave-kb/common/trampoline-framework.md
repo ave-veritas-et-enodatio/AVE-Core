@@ -771,13 +771,16 @@ This is a major epistemological softening. The original framing implied the enti
 Empirical pre-registration of the multi-observable axis-alignment test: `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`.
 
 **Cross-references for A-034:**
-- **L5 A-034 canonical entry:** `AVE-Core/research/L5/axiom_derivation_status.md` (full mechanism + meta-pattern attribution)
-- **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section (199 lines, 6 subsections)
+- **L5 A-034 canonical entry:** `AVE-Core/research/L5/axiom_derivation_status.md` (full mechanism + meta-pattern attribution + 19-instance catalog)
+- **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section
 - **Backmatter Ch 7:** Universal Saturation-Kernel Catalog (reference table)
 - **AVE-QED Q-G47 Session 18:** substrate-scale instance reframing (`docs/analysis/2026-05-15_Q-G47_session18_A_034_reframing.md`)
 - **L5 A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism
+- **Empirical prereg (extended with E/B polarization observable):** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`
+- **Asymmetric saturation variant + 3-way classification:** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_asymmetric_saturation_variant_exploration.md`
+- **Measurement-hierarchy framing (engineered-substrate row unification):** `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_phased_array_SNR.md` — single-emitter (highest SNR) / multi-emitter bulk (practical) / phased-array PLL (autoresonant amplification) modes connect Bench-VacuumMirror + IVIM + YBCO + Propulsion autoresonant as same engineered-kernel architecture; explains why IVIM bench uses many emitters (bulk = A-034 universal kernel measurement)
 
-**The framework's largest unification to date:** *one kernel, six scales, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
+**The framework's largest unification to date:** *one kernel, 19 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
 
 ---
 
