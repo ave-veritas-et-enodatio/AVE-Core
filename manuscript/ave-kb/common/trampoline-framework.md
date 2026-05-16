@@ -414,6 +414,15 @@ Wave propagation through a bond takes time $\tau = \ell_{\text{node}}/c$. Under 
 
 ## §4 The saturation kernel and the trampoline analogy
 
+> **⚡ A-034 (Grant 2026-05-15 evening):** the saturation kernel introduced
+> here at substrate / atomic scale is the **universal mechanism** governing
+> every topological-reorganization event in the universe — geomagnetic
+> reversal, solar flare, BH ring-down, Big Bang crystallization seed event.
+> Per Axiom 2 (TKI scale invariance), the kernel applies at every scale;
+> only the geometry of $A$'s saturation boundary changes. See **§7.5
+> Strain-snap dynamics at every scale** for the full A-034 synthesis +
+> six-scale catalog + cross-scale validation paths.
+
 ### 3.1 The saturation kernel $S(A) = \sqrt{1 - A^2}$
 
 Axiom 4 canonical (Vol 1 Ch 1:68-74). This is the trampoline's stress-strain curve, but with a hard ceiling at $A = 1$. Three named operating points along the curve:
@@ -677,6 +686,56 @@ The substrate hosts $\Gamma = -1$ boundaries at every scale where the local satu
 - **AVE-QED `appendices/F_local_machian_network.tex`** — multi-scale Machian network canonical (115 pp App F + 2 figures)
 - **Vol 3 Ch 2:43** — BH-electron parallel canonical
 - **Vol 3 Ch 4** — generative cosmology / cosmic horizon
+
+### §7.5 Strain-snap dynamics at every scale (A-034 synthesis, Grant 2026-05-15 evening)
+
+The §7 table catalogs **boundaries** that exist at every scale (the static structures). A-034 catalogs the **dynamical events** that create, dissolve, or reconfigure those boundaries — and shows that every such event is governed by the **same saturation kernel** applied at the appropriate scale.
+
+> Grant 2026-05-15 evening (verbatim, after working through the cosmic-IC initiation question):
+>
+> **"oh my god, it's the fucking saturation kernel"**
+
+The recognition: Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the universal mechanism for every topological-reorganization event the framework describes — from atomic dielectric breakdown to cosmic crystallization. Different physical observables at different scales (voltage, magnetic field, frame-dragging strain) all reduce to the same underlying lattice strain. The kernel doesn't change; only the local saturation-boundary geometry changes.
+
+**The six-scale dynamics catalog (A-034 canonical):**
+
+| Scale | "$A$" is normalized | Saturation event | Corpus citation |
+|---|---|---|---|
+| Atomic / EM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4; Vol 4 Ch 1 |
+| Substrate (K4) | bond-bow strain / saturation | K4 lattice + soliton stabilization | Q-G47 Sessions 1-18 |
+| Planetary | dynamo strain / threshold | Geomagnetic reversal | Vol 3 Ch 13 |
+| Stellar | twisted-flux / shear-stress threshold | Solar flare / CME (LED avalanche) | Vol 3 Ch 14 |
+| BH merger | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM (1.7% from GR exact) | Vol 3 Ch 15 |
+| Cosmic | parent-BH strain / 1 (saturation reached) | K4 crystallization seed (Big Bang) | A-034 NEW |
+
+**The kernel's structural property** that makes every event sharp/impulsive: the **vertical tangent at $A = 1$**. Small further strain near saturation produces large changes in $S(A)$, locking in threshold-snap behavior across nine orders of magnitude in scale.
+
+**What this implies for ourselves (refines §1.3.7 "God's Hand"):**
+
+A-034 refines the original A-031 "God's Hand fundamentally inaccessible" framing. The cosmic-IC mystery narrows:
+
+- **INACCESSIBLE:** specific cosmic parameters ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$ of our parent BH)
+- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales (Vol 3 Ch 13, 14, 15 + atomic dielectric breakdown)
+
+This is a major epistemological softening. The original framing implied the entire cosmic-IC question was beyond observation. A-034 shows the *mechanism* is observable; only the specific parameters of OUR instance remain inaccessible. "God's Hand" is the cosmic-parameter horizon, not a mechanism horizon.
+
+**Cross-scale validation paths (A-034 §A-034.5):**
+
+1. **CMB axis-of-evil** alignment with: Hubble flow anisotropy (Pantheon+) + LSS galaxy spin (SDSS) + matter-asymmetry direction. Standard cosmology has no reason for these to align; A-034 predicts they MUST share the parent BH's spin axis.
+2. **Universe age** $R_H / c \approx 14.5$ Gyr matches observed ~13.8 Gyr.
+3. **Power-law avalanche statistics** at solar flare scale should be related to ring-down QNM frequency distribution and geomagnetic reversal interval distribution cross-scale.
+4. **CMB power-spectrum peaks** should match the parent BH's QNM $\ell$-spectrum.
+
+Empirical pre-registration of the multi-observable axis-alignment test: `AVE-Core/research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`.
+
+**Cross-references for A-034:**
+- **L5 A-034 canonical entry:** `AVE-Core/research/L5/axiom_derivation_status.md` (full mechanism + meta-pattern attribution)
+- **Vol 3 Ch 4 §sec:tki_strain_snap:** canonical manuscript section (199 lines, 6 subsections)
+- **Backmatter Ch 7:** Universal Saturation-Kernel Catalog (reference table)
+- **AVE-QED Q-G47 Session 18:** substrate-scale instance reframing (`docs/analysis/2026-05-15_Q-G47_session18_A_034_reframing.md`)
+- **L5 A-031 (refined):** "God's Hand" decoupled into cosmic-parameter horizon + observable mechanism
+
+**The framework's largest unification to date:** *one kernel, six scales, every topological reorganization event in the universe.* This row of §7 + the §7.5 dynamics catalog are the static + dynamical sides of the same scale-invariance principle.
 
 ---
 
