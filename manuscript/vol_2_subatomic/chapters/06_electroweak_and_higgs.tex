@@ -458,7 +458,14 @@ Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/so
 \begin{equation*}
 C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,\tau_{zx}\rangle = -0.32846
 \end{equation*}
-matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$). The full derivation is in \texttt{AVE-QED/docs/analysis/2026-05-13\_Q-G19alpha\_route\_B\_petermann\_match.md} and \texttt{2026-05-13\_Q-G19alpha\_saliency\_closure.md}; key ingredients are the natural QED-form normalization (Schwinger ring-in-cell $1/\pi^2$ form factor, QED loop coupling $\alpha/\pi$) and the saliency $\delta = -3\alpha/2 = -\alpha n_q/2$ where $n_q = 3$ is the q-axis trefoil winding number. \textbf{Zero parameters were fudged.} The 97\% K4-Bethe-tree result was substrate misidentification, not a feature.
+matching PDG Petermann ($-0.32848$) to \textbf{$50$~ppm} ($0.005\%$).
+The full derivation is in two AVE-QED analysis docs dated 2026-05-13
+(Route B Petermann match + saliency closure); key ingredients are the
+natural QED-form normalization (Schwinger ring-in-cell $1/\pi^2$ form
+factor, QED loop coupling $\alpha/\pi$) and the saliency
+$\delta = -3\alpha/2 = -\alpha n_q/2$ where $n_q = 3$ is the q-axis
+trefoil winding number. \textbf{Zero parameters were fudged.} The 97\%
+K4-Bethe-tree result was substrate misidentification, not a feature.
 
 \noindent The legacy \texttt{g\_minus\_2\_lattice.py} engine should be considered superseded; the Route~B framework on the Cosserat substrate is canonical.
 
