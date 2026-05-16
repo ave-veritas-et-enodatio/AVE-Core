@@ -15,23 +15,26 @@ rotation curves---is produced by code paths traceable to the four
 axioms through the architecture documented below.
 
 \textbf{A-034 engine implementation (canonical 2026-05-15 evening).} The
-engine's Op2 (\texttt{src/ave/core/universal\_operators.py},
-\texttt{universal\_saturation()}) is the executable implementation of
-Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ --- the same
-kernel that governs all 19 catalog instances of A-034 (Universal
-Saturation-Kernel Strain-Snap Mechanism). Downstream modules
-(\texttt{master\_equation\_fdtd.py}, \texttt{k4\_tlm.py},
-\texttt{cosserat\_field\_3d.py},
-\texttt{regime\_3\_saturated/black\_hole\_core.py},
-\texttt{regime\_3\_saturated/galactic\_rotation.py},
-\texttt{regime\_3\_saturated/condensed\_matter.py},
-\texttt{regime\_3\_saturated/kolmogorov\_cutoff.py},
-\texttt{scale\_invariant.py},
-\texttt{constants.py}, \texttt{axioms/scale\_invariant.py}) all reference
-A-034 in their docstrings as of 2026-05-15 evening, anchoring engine
-code to canonical framework state. The substrate-scale K4 closure
-(Q-G47 Sessions 9-18) is reflected in
-\texttt{src/ave/ARCHITECTURE\_REVIEW.md} (``Substrate-Scale Closure Update''
+engine's Op2 (\texttt{universal\_operators.py:universal\_saturation()})
+is the executable implementation of Axiom 4's saturation kernel
+$S(A) = \sqrt{1 - A^2}$ --- the same kernel that governs all 19 catalog
+instances of A-034 (Universal Saturation-Kernel Strain-Snap Mechanism).
+Downstream modules cross-referencing A-034 in their docstrings as of
+2026-05-15 evening:
+
+\begin{itemize}
+    \item \texttt{core/}: \texttt{master\_equation\_fdtd}, \texttt{k4\_tlm},
+    \texttt{constants}
+    \item \texttt{topological/}: \texttt{cosserat\_field\_3d},
+    \texttt{vacuum\_engine}, \texttt{k4\_cosserat\_coupling}
+    \item \texttt{regime\_3\_saturated/}: \texttt{black\_hole\_core},
+    \texttt{galactic\_rotation}, \texttt{condensed\_matter},
+    \texttt{kolmogorov\_cutoff}
+    \item \texttt{axioms/scale\_invariant.py}
+\end{itemize}
+
+The substrate-scale K4 closure (Q-G47 Sessions 9--18) is reflected in the
+engine's architecture-review doc (``Substrate-Scale Closure Update''
 section). For the full catalog see Backmatter
 Ch~\ref{app:universal_saturation_kernel}.
 

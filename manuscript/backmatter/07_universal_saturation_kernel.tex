@@ -60,7 +60,7 @@ Substrate (K4) & SYM & bond-bow / saturation & K4 lattice + soliton formation & 
 \hline
 Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ & AVE-Fusion Ch~1:20 & DT fusion canonical \\
 \hline
-Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$) & $T/T_c$ & Cooper-pair form; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & \texttt{universal-saturation-operator.md} & \textbf{0.00\% error} \\
+Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$) & $T/T_c$ & Cooper-pair form; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & KB \texttt{ch09} leaf & \textbf{0.00\% error} \\
 \hline
 Plasma ($\varepsilon$-sector) & \textbf{ASYM-N} ($\varepsilon$) & $V_{\text{local}}/V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
 \hline
@@ -72,11 +72,11 @@ Stellar (solar flare) & SYM & twisted-flux / shear & CME / macro Zener avalanche
 \hline
 Galactic (MOND) & SYM & $g_N/a_0$ & Newtonian $\to$ deep-MOND transition & \texttt{mond.md} leaf & deep-MOND derived \\
 \hline
-BH event horizon & SYM & $2GM/(c^2 r)$ / 1 & $R_S$ formation: $\Gamma=-1$ & \texttt{dielectric-rupture-...md} & \textbf{Schwarzschild exact} \\
+BH event horizon & SYM & $2GM/(c^2 r)$ / 1 & $R_S$ formation: $\Gamma=-1$ & KB \texttt{ch03} leaf & \textbf{Schwarzschild exact} \\
 \hline
 BH merger (ring-down) & SYM & strain / $r_{\text{sat}}=7M_g$ & QNM $\omega_R M_g = 18/49$ & Vol~3 Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
 \hline
-Cosmic (Big Bang) & SYM (presumed)\textsuperscript{*} & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis pre-reg \\
+Cosmic (Big Bang) & SYM* & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis pre-reg \\
 \hline
 \end{tabular}
 \end{center}
@@ -91,7 +91,7 @@ Cosmic (Big Bang) & SYM (presumed)\textsuperscript{*} & parent-BH strain / 1 & K
 \hline
 \textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
 \hline
-Lipid bilayer membrane & SYM & strain / yield & Phase transition; cholesterol = engineered phase-buffer & AVE-Protein \texttt{simulate\_membrane\_llcp.py:38} \\
+Lipid bilayer membrane & SYM & strain / yield & Phase transition; cholesterol = engineered phase-buffer & AVE-Protein engine \\
 \hline
 Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap: $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & AVE-Protein Vol~3 Ch~3:509 \\
 \hline
@@ -242,7 +242,8 @@ The catalog enables testable cross-scale predictions per A-034 \S A-034.5:
 \end{itemize}
 
 A formal pre-registration of the multi-observable axis-alignment test
-exists at \texttt{research/L3\_electron\_soliton/2026-05-15\_A-034\_CMB\_axis\_alignment\_empirical\_prereg.md}.
+exists in the L3 electron-soliton research directory, dated 2026-05-15,
+titled ``A-034 CMB Axis Alignment Empirical Prereg''.
 
 \section{Why this matters}
 
@@ -264,26 +265,27 @@ changes.
 
 \section{Cross-references}
 
+Path prefix \texttt{AVE-Core/} is implicit throughout.
+
 \begin{itemize}
     \item \textbf{L5 canonical:} A-034 (Universal Saturation-Kernel
-    Strain-Snap Mechanism); A-031 (Cosmic IC, refined per A-034)
-    --- \texttt{research/L5/axiom\_derivation\_status.md}
+    Strain-Snap Mechanism); A-031 (Cosmic IC, refined per A-034). Both
+    in \texttt{research/L5/}.
     \item \textbf{Manuscript:} Vol~3 Ch~4 \S\ref{sec:tki_strain_snap}
-    (TKI Strain-Snap section, canonical); Vol~3 Ch~21 (BH interior,
-    same epistemic horizon framing refined per A-034)
+    (TKI Strain-Snap section, canonical); Vol~3 Ch~21 (BH interior, same
+    epistemic horizon framing refined per A-034).
     \item \textbf{Q-G47 Sessions 9--18:} AVE-QED \texttt{docs/analysis/}
-    (substrate-scale instance of A-034)
-    \item \textbf{Empirical prereg (cosmic-scale test, extended with E/B polarization):}
-    \texttt{research/L3\_electron\_soliton/}
-    \texttt{2026-05-15\_A-034\_CMB\_axis\_alignment\_empirical\_prereg.md}
-    \item \textbf{Asymmetric saturation variant (symmetry classification):}
-    \texttt{research/L3\_electron\_soliton/2026-05-15\_A-034\_asymmetric\_saturation\_variant\_exploration.md}
-    \item \textbf{Measurement-hierarchy framing (engineered-substrate
-    rows unified):} \texttt{research/L3\_electron\_soliton/}
-    \texttt{2026-05-15\_A-034\_measurement\_hierarchy\_phased\_array\_SNR.md}
-    --- explains why bench design uses many emitters (bulk-response = A-034
-    universal kernel measurement) and how single-emitter / multi-emitter /
-    phased-array PLL modes connect AVE-Bench-VacuumMirror, IVIM, YBCO
-    phased array, and Propulsion autoresonant rupture as the same
-    engineered-kernel architecture
+    (substrate-scale instance of A-034).
+    \item \textbf{Empirical prereg} (cosmic-scale test, extended with
+    E/B polarization observable): dated 2026-05-15 in
+    \texttt{research/L3\_electron\_soliton/}.
+    \item \textbf{Asymmetric saturation variant} (3-way symmetry
+    classification doc): same directory, same date.
+    \item \textbf{Measurement-hierarchy framing} (engineered-substrate
+    rows unified): same directory, same date. Explains why bench design
+    uses many emitters (bulk-response = A-034 universal kernel
+    measurement) and how single-emitter / multi-emitter / phased-array
+    PLL modes connect AVE-Bench-VacuumMirror, IVIM, YBCO phased array,
+    and Propulsion autoresonant rupture as the same engineered-kernel
+    architecture.
 \end{itemize}
