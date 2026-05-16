@@ -19,18 +19,18 @@
 | Tier | Action | Status | L5 ID | Last touch (SHA / date) |
 |---|---|---|---|---|
 | 0 | Structural closure declared | ✓ DONE | — | `fb2ac44` 2026-05-15 |
-| 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | **APPLIED** 2026-05-15 (all 7 targets: Vol 1 Ch 1/4, Vol 2 Ch 1, Vol 3 Ch 2, Vol 4 Ch 1, glossary, constants.py) | E-094 | (this commit) |
-| 1 | E-101 Three substrate invariants observables module | **APPLIED** 2026-05-15 (13/13 tests PASS; rigorous M + first-pass Q,J) | E-101 | (this commit) |
-| 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | (this commit) |
-| 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | (this commit) |
-| 1 | AVE-QED App F cosmic-𝒥 row explicit | **APPLIED** 2026-05-15 | (cross-repo) | (this commit) |
-| 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | (this commit) | (this commit) |
-| 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | (this commit) | (this commit) |
-| 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | (this commit) |
-| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Sessions 6-8 LANDED 2026-05-15** (full day Tier 2 push): Session 6 magic-angle equation explicit; corpus-grep audit reduced scope ~60-70%; Session 7 T-irrep theory complete + target #10 closed (7-mode bubble = T⊕T⊕A); **Session 8 HONEST FALSIFICATION** of A-033 secondary α irrep-dim claim (α coefficients come from Golden Torus geometry NOT K4 irrep dims; A-033 main electron-in-E⊗T claim still stands; A-001 α-as-calibration stands). Cosserat μ_c framework set up with dimensional issues flagged. Sessions 9-10 remaining: dimensional resolution of Cosserat μ_c + γ_per-path + rigorous K4 bound-state mode occupancy. | Q-G47 / A-027 / A-029 / A-030 / A-032 / A-033 | (this commit) |
+| 1 | E-094 AVE-Core substrate-vocab propagation (Vol 1-4) | **APPLIED** 2026-05-15 (all 7 targets: Vol 1 Ch 1/4, Vol 2 Ch 1, Vol 3 Ch 2, Vol 4 Ch 1, glossary, constants.py) | E-094 | `2eb2b1c` |
+| 1 | E-101 Three substrate invariants observables module | **APPLIED** 2026-05-15 (13/13 tests PASS; rigorous M + first-pass Q,J) | E-101 | `d488a25` |
+| 1 | E-102 Vol 3 Ch 4 cosmic-𝒥 identification | **APPLIED** 2026-05-15 | E-102 | `d96e8d7` |
+| 1 | E-103 Vol 3 Ch 21 same-epistemic-horizon framing | **APPLIED** 2026-05-15 | E-103 | `42e3819` |
+| 1 | AVE-QED App F cosmic-𝒥 row explicit | **APPLIED** 2026-05-15 | (cross-repo) | `c59a1cb` (AVE-QED) |
+| 1 | README + LIVING_REFERENCE structural-closure declaration | **APPLIED** 2026-05-15 | new | `d96e8d7` |
+| 1 | v14 Mode I regression test (`src/tests/test_master_equation_v14_mode_i.py`) | **APPLIED** 2026-05-15 (5/5 PASS) | new | `d96e8d7` |
+| 1 | Figure 2 storage-modes layout fix | **APPLIED** 2026-05-15 (3D + 2D dual-panel layout) | n/a | `d96e8d7` |
+| 2 | **Q-G47 Session 6+ keystone u_0* derivation** | **Sessions 6-8 LANDED 2026-05-15** (full day Tier 2 push): Session 6 magic-angle equation explicit; corpus-grep audit reduced scope ~60-70%; Session 7 T-irrep theory complete + target #10 closed (7-mode bubble = T⊕T⊕A); **Session 8 HONEST FALSIFICATION** of A-033 secondary α irrep-dim claim (α coefficients come from Golden Torus geometry NOT K4 irrep dims; A-033 main electron-in-E⊗T claim still stands; A-001 α-as-calibration stands). Cosserat μ_c framework set up with dimensional issues flagged. Sessions 9-10 remaining: dimensional resolution of Cosserat μ_c + γ_per-path + rigorous K4 bound-state mode occupancy. | Q-G47 / A-027 / A-029 / A-030 / A-032 / A-033 | `33d1e2f` (S6), `6a3ff73` (S7), `9b63887` (S8) (AVE-Core); `6626f43` (S6), `32379a9` (S7), `d5f6390` (S8) (AVE-QED) |
 | 3 | T_EM(u_0*) explicit closed-form | pending (Tier 2 dep) | Q-G47 closure | — |
-| 3 | Vol 3 Ch 4 explicit ξ(R_H, ℓ_node) derivation | pending (independent of Q-G47) | (new) | — |
-| 3 | Three-route α/G/𝒥 consistency verification | pending (Tier 3 deps) | A-030 + A-031 | — |
+| 3 | ~~Vol 3 Ch 4~~ **Vol 3 Ch 1 explicit ξ(R_H, ℓ_node) derivation** | **✓ ALREADY CLOSED in corpus** at Vol 3 Ch 1 §"Fundamental Unity of Gravity and Expansion" (lines 95-155) — corpus-grep audit 2026-05-15 evening. Canonical: $\xi = 4\pi(R_H/\ell_{\text{node}})\alpha^{-2}$; derives $G = \hbar c/(7\xi m_e^2)$, $\alpha_G = 1/(7\xi)$, $R_H/\ell_{\text{node}} = \alpha^2/(28\pi\alpha_G) \approx 3.455 \times 10^{38}$, $R_H \approx 1.334 \times 10^{26}$ m = 14.1 Gly, $H_\infty \approx 69.32$ km/s/Mpc (between Hubble tension bounds). Was originally located at "Vol 3 Ch 4" in this dashboard — that was wrong; actual location is Vol 3 Ch 1. | A-030 / A-031 | (corpus pre-existing, verified `060f429`) |
+| 3 | Three-route α/G/𝒥 consistency verification | pending (Tier 3 deps): needs $T_{EM}(u_0^*)$ from Q-G47 Session 8+ closure (currently pending dimensional resolution per Session 8 §4.3) | A-030 + A-031 | — |
 | 4 | First-law T·dS = dE axiom-first closure | pending (independent) | A-002 | — |
 | 4 | Cosserat coupling on Master Equation FDTD | pending (independent) | doc 113 §5.4 | — |
 | 4 | Strict stationary soliton via imaginary-time | pending (independent) | doc 113 §5.1 | — |

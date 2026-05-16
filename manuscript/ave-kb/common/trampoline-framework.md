@@ -260,9 +260,19 @@ $$A^2 = \varepsilon^2 + \kappa^2 + V^2$$
 
 **Mechanistically: photon → electron via 2-fold trap.** Adding face-axis (2-fold) chirality structure to a propagating body-axis (3-fold) wave converts a free photon into a bound electron-like soliton. The K4 substrate's intrinsic two-symmetry structure (2-fold + 3-fold) provides the kinematic ingredients for both propagation AND trapping.
 
-### §1.6.6 Implication for α (proposed irrep reading)
+### §1.6.6 Implication for α (proposed irrep reading) — **FALSIFIED 2026-05-15 evening per Session 8**
 
-**If A-033 confirms (Session 8+ verification),** the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor decomposition might map to K4 irrep integrations:
+**STATUS UPDATE (2026-05-15 late evening, Q-G47 Session 8):** the simple irrep-dimension reading proposed in this subsection has been **FALSIFIED** by Session 8 analysis (`AVE-QED/docs/analysis/2026-05-15_Q-G47_session8_alpha_reconciliation_attempt.md` §2). The α^{-1} coefficients (4, 1, 1) come from **Golden Torus geometry** (R · r = 1/4 half-cover area constraint × 2π wrappings × 4π solid angle), NOT from K4 irrep dimension counting. Neither T nor T_d irrep dimensions match (4, 1, 1).
+
+**The canonical α derivation per doc 03 §6 + §4.3 stands as correct: Golden Torus geometry + spin-1/2 half-cover.** A-001 (α-as-calibration) is NOT superseded by this section.
+
+**What still stands:** the (p, q) torus-knot labels DO connect to K4 symmetry (cyclic subgroup orders C_2 + C_3 per §1.6.5). What does NOT stand: the further claim that α^{-1}'s NUMERICAL VALUE is directly forced by K4 irrep dimensions.
+
+The original proposal below is retained for audit-trail / Rule 12 transparency only — it has been superseded by Session 8 findings.
+
+---
+
+**ORIGINAL PROPOSAL (superseded 2026-05-15 evening; retained per Rule 12 audit-trail):** the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor decomposition might map to K4 irrep integrations:
 
 | Term | Geometric reading (per Q-G47 Session 5) | Proposed K4 irrep reading |
 |---|---|---|

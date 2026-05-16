@@ -690,7 +690,7 @@ If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symme
 
 **Proposed identification:** the (p, q) torus-knot labels on AVE solitons are NOT free parameters — they are dimensions (or rotation orders) of the K4 tetrahedral symmetry group's characteristic structure.
 
-### A-033.1 The (p, q) ↔ K4 symmetry mapping
+#### A-033.1 The (p, q) ↔ K4 symmetry mapping
 
 | Soliton | Phase-space label | K4 symmetry reading |
 |---|---|---|
@@ -704,7 +704,7 @@ If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symme
 
 **Mechanism: photon → electron via 2-fold trap.** A propagating T_2 (3-fold) mode can be locked into a bound state by ADDING the 2-fold E rep structure (the chirality lock from K4 face-axis symmetry). This is mechanistically the **K4 substrate's "trapping" mechanism**: propagating wave + 2-fold face-axis symmetry → bound (2, 3) soliton.
 
-### A-033.2 Photon propagation set by K4 anisotropy
+#### A-033.2 Photon propagation set by K4 anisotropy
 
 Per L3 doc 106: photon velocity $v_{\text{meas}}/c = \sqrt{2}$ along cardinal axes (K4 cardinal-axis anisotropy, per Vol 1 Ch 6 / L5 terminology_canonical.md). This is consistent with photon = T_2 alone:
 
@@ -714,7 +714,7 @@ Per L3 doc 106: photon velocity $v_{\text{meas}}/c = \sqrt{2}$ along cardinal ax
 
 **So photon propagation IS literally the T_2 mode propagation through K4 anisotropy.** The 3-fold body-axis symmetry sets the propagation rate; the absence of 2-fold face-axis "trap" keeps it propagating (not bound).
 
-### A-033.3 Implication for α⁻¹ = 4π³ + π² + π decomposition
+#### A-033.3 Implication for α⁻¹ = 4π³ + π² + π decomposition
 
 If A-033 holds, the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor decomposition (Vol 1 Ch 8; per L3 doc 17; Q-G47 Session 5 §3) might map to irrep-product integrations:
 
@@ -724,7 +724,7 @@ If A-033 holds, the canonical $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ Q-factor deco
 
 **Open verification target (Session 8+):** explicitly map each π-power term to its K4 irrep integration form. If the mapping closes, $\alpha^{-1}$ is FORCED by K4 representation theory — α is not a calibration constant, it's a forced consequence of K4 irrep structure.
 
-### A-033.4 Mapping to Q-G47 Session 5 π-power decomposition
+#### A-033.4 Mapping to Q-G47 Session 5 π-power decomposition
 
 Per Session 5 §3 (cross-ref):
 
@@ -736,7 +736,7 @@ Per Session 5 §3 (cross-ref):
 
 **The dimensional ladder matches:** the three terms in $\alpha^{-1}$ correspond to integrations over irreps of dimensions $1+3=4$, $2$, and $1$ respectively. **Three π powers = three irrep-dimension contributions to the same integration.**
 
-### A-033.5 Verification targets (Session 7-10+) — REFINED via corpus-grep 2026-05-15 evening
+#### A-033.5 Verification targets (Session 7-10+) — REFINED via corpus-grep 2026-05-15 evening
 
 **Already CLOSED in corpus** (no Session 7 work needed):
 
@@ -797,7 +797,7 @@ Per Session 5 §3 (cross-ref):
 
 **Refined A-033 reading (post-Session 8):** the (p, q) labels on AVE solitons are forced by K4 symmetry (cyclic subgroup orders $C_2, C_3$). The α numerical value comes from the soliton's Golden Torus phase-space geometry (R · r = 1/4 half-cover constraint, doc 03 §4.3). The two are linked because K4 symmetry constrains which Golden Torus geometries are allowed, but **α is NOT directly an irrep-dimension product.**
 
-### A-033.6 Implications if confirmed
+#### A-033.6 Implications if confirmed
 
 **Massive reduction in framework parameter count:**
 
