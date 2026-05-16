@@ -8,6 +8,25 @@ The **Topological Conversion Constant** $\xi_{topo} \equiv e/\ell_{node} \approx
 > → Primary: [Axiom 2 Definition](../vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md) — canonical definition
 > → Primary: [Topo-Kinematic Isomorphism Table](../vol1/axioms-and-lattice/ch2-macroscopic-moduli/topo-kinematic-isomorphism.md) — dimensional translation
 
+## ⚠ ξ Namespace De-Collision (canonical 2026-05-15 evening per cross-repo audit)
+
+The corpus uses the **same Greek letter ξ in three distinct semantic scopes**. This leaf is the canonical disambiguation reference:
+
+| Symbol | Scope | Magnitude | Source | Physical meaning |
+|---|---|---|---|---|
+| **$\xi_{topo}$** | Axiom 2 conversion constant | $\approx 4.149 \times 10^{-7}$ C/m | Vol 1 Ch 1 + Ch 2 (canonical) | Electromechanical bridge: charge ↔ displacement |
+| **$\xi$** (no subscript) | Vol 3 Ch 1 Machian impedance integral | $\approx 3.455 \times 10^{38}$ (dimensionless) | `vol_3_macroscopic/chapters/01_gravity_and_yield.tex:97` | Cosmological boundary impedance: $\xi = 4\pi(R_H/\ell_{\text{node}})\alpha^{-2}$, converts $T_{EM}$ to Newton's $G$ via $G = c^4/(7\xi T_{EM})$ |
+| **$\xi_{K1}, \xi_{K2}$** | Q-G47 Sessions 9-18 substrate-scale Cosserat prefactors | O(1) dimensionless | AVE-QED `docs/analysis/2026-05-15_Q-G47_session17_*.md` + L5 A-032 / A-034 | Substrate-scale axiom-level Cosserat moduli prefactors: $\mu + \kappa = \xi_{K1} T_{EM}$, $\beta + \gamma = \xi_{K2} T_{EM} \ell_{node}^2$; with $\xi_{K2}/\xi_{K1} = 12$ K4-symmetry-forced via $|T| = 12$ universality |
+
+**Same letter ξ, three different scopes, three different magnitudes**. Each is canonical in its own domain. When reading any AVE document, identify which ξ is meant by:
+1. **Subscript**: $\xi_{topo}$ is unambiguously the conversion constant; $\xi_{K1}, \xi_{K2}$ are unambiguously the substrate Cosserat prefactors
+2. **Magnitude**: bare $\xi \sim 10^{38}$ is cosmological Machian; bare $\xi \sim O(1)$ in a Q-G47 context is substrate-scale (likely $\xi_{K1}$ or $\xi_{K2}$ with subscript dropped for brevity)
+3. **Context**: gravity / cosmology chapters use Machian $\xi$; Cosserat / Q-G47 chapters use substrate $\xi_{K1}, \xi_{K2}$; charge / electromechanical chapters use $\xi_{topo}$
+
+Per A-034 (canonical 2026-05-15 evening): the substrate $\xi_{K2}/\xi_{K1} = 12$ ratio is K4-symmetry-forced and is part of the |T|=12 universality (A-032 + A-034 §A-034.6). The cosmological Machian $\xi \sim 10^{38}$ is the boundary-impedance scaling that converts substrate tension to gravitational coupling.
+
+Engine code (`src/ave/core/k4_tlm.py`, `cosserat_field_3d.py`, `k4_cosserat_coupling.py`) calls out this namespace caveat in module docstrings as of 2026-05-15 evening. Manuscript references at Vol 1 Ch 2 (substrate-side) and Vol 3 Ch 1 (cosmological-side) cross-link to this leaf as the canonical disambiguation.
+
 ## Physical Meaning
 
 $\xi_{topo}$ converts between **geometric displacement** (meters) and **charge** (Coulombs). Every derived quantity in the AVE framework inherits its units from this single scaling:
