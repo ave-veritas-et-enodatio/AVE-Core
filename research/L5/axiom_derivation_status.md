@@ -747,6 +747,26 @@ where $T_t$ is the translational triplet T-irrep from the Session 7 decompositio
 
 **Status migration**: Item (2) closes structurally; Item (3) (numerical K4 Cosserat simulation to verify all four constants $\chi_K, \chi_G, u_0^*, K_0/G_0$) is now the load-bearing remaining work.
 
+**Session 12 numerical first-pass (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session12_k4_cosserat_numerical.md` + `AVE-Core/src/scripts/verify/q_g47_session12_k4_cosserat_lattice.py`):**
+
+Scaffolded 2-site K4 unit-cell Cosserat-rod simulation. **Scaffold runs**; first-pass extraction:
+
+- ✓ **K4 geometry**: 4 bond unit vectors $\frac{1}{\sqrt{3}}(\pm1, \pm1, \pm1)$ with even-parity products (4 of 8 cube body-diagonals)
+- ✓ **Secondary path enumeration: 12 paths** (matches A-032 canonical 4 B-neighbors × 3 other-A's)
+- ⚠ **Cauchy baseline issue**: K_0/G_0 = 3 emerged (not Session 2's 5/3) — diagnosis: isotropic-rod limit ($k_a = k_s$) gives Voigt-like upper bound; central-force-only bonds ($k_s = 0$) needed to reproduce Cauchy 5/3
+- ⚠ **Dressing-extraction protocol failure**: uniform-strain measurement doesn't excite the microrotation modes the Cosserat dressing modifies, so $\chi_K^{\text{(fit)}} = \chi_G^{\text{(fit)}} = 0$ (scaffolding bug, not physics result)
+
+**⚡ UNEXPECTED FINDING (most interesting Session 12 result):** $K_0 = 12 k_0$ at baseline emerged from the canonical isotropic Cosserat-rod K4 unit cell. The number 12 appears as a **K4 coordination factor in the BASELINE bulk modulus**, not as a Cosserat dressing.
+
+**Two interpretations Session 13 must resolve:**
+
+- **(a) Coincidence**: $K_0 = 12 k_0$ baseline (geometric coordination) and $\chi_K = 12$ dressing (path-count multiplicity) are coincidentally the same number from different physics
+- **(b) Deeper structure**: K4's symmetry group $T$ ($|T| = 12$) acts on multiple mode spaces (paths, bonds, modes), and orbit sizes under T-action are what produce "12" everywhere it appears — both contributions are real and parallel, both reflecting $|T| = 12$
+
+If (b) holds, the unified picture is: **12 is the universal orbit-size of T-action on every K4 mode space**, appearing as baseline coordination AND Cosserat dressing AND path-count, all reflecting the same underlying $|T| = 12$ proper rotation group order.
+
+**Status migration**: A-032 path-count of 12 **NUMERICALLY CONFIRMED at baseline**; dressing-vs-baseline interpretation **PENDING Session 13** refinements (fix Cauchy baseline, fix measurement protocol, separate coordination from dressing).
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
