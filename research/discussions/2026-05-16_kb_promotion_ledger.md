@@ -35,28 +35,26 @@
 | doc 79 §6.7 + doc 54 §6 + A-015 | Meissner-asymmetric magnetic-moment generator (κ_chiral = 1.2·α) | **DONE** | covered in `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md` §6 (commit 5487ede) |
 | docs 49, 80, 85 | Dark wake + back-EMF + FOC d-q axiom-grounded derivation | **DEFER** | cross-repo synthesis (AVE-PONDER + AVE-Propulsion + AVE-Fusion); awaiting Grant adjudication on sibling-repo scope (Q2 below) |
 
-### PROMOTE-T2 (18 total; 0 done)
+### PROMOTE-T2 (18 total; 12 DONE, 4 subsumed/covered, 1 deferred, 1 sufficient)
 
-| Doc | Topic | KB target |
-|---|---|---|
-| doc 47 §2 | Thermal lattice noise σ_V/σ_ω equipartition + T_V-rupt | `vol1/dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md` |
-| doc 47 §2.2 + E-042 | T_V-rupt = 3.44 MK vacuum-rupture temperature | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/vacuum-rupture-temperature.md` |
-| doc 59 §1 + E-029 | τ_relax = ℓ_node/c per-cell K4 Lagrangian | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md` |
-| doc 64 §1 + E-025 | Area theorem δA ≥ 0 axiom-first | `vol3/cosmology/ch15-black-hole-orbitals/area-theorem-axiom-derivation.md` |
-| doc 64 + E-023 | r_sat = 7GM/c² = 3.5·r_s BH horizon prediction | `vol3/cosmology/ch15-black-hole-orbitals/seven-gm-horizon-prediction.md` |
-| doc 62 §10 + E-022 | Four-entropy distinction at BH horizon | `vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md` |
-| doc 65 §6-§9 | Discrete-lattice Ŝ_horizon ≈ 8.7·k_B universal constant | `vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md` |
-| doc 100 §25 + docs 101+102 (A-024) | Bracket-Golden-Torus reframe canonical operationalization | `vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md` |
-| doc 78 + A-014 | L3 branch closure: 10-test Mode III canonical (negative empirical) | partly in `l3-electron-soliton-synthesis.md` §8 |
-| doc 79 §3.5 + A-017 | Rest energy m_e c² is structural Virial-sum at bond-pair LC tank | partly in `l3-electron-soliton-synthesis.md` §3 |
-| doc 75 §6 + A-012 | Op14 cross-sector trading (ρ = -0.990) | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md` |
-| doc 22 §1-§5 | K4 rotation group T = A_4, \|T\|=12 with irrep decomposition | `vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md` |
-| doc 30 §1 | K4 4-port = A_1 ⊕ T_2 irrep decomposition + S-matrix eigenvalues | `vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md` |
-| doc 25 §15-§20 | (2,3) torus knot uniqueness from knot theory | `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` |
-| doc 03 §6 | α⁻¹ = 4π³ + π² + π via Λ_vol/Λ_surf/Λ_line at R·r = 1/4 | extension of `vol1/ch8-alpha-golden-torus.md` |
-| doc 110 + E-098 | Cubic K4 anisotropy at saturation collapse | `vol1/axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md` |
-| doc 114 §1 | A-034 measurement hierarchy: single/bulk/phased-array PLL SNR | `vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md` |
-| Entries 001 + 002 (discussions) | Ω_freeze cascade through nested rotators + orbital-plane alignment | `vol3/cosmology/ch04-generative-cosmology/omega-freeze-nested-rotators.md` (Grant adjudication first) |
+| Doc | Topic | Status | Landed KB path |
+|---|---|---|---|
+| doc 47 §2 + §2.2 + E-042 | Thermal lattice noise σ_V/σ_ω + T_V-rupt = 3.44 MK (COMBINED) | **DONE** | `vol1/dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md` |
+| doc 59 §1 + E-029 | τ_relax = ℓ_node/c per-cell K4 Lagrangian | **DONE** | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md` |
+| doc 64 §1 + E-025 + E-023 | Area theorem δA ≥ 0 + r_sat = 7GM/c² (COMBINED) | **DONE** | `vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` |
+| doc 62 §10 + E-022 | Four-entropy distinction at BH horizon | **DONE** | `vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md` |
+| doc 65 §6-§9 | Discrete-lattice Ŝ_horizon ≈ 8.7·k_B universal constant | **DONE** | `vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md` |
+| doc 100 §25 + docs 101+102 (A-024) | Bracket-Golden-Torus reframe canonical operationalization | **DONE** | `vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md` |
+| doc 78 + A-014 | L3 branch closure: 10-test Mode III canonical (negative empirical) | **SUBSUMED** | `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md` §8 (commit 5487ede) |
+| doc 79 §3.5 + A-017 | Rest energy m_e c² is structural Virial-sum at bond-pair LC tank | **SUBSUMED** | `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md` §3 (commit 5487ede) |
+| doc 75 §6 + A-012 | Op14 cross-sector trading (ρ = -0.990) | **DONE** | `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md` |
+| doc 22 §1-§5 | K4 rotation group T = A_4, \|T\|=12 with irrep decomposition | **DONE** | `vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md` |
+| doc 30 §1 | K4 4-port = A_1 ⊕ T_2 irrep decomposition + S-matrix eigenvalues | **DONE** | `vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md` |
+| doc 25 §15-§20 | (2,3) torus knot uniqueness from knot theory | **DONE** | `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md` |
+| doc 03 §6 | α⁻¹ = 4π³ + π² + π via Λ_vol/Λ_surf/Λ_line at R·r = 1/4 | **COVERED** | existing `vol1/ch8-alpha-golden-torus.md` + `vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` (commit 849b2d2) |
+| doc 110 + E-098 | Cubic K4 anisotropy at saturation collapse | **DONE** | `vol1/axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md` |
+| doc 114 §1 | A-034 measurement hierarchy: single/bulk/phased-array PLL SNR | **DONE** | `vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md` |
+| Entries 001 + 002 (discussions) | Ω_freeze cascade through nested rotators + orbital-plane alignment | **DEFER** | Grant adjudication first |
 
 ### AC (already canonical, grep-confirmed)
 

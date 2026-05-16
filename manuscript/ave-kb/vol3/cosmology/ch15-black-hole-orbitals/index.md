@@ -35,6 +35,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | [AVE Compactness Limit](ave-compactness-limit.md) | Buchdahl bound comparison, $2/7 = \nu_{vac}$, neutron star test case |
 | [Interior Singularity Resolution](interior-singularity-resolution.md) | Topological halting, $\rho_{eff}$ divergence, phase-transition point resolution |
 | [Remaining Ch.15 Results](remaining-ch15-results.md) | GAP stub: all resultboxes accounted for in dedicated leaves |
+| [AVE BH Horizon Area Theorem ($r_{\text{sat}} = 7GM/c^2$)](ave-bh-horizon-area-theorem.md) | Axiom-first derivation: $r_{\text{sat}} = 7GM/c^2 = 3.5 \cdot r_s$ (AVE Buchdahl-bound Poisson $\nu_{\text{vac}} = 2/7$ vs standard GR); area theorem $\delta A \geq 0$ direct from Axiom 4 saturation kernel + mass-energy conservation; **stronger than Hawking's 1971 theorem** (derives WHY horizon can only grow); falsifiable prediction $r_{\text{sat}} / r_s = 3.5$ for high-gravity observational tests |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.
 
