@@ -89,7 +89,7 @@ This validates the substrate-perspective electron picture: the electron's core d
 - **Canonical scripts:**
   - `src/ave/topological/cosserat_field_3d.py:935-950` — `total_energy()` includes all W terms
   - `src/ave/topological/cosserat_field_3d.py:545-587` — `_energy_density_saturated` (W_cauchy, W_micropolar, W_kappa, W_op10, W_refl, W_hopf)
-  - Move 11b empirical Pearson matrix (research/L3_electron_soliton/74_move_11b_*.md)
+  - Move 11b empirical Pearson matrix (L3 closure synthesis context; the canonical correlation data is distilled inline at §1 above)
 - **KB cross-cutting:**
   - [Op14 Local Clock Modulation](op14-local-clock-modulation.md) — sibling Op14 mechanism: time-dilation aspect
   - [τ_relax Derivation](tau-relax-derivation.md) — substrate's natural timescale; trading frequency ~$0.020$ rad/unit $\ll$ $\tau_{\text{relax}}^{-1}$

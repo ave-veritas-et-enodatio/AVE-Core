@@ -4,7 +4,7 @@
 
 # Cosmological Constant Closure: AVE Improves on QED by $10^{122}$
 
-The largest single quantitative improvement on a QED prediction in all of fundamental physics. AVE derives $\rho_\Lambda$ within factor $1.54$ of Planck-2018 measurement (exact in the de Sitter asymptote) from canonical corpus inputs with **zero fit parameters**. QED's naive zero-point-energy prediction is off by $\sim 10^{122}$ — the famous "cosmological constant problem" of QFT for ~50 years.
+The largest single quantitative improvement on a QED prediction in all of fundamental physics. AVE derives $\rho_\Lambda$ within factor $1.54$ of Planck-2018 measurement (exact in the de Sitter asymptote) from canonical corpus inputs with **no $\rho_\Lambda$-specific fit parameters** (modulo the framework-wide $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending first-principles derivation, inherited via $\alpha$ closure). QED's naive zero-point-energy prediction is off by $\sim 10^{122}$ — the famous "cosmological constant problem" of QFT for ~50 years.
 
 ## Headline result
 

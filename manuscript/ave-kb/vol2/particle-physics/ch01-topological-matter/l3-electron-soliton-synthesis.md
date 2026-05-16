@@ -54,7 +54,9 @@ The $(2, q)$ particle's rest energy is **structurally fixed at $m_e c^2$ by satu
 
 $$\boxed{\, E_e = m_e c^2 = \hbar \omega_C = T_{EM} \cdot \ell_{\text{node}} = \tfrac{1}{2} L_0 I_{\max}^2 + \tfrac{1}{2} C_e V_{\text{peak}}^2 \text{ (Virial sum)} \,}$$
 
-### §3.1 Substrate-derived parameter values (no fit parameters)
+### §3.1 Substrate-derived parameter values (no rest-energy-specific fit parameters)
+
+All values below derive from Axioms 1 + 2 + 4 + $\alpha$ closure; no rest-energy-specific fit parameter is introduced. The framework-wide $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$ CMB thermal-running residual inherited via $\alpha$ closure is currently empirically calibrated at $T_{\text{CMB}}$, pending first-principles derivation — but it does not affect the structural Virial-sum identity below.
 
 | Symbol | Value | Source |
 |---|---|---|

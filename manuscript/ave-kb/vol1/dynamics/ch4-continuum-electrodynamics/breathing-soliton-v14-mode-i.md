@@ -118,5 +118,5 @@ The simulation hosts a localized breathing structure whose physical boundary is 
   - `src/ave/core/master_equation_fdtd.py` — Master Equation FDTD canonical bound-state engine
   - `src/ave/core/k4_tlm.py` — K4-TLM canonical sub-saturation engine
 - **Empirical validation companions:**
-  - Q-G19α Route B (`AVE-QED/scripts/g2_research/q_g19_alpha_route_b_petermann.py`) — 50 ppm to PDG $C_2 = -0.32848$ via boundary-integrated observable
+  - Q-G19α Route B (canonical at AVE-QED sibling repo's Q-G19α closure analysis) — 50 ppm to PDG $C_2 = -0.32848$ via boundary-integrated observable
   - Q-G19α saliency closure — $\delta = -3\alpha/2$ to 50 ppm via $(2, 3)$ trefoil q-axis winding (also boundary-integrated)

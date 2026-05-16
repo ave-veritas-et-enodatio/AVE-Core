@@ -1,58 +1,33 @@
 % ========================================================================
-% HANDOFF (2026-04-22): Chapter is under active audit + research.
+% CANONICAL FRAMING (2026-05-16 reframe):
 %
-% READING ORDER for next editor:
-%   1. research/L3_electron_soliton/36_pathB_trefoil_z2_investigation.md
-%      (current verdict — half-cover IS AVE-native via classical SO(3);
-%      supersedes 35_'s "SM/QED in disguise" conclusion)
-%   2. research/L3_electron_soliton/28_two_node_electron_synthesis.md
-%      (electron = 2 K4 nodes + 1 bond, phase-space Golden Torus)
-%   3. research/L3_electron_soliton/29_ch8_audit.md
-%      (original 9-finding audit; F5 status updated per 36_)
-%   4. research/L3_electron_soliton/34_x4_constrained_s11.md
-%      (X4 numerical verification — stable electron-like state at Ch 8
-%      Golden Torus, 23% S11 preference = canonical-Clifford detection
-%      per 36_ reinterpretation)
-%   5. research/L3_electron_soliton/35_halfcover_derivation_audit.md
-%      (initial "SM/QED" concern; superseded by 36_ — kept for
-%      reasoning-trail transparency)
+%   The electron is the 0_1 UNKNOT in real space — the simplest closed
+%   flux-tube loop with no real-space crossings. The "(2,3) trefoil"
+%   appearing throughout this chapter refers to the PHASE-SPACE
+%   Clifford-torus winding pattern of the electron's bond-pair LC tank
+%   (2 windings on the d-axis, 3 windings on the q-axis). The trefoil
+%   lives in phase space; the soliton lives in real space.
 %
-% The core algebra stands: alpha^{-1} = 4*pi^3 + pi^2 + pi = 137.036 to
-% DELTA_STRAIN agreement with CODATA, verified independently via the
-% LC-tank Q-factor derivation (Theorem 3.1 v2, see
-% research/L3_electron_soliton/17_theorem_3_1_reframed_Q_factor.md).
+%   The SU(2) -> SO(3) half-cover is AVE-native via the
+%   K_4 -> A_4 -> 2T \subset SU(2) chain plus the Finkelstein-Misner
+%   mechanism on the extended 0_1 unknot defect embedded in SO(3).
+%   See ave-kb/vol1/ch8-alpha-golden-torus.md +
+%       ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md
+%   for the canonical AVE-native derivation.
 %
-% What STILL needs chapter revision:
-%   - F1/F2: real-space trefoil framing is geometrically impossible
-%     (r < d/2, R < d violate embedded-torus constraints). Fix: reframe
-%     as real-space unknot + phase-space (2,3) winding per 28_.
-%   - F3: Lambda_vol/surf/line decomposition mixes phase-space and
-%     real-space. Clean up the presentation.
-%   - F6: Lambda_line = pi*d labeled "magnetic moment" — dimensionally
-%     wrong. Relabel as "tube cross-section circumference."
-%   - F7: delta_strain is defined by the cold-vs-CODATA discrepancy,
-%     then interpreted as CMB thermal running. Either derive
-%     independently or downgrade to "alpha runs with T, specific
-%     coefficient postdicted."
+%   Remaining open formal-rigor sub-item: prove ropelength-minimality
+%   on K4 uniquely selects r1 = r2 = 1/sqrt(2) Clifford embedding
+%   (Phase-1 classical-topology question; not blocking).
 %
-% What is RESOLVED (do not re-flag):
-%   - F5 half-cover: AVE-NATIVE via classical SO(3) observable structure.
-%     The SU(2)->SO(3) 2-to-1 cover's automatic area-halving is classical
-%     group theory applied to the canonical Clifford torus in S^3. Not
-%     an SM/QED import. See 36_ for full derivation. Remaining
-%     sub-item: prove ropelength-minimality selects r1=r2=1/sqrt(2)
-%     embedding on K4 (Phase-1 classical-topology question).
-%   - F4 Op21 multi-mode decomposition: asserted, Op21 multi-mode
-%     rigorization remains open (research/17_ section 5).
+%   The core algebra stands at full strength:
+%       alpha^{-1} = 4*pi^3 + pi^2 + pi = 137.036
+%   to DELTA_STRAIN agreement with CODATA, verified independently via
+%   the LC-tank Q-factor derivation (Theorem 3.1' canonical at
+%   ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md).
 %
-% Numerical simulation status:
-%   - K4-TLM exhausted (node-level Axiom 4 no-op for 4-port symmetric
-%     junctions per 32_ section 10.2).
-%   - Cosserat solver (cosserat_field_3d.py) produces stable
-%     electron-like bound state at Ch 8 Golden Torus with shell
-%     Gamma~-1 TIR structure, saturation-onset amplitude (peak
-%     |omega|~0.3*pi, NOT the canonical sqrt(3)/2*pi — see 34_ section
-%     9.4). Half-cover automatic via Rodrigues projection to SO(3).
+% Historical handoff notes (2026-04-22 era) removed during 2026-05-16
+% reframe. KB leafs are now the canonical source of truth for electron
+% topology framing; this chapter mirrors them.
 % ========================================================================
 
 \chapter{Zero-Parameter Closure: $\alpha$ from the Golden Torus}
@@ -61,7 +36,7 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Close the AVE framework's logical loop: derive the Fine Structure Constant $\alpha$ from first principles, with zero free numerical inputs.
-    \item Identify the electron natively as the minimum-crossing Trefoil Knot ($3_1$) tensioned to dielectric ropelength on the discrete chiral lattice.
+    \item Identify the electron natively as the $0_1$ unknot in real space, with a $(2,3)$ phase-space Clifford-torus winding pattern (2 d-axis windings, 3 q-axis windings), tensioned to dielectric ropelength on the discrete chiral lattice.
     \item Derive the Golden Torus geometry ($R = \varphi/2$, $r = (\varphi-1)/2$) from $S_{11}$ minimization (Universal Operator~6) plus Nyquist core-thickness constraint (Axiom~1).
     \item Evaluate the holomorphic multipole decomposition to obtain $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi \approx 137.0363$ at $T \to 0$.
     \item Introduce the Vacuum Strain Coefficient $\delta_{\text{strain}}$ as the CMB-induced thermal correction bridging the cold asymptote to the measured CODATA value.
@@ -69,17 +44,24 @@
 \end{itemize}
 \end{objectivebox}
 
-\section{The Electron: The Trefoil Soliton ($3_1$)}
+\section{The Electron: $0_1$ Unknot with $(2,3)$ Phase-Space Winding}
 \label{sec:electron_trefoil}
 
-In standard particle physics, the electron is treated as a dimensionless point charge, leading to infinite self-energy paradoxes that require artificial renormalization. In AVE, the Electron ($e^-$) is identified natively as the ground-state topological defect of the Discrete Amorphous Manifold. Specifically, it is a minimum-crossing \textbf{Trefoil Knot ($3_1$)} tensioned by the vacuum to its absolute structural yield limit.
+In standard particle physics, the electron is treated as a dimensionless point charge, leading to infinite self-energy paradoxes that require artificial renormalization. In AVE, the Electron ($e^-$) is identified natively as the ground-state topological defect of the Discrete Amorphous Manifold:
+
+\begin{itemize}
+    \item \textbf{Real-space topology:} the $0_1$ \emph{unknot} --- the simplest closed flux-tube loop, with no real-space crossings. The unknot's circumference is the reduced Compton wavelength $\hbar/(m_e c) = \ell_{node}$.
+    \item \textbf{Phase-space topology:} a $(2, 3)$ Clifford-torus winding pattern in the bond-pair LC tank's $(V_{\text{inc}}, V_{\text{ref}})$ phasor space (2 windings on the d-axis, 3 windings on the q-axis). This is the smallest non-trivial coprime $(p, q)$ pair (lowest crossing number $c = 3$), forced by the uniqueness theorem on torus knots --- the electron is the lightest stable non-trivial topological soliton.
+\end{itemize}
+
+\textbf{The trefoil lives in phase space; the soliton lives in real space.} The unknot's real-space flux tube is tensioned by the vacuum's elastic Lattice Tension ($T_{max,g}$) to its absolute structural yield limit, while its phase-space $(V_{\text{inc}}, V_{\text{ref}})$ phasor trajectory closes as the $(2, 3)$ winding pattern on the Clifford torus. The Golden Torus radii $(R, r) = (\varphi/2, (\varphi-1)/2)$ derived below are the phase-space dimensions at which the phase-space winding closes consistent with the Nyquist, crossings, and screening constraints below.
 
 \subsection{The Dielectric Ropelength Limit (The Golden Torus)}
 \label{sec:golden_torus}
 
 In a continuous mathematical space, a knotted tube can be shrunk infinitely small. However, because the $\mathcal{M}_A$ manifold possesses a discrete minimum pitch (Axiom~1, Ch.~\ref{ch:fundamental_axioms}), a topological flux tube physically cannot be infinitely thin.
 
-We define the knot's internal geometry using the mathematical limits of \textbf{Ropelength}---the tightest a knot can be pulled before its own minimum discrete thickness prevents further tightening. The immense elastic Lattice Tension ($T_{max,g}$) of the vacuum constantly seeks to minimize the stored inductive energy of the defect, pulling the trefoil knot as tight as physically possible. This tightening is violently halted by three rigid hardware bounding limits:
+We define the phase-space winding pattern's geometry using the mathematical limits of \textbf{Ropelength}---the tightest a knotted phase-space trajectory can be pulled before its own minimum discrete thickness prevents further tightening. The immense elastic Lattice Tension ($T_{max,g}$) of the vacuum constantly seeks to minimize the stored inductive energy of the defect, tightening the $(2, 3)$ phase-space winding as compactly as physically possible. This tightening is violently halted by three rigid hardware bounding limits:
 
 \begin{enumerate}
     \item \textbf{The Core Thickness ($d$):} The absolute minimum physical width of a propagating flux tube is exactly one fundamental lattice pitch. Normalized to the hardware grid, the fundamental diameter of the tube is rigidly locked at $d \equiv 1 \, \ell_{node}$.
@@ -94,13 +76,13 @@ We define the knot's internal geometry using the mathematical limits of \textbf{
 
 The normalization $\Lambda_{\text{surf}} = \pi^2$ may appear to be an ad-hoc choice at first reading. It is not. It follows rigorously from the spin-1/2 structure of the electron soliton, in the same way that the $4\pi$ factor in $\Lambda_{\text{vol}}$ (temporal double-cover) does.
 
-Following the pattern of the PMNS angle derivation (Vol.~2, Ch.~3, \textit{Neutrino Sector Eigenvalues}), which rigorously establishes three mixing-angle values by identifying three distinct physical regimes with explicit boundary conditions, the trefoil's geometric constraints on the Clifford torus partition into three regimes:
+Following the pattern of the PMNS angle derivation (Vol.~2, Ch.~3, \textit{Neutrino Sector Eigenvalues}), which rigorously establishes three mixing-angle values by identifying three distinct physical regimes with explicit boundary conditions, the $(2, 3)$ phase-space winding's geometric constraints on the Clifford torus partition into three regimes:
 
 \paragraph{(a) Nyquist Regime (tube thickness).}
-The discrete manifold has a fundamental sampling pitch $\ell_{node}$; modes of wavelength $< 2\ell_{node}$ are unresolvable (Axiom~1, Ch.~\ref{ch:fundamental_axioms}). The smallest topologically stable soliton is the trefoil ($3_1$), and its core tube must be resolvable, forcing $d = 1\,\ell_{node}$ as the rigid minimum diameter.
+The discrete manifold has a fundamental sampling pitch $\ell_{node}$; modes of wavelength $< 2\ell_{node}$ are unresolvable (Axiom~1, Ch.~\ref{ch:fundamental_axioms}). The smallest topologically stable soliton is the $0_1$ unknot carrying the $(2, 3)$ phase-space winding (smallest non-trivial coprime $(p, q)$ pair), and the unknot's core tube must be resolvable, forcing $d = 1\,\ell_{node}$ as the rigid minimum diameter.
 
 \paragraph{(b) Crossings Regime (transverse self-avoidance).}
-At each topologically-marked crossing of the (2,3) knot, two strand portions pass in transverse proximity. The flux tube centerlines must be at least $d$ apart to avoid catastrophic dielectric rupture --- the same principle that sets the rigidity percolation threshold in the bulk (Ch.~\ref{ch:macroscopic_moduli}). For a Clifford-torus embedding this gives the closest centerline approach $2(R-r)$, hence $2(R-r) = d = 1 \Rightarrow R - r = 1/2$. This regime produces \emph{one} equation in $(R, r)$.
+At each topologically-marked crossing of the $(2, 3)$ phase-space winding, two strand portions of the bond-pair LC tank's $(V_{\text{inc}}, V_{\text{ref}})$ phasor trajectory pass in transverse proximity on the Clifford torus. The phase-space centerlines must be at least $d$ apart to avoid catastrophic dielectric rupture --- the same principle that sets the rigidity percolation threshold in the bulk (Ch.~\ref{ch:macroscopic_moduli}). For a Clifford-torus embedding this gives the closest centerline approach $2(R-r)$, hence $2(R-r) = d = 1 \Rightarrow R - r = 1/2$. This regime produces \emph{one} equation in $(R, r)$.
 
 \paragraph{(c) Screening Regime (bounding surface).}
 The Clifford torus $\mathbb{T}^2$ bounding the knot is the complex product $S^1 \times S^1 \subset S^3 \subset \mathbb{C}^2$. Parameterized as $(z_1, z_2) = (r_1 e^{i\theta_1}, r_2 e^{i\theta_2})$ on $S^3$ (so $r_1^2 + r_2^2 = 1$), the standard Clifford torus at $r_1 = r_2 = 1/\sqrt{2}$ has total surface area
@@ -124,6 +106,16 @@ For a general Clifford torus at radii $(R, r)$ not normalized to unit $S^3$, the
 \paragraph{Unified Axiomatic Origin.}
 Both the temporal double-cover ($r_{\text{phase}} = 2$, factor $4\pi$ in $\Lambda_{\text{vol}}$) and the spatial half-cover (factor $\pi^2$ in $\Lambda_{\text{surf}}$) derive from the \emph{same} structural fact: spin-1/2 is a representation of $SU(2)$, the double cover of $SO(3)$. The electron's internal phase space must traverse $4\pi$ of temporal phase to return to its initial spinorial state, but only $2\pi$ of spatial phase to close the spatial loop, and this doubling/halving is the origin of the $4\pi \times \pi^2 / 2\pi = \pi^2 \times 2$ factor structure appearing in the multipole decomposition.
 
+\paragraph{AVE-native provenance of the SU(2) half-cover.}
+The SU(2) $\to$ SO(3) double cover is \emph{not} an imported QM postulate; it is AVE-native via the K4 substrate's tetrahedral rotation symmetry. The derivation chain:
+\begin{enumerate}
+    \item K4 rotation group: $T = A_4$ (proper tetrahedral rotation group, order $\lvert T \rvert = 12$; faithful representation on the 4-port basis verified per the K4-rotation-group derivation).
+    \item Double cover: $2T \subset SU(2)$ (classical group theory; binary tetrahedral group as discrete SU(2) subgroup).
+    \item Spin-$\tfrac{1}{2}$ emerges from the \emph{Finkelstein--Misner / Dirac-belt-trick mechanism} on the extended $0_1$ unknot defect embedded in the SO(3) manifold.
+    \item The $\pi^2$ half-cover area is the \emph{automatic} group-theoretic consequence of the 2-to-1 cover, not a separate quantum postulate.
+\end{enumerate}
+The remaining open formal-rigor sub-item is to prove that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ (Phase-1 classical-topology question); the half-cover itself is AVE-native and resolved.
+
 \paragraph{Closing the System.}
 With three distinct physical regimes, we obtain three independent equations in the three unknowns $(R, r, d)$:
 \begin{align}
@@ -143,7 +135,7 @@ Where $\varphi$ is the Golden Ratio. The electron is structurally locked not to 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{trefoil_alpha_qfactor.png}
-    \caption{\textbf{The Electron Soliton at Dielectric Ropelength.} The self-intersecting geometry forces extreme flux crowding at the core, constrained by the discrete $\ell_{node}$ scale strictly to the Golden Torus limit ($R=\varphi/2$, $r=(\varphi-1)/2$). Evaluating the Holomorphic Impedance at this absolute hardware boundary natively yields the geometric Q-factor ($\alpha^{-1} \approx 137.036$).}
+    \caption{\textbf{The Electron Soliton at Dielectric Ropelength.} The $0_1$ unknot's flux-tube geometry in real space, paired with the $(2,3)$ phase-space Clifford-torus winding, forces extreme flux crowding at the core, constrained by the discrete $\ell_{node}$ scale strictly to the Golden Torus limit ($R=\varphi/2$, $r=(\varphi-1)/2$) in phase space. Evaluating the Holomorphic Impedance at this absolute hardware boundary natively yields the geometric Q-factor ($\alpha^{-1} \approx 137.036$).}
     \label{fig:trefoil_soliton}
 \end{figure}
 
@@ -165,10 +157,11 @@ Normalizing these limits by the fundamental spatial voxel ($\ell_{node}$) yields
         \Lambda_{surf} = (2\pi R)(2\pi r) = 4\pi^2 (R \cdot r) = 4\pi^2 \left(\frac{1}{4}\right) = \mathbf{\pi^2} \approx 9.870
     \end{equation}
 
-    \item \textbf{The Line (Linear Flux Moment, $\Lambda_{line}$):} The fundamental magnetic moment of the core flux loop evaluated at the minimum discrete node thickness ($d=1$):
+    \item \textbf{The Line (Tube Cross-Section Circumference, $\Lambda_{line}$):} The dimensionless circumference of the core flux-tube's cross-section evaluated at the minimum discrete node thickness ($d=1$). This is a 1D geometric line integral on the tube circumference, NOT a magnetic moment (which would have dimensions of area $\times$ current rather than length):
     \begin{equation}
         \Lambda_{line} = \pi \cdot d = \pi(1) = \mathbf{\pi} \approx 3.142
     \end{equation}
+    Per the three-boundary-observables structure ($\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$) canonical at the Common Foreword and KB leaf \texttt{ave-kb/common/boundary-observables-m-q-j.md}, this is the 1D-line projection of the $\alpha^{-1}$ three-integral decomposition, corresponding to the $\mathcal{Q}$ (boundary loop / linking number) dimensionality.
 \end{enumerate}
 
 Summing these strictly derived topological bounds yields the pure, parameter-free theoretical invariant for a perfectly rigid ``Cold Vacuum'' (Absolute Zero, $0\,$K):

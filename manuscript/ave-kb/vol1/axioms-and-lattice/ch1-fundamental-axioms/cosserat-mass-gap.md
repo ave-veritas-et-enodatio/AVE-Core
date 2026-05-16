@@ -4,7 +4,7 @@
 
 # Cosserat Mass-Gap: $m^2 = 4 G_c / I_\omega$ (Structural Mass Mechanism)
 
-The **Cosserat rotational sector natively carries a mass gap** $m^2 = 4 G_c / I_\omega$ at long wavelengths. This is the **structural mass mechanism for the electron** — the (2,3) shell's quality factor calibration in Vol 1 Ch 8 Golden Torus inherits its mass content from this Cosserat gap. Empirically confirmed at 0.35% error (T = 3.1416 theory vs T = 3.1307 measured) via the uniform-$\omega$ mass-gap oscillation test on the velocity-Verlet `CosseratField3D.step()` integrator. The factor of 4 comes from $W_{\text{micropolar}} = \sum_{ij} (\varepsilon_{\text{antisym}, ij})^2 = 2 \cdot |\omega|^2$.
+The **Cosserat rotational sector natively carries a mass gap** $m^2 = 4 G_c / I_\omega$ at long wavelengths. This is the **structural mass mechanism for the electron** — the $(2, 3)$ **phase-space** Clifford-torus winding pattern (electron's bond-pair LC tank, NOT a real-space trefoil; electron's real-space topology is the $0_1$ unknot per Vol 1 Ch 8 canonical) inherits its mass content from this Cosserat gap via the quality-factor calibration. Empirically confirmed at 0.35% error (T = 3.1416 theory vs T = 3.1307 measured) via the uniform-$\omega$ mass-gap oscillation test on the velocity-Verlet `CosseratField3D.step()` integrator. The factor of 4 comes from $W_{\text{micropolar}} = \sum_{ij} (\varepsilon_{\text{antisym}, ij})^2 = 2 \cdot |\omega|^2$.
 
 ## Key Results
 

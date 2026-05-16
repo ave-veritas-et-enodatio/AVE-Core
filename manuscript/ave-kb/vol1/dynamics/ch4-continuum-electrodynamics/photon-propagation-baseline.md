@@ -105,9 +105,9 @@ Any deviation from this chain at the photon-baseline level (this leaf's result) 
 
 - **Canonical script:** `src/scripts/vol_1_foundations/photon_propagation.py` — Phase A K4-TLM wave-packet launcher (471 lines)
 - **Companion script (numerical-only, pending GIF):** `src/scripts/vol_1_foundations/photon_propagation_diagonal.py` — diagonal-axis variant predicting $v = c$
-- **Visualization artifacts:**
-  - `research/L3_electron_soliton/assets/photon_propagation_cardinal.gif` (1.4 MB, side-by-side animation)
-  - `research/L3_electron_soliton/assets/photon_propagation_cardinal.npz` (6.0 MB, full frames + centroids + times)
+- **Visualization artifacts** (regenerable from canonical script via the photon_propagation Phase A wave-packet launcher):
+  - Cardinal-axis side-by-side animation (`|V|^2` xy-slice at $z = N/2$ on log color scale, with interior centroid $x(t)$ trajectory)
+  - NPZ data with full frames + centroids + times for post-hoc analysis
 - **KB cross-cutting:**
   - [Photon Identification](photon-identification.md) — canonical $T_2$-only photon definition + electron-formation mechanism
   - [Master Equation](master-equation.md) — substrate dielectric specialization of Axiom 4
