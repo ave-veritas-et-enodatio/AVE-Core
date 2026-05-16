@@ -8,28 +8,42 @@
 
 ---
 
-## §0 TL;DR
+## §0 TL;DR (REVISED 2026-05-16 evening per corpus-grep findings + script reading)
 
-**Target**: predict δ_strain ≈ 2.225×10⁻⁶ from substrate-only inputs (T_CMB + Cosserat moduli + K4 phonon DoS + equipartition + Theorem 3.1 Q-factor sensitivity).
+**Target**: predict δ_strain ≈ 2.225×10⁻⁶ from substrate-only inputs.
 
-**Derivation chain** (adapting research/L3/47):
+**Major structural reframe (key insight from `verify_golden_torus_s11.py:229`):**
 
-1. Thermal V-field noise on K4 substrate at T_CMB: ⟨V²⟩_T/V_SNAP² = 4π·k_B·T_CMB/(α·m_e·c²) ≈ 1.57×10⁻⁷ (research/L3/47 §2)
-2. δ_strain = α^-1_cold/Q_thermal where Q_thermal is the thermal-dissipation channel reducing the geometric Q (Theorem 3.1: α^-1_cold = 4π³+π²+π = Q_geometric)
-3. 1/Q_thermal from fluctuation-dissipation: 1/Q_thermal ≈ (k_B·T_CMB/m_e·c²) × G_factor where G_factor is the substrate-geometric sensitivity of the Q-factor to thermal V-fluctuations
+The script reveals that **ALL THREE multipoles share R·r dependence**, not just Λ_surf:
+- Λ_vol = 16π³·R·r (bare pre-image; collapses to 4π³ at R·r = 1/4)
+- Λ_surf = 4π²·R·r (bare pre-image; collapses to π² at R·r = 1/4) — F1 corpus-grep finding
+- Λ_line = π (R·r-independent)
 
-**Numerical result**:
-- Observed δ_strain = 2.225×10⁻⁶ (from CODATA bridge)
-- Required 1/Q_thermal = δ_strain/α^-1_cold = 2.225×10⁻⁶/137.036 = 1.624×10⁻⁸
-- Required G_factor = 1.624×10⁻⁸ / (k_B·T_CMB/m_e·c²) = 1.624×10⁻⁸ / 4.56×10⁻¹⁰ = **35.6**
+Combined cold value:
+$$\alpha^{-1}_{\text{cold}} = (16\pi^3 + 4\pi^2) \cdot R \cdot r + \pi$$
 
-**Candidate identifications for G_factor = 35.6**:
-- 4π² ≈ 39.5 (residual: -10%)
-- (4π³+π²+π)/(4π) = α^-1/(4π) ≈ 10.9 (residual: too small)
-- 4π·√(7) ≈ 33.2 (residual: +7%)
-- 4·(4π³)/35 ≈ 14.2 (residual: way off)
+At R·r = 1/4 (spin-1/2 half-cover constraint): α^-1_cold = 4π³ + π² + π = 137.036 ✓
 
-**Verdict**: chain produces magnitude within order-of-magnitude (~10%) of observed value via the simplest candidate (G_factor = 4π²) — significant for an alternative-physics framework attempting first-principles α derivation. But the 10% residual is too large to claim closure. **Strong claim — needs the Q-factor sensitivity to be derived rigorously from Theorem 3.1 multipole decomposition + Cosserat coupling via Q-G47 Sessions 3/17 framework.**
+**Single-parameter sensitivity** (much cleaner than my earlier 4π² candidate):
+$$\frac{d\alpha^{-1}}{d(R \cdot r)} = 16\pi^3 + 4\pi^2 \approx 535.6$$
+
+**Required mean shift** for observed δ_strain:
+$$\delta(R \cdot r)_{\text{required}} = \frac{\delta_{\text{strain}} \cdot \alpha^{-1}_{\text{cold}}}{16\pi^3 + 4\pi^2} = \frac{2.225 \times 10^{-6} \times 137.036}{535.6} = 5.70 \times 10^{-7}$$
+
+This is the **actual target** for any thermal-shift mechanism: produce ⟨R·r⟩_T - 1/4 = -5.70×10⁻⁷ at T_CMB (negative because observed Q < cold Q implies R·r decreased).
+
+**Mechanism (revised)**: SYMMETRIC Gaussian thermal noise gives ⟨R·r⟩_T = 1/4 exactly at first order (the R·r linear sensitivity AND symmetric noise distribution AT a true minimum → no mean shift). The actual shift must come from:
+- (a) Anharmonic terms in the S₁₁(R, r) landscape at the Golden Torus minimum producing second-order mean shift via Grüneisen-style stat-mech, OR
+- (b) Asymmetric thermal noise distribution (CMB photon anisotropic stress on substrate), OR
+- (c) Correlated δR·δr fluctuations from coupled soliton dynamics (chirality moduli χ_i from Q-G47 Sessions 3/17 may enforce correlation)
+
+**Computational status (2026-05-16 evening)**: attempted anharmonic computation using `verify_golden_torus_s11.py` failed — that script's simplified `Z_c(s) = Z_0·√κ·ℓ_node` impedance model does NOT have its minimum at the Golden Torus (per its own caveat lines 273-278: *"the minimum lands on a degenerate configuration"*). Fitted Taylor coefficients at (R = φ/2, r = (φ-1)/2): non-zero gradients (∂S/∂R = -0.37, ∂S/∂r = +0.35) and NEGATIVE second derivatives (A = -0.62, B = -3.26) — confirms (R = φ/2, r = (φ-1)/2) is NOT a minimum in that simplified model.
+
+The actual minimum-landing computation is `ropelength_trefoil_golden_torus.py` (composite S₁₁ free energy with ropelength + self-avoidance + screening penalties). The anharmonic computation needs to be done either:
+1. By modifying `ropelength_trefoil_golden_torus.py` to output Taylor coefficients at the converged minimum, OR
+2. By building an analytic S₁₁ landscape model from first principles (Faddeev-Skyrme energy functional + Axiom 3 minimum-reflection variation)
+
+**Status update**: structural framework is now sharp (target δ(R·r) = 5.70×10⁻⁷, sensitivity 535.6); the anharmonic computation is genuine multi-session work.
 
 ---
 
