@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy, w6kk5y]
+claims: [clm-oltvwy, clm-w6kk5y]
 -->
 
 ## The Atom as a Radial Waveguide
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-oltvwy -->
 
 The cross-shell coupling follows the same physics that governs orbits at every scale in AVE:
 
@@ -24,7 +24,7 @@ $$
 
 where $\sigma$ is the **Op4 orbit-averaged enclosed charge** from the inner shell.
 
-<!-- claim-quality: w6kk5y -->
+<!-- claim-quality: clm-w6kk5y -->
 **Critical distinction from QM:**
 - **QM (Slater):** $\sigma$ is an empirical parameter fitted to match data.
 - **AVE (Op4):** $\sigma$ is *computed* from the orbit-averaged Coulomb integral (Stage C, Type 3). No free parameters.

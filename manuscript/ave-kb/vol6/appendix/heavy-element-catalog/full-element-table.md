@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nk6c43]
+claims: [clm-nk6c43]
 -->
 
 ## Full Element Table

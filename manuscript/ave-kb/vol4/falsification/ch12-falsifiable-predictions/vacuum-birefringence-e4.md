@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [pp3qwf]
+claims: [clm-pp3qwf]
 -->
 
 ## The Vacuum Birefringence Limit: $E^2$ vs $E^4$

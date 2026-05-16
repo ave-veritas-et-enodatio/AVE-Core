@@ -2,13 +2,13 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [llqd1n, jy8h1x, 6tuqjh]
+claims: [clm-llqd1n, clm-jy8h1x, clm-6tuqjh]
 path-stable: "referenced from vol6 as sec:semiconductor_nuclear"
 -->
 
 ## Semiconductor Circuit Analysis of Nuclear Binding
 
-<!-- claim-quality: llqd1n -->
+<!-- claim-quality: clm-llqd1n -->
 > **⚠ Methodology note — fit vs prediction.** The inter-alpha distances ($R$) tabulated below and throughout this section are obtained by a one-parameter-per-nucleus fit: for each nucleus, the $\alpha$-cluster topology is forced by $(Z, A)$, and a single scalar $R$ is adjusted so the computed $\sum K_{\text{mutual}}/r_{ij}$ reproduces the observed mass. The ≤0.03% (and in places ≤0.0002%) agreement reported below is therefore a **fitting tolerance** — a measure of how tightly the one-parameter geometric compression reproduces the target mass — not an *ab-initio* prediction error. The axiomatic content of this section is the claim that a single scalar $R$ per nucleus, constrained by the cluster topology, suffices to recover the full mass defect; what is fit is the distance, what is predicted is that one parameter is enough.
 
 The nuclear binding problem maps precisely onto the large-signal analysis of semiconductor junction devices. This is not an analogy---the vacuum LC lattice *is* the dielectric medium, the nucleon knots *are* the junction dopants, and the Coulomb field *is* the reverse-bias voltage. All non-geometric constants ($K_{\text{MUTUAL}}$, $\alpha$, $D_{\text{intra}}$, breakdown voltages) derive from the four AVE axioms with zero empirical fits; the remaining geometric degree of freedom is the per-nucleus $R$-value discussed above.
@@ -39,7 +39,7 @@ Every constant used in this model traces directly to a named identifier in the `
 
 | **LaTeX Symbol** | **Python Identifier** | **Value** | **Unit** | **Source** |
 |---|---|---|---|---|
-<!-- claim-quality: 6tuqjh ($l_{\rm node}$ here is the roman-ell form per Vol 6 source convention; INVARIANT-N2 mandates this in vols 6–7 vs the script $\ell_{\rm node}$ used in vols 1–5) -->
+<!-- claim-quality: clm-6tuqjh ($l_{\rm node}$ here is the roman-ell form per Vol 6 source convention; INVARIANT-N2 mandates this in vols 6–7 vs the script $\ell_{\rm node}$ used in vols 1–5) -->
 | $l_\text{node}$ | `L_NODE` | $3.862\times10^{-13}$ | m | Axiom 1 |
 | $\alpha$ | `ALPHA` | $0.007297$ | --- | Axiom 2 |
 | $\hbar$ | `HBAR` | $1.055\times10^{-34}$ | J$\cdot$s | Axiom 1 |
@@ -128,7 +128,7 @@ where all sums run over the $16 \times \binom{N_\alpha}{2}$ inter-alpha nucleon-
 *Predicted nuclear masses from the semiconductor avalanche model. All parameters are axiom-derived; zero empirical fits. The avalanche multiplier $M$ remains at unity for $Z \le 14$ (Small Signal) and jumps to $32.8$ at $Z=16$ (Large Signal).*
 
 ### Topology as Semiconductor Device Type
-<!-- claim-quality: jy8h1x (this section is the Vol 6 manifestation of the cross-cutting Symmetric vs Asymmetric Saturation distinction — Small Signal vs Large Signal regimes are the nuclear specialization of the universal $S$-kernel framing) -->
+<!-- claim-quality: clm-jy8h1x (this section is the Vol 6 manifestation of the cross-cutting Symmetric vs Asymmetric Saturation distinction — Small Signal vs Large Signal regimes are the nuclear specialization of the universal $S$-kernel framing) -->
 
 An essential consequence of this framework: each nuclear topology behaves as a distinct semiconductor *device*, fabricated on the same vacuum lattice *material*. The breakdown voltage $V_{BR}$ is a material constant (derived from $\alpha\hbar c$ and $D_\text{intra}$), but each topology determines a different $V_R / V_{BR}$ ratio---exactly as a silicon BJT and a gallium-nitride HEMT share the same semiconductor physics but have different breakdown characteristics due to their crystal geometries.
 

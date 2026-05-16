@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [sjixaw]
+claims: [clm-sjixaw]
 -->
 
 <!-- PATH-STABLE: sec:magic_numbers -->

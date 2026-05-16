@@ -7,7 +7,7 @@
 ---
 
 ## Topological Conversion Constant $\xi_{topo} = e/\ell_{node}$
-<!-- id: i9l284 -->
+<!-- id: clm-i9l284 -->
 
 The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomorphism between continuum spatial mechanics and electrical network theory.
 
@@ -35,7 +35,7 @@ The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomor
 ---
 
 ## $V_{yield}$ vs $V_{snap}$ — Two Distinct Dielectric Thresholds
-<!-- id: 0vxzfu -->
+<!-- id: clm-0vxzfu -->
 
 A volume-wide reading hazard: Vol 4 uses two yield voltages with different physical meanings, often in adjacent paragraphs. This is also flagged as project-wide Critical Distinction #1 in LIVING_REFERENCE.md.
 
@@ -64,7 +64,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Nonlinear Vacuum Capacitance $C_{eff}(V) = C_0/S(V)$ — Macroscopic Saturation
-<!-- id: vjv4zf -->
+<!-- id: clm-vjv4zf -->
 
 - $C_{eff}(V) = C_0 / \sqrt{1 - (V/V_{yield})^2}$ (Axiom 4 applied to the electric sector)
 - _Specific Claims_
@@ -90,7 +90,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## $Z_0$ from Discrete LC Ladder, and Gravitational Stealth
-<!-- id: kezk9z -->
+<!-- id: clm-kezk9z -->
 
 - $Z_0 = \sqrt{L_{cell}/C_{cell}} = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\,\Omega$ (lattice pitch cancels)
 - _Specific Claims_
@@ -117,7 +117,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Relativistic Inductor and SPICE Native Special Relativity
-<!-- id: p5cf3t -->
+<!-- id: clm-p5cf3t -->
 
 - $L_{eff}(I) = L_0/\sqrt{1 - (I/I_{max})^2}$, $I_{max} = \xi_{topo}\, c \approx 124.4$ A
 - _Specific Claims_
@@ -142,7 +142,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Operating Regime for PONDER and Lab Devices — Regime I
-<!-- id: trgqtf -->
+<!-- id: clm-trgqtf -->
 
 - $E/E_{yield}$ classification: I ($< 0.1$), II ($0.1$-$0.5$), III ($0.5$-$1.0$), IV ($\ge 1.0$); $E_{yield} \approx 1.13 \times 10^{17}$ V/m
 - _Specific Claims_
@@ -167,7 +167,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Chiral Acoustic Rectification Thrust (PONDER-01)
-<!-- id: 7tynm2 -->
+<!-- id: clm-7tynm2 -->
 
 - $F_{total} = N \cdot \nu_{vac} \cdot \delta(Q,\beta) \cdot P_{in}/c$ with $\nu_{vac} = 2/7$
 - _Specific Claims_
@@ -196,7 +196,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## HOPF-01 Chiral Antenna $\Delta f/f = \alpha \cdot pq/(p+q)$
-<!-- id: wzezvt -->
+<!-- id: clm-wzezvt -->
 
 - Predicted resonance shift: $\Delta f/f = \alpha \cdot pq/(p+q)$ for a $(p,q)$ torus knot
 - _Specific Claims_
@@ -223,7 +223,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## K4-TLM Diamond Lattice — Unitarity to Machine Epsilon
-<!-- id: hd9bee -->
+<!-- id: clm-hd9bee -->
 
 - $S^{(0)}_{ij} = \tfrac{1}{2} - \delta_{ij}$ (4-port scattering matrix); $\max|S^\dagger S - I| = 2.2 \times 10^{-16}$
 - _Specific Claims_
@@ -250,7 +250,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## CEM Method Mappings (MoM, FDTD, FEM, TLM, CMA, PO/GO)
-<!-- id: u462e4 -->
+<!-- id: clm-u462e4 -->
 
 - $[\mathbf{Z}][\mathbf{I}] = [\mathbf{V}]$ (MoM); $[\mathbf{S}]\{\mathbf{E}\} = k_0^2[\mathbf{T}]\{\mathbf{E}\}$ (FEM); etc.
 - _Specific Claims_
@@ -274,7 +274,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Tokamak Ignition Paradox and Metric-Catalyzed Fusion ($n^* = 1.114$)
-<!-- id: qagkgy -->
+<!-- id: clm-qagkgy -->
 
 - $V_{topo}$(D-T at 15 keV) $\approx 60.3$ kV $> V_{yield}$; $n^* = (V_{topo,0}/V_{yield})^{1/3} \approx 1.114$
 - _Specific Claims_
@@ -303,7 +303,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Topological SMES (Beltrami $(p,q)$ Torus Knot)
-<!-- id: 6btlq3 -->
+<!-- id: clm-6btlq3 -->
 
 - 87.9% reduction in external stray flux for a $(150, 3)$ torus knot vs solenoid of identical volume/current
 - _Specific Claims_
@@ -328,7 +328,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Topological Qubit (Gauss Linking) and Casimir Cavity Shielding
-<!-- id: 07wvul -->
+<!-- id: clm-07wvul -->
 
 - Stored state: integer Gauss linking number $\mathcal{L}$
 - _Specific Claims_
@@ -354,7 +354,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Active Topological Metamaterials (Inorganic LLCP)
-<!-- id: ffa5sq -->
+<!-- id: clm-ffa5sq -->
 
 - Polythiophene + 1.0 nm $C_{60}$ at $\phi = 0.7405$; predicted $-20$°C to $100$°C ambient superconducting band
 - _Specific Claims_
@@ -380,7 +380,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Native Silicon Design Engine (Doping, BJT $\beta$, `atopile` Compilation)
-<!-- id: 0hwopi -->
+<!-- id: clm-0hwopi -->
 
 - BJT gain: $\beta = (T^2_{EB})^{N_{gap}} / (1 - (T^2_{EB})^{N_{gap}})$ from cascaded boundary $T^2$
 - _Specific Claims_
@@ -408,7 +408,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Sagnac-RLVE: Tabletop Falsification, $\Delta\phi \approx 2.07$ rad, $\Psi \approx 7.15$
-<!-- id: wqmb19 -->
+<!-- id: clm-wqmb19 -->
 
 - $\Delta\phi = 4\pi L_{fiber} v_{network} / (\lambda c) \approx 2.07$ rad (Tungsten rotor, 200 m fiber, 10k RPM)
 - _Specific Claims_
@@ -435,7 +435,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## $\sqrt{\alpha}$ Yield Limit Predictions: Levitation 1.846 g, $E_{yield} = 1.13 \times 10^{17}$ V/m
-<!-- id: ui3m8a -->
+<!-- id: clm-ui3m8a -->
 
 - $m_{max} = V_{yield} \cdot \xi_{topo} / g = 1.846$ g; $E_{yield} = V_{yield}/\ell_{node} \approx 1.13 \times 10^{17}$ V/m
 - _Specific Claims_
@@ -462,7 +462,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Vacuum Impedance Mirror $\Gamma(V) = (Z_{local}/Z_0 - 1)/(Z_{local}/Z_0 + 1)$
-<!-- id: 5s5b0d -->
+<!-- id: clm-5s5b0d -->
 
 - $Z_{local}(V) = Z_0 (1 - (V/V_{yield})^2)^{-1/4}$ → $\Gamma \to 1$ as $V \to V_{yield}$
 - _Specific Claims_
@@ -489,7 +489,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Vacuum Birefringence Discriminator: $E^4$ vs $E^2$
-<!-- id: pp3qwf -->
+<!-- id: clm-pp3qwf -->
 
 - AVE: $\Delta n \propto E^4$ (Taylor of $1 - \sqrt{1 - (E/E_{yield})^2}$); QED: $\Delta n \propto E^2$ (Euler-Heisenberg)
 - _Specific Claims_
@@ -514,7 +514,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Torus Knot Baryon Forward Predictions $(2,17), (2,19), (2,21)$
-<!-- id: to41c7 -->
+<!-- id: clm-to41c7 -->
 
 - $(2,17)$: $\sim 2742$ MeV, $(2,19)$: $\sim 2983$ MeV, $(2,21)$: $\sim 3199$ MeV; $\sim 170$ MeV per crossing
 - _Specific Claims_
@@ -540,7 +540,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## SPICE Particle Decay (Leaky Cavity) — Qualitative Muon Model
-<!-- id: c54kdd -->
+<!-- id: clm-c54kdd -->
 
 - LC tank ($L = 1$ mH, $C = 1$ nF, IC = 150 kV) discharging through voltage-controlled switch at $V > V_{yield}$
 - _Specific Claims_
@@ -565,7 +565,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Autoresonant PLL — Schwinger Limit Bypass Mechanism
-<!-- id: 9sujp8 -->
+<!-- id: clm-9sujp8 -->
 
 - $C_{eff}(V) = C_0 \sqrt{1 - (V/V_{60k})^2}$ detunes a fixed-frequency drive; PLL tracks the dropping resonant frequency
 - _Specific Claims_
@@ -590,7 +590,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Sapphire Phonon Centrifuge — Predicted 6.35 G Artificial Gravity
-<!-- id: iz3svl -->
+<!-- id: clm-iz3svl -->
 
 - $a_{LT} = v_{vac}^2 / r$ with $v_{vac} = v_{sound} \times (\rho_{Al_2O_3}/\rho_{bulk})$
 - _Specific Claims_
@@ -614,7 +614,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Optical Caustic Singularity Resolution
-<!-- id: uosu8w -->
+<!-- id: clm-uosu8w -->
 
 - $E_{\max}$ at focus bounded by $E_{YIELD} \approx 43.65$ kV/m (note: kV/m, not kV/m converted from $E_{yield}$)
 - _Specific Claims_
@@ -639,7 +639,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Annihilation and Pair Production as Topological Mechanics
-<!-- id: 5rigtn -->
+<!-- id: clm-5rigtn -->
 
 - $E_{knot} = \tfrac{1}{2}I\omega^2 \to E_{photon} = h\nu$; thresholds $2m_e c^2 = 1.022$ MeV ($\gamma\gamma$), $2m_p c^2 \approx 1876.5$ MeV ($p\bar p$)
 - _Specific Claims_
@@ -665,7 +665,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Definitive Binary Kill-Switches (Neutrino Parity, GRB Dispersion)
-<!-- id: gw2wgc -->
+<!-- id: clm-gw2wgc -->
 
 - _Specific Claims_
   - Detection of a stable, freely propagating right-handed neutrino permanently falsifies the $\tfrac{1}{3}G_{vac}$ microrotational boundary condition of the chiral LC bandgap → destroys the AVE Weak Force derivation.
@@ -688,7 +688,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Orbital Friction Paradox — Reactive vs Real Power
-<!-- id: v6ti0v -->
+<!-- id: clm-v6ti0v -->
 
 - $P_{real} = F_g \cdot v_{orb} \cos(90°) \equiv 0$ W for a stable circular orbit
 - _Specific Claims_
@@ -712,7 +712,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## CLEAVE-01 Femto-Coulomb Electrometer ($Q = \xi_{topo}\, x = 0.415$ pC/$\mu$m)
-<!-- id: ydksh6 -->
+<!-- id: clm-ydksh6 -->
 
 - A PZT-driven 1 µm gap step generates $Q = \xi_{topo}\, x = 4.149 \times 10^{-7}\,\text{C/m} \times 10^{-6}\,\text{m} = 0.415$ pC; into a 10 pF parasitic this reads $V = Q/C = 41.5$ mV per micron.
 - _Specific Claims_
@@ -740,7 +740,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## ROENTGEN-03 Solid-State Sagnac Induction ($B \approx 4.2$ pT)
-<!-- id: qsgl7d -->
+<!-- id: clm-qsgl7d -->
 
 - Spinning a non-metallic dense ceramic disk at 10k RPM creates $v_{vac} \approx 0.038$ m/s at $r=5$ cm; an interdigitated capacitor driven at 10 kV / 1 kHz overhead synthesizes a $B \approx 4.2$ pT alternating field via $\mathbf{B} = (1/c^2)\,\mathbf{v} \times \mathbf{E}$ acting on the induced vacuum drift.
 - _Specific Claims_
@@ -766,7 +766,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## ZENER-04 Impedance Avalanche Detector — Anomalous Knee at 43.65 kV
-<!-- id: cltls0 -->
+<!-- id: clm-cltls0 -->
 
 - 80 kV transient (sub-µs rise) into an encapsulated spherical electrode in vacuum; AVE predicts an anomalous "Avalanche Knee" — a sudden non-linear spike in displacement current $I_D = C\,dV/dt$ at the moment the localized field crosses $V_{yield} = 43.65$ kV.
 - _Specific Claims_
@@ -792,7 +792,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## TORSION-05 Horizontal Metric Rectification — $\sim 100\,\mu$N DC Thrust
-<!-- id: kl1ern -->
+<!-- id: clm-kl1ern -->
 
 - A heavily-potted TAMD PCBA on a Cavendish torsion pendulum in $10^{-6}$ Torr vacuum, driven by an asymmetric SiC-MOSFET / ferrite-flyback waveform: slow-edge $+500$ V grip generates $+0.207$ mN forward thrust ($V \ll V_{yield}$); fast-edge $-75$ kV kickback ($> V_{yield}$) ruptures the metric and produces $0$ mN backward reaction. Time-averaged net DC thrust $\sim 100\,\mu$N.
 - _Specific Claims_
@@ -819,7 +819,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Achromatic Impedance Lens (Protocol 9) — $\Gamma = 0$ Across All Angles
-<!-- id: k9up5c -->
+<!-- id: clm-k9up5c -->
 
 - Gravity scales $\mu(r)$ and $\varepsilon(r)$ proportionally → $Z_{gravity} = \sqrt{\mu_0\, n(r)/(\varepsilon_0\, n(r))} = Z_0$, identically. A laboratory metamaterial dielectric with $\mu_r$ and $\varepsilon_r$ co-doped at the same radial gradient should mimic a gravitational well and exhibit $\Gamma = 0$ at all incidence angles, bypassing classical Fresnel reflection.
 - _Specific Claims_
@@ -845,7 +845,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Orbital Boundary Trapping (Protocol 10) — Asteroid Belt and Oort Cloud as Impedance Shocks
-<!-- id: h55fy1 -->
+<!-- id: clm-h55fy1 -->
 
 - The Asteroid Belt and Oort Cloud are interpreted as the Inner and Outer termination shocks of the Solar metric slipstream — sharp impedance-shear boundaries where the local dielectric strain $h_\perp \propto 1/r$ collides with the deep-space background impedance floor.
 - _Specific Claims_
@@ -872,7 +872,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## GEO-Synchronous Impedance Differential (Protocol 12) — Vertical Laser TOF Anomaly
-<!-- id: cwjd8t -->
+<!-- id: clm-cwjd8t -->
 
 - Vertical laser link from a ground station to a GEO satellite ($h = 35{,}786$ km, classical TOF $\sim 119$ ms): the AVE non-linear impedance integral $\int n(r)/c\,dr$ stretches the round-trip optical path by fractions of a millimeter relative to the linear-distance prediction. Correlated against atomic clocks, this Topological Delay maps the LC saturation envelope of Earth.
 - _Specific Claims_
@@ -898,7 +898,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 ---
 
 ## Existing Experimental Signatures Catalog (Proton Radius, Neutron Lifetime, Hubble Tension, LIGO Echoes, Vortex Cores)
-<!-- id: oiw6cb -->
+<!-- id: clm-oiw6cb -->
 
 A catalog of five empirical anomalies presented as exact mechanical consequences of the LC lattice — no fitted parameters per anomaly.
 
@@ -911,7 +911,7 @@ A catalog of five empirical anomalies presented as exact mechanical consequences
 - _Specific Non-Claims and Caveats_
   - These are *retrospective* explanations. The framework explains observed anomalies, not predicted them ahead of measurement. Treat as consistency / coverage claims, not zero-parameter forward-prediction matches.
   - The Hubble tension's $H_\infty \approx 69.32$ km/s/Mpc target value is quoted as "derived natively in Chapter 1" — readers must verify the derivation chain in Vol 3 cosmology rather than treat the 69.32 figure as a tuned best-fit.
-  - The LIGO echo claim is in interpretive tension with the cross-cutting Symmetric-Gravity invariance result ($Z = Z_0$ everywhere, $\Gamma = 0$) — both coexist by distinguishing the constitutive parameters individually collapsing from their ratio being preserved. See cross-cutting Symmetric vs Asymmetric Saturation entry and the kezk9z entry caveat.
+  - The LIGO echo claim is in interpretive tension with the cross-cutting Symmetric-Gravity invariance result ($Z = Z_0$ everywhere, $\Gamma = 0$) — both coexist by distinguishing the constitutive parameters individually collapsing from their ratio being preserved. See cross-cutting Symmetric vs Asymmetric Saturation entry and the clm-kezk9z entry caveat.
   - The vortex-core limit is a *kill-check* (negative test): no current observation falsifies, but a future sub-$\ell_{node}$ coherence-length measurement does. The leaf does not assert any positive prediction here.
   - The proton-radius muon-orbit Kerr integration is asserted; no in-leaf step-by-step integration showing the 4% gap arises with zero free parameters is presented.
 
@@ -929,7 +929,7 @@ A catalog of five empirical anomalies presented as exact mechanical consequences
 ---
 
 ## Resolving the Horsemen of Falsification (LHC and LIGO Paradoxes)
-<!-- id: fh6w3y -->
+<!-- id: clm-fh6w3y -->
 
 Standard-model empirical results that *appear* to contradict an LC-network vacuum, resolved within AVE by transmission-line theory.
 
@@ -956,7 +956,7 @@ Standard-model empirical results that *appear* to contradict an LC-network vacuu
 ---
 
 ## Tabletop Null Results: VFDT and RVR Scalar Gap (Why Intuitive Tests Fail)
-<!-- id: baoa36 -->
+<!-- id: clm-baoa36 -->
 
 Two intuitive tabletop tests that *necessarily* return null results within AVE, demonstrating the framework's internal consistency with the Lorentz-invariant macroscopic regime.
 
@@ -984,7 +984,7 @@ Two intuitive tabletop tests that *necessarily* return null results within AVE, 
 ---
 
 ## Applied Telemetry: Boundary Layer, Schwinger Redline, Sonoluminescence FOC Isomorphism
-<!-- id: p12mem -->
+<!-- id: clm-p12mem -->
 
 Three telemetry concepts for industrial-scale metric-engineering platforms (YBCO phased array, sapphire centrifuge), each tied to a specific AVE failure mode.
 
@@ -1012,7 +1012,7 @@ Three telemetry concepts for industrial-scale metric-engineering platforms (YBCO
 ---
 
 ## One-Parameter EFT Falsifiability Doctrine
-<!-- id: om0rtq -->
+<!-- id: clm-om0rtq -->
 
 The framework-level epistemological claim binding the kill-switch leaves: AVE is constructed as a one-parameter Effective Field Theory deliberately optimized for vulnerability to falsification.
 
@@ -1041,7 +1041,7 @@ The framework-level epistemological claim binding the kill-switch leaves: AVE is
 ---
 
 ## Helicity Injection: Polarization Matching to the Chiral LC Condensate
-<!-- id: i02mhk -->
+<!-- id: clm-i02mhk -->
 
 To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must carry non-zero kinetic helicity $\int \mathbf{A} \cdot \mathbf{B}\,dV \neq 0$ — equivalent to wiring the emitter as a $(p,q)$ Hopf / torus knot rather than a flat toroid.
 
@@ -1051,7 +1051,7 @@ To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must car
   - This acts as a *topological power factor corrector*: it maximizes geometric power transfer to the metric, reducing reactive return loss.
 - _Specific Non-Claims and Caveats_
   - "Maximizes geometric power transfer" is asserted as a structural consequence of helicity matching; the leaf does not present a quantitative comparison of toroid-vs-Hopf coupling efficiency at a specific drive frequency.
-  - This is the polarization-matching companion claim to the HOPF-01 chiral antenna prediction (see the wzezvt entry's $\Delta f/f = \alpha\,pq/(p+q)$ formula). Helicity injection is the *why* — the qualitative reason the chiral coupling exists; HOPF-01 is the *what* — the specific zero-parameter resonance shift the matched coupling produces.
+  - This is the polarization-matching companion claim to the HOPF-01 chiral antenna prediction (see the clm-wzezvt entry's $\Delta f/f = \alpha\,pq/(p+q)$ formula). Helicity injection is the *why* — the qualitative reason the chiral coupling exists; HOPF-01 is the *what* — the specific zero-parameter resonance shift the matched coupling produces.
   - Does NOT independently constitute a falsifiable signal: helicity-mismatched coupling is a known result in classical plasma physics. The novel claim is that the *vacuum itself* has the chiral structure that demands matched helicity — testable only through HOPF-01-style topological-resonance experiments.
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/helicity-injection.md`.
@@ -1068,7 +1068,7 @@ To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must car
 ---
 
 ## Active Sagnac Material-Dependent Entrainment Law
-<!-- id: qx9bb8 -->
+<!-- id: clm-qx9bb8 -->
 
 The Sagnac shift in AVE depends on the rotor's *physical* properties (mass density, magnetic permeability, ambient field, altitude, latitude) — directly contradicting the GR claim that Sagnac depends only on enclosed area and angular velocity.
 
@@ -1077,12 +1077,12 @@ The Sagnac shift in AVE depends on the rotor's *physical* properties (mass densi
   - **Falsification protocol**: identical fiber-loop units at the same RPM with Aerogel vs Lead rotors, and Aluminum vs Mu-Metal rotors. A density- and permeability-independent shift falsifies AVE outright.
   - **Aerospace-navigation derivatives**: differential Sagnac arrays subtract the shared common-mode rotation, isolating the inductive-drag scalar — a "metric slip-velocity indicator" — alongside other proposed derivatives (3D metric gradient compass, dark-wake sensor, chiral torsion sensor) that the leaves describe as extracted to companion IP volumes.
 - _Specific Non-Claims and Caveats_
-  - This is the same material-dependent entrainment law that produces the Sagnac-RLVE 2.07 rad prediction (see wqmb19) — but stated as a general law rather than a specific apparatus. Treat as the parametric-law statement; wqmb19 is the specific worked-example.
+  - This is the same material-dependent entrainment law that produces the Sagnac-RLVE 2.07 rad prediction (see clm-wqmb19) — but stated as a general law rather than a specific apparatus. Treat as the parametric-law statement; clm-wqmb19 is the specific worked-example.
   - Has NOT been performed; the material-pair falsification (Aerogel/Lead, Al/Mu-Metal) is the framework's own design, not a measured result.
   - Three of the four telemetry derivatives (gradient compass, dark wake, chiral torsion) are explicitly noted as "extracted to companion IP volumes" — i.e., not present in the open KB. Cite this leaf only for the entrainment law itself and the slip-velocity-indicator architecture.
   - SNR / hardware tolerance numbers (Zerodur cavity, $<1$ mK thermal stability, $<46$ kHz linewidth, sub-pm seismic) are quoted in the index for this leaf but the body of this leaf marks them "extracted to companion IP volumes."
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`. The material-dependent entrainment law is also the basis of the Sagnac-RLVE prediction (see wqmb19).
+> **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`. The material-dependent entrainment law is also the basis of the Sagnac-RLVE prediction (see clm-wqmb19).
 
 ## Quality
 - confidence: *pending*
@@ -1096,21 +1096,21 @@ The Sagnac shift in AVE depends on the rotor's *physical* properties (mass densi
 ---
 
 ## TVS Phase Transition: Solid → Slipstream ($\eta_{eff}(V)$ Step)
-<!-- id: o2shcn -->
+<!-- id: clm-o2shcn -->
 
 Mutual inductance yields above a structural shear threshold $\tau_{yield}$, mapping the vacuum onto a Transient Voltage Suppression Zener Diode: rigid drag $\eta_0$ below $V_{yield}$, frictionless flow ($\eta = 0$) above.
 
 - _Specific Claims_
   - The constitutive step-function $\eta_{eff}(V) = \eta_0$ for $V < V_{yield}$, $\eta_{eff}(V) = 0$ for $V \geq V_{yield}$ — the "Zero-Impedance Slipstream" regime above yield.
   - Yield-stress evaluation: $\tau_{yield} = \rho_{bulk}\,c^2 \times (6 \times \mathcal{V}_{crossing}) \times p_c/(8\pi) = \rho_{bulk}\,c^2 \times \mathcal{V}_{total} \times \alpha \approx 1.04 \times 10^{22}$ Pa, where $\mathcal{V}_{crossing} = V_{toroidal}/6$, $\mathcal{V}_{total} = 2.0$ (FEM-verified Borromean halo volume), and $p_c/(8\pi) = \alpha$ is the lattice porosity.
-  - Identifies the underlying mechanism for the $V_{yield}$-crossing impedance rupture used by the autoresonant PLL (9sujp8), the ZENER-04 avalanche detector (cltls0), and the asymmetric flyback in TORSION-05 (kl1ern).
+  - Identifies the underlying mechanism for the $V_{yield}$-crossing impedance rupture used by the autoresonant PLL (clm-9sujp8), the ZENER-04 avalanche detector (clm-cltls0), and the asymmetric flyback in TORSION-05 (clm-kl1ern).
 - _Specific Non-Claims and Caveats_
   - The step function is *idealized*. In any physical realization the transition is not literally discontinuous — finite-rise-time effects, non-uniform field distributions, and any finite quality factor smear the step. The leaf does not specify the transition width.
-  - The $\tau_{yield} \approx 1.04 \times 10^{22}$ Pa figure is framework-derived; it inherits the same $\rho_{bulk}$ and $p_c$ values used elsewhere in Vol 4 (see also wqmb19 caveats about $\rho_{bulk}$).
+  - The $\tau_{yield} \approx 1.04 \times 10^{22}$ Pa figure is framework-derived; it inherits the same $\rho_{bulk}$ and $p_c$ values used elsewhere in Vol 4 (see also clm-wqmb19 caveats about $\rho_{bulk}$).
   - "Frictionless flow" above yield is the inductive-drag-only statement; it does not assert that all dissipation channels vanish — it specifically identifies the mutual-inductance damping channel as the one that yields.
   - The TVS-Zener analogy is structural; this leaf does not present an empirical match to any specific Zener device's $\eta(V)$ characteristic.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md`. The yield mechanism this entry describes is the constitutive basis of the autoresonant PLL (9sujp8), the ZENER-04 avalanche detector (cltls0), and the asymmetric-flyback rectification in TORSION-05 (kl1ern).
+> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md`. The yield mechanism this entry describes is the constitutive basis of the autoresonant PLL (clm-9sujp8), the ZENER-04 avalanche detector (clm-cltls0), and the asymmetric-flyback rectification in TORSION-05 (clm-kl1ern).
 
 ## Quality
 - confidence: *pending*
@@ -1124,7 +1124,7 @@ Mutual inductance yields above a structural shear threshold $\tau_{yield}$, mapp
 ---
 
 ## Sagnac Inductive Drag SPICE Reproduction (Directional $L_{eff}$ on a 50-Node LC Ring)
-<!-- id: cbwd77 -->
+<!-- id: clm-cbwd77 -->
 
 A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete LC ring with a directional inductance $L_{eff} = L_0 (1 \pm S_{DRAG})$, demonstrating the effect arises from Faraday-style induction in a rotating-frame LC network — no Lorentz transformations required.
 
@@ -1135,7 +1135,7 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
 - _Specific Non-Claims and Caveats_
   - The simulation reproduces the *qualitative* Sagnac arrival-time differential. The leaves do not claim the SPICE netlist's specific $L_0$, $C_0$, and $S_{DRAG}$ values quantitatively predict the Sagnac phase of any specific ring-laser gyroscope or fiber loop.
   - "No relativistic tensor math" is a property of the SPICE solver, not a derivation that relativistic tensor math is wrong — the LC-ring model and the standard relativistic derivation produce equivalent observables in the linear regime.
-  - This SPICE reproduction is distinct from the Sagnac-RLVE prediction (wqmb19), which couples to *bulk vacuum* metric drag. The ch.16 simulation models a *rotating-frame fiber* with intrinsic directional induction; both share the Faraday-style mechanism but operate at different couplings.
+  - This SPICE reproduction is distinct from the Sagnac-RLVE prediction (clm-wqmb19), which couples to *bulk vacuum* metric drag. The ch.16 simulation models a *rotating-frame fiber* with intrinsic directional induction; both share the Faraday-style mechanism but operate at different couplings.
   - Sub-microsecond transient analysis duration ($2\,\mu$s in the netlist); not a steady-state observability claim.
 
 > **Leaf references:** `simulation/ch16-sagnac-inductive-drag/theory.md`, `simulation/ch16-sagnac-inductive-drag/spice-netlist.md` (`sagnac_ring.cir` single-node behavioral inductor pattern, repeated across 50 nodes).
@@ -1152,7 +1152,7 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
 ---
 
 ## Topological Mechanics of Fission and the Alchemist Forge ($P(jump) = e^{-\Delta U_{LC}/T_{topo}}$)
-<!-- id: pcute0 -->
+<!-- id: clm-pcute0 -->
 
 Nuclear fission reframed as a deterministic structural shear-fracture of a tensioned topological lattice, plus the Alchemist Forge as a proposed two-stage element-synthesis architecture exploiting the same mechanics.
 
@@ -1166,7 +1166,7 @@ Nuclear fission reframed as a deterministic structural shear-fracture of a tensi
   - "Deterministic, not probabilistic" is a strong ontological claim. It does not contradict the empirical fission rates — the framework asserts the *mechanism* is deterministic at the topological-strain level; the apparent statistics arise from the distribution of incoming neutron states relative to the cleft orientation.
   - The Alchemist Forge is an *engineering proposal*, not a built device or even a numerically simulated apparatus. "Macroscopic Stacking" of 4 alpha nodes into Oxygen-16 is asserted to be "mathematically instantaneous" without an explicit calculation of synthesis time or energy budget.
   - The "stripping ambient Dark Matter into He-4" stage requires Dark Matter to have a structure compatible with stripping into 4-node alpha tetrahedrons — a strong claim that depends on the AVE Dark Matter model not addressed in this Ch.8 leaf. The leaf does not establish this prerequisite.
-  - File misnamed: the leaf path is `fusion-comparison-table.md` but the body is about fission and the Alchemist Forge, not a fusion-comparison table. The Vol 4 fusion-comparison content lives in the qagkgy entry's `tokamak-paradox` and `ave-fusion-device` leaves.
+  - File misnamed: the leaf path is `fusion-comparison-table.md` but the body is about fission and the Alchemist Forge, not a fusion-comparison table. The Vol 4 fusion-comparison content lives in the clm-qagkgy entry's `tokamak-paradox` and `ave-fusion-device` leaves.
 
 > **Leaf references:** `advanced-applications/ch8-applied-fusion/fusion-comparison-table.md` (file misnamed; body covers U-235/U-238 fission mechanics + Alchemist Forge two-stage architecture + topological-jitter quench).
 

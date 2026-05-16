@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [ak97cb, oltvwy, z73h6n]
+subtree-claims: [clm-ak97cb, clm-oltvwy, clm-z73h6n]
 -->
 
 # Ch. 9: Computational Proof and Anomaly Catalog

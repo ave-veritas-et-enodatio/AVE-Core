@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [bh9p6s]
+claims: [clm-bh9p6s]
 -->
 
 ## Neutron Decay: The Threading Instability

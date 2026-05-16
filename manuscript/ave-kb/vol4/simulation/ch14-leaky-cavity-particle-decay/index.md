@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [c54kdd]
+subtree-claims: [clm-c54kdd]
 -->
 
 # Ch.14: The Leaky Cavity — Simulating Particle Decay

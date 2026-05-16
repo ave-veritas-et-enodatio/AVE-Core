@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [dfaiwj]
+claims: [clm-dfaiwj]
 -->
 
 ## Section 2.2: The Constitutive Moduli of the Void

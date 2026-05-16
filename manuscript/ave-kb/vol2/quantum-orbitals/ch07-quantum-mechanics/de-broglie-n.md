@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy]
+claims: [clm-oltvwy]
 -->
 
 ## De Broglie Refractive Index on the AVE Lattice

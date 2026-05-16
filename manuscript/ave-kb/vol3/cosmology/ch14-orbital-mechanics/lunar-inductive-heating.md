@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [av2o4v]
+claims: [clm-av2o4v]
 -->
 
 # Lunar Inductive Heating (VCA Power Transfer Bridge)

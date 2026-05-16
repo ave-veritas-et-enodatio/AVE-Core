@@ -71,7 +71,7 @@ class TestQueries(unittest.TestCase):
     # ---- Claim lookup --------------------------------------------------
 
     def test_claim_lookup(self) -> None:
-        c = self.idx.claim("trf3bd")
+        c = self.idx.claim("clm-trf3bd")
         self.assertIsNotNone(c)
         assert c is not None  # narrow for type checker
         self.assertIn("Trefoil", c.title)
@@ -79,48 +79,48 @@ class TestQueries(unittest.TestCase):
         self.assertIsInstance(c, Claim)
 
     def test_claim_missing(self) -> None:
-        self.assertIsNone(self.idx.claim("nope01"))
+        self.assertIsNone(self.idx.claim("clm-nope01"))
 
     # ---- Dependency edges ----------------------------------------------
 
     def test_depends_on_forward(self) -> None:
-        deps = self.idx.depends_on("5xon03")
-        self.assertIn("unk0bd", deps)
+        deps = self.idx.depends_on("clm-5xon03")
+        self.assertIn("clm-unk0bd", deps)
         # Result must be sorted and deduplicated.
         self.assertEqual(deps, sorted(set(deps)))
 
     def test_depends_on_inverse(self) -> None:
-        dependents = self.idx.dependents_of("unk0bd")
-        self.assertIn("5xon03", dependents)
+        dependents = self.idx.dependents_of("clm-unk0bd")
+        self.assertIn("clm-5xon03", dependents)
 
     # ---- Strengthen-by --------------------------------------------------
 
     def test_strengthen_by_for_claim(self) -> None:
-        items = self.idx.strengthen_by("trf3bd")
+        items = self.idx.strengthen_by("clm-trf3bd")
         self.assertEqual(len(items), 3)
         self.assertEqual([it.item_idx for it in items], [0, 1, 2])
         for it in items:
             self.assertIsInstance(it, StrengthenByItem)
-            self.assertEqual(it.claim_id, "trf3bd")
+            self.assertEqual(it.claim_id, "clm-trf3bd")
 
     def test_gated_on(self) -> None:
-        gated = self.idx.gated_on("unk0bd")
-        self.assertIn("5xon03", gated)
+        gated = self.idx.gated_on("clm-unk0bd")
+        self.assertIn("clm-5xon03", gated)
 
     # ---- Citations ------------------------------------------------------
 
     def test_cited_by(self) -> None:
-        cites = self.idx.cited_by("trf3bd")
+        cites = self.idx.cited_by("clm-trf3bd")
         self.assertGreater(len(cites), 0)
         for c in cites:
             self.assertIsInstance(c, CitationEdge)
-            self.assertEqual(c.claim_id, "trf3bd")
+            self.assertEqual(c.claim_id, "clm-trf3bd")
 
     def test_claims_in_leaf(self) -> None:
-        # trf3bd is cited by vol1/ch8-alpha-golden-torus.md (per the on-disk index).
+        # clm-trf3bd is cited by vol1/ch8-alpha-golden-torus.md (per the on-disk index).
         leaf_path = "vol1/ch8-alpha-golden-torus.md"
         claims = self.idx.claims_in_leaf(leaf_path)
-        self.assertIn("trf3bd", claims)
+        self.assertIn("clm-trf3bd", claims)
 
     # ---- Subtree aggregation -------------------------------------------
 
@@ -143,15 +143,15 @@ class TestQueries(unittest.TestCase):
         self.assertEqual(set(empty), set(dot))
         self.assertEqual(len(empty), 199)
         # Sanity-check a few canonical IDs.
-        for cid in ("trf3bd", "unk0bd", "5xon03", "0ktpcn"):
+        for cid in ("clm-trf3bd", "clm-unk0bd", "clm-5xon03", "clm-0ktpcn"):
             self.assertIn(cid, empty)
 
     # ---- Filters --------------------------------------------------------
 
     def test_solidity_below(self) -> None:
         below_half = {c.id for c in self.idx.solidity_below(0.5)}
-        self.assertIn("unk0bd", below_half)  # solidity 0.40
-        self.assertNotIn("trf3bd", below_half)  # solidity 0.75
+        self.assertIn("clm-unk0bd", below_half)  # solidity 0.40
+        self.assertNotIn("clm-trf3bd", below_half)  # solidity 0.75
         # Sort: solidity ascending, then id.
         seq = self.idx.solidity_below(0.5)
         prev = (-1.0, "")
@@ -163,7 +163,7 @@ class TestQueries(unittest.TestCase):
 
     def test_in_band(self) -> None:
         do_not_build = {c.id for c in self.idx.in_band("do-not-build")}
-        self.assertIn("unk0bd", do_not_build)
+        self.assertIn("clm-unk0bd", do_not_build)
 
     # ---- Stats ----------------------------------------------------------
 
@@ -197,24 +197,24 @@ class TestCli(unittest.TestCase):
         return proc
 
     def test_deps_forward(self) -> None:
-        proc = self._run("deps", "5xon03")
-        self.assertIn("unk0bd", proc.stdout)
+        proc = self._run("deps", "clm-5xon03")
+        self.assertIn("clm-unk0bd", proc.stdout)
 
     def test_deps_inverse(self) -> None:
-        proc = self._run("deps", "-i", "unk0bd")
-        self.assertIn("5xon03", proc.stdout)
+        proc = self._run("deps", "-i", "clm-unk0bd")
+        self.assertIn("clm-5xon03", proc.stdout)
 
     def test_gated_on(self) -> None:
-        proc = self._run("gated-on", "unk0bd")
-        self.assertIn("5xon03", proc.stdout)
+        proc = self._run("gated-on", "clm-unk0bd")
+        self.assertIn("clm-5xon03", proc.stdout)
 
     def test_cited_by(self) -> None:
-        proc = self._run("cited-by", "trf3bd")
+        proc = self._run("cited-by", "clm-trf3bd")
         self.assertTrue(proc.stdout.strip())
 
     def test_solidity_below(self) -> None:
         proc = self._run("solidity-below", "0.5")
-        self.assertIn("unk0bd", proc.stdout)
+        self.assertIn("clm-unk0bd", proc.stdout)
 
     def test_subtree_entrypoint(self) -> None:
         proc = self._run("subtree", "")
@@ -222,12 +222,12 @@ class TestCli(unittest.TestCase):
         self.assertEqual(len(lines), 199)
 
     def test_show(self) -> None:
-        proc = self._run("show", "trf3bd")
+        proc = self._run("show", "clm-trf3bd")
         self.assertIn("Trefoil", proc.stdout)
         self.assertIn("build_band", proc.stdout)
 
     def test_show_unknown(self) -> None:
-        self._run("show", "nope01", expect_exit=1)
+        self._run("show", "clm-nope01", expect_exit=1)
 
     def test_stats(self) -> None:
         proc = self._run("stats")
@@ -238,7 +238,7 @@ class TestCli(unittest.TestCase):
         proc = self._run("solidity-below", "0.5", "--json")
         data = json.loads(proc.stdout)
         self.assertIsInstance(data, list)
-        self.assertTrue(any(rec.get("id") == "unk0bd" for rec in data))
+        self.assertTrue(any(rec.get("id") == "clm-unk0bd" for rec in data))
 
 
 if __name__ == "__main__":

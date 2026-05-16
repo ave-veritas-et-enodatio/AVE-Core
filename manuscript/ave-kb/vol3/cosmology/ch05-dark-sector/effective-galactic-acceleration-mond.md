@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [u86caq]
+claims: [clm-u86caq]
 -->
 
 ## Effective Galactic Acceleration (Axiom 4 MOND)

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [baoa36]
+claims: [clm-baoa36]
 -->
 
 ## The Tabletop Graveyard: Why Intuitive Tests Fail

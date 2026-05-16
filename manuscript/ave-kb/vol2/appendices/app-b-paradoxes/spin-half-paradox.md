@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [salw2h]
+claims: [clm-salw2h]
 -->
 
 ## The Spin-1/2 Paradox

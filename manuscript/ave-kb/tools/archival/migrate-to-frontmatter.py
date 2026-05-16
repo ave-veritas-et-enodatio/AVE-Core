@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+#
+# ARCHIVAL — one-shot tool, already executed; retained for reference only.
+#
+# NOTE: the claim-quality ID format has changed since this tool last ran.
+# IDs are now `clm-`-prefixed (e.g. `clm-h9aqmt`); this script predates that
+# change and operates on the bare 6-char form (`h9aqmt`). If ever resurrected,
+# its ID handling must be updated to the `clm-` prefix. The prefix migration
+# itself is the sibling tool ./migrate-ids-to-clm.py.
+#
 """One-shot migration: convert existing top-of-file comment annotations to a
 unified YAML-in-HTML-comment frontmatter block.
 
@@ -6,8 +15,8 @@ See ``mad-review/kb-metadata-spine-spec.md`` for the format. Idempotent.
 
 Two modes::
 
-    ./.venv/bin/python manuscript/ave-kb/tools/migrate-to-frontmatter.py --dry-run
-    ./.venv/bin/python manuscript/ave-kb/tools/migrate-to-frontmatter.py
+    ./.venv/bin/python manuscript/ave-kb/tools/archival/migrate-to-frontmatter.py --dry-run
+    ./.venv/bin/python manuscript/ave-kb/tools/archival/migrate-to-frontmatter.py
 
 Run dry first; only run live after dry-run summary is acceptable.
 

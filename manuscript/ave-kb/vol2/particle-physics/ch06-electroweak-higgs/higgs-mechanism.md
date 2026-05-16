@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [5zuo7g, p7rfkb]
+claims: [clm-5zuo7g, clm-p7rfkb]
 -->
 
 ## Reinterpretation of the Higgs Mechanism
-<!-- claim-quality: p7rfkb -->
+<!-- claim-quality: clm-p7rfkb -->
 
 The Standard Model posits the existence of a scalar "Higgs Field" carrying a non-zero Vacuum Expectation Value (VEV) of $v = 246 \text{ GeV}$. According to the Glashow-Weinberg-Salam model, fundamental particles gain mass exclusively by interacting ("coupling") with this pervasive scalar field.
 
@@ -27,7 +27,7 @@ $$
 Thus, physical "mass" is Macroscopic Electromagnetic Resistance.
 
 ## The Weak Mixing Angle from the Perpendicular Axis Theorem
-<!-- claim-quality: 5zuo7g -->
+<!-- claim-quality: clm-5zuo7g -->
 
 The electroweak mixing angle is not a free parameter in the AVE framework. It is derived analytically from the Poisson ratio of the vacuum ($\nu_{vac} = 2/7$) and the Perpendicular Axis Theorem (PAT) applied to cylindrical flux tubes.
 

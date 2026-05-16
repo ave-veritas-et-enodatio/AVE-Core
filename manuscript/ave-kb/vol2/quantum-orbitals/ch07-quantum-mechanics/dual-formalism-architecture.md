@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy]
+claims: [clm-oltvwy]
 -->
 
 ## E2 Summary --- Dual-Formalism Architecture

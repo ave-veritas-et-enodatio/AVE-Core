@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [j9l3ww, uowffm]
+claims: [clm-j9l3ww, clm-uowffm]
 path-stable: "referenced from vol3 as sec:hbond_derivation"
 -->
 
@@ -74,7 +74,7 @@ $$
 
 Because the H-bond field routes entirely through the interstitial defect volume, its maximum storable potential is identically projected by this geometric void constant:
 
-<!-- claim-quality: j9l3ww -->
+<!-- claim-quality: clm-j9l3ww -->
 $$
 E_\text{HB} = U_\text{raw} \times (1-\phi) = 0.8317~\text{eV} \times 0.2595 = 0.2158~\text{eV}
 \label{eq:E_hbond}
@@ -128,7 +128,7 @@ Because the covalent bonds act as saturated standing waves, they structurally "f
 
 When thermal energy $kT$ begins to shatter these topological linkages at 0$^\circ$C, the lattice falls out of this expanded vacuum alignment and collapses into standard Random Close Packing ($V_{II}$). The $+4^\circ$C hump is the precise boundary where the geometrical collapse into the denser $V_{II}$ state is mathematically overtaken by the anharmonic oscillatory thermal expansion tensor ($V_\text{thermal}$).
 
-<!-- claim-quality: uowffm (this paragraph routes the $E_{HB} = 0.2158$ eV result derived above into the membrane-yield-temperature derivation $T_c = E_{HB}/(n_{coop} k_B) \approx 278.3$ K) -->
+<!-- claim-quality: clm-uowffm (this paragraph routes the $E_{HB} = 0.2158$ eV result derived above into the membrane-yield-temperature derivation $T_c = E_{HB}/(n_{coop} k_B) \approx 278.3$ K) -->
 **Warning: Scalar Transition Collapse**
 While generic mean-field scalar Boltzmann distributions ($f_I = 1 / (1 + e^{\dots})$) smoothly evaluate continuous states for standard fluids (e.g., Argon, Nitrogen), they artificially suppress anomalous geometrical transitions. To natively derive $T_\text{max} = +4^\circ$C directly from the $E_\text{HB}$ parameter without empirical tuning, the topological derivation must leverage cooperative 3D directional matrix limits (Axiom 4 Lattice Yield) rather than relying on isotropic volumetric scalar interpolations. The membrane phase-buffering mechanism provides a direct biological manifestation of this non-linear regime boundary.
 

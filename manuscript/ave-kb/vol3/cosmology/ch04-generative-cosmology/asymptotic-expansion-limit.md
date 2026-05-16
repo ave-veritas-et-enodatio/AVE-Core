@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [wx5324]
+claims: [clm-wx5324]
 -->
 
 ## Asymptotic Expansion Limit

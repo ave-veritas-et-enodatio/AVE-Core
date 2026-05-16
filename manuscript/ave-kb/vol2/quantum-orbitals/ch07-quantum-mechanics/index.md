@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [ak97cb, oltvwy, qde5gn, w6kk5y]
+subtree-claims: [clm-ak97cb, clm-oltvwy, clm-qde5gn, clm-w6kk5y]
 -->
 
 # Ch. 7: Quantum Mechanics and Atomic Orbitals

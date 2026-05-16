@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [1klgo2, 3zz0f6, rd9cjm, wx5324, x19btt]
+subtree-claims: [clm-1klgo2, clm-3zz0f6, clm-rd9cjm, clm-wx5324, clm-x19btt]
 -->
 
 # Ch.1: Trace-Reversal, Gravity, and Macroscopic Yield

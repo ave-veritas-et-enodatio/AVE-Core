@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [refjr6]
+claims: [clm-refjr6]
 -->
 
 ---

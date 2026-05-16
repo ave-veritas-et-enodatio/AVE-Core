@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [i02mhk]
+claims: [clm-i02mhk]
 -->
 
 ## Electromagnetic Coupling to the Chiral LC Condensate (Helicity Injection)

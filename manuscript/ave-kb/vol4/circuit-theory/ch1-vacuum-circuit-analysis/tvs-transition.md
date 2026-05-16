@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [o2shcn]
+claims: [clm-o2shcn]
 -->
 
 ## The Viscoelastic TVS Zener Diode (Phase Transition)

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [5zuo7g]
+claims: [clm-5zuo7g]
 -->
 
 ## Deriving the Weak Mixing Angle via Isotropic Elasticity

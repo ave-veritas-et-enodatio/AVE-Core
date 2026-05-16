@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7zuwtm]
+claims: [clm-7zuwtm]
 -->
 
 ## Section 3.2.3: Deriving the Schrodinger Equation from Circuit Resonance
@@ -49,7 +49,7 @@ yields the **full Schrödinger equation** with external potential:
 > i\hbar\,\frac{\partial \Psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2\Psi + V(\mathbf{r})\,\Psi
 > $$
 
-**Physical reading.** $V(\mathbf{r})$ is the spatially-dependent rest-energy shift induced by the local dielectric perturbation $\chi(\mathbf{r})$. A nuclear Coulomb well, an applied electric field, or another knot's strain field all enter through this same mechanism: by modulating the local lattice constitutive parameters, they shift the local Compton frequency seen by the propagating wave, which becomes a position-dependent potential in the paraxial envelope. Bound-state physics (atomic orbitals, potential wells, tunneling barriers) recovers from this form by standard separation of variables; the same impedance-matching condition $2\pi r = n\lambda$ that defines the unknot (here "unknot" = the de Broglie standing-wave *orbital path* satisfying Bohr quantization, i.e. an unknotted closed curve around the nucleus, *not* the electron's body topology — body-topology question tracked at `trf3bd`/`unk0bd`) reproduces the hydrogenic energy levels $E_n = -m_e c^2 \alpha^2 / (2 n^2)$ (Vol 2 Ch 7).
+**Physical reading.** $V(\mathbf{r})$ is the spatially-dependent rest-energy shift induced by the local dielectric perturbation $\chi(\mathbf{r})$. A nuclear Coulomb well, an applied electric field, or another knot's strain field all enter through this same mechanism: by modulating the local lattice constitutive parameters, they shift the local Compton frequency seen by the propagating wave, which becomes a position-dependent potential in the paraxial envelope. Bound-state physics (atomic orbitals, potential wells, tunneling barriers) recovers from this form by standard separation of variables; the same impedance-matching condition $2\pi r = n\lambda$ that defines the unknot (here "unknot" = the de Broglie standing-wave *orbital path* satisfying Bohr quantization, i.e. an unknotted closed curve around the nucleus, *not* the electron's body topology — body-topology question tracked at `clm-trf3bd`/`clm-unk0bd`) reproduces the hydrogenic energy levels $E_n = -m_e c^2 \alpha^2 / (2 n^2)$ (Vol 2 Ch 7).
 
 **Magnetic case.** A spatial modulation of $\mu_{eff}(\mathbf{r})$ contributes via the same paraxial argument to a vector-potential coupling $-(e/m c)\mathbf{A}\cdot\mathbf{p}$ at leading order; combined with the scalar $V(\mathbf{r})$ above, the full minimal-coupling Schrödinger Hamiltonian $\frac{1}{2m}(\mathbf{p} - e\mathbf{A}/c)^2 + V$ follows. The derivation is mechanically the same as the classical paraxial-wave-in-modulated-medium argument; no quantum postulates are imported.
 

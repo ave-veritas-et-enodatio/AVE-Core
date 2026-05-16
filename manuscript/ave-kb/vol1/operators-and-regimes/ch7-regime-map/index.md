@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [2dwzib, 82dxbj, b2anl4, lv3uw1, rtgmg5]
+subtree-claims: [clm-2dwzib, clm-82dxbj, clm-b2anl4, clm-lv3uw1, clm-rtgmg5]
 -->
 
 # Ch.7: The Universal Regime Map

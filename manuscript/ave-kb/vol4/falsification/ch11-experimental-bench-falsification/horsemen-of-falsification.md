@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [fh6w3y]
+claims: [clm-fh6w3y]
 -->
 
 ## Resolving the "Horsemen of Falsification"

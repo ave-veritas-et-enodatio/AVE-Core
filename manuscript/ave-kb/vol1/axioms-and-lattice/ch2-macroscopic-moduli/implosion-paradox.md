@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [9gh0a1]
+claims: [clm-9gh0a1]
 -->
 
 ## Section 2.1: The Implosion Paradox: Why The Vacuum Must Be Micropolar

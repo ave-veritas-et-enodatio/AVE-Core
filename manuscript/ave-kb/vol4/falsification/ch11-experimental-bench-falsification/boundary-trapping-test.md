@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [h55fy1]
+claims: [clm-h55fy1]
 path-stable: "referenced from vol3 as sec:boundary_trapping"
 -->
 

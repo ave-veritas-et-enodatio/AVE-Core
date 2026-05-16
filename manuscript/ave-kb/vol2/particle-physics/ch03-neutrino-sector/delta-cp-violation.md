@@ -2,12 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7o8clt, rji99i]
+claims: [clm-7o8clt, clm-rji99i]
 path-stable: "referenced from vol2 as sec:delta_cp, eq:delta_cp_pmns"
 -->
 
 ## Step 4: CP-Violating Phase
-<!-- claim-quality: 7o8clt -->
+<!-- claim-quality: clm-7o8clt -->
 
 The CP-violating phase accumulates three contributions as the torsional mode propagates through the chiral K4 lattice:
 
@@ -37,7 +37,7 @@ Each term has a distinct physical origin:
 The derived PMNS matrix is **unitary** to machine precision ($|U^\dagger U - I| < 10^{-16}$), with Jarlskog invariant $J \approx -0.030$.
 
 ### Neutrino Mass Hierarchy from Crossing Numbers
-<!-- claim-quality: rji99i -->
+<!-- claim-quality: clm-rji99i -->
 
 The mass eigenvalues of neutrinos follow from the torsional defect binding energy at each crossing number. Because the torsional coupling scales as $1/c^2$ (the angular phase space available to each defect decreases with larger crossing number), the mass hierarchy is:
 

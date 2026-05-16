@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [0hwopi]
+claims: [clm-0hwopi]
 -->
 
 # Topological Transistor Mechanics (BJT Gain)

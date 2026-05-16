@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nk6c43, mlwm3h]
+claims: [clm-nk6c43, clm-mlwm3h]
 -->
 
 <!-- PATH-STABLE: sec:fibonacci_packing -->
@@ -15,10 +15,10 @@ $$
 \lim_{n \to \infty} \frac{F_{n+1}}{F_n} = \varphi
 $$
 
-<!-- claim-quality: mlwm3h (the Fibonacci → φ → icosahedral-ground-state convergence here is the geometric forcing that makes φ appear in nuclear packing — not numerology) -->
+<!-- claim-quality: clm-mlwm3h (the Fibonacci → φ → icosahedral-ground-state convergence here is the geometric forcing that makes φ appear in nuclear packing — not numerology) -->
 In the AVE periodic table catalog, elements beyond $Z=28$ (where no exact geometry has been solved) use a *Fibonacci lattice* as a numerical proxy for distributing alpha clusters on a sphere. This is not coincidental: the Fibonacci lattice is the computationally cheapest algorithm that produces approximately uniform point distributions on $S^2$---because it converges to the icosahedral ground state that defines $\varphi$.
 
-<!-- claim-quality: nk6c43 (the "$<0.5\%$ across 105 elements" headline is the catalog-accuracy claim whose tiered-distribution caveat is the subject of the Heavy Element Catalog quality entry) -->
+<!-- claim-quality: clm-nk6c43 (the "$<0.5\%$ across 105 elements" headline is the catalog-accuracy claim whose tiered-distribution caveat is the subject of the Heavy Element Catalog quality entry) -->
 The fact that the Fibonacci proxy achieves $<0.5\%$ mass prediction accuracy across 105 elements (Volume VI, Appendix A) is itself a proof that the underlying physical packing is icosahedral in character. The Fibonacci lattice works *because* it approximates the true minimum-impedance geometry.
 
 ---

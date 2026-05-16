@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [g6e3zw]
+claims: [clm-g6e3zw]
 -->
 
 ## Why Extra Dimensions Are Unnecessary

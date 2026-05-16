@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [7tynm2, vjv4zf]
+subtree-claims: [clm-7tynm2, clm-vjv4zf]
 -->
 
 # Ch.17: Hardware Netlists — PONDER-01 and the EE Bench

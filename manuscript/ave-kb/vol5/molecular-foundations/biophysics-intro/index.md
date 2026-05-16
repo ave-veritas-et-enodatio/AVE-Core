@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [239tr4, a3rby3, br3bcv, pav5m3, u4vmgk]
+subtree-claims: [clm-239tr4, clm-a3rby3, clm-br3bcv, clm-pav5m3, clm-u4vmgk]
 -->
 
 # Biophysics Introduction

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [07wvul]
+claims: [clm-07wvul]
 -->
 
 ## The Transmon: A Fragile LC Standing Wave

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [v6ti0v]
+claims: [clm-v6ti0v]
 -->
 
 ## Real vs. Reactive Power: The Orbital Friction Paradox

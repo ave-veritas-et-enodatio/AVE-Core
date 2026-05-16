@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [fy05jc]
+claims: [clm-fy05jc]
 -->
 
 # General Relativity ↔ AVE Translation

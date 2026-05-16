@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy]
+claims: [clm-oltvwy]
 -->
 
 ## Ionization Energy Validation: $Z = 1$ to $14$

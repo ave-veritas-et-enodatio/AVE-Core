@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [ir8h78, rd9cjm]
+subtree-claims: [clm-ir8h78, clm-rd9cjm]
 -->
 
 # Ch.3: Macroscopic Relativity: The Optical Metric

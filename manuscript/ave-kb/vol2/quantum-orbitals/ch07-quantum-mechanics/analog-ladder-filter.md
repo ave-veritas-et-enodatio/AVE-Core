@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy]
+claims: [clm-oltvwy]
 -->
 
 ## The Atom as an Analog Ladder Filter

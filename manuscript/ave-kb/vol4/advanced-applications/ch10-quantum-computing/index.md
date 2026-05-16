@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [07wvul]
+subtree-claims: [clm-07wvul]
 -->
 
 # Ch.10 Quantum Computing and Topological Immunity

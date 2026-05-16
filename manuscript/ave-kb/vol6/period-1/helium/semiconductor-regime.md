@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [rw7jqo]
+claims: [clm-rw7jqo]
 -->
 
 ## Semiconductor Regime Classification

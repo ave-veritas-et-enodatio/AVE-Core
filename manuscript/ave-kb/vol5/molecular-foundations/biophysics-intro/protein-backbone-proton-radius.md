@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [u4vmgk, a3rby3]
+claims: [clm-u4vmgk, clm-a3rby3]
 -->
 
 <!-- original-label: sec:protein_bridge DUPLICATE (also in Ch.3) -->
@@ -10,7 +10,7 @@ claims: [u4vmgk, a3rby3]
 ---
 
 ## Protein Backbone: From Proton Radius to Folding
-<!-- claim-quality: a3rby3 ($S_{11}$ here is the protein-folding free-energy functional, not the EE reflection coefficient — Vol 5's notation-hazard meaning) -->
+<!-- claim-quality: clm-a3rby3 ($S_{11}$ here is the protein-folding free-energy functional, not the EE reflection coefficient — Vol 5's notation-hazard meaning) -->
 
 The protein $S_{11}$ folding engine uses the C$\alpha$--C$\alpha$
 virtual bond distance $d_0 \approx 3.80$ Å as its fundamental
@@ -32,7 +32,7 @@ peptide repeat unit. The amino acid impedance table $Z_{\text{topo}}$
 assigns complex impedances (R + jX) to each of the 20 residues,
 with $Q_{\text{backbone}} \approx 7$ suppressing reactive coupling.
 
-<!-- claim-quality: u4vmgk (the parameter-free backbone-length-scale derivation chain $d_p \to r_{\rm cov} \to d_0 = 3.80$ Å and the Γ-driven inter-residue impedance map established here are the foundation feeding the Chignolin 2.59 Å backbone-RMSD validation) -->
+<!-- claim-quality: clm-u4vmgk (the parameter-free backbone-length-scale derivation chain $d_p \to r_{\rm cov} \to d_0 = 3.80$ Å and the Γ-driven inter-residue impedance map established here are the foundation feeding the Chignolin 2.59 Å backbone-RMSD validation) -->
 **Figure: fig:protein_backbone** — Protein backbone impedance from AVE axioms.
 **Left:** Full derivation chain from $\ell_{node}$ to
 the C$\alpha$--C$\alpha$ peptide bond length $d_0 = 3.80$ Å.

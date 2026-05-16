@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [d9ivj1]
+claims: [clm-d9ivj1]
 -->
 
 ## Cross-Scale Isomorphism Table

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [kezk9z, p5cf3t]
+claims: [clm-kezk9z, clm-p5cf3t]
 -->
 
 ## Topological Defects as Resonant LC Solitons
@@ -12,7 +12,7 @@ A fundamental particle is a stable topological defect---a highly tensioned phase
 By applying the Topo-Kinematic mapping to the electron's rest mass, its equivalent localized Inductance evaluates to $L_e \equiv \xi_{topo}^{-2} m_e$. The local lattice compliance acts as the restoring capacitor ($C_e \equiv \xi_{topo}^2 k^{-1}$).
 
 ### Recovering the Virial Theorem and $E=mc^2$
-<!-- claim-quality: p5cf3t (the inductive-energy ledger here uses $I_{max} = \xi_{topo}\, c$ — the relativistic-inductor hardware velocity limit established in Relativistic Inductor and SPICE Native Special Relativity) -->
+<!-- claim-quality: clm-p5cf3t (the inductive-energy ledger here uses $I_{max} = \xi_{topo}\, c$ — the relativistic-inductor hardware velocity limit established in Relativistic Inductor and SPICE Native Special Relativity) -->
 
 This mapping is rigorously verified by evaluating the stored energy of the resonant soliton. In an ideal LC tank, the peak internal dynamic (inductive) energy is defined as $E_{mag} = \frac{1}{2} L_e I_{max}^2$. Substituting the hardware velocity limit ($I_{max} = \xi_{topo} c$) evaluates to:
 
@@ -38,7 +38,7 @@ $$
 \lim_{C_{eff} \to \infty} Z_{core} = \lim_{C_{eff} \to \infty} \sqrt{\frac{\mu_{0}}{C_{eff}}} = 0\,\Omega
 $$
 
-<!-- claim-quality: kezk9z (the "unperturbed ambient vacuum $Z_0 \approx 376.7\,\Omega$" baseline used here is the discrete-LC-ladder $Z_0$ derived in $Z_0$ from Discrete LC Ladder, and Gravitational Stealth) -->
+<!-- claim-quality: clm-kezk9z (the "unperturbed ambient vacuum $Z_0 \approx 376.7\,\Omega$" baseline used here is the discrete-LC-ladder $Z_0$ derived in $Z_0$ from Discrete LC Ladder, and Gravitational Stealth) -->
 In standard wave mechanics, the Reflection Coefficient ($\Gamma$) governing the transmission of energy across a boundary is defined by the impedance differential between the two media. Evaluating the boundary between the saturated particle core ($0\,\Omega$) and the unperturbed ambient vacuum ($Z_{0}\approx376.7\,\Omega$) yields:
 
 $$

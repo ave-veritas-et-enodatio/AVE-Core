@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [0hwopi]
+claims: [clm-0hwopi]
 -->
 
 # The P-N Junction as an S-Parameter Boundary

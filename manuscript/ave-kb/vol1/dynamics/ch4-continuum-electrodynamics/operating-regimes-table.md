@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [xy252u]
+claims: [clm-xy252u]
 -->
 
 ## Section 4.3: Analytical Operating Regimes of the Vacuum

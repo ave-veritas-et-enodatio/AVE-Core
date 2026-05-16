@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [86gq2d]
+claims: [clm-86gq2d]
 path-stable: "referenced from vol6 as sec:pn_junction"
 -->
 

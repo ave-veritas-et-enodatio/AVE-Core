@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [yc7fgm]
+claims: [clm-yc7fgm]
 -->
 
 ## Section 3.2.1: The Paley-Wiener Hilbert Space

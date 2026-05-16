@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy, w6kk5y]
+claims: [clm-oltvwy, clm-w6kk5y]
 -->
 
 ## Helium Coupling from First Principles
@@ -29,7 +29,7 @@ $$
 
 For helium ($Z = 2$): $k_{\text{bare}} = 1/2$. This is pure antipodal Euclidean geometry---no lattice physics, no free parameters.
 
-<!-- claim-quality: w6kk5y -->
+<!-- claim-quality: clm-w6kk5y -->
 ### Lattice Saturation Correction (Op2 at Hopf crossings)
 
 The two $1s$ flux rings form a Hopf link ($2_1^2$) with two parallel crossings. At each crossing, the strain locally saturates (Axiom 4), and Op2 reduces the transmitted coupling by $p_c/2$ (two crossings $\times$ $p_c/4$ each):
@@ -40,7 +40,7 @@ $$
 
 where $p_c = 8\pi\alpha$ is the packing fraction (Axiom 4).
 
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-oltvwy -->
 ### Bonding Energy (Stage E1)
 
 Both electrons occupy the bonding mode of the $K_2$ coupling graph ($N_1 = 2$, $\lambda_{\max} = 1$):

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [9s9apq]
+claims: [clm-9s9apq]
 -->
 
 ## Section 2.3: Dielectric Rupture and The Volumetric Energy Collapse

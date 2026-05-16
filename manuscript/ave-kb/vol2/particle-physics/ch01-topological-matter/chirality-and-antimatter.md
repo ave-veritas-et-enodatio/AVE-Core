@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [hb2xmj]
+claims: [clm-hb2xmj]
 -->
 
 ## Chirality and Antimatter Disintegration

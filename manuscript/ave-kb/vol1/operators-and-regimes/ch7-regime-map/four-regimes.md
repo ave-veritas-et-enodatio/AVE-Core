@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [2dwzib, b2anl4]
+claims: [clm-2dwzib, clm-b2anl4]
 -->
 
 ## Section 7.1: The Four Universal Regimes
@@ -11,7 +11,7 @@ Every physical domain in the AVE framework reduces to a single dimensionless con
 
 This chapter establishes the regime classification as a **prerequisite gate**: no domain analysis proceeds without first identifying its regime and verifying the appropriate equation set.
 
-<!-- claim-quality: b2anl4 -->
+<!-- claim-quality: clm-b2anl4 -->
 
 > **[Resultbox]** *Universal Regime Classification*
 >
@@ -53,7 +53,7 @@ In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 b
 
 - **$r_3 = 1.0$ (Breakdown):** Axiomatic from Axiom 4. The saturation factor reaches zero, compliance vanishes, and the topology is destroyed. In different domains this manifests as: pair production (EM), event horizon formation (gravity), quark deconfinement (nuclear), or superconducting transition (BCS). In semiconductor terms: $V_R = V_{BR}$, $M \to \infty$, the device is destroyed.
 
-  > **Note (cross-link with Ch.3).** <!-- claim-quality: 2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV described in [Ch.3 §3.3 Zero-Impedance Boundary](../../dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md) as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces.
+  > **Note (cross-link with Ch.3).** <!-- claim-quality: clm-2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV described in [Ch.3 §3.3 Zero-Impedance Boundary](../../dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md) as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom 4 saturation, two operational faces.
 
 ### Semiconductor Device Analogy
 

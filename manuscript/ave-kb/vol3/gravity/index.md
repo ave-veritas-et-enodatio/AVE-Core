@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [07kd5v, 1klgo2, 3zz0f6, 8nkvwy, ir8h78, rd9cjm, wx5324, x19btt, y9old1]
+subtree-claims: [clm-07kd5v, clm-1klgo2, clm-3zz0f6, clm-8nkvwy, clm-ir8h78, clm-rd9cjm, clm-wx5324, clm-x19btt, clm-y9old1]
 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [d9ivj1]
+claims: [clm-d9ivj1]
 -->
 
 <!-- PATH-STABLE: sec:kerr_q_correction, eq:kerr_q, eq:r_omega -->

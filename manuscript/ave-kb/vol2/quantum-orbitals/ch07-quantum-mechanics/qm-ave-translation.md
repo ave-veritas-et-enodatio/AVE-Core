@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ak97cb]
+claims: [clm-ak97cb]
 -->
 
 <!-- structural note: sec:qm_ave_translation is nested inside sec:helium_symmetric_cavity in the source -->

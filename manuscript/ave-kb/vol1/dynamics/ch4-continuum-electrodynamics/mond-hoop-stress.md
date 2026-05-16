@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [m3z5ux]
+claims: [clm-m3z5ux]
 path-stable: "referenced from vol6 as sec:galactic_saturation and eq:H_infinity"
 -->
 

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [io8hft]
+claims: [clm-io8hft]
 -->
 
 # Appendix D: VCA Schematic Symbol Reference

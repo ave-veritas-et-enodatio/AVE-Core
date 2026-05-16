@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [wd5rs0, zsqh87]
+subtree-claims: [clm-wd5rs0, clm-zsqh87]
 -->
 
 # Ch.13: Geophysics: Seismic Waves

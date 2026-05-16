@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [9sujp8, gw2wgc, i02mhk, om0rtq, pp3qwf, qx9bb8, to41c7, trgqtf, wqmb19]
+subtree-claims: [clm-9sujp8, clm-gw2wgc, clm-i02mhk, clm-om0rtq, clm-pp3qwf, clm-qx9bb8, clm-to41c7, clm-trgqtf, clm-wqmb19]
 -->
 
 # Ch.12: Falsifiable Predictions and Experimental Blueprints

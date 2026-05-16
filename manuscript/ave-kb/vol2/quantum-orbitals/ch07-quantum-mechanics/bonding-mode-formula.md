@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [w6kk5y]
+claims: [clm-w6kk5y]
 -->
 
 ## Stage E1: Same-Shell Bonding Mode

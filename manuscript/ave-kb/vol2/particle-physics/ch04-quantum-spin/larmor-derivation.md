@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [salw2h]
+claims: [clm-salw2h]
 -->
 
 ## The Larmor Derivation via Topological Gyroscopes

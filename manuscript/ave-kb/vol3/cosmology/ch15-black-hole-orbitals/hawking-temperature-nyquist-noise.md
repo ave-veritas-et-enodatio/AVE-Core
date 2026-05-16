@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [c6k5om]
+claims: [clm-c6k5om]
 -->
 
 ## Hawking Radiation as Spontaneous Emission

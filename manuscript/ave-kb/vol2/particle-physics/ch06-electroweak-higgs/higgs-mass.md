@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [q8un7j, p7rfkb, stgx1i]
+claims: [clm-q8un7j, clm-p7rfkb, clm-stgx1i]
 -->
 
 ## The Neutrino Mass Spectrum
-<!-- claim-quality: p7rfkb (Higgs-sector mass-generation framework: $m_\nu \propto m_e/M_W$ uses the W-boson scale that this section's Higgs-mechanism reinterpretation establishes) -->
+<!-- claim-quality: clm-p7rfkb (Higgs-sector mass-generation framework: $m_\nu \propto m_e/M_W$ uses the W-boson scale that this section's Higgs-mechanism reinterpretation establishes) -->
 
 The neutrino is a pure torsional (screw) defect---a propagating twist wave in the Cosserat sector. Its mass is set by the ratio of torsional to translational coupling, multiplied by the dielectric compliance:
 
@@ -34,7 +34,7 @@ Three neutrino flavors arise from the torus knot ladder: each flavor pairs with 
 **Comparison:** The Planck 2018 cosmological bound is $\sum m_\nu < 0.12 \text{ eV}$, with hints at $\sim 0.06 \text{ eV}$. The AVE prediction of $0.054 \text{ eV}$ sits comfortably within this window.
 
 ## Schwinger's Anomalous Magnetic Moment ($g-2$)
-<!-- claim-quality: stgx1i -->
+<!-- claim-quality: clm-stgx1i -->
 
 The anomalous magnetic moment of the electron is derived from the on-site impedance correction of the hopping unknot.
 
@@ -77,7 +77,7 @@ $$
 **This is Schwinger's result (1948).** The AVE framework derives it from three structural constants: the Axiom 4 squared saturation operator, the unknot ropelength, and the lattice pitch. No Feynman diagrams or renormalization are required.
 
 ## Summary of Electroweak Predictions
-<!-- claim-quality: q8un7j (W/Z mass entries in this summary table) -->
+<!-- claim-quality: clm-q8un7j (W/Z mass entries in this summary table) -->
 
 | Quantity | AVE Prediction | Experiment | Deviation |
 |---|---|---|---|

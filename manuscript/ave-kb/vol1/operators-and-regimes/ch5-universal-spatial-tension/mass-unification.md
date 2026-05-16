@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [zw6mut]
+claims: [clm-zw6mut]
 -->
 
 ## Section 5.1: The Unification of Mass

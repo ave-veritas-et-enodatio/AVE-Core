@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [m3z5ux]
+claims: [clm-m3z5ux]
 -->
 
 ## Dark Sector Comparison: AVE vs. Observation

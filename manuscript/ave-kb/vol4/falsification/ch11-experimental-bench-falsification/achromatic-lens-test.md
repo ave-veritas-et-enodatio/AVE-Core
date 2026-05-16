@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [k9up5c]
+claims: [clm-k9up5c]
 path-stable: "referenced from vol3 as sec:achromatic_lens"
 -->
 

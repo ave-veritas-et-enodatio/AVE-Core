@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [x19btt]
+claims: [clm-x19btt]
 -->
 
 ---

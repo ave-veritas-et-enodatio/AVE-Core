@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ghs75o]
+claims: [clm-ghs75o]
 -->
 
 ## The Peierls-Nabarro Friction Paradox

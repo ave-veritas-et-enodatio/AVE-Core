@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [5965y1, 6tuqjh, 86gq2d, jy8h1x, llqd1n, lqanmt, nk6c43, o9xphr, qjwj12]
+subtree-claims: [clm-5965y1, clm-6tuqjh, clm-86gq2d, clm-jy8h1x, clm-llqd1n, clm-lqanmt, clm-nk6c43, clm-o9xphr, clm-qjwj12]
 -->
 
 # Computational Mass Defect via Mutual Impedance

@@ -2,12 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7o8clt, rji99i]
+claims: [clm-7o8clt, clm-rji99i]
 path-stable: "referenced from vol2 as sec:pmns_eigenvalues, eq:theta12_leading, eq:theta23_leading, eq:theta13"
 -->
 
 ## Step 2: Regime Boundary Eigenvalues in Mode Space
-<!-- claim-quality: 7o8clt -->
+<!-- claim-quality: clm-7o8clt -->
 
 The regime-boundary eigenvalue method computes eigenfrequencies as $\omega = \ell \cdot c / r_{\text{eff}}$. Applied to crossing-number space:
 
@@ -38,7 +38,7 @@ $$
 This is the origin of "maximal atmospheric mixing": a structural consequence of the middle torus knot sitting at the impedance-matched regime boundary.
 
 ### (c) Screened Regime ($\nu_1 \leftrightarrow \nu_3$, $\Delta c = 4 > 3$):
-<!-- claim-quality: rji99i (the $c_1, c_3$ crossing numbers used here also encode the neutrino mass hierarchy $m_i \propto 1/c_i^2$) -->
+<!-- claim-quality: clm-rji99i (the $c_1, c_3$ crossing numbers used here also encode the neutrino mass hierarchy $m_i \propto 1/c_i^2$) -->
 
 The compliance channel is chirally screened ($\Delta c = 4 > \Delta c_{\text{crit}} = 3$). Only perturbative **junction coupling** survives:
 

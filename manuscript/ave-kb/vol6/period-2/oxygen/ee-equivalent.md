@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [sd04x4]
+claims: [clm-sd04x4]
 -->
 
 ## Electrical Engineering Equivalent: The Tetraphase Network

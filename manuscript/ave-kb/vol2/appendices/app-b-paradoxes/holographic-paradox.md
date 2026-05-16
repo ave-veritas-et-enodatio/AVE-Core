@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nhlo1e]
+claims: [clm-nhlo1e]
 -->
 
 ## The Holographic Information Paradox

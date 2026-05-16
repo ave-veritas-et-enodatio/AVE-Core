@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [l416hl, llqd1n, mlwm3h, nk6c43, ome498, sjixaw]
+subtree-claims: [clm-l416hl, clm-llqd1n, clm-mlwm3h, clm-nk6c43, clm-ome498, clm-sjixaw]
 -->
 
 # Geometric Inevitability --- From Numerology to Derivation

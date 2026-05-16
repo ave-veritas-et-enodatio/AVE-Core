@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [jwyy6l]
+claims: [clm-jwyy6l]
 -->
 
 ## Newtonian Inertia as Macroscopic Lenz's Law

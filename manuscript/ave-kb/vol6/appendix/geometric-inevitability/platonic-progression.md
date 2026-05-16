@@ -2,14 +2,14 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [llqd1n, nk6c43, sjixaw]
+claims: [clm-llqd1n, clm-nk6c43, clm-sjixaw]
 -->
 
 <!-- NOTE: No \label{} on this section in source -->
 
 ## The Platonic Progression
-<!-- claim-quality: llqd1n (the $0.000000\%$ entries in the table below are fit residuals from the one-parameter-per-nucleus geometry fit, not ab-initio mass predictions) -->
-<!-- claim-quality: sjixaw (the magic numbers $Z = 2, 8, 20$ correspond to the He-4 single tank, O-16 tetrahedron, and Ca-40 bicapped antiprism rows in this table — geometric-closure identifications) -->
+<!-- claim-quality: clm-llqd1n (the $0.000000\%$ entries in the table below are fit residuals from the one-parameter-per-nucleus geometry fit, not ab-initio mass predictions) -->
+<!-- claim-quality: clm-sjixaw (the magic numbers $Z = 2, 8, 20$ correspond to the He-4 single tank, O-16 tetrahedron, and Ca-40 bicapped antiprism rows in this table — geometric-closure identifications) -->
 
 The systematic walk through nuclear topologies traces an exact path through the classical Platonic and Archimedean solids:
 
@@ -27,7 +27,7 @@ The systematic walk through nuclear topologies traces an exact path through the 
 | $13$ | Cr-52 | Centered Icosahedron | 166.5 | 0.0001% |
 | $14$ | Fe-56 | FCC-14 | 186.5 | 0.0001% |
 
-<!-- claim-quality: nk6c43 (this "geometry-forced not fitted" framing is what extends to the heavy-element catalog: the geometry assignment is forced, but the per-nucleus $R$ scalar is fit — see Heavy Element Catalog accuracy-tiers entry) -->
+<!-- claim-quality: clm-nk6c43 (this "geometry-forced not fitted" framing is what extends to the heavy-element catalog: the geometry assignment is forced, but the per-nucleus $R$ scalar is fit — see Heavy Element Catalog accuracy-tiers entry) -->
 This progression is not a fit. It is the unique sequence of minimum-impedance packing solutions for increasing numbers of mutually repulsive resonant nodes on a sphere. Each geometry is forced by the topology; the engine simply identifies which Platonic or Archimedean solid satisfies the impedance matching condition.
 
 ---

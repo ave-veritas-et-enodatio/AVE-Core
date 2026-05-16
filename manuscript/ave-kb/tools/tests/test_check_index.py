@@ -165,10 +165,10 @@ class TestCheckIndex(unittest.TestCase):
             ):
                 shutil.copy2(_INDEX_DIR / short, tmp_index / short)
 
-            # Inject an edge whose target is a syntactically-valid 6-char id
+            # Inject an edge whose target is a syntactically-valid clm- id
             # that does not appear in claims.jsonl.
             dep_path = tmp_index / "depends-on.jsonl"
-            orphan_target = "zzz999"
+            orphan_target = "clm-zzz999"
             existing = dep_path.read_bytes().decode("utf-8")
             # Pick a real source id (first edge's source); appending keeps
             # the file parseable even if sort order is broken.

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [5s5b0d]
+claims: [clm-5s5b0d]
 path-stable: "referenced from vol3 as sec:induced_vacuum_impedance_mirror"
 -->
 

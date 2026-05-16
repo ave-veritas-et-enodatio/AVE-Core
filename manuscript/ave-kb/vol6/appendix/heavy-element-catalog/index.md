@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [nk6c43]
+subtree-claims: [clm-nk6c43]
 -->
 
 # Catalog of Heavy Elements (Z=15 to Z=119)

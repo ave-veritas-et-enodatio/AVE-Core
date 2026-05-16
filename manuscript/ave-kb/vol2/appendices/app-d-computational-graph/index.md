@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [pf84ng]
+subtree-claims: [clm-pf84ng]
 -->
 
 # App D: Computational Graph Architecture

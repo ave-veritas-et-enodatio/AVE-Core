@@ -49,10 +49,10 @@ class TestParseFrontmatter(unittest.TestCase):
         self.assertEqual(fm, {"kind": "leaf"})
 
     def test_claims_list(self):
-        text = "<!-- kb-frontmatter\nkind: leaf\nclaims: [aaa111, bbb222, ccc333]\n-->\n"
+        text = "<!-- kb-frontmatter\nkind: leaf\nclaims: [clm-aaa111, clm-bbb222, clm-ccc333]\n-->\n"
         fm = lib.parse_frontmatter(text)
         self.assertEqual(fm["kind"], "leaf")
-        self.assertEqual(fm["claims"], ["aaa111", "bbb222", "ccc333"])
+        self.assertEqual(fm["claims"], ["clm-aaa111", "clm-bbb222", "clm-ccc333"])
 
     def test_no_claim_string(self):
         text = "<!-- kb-frontmatter\nkind: leaf\nno-claim: navigation only\n-->\n"
@@ -60,9 +60,9 @@ class TestParseFrontmatter(unittest.TestCase):
         self.assertEqual(fm["no-claim"], "navigation only")
 
     def test_subtree_claims_list(self):
-        text = "<!-- kb-frontmatter\nkind: index\nsubtree-claims: [abc123, def456]\n-->\n"
+        text = "<!-- kb-frontmatter\nkind: index\nsubtree-claims: [clm-abc123, clm-def456]\n-->\n"
         fm = lib.parse_frontmatter(text)
-        self.assertEqual(fm["subtree-claims"], ["abc123", "def456"])
+        self.assertEqual(fm["subtree-claims"], ["clm-abc123", "clm-def456"])
 
     def test_path_stable_quoted_string(self):
         text = '<!-- kb-frontmatter\nkind: leaf\npath-stable: "ref label"\n-->\n'
@@ -88,7 +88,7 @@ class TestParseClaimQualityFile(unittest.TestCase):
         self.assertEqual(len(self.entries), 32)
 
     def test_trf3bd_metadata(self):
-        e = self.by_id["trf3bd"]
+        e = self.by_id["clm-trf3bd"]
         self.assertIn("Trefoil", e.title)
         self.assertEqual(e.confidence, 0.75)
         self.assertEqual(e.solidity, 0.75)
@@ -101,24 +101,24 @@ class TestParseClaimQualityFile(unittest.TestCase):
         self.assertEqual(len(e.strengthen_by), 3)
 
     def test_unk0bd_metadata(self):
-        e = self.by_id["unk0bd"]
+        e = self.by_id["clm-unk0bd"]
         self.assertEqual(e.confidence, 0.40)
         self.assertEqual(e.solidity, 0.40)
 
     def test_5xon03_depends_on_includes_unk0bd(self):
-        e = self.by_id["5xon03"]
+        e = self.by_id["clm-5xon03"]
         targets = {edge.target: edge for edge in e.depends_on}
-        self.assertIn("unk0bd", targets)
-        edge = targets["unk0bd"]
-        self.assertEqual(edge.source, "5xon03")
+        self.assertIn("clm-unk0bd", targets)
+        edge = targets["clm-unk0bd"]
+        self.assertEqual(edge.source, "clm-5xon03")
         self.assertEqual(edge.target_solidity_recorded, 0.40)
 
     def test_5xon03_strengthen_by_mentions_trf3bd_and_unk0bd(self):
-        e = self.by_id["5xon03"]
+        e = self.by_id["clm-5xon03"]
         joint = [
             sb
             for sb in e.strengthen_by
-            if "trf3bd" in sb.mentioned_ids and "unk0bd" in sb.mentioned_ids
+            if "clm-trf3bd" in sb.mentioned_ids and "clm-unk0bd" in sb.mentioned_ids
         ]
         self.assertTrue(
             joint,
@@ -134,7 +134,7 @@ class TestParseLeaf(unittest.TestCase):
         leaf = lib.parse_leaf(path, _KB_ROOT)
         self.assertIsNotNone(leaf)
         self.assertEqual(leaf.kind, "leaf")
-        self.assertIn("trf3bd", leaf.claims)
+        self.assertIn("clm-trf3bd", leaf.claims)
         # ch8 is a multi-claim leaf so tier2_marked should be non-empty.
         self.assertTrue(leaf.tier2_marked)
 
@@ -171,7 +171,7 @@ class TestDiscoverKb(unittest.TestCase):
 
     def test_claim_count_matches_canonical_extraction(self):
         # The naive ``grep -c '<!-- id: '`` count is 200, but it includes one
-        # placeholder ``<!-- id: xxxxxx -->`` inside a fenced ``markdown`` code
+        # placeholder ``<!-- id: clm-xxxxxx -->`` inside a fenced ``markdown`` code
         # block in the root ``claim-quality.md`` Quality Convention example.
         # The library (like the existing check-claim-quality verifier) strips
         # code fences before extracting canonical IDs, so the real entry count
@@ -199,17 +199,31 @@ class TestDiscoverKb(unittest.TestCase):
 
 
 class TestKnownIdFiltering(unittest.TestCase):
-    """Two-pass parsing rejects incidental English 6-char tokens as IDs."""
+    """Post-`clm-`-migration the ID regex is exact: a `clm-`-shaped token is
+    only ever a real ID candidate, never an incidental prose word.
+    """
 
-    def test_depends_on_drops_non_claim_targets(self):
-        """No depends-on target may sit outside the canonical claim ID set.
+    def test_invariant_targeting_depends_on_yields_zero_edges(self):
+        """INVARIANT-targeting depends-on bullets produce zero edges.
 
-        The regex `\\b([a-z0-9]{6})\\b` would otherwise pick up 6-letter
-        English words ("kernel", "approx") in bullets that reference
-        INVARIANT labels rather than canonical IDs.
+        Some depends-on bullets reference INVARIANT labels / Axioms in prose
+        (e.g. claim ``clm-h9aqmt``'s bullets cite "INVARIANT-S2 / Axiom 1"
+        and "Axiom 4 (saturation kernel ...)"). Those bullets contain no
+        `clm-`-prefixed token, so the exact ID regex matches nothing and the
+        bullet yields no depends-on edge — with no diagnostic, because there
+        is no `clm-`-shaped candidate to reject.
         """
         buf = io.StringIO()
         state = lib.discover_kb(_KB_ROOT, diagnostic_stream=buf)
+        by_id = {entry.id: entry for entry in state.claim_entries}
+        h9aqmt = by_id.get("clm-h9aqmt")
+        self.assertIsNotNone(h9aqmt, "expected clm-h9aqmt in the KB")
+        # Its depends-on bullets are all INVARIANT/Axiom prose — zero edges.
+        self.assertEqual(h9aqmt.depends_on, ())
+
+    def test_depends_on_targets_are_all_canonical(self):
+        """No depends-on target may sit outside the canonical claim ID set."""
+        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=io.StringIO())
         canonical = {entry.id for entry in state.claim_entries}
         offenders: list[tuple[str, str]] = []
         for entry in state.claim_entries:
@@ -221,12 +235,14 @@ class TestKnownIdFiltering(unittest.TestCase):
             [],
             f"depends-on edges with non-claim targets: {offenders}",
         )
-        # The "kernel" miscapture is the canonical example from the bug
-        # repro; the diagnostic stream must surface it.
-        self.assertIn("kernel", buf.getvalue())
 
     def test_strengthen_by_mentioned_ids_only_real_ids(self):
-        """Every strengthen-by mentioned_id is a canonical claim ID."""
+        """Every strengthen-by mentioned_id is a canonical claim ID.
+
+        Still meaningful post-migration: every extracted `clm-` token must
+        resolve to a registered canonical ID; an unregistered one would
+        signal a typo or stale reference.
+        """
         state = lib.discover_kb(_KB_ROOT, diagnostic_stream=io.StringIO())
         canonical = {entry.id for entry in state.claim_entries}
         offenders: list[tuple[str, int, str]] = []
@@ -242,19 +258,21 @@ class TestKnownIdFiltering(unittest.TestCase):
         )
 
     def test_diagnostic_silenceable(self):
-        """Passing diagnostic_stream=None produces no diagnostic output."""
-        # If discover_kb wrote to stderr when stream is None, we'd see no
-        # exception, but stream=None must be a true no-op. Run twice and
-        # assert state shape stays consistent and no error is raised.
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
-        self.assertGreater(len(state.claim_entries), 0)
-        # Sanity: a buffered call should DO write something at the current KB
-        # state (kernel/approx miscaptures exist in the canonical content);
-        # the silenced call cannot have produced text simply because it has
-        # nowhere to put it.
+        """Passing diagnostic_stream=None is a true no-op (no error raised).
+
+        On a clean post-migration KB the exact ID regex has no false
+        positives, so a buffered run also emits nothing — there is no
+        `clm-`-shaped token outside the canonical set. The silenceability
+        contract is: passing ``None`` must not raise and must yield the same
+        state shape as a buffered run.
+        """
+        silent = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        self.assertGreater(len(silent.claim_entries), 0)
         buf = io.StringIO()
-        lib.discover_kb(_KB_ROOT, diagnostic_stream=buf)
-        self.assertNotEqual(buf.getvalue(), "")
+        buffered = lib.discover_kb(_KB_ROOT, diagnostic_stream=buf)
+        self.assertEqual(
+            len(silent.claim_entries), len(buffered.claim_entries)
+        )
 
 
 class TestBuildClaimsRecords(unittest.TestCase):
@@ -292,18 +310,18 @@ class TestBuildClaimsRecords(unittest.TestCase):
             self.assertEqual(list(rec.keys()), expected_keys)
 
     def test_build_band_derived(self):
-        # trf3bd has solidity 0.75 -> ok-with-caveats
-        self.assertEqual(self.by_id["trf3bd"]["build_band"], "ok-with-caveats")
-        # unk0bd has solidity 0.40 -> do-not-build
-        self.assertEqual(self.by_id["unk0bd"]["build_band"], "do-not-build")
+        # clm-trf3bd has solidity 0.75 -> ok-with-caveats
+        self.assertEqual(self.by_id["clm-trf3bd"]["build_band"], "ok-with-caveats")
+        # clm-unk0bd has solidity 0.40 -> do-not-build
+        self.assertEqual(self.by_id["clm-unk0bd"]["build_band"], "do-not-build")
 
     def test_counts_are_accurate(self):
-        # 5xon03 depends on unk0bd (1 edge).
-        self.assertEqual(self.by_id["5xon03"]["depends_on_count"], 1)
-        # trf3bd has 3 strengthen-by items.
-        self.assertEqual(self.by_id["trf3bd"]["strengthen_by_count"], 3)
-        # trf3bd is cited by ch8-alpha-golden-torus.md at minimum.
-        self.assertGreaterEqual(self.by_id["trf3bd"]["citation_count"], 1)
+        # clm-5xon03 depends on clm-unk0bd (1 edge).
+        self.assertEqual(self.by_id["clm-5xon03"]["depends_on_count"], 1)
+        # clm-trf3bd has 3 strengthen-by items.
+        self.assertEqual(self.by_id["clm-trf3bd"]["strengthen_by_count"], 3)
+        # clm-trf3bd is cited by ch8-alpha-golden-torus.md at minimum.
+        self.assertGreaterEqual(self.by_id["clm-trf3bd"]["citation_count"], 1)
 
 
 class TestBuildDependsOnRecords(unittest.TestCase):
@@ -313,7 +331,7 @@ class TestBuildDependsOnRecords(unittest.TestCase):
         cls.records = lib.build_depends_on_records(cls.state)
 
     def test_5xon03_to_unk0bd_present(self):
-        edges = [r for r in self.records if r["source"] == "5xon03" and r["target"] == "unk0bd"]
+        edges = [r for r in self.records if r["source"] == "clm-5xon03" and r["target"] == "clm-unk0bd"]
         self.assertEqual(len(edges), 1)
         self.assertEqual(edges[0]["target_solidity_recorded"], 0.40)
 
@@ -322,8 +340,8 @@ class TestBuildDependsOnRecords(unittest.TestCase):
         self.assertEqual(keys, sorted(keys))
 
     def test_placeholder_lines_produce_zero_edges(self):
-        # trf3bd's depends-on is a placeholder; it must produce no edges.
-        from_trf = [r for r in self.records if r["source"] == "trf3bd"]
+        # clm-trf3bd's depends-on is a placeholder; it must produce no edges.
+        from_trf = [r for r in self.records if r["source"] == "clm-trf3bd"]
         self.assertEqual(from_trf, [])
 
 

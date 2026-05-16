@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [5zuo7g, jkpfd4, q8un7j]
+subtree-claims: [clm-5zuo7g, clm-jkpfd4, clm-q8un7j]
 -->
 
 # Ch.5 — Electroweak Mechanics and Gauge Symmetries

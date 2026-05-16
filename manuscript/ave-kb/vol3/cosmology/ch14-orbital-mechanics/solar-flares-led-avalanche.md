@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [qyn8t0]
+claims: [clm-qyn8t0]
 -->
 
 ## Stellar Magnetic Topology and Solar Flares

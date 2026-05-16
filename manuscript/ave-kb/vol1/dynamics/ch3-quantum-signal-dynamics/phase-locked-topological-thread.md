@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [zuf7g1, b9eura, unk0bd]
+claims: [clm-zuf7g1, clm-b9eura, clm-unk0bd]
 -->
 
 ## Quantum Entanglement: The Phase-Locked Topological Thread
-<!-- claim-quality: zuf7g1 -->
+<!-- claim-quality: clm-zuf7g1 -->
 
 A central result of standard Quantum Mechanics is "Non-Locality" — the observation that two entangled particles exhibit correlated measurement outcomes regardless of spatial separation, as formalised by Bell's Theorem and confirmed by Clauser-Horne-Shimony-Holt (CHSH) inequality violations ($|S| = 2\sqrt{2} > 2$).
 
@@ -87,7 +87,7 @@ The standing wave mode on the entanglement thread locks the two particle endpoin
 When Alice's detector couples to particle A (an Ohmic load applying localised torque), she is not probing an isolated defect: she is turning one gear in a locked train. The winding constraint of the entire chain — a global topological invariant of the connected graph — constrains the outcome at particle B.
 
 #### Universal $\Gamma \to -1$ Translation Matrix
-<!-- claim-quality: b9eura -->
+<!-- claim-quality: clm-b9eura -->
 
 The entanglement thread is one instance of a universal mechanism: every phenomenon in the AVE framework where a boundary saturates to $\Gamma = -1$ is the same operator (Axiom 4) applied to a different sector. The complete cross-discipline isomorphism is:
 
@@ -108,7 +108,7 @@ All four phenomena are evaluated by the same function `saturation_factor()` from
 
 The angular dependence of the entanglement correlation derives from three AVE ingredients:
 
-<!-- claim-quality: unk0bd -->
+<!-- claim-quality: clm-unk0bd -->
 1. **Spin-1/2 as Möbius topology (Axiom 1).** The electron unknot ($0_1$) is a Beltrami standing wave ($\nabla \times \mathbf{A} = k\mathbf{A}$) on the chiral $K_4$ graph. The Möbius-strip topology of the chiral labyrinth requires $720°$ for a complete cycle, producing a physical **half-angle coupling**: when a detector axis $\hat{a}$ makes angle $\theta$ with the defect's rotation axis $\hat{n}$, the effective phase mismatch is $\theta/2$.
 
 2. **Binary outcome from saturation (Axiom 4).** The particle's saturated boundary ($\Gamma = -1$) supports a standing wave with exactly two antinodes. The detector couples to whichever antinode has lower impedance mismatch, producing a binary ($\pm$) outcome.

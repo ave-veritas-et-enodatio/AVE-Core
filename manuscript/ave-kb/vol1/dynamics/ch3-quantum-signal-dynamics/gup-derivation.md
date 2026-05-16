@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nq2kcc]
+claims: [clm-nq2kcc]
 -->
 
 ## Section 3.2.2: The Generalized Uncertainty Principle (GUP)

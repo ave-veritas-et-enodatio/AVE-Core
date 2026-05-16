@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7tynm2]
+claims: [clm-7tynm2]
 -->
 
 ## PONDER-01: Cascaded Transmission-Line Thrust Model

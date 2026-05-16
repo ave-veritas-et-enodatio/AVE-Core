@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [o6kgkz]
+subtree-claims: [clm-o6kgkz]
 -->
 
 # Ch.7: Stellar Interiors and Neutrino Oscillation

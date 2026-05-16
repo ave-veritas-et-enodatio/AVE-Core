@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [5zuo7g, p7rfkb, q8un7j, rji99i, stgx1i]
+subtree-claims: [clm-5zuo7g, clm-p7rfkb, clm-q8un7j, clm-rji99i, clm-stgx1i]
 -->
 
 # Ch.6 — The Subatomic Scale: Electroweak and Higgs Sectors

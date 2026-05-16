@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [mroghg]
+claims: [clm-mroghg]
 -->
 
 ## The Hubble Tension

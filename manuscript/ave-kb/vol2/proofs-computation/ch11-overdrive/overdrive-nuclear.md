@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [dboxok]
+claims: [clm-dboxok]
 -->
 
 ## Overdriving Lattice QCD: Heavy Nuclear Assembly

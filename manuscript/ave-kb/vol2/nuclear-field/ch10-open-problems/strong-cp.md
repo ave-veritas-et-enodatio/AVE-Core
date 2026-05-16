@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [gfs4j8]
+claims: [clm-gfs4j8]
 -->
 
 ## The Strong CP Problem

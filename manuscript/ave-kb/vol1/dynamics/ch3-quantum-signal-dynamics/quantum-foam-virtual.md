@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [t1okz0, unk0bd]
+claims: [clm-t1okz0, clm-unk0bd]
 -->
 
 ## Section 3.4: The Physical Origin of Quantum Foam and Virtual Particles
@@ -13,14 +13,14 @@ The AVE framework addresses this discrepancy by replacing virtual particle const
 
 ### Quantum Foam as Baseline RMS Thermal Noise
 
-<!-- claim-quality: t1okz0 -->
+<!-- claim-quality: clm-t1okz0 -->
 Because the physical vacuum $\mathcal{M}_A$ is a literal LC Resonant Network, it is subject to the absolute laws of electrical engineering. In any physical inductor-capacitor (LC) network operating above absolute zero, there exists an irreducible, baseline RMS thermal noise floor.
 
 What standard physics identifies as "Quantum Foam"---the underlying geometric turbulence of empty space---is explicitly defined in the AVE framework as the continuous, irreducible electromagnetic AC transients (voltage and current ripples) propagating randomly across the discrete topological grid. It is not geometry itself boiling; it is the chaotic, baseline electrical noise floor of the universe's hardware substrate. This provides a deterministic, continuous mechanical origin for Zero-Point Energy (ZPE) bounded strictly by the finite geometry of the local spatial node.
 
 ### Virtual Particles as Failed Topologies
 
-<!-- claim-quality: unk0bd -->
+<!-- claim-quality: clm-unk0bd -->
 In AVE, stable "Matter" (such as the electron) is defined as a closed, localised topological knot (specifically, a $0_1$ Unknot---a single closed flux tube loop at minimum ropelength $= 2\pi$) that locks geometrically into the lattice. Maintaining this structural lock requires sustained threshold energy (the $43.65$ keV structural yield limit derived in Volume III, Chapter 1).
 
 When the continuous AC transients (the Quantum Foam) spike, they momentarily twist the local LC phase, creating transient geometric loops. However, because these random spikes generally lack the sustained inductive tension required to close a stable unknot, the intrinsic $\mu_0, \epsilon_0$ tension of the lattice returns the twisted loop to its flat ground state.

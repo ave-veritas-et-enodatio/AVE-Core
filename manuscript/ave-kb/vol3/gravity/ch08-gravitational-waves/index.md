@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [07kd5v]
+subtree-claims: [clm-07kd5v]
 -->
 
 # Ch.8: Gravitational Waves

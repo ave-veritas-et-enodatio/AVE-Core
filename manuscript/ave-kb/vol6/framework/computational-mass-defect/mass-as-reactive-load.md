@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [qjwj12]
+claims: [clm-qjwj12]
 -->
 
 ## Mass as a Localized Reactive Load

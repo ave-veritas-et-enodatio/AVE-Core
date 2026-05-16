@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [9fnieq]
+claims: [clm-9fnieq]
 -->
 
 ## Mutual Inductive Accretion Time Constant

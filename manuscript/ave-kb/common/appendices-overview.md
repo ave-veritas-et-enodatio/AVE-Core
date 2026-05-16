@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [yawl6z]
+claims: [clm-yawl6z]
 path-stable: "referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix"
 -->
 

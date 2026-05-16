@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [dfaiwj]
+claims: [clm-dfaiwj]
 -->
 
 > ↗ See also: [Six-Row Translation Table](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — expanded engineering translation in Vol 4

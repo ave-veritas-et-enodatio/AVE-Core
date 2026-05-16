@@ -2,14 +2,14 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [d9ivj1, k6olj8]
+claims: [clm-d9ivj1, clm-k6olj8]
 -->
 
 ## Knot Crossing Number $\leftrightarrow$ Mode Number Isomorphism
-<!-- claim-quality: d9ivj1 -->
+<!-- claim-quality: clm-d9ivj1 -->
 
-The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation of a universal topological scaling law. At the particle scale, the **torus knot crossing number** $c$ plays the identical role to the **angular mode number** $\ell$ — and the resulting odd-$c$ ladder ($c = 3, 5, 7, \ldots$) is the same ladder indexed under `k6olj8`:
-<!-- claim-quality: k6olj8 -->
+The relationship $Q = \ell$ is the macroscopic gravitational-scale manifestation of a universal topological scaling law. At the particle scale, the **torus knot crossing number** $c$ plays the identical role to the **angular mode number** $\ell$ — and the resulting odd-$c$ ladder ($c = 3, 5, 7, \ldots$) is the same ladder indexed under `clm-k6olj8`:
+<!-- claim-quality: clm-k6olj8 -->
 
 | Property | Particle (Knot) | BH (Cavity Mode) |
 |---|---|---|

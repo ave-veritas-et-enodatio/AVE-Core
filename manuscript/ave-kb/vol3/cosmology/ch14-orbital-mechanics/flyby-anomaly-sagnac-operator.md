@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [a71inj]
+claims: [clm-a71inj]
 -->
 
 # The Flyby Anomaly as an Acoustic Shear Operator

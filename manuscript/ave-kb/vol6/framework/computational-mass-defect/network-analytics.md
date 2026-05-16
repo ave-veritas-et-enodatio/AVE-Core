@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [o9xphr]
+claims: [clm-o9xphr]
 -->
 
 ## Network Analytics: Q-Factor and S-Parameters

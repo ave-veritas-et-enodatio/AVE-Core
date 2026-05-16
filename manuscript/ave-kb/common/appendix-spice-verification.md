@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [pfocn6]
+claims: [clm-pfocn6]
 path-stable: "referenced from vol4 as app:spice_verification"
 -->
 

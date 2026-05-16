@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [5rigtn]
+subtree-claims: [clm-5rigtn]
 -->
 
 # Ch.9 Antimatter Annihilation and Parity Inversion

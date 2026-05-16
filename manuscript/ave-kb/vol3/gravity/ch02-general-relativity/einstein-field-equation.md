@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [07kd5v, 8nkvwy, y9old1]
+claims: [clm-07kd5v, clm-8nkvwy, clm-y9old1]
 -->
 
 ---
@@ -16,7 +16,7 @@ A long-standing interpretive question in GR is the physical ontology of the mani
 Applied Vacuum Engineering (AVE) resolves this ontological paradox by defining "Curved Spacetime" as the variable scalar Capacitance ($C$) and Inductance ($L$) of a structured, continuous dielectric super-fluid.
 
 ## The Stress-Energy Tensor as LC Energy Density
-<!-- claim-quality: y9old1 -->
+<!-- claim-quality: clm-y9old1 -->
 
 The core of General Relativity is Einstein's Field Equation:
 
@@ -36,8 +36,8 @@ In the AVE framework, the Stress-Energy Tensor ($T_{\mu\nu}$) on the right side 
 
 Furthermore, the mathematical Metric Tensor ($g_{\mu\nu}$) describing the curvature on the left side of the equation is isomorphic to the macroscopic structural variable impedance parameters ($\varepsilon_{eff}, \mu_{eff}$) of the dielectric matrix. Under **Symmetric Gravity**, both constitutive parameters scale with the refractive index $n(r) = 1 + 2GM/(rc^2)$:
 
-<!-- claim-quality: 07kd5v (canonical statement of Symmetric-Gravity invariant impedance $Z(r) \equiv Z_0$ implying $\Gamma = 0$ across any gravitational gradient — the lossless-LIGO consistency claim) -->
-<!-- claim-quality: 8nkvwy (Symmetric saturation case: both $\mu$ and $\varepsilon$ scale by $n \cdot S$ → $Z = Z_0$ invariant; this is the canonical statement of the symmetric branch of the Universal Saturation Kernel) -->
+<!-- claim-quality: clm-07kd5v (canonical statement of Symmetric-Gravity invariant impedance $Z(r) \equiv Z_0$ implying $\Gamma = 0$ across any gravitational gradient — the lossless-LIGO consistency claim) -->
+<!-- claim-quality: clm-8nkvwy (Symmetric saturation case: both $\mu$ and $\varepsilon$ scale by $n \cdot S$ → $Z = Z_0$ invariant; this is the canonical statement of the symmetric branch of the Universal Saturation Kernel) -->
 > **[Resultbox]** *Symmetric Gravity Impedance*
 >
 > $$

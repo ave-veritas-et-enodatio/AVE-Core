@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [f5ucdo]
+claims: [clm-f5ucdo]
 -->
 
 ## Carbon (Z=6): The Subcritical 3-Alpha Ring

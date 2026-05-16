@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nxfmh0]
+claims: [clm-nxfmh0]
 -->
 
 ---

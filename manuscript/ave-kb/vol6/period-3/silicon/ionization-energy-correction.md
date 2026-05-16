@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7tk051]
+claims: [clm-7tk051]
 -->
 
 ## Ionization Energy: Op10 Junction Projection (Correction~C)

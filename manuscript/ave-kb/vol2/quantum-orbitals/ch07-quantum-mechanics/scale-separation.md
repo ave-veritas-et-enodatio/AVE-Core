@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy, w6kk5y]
+claims: [clm-oltvwy, clm-w6kk5y]
 -->
 
 ## Scale Separation: Knot Topology vs Orbital Geometry
-<!-- claim-quality: w6kk5y -->
+<!-- claim-quality: clm-w6kk5y -->
 
 Two solitons on the same shell interact through two physically distinct channels, set by the AVE axioms at two well-separated scales.
 
@@ -54,7 +54,7 @@ $$
 
 The $p$-shell coupling matrix is therefore a *weighted* graph (not $\mathrm{K}_6$), whose eigenvalues determine the mode spectrum.
 
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-oltvwy -->
 ### Hund's Rule Emergence
 
 Hund's first rule emerges naturally from the phase-locked orbital expansion of same-$m_l$ pairs. Half-filled $p$-shells (e.g. nitrogen, $2p^3$) have all electrons in *different* $m_l$ orbitals, meaning no two sit on the same ring. Their orbits remain at the baseline cavity radius $R_0$, giving tighter binding and higher Ionization Energy (IE). Adding the fourth electron (oxygen, $2p^4$) forces a same-$m_l$ pairing. Pauli exclusion (Axiom 3) forces them into a $\pi$ anti-phase, creating a mutual inductance bonding mode. The resulting composite has a lower frequency $\omega$, meaning its effective orbit *expands* to $R_{\text{eff}} = R_0 \sqrt{1+k}$. This expansion reduces the nuclear binding eigenvalue, natively lowering the IE for Oxygen relative to Nitrogen.

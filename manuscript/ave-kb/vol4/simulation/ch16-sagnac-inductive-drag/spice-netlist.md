@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [cbwd77]
+claims: [clm-cbwd77]
 -->
 
 ## SPICE Netlist: Sagnac Inductive Drag (sagnac_ring.cir) — Single Node

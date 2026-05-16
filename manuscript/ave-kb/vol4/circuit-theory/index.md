@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [0vxzfu, 7tynm2, 8nkvwy, i9l284, kezk9z, o2shcn, p5cf3t, pp3qwf, trgqtf, u462e4, v6ti0v, vjv4zf]
+subtree-claims: [clm-0vxzfu, clm-7tynm2, clm-8nkvwy, clm-i9l284, clm-kezk9z, clm-o2shcn, clm-p5cf3t, clm-pp3qwf, clm-trgqtf, clm-u462e4, clm-v6ti0v, clm-vjv4zf]
 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.

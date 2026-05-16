@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [cwjd8t]
+claims: [clm-cwjd8t]
 -->
 
 ## Protocol 12: GEO-Synchronous Impedance Differential

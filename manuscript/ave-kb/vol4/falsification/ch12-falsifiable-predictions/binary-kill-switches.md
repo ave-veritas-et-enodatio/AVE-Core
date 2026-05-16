@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [gw2wgc]
+claims: [clm-gw2wgc]
 -->
 
 ## Definitive Binary Kill-Switches

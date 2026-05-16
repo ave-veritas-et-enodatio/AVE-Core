@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [395gps]
+claims: [clm-395gps]
 -->
 
 <!-- NOTE: This resultbox is also included in accretion-disk-resonance.md within its derivation context. This leaf isolates the result for direct navigation. -->

@@ -46,11 +46,11 @@ All field types are JSON types: `string`, `number` (float), `integer`, `boolean`
 
 ### `claims.jsonl`
 
-One record per `<!-- id: xxxxxx -->` canonical entry across all `claim-quality.md` files.
+One record per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files.
 
 ```typescript
 {
-  id: string,                    // 6-char [a-z0-9]; primary key
+  id: string,                    // clm-[a-z0-9]{6}; primary key
   title: string,                 // text from the ## heading containing this id
   canonical_path: string,        // e.g. "vol1/claim-quality.md"
   canonical_anchor: string,      // GitHub-style anchor for the heading
@@ -121,7 +121,7 @@ Field order: `claim_id`, `item_idx`, `text`, `mentioned_ids`.
 
 **Multi-line bullets** are collapsed to single lines (LF → ' '), preserving inline markdown.
 
-**`mentioned_ids` extraction:** match the standard 6-char [a-z0-9] pattern in `text`, but exclude false positives by requiring word-boundary context. IDs that don't match any record in `claims.jsonl` are still emitted (the verifier flags orphan-style consistency issues globally).
+**`mentioned_ids` extraction:** match the `\bclm-[a-z0-9]{6}\b` pattern in `text`. The `clm-` prefix makes the pattern exact — it cannot match incidental English or physics words. A `clm-`-shaped token that doesn't match any record in `claims.jsonl` is still emitted, and signals a typo or stale reference (the verifier flags orphan-style consistency issues globally).
 
 ### `cites.jsonl`
 
@@ -129,7 +129,7 @@ One record per (claim, leaf) citation edge. A leaf's frontmatter `claims: [a, b,
 
 ```typescript
 {
-  claim_id: string,         // 6-char id
+  claim_id: string,         // clm-[a-z0-9]{6} id
   leaf_path: string,        // POSIX path relative to manuscript/ave-kb/
   leaf_kind: string,        // "leaf" or "leaf-as-index"
   tier2_marked: boolean     // true iff leaf body has a proximal <!-- claim-quality: <id> ... --> marker for this id
@@ -169,15 +169,15 @@ idx = index.load()                    # default: $REPO/manuscript/ave-kb/.index/
 idx = index.load(path="...")          # explicit path override
 
 # Forward dependency edges
-idx.depends_on("0ktpcn")              # → list[str] of target claim ids
-idx.dependents_of("unk0bd")           # → list[str] of source claim ids (inverse)
+idx.depends_on("clm-0ktpcn")              # → list[str] of target claim ids
+idx.dependents_of("clm-unk0bd")           # → list[str] of source claim ids (inverse)
 
 # Open work
-idx.strengthen_by("trf3bd")           # → list[StrengthenByItem]
-idx.gated_on("unk0bd")                # → list[str] of claim_ids whose strengthen-by mentions "unk0bd"
+idx.strengthen_by("clm-trf3bd")           # → list[StrengthenByItem]
+idx.gated_on("clm-unk0bd")                # → list[str] of claim_ids whose strengthen-by mentions "clm-unk0bd"
 
 # Citation / leaf membership
-idx.cited_by("0ktpcn")                # → list[CitationEdge] (leaves citing this claim)
+idx.cited_by("clm-0ktpcn")                # → list[CitationEdge] (leaves citing this claim)
 idx.claims_in_leaf("vol1/ch8-...")    # → list[str] of claim ids cited by that leaf
 
 # Subtree aggregation
@@ -189,7 +189,7 @@ idx.solidity_below(0.7)               # → list[Claim] with solidity < threshol
 idx.in_band("do-not-build")           # → list[Claim] in given build_band
 
 # Lookup
-idx.claim("trf3bd")                   # → Claim | None
+idx.claim("clm-trf3bd")                   # → Claim | None
 ```
 
 Record types (`Claim`, `CitationEdge`, `StrengthenByItem`, etc.) are simple dataclasses (or NamedTuples) constructed from the JSONL records on load. The module favors plain Python types over heavy abstractions.
@@ -259,7 +259,7 @@ These were considered and deferred to keep v0 small and reviewable:
 - **Synonym resolution.** Whether two surface forms refer to the same claim is currently encoded by id only; no aliasing.
 - **History queries.** `git log .index/claims.jsonl` already provides this for free; no separate module needed.
 - **Solidity recomputation.** v0 records solidity as written in claim-quality.md. Recomputing `solidity = confidence × min(dep_solidity)` and flagging drift is a verifier extension for v0.1.
-- **Cross-claim consistency** (e.g., mutual-exclusion checks like `trf3bd`/`unk0bd`). Encoded informally in prose now; could become a structured `excludes` edge in v0.1.
+- **Cross-claim consistency** (e.g., mutual-exclusion checks like `clm-trf3bd`/`clm-unk0bd`). Encoded informally in prose now; could become a structured `excludes` edge in v0.1.
 
 ---
 
@@ -267,7 +267,7 @@ These were considered and deferred to keep v0 small and reviewable:
 
 The verifier reports counts at every run. The numbers that define success for v0:
 
-- `claims.jsonl` line count == code-fence-scrubbed count of `<!-- id: xxxxxx -->` across all `claim-quality.md` files (i.e. excluding example placeholders inside fenced code blocks). Naive `grep -c` over-counts by the number of fenced examples; the existing verifier already strips fences. On the current KB state this number is **199**.
+- `claims.jsonl` line count == code-fence-scrubbed count of `<!-- id: clm-xxxxxx -->` across all `claim-quality.md` files (i.e. excluding example placeholders inside fenced code blocks). Naive `grep -c` over-counts by the number of fenced examples; the existing verifier already strips fences. On the current KB state this number is **199**.
 - `cites.jsonl` line count == sum of `len(claims)` across all leaves with `claims:` frontmatter.
 - `subtree-aggregates.jsonl` line count == number of `kind: index` files + 1 (entry-point).
 - Every id referenced in any non-claims `.jsonl` file appears in `claims.jsonl`.

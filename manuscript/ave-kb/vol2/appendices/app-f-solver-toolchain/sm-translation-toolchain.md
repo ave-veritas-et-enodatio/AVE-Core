@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ak97cb, oltvwy]
+claims: [clm-ak97cb, clm-oltvwy]
 -->
 
 ## Standard Model Translation
@@ -19,8 +19,8 @@ claims: [ak97cb, oltvwy]
 | $\varepsilon_{11} = 7M_g/r$ | (Not in GR) | `gravity.principal_radial_strain` |
 | $V_{\mathrm{SNAP}}$ | Planck energy (approx) | `constants.V_SNAP` |
 
-<!-- claim-quality: ak97cb -->
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-ak97cb -->
+<!-- claim-quality: clm-oltvwy -->
 ### Quantum Mechanics and Atomic Physics
 
 | AVE Descriptor | Standard QM | Physical Origin / Engine Function |

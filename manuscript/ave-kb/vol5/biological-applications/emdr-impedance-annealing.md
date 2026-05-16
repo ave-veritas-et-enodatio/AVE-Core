@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [8zwyl3]
+claims: [clm-8zwyl3]
 -->
 
 # EMDR as Impedance Annealing of Trauma Defects

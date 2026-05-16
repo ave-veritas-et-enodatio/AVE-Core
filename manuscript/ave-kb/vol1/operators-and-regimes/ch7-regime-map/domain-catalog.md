@@ -2,16 +2,16 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [b2anl4, 82dxbj]
+claims: [clm-b2anl4, clm-82dxbj]
 path-stable: "referenced from vol1 as sec:domain_catalog"
 -->
 
 ## Section 7.2: Domain Control Parameter Catalog
-<!-- claim-quality: 82dxbj -->
+<!-- claim-quality: clm-82dxbj -->
 
 Each domain has a unique physical interpretation of the amplitude $A$ and the critical threshold $A_c$. In every case, $A_c$ is **derived from the four axioms**---it is never a fitted or empirical parameter.
 
-<!-- claim-quality: b2anl4 (regime classification applied per-domain throughout this catalog) -->
+<!-- claim-quality: clm-b2anl4 (regime classification applied per-domain throughout this catalog) -->
 ### Electromagnetic (Dielectric)
 
 | | |

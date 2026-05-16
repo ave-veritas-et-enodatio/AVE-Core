@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [i9l284]
+claims: [clm-i9l284]
 -->
 
 ## Translation Table: Circuit/EE ↔ AVE

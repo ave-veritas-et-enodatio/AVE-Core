@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [wzezvt]
+claims: [clm-wzezvt]
 -->
 
 ## Project HOPF-02: The S-Parameter VNA Falsification

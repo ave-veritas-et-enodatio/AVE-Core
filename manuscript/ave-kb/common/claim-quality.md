@@ -7,7 +7,7 @@
 ---
 
 ## Mathematical Closure Status — "Structurally Zero-Parameter," Not Absolutely
-<!-- id: sxn6eo -->
+<!-- id: clm-sxn6eo -->
 
 The common-resources documents repeatedly assert AVE's "zero free parameters" status. The unqualified headline collapses a real distinction the leaves make explicit: the chain is *structurally* zero-parameter, conditional on Layer 8 closure of $\{m_e, \alpha, G\}$, with one currently-fitted scalar.
 
@@ -29,7 +29,7 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
 ## Quality
 - confidence: 0.70
 - solidity: 0.70 (ok to build on, see caveats)
-- rationale: Meta-disclosure of the project-wide closure status — structural reduction of 26 SM parameters to $\{m_e, \alpha, G\}$ + four axioms is sound, the four Outstanding Rigour Gaps are correctly enumerated, the forward DAG is verified acyclic, and the back-edge $\alpha$ closure (cold lattice = $4\pi^3+\pi^2+\pi$) is acyclic by inspection. The "*structurally* zero-parameter conditional on Layer-8 closure" framing is rigorously honest. Cross-references the same gaps tracked in vol1 Zero-Parameter Closure Status (`5xon03`).
+- rationale: Meta-disclosure of the project-wide closure status — structural reduction of 26 SM parameters to $\{m_e, \alpha, G\}$ + four axioms is sound, the four Outstanding Rigour Gaps are correctly enumerated, the forward DAG is verified acyclic, and the back-edge $\alpha$ closure (cold lattice = $4\pi^3+\pi^2+\pi$) is acyclic by inspection. The "*structurally* zero-parameter conditional on Layer-8 closure" framing is rigorously honest. Cross-references the same gaps tracked in vol1 Zero-Parameter Closure Status (`clm-5xon03`).
 - strengthen-by:
   - Derive $\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA — one fitted scalar)
   - Demonstrate Nyquist-resolution-of-smallest-stable-soliton without circular reference to $m_e$ (closes the $\{m_e, \ell_{node}\}$ input scale)
@@ -39,7 +39,7 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
 ---
 
 ## Full Derivation Chain — Acyclicity and Identified Methodology Disclosures
-<!-- id: ibfyda -->
+<!-- id: clm-ibfyda -->
 
 The full derivation chain document is a single long appendix presenting Layers 0–8 with per-step derivations. The chain itself is the canonical statement; summaries that quote a result without its layer context risk losing the methodology disclosures the leaf carries inline.
 
@@ -60,18 +60,18 @@ The full derivation chain document is a single long appendix presenting Layers 0
 ## Quality
 - confidence: 0.65
 - depends-on:
-  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears at multiple layers; α-bottleneck cascades through chain]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears at multiple layers; α-bottleneck cascades through chain]
 - solidity: 0.36 (do not build on, rework needed) [= 0.65 × 0.55]
 - rationale: The chain documentation is honest and well-structured — forward DAG verified acyclic; Layer 2 $p_c = 8\pi\alpha$ correctly disclosed as algebraic-not-derivation; Layer 5 lepton spectrum carries an explicit Methodology disclosure (Cosserat sectors → generations identification, $\alpha\sqrt{3/7}$ muon coupling, $8\pi/\alpha$ tau coupling, PMNS $\{c_1, c_2, c_3\} = \{5,7,9\}$ pattern-identified). The substantive open elements (Layer 5 sector identifications matched-not-derived; PMNS pattern-identified) hold local confidence at 0.65. Solidity is heavily α-bounded because α appears in many later-layer formulas. Note: $\delta_{CP}^B \neq \delta_{CP}^{PMNS}$ — the leaf correctly disambiguates the symbol-stem collision.
 - strengthen-by:
-  - Strengthen Golden Torus α Derivation (`0ktpcn`); α propagates through Layer 4+ formulas
+  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas
   - Derive the three-Cosserat-sectors → three-lepton-generations identification from the four axioms (currently matched-not-derived per the leaf's Methodology disclosure)
   - Derive the PMNS torsional defects pattern $\{5, 7, 9\}$ uniquely (currently identified by pattern as consecutive odd integers)
 
 ---
 
 ## Experimental Falsification Index — Catalog Status, Not Validation Status
-<!-- id: t5ybqw -->
+<!-- id: clm-t5ybqw -->
 
 The Unified Index of Experimental Falsifications enumerates ~17 experimental targets across Vols II, III, IV, V, VII. It is a falsifiability *index* (catalog of designed tests), not a results table.
 
@@ -98,7 +98,7 @@ The Unified Index of Experimental Falsifications enumerates ~17 experimental tar
 ---
 
 ## Universal Solver Toolchain — Operator Reuse, Not Per-Domain Derivation
-<!-- id: m7qd0w -->
+<!-- id: clm-m7qd0w -->
 
 The Regime-Boundary Eigenvalue Method is presented as a five-step universal procedure applicable across BH QNMs, nucleon resonances, pion mass, protein backbone, antennas, tokamaks, and BLDC motors. The cross-domain table is operator-reuse evidence, not independent per-domain derivations.
 
@@ -121,18 +121,18 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 ## Quality
 - confidence: 0.65
 - depends-on:
-  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
 - solidity: 0.36 (do not build on, rework needed) [= 0.65 × 0.55]
 - rationale: The five-step procedure (identify $\varepsilon_{11}$ → locate $r_{sat}$ → apply $\nu_{vac}$ Poisson → eigenfrequency $\omega = \ell c/r_{eff}$ → $Q = \ell$) is structurally consistent across BH QNM (1.7% error), pion mass (0.9% conditional on $m_p$), protein backbone (0.1% conditional on measured $v_{backbone}$ — the sub-derivation gives $-5.2\%$). The boundary correctly self-bounds: cross-domain table is operator-reuse evidence, not independent per-domain validation. The Schwarzschild Poisson-correction form $r_{eff} = r_{sat}/(1+\nu_{vac})$ is asserted as one of several valid 3D projections; this is the substantive open element. Local confidence held at 0.65. Solidity α-bounded.
 - strengthen-by:
   - Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\nu_{vac})$ from a unique axiomatic constraint (currently asserted as "transverse Poisson coupling for 3D"; alternatives $r_{sat}\sqrt{1+\nu}$, $r_{sat}(1+\nu)$ not ruled out)
   - Improve the protein backbone wave speed sub-derivation ($v_{backbone}$ predicted $-5.2\%$ vs measured)
-  - Strengthen Golden Torus α Derivation (`0ktpcn`) — α propagates through several per-domain rows numerically
+  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`) — α propagates through several per-domain rows numerically
 
 ---
 
 ## Translation Tables — Notation Mappings, Not Physical Equivalences
-<!-- id: fy05jc -->
+<!-- id: clm-fy05jc -->
 
 The seven domain translation tables (circuit, QM, particle physics, gravity, cosmology, condensed matter, biology) are notation-and-vocabulary maps between established disciplines and AVE. Their boundary is "this is how we render concept X in domain Y under the AVE picture," not "X equals Y at the physical level."
 
@@ -159,7 +159,7 @@ The seven domain translation tables (circuit, QM, particle physics, gravity, cos
 ---
 
 ## $\xi_{topo}$ Traceability — Conversion Constant, Not Free Parameter
-<!-- id: hmiytz -->
+<!-- id: clm-hmiytz -->
 
 The Topological Conversion Constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \times 10^{-7}$ C/m bridges 51 files across 6 of 8 volumes. Its boundary is dimensional currency exchange, not an independent physical degree of freedom.
 
@@ -179,14 +179,14 @@ The Topological Conversion Constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \t
 ## Quality
 - confidence: 0.85
 - solidity: 0.85 (ok to build on)
-- rationale: $\xi_{topo} = e/\ell_{node}$ is direct from Axiom 2's mechanism; cross-volume reuse claim is structural (51 files spanning 6 of 8 volumes is reuse documentation, not 51 independent confirmations). The $\xi$ vs $\xi_{topo}$ distinction is correctly enforced (cross-cutting INVARIANT-C2). The "Zero-Free-Parameter Chain" sub-claim within the entry is correctly disclosed as conditional on Closure Status (`sxn6eo`) — that conditionality is sub-claim-level, not entry-level. No entry-level scored dependencies for the traceability claim itself.
+- rationale: $\xi_{topo} = e/\ell_{node}$ is direct from Axiom 2's mechanism; cross-volume reuse claim is structural (51 files spanning 6 of 8 volumes is reuse documentation, not 51 independent confirmations). The $\xi$ vs $\xi_{topo}$ distinction is correctly enforced (cross-cutting INVARIANT-C2). The "Zero-Free-Parameter Chain" sub-claim within the entry is correctly disclosed as conditional on Closure Status (`clm-sxn6eo`) — that conditionality is sub-claim-level, not entry-level. No entry-level scored dependencies for the traceability claim itself.
 - strengthen-by:
-  - none entry-local for the traceability claim — the chain-of-conditionality referenced in the Zero-Free-Parameter Chain sub-claim is tracked via Closure Status (`sxn6eo`)
+  - none entry-local for the traceability claim — the chain-of-conditionality referenced in the Zero-Free-Parameter Chain sub-claim is tracked via Closure Status (`clm-sxn6eo`)
 
 ---
 
 ## Derived Numerology Appendix — Derivation Trace, Not Empirical Coincidence
-<!-- id: zi6t1e -->
+<!-- id: clm-zi6t1e -->
 
 The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware constants ($Z_0$, $V_{snap}$, $V_{yield}$, $\nu_{vac}$, $z_0$, $n_{3D}$, $C_K$, etc.) with their axiom traces. The boundary is that each value is derived, not numerologically curve-fit.
 
@@ -207,18 +207,18 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 ## Quality
 - confidence: 0.70
 - depends-on:
-  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
 - solidity: 0.39 (do not build on, rework needed) [= 0.70 × 0.55]
 - rationale: Each tabulated constant carries an explicit axiom-trace column. The $z_0 \approx 51.25$ effective-coordination-number derivation is sound (Feng-Thorpe-Garboczi EMT quadratic at $K=2G$). The FDTD numerical-damping factor is **explicitly excluded** as a numerical-stability artifact — this is the model for honest numerology. The $n_{3D} = 38/21 \approx 1.8095$ avalanche exponent is within $\sim 0.5\%$ of the empirical solar-flare value (single empirical figure, not a precision dataset match — correctly disclosed). The $C_K = 4/3$ Kolmogorov constant matches the classical empirical value structurally. Solidity α-bounded because many constants depend on α numerically.
 - strengthen-by:
-  - Strengthen Golden Torus α Derivation (`0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically
+  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically
   - Validate the $n_{3D} \approx 1.8095$ prediction against a broader empirical avalanche dataset (currently a single-figure structural agreement)
   - Quantify the per-application hardware constants (e.g., $V_{write}$, $P_{drag}$, $\rho_{kink}$) against the AVE-APU private-repo measurements as those become available
 
 ---
 
 ## Appendices Overview — Theoretical Stress Tests, Not Independent Proofs
-<!-- id: yawl6z -->
+<!-- id: clm-yawl6z -->
 
 The Interdisciplinary Translation Matrix appendix includes "Theoretical Stress Tests" presenting the Spin-1/2 Paradox, Holographic Information Paradox, and Peierls-Nabarro Friction Paradox with AVE resolutions. Their boundary is paradox-resolution within the framework, not novel independent proof.
 
@@ -244,7 +244,7 @@ The Interdisciplinary Translation Matrix appendix includes "Theoretical Stress T
 ---
 
 ## SPICE Verification Manual — Toolchain Status, Not Validation Claim
-<!-- id: pfocn6 -->
+<!-- id: clm-pfocn6 -->
 
 The SPICE Verification Manual documents the Tier 1 → Tier 2 → Tier 3 architecture (constants → solvers → SPICE compiler) and the canonical `AVE_VACUUM_CELL` library.
 
@@ -269,7 +269,7 @@ The SPICE Verification Manual documents the Tier 1 → Tier 2 → Tier 3 archite
 ---
 
 ## VCA Schematic Symbol Vocabulary — Geometry-Encoded Component Catalogue
-<!-- id: io8hft -->
+<!-- id: clm-io8hft -->
 
 Appendix D establishes the schematic-symbol vocabulary for Vacuum Circuit Architecture (VCA): seventeen named components, seven canonical visual markers, and five symbol design rules. The boundary is that each symbol is a **geometric encoding** of an axiom-derived hardware element (Axiom 4 saturation kernel, $V_{snap}$, $V_{yield}$, topological winding number $Q$, characteristic impedance $Z_0$), not an arbitrary draughting convention.
 

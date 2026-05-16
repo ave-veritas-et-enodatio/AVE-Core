@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [f8k2um]
+claims: [clm-f8k2um]
 -->
 
 <!-- NOTE: Source §3 "The Macroscopic Halo Offset" occupies the topological-area leaf position in Fluorine's non-standard 5-section structure. The standard "Topological Area of Interest" section title (§4) is mapped to ee-equivalent.md because it contains the EE circuit content. -->

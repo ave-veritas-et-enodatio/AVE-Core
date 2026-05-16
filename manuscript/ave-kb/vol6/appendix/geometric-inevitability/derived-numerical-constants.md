@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ome498]
+claims: [clm-ome498]
 -->
 
 <!-- PATH-STABLE: sec:derived_numerology -->

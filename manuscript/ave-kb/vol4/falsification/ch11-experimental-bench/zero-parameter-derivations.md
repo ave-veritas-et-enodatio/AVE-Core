@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [fh6w3y, qagkgy, ui3m8a]
+claims: [clm-fh6w3y, clm-qagkgy, clm-ui3m8a]
 -->
 
 ## Zero-Parameter Derivations & Resolving the Horsemen
@@ -16,12 +16,12 @@ $$V_{yield} = \sqrt{\alpha} \times V_{snap} = \sqrt{7.297 \times 10^{-3}} \times
 
 Two predictive alignments:
 
-<!-- claim-quality: qagkgy -->
+<!-- claim-quality: clm-qagkgy -->
 1. **Fusion limit**: At 15 keV D-T temperature, ion collision strain → 60.3 kV — exceeds $V_{yield}$ by 38%. Standard tokamaks hit "anomalous transport" exactly at the Maxwell-Boltzmann tail crossing 43.65 kV.
-<!-- claim-quality: ui3m8a -->
+<!-- claim-quality: clm-ui3m8a -->
 2. **Levitation limit**: $m_{max} = V_{yield} \cdot \xi_{topo} / g = 1.846$ g. Penny (2.50 g), Ping-Pong (2.70 g), Dime (2.27 g) all fail. Paper clip (1.0 g) hovers.
 
-<!-- claim-quality: fh6w3y -->
+<!-- claim-quality: clm-fh6w3y -->
 ### Resolving the "Horsemen of Falsification"
 
 **LHC Paradox (Dielectric Relaxation Time)**

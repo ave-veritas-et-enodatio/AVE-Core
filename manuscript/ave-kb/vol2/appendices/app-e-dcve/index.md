@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [o3q9ul]
+subtree-claims: [clm-o3q9ul]
 -->
 
 # App E: Rigorous Foundations of Discrete Chiral LC Vacuum Electrodynamics (DCVE)

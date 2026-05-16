@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [jy8h1x]
+claims: [clm-jy8h1x]
 -->
 
 > ↗ See also: [Four Universal Regimes](../../../vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — Small-Signal / Large-Signal / Avalanche classification

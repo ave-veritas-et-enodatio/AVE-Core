@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [3zz0f6, 5xon03, 0ktpcn, trf3bd]
+claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-trf3bd]
 -->
 
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
-<!-- claim-quality: 0ktpcn -->
+<!-- claim-quality: clm-0ktpcn -->
 
 **Source:** [`manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex`](../../vol_1_foundations/chapters/08_alpha_golden_torus.tex)
 
@@ -28,7 +28,7 @@ Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/parti
 
 | Regime | Physical principle | Equation |
 |---|---|---|
-<!-- claim-quality: trf3bd -->
+<!-- claim-quality: clm-trf3bd -->
 | **(a) Nyquist** | Discrete lattice sampling cutoff (Axiom 1); smallest stable soliton = trefoil | $d = 1\,\ell_{\text{node}}$ |
 | **(b) Crossings** | Transverse self-avoidance at topologically-marked trefoil crossings (Axiom 2 dielectric rupture) | $2(R-r) = d \Rightarrow R - r = 1/2$ |
 | **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ (SU(2) double-cover of SO(3)) | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
@@ -96,7 +96,7 @@ is the *identification* of the three orthogonal codimensions of the Clifford tor
 > $$
 
 ## CMB Thermal Correction (Running $\alpha$)
-<!-- claim-quality: 3zz0f6 -->
+<!-- claim-quality: clm-3zz0f6 -->
 
 The experimentally measured CODATA value is $\alpha^{-1}_{\text{exp}} = 137.035999$. This is below the cold-lattice asymptote by a fractional amount identified as the Vacuum Strain Coefficient:
 
@@ -119,14 +119,14 @@ This is the same disclosure pattern as Vol 6 (one fitted scalar per nucleus, wit
 This is distinct from the proton thermal softening $\delta_{th} = 1/(14\pi^2) \approx 7.21 \times 10^{-3}$ at the $10^{13}$ K proton core — different temperature regime, different physical quantity (Skyrme coupling $\kappa_{FS}$), not $\alpha$ directly.
 
 ## Mathematical Closure
-<!-- claim-quality: 5xon03 -->
+<!-- claim-quality: clm-5xon03 -->
 
-Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron ≡ unknot phase winding on the trefoil — here "unknot" refers to the *phase-winding topology* on the closed flux-tube centerline, i.e. winding number 1 in the phase fiber; the electron's *body topology* is the trefoil per `trf3bd`, not the body-unknot of `unk0bd`). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
+Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron ≡ unknot phase winding on the trefoil — here "unknot" refers to the *phase-winding topology* on the closed flux-tube centerline, i.e. winding number 1 in the phase fiber; the electron's *body topology* is the trefoil per `clm-trf3bd`, not the body-unknot of `clm-unk0bd`). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
 
 **Closure status (honest).** The framework reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms. The "zero free parameters" claim depends on Layer 8 closure of those three, which itself rests on:
 - (a) the Golden Torus $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derivation above at the cold-lattice asymptote (the three regimes are independently grounded; the sum decomposition relies on identifying $\Lambda_{\text{vol}}$, $\Lambda_{\text{surf}}$, $\Lambda_{\text{line}}$ as the three orthogonal contributions);
 - (b) the thermal running $\alpha^{-1}(T) = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain}(T))$: the existence and sign are predicted (positive $\delta_{strain}$ at $T > 0$); the magnitude at $T_{\text{CMB}}$ is currently one fitted scalar (back-subtracted from CODATA — see status disclosure above);
-- (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (here "unknot ground state" = the simplest phase-winding configuration — winding number 1 — on the smallest stable soliton's body, *not* a claim that the body topology is the unknot; the body-topology question is tracked separately by `trf3bd` vs `unk0bd`. The other of $\{m_e, \ell_{node}\}$ remains the input mass scale).
+- (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (here "unknot ground state" = the simplest phase-winding configuration — winding number 1 — on the smallest stable soliton's body, *not* a claim that the body topology is the unknot; the body-topology question is tracked separately by `clm-trf3bd` vs `clm-unk0bd`. The other of $\{m_e, \ell_{node}\}$ remains the input mass scale).
 
 Conditional on (a)–(c), the framework is zero-free-parameters at the SM level. Under the present edition, the cold-lattice asymptote and the existence + sign of the thermal running are predicted; the magnitude of $\delta_{strain}$ at $T_{\text{CMB}}$ is one fitted scalar — same predicted/fitted disclosure pattern as Vol 6 (predicted: structure; fitted: one scalar). See the [Full Derivation Chain](../common/full-derivation-chain.md) scorecard for the precise accounting.
 

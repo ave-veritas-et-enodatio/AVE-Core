@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [wzezvt]
+claims: [clm-wzezvt]
 -->
 
 ## Toroidal and Poloidal Fusion

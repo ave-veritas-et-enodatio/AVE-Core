@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf-as-index
-claims: [uosu8w]
+claims: [clm-uosu8w]
 -->
 
 # Ch.20: Optical Caustic Singularity Resolution

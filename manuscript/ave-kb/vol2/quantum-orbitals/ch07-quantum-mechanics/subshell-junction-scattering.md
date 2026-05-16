@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy, w6kk5y]
+claims: [clm-oltvwy, clm-w6kk5y]
 -->
 
 ## Phase 5: Sub-Shell Junction Scattering (Op10)
-<!-- claim-quality: w6kk5y -->
+<!-- claim-quality: clm-w6kk5y -->
 
 When Boron ($2p^1$) emerges, its ionization energy drops precipitously from Beryllium ($9.32$ eV) to $8.30$ eV, universally confounding classical models.
 
@@ -28,7 +28,7 @@ where $c_{\text{total}}$ is the topological number of physical crossing junction
 
 Because this is a multiplicative drop in dynamic cavity pressure, the total transmission $T = 1 - Y_{\text{loss}}$. For the quadratic (energy) eigenvalue, the total drain is $f_{\text{drain}} = (T_{\pi} T_{\pi/2})^2$.
 
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-oltvwy -->
 ### The Beryllium to Boron Drop
 
 The **Mutual Cavity Loading** architecture perfectly predicts the massive, anomalous plunge in Ionization Energy native to the Boron inflection point without assuming a single empirical variable or arbitrary $Z_{\text{eff}}$ shielding constant.

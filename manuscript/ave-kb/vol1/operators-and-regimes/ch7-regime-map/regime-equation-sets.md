@@ -2,12 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [lv3uw1, b2anl4]
+claims: [clm-lv3uw1, clm-b2anl4]
 -->
 
 ## Section 7.3: Regime-Specific Equation Sets
 
-<!-- claim-quality: b2anl4 -->
+<!-- claim-quality: clm-b2anl4 -->
 For each regime, the constitutive parameters simplify. Two saturation symmetries arise (per LIVING_REFERENCE Axiom 4 derived consequences); each gets its own table.
 
 ### Symmetric saturation (gravity, BH interior, GW shear)
@@ -38,7 +38,7 @@ Only $\varepsilon$ scales by $S$; $\mu$ is unchanged. The EM impedance diverges 
 | $C_{eff}$ | $C_0$ | $C_0 / \sqrt{1-r^2}$ | $\to \infty$ | $\infty$ |
 | $Q$ | $\sim 1$ | $1/\sqrt{1-r^2}$ | $\gg 1$ | $\infty$ |
 
-<!-- claim-quality: lv3uw1 -->
+<!-- claim-quality: clm-lv3uw1 -->
 **Particle confinement** proceeds via the magnetic branch (a third sub-case of the symmetric sector): at a torus-knot self-intersection, the magnetic field saturates $\mu$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The standing wave that results is rest mass.
 
 ---

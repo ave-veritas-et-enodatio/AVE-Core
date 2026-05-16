@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [x19btt]
+claims: [clm-x19btt]
 -->
 
 ## The Compactness Limit (AVE Buchdahl Bound)

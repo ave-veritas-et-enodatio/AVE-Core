@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [knveh6]
+claims: [clm-knveh6]
 -->
 
 ## The Birch and Swinnerton-Dyer Conjecture

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [dboxok]
+claims: [clm-dboxok]
 -->
 
 ## The Universal Energy Functional

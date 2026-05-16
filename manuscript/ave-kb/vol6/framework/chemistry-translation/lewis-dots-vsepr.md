@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [jqnzz7]
+claims: [clm-jqnzz7]
 -->
 
 ## Lewis Dots and Unbound Valency

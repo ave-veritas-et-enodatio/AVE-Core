@@ -2,14 +2,14 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [9s9apq, 2dwzib]
+claims: [clm-9s9apq, clm-2dwzib]
 -->
 
 > ↗ See also: [EE Bench Dielectric Plateau](../../../vol4/falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md) — experimental measurement of $V_{yield}$ rolloff
 > ↗ See also: [Autoresonant PLL](../../../vol4/simulation/ch15-autoresonant-breakdown/index.md) — bypassing Schwinger limit via resonance tracking
 
 ## Section 2.3.1: Computational Proof of Effective Over-Bracing
-<!-- claim-quality: 9s9apq -->
+<!-- claim-quality: clm-9s9apq -->
 
 In standard computational geometry, a basic nearest-neighbor Delaunay mesh of an amorphous point cloud yields a packing fraction of $\kappa_{cauchy} \approx 0.3068$ (a standard Cauchy solid). However, the AVE framework requires the sparse QED density $p_c = 8\pi\alpha \approx 0.1834$.
 
@@ -32,7 +32,7 @@ This factor has a precise geometric interpretation: the effective Voronoi cell o
 This necessitates that the $\mathcal{M}_A$ lattice acts *macroscopically* as a **Structurally Over-Braced Chiral LC Network**---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom 1 substrate, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint that fixes Axiom 2's value of $\alpha$.
 
 ## Section 2.3.2: The Dielectric Snap Limit ($V_{snap} = 511.0$ kV)
-<!-- claim-quality: 2dwzib -->
+<!-- claim-quality: clm-2dwzib -->
 
 Because the physical node size is identical to the pitch ($\ell_{node}$), the absolute maximum discrete electrical potential difference that can exist between two adjacent nodes before the string permanently snaps is the Nodal Breakdown Voltage ($V_{snap}$):
 

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [ffa5sq]
+subtree-claims: [clm-ffa5sq]
 -->
 
 # Ch.18 Active Topological Metamaterials: The Inorganic LLCP

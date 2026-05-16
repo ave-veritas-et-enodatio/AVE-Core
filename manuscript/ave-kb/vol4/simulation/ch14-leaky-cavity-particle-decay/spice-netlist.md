@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [c54kdd]
+claims: [clm-c54kdd]
 -->
 
 ## SPICE Netlist: Particle Decay (leaky_cavity.cir)

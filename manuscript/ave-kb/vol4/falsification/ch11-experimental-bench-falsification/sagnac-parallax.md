@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [wqmb19]
+claims: [clm-wqmb19]
 -->
 
 ## Protocol 11: Sagnac-Parallax (Galactic Wind Vectoring)

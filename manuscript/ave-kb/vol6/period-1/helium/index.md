@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [f5ucdo, f8k2um, h8nmpu, rw7jqo, sd04x4, y7uvdc]
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
 -->
 
 # Helium (Z=2)

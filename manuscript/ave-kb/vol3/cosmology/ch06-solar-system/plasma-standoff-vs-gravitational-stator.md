@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [3kmt3p]
+claims: [clm-3kmt3p]
 -->
 
 # The Plasma Standoff vs. The Gravitational Stator

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [yiyyi3]
+claims: [clm-yiyyi3]
 -->
 
 ## Section 3.1: The Dielectric Lagrangian: Hardware Mechanics

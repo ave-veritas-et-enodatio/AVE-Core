@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [t05mvx]
+claims: [clm-t05mvx]
 -->
 
 ---

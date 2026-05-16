@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy]
+claims: [clm-oltvwy]
 -->
 
 # Orbital Penetration Penalties (1/d ABCD Matrix)

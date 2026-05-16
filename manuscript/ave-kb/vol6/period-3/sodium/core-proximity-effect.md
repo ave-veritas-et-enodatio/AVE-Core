@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [8psuqe]
+claims: [clm-8psuqe]
 -->
 
 ## The Core Proximity Effect ($351d$ vs $50d$)

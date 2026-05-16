@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [q39qct]
+claims: [clm-q39qct]
 -->
 
 ## Section 1.5: Methodology: Explicit Discrete Kirchhoff Execution

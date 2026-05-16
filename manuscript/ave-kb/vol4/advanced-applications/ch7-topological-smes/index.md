@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [6btlq3]
+subtree-claims: [clm-6btlq3]
 -->
 
 # Ch.7 Topological SMES

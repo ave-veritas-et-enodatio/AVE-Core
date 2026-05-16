@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [67jn9o, bh9p6s, k6olj8, mnb3lt]
+subtree-claims: [clm-67jn9o, clm-bh9p6s, clm-k6olj8, clm-mnb3lt]
 -->
 
 # Ch.2 — The Baryon Sector: Confinement and Fractional Quarks

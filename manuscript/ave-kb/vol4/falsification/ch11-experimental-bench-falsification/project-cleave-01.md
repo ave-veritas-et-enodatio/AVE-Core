@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ydksh6]
+claims: [clm-ydksh6]
 -->
 
 ## Project CLEAVE-01: The Femto-Coulomb Electrometer

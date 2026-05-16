@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [q5izb7]
+claims: [clm-q5izb7]
 -->
 
 ## The Yang-Mills Mass Gap: Steps 1-2

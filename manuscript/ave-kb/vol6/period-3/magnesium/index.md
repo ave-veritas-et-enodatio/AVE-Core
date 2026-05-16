@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [7tk051, f5ucdo, f8k2um, h8nmpu, jy8h1x, rw7jqo, sd04x4, y7uvdc]
+subtree-claims: [clm-7tk051, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-jy8h1x, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
 -->
 
 # Magnesium (Z=12)

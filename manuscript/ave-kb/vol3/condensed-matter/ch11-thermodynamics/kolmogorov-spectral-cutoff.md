@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [hk81zp]
+claims: [clm-hk81zp]
 -->
 
 # Kolmogorov Spectral Cutoff

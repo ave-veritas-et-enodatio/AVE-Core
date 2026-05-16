@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [qsgl7d]
+claims: [clm-qsgl7d]
 -->
 
 ## Project ROENTGEN-03: Solid-State Sagnac Induction

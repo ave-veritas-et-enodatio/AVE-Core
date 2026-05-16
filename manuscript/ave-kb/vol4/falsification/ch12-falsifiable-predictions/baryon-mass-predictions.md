@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [to41c7]
+claims: [clm-to41c7]
 -->
 
 ## Baryon Mass Predictions (Torus Knot Ladder)

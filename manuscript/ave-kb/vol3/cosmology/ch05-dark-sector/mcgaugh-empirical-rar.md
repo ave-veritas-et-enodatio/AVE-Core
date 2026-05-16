@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [u86caq]
+claims: [clm-u86caq]
 -->
 
 ## The Radial Acceleration Relation (RAR)

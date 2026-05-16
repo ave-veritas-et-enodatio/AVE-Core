@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [8ep2b4]
+claims: [clm-8ep2b4]
 -->
 
 ## Section 4.4: The Macroscopic Yield Limit: The Magnetic Saturation Transition

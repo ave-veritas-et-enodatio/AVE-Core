@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [3kmt3p]
+subtree-claims: [clm-3kmt3p]
 -->
 
 # Ch.6: Solar System Impedance

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [trgqtf]
+claims: [clm-trgqtf]
 -->
 
 ## EE Bench: Macroscopic Dielectric Plateau

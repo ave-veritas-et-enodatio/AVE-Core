@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [4vwsjc]
+claims: [clm-4vwsjc]
 -->
 
 ## Testable Prediction: $g_* = 85.75$

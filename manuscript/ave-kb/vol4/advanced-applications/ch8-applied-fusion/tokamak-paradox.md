@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [qagkgy]
+claims: [clm-qagkgy]
 -->
 
 ## The Tokamak Ignition Paradox (The 60.3 kV Alignment)

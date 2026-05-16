@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [z73h6n]
+claims: [clm-z73h6n]
 -->
 
 ## Computational Proof of Scale Invariance

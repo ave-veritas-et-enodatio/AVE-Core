@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [m7qd0w]
+claims: [clm-m7qd0w]
 path-stable: "referenced from vol1,vol2,vol5 as app:solver_toolchain"
 -->
 

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [yyhczl, x5z09x]
+claims: [clm-yyhczl, clm-x5z09x]
 -->
 
 ---
@@ -70,7 +70,7 @@ For an O--H bond (order 1), oxygen contains $2s^2$ electrons ($N_{s_O}=2$) while
 
 The loaded bond eigenvalue scales the fundamental baseline unloaded cavity $N_0 = 2$ (e.g., the bare proton-electron pair in H$_2$):
 
-<!-- claim-quality: yyhczl -->
+<!-- claim-quality: clm-yyhczl -->
 $$
 \boxed{d_\text{eq} = \sqrt{2}\,\sqrt{r_A \cdot r_B} \times \sqrt{\frac{T^2(N_\text{eff})}{T^2(2)}}}
 \label{eq:bond_eigenvalue}
@@ -176,7 +176,7 @@ By rigorous application of electrical engineering topologies — three-phase WYE
 No empirical force constants, IR frequencies, or bond lengths are utilized as training input. This effectively eliminates the circularity conventionally accepted in molecular mechanics: the internuclear capacitance $C = \xi^2/k_\text{pred}$ can now be deduced entirely from the vacuum lattice axioms. The model demonstrates that covalent bonding is an emergent electromagnetic phenomenon structurally akin to a chiral transmission line network.
 
 ### Regime Classification of Biological Length Scales
-<!-- claim-quality: x5z09x (this regime table is the Vol 5 manifestation of the cross-cutting Symmetric vs Asymmetric Saturation distinction — covalent bond at Regime II yield boundary, all higher length scales in the linear Regime I) -->
+<!-- claim-quality: clm-x5z09x (this regime table is the Vol 5 manifestation of the cross-cutting Symmetric vs Asymmetric Saturation distinction — covalent bond at Regime II yield boundary, all higher length scales in the linear Regime I) -->
 
 
 | **Scale** | **Regime** | **$\Delta\phi/\alpha$** | **Physical Character** |

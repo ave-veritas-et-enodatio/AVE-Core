@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [9fnieq]
+claims: [clm-9fnieq]
 -->
 
 ## Early Galaxy Accretion (The JWST Paradox)

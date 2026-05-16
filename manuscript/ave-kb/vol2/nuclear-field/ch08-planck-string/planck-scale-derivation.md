@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [g6e3zw]
+claims: [clm-g6e3zw]
 -->
 
 ## The Planck Scale and String Theory

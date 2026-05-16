@@ -29,18 +29,18 @@ Each claim entry carries a `## Quality` section that records the entry's current
 
 ### Entry identifiers (stable IDs)
 
-Each claim entry carries a stable 6-character lowercase-alphanumeric identifier on the line immediately following the heading, in an HTML comment matching the existing `path-stable` convention pattern:
+Each claim entry carries a stable identifier — the literal prefix `clm-` followed by 6 lowercase-alphanumeric characters — on the line immediately following the heading, in an HTML comment matching the existing `path-stable` convention pattern:
 
 ```markdown
 ## Some Entry Title
-<!-- id: xxxxxx -->
+<!-- id: clm-xxxxxx -->
 
 (... entry body ...)
 ```
 
-IDs are randomly generated (`LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 6`) and never derived from the entry title — this makes them stable across title revisions and prose drift. The $36^6 \approx 2.18$ billion namespace is far more than sufficient for the project's lifetime.
+The 6-character body is randomly generated (`LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 6`) with `clm-` prepended; the ID is never derived from the entry title — this makes it stable across title revisions and prose drift. The $36^6 \approx 2.18$ billion namespace is far more than sufficient for the project's lifetime. The `clm-` prefix makes IDs unambiguously greppable: `\bclm-[a-z0-9]{6}\b` matches IDs and nothing else.
 
-`depends-on` references must lead with the dependency's ID. The ID is the canonical reference; the title is for human readability (and may drift); the solidity is for audit at write-time. To find an entry's canonical home, grep for its ID across the KB. To find all references TO an entry, grep for its ID and inspect the depends-on contexts.
+`depends-on` references must lead with the dependency's `clm-<id>`. The ID is the canonical reference; the title is for human readability (and may drift); the solidity is for audit at write-time. To find an entry's canonical home, grep for its ID across the KB. To find all references TO an entry, grep for its ID and inspect the depends-on contexts.
 
 A new entry assigns its ID at creation time and never changes it. If an entry is split, retired, or merged, the git change history records the lineage; new IDs are generated for new sub-entries, never reused.
 
@@ -105,7 +105,7 @@ A high-confidence entry with low solidity tells you the entry's own work is soun
 ---
 
 ## Symmetric vs Asymmetric Saturation
-<!-- id: 8nkvwy -->
+<!-- id: clm-8nkvwy -->
 
 The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is applied in two distinct symmetry cases. Confusing them is the most common source of error in summary-derived claims about AVE.
 
@@ -132,7 +132,7 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
 ---
 
 ## α Invariance Under Symmetric Gravity
-<!-- id: 3zz0f6 -->
+<!-- id: clm-3zz0f6 -->
 
 Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
 
@@ -152,17 +152,17 @@ Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\vare
 ## Quality
 - confidence: 0.85
 - depends-on:
-  - 8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
+  - clm-8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
 - solidity: 0.72 (ok to build on, see caveats) [= 0.85 × 0.85]
 - rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
 - strengthen-by:
   - Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)
-  - Strengthen Symmetric vs Asymmetric Saturation (`8nkvwy`); the symmetric-case identification is the dependency
+  - Strengthen Symmetric vs Asymmetric Saturation (`clm-8nkvwy`); the symmetric-case identification is the dependency
 
 ---
 
 ## BCS Critical Field $B_c(T)$ — Axiom Manifestation, Not Curve Fit
-<!-- id: 3dc9qt -->
+<!-- id: clm-3dc9qt -->
 
 Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The "0.00%" reads like a numerical fit but is not — it indicates that the BCS empirical curve **is** the AVE saturation operator at thermal scaling.
 
@@ -191,16 +191,16 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
 ## Quality
 - confidence: 0.95
 - depends-on:
-  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $V_{yield}$'s $\sqrt{\alpha}$ factor numerical value]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $V_{yield}$'s $\sqrt{\alpha}$ factor numerical value]
 - solidity: 0.52 (use as input only, don't build deeper) [= 0.95 × 0.55]
-- rationale: Cross-cutting mirror of vol1's `2dwzib` entry. Both thresholds are direct from axiom-level definitions: $V_{snap} = m_e c^2/e$ by definition (per-node energy-equivalent voltage); $V_{yield} = \sqrt{\alpha}\cdot V_{snap}$ from Axiom 2 (kinetic onset of nonlinearity at the saturation threshold). The distinction-and-non-conflation work is rock-solid and explicitly catalogued as Critical Distinction #1. $V_{snap}$ alone has solidity ≈ 0.95; $V_{yield}$ inherits α via $\sqrt{\alpha}$, dropping the entry's solidity to 0.52.
+- rationale: Cross-cutting mirror of vol1's `clm-2dwzib` entry. Both thresholds are direct from axiom-level definitions: $V_{snap} = m_e c^2/e$ by definition (per-node energy-equivalent voltage); $V_{yield} = \sqrt{\alpha}\cdot V_{snap}$ from Axiom 2 (kinetic onset of nonlinearity at the saturation threshold). The distinction-and-non-conflation work is rock-solid and explicitly catalogued as Critical Distinction #1. $V_{snap}$ alone has solidity ≈ 0.95; $V_{yield}$ inherits α via $\sqrt{\alpha}$, dropping the entry's solidity to 0.52.
 - strengthen-by:
-  - Strengthen Golden Torus α Derivation (`0ktpcn`); $V_{yield}$ numerical inheritance is the only solidity reduction
+  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$ numerical inheritance is the only solidity reduction
 
 ---
 
 ## Topological Conversion Constant ξ_topo (Not a Free Parameter)
-<!-- id: rppigm -->
+<!-- id: clm-rppigm -->
 
 CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The bridge between AVE lattice parameters and mechanical/biological/circuit quantities. Surfaces in vol2 (atomic orbitals), vol4 (VCA derivations), vol5 (mass-to-inductance, bond stiffness-to-capacitance), vol6 (heavy-element coupling).
 
@@ -219,14 +219,14 @@ CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The brid
 ## Quality
 - confidence: 0.90
 - solidity: 0.90 (ok to build on)
-- rationale: $\xi_{topo} = e/\ell_{node}$ is an algebraic identity built from four CODATA inputs ($e$, $\hbar$, $m_e$, $c$); no fitting. Used as a dimensional conversion constant across volumes (vol2, vol4, vol5, vol6) — the cross-volume reuse is structural, not 51 independent confirmations. Correctly distinguished from $\xi$ (Machian dilution, dimensionless ≈ 8.15×10⁴³ from Axiom 3). Mirrors vol1's Topo-Kinematic Isomorphism (`dfaiwj`) and common's $\xi_{topo}$ Traceability (`hmiytz`). No entry-level scored dependencies — $\xi_{topo}$'s definition uses only framework inputs.
+- rationale: $\xi_{topo} = e/\ell_{node}$ is an algebraic identity built from four CODATA inputs ($e$, $\hbar$, $m_e$, $c$); no fitting. Used as a dimensional conversion constant across volumes (vol2, vol4, vol5, vol6) — the cross-volume reuse is structural, not 51 independent confirmations. Correctly distinguished from $\xi$ (Machian dilution, dimensionless ≈ 8.15×10⁴³ from Axiom 3). Mirrors vol1's Topo-Kinematic Isomorphism (`clm-dfaiwj`) and common's $\xi_{topo}$ Traceability (`clm-hmiytz`). No entry-level scored dependencies — $\xi_{topo}$'s definition uses only framework inputs.
 - strengthen-by:
   - none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded
 
 ---
 
 ## Hubble Constant Derivation — Consistency Proof, Not Independent Prediction
-<!-- id: 2e9j97 -->
+<!-- id: clm-2e9j97 -->
 
 $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "Key Result" in vol1, vol2, and vol3 indexes.
 
@@ -245,13 +245,13 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
 ## Quality
 - confidence: 0.85
 - depends-on:
-  - 0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $H_\infty$'s $\alpha^{-2}$ factor]
-  - 5xon03 — Zero-Parameter Closure Status (solidity 0.70) [for the consistency-proof framing of $H_\infty$ vs $G$]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.55) [for $H_\infty$'s $\alpha^{-2}$ factor]
+  - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.70) [for the consistency-proof framing of $H_\infty$ vs $G$]
 - solidity: 0.47 (use as input only, don't build deeper) [= 0.85 × min(0.55, 0.70) = 0.85 × 0.55]
 - rationale: The boundary correctly frames the $H_\infty$ formula as a **geometric self-consistency relation**, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The Hubble Tension framing — both Planck and SH0ES are compatible with the same geometric constraint at different thermodynamic regimes — is correctly bounded as NOT a tension-resolution-via-AVE-output. Local confidence high (0.85) for the meta-disclosure work; solidity α-bounded for any numerical use.
 - strengthen-by:
   - Promote the Hubble identity to a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes Closure Status open item; closing this lifts the framework-level claim from consistency-proof to derived-prediction)
-  - Strengthen Golden Torus α Derivation (`0ktpcn`); the $\alpha^{-2}$ factor in $H_\infty$ amplifies α's solidity into the strongest dependence
+  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\alpha^{-2}$ factor in $H_\infty$ amplifies α's solidity into the strongest dependence
 
 ---
 

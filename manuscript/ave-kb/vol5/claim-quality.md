@@ -7,7 +7,7 @@
 ---
 
 ## Electromechanical Transduction Constant $\xi_\text{topo}$
-<!-- id: lm9b3j -->
+<!-- id: clm-lm9b3j -->
 
 - $\xi_\text{topo} \equiv e/\ell_\text{node} = e\,m_e\,c/\hbar \approx 4.149 \times 10^{-7}$ C/m
 - _Specific Claims_
@@ -32,7 +32,7 @@
 ---
 
 ## Hydrogen Bond Canonical Values $d_\text{HB}$, $E_\text{HB}$
-<!-- id: j9l3ww -->
+<!-- id: clm-j9l3ww -->
 
 - $d_\text{HB} = 1.754$ Å; $E_\text{HB} = U_\text{raw} \times (1-\phi) = 0.832\,\text{eV} \times 0.2595 = 0.2158\,\text{eV} = 4.98$ kcal/mol
 - _Specific Claims_
@@ -61,7 +61,7 @@
 ---
 
 ## Bond Eigenvalue $d_\text{eq}$ — Fabry–Perot Loaded Cavity
-<!-- id: yyhczl -->
+<!-- id: clm-yyhczl -->
 
 - $d_\text{eq} = \sqrt{2}\,\sqrt{r_A \cdot r_B} \times \sqrt{T^2(N_\text{eff})/T^2(2)}$ with $T^2(N) = 4N/(1+N)^2$ and $N_\text{eff} = 2(\text{Bond Order}) + \max(N_{s_A}, N_{s_B})/2$
 - _Specific Claims_
@@ -89,7 +89,7 @@
 ---
 
 ## Batch SPICE — 18/20 Amino Acids at 1192 cm$^{-1}$
-<!-- id: 4jy0t8 -->
+<!-- id: clm-4jy0t8 -->
 
 - _Specific Claims_
   - Native MNA solver applied to first-principles SPICE netlists for all 20 standard L-amino acids produces a **shared primary absorption notch at 1192.1 cm$^{-1}$** for 18 of 20 amino acids (depths $-73$ to $-79$ dB), with Valine at 1343.9 cm$^{-1}$ and Glycine at 2819.1 cm$^{-1}$.
@@ -115,7 +115,7 @@
 ---
 
 ## FTIR Falsification — 10/11 Peaks Within Predicted Passband
-<!-- id: oilm45 -->
+<!-- id: clm-oilm45 -->
 
 - _Specific Claims_
   - For Glycine and Alanine independently, 10 of 11 known NIST FTIR absorption peaks fall within the predicted backbone passband ($|H|^2 > -60$ dB) — measured against a **fixed** frequency scale with no parameter tuning.
@@ -139,7 +139,7 @@
 ---
 
 ## Membrane Yield Temperature $T_c \approx 278.3$ K
-<!-- id: uowffm -->
+<!-- id: clm-uowffm -->
 
 - $T_c = E_\text{HB} / (n_\text{coop} \cdot k_B)$ with $n_\text{coop} = 9$
 - _Specific Claims_
@@ -166,7 +166,7 @@
 ---
 
 ## Chignolin Validation — 2.59 Å Backbone RMSD
-<!-- id: u4vmgk -->
+<!-- id: clm-u4vmgk -->
 
 - _Specific Claims_
   - The 10-residue Chignolin mini-protein (CLN025: YYDPETGTWY) folds via the AVE engine to backbone RMSD $= 2.59$ Å vs experimental structure with **zero adjustable parameters**.
@@ -192,7 +192,7 @@
 ---
 
 ## $S_{11}$ Folding Functional — Vol 5 Notation Hazard
-<!-- id: a3rby3 -->
+<!-- id: clm-a3rby3 -->
 
 - $S_{11}$ in Vol 5 = protein-folding free-energy / objective functional whose minimisation yields the native fold (impedance matching across the residue cascade)
 - _Specific Claims_
@@ -218,7 +218,7 @@
 ---
 
 ## Protein Compaction Packing Fraction $\eta_\text{eq} = P_C(1-\nu) = P_C \times 5/7$
-<!-- id: enjq28 -->
+<!-- id: clm-enjq28 -->
 
 - $\eta_\text{eq} = P_C(1 - \nu_\text{vac}) = P_C \times 5/7$ with $\nu_\text{vac} = 2/7$; Master Prediction Table entry #39 lists Villin Rg at $0.8\%$ via $R_g = r_{Ca}(N/\eta_\text{eq})^{1/3}\sqrt{3/5}$.
 - _Specific Claims_
@@ -244,7 +244,7 @@
 ---
 
 ## Biological Applications (Ch. 6) — Hypothesis Status, Not Derived Predictions
-<!-- id: 8zwyl3 -->
+<!-- id: clm-8zwyl3 -->
 
 The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `methylene-blue-bridge.md`, `creatine-neural-capacitor.md`, `consciousness-cavity-eigenmode.md`, `emdr-impedance-annealing.md`) are **explicitly classified as hypotheses with predictions, not as derived results**. The chapter index states: "No resultboxes; all content is hypothesis and prediction."
 
@@ -275,7 +275,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Chiral FRET Parallax — Currently Unfalsifiable
-<!-- id: 239tr4 -->
+<!-- id: clm-239tr4 -->
 
 - _Specific Claims_
   - The Molecular Chiral FRET Parallax test is proposed to map the AVE-predicted chiral metric bias underlying L-amino-acid dominance in terrestrial biology.
@@ -300,7 +300,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Chirality as Phase Polarity — Structural Identification
-<!-- id: r6uef4 -->
+<!-- id: clm-r6uef4 -->
 
 - _Specific Claims_
   - L-amino-acid chirality is identified with the **physical winding direction of the core inductor sequence**; an L-string carries a $+90^\circ$ intrinsic phase difference (current leads voltage), preventing destructive interference along extended peptide chains.
@@ -323,7 +323,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Protein Backbone AC Transceiver Architecture
-<!-- id: huhz7r -->
+<!-- id: clm-huhz7r -->
 
 - _Specific Claims_
   - Every amino acid backbone is identified as a three-port AC transceiver: amino-group $\text{NH}_3^+$ as the high-frequency source ($V_\text{sin}$ in SPICE), $\text{C}_\alpha$ as the central transmission node carrying the inductive payload ($L \approx 115.9$ fH), and the $\text{COO}^-$ carboxyl as the phase-locked capacitive sink terminating into the universal vacuum impedance load $Z_0 \approx 376.73\,\Omega$.
@@ -348,7 +348,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Thermal THz Noise as Biological AC Source
-<!-- id: f4osd7 -->
+<!-- id: clm-f4osd7 -->
 
 - _Specific Claims_
   - The driving signal for the protein backbone transmission line is the ambient THz noise floor of the biological environment, supplied by two sources: thermal phonons at 310 K (Wien's displacement law placing the peak thermal radiation near $\sim 30$ THz, with the cellular water matrix as broadband THz generator) and metabolic ATP hydrolysis (releasing quantised packets in the 10–100 THz band into the aqueous matrix).
@@ -373,7 +373,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Peptide Chain Transmission-Line Falsification
-<!-- id: j20lz8 -->
+<!-- id: clm-j20lz8 -->
 
 - _Specific Claims_
   - Cascading $N$ identical amino acid residues in series produces filter-like behaviour consistent with transmission-line theory: the backbone passband narrows monotonically from $N=1$ to $N=10$ for both polyglycine and polyalanine chains (`fig:chain_sensitivity` top row).
@@ -383,7 +383,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The 0.03% match is the *self-consistency* of the simulator with its own LC formulation, not an independent experimental falsification — the mass-scaling test confirms that the SPICE model behaves as a true LC resonator, which is necessary but not sufficient for the model to describe physical peptides.
   - At extreme mass doubling ($\alpha = 2.0$) the transfer function undergoes a mode-hop to a higher-order resonant peak. The leaf flags this as an honest physical effect (the lowest-loss path shifts to a higher-order mode), not as a model failure — but readers should not extend the 0.03% scaling claim outside the validated $[0.5, 1.5]$ range.
   - The "passband narrows with $N$" observation is a consequence of stacking identical filter sections; it does not bound how the actual biological passband narrows in heterogeneous (real-sequence) peptide chains.
-  - Does NOT claim experimental FTIR validation at varying chain lengths; the validation against measured FTIR spectra is the separate Glycine/Alanine 10-of-11 result (entry `oilm45`), not a chain-length sweep.
+  - Does NOT claim experimental FTIR validation at varying chain lengths; the validation against measured FTIR spectra is the separate Glycine/Alanine 10-of-11 result (entry `clm-oilm45`), not a chain-length sweep.
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/peptide-chain-extension-test.md`.
 
@@ -399,7 +399,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Amino Acid Impedance Spectrum — 20-AA Sidechain Classification
-<!-- id: pav5m3 -->
+<!-- id: clm-pav5m3 -->
 
 - _Specific Claims_
   - The 20 canonical amino acids are partitioned into three sidechain-impedance classes relative to a backbone baseline $Z_\text{backbone} \approx 7$:
@@ -409,7 +409,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The classification provides the structural mapping between the standard biochemical hydrophobic/polar/charged taxonomy and the AVE impedance/reflection-coefficient framework that drives the folding engine.
 - _Specific Non-Claims and Caveats_
   - The class boundaries are qualitative groupings, not numerical thresholds — the leaf does not bound the $Z$ values of individual residues, only their class assignment.
-  - Does NOT claim experimental measurement of a per-residue $Z$ value. The per-residue impedance table $Z_\text{topo}$ is referenced as a deliverable of the protein-folding-engine chapters, which live in the private `AVE-Protein` repository (see entry `u4vmgk`).
+  - Does NOT claim experimental measurement of a per-residue $Z$ value. The per-residue impedance table $Z_\text{topo}$ is referenced as a deliverable of the protein-folding-engine chapters, which live in the private `AVE-Protein` repository (see entry `clm-u4vmgk`).
   - The "$Z_\text{backbone} \approx 7$" baseline is stated without leaf-level derivation in this volume; treat as an input from the engine repo.
   - The "minimal folding drive" interpretation for hydrophobic residues and "strong folding drive" for polar/charged residues is a qualitative reading of the reflection-coefficient mechanism, not a quantitative claim about folding energetics per residue.
 
@@ -427,7 +427,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Lattice-Pitch to Backbone Length Derivation Chain
-<!-- id: br3bcv -->
+<!-- id: clm-br3bcv -->
 
 - _Specific Claims_
   - The C$_\alpha$–C$_\alpha$ virtual bond distance $d_0 \approx 3.80$ Å is reached through a four-step chain of AVE-internal identities:
@@ -437,12 +437,12 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
     4. Backbone repeat from sp$^3$ tetrahedral angle ($\theta = 109.47^\circ$) and planar amide ($\omega = 180^\circ$): $d_0 = \sqrt{r_{\text{C}_\alpha\text{C}}^2 + r_\text{CN}^2 + 2\,r_{\text{C}_\alpha\text{C}}\,r_\text{CN}\cos(180^\circ - \theta)} \approx 3.80$ Å.
   - Every step uses constants from the AVE physics engine (Vol 1) or standard NERF rigid-body geometry; no free parameter is introduced at the biological scale.
 - _Specific Non-Claims and Caveats_
-  - Step 3 quotes covalent bond lengths as input values. Per-bond derivation lives in the Fabry–Perot bond-eigenvalue leaf (entry `yyhczl`), which itself notes systematic $-2$ to $-4\%$ underprediction for the C–N / C–C / C–O single bonds and $-7\%$ for C–H. The 3.80 Å backbone repeat inherits whatever residual error the underlying covalent bond lengths carry.
+  - Step 3 quotes covalent bond lengths as input values. Per-bond derivation lives in the Fabry–Perot bond-eigenvalue leaf (entry `clm-yyhczl`), which itself notes systematic $-2$ to $-4\%$ underprediction for the C–N / C–C / C–O single bonds and $-7\%$ for C–H. The 3.80 Å backbone repeat inherits whatever residual error the underlying covalent bond lengths carry.
   - Step 4 is rigid-body geometry: it assumes fixed tetrahedral and planar-amide angles. Real backbones explore $\phi$/$\psi$ Ramachandran space; the 3.80 Å is the canonical idealised C$_\alpha$–C$_\alpha$ scale, not a per-residue distance.
   - Does NOT claim that 3.80 Å is independently measured by AVE — the value matches the standard NERF C$_\alpha$–C$_\alpha$ reference; the AVE contribution is the chain-of-identities derivation showing the value emerges from $\ell_\text{node}$ rather than from biology-specific empirical fits.
-  - Does NOT bound the residual error of the chain end-to-end; step 1 is exact (CODATA constants), but steps 3–4 carry the bond-length residuals from `yyhczl`.
+  - Does NOT bound the residual error of the chain end-to-end; step 1 is exact (CODATA constants), but steps 3–4 carry the bond-length residuals from `clm-yyhczl`.
 
-> **Leaf references:** `molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md`. Companion derivation from the proton-radius side lives in `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` (entry `u4vmgk`).
+> **Leaf references:** `molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md`. Companion derivation from the proton-radius side lives in `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` (entry `clm-u4vmgk`).
 
 ## Quality
 - confidence: *pending*
@@ -456,7 +456,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 ---
 
 ## Symmetric vs Asymmetric Saturation — Vol 5 Manifestation
-<!-- id: x5z09x -->
+<!-- id: clm-x5z09x -->
 
 The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting claim-quality register](../claim-quality.md)) governs the membrane yield, H-bond Op4 equilibrium, and biological-circuit Regime classifications used in Vol 5.
 

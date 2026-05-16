@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [395gps, c6k5om, ir8h78, x19btt]
+subtree-claims: [clm-395gps, clm-c6k5om, clm-ir8h78, clm-x19btt]
 -->
 
 # Ch.15: Black Holes as Macroscopic Electron Orbitals

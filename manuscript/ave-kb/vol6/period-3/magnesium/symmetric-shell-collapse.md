@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [jy8h1x]
+claims: [clm-jy8h1x]
 -->
 
 ## The Symmetric Shell Collapse

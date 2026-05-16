@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [y9old1]
+claims: [clm-y9old1]
 -->
 
 ---

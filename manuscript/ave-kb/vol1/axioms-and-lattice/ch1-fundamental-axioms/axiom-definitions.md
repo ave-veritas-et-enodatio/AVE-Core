@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [3kzmt9, dfaiwj]
+claims: [clm-3kzmt9, clm-dfaiwj]
 -->
 
 > ↗ See also: [VCA Topo-Kinematic Identity](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — Axiom 2 ($\xi_{topo}$) applied to engineering
@@ -35,7 +35,7 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
    V_{yield} = \sqrt{\alpha}\,V_{snap} = \sqrt{\alpha}\,\frac{m_e c^2}{e} \approx 43.65\;\text{kV}
    $$
 
-   <!-- claim-quality: dfaiwj -->
+   <!-- claim-quality: clm-dfaiwj -->
    *Underlying mechanism (topo-kinematic isomorphism).* Charge $q$ is a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. The fundamental dimension of charge is identical to length, $[Q] \equiv [L]$, with macroscopic scaling given by the Topological Conversion Constant:
 
    > **[Resultbox]** *Topological Conversion Constant*
@@ -46,7 +46,7 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
    > \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
    > $$
 
-   <!-- claim-quality: 3kzmt9 -->
+   <!-- claim-quality: clm-3kzmt9 -->
    ⚠ *Notation warning:* $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in Axiom 3. They are different quantities sharing a Greek letter. The numerical value of $\alpha$ is derived geometrically in Ch.8 from the $S_{11}$-minimum Golden Torus.
 
 3. **Axiom 3 — Gravity.** Newton's constant sets the Machian boundary impedance:

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [iz3svl]
+claims: [clm-iz3svl]
 -->
 
 ## The Sapphire Phonon Centrifuge

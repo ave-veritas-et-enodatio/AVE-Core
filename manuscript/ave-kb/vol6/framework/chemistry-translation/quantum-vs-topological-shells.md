@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [jqnzz7]
+claims: [clm-jqnzz7]
 -->
 
 ## Quantum Orbitals vs. Topological Shells

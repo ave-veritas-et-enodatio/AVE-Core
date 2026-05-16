@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [xhdai6]
+claims: [clm-xhdai6]
 -->
 
 ## Unification: All 26 Standard Model Parameters

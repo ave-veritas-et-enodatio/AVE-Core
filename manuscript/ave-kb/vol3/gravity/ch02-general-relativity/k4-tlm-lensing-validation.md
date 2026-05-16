@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [rd9cjm]
+claims: [clm-rd9cjm]
 path-stable: "referenced from vol4 as sec:k4_tlm_lensing"
 -->
 

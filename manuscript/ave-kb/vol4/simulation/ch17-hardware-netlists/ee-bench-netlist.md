@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [vjv4zf]
+claims: [clm-vjv4zf]
 -->
 
 ## The EE Bench: Dielectric Yield Plateau

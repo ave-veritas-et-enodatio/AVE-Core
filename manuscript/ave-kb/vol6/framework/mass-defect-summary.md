@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [llqd1n]
+claims: [clm-llqd1n]
 -->
 
 ## Macroscopic Mass Defect Summary

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7tynm2]
+claims: [clm-7tynm2]
 -->
 
 ## Chiral Acoustic Rectification (The Vacuum Varactor)

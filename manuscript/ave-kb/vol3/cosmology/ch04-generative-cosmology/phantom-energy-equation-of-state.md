@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [3ii690]
+claims: [clm-3ii690]
 -->
 
 ## Dark Energy: The Stable Phantom Derivation

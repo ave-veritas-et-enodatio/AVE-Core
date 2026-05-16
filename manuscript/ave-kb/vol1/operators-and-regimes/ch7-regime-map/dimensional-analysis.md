@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [rtgmg5]
+claims: [clm-rtgmg5]
 path-stable: "referenced from vol1 as sec:dimensional_analysis"
 -->
 

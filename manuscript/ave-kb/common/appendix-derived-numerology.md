@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [zi6t1e]
+claims: [clm-zi6t1e]
 -->
 
 # Appendix C: Derived Hardware Numerology

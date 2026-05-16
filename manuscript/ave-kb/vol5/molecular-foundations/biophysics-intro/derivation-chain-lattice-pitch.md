@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [br3bcv]
+claims: [clm-br3bcv]
 -->
 
 ---

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ir8h78]
+claims: [clm-ir8h78]
 -->
 
 ## The Electron--Black Hole Isomorphism

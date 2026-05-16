@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [cltls0]
+claims: [clm-cltls0]
 -->
 
 ## Project ZENER-04: The Impedance Avalanche Detector

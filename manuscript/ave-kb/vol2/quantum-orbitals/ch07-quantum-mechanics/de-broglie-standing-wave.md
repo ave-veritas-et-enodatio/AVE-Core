@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [oltvwy, qde5gn]
+claims: [clm-oltvwy, clm-qde5gn]
 -->
 
 ## Objectives
@@ -13,7 +13,7 @@ claims: [oltvwy, qde5gn]
 - Understand how orthogonal Field-Oriented Control (FOC) natively drives the emergence of the $p, d,$ and $f$ electron shells by eliminating macroscopic mutual inductance.
 
 ## Deterministic Reinterpretation of the Wavefunction
-<!-- claim-quality: qde5gn -->
+<!-- claim-quality: clm-qde5gn -->
 
 The Schrödinger Wave Equation maps atomic orbitals ($s, p, d, f$) as statistical probability distributions ($|\Psi|^2$). Traditional Quantum Mechanics forbids defining a physical, deterministic location or velocity for the electron, demanding that nature behaves as a rolling set of mathematical dice until an observation collapses the "wavefunction."
 
@@ -121,7 +121,7 @@ The Rydberg energy formula $E_n = -m_e c^2 \alpha^2 / (2n^2)$ is exact within th
 
 The exact agreement is not a coincidence: the AVE formula $E_n = -m_e c^2 \alpha^2/(2n^2)$ is algebraically identical to the Bohr result. However, the ontological content differs — the energy quantization here arises from the physical LC impedance matching condition of the continuum, not from postulated wave-particle duality.
 
-<!-- claim-quality: oltvwy -->
+<!-- claim-quality: clm-oltvwy -->
 ## Step 1: Single-Electron Eigenvalue (Axioms 1, 2, 4)
 
 The starting point for the entire IE solver is the energy of a **single** electron in a nuclear Coulomb field. This derivation uses Axiom 1 (lattice), Axiom 2 ($\alpha$), and Axiom 4 (confinement $\to$ mass). No wavefunctions, no Schrödinger equation, no QM.

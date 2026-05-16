@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [qagkgy]
+claims: [clm-qagkgy]
 -->
 
 ## Metric-Catalyzed Fusion Scaling Laws

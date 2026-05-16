@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf-as-index
-claims: [e1pdfd]
+claims: [clm-e1pdfd]
 -->
 
 <!-- Anomaly A10: App C has no \label in source; content exists as itemised lists but no labelled entry points -->

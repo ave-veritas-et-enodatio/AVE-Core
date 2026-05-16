@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [knveh6]
+claims: [clm-knveh6]
 -->
 
 ## The Poincare Conjecture — AVE Physical Interpretation (Perelman's proof, 2002–2003)

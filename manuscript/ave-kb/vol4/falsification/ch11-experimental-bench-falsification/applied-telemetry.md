@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [p12mem]
+claims: [clm-p12mem]
 -->
 
 ## Applied Telemetry: Boundary Layer and Cavitation Monitors

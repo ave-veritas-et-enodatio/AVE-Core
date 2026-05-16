@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [mnb3lt]
+claims: [clm-mnb3lt]
 path-stable: "referenced from vol2 as sec:thermal_softening"
 -->
 

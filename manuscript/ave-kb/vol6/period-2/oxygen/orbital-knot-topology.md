@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [y7uvdc]
+claims: [clm-y7uvdc]
 -->
 
 <!-- NOTE: Source file 10_oxygen.tex has no \section{Orbital Knot Topology}. This content is extracted from within §4 "Topological Area of Interest: Combustion Catalysis & Organic Respiration" (lines 49–54), where the orbital figure and its caption are embedded. -->

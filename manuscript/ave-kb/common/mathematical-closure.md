@@ -2,12 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [sxn6eo, ibfyda]
+claims: [clm-sxn6eo, clm-ibfyda]
 path-stable: "referenced from vol1 as app:verification"
 -->
 
 # System Verification Trace
-<!-- claim-quality: sxn6eo -->
+<!-- claim-quality: clm-sxn6eo -->
 
 The following verification log was aggregated from the AVE computational validation suite. It certifies that the fundamental limits, constants, and parameters derived in this text are calculated exclusively using exact Chiral LC continuum mechanics and rigid solid-state thermodynamic boundaries, constrained by exactly three empirical parameters.
 
@@ -73,7 +73,7 @@ VERIFICATION COMPLETE: STRICT GEOMETRIC CLOSURE
 ```
 
 ## The Directed Acyclic Graph (DAG) Proof
-<!-- claim-quality: ibfyda -->
+<!-- claim-quality: clm-ibfyda -->
 
 To definitively establish that the Applied Vacuum Engineering (AVE) framework possesses strict mathematical closure without phenomenological curve-fitting, the framework maps the Directed Acyclic Graph (DAG) of its derivations.
 

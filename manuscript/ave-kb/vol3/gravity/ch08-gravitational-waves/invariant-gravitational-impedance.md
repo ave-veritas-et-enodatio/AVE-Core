@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [07kd5v]
+claims: [clm-07kd5v]
 path-stable: "referenced from vol3 as eq:Z_grav"
 -->
 

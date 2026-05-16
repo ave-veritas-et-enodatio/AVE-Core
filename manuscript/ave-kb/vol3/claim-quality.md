@@ -7,7 +7,7 @@
 ---
 
 ## Asymptotic Hubble Constant $H_\infty$
-<!-- id: wx5324 -->
+<!-- id: clm-wx5324 -->
 
 - $H_{\infty} = 28\pi m_{e}^{3}cG / (\hbar^{2}\alpha^{2}) \approx 69.32$ km/s/Mpc
 - _Specific Claims_
@@ -33,7 +33,7 @@
 ---
 
 ## Refractive Index of Gravity $n(r) = 1 + 2GM/(c^2 r)$
-<!-- id: rd9cjm -->
+<!-- id: clm-rd9cjm -->
 
 - $n(r) = 1 + \nu_{vac}\,\varepsilon_{11} = 1 + (2/7)\,\varepsilon_{11}$ with $\varepsilon_{11}(r) = 7GM/(c^2 r)$
 - _Specific Claims_
@@ -60,7 +60,7 @@
 ---
 
 ## Gravitational Wave Propagation — Invariant Impedance
-<!-- id: 07kd5v -->
+<!-- id: clm-07kd5v -->
 
 - $Z(r) = \sqrt{\mu_{eff}(r)/\varepsilon_{eff}(r)} \equiv Z_0$; $\Gamma = 0$ across any gravitational gradient
 - _Specific Claims_
@@ -87,7 +87,7 @@
 ---
 
 ## Black Hole Interior — Lattice Phase Transition, Not Impedance Mismatch
-<!-- id: ir8h78 -->
+<!-- id: clm-ir8h78 -->
 
 - $r_{sat} = 7GM/c^2 = 3.5\,r_s$ (saturation boundary); interior: $G_{shear} \to 0$, $c_g \to 0$
 - _Specific Claims_
@@ -115,7 +115,7 @@
 ---
 
 ## AVE Compactness Limit ($2/7$ vs Buchdahl)
-<!-- id: x19btt -->
+<!-- id: clm-x19btt -->
 
 - $R > 7GM/c^2 \;\Longleftrightarrow\; 2GM/(c^2 R) < 2/7 = \nu_{vac}$
 - _Specific Claims_
@@ -141,7 +141,7 @@
 ---
 
 ## AVE Merger Ringdown $\omega_R M_g = 18/49$
-<!-- id: 395gps -->
+<!-- id: clm-395gps -->
 
 - $\omega_R \cdot M_g = \ell(1 + \nu_{vac})/x_{sat} = 18/49 \approx 0.3673$ for $\ell = 2$
 - _Specific Claims_
@@ -168,7 +168,7 @@
 ---
 
 ## Hawking Temperature as Classical Nyquist Noise
-<!-- id: c6k5om -->
+<!-- id: clm-c6k5om -->
 
 - $T_H = \hbar c^3 / (8\pi G M k_B)$ (numerically the standard Hawking formula)
 - _Specific Claims_
@@ -195,7 +195,7 @@
 ---
 
 ## MOND Acceleration Scale $a_0$ (Derived but Regime-Gated)
-<!-- id: u86caq -->
+<!-- id: clm-u86caq -->
 
 - $a_0 = c H_\infty / (2\pi) \approx 1.07 \times 10^{-10}$ m/s²
 - _Specific Claims_
@@ -223,7 +223,7 @@
 ---
 
 ## Anomalous Perihelion Advance — Consistency Check
-<!-- id: qyn8t0 -->
+<!-- id: clm-qyn8t0 -->
 
 - $\Delta\phi = 6\pi G M_\odot / (c^2 a (1-e^2))$
 - _Specific Claims_
@@ -248,7 +248,7 @@
 ---
 
 ## Solar System Boundaries (Oort, Kirkwood, Magnetopause)
-<!-- id: 3kmt3p -->
+<!-- id: clm-3kmt3p -->
 
 - _Specific Claims_
   - Oort Cloud inner edge: $r_{sat} = \sqrt{GM_\odot/a_0} \approx 7{,}400$ AU — the radius where solar $g_N$ drops to the MOND threshold. Falls within the observed Hills Cloud range (2,000–5,000 AU); reported as "consistent with" rather than as a sub-percent match.
@@ -273,7 +273,7 @@
 ---
 
 ## Flyby Anomaly — Sagnac Shear Reinterpretation
-<!-- id: a71inj -->
+<!-- id: clm-a71inj -->
 
 - $\Delta V_{flyby} = V_\infty \cdot 2 (U_\oplus / c_0) \cos(\alpha_{geo}) \cos(\delta_{geo}) \approx 13.4$ mm/s
 - _Specific Claims_
@@ -299,7 +299,7 @@
 ---
 
 ## Lunar Inductive Heating — Tidal Inputs Required
-<!-- id: av2o4v -->
+<!-- id: clm-av2o4v -->
 
 - $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification of standard tidal formula
 - _Specific Claims_
@@ -323,7 +323,7 @@
 ---
 
 ## Geodynamo as VCA Back-EMF
-<!-- id: wd5rs0 -->
+<!-- id: clm-wd5rs0 -->
 
 - $M_\oplus \approx 1.5 \times 10^{23}$ A·m² vs empirical $8.0 \times 10^{22}$ A·m²
 - _Specific Claims_
@@ -348,7 +348,7 @@
 ---
 
 ## Sonoluminescence as Tabletop Relativity
-<!-- id: 91adfe -->
+<!-- id: clm-91adfe -->
 
 - $\rho_{eff} = \rho_0 / (1 - \mathrm{M}^2)^{3/2}$, Mach number $\mathrm{M} = |\dot{R}|/c_{sound}$
 - _Specific Claims_
@@ -374,7 +374,7 @@
 ---
 
 ## Superconductor Type Classification ($\kappa = \lambda_L/\xi_0$)
-<!-- id: qky559 -->
+<!-- id: clm-qky559 -->
 
 See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_c(T)$ axiom-manifestation tripwire. Vol3-specific aspects:
 
@@ -402,7 +402,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Effective Degrees of Freedom $g_* = 343/4 = 85.75$
-<!-- id: uu6dl5 -->
+<!-- id: clm-uu6dl5 -->
 
 - $g_* = n^3/N_{K4} = 7^3/4 = 85.75$
 - _Specific Claims_
@@ -427,7 +427,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Kolmogorov Spectral Cutoff and Bounded Enstrophy
-<!-- id: hk81zp -->
+<!-- id: clm-hk81zp -->
 
 - $k_{\max} = \pi/\ell_{node}$; $E(k) = C_K \varepsilon^{2/3} k^{-5/3} S(k/k_{\max})$; $n_{3D} = 38/21$
 - _Specific Claims_
@@ -453,7 +453,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Per-Element Impedance Table (Two Families)
-<!-- id: nxfmh0 -->
+<!-- id: clm-nxfmh0 -->
 
 - _Specific Claims_
   - Diagonalising the nuclear Hessian for Z = 1–14 yields a binary partition: closed-shell alpha cores ($Z_{atom} \approx 1.37$, $Q = 2.0$, $E_{rupt} \approx 0.82$ MeV) vs open-shell halo elements ($Z_{atom} \sim 0.37$–$0.46$, $Q = 3$–$16$, $E_{rupt} \ll 0.82$).
@@ -478,7 +478,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Dirac Large Numbers and Planck Mass
-<!-- id: 1klgo2 -->
+<!-- id: clm-1klgo2 -->
 
 - $\alpha_G = G m_e^2 / (\hbar c) = 1/(7\xi)$; $m_P = m_e\sqrt{7\xi}$; $R_H/\ell_{node} = \alpha^2/(28\pi\alpha_G)$
 - _Specific Claims_
@@ -503,7 +503,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## JWST Exponential Accretion Time Constant $\tau_{ind} \approx 65.1$ Myr
-<!-- id: 9fnieq -->
+<!-- id: clm-9fnieq -->
 
 - $M(t) = M_{seed} e^{t/\tau_{ind}}$
 - _Specific Claims_
@@ -527,7 +527,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Phantom Energy Equation of State $w < -1$
-<!-- id: 3ii690 -->
+<!-- id: clm-3ii690 -->
 
 - $w_{vac} = -1 - \rho_{latent}/\rho_{vac}$
 - _Specific Claims_
@@ -552,7 +552,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Einstein Field Equation Reinterpretation
-<!-- id: y9old1 -->
+<!-- id: clm-y9old1 -->
 
 - $R_{\mu\nu} - \tfrac{1}{2}R g_{\mu\nu} + \Lambda g_{\mu\nu} = (8\pi G/c^4) T_{\mu\nu}$ with $T_{\mu\nu} \equiv U_{\mu\nu}$ (LC EM energy density)
 - _Specific Claims_
@@ -577,7 +577,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Seismic Reflection Coefficient (Moho)
-<!-- id: zsqh87 -->
+<!-- id: clm-zsqh87 -->
 
 - $\Gamma_{Moho} = (\rho_2 V_{p2} - \rho_1 V_{p1})/(\rho_2 V_{p2} + \rho_1 V_{p1}) \approx 0.29$
 - _Specific Claims_
@@ -600,7 +600,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Ideal Gas Law as LC Energy Balance
-<!-- id: cul4it -->
+<!-- id: clm-cul4it -->
 
 - $U \cdot V = N \cdot k_B \cdot \overline{T_{jitter}}$ → recovers $PV = nRT$ at STP
 - _Specific Claims_
@@ -623,7 +623,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Neutrino MSW Matter Potential
-<!-- id: o6kgkz -->
+<!-- id: clm-o6kgkz -->
 
 - $V_{CC} = \sqrt{2}\, G_F\, n_e$
 - _Specific Claims_
@@ -647,7 +647,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Thermodynamics as LC Mechanics — Temperature, Entropy, Arrow of Time
-<!-- id: t05mvx -->
+<!-- id: clm-t05mvx -->
 
 - $T \propto \langle U_{noise} \rangle = \langle \tfrac{1}{2}\varepsilon_0 |\mathbf{E}|^2 + \tfrac{1}{2}\mu_0 |\mathbf{H}|^2 \rangle = \tfrac{3}{2} k_B T$; entropy = irreversibility of spherical FDTD radiation
 - _Specific Claims_
@@ -674,7 +674,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Phase Transitions as Impedance Matching Events
-<!-- id: refjr6 -->
+<!-- id: clm-refjr6 -->
 
 - Solid$\to$liquid: $Z_{shear} \to 0$; normal$\to$superconducting: $Z_{eff} \to 0$, $|\Gamma| \to 1$; paramagnetic$\to$ferromagnetic: $Z_\mu \to 0$ locally; BEC: $|\Gamma| \to 1$ globally; deconfinement: $Z_{int} \to Z_0$. Casimir cooling: $T_{eff} = T_{ambient}\sqrt{1 - (f_c/f_{max})^2}$ with $f_c = c_0/(2d)$.
 - _Specific Claims_
@@ -701,7 +701,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Vacuum Nyquist Baseline and Boundary Thermalization
-<!-- id: eaiqj1 -->
+<!-- id: clm-eaiqj1 -->
 
 - $\langle V^2_{vac}(f) \rangle = 4 k_B T \, Z_0 \, \Delta f$; thermal noise enters via boundary impedance mismatches, not bulk injection
 - _Specific Claims_
@@ -729,7 +729,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 ---
 
 ## Water $4\,^{\circ}$C Anomaly via Two-State LC Partition
-<!-- id: jpfbm6 -->
+<!-- id: clm-jpfbm6 -->
 
 - $S(r) = f_{yield}\sqrt{1 - (r_{th}/r_{crit})^2}$ with $r_{crit} = \sqrt{2\alpha}$; melting eigenmode $T_m = 279.5$ K; macroscopic structural-fluid bound at $\approx +29.4\,^{\circ}\text{C}$
 - _Specific Claims_

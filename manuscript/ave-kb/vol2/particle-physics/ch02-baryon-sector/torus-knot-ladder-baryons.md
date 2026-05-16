@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [k6olj8]
+claims: [clm-k6olj8]
 path-stable: "referenced from vol2 as eq:torus_knot_ladder"
 -->
 

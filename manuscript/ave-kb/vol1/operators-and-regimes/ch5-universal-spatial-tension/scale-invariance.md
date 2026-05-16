@@ -2,17 +2,17 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [zw6mut, unk0bd]
+claims: [clm-zw6mut, clm-unk0bd]
 -->
 
 ## Section 5.2: Scale Invariance across the Framework
 
-<!-- claim-quality: zw6mut -->
+<!-- claim-quality: clm-zw6mut -->
 To prove that AVE does not rely on disconnected, ad-hoc parameter tuning, it must be demonstrated that the identical $1/r$ tensor calculates the mass of an elementary particle and the mass of a complex atomic nucleus.
 
 ### The Lepton Tension Limit
 
-<!-- claim-quality: unk0bd -->
+<!-- claim-quality: clm-unk0bd -->
 The stable Ground State Electron is a $0_1$ Unknot topology---a single closed flux tube loop at minimum ropelength $= 2\pi$, spanning a normalised radius $R_e$. It generates an inductive resistance of $0.511 \text{ MeV}$.
 
 The Muon and Tau are not new "flavors" of particles requiring new quantum numbers; they are excitations of this same unknot geometry into higher Cosserat coupling sectors (derived in full in Volume II, Chapter 5):

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [h8nmpu]
+claims: [clm-h8nmpu]
 -->
 
 ## Continuous Vacuum Density Flux

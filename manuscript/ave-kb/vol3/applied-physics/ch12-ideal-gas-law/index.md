@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [cul4it]
+subtree-claims: [clm-cul4it]
 -->
 
 # Ch.12: The Ideal Gas Law and Fluid Pressure

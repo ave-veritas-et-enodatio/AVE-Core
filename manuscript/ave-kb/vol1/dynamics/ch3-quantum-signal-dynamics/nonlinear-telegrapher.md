@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ph2uux]
+claims: [clm-ph2uux]
 path-stable: "referenced from vol1 as eq:nonlinear_wave"
 -->
 

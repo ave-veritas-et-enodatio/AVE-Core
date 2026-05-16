@@ -2,11 +2,11 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [0vxzfu, trgqtf, 7tynm2]
+claims: [clm-0vxzfu, clm-trgqtf, clm-7tynm2]
 -->
 
 ## Regimes of Operation
-<!-- claim-quality: trgqtf -->
+<!-- claim-quality: clm-trgqtf -->
 
 Before deriving the thrust mechanism, it is essential to establish *which operating regime* a laboratory-scale device occupies within the Axiom 4 saturation landscape. The constitutive circuit models define the yield voltage as $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV. This yield applies *per lattice node*, i.e., across a single node spacing $\ell_{node} = \hbar / (m_e c) = 3.862 \times 10^{-13}$ m.
 
@@ -33,11 +33,11 @@ This field strength exceeds the classical Schwinger limit of QED ($E_S = m_e^2 c
 
 **Where saturation is physical.** Regime III and IV are reached only at sub-femtometer separations---i.e., within particle cores, at nuclear scattering boundaries, and at event horizons. This is consistent with the role of Axiom 4 in producing the Pauli exclusion wall, the nuclear repulsive core, and the photon sphere, as derived in Volume II.
 
-<!-- claim-quality: 7tynm2 (this paragraph identifies PONDER-01 chiral acoustic rectification — the $F_{total} = N \cdot \nu_{vac} \cdot \delta(Q,\beta) \cdot P_{in}/c$ thrust mechanism — as the operative channel given the linear-regime regime classification above) -->
+<!-- claim-quality: clm-7tynm2 (this paragraph identifies PONDER-01 chiral acoustic rectification — the $F_{total} = N \cdot \nu_{vac} \cdot \delta(Q,\beta) \cdot P_{in}/c$ thrust mechanism — as the operative channel given the linear-regime regime classification above) -->
 The operative thrust mechanism must therefore arise from a different physical channel: the *chiral topology* of the HOPF-01 torus knot antenna producing asymmetric acoustic emission into the lattice.
 
 ### Yield Threshold Selection: $V_{yield}$ vs $V_{snap}$
-<!-- claim-quality: 0vxzfu -->
+<!-- claim-quality: clm-0vxzfu -->
 
 The AVE framework defines two physically distinct voltage thresholds:
 

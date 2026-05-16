@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [l416hl]
+claims: [clm-l416hl]
 -->
 
 <!-- PATH-STABLE: sec:pi_horizon -->

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [wqmb19]
+claims: [clm-wqmb19]
 -->
 
 ## Sagnac-RLVE: The Definitive Tabletop Falsification

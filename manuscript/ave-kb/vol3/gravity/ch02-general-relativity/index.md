@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [07kd5v, 8nkvwy, rd9cjm, y9old1]
+subtree-claims: [clm-07kd5v, clm-8nkvwy, clm-rd9cjm, clm-y9old1]
 -->
 
 # Ch.2: General Relativity and Gravitational Waves

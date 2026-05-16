@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [67jn9o]
+claims: [clm-67jn9o]
 -->
 
 <!-- GAP: no distinct source section; quark flavor content embedded in topological-fractionalization.md -->

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [3ii690]
+claims: [clm-3ii690]
 -->
 
 ## The CMB as an Asymptotic Thermal Attractor

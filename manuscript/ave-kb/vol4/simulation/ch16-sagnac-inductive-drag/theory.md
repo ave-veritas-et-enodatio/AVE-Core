@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [cbwd77]
+claims: [clm-cbwd77]
 -->
 
 ## The Rotating LC Frame

@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [m3z5ux]
+claims: [clm-m3z5ux]
 -->
 
 ## Section 4.6: The Bullet Cluster: Refractive Tensor Shockwaves

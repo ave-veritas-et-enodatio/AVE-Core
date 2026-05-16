@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [dboxok]
+subtree-claims: [clm-dboxok]
 -->
 
 # Ch. 11: The Standard Model Overdrive

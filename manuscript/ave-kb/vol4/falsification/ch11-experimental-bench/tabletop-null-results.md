@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [baoa36]
+claims: [clm-baoa36]
 -->
 
 ## Why Intuitive Tabletop Tests Fail

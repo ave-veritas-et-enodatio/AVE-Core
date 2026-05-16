@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [5s5b0d, 7tynm2, 9sujp8, baoa36, cltls0, cwjd8t, fh6w3y, gw2wgc, h55fy1, i02mhk, iz3svl, k9up5c, kl1ern, oiw6cb, om0rtq, p12mem, pp3qwf, qagkgy, qsgl7d, qx9bb8, to41c7, trgqtf, ui3m8a, wqmb19, wzezvt, ydksh6]
+subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-9sujp8, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-i02mhk, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qagkgy, clm-qsgl7d, clm-qx9bb8, clm-to41c7, clm-trgqtf, clm-ui3m8a, clm-wqmb19, clm-wzezvt, clm-ydksh6]
 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.

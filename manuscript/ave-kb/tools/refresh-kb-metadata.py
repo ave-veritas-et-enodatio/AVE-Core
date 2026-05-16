@@ -49,7 +49,7 @@ FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
 )
 ID_LIST = re.compile(r"\[(.*?)\]")
-ID_RE = re.compile(r"\b([a-z0-9]{6})\b")
+ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 
 
 def parse_frontmatter(text: str) -> dict | None:

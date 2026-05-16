@@ -26,9 +26,10 @@ KB_ROOT_DEFAULT = Path("manuscript/ave-kb")
 EXCLUDE_DIRS = {"session", ".index"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
-# Heading + id-marker pattern: 6 lowercase alphanumeric chars.
-_CLAIM_ID_RE = re.compile(r"\b([a-z0-9]{6})\b")
-_CANONICAL_ID_RE = re.compile(r"<!--\s*id:\s*([a-z0-9]{6})\s*-->")
+# Claim-ID pattern: the `clm-` prefix plus 6 lowercase alphanumeric chars.
+# The prefix makes the pattern exact — it cannot match incidental prose words.
+_CLAIM_ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+_CANONICAL_ID_RE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
 _FRONTMATTER_RE = re.compile(r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL)
 _TIER2_INLINE_RE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 _CODE_FENCE_RE = re.compile(r"^```")
@@ -243,13 +244,14 @@ def _parse_depends_on_line(
 
     When ``known_ids`` is provided, the matched target must be in that set;
     otherwise the bullet is dropped (returns ``None``) and a diagnostic is
-    written to ``diagnostic_stream`` if non-None. This filter exists because
-    the 6-char ID regex matches incidental English words like ``kernel`` or
-    ``approx`` in prose bullets that reference INVARIANTs rather than IDs.
+    written to ``diagnostic_stream`` if non-None. Post-`clm-`-migration the ID
+    regex is exact, so this filter no longer disambiguates prose words — it
+    only catches a `clm-`-shaped token that isn't a registered ID (a typo or
+    stale reference).
     """
     if _DEPENDS_ON_PLACEHOLDER_RE.match(line):
         return None
-    # Find a 6-char id, prefer the first lowercase-alphanumeric token.
+    # Find a clm-prefixed id; the first such token is the depends-on target.
     stripped = re.sub(r"^\s*-\s*", "", line).strip()
     id_match = _CLAIM_ID_RE.search(stripped)
     if not id_match:
@@ -365,9 +367,9 @@ def parse_claim_quality_file(
 
     When ``known_ids`` is provided, depends-on edges with a target outside
     that set are dropped, and strengthen-by ``mentioned_ids`` are filtered to
-    members of that set. This filter exists because the bare 6-char ID regex
-    matches incidental English words (``kernel``, ``approx``) in prose
-    bullets that reference INVARIANTs rather than canonical claim IDs.
+    members of that set. Post-`clm-`-migration the ID regex is exact, so this
+    filter only catches a `clm-`-shaped token that isn't a registered ID (a
+    typo or stale reference) — incidental English words are never matched.
     Drops emit one diagnostic line each on ``diagnostic_stream`` (default
     ``None`` = silent). When ``known_ids`` is ``None``, no filtering occurs
     and the function preserves the pre-filter behavior.
@@ -579,7 +581,7 @@ def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
 def collect_known_claim_ids(kb_root: Path = KB_ROOT_DEFAULT) -> set[str]:
     """First-pass scan of every ``claim-quality.md`` for canonical IDs.
 
-    Returns the set of 6-char IDs marked by ``<!-- id: xxxxxx -->`` in any
+    Returns the set of IDs marked by ``<!-- id: clm-xxxxxx -->`` in any
     non-excluded ``claim-quality.md`` register, after stripping fenced code
     blocks (so example placeholders inside ```` ``` ```` blocks do not count).
     """
@@ -603,10 +605,10 @@ def discover_kb(
     kb_root plus every claim-quality.md register.
 
     Two passes over claim-quality registers: the first collects the canonical
-    set of claim IDs; the second parses entries with that set in hand so
-    incidental 6-char tokens in prose bullets (``kernel``, ``approx``) are
-    rejected as depends-on targets or strengthen-by mentions. Diagnostics for
-    rejected candidates are written to ``diagnostic_stream`` (default
+    set of claim IDs; the second parses entries with that set in hand so a
+    `clm-`-shaped token that isn't a registered ID (a typo or stale reference)
+    is rejected as a depends-on target or strengthen-by mention. Diagnostics
+    for rejected candidates are written to ``diagnostic_stream`` (default
     ``sys.stderr``; pass ``None`` to silence).
     """
     known_ids = collect_known_claim_ids(kb_root)

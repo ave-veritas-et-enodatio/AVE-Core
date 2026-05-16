@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [om0rtq]
+claims: [clm-om0rtq]
 -->
 
 ## The Epistemology of Falsification

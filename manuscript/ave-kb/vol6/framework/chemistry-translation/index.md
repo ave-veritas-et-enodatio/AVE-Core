@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [jqnzz7, jy8h1x]
+subtree-claims: [clm-jqnzz7, clm-jy8h1x]
 -->
 
 # Chemistry Translation Guide

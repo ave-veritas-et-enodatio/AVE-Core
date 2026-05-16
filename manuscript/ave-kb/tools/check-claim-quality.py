@@ -10,8 +10,8 @@ Eleven checks, all hard fail-loud:
        its frontmatter (mutually exclusive).
     2. Tier 2 coverage: every multi-claim leaf has proximal inline markers
        (``<!-- claim-quality: <id> ... -->``) for each ID in its claims list.
-    3. ID uniqueness: no canonical ``<!-- id: xxxxxx -->`` appears twice in
-       any ``claim-quality.md`` register.
+    3. ID uniqueness: no canonical ``<!-- id: clm-xxxxxx -->`` appears twice
+       in any ``claim-quality.md`` register.
     4. Orphan refs: every Tier 1 ID resolves to a canonical entry.
     5. Frontmatter presence: every non-excluded .md file has a frontmatter
        block (refresh-fixable for indexes; manual fix for leaves).
@@ -77,9 +77,9 @@ EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
 )
-CANONICAL_ID = re.compile(r"<!-- id: ([a-z0-9]{6}) -->")
+CANONICAL_ID = re.compile(r"<!-- id: (clm-[a-z0-9]{6}) -->")
 TIER2_INLINE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
-ID_RE = re.compile(r"\b([a-z0-9]{6})\b")
+ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 FENCE = re.compile(r"^```")
 
 

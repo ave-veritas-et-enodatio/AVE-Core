@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [7o8clt]
+claims: [clm-7o8clt]
 path-stable: "referenced from vol2 as sec:pmns_junction, eq:pmns_13, eq:pmns_12, eq:pmns_23"
 -->
 

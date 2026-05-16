@@ -168,7 +168,7 @@ Each entry's stable 6-character ID propagates downward through the KB so the dep
 ```markdown
 [↑ Parent](index.md)
 <!-- leaf: verbatim -->
-<!-- claim-quality: 0ktpcn, 5xon03 -->
+<!-- claim-quality: clm-0ktpcn, clm-5xon03 -->
 ```
 
 The ID list is the complete set of claim-quality entries that reference the leaf (per-volume + cross-cutting + common). Auto-generatable from the existing "Leaf references" data; refresh whenever the upstream `claim-quality.md` changes.
@@ -177,17 +177,17 @@ The ID list is the complete set of claim-quality entries that reference the leaf
 
 ```markdown
 ### Internal Confinement and Matter Assembly
-<!-- claim-quality: lv3uw1 -->
+<!-- claim-quality: clm-lv3uw1 -->
 
 (content for the magnetic-branch confinement section)
 ```
 
 ```markdown
-   - <!-- claim-quality: lv3uw1 --> *Particle confinement* proceeds via the magnetic branch instead: ...
+   - <!-- claim-quality: clm-lv3uw1 --> *Particle confinement* proceeds via the magnetic branch instead: ...
 ```
 
 ```markdown
-> **Note (cross-link with Ch.3).** <!-- claim-quality: 2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield}$...
+> **Note (cross-link with Ch.3).** <!-- claim-quality: clm-2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield}$...
 ```
 
 Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains the complete index. For single-claim leaves (one ID in the Tier 1 list), Tier 2 is not required — the Tier 1 list is unambiguous. For multi-claim leaves, Tier 2 markers are mandatory at every claim that maps to a non-default ID; if claims are integrated rather than separated by sections, place markers at the most granular point that disambiguates (resultbox header, named-principle paragraph, key equation block).
@@ -196,7 +196,7 @@ Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains
 
 ```markdown
 [↑ AVE Knowledge Base](../entry-point.md)
-<!-- claim-quality (subtree): 0ktpcn, 5xon03, 9s9apq, 2dwzib, ... -->
+<!-- claim-quality (subtree): clm-0ktpcn, clm-5xon03, clm-9s9apq, clm-2dwzib, ... -->
 ```
 
 The subtree-IDs list is the union of all leaf-level Tier 1 IDs under the index. Auto-generatable from leaf annotations.

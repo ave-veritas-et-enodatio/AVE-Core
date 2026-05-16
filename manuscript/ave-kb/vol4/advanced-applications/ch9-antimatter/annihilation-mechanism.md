@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [5rigtn]
+claims: [clm-5rigtn]
 -->
 
 ## Matter-Antimatter Annihilation as Flywheel Collisions

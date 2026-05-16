@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [ffa5sq]
+claims: [clm-ffa5sq]
 -->
 
 ## The Fabrication Bottleneck: Dynamic Acoustic Cavities

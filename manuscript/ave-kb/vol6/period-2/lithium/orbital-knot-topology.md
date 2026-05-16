@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [y7uvdc]
+claims: [clm-y7uvdc]
 -->
 
 ## Orbital Knot Topology

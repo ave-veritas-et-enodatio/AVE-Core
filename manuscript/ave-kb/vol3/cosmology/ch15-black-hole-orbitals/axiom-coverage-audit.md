@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [395gps]
+claims: [clm-395gps]
 -->
 
 ## Axiom Coverage Audit

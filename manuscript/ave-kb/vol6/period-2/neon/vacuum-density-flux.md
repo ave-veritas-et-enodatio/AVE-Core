@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [h8nmpu]
+claims: [clm-h8nmpu]
 -->
 
 <!-- GAP: Source file 12_neon.tex has no \section{Continuous Vacuum Density Flux}. The density figure (fig:neon_20_density) is embedded within §3 "Topological Area of Interest: Noble Gas Inertness & Spectral Emission" and is reproduced in topological-area.md. -->

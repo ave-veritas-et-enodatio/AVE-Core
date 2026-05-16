@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [6btlq3]
+claims: [clm-6btlq3]
 -->
 
 ## Topological Superconducting Magnetic Energy Storage (SMES)

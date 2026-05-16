@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [nu1ir7]
+claims: [clm-nu1ir7]
 -->
 
 ## Section 5.3: Continuous FDTD Yee Lattice Proof

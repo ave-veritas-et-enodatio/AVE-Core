@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [nxfmh0]
+subtree-claims: [clm-nxfmh0]
 -->
 
 # Ch.10: Deriving Macroscopic Material Properties
