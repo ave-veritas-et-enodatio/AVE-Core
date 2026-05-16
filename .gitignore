@@ -6,6 +6,8 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
+venv
+.venv
 
 # OS files
 .DS_Store
@@ -44,7 +46,6 @@ sim_outputs/
 #.claude/memory/
 #.claude/agent-memory/
 .claude/local-settings.json
-.claude/settings.local.json
 .claude/worktrees/
 
 # transient topic handoff file
@@ -71,3 +72,9 @@ manuscript/**/main.pdf
 # custom defense-context checker: spots where an uncontextualized AI reviewer
 # will misread the framework and where the source should add pre-emptive context)
 .agents/
+mad-review/
+mad-design/
+guest-session/
+
+# tarballs archived for extraction/transfer/sharing
+*.tgz
