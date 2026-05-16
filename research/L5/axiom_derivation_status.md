@@ -720,6 +720,33 @@ Three independent calculations converging on 12 is a strong consistency check th
 
 **Items (2)-(4) remain open** as originally flagged. Session 11 should target Item (3): numerical K4 Cosserat lattice simulation to verify $\chi_K = 12$, $\chi_G = 3$, $u_0^* \approx 0.187$ directly. **Falsifier**: numerical simulation returning $\chi_K \neq 12$ (within tolerance) breaks the three-route convergence and forces A-032 revision.
 
+**Session 11 χ_G = 3 from T_t translational triplet (2026-05-15 late evening, `AVE-QED/docs/analysis/2026-05-15_Q-G47_session11_chi_G_T_t_triplet.md`):**
+
+Item (2) on the Session 10+ list closed structurally via the parallel construction to A-032:
+
+$$\boxed{\;\chi_G \;=\; \dim(T_t) \;=\; 3 \;}$$
+
+where $T_t$ is the translational triplet T-irrep from the Session 7 decomposition $\mathcal{H}_{\text{bubble}} = T_t \oplus T_r \oplus A$ (7 = 3 + 3 + 1).
+
+**Sector assignment** (Session 11 §2.3):
+- **K-sector** (bulk): A-singlet (volumetric) + 12-path T-orbit (paths) → $\chi_K = 12$
+- **G-sector** (shear): T_t triplet (translational modes) → $\chi_G = 3$
+- **Chirality cross-terms**: T_r triplet (rotational modes) → enters $\chi_1, \chi_2, \chi_3$ from Session 3
+
+**Three-route convergence on $\chi_G = 3$** (parallel to χ_K three-route):
+
+| Route | χ_K = 12 source | χ_G = 3 source |
+|---|---|---|
+| Mode-counting | 12 K4 secondary paths (T-orbit size) | 3 T_t modes (T_t dim) |
+| Cosserat dimensional | $(\ell_c/d)^2 \cdot$ prefactor ≈ 12 | $(\ell_c^{(s)}/d)^2 \cdot$ prefactor ≈ 3 (shear ℓ_c smaller) |
+| Magic-angle unity | $f_{\text{Cosserat}}(u_0^*) = 1$ | $f_{\text{shear}}(u_0^*) = 1$ |
+
+**Predicted ratio**: $(\ell_c^{(s)}/\ell_c)^2 = 3/12 = 1/4$, verifiable in Session 12 numerical simulation.
+
+**Numerical magic-angle check**: $\chi_K = 12, \chi_G = 3$, $g_K(u) = u^2$, $g_G(u) = u/3$ → $u_0^* \approx 0.187$ ≈ A-029 ✓. The PRODUCT $\chi \cdot g(u_0^*)$ is what's physical; the factorization into orbit-size χ and shape function g is a conceptual-clarity choice (orbit size from T-symmetry; shape from K4 micromechanics).
+
+**Status migration**: Item (2) closes structurally; Item (3) (numerical K4 Cosserat simulation to verify all four constants $\chi_K, \chi_G, u_0^*, K_0/G_0$) is now the load-bearing remaining work.
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
