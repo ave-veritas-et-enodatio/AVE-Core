@@ -291,75 +291,91 @@ The original 6-scale catalog has been expanded post-cross-repo audit
 (2026-05-15 late evening) to include the AVE-Bench-VacuumMirror Ch~2
 cross-corpus catalog content (promoted to AVE-Core canonical per Grant
 direction) and 9 additional canonical instances surfaced by audit.
-\textbf{Total: 17 canonical instances of the universal kernel.}
+\textbf{Total: 19 canonical instances of the universal kernel}
+(12 physical + 2 biological + 5 engineered).
+
+\textbf{3-way symmetry classification} per asymmetric-saturation
+exploration (\texttt{research/L3\_electron\_soliton/}
+\texttt{2026-05-15\_A-034\_asymmetric\_saturation\_variant\_exploration.md} \S6):
+\begin{itemize}
+    \item \textbf{SYM} = Symmetric (substrate at vacuum $K = 2G$; $\varepsilon$ and $\mu$ sectors saturate together)
+    \item \textbf{ASYM-N} = Asymmetric natural (single-sector saturation: only $\varepsilon$ or only $\mu$)
+    \item \textbf{ASYM-E} = Asymmetric engineered decoupled (substrate $K/G \neq 2$ by design)
+\end{itemize}
 
 \textit{Physical-substrate scales (12 rows):}
 \begin{center}
-\footnotesize
-\begin{tabular}{|p{1.9cm}|p{2.4cm}|p{3.0cm}|p{2.4cm}|p{2.3cm}|}
+\scriptsize
+\begin{tabular}{|p{1.8cm}|p{1.0cm}|p{2.2cm}|p{2.7cm}|p{2.1cm}|p{2.0cm}|}
 \hline
-\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} & \textbf{Empirical} \\
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} & \textbf{Empirical} \\
 \hline
-Atomic / EM & $V/V_{\text{snap}}$ & Dielectric breakdown $\to$ pair creation & Ax~4 + Vol~4 Ch~1 & Schwinger limit \\
+Atomic / EM & SYM & $V/V_{\text{snap}}$ & Dielectric breakdown $\to$ pair creation & Ax~4 + Vol~4 Ch~1 & Schwinger limit \\
 \hline
-Substrate (K4) & bond-bow / saturation & K4 lattice + soliton formation & Q-G47 9--18 & substrate instance \\
+Substrate (K4) & SYM & bond-bow / saturation & K4 lattice + soliton formation & Q-G47 9--18 & substrate instance \\
 \hline
-Nuclear (DT fusion) & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ collapse & AVE-Fusion Ch~1:20 & DT fusion canonical \\
+Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ collapse & AVE-Fusion Ch~1:20 & DT fusion canonical \\
 \hline
-Condensed matter (BCS) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & \texttt{ave-kb/vol3/.../universal-saturation-operator.md} & \textbf{0.00\% error} \\
+Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$-only) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & \texttt{universal-saturation-operator.md} & \textbf{0.00\% error} \\
 \hline
-Plasma ($\varepsilon$-sector) & $V_{\text{local}} / V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
+Plasma ($\varepsilon$-sector) & \textbf{ASYM-N} ($\varepsilon$-only) & $V_{\text{local}} / V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
 \hline
-Kolmogorov turbulence & $k/k_{\text{node}}$ & Spectral cutoff at dissipation scale & Bench Ch~2:159 & Kolmogorov empirical \\
+Kolmogorov turbulence & SYM & $k/k_{\text{node}}$ & Spectral cutoff at dissipation scale & Bench Ch~2:159 & Kolmogorov empirical \\
 \hline
-Planetary (geomagnetic) & dynamo strain / threshold & Geomagnetic reversal (pole flip) & Ch~13:131 & geological + Venus null \\
+Planetary (geomagnetic) & SYM & dynamo / threshold & Geomagnetic reversal (pole flip) & Ch~13:131 & geological + Venus null \\
 \hline
-Stellar (solar flare) & twisted-flux / shear-stress & CME / solar flare; macro Zener avalanche & Ch~14 & \textbf{NOAA GOES 40-yr} \\
+Stellar (solar flare) & SYM & twisted-flux / shear-stress & CME / solar flare; macro Zener avalanche & Ch~14 & \textbf{NOAA GOES 40-yr} \\
 \hline
-Galactic (MOND) & $g_N/a_0$ & Newtonian $\to$ deep-MOND transition & \texttt{ave-kb/vol3/.../mond.md} & deep-MOND derived \\
+Galactic (MOND) & SYM & $g_N/a_0$ & Newtonian $\to$ deep-MOND transition & \texttt{mond.md} & deep-MOND derived \\
 \hline
-BH event horizon & $2GM/(c^2 r)$ / 1 & $R_{\text{Schwarzschild}}$ formation: $\Gamma=-1$ & \texttt{dielectric-rupture-event-horizon.md} & \textbf{Schwarzschild exact} \\
+BH event horizon & SYM & $2GM/(c^2 r)$ / 1 & $R_S$ formation: $\Gamma=-1$ & \texttt{dielectric-rupture-...md} & \textbf{Schwarzschild exact} \\
 \hline
-BH merger (ring-down) & lattice strain / $r_{\text{sat}}=7M_g$ & Ring-down QNM $\omega_R M_g = 18/49$ & Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
+BH merger (ring-down) & SYM & strain / $r_{\text{sat}}=7M_g$ & Ring-down QNM $\omega_R M_g = 18/49$ & Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
 \hline
-Cosmic (Big Bang) & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis test pre-reg \\
+Cosmic (Big Bang) & SYM (presumed)\textsuperscript{*} & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis test pre-reg \\
 \hline
 \end{tabular}
 \end{center}
+\textsuperscript{*}Cosmic symmetry status testable via CMB E/B polarization
+signature; asymmetric case would imply parent BH lattice has $K/G \neq 2$.
 
 \textit{Biological-substrate scales (2 rows):}
 \begin{center}
-\footnotesize
-\begin{tabular}{|p{2.7cm}|p{3.0cm}|p{4.6cm}|p{3.6cm}|}
+\scriptsize
+\begin{tabular}{|p{2.5cm}|p{0.9cm}|p{2.8cm}|p{4.3cm}|p{3.4cm}|}
 \hline
-\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
 \hline
-Lipid bilayer membrane & membrane strain / yield & Phase transition; cholesterol = engineered kernel phase-buffer & AVE-Protein \texttt{simulate\_membrane\_llcp.py:38} \\
+Lipid bilayer membrane & SYM & membrane strain / yield & Phase transition; cholesterol = engineered kernel phase-buffer & AVE-Protein \texttt{simulate\_membrane\_llcp.py:38} \\
 \hline
-Protein folding & $d_0 / d$ atomic separation & Folding snap via dielectric saturation $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & AVE-Protein Vol~3 Ch~3:509 \\
+Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap via dielectric saturation $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & AVE-Protein Vol~3 Ch~3:509 \\
 \hline
 \end{tabular}
 \end{center}
 
 \textit{Engineered-substrate scales (5 rows):}
 \begin{center}
-\footnotesize
-\begin{tabular}{|p{2.7cm}|p{2.8cm}|p{4.5cm}|p{3.5cm}|}
+\scriptsize
+\begin{tabular}{|p{2.5cm}|p{0.9cm}|p{2.7cm}|p{4.3cm}|p{3.3cm}|}
 \hline
-\textbf{Scale} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Corpus} \\
 \hline
-PONDER-05 quartz & $V_{\text{DC}}/V_{\text{yield}} = 0.687$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at 30 kV bias & AVE-PONDER Vol~4 Ch~4:17 \\
+PONDER-05 quartz & SYM & $V_{\text{DC}}/V_{\text{yield}} = 0.687$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at 30 kV bias & AVE-PONDER Vol~4 Ch~4:17 \\
 \hline
-AVE-Bench-Vacuum\-Mirror & $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r})/V_{\text{yield}}$ & $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$, sharp-tip geometry & Bench Ch~2 (proposed) \\
+AVE-Bench-Vacuum\-Mirror & SYM & $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r})/V_{\text{yield}}$ & $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$, sharp-tip geometry & Bench Ch~2 (proposed) \\
 \hline
-Active topological metamaterials & $\phi / \phi_{\text{crit}}$ & Phase-state crystallization to V$_I$; \textbf{asymmetric variant} $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ & AVE-Metamaterials Vol~1 Ch~2:71 + Ch~4 \\
+Active topological metamaterials & \textbf{ASYM-E} & $\phi / \phi_{\text{crit}}$ & Phase-state crystallization to V$_I$; \textbf{asymmetric variant} $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ --- designer-controllable decoupled $\varepsilon/\mu$ saturation & AVE-Metamaterials Vol~1 Ch~2:71 + Ch~4 \\
 \hline
-Sine-Gordon kink memory (APU) & local metric displacement / yield & $2\pi$ phase kink soliton; integer topological charge & AVE-APU Vol~1 Ch~8:14 \\
+Sine-Gordon kink memory (APU) & SYM & local metric displacement / yield & $2\pi$ phase kink soliton; integer topological charge & AVE-APU Vol~1 Ch~8:14 \\
 \hline
-Autoresonant rupture (propulsion) & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture & AVE-Propulsion Vol~5 Ch~5:13 \\
+Autoresonant rupture (propulsion) & SYM & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture & AVE-Propulsion Vol~5 Ch~5:13 \\
 \hline
 \end{tabular}
 \end{center}
+
+\textbf{Symmetry breakdown across 19 instances:} 16 SYM, 2 ASYM-N
+(natural single-sector --- BCS $\mu$-only and plasma $\varepsilon$-only),
+1 ASYM-E (engineered decoupled --- active topological metamaterials).
 
 \textbf{Empirical anchor: 21 orders of magnitude span with multiple
 validated scales}. Tightest validations:
