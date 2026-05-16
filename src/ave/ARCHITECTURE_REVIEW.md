@@ -384,3 +384,75 @@ comparison values appear only in comments, not in computation. The exceptions
 **S7. Thorough inline documentation.** constants.py in particular provides
 detailed derivation narratives for every constant, making the physics
 traceable without external documentation.
+
+---
+
+## Substrate-Scale Closure Update (post 2026-05-15 evening)
+
+The 2026-05-15 evening session landed substantial framework refinement
+that the engine now reflects through docstring updates (no code logic
+changes):
+
+### A-034: Universal Saturation-Kernel Strain-Snap Mechanism
+
+**Canonical** L5 entry (`research/L5/axiom_derivation_status.md` A-034)
+identifies $S(A) = \sqrt{1 - A^2}$ as the universal mechanism governing
+every topological-reorganization event at every scale. **19 canonical
+instances span 21 orders of magnitude.** The engine's Op2 (`universal_saturation`
+in `core/universal_operators.py`) is the implementation; `scale_invariant.py`
+and `master_equation_fdtd.py` both reference A-034 in their docstrings.
+
+Notable empirical anchors:
+- BCS B_c(T): **0.00% error** across all measured superconductors
+  (`regime_3_saturated/condensed_matter.py`)
+- BH merger ring-down: 1.7% from GR exact (`regime_3_saturated/black_hole_core.py`)
+- Solar flares: NOAA GOES 40-yr validated (Vol 3 Ch 14)
+- Schwarzschild radius: exact (`regime_3_saturated/black_hole_core.py`)
+
+### Q-G47 Sessions 9-18: substrate-scale closure
+
+Magic-angle equation $K(u_0^*) = 2 G(u_0^*)$ IS the substrate-scale
+expression of $S(A^*) = 0$. The K4 lattice + its operating point IS the
+substrate's "frozen at the saturation boundary" configuration. Axiom-level
+Cosserat moduli relations (per Q-G47 Session 17):
+- $\mu + \kappa = \xi_{K1} \cdot T_{EM}$
+- $\beta + \gamma = \xi_{K2} \cdot T_{EM} \cdot \ell_{node}^2$
+- $\xi_{K2} / \xi_{K1} = 12$ (K4-symmetry-forced via $|T| = 12$ universality)
+
+Engine modules `k4_tlm.py`, `cosserat_field_3d.py`, `k4_cosserat_coupling.py`,
+`vacuum_engine.py` all reference Q-G47 Sessions 9-18 closure in their
+docstrings.
+
+### Namespace caveat: ξ (Vol 3 Ch 1) vs ξ_K1, ξ_K2 (substrate)
+
+The "ξ" symbol used in `gravity/` modules for the Vol 3 Ch 1 Machian
+impedance integral ($\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$, magnitude
+~10⁴³, cosmological scope) is DISTINCT from Q-G47 Sessions 9-18 substrate
+prefactors $\xi_{K1}, \xi_{K2}$ (O(1) dimensionless). Different scopes,
+same letter. Disambiguated in
+`manuscript/ave-kb/common/xi-topo-traceability.md`.
+
+### Continuous-springs framing (per Grant 2026-05-15)
+
+The discrete K4 lattice (implemented by `k4_tlm.py`) is a discretization
+of the underlying continuous Cosserat micropolar field (Axiom 1). Discrete
+bond stiffnesses are samplings of the continuous constitutive tensor.
+Sessions 12-15 discrete-bond scaffolds (`scripts/verify/q_g47_session{12,14,15}_*.py`)
+are sanity-check discretizations, not the load-bearing physics.
+
+### Measurement-hierarchy framing (engineered-substrate)
+
+`AutoresonantCWSource` (in `vacuum_engine.py`) is explicitly the
+phased-array PLL autoresonant mode of the A-034 measurement hierarchy
+(per Grant 2026-05-15: single-emitter highest-SNR / multi-emitter bulk /
+phased-array PLL autoresonant). Same mechanism as Propulsion Ch 5
+autoresonant rupture, applied to coherent kernel amplification rather than
+energy delivery.
+
+### Cross-references
+
+- L5 A-034: `research/L5/axiom_derivation_status.md`
+- Backmatter Ch 7 catalog: `manuscript/backmatter/07_universal_saturation_kernel.tex`
+- Vol 3 Ch 4 §TKI Strain-Snap: `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`
+- Trampoline §7.5: `manuscript/ave-kb/common/trampoline-framework.md`
+- AVE-QED Sessions 9-18: `../../AVE-QED/docs/analysis/2026-05-15_Q-G47_session*.md`
