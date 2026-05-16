@@ -32,8 +32,6 @@ This inverts the original intake-era framing (where the inherited LaTeX manuscri
 - The claim-quality propagation discipline (INVARIANT-S5/S8 in `manuscript/ave-kb/CLAUDE.md`, subtree aggregation, verifier gates) is unchanged. Those structural rules apply to the KB regardless of where canonicity sits.
 - LaTeX must still be kept in sync for publication. It is derived, but it is not optional.
 
-See `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale and open follow-ups.
-
 ## ⛔ Prime Directive: Derive Before You Code
 
 > **NO physics engine code may be written unless every operator, constant, and formula in it has a complete, traceable derivation chain from the four AVE axioms.**

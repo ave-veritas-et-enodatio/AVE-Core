@@ -1,7 +1,6 @@
 # AVE-KB Derived Index — Schema Specification
 
-**Status:** v0 — initial design, 2026-05-15.
-**Proposal source:** [`session/kb-improvements.md`](../session/kb-improvements.md) §2.
+**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation). Last revised 2026-05-16.
 **Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
@@ -281,7 +280,7 @@ files                                                    WRITTEN (new)
 
 ---
 
-## Open questions (carried from `session/kb-improvements.md` §2)
+## Design decisions (settled)
 
 - **Where in the tree?** Settled: `.index/` under `manuscript/ave-kb/`. Grep-discoverable, tracked in git.
 - **One file or several?** Settled: five files split by edge type (claims, depends-on, strengthen-by, cites, subtree-aggregates).
@@ -295,7 +294,7 @@ files                                                    WRITTEN (new)
 
 These were considered and deferred to keep v0 small and reviewable:
 
-- **Embeddings / full-text search.** Out of scope per kb-improvements.md §2 ("Separate concern. If needed, layer on top.").
+- **Embeddings / full-text search.** Out of scope for the derived index — a separate concern; layer on top if ever needed.
 - **Synonym resolution.** Whether two surface forms refer to the same claim is currently encoded by id only; no aliasing.
 - **History queries.** `git log .index/claims.jsonl` already provides this for free; no separate module needed.
 - ~~**Solidity recomputation.**~~ *Done (Push 3).* `solidity` is now a derived field: `compute_solidity` computes `solidity = round-half-up-2dp(confidence × min(dep_solidity))` over the depends-on DAG, `refresh-kb-metadata` writes it back to claim-quality.md and the JSONL, and `check-claim-quality` carries a standing freshness check (plus a depends-on graph acyclicity check).

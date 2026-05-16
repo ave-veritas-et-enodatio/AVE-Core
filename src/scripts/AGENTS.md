@@ -10,8 +10,6 @@ For script work, the practical implications:
 - When LaTeX and KB disagree about a result, the KB is right; treat the LaTeX as stale until synced.
 - This inverts the older intake-era framing where LaTeX was canonical and the KB was a projection.
 
-See `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale and open follow-ups.
-
 ## Running Scripts
 
 Individual scripts are run from the repository root with Python:

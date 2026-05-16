@@ -14,8 +14,6 @@ For engine work, the practical implications:
 - When LaTeX and KB disagree about a result, the KB is right; treat the LaTeX as stale until synced.
 - This inverts the older intake-era framing where LaTeX was canonical and the KB was a projection. Rule 9 of `LIVING_REFERENCE.md` ("Engine architecture changes must propagate to LaTeX") should be read in light of this: propagate to **KB first**, then LaTeX.
 
-See `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale and open follow-ups.
-
 ---
 
 ## 1. The Zero Free Parameters Constraint

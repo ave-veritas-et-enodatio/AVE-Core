@@ -14,7 +14,7 @@ The invariant content for this KB is in `CLAUDE.md` — it is already loaded and
 
 KB leaves (`manuscript/ave-kb/**/*.md`) are the **sole canonical source** for AVE results, derivations, and prose. The LaTeX manuscript (`manuscript/vol_*/`) is now a **derived publication artifact** — when KB and LaTeX disagree, the KB is right and the LaTeX is stale.
 
-This inverts the original intake-era framing where LaTeX was canonical and the KB was a projection of it. The inversion was made effective on 2026-05-07; see `manuscript/ave-kb/session/kb-improvements.md` §1 for the full rationale.
+This inverts the original intake-era framing where LaTeX was canonical and the KB was a projection of it. The inversion was made effective on 2026-05-07.
 
 For the docent role specifically:
 
