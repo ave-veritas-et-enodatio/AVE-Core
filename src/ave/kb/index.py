@@ -35,8 +35,9 @@ _REQUIRED_FILES = (
 
 @dataclass(frozen=True, slots=True)
 class Claim:
-    """A canonical claim-quality entry."""
+    """A canonical claim-quality entry — one ``node_type: claim`` node."""
 
+    node_type: str  # always "claim"
     id: str
     title: str
     canonical_path: str
@@ -52,11 +53,32 @@ class Claim:
 
 
 @dataclass(frozen=True, slots=True)
+class FrameworkNode:
+    """A structural invariant or AVE axiom — a framework graph node.
+
+    Framework nodes (``node_type: invariant`` / ``axiom``) carry only the
+    five identifying fields. They are solidity-1.0 by definition (framework
+    bedrock) — a documented rule, not a stored field.
+    """
+
+    node_type: str  # "invariant" | "axiom"
+    id: str
+    title: str
+    canonical_path: str
+    canonical_anchor: str
+
+
+@dataclass(frozen=True, slots=True)
 class DependsOnEdge:
-    """A forward dependency edge from ``source`` to ``target``."""
+    """A forward dependency edge from ``source`` to ``target``.
+
+    ``target_kind`` (``claim`` | ``invariant`` | ``axiom``) discriminates the
+    target node type.
+    """
 
     source: str
     target: str
+    target_kind: str
     target_solidity_recorded: float | None
     context: str | None
 
@@ -135,6 +157,7 @@ def _read_jsonl(path: Path) -> list[dict]:
 
 def _claim_from_record(rec: dict) -> Claim:
     return Claim(
+        node_type=rec.get("node_type", "claim"),
         id=rec["id"],
         title=rec["title"],
         canonical_path=rec["canonical_path"],
@@ -150,10 +173,28 @@ def _claim_from_record(rec: dict) -> Claim:
     )
 
 
+def _framework_from_record(rec: dict) -> FrameworkNode:
+    return FrameworkNode(
+        node_type=rec["node_type"],
+        id=rec["id"],
+        title=rec["title"],
+        canonical_path=rec["canonical_path"],
+        canonical_anchor=rec["canonical_anchor"],
+    )
+
+
+def _node_from_record(rec: dict) -> Claim | FrameworkNode:
+    """Dispatch a claims.jsonl record on its ``node_type`` discriminator."""
+    if rec.get("node_type", "claim") == "claim":
+        return _claim_from_record(rec)
+    return _framework_from_record(rec)
+
+
 def _depends_on_from_record(rec: dict) -> DependsOnEdge:
     return DependsOnEdge(
         source=rec["source"],
         target=rec["target"],
+        target_kind=rec.get("target_kind", "claim"),
         target_solidity_recorded=rec.get("target_solidity_recorded"),
         context=rec.get("context"),
     )
@@ -204,19 +245,28 @@ class Index:
 
     def __init__(
         self,
-        claims: list[Claim],
+        nodes: list[Claim | FrameworkNode],
         depends_on: list[DependsOnEdge],
         strengthen_by: list[StrengthenByItem],
         cites: list[CitationEdge],
         subtree_aggregates: list[SubtreeAggregate],
     ) -> None:
-        self._claims: list[Claim] = sorted(claims, key=lambda c: c.id)
+        # claims.jsonl is a type-tagged union; split it into the claim subset
+        # (which carries the scoring fields the filter queries operate on)
+        # and the framework subset (invariants + axioms).
+        self._claims: list[Claim] = sorted((n for n in nodes if isinstance(n, Claim)), key=lambda c: c.id)
+        self._framework: list[FrameworkNode] = sorted(
+            (n for n in nodes if isinstance(n, FrameworkNode)), key=lambda n: n.id
+        )
         self._depends_on: list[DependsOnEdge] = list(depends_on)
         self._strengthen_by: list[StrengthenByItem] = list(strengthen_by)
         self._cites: list[CitationEdge] = list(cites)
         self._subtree_aggregates: list[SubtreeAggregate] = list(subtree_aggregates)
 
         self._by_id: dict[str, Claim] = {c.id: c for c in self._claims}
+        # Every node, keyed by id — used by node() and dependents_of() so
+        # framework ids resolve too.
+        self._node_by_id: dict[str, Claim | FrameworkNode] = {n.id: n for n in (*self._claims, *self._framework)}
 
         # Forward / inverse dependency adjacency.
         deps_fwd: dict[str, set[str]] = defaultdict(set)
@@ -266,13 +316,21 @@ class Index:
 
     # ---- Forward dependency edges --------------------------------------
 
-    def depends_on(self, claim_id: str) -> list[str]:
-        """Claim ids that ``claim_id`` depends on (deduplicated, sorted)."""
-        return list(self._deps_fwd.get(claim_id, ()))
+    def depends_on(self, node_id: str) -> list[str]:
+        """Node ids that ``node_id`` depends on (deduplicated, sorted).
 
-    def dependents_of(self, claim_id: str) -> list[str]:
-        """Claim ids that depend on ``claim_id`` (inverse, deduplicated, sorted)."""
-        return list(self._deps_rev.get(claim_id, ()))
+        Targets may be claim or framework (invariant / axiom) ids. Only claim
+        nodes are ever a ``source``, so passing a framework id returns ``[]``.
+        """
+        return list(self._deps_fwd.get(node_id, ()))
+
+    def dependents_of(self, node_id: str) -> list[str]:
+        """Claim ids that depend on ``node_id`` (inverse, deduplicated, sorted).
+
+        Works for any node id, including framework ids — answers "which
+        claims break if this invariant / axiom changes?".
+        """
+        return list(self._deps_rev.get(node_id, ()))
 
     def depends_on_edges(self, claim_id: str) -> list[DependsOnEdge]:
         """Full forward edge records sourced from ``claim_id`` (sorted by target)."""
@@ -340,9 +398,21 @@ class Index:
 
     # ---- Lookup ---------------------------------------------------------
 
-    def claim(self, claim_id: str) -> Claim | None:
-        """Return the Claim record, or None if not present."""
-        return self._by_id.get(claim_id)
+    def claim(self, node_id: str) -> Claim | None:
+        """Return the Claim record, or None.
+
+        Returns ``None`` for a framework id (invariant / axiom) — use
+        :meth:`node` to resolve any node type.
+        """
+        return self._by_id.get(node_id)
+
+    def node(self, node_id: str) -> Claim | FrameworkNode | None:
+        """Return the graph node for ``node_id`` regardless of node type.
+
+        Resolves claim, invariant, and axiom ids. Returns ``None`` if no
+        node carries that id.
+        """
+        return self._node_by_id.get(node_id)
 
     def __len__(self) -> int:
         return len(self._claims)
@@ -351,14 +421,28 @@ class Index:
 
     @property
     def all_claims(self) -> list[Claim]:
-        """All claim records, sorted by id."""
+        """All claim nodes, sorted by id (framework nodes excluded)."""
         return list(self._claims)
+
+    @property
+    def framework_nodes(self) -> list[FrameworkNode]:
+        """All framework nodes (invariants + axioms), sorted by id."""
+        return list(self._framework)
+
+    @property
+    def all_nodes(self) -> list[Claim | FrameworkNode]:
+        """Every graph node — claims plus framework nodes, sorted by id."""
+        return sorted((*self._claims, *self._framework), key=lambda n: n.id)
 
     @property
     def stats(self) -> dict[str, int]:
         """Counts useful for ``ave-kb stats``-style introspection."""
+        invariants = sum(1 for n in self._framework if n.node_type == "invariant")
+        axioms = sum(1 for n in self._framework if n.node_type == "axiom")
         return {
             "claims": len(self._claims),
+            "invariants": invariants,
+            "axioms": axioms,
             "depends_on_edges": len(self._depends_on),
             "strengthen_by_items": len(self._strengthen_by),
             "citation_edges": len(self._cites),
@@ -390,14 +474,14 @@ def load(path: Path | str | None = None) -> Index:
             f"Run `make refresh-kb-metadata` from the repository root to regenerate."
         )
 
-    claims = [_claim_from_record(r) for r in _read_jsonl(base / "claims.jsonl")]
+    nodes = [_node_from_record(r) for r in _read_jsonl(base / "claims.jsonl")]
     depends_on = [_depends_on_from_record(r) for r in _read_jsonl(base / "depends-on.jsonl")]
     strengthen_by = [_strengthen_by_from_record(r) for r in _read_jsonl(base / "strengthen-by.jsonl")]
     cites = [_citation_from_record(r) for r in _read_jsonl(base / "cites.jsonl")]
     subtree_aggregates = [_subtree_from_record(r) for r in _read_jsonl(base / "subtree-aggregates.jsonl")]
 
     return Index(
-        claims=claims,
+        nodes=nodes,
         depends_on=depends_on,
         strengthen_by=strengthen_by,
         cites=cites,
@@ -407,6 +491,7 @@ def load(path: Path | str | None = None) -> Index:
 
 __all__ = [
     "Claim",
+    "FrameworkNode",
     "DependsOnEdge",
     "StrengthenByItem",
     "CitationEdge",

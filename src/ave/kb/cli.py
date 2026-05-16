@@ -14,7 +14,7 @@ import json
 import sys
 from pathlib import Path
 
-from .index import CitationEdge, Claim, Index, StrengthenByItem, load
+from .index import CitationEdge, Claim, FrameworkNode, Index, StrengthenByItem, load
 
 # ---------------------------------------------------------------------------
 # Exit codes
@@ -84,7 +84,7 @@ def _build_parser() -> argparse.ArgumentParser:
     _add_global_flags(p_sub)
     p_sub.add_argument("path")
 
-    p_show = sub.add_parser("show", help="Full record for one claim.")
+    p_show = sub.add_parser("show", help="Full record for one node (claim, invariant, or axiom).")
     _add_global_flags(p_show)
     p_show.add_argument("claim_id")
 
@@ -115,21 +115,31 @@ def _strengthen_to_dict(it: StrengthenByItem) -> dict:
     return d
 
 
-def _format_show_text(c: Claim) -> str:
-    fields = [
-        ("id", c.id),
-        ("title", c.title),
-        ("canonical_path", c.canonical_path),
-        ("canonical_anchor", c.canonical_anchor),
-        ("confidence", c.confidence),
-        ("solidity", c.solidity),
-        ("build_status", c.build_status),
-        ("build_band", c.build_band),
-        ("rationale", c.rationale),
-        ("depends_on_count", c.depends_on_count),
-        ("strengthen_by_count", c.strengthen_by_count),
-        ("citation_count", c.citation_count),
-    ]
+def _format_show_text(node: Claim | FrameworkNode) -> str:
+    if isinstance(node, FrameworkNode):
+        fields: list[tuple[str, object]] = [
+            ("node_type", node.node_type),
+            ("id", node.id),
+            ("title", node.title),
+            ("canonical_path", node.canonical_path),
+            ("canonical_anchor", node.canonical_anchor),
+        ]
+    else:
+        fields = [
+            ("node_type", node.node_type),
+            ("id", node.id),
+            ("title", node.title),
+            ("canonical_path", node.canonical_path),
+            ("canonical_anchor", node.canonical_anchor),
+            ("confidence", node.confidence),
+            ("solidity", node.solidity),
+            ("build_status", node.build_status),
+            ("build_band", node.build_band),
+            ("rationale", node.rationale),
+            ("depends_on_count", node.depends_on_count),
+            ("strengthen_by_count", node.strengthen_by_count),
+            ("citation_count", node.citation_count),
+        ]
     return "\n".join(f"{k}: {'' if v is None else v}" for k, v in fields)
 
 
@@ -193,14 +203,14 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
         return EXIT_OK
 
     if cmd == "show":
-        c = idx.claim(args.claim_id)
-        if c is None:
-            print(f"error: unknown claim id: {args.claim_id}", file=err)
+        node = idx.node(args.claim_id)
+        if node is None:
+            print(f"error: unknown node id: {args.claim_id}", file=err)
             return EXIT_USER_ERROR
         if emit_json:
-            _emit(_claim_to_dict(c), emit_json=True, out=out)
+            _emit(dataclasses.asdict(node), emit_json=True, out=out)
         else:
-            print(_format_show_text(c), file=out)
+            print(_format_show_text(node), file=out)
         return EXIT_OK
 
     if cmd == "stats":
@@ -208,7 +218,15 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
         if emit_json:
             _emit(s, emit_json=True, out=out)
         else:
-            for key in ("claims", "depends_on_edges", "strengthen_by_items", "citation_edges", "subtree_aggregates"):
+            for key in (
+                "claims",
+                "invariants",
+                "axioms",
+                "depends_on_edges",
+                "strengthen_by_items",
+                "citation_edges",
+                "subtree_aggregates",
+            ):
                 print(f"{key}: {s[key]}", file=out)
         return EXIT_OK
 

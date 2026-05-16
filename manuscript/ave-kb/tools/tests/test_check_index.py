@@ -94,6 +94,46 @@ class TestCheckIndex(unittest.TestCase):
         # Index summary line present on PASS.
         self.assertIn("[index] 5 JSONL files", result.stdout)
 
+    def test_index_line_reports_node_type_breakdown(self):
+        """The [index] summary reports claims / invariants / axioms counts."""
+        result = _run_checker()
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("221 nodes", result.stdout)
+        self.assertIn("199 claims", result.stdout)
+        self.assertIn("18 invariants", result.stdout)
+        self.assertIn("4 axioms", result.stdout)
+
+    def test_check_detects_target_kind_mismatch(self):
+        """A depends-on edge whose target_kind contradicts the resolved node
+        fails referential integrity (kind-match)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_index = Path(tmp) / ".index"
+            tmp_index.mkdir()
+            for short in (
+                "claims.jsonl",
+                "depends-on.jsonl",
+                "strengthen-by.jsonl",
+                "cites.jsonl",
+                "subtree-aggregates.jsonl",
+            ):
+                shutil.copy2(_INDEX_DIR / short, tmp_index / short)
+
+            # Inject an edge to a real INVARIANT node but mislabel its kind.
+            dep_path = tmp_index / "depends-on.jsonl"
+            existing = dep_path.read_bytes().decode("utf-8")
+            first_source = existing.split("\n")[0].split('"source": "')[1].split('"')[0]
+            extra = (
+                '{"source": "' + first_source + '", "target": "INVARIANT-S2"'
+                ', "target_kind": "claim", "target_solidity_recorded": null'
+                ', "context": null}\n'
+            )
+            dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
+
+            result = _run_checker(["--index-dir", str(tmp_index)])
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("referential-integrity", result.stdout)
+            self.assertIn("INVARIANT-S2", result.stdout)
+
     def test_check_detects_stale_jsonl(self):
         """A truncated cites.jsonl fails freshness with the refresh hint."""
         name = "cites.jsonl"

@@ -161,6 +161,47 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
                         f"{name}:{lineno}: not a JSON object",
                     )
 
+    def test_claims_jsonl_node_type_distribution(self):
+        from collections import Counter
+
+        recs = [
+            json.loads(ln)
+            for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
+        ]
+        counts = Counter(r.get("node_type", "claim") for r in recs)
+        self.assertEqual(len(recs), 221)
+        self.assertEqual(counts["claim"], 199)
+        self.assertEqual(counts["invariant"], 18)
+        self.assertEqual(counts["axiom"], 4)
+
+    def test_depends_on_target_kind_distribution(self):
+        from collections import Counter
+
+        recs = [
+            json.loads(ln)
+            for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl")
+        ]
+        counts = Counter(r["target_kind"] for r in recs)
+        self.assertEqual(len(recs), 40)
+        self.assertEqual(counts["claim"], 33)
+        self.assertEqual(counts["invariant"] + counts["axiom"], 7)
+
+    def test_depends_on_target_kind_matches_resolved_node_type(self):
+        # Every edge's target_kind must equal the node_type of the record it
+        # resolves to in claims.jsonl.
+        node_type = {
+            json.loads(ln)["id"]: json.loads(ln).get("node_type", "claim")
+            for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
+        }
+        for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl"):
+            rec = json.loads(ln)
+            self.assertIn(rec["target"], node_type, f"orphan target: {rec}")
+            self.assertEqual(
+                rec["target_kind"],
+                node_type[rec["target"]],
+                f"target_kind mismatch: {rec}",
+            )
+
     def test_referential_integrity(self):
         # Build the set of canonical claim ids from claims.jsonl.
         claims_path = _INDEX_DIR / "claims.jsonl"
@@ -210,16 +251,20 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
                 )
 
     def test_sort_order(self):
-        # claims.jsonl sorted by id
-        claims_ids = [
-            json.loads(ln)["id"]
+        # claims.jsonl sorted by (node_type, id)
+        claims_keys = [
+            (json.loads(ln).get("node_type", "claim"), json.loads(ln)["id"])
             for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
         ]
-        self.assertEqual(claims_ids, sorted(claims_ids))
+        self.assertEqual(claims_keys, sorted(claims_keys))
 
-        # depends-on.jsonl sorted by (source, target)
+        # depends-on.jsonl sorted by (source, target, context)
         dep_keys = [
-            (json.loads(ln)["source"], json.loads(ln)["target"])
+            (
+                json.loads(ln)["source"],
+                json.loads(ln)["target"],
+                json.loads(ln).get("context") or "",
+            )
             for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl")
         ]
         self.assertEqual(dep_keys, sorted(dep_keys))

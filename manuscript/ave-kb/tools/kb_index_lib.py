@@ -34,6 +34,15 @@ _FRONTMATTER_RE = re.compile(r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL)
 _TIER2_INLINE_RE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 _CODE_FENCE_RE = re.compile(r"^```")
 
+# Framework-node parsing (from manuscript/ave-kb/CLAUDE.md).
+# Invariant headings: `### INVARIANT-XX: <title>`.
+_INVARIANT_HEADING_RE = re.compile(r"^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$")
+# Axiom bullets in the INVARIANT-S2 section: `- Axiom N: **<title>** — ...`.
+_AXIOM_BULLET_RE = re.compile(r"^- Axiom ([1-4]): \*\*(.+?)\*\*")
+# In-bullet target tokens for depends-on head extraction.
+_INVARIANT_TOKEN_RE = re.compile(r"\b(INVARIANT-[A-Z]+[0-9]+)\b")
+_AXIOM_TOKEN_RE = re.compile(r"\bAxiom ([1-4])\b")
+
 # Quality-field parsing.
 # `confidence: 0.X` and `solidity: 0.X (build-status phrase) [optional arithmetic]`
 _NUMBER_RE = re.compile(r"-?\d+(?:\.\d+)?")
@@ -45,6 +54,7 @@ _FIRST_PAREN_RE = re.compile(r"\(([^()]*)\)")
 # The placeholder is detected separately and produces no edge.
 _DEPENDS_ON_PLACEHOLDER_RE = re.compile(r"^\s*-\s*\*\(")
 _DEPENDS_ON_BRACKET_RE = re.compile(r"\[([^\[\]]*)\]\s*$")
+_DEPENDS_ON_PAREN_RE = re.compile(r"\(([^()]*)\)")
 _SOLIDITY_IN_PAREN_RE = re.compile(r"solidity\s+(-?\d+(?:\.\d+)?)")
 
 
@@ -55,12 +65,35 @@ _SOLIDITY_IN_PAREN_RE = re.compile(r"solidity\s+(-?\d+(?:\.\d+)?)")
 
 @dataclass(frozen=True)
 class DependsOnEdge:
-    """A forward dependency edge from one claim to another."""
+    """A forward dependency edge from a claim to another graph node.
+
+    ``target_kind`` discriminates the target node type: ``"claim"`` for an
+    edge to another claim, ``"invariant"`` / ``"axiom"`` for an edge to a
+    framework node. For framework targets ``target_solidity_recorded`` is
+    always ``None`` (framework nodes carry no scoring fields).
+    """
 
     source: str
     target: str
+    target_kind: str
     target_solidity_recorded: float | None
     context: str | None
+
+
+@dataclass(frozen=True)
+class FrameworkNode:
+    """A structural invariant or AVE axiom — a first-class graph node.
+
+    Framework nodes are parsed from ``manuscript/ave-kb/CLAUDE.md``. They are
+    solidity-1.0 by definition (framework bedrock) — a documented rule, not a
+    stored field. The record carries only the five identifying fields.
+    """
+
+    node_type: str  # "invariant" | "axiom"
+    id: str
+    title: str
+    canonical_path: str
+    canonical_anchor: str
 
 
 @dataclass(frozen=True)
@@ -116,6 +149,7 @@ class KbState:
     claim_entries: tuple[ClaimEntry, ...]
     leaves: tuple[LeafRecord, ...]
     indexes: tuple[IndexRecord, ...]
+    framework_nodes: tuple[FrameworkNode, ...]
 
 
 # ---------------------------------------------------------------------------
@@ -151,6 +185,64 @@ def parse_frontmatter(text: str) -> dict | None:
         else:
             fields[key] = value
     return fields
+
+
+# ---------------------------------------------------------------------------
+# Framework-node parsing (CLAUDE.md)
+# ---------------------------------------------------------------------------
+
+
+def parse_framework_nodes(kb_root: Path = KB_ROOT_DEFAULT) -> list[FrameworkNode]:
+    """Parse invariant and axiom nodes from ``manuscript/ave-kb/CLAUDE.md``.
+
+    Invariants come from ``### INVARIANT-XX: <title>`` headings; each node's
+    ``canonical_anchor`` is the GitHub-style slug of its own heading.
+
+    Axioms come from the ``- Axiom N: **<title>** — ...`` bullets in the
+    INVARIANT-S2 section; all four point at the INVARIANT-S2 heading's slug
+    (the KB's axiom-numbering authority). Node ids are ``axiom-1``..``axiom-4``.
+
+    Returns an empty list if ``CLAUDE.md`` is absent. ``canonical_path`` is
+    ``"CLAUDE.md"`` for every framework node.
+    """
+    claude_md = kb_root / "CLAUDE.md"
+    if not claude_md.is_file():
+        return []
+    lines = claude_md.read_text().splitlines()
+
+    nodes: list[FrameworkNode] = []
+    s2_anchor: str | None = None
+    for line in lines:
+        m = _INVARIANT_HEADING_RE.match(line)
+        if m:
+            label, title = m.group(1), m.group(2).strip()
+            anchor = _slugify_heading(line[4:].strip())
+            nodes.append(
+                FrameworkNode(
+                    node_type="invariant",
+                    id=label,
+                    title=title,
+                    canonical_path="CLAUDE.md",
+                    canonical_anchor=anchor,
+                )
+            )
+            if label == "INVARIANT-S2":
+                s2_anchor = anchor
+
+    for line in lines:
+        m = _AXIOM_BULLET_RE.match(line)
+        if m:
+            num, title = m.group(1), m.group(2).strip()
+            nodes.append(
+                FrameworkNode(
+                    node_type="axiom",
+                    id=f"axiom-{num}",
+                    title=title,
+                    canonical_path="CLAUDE.md",
+                    canonical_anchor=s2_anchor or "",
+                )
+            )
+    return nodes
 
 
 # ---------------------------------------------------------------------------
@@ -230,58 +322,117 @@ def _normalize_text(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def _depends_on_bullet_head(stripped: str) -> str:
+    """Extract the head of a depends-on bullet.
+
+    The head is the bullet text (already stripped of the leading ``- ``)
+    truncated at the EARLIER of the first ` — ` (em-dash title separator) or
+    the first ` (` (paren). The dependency target token(s) live in the head;
+    the title/context after the separator is not scanned for targets.
+    """
+    cut = len(stripped)
+    dash = stripped.find(" — ")
+    if dash != -1:
+        cut = min(cut, dash)
+    paren = stripped.find(" (")
+    if paren != -1:
+        cut = min(cut, paren)
+    return stripped[:cut]
+
+
 def _parse_depends_on_line(
     line: str,
     source_id: str,
     known_ids: set[str] | None = None,
     diagnostic_stream: TextIO | None = None,
     canonical_path: str | None = None,
-) -> DependsOnEdge | None:
-    """Parse a depends-on bullet. Returns None for placeholder/blank lines.
+) -> list[DependsOnEdge]:
+    """Parse a depends-on bullet into zero or more edges (head-extraction).
 
-    Format: ``- <id> — <Title> (solidity <num>) [<optional context>]``
-    Placeholder: ``- *(none entry-local — ...)*`` -> None.
+    A bullet's dependency target(s) live in its *head* — the text before the
+    first ` — ` or ` (`. The head is scanned for every recognized target
+    token; one edge is emitted per token:
 
-    When ``known_ids`` is provided, the matched target must be in that set;
-    otherwise the bullet is dropped (returns ``None``) and a diagnostic is
-    written to ``diagnostic_stream`` if non-None. Post-`clm-`-migration the ID
-    regex is exact, so this filter no longer disambiguates prose words — it
-    only catches a `clm-`-shaped token that isn't a registered ID (a typo or
-    stale reference).
+    * ``clm-xxxxxx`` -> a ``claim`` edge; ``target_solidity_recorded`` parsed
+      from a ``(solidity <num>)`` group; ``context`` from a trailing ``[...]``.
+    * ``INVARIANT-XX`` -> an ``invariant`` edge; ``target_solidity_recorded``
+      is ``None``; ``context`` from the bullet's first ``(...)`` paren content.
+    * ``Axiom N`` -> an ``axiom`` edge with ``target`` normalized to
+      ``axiom-N``; ``target_solidity_recorded`` is ``None``; ``context`` from
+      the first ``(...)`` paren content.
+
+    Placeholder bullets (``- *(none entry-local — ...)*``) and bullets whose
+    head contains no recognized token produce zero edges.
+
+    When ``known_ids`` is provided, a ``clm-``-shaped target outside that set
+    is dropped (with a diagnostic on ``diagnostic_stream`` if non-None) —
+    catching a typo or stale reference. ``known_ids`` does not gate framework
+    targets; their resolution is checked by the verifier's referential
+    integrity check.
     """
     if _DEPENDS_ON_PLACEHOLDER_RE.match(line):
-        return None
-    # Find a clm-prefixed id; the first such token is the depends-on target.
+        return []
     stripped = re.sub(r"^\s*-\s*", "", line).strip()
-    id_match = _CLAIM_ID_RE.search(stripped)
-    if not id_match:
-        return None
-    target = id_match.group(1)
-    if known_ids is not None and target not in known_ids:
-        if diagnostic_stream is not None:
-            location = f"{canonical_path}:{source_id}" if canonical_path else source_id
-            diagnostic_stream.write(
-                f'[kb_index_lib] dropped non-claim depends-on target in '
-                f'{location}: "{target}" (bullet: "{_normalize_text(stripped)}")\n'
-            )
-        return None
-    # Solidity (recorded value) from the first `(solidity X)` group.
+    head = _depends_on_bullet_head(stripped)
+
+    # Context shared by framework edges: the first `(...)` paren content.
+    paren_match = _DEPENDS_ON_PAREN_RE.search(stripped)
+    paren_context = paren_match.group(1).strip() if paren_match else None
+
+    # Context for claim edges: a trailing `[...]` group (skip `[= ...]`
+    # arithmetic annotations).
+    bracket_match = _DEPENDS_ON_BRACKET_RE.search(stripped)
+    bracket_context: str | None = None
+    if bracket_match:
+        raw = bracket_match.group(1).strip()
+        if not raw.startswith("="):
+            bracket_context = raw
+
     sol_match = _SOLIDITY_IN_PAREN_RE.search(stripped)
     target_sol = float(sol_match.group(1)) if sol_match else None
-    # Trailing bracketed context: capture the LAST `[...]` group (if any).
-    ctx_match = _DEPENDS_ON_BRACKET_RE.search(stripped)
-    # Skip arithmetic-annotation brackets such as `[= 0.7 × 0.4]`.
-    context: str | None = None
-    if ctx_match:
-        raw = ctx_match.group(1).strip()
-        if not raw.startswith("="):
-            context = raw
-    return DependsOnEdge(
-        source=source_id,
-        target=target,
-        target_solidity_recorded=target_sol,
-        context=context,
-    )
+
+    edges: list[DependsOnEdge] = []
+    for cid in _CLAIM_ID_RE.findall(head):
+        if known_ids is not None and cid not in known_ids:
+            if diagnostic_stream is not None:
+                location = (
+                    f"{canonical_path}:{source_id}" if canonical_path else source_id
+                )
+                diagnostic_stream.write(
+                    f"[kb_index_lib] dropped non-claim depends-on target in "
+                    f'{location}: "{cid}" (bullet: "{_normalize_text(stripped)}")\n'
+                )
+            continue
+        edges.append(
+            DependsOnEdge(
+                source=source_id,
+                target=cid,
+                target_kind="claim",
+                target_solidity_recorded=target_sol,
+                context=bracket_context,
+            )
+        )
+    for label in _INVARIANT_TOKEN_RE.findall(head):
+        edges.append(
+            DependsOnEdge(
+                source=source_id,
+                target=label,
+                target_kind="invariant",
+                target_solidity_recorded=None,
+                context=paren_context,
+            )
+        )
+    for num in _AXIOM_TOKEN_RE.findall(head):
+        edges.append(
+            DependsOnEdge(
+                source=source_id,
+                target=f"axiom-{num}",
+                target_kind="axiom",
+                target_solidity_recorded=None,
+                context=paren_context,
+            )
+        )
+    return edges
 
 
 def _parse_strengthen_by_lines(
@@ -475,15 +626,15 @@ def parse_claim_quality_file(
                                 dep_lines[-1] = dep_lines[-1] + " " + nxt_strip
                         i += 1
                     for dep_line in dep_lines:
-                        edge = _parse_depends_on_line(
-                            dep_line,
-                            claim_id,
-                            known_ids=known_ids,
-                            diagnostic_stream=diagnostic_stream,
-                            canonical_path=canonical_rel,
+                        depends_on.extend(
+                            _parse_depends_on_line(
+                                dep_line,
+                                claim_id,
+                                known_ids=known_ids,
+                                diagnostic_stream=diagnostic_stream,
+                                canonical_path=canonical_rel,
+                            )
                         )
-                        if edge is not None:
-                            depends_on.append(edge)
                 elif stripped.startswith("- strengthen-by:"):
                     i += 1
                     sb_lines: list[str] = []
@@ -602,7 +753,8 @@ def discover_kb(
     diagnostic_stream: TextIO | None = sys.stderr,
 ) -> KbState:
     """One-shot load of the KB. Reads every non-excluded .md file under
-    kb_root plus every claim-quality.md register.
+    kb_root plus every claim-quality.md register and ``CLAUDE.md`` (for the
+    framework nodes — invariants and axioms).
 
     Two passes over claim-quality registers: the first collects the canonical
     set of claim IDs; the second parses entries with that set in hand so a
@@ -638,10 +790,13 @@ def discover_kb(
         if idx is not None:
             indexes.append(idx)
 
+    framework_nodes = parse_framework_nodes(kb_root)
+
     return KbState(
         claim_entries=tuple(claim_entries),
         leaves=tuple(leaves),
         indexes=tuple(indexes),
+        framework_nodes=tuple(framework_nodes),
     )
 
 
@@ -671,9 +826,22 @@ def derive_build_band(solidity: float | None) -> str:
 
 
 def build_claims_records(state: KbState) -> list[dict]:
-    """One record per claim entry, sorted by ``id``.
+    """One record per graph node, sorted by ``(node_type, id)``.
 
-    Counts (depends_on_count, strengthen_by_count, citation_count) are
+    ``claims.jsonl`` holds a type-tagged union of three node types,
+    discriminated by ``node_type``:
+
+    * ``claim`` records carry the full 13-field shape (``node_type`` first,
+      then the 12 pre-existing claim fields).
+    * ``invariant`` / ``axiom`` records are minimal — exactly the five
+      identifying fields (``node_type``, ``id``, ``title``,
+      ``canonical_path``, ``canonical_anchor``). Framework nodes are
+      solidity-1.0 by definition, so they carry no scoring fields.
+
+    The sort key ``(node_type, id)`` groups axioms, then claims, then
+    invariants (ASCII order of the discriminator).
+
+    Claim counts (depends_on_count, strengthen_by_count, citation_count) are
     derived from the same state so they're internally consistent with the
     other record files this module emits.
     """
@@ -684,27 +852,47 @@ def build_claims_records(state: KbState) -> list[dict]:
             cite_counts[cid] = cite_counts.get(cid, 0) + 1
 
     out: list[dict] = []
-    for entry in sorted(state.claim_entries, key=lambda e: e.id):
-        rec = {
-            "id": entry.id,
-            "title": entry.title,
-            "canonical_path": entry.canonical_path,
-            "canonical_anchor": entry.canonical_anchor,
-            "confidence": entry.confidence,
-            "solidity": entry.solidity,
-            "build_status": entry.build_status,
-            "build_band": derive_build_band(entry.solidity),
-            "rationale": entry.rationale,
-            "depends_on_count": len(entry.depends_on),
-            "strengthen_by_count": len(entry.strengthen_by),
-            "citation_count": cite_counts.get(entry.id, 0),
-        }
-        out.append(rec)
+    for entry in state.claim_entries:
+        out.append(
+            {
+                "node_type": "claim",
+                "id": entry.id,
+                "title": entry.title,
+                "canonical_path": entry.canonical_path,
+                "canonical_anchor": entry.canonical_anchor,
+                "confidence": entry.confidence,
+                "solidity": entry.solidity,
+                "build_status": entry.build_status,
+                "build_band": derive_build_band(entry.solidity),
+                "rationale": entry.rationale,
+                "depends_on_count": len(entry.depends_on),
+                "strengthen_by_count": len(entry.strengthen_by),
+                "citation_count": cite_counts.get(entry.id, 0),
+            }
+        )
+    for node in state.framework_nodes:
+        out.append(
+            {
+                "node_type": node.node_type,
+                "id": node.id,
+                "title": node.title,
+                "canonical_path": node.canonical_path,
+                "canonical_anchor": node.canonical_anchor,
+            }
+        )
+    out.sort(key=lambda r: (r["node_type"], r["id"]))
     return out
 
 
 def build_depends_on_records(state: KbState) -> list[dict]:
-    """One record per forward dependency edge, sorted by (source, target)."""
+    """One record per forward dependency edge.
+
+    ``target_kind`` (``claim`` | ``invariant`` | ``axiom``) is placed right
+    after ``target``. Sorted by ``(source, target, context)`` — a null
+    context sorts as the empty string — so two edges from the same source to
+    the same target with different context notes stay deterministically
+    ordered.
+    """
     edges: list[dict] = []
     for entry in state.claim_entries:
         for edge in entry.depends_on:
@@ -712,11 +900,12 @@ def build_depends_on_records(state: KbState) -> list[dict]:
                 {
                     "source": edge.source,
                     "target": edge.target,
+                    "target_kind": edge.target_kind,
                     "target_solidity_recorded": edge.target_solidity_recorded,
                     "context": edge.context,
                 }
             )
-    edges.sort(key=lambda r: (r["source"], r["target"]))
+    edges.sort(key=lambda r: (r["source"], r["target"], r["context"] or ""))
     return edges
 
 
@@ -868,11 +1057,13 @@ __all__ = [
     "EXCLUDE_NAMES",
     "ClaimEntry",
     "DependsOnEdge",
+    "FrameworkNode",
     "StrengthenByItem",
     "LeafRecord",
     "IndexRecord",
     "KbState",
     "parse_frontmatter",
+    "parse_framework_nodes",
     "parse_leaf",
     "parse_claim_quality_file",
     "collect_known_claim_ids",

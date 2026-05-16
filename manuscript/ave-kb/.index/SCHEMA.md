@@ -17,8 +17,8 @@ Every file here is regeneratable from those canonical sources via `make refresh-
 
 | File | Records | Sort key | Purpose |
 |---|---|---|---|
-| `claims.jsonl` | one per claim-quality entry | `id` | Canonical claim graph nodes with metadata |
-| `depends-on.jsonl` | one per forward dependency edge | `(source, target)` | "What does X depend on?" / "What depends on Y?" |
+| `claims.jsonl` | one per graph node (claim / invariant / axiom) | `(node_type, id)` | Canonical graph nodes — claims plus framework nodes |
+| `depends-on.jsonl` | one per forward dependency edge | `(source, target, context)` | "What does X depend on?" / "What depends on Y?" |
 | `strengthen-by.jsonl` | one per open work item | `(claim_id, item_idx)` | "What gates this claim?" / "Where is this strengthen-by item being worked on?" |
 | `cites.jsonl` | one per (claim, leaf) citation edge | `(claim_id, leaf_path)` | "Which leaves cite claim X?" (inverse of leaf frontmatter) |
 | `subtree-aggregates.jsonl` | one per index / entry-point node | `node_path` | Precomputed subtree-claims aggregation |
@@ -34,7 +34,7 @@ These hold across every regeneration. They are checked by `personant verify`-sty
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
 3. **Schema closure.** Every record matches the schema in this document. Unknown fields are a hard verifier failure (catches drift between schema and emitter).
-4. **Referential integrity.** Every claim ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` exists as a record in `claims.jsonl`. (Orphan check is a verifier failure.)
+4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim **and** framework nodes. A `depends-on` edge's `target` may resolve to any node type, and its `target_kind` must equal the resolved record's `node_type` (kind-match). `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference claim ids only. (Orphan or kind-mismatch is a verifier failure.)
 5. **Single newline EOF.** Every file ends with exactly one `\n`. (Catches editor mishaps and trailing-whitespace creep.)
 6. **JSON valid.** Every line parses as a JSON object. (Catches partial writes and merge corruption.)
 
@@ -46,10 +46,13 @@ All field types are JSON types: `string`, `number` (float), `integer`, `boolean`
 
 ### `claims.jsonl`
 
-One record per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files.
+Despite the name, `claims.jsonl` holds **three node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`. The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
+
+**Claim record** (`node_type: "claim"`) — `node_type` is the new FIRST field; the 12 pre-existing fields are unchanged. 13 fields total.
 
 ```typescript
 {
+  node_type: "claim",            // discriminator — always "claim" here
   id: string,                    // clm-[a-z0-9]{6}; primary key
   title: string,                 // text from the ## heading containing this id
   canonical_path: string,        // e.g. "vol1/claim-quality.md"
@@ -65,7 +68,28 @@ One record per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quali
 }
 ```
 
-Field order in emitted JSON: `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+
+**Framework record** (`node_type: "invariant"` or `"axiom"`) — exactly 5 fields. Framework nodes carry no scoring fields: they are **solidity-1.0 by definition** (framework bedrock). This is a documented rule, not a stored field.
+
+```typescript
+{
+  node_type: "invariant" | "axiom",
+  id: string,                    // "INVARIANT-XX" verbatim, or "axiom-N" lowercase (N in 1..4)
+  title: string,                 // invariant heading title, or axiom bold-text title
+  canonical_path: "CLAUDE.md",   // always — framework nodes live in CLAUDE.md
+  canonical_anchor: string       // GitHub-style slug (see provenance below)
+}
+```
+
+Framework field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`.
+
+**Framework-node provenance** (from `manuscript/ave-kb/CLAUDE.md`):
+
+- **Invariants** (18) — parsed from `### INVARIANT-XX: <title>` headings (regex `^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$`). `id` is the label verbatim; `canonical_anchor` is the slug of the node's own heading. `INVARIANT-S6` (the subsumed-into-S5 tombstone) is a real heading and is included so a reference to it resolves.
+- **Axioms** (4) — parsed from the `- Axiom N: **<title>** — ...` bullets in the INVARIANT-S2 section (regex `^- Axiom ([1-4]): \*\*(.+?)\*\*`). `id` is `axiom-N` lowercase; `title` is the bold text. All four axioms point at the slug of the `### INVARIANT-S2: AVE Axiom numbering` heading — the KB's axiom-numbering authority.
+
+**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then invariants.
 
 **`build_band` derivation** (mechanical, from solidity):
 
@@ -83,26 +107,31 @@ This mirrors the build-status legend in the root `claim-quality.md` and provides
 
 ### `depends-on.jsonl`
 
-One record per forward dependency edge. An entry's Quality `depends-on:` list with non-placeholder entries produces one edge per listed claim ID.
+One record per forward dependency edge. A `source` is always a claim id. A `target` may be a claim id **or** a framework node id (invariant / axiom) — `target_kind` discriminates.
 
 ```typescript
 {
   source: string,                          // claim id (depender)
-  target: string,                          // claim id (dependee)
-  target_solidity_recorded: number | null, // solidity value as written in the depends-on line, or null
-  context: string | null                   // optional bracketed/parenthesized context note from depends-on line
+  target: string,                          // dependee node id (claim / invariant / axiom)
+  target_kind: "claim" | "invariant" | "axiom",  // node type of the target
+  target_solidity_recorded: number | null, // solidity as written in the line; null for framework targets
+  context: string | null                   // optional context note from the depends-on line
 }
 ```
 
-Field order: `source`, `target`, `target_solidity_recorded`, `context`.
+Field order: `source`, `target`, `target_kind`, `target_solidity_recorded`, `context`.
 
-**Non-edges:** Quality sections may contain a placeholder line like `- *(none entry-local — ...)*`. These are recognized by the leading asterisk + italic marker and produce zero edges (not a record with `target: null`).
+**Bullet-head extraction.** A depends-on bullet's dependency target(s) live in its *head*, not its title/context. The head is the bullet text after the leading `- `, truncated at the EARLIER of: the first ` — ` (em-dash title separator) or the first ` (` (paren). The head is scanned for ALL recognized target tokens, emitting **one edge per token**:
 
-**Context extraction:** the depends-on line format is roughly:
-```
-- <id> — <Title> (solidity <num>) [<optional context>]
-```
-The bracketed `[<context>]` (if present) is captured into `context`; the title text is for human readability and not separately captured (it's available in `claims.jsonl` via the target id).
+- `\bclm-[a-z0-9]{6}\b` → `target_kind: "claim"`; `target_solidity_recorded` parsed from a `(solidity <num>)` group; `context` from a trailing `[...]` group (an `[= ...]` arithmetic annotation is skipped).
+- `\bINVARIANT-[A-Z]+[0-9]+\b` → `target_kind: "invariant"`, `target` the label verbatim, `target_solidity_recorded: null`; `context` from the bullet's first `(...)` paren content.
+- `\bAxiom [1-4]\b` → `target_kind: "axiom"`, `target` normalized to `axiom-N` lowercase, `target_solidity_recorded: null`; `context` from the first `(...)` paren content.
+
+A normal claim bullet `- clm-unk0bd — Title (solidity 0.4)` has head `clm-unk0bd` → one claim edge. A framework bullet `- INVARIANT-S2 / Axiom 4 (saturation kernel — ...)` has head `INVARIANT-S2 / Axiom 4` → two edges (invariant + axiom), both carrying the paren content as context.
+
+**Non-edges:** Quality sections may contain a placeholder line like `- *(none entry-local — ...)*`. These are recognized by the leading asterisk + italic marker and produce zero edges. A bullet whose head contains no recognized token also produces zero edges — e.g. `- none entry-local — Axiom 4 is framework input...` has head `none entry-local`; the `Axiom 4` after the em-dash is explanatory text, not a target, and is not scanned.
+
+**Sort key.** `(source, target, context)` — a null context sorts as the empty string. The context component keeps two edges from the same source to the same target (e.g. an `INVARIANT-S2` dependency declared in two separate bullets with different context notes) deterministically ordered.
 
 ### `strengthen-by.jsonl`
 
@@ -168,9 +197,10 @@ from ave.kb import index
 idx = index.load()                    # default: $REPO/manuscript/ave-kb/.index/
 idx = index.load(path="...")          # explicit path override
 
-# Forward dependency edges
-idx.depends_on("clm-0ktpcn")              # → list[str] of target claim ids
+# Forward dependency edges (work for any node id, including framework ids)
+idx.depends_on("clm-0ktpcn")              # → list[str] of target node ids
 idx.dependents_of("clm-unk0bd")           # → list[str] of source claim ids (inverse)
+idx.dependents_of("INVARIANT-S2")         # → claims that break if this invariant changes
 
 # Open work
 idx.strengthen_by("clm-trf3bd")           # → list[StrengthenByItem]
@@ -189,10 +219,13 @@ idx.solidity_below(0.7)               # → list[Claim] with solidity < threshol
 idx.in_band("do-not-build")           # → list[Claim] in given build_band
 
 # Lookup
-idx.claim("clm-trf3bd")                   # → Claim | None
+idx.claim("clm-trf3bd")                   # → Claim | None (None for framework ids)
+idx.node("INVARIANT-S2")                  # → Claim | FrameworkNode | None (any node type)
 ```
 
-Record types (`Claim`, `CitationEdge`, `StrengthenByItem`, etc.) are simple dataclasses (or NamedTuples) constructed from the JSONL records on load. The module favors plain Python types over heavy abstractions.
+`claim()` resolves claim ids only — it returns `None` for an invariant or axiom id. `node()` resolves any node type. The filter queries `solidity_below`, `in_band`, and `all_claims` operate on claim nodes only (framework nodes have no scoring fields); `framework_nodes` and `all_nodes` expose the framework subset and the full node set respectively.
+
+Record types (`Claim`, `FrameworkNode`, `CitationEdge`, `StrengthenByItem`, etc.) are simple dataclasses constructed from the JSONL records on load. `claims.jsonl` is loaded as a type-tagged union: each record is dispatched on its `node_type` to a `Claim` or a `FrameworkNode`. The module favors plain Python types over heavy abstractions.
 
 **Performance budget:** at current KB scale (~200 claim entries, ~400 leaves), full load + every-query is well under 10 ms cold; subsequent queries against the loaded in-memory structures are microseconds. No need for caching/lazy-loading at this scale.
 

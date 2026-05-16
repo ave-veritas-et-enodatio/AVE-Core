@@ -28,10 +28,11 @@ Eleven checks, all hard fail-loud:
    10. Index freshness: each ``.index/*.jsonl`` matches the canonical
        byte-for-byte serialization of the in-memory record set built from
        the canonical KB sources. (refresh-fixable.)
-   11. Index referential integrity: every claim id referenced in
-       depends-on / strengthen-by / cites / subtree-aggregates appears as
-       a record in claims.jsonl. (Not refresh-fixable; symptom of a build
-       bug.)
+   11. Index referential integrity: every id referenced in depends-on /
+       strengthen-by / cites / subtree-aggregates resolves to a record in
+       claims.jsonl (which holds claim + framework nodes), and every
+       depends-on edge's target_kind matches the resolved node's node_type.
+       (Not refresh-fixable; symptom of a build bug.)
 
 Failure categories are tagged refresh-fixable or manual-fix. If any
 refresh-fixable failures are present, the report ends with a hint to run
@@ -335,11 +336,21 @@ def check_index_fresh(index_dir: Path):
 
 
 def check_index_referential_integrity(index_dir: Path):
-    """Every claim id in any non-claims index file must appear in claims.jsonl.
+    """Every id referenced in any non-claims index file resolves in claims.jsonl.
 
-    Returns a list of (short_name, claim_id, location) tuples for orphan
-    references. NOT refresh-fixable; indicates a build bug (refresh should
-    never emit an orphan).
+    With framework nodes (Push 2), ``claims.jsonl`` is a type-tagged union of
+    ``claim`` / ``invariant`` / ``axiom`` nodes. This check spans all three:
+
+    * ``depends-on`` ``source`` must resolve to a record (it is always a
+      claim); ``target`` must resolve to a record AND its ``target_kind``
+      must equal the resolved record's ``node_type``.
+    * ``strengthen-by`` / ``cites`` ``claim_id`` and ``subtree-aggregates``
+      ``subtree_claims`` ids must each resolve to a record. (These reference
+      claim ids only, which are a subset of the node id space.)
+
+    Returns a list of (short_name, id, location) tuples for orphan or
+    kind-mismatched references. NOT refresh-fixable; indicates a build bug
+    (refresh should never emit one).
 
     Skipped silently if claims.jsonl is missing or malformed — the
     well-formed check surfaces that.
@@ -348,14 +359,16 @@ def check_index_referential_integrity(index_dir: Path):
     if not claims_path.exists():
         return []
     try:
-        canonical = {
-            json.loads(ln)["id"]
-            for ln in claims_path.read_text(encoding="utf-8").split("\n")
-            if ln
-        }
+        node_type_by_id: dict[str, str] = {}
+        for ln in claims_path.read_text(encoding="utf-8").split("\n"):
+            if not ln:
+                continue
+            rec = json.loads(ln)
+            node_type_by_id[rec["id"]] = rec.get("node_type", "claim")
     except (json.JSONDecodeError, KeyError):
         return []
 
+    canonical = set(node_type_by_id)
     violations: list[tuple[str, str, str]] = []
 
     def _check_lines(short: str, key_funcs):
@@ -396,6 +409,33 @@ def check_index_referential_integrity(index_dir: Path):
         "subtree-aggregates",
         [("subtree_claims", lambda r: list(r.get("subtree_claims") or []))],
     )
+
+    # depends-on kind-match: a resolved target's node_type must equal the
+    # edge's declared target_kind.
+    dep_path = index_dir / "depends-on.jsonl"
+    if dep_path.exists():
+        for lineno, line in enumerate(
+            dep_path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            target = rec.get("target")
+            kind = rec.get("target_kind")
+            if target and target in node_type_by_id:
+                resolved = node_type_by_id[target]
+                if kind != resolved:
+                    violations.append(
+                        (
+                            "depends-on",
+                            target,
+                            f"line {lineno}, target_kind {kind!r} != "
+                            f"node_type {resolved!r}",
+                        )
+                    )
 
     return violations
 
@@ -454,9 +494,16 @@ def main(argv: list[str] | None = None) -> int:
 
     # Index summary line — counts come from the canonical (expected) record
     # set so the line is meaningful even when on-disk files are stale.
+    # claims.jsonl is a type-tagged union; report the node-type breakdown.
+    node_type_counts = Counter(
+        rec.get("node_type", "claim") for rec in expected_records["claims"]
+    )
     print(
         f"[index] {len(INDEX_FILES)} JSONL files "
-        f"({len(expected_records['claims'])} claims, "
+        f"({len(expected_records['claims'])} nodes: "
+        f"{node_type_counts.get('claim', 0)} claims / "
+        f"{node_type_counts.get('invariant', 0)} invariants / "
+        f"{node_type_counts.get('axiom', 0)} axioms, "
         f"{len(expected_records['depends-on'])} depends-on, "
         f"{len(expected_records['strengthen-by'])} strengthen-by, "
         f"{len(expected_records['cites'])} citations, "

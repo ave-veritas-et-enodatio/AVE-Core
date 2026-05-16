@@ -126,6 +126,136 @@ class TestParseClaimQualityFile(unittest.TestCase):
         )
 
 
+class TestParseFrameworkNodes(unittest.TestCase):
+    """parse_framework_nodes against the real CLAUDE.md."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.nodes = lib.parse_framework_nodes(_KB_ROOT)
+        cls.by_id = {n.id: n for n in cls.nodes}
+
+    def test_eighteen_invariants(self):
+        invariants = [n for n in self.nodes if n.node_type == "invariant"]
+        self.assertEqual(len(invariants), 18)
+
+    def test_four_axioms(self):
+        axioms = [n for n in self.nodes if n.node_type == "axiom"]
+        self.assertEqual(len(axioms), 4)
+        self.assertEqual(
+            sorted(a.id for a in axioms),
+            ["axiom-1", "axiom-2", "axiom-3", "axiom-4"],
+        )
+
+    def test_invariant_s6_tombstone_present(self):
+        # The subsumed S6 heading is still a real heading; a reference must
+        # resolve, so the node must exist.
+        self.assertIn("INVARIANT-S6", self.by_id)
+
+    def test_invariant_anchor_is_own_heading_slug(self):
+        s2 = self.by_id["INVARIANT-S2"]
+        self.assertEqual(s2.canonical_path, "CLAUDE.md")
+        self.assertEqual(s2.canonical_anchor, "invariant-s2-ave-axiom-numbering")
+        self.assertEqual(s2.title, "AVE Axiom numbering")
+
+    def test_axiom_titles_and_shared_anchor(self):
+        # All four axioms point at the INVARIANT-S2 heading slug.
+        s2_anchor = self.by_id["INVARIANT-S2"].canonical_anchor
+        self.assertEqual(self.by_id["axiom-1"].title, "Impedance")
+        self.assertEqual(self.by_id["axiom-2"].title, "Fine Structure")
+        self.assertEqual(self.by_id["axiom-3"].title, "Gravity")
+        self.assertEqual(
+            self.by_id["axiom-4"].title, "Universal Saturation Kernel"
+        )
+        for num in (1, 2, 3, 4):
+            self.assertEqual(
+                self.by_id[f"axiom-{num}"].canonical_anchor, s2_anchor
+            )
+            self.assertEqual(self.by_id[f"axiom-{num}"].canonical_path, "CLAUDE.md")
+
+
+class TestDependsOnFrameworkEdges(unittest.TestCase):
+    """Head-extraction depends-on parser: framework targets and multi-token."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.records = lib.build_depends_on_records(cls.state)
+
+    def test_total_edge_count(self):
+        self.assertEqual(len(self.records), 40)
+
+    def test_claim_edge_count_unchanged(self):
+        claim_edges = [r for r in self.records if r["target_kind"] == "claim"]
+        self.assertEqual(len(claim_edges), 33)
+
+    def test_framework_edge_count(self):
+        fw = [r for r in self.records if r["target_kind"] != "claim"]
+        self.assertEqual(len(fw), 7)
+
+    def test_target_kind_matches_target_shape(self):
+        for r in self.records:
+            kind = r["target_kind"]
+            target = r["target"]
+            if kind == "claim":
+                self.assertTrue(target.startswith("clm-"))
+            elif kind == "invariant":
+                self.assertTrue(target.startswith("INVARIANT-"))
+            elif kind == "axiom":
+                self.assertTrue(target.startswith("axiom-"))
+            else:
+                self.fail(f"unexpected target_kind {kind!r}")
+
+    def test_framework_targets_have_null_solidity(self):
+        for r in self.records:
+            if r["target_kind"] != "claim":
+                self.assertIsNone(r["target_solidity_recorded"])
+
+    def test_double_invariant_s2_edges_from_vol2_owner(self):
+        # The vol2 claim-quality entry declares INVARIANT-S2 via two separate
+        # bullets with different context — both edge records must survive.
+        s2_edges = [
+            r
+            for r in self.records
+            if r["target"] == "INVARIANT-S2"
+            and r["source"] == "clm-h9aqmt"
+        ]
+        self.assertEqual(len(s2_edges), 2)
+        contexts = sorted(r["context"] or "" for r in s2_edges)
+        self.assertEqual(len(set(contexts)), 2, "expected two distinct contexts")
+
+    def test_sorted_by_source_target_context(self):
+        keys = [
+            (r["source"], r["target"], r["context"] or "") for r in self.records
+        ]
+        self.assertEqual(keys, sorted(keys))
+
+    def test_non_token_none_line_yields_zero_edges(self):
+        # `- none entry-local — Axiom 4 is framework input...` — the head is
+        # `none entry-local` (truncated at the em-dash), no recognized token.
+        line = (
+            "  - none entry-local — Axiom 4 is framework input; the "
+            "case identification is structural"
+        )
+        edges = lib._parse_depends_on_line(line, "clm-test01")
+        self.assertEqual(edges, [])
+
+    def test_multi_token_bullet_yields_one_edge_per_token(self):
+        line = "  - INVARIANT-S2 / Axiom 4 (saturation kernel — for the sketch)"
+        edges = lib._parse_depends_on_line(line, "clm-test01")
+        kinds = sorted(e.target_kind for e in edges)
+        self.assertEqual(kinds, ["axiom", "invariant"])
+        for e in edges:
+            self.assertEqual(e.context, "saturation kernel — for the sketch")
+
+    def test_plain_claim_bullet_yields_one_claim_edge(self):
+        line = "  - clm-unk0bd — Some Title (solidity 0.4)"
+        edges = lib._parse_depends_on_line(line, "clm-test01")
+        self.assertEqual(len(edges), 1)
+        self.assertEqual(edges[0].target, "clm-unk0bd")
+        self.assertEqual(edges[0].target_kind, "claim")
+        self.assertEqual(edges[0].target_solidity_recorded, 0.4)
+
+
 class TestParseLeaf(unittest.TestCase):
     """parse_leaf against real KB leaves."""
 
@@ -203,37 +333,19 @@ class TestKnownIdFiltering(unittest.TestCase):
     only ever a real ID candidate, never an incidental prose word.
     """
 
-    def test_invariant_targeting_depends_on_yields_zero_edges(self):
-        """INVARIANT-targeting depends-on bullets produce zero edges.
-
-        Some depends-on bullets reference INVARIANT labels / Axioms in prose
-        (e.g. claim ``clm-h9aqmt``'s bullets cite "INVARIANT-S2 / Axiom 1"
-        and "Axiom 4 (saturation kernel ...)"). Those bullets contain no
-        `clm-`-prefixed token, so the exact ID regex matches nothing and the
-        bullet yields no depends-on edge — with no diagnostic, because there
-        is no `clm-`-shaped candidate to reject.
-        """
-        buf = io.StringIO()
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=buf)
-        by_id = {entry.id: entry for entry in state.claim_entries}
-        h9aqmt = by_id.get("clm-h9aqmt")
-        self.assertIsNotNone(h9aqmt, "expected clm-h9aqmt in the KB")
-        # Its depends-on bullets are all INVARIANT/Axiom prose — zero edges.
-        self.assertEqual(h9aqmt.depends_on, ())
-
-    def test_depends_on_targets_are_all_canonical(self):
-        """No depends-on target may sit outside the canonical claim ID set."""
+    def test_depends_on_claim_targets_are_all_canonical(self):
+        """Every ``claim``-kind depends-on target is a canonical claim ID."""
         state = lib.discover_kb(_KB_ROOT, diagnostic_stream=io.StringIO())
         canonical = {entry.id for entry in state.claim_entries}
         offenders: list[tuple[str, str]] = []
         for entry in state.claim_entries:
             for edge in entry.depends_on:
-                if edge.target not in canonical:
+                if edge.target_kind == "claim" and edge.target not in canonical:
                     offenders.append((edge.source, edge.target))
         self.assertEqual(
             offenders,
             [],
-            f"depends-on edges with non-claim targets: {offenders}",
+            f"depends-on claim edges with non-claim targets: {offenders}",
         )
 
     def test_strengthen_by_mentioned_ids_only_real_ids(self):
@@ -284,15 +396,29 @@ class TestBuildClaimsRecords(unittest.TestCase):
         cls.records = lib.build_claims_records(cls.state)
         cls.by_id = {r["id"]: r for r in cls.records}
 
-    def test_length_matches_state(self):
-        self.assertEqual(len(self.records), len(self.state.claim_entries))
+    def test_length_is_union_of_all_node_types(self):
+        # claims.jsonl is a type-tagged union: claims + framework nodes.
+        self.assertEqual(
+            len(self.records),
+            len(self.state.claim_entries) + len(self.state.framework_nodes),
+        )
 
-    def test_sorted_by_id(self):
-        ids = [r["id"] for r in self.records]
-        self.assertEqual(ids, sorted(ids))
+    def test_node_type_distribution(self):
+        from collections import Counter
 
-    def test_documented_key_order(self):
+        counts = Counter(r["node_type"] for r in self.records)
+        self.assertEqual(counts["claim"], 199)
+        self.assertEqual(counts["invariant"], 18)
+        self.assertEqual(counts["axiom"], 4)
+        self.assertEqual(len(self.records), 221)
+
+    def test_sorted_by_node_type_then_id(self):
+        keys = [(r["node_type"], r["id"]) for r in self.records]
+        self.assertEqual(keys, sorted(keys))
+
+    def test_claim_record_documented_key_order(self):
         expected_keys = [
+            "node_type",
             "id",
             "title",
             "canonical_path",
@@ -306,8 +432,24 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "strengthen_by_count",
             "citation_count",
         ]
-        for rec in self.records:
+        claim_recs = [r for r in self.records if r["node_type"] == "claim"]
+        self.assertEqual(len(claim_recs), 199)
+        for rec in claim_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
+
+    def test_framework_record_has_exactly_five_fields(self):
+        expected_keys = [
+            "node_type",
+            "id",
+            "title",
+            "canonical_path",
+            "canonical_anchor",
+        ]
+        fw_recs = [r for r in self.records if r["node_type"] != "claim"]
+        self.assertEqual(len(fw_recs), 22)
+        for rec in fw_recs:
+            self.assertEqual(list(rec.keys()), expected_keys)
+            self.assertEqual(rec["canonical_path"], "CLAUDE.md")
 
     def test_build_band_derived(self):
         # clm-trf3bd has solidity 0.75 -> ok-with-caveats

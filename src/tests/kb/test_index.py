@@ -21,7 +21,7 @@ import unittest
 from pathlib import Path
 
 from ave.kb import index as kb_index
-from ave.kb.index import CitationEdge, Claim, StrengthenByItem
+from ave.kb.index import CitationEdge, Claim, FrameworkNode, StrengthenByItem
 
 
 def _repo_root() -> Path:
@@ -170,10 +170,60 @@ class TestQueries(unittest.TestCase):
     def test_stats(self) -> None:
         s = self.idx.stats
         self.assertEqual(s["claims"], 199)
-        self.assertEqual(s["depends_on_edges"], 33)
+        self.assertEqual(s["invariants"], 18)
+        self.assertEqual(s["axioms"], 4)
+        self.assertEqual(s["depends_on_edges"], 40)
         self.assertEqual(s["strengthen_by_items"], 259)
         self.assertEqual(s["citation_edges"], 621)
         self.assertEqual(s["subtree_aggregates"], 111)
+
+    # ---- Framework nodes -----------------------------------------------
+
+    def test_node_resolves_invariant(self) -> None:
+        node = self.idx.node("INVARIANT-S2")
+        self.assertIsNotNone(node)
+        assert node is not None
+        self.assertIsInstance(node, FrameworkNode)
+        self.assertEqual(node.node_type, "invariant")
+        self.assertEqual(node.canonical_path, "CLAUDE.md")
+
+    def test_node_resolves_axiom(self) -> None:
+        node = self.idx.node("axiom-4")
+        self.assertIsNotNone(node)
+        assert node is not None
+        self.assertIsInstance(node, FrameworkNode)
+        self.assertEqual(node.node_type, "axiom")
+
+    def test_node_resolves_claim(self) -> None:
+        node = self.idx.node("clm-trf3bd")
+        self.assertIsInstance(node, Claim)
+
+    def test_claim_returns_none_for_framework_id(self) -> None:
+        # claim() is claim-scoped; a framework id is not a claim.
+        self.assertIsNone(self.idx.claim("INVARIANT-S2"))
+        self.assertIsNone(self.idx.claim("axiom-4"))
+        # node() still resolves them.
+        self.assertIsNotNone(self.idx.node("INVARIANT-S2"))
+
+    def test_dependents_of_framework_node(self) -> None:
+        # The "which claims break if this invariant changes" query.
+        dependents = self.idx.dependents_of("INVARIANT-S2")
+        self.assertTrue(dependents, "expected INVARIANT-S2 to have dependents")
+        self.assertIn("clm-h9aqmt", dependents)
+
+    def test_framework_nodes_accessor(self) -> None:
+        fw = self.idx.framework_nodes
+        self.assertEqual(len(fw), 22)
+        kinds = {n.node_type for n in fw}
+        self.assertEqual(kinds, {"invariant", "axiom"})
+
+    def test_all_nodes_is_full_union(self) -> None:
+        self.assertEqual(len(self.idx.all_nodes), 221)
+
+    def test_all_claims_excludes_framework(self) -> None:
+        self.assertEqual(len(self.idx.all_claims), 199)
+        for c in self.idx.all_claims:
+            self.assertEqual(c.node_type, "claim")
 
 
 class TestCli(unittest.TestCase):
@@ -233,6 +283,25 @@ class TestCli(unittest.TestCase):
         proc = self._run("stats")
         self.assertIn("claims:", proc.stdout)
         self.assertIn("199", proc.stdout)
+        self.assertIn("invariants:", proc.stdout)
+        self.assertIn("axioms:", proc.stdout)
+
+    def test_show_invariant(self) -> None:
+        proc = self._run("show", "INVARIANT-S2")
+        self.assertIn("node_type: invariant", proc.stdout)
+        self.assertIn("AVE Axiom numbering", proc.stdout)
+        self.assertIn("CLAUDE.md", proc.stdout)
+        # Framework records have no scoring fields.
+        self.assertNotIn("build_band", proc.stdout)
+
+    def test_show_axiom(self) -> None:
+        proc = self._run("show", "axiom-4")
+        self.assertIn("node_type: axiom", proc.stdout)
+        self.assertIn("Universal Saturation Kernel", proc.stdout)
+
+    def test_deps_inverse_invariant(self) -> None:
+        proc = self._run("deps", "-i", "INVARIANT-S2")
+        self.assertIn("clm-h9aqmt", proc.stdout)
 
     def test_json_parses(self) -> None:
         proc = self._run("solidity-below", "0.5", "--json")
