@@ -24,6 +24,23 @@ Axiom mapping (plan §"Axiom compliance map"):
   • Axiom 4 (saturation)          — W_refl IS the Axiom-4 operator; coupling
         is its V²-weighted spatial structure.
 
+A-034 + Q-G47 Sessions 9-18 context (2026-05-15 evening):
+This coupled simulator implements the substrate-scale instance of A-034
+(Universal Saturation-Kernel Strain-Snap Mechanism). The K4 ⊗ Cosserat
+coupling structure IS the substrate's "frozen at K=2G operating point"
+configuration; magic-angle K(u_0*) = 2G(u_0*) IS the substrate-scale
+expression of S(A*) = 0. Coupling moduli per Q-G47 Session 17:
+  μ + κ = ξ_K1 · T_EM         (Cosserat micropolar, [Pa])
+  β + γ = ξ_K2 · T_EM · ℓ_node²    (couple-stress, [N])
+  ξ_K2 / ξ_K1 = 12            (K4-symmetry-forced, |T|=12 orbit, Session 13)
+
+NAMESPACE: ξ_K1, ξ_K2 SUBSTRATE-scale O(1) — NOT Vol 3 Ch 1's Machian ξ
+(~10⁴³, cosmological; same letter, different scope). Disambiguated in
+ave-kb/common/xi-topo-traceability.md.
+
+Cross-refs: research/L5/axiom_derivation_status.md (A-032, A-034);
+AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md.
+
 Usage:
     sim = CoupledK4Cosserat(N=48, pml=6)
     # Drive the K4 sector with a wave source (see photon_propagation.PlaneSource)

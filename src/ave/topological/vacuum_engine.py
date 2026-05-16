@@ -68,6 +68,26 @@ Unit conventions
                                     (= √α·V_SNAP ≈ 43.65 kV SI; Regime II onset).
                                     Converted internally via √α.
 
+A-034 + Q-G47 framework context (2026-05-15 evening)
+----------------------------------------------------
+This engine instantiates the substrate-scale instance of A-034 (Universal
+Saturation-Kernel Strain-Snap Mechanism). The Axiom-4 saturation kernel
+S(A) = √(1−A²) is the universal mechanism governing every topological-
+reorganization event at every scale (19-instance catalog spanning 21 orders
+of magnitude). At substrate scale, the K4 magic-angle K(u_0*) = 2G(u_0*)
+IS the substrate-scale expression of S(A*) = 0 — the substrate is
+"frozen at the saturation boundary" where bound-state solitons stabilize.
+
+`AutoresonantCWSource` implements the phased-array PLL autoresonant mode
+of the A-034 measurement-hierarchy framing (per Grant 2026-05-15: "phased
+array creates a standing wave if PLL/autoresonant"). Same mechanism as
+Propulsion Ch 5 autoresonant rupture, applied to coherent kernel
+amplification rather than energy delivery.
+
+Cross-refs: research/L5/axiom_derivation_status.md (A-032 + A-034);
+backmatter/07_universal_saturation_kernel.tex (catalog);
+research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_*.md.
+
 Physics parameters (S-gate resolutions 2026-04-22)
 --------------------------------------------------
 - S1 = D: coupling form `(V²/V_SNAP²) · W_refl(u, ω)` — pure Axiom-4 reuse
