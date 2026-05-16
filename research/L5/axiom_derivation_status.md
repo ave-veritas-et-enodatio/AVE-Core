@@ -59,7 +59,7 @@ This is the third tracker file: complement to `manuscript_pending.md` (LaTeX/KB 
 
 ### A-003 — Axiom 5 candidates surfaced (none accepted)
 
-- **Current corpus status:** four axioms only. Ax 1 (Substrate Topology / LC Resonant Network), Ax 2 (Topo-Kinematic Isomorphism / [Q]≡[L]), Ax 3 (Effective Action Principle / Least Reflected Action), Ax 4 (Dielectric Saturation / Born-Infeld squared-limit kernel).
+- **Current corpus status:** four axioms only. Ax 1 (Substrate Topology / Chiral Laves K4 Cosserat Crystal; legacy names: LC Resonant Network, Chiral Laves K4 Crystal), Ax 2 (Topo-Kinematic Isomorphism / [Q]≡[L]), Ax 3 (Minimum Reflection Principle; legacy aliases: Effective Action Principle, Least Reflected Action), Ax 4 (Dielectric Saturation / Born-Infeld squared-limit kernel; A-034 universality at 19-instance catalog spanning 21 orders of magnitude).
 - **Audited status:** **multiple research-doc-level Ax5 candidates surfaced; none accepted, all awaiting Grant adjudication.**
   - **Ax5-cand-A: pre-genesis-plasma axiomatics** (Flag G in doc 59_ §5.4) — current Ax 1-4 don't axiomatize the pre-genesis plasma from which the lattice crystallized. Would underwrite Grant's lattice-genesis cosmology.
   - **Ax5-cand-B: BH first-law closure** (per A-002 above) — accept S_thermodynamic as new AVE quantity distinct from Ŝ_geometric, with axiomatic relationship to first law. Would close T·dS = dE.
@@ -1414,7 +1414,21 @@ The canonical names are deliberately chosen to be substrate-native (relational, 
 
 ## Closed entries
 
-*(Empty — no axiom-or-derivation question has been resolved yet.)*
+The following A-NNN entries have been resolved to canonical status. Each is preserved in-place above with `**Resolved:**` annotation; this index is the at-a-glance closure ledger.
+
+- **A-016** (closed 2026-04-30) — applied at commit `34b7fe1`
+- **A-018** (closed 2026-04-30) — applied
+- **A-022** (closed 2026-04-30) — applied
+- **A-024** (canonical 2026-04-30 / 2026-05-01) — electron-is-unknot canonical; KB leaf `manuscript/ave-kb/vol1/ch8-alpha-golden-torus.md` reflects canonical state
+- **A-026** (canonical 2026-05-14) — Substrate-observability rule; KB leaf `manuscript/ave-kb/common/boundary-observables-m-q-j.md`
+- **A-027** (canonical 2026-05-14) — Two-engine architecture (K4-TLM sub-saturation + Master Equation FDTD bound-state); KB leaf `manuscript/ave-kb/common/two-engine-architecture-a027.md`
+- **A-028** (canonical 2026-05-14) — Three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ canonical names; KB leaf `manuscript/ave-kb/common/boundary-observables-m-q-j.md`
+- **A-029** (canonical 2026-05-15) — Secondary scale = geometric shared-B-node distance ($r_{\text{secondary}} \approx 1.187\, \ell_{\text{node}}$); KB leaf `manuscript/ave-kb/vol1/axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md`
+- **A-030** (canonical 2026-05-15) — α + G jointly cosmologically anchored through $u_0^*$; KB leaf `manuscript/ave-kb/common/cosmic-parameter-horizon-a031-refinement.md` (subsumes A-030 + A-031 + three-route framework commitment)
+- **A-031 refined** (canonical 2026-05-15 evening) — Cosmic-parameter horizon vs observable mechanism (A-034 mechanism observable at 4 smaller scales; parent-BH parameters inaccessible); KB leaf same as A-030
+- **A-032** (canonical 2026-05-15) — $|T| = 12$ universality via 4 independent K4 routes; KB leaf `manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md`
+- **A-033** (canonical 2026-05-15) — Main hypothesis stands; secondary α-irrep claim FALSIFIED per Q-G47 Session 8; preserved in `manuscript/ave-kb/common/trampoline-framework.md` §4.3
+- **A-034** (canonical 2026-05-15 evening) — Universal Saturation-Kernel Strain-Snap Mechanism; 19-instance catalog at `manuscript/backmatter/07_universal_saturation_kernel.tex`; KB synthesis at `manuscript/ave-kb/common/trampoline-framework.md` §7.5
 
 ---
 

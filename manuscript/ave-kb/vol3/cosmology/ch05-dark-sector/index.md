@@ -23,6 +23,7 @@ Derives the MOND acceleration scale $a_0 = c H_\infty / (2\pi)$ from first princ
 | [McGaugh Empirical RAR](mcgaugh-empirical-rar.md) | Resultbox: empirical RAR interpolation function; asymptotic match to AVE |
 | [Asymptotic Limits and Regime Identification](asymptotic-limits.md) | Deep MOND / Keplerian limits, regime table (I/II/III/IV), physical mechanism |
 | [Multi-Galaxy Validation](multi-galaxy-validation.md) | Five-galaxy catalog, VLBI parallax test, DAMA crystal phonon modulation |
+| [Cosmological Constant Closure ($10^{122}$ improvement on QED)](cosmological-constant-closure.md) | $\rho_\Lambda = 9.03 \times 10^{-27}$ kg/m³ within $\times 1.54$ of Planck-2018 (exact in de Sitter asymptote) via Friedmann/de Sitter applied to corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$; QED's naive ZPE prediction off by $10^{122}$. Largest single quantitative improvement on QED in fundamental physics. |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.
 
