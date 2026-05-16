@@ -845,6 +845,27 @@ Implemented Keating K4 bond (axial $k_a$ + bond-bending $k_\theta$) with sublatt
 
 **Session 16+ targets:** principled determination of $k_\theta/k_a$ (Cauchy 0.15 vs diamond 0.2 vs canonical 1); implement $u_0$ dressing extraction; identify magic-angle $u_0^*$ and compare to A-029 prediction 0.187.
 
+**⚠ CONTINUOUS-FIELD CAVEAT (added 2026-05-15 post-Session-15, per Grant):**
+
+Grant flagged: **the springs in the trampoline analogy are continuous, not discrete**. This collapses how to read Sessions 12-15's discrete-bond framework against the continuous Session 9 framework.
+
+**What's load-bearing (continuous, axiom-level):**
+- The substrate IS a continuous Cosserat micropolar elastic field (Axiom 1)
+- Bending stiffness ($\beta + \gamma$) is a derivative property of the constitutive tensor, NOT an independent "spring" that can be turned off
+- $\chi_K = (\ell_c/d)^2$ (Session 9 canonical) is the right dimensionless quantity, with $\ell_c$ intrinsic and $d$ geometric
+- $|T| = 12$ universality (Session 13) is a symmetry-group result that survives discretization
+
+**What's discretization framing (Sessions 12-15):**
+- "Discrete bonds with stiffnesses $k_a, k_\theta$" = sampling the continuous Cosserat field at K4 lattice points
+- "Central-force unstable, Cosserat stabilizes" = discretized rephrasing of "Cauchy insufficient, Cosserat required"
+- "Keating ratio $k_\theta/k_a$ as remaining free piece" = artifact of discretization; the ratio IS $(\ell_c/d)^2$ from Session 9 in discrete units, hence determined
+
+**Implication for the framework justification:** the "Cosserat forced by K4 stability" argument from Session 14 was a discretized version of "substrate IS Cosserat from Axiom 1". The continuous framing is more direct: AVE's substrate is defined as Cosserat micropolar from the start; the discrete sanity check confirmed (not derived) this choice.
+
+**Session 16 task** (replacing the Session 15-flagged "Keating ratio determination"): compute $\ell_c$ from the substrate's continuous constitutive tensor (in terms of axiom-level quantities $T_{EM}$, $\ell_{\text{node}}$, etc.), form $\ell_c/d$ where $d = \ell_{\text{node}}$, and verify against $u_0^* \approx 0.187$ (A-029). This is the **continuous-field calculation** that Sessions 12-15 approximated.
+
+**Status migration**: A-032's $\chi_K = 12$ identification stays canonical (orbit-size / path-count invariant, symmetry-group result independent of discretization). The Sessions 12-15 discrete numerics survive as sanity-check support, properly read as discretized illustrations of the continuous-field framework, not independent physical regimes.
+
 ### A-033 — Torus-knot labels (p, q) read off K4 tetrahedral symmetry irrep decomposition (structural-hypothesis 2026-05-15 evening; Grant pattern-spotting)
 
 **STRUCTURAL-HYPOTHESIS 2026-05-15 evening** via Grant pattern-spotting following A-032 / Q-G47 Session 6 χ_K = 12 = |T| analysis: *"This feels like it should be where the electron's phase space comes from and what sets how a photon propagates."*
