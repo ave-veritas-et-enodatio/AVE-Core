@@ -69,7 +69,7 @@ The asymmetric-saturation variant ($K_{\text{wedge}} / G_{\text{wedge}} \neq 2$)
 
 ## What this catalog establishes
 
-**Pre-A-034:** each row was treated as a separate framework result — Vol 3 Ch 13 had geomagnetic reversal; Vol 3 Ch 14 had solar flares; Vol 3 Ch 15 had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as "God's Hand" inaccessible.
+**Pre-A-034:** each row was treated as a separate framework result — [Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex) had geomagnetic reversal; [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) had solar flares; [Vol 3 Ch 15 (BH Orbital Resonance)](../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as "God's Hand" inaccessible.
 
 **Post-A-034:** *all 19 rows are the same physics*, with the kernel inherited from Axiom 4 + Axiom 2 (scale invariance) and the phenomenology determined by the local saturation-boundary geometry.
 

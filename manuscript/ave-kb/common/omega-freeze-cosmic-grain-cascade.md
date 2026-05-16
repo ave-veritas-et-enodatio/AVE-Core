@@ -102,7 +102,7 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 
 ## §6 — Tier 3 physical dilemma (for Grant's plumber intuition)
 
-**Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality (I4₁32 right-handed at Axiom 1). Gravity is the macroscopic refractive-index modulation of the substrate (Vol 3 Ch 2-3). Vol 3 Ch 14 currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
+**Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality (I4₁32 right-handed at Axiom 1). Gravity is the macroscopic refractive-index modulation of the substrate ([Vol 3 Ch 2-3](../../vol_3_macroscopic/chapters/)). [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
 
 **The dilemma**: at what order does the substrate's frozen $\Omega_{\text{freeze}}$ chirality leak into the gravitational coupling $G$? Three possible orders, each with a different physical mechanism, each with a different empirical signature:
 
