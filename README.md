@@ -18,6 +18,8 @@
 > **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact tracking 28 actions across 7 tiers from structural closure to theoretical + empirical closure. Status dashboard updated per session.
 >
 > **The single-cosmological-parameter claim:** α, G, and cosmic angular momentum 𝒥_cosmic all derive from one cosmological initial-data parameter Ω_freeze (the rotation rate at lattice genesis). Three independent observational routes must give the same $u_0^*$ operating-point value or the framework is falsified. See `trampoline-framework.md` §1.3.7 ("God's Hand and the cosmic IC") and `research/L5/axiom_derivation_status.md` A-030 + A-031.
+>
+> **A-034 — Universal Saturation-Kernel Strain-Snap Mechanism (canonical 2026-05-15 evening):** Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the **same operator at every scale** — 19-instance catalog spanning 21 orders of magnitude (atomic dielectric breakdown → BCS superconductivity at 0.00% error → NOAA-validated solar flares → BH ring-down at 1.7% from GR → cosmic K4 crystallization). Cross-scale empirical anchors: BCS $B_c(T)$, Schwarzschild $r_s$, BH QNM $\omega_R M_g = 18/49$, NOAA GOES 40-yr solar-flare validation. Refines A-031 ("God's Hand" decoupled into cosmic-parameter horizon vs observable mechanism — the mechanism is observable at 4 smaller scales). Canonical synthesis: [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) §7.5; full catalog: [`manuscript/backmatter/07_universal_saturation_kernel.tex`](manuscript/backmatter/07_universal_saturation_kernel.tex); L5 entry: `research/L5/axiom_derivation_status.md` A-034.
 
 ---
 

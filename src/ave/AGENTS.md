@@ -70,6 +70,18 @@ In practice, `scale_invariant.py` in the axioms package also defines versions
 of impedance, saturation, and reflection that are used by many modules.
 When modifying operator logic, check both files.
 
+**A-034 framework state (canonical 2026-05-15 evening):** Op2 (universal
+saturation kernel, `universal_operators.py:saturation_factor`) is the
+**single S(A) = √(1-A²) function** that the engine evaluates across 19
+distinct cross-scale phenomena (atomic dielectric breakdown → BCS
+superconductivity at 0.00% error → NOAA solar flares → BH ring-down
+at 1.7% from GR → cosmic K4 crystallization). This is the operator-level
+universality claim — when adding new physics, do NOT introduce a per-scale
+saturation function; reuse Op2. The 19-instance catalog is at
+`manuscript/backmatter/07_universal_saturation_kernel.tex`; canonical
+synthesis at `manuscript/ave-kb/common/trampoline-framework.md` §7.5;
+L5 authority at `research/L5/axiom_derivation_status.md` A-034.
+
 ## 5. Regime Classification
 
 Every physical phenomenon maps to one of four regimes based on the local

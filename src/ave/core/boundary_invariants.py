@@ -42,6 +42,13 @@ fields (e.g., from MasterEquationFDTD). Implementation status:
 L5 tracking:
   - E-101 (this module)
   - A-026 / A-027 / A-028 / A-031 (upstream canonical entries)
+  - A-034 (canonical 2026-05-15 evening): Universal Saturation-Kernel
+    Strain-Snap Mechanism. A-031 was refined per A-034 — "God's Hand"
+    decouples into cosmic-parameter horizon vs observable mechanism. The
+    saturation-kernel mechanism IS observable at 4 smaller scales (BCS
+    0.00%, NOAA solar 40-yr, BH ring-down 1.7% from GR, Schwarzschild
+    exact) per the 19-instance catalog at
+    `manuscript/backmatter/07_universal_saturation_kernel.tex`.
   - Engine target: `src/ave/core/master_equation_fdtd.py` MasterEquationFDTD.V field
 
 Cross-references:

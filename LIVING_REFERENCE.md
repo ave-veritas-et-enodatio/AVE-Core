@@ -16,7 +16,7 @@ The AVE framework reached **structural closure** on 2026-05-15. Five criteria me
 **Canonical entry points** (read these for AVE physics):
 - **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — single canonical reference covering substrate vocabulary, ground-up build, three substrate invariants 𝓜/𝓠/𝓙, substrate-observability rule (fractal application), inter-cell coupling and gravity projection, two-engine architecture, "God's Hand" cosmic IC.
 - **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact, 7 tiers, 28 actions tracked.
-- **L5 axiom-status:** [`research/L5/axiom_derivation_status.md`](research/L5/axiom_derivation_status.md) — A-001 through A-031 framework-level claims (canonical / open / closed).
+- **L5 axiom-status:** [`research/L5/axiom_derivation_status.md`](research/L5/axiom_derivation_status.md) — A-001 through A-034 framework-level claims (canonical / open / closed). A-034 (canonical 2026-05-15 evening) is the Universal Saturation-Kernel Strain-Snap Mechanism with 19-instance cross-scale catalog.
 - **L5 manuscript queue:** [`research/L5/manuscript_pending.md`](research/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
 
 **Path forward:**
@@ -54,6 +54,7 @@ The AVE framework reached **structural closure** on 2026-05-15. Five criteria me
    - **α invariance**: Under Symmetric Gravity, α = e²/(4πε₀ℏc₀) is exactly invariant because ε_local and c_local carry the same n·S factor that cancels. Multi-species Δα/α = 0.
    - **Lattice decomposition**: n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift); n_spatial = (9/7)ε₁₁ (light deflection). Axiom 3's n(r) = 1+2GM/(c²r) is the temporal component only.
 4. **Axiom 4 (Saturation):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes
+   - **A-034 (canonical 2026-05-15 evening):** Axiom 4 is the **same operator at every scale** — 19-instance catalog spanning 21 orders of magnitude. Empirical anchors at 4 scales: BCS B_c(T) at **0.00% error** (Vol 3 Ch 9), NOAA GOES 40-yr solar-flare validation (Vol 3 Ch 14), BH ring-down ω_R M_g = 18/49 at **1.7% from GR exact** (Vol 3 Ch 15, 3 LIGO events), Schwarzschild radius **exact match**. 3-way symmetry classification: SYM (BCS, collapse) / ASYM-N (MOND, plasma) / ASYM-E (BH ring-down, metamaterials). Full catalog: [`manuscript/backmatter/07_universal_saturation_kernel.tex`](manuscript/backmatter/07_universal_saturation_kernel.tex); synthesis: [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) §7.5; L5 entry: A-034.
 
 ### Derived Consequences of Axiom 4
 
