@@ -621,6 +621,17 @@ This is too tight to be coincidence. The likely identification: **$\chi_K = 12$ 
 
 **Mathematical equivalence of (1) and (2):** the 12 secondary A-A coupling paths form the orbit of a single path under the $T$ rotation group action. $|T| / |\text{stabilizer}| = 12 / 1 = 12$ (the stabilizer is trivial since no rotation preserves a directed A→B→A' path). Therefore "12 paths" and "$|T| = 12$" name the same invariant from different angles.
 
+**Refined analytical reading (2026-05-15 evening, post-Session-3 §41 review):** Candidate (1) is canonically correct; Candidates (2) and (3) are related but not the right interpretation:
+
+- **Candidate (1) — path-count multiplicity (CANONICAL):** Per Session 3 §41 the K-sector chirality coupling enters via $\chi_3 (\text{tr}\,\epsilon)(\text{tr}\,\kappa)$. For the K4 lattice, this sums over secondary A-A coupling paths through shared B-nodes. With symmetric per-path contribution $\gamma_0$, the focal A picks up $4 \times 3 = 12$ paths × $\gamma_0$:
+$$\Delta K^{(A)}_{\text{Cosserat}} = \sum_{B \in \mathcal{N}(A)} \sum_{A' \in \mathcal{N}(B) \setminus A} \gamma_0 = 12 \gamma_0$$
+
+- **Candidate (2) — rotation group order (NOT canonical):** the group-averaging $\chi_3^{\text{continuum}} = (1/|G|) \sum_g g \cdot \chi_3$ NORMALIZES by $|G| = 12$, so the factor of 12 *cancels*, not contributes. Group order is implicit in the orbit-stabilizer formula for the path count, but doesn't appear directly as a coupling-coefficient factor.
+
+- **Candidate (3) — per-node DOF count (NOT canonical):** $4 \text{ ports} \times 3 \text{ axes} = 12$ is a dimensionality counting (size of the microrotation field per node), not a coupling coefficient. Wrong structural role for $\chi_K$.
+
+**Canonical reading:** $\chi_K = 12$ as the K4 path-count multiplicity = orbit size under $T$ action. The K4 tetrahedral symmetry forces it via $|T| / |\text{stabilizer}| = 12 / 1 = 12$.
+
 **Corroboration from Session 3.** Per `AVE-QED/docs/analysis/2026-05-14_Q-G47_session3_cosserat_couple_stress.md` line 92: *"$n$ is a geometric factor (typically 3, 6, 12, etc., depending on dimensionality and symmetry)."* — Session 3 explicitly flagged 12 as a candidate Cosserat geometric coefficient PRE-this-observation. Session 6's numerical sweep then independently picked out 12 as the value matching the A-029 geometric scale. **Three independent calculations converge on 12.**
 
 **If confirmed (Session 7+ rigorous derivation):**
@@ -638,11 +649,19 @@ This is too tight to be coincidence. The likely identification: **$\chi_K = 12$ 
 | $u_0^*$ depends on 6 unknowns | $u_0^*$ depends on 5 unknowns |
 | Match to A-029 geometric scale is "coefficient-tuning" | Match is **framework-internal consistency check** (two independent K4 geometric invariants give the same $u_0^*$) |
 
-**Falsifier:** Session 7's rigorous derivation of the K4 Cosserat couple-stress modulus must give $\chi_K = 12$ exactly (or within tolerance). Specifically, the per-path coupling strength $\gamma_{\text{per-path}}$ in:
+**Falsifier:** Session 7's rigorous derivation of the K4 Cosserat couple-stress modulus must give $\chi_K = 12$ exactly (or within tolerance) via path-count multiplicity. Specifically, compute the per-path coupling strength $\gamma_{\text{per-path}}$ in:
 
 $$\chi_K = \sum_{\text{paths}} \gamma_{\text{per-path}} = 12 \cdot \gamma_{\text{canonical}}$$
 
-must give $\gamma_{\text{canonical}} = 1$ in the canonical unit-normalization. If Session 7 finds $\chi_K \neq 12$ from first principles, the identification fails and we revisit.
+The verification chain:
+1. Derive $\gamma_{\text{per-path}}$ from the K4 micromechanics of one A→B→A' shared-B-node coupling.
+2. Verify all 12 paths are symmetry-equivalent under $T$ action (so $\gamma_{\text{per-path}} = \gamma_{\text{canonical}}$ for each).
+3. Verify $\gamma_{\text{canonical}} = 1$ in the chosen unit normalization (the Cosserat couple-stress modulus $\mu_c$ provides the natural unit).
+4. Sum: $\chi_K = 12 \cdot 1 = 12$ ✓ (or not, if any step breaks).
+
+If Session 7 finds $\chi_K \neq 12$ from first principles (e.g., paths NOT symmetry-equivalent, or per-path γ ≠ 1 in natural units), the identification fails and we revisit.
+
+**Why this specifically is the load-bearing test:** the 12 is the K4 lattice's INTRINSIC connectivity number at the secondary scale. If $\chi_K$ doesn't pick this up, then the Cosserat K-sector coupling has additional structure beyond what Sessions 1-5 framework captured.
 
 - **Current corpus status:** **structural-hypothesis** as of 2026-05-15 evening. Numerical match observed; rigorous derivation pending Session 7+. Reflected in `AVE-QED/docs/analysis/2026-05-15_Q-G47_session6_unified_KG_equations.md` §5 (numerical proof-of-concept).
 - **Audited status:** **structural-hypothesis; pending Session 7 verification.** Three independent calculations converge on 12 (Session 3 flagged-candidate; Session 6 numerical sweep; A-029 + Grant pattern-spotting). Likely correct but not yet rigorously derived from K4 micromechanics.
