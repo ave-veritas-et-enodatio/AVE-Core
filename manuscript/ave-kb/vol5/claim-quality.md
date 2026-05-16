@@ -20,7 +20,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`, `molecular-foundations/organic-circuitry/mass-to-inductance.md`, `molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C2.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -49,7 +49,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C3.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -77,7 +77,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -103,7 +103,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/batch-spice-20-amino-acids.md`, `molecular-foundations/organic-circuitry/simulation-results-zero-parameter.md`, `molecular-foundations/organic-circuitry/ftir-falsification-test.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -127,7 +127,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/ftir-falsification-test.md`, `molecular-foundations/organic-circuitry/self-consistency-verification.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -154,7 +154,7 @@
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`, `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -180,7 +180,7 @@
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/chignolin-validation.md`, `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md`. External engine: see LIVING_REFERENCE.md "Protein Folding Engine" section.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -206,7 +206,7 @@
 
 > **References:** Bound asserted at invariant level — see [`CLAUDE.md`](../CLAUDE.md) INVARIANT-N4. Supporting context: `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` and `molecular-foundations/biophysics-intro/chignolin-validation.md` (which name $S_{11}$ in the folding-engine context). The functional definition leaves are in the private engine repo (see LIVING_REFERENCE.md "Protein Folding Engine").
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -232,7 +232,7 @@
 
 > **References:** `common/translation-protein-solver.md` (formula appears in tab:trans_protein_solver row "Protein compaction"). Master Prediction Table entry #39 (LIVING_REFERENCE.md). Derivation leaf is in the private `AVE-Protein` engine repository (see LIVING_REFERENCE.md "Protein Folding Engine" section); leaf-level statement is a KB content gap (logged to followups).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -263,7 +263,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `biological-applications/index.md` (status statement), `biological-applications/cancer-impedance-decoupling.md`, `biological-applications/red-light-therapy.md`, `biological-applications/methylene-blue-bridge.md`, `biological-applications/creatine-neural-capacitor.md`, `biological-applications/consciousness-cavity-eigenmode.md`, `biological-applications/emdr-impedance-annealing.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -288,7 +288,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/chiral-fret-parallax.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -311,7 +311,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/chirality-phase-polarity.md`, `common/translation-protein.md` (row "L-amino acid chirality" mapping to "Non-reciprocal waveguide").
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -336,7 +336,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/transceiver-backbone.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -361,7 +361,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/thermal-thz-noise.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -387,7 +387,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/peptide-chain-extension-test.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -415,7 +415,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/amino-acid-impedance-classification.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -444,7 +444,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 
 > **Leaf references:** `molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md`. Companion derivation from the proton-radius side lives in `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` (entry `clm-u4vmgk`).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -469,7 +469,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
 
 > **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md` (regime classification), `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`. Cross-cutting: see [Symmetric vs Asymmetric Saturation](../claim-quality.md).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -480,7 +480,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
 
 ---
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*

@@ -14,7 +14,7 @@ import json
 import sys
 from pathlib import Path
 
-from .index import CitationEdge, Claim, FrameworkNode, Index, StrengthenByItem, load
+from .index import CitationEdge, Claim, FrameworkNode, Index, StrengthenByItem, WeakPoint, load
 
 # ---------------------------------------------------------------------------
 # Exit codes
@@ -88,6 +88,24 @@ def _build_parser() -> argparse.ArgumentParser:
     _add_global_flags(p_show)
     p_show.add_argument("claim_id")
 
+    p_weak = sub.add_parser(
+        "weak-points",
+        help="Highest-leverage claim-rework targets: shaky and load-bearing claims.",
+    )
+    _add_global_flags(p_weak)
+    p_weak.add_argument(
+        "--max-solidity",
+        type=float,
+        default=0.65,
+        help="Only claims with solidity strictly below this count as shaky (default: 0.65).",
+    )
+    p_weak.add_argument(
+        "--min-dependents",
+        type=int,
+        default=1,
+        help="Only claims with at least this many dependents count (default: 1).",
+    )
+
     p_stats = sub.add_parser("stats", help="Counts summary.")
     _add_global_flags(p_stats)
 
@@ -105,6 +123,17 @@ def _claim_to_dict(c: Claim) -> dict:
 
 def _citation_to_dict(e: CitationEdge) -> dict:
     return dataclasses.asdict(e)
+
+
+def _weak_point_to_dict(wp: WeakPoint) -> dict:
+    c = wp.claim
+    return {
+        "id": c.id,
+        "solidity": c.solidity,
+        "build_band": c.build_band,
+        "dependents": wp.dependents,
+        "title": c.title,
+    }
 
 
 def _strengthen_to_dict(it: StrengthenByItem) -> dict:
@@ -211,6 +240,22 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
             _emit(dataclasses.asdict(node), emit_json=True, out=out)
         else:
             print(_format_show_text(node), file=out)
+        return EXIT_OK
+
+    if cmd == "weak-points":
+        weak = idx.weak_points(max_solidity=args.max_solidity, min_dependents=args.min_dependents)
+        if emit_json:
+            _emit([_weak_point_to_dict(wp) for wp in weak], emit_json=True, out=out)
+        else:
+            print(
+                f"# weak points\tmax-solidity<{args.max_solidity}\tmin-dependents>={args.min_dependents}",
+                file=out,
+            )
+            _print_lines(
+                [f"{wp.claim.id}\t{wp.claim.solidity}\t{wp.dependents}\t{wp.claim.title}" for wp in weak],
+                out,
+            )
+            print(f"# ({idx.pending_count} claims pending, excluded)", file=out)
         return EXIT_OK
 
     if cmd == "stats":

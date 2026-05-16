@@ -165,6 +165,49 @@ class TestQueries(unittest.TestCase):
         do_not_build = {c.id for c in self.idx.in_band("do-not-build")}
         self.assertIn("clm-unk0bd", do_not_build)
 
+    # ---- Weak points ----------------------------------------------------
+
+    def test_weak_points_sorted_and_filtered(self) -> None:
+        weak = self.idx.weak_points()
+        # Sort contract: dependents descending, then solidity ascending, then id.
+        prev = (-(1 << 30), -1.0, "")
+        for wp in weak:
+            assert wp.claim.solidity is not None
+            cur = (-wp.dependents, wp.claim.solidity, wp.claim.id)
+            self.assertGreaterEqual(cur, prev)
+            prev = cur
+        # Every record must satisfy both threshold contracts (defaults).
+        for wp in weak:
+            assert wp.claim.solidity is not None
+            self.assertLess(wp.claim.solidity, 0.65)
+            self.assertGreaterEqual(wp.dependents, 1)
+            # dependents is the actual dependent count.
+            self.assertEqual(wp.dependents, len(self.idx.dependents_of(wp.claim.id)))
+
+    def test_weak_points_excludes_pending(self) -> None:
+        # No record may carry a null-solidity (pending) claim.
+        for wp in self.idx.weak_points(max_solidity=1.0, min_dependents=0):
+            self.assertIsNotNone(wp.claim.solidity)
+        # pending_count is the population of unassessed claims.
+        pending = sum(1 for c in self.idx.all_claims if c.solidity is None)
+        self.assertEqual(self.idx.pending_count, pending)
+
+    def test_weak_points_thresholds_filter(self) -> None:
+        # Tightening max_solidity can only shrink (or hold) the result set.
+        loose = self.idx.weak_points(max_solidity=0.65, min_dependents=1)
+        tight = self.idx.weak_points(max_solidity=0.5, min_dependents=1)
+        loose_ids = {wp.claim.id for wp in loose}
+        tight_ids = {wp.claim.id for wp in tight}
+        self.assertTrue(tight_ids.issubset(loose_ids))
+        # Raising min_dependents likewise only shrinks the set.
+        fewer = self.idx.weak_points(max_solidity=0.65, min_dependents=2)
+        self.assertTrue({wp.claim.id for wp in fewer}.issubset(loose_ids))
+
+    def test_weak_points_min_dependents_excludes_orphans(self) -> None:
+        # With min_dependents=1, every record genuinely has a dependent.
+        for wp in self.idx.weak_points(min_dependents=1):
+            self.assertGreater(len(self.idx.dependents_of(wp.claim.id)), 0)
+
     # ---- Stats ----------------------------------------------------------
 
     def test_stats(self) -> None:
@@ -308,6 +351,23 @@ class TestCli(unittest.TestCase):
         data = json.loads(proc.stdout)
         self.assertIsInstance(data, list)
         self.assertTrue(any(rec.get("id") == "clm-unk0bd" for rec in data))
+
+    def test_weak_points(self) -> None:
+        proc = self._run("weak-points")
+        self.assertIn("weak points", proc.stdout)
+        self.assertIn("pending", proc.stdout)
+
+    def test_weak_points_json(self) -> None:
+        proc = self._run("weak-points", "--json")
+        data = json.loads(proc.stdout)
+        self.assertIsInstance(data, list)
+        for rec in data:
+            for key in ("id", "solidity", "build_band", "dependents", "title"):
+                self.assertIn(key, rec)
+
+    def test_weak_points_max_solidity(self) -> None:
+        proc = self._run("weak-points", "--max-solidity", "0.5")
+        self.assertEqual(proc.returncode, 0)
 
 
 if __name__ == "__main__":

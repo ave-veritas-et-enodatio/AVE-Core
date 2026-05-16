@@ -23,7 +23,7 @@ The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomor
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md`, `circuit-theory/ch1-vacuum-circuit-analysis/translation-circuit.md`, `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`. Cross-cutting note on $\xi$ vs $\xi_{topo}$: CLAUDE.md (Axiom 3 entry) and LIVING_REFERENCE.md.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -52,7 +52,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md` (definitive selection table), `circuit-theory/ch2-topological-thrust-mechanics/dielectric-yield-thresholds.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #1.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -78,7 +78,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `simulation/ch18-universal-vacuum-cell/spice-subcircuit.md`, `simulation/ch17-hardware-netlists/ee-bench-netlist.md` (`ee_bench.cir` SPICE realization sweeping the $C_{eff}(V)=C_0\sqrt{1-(V/V_{yield})^2}$ plateau with the $>10\%$-deviation Anomaly Window above $\sim 37$ kV).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -105,7 +105,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`. Cross-cutting: see Symmetric vs Asymmetric Saturation in `../claim-quality.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -130,7 +130,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -155,7 +155,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`, `falsification/ch12-falsifiable-predictions/ee-bench-plateau.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -184,7 +184,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md`, `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch11-experimental-bench-falsification/open-source-hardware.md` (PONDER-01 build guide), `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocol summary), `simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md` (cascaded LC stack SPICE realization). PONDER-05 number sourced only from `vol4/index.md`; no leaf supports it.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -211,7 +211,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/open-source-hardware.md`, `falsification/ch11-experimental-bench-falsification/project-hopf-02.md` (HOPF-02 VNA $S_{11}$ chiral-impedance-match falsifier), `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA summary including HOPF-02), `future-geometries/ch13-future-geometries/high-q-chiral-antenna.md`, `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -238,7 +238,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`, `future-geometries/ch13-future-geometries/open-universe-boundaries.md`, `future-geometries/ch13-future-geometries/cem-methods-survey.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -262,7 +262,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `future-geometries/ch13-future-geometries/cem-methods-survey.md`, `circuit-theory/ch1-vacuum-circuit-analysis/computational-solver-selection.md`, `circuit-theory/ch1-vacuum-circuit-analysis/solver-selection.md` (concise FDTD-vs-K4-TLM decision matrix variant of the same mapping).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -291,7 +291,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch8-applied-fusion/tokamak-paradox.md`, `advanced-applications/ch8-applied-fusion/ignition-criterion.md`, `advanced-applications/ch8-applied-fusion/ave-fusion-device.md`, `advanced-applications/ch8-applied-fusion/radius-scaling.md` (Bohr-radius compression $r(n)=a_0/n$ and $V_{topo}(n)=V_{topo,0}/n^3$ derivation), `advanced-applications/ch8-applied-fusion/temperature-scaling.md` (WKB derivation of $T_{ign}(n)=T_0/n^2$), `advanced-applications/ch8-applied-fusion/gamow-compressed.md` (compressed Gamow exponent $\eta(n)=\eta_0/n$), `advanced-applications/ch8-applied-fusion/vtopo-scaling.md` (topological-velocity $V_{topo}(n)=V_{topo,0}/n^3$ scaling and three operating-regime rules), `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated $\sqrt{\alpha}$ alignment with the 60.3 kV fusion strain).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -316,7 +316,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch7-topological-smes/smes-topology.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -342,7 +342,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch10-quantum-computing/topological-qubit-model.md`, `advanced-applications/ch10-quantum-computing/decoherence-as-impedance.md`, `advanced-applications/ch10-quantum-computing/error-correction-geometry.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -368,7 +368,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch18-active-topological-metamaterials/active-feedback-design.md`, `advanced-applications/ch18-active-topological-metamaterials/metamaterial-band-structure.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -396,7 +396,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch19-silicon-design-engine/doping-geometric-perturbation.md`, `advanced-applications/ch19-silicon-design-engine/topological-bjt-gain.md`, `advanced-applications/ch19-silicon-design-engine/declarative-ato-compilation.md`, `advanced-applications/ch19-silicon-design-engine/native-spice-subcircuit.md`, `advanced-applications/ch19-silicon-design-engine/pn-junction-s-parameter.md` (P-N junction as $S_{11}$ impedance-step boundary; silicon at $V_R/V_{BR}=0.050$).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -423,7 +423,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`, `falsification/ch11-experimental-bench/sagnac-rlve.md` (consolidated), `falsification/ch11-experimental-bench-falsification/sagnac-parallax.md` (24-hour static-loop variant against the 370 km/s CMB-dipole metric wind), `falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -450,7 +450,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/zero-parameter-derivations.md`, `falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md`, `falsification/ch11-experimental-bench-falsification/ybco-phased-array.md`, `falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated levitation limit + dielectric death spiral + YBCO array + metric-refraction capacitor + sapphire centrifuge), `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated $\sqrt{\alpha}$-yield alignment with levitation and fusion limits).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -477,7 +477,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (Protocol 11 condensed restatement of the $\Gamma(V)\to 1$ derivation and APD-back-scatter falsification protocol).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -502,7 +502,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`, `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` (Birefringence Kill-Switch as the third binary discriminator, evaluated from the Axiom-4 Taylor expansion), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated $E^2$-vs-$E^4$ slope statement).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -528,7 +528,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md`, `falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md` (consolidated $(2,q)$ ladder retrospective + forward predictions table). Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -553,7 +553,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `simulation/ch14-leaky-cavity-particle-decay/theory.md`, `simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #5.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -578,7 +578,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `simulation/ch15-autoresonant-breakdown/theory.md`, `simulation/ch15-autoresonant-breakdown/spice-netlist.md` (`pll_breakdown.cir` realization with behavioral $C_{eff}(V)$ and PLL phase integrator), `falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md`, `falsification/ch12-falsifiable-predictions/autoresonant-helicity.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -602,7 +602,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated industrial-scale write-up of the sapphire centrifuge alongside the YBCO array and metric-refraction capacitor).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -627,7 +627,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch20-optical-caustic-resolution/index.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -653,7 +653,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `advanced-applications/ch9-antimatter/annihilation-mechanism.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -676,7 +676,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/binary-kill-switches.md`, `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` (Neutrino Parity, GRB Dispersion, and the $E^2$-vs-$E^4$ Birefringence Kill-Switch enumerated together), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated three-binary-kill-switches restatement).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -700,7 +700,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -728,7 +728,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-cleave-01.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, CLEAVE-01 entry).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -754,7 +754,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-roentgen-03.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, ROENTGEN-03 entry).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -780,7 +780,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-zener-04.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, ZENER-04 entry).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -807,7 +807,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-torsion-05.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, TORSION-05 entry).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -833,7 +833,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/achromatic-lens-test.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 9 statement).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -860,7 +860,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 10 statement).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -886,7 +886,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 13 / GEO-Synchronous Impedance Differential statement).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -917,7 +917,7 @@ A catalog of five empirical anomalies presented as exact mechanical consequences
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/existing-experimental-signatures.md`, `falsification/ch11-experimental-bench/existing-signatures.md` (consolidated five-anomaly summary).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -944,7 +944,7 @@ Standard-model empirical results that *appear* to contradict an LC-network vacuu
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/horsemen-of-falsification.md`, `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated LHC-paradox + LIGO-paradox restatement bound to the $\sqrt{\alpha}$ yield derivation).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -972,7 +972,7 @@ Two intuitive tabletop tests that *necessarily* return null results within AVE, 
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md`, `falsification/ch11-experimental-bench/tabletop-null-results.md` (consolidated VFDT + RVR + scalar-gap rule).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1000,7 +1000,7 @@ Three telemetry concepts for industrial-scale metric-engineering platforms (YBCO
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/applied-telemetry.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated telemetry summary alongside the YBCO-array and sapphire-centrifuge predictions).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1029,7 +1029,7 @@ The framework-level epistemological claim binding the kill-switch leaves: AVE is
 
 > **Leaf references:** `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md`, `falsification/ch12-falsifiable-predictions/epistemology-ch12.md` (Ch.12 condensed restatement), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated three-binary-kill-switches restatement bound to the doctrine).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1056,7 +1056,7 @@ To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must car
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/helicity-injection.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1084,7 +1084,7 @@ The Sagnac shift in AVE depends on the rotor's *physical* properties (mass densi
 
 > **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`. The material-dependent entrainment law is also the basis of the Sagnac-RLVE prediction (see clm-wqmb19).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1112,7 +1112,7 @@ Mutual inductance yields above a structural shear threshold $\tau_{yield}$, mapp
 
 > **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md`. The yield mechanism this entry describes is the constitutive basis of the autoresonant PLL (clm-9sujp8), the ZENER-04 avalanche detector (clm-cltls0), and the asymmetric-flyback rectification in TORSION-05 (clm-kl1ern).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1140,7 +1140,7 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
 
 > **Leaf references:** `simulation/ch16-sagnac-inductive-drag/theory.md`, `simulation/ch16-sagnac-inductive-drag/spice-netlist.md` (`sagnac_ring.cir` single-node behavioral inductor pattern, repeated across 50 nodes).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -1170,7 +1170,7 @@ Nuclear fission reframed as a deterministic structural shear-fracture of a tensi
 
 > **Leaf references:** `advanced-applications/ch8-applied-fusion/fusion-comparison-table.md` (file misnamed; body covers U-235/U-238 fission mechanics + Alchemist Forge two-stage architecture + topological-jitter quench).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*

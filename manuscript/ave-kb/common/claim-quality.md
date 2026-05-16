@@ -26,7 +26,7 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
 
 > **Leaf references:** `mathematical-closure.md` §Outstanding Rigour Gaps, §Acyclicity verdict, §Back-edges; `full-derivation-chain.md` §Layer 7 → 8, §Standard Model Parameter Accounting; `xi-topo-traceability.md` §Zero-Free-Parameter Chain.
 
-## Quality
+### Quality
 - confidence: 0.70
 - solidity: 0.70 (ok to build on, see caveats)
 - rationale: Meta-disclosure of the project-wide closure status — structural reduction of 26 SM parameters to $\{m_e, \alpha, G\}$ + four axioms is sound, the four Outstanding Rigour Gaps are correctly enumerated, the forward DAG is verified acyclic, and the back-edge $\alpha$ closure (cold lattice = $4\pi^3+\pi^2+\pi$) is acyclic by inspection. The "*structurally* zero-parameter conditional on Layer-8 closure" framing is rigorously honest. Cross-references the same gaps tracked in vol1 Zero-Parameter Closure Status (`clm-5xon03`).
@@ -57,7 +57,7 @@ The full derivation chain document is a single long appendix presenting Layers 0
 
 > **Leaf references:** `full-derivation-chain.md` §Layer 5 Methodology disclosure, §Standard Model Parameter Accounting, §Layer 8 closure; `mathematical-closure.md` §The Directed Acyclic Graph (DAG) Proof.
 
-## Quality
+### Quality
 - confidence: 0.65
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α appears at multiple layers; α-bottleneck cascades through chain]
@@ -87,7 +87,7 @@ The Unified Index of Experimental Falsifications enumerates ~17 experimental tar
 
 > **Leaf references:** `appendix-experiments.md`; per-protocol detail lives in cited Vol IV Ch 11 (`falsification/...`) and Vol 3, Vol 5, Vol 7 leaves.
 
-## Quality
+### Quality
 - confidence: 0.85
 - solidity: 0.85 (ok to build on)
 - rationale: Honest catalog of designed falsification protocols; correctly self-bounds as catalog ≠ validation. The Vol 5 chiral FRET entry is explicitly listed as currently-unfalsifiable (sub-attometer signal at terrestrial baselines), modeling the right disclosure pattern. Per-protocol numerical thresholds belong in their respective per-volume leaves; the index's role is enumeration. No entry-level scored dependencies — the catalog status is independent of any specific protocol's experimental outcome.
@@ -118,7 +118,7 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 
 > **Leaf references:** `solver-toolchain.md` §Regime-Boundary Eigenvalue Method, §Protein Backbone Eigenvalue, §Nuclear Eigenvalue, §Cross-Scale Isomorphism Table; cross-cutting Symmetric vs Asymmetric Saturation in [`../claim-quality.md`](../claim-quality.md); BH-specific tripwires in [`vol3/claim-quality.md`](../vol3/claim-quality.md).
 
-## Quality
+### Quality
 - confidence: 0.65
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
@@ -149,7 +149,7 @@ The seven domain translation tables (circuit, QM, particle physics, gravity, cos
 
 > **Leaf references:** `translation-tables/translation-circuit.md`, `translation-tables/translation-biology.md`, `translation-tables/translation-qm.md`, `translation-tables/translation-particle-physics.md`, `translation-tables/translation-gravity.md`, `translation-tables/translation-cosmology.md`, `translation-tables/translation-condensed-matter.md`; H-bond canonical values asserted at [CLAUDE.md INVARIANT-C3](../CLAUDE.md#invariant-c3-h-bond-canonical-values).
 
-## Quality
+### Quality
 - confidence: 0.85
 - solidity: 0.85 (ok to build on)
 - rationale: The seven translation tables are notation-and-vocabulary maps, correctly self-bounded as not constituting independent predictions. Circuit translation rows ($Q \leftrightarrow x$, $I \leftrightarrow v$, etc.) are dimensionally-exact identities given $\xi_{topo}$ from Axiom 2. The biology table inherits canonical H-bond values from Vol 5 (cross-volume invariant INVARIANT-C3). The medical / therapy rows (cancer, RLT, anesthesia) are correctly framed as framework-internal interpretive identifications, not therapeutic claims. No entry-level scored dependencies — the translations are structural maps given Axiom 2's $\xi_{topo}$ mechanism (a framework input).
@@ -176,7 +176,7 @@ The Topological Conversion Constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \t
 
 > **Leaf references:** `xi-topo-traceability.md` §Physical Meaning, §Coverage Summary, §Zero-Free-Parameter Chain; ξ vs ξ_topo distinction at [CLAUDE.md INVARIANT-C2](../CLAUDE.md#invariant-c2-electromechanical-transduction-constant) and [LIVING_REFERENCE.md](../../../LIVING_REFERENCE.md) Axiom 3 entry.
 
-## Quality
+### Quality
 - confidence: 0.85
 - solidity: 0.85 (ok to build on)
 - rationale: $\xi_{topo} = e/\ell_{node}$ is direct from Axiom 2's mechanism; cross-volume reuse claim is structural (51 files spanning 6 of 8 volumes is reuse documentation, not 51 independent confirmations). The $\xi$ vs $\xi_{topo}$ distinction is correctly enforced (cross-cutting INVARIANT-C2). The "Zero-Free-Parameter Chain" sub-claim within the entry is correctly disclosed as conditional on Closure Status (`clm-sxn6eo`) — that conditionality is sub-claim-level, not entry-level. No entry-level scored dependencies for the traceability claim itself.
@@ -204,7 +204,7 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 
 > **Leaf references:** `appendix-derived-numerology.md` §Core Constants, §Important Exclusion, §Effective Coordination Number Derivation, §The Macroscopic Avalanche Exponent, §The Kolmogorov Constant; scale-invariance pattern at [LIVING_REFERENCE.md §Scale Invariance Principle](../../../LIVING_REFERENCE.md#scale-invariance-principle).
 
-## Quality
+### Quality
 - confidence: 0.70
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
@@ -234,7 +234,7 @@ The Interdisciplinary Translation Matrix appendix includes "Theoretical Stress T
 
 > **Leaf references:** `appendices-overview.md` §Theoretical Stress Tests, §Summary of Exact Analytical Derivations, §Computational Graph Architecture; MOND entry at [`vol3/claim-quality.md`](../vol3/claim-quality.md).
 
-## Quality
+### Quality
 - confidence: 0.75
 - solidity: 0.75 (ok to build on, see caveats)
 - rationale: The "Theoretical Stress Tests" subsection presents framework-internal paradox resolutions (Spin-1/2 via Finkelstein-Misner kink; holographic-information via $\Phi_A \equiv \alpha^2$; Peierls-Nabarro via Shear Transformation Zone) — correctly framed as framework-internal explanatory content, not independent proofs. The "Summary of Exact Analytical Derivations" is a cross-reference index of derivations whose canonical entries live elsewhere; consulting those is the right path for substantive use. The dropped τ_yield Bingham-Plastic comment (HTML comment block, 2026-04-20 audit) is a model editorial-transparency record. The Computational Graph Architecture (DCVE specs) is correctly framed as engineering specifications for instantiating AVE in a discrete computer, not physical claims. No scored dependencies at the entry level — the entry is a meta-summary; substantive solidity lives in the per-claim entries it references.
@@ -259,7 +259,7 @@ The SPICE Verification Manual documents the Tier 1 → Tier 2 → Tier 3 archite
 
 > **Leaf references:** `appendix-spice-verification.md` §Architecture, §Verification Protocol; LIVING_REFERENCE.md Critical Distinction #5.
 
-## Quality
+### Quality
 - confidence: 0.85
 - solidity: 0.85 (ok to build on)
 - rationale: The Tier 1 → Tier 2 → Tier 3 architecture (constants → solvers → SPICE compiler) is well-documented and the verification protocol (compile → write → ngspice → compare) provides a sound internal cross-check. The boundary correctly self-bounds: SPICE simulation validates Python-solver vs SPICE-netlist agreement (a code-correctness check), NOT AVE physics against experimental measurement. Per LIVING_REFERENCE.md Critical Distinction #5, some SPICE wrappers (e.g., RC muon model) are pedagogical; quantitative work happens in the solver layer. Dependencies (ngspice ≥ 42, Python ≥ 3.10) are explicit. No scored entry-level dependencies — toolchain status is independent of any specific physics claim.
@@ -288,7 +288,7 @@ Appendix D establishes the schematic-symbol vocabulary for Vacuum Circuit Archit
 
 > **Leaf references:** `appendix-vca-symbols.md` §Five Symbol Design Rules, §Seven Canonical VCA Markers, §Canonical Symbol Catalogue (17 Components); $V_{yield}$ canonical value at [CLAUDE.md INVARIANT-C1](../CLAUDE.md#invariant-c1-dielectric-yield-limit); Axiom 4 saturation kernel at [CLAUDE.md INVARIANT-S2](../CLAUDE.md#invariant-s2-ave-axiom-numbering).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - INVARIANT-S2 / Axiom 4 (universal saturation kernel — markers and active-symbol semantics)

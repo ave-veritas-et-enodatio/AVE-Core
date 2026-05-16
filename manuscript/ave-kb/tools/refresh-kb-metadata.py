@@ -185,15 +185,15 @@ def _solidity_line(entry, solidity, min_dep) -> str:
 
 
 def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
-    """Map each claim id to the raw line range of its ``## Quality`` section.
+    """Map each claim id to the raw line range of its ``### Quality`` section.
 
     Mirrors ``kb_index_lib.parse_claim_quality_file``'s section-location
     logic, but returns raw line indices (``[start, end)`` over ``lines``,
-    where ``start`` is the line AFTER the ``## Quality`` heading) so the
+    where ``start`` is the line AFTER the ``### Quality`` heading) so the
     write-back can edit lines surgically. Code fences do not shift line
     numbers, so indices computed on fence-scrubbed text equal raw indices.
 
-    An entry with no ``## Quality`` section is omitted.
+    An entry with no ``### Quality`` section is omitted.
     """
     scrubbed = kb_index_lib._strip_code_fences("\n".join(lines)).splitlines()
     # Locate every (id_line_idx, claim_id).
@@ -207,10 +207,12 @@ def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
     for id_line, claim_id in id_lines:
         qstart: int | None = None
         for j in range(id_line + 1, len(scrubbed)):
-            if scrubbed[j].strip() == "## Quality":
+            if scrubbed[j].strip() == "### Quality":
                 qstart = j
                 break
-            if scrubbed[j].startswith("## ") and scrubbed[j].strip() != "## Quality":
+            # The next `## ` H2 is a sibling-entry title; stop. An H3
+            # `### Quality` heading does not start with `## `.
+            if scrubbed[j].startswith("## "):
                 break
         if qstart is None:
             continue
@@ -230,7 +232,7 @@ def _rewrite_claim_quality_solidity(
 
     For every claim entry, rewrites:
 
-    * the ``- solidity:`` line in its ``## Quality`` section. A claim with a
+    * the ``- solidity:`` line in its ``### Quality`` section. A claim with a
       computable solidity gets the numeric form (value, build-status phrase,
       arithmetic trace); a claim with no computable solidity — confidence is
       ``*pending*`` OR a dependency is ``*pending*`` — gets the bare

@@ -513,7 +513,7 @@ def parse_claim_quality_file(
     """Parse every canonical entry in a single claim-quality.md file.
 
     For each `<!-- id: xxxxxx -->` marker, locates the preceding `##` heading
-    and the following `## Quality` section. Confidence / solidity /
+    and the following `### Quality` section. Confidence / solidity /
     build_status / rationale / depends-on / strengthen-by are extracted from
     the Quality section.
 
@@ -544,20 +544,22 @@ def parse_claim_quality_file(
         if m and last_heading_idx is not None and last_heading_text is not None:
             entries_meta.append((i, m.group(1), last_heading_idx, last_heading_text))
 
-    # For each entry, find its Quality section: the next `## Quality` heading
-    # after the id-marker line. Section ends at the next `## ` heading or EOF.
+    # For each entry, find its Quality section: the next `### Quality` heading
+    # after the id-marker line (the Quality heading is an H3 nested under the
+    # claim's `## <Title>` H2). Section ends at the next `## ` heading or EOF.
     quality_starts: list[int | None] = []
     quality_ends: list[int | None] = []
     for idx, (id_line, _claim_id, _hd_idx, _hd_text) in enumerate(entries_meta):
         qstart: int | None = None
         for j in range(id_line + 1, len(lines)):
-            if lines[j].strip() == "## Quality":
+            if lines[j].strip() == "### Quality":
                 qstart = j
                 break
-            # Stop searching if we hit the next entry's id-marker or the next
-            # non-Quality `## ` heading that owns a different entry; the
-            # Quality block is typically very close to the id-marker line.
-            if lines[j].startswith("## ") and lines[j].strip() != "## Quality":
+            # Stop searching if we hit the next entry's `## ` title heading;
+            # the Quality block is typically very close to the id-marker line.
+            # An H3 `### Quality` heading does not start with `## `, so it is
+            # never mistaken for a sibling-entry title.
+            if lines[j].startswith("## "):
                 break
         qend: int | None = None
         if qstart is not None:

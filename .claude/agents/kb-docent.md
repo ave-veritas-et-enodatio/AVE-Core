@@ -43,6 +43,37 @@ When the user asks a question:
 
 At each navigation step, use your judgment about depth. If the subtopic index is sufficient to answer the question, you do not need to read every leaf under it.
 
+## Claim Quality and Solidity
+
+Every AVE result is backed by a **claim-quality entry** recording how trustworthy it is. When you ground an answer on a result — and especially when assisting a derivation or research effort — surface its quality; do not cite a leaf as if all results were equally solid.
+
+**Where it lives.** A leaf's frontmatter `claims:` field lists the claim-quality IDs (`clm-xxxxxx`) it carries. Each ID resolves to an entry in a `claim-quality.md` register (the root one and the per-volume ones). An entry records `confidence` (hand-assessed local quality) and `solidity` (the derived, downstream-facing score: `confidence × min(dependency solidities)`).
+
+**Query it through the index — don't grep.** The claim graph is materialized under `manuscript/ave-kb/.index/`. Use the `ave-kb` CLI — run `PYTHONPATH=src python -m ave.kb <cmd>` from the repo root:
+
+- `show <clm-id>` — solidity, build-status, and rationale for one claim
+- `deps <clm-id>` / `deps -i <clm-id>` — what it rests on / what rests on it
+- `solidity-below <threshold>` — shaky claims
+- `weak-points` — highest-leverage rework targets (shaky *and* load-bearing)
+
+If the CLI is unavailable, read `manuscript/ave-kb/.index/claims.jsonl` directly (line-oriented JSON) or the claim-quality.md entry.
+
+**Build-status by solidity band:**
+
+| solidity | status |
+|---|---|
+| 0.85–1.00 | ok to build on |
+| 0.65–0.85 | ok to build on, see caveats |
+| 0.45–0.65 | use as input only, don't build deeper |
+| 0.20–0.45 | do not build on, rework needed |
+| 0.00–0.20 | refuted, do not use |
+
+**`*pending*` means unassessed, not weak.** Claim-quality assessment is an in-progress sweep — currently only vol1 and common are evaluated, so most claims carry `confidence: *pending*` and therefore `solidity: *pending*`. Pending propagates: a claim that depends on a pending claim is itself pending, regardless of its own confidence. When a result's claim is pending, say so plainly — the result may well be sound, but its quality is *unassessed*; flag the uncertainty rather than implying solidity.
+
+**Assisting derivations.** When the user builds or checks a derivation, trace the solidity of the chain it rests on (`ave-kb deps`) and surface the **weakest link** explicitly — e.g. "this passes through `clm-5xon03` at solidity 0.28, *do not build on, rework needed* — that is the load-bearing weak point." A derivation is only as solid as its lowest-solidity dependency.
+
+You surface and reason about claim quality; you do not re-score claims or edit claim-quality content (see *What You Are Not*).
+
 ## Cross-References
 
 When you encounter a `> Related:` suggestion in a document:

@@ -21,7 +21,7 @@
 
 > **Leaf references:** `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`, `cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`, `cosmology/ch04-generative-cosmology/asymptotic-expansion-limit.md` (alternate algebraic form via the topological packing fraction $p_c$).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -48,7 +48,7 @@
 
 > **Leaf references:** Canonical for the temporal/spatial split: `gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (Derived Consequence 2 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Refractive-index derivations: `gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`, `gravity/ch03-macroscopic-relativity/transverse-refractive-index.md`, `gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`. Companion bound on α invariance under symmetric gravity: `gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`. Supporting derivation chain (continuum-mechanics origin of $\nu_{vac} = 2/7$ and the $1/7$ projection): `gravity/ch01-gravity-yield/trace-reversal-mechanism.md`, `gravity/ch01-gravity-yield/topological-packing-fraction.md`, `gravity/ch01-gravity-yield/one-seventh-impedance-projection.md`, `gravity/ch03-macroscopic-relativity/cauchy-implosion-resolution.md`, `gravity/ch03-macroscopic-relativity/gordon-optical-metric.md`. Newtonian / equivalence-principle reduction: `gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md`, `gravity/ch03-macroscopic-relativity/newtonian-gravity-optical-gradient.md`. Yield/lifetime scale (kinetic point-yield, static nodal tension, leaky-cavity decay): `gravity/ch01-gravity-yield/kinetic-yield-threshold.md`, `gravity/ch01-gravity-yield/static-nodal-tension.md`, `gravity/ch01-gravity-yield/leaky-cavity-decay.md`. Achromatic / impedance-matched lensing and frame-dragging consequences: `gravity/ch03-macroscopic-relativity/achromatic-impedance-matching.md`, `gravity/ch03-macroscopic-relativity/gravitomagnetism-frame-dragging.md`, `gravity/ch02-general-relativity/gravitational-refractive-index-gradient.md`, `gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md`, `gravity/ch02-general-relativity/k4-tlm-lensing-validation.md` (numerical cross-check via TLM lattice).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -75,7 +75,7 @@
 
 > **Leaf references:** `gravity/ch08-gravitational-waves/invariant-gravitational-impedance.md`, `gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, `gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md`, `gravity/ch02-general-relativity/einstein-field-equation.md`. Detection-side consequences (impedance perturbation, Fabry-Perot phase accumulation, SQL, antenna framing — all read out the lossless propagation result): `gravity/ch08-gravitational-waves/gw-impedance-perturbation.md`, `gravity/ch08-gravitational-waves/fabry-perot-phase-shift.md`, `gravity/ch08-gravitational-waves/standard-quantum-limit.md`, `gravity/ch08-gravitational-waves/gw-detection-antenna.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -103,7 +103,7 @@
 
 > **Leaf references:** Primary for $\Gamma = 0$ (BH boundary absorbs, no reflection): `cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md` (states "no impedance mismatch and no reflection coefficient ($\Gamma = 0$ everywhere)"). Phase-transition / saturation framing: `cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`, `gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md`. Constructive vs destructive interior asymmetry (electron preserves topology, BH destroys it — direct statement of the framing): `cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md`. Note: `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md` carries "$\Gamma = -1$" in its title and uses different framing — see followups (interpretive tension between leaves on horizon impedance). Cross-cutting: see Symmetric vs Asymmetric Saturation.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -129,7 +129,7 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md`, `gravity/ch01-gravity-yield/vacuum-poisson-ratio.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -156,7 +156,7 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md`, `cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md`. Phase-transition derivation of $Q = \ell$ and $\omega_I M_g = 9/98$ with axiom coverage table and three-event LIGO ringdown comparison: `cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md`. Sister standing-wave construction at the same scale (accretion-disk impedance bands, QPOs, cross-scale "photon" emission, EHT/iron-line/jet/GW-memory predictions — all derive the impedance-orbital framing the ringdown belongs to): `cosmology/ch15-black-hole-orbitals/accretion-disk-resonance.md`, `cosmology/ch15-black-hole-orbitals/qpo-frequency-impedance-resonance.md`, `cosmology/ch15-black-hole-orbitals/cross-scale-emission.md`, `cosmology/ch15-black-hole-orbitals/first-principles-predictions.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -183,7 +183,7 @@
 
 > **Leaf references:** `cosmology/ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md`, `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -211,7 +211,7 @@
 
 > **Leaf references:** `cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md`, `cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md`, `cosmology/ch05-dark-sector/asymptotic-limits.md`, `cosmology/ch05-dark-sector/multi-galaxy-validation.md`. Empirical interpolation matched against the Axiom 4 saturation form (asymptotes coincide; deep-MOND and Newtonian limits identical): `cosmology/ch05-dark-sector/mcgaugh-empirical-rar.md`. Galactic-scale realisation of the saturation operator on the lattice mutual inductance — the same kernel used at particle-confinement scale: `cosmology/ch05-dark-sector/saturated-lattice-mutual-inductance.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -236,7 +236,7 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md`. Cross-scale orbital regime classification (Mercury, Saturn, solar flares, heliopause — same control parameter $\varepsilon_{11}$; Mercury entry is the perihelion test): `cosmology/ch14-orbital-mechanics/orbital-regime-table.md`. Sister classical-mechanics derivations using the same $1/d$ mutual-impedance topology — Saturn ring gaps as standing-wave cancellation zones, solar flares as a forward-biased macroscopic LED with Shockley-avalanche I–V and the empirical 0.46-yr FWHM "danger zone": `cosmology/ch14-orbital-mechanics/saturn-ring-integrator.md`, `cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md`, `cosmology/ch14-orbital-mechanics/macroscopic-avalanche-transconductance.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -261,7 +261,7 @@
 
 > **Leaf references:** `cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md`, `cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md`, `cosmology/ch06-solar-system/planetary-magnetopause-standoff.md`. Magnetopause-pressure / standing-wave construction (Chapman-Ferraro $B_{eff} = B_{dipole}(1 + |\Gamma|)$, dipole loss-cone trapped fraction, full per-planet table including Saturn/Uranus/Neptune): `cosmology/ch06-solar-system/chapman-ferraro-enhancement.md`, `cosmology/ch06-solar-system/dipole-loss-cone-fraction.md`, `cosmology/ch06-solar-system/planetary-magnetospheres.md`. Heliospheric impedance profile / heliopause as impedance boundary at $\sim 120$ AU: `cosmology/ch06-solar-system/heliospheric-impedance-profile.md`. Two-Winds decoupling (plasma magnetopause vs gravitational stator; Venus/Mars as control group) — frames *which* boundary the magnetopause result is about and isolates it from orbital coupling: `cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md`. Lossless-orbit consistency at the same scale (no LC drag in Regime I; supports "no anomalous orbital decay" caveat): `cosmology/ch06-solar-system/orbital-lc-friction-paradox.md`. Single-body anomaly handled by ordinary radiation pressure on a high $A/m$ body (zero-free-parameter 91% match): `cosmology/ch06-solar-system/oumuamua-acceleration.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -287,7 +287,7 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -311,7 +311,7 @@
 
 > **Leaf references:** `cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -336,7 +336,7 @@
 
 > **Leaf references:** `applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -362,7 +362,7 @@
 
 > **Leaf references:** `applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -390,7 +390,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md`, `condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md`, `condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md`, `condensed-matter/ch09-condensed-matter-superconductivity/universal-saturation-operator.md`. Phase-locking mechanism — Kuramoto order parameter + classical gear-train derivation of the London penetration depth as static rejection of boundary torque: `condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md`, `condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md`, `condensed-matter/ch09-condensed-matter-superconductivity/inertial-london-penetration-depth.md`. Five-material catalog (Al, Pb, Nb, MgB$_2$, YBCO) with the regime classification — note the catalog limitation on Nb's $n_s$ documented in this entry's caveats: `condensed-matter/ch09-condensed-matter-superconductivity/superconductor-catalog-predictions.md`. Cross-cutting: see BCS Critical Field $B_c(T)$.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -415,7 +415,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/effective-dof-g-star.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry-derivation.md`, `condensed-matter/ch11-thermodynamics/thermal-softening-correction.md`. Mode-counting derivation $g_* = n^3/N_{K4}$ with the 7-mode compliance manifold and equipartition pathway to the vacuum heat capacity (extracted bare-resultbox companion): `condensed-matter/ch11-thermodynamics/mode-counting-heat-capacity.md`, `condensed-matter/ch11-thermodynamics/vacuum-heat-capacity.md`. Independent thermal-softening derivation (Faddeev-Skyrme coupling) — uses $\nu_{vac}/\kappa_{cold} \times 2/\pi = 1/(14\pi^2)$, the same lattice geometry: `condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -441,7 +441,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -466,7 +466,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch10-material-properties/per-element-impedance-table.md`, `condensed-matter/ch10-material-properties/nuclear-hessian.md`. Inter-element bonding via the universal `reflection_coefficient(Z_i, Z_j)` operator (intra-family $|\Gamma| \to 0$ covalent/metallic, cross-family $|\Gamma| \sim 0.5$ ionic): `condensed-matter/ch10-material-properties/inter-element-reflection-coefficient.md`. Macroscopic-hardness consequence (diamond as tri-alpha tetrahedral metamaterial, helium-metamaterial paradox resolution via internal flux routing): `condensed-matter/ch10-material-properties/diamond-hardness-alpha-clusters.md`, `condensed-matter/ch10-material-properties/helium-metamaterial-paradox.md`. Metallicity from magnetic susceptibility threshold ($\chi_{crit} \approx 0.3$): `condensed-matter/ch10-material-properties/metallicity-magnetic-asymmetry.md`. Caveat: the macroscopic dilution factor in the diamond-hardness derivation ($\sim 10^{-21}$) is asserted, not derived per element; the helium and metallicity entries are structural classifications using susceptibility values from the same table whose proxy/measurement caveat is recorded above.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -491,7 +491,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `gravity/ch01-gravity-yield/gravitational-coupling-constant.md`, `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/planck-mass.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -515,7 +515,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `cosmology/ch04-generative-cosmology/jwst-constraint-equation.md`, `cosmology/ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -540,7 +540,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md`, `cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -565,7 +565,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `gravity/ch02-general-relativity/einstein-field-equation.md`, `gravity/ch02-general-relativity/stress-energy-lc-density.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -588,7 +588,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `applied-physics/ch13-geophysics/seismic-reflection-coefficient-moho.md`, `applied-physics/ch13-geophysics/constitutive-mapping.md`. PREM layer table with computed reflection coefficients at all major discontinuities (Moho, 670 km, CMB, ICB) and the LVZ waveguide-trapping condition: `applied-physics/ch13-geophysics/prem-layers-waveguide.md`. The same FDTD engine used elsewhere in the framework, with the constitutive mapping that lets it run seismic problems unchanged: `applied-physics/ch13-geophysics/seismic-fdtd-engine.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -611,7 +611,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `applied-physics/ch12-ideal-gas-law/ideal-gas-law.md`, `applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md`, `applied-physics/ch12-ideal-gas-law/recovering-r-at-stp.md`. Ontological mapping (P, V, n, R, T translated into LC-grid quantities — the framing the entry's reinterpretation rests on): `applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -635,7 +635,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `applied-physics/ch07-stellar-interiors/neutrino-msw-matter-potential.md`. Resonance-density companion ($n_e^{res}$ from $\Delta m^2$ and $G_F$, energy-dependent flavor-mixing validation table): `applied-physics/ch07-stellar-interiors/msw-resonance-critical-density.md`, `applied-physics/ch07-stellar-interiors/neutrino-flavor-mixing.md`. Stellar-interior context the resonance lives in (radial impedance profile, tachocline as impedance boundary using the universal `reflection_coefficient`, helioseismology cavity resonance, regime classification of stellar objects): `applied-physics/ch07-stellar-interiors/stellar-interior-impedance-profiles.md`, `applied-physics/ch07-stellar-interiors/stellar-regime-classification.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -662,7 +662,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/macroscopic-temperature-lc-noise.md`, `condensed-matter/ch11-thermodynamics/entropy-redefinition.md`, `condensed-matter/ch11-thermodynamics/arrow-of-time.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -689,7 +689,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md`, `condensed-matter/ch11-thermodynamics/phase-transition-classification.md`, `condensed-matter/ch11-thermodynamics/casimir-effective-temperature.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -717,7 +717,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/nyquist-noise-fdt.md`, `condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md`, `condensed-matter/ch11-thermodynamics/transmon-decoherence.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -746,7 +746,7 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 
 > **Leaf references:** `condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md`. Cross-volume primaries (loaded by the leaf, not duplicated): `vol5/molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md` (Op4 H-bond, $d_{OO} = 2.727\,\text{\AA}$), `vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md` (melting eigenmode $T_m = 279.5$ K).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*

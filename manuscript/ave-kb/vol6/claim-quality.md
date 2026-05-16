@@ -25,7 +25,7 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 
 > **References:** `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` (methodology note explicitly flags fit-vs-prediction); `framework/mass-defect-summary.md` (the table that omits the qualifier); `framework/computational-mass-defect/mutual-coupling-constant.md` (zero-parameter $K$ derivation); `framework/computational-mass-defect/nucleon-spacing-derivation.md` (zero-parameter $d$, $D_{\text{intra}}$); `appendix/geometric-inevitability/platonic-progression.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -51,7 +51,7 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 
 > **Leaf references:** `framework/computational-mass-defect/mutual-coupling-constant.md`; `framework/computational-mass-defect/nucleon-spacing-derivation.md`. Cross-volume: vol2 torus-knot identification of the proton as $(2,5)$ cinquefoil ($c=5$).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -81,7 +81,7 @@ The atomic ionization solver `radial_eigenvalue.py` computes first IEs for $Z=1$
 
 > **References:** `framework/ionization-energy-summary.md` (full table, $Z=1$–$14$ and $Z=31$–$36$); `period-2/beryllium/ionization-energy-correction.md` (A); `period-3/magnesium/ionization-energy-correction.md` (B); `period-3/aluminum/ionization-energy-correction.md`, `period-3/silicon/ionization-energy-correction.md` (C); `framework/polar-conjugate-bounding.md` (D). Cross-cutting: LIVING_REFERENCE.md Common Pitfalls #7, #8, #9, #10, #11; "4. Axioms in the Atomic Domain" Corrections A–D.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -110,7 +110,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
 
 > **Leaf references:** `appendix/heavy-element-catalog/full-element-table.md`; `appendix/heavy-element-catalog/mass-prediction-accuracy.md`; `appendix/heavy-element-catalog/selected-heavy-orbital-topology.md` (Tier-A/B per-element soliton placements); `appendix/heavy-element-catalog/index.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/platonic-progression.md`; `framework/computational-mass-defect/abcd-transfer-matrix.md` (ABCD cascade as the open problem). Cross-cutting: Master Prediction Table reading conventions in `../claim-quality.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -136,7 +136,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
 
 > **Leaf references:** `period-2/boron/structure-isotope-stability.md`; `appendix/geometric-inevitability/pi-topological-horizon.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -163,7 +163,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 
 > **Leaf references:** `period-2/neon/curve-fitting-fallacy.md`; `period-2/fluorine/structure-isotope-stability.md`; `period-3/sodium/core-proximity-effect.md`; `period-3/aluminum/gradual-halo-separation.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -188,7 +188,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 
 > **Leaf references:** `appendix/geometric-inevitability/magic-numbers-shell-closure.md`; `appendix/geometric-inevitability/platonic-progression.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -216,7 +216,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `appendix/geometric-inevitability/alpha-s-derivation.md`; `appendix/geometric-inevitability/lambda-higgs-derivation.md`; `appendix/geometric-inevitability/g-star-derivation.md`; `appendix/geometric-inevitability/derived-numerical-constants.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -240,7 +240,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `appendix/geometric-inevitability/golden-ratio-min-impedance.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/conclusion-death-of-numerology.md`; `framework/executive-abstract.md` ($\varphi$ at 13-alpha shell).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -263,7 +263,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `framework/computational-mass-defect/pn-junction-coupling.md` (resultbox); `framework/index.md` (Key Results "Binding energy ceiling" row).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -288,7 +288,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `framework/computational-mass-defect/network-analytics.md`; `framework/computational-mass-defect/topological-circuit-conventions.md`; `framework/computational-mass-defect/radioactive-decay-impedance.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -311,7 +311,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 
 > **Leaf references:** `framework/computational-mass-defect/abcd-transfer-matrix.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -338,7 +338,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 
 > **Leaf references:** `framework/computational-mass-defect/operating-regimes.md`; `framework/computational-mass-defect/semiconductor-nuclear-analysis.md`; `framework/chemistry-translation/semiconductor-regime-chemistry.md` (regime-to-chemistry mapping); `period-3/silicon/symmetric-core-collapse.md`; `period-3/magnesium/symmetric-shell-collapse.md`. Cross-cutting: Symmetric vs Asymmetric Saturation in `../claim-quality.md`; LIVING_REFERENCE.md Critical Distinctions #1.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -364,7 +364,7 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
 
 > **Leaf references:** `period-1/hydrogen/orbital-knot-topology.md`. Cross-cutting: LIVING_REFERENCE.md Pitfall #8.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -388,7 +388,7 @@ Per CLAUDE.md INVARIANT-N2, Vol 6 source uses **roman ell** ($l_{node}$) as the 
 
 > **References:** CLAUDE.md INVARIANT-N2; vol6 leaves throughout (e.g., `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` parameter table uses `L_NODE`).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -416,7 +416,7 @@ The "Computational Mass Defect" framework rests on a small set of axiomatic mapp
 
 > **Leaf references:** `framework/computational-mass-defect/mass-as-reactive-load.md`; `framework/computational-mass-defect/topological-circuit-conventions.md`. Cross-cutting: LIVING_REFERENCE.md Critical Distinctions #1.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -445,7 +445,7 @@ Vol 6 maps standard chemistry vocabulary (electron orbitals, Lewis dot structure
 
 > **Leaf references:** `framework/chemistry-translation/quantum-vs-topological-shells.md`; `framework/chemistry-translation/lewis-dots-vsepr.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -474,7 +474,7 @@ For every element in Period 1–3 the catalog presents a per-nucleus structural 
 
 > **Leaf references:** `period-1/hydrogen/structure-isotope-stability.md`; `period-1/helium/structure-isotope-stability.md`; `period-2/lithium/structure-isotope-stability.md`; `period-2/beryllium/structure-isotope-stability.md`; `period-2/boron/structure-isotope-stability.md`; `period-2/carbon/structure-isotope-stability.md`; `period-2/nitrogen/structure-isotope-stability.md`; `period-2/oxygen/structure-isotope-stability.md`; `period-2/fluorine/structure-isotope-stability.md`; `period-2/neon/structure-isotope-stability.md`; `period-3/sodium/structure-isotope-stability.md`; `period-3/magnesium/structure-isotope-stability.md`; `period-3/aluminum/structure-isotope-stability.md`; `period-3/silicon/structure-isotope-stability.md`. Cross-link: entry `clm-llqd1n` (Mass-Defect Accuracy framework), `clm-l416hl` (Boron Topological Horizon), `clm-8psuqe` (halo distance), `clm-jy8h1x` (semiconductor regimes).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -506,7 +506,7 @@ Each per-element "Topological Area" leaf identifies a macroscopic chemical / mat
 
 > **Leaf references:** `period-1/hydrogen/topological-area.md`; `period-1/helium/topological-area.md`; `period-2/lithium/topological-area.md`; `period-2/beryllium/topological-area.md`; `period-2/boron/topological-area.md`; `period-2/carbon/topological-area.md`; `period-2/nitrogen/topological-area.md`; `period-2/oxygen/topological-area.md`; `period-2/fluorine/topological-area.md`; `period-2/neon/topological-area.md`; `period-3/sodium/topological-area.md`; `period-3/magnesium/topological-area.md`; `period-3/aluminum/topological-area.md`; `period-3/silicon/topological-area.md`. Cross-link: `clm-8psuqe` (halo distance vs electronegativity), `clm-jy8h1x` (semiconductor regimes), `clm-o9xphr` ($Q$-factor stability).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -535,7 +535,7 @@ Each Period 1–3 element is assigned a semiconductor-regime classification on t
 
 > **Leaf references:** `period-1/hydrogen/semiconductor-regime.md`; `period-1/helium/semiconductor-regime.md`; `period-2/lithium/semiconductor-regime.md`; `period-2/beryllium/semiconductor-regime.md`; `period-2/boron/semiconductor-regime.md`; `period-2/carbon/semiconductor-regime.md`; `period-2/nitrogen/semiconductor-regime.md`; `period-2/oxygen/semiconductor-regime.md`; `period-2/fluorine/semiconductor-regime.md`; `period-2/neon/semiconductor-regime.md`; `period-3/sodium/semiconductor-regime.md`; `period-3/magnesium/semiconductor-regime.md`; `period-3/aluminum/semiconductor-regime.md`; `period-3/silicon/semiconductor-regime.md`. Cross-link: `clm-jy8h1x` (Symmetric vs Asymmetric Saturation), `clm-llqd1n` (fit-vs-prediction), `clm-nk6c43` (heavy element regimes).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -562,7 +562,7 @@ Each per-element "EE Equivalent" leaf maps the nuclear topology onto a specific 
 
 > **Leaf references:** `period-1/hydrogen/ee-equivalent.md`; `period-1/helium/ee-equivalent.md`; `period-2/lithium/ee-equivalent.md`; `period-2/beryllium/ee-equivalent.md`; `period-2/boron/ee-equivalent.md`; `period-2/carbon/ee-equivalent.md`; `period-2/nitrogen/ee-equivalent.md`; `period-2/oxygen/ee-equivalent.md`; `period-2/fluorine/ee-equivalent.md`; `period-2/neon/ee-equivalent.md`; `period-3/sodium/ee-equivalent.md`; `period-3/magnesium/ee-equivalent.md`; `period-3/aluminum/ee-equivalent.md`; `period-3/silicon/ee-equivalent.md`. Cross-link: `clm-qjwj12` (mass-as-inductance conventions), `clm-llqd1n` (per-nucleus fit accuracy).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -590,7 +590,7 @@ Each per-element "Orbital Knot Topology" leaf identifies the electron configurat
 
 > **Leaf references:** `period-1/hydrogen/orbital-knot-topology.md`; `period-1/helium/orbital-knot-topology.md`; `period-2/lithium/orbital-knot-topology.md`; `period-2/beryllium/orbital-knot-topology.md`; `period-2/boron/orbital-knot-topology.md`; `period-2/carbon/orbital-knot-topology.md`; `period-2/nitrogen/orbital-knot-topology.md`; `period-2/oxygen/orbital-knot-topology.md`; `period-2/fluorine/orbital-knot-topology.md`; `period-2/neon/orbital-knot-topology.md`; `period-3/sodium/orbital-knot-topology.md`; `period-3/magnesium/orbital-knot-topology.md`; `period-3/aluminum/orbital-knot-topology.md`; `period-3/silicon/orbital-knot-topology.md`. Cross-link: `clm-a95yx1` (Hydrogen Bohr radius / Rydberg derivation), `clm-7tk051` (multi-element IE solver), `clm-jqnzz7` (chemistry translation conventions). Cross-cutting: LIVING_REFERENCE.md Pitfall #8 (QM Contamination — Bohr formula).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -616,7 +616,7 @@ Each per-element "Continuous Vacuum Density Flux" leaf presents the equatorial /
 
 > **Leaf references:** `period-1/hydrogen/vacuum-density-flux.md`; `period-1/helium/vacuum-density-flux.md`; `period-2/lithium/vacuum-density-flux.md`; `period-2/beryllium/vacuum-density-flux.md`; `period-2/boron/vacuum-density-flux.md`; `period-2/carbon/vacuum-density-flux.md`; `period-2/nitrogen/vacuum-density-flux.md`; `period-2/oxygen/vacuum-density-flux.md`; `period-2/fluorine/vacuum-density-flux.md`; `period-2/neon/vacuum-density-flux.md`; `period-3/sodium/vacuum-density-flux.md`; `period-3/magnesium/vacuum-density-flux.md`; `period-3/aluminum/vacuum-density-flux.md`; `period-3/silicon/vacuum-density-flux.md`. Cross-link: `clm-f5ucdo` (per-element structure / fitted geometry).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*

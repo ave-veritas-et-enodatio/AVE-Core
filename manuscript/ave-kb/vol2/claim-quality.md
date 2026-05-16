@@ -24,7 +24,7 @@
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/electron-unknot.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - INVARIANT-S2 / Axiom 1 (lattice pitch $\ell_{node}$)
@@ -52,7 +52,7 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md` (eigenvalue closure), `particle-physics/ch02-baryon-sector/thermal-softening.md` ($\delta_{th}$, $\kappa_{FS}$, Gaussian-ansatz gap), `particle-physics/ch02-baryon-sector/topological-fractionalization.md` (Borromean topology and Witten Effect).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -77,7 +77,7 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md`, `particle-physics/ch01-topological-matter/torus-knot-ladder.md`, `appendices/app-f-solver-toolchain/torus-knot-ladder-toolchain.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (the same leaf is also referenced under `clm-d9ivj1` for its role in the universal regime-boundary eigenvalue method).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -102,7 +102,7 @@
 
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weinberg-angle.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`. Bound on scheme specificity asserted at invariant level — see `LIVING_REFERENCE.md` Critical Distinctions #2.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -126,7 +126,7 @@
 
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weak-coupling.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ($M_W$/$M_Z$ derivation including the torsional ring self-energy and $\sqrt{3/7}$ factor; the same leaf also carries the W/Z-as-plasma-arcs reinterpretation indexed under `clm-p7rfkb`).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -151,7 +151,7 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ("W and Z Bosons as Dielectric Plasma Arcs" reinterpretation; the same leaf's $M_W$/$M_Z$ derivation is indexed under `clm-q8un7j`).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -176,7 +176,7 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md` (the Schwinger derivation appears in this leaf's "Schwinger's Anomalous Magnetic Moment" section).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -204,7 +204,7 @@
 
 > **Leaf references:** `particle-physics/ch03-neutrino-sector/chiral-screening.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`, `particle-physics/ch03-neutrino-sector/pmns-junction-model.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -230,7 +230,7 @@
 
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -254,7 +254,7 @@
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/topological-fractionalization.md`, `particle-physics/ch02-baryon-sector/quark-flavors.md` (stub redirecting to topological-fractionalization).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -287,7 +287,7 @@
 
 > **References:** Bound on the Z = 1–14 validity range and the four correction gates is asserted at invariant level — see `LIVING_REFERENCE.md` §"Axioms in the Atomic Domain" (Corrections A–D specifications) and Pitfalls #6, #7, #8, #9, #10, #11. Supporting derivation steps appear in `quantum-orbitals/ch07-quantum-mechanics/` leaves: `radial-eigenvalue-solver.md`, `ionization-energy-validation.md`, `screening-rule.md`, `de-broglie-n.md`, `de-broglie-standing-wave.md`, `bonding-mode-formula.md`, `chiral-factor.md`, `helium-symmetric-cavity.md`, `hierarchical-cascade-correction.md`, `orbital-penetration-penalties.md`, `operator-domain-table.md`, `complete-solver-architecture.md`, `geometry-pipeline.md`, `atom-as-radial-waveguide.md`, `analog-ladder-filter.md`, `knot-vs-orbital-table.md`, `helium-coupling-first-principles.md`, `subshell-junction-scattering.md`, `ode-verification.md`, `scale-separation.md`, `dual-formalism-architecture.md`, `stepped-impedance-resonator.md`, `macro-cavity-saturation.md`. The proofs-computation leaf `proofs-computation/ch09-computational-proof/methodological-contamination.md` documents the Bohr/Schrödinger contamination hazard explicitly. Cross-domain reuse of the same operator chain (atomic / nuclear / protein / antenna) is summarised in `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -312,7 +312,7 @@
 
 > **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/screening-rule.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md`, `quantum-orbitals/ch07-quantum-mechanics/hierarchical-cascade-correction.md`, `quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md`, `quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md`, `quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md`, `quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-coupling-first-principles.md`, `quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md`, `quantum-orbitals/ch07-quantum-mechanics/scale-separation.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -337,7 +337,7 @@
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md`, `particle-physics/ch04-quantum-spin/spin-as-precession.md`, `particle-physics/ch04-quantum-spin/larmor-derivation.md`, `particle-physics/ch04-quantum-spin/visual-equivalence.md`, `appendices/app-b-paradoxes/spin-half-paradox.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -363,7 +363,7 @@
 
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md`, `nuclear-field/ch12-millennium-prizes/yang-mills-steps3-5.md`, `nuclear-field/ch12-millennium-prizes/index.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table notes #14, #15, #16.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -387,7 +387,7 @@
 
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #15.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -410,7 +410,7 @@
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/strong-cp.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #16.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -436,7 +436,7 @@
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/baryon-asymmetry.md`, `nuclear-field/ch10-open-problems/g-star-derivation.md`, `nuclear-field/ch10-open-problems/g-star-prediction.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -460,7 +460,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/hubble-tension.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Cross-cutting caveat documented in vol3 sidecar's Asymptotic Hubble Constant entry; bound asserted at the kb-claims-boundaries-followups level (see `kb-claims-boundaries-followups.md` 2026-05-02 entry on vol3 index circularity framing).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -485,7 +485,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch08-planck-string/planck-scale-derivation.md`, `nuclear-field/ch08-planck-string/string-theory-translation.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -511,7 +511,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `proofs-computation/ch11-overdrive/index.md`, `proofs-computation/ch11-overdrive/universal-energy.md`, `proofs-computation/ch11-overdrive/overdrive-nuclear.md`, `proofs-computation/ch11-overdrive/overdrive-protein.md`, `proofs-computation/ch11-overdrive/overdrive-comparison.md`, `appendices/app-f-solver-toolchain/cross-domain-physics-mappings.md` (K4-TLM, Miller-avalanche-as-nuclear-binding, RF-transmission-line-as-protein-folding cross-domain identifications).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -534,7 +534,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **References:** Discipline asserted at invariant level — see `LIVING_REFERENCE.md` "Common Pitfalls" #7–#11 and Critical Distinctions; "Red flags for QM contamination" checklist therein. Supporting derivation-discipline statements appear in `proofs-computation/ch09-computational-proof/methodological-contamination.md`, `proofs-computation/ch09-computational-proof/precision-policy.md`, the QM-translation appendix `quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md`, the ODE shooting-method verification leaf `quantum-orbitals/ch07-quantum-mechanics/ode-verification.md` (algebraic identity Schrödinger ↔ Helmholtz acoustic ODE confirmed numerically), and the SM-to-AVE translation pointer `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -556,7 +556,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-b-paradoxes/holographic-paradox.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -580,7 +580,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/mathematical-topology-of-mass.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -604,7 +604,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -627,7 +627,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/regime-classification.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -653,7 +653,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch01-topological-matter/chirality-and-antimatter.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -680,7 +680,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -706,7 +706,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/forward-to-ch6.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -736,7 +736,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` (the same leaf is also referenced under `clm-oltvwy` for its Step-1 single-electron eigenvalue derivation supporting the multi-electron solver).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -769,7 +769,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch10-open-problems/unification.md`, `nuclear-field/ch10-open-problems/scale-invariance-table.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table; the same leaf is referenced under `clm-4vwsjc`, `clm-gfs4j8`, and `clm-mroghg`).
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -800,7 +800,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/birch-swinnerton-dyer.md`, `nuclear-field/ch12-millennium-prizes/riemann-hypothesis.md`, `nuclear-field/ch12-millennium-prizes/hodge-conjecture.md`, `nuclear-field/ch12-millennium-prizes/poincare-conjecture.md`, `nuclear-field/ch12-millennium-prizes/p-vs-np.md`. Cross-reference: Yang-Mills (`clm-q5izb7`) and Navier-Stokes (`clm-c8q0z5`) are the other two Clay problems addressed in vol2 and live under their own entries with the same framework-conditional caveat.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -827,7 +827,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `proofs-computation/ch09-computational-proof/computational-graph.md`. Cross-reference: see also `clm-dboxok` (universal energy functional applied to nuclear + protein) for the operator chain demonstration on two specific domains, and `clm-d9ivj1` (universal regime-boundary eigenvalue method) for the closed-form analytical companion to this computational verification.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -850,7 +850,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-b-paradoxes/peierls-nabarro-paradox.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -873,7 +873,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-c-derivations/index.md` (this index doubles as a leaf, per INVARIANT-S5 single-leaf-index exception). Per-result canonical entries: `clm-mnb3lt`, `clm-5zuo7g`, `clm-q8un7j`, `clm-67jn9o`, `clm-mroghg`, `clm-dboxok`, `clm-oygz1i`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -899,7 +899,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-d-computational-graph/graph-architecture.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -928,7 +928,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-e-dcve/dcve-specification.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -959,7 +959,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-f-solver-toolchain/regime-eigenvalue-method.md`, `appendices/app-f-solver-toolchain/cross-scale-isomorphism-table.md`, `appendices/app-f-solver-toolchain/nuclear-eigenvalue.md`, `appendices/app-f-solver-toolchain/protein-eigenvalue.md`, `appendices/app-f-solver-toolchain/semiconductor-junction-analogy.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (also referenced under `clm-k6olj8`), `appendices/app-f-solver-toolchain/derived-numerology.md`, `appendices/app-f-solver-toolchain/lattice-phase-transition.md`, `appendices/app-f-solver-toolchain/kerr-q-correction.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*
@@ -983,7 +983,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **Leaf references:** `appendices/app-f-solver-toolchain/universal-constants-exchange.md`.
 
-## Quality
+### Quality
 - confidence: *pending*
 - depends-on:
   - *pending — full enumeration deferred to quality evaluation pass*

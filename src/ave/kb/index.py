@@ -112,6 +112,20 @@ class SubtreeAggregate:
     subtree_claims: tuple[str, ...]
 
 
+@dataclass(frozen=True, slots=True)
+class WeakPoint:
+    """A claim-rework leverage record: a shaky claim with a dependent count.
+
+    Surfaced by :meth:`Index.weak_points` — a claim that is both low-solidity
+    and load-bearing (something depends on it). ``dependents`` is the count of
+    claims that depend on this claim; the higher it is, the more downstream
+    work a strengthening pass would lift.
+    """
+
+    claim: Claim
+    dependents: int
+
+
 # ---------------------------------------------------------------------------
 # Default index location resolution
 # ---------------------------------------------------------------------------
@@ -396,6 +410,36 @@ class Index:
         """Claims in the given ``build_band`` (sorted by id)."""
         return [c for c in self._claims if c.build_band == band]
 
+    def weak_points(self, max_solidity: float = 0.65, min_dependents: int = 1) -> list[WeakPoint]:
+        """Highest-leverage claim-rework targets: shaky *and* load-bearing.
+
+        A claim qualifies when its ``solidity`` is non-null and strictly below
+        ``max_solidity`` (genuinely shaky) and at least ``min_dependents``
+        claims depend on it (something rests on it). Strengthening such a claim
+        lifts the most downstream work.
+
+        Pending claims (``solidity is None``) are unassessed, not weak, and are
+        excluded — a different category from a low-solidity claim.
+
+        Sort: by dependent count descending (most load-bearing first), then by
+        solidity ascending (shakiest first) as the tiebreaker, then by id.
+        """
+        out: list[WeakPoint] = []
+        for c in self._claims:
+            if c.solidity is None or c.solidity >= max_solidity:
+                continue
+            dependents = len(self._deps_rev.get(c.id, ()))
+            if dependents < min_dependents:
+                continue
+            out.append(WeakPoint(claim=c, dependents=dependents))
+        out.sort(key=lambda wp: (-wp.dependents, wp.claim.solidity, wp.claim.id))  # type: ignore[arg-type]
+        return out
+
+    @property
+    def pending_count(self) -> int:
+        """Number of claims with unassessed (null) solidity."""
+        return sum(1 for c in self._claims if c.solidity is None)
+
     # ---- Lookup ---------------------------------------------------------
 
     def claim(self, node_id: str) -> Claim | None:
@@ -496,6 +540,7 @@ __all__ = [
     "StrengthenByItem",
     "CitationEdge",
     "SubtreeAggregate",
+    "WeakPoint",
     "Index",
     "load",
     "DEFAULT_INDEX_DIR_HINT",
