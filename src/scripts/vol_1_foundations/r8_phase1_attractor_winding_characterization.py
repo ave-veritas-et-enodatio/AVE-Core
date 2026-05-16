@@ -124,7 +124,7 @@ SPH_HARM_L_MAX = 4
 # A² distribution over top-K |ω|² cells
 TOP_K_OMEGA_CELLS = 50
 
-# AVE three-regime A² boundaries (per AVE-VirtualMedia convention)
+# AVE three-regime A² boundaries (per canonical reflection-profile convention)
 from ave.core.constants import ALPHA
 A2_REGIME_I_II = 2.0 * ALPHA                     # ≈ 0.0146 (peak strain)
 A2_REGIME_II_III = 0.75                           # 3/4 (per (√3/2)²)

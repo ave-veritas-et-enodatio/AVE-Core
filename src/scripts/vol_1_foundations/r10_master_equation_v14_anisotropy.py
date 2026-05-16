@@ -265,7 +265,7 @@ explanation = (
     f"  • The substrate is K4-bipartite tetrahedral (Axiom 1) — natively cubic-symmetric\n"
     f"  • Nonlinear kernel at high A dominates lattice anisotropy → spherical apparent shape\n"
     f"  • Linear regime at low A → underlying lattice symmetry visible\n"
-    f"  • Consistent with K4-TLM bench validation (cardinal/diagonal velocity ratio √2 per AVE-Bench-VM)\n"
+    f"  • Consistent with K4-TLM bench validation (cardinal/diagonal velocity ratio √2 from canonical asymmetric-electrode vacuum-mirror bench)\n"
     f"\n"
     f"There's ALSO some FDTD numerical anisotropy (the 7-point cubic Laplacian has cubic-axis preference) — but this\n"
     f"reinforces rather than fights the physics. The K4 substrate IS cubic; the FDTD discretization approximates it correctly.\n"

@@ -17,10 +17,11 @@ REFUTED by Route B closure 2026-05-13 evening:
   - Zero parameters fudged.
 
 See full closure:
-  AVE-QED/docs/analysis/2026-05-13_Q-G19alpha_route_B_petermann_match.md
-  AVE-QED/docs/analysis/2026-05-13_Q-G19alpha_saliency_closure.md
-  AVE-QED/scripts/g2_research/q_g19_alpha_route_b_petermann.py
-  AVE-QED/scripts/g2_research/q_g19_alpha_saliency_sweep.py
+  `manuscript/ave-kb/vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`
+  (KB canonical, full substrate-native derivation: Route B dark-wake × kernel-asymmetry
+  correlation + saliency δ = -3α/2 = -α n_q/2 from q-axis trefoil winding)
+  + `manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex` §6.2
+  (manuscript canonical derivation; just landed Type D this session)
 
 This script is preserved for historical reference. DO NOT cite its result
 (-0.0094) as the AVE prediction for C_2. The canonical AVE C_2 is now

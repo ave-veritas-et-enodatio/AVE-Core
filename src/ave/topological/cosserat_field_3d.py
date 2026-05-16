@@ -40,9 +40,10 @@ this module operates in the continuous-field regime; the K4 lattice is a
 sampling structure, not the physics. Sessions 12-15 discrete-bond scaffolds
 (scripts/verify/q_g47_session12/14/15_*.py) are sanity-check discretizations.
 
-A-034 cross-refs: research/L5/axiom_derivation_status.md (A-032 + A-034);
-backmatter/07_universal_saturation_kernel.tex (catalog);
-AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md (chain).
+A-034 cross-refs: `manuscript/backmatter/07_universal_saturation_kernel.tex`
+(catalog, canonical) + `manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md`
+(KB synthesis for Q-G47 Sessions 1-18 substrate-scale closure including
+|T|=12 universality + ξ_K1, ξ_K2 namespace).
 """
 
 from __future__ import annotations
@@ -75,8 +76,8 @@ from ave.core.constants import ALPHA  # noqa: E402
 # For the electron (2,3) winding:  κ̃ = 2·3/(2+3) = 6/5 = 1.2
 # For the (1,1) Beltrami:           κ̃ = 1·1/(1+1) = 1/2 = 0.5
 #
-# Verified vs AVE-HOPF table 1 empirical benchmark
-# (../../AVE-HOPF/manuscript/03_hopf_01_chiral_verification.tex:72-82).
+# Verified vs canonical Hopf-coil chirality table empirical benchmark
+# (held in separate propulsion engineering compendium).
 # Not a free parameter — parallel-channel impedance combination at TIR
 # boundary; the (p,q) topology determines κ̃, α determines absolute scale.
 #

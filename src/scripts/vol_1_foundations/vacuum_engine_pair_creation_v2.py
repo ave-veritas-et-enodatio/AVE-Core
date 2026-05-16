@@ -5,7 +5,8 @@ Stage 4d of plan `document-list-for-next-chat-compressed-thunder.md`.
 
 Direct v1 follow-up with three changes:
   1. CWSource → AutoresonantCWSource (PLL q-axis tracking per doc 49_ §2)
-  2. Add DarkWakeObserver to diagnostic stack (ported from AVE-Propulsion)
+  2. Add DarkWakeObserver to diagnostic stack (autoresonant-propulsion
+     observer, ported from separate propulsion engineering compendium)
   3. Longer runs (300 steps) to give PLL time to track
 
 Pre-registered outcomes (from plan Stage 4d §):
@@ -20,8 +21,9 @@ Pre-registered outcomes (from plan Stage 4d §):
                      clean pair. Mechanism active but insufficient.
 
   P_IIIb-v2-no-change: Same distributed-plateau result as v1. Autoresonance
-                       didn't change anything. Would falsify AVE-Propulsion
-                       Ch 5 interpretation; point to missing mechanism.
+                       didn't change anything. Would falsify the autoresonant-
+                       rupture interpretation (separate propulsion compendium
+                       Ch 5); point to missing mechanism.
 
 Configuration (8 configs = 4λ × 1amp × 2T, same amp=0.5 as v1's best):
   λ ∈ {3.5, 5, 7, 10}  (ω·τ ∈ {1.80, 1.26, 0.90, 0.63})

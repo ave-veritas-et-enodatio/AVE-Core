@@ -44,9 +44,11 @@ from ξ_K1, ξ_K2 used at substrate scale here (Cosserat prefactors, O(1)).
 Different scopes, same letter; explicitly disambiguated in
 `manuscript/ave-kb/common/xi-topo-traceability.md`.
 
-See: research/L5/axiom_derivation_status.md (A-032, A-034);
-AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md (substrate-
-scale derivation chain).
+See: `manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md`
+(KB canonical for Q-G47 Sessions 1-18 substrate-scale closure including
+|T|=12 universality + ξ_K1, ξ_K2 namespace) +
+`manuscript/backmatter/07_universal_saturation_kernel.tex` (A-034 canonical
+catalog with substrate-scale K4 instance).
 """
 
 from __future__ import annotations
@@ -294,7 +296,7 @@ class K4Lattice3D:
 
         Normalization: strain A = |V_inc| / V_SNAP (absolute rupture voltage),
         NOT V_YIELD (engineering onset). This matches AVE's three-regime
-        convention per AVE-VirtualMedia/generate_reflection_profile.py:
+        convention per the canonical reflection-profile three-regime convention:
           Regime I  (passband):    A < sqrt(2*alpha) ~ 0.121
           Regime II (transition):  sqrt(2*alpha) < A < sqrt(3)/2 ~ 0.866
           Regime III (stopband):   A > sqrt(3)/2, approaching A=1 (rupture)
@@ -335,7 +337,7 @@ class K4Lattice3D:
             self._update_z_local_field()
         if self.nonlinear:
             # Op14 Impedance Saturation, anchored to V_SNAP per the three-regime
-            # convention (AVE-VirtualMedia/scripts/generate_reflection_profile.py):
+            # convention (the canonical reflection-profile three-regime convention):
             # regime boundaries at √(2α), √3/2, 1 all in units of V_SNAP.
             # V_YIELD falls inside regime II (at strain = √α ≈ 0.085), not at yield.
             # Corrected 2026-04-21 to match _update_z_local_field convention.

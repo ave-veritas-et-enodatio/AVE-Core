@@ -5,8 +5,9 @@ R10 Path-α v14e — Seven-Mode Bounded-Boundary Test
 Grant 2026-05-14 evening pushback: *"did you forget your seven modes of compliance?"*
 
 YES — v14a/b/d seeded only 2 of 7 canonical bubble modes (ω_x, ω_y tangent
-to the unknot loop). Per `AVE-QED chapters/11_tensioned_trampoline.tex:946-
-1056`, the canonical electron bubble has 7 modes:
+to the unknot loop). Per the canonical tensioned-trampoline framework
+(continuum Cosserat substrate at axiom level, manuscript/ave-kb/common/
+trampoline-framework.md), the canonical electron bubble has 7 modes:
 
   3 translational (Cosserat u_x, u_y, u_z) — kinetic motion role
   3 rotational   (Cosserat ω_x, ω_y, ω_z) — spin axes / chiral surface

@@ -25,11 +25,12 @@ The harmonic-mean factor pq/(p+q) emerges naturally from parallel
 combination of two impedances linear in their winding count.
 
 Verification protocol:
-  1. For each (p,q) in AVE-HOPF table (03_hopf_01_chiral_verification.tex
-     rows 72-82), compute alpha * pq/(p+q) directly.
+  1. For each (p,q) in the canonical Hopf-coil chirality table (held in
+     separate propulsion engineering compendium), compute
+     alpha * pq/(p+q) directly.
   2. Compute via parallel-impedance combination (Z_p Z_q)/(Z_p + Z_q)
      with Z_i = alpha * i.
-  3. Verify identity and match AVE-HOPF reported values.
+  3. Verify identity and match the canonical Hopf-coil reported values.
   4. Check sanity limits:
        (1,1):     pq/(p+q) = 0.5    (minimum chirality)
        (1, large): pq/(p+q) -> 1    (trivial winding dominates)
@@ -59,9 +60,10 @@ def chirality_parallel_impedance(p: int, q: int) -> float:
 
 
 def harmonic_mean_winding(p: int, q: int) -> float:
-    """pq/(p+q) — topological FoM (AVE-HOPF convention).
+    """pq/(p+q) — topological FoM (Hopf-coil chirality convention).
 
-    Matches AVE-HOPF/scripts/beltrami_hopf_coil.py:43-44.
+    Matches the canonical Beltrami-Hopf coil derivation (separate
+    propulsion engineering compendium).
     """
     return (p * q) / (p + q)
 
@@ -69,7 +71,7 @@ def harmonic_mean_winding(p: int, q: int) -> float:
 def self_linking_number(p: int, q: int) -> int:
     """Seifert-framing self-linking number SL(p,q) = pq - p - q.
 
-    Matches AVE-HOPF/scripts/beltrami_hopf_coil.py:47-49.
+    Matches Hopf-coil chirality framework/scripts/beltrami_hopf_coil.py:47-49.
     """
     return p * q - p - q
 
@@ -77,7 +79,7 @@ def self_linking_number(p: int, q: int) -> int:
 def crossing_number_torus_knot(p: int, q: int) -> int:
     """Minimum crossing number c(p,q) = min(p(q-1), q(p-1)).
 
-    Matches AVE-HOPF/scripts/beltrami_hopf_coil.py:52-53.
+    Matches Hopf-coil chirality framework/scripts/beltrami_hopf_coil.py:52-53.
     """
     if p <= 0 or q <= 0:
         return 0
@@ -91,7 +93,7 @@ def main():
     print(f"\nalpha (CODATA) = {ALPHA:.8e}")
     print(f"alpha^-1       = {1/ALPHA:.6f}")
 
-    # AVE-HOPF table 1 values (from 03_hopf_01_chiral_verification.tex:72-82)
+    # Hopf-coil chirality framework table 1 values (from 03_hopf_01_chiral_verification.tex:72-82)
     hopf_table = [
         (2, 3),    # trefoil
         (2, 5),    # cinquefoil
@@ -101,7 +103,7 @@ def main():
     ]
 
     print("\n" + "-" * 78)
-    print("Verification against AVE-HOPF table 1")
+    print("Verification against Hopf-coil chirality framework table 1")
     print("-" * 78)
     print(f"{'(p,q)':<10}{'pq/(p+q)':<15}{'chi_direct':<18}"
           f"{'chi_parallel':<18}{'match':<8}")
@@ -149,7 +151,7 @@ def main():
 
     # Connection to other topological invariants
     print("\n" + "-" * 78)
-    print("Connection to related topological invariants (per AVE-HOPF)")
+    print("Connection to related topological invariants (per Hopf-coil chirality framework)")
     print("-" * 78)
     print(f"{'(p,q)':<10}{'Q_H=pq':<12}{'SL=pq-p-q':<15}{'c=min(p(q-1),q(p-1))':<25}"
           f"{'pq/(p+q)':<12}")
@@ -170,7 +172,7 @@ def main():
     print(f"             = {chi_e * 1e3:.6f} * 10^-3")
     print(f"             = {100 * chi_e / ALPHA:.4f}% of alpha "
           f"(> 100% because pq/(p+q)=1.2 > 1)")
-    print(f"\nAVE-HOPF prediction: Delta_f/f_std = chi_electron")
+    print(f"\nHopf-coil chirality framework prediction: Delta_f/f_std = chi_electron")
     print(f"  for f_std = 1 GHz: Delta_f = {chi_e * 1e9:.3f} Hz")
     print(f"  for f_std = 8 GHz: Delta_f = {chi_e * 8e9:.3f} Hz (X-band test)")
 
@@ -180,14 +182,14 @@ def main():
     print("=" * 78)
     if all_match:
         print("PASS: direct formula and parallel-impedance combination agree "
-              "to 1e-12 for all (p,q) in AVE-HOPF table.")
+              "to 1e-12 for all (p,q) in Hopf-coil chirality framework table.")
         print("")
         print("Physical interpretation confirmed:")
         print("  - Each winding direction (toroidal p, poloidal q) is an")
         print("    independent chiral-coupling channel with impedance")
         print("    Z_i = alpha * i (linear in winding count).")
         print("  - Two channels in parallel (same TIR boundary) give")
-        print("    Z_total = alpha * pq/(p+q), reproducing the AVE-HOPF")
+        print("    Z_total = alpha * pq/(p+q), reproducing the Hopf-coil chirality framework")
         print("    empirical frequency-shift formula.")
         print("  - Harmonic-mean factor pq/(p+q) derived from substrate")
         print("    physics, not phenomenology.")

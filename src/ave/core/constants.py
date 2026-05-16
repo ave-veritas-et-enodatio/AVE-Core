@@ -44,19 +44,22 @@ the electron is the minimal-energy stable loop, with circumference ℓ_node
 and tube radius ℓ_node/(2π). Its mass is set entirely by the lattice
 tension and the unknot ropelength.
 
-In substrate-native vocabulary (per AVE-QED App G + AVE-Core
-`docs/glossary.md`), the electron's substrate-observable mass is
-𝓜_electron = m_e (the integrated strain integral at the horn-torus tube
-wall boundary). See A-028 canonical for the three substrate invariants
-𝓜, 𝓠, 𝓙 and `src/ave/core/boundary_invariants.py` for engine implementation.
+In substrate-native vocabulary (per Common Foreword §"Three Boundary
+Observables and the Substrate-Observability Rule" + `docs/glossary.md`),
+the electron's substrate-observable mass is 𝓜_electron = m_e (the
+integrated strain integral at the horn-torus tube wall boundary). See
+the three substrate invariants 𝓜, 𝓠, 𝓙 canonical leaf
+(`manuscript/ave-kb/common/boundary-observables-m-q-j.md`) and
+`src/ave/core/boundary_invariants.py` for engine implementation.
 
 All other constants are DERIVED from these inputs plus the SI definitions
 of ε₀, μ₀, c, ℏ, and e.
 
 === CROSS-REFERENCES ===
 - Picture-first framework: `manuscript/ave-kb/common/trampoline-framework.md`
-- Substrate-native vocabulary: AVE-QED `appendices/G_substrate_vocabulary.tex` +
-  AVE-Core `docs/glossary.md`
+- Substrate-native vocabulary: Common Foreword §"Three Boundary Observables"
+  + `docs/glossary.md` + canonical KB leaf
+  `manuscript/ave-kb/common/boundary-observables-m-q-j.md`
 - Three substrate invariants engine module: `src/ave/core/boundary_invariants.py`
 - Master Equation FDTD canonical engine: `src/ave/core/master_equation_fdtd.py`
 - K4-TLM canonical engine: `src/ave/core/k4_tlm.py`

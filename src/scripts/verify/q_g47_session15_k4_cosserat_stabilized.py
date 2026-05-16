@@ -1,7 +1,8 @@
 """
 Q-G47 Session 15: Stabilized K4 Cosserat lattice with sublattice relaxation.
 
-Companion to AVE-QED/docs/analysis/2026-05-15_Q-G47_session15_stabilized_scaffold.md.
+Companion verify script for Q-G47 Session 15 (substrate-scale workstream;
+stabilized scaffold analytical work coordinated in separate workstream).
 
 Purpose:
     Add Cosserat couple-stress (bond-bending) contributions to the Session 14

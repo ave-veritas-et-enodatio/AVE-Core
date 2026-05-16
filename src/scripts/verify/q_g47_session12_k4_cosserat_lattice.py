@@ -1,7 +1,8 @@
 """
 Q-G47 Session 12: Numerical K4 Cosserat lattice verification (first-pass).
 
-Companion to AVE-QED/docs/analysis/2026-05-15_Q-G47_session12_k4_cosserat_numerical.md.
+Companion verify script for Q-G47 Session 12 (substrate-scale workstream;
+K4 Cosserat numerical scaffold analytical work coordinated in separate workstream).
 
 Purpose:
     Build a minimal periodic K4 Cosserat lattice simulation to verify the

@@ -1,7 +1,8 @@
 """
 Q-G47 Session 14: K4 Cosserat lattice with Born–Huang sublattice relaxation.
 
-Companion to AVE-QED/docs/analysis/2026-05-15_Q-G47_session14_sublattice_relaxation.md.
+Companion verify script for Q-G47 Session 14 (substrate-scale workstream;
+sublattice relaxation analytical work coordinated in separate workstream).
 
 Purpose:
     Extend Session 12 scaffold (q_g47_session12_k4_cosserat_lattice.py) to

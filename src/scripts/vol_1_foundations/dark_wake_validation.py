@@ -18,8 +18,9 @@ Acceptance criteria (first validation pass):
   - τ_zx magnitude tracks V² magnitude monotonically
 
 References:
-  - AVE-PONDER/manuscript/vol_ponder/ch01_topological_thrust_mechanics.tex:210-230
-  - AVE-Propulsion/src/scripts/simulate_warp_metric_tensors.py:75-95
+  - Topological thrust mechanics (canonical at Vol 4 Ch 2;
+    detailed engineering at separate propulsion compendium)
+  - Warp-metric tensor simulation framework (separate propulsion compendium)
   - doc 49_ §2 (unified mechanism picture)
 """
 from __future__ import annotations

@@ -11,8 +11,11 @@ integrated observables are visible externally:
                                        half-integer per SU(2) double-cover)
 
 These are the canonical names locked at Grant Q1 closure 2026-05-14 evening. The
-canonical reference is AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex`
-§4. The picture-first reference is `manuscript/ave-kb/common/trampoline-framework.md`
+canonical reference is Common Foreword §"Three Boundary Observables and the
+Substrate-Observability Rule" + Vol 1 Ch 1 §sec:substrate_vocab_box_ch1 +
+the dedicated KB leaf at
+`manuscript/ave-kb/common/boundary-observables-m-q-j.md`. The picture-first
+reference is `manuscript/ave-kb/common/trampoline-framework.md`
 §4 (boundaries and envelopes).
 
 Per A-031 (Grant adjudication 2026-05-15 evening), the same three observables
@@ -39,12 +42,10 @@ fields (e.g., from MasterEquationFDTD). Implementation status:
     implementation requires Hopf invariant computation on the full Cosserat
     rotational field (deferred — same dependency as 𝓠 rigorous).
 
-L5 tracking:
-  - E-101 (this module)
-  - A-026 / A-027 / A-028 / A-031 (upstream canonical entries)
-  - A-034 (canonical 2026-05-15 evening): Universal Saturation-Kernel
-    Strain-Snap Mechanism. A-031 was refined per A-034 — "God's Hand"
-    decouples into cosmic-parameter horizon vs observable mechanism. The
+Framework cross-refs:
+  - A-031 refined (2026-05-15 evening): cosmic-parameter horizon vs observable
+    mechanism (canonical at `manuscript/ave-kb/common/cosmic-parameter-horizon-a031-refinement.md`)
+  - A-034 Universal Saturation-Kernel Strain-Snap Mechanism: the
     saturation-kernel mechanism IS observable at 4 smaller scales (BCS
     0.00%, NOAA solar 40-yr, BH ring-down 1.7% from GR, Schwarzschild
     exact) per the 19-instance catalog at
@@ -52,11 +53,12 @@ L5 tracking:
   - Engine target: `src/ave/core/master_equation_fdtd.py` MasterEquationFDTD.V field
 
 Cross-references:
-  - AVE-QED `manuscript/vol_qed_replacement/appendices/G_substrate_vocabulary.tex` §4
-  - AVE-Core `manuscript/ave-kb/common/trampoline-framework.md` §4 (substrate-observability)
-  - AVE-Core `research/L5/axiom_derivation_status.md` A-028 (canonical names)
-  - AVE-Core `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`
-    §sec:cosmic_J_as_IC (cosmic-scale application)
+  - Common Foreword §"Three Boundary Observables and the Substrate-Observability Rule"
+  - `manuscript/ave-kb/common/boundary-observables-m-q-j.md` (dedicated KB leaf)
+  - `manuscript/ave-kb/common/trampoline-framework.md` §4 (substrate-observability picture)
+  - Vol 1 Ch 1 §sec:substrate_vocab_box_ch1 (canonical chapter source)
+  - `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex` §sec:cosmic_J_as_IC
+    (cosmic-scale application)
 """
 
 from __future__ import annotations

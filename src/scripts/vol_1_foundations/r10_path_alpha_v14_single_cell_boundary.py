@@ -24,23 +24,27 @@ Acceptance criteria (frozen pre-execution per doc 109 §14.7):
      within ±5% (Λ_vol + Λ_surf + Λ_line decomposition)
 
 Mode I PASS = all 4 PASS → boundary-envelope reformulation empirically
-supported; AVE-QED universal-vocabulary refactor unlocks for execution.
+supported; universal-vocabulary refactor unlocks for execution.
 Mode III FAIL = boundary decays → §13 framing falsified; reopens
 Reading A or B from doc 92 §4.
 
 This driver uses the existing engine API as-is. Per the K4-TLM bench
-validation 2026-05-14 (commit 0599a10 at AVE-Bench-VacuumMirror), the
-engine's internal CoupledK4Cosserat already passes op3_bond_reflection=
-True and V_SNAP=1.0 — both load-bearing for kernel engagement.
+validation 2026-05-14 (commit 0599a10, asymmetric-electrode vacuum-mirror
+bench, separate compendium), the engine's internal CoupledK4Cosserat
+already passes op3_bond_reflection=True and V_SNAP=1.0 — both load-bearing
+for kernel engagement.
 
 Cross-references:
-  - doc 109 §13-§15 (boundary-envelope reformulation, Grant-confirmed)
-  - doc 101 §9-§10 (three-layer canonical: unknot + SU(2) + (2,3))
-  - AVE-QED docs/analysis/2026-05-14_three_substrate_invariants_matrix.md
-    (Q1 names locked: 𝓜 integrated strain integral / 𝓠 boundary linking
-    number / 𝓙 boundary winding number)
-  - AVE-Bench-VacuumMirror/scripts/k4tlm_bench_validation.py
-    (engine-flag canonical: op3=True, V_SNAP=1.0)
+  - Boundary-envelope reformulation (canonical at Common Foreword §Three
+    Boundary Observables + Vol 1 Ch 1 §sec:substrate_vocab_box_ch1)
+  - Three-layer canonical: unknot + SU(2) + (2,3) phase-space winding
+    (Vol 1 Ch 8 chapter-header note)
+  - Three substrate invariants matrix (Q1 names locked):
+    𝓜 integrated strain integral / 𝓠 boundary linking number /
+    𝓙 boundary winding number — canonical at
+    manuscript/ave-kb/common/boundary-observables-m-q-j.md
+  - K4-TLM bench validation: engine-flag canonical (op3=True, V_SNAP=1.0)
+    held in separate bench engineering compendium
 """
 import sys
 import time
@@ -635,7 +639,7 @@ print(f"  Tests:   {n_pass} / 4 PASS")
 print()
 if n_pass == 4:
     print("  ✓ Mode I FULL PASS: boundary-envelope reformulation empirically vindicated.")
-    print("    AVE-QED universal-vocabulary refactor unlocks for execution per refactor")
+    print("    Universal-vocabulary refactor unlocks for execution per refactor")
     print("    plan §6 + Grant approval of §6 scope.")
 elif n_pass >= 2:
     print("  ◐ Mode I-partial: boundary structure exists but observables off-target.")

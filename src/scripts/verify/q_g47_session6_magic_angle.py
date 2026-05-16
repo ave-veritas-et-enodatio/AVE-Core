@@ -1,7 +1,8 @@
 """
 Q-G47 Session 6: Magic-angle equation proof-of-concept numerical verification.
 
-Companion to AVE-QED/docs/analysis/2026-05-15_Q-G47_session6_unified_KG_equations.md.
+Companion verify script for Q-G47 Session 6 (substrate-scale workstream;
+unified K-G equations analytical work coordinated in separate workstream).
 
 Verifies that the framework's K(u_0) = 2 G(u_0) equation admits a solution
 in principle, with order-of-magnitude coefficient values. The SPECIFIC u_0*

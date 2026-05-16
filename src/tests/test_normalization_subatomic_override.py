@@ -24,8 +24,8 @@ Load-bearing invariants:
    `RegimeClassifierObserver`, `NodeResonanceObserver`, and `BondObserver`
    each compute A²_total = A²_K4 + A²_cos from the same lattice state.
    After the R4 patch (remove `/α` from NodeResonance and BondObserver),
-   all three must return the same r² per AVE-APU Vol 1 Ch 5 Pythagorean
-   strain theorem.
+   all three must return the same r² per the Pythagorean substrate-strain
+   theorem (A²_total = A²_K4 + A²_cos; orthogonal-sector additivity).
 
 References:
     - research/L3_electron_soliton/50_autoresonant_pair_creation.md §0.1 r3

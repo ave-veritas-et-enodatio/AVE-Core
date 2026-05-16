@@ -194,7 +194,7 @@ class TestPhase2ObserverIntegration:
 # ═══════════════════════════════════════════════════════════════════════════
 class TestPhase2PythagoreanCombination:
     """A²_yield adds contributions from K4 and Cosserat sectors
-    per the Pythagorean vacuum strain theorem (AVE-APU Vol 1 Ch 5).
+    per the Pythagorean substrate-strain theorem (orthogonal-sector additivity).
     Putting strain half in each sector should give the same total
     A²_yield as putting all of it in one sector."""
 

@@ -15,7 +15,8 @@ Three tests in sequence (gate the v14 result on passing the first two):
 
   Test B — IM3 cubic sanity:
     Two-tone drive at sub-saturation, FFT probe, verify IM3 slope ≈ 3
-    (matches K4-TLM bench validation slope 2.956 from AVE-Bench-VM).
+    (matches K4-TLM bench validation slope 2.956 from canonical
+    asymmetric-electrode vacuum-mirror bench, separate compendium).
     Confirms the nonlinear kernel response is correct in Regime II onset.
 
   Test C — v14 single-cell bounded boundary (the load-bearing test):

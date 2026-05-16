@@ -1,7 +1,9 @@
 """
 Stage 4c tuning — empirical calibration of AutoresonantCWSource K_drift gain.
 
-Per research doc 49_ and AVE-Propulsion Ch 5, the autoresonant mechanism tracks
+Per the canonical autoresonant-rupture framework (separate propulsion
+engineering compendium, summarized in `manuscript/backmatter/07_universal_saturation_kernel.tex`
+A-034 autoresonant-rupture row), the autoresonant mechanism tracks
 the vacuum's strain-induced resonance shift via:
 
     ω(t) = ω_0 · max(ε, 1 - K_drift · A²_probe(t))

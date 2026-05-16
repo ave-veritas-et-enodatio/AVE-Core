@@ -1090,7 +1090,7 @@ def main():
     # enables the bond-level impedance mismatch reflection that creates
     # bound-state confinement from the strain-induced Z_eff variation.
     # Amplitude at 0.9 × V_YIELD: core at the Regime II/III boundary per
-    # AVE-VirtualMedia/scripts/generate_reflection_profile.py.
+    # the canonical reflection-profile convention (three-regime A² boundaries).
     N_grid = 96
     R_target = 24.0
     r_target = R_target / PHI_SQ
