@@ -697,16 +697,49 @@ The §7 table catalogs **boundaries** that exist at every scale (the static stru
 
 The recognition: Axiom 4's saturation kernel $S(A) = \sqrt{1 - A^2}$ is the universal mechanism for every topological-reorganization event the framework describes — from atomic dielectric breakdown to cosmic crystallization. Different physical observables at different scales (voltage, magnetic field, frame-dragging strain) all reduce to the same underlying lattice strain. The kernel doesn't change; only the local saturation-boundary geometry changes.
 
-**The six-scale dynamics catalog (A-034 canonical):**
+**The expanded 17-instance dynamics catalog (post-2026-05-15-evening cross-repo audit; AVE-Core canonical):**
 
-| Scale | "$A$" is normalized | Saturation event | Corpus citation |
+Per Grant's framework principle: *"the bulk response of the lattice to strain is universal."* The original 6-scale catalog has been expanded to consolidate the AVE-Bench-VacuumMirror Ch 2 cross-corpus catalog (promoted to AVE-Core per Grant direction) + 9 additional canonical instances surfaced by audit. **Total: 17 canonical instances of the universal kernel.**
+
+**Physical-substrate scales (12 rows):**
+
+| Scale | "$A$" normalized | Saturation event | Corpus | Empirical |
+|---|---|---|---|---|
+| Atomic / EM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4 + Vol 4 Ch 1 | Schwinger limit |
+| Substrate (K4) | bond-bow strain / saturation | K4 lattice + soliton formation | Q-G47 Sessions 1-18 | substrate instance |
+| Nuclear (DT fusion) | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | AVE-Fusion Ch 1:20 | DT fusion canonical |
+| Condensed matter (BCS) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `ave-kb/vol3/.../universal-saturation-operator.md`:18 | **0.00% error** across all measured |
+| Plasma (ε-sector) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | ε-μ duality leaf | plasma canonical |
+| Kolmogorov turbulence | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | Kolmogorov empirical |
+| Planetary (geomagnetic) | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13:131 | geological + Venus null result canonical |
+| Stellar (solar flare) | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 | **NOAA GOES 40-yr validated** (0.46-yr FWHM danger window per 11-yr cycle) |
+| Galactic (MOND) | $g_N / a_0$ | Newtonian → deep-MOND transition | `ave-kb/vol3/cosmology/.../mond.md` | deep-MOND derived |
+| BH event horizon | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
+| BH merger (ring-down) | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 | **1.7% from GR; 10-18% match to 3 LIGO events** |
+| Cosmic (Big Bang) | parent-BH-induced strain / 1 | K4 crystallization seed event | A-034 NEW | CMB axis-alignment test pre-registered |
+
+**Biological-substrate scales (2 rows):**
+
+| Scale | "$A$" normalized | Saturation event | Corpus |
 |---|---|---|---|
-| Atomic / EM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4; Vol 4 Ch 1 |
-| Substrate (K4) | bond-bow strain / saturation | K4 lattice + soliton stabilization | Q-G47 Sessions 1-18 |
-| Planetary | dynamo strain / threshold | Geomagnetic reversal | Vol 3 Ch 13 |
-| Stellar | twisted-flux / shear-stress threshold | Solar flare / CME (LED avalanche) | Vol 3 Ch 14 |
-| BH merger | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM (1.7% from GR exact) | Vol 3 Ch 15 |
-| Cosmic | parent-BH strain / 1 (saturation reached) | K4 crystallization seed (Big Bang) | A-034 NEW |
+| Lipid bilayer membrane (LLCP) | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | AVE-Protein `simulate_membrane_llcp.py:38` |
+| Protein folding | $d_0 / d$ atomic separation | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | AVE-Protein Vol 3 Ch 3:509,782 |
+
+**Engineered-substrate scales (5 rows):**
+
+| Scale | "$A$" normalized | Saturation event | Corpus |
+|---|---|---|---|
+| PONDER-05 quartz | $V_{\text{DC}} / V_{\text{yield}}$ = 0.687 | $\varepsilon_{\text{eff}}$ collapse 27.4%, $C_{\text{eff}}$ rise 37.7% at 30 kV bias | AVE-PONDER Vol 4 Ch 4:17 |
+| AVE-Bench-VacuumMirror | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from $\int \nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Bench Ch 2 (proposed bench) |
+| Active topological metamaterials | $\phi / \phi_{\text{crit}}$ | Phase-state crystallization to V_I; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ | AVE-Metamaterials Vol 1 Ch 2:71 + Ch 4 |
+| Sine-Gordon kink memory (APU) | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | AVE-APU Vol 1 Ch 8:14 |
+| Autoresonant rupture (propulsion) | laser field / $V_{\text{snap}}$ | PLL ring-up to Schwinger-fraction rupture | AVE-Propulsion Vol 5 Ch 5:13 |
+
+**Empirical anchor: 21 orders of magnitude span with multiple validated scales.** Tightest validations: BCS $B_c(T)$ at 0.00% error; BH ring-down at 1.7% from GR; solar flares 40-yr NOAA validated; Schwarzschild exact.
+
+**Explicitly kept separate (per Grant 2026-05-15 evening direction):** LLM SiLU activation saturation (AVE-VirtualMedia Vol _Ch 12). Same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread.
+
+**Explicitly flagged for follow-up:** asymmetric saturation variant ($K_{\text{wedge}}/G_{\text{wedge}} \neq 2$) from AVE-Metamaterials Vol 1 Ch 2:111-147 — novel kernel topology where ε and μ sectors saturate independently. Deferred exploration.
 
 **The kernel's structural property** that makes every event sharp/impulsive: the **vertical tangent at $A = 1$**. Small further strain near saturation produces large changes in $S(A)$, locking in threshold-snap behavior across nine orders of magnitude in scale.
 
