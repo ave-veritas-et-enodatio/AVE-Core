@@ -53,6 +53,83 @@ refinement.
 
 ---
 
+## 1.5. EXTENDED prediction set (refinement per A-034 asymmetric-saturation exploration 2026-05-15 late evening)
+
+The asymmetric-saturation variant exploration (`2026-05-15_A-034_asymmetric_saturation_variant_exploration.md`)
+flagged a **fifth observable** that sharpens the cosmic-scale test:
+
+### 5. CMB E/B polarization asymmetry — cosmic-scale symmetry status
+
+A-034's catalog (post-classification update) marks the cosmic Big Bang
+row as **SYM (presumed)\***. The asterisk: if the parent BH lattice has
+$K/G \neq 2$ (asymmetric substrate), then the cosmic K4 crystallization
+seed event would have been an **asymmetric saturation event** — ε and μ
+sectors saturating independently. This would imprint a specific
+predictable signature on the CMB:
+
+- **Symmetric case (parent K=2G)**: CMB E-mode and B-mode polarization
+  signals are coupled with the predictable lensing + reionization-induced
+  ratio expected from standard cosmology + ΛCDM (modulo Hubble tension
+  and other anomalies).
+- **Asymmetric case (parent K/G ≠ 2)**: CMB E-mode and B-mode
+  polarization signals would show **anomalous decoupling** beyond
+  standard-model predictions, with the decoupling axis aligned with the
+  parent BH spin axis (i.e., same axis as the other four axes from §3.1-3.4).
+
+**Pre-registered hypothesis (refinement):** in addition to the four-axis
+alignment test, examine Planck PR3 polarization maps for E/B asymmetry
+along the same preferred axis as the CMB axis-of-evil. If anomalous E/B
+decoupling is observed aligned with the spin axis, that's **evidence
+for asymmetric cosmic crystallization** (parent BH lattice has $K/G \neq 2$).
+
+Per A-034 §A-034.5 and the asymmetric-saturation exploration §4, this is
+the testable extension that distinguishes:
+- Possibility A: parent lattice satisfies $K = 2G$ (cosmic crystallization
+  symmetric; standard E/B physics)
+- Possibility B: parent lattice has $K/G \neq 2$ (cosmic crystallization
+  asymmetric; anomalous E/B decoupling along spin axis)
+
+**Data sources (additional to §3 above):**
+- Planck PR3 polarization maps (E-mode + B-mode)
+- BICEP/Keck Array primordial B-mode constraints
+- Future: LiteBIRD primordial gravitational wave + polarization survey
+
+**Methodology (sketch):** compute E-mode and B-mode polarization power
+spectra; extract direction-dependence; check for systematic decoupling
+along the CMB axis-of-evil preferred axis. Anomalous decoupling beyond
+standard ΛCDM lensing + reionization predictions, aligned with the
+preferred axis, indicates asymmetric cosmic crystallization.
+
+**Pre-registered outcome additions:**
+- **Outcome A+ (CONFIRMATION + asymmetric)**: 4-axis alignment + anomalous
+  E/B decoupling along spin axis → A-034 + asymmetric cosmic crystallization
+  both supported. Parent BH lattice has $K/G \neq 2$.
+- **Outcome A (CONFIRMATION, symmetric)**: 4-axis alignment + standard E/B
+  physics → A-034 cosmic supported, cosmic instance is symmetric (parent
+  $K = 2G$).
+- **Outcome E (NEW: asymmetric only)**: anomalous E/B decoupling aligned
+  with some axis, but the 4 primary axes don't align → cosmic crystallization
+  asymmetric BUT not aligned with parent BH spin axis → framework needs
+  fundamental refinement.
+- **Outcomes B, C, D** remain as defined in §4.
+
+**Why E/B asymmetry is a sharp framework-level test:** standard cosmology
+has the E/B polarization ratio predicted by lensing + reionization;
+deviations are typically attributed to instrumental systematics or
+primordial gravitational waves. A-034's asymmetric variant predicts a
+SPECIFIC pattern of deviations (aligned with the spin axis), distinguishing
+it from these alternatives. If observed, it would be evidence for the
+parent BH lattice having $K/G \neq 2$ — direct empirical access to a
+parameter A-031 originally classified as "inaccessible cosmic parameter."
+
+This is **partial breach of A-031's "specific cosmic parameters inaccessible"
+horizon**: even though we can't directly measure $M_{\text{parent}}$,
+$J_{\text{parent}}$, we might empirically detect whether the parent
+lattice has $K/G = 2$ or not. Major epistemological consequence if
+empirically observed.
+
+---
+
 ## 2. Background: what's already known observationally
 
 **CMB axis-of-evil (Planck data):**
