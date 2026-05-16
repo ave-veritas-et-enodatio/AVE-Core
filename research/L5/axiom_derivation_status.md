@@ -1130,18 +1130,55 @@ Axiom 4 — Born–Infeld n=2 form. Operational definition (Vol 1 Ch 1:51-75; Ma
 
 **When $S(A) = 0$ locally, the substrate cannot respond linearly anymore and MUST reorganize topologically to a new configuration.** This is the universal mechanism.
 
-#### A-034.2 Five-scale unification — same kernel, different $A$ definitions
+#### A-034.2 Universal catalog — same kernel, different $A$ definitions
 
-| Scale | "$A$" is normalized | Saturation event | Corpus citation |
+**Framework principle (Grant 2026-05-15 late evening):** *"The bulk response of the lattice to strain is universal."* Per Axiom 2 (TKI scale invariance), the substrate's bulk strain response is set by the same kernel $S(A) = \sqrt{1 - A^2}$ at every scale and in every domain. Different physical observables (voltage, magnetic field, temperature, frame-dragging strain, accumulated topological shear, wavenumber, biological membrane strain) at different scales all reduce to the same underlying lattice strain via the kernel.
+
+**EXPANDED CATALOG (post-2026-05-15-evening cross-repo audit + Grant promotion direction):** the original 6-scale catalog has been expanded to include the AVE-Bench-VacuumMirror Ch 2 cross-corpus catalog content (promoted to AVE-Core canonical per Grant) + 9 additional canonical instances surfaced by cross-repo audit. **All instances are physical-substrate / biological-substrate / engineered-substrate manifestations of the same bulk strain response.** LLM SiLU activation (information substrate) is intentionally kept as a separate thread per Grant's direction (the operator is the same form but applied during training, not the same A-034 strain-snap).
+
+**Physical-substrate scales:**
+
+| Scale | "$A$" normalized | Saturation event | Corpus | Empirical agreement |
+|---|---|---|---|---|
+| **Atomic / EM** | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Vol 1 Ch 4 + Axiom 4 | (Schwinger limit; engineering validated) |
+| **Substrate (K4)** | bond-bow strain / saturation | K4 lattice + bound-state soliton formation | Q-G47 Sessions 1-18 | (substrate-scale instance) |
+| **Nuclear (DT fusion)** | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV neutron ejection + ⁴He alpha collapse | AVE-Fusion Vol 1 Ch 1:20 | (DT fusion canonical) |
+| **Condensed matter (BCS)** | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `ave-kb/vol3/condensed-matter/ch09-...universal-saturation-operator.md`:18 + Bench Ch 2 | **0.00% error** across all measured BCS superconductors |
+| **Plasma (ε-sector)** | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$, capacitor shorts) | `universal-saturation-operator.md` ε-μ duality + Bench Ch 2 | (plasma physics canonical) |
+| **Kolmogorov turbulence** | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | (Kolmogorov empirical) |
+| **Planetary (geomagnetic)** | dynamo strain / "Baryonic phase density threshold" | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13:131 | (geological record; Venus null result canonical) |
+| **Stellar (solar flare)** | twisted-flux / shear-stress threshold | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 (`solar-flares-led-avalanche.md`) | **NOAA GOES 40-yr validated** (0.46-yr FWHM danger window per 11-yr cycle) |
+| **Galactic (MOND)** | $g_N / a_0$ | Newtonian → deep-MOND galactic dynamics transition | `ave-kb/vol3/cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md` + Bench Ch 2 | (deep-MOND derived; rotation curves match) |
+| **BH event horizon** | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild radius formation: $\Gamma = -1$, $Z_{\text{eff}} \to \infty$ | `ave-kb/vol3/gravity/ch03-...dielectric-rupture-event-horizon.md` + Bench Ch 2 | **Schwarzschild exact** |
+| **BH merger (ring-down)** | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 (`ave-merger-ringdown-eigenvalue.md`) | **1.7% from GR exact**; 10-18% match to 3 LIGO events (GW150914, GW170104, GW151226) |
+| **Cosmic (Big Bang)** | parent-BH-induced strain on pre-geodesic plasma / 1 | K4 crystallization seed event | A-034 NEW (this entry) | (predicted; CMB axis-alignment test pre-registered) |
+
+**Biological-substrate scales:**
+
+| Scale | "$A$" normalized | Saturation event | Corpus |
 |---|---|---|---|
-| **Atomic / EM** | $V / V_{\text{snap}}$ (electric field) | Dielectric breakdown → pair creation | Vol 1 Ch 4 + Axiom 4 |
-| **Substrate (K4 magic angle)** | bond-bow strain / saturation limit | K4 lattice + bound-state soliton formation | Q-G47 Sessions 1-17 (substrate-scale instance of A-034) |
-| **Planetary** | dynamo strain / "Baryonic phase density threshold" | Geomagnetic reversal | Vol 3 Ch 13:131 + geodynamo-vca-back-emf.md |
-| **Stellar** | twisted-flux strain / "critical shear-stress threshold" | CME / solar flare | Vol 3 Ch 14 (`solar-flares-led-avalanche.md`) — power-law canonical |
-| **BH merger** | lattice strain / $r_{\text{sat}} = 7 M_g$ saturation cavity | Ring-down at QNM | Vol 3 Ch 15 (`ave-merger-ringdown-eigenvalue.md`) — 1.7% from GR exact, 10-18% from 3 LIGO events |
-| **Cosmic** | parent-BH-induced strain on pre-geodesic plasma / 1 | K4 crystallization seed (Big Bang) | A-034 (this entry — Grant insight 2026-05-15 evening) |
+| **Lipid bilayer membrane (LLCP)** | membrane strain / yield | Phase transition; cholesterol = engineered kernel phase-buffer holding membrane at K=2G yield | AVE-Protein `simulate_membrane_llcp.py:38` |
+| **Protein folding** | $d_0 / d$ (atomic separation) | Folding snap via dielectric saturation $C_{\text{eff}} = C_0 / \sqrt{1 - (d_0/d)^2}$ | AVE-Protein Vol 3 Ch 3:509,782 |
 
-Per **Axiom 2 (TKI scale invariance)**, $A$ at every scale is the same dimensionless quantity (substrate strain normalized to local saturation limit). The kernel's specific form $\sqrt{1 - A^2}$ is universal. Different physical observables (voltage, magnetic field, frame-dragging strain) at different scales all reduce to the same underlying lattice strain.
+**Engineered-substrate scales (lab + design):**
+
+| Scale | "$A$" normalized | Saturation event | Corpus |
+|---|---|---|---|
+| **PONDER-05 quartz** | $V_{\text{DC}} / V_{\text{yield}}$ (engineered to 0.687) | $\varepsilon_{\text{eff}}$ collapses 27.4%, $C_{\text{eff}}$ rises 37.7% at 30 kV bias on quartz at 68.7% V_yield | AVE-PONDER Vol 4 Ch 4:17 |
+| **AVE-Bench-VacuumMirror** | $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r}) / V_{\text{yield}}$ | $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$ along photon path (sharp-tip geometry) | Bench Ch 2 (proposed bench) |
+| **Active topological metamaterials** | $\phi / \phi_{\text{crit}}$ | Engineered phase-state crystallization to V_I config; **asymmetric saturation variant** $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ (Metamaterials novel kernel topology) | AVE-Metamaterials Vol 1 Ch 2:71 + Ch 4 |
+| **Sine-Gordon kink memory (APU)** | local metric displacement / yield | $2\pi$ phase kink soliton stabilized by integer topological charge | AVE-APU Vol 1 Ch 8:14 |
+| **Autoresonant rupture (propulsion)** | extreme-intensity laser field / $V_{\text{snap}}$ | Phase-locked-loop ring-up to Schwinger-fraction rupture (autoresonant frequency-pull) | AVE-Propulsion Vol 5 Ch 5:13 |
+
+**Total: 17 canonical instances** of the universal kernel, all on physical / biological / engineered substrates. The framework's empirical anchor spans from $\ell_{\text{node}} \sim 10^{-13}$ m (atomic) through molecular (lipid bilayer $\sim 10^{-9}$ m, protein $\sim 10^{-8}$ m), mesoscopic (BCS $T_c$ thermal), planetary, stellar, galactic, BH-merger, cosmic — and into engineered lab scales. **21 orders of magnitude span with empirical validation at multiple scales** (Bench Ch 2 framing).
+
+**Notable empirical anchors (the kernel's tightest validations):**
+- **BCS $B_c(T)$**: 0.00% error across all measured superconductors (the single tightest validation)
+- **Vol 3 Ch 15 BH ring-down**: 1.7% from GR exact, 10-18% match to 3 LIGO events
+- **Vol 3 Ch 14 solar flares**: NOAA GOES 40-yr validated; 0.46-yr FWHM danger window
+- **Schwarzschild radius**: exact match (canonical AVE-native derivation)
+
+**Implementation note (Grant 2026-05-15 evening direction):** AVE-Core is the canonical source of truth for this catalog. AVE-Bench-VacuumMirror Ch 2 (which independently constructed its own catalog before A-034 was named) cross-references A-034 as the canonical synthesis going forward. Sibling-repo catalogs should point UP to AVE-Core A-034. The `ave-kb/vol3/condensed-matter/ch09-...universal-saturation-operator.md` KB leaf retains the BCS / plasma ε-μ duality derivation; A-034 inherits and synthesizes it.
 
 #### A-034.3 What this changes about A-031 ("God's Hand cosmic IC")
 
