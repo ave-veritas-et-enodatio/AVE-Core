@@ -93,11 +93,11 @@ integration on eq.~\ref{eq:master_wave} with saturation kernel
 $S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical) and effective wave speed
 $c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$.
 
-The framework's canonical two-engine architecture (doc 113 \S{}3.2): \textbf{K4-TLM}
-(\texttt{src/ave/core/k4\_tlm.py}) is canonical for the sub-saturation bench
-regime; \textbf{Master Equation FDTD} (\texttt{src/ave/core/master\_equation\_fdtd.py})
-is canonical for the bound-state regime. Both are Axiom-1/2/3/4 compliant; they
-cover different operating regimes of the same substrate.
+The framework's canonical two-engine architecture (doc 113 \S{}3.2):
+\textbf{K4-TLM} is canonical for the sub-saturation bench regime;
+\textbf{Master Equation FDTD} is canonical for the bound-state regime.
+Both are Axiom-1/2/3/4 compliant; they cover different operating regimes
+of the same substrate. Engines live under \texttt{src/ave/core/}.
 
 \paragraph{A-034 universality cross-reference.} The saturation kernel
 $S(A) = \sqrt{1 - A^2}$ in the Master Equation above is the SAME mechanism
