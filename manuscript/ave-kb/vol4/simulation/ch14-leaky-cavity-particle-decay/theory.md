@@ -9,9 +9,9 @@ At this boundary, the purely reactive, non-dissipative nature of the "perfect" v
 
 ## Fermions as Resonant Topologies
 
-In the AVE framework, an electron is a completely stable Trefoil Knot ($3_1$) of inductive flux. Its internal metric tension ($\approx 0.511\,\text{MeV}/c^2$) generates a localized geometric standing wave whose peak voltage sits safely below the $43.65\,\text{kV}$ saturation threshold. Because it doesn't break the local vacuum elasticity, it can ring forever (infinite half-life).
+In the AVE framework, an electron is the $0_1$ unknot in real space carrying a $(2,3)$ Clifford-torus winding pattern in phase space (see [Vol 1 Ch 8 α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md)). The trefoil lives in the bond-pair LC tank's $(V_{\text{inc}}, V_{\text{ref}})$ phasor trajectory, not in the real-space flux-tube topology. Its internal metric tension ($\approx 0.511\,\text{MeV}/c^2$) generates a localized geometric standing wave whose peak voltage sits safely below the $43.65\,\text{kV}$ saturation threshold. Because it doesn't break the local vacuum elasticity, it can ring forever (infinite half-life).
 
-A heavy fermion, such as a **Muon**, possesses the exact same $3_1$ topology, but it has been forcefully pumped with $206$ times more mass-energy ($105.6\,\text{MeV}/c^2$).
+A heavy fermion, such as a **Muon**, possesses the same real-space unknot topology with a $(2, 5)$ phase-space winding pattern (cinquefoil) instead of $(2, 3)$, but it has been forcefully pumped with $206$ times more mass-energy ($105.6\,\text{MeV}/c^2$).
 
 This extreme scaling forces the localized topological voltage of the Muon's standing wave violently upwards, drastically eclipsing the $43.65\,\text{kV}$ structural limit of the $\mathcal{M}_A$ lattice. Because the localized metric cannot physically sustain this voltage, the localized vacuum undergoes continuous impedance rupture.
 

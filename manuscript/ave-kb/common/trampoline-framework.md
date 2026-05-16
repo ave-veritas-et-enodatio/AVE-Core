@@ -939,7 +939,7 @@ The shape of the answer is locked in. The remaining work is filling in the pictu
 ### 9.3 Provisional (use with caveats)
 
 - Substrate-native dual electron view (soliton + lattice-wake per A-023): A47 v7 framing; A43 v2 verification done — soliton-side validated, wake-side measured Mode III at Round 13. Caveat: use this framing for engine-internal pedagogy, not as canonical for manuscript-level prose without explicit caveat.
-- Lemniscate-with-q-half-twists as primary electron topology (per E-086): Grant adjudication 2026-04-28; (2,q) torus knot as derived equivalent. Caveat: Vol 1 Ch 8 prose still says "Trefoil Knot ($3_1$)" in places — needs cleanup (queue [1] in DOCUMENTATION_UPDATES_QUEUE).
+- Lemniscate-with-q-half-twists as primary electron topology (per E-086): Grant adjudication 2026-04-28; (2,q) torus knot as derived equivalent. **Cleanup landed 2026-05-16**: Vol 1 Ch 8 prose reframed (commit `de08015`) from "Trefoil Knot ($3_1$)" to "$0_1$ unknot with $(2,3)$ phase-space Clifford-torus winding"; full propagation across vol1/00_intro, vol2/04_quantum_spin, vol4/14_particle_decay_spice, vol6/03_hydrogen + 04_helium .tex chapters + 10 KB-twin leafs verified clean.
 
 ---
 

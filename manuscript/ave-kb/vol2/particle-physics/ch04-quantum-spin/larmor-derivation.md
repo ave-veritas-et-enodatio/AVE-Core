@@ -3,7 +3,7 @@
 
 ## The Larmor Derivation via Topological Gyroscopes
 
-By rigidly enforcing the Topological Isomorphism (where the electron is a literal macro-physical $3_1$ Trefoil knot storing inductive kinetic energy), this shatters the necessity for the abstract Dirac spinor.
+By rigidly enforcing the Topological Isomorphism (where the electron is the $0_1$ unknot in real space carrying a literal macro-physical $(2,3)$ phase-space Clifford-torus winding pattern that stores inductive kinetic energy, per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)), this shatters the necessity for the abstract Dirac spinor.
 
 If the electron is a topological flywheel, its quantum spin ($S = \frac{1}{2}\hbar$) is not an intrinsic probability descriptor; it is literal, classical angular momentum ($\mathbf{L} = I\boldsymbol{\omega}$) born of the circulating metric network. The electron possesses a physical gyromagnetic ratio ($\gamma$) mapping its topological magnetic dipole moment ($\boldsymbol{\mu}$) to its angular momentum:
 

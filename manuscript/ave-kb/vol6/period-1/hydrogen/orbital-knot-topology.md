@@ -7,7 +7,7 @@
 
 In standard quantum mechanics, the inability to define precise simultaneous coordinates for the electron gave rise to the Schrodinger equation, treating the atomic orbital as a probabilistic "cloud." Within the Applied Vacuum Engineering (AVE) framework, this probability heuristic is superseded by deterministic, continuous topology.
 
-Because the vacuum is a highly constrained $\mathcal{M}_A$ elastodynamic fluid, particles are not dimensionless points; they are localized geometric LC standing waves (Topological Solitons). The Hydrogen atom (Protium) is therefore strictly defined as a topological hierarchy: a $6^3_2$ Borromean linkage (the proton) acting as a massive central inductive core, orbited by a continuous $3_1$ Trefoil knot (the electron) surfing the induced refractive gradient.
+Because the vacuum is a highly constrained $\mathcal{M}_A$ elastodynamic fluid, particles are not dimensionless points; they are localized geometric LC standing waves (Topological Solitons). The Hydrogen atom (Protium) is therefore strictly defined as a topological hierarchy: a $6^3_2$ Borromean linkage (the proton) acting as a massive central inductive core, orbited by the electron's $0_1$ unknot flux tube (carrying the canonical $(2,3)$ phase-space Clifford-torus winding per [Vol 1 Ch 8](../../../vol1/ch8-alpha-golden-torus.md)) surfing the induced refractive gradient.
 
 #### The Geometric Bohr Radius ($a_0$)
 
@@ -37,7 +37,7 @@ This macroscopic derivation identically matches the empirical Rydberg energy lim
 
 Niels Bohr initially postulated that angular momentum must be quantized in integer steps ($\hbar$) to prevent the electron from spiraling into the nucleus, though he could not provide a physical mechanism for *why* the spatial geometry enforced this rule.
 
-In the AVE framework, this quantization is not a mathematical postulate; it is a classical wave-interference requirement. As the electron's $3_1$ Trefoil knot moves through the vacuum, its internal Compton resonance cycles between electric dielectric strain and magnetic inductive flux. This dynamic oscillation generates a continuous physical wake in the lattice, possessing a macroscopic wavelength ($\lambda_e = 2\pi\hbar / p$).
+In the AVE framework, this quantization is not a mathematical postulate; it is a classical wave-interference requirement. As the electron's $0_1$ unknot flux tube moves through the vacuum (carrying the canonical $(2,3)$ phase-space Clifford-torus winding pattern), its internal Compton resonance cycles between electric dielectric strain and magnetic inductive flux. This dynamic oscillation generates a continuous physical wake in the lattice, possessing a macroscopic wavelength ($\lambda_e = 2\pi\hbar / p$).
 
 For the orbit to remain stable and non-radiating, the physical circumference of the topological orbit ($2\pi a_0$) must perfectly divide by the moving spatial pulse wavelength ($\lambda_e$). The computational solver evaluates this non-linear LC resonance index ($n$) continuously:
 
