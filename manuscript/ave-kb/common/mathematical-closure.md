@@ -76,7 +76,7 @@ The entirety of the framework's predictive power is derived by bridging **Three 
 2. **Parameter 2 (The Dielectric Bound):** The absolute structural self-impedance of the macroscopic lattice is rigidly governed by the fine-structure constant ($\alpha$).
 3. **Parameter 3 (The Machian Boundary):** Macroscopic Gravity ($G$) acts as the structural impedance parameter defining the causal limits of the manifold.
 4. **Axiom 1 (Topo-Kinematic Isomorphism):** Charge is identically equal to spatial dislocation ($[Q] \equiv [L]$).
-5. **Axiom 2 (Chiral LC Elasticity):** The macroscopic vacuum acts as an effective trace-free Chiral LC Network supporting microrotations.
+5. **Axiom 2 (Chiral LC Elasticity):** The macroscopic vacuum acts as an effective trace-free chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect) supporting microrotations via per-node Cosserat rotational DOFs.
 6. **Axiom 3 (Discrete Action Principle):** The macroscopic system minimizes Hamiltonian action across the localized phase transport field ($\mathbf{A}$).
 7. **Axiom 4 (Dielectric Saturation):** The effective lattice compliance is bounded by a squared mathematical limit ($n=2$). Taylor expanding this squared limit bounds the volumetric energy required by the standard QED Euler-Heisenberg Lagrangian.
 
@@ -96,7 +96,7 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 | Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
 |---|---|---|---|---|
 | **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
-| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter (Vol 3 Ch 14) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter ([Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
 | **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
 | **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
 

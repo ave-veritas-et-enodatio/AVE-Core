@@ -9,7 +9,7 @@ While the $\nu_{vac} \equiv 2/7$ ratio is dictated by the macroscopic 4D metric 
 
 In a perfect affine crystal or a standard random spring network, pure hydrostatic compression yields a baseline Cauchy solid ($K \approx \frac{5}{3}G$). However, the true macroscopic vacuum cannot support affine geometry. To satisfy the QED volumetric packing fraction ($p_c \approx 0.1834$), the spatial graph must span secondary spatial links out to $1.187 \times l_{node}$.
 
-Under macroscopic shear, this geometric over-bracing forces a **non-affine microscopic deformation**. As the volume compresses, the randomly oriented secondary links are forced to buckle. This localised, non-affine buckling couples to the independent microrotational degrees of freedom ($\theta_i$) of the Chiral LC Network, engaging the transverse couple-stress modulus.
+Under macroscopic shear, this geometric over-bracing forces a **non-affine microscopic deformation**. As the volume compresses, the randomly oriented secondary links are forced to buckle. This localised, non-affine buckling couples to the independent microrotational degrees of freedom ($\theta_i$) of the chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect), engaging the transverse couple-stress modulus.
 
 ## EMT Verification
 

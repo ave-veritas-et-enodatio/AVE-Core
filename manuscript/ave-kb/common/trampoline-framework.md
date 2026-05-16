@@ -708,12 +708,12 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 |---|---|---|---|---|---|
 | Atomic / EM | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4 + Vol 4 Ch 1 | Schwinger limit |
 | Substrate (K4) | SYM | bond-bow strain / saturation | K4 lattice + soliton formation | Q-G47 Sessions 1-18 | substrate instance |
-| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | Vol 2 Ch 2 + Vol 3 Ch 14 | DT fusion canonical |
+| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | [Vol 2 Ch 2 (Baryons)](../../../vol_2_subatomic/chapters/02_baryon_sector.tex) + [Vol 3 Ch 14 (Orbital Mechanics)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | DT fusion canonical |
 | Condensed matter (BCS) | **ASYM-N** (μ-only) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `universal-saturation-operator.md`:18 | **0.00% error** across all measured |
 | Plasma (ε-sector) | **ASYM-N** (ε-only) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | ε-μ duality leaf | plasma canonical |
 | Kolmogorov turbulence | SYM | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | Kolmogorov empirical |
-| Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13:131 | geological + Venus null |
-| Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
+| Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | [Vol 3 Ch 13 (Geophysics)](../../../vol_3_macroscopic/chapters/13_geophysics.tex) | geological + Venus null |
+| Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | [Vol 3 Ch 14 (Orbital Mechanics)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
 | Galactic (MOND) | SYM | $g_N / a_0$ | Newtonian → deep-MOND transition | `mond.md` | deep-MOND derived |
 | BH event horizon | SYM | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
 | BH merger (ring-down) | SYM | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 | **1.7% from GR; 10-18% LIGO** |
@@ -753,7 +753,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 A-034 refines the original A-031 "God's Hand fundamentally inaccessible" framing. The cosmic-IC mystery narrows:
 
 - **INACCESSIBLE:** specific cosmic parameters ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$ of our parent BH)
-- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales (Vol 3 Ch 13, 14, 15 + atomic dielectric breakdown)
+- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales ([Vol 3 Ch 13 (Geophysics)](../../../vol_3_macroscopic/chapters/13_geophysics.tex), [Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex), [Vol 3 Ch 15 (BH Orbital Resonance)](../../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) + atomic dielectric breakdown)
 
 This is a major epistemological softening. The original framing implied the entire cosmic-IC question was beyond observation. A-034 shows the *mechanism* is observable; only the specific parameters of OUR instance remain inaccessible. "God's Hand" is the cosmic-parameter horizon, not a mechanism horizon.
 

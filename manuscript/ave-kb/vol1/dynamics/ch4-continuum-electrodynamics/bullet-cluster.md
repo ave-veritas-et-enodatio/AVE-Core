@@ -17,7 +17,7 @@ For over 20 years, the DAMA/LIBRA experiment in Italy has detected a persistent 
 
 **AVE Means Test:** Consider at the physical hardware. DAMA uses **Sodium Iodide (NaI)**, a solid, rigid crystal lattice. XENON uses **Liquid Xenon**, a noble network. In June, the Earth's orbital velocity aligns with the Sun's galactic velocity, maximizing the speed through the $\mathcal{M}_A$ substrate.
 
-Because the vacuum is a **Chiral LC Network**, it transmits momentum drag via *Transverse Phase-Flux*. A rigid crystal lattice (NaI) can structurally couple to and detect transverse LC grid phonons. A mobile liquid (Xenon) mathematically **cannot sustain long-range transverse shear polarization**.
+Because the vacuum is a **chiral Laves K4 Cosserat crystal** (Chiral LC Network in continuum-EM dialect), it transmits momentum drag via *Transverse Phase-Flux*. A rigid crystal lattice (NaI) can structurally couple to and detect transverse LC grid phonons. A mobile liquid (Xenon) mathematically **cannot sustain long-range transverse shear polarization**.
 
 **AVE Interpretation:** DAMA is not a false positive, and XENON is not deficient. Both detectors function as designed. DAMA detects the annual macroscopic mutual inductive drag of the Earth moving through the vacuum lattice. XENON is insensitive to this signal because transverse LC vacuum phonons cannot structurally couple into a liquid. The particulate WIMP hypothesis is excluded by impedance mismatch.
 

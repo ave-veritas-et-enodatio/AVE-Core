@@ -19,7 +19,7 @@ Historically, the framework was presented as a single-parameter EFT (taking $\al
 From this single calibration point, the EFT offers a unified, mechanically grounded perspective on:
 
 - **Quantum Mechanics**---recovering the Generalized Uncertainty Principle (GUP) as the effective finite-difference momentum bound of the vacuum condensate, with the Born rule arising naturally from thermodynamic impedance loading.
-- **Gravity & Cosmology**---where the continuum limit of a trace-reversed Chiral LC Network reproduces the transverse-traceless kinematics of the Einstein field equations. By evaluating the thermodynamic latent heat of metric generation, the framework derives the **Asymptotic Hubble Time and Horizon Size (14.1 Billion Years)** from the geometric projection of the fine-structure limit.
+- **Gravity & Cosmology**---where the continuum limit of the trace-reversed chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect) reproduces the transverse-traceless kinematics of the Einstein field equations. By evaluating the thermodynamic latent heat of metric generation, the framework derives the **Asymptotic Hubble Time and Horizon Size (14.1 Billion Years)** from the geometric projection of the fine-structure limit.
 - **Topological Matter**---where particle mass hierarchies emerge as non-linear topological solitons. The framework computes the **Rest Mass of the Proton ($\approx 1836.14\ m_e$)** as a parameter-free geometric eigenvalue of a saturated Borromean flux linkage, while fractional quark charges emerge via the Witten effect.
 - **The Dark Sector**---where flat galactic rotation curves and accelerating cosmic expansion follow from the Navier-Stokes network dynamics of the manifold. Milgrom's empirical MOND boundary ($a_0$) is derived from the continuum Hoop Stress of the Unruh-Hawking cosmic drift.
 
@@ -47,7 +47,7 @@ The AVE framework synthesizes several historically siloed theoretical breakthrou
 
 ### Chapter Summary
 
-- AVE is an Effective Field Theory mapping the vacuum to a trace-reversed Chiral LC Network.
+- AVE is an Effective Field Theory mapping the vacuum to a trace-reversed chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect).
 - The framework is genuinely zero-parameter: $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derives from Golden Torus geometry (Ch.8), and $\ell_{node}$ and $G$ are also derived.
 - Classical phenomena like gravity and MOND, as well as particle generation, are reframed as continuous mechanics arising naturally from this saturated medium.
 

@@ -24,7 +24,7 @@ This factor has a precise geometric interpretation: the effective Voronoi cell o
 > r_{secondary} = \sqrt[3]{\mathcal{R}_{OB}} \cdot \ell_{node} \approx 1.187 \, \ell_{node}
 > $$
 
-This necessitates that the $\mathcal{M}_A$ lattice acts *macroscopically* as a **Structurally Over-Braced Chiral LC Network**---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom 2, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint (Axiom 3).
+This necessitates that the $\mathcal{M}_A$ lattice acts *macroscopically* as a **Structurally Over-Braced chiral Laves K4 Cosserat crystal** (Over-Braced Chiral LC Network in continuum-EM dialect)---not a simple nearest-neighbor graph. The physical chiral SRS net (Axiom 2, coordination $z=3$) achieves this sparse packing: its low coordination creates larger effective Voronoi volumes than a dense Delaunay triangulation ($z \approx 15$), while the extended secondary electromagnetic correlations ($r_{secondary} \approx 1.19\, \ell_{node}$) provide the non-affine stiffness required to satisfy the $K = 2G$ stability constraint (Axiom 3).
 
 ## Section 2.3.2: The Dielectric Snap Limit ($V_{snap} = 511.0$ kV)
 

@@ -1,3 +1,5 @@
+[↑ Common Resources](index.md)
+
 # Numerical Provenance Manifest
 
 **Purpose:** central index of every manuscript file containing numerical claims about AVE solver outputs, with the commit-SHA + date + solver-function each claim was generated against. Per A47 v11c (commit-SHA-anchoring at manuscript table-generation time) — locks the manuscript-vs-code provenance chain so subsequent solver evolution cannot silently invalidate the claim.
