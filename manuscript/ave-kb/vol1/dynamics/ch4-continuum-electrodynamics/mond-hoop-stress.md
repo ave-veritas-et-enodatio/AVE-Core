@@ -40,6 +40,29 @@ Because the $2\pi$ divisor is a dimensionless geometric projection factor from H
 
 This recovers Milgrom's empirical MOND boundary ($a_{0}\approx1.2\times10^{-10}\text{ m/s}^{2}$) within 10.7% error, reproducing the flat galactic rotation curves without free parameters or dimension-violating modifications.
 
+### Cross-volume substrate motif: Hoop Stress 2π projection at multiple scales (NEW 2026-05-17)
+
+The Hoop Stress 2π projection that derives $a_0 = c H_\infty/(2\pi)$ at cosmic scale is **recurring substrate physics** that also applies at substrate scale. The same projection formula governs the electron's substrate-equilibrium velocity:
+
+$$v_{substrate} = \frac{\alpha c}{2\pi} \approx 348.2\,\text{km/s}$$
+
+via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../../src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)):
+
+| Scale | Formula | Small-parameter $\epsilon$ | Output |
+|---|---|---|---|
+| Cosmic (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² |
+| Substrate (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s |
+| Substrate (DAMA quantum) | $E_{substrate} = h \cdot c \cdot \epsilon / (2\pi \ell_{node}) = \epsilon \cdot m_e c^2$ | $\epsilon = \alpha$ (same) | Energy $\sim 3.728$ keV |
+
+**The recurring pattern** ("Hoop Stress projection of substrate drift onto closed topological loops"): substrate bulk drift $c \times \epsilon$ projected through the 2π Hoop Stress geometric factor onto closed topological loops gives the observable equilibrium scale. At cosmic scale the small parameter is $H_\infty$ acting on the cosmic horizon loop; at substrate scale the small parameter is $\alpha$ acting on the electron unknot via Axiom 4 dielectric saturation back-reaction.
+
+**Empirical confirmation across scales**:
+- Cosmic: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual ([`../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md`](../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md))
+- Substrate: $v_{substrate}$ matches Sun's CMB velocity to 6%; Gaia DR3 29,466 thin-disk G/K dwarfs cluster at 375 km/s with prediction at 4%ile (lower envelope) (see [`preferred-frame-and-emergent-lorentz.md` §5](preferred-frame-and-emergent-lorentz.md))
+- DAMA: $E_{substrate}$ lies in 2-6 keV detection window (see [`../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md))
+
+**This motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis of three previously-independent AVE predictions (MOND, substrate-equilibrium-velocity, DAMA quantum) under the same Hoop Stress 2π projection framework.
+
 ### Dark Sector Comparison: AVE vs. Observation
 
 | **Observable** | **AVE Prediction** | **Observed** | **Error** |

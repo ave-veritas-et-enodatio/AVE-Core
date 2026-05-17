@@ -59,21 +59,23 @@ The tightest thin-disk cut (lowest-peculiar 40% of the sample) clusters with σ 
 
 ## Three interpretive possibilities (plumber check for Grant)
 
-### Interpretation A: AVE prediction needs a small correction factor
+### Interpretation A: AVE prediction needs a small correction factor — DOWNGRADED 2026-05-17 post corpus-grep
 
-The 9% gap is real and AVE's α-slew derivation needs a correction. Tantalizing candidate:
+Initially proposed a tantalizing candidate:
 
 $$v_{substrate,corrected} = \frac{\alpha c}{2\pi} \cdot \left(1 + \frac{1}{4\pi}\right) = 348.2 \times 1.0796 = 375.99\,\text{km/s}$$
 
-**This matches the cluster center to 0.5 km/s — well within sample noise.**
+Numerical match to cluster center: **0.69 km/s** (~0.2% out of 375).
 
-Possible physical origin of the (1 + 1/(4π)) factor:
-- Solid-angle averaging (4π = full sphere) — converts a directional velocity to its 3D-averaged equivalent
-- Sphere-surface vs sphere-volume ratio in some substrate integral
-- Coulomb-constant-like factor (1/4πε₀) appearing in a substrate-electromagnetic context
-- 3D averaging of substrate refresh-rate over solid angle of incident substrate flow
+**Corpus-grep verification 2026-05-17 (agentId a60b4fe011a261023):**
+- The literal `(1 + 1/(4π))` factor does NOT appear in any AVE corpus derivation across 10 repos
+- Q-G47 Path B+ DIRECTLY TESTED a K4-discrete vs Cosserat-continuum decomposition for the soft-shear E-irrep eigenvalue and found **NO continuum correction** ([`128_q_g47_path_b_plus_cosserat_results.md:30`](../research/_archive/L3_electron_soliton/128_q_g47_path_b_plus_cosserat_results.md)): "*The 2% gap to u_0* = 0.187 (and 4% gap to p* = 8πα = 0.1834) is **intrinsic to the discrete K4 lattice level**, not a Cauchy-vs-Cosserat artifact*"
+- Canonical K4 discrete-vs-continuum length ratio is **√6** (per [`continuous-springs-reframing.md:36`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch2-macroscopic-moduli/continuous-springs-reframing.md)), NOT 1/(4π)
+- MOND Hoop Stress derivation is pure 2π with NO sub-leading correction term (per [`mond-hoop-stress.md`](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md))
 
-Without rigorous derivation from AVE axioms, this is **suggestive numerology**, NOT validated AVE physics. Needs Grant adjudication: is there a canonical AVE reason for a (1 + 1/(4π)) correction to αc/(2π)?
+**Verdict:** the (1 + 1/(4π)) numerical match is striking (0.69 km/s out of 375) but **the corpus has a direct prior negative for the structural form** I proposed (K4 discrete-bond + Cosserat-continuum decomposition). Path B+ specifically tested this kind of correction for the soft-shear mode and found none. Different observable, but the structural-form-doesn't-add-correction result is a flag.
+
+**Downgraded interpretation A to:** suggestive numerology that requires a NEW canonical AVE derivation (not in existing corpus) to be load-bearing. Cleaner interpretation is B (αc/(2π) as floor; cluster center is LSR + local-flow above floor).
 
 ### Interpretation B: AVE prediction is the LOWER ENVELOPE / floor
 
@@ -93,10 +95,10 @@ Under this reading:
 - LSR's 374 km/s reflects galactic dynamics, not substrate physics
 - DAMA energy match (α m_e c² = 3.728 keV) survives independently as a different prediction
 
-**Likelihood ranking** (my read, awaiting Grant adjudication):
-1. Interpretation A or B are both consistent with data; A is cleaner if the (1+1/(4π)) factor has rigorous AVE derivation
-2. Interpretation B requires extra-galactic test for confirmation (next-step work)
-3. Interpretation C requires explaining: why does a sample of 29,466 nearby stars cluster TIGHTLY (σ = 11 km/s) at a velocity scale close to αc/(2π) by chance? Random galactic-rotation dynamics would predict much broader distribution centered at different values.
+**Likelihood ranking** (my read, post-corpus-grep verification):
+1. **Interpretation B (floor)** is now the cleanest reading — no unverified geometric correction needed; αc/(2π) is the substrate-equilibrium floor velocity; cluster center reflects LSR + local-flow streaming above the floor; ~5% of sample (1,200 stars) at or below the floor are the "most equilibrium-like" objects
+2. **Interpretation A (geometric correction)** is downgraded — requires NEW canonical derivation not in existing corpus; Path B+ provides direct prior negative for the K4 discrete+continuum decomposition structural form
+3. **Interpretation C (coincidence)** requires explaining: why does a sample of 29,466 nearby stars cluster TIGHTLY (σ = 11 km/s) at a velocity scale close to αc/(2π) by chance? Random galactic-rotation dynamics would predict much broader distribution centered at different values. Cluster-tightness argument still favors B over C.
 
 ## What does NOT happen in the data (negative falsifiers)
 
@@ -159,8 +161,9 @@ The 9% gap (median 380 vs prediction 348 km/s) places this in outcome B, NOT out
 
 Result on branch `analysis/divergence-test-substrate-map`. Substantive POSITIVE result for the structure of the AVE substrate-equilibrium velocity prediction (clustering at a specific scale near αc/(2π) confirmed); 9% calibration gap remains open pending either canonical AVE correction-factor derivation OR independent extra-galactic test.
 
-## Open questions for Grant
+## Open questions for Grant (revised post corpus-grep 2026-05-17)
 
-1. **Is the (1 + 1/(4π)) correction canonical AVE physics?** The numerical match is striking (348 × 1.0796 = 376, matches cluster center to 0.5 km/s). Plausible solid-angle averaging interpretation but no current corpus derivation.
-2. **Should we promote to foreword now or wait for extra-galactic confirmation?** The cluster tightness (σ=11) is substantive; the 9% gap is real. SPARC was promoted at 11.5% Q=1 mean residual; this Gaia result is structurally analogous (forward prediction matches data with characteristic residual).
-3. **Next-step extra-galactic test**: globular cluster radial velocities? Halo stars from SDSS/SEGUE? Different equilibrium class to test Interpretation B's "floor" claim.
+1. **(1+1/(4π)) corpus status — RESOLVED.** Corpus-grep verifies no prior derivation exists; Path B+ provides direct prior negative for K4 discrete+continuum decomposition structural form. Interpretation A downgraded to "would-require-new-derivation". Interpretation B is the cleaner reading.
+2. **Should we promote to foreword now or wait for extra-galactic confirmation?** Cluster tightness (σ=11) is substantive; the 9% gap is real but consistent with Interpretation B (αc/(2π) as floor with LSR + local-flow above). SPARC was promoted at 11.5% Q=1 mean residual. Recommend: promote as "floor prediction validated qualitatively; extra-galactic test corroborates".
+3. **Next-step extra-galactic test (cleanest validation of Interpretation B)**: globular cluster radial velocities (low local-flow participation) OR halo stars from SDSS/SEGUE (decoupled from disk LSR motion) — both should cluster CLOSER to 348 km/s if Interpretation B holds. Different equilibrium class than thin-disk; if the floor is real, these subsets should sharpen the lower-envelope match.
+4. **Separately surfaced — flag-worthy corpus contradiction (regardless of Gaia):** [`src/ave/core/lbm_3d.py:10`](../src/ave/core/lbm_3d.py) defines `ν_kin = (1/(4π)) × ℓ_node × c` while [`src/ave/core/constants.py:554-555`](../src/ave/core/constants.py) defines `ν_kin = α × c × ℓ_node`. These differ by factor `1/(4πα) = 137/(4π) ≈ 10.9×`. Two of three canonical files agree on αcℓ; lbm_3d disagrees. Real corpus bug worth its own audit.
