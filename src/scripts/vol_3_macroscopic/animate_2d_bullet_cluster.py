@@ -1,7 +1,16 @@
 """
-2D Rotating Slice Animation of the Bullet Cluster Merger.
-Proves that Macroscopic Mutual Inductance (Dark Matter) expands radially in 2D space
-as derived exactly by the Topological H_INFINITY bound (A0_LATTICE).
+2D rotating-slice animation of the Bullet Cluster Merger.
+
+Visualizes (does NOT formally prove) the AVE ponderomotive-halo mechanism:
+each cluster's mass generates a substrate-strain halo via Ax2 TKI + Ax4
+saturation (A0_LATTICE = c H_inf / 2pi); halos linearly superpose during
+collision and pass through each other ballistically with the stellar
+cluster centers; gas (not shown) decouples at atomic scale and stops at
+collision center.
+
+See simulate_bullet_cluster_fdtd.py docstring for the 2026-05-17 audit +
+Grant adjudication reframing. Same scope-correction (this is static-halo-
+superposition + Einstein-lensing physics, not propagating TT-shockwave).
 """
 
 import os

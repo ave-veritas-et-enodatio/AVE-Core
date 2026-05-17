@@ -1,7 +1,12 @@
 """
-30-Second Bullet Cluster Timelapse.
-Computes a high-fidelity continuous cinematic animation mapping
-the Linear Superposition offset physics of Macroscopic Lensing haloss.
+30-second Bullet Cluster timelapse visualization.
+
+Visualizes the linear-superposition offset physics of macroscopic lensing
+halos per the AVE ponderomotive-halo mechanism (see simulate_bullet_cluster_
+fdtd.py docstring for 2026-05-17 audit + Grant adjudication reframing).
+Computes a continuous animation of static-halo superposition under prescribed
+cluster kinematics — does NOT compute propagating wave dynamics or any
+FDTD-class field evolution.
 """
 
 import os
