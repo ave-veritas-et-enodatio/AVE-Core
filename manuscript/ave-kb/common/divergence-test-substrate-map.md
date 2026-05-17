@@ -790,12 +790,87 @@ flowchart TD
 
 **Operational implication:** G is **not directly testable** in any current bench — CODATA precision (~4 decimals) is itself the limit. The framework's G value matches CODATA by construction (it's calibrated from m_e, ℓ_node, ξ). The real G-cascade test is the **3-route framework commitment** (foreword line 121-129): α + G + 𝒥_cosmic must converge on the same u_0*. Route 3 (𝒥_cosmic) is the bottleneck — see 𝒥_cosmic cascade below.
 
+### 𝒥_cosmic + Ω_freeze Meta-Cascade (audited 2026-05-16)
+
+This is the **deepest cascade** in the framework — the cosmological initial-condition layer that generates all four framework anchors (ν_vac, α, ξ_topo, G) as downstream observables. Per foreword line 25 + line 121-129: the framework reduces to **ONE cosmological parameter** ($\Omega_{freeze}$, the substrate's rotation rate at lattice genesis) with three observational windows (α + G + 𝒥_cosmic) that MUST converge on the same magic-angle operating point $u_0^*$, or the framework is falsified.
+
+This is the framework's **sharpest empirical commitment** (per foreword line 121).
+
+```mermaid
+flowchart TD
+    BIGBANG["Lattice Genesis<br/>(K4 crystallization phase transition<br/>from parent-BH ruptured plasma)"]
+    OMEGA(("Ω_freeze<br/>substrate rotation rate at lattice genesis<br/>SINGLE cosmological IC parameter"))
+    UZERO(("u_0*<br/>magic-angle operating point<br/>K = 2G locked"))
+
+    BIGBANG --> OMEGA
+    OMEGA --> UZERO
+
+    %% Three routes from u_0*
+    UZERO -->|"Route 1 electromagnetic"| R1["α via Q-factor closure<br/>Vol 1 Ch 8 Golden Torus<br/>(see α cascade above)"]
+    UZERO -->|"Route 2 gravitational"| R2["G via Machian impedance integral<br/>G = c⁴/(7ξT_EM(u_0*))<br/>(see G cascade above)"]
+    UZERO -->|"Route 3 cosmological"| R3["𝒥_cosmic = Ω_freeze · I_cosmic<br/>CMB / LSS axis observable"]
+
+    %% Status notes per route
+    R1 -.-> S1["Route 1 status:<br/>CLOSED via Path C FTG-EMT<br/>p* = 8πα to 0.003%"]
+    R2 -.-> S2["Route 2 status:<br/>corpus-canonical via Vol 3 Ch 1<br/>Machian integral derivation"]
+    R3 -.-> S3["Route 3 status:<br/>PENDING — A-031 cosmic-parameter<br/>horizon bottleneck<br/>CMB axis-alignment prereg landed 2026-05-15"]
+
+    %% 𝒥_cosmic direct observational tests (3 rows)
+    R3 --> C5["C5-CMB-AXIS<br/>axis-of-evil alignment (174°, -5°)<br/>frozen prereg 2026-05-15"]
+    R3 --> C13["C13-VLBI-DARK<br/>Jupiter-grazing radio<br/>(also in G cascade)"]
+    R3 --> D4COS["D4-A034 cosmic instance<br/>cosmic K4 crystallization<br/>(canonical 21-instance row)"]
+
+    %% Three-route convergence (the framework commitment)
+    R1 --> COMMIT{{"3-ROUTE FRAMEWORK COMMITMENT<br/>α + G + 𝒥_cosmic → SAME u_0*<br/>or framework falsified"}}
+    R2 --> COMMIT
+    R3 --> COMMIT
+    COMMIT --> KILL["FRAMEWORK-LEVEL FAIL<br/>if any route gives ≠ u_0*<br/>(foreword line 129 explicit)"]
+
+    classDef genesis fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef ic fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
+    classDef route fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef rowbox fill:#fff3e0,stroke:#e65100
+    classDef status fill:#ffe0b2,stroke:#bf360c
+    classDef commitment fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    classDef fail fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class BIGBANG genesis
+    class OMEGA,UZERO ic
+    class R1,R2,R3 route
+    class C5,C13,D4COS rowbox
+    class S1,S2,S3 status
+    class COMMIT commitment
+    class KILL fail
+```
+
+**Legend additions** (extends prior cascade legends):
+- **Pink (heavy border)** — Lattice Genesis (the cosmological-IC genesis event, before all framework constants exist)
+- **Purple (heaviest border)** — Ω_freeze and u_0* (the IC parameter and its operational manifestation)
+- **Yellow (heavy border)** — the three routes from u_0* (α, G, 𝒥_cosmic)
+- **Pink (3px border)** — the three-route framework commitment node (load-bearing falsification structure)
+
+**Status per route:**
+- **Route 1 (α):** CLOSED via Path C FTG-EMT (p* = 8πα to 0.003% precision per [`closure-roadmap.md`](closure-roadmap.md))
+- **Route 2 (G):** corpus-canonical via Vol 3 Ch 1 Machian impedance integral (CODATA G at 4 decimals is the precision limit)
+- **Route 3 (𝒥_cosmic):** **PENDING** — A-031 cosmic-parameter horizon bottleneck per [`cosmic-parameter-horizon-a031-refinement.md`](cosmic-parameter-horizon-a031-refinement.md); CMB axis-alignment prereg landed 2026-05-15 but execution deferred (per [`closure-roadmap.md`](closure-roadmap.md) line 35)
+
+**The full framework commitment is currently 2-of-3 closed.** Route 3 is the blocker. **Until 𝒥_cosmic is empirically anchored, the framework's strongest claim (one-cosmological-parameter theory with three observational windows) remains aspirational.**
+
+**Operational implication — Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS.** Building a Planck+SDSS axis-alignment driver to execute the frozen 2026-05-15 prereg would simultaneously:
+
+1. Test C5-CMB-AXIS directly (axis alignment at (174°, -5°))
+2. Pull D4-A034 cosmic-instance from derivation-only to data-bearing
+3. Close the foreword's headline three-route framework commitment
+4. Give Ω_freeze its first empirical anchor (currently inferred from cold-α + G correspondence only)
+5. Enable cross-cascade consistency checks between α + G + 𝒥_cosmic at the single-IC level
+
+That last item is the framework-level falsification opportunity that doesn't exist in any single anchor's cascade. It's the **only test in the framework that can falsify the entire single-cosmological-parameter claim in one shot.**
+
+This is more leverage than HOPF-02a, more leverage than LIGO ringdown driver, more leverage than CLEAVE-01 bench. All public data, pre-reg already frozen, execution-deferred. **Build this driver.**
+
 ### Other framework cascades to map (deferred)
 
-Same Mermaid format would be valuable for:
-- **𝒥_cosmic + Ω_freeze** (foreword three-route commitment cascades across C4-THREE-ROUTE, C5-CMB-AXIS, C13-VLBI-DARK, D2-RHO-LAMBDA, D4-A034) — partial subgraph of α + G cascades via C4; not yet audited as standalone
-
-Each Mermaid diagram costs ~30-60 lines and surfaces the cross-row dependency structure that flat tables hide. Add as audited.
+All major framework anchors (ν_vac, α, ξ_topo, G) and the IC layer (Ω_freeze + 𝒥_cosmic) are now visualized. Each Mermaid diagram costs ~30-60 lines and surfaces the cross-row dependency structure that flat tables hide. Add domain-specific cascades (e.g., (2,q) torus-knot family ladder for particle masses) as audited.
 
 ---
 
