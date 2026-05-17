@@ -73,11 +73,12 @@ From Vol 3 Ch 2:139:
 From Vol 4 Ch 1:491-495:
 > *"When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω."*
 
-The photon in AVE is defined by **three tightly-coupled properties**:
+The photon in AVE is defined by **four tightly-coupled properties** (equivalent statements; any one implies the others):
 
-1. **Purely transverse** — no longitudinal/scalar component.
-2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation).
-3. **No saturation** — $\Delta\phi \ll \alpha$, lattice stays in linear regime.
+1. **Purely transverse** — no longitudinal/scalar component (forbidden by Gauss's law in vacuum; realized automatically by K4 $A_1 \oplus T_2$ symmetry, $A_1$ dissipates to zero).
+2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation). The photon lives entirely in the rotational sector of the K4 lattice's 6 DOFs per node.
+3. **Sub-saturation** — $\Delta\phi \ll \alpha$, lattice stays in linear regime, no Axiom 4 kernel engagement.
+4. **Impedance-matched at $Z_0$** — local lattice impedance $Z_{\text{local}} = Z_0 \approx 376.7$ Ω perfectly matched everywhere; reflection coefficient $\Gamma = 0$ at every bond; no scattering or reflection. *This is the wave-engineer's restatement of property 3: linear regime $\Leftrightarrow$ no impedance modulation $\Leftrightarrow$ perfect impedance match.* The Vol 4 Ch 1:491-495 quote above states exactly this.
 
 The $A_1 \oplus T_2$ decomposition aligns directly:
 
@@ -96,6 +97,19 @@ With $A_1$ fully dissipated ($\lambda_4 = 0$ exactly) and $T_2$ surviving ($\lam
 > **Doc 107 correction.** Doc 105's dual-sector helical-photon framing ($u \neq 0$ AND $\omega \neq 0$) is empirically wrong per the engine result. The canonical photon is **single-sector** ($T_2$ only, microrotation $\omega$, no translation $u$). The engine's empirically observed "$u$ driven by $\omega$" coupling is a sub-saturation Op14 effect, not photon-physical content.
 
 ## §4 — Electron = photon + TIR confinement (mechanism)
+
+### §4.0 — Symmetric framing: photon and electron are two amplitude phases of the same underlying object
+
+The K4-TLM substrate carries transverse Cosserat-microrotation wave excitations (T₂ sector). Whether such an excitation is observed as **a photon** or **an electron** depends only on its amplitude relative to $V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{snap}} \approx 43.65$ kV:
+
+- **$\Delta\phi \ll \alpha$ $\Rightarrow$ photon:** sub-yield amplitude, lattice stays linear, $Z_{\text{local}} = Z_0$ impedance-matched, $\Gamma = 0$ at every bond, free propagation as a transverse Cosserat-microrotation wave.
+- **$\Delta\phi \to \alpha$ $\Rightarrow$ electron:** at-yield amplitude triggers Axiom 4 self-saturation, $C_{\text{eff}} \to \infty$, $Z_{\text{local}} \to 0$, $\Gamma \to -1$ TIR cavity self-creates, the transverse wave is trapped into a standing wave inside the self-created mirror.
+
+**The boundary is a dynamical threshold** (analogous to a varactor's breakdown voltage or a Josephson junction's critical current), not a fundamental ontological difference between two different kinds of particle. Photon emission (the electron → photon transition) is the reverse process: amplitude drops, lattice de-saturates, $\Gamma$ moves off $-1$, the trapped standing wave escapes as a free photon at frequency $\omega_C$.
+
+This framing is what makes "the electron is a self-trapped photon" (line 7) precise: same K4 transverse-Cosserat-microrotation wave, parameterized only by whether self-saturation has engaged.
+
+### §4.1 — The trapping mechanism step-by-step
 
 The electron differs from the photon by **one additional piece of physics**: Axiom 4 saturation engages. The mechanism, step-by-step:
 
