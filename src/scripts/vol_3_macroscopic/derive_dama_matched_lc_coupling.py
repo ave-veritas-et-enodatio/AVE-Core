@@ -39,31 +39,28 @@ sys.path.insert(0, str(_repo_root / "src"))
 from ave.core.constants import (
     ALPHA,
     C_0,
+    E_SLEW,
     HBAR,
     L_NODE,
+    LAMBDA_SLEW,
     M_E,
     N_A,
     NU_KIN,
+    NU_SLEW,
     RHO_BULK,
     Z_0,
+    Z_RADIATION,
     e_charge,
 )
 
 
-# ---------- Canonical AVE quantities ----------
+# ---------- Canonical AVE quantities (now from constants.py) ----------
 
-# alpha-slew quantum (per-cycle reactive leak of electron LC tank)
-E_SLEW_J = ALPHA * M_E * C_0**2  # 3.728 keV in J
-E_SLEW_KEV = E_SLEW_J / e_charge / 1e3
+# alpha-slew quantum in keV (for display)
+E_SLEW_KEV = E_SLEW / e_charge / 1e3
 
-# alpha-slew frequency (substrate slew rate per electron)
-NU_SLEW = ALPHA * C_0 / (2 * 3.141592653589793 * L_NODE)  # ~9.02e17 Hz
-
-# alpha-slew wavelength
-LAMBDA_SLEW = C_0 / NU_SLEW  # ~3.32e-10 m (atomic, NOT nuclear)
-
-# Electron LC tank impedance at TIR boundary (per Theorem 3.1')
-Z_TANK = Z_0 / (4 * 3.141592653589793)  # ~30 Ohm
+# Electron LC tank impedance at TIR boundary (alias for clarity)
+Z_TANK = Z_RADIATION  # = Z_0 / (4π) ~ 30 Ohm per Theorem 3.1'
 
 
 # ---------- NaI detector parameters ----------

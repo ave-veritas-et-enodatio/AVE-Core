@@ -558,6 +558,41 @@ NU_KIN: float = ALPHA * C_0 * L_NODE  # ≈ 8.45e-7 m²/s
 DIELECTRIC_RUPTURE_STRAIN: float = 1.0
 
 # =============================================================================
+# α-SLEW SUBSTRATE OPERATING POINT (Schwinger anomalous-moment substrate-rate)
+# =============================================================================
+#
+# Canonical at:
+#   - manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md
+#   - manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md
+#   - src/scripts/vol_2_subatomic/simulate_g2.py (Axiom 4 + 1/π² geometric projection)
+#
+# The electron's LC tank operating point: Q_tank = α⁻¹ at TIR boundary, with
+# per-cycle reactive leak fraction = 1/Q = α (per Theorem 3.1' line 75 verbatim:
+# "this IS α in its original Sommerfeld meaning ('coupling strength'), seen
+# from the LC-tank side"). The α-slew is the per-cycle reactive (NOT real)
+# leak of the electron's LC tank — see orbital-friction-paradox.md:31 canonical
+# reactive-power table.
+
+# α-slew quantum energy (per-cycle reactive leak of electron LC tank)
+# = α m_e c² ≈ 3.728 keV; matches DAMA's 2-6 keV detection window
+# (anti-anchor: also matches Moseley Ca Kα = 3.691 keV within 1%; see
+# §11 of dama-alpha-slew-derivation.md for Z-INDEPENDENCE discriminator)
+E_SLEW: float = ALPHA * M_E * C_0**2  # ≈ 5.97e-16 J ≈ 3.728 keV
+
+# α-slew frequency (Schwinger-suppressed Compton frequency, per electron)
+NU_SLEW: float = ALPHA * C_0 / (2.0 * pi * L_NODE)  # ≈ 9.02e17 Hz
+
+# α-slew wavelength (atomic scale, NOT nuclear)
+LAMBDA_SLEW: float = C_0 / NU_SLEW  # ≈ 3.32e-10 m
+
+# Per-spinor-cycle radiation impedance (Theorem 3.1' line 67-73 canonical)
+# The 4π is the electron's spinor-cycle-phase requirement (SU(2) double-cover
+# of SO(3)). Radiation impedance averaged over one full spinor cycle.
+# Used in matched-LC-coupling efficiency formula at electron α-slew TIR
+# boundary: ε_det = 4π / N_single² per dama-matched-lc-coupling.md
+Z_RADIATION: float = Z_0 / (4.0 * pi)  # ≈ 29.98 Ω
+
+# =============================================================================
 # TOPOLOGICAL BARYON CONSTANTS
 # =============================================================================
 

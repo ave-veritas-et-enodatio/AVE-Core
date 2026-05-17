@@ -300,6 +300,10 @@ The reactive-power picture is canonical at three Vol 4 Ch 1 leaves. Prior versio
 
 **New skill** (`ave-power-category-check`, ~/.claude/skills/) forces this category-classification step (real-vs-reactive, propagating-vs-bound, on-shell-vs-off-shell, internal-tank-vs-external-matched) BEFORE deriving scaling laws. The skill would have caught the 8th-cycle mis-categorization on the first derivation pass.
 
+### §12.8 — Rate magnitude derivation (matched-LC-coupling, separate canonical leaf)
+
+The rate-magnitude follow-up to this §12 categorical reframe landed at canonical KB leaf [`dama-matched-lc-coupling.md`](dama-matched-lc-coupling.md) — derives the per-cycle matched-coupling efficiency $\epsilon_{det} = 4\pi / N_{single}^2$ from Theorem 3.1' inheritance + Fermi-golden-rule coherent two-state matched-receiver probability. Predicted rate $4.80 \times 10^{-7}$ events/s/kg matches DAMA observed $4.77 \times 10^{-7}$ events/s/kg within 0.6%. That leaf documents the 4π prefactor inheritance argument, cross-detector + cross-crystal forward predictions, and discrimination-check caveats (post-hoc construction; cross-detector tension with COSINE/ANAIS requiring $\kappa_{quality}$ framework).
+
 ## Cross-references
 
 - **Source derivation**: [`../../../../../research/2026-05-17_C14-DAMA_amplitude_result.md`](../../../../../research/2026-05-17_C14-DAMA_amplitude_result.md) — full revision history (refresh-rate framing → α-slew framing)

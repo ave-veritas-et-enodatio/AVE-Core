@@ -23,7 +23,8 @@ Derives the MOND acceleration scale $a_0 = c H_\infty / (2\pi)$ from first princ
 | [McGaugh Empirical RAR](mcgaugh-empirical-rar.md) | Resultbox: empirical RAR interpolation function; asymptotic match to AVE |
 | [Asymptotic Limits and Regime Identification](asymptotic-limits.md) | Deep MOND / Keplerian limits, regime table (I/II/III/IV), physical mechanism |
 | [Multi-Galaxy Validation](multi-galaxy-validation.md) | Five-galaxy catalog, SPARC 135-galaxy benchmark CONFIRMED (11.5% Q=1 mean residual), VLBI parallax test, DAMA crystal phonon modulation |
-| [DAMA α-Slew Derivation](dama-alpha-slew-derivation.md) | DAMA energy quantum $E = \alpha m_e c^2 = 3.728$ keV via Schwinger anomalous-moment substrate-rate; Hoop Stress 2π cross-volume motif; rate magnitude OPEN single-Q closure target |
+| [DAMA α-Slew Derivation](dama-alpha-slew-derivation.md) | DAMA coupling line $E = \alpha m_e c^2 = 3.728$ keV via Schwinger anomalous-moment substrate-rate; reactive-power physical picture §12 (9th audit cycle resolution); honest-scoped after Moseley Ca Kα anti-anchor + CXB OOM-match catches (§11) |
+| [DAMA Matched-LC-Coupling Rate Derivation (NEW 2026-05-17 night)](dama-matched-lc-coupling.md) | Rate magnitude via $\epsilon_{det} = 4\pi / N_{single}^2$ (0.6% match to DAMA observed); 4π Theorem 3.1' spinor-cycle radiation-impedance averaging; cross-detector forward predictions (HPGe 9.39 kg cleanest single-experiment test for 4 AVE-distinct claims) |
 | [Cosmological Constant Closure ($10^{122}$ improvement on QED)](cosmological-constant-closure.md) | $\rho_\Lambda = 9.03 \times 10^{-27}$ kg/m³ within $\times 1.54$ of Planck-2018 (exact in de Sitter asymptote) via Friedmann/de Sitter applied to corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$; QED's naive ZPE prediction off by $10^{122}$. Largest single quantitative improvement on QED in fundamental physics. |
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.
