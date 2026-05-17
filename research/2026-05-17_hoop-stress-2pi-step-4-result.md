@@ -42,18 +42,16 @@ For the electron unknot:
 
 There's no "discreteness correction" because the unknot's ropelength is defined CONTINUOUSLY (it's a continuum knot-theory invariant), and the lattice quantization sets the tube diameter, not the integration measure.
 
-## §4 — Cosmic-scale instance: same mechanism via different topology
+## §4 — Cosmic-scale instance: ASSERTED ANALOGY, rigorous derivation STILL OPEN (walked back per external reviewer A#1)
 
-For the cosmic horizon ($a_0 = c H_\infty / (2\pi)$), the relevant topology is the de Sitter horizon — a 3-sphere $S^3$. The "ropelength" analog for $S^3$ is its great-circle circumference, which is exactly $2\pi$ times the horizon radius.
+> **🟡 WALK-BACK 2026-05-17 night post external reviewer Part A#1**: this section originally asserted that cosmic-scale 2π comes from "3-sphere great-circle integration on the de Sitter horizon" as the same mechanism as substrate-scale ropelength. **External reviewer correctly caught**: unknot Ideal Ropelength = 2π is a knot-theory topological invariant; 3-sphere great-circle = 2π is basic Euclidean geometry (circumference of unit circle). Both equal 2π but for STRUCTURALLY DISTINCT reasons. Asserting "same geometric origin" risks numerology-dressed-as-substrate-motif. Furthermore, the cosmic-scale Hoop Stress derivation in [`mond-hoop-stress.md` §4.5](../manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) goes via Unruh-Hawking, NOT via "great-circle integration on de Sitter horizon" — that framing was post-hoc assertion to fit the substrate-scale derivation, not actual cosmic-scale Step 5 work. **Cosmic-scale 2π rigor remains OPEN pending Step 5 (cosmic-horizon 3-sphere Hoop Stress derivation done properly).**
 
-So the 2π factor at cosmic scale comes from:
-- Great-circle integration on the de Sitter horizon 3-sphere
-- Integration measure = 2π for any closed great circle on the horizon sphere
-- Same geometric origin as the unknot ropelength at substrate scale
+**What is and isn't confirmed at this point**:
+- **Substrate-scale 2π**: RIGOROUSLY EXACT via knot-theory unknot Ideal Ropelength (Cantarella+Kusner+Sullivan 2002) — Step 4 closure
+- **Cosmic-scale 2π**: derived via Unruh-Hawking + Hoop Stress in `mond-hoop-stress.md §4.5` but the explicit Hoop-Stress-as-closed-loop-integration on the de Sitter 3-sphere has NOT been rigorously constructed — Step 5 pending
+- **Cross-scale "same mechanism" claim**: WALKED BACK. Substrate scale uses knot-theory; cosmic scale uses Unruh-Hawking. Both yield 2π but the mechanism-level commonality is asserted, not derived
 
-**Both scale-instances of 2π are EXACT via geometric integration on closed topological structures** — substrate scale uses unknot ropelength; cosmic scale uses 3-sphere great-circle. Different topologies, same 2π factor because both involve closed-loop integration in 2D angular measure.
-
-## §5 — Outcome adjudication (per prereg §4)
+## §5 — Outcome adjudication (per prereg §4) — WALKED BACK 2026-05-17 night
 
 Per prereg §4, the four outcomes were:
 - A: 2π universal (~40-55% prior)
@@ -61,11 +59,27 @@ Per prereg §4, the four outcomes were:
 - C: Cross-scale coincidence (~10-15%)
 - D: Exact factor ≠ 2π (~5%)
 
-**Outcome A confirmed**. 2π is exact at BOTH scales via geometric integration on closed topological structures:
-- Substrate: unknot Ideal Ropelength = 2π (knot-theory invariant)
-- Cosmic: 3-sphere great-circle circumference = 2π (Euclidean geometry on horizon)
+**Updated adjudication post external reviewer Part A#1 + post ave-independence-check retroactive application**:
+- **Outcome A confirmed at SUBSTRATE SCALE ONLY**: unknot Ideal Ropelength = 2π is rigorous knot-theory invariant
+- **Cosmic-scale 2π rigor remains OPEN**: the "3-sphere great-circle integration" framing was assertion-not-derivation; Step 5 (cosmic-horizon Hoop Stress proper) is still pending; the cosmic 2π is derived via Unruh-Hawking in `mond-hoop-stress.md §4.5`, which is a different mechanism than the substrate-scale knot-theory ropelength
+- **"Same 2π via closed-loop integration in 2D angular measure" claim REJECTED as overreach**: unknot Ropelength = 2π is a knot-theory topological invariant; 3-sphere great-circle = 2π is basic Euclidean geometry. Both equal 2π for STRUCTURALLY DISTINCT reasons. Treating them as the same mechanism risks numerology-dressed-as-substrate-motif
 
-The cycle-12 framework's Hoop Stress 2π substrate motif is RIGOROUSLY GROUNDED, not an empirical coincidence.
+**Cycle-12 framework's Hoop Stress 2π substrate motif status**: PARTIALLY grounded (substrate-scale knot theory) with cosmic-scale rigor pending. Cross-scale unification is ASSERTED, not derived.
+
+## §5.1 — ave-independence-check retroactive application (NEW 2026-05-17 night)
+
+Per new skill `ave-independence-check` (designed specifically to catch this failure mode), retroactive check on the Hoop Stress motif's "N instances" claim:
+
+| Claimed instance | Independent or derived? | Algebraic check |
+|---|---|---|
+| **Cosmic** $a_0 = cH_\infty/(2\pi)$ | INDEPENDENT | Distinct scale + distinct small parameter (H_∞) |
+| **Substrate** $\nu_{slew} = \alpha\omega_{Compton}/(2\pi)$ | INDEPENDENT | Distinct scale + distinct small parameter (α) |
+| Stellar/v_substrate $v = \alpha c/(2\pi)$ | **DERIVED** | $v_{substrate} = \nu_{slew} \times \ell_{node}$ where $\ell_{node} = \hbar/(m_e c)$; the 2π carries forward via dimensional analysis, NOT independent observation |
+| DAMA quantum $E_{slew} = \alpha m_e c^2$ | **DERIVED** (and 2π disappears!) | $E_{slew} = h \times \nu_{slew} = (2\pi\hbar) \times (\alpha\omega_{Compton}/(2\pi)) = \hbar \alpha \omega_{Compton} = \alpha m_e c^2$ — **the 2π cancels via canonical $h = 2\pi\hbar$ identity**. So $E_{slew}$ has NO 2π factor and is NOT an instance of the Hoop Stress motif at all |
+
+**Net**: only **2 INDEPENDENT instances** (cosmic + substrate), not 3 or 4. The "cross-volume motif spans 3-4 scales" framing in `mond-hoop-stress.md §4.5` and `dm-mechanism-unification.md §5.2` overcounted by conflating derived consequences with independent observations.
+
+This retroactive catch is exactly what ave-independence-check is designed to surface; the skill itself was created BECAUSE of this Hoop Stress overcount per its own canonical description.
 
 ## §6 — Discreteness corrections: revised analysis
 
