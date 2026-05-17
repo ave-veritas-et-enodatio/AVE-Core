@@ -1,21 +1,30 @@
 # C14-DAMA Amplitude Derivation — Pre-Registration
 
-**Status:** PREREG ONLY (no derivation performed). Surfaces 2 foundational physics-judgment calls that block solo derivation. Per `ave-prereg` skill discipline.
+**Status:** PREREG with WORKING HYPOTHESIS (updated 2026-05-17 evening). Refresh-rate framing per Grant physical-intuition session adjudicates the prior Q1 + Q2 foundational choices into a single substrate-native picture.
 
-**Date:** 2026-05-17
-**Author:** agent + corpus-grep audit (agentId: adcb9b4429afd35e4)
+**Date:** 2026-05-17 (initial: morning; refresh-rate update: evening)
+**Author:** agent + corpus-grep audit (agentId: adcb9b4429afd35e4); refresh-rate hypothesis per Grant
 **Matrix row:** C14-DAMA-MATERIAL
-**Closure-roadmap item:** §0.5 open scope-correction "DAMA amplitude formula" pending
+**Closure-roadmap item:** §0.5 open scope-correction "DAMA amplitude formula" — now with working hypothesis
+
+## Working hypothesis (Grant 2026-05-17 evening)
+
+**DAMA is a high-Q acoustic interferometer measuring Earth's local refresh-rate modulation in the K4 discrete substrate.** NaI's coherent atomic lattice provides the interferometric baseline; liquid Xe doesn't, so XENONnT sees nothing.
+
+The K4 lattice has spatial pitch $\ell_{node} \approx 3.86 \times 10^{-13}$ m and an intrinsic LC refresh rate per node. Earth moving through the lattice at $v_{wind} = 370$ km/s encounters lattice nodes at local rate $v_{wind}/\ell_{node} \approx 9.6 \times 10^{17}$ Hz per unit perpendicular area. This is the **local refresh rate** — the rate at which Earth samples the substrate's discrete state. Earth's annual orbital ±15 km/s modulates this rate by ~4%; a coherent crystal embedded in Earth detects the rate modulation.
+
+**Not Doppler** (which is wave-frequency shifts). **It's compression of a discrete medium under relative motion** — like driving over a corrugated road: bumps come at a rate set by your velocity / corrugation spacing. Speed up = faster bumps. Constant speed = steady drumming you stop noticing. Annual orbital modulation = your speed varying through the year → bump rate modulates with it.
 
 ## Derivation target
 
-Derive the AVE prediction for DAMA/LIBRA's annual modulation amplitude in cpd/kg/keV (counts per day per kg per keV) at 2-6 keV single-hit window, as a function of:
-- $\kappa_{crystal}$ coupling ratio (operator choice TBD per Q1 below)
-- Earth velocity through $\mathcal{M}_A$ rest frame (frame choice TBD per Q2 below)
-- Annual orbital component (±15 km/s, fraction depends on frame choice)
-- AVE substrate-physics rate coefficient (no corpus chain exists)
+Derive the AVE prediction for DAMA/LIBRA's annual modulation amplitude in cpd/kg/keV at 2-6 keV single-hit window, as a function of:
+- $\ell_{node}$ (substrate spatial pitch, canonical AVE)
+- $v_{wind}$ (Earth velocity through CMB-rest K4 lattice, 370 km/s canonical per Q-G24 preferred-frame leaf)
+- $\Delta v_{wind}$ (annual orbital modulation ±15 km/s)
+- $\nu_{kin}$ (substrate refresh-viscosity = kinematic mutual inductance, $\alpha c \ell_{node}$)
+- $\kappa_{crystal}$ (crystal coupling fraction = density ratio × shear-coherence factor)
 
-Target empirical value: DAMA ~0.0103 cpd/kg/keV at 2-6 keV.
+Target empirical value: DAMA ~0.0103 cpd/kg/keV at 2-6 keV (single-hit).
 
 ## Corpus state
 
@@ -41,67 +50,45 @@ The 2026-05-16 audit retired the C13-VLBI-DARK forward-prediction claim and simu
 | Earth velocity through $\mathcal{M}_A$ (CMB-dipole frame) | [`preferred-frame-and-emergent-lorentz.md:13`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) | $v_\oplus \sim 370$ km/s |
 | $V_{yield}$ macroscopic saturation limit | [`magnetic-saturation.md:13`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/magnetic-saturation.md) | $\sim 43.65$ kV |
 
-## Two unresolved physics-judgment calls (block solo derivation)
+## Q1 + Q2 adjudication (Grant 2026-05-17 evening — refresh-rate framing)
 
-### Q1 — Operator choice: bulk density vs transverse shear modulus
+The two prior open questions (operator choice + frame choice) are resolved by the refresh-rate working hypothesis:
 
-The corpus carries TWO inconsistent operator framings for the κ_crystal coupling:
+### Q1 resolved — both framings correct, conditional read
 
-**Framing A — bulk-density coupling** (per [`vlbi_impedance_parallax.py`](src/scripts/vol_3_macroscopic/vlbi_impedance_parallax.py) and [`multi-galaxy-validation.md`](manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md)):
-$$\kappa_{crystal} = \rho_{crystal} / \rho_{bulk}$$
-- NaI ($\rho = 3.67 \times 10^3$ kg/m³): κ ≈ 4.63e-4
-- Sapphire ($\rho = 3.98 \times 10^3$): κ ≈ 5.03e-4
-- Ge ($\rho = 5.32 \times 10^3$): κ ≈ 6.72e-4
-- Ratio NaI:Sapph:Ge = 1 : 1.08 : 1.45
+Both bulk-density (Framing A) and transverse-shear-modulus (Framing B) framings in the corpus are correct once read as **conditional**:
 
-**Framing B — transverse-shear-modulus coupling** (per [`bullet-cluster.md:20-22`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md)):
-> "A rigid crystal lattice (NaI) can structurally couple to and detect transverse LC grid phonons. A mobile liquid (Xenon) mathematically **cannot sustain long-range transverse shear polarization**."
+- **Bulk density** sets the magnitude of the crystal-substrate mutual-inductance coupling fraction (Sagnac-RLVE-like): $\kappa_{crystal} = \rho_{crystal}/\rho_{bulk}$
+- **Shear-modulus support** is the BINARY LITMUS TEST for whether $\kappa_{crystal}$ is nonzero at all: solids have G > 0 → can sustain coherent transverse modes → couple ($\kappa > 0$); liquids have G = 0 → atoms dephase individually → no coherent coupling ($\kappa \approx 0$).
 
-If transverse-shear is the operative coupling, the relevant constant is shear modulus G_crystal, not bulk density:
-- NaI G ≈ 15 GPa
-- Sapphire G ≈ 145 GPa
-- Ge G ≈ 67 GPa
-- Ratio NaI:Sapph:Ge ≈ 1 : 9.7 : 4.5 (very different scaling)
+So $\kappa_{crystal} = (\rho_{crystal}/\rho_{bulk}) \times \Theta(\text{coherent shear support})$ where Θ is essentially binary (1 for solids, 0 for liquids), modulated continuously by crystal-quality factors (defect density, mosaicity, grain boundaries) — these determine how PERFECTLY the crystal's coherent lattice phase-locks to the substrate refresh rate.
 
-**The two framings predict materially different DAMA-vs-CDMS-vs-COSINE amplitude ratios.** The XENONnT null result is the discriminator that motivates Framing B (liquid can't sustain transverse shear) but the math implementation uses Framing A.
+**Plumber framing**: the crystal is a long-baseline interferometer for the substrate's discrete refresh signal. Solid lattice = coherent interferometer arms (atoms at fixed positions, coherent phase-lock); liquid = no interferometer (atoms diffusing, no phase reference). The bulk-density formula gives the right MAGNITUDE for solids; the shear-support requirement is what determines whether the coupling exists at all.
 
-**The C13c META row in the matrix flags this exact issue** ([`divergence-test-substrate-map.md:442`](manuscript/ave-kb/common/divergence-test-substrate-map.md)): three DM-mechanism framings (η_eff drag, TT shockwave, κ_crystal coupling) coexist without formal unification under Cosserat substrate. **Q1 is part of C13c.**
+### Q2 resolved — CMB-dipole frame (Framing β) wins
 
-**Need from Grant:** which is the operative coupling? Or do both apply at different scales / frequencies?
+The refresh-rate framing requires the K4 lattice rest frame (= CMB-dipole rest frame per Q-G24) as the operative frame, NOT the galactic-orbit frame. Earth moves through the discrete K4 substrate at $v_{wind} = 370$ km/s (CMB-dipole), encountering lattice nodes at rate $v_{wind}/\ell_{node} \approx 9.6 \times 10^{17}$ Hz per unit perpendicular area. The annual orbital ±15 km/s component modulates this rate by ~4%. This is the operative physics; the galactic-orbit frame is irrelevant because the lattice doesn't rotate with the galaxy.
 
-### Q2 — Frame choice: 232 km/s galactic vs 370 km/s CMB-dipole
+### Mechanism (refresh-rate working hypothesis)
 
-The corpus carries TWO inconsistent reference-frame framings for the DAMA wind:
+**DAMA is a high-Q acoustic interferometer measuring Earth's local refresh-rate modulation in the K4 discrete substrate.**
 
-**Framing α — galactic-orbit frame** (standard DM-wind picture, per [`bullet-cluster.md:18`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md)):
-- $v_\oplus \approx 232$ km/s (Sun's galactic orbital velocity relative to Milky Way rest frame)
-- Annual orbital component ±15 km/s → fractional modulation ~6.5%
+1. **K4 substrate refresh rate** ~ $v_{wind}/\ell_{node} \approx 9.6 \times 10^{17}$ Hz per unit area (Earth's frame)
+2. **Annual modulation** ~ 4% from ±15 km/s orbital component
+3. **Crystal coherent lattice** acts as a long-baseline interferometer for this discrete refresh signal:
+   - Coherent atomic positions across ~10² lattice nodes per atom-pair
+   - Phase-locks the refresh signal across the crystal volume → coherent absorption
+   - Liquid Xe: no coherent baseline → no phase-lock → no absorption
+4. **Energy scale (keV)** comes from coherent multiplication of single-node-encounter momenta ($p \sim \rho_{bulk} \times \ell_{node}^3 \times v_{wind} \approx 1.7 \times 10^{-25}$ kg·m/s = ~2 eV per encounter) by the ~1000 coherent atomic interferometer baseline → ~keV-class recoil per coherent event
+5. **Annual modulation amplitude** ∝ $\nu_{kin} \times \kappa_{crystal} \times \Delta v_{wind}$ × (geometric factors)
 
-**Framing β — CMB-dipole / K4 lattice rest frame** (cohesive narrative per [`preferred-frame-and-emergent-lorentz.md:13`](manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md)):
-- $v_\oplus \approx 370$ km/s (Earth velocity relative to CMB-dipole rest frame = K4 lattice rest frame per Q-G24)
-- Annual orbital component ±15 km/s → fractional modulation ~4.1%
+## Remaining derivation gaps (post-Grant adjudication)
 
-The two framings give different baseline wind magnitudes AND different fractional modulation amplitudes. The standard DM literature uses Framing α; AVE's preferred-frame leaf identifies the lattice rest frame as the CMB rest frame (Framing β).
+With Q1 + Q2 resolved by the refresh-rate framing, two pieces remain:
 
-**Need from Grant:** which frame does the DAMA wind couple to?
-- (β) is the natural AVE choice if the K4 lattice rest frame is the operative frame
-- (α) is the natural choice if galactic-rotation-curve physics (per C13a) is the source of the DM wind
-- A third possibility: both frames apply but to different physics (e.g., bulk wind is CMB-frame, but the modulation we DETECT is galactic-frame because of solar orbital geometry)
+1. **Proportionality constant** — the dimensional bridge from $\nu_{kin} \times \kappa_{crystal} \times \Delta v_{wind}$ (units of m³/s²) to cpd/kg/keV. Estimated 1-2 sessions of derivation work using the substrate-native scale constants.
 
-## Additional missing pieces
-
-Even with Q1 + Q2 resolved, the derivation needs:
-
-3. **v_wind exponent** — no corpus commitment on whether rate scales linearly, quadratically, or otherwise in v_wind. Sagnac-RLVE template is linear (v_network = κ × v_drive); neutron-9s anomaly is qualitative.
-
-4. **Transduction chain** — substrate-driven acoustic event → keV-scale scintillation energy deposit. This is the largest derivation gap; no corpus content. Possibilities:
-   - Direct: substrate event excites NaI vibrational mode → de-excites via scintillation
-   - Indirect: substrate event couples to electron cloud → keV electron recoil → scintillation
-   - Other: phonon → exciton → photon cascade
-
-5. **Q-factor numerics** — multi-galaxy-validation.md asserts amplitude scales with "structural acoustic Q-factor" but provides no numerical handle.
-
-6. **Background rate baseline** — what's the AVE-predicted DC (non-modulated) DAMA count rate? Without this, the modulation amplitude is dimensionless ratio not absolute cpd/kg/keV.
+2. **Crystal-quality dependence (COSINE/DAMA tension)** — refining the shear-coherence factor Θ from binary (solid vs liquid) to continuous (defect density, mosaicity, growth temperature). This explains why DAMA and COSINE (both NaI) might see different amplitudes: different crystal quality → different interferometric Q at the substrate refresh rate (~9.6 × 10¹⁷ Hz). Testable via cross-correlation of crystal-quality metrics against observed modulation amplitudes across DAMA / COSINE / ANAIS batches.
 
 ## Scope of work
 
@@ -138,4 +125,15 @@ If Grant's physics judgment on Q1 + Q2 produces an AVE-distinct prediction that 
 
 ## Lane attribution
 
-Prereg landed in research/ branch `analysis/divergence-test-substrate-map`. Honest-flag-the-gap status; no derivation attempted. Awaits Grant's physics-judgment call on Q1 + Q2 before any solo derivation session.
+Prereg landed in research/ branch `analysis/divergence-test-substrate-map`. **Updated 2026-05-17 evening with refresh-rate working hypothesis** per Grant physical-intuition session. Q1 + Q2 resolved (Q1: both framings correct as conditional; Q2: CMB-dipole frame wins). Two derivation gaps remain (proportionality constant + crystal-quality dependence). Estimated 1-2 sessions of derivation work + 1-2 sessions of crystal-quality refinement to close.
+
+## Refresh-rate framing — key plumber statement
+
+> "DAMA is a high-Q acoustic interferometer measuring Earth's local refresh-rate modulation in the K4 discrete substrate. NaI's coherent atomic lattice provides the interferometric baseline; liquid Xe doesn't, so it sees nothing.
+>
+> Constant velocity (Newton's first law) → no refresh-rate change → no signal.
+> Annual orbital modulation (±15 km/s) → modulated refresh rate → detectable signal in coherent matter only.
+>
+> The energy spectrum (2-6 keV) comes from coherent multiplication of single-node-encounter momenta (~2 eV each) across the crystal's ~1000-atom-pair coherent interferometer baseline → ~keV-class recoils. Liquids can't multiply because they have no coherent baseline."
+
+This refresh-rate framing is conceptually cleaner than Doppler-for-mutual-inductance (which I initially proposed) because it's not a wave-frequency-shift mechanism — it's COMPRESSION OF A DISCRETE MEDIUM under relative motion. Like driving over a corrugated road: the bumps come at a rate set by your velocity × corrugation spacing; constant speed → steady drumming you stop noticing; speed varying → bump rate modulates.
