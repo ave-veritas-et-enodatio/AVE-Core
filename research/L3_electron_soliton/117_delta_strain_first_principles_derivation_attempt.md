@@ -182,13 +182,11 @@ $$\approx \frac{535.6 \times 0.1}{2 \times 137} \cdot \frac{4.56 \times 10^{-10}
 - Better thermal driver: complex-Z F-D vs equipartition factor (used "4α" prefactor; could be 2π·α or similar)
 - Higher-order corrections (quartic anharmonic, non-Gaussian thermal noise)
 
-**Net**: if $K_{\text{phys}} \sim \alpha^2 \cdot m_e c^2$ holds (same bipartite K4 cancellation as doc 118 §9), then δ_strain is **closed to within ~30%** with the natural substrate-physics constants. The exact closure requires either (a) deriving $K_{\text{phys}}$ from Axiom 3 + Faddeev-Skyrme variation at Golden Torus rigorously, OR (b) refining κ_cubic^K4 + thermal driver to match the 2.225×10⁻⁶ exactly.
+**Net**: this is a **matching condition, NOT a derivation** (per doc 119 §3 adjudication). Inverting the formula to require $K_{\text{phys}} \approx \alpha^2 m_e c^2$ for δ_strain to match observed is reverse-engineering, not first-principles closure. The "30% match" claim is back-fitting to one parameter, not an independent prediction.
 
-**Convergence with doc 118**: the α² suppression appearing in both:
-- Doc 117 §9: Golden Torus stiffness $K_{\text{phys}} \sim \alpha^2 m_e c^2$ (electron-soliton case)
-- Doc 118 §9: Ω_freeze chirality coupling $\delta_\chi \sim \alpha^2$ (cosmic-substrate case)
+**Honest status**: the α² conjecture is structurally plausible (bipartite K4 cancellation argument from doc 118 §9) but requires χ_1/K_0 ~ α at substrate scale, which is NOT derived from corpus first principles. Other suppression orders (α¹, α³, O(1)) remain possible. See doc 119 §3 for full adjudication.
 
-is **NOT a coincidence** — both inherit from bipartite K4 cancellation (1st-order vanishes by A/B sublattice anti-chirality, 2nd-order ~α² survives). This is a consistency check across the α-route (doc 117) and G-route (doc 118) of the three-route framework commitment.
+**Conjectural convergence with doc 118** (downgraded from earlier overstatement): both docs use α²-suppression. If a substrate-physics derivation eventually produces χ_1/K_0 ~ α, both predictions inherit the same suppression. Currently this is a working hypothesis with order-of-magnitude support — NOT a derived consistency check across the α-route and G-route. Promoting to "framework-canonical" would be premature.
 
 ---
 

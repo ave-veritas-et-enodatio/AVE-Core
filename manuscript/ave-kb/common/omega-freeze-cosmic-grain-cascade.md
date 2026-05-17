@@ -4,7 +4,7 @@
 
 # Ω_freeze Cosmic-Grain Cascade: Three-Route Framework + Six Observables
 
-Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 eight observables** (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor G anisotropy + CMB QNM matching) extend the A-034 multi-axis alignment test; the **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** is structurally closed (research/L3 doc 118) with sharp prediction $\Delta G/G \approx 5 \times 10^{-5}$ at α²-suppression (bipartite K4 cancellation, per Grant 2026-05-16 evening Q3 plumber resolution).
+Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 eight observables** (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor G anisotropy + CMB QNM matching) extend the A-034 multi-axis alignment test; the **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** has structural closure for the angular profile $P_2(\cos\theta)$ (research/L3 doc 118) with amplitude conjecturally at $\alpha^2$-suppression (~4.4×10⁻⁵, contingent on χ_1/K_0 ~ α at substrate scale — NOT yet derived from first principles, see [research/L3 doc 119](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest adjudication).
 
 ## Key Results
 
@@ -53,7 +53,7 @@ The A-034 prereg (2026-05-15) pre-registers a **four-axis alignment test** for t
 | 4 | Matter asymmetry direction | Same axis | CMB temperature + matter density correlation |
 | 5 | E/B polarization decoupling | Same axis IF asymmetric crystallization ($K/G \neq 2$) | Planck PR3 + BICEP/Keck + LiteBIRD (future) |
 | **6** | **Orbital-plane alignment (NEW 2026-05-16)** | **Same axis** | **Solar system ecliptic + binary stars (Gaia DR3) + galactic disks (SDSS) + LIGO/Virgo binary inspiral planes** |
-| **7** | **G anisotropy via tensor extension (NEW 2026-05-16 evening)** | **$\Delta G/G \approx 5 \times 10^{-5}$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$** | **CODATA G dataset re-analysis along $(l=174°, b=-5°)$** (see [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md) for derivation) |
+| **7** | **G anisotropy via tensor extension (NEW 2026-05-16 evening, conjectural)** | **$\Delta G/G \sim \alpha^N$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ for some N ≥ 2 (most plausibly N=2 → 4.4×10⁻⁵)** | **CODATA G dataset re-analysis along $(l=174°, b=-5°)$** (see [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md) for tensor extension; [doc 119](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest α² adjudication) |
 | **8** | **CMB QNM matching (Hawking/ring-down NEW 2026-05-16 evening)** | **CMB power-spectrum peaks at $\ell$-modes matching parent-BH quasinormal-mode spectrum** | **Planck PR3 + future-survey high-$\ell$ TT/EE; cross-check with derived BH QNM** $\omega_R M_g = 18/49$ |
 
 ### §3.1 — Observable 6: orbital-plane alignment (Tier-2 NEW)
@@ -74,23 +74,30 @@ Concrete observables:
 
 **Falsifier for Observable 6**: if orbital-plane normals are uniformly isotropic (no preferred axis alignment), $\Omega_{\text{freeze}}$ doesn't project into orbital dynamics — would suggest cosmic-grain projection stops at galactic scale (not nested through solar-system + planetary).
 
-### §3.2 — Observable 7: G anisotropy via tensor extension (NEW 2026-05-16 evening)
+### §3.2 — Observable 7: G anisotropy via tensor extension (NEW 2026-05-16 evening, CONJECTURAL)
 
-**Pre-registered hypothesis (NEW)**: Newton's gravitational constant $G$ is direction-dependent at the $\sim 5 \times 10^{-5}$ level along the $P_2(\cos\theta)$ angular profile with $\hat{\Omega}_{\text{freeze}}$ as the symmetry axis.
+**Pre-registered hypothesis (NEW, with honest qualification per [doc 119 adjudication](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md))**: Newton's gravitational constant $G$ is direction-dependent along the $P_2(\cos\theta)$ angular profile with $\hat{\Omega}_{\text{freeze}}$ as the symmetry axis. Suppression order is $\alpha^N$ for some $N \geq 2$, most plausibly $N = 2$ (giving ~4.4×10⁻⁵ amplitude) — but **N is not yet derived from substrate first principles**.
 
-The prediction derives from the tensor extension of Vol 3 Ch 1's scalar G derivation, executed in [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md):
+The angular structure derives from the tensor extension of Vol 3 Ch 1's scalar G derivation, executed in [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md):
 
-$$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \alpha^2 \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
+$$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \delta_\chi \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
 
 Where:
-- $\alpha^2 \approx 5.3 \times 10^{-5}$ = bipartite K4 cancellation suppression (1st-order cancellation between A and B sublattices; 2nd-order residual survives — per Grant 2026-05-16 evening Q3 plumber reframe)
+- $\delta_\chi$ = chirality coupling (conjecturally $\sim \alpha^2$ via bipartite K4 cancellation; structurally plausible but NOT derived — see doc 119 §3-4 for full challenge)
 - $f_R \approx 1$ = cosmic R-handed chirality fraction at I4_132 ground state
-- $4\pi/15 \approx 0.838$ = cosmic-scale Kirkwood-Frohlich-analog projection coefficient
+- $4\pi/15 \approx 0.838$ = cosmic-scale Kirkwood-Frohlich-analog projection coefficient (this IS derived structurally)
+
+**Suppression-order bracket**:
+- $\alpha^1$ suppression → ~6×10⁻³ (EXCLUDED by CODATA G)
+- $\alpha^2$ suppression → ~4.4×10⁻⁵ (most plausible; detectable at CODATA G boundary)
+- $\alpha^3$ suppression → ~4×10⁻⁷ (below CODATA G; testable at JPL planetary-ephemerides)
+
+The framework PREDICTS the angular shape ($P_2$) sharply; the amplitude is bracketed pending χ_1/K_0 derivation.
 
 **Falsifier**: CODATA G dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ at $(l=174°, b=-5°)$:
-- IF P_2(cosθ) profile with ~5×10⁻⁵ amplitude detected: framework's three-route commitment **CONFIRMED**
-- IF NO P_2 signal at this amplitude: three-route commitment **FALSIFIED**
-- IF P_2 at smaller amplitude (~10⁻⁷, α³-suppressed): partial framework support, requires additional protection beyond bipartite cancellation
+- IF P_2(cosθ) profile with amplitude $\sim \alpha^N \cdot 4\pi/15$ for any $N \geq 2$ detected: framework's three-route commitment **SUPPORTED** (chirality coupling exists)
+- IF NO P_2 signal at any α^N amplitude (down to JPL precision 10⁻¹¹): three-route commitment **FALSIFIED**
+- The N-value sharpens the framework prediction once detected
 
 ### §3.3 — Observable 8: CMB QNM matching (Hawking/ring-down NEW 2026-05-16 evening)
 

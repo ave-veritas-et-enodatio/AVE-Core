@@ -239,17 +239,24 @@ $$\delta_\chi^{\text{effective}} = \left(\frac{\chi_1}{K_0}\right)^2 \approx \al
 
 (using the natural framework prior that chirality moduli are O(1) at substrate scale: $\chi_1 \sim K_0$, then the dimensionless coupling $\chi_1/K_0 \sim 1$ at 1st order but cancels; at 2nd order the natural suppression scale is α for any framework where the effective chirality emerges through bipartite averaging of substrate-scale O(1) couplings).
 
-### Sharpened prediction
+### Prediction (conjectural, per doc 119 §3 adjudication)
 
-$$\boxed{\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \alpha^2 \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})}$$
+$$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \delta_\chi \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
+
+**Conjectural $\delta_\chi \sim \alpha^2$** (requires χ_1/K_0 ~ α at substrate scale, NOT yet derived from corpus first principles per doc 119 §2.4). If this holds:
 
 With $\alpha^2 \approx 5.3 \times 10^{-5}$ and angular factor $4\pi/15 \approx 0.838$:
-$$\frac{\Delta G_{\max}}{G_{\text{iso}}} \approx 0.838 \times 5.3 \times 10^{-5} \times f_R \times 1 = 4.4 \times 10^{-5} \cdot f_R$$
+$$\frac{\Delta G_{\max}}{G_{\text{iso}}} \approx 4.4 \times 10^{-5} \cdot f_R$$
 
-For $f_R \approx 1$ (perfect cosmic chirality lock at I4_132 ground state):
-$$\frac{\Delta G_{\max}}{G_{\text{iso}}} \approx 4.4 \times 10^{-5}$$
+For $f_R \approx 1$: $\Delta G_{\max}/G_{\text{iso}} \approx 4.4 \times 10^{-5}$ — at the CODATA G precision boundary.
 
-**Sharp prediction (sharper than CODATA G precision)**: ΔG/G eigenvalue spread of $\sim 4.4 \times 10^{-5}$ along the P_2(cosθ) angular profile, with cosmic axis $\hat{\Omega}_{\text{freeze}}$ at CMB axis-of-evil $(l=174°, b=-5°)$.
+**HONEST QUALIFICATION**: the α² suppression here is a STRUCTURALLY PLAUSIBLE CANDIDATE (bipartite K4 cancellation gives 1st-order vanishing, 2nd-order survival; the natural prior is α² if substrate chirality coupling χ_1/K_0 ~ α). HOWEVER, this χ_1/K_0 ~ α prior is **NOT derived from corpus first principles** — it's a working hypothesis. Other suppression orders remain possible:
+- $\alpha^1$ suppression → ΔG/G ~ 6×10⁻³ (excluded by CODATA G)
+- $\alpha^2$ suppression → ΔG/G ~ 4.4×10⁻⁵ (the prediction above, contingent on hypothesis)
+- $\alpha^3$ suppression → ΔG/G ~ 4×10⁻⁷ (below CODATA G, testable at JPL)
+- O(1) coupling with no suppression beyond bipartite cancellation → ΔG/G order unity (excluded)
+
+The framework's actual prediction is "α^N suppression for some N ≥ 2, most plausibly N = 2." Sharp numerical prediction requires deriving N rigorously.
 
 ### Falsifier (sharpened)
 
