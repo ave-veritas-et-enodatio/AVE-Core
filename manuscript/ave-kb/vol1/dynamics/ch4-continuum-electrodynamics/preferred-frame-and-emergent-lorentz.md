@@ -12,7 +12,7 @@ The K4 lattice $\mathcal{M}_A$ has a preferred rest frame (identified with the C
 | **K4 lattice rest frame** | $\mathcal{M}_A$ has a preferred frame = CMB rest frame to high precision (AVE-QED Q-G24 `2026-05-13_Q-G24_lorentz_from_axiom_4.md:51, 192`) |
 | **Earth velocity through $\mathcal{M}_A$** | $v_\oplus \sim 370$ km/s relative to lattice rest frame |
 | **Cubic-symmetry suppression** | Anisotropic EM corrections suppressed by $(q\ell_{node})^4$ for $q \ll \pi/\ell_{node}$ (first anisotropic invariant for cubic point group is quartic) |
-| **Optical-scale anisotropy** | $\delta_{aniso} \sim (q\ell_{node})^4 \approx 2.2 \times 10^{-22}$ at $\lambda = 633$ nm; current cavity bounds $\sim 10^{-18}$ (4 OOM below bound) |
+| **Optical-scale anisotropy** | $\delta_{aniso} \sim (q\ell_{node})^4 \approx 2.2 \times 10^{-22}$ at $\lambda = 633$ nm; current cavity bounds $\sim 10^{-19}$ to $10^{-20}$ per SME operator (Nagel 2015, Sanner 2019); 2-3 OOM below bound |
 | **Microwave-scale anisotropy** | $\delta_{aniso} \sim 2.5 \times 10^{-34}$ at 30 GHz |
 | **Trans-Planckian probes survive** | At $q \sim \pi/\ell_{node}$ (GRB Trans-Planckian regime), the cubic symmetry no longer averages — preferred-frame effects ARE observable |
 | **Emergent Lorentz at observable scales** | Strict Lorentz invariance at $\lambda \gg \ell_{node}$ is a derived consequence of K4 cubic symmetry, not an axiom — analogous to optical isotropy of a diamond crystal despite anisotropic unit cell |
@@ -47,7 +47,7 @@ $$q \ell_{node} = 10^7 \times 3.86 \times 10^{-13} = 3.86 \times 10^{-6}$$
 
 $$\delta_{aniso} \sim (q\ell_{node})^4 \approx 2.2 \times 10^{-22}$$
 
-Current cavity-comparison bounds on optical anisotropy: $\sim 10^{-18}$. **AVE prediction is 4 OOM below the bound. Consistent with existing null results, BY DERIVATION.**
+Current cavity-comparison bounds on optical anisotropy: $\sim 10^{-19}$ to $10^{-20}$ depending on the SME operator tested (Nagel et al. 2015 *Nat Commun* 6:8174; Sanner et al. 2019 *Nature* 567:204). **AVE prediction is 2-3 OOM below the tightest current bound. Consistent with existing null results, BY DERIVATION.**
 
 **Plumber translation:** the K4 lattice anisotropy is real, but at optical wavelengths the probe is so much larger than the unit cell that the cube-symmetric averaging makes it look isotropic. Same reason a diamond crystal doesn't appear birefringent at visible light despite having an anisotropic atomic structure — the wavelength is too long to resolve the unit-cell anisotropy. AVE inherits this from the K4 substrate.
 
