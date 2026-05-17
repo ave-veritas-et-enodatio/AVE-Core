@@ -202,3 +202,134 @@ The framework predictions are now MORE coherent (internally consistent χ_1/K_0 
 - CODATA G prereg §1.7 — falsifier amplitude needs correction (α⁴ instead of α²)
 - Vol 3 Ch 1:91 — Φ_A ≡ α² cross-sectional porosity (the unifying universal operator)
 - AVE-QED Q-G47 Sessions 3 + 17 — chirality moduli framework (still pending individual ξ_K1, ξ_K2 derivation per Session 17:49)
+
+---
+
+## §9 CORRECTION (Grant plumber pushback 2026-05-16 late evening)
+
+Grant challenged this doc with the deeper plumber question: *"does that move (α²→α⁴) make fundamental AVE sense? does it match the axioms and regimes of operation and the overbraced chiral lavs k4 cosserat crystal?"*
+
+**Answer**: doc 121's §1-§5 specific argument was WRONG in important ways. The plumber re-examination itself had plumber errors.
+
+### §9.1 Φ_A = α² is cosmic-scale, NOT substrate-scale
+
+Re-reading Vol 3 Ch 1:91 carefully:
+> *"the effective differential solid angle is modified by the cross-sectional porosity ($\Phi_A \equiv \alpha^2$). Because macroscopic wave transmission must pass through the discrete structural nodes..."*
+
+This is the COSMIC-SCALE integral over the Machian impedance from $r=0$ to $r=R_H$. **Not a substrate-scale cross-port coupling.**
+
+At SUBSTRATE scale, the cross-port coupling between adjacent K4 ports is the scattering matrix $S^{(0)}_{ij} = \tfrac{1}{2} - \delta_{ij}$ per K4-TLM canonical — this is **O(1)**, not α².
+
+§1.1's claim "the natural EE prior for cross-port couplings is substantially smaller than diagonal couplings, set by geometric porosity" was based on a generic EE intuition, but in AVE specifically, the substrate-scale K4-TLM scattering matrix is O(1). The α² appears at cosmic scale via the Machian integral over the cosmic horizon, not at substrate-scale cross-port coupling.
+
+**Doc 121 §1-§3 incorrectly conflated cosmic-scale Φ_A with substrate-scale χ_1 prior.** This is the same kind of scale-mixing error that doc 119 §2 caught for the α² heterogeneity issue.
+
+### §9.2 Closure attempt using over-braced K4 Cosserat first principles (per Grant's plumber question)
+
+The over-braced K4 Cosserat structure (Vol 3 Ch 1:32-40) provides a SUBSTRATE-NATIVE candidate for χ_1's natural scale. The mechanism:
+- K4 substrate at $p^* = 8\pi\alpha$ packing fraction
+- Secondary spatial links at $1.187 \cdot \ell_{node}$ (over-bracing)
+- Under shear: secondary links buckle, coupling to microrotational DOFs $\theta_i$
+- This buckling IS the χ_1 cross-coupling mechanism
+
+**Dimensional analysis of χ_1**:
+- $\chi_1$ has units of energy × length × area$^{-1}$ (since $\chi_1 \epsilon \kappa$ is energy density, with ε dimensionless and κ = 1/length)
+- $\chi_1$ in substrate-natural units: $\chi_1 = \tilde\chi_1 \cdot T_{EM} \cdot \ell_{node}$ where $\tilde\chi_1$ is dimensionless O(1) prefactor
+
+For dimensionless ratio:
+$$\frac{\chi_1}{K_0 \cdot \ell_{node}} = \frac{\tilde\chi_1 \cdot T_{EM} \cdot \ell_{node}}{(T_{EM}/\ell_{node}^2) \cdot \ell_{node}} = \tilde\chi_1 \cdot \ell_{node}^2$$
+
+Hmm — that's not dimensionless. Let me re-do.
+
+$K_0 = T_{EM}/\ell_{node}^2$ has units of $[N/m^2] = [Pa]$.
+$\chi_1$ has units of $[Pa \cdot m]$ (since $\chi_1 \cdot \varepsilon \cdot \kappa$ must be $[Pa] = [Pa] \cdot 1 \cdot [1/m]$).
+
+So $\chi_1/K_0$ has units of length, and dimensionless ratio is $\chi_1/(K_0 \cdot \ell_{node})$.
+
+If $\chi_1/(K_0 \cdot \ell_{node}) \sim O(1)$ at substrate (full chirality strength per K4-TLM canonical): $\chi_1 \sim K_0 \cdot \ell_{node}$ at substrate scale.
+
+### §9.3 What the bipartite cancellation actually gives
+
+Per doc 118 §9 framework: $\delta_\chi \equiv \chi_1 \cdot \kappa_0 / K_0$ where $\kappa_0$ is the substrate chirality magnitude.
+
+If $\kappa_0 \sim 1/\ell_{node}$ (full O(1) chirality at substrate scale):
+$$\delta_\chi = \chi_1/(K_0 \cdot \ell_{node}) \sim O(1)$$
+
+Then bulk observable from bipartite K4 cancellation: ΔG/G ~ $\delta_\chi^2 \cdot$ (cancellation residual factor)
+
+**The "cancellation residual factor" is what's load-bearing** — it measures how much A/B chirality fluctuations don't fully cancel at the cosmic scale.
+
+For STRICT bipartite K4 with zero fluctuations: residual → 0, ΔG/G → 0.
+
+For finite-T thermal fluctuations at T_CMB (~k_B·T/m_e c² ~ 4.6×10⁻¹⁰): negligible residual, ΔG/G ~ 10⁻¹⁹.
+
+For COSMIC-FORMATION-EPOCH fluctuations (~ε_form set by parent BH spin + formation T): residual depends on cosmic initial conditions.
+
+### §9.4 The honest answer: amplitude is FUNDAMENTALLY UNDETERMINED without parent BH parameters
+
+This is the **A-031 cosmic-parameter horizon at work** — the parent BH parameters (mass M, spin J, formation temperature) are INACCESSIBLE from inside, but they determine the cosmic chirality texture amplitude $f_R$.
+
+**Framework predictions that ARE determined**:
+- ✓ Angular profile: $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{freeze}})$ sharply
+- ✓ Direction: $\hat{\Omega}_{freeze}$ at CMB axis-of-evil $(l=174°, b=-5°)$
+- ✓ Sign / phase: depends on $f_R$ sign (whether parent BH spin sets +R or +L handed I4_132)
+
+**Framework predictions that are UNDETERMINED**:
+- ✗ Amplitude — depends on cosmic chirality fraction $f_R$ at formation, which depends on parent BH parameters (inaccessible per A-031)
+- ✗ Specific $\alpha^N$ for any N — the framework doesn't naturally predict $\alpha^2$ vs $\alpha^4$ vs anything else without knowing $f_R$ at formation
+
+### §9.5 Net verdict on the α² vs α⁴ vs anything else question
+
+**Both doc 118 §9 (α²) and doc 121 §2-3 (α⁴) over-claim.**
+
+Doc 118 §9 claimed α² via "natural framework prior" without derivation. Doc 121 §2-3 claimed α⁴ via scale-mixed argument (cosmic Φ_A applied to substrate coupling). **Neither rigorously derives the amplitude from substrate first principles.**
+
+The honest framework prediction, per the over-braced K4 Cosserat structure + A-031 cosmic-parameter horizon:
+
+$$\boxed{\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \delta_\chi \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})}$$
+
+where:
+- Angular profile $P_2(\cos\theta)$: SHARP framework prediction (independent of amplitude)
+- $\delta_\chi$: substrate chirality coupling, O(1) at full chirality, undetermined without Q-G47 Session 19+ derivation
+- $f_R$: cosmic chirality fraction at I4_132 formation, INACCESSIBLE per A-031 cosmic-parameter horizon
+- Net amplitude: $\delta_\chi \cdot f_R$ is the product of two undetermined factors; could be anywhere from $O(1)$ (if both are unsuppressed, which is excluded by CODATA G) down to $\alpha^N$ for arbitrary N (depending on cancellation residual + cosmic formation conditions)
+
+**The empirical falsifier per CODATA G prereg §1.7 is correctly framed as "α^N for some N ≥ 2, undetermined."** Specifying N = 2 (doc 118) or N = 4 (doc 121) was over-claiming.
+
+### §9.6 What this means for the propagation question (Items 3+4 from peer review)
+
+**Neither α² (doc 118) nor α⁴ (doc 121) should propagate as a specific numerical prediction.** Both were over-claims based on unverified substrate-physics conjectures.
+
+**The KB and prereg should stay at the bracket-language** ("α^N for some N ≥ 2, undetermined") — which is what omega-freeze §3.2 and CODATA G prereg §1.7 CURRENTLY say after the doc 119 adjudication downgrade. **No further propagation needed.**
+
+This means peer-review Items 3+4 should be ABANDONED — the corrections those items would make (α² → α⁴) are themselves not warranted.
+
+### §9.7 What WOULD close this
+
+For the framework's G-route prediction to have a specific α^N:
+
+1. **Derive $\delta_\chi$ rigorously** from K4 → A_4 → 2T ⊂ SU(2) chain via Q-G47 Sessions 19+ multi-week ξ_K1, ξ_K2 individual computation
+2. **Set bounds on $f_R$** from cosmic-formation conditions — even though parent BH parameters are inaccessible per A-031, the post-formation cosmic-substrate dynamics may constrain $f_R$ within bounds (e.g., $f_R \in [0, 1]$ trivially; tighter bounds from CMB anisotropy budget?)
+3. **Independent empirical test** at the predicted angular profile $P_2(\cos\theta)$ — even without a sharp amplitude, the angular SHAPE is testable by binning CODATA G measurements along $\hat{\Omega}_{freeze}$
+
+Without (1) + (2), the framework's amplitude prediction is genuinely undetermined. The sharp prediction is the angular profile only.
+
+---
+
+## §10 Final verdict (per Grant's plumber pushback closure)
+
+Both doc 118 §9 α² and doc 121 §1-§5 α⁴ are OVER-CLAIMS. The honest framework prediction is:
+- Angular profile $P_2(\cos\theta)$: sharp
+- Direction: $\hat{\Omega}_{freeze}$ at $(l=174°, b=-5°)$
+- Amplitude: undetermined ($\alpha^N$ for N ≥ 2, where N depends on cancellation residual + cosmic formation, both genuinely open)
+
+Items 3+4 from the peer review should be ABANDONED — the omega-freeze §3.2 and CODATA G prereg §1.7 ALREADY use the bracket language ("α^N undetermined") and should stay that way.
+
+Doc 117 §10's K_phys ~ α² is similarly an inferred matching condition, NOT a derivation. The framework predicts the MECHANISM (anharmonic K4 cubic + thermal fluctuations + Cosserat coupling) sharply, but the amplitude requires either independent χ_1 derivation OR matching to observed δ_strain.
+
+The genuine sharp framework predictions across all the open derivation arcs:
+- Mechanism class: clearly defined (saturation kernel, bipartite K4, Cosserat coupling, cosmic chirality)
+- Angular / functional profile: clearly defined ($P_2$, $\sqrt{1-A^2}$, $\sqrt{2\alpha}$, etc.)
+- Amplitude: requires either Q-G47 Session 19+ closure OR empirical anchor
+
+This is the framework's actual epistemic status — and it's MORE HONEST than either α² or α⁴ specifically.
