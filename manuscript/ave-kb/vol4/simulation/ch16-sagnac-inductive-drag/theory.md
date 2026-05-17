@@ -3,6 +3,8 @@
 
 ## The Rotating LC Frame
 
+> **Framing note (2026-05-16):** The "rotating LC frame" picture below is computationally equivalent to the rotor-local mutual-inductance mechanism derived in [`sagnac-rlve.md`](../../falsification/ch11-experimental-bench-falsification/sagnac-rlve.md). It is NOT a claim that the bulk $\mathcal{M}_A$ is globally co-rotating with Earth — the bulk lattice is at rest in the CMB rest frame (per AVE-QED Q-G24); rotation creates a *local* inductive perturbation around the rotating object via mass-density-coupled mutual inductance. See [`../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) for the cohesive narrative reconciling rotor-local vs preferred-frame Sagnac classes.
+
 If a massive physical object (like the Earth, or the glass of a fiber-optic ring) rotates, its internal atomic charges are physically moving. This moving bulk charge creates a weak, macroscopic $\mathbf{B}$-field via induction. This induced field phase-drags the local inductive capacity ($\mu$) of the surrounding vacuum LC network.
 
 Because $c = \frac{1}{\sqrt{\mu \varepsilon}}$, any fractional shift in the local inductance $\mu_{local}$ physically alters the localized propagation speed of the electromagnetic wave.
