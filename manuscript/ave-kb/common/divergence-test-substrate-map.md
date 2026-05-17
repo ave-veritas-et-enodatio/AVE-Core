@@ -3,6 +3,8 @@
 
 # AVE Divergences from Standard Physics — Test Substrate Map
 
+> **Related KB layers:** This leaf is the *operational tracking layer* over the canonical narrative catalog at [`appendix-experiments.md`](appendix-experiments.md) (PATH-STABLE, referenced from vol1-5,7,8 as `app:unified_experiments`) and the per-project bench-design leaves at [`../vol4/falsification/ch11-experimental-bench-falsification/`](../vol4/falsification/ch11-experimental-bench-falsification/index.md). Read the catalog for narrative descriptions organized by Volume; read the per-project leaves for bench specs + BOMs; read this map for falsification logic, lifecycle status, axiom-impact severity, and sibling-repo substrate.
+
 This leaf catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + $\Lambda$CDM, mapped to the actual hardware, simulation, or data substrate where the test would run. Anchored to the foreword's "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" sections ([`../../frontmatter/00_foreword.tex` lines 104-149](../../frontmatter/00_foreword.tex)).
 
 **Two definitions of "test":** a test is either (a) a new experiment to be run on hardware, or (b) a re-analysis of existing public data. Both count as falsifiers. Each row below tags `Test type:` accordingly.
@@ -17,7 +19,7 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 
 ## Tier A — Hardware substrate exists
 
-### A1. Chiral antenna resonance shift $\Delta f / f = \alpha \cdot pq / (p+q)$
+### A1. Chiral antenna resonance shift $\Delta f / f = \alpha \cdot pq / (p+q)$ (Project HOPF-02 / Topological Refraction Snell Parallax)
 
 - **AVE predicts:** torus-knot family $(2,3)/(2,5)/(3,5)/(3,7)/(3,11)$ each have distinct sub-percent resonance shifts on chiral antennas. Per-pair NEC2: $\Delta = -7.92$ / $-11.91$ / $-55.29$ MHz for k25 / k23 / k35.
 - **Standard predicts:** no chirality-coupled shift; resonance set by geometric length alone.
@@ -26,7 +28,7 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 - **Substrate:** **HOPF-02a fab-ready, $123 BOM** at `AVE-HOPF/hardware/hopf_02a.kicad_pcb`. Predictions in `AVE-HOPF/docs/SESSION_STATE_2026-05-05.md:21`. HOPF-01 pilot built but confounded per `AVE-HOPF/.agents/HANDOFF.md:43` (varying $L_{wire}$, no enantiomer pair, single substrate).
 - **KB anchors:** [`../vol4/falsification/ch12-falsifiable-predictions/index.md`](../vol4/falsification/ch12-falsifiable-predictions/index.md); foreword line 96 (electron $0_1$, proton $(2,5)$, $\Delta(1232)$ $(2,7)$ ladder).
 
-### A2. Sagnac as fluid-dynamic impedance drag
+### A2. Sagnac as fluid-dynamic impedance drag (Project ROENTGEN-03 / Sagnac-RLVE)
 
 - **AVE predicts:** $\Delta\phi \approx 2.07$ rad for a tungsten rotor, 10k RPM, 200m fiber loop; ratio $\Psi = \rho_W / \rho_{Al} \approx 7.15$ between rotor materials.
 - **Standard predicts:** GR Lense-Thirring frame-drag is purely geometric and matter-density-independent — theoretical null $\sim 10^{-20}$ rad at this scale. SR Sagnac is $\Delta\Phi = 4A\Omega/(\lambda c)$ regardless of rotor mass.
@@ -39,7 +41,7 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 
 ## Tier B — Simulation substrate exists, no hardware
 
-### B1. Tree-level vacuum nonlinearity (E² → E⁴ birefringence + vacuum-mirror APD spike)
+### B1. Tree-level vacuum nonlinearity (E² → E⁴ birefringence + vacuum-mirror APD spike) (Project ZENER-04 / Impedance Avalanche Detector)
 
 - **AVE predicts:** $\Delta n_{eff} = 1 - \sqrt{1 - (E/E_{yield})^2}$ — Taylor expansion gives leading $E^4$ term. Vacuum-mirror reflection coefficient $\Gamma(V) = [(1-(V/V_{yield})^2)^{-1/4} - 1] / [(1-(V/V_{yield})^2)^{-1/4} + 1] \to 1$ as $V \to 43.65$ kV.
 - **Standard predicts:** Euler-Heisenberg polynomial in $E^2$ (PVLAS limit $\sim 10^{-23}$); no APD-detectable back-scatter from DC vacuum.
@@ -74,6 +76,33 @@ This leaf catalogues every AVE-distinct prediction that diverges from Standard M
 - **Test type:** existing-data re-analysis.
 - **Substrate:** **2 production folding engines in `AVE-Protein/src/ave_protein/engines/`**: `s11_fold_engine_v3_jax.py` (2,293 lines), `s11_fold_engine_v4_ymatrix.py` (1,325 lines). PDB ground truth in `AVE-Protein/pdbs/`. Validation scripts in `AVE-Protein/src/scripts/` (`s17_sub5_rmsd_benchmark.py`, `rmsd_benchmark.py`, etc.).
 - **KB anchors:** [`../vol5/protein-folding-engine/index.md`](../vol5/protein-folding-engine/index.md); [`../vol5/protein-folding-engine/regime-classification.md`](../vol5/protein-folding-engine/regime-classification.md); [`../vol5/protein-folding-engine/z-topo-definition.md`](../vol5/protein-folding-engine/z-topo-definition.md).
+
+### B5. Project PONDER-01 — stereo phased array parallax (35 kV asymmetric thrust wake)
+
+- **AVE predicts:** asymmetric FR4/Air dielectric stack at 100 MHz / 30 kV traps acoustic energy via impedance mismatch; reflection coefficient $\Gamma \approx -0.349$ at every air/FR4 interface generates **~40.1 μN unidirectional ponderomotive thrust** (10,000 tips, vol4 ch2 index:15).
+- **Standard predicts:** Maxwell-equation null — no net thrust from symmetric vacuum.
+- **Discriminator:** torsion-balance measurement of the 40 μN time-averaged thrust; null result confirms Maxwell.
+- **Test type:** new experiment.
+- **Substrate:** **CONFOUNDED — thermal catastrophe documented** (vol4 index *"PONDER-01 thermal catastrophe to PONDER-05 DC-biased quartz"*). SPICE netlist in [`../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md`](../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md); PONDER manuscript chapters 01-02; **no PCBA**. Superseded by PONDER-05.
+- **KB anchors:** [`../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md`](../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md); appendix line 27.
+
+### B6. Project PONDER-02 — bistatic plume diagnostics (10 GHz microwave reflection off $G_{vac}$ distortion)
+
+- **AVE predicts:** a 10 GHz microwave probe across a PONDER-02 Sapphire GRIN nozzle plume measures phase shift $\Delta\phi$ from $c_{eff} = c_0 \sqrt{S(A)}$ velocity drop in the saturated plume; $\varepsilon_{eff}$ distortion maps directly. **TBD pin** $\Delta\phi$ magnitude — not yet in KB.
+- **Standard predicts:** no phase shift from vacuum plume; only ion-density effects in residual gas.
+- **Discriminator:** interferometric phase shift comparison vs vacuum baseline; null isolates ion-wind from saturation-kernel signature.
+- **Test type:** new experiment.
+- **Substrate:** `AVE-PONDER/src/scripts/ponder_02_bistatic_probe.py` simulator + PONDER ch.5 chapter; **no hardware**; **no dedicated KB leaf in `ave-kb/`** — canonical source is `AVE-PONDER/manuscript/vol_ponder/chapters/05_vacuum_torsion_metrology.tex:86-91`.
+- **KB anchors:** appendix line 28; PONDER ch.5.
+
+### B7. Project PONDER-05 — differential saturation parallax (paired DC-biased quartz, vertical gravity gradient)
+
+- **AVE predicts:** 30 kV DC bias across quartz cylinder + 500 V AC perturbation at 50 kHz holds material at **68.7% of $V_{yield}$** = 43.65 kV; $\varepsilon_{eff}$ drops to 72.6%, $C_{eff}$ rises to 137.7%; predicted **~469 μN thrust** with paired-resonator vertical-gradient differential.
+- **Standard predicts:** standard piezoelectric/electrostrictive response; no net thrust from saturated vacuum.
+- **Discriminator:** measured $C_{eff}(V)$ rise + 469 μN thrust on torsion balance + vertical-gradient differential between paired resonators.
+- **Test type:** new experiment.
+- **Substrate:** PONDER manuscript ch.4 has full operating-regime spec; `AVE-PONDER/src/scripts/ponder_05_characterization.py`; **no PCBA**; **no dedicated `ave-kb/vol4/.../project-ponder-05.md` leaf** — canonical source is `AVE-PONDER/manuscript/vol_ponder/chapters/04_ponder_05_dc_biased_quartz.tex:1-30`.
+- **KB anchors:** appendix line 29; [`../vol4/index.md` lines 5,12,23](../vol4/index.md).
 
 ---
 
@@ -171,6 +200,87 @@ These predictions live as derivations in the KB. None has an actual driver/obser
 - **Substrate:** **MISSING.** SPICE-modeled `leaky_cavity.cir` for the structural prediction; no comparison-to-data driver.
 - **KB anchor:** [`../vol4/simulation/ch14-leaky-cavity-particle-decay/index.md` line 13](../vol4/simulation/ch14-leaky-cavity-particle-decay/index.md).
 
+### C11. Gravitational Parallax Interferometry — electron Mach-Zehnder for $n_s \neq n_t$ (35-rad phase shift)
+
+- **AVE predicts:** electron matter-wave Mach-Zehnder across 1-m macroscopic vertical-vs-horizontal baseline experiences differential phase velocity from $n_s = (9/7)\varepsilon_{11}$ vs $n_t = (2/7)\varepsilon_{11}$ — strict violation of Lorentz parity. Predicted **35-rad topological phase shift**; ratio $n_s/n_t = 9/2$.
+- **Standard predicts:** Lorentz-invariant null — no differential between spatial and temporal refractive indices.
+- **Discriminator:** 35-rad phase shift on 1-m electron-interferometer baseline; null falsifies Ax3.
+- **Test type:** new experiment.
+- **Substrate:** **MISSING** — no electron-interferometer driver in workspace. Facility-class (1-m vacuum baseline + coherent electron source).
+- **KB anchors:** [`../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` lines 49-53](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md); appendix line 13.
+
+### C12. $g_* = 85.75$ effective DOF cutoff (vs Standard Model $g_{*,SM} = 106.75$)
+
+- **AVE predicts:** $g_* = 7^3/4 = 343/4 = 85.75$ from $\nu_{vac} = 2/7$ Poisson ratio; 24 fewer fermionic DOF than SM (= 12 fewer Weyl spinors ≈ 0.8 generations). Primordial GW background **+7.6% stronger** (LISA, DECIGO); EW expansion rate **−10.4% slower** (CMB Stage-4); EW latent heat **−20% less** (FCC-ee/CEPC).
+- **Standard predicts:** SM $g_{*,SM} = 106.75$ at EW scale.
+- **Discriminator:** primordial GW $\Omega_{GW} \propto g_*^{-1/3}$; CMB Stage-4 EW expansion rate; FCC-ee EW latent heat.
+- **Test type:** existing-data re-analysis (CMB Stage-4 sensitivity) + new-facility wait (LISA post-2035).
+- **Substrate:** **MISSING** — no driver loads primordial-GW or CMB EW-phase data; **co-loads tightly with C1-BH-RING** (same $\nu_{vac} = 2/7$ source).
+- **KB anchors:** [`../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md` lines 14-16](../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md); `g-star-prediction.md`.
+
+### C13. VLBI Gravitational Impedance Parallax (Jupiter-grazing radio for dark-matter as $377\Omega$ stretching)
+
+- **AVE predicts:** local "dark matter" field IS continuous phase-velocity gradient of $377\Omega$ vacuum impedance; VLBI tracking radio grazing Jupiter's core measures optical delay $\Delta t$ + Snell phase steering from achromatic impedance lens. **TBD pin $\Delta t$ magnitude** — leaf gives no numeric.
+- **Standard predicts:** standard solar-system GR Shapiro delay only; dark matter is particulate.
+- **Discriminator:** VLBI delay anomaly beyond Shapiro subtraction.
+- **Test type:** existing-data re-analysis (VLBA / EVN Jupiter-occultation archives — TBD pin specific campaign).
+- **Substrate:** **MISSING** — no VLBI-delay driver.
+- **KB anchors:** [`../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md` lines 24-28](../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md); appendix line 18.
+
+### C14. DAMA Parallax & Crystal Phonon Modulation (NaI vs Sapphire vs Germanium $\kappa_{crystal}$)
+
+- **AVE predicts:** DAMA annual modulation arises from Earth flying through Milky Way LC impedance gradient; amplitude scales with crystal dielectric coupling $\kappa_{crystal}$. NaI ($\rho = 3.67 \times 10^3$ kg/m³), Sapphire ($3.98$), Germanium ($5.32$) should give predictably different amplitudes.
+- **Standard predicts:** WIMP cross-section also varies by target, but with different scaling than $\kappa_{crystal}$.
+- **Discriminator:** amplitude ratio across NaI / Sapphire / Ge matches $\kappa_{crystal}$ prediction (TBD pin explicit formula); annual-modulation **phase invariance** is shared with both AVE and WIMP.
+- **Test type:** both — existing DAMA/LIBRA + COSINE-100 + ANAIS-112 data + future swapped-crystal runs.
+- **Substrate:** **MISSING** — no driver compares DAMA modulation across crystals.
+- **KB anchors:** [`../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md` lines 30-34](../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md); appendix line 19.
+
+### C15. Project CLEAVE-01 — femto-Coulomb electrometer ($Q = \xi_{topo} \cdot x$)
+
+- **AVE predicts:** mechanically pulling a gap by 1 μm induces topological charge $Q = \xi_{topo} \cdot x = (4.149 \times 10^{-7}\,\text{C/m}) \times 10^{-6}\,\text{m} = 0.415$ pC, producing **41.5 mV** on a 10 pF parasitic input. Single-number prediction from Ax2 TKI ($[Q] \equiv [L]$).
+- **Standard predicts:** zero — electromagnetic theory predicts no charge from mechanical displacement of uncharged matter.
+- **Discriminator:** ADA4530-1 electrometer reads 41.5 mV after 1 μm PZT step; 0.0 mV falsifies Ax2 directly.
+- **Test type:** new experiment.
+- **Substrate:** PCBA spec in KB leaf only ([`../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md` lines 14-20](../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md)); **no KiCad / no hardware in any repo**.
+- **KB anchors:** above + appendix line 23.
+
+### C16. Project TORSION-05 — horizontal metric rectification (asymmetric sawtooth thrust)
+
+- **AVE predicts:** slow edge at +500 V (matched 377Ω line) → +0.207 mN forward thrust; fast edge at $-75$ kV ($> V_{yield}$ = 43.65 kV) → instant saturation, $\Gamma = -1$, 0.0 mN backward. Net **~100 μN time-averaged DC thrust** on torsion balance at $10^{-6}$ Torr.
+- **Standard predicts:** symmetric Maxwell-stress null over full sawtooth period.
+- **Discriminator:** asymmetric-V_yield rectified thrust on torsion balance; null falsifies Ax4 yield kernel.
+- **Test type:** new experiment.
+- **Substrate:** [`../vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md` lines 8-13](../vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md) has complete PCBA spec; **no fab**. Owner = PONDER (torsion-balance metrology is in their scope per `AVE-PONDER/manuscript/vol_ponder/chapters/05_vacuum_torsion_metrology.tex`).
+- **KB anchors:** above + appendix line 26.
+
+### C17. Protocol 11 — Sagnac-Parallax / Galactic Wind Vectoring (diurnal 24h drift)
+
+- **AVE predicts:** static horizontal Sagnac fiber loop swept by Earth's rotation against 370 km/s Milky Way metric flow produces clean diurnal sinusoidal phase shift $\Delta\phi \propto v_{gal} \cdot \cos(\omega t)$. Per appendix line 32: **2,000,000-rad** drift. **TBD pin — sanity-check this magnitude against existing static-Sagnac aether-wind null bounds (Anderson, Wolf, Mueller); 2M-rad may be off by orders of magnitude.**
+- **Standard predicts:** Lorentz-invariant null — no preferred frame, no diurnal modulation beyond Earth rotation's own Sagnac contribution.
+- **Discriminator:** diurnal phase drift on static horizontal Sagnac loop.
+- **Test type:** new experiment.
+- **Substrate:** [`../vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md`](../vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md) is paper-stage one paragraph; **no hardware, no driver**.
+- **KB anchors:** above + appendix line 32.
+
+### C18. Protocol 12 — GEO-Sync Impedance Differential (16.7 mm laser TOF stretch)
+
+- **AVE predicts:** vertical laser link ground ↔ GEO satellite ($h = 35{,}786$ km) measures **~16.7 mm absolute TOF stretch** from non-linear AVE impedance integration $\int n(r)/c \, dr$ beyond pure-GR Shapiro delay.
+- **Standard predicts:** pure-GR Shapiro delay only.
+- **Discriminator:** sub-cm laser-ranging precision difference vs pure-GR baseline.
+- **Test type:** existing-data re-analysis (ILRS / GRACE-FO archives — TBD pin specific dataset).
+- **Substrate:** **MISSING** — no driver loads laser-ranging archives. Facility-class for new GEO link (ESA/NASA/SES partnership).
+- **KB anchors:** [`../vol4/falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md` lines 4-8](../vol4/falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md); appendix line 33.
+
+### C19. Molecular Chiral FRET Parallax (Ramachandran enforcement, currently unfalsifiable)
+
+- **AVE predicts:** chiral LC metric bias mechanically enforces Ramachandran structural bounds (Ax2); gravity-relaxation shift $\Delta r / r = \alpha \cdot \varepsilon_{11} \approx 5 \times 10^{-12}$ at $5$ nm fluorophore baseline = **sub-attometer** (~$10^{-20}$ m) physical relaxation at terrestrial baselines.
+- **Standard predicts:** thermodynamic-hypothesis Ramachandran bounds with no gravitational modulation.
+- **Discriminator:** would require compact-object environment ($\varepsilon_{11} \sim 10^{-4}$) OR resonant amplification.
+- **Test type:** new experiment (currently infeasible).
+- **Substrate:** [`../vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md` lines 6-12](../vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md) — KB explicit: **"currently unfalsifiable"**. Tracked as future-target row.
+- **KB anchors:** above + appendix line 37.
+
 ---
 
 ## Tier D — Structural-internal consistency wins (not field-falsifiable by single experiment)
@@ -198,9 +308,16 @@ These claims are load-bearing for the framework's philosophical position but won
 
 ### D4. A-034 universal saturation kernel — 21 instances across 21 OOM
 
-- **AVE position:** one kernel $S(A) = \sqrt{1 - A^2}$ governs every topological-reorganization event at every scale. Empirical anchors: BCS $B_c(T)$ at **0.00% error**, BH ringdown 1.7% from GR exact, NOAA 40-yr solar flare statistics validated, Schwarzschild radius exact, Pd hydrogen 12.08%, water LLCP per Nilsson 2026.
+- **AVE position:** one kernel $S(A) = \sqrt{1 - A^2}$ governs every topological-reorganization event at every scale. Empirical anchors: BCS $B_c(T)$ at **0.00% error**, BH ringdown 1.7% from GR exact, NOAA 40-yr solar flare statistics validated, Schwarzschild radius exact, Pd hydrogen 12.08%, water LLCP per Nilsson 2026, **turbulence avalanche exponent $n_{3D} = 38/21 \approx 1.8095$ within 0.5% of empirical solar flare $\sim 1.8$** (per [`../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md` lines 14-47](../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md)). Vol VII Ch 11 turbulence/water-condensation phase-transitions framing (per appendix line 42) subsumes here: turbulence + water LLCP are A-034 cross-scale instances, not separate rows.
 - **The cross-scale consistency IS the falsifier.** Any single canonical instance failing at >1% (where the prediction is sharp) would falsify the universality claim. So far none has.
-- **KB anchor:** [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md); foreword line 149.
+- **KB anchor:** [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md); [`../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md`](../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md); [`../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md`](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md); foreword line 149.
+
+### D5. HTS / Meissner gear-train mechanism vs standard BCS magnetic pairing
+
+- **AVE position:** Meissner exclusion derives from Cosserat phase-locked-gear-train rigidity (Ax1 micropolar rotational DOF); London penetration depth $B(x) = B_0 e^{-x/\lambda_L}$ from classical rotational inertia, not Cooper-pair condensate. BCS-equivalent predictions match (BCS $B_c(T)$ at 0.00% error per D4-A034), but the *mechanism* is AVE-distinct.
+- **Discriminator: mechanism, not number.** AVE-distinct prediction is what *explains* SC, not a single discriminating measurement. **TBD pin** explicit HTS-vs-BCS discriminator numeric (vs the cross-scale corroborative position).
+- **No Vol VII KB leaf exists** — supporting mechanism in [`../vol3/condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md`](../vol3/condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md); YBCO substrate spec in [`../vol4/falsification/ch11-experimental-bench-falsification/ybco-phased-array.md`](../vol4/falsification/ch11-experimental-bench-falsification/ybco-phased-array.md).
+- **KB anchor:** above + appendix line 41.
 
 ---
 
@@ -274,7 +391,20 @@ Three matrices, all keyed by stable ID, organized for three distinct stakeholder
 | D1-CHSH | CHSH = $2\sqrt{2}$ from K4 Möbius half-angle + Ohmic Born | D / existing-data | Nonlocal-deterministic-hidden-variable interpretation via topological-thread substrate | All four axioms (**N**) — matches QM by construction; no single-shot kill | Cascade: C2 T_pair (thread topology). NULL = find QM protocol AVE deterministic substrate cannot reproduce. | U-C | Matches Tsirelson bound exactly | [`../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md) |
 | D2-RHO-LAMBDA | $\rho_\Lambda = 9.03 \times 10^{-27}$ kg/m³ as latent heat of substrate crystallization | D / existing-data | Latent heat of substrate crystallization mechanism (not vacuum ZPE) | Ax4 + Friedmann (**C**) — mechanism revision possible; quantitative match is structural | Cascade: D4 A-034 (cosmic crystallization is A-034 cosmic instance). NULL = $\rho_\Lambda$ off → $H_\infty$ or G derivation revisited. | U-C (mechanism) | $9.03 \times 10^{-27}$ vs Planck $5.85 \times 10^{-27}$ ($\times$1.54; exact in de Sitter asymptote) | [`../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md) |
 | D3-GEOM-ENTROPY | Geometric entropy $\hat{\mathcal{S}}_{geo}/S_{BH} \approx 2.8 \times 10^{-44}$ | D / new-exp | A-B interface Op14 mechanism gives $\hat{\mathcal{S}}_{geo} = k_B A \log 2 / \ell_{node}^2$ | Ax1 (ℓ_node) + Ax4 (saturation horizon) (**C**) | Cascade: C1 BH horizon shares A-region machinery. NULL = no Hawking-radiation correlation measurement currently possible. | U-C | $2.8 \times 10^{-44}$ ratio to $S_{BH}$ | [`../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md`](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md) |
-| D4-A034 | A-034 universal saturation kernel catalog (21 instances) | D / both | Single kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event | Ax4 (**F-cumulative**) — any single canonical instance failing at $>1\%$ where prediction is sharp kills universality claim | Cascade: all 21 catalog instances; one FAIL = catalog row dies. NULL trivial; PASS corroborative. | U-C (universality claim AVE-unique; individual instances shared with domain models) | 21 instances over 21 OOM; BCS 0.00%, BH 1.7%, Schwarzschild exact, Pd 12.08%, water LLCP | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) |
+| D4-A034 | A-034 universal saturation kernel catalog (21 instances) | D / both | Single kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event | Ax4 (**F-cumulative**) — any single canonical instance failing at $>1\%$ where prediction is sharp kills universality claim | Cascade: all 21 catalog instances; one FAIL = catalog row dies. Subsumes turbulence avalanche $n_{3D}=38/21$ + water LLCP Nilsson 2026 (Vol VII Ch 11). NULL trivial; PASS corroborative. | U-C (universality claim AVE-unique; individual instances shared with domain models) | 21 instances over 21 OOM; BCS 0.00%, BH 1.7%, Schwarzschild exact, Pd 12.08%, water LLCP, turbulence 0.5% | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) |
+| B5-PONDER-01 | Project PONDER-01 stereo phased array (35 kV asymmetric thrust) | B / new-exp | Asymmetric FR4/Air dielectric stack ponderomotive thrust via $\Gamma \approx -0.349$ interface | Ax3+Ax4 (**C**) — Vol IV ch.2 thrust chapter dies; Ax3/Ax4 survive with revised mechanism | Cascade: B6/B7 PONDER family, A2-SAGNAC. NULL = thermal catastrophe (already documented). | U-D vs Maxwell null | ~40.1 μN @ 30 kV / 100 MHz / 10,000 tips | [`../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md`](../vol4/simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md) |
+| B6-PONDER-02 | Project PONDER-02 bistatic plume diagnostics (10 GHz microwave reflection off $G_{vac}$) | B / new-exp | Microwave reflection off $G_{vac}$ distortion via $c_{eff} = c_0 \sqrt{S(A)}$ in saturated plume | Ax4+Ax1 (**C**) — Vol IV ch.6 vacuum-torsion-metrology mechanism dies; Ax4 globally survives | Cascade: B5/B7 PONDER, D4-A034 (plume = direct $S(A)$ probe). NULL = phase below interferometer floor → revert to torsion-only. | U-D ($c_{eff}$ reduction AVE-unique) | 10 GHz probe @ 25 kV / 2.45 GHz drive; **TBD pin $\Delta\phi$** | `AVE-PONDER/manuscript/vol_ponder/chapters/05_vacuum_torsion_metrology.tex:86-91` |
+| B7-PONDER-05 | Project PONDER-05 differential saturation parallax (paired DC-biased quartz vertical gradient) | B / new-exp | 30 kV DC bias holds quartz at 68.7% $V_{yield}$; $\varepsilon_{eff}$ drops to 72.6%; $C_{eff}$ rises to 137.7% | Ax4 (**F**) — Ax4 IS saturation kernel; null at 68.7% V_yield falsifies directly | Cascade: B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION (V_yield shared). NULL = no $C_{eff}$ rise → Ax4 fails → all A-034 instances under pressure. | U-D | 37.7% capacitance rise; ~469 μN thrust | `AVE-PONDER/manuscript/vol_ponder/chapters/04_ponder_05_dc_biased_quartz.tex` |
+| C11-MACH-ZEHNDER | Gravitational Parallax Interferometry (electron Mach-Zehnder $n_s \neq n_t$) | C / new-exp | Spatial-vs-temporal refractive-index split ($n_s/n_t = 9/2$) violates Lorentz parity | Ax3+Ax1 (**F**) — Lorentz-parity violation that Ax3 mandates dies; no graceful revision | Cascade: C13-VLBI-DARK, C18-PROTOCOL-12 (all test $n_s \neq n_t$); D4-A034 ($\varepsilon_{11}$ shared). NULL = phase noise dominates → space-baseline interferometer. | U-D | 35-rad shift on 1-m macroscopic Mach-Zehnder | [`../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` lines 49-53](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) |
+| C12-G-STAR | $g_* = 85.75$ effective DOF cutoff vs SM 106.75 | C / existing-data | $g_* = 7^3/4 = 85.75$ from $\nu_{vac} = 2/7$; 24 fewer fermionic DOF than SM | Ax1 (**M**) — same $\nu_{vac}$ gate as C1-BH-RING; survives with revised Poisson ratio | Cascade: tight pair with C1-BH-RING; touches C5-CMB-AXIS, D2-RHO-LAMBDA. NULL = primordial GW inconclusive at LISA precision. | U-D | $\Omega_{GW}$ +7.6%; EW expansion -10.4%; EW latent heat -20% | [`../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md` lines 14-16](../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md) |
+| C13-VLBI-DARK | VLBI Gravitational Impedance Parallax (Jupiter-grazing radio for $377\Omega$ DM stretching) | C / existing-data | Dark matter IS continuous geometric stretching of $377\Omega$ vacuum impedance baseline | Ax1+Ax4 (**M**) — macroscopic-gravity-as-impedance dies; particulate DM survives axioms | Cascade: tight pair with C14-DAMA; co-load with A2-SAGNAC, C18-PROTOCOL-12. NULL = VLBI noise dominates → particulate DM unaffected. | U-D | **TBD pin $\Delta t$ magnitude** (KB leaf gives no numeric) | [`../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md` lines 24-28](../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md) |
+| C14-DAMA-MATERIAL | DAMA Parallax & Crystal Phonon Modulation (NaI vs Sapphire vs Ge $\kappa_{crystal}$) | C / both | DM wind modulates DAMA via bulk dielectric $\kappa_{crystal}$ coupling | Ax1+Ax4 (**C**) — Vol III dark-sector chapter dies; WIMP particulate resurrects | Cascade: tight pair with C13-VLBI-DARK; D4-A034 (Ax4 kernel). NULL = swapped-crystal amplitude scales with WIMP cross-section. | U-D | NaI / Sapphire / Ge densities cited; **no explicit amplitude formula — TBD pin** | [`../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md` lines 30-34](../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md) |
+| C15-CLEAVE-01 | Project CLEAVE-01 femto-Coulomb electrometer ($Q = \xi_{topo} \cdot x$) | C / new-exp | Mechanical displacement induces topological charge per Ax2 TKI ($[Q] \equiv [L]$) | Ax2 (**F**) — KB explicit: "the framework is falsified" if 0.0 mV | Cascade: B4-PROTEIN ($\xi_{topo}$ shared), C9-LEVITATION ($m_{max} = V_{yield}\xi_{topo}/g$), C16-TORSION-05, B5-B7 PONDER (all use $\xi_{topo}$). NULL = parasitic leakage → enforce guard rings. | U-D | 41.5 mV per μm displacement on 10 pF input; 0.415 pC | [`../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md` lines 14-20](../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) |
+| C16-TORSION-05 | Project TORSION-05 horizontal metric rectification (asymmetric sawtooth, $\Gamma=-1$ gate) | C / new-exp | Asymmetric V_yield gating at +500 V (matched) vs $-75$ kV (saturated $\Gamma = -1$) → DC thrust | Ax4+Ax3 (**F**) — KB explicit: "LC non-linear geometry of the universe is permanently falsified" if stationary | Cascade: B5/B6/B7 PONDER; shares V_yield with B1-VAC-BIREFRINGE, C9-LEVITATION, D4-A034. NULL = thermal/ion-wind artifacts dominate. | U-D | ~100 μN time-averaged DC thrust at $10^{-6}$ Torr | [`../vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md` lines 8-13](../vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md) |
+| C17-PROTOCOL-11-SAGNAC-WIND | Protocol 11 — Galactic Wind Sagnac (diurnal 24h drift, 370 km/s Milky Way) | C / new-exp | Absolute rest-frame LC metric with 370 km/s flow produces diurnal Sagnac modulation | Ax1+Ax3 (**F**) — preferred-frame claim dies; strict Lorentz survives if null | Cascade: tight pair with A2-SAGNAC; C5-CMB-AXIS (370 km/s = CMB-dipole rest frame); C18-PROTOCOL-12. NULL = LC metric is Lorentz-invariant. | U-D vs strict Lorentz | **2,000,000-rad** drift (appendix); **TBD sanity-check magnitude vs existing static-Sagnac null bounds** | [`../vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md` lines 4-8](../vol4/falsification/ch11-experimental-bench-falsification/sagnac-parallax.md) |
+| C18-PROTOCOL-12-GEO-SYNC | Protocol 12 — GEO-Sync Impedance Differential (16.7 mm laser TOF stretch) | C / new-exp | Vertical $\int n(r)/c \, dr$ impedance integration stretches ground↔GEO TOF beyond Shapiro | Ax1+Ax3 (**F**) — "definitively breaking Lorentz symmetry in favor of structural waveguide electrodynamics" | Cascade: tight pair with C11-MACH-ZEHNDER, C13-VLBI-DARK; touches C4-THREE-ROUTE (Route 2 = G via Machian impedance integral). NULL = standard GR Shapiro holds. | U-D vs strict GR | **~16.7 mm** TOF stretch at $h = 35{,}786$ km | [`../vol4/falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md` lines 4-8](../vol4/falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md) |
+| C19-FRET | Molecular Chiral FRET Parallax (Ramachandran enforcement, currently unfalsifiable) | C / new-exp | Chiral LC metric bias enforces Ramachandran bounds; gravity-relaxation $\Delta r/r = \alpha \cdot \varepsilon_{11}$ | Ax2 (**C**) — Vol V biophysics-intro chapter dies; Ax2 in particle scope survives | Cascade: B4-PROTEIN (Ax2 chiral bias shared); touches D1-CHSH. NULL = sub-attometer too small → unfalsifiable status quo. | U-C (corroborative only at terrestrial baselines) | $\Delta r/r \approx 5 \times 10^{-12}$; sub-attometer $\sim 10^{-20}$ m at 5 nm baseline | [`../vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md` lines 6-12](../vol5/molecular-foundations/biophysics-intro/chiral-fret-parallax.md) |
+| D5-HTS-MEISSNER | HTS / Meissner gear-train mechanism vs standard BCS magnetic pairing | D / both | Cosserat phase-locked-gear-train rigidity (Ax1 micropolar rotational DOF) underlies Meissner exclusion; London $B(x) = B_0 e^{-x/\lambda_L}$ from classical rotational inertia | Ax1+Ax4 (**N**) — structural mechanism claim; no single-shot kill since BCS-equivalent predictions match | Cascade: D4-A034 (BCS $B_c(T)$ at 0.00% is canonical row); B1-VAC-BIREFRINGE, B7-PONDER-05 (V_yield shared); B5-PONDER-01 YBCO substrate. NULL = standard BCS survives = gear-train interpretation falsified, BCS-equivalent predictions hold. | U-C (cross-scale mechanism; individual SC predictions shared with BCS) | London penetration depth + BCS $B_c(T)$ exact via gear-train; **no explicit HTS discriminator numeric — TBD pin** | [`../vol3/condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md`](../vol3/condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md) |
 
 ### Matrix 2 — Lifecycle (where in the pipeline)
 
@@ -299,7 +429,20 @@ Three matrices, all keyed by stable ID, organized for three distinct stakeholder
 | D1-CHSH | none | n-a (interpretation, not bench) | hw+code (K4-TLM lattice sim verifies) | PASS-by-construction (matches QM) | Core |
 | D2-RHO-LAMBDA | none | n-a | code-written (Friedmann derivation) | PASS structural ($\times$1.54 of Planck); mechanism closure pending | Core |
 | D3-GEOM-ENTROPY | none | n-a | code-written (derivation only) | derived-only (no measurement substrate) | Core |
-| D4-A034 | none (catalog-level; individual instances may be pre-reg'd per row) | n-a (cross-scale claim) | partial (individual instances coded across repos) | partial-PASS (BCS 0.00%, NOAA solar flare ✓, Schwarzschild exact, BH ringdown 1.7%; remainder TBD) | Core (cross-repo) |
+| D4-A034 | none (catalog-level; individual instances may be pre-reg'd per row) | n-a (cross-scale claim) | partial (individual instances coded across repos) | partial-PASS (BCS 0.00%, NOAA solar flare ✓, Schwarzschild exact, BH ringdown 1.7%; turbulence 0.5%; remainder TBD) | Core (cross-repo) |
+| B5-PONDER-01 | none | complete (SPICE netlist + PCBA stack spec) | no (per "thermal catastrophe" — superseded by PONDER-05) | CONFOUNDED (thermal) | PONDER |
+| B6-PONDER-02 | none | paper-stage (described in PONDER ch.5; no PCBA spec) | code-written (`ponder_02_bistatic_probe.py` simulator) | TBD | PONDER |
+| B7-PONDER-05 | none | complete (PONDER ch.4 full operating-regime spec) | code-written (`ponder_05_characterization.py`) | TBD | PONDER |
+| C11-MACH-ZEHNDER | none | spec-only | no | TBD | open |
+| C12-G-STAR | none | spec-only | no | TBD (LISA launch ~2035 for primordial GW) | open |
+| C13-VLBI-DARK | none | spec-only | no | TBD | open |
+| C14-DAMA-MATERIAL | none | spec-only | no | TBD (existing DAMA data + future swapped-crystal runs) | open |
+| C15-CLEAVE-01 | none | complete (PCBA spec with ADA4530-1 + PZT in leaf) | no | TBD | open |
+| C16-TORSION-05 | none | complete (HV flyback PCBA spec in leaf) | no | TBD | PONDER (scope match) |
+| C17-PROTOCOL-11-SAGNAC-WIND | none | paper-stage (one-paragraph leaf; no BOM) | no | TBD (**flag: 2M-rad magnitude sanity-check first**) | open |
+| C18-PROTOCOL-12-GEO-SYNC | none | spec-only | no | TBD | open |
+| C19-FRET | none | spec-only | no | **unfalsifiable-now** (KB explicit) | Protein (lane match) |
+| D5-HTS-MEISSNER | none | n-a (no explicit HTS-discriminator design) | no | TBD | open |
 
 ### Matrix 3 — Execution details (substrate, sources, next action)
 
@@ -324,7 +467,20 @@ Three matrices, all keyed by stable ID, organized for three distinct stakeholder
 | D1-CHSH | Core | free (compute) | K4-TLM lattice sim at `vol1/.../phase-locked-topological-thread.md:198-216` | Standard CHSH experiments (matches QM by construction; no novel comparison source) | N (matches QM; need to find QM protocol AVE can't reproduce) | CHSH = $2\sqrt{2}$ shared with QM; no single-shot discriminator | Identify quantum-info protocol where AVE deterministic substrate diverges from QM (e.g. contextual measurements, GHZ scenarios) | 2026-05-16 |
 | D2-RHO-LAMBDA | Core | free | [`../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md) | **Planck 2018 PR3** ($\rho_\Lambda = 5.85 \times 10^{-27}$ kg/m³); for mechanism: independent $\rho_{latent}$ derivation pending | Y for value; mechanism (latent heat vs ZPE) is theoretical | $H_0$ tension affects derivation precision; $\rho_{latent}$ independent derivation pending | Close $\rho_{latent}$ independent derivation + $\Gamma_{cryst}$ rate + Friedmann-vs-latent-heat consistency check | 2026-05-16 |
 | D3-GEOM-ENTROPY | Core | facility-class (Hawking correlation) | [`../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md`](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md) | None — no Hawking-radiation correlation measurement exists | N (no instrument) | No current Hawking-radiation correlation measurement; can't isolate geometric vs thermodynamic entropy | Wait for analog BH experiments (BEC sonic horizons); identify possible discriminator | 2026-05-16 |
-| D4-A034 | Core (cross-repo) | cumulative per instance | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) | Per-instance: BCS literature; NOAA GOES 40-yr; Schwarzschild via LIGO; Pd literature; Nilsson 2026 water LLCP (specific paper IDs TBD pin per row) | Per-instance Y for 6+ already-validated rows | Catalog universality claim weakens if multiple instances fail | Maintain catalog rigorously; add new instances as they emerge; track per-row PASS/FAIL outcomes | 2026-05-16 |
+| D4-A034 | Core (cross-repo) | cumulative per instance | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) | Per-instance: BCS literature; NOAA GOES 40-yr; Schwarzschild via LIGO; Pd literature; Nilsson 2026 water LLCP; turbulence vs solar flare (specific paper IDs TBD pin per row) | Per-instance Y for 6+ already-validated rows | Catalog universality claim weakens if multiple instances fail | Maintain catalog rigorously; add new instances as they emerge; track per-row PASS/FAIL outcomes | 2026-05-16 |
+| B5-PONDER-01 | PONDER | $20-100k (30 kV / 100 MHz + thermal mitigation) | SPICE netlist at `vol4/.../ponder-01-stack-netlist.md`; PONDER repo ch.01-02; **no PCBA** | None (new exp); appendix framing differs from netlist leaf — flag for Grant | Y for predicted thrust magnitude; N for thermal regime (per superseded note) | thermal catastrophe (documented); 100 MHz drive antenna feedthrough; ion-wind at 30 kV; corona losses | Close out as superseded OR revisit thermal mitigation via PONDER ch.5 oil-bath analog | 2026-05-16 |
+| B6-PONDER-02 | PONDER | $10-50k (25 kV GaN driver + sapphire GRIN nozzle + 10 GHz VNA + vacuum) | `AVE-PONDER/src/scripts/ponder_02_bistatic_probe.py` simulator + PONDER ch.5; **no hardware**; **no KB leaf** | None (new exp); no comparable GRIN-nozzle microwave-interferometry result (TBD pin) | TBD (sharpness numeric missing from KB) | sapphire fab tolerances; 10 GHz probe coupling into HV; ion-wind plume vs vacuum-saturation plume separation | Surface explicit $\Delta\phi$ from simulator into KB leaf at `vol4/.../project-ponder-02.md` | 2026-05-16 |
+| B7-PONDER-05 | PONDER | $10-50k (30 kV DC + 50 kHz AC + matched quartz pair + sub-μN torsion) | PONDER ch.4 + `ponder_05_characterization.py`; vol4 index refs; **no PCBA, no hardware** | None (new exp) for differential parallax; for $C_{eff}(V)$ alone compare against quartz dielectric breakdown literature (TBD pin) | Y (37.7% C rise + 469 μN thrust both above noise floor) | quartz piezoelectric/electrostrictive masking; thermal $\varepsilon_r$ coefficient; ion wind; corona at 30 kV DC; matched-pair fab precision | Distill `project-ponder-05.md` leaf from PONDER ch.4 source into KB | 2026-05-16 |
+| C11-MACH-ZEHNDER | Core (no sibling) | facility-class (1-m macroscopic electron interferometer in hard vacuum) | KB only at vol2 ch07 leaf; **no executable observer in workspace** | None (new exp) — no published 1-m-baseline electron Mach-Zehnder result | TBD (depends on facility-class electron interferometer access; 35-rad is large but needs 1-m gravitational baseline) | vibration; stray E/B fields across baseline; coherence length of electron source over 1 m | Pin published electron-interferometer SOTA for sensitivity; scope facility partnership | 2026-05-16 |
+| C12-G-STAR | Core | free for retrospective CMB Stage-4 / FCC-ee comparison; facility wait for LISA | KB only; **no driver loads primordial-GW or CMB EW-phase data** | LISA (post-2035); DECIGO; CMB Stage-4 EW expansion rate; FCC-ee / CEPC EW latent heat (**TBD pin published sensitivities**) | N for primordial GW; TBD for CMB Stage-4 | GW astrophysical foregrounds; bosonic-DOF count assumption (AVE assumes 28 unchanged); look-elsewhere | Pin canonical CMB Stage-4 EW expansion-rate sensitivity in KB; scaffold comparison once LISA data lands | 2026-05-16 |
+| C13-VLBI-DARK | Core | free (re-analysis of existing VLBI Jupiter-grazing) + facility for new dedicated campaign | KB only; **no driver loads VLBI delay data** | VLBA / EVN Jupiter-occultation campaigns (**TBD pin specific dataset**); standard solar-system GR Shapiro is the null | TBD (depends on VLBI baseline precision vs predicted Snell phase magnitude) | standard Shapiro delay subtraction; ionospheric / Jovian magnetosphere contributions; need explicit AVE numeric prediction | Add explicit $\Delta t$ numeric to KB leaf; survey published Jupiter-VLBI for accessibility | 2026-05-16 |
+| C14-DAMA-MATERIAL | Core (experimental partner = DAMA/LIBRA or COSINE-100) | facility-class (underground low-background scintillator) | KB only; **no driver compares DAMA modulation across crystals** | DAMA/LIBRA-phase2 annual-modulation (public, **TBD pin paper**); COSINE-100, ANAIS-112 NaI replications; future Sapphire/Ge runs | Y for phase-invariance check (existing data); N for amplitude-scaling (no swapped-crystal data yet) | WIMP particulate cross-section also varies by target; backgrounds differ across crystal types | Derive explicit $\kappa_{crystal}$ amplitude formula in KB; survey COSINE-100/ANAIS-112 for cross-crystal | 2026-05-16 |
+| C15-CLEAVE-01 | Core (no sibling) | low (~$1-5k bench: ADA4530-1 + vacuum chamber + PZT + DAC) | PCBA spec in KB leaf only; **no KiCad / no hardware in any repo** | None (new exp) — no published precision-electrometer-vs-PZT-step in literature (TBD pin) | Y (41.5 mV >> ADA4530-1 noise floor; 1 μm PZT steps commercial) | parasitic input-capacitance drift; PZT-stroke triboelectric charging; vacuum outgassing | Scope KiCad design from leaf spec; identify owner (Core scripting or external EE partner) | 2026-05-16 |
+| C16-TORSION-05 | PONDER (torsion-balance metrology is PONDER scope) | medium ($10-50k bench: torsion balance + HV flyback + vacuum) | KB leaf + adjacent PONDER ch.5; **no PCBA, no hardware** | None (new exp); cf. EmDrive-class null results as adjacent literature (TBD pin) | Y (100 μN >> PONDER's <1 μN target sensitivity per ch.5 spec) | ion-wind from corona discharge at HV edges; thermal asymmetry; outgassing transients; electrostatic charging of suspension | Promote from KB leaf to PONDER fab package; tie into existing torsion-metrology infrastructure | 2026-05-16 |
+| C17-PROTOCOL-11-SAGNAC-WIND | Core (could elevate to PONDER) | medium ($5-20k for sensitive static Sagnac fiber loop) | KB leaf only; **no hardware, no driver** | Historical Michelson-Morley class + modern fiber-Sagnac aether-wind null bounds (Anderson, Wolf, Mueller) — **TBD pin specific paper bounding diurnal Sagnac** | TBD (**flag: 2M-rad prediction may be off by orders of magnitude — sanity-check against existing null bounds before fab**) | temperature-driven fiber index drift over 24 h; ionospheric Faraday rotation; Earth-rotation Sagnac contribution itself; **prediction magnitude may be unphysical — flag for Grant adjudication** | Verify 2,000,000-rad number is dimensionally correct vs existing static-Sagnac null bounds; pin canonical comparison source | 2026-05-16 |
+| C18-PROTOCOL-12-GEO-SYNC | Core (would require ESA/NASA/SES partnership for GEO laser link) | facility-class (precision GEO laser ranging requires existing infrastructure) | KB leaf only; **no driver, no measurement** | GRACE-FO laser ranging; SLR ILRS network archives (TBD pin); LRO laser ranging — none GEO-target but constrain relevant physics | TBD (16.7 mm at GEO requires sub-cm laser-ranging precision differential vs pure-GR Shapiro) | standard GR Shapiro delay subtraction; tropospheric/ionospheric path delay; satellite ephemeris precision; clock-vs-TOF separation | Survey ILRS / GRACE-FO laser-ranging public archives for vertical-baseline TOF residuals after GR subtraction | 2026-05-16 |
+| C19-FRET | Protein (AVE-Protein lane) | free for derivation; facility-class (compact-object) for measurement | KB leaf only; **no Protein-repo executable observer** (engines test fold class, not FRET-parallax) | None (compact-object FRET measurement does not exist) | **N** (KB explicit: "currently unfalsifiable") | thermal fluctuation of α-helix dominates by ~10 OOM; fluorophore dipole-orientation variability; single-molecule FRET precision floor | Hold as documented future-target row; revisit if compact-object FRET or resonant-amplification proposal emerges | 2026-05-16 |
+| D5-HTS-MEISSNER | Core (no sibling) | low-medium (existing HTS samples + magnetometry; the AVE-distinct prediction is what's missing, not the apparatus) | Mechanism derivation in vol3 ch9 leaf; **no Vol VII leaf in KB**; **no driver / no hardware** | BCS literature (canonical); HTS literature on Meissner-vs-Cooper-pair model gap (TBD pin) | TBD (no explicit HTS discriminator numeric in KB) | standard BCS reproduces $B_c(T)$ to 0.00% per A-034; AVE-distinct prediction is mechanism not number — single-experiment discrimination structurally difficult | Distill explicit Vol VII Ch.2 *metric-streamlining* leaf from manuscript source (if exists outside KB) into KB; surface explicit HTS-vs-BCS discriminator numeric | 2026-05-16 |
 
 ### Matrix maintenance
 
