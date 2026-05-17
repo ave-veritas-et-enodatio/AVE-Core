@@ -1,7 +1,12 @@
 # simulate_string_theory_mapping.py
-# Formally proves mathematically that the "Strings" of String theory are functionally
-# identical to the 1D phase flux-tubes connecting the discrete LC nodes of the AVE vacuum.
-# Replaces the old static plot with a genuine Discrete LC Transmission Line FDTD Solver.
+# Illustrates the proposed analogy between the "Strings" of String theory and the
+# 1D phase flux-tubes connecting discrete LC nodes of the AVE vacuum, via a
+# Discrete LC Transmission Line FDTD Solver. NOTE: This is an illustrative FDTD of
+# a 1D unit-LC line — it does NOT formally prove mathematical identity between AVE
+# flux-tubes and M-theory strings. The "Tension ↔ Capacitance / Mass-density ↔ Inductance"
+# correspondence is a structural analogy worth exploring; a formal proof of identity
+# would require a substantive analytical derivation (not in corpus). Annotation
+# language softened 2026-05-17 to match what the FDTD actually computes.
 
 import os
 
@@ -168,12 +173,12 @@ def generate_string_mapping() -> None:
         0.05,
         r"$\mathbf{The\ String\ Theory\ Isomorphism}$"
         + "\n"
-        + "String theory's 1D continuous vibrating filaments identically represent the 1D acoustic phase flux"
-        + " connecting discrete LC array nodes.\n"
-        + "String 'Tension' maps exactly to spatial Capacitance ($C$), while String 'Mass Density' maps"
-        + " exactly to nodal Inductance ($L$).\n"
-        + "This strict discrete FDTD transmission logic generates identical waveform symmetries to M-Theory"
-        + " without positing unobservable 11D bulk dimensions.",
+        + "Proposed analogy: String theory's 1D continuous vibrating filaments are analogous to the 1D acoustic"
+        + " phase flux connecting discrete LC array nodes.\n"
+        + "String 'Tension' is analogous to spatial Capacitance ($C$); String 'Mass Density' is analogous to"
+        + " nodal Inductance ($L$). Formal identity proof not in corpus.\n"
+        + "This discrete FDTD transmission logic generates qualitatively similar waveform behaviors to those"
+        + " modeled in M-Theory without positing unobservable 11D bulk dimensions.",
         ha="center",
         va="center",
         color="white",

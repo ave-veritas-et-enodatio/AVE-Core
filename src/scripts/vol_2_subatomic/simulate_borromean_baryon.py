@@ -1,6 +1,11 @@
 # simulate_borromean_baryon.py
-# Natively computes the exact 6^3_2 Borromean topological linkage of three completely
-# discrete 3_1 Torus Knots, which mathematically dictates the structural mass of the Proton.
+# Visualizes the 6^3_2 Borromean topological linkage of three discrete 3_1 Torus Knots
+# proposed as the structural topology of the proton. NOTE: this script generates a 3D
+# parametric plot only. It does NOT compute the proton mass (938.27 MeV) — that
+# derivation lives in self-consistent-mass-oscillator.md and the proton-identification.md
+# leaf chain via the Faddeev-Skyrme energy eigenvalue (NOT this script). Annotation
+# language softened 2026-05-17 to match what the code actually computes (visualization,
+# not derivation).
 
 import os
 
@@ -56,7 +61,7 @@ def simulate_proton() -> None:
     R_z = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
     # We slightly offset the origins to force the topological intersections to bind,
-    # mapping exactly to the irreducible structural volume of Baryon matter.
+    # visualizing the proposed irreducible structural volume of Baryon matter.
     x1, y1, z1 = generate_trefoil([-0.1, 0.1, 0], 1.0, R_x, 0)
     x2, y2, z2 = generate_trefoil([0.1, -0.1, 0], 1.0, R_y, np.pi / 3)
     x3, y3, z3 = generate_trefoil([0, 0.1, -0.1], 1.0, R_z, 2 * np.pi / 3)
@@ -106,11 +111,11 @@ def simulate_proton() -> None:
     sph_z = 0.5 * np.outer(np.ones(np.size(u)), np.cos(v))
     ax.plot_surface(sph_x, sph_y, sph_z, color="yellow", alpha=0.2, linewidth=0)
 
-    # The topological invariant proves the empirical mass.
+    # Topology annotation — references mass via separate derivation (NOT computed in this script).
     ax.text2D(
         0.05,
         0.82,
-        r"$\mathbf{Baryon\ Mass\ Origin}$"
+        r"$\mathbf{Baryon\ Topology}$"
         + "\n\n"
         + r"Topology: $6^3_2$ Borromean Link"
         + "\n"
@@ -118,7 +123,7 @@ def simulate_proton() -> None:
         + "\n"
         + r"Invariant Yield: Requires infinite energy to unlink"
         + "\n"
-        + r"Center Void: Core $V_{crossing}$ deriving exactly $938.27$ MeV",
+        + r"Mass ($\sim 938.27$ MeV): see self-consistent-mass-oscillator.md",
         transform=ax.transAxes,
         color="white",
         fontsize=12,

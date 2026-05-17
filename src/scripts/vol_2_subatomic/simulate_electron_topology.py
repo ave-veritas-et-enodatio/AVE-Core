@@ -1,6 +1,9 @@
 # simulate_electron_topology.py
-# Natively computes the exact U(1) parameterization of the $0_1$ Unknot
-# which mechanically constitutes the electron topological mass defect.
+# Visualizes the U(1) parameterization of the $0_1$ Unknot proposed as the electron's
+# real-space topology. NOTE: this script generates a parametric circle plot — it does
+# NOT compute the electron mass or derive the topological mass defect (those derivations
+# live in electron-identification.md and the mass-closure-theorem.md chain). Annotation
+# language softened 2026-05-17 to match what the code actually computes.
 
 import os
 
@@ -61,7 +64,7 @@ def generate_electron_knot() -> None:
     ax.plot([-3, 3], [0, 0], [0, 0], color="#555555", linestyle="--", linewidth=1)
     ax.plot([0, 0], [-3, 3], [0, 0], color="#555555", linestyle="--", linewidth=1)
 
-    # The topological invariant (Winding number = 1) proves quantization
+    # Topology annotation — references the proposed quantization mechanism (winding number = 1)
     ax.text2D(
         0.05,
         0.90,

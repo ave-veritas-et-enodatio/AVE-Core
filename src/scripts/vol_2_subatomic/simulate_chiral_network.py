@@ -1,7 +1,12 @@
 # simulate_chiral_network.py
-# Natively computes mechanical Weak Force Parity Violation.
-# Proves that a discrete spatial matrix seeded with a right-handed inductive chirality
-# mechanically forbids the propagation of a left-handed torsional input vector.
+# Illustrates the proposed Weak Force Parity Violation mechanism via a discrete spatial
+# matrix seeded with right-handed inductive chirality. NOTE: this script computes
+# `exp(-attenuation_factor * z)` envelope with hardcoded K_R = 1.0 and K_L = 0.05 — it
+# does NOT formally prove parity violation. The exponential decay reflects the stipulated
+# coupling-constant asymmetry; a first-principles derivation of the K_R / K_L ratio
+# from substrate chirality is NOT in corpus. Annotation language softened 2026-05-17
+# to match what the code actually visualizes (stipulated coupling-asymmetry plot,
+# not first-principles proof).
 
 import os
 
@@ -104,11 +109,11 @@ def generate_parity_violation() -> None:
     ax2.set_ylim(-1.2, 1.2)
     ax2.grid(color="#222233", linestyle=":", linewidth=1)
 
-    # Text Annotation proving Parity Violation
+    # Text annotation illustrating the proposed parity-violation mechanism (visualization, not derivation)
     fig.text(
         0.5,
         0.05,
-        r"$\mathbf{Structural\ Origin\ of\ Weak\ Force\ Parity\ Violation}$"
+        r"$\mathbf{Proposed\ Structural\ Origin\ of\ Weak\ Force\ Parity\ Violation\ (illustrative)}$"
         + "\n"
         + r"Because the discrete $\mathcal{M}_A$ LC network is physically constructed of right-handed helical"
         + r" Inductors,\n"
