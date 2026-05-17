@@ -159,6 +159,77 @@ Per [research/discussions/discussion_followups.md Entry 002](../discussions/disc
 
 ---
 
+## 1.7. EXTENDED prediction set — Observable 7 (NEW 2026-05-16 evening, per research/L3 doc 118 + adjudication doc 119)
+
+Per [research/L3 doc 118 §4](118_omega_freeze_tensor_extension_vol3ch1.md) tensor extension of Vol 3 Ch 1 G derivation, the cosmic-scale K4 chirality lock should produce a direction-dependent gravitational constant $G(\hat{n})$ with $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ angular profile. Per [doc 119 adjudication](119_alpha_squared_universal_operator_adjudication.md), the amplitude is conjecturally $\alpha^N$-suppressed for $N \geq 2$ pending substrate-first-principles derivation of $\chi_1/K_0$.
+
+### 7. CODATA G dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$
+
+**Pre-registered hypothesis (NEW 2026-05-16 evening)**: precision measurements of Newton's gravitational constant $G$ should show a systematic $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ residual when binned by measurement-direction relative to the cosmic axis $\hat{\Omega}_{\text{freeze}}$ at $(l=174°, b=-5°)$ in galactic coordinates.
+
+**Predicted angular profile** (sharp, independent of amplitude):
+$$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -A \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
+
+where:
+- $\hat{n}$ = direction of the gravitational-force vector measured in the experiment (e.g., for torsion-balance, the suspension wire direction; for free-fall, the vertical direction)
+- $P_2(\cos\theta) = (3\cos^2\theta - 1)/2$
+- $A$ = amplitude = $(4\pi/15) \cdot \delta_\chi \cdot f_R$
+  - At $\alpha^2$-suppression (most plausible per doc 118 §9 bipartite K4 cancellation): $A \approx 4.4 \times 10^{-5}$
+  - At $\alpha^3$-suppression: $A \approx 4 \times 10^{-7}$
+
+**Concrete observables** (signature in the P_2 profile):
+- $+\Delta G_{\max} = +A$ along $\hat{\Omega}_{\text{freeze}}$ ($\cos\theta = \pm 1$): G measured along this direction is anomalously HIGH
+- $-\Delta G_{\max}/2 = -A/2$ perpendicular ($\cos\theta = 0$): G measured perpendicular is anomalously LOW
+- **Zero** at magic angle ($\cos^2\theta = 1/3$, $\theta = 54.7°$): G unchanged
+- Total eigenvalue spread $G_{||} - G_{\perp} \approx 1.5 A \cdot G_{\text{iso}} \approx 6.6 \times 10^{-5} \cdot G$ (at $\alpha^2$-suppression)
+
+### Methodology
+
+**Data set**: the CODATA G recommended-value compilation (most recent: CODATA 2022) plus the underlying individual high-precision G measurement publications (~15-20 independent measurements over 30+ years, see CODATA report references).
+
+For each measurement, extract:
+1. The measurement's geographic coordinates (lab location)
+2. The orientation of the measurement apparatus (which axis defines $\hat{n}$ — typically vertical for free-fall, axis of suspension wire for torsion balance, axis of pendulum for pendulum experiments)
+3. Convert lab coordinates + apparatus orientation + measurement time to ICRS J2000 then to galactic coordinates → $\hat{n}_{\text{measurement}}$ in galactic frame
+4. Compute $\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}}$ using $\hat{\Omega}_{\text{freeze}}$ = CMB axis-of-evil $(l=174°, b=-5°)$
+5. Plot G value vs $\cos\theta$ (or $\cos^2\theta$ for the P_2 component)
+
+**Statistical fit**: chi-squared fit of measured $G$ values to:
+$$G_{\text{measured}}(\hat{n}_i) = G_0 \cdot \left[1 - A \cdot P_2(\cos\theta_i)\right] + \epsilon_i$$
+
+with $G_0$ and $A$ as free parameters, $\epsilon_i$ the per-measurement reported uncertainty. Significance test: is the best-fit $A$ statistically distinguishable from zero at $> 3\sigma$?
+
+### Discriminating outcomes
+
+| Outcome | Interpretation |
+|---|---|
+| **A: $A \sim 4.4 \times 10^{-5}$ at $> 3\sigma$ along $(l=174°, b=-5°)$ axis** | $\alpha^2$-suppression prediction CONFIRMED; bipartite K4 cancellation framework supported; doc 118 §9 derivation validated empirically |
+| **B: $A \sim 4 \times 10^{-7}$ or smaller** | $\alpha^3$-suppression or deeper protection; framework partially supported but needs additional symmetry mechanism beyond bipartite cancellation |
+| **C: No P_2 signal at any α^N amplitude (down to JPL planetary-ephemerides precision $10^{-11}$)** | Three-route framework commitment FALSIFIED; chirality coupling χ_1 → 0 or no $\hat{\Omega}_{\text{freeze}}$ direction in the substrate |
+| **D: P_2 signal at amplitude $\sim 10^{-3}$ or larger** | $\alpha^1$-suppression (or no suppression at all); EXCLUDED by current CODATA G uncertainty; framework as stated falsified, would require revised mechanism |
+| **E: P_2 signal at wrong axis** | Cosmic-axis direction differs from CMB axis-of-evil; either $\hat{\Omega}_{\text{freeze}}$ is mis-identified or Observable 7 has different physical origin than framework prediction |
+| **F: Data insufficient** | CODATA G data set too small or per-measurement uncertainties too large to discriminate $4.4 \times 10^{-5}$ at $> 3\sigma$. Suggests deferring to future-precision G measurements (e.g., space-based or atom-interferometry) |
+
+### Why this is a sharp test for the three-route framework commitment
+
+Per the [omega-freeze-cosmic-grain-cascade.md](../../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) §1, the framework commits $\alpha + G + \mathcal{J}_{\text{cosmic}}$ all derive from single $\Omega_{\text{freeze}}$. If the G-route doesn't have the predicted $P_2$ structure (Outcome C), the commitment is falsified — α and $\mathcal{J}_{\text{cosmic}}$ might still hold but they no longer share a single cosmological parameter origin.
+
+If Outcome A holds, all 8 observables (CMB axis + Hubble + LSS + matter asymmetry + E/B + orbital + G anisotropy + future QNM matching) trace to the same $\hat{\Omega}_{\text{freeze}}$ direction with the predicted magnitudes — extraordinarily strong confirmation of the three-route framework.
+
+### Status
+
+**Pre-registration only** (per ave-prereg discipline). Actual data analysis is a separate workstream. The methodology is fixed here so that the test is genuinely falsifiable rather than retroactively interpreted.
+
+Execution scope estimate: ~1-3 sessions for CODATA G dataset compilation + per-measurement geometry extraction + chi-squared fit. Data is publicly available (CODATA reports + individual measurement papers); no proprietary access needed.
+
+### What this prereg does NOT do
+
+- Does NOT execute the data analysis (separate workstream)
+- Does NOT derive $\chi_1/K_0$ rigorously (still open per doc 119 §3); the prediction amplitude is conjectural pending that derivation
+- Does NOT address per-experiment systematics (e.g., whether reported uncertainties already absorb directional systematics that would mask the $P_2$ signal)
+
+---
+
 ## 2. Background: what's already known observationally
 
 **CMB axis-of-evil (Planck data):**
