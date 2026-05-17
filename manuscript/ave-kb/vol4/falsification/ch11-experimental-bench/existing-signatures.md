@@ -15,7 +15,7 @@ AVE: The proton hasn't shrunk; the measuring wavelength has compressed. The muon
 
 Free neutrons die $\sim 9$ s faster in material bottles than in beams.
 
-AVE: The neutron is a metastable threaded knot ($6^3_2 \cup 3_1$). Decay = topological snap. Bottle walls create resonant **phonon coupling** to the knot topology, statistically accelerating the snap.
+AVE: The neutron is a metastable threaded composite ($6^3_2 \cup 0_1$ — proton Borromean linkage + threaded electron unknot per Vol 2 Ch 2 canonical). Decay = topological snap of the threaded electron tunneling out. Bottle walls create resonant **phonon coupling** to the knot topology, statistically accelerating the snap. (Stale $6^3_2 \cup 3_1$ trefoil framing corrected 2026-05-17.)
 
 ### Hubble Tension
 
