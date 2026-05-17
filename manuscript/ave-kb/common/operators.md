@@ -98,24 +98,40 @@ Both worked examples extend the [A43 v2 lane-symmetric pattern](../../../.agents
 
 Named recurring substrate-physics patterns that operate across multiple AVE volumes but are NOT numbered operators from the Vol 1 Ch 6 catalog. These are structural-synthesis observations rather than primitive physics operators.
 
-### Hoop Stress 2π projection (NEW 2026-05-17)
+### Hoop Stress 2π projection (NEW 2026-05-17, honest-scoped 2026-05-17 late evening seventh audit cycle per external reviewer catch)
 
 **Recurring pattern**: substrate bulk drift $c \times \epsilon$ (where $\epsilon$ is a small dimensionless parameter set by scale) projected through the Hoop Stress geometric factor $2\pi$ onto closed topological loops gives the observable equilibrium scale at that scale.
 
+**Independent scale-instances** (2 truly independent applications across distinct scales with distinct small-parameters):
+
 | Scale | Formula | Small parameter $\epsilon$ | Output | Canonical source |
 |---|---|---|---|---|
-| Cosmic (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² | [`../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §1](../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) |
-| Substrate (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s | [`../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) |
-| Substrate (DAMA quantum) | $E_{substrate} = \epsilon \cdot m_e c^2$ | $\epsilon = \alpha$ (same) | Energy $\sim 3.728$ keV | [`../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) |
+| **Cosmic** (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² | [`../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §1](../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) |
+| **Substrate** (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s | [`../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) |
 
-**Physical interpretation**: Hoop Stress is the canonical continuum-mechanics projection — when an isotropic outward radial force is applied to a closed circular loop, the resulting longitudinal tension on the loop is `T = F_r / 2π`. The same projection applies to substrate drift acting on topological-loop solitons at any scale (cosmic horizon, electron unknot, etc.). The small-parameter $\epsilon$ is set by the dominant physics at each scale: cosmological expansion ($H_\infty$) at cosmic scale; electromagnetic coupling ($\alpha$) at substrate scale.
+**Derivative observables at the substrate operating point** (algebraically derived from the α-slew instance via h × ν_slew conversions; NOT independent Hoop Stress applications):
 
-**Empirical anchors (as of 2026-05-17)**:
-- Cosmic: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual (FOREWORD-PROMOTED).
-- Substrate: $v_{substrate}$ within 9% of LSR-class bulk velocity (375 km/s observed); cluster tightness $\sigma=11$ km/s inconsistent with random galactic kinematics (active research consistency result).
-- DAMA: $E_{substrate} = 3.728$ keV in DAMA's 2-6 keV detection window (zero-parameter; foreword-bullet AVE-distinct prediction as of 2026-05-17 late evening).
+| Derivative | Algebraic chain | Output | Canonical source |
+|---|---|---|---|
+| DAMA energy quantum | $E_{substrate} = h \cdot \nu_{slew} = h \cdot \alpha c / (2\pi \ell_{node})$; with $\ell_{node} = \hbar/(m_e c)$, the $2\pi$ and $\hbar$ factors collapse and yield $E = \alpha m_e c^2$ | $\sim 3.728$ keV | [`../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) |
 
-**Canonical-status note**: this motif was NAMED for the first time in the corpus 2026-05-17 (closure-roadmap §0.5 entry + this catalog entry). Prior corpus had each instance separately (a_0 at MOND derivation; α-slew at α-slew derivation) without naming the recurring pattern. Cross-volume synthesis as proposed canonical structural observation.
+**Honest-scope note (2026-05-17 late evening, external reviewer catch on prior version of this section)**: an earlier version of this table listed DAMA quantum as instance #3 of the Hoop Stress motif. External reviewer caught that DAMA quantum is algebraically DERIVED from the α-slew velocity instance (the 2π cancels in the derivation chain), not an independent third scale-instance. Corpus-grep across all 10 AVE repos (2026-05-17 late evening) confirmed NO genuine third independent scale-instance of `c × ε / (2π)` Hoop Stress projection exists. Honest framing is **2 independent scale-instances + 1 derivative observable**; the motif is structurally recurring across 2 scales (cosmic + substrate), not 3.
+
+**Physical interpretation**: Hoop Stress is the canonical continuum-mechanics projection — when an isotropic outward radial force is applied to a closed circular loop, the resulting longitudinal tension on the loop is `T = F_r / 2π`. The same projection applies to substrate drift acting on topological-loop solitons at any scale (cosmic horizon, electron unknot). The small-parameter $\epsilon$ is set by the dominant physics at each scale: cosmological expansion ($H_\infty$) at cosmic scale; electromagnetic coupling ($\alpha$) at substrate scale. A future genuine third instance at intermediate scale (atomic, nuclear, stellar, molecular) would substantiate the motif more strongly; current corpus-grep confirms no such third instance currently exists.
+
+**Empirical anchors (as of 2026-05-17 late evening)**:
+- Cosmic instance: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual (FOREWORD-PROMOTED as first positive load-bearing empirical anchor).
+- Substrate instance: $v_{substrate}$ within 9% of LSR-class bulk velocity (375 km/s observed); cluster tightness $\sigma=11$ km/s inconsistent with random galactic kinematics (active research consistency result; demoted from foreword promotion per ave-discrimination-check audit because directional alignment is consistency check with K4=CMB identification, not independent AVE evidence).
+- DAMA derivative observable: $E_{substrate} = 3.728$ keV in DAMA's 2-6 keV detection window (zero-parameter foreword-bullet AVE-distinct prediction).
+
+**Other 2π denominators in the corpus that are NOT Hoop Stress 2π projections** (added 2026-05-17 late evening per corpus-grep finding): the corpus contains multiple distinct physical origins of 2π factors. Examples of NEAR-MISSES that share form but differ in physical origin:
+- **Q-G22 atomic-strain ratio** at [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md:39-41`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md): `A = α/(2π)` at $r = 2\pi a_0$ — the 2π is the orbital-circumference geometric factor, NOT a Hoop Stress projection of substrate drift.
+- **Q-G27 muon Cosserat saliency** at [`../vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md:38`](../vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md): $\delta_{Cosserat} = -\alpha\sqrt{3/7}/(2\pi)$ — the 2π is explicitly named "Compton-traverse form-factor" (Schwinger-cousin), NOT Hoop Stress.
+- **Atomic orbital current** $I = e\omega_1/(2\pi)$ at [`../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md:50`](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md): 2π is orbital-period normalization, NOT Hoop Stress.
+
+These are structurally different physics; the matching form does NOT indicate the same recurring motif. Discipline note: when claiming a "recurring 2π motif," verify the geometric ORIGIN of the 2π factor, not just its presence in a denominator.
+
+**Canonical-status note**: this motif was NAMED for the first time in the corpus 2026-05-17. The two-instance scope (cosmic + substrate) is the current corpus state. Future work that finds a genuine third independent instance at a different scale with a different small-parameter would strengthen the motif claim; corpus-grep 2026-05-17 late evening confirmed absence.
 
 ## §6 — Phase 0.2 status
 

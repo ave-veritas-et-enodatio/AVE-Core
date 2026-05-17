@@ -48,11 +48,18 @@ $$v_{substrate} = \frac{\alpha c}{2\pi} \approx 348.2\,\text{km/s}$$
 
 via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../../src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)):
 
+**Independent scale-instances** (2):
+
 | Scale | Formula | Small-parameter $\epsilon$ | Output |
 |---|---|---|---|
-| Cosmic (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² |
-| Substrate (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s |
-| Substrate (DAMA quantum) | $E_{substrate} = h \cdot c \cdot \epsilon / (2\pi \ell_{node}) = \epsilon \cdot m_e c^2$ | $\epsilon = \alpha$ (same) | Energy $\sim 3.728$ keV |
+| **Cosmic** (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² |
+| **Substrate** (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s |
+
+**Derivative observable at the substrate operating point** (NOT an independent scale-instance per honest-scope 2026-05-17 late evening per external reviewer):
+
+| Derivative | Algebraic chain | Output |
+|---|---|---|
+| DAMA energy quantum | $E = h \nu_{slew}$; 2π cancels via $\ell_{node} = \hbar/m_e c$ giving $E = \alpha m_e c^2$ | $\sim 3.728$ keV |
 
 **The recurring pattern** ("Hoop Stress projection of substrate drift onto closed topological loops"): substrate bulk drift $c \times \epsilon$ projected through the 2π Hoop Stress geometric factor onto closed topological loops gives the observable equilibrium scale. At cosmic scale the small parameter is $H_\infty$ acting on the cosmic horizon loop; at substrate scale the small parameter is $\alpha$ acting on the electron unknot via Axiom 4 dielectric saturation back-reaction.
 

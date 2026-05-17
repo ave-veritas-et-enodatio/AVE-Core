@@ -69,15 +69,18 @@ The 4% modulation matches DAMA's observed envelope at order-of-magnitude. Sharpe
 
 The substrate-equilibrium velocity $v_{substrate} = \alpha c/(2\pi)$ has the **identical structural form** as the canonical MOND acceleration scale:
 
+**Independent scale-instances** (2 truly independent applications of `c × ε / (2π)` Hoop Stress projection at distinct scales with distinct small-parameters):
+
 | Scale | Formula | Hoop projection | Derivation source |
 |---|---|---|---|
-| MOND cosmic | $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s² | 2π Hoop Stress | [`../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) §1 |
-| α-slew substrate | $v_{substrate} = \alpha c/(2\pi) \approx 348$ km/s | 2π Hoop Stress (same) | This leaf §3 |
-| DAMA quantum | $E_{substrate} = \alpha m_e c^2 = h \nu_{slew}$ | 2π cancels in $h\nu = h \cdot \alpha c/(2\pi \ell_{node})$ with $\ell_{node} = \hbar/(m_e c)$ | This leaf §3 |
+| **MOND cosmic** | $a_0 = c H_\infty/(2\pi) \approx 1.07 \times 10^{-10}$ m/s² | 2π Hoop Stress | [`../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) §1 |
+| **α-slew substrate** | $v_{substrate} = \alpha c/(2\pi) \approx 348$ km/s | 2π Hoop Stress (same form, different scale + small-parameter) | This leaf §3 |
+
+**DAMA energy quantum** (this leaf §3) is a **derivative observable** at the substrate operating point, NOT a third independent instance of Hoop Stress projection: $E_{substrate} = h \nu_{slew} = h \cdot \alpha c/(2\pi \ell_{node})$, and with the canonical AVE substrate identity $\ell_{node} = \hbar/(m_e c)$, the 2π and $\hbar$ factors collapse algebraically to yield $E = \alpha m_e c^2 = 3.728$ keV. The DAMA quantum is AVE-distinct on its own merits (no SM mechanism connects α to keV-scale detector window), but its 2π is the same 2π as the α-slew velocity — different observable, same operating point.
 
 The recurring pattern: substrate bulk drift $c \times \text{(small parameter)}$ projected through the Hoop Stress factor 2π onto closed topological loops. At cosmic scale the small parameter is $H_\infty$ (cosmological expansion rate) acting on the cosmic horizon loop; at substrate scale the small parameter is $\alpha$ acting on the electron unknot via Axiom 4 dielectric saturation back-reaction.
 
-**This cross-volume motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis (cosmic-scale + substrate-scale instances of the same "Hoop Stress projection of substrate drift onto closed topological loops" framework).
+**This cross-volume motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis (cosmic-scale + substrate-scale instances of the same "Hoop Stress projection of substrate drift onto closed topological loops" framework). **Honest-scope per 2026-05-17 late evening external-reviewer audit (seventh audit cycle on this thread)**: 2 truly independent scale-instances + 1 derivative observable; corpus-grep across all 10 AVE repos confirmed no genuine third independent scale-instance currently exists.
 
 ## §6 — Rate magnitude (sharpened open gap)
 
