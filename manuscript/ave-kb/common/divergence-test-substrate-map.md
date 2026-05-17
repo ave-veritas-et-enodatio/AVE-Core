@@ -504,6 +504,72 @@ Per Grant directive (memory `feedback_validate_what_you_did.md`): non-trivial wo
 
 ---
 
+## Cascade Dependency Visualizations
+
+The tracking matrices above surface row-by-row falsification logic, but they don't show the **cross-row dependency graph** of which framework derivations feed which observables. This section documents the load-bearing dependency cascades discovered by cross-row audits, starting with the most cascaded number in the framework.
+
+### ν_vac = 2/7 Cascade (audited 2026-05-16)
+
+ν_vac = 2/7 is the most cascaded number in AVE. It feeds three independent observables directly (C1, C11, C12), plus three more via downstream derivations (D2, B5, D4-turbulence). **Simultaneous FAIL across the three primary rows = framework-level falsification of the ν_vac = 2/7 derivation** — the strongest single-axis discriminator the framework has, analogous to the foreword's three-route framework commitment on α + G + 𝒥_cosmic but for ν_vac specifically.
+
+```mermaid
+flowchart TD
+    K2G["K = 2G<br/>(Q-G47 closure)<br/>vol3/gravity/ch01"]
+    SEVEN["7-mode compliance<br/>per node<br/>(mode-counting-heat-capacity.md:10)"]
+    NU(("ν_vac = 2/7"))
+
+    K2G --> NU
+    SEVEN --> NU
+
+    NU -->|"factor 7 = 1/ν_vac"| C1["C1-BH-RING<br/>r_sat = 7 M_g<br/>ω_R M_g = 18/49<br/>1.7% from GR exact<br/>10-18% from 3 LIGO events"]
+    NU -->|"n_s = 9/7, n_t = 2/7<br/>(these ARE the ν_vac numbers)"| C11["C11-MACH-ZEHNDER<br/>35-rad shift<br/>1-m electron interferometer"]
+    NU -->|"7^3 / 4 = 85.75"| C12["C12-G-STAR<br/>g* = 85.75 vs SM 106.75<br/>+7.6% Ω_GW, -10.4% EW expansion"]
+
+    NU -.->|"via G = ℏc / (7ξ m_e²)"| D2["D2-RHO-LAMBDA<br/>ρ_Λ = 9.03e-27 kg/m³"]
+    NU -.->|"Jensen rectification:<br/>F = N·ν_vac·δ·P/c"| B5["B5-PONDER-01<br/>40 μN thrust"]
+    NU -.->|"Poisson correction"| D4T["D4-A034 turbulence<br/>n_3D = 38/21<br/>(within 0.5% of solar flare)"]
+
+    C1 --> TRI{{"3-route triangulation<br/>on ν_vac = 2/7"}}
+    C11 --> TRI
+    C12 --> TRI
+    TRI --> KILL["FRAMEWORK-LEVEL FAIL if<br/>C1 ∧ C11 ∧ C12 all FAIL<br/>(ν_vac = 2/7 derivation falsified)"]
+
+    classDef source fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef primary fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef secondary fill:#f5f5f5,stroke:#616161
+    classDef triangulation fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef fail fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class K2G,SEVEN,NU source
+    class C1,C11,C12 primary
+    class D2,B5,D4T secondary
+    class TRI triangulation
+    class KILL fail
+```
+
+**Legend:**
+- **Blue nodes** — axiom-layer derivation sources ($K = 2G$ + 7-mode compliance → ν_vac = 2/7)
+- **Orange nodes** — primary observables (use ν_vac directly in main quantitative prediction)
+- **Gray nodes** — secondary observables (inherit ν_vac via downstream derivation chain)
+- **Pink node** — the 3-route triangulation arising from primary observables
+- **Red node** — framework-level falsification outcome
+
+**Solid arrows** = direct loading (predicted observable contains ν_vac explicitly). **Dotted arrows** = indirect dependence (ν_vac flows through one or more downstream derivations before reaching the observable).
+
+**Operational implication:** the 3 primary rows are at different lifecycle stages. C1 (LIGO ringdown re-analysis) is the closest to executable — public data exists, requires only a Core-side analysis driver. C11 (1-m electron interferometer) is facility-class. C12 (LISA primordial GW, post-2035 launch) is on a multi-decade wait. **Building the LIGO ringdown driver immediately gives ν_vac = 2/7 its first observational route.** Adding C11 or C12 later strengthens the triangulation.
+
+### Other framework cascades to map (deferred)
+
+Same Mermaid format would be valuable for:
+- **V_yield = 43.65 kV** (cascades across B1-VAC-BIREFRINGE, B5/B7 PONDER, C9-LEVITATION, C16-TORSION-05, D4-A034) — 6-row cascade audited 2026-05-16 PONDER family commit found CONSISTENT
+- **ξ_topo = e / ℓ_node** (cascades across C15-CLEAVE-01, B4-PROTEIN, C9-LEVITATION, B5-B7 PONDER family) — not yet audited
+- **α = 1/(4π³+π²+π)** (foreword line 106 derivation feeds A1-HOPF chiral antenna, C3-MUON-DELTA, C8-BARYON-LADDER, D2-RHO-LAMBDA, C19-FRET) — touches most of the framework
+- **𝒥_cosmic + Ω_freeze** (foreword three-route commitment cascades across C4-THREE-ROUTE, C5-CMB-AXIS, C13-VLBI-DARK, D2-RHO-LAMBDA, D4-A034)
+
+Each Mermaid diagram costs ~30 lines and surfaces the cross-row dependency structure that flat tables hide. Add as audited.
+
+---
+
 
 > → Primary: [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — the 21-instance cross-scale catalogue that underlies Tier D and several Tier C predictions
 > → Primary: [Common Foreword](../../frontmatter/00_foreword.tex) — canonical narrative source for the "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" framings
