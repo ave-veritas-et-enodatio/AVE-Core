@@ -246,8 +246,8 @@ Full cross-detector predictions at [`parametric-coupling-kernel.md` §8](../../v
 | DAMA NaI(Tl) BI 9.7 kg | 1 (ceiling) | $4.79 \times 10^{-7}$ | **MATCH** (0.6%, DERIVED) |
 | COSINE-100 NaI(Tl) 13 kg | $\leq 0.4$ (from null) | $\leq 1.34 \times 10^{-7}$ | Null observed → κ < 1 implied |
 | ANAIS-112 NaI(Tl) 12.5 kg | $\leq 0.4$ (from null) | $\leq 1.45 \times 10^{-7}$ | Null observed → κ < 1 implied |
-| MAJORANA HPGe ~1 kg | $\leq 0.05$ (from null) | $\leq 5.2 \times 10^{-9}$ | Null consistent (diff lattice + no Tl-coherence) |
-| KIMS CsI(Tl) ~8.7 kg | TBD (≤ 0.3-0.5 implied) | $\leq 2.3 \times 10^{-7} \cdot \kappa$ | Null at 2-4 keVee → **KEY DISCRIMINATOR** (same lattice as NaI, different Z) |
+| MAJORANA HPGe ~1 kg | **$\leq 10^{-3}$-$10^{-4}$** (refined 2026-05-17 night, 3σ rough) | $\leq 1.47 \times 10^{-4} \cdot \kappa_{HPGe}$ | Null consistent (diff lattice + no Tl-coherence); refined 250× tighter |
+| KIMS CsI(Tl) ~8.7 kg | **$\leq 0.02$-$0.05$** (refined 2026-05-17 night, 3σ rough per [`research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md`](../../../../../research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md)) | $\leq 1.74 \times 10^{-6} \cdot \kappa_{CsI(Tl)}$ | Null at 2-4 keVee → **KEY DISCRIMINATOR** (same lattice as NaI, different Z; same Tl dopant); refined 15-25× tighter — κ_NaI(Tl)=1 vs κ_CsI(Tl)≲0.02-0.05 implies 20-50× crystal-quality variation within rock-salt+Tl class, Tier-2 #9 correlation test load-bearing |
 | XENONnT Xe(l) | sub-regenerative $\sim 10^{-4}$-$10^{-2}$ | ~0 | **Null DERIVED** (Q·δ < 2 fails regenerative threshold) |
 | Sapphire (Al₂O₃) cryogenic | $\to 1$ (extreme Q) | $\sim 10^{-5}$-$10^{-7}$ | **Forward prediction** for next-gen experiments |
 

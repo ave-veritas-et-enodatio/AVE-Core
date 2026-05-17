@@ -166,8 +166,8 @@ $$R = N_e^{(kg)} \cdot \nu_{slew} \cdot \varepsilon_{det} = N_e^{(kg)} \cdot \nu
 | DAMA/LIBRA | NaI(Tl) | 9.7 | $7.79 \times 10^{25}$ | 1 (ceiling) | $4.79 \times 10^{-7}$ | **MATCH** (0.6%, derived) |
 | COSINE-100 | NaI(Tl) | 13.0 | $1.04 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.34 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied |
 | ANAIS-112 | NaI(Tl) | 12.5 | $1.00 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.45 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied |
-| MAJORANA Demonstrator | HPGe | ~1.0 | $8.31 \times 10^{24}$ | ≲ 0.05 (per implicit null) | ≲ $5.2 \times 10^{-9}$ | Null consistent (diff lattice + no Tl) |
-| KIMS | CsI(Tl) | ~8.7 | $6.31 \times 10^{25}$ | TBD | $\leq 2.3 \times 10^{-7} \cdot \kappa_{CsI(Tl)}$ | Null at 2-4 keVee → $\kappa \lesssim 0.3$-$0.5$ |
+| MAJORANA Demonstrator | HPGe | ~1.0 | $8.31 \times 10^{24}$ | **≲ $10^{-3}$-$10^{-4}$** (3σ rough refined 2026-05-17 night per [`research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md`](../../../../../research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md)) | $\leq R(\kappa=1) \times \kappa = 1.47 \times 10^{-4} \cdot \kappa_{HPGe}$ | Null consistent (diff lattice + no Tl) — refined 250× tighter than cycle-12 prior |
+| KIMS | CsI(Tl) | ~8.7 | $4.04 \times 10^{25}$ (refined per ~8.7 kg single module) | **≲ 0.02-0.05** (3σ rough refined 2026-05-17 night) | $\leq R(\kappa=1) \times \kappa = 1.74 \times 10^{-6} \cdot \kappa_{CsI(Tl)}$ | Null at 2-4 keVee → $\kappa_{CsI(Tl)} \lesssim 0.02$-$0.05$ (refined 15-25× tighter than cycle-12 prior) — **KEY DISCRIMINATOR** with κ_NaI(Tl) = 1: factor 20-50× variation within rock-salt+Tl class implies κ_quality varies with crystal-quality metrics (DAMA Beam-International ultra-LB vs KIMS commercial-grade); Tier-2 #9 correlation test load-bearing |
 | XENONnT | Xe(l) | n/a | N/A | $\sim 10^{-4}$-$10^{-2}$ (sub-regenerative) | ~0 | **Null DERIVED** (sub-regenerative) |
 | Sapphire (Al₂O₃) cryogenic | Al₂O₃ | ~0.1-1 | $1.15 \times 10^{24}$-$10^{25}$ | $\to 1$ (extreme Q) | $\sim 10^{-5}$-$10^{-7}$ | **Forward prediction** |
 
