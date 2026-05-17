@@ -125,7 +125,25 @@ vs observed $a_e = 1.160 \times 10^{-3}$ — would be 8% high, **breaking the el
 
 The 9% gap between prediction and Gaia cluster center is therefore NOT a missing geometric correction — it is the 27 km/s coherent bulk motion of the LSR-class population above floor, with origin in local-disk dynamics (spiral arm streaming, galactic-orbit projection onto CMB-dipole direction, etc.). The cluster tightness ($\sigma = 11$ km/s) confirms it's a population-coherent bulk motion, not random peculiar scatter.
 
-### Empirical anchor: Gaia DR3 test (2026-05-17)
+### Directional test: cluster mean aligned with CMB-dipole to 2.75° (NEW 2026-05-17 evening)
+
+**STRONG POSITIVE.** Gaia DR3 thin-disk subset (N=11,690 stars, |v_LSR|<30 km/s) cluster mean direction in CMB-rest frame:
+
+| Test | Result | Interpretation |
+|---|---|---|
+| Cluster mean direction vs CMB-dipole (l,b=264°, 48°) | **2.75°** offset | A-CMB STRONG POSITIVE (within 10° strong threshold) |
+| Cluster mean direction vs galactic-rotation (l,b=90°, 0°) | 133.71° (anti-aligned) | **B-MW FALSIFIED** — galactic dynamics ruled out as preferred-frame alternative |
+| Cluster mean direction vs cubic axes (±x, ±y, ±z) | 95.8°, 133.7°, 44.3° (no alignment) | NULL as expected per $(q\ell_{node})^4$ suppression at stellar wavelengths |
+| σ∥ along CMB-dipole | 11.10 km/s | Cluster tightness consistent with σ=11 from magnitude test |
+| σ⊥/σ∥ along CMB-dipole | 1.58 | Modest CMB-aligned elongation |
+
+**Cluster mean direction in galactic (l, b)**: (261.8°, 45.7°) — versus CMB-dipole (264.0°, 48.0°). Direction agreement to 2.75° is **within Planck 2018 CMB-dipole-direction uncertainty** at the population-statistics level.
+
+**The 27 km/s LSR-class bulk motion above the floor is itself CMB-dipole-aligned** — not galactic-rotation-aligned. This rules out "galactic dynamics drives the bulk motion above the floor" as the natural alternative interpretation. The entire 375 km/s cluster center is one coherent CMB-dipole-aligned bulk motion of the LSR-class population. Origin of the above-floor offset remains open (candidates: Local Bubble dynamics, substrate-physics correction at LSR scale beyond Hoop Stress, cosmic-flow streaming toward Local Group barycenter) — but the directional structure rules out the galactic-dynamics interpretation that was the most plausible alternative.
+
+Full statistics, anisotropy tensor eigendecomposition, and outcome adjudication in [`../../../../../research/2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md`](../../../../../research/2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md). Driver at [`../../../../../src/scripts/vol_3_macroscopic/gaia_directional_analysis.py`](../../../../../src/scripts/vol_3_macroscopic/gaia_directional_analysis.py).
+
+### Empirical anchor: Gaia DR3 test (2026-05-17, magnitude statistics)
 
 29,466 nearby thin-disk G/K dwarfs queried from Gaia DR3 (parallax > 10 mas, full 6D kinematics, bp_rp ∈ [0.6, 1.2]). Distribution analysis:
 
