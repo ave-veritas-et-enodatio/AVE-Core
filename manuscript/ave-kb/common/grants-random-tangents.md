@@ -13,10 +13,12 @@ This leaf captures Grant's mid-session physical intuitions that don't yet have a
 
 ## Maintenance
 
-- Append new tangents as dated H2 sections; **never edit prior entries** (preserve the intuition as captured for honesty)
-- When a tangent gets adjudicated and either folded into a canonical leaf or rejected, mark the H2 heading **[FOLDED → leaf]** or **[REJECTED]** but preserve the body verbatim
+- Append new tangents as dated H2 sections (Entry #NNN with date)
+- **Section (a) verbatim capture is sacrosanct** — never edit, ever. This is the raw-intuition honesty anchor; preserving it is the load-bearing reason this leaf exists at all. Voice-to-text artifacts, typos, and partial sentences stay as captured. If a tangent gets clarified, append a new section (e.g. (f), (g), …) with the clarification as a fresh sub-capture rather than smoothing (a).
+- **Sections (b) through (z) CAN be modified after commit.** Git history preserves the audit trail; rigid append-only on analysis sections is unnecessary discipline overhead. When making material edits (not typo fixes), prepend an `**[Edit YYYY-MM-DD: <reason>]**` line at the top of the changed sub-section so the in-leaf reader sees the revision without needing `git log -p`.
+- When a tangent gets adjudicated by Grant and either folded into a canonical leaf or rejected, mark the H2 heading **[FOLDED → leaf]** or **[REJECTED]**. Body can be updated to reflect final resolution; (a) verbatim capture stays unmodified.
 - Cite tangent entries from research docs as "Tangent #NNN per `common/grants-random-tangents.md`"
-- The "What AVE already says" sections are grep-verified at capture time; if the corpus drifts, re-verify before any folding decision
+- The "What AVE already says" sections are grep-verified at capture time; if the corpus drifts, re-verify and update inline with an `[Edit YYYY-MM-DD: corpus drift]` marker rather than appending a new section
 
 ---
 
