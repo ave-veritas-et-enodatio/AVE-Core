@@ -70,6 +70,20 @@ via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../..
 
 **This motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis of three previously-independent AVE predictions (MOND, substrate-equilibrium-velocity, DAMA quantum) under the same Hoop Stress 2π projection framework.
 
+### 🟢 RIGOROUS GROUNDING via knot-theory Ideal Ropelength (Tier-3 #10 Step 4, 2026-05-17 night)
+
+The 2π factor is EXACT at substrate scale (NOT approximate), grounded in the knot-theoretic Ideal Ropelength of the electron unknot. Per existing canonical AVE result at [`vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md:12`](../../../vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md) + [`vol3/gravity/ch01-gravity-yield/kinetic-yield-threshold.md:22`](../../../vol3/gravity/ch01-gravity-yield/kinetic-yield-threshold.md):
+
+> "The electron is an extended $0_1$ Unknot flux tube loop. In mathematical knot theory, the minimum length-to-diameter ratio of a closed loop is its Ideal Ropelength. **For the unknot, this is $2\pi \approx 6.28$.** Because Axiom 1 bounds the physical tube diameter at $1 \ell_{node}$, the continuous closed loop must span $2\pi$ fundamental lattice nodes."
+
+The Ideal Ropelength is a TOPOLOGICAL INVARIANT (Cantarella, Kusner, Sullivan 2002, *Invent. Math.* 150:257-286). For the unknot ($0_1$) it equals $2\pi$ exactly. AVE's Axiom 1 fixes the tube diameter at $1 \ell_{node}$, so the unknot's circumference = $2\pi \times \ell_{node}$ (exact).
+
+**Hoop Stress integration around this loop yields exact $T = F_r/(2\pi)$** — the $2\pi$ factor is the unknot's ropelength, not an approximation of discreteness. There is NO discreteness correction to the substrate-scale $2\pi$ because the unknot's ropelength is geometrically exact regardless of lattice quantization.
+
+**Cosmic scale similarly exact**: de Sitter horizon as $S^3$ — any great-circle integration on $S^3$ has measure $2\pi$ (Euclidean geometry of horizon sphere). Same $2\pi$ from closed-loop integration in 2D angular measure; different topology (unknot vs $S^3$ great-circle).
+
+**Both scales of $2\pi$ are RIGOROUS GEOMETRIC INTEGRALS on closed topological structures** — not coincidence (Outcome C rejected per prereg) and not approximation (Outcome B rejected). Full derivation chain at [`research/2026-05-17_hoop-stress-2pi-step-4-result.md`](../../../../../research/2026-05-17_hoop-stress-2pi-step-4-result.md).
+
 ### Dark Sector Comparison: AVE vs. Observation
 
 | **Observable** | **AVE Prediction** | **Observed** | **Error** |
