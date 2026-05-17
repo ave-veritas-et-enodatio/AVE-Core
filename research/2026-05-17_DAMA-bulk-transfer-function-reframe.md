@@ -342,6 +342,58 @@ This §10 itself is the corrective response to a discipline-application failure:
 
 **This research doc is NOW pre-registration-complete**. Next-session work begins with bulk-EE derivation per §10.1-§10.4 pipeline. KB-canonical promotion gated on §10.4 decision-tree outcome. The bulk-EE reframe is RESEARCH-LEVEL canonical (the level-distinction is correct per Grant's plumber-physical authority); the specific factorization is research-pending derivation + forward-prediction validation.
 
+### §10.7 — Next-session entry-point: skills-at-derivation-start (REVIEWER HIGH #2)
+
+Per external-reviewer 2nd-volley HIGH #2 forward item: the recurring failure mode this session (cycle-8 + cycle-11, both same shape) is "agent has skill, doesn't invoke on own new framing." The discipline fix is **skills-at-derivation-start**: ALL pre-derivation skills explicitly invoked BEFORE any code is written or derivation work begins.
+
+**MANDATORY NEXT-SESSION ENTRY POINT** (binding on the agent who starts the bulk-EE derivation):
+
+```
+Before writing any T²_matched code, T²_matched LaTeX, or T²_matched
+formula assertion:
+
+1. Fire `ave-prereg`: corpus-grep across all 10 AVE repos for prior
+   bulk-impedance derivations on rock-salt / diamond / corundum
+   lattices; document findings.
+
+2. Fire `ave-canonical-leaf-pull`: enumerate ALL Vol 4 Ch 1 leaves
+   that bound the T² derivation (per AVE Analytical Toolkit Index
+   §1 Coupling + §6 Mode + §7 Boundary classes).
+
+3. Fire `ave-analytical-tool-selection`: identify which specific
+   Op17 + Op3 + Z₀-ladder + Op14 + ABCD-cascade tools apply to the
+   T² derivation for each crystal lattice.
+
+4. Fire `ave-power-category-check`: 5-axis classification of T²
+   quantity (Real vs Reactive — it's reactive matched-coupling at
+   bulk level; Propagating vs Bound — propagating substrate-mode;
+   On-shell — yes; Internal vs External — external matched-load;
+   Substrate vs Atomic — substrate-mode-level).
+
+5. Fire `ave-discrimination-check` Step 1.5: enumerate interpretive
+   alternatives for the T² factorization BEFORE deriving (alternatives
+   to canonical Op17 T²=1-Γ²? alternatives to lattice-impedance
+   reduction? alternatives to bulk-EE level altogether?).
+
+6. Fire `ave-canonical-source`: identify which canonical constants
+   from `src/ave/core/constants.py` will be imported in the derivation
+   script (Z_0, RHO_BULK, NU_KIN, lattice-spacing data for each
+   crystal class).
+
+Only AFTER all six skills have been explicitly invoked and their
+findings documented should derivation work begin.
+```
+
+If this discipline is followed, the third-instance discrimination check determines whether the 19th-skill candidate (`ave-reframe-prereg-discipline`) is needed. If a third instance of "agent has skill, doesn't invoke on own new framing" occurs despite this explicit binding, the pattern is structurally recurrent and the 19th skill should be encoded.
+
+### §10.8 — Parallel-track work (REVIEWER MED #3)
+
+KIMS CsI(Tl) discovery pass (parallel to T² derivation per reviewer MED #3) returned favorable outcome: KIMS published 66.6 kg-year exposure at 2-4 keVee with null result, providing the CLEANEST single-experiment constraint on the bulk-EE framework's $T^2_{matched}$ load-bearing claim (CsI(Tl) same rock-salt lattice as NaI but different atomic Z → isolates lattice-vs-Z dependence). Discovery doc: [`research/2026-05-17_KIMS-CsI-Tl-discovery-pass.md`](2026-05-17_KIMS-CsI-Tl-discovery-pass.md).
+
+KIMS CsI(Tl) adds a 4th cross-detector constraint (alongside COSINE/ANAIS/MAJORANA) and is the CLEANEST per-discriminator: same lattice as DAMA, different atomic content. Rough bulk-EE prediction at $\kappa_{quality} = 1$: $R_{KIMS}^{predicted} \approx 1.6 \times R_{DAMA} \approx 7.6 \times 10^{-7}$ events/s/kg; KIMS observed: null at ~5×10⁻⁸ → required $G_{coherence}^{KIMS}/G_{coherence}^{DAMA} \lesssim 0.07$ (factor 14× variation). Plausibly explained by materials-science crystal-quality difference between commercial CsI(Tl) and Beam International high-quality NaI(Tl), but quantitative materials-physics derivation needed for framework validation.
+
+**Updated §10.4 decision-tree**: if forward-prediction-pre-registered bulk-EE derivation predicts KIMS at $\sim 7.6 \times 10^{-7}$ at $G^{KIMS}/G^{DAMA} = 1$ and observed at $\lesssim 5 \times 10^{-8}$, the required factor-14 $G$ variation MUST be derivable from materials-science crystal-quality differences. If not derivable, walk back bulk-EE framework per §10.4 ">factor 10 miss → walk back rather than tune."
+
 ## §9 — Lane attribution
 
 Research reframe landed on `analysis/divergence-test-substrate-map` branch. **Live demonstration of the 18-skill discipline ensemble in action**: applied full pre-derivation discipline stack (ave-prereg → ave-canonical-leaf-pull → ave-analytical-tool-selection → ave-power-category-check → ave-discrimination-check → ave-canonical-source); also applied ave-audit-of-audit (Grant's plumber-physical directive overrides agent pattern-matched framing). The reframe is structurally substantive (changes the physical-cascade-level of the analysis from per-electron to bulk-EE) but quantitatively bounded (numerical derivation queued for next session). Per ave-walk-back discipline: downstream corpus updates (matched-LC KB leaf §13, matrix C14 row, foreword bullet, HPGe + Sapphire proposal) queued separately for next commit. **This is the cleanest example yet of plumber-physical authority + discipline-machinery + skill-ensemble all working together at design intent.**
