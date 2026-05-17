@@ -1,4 +1,5 @@
 [↑ Ch.7 Quantum Mechanics](index.md)
+<!-- leaf: verbatim -->
 
 # Orbital Penetration Penalties (1/d ABCD Matrix)
 

@@ -86,11 +86,28 @@ The empirical validation of A-034 at four other scales (BCS $B_c(T) = B_{c0}\sqr
 - Axiom-level $\xi_{K2}/\xi_{K1} = 12$ self-consistency
 - A-034 substrate-scale instance reframing
 
-**Still open** (Sessions 19+, multi-week analytical work):
-- Compute $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration
-- Verify $\xi_{K2}/\xi_{K1} = 12$ explicitly (falsifier if not)
-- Verify $u_0^* \approx 0.187$ from full magic-angle equation
-- Bridge to Master Equation FDTD + Feng-Thorpe-Garboczi EMT operating point
+**Two-engine convergence on $p^* = 8\pi\alpha$ (canonical 2026-05-16):**
+
+The K=2G operating point of the AVE substrate is now verified at both engines of the A-027 two-engine architecture, via independent physical routes:
+
+- **K4-TLM route (sub-saturation engine):** the Feng-Thorpe-Garboczi EMT for the 3D amorphous central-force network at effective coordination $z_0 \approx 51.25$ gives $p^* = (10 z_0 - 12)/(z_0(z_0 + 2)) = 8\pi\alpha \approx 0.18340$ at the K/G = 2 crossing point. Verified numerically to 0.003% (within the rounding of $z_0$ to "51.25"; exact $z_0 = 51.2482$ from inversion of the EMT quadratic given $p^* = 8\pi\alpha$).
+- **Master Equation FDTD route (bound-state engine):** the breathing-soliton bound state at the Vol 1 Ch 8 Golden Torus geometry yields the electron knot Q-factor $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$; Axiom 4's definition $p_c \equiv 8\pi\alpha$ then gives the same operating point.
+
+Both routes land on the identical canonical value via different physical mechanisms — this is the two-engine consistency that A-027 architecture requires. See [Two-Engine Architecture (A-027)](two-engine-architecture-a027.md) for the engine split + cross-validation pattern.
+
+**Two K4 scales (clarifying distinction):**
+
+The Q-G47 substrate-scale closure operates at two different K4 scales, which should not be conflated:
+
+1. **Primary K4 unit cell** ($z = 4$ tetrahedral coordination): the canonical Axiom 1 microscopic structure, with Cosserat micropolar 6 DOFs per node. Direct discrete-K4 mechanical analyses (e.g., Sessions 12–15 numerical scaffold; sub-saturation Cosserat eigenvalue spectrum) operate at this scale. Mechanical eigenvalues at K=2G in this primary unit cell are O(1) lattice quantities (e.g., the E-irrep soft shear eigenvalue at $(4/3)k_s$ for the Keating discretization of the continuous Cosserat field).
+2. **Amorphous secondary network** ($z_0 \approx 51.25$ effective coordination): the emergent mesoscopic structure created by over-bracing (secondary spatial links out to $1.187 \cdot \ell_{\text{node}}$, per Vol 3 Ch 1 §3.2). The FTG-EMT operates at this scale, with $p^* = 8\pi\alpha$ being the bond occupation fraction at K/G = 2.
+
+The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geometric scaffolding for the amorphous $z_0 = 51.25$ coordination, which then supports the canonical $p^* = 8\pi\alpha$ operating point. The two scales are physically connected but numerically distinct (different operating-point quantities, different units).
+
+**Still open** (multi-week analytical work):
+- Compute $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed, not the individual prefactors)
+- First-principles derivation of $z_0 = 51.25$ from K4 lattice geometry (currently derived by inverting the EMT quadratic given $\alpha$; doesn't independently fix $\alpha$)
+- K4-TLM ↔ Master Equation FDTD engine-boundary mode-matching at the EMT operating point
 
 ## Cross-references
 

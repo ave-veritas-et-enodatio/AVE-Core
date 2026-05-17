@@ -1,4 +1,5 @@
 [↑ Common Resources](index.md)
+<!-- leaf: verbatim -->
 
 # Numerical Provenance Manifest
 

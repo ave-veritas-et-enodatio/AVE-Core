@@ -1,4 +1,5 @@
 [↑ Ch.1 Topological Matter](index.md)
+<!-- leaf: verbatim -->
 
 # Spin ↔ Gyroscopic Precession Isomorphism
 
