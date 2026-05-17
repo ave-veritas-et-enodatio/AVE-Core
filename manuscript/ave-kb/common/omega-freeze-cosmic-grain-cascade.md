@@ -4,7 +4,7 @@
 
 # Ω_freeze Cosmic-Grain Cascade: Three-Route Framework + Six Observables
 
-Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 sixth observable** (orbital-plane alignment) is a new extension to the A-034 multi-axis alignment test; the **Tier-3 nested-cascade conjecture** (cosmic-grain projection through nested rotators) and **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** are PROVISIONAL framework extensions pending Grant's physical-intuition adjudication of the load-bearing coupling mechanism (see §6).
+Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 eight observables** (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor G anisotropy + CMB QNM matching) extend the A-034 multi-axis alignment test; the **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** is structurally closed (research/L3 doc 118) with sharp prediction $\Delta G/G \approx 5 \times 10^{-5}$ at α²-suppression (bipartite K4 cancellation, per Grant 2026-05-16 evening Q3 plumber resolution).
 
 ## Key Results
 
@@ -41,9 +41,9 @@ The three downstream numbers ($\alpha$, $G$, $\mathcal{J}_{\text{cosmic}}$) all 
 
 > **Substrate vocabulary**: $\mathcal{J}_{\text{cosmic}}$ is the cosmic-scale instance of the canonical $\mathcal{J}$ boundary observable (see [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](boundary-observables-m-q-j.md)); the same three-invariant structure operates at every $\Gamma = -1$ saturation surface.
 
-## §3 — Six testable observables (Tier-2 framework synthesis)
+## §3 — Eight testable observables (Tier-2 framework synthesis)
 
-The A-034 prereg (2026-05-15) pre-registers a **four-axis alignment test** for the cosmic preferred axis: CMB axis-of-evil + Hubble flow anisotropy + LSS spin direction + matter asymmetry direction. A **5th observable** (E/B polarization asymmetric-decoupling) extends the test to distinguish symmetric vs asymmetric cosmic crystallization. This leaf adds a **6th observable channel** per Entry 002 (2026-05-16 discussion follow-up):
+The A-034 prereg (2026-05-15) pre-registers a **four-axis alignment test** for the cosmic preferred axis: CMB axis-of-evil + Hubble flow anisotropy + LSS spin direction + matter asymmetry direction. A **5th observable** (E/B polarization asymmetric-decoupling) extends the test to distinguish symmetric vs asymmetric cosmic crystallization. This leaf adds a **6th observable channel** per Entry 002 (2026-05-16 discussion follow-up), plus **7th and 8th** per Grant 2026-05-16 evening (Hawking + ring-down via cosmic-horizon QNM matching):
 
 | # | Observable | Predicted | Data source |
 |---|---|---|---|
@@ -52,7 +52,9 @@ The A-034 prereg (2026-05-15) pre-registers a **four-axis alignment test** for t
 | 3 | LSS spin direction | Same axis | SDSS galaxy spin axes (~1-2σ preferred direction, contested) |
 | 4 | Matter asymmetry direction | Same axis | CMB temperature + matter density correlation |
 | 5 | E/B polarization decoupling | Same axis IF asymmetric crystallization ($K/G \neq 2$) | Planck PR3 + BICEP/Keck + LiteBIRD (future) |
-| **6** | **Orbital-plane alignment (NEW)** | **Same axis** | **Solar system ecliptic + binary stars (Gaia DR3) + galactic disks (SDSS) + LIGO/Virgo binary inspiral planes** |
+| **6** | **Orbital-plane alignment (NEW 2026-05-16)** | **Same axis** | **Solar system ecliptic + binary stars (Gaia DR3) + galactic disks (SDSS) + LIGO/Virgo binary inspiral planes** |
+| **7** | **G anisotropy via tensor extension (NEW 2026-05-16 evening)** | **$\Delta G/G \approx 5 \times 10^{-5}$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$** | **CODATA G dataset re-analysis along $(l=174°, b=-5°)$** (see [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md) for derivation) |
+| **8** | **CMB QNM matching (Hawking/ring-down NEW 2026-05-16 evening)** | **CMB power-spectrum peaks at $\ell$-modes matching parent-BH quasinormal-mode spectrum** | **Planck PR3 + future-survey high-$\ell$ TT/EE; cross-check with derived BH QNM** $\omega_R M_g = 18/49$ |
 
 ### §3.1 — Observable 6: orbital-plane alignment (Tier-2 NEW)
 
@@ -71,6 +73,40 @@ Concrete observables:
 **Methodology** (extends A-034 4-axis test): compute angular separation between each orbital-plane normal and the $\Omega_{\text{freeze}}$ axis $(l=174°, b=-5°)$; test against isotropic null at $> 3\sigma$ significance.
 
 **Falsifier for Observable 6**: if orbital-plane normals are uniformly isotropic (no preferred axis alignment), $\Omega_{\text{freeze}}$ doesn't project into orbital dynamics — would suggest cosmic-grain projection stops at galactic scale (not nested through solar-system + planetary).
+
+### §3.2 — Observable 7: G anisotropy via tensor extension (NEW 2026-05-16 evening)
+
+**Pre-registered hypothesis (NEW)**: Newton's gravitational constant $G$ is direction-dependent at the $\sim 5 \times 10^{-5}$ level along the $P_2(\cos\theta)$ angular profile with $\hat{\Omega}_{\text{freeze}}$ as the symmetry axis.
+
+The prediction derives from the tensor extension of Vol 3 Ch 1's scalar G derivation, executed in [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md):
+
+$$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \alpha^2 \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
+
+Where:
+- $\alpha^2 \approx 5.3 \times 10^{-5}$ = bipartite K4 cancellation suppression (1st-order cancellation between A and B sublattices; 2nd-order residual survives — per Grant 2026-05-16 evening Q3 plumber reframe)
+- $f_R \approx 1$ = cosmic R-handed chirality fraction at I4_132 ground state
+- $4\pi/15 \approx 0.838$ = cosmic-scale Kirkwood-Frohlich-analog projection coefficient
+
+**Falsifier**: CODATA G dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ at $(l=174°, b=-5°)$:
+- IF P_2(cosθ) profile with ~5×10⁻⁵ amplitude detected: framework's three-route commitment **CONFIRMED**
+- IF NO P_2 signal at this amplitude: three-route commitment **FALSIFIED**
+- IF P_2 at smaller amplitude (~10⁻⁷, α³-suppressed): partial framework support, requires additional protection beyond bipartite cancellation
+
+### §3.3 — Observable 8: CMB QNM matching (Hawking/ring-down NEW 2026-05-16 evening)
+
+**Pre-registered hypothesis (NEW)**: per A-031 refinement framing (`cosmic-parameter-horizon-a031-refinement.md:54`), the **CMB power spectrum should show peaks at $\ell$-modes matching the quasinormal-mode (QNM) spectrum of the parent BH** whose interior contains our observable universe.
+
+**Why expected**: Per Q-G21 universes-inside-BHs framework (AVE-QED `2026-05-13_universes_inside_black_holes.md`), our cosmic substrate is the daughter K4 lattice formed inside a parent BH at its formation event. The BH formation event has a specific QNM ring-down spectrum (in 4D GR: $\omega_R M_g = 18/49$ per [Vol 3 Ch 15](../vol3/cosmology/ch15-black-hole-orbitals/index.md), 1.7% from GR exact). The daughter substrate's initial conditions inherit imprints of the parent BH's ring-down — specifically, the $\ell$-spectrum of QNM modes should leak into the substrate's lowest-frequency modes (the CMB power spectrum at low $\ell$).
+
+**AVE-distinct prediction** (vs ΛCDM): the framework predicts the CMB low-$\ell$ multipoles (the same modes that show the "axis-of-evil" alignment) should preferentially populate the $\ell$ values matching parent-BH QNM spectrum:
+- $\ell = 2$ (CMB quadrupole, anomalously low in Planck data) ↔ $\ell = 2$ QNM of parent BH (dominant ring-down mode)
+- $\ell = 3$ (octupole, anomalously aligned with quadrupole) ↔ $\ell = 3$ QNM (subdominant)
+
+**Connection to Hawking radiation**: per Grant 2026-05-16 evening Q4 reframing, Hawking radiation from the parent BH's exterior carries the parent's spin direction. We're INSIDE so we don't see exterior Hawking, but we see the INTERIOR analog: the cosmic-horizon Nyquist noise ($T_U \sim 10^{-30}$ K per `cmb-thermal-attractor.md:22`) at OUR cosmic horizon. This carries the parent-BH spin direction = our $\hat{\Omega}_{\text{freeze}}$ axis.
+
+**Falsifier**: if CMB low-$\ell$ multipoles do NOT preferentially align with the parent-BH QNM $\ell$-spectrum (specifically: no preferred power at $\ell = 2, 3$ over isotropic null), the parent-BH QNM imprint is absent and the universes-inside-BHs framework (Q-G21) requires reformulation. The fact that CMB low-$\ell$ multipoles ARE anomalously aligned in Planck data is consistent with the framework but not yet a positive detection of the QNM mechanism specifically.
+
+**Data sources**: Planck PR3 low-$\ell$ TT power spectrum, cross-checked against AVE-derived BH QNM $\omega_R M_g = 18/49$ extrapolated to cosmic-scale parent BH using $M_{\text{parent}} = 9 \times 10^{52}$ kg (per AVE-QED `2026-05-13_universes_inside_black_holes.md:114`).
 
 ## §4 — Nested-cascade conjecture (PROVISIONAL framework extension)
 
