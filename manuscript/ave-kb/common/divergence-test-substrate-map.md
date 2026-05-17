@@ -727,11 +727,73 @@ A FAIL on any row testing $Q = \xi_{topo} \cdot x$ (C15-CLEAVE-01 most directly)
 
 A FAIL on any of these heavily-cascaded rows could falsify either upstream anchor depending on which clean-isolated single-anchor row also fails. The triangulation strategies become powerful here: e.g., if C15-CLEAVE-01 (ξ_topo only) FAILs but C9-LEVITATION (α + ξ_topo) PASSes, the failure isolates to ξ_topo; conversely if C9 FAILs but C15 PASSes, the failure isolates to V_yield (α-chain).
 
+### G = ℏc/(7ξm_e²) Cascade (audited 2026-05-16)
+
+G (Newton's constant) is the **fourth framework anchor**, derived via the Machian impedance integral $\xi \approx 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 10^{38}$ (bare ξ, not ξ_topo — see namespace warning in ξ_topo cascade above). Inherits the factor 7 from ν_vac (1/7 isotropic projection), making G a **cross-cascade synthesis node**: G is downstream of ν_vac, downstream of α (via Machian ξ ∝ α⁻²), and upstream of cosmological observables. Touches **7 of 33 matrix rows**.
+
+```mermaid
+flowchart TD
+    NUV(("ν_vac = 2/7<br/>(1/7 isotropic projection)"))
+    ALPHA(("α = 1/(4π³+π²+π)"))
+    LNODE["ℓ_node = ℏ/(m_e c)<br/>Compton calibration"]
+    MACHIAN["Machian impedance integral<br/>ξ = 4π(R_H/ℓ_node)α⁻²<br/>≈ 10³⁸ (dimensionless)"]
+    TEM["T_EM = m_e c² / ℓ_node<br/>EM string tension at electron scale"]
+
+    NUV -->|"factor 7"| GFORM
+    ALPHA -->|"α⁻² in Machian"| MACHIAN
+    LNODE --> MACHIAN
+    LNODE --> TEM
+    MACHIAN --> GFORM
+    TEM --> GFORM
+
+    GFORM(("G = c⁴/(7ξ T_EM)<br/>= ℏc/(7ξ m_e²)"))
+
+    GFORM --> CODATA["CODATA G<br/>= 6.674e-11 N·m²/kg²<br/>(~4 decimals precision)"]
+
+    %% Primary direct uses
+    GFORM -->|"r_sat = 7GM/c²"| C1["C1-BH-RING<br/>(also in ν_vac cascade)"]
+    GFORM -->|"Route 2 closure"| C4["C4-THREE-ROUTE<br/>(also in α cascade)"]
+    GFORM -->|"H_∞ = 28π m_e³ c G / (ℏ²α²)<br/>ρ_Λ ∝ H_∞²"| D2["D2-RHO-LAMBDA<br/>(triple-cascaded: ν_vac + α + G)"]
+
+    %% Secondary via gravitational refractive-index chain
+    GFORM -.->|"GR Shapiro baseline"| C18["C18-PROTOCOL-12<br/>GEO-Sync TOF stretch"]
+    GFORM -.->|"impedance gradient ↔ gravity"| C13["C13-VLBI-DARK<br/>Jupiter-grazing radio"]
+    GFORM -.->|"BH horizon area ∝ GM²"| D3["D3-GEOM-ENTROPY<br/>Ŝ_geo/S_BH ≈ 2.8e-44"]
+
+    classDef anchor fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    classDef gnode fill:#c5e1a5,stroke:#33691e,stroke-width:3px
+    classDef source fill:#e3f2fd,stroke:#1565c0
+    classDef primary fill:#fff3e0,stroke:#e65100
+    classDef secondary fill:#f5f5f5,stroke:#616161
+
+    class NUV,ALPHA anchor
+    class GFORM gnode
+    class MACHIAN,TEM,LNODE,CODATA source
+    class C1,C4,D2 primary
+    class C18,C13,D3 secondary
+```
+
+**Legend additions** (extends ν_vac + α + ξ_topo legends above):
+- **Green (heavy border)** — G as the fourth framework anchor (synthesis node downstream of ν_vac + α + Machian ξ)
+
+**Key derivation chain insight:** G is the only framework anchor with **chained upstream dependencies** rather than independent sources. Whereas ν_vac, α, and ξ_topo derive from separate axiom-layer constructs, G inherits from BOTH ν_vac (factor 7) AND α (Machian ξ ∝ α⁻²). This makes G the most fragile anchor under upstream-anchor failure:
+
+- If ν_vac fails, G's factor 7 is wrong → G derivation invalid → entire cosmological chain (D2, D3, C1 r_sat) needs revision
+- If α fails, Machian ξ is wrong → G derivation invalid → same downstream cascade
+- If G itself measures wrong (CODATA at 4 decimals is the limit), it could indicate either α or ν_vac is wrong — single-row FAIL is ambiguous between upstream sources
+
+**Triangulation strategy for G:** because G's downstream cascade has limited isolated tests, the cleanest discriminators are **cross-anchor differential checks**:
+- C1-BH-RING tests ν_vac via geometry AND G via $r_{sat} = 7GM/c^2$
+- D2-RHO-LAMBDA tests α (via $H_\infty \propto 1/\alpha^2$) AND G (via $\rho_\Lambda \propto H_\infty^2$) AND ν_vac (via the same 7 factor in G)
+- If D2 PASSes within precision but C1 FAILs, the discrepancy isolates to ν_vac (not G or α)
+- If C1 PASSes but D2 fails by α-class factor, discrepancy isolates to α or its downstream H_∞ chain
+
+**Operational implication:** G is **not directly testable** in any current bench — CODATA precision (~4 decimals) is itself the limit. The framework's G value matches CODATA by construction (it's calibrated from m_e, ℓ_node, ξ). The real G-cascade test is the **3-route framework commitment** (foreword line 121-129): α + G + 𝒥_cosmic must converge on the same u_0*. Route 3 (𝒥_cosmic) is the bottleneck — see 𝒥_cosmic cascade below.
+
 ### Other framework cascades to map (deferred)
 
 Same Mermaid format would be valuable for:
-- **𝒥_cosmic + Ω_freeze** (foreword three-route commitment cascades across C4-THREE-ROUTE, C5-CMB-AXIS, C13-VLBI-DARK, D2-RHO-LAMBDA, D4-A034) — partial subgraph of α cascade via C4; not yet audited as standalone
-- **G (Newton's constant)** via Machian impedance integral ξ ~ 10³⁸; cascades through C4-THREE-ROUTE Route 2; partial overlap with ν_vac via $G = \hbar c/(7 \xi m_e^2)$
+- **𝒥_cosmic + Ω_freeze** (foreword three-route commitment cascades across C4-THREE-ROUTE, C5-CMB-AXIS, C13-VLBI-DARK, D2-RHO-LAMBDA, D4-A034) — partial subgraph of α + G cascades via C4; not yet audited as standalone
 
 Each Mermaid diagram costs ~30-60 lines and surfaces the cross-row dependency structure that flat tables hide. Add as audited.
 
