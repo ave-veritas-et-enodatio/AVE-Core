@@ -117,10 +117,10 @@ These predictions live as derivations in the KB. None has an actual driver/obser
 
 - **AVE predicts:** saturation-boundary horizon at $r_{sat} = 7GM/c^2 = 3.5 \cdot r_s$ (factor 7 from $\nu_{vac} = 2/7$ Poisson ratio). Area $196\pi G^2 M^2 / c^4$ — 12.25$\times$ standard. Ringdown $\omega_R M_g = 18/49 \approx 0.3673$.
 - **Standard predicts:** $r_s = 2GM/c^2$ (Schwarzschild); $\omega_R M_g = 0.3737$ (Schwarzschild exact).
-- **Discriminator:** 1.7% from GR; **10-18% from three existing LIGO events** per [`universal-saturation-kernel-catalog.md` line 40](universal-saturation-kernel-catalog.md). EHT photon-ring radius, ISCO frequency shift, BH-shadow-vs-horizon ratio in radio interferometry all discriminate $r_{sat}/r_s = 3.5$ from the standard value of 1.
-- **Test type:** existing-data re-analysis (LIGO O1-O3 ringdown fits; EHT M87* + Sgr A* image data are public).
-- **Substrate:** **MISSING.** No script in any repo loads LIGO strain data or EHT visibility data. Could be implemented as a new AVE-Core analysis driver.
-- **KB anchor:** [`../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` lines 13, 17, 74-79](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md).
+- **Discriminator:** 1.7% from GR ringdown; **10-18% from three existing LIGO events** per [`universal-saturation-kernel-catalog.md` line 40](universal-saturation-kernel-catalog.md). **Scope correction (2026-05-16 audit):** $r_{sat}$ is a shear-mode + matter boundary, NOT a photon-geometric boundary. Photons in the Cosserat substrate propagate via T2 microrotation, decoupled from the shear modulus that → 0 in Regime IV interior; per [electron-bh-isomorphism.md:20,39](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md) $\Gamma = 0$ and $Z = Z_0$ everywhere for EM. **EHT shadow / photon-ring radius are silent on $r_{sat}$** — prior matrix revision overclaimed them as discriminators (inherited from [ave-bh-horizon-area-theorem.md:74-79](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) pre-revision falsifier menu). **Surviving discriminators**: (1) LIGO ringdown frequencies (load-bearing); (2) inner-accretion-disk edge at $r_{sat} = 7GM/c^2$ vs GR ISCO at $6GM/c^2$ via X-ray Fe-Kα reflection or kHz QPOs (matter observables); (3) potential post-merger GW echoes from shear-mode reflection at $r_{sat}$.
+- **Test type:** existing-data re-analysis (LIGO O1-O3 ringdown fits = primary). EHT M87*/Sgr A* image data are public but **not relevant to $r_{sat}$** per scope correction above.
+- **Substrate:** **MISSING.** No script in any repo loads LIGO strain data. Could be implemented as a new AVE-Core analysis driver (in-progress on sibling branch `analysis/ligo-ringdown-driver`).
+- **KB anchor:** [`../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` lines 13, 17, 72-85 (revised §5 falsifier scope)](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md); supporting derivation chain at [`electron-bh-isomorphism.md:20,39`](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md), [`ave-merger-ringdown-eigenvalue.md:10-12,29`](../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md), [`regime-eigenvalue-method.md:43`](../vol2/appendices/app-f-solver-toolchain/regime-eigenvalue-method.md).
 
 ### C2. Entanglement decoherence threshold $T_{pair} = 2 m_e c^2 / k_B \approx 1.19 \times 10^{10}$ K
 
@@ -352,7 +352,7 @@ Ranked by *AVE-distinctness × accessibility × decisiveness*:
 4. **CMB axis-alignment driver** — prereg already landed 2026-05-15; execution deferred. Pure public-data analysis (Planck + SDSS).
 5. **Muon g-2 family-saliency comparison driver** — Fermilab Muon g-2 collaboration data is public; AVE's $\delta = -5\alpha/2$ prediction is a single-number comparison.
 
-The rest (Schwinger autoresonance, vacuum birefringence at $10^{12}$, BH photon-ring, baryon-ladder forward predictions) need facility-class infrastructure outside the current workspace.
+The rest (Schwinger autoresonance, vacuum birefringence at $10^{12}$, baryon-ladder forward predictions) need facility-class infrastructure outside the current workspace. (BH photon-ring previously listed here; removed 2026-05-16 per audit — AVE keeps photon sphere at GR's $3GM/c^2$, so EHT-class photon-ring radius is GR-standard and not AVE-distinct.)
 
 ---
 
