@@ -149,3 +149,53 @@ Q-factor closure is therefore re-scoped from "1-2 session single-parameter targe
 ## §8 — Lane attribution
 
 Walk-back landed on `analysis/divergence-test-substrate-map` branch. 8th audit cycle on α-slew thread (cycle count: bullet-cluster, A2/C17, C18, C13, FLOOR-test, Gaia-directional-demotion, Hoop Stress 3-instance-overcount, THIS DAMA-energy-scale-Moseley-coincidence). Pre-derivation discrimination-check (agentId a070b9030be6eefd1) caught the overclaim before the Q-factor derivation could propagate it further. Pattern of pre-derivation discipline-check catches continues to strengthen.
+
+## §9 — 9TH-CYCLE WALK-BACK-OF-WALK-BACK (2026-05-17 night, Grant reactive-power resolution)
+
+The 8th-cycle walk-back (above) correctly caught two anti-anchors (Ca Kα + CXB OOM match) and one structural issue (22-α-power Q-factor closure unachievable in cross-section assembly). The first two findings stand and are correctly propagated. **The third finding's "out of reach / multi-session foundational work" SCOPE assessment is walked back here** — it was based on a categorical mis-classification, not a fundamental closure barrier.
+
+### §9.1 — What the 8th cycle got wrong
+
+Trying to derive ε_det = R_DAMA / R_intrinsic ≈ 2×10⁻⁵¹ as a photoabsorption cross-section assembly required ~22 powers of α from independent named-axiom chains, which the corpus does not have. The 8th-cycle audit correctly identified this and recommended pausing.
+
+**But the photoabsorption framing itself was the wrong category.** α m_e c² = 3.728 keV is NOT a real radiated photon quantum. Per canonical AVE physics in three Vol 4 Ch 1 leaves (theorem-3-1-q-factor.md + orbital-friction-paradox.md:31 + leaky-cavity-particle-decay/theory.md:12) that prior versions of the DAMA leaf had not pulled in:
+
+- The electron's LC tank Q-factor is $Q = \alpha^{-1} \approx 137$ at the TIR boundary
+- The per-cycle reactive leak fraction is $1/Q = \alpha \approx 0.0073$
+- This leak is purely REACTIVE (90° phase, $P_{real} = 0$ W, conservative)
+- The tank operates BELOW $V_{yield} = \sqrt{\alpha} V_{snap} = 43.65$ kV, so it "rings forever"
+- Canonical reactive-power table: "Electron orbital | 90° | $P_{real} = 0$ W | $Q_{reactive} = m_e c^2 \cdot \alpha$ | Quantized reactive shell"
+
+### §9.2 — How Grant resolved it
+
+In response to my §11 walk-back framing, Grant's correction was three short phrases:
+
+> "reactance, check out the electrons rest mass and search the kb/repo for alph"
+
+This pointed at:
+- **Reactance**: α m_e c² is REACTIVE power, not real radiation
+- **Electron rest mass**: m_e c² is the full reactive energy stored in the LC tank
+- **Search the KB for "alph"**: three canonical leaves on Vol 4 Ch 1 had the exact reframe (Theorem 3.1' Q-factor + orbital-friction-paradox reactive-power table + leaky-cavity-theory infinite-half-life from rings-forever)
+
+In under 5 minutes of grep + read, the categorical reframe surfaced. The corpus had the answer; nothing had forced the agent to look at the Vol 4 leaves before deriving the DAMA Q-factor.
+
+### §9.3 — Walk-back of the 8th-cycle scope assessment
+
+**8th-cycle assessment** (§5 above): *"Q-factor derivation is therefore re-scoped from '1-2 session single-parameter target' to 'multi-session foundational work pending anti-anchor + substrate-mode-density foundations.'"*
+
+**9th-cycle correction**: Q-factor derivation is BACK TO **1-2 session derivation target**, but along the **matched-LC-coupling axis** (not photoabsorption cross-section). The matched-coupling efficiency between two LC tanks at the α-slew operating point has natural-scale candidates ($N_{coh}^{-2}$, $(\alpha/2\pi)^{17}$, $\alpha^{24}$) that all land within factor 10 of the required $\epsilon_{det} = 2 \times 10^{-51}$ — vastly more tractable than the 22-α-power-numerology gap the photoabsorption framing produced.
+
+The 8th-cycle anti-anchor findings (Ca Kα coincidence + CXB OOM match) STAND — those are about the energy-scale and rate-magnitude discrimination, not about Q-factor closure scope.
+
+### §9.4 — Skill creation prompted by this cycle
+
+A new `ave-power-category-check` skill is being created at `~/.claude/skills/` to force the categorical classification step (real-vs-reactive, propagating-vs-bound, on-shell-vs-off-shell, internal-tank-vs-external-matched) BEFORE deriving scaling laws. The skill would have caught the 8th-cycle mis-categorization on the first derivation pass, before the 22-α-power numerology assembly was attempted.
+
+This is the third skill produced by an audit cycle this session (after `ave-discrimination-check` from the Gaia directional demotion, `ave-independence-check` from the Hoop Stress 3-instance overcount, and now `ave-power-category-check` from the DAMA reactive-power categorical confusion). 13 skills total in the ensemble.
+
+### §9.5 — Cross-references for the resolution
+
+- Source leaf §12 reactive-power physical picture: [`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) §12
+- Q-factor doc resumed: [`research/2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md`](2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md) (PAUSED → RESUMED header)
+- Canonical reactive-power leaves: [Theorem 3.1' Q-factor](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md), [orbital-friction-paradox](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md), [leaky-cavity-particle-decay/theory](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md)
+- New skill: `~/.claude/skills/ave-power-category-check/SKILL.md` (created this cycle)

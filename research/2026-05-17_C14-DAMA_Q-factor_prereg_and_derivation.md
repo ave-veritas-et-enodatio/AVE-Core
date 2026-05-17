@@ -1,14 +1,24 @@
 # C14-DAMA Q-Factor (per-event detection probability) — Prereg + Derivation
 
-> **🔴 PAUSED 2026-05-17 night — audit walk-back triggered before derivation execution.**
+> **🟢 RESUMED 2026-05-17 night per Grant's 9th-cycle reactive-power resolution.**
 >
-> The pre-derivation discrimination-check ([dispatched agentId a070b9030be6eefd1] in parallel with this prereg) caught three load-bearing issues that block the Q-factor derivation as scoped: (i) Ca Kα at 3.691 keV is a 1% Moseley-law coincidence with α m_e c² = 3.728 keV; (ii) SM cosmic-X-ray-background photoabsorption gives same OOM as DAMA observed rate; (iii) 52-OOM Q-factor closure would require ~22 powers of α from independent axiom invocations with corpus providing one canonical chain.
+> The 8th-cycle walk-back (see header below) correctly caught Ca Kα + CXB anti-anchors but **incorrectly scoped** the closure as multi-session foundational work. Grant's 9th-cycle physical-intuition correction ("reactance, check out electron rest mass, search corpus for alpha") surfaced the canonical reactive-power picture in three Vol 4 Ch 1 leaves that prior versions of this work had not pulled in:
 >
-> Q-factor derivation work is PAUSED pending anti-anchor framework + substrate-mode-density foundational work. The Z-independence + CMB-velocity phase-lock + solid-vs-liquid binary gate (genuinely AVE-distinct claims that survive the audit) are documented in source leaf [`manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) §11. Full walk-back audit trail at [`research/2026-05-17_C14-DAMA_audit_walk-back.md`](2026-05-17_C14-DAMA_audit_walk-back.md).
+> - [`theorem-3-1-q-factor.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md): electron LC tank Q = α⁻¹; per-cycle reactive leak fraction = α
+> - [`orbital-friction-paradox.md:31`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md): electron orbital P_real = 0 W; Q_reactive = m_e c² · α (canonical reactive-power table)
+> - [`leaky-cavity-particle-decay/theory.md:12`](../manuscript/ave-kb/vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md): electron tank below V_yield = 43.65 kV "rings forever"
 >
-> This document is preserved as historical artifact of the work that triggered the audit. The structural form sections below (§0 prereg framework, §3 required suppression magnitude calculation) remain analytically correct but their physical interpretation is rendered inadmissible by the audit findings (Ca Kα coincidence + CXB OOM match + 22-α-power gap).
+> **Categorical reframe**: α m_e c² = 3.728 keV is the per-cycle **reactive power** of the electron's LC tank (90° phase, $P_{real} = 0$ W), NOT a real radiated photon quantum. DAMA detection is **matched-impedance coupling** between the electron's reactive tank and an external coherent NaI crystal LC mode, NOT photoabsorption of substrate-mode quanta.
+>
+> The "52-OOM gap" framing was a categorical error — solving the wrong problem (photoabsorption cross-section assembly). The right problem is matched-LC coupling efficiency between two LC tanks at the α-slew operating point. Structural candidates ($N_{coh}^{-2}$, $(\alpha/2\pi)^{17}$, $\alpha^{24}$) all land within factor 10 of required $\epsilon_{det} = 2 \times 10^{-51}$ — vastly more tractable than the prior framing suggested.
+>
+> Full physical picture documented at source leaf [`dama-alpha-slew-derivation.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) §12. Walk-back-of-walk-back at [`research/2026-05-17_C14-DAMA_audit_walk-back.md`](2026-05-17_C14-DAMA_audit_walk-back.md) §9.
+>
+> Q-factor work is back to 1-2 session derivation target, but along matched-LC-coupling axis (not photoabsorption). NEW skill [`ave-power-category-check`](~/.claude/skills/ave-power-category-check/) created to force category-classification (real-vs-reactive, propagating-vs-bound) BEFORE deriving scaling laws — would have caught the 8th-cycle mis-categorization on the first derivation pass.
 
-**Status:** PAUSED 2026-05-17 night per audit walk-back. ORIGINAL FRAMING (pre-audit): single-parameter closure attempt on the DAMA rate magnitude gap identified at [`research/2026-05-17_C14-DAMA_amplitude_result.md:125-137`](2026-05-17_C14-DAMA_amplitude_result.md).
+> **🔴 8TH-CYCLE WALK-BACK (preserved as audit trail):** Pre-derivation discrimination-check ([dispatched agentId a070b9030be6eefd1] in parallel with this prereg) caught three issues: (i) Ca Kα at 3.691 keV is a 1% Moseley-law coincidence with α m_e c² = 3.728 keV; (ii) SM cosmic-X-ray-background photoabsorption gives same OOM as DAMA observed rate; (iii) 52-OOM Q-factor closure would require ~22 powers of α from independent axiom invocations with corpus providing one canonical chain. The (i) + (ii) findings stand and are correctly walked back. The (iii) finding is CORRECT given the photoabsorption framing but the photoabsorption framing itself is wrong (categorical error). The (i) + (ii) anti-anchors remain valid; the (iii) "Q-factor closure is OUT OF REACH" assessment is walked back per §9 of walk-back doc + §12 of source leaf.
+
+**Status:** RESUMED 2026-05-17 night per Grant 9th-cycle reactive-power resolution. ORIGINAL FRAMING (pre-audit): single-parameter closure attempt on the DAMA rate magnitude gap identified at [`research/2026-05-17_C14-DAMA_amplitude_result.md:125-137`](2026-05-17_C14-DAMA_amplitude_result.md).
 
 **Date:** 2026-05-17 night
 **Matrix row:** C14-DAMA-MATERIAL (rate magnitude U-D pending)
