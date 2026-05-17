@@ -1,29 +1,39 @@
 """
 AVE Falsifiable Predictions: The E^4 Vacuum Birefringence Limit
 ======================================================
-A core distinction between standard Quantum Electrodynamics (QED) and
-the Applied Vacuum Engineering (AVE) framework is the mathematical
-nature of the vacuum's optical saturation.
+A distinction between standard Quantum Electrodynamics (QED) and the
+Applied Vacuum Engineering (AVE) framework concerns the COEFFICIENT and
+ONSET FIELD STRENGTH of higher-order vacuum-birefringence terms.
 
-Standard QED mathematically predicts that the refractive index of the
-vacuum shifts under extreme electric fields strictly proportionally
-to E^2 (Euler-Heisenberg Lagrangian).
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+Standard QED at LEADING ORDER (one-loop Euler-Heisenberg) gives Δn ∝ E^2.
+QED at higher loops DOES include E^4 corrections, but their coefficient
+is set by α and the electron mass scale m_e c^2 (corresponding to onset
+near the Schwinger limit E_S ≈ 1.32e18 V/m). The AVE-distinct claim is
+NOT that "QED omits E^4" — it's that the E^4 term has a DIFFERENT
+COEFFICIENT and earlier onset (at E ~ E_BREAKDOWN ≈ 1.13e17 V/m, ~12% of
+Schwinger), driven by Axiom 4's geometric saturation kernel
+n_eff = n_0 × (1 - (E/E_yield)^2)^(1/4) — NOT by perturbative loop expansion.
 
-AVE fundamentally rejects this. In AVE, the vacuum is a rigid LC string
-network bounded by a squared geometric saturation operator (Axiom 4).
-Taking the Taylor expansion of this physical polynomial limit proves
-that the macroscopic optical shift is driven heavily by the 4th order
-term (E^4).
+The script's QED reference curve (k_qed_norm = 1/E_BREAKDOWN^2) is
+NORMALIZED for visual divergence at high fields and does NOT represent
+the actual QED coefficient. The discriminating measurement is the
+E-field at which the E^4 term begins to dominate, not the existence of
+an E^4 term.
 
 This script simulates an ultra-high-Q optical fiber ring resonator
 placed in a transverse, extreme-voltage DC electric field.
 By measuring the resonance frequency shift of the cavity under varied
-E-field strengths, experimentalists can definitively plot the slope.
+E-field strengths, experimentalists can plot the slope's onset field.
 
-If the slope is strictly E^2, QED is validated and AVE is falsified.
-If the non-linear slope hooks upward proportionally to E^4 at extreme
-gradients, standard QED is falsified and the physical LC node limits
-of the generic vacuum are proven.
+If E^4 onset matches QED (~Schwinger limit), AVE is challenged.
+If E^4 onset appears at ~10% of Schwinger as predicted by Axiom 4's
+geometric saturation kernel, AVE is supported and standard QED's
+loop-perturbative expansion is challenged at that field regime.
+
+Title softened 2026-05-17: was "Standard QED mathematically predicts...
+strictly proportionally to E^2" — corrected to clarify that the AVE-distinct
+claim is the COEFFICIENT/ONSET, not the existence of an E^4 term.
 """
 
 import pathlib

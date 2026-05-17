@@ -1,6 +1,29 @@
 """
-Lepton Asymmetry and Baryogenesis Solver.
-Derives the fundamental CP-violating chiral phase bias of the discrete LC Network.
+Lepton Asymmetry and Baryogenesis — illustrative scaffold (NOT a closed derivation).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script computes a candidate algebraic identity η ~ α × 8πα = 8πα^2 ≈ 1.34e-4
+and labels it "baryogenesis efficiency". The observed baryon-to-photon ratio is
+η ≈ 6e-10 — so the candidate identity is ~2.2e5× the empirical value (5 OOM off).
+The script does NOT close the baryogenesis derivation; it identifies a chirality
+phase angle that AVE proposes is the seed of the asymmetry, but the
+sphaleron-suppression / thermal-projection chain that brings 8πα^2 down to 6e-10
+is NOT modeled here (explicitly flagged at line 54).
+
+Specifically:
+  - theta_cp = 8πα is an algebraic identity, NOT derived from any AVE
+    lattice geometry equation
+  - baryogen_efficiency = α × 8πα is the chosen scaling; alternative
+    scalings (α × 8πα × suppression-factor) would land closer to 6e-10
+    but require thermal-projection physics not implemented here
+
+For the canonical AVE framing of CP violation as substrate chirality, see
+the corpus discussion in vol2/particle-physics/ch02-baryon-sector/* and
+vol1 chiral-symmetry-breaking leaves.
+
+Title "Derives the fundamental CP-violating chiral phase bias" was
+overclaim; corrected 2026-05-17 to "candidate identity, NOT closed
+baryogenesis derivation".
 """
 
 import os
@@ -15,15 +38,13 @@ from ave.core.constants import ALPHA
 
 def derive_chiral_asymmetry() -> tuple[float, float]:
     """
-    Derives the Lepton Asymmetry (Matter-Antimatter imbalance) directly from
-    the innate non-linear gyroscopic "twist" of the LC Network.
-
-    The discrete vacuum is not perfectly isotropic; it is a 3D chiral lattice.
-    This chirality manifests as a fundamental phase difference between left-handed
-    and right-handed EM propagation (CP violation).
+    Identifies a candidate algebraic identity (η ~ 8πα^2 ≈ 1.34e-4) for the
+    CP-violating chirality phase. Does NOT close the baryogenesis derivation
+    — empirical η ≈ 6e-10 is 5 OOM smaller. Sphaleron suppression and
+    thermal-projection physics that close the gap are NOT implemented.
     """
     print("==========================================================")
-    print("   AVE LEPTON ASYMMETRY (CP-VIOLATING CHIRALITY)")
+    print("   AVE LEPTON ASYMMETRY (CANDIDATE IDENTITY — NOT closed)")
     print("==========================================================")
 
     # In a linear continuum, left-handed and right-handed states are perfectly symmetric.
@@ -51,7 +72,10 @@ def derive_chiral_asymmetry() -> tuple[float, float]:
     # Target Cosmological Asymmetry ~ 6e-10
     target_eta = 6e-10
     print(f"    Cosmological Target Ratio:        {target_eta:.4e}")
-    print("    Note: Full thermal suppression limits not modeled (Sphaleron transitions).")
+    print(f"    Gap (candidate / empirical):       ~{baryogen_efficiency/target_eta:.2e}× (5 OOM)")
+    print("    NOTE: This is a candidate seed identity, NOT a closed prediction.")
+    print("    Sphaleron suppression + thermal-projection physics that would close")
+    print("    the 5-OOM gap are NOT modeled in this script.")
 
     return theta_cp, baryogen_efficiency
 
