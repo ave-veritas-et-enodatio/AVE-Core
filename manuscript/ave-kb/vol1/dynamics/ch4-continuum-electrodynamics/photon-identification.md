@@ -170,6 +170,41 @@ This is the energy of a photon at the lattice self-saturation frequency.
 
 The electron's Compton frequency is a **genuine dynamical threshold** for the photon-to-electron transition. Analogous to a Josephson junction's critical current or a varactor's breakdown voltage — a specific parameter value at which the system's behavior qualitatively changes.
 
+## §7 — Cross-corpus photon-framing translation guide
+
+The AVE corpus describes the photon from **four distinct angles**, each correct, each emphasizing a different aspect of the same underlying object (a transverse Cosserat-microrotation wave on the K4 lattice in the sub-saturation regime). This translation guide collects the framings with verbatim source quotes + file:line citations so that a reader meeting "photon" in any KB context can map back to the canonical definition.
+
+| # | Framing | Emphasis | Canonical source | Verbatim quote |
+|---|---|---|---|---|
+| 1 | **Group-theoretic + DOF-sector** (THIS LEAF) | Which K4 irrep + which Cosserat DOF | [`vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md`](photon-identification.md) (this leaf, §3) | *"The photon is the K4-TLM's stable T₂-only bound state — a knotted transverse Cosserat shear wave with $u = 0$ and $\omega \neq 0$."* (line 7) |
+| 2 | **Mechanical shear** | Mechanically blind to bulk; couples to transverse cross-sectional strain | Vol 3 Ch 2:139 (manuscript source; quoted at this leaf line 71) | *"A photon is a purely transverse Cosserat shear wave; it carries no rest mass and has no longitudinal (scalar) component. It is therefore mechanically blind to the isotropic bulk and couples instead to the transverse cross-sectional strain of the lattice."* |
+| 3 | **EE / impedance** | Linear regime, $Z_{local} = Z_0$, no static inductive core, no saturation | Vol 4 Ch 1:491-495 (manuscript source; quoted at this leaf line 74) | *"When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω."* |
+| 4 | **Topological / GRB-dispersion** | K4-bond locality; immune to spatial inertia; basis for GRB Trans-Planckian kill-switch | [`vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md` line 9](../../../vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md); [`vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` line 13](../../../vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md); [`vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md` line 14](../../../vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md); LaTeX source `manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex:100` + `11_experimental_falsification.tex:60` | *"The framework relies on photons being purely transverse massless topological link-variables completely immune to spatial inertia. If future ultra-high-energy Trans-Planckian observations (e.g., extreme Gamma Ray Bursts) definitively show a strict energy-dependent arrival time delay (lattice dispersion), the macroscopic mathematical topological decoupling theorem is physically falsified."* |
+
+### Reconciling the four framings to the canonical 4-property definition (§3)
+
+Every framing above maps cleanly to one or more of the four canonical properties from §3:
+
+| Canonical §3 property | Framing 1 (group/DOF) | Framing 2 (mechanical) | Framing 3 (EE/impedance) | Framing 4 (topological) |
+|---|---|---|---|---|
+| **1. Purely transverse** | "T₂-only", "transverse Cosserat shear" | "purely transverse Cosserat shear wave" | "linear transverse shear waves" | "purely transverse" |
+| **2. Microrotation sector only** | "$u = 0$, $\omega \neq 0$"; T₂ = 3D triplet | "no longitudinal (scalar) component"; "mechanically blind to isotropic bulk" | "no static inductive core" (the static inductive core IS the $u$ translation Cosserat sector that the photon doesn't excite) | "link-variables" (K4-bond quantities live in the microrotation sector via the bond LC tank) |
+| **3. Sub-saturation** | "no saturation, $\Delta\phi \ll \alpha$, lattice stays in linear regime" | "carries no rest mass" (rest mass requires Axiom 4 trap) | "do not geometrically saturate the dielectric lattice" | "massless" + "immune to spatial inertia" (no rest mass → no saturation engagement) |
+| **4. Impedance-matched at $Z_0$** | (§3 property 4 — the wave-engineer's restatement of property 3) | (implicit in "no longitudinal component" via Gauss's law) | "local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω" | (implicit in "immune to spatial inertia" — no impedance mismatch = no slowdown) |
+
+**The four framings are equivalent statements of the same physical object.** Choice of framing depends on the reader's domain: group-theorist gets framing 1; mechanical engineer gets framing 2; EE / plumber gets framing 3; topologist / cosmologist gets framing 4. The 4-property statement at §3 captures all four framings.
+
+### Related-but-not-definitional uses
+
+A few KB locations reference photons in context where they appear as observable consequences rather than definitions; logged here for cross-referencing but NOT considered framings:
+
+- [`vol3/cosmology/ch15-black-hole-orbitals/cross-scale-emission.md` line 8](../../../vol3/cosmology/ch15-black-hole-orbitals/cross-scale-emission.md) — *"electrons emit photons (electromagnetic standing waves) when transitioning between orbital states."* This is an EMISSION-EVENT description (electron $\to$ photon transition), not a photon definition.
+- [`vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md` line 14](../../../vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md) — *"The effective Refractive Index ($n$) perceived by a photon is therefore mathematically identical to the spatial transverse trace of the Gordon optical metric."* This uses photons as a probe of refractive index; doesn't define them.
+
+### Maintenance note
+
+If a fifth definitional framing surfaces in the corpus, add to the table above + reconcile to one or more of the canonical 4 properties in §3. Do NOT let the corpus drift toward a 5th independent definition; force every new use of "photon" to map to one of the 4 properties to maintain definitional unity.
+
 ## Cross-references
 
 - **Canonical manuscript:**
