@@ -15,6 +15,17 @@ The AVE framework models the physical vacuum as a discrete amorphous LC resonant
 > measurement-hierarchy framing). KB synthesis: [common/trampoline-framework §7.5](common/trampoline-framework.md);
 > Vol 3 Ch 4 §sec:tki_strain_snap for cosmic-scale derivation.
 
+> **⚡ Q-G47 K=2G Two-Engine Cross-Validation PASS (2026-05-16 late evening):**
+> The substrate K=2G operating point at $p^* = 8\pi\alpha \approx 0.1834$
+> is canonical-verified at BOTH engines of the A-027 two-engine architecture
+> via independent physical routes: K4-TLM sub-saturation engine (FTG-EMT
+> amorphous network with $z_0 \approx 51.25$ gives $p^* = (10z_0 - 12)/(z_0(z_0+2)) = 8\pi\alpha$
+> to 0.003%) AND Master Equation FDTD bound-state engine (breathing soliton
+> v14 Mode I PASS at Vol 1 Ch 8 Golden Torus → electron knot Q-factor → $\alpha = 1/(4\pi^3+\pi^2+\pi)$).
+> Both routes land on identical canonical value via different mechanisms.
+> **KB synthesis:** [common/q-g47-substrate-scale-cosserat-closure](common/q-g47-substrate-scale-cosserat-closure.md) +
+> [common/two-engine-architecture-a027](common/two-engine-architecture-a027.md).
+
 ---
 
 ## Cross-Cutting Reference
