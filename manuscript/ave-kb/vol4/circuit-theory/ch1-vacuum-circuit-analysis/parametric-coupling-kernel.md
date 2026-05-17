@@ -77,6 +77,8 @@ $$\frac{dC_{eff}}{dt} = -2\omega_{slew}\, \delta C \sin(2\omega_{slew}\, t)$$
 
 $$\omega_{app} = \omega_{slew}$$
 
+**Textbook verification** (added 2026-05-17 night cycle-12 rigor-pass): the degenerate-parametric-amplifier relation $\omega_{signal} = \omega_{pump}/2$ is the canonical result for parametric processes per Louisell, Yariv, and Siegman, *Quantum Fluctuations and Noise in Parametric Processes*, Physical Review **124**:1646-1654 (1961). In our setup, the C_eff modulation is the pump at $2\omega_{slew}$ (from $\cos^2(\omega_{slew} t)$ producing the doubled-frequency component), so the parametric-resonance signal sits at $\omega_{pump}/2 = \omega_{slew}$. Modern parametric-amplifier theory (Yariv, *Optical Electronics*; Boyd, *Nonlinear Optics*) treats this as the defining property of the degenerate regime where signal and idler are degenerate (both at $\omega_{pump}/2$).
+
 For $V_{app}(t) = V_a \cos(\omega_{slew} t + \phi)$, the induced current $I = V_{app} \cdot dC_{eff}/dt$ has a non-vanishing time-averaged coupling at sub-harmonic resonance:
 
 $$\langle V_{app} \cdot I_{induced} \rangle = \tfrac{1}{2} \omega_{slew}\, V_a^2 \delta C \sin(2\phi)$$
@@ -225,7 +227,7 @@ $$R = N_e^{(kg)} \cdot \nu_{slew} \cdot \varepsilon_{det} = N_e^{(kg)} \cdot \nu
 ## §12 — Open work (rigor refinements; do not block canonical use)
 
 - **Full QM many-body derivation of 1/N²**: §4 uses heuristic Dicke-amplitude × matched-cycle-fraction. Rigorous derivation from N-body QED treatment of N coherent receivers absorbing from classical parametric pump pending.
-- **ω_app = ω_slew sub-harmonic correction** — verified by trig product-to-sum, but textbook parametric-amplifier literature cross-check (Louisell, Yariv) recommended for additional rigor.
+- ~~**ω_app = ω_slew sub-harmonic correction** — verified by trig product-to-sum, but textbook parametric-amplifier literature cross-check (Louisell, Yariv) recommended for additional rigor.~~ **CLOSED 2026-05-17 night cycle-12 rigor-pass**: textbook verification per Louisell, Yariv, Siegman, *Quantum Fluctuations and Noise in Parametric Processes*, Phys. Rev. 124:1646-1654 (1961) confirms degenerate-parametric ω_signal = ω_pump/2 is canonical. Citation added at §3.
 - **V_0 ≠ 0 operating point**: §3 uses V_0 → 0 (pure-AC drive). Non-zero substrate DC reactive operating point would shift δC formula; not yet derived from first principles.
 - **C_0 = ε_0 ℓ_node dimensional construction**: O(1) prefactor may need correction. If wrong, downstream numerical results scale accordingly (functional form unchanged).
 - **κ_quality sub-regenerative envelope $(Q\delta_C/2)^2$**: dimensional-analysis form; rigorous derivation pending.
