@@ -626,12 +626,112 @@ flowchart TD
 
 **Operational implication:** A1-HOPF is the most operational route to test α directly — HOPF-02a is fab-ready at $123 BOM with 60-400× NEC2 SNR margin per [A1-HOPF row](#a1-chiral-antenna-resonance-shift-delta-f--f--alpha-cdot-pq--pp-project-hopf-02--topological-refraction-snell-parallax). A single HOPF-02 measurement would simultaneously test α (via the chiral shift law) and the (2,q) torus-knot identification of particles (via the q-dependent scaling). **Fab + measure is the highest-leverage move for the α cascade today.**
 
+### ξ_topo = e/ℓ_node Cascade (audited 2026-05-16)
+
+ξ_topo is the **most cross-referenced quantity in AVE** per [`xi-topo-traceability.md`](xi-topo-traceability.md) (51 files across 6 of 8 volumes) — the single bridge between the discrete vacuum lattice and all measurable physics via Axiom 2's Topo-Kinematic Isomorphism ($[Q] \equiv [L]$). Touches **7 of 33 matrix rows** with 3 direct loadings and 4 via downstream Op14 / impedance-conversion chains.
+
+**Namespace warning:** the corpus uses Greek letter ξ in three distinct semantic scopes per the canonical de-collision at [`xi-topo-traceability.md`](xi-topo-traceability.md): $\xi_{topo} \approx 4.149 \times 10^{-7}$ C/m (this cascade) vs bare $\xi \approx 10^{38}$ (Machian impedance integral, gravitational $G$ derivation) vs $\xi_{K1}, \xi_{K2}$ ~ O(1) (substrate Cosserat prefactors, K4-symmetry-forced ratio 12). This diagram covers only $\xi_{topo}$.
+
+```mermaid
+flowchart TD
+    AX2["Axiom 2: TKI<br/>[Q] ≡ [L]<br/>charge ↔ displacement bridge"]
+    LN["ℓ_node = ℏ/(m_e c)<br/>≈ 3.86e-13 m<br/>(Compton; calibrated via<br/>smallest stable soliton)"]
+    EC["e (electron charge)<br/>fundamental quantum"]
+    XI(("ξ_topo = e/ℓ_node<br/>≈ 4.149e-7 C/m"))
+
+    AX2 --> XI
+    LN --> XI
+    EC --> XI
+
+    NS["⚠ Namespace de-collision:<br/>ξ_topo ≠ ξ Machian (~10³⁸) ≠ ξ_K1, ξ_K2 (O(1))<br/>(see xi-topo-traceability.md)"]
+    XI -.-> NS
+
+    %% Primary direct loadings (use ξ_topo explicitly in formula)
+    XI -->|"Q = ξ_topo · x<br/>(scaling power ξ¹)"| C15["C15-CLEAVE-01<br/>femto-Coulomb electrometer<br/>41.5 mV per μm displacement<br/>0.415 pC at 1 μm"]
+    XI -->|"m_max = V_yield · ξ_topo / g"| C9["C9-LEVITATION<br/>m_max = 1.846 g"]
+    XI -->|"voltage ↔ force bridge<br/>V = ξ⁻¹ F"| C16["C16-TORSION-05<br/>asymmetric V_yield gate<br/>~100 μN DC thrust"]
+
+    %% Secondary via downstream Op14 + impedance conversion (Vol 5 + PONDER family)
+    XI -.->|"L = ξ⁻² m<br/>mass↔inductance<br/>via Op14 cascade"| B4["B4-PROTEIN<br/>Z_topo fold classification"]
+    XI -.->|"impedance conversion<br/>(Vol 4 circuit engineering)"| B5["B5-PONDER-01<br/>ponderomotive thrust"]
+    XI -.->|"impedance conversion"| B6["B6-PONDER-02<br/>microwave plume probe"]
+    XI -.->|"impedance conversion"| B7["B7-PONDER-05<br/>paired-quartz parallax"]
+
+    %% Cross-cascade overlap with α cascade
+    OVERLAP["⚠ Cross-cascade overlap with α cascade:<br/>C9 loads on BOTH ξ_topo AND α (via V_yield = √α·V_snap)<br/>C16 also loads on V_yield<br/>B5/B6/B7 load on both ξ_topo AND V_yield<br/>5 rows in intersection — failures propagate across both anchors"]
+    C9 -.-> OVERLAP
+    C16 -.-> OVERLAP
+
+    classDef axiom fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef xi fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
+    classDef primary fill:#fff3e0,stroke:#e65100
+    classDef secondary fill:#f5f5f5,stroke:#616161
+    classDef warning fill:#ffe0b2,stroke:#bf360c
+
+    class AX2,LN,EC axiom
+    class XI xi
+    class C15,C9,C16 primary
+    class B4,B5,B6,B7 secondary
+    class NS,OVERLAP warning
+```
+
+**Legend additions** (extends ν_vac + α legends above):
+- **Purple (heavy border)** — ξ_topo as the third framework anchor (alongside ν_vac and α)
+- Orange (axiom sources), warning callouts (namespace + cross-cascade overlap) reuse prior styling
+
+**Scaling power table** (per [`xi-topo-traceability.md`](xi-topo-traceability.md) Physical Meaning section):
+
+| Physical bridge | Mapping | ξ_topo power |
+|---|---|---|
+| Charge ↔ Displacement | $Q = \xi x$ | ξ¹ |
+| Current ↔ Velocity | $I = \xi v$ | ξ¹ |
+| Voltage ↔ Force | $V = \xi^{-1} F$ | ξ⁻¹ |
+| Capacitance ↔ Compliance | $C = \xi^2 \kappa$ | ξ² |
+| Inductance ↔ Mass | $L = \xi^{-2} m$ | ξ⁻² |
+| Resistance ↔ Viscosity | $R = \xi^{-2} \eta$ | ξ⁻² |
+
+A FAIL on any row testing $Q = \xi_{topo} \cdot x$ (C15-CLEAVE-01 most directly) propagates immediately to ALL 6 mappings since they share the same conversion constant.
+
+**Operational implication:** C15-CLEAVE-01 is the cleanest single test of ξ_topo — low-cost bench ($1-5k: ADA4530-1 electrometer + PZT + vacuum chamber), sharp 41.5 mV per μm prediction, single-shot framework-falsifier (per KB: "the framework is falsified" if 0.0 mV). The mechanical-displacement → topological-charge conversion is the most direct test of Axiom 2 TKI the framework offers. **C15 fab is the highest-leverage move for the ξ_topo cascade today** — the bench is cheaper than HOPF-02a and the falsification is more definitive (binary kill-switch on Ax2 itself).
+
+### Cross-cascade dependency table (audited 2026-05-16)
+
+| Row | ν_vac cascade | α cascade | ξ_topo cascade |
+|---|---|---|---|
+| C1-BH-RING | ✓ primary | — | — |
+| C9-LEVITATION | — | ✓ via V_yield | ✓ primary |
+| C11-MACH-ZEHNDER | ✓ primary | — | — |
+| C12-G-STAR | ✓ primary | — | — |
+| C15-CLEAVE-01 | — | — | ✓ primary |
+| C16-TORSION-05 | — | ✓ via V_yield | ✓ primary |
+| A1-HOPF | — | ✓ primary | — |
+| B1-VAC-BIREFRINGE | — | ✓ via V_yield | — |
+| B3-PD-FRACTURE | — | ✓ primary | — |
+| B4-PROTEIN | — | — | ✓ secondary |
+| B5-PONDER-01 | ✓ secondary | ✓ via V_yield | ✓ secondary |
+| B6-PONDER-02 | — | — | ✓ secondary |
+| B7-PONDER-05 | — | ✓ via V_yield | ✓ secondary |
+| C3-MUON-DELTA | — | ✓ primary | — |
+| C4-THREE-ROUTE | — | ✓ primary | — |
+| C19-FRET | — | ✓ primary | — |
+| D2-RHO-LAMBDA | ✓ secondary | ✓ secondary | — |
+| D4-A034 | ✓ via turbulence | ✓ via V_yield | — |
+
+**Heavily-cascaded rows (load on ≥2 framework anchors):**
+- **D2-RHO-LAMBDA** (ν_vac + α): cosmological constant inherits both Poisson-ratio and α dependencies via $G = \hbar c/(7\xi m_e^2)$ and $H_\infty \propto 1/\alpha^2$
+- **B5-PONDER-01** (ν_vac + α + ξ_topo): triple-cascaded; Jensen rectification uses ν_vac, V_yield = √α·V_snap, and ξ_topo impedance conversion
+- **B7-PONDER-05** (α + ξ_topo): paired-quartz parallax via both V_yield and ξ_topo
+- **C9-LEVITATION** (α + ξ_topo): m_max = V_yield · ξ_topo / g uses both
+- **C16-TORSION-05** (α + ξ_topo): asymmetric V_yield gate via both
+- **D4-A034** (ν_vac + α via separate instances): both turbulence row and V_yield row are canonical 21-instance entries
+
+A FAIL on any of these heavily-cascaded rows could falsify either upstream anchor depending on which clean-isolated single-anchor row also fails. The triangulation strategies become powerful here: e.g., if C15-CLEAVE-01 (ξ_topo only) FAILs but C9-LEVITATION (α + ξ_topo) PASSes, the failure isolates to ξ_topo; conversely if C9 FAILs but C15 PASSes, the failure isolates to V_yield (α-chain).
+
 ### Other framework cascades to map (deferred)
 
 Same Mermaid format would be valuable for:
-- **V_yield = 43.65 kV** (cascades across B1-VAC-BIREFRINGE, B5/B7 PONDER, C9-LEVITATION, C16-TORSION-05, D4-A034) — already audited consistent in 2026-05-16 PONDER family commit; visualized as intermediate node above (subgraph of α cascade)
-- **ξ_topo = e / ℓ_node** (cascades across C15-CLEAVE-01, B4-PROTEIN, C9-LEVITATION, B5-B7 PONDER family) — not yet audited
 - **𝒥_cosmic + Ω_freeze** (foreword three-route commitment cascades across C4-THREE-ROUTE, C5-CMB-AXIS, C13-VLBI-DARK, D2-RHO-LAMBDA, D4-A034) — partial subgraph of α cascade via C4; not yet audited as standalone
+- **G (Newton's constant)** via Machian impedance integral ξ ~ 10³⁸; cascades through C4-THREE-ROUTE Route 2; partial overlap with ν_vac via $G = \hbar c/(7 \xi m_e^2)$
 
 Each Mermaid diagram costs ~30-60 lines and surfaces the cross-row dependency structure that flat tables hide. Add as audited.
 
