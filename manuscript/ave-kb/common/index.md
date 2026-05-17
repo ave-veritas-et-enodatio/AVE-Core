@@ -13,6 +13,7 @@ Cross-volume reference material shared across all AVE volumes. Contains the unif
 | Universal regime-boundary eigenvalue method applies across BH QNM, nuclear, protein, and semiconductor domains | [Solver Toolchain](solver-toolchain.md) |
 | Unified experimental index: hardware benchmarks, astronomical tests, biophysical proposals (all volumes) | [Unified Experiments Appendix](appendix-experiments.md) |
 | Derived Hardware Numerology: all magic numbers traced to $\ell_{node}$, $\alpha$, $G$ | [Appendix C: Derived Numerology](appendix-derived-numerology.md) |
+| Universal lattice units cheat-sheet: $\ell_{node} = c = \hbar = m_e = 1$ + SI conversion factors + ξ_topo scaling powers (consolidates 3 upstream sources) | [Natural Units Cheat Sheet](natural-units-cheatsheet.md) |
 | VCA Schematic Symbol Reference: 17 canonical components, 7 visual markers, 5 design rules | [Appendix D: VCA Symbols](appendix-vca-symbols.md) |
 | SPICE Verification Manual: ngspice validation pipeline via `AVE_VACUUM_CELL` subcircuit library | [Appendix: SPICE Verification](appendix-spice-verification.md) |
 
