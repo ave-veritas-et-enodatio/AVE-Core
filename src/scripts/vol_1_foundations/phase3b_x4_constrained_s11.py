@@ -237,7 +237,7 @@ def plot_results(x4a: list[dict], x4c: list[dict], out_path: str) -> None:
 def main():
     print("=" * 72)
     print("PHASE 3b X4 — constrained S11 at Ch 8 Golden Torus")
-    print("Pre-registered in research/L3_electron_soliton/"
+    print("Pre-registered in research/_archive/L3_electron_soliton/"
           "34_x4_constrained_s11.md")
     print("=" * 72)
 

@@ -1,6 +1,6 @@
 """Phase 5 ansatz-seeded pair-nucleation driver — Round 6 closure follow-up.
 
-Per [doc 70_](../../research/L3_electron_soliton/70_phase5_resume_methodology.md):
+Per [doc 70_](../../research/_archive/L3_electron_soliton/70_phase5_resume_methodology.md):
 applies Round 6's ansatz-initialization finding to pair-nucleation. Decouples
 gate-mechanism (α)+(β) from threshold-chase (γ). The pre-Round-6
 phase5_pair_nucleation.py gave NO-FIRE because C1 was undershot at registered
@@ -32,10 +32,10 @@ F17-K research infrastructure. Driver-only experiment using existing seeders
 (_project_omega_to_saturation pattern, doc 34_ X4 algebraic-pin pattern).
 
 Reference:
-- research/L3_electron_soliton/70_phase5_resume_methodology.md (this doc)
+- research/_archive/L3_electron_soliton/70_phase5_resume_methodology.md (this doc)
 - src/ave/topological/vacuum_engine.py::PairNucleationGate (gate code, unchanged)
 - src/scripts/vol_1_foundations/phase5_pair_nucleation.py (pre-Round-6 driver — NO-FIRE)
-- research/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
+- research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
 """
 from __future__ import annotations
 

@@ -24,7 +24,7 @@ Phase 1 convention for new test_*.py files in Stage 6:
 Reference:
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
     (Vacuum Varactor, eq:varactor, eq:varactor_taylor)
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
     (Ω_node(V) derivation)
   - src/ave/axioms/scale_invariant.py::saturation_factor
     (engine kernel; yield_limit argument gates V_SNAP vs V_yield convention)
@@ -180,7 +180,7 @@ class TestAxiom4VaractorTaylorExpansion:
 # ═══════════════════════════════════════════════════════════════════════════
 class TestAxiom4NodeResonanceSoftening:
     """Pins Ω_node(V) = ω_0·S(V)^(1/2) = ω_0·(1-(V/V_yield)²)^(1/4) per
-    research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4.
+    research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §4.
 
     Derivation: Ω_node = 1/√(L_e·C_eff) = ω_0·√S(V)  (L_e unchanged, C_eff = C_0/S).
     """

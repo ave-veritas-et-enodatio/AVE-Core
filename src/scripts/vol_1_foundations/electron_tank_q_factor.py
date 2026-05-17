@@ -2,7 +2,7 @@
 Electron tank Q-factor sanity check — Theorem 3.1 (reframed).
 
 Closes the numerical half of the Q-factor-reframe plan at
-`research/L3_electron_soliton/16_theorem_3_1_Q_factor_reframe_plan.md`.
+`research/_archive/L3_electron_soliton/16_theorem_3_1_Q_factor_reframe_plan.md`.
 
 Two independent calculations of the electron's Q-factor at the
 topological-defect saturation boundary:

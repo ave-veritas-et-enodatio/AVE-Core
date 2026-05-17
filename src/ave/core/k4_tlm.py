@@ -143,7 +143,7 @@ class K4Lattice3D:
                 with strain-coupled wave reflection — the missing mechanism
                 for bound solitons on the K4 substrate. Default False for
                 backwards compatibility with existing validator scripts.
-                See research/L3_electron_soliton/L3_PHASE3_SESSION_20260420
+                See research/_archive/L3_electron_soliton/L3_PHASE3_SESSION_20260420
                 handoff for the full AVE explanation.
             use_memristive_saturation: If True (opt-in), replaces the
                 instantaneous Op14 `Z_eff = Z_0/√S_eq(V)` with the full

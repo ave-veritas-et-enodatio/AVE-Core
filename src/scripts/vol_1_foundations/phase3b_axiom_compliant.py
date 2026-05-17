@@ -3,7 +3,7 @@ Phase 3b axiom-compliant redesign — Op6 self-consistency + seed
 independence + periodic BCs.
 
 Pre-registration in
-research/L3_electron_soliton/32_phase3b_axiom_compliant_redesign.md
+research/_archive/L3_electron_soliton/32_phase3b_axiom_compliant_redesign.md
 recorded BEFORE this script is run (per flag-don't-fix discipline).
 
 Grid (compute-constrained, smaller than plan's 5×3×6):
@@ -245,7 +245,7 @@ def plot_seed_independence(results, out_path):
 def main():
     print("=" * 72)
     print("PHASE 3b AXIOM-COMPLIANT REDESIGN")
-    print("Pre-registered in research/L3_electron_soliton/"
+    print("Pre-registered in research/_archive/L3_electron_soliton/"
           "32_phase3b_axiom_compliant_redesign.md")
     print("=" * 72)
 

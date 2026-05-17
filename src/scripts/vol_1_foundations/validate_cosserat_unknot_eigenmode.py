@@ -1,7 +1,7 @@
 """
 Round 12 validation driver: canonical electron 0₁ unknot Cosserat eigenmode.
 
-Per research/L3_electron_soliton/101_ §9 three-layer canonical (confirmed by
+Per research/_archive/L3_electron_soliton/101_ §9 three-layer canonical (confirmed by
 Grant 2026-04-30):
 
   Layer 1 — real-space curve: unknot 0₁ at horn torus R = r
@@ -9,7 +9,7 @@ Grant 2026-04-30):
                               Rodrigues projection (post-processing observable)
   Layer 3 — phase-space:     (V_inc, V_ref) (2,3) winding (NOT in scope)
 
-Per research/L3_electron_soliton/102_ §2.6 pre-registered binary criteria:
+Per research/_archive/L3_electron_soliton/102_ §2.6 pre-registered binary criteria:
   C1 — extract_crossing_count = 0 (unknot)
   C2 — extract_hopf_charge ≈ 0 (zero linking)
   C3 — extract_shell_radii R ≈ R_target ± 5%
@@ -186,8 +186,8 @@ def print_run_summary(info: dict) -> None:
 def main():
     print("=" * 76)
     print("  Round 12 validation: canonical electron 0₁ unknot Cosserat eigenmode")
-    print("  Per research/L3_electron_soliton/101_ §9 three-layer canonical")
-    print("  Per research/L3_electron_soliton/102_ §2.6 pre-registered criteria")
+    print("  Per research/_archive/L3_electron_soliton/101_ §9 three-layer canonical")
+    print("  Per research/_archive/L3_electron_soliton/102_ §2.6 pre-registered criteria")
     print("=" * 76)
     print()
     print("Pre-registered binary criteria (PASS conditions):")

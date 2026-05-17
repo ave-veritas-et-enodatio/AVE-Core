@@ -4,7 +4,7 @@
 
 # Ω_freeze Cosmic-Grain Cascade: Three-Route Framework + Six Observables
 
-Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 eight observables** (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor G anisotropy + CMB QNM matching) extend the A-034 multi-axis alignment test; the **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** has structural closure for the angular profile $P_2(\cos\theta)$ (research/L3 doc 118) with amplitude conjecturally at $\alpha^2$-suppression (~4.4×10⁻⁵, contingent on χ_1/K_0 ~ α at substrate scale — NOT yet derived from first principles, see [research/L3 doc 119](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest adjudication).
+Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The Tier-1 framework synthesis is corpus-canonical; the **Tier-2 eight observables** (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor G anisotropy + CMB QNM matching) extend the A-034 multi-axis alignment test; the **Tier-3 K4-stiffness-tensor $\Delta G/G$ anisotropy derivation** has structural closure for the angular profile $P_2(\cos\theta)$ (research/L3 doc 118) with amplitude conjecturally at $\alpha^2$-suppression (~4.4×10⁻⁵, contingent on χ_1/K_0 ~ α at substrate scale — NOT yet derived from first principles, see [research/L3 doc 119](../../../research/_archive/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest adjudication).
 
 ## Key Results
 
@@ -53,7 +53,7 @@ The A-034 prereg (2026-05-15) pre-registers a **four-axis alignment test** for t
 | 4 | Matter asymmetry direction | Same axis | CMB temperature + matter density correlation |
 | 5 | E/B polarization decoupling | Same axis IF asymmetric crystallization ($K/G \neq 2$) | Planck PR3 + BICEP/Keck + LiteBIRD (future) |
 | **6** | **Orbital-plane alignment (NEW 2026-05-16)** | **Same axis** | **Solar system ecliptic + binary stars (Gaia DR3) + galactic disks (SDSS) + LIGO/Virgo binary inspiral planes** |
-| **7** | **G anisotropy via tensor extension (NEW 2026-05-16 evening, conjectural)** | **$\Delta G/G \sim \alpha^N$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ for some N ≥ 2 (most plausibly N=2 → 4.4×10⁻⁵)** | **CODATA G dataset re-analysis along $(l=174°, b=-5°)$** (see [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md) for tensor extension; [doc 119](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest α² adjudication) |
+| **7** | **G anisotropy via tensor extension (NEW 2026-05-16 evening, conjectural)** | **$\Delta G/G \sim \alpha^N$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ for some N ≥ 2 (most plausibly N=2 → 4.4×10⁻⁵)** | **CODATA G dataset re-analysis along $(l=174°, b=-5°)$** (see [research/L3 doc 118](../../../research/_archive/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md) for tensor extension; [doc 119](../../../research/_archive/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md) for honest α² adjudication) |
 | **8** | **CMB QNM matching (Hawking/ring-down NEW 2026-05-16 evening)** | **CMB power-spectrum peaks at $\ell$-modes matching parent-BH quasinormal-mode spectrum** | **Planck PR3 + future-survey high-$\ell$ TT/EE; cross-check with derived BH QNM** $\omega_R M_g = 18/49$ |
 
 ### §3.1 — Observable 6: orbital-plane alignment (Tier-2 NEW)
@@ -76,9 +76,9 @@ Concrete observables:
 
 ### §3.2 — Observable 7: G anisotropy via tensor extension (NEW 2026-05-16 evening, CONJECTURAL)
 
-**Pre-registered hypothesis (NEW, with honest qualification per [doc 119 adjudication](../../../research/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md))**: Newton's gravitational constant $G$ is direction-dependent along the $P_2(\cos\theta)$ angular profile with $\hat{\Omega}_{\text{freeze}}$ as the symmetry axis. Suppression order is $\alpha^N$ for some $N \geq 2$, most plausibly $N = 2$ (giving ~4.4×10⁻⁵ amplitude) — but **N is not yet derived from substrate first principles**.
+**Pre-registered hypothesis (NEW, with honest qualification per [doc 119 adjudication](../../../research/_archive/L3_electron_soliton/119_alpha_squared_universal_operator_adjudication.md))**: Newton's gravitational constant $G$ is direction-dependent along the $P_2(\cos\theta)$ angular profile with $\hat{\Omega}_{\text{freeze}}$ as the symmetry axis. Suppression order is $\alpha^N$ for some $N \geq 2$, most plausibly $N = 2$ (giving ~4.4×10⁻⁵ amplitude) — but **N is not yet derived from substrate first principles**.
 
-The angular structure derives from the tensor extension of Vol 3 Ch 1's scalar G derivation, executed in [research/L3 doc 118](../../../research/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md):
+The angular structure derives from the tensor extension of Vol 3 Ch 1's scalar G derivation, executed in [research/L3 doc 118](../../../research/_archive/L3_electron_soliton/118_omega_freeze_tensor_extension_vol3ch1.md):
 
 $$\frac{\Delta G(\hat{n})}{G_{\text{iso}}} = -\frac{4\pi}{15} \cdot \delta_\chi \cdot f_R \cdot P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$$
 
@@ -208,7 +208,7 @@ Earlier framings of this leaf's §6 posited three exotic cosmic mechanisms — b
   - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Big Bang as cosmic-scale A-034 instance
   - [A-031 Refined Cosmic-Parameter Horizon](cosmic-parameter-horizon-a031-refinement.md) — observable mechanism vs. cosmic parameters
   - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $u_0^* \approx 0.187$ derivation context
-  - [L3 Doc 115 Q-G19α Saliency Derivation](../../../research/L3_electron_soliton/115_q_g19alpha_saliency_first_principles_derivation.md) — particle-level α-suppression mechanism (input to Tier-3 Option c)
+  - [L3 Doc 115 Q-G19α Saliency Derivation](../../../research/_archive/L3_electron_soliton/115_q_g19alpha_saliency_first_principles_derivation.md) — particle-level α-suppression mechanism (input to Tier-3 Option c)
 - **Research-tier source docs**:
-  - `research/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md` — 4+1-axis A-034 prereg (this leaf adds 6th)
+  - `research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md` — 4+1-axis A-034 prereg (this leaf adds 6th)
   - `research/discussions/discussion_followups.md` Entry 001 (Earth inner-core/mantle differential) + Entry 002 (orbital dynamics as macroscopic grain projection) — source discussions

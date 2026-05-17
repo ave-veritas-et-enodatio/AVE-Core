@@ -2,7 +2,7 @@
 Pre-registered unit tests for NodeResonanceObserver — Stage 6 Phase 2.
 
 Pins the per-node LC-tank resonance softening derived in
-[doc 54_ §4](research/L3_electron_soliton/54_pair_production_axiom_derivation.md):
+[doc 54_ §4](research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md):
 
     Ω_node(r,t) / ω_0 = (1 − A²_yield(r,t))^(1/4)
 
@@ -18,7 +18,7 @@ full Phase 2 validation of pre-registered prediction P_phase2_omega.
 
 Reference:
   - src/ave/topological/vacuum_engine.py::NodeResonanceObserver
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
   - manuscript/predictions.yaml::P_phase2_omega
 

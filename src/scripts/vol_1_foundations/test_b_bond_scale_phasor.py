@@ -1,7 +1,7 @@
 """Test B — single A-B bond V_inc/V_ref phase-space phasor trajectory test.
 
 Per `P_phase5_bond_scale_phasor_trajectory` (frozen at this commit) +
-[doc 28_ §5.1](../../research/L3_electron_soliton/28_two_node_electron_synthesis.md#L105):
+[doc 28_ §5.1](../../research/_archive/L3_electron_soliton/28_two_node_electron_synthesis.md#L105):
 
 > "Extract V_inc/V_ref phasor trajectory on a SINGLE A-B bond from
 > existing TLM 96³ simulation. Plot in (Re, Im) phase space. Check if

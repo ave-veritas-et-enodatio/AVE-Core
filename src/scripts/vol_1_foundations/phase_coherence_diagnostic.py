@@ -6,7 +6,7 @@ distinguish "Ax-3 phase-coherent eigenmode" from "monotonically draining
 dissipative trajectory." Both have low temporal variance over short
 windows. New diagnostic tests the actual Ax-3 conditions explicitly.
 
-Per [doc 68_](../../../research/L3_electron_soliton/68_phase_quadrature_methodology.md)
+Per [doc 68_](../../../research/_archive/L3_electron_soliton/68_phase_quadrature_methodology.md)
 the AVE-native (Axiom-3 / Minimum Reflection Principle; legacy names:
 Effective Action Principle, Least Reflected Action) eigenmode condition
 is impedance-matching reactive cycling — equivalently, minimum |Γ|² at

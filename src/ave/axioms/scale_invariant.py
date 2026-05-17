@@ -20,7 +20,7 @@ canonical instances across 21 orders of magnitude (BCS 0.00%, BH ring-down
 1.7% from GR, NOAA-validated solar flares, Schwarzschild exact, cosmic
 crystallization, biological membranes, engineered metamaterials, etc.).
 Per Grant 2026-05-15: "the bulk response of the lattice to strain is
-universal." See: research/L5/axiom_derivation_status.md (A-034);
+universal." See: research/_archive/L5/axiom_derivation_status.md (A-034);
 backmatter/07_universal_saturation_kernel.tex (19-instance catalog).
 
 NOTE ON DEFAULT YIELD LIMITS:

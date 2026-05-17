@@ -35,7 +35,7 @@ the saturation kernel S(A) = √(1−A²)) is the SAME mechanism applied across
 19 catalog instances spanning 21 orders of magnitude — from atomic dielectric
 breakdown to cosmic K4 crystallization. Per Grant 2026-05-15:
 "the bulk response of the lattice to strain is universal." See:
-  - L5 `research/L5/axiom_derivation_status.md` A-034 (canonical entry)
+  - L5 `research/_archive/L5/axiom_derivation_status.md` A-034 (canonical entry)
   - Vol 3 Ch 4 §sec:tki_strain_snap (manuscript canonical)
   - Backmatter Ch 7 `07_universal_saturation_kernel.tex` (19-instance catalog)
   - `manuscript/ave-kb/common/trampoline-framework.md` §7.5 (user-facing synthesis)
@@ -89,7 +89,7 @@ def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.nd
     every saturation event impulsive. When S(A) → 0 locally, the substrate
     cannot continue linear response and MUST reorganize topologically.
 
-    See: research/L5/axiom_derivation_status.md (A-034),
+    See: research/_archive/L5/axiom_derivation_status.md (A-034),
     backmatter/07_universal_saturation_kernel.tex (catalog).
 
     Args:

@@ -2,7 +2,7 @@
 Phase 3b eigenmode verification + photon→electron visualization.
 
 This script executes the design spec in
-research/L3_electron_soliton/31_phase3b_simulation_setup.md.
+research/_archive/L3_electron_soliton/31_phase3b_simulation_setup.md.
 
 Two aims:
 
@@ -439,7 +439,7 @@ def plot_animation(results: list, out_path: str, fps: int = 8) -> None:
 def main():
     print("=" * 72)
     print("PHASE 3b EIGENMODE VERIFICATION + PHOTON→ELECTRON VISUAL")
-    print("Per simulation setup: research/L3_electron_soliton/"
+    print("Per simulation setup: research/_archive/L3_electron_soliton/"
           "31_phase3b_simulation_setup.md")
     print("=" * 72)
 

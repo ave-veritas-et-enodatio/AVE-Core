@@ -34,9 +34,9 @@ Reference:
     (V_YIELD definition, INVARIANT-C1 in ave-kb/CLAUDE.md)
   - manuscript/vol_1_foundations/chapters/07_regime_map.tex:130
     (Schwinger critical field r = V_SNAP/V_yield = 1/√α)
-  - research/L3_electron_soliton/45_lattice_impedance_first_principles.md §3.1
+  - research/_archive/L3_electron_soliton/45_lattice_impedance_first_principles.md §3.1
     (conflation flag)
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §5
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §5
     (resolution for Stage 6 engine work)
 
 Predictions.yaml entry: P_phase0_varactor (also covers this consistency).

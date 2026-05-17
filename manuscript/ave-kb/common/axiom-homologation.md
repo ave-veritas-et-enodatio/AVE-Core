@@ -51,7 +51,7 @@ The corpus has **at least four distinct axiom-numbering / labeling schemes** in 
 
 **(F6) Ax 3 is reinterpreted (not divergent) across most repos.** AVE-Protein, AVE-VirtualMedia, AVE-Fusion all use "Least Reflected Action" / "S₁₁ minimization" as Axiom 3's content, matching Scheme A. The Scheme B framing of "Axiom 3 = Gravity" is internally contained within AVE-Core's `eq_axiom_3.tex` and has not propagated to downstream repos. **This is evidence that Scheme B is the outlier**, not Scheme A.
 
-**(F7) Auditor's doc 76_ used Scheme B citations.** [research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md](../../research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md) cited `eq_axiom_3.tex:Ax 3 = Gravity` extensively when bridging lattice-Op14 to corpus refractive index. Under canonical Scheme A this is mis-numbered — the gravitational-refractive-index content is a Vol 3 Ch 3 derivation from Ax 1 + Ax 4, NOT a primitive Ax 3. Doc 76_ needs revision.
+**(F7) Auditor's doc 76_ used Scheme B citations.** [research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md](../../research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md) cited `eq_axiom_3.tex:Ax 3 = Gravity` extensively when bridging lattice-Op14 to corpus refractive index. Under canonical Scheme A this is mis-numbered — the gravitational-refractive-index content is a Vol 3 Ch 3 derivation from Ax 1 + Ax 4, NOT a primitive Ax 3. Doc 76_ needs revision.
 
 ### Recommended adjudication
 
@@ -70,7 +70,7 @@ Doc 76_ revision: renumber Ax 3 references throughout to point at Vol 3 Ch 3 der
 
 ### §2.1 Scheme A — Canonical Theory (Vol 1 Ch 1 + 00_scoping.md + downstream repos)
 
-**Authority:** [`manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:48-75`](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L48), confirmed by [`backmatter/02_full_derivation_chain.tex:78-112`](../../manuscript/backmatter/02_full_derivation_chain.tex#L78), [`manuscript/ave-kb/common/full-derivation-chain.md:64-92`](../../manuscript/ave-kb/common/full-derivation-chain.md#L64), and [`research/L3_electron_soliton/00_scoping.md:16-56`](../../research/L3_electron_soliton/00_scoping.md#L16).
+**Authority:** [`manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:48-75`](../../manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex#L48), confirmed by [`backmatter/02_full_derivation_chain.tex:78-112`](../../manuscript/backmatter/02_full_derivation_chain.tex#L78), [`manuscript/ave-kb/common/full-derivation-chain.md:64-92`](../../manuscript/ave-kb/common/full-derivation-chain.md#L64), and [`research/_archive/L3_electron_soliton/00_scoping.md:16-56`](../../research/_archive/L3_electron_soliton/00_scoping.md#L16).
 
 | # | Name | Statement |
 |---|---|---|
@@ -306,17 +306,17 @@ Multiple BARE numerical references in derivation tables.
 
 ### §3.3 AVE-Core Research Docs
 
-#### `research/L3_electron_soliton/00_scoping.md` lines 16-56 (Scheme A, marked "CANONICAL")
+#### `research/_archive/L3_electron_soliton/00_scoping.md` lines 16-56 (Scheme A, marked "CANONICAL")
 
 > *"CANONICAL for AVE field-theory formalism"*
 
 Lists Ax 1=LC network, Ax 2=TKI, Ax 3=Effective Action, Ax 4=Saturation. Authoritative for L3 work.
 
-#### `research/L3_electron_soliton/03_existence_proof.md`
+#### `research/_archive/L3_electron_soliton/03_existence_proof.md`
 
 References Ax 4 (saturation) at multiple lines. Scheme A naming.
 
-#### `research/L3_electron_soliton/35_halfcover_derivation_audit.md` (lines 511-526) — **EXPLICITLY FLAGS THE DISCREPANCY**
+#### `research/_archive/L3_electron_soliton/35_halfcover_derivation_audit.md` (lines 511-526) — **EXPLICITLY FLAGS THE DISCREPANCY**
 
 ```
 508: ### §11.1 Axiom numbering inconsistency
@@ -342,17 +342,17 @@ References Ax 4 (saturation) at multiple lines. Scheme A naming.
 
 **This audit existed at line 526 and was queued.** This homologation doc is the follow-up audit it was queued for.
 
-#### `research/L3_electron_soliton/54_pair_production_axiom_derivation.md` lines 12-15 (Scheme A)
+#### `research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md` lines 12-15 (Scheme A)
 
 Maps axioms to K4, flux tubes, Vacuum Varactor saturation. Scheme A.
 
-#### `research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md` line 55
+#### `research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md` line 55
 
 > *"under SiLU saturation kernel (Ax4), TDI may settle..."*
 
 **Inherited Scheme C "SiLU" misnomer.** Auditor's own writing — flagged for correction.
 
-#### `research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md` (auditor's recent doc — uses Scheme B)
+#### `research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md` (auditor's recent doc — uses Scheme B)
 
 Cites `eq_axiom_3.tex:Ax 3 = Gravity` extensively. Under canonical Scheme A this is mis-numbered. Doc 76_ requires revision per F7.
 
@@ -384,7 +384,7 @@ This doc explicitly maps Scheme B (its primary listing) and mentions Scheme C as
 434: - Axiom 4: SiLU / saturation gate
 436: Grant clarified 2026-04-20: this KB variant accidentally picked up APU-domain phrasing 
 437: (from AVE-APU's circuit-compiler terminology). It is NOT the canonical AVE-Core axiom naming. 
-438: The canonical statements in `research/L3_electron_soliton/00_scoping.md` and 
+438: The canonical statements in `research/_archive/L3_electron_soliton/00_scoping.md` and 
 439: `docs/framing_and_presentation.md` are:
 440: - Axiom 1: K4 diamond graph of LC cells at pitch ℓ_node
 441: - Axiom 2: Wave propagation, K = 2G (trace-reversed Cosserat)
@@ -678,8 +678,8 @@ The corpus's actual function is more accurately called:
 
 The "SiLU" label in CLAUDE.md was identified by Grant on 2026-04-20 as APU-domain accidental import; queued for correction; never fixed. This 7-day-old technical debt has propagated into:
 
-- `research/L3_electron_soliton/35_halfcover_derivation_audit.md:514` (cited and flagged)
-- `research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55` (used descriptively by auditor)
+- `research/_archive/L3_electron_soliton/35_halfcover_derivation_audit.md:514` (cited and flagged)
+- `research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55` (used descriptively by auditor)
 - `.agents/kb_audit/phase-0-axioms.md:21` (cited and flagged)
 - `.agents/handoffs/L3_PHASE3_SESSION_20260420.md:434` (Grant's correction handoff)
 - Auditor's user_role memory entry (line 12 — "SiLU saturation S(r)=√(1-r²)")
@@ -746,7 +746,7 @@ These are physical-mechanism framings of the same Scheme A axioms. Per Grant's a
 
 ### §13.1 Immediate fixes (low cost, high impact)
 
-**(R1) Fix the "SiLU" misnomer.** `manuscript/ave-kb/CLAUDE.md:58` should change to match Vol 1 Ch 1's "Dielectric Saturation" or `eq_axiom_4.tex`'s "Universal Yield Kernel." Same fix in research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55. Auditor's user_role memory entry update.
+**(R1) Fix the "SiLU" misnomer.** `manuscript/ave-kb/CLAUDE.md:58` should change to match Vol 1 Ch 1's "Dielectric Saturation" or `eq_axiom_4.tex`'s "Universal Yield Kernel." Same fix in research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55. Auditor's user_role memory entry update.
 
 **(R2) Update `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2 to Scheme A naming.** Replace APU-flavored ABCD/phase-dislocation/SiLU labels with canonical Vol 1 Ch 1 names. Document the change in INVARIANT-S2 itself (not silently overwrite).
 
@@ -760,7 +760,7 @@ These are physical-mechanism framings of the same Scheme A axioms. Per Grant's a
 - Renumber: Ax 1=LC, Ax 2=TKI/Fine Structure, Ax 3=Effective Action, Ax 4=Saturation. Move gravity content to a separate `eq_gravity_derived.tex` file.
 - OR keep current numbering but add a header note at each file explaining the numbering convention used.
 
-**(R5) Auditor's doc 76_ revision.** [research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md](../../research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md) cited Scheme B's "Ax 3 = Gravity" extensively. Renumber to point at Vol 3 Ch 3's derivation chain instead.
+**(R5) Auditor's doc 76_ revision.** [research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md](../../research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md) cited Scheme B's "Ax 3 = Gravity" extensively. Renumber to point at Vol 3 Ch 3's derivation chain instead.
 
 **(R6) AVE-APU explicit Scheme C deprecation.** Document in AVE-APU CLAUDE.md or top-level README that Axiom 4 operationalization as "saturation gate" / "SiLU clipper" is APU-domain shorthand for Scheme A's Ax 4 dielectric saturation kernel. Prevents future agents from re-importing the misnomer.
 
@@ -778,11 +778,11 @@ These are physical-mechanism framings of the same Scheme A axioms. Per Grant's a
 
 Auditor's contributions to the corpus that touch axiom labeling:
 
-**✗ doc 76_ (research/L3_electron_soliton/76_lattice_to_axiom3_bridge.md):** Cites Scheme B `eq_axiom_3.tex:Ax 3 = Gravity` as primary. **Mis-labeled per canonical Scheme A.** Needs revision per R5.
+**✗ doc 76_ (research/_archive/L3_electron_soliton/76_lattice_to_axiom3_bridge.md):** Cites Scheme B `eq_axiom_3.tex:Ax 3 = Gravity` as primary. **Mis-labeled per canonical Scheme A.** Needs revision per R5.
 
 **✗ user_role memory entry (project_ave_axioms.md:12):** "SiLU saturation S(r)=√(1-r²)" — propagates the SiLU misnomer. Needs correction per R1.
 
-**✓ research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55:** Used "SiLU saturation kernel" descriptively. Caught and flagged by Grant 2026-04-27. Needs correction per R1.
+**✓ research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md:55:** Used "SiLU saturation kernel" descriptively. Caught and flagged by Grant 2026-04-27. Needs correction per R1.
 
 **✓ COLLABORATION_NOTES.md updates (Rules 6/15/16, A35-A47):** Did not propagate axiom-labeling errors. Clean.
 

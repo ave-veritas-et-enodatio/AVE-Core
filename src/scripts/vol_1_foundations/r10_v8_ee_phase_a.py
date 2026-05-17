@@ -1,7 +1,7 @@
 """
 r10 path α v8 EE Phase A — power-electronics analysis suite.
 
-Implements the [doc 93 §6.1 + §7](../../research/L3_electron_soliton/93_ee_to_ave_mapping.md)
+Implements the [doc 93 §6.1 + §7](../../research/_archive/L3_electron_soliton/93_ee_to_ave_mapping.md)
 single re-run capture spec. Runs v8's IC + engine config UNCHANGED, captures
 ring-node trajectories of (V_inc, V_ref, Phi_link, ω, ω_dot, u_dot), saves
 to .npz, then executes Phase A1–A7 analyses on the saved trajectories:

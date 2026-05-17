@@ -1,7 +1,7 @@
 """R7.1 multi-seed block Helmholtz eigenmode sweep — fresh-session implementation
 of P_phase6_helmholtz_eigenmode_sweep per doc 72_ §3.
 
-Per [doc 72_ §3.1](../../research/L3_electron_soliton/72_vacuum_impedance_design_space.md):
+Per [doc 72_ §3.1](../../research/_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md):
 block Helmholtz on joint (V, ω) state. At V=0 seed, cross-blocks vanish per §3.1.1
 (Op14 is multiplicative in V); block matrix decouples; eigsh runs on V-block
 and ω-block separately.
@@ -32,8 +32,8 @@ ENGINEERING APPROXIMATIONS (documented honestly for post-run interpretation):
    does not address genuinely hybrid V≠0 ∧ ω≠0 modes (Round 8).
 
 References:
-- research/L3_electron_soliton/72_vacuum_impedance_design_space.md (active methodology)
-- research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md §15 (active scope)
+- research/_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md (active methodology)
+- research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md §15 (active scope)
 - manuscript/predictions.yaml::P_phase6_helmholtz_eigenmode_sweep (frozen pre-reg)
 - src/scripts/vol_1_foundations/k4_greens_function.py (K4 Laplacian pattern reused)
 - src/ave/topological/cosserat_field_3d.py (energy_gradient via JAX autograd)
@@ -530,7 +530,7 @@ def main() -> dict:
 
     payload = {
         "pre_registration": "P_phase6_helmholtz_eigenmode_sweep",
-        "doc": "research/L3_electron_soliton/72_vacuum_impedance_design_space.md",
+        "doc": "research/_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md",
         "commit_frozen_at": "675141e",
         "constants": {
             "N_LATTICE": N_LATTICE, "R_ANCHOR": R_ANCHOR,

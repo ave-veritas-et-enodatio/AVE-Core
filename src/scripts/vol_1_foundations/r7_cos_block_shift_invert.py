@@ -1,6 +1,6 @@
 """Cos-block comprehensive coverage via shift-invert at sigma=ω_C²=1 with inner GMRES.
 
-Per [doc 74_ §6.1](../../research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md)
+Per [doc 74_ §6.1](../../research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md)
 follow-up to auditor concern #1: the original k=100 SA-mode covers only the
 bottom 100 of 196608 K_cos eigenvalues (~0.05% of spectrum). ω_C² = 1 may
 exist at higher index. To find it, shift-invert at sigma=ω_C²=1 with explicit

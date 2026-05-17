@@ -80,7 +80,7 @@ universality claim — when adding new physics, do NOT introduce a per-scale
 saturation function; reuse Op2. The 19-instance catalog is at
 `manuscript/backmatter/07_universal_saturation_kernel.tex`; canonical
 synthesis at `manuscript/ave-kb/common/trampoline-framework.md` §7.5;
-L5 authority at `research/L5/axiom_derivation_status.md` A-034.
+L5 authority at `research/_archive/L5/axiom_derivation_status.md` A-034.
 
 ## 5. Regime Classification
 

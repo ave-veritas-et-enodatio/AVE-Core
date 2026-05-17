@@ -9,7 +9,7 @@ Validates four pre-registered predictions from manuscript/predictions.yaml:
 
 These assert that a seeded (2,3) V_inc ansatz on the K4 TLM lattice is a
 stable closed-system eigenmode — the precondition for Stage 6 pair-
-nucleation work per research/L3_electron_soliton/66_single_electron_first_pivot.md.
+nucleation work per research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md.
 
 **Path independence:** uses only K4 state (V_inc, lattice energy, K4-extracted
 geometry, K4-extracted crossing count). Zero Cosserat reads. Runs without
@@ -70,8 +70,8 @@ L3_CLOSURE_XFAIL = pytest.mark.xfail(
         "empirically falsified at multiple scales × IC classes. "
         "Corpus electron is sub-ℓ_node (Vol 2 Ch 1:9, tube radius "
         "ℓ_node/(2π) ≈ 0.16 cells), structurally below K4-TLM at "
-        "ℓ_node sampling. See research/L3_electron_soliton/79 + "
-        "research/L3_electron_soliton/100 §10.36-§10.38."
+        "ℓ_node sampling. See research/_archive/L3_electron_soliton/79 + "
+        "research/_archive/L3_electron_soliton/100 §10.36-§10.38."
     ),
 )
 

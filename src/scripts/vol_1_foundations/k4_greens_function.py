@@ -2,7 +2,7 @@
 K4 (Diamond) Lattice Green's Function — numerical computation via
 direct sparse linear algebra.
 
-Closes open item §7.1 of Theorem 3.1 (research/L3_electron_soliton/
+Closes open item §7.1 of Theorem 3.1 (research/_archive/L3_electron_soliton/
 14_theorem_3_1_mutual_inductance_from_axioms.md).
 
 The K4 diamond lattice is bipartite with A (x+y+z even) and B (x+y+z

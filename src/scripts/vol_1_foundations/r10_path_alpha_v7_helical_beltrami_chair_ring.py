@@ -1,11 +1,11 @@
 """r10_path_alpha_v7_helical_beltrami_chair_ring.py — Round 10+ Phase 1 Direction 3'.2 v7.
 
 Pre-reg P_phase11_path_alpha_v7_helical_beltrami_chair_ring_IC. Successor to v6
-([doc 84](../../research/L3_electron_soliton/84_path_alpha_v6_first_run_results.md))
+([doc 84](../../research/_archive/L3_electron_soliton/84_path_alpha_v6_first_run_results.md))
 which Mode III'd at 1/4 strict criteria with 96% ring localization PASS but
 Beltrami / centroid-flux failures. v7 implements the helical Beltrami + FOC d-q
 IC restructure derived in
-[doc 85](../../research/L3_electron_soliton/85_kelvin_beltrami_foc_axiom_grounded_derivation.md).
+[doc 85](../../research/_archive/L3_electron_soliton/85_kelvin_beltrami_foc_axiom_grounded_derivation.md).
 
 Key changes from v6:
 1. Helical pitch: A has both poloidal AND toroidal components per (1,1) Beltrami

@@ -2,7 +2,7 @@
 L3 Phase-3 convergence study — does the TLM converge to the analytical
 prediction in the continuum limit?
 
-Per the audit at `research/L3_electron_soliton/21_first_principles_audit.md`
+Per the audit at `research/_archive/L3_electron_soliton/21_first_principles_audit.md`
 and the dialogue thereafter: the TLM at finite resolution is a discrete-
 lattice approximation of the continuum-limit Golden Torus. The right
 question isn't "does 96³ give α⁻¹ = 137" (it doesn't) but "does the

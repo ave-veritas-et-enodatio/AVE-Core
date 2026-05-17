@@ -33,7 +33,7 @@ Usage:
 Reference:
   - src/ave/core/k4_tlm.py::K4Lattice3D.Phi_link
   - src/ave/topological/vacuum_engine.py::BondObserver
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §3
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §3
   - manuscript/predictions.yaml::P_phase3_flux_tube
 """
 from __future__ import annotations

@@ -16,7 +16,7 @@ Under use_saturation=True the jax-grad version is exact; compare to the prior
 hand-derived version (now removed) which disagreed with FD on the saturation
 path.
 
-References: research/L3_electron_soliton/02_, 03_, 04_, 07_, 08_, 09_.
+References: research/_archive/L3_electron_soliton/02_, 03_, 04_, 07_, 08_, 09_.
 
 Q-G47 SUBSTRATE-SCALE CLOSURE (Sessions 9-18, 2026-05-15 evening):
 This module implements the continuous Cosserat micropolar field whose
@@ -60,7 +60,7 @@ from ave.core.constants import ALPHA  # noqa: E402
 # ─────────────────────────────────────────────────────────────────────────
 # Phase 4 asymmetric-saturation chirality coupling
 # ─────────────────────────────────────────────────────────────────────────
-# Structure per [doc 20_ Sub-Theorem 3.1.1](research/L3_electron_soliton/
+# Structure per [doc 20_ Sub-Theorem 3.1.1](research/_archive/L3_electron_soliton/
 # 20_chirality_projection_sub_theorem.md):
 #
 #   κ_chiral = α · κ̃    where κ̃ = (p·q) / (p+q)  for (p,q) torus winding
@@ -222,7 +222,7 @@ def _project_omega_to_nhat(omega: jnp.ndarray) -> jnp.ndarray:
 def _op10_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
     """AVE Op10 continuum Lagrangian density.
 
-    Gauss's-law / magnetic-energy reading (see research/L3_electron_soliton/11_):
+    Gauss's-law / magnetic-energy reading (see research/_archive/L3_electron_soliton/11_):
     L_Op10 = W_4 = sum_{i<j} |d_i n_hat ^ d_j n_hat|^2
                 = (1/2) * [(tr G)^2 - ||G||_F^2]
     where G_ij = d_i n_hat . d_j n_hat. Coefficient k = 1 under the
@@ -240,7 +240,7 @@ def _op10_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
 
 
 def _hopf_density(omega: jnp.ndarray, dx: float) -> jnp.ndarray:
-    """AVE Hopf / Chern-Simons self-inductance density (research/L3_electron_soliton/13_).
+    """AVE Hopf / Chern-Simons self-inductance density (research/_archive/L3_electron_soliton/13_).
 
     The Hopf 2-form F_ij = n_hat . (d_i n_hat x d_j n_hat) has a dual magnetic
     field B_k = (1/2) eps_kij F_ij. Its gauge potential A in Coulomb gauge
@@ -359,7 +359,7 @@ def _reflection_density(
     omega_yield: float,
     epsilon_yield: float,
 ) -> jnp.ndarray:
-    """AVE Op9-via-Op3 reflection energy density (research/L3_electron_soliton/12_).
+    """AVE Op9-via-Op3 reflection energy density (research/_archive/L3_electron_soliton/12_).
 
     Chain: local strain amplitude A -> saturation S -> impedance Z_eff -> Gamma.
         A^2 = |eps|^2/eps_yield^2 + |kappa|^2/omega_yield^2
@@ -392,7 +392,7 @@ def _reflection_density(
     # Regularize 1/S^2 to avoid divergence at exact yield (autograd safety).
     eps_reg = 1e-6
     # 1/64 factor is the explicit Gamma^2 coefficient from the continuum chain
-    # (research/L3_electron_soliton/12_ §3.4-3.5). Not a fit parameter.
+    # (research/_archive/L3_electron_soliton/12_ §3.4-3.5). Not a fit parameter.
     reflection = (1.0 / 64.0) * grad_S_sq / (S * S + eps_reg)
     return reflection
 
@@ -802,7 +802,7 @@ class CosseratField3D:
         # boundary at the simulation edge. Mirrors the K4 Sponge PML
         # (k4_tlm.py:174-190) applied to kinetic fields (u̇, ω̇) rather
         # than reflected voltages. Interior (d ≥ pml_thickness) has mask=1
-        # and is untouched. See research/L3_electron_soliton/58_cosserat_pml_derivation.md.
+        # and is untouched. See research/_archive/L3_electron_soliton/58_cosserat_pml_derivation.md.
         self.cos_pml_mask = np.ones((nx, ny, nz, 1), dtype=np.float64)
         if self.pml_thickness > 0:
             d_x = np.minimum(i, nx - 1 - i)
@@ -833,7 +833,7 @@ class CosseratField3D:
         self.k_op10 = 1.0
         self.k_refl = 1.0
         # k_hopf = pi/3 from the Hopf-invariant matching at Q_H = 6 (electron
-        # (2,3) winding), per research/L3_electron_soliton/13_ §3.2.
+        # (2,3) winding), per research/_archive/L3_electron_soliton/13_ §3.2.
         self.k_hopf = float(np.pi / 3.0)
         self.use_saturation = use_saturation
         self.omega_yield = float(np.pi)
@@ -871,7 +871,7 @@ class CosseratField3D:
         """
         Initialize the (2,3) torus-knot ansatz on the Cosserat ω-field.
 
-        DEPRECATION NOTE (per research/L3_electron_soliton/101_ §9 three-layer
+        DEPRECATION NOTE (per research/_archive/L3_electron_soliton/101_ §9 three-layer
         canonical, Grant 2026-04-30): the original "electron" naming is
         misleading. Per the three-layer canonical:
           Layer 1 (real-space curve): electron is 0₁ UNKNOT — not (2,3)
@@ -1020,7 +1020,7 @@ class CosseratField3D:
         winding — this distinguishes the unknot from the (2,3) torus-knot
         ansatz hosted by `initialize_electron_2_3_sector`.
 
-        Per research/L3_electron_soliton/101_ §9 (three-layer canonical):
+        Per research/_archive/L3_electron_soliton/101_ §9 (three-layer canonical):
             Layer 1 (real-space curve): unknot 0₁ (this seeder)
             Layer 2 (field bundle):    SU(2) double-cover via SO(3) → SU(2)
                                        Rodrigues projection of ω
@@ -1109,7 +1109,7 @@ class CosseratField3D:
         amplitude_scale: float = 1.0,
     ) -> None:
         """
-        Canonical name (per research/L3_electron_soliton/101_ §9, Grant
+        Canonical name (per research/_archive/L3_electron_soliton/101_ §9, Grant
         2026-04-30 three-layer canonical) for seeding a (2,3)-torus-knot
         ansatz on the Cosserat ω-field. Delegates to the historical
         `initialize_electron_2_3_sector`; preserved as backward-compat alias.
@@ -1222,7 +1222,7 @@ class CosseratField3D:
     def total_s11(self) -> float:
         """Field-level S11 objective: sum of |Gamma|^2 over tetrahedral
         neighbor pairs at every alive site. S11-minimization target per
-        research/L3_electron_soliton handoff 2026-04-20."""
+        research/_archive/L3_electron_soliton handoff 2026-04-20."""
         u_j = jnp.asarray(self.u)
         w_j = jnp.asarray(self.omega)
         return float(

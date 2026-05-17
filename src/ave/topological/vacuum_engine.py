@@ -1,7 +1,7 @@
 """
 AVE Fundamental 3D Vacuum Engine.
 
-Implements the design from `research/L3_electron_soliton/46_vacuum_engine_scope.md`:
+Implements the design from `research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md`:
 a general-purpose simulator for all four Axiom-4 operating regimes with
 temperature-dependent vacuum states, rigorous unit conventions, and
 composable sources / observers.
@@ -84,9 +84,9 @@ array creates a standing wave if PLL/autoresonant"). Same mechanism as
 Propulsion Ch 5 autoresonant rupture, applied to coherent kernel
 amplification rather than energy delivery.
 
-Cross-refs: research/L5/axiom_derivation_status.md (A-032 + A-034);
+Cross-refs: research/_archive/L5/axiom_derivation_status.md (A-032 + A-034);
 backmatter/07_universal_saturation_kernel.tex (catalog);
-research/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_*.md.
+research/_archive/L3_electron_soliton/2026-05-15_A-034_measurement_hierarchy_*.md.
 
 Physics parameters (S-gate resolutions 2026-04-22)
 --------------------------------------------------
@@ -108,10 +108,10 @@ Phase III-B results (v1 + v2)
 
 References
 ----------
-- research/L3_electron_soliton/46_vacuum_engine_scope.md (design scope + C-findings)
-- research/L3_electron_soliton/47_thermal_lattice_noise.md (σ_V, σ_ω derivations)
-- research/L3_electron_soliton/49_dark_wake_bemf_foc_synthesis.md (ecosystem synthesis)
-- research/L3_electron_soliton/42_coupled_simulator_validation.md (Phase II Coupled* core)
+- research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md (design scope + C-findings)
+- research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md (σ_V, σ_ω derivations)
+- research/_archive/L3_electron_soliton/49_dark_wake_bemf_foc_synthesis.md (ecosystem synthesis)
+- research/_archive/L3_electron_soliton/42_coupled_simulator_validation.md (Phase II Coupled* core)
 - AVE-Propulsion/src/scripts/simulate_warp_metric_tensors.py (τ_zx source)
 - AVE-Propulsion/manuscript/vol_propulsion/chapters/05_autoresonant_dielectric_rupture.tex (PLL picture)
 - AVE-PONDER/src/scripts/generate_ponder_01_spice_netlist.py (η_vac calibration K_0=0.208)
@@ -153,7 +153,7 @@ _PORT_HAT = np.array(
 def _forward_t2_port_weights(direction: tuple[float, float, float]) -> np.ndarray:
     """T₂-projected forward port weights for a +d̂ plane-wave source.
 
-    See `research/L3_electron_soliton/30_photon_identification.md` and the
+    See `research/_archive/L3_electron_soliton/30_photon_identification.md` and the
     original `photon_propagation.forward_port_weights`. Raw weights
     `max(0, −d̂·p̂_n)`, then A₁ projection (subtract mean) to get the
     T₂-only photon pattern, then L² normalization.
@@ -449,7 +449,7 @@ class BondObserver(Observer):
     NodeResonanceObserver (V_SNAP → V_yield via factor 1/α).
 
     References:
-      - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §3, §9.2
+      - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §3, §9.2
       - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:223-227
       - src/ave/core/k4_tlm.py::K4Lattice3D.Phi_link
 
@@ -564,7 +564,7 @@ class NodeResonanceObserver(Observer):
     within 5% across `A² ∈ (0, α/2)` on the v2 headline config.
 
     References:
-      - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
+      - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
       - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
     """
 
@@ -574,7 +574,7 @@ class NodeResonanceObserver(Observer):
         # r² per Vol 1 Ch 7:12; no /α conversion needed. Cosserat's A² is
         # yield-normalized to its own ε_yield/ω_yield thresholds, also
         # canonical r² at subatomic scale (ε_yield=1 is TKI-derived).
-        # See research/L3_electron_soliton/50_autoresonant_pair_creation.md
+        # See research/_archive/L3_electron_soliton/50_autoresonant_pair_creation.md
         # §0.1 r3 and VACUUM_ENGINE_MANUAL §17 A14 r6.
         V_sq = _v_squared_per_site(engine.k4.V_inc)
         A2_k4 = V_sq / (engine.V_SNAP**2)
@@ -872,7 +872,7 @@ class CosseratBeltramiSource(Source):
 
     References:
     - doc 54_ §6 (asymmetric μ/ε saturation mechanism)
-    - research/L3_electron_soliton/20_chirality_projection_sub_theorem.md
+    - research/_archive/L3_electron_soliton/20_chirality_projection_sub_theorem.md
       (κ_chiral = 1.2·α derivation for electron (2,3) winding)
     - STAGE6_V4_HANDOFF §9 G-11 option (c)
     - Vol 1 Ch 7:252 (symmetric vs asymmetric saturation)
@@ -1069,7 +1069,7 @@ class SpatialDipoleCPSource(Source):
 
     References:
         - STAGE6_V4_HANDOFF.md §9 G-11 option (a)
-        - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §6
+        - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §6
         - existing CWSource for envelope + port-weight conventions
     """
 
@@ -1229,8 +1229,8 @@ class PairNucleationGate(Observer):
     discrete-lattice scale.
 
     References:
-        - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
-        - research/L3_electron_soliton/27_step6_phase_space_Q.md (Q=1/α derivation)
+        - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
+        - research/_archive/L3_electron_soliton/27_step6_phase_space_Q.md (Q=1/α derivation)
         - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:189-203
           (Bingham plastic / TVS Zener / Slipstream)
         - Kelvin 1867 "On Vortex Atoms" — topological protection in frictionless fluid

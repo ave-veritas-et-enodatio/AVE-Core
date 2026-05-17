@@ -455,7 +455,7 @@ Using the canonical \texttt{AVE\_VACUUM\_CELL} solver framework (\url{src/ave/so
 
 \noindent\textbf{Engine cross-check \& The K4-Bethe-Tree Substrate Was Wrong:}\footnote{Annotation updated 2026-05-13 evening. Original framing (K4 substrate gives $-0.0094$, claimed to be ``where QED breaks down'') was refuted by Route~B closure on the Cosserat unknot substrate.} The earlier \texttt{g\_minus\_2\_lattice.py} solver (radial K4 Bethe tree at depth 3) computed $C_2 \approx -0.0094$, deviating from the Petermann continuum limit ($-0.328$) by approximately $97\%$. This was originally framed as ``where continuous QED mathematics breaks down against the discrete vacuum hardware.''
 
-\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\texttt{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \texttt{research/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-wake $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
+\noindent\textbf{Correction:} the K4 Bethe-tree was the wrong substrate. The canonical AVE electron is the $(2,3)$ Cosserat unknot (\texttt{src/ave/topological/cosserat\_field\_3d.py}, validated at Round~12, \texttt{research/\_archive/L3\_electron\_soliton/102\_round\_12\_unknot\_cosserat\_working.md}). On this substrate, the dark-wake $\times$ kernel-asymmetry correlation derives $C_2$ from substrate dynamics directly:
 \begin{equation*}
 C_2^{\text{AVE}} = \frac{2}{\pi\alpha}\langle (S_d - S_q)\,\tau_{zx}\rangle = -0.32846
 \end{equation*}

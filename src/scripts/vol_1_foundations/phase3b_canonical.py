@@ -2,7 +2,7 @@
 Phase 3b X1-prime — canonical hedgehog at Regime II/III boundary.
 
 Per §9 deep research findings in
-research/L3_electron_soliton/32_phase3b_axiom_compliant_redesign.md:
+research/_archive/L3_electron_soliton/32_phase3b_axiom_compliant_redesign.md:
 
   - Hedgehog (power-law) is the AVE-canonical envelope (Faddeev-Skyrme
     derived, cited by cosserat_field_3d.initialize_electron_2_3_sector).

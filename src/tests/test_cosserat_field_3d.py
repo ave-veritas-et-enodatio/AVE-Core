@@ -9,7 +9,7 @@ Covers:
 - Energy functional returns finite non-negative values.
 - Diagnostic readouts (R, r, c, Q) run without error on the initial state.
 
-Reference: research/L3_electron_soliton/08_, 09_.
+Reference: research/_archive/L3_electron_soliton/08_, 09_.
 """
 import numpy as np
 
@@ -539,11 +539,11 @@ def test_reflection_gradient_matches_finite_difference():
 
 # ------------------------------------------------------------------
 # Unknot canonical electron seeder (Round 12)
-# Per research/L3_electron_soliton/101_ §9 three-layer canonical:
+# Per research/_archive/L3_electron_soliton/101_ §9 three-layer canonical:
 #   Layer 1 (real-space curve): unknot 0₁ at horn torus R = r
 #   Layer 2 (field bundle):     SU(2) double-cover via SO(3) → SU(2)
 #                               Rodrigues projection of ω
-# Per research/L3_electron_soliton/102_ §2.6 pre-registered binary criteria.
+# Per research/_archive/L3_electron_soliton/102_ §2.6 pre-registered binary criteria.
 # ------------------------------------------------------------------
 
 def test_unknot_seeder_omega_is_loop_tangent():

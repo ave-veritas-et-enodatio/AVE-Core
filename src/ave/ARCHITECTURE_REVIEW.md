@@ -395,7 +395,7 @@ changes):
 
 ### A-034: Universal Saturation-Kernel Strain-Snap Mechanism
 
-**Canonical** L5 entry (`research/L5/axiom_derivation_status.md` A-034)
+**Canonical** L5 entry (`research/_archive/L5/axiom_derivation_status.md` A-034)
 identifies $S(A) = \sqrt{1 - A^2}$ as the universal mechanism governing
 every topological-reorganization event at every scale. **19 canonical
 instances span 21 orders of magnitude.** The engine's Op2 (`universal_saturation`
@@ -451,7 +451,7 @@ energy delivery.
 
 ### Cross-references
 
-- L5 A-034: `research/L5/axiom_derivation_status.md`
+- L5 A-034: `research/_archive/L5/axiom_derivation_status.md`
 - Backmatter Ch 7 catalog: `manuscript/backmatter/07_universal_saturation_kernel.tex`
 - Vol 3 Ch 4 §TKI Strain-Snap: `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex`
 - Trampoline §7.5: `manuscript/ave-kb/common/trampoline-framework.md`

@@ -28,8 +28,8 @@ Load-bearing invariants:
    theorem (A²_total = A²_K4 + A²_cos; orthogonal-sector additivity).
 
 References:
-    - research/L3_electron_soliton/50_autoresonant_pair_creation.md §0.1 r3
-    - research/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
+    - research/_archive/L3_electron_soliton/50_autoresonant_pair_creation.md §0.1 r3
+    - research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
     - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:711
     - manuscript/vol_1_foundations/chapters/07_regime_map.tex:12,:33,:53
 """

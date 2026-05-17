@@ -51,7 +51,7 @@ References:
   - ave.topological.cosserat_field_3d: CosseratField3D
   - ave.topological.vacuum_engine: VacuumEngine3D
   - doc 30 §1.1 (port-space scatter matrix)
-  - research/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
+  - research/_archive/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
 """
 from __future__ import annotations
 

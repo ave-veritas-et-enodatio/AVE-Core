@@ -1,6 +1,6 @@
 """Stage 0 basin-mapping audit — empirical characterization of W functional stationary states.
 
-Per [doc 71_](../../research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md):
+Per [doc 71_](../../research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md):
 Round 7 Stage 0 precondition. Round 6 closure + Phase 5 case (b') + F17-K v3 (i)
 all converge on "corpus-canonical seeds dissolve under engine self-dynamics."
 This audit characterizes WHERE the engine's W functional actually has stationary
@@ -29,9 +29,9 @@ Single-bond, central-cell, single-resolution N=24. Saturation-pin variant + larg
 sensitivity are deferred follow-ups per doc 71_ §8.
 
 References:
-- research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md (this audit's methodology)
-- research/L3_electron_soliton/66_single_electron_first_pivot.md §16 (TDI baseline)
-- research/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
+- research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md (this audit's methodology)
+- research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md §16 (TDI baseline)
+- research/_archive/L3_electron_soliton/67_lc_coupling_reciprocity_audit.md §17-§26 (F17-K arc)
 - src/ave/topological/cosserat_field_3d.py:1228-1284 (TDI step implementation)
 """
 from __future__ import annotations
@@ -342,7 +342,7 @@ def main() -> dict:
 
     payload = {
         "pre_registration": "P_basin_audit_GT_stationarity",
-        "doc": "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md",
+        "doc": "research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md",
         "constants": {
             "PHI_SQ": PHI_SQ, "INV_PHI_SQ": INV_PHI_SQ,
             "GT_PEAK_OMEGA": GT_PEAK_OMEGA, "A26_AMP_SCALE": A26_AMP_SCALE,

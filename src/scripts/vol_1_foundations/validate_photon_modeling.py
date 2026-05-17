@@ -20,7 +20,7 @@ when seeded with helical Cosserat ω at sub-yield amplitude? Per A47 v18.
 Pre-registered acceptance criteria (verbatim per A47 v11b):
   See PREREG dict below. Map directly to doc 30 §3.1 properties.
 
-Documentation: research/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
+Documentation: research/_archive/L3_electron_soliton/107_ave_axiom_compliant_rifled_photon.md
 
 Outputs:
   - assets/photon_modeling_validation_panels.png

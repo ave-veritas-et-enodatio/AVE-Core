@@ -1,6 +1,6 @@
 """
 Memristive Op14 tests — pins the K4-sector memristive saturation dynamics
-derived in [doc 59_](research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md).
+derived in [doc 59_](research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md).
 
 Tests the properties specified in doc 59_ §10.4:
   1. τ_relax constant is ℓ_node/c = 1 in native units (doc 59_ §1)
@@ -13,7 +13,7 @@ Tests the properties specified in doc 59_ §10.4:
 Reference:
   - src/ave/core/k4_tlm.py::K4Lattice3D._update_z_local_field (memristive branch)
   - src/ave/core/constants.py::TAU_RELAX_NATIVE
-  - research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §9
+  - research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §9
 
 Scope: K4-sector memristive only. Cosserat-sector memristive (S_μ, S_ε
 hysteresis) is deferred to a second pass per doc 59_ §10.2.

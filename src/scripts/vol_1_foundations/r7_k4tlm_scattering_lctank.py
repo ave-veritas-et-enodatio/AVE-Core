@@ -2,7 +2,7 @@
 LC-tank Hessian-of-W eigenmode sweep — fresh-session implementation of
 P_phase6_k4tlm_scattering_lctank per doc 73_ §2-§5.
 
-Per [doc 73_](../../research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md):
+Per [doc 73_](../../research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md):
 discrete K4-TLM scatter+connect transmission operator T = C·S(z_local) for the V-block
 (unitary eigenvalue problem with eigenvalues on unit circle), Cosserat (u,ω) LC-tank
 Hessian-of-W for the Cos-block (real-symmetric eigenvalue problem), Op14 cross-coupling
@@ -13,7 +13,7 @@ error carve-out invoked on-record per Grant approval ("confirmed 6.1" 2026-04-25
 Subsequent run is committed to operator choice barring catastrophic methodology error.
 
 References:
-- research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md (active methodology)
+- research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md (active methodology)
 - manuscript/predictions.yaml::P_phase6_k4tlm_scattering_lctank (frozen pre-reg)
 - src/ave/core/k4_tlm.py:36-65 build_scattering_matrix (S block)
 - src/ave/core/k4_tlm.py:348-426 _connect_all (C connect operator structure)
@@ -533,7 +533,7 @@ def main():
 
     payload = {
         "pre_registration": "P_phase6_k4tlm_scattering_lctank",
-        "doc": "research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md",
+        "doc": "research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md",
         "constants": {
             "N_LATTICE": N_LATTICE, "R_ANCHOR": R_ANCHOR,
             "OMEGA_COMPTON": OMEGA_COMPTON, "DT": DT,

@@ -3,7 +3,7 @@ Pre-registered unit tests for PairNucleationGate — Stage 6 Phase 5.
 
 Pins the observer-with-side-effect gate that nucleates Kelvin-style
 vortex pairs inside Bingham-plastic capsules per
-[doc 54_ §7](research/L3_electron_soliton/54_pair_production_axiom_derivation.md):
+[doc 54_ §7](research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md):
 
     C1: both endpoints of an A→B bond reach Meissner saturation
         A²_μ(r_A) ≥ sat_frac  AND  A²_μ(r_B) ≥ sat_frac
@@ -26,8 +26,8 @@ periods post-drive-shutoff" — runs in a separate driver script
 
 Reference:
   - src/ave/topological/vacuum_engine.py::PairNucleationGate
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
-  - research/L3_electron_soliton/27_step6_phase_space_Q.md (Q=1/α)
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
+  - research/_archive/L3_electron_soliton/27_step6_phase_space_Q.md (Q=1/α)
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:189-203
     (Bingham plastic / TVS Zener / Slipstream)
 """

@@ -1,6 +1,6 @@
 """F17-K Phase 5c — coupled K4+Cosserat S₁₁ relaxation eigenmode finder.
 
-Per [doc 68_ §7](../../research/L3_electron_soliton/68_phase_quadrature_methodology.md#L7)
+Per [doc 68_ §7](../../research/_archive/L3_electron_soliton/68_phase_quadrature_methodology.md#L7)
 the AVE-native (Axiom-3 / Minimum Reflection Principle; legacy name:
 Effective Action Principle) eigenmode finder for the coupled engine is
 **gradient descent on |S₁₁|²** over the joint state (V_inc, u, ω), not
@@ -8,7 +8,7 @@ raw VacuumEngine3D.step() time-evolution. |S₁₁|² is the EE-projection
 form of the substrate-native |Γ|² minimization that Axiom 3 demands.
 
 Mirrors `cosserat_field_3d.py:relax_s11` (Cosserat-only, validated by
-[doc 34_ X4b](../../research/L3_electron_soliton/34_x4_constrained_s11.md))
+[doc 34_ X4b](../../research/_archive/L3_electron_soliton/34_x4_constrained_s11.md))
 and extends to coupled engine by composing total saturation:
 
     A²_total(x) = V_sq(x)/V_SNAP² + ε²(x)/ε_yield² + κ²(x)/ω_yield²

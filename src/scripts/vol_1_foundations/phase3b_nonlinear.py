@@ -39,7 +39,7 @@ ALPHA_INV_TARGET = 1.0 / ALPHA
 def main():
     print("=" * 72)
     print("PHASE 3b X1 — nonlinear=True (node-level Axiom 4 saturation)")
-    print("Pre-registered in research/L3_electron_soliton/"
+    print("Pre-registered in research/_archive/L3_electron_soliton/"
           "32_phase3b_axiom_compliant_redesign.md §9.5")
     print("=" * 72)
 

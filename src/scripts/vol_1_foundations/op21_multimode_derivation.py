@@ -2,7 +2,7 @@
 Op21 Multi-Mode Q Rigorization — Item 1 of 2026-04-21 next-steps plan.
 
 Closes the load-bearing weakness of Theorem 3.1 (reframed Q-factor)
-at section 5/9.1 of `research/L3_electron_soliton/17_theorem_3_1_reframed_Q_factor.md`.
+at section 5/9.1 of `research/_archive/L3_electron_soliton/17_theorem_3_1_reframed_Q_factor.md`.
 
 Derivation chain:
   1. Op21 original: Q = ell, where ell is wavelength count around a 1D
@@ -41,7 +41,7 @@ Numerical protocol:
     to <1%.
 
 Companion doc (theorem update): section 5 of
-`research/L3_electron_soliton/17_theorem_3_1_reframed_Q_factor.md`.
+`research/_archive/L3_electron_soliton/17_theorem_3_1_reframed_Q_factor.md`.
 """
 
 import numpy as np

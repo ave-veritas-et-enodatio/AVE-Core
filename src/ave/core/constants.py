@@ -64,7 +64,7 @@ of ε₀, μ₀, c, ℏ, and e.
 - Master Equation FDTD canonical engine: `src/ave/core/master_equation_fdtd.py`
 - K4-TLM canonical engine: `src/ave/core/k4_tlm.py`
 - Closure-path planning: `manuscript/ave-kb/common/closure-roadmap.md`
-- L5 framework status: `research/L5/axiom_derivation_status.md`
+- L5 framework status: `research/_archive/L5/axiom_derivation_status.md`
   (A-001, A-026 through A-031 canonical)
 """
 
@@ -268,7 +268,7 @@ NATIVE_TO_SI_VELOCITY: float = C_0  # 1 native velocity = c [m/s]
 
 # Thixotropic relaxation time — minimum state-change time of the K4 lattice.
 # Derived from Ax1 (ℓ_node from K4 pitch) + Ax3 (propagation at c) in
-# research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §1.
+# research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §1.
 # Any saturation-state change must propagate at minimum one lattice spacing
 # at wave speed c; no faster relaxation mode is axiom-permitted.
 # Matches Vol 4 Ch 1:214 (thixotropic hysteresis) exactly.

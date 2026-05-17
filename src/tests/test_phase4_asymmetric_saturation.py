@@ -17,10 +17,10 @@ Load-bearing invariants:
    single-kernel S = √(1−A²_total) form; Z_eff = Z_0·(1−A²)^(−1/4).
 
 References:
-- research/L3_electron_soliton/54_pair_production_axiom_derivation.md §6
+- research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §6
 - manuscript/vol_1_foundations/chapters/07_regime_map.tex:252
-- research/L3_electron_soliton/20_chirality_projection_sub_theorem.md
-- research/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
+- research/_archive/L3_electron_soliton/20_chirality_projection_sub_theorem.md
+- research/_archive/L3_electron_soliton/VACUUM_ENGINE_MANUAL.md §17 A14 r6
 """
 from __future__ import annotations
 

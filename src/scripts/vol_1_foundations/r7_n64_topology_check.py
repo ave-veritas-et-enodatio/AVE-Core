@@ -1,6 +1,6 @@
 """V-block N=64 GT_corpus topology check — concern #1 from auditor on commit b5ecc89.
 
-Per [doc 74_ §7.1](../../research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md):
+Per [doc 74_ §7.1](../../research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md):
 the Mode I candidate at N=64 GT_corpus passes the frequency criterion (gap
 0.45% < α/√2 = 0.73%), but the auditor flags this as load-bearing rather
 than confirmatory — at N=64 the K4-TLM band density is high enough that

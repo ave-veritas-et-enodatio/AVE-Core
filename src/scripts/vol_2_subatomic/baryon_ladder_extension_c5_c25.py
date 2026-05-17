@@ -1,7 +1,7 @@
 """
 Phase 1 — Baryon Ladder Extension to c=5-25.
 
-Per [doc 98 §3.1](research/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md):
+Per [doc 98 §3.1](research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md):
 extends `BARYON_LADDER` from c=5,7,9,11,13 (current production) to c=5-25 (odd
 crossing numbers) covering remaining PDG baryon resonances.
 

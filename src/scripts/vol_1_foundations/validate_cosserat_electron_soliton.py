@@ -2,7 +2,7 @@
 Phase-3 validation: does the Cosserat field solver relax to the Golden
 Torus from the (2,3) topological sector?
 
-Dual-run protocol per research/L3_electron_soliton/09_ §4:
+Dual-run protocol per research/_archive/L3_electron_soliton/09_ §4:
   1. Initialize near-exact Golden Torus geometry -> relax -> measure.
   2. Initialize deliberately off-Golden -> relax -> measure.
 

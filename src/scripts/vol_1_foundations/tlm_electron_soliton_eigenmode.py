@@ -231,8 +231,8 @@ def initialize_quadrature_2_3_eigenmode(
     """F17-K Phase 5 — phase-coherent (V_inc, V_ref) seed at 90° quadrature
     in (2,3) phase-space pattern.
 
-    AVE-native eigenmode initial condition per [doc 28_:64-67](../../research/L3_electron_soliton/28_two_node_electron_synthesis.md#L64)
-    and [doc 68_ §7](../../research/L3_electron_soliton/68_phase_quadrature_methodology.md#L7):
+    AVE-native eigenmode initial condition per [doc 28_:64-67](../../research/_archive/L3_electron_soliton/28_two_node_electron_synthesis.md#L64)
+    and [doc 68_ §7](../../research/_archive/L3_electron_soliton/68_phase_quadrature_methodology.md#L7):
     the (V_inc, V_ref) phasor pair traces the (2,3) torus-knot winding
     pattern in phase-space at R_phase=φ/2, r_phase=(φ-1)/2. At t=0:
 
@@ -729,7 +729,7 @@ def _contour_winding(lattice, R_major: float, r_minor: float,
 def extract_chirality_measured(lattice, R_major: float) -> dict:
     """Extract signed (p, q) windings from the TLM lattice and compute χ.
 
-    Per Sub-theorem 3.1.1 in `research/L3_electron_soliton/20_chirality_projection_sub_theorem.md`:
+    Per Sub-theorem 3.1.1 in `research/_archive/L3_electron_soliton/20_chirality_projection_sub_theorem.md`:
 
         χ_(p,q) = α · pq / (p+q)
 

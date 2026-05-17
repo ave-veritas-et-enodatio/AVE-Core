@@ -5,7 +5,7 @@ equipartition variances exist in the suite. This file closes that gap
 (~1 day effort per Grant's own manual note: "highest-leverage non-
 Grant-adjudication item").
 
-Pins the Maxwell-Boltzmann variances per [doc 47_ §2](../../research/L3_electron_soliton/47_thermal_lattice_noise.md)
+Pins the Maxwell-Boltzmann variances per [doc 47_ §2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
 and [VacuumEngine3D.initialize_thermal](../ave/topological/vacuum_engine.py):
 
     σ_V per port = √(4π·T/α) · V_SNAP       (ONLY if thermalize_V=True)
@@ -16,7 +16,7 @@ and [VacuumEngine3D.initialize_thermal](../ave/topological/vacuum_engine.py):
 
 Temperature T is in m_e c² natural units (T = 1 means kT = electron
 rest energy). Stability requires `thermalize_V=True` runs at
-T < α/(4π) ≈ 5.8×10⁻⁴ per [doc 47_ §2.2](../../research/L3_electron_soliton/47_thermal_lattice_noise.md)
+T < α/(4π) ≈ 5.8×10⁻⁴ per [doc 47_ §2.2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
 (AVE Schwinger temperature ~3.44 MK).
 
 Sample-size discipline: for N=16 lattice, ~2·(N/2)³ ≈ 2048 active sites
@@ -24,15 +24,15 @@ Sample-size discipline: for N=16 lattice, ~2·(N/2)³ ≈ 2048 active sites
 estimate is σ/√(2·n_sample) ≈ 0.9%, so 5% tolerance is safe.
 
 Tests also validate:
-- T=0 gives deterministic zero fields (C1 — [46_ §2.1](../../research/L3_electron_soliton/46_vacuum_engine_scope.md))
+- T=0 gives deterministic zero fields (C1 — [46_ §2.1](../../research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md))
 - Default thermalize_V=False leaves V_inc = 0 even for hot Cosserat
 - Seed reproducibility
 - σ ∝ √T scaling across multiple temperatures
 - Mean ≈ 0 within standard error (no systematic bias)
 
 References:
-- research/L3_electron_soliton/47_thermal_lattice_noise.md §2 (canonical variances)
-- research/L3_electron_soliton/46_vacuum_engine_scope.md §2.1 (C1 cold-vacuum determinism)
+- research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md §2 (canonical variances)
+- research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md §2.1 (C1 cold-vacuum determinism)
 - src/ave/topological/vacuum_engine.py ::VacuumEngine3D.initialize_thermal
 - VACUUM_ENGINE_MANUAL §17 A10 (audit item closed by this file)
 """

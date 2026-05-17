@@ -110,7 +110,7 @@ def verify():
         print("Drift detection: solver has diverged from manuscript-table state.")
         print("Per A47 v11d: any solver change replacing axiom-chain-anchored")
         print("docstrings with hand-waves should have been flagged at PR time.")
-        print("See research/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md")
+        print("See research/_archive/L3_electron_soliton/100_a47_v9_reframing_line_687_retraction.md")
         return 1
 
 

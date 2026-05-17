@@ -1,7 +1,7 @@
 """r10_path_alpha_v8_corrected_measurements.py — Round 10+ Phase 1 Direction 3'.2 v8.
 
 Pre-reg P_phase11_path_alpha_v8_corrected_measurements. Successor to v7
-([doc 86](../../research/L3_electron_soliton/86_path_alpha_v7_helical_beltrami_thermal_sweep.md))
+([doc 86](../../research/_archive/L3_electron_soliton/86_path_alpha_v7_helical_beltrami_thermal_sweep.md))
 which Mode II'd at every T value (persistence + ring localization PASS;
 Beltrami |cos_sim| = 0.52 + loop flux +496 growing FAIL with confirmed
 mechanical measurement-method causes). v8 implements the corrected

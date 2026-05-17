@@ -16,8 +16,8 @@ The AVE framework reached **structural closure** on 2026-05-15. Five criteria me
 **Canonical entry points** (read these for AVE physics):
 - **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — single canonical reference covering substrate vocabulary, ground-up build, three substrate invariants 𝓜/𝓠/𝓙, substrate-observability rule (fractal application), inter-cell coupling and gravity projection, two-engine architecture, "God's Hand" cosmic IC.
 - **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact, 7 tiers, 28 actions tracked.
-- **L5 axiom-status:** [`research/L5/axiom_derivation_status.md`](research/L5/axiom_derivation_status.md) — A-001 through A-034 framework-level claims (canonical / open / closed). A-034 (canonical 2026-05-15 evening) is the Universal Saturation-Kernel Strain-Snap Mechanism with 19-instance cross-scale catalog.
-- **L5 manuscript queue:** [`research/L5/manuscript_pending.md`](research/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
+- **L5 axiom-status:** [`research/_archive/L5/axiom_derivation_status.md`](research/_archive/L5/axiom_derivation_status.md) — A-001 through A-034 framework-level claims (canonical / open / closed). A-034 (canonical 2026-05-15 evening) is the Universal Saturation-Kernel Strain-Snap Mechanism with 19-instance cross-scale catalog.
+- **L5 manuscript queue:** [`research/_archive/L5/manuscript_pending.md`](research/_archive/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
 
 **Path forward:**
 - **Theoretical closure** pending: Q-G47 Session 6+ (THE keystone, 5-session plan at `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md`); Vol 3 Ch 4 explicit ξ derivation; three-route consistency verification.

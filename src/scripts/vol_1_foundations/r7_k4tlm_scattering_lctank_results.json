@@ -1,6 +1,6 @@
 {
   "pre_registration": "P_phase6_k4tlm_scattering_lctank",
-  "doc": "research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md",
+  "doc": "research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md",
   "constants": {
     "N_LATTICE": 32,
     "R_ANCHOR": 10.0,

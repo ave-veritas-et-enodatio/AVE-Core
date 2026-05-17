@@ -1,7 +1,7 @@
 """r10_round_11_vi_chair_ring_eigenmode.py — Round 11 (vi) Stride 3 analytical work.
 
 Solve the discrete Beltrami eigenvalue problem ∇×A = k·A on the chair-ring +
-1-step K4 neighborhood graph, per [doc 89 §7.4](../../research/L3_electron_soliton/89_round_11_vi_stride_2_topological_mismatch.md).
+1-step K4 neighborhood graph, per [doc 89 §7.4](../../research/_archive/L3_electron_soliton/89_round_11_vi_stride_2_topological_mismatch.md).
 
 DISCRETE CURL OPERATOR (derived analytically):
 At each node n with 4 K4 ports {ê_i: i=0..3} pointing in 4 tetrahedral directions:

@@ -1,7 +1,7 @@
 """
 2.A — Gamma-Photon Pair Production Test.
 
-Per [doc 30 §4.3](research/L3_electron_soliton/30_photon_identification.md):
+Per [doc 30 §4.3](research/_archive/L3_electron_soliton/30_photon_identification.md):
 "A single gamma photon at frequency 2·ω_C (energy 2m_ec²) can trigger
 saturation at two distinct lattice regions simultaneously, creating
 two TIR bubbles. The photon's transverse field pattern splits across

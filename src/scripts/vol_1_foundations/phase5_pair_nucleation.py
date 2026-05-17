@@ -41,7 +41,7 @@ Usage:
 
 Reference:
   - src/ave/topological/vacuum_engine.py::PairNucleationGate
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §7
   - manuscript/predictions.yaml::P_phase5_nucleation
   - Kelvin 1867 "On Vortex Atoms" (topological protection)
 """

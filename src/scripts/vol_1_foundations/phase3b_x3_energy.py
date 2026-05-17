@@ -1,7 +1,7 @@
 """
 Phase 3b X3 — energy minimization on rich Cosserat functional.
 
-Pre-registered in research/L3_electron_soliton/33_phase3b_x3_energy_analysis.md.
+Pre-registered in research/_archive/L3_electron_soliton/33_phase3b_x3_energy_analysis.md.
 
 Test: does `relax_to_ground_state()` on the Cosserat field (with Op10 + Hopf +
 reflection + saturation-modulated elastic terms) select the electron when
@@ -200,7 +200,7 @@ def classify(res: dict) -> str:
 def main():
     print("=" * 72)
     print("PHASE 3b X3 — Cosserat energy minimization (rich functional)")
-    print("Pre-registered in research/L3_electron_soliton/"
+    print("Pre-registered in research/_archive/L3_electron_soliton/"
           "33_phase3b_x3_energy_analysis.md")
     print("=" * 72)
 

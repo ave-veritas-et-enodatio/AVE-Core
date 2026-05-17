@@ -1,7 +1,7 @@
 """
 Φ_link Sector Measurement — long-standing gap closure.
 
-Per [doc 75 line 140](research/L3_electron_soliton/75_cosserat_energy_conservation_violation.md):
+Per [doc 75 line 140](research/_archive/L3_electron_soliton/75_cosserat_energy_conservation_violation.md):
 "the corpus electron, if it exists, lives somewhere we haven't probed
 (Φ_link sector / hybrid V≠0 ∧ ω≠0 / different topology)"
 

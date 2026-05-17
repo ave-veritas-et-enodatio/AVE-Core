@@ -10,7 +10,7 @@
 
 **Discipline rule.** Every remaining action in the framework's path to publication is logged in this doc. If it's not here, it's not happening. Status transitions are real-time, not retroactive.
 
-**Supersedes:** `research/L3_electron_soliton/114_next_steps_consolidation_plan.md` for forward-looking planning. Doc 114 remains historical record of the post-2026-05-14 session.
+**Supersedes:** `research/_archive/L3_electron_soliton/114_next_steps_consolidation_plan.md` for forward-looking planning. Doc 114 remains historical record of the post-2026-05-14 session.
 
 ---
 
@@ -291,7 +291,7 @@ No dependency on Q-G47 Session 6+. Can run anytime.
 
 **Documentation target:**
 - Vol 3 Ch 11 §sec:first_law expanded with axiom-first derivation
-- Research doc at AVE-Core `research/L3_electron_soliton/` (or successor location)
+- Research doc at AVE-Core `research/_archive/L3_electron_soliton/` (or successor location)
 - A-002 status closure
 
 **L5 ID:** A-002
@@ -463,18 +463,30 @@ Cleaner after Tier 3 closes (for confidence) but not strictly blocked.
 
 **Documentation target:** new `docs/picture-audit/` directory; ave-prereg skill updated
 
-### §9.3 L3 + L5 deletion with cross-reference migration
+### §9.3 L3 + L5 archive + deletion roadmap
 
-**Scope:** the original cleanup that triggered the structural-closure session
+**Status:** **PARTIAL APPLIED 2026-05-16 late evening** — archive landed (Option B per discussion); hard deletion deferred to post-publication.
 
-**Effort:** 2-3 hours
+**What landed (Option B archive):**
+- `git mv research/L3_electron_soliton research/_archive/L3_electron_soliton/`
+- `git mv research/L5 research/_archive/L5/`
+- `git mv research/discussions research/_archive/discussions/`
+- All cross-references in KB / manuscript / src / tests / yaml / root docs updated to point at `research/_archive/...`
+- Audit trail preserved; visually demoted from active workflow; reversible.
 
-**Depends on:** §9.1 (manuscript_pending mostly empty); §8.3 (App F rows derived); all canonical content propagated to chapter-bound homes
+**What's still deferred (hard deletion, future option):**
 
-**Documentation target:**
-- Verify no orphan cross-references remain
-- `git rm -r research/L3_electron_soliton/ research/L5/`
-- Single commit referencing the L5-driven incorporation work history
+**Scope:** complete removal of `research/_archive/` once publication-ready.
+
+**Effort:** ~1 hour (just `git rm -r` + cross-ref re-audit).
+
+**Depends on:** §9.1 (manuscript_pending mostly empty); §8.3 (App F rows derived); all canonical content propagated to chapter-bound homes; **L5 living-tracker function migrated to KB if needed**.
+
+**Documentation target (if/when hard-deleted):**
+- Verify no orphan cross-references remain (none currently; all → `_archive/`)
+- Migrate L5 living trackers to `ave-kb/common/` if their function is still needed
+- `git rm -r research/_archive/L3_electron_soliton/ research/_archive/L5/ research/_archive/discussions/`
+- Single commit documenting the migration
 
 ### §9.4 Backmatter "Framework Status" section
 
@@ -569,14 +581,14 @@ After every significant work session:
 **Q-G47 closure plan:** coordinated in a separate substrate-scale workstream; canonical AVE-Core anchors in Vol 1 Ch~\ref{ch:macroscopic_moduli}
 
 **L5 trackers:**
-- `research/L5/manuscript_pending.md` (E-NNN manuscript queue)
-- `research/L5/engine_pending.md` (E-NNN engine queue)
-- `research/L5/axiom_derivation_status.md` (A-NNN framework-level claims)
-- `research/L5/living_documentation_tracker.md` (L3 doc index + clash registry)
-- `research/L5/terminology_canonical.md` (substrate-native vocab)
-- `research/L5/cross_repo_references.md` (sibling-repo path catalog)
+- `research/_archive/L5/manuscript_pending.md` (E-NNN manuscript queue)
+- `research/_archive/L5/engine_pending.md` (E-NNN engine queue)
+- `research/_archive/L5/axiom_derivation_status.md` (A-NNN framework-level claims)
+- `research/_archive/L5/living_documentation_tracker.md` (L3 doc index + clash registry)
+- `research/_archive/L5/terminology_canonical.md` (substrate-native vocab)
+- `research/_archive/L5/cross_repo_references.md` (sibling-repo path catalog)
 
-**Historical precursor:** `research/L3_electron_soliton/114_next_steps_consolidation_plan.md` (post-2026-05-14 session plan; superseded by this doc for forward-looking planning)
+**Historical precursor:** `research/_archive/L3_electron_soliton/114_next_steps_consolidation_plan.md` (post-2026-05-14 session plan; superseded by this doc for forward-looking planning)
 
 **Session HANDOFF:** `.agents/HANDOFF.md` should reference this doc's dashboard at top
 
@@ -622,7 +634,7 @@ This doc is **canonical living planning artifact**. Update when:
 
 Updates that should NOT be made here:
 - New analytical derivations (those land in the source manuscript chapters / KB leaves; this doc references them)
-- Speculative framings (those land in `research/L5/axiom_derivation_status.md` as A-NNN entries)
+- Speculative framings (those land in `research/_archive/L5/axiom_derivation_status.md` as A-NNN entries)
 - Session-by-session execution details (those land in dated analysis docs per L5 schema)
 
 **Cross-cutting invariants** (per `manuscript/ave-kb/CLAUDE.md`): this doc uses $\mathcal{M}_A$ for substrate (INVARIANT-N1), $\ell_{\text{node}}$ script ell (INVARIANT-N2), Scheme A axiom numbering (INVARIANT-S2). No conflicts.

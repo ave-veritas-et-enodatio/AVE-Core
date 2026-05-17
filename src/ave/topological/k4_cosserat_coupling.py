@@ -38,7 +38,7 @@ NAMESPACE: ξ_K1, ξ_K2 SUBSTRATE-scale O(1) — NOT Vol 3 Ch 1's Machian ξ
 (~10⁴³, cosmological; same letter, different scope). Disambiguated in
 ave-kb/common/xi-topo-traceability.md.
 
-Cross-refs: research/L5/axiom_derivation_status.md (A-032, A-034);
+Cross-refs: research/_archive/L5/axiom_derivation_status.md (A-032, A-034);
 AVE-QED docs/analysis/2026-05-15_Q-G47_session{9,...,18}_*.md.
 
 Usage:

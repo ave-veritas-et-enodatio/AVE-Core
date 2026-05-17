@@ -1,7 +1,7 @@
 """
 Phase-3 α⁻¹ validation via Ch 8 dimensionless ratios.
 
-Per the chirality-accounting resolution (research/L3_electron_soliton/10_):
+Per the chirality-accounting resolution (research/_archive/L3_electron_soliton/10_):
 impedance Z_0 is a scalar (chirality enters only as coupling sign, not
 as Z magnitude), so the α⁻¹ validation reduces to checking whether the
 three dimensionless Ch 8 ratios emerge from the relaxed Cosserat field:
@@ -134,7 +134,7 @@ def main():
     print("=" * 78)
     print("  Approach: compute (R-r)/d, R·r/d², Q_natural from relaxed field")
     print("  Target:   0.5000, 0.2500, 137.0363 at Golden Torus")
-    print("  Resolved: scalar Z₀ per research/L3_electron_soliton/10_.")
+    print("  Resolved: scalar Z₀ per research/_archive/L3_electron_soliton/10_.")
 
     NX = 64
     R_exact, r_exact = golden_torus_grid_coords(16.0)

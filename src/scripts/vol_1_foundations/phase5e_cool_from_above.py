@@ -53,9 +53,9 @@ Usage:
     → exits 0 unless simulation crashes
 
 Reference:
-  - research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md
-  - research/L3_electron_soliton/58_cosserat_pml_derivation.md
-  - research/L3_electron_soliton/62_ruptured_plasma_bh_entropy_derivation.md §10
+  - research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md
+  - research/_archive/L3_electron_soliton/58_cosserat_pml_derivation.md
+  - research/_archive/L3_electron_soliton/62_ruptured_plasma_bh_entropy_derivation.md §10
   - commit 03cb9d5 (Cosserat PML)
   - commit 49917ff (Memristive Op14 K4)
 """

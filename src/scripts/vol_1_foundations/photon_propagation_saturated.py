@@ -5,7 +5,7 @@ amp = 0.01·V_SNAP, Mode I propagation).
 
 This script tests the corpus claim per
 [Vol 2 Ch 1:160](../../manuscript/vol_2_subatomic/chapters/01_topological_matter.tex#L160) +
-[doc 103 §3.2 + §4.2](../../research/L3_electron_soliton/103_substrate_perspective_electron.md):
+[doc 103 §3.2 + §4.2](../../research/_archive/L3_electron_soliton/103_substrate_perspective_electron.md):
 when amplitude crosses the Op14 saturation cusp at √(2α) ≈ 0.35, the substrate's local
 impedance Z_eff = Z_0/√S spikes, ∇Z_eff at the boundary creates a TIR wall, and the
 field traps itself via self-formed cavity.
@@ -254,8 +254,8 @@ if __name__ == "__main__":
     print("─" * 78)
 
     summary = run_saturation_test(
-        out_gif="/Users/grantlindblom/AVE-staging/AVE-Core/research/L3_electron_soliton/assets/photon_propagation_saturated.gif",
-        out_npz="/Users/grantlindblom/AVE-staging/AVE-Core/research/L3_electron_soliton/assets/photon_propagation_saturated.npz",
+        out_gif="/Users/grantlindblom/AVE-staging/AVE-Core/research/_archive/L3_electron_soliton/assets/photon_propagation_saturated.gif",
+        out_npz="/Users/grantlindblom/AVE-staging/AVE-Core/research/_archive/L3_electron_soliton/assets/photon_propagation_saturated.npz",
     )
     print(json.dumps(summary, indent=2))
     print("\nPre-registered binary criteria:")

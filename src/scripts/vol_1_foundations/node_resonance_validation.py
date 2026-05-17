@@ -36,7 +36,7 @@ Usage:
     → exits 0 unless the simulation itself crashes
 
 Reference:
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §4
   - manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex:127-142
   - manuscript/predictions.yaml::P_phase2_omega
 """

@@ -1,7 +1,7 @@
 """R7.2 (2,3)/Hopf topologically-protected pair injection driver — VACUUM_ENGINE_MANUAL §9 G-13.
 
 Per `P_phase5_topological_injection` (frozen at commit 1c89fa1) +
-[doc 70_ §7.6](../../research/L3_electron_soliton/70_phase5_resume_methodology.md#L7).
+[doc 70_ §7.6](../../research/_archive/L3_electron_soliton/70_phase5_resume_methodology.md#L7).
 
 Replaces the gate's point-rotation Beltrami `_inject_pair` profile (which
 was empirically falsified as fundamentally unstable in Cosserat self-dynamics

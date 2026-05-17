@@ -745,7 +745,7 @@ predictions:
   # yet validated by engine work). Each entry has `pre_registered: true`,
   # a `research_doc` pointer to doc 54_ axiom derivation, and a `test_file`
   # that will be (or already is) the pytest that locks the prediction.
-  # Derivation lives in research/L3_electron_soliton/54_*.md until the
+  # Derivation lives in research/_archive/L3_electron_soliton/54_*.md until the
   # engine work lands and the derivation moves to a manuscript chapter.
   # ═══════════════════════════════════════════════════════════════════════
 
@@ -753,7 +753,7 @@ predictions:
     name: "Vacuum Varactor C_eff(V) = C_0/S(V) matches Vol 4 Ch 1:127-142"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_axiom_4_vacuum_varactor.py"
     axioms_used: [4]
     public_in_readme: false
@@ -769,7 +769,7 @@ predictions:
     name: "Ω_node(A²) tracks Vacuum Varactor softening in coupled K4⊗Cosserat engine"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_phase2_node_resonance.py"
     axioms_used: [1, 4]
     public_in_readme: false
@@ -798,7 +798,7 @@ predictions:
     name: "Φ_link persists ≥ 10 Compton periods between saturated endpoints"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_phase3_bond_state.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -825,7 +825,7 @@ predictions:
     name: "Chiral drive drives Meissner-like S_μ collapse while S_ε stays finite"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_phase4_asymmetric_saturation.py"
     axioms_used: [4]
     public_in_readme: false
@@ -845,7 +845,7 @@ predictions:
     name: "PairNucleationGate fires under C1∧C2 within 50 Compton periods"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_phase5_pair_nucleation_gate.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -862,7 +862,7 @@ predictions:
     name: "[RETRACTED — superseded by P_phase6_eigensolver_multiseed] Engine W basin: GT-family triplet converges to common stationary point at corpus GT"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
+    research_doc: "research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
     test_file: "src/scripts/vol_1_foundations/phase5_basin_audit.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -925,7 +925,7 @@ predictions:
     name: "[RETRACTED — superseded by P_phase6_helmholtz_eigenmode_sweep] R7.1 multi-seed sparse eigensolver: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
+    research_doc: "research/_archive/L3_electron_soliton/71_multi_seed_eigenmode_sweep.md"
     test_file: "src/scripts/vol_1_foundations/r7_eigensolver_multiseed.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1029,7 +1029,7 @@ predictions:
     name: "[RETRACTED — §6.1 catastrophic-error carve-out invoked on-record per Grant approval; superseded by doc 73_ discrete K4-TLM scatter+connect operator] R7.1 multi-seed block Helmholtz on (V, ω) joint: at least one of {GT, F17K_cos, F17K_s11} returns (2,3) eigenmode at ω_Compton"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/72_vacuum_impedance_design_space.md"
+    research_doc: "research/_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md"
     test_file: "src/scripts/vol_1_foundations/r7_helmholtz_eigenmode_sweep.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1171,7 +1171,7 @@ predictions:
     name: "R7.1 multi-seed K4-TLM scatter+connect transmission eigenmode + Cosserat (u,ω) LC-tank Hessian: at least one seed returns ω_Compton bound state"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md"
+    research_doc: "research/_archive/L3_electron_soliton/73_discrete_k4_tlm_lctank_operator.md"
     test_file: "src/scripts/vol_1_foundations/r7_k4tlm_scattering_lctank.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1293,7 +1293,7 @@ predictions:
     name: "R7.1 V-block lattice-resolution sweep: Mode III gap at N=32 (1.22%) does NOT close to within α/√2 PASS tolerance at N=64"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r7_lattice_resolution_sweep.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1375,7 +1375,7 @@ predictions:
     name: "R7.1 Cos-block N=64 GT_corpus dual-criterion (frequency + localization) bound-state test; shell-fraction threshold = 80% per Grant adjudication"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r7_cos_block_n64_topology.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1473,7 +1473,7 @@ predictions:
     name: "R7.2 (2,3)/Hopf injection per VACUUM_ENGINE_MANUAL §9 G-13 — topologically-protected pair-bound persists ≥ 10 Compton periods post-drive AND topology preserved (c=3) throughout"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/70_phase5_resume_methodology.md"
+    research_doc: "research/_archive/L3_electron_soliton/70_phase5_resume_methodology.md"
     test_file: "src/scripts/vol_1_foundations/phase5_topological_pair_injection.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1556,7 +1556,7 @@ predictions:
     name: "R7.1 Test A: Cos-block N=64 GT_corpus c_eigvec re-extraction with 4-category adjudication (corpus-canonical topology = c=3 via Op10 per Doc 07)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r7_cos_block_n64_c_eigvec.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1633,7 +1633,7 @@ predictions:
     name: "R7.1 Test B (doc 28_ §5.1): single A-B bond V_inc/V_ref phase-space phasor trajectory traces Golden Torus with R/r ≈ φ²"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/28_two_node_electron_synthesis.md"
+    research_doc: "research/_archive/L3_electron_soliton/28_two_node_electron_synthesis.md"
     test_file: "src/scripts/vol_1_foundations/test_b_bond_scale_phasor.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1737,7 +1737,7 @@ predictions:
     name: "R7.1 Test B v2 (doc 26_ §3 spatial reading): multi-port phasor envelope across A-B bond cluster gives spatial R/r ≈ φ²"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/26_step5_phase_space_RR.md"
+    research_doc: "research/_archive/L3_electron_soliton/26_step5_phase_space_RR.md"
     test_file: "src/scripts/vol_1_foundations/test_b_v2_multipoint_phasor.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1828,7 +1828,7 @@ predictions:
     name: "R7.1 Test B v3 (saturation-regime check): multi-port phasor envelope at amp=0.85·V_SNAP gives spatial R/r ≈ φ²"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/26_step5_phase_space_RR.md"
+    research_doc: "research/_archive/L3_electron_soliton/26_step5_phase_space_RR.md"
     test_file: "src/scripts/vol_1_foundations/test_b_v3_multipoint_phasor_satsweep.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -1883,7 +1883,7 @@ predictions:
     name: "Round 8 Move 5: single-electron (V≠0 ∧ ω≠0) ansatz at corpus GT settles into self-stable nonlinear orbit at ω_C with (2,3) topology preserved"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_self_consistent_orbit_hunt.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -1990,7 +1990,7 @@ predictions:
     name: "Round 8 Move 6: characterize Move 5's settled (2,3) attractor — fit (R_relaxed, r_relaxed) and test whether R/r = φ² at non-corpus absolute scale"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_natural_attractor_characterization.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2089,7 +2089,7 @@ predictions:
     name: "Round 8 Move 7 / Phase 1: characterize Move 5's settled (2,3) attractor as itself — descriptive, no PASS/FAIL adjudication, frozen extraction scope"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_characterization.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2180,7 +2180,7 @@ predictions:
     name: "Round 8 Move 7b: FFT fix — sample at top-5 |V_inc|² cells (not |ω|² centroid-displaced); other 4 extractions re-emitted unchanged"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_characterization_v2_fft_fix.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2229,7 +2229,7 @@ predictions:
     name: "Round 8 Move 10: characterize Move 5 static fixed point's spatial topology — torus knot vs Hopf-linked vs spherical-harmonic; per-cell A² at top-|ω|² cells (sets up §14.4 σ=4 Cos-block prediction)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_phase1_attractor_winding_characterization.py"
     axioms_used: [1, 2]
     public_in_readme: false
@@ -2308,7 +2308,7 @@ predictions:
     name: "Round 8 Move 11: time-resolved C-state vs L-state tracking on Move 5 fixed point — closes A-011 reactance gap, PRE-MOVE-9 PRECONDITION"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_phase1_reactance_tracking.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2397,7 +2397,7 @@ predictions:
     name: "Round 8 Move 11b: reactance tracking with PML-filtered cell selection + full time series saved + drive verification + Pearson cross-correlation matrix between sectors (Diag 1, Diag 3)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_phase1_reactance_tracking_v2.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2469,7 +2469,7 @@ predictions:
     name: "Diag A: Cosserat wave-speed amplitude dependence — empirically detect/fix the V·S vs T·1 saturation asymmetry that violates Ax 3 energy conservation in the Cosserat sector"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
+    research_doc: "research/_archive/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
     test_file: "src/scripts/vol_1_foundations/r8_diag_a_cosserat_wave_speed.py"
     axioms_used: [3, 4]
     public_in_readme: false
@@ -2553,7 +2553,7 @@ predictions:
     name: "Photon-tail dual seed: K4 V_inc + Cosserat ω at corpus (2,3) topology, engine-representable scale (R=4, r=1.5 at N=64); test corpus electron via 4-criterion phasor + winding + LC reactance + topology adjudication"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
+    research_doc: "research/_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md"
     test_file: "src/scripts/vol_1_foundations/r8_photon_tail_dual_seed.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2669,7 +2669,7 @@ predictions:
     name: "Photon-tail propagating IC test (path b): set ω_dot per ω_loop-rotation; tests photon-tail framework with corpus-correct propagating mode IC; 3/3 of C1/C2/C3 PASS = Mode I (C4 informational per A57)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
+    research_doc: "research/_archive/L3_electron_soliton/75_cosserat_energy_conservation_violation.md"
     test_file: "src/scripts/vol_1_foundations/r8_photon_tail_propagating_ic.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2765,7 +2765,7 @@ predictions:
     name: "Autoresonant drive nucleates pairs ≥ 5× fixed-f at matched energy (HEADLINE)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/54_pair_production_axiom_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md"
     test_file: "src/tests/test_phase6_autoresonant_advantage.py"
     axioms_used: [4]
     public_in_readme: false
@@ -2783,7 +2783,7 @@ predictions:
     name: "Hysteresis loop area peaks at ω·τ_relax ≈ 0.9 (K4-nonlinear Debye)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
     test_file: "src/tests/test_memristive_op14.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -2805,7 +2805,7 @@ predictions:
     name: "Yield-heal down-crossing leaves topologically-protected defects (BEMF-blocked unwinding)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
     test_file: "src/tests/test_yield_heal_residue.py"
     axioms_used: [1, 3, 4]
     public_in_readme: false
@@ -2829,7 +2829,7 @@ predictions:
     name: "Defect density scales linearly with volumetric yield-crossing rate (NOT Kibble-Zurek)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
     test_file: "src/tests/test_cooling_rate_defect_density.py"
     axioms_used: [1, 2, 4]
     public_in_readme: false
@@ -2853,7 +2853,7 @@ predictions:
     name: "Pair nucleations cluster at chirality domain walls / impedance-gradient maxima"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md"
     test_file: "src/tests/test_chirality_horizon_coupling.py"
     axioms_used: [1, 3, 4]
     public_in_readme: false
@@ -2886,7 +2886,7 @@ predictions:
     name: "Seeded (2,3) V_inc ansatz preserves N_crossings = 3 under closed-system K4 TLM"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    research_doc: "research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md"
     test_file: "src/tests/test_electron_tlm_eigenmode.py"
     axioms_used: [1, 3]
     public_in_readme: false
@@ -2908,7 +2908,7 @@ predictions:
     name: "Closed-system K4 TLM conserves total energy to within 0.5% over 400 steps"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    research_doc: "research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md"
     test_file: "src/tests/test_electron_tlm_eigenmode.py"
     axioms_used: [3]
     public_in_readme: false
@@ -2928,7 +2928,7 @@ predictions:
     name: "Op6 self-consistency converges to R/r = φ² from both Golden Torus and perturbed seeds"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    research_doc: "research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md"
     test_file: "src/tests/test_electron_tlm_eigenmode.py"
     axioms_used: [1, 2]
     public_in_readme: false
@@ -2950,7 +2950,7 @@ predictions:
     name: "α⁻¹ from DYNAMICAL (2,3) eigenmode (R, r) matches 137.036 within 2%"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/66_single_electron_first_pivot.md"
+    research_doc: "research/_archive/L3_electron_soliton/66_single_electron_first_pivot.md"
     test_file: "src/tests/test_electron_tlm_eigenmode.py"
     axioms_used: [1, 2]
     public_in_readme: false
@@ -2973,7 +2973,7 @@ predictions:
     name: "Round 9 entry: doc 28 §5.1 canonical phase-space (V_inc, V_ref) phasor at single A-B bond on Move 5's settled attractor — dual-criterion R_phase/r_phase = φ² ± 5% + chirality direction matches K4 right-handed substrate"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/78_canonical_phase_space_phasor.md"
+    research_doc: "research/_archive/L3_electron_soliton/78_canonical_phase_space_phasor.md"
     test_file: "src/scripts/vol_1_foundations/r9_canonical_phase_space_phasor.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3086,7 +3086,7 @@ predictions:
     name: "Round 9 path α: doc 79_ v3.1 bond-pair phasor on Move 5 fresh attractor — dual-criterion R/r=φ²+5% per-cluster + chirality consensus via Hilbert transform"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    research_doc: "research/_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
     test_file: "src/scripts/vol_1_foundations/r9_path_alpha_bond_pair_phasor.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3200,7 +3200,7 @@ predictions:
     name: "Round 9 path α v2: Φ_link sector phasor (Op14 trading channel) — corrected sampler per doc 75 line 140 verbatim"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    research_doc: "research/_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
     test_file: "src/scripts/vol_1_foundations/r9_path_alpha_v2_phi_link_sector.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3289,7 +3289,7 @@ predictions:
     name: "Round 9 path α v3: 3D-aligned ω-vector sampler — auditor (δ) interpretation that c=3 in (2,3) maps to 3 spatial Cosserat ω-rotation axes"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
+    research_doc: "research/_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md"
     test_file: "src/scripts/vol_1_foundations/r9_path_alpha_v3_3d_aligned.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3386,7 +3386,7 @@ predictions:
     name: "Round 10+ Phase 1 path α v4: port-mixed bond-pair selection — empirically resolves whether bare TLM is C_4 symmetric across all 4 K4 ports OR chirality-pairing creates RH/LH dynamic asymmetry"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/round_10_plan.md"
+    research_doc: "research/_archive/L3_electron_soliton/round_10_plan.md"
     test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v4_port_mixed.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3512,7 +3512,7 @@ predictions:
     name: "Round 10+ Phase 1 path α v4b: n=2-per-port follow-up to v4 — disambiguates LH-internal Δ=23% as statistical noise vs real substrate asymmetry"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/round_10_plan.md"
+    research_doc: "research/_archive/L3_electron_soliton/round_10_plan.md"
     test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v4b_n2_per_port.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3563,7 +3563,7 @@ predictions:
     name: "Round 10+ Phase 1 Direction 3'.2 path α v6: trapped-photon unknot at bond-pair scale — 6-node hexagonal chair-ring IC, manuscript-canonical (NOT (2,3) phase-space)"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md"
+    research_doc: "research/_archive/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md"
     test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v6_unknot_chair_ring.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3695,7 +3695,7 @@ predictions:
       - common_equations/eq_axiom_4.tex (canonical c_eff = c_0·S^(1/2) → 0)
       - backmatter/05_universal_solver_toolchain.tex:302 (electron =
         unknot 0_1 NOT (2,3); trefoil = baryon)
-      - research/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md
+      - research/_archive/L3_electron_soliton/83_phase1_bond_pair_vs_bond_cluster_scale.md
         (Phase 1 reframe: bond-cluster v1-v4(b) tested wrong object class)
       - COLLABORATION_NOTES Rule 14 (substrate-derives), Rule 16 (ask-
         Grant-fundamental-physics), A39 v2 (dual-criterion), A40
@@ -3712,7 +3712,7 @@ predictions:
     name: "Round 10+ Phase 1 Direction 3'.2 path α v7: helical Beltrami trapped-photon unknot + corrected adjudication criteria + thermal robustness sweep"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/85_kelvin_beltrami_foc_axiom_grounded_derivation.md"
+    research_doc: "research/_archive/L3_electron_soliton/85_kelvin_beltrami_foc_axiom_grounded_derivation.md"
     test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v7_helical_beltrami_chair_ring.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3835,9 +3835,9 @@ predictions:
       - ave-kb/CLAUDE.md INVARIANT-S2
 
       (Research-tier, this session)
-      - research/L3_electron_soliton/83 — Phase 1 reframe
-      - research/L3_electron_soliton/84 — v6 first run
-      - research/L3_electron_soliton/85 — Kelvin Beltrami + FOC derivation
+      - research/_archive/L3_electron_soliton/83 — Phase 1 reframe
+      - research/_archive/L3_electron_soliton/84 — v6 first run
+      - research/_archive/L3_electron_soliton/85 — Kelvin Beltrami + FOC derivation
 
       (Discipline)
       - COLLABORATION_NOTES Rule 6 (substrate-native operator), Rule 14
@@ -3860,7 +3860,7 @@ predictions:
     name: "Round 10+ Phase 1 Direction 3'.2 path α v8: corrected measurements (Phi_link detrend) + thermal sweep — Mode II at every T → Round 11 trigger fires per doc 86 §7.6 gate; dimensional audit reveals IC was traveling-wave NOT Beltrami standing-wave"
     type: derived_prediction
     pre_registered: true
-    research_doc: "research/L3_electron_soliton/87_path_alpha_v8_round_11_ignition.md"
+    research_doc: "research/_archive/L3_electron_soliton/87_path_alpha_v8_round_11_ignition.md"
     test_file: "src/scripts/vol_1_foundations/r10_path_alpha_v8_corrected_measurements.py"
     axioms_used: [1, 2, 3, 4]
     public_in_readme: false
@@ -3967,9 +3967,9 @@ predictions:
       - k4_tlm.py:156-167, 391 (Phi_link convention)
 
       (Research-tier, this session)
-      - research/L3_electron_soliton/85 §5.2 footnote (R/r=2π synthesis flag)
-      - research/L3_electron_soliton/86 §7 (gate decision; Round 11 enumeration)
-      - research/L3_electron_soliton/87 §8 (dimensional audit; this v8 doc)
+      - research/_archive/L3_electron_soliton/85 §5.2 footnote (R/r=2π synthesis flag)
+      - research/_archive/L3_electron_soliton/86 §7 (gate decision; Round 11 enumeration)
+      - research/_archive/L3_electron_soliton/87 §8 (dimensional audit; this v8 doc)
 
       (Discipline)
       - COLLABORATION_NOTES Rule 11 (clean falsification), Rule 12

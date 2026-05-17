@@ -1,6 +1,6 @@
 """
 Cosserat-sector PML tests — pins the Perfectly Matched Layer derived in
-[doc 58_](research/L3_electron_soliton/58_cosserat_pml_derivation.md).
+[doc 58_](research/_archive/L3_electron_soliton/58_cosserat_pml_derivation.md).
 
 Tests the four properties specified in doc 58_ §10.4:
   1. Interior energy conservation (pml_thickness=0 or d >= pml_thickness)
@@ -14,7 +14,7 @@ Plus a structural test:
 Reference:
   - src/ave/topological/cosserat_field_3d.py::CosseratField3D.__init__
   - src/ave/topological/cosserat_field_3d.py::_zero_velocities_outside_alive
-  - research/L3_electron_soliton/58_cosserat_pml_derivation.md
+  - research/_archive/L3_electron_soliton/58_cosserat_pml_derivation.md
 
 Scope:
   All tests use CosseratField3D directly (not via CoupledK4Cosserat) to

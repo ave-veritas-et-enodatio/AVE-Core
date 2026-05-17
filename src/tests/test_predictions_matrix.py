@@ -22,7 +22,7 @@ the corresponding test.
 Reference:
   - manuscript/predictions.yaml (manifest)
   - src/scripts/claim_graph_validator.py PRE_REGISTERED_REQUIRED_FIELDS
-  - research/L3_electron_soliton/54_pair_production_axiom_derivation.md §8
+  - research/_archive/L3_electron_soliton/54_pair_production_axiom_derivation.md §8
     (full predictions matrix)
   - ~/.claude/plans/review-the-collaboration-md-and-lexical-wombat.md
     (Stage 6 approved plan, "Test infrastructure plan" section)
