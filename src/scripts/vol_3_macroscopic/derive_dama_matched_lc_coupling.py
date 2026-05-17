@@ -286,6 +286,103 @@ def evaluate_candidates(required_epsilon: float) -> list[Candidate]:
 # ---------- Step 3: Reporting ----------
 
 
+def predicted_rate_for_crystal(
+    m_single_kg: float, m_mol_kg_per_mol: float, atoms_per_molecule: int, z_total_per_molecule: int
+) -> tuple[float, float, float]:
+    """Compute predicted DAMA-class rate for an arbitrary single-crystal detector.
+
+    Returns: (n_e_per_kg, n_single_total, predicted_rate_per_s_per_kg)
+
+    Formula (matched-LC-coupling per 9th-cycle reactive-power resolution):
+      Rate/kg = N_e/kg × ν_slew × (4π / N_single²)
+    """
+    import math
+
+    n_e_per_kg_local = (N_A / m_mol_kg_per_mol) * z_total_per_molecule
+    n_single = (N_A / m_mol_kg_per_mol) * atoms_per_molecule * m_single_kg
+    epsilon_det = (4 * math.pi) / n_single**2
+    intrinsic = n_e_per_kg_local * NU_SLEW
+    rate = intrinsic * epsilon_det
+    return n_e_per_kg_local, n_single, rate
+
+
+def cross_detector_predictions() -> None:
+    """Cross-detector + cross-crystal swap predictions per matched-LC-coupling."""
+    import math
+
+    print("=" * 70)
+    print("CROSS-DETECTOR PREDICTIONS (per matched-LC-coupling 4π/N_single²)")
+    print("=" * 70)
+    print()
+    print("Predicted rate per kg assumes κ_quality = 1 (theoretical ceiling).")
+    print("Actual rate = predicted × κ_quality where κ ≤ 1 for batch quality.")
+    print()
+
+    # DAMA baseline
+    ne, ns, rate_dama = predicted_rate_for_crystal(
+        m_single_kg=9.7,
+        m_mol_kg_per_mol=0.14989,
+        atoms_per_molecule=2,
+        z_total_per_molecule=64,
+    )
+
+    print(f"{'Detector':<30} {'M_single (kg)':<14} {'N_single':<12} {'Rate/kg':<14} {'Ratio to DAMA'}")
+    print("-" * 80)
+
+    detectors = [
+        ("DAMA/LIBRA Phase-2 (NaI)", 9.7, 0.14989, 2, 64),
+        ("COSINE-100 (NaI)", 10.0, 0.14989, 2, 64),
+        ("ANAIS-112 (NaI)", 12.5, 0.14989, 2, 64),
+        ("Sapphire-9.7 (Al2O3)", 9.7, 0.10196, 5, 50),  # Z(Al)=13, Z(O)=8: 2*13+3*8=50
+        ("Sapphire-12 (Al2O3)", 12.0, 0.10196, 5, 50),
+        ("Germanium-9.7 (Ge)", 9.7, 0.07264, 1, 32),
+        ("Germanium-12 (Ge)", 12.0, 0.07264, 1, 32),
+        ("Sapphire-matched-N (Al2O3)", 2.64, 0.10196, 5, 50),  # N_single ~ DAMA NaI 9.7kg
+        ("Germanium-matched-N (Ge)", 9.39, 0.07264, 1, 32),  # N_single ~ DAMA NaI 9.7kg
+    ]
+
+    for name, m_single, m_mol, atoms_per_mol, z_total in detectors:
+        ne, ns, rate = predicted_rate_for_crystal(m_single, m_mol, atoms_per_mol, z_total)
+        ratio = rate / rate_dama
+        print(f"{name:<30} {m_single:<14.2f} {ns:<12.3e} {rate:<14.3e} {ratio:.4f}")
+
+    print()
+    print("Key falsifiers:")
+    print(
+        "- COSINE-100 should see ~94% DAMA rate/kg at κ_quality = 1 → observed << → low κ"
+    )
+    print(
+        "- ANAIS-112 should see ~60% DAMA rate/kg at κ_quality = 1 → observed << → low κ"
+    )
+    print(
+        "- Sapphire-9.7 should see ~9% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)"
+    )
+    print(
+        "- Germanium-9.7 should see ~97% DAMA rate/kg at line position 3.728 keV (Z-INDEPENDENT)"
+    )
+    print(
+        "- A Sapphire-2.64-kg single crystal would have N_single matched to DAMA NaI 9.7 kg"
+    )
+    print(
+        "  → predicted ~1.15× DAMA rate/kg at line 3.728 keV — CLEAN Z-INDEPENDENCE TEST"
+    )
+    print(
+        "    (the 1.15× reflects N_e(Sapphire)/N_e(NaI) electron-density ratio,"
+    )
+    print(
+        "     the ONLY mass/Z-dependent factor remaining when N_single is matched)"
+    )
+    print()
+    print(
+        "The Z-INDEPENDENCE claim is the cleanest discriminator vs Moseley Kα (which"
+    )
+    print(
+        "would predict zero rate in Ca-free crystals at 3.728 keV). Cross-crystal swap"
+    )
+    print("with matched N_single isolates the AVE-distinct prediction from κ_quality.")
+    print()
+
+
 def main() -> int:
     print("=" * 70)
     print("DAMA Q-factor: matched-LC-coupling derivation")
@@ -393,6 +490,8 @@ def main() -> int:
     print("     matches lambda_slew to 2.4%) — narrow-band enhancement vs broad")
     print("     off-resonance suppression trade-off")
     print()
+
+    cross_detector_predictions()
 
     return 0
 
