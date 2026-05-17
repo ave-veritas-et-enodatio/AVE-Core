@@ -94,6 +94,29 @@ Both worked examples extend the [A43 v2 lane-symmetric pattern](../../../.agents
 
 ---
 
+## §5.5 — Cross-volume substrate motifs (recurring patterns, NOT numbered Ops)
+
+Named recurring substrate-physics patterns that operate across multiple AVE volumes but are NOT numbered operators from the Vol 1 Ch 6 catalog. These are structural-synthesis observations rather than primitive physics operators.
+
+### Hoop Stress 2π projection (NEW 2026-05-17)
+
+**Recurring pattern**: substrate bulk drift $c \times \epsilon$ (where $\epsilon$ is a small dimensionless parameter set by scale) projected through the Hoop Stress geometric factor $2\pi$ onto closed topological loops gives the observable equilibrium scale at that scale.
+
+| Scale | Formula | Small parameter $\epsilon$ | Output | Canonical source |
+|---|---|---|---|---|
+| Cosmic (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² | [`../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §1](../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) |
+| Substrate (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s | [`../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) |
+| Substrate (DAMA quantum) | $E_{substrate} = \epsilon \cdot m_e c^2$ | $\epsilon = \alpha$ (same) | Energy $\sim 3.728$ keV | [`../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) |
+
+**Physical interpretation**: Hoop Stress is the canonical continuum-mechanics projection — when an isotropic outward radial force is applied to a closed circular loop, the resulting longitudinal tension on the loop is `T = F_r / 2π`. The same projection applies to substrate drift acting on topological-loop solitons at any scale (cosmic horizon, electron unknot, etc.). The small-parameter $\epsilon$ is set by the dominant physics at each scale: cosmological expansion ($H_\infty$) at cosmic scale; electromagnetic coupling ($\alpha$) at substrate scale.
+
+**Empirical anchors (as of 2026-05-17)**:
+- Cosmic: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual (FOREWORD-PROMOTED).
+- Substrate: $v_{substrate}$ within 9% of LSR-class bulk velocity (375 km/s observed); cluster tightness $\sigma=11$ km/s inconsistent with random galactic kinematics (active research consistency result).
+- DAMA: $E_{substrate} = 3.728$ keV in DAMA's 2-6 keV detection window (zero-parameter; foreword-bullet AVE-distinct prediction as of 2026-05-17 late evening).
+
+**Canonical-status note**: this motif was NAMED for the first time in the corpus 2026-05-17 (closure-roadmap §0.5 entry + this catalog entry). Prior corpus had each instance separately (a_0 at MOND derivation; α-slew at α-slew derivation) without naming the recurring pattern. Cross-volume synthesis as proposed canonical structural observation.
+
 ## §6 — Phase 0.2 status
 
 This catalog is the canonical Phase 0.2 deliverable per [Round 10+ plan](../../../research/_archive/L3_electron_soliton/round_10_plan.md) commit `48ee43d` + amendment `d8ca5b9`. Catalog enables:
