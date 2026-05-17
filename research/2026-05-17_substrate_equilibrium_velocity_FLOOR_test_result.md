@@ -68,7 +68,7 @@ The FLOOR interpretation must be walked back across KB leaves + matrix + closure
 
 > **AVE substrate-equilibrium velocity prediction** (revised interpretation 2026-05-17 late evening): αc/(2π) ≈ 348 km/s is the **approximate magnitude prediction** for the LSR-class stellar population's CMB-rest-frame bulk velocity. Observed (Gaia DR3 thin-disk cluster): 375 km/s, 9% above prediction. The **directional alignment** of this bulk velocity with the CMB-dipole direction (2.75° offset, anti-aligned with galactic-rotation at 133.7°) is the cleanest AVE-distinct signature and remains a strong positive. The 9% magnitude gap is consistent with the LSR-class population participating in a CMB-dipole-aligned cosmic flow whose origin is open (NOT local-disk-specific, since halo populations don't approach αc/(2π) when decoupled from disk dynamics).
 
-This is a SUBSTANTIVE walk-back of the floor framing but **does NOT walk back the directional STRONG POSITIVE result** — that's a separate test that still stands.
+This is a SUBSTANTIVE walk-back of the floor framing. **Note (2026-05-17 late evening update)**: the directional test, originally framed STRONG POSITIVE, was subsequently itself demoted to "active research consistency check" via the `ave-discrimination-check` audit (external reviewer) — the directional alignment with CMB-dipole is a consistency check on the framework's K4=CMB identification, not independent AVE evidence (SM with same identification predicts same alignment). See the demotion note in the directional result doc.
 
 ## Lessons learned
 
@@ -80,12 +80,12 @@ This is the THIRD audit-driven correction of the session (after Sun-22km/s frami
 
 ## Foreword status
 
-The directional test STRONG POSITIVE (commit `704bb41`) still merits foreword inclusion — that result is independent and not falsified by this floor test. But the foreword text needs MINOR softening to remove "floor" language and replace with "approximate magnitude prediction with sharp directional alignment".
+**Update 2026-05-17 late evening**: the directional test was itself subsequently demoted from STRONG POSITIVE to "active research consistency check" via `ave-discrimination-check` audit (external reviewer caught that the directional alignment is a consistency check with K4=CMB identification, not independent AVE evidence). The substantive AVE-distinct content (magnitude 9% match + cluster tightness σ=11) is preserved; the foreword text is now framed as "active research consistency result" rather than "second positive load-bearing empirical confirmation."
 
 ## Cross-references
 
 - [`2026-05-17_substrate_equilibrium_velocity_FLOOR_test_prereg.md`](2026-05-17_substrate_equilibrium_velocity_FLOOR_test_prereg.md) — this test's prereg
-- [`2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md`](2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md) — directional STRONG POSITIVE (unaffected)
+- [`2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md`](2026-05-17_substrate_equilibrium_velocity_GAIA_DIRECTIONAL_result.md) — directional test result (originally STRONG POSITIVE; subsequently demoted to active research consistency check 2026-05-17 late evening per ave-discrimination-check audit)
 - [`2026-05-17_substrate_equilibrium_velocity_GAIA_result.md`](2026-05-17_substrate_equilibrium_velocity_GAIA_result.md) — original magnitude test (Outcome B)
 - [`2026-05-17_C14-DAMA_amplitude_result.md`](2026-05-17_C14-DAMA_amplitude_result.md) — α-slew derivation source
 - [`src/scripts/vol_3_macroscopic/gaia_floor_test.py`](../src/scripts/vol_3_macroscopic/gaia_floor_test.py) — driver

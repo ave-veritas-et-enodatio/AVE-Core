@@ -129,13 +129,15 @@ The magnitude framing iterated through three audit cycles 2026-05-17 evening, ea
 
 Scale-invariance constraint stands: $a_e = \alpha/(2\pi)$ at electron scale = approximate magnitude prediction at stellar scale. Both predictions are AVE-distinct; neither is exact. The electron-scale a_e holds to <0.2%; the stellar-scale magnitude holds to ~9%; the directional alignment at stellar scale holds to ~3°.
 
-### Directional test: cluster mean aligned with CMB-dipole to 2.75° (NEW 2026-05-17 evening)
+### Directional test: cluster mean aligned with CMB-dipole to 2.75° — CONSISTENCY CHECK (NEW 2026-05-17 evening; demoted from STRONG POSITIVE per ave-discrimination-check audit 2026-05-17 late evening)
 
-**STRONG POSITIVE.** Gaia DR3 thin-disk subset (N=11,690 stars, |v_LSR|<30 km/s) cluster mean direction in CMB-rest frame:
+**ACTIVE RESEARCH CONSISTENCY CHECK** (initially framed STRONG POSITIVE; demoted per external reviewer audit). Gaia DR3 thin-disk subset (N=11,690 stars, |v_LSR|<30 km/s) cluster mean direction in CMB-rest frame:
+
+**Discrimination-check audit (2026-05-17 late evening)** caught that directional alignment + anti-alignment with galactic-rotation are NOT independent AVE evidence — both follow from AVE's K4=CMB identification (Q-G24) combined with basic astronomy of LSR motion through CMB (which IS the CMB dipole measurement) and basic geometry (CMB-dipole + galactic-rotation directions are ~131° apart, with `cos θ = cos 48° · cos(264°-90°) = -0.666`). Both AVE-with-K4=CMB and any SM-with-CMB-rest-as-baseline predict this alignment. Substantive AVE-distinct content remains: (i) magnitude approximate match (αc/(2π)=348 vs cluster 375, 9% off); (ii) cluster tightness σ=11 km/s inconsistent with random galactic kinematics.
 
 | Test | Result | Interpretation |
 |---|---|---|
-| Cluster mean direction vs CMB-dipole (l,b=264°, 48°) | **2.75°** offset | A-CMB STRONG POSITIVE (within 10° strong threshold) |
+| Cluster mean direction vs CMB-dipole (l,b=264°, 48°) | **2.75°** offset | A-CMB alignment confirmed — *consistency check with K4=CMB identification (per ave-discrimination-check audit), NOT independent AVE evidence*; SM with same identification predicts same alignment |
 | Cluster mean direction vs galactic-rotation (l,b=90°, 0°) | 133.71° (anti-aligned) | **B-MW FALSIFIED** — galactic dynamics ruled out as preferred-frame alternative |
 | Cluster mean direction vs cubic axes (±x, ±y, ±z) | 95.8°, 133.7°, 44.3° (no alignment) | NULL as expected per $(q\ell_{node})^4$ suppression at stellar wavelengths |
 | σ∥ along CMB-dipole | 11.10 km/s | Cluster tightness consistent with σ=11 from magnitude test |

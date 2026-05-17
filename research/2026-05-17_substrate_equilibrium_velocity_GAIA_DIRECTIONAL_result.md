@@ -1,6 +1,12 @@
 # Substrate-Equilibrium Velocity — Gaia DR3 DIRECTIONAL Test Result
 
-**Status:** STRONG POSITIVE 2026-05-17 evening. Substrate-equilibrium interpretation SHARPLY confirmed via directional analysis. Galactic-rotation alternative FALSIFIED.
+**Status:** ACTIVE RESEARCH CONSISTENCY CHECK (demoted from STRONG POSITIVE 2026-05-17 late evening per ave-discrimination-check audit, external reviewer).
+
+> **Demotion note (2026-05-17 late evening, ave-discrimination-check audit by external reviewer)**: The directional alignment with CMB-dipole (2.75°) and anti-alignment with galactic-rotation (133.7°) initially framed as "STRONG POSITIVE" in this document are CONSISTENCY CHECKS with the framework's K4=CMB identification (Q-G24), NOT independent AVE-distinct evidence. Both AVE-with-K4=CMB and any SM-framework-with-CMB-rest-as-baseline predict the alignment, since LSR motion through CMB IS the CMB-dipole measurement, and the CMB-dipole + galactic-rotation directions are ~131° apart by basic geometry (`cos θ = cos 48° · cos(264°-90°) = -0.666`). The substantive AVE-distinct content (magnitude 9% match + cluster tightness σ=11) was already established in the prior magnitude test (commit `be04d76`); the directional test added consistency checks but did NOT add independent AVE-distinct evidence. Foreword text demoted from "second positive load-bearing empirical confirmation" → "active research consistency result"; matrix row C14 + KB leaves + closure-roadmap walked back consistently. Path to SPARC-parity foreword promotion: extra-galactic test (globular clusters / halo stars decoupled from LSR bulk motion) clustering near αc/(2π) rather than LSR-bulk velocity would be the load-bearing confirmation. **This is the fourth audit-driven correction of the session — the discipline pattern applies symmetrically: catch positive over-claims with the same rigor as walk-backs.**
+
+**Original framing below (preserved for audit trail; superseded by demotion):**
+
+Substrate-equilibrium interpretation SHARPLY confirmed via directional analysis. Galactic-rotation alternative FALSIFIED.
 
 **Date:** 2026-05-17 evening (post Sun-22km/s walk-back)
 **Driver:** [`src/scripts/vol_3_macroscopic/gaia_directional_analysis.py`](../src/scripts/vol_3_macroscopic/gaia_directional_analysis.py)
