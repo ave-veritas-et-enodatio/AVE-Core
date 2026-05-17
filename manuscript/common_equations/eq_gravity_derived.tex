@@ -51,8 +51,14 @@ The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the latt
 The refractive index decomposes into:
 \begin{align}
     n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
-    n_{spatial} &= \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
+    n_{spatial} &= 1 + \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
     \label{eq:lattice_decomposition}
 \end{align}
+% Notation cleanup 2026-05-17: both indices carry the "1 +" DC unit for parallelism.
+% Both reduce to n = 1 in flat vacuum (eps_11 -> 0). The asymmetric prior form
+% (n_spatial without "1 +") was shorthand for the strain-contribution term only,
+% which produced confusion in driver-script implementations. The parity violation
+% Delta_n = n_spatial - n_temporal = (9/7 - 2/7) * eps_11 = eps_11 is unchanged
+% by the notation cleanup.
 The temporal component governs gravitational redshift ($z \approx GM/(c^2 r)$);
 the spatial component governs light bending and frame dragging.

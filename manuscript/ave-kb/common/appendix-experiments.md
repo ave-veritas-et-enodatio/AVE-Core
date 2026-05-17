@@ -10,7 +10,7 @@ This index catalogs the continuous network of hardware benchmarks, astronomical 
 
 ## Volume II: Subatomic & Quantum Mechanics
 
-- **Gravitational Parallax Interferometry:** *Chapter 7: Quantum Mechanics & Orbitals*. Splits an electron matter-wave across a macroscopic Mach-Zehnder baseline to map the continuous disparity between spatial and temporal refractive indices ($n_s \neq n_t$), inducing a massive 35-radian topological phase shift.
+- **Gravitational Parallax Interferometry:** *Chapter 7: Quantum Mechanics & Orbitals*. Splits an electron matter-wave across a macroscopic Mach-Zehnder baseline (1 m vertical vs horizontal at 100 eV electron energy) to map the continuous disparity between spatial and temporal refractive indices ($n_s = 1 + (9/7)\varepsilon_{11}$ vs $n_t = 1 + (2/7)\varepsilon_{11}$), inducing a **~250-radian topological phase shift** at canonical Earth strain $\varepsilon_{11} = 7GM_\oplus/(c^2 R_\oplus) \approx 4.87 \times 10^{-9}$ (factor-7 corrected 2026-05-17; prior appendix revision quoted "35 rad" which inherited a factor-7-low driver bug). Live-fire driver: `src/scripts/vol_2_subatomic/electron_interferometry_parallax.py` → 249.64 rad.
 - **The $g_* = 85.75$ Baryon Limit:** *Chapter 10: Open Problems*. Predicts the absolute structural cutoff of allowable mass states based on the $\frac{3}{7}$ continuous spatial divergence integral, constraining the Particle Data Group spectrum.
 
 ## Volume III: Macroscopic Relativity & Cosmology
