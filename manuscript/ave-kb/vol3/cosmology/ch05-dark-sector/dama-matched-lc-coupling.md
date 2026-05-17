@@ -182,6 +182,9 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 - [`src/ave/core/constants.py`](../../../../../src/ave/core/constants.py) — canonical E_SLEW, NU_SLEW, LAMBDA_SLEW, Z_RADIATION constants
 - [`src/scripts/vol_3_macroscopic/derive_dama_matched_lc_coupling.py`](../../../../../src/scripts/vol_3_macroscopic/derive_dama_matched_lc_coupling.py) — derivation driver + cross-detector predictions
 
+### Experimental proposal (forward-predictive test)
+- [`research/2026-05-17_HPGe-9.39kg-experimental-proposal.md`](../../../../../research/2026-05-17_HPGe-9.39kg-experimental-proposal.md) — 1-page experimental-design specification for cleanest single-experiment test of 4 AVE-distinct claims; suitable for sharing with CDEX / LEGEND / MAJORANA legacy / COSINE-100 / ANAIS-112 collaborators; converts matched-LC-coupling from internal post-hoc consistency check to externally-evaluable forward-predictive test
+
 ### Audit trail (research/ docs)
 - [`research/2026-05-17_C14-DAMA_amplitude_prereg.md`](../../../../../research/2026-05-17_C14-DAMA_amplitude_prereg.md) — original prereg (refresh-rate framing)
 - [`research/2026-05-17_C14-DAMA_amplitude_result.md`](../../../../../research/2026-05-17_C14-DAMA_amplitude_result.md) — α-slew framing result
