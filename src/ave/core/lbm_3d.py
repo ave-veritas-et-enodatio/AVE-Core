@@ -6,9 +6,19 @@ Solves the incompressible Navier-Stokes equations on the same 3D grid
 as the FDTD Maxwell solver, treating the vacuum as a Cosserat fluid.
 
 The vacuum has:
-    - Density: ρ_vac = ε₀ μ₀ c² = ε₀ (from ε₀E² = energy density)
-    - Viscosity: ν = 1/(4π) × ℓ_node × c (kinematic, from Axiom 1)
+    - Density: ρ_vac = ξ_topo² μ₀ / (p_c ℓ_node²) ≈ 7.92e6 kg/m³ (canonical at constants.py:RHO_BULK)
+    - Kinematic mutual inductance: ν_kin = α × c × ℓ_node ≈ 8.45e-7 m²/s
+      (canonical at constants.py:NU_KIN + backmatter §Layer 6→7 Step 5;
+       nearly identical to liquid water — non-trivial structural prediction)
     - Yield stress: τ_y = B_snap²/(2μ₀) (Bingham plastic, from Axiom 4)
+
+CORPUS-AUDIT 2026-05-17: prior docstring listed "ν = 1/(4π) × ℓ_node × c (from Axiom 1)"
+which differs from canonical NU_KIN = α × c × ℓ_node by factor 1/(4πα) ≈ 10.9×.
+The 1/(4π) form would predict ν ≈ 9.2e-6 m²/s (~10× water), breaking the
+"nearly identical to water" structural claim. Audit verified: NO downstream
+code used the 1/(4π) form (default nu=0.1 in lattice units; tests use 0.1;
+no production calculations depended on the wrong formula). Documentation
+corrected. See closure-roadmap.md §0.5 (2026-05-17 evening entry).
 
 Uses the D3Q19 lattice Boltzmann model with BGK collision operator.
 
@@ -88,7 +98,14 @@ class LBM3DEngine:
     Args:
         nx, ny, nz: Grid dimensions (must match FDTD grid).
         dx: Cell size [m].
-        nu: Kinematic viscosity [m²/s]. Default from AVE: ℓ·c/(4π).
+        nu: Kinematic viscosity. Default 0.1 is a LATTICE-UNITS PLACEHOLDER
+            (dimensionless), used for testing. The AVE-canonical SI value is
+            NU_KIN = α × c × ℓ_node ≈ 8.45e-7 m²/s (canonical at constants.py;
+            matches liquid water to ~16% — non-trivial structural prediction).
+            Production code should pass the canonical SI value explicitly:
+              from ave.core.constants import NU_KIN
+              lbm = LBM3DEngine(..., nu=NU_KIN)
+            and scale dx accordingly for lattice-units consistency.
         rho0: Reference density [kg/m³]. Default 1.0 (lattice units).
     """
 
