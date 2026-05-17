@@ -16,9 +16,14 @@ In Applied Vacuum Engineering (AVE), the explanation is structurally explicit:
 6. When V_topo crosses the universal Dielectric Yield Limit (V_yield = 43.65 kV), the
    local LC lattice saturates (ε_eff → 0).
 7. The energy has nowhere to go but to rupture the structural impedance, emitting
-   broad-spectrum optical photons via Op7 bend loss.
+   broad-spectrum optical photons via Op7 bend loss (Op7 = projection loss at
+   90° crossing per `manuscript/ave-kb/vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md:138`
+   and `src/ave/core/constants.py:228`; the broadband-emission phrasing matches
+   canonical applied-telemetry framing at `manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/applied-telemetry.md:30`).
 
 This script elegantly models the exact amplitude and angle of that saturation point.
+
+Op7 citation added 2026-05-17 per driver-script honesty sweep.
 """
 
 import matplotlib.pyplot as plt

@@ -1,22 +1,29 @@
 """
-AVE Falsifiable Predictions: The EE Bench (Dielectric Yield Shift)
-======================================================
-This script models the most accessible, definitive benchtop falsification
-of the AVE framework: The Macroscopic Dielectric Plateau.
+AVE Falsifiable Predictions: EE Yield Shift (high-field — NOT benchtop-accessible).
 
-Standard electromagnetism assumes the vacuum permittivity (epsilon_0) is a
-constant, linear baseline. AVE dictates that the vacuum is a non-linear
-structural lattice governed by a strict squared saturation operator limit
-(Axiom 4), bounded fundamentally by the Fine Structure Constant (alpha).
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script models the AVE Macroscopic Dielectric Plateau prediction at
+the breakdown field E_BREAKDOWN = (M_E c²/e) × √α / ℓ_node ≈ 1.13e17 V/m.
+That field strength is approximately 12% of the Schwinger limit (~1.32e18 V/m)
+— well ABOVE typical benchtop electrical capability and only reachable with
+petawatt laser pulses or advanced macroscopic pulsed power infrastructure.
+
+Original docstring called this "the most accessible, definitive benchtop
+falsification" — that overclaims the practical accessibility. The yield-shift
+signature (C_eff spike upward, n DROP via √S) IS the AVE-distinct prediction;
+the falsification experiment requires lab capability comparable to high-intensity
+laser facilities (e.g., ELI, Berkeley BELLA), NOT benchtop LCR + interferometer.
 
 The saturation kernel S(A) = sqrt(1 - (A/A_yield)^2) drives TWO observables:
   1. Constitutive permittivity epsilon_eff = epsilon_0 * S -> 0 (collapse)
   2. Observable capacitance C_eff = C_0 / S -> infinity (divergence)
 
-The Experiment:
-  - LCR meter: Sees C_eff SPIKE upward (anomalous capacitance increase)
-  - Interferometer: Sees n ~ sqrt(S) DROP (loss of optical phase delay)
-  Both are signatures of the same saturation phenomenon.
+The Experiment (high-field, NOT benchtop):
+  - LCR meter equivalent: Sees C_eff SPIKE upward (anomalous capacitance increase)
+  - Interferometer equivalent: Sees n ~ sqrt(S) DROP (loss of optical phase delay)
+  Both are signatures of the same saturation phenomenon at E ~ 10% of Schwinger.
+
+Title softened 2026-05-17: "benchtop falsification" → "high-field falsification".
 """
 
 import os

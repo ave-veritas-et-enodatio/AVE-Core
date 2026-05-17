@@ -5,21 +5,27 @@ import numpy as np
 
 def simulate_entanglement(frames: int = 200, length: int = 200) -> None:
     """
-    Simulates a purely classical, deterministic 1D LC grid demonstrating
-    "spooky action at a distance" (Bell's Theorem Paradox).
+    Illustrative 1D LC grid animation of the AVE interpretation that "spooky
+    action at a distance" (Bell-test correlations) is a classical longitudinal
+    tension wave on the substrate — NOT a quantitative Bell-test prediction.
 
     In the AVE framework:
     1. Light (Transverse waves) travels at exactly c.
     2. Mechanical Tension (Longitudinal waves) travels at v_long >> c along the rigid string.
 
-    This simulation fires an entangled pair from the center.
-    The tension wave connects the two ends "instantly", ensuring their states
-    are physically linked long before the slow 'c' wave arrives.
+    This simulation fires an entangled pair from the center with c=1.0, v_long=15.0
+    (CHOSEN for visual demonstration of fast tension wave — NOT the actual AVE v_long/c
+    ratio from corpus). The tension wave connects the two ends rapidly, ensuring their
+    states are physically linked before the slow c wave arrives.
+
+    SCOPE NOTE (2026-05-17 honesty sweep): Original docstring said "Prove that..."
+    softened to "Illustrate the AVE interpretation that...". Quantitative Bell-test
+    prediction (CHSH inequality violation amplitude) is NOT computed.
     """
 
-    print("\n AVE APPLIED PHYSICS: LONGITUDINAL ENTANGLEMENT & BELL'S THEOREM")
+    print("\n AVE APPLIED PHYSICS: LONGITUDINAL ENTANGLEMENT VISUALIZATION (illustrative)")
     print("==================================================================")
-    print(" Objective: Prove that 'spooky action at a distance' is just a classical")
+    print(" Renders AVE interpretation that 'spooky action at a distance' is a classical")
     print("            high-speed longitudinal tension wave on the LC Grid.")
 
     c = 1.0  # Transverse Phase Velocity (Speed of Light)

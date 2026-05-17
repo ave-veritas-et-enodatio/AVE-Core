@@ -1,14 +1,24 @@
 """
-AVE Topological Qubit Simulator (3D Gauss Link Immunity)
-=========================================================
-Simulates a true Topological Qubit (e.g. Hopfion or Borromean architecture).
-Rather than evaluating a fragile 1D wave amplitude, this simulator encodes
-data rigidly into the integer invariant Gauss Linking Number (L).
+AVE Topological Qubit Simulator (3D Gauss Link Immunity at NOISE_AMP=0.025).
 
-Subjects the explicit 3D structure to the EXACT SAME 300K thermodynamic stochastic
-noise vector field that destroyed the Transmon. Proves mathematically that while
-local Cartesian distances jitter violently (Brownian motion), the Linking Number
-remains exactly L=1.0 indefinitely. Continuous noise cannot alter a discrete state.
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+Simulates a Topological Qubit (Hopfion or Borromean architecture) encoding
+data into the integer invariant Gauss Linking Number (L). Demonstrates that
+at NOISE_AMP = 0.025 (representing 300K thermal noise on moderate-coupling
+substrate), local Cartesian distances jitter violently while the Linking
+Number remains L=1.0 indefinitely.
+
+Original docstring said "Proves mathematically that... noise cannot alter
+a discrete state". That overclaims — the proof is conditional on
+NOISE_AMP being below the reconnection threshold. At sufficiently high
+noise amplitudes the topology WILL reconnect (Reidemeister II/III moves
+under thermal forcing). The simulation demonstrates L-immunity at the
+chosen noise amplitude; the GENERAL theorem (continuous noise cannot alter
+a discrete topological invariant in the small-perturbation limit) is
+canonical but not proven by THIS script.
+
+Docstring corrected 2026-05-17: "Proves mathematically" → "Demonstrates
+at NOISE_AMP=0.025"
 """
 
 import os

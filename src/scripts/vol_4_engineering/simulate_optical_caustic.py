@@ -1,13 +1,27 @@
 """
 simulate_optical_caustic.py
-Volume 4 Engineering: Optical Caustic Resolution Demonstration
+Volume 4 Engineering: Optical Caustic Resolution Demonstration.
 
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
 This script demonstrates how Axiom 4 saturation boundaries prevent classical
-infinite-intensity focal points. It computes the actual focal intensity using
-the 1D transmission line solver (`AxiomaticCausticSolver`).
+infinite-intensity focal points, using the canonical `AxiomaticCausticSolver`
+1D transmission line engine.
+
+The simulation sweep extends from z_start = 10 μm to z_end = 1e-18 m (a zeptometer
+— ~5 OOM below the K4 substrate node spacing ℓ_node = 3.86e-13 m, where the
+discrete-substrate physics dominates and continuum optics breaks down). The
+extreme z_end is CHOSEN to show clear divergence between classical and AVE
+curves on a log plot; physical interpretation should be restricted to z ≳ ℓ_node.
+
+For z ≳ ℓ_node, the AVE saturation behavior IS the canonical prediction.
+For z ≲ ℓ_node, the script extrapolates beyond the substrate resolution scale —
+the divergence shown is mathematical, not physical (substrate quantization
+should dominate at sub-node scales, not the continuum saturation kernel).
 
 Classical ray optics predicts: E ~ 1/z, Area ~ z^2.
 Axiomatic optics demonstrates impedance reflection diffusing the focal point.
+
+Docstring scope-note added 2026-05-17.
 """
 
 import os
