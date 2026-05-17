@@ -161,3 +161,81 @@ The C1 row's `Substrate` cell can move from `MISSING` to `src/scripts/vol_3_macr
 The C1 row's `Comparison source` cell can resolve `TBD pin which 3 events` → **GW150914, GW170104, GW151226** (now explicit per `ave-bh-horizon-area-theorem.md:78` + `ave-merger-ringdown-eigenvalue.md:46-48`).
 
 C1 row update happens when this branch merges back to L3 (or via cherry-pick to `analysis/divergence-test-substrate-map`).
+
+## §7 Phase-2 run report (2026-05-16, same session) — RESOLVES Phase-1 ambiguity
+
+PyCBC install was unnecessary — the Berti+Cardoso+Will 2006 (Phys.Rev. D73 064030) tabulated Kerr QNM values are reproducible directly from the table at https://pages.jh.edu/eberti2/ringdown/ via linear interpolation. The driver now embeds the canonical 11-point table for $\ell=2, m=2, n=0$ fundamental Kerr QNM eigenvalues and computes standard GR ringdown frequency from Leaver-method-derived numerical values, not from AVE's simplified photon-sphere approximation.
+
+### §7.1 Standard GR Kerr QNM vs LIGO observed
+
+```
+Event         M       a_*    AVE-Kerr    GR-QNM    LIGO obs    AVE vs obs    GR vs obs
+GW150914     62.0    0.67       277.7     248.6      251.0      +10.62%        -0.97%
+GW170104     48.7    0.64       344.7     312.7      312.0      +10.47%        +0.22%
+GW151226     20.8    0.74       883.9     763.3      750.0      +17.86%        +1.78%
+
+Mean AVE-vs-LIGO: +12.98%
+Mean GR-vs-LIGO:  +0.34%
+```
+
+**Standard GR Kerr QNM matches LIGO observed to within 1.8% for all 3 events (mean 0.34%).** This is the canonical result from standard ringdown analysis.
+
+### §7.2 LOAD-BEARING FINDING — Phase-1 ambiguity RESOLVED
+
+The 10-18% AVE-vs-LIGO offset is **NOT a Kerr-formula artifact**. Standard GR Kerr QNM (Leaver-method, the canonical reference for binary-BH ringdown) reproduces the LIGO-observed frequencies to within 1.8% for all 3 events. AVE's simplified Kerr formula over-predicts by 10-18%.
+
+The Phase-1 hypothesis (b) is now ruled out — the offset is not from using the wrong Kerr-correction-formula reference. The offset is real, AVE-distinct, and isolates to **AVE's spin-correction formula specifically**, not to the underlying cold eigenvalue.
+
+### §7.3 Anatomy of the failure mode
+
+**What survives empirical test:**
+- **AVE cold eigenvalue $\omega_R M_g = 18/49 \approx 0.3673$** (from $\nu_{vac}=2/7$ + Axiom 4) is **1.7% below** GR's exact Schwarzschild $\ell=2,n=0$ QNM value of 0.3737 — well within typical theory-vs-measurement uncertainties at zero spin.
+- KB self-consistency at the table level (all 3 events match KB-cited AVE prediction to <0.15%).
+
+**What fails empirical test:**
+- **AVE's simplified Kerr correction formula** $f_{ring}(a_*) = f_{ring}(0) \cdot r_{ph,Schw}/r_{ph}^+(a_*)$ with $r_{ph}^+ = (2GM/c^2)(1+\cos[(2/3)\arccos(-a_*)])$ over-corrects vs the full Kerr QNM by 10-18% for moderate spins (0.64-0.74).
+- The correction grows with spin: 10.6% at $a_*=0.67$, 10.5% at $a_*=0.64$, 17.9% at $a_*=0.74$. The simplified formula appears to be reasonable at zero spin but degrades as spin approaches extremal.
+
+### §7.4 Possible AVE-side responses
+
+Per the "flag-don't-fix" rule, these are questions for Grant's adjudication, not unilateral fixes:
+
+1. **The simplified Kerr formula needs revision.** AVE's saturation-cavity Kerr correction (photon-sphere geometry with the specific $(2/3)\arccos(-a_*)$ form) doesn't reproduce observed spin dependence. A more rigorous AVE derivation of frame-dragging at the saturation boundary might match Kerr QNM better.
+2. **The "saturation cavity = photon sphere" identification might be wrong.** Vol 3 Ch 15 identifies the AVE QNM cavity with the photon-sphere radius. If the AVE-native saturation cavity has a different geometric scaling with spin, the Kerr correction would differ.
+3. **The framework's BH spin-correction needs to MATCH full Kerr QNM by construction.** If AVE claims to "recover GR in the appropriate limit," and Kerr QNM is the canonical GR limit at moderate spin, AVE's spin correction needs to reproduce it. The simplified formula doesn't.
+4. **Accept the 10-18% offset as a falsifiable AVE-distinct prediction.** If AVE genuinely predicts higher spin-corrected ringdown frequencies than GR for these events, the prediction can stand — but the corpus needs to be explicit that this is the AVE claim, not "matches GR within 1.7%."
+
+### §7.5 Updated status of matrix row C1-BH-RING (revised after Phase 2)
+
+- **Outcome cell**: `TBD` → **partial-PASS / partial-FAIL**:
+  - PASS at cold eigenvalue (1.7% from GR) ✓
+  - FAIL at spin-corrected (AVE over-predicts by 10-18%) ✗
+- **Substrate cell**: `MISSING` → [`src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py`](../src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py)
+- **Comparison source cell**: `TBD pin` → **GW150914, GW170104, GW151226** (resolved)
+- **Confounders cell**: add "Standard GR Kerr QNM (Leaver-method) matches LIGO within 1.8%; AVE's 10-18% offset isolated to AVE's simplified photon-sphere Kerr correction formula, NOT the underlying ν_vac=2/7 cold eigenvalue derivation."
+- **Next action cell**: "Decision required (Grant adjudication): (a) revise AVE Kerr correction to match full Kerr QNM, (b) reframe corpus to acknowledge AVE-vs-LIGO 10-18% offset as falsifiable distinct prediction, (c) investigate alternative AVE BH-cavity geometry that gives different spin-dependence."
+
+### §7.6 Cascade implications
+
+Per the ν_vac cascade visualization in `divergence-test-substrate-map.md`, C1-BH-RING is one of three primary observables that triangulate ν_vac=2/7. The Phase 2 finding:
+
+- **Cold eigenvalue (ν_vac=2/7) PASSES** → ν_vac is not falsified by this test
+- **Spin correction FAILS** → the AVE-specific Kerr formula (Axiom 4 + photon-sphere geometry) is what's wrong, not ν_vac itself
+
+This is a CLEAN failure isolation. The matrix's keyed-by-ID cascade structure separates the cold-eigenvalue PASS from the spin-correction FAIL, preventing the failure from propagating spuriously to C11-MACH-ZEHNDER or C12-G-STAR (which also test ν_vac but via different mechanisms not involving Kerr correction).
+
+The 3-route triangulation on ν_vac (C1 + C11 + C12) remains operational — C1's spin-correction FAIL does NOT count against C11 or C12. **The framework's claim that all three independent observables converge on ν_vac=2/7 survives this Phase-2 result.**
+
+### §7.7 Phase-2 outcome summary
+
+- **Standard GR Kerr QNM vs LIGO: matches within 1.8%** (canonical result, confirms BCW06 reference is reliable)
+- **AVE simplified Kerr correction vs LIGO: 10-18% offset, isolated to spin correction not cold eigenvalue**
+- **Phase 1 ambiguity RESOLVED**: the offset is genuine AVE-distinct, not Kerr-formula sensitivity
+- **Failure mode pinned**: AVE's photon-sphere-based Kerr correction over-predicts at moderate spin
+- **ν_vac=2/7 derivation SURVIVES** this test (cold eigenvalue is fine; only the spin correction fails)
+- **Decision needed from Grant** on how to update corpus + KB:
+  - Option A: revise AVE Kerr correction
+  - Option B: reframe as AVE-distinct prediction (10-18% above LIGO is the AVE claim, not "matches GR")
+  - Option C: investigate alternative AVE BH-cavity geometry
+
+C1-BH-RING row update happens when this branch merges back to L3 / analysis branch.
