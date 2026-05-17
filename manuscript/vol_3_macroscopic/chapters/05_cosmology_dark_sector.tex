@@ -189,15 +189,23 @@ Extensive operational testing maps identical topological lensing mechanics direc
     \item In the extensive outer domain ($R > 5\text{ cm}$), the fluid remains highly permeable and supports enormous Back-EMF magnetic wakes. When these wakes interact, they linearly superimpose and pass their viscous shear profiles completely collisionlessly through each other, perfectly replicating the exact Dark Matter lensing offset of the Bullet Cluster without requiring invisible particulate matter.
 \end{enumerate}
 
-\section{VLBI Gravitational Impedance Parallax}
-To unambiguously falsify the hypothesis that Dark Matter is an exotic particulate halo, the AVE framework proposes the \textbf{VLBI Gravitational Impedance Parallax} test. Because gravity operates strictly as an achromatic impedance lens (Axiom 1) driven by macroscopic LC saturation, the local ``Dark Matter'' field is identical to the continuous phase-velocity gradient of the $377\,\Omega$ metric itself. 
+\section{VLBI Gravitational Impedance Parallax --- RETRACTED 2026-05-16 audit}
 
-By utilizing Very Long Baseline Interferometry across the solar system tracking radio signals grazing Jupiter's core, the exact optical delay $\Delta t$ and Snell phase steering can be measured. When mapped over a continuous transit, this anomaly perfectly matches the geometric deformation of the LC substrate, proving the macroscopic scale of the Axiom 4 saturation mechanic.
+This section previously proposed a VLBI Jupiter-grazing radio test claiming dark matter IS continuous phase-velocity gradient of the $377\,\Omega$ vacuum impedance baseline. \textbf{Audit (2026-05-16) retracted this claim} for two compounding reasons:
 
-\subsection{DAMA Parallax \& Crystal Phonon Modulation}
-The DAMA/LIBRA collaboration claims persistent annual modulation indicative of a Dark Matter ``Wind.'' Under the AVE framework, the Earth is physically flying through the Milky Way's rest-frame LC impedance gradient (the continuous dark matter halo). This bulk lattice pressure ($G/r$ wind) generates macroscopic phononic coupling inside the highly tensioned DAMA NaI(Tl) scintillating crystals, modulating the spontaneous acoustic defect decay rate (equivalent to the neutron bottle instability).
+\begin{enumerate}
+    \item The ``$377\,\Omega$ stretching'' mechanism contradicts AVE's own $Z_0$-invariance theorem (Vol 3 Ch 3 achromatic-impedance-matching + Vol 4 Ch 1 z0-derivation). $Z_{local}(r) = \sqrt{\mu(r)/\varepsilon(r)} \equiv Z_0$ at every $r$ because $\varepsilon(r)$ and $\mu(r)$ scale symmetrically with $n(r)$. There is no $Z_0$ to ``stretch'' geometrically.
+    \item The driver script \texttt{src/scripts/vol\_3\_macroscopic/vlbi\_impedance\_parallax.py} computes pure GR Shapiro delay ($n = 1 + 2GM/rc^2$). AVE's $n(r)$ is mathematically identical to the spatial transverse trace of the Gordon optical metric per Vol 3 Ch 3 refractive-index-of-gravity (line 14). No AVE-distinct VLBI observable is derived in the corpus.
+\end{enumerate}
 
-If the DAMA collaboration were to switch target crystals---for instance, from Sodium Iodide ($\rho = 3.67 \times 10^3 \text{ kg/m}^3$) to Sapphire ($\rho = 3.98 \times 10^3\text{ kg/m}^3$) or Germanium ($\rho = 5.32 \times 10^3\text{ kg/m}^3$)---the \textbf{phase} of the annual modulation would remain identical, driven by Earth's orbital kinematics. However, the \textbf{amplitude} of the anomaly acts as a macroscopic Parallax gauge, scaling proportionally with the new crystal's continuous bulk-density coupling constant $\kappa_{crystal}$ and structural acoustic Q-factor. This crystal dependency provides a direct, tunable tabletop test to isolate the topological LC lattice drag from standard WIMP particle scattering.
+The corpus's actual derived DM mechanism is \textbf{kinematic mutual inductance of the spatial network} ($\nu_{kin} = \alpha c \ell_{node}$, per Vol 1 Ch 4 lc-electrodynamics), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection (Vol 1 Ch 4 mond-hoop-stress). The matrix row C13-VLBI-DARK was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking three-mechanism coexistence as open theoretical gap). See KB \texttt{closure-roadmap.md} \S 0.5 and \texttt{divergence-test-substrate-map.md} C13 family section.
+
+\subsection{DAMA Parallax \& Crystal Phonon Modulation --- descriptive only}
+The DAMA/LIBRA collaboration claims persistent annual modulation indicative of a Dark Matter ``Wind.'' Under the AVE framework, the Earth is physically flying through the Milky Way's rest-frame LC kinematic mutual-inductance field. This bulk lattice phenomenon generates macroscopic phononic coupling inside the highly tensioned DAMA NaI(Tl) scintillating crystals, modulating the spontaneous acoustic defect decay rate.
+
+If the DAMA collaboration were to switch target crystals---for instance, from Sodium Iodide ($\rho = 3.67 \times 10^3 \text{ kg/m}^3$) to Sapphire ($\rho = 3.98 \times 10^3\text{ kg/m}^3$) or Germanium ($\rho = 5.32 \times 10^3\text{ kg/m}^3$)---the \textbf{phase} of the annual modulation would remain identical, driven by Earth's orbital kinematics. The \textbf{amplitude} of the anomaly should scale with the crystal's bulk-density coupling constant $\kappa_{crystal} = \rho_{crystal}/\rho_{bulk}$ and structural acoustic Q-factor.
+
+\textbf{Honest scope (2026-05-16 audit):} the amplitude formula itself is NOT derived in the corpus. The script \texttt{vlbi\_impedance\_parallax.py} computes the crystal-density ratios $\kappa$ but does not predict an annual-modulation amplitude. The C14-DAMA matrix row carries a TBD-pin on the amplitude derivation; this is a corpus derivation gap, classed as part of the C13c three-mechanism unification META item.
 
 \begin{summarybox}
 \begin{itemize}
