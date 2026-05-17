@@ -53,7 +53,7 @@ via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../..
 | Scale | Formula | Small-parameter $\epsilon$ | Output |
 |---|---|---|---|
 | **Cosmic** (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² |
-| **Substrate** (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s |
+| **Substrate** (electron α-slew, LSR-class scope only per GC test 2026-05-17 night) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s — applies to LSR-class kinematics; does NOT extend to GC-class populations (Outcome III per [`research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md`](../../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md)) |
 
 **Derivative observable at the substrate operating point** (NOT an independent scale-instance per honest-scope 2026-05-17 late evening per external reviewer):
 
@@ -65,7 +65,7 @@ via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../..
 
 **Empirical confirmation across scales**:
 - Cosmic: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual ([`../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md`](../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md))
-- Substrate: $v_{substrate} = \alpha c/(2\pi)$ is the **approximate magnitude prediction** (FLOOR interpretation tested + falsified 2026-05-17 late evening; directional alignment was tested + demoted from STRONG POSITIVE to consistency check 2026-05-17 late evening per ave-discrimination-check audit — both AVE and SM with the same K4=CMB identification predict alignment). Gaia DR3 thin-disk cluster at 375 km/s (9% above prediction). Substantive AVE-distinct content: magnitude 9% match + cluster tightness σ=11 inconsistent with random galactic kinematics. Directional alignment is consistency check on K4=CMB identification, not independent evidence.
+- Substrate: $v_{substrate} = \alpha c/(2\pi)$ is the **approximate magnitude prediction at LSR-class scope only** (FLOOR interpretation tested + falsified 2026-05-17 late evening via halo stars; GC-class scope tested + Outcome III 2026-05-17 night via 165 MW globular clusters at median 564 km/s; directional alignment was tested + demoted to consistency check per ave-discrimination-check audit). Gaia DR3 thin-disk cluster at 375 km/s (9% above prediction). GC population at 564 km/s (cosmic-flow dominated, NOT substrate-equilibrium). Substantive AVE-distinct content at LSR scope: magnitude 9% match + cluster tightness σ=11 inconsistent with random galactic kinematics. Substrate-velocity prediction now scoped to LSR-class local-region kinematics only; does NOT extend to GC-class or extreme-halo populations.
 - DAMA: $E_{substrate}$ lies in 2-6 keV detection window (see [`../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md))
 
 **This motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis of three previously-independent AVE predictions (MOND, substrate-equilibrium-velocity, DAMA quantum) under the same Hoop Stress 2π projection framework.
