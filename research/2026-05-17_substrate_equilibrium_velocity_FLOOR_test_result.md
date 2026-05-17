@@ -1,6 +1,6 @@
 # Substrate-Equilibrium Velocity FLOOR Test — Result (FLOOR INTERPRETATION FALSIFIED)
 
-**Status:** FLOOR interpretation FALSIFIED 2026-05-17 late evening; **A-center interpretation supported** with 9% magnitude gap; directional alignment (separate test, 704bb41) still stands.
+**Status:** FLOOR interpretation FALSIFIED 2026-05-17 late evening; **A-center interpretation supported** with 9% magnitude gap. (Directional test originally framed STRONG POSITIVE in commit 704bb41 was subsequently demoted to "active research consistency check" in commit e0a55e7 per ave-discrimination-check audit, external reviewer — the directional alignment with CMB-dipole follows from K4=CMB identification + basic astronomy and does NOT independently discriminate AVE. The substantive AVE-distinct content from Gaia is the magnitude approximate match + cluster tightness σ=11; both established in the prior magnitude test be04d76.)
 **Date:** 2026-05-17 late evening
 **Prereg:** [`2026-05-17_substrate_equilibrium_velocity_FLOOR_test_prereg.md`](2026-05-17_substrate_equilibrium_velocity_FLOOR_test_prereg.md)
 **Driver:** [`src/scripts/vol_3_macroscopic/gaia_floor_test.py`](../src/scripts/vol_3_macroscopic/gaia_floor_test.py)
