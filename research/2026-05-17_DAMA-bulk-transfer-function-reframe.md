@@ -259,6 +259,89 @@ The following corpus locations need updates per this reframe (next commit, with 
 - **MAJORANA discovery pass**: [`research/2026-05-17_MAJORANA-legacy-discovery-pass.md`](2026-05-17_MAJORANA-legacy-discovery-pass.md)
 - **HPGe + Sapphire proposal**: [`research/2026-05-17_HPGe-9.39kg-experimental-proposal.md`](2026-05-17_HPGe-9.39kg-experimental-proposal.md)
 
+## §10 — Pre-registration discipline plan for next-session bulk-EE derivation (NEW 2026-05-17 night per external-reviewer Step-1.5 walk-back of §3 cross-detector predictions)
+
+External reviewer applied ave-discrimination-check Step 1.5 to the bulk-EE reframe ITSELF (this very doc) and caught that §3's cross-detector "explains naturally" table was deploying TWO separate explanatory mechanisms (G_coherence for COSINE/ANAIS; T²_matched for HPGe) simultaneously without forward-prediction derivation. Per reviewer's recommended Option A pipeline: **research doc YES (already landed), KB-canonical leaf NOT YET**. The derivation must proceed via pre-registration discipline:
+
+### §10.1 — Pre-registration declaration (BEFORE next-session derivation begins)
+
+**Bulk-EE transfer function HYPOTHESIS** (to be derived from first principles, not from matching to observation):
+
+$$J_{substrate}^{bulk} = (1/4\pi) \times \kappa_{entrain} \times T^2_{matched} \times G_{crystal-coherence} \times (N_e^{(kg)} \nu_{slew} \alpha m_e c^2) \times (V/L)$$
+
+with each factor derived independently from canonical Vol 4 Ch 1 vacuum-circuit-analysis tools:
+
+- **$\kappa_{entrain}$** = $\rho_{matter}/\rho_{bulk}$ (canonical Sagnac-RLVE; lookup, not derived in this work)
+- **$T^2_{matched}$** = Op17 power-transmission formula evaluated at substrate-matter interface for specific bulk crystal LC structure at $\nu_{slew}$; per-lattice-class derivation (NaI rock-salt, HPGe diamond, Sapphire corundum, CsI rock-salt, etc.) using canonical Vol 4 Ch 1 bulk-impedance methods
+- **$G_{crystal-coherence}$** = Dicke-superradiance-analog enhancement factor derived from coherent-emitter physics in a continuous K4 substrate medium; per-crystal-quality scaling
+- **$N_e^{(kg)}$, $\nu_{slew}$, $\alpha m_e c^2$, $V/L$** = canonical / engineering quantities
+
+### §10.2 — Forward-prediction discipline (BEFORE consulting cross-detector observed rates)
+
+For each of the following detector classes, compute predicted rate per kg from the bulk-EE formula above WITHOUT looking up observed rates:
+
+| Detector | $M_{single}$ | Lattice geometry | Pre-registered predicted rate per kg | Pre-registered $T^2_{matched}$ | Pre-registered $G_{coherence}$ |
+|---|---|---|---|---|---|
+| **DAMA NaI(Tl) Beam International** | 9.7 kg | rock-salt | TBD | TBD | TBD |
+| **COSINE-100 NaI** | ~10 kg | rock-salt (same as DAMA) | TBD | TBD | TBD |
+| **ANAIS-112 NaI** | ~12.5 kg | rock-salt (same as DAMA) | TBD | TBD | TBD |
+| **MAJORANA HPGe** | ~9 kg | diamond | TBD | TBD | TBD |
+| **HPGe 9.39 kg (proposal)** | 9.39 kg | diamond | TBD | TBD | TBD |
+| **Sapphire 2.64 kg (proposal)** | 2.64 kg | corundum | TBD | TBD | TBD |
+| **XENONnT liquid Xe** | bulk liquid | none (G=0 by binary gate) | 0 | N/A | 0 |
+| **CsI(Tl)** (hypothetical alternative) | TBD | rock-salt (same as NaI!) | TBD | TBD | TBD |
+
+The CsI(Tl) row is included as a CLEAN DISCRIMINATOR: same lattice geometry as NaI (rock-salt) but different atomic Z. If bulk-EE framework is correct: CsI(Tl) should show similar $T^2_{matched}$ to NaI but scaled detection efficiency via σ(Z=53, 3.728 keV) vs σ(NaI). Per-electron extrapolation would predict same rate per Z-weighted electron count; bulk-EE predicts different rate via T²_matched × σ_atomic.
+
+### §10.3 — Comparison-to-observation discipline (AFTER predictions are pre-registered)
+
+Compare pre-registered predicted rates to observed rates as a SEPARATE step:
+
+| Detector | Observed rate per kg | Pre-registered predicted | Ratio (Observed/Predicted) | Status |
+|---|---|---|---|---|
+| DAMA NaI(Tl) | 4.77e-7 events/s/kg | TBD | TBD | TBD |
+| COSINE-100 NaI | <~5e-8 (90% CL) | TBD | TBD | TBD |
+| ANAIS-112 NaI | <~5e-8 (90% CL) | TBD | TBD | TBD |
+| MAJORANA HPGe | <~6e-8 (implicit; needs Figure 1 digitization) | TBD | TBD | TBD |
+| HPGe 9.39 kg | UNTESTED | TBD | TBD | TBD |
+| Sapphire 2.64 kg | UNTESTED | TBD | TBD | TBD |
+| XENONnT | <~5e-10 (90% CL) | 0 | N/A | TBD |
+
+### §10.4 — Decision-tree post-comparison
+
+**If forward predictions land within factor 3 across all detectors with observed rates**:
+- Bulk-EE framework validated as cross-detector predictive
+- Promote bulk-EE framework to KB-canonical status
+- Update foreword DAMA bullet with bulk-EE framing
+- HPGe + Sapphire experimental proposals updated with bulk-EE-derived predicted rates
+- Z-INDEPENDENCE claim properly walked back to "Z-INDEPENDENT at bulk-transfer level; Z-DEPENDENT at detection-efficiency level"
+
+**If forward predictions land within factor 10 but not factor 3**:
+- Framework partially validated; identify which factor in factorization needs refinement
+- Document as research-pending; do not promote to canonical
+- Identify additional bulk-physics factors that may have been missed in factorization
+
+**If forward predictions miss by >factor 10 anywhere**:
+- Walk back the bulk-EE reframe per reviewer's Option A discipline
+- Acknowledge: bulk-EE structural level is correct but specific factorization is wrong
+- Re-enter the alternative-mechanism enumeration (atomic-inner-shell vs bulk-LC vs phonon-electron from Q1)
+- Do NOT tune factorization to fit observations post-hoc
+
+**If predictions don't even match DAMA (the formula's training point)**:
+- Per-electron / bulk-EE cross-level equivalence claim fails
+- The 0.6% match was numerical coincidence after all
+- Per ave-discrimination-check Class B discipline, walk back the framework substantially
+
+### §10.5 — Honest meta-pattern observation (per `ave-newly-created-skill-self-audit` discipline)
+
+This §10 itself is the corrective response to a discipline-application failure: I had ave-prereg and ave-discrimination-check available, applied them to the bulk-EE structural framing (which IS the right level), but did NOT apply them to the SPECIFIC FACTORIZATION + cross-detector predictions in §3. The cross-detector "explains naturally" framing was a first-plausible-interpretation that the external reviewer caught as deploying two free explanatory parameters simultaneously.
+
+**Pattern**: agents reframe correctly in response to audit catches, but DON'T auto-apply discipline to the reframe itself. The 16th skill (ave-newly-created-skill-self-audit) catches one shape (newly-created skills); this is a different shape (newly-applied framing). Possible 19th skill candidate if pattern recurs; for now, discipline tightening = always invoke ave-prereg + ave-discrimination-check explicitly when drafting documentation that includes new derivation claims, even framed as "documenting an existing reframe."
+
+### §10.6 — Session-end gate
+
+**This research doc is NOW pre-registration-complete**. Next-session work begins with bulk-EE derivation per §10.1-§10.4 pipeline. KB-canonical promotion gated on §10.4 decision-tree outcome. The bulk-EE reframe is RESEARCH-LEVEL canonical (the level-distinction is correct per Grant's plumber-physical authority); the specific factorization is research-pending derivation + forward-prediction validation.
+
 ## §9 — Lane attribution
 
 Research reframe landed on `analysis/divergence-test-substrate-map` branch. **Live demonstration of the 18-skill discipline ensemble in action**: applied full pre-derivation discipline stack (ave-prereg → ave-canonical-leaf-pull → ave-analytical-tool-selection → ave-power-category-check → ave-discrimination-check → ave-canonical-source); also applied ave-audit-of-audit (Grant's plumber-physical directive overrides agent pattern-matched framing). The reframe is structurally substantive (changes the physical-cascade-level of the analysis from per-electron to bulk-EE) but quantitatively bounded (numerical derivation queued for next session). Per ave-walk-back discipline: downstream corpus updates (matched-LC KB leaf §13, matrix C14 row, foreword bullet, HPGe + Sapphire proposal) queued separately for next commit. **This is the cleanest example yet of plumber-physical authority + discipline-machinery + skill-ensemble all working together at design intent.**

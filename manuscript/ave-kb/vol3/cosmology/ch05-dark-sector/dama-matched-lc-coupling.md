@@ -206,9 +206,11 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 
 Canonical KB leaf landed on `analysis/divergence-test-substrate-map` branch as part of the 9th-cycle reactive-power resolution work. Promotes the matched-LC-coupling derivation from research/ work-in-progress to corpus-canonical statement. Engine constants (E_SLEW, NU_SLEW, LAMBDA_SLEW, Z_RADIATION) added to `src/ave/core/constants.py` in same commit per `ave-canonical-source` skill discipline. Driver script updated to import canonical constants instead of computing inline.
 
-## §13 — Bulk-EE level vs per-electron level distinction (NEW 2026-05-17 night per Grant plumber-physical reframe)
+## §13 — Bulk-EE level vs per-electron level distinction (RESEARCH-PENDING 2026-05-17 night per Grant plumber-physical reframe; 11th-cycle external-reviewer Step-1.5 walk-back applied to bulk-EE factorization)
 
-Per Grant directive (2026-05-17 night, after plumber-physical audit + Q1-Q3 surface): the matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ documented in §2-§12 above is the **PER-ELECTRON-LEVEL EXPRESSION** of a more fundamental **BULK-EE TRANSFER FUNCTION**. The two levels are cross-equivalent for DAMA-class single-crystal coherent volume, which is why the formula matches DAMA at 0.6% — but the per-electron expression does NOT cross-detector-generalize because it implicitly conflates two physical cascade levels:
+> **🟡 RESEARCH-PENDING status** (per external-reviewer Step-1.5 ave-discrimination-check 2026-05-17 night, applied to bulk-EE reframe): the bulk-vs-per-electron level distinction is STRUCTURALLY LIKELY CORRECT (Grant's plumber-physical authority + canonical Vol 4 Ch 1 bulk-EE toolkit availability + IVIM-class analog all support it) but the SPECIFIC FACTORIZATION + cross-detector predictions below are ASSERTED, not DERIVED. Per ave-prereg + ave-discrimination-check Step 1.5 disciplines: this section is research-pending until forward-prediction-pre-registered derivation lands (queued for next-session work). The pre-registration discipline plan is documented at [`research/2026-05-17_DAMA-bulk-transfer-function-reframe.md`](../../../../../research/2026-05-17_DAMA-bulk-transfer-function-reframe.md) §10. **Promotion to KB-canonical status gated on**: (a) derivation of T²_matched + G_coherence from first principles via canonical Vol 4 Ch 1 tools; (b) forward predictions for DAMA + COSINE + ANAIS + MAJORANA + HPGe + Sapphire pre-registered BEFORE consulting their observed rates; (c) forward predictions actually landing within reasonable scope across the cross-detector data. If predictions don't land, walk back the bulk-EE reframe rather than tune factorization to fit.
+
+Per Grant directive (2026-05-17 night, after plumber-physical audit + Q1-Q3 surface): the matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ documented in §2-§12 above is HYPOTHESIZED to be the **PER-ELECTRON-LEVEL EXPRESSION** of a more fundamental **BULK-EE TRANSFER FUNCTION**. The two levels are HYPOTHESIZED cross-equivalent for DAMA-class single-crystal coherent volume, which would explain why the formula matches DAMA at 0.6% — but the per-electron expression does NOT cross-detector-generalize because it implicitly conflates two physical cascade levels:
 
 1. **Bulk substrate-mode transfer level** (Z-INDEPENDENT, lattice-geometry-dependent): governs how much substrate-mode power reaches the detector
 2. **Atomic-physics detection-efficiency level** (Z-DEPENDENT via photoabsorption cross-section): governs what fraction of arriving power produces detectable scintillation
@@ -237,16 +239,16 @@ with bulk components:
 
 The bulk substrate-mode transfer is Z-INDEPENDENT (lattice-geometry-dependent, not atomic-Z-dependent). But the detection efficiency $\sigma_{atomic} \times \eta_{scintillation}$ is Z-DEPENDENT. The full DAMA rate is the product, so cross-detector predictions need BOTH factors.
 
-**Cross-detector tension resolution at bulk level**:
+**Cross-detector tension resolution HYPOTHESIS at bulk level** (research-pending; deploys two free explanatory mechanisms simultaneously which the external-reviewer Step-1.5 catch flagged as needing forward-prediction derivation before assertion):
 
-| Detector | Why detected / null at bulk level |
+| Detector | HYPOTHESIZED reason for detected / null at bulk level |
 |---|---|
-| DAMA NaI(Tl) BI 9.7 kg | NaI rock-salt lattice presents matched $T^2_{matched} \approx 1$ at $\nu_{slew}$; full $G_{coherence}$ from high-quality crystal |
-| COSINE / ANAIS NaI | Same NaI lattice ($T^2_{matched} \approx 1$); reduced $G_{coherence}$ from lower crystal quality → 0.1-0.3× DAMA rate per kg |
-| MAJORANA HPGe | HPGe diamond lattice presents mismatched $T^2_{matched} \ll 1$ at $\nu_{slew}$; full $G_{coherence}$ but suppressed by impedance mismatch |
-| XENONnT liquid Xe | Liquid → $G_{coherence} = 0$ → null regardless of $T^2_{matched}$ (binary gate) |
+| DAMA NaI(Tl) BI 9.7 kg | HYPOTHESIS: NaI rock-salt lattice presents matched $T^2_{matched} \approx 1$ at $\nu_{slew}$; full $G_{coherence}$ from high-quality crystal |
+| COSINE / ANAIS NaI | HYPOTHESIS: Same NaI lattice ($T^2_{matched} \approx 1$); reduced $G_{coherence}$ from lower crystal quality → 0.1-0.3× DAMA rate per kg |
+| MAJORANA HPGe | HYPOTHESIS: HPGe diamond lattice presents mismatched $T^2_{matched} \ll 1$ at $\nu_{slew}$; full $G_{coherence}$ but suppressed by impedance mismatch |
+| XENONnT liquid Xe | HYPOTHESIS: Liquid → $G_{coherence} = 0$ → null regardless of $T^2_{matched}$ (binary gate) |
 
-This is the bulk-EE constitutive picture: the load-bearing discriminator is $T^2_{matched}$ (lattice-geometry-specific bulk impedance match) + $G_{coherence}$ (crystal-quality), NOT atomic-Z scaling.
+This is the bulk-EE constitutive PICTURE; the load-bearing discriminator is HYPOTHESIZED to be $T^2_{matched}$ (lattice-geometry-specific bulk impedance match) + $G_{coherence}$ (crystal-quality), NOT atomic-Z scaling. **Honest scope per ave-discrimination-check Step 1.5**: the cross-detector explanation deploys TWO separate mechanisms (G_coherence variation for COSINE/ANAIS; T²_matched mismatch for HPGe) which provides ENOUGH explanatory flexibility to fit any observed pattern. Each detector difference is attributed to a different mechanism. Forward-prediction derivation BEFORE consulting observations is required to discriminate "framework correctly identifies different physics at different detectors" from "framework absorbs cross-detector variation via per-detector reinterpretation flexibility." Next-session work is pre-registered at the bulk-EE research doc §10.
 
 **Audit-of-audit framing**: per the `ave-audit-of-audit` skill landed 2026-05-17 night (canonical worked example documented there), Grant's plumber-physical directive overrides the agent's pattern-matched per-electron framing. The per-electron 4π/N² formula in §2-§5 is preserved as a CROSS-LEVEL EQUIVALENT EXPRESSION for DAMA-class single-crystal coherent volume; the bulk-EE reframe in this §13 is the corpus-canonical statement going forward. Future cross-detector predictions should derive from the bulk-EE formula, not from per-electron extrapolation.
 
