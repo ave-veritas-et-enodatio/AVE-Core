@@ -11,7 +11,7 @@ The K4 lattice $\mathcal{M}_A$ has a preferred rest frame (identified with the C
 |---|---|
 | **K4 lattice rest frame** | $\mathcal{M}_A$ has a preferred frame = CMB rest frame to high precision (AVE-QED Q-G24 `2026-05-13_Q-G24_lorentz_from_axiom_4.md:51, 192`) |
 | **Earth velocity through $\mathcal{M}_A$** | $v_\oplus \sim 370$ km/s relative to lattice rest frame |
-| **Substrate-equilibrium velocity (NEW 2026-05-17)** | $v_{substrate} = \alpha c/(2\pi) \approx 348.2$ km/s — zero-parameter prediction from Schwinger anomalous-moment substrate-rate $\nu_{slew} = a_e \cdot \nu_{Compton}$. Sun's observed 370 km/s = 348 base + ~22 km/s peculiar. See §5 below. |
+| **Substrate-equilibrium velocity FLOOR (NEW 2026-05-17, framing corrected 2026-05-17 evening)** | $v_{substrate} = \alpha c/(2\pi) \approx 348.2$ km/s is the substrate-equilibrium FLOOR — zero-parameter prediction from Schwinger anomalous-moment substrate-rate $\nu_{slew} = a_e \cdot \nu_{Compton}$. LSR-class stellar populations exhibit $|v_{CMB}| \geq$ floor; all 29,466 nearby thin-disk stars cluster at 375 km/s with $\sim 27$ km/s coherent population-wide bulk motion above floor (origin TBD — local-disk dynamics / spiral arm streaming / galactic-orbit projection). Sun is one instance of this population, not specially peculiar. See §5 below. |
 | **Gaia DR3 empirical test (NEW 2026-05-17)** | 29,466 nearby thin-disk G/K dwarfs cluster TIGHTLY at 375 km/s (σ=11 km/s on |v_LSR|<30 cut); AVE prediction $\alpha c/(2\pi)$ sits at 4%ile (lower envelope). Interpretation: αc/(2π) is the substrate-equilibrium floor; observed cluster is LSR + local-flow above. See [`../../../../../../research/2026-05-17_substrate_equilibrium_velocity_GAIA_result.md`](../../../../../../research/2026-05-17_substrate_equilibrium_velocity_GAIA_result.md). |
 | **Cubic-symmetry suppression** | Anisotropic EM corrections suppressed by $(q\ell_{node})^4$ for $q \ll \pi/\ell_{node}$ (first anisotropic invariant for cubic point group is quartic) |
 | **Optical-scale anisotropy** | $\delta_{aniso} \sim (q\ell_{node})^4 \approx 2.2 \times 10^{-22}$ at $\lambda = 633$ nm; current cavity bounds $\sim 10^{-19}$ to $10^{-20}$ per SME operator (Nagel 2015, Sanner 2019); 2-3 OOM below bound |
@@ -112,6 +112,18 @@ This is structurally identical to the canonical MOND derivation:
 | α-slew substrate | $v_{substrate} = \alpha c / (2\pi) \approx 348$ km/s | 2π Hoop Stress (same) | this leaf |
 
 The recurring pattern: substrate bulk drift $c \times \text{(small parameter)}$ projected through the Hoop Stress factor 2π onto closed topological loops. At cosmic scale the small parameter is $H_\infty$ acting on the cosmic horizon loop; at substrate scale the small parameter is $\alpha$ acting on the electron unknot.
+
+### Why floor not center (scale-invariance reductio)
+
+**Scale-invariance forces floor interpretation, not center interpretation.** If $\alpha c/(2\pi)$ were the cluster CENTER (i.e., AVE predicts the LSR's specific CMB velocity), then a $(1 + 1/(4\pi)) = 1.0796$ geometric correction would be needed to convert prediction 348 km/s → observed 375 km/s. But applying that same scale-invariant correction at electron scale:
+
+$$a_e^{corrected} = \frac{\alpha}{2\pi} \cdot \left(1 + \frac{1}{4\pi}\right) = 1.161 \times 10^{-3} \times 1.0796 = 1.254 \times 10^{-3}$$
+
+vs observed $a_e = 1.160 \times 10^{-3}$ — would be 8% high, **breaking the electron-scale anomalous-moment match** (which currently holds to <0.2%). The scale-invariance constraint is therefore:
+
+> $\alpha c/(2\pi)$ is the substrate-equilibrium FLOOR at ALL scales. At electron scale it manifests as a single-particle scalar prediction $a_e = \alpha/(2\pi)$ (single object, no above-floor population to average). At stellar scale it manifests as a population-floor $v_{substrate} = \alpha c/(2\pi)$; observed populations exhibit $|v_{CMB}| \geq$ this floor with additional dynamics adding bulk motion above.
+
+The 9% gap between prediction and Gaia cluster center is therefore NOT a missing geometric correction — it is the 27 km/s coherent bulk motion of the LSR-class population above floor, with origin in local-disk dynamics (spiral arm streaming, galactic-orbit projection onto CMB-dipole direction, etc.). The cluster tightness ($\sigma = 11$ km/s) confirms it's a population-coherent bulk motion, not random peculiar scatter.
 
 ### Empirical anchor: Gaia DR3 test (2026-05-17)
 

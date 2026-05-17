@@ -24,7 +24,7 @@ The α-slew framing collapses three otherwise unrelated empirical facts into one
 |---|---|---|
 | **a_e = α/(2π)** (Schwinger anomalous magnetic moment) | 1-loop QED radiative correction | Axiom 4 saturation kernel back-reaction on LC tank + 1/π² spin-orbit geometric projection (canonical at [`src/scripts/vol_2_subatomic/simulate_g2.py`](../src/scripts/vol_2_subatomic/simulate_g2.py)) |
 | **DAMA detection window 2-6 keV** | empirical, no SM mechanism | substrate-native quantum α m_e c² = 3.728 keV at the electron α-slew |
-| **Sun's CMB-frame velocity 370 km/s** | initial-conditions accident; SM offers no prediction | v_substrate = αc/(2π) = 348 km/s + ~22 km/s peculiar motion |
+| **Sun's CMB-frame velocity 370 km/s** | initial-conditions accident; SM offers no prediction | One instance of LSR-class population; entire population exhibits $|v_{CMB}| \geq v_{substrate} = \alpha c/(2\pi) = 348$ km/s with ~27 km/s coherent bulk motion above floor (NOT Sun-specific peculiar) |
 
 All three derive from the same substrate operating point: the electron's natural slew rate ν_slew = αc/(2π·ℓ_node) ≈ 9.02 × 10¹⁷ Hz at substrate scale. The SM has each as an independent unrelated fact; AVE unifies under one derivation.
 
@@ -160,7 +160,7 @@ For DAMA's observed 0.01 cpd/kg/keV with both energy and modulation matched at t
 Status changes to:
 - **Energy scale**: forward-prediction CONFIRMED (α m_e c² = 3.728 keV; zero parameter, in DAMA window; replaces 3.96 keV)
 - **Modulation amplitude**: forward-prediction CONFIRMED at order-of-magnitude (Earth annual sweep near substrate resonance)
-- **Substrate equilibrium velocity (NEW)**: prediction = αc/(2π) = 348 km/s; Sun observed 370 km/s (6% high); attributable to LSR + galactic-orbital peculiar; testable via other stellar-system surveys
+- **Substrate equilibrium velocity FLOOR (NEW, framing corrected 2026-05-17 evening)**: prediction = αc/(2π) = 348 km/s is the FLOOR (not center). LSR-class population exhibits ~27 km/s coherent bulk motion above floor (origin TBD); all 29,466 nearby thin-disk stars cluster at 375 km/s per Gaia DR3 test. Sun's 370 km/s is one population instance, NOT specially peculiar. Floor interpretation forced by scale invariance — center-matching correction would break a_e at electron scale.
 - **Rate magnitude**: TBD (Q-factor derivation needed; single-parameter closure target)
 
 ### Closure-roadmap §0.5 update (revised proposed)

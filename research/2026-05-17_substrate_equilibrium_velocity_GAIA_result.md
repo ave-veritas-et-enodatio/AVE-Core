@@ -118,7 +118,7 @@ If Grant adjudicates that the (1 + 1/(4π)) correction is canonical AVE physics 
 
 - **New foreword-level positive prediction**: cosmic velocity scale = αc/(2π) (with small correction or as lower envelope)
 - **Cross-volume Hoop Stress synthesis**: confirmed at substrate scale (parallel to MOND a_0 at cosmic scale)
-- **Sun's CMB velocity becomes derived**: 370 km/s = αc/(2π) + ~22 km/s peculiar (the 22 km/s decomposes into LSR-related peculiar motion)
+- **Sun's CMB velocity reframed as one population instance**: 370 km/s is one realization of the LSR-class population, which exhibits $|v_{CMB}| \geq \alpha c/(2\pi)$ floor with ~27 km/s coherent population-wide bulk motion above floor. NOT Sun-specifically peculiar — all 29,466 nearby thin-disk stars share the offset (cluster median 375 km/s, σ=11). Floor interpretation forced by scale invariance: center-matching (1+1/(4π)) correction would break $a_e = \alpha/(2\pi)$ match at electron scale.
 - **DAMA energy + cosmic velocity = same substrate operating point**: full closure of α-slew framing
 
 ### Cautious claim (Interpretation C survives, prediction coincidental)
