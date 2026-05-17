@@ -868,9 +868,104 @@ That last item is the framework-level falsification opportunity that doesn't exi
 
 This is more leverage than HOPF-02a, more leverage than LIGO ringdown driver, more leverage than CLEAVE-01 bench. All public data, pre-reg already frozen, execution-deferred. **Build this driver.**
 
-### Other framework cascades to map (deferred)
+### Master Cross-Cascade Synthesis (audited 2026-05-16)
 
-All major framework anchors (ν_vac, α, ξ_topo, G) and the IC layer (Ω_freeze + 𝒥_cosmic) are now visualized. Each Mermaid diagram costs ~30-60 lines and surfaces the cross-row dependency structure that flat tables hide. Add domain-specific cascades (e.g., (2,q) torus-knot family ladder for particle masses) as audited.
+The four anchor cascades + IC meta-cascade together form the framework's complete dependency graph. This master diagram shows the apex structure (Ω_freeze → u_0* → 4 anchors → operational test categories) without redrawing all 33 row connections — for per-row detail, see individual cascade diagrams above.
+
+```mermaid
+flowchart TD
+    OMEGA(("Ω_freeze<br/>1 cosmological IC parameter<br/>(substrate rotation rate at genesis)"))
+    UZERO(("u_0*<br/>magic-angle operating point<br/>K = 2G locked"))
+    OMEGA --> UZERO
+
+    %% Four anchors derive from u_0*
+    UZERO -->|"K = 2G + 7-mode compliance"| NUV(("ν_vac = 2/7"))
+    UZERO -->|"Q-factor closure<br/>Vol 1 Ch 8 Golden Torus"| ALPHA(("α = 1/(4π³+π²+π)"))
+    UZERO -->|"electron Compton ℓ_node<br/>+ Ax 2 TKI"| XITOPO(("ξ_topo = e/ℓ_node"))
+
+    %% G derives from BOTH ν_vac (factor 7) AND α (Machian ξ ∝ α⁻²)
+    NUV -->|"factor 7"| GANCH(("G = ℏc/(7ξm_e²)"))
+    ALPHA -->|"α⁻² in Machian ξ"| GANCH
+
+    %% Operational test categories — each tests one or more anchors
+    NUV --> T_LIGO["LIGO ringdown driver<br/>ω_R M_g = 18/49<br/>free, public data"]
+    ALPHA --> T_HOPF["HOPF-02a fab + measure<br/>Δf/f = α·pq/(p+q)<br/>$123 BOM, 60-400× SNR"]
+    XITOPO --> T_CLEAVE["CLEAVE-01 bench<br/>Q = ξ_topo·x<br/>$1-5k, 41.5 mV/μm"]
+    GANCH --> T_3ROUTE["3-route framework commitment<br/>α + G + 𝒥_cosmic → SAME u_0*"]
+    UZERO --> T_3ROUTE
+
+    %% 𝒥_cosmic is the Route 3 bottleneck
+    OMEGA -->|"Route 3: 𝒥_cosmic = Ω · I_cosmic"| T_CMB["CMB+SDSS axis-alignment driver<br/>frozen prereg 2026-05-15<br/>free, public data — HIGHEST LEVERAGE<br/>(closes 3-route commitment)"]
+    T_CMB --> T_3ROUTE
+
+    %% Framework commitment outcome
+    T_3ROUTE --> COMMIT{{"Framework single-IC commitment:<br/>α + G + 𝒥_cosmic must all give SAME u_0*"}}
+    COMMIT --> FAIL["FRAMEWORK FAIL<br/>if any route gives ≠ u_0*"]
+
+    classDef ic fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
+    classDef anchor_nu fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef anchor_xi fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    classDef anchor_g fill:#c5e1a5,stroke:#33691e,stroke-width:2px
+    classDef test fill:#fff3e0,stroke:#e65100
+    classDef commitment fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    classDef fail fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+    class OMEGA,UZERO ic
+    class NUV,ALPHA anchor_nu
+    class XITOPO anchor_xi
+    class GANCH anchor_g
+    class T_LIGO,T_HOPF,T_CLEAVE,T_CMB test
+    class T_3ROUTE,COMMIT commitment
+    class FAIL fail
+```
+
+### Cascade Summary Table
+
+| Cascade | Source | Rows touched | Triangulation | Highest-leverage operational test | Cost |
+|---|---|---|---|---|---|
+| **ν_vac = 2/7** | K = 2G + 7-mode compliance | 6 | C1 + C11 + C12 (3-route) | LIGO ringdown driver (re-analysis) | free |
+| **α = 1/(4π³+π²+π)** | Golden Torus geometry (Vol 1 Ch 8) | 12 | A1 + C3 (2-route on (2,q)) | HOPF-02a fab + measure | $123 BOM |
+| **ξ_topo = e/ℓ_node** | Ax 2 TKI + Compton | 7 | Single-shot C15 (sharpest Ax2 kill-switch) | CLEAVE-01 bench | $1-5k |
+| **G = ℏc/(7ξm_e²)** | Machian impedance integral (downstream of ν_vac + α) | 7 | None standalone — needs cross-anchor differential | 3-route framework commitment via 𝒥_cosmic | free |
+| **𝒥_cosmic + Ω_freeze** (meta) | Lattice genesis IC | 3 direct + all 4 anchors downstream | 3-route framework commitment | CMB+SDSS axis-alignment driver | free |
+
+### Operational Triage — ranked priority across all 4 cascades + meta-cascade
+
+Combining cascade leverage with operational accessibility, the framework's highest-priority executable workstreams in order:
+
+1. **🥇 CMB+SDSS axis-alignment driver** (Route 3 / 𝒥_cosmic) — closes the **3-route framework commitment**, the framework's sharpest empirical claim. Single test simultaneously falsifies (or strengthens) the entire single-cosmological-parameter theory. Prereg already frozen 2026-05-15. Free public data. **More leverage than any single-anchor test.**
+2. **🥈 LIGO ringdown driver** (ν_vac) — re-analyzes public O1-O3 strain data against ω_R M_g = 18/49. 10-18% predicted miss against 3 existing events. Free public data. Gives ν_vac its first observational route.
+3. **🥉 HOPF-02a fab + measure** (α) — designed at $123 BOM with 60-400× NEC2 SNR margin. Simultaneously tests α (chiral shift law) + (2,q) particle identification + the (2,q) chiral family triangulation pair with C3-MUON-DELTA.
+4. **CLEAVE-01 femto-Coulomb electrometer bench** (ξ_topo) — $1-5k, sharp 41.5 mV/μm prediction, binary kill-switch on Axiom 2 TKI itself. Cheaper than HOPF-02a and the falsification is more definitive (0.0 mV directly falsifies Ax 2).
+5. **Muon g-2 family-saliency driver** (α via C3-MUON-DELTA) — Fermilab data is public, compares AVE's δ = -5α/2 prediction. Part of (2,q) family triangulation with HOPF-02a result.
+
+**Notable: the top 3 are all free (public data + low-cost bench).** None require facility-class infrastructure. The framework's highest-leverage tests are *currently waiting on Core-side scripting, not on funding or hardware*.
+
+### Heavily-cascaded rows (failure isolation guide)
+
+From the cross-cascade dependency table in the ξ_topo section, the 6 rows that load on ≥2 framework anchors form the **differential-diagnostic substrate** for failure isolation:
+
+| Row | Cascades | Failure isolates to … |
+|---|---|---|
+| **D2-RHO-LAMBDA** | ν_vac + α (+ G via H_∞) | If C1 PASS + D2 FAIL → α or H_∞ chain wrong (not ν_vac) |
+| **B5-PONDER-01** | ν_vac + α + ξ_topo (triple) | If both C15 and HOPF PASS but B5 FAIL → likely thermal-catastrophe artifact, not framework |
+| **B7-PONDER-05** | α + ξ_topo | If C15 PASS + B7 FAIL → V_yield/α chain wrong |
+| **C9-LEVITATION** | α + ξ_topo | Same: C15 PASS + C9 FAIL → V_yield wrong |
+| **C16-TORSION-05** | α + ξ_topo | Same isolation pattern |
+| **D4-A034** | ν_vac (turbulence row) + α (V_yield row) | Per-instance failures cleanly isolate; multiple instance failures = catalog universality at risk |
+
+**This is the matrix's killer feature.** Single-row PASS/FAIL is ambiguous; cross-row pattern matching against the cascade structure isolates upstream causes. The keyed-by-ID + cross-cascade-dependency-table machinery makes this differential-diagnostic explicit rather than implicit.
+
+### Domain-specific cascades to add later
+
+The 4 framework-anchor cascades + IC meta-cascade cover the foundational scalars. Domain-specific cascades that would be useful additions:
+
+- **(2,q) torus-knot family ladder** — particle-mass cascade (electron 0_1, proton (2,5), Δ (2,7), …); touches A1-HOPF, B3-PD-FRACTURE, C3-MUON-DELTA, C8-BARYON-LADDER, C10-MUON-LIFE
+- **A-034 universal saturation kernel catalog** — already partially mapped via individual instance rows; could become its own cross-instance consistency diagram with 21 leaf-nodes
+- **Op14 cross-sector trading** — the bond-LC-tank mechanism underlying PONDER family + B4-PROTEIN + dark-wake derivations
+- **K4 substrate mechanics** ($p_c = 8\pi\alpha$, FTG-EMT z_0 = 51.25, K=2G operating point) — already touched at the apex but not visualized as a substrate-mechanics cascade
+
+Each domain cascade costs ~30-60 lines of Mermaid. Add as audited or as the matrix grows.
 
 ---
 
