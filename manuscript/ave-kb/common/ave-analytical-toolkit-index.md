@@ -44,15 +44,18 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 | **Sagnac-RLVE κ_entrain template** | κ_entrain = ρ_matter / ρ_bulk | [`vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md` line 14-26](../vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) | DC mass-density real-power coupling (rotor → bulk substrate velocity) |
 | **Orbital friction paradox reactive-vs-real table** | $P_{real} = VI\cos\theta$; $Q_{reactive} = VI\sin\theta$ | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md` line 31 canonical table](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) | Categorize coupling as P_real (dissipative) or Q_reactive (conservative) — load-bearing categorical check |
 | **Op14 Cross-Sector Trading** | $H_{total} = H_{cos} + H_{K4-inductive}$; $\rho(H_{cos}, \Sigma\|\Phi_{link}\|^2) = -0.990$ | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) | Energy exchange between Cosserat and K4-inductive sectors |
+| **Parametric Coupling Kernel** | $\varepsilon_{det} = 4\pi \kappa_{quality} / N_{single}^2$; $\delta C / C_0 = (1/4)(V_{pump}/V_{yield})^2$; resonance at $\omega_{app} = \omega_{slew}$ (sub-harmonic of pump $2\omega_{slew}$) | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) | Time-varying-$C_{eff}$ coupling at sub-yield substrate-rate operating point; substrate-rate ↔ apparatus-resonance matching; DAMA-class detection rate derivations; REACTIVE-power class (categorically distinct from real-power κ_entrain) |
 
 **Worked examples in corpus**:
 - Sagnac-RLVE Tungsten rotor: $\kappa_{entrain} = 0.00244$ → $v_{network} = 0.38$ m/s → $\Delta\phi = 2.07$ rad (line 14-30 of sagnac-rlve.md)
 - Project HOPF-02 anomalous chiral $S_{11}$ notch: matched-impedance via topological-antenna chiral coupling (project-hopf-02.md)
+- Parametric coupling kernel applied to DAMA: $\varepsilon_{det} = 4\pi/N_{single}^2 = 2.07 \times 10^{-51}$ → DAMA rate 0.6% match as DERIVED consequence (canonical leaf §8 cross-detector table)
 
 **Common pitfalls** (load-bearing):
-- **DO NOT mix real-power and reactive-power templates** (categorical error per Axis A of ave-power-category-check skill). κ_entrain is for real-power; Op17 reactive-coupling is for reactive-power. Sagnac-RLVE κ_entrain DOES NOT apply to reactive-power coupling at α-slew operating point — see [`research/2026-05-17_plumber-physical-audit-matched-LC.md`](../../../research/2026-05-17_plumber-physical-audit-matched-LC.md) for the canonical example of this failure mode.
+- **DO NOT mix real-power and reactive-power templates** (categorical error per Axis A of ave-power-category-check skill). κ_entrain is for real-power (mass-density-coupled DRAG-ALONG per `sagnac-rlve.md:14-22`); Op17 + Parametric Coupling Kernel are for reactive-power. **Sagnac-RLVE κ_entrain DOES NOT apply to reactive-power coupling at α-slew operating point** — see [`research/2026-05-17_plumber-physical-audit-matched-LC.md`](../../../research/2026-05-17_plumber-physical-audit-matched-LC.md) for canonical example + cycle-12 walk-back at `parametric-coupling-kernel.md` §10 for the structurally-correct categorical separation.
 - **DO NOT use Z₀ directly when spinor-cycle averaging applies**; use Z₀/(4π) per Theorem 3.1' for electron-class sources.
 - **DO check whether the source is moving (Sagnac-RLVE class) vs oscillating (matched-LC class)** — different categories.
+- **DO NOT use $\omega_{app} = 2\omega_{slew}$** for parametric resonance with α-slew pump. Degenerate parametric coupling puts signal at SUB-HARMONIC of pump: $\omega_{app} = \omega_{slew}$ (the $C_{eff}$ modulation frequency is $2\omega_{slew}$ but the amplified signal sits at half that).
 
 ---
 
@@ -246,12 +249,12 @@ Many AVE problems span multiple analytical-problem classes. Examples:
 
 | Problem | Classes that apply |
 |---|---|
-| **DAMA matched-LC detection** (cycle 9 work) | §1 Coupling + §2 Resonance + §5 Power (reactive) + §7 Boundary (TIR) |
+| **DAMA matched-LC detection** (cycle 9 work; cycle 12 closed) | §1 Coupling (Parametric Coupling Kernel — closes cycle-9 + cycle-10 + cycle-11 open work via single ε_param replacing T²_matched + G_crystal-coherence two-mechanism factorization) + §2 Resonance + §5 Power (reactive) + §7 Boundary (TIR) |
 | **Sagnac-RLVE rotor entrainment** | §1 Coupling (κ_entrain) + §8 Network (cross-domain rotor-to-substrate) |
 | **Electron tank Q-factor derivation** (Theorem 3.1') | §2 Resonance + §5 Power + §7 Boundary |
 | **Cosmological constant closure** | §3 Saturation + §6 Mode (de Sitter horizon) |
 | **MOND galactic rotation** | §3 Saturation (η_eff kernel) + §6 Mode + §1 Coupling (Hoop Stress) |
-| **DAMA cross-detector tension** (post-cycle-9) | §1 Coupling + §2 Resonance + need NEW class entry for atomic-resonance physics (TBD per next-session work) |
+| **DAMA cross-detector tension** (post-cycle-9; cycle-12 resolved) | §1 Coupling (Parametric Coupling Kernel + κ_quality envelope) + §2 Resonance + §3 Saturation (Q·δ ≥ 2 regenerative threshold from tabletop-graveyard); cross-detector predictions derived for DAMA + COSINE/ANAIS + MAJORANA + KIMS + XENONnT + Sapphire per `parametric-coupling-kernel.md` §8 |
 
 **When a problem spans ≥3 classes**: pull canonical tools from ALL applicable classes. The discipline of cross-class enumeration is what `ave-canonical-leaf-pull` Step 3 catalog + this toolkit index together provide.
 
@@ -263,8 +266,8 @@ The toolkit index is LIVING — new tools land as the framework evolves, gaps su
 
 | Gap | Identified by | Status |
 |---|---|---|
-| Canonical formula for energy-absorption rate at substrate-mode frequency ν | [`research/2026-05-17_plumber-physical-audit-matched-LC.md`](../../../research/2026-05-17_plumber-physical-audit-matched-LC.md) §6 Q1 | OPEN — corpus may lack canonical formula; next-session plumber-physical work needed |
-| κ_quality framework for crystal-batch-dependent coupling efficiency | matched-LC walk-back + MAJORANA implicit null | OPEN — depends on Q1 resolution |
+| Canonical formula for energy-absorption rate at substrate-mode frequency ν | [`research/2026-05-17_plumber-physical-audit-matched-LC.md`](../../../research/2026-05-17_plumber-physical-audit-matched-LC.md) §6 Q1 | **CLOSED 2026-05-17 night** — Parametric Coupling Kernel canonical leaf landed per cycle-12 derivation; ε_det = 4π κ_quality / N² derived from first principles via Axiom 4 varactor + Theorem 3.1' + Q·δ ≥ 2 regenerative threshold. See [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) |
+| κ_quality framework for crystal-batch-dependent coupling efficiency | matched-LC walk-back + MAJORANA implicit null | **PARTIALLY CLOSED 2026-05-17 night** — κ_quality envelope derived as Q·δ regenerative regime per cycle-12 leaf; saturated at 1 for solid crystals in deep-regenerative regime; (Q δ_C / 2)² for sub-regenerative. Crystal-batch-specific κ_quality correlation with materials-science measurements (mosaicity, defect density, dopant uniformity) PENDING empirical validation. See [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md) §6 |
 | Atomic-inner-shell resonance matrix element for substrate-mode absorption | Plumber audit §4 mechanism mapping | OPEN — if atomic-physics is the right category, this is the load-bearing formula |
 | (2,q) ↔ primes adjudication | Carry-over Tier 4 backlog | OPEN — Riemann analogy precision work needed |
 
