@@ -79,7 +79,7 @@ So Step 2's primary-bond buckling picture is **necessary but not sufficient**; t
 
 **Falsifiable bonus**: if Q-G47 closes via the thermodynamic route, the latent heat released during Phase I crystallization ($U_{\text{random}} - U(r_d^*)$) gives the AVE-native CMB temperature derivation. Cross-reference cosmology "bottle in freezer" framework.
 
-**Status (canonical 2026-05-16 late evening, post Path A→D two-engine cross-validation):** The cooled-equilibrium interpretation is now canonically supported via [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md): the FTG-EMT operating point $p^* = 8\pi\alpha$ at $z_0 \approx 51.25$ corresponds to the substrate's K=2G operating point, verified to 0.003% (Path C) and independently confirmed via Master Equation FDTD breathing soliton (Path D, v14 Mode I PASS). The remaining "still open" piece is the individual $\xi_{K1}, \xi_{K2}$ prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+; only the ratio $\xi_{K2}/\xi_{K1} = 12$ is currently fixed by $|T|$-orbit symmetry).
+**Status (canonical 2026-05-16 late evening, post Path B→D two-engine cross-validation):** The cooled-equilibrium interpretation is now canonically supported via [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md): the FTG-EMT operating point $p^* = 8\pi\alpha$ at $z_0 \approx 51.25$ corresponds to the substrate's K=2G operating point, verified to 0.003% (Path C) and independently confirmed via Master Equation FDTD breathing soliton (Path D, v14 Mode I PASS). The remaining "still open" piece is the individual $\xi_{K1}, \xi_{K2}$ prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+; only the ratio $\xi_{K2}/\xi_{K1} = 12$ is currently fixed by $|T|$-orbit symmetry).
 
 ---
 
@@ -411,7 +411,7 @@ The corpus currently has two distinct justifications for $K = 2G$:
 
 ### Status: Q-G47 STRUCTURAL PASS via LC-cavity standing-wave reframe (2026-05-16)
 
-18 sessions of substrate-physics work landed (Sessions 1-18 in AVE-QED) + Path A→D verification arc (2026-05-16) deliver canonical closure. The structural verification PASSes via the LC-cavity standing-wave reframe AND via the two-engine cross-validation (K4-TLM FTG-EMT at p* = 8πα + Master Equation FDTD v14 Mode I).
+18 sessions of substrate-physics work landed (Sessions 1-18 in AVE-QED) + Path B→D verification arc (2026-05-16) deliver canonical closure. The structural verification PASSes via the LC-cavity standing-wave reframe AND via the two-engine cross-validation (K4-TLM FTG-EMT at p* = 8πα + Master Equation FDTD v14 Mode I).
 
 **Framework outcome**: the buckling picture's integration form converges to $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ structurally, with:
 - $4\pi^3$ from 3D Cosserat rotational integration × K4 4-bond topology
@@ -440,7 +440,7 @@ All four quantities are **the same K4 substrate scale expressed at different lev
 
 **Picture A confirmed**: the four quantities above are ONE physical thing (the K4 substrate's standing-wave eigenmode amplitude) expressed at different levels. The magic-angle equation isn't a non-trivial constraint that the substrate must satisfy — it's the geometric identity that the cavity's eigenmode amplitude equals its over-bracing scale by construction.
 
-Sessions 19+ remaining rigorous work is now narrower: derive the individual $\xi_{K1}, \xi_{K2}$ prefactors from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed). The two-engine canonical closure of K=2G itself is delivered (Path A→D, 2026-05-16); the remaining work is multi-week analytical refinement of substrate-tensor prefactors, not framework-blocking.
+Sessions 19+ remaining rigorous work is now narrower: derive the individual $\xi_{K1}, \xi_{K2}$ prefactors from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed). The two-engine canonical closure of K=2G itself is delivered (Path B→D, 2026-05-16); the remaining work is multi-week analytical refinement of substrate-tensor prefactors, not framework-blocking.
 
 ### Honest status (canonical 2026-05-16 late evening, post Path A→B→B+→C trilogy)
 

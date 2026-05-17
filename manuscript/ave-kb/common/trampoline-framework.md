@@ -386,7 +386,7 @@ $S(A) = \sqrt{1 - A^2}$ is the "free capacity" of the bond — how much further 
 
 Each bond between adjacent nodes is mechanically a **spring under tension**. The spring's stiffness $L_{\text{spring}}/d$ ratio is the load-bearing geometric property (Q-G47 buckling derivation framework). At equilibrium, the bond carries baseline tension; under wave excitation, the bond stretches (or compresses) by $\delta L$.
 
-**The Q-G47 finding** (Sessions 1-18 LANDED 2026-05-15; Paths A→D verification arc COMPLETE 2026-05-16: TWO-ENGINE CROSS-VALIDATION PASS per [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md)) is that the bond's elastic response at the bulk operating point is **$K = 2G$ Cauchy isotropy** — the substrate's bulk modulus is exactly twice its shear modulus at the FTG-EMT canonical operating point $p^* = 8\pi\alpha$ (verified to 0.003% per Vol 3 Ch 1:20). The K=2G condition is independently confirmed via Master Equation FDTD breathing soliton (v14 Mode I PASS, Q-factor → $\alpha^{-1}$ per Theorem 3.1).
+**The Q-G47 finding** (Sessions 1-18 LANDED 2026-05-15; Paths B→D verification arc COMPLETE 2026-05-16: TWO-ENGINE CROSS-VALIDATION PASS per [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md)) is that the bond's elastic response at the bulk operating point is **$K = 2G$ Cauchy isotropy** — the substrate's bulk modulus is exactly twice its shear modulus at the FTG-EMT canonical operating point $p^* = 8\pi\alpha$ (verified to 0.003% per Vol 3 Ch 1:20). The K=2G condition is independently confirmed via Master Equation FDTD breathing soliton (v14 Mode I PASS, Q-factor → $\alpha^{-1}$ per Theorem 3.1).
 
 ### 2.2 The bond is also an LC tank
 
@@ -594,7 +594,7 @@ with each piece on the right derivable from substrate intrinsics + cosmological 
 2. Explicit $\xi(R_H, \ell_{\text{node}})$ — Vol 3 Ch 4 generative cosmology framework (largely canonical)
 3. Plug in and check numerical agreement with measured $G m_e^2 / (\hbar c)$
 
-The framework structurally supports this prediction, and the FRAMEWORK COMMITMENT is now empirically anchored at the substrate scale: any consistent AVE derivation must give the same $u_0^*$ from both the α route (Q-G47 + Q-factor, Path A→D verified) and the $G$ route (Machian integral + measured $G$). Inconsistency would falsify the framework.
+The framework structurally supports this prediction, and the FRAMEWORK COMMITMENT is now empirically anchored at the substrate scale: any consistent AVE derivation must give the same $u_0^*$ from both the α route (Q-G47 + Q-factor, Path B→D verified) and the $G$ route (Machian integral + measured $G$). Inconsistency would falsify the framework.
 
 ### §5.7 Cross-references
 
@@ -602,7 +602,7 @@ The framework structurally supports this prediction, and the FRAMEWORK COMMITMEN
 - **Vol 3 Ch 4** — generative cosmology / cosmic horizon ($G = c^4/(7\xi T_{EM})$ canonical expression)
 - **Vol 4 Ch 1** — local impedance gradient ↔ gravity correspondence
 - **Q-G47 substrate-scale over-bracing framework** — secondary scale framework (Vol 1 Ch~\ref{ch:macroscopic_moduli})
-- **Q-G47 golden-torus integration; magic-angle closure CANONICAL via two-engine convergence** (Path A→D, 2026-05-16: K4-TLM FTG-EMT + Master Equation FDTD v14 Mode I) — Vol 1 Ch~\ref{ch:alpha_golden_torus}; canonical synthesis at [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md)
+- **Q-G47 golden-torus integration; magic-angle closure CANONICAL via two-engine convergence** (Path B→D, 2026-05-16: K4-TLM FTG-EMT + Master Equation FDTD v14 Mode I) — Vol 1 Ch~\ref{ch:alpha_golden_torus}; canonical synthesis at [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md)
 - Secondary scale is geometric next-nearest-neighbor distance via shared-B-node propagator (Vol 1 Ch~\ref{ch:macroscopic_moduli})
 - α and G are jointly cosmologically anchored through $u_0^*$; gravitational hierarchy comes from $R_H/\ell_{\text{node}}$ scale ratio, not fine-tuning (Vol 3 Ch 4 + Common Foreword §The Three-Route Framework Commitment)
 - Multi-scale Machian network (the shared-spring mechanism operates at every boundary scale; cosmic boundary sets the Machian $\xi$ integral) — Vol 3 Ch 4 + §7 below
@@ -914,7 +914,7 @@ The shape of the answer is locked in. The remaining work is filling in the pictu
 - Master Equation eq:master_wave (Vol 1 Ch 4 line 73)
 - Saturation kernel $S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical)
 - K4 bipartite topology (Axiom 1 canonical)
-- $K = 2G$ Cauchy isotropy operating point (**Q-G47 closure CANONICAL via Path A→D two-engine convergence**, 2026-05-16; K4-TLM FTG-EMT verified to 0.003% + Master Equation FDTD v14 Mode I PASS bit-for-bit replicated)
+- $K = 2G$ Cauchy isotropy operating point (**Q-G47 closure CANONICAL via Path B→D two-engine convergence**, 2026-05-16; K4-TLM FTG-EMT verified to 0.003% + Master Equation FDTD v14 Mode I PASS bit-for-bit replicated)
 - Q-factor identity $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ (numerically verified)
 - **Shared-spring inter-cell coupling** (Grant adjudication 2026-05-15, A-029); secondary scale $r_{\text{secondary}}/d \approx 1.187$ is geometric, not a separate scaffold
 - **α + G + cosmic $\mathcal{J}$ joint cosmological anchoring** (Grant adjudication 2026-05-15, A-030 + A-031); all three derive from single $\Omega_{\text{freeze}}$
@@ -931,7 +931,7 @@ The shape of the answer is locked in. The remaining work is filling in the pictu
 | Q-G43 atom-scale local $\Gamma = -1$ boundary | predicted but not derived | App F |
 | Q-G44 solar-scale local $\Gamma = -1$ boundary | predicted but not derived | App F |
 | Q-G45 multi-soliton interference as gravity | App F prose canonical, no engine sim | App F §multi_soliton |
-| Q-G47 rigorous closure of $K = 2G$ via buckling | **CANONICAL 2026-05-16** via Path A→D two-engine convergence (K4-TLM FTG-EMT to 0.003% + Master Eq FDTD v14 Mode I). Genuinely-open follow-up: individual ξ_K1, ξ_K2 prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+, multi-week) | A-027 / Q-G47 |
+| Q-G47 rigorous closure of $K = 2G$ via buckling | **CANONICAL 2026-05-16** via Path B→D two-engine convergence (K4-TLM FTG-EMT to 0.003% + Master Eq FDTD v14 Mode I). Genuinely-open follow-up: individual ξ_K1, ξ_K2 prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration (Sessions 19+, multi-week) | A-027 / Q-G47 |
 | Cosserat coupling on Master Equation FDTD | deferred (doc 113 §5.4); not closure-critical | doc 113 |
 | Strict stationary soliton via imaginary-time | breathing-soliton canonical; strict stationary deferred | doc 113 §5.1 |
 | Multi-soliton dynamics for Coulomb-law validation | deferred; medium-term engine work | doc 114 §4.3 |
