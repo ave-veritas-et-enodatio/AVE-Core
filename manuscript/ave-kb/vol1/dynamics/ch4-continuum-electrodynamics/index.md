@@ -12,7 +12,8 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | Field-Dependent Wave Speed | $c_{eff}(V) = c_0(1-(V/V_{yield})^2)^{-1/4}$ |
 | Effective Inductive Node Mass | $m_{node} = \xi_{topo}^2\mu_0\ell_{node}$ |
 | Macroscopic Bulk Mass Density | $\rho_{bulk} = \xi_{topo}^2\mu_0/(p_c\ell_{node}^2) \approx 7.92\times10^6$ kg/m$^3$ |
-| Baseline Vacuum Shear Modulus | $G_{vac} = m_e c^2/\ell_{node}^2 \approx 5.48\times10^{24}$ Pa |
+| Baseline 3D Vacuum Shear Modulus | $G_{vac} = \rho_{bulk} \cdot c^2 \approx 7.12\times10^{23}$ Pa (corrected 2026-05-17; cross-check $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c$) |
+| 1D String Tension Density (axial stiffness) | $G_{string} = m_e c^2/\ell_{node}^2 \approx 5.49\times10^{11}$ Pa (formerly mis-labeled as $G_{vac}$; distinct quantity per [`../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md:49-56`](../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md)) |
 | Kinematic Network Mutual Inductance | $\nu_{kin} = \alpha c\ell_{node} \approx 8.45\times10^{-7}$ m$^2$/s |
 | Macroscopic Yield Stress Limit | $\tau_{yield} = (\rho_{bulk}c^2)(6\times\mathcal{V}_{crossing})(p_c/8\pi)$ |
 | Asymptotic Hubble Constant | $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) \approx 69.32$ km/s/Mpc |
