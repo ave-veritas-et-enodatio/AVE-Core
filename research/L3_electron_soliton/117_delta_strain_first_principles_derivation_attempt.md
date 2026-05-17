@@ -208,7 +208,7 @@ $$\approx \frac{535.6 \times 0.1}{2 \times 137} \cdot \frac{4.56 \times 10^{-10}
 - Higher-order corrections (quartic, non-Gaussian)
 - Independent validation: predict δ_strain at other CMB temperatures (e.g., $T_{\text{CMB}}(z)$ at varying redshift; would test linear $kT$ scaling)
 
-Status: **claimed closure within ~30%** with one structural-conjecture missing piece ($K_{\text{phys}} \sim \alpha^2$, suggestive but not rigorously derived).
+Status: **reverse-engineered matching condition** (NOT a derivation) — inverting the formula to require $K_{\text{phys}} \sim \alpha^2$ for predicted δ_strain to match observed gives a ~30% residual, but this is back-fitting one parameter, not first-principles closure. See [doc 119 adjudication](119_alpha_squared_universal_operator_adjudication.md) for full red-team challenge of the α² conjecture.
 
 ---
 
