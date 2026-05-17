@@ -143,6 +143,12 @@ This catalog is the canonical Phase 0.2 deliverable per [Round 10+ plan](../../.
 
 ---
 
+## §6.5 — Tool-selection guide for these operators
+
+For methodological tool-selection (which Op# applies to which problem-class), consult the **AVE Analytical Toolkit Index** at [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md). The index organizes Op1-Op22 + ~30 canonical analytical tools across Vol 4 Ch 1 (VCA), Vol 4 Ch 11 (Falsification), Vol 4 Ch 13 (Future Geometries), and Vol 4 Ch 14-20 (Simulation/Advanced Applications) into 9 problem-class sections (Coupling, Resonance, Saturation, Time-domain, Power, Mode, Boundary, Network, Numerical) with WHEN-TO-USE triggers, worked examples, and common-pitfall warnings.
+
+The `ave-analytical-tool-selection` skill (~/.claude/skills/) forces consultation of the toolkit index BEFORE deriving any AVE problem that maps to one of the recognized analytical-problem classes.
+
 ## §7 — References
 
 - [`manuscript/vol_1_foundations/chapters/06_universal_operators.tex`](../../vol_1_foundations/chapters/06_universal_operators.tex) — canonical 22-operator catalog (primary anchor)
