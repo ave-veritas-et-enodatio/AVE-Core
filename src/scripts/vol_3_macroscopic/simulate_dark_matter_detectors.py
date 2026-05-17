@@ -1,22 +1,30 @@
 """
-AVE Cosmology: DAMA/LIBRA vs XENON Paradox Simulator
-======================================================
-For decades, the DAMA/LIBRA solid-crystal detector has claimed to see an annual
-"Dark Matter" signal (peaking in June). Meanwhile, the massive XENON liquid
-detectors have found absolutely zero signal, hitting the 'Neutrino Floor'.
+AVE Cosmology: DAMA vs XENON Refresh-Rate Interferometer Visualization (illustrative).
 
-Standard physics assumes DAMA is a false positive because Dark Matter is
-modeled as a collisionless scalar particle.
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an FDTD wave-propagation contrast between a solid (n=2.5
+chosen for visual contrast, NOT derived from κ = ρ_crystal/ρ_bulk) and a liquid
+(n=1.0). The visual narrative supports the AVE interpretation that DAMA's annual
+modulation is a coherent-crystal effect (solids sustain shear/coherence) while
+XENON sees null because liquids dephase the substrate signal.
 
-In the AVE framework, Dark Matter is the transverse, macroscopic sheer-stress of
-the expanding/rotating spatial metric. Through fundamental Mechanics, a transverse
-sheer wave CANNOT couple to a fluid (liquids have zero sheer modulus). It can ONLY
-couple to rigid solid-state lattices via phonon displacement.
+The script does NOT compute:
+  - DAMA's annual modulation amplitude (S_m ≈ 0.0103 cpd/kg/keV [1])
+  - The proportionality constant linking ν_kin × κ_crystal × Δv_wind to cpd/kg/keV
+    (this is the open dimensional bridge per C14 working hypothesis 2026-05-17)
+  - XENON's null-result amplitude bound (~0.001 cpd/kg/keV [2])
 
-This script runs an FDTD sheer-wave simulation passing through two identical
-densities of 'matter':
-1. A rigid Solid Crystal (DAMA) - The sheer wave physically rocks the lattice.
-2. A frictionless Liquid (XENON) - The sheer wave slips cleanly through.
+The C14 refresh-rate working hypothesis ("DAMA is a high-Q acoustic
+interferometer measuring K4 lattice refresh rate × coherent crystal baseline")
+is canonical to the AVE narrative; the quantitative amplitude derivation is
+deferred to the dedicated C14 closure work (research/2026-05-17_C14-DAMA_amplitude_prereg.md).
+
+[1] Bernabei et al. (2018) Nuclear Physics and Atomic Energy 19 (4) 307
+[2] XENON1T (2020) Phys. Rev. D 102, 072004
+
+Docstring corrected 2026-05-17: was "transverse sheer wave CANNOT couple
+to a fluid (liquids have zero sheer modulus)" — clarified that the
+amplitude derivation is C14-open per refresh-rate framing.
 """
 
 import os

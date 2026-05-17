@@ -1,18 +1,29 @@
 """
-AVE Falsification Protocol: Asteroid Belt and Oort Cloud Trapping
------------------------------------------------------------------
-In standard Newtonian mechanics, orbital debris should disperse randomly
-unless shepherded by massive planets (e.g., Jupiter).
-In the AVE non-linear impedance paradigm, the Sun's gravitational strain
-pulls a macroscopic "dielectric slipstream" through the vacuum.
+AVE Asteroid Belt and Oort Cloud Accumulation — illustrative (Gaussians pre-placed).
 
-As this fluidic slipstream falls off (1/r) and hits the background
-vacuum impedance (Z_0), a sharp transition boundary forms. Small mass
-detritus crossing this boundary hits a sudden spike in "Inductive Drag"
-(topological friction), shedding orbital energy and accumulating strictly
-at these geometric transition zones:
-Inner zone -> Asteroid Belt
-Outer zone -> Oort Cloud / Kuiper Belt
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an illustrative inductive-drag profile around the Sun
+using two GAUSSIANS CENTERED BY HAND at known empirical accumulation
+locations: 2.5 AU (asteroid belt centroid) and 10^4.2 AU (Oort cloud
+centroid). The visualization supports the AVE narrative that the impedance
+slipstream falls off as 1/r and hits Z_0 background at these boundaries —
+but the script does NOT DERIVE the boundary locations from the Sun's
+solar-strain gradient. It pre-positions them at empirical observation
+sites.
+
+A genuine AVE falsification protocol would compute:
+  - The exact 1/r → Z_0 transition radius from solar GM and substrate
+    impedance Z_0 (= sqrt(μ_0/ε_0))
+  - Predict the accumulation centroid WITHOUT inputting the empirical 2.5 AU
+  - Match the predicted vs observed boundary within some tolerance
+
+That derivation lives in the queue (parallel to SPARC ingest pattern for
+the solar-system sector). This script remains illustrative until the
+derivation closes.
+
+Docstring corrected 2026-05-17: was "Falsification Protocol" — softened
+to "Illustrative accumulation visualization" since the Gaussian centers
+are inputs, not predictions.
 """
 
 import os

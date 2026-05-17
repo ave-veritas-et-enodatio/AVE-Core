@@ -1,19 +1,27 @@
 """
-AVE Cosmology: JWST Early Galaxy Accretion Simulator
-======================================================
-Pre-JWST, the Lambda-CDM model assumed galaxies form slowly over billions
-of years via the collisionless merging of dark matter halos. JWST shattered this
-by observing massive, mature galaxies at z > 10 (just ~300 Myrs after the Big Bang).
+AVE Cosmology: JWST Early Galaxy Accretion — illustrative N-body (hand-tuned coupling).
 
-In the AVE framework, "Dark Matter" is not collisionless particulate matter. It is
-the macroscopic LC Transverse Inductance of the vacuum topology itself.
-This script runs two N-body accretion simulations side-by-side:
-1. Standard Newtonian Inverse-Square Gravity (Lambda-CDM collisionless approximation)
-2. AVE Macroscopic Inductive Herding (Topological Tension)
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script runs side-by-side N-body simulations with HAND-TUNED force
+constants (G_NEWTON = 0.5, AVE_INDUCTANCE = 2.5 — arbitrary units, chosen
+for visual contrast). It does NOT compute:
+  - Absolute galaxy mass-growth rates calibrated to JWST z>10 observations
+  - The AVE-derived τ_ind = 65.1 Myr inductive herding timescale
+    (that derivation lives in `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:112`,
+    τ_ind = 150 / ln(10) ≈ 65.1 Myr; not used in this driver script)
+  - Comparison against specific JWST objects (JADES, CEERS, etc.)
 
-The simulation visually proves that the AVE LC network actively "sweeps" or "herds"
-primordial gas into super-massive clusters exponentially faster than standard gravity,
-perfectly resolving the JWST paradox.
+The script's visual contrast between exponential herding and power-law
+collisionless growth IS the AVE interpretive narrative. The original
+docstring's claim that the simulation "perfectly resolves the JWST paradox"
+overclaims — the coupling ratio AVE_INDUCTANCE/G_NEWTON = 5 was chosen to
+make the divergence visible, not derived from canonical AVE constants.
+
+For the quantitative AVE-distinct JWST prediction (τ_ind = 65.1 Myr,
+M(t) = M_seed × exp(t/τ_ind)), see `plot_jwst_accretion.py` which plots
+the actual derived curve against JWST empirical data points.
+
+Docstring corrected 2026-05-17.
 """
 
 import os

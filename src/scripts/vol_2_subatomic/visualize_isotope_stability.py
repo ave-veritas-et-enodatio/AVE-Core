@@ -1,14 +1,24 @@
 """
-AVE Topological Isotope Stability Simulator
-======================================================
-This script models the macroscopic geometric variance between Uranium-235
-and Uranium-238. Standard physics struggles to visualize *why* U-235 is highly
-fissile and U-238 is mostly inert, relying entirely on quantum probability tables.
+AVE Isotope Stability Geometry Visualization (illustrative — geometry only).
 
-By running both nucleon clusters through the exact same Topological Optimizer,
-we can visually see the geometric differences: U-238 converges into a closed,
-stable spherical shell, while U-235 settles with an asymmetrical lattice "cleft"
-that leaves it structurally vulnerable to incoming thermal neutrons.
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders the optimized geometric packing of U-235 vs U-238 nucleon
+clouds via the AVE TopologicalOptimizer with PDG nucleon masses (M_P=1.00727,
+M_N=1.00866 amu, NOT derived). The visualization shows U-238 converging to
+a closed spherical packing while U-235 settles with an asymmetric cleft.
+
+The script does NOT compute:
+  - Fission cross-sections (U-235 σ_f vs U-238 σ_f, ENSDF)
+  - Neutron capture rates
+  - Half-life difference (U-235: 7.04e8 yr; U-238: 4.47e9 yr)
+  - Why the cleft makes U-235 more thermal-neutron-sensitive
+
+Original docstring claimed "visualize WHY U-235 is fissile and U-238 is inert"
+— this overclaims what's rendered (geometric packing, not fission physics).
+The geometric cleft IS visually informative and supports the AVE interpretive
+narrative; quantitative fissility prediction is a separate (open) work item.
+
+Docstring corrected 2026-05-17.
 """
 
 import os

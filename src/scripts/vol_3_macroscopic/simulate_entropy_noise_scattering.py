@@ -1,3 +1,21 @@
+"""
+Mechanical Entropy / Thermodynamics Visualization (illustrative animation — no ΔS calc).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders a 2D VacuumGrid damped-wave animation (damping=0.98)
+to illustrate the AVE narrative that entropy is the geometric irreversibility
+of ordered potential energy scattering into transverse acoustic noise.
+
+The script does NOT compute:
+  - ΔS as a numerical entropy value
+  - Comparison against Boltzmann entropy S = k_B ln Ω
+  - Quantitative match to thermodynamic measurements
+
+This is an illustrative narrative animation, NOT an entropy prediction.
+
+Docstring corrected 2026-05-17.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -10,13 +28,13 @@ from ave.core.grid import VacuumGrid
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE MACROSCOPIC SCALE: MECHANICAL ENTROPY & THERMODYNAMICS")
+    print(" AVE MACROSCOPIC SCALE: ENTROPY VISUALIZATION (illustrative)")
     print("==========================================================\n")
 
-    print("- Objective: Ground the 'Arrow of Time' into pure Classical Mechanics.")
-    print("- We will map Entropy (delta S) as the geometric irreversibility of")
-    print("  ordered potential energy scattering into transverse acoustic LC noise (Heat).")
-    print("  Statistical probability is just shorthand for macroscopic grid dissipation.\n")
+    print("- Renders the AVE interpretive narrative: entropy as geometric")
+    print("  irreversibility of ordered potential energy → transverse LC noise.")
+    print("- No numerical ΔS computed; no Boltzmann comparison.")
+    print("  This is visualization, not prediction.\n")
 
     # Simulation Parameters
     NX, NY = 100, 100

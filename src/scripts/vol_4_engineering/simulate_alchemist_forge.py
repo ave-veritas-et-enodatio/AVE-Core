@@ -1,9 +1,34 @@
+"""
+Alchemist Forge Topology Renderer (illustrative — geometry only, NOT transmutation).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders 3D topology stages of nucleon clusters during the
+AVE TopologicalOptimizer's annealing/synthesis process inside an
+illustrative "crucible" boundary (R_CRUCIBLE = 150 × D_PROTON, chosen
+geometric containment).
+
+The script does NOT compute:
+  - Element transmutation cross-sections or thresholds
+  - Activation energy for specific nuclear reactions
+  - Comparison against measured transmutation yields
+  (despite the "alchemist forge" filename suggesting otherwise)
+
+The filename and "K_CRUCIBLE = 1000.0" containment constant evoke the
+AVE narrative that heavy-nucleon assembly is a topological-annealing
+process. This script visualizes the geometry of that process; it does
+NOT quantitatively predict transmutation pathways.
+
+Filename retained for narrative continuity; scope corrected via this
+docstring 2026-05-17.
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 from ave.core.constants import D_PROTON
 from ave.solvers.topology_optimizer import TopologicalOptimizer
 
+# Illustrative crucible geometry (NOT physical reaction chamber)
 R_CRUCIBLE = 150.0 * D_PROTON
 K_CRUCIBLE = 1000.0
 

@@ -1,12 +1,28 @@
 """
-Standard Model Overdrive: Heavy Nuclear Assembly (AVE)
-======================================================
-This script replaces supercomputer-scale Lattice QCD solvers.
-By feeding 235 randomized protons and neutrons into the identical
-1/d LC impedance optimizer used for atomic chemistry, the engine
-spontaneously assembles the precise crystalline lattice of Uranium-235.
-We capture the exact optimization history to dynamically animate the
-annealing/synthesis process.
+AVE Heavy Nuclear Assembly Visualization (illustrative — NOT a Lattice QCD replacement).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an animated 1/d topological optimization of 235 randomized
+nucleons (with empirical proton/neutron masses M_P=1.00727, M_N=1.00866 amu
+imported from PDG, NOT derived) using the AVE TopologicalOptimizer.
+
+The original docstring claimed this script "replaces supercomputer-scale
+Lattice QCD solvers" and "spontaneously assembles the precise crystalline
+lattice of Uranium-235". Both claims overclaim what the code does:
+  - The script does NOT compute U-235 binding energy (~7.59 MeV/nucleon NNDC)
+  - The script does NOT compute U-235 cross-sections, decay rates, or shell
+    structure that would falsify against PDG/NNDC data
+  - The "lattice" produced is the optimizer's energy-minimum packing of
+    point masses under the 1/d kernel — a geometric arrangement, not a
+    benchmarked nuclear structure
+
+The script DOES illustrate the AVE topological-assembly mechanism (1/d kernel
++ packing constraint as alternative to shell-model probabilistic framing).
+That illustration is canonical to the framework's interpretive narrative.
+Quantitative validation against NNDC nuclear-structure data is a separate
+(open) work item.
+
+Docstring corrected 2026-05-17.
 """
 
 import os

@@ -5,8 +5,15 @@ import numpy as np
 
 def simulate_neutrino_oscillation(frames: int = 250, nx: int = 400) -> None:
     """
-    Simulates Neutrino "Flavor Oscillation" as a classical wave
-    dispersion phenomenon on a discrete macroscopic LC lattice.
+    Illustrates the AVE interpretive framing of neutrino flavor oscillation
+    as classical wave dispersion on a discrete LC lattice (NOT a quantitative
+    fit to Super-Kamiokande data).
+
+    SCOPE NOTE (2026-05-17 honesty sweep):
+    Harmonic wavenumbers (k1=0.5, k2=0.6, k3=0.7) and group velocities
+    (v1=1.0, v2=0.95, v3=0.90) are CHOSEN by hand for visual narrative —
+    NOT derived from the AVE discrete dispersion relation and NOT calibrated
+    against measured Δm² values (Super-K Δm²_32 ~ 2.5e-3 eV², Δm²_21 ~ 7.5e-5 eV²).
 
     In AVE:
     - Neutrinos are discrete $0_1$ unknot topological harmonics.
@@ -15,8 +22,11 @@ def simulate_neutrino_oscillation(frames: int = 250, nx: int = 400) -> None:
     - When 3 harmonics are emitted simultaneously, their varying speeds
       cause them to drift in and out of phase, creating a macroscopic
       Beat Frequency.
-    - This shifting interference pattern is what Super-Kamiokande
-      measures as "Flavor Oscillation" (Electron, Muon, Tau).
+    - This shifting interference pattern is the AVE interpretation of what
+      Super-Kamiokande measures as "Flavor Oscillation" (Electron, Muon, Tau).
+
+    The framework's quantitative dispersion-from-discrete-lattice derivation
+    + Δm² mapping is an open work item (would need ν-dispersion engine).
     """
 
     print("\n AVE APPLIED PHYSICS: NEUTRINO FLAVOR OSCILLATION (DISPERSION)")

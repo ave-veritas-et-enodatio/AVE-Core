@@ -13,8 +13,16 @@ from ave.topological.tensors import (
 def visualize_baryon_bounds() -> None:
     """
     Visualizes the derived bounds of the 6^3_2 Borromean Linkage.
-    Plots the Toroidal Tensor Halo volume mathematically resolving the Nucleon Mass,
-    and the fractional phase projections (quarks).
+    Plots the Toroidal Tensor Halo volume, fractional phase projections (quarks),
+    and topological mass eigenvalue convergence.
+
+    SCOPE NOTE (2026-05-17 honesty sweep):
+    Torus parameters R_halo=1.0, r_tube=0.5 are CHOSEN to make the formula
+    `V = 2π² R r²` land at numerically convenient values for the figure;
+    the `compute_toroidal_halo_volume()` call IS a real engine computation
+    but the rendered torus is a parameter-scaled illustration, not the
+    physical halo at canonical AVE scale. The plot title "Geometric Volume
+    Limit" refers to the symbolic identity, not an absolute physical bound.
     """
     fig = plt.figure(figsize=(12, 10))
 

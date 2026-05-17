@@ -1,3 +1,19 @@
+"""
+Operating-regimes phase-diagram plotter (illustrative — NOT the Axiom 4 kernel).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script plots an illustrative stress-strain phase diagram of the three
+operating regimes (linear / non-linear stiffening / rupture). The curve
+labeled "AVE Vacuum Response" is a phenomenological `strain + 0.5×strain^3`
+cubic-stiffening curve chosen for visual clarity — NOT the canonical
+Axiom 4 dielectric saturation kernel `S(A) = sqrt(1 - A^2)`. The diagram
+serves as pedagogical narrative for the three-regime concept; quantitative
+saturation behavior must be computed via the canonical engine (see
+`simulate_bullet_cluster_fdtd.py` for canonical S(A) usage).
+
+Title softened 2026-05-17.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -32,7 +48,8 @@ def create_phase_diagram() -> None:
         lw=2,
         label="Ideal Hookean (Classical Physics)",
     )
-    ax.plot(strain, stress_actual, "-", color="#00ffcc", lw=4, label="AVE Vacuum Response")
+    ax.plot(strain, stress_actual, "-", color="#00ffcc", lw=4,
+            label="Illustrative cubic-stiffening (NOT Axiom 4 kernel)")
 
     # Fill regimes
     ax.axvspan(0, 0.4, alpha=0.2, color="#0044ff")

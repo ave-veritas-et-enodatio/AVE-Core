@@ -31,7 +31,9 @@ def plot_jwst_accretion() -> None:
     M_seed = 1e6
 
     # AVE Exponential Model (Mutual Inductance)
-    # tau = 65.1 Myr (Derived in Chapter 10)
+    # τ_ind = 150 / ln(10) ≈ 65.1 Myr — derived in Vol 3 Ch 4 (generative cosmology),
+    # see `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:112`.
+    # (Citation corrected 2026-05-17 — previously said "Chapter 10" in error.)
     tau_ind = 65.1
     M_AVE = M_seed * np.exp(t / tau_ind)
 
