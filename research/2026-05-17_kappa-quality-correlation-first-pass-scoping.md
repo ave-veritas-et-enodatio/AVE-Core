@@ -111,7 +111,7 @@ To rigorously test cycle-12 framework κ_quality grounding:
 
 Given the light-yield-anticorrelation observation + sparse data on non-optical metrics:
 
-**Framework status**: PRELIMINARY — cycle-12 κ_quality framework SURVIVES first-pass test (light yield is not a relevant κ_quality proxy by physics argument), but full validation REQUIRES finding correlation with non-optical metrics (mosaicity / phonon coherence / defect density).
+**Framework status (post external reviewer A#3 honest-scoping)**: cycle-12 κ_quality framework is **NOT YET FALSIFIABLE on this data class** — the load-bearing data (mosaicity, phonon coherence at THz, defect density) does not exist in published dark-matter literature. ~~Framework SURVIVES first-pass test~~ is generous framing; what actually obtains is that the framework has not been falsified yet BECAUSE the falsifying data class doesn't exist in publicly-available form. Light yield is not a relevant κ_quality proxy by physics argument (different mechanism), so the light-yield-anticorrelation observation doesn't constitute a survival test — it's a category-mismatch, neither confirmation nor falsification. **Falsifiability remains PENDING materials-science data acquisition** (multi-month timeline involving literature dive + detector-collaborator engagement).
 
 **Risk**: if rigorous Tier-2 #9 work (above) finds NO correlation with ANY measurable crystal-quality metric, framework Falsifier #2 triggers and cycle-12 walk-back to "DAMA-class only" would be required.
 
@@ -133,7 +133,7 @@ If materials-science data hunting fails, the framework can still be tested via:
 
 **Full Tier-2 #9 validation pending**: requires non-optical crystal-quality data not found in first-pass dark-matter literature. Recommended next steps: materials-science literature dive + detector-collaborator engagement.
 
-**Framework status unchanged**: cycle-12 framework SURVIVES first-pass test but full empirical grounding remains LOAD-BEARING. Sapphire cryogenic prediction (HPGe proposal §13) provides independent forward test.
+**Framework status unchanged (post A#3 honest scoping)**: cycle-12 framework is NOT YET FALSIFIABLE on this data class (relevant κ_quality metrics not published in dark-matter literature). The light-yield-anticorrelation finding is a CATEGORY-MISMATCH observation (different physics than κ_quality), not a survival test. **Full empirical grounding requires materials-science data acquisition (multi-month timeline)**. Sapphire cryogenic prediction (HPGe proposal §13) provides an independent forward test that doesn't depend on κ_quality grounding work — that's the cleanest path forward for empirical evaluability.
 
 ## §10 — Corpus impact (minimal)
 

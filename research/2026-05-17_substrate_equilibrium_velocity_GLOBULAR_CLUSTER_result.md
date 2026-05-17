@@ -5,7 +5,7 @@
 **Prereg:** [`2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_prereg.md`](2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_prereg.md)
 **Driver:** [`src/scripts/vol_3_macroscopic/gaia_globular_cluster_test.py`](../src/scripts/vol_3_macroscopic/gaia_globular_cluster_test.py)
 **Data:** Baumgardt + Vasiliev 2021 MW globular cluster orbits table (165 GCs with Gaia EDR3-based 6D phase-space, arXiv:[2105.04580](https://arxiv.org/abs/2105.04580))
-**Outcome category (pre-registered):** **OUTCOME III** — cosmic-flow dominated (median in 480-560 km/s range; observed 563.88 km/s, +3 km/s above strict upper bound but unambiguously in the cosmic-flow regime per prereg interpretation framework)
+**Outcome category (pre-registered):** **OUTCOME III with prereg-bound revision** — cosmic-flow dominated (prereg strict upper bound 560 km/s; observed 563.88 km/s, +3.88 km/s ABOVE strict upper bound). Per external reviewer Part A#2 honest-scoping discipline: the prereg bounds were too narrow; this is a **PREREG-BOUND-REVISION OUTCOME III**, not a "within prereg spirit" interpretation. The Outcome III physics adjudication (cosmic-flow dominated) is correct on physics grounds (564 km/s ≈ Local Group flow 543 km/s within 4%; far from αc/(2π) 348 km/s by 62%), but the prereg-mechanics revision is documented explicitly at §6.1 below.
 
 ## Headline result
 
@@ -78,7 +78,11 @@ Per prereg §2 + §4, the four outcomes and observed result:
 | III Cosmic-flow dominated | 480-560 km/s | 564 km/s | ✓ (≈3 km/s above strict upper bound but unambiguous) |
 | IV Wide scatter | σ ≥ 200 km/s | σ = 112 km/s | ✗ (σ < 200) |
 
-**OUTCOME III matched.** The 3 km/s above the strict 560 upper bound is well within the prereg's "approximately in this range" spirit — the median is unambiguously close to Local Group flow scale (543 km/s) and far from any AVE-distinct prediction.
+**OUTCOME III matched on PHYSICS GROUNDS but with PREREG-BOUND REVISION required**. Observed 563.88 km/s is 3.88 km/s ABOVE the strict prereg upper bound (560 km/s). Per external reviewer Part A#2 honest-scoping discipline, this should NOT have been adjudicated as "within prereg spirit" — pre-reg bounds need explicit revision OR the result needs to be flagged as bounds-out-of-range pending re-spec.
+
+**Bound revision documented (post-hoc honest scoping)**: prereg §2 specified Outcome III as 480-560 km/s range based on naive Local Group flow estimate ~543 km/s ± 17. The observed 564 km/s is more consistent with √(v_LocalGroup² + σ_GC²) ≈ √(543² + 150²) = 563 km/s (quadrature with typical GC orbital velocity), which the prereg should have used as the central expectation, not the bare Local Group flow value. **Bound revision**: Outcome III range should be 480-600 km/s in future GC-class tests (accounting for orbital-velocity quadrature). The 564 km/s observation fits within this revised range.
+
+**Pattern lesson for future preregs**: when pre-registering quantitative bounds, use the EXPECTATION INCLUDING ALL EXPECTED CONTRIBUTIONS (cosmic-flow + per-population peculiar velocity in quadrature), not just the headline cosmic-flow value. The 480-560 km/s prereg bound assumed pure Local Group flow without adding per-GC orbital velocity in quadrature — that was the bound miscalibration. Future Outcome III definitions for similar tests should use quadrature-corrected bounds explicitly.
 
 **Per ave-discrimination-check Step 1.5 honest scoping**: the substrate-velocity prediction at αc/(2π) does NOT extend to GC-class populations. It survives at LSR-class scope only. This is a SCOPE NARROWING, not a falsification of the framework — but it's a substantive walk-back of the cross-population-class generality I had implicitly assumed.
 
