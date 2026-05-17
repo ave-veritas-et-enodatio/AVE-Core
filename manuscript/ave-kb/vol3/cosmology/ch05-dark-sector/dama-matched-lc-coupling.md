@@ -1,19 +1,21 @@
 [↑ Ch.5 Dark Sector](./index.md)
 <!-- leaf: verbatim -->
 
-# DAMA Rate Magnitude via Matched-LC-Coupling Efficiency
+# DAMA Rate Magnitude — Matched-LC-Coupling Candidate Formula
 
-The DAMA rate magnitude derives from matched-impedance coupling between the electron's reactive α-slew LC tank and an external coherent NaI crystal LC mode. The per-α-slew-cycle matched-coupling efficiency takes the canonical form:
+The DAMA rate magnitude has a candidate formula from matched-impedance coupling between the electron's reactive α-slew LC tank and an external coherent NaI crystal LC mode. The per-α-slew-cycle matched-coupling efficiency:
 
 $$\boxed{\epsilon_{det} = \frac{4\pi}{N_{single}^2}}$$
 
-where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is the canonical spinor-cycle radiation-impedance averaging factor per [Theorem 3.1' line 67-73](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
+where $N_{single}$ is the atom count in a single coherent crystal and $4\pi$ is canonically motivated by the spinor-cycle radiation-impedance averaging factor per [Theorem 3.1' line 67-73](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md). Predicted rate per kg:
 
 $$R_{predicted} = N_e^{(kg)} \times \nu_{slew} \times \frac{4\pi}{N_{single}^2} = 4.80 \times 10^{-7}\,\text{events/s/kg}$$
 
-vs DAMA/LIBRA Phase-2 observed $R_{DAMA} = 4.77 \times 10^{-7}$ events/s/kg in the 2-6 keV window — **match within 0.6%**.
+vs DAMA/LIBRA Phase-2 observed $R_{DAMA} = 4.77 \times 10^{-7}$ events/s/kg in the 2-6 keV window — **0.6% post-hoc consistency check** (NOT forward-prediction; the 4π prefactor was selected after inspecting the rate gap, per honest discrimination-check in §3.2).
 
-This leaf documents the derivation, the canonical 4π prefactor inheritance argument from Theorem 3.1', the cross-detector + cross-crystal forward predictions, and the honest discrimination-check caveats per `ave-discrimination-check` skill discipline.
+**The forward-predictive content** is the cross-detector / cross-crystal predictions table in §4 — those numerical predictions were generated from the candidate formula BEFORE the experiments run. The 9.39 kg HPGe single-crystal experiment at 3.728 keV (§4.1) is the cleanest single-experiment forward-prediction test.
+
+This leaf documents the derivation, the candidate 4π prefactor's Theorem 3.1' motivation, the cross-detector forward predictions, and the honest discrimination-check caveats per `ave-discrimination-check` skill discipline.
 
 ## §1 — Setup and physical context
 
