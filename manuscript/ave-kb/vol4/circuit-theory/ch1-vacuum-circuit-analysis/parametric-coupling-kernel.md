@@ -141,6 +141,8 @@ For α-slew $\delta_C / C_0 = 0.0457$ (§3), regime check:
 
 **Deep-regenerative regime ($Q \cdot \delta_C \geq 2$)**: $\kappa_{quality} = 1$ (ceiling). Within this regime, crystal-quality variation (mosaicity, defect density, dopant uniformity) modulates κ in range $0 < \kappa_{quality} \leq 1$.
 
+**Tier-2 #9 first-pass scoping finding (2026-05-17 night)** per [`research/2026-05-17_kappa-quality-correlation-first-pass-scoping.md`](../../../../../research/2026-05-17_kappa-quality-correlation-first-pass-scoping.md): **light yield is NOT a relevant κ_quality proxy** — published light yields (DAMA 5.5-7.5 phe/keV, COSINE 15 NPE/keV, ANAIS 12-16 phe/keV) ANTICORRELATE with cycle-12-derived κ_quality (DAMA κ=1, COSINE/ANAIS κ≲0.4). Physics argument: light yield depends on Tl-dopant + optical clarity + PMT QE (DIFFERENT physics than phonon coherence at α-slew rate ~10¹⁸ Hz). The relevant κ_quality metrics are NON-OPTICAL: mosaicity (X-ray rocking curve FWHM), phonon coherence length at THz, defect-trap density, acoustic Q at THz. These are typically NOT published for dark-matter crystals; full Tier-2 #9 validation requires materials-science literature dive + detector-collaborator engagement. Framework status post-scoping: SURVIVES first-pass test; full empirical grounding remains load-bearing per §9 Falsifier #2.
+
 **Sub-regenerative regime ($Q \cdot \delta_C < 2$)**: $\kappa_{quality} = (Q \delta_C / 2)^2$ (dimensional-analysis form; rigorous derivation pending).
 
 **Predicted XENONnT null**: liquid Xe Q·δ fails regenerative threshold; $\kappa_{quality}$ suppression 20-2000× compared to solid crystals. Combined with limited crystal coherence in liquid, predicted rate ≈ 0 (matches observed null).
