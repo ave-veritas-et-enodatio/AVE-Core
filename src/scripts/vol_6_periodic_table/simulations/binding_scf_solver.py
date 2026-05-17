@@ -1,8 +1,19 @@
 """
-AVE MODULE: SELF-CONSISTENT NONLINEAR NUCLEAR BINDING SOLVER (JAX)
-===================================================================
-Solves the nuclear binding problem with Axiom 4 saturation via
-iterative self-consistent field (SCF) relaxation.
+AVE MODULE: SELF-CONSISTENT NONLINEAR NUCLEAR BINDING — V_REF SCF SEARCH HARNESS.
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+Despite the module name, the EXECUTABLE path of this script is a V_ref
+optimization harness via SCF iteration. Lines 248-309 sweep V_ref against
+CODATA targets to find the saturation scale that fits the residuals.
+
+V_ref is therefore an EMPIRICAL TUNED PARAMETER (1-dimensional search via
+SCF + outer loop), NOT axiom-derived. K_MUTUAL coupling IS axiom-derived;
+saturation form √(1-(V_bg/V_ref)²) matches Axiom 4; but V_ref SCALE is fit.
+
+The SCF physics (nonlinear Maxwell with Axiom 4 saturation) is canonical;
+the script's role is to find the saturation scale via numerical SCF,
+not to predict it from first principles. Future work: derive V_ref from
+substrate impedance + nuclear charge density (open).
 
 PHYSICS:
     In the AVE nonlinear medium, Maxwell's equations become:

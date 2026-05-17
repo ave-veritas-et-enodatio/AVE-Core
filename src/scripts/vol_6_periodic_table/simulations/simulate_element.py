@@ -1,13 +1,34 @@
 """
-AVE MODULE: PERIODIC TABLE ELEMENT SIMULATOR
----------------------------------------------
-Standardized script for computing and visualizing the topological properties
-of atomic nuclei as hierarchical knot structures.
+AVE MODULE: PERIODIC TABLE ELEMENT SIMULATOR (mixed forward/fitted geometry).
 
-Calculates Theoretical Mass Defect (Binding Energy) using purely
-Electrical Engineering mutual impedance / reactive coupling (M_ij ~ 1/d).
-Proves that overlapping non-linear vacuum topologies reduce the total stored
-network energy identically to empirical CODATA mass measurements.
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script computes Theoretical Mass Defect (Binding Energy) for an atomic
+nucleus given a nucleon coordinate set. The K_MUTUAL ~ 1/d coupling kernel
+imported from `ave.core.constants` IS axiom-derived. The OUTPUT is honestly
+computed for any input geometry.
+
+The HONESTY ISSUE is in `get_nucleon_coordinates(Z, A)` (this same file):
+  - For Z=2 through Z=14: returns PER-ELEMENT hardcoded radii (r_tet=50.236d,
+    r_halo=398.478d, r_bipyramid=78.861d, r_oct=80.557d, r_bipyr=80.174370d
+    for O/F/Ne/Mg/Si etc.). These radii were 1-parameter Nelder-Mead fits
+    against CODATA mass targets via the solve_*.py scripts. So the
+    "Mass Mapping Error" output for Z=2..14 is ~0 BY CONSTRUCTION (fit residual).
+  - For Z >= 15: returns a SINGLE UNFIT HEURISTIC `r_core = d * (15.0 + A * 0.95)`
+    + `r_halo = r_core + 18.0 * d` (lines 444-460). No per-element optimization,
+    no minimization against CODATA. The mapping error reported for Z>=15
+    will be whatever it is (non-trivial), not ~0.
+
+The original docstring claimed this script "proves... identically to empirical
+CODATA mass measurements". Both halves of that claim need qualification:
+  - For Z<=14: the match is by 1-parameter fit construction, not proof
+  - For Z>=15: the match is unverified — uses a heuristic, not a per-element solve
+
+The interpretive AVE claim that survives: K_MUTUAL ~ 1/d coupling form is
+axiom-derived; given the right geometry, mass defects can be recovered to
+high precision. The geometry itself is currently NOT predicted axiomatically
+— it's either fit (Z<=14) or heuristic (Z>=15).
+
+Scope corrected 2026-05-17.
 """
 
 import os

@@ -1,6 +1,23 @@
 """
-AVE MODULE: SATURATION-CORRECTED NUCLEAR BINDING ENGINE (JAX)
-==============================================================
+AVE MODULE: SATURATION-CORRECTED NUCLEAR BINDING — V_REF SEARCH HARNESS (JAX).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+The EXECUTABLE main block of this script (around lines 250-289) runs a
+V_ref optimization SEARCH against CODATA targets to find a value that
+"preserves 0.00% error for Z=1-14 AND fixes the S-32 over-binding".
+
+V_ref (saturation reference scale) is therefore an EMPIRICAL TUNED
+PARAMETER in this script's runtime path, NOT axiom-derived. The K_MUTUAL
+coupling kernel IS axiom-derived; the saturation FORM √(1-(V_bg/V_ref)²)
+matches Axiom 4; but the V_ref SCALE is fit numerically.
+
+The underlying physics (Axiom 4 saturation in nonlinear Maxwell) is
+canonical; the script's role is to find the saturation scale, not
+predict it from first principles. Future: derive V_ref from substrate
+impedance + nuclear charge density (open work item).
+
+Scope corrected 2026-05-17.
+
 Implements Axiom 4 dielectric/magnetic saturation in the nuclear
 mutual coupling model.
 
