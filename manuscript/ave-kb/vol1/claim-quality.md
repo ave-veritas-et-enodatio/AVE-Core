@@ -204,7 +204,7 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
 ## ξ vs ξ_topo — Distinct Quantities, Same Greek Letter
 <!-- id: clm-3kzmt9 -->
 
-- $\xi \approx 8.15\times 10^{43}$ (dimensionless Machian hierarchy coupling, Axiom 3); $\xi_{topo} = e/\ell_{node} \approx 4.149\times 10^{-7}$ C/m (electromechanical transduction, Axiom 2 mechanism)
+- $\xi \approx 8.15\times 10^{43}$ (dimensionless Machian hierarchy coupling; gravity derived from Axioms 1 + 4); $\xi_{topo} = e/\ell_{node} \approx 4.149\times 10^{-7}$ C/m (electromechanical transduction, Axiom 2 mechanism)
 - _Specific Claims_
   - $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ is the cosmological-horizon dilution that converts the un-shielded gravitational coupling ($G_{true} = \hbar c/m_e^2$) into the macroscopic Newton's $G$.
   - $\xi_{topo} = e/\ell_{node}$ is the topological conversion constant grounding the $[Q] \equiv [L]$ isomorphism; it carries dimensions C/m.
@@ -220,7 +220,7 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
   - clm-0ktpcn — Golden Torus α Derivation (solidity 0.41) [for $\xi$'s $\alpha^{-2}$ factor]
   - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.28) [for $\xi$'s $R_H/H_\infty$ factor — $H_\infty$ is a consistency identity conditional on $G$ closure]
 - solidity: 0.25 (do not build on, rework needed) [= 0.90 × 0.28]
-- rationale: Local distinction work is correctly enforced — $\xi_{topo} = e/\ell_{node}$ from Axiom 2's topo-kinematic isomorphism mechanism; $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from Axiom 3's Machian dilution. Solidity bounded by the Closure Status entry $clm-5xon03$ (now 0.28, the tighter bottleneck after rebinding to `clm-unk0bd`) over the α dependency $clm-0ktpcn$ (0.41, rebound to `clm-trf3bd`). $\xi_{topo}$'s numerical value alone carries solidity 0.90 (depends only on framework inputs); $\xi$ inherits the dependency chain. (Solidity dropped from 0.50 to 0.25 in 2026-05-06 session as both upstream entries rebound to body-topology dependencies.)
+- rationale: Local distinction work is correctly enforced — $\xi_{topo} = e/\ell_{node}$ from Axiom 2's topo-kinematic isomorphism mechanism; $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from the derived-gravity Machian dilution (Axioms 1 + 4). Solidity bounded by the Closure Status entry $clm-5xon03$ (now 0.28, the tighter bottleneck after rebinding to `clm-unk0bd`) over the α dependency $clm-0ktpcn$ (0.41, rebound to `clm-trf3bd`). $\xi_{topo}$'s numerical value alone carries solidity 0.90 (depends only on framework inputs); $\xi$ inherits the dependency chain. (Solidity dropped from 0.50 to 0.25 in 2026-05-06 session as both upstream entries rebound to body-topology dependencies.)
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (dominant solidity bottleneck for $\xi$)
   - Close the $H_\infty/R_H$ circularity via independent $G$ derivation (raises Closure Status solidity, tightening $\xi$'s secondary bound)
@@ -718,7 +718,7 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 - _Specific Claims_
   - The simulation engine is a strict Discrete Kirchhoff Network Solver (e.g., `simulate_ponder_01_srs_lc_mesh.py`); the continuous PDE evaluations elsewhere in the manuscript are a macroscopic-fluid approximation, not the canonical engine.
   - Edge-strain and node-displacement updates take the explicit Symplectic-Euler form $I_{new} = I_{old} + (\Delta t/L)(V_A - V_B)$ and $V_{new} = V_{old} + (\Delta t/C)(\sum I_{in} - \sum I_{out})$ respectively, enforcing local gauge invariance and energy conservation across the discrete crystal.
-  - The §1.5 master-constants table maps each AVE quantity ($\ell_{node}$, $Z_0$, $\alpha$, $V_{yield}$, $\xi_{topo}$, $V_{snap}$, $G$, $S(A)$) to a single derivation source (Axiom 1 / Axiom 2 / Axiom 2 mechanism / Axiom 3 / Axiom 4 / Ch.8 Golden Torus).
+  - The §1.5 master-constants table maps each AVE quantity ($\ell_{node}$, $Z_0$, $\alpha$, $V_{yield}$, $\xi_{topo}$, $V_{snap}$, $G$, $S(A)$) to a single derivation source (Axiom 1 / Axiom 2 / Axiom 2 mechanism / Axiom 4 / Ch.8 Golden Torus / derived Ax 1+4).
 - _Specific Non-Claims and Caveats_
   - Symplectic Euler is **first-order**; it preserves an approximate energy invariant on bounded steps but is not a long-time-stable symplectic integrator on its own. Quantitative claims that depend on long-horizon integration accuracy require a higher-order method or step-size control; the leaf does not characterize the regime of validity.
   - The §1.5 master-constants pipeline is a **routing summary**, not an independent derivation. Each row's derivation lives in the cited source (notably $\alpha$ in Ch.8 Golden Torus, $G$'s $\xi$ closure in Vol 1 Ch.4 / Vol 3); summarizing this table as "all constants derived in §1.5" misreads the routing.

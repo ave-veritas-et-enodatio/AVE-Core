@@ -21,5 +21,5 @@ Gravity is macroscopic dielectric refraction; no curved manifold is required.
 | Gravitational waves | Transverse inductive shear waves | Low-frequency shear modes in the LC condensate. |
 | Frame dragging (Kerr) | Acoustic vortex flow $\vec{v}_\phi$ | Gordon metric: $\omega(r) = 2Mar/(r^2+a^2)^2$. |
 | Gravitational lensing | Optical refraction ($n > 1$) | $n(r) = (1+r_s/2r)^3/(1-r_s/2r)$. |
-| $G$ (Newton) | Machian boundary impedance | $G = \hbar c/(7\xi\,m_e^2)$ with $\xi \approx 8.15\times 10^{43}$ the dimensionless Machian hierarchy coupling (Axiom 3). |
+| $G$ (Newton) | Machian boundary impedance | $G = \hbar c/(7\xi\,m_e^2)$ with $\xi \approx 8.15\times 10^{43}$ the dimensionless Machian hierarchy coupling; gravity is a derived consequence of Axioms 1 + 4. |
 | "Dark matter" halo | Regime I vacuum drag | $v_{flat} = (GM a_0)^{1/4}$; $a_0 = cH_\infty/(2\pi)$. |

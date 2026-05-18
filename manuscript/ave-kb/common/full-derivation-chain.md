@@ -66,42 +66,21 @@ $$
 
 ### The Four Structural Axioms
 
-**Axiom 1: Impedance.**
-The vacuum is a discrete LC resonant network with characteristic impedance
-$Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch
-$\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
-*Underlying mechanism (substrate topology):* the physical vacuum operates as
-a dense, non-linear electromagnetic LC resonant network $\mathcal{M}_A(V, E, t)$,
-evaluated as a **Trace-Reversed Chiral LC Network** (micropolar continuum) in
-the macroscopic limit.
+**Axiom 1: Substrate Topology.**
+The physical vacuum IS a chiral Laves K4 Cosserat crystal $\mathcal{M}_A(V, E, t)$ — a dense, non-linear electromagnetic LC resonant network of micropolar nodes, evaluated as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum) in the macroscopic limit. Its calibration constants are *derived* from this substrate: characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch $\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
 
-**Axiom 2: Fine Structure.**
-The fine-structure constant couples topology to impedance:
-$\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$, setting the
-saturation threshold for the dielectric yield voltage
-$V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$.
-*Underlying mechanism (topo-kinematic isomorphism):* charge $q$ is identically
-a discrete geometric dislocation (a localized phase twist) within $\mathcal{M}_A$.
-The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with
-topological conversion constant $\xi_{topo} = e/\ell_{node}$.
+**Axiom 2: Topo-Kinematic Isomorphism.**
+Charge $q$ is identically a discrete geometric dislocation (a localized phase twist) within $\mathcal{M}_A$. The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with topological conversion constant $\xi_{topo} = e/\ell_{node}$. The fine-structure constant $\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$ and the dielectric yield voltage $V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$ are *derived* calibration constants (Axiom 4 operating point), not axioms.
 
-**Axiom 3: Gravity.**
-Newton's constant emerges as the Machian boundary impedance:
-
-$$
-G = \frac{\hbar c}{7\,\xi\, m_e^2}
-$$
-
-where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15\times 10^{43}$ is
-the dimensionless Machian hierarchy coupling (distinct from $\xi_{topo}$).
-*Underlying mechanism (effective action principle):* the system evolves to
-minimize the macroscopic hardware action; the dynamics are encoded in the
-continuous phase transport field ($\mathbf{A}$):
+**Axiom 3: Minimum Reflection Principle.**
+The substrate minimizes the boundary reflection $|\Gamma|^2$ at every internal impedance boundary; equivalently, it extremizes the macroscopic hardware action $S_{AVE}$, with the dynamics encoded in the continuous phase transport field ($\mathbf{A}$):
 
 $$
 \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0 |\partial_t \mathbf{A}|^2
 - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2
 $$
+
+(Legacy name: *Effective Action Principle*.) Macroscopic gravity is a *derived consequence* of Axioms 1 + 4 (Symmetric Scaling), not an axiom: Newton's constant emerges as the Machian boundary impedance $G = \hbar c/(7\,\xi\, m_e^2)$, where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15\times 10^{43}$ is the dimensionless Machian hierarchy coupling (distinct from $\xi_{topo}$).
 
 **Axiom 4: Universal Saturation Kernel.**
 The universal yield kernel bounding all LC modes:

@@ -7,7 +7,7 @@ claims: [clm-zi6t1e]
 
 # Appendix C: Derived Hardware Numerology
 
-The AVE framework operates under the strictest formulation of first-principles physics. The entire universal manifold is defined by three canonical hardware scales ($\ell_{node}$, $\alpha$, and $G$), all three of which are derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Vol 1 Ch 8), $\ell_{node}$ from the Nyquist resolution of the smallest topologically stable soliton, and $G$ from the Machian boundary condition (Axiom 3). Every subsequent physical constraint is analytically traceable back to these derived scales plus the four axioms, without empirical curve-fitting.
+The AVE framework operates under the strictest formulation of first-principles physics. The entire universal manifold is defined by three canonical hardware scales ($\ell_{node}$, $\alpha$, and $G$), all three of which are derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Vol 1 Ch 8), $\ell_{node}$ from the Nyquist resolution of the smallest topologically stable soliton, and $G$ from the Machian boundary condition (a derived consequence of Axioms 1 and 4). Every subsequent physical constraint is analytically traceable back to these derived scales plus the four axioms, without empirical curve-fitting.
 
 This appendix derives the hardware numerology appearing throughout Volume 9, verifying their exact theoretical limits against the continuous LC tensor solver and the declarative compilation traces.
 
@@ -77,4 +77,4 @@ $$
 
 **Axiom trace:** Axiom 1 LC mechanism (S-matrix for uniform isotropic lattice intersections) → cascade efficiency $\eta = 3/4 \rightarrow C_K = 4/3$.
 
-> ↗ **KB Boundary:** Application of these constants to the full APU architecture is explored in the experimental `AVE-APU` repository (`ave-veritas-et-enodatio/AVE-APU`).
+> ↗ **KB Boundary:** Application of these constants to the full APU (axiomatic processing unit) architecture is held in a separate hardware engineering compendium.

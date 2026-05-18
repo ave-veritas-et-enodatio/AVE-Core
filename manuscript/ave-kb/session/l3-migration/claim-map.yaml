@@ -223,8 +223,8 @@ entries:
     delta: "+60/-8"
     l3_commits: ["7ffb212", "e779d78", "bd61693", "2c03050", "b254a71", "510e3ea"]
     status: enriched
-    delta_class: framing-only + new-content
-    notes: "Axiom 1/3 header rewrites = sweep B -> NO DELTA (BLR already Scheme A). New A-034 universal-saturation-kernel section = CITE universal-saturation-kernel-catalog.md's claims; do NOT mint. Existing clm-sxn6eo/clm-ibfyda unchanged."
+    delta_class: scheme-B-homologation + new-content
+    notes: "Axiom section: BLR was Scheme B (Impedance/Fine Structure/Gravity) -- homologated to Scheme A in the 2026-05-18 Scheme-B removal pass (the concordance agent's 'already Scheme A' finding was wrong). New A-034 universal-saturation-kernel section = CITE universal-saturation-kernel-catalog.md's claims; do NOT mint -- still pending Batch 2D. Existing clm-sxn6eo/clm-ibfyda unchanged."
 
   - l3_path: common/index.md
     disposition: index-nav
@@ -240,8 +240,8 @@ entries:
     delta: "+23/-2"
     l3_commits: ["7ffb212", "bd61693", "2c03050", "b254a71", "510e3ea"]
     status: enriched
-    delta_class: framing-only + new-content
-    notes: "Axiom 2/3 line rewrites = sweep B -> NO DELTA (BLR already Scheme A). New A-034 empirical-anchors section = CITE universal-saturation-kernel-catalog.md; do NOT mint. Existing clm-sxn6eo/clm-ibfyda unchanged. (Pre-existing leaf-internal axiom-numbering offset is not L3's delta -- out of scope.)"
+    delta_class: scheme-B-homologation + new-content
+    notes: "Axiom list items 4-6: BLR was Scheme B (Impedance/Fine Structure/Gravity) -- homologated to Scheme A in the 2026-05-18 Scheme-B removal pass. New A-034 empirical-anchors section = CITE universal-saturation-kernel-catalog.md; do NOT mint -- still pending Batch 2D. Existing clm-sxn6eo/clm-ibfyda unchanged."
 
   - l3_path: common/numerical-provenance-manifest.md
     disposition: new-leaf

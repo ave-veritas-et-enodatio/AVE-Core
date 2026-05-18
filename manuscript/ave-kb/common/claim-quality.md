@@ -166,7 +166,7 @@ The Topological Conversion Constant $\xi_{topo} = e/\ell_{node} \approx 4.149 \t
 - _Specific Claims_
   - $\xi_{topo}$ is defined by Axiom 2 from the topo-kinematic isomorphism $[Q] \equiv [L]$; given $\ell_{node}$ and $e$, it has no free parameter.
   - It is the dimensional bridge for: $Q = \xi x$, $I = \xi v$, $V = \xi^{-1} F$, $L = \xi^{-2} m$, $C = \xi^2 \kappa$, $R = \xi^{-2} \eta$. Same identity used in the circuit translation table and the biology translation table.
-  - $\xi_{topo}$ is **distinct from $\xi$** (the dimensionless Machian hierarchy coupling, $\approx 8.15 \times 10^{43}$, used in Axiom 3's $G$ formula). The two share a Greek letter and are conflated in summaries; the leaf and CLAUDE.md Axiom 3 entry both flag this explicitly.
+  - $\xi_{topo}$ is **distinct from $\xi$** (the dimensionless Machian hierarchy coupling, $\approx 8.15 \times 10^{43}$, used in the derived-gravity $G$ formula). The two share a Greek letter and are conflated in summaries; the leaf and CLAUDE.md Axiom 3 entry both flag this explicitly.
   - The "currency exchange" framing (Dirac large-numbers table) classifies $c$, $\hbar$, $e$, $\xi_{topo}$, $\ell_{node}$, $G$ as dimensional conversion factors rather than independent physical constants. This is a structural interpretive statement, not a falsifiable prediction.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim $\xi_{topo}$ has independent experimental status. It is fixed by Axiom 2 and the input scale; its appearance across 51 files is structural reuse, not 51 independent confirmations.

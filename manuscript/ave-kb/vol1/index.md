@@ -10,7 +10,7 @@ bootstrap: true
 
 # Vol 1: Foundations
 
-The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are now derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Ch.8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (Axiom 3). From this zero-parameter Effective Field Theory, all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
+The AVE framework models the physical vacuum as a discrete amorphous LC resonant condensate ($\mathcal{M}_A$), bounded by four topological axioms and three canonical hardware scales ($\ell_{node}$, $\alpha$, $G$). All three scales are now derived from first principles: $\alpha$ from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton (Ch.8), $\ell_{node}$ from Nyquist resolution of the smallest stable soliton, $G$ from the Machian boundary (derived from Axioms 1 + 4). From this zero-parameter Effective Field Theory, all macroscopic continuum moduli, quantum formalism, and cosmological dynamics are derived via Transmission Line Mathematics (TLM) and non-linear dielectric saturation.
 
 ## Key Results
 
