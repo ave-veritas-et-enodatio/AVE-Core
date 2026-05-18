@@ -620,8 +620,12 @@ Each K4 node contributes equally to the self-interaction potential---$4$ nodes s
 \begin{resultbox}{Higgs Boson Mass (K4 Breathing Mode)}
 \begin{equation}
     \boxed{M_H = \frac{v}{2} \approx 124{,}417 \text{ MeV}}
-    \quad (\text{PDG: } 125{,}100 \text{ MeV}, \;\;-0.55\%)
+    \quad (\text{PDG: } 125{,}100 \text{ MeV})
 \end{equation}
+
+\textbf{Error: $-0.55\%$ against AVE-derived VEV $v_{AVE} \approx 248{,}833$~MeV; $-1.59\%$ to $-1.68\%$ against PDG standard VEV $v = 246{,}220$~MeV.}
+
+\textbf{Scope correction (2026-05-17 Foundation Item 7).} The $v_{AVE}$ used above is itself $\sim 1.1\%$ off from PDG standard VEV (the $G_F$ derivation chain has $\sim 3\%$ residual error per \texttt{test\_ew\_constants.py}). The $-0.55\%$ headline therefore reports internal-consistency between two AVE-derived quantities (Class C consistency check), NOT the forward-prediction error against experiment (Class D). The end-to-end forward prediction $G_F \to v_{AVE} \to M_{H,AVE}$ vs PDG $M_H$ is $-1.59\%$ to $-1.68\%$. See closure-roadmap \S0.5 Foundation Item 7 entry.
 \end{resultbox}
 
 \noindent\textbf{Why $N_{K4} = 4$?} The K4 complete graph is the minimal rigid 3D frame (Axiom 1). Its 4 vertices define 6 edges, each carrying an LC strut. The breathing mode is the symmetric radial eigenmode where all 4 nodes oscillate in-phase radially---the volume pulsation of the fundamental lattice cell. This is the only scalar ($J^P = 0^+$) mode available, matching the experimental spin-parity assignment from CMS and ATLAS.

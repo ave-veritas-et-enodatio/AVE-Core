@@ -4,6 +4,8 @@
 
 ## The Platonic Progression
 
+> **Scope correction (2026-05-17 Foundation Item 7 per `consistency-vs-emergence` discipline trigger 1).** The "Error" column in the table below reports the **geometric residual** of cluster positions vs. assumed Platonic-solid coordinates (engine's converged positions vs. assumed geometry). It is NOT a binding-energy prediction error against experiment (AME). Per Foundation Item 4 pattern: Class A definitional identity miscategorized as Class D emergence test — the 0% errors are solver fit-residuals to assumed geometry, not forward-prediction performance against experiment. Load-bearing physics test (do binding energies match AME?) is NOT what this table shows. Read "Error" as "geometric residual to ideal Platonic coordinates" (structurally zero by solver construction) until binding-energy-vs-AME column added. See closure-roadmap §0.5 Foundation Item 7 entry. *Body below preserved per Rule 12.*
+
 The systematic walk through nuclear topologies traces an exact path through the classical Platonic and Archimedean solids:
 
 | $N_\alpha$ | Element | Geometry | $R$ ($d$) | Error |
