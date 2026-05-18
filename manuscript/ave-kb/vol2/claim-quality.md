@@ -602,7 +602,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - This is a **category (i) ontological reinterpretation**, not a new numerical prediction. Macroscopic Newtonian dynamics are unchanged at the formula level; the framework's claim is about the underlying mechanism.
   - Does NOT claim a derivation of relativistic mass or the equivalence principle from this single leaf — only that the inertial-mass term is mechanistically Lenz-law back-EMF on the lattice's distributed inductance ($\mu_0$). Relativistic and gravitational extensions are addressed in vol3 gravity and in the unification leaves.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md`.
+> **Leaf references:** `particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md`; `../common/dark-wake-bemf-foc-synthesis.md` (R_drag = Z₀ / mass-as-inductive-resistance, cited by the common dark-wake synthesis leaf).
 
 ### Quality
 - confidence: *pending*

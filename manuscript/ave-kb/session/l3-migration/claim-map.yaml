@@ -311,10 +311,10 @@ entries:
 
   - l3_path: common/two-engine-architecture-a027.md
     disposition: new-leaf
-    clm_ids: "MINT x3"
+    clm_ids: [clm-zgllr2, clm-zfqd9v, clm-gr8d63]
     delta: "+79/-0"
     l3_commits: ["3607a63", "8e28c1e"]
-    status: enriched
+    status: ported
     claims:
       - "A-027 two-engine architecture: K4-TLM for sub-saturation (A<<1, has Z(V) not c_eff(V)) + Master-Equation FDTD for bound-state (A->1, has both, traps solitons)"
       - "only an engine with wave-speed modulation c_eff(V) can localize waves into a bound state -- K4-TLM cannot produce trapped solitons (architecture mismatch, not framework failure)"

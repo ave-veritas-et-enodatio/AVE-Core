@@ -540,7 +540,7 @@ The eight Ch.6 universal operators are the engine-level shared code paths. Bound
   - The "Universal Reflection Coefficient" cross-scale list (Pauli exclusion at $\Gamma = -1$, Moho seismic $\Gamma \approx 0.17$, antenna $S_{11}$, etc.) exemplifies this: same operator, different inputs $(Z_1, Z_2)$, different physical phenomena. Summaries that quote a list of $\Gamma$ values as "AVE predicts" should be qualified with "the operator is universal; the inputs come from per-domain physics".
   - Cross-cutting [vol3 Seismic Reflection Coefficient (Moho) entry](../vol3/claim-quality.md) makes this distinction explicit.
 
-> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/impedance-operator.md`](./operators-and-regimes/ch6-universal-operators/impedance-operator.md); [`operators-and-regimes/ch6-universal-operators/saturation-operator.md`](./operators-and-regimes/ch6-universal-operators/saturation-operator.md); [`operators-and-regimes/ch6-universal-operators/reflection-coefficient.md`](./operators-and-regimes/ch6-universal-operators/reflection-coefficient.md); [`operators-and-regimes/ch6-universal-operators/pairwise-potential.md`](./operators-and-regimes/ch6-universal-operators/pairwise-potential.md).
+> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/impedance-operator.md`](./operators-and-regimes/ch6-universal-operators/impedance-operator.md); [`operators-and-regimes/ch6-universal-operators/saturation-operator.md`](./operators-and-regimes/ch6-universal-operators/saturation-operator.md); [`operators-and-regimes/ch6-universal-operators/reflection-coefficient.md`](./operators-and-regimes/ch6-universal-operators/reflection-coefficient.md); [`operators-and-regimes/ch6-universal-operators/pairwise-potential.md`](./operators-and-regimes/ch6-universal-operators/pairwise-potential.md); [`../common/operators.md`](../common/operators.md) (Op1 universal-impedance formula cited by the common operator catalog).
 
 ### Quality
 - confidence: 0.80
@@ -896,5 +896,641 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
   - *pending — full enumeration deferred to quality evaluation pass*
 - solidity: *pending*
 - rationale: *pending*
+- strengthen-by:
+  - *pending*
+
+---
+
+## K4 Rotation Group $T = A_4$
+<!-- id: clm-ys0xl1 -->
+
+The action of 3D rotations on the K4 tetrahedral 4-port basis is a faithful representation of the tetrahedral rotation group $T = A_4$ (order 12).
+
+- _Specific Claims_
+  - The K4 diamond lattice has a 4-port tetrahedral basis $p_0 = (+1,+1,+1)$, $p_1 = (+1,-1,-1)$, $p_2 = (-1,+1,-1)$, $p_3 = (-1,-1,+1)$; pairwise dot product $-1$, tetrahedral angle $\arccos(-1/3) \approx 109.47°$.
+  - The rotation symmetry of this tetrahedron is the tetrahedral group $T$, isomorphic to the alternating group $A_4$, order $|T| = 12$: identity (1) + $C_3$ class (8 rotations $\pm 120°$ about 4 vertex axes) + $C_2$ class (3 rotations $180°$ about 3 edge-midpoint axes).
+  - All 12 group elements are enumerated explicitly as permutations of $\{0,1,2,3\}$; they are all even, distinct, and closed under composition — bijective onto the 12 even permutations of $A_4$, so the representation is faithful.
+- _Specific Non-Claims and Caveats_
+  - The leaf treats the rotation subgroup only; reflections (the full $T_d = S_4$, order 24) are the subject of the separate point-symmetry claim.
+  - The faithful-representation result is a group-theory verification of K4's stated symmetry, not an independent derivation of the K4 lattice structure itself (Axiom 1 stipulates the lattice).
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §2 (tetrahedral rotation group), §3 (12 explicit permutations), §4 (faithful representation).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## K4 Full Point Symmetry $T_d = S_4$ and the A↔B Sublattice Swap
+<!-- id: clm-7pvh9i -->
+
+The full point symmetry of the K4 lattice including reflections is $T_d = S_4$ (order 24); the 4 mirror planes in $T_d \setminus T$ swap the bipartite A and B sublattices.
+
+- _Specific Claims_
+  - Including reflections, the K4 point group is the full tetrahedral group $T_d$, isomorphic to the symmetric group $S_4$, order 24.
+  - Under the rotation subgroup $T = A_4$ alone, the bipartite A and B sublattices are each preserved (rotations about a bipartite-cell vertex respect the bipartite structure).
+  - The 4 mirror planes — the elements of $T_d \setminus T$ — exchange A ↔ B by swapping vertex pairs; an A↔B swap therefore requires the reflection sector (full $T_d$), not pure rotations.
+- _Specific Non-Claims and Caveats_
+  - The leaf notes the A↔B swap is "needed for the bipartite-spinor argument leading to spin-½" but states that obtaining the swap requires either including reflections or "some other physical mechanism" — it does not assert that $T_d$ reflections are themselves the realized spin-½ mechanism (that role is the Finkelstein–Misner double-cover claim).
+  - Cosserat constitutive relations are stated to involve A↔B-swapping reflections; the leaf records this as a structural feature, not a step-by-step constitutive derivation.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §5 (bipartite A↔B action), §2 ($T_d = S_4$ order 24).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## K4 Double Cover $2T \subset SU(2)$ — Substrate-Native Spin-½
+<!-- id: clm-rkisb8 -->
+
+The double cover of $T = A_4$ is the binary tetrahedral group $2T \subset SU(2)$ (order 24), in which a $2\pi$ rotation maps to $-I$ and only $4\pi$ to $+I$ — the K4-native source of spin-½ via the Finkelstein–Misner mechanism.
+
+- _Specific Claims_
+  - The double cover of $A_4$ is the binary tetrahedral group $2T$, order 24, a discrete subgroup of $SU(2)$, via the exact sequence $1 \to \mathbb{Z}_2 \to 2T \to A_4 \to 1$.
+  - Each $A_4$ element has two $2T$ preimages differing by the central $-I \in SU(2)$; $-I$ is the lift of a $2\pi$ SO(3) rotation, so $2\pi \to -I$ and $4\pi \to +I$ — the spin-½ characteristic.
+  - For spin-½ to be derived from K4 (not imported from QM), physical fields on the lattice must transform under $2T$ rather than $T$; this is supplied by the Finkelstein–Misner mechanism on the extended $0_1$ unknot defect embedded in the SO(3) manifold, via the chain $K_4 \to A_4 \to 2T \subset SU(2)$.
+- _Specific Non-Claims and Caveats_
+  - The leaf states the requirement that fields transform under $2T$ and attributes the realization to the Finkelstein–Misner mechanism; the full spin-½ derivation chain is deferred to the cited spin-half-paradox leaf and Vol 1 Ch 8 — this entry does not re-derive it.
+  - The electron's real-space body is the $0_1$ unknot; the double-cover argument is a property of the defect's embedding in SO(3), not a claim about a real-space trefoil.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §6 (double cover $2T \subset SU(2)$), §7 (substrate-native spin-½).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosserat Mass-Gap Formula $m^2 = 4 G_c / I_\omega$
+<!-- id: clm-jz0xaw -->
+
+The micropolar rotational sector of the Cosserat substrate carries a mass gap $m^2 = 4 G_c / I_\omega$; the factor 4 arises from the antisymmetric-strain energy density $W_{\text{micropolar}} = 2|\omega|^2$ (in units of $G_c$).
+
+- _Specific Claims_
+  - The micropolar coupling term $W_{\text{micropolar}} = G_c \sum_{ij}(\varepsilon_{\text{antisym},ij})^2$, with $\varepsilon_{\text{antisym},ij} = \tfrac{1}{2}(\partial_i u_j - \partial_j u_i) - \epsilon_{ijk}\omega_k$, evaluates for uniform $\omega_z$ ($u=0$) to $2 G_c |\omega_z|^2$ — the $xy$ and $yx$ antisymmetric components contribute equally.
+  - The resulting mass term in the equation of motion gives the mass gap $m^2 = 4 G_c / I_\omega$; the factor 4 = 2 (antisymmetric-pair doubling in $\sum_{ij}$) × 2 (Lagrangian-to-EOM conversion).
+- _Specific Non-Claims and Caveats_
+  - The factor-4 result is derived for the uniform-$\omega_z$ configuration; the leaf does not claim the same prefactor for arbitrary non-uniform $\omega$ configurations beyond what the dispersion relation captures.
+  - The gap is a property of the Cosserat micropolar Lagrangian; converting it to the electron mass requires the separate electron-calibration claim.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §2 (origin of the factor 4).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Gapped Dispersion of the Cosserat Rotational Sector
+<!-- id: clm-4mmwb6 -->
+
+The Cosserat rotational sector obeys a gapped dispersion relation $\omega^2 = c^2 k^2 + m^2$ at long wavelengths, following from the micropolar Lagrangian's Euler-Lagrange equations.
+
+- _Specific Claims_
+  - The Cosserat micropolar Lagrangian $L = \tfrac{1}{2}\rho|\dot u|^2 + \tfrac{1}{2}I_\omega|\dot\omega|^2 - W(u,\omega)$ yields Euler-Lagrange equations $\rho\ddot u = -\partial W/\partial u$ and $I_\omega\ddot\omega = -\partial W/\partial\omega$.
+  - The rotational sector's long-wavelength dispersion combines a curvature term and a mass term: $\omega^2 = c^2 k^2 + m^2$ — a massive (gapped) mode, in contrast to the gapless scalar sector.
+  - This validates Axiom 3 (Minimum Reflection Principle): the Lagrangian produces the correct Euler-Lagrange equations, confirmed by Hamiltonian conservation in the velocity-Verlet integration.
+- _Specific Non-Claims and Caveats_
+  - $W(u,\omega)$ is a general Cosserat energy density (Cauchy, micropolar, curvature, Op10, reflection, Hopf terms); the dispersion statement is for the rotational sector with the mass and curvature terms active.
+  - The companion gapped-wave test (T1b) shows a 34% group-velocity error attributed to stiffer gapped-band lattice dispersion; the dispersion-relation claim is the long-wavelength form, not a finite-$k$ precision claim.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §1 (Cosserat Lagrangian and Euler-Lagrange equations; gapped dispersion).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosserat Mass-Gap Empirical T2 Validation
+<!-- id: clm-dhvhwi -->
+
+The uniform-$\omega$ mass-gap oscillation test reproduces the predicted oscillation period to 0.35% (measured 3.1307 vs theory $\pi$), with bounded energy drift ($9.0 \times 10^{-3}$ over 5 periods).
+
+- _Specific Claims_
+  - The T2 test seeds a uniform $\omega_z = A_0 = 0.05$ with zero velocity and $\nabla\omega = 0$, isolating the mass term (curvature contributes nothing); the predicted oscillation has $\omega_m = \sqrt{4 G_c/I_\omega} = 2$, period $T = 2\pi/\omega_m = \pi \approx 3.1416$.
+  - Measured: $\omega_{\text{mass}} = 2.0070$ and period $T = 3.1307$, both 0.35% from theory; energy drift $|\Delta H/H|_{\max} = 9.0 \times 10^{-3}$ (0.9%) over 5 periods with no secular trend.
+  - The match confirms the velocity-Verlet integrator conserves energy to $O(dt^2)$ and that the mass gap is exactly $m^2 = 4 G_c/I_\omega$.
+- _Specific Non-Claims and Caveats_
+  - The test runs with parameters $\rho = I_\omega = G_c = 1$, $N = 32$ — it validates the mass-gap structure of the Cosserat Lagrangian, not the electron-specific calibration.
+  - Companion tests T1a/T1b carry larger errors (14% gapless velocity, 34% gapped group velocity) attributed to finite-$k$ lattice dispersion; only T2 (mass term isolated) achieves the 0.35% figure.
+  - Per the leaf's Phase-I scope: Axiom 1 (K4 substrate) and Axiom 4 (saturation) are not exercised by this test; Cosserat-alone is a development step, not an Axiom-1-compliant physics substitute.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3 (empirical validation, T2 test design and result).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosserat Rotational Mode as the Structural Electron-Mass Mechanism
+<!-- id: clm-g0mkne -->
+
+The Cosserat rotational sector's massive mode supplies the electron's mass content, while the K4 scalar sector remains separately massless (the photon).
+
+- _Specific Claims_
+  - The rotational massive mode at $m^2 = 4 G_c/I_\omega$ inherits the substrate's mass content; the electron's specific calibration uses the (2,3) Clifford-torus phase-space winding shell with quality factor $Q = 1/\alpha = 137.036$ at the Vol 1 Ch 8 Golden Torus geometry $R = \varphi/2$, $r = (\varphi-1)/2$.
+  - The electron rest energy $m_e c^2 = \hbar\omega_C = T_{EM}\cdot\ell_{\text{node}}$ inherits from the mass-gap formula at substrate parameters $\rho, I_\omega, G_c$ calibrated to $\ell_{\text{node}} = \hbar/(m_e c)$.
+  - The Cosserat $\rho, I_\omega$ set the rotational-sector mass scale; the K4 scalar sector ($A_1$, longitudinal/translational $u$) stays massless — the photon — while $T_2$ (transverse/microrotational $\omega$) carries the mass-gap content.
+- _Specific Non-Claims and Caveats_
+  - The (2,3) trefoil is the electron's phase-space (Clifford-torus) winding label; the electron's real-space body is the $0_1$ unknot. The leaf explicitly flags this — it is not a real-space trefoil.
+  - The electron-specific calibration is Phase-II + III work coupling K4 ⊗ Cosserat at saturation; the Phase-I T2 test validates the mass-gap structure, not the calibration.
+  - The massless-scalar / massive-rotational split is asserted as consistent with the photon = $T_2$-only identification (cross-referenced photon-identification leaf); this entry does not independently re-derive the photon identification.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §4 (structural mass mechanism for the electron), §5 (Phase-I scope).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cubic K4 Anisotropy at Saturation Collapse
+<!-- id: clm-u1o2lo -->
+
+At saturation collapse ($A^2 \to 1$) the K4 substrate's bipolar attractor is cubic (6-vertex / 8-face / 12-edge), the empirical signature of the $T = A_4$ tetrahedral rotation group; a perfectly spherical collapse would falsify the K4 substrate.
+
+- _Specific Claims_
+  - When seeded near saturation amplitude and evolved, the K4-Cosserat coupled engine produces a stable attractor with cubic — not spherical, not isotropic — symmetry; the saturated $|V|$ envelope develops 6 face-centered protrusions aligned with the lattice Cartesian axes.
+  - The cubic structure is the projection of the $T = A_4$ / $T_d$ symmetry: the 3 face-midpoint $C_2$ axes align with $\pm\hat x, \pm\hat y, \pm\hat z$; the same anisotropy appears in the linear regime as the cardinal-axis $v = c\sqrt{2}$ vs diagonal-axis $v = c$ photon-propagation split.
+  - The signature is empirically observed (path-α saturation-collapse 5-sampler-view bipolar +x/−x $R/r$ split; v14 cubic-emergence visualizations) and group-theoretically expected.
+  - Falsifiable: any model claiming to be K4-Cosserat that collapses to perfectly spherical symmetry at saturation is inconsistent with its claimed underlying symmetry.
+- _Specific Non-Claims and Caveats_
+  - The cubic anisotropy is read off simulation outputs (saturation-collapse attractor + propagation-baseline kinematics); it is the empirical signature of the K4 symmetry, not an independent derivation of the lattice.
+  - The per-direction observables ($R/r$ across sampler views) require bipolar (per-cluster +x/−x) adjudication to capture both lobes; quoted medians are per-cluster.
+  - The leaf flags engine-design implications (PML placement, mode-eigsolve assuming spherical symmetry) as methodological cautions, not physical claims.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md`](./axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md) §1 (empirical observation), §2 (group-theoretic origin), §5 (falsifiability).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## $|T| = 12$ Universality — Four Independent Routes Converge
+<!-- id: clm-15nwqy -->
+
+Four independent routes (K4 coordination path-count, Cosserat dimensional, magic-angle orbit multiplicity, the axiom-level ratio $\xi_{K2}/\xi_{K1}$) all converge on 12, indicating $\chi_K = 12$ is forced by K4 tetrahedral symmetry rather than fit.
+
+- _Specific Claims_
+  - Route 1 (baseline K4 coordination): 4 nearest-neighbor B-nodes per A-node × 3 other-A sublattices reachable via shared-B-node propagation = 12 secondary paths per node.
+  - Route 2 (Cosserat dimensional): $(\ell_c/d)^2 \times 2 = 12$, with $\ell_c \approx \sqrt{6}\,\ell_{\text{node}}$ the Cosserat characteristic length and the factor 2 the bilateral chiral symmetry.
+  - Route 3 (magic-angle unity): $f_{\text{Cosserat}}(u_0^*) = 1$ at the substrate saturation boundary — the orbit-count multiplicity of $T$ acting on the K4 unit cell.
+  - Route 4 (axiom-level constitutive ratio): $\xi_{K2}/\xi_{K1} = 12$, where $\mu + \kappa = \xi_{K1}T_{EM}$ and $\beta + \gamma = \xi_{K2}T_{EM}\ell_{\text{node}}^2$; the ratio is independent of $T_{EM}$ and K4-symmetry-forced.
+  - The convergence replaces "$\chi_K = 12$ as a calibration fit" with "$\chi_K = |T|$, the tetrahedral rotation group order."
+- _Specific Non-Claims and Caveats_
+  - Status is **structural-hypothesis**, not theorem. The four-route convergence is verified, but the rigorous Session 19+ derivation of $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration is pending (multi-week analytical work). Route 4 is not yet rigorously closed; only if that derivation explicitly recovers $\xi_{K2}/\xi_{K1} = 12$ does the convergence become a four-route theorem.
+  - Three of the four routes (1, 3, 4) are derivable from K4 geometry alone; route 2 brings in the Cosserat constitutive structure — the four are windows into the same Axiom 1 symmetry, so the convergence is expected, with the independent derivations providing the cross-check.
+
+> **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md`](./axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md) §The four routes, §Connection to Axiom 1 + Q-G47, §Status.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## A-029 Secondary Scale — Geometrically Forced Shared-B-Node Distance
+<!-- id: clm-gx1mpl -->
+
+The K4 shared-B-node next-nearest-neighbor distance $r_{\text{secondary}} = \sqrt[3]{\mathcal{R}_{\text{OB}}}\cdot\ell_{\text{node}} \approx 1.187\,\ell_{\text{node}}$ is geometrically forced by K4 topology plus packing fractions, not a free parameter; the magic-angle $u_0^*$ sits exactly here.
+
+- _Specific Claims_
+  - In the bipartite K4 lattice, the next-nearest-neighbor distance between two A-nodes is set by the shortest path through a shared B-node: $r_{\text{secondary}} = \sqrt[3]{\mathcal{R}_{\text{OB}}}\cdot\ell_{\text{node}}$, with $\mathcal{R}_{\text{OB}} = p_{\text{Delaunay}}/p_c = 0.3068/0.1834 \approx 1.673$, giving $r_{\text{secondary}} \approx 1.187\,\ell_{\text{node}}$.
+  - The number 1.187 is forced by three inputs — K4 graph topology (4-neighbor connectivity, Axiom 1), the vacuum packing fraction $p_c = 8\pi\alpha \approx 0.1834$ (from the $K=2G$ trace-reversal identity, Axiom 4 + EMT), and the standard amorphous-network Delaunay packing $p_{\text{Delaunay}} \approx 0.3068$ — so it is not a calibration choice.
+  - The over-bracing parameter $u_0$ at the magic value $u_0^* \approx 0.187$ (where $K(u_0^*) = 2G(u_0^*)$) places the bond midpoint at the saturation point $A = 1$ — the substrate-scale instance of A-034. The shared-B-node propagator is the mechanism by which the substrate projects a coherent gravity response across distances $> \ell_{\text{node}}$.
+- _Specific Non-Claims and Caveats_
+  - The load-bearing claim is specifically that 1.187 is not free; the geometric derivation from K4 graph + EMT packing fraction is presented as straightforward, conditional on the cited $p_c$ and $p_{\text{Delaunay}}$ values (the $p_c = 8\pi\alpha$ identity carries its own consistency-vs-derivation status elsewhere).
+  - A-029 is the geometric scaffold for route 1 of the $|T| = 12$ universality framework; the entry asserts the secondary-scale distance, not the full four-route convergence.
+
+> **Leaf references:** [`axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md`](./axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md) §The geometric derivation, §Why this matters: grounding gravity projection, §Status.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## K4 4-Port Irrep Decomposition — $A_1 \oplus T_2$ under $T_d$
+<!-- id: clm-j550uh -->
+
+Under the tetrahedral group $T_d$, the K4 4-port amplitude space decomposes as $V_{\text{4-port}} = A_1 \text{ (1D)} \oplus T_2 \text{ (3D)}$; the K4-TLM scattering matrix $S = (1/2)\mathbf{1} - I$ has eigenvalues $\{+1, -1, -1, -1\}$.
+
+- _Specific Claims_
+  - The K4 4-port space decomposes under $T_d$ as $A_1$ (totally symmetric, 1D, basis $(1,1,1,1)/2$, scalar/longitudinal) plus $T_2$ (3D triplet, traceless subspace $\sum_i v_i = 0$, vector-like/transverse).
+  - The scattering matrix $S_{ij} = (1/2) - \delta_{ij}$ (for $z_{\text{local}} = 1$) has eigenvalue $+1$ on $A_1$ and $-1$ (triply degenerate) on $T_2$; the eigenvalue sum is $4$.
+  - The empirical port-correlation eigenvalues (`phasor_discovery.py`, $N=64$, steps 100/200/300) are $\{1.65, 1.22, 1.13, 0.00\}$ — the smallest eigenvalue is exactly zero and stable, confirming the soliton's port-space lives in the 3D $T_2$ subspace.
+  - $A_1$ maps to the Cosserat translational sector $u$; $T_2$ maps to the microrotational sector $\omega$. $A_1$ propagates at $c\sqrt{2}$ (bulk modulus), $T_2$ at $c$ (shear modulus).
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim a new group-theory result — $A_1 \oplus T_2$ is the standard $T_d$ reduction of a 4-element permutation-like representation; the claim is its application to the K4 port space.
+  - The empirical $\lambda_4 = 0$ is measured under one specific seeded $(2,3)$ Golden-Torus ansatz at amplitude $0.5$; it is the observed steady state of that run, not an analytic proof that $A_1$ must vanish for every initial condition.
+  - The bare scattering matrix is unitary ($A_1$ would propagate forever, $T_2$ reflect forever); the $A_1$-to-zero dissipation is an Op3 effect (separate claim `clm-9kd2t3`), not a property of $S$ alone.
+
+> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md`](./operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) §1 (group-theoretic foundation), §2 (scattering matrix and eigenvalues), §3 (empirical eigenvalue measurement), §7 (Cosserat sector mapping).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Op3 Asymmetric Dissipation Realizes the Gauss's-Law No-Longitudinal-EM Constraint
+<!-- id: clm-9kd2t3 -->
+
+The bond-level Op3 reflection dissipates the $A_1$ sector to zero while the $T_2$ triplet settles quasi-stable — realizing, via $T_d$ symmetry alone, the Gauss's-law constraint that longitudinal EM is forbidden in vacuum.
+
+- _Specific Claims_
+  - The bond-level Op3 reflection adds an impedance mismatch $Z_{\text{eff}} = Z_0/\sqrt{S_{\text{sat}}}$ ($S_{\text{sat}}$ the Axiom-4 saturation factor) at each bond, breaking the bare-scattering unitarity.
+  - The dissipation is asymmetric: $A_1$ (common-mode, no spatial gradient in port space) loses energy monotonically to zero via destructive interference; $T_2$ (spatially structured) dissipates more slowly and settles into a quasi-stable standing-wave configuration.
+  - This asymmetry is physically correct for EM waves on a Maxwell-substrate: longitudinal components ($\nabla \cdot \mathbf{E} \neq 0$) are forbidden in vacuum by Gauss's law, so any $A_1$-type excitation must dissipate. The K4 scattering enforces this automatically through $T_d$ symmetry, with no additional postulate.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim a quantitative dissipation-rate law for either sector; the claim is the qualitative monotone-to-zero ($A_1$) vs quasi-stable ($T_2$) split, supported by the empirical $\lambda_4 = 0$ observation.
+  - Does NOT derive Gauss's law from the four axioms; it observes that the $T_d$-symmetric K4 scattering reproduces the Gauss's-law constraint's consequence (longitudinal sector dissipates), an internal-consistency match rather than an independent derivation of Maxwell's equations.
+  - "Realizes the constraint automatically" is a mechanism claim about the K4-TLM engine's behavior; it does not assert operational equivalence with QED at the level of measurable cross-sections.
+
+> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md`](./operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) §4 (how Op3 dissipation breaks the symmetry), §5 (Gauss's law forbids longitudinal EM).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Photon Identification — the $T_2$-Only Cosserat Microrotation
+<!-- id: clm-3npynp -->
+
+The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$ the 4-port space is $A_1 \oplus T_2$, the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet — a Cosserat microrotation with $u=0$, $\omega\neq0$ — is the photon.
+
+- _Specific Claims_
+  - The photon is the stable $T_2$-only configuration: purely transverse, microrotation sector only ($u=0$, $\omega\neq0$), and unsaturated ($\Delta\phi \ll \alpha$, linear $Z = Z_0$).
+  - The empirical port-correlation steady state ($\lambda_4 = 0$ exactly, $\lambda_{1\ldots3} = 1.65, 1.22, 1.13$) satisfies all three AVE-photon properties simultaneously: zero longitudinal amplitude, pure microrotation content, sub-yield amplitude.
+  - The identification is consistent with the Vol 3 Ch 2 and Vol 4 Ch 1 manuscript characterizations of the photon as a purely transverse Cosserat shear wave that does not geometrically saturate the lattice.
+- _Specific Non-Claims and Caveats_
+  - The $A_1 \oplus T_2$ group-theoretic decomposition is NOT this entry's claim — it is owned by `clm-j550uh` (K4 4-Port Irrep Decomposition); this leaf cites it as a cross-reference and applies it to identify the photon.
+  - Per the leaf's Doc 107 correction: doc 105's dual-sector helical-photon framing ($u\neq0$ AND $\omega\neq0$) is superseded as empirically wrong; the canonical photon is single-sector. The engine's observed "$u$ driven by $\omega$" coupling is a sub-saturation Op14 effect, not photon content.
+  - The identification rests on one seeded $(2,3)$ Golden-Torus ansatz run at amplitude $0.5$; it is the observed steady state of that engine run.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §1 ($A_1 \oplus T_2$ decomposition, cross-referenced), §2 (empirical $A_1$ dissipation), §3 (photon definition — three tightly-coupled properties).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Electron = Photon + TIR Confinement
+<!-- id: clm-i4p11y -->
+
+The electron is a self-trapped photon: when a $T_2$ photon's amplitude crosses $V_{\text{yield}}$, Axiom 4 drives $C_{\text{eff}}\to\infty$, $Z\to0$, $\Gamma\to-1$, and the lattice self-creates a total-internal-reflection cavity that traps the photon into a standing wave.
+
+- _Specific Claims_
+  - When a transverse $T_2$ photon at $\omega = \omega_C$ drives a single-bond LC tank at resonance, reactive energy accumulates until $V \to V_{\text{yield}} = \sqrt{\alpha}\,V_{\text{snap}} \approx 43.65$ kV.
+  - At yield, Axiom 4 engages: $C_{\text{eff}} = C_0/\sqrt{1-(V/V_{\text{yield}})^2} \to \infty$, local impedance $Z = \sqrt{\mu_0/C_{\text{eff}}} \to 0$, and $\Gamma = (Z_{\text{local}}-Z_0)/(Z_{\text{local}}+Z_0) \to -1$ — a self-created perfect TIR mirror.
+  - The trapped transverse standing wave is the electron; all electron observables are projections of this bound configuration (rest mass = resonant trapped energy, charge = topological winding, spin-½ = Finkelstein–Misner $4\pi$ double-cover, $\alpha$ = TIR leakage rate per cycle).
+  - Electron and photon are two phases of the same substrate dynamics — bound (saturated) and free (unsaturated) — with photon emission the reverse process when the TIR condition transiently fails.
+- _Specific Non-Claims and Caveats_
+  - The electron's real-space body is the $0_1$ unknot soliton; the $(2,3)$/trefoil structure is the phase-space (Clifford-torus) winding label, not the real-space body topology.
+  - The mechanism is presented step-by-step as a substrate narrative; the leaf does not provide an engine-validated quantitative trajectory of the $C_{\text{eff}}\to\infty$, $\Gamma\to-1$ trapping event (the breathing-soliton bound state is validated separately — see `clm-utnwkc`).
+  - The observable-projection list (mass, charge, spin, $g$-factor) is asserted as a structural mapping; each individual observable carries its own derivation and quality status elsewhere in the corpus.
+  - Pair-production and Compton-scattering consequences (§5) are stated as mechanism narratives consistent with the TIR picture, not as independently validated cross-section predictions.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §4 (electron = photon + TIR confinement, step-by-step mechanism), §5 (photon emission, pair production, Compton scattering).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Compton Frequency $\omega_C$ as Photon→Electron Transition Threshold
+<!-- id: clm-fr3mos -->
+
+The Compton frequency $\omega_C = c/\ell_{\text{node}}$ is a genuine dynamical threshold for the photon-to-electron transition: it partitions photon behavior into three regimes, and the electron rest energy is $m_e c^2 = \hbar\omega_C$.
+
+- _Specific Claims_
+  - $\omega_C = c/\ell_{\text{node}}$ is the single-bond-scale natural frequency of the lattice — a consequence of lattice geometry and $Z_0 = \sqrt{\mu_0/\varepsilon_0}$, not an independent calibration.
+  - The electron rest energy is $m_e c^2 = \hbar\omega_C = \hbar c/\ell_{\text{node}}$ — the energy of a photon at the lattice self-saturation frequency.
+  - Three regimes: $\omega < \omega_C$ (off-resonance, photon passes transparently), $\omega = \omega_C$ (full resonance, saturation engages, photon → bound → electron), $\omega > \omega_C$ (off-resonance, transient saturation only, Compton-like scattering).
+  - $\omega_C$ is a genuine qualitative threshold, analogous to a Josephson junction's critical current or a varactor's breakdown voltage.
+- _Specific Non-Claims and Caveats_
+  - The relation $m_e c^2 = \hbar\omega_C = \hbar c/\ell_{\text{node}}$ carries one input mass scale — one of $\{m_e, \ell_{\text{node}}\}$ is the empirical input (consistent with the Vol 1 closure-status disclosure, `clm-5xon03`); it is not an independent ab-initio derivation of $m_e$.
+  - The three-regime partition is a mechanism description; it does not derive Compton-scattering cross-sections quantitatively.
+  - $V_{\text{yield}} = \sqrt{\alpha}\,V_{\text{snap}}$ inherits $\alpha$; under the trefoil/unknot body-topology dependence, the numerical threshold is $\alpha$-conditioned.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §6 (Compton frequency as dynamical threshold, three-regime table).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Photon Propagation Baseline — $v/c = \sqrt{2}$ Cardinal-Axis Kinematics
+<!-- id: clm-djpx2v -->
+
+A free photon on the linear K4-TLM substrate propagates at $v = c\sqrt{2}$ along cardinal axes (measured $v/c = 1.450$) and $v = c$ along diagonal/port axes — a pure Axiom-1 substrate-geometry anisotropy, not a relativity violation.
+
+- _Specific Claims_
+  - The measured cardinal-axis ($+\hat{x}$) wavefront speed is $v_{\text{meas}} = 4.348 \times 10^8$ m/s, i.e. $v/c = 1.450 \approx \sqrt{2}$, from peak-energy-density arrival times at two pre-registered reference planes.
+  - Along diagonal axes (port unit vectors $\hat{p}_n$) the predicted speed is $v = c$; the $\sqrt{2}$ factor is a cardinal-axis lattice-projection artifact (port projections $\pm1/\sqrt{3}$; the 4-port pattern advances each step by one full cardinal cell).
+  - The test runs at $0.01\,V_{\text{SNAP}} \approx 5.1$ kV — sub-yield, linear-vacuum (Regime I) throughout: no Axiom 4 engagement, no TIR wall, $Z_{\text{eff}} \approx Z_0$, $c_{\text{eff}} \approx c_0$. The free photon is not the electron.
+  - This is the calibration baseline for photon-physics work on K4-TLM; deviation from it at the baseline level indicates an engine-implementation issue, not framework physics.
+- _Specific Non-Claims and Caveats_
+  - The cardinal-axis $\sqrt{2}$ is a lattice-projection artifact that disappears in the continuum limit and at diagonal injection; it is NOT a claim that physical light travels faster than $c$.
+  - The diagonal-axis $v = c$ is a prediction; the leaf's companion diagonal script is flagged numerical-only (GIF pending), so the diagonal result is not reported as an executed measurement here.
+  - The visualization wavelength ($\lambda_{\text{cells}} = 10$) is a visualization choice, not matched to the Compton scale or any SM scale.
+  - The measurement is a single pre-registered run on a $96^3$ lattice; $v/c = 1.450$ vs $\sqrt{2} = 1.414$ is an approximate match (lattice-discretization-level agreement).
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md`](./dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md) §2 (test setup), §3 (empirical result), §4 (substrate perspective — linear-vacuum, no trap).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## $A_1$/$T_2$ Propagation-Speed Split — $c\sqrt{2}$ vs $c$ at the Magic Angle
+<!-- id: clm-uu1qbo -->
+
+The K4-substrate $A_1$ and $T_2$ port-modes propagate at distinct speeds — $A_1$ at $c\sqrt{2} = \sqrt{K_{\text{bulk}}/\rho}$, the $T_2$ photon at $c = \sqrt{G/\rho}$ — and the magic-angle condition $K = 2G$ makes the ratio exactly $\sqrt{2}$.
+
+- _Specific Claims_
+  - The $A_1$ (scalar/longitudinal) mode propagates at $c\sqrt{2} = \sqrt{K_{\text{bulk}}/\rho}$, governed by the bulk modulus; the $T_2$ (transverse photon) mode propagates at $c = \sqrt{G/\rho}$, governed by the shear modulus.
+  - The K4 magic-angle macroscopic-moduli condition $K = 2G$ (Vol 1 Ch 2) makes the speed ratio $v_{A_1}/v_{T_2} = \sqrt{K/G} = \sqrt{2}$ exactly.
+  - This is the same $\sqrt{2}$ that appears in the cardinal-axis wavefront kinematics, tying the port-mode speed split to the measured anisotropy.
+- _Specific Non-Claims and Caveats_
+  - The underlying $A_1 \oplus T_2$ group-theoretic decomposition is NOT this entry's claim — it is owned by `clm-j550uh`; this leaf cites it and measures the speed split it implies.
+  - The speeds $\sqrt{K_{\text{bulk}}/\rho}$ and $\sqrt{G/\rho}$ are stated from the macroscopic-moduli relations; the $K = 2G$ magic-angle condition is itself a Vol 1 Ch 2 result this claim depends on, not re-derived here.
+  - The split is a substrate-geometry property; it carries the same continuum-limit caveat as the cardinal-axis $\sqrt{2}$.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md`](./dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md) §1 (substrate-physics framing — K4 port-mode propagation speeds, magic-angle $K = 2G$).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## K4 Photon Thermal Noise — Equipartition $\langle V^2\rangle_T$
+<!-- id: clm-viawy9 -->
+
+Classical equipartition on the K4 substrate gives the photon-field thermal-noise variance $\langle V^2\rangle_T = k_B T/(\varepsilon_0\ell_{\text{node}})$, equivalently $k_B T \cdot 4\pi/\alpha$ in lattice natural units.
+
+- _Specific Claims_
+  - Each bond's capacitance $C_{\text{cell}} = \varepsilon_0\ell_{\text{node}}$ gives classical Johnson-Nyquist noise $\langle V^2\rangle_T = k_B T/C_{\text{cell}} = k_B T/(\varepsilon_0\ell_{\text{node}})$.
+  - In lattice natural units ($\varepsilon_0 = \alpha/(4\pi)$) this is $\langle V^2\rangle_T = k_B T \cdot 4\pi/\alpha$.
+  - The numerical $\sigma_V/V_{\text{SNAP}}$ values follow per temperature (e.g. $3.96\times10^{-4}$ at $T_{\text{CMB}}$; $1.0$ at $T_{V\text{-rupt}}$; $7.63$ at $10^9$ K).
+- _Specific Non-Claims and Caveats_
+  - The "$T$" is the temperature of the K4 lattice substrate itself (the thermal amplitude of the scalar $V$ field on bond capacitance), NOT the kinetic temperature of any particle residing in the vacuum — this distinction is load-bearing.
+  - The derivation is classical equipartition (each quadratic DOF gets $k_B T/2$); it is not a quantum/Bose-Einstein treatment and inherits the classical-equipartition regime of validity.
+  - The result feeds the vacuum-rupture-temperature claim (`clm-f4urxy`) but is itself only the $\langle V^2\rangle_T$ formula and its numerical table.
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §6 (K4 photon field $\langle V^2\rangle_T$).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## AVE-Native Vacuum Rupture Temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K
+<!-- id: clm-f4urxy -->
+
+An AVE-native vacuum-substrate temperature threshold: at $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K the thermal $V$ fluctuation reaches $\sigma_V = V_{\text{SNAP}}$ and the vacuum spontaneously ruptures into pairs — a temperature-stated analog of the Schwinger limit, falsifiable.
+
+- _Specific Claims_
+  - The rupture condition $\sigma_V = V_{\text{SNAP}}$ gives $k_B T_{V\text{-rupt}}/(m_e c^2) = \alpha/(4\pi) \approx 5.805\times10^{-4}$, i.e. $k_B T_{V\text{-rupt}} \approx 296.7$ eV, $T_{V\text{-rupt}} \approx 3.44\times10^6$ K.
+  - If the K4 substrate itself were in thermal equilibrium above $3.44$ MK, the $V$ fluctuations would exceed $V_{\text{SNAP}}$ and the vacuum would rupture; below it, the vacuum sustains thermal noise without breaking.
+  - It is an AVE-native analog of the Schwinger limit stated as a vacuum-substrate temperature rather than a field strength, and is falsifiable: heating the vacuum itself (not merely a plasma) above 3.44 MK without spontaneous pair generation would falsify AVE.
+  - The vacuum-substrate temperature is distinct from particle-plasma temperature — e.g. the Sun's core has $\sim10^7$ K plasma but a still-cold ($\sim2.7$ K) vacuum substrate; only matter-radiation-coupled early-universe conditions heat the substrate itself.
+- _Specific Non-Claims and Caveats_
+  - The threshold rests on the classical-equipartition $\langle V^2\rangle_T$ (entry `clm-viawy9`) and inherits that derivation's classical regime of validity.
+  - "$\sigma_V = V_{\text{SNAP}}$" is a one-sigma criterion — the vacuum reaches rupture amplitude at one-sigma fluctuation; it is a threshold definition, not a rate calculation for pair-production yield.
+  - $T_{V\text{-rupt}}$ inherits $\alpha$ through $\alpha/(4\pi)$; the value is $\alpha$-conditioned.
+  - Canonization to the manuscript is queued (E-042, manuscript_pending) — the leaf is the current canonical statement; the manuscript anchor is pending.
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §2 (vacuum-substrate $T$ vs particle-plasma $T$), §3 (vacuum rupture temperature derivation), §6 (numerical $\sigma_V$ table).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosserat Rotational Thermal Noise — Finite at the Origin via the Mass Gap
+<!-- id: clm-qimsgq -->
+
+The Cosserat microrotation field $\omega$ has thermal noise $\sigma_\omega \approx 0.17\sqrt{k_B T}$ (natural units) — finite at the origin (not UV-divergent) because the $\omega$ field is massive, with mass gap $m^2 = 4G_c/I_\omega$.
+
+- _Specific Claims_
+  - The rotational Lagrangian carries a kinetic term $\tfrac{1}{2}I_\omega|\dot\omega|^2$, a mass-gap potential $2G_c|\omega|^2$, and a gradient potential $\tfrac{1}{2}\gamma|\nabla\omega|^2$; the $\omega$ field has a nonzero mass gap $m^2 = 4G_c/I_\omega$.
+  - Because the field is massive, its classical-equipartition thermal noise is finite at the origin (not UV-divergent): $\langle\omega^2\rangle_T = \tfrac{k_B T}{4\pi^2 I_\omega}\int_0^{k_{\max}} k^2\,dk/(c_R^2 k^2 + m^2)$.
+  - In natural units ($I_\omega = \gamma = G_c = 1$, $m^2 = 4$) this gives $\langle\omega^2\rangle_T \approx 0.0288\,k_B T$, i.e. $\sigma_\omega \approx 0.17\sqrt{k_B T}$.
+  - At $T_{\text{CMB}}$, $\sigma_\omega \approx 3.6\times10^{-6}$ — effectively zero for pair creation, confirming cold-vacuum cannot produce pairs by thermal noise alone; pair-creation engine runs need $T \sim 10^8$ K ($\sigma_\omega \sim 0.02$).
+- _Specific Non-Claims and Caveats_
+  - The mass-gap value $m^2 = 4G_c/I_\omega$ is taken from the Cosserat mass-gap leaf (a dependency created separately); this entry uses it, does not derive it. The dependency link is to be filled in a later rescore pass.
+  - The derivation is classical equipartition, not a quantum field-theoretic treatment.
+  - The "finite at the origin" property is a consequence of the field being massive; if the mass gap were revised, $\sigma_\omega$ would change.
+  - The $\sigma_\omega \approx 0.17\sqrt{k_B T}$ coefficient holds in natural units with $G_c = I_\omega = \gamma = 1$; the mode-factor $\approx 1.14$ is a specific integral evaluation.
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §4 (Cosserat rotational noise — mass-gap derivation, $\sigma_\omega$ table).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosserat Translational Thermal Noise — Massless Field, Nyquist-Cut
+<!-- id: clm-rebdw1 -->
+
+The Cosserat translation field $u$ is massless; its thermal noise requires a UV cutoff at the lattice-Nyquist wavenumber $k_{\max} = \pi/\ell_{\text{node}}$, giving $\sigma_u = \sqrt{k_B T/2\pi}$ in natural units.
+
+- _Specific Claims_
+  - The $u$ field is massless, so its thermal noise is UV-divergent without a cutoff; the cutoff is the lattice-Nyquist wavenumber $k_{\max} = \pi/\ell_{\text{node}}$.
+  - The variance is $\langle u^2\rangle_T = \tfrac{k_B T}{G}\cdot\tfrac{k_{\max}}{2\pi^2} = \tfrac{k_B T}{2\pi G\ell_{\text{node}}}$.
+  - In natural units ($G = \rho = 1$, $\ell_{\text{node}} = 1$): $\sigma_u^2 = \sigma_{\dot u}^2 = k_B T/2\pi$ — both the field and its velocity have characteristic scale $\sqrt{k_B T/2\pi}$.
+- _Specific Non-Claims and Caveats_
+  - The UV cutoff is necessary precisely because the $u$ field is massless — contrast the Cosserat rotational field (`clm-qimsgq`), which is finite at the origin without a cutoff; the lattice cutoff is what makes the massless-field noise finite.
+  - The derivation is classical equipartition.
+  - The $\sqrt{k_B T/2\pi}$ scale holds in natural units with $G = \rho = \ell_{\text{node}} = 1$.
+
+> **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §5 (Cosserat translational noise — lattice-Nyquist cutoff).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Breathing-Soliton v14 Mode-I PASS on the Master Equation FDTD Engine
+<!-- id: clm-utnwkc -->
+
+The Master Equation FDTD engine autonomously hosts a sustained breathing soliton bound state (sech seed, 4/4 acceptance) at one active cell — closing the v14 pre-registered test and validating the boundary-envelope reformulation at the dynamic-engine level.
+
+- _Specific Claims_
+  - On a sech seed ($A = 0.85$, $R = 2.5$, $N = 32$ grid) run for 5000 timesteps, the Master Equation FDTD engine (`master_equation_fdtd.py`) sustains a breathing soliton bound state.
+  - All four acceptance criteria pass: $V_{\text{peak}}$ late-phase mean $= 0.250$ ($> 0.2$); FWHM range $0.97$–$3.68\times$ (within $0.4$–$4.0$); $\Delta n = 0.0111$ ($> 0.01$); Q-factor integral $\Lambda_{\text{total}} = 102.8$ vs $137.0$ (relative error $0.25 < 0.5$) — net 4/4 = Mode I PASS.
+  - The K4-TLM engine at the same geometry yields Mode III (no autonomous bound state across 4 seed variants); the Master Equation FDTD succeeds at exactly the task K4-TLM cannot, consistent with the A-027 two-engine architecture.
+- _Specific Non-Claims and Caveats_
+  - The PASS validates that the Master Equation engine sustains one breathing soliton at this geometry — it does not validate all bound-state physics or every electron observable.
+  - The Q-factor criterion 4 is met within a $50\%$ tolerance ($\Lambda_{\text{total}} = 102.8$ vs canonical $137.0$, $1.33\times$ off) — a tolerance-band pass, not a precision match.
+  - A truly stationary (non-breathing) soliton of the Master Equation is NOT found with current seed profiles; finding it would need imaginary-time propagation or Newton-Raphson on the time-independent profile (post-Mode-I engineering, flagged open).
+  - The Picard renormalization scheme introduced discontinuities producing extra radiation (a Mode III failure mode); the Master Equation FDTD is a scalar engine with Cosserat $(u,\omega)$ not currently coupled — both flagged open, not blocking v14 closure.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md`](./dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md) §"4/4 acceptance adjudication", §"Cross-engine empirical comparison", §"What this empirically establishes", §"What stays open".
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Test-1b Breathing Acceptance Criterion Is Canonical
+<!-- id: clm-usflef -->
+
+The Test-1b breathing-soliton acceptance criterion — mean late-phase $V_{\text{peak}} > 0.2\times$ initial — is canonical, retiring the strict stationary criterion; the breathing solution IS the physical electron state.
+
+- _Specific Claims_
+  - The original Test 1 criterion ($V_{\text{center}} > 0.5\times$ initial at $t > 1000\,dt$) is correct for a stationary bound state but wrong for a breathing soliton, whose $V_{\text{center}}$ oscillates through zero.
+  - The canonical replacement is Test 1b: $\text{mean}(V_{\text{peak}}) > 0.2\times$ initial over the late phase — capturing sustained energy in the localized structure without requiring a static profile.
+  - Test 1b is load-bearing because the Master Equation predicts breathing solutions natively (nonlinear $\sqrt{1-(V/V_{\text{yield}})^2}$ coefficient → frequency-locked oscillation), the seed is not a stationary eigenmode, the mean is the natural breathing-cycle average, and it matches Route B's time-averaged-observable methodology.
+  - The breathing solution is the physical state of the canonical electron (Cosserat $\omega$ rotating at the Compton bulk-spin rate drives the $V$ oscillation), consistent with the doc 101 three-layer canonical electron — not a numerical artifact.
+- _Specific Non-Claims and Caveats_
+  - Retiring the strict stationary criterion (Test 1a) does NOT claim a stationary solution is impossible — it claims the breathing solution is the physical one; finding a stationary solution is flagged as open post-Mode-I engineering.
+  - The $0.2\times$-initial threshold is a chosen criterion value; the leaf considers three Test 1 interpretations (1a strict, 1b breather, 1c envelope-bounded) and adopts 1b.
+  - "The breathing solution IS the physical electron state" rests on the doc 101 three-layer canonical electron picture, an interpretive identification carried by the leaf.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md`](./dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md) §"The breathing-soliton interpretation" (three Test 1 interpretations), §"What this empirically establishes" (Test 1b canonical).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Six-Fold Lattice Impedance Decomposition
+<!-- id: clm-nxc9gy -->
+
+The AVE corpus's multiple senses of "impedance" are canonically decomposed into six distinct concepts: free-space $Z_0$, per-cell $Z_{\text{cell}} (= Z_0)$, saturation-modulated $Z_{\text{eff}}(r) = Z_0/\sqrt{S}$, mutual inductance $\eta_{\text{vac}}$, mechanical $Z_{\text{mech}} = \xi_{\text{topo}}^2 Z_0$, and event-horizon $Z_{\text{EH}} \to 0$.
+
+- _Specific Claims_
+  - $Z_0 = \mu_0 c = \sqrt{\mu_0/\varepsilon_0} \approx 376.73$ Ω is the classical free-space (continuum) impedance; $Z_{\text{cell}} = \sqrt{L_{\text{cell}}/C_{\text{cell}}}$ is the per-bond lattice impedance.
+  - $Z_{\text{cell}} = Z_0$ numerically because $\ell_{\text{node}}$ cancels (it appears in both $L_{\text{cell}} = \mu_0\ell_{\text{node}}$ and $C_{\text{cell}} = \varepsilon_0\ell_{\text{node}}$), but the two are conceptually distinct (physical bond vs continuum field ratio) — the equality is the substrate's Axiom-2 scale-invariance signature.
+  - $Z_{\text{eff}}(r) = Z_0/\sqrt{S}$ with $S = \sqrt{1-A^2(r)}$ is the Op14 position-dependent saturation-modulated impedance, diverging as $A^2 \to 1$; $Z_{\text{mech}} = \xi_{\text{topo}}^2 Z_0 \approx 6.485\times10^{-11}$ kg/s is the Axiom-2 mechanical dual; $Z_{\text{EH}} \to 0$ is the full-saturation $\Gamma = -1$ TIR limit.
+  - The mutual inductance $\eta_{\text{vac}}$ (via $R_{\text{vac}} = \xi_{\text{topo}}^{-2}\eta_{\text{vac}}$) is the node-to-node inductive coupling — implicitly encoded in the K4 scattering matrix's off-diagonal $0.5$ but with no explicit engine symbol.
+- _Specific Non-Claims and Caveats_
+  - $\eta_{\text{vac}}$ has no canonical symbol or explicit named operator yet — flagged (doc 45) as a missing operator symbol; the engine carries the cascade-coupling implicitly via the S-matrix and cannot independently tune it. A future axiom-homologation pass would add the explicit symbol.
+  - The cascade-saturation timescale is a known engine limitation: the cascade lives on the outer K4-step $dt$ ($\approx 0.707$ in natural units) vs the bond-traversal $\tau_{\text{relax}} = 1$; these are comparable, so a single step may miss fast sub-step rebound effects. Flagged as an engine limitation, not a framework gap.
+  - This decomposition is distinct from the related $Z = \sqrt{\mu/\varepsilon}$ scale-invariance result in the impedance-operator leaf — adjacent, not duplicate.
+  - Several SI values are cited from Vol 4 Ch 1 (lines 118-120, 240, 278, 283, 364); the leaf collates and decomposes them rather than re-deriving each.
+
+> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md`](./operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) §1 (the six impedance concepts), §3 (Axiom → Operator → Engine mapping), §4 (cascade-saturation timescale gap).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Lattice-Native Units — $V_{\text{YIELD}} = 1$, Not $V_{\text{SNAP}}$
+<!-- id: clm-k6quve -->
+
+In lattice natural units the engineering yield threshold is $V_{\text{YIELD}} = 1$ (not $V_{\text{SNAP}}$); because engine code normalizes to $V_{\text{SNAP}} = 1$, an amplitude of $0.5\,V_{\text{SNAP}}$ is in fact far above yield.
+
+- _Specific Claims_
+  - In lattice-native units ($\ell_{\text{node}} = m_e = c = \hbar = 1$), $V_{\text{YIELD}} = \sqrt{\alpha}\cdot V_{\text{SNAP}}$ evaluates to $1.0$, while $V_{\text{SNAP}} = m_e c^2/e = 1/\sqrt{\alpha} \approx 11.7$.
+  - Engine code typically uses $V_{\text{SNAP}} = 1.0$ as the user-facing normalization; an input `amp = 0.5·V_SNAP` is therefore $0.5/\sqrt{\alpha} = 5.85$ in units where $V_{\text{YIELD}} = 1$ — massively above yield, below rupture.
+  - The Axiom 4 operator normalizes $A$ to $V_{\text{SNAP}}$, so the $\sqrt{2\alpha}$ Regime I/II boundary is $A = 0.121$ in $V/V_{\text{SNAP}}$ units, equivalently $A = 1.42$ in $V_{\text{YIELD}}$ units.
+  - The full dimensional table maps each Phase III simulator quantity to its lattice-native value (e.g. $e = \sqrt{\alpha}$, $\xi_{\text{topo}} = \sqrt{\alpha}$, $Z_0 = 1$, $\tau_{\text{relax}} = 1$).
+- _Specific Non-Claims and Caveats_
+  - The $V_{\text{YIELD}} = 1$ vs $V_{\text{SNAP}} = 1$ distinction is a units/normalization-convention claim — load-bearing for correctly scoping amplitude in engine experiments; it is not a new physical result.
+  - The numerical lattice-native values inherit $\alpha$ (e.g. $e = \sqrt{\alpha}$, $V_{\text{SNAP}} = 1/\sqrt{\alpha}$); they are $\alpha$-conditioned.
+  - $L_{\text{cell}}$ and $C_{\text{cell}}$ lattice-native values "depend on $\mu_0$/$\varepsilon_0$ choice" — the table flags these as not fully fixed by the $\ell_{\text{node}} = m_e = c = \hbar = 1$ convention alone.
+  - The caveat "always verify which normalization is active" is the operative warning; mis-reading the normalization mis-scopes whether a run is sub-yield or above-yield.
+
+> **Leaf references:** [`operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md`](./operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) §2 (dimensional analysis table; "Critical observation: $V_{\text{YIELD}} = 1$ in lattice natural units").
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration port; quality scored at the rescore pass*
 - strengthen-by:
   - *pending*

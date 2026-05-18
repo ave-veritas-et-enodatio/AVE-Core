@@ -48,6 +48,19 @@ Fourteen checks, all hard fail-loud:
        solidity fields must match. ``solidity`` is a derived field — drift
        means refresh has not been run. (refresh-fixable.)
 
+Future / queued (not implemented):
+
+* Rename this script to ``check-kb-metadata.py`` — it verifies the whole
+  KB metadata spine, not only claim-quality, so the name should match the
+  ``verify-kb-metadata`` make target. Update the Makefile recipe to match.
+* A relative-link integrity check — verify that each Markdown
+  cross-reference in a leaf resolves to an existing file, and surface dead
+  *forward* links (a foundational common/ or vol1 leaf pointing to a
+  not-yet-migrated later-volume leaf) as an optional warning rather than a
+  hard failure. Such forward links are intentional threads for later
+  cross-reference stitching passes; only their dead-ness is worth flagging,
+  not their existence.
+
 Failure categories are tagged refresh-fixable or manual-fix. If any
 refresh-fixable failures are present, the report ends with a hint to run
 ``make refresh-kb-metadata`` first; verify is read-only and never auto-fixes.
