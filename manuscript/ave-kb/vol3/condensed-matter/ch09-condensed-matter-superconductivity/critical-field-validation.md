@@ -1,7 +1,13 @@
 [↑ Ch.9: Condensed Matter and Superconductivity](../index.md)
 <!-- leaf: verbatim -->
 
-> **A-034 anchor (canonical 2026-05-15 evening).** BCS $B_c(T)$ is the **strongest empirical anchor** in the Universal Saturation-Kernel Catalog — Type-I/II superconductor critical-field datasets match $S(A) = \sqrt{1 - A^2}$ at **0.00% error** across all measured materials. This is the condensed-matter row (SYM symmetry class) in the 21-instance cross-scale catalog. Same kernel governs BH ring-down (1.7% from GR), NOAA-validated solar flares, and cosmic K4 crystallization. **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
+> **A-034 anchor (canonical 2026-05-15 evening; SCOPE RECLASSIFIED 2026-05-17 Foundation Item 4 per `consistency-vs-emergence` discipline trigger 5).** BCS $B_c(T)$ functional-form $\sqrt{1-(T/T_c)^2}$ is **algebraically identical** to AVE's Axiom-4 saturation kernel $S(A) = \sqrt{1-A^2}$ with $A = T/T_c$ (per body line 25 below). The "0.00% error" reported in the validation table is therefore **definitional-identity** (sharpest end of consistency-vs-emergence 4-class taxonomy), NOT a predictive forward emergence test: $B_{c0}$ and $T_c$ are per-material experimental inputs, not derived from substrate parameters. The per-material BCS recovery is structural functional-form agreement, not zero-parameter prediction.
+>
+> **What the AVE-distinct emergence claim actually is**: the SAME kernel $\sqrt{1-A^2}$ governs BH ring-down (1.7% from GR), NOAA-validated solar flares, cosmic K4 crystallization, and BCS B_c(T) — i.e., the cross-substrate UNIVERSALITY of the kernel form across the 21-instance Universal Saturation-Kernel Catalog. The emergence test is the cross-instance applicability, not the per-instance fit. A single-instance functional-form match (BCS alone) does not constitute emergence; the 21-instance universality across qualitatively distinct physical regimes does.
+>
+> **Open work for promoting per-material BCS to emergence-class**: derive $B_{c0}$ and $T_c$ from substrate parameters per material (lattice geometry + Cosserat coupling + Op14 saturation onset) — currently NOT derived; both are inputs. If derived independently and matched to experimental values, BCS recovery would promote from definitional-identity to emergence.
+>
+> **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md). Foundation Item 4 walk-back: see closure-roadmap §0.5 entry 2026-05-17 night.
 
 ---
 
