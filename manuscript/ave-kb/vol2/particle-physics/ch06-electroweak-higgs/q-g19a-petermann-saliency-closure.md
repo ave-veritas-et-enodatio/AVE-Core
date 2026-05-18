@@ -74,23 +74,25 @@ $$
 
 where $n_q = 3$ is the **q-axis poloidal winding number** of the $(2,3)$ trefoil and the factor $1/2$ is the same LC equipartition that appears in the Schwinger leading-order derivation ($E_L = E_C = E_{\text{tot}}/2$). The sign ($\delta < 0$) places the heavier reactance on the q-axis, the 3-winding side — consistent with the trefoil's topological weighting.
 
-## Final result: 50 ppm match
+## Final result: 50 ppm at $C_2$, 10 ppm at $a_e$ total
 
-With $\delta = -3\alpha/2$:
+With $\delta = -3\alpha/2$ and the textbook QED conversion $\Delta a^{(2)} = C_2\,(\alpha/\pi)^2$:
 
 $$
-\Delta a_e^{(2),\text{AVE}} = -8.857 \times 10^{-7}, \qquad C_2^{\text{AVE}} = -0.32846
+C_2^{\text{AVE}} = -0.32846, \qquad \Delta a_e^{(2),\text{AVE}} = C_2^{\text{AVE}}\,(\alpha/\pi)^2 = -1.772 \times 10^{-6}
 $$
 
-versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%)**.
+versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%) at the $C_2$ level.**
 
 Total Schwinger + Petermann shift:
 
 $$
-a_e^{(1)} + a_e^{(2)} = 1.16052 \times 10^{-3} \quad \text{vs measured } 1.15965 \times 10^{-3}, \quad \text{deviation } +0.075\%.
+a_e^{(1)} + a_e^{(2)} = \frac{\alpha}{2\pi} + C_2^{\text{AVE}}\,\left(\frac{\alpha}{\pi}\right)^2 = 1.15964 \times 10^{-3} \quad \text{vs measured } 1.15965 \times 10^{-3}, \quad \text{deviation } \approx -10\,\text{ppm}.
 $$
 
-The remaining 0.075% is exactly the contribution of three-loop and higher QED corrections plus hadronic and electroweak — explicitly outside the leading-plus-first-correction scope of this derivation.
+The residual $\sim 10$ ppm gap is the contribution of three-loop and higher QED corrections ($C_3\,(\alpha/\pi)^3 \approx +1.5 \times 10^{-8}$) plus hadronic and electroweak — explicitly outside the leading-plus-first-correction scope of this derivation.
+
+> **Scope correction (2026-05-18 late-evening walk-back):** prior versions of this leaf reported $\Delta a_e^{(2),\text{AVE}} = -8.857 \times 10^{-7}$ and a $+0.075\%$ deviation from measured $a_e$. Direct arithmetic verification ([finding doc](../../../../../research/2026-05-18_q-g27-q-g19a-systemic-conversion-error-finding.md), walk-back commit on `analysis/petermann-saliency-walk-back`) found those values were the standard QED conversion $C_2\,(\alpha/\pi)^2$ computed with a silent factor of $1/2$. The corrected values strengthen the headline: AVE forward $a_e$ matches measured at $\approx 10$ ppm (previously framed as $+0.075\%$ residual attributed to three-loop QED, which actually contributes only $\sim 1.5 \times 10^{-8} = 12$ ppm in the same direction). The 50 ppm match at the $C_2$ level is independent of the conversion arithmetic and is preserved.
 
 ## What still needs derivation (honest open items)
 
