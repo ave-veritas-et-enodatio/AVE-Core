@@ -385,7 +385,9 @@ The PMNS matrix is derived by applying the regime-boundary eigenvalue method
 to torus knot mode space. The three neutrino
 crossing numbers $c_1 = 5$, $c_2 = 7$, $c_3 = 9$ define the "radii" in
 mode space. The K4 lattice is 3-connected, setting a chiral screening
-threshold $\Delta c_{\text{crit}} = 3$:
+threshold $\Delta c_{\text{crit}} = 3$.
+
+> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The Δc=2 spacing of the {c_1, c_2, c_3} = {5, 7, 9} ladder IS derived from $\nu_{vac} = 2/7$ (compliance-manifold mode allocation per [`vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md:23`](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)). The absolute starting value c_1=5 is NOT derived from substrate primitives in any canonical leaf grep'd — registered as open derivation gap in closure-roadmap §0.5 FI-13 entry. Without c_1=5 derivation, $\sin^2\theta_{13}$ below reclassifies from Class D emergence to Class C consistency check; other 3 PMNS predictions cross-validate from same c_1·c_3=45 input (3:1 structural compression preserved).
 
 1. **Screened regime** ($\nu_1 \leftrightarrow \nu_3$,
 $\Delta c = 4 > 3$): Compliance coupling is evanescent. Only
