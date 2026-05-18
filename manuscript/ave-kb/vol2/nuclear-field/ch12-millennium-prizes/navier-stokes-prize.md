@@ -3,6 +3,8 @@
 
 ## The Navier-Stokes Smoothness Problem
 
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy — solves a MODIFIED problem, not the Clay problem. The AVE "proof" relies on TWO deviations from the Clay formulation: (i) **fixed lattice spacing ℓ_node ≈ 386 fm** = UV cutoff (Clay problem explicitly requires NO UV cutoff; with cutoff, regularity is not an open problem by Picard–Lindelöf); (ii) **imposed velocity cap |u| ≤ c via Axiom 4 saturation** (continuum NS has no speed limit — it's a mathematical object, not a physical one). Given both, the "proof" reduces to "bounded, finite-dimensional ODE → unique global solution." True but proves a different problem than Clay. Also: AVE's Regime IV "topology rupture" elsewhere in the framework would constitute a singularity event if the model is taken seriously, creating potential internal tension with the global-regularity claim. **The lattice-with-UV-cutoff result is interesting AVE-internal physics; it should NOT be cited as solving the Clay problem.** See closure-roadmap §0.5 FI-14 entry + `ch12-millennium-prizes/index.md:5` for canonical scope framing.
+
 ### The Mathematical Paradox (What Clay Asks)
 
 Prove that for any smooth, divergence-free initial velocity field, the Navier-Stokes equations have a smooth solution that exists for all $t > 0$, and the velocity field remains bounded without blowing up to infinity at infinitesimal scales (enstrophy blow-up).
