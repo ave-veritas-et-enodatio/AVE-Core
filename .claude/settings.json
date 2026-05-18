@@ -16,6 +16,16 @@
             "timeout": 120
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/grantlindblom/AVE-staging/AVE-Core/.claude/hooks/skill-trigger-detect.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [
