@@ -89,7 +89,7 @@ Engineering translation of AVE theory into falsifiable hardware. Establishes the
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
 | [Advanced Applications](vol4/advanced-applications/index.md) | (empty post REPO-ARCH-1 through 7; slated for full removal) |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
-| [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
+| [Future Geometries](vol4/future-geometries/index.md) | CEM method mapping; K4-TLM Diamond lattice (sub-saturation engine); PML boundaries. *(HOPF-01 chiral antenna engineering migrated to AVE-HOPF per REPO-ARCH-9.)* |
 | [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, hardware netlists |
 
 ---
