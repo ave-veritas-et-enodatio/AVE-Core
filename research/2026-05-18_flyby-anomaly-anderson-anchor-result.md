@@ -156,6 +156,111 @@ My read: bundle F1+F2+F3 in one commit similar to the Q-G27 walk-back pattern. T
 
 If you want to ship it, give the green light and I'll execute the bundled walk-back.
 
+## Section 8.7 — PONDER mechanism cross-audit (2026-05-18 late evening, post-audit revision #3)
+
+After Anderson Table I verification (§8.6), dispatched ave-auditor on the PONDER vs flyby mechanism compatibility question (audit revision #5 from §8.5). Auditor returned decisive finding: **PONDER rotor-local formula CANNOT salvage the flyby anomaly** when applied to Earth-as-rotor; the mechanism walk-back scope must EXPAND from F1+F2+F3 (notation + headline + outlier) to include F4 (mechanism re-derivation) and F5 (preferred-frame leaf cross-reference).
+
+### Auditor arithmetic on PONDER rotor-local applied to Earth
+
+PONDER formula at [`AVE-PONDER/manuscript/vol_ponder/chapters/02_thrust_and_sagnac_telemetry.tex:63`](file:///Users/grantlindblom/AVE-staging/AVE-PONDER/manuscript/vol_ponder/chapters/02_thrust_and_sagnac_telemetry.tex):
+
+$$v_{network} = v_{rotor} \cdot \rho_{rotor}/\rho_{bulk}$$
+
+Canonical $\rho_{bulk} = 7.916 \times 10^6$ kg/m³ per AVE-PONDER Sagnac-RLVE chapter 06 (back-solved from $\kappa_{entrain} = 0.00244$ for Tungsten).
+
+For Earth-as-rotor:
+- $\rho_{Earth} = 5,515$ kg/m³
+- $v_{rotor} = \omega_\oplus \cdot R_\oplus = 465$ m/s
+- $v_{network} = 465 \cdot (5515/7.916 \times 10^6) = 0.324$ m/s
+- $K_{PONDER} = 2 v_{network}/c = 2.16 \times 10^{-9}$
+
+Engine docstring at [`solar_impedance.py:651`](file:///Users/grantlindblom/AVE-staging/AVE-Core/src/ave/gravity/solar_impedance.py): $K = 2\omega_E R_E/c = 3.10 \times 10^{-6}$.
+
+**Ratio: engine K is 1,435× larger than PONDER rotor-local K applied to Earth-as-rotor.**
+
+For NEAR (V_∞ = 6.851 km/s):
+- Engine prediction: +13.26 mm/s (matches Anderson observed +13.46 mm/s within 1σ)
+- PONDER rotor-local prediction: +0.0092 mm/s (1,464× too small)
+- Anderson observed: +13.46 ± 0.13 mm/s
+
+**Per the substitution-not-retraction prohibition: PONDER's rotor-local formula cannot be retrofitted to the flyby leaf by relabeling 465 m/s as v_network.** The density-suppression factor $\rho_{Earth}/\rho_{bulk} \sim 7 \times 10^{-4}$ kills the prediction by 3 orders of magnitude. The mechanism is what's wrong, not the number.
+
+### Three-way mechanism comparison — none survives audit
+
+| Framing | Location | Auditor verdict |
+|---|---|---|
+| Leaf: "Earth physically locks LC network at R_⊕; 465 m/s boundary shear" | `flyby-anomaly-sagnac-operator.md:10-14` | CONTRADICTED by Q-G24 + PONDER + preferred-frame leaf |
+| Engine: "gravitomagnetic frame-dragging at magnetopause boundary; impedance asymmetry" | `solar_impedance.py:644-656` | Arithmetically correct (reproduces Anderson formula) but mechanism is asserted not derived from K4 substrate axioms |
+| PONDER rotor-local: $v_{network} = v_{rotor} \cdot \rho_{rotor}/\rho_{bulk}$ | `02_thrust_and_sagnac_telemetry.tex:63` | Cannot reach observed magnitude — 1,435× underprediction for Earth-as-rotor |
+
+**None of the three current mechanism framings is canonically defensible.**
+
+### Q-G24 canonical confirmed
+
+Auditor verified [`AVE-QED/docs/analysis/2026-05-13_Q-G24_lorentz_from_axiom_4.md:51,192`](file:///Users/grantlindblom/AVE-staging/AVE-QED/docs/analysis/2026-05-13_Q-G24_lorentz_from_axiom_4.md) (CLOSED 2026-05-13 per `AVE-QED/docs/open_questions.md:253`):
+
+> "AVE's lattice DOES define a preferred frame — the rest frame of the K4-bipartite crystalline lattice... unlike Maxwell-Lorentz ether theory, AVE's lattice IS observable in principle (via the CMB rest frame, which is the cosmological lattice rest frame to high precision). Earth moves at ~370 km/s relative to the CMB — measurable."
+
+PONDER's invocation of Q-G24 is faithful. Lorentz invariance at observable scales is *derived* (emergent from K4 cubic symmetry, $\delta_{aniso} \sim (q\ell_{node})^4 \approx 10^{-22}$ at optical wavelengths) — not axiomatic. **The flyby leaf's "Earth physically locks LC network" premise contradicts AVE's own established preferred-frame canonical from Q-G24.**
+
+### Preferred-frame leaf adjudicator exists, but doesn't cover Earth-flyby
+
+The "full cohesive narrative" cited by PONDER exists at `manuscript/ave-kb/vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` on `origin/analysis/divergence-test-substrate-map` branch (blob 4b13db5, 218 lines).
+
+The leaf's §4 classification table covers 4 categories:
+- A2-SAGNAC (rotor-local Sagnac, v_network = 0.38 m/s)
+- C17-PROTOCOL-11 + C18-PROTOCOL-12 (bulk preferred-frame tests)
+- C7-GRB-DISPERSION (Trans-Planckian)
+- Optical cavity comparisons
+
+**Earth-flyby is conspicuously absent from §4.** It falls into a categorically distinct fifth category: hyperbolic transit through a planetary gravity well. The adjudicator leaf at §202 explicitly flags PONDER 02_thrust_and_sagnac_telemetry.tex for revision but doesn't propose a new mechanism for the flyby case.
+
+### Expanded walk-back scope (per audit's critical pre-action gate)
+
+The auditor's Q7 verdict is **CONFIRMED**: F1+F2+F3 cannot ship without F4+F5 expansion.
+
+| Action | Type | Files |
+|---|---|---|
+| F1 Notation correction `cos(α)cos(δ)` → `(cos δ_in − cos δ_out)` | Type C drift | flyby leaf:20, vol3 chapter LaTeX:99-112, 5 index tables, framing-presentation:339-349 |
+| F2 "13.4 mm/s" precision walk-back to "2/6 within 1σ, 3/6 outliers" | Type B | flyby leaf + index tables + LaTeX |
+| F3 Outlier acknowledgment (mechanism-honest) | Type B | flyby leaf + LaTeX |
+| **F4 (NEW)** Mechanism re-derivation: replace "Earth locks LC at R_⊕ / 465 m/s boundary shear" with substrate-grounded derivation of $K = 2\omega_E R_E/c$ | **Type A+D** | flyby leaf §"Sagnac-RLVE Shear Layer" must be rewritten; preferred-frame leaf §4 needs flyby row; engine docstring needs substrate-axiom citation chain |
+| **F5 (NEW)** Adjudicator cross-reference | Structural | flyby leaf needs `→ Primary` to preferred-frame leaf per INVARIANT-F1 |
+
+### Risk of partial walk-back
+
+If F1+F2+F3 land without F4+F5, the flyby leaf will still claim "Earth physically locks LC network at R_⊕" with corrected notation but still-wrong mechanism — compounding the divergence between flyby leaf and PONDER + preferred-frame leaf. **Type D mechanism re-scope cannot be deferred separately from notation correction.**
+
+### Open mechanism-derivation question (Grant + implementer territory)
+
+The auditor surfaces but cannot resolve: **Is the Anderson empirical coupling $K = 2\omega_E R_E/c$ a coincidence, or does AVE have a substrate derivation that produces it?**
+
+Three current mechanism candidates all fail:
+1. Bulk boundary shear at R_⊕ — contradicted by Q-G24 preferred-frame canonical
+2. Magnetopause gravitomagnetism (engine docstring) — asserted not derived
+3. PONDER rotor-local mutual inductance — 1,435× underprediction for Earth-as-rotor
+
+If no canonical AVE derivation exists, the flyby leaf may need full **Type A retirement** (not Type D re-scope) — observed flyby anomaly survives as "real phenomenon AVE doesn't currently explain," matrix C-row dropped, foreword unaffected.
+
+If AVE has a substrate derivation that produces the Anderson coupling via a NEW mechanism (e.g., K4 lattice-geometric effect at planetary-mass scale, or magnetospheric-plasma-impedance gradient with explicit axiom chain), F4 commission would be substantial multi-session work.
+
+**Grant call needed**: which path forward?
+- (a) Commission F4 mechanism derivation now (multi-session); defer entire flyby walk-back until F4 lands
+- (b) Land F1+F2+F3 with explicit "🔴 mechanism walk-back pending — see audit cycle 2026-05-18" header + Type A scope-correction at flyby leaf §"Sagnac-RLVE Shear Layer"
+- (c) Type A full retirement of flyby leaf mechanism (preserve Anderson empirical correlation as "observed but un-derived")
+- (d) Other
+
+### Status of audit-blocking prerequisites (final)
+
+| Prereq | Status |
+|---|---|
+| ① Anderson PRL Table I verification | ✓ COMPLETE (via arXiv:0803.1370) |
+| ② F3 rewrite to mechanism-honest language | Pending |
+| ③ Cascade scope expansion to 9+ files | EXPANDED — now 9+ files + F4 mechanism re-derivation + F5 cross-reference |
+| ④ AVE-PONDER mechanism question | ✓ AUDIT COMPLETE — PONDER rotor-local cannot salvage flyby; mechanism is genuinely broken |
+
+The audit has answered the question I dispatched it to answer: **PONDER framing is canonical; flyby leaf mechanism is wrong; no current substitute survives.** This converts the walk-back from a notation/headline cleanup (F1+F2+F3) into a mechanism-derivation commission (F4 substantial). Grant adjudication required on path forward.
+
 ## Section 8.6 — Anderson PRL Table I verification (2026-05-18 late evening, post-audit revision #2)
 
 Per Grant's "proceed with web fetch attempt" follow-up after the post-audit DEFER recommendation. Direct PRL access blocked (paywall); fetched the closest publicly-accessible secondary source: [arXiv:0803.1370](https://ar5iv.labs.arxiv.org/html/0803.1370) "Are Flyby Anomalies an ASTG Phenomenon?" (Adams 2008) which reproduces Anderson 2008 PRL Table I verbatim in its own Table II.
