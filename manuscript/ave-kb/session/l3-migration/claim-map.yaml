@@ -8,7 +8,7 @@ meta:
     Not canonical; delete when the migration completes.
   ancestor: 05e2a45              # merge-base(migrate-l3-to-blr, research/l3-electron-soliton); == main tip
   l3_source: "research/l3-electron-soliton @ 317faf3 (clone ../AVE-Core_L3; git remote 'l3')"
-  blr_target_branch: "migrate-l3-to-blr @ e49556b"
+  blr_target_branch: "migrate-l3-to-blr (Phase I complete @ 5aa3ac9)"
   kb_root: "manuscript/ave-kb/"  # every l3_path is relative to this
   blr_target_rule: >-
     BLR target path == l3_path for every row. The rework did 0 renames /
@@ -16,32 +16,46 @@ meta:
   scope: [common, vol1]
   delta_command: "git diff 05e2a45..l3/research/l3-electron-soliton -- manuscript/ave-kb/common/ manuscript/ave-kb/vol1/"
   generated: 2026-05-17
+  enriched: 2026-05-17           # per-row claim decomposition completed
+  companion: "framing-concordance.md -- the A/B/C/D framing-sweep targets the port applies"
 
 coverage:
   l3_changed_files: 45
   rows: 45
-  new_leaf: 25
-  modified_leaf: 13
+  # disposition breakdown (post-enrichment):
+  new_leaf_claim_bearing: 20
+  new_leaf_no_claim: 3           # numerical-provenance-manifest, trampoline-analogy-primer, continuous-springs-reframing
+  park: 2                        # closure-roadmap, axiom-homologation -- process/spec docs, NOT KB leaves
+  modified_leaf: 12
+  cosmetic: 1                    # appendix-spice-verification (reclassified at enrichment)
   index_nav: 7
-  gate: "rows == l3_changed_files (45); every row carries exactly one disposition"
+  gate_pinned: "rows == l3_changed_files (45)"
+  gate_enriched: "all 45 rows carry status: enriched"
 
 legend:
   disposition:
-    new-leaf:      "absent from BLR -- author new leaf in new-KB format, mint clm-id(s), new claim-quality entry"
+    new-leaf:      "absent from BLR -- author new leaf in new-KB format; mint clm-id(s) OR no-claim"
     modified-leaf: "exists in BLR -- semantic 3-way merge of L3 delta onto BLR leaf"
     index-nav:     "index.md -- re-do nav additions in new-KB index format; subtree-claims auto-regenerates via refresh"
-    cosmetic:      "no claim-bearing change -- assigned ONLY after confirmation at enrichment"
+    cosmetic:      "no claim-bearing change -- confirmed at enrichment"
+    park:          "not a KB leaf at all (process/planning/spec doc) -- park outside ave-kb/ per Task #9"
   status: "pinned -> enriched -> ported -> rescored -> refreshed"
   clm_ids:
-    MINT:        "new claim-id(s) to be generated at port time"
-    "[clm-...]": "existing BLR claim(s) the leaf carries (read from BLR frontmatter)"
-    "n/a":       "index node -- carries derived subtree-claims, not authored claims"
+    "MINT xN":   "new-leaf -- N distinct claims to mint at port time; see claims:"
+    "no-claim":  "new-leaf with no discrete claim -- port as kind: leaf with no-claim: (INVARIANT-S5)"
+    "[clm-...]": "modified-leaf -- existing BLR claim(s) the leaf carries"
+    "n/a":       "index node / parked doc"
+  enrichment_fields:
+    claims:      "new-leaf claim-bearing -- one line per distinct claim to mint"
+    no_claim:    "new-leaf no-claim / cosmetic -- the reason"
+    delta_class: "modified-leaf -- framing-only | new-content | claim-state-change | superseded (+ combos)"
 
 method_notes:
   - "Port the NET delta (git diff ancestor..L3), NOT a commit replay -- the author walked claims back mid-arc (b254a71 -> 07ea7de; 15ce5e9 downgraded docs 117/118 closure claims)."
-  - "A modified-leaf may ALSO need a MINT if L3 added a wholly new result to an existing leaf -- flag at enrichment."
-  - "Framing-sweep edits (Trefoil-electron, Cosserat, substrate-native renames) must be diffed against the BLR target; BLR may already carry the framing. Port only genuine deltas."
-  - "research/_archive/L3_electron_soliton/ is reference-only (author working notes), not a migration target -- revisit only if a crucial non-transitional result is found missing from the KB."
+  - "Framing-sweep edits are resolved by framing-concordance.md: A (substrate noun -> dialect-bridge) ADOPT; B (axiom headers) NO-DELTA; C (electron -> 0_1 unknot) ADOPT; D (strip private-repo names) ADOPT."
+  - "research/_archive/L3_electron_soliton/ is reference-only (author working notes), not a migration target."
+  - "CROSS-LEAF CLAIM OWNERSHIP: several claims appear in 2+ L3 leaves. At port time pick ONE canonical owner; the others cite (do not re-mint). See the per-row notes for: three-route (cosmic-parameter-horizon vs omega-freeze); p*=8pi-alpha (q-g47 vs two-engine); A1+T2 irrep (k4-port-irrep owns; photon-* cite); A-034 kernel (universal-saturation-kernel-catalog owns; full-derivation-chain + mathematical-closure cite)."
+  - "8 multi-claim new-leaves need Tier-2 inline <!-- claim-quality: clm-xxxxxx --> markers (INVARIANT-S8). 5 vol1 L3 files still carry legacy <!-- leaf: verbatim --> markers -- convert to S5 kb-frontmatter at port."
 
 # The 60 L3 commits touching common+vol1, oldest first. Per-row l3_commits index into this map.
 commits:
@@ -111,366 +125,466 @@ commits:
 # ---------------------------------------------------------------------------
 entries:
 
-  # ----- common/ (21 files: 13 new-leaf, 7 modified-leaf, 1 index-nav) -----
+  # ----- common/ (21 files) -----
 
   - l3_path: common/appendices-overview.md
     disposition: modified-leaf
     clm_ids: [clm-yawl6z]
     delta: "+3/-1"
     l3_commits: ["13b9809", "bd61693"]
-    notes: "Tiny. tau_yield audit + Cosserat sweep -- verify cosmetic vs framing at enrichment."
-    status: pinned
+    status: enriched
+    delta_class: framing-only + claim-elaboration
+    notes: "Sweep A (substrate noun -> dialect-bridge) on the Spin-1/2 Paradox para; plus a new 'Substrate-native origin' paragraph (Cosserat microrotational DOF = origin of spin) elaborating clm-yawl6z. No new claim, no MINT. 3-way merge: apply sweep A; add the Cosserat-spin paragraph if BLR lacks it."
 
   - l3_path: common/appendix-derived-numerology.md
     disposition: modified-leaf
     clm_ids: [clm-zi6t1e]
     delta: "+2/-2"
     l3_commits: ["590c47c", "d301c22"]
-    notes: "Tiny. Cosserat + Trefoil-electron framing sweep -- diff vs BLR, port genuine deltas only."
-    status: pinned
+    status: enriched
+    delta_class: framing-only
+    notes: "Sweep C (trefoil -> 0_1 unknot) + sweep D (strip AVE-APU repo name). No claim change, no MINT."
 
   - l3_path: common/appendix-spice-verification.md
-    disposition: modified-leaf
+    disposition: cosmetic
     clm_ids: [clm-pfocn6]
     delta: "+1/-0"
     l3_commits: ["8e28c1e"]
-    notes: "Tiny (+1). Q-G47/INVARIANT-S5 touch -- likely cross-ref add; verify cosmetic at enrichment."
-    status: pinned
+    status: enriched
+    no_claim: "L3's +1 edit adds an old-KB '<!-- leaf: verbatim -->' marker, subsumed by BLR's INVARIANT-S5 frontmatter."
+    notes: "Reclassified pinned -> cosmetic. No claim-bearing delta; no port action beyond confirming BLR frontmatter."
 
   - l3_path: common/appendix-vca-symbols.md
     disposition: modified-leaf
     clm_ids: [clm-io8hft]
     delta: "+1/-1"
     l3_commits: ["590c47c"]
-    notes: "Tiny. Cosserat propagation sweep -- likely framing-only; verify vs BLR."
-    status: pinned
+    status: enriched
+    delta_class: framing-only
+    notes: "Sweep D (strip AVE-APU repo name) only. No claim change, no MINT."
 
   - l3_path: common/axiom-homologation.md
-    disposition: new-leaf
-    clm_ids: "MINT"
+    disposition: park
+    clm_ids: "n/a"
     delta: "+823/-0"
     l3_commits: ["6968398", "7ffb212", "e779d78", "bd61693", "b254a71", "510e3ea", "240ccb4"]
-    notes: "Large; multi-claim. Promoted from .agents/handoffs/. Touched by reverted-then-restated b254a71/510e3ea -- port net state."
-    status: pinned
+    status: enriched
+    notes: "PARK -- not a KB leaf. Process/spec doc: cross-repo audit of axiom-naming schemes + a reconciliation plan (R1-R9). Asserts no physics result. The reconciliation it specs is ALREADY DONE (Phase I homologation). Already copied to session/l3-migration/ as the Phase I working artifact. Park per Task #9; do not port into ave-kb/."
 
   - l3_path: common/boundary-observables-m-q-j.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x5"
     delta: "+91/-0"
     l3_commits: ["84729f4", "5487ede"]
-    notes: "Substrate observables M/Q/J (E-101). Multi-claim likely."
-    status: pinned
+    status: enriched
+    claims:
+      - "M/Q/J are exactly three exhaustive externally-observable integrals at any Gamma=-1 saturation surface (no fourth)"
+      - "substrate-observability rule: a Gamma=-1 boundary traps the interior; only M,Q,J are externally measurable -- no-hair theorem at every scale"
+      - "alpha^-1 = 4pi^3 + pi^2 + pi decomposes into the three boundary-integral dimensionalities (3D->M, 2D->J, 1D->Q)"
+      - "interior eigenmodes of a bounded soliton are NOT lattice-Nyquist-constrained"
+      - "near-soliton 'compression' is impedance-gradient / refractive-index modulation, not bond-length compression"
+    notes: "Multi-claim -> Tier-2 markers. The alpha^-1-decomposition claim overlaps Vol1 Ch8 (alpha-golden-torus) -- check existing alpha leaf before minting (likely a distinct boundary-observable reading). Canonical M/Q/J ref for cosmic-parameter-horizon + omega-freeze."
 
   - l3_path: common/closure-roadmap.md
-    disposition: new-leaf
-    clm_ids: "MINT"
+    disposition: park
+    clm_ids: "n/a"
     delta: "+640/-0"
     l3_commits: ["42e3819", "d96e8d7", "d488a25", "2eb2b1c", "33d1e2f", "f4e53f6", "a16b97a", "060f429", "6a3ff73", "9b63887", "7e63414", "7caa4b7", "4d4225e", "590c47c", "3607a63", "b254a71", "510e3ea", "7ff7ad2", "240ccb4", "85780df"]
-    notes: "Large (640L) living doc over 20 commits; multi-claim. Records Tier-1/2/3 closure status -- reconcile vs BLR common/mathematical-closure.md."
-    status: pinned
+    status: enriched
+    notes: "PARK -- not a KB leaf. Self-declared living planning tracker (status tables, effort estimates, tracker IDs, SHAs); its own section 13 says new derivations don't belong here. Every physics result it names is a forward-pointer. Park per Task #9. Does NOT overlap the content of common/mathematical-closure.md (that leaf owns the closure DAG; this only schedules work)."
 
   - l3_path: common/cosmic-parameter-horizon-a031-refinement.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+76/-0"
     l3_commits: ["84729f4", "b254a71", "510e3ea"]
-    notes: "A-031 cosmic-horizon refinement."
-    status: pinned
+    status: enriched
+    claims:
+      - "A-031 refinement: our parent-BH cosmic parameters (M,J,Omega_freeze) are inaccessible (we sit inside the cosmic Gamma=-1 boundary), but the strain-snap mechanism that set them is observable at four smaller scales"
+      - "three-route framework commitment: Route 1 (EM via alpha) + Route 2 (gravitational via G) + Route 3 (cosmological via Omega_freeze) must all converge on the same magic-angle u_0* or the single-parameter framework is falsified"
+    notes: "CROSS-LEAF: the three-route claim is duplicated in omega-freeze-cosmic-grain-cascade.md. Decide one canonical owner at port; the other cites. Depends on boundary-observables-m-q-j.md + universal-saturation-kernel-catalog.md."
 
   - l3_path: common/dark-wake-bemf-foc-synthesis.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+214/-0"
     l3_commits: ["dbe197d"]
-    notes: "Single-commit synthesis leaf: dark-wake + back-EMF + FOC d-q."
-    status: pinned
+    status: enriched
+    claims:
+      - "substrate-native Lenz back-EMF: diverging L_eff near S->0 freezes topological omega-configs at the V_yield crossing (Axiom 1 + Op14 + Lenz)"
+      - "universal vacuum drag R_drag = xi_topo^-2 . eta_vac = Z_0; mass IS inductive resistance, F=ma from inductance-to-mass mapping"
+      - "FOC d-q decomposition is canonical at spatial-90deg (BH QNM co-rotating frame; atomic shell orthogonality); the temporal within-tank d-q framing is retracted"
+      - "dark wake = longitudinal shear strain tau_zx wave carrying reaction momentum (Newton's 3rd law for AVE thrust) -- first-principles Cosserat-Lagrangian derivation is an OPEN gap"
+    notes: "Synthesis/consolidation leaf -- its Key Results table is labelled 'already Core-canonical'; most rows are claims OWNED by other BLR leaves (op14-cross-sector-trading, newtonian-inertia-as-lenz, etc.). At port decide own-clm vs cite per INVARIANT-S7. Sections 4-6 are sibling-repo citations, not Core claims."
 
   - l3_path: common/full-derivation-chain.md
     disposition: modified-leaf
     clm_ids: [clm-sxn6eo, clm-ibfyda]
     delta: "+60/-8"
     l3_commits: ["7ffb212", "e779d78", "bd61693", "2c03050", "b254a71", "510e3ea"]
-    notes: "Meaty 3-way. substrate-rename sweep + b254a71/510e3ea mass-closure edits. May add new chain entries -> possible MINT at enrichment."
-    status: pinned
+    status: enriched
+    delta_class: framing-only + new-content
+    notes: "Axiom 1/3 header rewrites = sweep B -> NO DELTA (BLR already Scheme A). New A-034 universal-saturation-kernel section = CITE universal-saturation-kernel-catalog.md's claims; do NOT mint. Existing clm-sxn6eo/clm-ibfyda unchanged."
 
   - l3_path: common/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+10/-1"
     l3_commits: ["6968398", "84729f4", "3607a63", "2c03050", "849b2d2", "dbe197d", "209447d", "4301129", "b254a71", "510e3ea"]
-    notes: "Common index -- add Derivations-and-Detail rows for the 13 new common leaves in new-KB index format. subtree-claims auto-regenerates."
-    status: pinned
+    status: enriched
+    notes: "Add nav rows for the 11 common KB-leaf new-leaves (9 claim-bearing + 2 no-claim). EXCLUDE the 2 parked docs (closure-roadmap, axiom-homologation). subtree-claims auto-regenerates via refresh."
 
   - l3_path: common/mathematical-closure.md
     disposition: modified-leaf
     clm_ids: [clm-sxn6eo, clm-ibfyda]
     delta: "+23/-2"
     l3_commits: ["7ffb212", "bd61693", "2c03050", "b254a71", "510e3ea"]
-    notes: "3-way. b254a71/510e3ea Mass-Closure edits. Reconcile vs new closure-roadmap.md leaf. Outstanding Rigour Gaps section is solidity-relevant."
-    status: pinned
+    status: enriched
+    delta_class: framing-only + new-content
+    notes: "Axiom 2/3 line rewrites = sweep B -> NO DELTA (BLR already Scheme A). New A-034 empirical-anchors section = CITE universal-saturation-kernel-catalog.md; do NOT mint. Existing clm-sxn6eo/clm-ibfyda unchanged. (Pre-existing leaf-internal axiom-numbering offset is not L3's delta -- out of scope.)"
 
   - l3_path: common/numerical-provenance-manifest.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "no-claim"
     delta: "+110/-0"
     l3_commits: ["b41063e", "0b6c86d", "bfe6a45", "590c47c", "bd61693", "2c03050", "8e28c1e"]
-    notes: "E-094 SHA-anchoring manifest. May be infra/provenance more than physics-claim -- assess claim-bearing-ness (possible no-claim leaf) at enrichment."
-    status: pinned
+    status: enriched
+    no_claim: "provenance/infra manifest -- indexes solver-output values that are each owned by the manuscript file being indexed; asserts no result of its own"
+    notes: "Port as kind: leaf with no-claim: (INVARIANT-S5). It IS a KB leaf (stays in ave-kb/), just no-claim -- not parked."
 
   - l3_path: common/omega-freeze-cosmic-grain-cascade.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+214/-0"
     l3_commits: ["209447d", "5239909", "b254a71", "07ea7de", "ac6301b", "0ff765a", "15ce5e9", "240ccb4"]
-    notes: "Omega_freeze cosmic-grain-cascade. delta_strain derivation; 15ce5e9 downgraded docs 117/118 closure claims -- port net (downgraded) state."
-    status: pinned
+    status: enriched
+    claims:
+      - "three-route framework: alpha, G, J_cosmic all derive from a single cosmological IC parameter Omega_freeze via magic-angle u_0* (DUP -- see cosmic-parameter-horizon)"
+      - "Omega_freeze freeze-in: at lattice genesis the crystallizing rotating region locks cosmic spin into the substrate as bond over-bracing u_0* + global chirality"
+      - "eight testable cosmic-axis observables all predicted to align with the Omega_freeze axis (l=174deg, b=-5deg)"
+      - "G-anisotropy: dG(n)/G_iso = -(4pi/15).delta_chi.f_R.P2(cos theta) -- P2 shape sharp, amplitude bracketed at alpha^N (N>=2, not yet derived)"
+    notes: "CROSS-LEAF: claim 1 (three-route) duplicates cosmic-parameter-horizon-a031-refinement.md -- one canonical owner, other cites. Port the NET (downgraded) state: 15ce5e9 walked back docs 117/118. Sections 4 + 6 are PROVISIONAL (not claims). Multi-claim -> Tier-2 markers."
 
   - l3_path: common/operators.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+116/-0"
     l3_commits: ["35cc818", "6d5130d", "605839b", "b254a71", "510e3ea", "240ccb4"]
-    notes: "Universal-operator catalog (A-034). Multi-claim. Cross-check vs LIVING_REFERENCE Operator Compliance Checklist + INVARIANT-N3."
-    status: pinned
+    status: enriched
+    claims:
+      - "the 22 universal scale-invariant operators (Op1-Op22) are the AVE engine's named operator basis (catalog of record, Vol 1 Ch 6)"
+      - "Op1 Universal Impedance Z=sqrt(mu/eps) is the single structural invariant; all 22 operators inherit scale-invariance from it"
+    notes: "Worksheet 'multi-claim' was misleading -- this is a consolidation/CATALOG leaf, not 22 claims. Individual operator formulae are claims of the existing ch6 leaves (saturation-operator.md etc.), NOT of this file. Cross-check vs LIVING_REFERENCE.md Operator Compliance Checklist. (Not parked -- it IS claim-bearing; supersedes the Task #9 hypothesis.)"
 
   - l3_path: common/q-g47-substrate-scale-cosserat-closure.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+123/-0"
     l3_commits: ["84729f4", "b254a71", "510e3ea", "8e28c1e"]
-    notes: "Q-G47 substrate-scale Cosserat closure."
-    status: pinned
+    status: enriched
+    claims:
+      - "magic-angle condition: K4 bulk/shear moduli lock at K(u_0*)=2G(u_0*), u_0*~0.187; vacuum Poisson ratio nu_vac=2/7 follows"
+      - "|T|=12 universality: tetrahedral group order 12 appears via four independent K4 routes -> chi_K=12 structurally forced, not fit"
+      - "substrate-scale Cosserat prefactors: mu+kappa=xi_K1.T_EM, beta+gamma=xi_K2.T_EM.l_node^2, with xi_K2/xi_K1=12 forced"
+      - "two-engine convergence on p*=8pi-alpha (K4-TLM EMT route + Master-Equation FDTD Q-factor route) -- DUP, see two-engine"
+    notes: "CROSS-LEAF: claim 4 (p*=8pi-alpha) duplicates two-engine-architecture-a027.md -- one owner, other cites. Check vol1 Ch2 macroscopic-moduli for an existing K=2G / nu_vac=2/7 claim before minting claim 1. xi-namespace de-collision is owned by xi-topo-traceability.md -- do not re-mint. Multi-claim -> Tier-2 markers."
 
   - l3_path: common/trampoline-analogy-primer.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "no-claim"
     delta: "+523/-0"
     l3_commits: ["4301129", "b254a71", "510e3ea", "f06ad3f", "7c95f03", "7ff7ad2", "85780df"]
-    notes: "Large (523L) pedagogical primer. May be mostly pedagogy -- assess claim-bearing-ness; could be a no-claim leaf."
-    status: pinned
+    status: enriched
+    no_claim: "self-scoped pedagogical primer -- its own 'IS / IS NOT' section states it is a visual anchor making no quantitative predictions; every physics result is a re-exposition with '-> Primary:' pointers"
+    notes: "Port as kind: leaf with no-claim: (INVARIANT-S5). It IS a KB leaf -- not parked. Pedagogical mirror of trampoline-framework.md."
 
   - l3_path: common/trampoline-framework.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT (synthesis -- see notes)"
     delta: "+1013/-0"
     l3_commits: ["1f00dff", "83cedf8", "fb2ac44", "a16b97a", "7e63414", "e4dca87", "53a1a7a", "e9bd335", "311e0f5", "8997431", "590c47c", "bd61693", "2c03050", "4301129", "b254a71", "510e3ea", "7ff7ad2", "85780df"]
-    notes: "Largest (1013L), 18 commits. Multi-claim. Picture-first canonical reference -- heaviest enrichment item."
-    status: pinned
+    status: enriched
+    claims:
+      - "SYNTHESIS LEAF -- ~9 candidate claims, but per INVARIANT-S7 most are re-statements of claims canonical elsewhere: substrate-observability -> boundary-observables-m-q-j; alpha+G+J anchoring -> cosmic-parameter-horizon/omega-freeze; two-engine -> two-engine-architecture; A-034 kernel -> universal-saturation-kernel-catalog"
+      - "candidate own-claims to assess at port: the six-step ground-up substrate construction; the genesis phase-transition-while-spinning mechanism (u_0 from Omega_freeze); the empirical cubic-anisotropy breathing-soliton result"
+    notes: "Largest file (~1013L). Claim-bearing but heavily pedagogical/synthesis. At port decide own-clm-ids vs citation-only per INVARIANT-S7. CRITICAL: section 1.6.6 'alpha from K4 irrep' is explicitly FALSIFIED/retained-for-audit -- do NOT port as a claim. (Not parked -- supersedes the Task #9 hypothesis.)"
 
   - l3_path: common/two-engine-architecture-a027.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x3"
     delta: "+79/-0"
     l3_commits: ["3607a63", "8e28c1e"]
-    notes: "A-027 two-engine architecture."
-    status: pinned
+    status: enriched
+    claims:
+      - "A-027 two-engine architecture: K4-TLM for sub-saturation (A<<1, has Z(V) not c_eff(V)) + Master-Equation FDTD for bound-state (A->1, has both, traps solitons)"
+      - "only an engine with wave-speed modulation c_eff(V) can localize waves into a bound state -- K4-TLM cannot produce trapped solitons (architecture mismatch, not framework failure)"
+      - "two-engine convergence on p*=8pi-alpha at K=2G via two independent routes -- DUP, see q-g47"
+    notes: "CROSS-LEAF: claim 3 (p*=8pi-alpha convergence) shared verbatim with q-g47-substrate-scale-cosserat-closure.md -- pick one canonical owner."
 
   - l3_path: common/universal-saturation-kernel-catalog.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+121/-0"
     l3_commits: ["849b2d2", "5239909", "b254a71", "510e3ea"]
-    notes: "A-034 saturation-kernel catalog. Multi-claim (catalog of instances)."
-    status: pinned
+    status: enriched
+    claims:
+      - "A-034: one kernel S(A)=sqrt(1-A^2) (Born-Infeld n=2, Axiom 4) governs every topological-reorganization event; vertical tangent at A=1 makes every such event sharp at all scales"
+      - "21 canonical cross-scale instances span 21 orders of magnitude (14 physical, 2 biological, 5 engineered)"
+      - "3-way symmetry classification of the 21: SYM (18), ASYM-N (2), ASYM-E (1)"
+      - "Big Bang as the cosmic-scale A-034 instance (parent-BH frame-drag strain -> A=1 -> K4 crystallization front at c)"
+    notes: "A-034 canonical HUB for common/. The 21 instances are NOT 21 claims -- per-instance leaves (vol3 BCS, solar-flares, etc.) own those; this leaf owns the unification thesis (~4 claims). full-derivation-chain.md + mathematical-closure.md A-034 sections CITE this leaf. Multi-claim -> Tier-2 markers."
 
   - l3_path: common/xi-topo-traceability.md
     disposition: modified-leaf
     clm_ids: [clm-sxn6eo, clm-hmiytz]
     delta: "+20/-1"
     l3_commits: ["bf5ce9a", "590c47c"]
-    notes: "3-way. NEW xi namespace de-collision section + Cosserat sweep. Relates to xi_topo entries clm-hmiytz / clm-rppigm."
-    status: pinned
+    status: enriched
+    delta_class: new-content + framing-only
+    notes: "New 'xi Namespace De-Collision' section (3-scope table: xi_topo / Machian xi / Cosserat xi_K1,xi_K2) -- notation-disambiguation reference; at port fold into clm-hmiytz (the xi_topo claim) OR small MINT -- decide at port. Plus sweep D (strip AVE-Propulsion repo name)."
 
-  # ----- vol1/ (24 files: 12 new-leaf, 6 modified-leaf, 6 index-nav) -----
+  # ----- vol1/ (24 files) -----
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/axiom-definitions.md
     disposition: modified-leaf
     clm_ids: [clm-3kzmt9, clm-dfaiwj]
     delta: "+2/-2"
     l3_commits: ["e779d78"]
-    notes: "Tiny. substrate-native rename sweep -- likely framing-only; verify vs BLR. Axiom edits: extreme caution (LIVING_REFERENCE rule 3)."
-    status: pinned
+    status: enriched
+    delta_class: superseded
+    notes: "L3's +2/-2 = Axiom 1/3 substrate-native renames (sweep B). SUPERSEDED -- Phase I already fully homologated this BLR leaf to Scheme A (full Write). No delta to port."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/calibration-cutoff-scales.md
     disposition: modified-leaf
     clm_ids: [clm-5xon03, clm-unk0bd]
     delta: "+3/-1"
     l3_commits: ["3607a63", "d301c22"]
-    notes: "Tiny. Trefoil-framing sweep. Carries clm-5xon03 (closure, solidity 0.28) -- rescore-relevant if non-cosmetic."
-    status: pinned
+    status: enriched
+    delta_class: framing-only + claim-state-change
+    notes: "Sweep C (trefoil -> 0_1 unknot). PLUS new 'Framework closure status' blockquote reframing the 3 calibration scales as a one-cosmological-parameter framework (Omega_freeze) -- a genuine claim-state change to clm-5xon03 (closure, solidity 0.28). RESCORE clm-5xon03. clm-unk0bd (unknot) is consistent with the sweep-C decision."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+119/-0"
     l3_commits: ["849b2d2", "de08015"]
-    notes: "Core L3 result: Cosserat mass-gap. Bears on Yang-Mills mass-gap framing -- check cross-volume coupling."
-    status: pinned
+    status: enriched
+    claims:
+      - "Cosserat mass-gap formula: micropolar rotational sector carries m^2 = 4 G_c / I_omega (factor 4 from W_micropolar = 2|omega|^2)"
+      - "gapped dispersion omega^2 = c^2 k^2 + m^2 for the Cosserat rotational sector"
+      - "empirical T2 validation: uniform-omega mass-gap oscillation, period 3.1307 vs theory pi (0.35% err), energy drift 9.0e-3 over 5 periods"
+      - "structural electron-mass mechanism: rotational massive mode supplies electron mass; K4 scalar sector stays massless"
+    notes: "Canonical for the Cosserat m^2=4G_c/I_omega formula; cited by thermal-lattice-noise, photon-identification, k4-port-irrep. Distinct from BLR ch2 dielectric-rupture.md 'mass-gap' (clm-9s9apq, a different p_c=8pi-alpha identity). Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x1"
     delta: "+119/-0"
     l3_commits: ["601a31b"]
-    notes: "K4 empirical anisotropy."
-    status: pinned
+    status: enriched
+    claims:
+      - "cubic K4 anisotropy at saturation collapse: the saturated bipolar attractor is cubic (6/8/12), the empirical signature of T=A4 -- falsifiable (perfectly spherical collapse falsifies the K4 substrate)"
+    notes: "Single-claim falsifier. Depends on k4-rotation-group + photon-propagation-baseline. No BLR overlap."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+4/-0"
     l3_commits: ["84729f4", "301ba4d", "601a31b"]
-    notes: "Index -- nav rows for new ch1 leaves (cosserat-mass-gap, cubic-k4, k4-rotation-group, tetrahedral-t)."
-    status: pinned
+    status: enriched
+    notes: "Add nav rows for the 4 new ch1 leaves: cosserat-mass-gap, cubic-k4-empirical-anisotropy, k4-rotation-group, tetrahedral-t-universality."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x3"
     delta: "+155/-0"
     l3_commits: ["601a31b"]
-    notes: "Core L3 structural result: K4 rotation group."
-    status: pinned
+    status: enriched
+    claims:
+      - "K4 rotation symmetry is the tetrahedral rotation group T=A4 (order 12); 3D rotations on the 4-port basis is a faithful rep (12 permutations enumerated)"
+      - "full point symmetry with reflections is T_d=S4 (order 24); the 4 mirrors in T_d\\T swap the A<->B sublattices"
+      - "double cover 2T subset SU(2) (binary tetrahedral, order 24): 2pi -> -I, 4pi -> +I -- K4-native source of spin-1/2 (Finkelstein-Misner)"
+    notes: "Dependency hub: cited by tetrahedral-t-universality, cubic-k4, k4-port-irrep + vol2 spin-half-paradox. No BLR leaf treats T_d/A4 group theory. Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x1"
     delta: "+49/-0"
     l3_commits: ["84729f4", "2c03050"]
-    notes: "Tetrahedral T universality."
-    status: pinned
+    status: enriched
+    claims:
+      - "|T|=12 universality: four independent routes (K4 coordination path-count; Cosserat dimensional; magic-angle orbit; axiom-level xi_K2/xi_K1) all converge on 12 -> chi_K=12 K4-symmetry-forced, not a fit"
+    notes: "Single load-bearing claim; status is 'structural-hypothesis' (route 4 derivation pending) -- preserve that solidity caveat at rescore. LEGACY MARKER: L3 file uses old <!-- leaf: verbatim --> -- convert to S5 kb-frontmatter at port."
 
   - l3_path: vol1/axioms-and-lattice/ch2-macroscopic-moduli/continuous-springs-reframing.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "no-claim"
     delta: "+74/-0"
     l3_commits: ["84729f4"]
-    notes: "Continuous-springs reframing of macroscopic moduli."
-    status: pinned
+    status: enriched
+    no_claim: "pedagogical reframing leaf -- recasts the discrete K4 lattice as a Nyquist discretization of a continuous Cosserat field; the quantitative content it touches is owned by other leaves (tetrahedral-t, q-g47, xi-topo-traceability)"
+    notes: "Port as kind: leaf with no-claim: (INVARIANT-S5). LEGACY MARKER -> convert to S5 frontmatter at port."
 
   - l3_path: vol1/axioms-and-lattice/ch2-macroscopic-moduli/dielectric-snap-limit.md
     disposition: modified-leaf
     clm_ids: [clm-9s9apq, clm-2dwzib]
     delta: "+1/-1"
     l3_commits: ["bd61693"]
-    notes: "Tiny. Cosserat sweep -- likely framing-only; verify vs BLR."
-    status: pinned
+    status: enriched
+    delta_class: framing-only
+    notes: "Sweep A (substrate noun -> dialect-bridge, on the 'Structurally Over-Braced' phrase) only. No claim change, no MINT."
 
   - l3_path: vol1/axioms-and-lattice/ch2-macroscopic-moduli/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+2/-0"
     l3_commits: ["84729f4", "3607a63"]
-    notes: "Index -- nav rows for new ch2 leaves (continuous-springs, secondary-scale-shared-b-node)."
-    status: pinned
+    status: enriched
+    notes: "Add nav rows for the 2 new ch2 leaves: continuous-springs-reframing (no-claim), secondary-scale-shared-b-node."
 
   - l3_path: vol1/axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x1"
     delta: "+60/-0"
     l3_commits: ["3607a63", "2c03050"]
-    notes: "Secondary-scale shared B-node."
-    status: pinned
+    status: enriched
+    claims:
+      - "A-029 secondary scale: the K4 shared-B-node distance r_secondary = cbrt(R_OB).l_node ~ 1.187 l_node is geometrically forced by K4 topology + packing fractions, not a free parameter; magic-angle u_0* sits exactly here"
+    notes: "Single claim ('1.187 is not free'). LEGACY MARKER -> convert to S5 frontmatter. Cross-refs dielectric-snap-limit.md (exists in BLR ch2). Foundational for tetrahedral-t-universality route 1."
 
   - l3_path: vol1/ch0-intro.md
     disposition: modified-leaf
     clm_ids: [clm-5xon03]
     delta: "+4/-4"
     l3_commits: ["bd61693", "2c03050", "d301c22"]
-    notes: "Tiny. Trefoil-framing sweep + cleanup. Carries clm-5xon03 (closure, 0.28)."
-    status: pinned
+    status: enriched
+    delta_class: framing-only + claim-state-change
+    notes: "Sweep A (substrate noun) + sweep C (trefoil -> unknot), each x2 (body + chapter summary). PLUS the Chapter Summary closure bullet reframed 'genuinely zero-parameter' -> 'structurally zero-parameter (conditional on thermal closure) / one-cosmological-parameter' -- genuine claim-state change to clm-5xon03. RESCORE clm-5xon03."
 
   - l3_path: vol1/ch8-alpha-golden-torus.md
     disposition: modified-leaf
     clm_ids: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-trf3bd]
     delta: "+28/-8"
     l3_commits: ["96159de"]
-    notes: "HOT. Single focused commit. Leaf carries clm-0ktpcn (Golden Torus alpha, solidity 0.41) + clm-5xon03 (closure, 0.28) -- the two weakest load-bearing vol1 claims. Prime rescore candidate; narrow to edited claim(s) at enrichment."
-    status: pinned
+    status: enriched
+    delta_class: framing + new-content + claim-state-change
+    notes: >-
+      HOT -- heaviest 3-way merge. (1) Sweep C: new 'Topological identity of the electron'
+      section + table edits -> clm-trf3bd retired/superseded toward clm-unk0bd (per
+      framing-concordance sweep C decision). (2) New content: 'SU(2)->SO(3) half-cover is
+      AVE-native' provenance block (4-step chain) -- MINT or extends clm-3zz0f6/clm-0ktpcn,
+      decide at port. (3) Claim-state changes: delta_strain honesty downgrade ('currently a
+      fitted thermal scalar') touches clm-0ktpcn (alpha, solidity 0.41); closure reframe
+      ('zero-parameter' -> 'one-cosmological-parameter') touches clm-5xon03 (0.28).
+      RESCORE clm-0ktpcn + clm-5xon03; resolve clm-trf3bd -> clm-unk0bd.
 
   - l3_path: vol1/dynamics/ch3-quantum-signal-dynamics/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+1/-0"
     l3_commits: ["601a31b"]
-    notes: "Index -- nav row for thermal-lattice-noise."
-    status: pinned
+    status: enriched
+    notes: "Add nav row for the new ch3 leaf: thermal-lattice-noise."
 
   - l3_path: vol1/dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x4"
     delta: "+169/-0"
     l3_commits: ["601a31b"]
-    notes: "Thermal lattice noise."
-    status: pinned
+    status: enriched
+    claims:
+      - "K4 photon thermal noise: equipartition gives <V^2>_T = k_B T / (eps_0 l_node) = k_B T . 4pi/alpha (natural units)"
+      - "AVE-native vacuum rupture temperature T_V-rupt ~ 3.44e6 K (sigma_V = V_SNAP) -- substrate-temperature analog of the Schwinger limit; falsifiable"
+      - "Cosserat rotational thermal noise sigma_omega ~ 0.17 sqrt(k_B T), finite at origin (omega field massive via mass-gap m^2=4G_c/I_omega)"
+      - "Cosserat translational thermal noise sigma_u = sqrt(k_B T/2pi) (massless field, Nyquist-cutoff at k_max=pi/l_node)"
+    notes: "Depends on cosserat-mass-gap. Distinct from BLR vol3/ch11 vacuum-nyquist-baseline.md (spectral Nyquist/FDT form) -- adjacent, no duplication; add a cross-ref. Multi-claim -> Tier-2 markers. Section 7 has a Python code block."
 
   - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+122/-0"
     l3_commits: ["5487ede", "de08015"]
-    notes: "Core L3 electron-soliton result: breathing soliton v14 mode-I."
-    status: pinned
+    status: enriched
+    claims:
+      - "breathing-soliton v14 Mode-I PASS: Master-Equation FDTD autonomously hosts a sustained breathing bound state (sech seed, 4/4 acceptance) -- validates the boundary-envelope reformulation at the dynamic-engine level"
+      - "Test-1b breathing acceptance criterion (mean late V_peak > 0.2x initial) is canonical, retiring the strict stationary criterion -- the breathing solution IS the physical electron state"
+    notes: "Core L3 electron-soliton result. Cited by two-engine-architecture + boundary-observables-m-q-j. No BLR ch4 soliton/breather leaf. Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md
     disposition: modified-leaf
     clm_ids: [clm-m3z5ux]
     delta: "+1/-1"
     l3_commits: ["bd61693"]
-    notes: "Tiny. Cosserat sweep -- likely framing-only; verify vs BLR."
-    status: pinned
+    status: enriched
+    delta_class: framing-only
+    notes: "Sweep A (substrate noun -> dialect-bridge) only. No claim change, no MINT."
 
   - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+3/-0"
     l3_commits: ["849b2d2"]
-    notes: "Index -- nav rows for new ch4 leaves (breathing-soliton, photon-identification, photon-propagation-baseline)."
-    status: pinned
+    status: enriched
+    notes: "Add nav rows for the 3 new ch4 leaves: breathing-soliton-v14-mode-i, photon-identification, photon-propagation-baseline."
 
   - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x3"
     delta: "+172/-0"
     l3_commits: ["849b2d2"]
-    notes: "Core L3 result: photon identification."
-    status: pinned
+    status: enriched
+    claims:
+      - "photon identification: under T_d the 4-port space is A1+T2; A1 (longitudinal) dissipates (Gauss's law), T2 transverse triplet survives -- the photon is the stable T2-only Cosserat microrotation (u=0, omega!=0)"
+      - "electron = photon + TIR confinement: amplitude crossing V_yield drives C_eff->inf, Z->0, Gamma->-1, self-trapping the T2 photon into a standing wave"
+      - "Compton frequency omega_C = c/l_node is the photon->electron transition threshold (3 regimes); m_e c^2 = hbar omega_C"
+    notes: "CROSS-LEAF: claim 1's A1+T2 group theory is OWNED by k4-port-irrep-decomposition.md -- keep section 1 here a cross-ref, not a re-derivation. Section 5 overlaps a vol2 pair-production leaf. Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+117/-0"
     l3_commits: ["849b2d2", "de08015"]
-    notes: "Photon propagation baseline."
-    status: pinned
+    status: enriched
+    claims:
+      - "photon propagation baseline: free photon on linear K4-TLM travels at v=c.sqrt(2) along cardinal axes (measured 1.450), v=c along diagonal/port axes -- pure Axiom-1 substrate-geometry anisotropy"
+      - "A1/T2 speed split: A1 at c.sqrt(2)=sqrt(K_bulk/rho), T2 photon at c=sqrt(G/rho); magic-angle K=2G makes the ratio exactly sqrt(2)"
+    notes: "CROSS-LEAF: claim 2 (A1/T2 speed split) also in k4-port-irrep-decomposition section 6 -- this leaf owns the empirical v/c=sqrt(2) measurement, the irrep leaf owns the group theory. Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+2/-2"
     l3_commits: ["d301c22"]
-    notes: "Volume index -- Trefoil-framing sweep. Check Key Results table for stale framing."
-    status: pinned
+    status: enriched
+    delta_class: framing-only
+    notes: "NOT a nav-row add -- this is a sweep-C framing edit (trefoil -> 0_1 unknot) on the volume-index Key Results table. Apply sweep C."
 
   - l3_path: vol1/operators-and-regimes/ch6-universal-operators/index.md
     disposition: index-nav
     clm_ids: "n/a"
     delta: "+2/-0"
     l3_commits: ["301ba4d", "601a31b"]
-    notes: "Index -- nav rows for new ch6 leaves (k4-port-irrep, lattice-impedance-decomposition)."
-    status: pinned
+    status: enriched
+    notes: "Add nav rows for the 2 new ch6 leaves: k4-port-irrep-decomposition, lattice-impedance-decomposition."
 
   - l3_path: vol1/operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+146/-0"
     l3_commits: ["601a31b"]
-    notes: "K4 port irrep decomposition -- operator-level result."
-    status: pinned
+    status: enriched
+    claims:
+      - "K4 4-port irrep decomposition: under T_d the port space is A1(1D)+T2(3D); the K4-TLM scattering matrix S=(1/2)1-I has eigenvalues {+1,-1,-1,-1}"
+      - "Op3 asymmetric dissipation: bond-level Op3 reflection dissipates A1 to zero while T2 settles quasi-stable -- realizes the Gauss's-law no-longitudinal-EM constraint via T_d symmetry"
+    notes: "CANONICAL OWNER of the A1+T2 group theory that photon-identification + photon-propagation-baseline cite. No overlap with BLR ch6 eigenvalue-target.md (abstract clm-gdd70j). Multi-claim -> Tier-2 markers."
 
   - l3_path: vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md
     disposition: new-leaf
-    clm_ids: "MINT"
+    clm_ids: "MINT x2"
     delta: "+169/-0"
     l3_commits: ["849b2d2"]
-    notes: "Lattice impedance decomposition."
-    status: pinned
+    status: enriched
+    claims:
+      - "six-fold impedance decomposition: canonical distinction of Z_0, Z_cell (=Z_0), Z_eff(r)=Z_0/sqrt(S), eta_vac, Z_mech=xi_topo^2.Z_0, Z_EH->0"
+      - "lattice-native units: V_YIELD=1 (not V_SNAP) in lattice natural units -- engineer-facing V_SNAP normalization means amp=0.5 V_SNAP is far above yield"
+    notes: "Conceptually adjacent to BLR vol1/ch6 impedance-operator.md (clm-gdd70j, Z=sqrt(mu/eps) scale-invariance) -- distinct result, cross-link not duplicate. Multi-claim -> Tier-2 markers."
