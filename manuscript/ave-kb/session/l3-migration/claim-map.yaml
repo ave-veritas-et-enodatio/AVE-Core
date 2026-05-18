@@ -169,7 +169,7 @@ entries:
     delta: "+823/-0"
     l3_commits: ["6968398", "7ffb212", "e779d78", "bd61693", "b254a71", "510e3ea", "240ccb4"]
     status: enriched
-    notes: "PARK -- not a KB leaf. Process/spec doc: cross-repo audit of axiom-naming schemes + a reconciliation plan (R1-R9). Asserts no physics result. The reconciliation it specs is ALREADY DONE (Phase I homologation). Already copied to session/l3-migration/ as the Phase I working artifact. Park per Task #9; do not port into ave-kb/."
+    notes: "PARK -- not a KB leaf. Process/spec doc: cross-repo audit of axiom-naming schemes + a reconciliation plan (R1-R9). Asserts no physics result. The reconciliation it specs is ALREADY DONE (Phase I homologation). Park: RECORD-ONLY (user decision 2026-05-18) -- not ported into ave-kb/, no permanent copy kept. The Phase I working copy in session/l3-migration/ is transient (removed with the session dir at migration-end); recoverable from the L3 branch."
 
   - l3_path: common/boundary-observables-m-q-j.md
     disposition: new-leaf
@@ -191,7 +191,7 @@ entries:
     delta: "+640/-0"
     l3_commits: ["42e3819", "d96e8d7", "d488a25", "2eb2b1c", "33d1e2f", "f4e53f6", "a16b97a", "060f429", "6a3ff73", "9b63887", "7e63414", "7caa4b7", "4d4225e", "590c47c", "3607a63", "b254a71", "510e3ea", "7ff7ad2", "240ccb4", "85780df"]
     status: enriched
-    notes: "PARK -- not a KB leaf. Self-declared living planning tracker (status tables, effort estimates, tracker IDs, SHAs); its own section 13 says new derivations don't belong here. Every physics result it names is a forward-pointer. Park per Task #9. Does NOT overlap the content of common/mathematical-closure.md (that leaf owns the closure DAG; this only schedules work)."
+    notes: "PARK -- not a KB leaf. Self-declared living planning tracker (status tables, effort estimates, tracker IDs, SHAs); its own section 13 says new derivations don't belong here. Every physics result it names is a forward-pointer. Park: RECORD-ONLY (user decision 2026-05-18) -- not ported, no physical copy kept; recoverable from the L3 branch via git show. Does NOT overlap the content of common/mathematical-closure.md (that leaf owns the closure DAG; this only schedules work)."
 
   - l3_path: common/cosmic-parameter-horizon-a031-refinement.md
     disposition: new-leaf
