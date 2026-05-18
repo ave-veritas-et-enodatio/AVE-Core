@@ -14,15 +14,21 @@ NO MODIFICATIONS to constants.py — runs the existing solver for new c values
 and reports. If results validate against PDG, second-step is to extend the
 TORUS_KNOT_CROSSING_NUMBERS list in constants.py.
 
-Per the corpus mapping ([constants.py:644-650](../../src/ave/core/constants.py)):
-  c=5  → Proton (938 MeV)
-  c=7  → Δ(1232)
-  c=9  → Δ(1620)
-  c=11 → Δ(1950)
-  c=13 → N(2250)
+Per the corpus mapping ([constants.py:733](../../src/ave/core/constants.py)) — REFRESHED 2026-05-18
+against PDG 2024 by [baryon_ladder_pdg_2024_anchor.py](../verify/baryon_ladder_pdg_2024_anchor.py):
+  c=5  → Proton (938.272 MeV)        — -0.002% match (strongest)
+  c=7  → Δ(1232) (1232 ± 2 MeV)      — +2.354% match
+  c=9  → Δ(1600) (1570 ± 70 MeV)     — +0.779% match  (NOT Δ(1620) — stale docstring)
+  c=11 → Δ(1900) (1860 ± 50 MeV)     — +1.876% match
+  c=13 → N(2190) (2100 ± 50 MeV)     — +4.506% match
 
 This extends to: c=15, 17, 19, 21, 23, 25 — predicting masses for matching
-candidates among PDG-listed Δ + N* resonances above 2250 MeV.
+candidates among PDG-listed Δ + N* resonances above 2400 MeV.
+Forward c=17 → Δ(2750) at -0.30%, c=19 → Δ(2950) at +1.12% (both PDG **).
+
+For canonical J^P-consistency-checked PDG 2024 verification, use:
+  src/scripts/verify/baryon_ladder_pdg_2024_anchor.py
+which pins PDG row IDs + applies J^P discriminator (6/6 pass).
 """
 from __future__ import annotations
 
