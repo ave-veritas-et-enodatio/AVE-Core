@@ -1,0 +1,63 @@
+{
+  "constants": {
+    "alpha": 0.0072973525693,
+    "m_e_kg": 9.1093837015e-31,
+    "m_mu_kg_ave": 1.9068303630250716e-28,
+    "m_mu_mev_ave": 106.96533873813748
+  },
+  "ave_q_g27_prediction": {
+    "delta_cosserat": -0.0007603211448313869,
+    "delta_e_petermann": -0.010946028853950001,
+    "delta_mu_total": -0.011706349998781389,
+    "c_2_electron_pdg": -0.32848,
+    "c_2_muon_corpus": -0.32755,
+    "delta_c_2": 0.0009299999999999864,
+    "alpha_over_pi": 0.0023228194657768757,
+    "alpha_over_pi_squared": 5.39549027059197e-06,
+    "delta_a_mu_2_standard_formula": 5.017805951650459e-09,
+    "delta_a_mu_2_corpus_claim": 2.47e-09,
+    "arithmetic_discrepancy_factor": 0.4922470146912649
+  },
+  "fermilab": {
+    "run12_world_avg_a_mu": 0.00116592055,
+    "run12_uncertainty": 2.4e-10,
+    "run12_reference": "PRL 131:161802 (2023)",
+    "run3_tension_central": 2.45e-09,
+    "run3_tension_uncertainty": 5.6e-10,
+    "run3_reference": "Fermilab Muon g-2 result2023 + e+e- SM baseline (Theory Initiative 2020)"
+  },
+  "comparison_direct_formula": {
+    "ave_prediction": 5.017805951650459e-09,
+    "fermilab_central": 2.45e-09,
+    "fermilab_uncertainty": 5.6e-10,
+    "deviation": 2.5678059516504586e-09,
+    "deviation_pct": 104.80840618981463,
+    "n_sigma": 4.58536777080439,
+    "within_1sigma": 0.0,
+    "within_2sigma": 0.0
+  },
+  "comparison_corpus_claim": {
+    "ave_prediction": 2.47e-09,
+    "fermilab_central": 2.45e-09,
+    "fermilab_uncertainty": 5.6e-10,
+    "deviation": 1.999999999999993e-11,
+    "deviation_pct": 0.816326530612242,
+    "n_sigma": 0.03571428571428559,
+    "within_1sigma": 1.0,
+    "within_2sigma": 1.0
+  },
+  "corpus_arithmetic_status": "FACTOR-OF-2 DISCREPANCY \u2014 corpus claim is HALF of direct calc",
+  "outcome": "B (CORPUS ARITHMETIC FLAG) \u2014 direct formula gives different value than corpus claim; SURFACE per flag-don't-fix",
+  "sm_baseline_conditional": "Yes \u2014 BMW lattice closes tension; e+e- leaves +245(56)\u00d710\u207b\u00b9\u00b9",
+  "skill_disciplines_applied": [
+    "ave-prereg",
+    "pre-test-physics-check",
+    "substrate-native-check",
+    "ave-canonical-source (constants imported from ave.core.constants)",
+    "ave-driver-script-honesty (4-discriminator check; surfaces corpus arithmetic if mismatch)",
+    "ave-discrimination-check (SM-counterfactual BMW vs e+e- enumerated)",
+    "ave-evidence-framing-discipline (\u22653 sig figs, conditional 'match' framing)",
+    "consistency-vs-emergence (Class 3 consistency check; conditional on SM-baseline)",
+    "verify-before-cite (Fermilab PRL DOI pinned; corpus q-g27 references pinned)"
+  ]
+}
