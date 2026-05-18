@@ -80,14 +80,14 @@ Gravity, relativity, condensed matter, and cosmology as impedance-matching regim
 
 ### [Vol 4: Applied Vacuum Engineering](vol4/index.md)
 
-Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, topological SMES, metric-catalyzed fusion, and a complete SPICE simulation suite.
+Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, and a complete SPICE simulation suite. (Application-specific chapters — SMES, fusion, quantum computing, antimatter, active metamaterials, optical caustic — migrated to private app repos per REPO-ARCH-1 through REPO-ARCH-6, 2026-05-17 night; substrate-physics anchors remain canonical in core.)
 
 **Key results:** HOPF-01 $\Delta f/f = \alpha\cdot pq/(p+q)$ (zero free parameters); PONDER-05 469 μN thrust; K4-TLM unitary to machine epsilon; Universal `AVE_VACUUM_CELL` SPICE subcircuit
 
 | Domain | Contents |
 |---|---|
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
-| [Advanced Applications](vol4/advanced-applications/index.md) | Metric-catalyzed fusion; native silicon design engine |
+| [Advanced Applications](vol4/advanced-applications/index.md) | Native silicon design engine |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
 | [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
 | [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, hardware netlists |

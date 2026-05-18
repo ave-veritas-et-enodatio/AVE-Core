@@ -2,22 +2,18 @@
 
 # Advanced Applications
 
-This domain extends the VCA framework into high-energy and materials-science applications: metric-catalyzed fusion (resolving the tokamak ignition paradox via the $V_{yield} = 43.65$ kV dielectric limit), topological quantum computing immune to thermal decoherence, and active topological metamaterials that port the biological LLCP mechanism into solid-state engineering.
+This domain currently contains the silicon design engine application chapter (Ch.19). Prior advanced-applications content (fusion, quantum computing, antimatter, SMES, metamaterials, optical caustic) migrated to respective private application repos per REPO-ARCH-1 through REPO-ARCH-6 (2026-05-17 night) per the `ave-ip-divide-discipline` discipline; substrate-physics anchors remain canonical in core (see vol4/index.md for the consolidated redirect note).
 
 ## Key Results
 
 | Result | Statement |
 |---|---|
-| Tokamak ignition strain | $V_{topo} = 60.3$ kV $> V_{yield} = 43.65$ kV (Strong Force disabled at ignition) |
-| Critical metric compression | $n^* = (V_{topo,0}/V_{yield})^{1/3} \approx 1.114$ (11% lattice density enhancement) |
-| Compressed Gamow exponent | $\eta(n) = \eta_0/n$ (barrier narrowed, not lowered) |
 | Topological BJT Current Gain | $\beta = (T^2_{EB})^{N_{gap}} / (1 - (T^2_{EB})^{N_{gap}})$; bounds $\beta \approx 10$–$300$ from pure geometry |
 
 ## Derivations and Detail
 
 | Document | Contents |
 |---|---|
-| [Ch.8 Applied Fusion](ch8-applied-fusion/index.md) | Tokamak paradox; metric-catalyzed fusion scaling laws; ignition criterion |
 | [Ch.19 Native Silicon Design Engine](ch19-silicon-design-engine/index.md) | Doping as geometric perturbation; $p$-$n$ junction as $S_{11}$ boundary; topological BJT gain; `atopile` compilation; SPICE subcircuit bridge |
 
 ---

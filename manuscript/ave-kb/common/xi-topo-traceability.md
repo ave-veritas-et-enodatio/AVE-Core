@@ -80,9 +80,9 @@ The heaviest user — all VCA circuit engineering derives from $\xi_{topo}$:
 | [Nonlinear Vacuum Capacitance](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) | Saturation curve via capacitance scaling |
 | [Relativistic Inductor](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md) | Mass-energy as inductance $L = \gamma m / \xi^2$ |
 | [Resonant LC Solitons](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | Particle formation as impedance-matched loops |
-| [V-Topo Scaling](../vol4/advanced-applications/ch8-applied-fusion/vtopo-scaling.md) | Fusion: $\xi_{topo}$ determines yield threshold |
-| [Radius Scaling](../vol4/advanced-applications/ch8-applied-fusion/radius-scaling.md) | Nuclear radius from $\xi_{topo}$ geometry |
 | [Metric Levitation Limit](../vol4/falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md) | $m_{max} = 1.846$ g from $\xi_{topo}$ force balance |
+
+> **Note (REPO-ARCH-6 2026-05-17 night)**: V-Topo + Radius Scaling rows previously pointed at `vol4/advanced-applications/ch8-applied-fusion/` leaves. Those leaves migrated to AVE-Fusion private repo per `ave-ip-divide-discipline` skill (substrate-physics canonical at Axiom 4 `axiom-definitions.md` + `universal-saturation-kernel-catalog.md`; application content private).
 | [CLEAVE-01](../vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) | Bench test design using $\xi_{topo}$ thresholds |
 
 ### Vol 5: Biology (2 files)
