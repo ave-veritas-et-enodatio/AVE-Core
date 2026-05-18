@@ -123,6 +123,22 @@ Per `ave-audit-of-audit` 2026-05-17 retroactive substrate-native walk: the §4 1
 
 This sector classification is the substrate-native counterpart to the (now-removed) Dicke quantum-optics framing. It does NOT invoke quantum-optics machinery; the ensemble physics is entirely K4-TLM bond-port enumeration + LC ladder voltage-divider.
 
+## §3.6 — Kernel applicability conditions (which detector classes the §3.5 derivation applies to)
+
+Per `ave-audit-of-audit` 2026-05-17 retroactive 5-axis cross-substrate classification (Foundation Item 3): the §3.5 substrate ↔ apparatus port structure derives the per-atom impedance $Z_{LC} = 12.31\,\Omega$ from canonical Vol 2 Ch 7 [`analog-ladder-filter.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46 — which derives the 1s-shell LC tank for **ionic atomic-physics** in **rock-salt or rock-salt-equivalent lattices** with **discrete crystalline N-parallel-LC-tank topology**. The derivation does NOT carry over without re-derivation to:
+
+- **Covalent-bonded lattices** (diamond-cubic Ge, Si): the 1s-shell ladder derivation in `analog-ladder-filter.md` is for ionic atomic-physics with valence electrons screened by inner shells via the explicit nuclear → 1s → ... → valence port cascade. Covalent bonding shares electrons across multiple atoms — the per-atom port structure is NOT 1:1 with the ionic case. The kernel may apply with different prefactors, or may not apply at all; this is OPEN work.
+- **Liquids / amorphous solids** (liquid Xe, amorphous Ge, glasses): the §3.5 N-parallel-LC-tank topology assumes discrete crystalline atomic sites at fixed lattice positions. Liquids lack this topology; the kernel's port-enumeration step does not have a well-defined N. The kernel may apply via a different (phonon-density-based) port structure, or may not apply; OPEN work.
+- **Non-rock-salt crystalline lattices** (corundum Al₂O₃, fluorite CaF₂, wurtzite, perovskite): each has its own bond-topology and atomic-LC ladder structure. The §3.5 derivation explicitly grounds in rock-salt geometry via the ionic-bond per-atom LC tank. Other crystalline lattices may share enough structure for the derivation to carry, but this requires explicit per-lattice derivation, not assumed by symmetry.
+
+**The kernel currently has DERIVED applicability for**: NaI(Tl), CsI(Tl), and other rock-salt-class ionic crystals with halide-alkali stoichiometry.
+
+**The kernel has UNDERIVED applicability for**: HPGe (covalent), liquid Xe (liquid), Sapphire Al₂O₃ (corundum), CaF₂ fluorite, organic crystals, and other non-rock-salt structures.
+
+For UNDERIVED-applicability detectors, the framework can only state **conditional predictions**: "IF the kernel applies AND κ_quality has value X, THEN observed rate would be Y; observed null is consistent with either (kernel applies + κ tiny) OR (kernel does not apply at all)." The two scenarios are NOT distinguishable from the null alone.
+
+This sub-section closes the cross-substrate extrapolation gap surfaced by adversarial probe #18 (ave-power-category-check trigger 6) + Foundation Item 3 retroactive audit (2026-05-17 night).
+
 ## §4 — N-coherent receiver distribution (1/N² scaling, substrate-native derivation)
 
 Per §3.5 substrate ↔ apparatus port structure: N atomic LC tanks couple in parallel to the substrate's bulk K4 node hosting $V_{pump}$.
@@ -212,42 +228,67 @@ Detection rate per kg:
 
 $$R = N_e^{(kg)} \cdot \nu_{slew} \cdot \varepsilon_{det} = N_e^{(kg)} \cdot \nu_{slew} \cdot \frac{4\pi \cdot \kappa_{quality}}{N_{single}^2}$$
 
+**Per §3.6 kernel applicability conditions** (added 2026-05-17 Foundation Item 3 retroactive audit per `ave-power-category-check` trigger 6 + 5-axis classification per §3.5): predictions split by applicability class. Within-class predictions (rock-salt + Tl-doped) carry derived kernel applicability; cross-class predictions (covalent, liquid, non-rock-salt crystalline) are CONDITIONAL on kernel applicability not yet derived.
+
+**Class 1 — DERIVED-APPLICABILITY (rock-salt + halide-alkali ionic crystals)**:
+
 | Detector | Medium | $M_{single}$ (kg) | $N_{single}$ | $\kappa_{quality}$ | $R_{predicted}$ (events/s/kg) | Status |
 |---|---|---|---|---|---|---|
 | DAMA/LIBRA | NaI(Tl) | 9.7 | $7.79 \times 10^{25}$ | 1 (ceiling) | $4.79 \times 10^{-7}$ | **MATCH** (0.6%, derived) |
-| COSINE-100 | NaI(Tl) | 13.0 | $1.04 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.34 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied |
-| ANAIS-112 | NaI(Tl) | 12.5 | $1.00 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.45 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied |
-| MAJORANA Demonstrator | HPGe | ~1.0 | $8.31 \times 10^{24}$ | **≲ $10^{-3}$-$10^{-4}$** (3σ rough refined 2026-05-17 night per [`research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md`](../../../../../research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md)) | $\leq R(\kappa=1) \times \kappa = 1.47 \times 10^{-4} \cdot \kappa_{HPGe}$ | Null consistent (diff lattice + no Tl) — refined 250× tighter than cycle-12 prior |
-| KIMS | CsI(Tl) | ~8.7 | $4.04 \times 10^{25}$ (refined per ~8.7 kg single module) | **≲ 0.02-0.05** (3σ rough refined 2026-05-17 night) | $\leq R(\kappa=1) \times \kappa = 1.74 \times 10^{-6} \cdot \kappa_{CsI(Tl)}$ | Null at 2-4 keVee → $\kappa_{CsI(Tl)} \lesssim 0.02$-$0.05$ (refined 15-25× tighter than cycle-12 prior) — **KEY DISCRIMINATOR** with κ_NaI(Tl) = 1: factor 20-50× variation within rock-salt+Tl class implies κ_quality varies with crystal-quality metrics (DAMA Beam-International ultra-LB vs KIMS commercial-grade); Tier-2 #9 correlation test load-bearing |
-| XENONnT | Xe(l) | n/a | N/A | $\sim 10^{-4}$-$10^{-2}$ (sub-regenerative) | ~0 | **Null DERIVED** (sub-regenerative) |
-| Sapphire (Al₂O₃) cryogenic | Al₂O₃ | ~0.1-1 | $1.15 \times 10^{24}$-$10^{25}$ | $\to 1$ (extreme Q) | $\sim 10^{-5}$-$10^{-7}$ | **Forward prediction** |
+| COSINE-100 | NaI(Tl) | 13.0 | $1.04 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.34 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied; honest within-class κ_quality variation |
+| ANAIS-112 | NaI(Tl) | 12.5 | $1.00 \times 10^{26}$ | ≲ 0.4 (empirical) | $\leq 1.45 \times 10^{-7}$ | Null observed → $\kappa$ < 1 implied; honest within-class κ_quality variation |
+| KIMS | CsI(Tl) | ~8.7 | $4.04 \times 10^{25}$ | **≲ 0.02-0.05** (3σ rough refined 2026-05-17 night) | $\leq R(\kappa=1) \times \kappa = 1.74 \times 10^{-6} \cdot \kappa_{CsI(Tl)}$ | Within-class IF the framework adopts Z-INDEPENDENT interpretation at lattice-LC level (per §3.5 rock-salt derivation). **Internal-inconsistency RECONCILED 2026-05-17 Foundation Item 3**: canonical leaf hereby adopts Z-independent reading — KIMS κ_quality variation is then ≲ 0.02-0.05 within rock-salt+Tl class, factor 20-50× from DAMA. The Z-dependent σ_atomic factor 2× claim in [`research/2026-05-17_KIMS-CsI-Tl-discovery-pass.md`](../../../../../research/2026-05-17_KIMS-CsI-Tl-discovery-pass.md) §3:46-71 is hereby WALKED BACK to "alternative interpretation if Z-dependence enters" — pre-registration discipline locks the Z-independent reading as primary. |
 
-**Cross-detector cluster — 5 constraints + 1 forward prediction**:
+**Class 2 — UNDERIVED-APPLICABILITY (cross-class extrapolations; bounds are CONDITIONAL not falsifying)**:
 
-1. **DAMA NaI(Tl)+**: rate matches at $\kappa_{quality} = 1$ ceiling (derived consequence, not fit)
-2. **COSINE/ANAIS NaI(Tl)−**: $\kappa$ < 0.4 implied; framework requires crystal-quality variation correlation
-3. **MAJORANA HPGe$−$**: $\kappa_{HPGe} \lesssim 0.05$ from different lattice + no Tl-coherence enhancement
-4. **XENONnT Xe(l)−**: sub-regenerative regime → derived null
-5. **KIMS CsI(Tl)−**: same rock-salt lattice as NaI(Tl) but different Z → **KEY DISCRIMINATOR** isolating lattice from atomic Z
-6. **Sapphire cryogenic**: forward prediction for next-gen experiments
+| Detector | Medium | Lattice class | $\kappa_{quality}$ bound | Interpretation |
+|---|---|---|---|---|
+| MAJORANA Demonstrator | HPGe | Covalent diamond-cubic | $\lesssim 10^{-3}$-$10^{-4}$ (3σ rough, per [`research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md`](../../../../../research/2026-05-17_KIMS-MAJORANA-quantitative-bounds.md)) | **CONDITIONAL**: observed null is consistent with EITHER (kernel applies + κ tiny via Tl-absent + different lattice geometry) OR (kernel does NOT apply to covalent Ge because §3.5 ladder derivation assumes ionic 1s-shell port structure). The two are NOT distinguishable from the bound alone. Cannot claim "κ_HPGe ≲ 10⁻⁴ explains null" without first deriving whether kernel applies to covalent lattices. |
+| Sapphire (Al₂O₃) cryogenic | Al₂O₃ | Trigonal corundum | $\to 1$ (extreme Q, IF kernel applies) | **CONDITIONAL FORWARD**: predicted rate $\sim 10^{-5}$-$10^{-7}$ events/s/kg IF kernel applies to corundum. Null observation would NOT categorically falsify framework — only the rock-salt-derived kernel claim. Walk-back of §9 Falsifier #1 below. |
+
+**Class 3 — KERNEL-DOES-NOT-APPLY-AS-DERIVED (predicted null is overdetermined)**:
+
+| Detector | Medium | Phase | Reason | Status |
+|---|---|---|---|---|
+| XENONnT | Xe(l) | Liquid | §3.5 N-parallel-atomic-LC-tank topology assumes discrete crystalline atomic sites; liquid Xe lacks this topology. The kernel's port-enumeration step does not have well-defined N for liquids. | **Null OVERDETERMINED**: Q·δ<2 sub-regenerative argument is necessary but not sufficient. The null follows from either (kernel doesn't apply) OR (Q·δ<2 even if kernel did apply). Framework cannot claim credit for predicting this null until liquid-phase port structure is derived. Does NOT count as constraint on framework. |
+
+**Cross-detector cluster — LAYERED CONFIDENCE (replaces prior "5 constraints + 1 forward")**:
+
+1. **DAMA NaI(Tl)+**: rate matches at $\kappa_{quality} = 1$ ceiling (derived consequence within applicable kernel)
+2. **COSINE/ANAIS NaI(Tl)−**: $\kappa$ < 0.4 implied; within-class κ_quality variation; framework requires crystal-quality correlation derivation
+3. **KIMS CsI(Tl)−** (within-class via Z-independent reading, locked): $\kappa$ ≲ 0.02-0.05; factor 20-50× from DAMA; within-class κ_quality variation
+4. **MAJORANA HPGe** (cross-class, CONDITIONAL): bound consistent with kernel-applies-low-κ OR kernel-doesn't-apply; NOT a clean constraint
+5. **Sapphire** (cross-class, CONDITIONAL FORWARD): if kernel applies to corundum; null would NOT categorically falsify
+6. **XENONnT** (different phase, OVERDETERMINED): null follows from kernel non-applicability AND Q·δ<2; NOT a clean constraint
+
+**Net change from cycle-12 original framing**: 3 within-class clean constraints (DAMA + COSINE/ANAIS + KIMS) + 2 cross-class conditional bounds (MAJORANA + Sapphire) + 1 overdetermined non-constraint (XENONnT). Down from "5 constraints + 1 forward prediction" to "3 within-class constraints + 2 conditional bounds + 1 forward (conditional) + 1 overdetermined." The framework's cross-detector falsification surface is narrower than the cycle-12 original claim.
 
 ## §9 — Discriminating outcomes / falsifiers
 
-**Framework falsified if**:
+Per §3.6 kernel applicability classification + §8 layered confidence (Foundation Item 3 walk-back 2026-05-17 night): falsifiers split by applicability class.
 
-1. **Sapphire cryogenic apparatus observes ZERO rate** at 3.728 keV with sensitivity $< 10^{-8}$ events/s/kg. Sapphire has highest Q + extreme regenerative regime; signal absence would falsify framework categorically.
+**Framework categorically falsified if** (within DERIVED-applicability class only):
 
-2. **$\kappa_{quality}$ does NOT correlate with crystal-quality metrics** across DAMA/COSINE/ANAIS samples. If $\kappa$ variation is random rather than tracked by mosaicity/defect-density measurements, framework loses physical grounding.
+1. **$\kappa_{quality}$ does NOT correlate with crystal-quality metrics** across DAMA / COSINE / ANAIS / KIMS samples (all within DERIVED-applicability rock-salt + Tl-doped class). If $\kappa$ variation across rock-salt+Tl samples is random rather than tracked by mosaicity / defect-density / dopant-uniformity measurements, framework loses physical grounding within its derived-applicability domain. **PRIMARY falsifier**: within-class Tier-2 #9 correlation test is the load-bearing experiment.
 
-3. **KIMS CsI(Tl) shows $\kappa$ far from NaI(Tl) value** despite same rock-salt lattice. Would indicate atomic-Z dependence the framework currently doesn't predict.
+2. **KIMS CsI(Tl) κ is materially different from rock-salt-class predictions** AFTER controlling for crystal-quality metrics. The framework hereby adopts Z-independent reading (per §8 reconciliation); a finding that κ_CsI / κ_NaI cannot be explained by quality metrics alone — i.e., requires Z-dependent atomic-physics — would force a walk-back of the Z-independence assumption.
 
-4. **$Q \cdot \delta_C < 2$** for any apparatus where signal is observed. Sub-regenerative observation would contradict framework's regenerative-threshold prediction.
+3. **$Q \cdot \delta_C < 2$** for any rock-salt + Tl-doped apparatus where signal is observed. Sub-regenerative observation within derived-applicability class would contradict framework's regenerative-threshold prediction.
+
+**Framework NARROWLY constrained** (cross-class observations CAN constrain but cannot categorically falsify):
+
+4. ~~**Sapphire cryogenic apparatus observes ZERO rate** at 3.728 keV with sensitivity $< 10^{-8}$ events/s/kg.~~ **WALKED BACK 2026-05-17 Foundation Item 3**: Sapphire is corundum (non-rock-salt), so kernel applicability is UNDERIVED per §3.6. A Sapphire null at sensitivity $< 10^{-8}$ events/s/kg would constrain the corundum-extended kernel claim (if framework attempts that extension) but does NOT categorically falsify the rock-salt-derived kernel. Re-promotion to categorical falsifier requires explicit derivation that the kernel applies to corundum lattices.
+
+5. **MAJORANA HPGe** (cross-class CONDITIONAL): null observation does NOT categorically falsify; the bound $\kappa_{HPGe} \lesssim 10^{-4}$ is consistent with either (kernel applies + κ tiny) OR (kernel doesn't apply to covalent diamond-cubic lattice). Re-promotion to categorical falsifier requires derivation of whether kernel applies to covalent Ge.
+
+6. **XENONnT** (different phase, OVERDETERMINED): null does NOT count as framework constraint; falls out of either kernel-non-applicability OR Q·δ<2 regardless. Re-promotion to clean constraint requires derivation of liquid-phase port structure.
 
 ## §10 — Common pitfalls (load-bearing)
 
 - **DO NOT include $\kappa_{entrain}$ in coupling formula** alongside parametric kernel — $\kappa_{entrain}$ (Sagnac-RLVE) is REAL-power class (mass-density drag-along); parametric kernel is REACTIVE-power class. Mixing violates `ave-power-category-check` Axis A common-pitfall rule per [`../common/ave-analytical-toolkit-index.md` §1 line 53](../../common/ave-analytical-toolkit-index.md).
 - **DO NOT use $\omega_{app} = 2\omega_{slew}$** as resonance condition. Degenerate parametric coupling puts signal at sub-harmonic of pump: $\omega_{app} = \omega_{slew}$. The $2\omega_{slew}$ is the $C_{eff}$ modulation frequency.
-- **DO NOT borrow Fermi-golden-rule 1/N²** scaling. The Dicke amplitude × matched-cycle factorization derives the same scaling from substrate physics; Fermi-golden-rule reconciliation is structural-equivalence not source-of-derivation.
+- **DO derive 1/N² from substrate-native machinery** (voltage-divider on N parallel atomic LC tanks per §3.5 + substrate-clock phase-bin enumeration per §4). DO NOT substitute Dicke quantum-optics borrowing or Fermi-golden-rule reconciliation as source-of-derivation; both are structural-equivalence notes only. Per Foundation Item 2 substrate-native re-derivation 2026-05-17.
+- **DO check §3.6 kernel applicability conditions** before applying cycle-12 predictions to a new detector substrate. Rock-salt + halide-alkali ionic crystals → derived applicability. Covalent lattices (Ge), liquids (Xe), non-rock-salt crystalline (Al₂O₃, CaF₂) → UNDERIVED, predictions are CONDITIONAL not categorical. Per Foundation Item 3 cross-substrate audit 2026-05-17.
 - **DO verify $Q \cdot \delta_C \geq 2$** before assuming deep-regenerative regime. Liquid apparatus fails; cryogenic solids exceed by orders of magnitude.
 
 ## §11 — Cross-references
