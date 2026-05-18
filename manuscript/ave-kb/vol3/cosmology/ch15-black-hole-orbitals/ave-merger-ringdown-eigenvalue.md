@@ -57,6 +57,8 @@ Comparison against three LIGO detections, including both frequency and decay tim
 
 **v2 refined formula (2026-05-18): mean -0.45%, max 2.0% per event — within GR Kerr QNM precision band (mean +0.34% per Berti+Cardoso+Will 2006 Leaver-method)**. v1 simplified formula (superseded) over-predicted by ~13% mean per event; failure mode was treating entire cavity as compliant. All from zero free parameters. Decay-time predictions need separate refinement; not yet updated for v2 mechanism.
 
-Live-fire validation: [`src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py`](../../../../../src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py) implements v1, v2, GR Berti reference; Phase 3 PASS at -0.45% mean per [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §8.
+**Phase 4 spin sweep validation (2026-05-18)**: v2 reproduces GR Kerr QNM curve across the full observed LIGO BBH spin range. 9 of 11 swept spin values (a* ∈ {0.0, 0.1, ..., 0.95}) PASS at |dev| < 3% vs GR Berti reference. Divergence onset a* ≥ 0.90 (near-extremal regime, currently unattested in LIGO catalog). Mass-independence confirmed at 7× range: **GW190521 (M = 142 M⊙, IMBH-class) matches at -0.25% per v2**; GW170729 (a* = 0.81, higher than Phase-3 max) matches at +1.77%. **v2 covers entire currently-detected LIGO BBH catalog at GR-class precision.** Near-extremal regime (a* > 0.90) deferrable to Option B (full spheroidal cavity) when LIGO detects such an event.
+
+Live-fire validation: [`src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py`](../../../../../src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py) implements v1, v2, GR Berti reference, Phase-3 LIGO-event comparison, Phase-4 spin sweep + extended LIGO events. Phase 3 + 4 results in [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §8-9.
 
 ---

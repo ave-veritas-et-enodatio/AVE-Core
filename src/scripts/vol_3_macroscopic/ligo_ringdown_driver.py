@@ -161,6 +161,50 @@ def gr_kerr_qnm_f_ring_hz(m_final_msun: float, a_star: float) -> float:
     return omega_r / (2 * math.pi)
 
 
+def phase4_spin_sweep_v2_vs_gr_qnm(a_star_range=None) -> dict:
+    """Phase-4 spin sweep: v2 refined formula vs GR Berti-QNM across spin range.
+
+    Tests v2 generalization beyond moderate-spin regime (a* = 0.64-0.74 of Phase 3).
+    Uses GR Kerr QNM (Berti+Cardoso+Will 2006) as canonical reference — GR matches
+    LIGO to <2% per Phase 2, so GR-QNM is a clean proxy for LIGO observed across
+    the full spin range.
+
+    Returns:
+        dict with keys: a_star, v2, gr_qnm, deviation_pct (each a list)
+    """
+    if a_star_range is None:
+        a_star_range = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
+    results = {"a_star": [], "v2": [], "gr_qnm": [], "deviation_pct": []}
+    for a in a_star_range:
+        if a < 0 or a > 0.95:
+            continue
+        # v2 prediction
+        r_ph_plus = 2 * (1 + math.cos((2 / 3) * math.acos(-a)))
+        x_sat = X_SAT * (NU_VAC + (1 - NU_VAC) * r_ph_plus / 3)
+        w_v2 = ELL_MODE * (1 + NU_VAC) / x_sat
+        # GR Berti QNM reference
+        w_gr = gr_kerr_qnm_omega_r_m_g(a)
+        # Deviation
+        dev = 100 * (w_v2 - w_gr) / w_gr
+        results["a_star"].append(a)
+        results["v2"].append(w_v2)
+        results["gr_qnm"].append(w_gr)
+        results["deviation_pct"].append(dev)
+    return results
+
+
+# Phase-4 extended LIGO events (higher-spin + intermediate-mass coverage)
+# Per GWTC-1 (Phys.Rev.X 9 031040 2019) + GWTC-2 (Phys.Rev.X 11 021053 2021).
+# f_kb_obs values are GR-QNM-derived since LIGO doesn't always report ringdown
+# frequencies directly — GR-QNM matches LIGO at <2% mean per Phase 2 finding,
+# so GR-QNM proxy is a defensible reference for v2 generalization test.
+LIGO_EVENTS_EXTENDED = [
+    # name, M_final_msun, a_star, f_kb_ave, f_kb_obs (= GR-QNM proxy), tau_ave_ms, tau_obs_ms
+    LigoEvent("GW170729", 80.3, 0.81, 0.0, 0.0, 0.0, 0.0),  # GWTC-1
+    LigoEvent("GW190521", 142.0, 0.72, 0.0, 0.0, 0.0, 0.0),  # GWTC-2, IMBH-class
+]
+
+
 def ave_kerr_v2_x_sat(a_star: float) -> float:
     """Phase-3 refined x_sat(a*) with Cosserat Poisson-ratio back-reaction.
 
@@ -337,6 +381,73 @@ def verify_kb_table() -> int:
         print("    PHASE 3 PASS at ~2% mean deviation — refined formula matches LIGO across")
         print("    3 events at GR-class precision. ν_vac = 2/7 cascade triangulation now")
         print("    consistent: C1 (~2%), C11 ν_vac-driven 250 rad (validated), C12 g_*=85.75.")
+
+    # Phase 4: spin sweep — test v2 generalization across the full Berti table range
+    print("\n" + "=" * 100)
+    print("Phase 4 — v2 spin sweep: validate generalization across a* range")
+    print("Reference: GR Kerr QNM (Berti+Cardoso+Will 2006); GR matches LIGO at <2% per Phase 2")
+    print("=" * 100)
+    print()
+    print(f"{'a_*':>6} {'v2 (ω_R M)':>12} {'GR (ω_R M)':>12} {'v2-vs-GR':>12} {'verdict':>14}")
+    print("-" * 70)
+    sweep = phase4_spin_sweep_v2_vs_gr_qnm()
+    pass_count = 0
+    partial_count = 0
+    fail_count = 0
+    divergence_a = None
+    for i, a in enumerate(sweep["a_star"]):
+        dev = sweep["deviation_pct"][i]
+        if abs(dev) < 3.0:
+            verdict = "PASS"
+            pass_count += 1
+        elif abs(dev) < 5.0:
+            verdict = "PARTIAL"
+            partial_count += 1
+            if divergence_a is None:
+                divergence_a = a
+        else:
+            verdict = "FAIL"
+            fail_count += 1
+            if divergence_a is None:
+                divergence_a = a
+        print(
+            f"{a:>6.2f} {sweep['v2'][i]:>12.4f} {sweep['gr_qnm'][i]:>12.4f} "
+            f"{dev:>+11.2f}% {verdict:>14}"
+        )
+    print()
+    print(f"Spin range PASS (|dev| < 3%): {pass_count} of {len(sweep['a_star'])} samples")
+    print(f"Spin range PARTIAL (|dev| 3-5%): {partial_count}")
+    print(f"Spin range FAIL (|dev| > 5%): {fail_count}")
+    if divergence_a is not None:
+        print(f"Divergence onset: a* ≥ {divergence_a:.2f} (v2 exceeds 3% deviation)")
+    else:
+        print("v2 PASSES across entire tested spin range")
+    print()
+    print("Extended LIGO events (higher-spin + intermediate-mass coverage):")
+    print(
+        f"{'Event':30} {'M':>8} {'a_*':>6} {'AVE-v2 (Hz)':>13} {'GR-QNM (Hz)':>13} "
+        f"{'v2-vs-GR':>12}"
+    )
+    print("-" * 100)
+    for ev in LIGO_EVENTS_EXTENDED:
+        f_v2 = ave_kerr_v2_f_ring_hz(ev.m_final_msun, ev.a_star)
+        f_gr = gr_kerr_qnm_f_ring_hz(ev.m_final_msun, ev.a_star)
+        dev = 100 * (f_v2 - f_gr) / f_gr
+        print(
+            f"{ev.name:30} {ev.m_final_msun:>8.1f} {ev.a_star:>6.2f} "
+            f"{f_v2:>13.2f} {f_gr:>13.2f} {dev:>+11.2f}%"
+        )
+    print()
+    print("Phase 4 outcome:")
+    print(f"  Valid v2 spin range: a* < {divergence_a if divergence_a else 0.95}")
+    if divergence_a is not None and divergence_a >= 0.85:
+        print("  v2 holds for moderate-to-high spin (a* < 0.85);")
+        print("  needs Option B (full spheroidal cavity) for near-extremal regime.")
+    elif divergence_a is not None and divergence_a >= 0.7:
+        print("  v2 holds for moderate spin only;")
+        print("  needs Option B refinement above moderate spin.")
+    else:
+        print("  v2 generalizes across full LIGO-relevant spin range.")
 
     if abs(avg_gr_vs_obs) < 5.0:
         print("FINDING — standard GR Kerr QNM matches LIGO within ~5% (canonical result).")
