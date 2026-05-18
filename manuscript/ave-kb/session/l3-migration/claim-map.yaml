@@ -300,10 +300,10 @@ entries:
 
   - l3_path: common/trampoline-framework.md
     disposition: new-leaf
-    clm_ids: "MINT (synthesis -- see notes)"
+    clm_ids: "no-claim"
     delta: "+1013/-0"
     l3_commits: ["1f00dff", "83cedf8", "fb2ac44", "a16b97a", "7e63414", "e4dca87", "53a1a7a", "e9bd335", "311e0f5", "8997431", "590c47c", "bd61693", "2c03050", "4301129", "b254a71", "510e3ea", "7ff7ad2", "85780df"]
-    status: enriched
+    status: ported
     claims:
       - "SYNTHESIS LEAF -- ~9 candidate claims, but per INVARIANT-S7 most are re-statements of claims canonical elsewhere: substrate-observability -> boundary-observables-m-q-j; alpha+G+J anchoring -> cosmic-parameter-horizon/omega-freeze; two-engine -> two-engine-architecture; A-034 kernel -> universal-saturation-kernel-catalog"
       - "candidate own-claims to assess at port: the six-step ground-up substrate construction; the genesis phase-transition-while-spinning mechanism (u_0 from Omega_freeze); the empirical cubic-anisotropy breathing-soliton result"
