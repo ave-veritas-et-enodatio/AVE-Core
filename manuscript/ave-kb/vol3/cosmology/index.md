@@ -19,7 +19,7 @@ Cosmological and astrophysical phenomena derived from the $\mathcal{M}_A$ LC lat
 | QNM Quality Factor | $Q = \ell$ [Ch.15](./ch15-black-hole-orbitals/qnm-quality-factor.md) |
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ [Ch.15](./ch15-black-hole-orbitals/ave-compactness-limit.md) |
 | Hawking Temperature as Impedance Noise | $T_H = \hbar c^3/(8\pi G M k_B)$ [Ch.15](./ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md) |
-| Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} \approx 13.4$ mm/s (zero free parameters) [Ch.14](./ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
+| Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} = V_\infty \cdot 2(U_\oplus/C_0) \cdot (\cos\delta_{in} - \cos\delta_{out})$ (zero free parameters); Anderson 2008 anchor 2/6 within 1$\sigma$, 3/6 within 2$\sigma$ [Ch.14](./ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
 | Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Ch.14](./ch14-orbital-mechanics/lunar-inductive-heating.md) |
 
 ## Derivations and Detail
@@ -29,7 +29,7 @@ Cosmological and astrophysical phenomena derived from the $\mathcal{M}_A$ LC lat
 | [Ch.4: Generative Cosmology](./ch04-generative-cosmology/index.md) | Hubble constant as LC crystallisation rate ($H_\infty \approx 69.33$ km/s/Mpc), dark energy as lattice latent heat (phantom $w < -1$), CMB thermal floor, JWST early-galaxy paradox ($\tau_{ind} \approx 65.1$ Myr), black holes as impedance mismatch |
 | [Ch.5: Dark Sector](./ch05-dark-sector/index.md) | MOND acceleration scale $a_0$ derived from $H_\infty$, galactic rotation from Axiom 4 saturation operator, RAR comparison, five-galaxy validation, VLBI and DAMA falsification tests |
 | [Ch.6: Solar System Impedance](./ch06-solar-system/index.md) | Heliospheric impedance profile, 'Oumuamua acceleration (91% match), Oort Cloud as saturation boundary, Kirkwood gaps as cavity modes ($<0.3\%$), planetary magnetopause standoff, Two Winds decoupling (plasma vs. gravitational stator), orbital LC friction paradox resolution |
-| [Ch.14: Macroscopic Orbital Mechanics](./ch14-orbital-mechanics/index.md) | Saturn ring integrator (spontaneous Cassini gaps), Mercury perihelion advance (43''/century), solar flares as macroscopic LED avalanche (0.46 yr FWHM), flyby anomaly Sagnac operator ($\Delta V \approx 13.4$ mm/s), lunar inductive heating ($P_{topo} \approx 1.04$ TW) |
+| [Ch.14: Macroscopic Orbital Mechanics](./ch14-orbital-mechanics/index.md) | Saturn ring integrator (spontaneous Cassini gaps), Mercury perihelion advance (43''/century), solar flares as macroscopic LED avalanche (0.46 yr FWHM), flyby anomaly Sagnac operator (Anderson 2008 6-spacecraft anchor: 2/6 within 1$\sigma$, 3/6 within 2$\sigma$; Regime-IV stator-boundary mechanism), lunar inductive heating ($P_{topo} \approx 1.04$ TW) |
 | [Ch.15: Black Hole Orbitals](./ch15-black-hole-orbitals/index.md) | Electron--BH isomorphism, accretion disk QPO quantisation, Hawking radiation as Nyquist noise leakage, merger ringdown eigenvalue (1.7% error), $Q = \ell$, compactness limit $2/7 = \nu_{vac}$, first-principles predictions (iron K$\alpha$, jets, GW memory, EHT shadow) |
 
 ---
