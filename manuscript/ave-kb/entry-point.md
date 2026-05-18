@@ -87,7 +87,7 @@ Engineering translation of AVE theory into falsifiable hardware. Establishes the
 | Domain | Contents |
 |---|---|
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
-| [Advanced Applications](vol4/advanced-applications/index.md) | Metric-catalyzed fusion; metamaterials; native silicon design engine |
+| [Advanced Applications](vol4/advanced-applications/index.md) | Metric-catalyzed fusion; native silicon design engine |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
 | [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
 | [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, hardware netlists |
