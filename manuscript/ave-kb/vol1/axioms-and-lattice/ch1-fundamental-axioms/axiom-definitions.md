@@ -11,32 +11,14 @@ claims: [clm-3kzmt9, clm-dfaiwj]
 
 ## Section 1.2: The Four Fundamental Axioms
 
-The macroscopic continuous dynamics of the vacuum rest on exactly four canonical structural constraints. The authoritative statements live in `common_equations/eq_axiom_[1-4].tex` (included verbatim in the foreword of every volume); they are reproduced here for in-chapter pedagogical layering, with each axiom followed by the underlying mechanism that grounds it.
+The macroscopic continuous dynamics of the vacuum rest on exactly four canonical structural axioms. The authoritative statements live in `common_equations/eq_axiom_[1-4].tex` (included verbatim in the foreword of every volume); they are reproduced here for in-chapter pedagogical layering. The numerical calibration constants ($\ell_{node}$, $Z_0$, $\alpha$, $\xi_{topo}$, $V_{snap}$, $V_{yield}$, $G$) are *derived* from these axioms — they are not themselves axioms; their definitions and axiom attributions live in `common_equations/eq_calibration_constants.tex` and `eq_gravity_derived.tex`.
 
-1. **Axiom 1 — Impedance.** The vacuum is a discrete LC resonant network with characteristic impedance and lattice pitch
+1. **Axiom 1 — Substrate Topology (Chiral Laves K4 Cosserat Crystal).** The physical vacuum *is* a chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ — a 3D crystallised substrate of micropolar nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ chiral space group with 4-fold K4 nearest-neighbour connectivity. Each node carries six intrinsic degrees of freedom: three **translational** (capacitive coupling $\varepsilon_0$, identified with the electric field) and three **microrotational** (inductive coupling $\mu_0$, identified with the magnetic field). The Cosserat microrotational DOF *is* the substrate-native origin of intrinsic spin — macroscopic angular momentum, the EM magnetic field, and QM electron spin are three projections of the same per-node rotational coordinate. In the macroscopic continuum limit the lattice is evaluated as a **Trace-Reversed Chiral LC Network** supporting trace-free transverse EM wave propagation. (Legacy short names: *Chiral Laves K4 Crystal*, *LC Network*.)
 
-   $$
-   Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega, \qquad \ell_{node} = \hbar/(m_e c) \approx 3.86 \times 10^{-13}\,\text{m}
-   $$
-
-   where $\mu_0$ is the per-node inductance (rotational inertia) and $\varepsilon_0$ is the per-node capacitance (elastic compliance).
-
-   *Underlying mechanism (substrate topology).* The physical vacuum operates as a dense, non-linear **Electromagnetic LC Resonant Network** $\mathcal{M}_A(V, E, t)$. To support intrinsic spin and trace-free transverse EM waves in the macroscopic continuous limit, this vector network is evaluated using the continuum mechanics analogy of a **Trace-Reversed Chiral LC Network**. Classical mechanics and network dynamics are recognised not as fundamental physical truths, but as *macroscopic effective theories* modelling the bulk behaviour of interfering electromagnetic standing waves.
-
-2. **Axiom 2 — Fine Structure.** The fine-structure constant couples topology to impedance:
-
-   $$
-   \alpha = \frac{e^2}{4\pi\varepsilon_0 \hbar c} \approx \frac{1}{137.036}
-   $$
-
-   and sets the saturation threshold for the dielectric yield voltage:
-
-   $$
-   V_{yield} = \sqrt{\alpha}\,V_{snap} = \sqrt{\alpha}\,\frac{m_e c^2}{e} \approx 43.65\;\text{kV}
-   $$
+2. **Axiom 2 — Topo-Kinematic Isomorphism.**
 
    <!-- claim-quality: clm-dfaiwj -->
-   *Underlying mechanism (topo-kinematic isomorphism).* Charge $q$ is a discrete geometric dislocation (a localised phase twist) within the $\mathcal{M}_A$ electromagnetic network. The fundamental dimension of charge is identical to length, $[Q] \equiv [L]$, with macroscopic scaling given by the Topological Conversion Constant:
+   Charge $q$ is a discrete geometric dislocation (a localised phase twist) within $\mathcal{M}_A$. The Burgers vector of the dislocation is the lattice pitch $\ell_{node}$, so the fundamental dimension of charge is identical to length, $[Q] \equiv [L]$, with macroscopic scaling given by the Topological Conversion Constant:
 
    > **[Resultbox]** *Topological Conversion Constant*
    >
@@ -46,18 +28,12 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
    > \xi_{topo} \equiv \frac{e}{\ell_{node}} \quad \text{[Coulombs / Meter]}
    > $$
 
+   Charge quantisation (dislocation Burgers vectors respect the K4 lattice), charge sign (dislocation handedness in the chiral $I4_1 32$ structure), and fractional quark charges (the $\mathbb{Z}_3$ Borromean split into $\pm\tfrac{1}{3}e$ and $\pm\tfrac{2}{3}e$, the Witten effect) all follow directly.
+
    <!-- claim-quality: clm-3kzmt9 -->
-   ⚠ *Notation warning:* $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in Axiom 3. They are different quantities sharing a Greek letter. The numerical value of $\alpha$ is derived geometrically in Ch.8 from the $S_{11}$-minimum Golden Torus.
+   ⚠ *Notation warning:* $\xi_{topo}$ is distinct from the dimensionless Machian hierarchy coupling $\xi$ that appears in `eq_gravity_derived.tex`. They are different quantities sharing a Greek letter. The numerical value of $\alpha$ is derived geometrically in Ch.8 from the $S_{11}$-minimum Golden Torus.
 
-3. **Axiom 3 — Gravity.** Newton's constant sets the Machian boundary impedance:
-
-   $$
-   G = \frac{\hbar c}{7\,\xi\,m_e^2}
-   $$
-
-   where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15 \times 10^{43}$ is the **dimensionless** Machian hierarchy coupling. The gravitational refractive index $n(r) = 1 + 2GM/(rc^2)$ acts symmetrically on $\mu_{eff}$ and $\varepsilon_{eff}$, leaving $Z = Z_0$ invariant.
-
-   *Underlying mechanism (effective action principle).* The continuous system evolves to minimise the macroscopic hardware action $S_{AVE}$, with dynamics encoded in the continuous phase transport field $\mathbf{A}$:
+3. **Axiom 3 — Minimum Reflection Principle.** The substrate, in its continuum limit, evolves to extremise the macroscopic action $S_{AVE}$. Two mathematically equivalent forms are co-canonical. The **variational form** encodes the dynamics in the per-node vector potential $\mathbf{A}_n$:
 
    > **[Resultbox]** *Macroscopic Hardware Action*
    >
@@ -67,26 +43,18 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
    > \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0\,|\partial_t \mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}\,|\nabla \times \mathbf{A}_n|^2
    > $$
 
-   The Lagrangian's coefficients are exactly Axiom 1's $\varepsilon_0$ and $1/\mu_0$; the action principle is not an independent postulate but the wave-dynamical face of the same impedance.
+   The **boundary form** states that the substrate minimises the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary $\partial\Omega$. The two are equivalent: the Euler–Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimises $|\Gamma|^2$. The axiom is named for the externally-observable quantity it extremises (the boundary reflection $|\Gamma|^2$), not the interior Lagrangian density. (Legacy name: *Effective Action Principle*.)
 
-4. **Axiom 4 — Universal Saturation Kernel.** The universal yield kernel bounding all LC modes:
+4. **Axiom 4 — Universal Saturation Kernel.** The substrate's bulk response to local strain $A$ (normalised to the bandwidth limit $A_{yield}$) is the universal quarter-arc yield kernel:
 
-   $$
-   S(A) = \sqrt{1 - (A/A_{yield})^2}
-   $$
-
-   At $A = 0$, $S = 1$ (linear Maxwell recovered); at $A \to A_{yield}$, $S \to 0$ (saturation).
-
-   *Underlying mechanism (non-linear dielectric).* The vacuum acts as a non-linear dielectric with squared yield limit ($n=2$), aligning with the $E^4$ energy density scaling of the Euler-Heisenberg QED Lagrangian and yielding the $\chi^{(3)}$ Kerr displacement. The constitutive permittivity collapses as $\varepsilon_{eff} = \varepsilon_0\,S$ while the differential (energy-absorbing) capacitance diverges as
-
-   > **[Resultbox]** *Non-Linear Dielectric Saturation*
+   > **[Resultbox]** *Universal Saturation Kernel*
    >
    > <!-- eq:axiom4_saturation (architectural label) -->
    >
    > $$
-   > C_{eff}(\Delta\phi) = \frac{C_0}{\sqrt{1 - (\Delta\phi/\alpha)^2}} = \frac{C_0}{S}
+   > S(A) = \sqrt{1 - (A/A_{yield})^2}, \qquad A \in [0,\,A_{yield}]
    > $$
 
-   These are dual measures of the same Born-Infeld structure (constitutive permittivity vs energy-absorbing differential capacitance), not contradictory. The Born-Infeld form prevents the $E^6$ divergence of higher-order polynomial approximations.
+   At $A = 0$, $S = 1$ (linear Maxwell recovered); at $A \to A_{yield}$, $S \to 0$ with vertical tangent — the substrate can no longer sustain a linear response and *must reorganise topologically*. The same kernel governs topological-reorganisation events at every scale (the cross-scale A-034 saturation-kernel catalogue). It is the squared yield limit ($n=2$) of a non-linear Born-Infeld dielectric: the constitutive permittivity collapses as $\varepsilon_{eff} = \varepsilon_0 S$ while the energy-absorbing differential capacitance diverges as $C_{eff}(\Delta\phi) = C_0/\sqrt{1-(\Delta\phi/\alpha)^2} = C_0/S$ — dual measures of the same Born-Infeld structure.
 
 ---
