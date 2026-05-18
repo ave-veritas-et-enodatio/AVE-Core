@@ -156,6 +156,73 @@ My read: bundle F1+F2+F3 in one commit similar to the Q-G27 walk-back pattern. T
 
 If you want to ship it, give the green light and I'll execute the bundled walk-back.
 
+## Section 8.5 — Post-audit revision (2026-05-18 late evening, post-flyby-driver audit cycle)
+
+Per Grant's "make sure youre using all relevant skills" instruction, dispatched ave-corpus-grep + ave-auditor + WebFetch (verify-before-cite Anderson 2008) AFTER the driver result was first written. All three returned findings that materially change the picture:
+
+### Audit revision 1 — Engine code is already correct; the LEAF is the drift
+
+[`src/ave/gravity/solar_impedance.py:575-693`](../src/ave/gravity/solar_impedance.py) already implements the Anderson empirical `(cos δ_in − cos δ_out)` form and has been doing so since pre-driver. The docstring at lines 644-647 explicitly says: "AVE prediction: Δv = v_inf × (2 ω_E R_E / c) × (cos δ_in - cos δ_out). This is IDENTICAL to the Anderson formula, but now has a physical origin: the impedance gradient at the rotating magnetopause boundary."
+
+Per-spacecraft catalog at `solar_impedance.py:696-727` covers 7 spacecraft (Anderson 6 + Rosetta II 2007). Tests at `src/tests/test_saturn_flyby.py:80-94` assert NEAR ≈ 13.25 mm/s, Galileo I ≈ 4.14 mm/s, MESSENGER |Δv| < 0.5.
+
+**Implication**: my prereg Section 2 claim "Driver script: NONE" was wrong. The engine has had per-spacecraft predictions all along; only the manuscript leaf and 5+ index tables carry the wrong `cos(α)cos(δ)` notation. This is **Class C drift between matrix/leaves and engine code** per ave-walk-back skill, not Type D mechanism re-scope. F1 is the leaf catching up to the engine, not the engine catching up to a new claim. **Mechanism preservation argument STRENGTHENED** (engine was right all along).
+
+### Audit revision 2 — Cascade scope expanded from 1 file to 9+ files
+
+Result doc Section 6 originally claimed "no other corpus location cites the '13.4 mm/s without fitting' claim — Only flyby-anomaly-sagnac-operator.md is affected." Cross-repo grep showed this is factually wrong. Actual propagation graph:
+
+| File | Issue |
+|---|---|
+| `manuscript/ave-kb/vol3/index.md:42` | Volume Key Results: "ΔV_flyby ≈ 13.4 mm/s; falsifies Lense-Thirring" |
+| `manuscript/ave-kb/vol3/cosmology/index.md:22` | Cosmology Key Results: "ΔV_flyby ≈ 13.4 mm/s (zero free parameters)" |
+| `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/index.md:14` | Chapter Key Results: full literal formula + "≈ 13.4 mm/s" |
+| `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/index.md:26` | Document table entry: "ΔV ≈ 13.4 mm/s" |
+| `manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:99-112` | LaTeX chapter source: identical formula + "intrinsically outputs ΔV ≈ 13.4 mm/s without fitting" + "Pioneer, Galileo, NEAR precisely" + figure caption "hits exact empirical velocity shift identically" |
+| `docs/framing_and_presentation.md:339-349` | Anti-pattern remediation: invokes literal `cos(α)cos(δ)` factor; status DEFERRED 2026-04-19 with target "per-flyby table needed for honest framing" — **driver result NOW PROVIDES this table** (status flip warranted) |
+| `manuscript/ave-kb/common/closure-roadmap.md §0.5` | (NOT currently in result doc — needs Type B+D bidirectional pairing changelog entry per ave-walk-back skill 3l) |
+| `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md:20` | Cross-ref to flyby leaf for "Γ_sagnac derivation at planetary boundary" — upstream dependency |
+| `manuscript/bibliography.bib:111-120` | Anderson 2008 in bibliography but NEVER cited in body text anywhere — bibliography entry should get `\cite{flyby2008}` invocation when walk-back goes through chapter LaTeX |
+
+**Implication**: result doc Section 6 sanity-check sweep was incomplete. The Q-G27 walk-back pattern from earlier this session was specifically taught by the ave-walk-back skill as "a propagation graph, not a single edit." I missed this for flyby.
+
+### Audit revision 3 — Anderson Table I sign convention disagreement (blocks F2 pinning)
+
+Driver `flyby_anomaly_anderson_anchor.py:92` uses NEAR (δ_in=-20.76°, δ_out=+71.96°). Existing test at `src/tests/test_saturn_flyby.py:82` uses NEAR (δ_in=+20.8°, δ_out=-71.9°). Existing catalog at `src/ave/gravity/solar_impedance.py:707-714` uses NEAR (δ_in=+20.8°, δ_out=-71.9°). **One of these has the sign wrong against Anderson 2008 PRL Table I.**
+
+Both give ~+13.3 mm/s for NEAR (cosines are even), so observationally indistinguishable for this case. But the convention divergence indicates one or both came from a non-canonical source. Per `verify-before-cite` discipline: **need direct PRL Table I read before pinning per-spacecraft δ values in any walk-back commit.** WebFetch on Wikipedia confirmed V_∞ + observed ΔV values but Wikipedia does NOT have asymptote angles — need the PRL paper directly.
+
+### Audit revision 4 — F3 "Anderson's own characterization" claim is unsourced
+
+Result doc Section 3 Finding 3 and Section 5 Action F3 both attribute the Rosetta I + MESSENGER outlier interpretation to "Anderson 2008's own characterization of the simple empirical fit's limits." **No file:line cite to Anderson 2008 is provided anywhere — neither in result doc, driver, nor prereg.** This is agent hypothesis presented as Anderson-attribution.
+
+Per `verify-before-cite`: F3 needs either (a) verbatim PRL quotation pinning Anderson's MESSENGER framing, or (b) rewrite to mechanism-honest language: "AVE Sagnac-RLVE mechanism does not reach Rosetta I (+5σ) or MESSENGER (+3.5σ); further substrate work needed to determine if these are genuine mechanism falsifiers or geometry-dependent additional terms."
+
+### Audit revision 5 — Cross-repo mechanism question (AVE-PONDER scope note)
+
+`AVE-PONDER/manuscript/vol_ponder/chapters/02_thrust_and_sagnac_telemetry.tex:63` (2026-05-17 cleanup, post-cohesive-narrative refactor) states: *"The K4 lattice is at rest in the CMB rest frame (per AVE-QED Q-G24); the Earth moves through it at ~370 km/s; the rotor's contribution is a localized perturbation around the rotating object via mass-density-coupled mutual inductance"*.
+
+This **CONTRADICTS** the flyby leaf's premise at line 10: *"It physically locks the LC network up to its rigid solid boundary: R_⊕ = 6,371 km"* and line 12: *"the massive rigidly rotating planet shears violently against the surrounding compliant free-space vacuum"*. If PONDER's post-Q-G24 framing is canonical (K4 at rest in CMB; Earth moves through at 370 km/s, not 465 m/s boundary shear), then the flyby leaf's U_⊕ = 465 m/s boundary mechanism is **mechanically wrong** — the relevant velocity is ~370 km/s (Earth-through-CMB) not 465 m/s (Earth-equatorial-rotation).
+
+This is potentially a **mechanism-level walk-back** beyond F1/F2/F3, not just a notation correction. Need cross-volume audit to determine whether:
+- (a) The flyby leaf's "Earth locks LC network at R_⊕" mechanism survives at fine scales (in CMB rest frame, this would be rotor-local coupling rather than bulk boundary shear)
+- (b) The U_⊕ = 465 m/s coupling factor needs replacement with a different velocity scale
+- (c) The mechanism is actually about boundary-layer coupling between Earth-as-mass and LC vacuum, and 465 m/s is the right scale via a different argument
+
+### Revised recommendation (per audit DEFER pending prerequisites)
+
+**DO NOT execute the F1+F2+F3 walk-back tonight.** Audit found four prerequisites that need resolution first:
+
+1. **Anderson PRL Table I verification** — resolve sign convention disagreement between driver vs test/engine; pin verbatim per-spacecraft δ_in/δ_out values from the PRL paper directly (not Wikipedia, not from memory)
+2. **F3 rewrite** — replace unsourced "Anderson's own characterization" with mechanism-honest language OR pin Anderson's actual text
+3. **Cascade scope expansion** — F1/F2/F3 bundle should touch ~9 files (5 vol3 index tables + chapter LaTeX + framing-presentation status flip + closure-roadmap §0.5 + lunar-inductive-heating cross-ref), not just the single leaf
+4. **AVE-PONDER mechanism question** — adjudicate whether the U_⊕ = 465 m/s boundary-shear premise survives PONDER's CMB-rest-frame canonical (separate audit cycle, multi-volume)
+
+Next session candidates:
+- Build a `verify-before-cite` Anderson PRL Table I pinning pass (15-30 min: WebFetch on arXiv preprint of Anderson 2008 if available; reconcile sign conventions across driver/test/engine catalog)
+- Execute scoped walk-back per audit's recommendation (F1+F2+F3 across 9 files + closure-roadmap entry); deferred F4 PONDER mechanism question to separate cycle
+- Open question: should the U_⊕ = 465 m/s mechanism be walked back to "CMB-frame-derived boundary coupling" pending the PONDER vs flyby reconciliation?
+
 ## Section 9 — Net standing post-finding
 
 | Aspect | Before tonight | After driver |
