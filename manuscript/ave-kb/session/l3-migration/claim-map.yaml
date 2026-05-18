@@ -195,14 +195,14 @@ entries:
 
   - l3_path: common/cosmic-parameter-horizon-a031-refinement.md
     disposition: new-leaf
-    clm_ids: "MINT x2"
+    clm_ids: "MINT x1"
     delta: "+76/-0"
     l3_commits: ["84729f4", "b254a71", "510e3ea"]
     status: enriched
     claims:
-      - "A-031 refinement: our parent-BH cosmic parameters (M,J,Omega_freeze) are inaccessible (we sit inside the cosmic Gamma=-1 boundary), but the strain-snap mechanism that set them is observable at four smaller scales"
-      - "three-route framework commitment: Route 1 (EM via alpha) + Route 2 (gravitational via G) + Route 3 (cosmological via Omega_freeze) must all converge on the same magic-angle u_0* or the single-parameter framework is falsified"
-    notes: "CROSS-LEAF: the three-route claim is duplicated in omega-freeze-cosmic-grain-cascade.md. Decide one canonical owner at port; the other cites. Depends on boundary-observables-m-q-j.md + universal-saturation-kernel-catalog.md."
+      - "MINT: A-031 refinement -- our parent-BH cosmic parameters (M,J,Omega_freeze) are inaccessible (we sit inside the cosmic Gamma=-1 boundary), but the strain-snap mechanism that set them is observable at four smaller scales"
+      - "CITE (not mint): three-route framework commitment -- owned by omega-freeze-cosmic-grain-cascade.md; this leaf states it as a corollary of the A-031 refinement and carries omega-freeze's clm-id as a reference"
+    notes: "CROSS-LEAF RESOLVED: three-route owner = omega-freeze-cosmic-grain-cascade.md (claim central there -- title + §1 three-numbers + §2 freeze-in mechanism = the substantiation; here it is only a copy-pasted corollary). Port: collapse this leaf's 'three-route framework commitment' section to a 1-line statement + cite. Depends on boundary-observables-m-q-j.md + universal-saturation-kernel-catalog.md."
 
   - l3_path: common/dark-wake-bemf-foc-synthesis.md
     disposition: new-leaf
@@ -259,11 +259,11 @@ entries:
     l3_commits: ["209447d", "5239909", "b254a71", "07ea7de", "ac6301b", "0ff765a", "15ce5e9", "240ccb4"]
     status: enriched
     claims:
-      - "three-route framework: alpha, G, J_cosmic all derive from a single cosmological IC parameter Omega_freeze via magic-angle u_0* (DUP -- see cosmic-parameter-horizon)"
+      - "three-route framework: alpha, G, J_cosmic all derive from a single cosmological IC parameter Omega_freeze via magic-angle u_0* (OWNS -- cosmic-parameter-horizon cites this clm-id)"
       - "Omega_freeze freeze-in: at lattice genesis the crystallizing rotating region locks cosmic spin into the substrate as bond over-bracing u_0* + global chirality"
       - "eight testable cosmic-axis observables all predicted to align with the Omega_freeze axis (l=174deg, b=-5deg)"
       - "G-anisotropy: dG(n)/G_iso = -(4pi/15).delta_chi.f_R.P2(cos theta) -- P2 shape sharp, amplitude bracketed at alpha^N (N>=2, not yet derived)"
-    notes: "CROSS-LEAF: claim 1 (three-route) duplicates cosmic-parameter-horizon-a031-refinement.md -- one canonical owner, other cites. Port the NET (downgraded) state: 15ce5e9 walked back docs 117/118. Sections 4 + 6 are PROVISIONAL (not claims). Multi-claim -> Tier-2 markers."
+    notes: "CROSS-LEAF RESOLVED: this leaf OWNS the three-route claim (claim 1) -- central here (title + §1 three-numbers + §2 freeze-in mechanism = the substantiation); cosmic-parameter-horizon cites it. Port the NET (downgraded) state: 15ce5e9 walked back docs 117/118. Sections 4 + 6 are PROVISIONAL (not claims). Multi-claim -> Tier-2 markers."
 
   - l3_path: common/operators.md
     disposition: new-leaf
@@ -278,7 +278,7 @@ entries:
 
   - l3_path: common/q-g47-substrate-scale-cosserat-closure.md
     disposition: new-leaf
-    clm_ids: "MINT x4"
+    clm_ids: "MINT x3"
     delta: "+123/-0"
     l3_commits: ["84729f4", "b254a71", "510e3ea", "8e28c1e"]
     status: enriched
@@ -286,8 +286,8 @@ entries:
       - "magic-angle condition: K4 bulk/shear moduli lock at K(u_0*)=2G(u_0*), u_0*~0.187; vacuum Poisson ratio nu_vac=2/7 follows"
       - "|T|=12 universality: tetrahedral group order 12 appears via four independent K4 routes -> chi_K=12 structurally forced, not fit"
       - "substrate-scale Cosserat prefactors: mu+kappa=xi_K1.T_EM, beta+gamma=xi_K2.T_EM.l_node^2, with xi_K2/xi_K1=12 forced"
-      - "two-engine convergence on p*=8pi-alpha (K4-TLM EMT route + Master-Equation FDTD Q-factor route) -- DUP, see two-engine"
-    notes: "CROSS-LEAF: claim 4 (p*=8pi-alpha) duplicates two-engine-architecture-a027.md -- one owner, other cites. Check vol1 Ch2 macroscopic-moduli for an existing K=2G / nu_vac=2/7 claim before minting claim 1. xi-namespace de-collision is owned by xi-topo-traceability.md -- do not re-mint. Multi-claim -> Tier-2 markers."
+      - "CITE (not mint): two-engine convergence on p*=8pi-alpha -- owned by two-engine-architecture-a027.md; this leaf appends it under Status, itself defers to that leaf, carries its clm-id as a reference"
+    notes: "CROSS-LEAF RESOLVED: p*=8pi-alpha convergence owner = two-engine-architecture-a027.md (the claim IS a worked demo of A-027's multi-model-consistency thesis; here it is a copy-pasted Status appendix). Port: collapse this leaf's 'Two-engine convergence' section to a 1-line statement + cite. Check vol1 Ch2 macroscopic-moduli for an existing K=2G / nu_vac=2/7 claim before minting claim 1. xi-namespace de-collision is owned by xi-topo-traceability.md -- do not re-mint. Multi-claim -> Tier-2 markers."
 
   - l3_path: common/trampoline-analogy-primer.md
     disposition: new-leaf
@@ -318,8 +318,8 @@ entries:
     claims:
       - "A-027 two-engine architecture: K4-TLM for sub-saturation (A<<1, has Z(V) not c_eff(V)) + Master-Equation FDTD for bound-state (A->1, has both, traps solitons)"
       - "only an engine with wave-speed modulation c_eff(V) can localize waves into a bound state -- K4-TLM cannot produce trapped solitons (architecture mismatch, not framework failure)"
-      - "two-engine convergence on p*=8pi-alpha at K=2G via two independent routes -- DUP, see q-g47"
-    notes: "CROSS-LEAF: claim 3 (p*=8pi-alpha convergence) shared verbatim with q-g47-substrate-scale-cosserat-closure.md -- pick one canonical owner."
+      - "two-engine convergence on p*=8pi-alpha at K=2G via two independent routes (OWNS -- q-g47 cites this clm-id)"
+    notes: "CROSS-LEAF RESOLVED: this leaf OWNS the p*=8pi-alpha convergence claim (claim 3) -- it is the worked demonstration of A-027's multi-model-consistency thesis; q-g47 cites it. The 'two routes' (K4-TLM + Master-Equation) are an intrinsic two-fold substantiation within this single claim, not a leaf split."
 
   - l3_path: common/universal-saturation-kernel-catalog.md
     disposition: new-leaf
