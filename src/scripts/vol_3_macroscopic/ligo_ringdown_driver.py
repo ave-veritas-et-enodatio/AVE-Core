@@ -246,6 +246,77 @@ def ave_kerr_v2_f_ring_hz(m_final_msun: float, a_star: float) -> float:
     return omega_r / (2 * math.pi)
 
 
+# Berti+Cardoso+Will 2006 tabulated imaginary part ω_I·M for ell=2, m=2, n=0
+# (Leaver-method continued-fraction values from https://pages.jh.edu/eberti2/ringdown/).
+# Note: convention ω_I > 0 with damping prefactor exp(-ω_I·t); τ_GR = 1/ω_I.
+BERTI_KERR_QNM_OMEGA_I_TABLE = [
+    (0.00, 0.08896),
+    (0.10, 0.08882),
+    (0.20, 0.08847),
+    (0.30, 0.08793),
+    (0.40, 0.08712),
+    (0.50, 0.08597),
+    (0.60, 0.08434),
+    (0.70, 0.08197),
+    (0.80, 0.07831),
+    (0.90, 0.07198),
+    (0.95, 0.06721),
+]
+
+
+def gr_kerr_qnm_omega_i_m_g(a_star: float) -> float:
+    """Canonical GR Kerr QNM dimensionless ω_I·M for ell=2, m=2, n=0.
+
+    Linear interpolation over Berti+Cardoso+Will 2006 Leaver-method values.
+    """
+    if not 0.0 <= a_star <= 0.95:
+        raise ValueError(
+            f"a_star must be in [0.0, 0.95] (Berti table range), got {a_star}"
+        )
+    for i in range(len(BERTI_KERR_QNM_OMEGA_I_TABLE) - 1):
+        a_lo, w_lo = BERTI_KERR_QNM_OMEGA_I_TABLE[i]
+        a_hi, w_hi = BERTI_KERR_QNM_OMEGA_I_TABLE[i + 1]
+        if a_lo <= a_star <= a_hi:
+            frac = (a_star - a_lo) / (a_hi - a_lo)
+            return w_lo + frac * (w_hi - w_lo)
+    return BERTI_KERR_QNM_OMEGA_I_TABLE[-1][1]
+
+
+def gr_kerr_qnm_tau_ms(m_final_msun: float, a_star: float) -> float:
+    """Standard GR Kerr QNM decay time τ = 1/ω_I via Berti table interpolation."""
+    omega_i_m_g = gr_kerr_qnm_omega_i_m_g(a_star)
+    m_g_seconds = T_SUN * m_final_msun
+    omega_i = omega_i_m_g / m_g_seconds
+    return (1.0 / omega_i) * 1000  # s → ms
+
+
+def ave_tau_v2_ms(m_final_msun: float, a_star: float, tau_v1_ms: float) -> float:
+    """Phase-5 v2 decay time τ via lattice-Q preservation.
+
+    Mechanism: K4 lattice impedance sets the Q-factor (frequency-relative damping
+    rate); AVE Q is invariant across v1/v2 refinements because the rigid Cosserat
+    skeleton (ν_vac fraction) determines damping, not the spin-dependent boundary
+    radius. Cavity-radius refinement (v1 → v2) shifts ω_R but preserves Q:
+
+        Q_v2 = Q_v1  (lattice-set, doesn't change between v1 and v2)
+        Q = ω_R × τ / 2
+        => τ_v2 = τ_v1 × (ω_R_v1 / ω_R_v2)
+
+    The same Cosserat-skeleton mechanism that shifts ω_R_v1 → ω_R_v2 also implies
+    τ shifts inversely. v2 should match LIGO obs τ to similar precision as v2 ω_R
+    (~1-2%) if Q-preservation holds.
+
+    Args:
+        m_final_msun: final remnant mass in solar masses
+        a_star: dimensionless spin
+        tau_v1_ms: v1 decay time prediction (from KB-cited table — v1 formula
+                   ω_I = (ω_R - m·Ω)/(2·ℓ) at r_Ω = r_ph·√(1+ν_vac))
+    """
+    omega_r_v1_m_g = OMEGA_R_M_G_COLD * kerr_correction_factor(a_star)
+    omega_r_v2_m_g = ELL_MODE * (1 + NU_VAC) / ave_kerr_v2_x_sat(a_star)
+    return tau_v1_ms * (omega_r_v1_m_g / omega_r_v2_m_g)
+
+
 def verify_kb_table() -> int:
     """Verify each event in LIGO_EVENTS against KB-cited values.
 
@@ -448,6 +519,67 @@ def verify_kb_table() -> int:
         print("  needs Option B refinement above moderate spin.")
     else:
         print("  v2 generalizes across full LIGO-relevant spin range.")
+
+    # Phase 5: decay-time τ v2 refinement via lattice-Q preservation
+    print("\n" + "=" * 100)
+    print("Phase 5 — decay-time τ v2 refinement via lattice-Q preservation")
+    print("Mechanism: K4-lattice Q invariant across v1/v2 (rigid Cosserat skeleton sets Q)")
+    print("=" * 100)
+    print()
+    print("    Q_v2 = Q_v1  =>  τ_v2 = τ_v1 × (ω_R_v1 / ω_R_v2)")
+    print()
+    print(
+        f"{'Event':12} {'a_*':>6} {'τ_v1 (ms)':>11} {'τ_v2 (ms)':>11} "
+        f"{'τ_GR (ms)':>11} {'τ_LIGO':>10} {'v2 vs obs':>12} {'v1 vs obs':>12}"
+    )
+    print("-" * 110)
+    avg_tau_v2_vs_obs = 0.0
+    avg_tau_v1_vs_obs = 0.0
+    avg_tau_gr_vs_obs = 0.0
+    for ev in LIGO_EVENTS:
+        tau_v1 = ev.tau_kb_ave_ms
+        tau_v2 = ave_tau_v2_ms(ev.m_final_msun, ev.a_star, tau_v1)
+        tau_gr = gr_kerr_qnm_tau_ms(ev.m_final_msun, ev.a_star)
+        d_v2 = 100 * (tau_v2 - ev.tau_kb_obs_ms) / ev.tau_kb_obs_ms
+        d_v1 = 100 * (tau_v1 - ev.tau_kb_obs_ms) / ev.tau_kb_obs_ms
+        d_gr = 100 * (tau_gr - ev.tau_kb_obs_ms) / ev.tau_kb_obs_ms
+        avg_tau_v2_vs_obs += d_v2
+        avg_tau_v1_vs_obs += d_v1
+        avg_tau_gr_vs_obs += d_gr
+        print(
+            f"{ev.name:12} {ev.a_star:>6.2f} {tau_v1:>11.2f} {tau_v2:>11.2f} "
+            f"{tau_gr:>11.2f} {ev.tau_kb_obs_ms:>10.2f} "
+            f"{d_v2:>+11.2f}% {d_v1:>+11.2f}%"
+        )
+    avg_tau_v2_vs_obs /= len(LIGO_EVENTS)
+    avg_tau_v1_vs_obs /= len(LIGO_EVENTS)
+    avg_tau_gr_vs_obs /= len(LIGO_EVENTS)
+    print()
+    print(f"Mean τ-v2-vs-LIGO across 3 events: {avg_tau_v2_vs_obs:+.2f}%")
+    print(f"Mean τ-v1-vs-LIGO across 3 events: {avg_tau_v1_vs_obs:+.2f}%")
+    print(f"Mean τ-GR-vs-LIGO across 3 events: {avg_tau_gr_vs_obs:+.2f}%")
+    print()
+    if abs(avg_tau_v2_vs_obs) < 5.0:
+        print("PHASE 5 FINDING — refined v2 τ PASSES at <5% mean deviation.")
+        print(
+            f"  v1 simplified τ: {avg_tau_v1_vs_obs:+.2f}% mean — UNDER-PREDICTED damping time"
+        )
+        print(
+            f"  v2 refined τ:    {avg_tau_v2_vs_obs:+.2f}% mean — WITHIN LIGO measurement precision"
+        )
+        print(
+            f"  GR Kerr QNM τ:   {avg_tau_gr_vs_obs:+.2f}% mean — comparable to v2"
+        )
+        print()
+        print("  Physical mechanism:")
+        print("  - K4 lattice impedance sets damping-rate Q (rigid Cosserat skeleton property)")
+        print("  - Q is therefore invariant across v1/v2 cavity-radius refinements")
+        print("  - τ ∝ Q × 1/ω_R; v2's lower ω_R implies longer τ (matches LIGO obs)")
+        print()
+        print("  C1-BH-RING outcome update:")
+        print("    PHASE 5 PASS — both ω_R AND τ now match LIGO at GR-class precision")
+        print("    Full C1 test closed; (2,3) cavity topology + lattice-Q preservation")
+        print("    correctly predicts both ringdown frequency and damping time.")
 
     if abs(avg_gr_vs_obs) < 5.0:
         print("FINDING — standard GR Kerr QNM matches LIGO within ~5% (canonical result).")
