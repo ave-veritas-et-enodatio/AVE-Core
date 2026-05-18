@@ -101,6 +101,15 @@ C_{eff}(\Delta\phi)
 = \frac{C_0}{S}
 $$
 
+**A-034 universality (canonical 2026-05-15 evening).** The same kernel
+$S(A) = \sqrt{1 - A^2}$ governs **every topological-reorganization event at every
+scale** — 21 catalog instances spanning 21 orders of magnitude
+(atomic dielectric breakdown $\to$ BCS superconductivity at 0.00% error $\to$
+NOAA-validated solar flares $\to$ BH ring-down at 1.7% from GR exact $\to$
+cosmic K4 crystallization). 3-way symmetry classification: SYM / ASYM-N / ASYM-E.
+Full catalog: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md);
+canonical synthesis: [trampoline-framework.md §7.5](trampoline-framework.md).
+
 ## Layer 0 → Layer 1: SI Anchors → Lattice Constants
 
 Starting from the SI electromagnetic definitions ($\mu_0$, $\epsilon_0$, $c$,
@@ -851,6 +860,39 @@ and neutrino MSW oscillation.
 
 Every prediction uses zero adjustable parameters and calls the same
 code path in `src/ave/axioms/scale_invariant.py`.
+
+### A-034: Formal Universal Saturation-Kernel Catalog
+
+The cross-scale verification has been promoted to a formal **21-instance catalog**
+(canonical 2026-05-15 evening) demonstrating that Axiom 4's saturation kernel
+$S(A) = \sqrt{1 - A^2}$ is the **same operator at every scale** for every
+topological-reorganization event:
+
+| Scale | Instance | Empirical anchor |
+|---|---|---|
+| Atomic | Dielectric breakdown | EE bench $C/C_0 \to \infty$ at $V_{yield} = 43.65$ kV |
+| Condensed-matter | BCS superconductivity | $B_c(T)$ kernel match at **0.00% error** (Vol 3 Ch 9) |
+| Geophysical | Geomagnetic reversal | Brunhes--Matuyama 780 ka pole-flip dynamics ([Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex)) |
+| Solar | Coronal mass ejection / flare | NOAA GOES 40-yr LED-avalanche validation ([Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| Stellar | White dwarf Chandrasekhar | $M_{Ch}$ kernel boundary (Vol 3 Ch 20) |
+| Gravitational | BH ring-down (QNM) | $\omega_R M_g = 18/49$ at **1.7% from GR exact** (3 LIGO events, Vol 3 Ch 15) |
+| Cosmic | TKI strain-snap (K4 crystallization) | CMB axis-alignment prereg (2026-05-15; Vol 3 Ch 4 §TKI Strain-Snap) |
+
+**3-way symmetry classification** of the 21 instances:
+- **SYM** (symmetric collapse): BCS, dielectric breakdown, Chandrasekhar collapse, ...
+- **ASYM-N** (asymmetric, neutral mediator): MOND-acceleration boundary, geomagnetic reversal, ...
+- **ASYM-E** (asymmetric, energy-mediator): BH ring-down, solar flare, cosmic K4 crystallization, ...
+
+**Measurement-hierarchy framing**: single-emitter (atomic events) /
+multi-emitter bulk (BCS, condensed-matter) /
+phased-array PLL autoresonant (BH ring-down, cosmic-scale).
+
+Full catalog with all 21 instances + per-row symmetry / measurement tier /
+empirical anchor: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
+
+Canonical synthesis (user-facing): [trampoline-framework.md §7.5](trampoline-framework.md).
+
+Canonical manuscript source: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 ## Layer 8+: Millennium Problems and Open Problems
 

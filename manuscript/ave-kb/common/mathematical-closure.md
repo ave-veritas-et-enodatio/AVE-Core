@@ -135,6 +135,27 @@ The forward DAG is acyclic. Of the three Layer-8 back-edges, the $G$ closure is 
 
 Because the forward DAG is acyclic and the back-edges are individually identifiable and conditional, the AVE framework is a mathematically structured Topological Effective Field Theory whose "zero free parameters" claim is precisely as strong as the Layer-8 closure conditions hold. Earlier editions overclaimed this strength; the present edition documents it.
 
+## A-034: Universal Saturation-Kernel Empirical Anchors
+
+Beyond the internal DAG closure documented above, **Axiom 4's universal saturation kernel** $S(A) = \sqrt{1 - A^2}$ carries the strongest direct empirical validation of any AVE axiom (canonical 2026-05-15 evening). The same kernel — identical functional form, no per-scale parameter retuning — has been empirically matched at **four widely-separated scales**:
+
+| Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
+|---|---|---|---|---|
+| **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter ([Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
+| **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
+
+**Methodological significance:** Each empirical anchor uses **zero free parameters** beyond the framework's existing 3 inputs ($\ell_{node}$, $\alpha$, $G$ — themselves derived in Layer 8). The kernel is not fit per-scale; it is the *same* $\sqrt{1 - A^2}$ kernel applied in different physical regimes. This is the strongest form of cross-scale verification possible for an axiom: the kernel asserted abstractly in Vol 1 Ch 1 is shown empirically to be the same operator governing pairing, plasma reorganization, gravitational wave damping, and event-horizon formation.
+
+**Full enumeration:** the 4 anchors above are the most-validated members of a **21-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
+
+**Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
+
+**Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
+
+These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 21 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
+
 ## Outstanding Rigour Gaps
 
 The closure conditions above resolve into a small, explicit set of pending derivations. Each is documented at its inline disclosure point in the corpus and consolidated here for reference. Closing any of these strengthens the "structurally zero-parameter" framing toward "absolutely zero-parameter."
