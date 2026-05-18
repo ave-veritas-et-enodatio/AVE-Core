@@ -177,8 +177,74 @@ So: **the trapping is dual.** Topology forbids the unraveling state (Ax2). Imped
 
 ---
 
+## Entry #002 [OPEN] — 2026-05-17 — Electron 2-poles / toroidal-axis polarization → mobility / exchange-frequency ladder
+
+### (a) Verbatim capture
+
+> "random tangent. Electrons only really have '2 poles' right? or if it's envelope is a toroid/doughnut, then it can be polarized along a single axis. Is this why it moves around/is exchanged the easiest of all particles? (topologically stable particles)?"
+
+— Grant 2026-05-17 night
+
+### (b) What AVE already says
+
+**Electron = 0₁ unknot horn-torus + single dipole axis is canonical.**
+
+- [`../vol2/particle-physics/ch01-topological-matter/electron-unknot.md`](../vol2/particle-physics/ch01-topological-matter/electron-unknot.md): electron real-space geometry is $0_1$ unknot at horn-torus radius $R = r = \ell_{node}/(2\pi)$. Toroidal envelope confirmed. The toroid has ONE rotational symmetry axis (the loop's normal). That axis IS the polarization axis Grant identified.
+- [`../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md` line 6](../vol2/particle-physics/ch01-topological-matter/chirality-and-antimatter.md): *"An electron ($e^-$) is a right-handed unknot; a positron ($e^+$) is physically identical, but wound as a left-handed unknot. Electric charge polarity is defined as the **Topological Twist Direction** of the closed magnetic standing wave."* "2 poles" maps to: (a) single dipole axis along loop normal, (b) bipolar magnetic moment ±μ_B aligned with that axis, (c) phase-space (2,3) Clifford-torus winding where the d-axis (2 windings) gives the bipolar character.
+- [`../vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md`](../vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md): spin-1/2 quantization along the polarization axis is the single-axis gyroscopic precession of the $0_1$ unknot — same single axis Grant identified.
+
+**Mobility ↔ inverse topological complexity is implicit in the (2,q) ladder but not stated as a standalone principle.**
+
+- [`../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md`](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md): (2,3) electron / (2,5) proton / (2,7) Δ(1232) / (2,9) Δ(1620) — mass increases with crossing number $c$.
+- [`../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md`](../vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md): (2,3) is uniquely the smallest non-trivial coprime torus knot (lowest c = 3). Electron = lightest stable lepton because simplest topology.
+- The "mobility = inverse complexity" claim itself — that topological excitations with fewer crossings translate/exchange more freely — is implicit in mass scaling + bound-state lifetimes but not framed as a structural principle in any single canonical leaf I can grep.
+
+**Empirical ladder consistent with Grant's intuition:**
+
+| Particle | Topology | Crossings | Mobility / Exchange |
+|---|---|---|---|
+| Electron | (2,3) unknot real / trefoil phase | 3 | Highest — covalent bonds, electron sea, QED vertices, β-decay |
+| Muon | unknot + Cosserat torsion quantum | 3 + extra rotational | Lower — μ-decay 2.2μs; bound state CREMA |
+| Tau | (3,4) or (3,5) | 8-10 | Lowest — τ lifetime 290 fs |
+| Proton | (2,5) cinquefoil | 5 | Bound in nucleus; nucleon transfer rarer than electron transfer |
+| Δ baryons | (2,7), (2,9) | 7, 9 | Resonant, very short lifetime |
+
+All matches empirical: electron is the most-exchanged particle in chemistry + QED + most mobile in conductors. Mass hierarchy AND mobility hierarchy AND complexity hierarchy all align.
+
+### (c) Where the intuition is novel or sharper than canonical
+
+1. **"Mobility = inverse topological complexity" as an explicit structural principle.** The pieces exist (mass scaling per crossing, lifetime scaling per complexity, exchange-frequency scaling per topology) but I cannot grep a single canonical leaf stating this as a unified principle. Grant's framing surfaces this as a candidate canonical claim.
+
+2. **"2 poles → single-axis polarization → mobility" causal chain** is sharper than what canonical leaves articulate. The canonical leaves describe single-axis polarization (spin-gyroscopic) and topological mass (torus-knot-ladder) independently; the causal link Grant draws (single-axis = aligns with vector EM fields = easy translation = mobility) is implicit, not stated.
+
+3. **Connects to chemistry "valence" framing.** Grant's claim implies covalent bond electron exchange is structurally easy because the unknot's single-axis topology aligns with the bond's vector character. Higher-knot particles (nucleons) would require more degrees of freedom to align, hence harder exchange. This is a substrate-physics underpinning of why chemistry happens at the electronic level — not at the nuclear level.
+
+### (d) Sharp challenges per AVE principle
+
+**Substrate-native check:** All pieces are substrate-native (0₁ unknot per Vol 1 Ch 8 + Cosserat spin-axis per Axiom 1 + (2,q) ladder per Vol 2 Ch 1). Causal chain is substrate-internal. Passes.
+
+**Phase-space coordinate check:** Real-space 0₁ unknot vs phase-space (2,3) Clifford-torus winding distinction must be preserved (per Entry #001 (d)). "Single polarization axis" lives in REAL space (loop normal); "(2,3) winding" lives in PHASE space (d-axis × q-axis Clifford torus). Don't conflate when arguing about EM alignment. The "2 poles" is real-space; the bipolar charge sign comes from phase-space chirality (right-handed vs left-handed unknot).
+
+**Consistency-vs-emergence check:** The mobility ladder is empirically obvious (electrons ARE the most-exchanged particle). The AVE claim is that this empirical observation is EMERGENT from inverse-topological-complexity structure, not just descriptive. To be Class D emergence per FI-4/7 discipline: framework must PREDICT mobility differences without empirical input.
+
+**Test:** does AVE predict the electron > muon > tau mobility ratio quantitatively from (2,3) → (Cosserat extension) → (3,4)/(3,5) complexity scaling alone? Or is the ratio empirically calibrated? If predicted from complexity → forward-prediction Class D. If empirically calibrated → consistency check Class B/C. Likely currently the latter; promotion to (D) would require independent derivation.
+
+### (e) Open questions for Grant adjudication
+
+1. **Does "mobility = inverse topological complexity" warrant a standalone canonical leaf?** Candidate location: `vol2/particle-physics/ch01-topological-matter/mobility-complexity-ladder.md` or appendix to `torus-knot-ladder.md`. Would unify the (2,q) mass ladder + the empirical mobility/exchange-frequency ladder + the spin-1/2 single-axis structure under one substrate-physics principle.
+
+2. **Can the electron > muon > tau mobility ratio be derived from (2,3) → Cosserat → (3,4) complexity scaling alone?** If yes, this is a Class D emergence prediction. If no (ratio uses empirical mass calibration), it stays a consistency check. Either outcome is informative.
+
+3. **Should the "single-axis polarization → easy EM-field alignment → mobility" causal chain be explicitly stated in `spin-gyroscopic-isomorphism.md`?** Currently the leaf describes spin-1/2 quantization geometrically; the consequence-for-mobility / consequence-for-chemistry framing is left implicit.
+
+4. **Does this tangent connect to FI-12 κ_quality work?** Q-amplification at α-slew rate (FI-12 commit `cac0d67`) is also single-axis substrate coupling (atomic LC tank along its polarization axis). The "single-axis mobility" mechanism Grant identifies might be the same structural principle as the Q-amplification — both rely on single-axis substrate coupling efficiency. Worth checking.
+
+---
+
 > ↗ See also: [Op14 Cross-Sector Trading](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) — two-timescale electron framework for "locally Compton, globally slow" intuition
 > ↗ See also: [Substrate-Perspective Electron](../vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md) — port-pair LC tank canonical electron picture
 > ↗ See also: [De Broglie Standing Wave](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) — electron-as-unknot-loop ropelength framing
 > ↗ See also: [Static Nodal Tension](../vol3/gravity/ch01-gravity-yield/static-nodal-tension.md) — mass-via-ropelength canonical derivation
+> ↗ See also: [Spin-Gyroscopic Isomorphism](../vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md) — single-axis quantization of electron spin per Entry #002 polarization axis
+> ↗ See also: [Torus Knot Ladder](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md) — (2,q) complexity ladder underlying Entry #002 mobility hierarchy
 > ↗ See also: [Divergence Test Substrate Map](divergence-test-substrate-map.md) — where adjudicated tangents land as new test rows
