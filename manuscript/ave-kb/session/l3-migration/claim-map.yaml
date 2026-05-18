@@ -359,7 +359,7 @@ entries:
     clm_ids: [clm-5xon03, clm-unk0bd]
     delta: "+3/-1"
     l3_commits: ["3607a63", "d301c22"]
-    status: enriched
+    status: ported
     delta_class: framing-only + claim-state-change
     notes: "Sweep C (trefoil -> 0_1 unknot). PLUS new 'Framework closure status' blockquote reframing the 3 calibration scales as a one-cosmological-parameter framework (Omega_freeze) -- a genuine claim-state change to clm-5xon03 (closure, solidity 0.28). RESCORE clm-5xon03. clm-unk0bd (unknot) is consistent with the sweep-C decision."
 
@@ -457,7 +457,7 @@ entries:
     clm_ids: [clm-5xon03]
     delta: "+4/-4"
     l3_commits: ["bd61693", "2c03050", "d301c22"]
-    status: enriched
+    status: ported
     delta_class: framing-only + claim-state-change
     notes: "Sweep A (substrate noun) + sweep C (trefoil -> unknot), each x2 (body + chapter summary). PLUS the Chapter Summary closure bullet reframed 'genuinely zero-parameter' -> 'structurally zero-parameter (conditional on thermal closure) / one-cosmological-parameter' -- genuine claim-state change to clm-5xon03. RESCORE clm-5xon03."
 
@@ -466,7 +466,7 @@ entries:
     clm_ids: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-trf3bd]
     delta: "+28/-8"
     l3_commits: ["96159de"]
-    status: enriched
+    status: ported
     delta_class: framing + new-content + claim-state-change
     notes: >-
       HOT -- heaviest 3-way merge. (1) Sweep C: new 'Topological identity of the electron'

@@ -22,18 +22,30 @@ claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-trf3bd]
 - `ALPHA_COLD` $= 1/\text{ALPHA\_COLD\_INV}$
 - `DELTA_STRAIN` $\approx 2.225 \times 10^{-6}$ (CMB thermal correction)
 
+## Topological identity of the electron
+
+The electron is the $0_1$ **unknot** in real space — the simplest closed flux-tube loop with no real-space crossings. The "(2,3) trefoil" that appears throughout this derivation refers to the **phase-space Clifford-torus winding pattern** of the electron's bond-pair LC tank (2 windings on the d-axis, 3 windings on the q-axis), NOT a real-space trefoil knot. The trefoil lives in phase space; the soliton lives in real space.
+
 ## Derivation Summary (Three-Regime Rigor)
 
-Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)) — which rigorously produces three mixing-angle values by identifying three distinct physical regimes — the trefoil's geometric constraints partition into three regimes, each producing one independent equation in the unknowns $(R, r, d)$:
+Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)) — which rigorously produces three mixing-angle values by identifying three distinct physical regimes — the electron unknot's phase-space (2,3) winding pattern on the Clifford torus partitions into three geometric regimes, each producing one independent equation in the unknowns $(R, r, d)$:
 
 | Regime | Physical principle | Equation |
 |---|---|---|
 <!-- claim-quality: clm-trf3bd -->
-| **(a) Nyquist** | Discrete lattice sampling cutoff (Axiom 1); smallest stable soliton = trefoil | $d = 1\,\ell_{\text{node}}$ |
-| **(b) Crossings** | Transverse self-avoidance at topologically-marked trefoil crossings (Axiom 2 dielectric rupture) | $2(R-r) = d \Rightarrow R - r = 1/2$ |
-| **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ (SU(2) double-cover of SO(3)) | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
+| **(a) Nyquist** | Discrete lattice sampling cutoff (Axiom 1); smallest stable soliton (the $0_1$ unknot with $(2,3)$ phase-space winding) | $d = 1\,\ell_{\text{node}}$ |
+| **(b) Crossings** | Transverse self-avoidance at topologically-marked phase-space crossings (Axiom 2 dielectric rupture) | $2(R-r) = d \Rightarrow R - r = 1/2$ |
+| **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ via the AVE-native $SU(2) \to SO(3)$ 2-to-1 cover | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
 
-**Rigor for regime (c):** The standard Clifford torus $(z_1, z_2) = (r_1 e^{i\theta_1}, r_2 e^{i\theta_2})$ at $r_1 = r_2 = 1/\sqrt{2}$ on $S^3$ has total surface area $A_{\text{standard}} = 2\pi^2$ (theorem of complex geometry on $S^3$). The electron's spin-1/2 structure — the same SU(2) double-cover that introduces the $4\pi$ temporal factor in $\Lambda_{\text{vol}}$ — implies only half of the Clifford torus corresponds to physically distinct observables (the other half is the spin-conjugate image). Therefore $\Lambda_{\text{surf}} = \tfrac{1}{2} A_{\text{standard}} = \pi^2$, exact and forced by topology.
+**Rigor for regime (c) — AVE-native SU(2) half-cover provenance.** The standard Clifford torus $(z_1, z_2) = (r_1 e^{i\theta_1}, r_2 e^{i\theta_2})$ at $r_1 = r_2 = 1/\sqrt{2}$ on $S^3$ has total surface area $A_{\text{standard}} = 2\pi^2$ (theorem of complex geometry on $S^3$). The electron's spin-1/2 structure implies only half of the Clifford torus corresponds to physically distinct observables (the other half is the spin-conjugate image). Therefore $\Lambda_{\text{surf}} = \tfrac{1}{2} A_{\text{standard}} = \pi^2$, exact and forced by topology.
+
+**The SU(2) → SO(3) half-cover is AVE-native, not an imported QM postulate.** Per the Vol 1 Ch 8 chapter-header note (resolved 2026-05-16), the derivation chain is:
+1. K4 rotation group: $T = A_4$ (proper tetrahedral rotation group, $|T| = 12$; see [|T|=12 Universality](./axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md))
+2. Double cover: $2T \subset SU(2)$ (classical group theory)
+3. Spin-1/2 emerges from the **Finkelstein–Misner / Dirac-belt-trick mechanism** on the extended $0_1$ unknot defect embedded in the SO(3) manifold (see [spin-half-paradox](../vol2/appendices/app-b-paradoxes/spin-half-paradox.md))
+4. The $\pi^2$ half-cover area is the **automatic** group-theoretic consequence of the 2-to-1 cover, not a separate quantum postulate
+
+**Remaining open formal-rigor sub-item:** prove that ropelength-minimality on K4 uniquely selects the canonical Clifford-torus embedding $r_1 = r_2 = 1/\sqrt{2}$ (Phase-1 classical-topology question). This is the **single open piece** for the α derivation's formal-rigor closure; the half-cover itself is AVE-native and resolved.
 
 **Solving (b) ∧ (c):** substitute $r = R - 1/2$ into $R \cdot r = 1/4$:
 $$
@@ -121,14 +133,22 @@ This is distinct from the proton thermal softening $\delta_{th} = 1/(14\pi^2) \a
 ## Mathematical Closure
 <!-- claim-quality: clm-5xon03 -->
 
-Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron ≡ unknot phase winding on the trefoil — here "unknot" refers to the *phase-winding topology* on the closed flux-tube centerline, i.e. winding number 1 in the phase fiber; the electron's *body topology* is the trefoil per `clm-trf3bd`, not the body-unknot of `clm-unk0bd`). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
+Axiom 1 calibrates $\ell_{\text{node}}$ to the ground-state rest-mass of the smallest topologically stable soliton (the electron as the $0_1$ unknot with $(2,3)$ phase-space Clifford-torus winding). Because the electron is the absolute structural failure mode of the lattice, its geometric packing Q-factor (137.036) *physically becomes* the macroscopic non-linear saturation limit for the rest of the universe. This is why $\alpha$ serves identically as the dielectric saturation bound in Axiom 4.
 
 **Closure status (honest).** The framework reduces 26 Standard Model parameters to a 3-element bounding set $\{m_e, \alpha, G\}$ + four axioms. The "zero free parameters" claim depends on Layer 8 closure of those three, which itself rests on:
 - (a) the Golden Torus $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derivation above at the cold-lattice asymptote (the three regimes are independently grounded; the sum decomposition relies on identifying $\Lambda_{\text{vol}}$, $\Lambda_{\text{surf}}$, $\Lambda_{\text{line}}$ as the three orthogonal contributions);
 - (b) the thermal running $\alpha^{-1}(T) = \alpha^{-1}_{\text{ideal}}(1 - \delta_{strain}(T))$: the existence and sign are predicted (positive $\delta_{strain}$ at $T > 0$); the magnitude at $T_{\text{CMB}}$ is currently one fitted scalar (back-subtracted from CODATA — see status disclosure above);
-- (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (here "unknot ground state" = the simplest phase-winding configuration — winding number 1 — on the smallest stable soliton's body, *not* a claim that the body topology is the unknot; the body-topology question is tracked separately by `clm-trf3bd` vs `clm-unk0bd`. The other of $\{m_e, \ell_{node}\}$ remains the input mass scale).
+- (c) one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state (the electron's ground-state body is the $0_1$ unknot — see §Topological identity of the electron above). The other of $\{m_e, \ell_{node}\}$ remains the input mass scale.
 
 Conditional on (a)–(c), the framework is zero-free-parameters at the SM level. Under the present edition, the cold-lattice asymptote and the existence + sign of the thermal running are predicted; the magnitude of $\delta_{strain}$ at $T_{\text{CMB}}$ is one fitted scalar — same predicted/fitted disclosure pattern as Vol 6 (predicted: structure; fitted: one scalar). See the [Full Derivation Chain](../common/full-derivation-chain.md) scorecard for the precise accounting.
+
+**Framework closure status (refined 2026-05-15 evening):** the framework is reduced from "three independent calibration constants ($\alpha$, $G$, $\ell_{\text{node}}$)" to a **one-cosmological-parameter** theory with three observational windows. The single cosmological initial-data parameter $\Omega_{\text{freeze}}$ (the substrate's rotation rate at lattice genesis) sets the magic-angle operating point $u_0^*$; from $u_0^*$ the framework derives:
+
+1. **Route 1 (electromagnetic):** $\alpha$ via the Golden Torus Q-factor closure above
+2. **Route 2 (gravitational):** $G = c^4 / (7\xi T_{EM}(u_0^*))$ via the Machian impedance integral (see [Vol 3 Ch 4](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex))
+3. **Route 3 (cosmological):** $\mathcal{J}_{\text{cosmic}}$ via $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}} / I_{\text{cosmic}}$ measured from CMB / LSS anomaly observables
+
+**All three routes must give the same $u_0^*$** or the single-cosmological-parameter framework is falsified. See [A-031 refined: cosmic-parameter horizon vs observable mechanism](../common/cosmic-parameter-horizon-a031-refinement.md) for the full three-route framework commitment and the substrate-observability separation of inaccessible cosmic parameters from observable mechanism (per A-034). The 26 Standard Model constants are then determined by four axioms + the single cosmological IC + the topological requirement that the smallest stable soliton is the $0_1$ unknot with $(2,3)$ phase-space trefoil winding pattern.
 
 ---
 
