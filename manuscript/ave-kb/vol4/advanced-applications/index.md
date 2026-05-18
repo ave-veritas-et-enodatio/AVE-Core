@@ -2,13 +2,12 @@
 
 # Advanced Applications
 
-This domain extends the VCA framework into high-energy and materials-science applications: topological SMES energy storage, metric-catalyzed fusion (resolving the tokamak ignition paradox via the $V_{yield} = 43.65$ kV dielectric limit), topological quantum computing immune to thermal decoherence, and active topological metamaterials that port the biological LLCP mechanism into solid-state engineering.
+This domain extends the VCA framework into high-energy and materials-science applications: metric-catalyzed fusion (resolving the tokamak ignition paradox via the $V_{yield} = 43.65$ kV dielectric limit), topological quantum computing immune to thermal decoherence, and active topological metamaterials that port the biological LLCP mechanism into solid-state engineering.
 
 ## Key Results
 
 | Result | Statement |
 |---|---|
-| Beltrami force-free SMES | $\nabla \times \mathbf{B} = \lambda \mathbf{B}$; 87.9% stray flux reduction vs. solenoid |
 | Tokamak ignition strain | $V_{topo} = 60.3$ kV $> V_{yield} = 43.65$ kV (Strong Force disabled at ignition) |
 | Critical metric compression | $n^* = (V_{topo,0}/V_{yield})^{1/3} \approx 1.114$ (11% lattice density enhancement) |
 | Compressed Gamow exponent | $\eta(n) = \eta_0/n$ (barrier narrowed, not lowered) |
@@ -21,7 +20,6 @@ This domain extends the VCA framework into high-energy and materials-science app
 
 | Document | Contents |
 |---|---|
-| [Ch.7 Topological SMES](ch7-topological-smes/index.md) | Beltrami torus knot; force-free field; stray flux reduction |
 | [Ch.8 Applied Fusion](ch8-applied-fusion/index.md) | Tokamak paradox; metric-catalyzed fusion scaling laws; ignition criterion |
 | [Ch.10 Quantum Computing](ch10-quantum-computing/index.md) | Decoherence as acoustic scattering; topological qubits; Casimir shielding |
 | [Ch.18 Active Topological Metamaterials](ch18-active-topological-metamaterials/index.md) | Inorganic LLCP; operator matrix; fabrication; three applications |
