@@ -14,7 +14,6 @@ This domain extends the VCA framework into high-energy and materials-science app
 | Gauss Linking Number | $\mathcal{L} \in \mathbb{Z}$: continuous noise cannot alter discrete topological qubit state |
 | Metamaterial phase-buffer | $\phi = 0.7405$ Kepler limit; $V_\text{trigger} \approx 0.2158$ eV |
 | Topological BJT Current Gain | $\beta = (T^2_{EB})^{N_{gap}} / (1 - (T^2_{EB})^{N_{gap}})$; bounds $\beta \approx 10$–$300$ from pure geometry |
-| Caustic Focal Intensity Bound | $E_{\max} = E_{YIELD}$; self-induced impedance reflection prevents infinite focusing |
 
 ## Derivations and Detail
 
@@ -24,6 +23,5 @@ This domain extends the VCA framework into high-energy and materials-science app
 | [Ch.10 Quantum Computing](ch10-quantum-computing/index.md) | Decoherence as acoustic scattering; topological qubits; Casimir shielding |
 | [Ch.18 Active Topological Metamaterials](ch18-active-topological-metamaterials/index.md) | Inorganic LLCP; operator matrix; fabrication; three applications |
 | [Ch.19 Native Silicon Design Engine](ch19-silicon-design-engine/index.md) | Doping as geometric perturbation; $p$-$n$ junction as $S_{11}$ boundary; topological BJT gain; `atopile` compilation; SPICE subcircuit bridge |
-| [Ch.20 Optical Caustic Resolution](ch20-optical-caustic-resolution/index.md) | Axiom 3+4 TL reflection bounds focal intensity to $E_{YIELD}$; finite waist from self-induced impedance gradient |
 
 ---
