@@ -12,8 +12,10 @@ checker detects the anti-pattern PRESENCE and, if the corresponding inline
 mitigator is absent within a context window, emits a warning pointing at
 the right framing-doc section.
 
-v1 is warning-only — wired into `make verify` with `|| true` so findings do
-not fail the build. Findings should drive manuscript edits, not block CI.
+`critical` findings (e.g. known-stale arithmetic) gate the build: the script
+exits 2 and `make verify` fails on them. `warn`/`info` findings are framing
+advisories — they print but never affect the exit code; the full warn/info
+scan runs via `make framing-audit`, separate from `make verify`.
 
 Usage:
     python src/scripts/defense_context_checker.py                # human-readable
@@ -22,8 +24,9 @@ Usage:
     python src/scripts/defense_context_checker.py --files a.tex b.md  # specific files
 
 Exit codes:
-    0 — scan complete (always, in warning-only mode)
-    1 — scan error (I/O, regex compile failure)
+    0 — scan complete; no `critical` findings
+    1 — invocation error (e.g. unknown --rule id)
+    2 — one or more `critical` findings present (build-gating)
 
 Reference: docs/framing_and_presentation.md, .agents/workflows/audit-math.md,
            .agents/workflows/audit-latex.md
@@ -462,7 +465,11 @@ def main(argv: list[str] | None = None) -> int:
     for path in targets:
         all_findings.extend(scan_file(path, rules))
 
-    # Severity filter
+    # `critical` findings gate the build regardless of the --severity display
+    # filter applied below — capture the count before the filter.
+    n_critical = sum(1 for f in all_findings if f.severity == "critical")
+
+    # Severity filter (display only)
     if args.severity != "all":
         sev_order = {"critical": 0, "warn": 1, "info": 2}
         cutoff = sev_order[args.severity]
@@ -474,8 +481,14 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(format_text_report(all_findings, len(targets)))
 
-    # Warning-only: always exit 0 in human mode so make verify doesn't fail.
-    # (JSON callers can inspect the count themselves.)
+    # `critical` findings (known-stale arithmetic etc.) gate the build: exit 2
+    # so `make verify` fails. `warn`/`info` are advisory and never gate.
+    if n_critical:
+        print(
+            f"[defense-checker] {n_critical} CRITICAL finding(s) — build-gating.",
+            file=sys.stderr,
+        )
+        return 2
     return 0
 
 

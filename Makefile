@@ -16,7 +16,7 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -25,6 +25,7 @@ help:
 	@echo "  make all                  : Run verify, then compile all PDFs"
 	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
 	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
 	@echo "  make test                 : Run unit tests (pytest)"
 	@echo "  make pdf                  : Compile all 7 public volumes"
 	@echo "  make pdf_manuscript       : Compile manuscript volumes"
@@ -64,8 +65,8 @@ verify: verify-kb-metadata
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
-	@echo "\n[Verify] Running defense-context checker (warning-only)..."
-	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+	@echo "\n[Verify] Running defense-context checker (critical-tier gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
 	@echo "\n[Verify] Running claim-graph validator..."
 	$(PYTHON) $(SCRIPT_DIR)/claim_graph_validator.py
 	@echo "\n=================================================="
@@ -79,6 +80,10 @@ verify-kb-metadata:
 refresh-kb-metadata:
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
 	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+
+framing-audit:
+	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
 
 
 # =============================================================================
