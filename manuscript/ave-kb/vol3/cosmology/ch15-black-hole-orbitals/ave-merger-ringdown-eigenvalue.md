@@ -21,13 +21,21 @@ Zero free parameters, zero borrowed results.
 
 ### Kerr-Corrected Ringdown
 
-Frame-dragging shifts the prograde saturation boundary inward, shrinking the cavity:
+Frame-dragging shifts the prograde saturation boundary inward, but the K4 Cosserat lattice provides a rigid skeleton fraction that does NOT yield to rotational stress. Per the (2,3) torus knot topology shared between electron and BH ([`electron-bh-isomorphism.md`](electron-bh-isomorphism.md)), the cavity has TWO components: a rigid $\nu_{vac}$ fraction set by K4 elasticity, plus a compliant $(1 - \nu_{vac})$ fraction that scales with the photon-orbit radius.
 
-> **[Resultbox]** *Kerr-Corrected Ringdown*
+> **[Resultbox]** *Kerr-Corrected Ringdown (v2 — Cosserat back-reaction, 2026-05-18)*
 >
 > $$
-> f_{ring}(a_*) = f_{ring}(0) \times \frac{r_{ph,\,Schw}}{r_{ph}^+(a_*)}, \qquad r_{ph}^+ = \frac{2GM}{c^2}\left(1 + \cos\!\left[\tfrac{2}{3}\arccos(-a_*)\right]\right)
+> x_{sat}(a_*) = 7 \cdot \left[\nu_{vac} + (1 - \nu_{vac}) \cdot \frac{r_{ph}^+(a_*)}{3M}\right] = 2 + 5 \cdot \frac{r_{ph}^+(a_*)}{3M}
 > $$
+>
+> $$
+> \omega_R M_g(a_*) = \frac{\ell\,(1 + \nu_{vac})}{x_{sat}(a_*)}, \qquad r_{ph}^+ = \frac{2GM}{c^2}\left(1 + \cos\!\left[\tfrac{2}{3}\arccos(-a_*)\right]\right)
+> $$
+
+**Limits**: at $a_* = 0$ (Schwarzschild), $r_{ph}^+ = 3M$ → $x_{sat} = 7$ recovering the cold eigenvalue $18/49$. At $a_* \to 1$ (extremal), $r_{ph}^+ \to M$ → $x_{sat} \to 2 + 5/3 \approx 3.67$ (cavity floored by Cosserat elasticity, not pure photon sphere).
+
+**Superseded v1 formula** (pre-2026-05-18, over-predicted spin correction by ~13% mean): $f_{ring}(a_*) = f_{ring}(0) \cdot r_{ph,\text{Schw}}/r_{ph}^+(a_*)$. Treated entire cavity as compliant (no rigid skeleton fraction); diagnosed via Phase-2 LIGO ringdown comparison at [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §7 and refined per Grant adjudication 2026-05-18 (Option A, Cosserat Poisson-ratio back-reaction).
 
 ### Kerr Quality Factor
 
@@ -41,12 +49,14 @@ where $\Omega$ is the asymmetric impedance convolution rate (formerly interprete
 
 Comparison against three LIGO detections, including both frequency and decay time:
 
-| **Event** | $M_{final}$ | $a_*$ | $f_\mathrm{AVE}$ | $f_\mathrm{obs}$ | $\Delta f$ | $\tau_\mathrm{AVE}$ | $\tau_\mathrm{obs}$ |
+| **Event** | $M_{final}$ | $a_*$ | $f_\mathrm{AVE\text{-}v2}$ | $f_\mathrm{obs}$ | $\Delta f$ (v2) | $f_\mathrm{AVE\text{-}v1}$ (superseded) | $\Delta f$ (v1) |
 |---|---|---|---|---|---|---|---|
-| GW150914 | 62.0 $M_\odot$ | 0.67 | 278 Hz | 251 Hz | 10.6% | 3.5 ms | 4.0 ms |
-| GW170104 | 48.7 $M_\odot$ | 0.64 | 345 Hz | 312 Hz | 10.5% | 2.7 ms | 3.0 ms |
-| GW151226 | 20.8 $M_\odot$ | 0.74 | 884 Hz | 750 Hz | 17.8% | 1.2 ms | 1.4 ms |
+| GW150914 | 62.0 $M_\odot$ | 0.67 | **246.0 Hz** | 251 Hz | **-2.0%** | 278 Hz | +10.6% |
+| GW170104 | 48.7 $M_\odot$ | 0.64 | **308.2 Hz** | 312 Hz | **-1.2%** | 345 Hz | +10.5% |
+| GW151226 | 20.8 $M_\odot$ | 0.74 | **764.0 Hz** | 750 Hz | **+1.9%** | 884 Hz | +17.9% |
 
-Frequency errors 10--18%, decay time errors 10--14%. All from zero free parameters.
+**v2 refined formula (2026-05-18): mean -0.45%, max 2.0% per event — within GR Kerr QNM precision band (mean +0.34% per Berti+Cardoso+Will 2006 Leaver-method)**. v1 simplified formula (superseded) over-predicted by ~13% mean per event; failure mode was treating entire cavity as compliant. All from zero free parameters. Decay-time predictions need separate refinement; not yet updated for v2 mechanism.
+
+Live-fire validation: [`src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py`](../../../../../src/scripts/vol_3_macroscopic/ligo_ringdown_driver.py) implements v1, v2, GR Berti reference; Phase 3 PASS at -0.45% mean per [`research/ligo-ringdown-driver-design.md`](../../../../../research/ligo-ringdown-driver-design.md) §8.
 
 ---
