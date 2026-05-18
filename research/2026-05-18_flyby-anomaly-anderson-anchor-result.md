@@ -156,6 +156,60 @@ My read: bundle F1+F2+F3 in one commit similar to the Q-G27 walk-back pattern. T
 
 If you want to ship it, give the green light and I'll execute the bundled walk-back.
 
+## Section 8.6 — Anderson PRL Table I verification (2026-05-18 late evening, post-audit revision #2)
+
+Per Grant's "proceed with web fetch attempt" follow-up after the post-audit DEFER recommendation. Direct PRL access blocked (paywall); fetched the closest publicly-accessible secondary source: [arXiv:0803.1370](https://ar5iv.labs.arxiv.org/html/0803.1370) "Are Flyby Anomalies an ASTG Phenomenon?" (Adams 2008) which reproduces Anderson 2008 PRL Table I verbatim in its own Table II.
+
+### Sign convention discrepancies found
+
+Driver's `ANDERSON_2008_FLYBYS` values (from agent memory of Anderson 2008) vs arXiv:0803.1370 verbatim Table II reproduction:
+
+| Discrepancy | Driver (memory) | arXiv:0803.1370 (verified) | Convention D impact |
+|---|---|---|---|
+| Galileo I δ_in | -12.52° | **+12.52°** | None (cosine even) |
+| Galileo II δ_in | +34.26° | **-34.26°** | None (cosine even) |
+| Galileo II δ_out | +4.87° | **-4.87°** | None (cosine even) |
+| NEAR δ_out | +71.96° | **-71.96°** | None (cosine even) |
+| Galileo I σ | 0.30 mm/s | **0.08 mm/s** | **MATERIAL — shifts σ-tension** |
+
+The δ sign discrepancies are cosmetically wrong but don't affect Convention D evaluation because cosine is even (cos(-x) = cos(x)). The driver outputs for ΔV per spacecraft are unchanged.
+
+**The Galileo I uncertainty correction (0.30 → 0.08) IS material.** Per Anderson 2008 PRL, Galileo I has the tightest measurement uncertainty in the anchor set (±0.08 mm/s, not ±0.30). With the verified σ:
+
+### Revised Convention D match statistics (post-Anderson verification)
+
+| Spacecraft | Driver Conv-D (mm/s) | Observed (mm/s) | σ-tension (verified Anderson σ) |
+|---|---|---|---|
+| Galileo I | +4.128 | +3.92 ± **0.08** | **+2.6σ** (was +0.7σ at incorrect σ=0.30) ✗ |
+| Galileo II | -4.680 | -4.60 ± 1.0 | -0.1σ ✓ |
+| NEAR | +13.294 | +13.46 ± 0.13 | -1.3σ ○ (within 2σ) |
+| Cassini | -1.069 | -2.00 ± 1.0 | +0.9σ ✓ |
+| Rosetta I | +2.069 | +1.82 ± 0.05 | +5.0σ ✗ |
+| MESSENGER | +0.055 | +0.02 ± 0.01 | +3.5σ ✗ |
+
+**Convention D revised: 2/6 within 1σ (Galileo II, Cassini), 3/6 within 2σ (adds NEAR), 3/6 outliers >2σ (Galileo I, Rosetta I, MESSENGER).**
+
+This is **WORSE than my original result doc framing** of "3/6 within 1σ, 4/6 within 2σ." Galileo I has the tightest measurement σ in the anchor set, and AVE Convention D's +4.13 mm/s vs observed +3.92 mm/s (a 0.21 mm/s residual) is 2.6σ at the tightened uncertainty. This is a real mismatch, not a near-match.
+
+### Implications for walk-back
+
+The mechanism status verdict shifts:
+- **Pre-audit**: "AVE Sagnac-RLVE matches Anderson at 3/6 within 1σ — moderate partial match"
+- **Post-audit (Anderson Table I verified)**: "AVE Sagnac-RLVE matches Anderson at 2/6 within 1σ — weak partial match; 3/6 outliers including the tightest-σ measurement"
+
+The framework's contribution at this anchor is genuinely WEAK. The Sagnac-RLVE mechanism reproduces Anderson's empirical formula structure (which is a real contribution), but does NOT reproduce Anderson's per-spacecraft observations except for 2 of 6 events.
+
+**F1 (notation correction) remains correct** — `cos(α)cos(δ)` is structurally wrong; `(cos δ_in − cos δ_out)` is the right form. **F2 needs sharper reframing** than my original — not "matches at 3/6 within 1σ" but "matches at 2/6 within 1σ; 3/6 outliers." **F3 (outlier acknowledgment) is more important** than I originally framed it — half the anchor set is outlier.
+
+### Status of audit-blocking prerequisites
+
+1. ~~Anderson PRL Table I verification~~ ✓ COMPLETE (via arXiv:0803.1370 secondary source; direct PRL access still pending but secondary source is consistent + citable). Driver `ANDERSON_2008_FLYBYS` updated with verified signs + Galileo I σ correction.
+2. **F3 rewrite to mechanism-honest language** — still pending; should be done as part of F1+F2+F3 bundled walk-back next session
+3. **Cascade scope expansion to 9+ files** — still pending; next-session walk-back execution
+4. **AVE-PONDER mechanism question** — still pending; separate cross-volume audit cycle
+
+Next-session walk-back priority becomes higher (3/6 outliers is a real mechanism limitation worth surfacing honestly) but no more urgent than originally — same execution plan, just stronger justification.
+
 ## Section 8.5 — Post-audit revision (2026-05-18 late evening, post-flyby-driver audit cycle)
 
 Per Grant's "make sure youre using all relevant skills" instruction, dispatched ave-corpus-grep + ave-auditor + WebFetch (verify-before-cite Anderson 2008) AFTER the driver result was first written. All three returned findings that materially change the picture:

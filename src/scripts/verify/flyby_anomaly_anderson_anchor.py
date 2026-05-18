@@ -51,7 +51,16 @@ U_E_M_S: float = OMEGA_E_RAD_S * R_E_M  # m/s
 
 # ─── Anderson et al. 2008 PRL 100:091102 Table I ────────────────────────
 # Per-spacecraft published flyby data. Six-event anchor set.
-# Values from PRL Table I (verify against publication for production work).
+# VALUES VERIFIED (2026-05-18 late evening, via WebFetch on arXiv:0803.1370
+# Adams 2008 "Are Flyby Anomalies an ASTG Phenomenon?" Table II which
+# reproduces Anderson 2008 PRL Table I verbatim). Sign conventions per
+# the Adams reproduction. Direct PRL Table I access pending (paywalled);
+# arXiv:0803.1370 is the closest publicly-accessible secondary source.
+#
+# Note: Convention D (Anderson empirical (cos δ_in - cos δ_out)) is
+# SIGN-ROBUST because cosine is even — δ sign flips don't change the
+# evaluation. The verified signs matter for any future implementation
+# that uses sin(δ) or asymptote-direction-dependent geometry.
 @dataclass
 class FlybyEvent:
     name: str
@@ -71,17 +80,17 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="Galileo I",
         date="1990-12-08",
         V_inf_km_s=8.949,
-        alpha_in_deg=266.76, delta_in_deg=-12.52,
-        alpha_out_deg=219.97, delta_out_deg=34.15,
+        alpha_in_deg=266.76, delta_in_deg=+12.52,  # verified per arXiv:0803.1370
+        alpha_out_deg=219.97, delta_out_deg=+34.15,
         observed_dV_mm_s=3.92,
-        observed_sigma_mm_s=0.30,
+        observed_sigma_mm_s=0.08,  # verified per arXiv:0803.1370 (was 0.30 from memory)
     ),
     FlybyEvent(
         name="Galileo II",
         date="1992-12-08",
         V_inf_km_s=8.877,
-        alpha_in_deg=219.35, delta_in_deg=34.26,
-        alpha_out_deg=174.35, delta_out_deg=4.87,
+        alpha_in_deg=219.35, delta_in_deg=-34.26,  # verified sign flip per arXiv:0803.1370
+        alpha_out_deg=174.35, delta_out_deg=-4.87,  # verified sign flip per arXiv:0803.1370
         observed_dV_mm_s=-4.6,
         observed_sigma_mm_s=1.0,
     ),
@@ -90,7 +99,7 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         date="1998-01-23",
         V_inf_km_s=6.851,
         alpha_in_deg=261.17, delta_in_deg=-20.76,
-        alpha_out_deg=183.49, delta_out_deg=71.96,
+        alpha_out_deg=183.49, delta_out_deg=-71.96,  # verified sign flip per arXiv:0803.1370
         observed_dV_mm_s=13.46,
         observed_sigma_mm_s=0.13,
         notes="Largest published flyby anomaly; corpus '13.4 mm/s' candidate match.",
@@ -117,11 +126,11 @@ ANDERSON_2008_FLYBYS: list[FlybyEvent] = [
         name="MESSENGER",
         date="2005-08-02",
         V_inf_km_s=4.056,
-        alpha_in_deg=292.61, delta_in_deg=31.44,
+        alpha_in_deg=292.61, delta_in_deg=+31.44,
         alpha_out_deg=227.17, delta_out_deg=-31.92,
         observed_dV_mm_s=0.02,
         observed_sigma_mm_s=0.01,
-        notes="Anderson 2008 noted as outlier of simple empirical fit.",
+        notes="Adams 2008 + Acedo 2017 both characterize as outlier of simple Anderson empirical fit.",
     ),
 ]
 

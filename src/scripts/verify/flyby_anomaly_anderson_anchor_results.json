@@ -14,24 +14,24 @@
       "date": "1990-12-08",
       "V_inf_km_s": 8.949,
       "observed_dV_mm_s": 3.92,
-      "observed_sigma_mm_s": 0.3,
+      "observed_sigma_mm_s": 0.08,
       "max_dV_mm_s_cos_cos_unity": 27.76714348450366,
       "cos_factor_required": 0.14117404630359912,
       "convention_A_cos_in": {
         "dV_mm_s": -1.5320395385664778,
-        "sigma": -18.173465128554927
+        "sigma": -68.15049423208097
       },
       "convention_B_cos_out": {
         "dV_mm_s": -17.610878474438042,
-        "sigma": -71.76959491479347
+        "sigma": -269.1359809304755
       },
       "convention_C_cos_mean": {
-        "dV_mm_s": -12.227053015924463,
-        "sigma": -53.82351005308155
+        "dV_mm_s": -11.42995313033856,
+        "sigma": -191.874414129232
       },
       "convention_D_Anderson_empirical": {
         "dV_mm_s": 4.127575505169885,
-        "sigma": 0.6919183505662829
+        "sigma": 2.594693814623561
       },
       "notes": ""
     },
@@ -78,8 +78,8 @@
         "sigma": -154.0831510038603
       },
       "convention_C_cos_mean": {
-        "dV_mm_s": -14.172442270882375,
-        "sigma": -212.55724823755673
+        "dV_mm_s": -10.845423765044197,
+        "sigma": -186.96479819264766
       },
       "convention_D_Anderson_empirical": {
         "dV_mm_s": 13.294233960147782,
@@ -163,20 +163,20 @@
         "dV_mm_s": 0.05537015200483252,
         "sigma": 3.5370152004832525
       },
-      "notes": "Anderson 2008 noted as outlier of simple empirical fit."
+      "notes": "Adams 2008 + Acedo 2017 both characterize as outlier of simple Anderson empirical fit."
     }
   ],
   "convention_match_counts_1sigma": {
     "A": 0,
     "B": 0,
     "C": 0,
-    "D": 3
+    "D": 2
   },
   "convention_within_2sigma": {
     "A": 0,
     "B": 0,
     "C": 0,
-    "D": 4
+    "D": 3
   },
-  "outcome_classification": "B: Convention D (Anderson empirical) matches \u22654/6 within 2\u03c3 \u2014 partial match, formula captures main physics but not all variation"
+  "outcome_classification": "C or D: AVE 'cos(\u03b1)cos(\u03b4)' notation under-specified; only Anderson empirical form gives any match. Leaf's literal cos(\u03b1)cos(\u03b4) framing is misleading"
 }
