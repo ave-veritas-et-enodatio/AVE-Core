@@ -111,4 +111,4 @@ These are at varying levels of A47 v11c compliance — `verify_universe.py` is a
 
 ---
 
-— Last updated: 2026-04-30, post-doc-100 §10.32 cross-repo erosion-pattern audit. Manifest authored as Step 5 of A47 v9 RESOLUTION arc methodology infrastructure (auditor directive 2026-04-30 + adjudication).
+— Last updated: 2026-04-30, post-doc-100 §10.32 cross-repo erosion-pattern audit. Manifest authored as Step 5 of A47 v9 RESOLUTION arc methodology infrastructure (auditor directive 2026-04-30 + Grant adjudication).

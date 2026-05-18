@@ -9,7 +9,7 @@ claims: [clm-gx1mpl]
 
 The K4 substrate's **secondary scale** $r_{\text{secondary}} \approx 1.187\,\ell_{\text{node}}$ is **not a free calibration parameter** — it is the geometric next-nearest-neighbor distance in the K4 lattice, set by the shared-B-node propagator structure. The over-bracing parameter $u_0^*$ that controls the magic-angle condition $K(u_0^*) = 2G(u_0^*)$ sits exactly at this distance.
 
-Per adjudication 2026-05-15 evening ("springs are shared, how else would gravity project?"), this resolves long-standing ambiguity about whether the secondary scale was a calibration input or a substrate-symmetry consequence. It is the latter.
+Per Grant adjudication 2026-05-15 evening ("springs are shared, how else would gravity project?"), this resolves long-standing ambiguity about whether the secondary scale was a calibration input or a substrate-symmetry consequence. It is the latter.
 
 ## The geometric derivation
 
@@ -34,7 +34,7 @@ $$K(u_0^*) = 2 G(u_0^*) \quad \text{at} \quad u_0^* \approx 0.187$$
 
 forces the K4 lattice's bulk modulus equal to twice its shear modulus — the trace-reversal identity required by General Relativity for transverse-traceless gravitational-wave propagation. The over-bracing parameter $u_0$ at exactly this magic value puts the bond's midpoint at the saturation point $A = 1$ — the **substrate-scale instance of A-034** (Universal Saturation-Kernel Strain-Snap Mechanism applied at the K4 cell scale).
 
-The framing: "springs are shared, how else would gravity project?" The shared-B-node propagator is what makes gravity a non-local-but-causal effect in the K4 lattice — the impedance at one A-node affects all A-nodes reachable via shared-B-nodes (the secondary-scale neighborhood). Without shared-B-node propagation, there would be no mechanism for the substrate to project a coherent gravity response across distances $> \ell_{\text{node}}$.
+**Grant's framing:** "springs are shared, how else would gravity project?" The shared-B-node propagator is what makes gravity a non-local-but-causal effect in the K4 lattice — the impedance at one A-node affects all A-nodes reachable via shared-B-nodes (the secondary-scale neighborhood). Without shared-B-node propagation, there would be no mechanism for the substrate to project a coherent gravity response across distances $> \ell_{\text{node}}$.
 
 This is the substrate-scale origin of the **K=2G operating point**, which is what makes the substrate a trace-reversed Chiral LC Network supporting transverse-traceless EM and GR waves (canonical in Vol 1 Ch 2 Macroscopic Moduli).
 
@@ -50,7 +50,7 @@ See [|T|=12 Universality (4 Routes)](../ch1-fundamental-axioms/tetrahedral-t-uni
 
 ## Status
 
-**Canonical** per adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry. Canonical manuscript source: Vol 1 Ch 2 Macroscopic Moduli.
+**Canonical** per Grant adjudication 2026-05-15 evening. The geometric derivation is straightforward from K4 graph + EMT packing fraction; the load-bearing claim is that **the number 1.187 is not free** — it is forced by Axiom 1 + Axiom 4 + standard amorphous-network packing geometry. Canonical manuscript source: Vol 1 Ch 2 Macroscopic Moduli.
 
 ## Cross-references
 

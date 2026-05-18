@@ -5,9 +5,9 @@ kind: leaf
 claims: [clm-exjfai, clm-jwyy6l, clm-533gvm]
 -->
 
-# Dark Wake + Back-EMF + FOC d-q: Core Synthesis
+# Dark Wake + Back-EMF + FOC d-q: Core Synthesis (Grant directive 2026-05-16)
 
-This leaf is the Core canonical synthesis of the **dark-wake + back-EMF + FOC d-q** bundle: it consolidates the canonical back-EMF chain, records the FOC d-q decomposition with its retraction caveat, cross-references the sibling hardware-engineering compendia where the engineering instances live, and flags one substantive open derivation (the dark-wake $\tau_{zx}$ chain itself). The substrate noun is the Chiral LC Network, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
+Per Grant directive 2026-05-16: *"core derivations belong in core, if they are in sibling repos, duplicate in a core kb leaf."* This leaf is the Core canonical synthesis of the **dark-wake + back-EMF + FOC d-q** bundle: it consolidates the canonical back-EMF chain, records the FOC d-q decomposition with its retraction caveat, cross-references the sibling hardware-engineering compendia where the engineering instances live, and flags one substantive open derivation (the dark-wake $\tau_{zx}$ chain itself). The substrate noun is the Chiral LC Network, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
 ## Key Results (consolidation)
 

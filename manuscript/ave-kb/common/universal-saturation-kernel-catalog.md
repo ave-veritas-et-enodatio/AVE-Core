@@ -72,7 +72,7 @@ The 21 canonical cross-scale instances span 21 orders of magnitude: 14 physical-
 ## Symmetry classification
 <!-- claim-quality: clm-hvvvop -->
 
-Per the asymmetric-saturation exploration (2026-05-15 evening), the 21 instances fall into a 3-way symmetry classification:
+Per the asymmetric-saturation exploration (Grant 2026-05-15 evening), the 21 instances fall into a 3-way symmetry classification:
 
 - **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 18 instances
 - **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$): 2 instances — BCS $\mu$-only, plasma $\varepsilon$-only
@@ -89,7 +89,7 @@ The asymmetric-saturation variant ($K_{\text{wedge}} / G_{\text{wedge}} \neq 2$)
 This is the framework's largest unification to date: **one kernel, 21 scales, every topological reorganization event in the universe.** The framework simplifies rather than complicates as evidence accumulates — the kernel doesn't change, only the lattice scale changes.
 
 **Catalog growth notes (2026-05-16):**
-- Water two-state LC partition added as 13th physical instance (cosmic Ω_freeze IS water → ice at different scale — both same Axiom-4 kernel with $r_{\text{crit}} = \sqrt{2\alpha}$). Canonical: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) (Vol 3 Ch 11).
+- Water two-state LC partition added as 13th physical instance (per Grant: cosmic Ω_freeze IS water → ice at different scale — both same Axiom-4 kernel with $r_{\text{crit}} = \sqrt{2\alpha}$). Canonical: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) (Vol 3 Ch 11).
 - Pd hydrogen-loading volumetric shatter added as 14th physical instance: $\Delta V/V_0 = \sqrt{2\alpha} \approx 12.08\%$ exactly matches the Axiom 4 yield boundary at the Pd lattice scale, mapping the Fleischmann-Pons stochastic-irreproducibility paradox to the 2.9% operational-tolerance sliver around $x_{D/Pd} \approx 0.929$. Canonical: Fusion volume Ch 4 §"Mathematical Addendum: The 12.08% Volumetric Shatter Limit."
 
 ## Cross-scale validation paths
@@ -116,7 +116,7 @@ A spinning parent BH in its embedding parent lattice imparts bulk strain via fra
 
 ## Explicitly kept separate
 
-**LLM SiLU activation saturation** (virtual-media volume, Ch 12 sigmoid saturation): same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread per 2026-05-15 evening direction.
+**LLM SiLU activation saturation** (virtual-media volume, Ch 12 sigmoid saturation): same kernel form ($\sigma(x)^2 + r^2 = 1$ unit-circle derivation) but applied in activation space during neural-net training, not as the same physical strain-snap event. Tracked as a parallel thread per Grant 2026-05-15 evening direction.
 
 ## Cross-references
 

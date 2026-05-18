@@ -61,7 +61,7 @@ with $T_{EM}$ the lattice's electromagnetic string tension and $\ell_{\text{node
 
 See [xi-topo-traceability.md](xi-topo-traceability.md) for the full three-way namespace de-collision.
 
-## Continuous-springs reframing
+## Continuous-springs reframing (per Grant 2026-05-15 evening)
 
 A key Sessions 16–17 insight: **the K4 lattice's "bonds" are not physical springs** between point-mass nodes. The substrate is a continuous Cosserat micropolar field at the axiom level; the discrete K4 representation is a *discretization* of the continuous field, with $\ell_{\text{node}}$ setting the Nyquist cutoff for the continuous-stress field's spatial bandwidth.
 

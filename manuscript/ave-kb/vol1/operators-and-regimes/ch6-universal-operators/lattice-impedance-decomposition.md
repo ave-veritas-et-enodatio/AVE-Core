@@ -73,7 +73,7 @@ $$R_{\text{vac}} \equiv \xi_{\text{topo}}^{-2} \cdot \eta_{\text{vac}}$$
 
 **Engine status:** IMPLICITLY encoded in the K4 scattering matrix $S_{ij} = 0.5 - \delta_{ij}$ (the off-diagonal 0.5 IS the coupling strength), but **NOT explicitly as a separate symbol or derivable quantity.**
 
-**Flag:** this is the **missing operator symbol** flagged in doc 45. Cascade-saturation mechanism (the AVE-native bootstrap for pair creation) depends on this coupling; the engine carries it implicitly via S-matrix but cannot independently tune the cascade-coupling strength. Would benefit from an explicit symbol + named operator in a future axiom-homologation pass.
+**Flag:** this is the **missing operator symbol** Grant flagged in doc 45. Cascade-saturation mechanism (the AVE-native bootstrap for pair creation) depends on this coupling; the engine carries it implicitly via S-matrix but cannot independently tune the cascade-coupling strength. Would benefit from an explicit symbol + named operator in a future axiom-homologation pass.
 
 ### Mechanical impedance $Z_{\text{mech}}$
 

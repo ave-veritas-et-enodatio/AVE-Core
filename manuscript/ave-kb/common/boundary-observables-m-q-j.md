@@ -82,7 +82,7 @@ For any localized region $\Omega$ in the substrate:
 
 <!-- claim-quality: clm-sjjvhf -->
 
-The substrate-observability rule has two non-obvious consequences that supersede prior framings:
+The substrate-observability rule has two non-obvious consequences that supersede prior framings (Grant 2026-05-14 evening):
 
 **Interior eigenmodes are not lattice-Nyquist-constrained.** Any interior Beltrami / phase-space eigenmode of a bounded soliton (e.g., the electron's horn-torus interior at $k \approx 6.36 / \ell_{\text{node}}$) lives entirely inside the $\Gamma = -1$ wall and is causally disconnected from the exterior substrate. The K4 Nyquist limit $k_{\max} = 0.577 / \ell_{\text{node}}$ does NOT apply to interior structure because the substrate never propagates that wave through the lattice — it lives only in the bounded interior cell. Forcing a multi-cell propagating-eigenmode test on a bounded interior is a category error; the substrate-correct test measures integrated boundary observables ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$).
 

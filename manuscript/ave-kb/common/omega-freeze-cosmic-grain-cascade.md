@@ -54,7 +54,7 @@ The three downstream numbers ($\alpha$, $G$, $\mathcal{J}_{\text{cosmic}}$) all 
 
 <!-- claim-quality: clm-pe8lpx -->
 
-The multi-axis alignment test pre-registers a **four-axis alignment test** for the cosmic preferred axis: CMB axis-of-evil + Hubble flow anisotropy + LSS spin direction + matter asymmetry direction. A **5th observable** (E/B polarization asymmetric-decoupling) extends the test to distinguish symmetric vs asymmetric cosmic crystallization. This leaf adds a **6th observable channel** (orbital-plane alignment), plus **7th and 8th** (Hawking + ring-down via cosmic-horizon QNM matching):
+The multi-axis alignment test pre-registers a **four-axis alignment test** for the cosmic preferred axis: CMB axis-of-evil + Hubble flow anisotropy + LSS spin direction + matter asymmetry direction. A **5th observable** (E/B polarization asymmetric-decoupling) extends the test to distinguish symmetric vs asymmetric cosmic crystallization. This leaf adds a **6th observable channel** (orbital-plane alignment), plus **7th and 8th** per Grant 2026-05-16 evening (Hawking + ring-down via cosmic-horizon QNM matching):
 
 | # | Observable | Predicted | Data source |
 |---|---|---|---|
@@ -126,7 +126,7 @@ Where:
 - $\ell = 2$ (CMB quadrupole, anomalously low in Planck data) ↔ $\ell = 2$ QNM of parent BH (dominant ring-down mode).
 - $\ell = 3$ (octupole, anomalously aligned with quadrupole) ↔ $\ell = 3$ QNM (subdominant).
 
-**Connection to Hawking radiation**: Hawking radiation from the parent BH's exterior carries the parent's spin direction. We are INSIDE so we do not see exterior Hawking, but we see the INTERIOR analog: the cosmic-horizon Nyquist noise ($T_U \sim 10^{-30}$ K) at OUR cosmic horizon. This carries the parent-BH spin direction = our $\hat{\Omega}_{\text{freeze}}$ axis.
+**Connection to Hawking radiation**: per Grant 2026-05-16 evening Q4 reframing, Hawking radiation from the parent BH's exterior carries the parent's spin direction. We are INSIDE so we do not see exterior Hawking, but we see the INTERIOR analog: the cosmic-horizon Nyquist noise ($T_U \sim 10^{-30}$ K) at OUR cosmic horizon. This carries the parent-BH spin direction = our $\hat{\Omega}_{\text{freeze}}$ axis.
 
 **Falsifier**: if the CMB low-$\ell$ multipoles do NOT preferentially align with the parent-BH QNM $\ell$-spectrum (specifically: no preferred power at $\ell = 2, 3$ over the isotropic null), the parent-BH QNM imprint is absent and the universes-inside-BHs framework requires reformulation. The fact that the CMB low-$\ell$ multipoles ARE anomalously aligned in Planck data is consistent with the framework but not yet a positive detection of the QNM mechanism specifically.
 
@@ -162,7 +162,7 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 | Framework synthesis | KB framework synthesis (this leaf) | **DONE** (this leaf) |
 | Prereg extension | Multi-axis prereg extension: orbital-plane alignment as 6th observable | **DONE** (this leaf §3.1) |
 | Cross-scale table | Cross-scale isomorphism table extension: solar-system + galactic columns | **DONE** (vol2 app F) |
-| $\Delta G/G$ derivation | K4-stiffness-tensor $\Delta G/G$ anisotropy derivation; 10⁻¹¹ JPL planetary-ephemerides test | **DEPENDS** on mechanism-pick (see §6 physical dilemma) |
+| $\Delta G/G$ derivation | K4-stiffness-tensor $\Delta G/G$ anisotropy derivation; 10⁻¹¹ JPL planetary-ephemerides test | **DEPENDS** on Grant's mechanism-pick (see §6 physical dilemma) |
 
 ## §6 — Tier 3 derivation path: Ω_freeze IS water → ice at cosmic scale (PROVISIONAL)
 
@@ -170,7 +170,7 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 
 **Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality ($I4_1 32$ right-handed at Axiom 1, Substrate Topology). Gravity is the macroscopic refractive-index modulation of the substrate ([Vol 3 Ch 2-3](../../vol_3_macroscopic/chapters/)). [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
 
-**Reframe**: this is not a novel cosmic mechanism. It is a cosmic-scale instance of standard materials-science physics — **applying stress to a substrate while it undergoes a material phase change**. The canonical AVE example is already in Core: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md).
+**Reframe (2026-05-16, per Grant)**: this is not a novel cosmic mechanism. It is a cosmic-scale instance of standard materials-science physics — **applying stress to a substrate while it undergoes a material phase change**. The canonical AVE example is already in Core: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md).
 
 ### The water → ice / K4 → I4₁32 correspondence
 
@@ -212,7 +212,7 @@ This IS the Landau expansion in micropolar-elasticity dialect — the chirality 
 
 ### What was abandoned
 
-Earlier framings of this §6 posited three exotic cosmic mechanisms — bipartite K4 sublattice averaging, Cosserat micropolar activation, particle-level $(2,q)$ trefoil cosmic averaging — and asked which sets the $\Delta G/G$ order. These were unmoored from established materials physics; the honest framework is standard strain-induced ordering during phase change, with the same Axiom-4 yield boundary that already governs water. The specific Landau formalism + materials-science analog choice are still open.
+Earlier framings of this §6 posited three exotic cosmic mechanisms — bipartite K4 sublattice averaging, Cosserat micropolar activation, particle-level $(2,q)$ trefoil cosmic averaging — and asked which sets the $\Delta G/G$ order. Per Grant, these were unmoored from established materials physics; the honest framework is standard strain-induced ordering during phase change, with the same Axiom-4 yield boundary that already governs water. The specific Landau formalism + materials-science analog choice are still open.
 
 ## §7 — Cross-references
 

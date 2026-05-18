@@ -7,7 +7,7 @@ claims: [clm-q4c615, clm-dsb560]
 
 # A-031 Refined: Cosmic-Parameter Horizon vs Observable Mechanism
 
-The original A-031 framing ("God's Hand fundamentally inaccessible") was refined to separate two distinct epistemological items that had been bundled together:
+The original A-031 framing ("God's Hand fundamentally inaccessible") was refined per Grant adjudication 2026-05-15 evening, separating two distinct epistemological items that had been bundled together:
 
 1. **Specific cosmic parameters** ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$, $\Omega_{\text{freeze}}$ of our parent black hole) — **INACCESSIBLE.** We sit inside the cosmic $\Gamma = -1$ boundary (the cosmic horizon = parent-BH Schwarzschild radius per [Vol 3 Ch 4 (Generative Cosmology)](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex)); per the substrate-observability rule, the interior is causally and impedance-disconnected from outside observers. We cannot measure the specific parameters of OUR parent-BH instance from inside.
 

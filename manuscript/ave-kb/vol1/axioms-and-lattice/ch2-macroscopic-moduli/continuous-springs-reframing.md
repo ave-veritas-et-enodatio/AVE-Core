@@ -7,7 +7,7 @@ no-claim: pedagogical reframing leaf — recasts the discrete K4 lattice as a Ny
 
 # Discrete K4 Lattice as Discretization of Continuous Cosserat Field
 
-Per the Q-G47 Sessions 16–17 adjudication (2026-05-15 evening): the K4 lattice's "bonds" are **not** physical springs between point-mass nodes. The substrate is a continuous Cosserat micropolar field at the axiom level; the discrete K4 representation is a *discretization* of the continuous field. $\ell_{\text{node}}$ sets the Nyquist cutoff for the continuous-stress field's spatial bandwidth.
+Per Grant 2026-05-15 evening (Q-G47 Sessions 16–17): the K4 lattice's "bonds" are **not** physical springs between point-mass nodes. The substrate is a continuous Cosserat micropolar field at the axiom level; the discrete K4 representation is a *discretization* of the continuous field. $\ell_{\text{node}}$ sets the Nyquist cutoff for the continuous-stress field's spatial bandwidth.
 
 This reframing resolves a recurring class of "discrete vs continuous" framing confusions. The substrate is continuous; K4 is the discretization sampling that continuum at the substrate's natural scale.
 

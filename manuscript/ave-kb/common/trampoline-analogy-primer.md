@@ -7,7 +7,7 @@ no-claim: self-scoped pedagogical primer — its own "IS / IS NOT" section state
 
 # The Trampoline/Spring Analogy: Core Pedagogical Primer
 
-Per directive 2026-05-16 ("I want the core to be self sufficient, duplicate"): this leaf is the Core-canonical pedagogical primer for the trampoline/spring analogy, distilled from the QED-replacement volume's tensioned-trampoline chapter. The analogy is the **picture-first mechanical visualization** of the AVE substrate, derived step-by-step from the reader's likely starting point (the GR pop-sci picture of gravity). **This is the primer the ave-prereg skill Step 1.5 refers agents to when grounding new derivations.**
+Per Grant directive 2026-05-16 ("I want the core to be self sufficient, duplicate"): this leaf is the Core-canonical pedagogical primer for the trampoline/spring analogy, distilled from the QED-replacement volume's tensioned-trampoline chapter. The analogy is the **picture-first mechanical visualization** of the AVE substrate, derived step-by-step from the reader's likely starting point (the GR pop-sci picture of gravity). **This is the primer the ave-prereg skill Step 1.5 refers agents to when grounding new derivations.**
 
 **Sister Core leaf**: [`common/trampoline-framework.md`](trampoline-framework.md) is the canonical synthesis/cross-reference document with five-bullet picture + ground-up build + chapter cross-refs. **This leaf** is the step-by-step pedagogical primer (Step 0 → 6) that builds the picture from scratch. Both serve different reader needs; both are Core-canonical.
 
@@ -62,17 +62,17 @@ The AVE substrate is a **discrete K4-bipartite tetrahedral lattice** with pitch 
 - **$K = 2G$ trace-reversal operating point** (Backmatter app: four-force unification): the substrate's specific stressed configuration
 - **Cosserat micropolar tensor structure** (Vol 1 Ch 4): bond rotational degrees of freedom emerge from the buckled geometry
 
-> **Note on rod-and-spring framing.** An equivalent way to draw this is as two separate components: rigid rods (length $L_{\text{rod}}$) mounted between nodes at spacing $d < L_{\text{rod}}$, with elastic springs spanning each rod at a skewed angle. This was the original framing (2026-05-13 evening); it is mechanically equivalent but introduces two structural elements (rod + spring) where the buckling picture uses one (a single elastic bond with rest length $> d$). The **buckling framing is preferred** because it maps directly to real K4 lattice bonds, which are single bonded elements with both topological and elastic character.
+> **Note on rod-and-spring framing.** An equivalent way to draw this is as two separate components: rigid rods (length $L_{\text{rod}}$) mounted between nodes at spacing $d < L_{\text{rod}}$, with elastic springs spanning each rod at a skewed angle. This was the original framing (Grant Lindblom, 2026-05-13 evening); it is mechanically equivalent but introduces two structural elements (rod + spring) where the buckling picture uses one (a single elastic bond with rest length $> d$). The **buckling framing is preferred** because it maps directly to real K4 lattice bonds, which are single bonded elements with both topological and elastic character.
 
-### Step 2 cooled-equilibrium interpretation (2026-05-13 late evening)
+### Step 2 cooled-equilibrium interpretation (Grant's bet, 2026-05-13 late evening)
 
 The buckled state is the substrate's **rest configuration**: the lattice geometry that the pre-geodesic plasma settles into when cooled during cosmic crystallization (cosmology "bottle in freezer" mechanism).
 
-**Hypothesis** (2026-05-13 late evening, formalized in Q-G47 setup doc §5):
+**Hypothesis** (Grant Lindblom, 2026-05-13 late evening, formalized in Q-G47 setup doc §5):
 
 > **$K = 2G$ is the elastic configuration at which the cooled K4 lattice has minimum free energy.** The substrate doesn't have $K = 2G$ because GR demands it (top-down) or because FTG-EMT self-consistency checks it (back-derived); it has $K = 2G$ because that's the **thermodynamic attractor** of the cooling pre-geodesic plasma.
 
-**Mathematical formulation**: cooled equilibrium satisfies $\partial U/\partial r_d = 0$ at $r_d^*$, and the bet is that $K(r_d^*)/G(r_d^*) = 2$ at the same $r_d^*$.
+**Mathematical formulation**: cooled equilibrium satisfies $\partial U/\partial r_d = 0$ at $r_d^*$, and Grant's bet is that $K(r_d^*)/G(r_d^*) = 2$ at the same $r_d^*$.
 
 **Critical subtlety** (Vol 3 Ch 1:33-37 canonical): primary K4 bond buckling alone gives the **Cauchy baseline** $K/G \approx 5/3$ at the affine-deformation limit. Bridging from $5/3$ to $2$ requires additional structural contributions:
 - Secondary over-bracing links at $r_{\text{secondary}} \approx 1.187 \ell_{\text{node}}$
@@ -423,9 +423,9 @@ The corpus currently has two distinct justifications for $K = 2G$:
 
 **Magic-angle condition reframed (the bridge-stands-up check)**: at the $K=2G$ operating point, three geometric factors ($f_{\text{Cauchy}}$, $f_{\text{buckling}}$, $f_{\text{Cosserat}}$) must simultaneously equal 1.
 
-### The LC-cavity standing-wave reframe (2026-05-16)
+### The LC-cavity standing-wave reframe (Grant 2026-05-16)
 
-The Q-G47 verification turned out to have a cleaner physical interpretation than "three independent geometric factors that happen to coincide." Per the plumber-language dialogue:
+The Q-G47 verification turned out to have a cleaner physical interpretation than "three independent geometric factors that happen to coincide." Per Grant's plumber-language dialogue:
 
 **The K4 substrate is an LC resonant cavity.** The over-bracing geometric structure ($r_{\text{secondary}}/d = 1.187$) sets the cavity's eigenmode wavelength. The standing-wave amplitude that locks into this cavity at equilibrium IS the magic angle $u_0^* = 0.187$.
 
@@ -461,7 +461,7 @@ The LC-cavity standing-wave reframe (above) is the pedagogical PICTURE of what b
 
 These are physically connected (primary K4's over-bracing creates the amorphous secondary scaffolding per Vol 3 Ch 1 §3.2) but numerically distinct quantities ($4/21 \neq 8\pi\alpha$; the 3.86% proximity is coincidence between two K4-related small numbers, not an unresolved discrepancy). See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) for the full distinction.
 
-### CMB role (clarification per plumber dialogue)
+### CMB role (clarification per Grant plumber dialogue)
 
 CMB photons EXCITE the substrate's standing-wave eigenmode at sub-amplitude (~10⁻⁴ thermal background), but they're NOT what sets the 0.187 magic-angle amplitude. The cavity-geometric standing wave IS at 0.187 regardless of thermal driving — that's the eigenmode's natural cavity-locked amplitude. The CMB is just the thermal bath that excites the mode at room thermal level.
 
