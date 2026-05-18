@@ -293,7 +293,7 @@ future_work/          # Speculative roadmap
 | 39 | Protein Rg (Villin) | 0.8% | ✅ η_eq = P_C(1−ν), Rg = r_Ca(N/η_eq)^(1/3)√(3/5) |
 | 40 | NS compactness limit | Exact | ✅ R_min = 7GM/c² (ε₁₁ < 1 ↔ 2GM/c²R < 2/7 = ν_vac) |
 | 41 | WD redshift (Sirius B) | 3.7% | ✅ z = GM/(c²R), v_GR=77.75 km/s, v_obs=80.65±0.77 |
-| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (Axiom 3) |
+| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (derived: Ax 1 + Ax 4) |
 | 43 | BCS B_c(T) | 0.00% | ✅ B_c(T) = B_c0·S(T/T_c) IS the saturation operator (Al, Pb, Nb, MgB₂) |
 | 44 | BH interior (Regime IV) | Exact | ✅ G_shear = 0, c_eff = 0 for r < r_sat = 7GM/c². Symmetric saturation → Z = Z₀, Γ = 0 (dissipative sink). |
 | 45 | Regime IV isomorphism | — | ✅ BH (sym, hole) ≠ electron (asym, knot). Same S=0 operator, different saturation symmetry. |
