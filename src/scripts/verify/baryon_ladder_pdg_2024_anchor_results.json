@@ -1,0 +1,130 @@
+{
+  "retrospective": [
+    {
+      "c": 5,
+      "ave_mev": 938.2538796271142,
+      "best_match": "proton",
+      "pdg_mass_mev": 938.27208816,
+      "pdg_uncertainty_mev": 2.9e-07,
+      "err_pct": -0.001940645268629802,
+      "jp": "1/2+",
+      "jp_consistent": true,
+      "pdg_status": "****",
+      "pdg_section": "N Baryons (S=0, I=1/2) \u2014 p (uds=uud)"
+    },
+    {
+      "c": 7,
+      "ave_mev": 1261.0009294329766,
+      "best_match": "\u0394(1232)",
+      "pdg_mass_mev": 1232,
+      "pdg_uncertainty_mev": 2,
+      "err_pct": 2.3539715448844634,
+      "jp": "3/2+",
+      "jp_consistent": true,
+      "pdg_status": "****",
+      "pdg_section": "\u0394 Baryons (S=0, I=3/2) \u2014 \u0394(1232) P33"
+    },
+    {
+      "c": 9,
+      "ave_mev": 1582.2264593351968,
+      "best_match": "\u0394(1600)",
+      "pdg_mass_mev": 1570,
+      "pdg_uncertainty_mev": 70,
+      "err_pct": 0.7787553716685829,
+      "jp": "3/2+",
+      "jp_consistent": true,
+      "pdg_status": "****",
+      "pdg_section": "\u0394 Baryons \u2014 \u0394(1600) P33"
+    },
+    {
+      "c": 11,
+      "ave_mev": 1894.8946699429232,
+      "best_match": "\u0394(1900)",
+      "pdg_mass_mev": 1860,
+      "pdg_uncertainty_mev": 50,
+      "err_pct": 1.8760575238130754,
+      "jp": "1/2-",
+      "jp_consistent": true,
+      "pdg_status": "***",
+      "pdg_section": "\u0394 Baryons \u2014 \u0394(1900) S31"
+    },
+    {
+      "c": 13,
+      "ave_mev": 2194.635592627271,
+      "best_match": "N(2190)",
+      "pdg_mass_mev": 2100,
+      "pdg_uncertainty_mev": 50,
+      "err_pct": 4.506456791774802,
+      "jp": "7/2-",
+      "jp_consistent": true,
+      "pdg_status": "****",
+      "pdg_section": "N Baryons \u2014 N(2190) G17"
+    },
+    {
+      "c": 15,
+      "ave_mev": 2477.9678740552868,
+      "best_match": "\u0394(2420)",
+      "pdg_mass_mev": 2400,
+      "pdg_uncertainty_mev": 100,
+      "err_pct": 3.2486614189702814,
+      "jp": "11/2+",
+      "jp_consistent": true,
+      "pdg_status": "****",
+      "pdg_section": "\u0394 Baryons \u2014 \u0394(2420) H3,11"
+    }
+  ],
+  "forward": [
+    {
+      "c": 17,
+      "ave_mev": 2741.77606108831,
+      "best_match": "\u0394(2750)",
+      "pdg_mass_mev": 2750,
+      "pdg_uncertainty_mev": 100,
+      "err_pct": -0.2990523240614493,
+      "jp": "13/2-",
+      "jp_consistent": true,
+      "pdg_status": "**"
+    },
+    {
+      "c": 19,
+      "ave_mev": 2983.1180227554282,
+      "best_match": "\u0394(2950)",
+      "pdg_mass_mev": 2950,
+      "pdg_uncertainty_mev": 100,
+      "err_pct": 1.1226448391670585,
+      "jp": "15/2+",
+      "jp_consistent": true,
+      "pdg_status": "**"
+    },
+    {
+      "c": 21,
+      "ave_mev": 3199.1424201989244,
+      "best_match": "\u0394(2950)",
+      "pdg_mass_mev": 2950,
+      "pdg_uncertainty_mev": 100,
+      "err_pct": 8.445505769455064,
+      "jp": "15/2+",
+      "jp_consistent": true,
+      "pdg_status": "**"
+    }
+  ],
+  "summary": {
+    "retrospective_jp_consistent": 6,
+    "retrospective_within_3pct": 4,
+    "retrospective_within_1pct": 2,
+    "null_hypothesis_random_hits_3pct": 6.0,
+    "null_hypothesis_random_hits_1pct": 2.6999999999999997,
+    "outcome": "B (PARTIAL) \u2014 most match but some J^P or precision issues",
+    "skill_disciplines_applied": [
+      "ave-prereg",
+      "pre-test-physics-check",
+      "substrate-native-check",
+      "ave-canonical-source",
+      "ave-driver-script-honesty",
+      "ave-discrimination-check (D3 J^P consistency)",
+      "ave-evidence-framing-discipline (\u22653 sig figs)",
+      "consistency-vs-emergence (Class 4)",
+      "verify-before-cite (PDG 2024 row IDs pinned)"
+    ]
+  }
+}
