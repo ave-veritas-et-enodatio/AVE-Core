@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-trf3bd]
+claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
 -->
 
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
@@ -32,7 +32,7 @@ Following the PMNS angle derivation pattern ([Vol 2 Ch 3 §Step 2](../vol2/parti
 
 | Regime | Physical principle | Equation |
 |---|---|---|
-<!-- claim-quality: clm-trf3bd -->
+<!-- claim-quality: clm-unk0bd -->
 | **(a) Nyquist** | Discrete lattice sampling cutoff (Axiom 1); smallest stable soliton (the $0_1$ unknot with $(2,3)$ phase-space winding) | $d = 1\,\ell_{\text{node}}$ |
 | **(b) Crossings** | Transverse self-avoidance at topologically-marked phase-space crossings (Axiom 2 dielectric rupture) | $2(R-r) = d \Rightarrow R - r = 1/2$ |
 | **(c) Screening** | Spin-1/2 half-cover of the standard Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ via the AVE-native $SU(2) \to SO(3)$ 2-to-1 cover | $(2\pi R)(2\pi r) = \pi^2 \Rightarrow R \cdot r = 1/4$ |
