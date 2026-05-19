@@ -1,6 +1,6 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-19 EOD (post orchestration-tracking-promoted + claude-md-atopile-cleanup commits)
+**Last updated**: 2026-05-19 EOD (post orchestration-tracking-promoted + claude-md-atopile-cleanup + cosmic-axis-glossary epic queued)
 **Current HEAD on `analysis/integration`**: `720a7df`
 **E1b cascade-anchor commit**: `54f0698` (Section E cascade state anchored here; later commits are meta-work)
 **Audit tag count**: 20 (`git tag -l "audit/*" | wc -l`)
@@ -13,14 +13,15 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Epic | Doc | Status | Last phase landed |
 |---|---|---|---|
 | Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE | E1b CLOSED 2026-05-19 (`54f0698`); E1b-prime PENDING |
+| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | ACTIVE — implementor kickoff pending | Scope-C adjudicated 2026-05-19 EOD; Phases 0-5 locked |
 
 ## Queued epics (not yet kicked off — would create new docs when activated)
 
-| Epic | Trigger | Notes |
-|---|---|---|
-| DM META closure | Grant greenlight | Independent of Section E. Closes C13c META row. ~1-2 sessions. |
-| Phase 2 mass-spectrum activation | Grant greenlight | Pre-greenlit 2026-04-30 per [`research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md:5`](../research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md). W/Z/Higgs eigenvalue solver; ~1 week scope. |
-| Hygiene pass | Batch convenience | Items 4-9 from "Open decisions" below; ~30 min each. |
+| Epic | Doc | Trigger | Notes |
+|---|---|---|---|
+| DM META closure | (no doc yet) | Grant greenlight | Independent of Section E. Closes C13c META row. ~1-2 sessions. |
+| Phase 2 mass-spectrum activation | (no doc yet) | Grant greenlight | Pre-greenlit 2026-04-30 per [`research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md:5`](../research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md). W/Z/Higgs eigenvalue solver; ~1 week scope. |
+| Hygiene pass | (no doc yet) | Batch convenience | Items 4-9 from "Open decisions" below; ~30 min each. |
 
 ## Next-move priority ladder
 
@@ -51,6 +52,7 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | 7 | **AVE-Metamaterials SOLAR_PANEL_INITIATIVE WIP** (8 uncommitted) | Active workstream not yet committed. Grant decides when to commit. |
 | 8 | **AVE-QED PDF gitignore + .tex commit** | 2 uncommitted: 1 modified `09_anomalous_moment.tex` + 1 untracked `main.pdf` (build artifact). Should gitignore the PDF, commit the .tex when ready. |
 | 9 | **`analysis/c8-baryon-ladder-pdg-anchor` branch fate** | 2 unpushed Q-G47 retrofit commits pushed earlier; branch still alive on local + origin. Session-record-of-stale-corpus-view per Option A. Keep as historical or delete via audit-tag pattern? |
+| 10 | **Cosmic-axis glossary scope adjudication** | RESOLVED 2026-05-19 EOD: scope C + H_∞ hygiene fold-in. Implementor kickoff pending. |
 
 ## Skill ecosystem state
 
@@ -63,6 +65,7 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Path | Purpose |
 |---|---|
 | [`_orchestration/section-e-cascade.md`](section-e-cascade.md) | Active Section E epic |
+| [`_orchestration/cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Queued cosmic-axis glossary epic (PENDING-SCOPING) |
 | [`_orchestration/README.md`](README.md) | Convention doc for this directory |
 | [`CLAUDE.md`](../CLAUDE.md) | AVE-Core agent orientation (replaces atopile pollution as of 2026-05-19 EOD) |
 | [`manuscript/ave-kb/CLAUDE.md`](../manuscript/ave-kb/CLAUDE.md) | Cross-cutting KB invariants |
