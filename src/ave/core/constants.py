@@ -147,6 +147,19 @@ G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 #
 #       α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363038
 #
+# Golden Torus geometric constants — canonical (R, r, R·r) and golden ratio φ.
+# Defining identities (lines 132-133 above):
+#     R − r = 1/2  (self-avoidance of internal strands)
+#     R · r = 1/4  (holomorphic screening at π² surface optimum)
+# Solving: R = φ/2, r = (φ − 1)/2 where φ = (1+√5)/2 is the golden ratio.
+# These are the Clifford-torus (R, r) phase-space coordinates that Theorem 3.1'
+# (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`)
+# requires the electron bound state to realize for Λ_i = Q_i bridge to hold.
+PHI: float = (1.0 + np.sqrt(5.0)) / 2.0           # Golden ratio ≈ 1.6180339887
+R_GOLDEN_TORUS: float = PHI / 2.0                  # Major radius ≈ 0.8090169944
+R_GOLDEN_TORUS_MINOR: float = (PHI - 1.0) / 2.0    # Minor radius ≈ 0.3090169944
+RR_GOLDEN_TORUS: float = R_GOLDEN_TORUS * R_GOLDEN_TORUS_MINOR  # = 1/4 exactly (algebraic)
+
 ALPHA_COLD_INV: float = 4.0 * pi**3 + pi**2 + pi  # ≈ 137.0363038
 ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 

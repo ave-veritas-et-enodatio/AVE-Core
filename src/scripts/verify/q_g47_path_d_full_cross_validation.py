@@ -33,7 +33,13 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from ave.core.master_equation_fdtd import MasterEquationFDTD
-from ave.core.constants import ALPHA_COLD_INV  # 4π³ + π² + π ≈ 137.0363
+from ave.core.constants import (
+    ALPHA_COLD_INV,  # 4π³ + π² + π ≈ 137.0363
+    PHI,             # Golden ratio ≈ 1.6180 (canonical per 2026-05-18 prereg)
+    R_GOLDEN_TORUS,           # φ/2 ≈ 0.8090
+    R_GOLDEN_TORUS_MINOR,     # (φ-1)/2 ≈ 0.3090
+    RR_GOLDEN_TORUS,          # R·r = 1/4 (algebraic identity)
+)
 
 
 # Constants
@@ -103,6 +109,309 @@ def q_factor_decomposition(V_field, center, R_boundary):
     L_surf = float(np.sum(V_normalized[surface_mask]))
     L_line = float(np.sum(V_normalized[line_mask]))
     return L_vol, L_surf, L_line
+
+
+# ============================================================
+# Interpretation G — Golden Torus geometry verification
+# Per research/2026-05-18_q-g47-interpretation-g-prereg.md
+# ============================================================
+#
+# K4-TLM A5 chain (Λ_total → α_cold⁻¹) requires the bound state to realize
+# Golden Torus geometry (R=φ/2, r=(φ-1)/2, R·r=1/4) in (V_inc, V_ref) phase
+# space per Theorem 3.1' precondition (theorem-3-1-q-factor.md:49-63).
+# This observer extracts effective (R_meas, r_meas) and reports outcome
+# classification A/B/C/D per prereg §4.
+#
+# Substrate-native caveat: MasterEquationFDTD is EMT/continuum, NOT K4-TLM
+# native. The Riemann-invariant projection V_inc = (V - dV/dr)/2 is a post-hoc
+# continuum→TLM mapping. A single-mode bound state will produce DEGENERATE
+# Lissajous (straight-line) under either temporal or spatial projection — the
+# (R, r) phase-space picture requires multi-mode structure (e.g., (2,3) torus
+# knot frequencies 2:3 ratio). The FFT multi-mode check below is the primary
+# topology discriminator; Lissajous PCA is diagnostic.
+#
+# Critical engine-limitation note (Grant, 2026-05-18): the K4 lattice (Axiom 1)
+# is *chiral* Laves — the 4 bonds at each node are arranged with handedness,
+# applying ASYMMETRIC TORQUE to the node. This chiral coupling is the mechanism
+# that turns pure radial breathing into multi-mode (2,3) torus knot structure
+# (2 = orbital winding, 3 = chiral precession). MasterEquationFDTD is a scalar
+# EMT/continuum solver with NO chiral structure, NO Cosserat torque coupling,
+# NO K4 connectivity — it cannot produce the chirality-induced multi-mode
+# breathing that the Golden Torus geometry presupposes. Outcome C from THIS
+# engine is therefore essentially unreachable; the realistic outcome space
+# reduces to A/B/D, with B (degenerate Lissajous from single-mode breathing)
+# overwhelmingly likely. Positive C verification requires running this observer
+# on K4-TLM native (where V_inc/V_ref are scatter-connect state) — queued as
+# follow-up workstream per result doc.
+
+
+def find_density_peaks(V_field, pml_thickness, K=8, min_separation=2.0):
+    """Top-K cells by |V|² with PML exclusion + minimum-separation constraint.
+    Per A46 sampling discipline: avoid centroid of shell-like distributions
+    (centroid is the empty hole); sample at energy-density peaks instead.
+    """
+    N = V_field.shape[0]
+    V_sq = V_field ** 2
+    pml_mask = np.zeros_like(V_sq, dtype=bool)
+    pml_mask[pml_thickness:N - pml_thickness,
+             pml_thickness:N - pml_thickness,
+             pml_thickness:N - pml_thickness] = True
+    V_sq_masked = np.where(pml_mask, V_sq, 0.0)
+    flat_idx = np.argsort(V_sq_masked.ravel())[::-1]
+    coords = np.array(np.unravel_index(flat_idx, V_sq.shape)).T
+    selected = []
+    for idx in coords:
+        if len(selected) >= K:
+            break
+        if all(np.linalg.norm(idx - s) >= min_separation for s in selected):
+            selected.append(tuple(int(x) for x in idx))
+    return selected
+
+
+def radial_gradient_at(V_field, point, center):
+    """Compute d̂ · ∇V at point, where d̂ is unit radial vector from center."""
+    i, j, k = point
+    cx, cy, cz = center
+    dx, dy, dz = (i - cx, j - cy, k - cz)
+    r = np.sqrt(dx * dx + dy * dy + dz * dz)
+    if r < 1e-10:
+        return 0.0
+    inv_r = 1.0 / r
+    grad_x = (V_field[i + 1, j, k] - V_field[i - 1, j, k]) / 2.0
+    grad_y = (V_field[i, j + 1, k] - V_field[i, j - 1, k]) / 2.0
+    grad_z = (V_field[i, j, k + 1] - V_field[i, j, k - 1]) / 2.0
+    return float((dx * grad_x + dy * grad_y + dz * grad_z) * inv_r)
+
+
+def analyze_phasor_trajectory_pca(v_inc, v_ref):
+    """PCA on (V_inc, V_ref) trajectory + closed-curve heuristic.
+    Adapted from canonical pattern at
+    src/scripts/vol_1_foundations/test_b_bond_scale_phasor.py:128-216.
+    """
+    points = np.column_stack([v_inc, v_ref])
+    centered = points - points.mean(axis=0)
+    cov = np.cov(centered.T)
+    evals, evecs = np.linalg.eigh(cov)
+    order = np.argsort(evals)[::-1]
+    evals = evals[order]
+    evecs = evecs[:, order]
+    pca_proj = centered @ evecs
+    R = float(np.std(pca_proj[:, 0]))
+    r = float(np.std(pca_proj[:, 1]))
+    chunks = 5
+    chunk_size = max(len(v_inc) // chunks, 1)
+    chunk_R_values = []
+    for i in range(chunks):
+        seg_inc = v_inc[i * chunk_size:(i + 1) * chunk_size]
+        seg_ref = v_ref[i * chunk_size:(i + 1) * chunk_size]
+        if len(seg_inc) < 3:
+            continue
+        seg_pts = np.column_stack([seg_inc, seg_ref])
+        chunk_R_values.append(float(np.linalg.norm(seg_pts.std(axis=0))))
+    if chunk_R_values:
+        R_drift = float(np.std(chunk_R_values) / max(np.mean(chunk_R_values), 1e-30))
+    else:
+        R_drift = float('inf')
+    return {"R": R, "r": r, "is_closed": bool(R_drift < 0.20),
+            "amplitude_drift": R_drift}
+
+
+def fft_multi_mode_check(V_time_series, dt_sample):
+    """Identify top-3 spectral peaks; return frequencies + ratios.
+    Primary discriminator for (2,3) torus knot vs single-mode breathing.
+    """
+    sig = np.asarray(V_time_series) - np.mean(V_time_series)
+    spectrum = np.abs(np.fft.rfft(sig)) ** 2
+    freqs = np.fft.rfftfreq(len(sig), d=dt_sample)
+    spectrum[0] = 0.0
+    sorted_idx = np.argsort(spectrum)[::-1]
+    top_peaks = []
+    for idx in sorted_idx[:8]:
+        if freqs[idx] > 0 and spectrum[idx] > 1e-30:
+            top_peaks.append((float(freqs[idx]), float(spectrum[idx])))
+        if len(top_peaks) >= 3:
+            break
+    return top_peaks
+
+
+def golden_torus_geometry_check(engine, center, n_window_steps=2000,
+                                  K_peaks=8, pml_thickness=4):
+    """Interpretation G test — measure effective (R, r) Clifford-torus phase-space
+    coordinates of breathing-soliton bound state via radial Riemann-invariant
+    projection + Lissajous PCA, with FFT multi-mode check as primary topology
+    discriminator.
+
+    Per research/2026-05-18_q-g47-interpretation-g-prereg.md outcomes A/B/C/D.
+    """
+    # Canonical-source verification block (ave-canonical-source skill Step 4)
+    import ave.core.constants as _avc
+    assert _avc.__file__.endswith("ave/core/constants.py"), \
+        "ave.core.constants is not canonical AVE-Core source"
+    assert abs(_avc.PHI ** 2 - _avc.PHI - 1.0) < 1e-15, \
+        "PHI canonical identity φ² = φ + 1 failed"
+    assert abs(_avc.RR_GOLDEN_TORUS - 0.25) < 1e-14, \
+        f"RR_GOLDEN_TORUS = {_avc.RR_GOLDEN_TORUS} ≠ 1/4"
+
+    print()
+    print("─" * 80)
+    print("Interpretation G: Golden Torus geometry verification (K4-TLM A5 closure)")
+    print("Per research/2026-05-18_q-g47-interpretation-g-prereg.md")
+    print("─" * 80)
+
+    peaks = find_density_peaks(engine.V, pml_thickness, K=K_peaks,
+                                min_separation=2.0)
+    if len(peaks) < K_peaks:
+        K_peaks = len(peaks)
+        print(f"  Reduced K_peaks to {K_peaks} (fewer well-separated peaks found)")
+
+    print(f"  Sampling at top-{K_peaks} energy-density peaks "
+          f"(PML-excluded buffer={pml_thickness}, min_sep=2.0):")
+    for k, p in enumerate(peaks):
+        r_from_c = float(np.linalg.norm(np.array(p) - np.array(center)))
+        print(f"    peak {k}: cell ({p[0]:2d},{p[1]:2d},{p[2]:2d})  "
+              f"r_from_center={r_from_c:5.2f}  V²={engine.V[p[0], p[1], p[2]] ** 2:.4e}")
+
+    n_records = n_window_steps
+    V_history = np.zeros((n_records, K_peaks))
+    dVdr_history = np.zeros((n_records, K_peaks))
+    times = np.zeros(n_records)
+
+    t0 = time.time()
+    for step in range(n_window_steps):
+        engine.step()
+        for k_p, p in enumerate(peaks):
+            V_history[step, k_p] = engine.V[p[0], p[1], p[2]]
+            dVdr_history[step, k_p] = radial_gradient_at(engine.V, p, center)
+        times[step] = engine.time
+    elapsed = time.time() - t0
+
+    dt_sample = (times[1] - times[0]) if len(times) > 1 else 0.4
+    A2_local_per_peak = np.mean(V_history ** 2, axis=0)
+
+    # Radial Riemann-invariant projection (TLM-style; Z_0 = 1 natural units)
+    # Outward-traveling component carries +∂V/∂r contribution
+    V_inc_history = (V_history - dVdr_history) / 2.0
+    V_ref_history = (V_history + dVdr_history) / 2.0
+
+    # Per-peak PCA + FFT
+    per_peak = []
+    for k in range(K_peaks):
+        pca = analyze_phasor_trajectory_pca(V_inc_history[:, k],
+                                              V_ref_history[:, k])
+        fft_peaks = fft_multi_mode_check(V_history[:, k], dt_sample)
+        per_peak.append({"pca": pca, "fft": fft_peaks})
+
+    R_per_peak = np.array([p["pca"]["R"] for p in per_peak])
+    r_per_peak = np.array([p["pca"]["r"] for p in per_peak])
+    closed_per_peak = np.array([p["pca"]["is_closed"] for p in per_peak])
+
+    R_meas = float(np.mean(R_per_peak))
+    r_meas = float(np.mean(r_per_peak))
+    Rr_meas = R_meas * r_meas
+    R_over_r_meas = R_meas / max(r_meas, 1e-30)
+
+    # Multi-mode FFT analysis — count peaks within 10× of dominant amplitude
+    n_multi_mode_peaks = 0
+    freq_ratios_to_dominant = []
+    for p in per_peak:
+        fft = p["fft"]
+        if not fft:
+            continue
+        f0, p0 = fft[0]
+        secondary = [(f, pw) for f, pw in fft[1:] if pw > p0 / 100.0]  # within 20 dB
+        if secondary:
+            n_multi_mode_peaks += 1
+            for f, _ in secondary:
+                freq_ratios_to_dominant.append(f / f0 if f > f0 else f0 / f)
+
+    median_freq_ratio = float(np.median(freq_ratios_to_dominant)) \
+                         if freq_ratios_to_dominant else None
+
+    # Classification per prereg §4
+    R_over_r_target = PHI ** 2  # ≈ 2.618 (scale-invariant ratio)
+    R_over_r_dev_pct = 100.0 * abs(R_over_r_meas - R_over_r_target) / R_over_r_target
+
+    # Outcome D: sub-resolution (any peak with R_meas ≈ 0)
+    outcome_D = bool((R_per_peak < 1e-8).any())
+    # Outcome B: most peaks have collapsed Lissajous (R/r >> φ²)
+    R_over_r_per_peak = R_per_peak / np.maximum(r_per_peak, 1e-30)
+    degenerate_count = int(((R_over_r_per_peak > 10.0 * R_over_r_target) |
+                            (r_per_peak < 1e-8)).sum())
+    outcome_B = bool((degenerate_count > K_peaks // 2) and not outcome_D)
+    # Outcome C: ratio within 10% of φ² AND multi-mode structure present
+    outcome_C = bool((R_over_r_dev_pct < 10.0)
+                     and (n_multi_mode_peaks > K_peaks // 2)
+                     and not outcome_B and not outcome_D)
+    # Outcome A: finite Lissajous, far from Golden Torus
+    outcome_A = bool(not (outcome_B or outcome_C or outcome_D))
+
+    if outcome_D:
+        outcome_label = "D — sub-resolution (sampling falsification)"
+    elif outcome_B:
+        outcome_label = ("B — degenerate Lissajous (single-mode breathing OR "
+                         "sub-saturation regime; (2,3) topology NOT realized)")
+    elif outcome_C:
+        outcome_label = ("C — Golden Torus realized (Theorem 3.1' bridge holds; "
+                         "50% Λ-gap is NOT geometric) — NOTE: positive C from "
+                         "scalar EMT engine without chiral coupling warrants "
+                         "K4-TLM native cross-validation before promotion")
+    else:
+        outcome_label = ("A — finite Lissajous, geometry NOT realized "
+                         "(Interpretation G confirmed; 50% Λ-gap is geometric mismatch)")
+
+    print(f"\n  Recording window: {n_window_steps} steps, runtime {elapsed:.1f}s, "
+          f"dt_sample={dt_sample:.4f}")
+    print(f"  Per-peak measurements:")
+    for k in range(K_peaks):
+        fft = per_peak[k]["fft"]
+        f0 = fft[0][0] if fft else 0
+        print(f"    peak {k}: R={R_per_peak[k]:.6f}  r={r_per_peak[k]:.6f}  "
+              f"R/r={R_over_r_per_peak[k]:6.2f}  "
+              f"closed={closed_per_peak[k]!s:5s}  "
+              f"A²_local={A2_local_per_peak[k]:.4f}  "
+              f"f_dominant={f0:.4f}")
+    print()
+    print(f"  Aggregate (mean across {K_peaks} peaks):")
+    print(f"    R_meas      = {R_meas:.6f}  (target R_GOLDEN_TORUS       = {R_GOLDEN_TORUS:.6f})")
+    print(f"    r_meas      = {r_meas:.6f}  (target R_GOLDEN_TORUS_MINOR = {R_GOLDEN_TORUS_MINOR:.6f})")
+    print(f"    R · r_meas  = {Rr_meas:.6e}  (target RR_GOLDEN_TORUS      = {RR_GOLDEN_TORUS:.6f})")
+    print(f"    R / r_meas  = {R_over_r_meas:8.4f}  (target φ²                   = {R_over_r_target:.4f})")
+    print(f"    Deviation from φ² target: {R_over_r_dev_pct:.1f}%")
+    print(f"    Multi-mode peaks (>1 spectral peak within 20 dB): "
+          f"{n_multi_mode_peaks} / {K_peaks}")
+    if median_freq_ratio is not None:
+        print(f"    Median secondary/dominant frequency ratio: {median_freq_ratio:.3f}  "
+              f"(target 1.5 for (2,3) torus knot)")
+    print(f"    Mean A²_local across peaks: {A2_local_per_peak.mean():.4f}  "
+          f"(< 0.5 ≈ sub-saturation; > 0.9 ≈ TIR cavity)")
+    print(f"    Closed-curve peaks: {int(closed_per_peak.sum())} / {K_peaks}")
+    print()
+    print(f"  OUTCOME: {outcome_label}")
+
+    return {
+        "interp_g": {
+            "R_meas": R_meas,
+            "r_meas": r_meas,
+            "Rr_meas": Rr_meas,
+            "R_over_r_meas": R_over_r_meas,
+            "R_over_r_target_phi_squared": R_over_r_target,
+            "R_over_r_deviation_pct": R_over_r_dev_pct,
+            "R_per_peak": R_per_peak.tolist(),
+            "r_per_peak": r_per_peak.tolist(),
+            "A2_local_per_peak": A2_local_per_peak.tolist(),
+            "n_multi_mode_peaks": int(n_multi_mode_peaks),
+            "median_secondary_freq_ratio": median_freq_ratio,
+            "n_closed_curve_peaks": int(closed_per_peak.sum()),
+            "K_peaks_total": int(K_peaks),
+            "n_window_steps": int(n_window_steps),
+            "dt_sample": float(dt_sample),
+            "outcome_label": outcome_label,
+            "outcome_A": outcome_A,
+            "outcome_B": outcome_B,
+            "outcome_C": outcome_C,
+            "outcome_D": outcome_D,
+        },
+    }
 
 
 # ============================================================
@@ -212,6 +521,15 @@ def run_v14_canonical(N=32, n_steps=5000, A_peak=0.85, R=2.5):
     results["test_1_pass"] = bool(test_1_pass)
     results["test_2_pass"] = bool(test_2_pass)
     results["test_4_pass"] = bool(test_4_pass)
+
+    # Interpretation G geometry verification — runs n_window additional steps
+    # on the settled bound state, then extracts (R, r) phase-space coordinates.
+    interp_g_results = golden_torus_geometry_check(
+        engine, center, n_window_steps=2000, K_peaks=8,
+        pml_thickness=4,
+    )
+    results.update(interp_g_results)
+
     return results
 
 
