@@ -1,7 +1,24 @@
+> # ⚠️ SUPERSEDED — 2026-05-18 night ⚠️
+>
+> **This handoff is RETIRED. Do not execute Phase 1.**
+>
+> **Replacement**: [`2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md`](2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md)
+>
+> **Retirement reasons** (two independent):
+>
+> 1. **Coordinate-system conflation** (review-of-review finding). Handoff §3.5, §4.1, Phase 3 treat Golden Torus (R, r) as real-space radii in ℓ_node units; the canonical framing per [doc 28_:80-87](_archive/L3_electron_soliton/28_two_node_electron_synthesis.md), [doc 29_ Finding F2](_archive/L3_electron_soliton/29_ch8_audit.md:17), and [Vol 1 Ch 8 line 57](../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex) is that (R, r) are PHASE-SPACE (V_inc, V_ref) phasor coordinates. Real-space (R, r) for these values is geometrically impossible per doc 29 F2.
+> 2. **Methodology already empirically closed**. Both the proposed ABCD eigensolve and the review's recommended replacement (doc 68 `relax_s11` coupled-engine extension) are structurally equivalent to F17-K Phase 5, which **ran and was falsified** across commits `6158465` → `2c873cf` → `4c9fbea` (spring 2026). Per [doc 72_:51](_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md:51), Golden Torus is topologically-quantized INPUT, not gradient-flow OUTPUT — neither continuous-objective method lands at GT.
+>
+> The methodology-error analysis below remains a useful corpus record (Phase 3 sub-lattice question, chirality-encoding reciprocity issue, V_ref-as-independent-state error) but is not load-bearing for any active workstream.
+>
+> **No code was written against this handoff.** See the retrofit doc for next-step options requiring Grant arbitration.
+>
+> ---
+
 # Workstream Handoff — ABCD-Matrix Eigensolver for Q-G47 Interpretation G Closure
 
 **Date drafted**: 2026-05-18 night
-**Status**: PENDING — next-session Priority #1
+**Status**: ⚠️ SUPERSEDED 2026-05-18 night — see banner above
 **Estimated scope**: ~2–4 hours (5 phases) — REVISED DOWN from initial ~4–8 hr estimate after corpus-grep surfaced existing `src/ave/solvers/transmission_line.py` (944 lines, canonical ABCD library already implemented)
 **Author**: AVE implementer lane, 2026-05-18 session
 **Workstream-precipitating finding**: [`research/2026-05-18_q-g47-interpretation-g-result.md`](research/2026-05-18_q-g47-interpretation-g-result.md) §5+§8

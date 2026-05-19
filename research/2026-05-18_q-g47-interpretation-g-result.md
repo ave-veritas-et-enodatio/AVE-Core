@@ -1,3 +1,17 @@
+> # ⚠️ PARTIAL RETROFIT — 2026-05-18 night ⚠️
+>
+> **Retrofit doc**: [`2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md`](2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md)
+>
+> **What the retrofit changes** (see retrofit doc §2.2 for full table):
+>
+> 1. **§1 + §4.1 "Outcome A — geometry NOT realized"** is reframed as a **coordinate-system mismatch**, not a falsification of the GT claim. The observer measured R, r in real-space Cartesian coordinates (R_meas=0.131, r_meas=0.0099) and compared to canonical targets that are PHASE-SPACE coordinates (φ/2, (φ-1)/2 in V_inc/V_ref phasor space) per [doc 29_ Finding F2](_archive/L3_electron_soliton/29_ch8_audit.md:17), [doc 28_:80-87](_archive/L3_electron_soliton/28_two_node_electron_synthesis.md), and [Vol 1 Ch 8 line 57](../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex). Real-space (R, r) of these values is geometrically impossible (doc 29 F2: *"Ch 8 Golden Torus (R, r, d) = (0.809, 0.309, 1) is not geometrically realizable as a real-space torus"*). The 407% deviation is therefore a category error, not a load-bearing falsification.
+> 2. **§4.3 nested-oscillator topology finding STANDS** as a substantive real-space observation but does NOT falsify phase-space (2,3) topology — per [doc 28_:80-87](_archive/L3_electron_soliton/28_two_node_electron_synthesis.md): *"Real-space R_real/r_real ≈ 2.27 is a DIFFERENT QUANTITY from phase-space R_phase/r_phase = φ². They needn't match."*
+> 3. **§8 Closure pathway** is updated below: the ABCD eigensolver handoff is RETIRED (see banner on that doc); the corpus-canonical state per F17-K Phase 5 closure + R7.1 reframe is documented in the retrofit doc §1.1-1.4 + §3 (next-step options).
+>
+> The §5 doc-78 reframing finding STANDS but its load-bearing interpretation shifts: the K4-TLM Mode III result is expected given that Golden Torus is topologically-quantized INPUT per [doc 03 §4.3](_archive/L3_electron_soliton/03_existence_proof.md) and [doc 72 §1.3](_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md:51), not a gradient-flow / time-evolve OUTPUT.
+>
+> ---
+
 # Result — Q-G47 K4-TLM A5 Interpretation G Geometry Verification
 
 **Date**: 2026-05-18 night
@@ -5,8 +19,8 @@
 **Engine commit SHA**: `9a989f7c8e02e9775e9283504f1a1273d5d9df44`
 **Driver script**: `src/scripts/verify/q_g47_path_d_full_cross_validation.py` (this session's commit adds `golden_torus_geometry_check()` observer)
 **Pre-registration**: `research/2026-05-18_q-g47-interpretation-g-prereg.md` (this session)
-**Closure pathway**: `research/2026-05-18_abcd-eigensolver-workstream-handoff.md` (multi-session, next-session Priority #1)
-**Result class** (per `consistency-vs-emergence` skill): **INTRA-FRAMEWORK CONSISTENCY CHECK** — verifies internal coherence between Vol 1 Ch 8 Golden Torus geometry claim and `MasterEquationFDTD` v14 canonical bound state. Result: INCOHERENT (geometry not realized).
+**Closure pathway**: ⚠️ ORIGINAL: `research/2026-05-18_abcd-eigensolver-workstream-handoff.md` (RETIRED 2026-05-18 night) — RETROFIT: see [`2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md`](2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md) §3 (Options A/B/C/D pending Grant adjudication)
+**Result class** (per `consistency-vs-emergence` skill): **INTRA-FRAMEWORK CONSISTENCY CHECK** — verifies internal coherence between Vol 1 Ch 8 Golden Torus geometry claim and `MasterEquationFDTD` v14 canonical bound state. Result: INCOHERENT-IN-REAL-SPACE-COORDINATES; coordinate-system mismatch identified post-result (see banner above). The Outcome A reading as "geometry not realized" is **NOT load-bearing** for the GT claim.
 
 ## 1. TL;DR
 
@@ -121,6 +135,8 @@ Interpretation: the bound state has a **nested-oscillator topology**:
 
 This is a structural property of the v14 attractor that doc 131's headline observables (single dominant FFT peak) didn't surface. **The bound state's actual topology is NOT (2,3) torus knot** — it's a nested-radial-mode structure.
 
+> **Note (2026-05-18 night retrofit per [retrofit doc §2.2](2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md))**: this is a REAL-SPACE topology observation. Per [doc 28_:80-87](_archive/L3_electron_soliton/28_two_node_electron_synthesis.md), real-space and phase-space topology measurements are DIFFERENT QUANTITIES and need not match: *"Real-space R_real/r_real ≈ 2.27 is a DIFFERENT QUANTITY from phase-space R_phase/r_phase = φ². They needn't match."* The 7/3 frequency ratio finding does not falsify phase-space (2,3) topology; it characterizes real-space radial-mode structure of the v14 attractor as a separate observable. The "NOT (2,3) torus knot" assertion above is in scope ONLY for real-space coordinates.
+
 ## 5. Doc 78 reframing — K4-TLM cross-validation has been done and ALSO failed
 
 `verify-before-cite` grep of citation #4 surfaced this:
@@ -186,7 +202,9 @@ All three propagate as follow-ups; this commit lands the prereg + observer + res
 
 ## 8. Closure pathway — ABCD-matrix eigensolver (multi-session)
 
-**Why**: bypasses every methodology hole this session surfaced:
+> ⚠️ **SECTION RETIRED 2026-05-18 night.** The ABCD-eigensolver workstream below was retired before any Phase 1 code was written. Per [retrofit doc §2.2](2026-05-18_abcd-handoff-prereg-outcome-corpus-state-retrofit.md), both the proposed ABCD methodology AND the review-recommended `relax_s11` replacement turned out to be structurally equivalent to F17-K Phase 5, which was empirically falsified at commit `4c9fbea` (spring 2026). Golden Torus is topologically-quantized INPUT per [doc 03 §4.3](_archive/L3_electron_soliton/03_existence_proof.md) / [doc 72 §1.3](_archive/L3_electron_soliton/72_vacuum_impedance_design_space.md:51), not gradient-flow / eigensolve OUTPUT. The corpus-canonical open follow-ups are at [doc 74_ §4.5](_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md): R7.1 Cos-block comprehensive coverage, larger-N sweep, hybrid V≠0 ∧ ω≠0 seed test, or Round 8 architectural rework. Next-step adjudication pending Grant per retrofit doc §3.
+
+**Why** (the original argument; preserved as session record but not load-bearing): bypasses every methodology hole this session surfaced:
 
 | Hole this session surfaced | ABCD eigensolver fix |
 |---|---|
