@@ -12,9 +12,10 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 
 | Epic | Doc | Status | Last phase landed |
 |---|---|---|---|
-| Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE | E1b CLOSED 2026-05-19 (`54f0698`); E1b-prime PENDING |
-| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | IN-FLIGHT — merge HELD | Phases 1-3+5 landed on branch `analysis/cosmic-axis-glossary`; Phase 4 (H_∞ hygiene) DEFERRED to h-infinity-derivation-audit epic |
-| H_∞ derivation audit | [`h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | ACTIVE — implementor kickoff pending | Spawned from cosmic-axis-glossary Phase 4 Class-A halt. Math audit on H_∞ ↔ G derivation circularity. Single research doc deliverable. |
+| Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE — E1b-prime implementor kickoff ready | E1b CLOSED 2026-05-19 (`54f0698`); E1b-prime plumber question RESOLVED 2026-05-19 EOD per K4-rest-frame ↔ $\hat{\Omega}_{\text{freeze}}$ distinction; A4 amended in brief |
+| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | IN-FLIGHT — merge HELD | Phases 1-3+5 landed on branch `analysis/cosmic-axis-glossary` (tip `f6c227a`); Phase 4 deferred to h-infinity-framing-forward epic |
+| H_∞ derivation audit | [`h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | CLOSED 2026-05-19 EOD | Math audit completed on branch `analysis/h-infinity-derivation-audit` (tip `f28a8b3`); Class C consistency check confirmed; research doc at `research/2026-05-19_h-infinity-derivation-audit.md` |
+| H_∞ framing-forward | [`h-infinity-framing-forward.md`](h-infinity-framing-forward.md) | ACTIVE — implementor kickoff pending | Grant adjudicated Option A 2026-05-19 EOD + Chain B' obvious-showstoppers research as Phase 1; Phase 2 walk-back conditional on Phase 1 verdict |
 
 ## Queued epics (not yet kicked off — would create new docs when activated)
 
@@ -67,7 +68,8 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 |---|---|
 | [`_orchestration/section-e-cascade.md`](section-e-cascade.md) | Active Section E epic |
 | [`_orchestration/cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Cosmic-axis glossary epic (IN-FLIGHT, merge HELD) |
-| [`_orchestration/h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | H_∞ derivation audit epic (ACTIVE) |
+| [`_orchestration/h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | H_∞ derivation audit epic (CLOSED, research doc landed) |
+| [`_orchestration/h-infinity-framing-forward.md`](h-infinity-framing-forward.md) | H_∞ framing-forward epic (ACTIVE — implementor kickoff pending) |
 | [`_orchestration/README.md`](README.md) | Convention doc for this directory |
 | [`CLAUDE.md`](../CLAUDE.md) | AVE-Core agent orientation (replaces atopile pollution as of 2026-05-19 EOD) |
 | [`manuscript/ave-kb/CLAUDE.md`](../manuscript/ave-kb/CLAUDE.md) | Cross-cutting KB invariants |

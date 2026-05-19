@@ -58,15 +58,20 @@ C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stan
 
 ### Phase E1b-prime (PENDING — full briefing below, ready for implementor) — Pantheon+ raw-SN bulk-flow re-fit
 
-**Briefing status**: DRAFTED 2026-05-19 EOD; awaits Grant adjudication on one plumber-physical question before implementor kickoff.
+**Briefing status**: ACTIVE — Grant adjudicated 2026-05-19 EOD; implementor kickoff ready. Plumber-physical question resolved per the K4-rest-frame ↔ $\hat{\Omega}_{\text{freeze}}$ distinction below.
 
-#### ⚠ Pre-execution plumber question for Grant (pre-test-physics-check)
+#### Resolved pre-execution plumber question (Grant adjudication 2026-05-19 EOD)
 
-AVE predicts CMB axis and Hubble-flow axis both anchored to parent-BH spin axis frozen at cosmic lattice genesis (per A-034 + Ax 1 + Ax 4). E1b empirically pinned CMB axis at $(l=60.28°, b=50.48°)$ data-derived. Pantheon+ peculiar-velocity corrections conventionally use the CMB rest frame as the velocity reference.
+AVE corpus carries TWO physically distinct cosmological direction concepts (canonical leaf: [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md) — landed on `analysis/cosmic-axis-glossary` branch, pending merge to `analysis/integration`):
 
-**Plumber-physical question**: Is the Hubble bulk-flow direction extracted from Pantheon+ ACTUALLY independent of CMB direction in the data pipeline, or is the peculiar-velocity correction implicitly anchored to CMB direction (making the test circular)? If anchored, the implementor needs to use raw heliocentric velocities (no CMB-rest-frame correction) and the test becomes "does raw Hubble flow agree with CMB independently?" If NOT anchored (the correction only uses CMB DIPOLE for rest-frame transform, not for direction extraction), then the standard Pantheon+ pipeline is fine.
+1. **K4 lattice rest frame** — where the substrate $\mathcal{M}_A$ sits at rest. Sun's velocity vector through this frame = CMB dipole at $(l \approx 264°, b \approx 48°)$, $\sim 370$ km/s. Local kinematics. **NOT a fundamental cosmological axis.**
+2. **$\hat{\Omega}_{\text{freeze}}$** — parent-BH spin axis preserved through K4 crystallization at lattice genesis. Cosmic chirality direction from $I4_132$ space group lock-in. Empirically pinned at $(l = 60.28°, b = 50.48°)$ via Planck PR3 SMICA axis-of-evil. **Cosmological initial condition.**
 
-**Why this matters**: a circular test (CMB-corrected Pantheon+ extracts CMB direction by construction) would yield false 3σ-PASS regardless of whether AVE is right. The implementor needs an explicit go-direction on whether to use raw heliocentric or CMB-corrected velocities.
+Angular separation $|\hat{v}_{\odot \to \mathcal{M}_A}, \hat{\Omega}_{\text{freeze}}| \approx 79°$ (minimum, accounting for 180° axis degeneracy).
+
+**Pantheon+ peculiar-velocity correction subtracts $\hat{v}_{\odot \to \mathcal{M}_A}$ at the CMB DIPOLE direction.** It does NOT touch $\hat{\Omega}_{\text{freeze}}$. The two are nearly orthogonal observables of the same substrate at different scales (local kinematics vs. cosmic-genesis chirality). Standard pipeline is therefore structurally non-circular for the test "does Hubble bulk-flow direction align with $\hat{\Omega}_{\text{freeze}}$?"
+
+**Implementor uses standard Pantheon+ pipeline** (heliocentric → CMB-rest-frame transform + 2M++ LSS peculiar-velocity correction). Defense-in-depth: also report a parallel sub-analysis using heliocentric velocities with 2M++ LSS correction only (no CMB-rest-frame transform). Both analyses must give consistent bulk-flow direction (1σ contour overlap) for the result to count as a valid PASS. Divergence between the two is itself diagnostic.
 
 #### Context
 
@@ -88,7 +93,11 @@ A2. **Existing C5 driver is the template foundation**: [`src/scripts/vol_3_macro
 
 A3. **E1b empirical CMB axis is the reference**: $(l=60.28°, b=50.48°)$, σ ~ 0.9°, sourced from E1b result doc [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The comparison is "Pantheon+ bulk-flow direction vs this CMB axis."
 
-A4. **Bulk-flow estimator class**: maximum-likelihood fit on peculiar-velocity-corrected distances at z<0.1 (or raw heliocentric, pending Grant adjudication on the plumber question above). Methodology should follow standard practice (e.g., Watkins-Feldman-Hudson 2009 ML approach, or Howlett+Said-style velocity tomography).
+A4. **Bulk-flow estimator class + velocity convention** (RESOLVED 2026-05-19 EOD): maximum-likelihood fit on peculiar-velocity-corrected distances at z<0.1, using the **standard Pantheon+ pipeline** (heliocentric → CMB-rest-frame transform via conventional CMB dipole $(l \approx 264°, b \approx 48°)$ + 2M++ LSS peculiar-velocity correction). Methodology follows Watkins-Feldman-Hudson 2009 ML approach (or Howlett+Said-style velocity tomography if WFH09 lacks fit-precision).
+
+**Justification (per resolved plumber question above)**: the rest-frame correction subtracts solar motion at the CMB DIPOLE direction $(l \approx 264°, b \approx 48°)$, which is angularly separated from $\hat{\Omega}_{\text{freeze}} = (l = 60.28°, b = 50.48°)$ by ~79° (minimum, 180° axis degeneracy). The subtracted direction is nearly orthogonal to the tested direction; standard pipeline does NOT pre-impose AVE prediction. Test is structurally non-circular.
+
+**Defense-in-depth sub-analysis (REQUIRED)**: in parallel with the primary fit, run a sub-analysis using heliocentric velocities with 2M++ LSS correction only (no CMB-rest-frame transform). Both analyses must produce consistent bulk-flow direction estimates (1σ contour overlap on the sky) for the result to count as a valid PASS / NULL adjudication. Divergence between the two analyses is itself a sub-finding and gets reported (could indicate either: K4=CMB-rest-frame Q-G24 identification needing refinement, OR LSS-reconstruction methodology contaminating with rest-frame structure). Both fits' directional outputs (best-estimate + σ_Hubble) reported in the result doc.
 
 A5. **AVE-substrate prior**: forward-prediction — AVE predicts Hubble bulk-flow direction = CMB axis = (60.28°, 50.48°). Implementation MUST NOT fit Hubble direction TO CMB axis (per `ave-driver-script-honesty`); instead estimate Hubble direction independently then compare.
 
@@ -126,7 +135,7 @@ A8. **Cascade implications**:
 #### Skills required (with trigger timing)
 
 **Upfront fires (formal Skill invocations BEFORE any code):**
-- `pre-test-physics-check` — DONE in this briefing (plumber question above; awaits Grant adjudication)
+- `pre-test-physics-check` — DONE in this briefing (plumber question resolved 2026-05-19 EOD per K4-rest-frame ↔ $\hat{\Omega}_{\text{freeze}}$ distinction at top of brief)
 - `ave-prereg` — corpus-grep across all 10 AVE-staging repos for prior bulk-flow / peculiar-velocity / Hubble-flow-direction work
 - `ave-canonical-leaf-pull` — enumerate canonical leaves for data-fitting / propagation-direction / cross-section problem class
 - `ave-canonical-source` — confirm any constants used (H_0, c, etc.) import from `src/ave/core/constants.py`, not hard-coded
