@@ -718,7 +718,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 | Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | [Vol 3 Ch 13 (Geophysics)](../../../vol_3_macroscopic/chapters/13_geophysics.tex) | geological + Venus null |
 | Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | [Vol 3 Ch 14 (Orbital Mechanics)](../../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
 | Galactic (MOND) | SYM | $g_N / a_0$ | Newtonian → deep-MOND transition | `mond.md` | deep-MOND derived |
-| BH event horizon | SYM | $\varepsilon_{11}(r) = 2GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
+| BH event horizon | SYM | $\varepsilon_{11}(r) = 7GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
 | BH merger (ring-down) | SYM | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 | **1.7% from GR; 10-18% LIGO** |
 | Cosmic (Big Bang) | SYM (presumed)\* | parent-BH-induced strain / 1 | K4 crystallization seed event | A-034 NEW | CMB axis-alignment test pre-registered |
 
