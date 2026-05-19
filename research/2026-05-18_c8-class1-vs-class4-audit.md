@@ -73,7 +73,9 @@ Commit message verbatim:
 > Existing M_P_MEV_TARGET renamed to M_P_MEV_CODATA (value preserved at 938.272088 MeV; docstring clarified as experimental anchor).
 > Numerical gap: M_P_MEV_AVE / M_P_MEV_CODATA - 1 = -0.0019% (well inside the framework's stated ~0.002% precision)."
 
-**Interpretation**: this commit is the AUDIT TRAIL for the -0.002% claim. The previous "TARGET" naming made it look like a fit target; renaming clarifies that the framework computes AVE-side independently and compares to CODATA. **This is correct presentation hygiene, not post-hoc fitting.** The framework-derived value 938.253879627114 MeV propagates downstream as M_P_MEV_AVE; CODATA value 938.272088 MeV is held separately as comparison anchor. NOT a tautology.
+**Interpretation**: this commit is the AUDIT TRAIL for the -0.002% claim. The previous "TARGET" naming made it look like a fit target; the proposed rename clarifies that the framework computes AVE-side independently and compares to CODATA. **This is correct presentation hygiene, not post-hoc fitting.** The framework-derived value 938.254 MeV propagates downstream via `PROTON_ELECTRON_RATIO × M_E × C_0²`; CODATA value 938.272088 MeV is held as comparison anchor. NOT a tautology.
+
+**Cross-branch divergence flag** (added per ave-canonical-source Step 6 retroactive review, see Addendum §8): the dc6c3b7 commit (Author: Benn Herrera, 2026-04-29) lives only on branches `benn/long-running` and `golden-torus-update` per `git branch --contains dc6c3b7`. It has NOT merged to `analysis/c8-baryon-ladder-pdg-anchor`. **Current c8 state**: `M_P_MEV_TARGET = 938.272088` at `constants.py:820` (the original symbol; rename never landed here). The AVE-side proton mass is computed inline via `PROTON_ELECTRON_RATIO × M_E × C_0² × _KG_TO_MEV` (constants.py:706) but not held as a named module-level constant. The runtime JSON at `src/scripts/verify/baryon_ladder_pdg_2024_anchor_results.json` (proton entry: `ave_mev: 938.2538796271142, err_pct: -0.001940645268629802`) is the canonical source of the -0.002% claim on this branch.
 
 ## 3. Consistency-vs-emergence classification (per skill Steps 1-6)
 
@@ -126,9 +128,9 @@ External CODATA pinning ✓.
 
 ### Step 6 — Regression-test tautology check
 
-The match $m_p^{AVE}$ vs $m_p^{CODATA}$ is computed externally (driver imports M_P_MEV_CODATA = 938.272088 MeV, separately holds M_P_MEV_AVE = 938.253879627114 MeV from FS solver). **The CODATA value was NOT defined as a function of the AVE value, and vice versa.** Not tautological.
+The match $m_p^{AVE}$ vs $m_p^{CODATA}$ is computed externally: the driver computes AVE-side via `avert_mass_mev(c=5) = BARYON_LADDER[5]["mass_mev"] = 938.254 MeV` (FS solver via PROTON_ELECTRON_RATIO × M_E × C_0²) and compares against the PDG 2024 anchor 938.27208816 MeV (held in `PDG_2024_BARYONS[0]["mass_mev"]` in the driver; matches `M_P_MEV_TARGET = 938.272088` in constants.py:820 to 6 sig figs). **The CODATA value was NOT defined as a function of the AVE value, and vice versa.** Not tautological.
 
-**Distinct from the A47 v16 case** (`test_ch8_alpha_golden_torus.py`) where `ALPHA_COLD_INV = 4π³ + π² + π` was both stored in constants.py and re-computed in the test — that's a closed-loop comparison. C8 is open-loop: AVE chain produces 938.254, CODATA produces 938.272, comparison is genuine.
+**Distinct from the A47 v16 case** (`test_ch8_alpha_golden_torus.py`) where `ALPHA_COLD_INV = 4π³ + π² + π` was both stored in constants.py and re-computed in the test — that's a closed-loop comparison. C8 is open-loop: AVE chain produces 938.254 MeV, PDG 2024 anchor is 938.272088 MeV, comparison is genuine (runtime JSON: `err_pct: -0.001940645268629802`).
 
 ## 4. Adjudication
 
@@ -197,10 +199,84 @@ The C8 baryon-ladder proton mass derivation:
 
 ## Skills applied during this audit
 
+**Initially invoked (formal Skill tool calls):**
 - `ave-audit` (pre-audit grep discipline; 5-min upstream verification before any adjudication)
 - `consistency-vs-emergence` (Steps 1-6 four-class taxonomy applied formally)
-- `verify-before-cite` (all file:line citations and verbatim quotes pulled directly via Read/grep, not from memory or summaries)
-- `ave-evidence-framing-discipline` (caught the "32 OOM" vs "~35 OOM" minor imprecision; surfaced the foreword's input-count undercount as a quantitative claim issue)
+
+**Initially applied implicitly (NOT formally invoked at the time — see §8 retroactive application):**
+- `verify-before-cite` (followed via Read/grep verification of every citation; but skill not formally invoked)
+- `ave-evidence-framing-discipline` (caught the "32 OOM" vs "~35 OOM" minor imprecision; surfaced the foreword's input-count undercount; but skill not formally invoked)
+- `ave-discrimination-check` (peer review #5 explicitly flagged this as the skill that should fire on foreword promotion — and this audit touched foreword promotion language; **missed at the time of initial commit; applied retroactively in §8**)
+- `ave-canonical-source` (relevant for driver canonical-imports verification — applied retroactively in §8)
+
+---
+
+## 8. Retroactive skill application (post-hoc meta-discipline closure)
+
+After the initial commit (bae15f0), Grant noted that the agent had NOT formally pre-planned tool selection — three relevant skills were applied implicitly or not at all. The user requested retroactive application + meta-discipline addendum. This section captures the findings from that retroactive pass.
+
+### 8.1 Retroactive `ave-discrimination-check` application
+
+Per skill Steps 1, 1.5, 2: enumerated every claim the C8 result is making, then enumerated alternative interpretations, then built the SM-counterfactual table.
+
+**New findings not captured in §3-4 of this audit doc:**
+
+**Finding D1 — J^P discriminator strength varies with $c$**. The driver's `expected_jp_for_crossing(c)` returns ALL half-integer $J$ values from $1/2$ to $c/2$ with BOTH parities. For $c=5$ (proton): 6 allowed J^P states (proton's actual $1/2^+$ is 1 of 6, ~17% null-hit rate). For $c=15$: 16 allowed states (Δ(2420)'s $11/2^+$ is 1 of 16, ~6% null-hit rate — but with 24 PDG states in the 900-2500 MeV range, conditional null-hit rate after mass-window filter is much higher). **The "6/6 J^P consistency removes random matching" claim is strongest at low $c$ and weakens toward high $c$.** The driver's `null_hypothesis_match_rate` function computes random-hit rate based on nearest-mass matching across the full PDG range but does NOT account for the J^P filter's per-$c$ permissiveness. **Class C** in skill failure-mode taxonomy (circular framework-internal decomposition: at high $c$, "AVE passes J^P" weakens to "AVE picks one of many allowed J^P values, then declares consistency with whichever PDG state it lands closest to").
+
+**Finding D2 — "-0.002%" headline is the BEST single state, NOT the framework's typical per-state precision**. Per-state errors from the JSON: -0.002%, +2.354%, +0.779%, +1.876%, +4.506%, +3.249% — mean |err| = 2.13%, median |err| = 2.12%, max |err| = 4.51%. The "-0.002%" headline frame highlights the proton specifically as "the strongest individual empirical match in the framework" (foreword text is technically accurate on this point). But the contrast with "C1-BH-RING $\omega_R$ at $-0.45\%$ and SPARC at $11.5\%$ mean residual" mixes scales: SPARC's 11.5% is a MEAN across 87 galaxies; C1's -0.45% is a MEAN across 3 events; C8's -0.002% is a SINGLE-STATE BEST. The honest apples-to-apples comparison is C8 MEAN |err| = 2.13% across 6 retrospective states, which is between SPARC (11.5%) and LIGO (-0.45%), not "an order of magnitude tighter than C1-BH-RING". **Class D** in skill failure-mode taxonomy (consistency check / mean-vs-best comparison promoted as load-bearing anchor at unfavorable framing precision).
+
+**Adjudication of D1 + D2**: neither is a Class 1 / Class 4 reclassification (the audit's main verdict stands). Both are framing-precision concerns appropriate for a follow-up corrections pass. Logging here as banked findings for next-session foreword/result-doc refresh; NOT executing fixes in this commit (to keep scope clean per peer review #5's "one workstream per commit" practice).
+
+### 8.2 Retroactive `verify-before-cite` application
+
+Per skill Step 1-3: verified every file:line citation, verbatim quote, and commit-SHA reference. Findings:
+
+**Finding V1 — commit 0be89e1 BRANCH STATE flag verified directly**. Audit doc §4 Correction 1 + §5 cite "BRANCH STATE 0be89e1's self-flag: K4-TLM α-emergence tautology (κ_chiral hardcoded)". Initial citation was made from primer summary, not direct read. Retroactive verification: `git log -1 --format="%B" 0be89e1 | grep -iE "kappa|chiral|tautology"` returns the exact text "K4-TLM α-emergence tautology (κ_chiral hardcoded)". **Citation verified ✓.**
+
+**Finding V2 — `M_P_MEV_AVE` and `M_P_MEV_CODATA` cited as current symbols are WRONG on c8 branch**. Audit doc §2e originally cited dc6c3b7's M_P_MEV_AVE / M_P_MEV_CODATA rename as if it had landed on the c8 branch. Direct verification: `grep -n "M_P_MEV_AVE\|M_P_MEV_CODATA" constants.py` returns ZERO matches. `git branch --contains dc6c3b7` returns only `benn/long-running` + `golden-torus-update`. **The rename never propagated to c8.** Current c8 state: `M_P_MEV_TARGET = 938.272088` at constants.py:820 (original symbol name). The AVE-side proton mass is computed inline via `PROTON_ELECTRON_RATIO × M_E × C_0²` at constants.py:706 but not held as a named module-level constant on c8. **Citation corrected in §2e + §3 Step 6 of this audit doc (post-bae15f0 edits) to remove the stale symbol-name references.** Substantive physics unchanged (the -0.002% is still genuine; the JSON output confirms `ave_mev: 938.2538796271142, err_pct: -0.001940645268629802`).
+
+### 8.3 Retroactive `ave-canonical-source` application (trigger 6 — CONSUMER/QUOTER)
+
+Per skill trigger 6: I cited multiple cached numerical values in the audit doc (per-state errors, proton mass values, DELTA_THERMAL, KAPPA_FS_COLD, V_TOROIDAL_HALO, P_C). Each should be verified against the current canonical source.
+
+**Finding C1 — Symbol-name cross-branch divergence (same as V2)**. dc6c3b7's M_P_MEV_AVE / M_P_MEV_CODATA rename did not propagate to c8 branch. Audit doc citations corrected.
+
+**Other constants verified against current c8 state**:
+- DELTA_THERMAL = 1/(14π²) at constants.py:651 ✓
+- KAPPA_FS_COLD = 8π at constants.py:603 ✓
+- V_TOROIDAL_HALO = 2.0 at constants.py:695 ✓
+- P_C = 8πα at constants.py:301 ✓
+- M_E = canonical (CODATA-derived in M_E module-level constant) ✓
+
+**Per-state error values cross-checked against runtime JSON** (`baryon_ladder_pdg_2024_anchor_results.json`):
+- c=5: cited -0.002%, JSON -0.001940645268629802 → rounds to -0.002% ✓
+- c=7: cited +2.354%, JSON 2.3539715448844634 → rounds to +2.354% ✓
+- c=9: cited +0.779%, JSON 0.7787553716685829 → rounds to +0.779% ✓
+- c=11: cited +1.876%, JSON 1.8760575238130754 → rounds to +1.876% ✓
+
+All numerical citations in audit doc consistent with runtime JSON output ✓.
+
+### 8.4 Meta-discipline lesson banked (for next session + skill-ensemble update)
+
+**Pattern observed**: agent applied AVE-discipline skills selectively at initial audit time (2 formal invocations + 2 implicit applications), then surfaced 2 framing-precision findings + 1 citation-hygiene fix on retroactive application of 3 missed skills. The retroactive pass took ~15 min and surfaced concrete findings that the initial pass missed.
+
+**Standing rule to encode** (extending peer review #5):
+> Before any major workstream (audit / driver / walk-back / promotion), spend 60 seconds writing a **skill-selection plan**: enumerate which skills MUST fire (formal invocation), which apply implicitly (acknowledged but not formally invoked), and which to delegate to sub-agents. Verify against actual session at workstream close. If skills-applied-set differs from skill-selection-plan, do retroactive pass before commit.
+
+**Why this matters**: the C8 audit's initial pass produced correct adjudication (Class 4 stands) but missed two framing-precision concerns (D1, D2) and propagated one cross-branch symbol-name error (V2/C1). The retroactive pass caught all three in 15 min. **Pre-planning + checklist would have caught them in the initial pass without the retroactive overhead.**
+
+**Carry-over for next-session**: encode the skill-selection-plan as a checklist artifact (either in ave-audit skill itself as a Step 0, or as a separate ave-workstream-planning skill). Suggested locations: `~/.claude/skills/ave-audit/SKILL.md` Step 0 addition, OR new `~/.claude/skills/ave-workstream-planning/SKILL.md`.
+
+### 8.5 Cross-skill composition observation
+
+The three retroactively-applied skills compose cleanly:
+- `ave-discrimination-check` is the SUBSTANCE-side discipline (does the claim survive SM-counterfactual + alternative-interpretation enumeration?)
+- `verify-before-cite` is the CITATION-side discipline (do all file/line/SHA references hold up to direct verification?)
+- `ave-canonical-source` (trigger 6) is the CONSUMER/QUOTER-side discipline (are cached numerical values still consistent with current canonical-source state?)
+
+Together they form a closure-loop: substance + citation + numerical-source-current-state. The initial audit pass applied only the substance-side discipline rigorously (consistency-vs-emergence) and partially applied citation-side (verify-before-cite was implicit). Missing the discrimination-check meant D1+D2 went uncaught; missing the canonical-source trigger 6 meant V2/C1 went uncaught.
+
+**Recommendation for next-session foreword-promotion audits**: invoke all three (discrimination + verify-before-cite + canonical-source) formally as the standard triad. This is in addition to the ave-audit + consistency-vs-emergence pair that catches the SUBSTANCE-class adjudication.
 
 ## Cross-references
 
