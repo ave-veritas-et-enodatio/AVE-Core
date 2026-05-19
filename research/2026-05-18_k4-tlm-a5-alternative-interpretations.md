@@ -51,7 +51,71 @@ Per consistency-vs-emergence Step 1.5: do NOT anchor on the first-plausible inte
 **Mechanism**: the breathing-soliton eigenvalue may be computing a different topological invariant (e.g., a related-but-distinct Λ that happens to be ~half of α_cold⁻¹); the Q-factor-to-α-emergence chain has a missing intermediate translation step.
 **Testable prediction**: re-derive from first principles the relationship between the FDTD-extracted Λ_total and α_cold⁻¹ = 4π³+π²+π. The Theorem 3.1 reference in Ch 8 should specify exactly which observable maps to which substrate quantity.
 **Discriminating test**: read Vol 1 Ch 8 Theorem 3.1 carefully; verify whether Λ_total IS supposed to equal α_cold⁻¹ directly, or whether there's a known intermediate factor (e.g., Λ_total · π/2 = α_cold⁻¹ closure if factor π/2 is missing).
-**Status**: cheap to investigate (~15 min Read on Vol 1 Ch 8); should be done first.
+**Status**: ✅ **TESTED 2026-05-18 — PARTIAL POSITIVE.** See §3.D below for full result.
+
+---
+
+## 3.D Interpretation D test result (2026-05-18)
+
+**Test executed**: read Vol 1 Ch 8 source + Theorem 3.1' canonical leaf at `manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md` + the actual FDTD implementation at `src/scripts/verify/q_g47_path_d_full_cross_validation.py`.
+
+**Verbatim Ch 8 definition** (`08_alpha_golden_torus.tex:147-171`):
+> $\Lambda_{vol} = (2\pi R)(2\pi r)(2\pi \cdot 2) = 16\pi^3(R \cdot r) = 4\pi^3$ — phase-space 3-torus hyper-volume on Clifford torus at Golden Torus radii ($R = \varphi/2$, $r = (\varphi-1)/2$, so $R \cdot r = 1/4$)
+> $\Lambda_{surf} = (2\pi R)(2\pi r) = 4\pi^2(R \cdot r) = \pi^2$ — Clifford torus surface area, halved by spin-½
+> $\Lambda_{line} = \pi \cdot d = \pi$ — flux-tube circumference at $d=1\,\ell_{node}$
+
+These are PURE GEOMETRIC INTEGRALS on the Golden Torus phase-space coordinates.
+
+**Verbatim FDTD implementation** (`q_g47_path_d_full_cross_validation.py:74-105`):
+```python
+def q_factor_decomposition(V_field, center, R_boundary):
+    """Q-factor = L_vol + L_surf + L_line where:
+    - L_vol  = Σ_{r<R} V_normalized²  (volume term)
+    - L_surf = Σ_{r ∈ shell} V_normalized²  (surface term)
+    - L_line = Σ_{z-line in shell} V_normalized²  (line term)
+    """
+    ...
+    volume_mask = r < R_boundary
+    surface_mask = (r >= R_boundary - 0.5) & (r < R_boundary + 0.5)
+    line_mask = (|k - cz| < 1) & (R_boundary - 0.5 ≤ √(x²+y²) < R_boundary + 0.5)
+    L_vol = np.sum(V_normalized[volume_mask])
+    L_surf = np.sum(V_normalized[surface_mask])
+    L_line = np.sum(V_normalized[line_mask])
+```
+
+These are **V²-SUMMATIONS OVER REAL-SPACE LATTICE REGIONS** bounded by `R_boundary = 2.5` lattice units (the seed profile sech width per `run_v14_canonical(R=2.5)`).
+
+**Theorem 3.1' bridge** (`theorem-3-1-q-factor.md:49-63`): the identification $\Lambda_i = Q_i$ requires that **in natural units ($Z_0 = 1$, $\ell_{node} = 1$), geometric dimensionless volumes ARE dimensionless reactances**. This identification is valid IF AND ONLY IF the bound state realizes Golden Torus geometry ($R = \varphi/2$, $r = (\varphi-1)/2$, $R \cdot r = 1/4$) in proper natural-unit scaling.
+
+**Mismatch identified**:
+
+| Aspect | Ch 8 / Theorem 3.1' | FDTD implementation |
+|---|---|---|
+| Geometry | Golden Torus phase space at $R = \varphi/2 \approx 0.809$, $r = (\varphi-1)/2 \approx 0.309$ (natural units, $\ell_{node} = 1$) | Sech seed profile at $R_{seed} = 2.5$ lattice units; geometric realization of bound state NOT verified to be at Golden Torus radii |
+| Integration domain | Clifford torus $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ (phase-space) | Real-space lattice sphere/shell/line bounded by $R_{boundary} = R_{seed} = 2.5$ |
+| Integrand | Pure geometric: $(2\pi R)(2\pi r)(2\pi \cdot 2)$, $(2\pi R)(2\pi r)$, $\pi \cdot d$ | $V_{normalized}^2$ (energy-density fraction) |
+| Implicit assumption | Bound state IS at Golden Torus geometry | Bound state seed at $R_{seed}=2.5$ relaxes to SOME breathing structure; Golden Torus realization not verified |
+
+**Verdict**: Interpretation D is **PARTIAL POSITIVE**. The Λ_total identification (FDTD ↔ Ch 8) is valid IN PRINCIPLE per Theorem 3.1' bridge, but the FDTD implementation does NOT verify that the bound state realizes Golden Torus geometry before computing the three-integral sum. The 50% gap is consistent with:
+- (a) the breathing soliton bound state NOT being at Golden Torus geometry (sech seed at $R=2.5$ lattice units relaxes to whatever attractor the Master Equation supports; that attractor's geometry is not measured/reported), OR
+- (b) the V normalization not matching the $Z_0/(4\pi)$ reactance reference required by the bridge, OR
+- (c) finite-grid effects on the real-space integration
+
+**The framing "Λ_total = 102.8 within 50% of α_cold⁻¹ = 137.036" assumes (incorrectly) that the FDTD bound state IS at Golden Torus geometry.** This is the structural-misidentification component of Interpretation D.
+
+**This refines the alternative interpretations** — introduces Interpretation G as a sharpened version of D + B combined:
+
+### Interpretation G — Bound state geometry verification gap (sharpened D+B; 2026-05-18 addition)
+
+**Claim**: The 50% gap exists because the FDTD bound state is NOT YET verified to be at Golden Torus geometry; the Theorem 3.1' identification $\Lambda_i = Q_i$ requires this verification as a precondition.
+**Mechanism**: the sech seed at $R_{seed}=2.5$ relaxes to a breathing attractor that may or may not realize Golden Torus radii ($R = \varphi/2$, $r = (\varphi-1)/2$, $R \cdot r = 1/4$); without measuring the bound-state geometry, the 102.8 vs 137 comparison is a category error masked by a loose 50% tolerance.
+**Testable prediction**: (i) measure the actual breathing-soliton geometry — extract effective $R_{bound}$ and $r_{bound}$ from the FDTD output and compare to $\varphi/2, (\varphi-1)/2$; (ii) if NOT at Golden Torus, change seed parameters or add additional confinement physics (e.g., Cosserat coupling) to force convergence; (iii) re-measure Λ_total at verified Golden Torus geometry.
+**Discriminating test**: add a `golden_torus_geometry_check` to the FDTD output that reports $R_{measured}$, $r_{measured}$, $R \cdot r_{measured}$ (target $1/4$); if measured geometry is far from Golden Torus, the 50% gap is mostly Interpretation G; if measured geometry is at Golden Torus and gap remains, then A/B/C are more relevant.
+**Status**: NEW interpretation added 2026-05-18; supersedes Interpretation D as the most-specific framing of the structural-mis-identification concern.
+
+**Implementation cost**: ~1 hour to add the geometry-check; the FDTD already tracks V_peak, FWHM, $\Delta n$; adding effective radii is mechanical.
+
+---
 
 ### Interpretation E — Coincidence (null hypothesis)
 
@@ -80,15 +144,16 @@ Per consistency-vs-emergence Step 1.5: do NOT anchor on the first-plausible inte
 | **E** | Coincidence / null | Same as A (Richardson extrapolation) | hours | Λ_total stabilizes ≠ 137; A5 route fails |
 | **F** | RG running from UV substrate to IR electron | QED β-function calculation | 1-2 hours | Λ_total⁻¹ ≈ α(Λ_UV); UV-completion claim sharpens |
 
-## 4. Recommended next-session investigation sequence
+## 4. Recommended next-session investigation sequence (UPDATED 2026-05-18 post-Interp-D)
 
-Per cost-benefit, ranked:
+Per cost-benefit, ranked (Interpretation D test completed; Interpretation G is now the priority):
 
-1. **Interpretation D first (15 min)**: read Vol 1 Ch 8 Theorem 3.1; verify the claimed mapping Λ_total ↔ α_cold⁻¹ is direct (not requiring an intermediate factor). If indirect, recompute.
-2. **Interpretation F second (1-2 hours)**: compute α(Λ_UV) via QED running from substrate scale to electron scale; compare to 1/102.8. This is the conceptually-newest interpretation worth testing; if confirmed, sharpens the UV-completion claim and re-frames the entire FDTD Λ_total computation as a UV-scale α measurement.
-3. **Interpretation A/E third (hours of FDTD)**: Richardson grid-refinement study. Discriminates between convergence-artifact (A confirms, Λ_total → 137) and coincidence (E confirms, Λ_total stable at ~102).
-4. **Interpretation C fourth (weeks)**: analytical derivation of expected gap-closing terms. Requires Cosserat-coupled engine + 3D angular σ-model work.
-5. **Interpretation B last (multi-session)**: build v15 with each physics enhancement; gated on Cosserat-coupled engine (BRANCH STATE Tier 2 #4).
+1. ~~**Interpretation D (15 min)**~~ ✅ COMPLETED — see §3.D. PARTIAL POSITIVE: the FDTD does not verify Golden Torus geometry of the bound state; comparison is structurally questionable. Replaced by Interpretation G below as the sharpened framing.
+2. **Interpretation G (~1 hour) — NEW PRIORITY**: add a `golden_torus_geometry_check` to the FDTD output; measure effective $R_{bound}, r_{bound}, R \cdot r_{measured}$ from the breathing-soliton bound state; compare to Golden Torus targets ($\varphi/2, (\varphi-1)/2, 1/4$). If far from Golden Torus, the 50% gap is dominantly geometric-mismatch (mechanical fix: change seed or add confinement physics). If at Golden Torus and gap remains, then F/A/B/C apply.
+3. **Interpretation F (1-2 hours)**: compute α(Λ_UV) via QED running from substrate scale to electron scale; compare to 1/102.8. CONDITIONAL on G result — if G shows bound state IS at Golden Torus, F is the next-most-conceptually-rich test.
+4. **Interpretation A/E (hours of FDTD)**: Richardson grid-refinement study. CONDITIONAL on G result.
+5. **Interpretation C (weeks)**: analytical derivation of expected gap-closing terms. Requires Cosserat-coupled engine + 3D angular σ-model work.
+6. **Interpretation B (multi-session)**: build v15 with each physics enhancement; gated on Cosserat-coupled engine (BRANCH STATE Tier 2 #4).
 
 ## 5. Anti-anchoring discipline
 
@@ -103,10 +168,11 @@ The framework's pattern (per ave-discrimination-check Class E, banked 2026-05-17
 
 ## 6. Relationship to foreword + matrix + closure-roadmap
 
-- **Foreword line 106** (corrected this session): now honestly states "structurally agrees with α_cold⁻¹ to 50% precision; quantitative closure pending finer-grid convergence study". This research doc is the canonical enumeration of what "quantitative closure" could mean.
-- **BRANCH STATE weak-spots #2 (2b)** (rewritten this session): cites this enumeration as the resolution path for K4-TLM Q-factor route.
+- **Foreword line 106** (corrected this session): now honestly states "structurally agrees with α_cold⁻¹ to 50% precision; quantitative closure pending finer-grid convergence study". **Post-Interp-D update**: should arguably also flag that the 50% gap is partly because the FDTD bound-state geometry isn't yet verified to be at Golden Torus radii (Interpretation G); next foreword revision pass should incorporate this.
+- **BRANCH STATE weak-spots #2 (2b)** (rewritten this session): cites this enumeration as the resolution path for K4-TLM Q-factor route. **Post-Interp-D update**: the resolution path should sharpen to "add Golden Torus geometry verification check to FDTD output (Interpretation G); only after geometry verified is the 50% gap a 'finer-grid convergence' question".
 - **closure-roadmap §0.5**: not yet updated; add entry pointing to this doc as the canonical enumeration of K4-TLM A5 alternative interpretations.
 - **C8 audit thread**: independent of C8 (which uses CODATA α as input regardless of K4-TLM A5 outcome).
+- **Theorem 3.1' canonical leaf** (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`): IS the source of the Λ_i = Q_i bridge identification (§49-63). Does NOT currently include the geometry-verification precondition — implicit assumption that bound state IS at Golden Torus. Should be sharpened to make this explicit in next revision pass.
 
 ## 7. Cross-references
 
