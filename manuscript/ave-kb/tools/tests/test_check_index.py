@@ -1,22 +1,29 @@
 """Tests for the extended ``verify-kb-metadata.py`` verifier — index checks.
 
-Exercises the three new checks (well-formed, freshness, referential
-integrity) by mutating the canonical ``.index/*.jsonl`` files under
-``manuscript/ave-kb/.index/`` and restoring them in a ``try/finally`` so
-the working tree is left untouched even on failure.
+Exercises the verifier's behavioral checks (well-formed, freshness,
+referential integrity, quality-block integrity) by mutating canonical KB
+files and restoring them in a ``try/finally`` so the working tree is left
+untouched even on failure.
 
 Run from the repo root::
 
     cd /Users/benn/projects/AVE-Umbrella/AVE-Core/manuscript/ave-kb/tools
     python -m unittest tests.test_check_index
 
-The synthetic-corruption test (referential integrity) avoids touching the
+These tests are content-independent: where a test must mutate a specific
+claim/value, the mutation target is picked dynamically (the first matching
+line) rather than hard-coded, so the suite survives content migrations. The
+live KB's "does it currently pass" status is covered by
+``make verify-kb-metadata``, not duplicated here.
+
+The synthetic-corruption tests (referential integrity) avoid touching the
 canonical KB by pointing the verifier at a temp ``.index/`` directory via
 ``--index-dir``.
 """
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
 import sys
@@ -81,27 +88,18 @@ class TestCheckIndex(unittest.TestCase):
                 f"stderr={result.stderr}"
             )
 
-    def test_check_passes_on_fresh_state(self):
-        """After refresh, the verifier exits 0 and reports PASS + index line."""
-        result = _run_checker()
-        self.assertEqual(
-            result.returncode,
-            0,
-            f"verifier failed unexpectedly: stdout={result.stdout}, "
-            f"stderr={result.stderr}",
-        )
-        self.assertIn("[claim-quality] PASS.", result.stdout)
-        # Index summary line present on PASS.
-        self.assertIn("[index] 5 JSONL files", result.stdout)
-
     def test_index_line_reports_node_type_breakdown(self):
-        """The [index] summary reports claims / invariants / axioms counts."""
+        """The [index] summary reports a claims / invariants / axioms breakdown.
+
+        Asserts the line's *format* — content-independent — not the specific
+        node counts (those move with every KB content migration).
+        """
         result = _run_checker()
         self.assertEqual(result.returncode, 0, result.stdout)
-        self.assertIn("221 nodes", result.stdout)
-        self.assertIn("199 claims", result.stdout)
-        self.assertIn("18 invariants", result.stdout)
-        self.assertIn("4 axioms", result.stdout)
+        self.assertRegex(
+            result.stdout,
+            r"\d+ nodes: \d+ claims / \d+ invariants / \d+ axioms",
+        )
 
     def test_check_detects_target_kind_mismatch(self):
         """A depends-on edge whose target_kind contradicts the resolved node
@@ -224,65 +222,58 @@ class TestCheckIndex(unittest.TestCase):
             self.assertIn("referential-integrity", result.stdout)
             self.assertIn(orphan_target, result.stdout)
 
-    def test_existing_checks_still_pass(self):
-        """Smoke test: existing 8 checks pass on the fresh KB.
-
-        Implicitly covered by ``test_check_passes_on_fresh_state``, but kept
-        as a separate test case so a future regression in any of the
-        pre-existing check functions has a dedicated red mark.
-        """
-        result = _run_checker()
-        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        # The Scanned-line is the load-bearing signal that the original
-        # checks ran in their original shape.
-        self.assertIn("[claim-quality] Scanned", result.stdout)
-        self.assertIn("canonical entries.", result.stdout)
-
     def test_check_detects_stale_solidity_line(self):
         """Hand-editing a solidity value fails the freshness check.
 
-        Mutates a real claim-quality.md solidity line, runs the verifier,
-        expects a refresh-fixable failure, then restores the file.
+        Picks the mutation target dynamically: the first ``- solidity: 0.NN
+        (...)`` line in a real register. Replaces its numeric value with a
+        clearly-wrong one, runs the verifier, expects a refresh-fixable
+        freshness failure, then restores the file. Works regardless of which
+        claim/value is current.
         """
         cq = _KB_ROOT / "common" / "claim-quality.md"
         original = cq.read_bytes()
         try:
             text = original.decode("utf-8")
-            # clm-ibfyda's correct solidity is 0.27; inject 0.99.
-            stale = text.replace(
-                "- solidity: 0.27 (do not build on, rework needed) "
-                "[= 0.65 × 0.41]",
-                "- solidity: 0.99 (ok to build on) [= 0.65 × 0.41]",
-                1,
-            )
-            self.assertNotEqual(stale, text, "fixture solidity line not found")
+            m = re.search(r"^- solidity: (0\.\d+) \(", text, flags=re.MULTILINE)
+            self.assertIsNotNone(m, "no `- solidity: 0.NN (` line in fixture")
+            current = float(m.group(1))
+            # A value clearly distinct from the real one — far enough that the
+            # 2-dp freshness comparison cannot treat it as equal.
+            wrong = "0.99" if current < 0.50 else "0.01"
+            stale = text[: m.start(1)] + wrong + text[m.end(1) :]
+            self.assertNotEqual(stale, text)
             cq.write_bytes(stale.encode("utf-8"))
+
             result = _run_checker()
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
-            self.assertIn("clm-ibfyda", result.stdout)
             self.assertIn("make refresh-kb-metadata", result.stdout)
         finally:
             cq.write_bytes(original)
 
     def test_check_detects_stale_depends_on_annotation(self):
-        """A wrong (solidity X) annotation fails the freshness check."""
+        """A wrong (solidity X) annotation fails the freshness check.
+
+        Picks the mutation target dynamically: the first numeric ``(solidity
+        0.NN)`` depends-on annotation in a real register. Works regardless of
+        which claims/values are current.
+        """
         cq = _KB_ROOT / "claim-quality.md"
         original = cq.read_bytes()
         try:
             text = original.decode("utf-8")
-            # clm-2e9j97 depends on clm-0ktpcn at solidity 0.41; inject 0.55.
-            stale = text.replace(
-                "clm-0ktpcn — Golden Torus α Derivation (solidity 0.41)",
-                "clm-0ktpcn — Golden Torus α Derivation (solidity 0.55)",
-                1,
-            )
-            self.assertNotEqual(stale, text, "fixture annotation not found")
+            m = re.search(r"\(solidity (0\.\d+)\)", text)
+            self.assertIsNotNone(m, "no numeric (solidity 0.NN) annotation in fixture")
+            current = float(m.group(1))
+            wrong = "0.99" if current < 0.50 else "0.01"
+            stale = text[: m.start(1)] + wrong + text[m.end(1) :]
+            self.assertNotEqual(stale, text)
             cq.write_bytes(stale.encode("utf-8"))
+
             result = _run_checker()
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
-            self.assertIn("clm-0ktpcn", result.stdout)
         finally:
             cq.write_bytes(original)
 
@@ -319,13 +310,6 @@ class TestCheckIndex(unittest.TestCase):
             leaves=(), indexes=(), framework_nodes=(),
         )
         self.assertEqual(check.check_solidity_cycle(acyclic), [])
-
-    def test_real_kb_passes_cycle_check(self):
-        """The real KB's claim depends-on graph is acyclic."""
-        check = _load_checker_module()
-        lib = sys.modules["kb_index_lib"]
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
-        self.assertEqual(check.check_solidity_cycle(state), [])
 
 
 # A clean synthetic register: one well-formed claim with a `### Quality` block
@@ -418,16 +402,13 @@ class TestQualityBlockIntegrity(unittest.TestCase):
         """A `### Quality` heading inside a code fence is exempt."""
         self.assertEqual(self._run_against(_FENCED_EXAMPLE_REGISTER), [])
 
-    def test_real_kb_passes_quality_block_integrity(self):
-        """The canonical KB has zero orphan/malformed `### Quality` blocks."""
-        check = _load_checker_module()
-        self.assertEqual(check.check_quality_block_integrity(), [])
-
     def test_orphan_block_fails_full_verifier(self):
         """An orphan block in a real register fails the end-to-end verifier.
 
         Appends an orphan `### Quality` block to vol5/claim-quality.md, runs
         the verifier, expects a non-zero exit naming the file, then restores.
+        Content-independent — it mutates and restores, asserting only that
+        the verifier catches the injected defect.
         """
         cq = _KB_ROOT / "vol5" / "claim-quality.md"
         original = cq.read_bytes()

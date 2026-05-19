@@ -164,29 +164,34 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
                     )
 
     def test_claims_jsonl_node_type_distribution(self):
-        from collections import Counter
-
+        # Content-independent: every record's node_type is one of the three
+        # valid node kinds. No hard counts — those move with KB content.
         recs = [
             json.loads(ln)
             for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
         ]
-        counts = Counter(r.get("node_type", "claim") for r in recs)
-        self.assertEqual(len(recs), 221)
-        self.assertEqual(counts["claim"], 199)
-        self.assertEqual(counts["invariant"], 18)
-        self.assertEqual(counts["axiom"], 4)
+        self.assertTrue(recs, "claims.jsonl is empty")
+        for rec in recs:
+            self.assertIn(
+                rec.get("node_type", "claim"),
+                {"claim", "invariant", "axiom"},
+                f"unexpected node_type in {rec}",
+            )
 
     def test_depends_on_target_kind_distribution(self):
-        from collections import Counter
-
+        # Content-independent: every edge's target_kind is one of the three
+        # valid node kinds. No hard counts.
         recs = [
             json.loads(ln)
             for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl")
         ]
-        counts = Counter(r["target_kind"] for r in recs)
-        self.assertEqual(len(recs), 40)
-        self.assertEqual(counts["claim"], 33)
-        self.assertEqual(counts["invariant"] + counts["axiom"], 7)
+        self.assertTrue(recs, "depends-on.jsonl is empty")
+        for rec in recs:
+            self.assertIn(
+                rec["target_kind"],
+                {"claim", "invariant", "axiom"},
+                f"unexpected target_kind in {rec}",
+            )
 
     def test_depends_on_target_kind_matches_resolved_node_type(self):
         # Every edge's target_kind must equal the node_type of the record it
@@ -334,33 +339,50 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
                     f"{rel} changed on a second refresh (not idempotent)",
                 )
 
-    def test_known_entries_carry_derived_solidity(self):
-        # After refresh, on-disk solidity equals compute_solidity output.
+    def test_all_claim_entries_carry_derived_solidity(self):
+        # After refresh, every claim entry's on-disk parsed solidity equals
+        # compute_solidity's output. Content-independent: it loops over all
+        # entries rather than hard-coding any (claim, value) pair. A claim
+        # with no computable solidity (pending) carries None on disk and is
+        # absent from the compute_solidity result — both sides agree on None.
         state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
         sol = lib.compute_solidity(state.claim_entries)
-        by_id = {e.id: e for e in state.claim_entries}
-        for cid, expected in (
-            ("clm-0ktpcn", 0.41),
-            ("clm-2e9j97", 0.24),
-            ("clm-zi6t1e", 0.29),
-            ("clm-ibfyda", 0.27),
-            ("clm-m7qd0w", 0.27),
-        ):
-            with self.subTest(claim=cid):
-                self.assertEqual(sol[cid], expected)
-                # The on-disk solidity line (parsed back) matches.
-                self.assertEqual(by_id[cid].solidity, expected)
+        for entry in state.claim_entries:
+            with self.subTest(claim=entry.id):
+                self.assertEqual(entry.solidity, sol.get(entry.id))
 
     def test_solidity_line_has_arithmetic_trace_when_deps_present(self):
-        # clm-2e9j97 has dependencies → its solidity line carries a [= ...]
-        # trace; clm-trf3bd has none → no trace.
-        text = (_KB_ROOT / "claim-quality.md").read_text()
-        line = next(
-            ln
-            for ln in text.splitlines()
-            if ln.startswith("- solidity:") and "0.24" in ln
+        # A claim with a computable solidity AND dependencies carries a
+        # `[= ...]` arithmetic trace on its solidity line; a claim with a
+        # computable solidity and no dependencies carries none. Targets are
+        # found dynamically and the expected line is rebuilt via the refresh
+        # module's own `_solidity_line`, so the test holds regardless of
+        # which claims/values are current.
+        refresh = _load_refresh_module()
+        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        sol = lib.compute_solidity(state.claim_entries)
+
+        with_deps = next(
+            e for e in state.claim_entries
+            if e.depends_on and sol.get(e.id) is not None
         )
-        self.assertIn("[= 0.85 × 0.28]", line)
+        no_deps = next(
+            e for e in state.claim_entries
+            if not e.depends_on and sol.get(e.id) is not None
+        )
+
+        for entry, expect_trace in ((with_deps, True), (no_deps, False)):
+            min_dep = lib.min_dependency_solidity(entry, sol)
+            line = refresh._solidity_line(entry, sol[entry.id], min_dep)
+            text = (_KB_ROOT / entry.canonical_path).read_text()
+            # The canonical line must appear verbatim on disk (refresh ran).
+            self.assertIn(
+                line, text, f"{entry.id}: canonical solidity line not on disk"
+            )
+            if expect_trace:
+                self.assertIn("[= ", line, f"{entry.id} has deps but no trace")
+            else:
+                self.assertNotIn("[= ", line, f"{entry.id} no deps but a trace")
 
     def test_depends_on_annotations_synced(self):
         # Every claim-target depends-on (solidity X) annotation equals the

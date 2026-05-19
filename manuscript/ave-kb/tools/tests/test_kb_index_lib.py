@@ -1,4 +1,4 @@
-"""Unit tests for ``kb_index_lib`` against the real KB and synthetic fixtures.
+"""Unit tests for ``kb_index_lib`` against a synthetic fixture KB.
 
 Run from the repo root (``manuscript`` path is hyphenated, so the dotted
 module form needs ``manuscript/ave-kb/tools`` on ``sys.path`` rather than
@@ -11,8 +11,13 @@ Or, equivalently from the repo root::
 
     PYTHONPATH=manuscript/ave-kb/tools python -m unittest tests.test_kb_index_lib
 
-The tests load the real KB as their fixture for most cases. They are
-read-only and never mutate any KB file.
+Behavioral tests run against the small, stable hand-built fixture under
+``tests/fixtures/mini-kb/`` — its claim graph is known exactly, so expected
+values are derivable from the fixture rather than re-baselined every time the
+live KB's content changes. The live KB's own structural health is covered by
+``make verify-kb-metadata``; a single de-pinned smoke test here confirms
+``discover_kb`` runs clean against it. All tests are read-only and never
+mutate any file.
 """
 
 from __future__ import annotations
@@ -35,6 +40,15 @@ import kb_index_lib as lib  # noqa: E402
 # Repo root: tools/tests -> tools -> ave-kb -> manuscript -> repo
 _REPO_ROOT = _TOOLS_DIR.parents[2]
 _KB_ROOT = _REPO_ROOT / "manuscript" / "ave-kb"
+
+# The synthetic fixture KB — the stable graph behavioral tests run against.
+# It lives under a ``session/`` directory: ``session`` is in the KB tools'
+# ``EXCLUDE_DIRS``, so ``make refresh-kb-metadata`` / ``make verify-kb-metadata``
+# (which walk the whole real KB tree, ``tools/`` included) skip the fixture
+# entirely and never fold its synthetic claims into the live KB graph. The
+# tests below root ``discover_kb`` directly at ``mini-kb``, so the ``session``
+# segment is not in the relative path and the fixture parses normally.
+_FIXTURE = _THIS_DIR / "fixtures" / "session" / "mini-kb"
 
 
 class TestParseFrontmatter(unittest.TestCase):
@@ -76,69 +90,86 @@ class TestParseFrontmatter(unittest.TestCase):
 
 
 class TestParseClaimQualityFile(unittest.TestCase):
-    """parse_claim_quality_file against vol1/claim-quality.md (real KB)."""
+    """parse_claim_quality_file against the fixture's root claim-quality.md.
+
+    The root register holds five claims: two no-dependency claims
+    (clm-aa1111, clm-bb2222), a single-claim-dependency claim (clm-cc3333),
+    a multi-dependency claim (clm-dd4444), and a framework-only-dependency
+    claim (clm-ee5555).
+    """
 
     @classmethod
     def setUpClass(cls):
-        cls.path = _KB_ROOT / "vol1" / "claim-quality.md"
-        cls.entries = lib.parse_claim_quality_file(cls.path, _KB_ROOT)
+        cls.path = _FIXTURE / "claim-quality.md"
+        cls.entries = lib.parse_claim_quality_file(cls.path, _FIXTURE)
         cls.by_id = {e.id: e for e in cls.entries}
 
-    def test_count_matches_grep(self):
-        self.assertEqual(len(self.entries), 32)
+    def test_entry_count(self):
+        # Five real claims; the fenced `<!-- id: -->` example is not counted.
+        self.assertEqual(len(self.entries), 5)
 
-    def test_trf3bd_metadata(self):
-        e = self.by_id["clm-trf3bd"]
-        self.assertIn("Trefoil", e.title)
-        self.assertEqual(e.confidence, 0.75)
-        self.assertEqual(e.solidity, 0.75)
+    def test_no_dependency_claim_metadata(self):
+        e = self.by_id["clm-aa1111"]
+        self.assertIn("Foundation Claim A", e.title)
+        self.assertEqual(e.confidence, 0.90)
+        # The on-disk solidity line is deliberately stale (0.10); the parsed
+        # entry carries exactly what the line says — it is not recomputed.
+        self.assertEqual(e.solidity, 0.10)
         self.assertIsNotNone(e.build_status)
-        self.assertIn("ok to build on", e.build_status)
-        self.assertIn("caveats", e.build_status)
-        # Placeholder depends-on entry produces zero edges.
+        # No depends-on bullets → no edges.
         self.assertEqual(e.depends_on, ())
-        # Three strengthen-by items per the KB.
-        self.assertEqual(len(e.strengthen_by), 3)
 
-    def test_unk0bd_metadata(self):
-        e = self.by_id["clm-unk0bd"]
-        self.assertEqual(e.confidence, 0.40)
-        self.assertEqual(e.solidity, 0.40)
-
-    def test_5xon03_depends_on_includes_unk0bd(self):
-        e = self.by_id["clm-5xon03"]
+    def test_claim_dependency_edge_carries_recorded_solidity(self):
+        e = self.by_id["clm-cc3333"]
         targets = {edge.target: edge for edge in e.depends_on}
-        self.assertIn("clm-unk0bd", targets)
-        edge = targets["clm-unk0bd"]
-        self.assertEqual(edge.source, "clm-5xon03")
-        self.assertEqual(edge.target_solidity_recorded, 0.40)
+        self.assertIn("clm-aa1111", targets)
+        edge = targets["clm-aa1111"]
+        self.assertEqual(edge.source, "clm-cc3333")
+        self.assertEqual(edge.target_kind, "claim")
+        self.assertEqual(edge.target_solidity_recorded, 0.90)
 
-    def test_5xon03_strengthen_by_mentions_trf3bd_and_unk0bd(self):
-        e = self.by_id["clm-5xon03"]
+    def test_strengthen_by_item_mentions_two_fixture_ids(self):
+        # clm-dd4444's first strengthen-by item names both clm-aa1111 and
+        # clm-bb2222 in its text.
+        e = self.by_id["clm-dd4444"]
         joint = [
             sb
             for sb in e.strengthen_by
-            if "clm-trf3bd" in sb.mentioned_ids and "clm-unk0bd" in sb.mentioned_ids
+            if "clm-aa1111" in sb.mentioned_ids and "clm-bb2222" in sb.mentioned_ids
         ]
         self.assertTrue(
             joint,
             "expected at least one strengthen-by item mentioning both ids",
         )
 
+    def test_framework_dependency_claim_edges(self):
+        # clm-ee5555 depends on a framework invariant and a framework axiom;
+        # neither carries a recorded solidity.
+        e = self.by_id["clm-ee5555"]
+        kinds = sorted(edge.target_kind for edge in e.depends_on)
+        self.assertEqual(kinds, ["axiom", "invariant"])
+        for edge in e.depends_on:
+            self.assertIsNone(edge.target_solidity_recorded)
+
 
 class TestParseFrameworkNodes(unittest.TestCase):
-    """parse_framework_nodes against the real CLAUDE.md."""
+    """parse_framework_nodes against the fixture's CLAUDE.md.
+
+    The fixture declares four invariant headings (INVARIANT-S1, S2, S3, and
+    the subsumed-tombstone S6) and four axiom bullets in the INVARIANT-S2
+    section.
+    """
 
     @classmethod
     def setUpClass(cls):
-        cls.nodes = lib.parse_framework_nodes(_KB_ROOT)
+        cls.nodes = lib.parse_framework_nodes(_FIXTURE)
         cls.by_id = {n.id: n for n in cls.nodes}
 
-    def test_eighteen_invariants(self):
+    def test_invariant_count(self):
         invariants = [n for n in self.nodes if n.node_type == "invariant"]
-        self.assertEqual(len(invariants), 18)
+        self.assertEqual(len(invariants), 4)
 
-    def test_four_axioms(self):
+    def test_axiom_count(self):
         axioms = [n for n in self.nodes if n.node_type == "axiom"]
         self.assertEqual(len(axioms), 4)
         self.assertEqual(
@@ -146,10 +177,11 @@ class TestParseFrameworkNodes(unittest.TestCase):
             ["axiom-1", "axiom-2", "axiom-3", "axiom-4"],
         )
 
-    def test_invariant_s6_tombstone_present(self):
+    def test_tombstone_invariant_present(self):
         # The subsumed S6 heading is still a real heading; a reference must
         # resolve, so the node must exist.
         self.assertIn("INVARIANT-S6", self.by_id)
+        self.assertEqual(self.by_id["INVARIANT-S6"].node_type, "invariant")
 
     def test_invariant_anchor_is_own_heading_slug(self):
         s2 = self.by_id["INVARIANT-S2"]
@@ -157,15 +189,9 @@ class TestParseFrameworkNodes(unittest.TestCase):
         self.assertEqual(s2.canonical_anchor, "invariant-s2-ave-axiom-numbering")
         self.assertEqual(s2.title, "AVE Axiom numbering")
 
-    def test_axiom_titles_and_shared_anchor(self):
+    def test_axioms_share_the_s2_anchor(self):
         # All four axioms point at the INVARIANT-S2 heading slug.
         s2_anchor = self.by_id["INVARIANT-S2"].canonical_anchor
-        self.assertEqual(self.by_id["axiom-1"].title, "Impedance")
-        self.assertEqual(self.by_id["axiom-2"].title, "Fine Structure")
-        self.assertEqual(self.by_id["axiom-3"].title, "Gravity")
-        self.assertEqual(
-            self.by_id["axiom-4"].title, "Universal Saturation Kernel"
-        )
         for num in (1, 2, 3, 4):
             self.assertEqual(
                 self.by_id[f"axiom-{num}"].canonical_anchor, s2_anchor
@@ -174,23 +200,27 @@ class TestParseFrameworkNodes(unittest.TestCase):
 
 
 class TestDependsOnFrameworkEdges(unittest.TestCase):
-    """Head-extraction depends-on parser: framework targets and multi-token."""
+    """Head-extraction depends-on parser: framework targets and multi-token.
+
+    Edge-count and shape assertions run against the fixture's known graph:
+    8 depends-on edges total — 4 claim-target, 4 framework-target.
+    """
 
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_depends_on_records(cls.state)
 
     def test_total_edge_count(self):
-        self.assertEqual(len(self.records), 40)
+        self.assertEqual(len(self.records), 8)
 
-    def test_claim_edge_count_unchanged(self):
+    def test_claim_edge_count(self):
         claim_edges = [r for r in self.records if r["target_kind"] == "claim"]
-        self.assertEqual(len(claim_edges), 33)
+        self.assertEqual(len(claim_edges), 4)
 
     def test_framework_edge_count(self):
         fw = [r for r in self.records if r["target_kind"] != "claim"]
-        self.assertEqual(len(fw), 7)
+        self.assertEqual(len(fw), 4)
 
     def test_target_kind_matches_target_shape(self):
         for r in self.records:
@@ -210,14 +240,13 @@ class TestDependsOnFrameworkEdges(unittest.TestCase):
             if r["target_kind"] != "claim":
                 self.assertIsNone(r["target_solidity_recorded"])
 
-    def test_double_invariant_s2_edges_from_vol2_owner(self):
-        # The vol2 claim-quality entry declares INVARIANT-S2 via two separate
-        # bullets with different context — both edge records must survive.
+    def test_double_invariant_s2_edges_from_one_owner(self):
+        # clm-hh8888 declares INVARIANT-S2 via two separate bullets with
+        # different context — both edge records must survive.
         s2_edges = [
             r
             for r in self.records
-            if r["target"] == "INVARIANT-S2"
-            and r["source"] == "clm-h9aqmt"
+            if r["target"] == "INVARIANT-S2" and r["source"] == "clm-hh8888"
         ]
         self.assertEqual(len(s2_edges), 2)
         contexts = sorted(r["context"] or "" for r in s2_edges)
@@ -257,64 +286,59 @@ class TestDependsOnFrameworkEdges(unittest.TestCase):
 
 
 class TestParseLeaf(unittest.TestCase):
-    """parse_leaf against real KB leaves."""
+    """parse_leaf against the fixture's leaves."""
 
-    def test_ch8_alpha_golden_torus(self):
-        path = _KB_ROOT / "vol1" / "ch8-alpha-golden-torus.md"
-        leaf = lib.parse_leaf(path, _KB_ROOT)
+    def test_multi_claim_leaf(self):
+        path = _FIXTURE / "common" / "leaf-multi.md"
+        leaf = lib.parse_leaf(path, _FIXTURE)
         self.assertIsNotNone(leaf)
         self.assertEqual(leaf.kind, "leaf")
-        self.assertIn("clm-trf3bd", leaf.claims)
-        # ch8 is a multi-claim leaf so tier2_marked should be non-empty.
-        self.assertTrue(leaf.tier2_marked)
+        self.assertEqual(
+            set(leaf.claims),
+            {"clm-aa1111", "clm-bb2222", "clm-cc3333", "clm-dd4444"},
+        )
+        # A multi-claim leaf carries a Tier-2 marker for every id.
+        self.assertEqual(set(leaf.tier2_marked), set(leaf.claims))
 
     def test_single_claim_leaf_may_have_empty_tier2(self):
-        # Find any single-claim leaf in the KB.
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
-        singles = [leaf for leaf in state.leaves if len(leaf.claims) == 1]
-        self.assertTrue(singles, "expected at least one single-claim leaf")
-        # The invariant: tier2_marked may be empty for single-claim leaves.
-        # Assert the leaves we find conform (presence of any marker is allowed
-        # but not required).
-        for leaf in singles:
-            # tier2_marked subset of claims is enforced by construction in parse_leaf.
-            self.assertLessEqual(set(leaf.tier2_marked), set(leaf.claims))
+        path = _FIXTURE / "common" / "leaf-single.md"
+        leaf = lib.parse_leaf(path, _FIXTURE)
+        self.assertIsNotNone(leaf)
+        self.assertEqual(leaf.claims, ("clm-aa1111",))
+        # The fixture's single-claim leaf carries no inline marker — Tier-2
+        # is not required for single-claim leaves.
+        self.assertEqual(leaf.tier2_marked, frozenset())
 
-    def test_multi_claim_leaf_tier2_non_empty(self):
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
-        multis = [leaf for leaf in state.leaves if len(leaf.claims) >= 2]
-        self.assertTrue(multis, "expected multi-claim leaves")
-        # Verifier-enforced INVARIANT-S8: every multi-claim leaf has Tier 2 markers.
-        for leaf in multis:
-            self.assertTrue(
-                leaf.tier2_marked,
-                f"multi-claim leaf {leaf.path} missing tier2 markers",
-            )
+    def test_no_claim_leaf(self):
+        path = _FIXTURE / "common" / "leaf-noclaim.md"
+        leaf = lib.parse_leaf(path, _FIXTURE)
+        self.assertIsNotNone(leaf)
+        self.assertEqual(leaf.claims, ())
+        self.assertIsNotNone(leaf.no_claim_reason)
 
 
 class TestDiscoverKb(unittest.TestCase):
-    """discover_kb against the real KB."""
+    """discover_kb against the synthetic fixture."""
 
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
 
     def test_claim_count_matches_canonical_extraction(self):
-        # The naive ``grep -c '<!-- id: '`` count is 200, but it includes one
-        # placeholder ``<!-- id: clm-xxxxxx -->`` inside a fenced ``markdown`` code
-        # block in the root ``claim-quality.md`` Quality Convention example.
-        # The library (like the existing verify-kb-metadata verifier) strips
-        # code fences before extracting canonical IDs, so the real entry count
-        # is 199.
-        self.assertEqual(len(self.state.claim_entries), 199)
+        # The fixture's root claim-quality.md carries one placeholder
+        # `<!-- id: clm-xxxxxx -->` inside a fenced ``markdown`` code block in
+        # the Quality Convention example. The library strips code fences
+        # before extracting canonical IDs, so that example is NOT counted.
+        # Five real entries in the root register + three in common/ = 8.
+        self.assertEqual(len(self.state.claim_entries), 8)
 
     def test_every_leaf_with_claims_present(self):
         # Build the set of leaf paths from a parallel walk and intersect.
         from kb_index_lib import _kb_files  # local import to use private walker
 
         expected: set[str] = set()
-        for p in _kb_files(_KB_ROOT):
-            leaf = lib.parse_leaf(p, _KB_ROOT)
+        for p in _kb_files(_FIXTURE):
+            leaf = lib.parse_leaf(p, _FIXTURE)
             if leaf is not None and leaf.claims:
                 expected.add(leaf.path)
         actual = {leaf.path for leaf in self.state.leaves if leaf.claims}
@@ -322,61 +346,28 @@ class TestDiscoverKb(unittest.TestCase):
 
     def test_indexes_count_positive(self):
         self.assertGreater(len(self.state.indexes), 0)
-        # And at least one entry-point.
+        # And both an entry-point and an index are discovered.
         kinds = {idx.kind for idx in self.state.indexes}
         self.assertIn("entry-point", kinds)
         self.assertIn("index", kinds)
 
 
 class TestKnownIdFiltering(unittest.TestCase):
-    """Post-`clm-`-migration the ID regex is exact: a `clm-`-shaped token is
+    """The diagnostic stream is silenceable on a clean KB.
+
+    Post-`clm-`-migration the ID regex is exact: a `clm-`-shaped token is
     only ever a real ID candidate, never an incidental prose word.
     """
 
-    def test_depends_on_claim_targets_are_all_canonical(self):
-        """Every ``claim``-kind depends-on target is a canonical claim ID."""
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=io.StringIO())
-        canonical = {entry.id for entry in state.claim_entries}
-        offenders: list[tuple[str, str]] = []
-        for entry in state.claim_entries:
-            for edge in entry.depends_on:
-                if edge.target_kind == "claim" and edge.target not in canonical:
-                    offenders.append((edge.source, edge.target))
-        self.assertEqual(
-            offenders,
-            [],
-            f"depends-on claim edges with non-claim targets: {offenders}",
-        )
-
-    def test_strengthen_by_mentioned_ids_only_real_ids(self):
-        """Every strengthen-by mentioned_id is a canonical claim ID.
-
-        Still meaningful post-migration: every extracted `clm-` token must
-        resolve to a registered canonical ID; an unregistered one would
-        signal a typo or stale reference.
-        """
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=io.StringIO())
-        canonical = {entry.id for entry in state.claim_entries}
-        offenders: list[tuple[str, int, str]] = []
-        for entry in state.claim_entries:
-            for sb in entry.strengthen_by:
-                for cid in sb.mentioned_ids:
-                    if cid not in canonical:
-                        offenders.append((sb.claim_id, sb.item_idx, cid))
-        self.assertEqual(
-            offenders,
-            [],
-            f"strengthen-by mentioned_ids referencing non-canonical IDs: {offenders}",
-        )
-
     def test_diagnostic_silenceable(self):
-        """Passing diagnostic_stream=None is a true no-op (no error raised).
+        """The one real-KB smoke test: discover_kb runs clean on the live KB.
 
-        On a clean post-migration KB the exact ID regex has no false
-        positives, so a buffered run also emits nothing — there is no
-        `clm-`-shaped token outside the canonical set. The silenceability
-        contract is: passing ``None`` must not raise and must yield the same
-        state shape as a buffered run.
+        De-pinned — no hard counts. Confirms ``discover_kb(_KB_ROOT)`` does
+        not raise, returns a non-empty claim set, and that passing
+        ``diagnostic_stream=None`` is a true no-op yielding the same state
+        shape as a buffered run. The live KB's structural correctness is
+        covered by ``make verify-kb-metadata``; this only guards that the
+        library can load it at all.
         """
         silent = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
         self.assertGreater(len(silent.claim_entries), 0)
@@ -392,7 +383,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_claims_records(cls.state)
         cls.by_id = {r["id"]: r for r in cls.records}
 
@@ -407,10 +398,11 @@ class TestBuildClaimsRecords(unittest.TestCase):
         from collections import Counter
 
         counts = Counter(r["node_type"] for r in self.records)
-        self.assertEqual(counts["claim"], 199)
-        self.assertEqual(counts["invariant"], 18)
+        # 8 claims + 4 invariants + 4 axioms = 16 nodes.
+        self.assertEqual(counts["claim"], 8)
+        self.assertEqual(counts["invariant"], 4)
         self.assertEqual(counts["axiom"], 4)
-        self.assertEqual(len(self.records), 221)
+        self.assertEqual(len(self.records), 16)
 
     def test_sorted_by_node_type_then_id(self):
         keys = [(r["node_type"], r["id"]) for r in self.records]
@@ -433,7 +425,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "citation_count",
         ]
         claim_recs = [r for r in self.records if r["node_type"] == "claim"]
-        self.assertEqual(len(claim_recs), 199)
+        self.assertEqual(len(claim_recs), 8)
         for rec in claim_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 
@@ -446,71 +438,87 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "canonical_anchor",
         ]
         fw_recs = [r for r in self.records if r["node_type"] != "claim"]
-        self.assertEqual(len(fw_recs), 22)
+        self.assertEqual(len(fw_recs), 8)
         for rec in fw_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
             self.assertEqual(rec["canonical_path"], "CLAUDE.md")
 
     def test_build_band_derived(self):
-        # clm-trf3bd has solidity 0.75 -> ok-with-caveats
-        self.assertEqual(self.by_id["clm-trf3bd"]["build_band"], "ok-with-caveats")
-        # clm-unk0bd has solidity 0.40 -> do-not-build
-        self.assertEqual(self.by_id["clm-unk0bd"]["build_band"], "do-not-build")
+        # clm-aa1111 computed solidity 0.90 -> ok-to-build.
+        self.assertEqual(self.by_id["clm-aa1111"]["build_band"], "ok-to-build")
+        # clm-bb2222 solidity 0.60 -> input-only.
+        self.assertEqual(self.by_id["clm-bb2222"]["build_band"], "input-only")
+        # clm-cc3333 solidity 0.72 -> ok-with-caveats.
+        self.assertEqual(self.by_id["clm-cc3333"]["build_band"], "ok-with-caveats")
 
     def test_solidity_field_is_computed_not_parsed(self):
         # claims.jsonl solidity must match compute_solidity, NOT the value
-        # parsed off the claim-quality.md solidity line.
+        # parsed off the claim-quality.md solidity line. clm-aa1111's on-disk
+        # line is the stale 0.10; its record must carry the computed 0.90.
         sol = lib.compute_solidity(self.state.claim_entries)
-        for cid in ("clm-0ktpcn", "clm-2e9j97", "clm-zi6t1e", "clm-ibfyda"):
+        for cid in ("clm-aa1111", "clm-cc3333", "clm-dd4444", "clm-ee5555"):
             self.assertEqual(self.by_id[cid]["solidity"], sol[cid])
-        # clm-2e9j97 is a multi-dep entry: 0.24 derived, build-status follows.
-        self.assertEqual(self.by_id["clm-2e9j97"]["solidity"], 0.24)
+        self.assertEqual(self.by_id["clm-aa1111"]["solidity"], 0.90)
+        # clm-dd4444 is a multi-dep entry: 0.54 derived, build-status follows.
+        self.assertEqual(self.by_id["clm-dd4444"]["solidity"], 0.54)
         self.assertEqual(
-            self.by_id["clm-2e9j97"]["build_status"],
-            "do not build on, rework needed",
+            self.by_id["clm-dd4444"]["build_status"],
+            "use as input only, don't build deeper",
         )
 
     def test_pending_confidence_claim_has_null_derived_fields(self):
-        # clm-h9aqmt confidence is *pending* → solidity uncomputable → null.
-        rec = self.by_id["clm-h9aqmt"]
+        # clm-ff6666 confidence is *pending* → solidity uncomputable → null.
+        rec = self.by_id["clm-ff6666"]
         self.assertIsNone(rec["confidence"])
         self.assertIsNone(rec["solidity"])
         self.assertIsNone(rec["build_status"])
 
+    def test_pending_blocked_claim_has_null_derived_fields(self):
+        # clm-gg7777 has numeric confidence but a pending dependency → its
+        # solidity is pending too, so the derived fields are null.
+        rec = self.by_id["clm-gg7777"]
+        self.assertEqual(rec["confidence"], 0.95)
+        self.assertIsNone(rec["solidity"])
+        self.assertIsNone(rec["build_status"])
+
     def test_counts_are_accurate(self):
-        # clm-5xon03 depends on clm-unk0bd (1 edge).
-        self.assertEqual(self.by_id["clm-5xon03"]["depends_on_count"], 1)
-        # clm-trf3bd has 3 strengthen-by items.
-        self.assertEqual(self.by_id["clm-trf3bd"]["strengthen_by_count"], 3)
-        # clm-trf3bd is cited by ch8-alpha-golden-torus.md at minimum.
-        self.assertGreaterEqual(self.by_id["clm-trf3bd"]["citation_count"], 1)
+        # clm-cc3333 depends on clm-aa1111 (1 edge).
+        self.assertEqual(self.by_id["clm-cc3333"]["depends_on_count"], 1)
+        # clm-dd4444 has 2 strengthen-by items.
+        self.assertEqual(self.by_id["clm-dd4444"]["strengthen_by_count"], 2)
+        # clm-aa1111 is cited by the multi-claim and single-claim leaves.
+        self.assertEqual(self.by_id["clm-aa1111"]["citation_count"], 2)
 
 
 class TestBuildDependsOnRecords(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_depends_on_records(cls.state)
 
-    def test_5xon03_to_unk0bd_present(self):
-        edges = [r for r in self.records if r["source"] == "clm-5xon03" and r["target"] == "clm-unk0bd"]
+    def test_claim_edge_records_recorded_solidity(self):
+        edges = [
+            r
+            for r in self.records
+            if r["source"] == "clm-cc3333" and r["target"] == "clm-aa1111"
+        ]
         self.assertEqual(len(edges), 1)
-        self.assertEqual(edges[0]["target_solidity_recorded"], 0.40)
+        self.assertEqual(edges[0]["target_solidity_recorded"], 0.90)
 
     def test_sorted_by_source_then_target(self):
         keys = [(r["source"], r["target"]) for r in self.records]
         self.assertEqual(keys, sorted(keys))
 
-    def test_placeholder_lines_produce_zero_edges(self):
-        # clm-trf3bd's depends-on is a placeholder; it must produce no edges.
-        from_trf = [r for r in self.records if r["source"] == "clm-trf3bd"]
-        self.assertEqual(from_trf, [])
+    def test_no_dependency_claim_produces_zero_edges(self):
+        # clm-aa1111 has no depends-on bullets; it must produce no edges.
+        from_aa = [r for r in self.records if r["source"] == "clm-aa1111"]
+        self.assertEqual(from_aa, [])
 
 
 class TestBuildStrengthenByRecords(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_strengthen_by_records(cls.state)
 
     def test_sorted_by_claim_id_then_item_idx(self):
@@ -532,7 +540,7 @@ class TestBuildStrengthenByRecords(unittest.TestCase):
 class TestBuildCitesRecords(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_cites_records(cls.state)
 
     def test_sorted_by_claim_id_then_leaf_path(self):
@@ -547,7 +555,7 @@ class TestBuildCitesRecords(unittest.TestCase):
 class TestBuildSubtreeAggregateRecords(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_subtree_aggregate_records(cls.state)
 
     def test_one_record_per_index_or_entry_point(self):
@@ -562,7 +570,7 @@ class TestBuildSubtreeAggregateRecords(unittest.TestCase):
 
 class TestDeterminism(unittest.TestCase):
     def test_build_all_records_byte_identical(self):
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         first = lib.build_all_records(state)
         second = lib.build_all_records(state)
         self.assertEqual(set(first.keys()), set(second.keys()))
@@ -652,7 +660,7 @@ class TestRoundHalfUp(unittest.TestCase):
         self.assertEqual(lib.round_half_up_2dp(0.324), 0.32)
 
     def test_lv3uw1_boundary_case(self):
-        # 0.65 × 0.50 = 0.325 → round-half-up → 0.33 (the clm-lv3uw1 case).
+        # 0.65 × 0.50 = 0.325 → round-half-up → 0.33.
         self.assertEqual(lib.round_half_up_2dp(0.65 * 0.50), 0.33)
 
 
@@ -784,9 +792,7 @@ class TestSolidityPendingPropagation(unittest.TestCase):
     A claim's solidity is ``*pending*`` (omitted from ``compute_solidity``'s
     result) if its confidence is ``*pending*`` OR any dependency's solidity is
     ``*pending*`` — regardless of its own local confidence. Framework-node
-    dependencies are never pending. The current KB has no numeric-confidence
-    claim depending on a pending claim, so this path is exercised only by
-    these synthetic graphs.
+    dependencies are never pending.
     """
 
     def test_direct_dependency_on_pending_claim_is_pending(self):
@@ -860,43 +866,56 @@ class TestSolidityPendingPropagation(unittest.TestCase):
         self.assertEqual(sol["clm-ssssss"], 0.70)
 
 
-class TestComputeSolidityRealKB(unittest.TestCase):
-    """compute_solidity against the real KB: known-entry correctness."""
+class TestComputeSolidityFixture(unittest.TestCase):
+    """compute_solidity and min_dependency_solidity against the fixture graph.
+
+    The fixture's known answer key:
+
+    * clm-aa1111 (conf 0.90, no deps)         → solidity 0.90
+    * clm-bb2222 (conf 0.60, no deps)         → solidity 0.60
+    * clm-cc3333 (conf 0.80, dep aa1111)      → 0.80 × 0.90 = 0.72
+    * clm-dd4444 (conf 0.90, deps aa+bb)      → 0.90 × min(0.90,0.60) = 0.54
+    * clm-ee5555 (conf 0.75, framework deps)  → 0.75 (framework contributes 1.0)
+    * clm-hh8888 (conf 0.70, double INV-S2)   → 0.70
+    """
 
     @classmethod
     def setUpClass(cls):
-        cls.state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.sol = lib.compute_solidity(cls.state.claim_entries)
-
-    def test_real_kb_graph_is_acyclic(self):
-        # compute_solidity returning without raising == graph is a DAG.
-        self.assertIsInstance(self.sol, dict)
+        cls.by_id = {e.id: e for e in cls.state.claim_entries}
 
     def test_known_entry_solidities(self):
-        # The Push-3 derived values for the drift-corrected entries.
-        self.assertEqual(self.sol["clm-0ktpcn"], 0.41)
-        self.assertEqual(self.sol["clm-2e9j97"], 0.24)
-        self.assertEqual(self.sol["clm-zi6t1e"], 0.29)
-        self.assertEqual(self.sol["clm-ibfyda"], 0.27)
-        self.assertEqual(self.sol["clm-m7qd0w"], 0.27)
+        self.assertEqual(self.sol["clm-aa1111"], 0.90)
+        self.assertEqual(self.sol["clm-bb2222"], 0.60)
+        self.assertEqual(self.sol["clm-cc3333"], 0.72)
+        self.assertEqual(self.sol["clm-dd4444"], 0.54)
+        self.assertEqual(self.sol["clm-ee5555"], 0.75)
+        self.assertEqual(self.sol["clm-hh8888"], 0.70)
 
     def test_no_deps_entry_solidity_equals_confidence(self):
-        # clm-trf3bd has no entry-level dependencies → solidity == confidence.
-        trf = next(
-            e for e in self.state.claim_entries if e.id == "clm-trf3bd"
-        )
-        self.assertEqual(self.sol["clm-trf3bd"], trf.confidence)
+        # clm-aa1111 has no entry-level dependencies → solidity == confidence.
+        aa = self.by_id["clm-aa1111"]
+        self.assertEqual(self.sol["clm-aa1111"], aa.confidence)
+
+    def test_framework_only_entry_solidity_equals_confidence(self):
+        # clm-ee5555 depends only on framework nodes → solidity == confidence.
+        ee = self.by_id["clm-ee5555"]
+        self.assertEqual(self.sol["clm-ee5555"], ee.confidence)
 
     def test_min_dependency_solidity_no_deps_is_none(self):
-        trf = next(
-            e for e in self.state.claim_entries if e.id == "clm-trf3bd"
-        )
-        self.assertIsNone(lib.min_dependency_solidity(trf, self.sol))
+        aa = self.by_id["clm-aa1111"]
+        self.assertIsNone(lib.min_dependency_solidity(aa, self.sol))
 
     def test_min_dependency_solidity_picks_minimum(self):
-        # clm-2e9j97 depends on clm-0ktpcn (0.41) and clm-5xon03 (0.28).
-        e = next(e for e in self.state.claim_entries if e.id == "clm-2e9j97")
-        self.assertEqual(lib.min_dependency_solidity(e, self.sol), 0.28)
+        # clm-dd4444 depends on clm-aa1111 (0.90) and clm-bb2222 (0.60).
+        dd = self.by_id["clm-dd4444"]
+        self.assertEqual(lib.min_dependency_solidity(dd, self.sol), 0.60)
+
+    def test_min_dependency_solidity_framework_contributes_one(self):
+        # clm-ee5555's deps are all framework nodes → min is 1.0.
+        ee = self.by_id["clm-ee5555"]
+        self.assertEqual(lib.min_dependency_solidity(ee, self.sol), 1.0)
 
 
 if __name__ == "__main__":
