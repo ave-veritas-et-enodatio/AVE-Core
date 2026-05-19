@@ -49,11 +49,21 @@ def generate_table() -> None:
     catalog_content = """\\chapter{Catalog of Heavy Elements (Z=15 to Z=118)}
 \\label{ch:heavy_element_catalog}
 
-The theoretical split between Nuclear Topology and Orbital Knot Topology represents a fundamentally unified
-continuous geometric structure. The following catalog mathematically derives the topological packing limits
-for all remaining super-heavy elements. For each element $Z \\geq 15$, the AVE topological solver
-numerically bounds the spherical Fibonacci geometry of the Alpha cores, successfully predicting empirical
-CODATA rest mass targets strictly through recursive $1/d_{ij}$ structural mutual impedance.
+\\textit{Honesty scope (2026-05-17 driver-script audit):} For $Z \\leq 14$ (covered in the
+preceding chapters), per-element nuclear radii are obtained by 1-parameter Nelder-Mead
+fits against empirical CODATA mass targets — these are inverse-problem solves, not
+forward predictions. For $Z \\geq 15$ in the catalog that follows, the geometry is generated
+by a single unfitted heuristic placing $\\alpha$-cores on a spherical Fibonacci lattice with
+$r_{core} = d \\cdot (15 + 0.95 A)$ — \\emph{no per-element optimization is performed}, and the
+mapping-error column reports the residual of this fixed heuristic against CODATA, not
+the residual of a fit. The AVE-distinct claim is the $K_{MUTUAL} \\sim 1/d_{ij}$ coupling
+form (axiom-derived); the recovered geometry is currently fit (low-$Z$) or heuristic
+(high-$Z$). Forward-prediction of nuclear radii from first principles is an open work
+item — would parallel the SPARC ingest pattern, applied to NNDC nuclear-structure data.
+
+The following catalog applies the $1/d_{ij}$ coupling form via the unfitted Fibonacci
+heuristic to all $Z \\geq 15$ elements, providing a baseline against which a future
+per-element optimizer (or first-principles geometric prediction) can be benchmarked.
 
 \\vspace{1em}
 """

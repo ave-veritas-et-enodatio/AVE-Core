@@ -1,5 +1,22 @@
 """
-Generate Manuscript Figures for Volume 3 Macroscopic Physics (AVE Phase 2-4 Updates)
+Generate Manuscript Figures for Volume 3 Macroscopic Physics — illustrative figure renderer.
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script plots illustrative figures using hardcoded literal values
+extracted from prior simulation runs (e.g., `agm_values` line 23 is
+"Values extracted from Phase 2 printouts" — these are NOT computed by
+this script). It does NOT re-derive the A_gm Regime IV strain values
+or any other plotted quantity — it renders frozen literals for the
+manuscript figure pipeline.
+
+For canonical A_gm derivation, see `simulate_geodynamo_vca.py` and the
+ave.gravity engine; for the canonical Sun/Jupiter/Saturn/Earth/Moon
+strain magnitudes, those values should be re-computed via the engine on
+update and pinned here. Currently the literals are pinned from Phase 2
+runs (pre-2026-05-17 audit).
+
+Recommended cleanup (future): replace hardcoded `agm_values` list with
+on-the-fly engine call to `compute_macroscopic_strain` per body.
 """
 
 import os

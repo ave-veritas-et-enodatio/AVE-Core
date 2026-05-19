@@ -1,8 +1,28 @@
 #!/usr/bin/env python3
 """
-Semiconductor Large-Signal Nuclear Binding Engine
-====================================================
-Maps standard semiconductor device equations onto nuclear binding:
+Semiconductor Large-Signal Nuclear Binding Engine.
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+Maps standard semiconductor device equations onto nuclear binding.
+
+The COUPLING constants (K_MUTUAL, αℏc, D_INTRA, V_BR, n_miller) ARE
+axiom-derived from Axiom 1+2+4 as documented below. HOWEVER, the script
+also exposes functions `solve_for_R_<element>` (e.g., lines 399, 567) that
+"Solve for inter-alpha distance R that matches CODATA mass" — these are
+explicit per-element 1-parameter FITS layered on top of the axiom-derived
+couplings. So the script has internal contradiction: docstring claims
+"zero empirical fits" but the solve_for_R functions ARE fits.
+
+The honest characterization:
+  - K_MUTUAL, αℏc, D_INTRA, V_BR, n_miller: axiom-derived
+  - Per-element nuclear radius R: fit to CODATA via solve_for_R functions
+  - PDG nucleon rest masses: empirical inputs
+
+More accurate "zero empirical fits" framing:
+  "Zero fit parameters in the COUPLING — but per-element nuclear radius
+   IS fit against CODATA mass on top of axiom-derived couplings."
+
+Scope corrected 2026-05-17.
 
   Strong coupling:  BE_strong = Σ K/r_ij  (bare, all inter-alpha nucleon pairs)
   Coulomb repulsion: BE_coulomb = Σ αℏc/r_ij × f_pp × M(V_R/V_BR)
@@ -12,12 +32,15 @@ Maps standard semiconductor device equations onto nuclear binding:
     V_BR = 6×αℏc/D_INTRA (breakdown = intra-alpha Coulomb capacity)
     n    = 5 (cinquefoil crossing number)
 
-ALL parameters derived from AVE axioms — zero empirical fits:
+Couplings derived from AVE axioms — zero empirical fits in coupling form:
   K_MUTUAL  → Axiom 2 (fine structure + cinquefoil winding)
   αℏc       → Axiom 2 (Coulomb constant)
   D_INTRA   → Axiom 1 (tetrahedron edge = d√8)
   V_BR      → Axiom 2 (6 intra-alpha pairs × αℏc/D_INTRA)
   n_miller  → Axiom 2 (cinquefoil crossing number c=5)
+
+(Per-element nuclear radius R is fit to CODATA via solve_for_R functions —
+see scope note above.)
 
 Semiconductor ↔ Nuclear Mapping:
   I_S (saturation current)  → K_MUTUAL / D_INTRA (fundamental coupling per pair)

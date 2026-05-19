@@ -1,3 +1,29 @@
+"""
+Orbital Standing Wave Visualization (mathematically isomorphic to QM orbitals).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders s/p/d/f orbital amplitude patterns as LC standing-wave
+harmonics on a 3D grid (pressure_s = exp(-R), pressure_pz = Z × exp(-R),
+etc.). These are the STANDARD hydrogen orbital amplitude forms by
+construction — mathematically identical to the Schrödinger probability
+density, just reinterpreted as standing-wave mechanical pressure rather
+than statistical probability.
+
+This script's value is INTERPRETIVE (alternative AVE narrative for what
+the orbitals represent physically), NOT mathematically novel. The
+"Eliminate the Schrödinger Probability Density model" objective is more
+accurately "reinterpret the same mathematical functions as standing-wave
+amplitude rather than statistical cloud" — the math is preserved.
+
+Per `plot_hydrogen_orbitals.py`'s honest framing: "The orbital prediction
+is 100% mathematically identical to the standard QM expectation; the AVE
+interpretation differs (mechanical standing wave vs probability density)
+but the figures are the same".
+
+Docstring corrected 2026-05-17 to match plot_hydrogen_orbitals.py honest
+isomorphism framing.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -6,13 +32,14 @@ import numpy as np
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE ATOMIC SCALE: DETERMINISTIC ORBITAL RESONANCES")
+    print(" AVE ATOMIC SCALE: ORBITAL STANDING-WAVE INTERPRETATION ")
     print("==========================================================\n")
 
-    print("- Objective: Eliminate the Schrödinger Probability Density model.")
-    print("- We will map Atomic Orbitals (s, p, d, f) not as statistical clouds,")
-    print("  but as permanent, continuous macroscopic LC standing-wave harmonics")
-    print("  mechanically driven by the central Borromean topological nucleus.\n")
+    print("- Renders s/p/d/f orbital amplitudes as LC standing waves.")
+    print("- Mathematically identical to QM probability density;")
+    print("  AVE reinterpretation is mechanical (standing wave amplitude)")
+    print("  rather than statistical (probability cloud).")
+    print("- See plot_hydrogen_orbitals.py for canonical isomorphism note.\n")
 
     print("[1] Generating 3D Cartesian Simulation Grid...")
 

@@ -56,7 +56,7 @@ Flat catalog of every cross-repo path cited in the L3 corpus. Sibling repos evol
 | `AVE-QED/docs/analysis/2026-05-14_three_substrate_invariants_matrix.md` | A-028 + Grant Q1 closure (canonical names matrix with cross-scale + cross-projection tables) | E-094, E-101 | 2026-05-14 (`c30c351`) |
 | `AVE-QED/docs/analysis/2026-05-14_universal_substrate_vocabulary_refactor_plan.md` | doc 114 §1.2 (refactor plan canonized in AVE-QED) | E-094 | 2026-05-14 (`47dcc7e`) |
 | `AVE-QED/scripts/g2_research/` | Q-G19α Route B 50 ppm to PDG closure (canonical empirical record per doc 114 §2 status table) | A-001 (α-as-calibration upstream of Q-factor identity) | 2026-05-14 (canonical empirical) |
-| `AVE-Bench-VacuumMirror/docs/2026-05-14_bench_signal_predictions_summary.md` | doc 114 §7 bench preparation (procurement-mature state for 1517 pitch); D10 IM3 cubic slope 2.956; cost model $45-55k median | E-097 (two-engine architecture, K4-TLM is bench-validated engine) | 2026-05-14 (procurement-mature) |
+| `AVE-Bench-VacuumMirror/docs/2026-05-14_bench_signal_predictions_summary.md` | doc 114 §7 bench preparation (procurement-mature state); D10 IM3 cubic slope 2.956; cost model $45-55k median | E-097 (two-engine architecture, K4-TLM is bench-validated engine) | 2026-05-14 (procurement-mature) |
 | `AVE-Bench-VacuumMirror/...` (K4-TLM IM3 slope 2.956 bench validation, commit `0599a10`) | doc 110 §1 K4-TLM canonical-engine cross-corroboration; doc 114 §1.3 cross-repo state | E-097, E-100 | 2026-05-14 (`0599a10`) |
 
 ---

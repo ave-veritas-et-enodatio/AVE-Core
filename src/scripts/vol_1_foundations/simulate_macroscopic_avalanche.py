@@ -1,7 +1,19 @@
-# simulate_macroscopic_avalanche.py
-# Simulates the gravitational induction field of a massive body
-# and visibly renders the explicit tau > tau_yield breakdown threshold
-# where mutual zero-impedance occurs.
+"""
+Macroscopic Dielectric Avalanche visualization (illustrative — normalized units).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders a 2D illustrative cross-section of the gravitational
+shear field around a massive body, showing the Axiom 4 phase boundary
+where tau_field > TAU_YIELD triggers the macroscopic dielectric avalanche.
+Constants are NORMALIZED for visual clarity (M_planet = 10.0, R_planet = 1.0,
+TAU_YIELD = 1.5 in arbitrary units), so the "Yield Horizon" R_yield = sqrt(M/τ_y)
+≈ 2.58 in plot units is illustrative, NOT a physical horizon at canonical
+AVE scale. For physical-units saturation horizons, see
+`simulate_black_hole_core.py` (BH r_sat = 7GM/c² canonical) and the
+`ave.gravity.principal_radial_strain` engine.
+
+Title "exact Yield Horizon" softened 2026-05-17.
+"""
 import os
 
 import matplotlib.pyplot as plt
@@ -34,9 +46,10 @@ TAU_YIELD = 1.5  # The absolute magnetic saturation limit of the lattice
 
 def run_avalanche_simulation() -> None:
     """
-    Renders a 2D cross-section of the spatial mutual inductance (eta_eff)
-    surrounding a heavy gravitational mass. Identifies the exact Yield Horizon
-    where conservative planetary orbits are physically guaranteed.
+    Renders an illustrative 2D cross-section of the spatial mutual inductance
+    (eta_eff) surrounding a heavy gravitational mass. Identifies the Yield
+    Horizon in NORMALIZED units (NOT physical AU/meters); for physical-units
+    horizons see simulate_black_hole_core.py.
     """
     print("Evaluating Magnetic Saturation Shear Horizon...")
     fig, ax = plt.subplots(figsize=(12, 10), facecolor="#050510")
@@ -133,7 +146,7 @@ def run_avalanche_simulation() -> None:
     plt.tight_layout()
     output_path = os.path.join(OUTPUT_DIR, "dielectric_avalanche.png")
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor(), bbox_inches="tight")
-    print(f"Saved exact Dielectric Avalanche topology map to: {output_path}")
+    print(f"Saved illustrative Dielectric Avalanche topology map (normalized units): {output_path}")
 
 
 if __name__ == "__main__":

@@ -2,22 +2,22 @@
 
 # Future Geometries
 
-Chiral antenna engineering, computational electromagnetics mapped to the AVE lattice, and the K4-TLM native vacuum simulator. Ch.13 develops the high-Q chiral impedance antenna (Chiral Figure of Merit, Beltrami eigenvalue), surveys six CEM solver methods and their AVE isomorphisms, and presents the K4-TLM Diamond lattice simulator — a time-domain computational engine that implements AVE Axiom 1 directly.
+Computational electromagnetics mapped to the AVE lattice + the K4-TLM native vacuum simulator (sub-saturation engine). Ch.13 surveys six CEM solver methods and their AVE isomorphisms, presents the K4-TLM Diamond lattice simulator — a time-domain computational engine that implements AVE Axiom 1 directly — and demonstrates open-universe PML boundary methodology.
+
+> **Note (REPO-ARCH-9, 2026-05-17 night)**: HOPF-01 high-Q chiral impedance antenna engineering content (RX cavity-coupled measurement antenna, TX Beltrami helicity injector, single-stub matching networks, YBCO $1{,}300\times$ FoM sensitivity analysis) migrated to AVE-HOPF private repo per the `ave-ip-divide-discipline` skill. The Chiral Figure of Merit formula factorization, Beltrami eigenvalue, and helicity-per-unit-energy formulas are general physics — substrate-physics anchors remain canonical in core via the surviving K4-TLM + CEM-methods-survey leaves.
 
 ## Key Results
 
 | Result | Expression | Source |
 |---|---|---|
-| Chiral Figure of Merit | $\text{FoM} = Q_u \times \alpha \frac{pq}{p+q} \times \eta_{\mathcal{H}}$ | Ch.13 |
-| Beltrami eigenvalue | $\lambda(p,q) = \sqrt{p^2/R^2 + q^2/r^2}$ | Ch.13 |
 | K4-TLM scattering matrix | $S^{(0)}_{ij} = \frac{1}{2} - \delta_{ij}$ (unitary to machine epsilon) | Ch.13 |
-| Optimal topology | $(7,11)$ torus knot optimal across TX and RX; YBCO provides $1{,}300\times$ FoM gain over copper | Ch.13 |
+| 3D antenna chiral coupling | $(7,11)$ torus knot: $\alpha \cdot pq/(p+q) = 3.12 \times 10^{-2}$ (substrate-validation test) | Ch.13 |
 | CEM $\leftrightarrow$ AVE mapping | MoM: $[Z][I]=[V]$ is lattice circuit equation; FDTD Yee grid is LC network; FEM eigenvalue is $\omega^2 LC = 1$; TLM is most direct computational isomorphism | Ch.13 |
 
 ## Derivations and Detail
 
 | Chapter | Contents |
 |---|---|
-| [Ch.13: Future Geometries](ch13-future-geometries/index.md) | High-Q chiral antenna design (RX/TX), CEM methods survey with AVE mappings, K4-TLM Diamond lattice simulator, open-universe PML boundaries |
+| [Ch.13: Future Geometries](ch13-future-geometries/index.md) | CEM methods survey with AVE lattice mappings, K4-TLM Diamond lattice simulator (sub-saturation engine), open-universe PML boundaries. *HOPF-01 chiral antenna engineering migrated to AVE-HOPF private repo per REPO-ARCH-9 (2026-05-17 night).* |
 
 ---

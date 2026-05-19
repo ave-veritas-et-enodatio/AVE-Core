@@ -1,9 +1,18 @@
 """
-AVE SUBMODULE: FLUORINE-19 TOPOLOGICAL SOLVER
--------------------------------------------
-Calculates the required macroscopic separation distance (R_halo) between the
-inert Oxygen-16 core (4 Alphas) and the bound Tritium outer ring
-to perfectly match the empirical CODATA mass defect of F-19.
+AVE SUBMODULE: FLUORINE-19 R_HALO FITTER (1-parameter inverse problem).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script numerically FITS R_halo (the halo radius separating the inert
+O-16 core from the bound Tritium outer ring) to recover the CODATA F-19
+mass-defect target via Nelder-Mead. The K_MUTUAL coupling kernel IS
+axiom-derived; the recovered R_halo is a 1-parameter inverse-problem
+solve, NOT a forward prediction. The "Mass Mapping Error" output is ~0
+by construction of the fit. M_P_RAW, M_N_RAW are empirical PDG inputs.
+
+Fit-on-fit dependency: this script uses the O-16 geometry from
+solve_oxygen.py (itself a 1-parameter fit), so F-19 is fit-on-fit.
+
+Scope corrected 2026-05-17.
 """
 
 # Ensure the core framework is in PATH

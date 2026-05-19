@@ -1,3 +1,28 @@
+"""
+Kinetic Armor Yield Visualization (illustrative FDTD — illustrative constants).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an illustrative FDTD simulation of the V_II→V_I phase
+transition under kinetic impact. The PHI_LIMIT (Kepler) and PHI_AMBIENT
+(RCP) values ARE canonical packing-fraction constants. However:
+  - Z_DIAMOND = 10000.0 (normalized impedance contrast) is CHOSEN for
+    visual contrast, NOT derived from carbon-lattice density or actual
+    diamond shear modulus
+  - COMPRESSIBILITY = 0.05 is CHOSEN, NOT derived from substrate stiffness
+  - DX, DT values are simulation parameters, not physical lengths
+
+The script does NOT compute:
+  - Absolute armor yield strength (e.g., GPa for diamond, ~50 GPa empirical)
+  - Comparison against Hugoniot equation-of-state measurements
+  - V_yield E-field threshold at canonical AVE units
+
+The illustration shows the V_II→V_I phase transition narrative; quantitative
+armor-yield prediction requires the canonical Axiom 4 saturation kernel
+integrated against substrate density. That work is queued.
+
+Docstring corrected 2026-05-17.
+"""
+
 import os
 from pathlib import Path
 
@@ -9,21 +34,20 @@ from ave.core.constants import (
     N_PHI_PACK as PHI_LIMIT,  # Axiom 1: V_I Solid (Kepler Conjecture Rigid Hexagonal FCC/HCP packing limit)
 )
 
-# --- AVE First-Principles Constants ---
+# --- Canonical packing-fraction constants ---
 PHI_AMBIENT = 0.6402  # V_II Fluid (Random Close Packing for uncompressed macroscopic polymer LC)
 
-# Acoustic limits
+# --- Illustrative acoustic constants (NOT derived from substrate physics) ---
 Z_FLUID = 1.0  # Base acoustic impedance (normalized)
-Z_DIAMOND = 10000.0  # Rigid crystal lattice impedance upon V_I structural snap
+Z_DIAMOND = 10000.0  # Normalized impedance contrast — CHOSEN for visual contrast, not derived
 
-# FDTD Environmental Constants
-NX = 500  # Number of spatial discrete nodes
-NT = 800  # Number of temporal time-steps
-DX = 1.0  # Spatial step
-DT = 0.5  # Time step (Courant condition stable)
+# FDTD Environmental Constants (simulation parameters, not physical lengths)
+NX = 500
+NT = 800
+DX = 1.0
+DT = 0.5  # Courant condition stable
 
-# Compressibility scale (How easily external pressure pushes nodes together)
-COMPRESSIBILITY = 0.05
+COMPRESSIBILITY = 0.05  # Illustrative — NOT derived from canonical substrate stiffness
 
 
 def simulate_kinetic_armor_yield() -> tuple[list, list, list]:

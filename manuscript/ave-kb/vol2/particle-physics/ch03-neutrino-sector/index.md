@@ -2,7 +2,9 @@
 
 # Ch.3 — The Neutrino Sector: Chiral Unknots
 
-The neutrino is defined geometrically as a $0_1$ twisted unknot whose zero self-crossings eliminate the Skyrme gradient term, producing ultra-low rest mass. Parity violation emerges as a structural high-pass filter from the chiral LC lattice's asymmetric dispersion relation. The PMNS mixing matrix is derived from regime-boundary eigenvalues applied to torus knot mode space, yielding all four PMNS parameters from three inputs: the torus knot crossing numbers ($c_1 = 5$, $c_3 = 9$), the vacuum Poisson ratio ($\nu_{vac} = 2/7$), and the K4 lattice connectivity (3).
+The neutrino is defined geometrically as a $0_1$ twisted unknot whose zero self-crossings eliminate the Skyrme gradient term, producing ultra-low rest mass. Parity violation emerges as a structural high-pass filter from the chiral LC lattice's asymmetric dispersion relation. The PMNS mixing matrix is derived from regime-boundary eigenvalues applied to torus knot mode space.
+
+> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The original framing — "all four PMNS parameters derive from three inputs (c_1=5, c_3=9, ν_vac=2/7, K4 connectivity=3)" — was honest about ν_vac and K4 connectivity (which derive from substrate primitives at multiple independent loci) but UNDERSPECIFIED about c_1=5. **The Δc=2 spacing IS derived from ν_vac=2/7** ([`pmns-eigenvalues.md:23`](pmns-eigenvalues.md)), but the absolute starting value c_1=5 (vs c_1=3 starting at the (2,3) trefoil baseline, or any other Δc=2 ladder) is NOT derived from substrate primitives in any canonical leaf grep'd. Honest revised framing: **3 verified Class D emergence predictions + 1 conditional prediction (sin²θ_13) pending c_1=5 substrate derivation** — even worst case, the other 3 predictions cross-validate from the same c_1·c_3=45 input (3:1 structural compression preserved). See [closure-roadmap §0.5 FI-13 entry](../../../common/closure-roadmap.md) for full audit findings + c_1=5 derivation gap registered as open work item.
 
 ## Key Results
 

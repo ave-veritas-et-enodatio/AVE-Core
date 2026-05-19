@@ -1,8 +1,27 @@
 """
-AVE MODULE: ALPHA-CLUSTER ABCD CASCADE ENGINE
-==============================================
+AVE MODULE: ALPHA-CLUSTER ABCD CASCADE ENGINE.
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
 Nuclear binding as S₁₁ minimization of a coupled resonator network.
-ALL physics derived from the 4 AVE axioms — zero empirical fits.
+
+Scope qualification on "zero empirical fits" claim:
+  - K_MUTUAL, αℏc coupling forms ARE axiom-derived (Axiom 2)
+  - C_j junction capacitance form IS axiom-derived (Axiom 4)
+  - HOWEVER: M_P_MEV_TARGET and M_N_MEV_TARGET imports at lines 41-42 are
+    empirical PDG nucleon rest masses, used as the starting RAW mass for
+    the binding-energy subtraction. The script's binding-energy CALCULATION
+    is axiom-derived but the rest-mass INPUTS are empirical PDG values.
+  - More precise claim: "zero empirical fits BEYOND the empirical
+    proton/neutron rest masses" — the script doesn't tune any fit
+    parameters but does use empirical inputs.
+
+This is a narrow, valid distinction: the physics IS axiom-derived; the
+inputs include empirical PDG nucleon masses which is unavoidable until
+those masses themselves are derived from the substrate (open work item:
+M_P from 6³_2 Borromean topology + lattice density).
+
+ALL physics derived from the 4 AVE axioms — zero empirical fits beyond
+PDG nucleon rest masses (m_p, m_n).
 
 AXIOM MAP:
     Axiom 1 → Each α-cluster is a 4-port LC resonant tank

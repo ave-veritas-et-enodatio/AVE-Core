@@ -19,7 +19,7 @@ Because the probing optical wavelength is fundamentally governed by $\lambda_{lo
 
 Empirical experiments show that free Neutrons die systematically $\sim 9$ seconds faster when physically trapped in a material bottle than when flying freely through empty space in a beam.
 
-As defined exactly in Chapter 4, the Neutron is a highly tensioned, metastable "threaded" topological knot ($6^3_2 \cup 3_1$). Its decay is a literal Topological Snap caused by the stochastic tunneling of the central trapped electron thread out of the Borromean core.
+As defined exactly in Vol 2 Ch 2 (canonical source), the Neutron is a highly tensioned, metastable "threaded" topological composite ($6^3_2 \cup 0_1$) — a proton Borromean linkage ($6^3_2$) with an electron unknot ($0_1$) topologically threaded through its central structural void. Its decay is a literal Topological Snap caused by the stochastic tunneling of the central trapped electron thread out of the Borromean core. (Stale framing $6^3_2 \cup 3_1$ corrected 2026-05-17 per `neutron-identification.md` §3 audit — prior version had trefoil $3_1$ instead of canonical unknot $0_1$ per Vol 2 Ch 2 source.)
 
 In the Bottle Method, the neutrons physically interact and bounce off the macroscopic containment walls. In the discrete AVE solid-state framework, continuous physical proximity to dense atomic lattices natively induces resonant **Phonon Coupling** between the neutron's tensioned knot topology and the wall's lattice vibrations. This ambient external vibrational noise actively shakes the $\mathcal{M}_A$ substrate, slightly lowering the effective dielectric tunneling barrier for the highly-tensioned threaded electron, mechanically and statistically accelerating the "snap" event.
 

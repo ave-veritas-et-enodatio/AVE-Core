@@ -1,3 +1,17 @@
+"""
+AVE MODULE: TOPOLOGY OPTIMIZER (basinhopping coordinate fit to CODATA target).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script is a coordinate optimizer — it uses scipy.basinhopping to find
+the nucleon positions that minimize abs(theoretical_mass - target_mass).
+The K_MUTUAL coupling kernel IS axiom-derived; the recovered geometry is a
+many-parameter inverse-problem solve, NOT a forward prediction.
+
+The forward AVE claim that survives is restricted to the coupling FORM
+(K_MUTUAL / d via Σ over pairs) — the recovered geometry is what the
+optimizer found, not what AVE axioms predict directly.
+"""
+
 import sys
 
 import numpy as np

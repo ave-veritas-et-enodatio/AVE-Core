@@ -1,3 +1,30 @@
+"""
+Neuromorphic Memristor Hysteresis Visualization (illustrative — chosen R ratios).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an illustrative I-V hysteresis curve for a metamaterial
+neuromorphic memristor using:
+  - E_GAP_TRIGGER = 0.2158 eV — the comment claims "Derived natively from
+    the Void Fraction remainder (1 - Phi_limit)" but the derivation chain
+    is NOT shown in this script; the value is asserted, not computed here.
+    The (1 - Phi_limit) framing is canonical, but the projection chain to
+    0.2158 eV needs to be cited from a derivation script.
+  - RESISTANCE_V_II = 1e6 ohm and RESISTANCE_V_I = 1e2 ohm — CHOSEN to
+    span the typical memristor on/off resistance ratio (~10^4), NOT
+    derived from substrate impedance physics.
+
+The script does NOT compute:
+  - On/off resistance ratio derived from V_II vs V_I phase-state impedance
+  - Comparison against specific neuromorphic device measurements
+  - Switching speed prediction from substrate transition dynamics
+
+The illustration supports the AVE narrative that memristor hysteresis is
+a V_II↔V_I phase-state transition. Quantitative prediction requires the
+phase-gap derivation chain to be sourced (TBD-pin 2026-05-17 audit).
+
+Docstring corrected 2026-05-17.
+"""
+
 import os
 from pathlib import Path
 
@@ -6,12 +33,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # The subatomic phase-gap separating the V_II dielectric phase from the V_I conduction phase
-# Derived natively from the Void Fraction remainder (1 - Phi_limit)
-E_GAP_TRIGGER = 0.2158  # Regime II Subatomic Electroweak/Structural Energy Gap (eV)
+# Claim: derived from Void Fraction remainder (1 - Phi_limit) — derivation chain
+# TBD-pin per 2026-05-17 audit; value asserted here, not computed
+E_GAP_TRIGGER = 0.2158  # Regime II Subatomic Electroweak/Structural Energy Gap (eV) — asserted
 
-# Dielectric State Limits
-RESISTANCE_V_II = 1e6  # Native Unstructured Insulator (High Resistance)
-RESISTANCE_V_I = 1e2  # Structurally Locked Crystal Wire (Low Resistance)
+# Dielectric State Limits — CHOSEN to span typical memristor on/off ratio, NOT derived
+RESISTANCE_V_II = 1e6  # Native Unstructured Insulator (High Resistance, illustrative)
+RESISTANCE_V_I = 1e2  # Structurally Locked Crystal Wire (Low Resistance, illustrative)
 
 
 def simulate_neuromorphic_memristor() -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:

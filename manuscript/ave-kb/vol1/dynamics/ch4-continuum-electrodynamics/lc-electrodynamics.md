@@ -29,13 +29,21 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 > \rho_{bulk} = \frac{m_{node}}{V_{node}} = \frac{\xi_{topo}^2 \mu_0 \ell_{node}}{p_c \ell_{node}^3} = \frac{\xi_{topo}^2 \mu_0}{p_c \ell_{node}^2} \approx 7.92 \times 10^6 \text{ kg/m}^3
 > $$
 
-> **[Resultbox]** *Baseline Vacuum Shear Modulus*
+> **[Resultbox]** *1D String Tension Density (axial stiffness)*
 >
 > $$
-> G_{vac} = \frac{T_{EM}}{\ell_{node}} = \frac{m_e c^2}{\ell_{node}^2} \approx 5.48 \times 10^{24} \text{ Pa}
+> G_{string} = \frac{T_{EM}}{\ell_{node}} = \frac{m_e c^2}{\ell_{node}^2} \approx 5.49 \times 10^{11} \text{ Pa}
 > $$
 
-(Approximately the density of a White Dwarf core).
+> **[Resultbox]** *Baseline 3D Vacuum Shear Modulus*
+>
+> $$
+> G_{vac} = \rho_{bulk} \cdot c^2 \approx 7.12 \times 10^{23} \text{ Pa}
+> $$
+>
+> Cross-check: $v_T = \sqrt{G_{vac}/\rho_{bulk}} = c$ (canonical transverse wave speed per [`photon-propagation-baseline.md:16`](photon-propagation-baseline.md), [`k4-port-irrep-decomposition.md:109`](../../operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md), [`de-broglie-standing-wave.md:236-240`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md)).
+
+**Correction note (2026-05-17 audit):** prior leaf revision conflated $G_{string}$ (1D axial stiffness, $T_{EM}/\ell_{node}$) with $G_{vac}$ (3D shear modulus, $\rho_{bulk} \cdot c^2$) and quoted "$G_{vac} \approx 5.48 \times 10^{24}$ Pa" — a 13-order-of-magnitude error. The correct quantities are now separated above per [`../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md:49-56`](../../../vol2/appendices/app-f-solver-toolchain/derived-numerology.md) which first identified the error. The 3D shear modulus $G_{vac}$ is what governs transverse-wave physics (photons, gravitational waves, bullet-cluster substrate-strain halos); the 1D string tension $G_{string}$ governs longitudinal/axial confinement physics.
 
 ### Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)
 
@@ -52,5 +60,7 @@ As established in Section 1.3.2, the geometric packing fraction ($p_c$) determin
 > $$
 
 This parameter-free derivation shows that the discrete vacuum condensate possesses a macroscopic kinematic network mutual inductance close to that of liquid water.
+
+> **Audit note (2026-05-17)**: a prior `src/ave/core/lbm_3d.py` docstring listed `ν_kin = (1/(4π)) × ℓ_node × c` (factor `1/(4πα) ≈ 10.9×` off the canonical form above). Verified documentation-only bug (no downstream code used the wrong formula; LBM default `nu=0.1` is lattice-units placeholder); docstring corrected to reference the canonical `NU_KIN = α × c × ℓ_node` import path from [`src/ave/core/constants.py`](../../../../../src/ave/core/constants.py). See [`closure-roadmap.md` §0.5 viscosity-audit entry](../../common/closure-roadmap.md).
 
 ---

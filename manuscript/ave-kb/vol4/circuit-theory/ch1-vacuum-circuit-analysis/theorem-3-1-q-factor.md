@@ -115,4 +115,7 @@ The Q-factor decomposition generalizes via Op21 multi-mode form: at the saturati
   - [Vol 1 Ch 8 α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md) — full derivation context
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](../../../common/boundary-observables-m-q-j.md) — three-integral substrate-observability structure
   - [L3 Electron-Soliton Closure Synthesis](../../../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md) — rest-energy Virial-sum at same bond-pair LC tank
+- **Downstream applications (2026-05-17 night, 9th audit cycle):**
+  - [DAMA Matched-LC-Coupling Rate Derivation](../../../vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md) — uses $Z_{radiation} = Z_0/(4\pi)$ spinor-cycle averaging from this leaf §"Physical interpretation" (line 65-75) as the inheritance argument for the 4π prefactor in the matched-LC-coupling efficiency formula $\epsilon_{det} = 4\pi / N_{single}^2$ (0.6% match to DAMA observed rate)
+  - [DAMA α-Slew Derivation §12](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) — uses the canonical $Q_{tank} = \alpha^{-1}$ + per-cycle reactive leak fraction $1/Q = \alpha$ from this leaf as the reactive-power categorical reframe foundation
 - **Canonical script:** `src/scripts/vol_1_foundations/electron_tank_q_factor.py` — numerical verification of two-path agreement

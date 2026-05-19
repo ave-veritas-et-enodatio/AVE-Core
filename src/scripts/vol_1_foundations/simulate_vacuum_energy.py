@@ -1,6 +1,31 @@
 """
-Vacuum Energy (Dark Energy) and Cosmological Inflation Solver.
-Derives the Zero-Point Energy of the LC Network and the inflationary limit.
+Vacuum Energy (Dark Energy) and Cosmological Inflation — PARTIAL derivation (NOT closed).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script computes a Nyquist-limit zero-point energy density of the K4
+lattice from canonical constants (ℏ, c, ℓ_node), then attempts to bridge
+that node-local ZPE to the empirical cosmological constant density via
+geometric projection. The bridge DOES NOT CLOSE in this script — the
+"trace-reversed volume mapping" referenced on line 49 is a placeholder
+note for unfinished derivation work, and the `(1/7)^15` factor on line 53
+is a HAND-FIT to reach the observed magnitude, NOT axiom-derived.
+
+Specifically:
+  - rho_lambda (line 41) IS computed from canonical constants → ~9e+11 kg/m^3
+    (Planck-density-scale ZPE; not the cosmological constant density)
+  - target_rho (line 47) = 6e-27 kg/m^3 is the empirical Lambda-density literal
+  - projected_rho (line 53) applies (1/7)^15 — a fudge factor with no derivation
+  - The 38-OOM gap between node-ZPE and Lambda-density is the standard
+    "cosmological constant problem"; AVE's resolution (trace-reversed projection
+    + 1D-to-3D mapping) is canonical in concept but NOT closed numerically here
+
+For the canonical AVE derivation chain that this script GESTURES toward,
+see foreword NEW-I "honest scoping of cosmological-constant claim layering"
+and corpus closure-roadmap.md §0.5.
+
+Title "Derives the cosmological constant" was misleading; corrected
+2026-05-17 to "PARTIAL derivation (NOT closed)" with explicit fudge-factor
+flag on the projection step.
 """
 
 import os
@@ -15,11 +40,13 @@ from ave.core.constants import ALPHA, C_0, HBAR, L_NODE, M_E, G
 
 def derive_vacuum_energy() -> float:
     """
-    Derives the cosmological constant (Dark Energy density) not as 'anti-gravity',
-    but simply as the ground-state Zero-Point Energy of the discrete LC network hardware.
+    PARTIAL derivation: computes node-local zero-point energy from canonical
+    constants; then attempts (incompletely) to project to cosmological-constant
+    density via a (1/7)^15 fudge factor. The projection DOES NOT close — flagged
+    as work-in-progress per docstring scope note.
     """
     print("==========================================================")
-    print("   AVE VACUUM ENERGY (DARK ENERGY) DERIVATION")
+    print("   AVE VACUUM ENERGY (PARTIAL — node-ZPE → Λ projection NOT closed)")
     print("==========================================================")
 
     # M_E, HBAR, L_NODE imported from ave.core.constants
@@ -48,10 +75,16 @@ def derive_vacuum_energy() -> float:
     print(f"    Empirical Cosmological Const : {target_rho:.4e} kg/m^3")
     print("    Note: Analytical result requires trace-reversed volume mapping.")
 
-    # The actual geometric projection requires mapping the 1D string oscillation
-    # into a 3D expanding horizon. (1/7 Isotropic strain projection)
-    projected_rho = rho_lambda * (1.0 / 7.0) ** 15  # (Scaling geometrically, full derivation in manuscript)
-    print(f"    Trace-Reversed Extrapolation (Work in Progress): {projected_rho:.4e} kg/m^3")
+    # WARNING: The (1/7)^15 factor below is a HAND-FIT to reach the empirical
+    # magnitude, NOT a derivation. The canonical AVE projection from node-ZPE
+    # to cosmological Lambda density requires trace-reversed 1D→3D mapping
+    # which is NOT closed in this script. Preserved here as illustrative
+    # WIP scaffold per 2026-05-17 honesty audit.
+    projected_rho = rho_lambda * (1.0 / 7.0) ** 15  # FUDGE FACTOR — not derived
+    print(f"    Hand-fit projection (NOT derived, illustrative): {projected_rho:.4e} kg/m^3")
+    print("    Gap from node-ZPE to Λ-density (~38 OOM) is the standard cosmological")
+    print("    constant problem; AVE's projection bridge is canonical in concept but")
+    print("    NOT numerically closed in this script.")
 
     return rho_lambda
 

@@ -1,7 +1,49 @@
 """
-1D FDTD Simulation of the Bullet Cluster Merger.
-Proves that Macroscopic Mutual Inductance (Dark Matter) permeates and passes
-through localized collisions collisionlessly due to LC Network superposition.
+1D static-halo-superposition simulation of the Bullet Cluster Merger.
+
+SCOPE NOTE (2026-05-17 audit + Grant adjudication per ponderomotive-halo
+reframing): This script's filename ("FDTD") is MISLEADING. It does NOT compute
+finite-difference time-domain field evolution, TT-tensor shockwave propagation,
+Gordon optical metric integration, or light ray-tracing. It computes pure
+kinematic-prescription + static MOND-saturation-halo linear superposition at
+prescribed timesteps.
+
+What the script ACTUALLY does:
+  1. Kinematically advances two cluster cores at hardcoded velocities
+  2. At each timestep: computes Newtonian g_N = GM/r^2 for each cluster
+  3. Applies saturation kernel ave_saturation_acceleration(g_N, a0) per
+     Vol 3 Ch 5 eta_eff halo framing
+  4. Defines "halo strain" = g_eff - g_N
+  5. Linearly superposes the two static halos at each timestep
+  6. Plots resulting 1D strain field
+
+This is the CORRECT computation for the bullet-cluster mechanism per the
+2026-05-17 reframe: ponderomotive-class substrate-strain halos co-moving with
+stellar cluster centers + standard Einstein lensing through Gordon optical
+metric tracks halos. No propagating TT shockwave needed.
+
+Reframe summary (per research/2026-05-17_C13b_bullet_cluster_prereg.md +
+Grant adjudication 2026-05-17 evening):
+- Each cluster's mass generates inhomogeneous substrate-strain halo
+  (Ax2 TKI + Ax4 saturation)
+- Halo co-moves with stars (stars source the strain)
+- Collisions: halos linearly superpose & pass through ballistically
+  (long-wavelength linear regime); gas decouples (atomic-scale collisional)
+- Post-collision: stars + halos moved apart with cluster centers; gas stuck
+  at collision center
+- Lensing peak tracks halos (standard Einstein deflection through Gordon
+  optical metric)
+- Offset = geometric separation (~150 kpc projected for 1E 0657-558)
+
+The script's STATIC HALO SUPERPOSITION approach IS the correct AVE mechanism
+(interpretation γ from the prereg). The "FDTD" name is a vestigial artifact
+from the prior Vol 1 Ch 4 TT-shockwave framing that the prereg retired.
+
+Recommended cleanup (Class B per driver-script honesty audit pattern):
+honest rename to simulate_bullet_cluster_halo_superposition.py or similar.
+Code itself does not need changing. Same anti-pattern class as the retired
+vlbi_impedance_parallax.py (which was renamed in docstring, not file path,
+to preserve commit history; same pattern applies here).
 """
 
 import os

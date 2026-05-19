@@ -80,17 +80,16 @@ Gravity, relativity, condensed matter, and cosmology as impedance-matching regim
 
 ### [Vol 4: Applied Vacuum Engineering](vol4/index.md)
 
-Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, topological SMES, metric-catalyzed fusion, and a complete SPICE simulation suite.
+Engineering translation of AVE theory into falsifiable hardware. Establishes the Vacuum Circuit Analysis (VCA) framework via $\xi_{topo} \equiv e/\ell_{node}$. Derives chiral antenna selection rules, ponderomotive thruster predictions, substrate-physics SPICE verification suite (leaky-cavity decay, autoresonant breakdown, Sagnac inductive drag, EE bench saturation kernel, AVE_VACUUM_CELL universal subcircuit), and the K4-TLM Diamond lattice simulator (sub-saturation engine). (Application-specific engineering — SMES, fusion, quantum computing, antimatter, active metamaterials, optical caustic, silicon design engine, HOPF-01 antenna engineering, PONDER-01 cascaded stack — migrated to private app repos per REPO-ARCH-1 through REPO-ARCH-11, 2026-05-17 night; substrate-physics anchors remain canonical in core.)
 
 **Key results:** HOPF-01 $\Delta f/f = \alpha\cdot pq/(p+q)$ (zero free parameters); PONDER-05 469 μN thrust; K4-TLM unitary to machine epsilon; Universal `AVE_VACUUM_CELL` SPICE subcircuit
 
 | Domain | Contents |
 |---|---|
 | [Circuit Theory](vol4/circuit-theory/index.md) | Topo-kinematic identity; nonlinear constitutive models; IMD spectroscopy; chiral thrust |
-| [Advanced Applications](vol4/advanced-applications/index.md) | Topological SMES; metric-catalyzed fusion; topological quantum computing; metamaterials; native silicon design engine |
 | [Falsification](vol4/falsification/index.md) | Complete experimental programme: Sagnac-RLVE, tabletop projects, dielectric plateau |
-| [Future Geometries](vol4/future-geometries/index.md) | High-Q chiral antenna; CEM method mapping; K4-TLM Diamond lattice; PML boundaries |
-| [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, hardware netlists |
+| [Future Geometries](vol4/future-geometries/index.md) | CEM method mapping; K4-TLM Diamond lattice (sub-saturation engine); PML boundaries. *(HOPF-01 chiral antenna engineering migrated to AVE-HOPF per REPO-ARCH-9.)* |
+| [Simulation](vol4/simulation/index.md) | SPICE netlists: particle decay, autoresonant PLL, Sagnac inductive drag, EE bench. *(PONDER-01 cascaded stack migrated to AVE-PONDER per REPO-ARCH-8.)* |
 
 ---
 

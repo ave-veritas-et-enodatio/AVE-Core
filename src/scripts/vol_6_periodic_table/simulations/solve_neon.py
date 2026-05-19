@@ -1,9 +1,15 @@
 """
-AVE SUBMODULE: NEON-20 TOPOLOGICAL SOLVER
--------------------------------------------
-Calculates the required macroscopic separation distance (R_bipyramid)
-for the 5 constituent Alpha-particle cores in Neon-20
-arranged in a Triangular Bipyramid.
+AVE SUBMODULE: NEON-20 R_BIPYRAMID FITTER (1-parameter inverse problem).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script numerically FITS R_bipyramid (the radius of the Triangular
+Bipyramid arrangement of 5 Alpha cores in Ne-20) to recover the CODATA
+Ne-20 mass-defect target via Nelder-Mead. The K_MUTUAL coupling kernel IS
+axiom-derived; the recovered R_bipyramid is a 1-parameter inverse-problem
+solve, NOT a forward prediction. The "Mass Mapping Error" output is ~0 by
+construction of the fit. M_P_RAW, M_N_RAW are empirical PDG inputs.
+
+Scope corrected 2026-05-17.
 """
 
 # Ensure the core framework is in PATH

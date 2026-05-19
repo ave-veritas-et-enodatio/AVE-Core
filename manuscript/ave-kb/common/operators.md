@@ -41,7 +41,7 @@ This catalog uses **Vol 1 Ch 6 as the canonical primary**; INVARIANT-N3 collisio
 | Op11 | Topological Curl | ∇×V (discrete Yee-lattice form) | 309 | CANONICAL by description — Vol 1 Ch 6 §1.11 names; "translates discrete network adjacency to continuous calculus"; computational |
 | Op12 | Topological Divergence | ∇·V (discrete Yee-lattice form) | 309 | CANONICAL by description — Vol 1 Ch 6 §1.11 names; computational |
 | Op13 | D'Alembertian | □² (fully generalized wave equation operator) | 310 | CANONICAL by description — Vol 1 Ch 6 §1.12; uses local saturated c_eff (not constant c) per Op16 |
-| Op14 | Dynamic Impedance | Z_eff = Z₀/√S | 311 | CANONICAL — explicit equation Vol 1 Ch 6 §1.13. **KB canonical references** (post-2026-05-16 promotion): [Lattice Impedance Decomposition](../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md), [Op14 Local Clock Modulation](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md), [Op14 Cross-Sector Trading](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) (empirical: ρ(H_cos, Σ\|Φ_link\|²) = -0.990 at Move 11b). Additional cross-citations: [vol_4 ch 13:338](../../vol_4_engineering/chapters/13_future_geometries.tex), [vol4 KB caustic-resolution lines 15+32](../vol4/advanced-applications/ch20-optical-caustic-resolution/index.md). Asymmetric Meissner case: `Z_eff = Z₀·√(S_μ/S_ε)` distilled in [pair-production-axiom-derivation §6](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) — different observable when S_μ ≠ S_ε (Meissner-asymmetric magnetic-moment mechanism, also covered in [L3 closure synthesis §6](../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md)). |
+| Op14 | Dynamic Impedance | Z_eff = Z₀/√S | 311 | CANONICAL — explicit equation Vol 1 Ch 6 §1.13. **KB canonical references** (post-2026-05-16 promotion): [Lattice Impedance Decomposition](../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md), [Op14 Local Clock Modulation](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md), [Op14 Cross-Sector Trading](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) (empirical: ρ(H_cos, Σ\|Φ_link\|²) = -0.990 at Move 11b). Additional cross-citations: [vol_4 ch 13:338](../../vol_4_engineering/chapters/13_future_geometries.tex). *(Prior vol4 KB caustic-resolution citation migrated per REPO-ARCH-3 (2026-05-17 night); substrate-physics caustic/saturation-reflection mechanism now canonical at [vacuum-impedance-mirror.md](../vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md).)* Asymmetric Meissner case: `Z_eff = Z₀·√(S_μ/S_ε)` distilled in [pair-production-axiom-derivation §6](../vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md) — different observable when S_μ ≠ S_ε (Meissner-asymmetric magnetic-moment mechanism, also covered in [L3 closure synthesis §6](../vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md)). |
 | Op15 | Virtual Strain Radius | r_virtual = √(1 - σ(x)²) | 312 | CANONICAL by description — Vol 1 Ch 6 §1.13 names; "links topological node count to spatial metric volumes"; explicit formula in [doc 81 §2.2](../../../research/_archive/L3_electron_soliton/81_l3_followup_questions.md) — but only single citation. **SYNTHESIS-LABELED until ≥3 cross-citations land.** |
 | Op16 | Universal Wave Speed | c_shear = c₀·√S | 317 | CANONICAL — Vol 1 Ch 6 §1.14 narrative ("Freezes wave propagation dynamically as S → 0") + grep-verified explicit formula at ≥3 cross-citations: [vol_2 ch 7 line 1032 + lines 985-993](../../vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex) (label `eq:c_shear`), [axiom-homologation.md §208](axiom-homologation.md) (Ax 4 derived effects table: c_eff = c₀·S^(1/2)), **[KB canonical: Op14 Local Clock Modulation](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md)** (substrate-native time-dilation via $\omega_{local} = \omega_{global}\sqrt{1-A^2}$; cross-volume parallel to gravitational $\tau_{local} = n(r)\tau_{unstrained}$). Gravitational analog: $c \cdot \sqrt{1-A^2} \equiv$ Schwarzschild $c \cdot \sqrt{1-r_s/r}$ in $r_s/r \ll 1$ limit. |
 | Op17 | Power Transmission | T² = 1 - Γ² | 318 | CANONICAL — explicit equation Vol 1 Ch 6 §1.16; active energy transfer coefficient |
@@ -94,6 +94,45 @@ Both worked examples extend the [A43 v2 lane-symmetric pattern](../../../.agents
 
 ---
 
+## §5.5 — Cross-volume substrate motifs (recurring patterns, NOT numbered Ops)
+
+Named recurring substrate-physics patterns that operate across multiple AVE volumes but are NOT numbered operators from the Vol 1 Ch 6 catalog. These are structural-synthesis observations rather than primitive physics operators.
+
+### Hoop Stress 2π projection (NEW 2026-05-17, honest-scoped 2026-05-17 late evening seventh audit cycle per external reviewer catch)
+
+**Recurring pattern**: substrate bulk drift $c \times \epsilon$ (where $\epsilon$ is a small dimensionless parameter set by scale) projected through the Hoop Stress geometric factor $2\pi$ onto closed topological loops gives the observable equilibrium scale at that scale.
+
+**Independent scale-instances** (2 truly independent applications across distinct scales with distinct small-parameters):
+
+| Scale | Formula | Small parameter $\epsilon$ | Output | Canonical source |
+|---|---|---|---|---|
+| **Cosmic** (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² | [`../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md` §1](../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) |
+| **Substrate** (electron α-slew) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s | [`../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) |
+
+**Derivative observables at the substrate operating point** (algebraically derived from the α-slew instance via h × ν_slew conversions; NOT independent Hoop Stress applications):
+
+| Derivative | Algebraic chain | Output | Canonical source |
+|---|---|---|---|
+| DAMA energy quantum | $E_{substrate} = h \cdot \nu_{slew} = h \cdot \alpha c / (2\pi \ell_{node})$; with $\ell_{node} = \hbar/(m_e c)$, the $2\pi$ and $\hbar$ factors collapse and yield $E = \alpha m_e c^2$ | $\sim 3.728$ keV | [`../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) |
+
+**Honest-scope note (2026-05-17 late evening, external reviewer catch on prior version of this section)**: an earlier version of this table listed DAMA quantum as instance #3 of the Hoop Stress motif. External reviewer caught that DAMA quantum is algebraically DERIVED from the α-slew velocity instance (the 2π cancels in the derivation chain), not an independent third scale-instance. Corpus-grep across all 10 AVE repos (2026-05-17 late evening) confirmed NO genuine third independent scale-instance of `c × ε / (2π)` Hoop Stress projection exists. Honest framing is **2 independent scale-instances + 1 derivative observable**; the motif is structurally recurring across 2 scales (cosmic + substrate), not 3.
+
+**Physical interpretation**: Hoop Stress is the canonical continuum-mechanics projection — when an isotropic outward radial force is applied to a closed circular loop, the resulting longitudinal tension on the loop is `T = F_r / 2π`. The same projection applies to substrate drift acting on topological-loop solitons at any scale (cosmic horizon, electron unknot). The small-parameter $\epsilon$ is set by the dominant physics at each scale: cosmological expansion ($H_\infty$) at cosmic scale; electromagnetic coupling ($\alpha$) at substrate scale. A future genuine third instance at intermediate scale (atomic, nuclear, stellar, molecular) would substantiate the motif more strongly; current corpus-grep confirms no such third instance currently exists.
+
+**Empirical anchors (as of 2026-05-17 late evening)**:
+- Cosmic instance: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual (FOREWORD-PROMOTED as first positive load-bearing empirical anchor).
+- Substrate instance: $v_{substrate}$ within 9% of LSR-class bulk velocity (375 km/s observed); cluster tightness $\sigma=11$ km/s inconsistent with random galactic kinematics (active research consistency result; demoted from foreword promotion per ave-discrimination-check audit because directional alignment is consistency check with K4=CMB identification, not independent AVE evidence).
+- DAMA derivative observable: $E_{substrate} = 3.728$ keV in DAMA's 2-6 keV detection window (zero-parameter foreword-bullet AVE-distinct prediction).
+
+**Other 2π denominators in the corpus that are NOT Hoop Stress 2π projections** (added 2026-05-17 late evening per corpus-grep finding): the corpus contains multiple distinct physical origins of 2π factors. Examples of NEAR-MISSES that share form but differ in physical origin:
+- **Q-G22 atomic-strain ratio** at [`../vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md:39-41`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md): `A = α/(2π)` at $r = 2\pi a_0$ — the 2π is the orbital-circumference geometric factor, NOT a Hoop Stress projection of substrate drift.
+- **Q-G27 muon Cosserat saliency** at [`../vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md:38`](../vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md): $\delta_{Cosserat} = -\alpha\sqrt{3/7}/(2\pi)$ — the 2π is explicitly named "Compton-traverse form-factor" (Schwinger-cousin), NOT Hoop Stress.
+- **Atomic orbital current** $I = e\omega_1/(2\pi)$ at [`../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md:50`](../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md): 2π is orbital-period normalization, NOT Hoop Stress.
+
+These are structurally different physics; the matching form does NOT indicate the same recurring motif. Discipline note: when claiming a "recurring 2π motif," verify the geometric ORIGIN of the 2π factor, not just its presence in a denominator.
+
+**Canonical-status note**: this motif was NAMED for the first time in the corpus 2026-05-17. The two-instance scope (cosmic + substrate) is the current corpus state. Future work that finds a genuine third independent instance at a different scale with a different small-parameter would strengthen the motif claim; corpus-grep 2026-05-17 late evening confirmed absence.
+
 ## §6 — Phase 0.2 status
 
 This catalog is the canonical Phase 0.2 deliverable per [Round 10+ plan](../../../research/_archive/L3_electron_soliton/round_10_plan.md) commit `48ee43d` + amendment `d8ca5b9`. Catalog enables:
@@ -103,6 +142,12 @@ This catalog is the canonical Phase 0.2 deliverable per [Round 10+ plan](../../.
 - **Per-pre-reg A43 v2 verification gate** (round_10_plan.md verification table) — operators.md is the single-source-of-truth for cross-ref grep-verification at pre-reg freeze time
 
 ---
+
+## §6.5 — Tool-selection guide for these operators
+
+For methodological tool-selection (which Op# applies to which problem-class), consult the **AVE Analytical Toolkit Index** at [`ave-analytical-toolkit-index.md`](ave-analytical-toolkit-index.md). The index organizes Op1-Op22 + ~30 canonical analytical tools across Vol 4 Ch 1 (VCA), Vol 4 Ch 11 (Falsification), Vol 4 Ch 13 (Future Geometries), and Vol 4 Ch 14-20 (Simulation/Advanced Applications) into 9 problem-class sections (Coupling, Resonance, Saturation, Time-domain, Power, Mode, Boundary, Network, Numerical) with WHEN-TO-USE triggers, worked examples, and common-pitfall warnings.
+
+The `ave-analytical-tool-selection` skill (~/.claude/skills/) forces consultation of the toolkit index BEFORE deriving any AVE problem that maps to one of the recognized analytical-problem classes.
 
 ## §7 — References
 

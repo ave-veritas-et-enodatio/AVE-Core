@@ -1,9 +1,26 @@
 """
-AVE SUBMODULE: OXYGEN-16 TOPOLOGICAL SOLVER
--------------------------------------------
-Calculates the required macroscopic separation distance (R_tet) between the
-four constituent Alpha-particle cores in Oxygen-16 to perfectly match the
-empirical CODATA mass defect (Binding Energy) using purely electrical 1/d_ij coupling.
+AVE SUBMODULE: OXYGEN-16 TOPOLOGICAL R_TET FITTER (1-parameter inverse problem).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script numerically FITS the single geometric radius parameter R_tet
+(macroscopic separation between the four constituent Alpha-particle cores
+in O-16) to recover the CODATA mass-defect target via Nelder-Mead
+minimization. The 1/d_ij coupling kernel (K_MUTUAL imported from
+ave.core.constants) IS axiom-derived; the recovered R_tet is NOT a forward
+prediction — it's a 1-parameter inverse-problem solve.
+
+The interpretive AVE claim that survives:
+  "A single geometric radius parameter, with axiom-derived K_MUTUAL coupling
+   form, suffices to recover the empirical mass — i.e., the geometry has
+   one effective degree of freedom for this element."
+
+The "Mass Mapping Error: 0.00xx%" output is ~0 by construction (it's the
+residual of the fit, not a forward-prediction error). M_P_RAW and M_N_RAW
+are empirical PDG nucleon masses used as inputs.
+
+Scope corrected 2026-05-17: original docstring "perfectly match the empirical
+CODATA mass defect" was misleading — it suggested forward prediction; the
+code path is 1-parameter fit.
 """
 
 import numpy as np
@@ -78,9 +95,10 @@ def optimize_topology() -> float:
     optimal_r = res.x[0]
     final_mass = calc_mass(optimal_r)
 
-    print(f"Optimal R_tet: {optimal_r:.6f} d (where d={D_0} fm)")
-    print(f"Topological Mass: {final_mass:.6f} MeV")
-    print(f"Mass Mapping Error: {abs(final_mass - TARGET_MASS_O16)/TARGET_MASS_O16 * 100:.8f}%")
+    print(f"Optimal R_tet (1-parameter fit): {optimal_r:.6f} d (where d={D_0} fm)")
+    print(f"Fitted Topological Mass: {final_mass:.6f} MeV")
+    print(f"Mass Fit Residual: {abs(final_mass - TARGET_MASS_O16)/TARGET_MASS_O16 * 100:.8f}%")
+    print("  (Note: residual ~0 by construction; this is fit, not forward prediction)")
     return optimal_r
 
 

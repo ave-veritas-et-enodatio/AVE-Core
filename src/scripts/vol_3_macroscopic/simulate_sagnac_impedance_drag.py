@@ -1,3 +1,26 @@
+"""
+Sagnac Impedance Drag Visualization (illustrative animation — no Δφ comparison).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders a 2D VacuumGrid animation of counter-propagating waves
+in a rotating boundary layer, illustrating the AVE interpretive narrative
+that the Sagnac effect is classical macroscopic inductive entrainment
+(Lenz drag) rather than a GR consequence.
+
+The script does NOT compute:
+  - Numerical Sagnac phase shift Δφ = 8πAΩ/(λc) at any specific rotation rate
+  - Comparison against ring-laser-gyroscope measurements (GINGER, G-RING)
+  - Calibration to GPS satellite Sagnac corrections (~207 ns/day)
+
+For the canonical AVE Sagnac numerical predictions matched against
+empirical data, see `simulate_sagnac_drag.py` (vol_4_engineering) and
+`simulate_sagnac_kinematic_entrainment.py` (which DO compute numerical
+Δφ values). This vol_3 script is an illustrative animation only.
+
+Docstring corrected 2026-05-17: "Prove the Sagnac Effect is..." softened
+to "Illustrates the AVE interpretation..."
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -11,14 +34,13 @@ from ave.core import VacuumGrid
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE APPLIED PHYSICS: SAGNAC EFFECT & RLVG IMPEDANCE DRAG")
+    print(" AVE SAGNAC IMPEDANCE DRAG: VISUALIZATION (illustrative)  ")
     print("==========================================================\n")
 
-    print("- Objective: Prove the Sagnac Effect is classical Macroscopic Inductive Entrainment.")
-    print("- Setup: A rotating topological boundary layer (Earth) entraining the LC Grid.")
-    print('- Observation: Firing two highly-coherent "lasers" in opposite directions.')
-    print("- Consequence: The counter-rotating laser fights the metric slipstream (Lenz Drag),")
-    print("               arriving later than the co-rotating laser. General Relativity is bypassed.\n")
+    print("- Illustrates AVE interpretation: Sagnac as inductive Lenz drag.")
+    print("- Renders counter-propagating waves in rotating boundary layer.")
+    print("- No numerical Δφ comparison; for quantitative predictions see")
+    print("  simulate_sagnac_drag.py (vol_4) and simulate_sagnac_kinematic_entrainment.py.\n")
 
     NX, NY = 160, 160
     grid = VacuumGrid(nx=NX, ny=NY, c2=0.5)  # Elevated c2 for rapid wave propagation

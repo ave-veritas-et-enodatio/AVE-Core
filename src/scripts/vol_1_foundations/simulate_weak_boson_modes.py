@@ -1,10 +1,21 @@
 """
-AVE Electroweak Boson Simulator: Torsional vs Transverse Impedance Modes
--------------------------------------------------------------------------
-Visualizes how the W and Z bosons are fundamentally the orthogonal phase-polarizations
-of the discrete LC Network macroscopic strain fields:
-W = Torsional Phase Rotation (Current lag)
-Z = Transverse Phase Bending (Voltage lag)
+AVE Electroweak Boson Modes: Geometric Polarization Visualization (illustrative).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script visualizes the AVE interpretive framing of W/Z bosons as
+orthogonal phase-polarizations of the LC network strain fields:
+  W = Torsional Phase Rotation (Current lag)
+  Z = Transverse Phase Bending (Voltage lag)
+
+The script renders parametric surfaces representing these polarization
+modes; it does NOT compute W/Z boson masses (M_W ≈ 80.379 GeV/c², M_Z ≈
+91.188 GeV/c²) or the electroweak mixing angle sin²θ_W. Those quantitative
+derivations live in vol_2_subatomic — specifically:
+  - `simulate_w_boson_loop.py` — W mass via loop topology, PDG comparison
+  - `simulate_electroweak_unification.py` — full unification chain
+
+Title corrected 2026-05-17: "Simulator" → "Visualization" since no
+quantitative simulation is performed here.
 """
 
 import os
