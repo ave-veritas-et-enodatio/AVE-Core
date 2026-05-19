@@ -77,7 +77,23 @@ When merging an implementor branch into `analysis/integration`:
 3. Push merge commit + audit tag to origin
 4. Delete implementor branch (local + remote) once tag verifies on origin
 
-Current state: 19 audit tags on origin (`git tag -l "audit/*" | wc -l`).
+Current state: 20 audit tags on origin (`git tag -l "audit/*" | wc -l`).
+
+## Pre-commit discipline
+
+Before any `git commit` in an orchestration session, run:
+
+```bash
+git branch --show-current
+```
+
+This verifies the target branch matches the intended orchestration branch (typically `analysis/integration`). The check is **mandatory after any Agent / Task / subagent invocation** — sub-agents that perform branch operations share the orchestration session's working tree by default and may leave it on the sub-agent's branch.
+
+**Failure mode this prevents**: 2026-05-19 EOD orchestration commit landed on `analysis/cosmic-axis-glossary` instead of `analysis/integration` because the cosmic-axis-glossary sub-agent checked out its own branch and left the working tree there. Recovery via cherry-pick + reset.
+
+**Structural fix for the same issue**: spawn implementors via Agent tool with `isolation: "worktree"` so the sub-agent works in a temporary git worktree (separate working dir, same `.git`). See `_orchestration/README.md` "Spawning implementors via the Agent tool — discipline" for the canonical pattern.
+
+**Related skill**: `verify-before-cite` v1.3 trigger 8 (commit-application claims) catches the upstream version of the same failure axis — assuming a commit was applied to the current branch without running `git branch --contains <hash>`. Both fire on agent-claim-about-branch-state-without-verifying-via-git but at different timing points (trigger 8 at brief-drafting time; this section at orchestration-commit time).
 
 ## Cross-references
 

@@ -96,6 +96,35 @@ All files in this directory are tracked / public-facing. They MUST follow the pu
 2. **During session**: do NOT edit this directory; implementor work lands in the rest of the repo (driver code, manuscript edits, research docs, closure-roadmap entries).
 3. **End of session**: push branch; do NOT merge. The orchestration session that reads the result will close the PENDING phase in the epic doc.
 
+## Spawning implementors via the Agent tool — discipline
+
+When an orchestration session spawns an implementor as a sub-agent (rather than via a separate Claude Code session), branch-mutation discipline matters: the sub-agent shares the orchestration session's working tree by default, so any `git checkout` the sub-agent performs leaves the orchestration session on the sub-agent's branch.
+
+**Default pattern — use `isolation: "worktree"`**: when invoking the Agent tool with subagent_type `ave-implementer` (or any subagent that will do branch operations), pass `isolation: "worktree"` so the sub-agent works in a temporary git worktree. The worktree is a separate working directory backed by the same `.git`, so the sub-agent's branch operations don't mutate the orchestration session's working tree. Pushed branches land on origin and remain visible from the orchestration worktree for merge. Worktree is automatically cleaned up if the agent makes no changes; otherwise the path and branch are returned in the agent's result.
+
+**Fallback pattern — explicit post-return branch verification**: if `isolation: "worktree"` cannot be used (e.g., implementor needs to share working state for some operation-specific reason), the orchestration session MUST verify branch-of-record AFTER the sub-agent returns and BEFORE any subsequent git commit:
+
+```bash
+git branch --show-current
+# expected: analysis/integration (or whatever orchestration branch you started on)
+# if NOT expected: git checkout analysis/integration before any orchestration commit
+```
+
+If you committed before checking and the commit landed on the wrong branch, the recovery is:
+```bash
+# from the wrong branch:
+git log --oneline -1                   # capture the wrong-branch tip
+git checkout analysis/integration
+git cherry-pick <wrong-branch-tip>     # bring the commit forward
+git checkout <wrong-branch>
+git reset --hard <prior-tip>           # remove the misplaced commit
+git checkout analysis/integration
+```
+
+**Failure mode this prevents**: 2026-05-19 EOD orchestration commit landed on `analysis/cosmic-axis-glossary` (implementor's branch) instead of `analysis/integration` because the cosmic-axis-glossary sub-agent had checked out its own branch and left the working tree there. Required cherry-pick + reset to fix. Worktree isolation would have prevented the issue structurally; explicit pre-commit `git branch --show-current` check would have caught it behaviorally.
+
+**Cross-reference to skill ecosystem**: this discipline complements `verify-before-cite` v1.3 trigger 8 (commit-application claims must include `git branch --contains` check). Both address the same root cause — agent-claim-about-branch-state without verifying-via-git — at different timing points: trigger 8 fires at citation/brief-drafting time, this section fires at orchestration-commit time.
+
 ## Cross-references
 
 - Skill enforcing canonical-locale write discipline: `~/.claude/skills/ave-handoff-canonical-locale/SKILL.md`
