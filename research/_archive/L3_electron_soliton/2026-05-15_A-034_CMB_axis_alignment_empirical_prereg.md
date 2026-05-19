@@ -9,6 +9,8 @@
 - L5 A-031 — Ω_freeze cosmic IC (refined per A-034 2026-05-15 late evening)
 - Vol 3 Ch 4 §TKI Strain-Snap (manuscript section, canonicalized 2026-05-15 late evening)
 
+> **2026-05-19 retrospective annotation:** the literature-placeholder axis $(174°, -5°)$ referenced throughout this prereg was empirically pinned at $(60.28°, 50.48°)$ per [`../../2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../2026-05-19_c5-cmb-axis-executable-observer-result.md) (Planck PR3 SMICA NSIDE=2048 + common mask; joint dispersion 88% of theoretical max; ℓ=2 and ℓ=3 only-axes 16.9° apart). The Phase 2 executable observer driver run on 2026-05-19 returned Outcome D (data insufficient at 3σ) — CMB-vs-Hubble 74.6° at 1.82σ; CMB-vs-LSS 27.9° marginally within 1σ. The corpus literature-placeholder $(174°, -5°)$ yields only 46% of the data's max dispersion and is NOT the empirical axis. Original prereg text preserved verbatim per archival discipline; all subsequent $(174°, -5°)$ references in this document should be read as the historical literature placeholder, not the empirical axis. The AVE alignment-prediction across observables is UNAFFECTED by the corpus-value revision; it was always an alignment-correlation claim, not an axiom-derived specific direction.
+
 ---
 
 ## 0. One-paragraph summary

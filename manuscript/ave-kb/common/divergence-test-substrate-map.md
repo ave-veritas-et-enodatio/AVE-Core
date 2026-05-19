@@ -150,15 +150,15 @@ These predictions live as derivations in the KB. None has an actual driver/obser
 - **Substrate:** Route 1 closed (Path C FTG-EMT $p^* = 8\pi\alpha$ to 0.003%); Route 2 corpus-canonical via Vol 3 Ch 1; **Route 3 pending CMB-data re-analysis driver**. CMB axis-alignment prereg landed 2026-05-15 per [`closure-roadmap.md` line 35](closure-roadmap.md).
 - **KB anchors:** [`closure-roadmap.md` lines 30, 38, 557](closure-roadmap.md); [`cosmic-parameter-horizon-a031-refinement.md` lines 60-64](cosmic-parameter-horizon-a031-refinement.md); foreword lines 121-129.
 
-### C5. A-034 CMB axis-of-evil alignment at $(l = 174^\circ, b = -5^\circ)$
+### C5. A-034 CMB axis-of-evil alignment at $(l = 60.28^\circ, b = 50.48^\circ)$
 
 - **AVE predicts:** CMB axis should align with the Hubble-flow direction, large-scale-structure rotation axis, and matter-asymmetry direction — all four shared because all four trace back to the parent-BH spin axis frozen at cosmic lattice genesis.
 - **Standard predicts:** $\Lambda$CDM has no mechanism for alignment; the CMB axis-of-evil anomaly is treated as a statistical fluke.
 - **Discriminator:** angular separation between the four axes; AVE predicts $\lesssim$ degree-class agreement, standard cosmology has uniform prior.
 - **Test type:** existing-data re-analysis (Planck CMB + SDSS galaxy survey are public).
-- **Substrate:** **MISSING.** CMB axis-alignment prereg PRE-REGISTERED 2026-05-15 ([`closure-roadmap.md` line 35](closure-roadmap.md)); execution deferred. No driver loads Planck maps + SDSS catalog.
-- **Citation gap (flagged 2026-05-17 audit):** corpus references "Planck data, ≈ (l=174°, b=-5°)" at [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md) + [`07_universal_saturation_kernel.tex:221`](../../backmatter/07_universal_saturation_kernel.tex) + A-034 prereg ([`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md):238,275) as a "literature value" but **does not pin a specific publication**. The cited methodology reference (Land & Magueijo 2005, "Axis of Evil") actually gives quadrupole-octupole axis at $(l=237°, b=63°)$, NOT $(174°, -5°)$. The $(174°, -5°)$ value may be from a different CMB statistic (different multipole alignment, hemispherical asymmetry direction, bulk-flow direction, or Planck 2015/2018 updated axis-of-evil values). **Pre-execution pin needed:** identify the specific Planck-data analysis + paper that gives $(174°, -5°)$ before executing the C5 driver. Likely candidates: Planck 2018 PR3 low-ℓ multipole alignment analysis; or a specific CMB anomaly axis from the Planck collaboration's "Isotropy and statistics of the CMB" paper series.
-- **KB anchors:** [`universal-saturation-kernel-catalog.md` lines 86-92](universal-saturation-kernel-catalog.md); foreword line 149.
+- **Substrate:** **DRIVER EXECUTED 2026-05-19.** Phase 2 executable observer on Planck PR3 SMICA returned Outcome D (data insufficient at 3σ); see C5-CMB-AXIS row at line 428 + closure-roadmap entry. Empirical axis-of-evil at $(l=60.28°, b=50.48°)$.
+- **Citation gap RESOLVED 2026-05-19** via empirical pin per [`closure-roadmap.md:100`](closure-roadmap.md) option (c). The corpus literature-placeholder $(174°, -5°)$ value (flagged 2026-05-17 audit, unpinned to specific publication) is superseded by the Planck PR3 SMICA empirical axis $(l=60.28°, b=50.48°)$ computed by the C5 driver run 2026-05-19 — see [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17,89`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The corpus value yields only 46% of the data's max dispersion; the empirical axis is 73° from the corpus value. Walk-back applied to citing files: [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md), [`07_universal_saturation_kernel.tex:221`](../../backmatter/07_universal_saturation_kernel.tex), [`omega-freeze-cosmic-grain-cascade.md:26`](omega-freeze-cosmic-grain-cascade.md), [`../../vol_3_macroscopic/chapters/04_generative_cosmology.tex:467`](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex). Archival prereg [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) preserved verbatim per archival discipline; carries header annotation for the empirical pin.
+- **KB anchors:** [`universal-saturation-kernel-catalog.md` lines 86-92](universal-saturation-kernel-catalog.md); foreword line 149; [`cosmic-axes-and-frames-glossary.md`](cosmic-axes-and-frames-glossary.md) §2 (canonical glossary definition).
 
 ### C6. Neutrino parity kill-switch — no stable right-handed neutrino
 
@@ -946,7 +946,7 @@ flowchart TD
 
 **Operational implication — Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS.** Building a Planck+SDSS axis-alignment driver to execute the frozen 2026-05-15 prereg would simultaneously:
 
-1. Test C5-CMB-AXIS directly (axis alignment at (174°, -5°))
+1. Test C5-CMB-AXIS directly (axis alignment at empirical pin (60.28°, 50.48°) per [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md); DONE 2026-05-19, Outcome D)
 2. Pull D4-A034 cosmic-instance from derivation-only to data-bearing
 3. Close the foreword's headline three-route framework commitment
 4. Give Ω_freeze its first empirical anchor (currently inferred from cold-α + G correspondence only)
