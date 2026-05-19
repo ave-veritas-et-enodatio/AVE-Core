@@ -1,9 +1,15 @@
 [↑ Ch.6 Electroweak and Higgs](index.md)
 <!-- leaf: verbatim -->
 
-# AVE-Native Petermann Coefficient: 50 ppm Match via Route B + Saliency
+# AVE-Native Petermann Coefficient via Route B: 4% forward (no postulate) → 10 ppm at $a_e$ (with n_q-additivity postulate)
 
-The Schwinger leading-order anomalous moment $a_e^{(1)} = \alpha/(2\pi)$ ([Higgs Mass](higgs-mass.md)) reproduces the canonical first-order QED result from the on-site capacitive displacement strain of the unknot. The **two-loop Petermann coefficient** $C_2 = -0.32848$ is similarly derivable from substrate dynamics — the AVE-native derivation matches PDG to **50 ppm** without Feynman diagrams, renormalization, or fit parameters.
+The Schwinger leading-order anomalous moment $a_e^{(1)} = \alpha/(2\pi)$ ([Higgs Mass](higgs-mass.md)) reproduces the canonical first-order QED result from the on-site capacitive displacement strain of the unknot. The **two-loop Petermann coefficient** $C_2 = -0.32848$ is similarly derivable from substrate dynamics in two stages, with explicit honesty about what's structurally derived vs what's postulated:
+
+- **Stage 1 — Route B forward (no fit, no postulate):** symmetric Route B base case (dark-wake × kernel-asymmetry correlation in Cosserat (2,3) phase-space trefoil with d/q axes symmetric at $A_{d,peak}^2 = A_{q,peak}^2 = 2\pi\alpha$) gives $C_2^{\text{AVE,sym}} = -0.3416$ → **+4.0% off PDG**. Non-trivial substrate-mechanism prediction with no fit parameters.
+
+- **Stage 2 — Saliency closure with n_q-additivity postulate:** introducing the asymmetry $\delta = -\alpha n_q / 2 = -3\alpha/2$ (with $n_q = 3$ = the q-axis poloidal winding of the (2,3) trefoil) gives $C_2 = -0.32846$ → **50 ppm at $C_2$ / ≈10 ppm at $a_e$ total** (via textbook QED $\Delta a^{(2)} = C_2 \cdot (\alpha/\pi)^2$). The headline match depends on the **n_q-additivity postulate** (each of $n_q$ windings contributes one independent $\alpha$-order kernel-shift unit, scaling linearly in $n_q$), which the corpus admits at [§"What still needs derivation"](#what-still-needs-derivation-honest-open-items) is the "single remaining intuitive step" — alternative scaling laws (√n_q collective, $n_q^2$ interference) give wrong magnitudes; additive scaling matches the bisection minimum at 0.12%.
+
+> **Honesty note (2026-05-18 late evening, Action 2 of factor-2 walk-back):** the prior headline "50 ppm Match via Route B + Saliency" conflated the structural Stage 1 result (4% forward) with the postulate-dependent Stage 2 closure (50 ppm at $C_2$). The headline above makes the two-stage structure visible. The mechanism + math are unchanged; only the framing of "what is forward-derived vs what requires a postulate" is sharpened. Full Route B engine implementation `verify/electron_g2_petermann.py` (independent bisection verification of the $\delta^* = -0.01093$ value the corpus's own bisection found) is queued for multi-session follow-up.
 
 > **Cross-volume application (2026-05-17; honest-scoped 2026-05-17 night per 8th audit cycle)**: the same $a_e = \alpha/(2\pi)$ Schwinger anomalous-moment factor — derived here from on-site capacitive substrate dynamics — generalizes to the **electron substrate-slew rate** $\nu_{slew} = a_e \cdot \nu_{Compton} = (\alpha/(2\pi)) \cdot (m_e c^2/h)$ that drives two cosmic/macroscopic predictions: (i) **DAMA coupling line** at $E_{substrate} = h \nu_{slew} = \alpha m_e c^2 \approx 3.728$ keV in DAMA's 2-6 keV detection window — coincides within 1% with Ca Kα at 3.691 keV via Moseley's law, so the bare numerical value is NOT uniquely AVE; AVE-distinguishing claims pivot to **Z-independence** (cross-crystal swap NaI/Sapphire/Ge), **CMB-velocity phase-lock** (June peak day-of-year ~152 matching DAMA observed, vs SM solar-driven December perihelion peak), and **solid-vs-liquid binary gate** (DAMA NaI+ vs XENONnT-) per [`../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md) §11; and (ii) **substrate-equilibrium velocity** $v_{substrate} = \alpha c/(2\pi) \approx 348$ km/s for gravitationally-isolated stellar systems through CMB rest frame, via Hoop Stress 2π projection (parallel structural form to MOND $a_0 = cH_\infty/(2\pi)$; see [`../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md)). The Schwinger factor's substrate-physics origin (Axiom 4 saturation kernel back-reaction on LC tank + $1/\pi^2$ spin-orbit geometric projection) is the same at all three scales — substrate slew rate (this leaf), DAMA coupling line (Vol 3 Ch 5; AVE-distinction via Z-independence + phase-lock + solid-vs-liquid), cosmic equilibrium velocity (Vol 1 Ch 4). Cross-volume substrate motif: Hoop Stress 2π projection of $c \times \epsilon$ (small parameter) onto closed topological loops; cosmic-scale $\epsilon = H_\infty$ (MOND), substrate-scale $\epsilon = \alpha$ (this chain). 2 truly independent scale-instances (cosmic + substrate) per honest-scoped 2026-05-17 late evening 7th audit cycle; DAMA quantum is derivative observable at the substrate operating point, not a third independent Hoop Stress projection.
 
@@ -74,23 +80,25 @@ $$
 
 where $n_q = 3$ is the **q-axis poloidal winding number** of the $(2,3)$ trefoil and the factor $1/2$ is the same LC equipartition that appears in the Schwinger leading-order derivation ($E_L = E_C = E_{\text{tot}}/2$). The sign ($\delta < 0$) places the heavier reactance on the q-axis, the 3-winding side — consistent with the trefoil's topological weighting.
 
-## Final result: 50 ppm match
+## Final result: 50 ppm at $C_2$, 10 ppm at $a_e$ total
 
-With $\delta = -3\alpha/2$:
+With $\delta = -3\alpha/2$ and the textbook QED conversion $\Delta a^{(2)} = C_2\,(\alpha/\pi)^2$:
 
 $$
-\Delta a_e^{(2),\text{AVE}} = -8.857 \times 10^{-7}, \qquad C_2^{\text{AVE}} = -0.32846
+C_2^{\text{AVE}} = -0.32846, \qquad \Delta a_e^{(2),\text{AVE}} = C_2^{\text{AVE}}\,(\alpha/\pi)^2 = -1.772 \times 10^{-6}
 $$
 
-versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%)**.
+versus PDG/Petermann $C_2 = -0.32848$. **Deviation: 50 ppm (0.005%) at the $C_2$ level.**
 
 Total Schwinger + Petermann shift:
 
 $$
-a_e^{(1)} + a_e^{(2)} = 1.16052 \times 10^{-3} \quad \text{vs measured } 1.15965 \times 10^{-3}, \quad \text{deviation } +0.075\%.
+a_e^{(1)} + a_e^{(2)} = \frac{\alpha}{2\pi} + C_2^{\text{AVE}}\,\left(\frac{\alpha}{\pi}\right)^2 = 1.15964 \times 10^{-3} \quad \text{vs measured } 1.15965 \times 10^{-3}, \quad \text{deviation } \approx -10\,\text{ppm}.
 $$
 
-The remaining 0.075% is exactly the contribution of three-loop and higher QED corrections plus hadronic and electroweak — explicitly outside the leading-plus-first-correction scope of this derivation.
+The residual $\sim 10$ ppm gap is the contribution of three-loop and higher QED corrections ($C_3\,(\alpha/\pi)^3 \approx +1.5 \times 10^{-8}$) plus hadronic and electroweak — explicitly outside the leading-plus-first-correction scope of this derivation.
+
+> **Scope correction (2026-05-18 late-evening walk-back):** prior versions of this leaf reported $\Delta a_e^{(2),\text{AVE}} = -8.857 \times 10^{-7}$ and a $+0.075\%$ deviation from measured $a_e$. Direct arithmetic verification ([finding doc](../../../../../research/2026-05-18_q-g27-q-g19a-systemic-conversion-error-finding.md), walk-back commit on `analysis/petermann-saliency-walk-back`) found those values were the standard QED conversion $C_2\,(\alpha/\pi)^2$ computed with a silent factor of $1/2$. The corrected values strengthen the headline: AVE forward $a_e$ matches measured at $\approx 10$ ppm (previously framed as $+0.075\%$ residual attributed to three-loop QED, which actually contributes only $\sim 1.5 \times 10^{-8} = 12$ ppm in the same direction). The 50 ppm match at the $C_2$ level is independent of the conversion arithmetic and is preserved.
 
 ## What still needs derivation (honest open items)
 

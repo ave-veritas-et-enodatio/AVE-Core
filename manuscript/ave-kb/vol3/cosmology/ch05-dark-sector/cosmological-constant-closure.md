@@ -119,7 +119,7 @@ This is the largest single quantitative gap between standard physics and observa
 | Test | Prediction | Cost | Discrimination vs QED+SM |
 |---|---|---|---|
 | 1. PVLAS vacuum birefringence | $\Delta n = 0$ at strong B | $0 | Categorical (QED $\sim 10^{-23}$) |
-| 2. Fermilab Muon g−2 | $\Delta a_\mu = +247(56) \times 10^{-11}$ | $0 | Matches measured 4.2σ tension |
+| 2. Fermilab Muon g−2 | AVE forward $\Delta a_\mu = +502 \times 10^{-11}$ vs measured $+245(56) \times 10^{-11}$ | $0 | 4.6σ above measured Fermilab tension on e+e- baseline (BMW-baseline-conditional); walked back 2026-05-18 from prior "$+247$ matches at 0.8%" framing per Q-G27 factor-2 conversion error |
 | 3. **Cosmological constant $\rho_\Lambda$** | **$9 \times 10^{-27}$ kg/m³** | **$0 | **$10^{122}$ improvement on QED** |
 | 4. IVIM bench (tree-level) | $\Gamma_{\text{bench}} = 1.94 \times 10^{-11}$ at 43.65 kV | $85k–$200k | $10^{12}$ tree-vs-loop |
 | 5. ELI autoresonant Schwinger | Pair production at $E \ll E_S$ | $1M–$10M | Categorical (QED forbids) |
