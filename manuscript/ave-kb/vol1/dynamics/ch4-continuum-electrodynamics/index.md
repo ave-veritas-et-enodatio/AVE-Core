@@ -35,5 +35,8 @@ The non-linear AVE master equation unifies expanding cosmology and electromagnet
 | [MOND from Hoop Stress](./mond-hoop-stress.md) | $H_\infty$ derivation, hoop stress projection, geometric drift acceleration |
 | [Dark Sector Comparison](./dark-sector.md) | AVE vs observation: $H_\infty$, $a_0$, dark matter, dark energy |
 | [Bullet Cluster](./bullet-cluster.md) | Refractive tensor shockwaves, DAMA/LIBRA vs XENONnT resolution |
+| [Photon Identification (T₂-only Cosserat ω)](./photon-identification.md) | The photon as the stable $T_2$-only Cosserat microrotation ($u = 0$, $\omega \neq 0$); electron = photon + Axiom-4 TIR confinement |
+| [Photon Propagation Baseline ($v/c = \sqrt{2}$)](./photon-propagation-baseline.md) | Free photon on the linear K4-TLM vacuum at $v = c\sqrt{2}$ cardinal / $v = c$ diagonal — pure Axiom-1 substrate-geometry anisotropy |
+| [Breathing Soliton v14 Mode-I PASS](./breathing-soliton-v14-mode-i.md) | Master-Equation FDTD autonomously hosts a sustained breathing bound state (4/4 acceptance) — validates the boundary-envelope reformulation at the dynamic-engine level |
 
 > Primary: [MOND Hoop Stress](./mond-hoop-stress.md) — path-stable leaf referenced from vol6 as `sec:galactic_saturation` and `eq:H_infinity`

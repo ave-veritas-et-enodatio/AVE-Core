@@ -40,3 +40,4 @@ The continuous quantum formalism is derived from discrete finite-element signal 
 | [Ohmic Decoherence and Born Rule](./ohmic-decoherence-born.md) | Measurement as Ohmic loading, deterministic Born rule from Joule heating |
 | [Nonlinear Telegrapher](./nonlinear-telegrapher.md) | Non-linear wave equation, dielectric saturation expansion, Euler-Heisenberg $E^4$ correction |
 | [Phase-Locked Topological Thread](./phase-locked-topological-thread.md) | Topological thread (phase-locked gear train), CHSH = 2√2, no-signaling from Axioms 1–4 |
+| [Thermal Lattice Noise + $T_{V\text{-rupt}}$](./thermal-lattice-noise.md) | Equipartition $\sigma_V$ / $\sigma_\omega$ derivations; AVE-native vacuum-rupture temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K (substrate-temperature analog of the Schwinger limit) |
