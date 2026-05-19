@@ -56,17 +56,184 @@ C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stan
   - Execution-session prereg: [`research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md)
   - Result doc: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)
 
-### Phase E1b-prime (PENDING) — Pantheon+ raw-SN bulk-flow re-fit
+### Phase E1b-prime (PENDING — full briefing below, ready for implementor) — Pantheon+ raw-SN bulk-flow re-fit
 
-**Briefing status**: NOT YET DRAFTED. To be appended to this phase entry when Grant greenlights kickoff.
+**Briefing status**: DRAFTED 2026-05-19 EOD; awaits Grant adjudication on one plumber-physical question before implementor kickoff.
 
-**Scope intent** (sketch; subject to full briefing once greenlit):
-- Target: tighter Hubble-flow direction via Pantheon+ raw-SN re-fit at AVE-substrate-native priors
-- Mechanism: replace literature σ_Hubble ~30° with self-derived bulk-flow uncertainty using Pantheon+ DR1 raw light-curve fits + AVE-axis prior
-- Acceptance criteria: if CMB-Hubble separation tightens such that empirical separation (74.6° per E1b) crosses 3σ on either side → C5 settles to A (PASS — tension) or C (NULL)
-- Implementor session pattern: single deliverable on `analysis/c5-pantheon-tightening` (or similar) off `analysis/integration`; standard skill discipline; ~1-2 sessions; push without merge for orchestration review
+#### ⚠ Pre-execution plumber question for Grant (pre-test-physics-check)
 
-**Gates**: Grant adjudication required before drafting full briefing.
+AVE predicts CMB axis and Hubble-flow axis both anchored to parent-BH spin axis frozen at cosmic lattice genesis (per A-034 + Ax 1 + Ax 4). E1b empirically pinned CMB axis at $(l=60.28°, b=50.48°)$ data-derived. Pantheon+ peculiar-velocity corrections conventionally use the CMB rest frame as the velocity reference.
+
+**Plumber-physical question**: Is the Hubble bulk-flow direction extracted from Pantheon+ ACTUALLY independent of CMB direction in the data pipeline, or is the peculiar-velocity correction implicitly anchored to CMB direction (making the test circular)? If anchored, the implementor needs to use raw heliocentric velocities (no CMB-rest-frame correction) and the test becomes "does raw Hubble flow agree with CMB independently?" If NOT anchored (the correction only uses CMB DIPOLE for rest-frame transform, not for direction extraction), then the standard Pantheon+ pipeline is fine.
+
+**Why this matters**: a circular test (CMB-corrected Pantheon+ extracts CMB direction by construction) would yield false 3σ-PASS regardless of whether AVE is right. The implementor needs an explicit go-direction on whether to use raw heliocentric or CMB-corrected velocities.
+
+#### Context
+
+E1b returned Outcome D because literature σ_Hubble ~30° (Whitford+2023 MNRAS 526:3051) is too wide to reject the CMB-Hubble separation (74.6° empirical) at 3σ. Per `divergence-test-substrate-map.md:554` "What's needed" column: tighter Pantheon+ raw-SN bulk-flow re-fit (1-2 sessions; would push CMB-Hubble to 3σ-decisive).
+
+Pantheon+SH0ES dataset is already cached locally at `data/pantheon_plus/Pantheon+SH0ES.dat`. The session's job is to re-fit the bulk-flow direction (and its uncertainty) from raw light curves, applying AVE-substrate priors, and produce a tightened σ_Hubble that either decisively rejects or accepts CMB-Hubble alignment.
+
+#### Branch strategy
+
+- **Branch**: `analysis/c5-pantheon-tightening` off `analysis/integration`
+- **Base HEAD**: `813b9c3` (or current HEAD at session start — verify in Phase 0)
+- **Push without merge** — orchestration session reviews + merges via `--no-ff` + audit tag pattern
+
+#### Assumptions A1-A8 (verify at Phase 0)
+
+A1. **Pantheon+SH0ES data accessible** at `data/pantheon_plus/Pantheon+SH0ES.dat`. Format = whitespace-separated ASCII with header row; ~1700 SNe at z<0.1 expected.
+
+A2. **Existing C5 driver is the template foundation**: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes) — reuse Planck/SMICA-axis ingestion + axis-comparison framework; ADD Pantheon+ bulk-flow estimator + uncertainty propagation.
+
+A3. **E1b empirical CMB axis is the reference**: $(l=60.28°, b=50.48°)$, σ ~ 0.9°, sourced from E1b result doc [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The comparison is "Pantheon+ bulk-flow direction vs this CMB axis."
+
+A4. **Bulk-flow estimator class**: maximum-likelihood fit on peculiar-velocity-corrected distances at z<0.1 (or raw heliocentric, pending Grant adjudication on the plumber question above). Methodology should follow standard practice (e.g., Watkins-Feldman-Hudson 2009 ML approach, or Howlett+Said-style velocity tomography).
+
+A5. **AVE-substrate prior**: forward-prediction — AVE predicts Hubble bulk-flow direction = CMB axis = (60.28°, 50.48°). Implementation MUST NOT fit Hubble direction TO CMB axis (per `ave-driver-script-honesty`); instead estimate Hubble direction independently then compare.
+
+A6. **σ_Hubble target precision**: <15° (half of current ~30°) is the load-bearing precision threshold for 3σ-decisive on the 74.6° separation. If estimator yields σ_Hubble in [15°, 25°], outcome is "marginally improved D"; if <15°, decisive.
+
+A7. **C5 row state in matrix**: `divergence-test-substrate-map.md:428` + `:514` + `:554` shows "OUTCOME D (DATA INSUFFICIENT at 3σ)". Row updates needed at session end.
+
+A8. **Cascade implications**:
+- Outcome A (PASS — tension confirmed >3σ) → C5 row updates to PASS; E1c (Route 3 framework-commitment activation) UNBLOCKS for next session
+- Outcome C (NULL — alignment confirmed <3σ) → C5 row updates to NULL; E1c needs alternative path (SDSS DR17 spin-orientation re-analysis); cascade re-routes
+- Outcome D-sustained → C5 row stays D; next session is SDSS DR17 alternative
+- Outcome E (methodology) → surface to Grant before retry
+
+#### Scope boundary (strictly enforced)
+
+**IN SCOPE**:
+- Re-fit Pantheon+ bulk-flow direction (per Grant's plumber-question adjudication)
+- Self-derive σ_Hubble from the re-fit (replace Whitford+2023 ~30° with new value)
+- Recompute CMB-Hubble separation σ using new σ_Hubble
+- Update C5 row in `divergence-test-substrate-map.md` (rows :428, :514, :554)
+- Update closure-roadmap C5 entry at `closure-roadmap.md:80`
+- Result doc at `research/2026-05-19_c5-pantheon-tightening-result.md` (or 2026-05-20 if session spans midnight)
+- Driver script at `src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py` (or equivalent — Phase 0 verifies naming convention against E1b)
+- ave-auditor verdict
+- Push branch (do NOT merge)
+
+**OUT OF SCOPE**:
+- SDSS DR17 spin-orientation re-analysis (alternative path — separate session if needed)
+- Observable 5 (E/B polarization), 6 (orbital), 7 (G P_2 anisotropy) — multi-session each
+- E1c Route 3 framework-commitment activation (gated on this session's outcome)
+- Any modifications to E1a (`audit/2026-05-19_c3-muon-delta-driver-rerun`) or E1b (`audit/2026-05-19_c5-cmb-axis-driver`) artifacts
+- New physics derivations (this is data analysis, not theory work)
+- Manuscript edits in `manuscript/vol_*/chapters/*.tex` (KB and closure-roadmap only)
+
+#### Skills required (with trigger timing)
+
+**Upfront fires (formal Skill invocations BEFORE any code):**
+- `pre-test-physics-check` — DONE in this briefing (plumber question above; awaits Grant adjudication)
+- `ave-prereg` — corpus-grep across all 10 AVE-staging repos for prior bulk-flow / peculiar-velocity / Hubble-flow-direction work
+- `ave-canonical-leaf-pull` — enumerate canonical leaves for data-fitting / propagation-direction / cross-section problem class
+- `ave-canonical-source` — confirm any constants used (H_0, c, etc.) import from `src/ave/core/constants.py`, not hard-coded
+- `verify-before-cite` — verify E1b axis + Whitford σ + Pantheon+ catalog refs at file:line
+
+**Conditionally fired:**
+- `ave-driver-script-honesty` — CRITICAL: verify the bulk-flow estimator is a forward-prediction (independent Hubble direction extraction) NOT a fit-to-target (fitting Hubble direction TO CMB axis); the four-discriminator check applies
+- `consistency-vs-emergence` — classify the test (consistency-check comparing AVE prediction vs new data uncertainty, NOT an emergence test from axioms)
+- `ave-discrimination-check` — before framing the outcome as "AVE-distinct" (the test is SM-counterfactual: SM has no a priori prediction for axis alignment)
+- `ave-evidence-framing-discipline` — before any quantitative claim with strength language ("σ_Hubble tightens to X°", "X-σ decisive", "passes/fails at 3σ")
+- `substrate-native-check` — if any solver / eigsolver work emerges (unlikely for this data-analysis session)
+
+**Adhere internally (no formal Skill invocation):**
+- `ave-handoff-canonical-locale` — this briefing IS the canonical location; the implementor reads it from here; the implementor MUST NOT create a new loose `~/.claude/plans/` file for this session
+
+#### Infrastructure / KB references the agent will use
+
+**Canonical leaves (read-only references)**:
+- [`manuscript/ave-kb/common/divergence-test-substrate-map.md:428`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) + `:514` + `:554` (C5 row state)
+- [`manuscript/ave-kb/common/closure-roadmap.md:80`](../manuscript/ave-kb/common/closure-roadmap.md) (C5 entry)
+- [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md):86-92 (cosmic axis cite — preserved as superseded by empirical pin)
+- [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md) (E1b result — empirical axis source)
+- [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) (frozen methodology — Pantheon+ comparison axis specified)
+
+**Driver + result-doc artifacts**:
+- Existing C5 driver (Phase 1 + Phase 2): [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes)
+- E1b result JSON: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json)
+- Pantheon+ data: [`data/pantheon_plus/Pantheon+SH0ES.dat`](../data/pantheon_plus/Pantheon+SH0ES.dat) (cached)
+
+**Existing template patterns (study before writing)**:
+- C13a-GAL-ROT SPARC gold-standard public-data-ingest pattern (per closure-roadmap.md)
+- C8-BARYON-LADDER paper-pinned epistemological grade for literature axes
+- E1b C5 driver: full Planck/SMICA handling structure — pattern to mirror for Pantheon+
+
+**Sub-agents available**:
+- `ave-corpus-grep` (for cross-repo verification of prior bulk-flow work)
+- `ave-auditor` (for final adjudication)
+
+#### Phase plan
+
+**Phase 0 — Session setup (~15 min)**
+- Verify HEAD on `analysis/integration` matches handoff expectation (`813b9c3` or later)
+- Branch creation: `git checkout -b analysis/c5-pantheon-tightening`
+- Verify Pantheon+ data file readable + format understood (`head -5` + `wc -l`)
+- Verify E1b empirical axis (60.28°, 50.48°) loaded correctly from result JSON
+- Verify Grant's plumber-question adjudication present (heliocentric vs CMB-corrected velocities)
+- Verify all assumptions A1-A8 hold; amend briefing in epic doc if any drift detected
+
+**Phase 1 — Upfront skill discipline + corpus-grep (~20 min)**
+- `pre-test-physics-check` ✓ (DONE in briefing — Grant's adjudication carried forward)
+- `ave-prereg` → corpus-grep across all 10 AVE-staging repos for prior bulk-flow / peculiar-velocity / Hubble-flow-direction work
+- `ave-canonical-leaf-pull` → data-fitting / propagation-direction canonical leaves
+- `verify-before-cite` → confirm E1b axis + Whitford σ + Pantheon+ catalog refs
+
+**Phase 2 — Bulk-flow estimator design + pre-registration (~30 min)**
+- Document the bulk-flow estimator methodology (ML-fit class chosen per A4)
+- Define AVE-substrate prior (forward-prediction, NOT fit-to-target)
+- Pre-register acceptance criteria (A/C/D-sustained/E per A8)
+- Pre-register σ_Hubble target precision thresholds (<15° decisive; [15°, 25°] marginal; ≥25° sustained-D)
+- Write pre-registration doc at `research/2026-05-19_c5-pantheon-tightening-prereg.md` BEFORE writing any estimator code
+
+**Phase 3 — Implementation (~60-90 min)**
+- Implement bulk-flow estimator script
+- Run on Pantheon+ DR1 sample (z<0.1 subset)
+- Extract bulk-flow direction (l, b) + σ
+- Recompute CMB-Hubble separation σ using new σ_Hubble
+- Apply `ave-driver-script-honesty` check before running (four-discriminator)
+- Apply `ave-canonical-source` check on any constants (H_0, c, etc.)
+
+**Phase 4 — Result interpretation (~30 min)**
+- Compare to E1b result (separation in degrees; new σ_Hubble)
+- Apply `ave-discrimination-check` (is the outcome AVE-distinct from SM null?)
+- Apply `ave-evidence-framing-discipline` (precise language; no "tightens significantly" without explicit Δσ numbers)
+- Determine outcome A / C / D-sustained / E per A8
+
+**Phase 5 — Documentation + audit (~30 min)**
+- Result doc: `research/2026-05-19_c5-pantheon-tightening-result.md`
+- Update C5 row in `divergence-test-substrate-map.md` (3 line groups: 428, 514, 554)
+- Update closure-roadmap C5 entry at `closure-roadmap.md:80` (append new entry below existing 2026-05-19 entry, OR amend existing if outcome supersedes)
+- Update `_orchestration/section-e-cascade.md` Phase E1b-prime status → CLOSED with outcome summary + merge commit ref (orchestration session will fill the merge commit hash post-merge)
+- Spawn `ave-auditor` for final adjudication; record verdict
+- Commit + push branch (do NOT merge)
+
+#### Adjudication criteria (pre-registered, single-table)
+
+| Outcome | σ_Hubble | CMB-Hubble sep | Action |
+|---|---|---|---|
+| **A — PASS (tension)** | < 15° | > 3σ separation from null | C5 row → PASS; E1c UNBLOCKS |
+| **C — NULL (alignment)** | < 15° | < 3σ separation from null | C5 row → NULL; E1c needs alternative path |
+| **D-sustained** | ≥ 25° | data still insufficient | C5 row → D; queue SDSS DR17 session |
+| **Marginal D** | 15-25° | improved but not decisive | C5 row → D with refined-bounds note; queue joint constraint session |
+| **E — methodology** | N/A | estimator fails or surfaces structural issue | Surface to Grant; pause before retry |
+
+#### Verification at session start (Phase 0 checklist)
+
+The implementor MUST verify before any code:
+
+1. `git -C /Users/grantlindblom/AVE-staging/AVE-Core log analysis/integration -1 --oneline` matches expected HEAD (`813b9c3` or later)
+2. `wc -l /Users/grantlindblom/AVE-staging/AVE-Core/data/pantheon_plus/Pantheon+SH0ES.dat` returns ~1700+ rows
+3. `head -5 /Users/grantlindblom/AVE-staging/AVE-Core/data/pantheon_plus/Pantheon+SH0ES.dat` returns sensible SN data with recognizable Pantheon+ columns
+4. `python /Users/grantlindblom/AVE-staging/AVE-Core/src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py --help` exits cleanly (or shows expected usage)
+5. C5 row state in matrix matches handoff: `grep -A2 "C5-CMB-AXIS.*OUTCOME D" manuscript/ave-kb/common/divergence-test-substrate-map.md` returns the D state
+6. Grant's plumber-question adjudication is present in this briefing (heliocentric vs CMB-corrected) — if NOT present, halt and ping Grant before any work
+
+#### Provenance
+
+Briefing drafted 2026-05-19 EOD by orchestration session immediately after `_orchestration/` promotion (commit `8773db0`) + Pantheon+ data availability confirmation (`data/pantheon_plus/Pantheon+SH0ES.dat` exists). Mirrors E1a/E1b handoff template structure. The empirical-axis reference (60.28°, 50.48°) comes from E1b commit `813624b` on the merged `analysis/c5-cmb-axis-driver` branch (now audit-tagged at `audit/2026-05-19_c5-cmb-axis-driver`). The plumber-physical question is the load-bearing pre-execution adjudication that must be answered before the implementor commits to a methodology direction.
 
 ### Phase E1c (DEFERRED) — Route 3 framework-commitment activation
 
