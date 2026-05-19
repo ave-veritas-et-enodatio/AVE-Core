@@ -13,7 +13,8 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Epic | Doc | Status | Last phase landed |
 |---|---|---|---|
 | Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE | E1b CLOSED 2026-05-19 (`54f0698`); E1b-prime PENDING |
-| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | ACTIVE — implementor kickoff pending | Scope-C adjudicated 2026-05-19 EOD; Phases 0-5 locked |
+| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | IN-FLIGHT — merge HELD | Phases 1-3+5 landed on branch `analysis/cosmic-axis-glossary`; Phase 4 (H_∞ hygiene) DEFERRED to h-infinity-derivation-audit epic |
+| H_∞ derivation audit | [`h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | ACTIVE — implementor kickoff pending | Spawned from cosmic-axis-glossary Phase 4 Class-A halt. Math audit on H_∞ ↔ G derivation circularity. Single research doc deliverable. |
 
 ## Queued epics (not yet kicked off — would create new docs when activated)
 
@@ -65,7 +66,8 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Path | Purpose |
 |---|---|
 | [`_orchestration/section-e-cascade.md`](section-e-cascade.md) | Active Section E epic |
-| [`_orchestration/cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Queued cosmic-axis glossary epic (PENDING-SCOPING) |
+| [`_orchestration/cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Cosmic-axis glossary epic (IN-FLIGHT, merge HELD) |
+| [`_orchestration/h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | H_∞ derivation audit epic (ACTIVE) |
 | [`_orchestration/README.md`](README.md) | Convention doc for this directory |
 | [`CLAUDE.md`](../CLAUDE.md) | AVE-Core agent orientation (replaces atopile pollution as of 2026-05-19 EOD) |
 | [`manuscript/ave-kb/CLAUDE.md`](../manuscript/ave-kb/CLAUDE.md) | Cross-cutting KB invariants |
