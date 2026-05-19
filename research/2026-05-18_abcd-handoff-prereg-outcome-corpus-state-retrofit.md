@@ -1,7 +1,21 @@
 # Prereg Outcome + Corpus-State Retrofit — 2026-05-18 ABCD Eigensolver Handoff Retired
 
+> # ⚠️ v2 ADDENDUM 2026-05-19 — §3 Options STALE; see [v2 addendum at bottom](#v2-addendum-2026-05-19----3-options-retired-l3-branch-already-closed)
+>
+> §3 Options A/B/C/D of this doc were themselves stale relative to HEAD. Grant's "proceed with A" + a follow-up `ave-prereg` corpus-grep surfaced that:
+> - **Option A** (Cos-block shift-invert at sigma=ω_C²): ALREADY DONE at `src/scripts/vol_1_foundations/r7_cos_block_shift_invert.py` — Mode III on all 4 seeds at 1.04-2.00% rel_diff
+> - **Option B** (larger-N sweep): ALREADY DONE at `r7_cos_block_n64_topology.py` — Mode III + BULK mode (shell_fraction 1.5%)
+> - **Options C/D** (hybrid V≠0 ∧ ω≠0 / reframe): ALREADY ADDRESSED by path α v1/v2/v3 → all Mode III; closed by [doc 79 v5.2](_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md) Three-Layer Convergent Refutation (2026-04-29)
+> - **Grant adjudicated Framework Decision (ii)** per [doc 98](_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md) on 2026-04-30: mass spectrum / pair creation is the active track; L3 electron-modeling branch closed.
+>
+> This doc's body below remains accurate for the ABCD-handoff retirement (§1-§2 + §4) but §3 Options A-D are retired as stale. **Same failure mode as the original handoff**: citing static research-doc state ("doc 74 §4.5 What stays open") as if it were dynamic-current-state, when the corpus had closed those items in docs 75-99 over the subsequent ~3 weeks.
+>
+> Meta-pattern: this is the SECOND time in the same session that `ave-prereg` caught a methodology proposal as already-closed. The discipline is working. Skill-extension proposal in v2 addendum §M.
+>
+> ---
+
 **Date drafted**: 2026-05-18 night (post-handoff, post-review-of-review)
-**Status**: ACTIVE — retires `2026-05-18_abcd-eigensolver-workstream-handoff.md`; partially retrofits `2026-05-18_q-g47-interpretation-g-result.md`
+**Status**: ⚠️ §3 SUPERSEDED by v2 addendum 2026-05-19; §1-§2 + §4 still accurate for ABCD-handoff retirement
 **Author**: AVE implementer lane, post-Grant "proceed full skills ahead" greenlight
 **Trigger**: review-of-review of the 2026-05-18 ABCD handoff identified coordinate-system conflation; `ave-prereg` corpus-grep then surfaced that the corpus-canonical replacement methodology was ALSO already-closed.
 
@@ -214,3 +228,143 @@ No code edits. No leaf-level canonical edits. No foreword edits. No L5-status ed
 **Pure-AVE-corpus rule** (per memory): all content above is pure physics. No external context.
 
 **Net effect**: ~2-4 hours of methodology-implementation work avoided by firing `ave-prereg` before Phase 1. The corpus-grep saved both the originally-proposed methodology AND the review's recommended replacement methodology from being re-implemented.
+
+---
+
+# v2 Addendum 2026-05-19 — §3 Options Retired; L3 Branch Already Closed
+
+**Status**: corrects this doc's §3 Options A/B/C/D framing. The body above retires the ABCD handoff correctly; the forward-looking §3 was itself stale.
+
+## v2.0 — What happened
+
+Grant said "proceed with A" (Option A from §3 above: Cos-block comprehensive shift-invert at sigma=ω_C²). Per discipline, `ave-prereg` fired before any code, dispatched `ave-corpus-grep`. The corpus-grep returned: **Option A is already done.** Plus B is also done. Plus C and D are addressed. Plus the entire L3 electron-modeling branch closed at [doc 79 v5.2](_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md) on 2026-04-29 with three-layer convergent refutation, and Grant adjudicated [Framework Decision (ii)](_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md) (mass spectrum / pair creation) on 2026-04-30.
+
+The §3 Options came from citing [doc 74 §4.5 "What stays open"](_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md) as if it were current state. But doc 74 was written ~2026-04-26; over the subsequent ~3 weeks the corpus closed all four items via docs 75 → 99. This is the same failure mode the body of this retrofit doc was retiring for the ABCD handoff — citing a dated doc's "open" list without verifying current state.
+
+## v2.1 — Verified current state (per `verify-before-cite` discipline)
+
+### Option A — N=32 Cos-block shift-invert: DONE Mode III
+
+[`src/scripts/vol_1_foundations/r7_cos_block_shift_invert.py`](src/scripts/vol_1_foundations/r7_cos_block_shift_invert.py) exists; [results JSON](src/scripts/vol_1_foundations/r7_cos_block_shift_invert_results.json) shows:
+- sigma = 1.0 (ω_C² in natural units)
+- N = 32
+- Tolerance = α ≈ 0.00730
+- All 4 seeds completed: GT_corpus (rel_diff 2.00%), F17K_cos_endpoint (1.04%), F17K_s11_endpoint (1.98%), vacuum_control (1.58%)
+- `pass_seeds: []` — Mode III across all 4
+- Per-seed wall time: 626-794s; per-seed gmres call count: 119-153
+
+Reframes doc 74 §4.2's original "Cos-block Mode III for bottom-100 only" caveat: per [doc 74_:186](_archive/L3_electron_soliton/74_r7_k4tlm_lctank_run_result.md:186) verbatim, *"The earlier 71.85% rel_diff in SA-mode was an incomplete-coverage artifact... The actual gap is ~1-2%, not 72%."*
+
+### Option B — N=64 sensitivity sweep: DONE Mode III + BULK
+
+[`src/scripts/vol_1_foundations/r7_cos_block_n64_topology.py`](src/scripts/vol_1_foundations/r7_cos_block_n64_topology.py) exists; [results JSON](src/scripts/vol_1_foundations/r7_cos_block_n64_topology_results.json) shows:
+- N = 64, R_anchor = 10.0, r_minor = 3.82 (Golden Torus)
+- closest_eigenvalue = 1.0281; closest_rel_diff = 1.39%
+- frequency_pass: false
+- **shell_fraction = 0.0151** vs Mode-I threshold 0.8 — **BULK mode**, NOT (2,3) localized
+- bulk_uniform_expectation = 0.00575
+- verdict: *"MODE III — Cosserat sector also empty. No eigenvalue within α tolerance of ω_C². V-pressure AND ε-strain/κ-curvature both empty. Round 8 Φ_link sector becomes cleanest gap."*
+
+Commits: `b5ecc89` ("Mode III at N=32 FALSIFIED as finite-N artifact; Mode I CANDIDATE at N=64 V-block GT_corpus") then `b8d97d9` ("topology check FALSIFIES Mode I candidate — N=64 V-block GT_corpus is BULK mode (shell fraction 1.13%, not (2,3) localized); third headline flip; Round 8 questions restored").
+
+### Options C + D — addressed by path α v1/v2/v3 + doc 79 closure
+
+Per [doc 79 v5.1](_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md) (2026-04-28) the cumulative empirical state is **10 pre-registered tests at engine-representable corpus GT, all Mode III**:
+
+1. R7.1 V-block N=32 — Mode III
+2. R7.1 V-block N=64 — Mode III
+3. R7.1 Cos-block N=32 — Mode III (Option A above)
+4. R7.1 Cos-block N=64 — Mode III (Option B above)
+5. R7.2 G-13 pair injection — Mode III
+6. Test B v2 8-port spatial 0.5·V_SNAP — Mode III
+7. Test B v3 8-port spatial 0.85·V_SNAP — Mode III
+8. Path α v1 (V_inc/V_ref bond-pair) — Mode III
+9. Path α v2 (Φ_link/ω_axial bond-pair) — Mode III (Option C: hybrid V≠0 ∧ ω≠0 / Φ_link sector)
+10. Path α v3 (3D-aligned ω-vector, 5 sampler views) — Mode III + **partial positive on chirality** (100% CCW consensus per view (c) Φ_link, |ω|)
+
+Doc 79 v5.1 closes Mode III canonical across V_inc/V_ref + Φ_link sectors + auditor (δ) 3D-axis interpretation.
+
+### v5.2 Three-Layer Convergent Refutation (2026-04-29)
+
+Per [doc 79 v5.2 second addendum](_archive/L3_electron_soliton/79_l3_branch_closure_synthesis.md) lines 663-712:
+
+| Layer | Test | Finding | Reference |
+|---|---|---|---|
+| 1. Substrate-geometric | Discrete Beltrami eigenvalue at chair-ring | λ_C = 2π·ℓ_node fits at non-integer wavenumber on 6-bond loop; Nyquist closure violated by 65% | doc 92 |
+| 2. Engine-architectural | LC-coupled re-run + code-grep | A28 architectural choice suppresses V↔B direct coupling; Op14 z_local substitutes; Faraday-law BEMF not enforced | doc 94 §13 + doc 95 §4 |
+| 3. Standard-physics-external | Far-field E and B characterization | Mode II partial (3/5) with Coulomb 1/r² AND dipole 1/r³ slope criteria FAILing; 1/r intermediate-regime decay; multipole content at engine noise floor | doc 95 |
+
+Closure shape: *"corpus electron substrate is elsewhere (sub-ℓ_node FDTD per (i-b) original handoff, OR a different scale entirely)."*
+
+### Grant Framework Decision (ii) — 2026-04-30
+
+Per [doc 98_:5](_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md:5) verbatim: *"Per Grant's direction 2026-04-30: '(ii) works' — Framework Decision (ii) activated as next research track."*
+
+Three-phase activation plan in doc 98 §3:
+- Phase 1 (~1-2 days): baryon ladder extension beyond c=13
+- Phase 2 (~1 week): W/Z/Higgs eigenvalue solver
+- Phase 3 (~weeks): lepton/neutrino mass-spectrum solver + PMNS
+
+Empirical anchors already in place per doc 98 §0:
+- Proton mass: 0.002% accuracy via BARYON_LADDER + Faddeev-Skyrme
+- Baryon ladder c=5,7,9,11,13: ±2.4% of PDG
+- Atomic orbitals Z=1-10: ±5.5% (H at +0.06%, O at -0.14%)
+
+## v2.2 — Action: retire §3 Options; surface actual state to Grant
+
+**No code work to do.** The work this doc's §3 recommended is already done; the L3 electron-modeling branch is closed; the active track is Framework Decision (ii) per doc 98.
+
+What's actually pending (per doc 79 v5.2 §711 + doc 98 §3 activation plan, ~2-3 weeks ago) — but Grant should confirm current state:
+
+| Question | Doc-99 era state |
+|---|---|
+| Phase 1 baryon ladder extension (c=15, 17, …) | Status unverified — not searched this corpus-grep |
+| Phase 2 W/Z/Higgs solver | Status unverified |
+| Phase 3 lepton/neutrino solver | Status unverified |
+| Q-G47 50% Λ_total gap (the original concern that started this whole chain) | Reframed by doc 79 v5.2 as "corpus electron substrate is elsewhere"; not a geometric-realization gap |
+
+## v2.3 — Walk-back propagation needed
+
+The 2026-05-18 BRANCH STATE doc + the (now-retired) ABCD handoff + my v1 retrofit doc all operated on a stale L3 picture. The corpus had moved 21+ docs forward (doc 74 → doc 99+) but the BRANCH STATE 2b paragraph still referenced doc 74-era resolution paths.
+
+Files this v2 retrofit propagates to:
+
+| File | Edit |
+|---|---|
+| this doc (§3 banner + v2 addendum) | DONE inline above |
+| `research/BRANCH_STATE_2026-05-18_analysis-divergence-test-substrate-map.md` weak-spot 2b | Update to cite doc 79 v5.2 + doc 98 Grant adjudication instead of doc 74 §4.5 |
+
+NOT changed:
+- The original retired ABCD handoff — still correctly retired
+- The 2026-05-18 result doc banner — still correctly retired
+- Any leaf-canonical content — none touched
+
+## v2.M — Meta-pattern: `verify-before-cite` failure axis on "what's open"
+
+This is the SECOND time in the same session that `ave-prereg` caught a methodology proposal where the corpus-grep returned "already done":
+
+1. **First time**: original ABCD handoff (commit `cbf3373`) proposed methodology equivalent to F17-K Phase 5; corpus had F17-K closed at commit `4c9fbea`. Caught by review-of-review + this doc's v1.
+2. **Second time**: this doc's v1 §3 proposed Options A/B/C/D citing doc 74 §4.5 "What stays open"; corpus had closed all four via docs 75-99. Caught by this v2 addendum.
+
+Both failures share the same axis: **citing a dated research doc's "open items" list as if it were dynamic-current-state**, when the corpus has subsequent docs closing those items.
+
+`verify-before-cite` skill currently mandates verbatim-quote verification. It does NOT currently mandate **status-claim verification** — that "doc X says Y is open" requires checking whether Y is still open at HEAD (via git log on related code/docs since doc X's date), not just verifying the quote.
+
+Proposed skill extension (queued, not landed here): `verify-before-cite` should add a step for citations of the form "X is open / X is pending / X is the next step / Y stays open" — these need TWO verifications: (1) the quote is verbatim, (2) the status is still current at HEAD. Without (2), the citation is verbatim-correct but load-bearingly-wrong.
+
+This pattern is structural to AVE corpus citation work because research-doc state is dynamic (~1-3 days/doc cadence at active branches) and citations naturally form chains across docs that the agent treats as time-invariant.
+
+## v2.N — Provenance
+
+**Drafted under**: Grant directive "proceed with A" (Option A from §3). `ave-prereg` fired before any code; `ave-corpus-grep` agent returned the already-done finding within ~2 minutes.
+
+**Verified citations** (per `verify-before-cite`):
+- `r7_cos_block_shift_invert.py` file exists at HEAD; results JSON readable; all numerical claims verbatim from JSON read
+- `r7_cos_block_n64_topology.py` file exists; results JSON readable; same
+- Commits `b5ecc89`, `b8d97d9`, `88ec7c3`, `baadc33` exist via `git log --all --oneline`
+- Doc 79 v5.1 + v5.2 text verified verbatim at quoted line ranges
+- Doc 98 line 5 Grant directive verbatim verified
+
+**Net effect**: ~2-4 hours of work avoided again. The skill-discipline pattern is robust under stale-state pressure.
+
+**Pure-AVE-corpus rule** (per memory): pure physics throughout; no external context.
