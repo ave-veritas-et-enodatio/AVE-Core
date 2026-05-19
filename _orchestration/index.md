@@ -1,8 +1,9 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-19 EOD
-**Current HEAD on `analysis/integration`**: `54f0698`
-**Audit tag count**: 18 (`git tag -l "audit/*" | wc -l`)
+**Last updated**: 2026-05-19 EOD (post orchestration-tracking-promoted + claude-md-atopile-cleanup commits)
+**Current HEAD on `analysis/integration`**: `720a7df`
+**E1b cascade-anchor commit**: `54f0698` (Section E cascade state anchored here; later commits are meta-work)
+**Audit tag count**: 20 (`git tag -l "audit/*" | wc -l`)
 **Active branches**: 6 (`analysis/integration`, `research/l3-electron-soliton`, `main`, `analysis/c8-baryon-ladder-pdg-anchor`, `benn/long-running`, `golden-torus-update`)
 
 This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic state lives in adjacent `<epic-slug>.md` files; this doc carries the priority ladder, open decisions, and active-epic table.
@@ -63,10 +64,11 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 |---|---|
 | [`_orchestration/section-e-cascade.md`](section-e-cascade.md) | Active Section E epic |
 | [`_orchestration/README.md`](README.md) | Convention doc for this directory |
+| [`CLAUDE.md`](../CLAUDE.md) | AVE-Core agent orientation (replaces atopile pollution as of 2026-05-19 EOD) |
 | [`manuscript/ave-kb/CLAUDE.md`](../manuscript/ave-kb/CLAUDE.md) | Cross-cutting KB invariants |
 | [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) | 33-row experimental-claim landscape |
 | [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) | Running changelog |
-| `git tag -l "audit/*"` | 18 immutable audit tags |
+| `git tag -l "audit/*"` | 20 immutable audit tags |
 | [`.agents/handoffs/`](../.agents/handoffs/) | Ephemeral scratch (gitignored; NOT canonical — see `_orchestration/` for tracked state) |
 
 ## Playbook for the next orchestration session
