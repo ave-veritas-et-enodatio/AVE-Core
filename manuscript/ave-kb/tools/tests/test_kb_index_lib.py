@@ -303,7 +303,7 @@ class TestDiscoverKb(unittest.TestCase):
         # The naive ``grep -c '<!-- id: '`` count is 200, but it includes one
         # placeholder ``<!-- id: clm-xxxxxx -->`` inside a fenced ``markdown`` code
         # block in the root ``claim-quality.md`` Quality Convention example.
-        # The library (like the existing check-claim-quality verifier) strips
+        # The library (like the existing verify-kb-metadata verifier) strips
         # code fences before extracting canonical IDs, so the real entry count
         # is 199.
         self.assertEqual(len(self.state.claim_entries), 199)

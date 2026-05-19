@@ -75,7 +75,7 @@ verify: verify-kb-metadata
 
 verify-kb-metadata:
 	@echo "Running KB claim-quality framework integrity check (read-only)..."
-	$(PYTHON) manuscript/ave-kb/tools/check-claim-quality.py
+	$(PYTHON) manuscript/ave-kb/tools/verify-kb-metadata.py
 
 refresh-kb-metadata:
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."

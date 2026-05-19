@@ -50,9 +50,6 @@ Fourteen checks, all hard fail-loud:
 
 Future / queued (not implemented):
 
-* Rename this script to ``check-kb-metadata.py`` — it verifies the whole
-  KB metadata spine, not only claim-quality, so the name should match the
-  ``verify-kb-metadata`` make target. Update the Makefile recipe to match.
 * A relative-link integrity check — verify that each Markdown
   cross-reference in a leaf resolves to an existing file, and surface dead
   *forward* links (a foundational common/ or vol1 leaf pointing to a
@@ -67,7 +64,7 @@ refresh-fixable failures are present, the report ends with a hint to run
 
 Run via::
 
-    ./.venv/bin/python manuscript/ave-kb/tools/check-claim-quality.py
+    ./.venv/bin/python manuscript/ave-kb/tools/verify-kb-metadata.py
     make verify-kb-metadata
 """
 

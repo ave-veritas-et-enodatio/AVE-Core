@@ -1,4 +1,4 @@
-"""Tests for the extended ``check-claim-quality.py`` verifier — index checks.
+"""Tests for the extended ``verify-kb-metadata.py`` verifier — index checks.
 
 Exercises the three new checks (well-formed, freshness, referential
 integrity) by mutating the canonical ``.index/*.jsonl`` files under
@@ -33,7 +33,7 @@ if str(_TOOLS_DIR) not in sys.path:
 _REPO_ROOT = _TOOLS_DIR.parents[2]
 _KB_ROOT = _REPO_ROOT / "manuscript" / "ave-kb"
 _INDEX_DIR = _KB_ROOT / ".index"
-_CHECK_SCRIPT = _TOOLS_DIR / "check-claim-quality.py"
+_CHECK_SCRIPT = _TOOLS_DIR / "verify-kb-metadata.py"
 _REFRESH_SCRIPT = _TOOLS_DIR / "refresh-kb-metadata.py"
 
 
@@ -447,16 +447,16 @@ class TestQualityBlockIntegrity(unittest.TestCase):
 
 
 def _load_checker_module():
-    """Import check-claim-quality.py as a module (its name has a hyphen)."""
+    """Import verify-kb-metadata.py as a module (its name has a hyphen)."""
     import importlib.util
 
-    if "_check_claim_quality_mod" in sys.modules:
-        return sys.modules["_check_claim_quality_mod"]
+    if "_verify_kb_metadata_mod" in sys.modules:
+        return sys.modules["_verify_kb_metadata_mod"]
     spec = importlib.util.spec_from_file_location(
-        "_check_claim_quality_mod", str(_CHECK_SCRIPT)
+        "_verify_kb_metadata_mod", str(_CHECK_SCRIPT)
     )
     mod = importlib.util.module_from_spec(spec)
-    sys.modules["_check_claim_quality_mod"] = mod
+    sys.modules["_verify_kb_metadata_mod"] = mod
     spec.loader.exec_module(mod)
     return mod
 

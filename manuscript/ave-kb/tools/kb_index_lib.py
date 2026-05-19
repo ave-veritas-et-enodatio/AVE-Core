@@ -3,7 +3,7 @@
 Pure-function parsing and record building for the JSONL files documented in
 ``manuscript/ave-kb/.index/SCHEMA.md``. This module is the canonical parser for
 KB frontmatter, claim-quality entries, and leaf metadata; downstream tools
-(``refresh-kb-metadata``, ``check-claim-quality``) will be unified onto it in
+(``refresh-kb-metadata``, ``verify-kb-metadata``) will be unified onto it in
 later phases. The library is side-effect-free with respect to KB content; the
 only file I/O it performs is reading canonical sources via pathlib and writing
 JSONL through ``write_jsonl`` for callers that own a destination path.
@@ -162,7 +162,7 @@ def parse_frontmatter(text: str) -> dict | None:
     """Return parsed kb-frontmatter fields, or None if no block found.
 
     Same semantics as the existing parsers in refresh-kb-metadata.py and
-    check-claim-quality.py: ID-lists return as ``list[str]``, quoted strings
+    verify-kb-metadata.py: ID-lists return as ``list[str]``, quoted strings
     are unquoted, booleans become Python bool, everything else stays a string.
     """
     m = _FRONTMATTER_RE.search(text)
@@ -838,7 +838,7 @@ def derive_build_band(solidity: float | None) -> str:
 # the hand-authored ``confidence`` values and the claim depends-on graph, not
 # hand-maintained. The build-status phrase and the depends-on ``(solidity X)``
 # annotations are likewise derived. ``refresh-kb-metadata`` owns writing all
-# three back; ``check-claim-quality`` verifies the on-disk values match.
+# three back; ``verify-kb-metadata`` verifies the on-disk values match.
 
 # Build-status phrase bands (mapped from solidity), mirroring the
 # "Build-status legend" table in the root claim-quality.md preamble. The
