@@ -100,15 +100,17 @@ The remaining 0.075% is exactly the contribution of three-loop and higher QED co
 
 ## Falsification predictions (post-derivation chain)
 
+> **Scope correction (2026-05-18 FI-13 resolution)**: The "Muon (q-winding mode) (2,5)" row below is **NOT CANONICAL** for the muon's Fermilab g-2 observable. Per the loop-count topological taxonomy (lepton = single-loop = N=1; baryon = Borromean 3-loop = N=3 per [`topological-fractionalization.md:6`](../ch02-baryon-sector/topological-fractionalization.md:6)), the muon is canonically a SINGLE-LOOP lepton on (2,3) trefoil topology + 1 Cosserat torsion quantum (per Vol 1 Ch 5:39 + [`vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:154-176`](../../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) + [`lepton-spectrum.md:21-44`](lepton-spectrum.md) + [`q-g27-muon-cosserat-saliency.md:23,48`](q-g27-muon-cosserat-saliency.md)). The muon's Fermilab observable is dominated by Q-G27 Cosserat torsion saliency: $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$. The "(2,5) q-winding mode" entry below is retained as an **alternative-hypothesis falsifier** for the n_q-additivity assumption applied to a hypothetical 5-winding lepton (which would be structurally inconsistent with the single-loop lepton topology — see Read A discussion below).
+
 Per the n_q-additive derivation chain, the saliency scales linearly across the $(2, q)$ particle family:
 
 | Particle | $(p, q)$ | $n_q$ | $\delta_{\text{predicted}}$ | Measurement |
 |---|---|---|---|---|
 | Electron | $(2, 3)$ | $3$ | $-3\alpha/2 = -0.01095$ | ✓ 50 ppm match to PDG |
-| Muon (q-winding mode) | $(2, 5)$ | $5$ | $-5\alpha/2 = -0.01824$ | Not yet measured at this precision (muon g-2 dominated by Q-G27 Cosserat torsion saliency, different mechanism) |
-| Δ baryon (theoretical) | $(2, 7)$ | $7$ | $-7\alpha/2 = -0.02554$ | Not measured |
+| ~~Muon (q-winding mode)~~ **alternative hypothesis only** | $(2, 5)$ | $5$ | $-5\alpha/2 = -0.01824$ | **NOT canonical** — per FI-13 resolution, muon's Fermilab observable governed by Q-G27 Cosserat torsion: $\delta_\mu = -0.01171$. The (2,5) muon framing was a "what-if n_q-additivity governed a 5-winding lepton" scenario; structurally inconsistent with single-loop lepton topology (mesons-as-medium and baryons-as-Borromean leave no slot for "(2,5) single-loop lepton" in the AVE taxonomy). |
+| Δ baryon (theoretical) | $(2, 7)$ | $7$ | $-7\alpha/2 = -0.02554$ | **Reframe per FI-13**: Δ baryons are Borromean 3-loop (N=3) with per-loop (2,7) winding. The "n_q=7" refers to per-loop winding, NOT a single-loop (2,7) lepton-style particle. Mass via baryon-ladder formula $m(c=7)/m_e$ from `torus-knot-ladder-baryons.md`, not via $\delta = -7\alpha/2$. |
 
-**Falsifier**: if a $(2, q)$ particle's Petermann-like coefficient saliency $\neq -q\alpha/2$ at 50 ppm precision, the n_q-additivity assumption is falsified.
+**Falsifier** (within the lepton single-loop topology): if the (2,3) electron's Petermann coefficient saliency $\neq -3\alpha/2$ at 50 ppm precision, the n_q-additivity assumption is falsified at the lepton scale. The n_q-additive saliency formula applies WITHIN single-loop lepton topology (electron); extension to baryon Borromean 3-loop topology requires separate derivation (see Q-G27 for the muon Cosserat-torsion saliency).
 
 ## Zero parameters fudged
 

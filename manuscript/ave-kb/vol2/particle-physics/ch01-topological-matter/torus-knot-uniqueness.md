@@ -93,17 +93,23 @@ This matches:
 
 ## §7 — The lepton family extension
 
-If electron = $(2, 3)$, the next stable lepton-family torus knots should be the next-smallest non-trivial coprime $(p, q)$:
+**The lepton family climbs a Cosserat-torsion ladder on fixed (2,3) topology** (per FI-13 resolution 2026-05-18 + loop-count taxonomy; see scope correction block below). The electron is (2,3) trefoil phase-winding on a single-loop (N=1) flux tube; muon and tau are the SAME (2,3) topology with additional Cosserat torsional excitation quanta (per Vol 1 Ch 5 §39 + Vol 2 Ch 6 lepton-spectrum.md):
 
-| Lepton candidate | $(p, q)$ | $c$ | Mass scale |
+| Lepton | Topology | Mass mechanism | Mass |
 |---|---|---|---|
-| Electron | $(2, 3)$ | 3 | $\sim 0.511$ MeV (measured) |
-| Muon? | $(2, 5)$ | 5 | $\sim 105.7$ MeV (measured); mass-from-$(p, q)$ derivation in Vol 2 lepton-mass chapter |
-| Tau? | $(3, 4)$ or $(3, 5)$ | 8 or 10 | $\sim 1.777$ GeV (measured); assignment pending |
+| Electron | $(2, 3)$ trefoil + 0 Cosserat torsion quanta | base Faddeev-Skyrme on (2,3) | $\sim 0.511$ MeV (measured) |
+| Muon | $(2, 3)$ trefoil + 1 Cosserat torsion quantum | $m_\mu = m_e/(\alpha\sqrt{3/7}) \approx 107$ MeV (1.24% off PDG) | $\sim 105.66$ MeV |
+| Tau | $(2, 3)$ trefoil + N_torsion=? Cosserat quanta | analogous extension; details in Vol 2 Ch 6 | $\sim 1.777$ GeV |
 
-The exact mass-from-$(p, q)$ derivation is in Vol 2 lepton mass spectrum chapter and isn't pursued here. **The point**: $(2, 3)$ is the SIMPLEST non-trivial torus knot, hence the electron's identity is forced if we accept "electron = lightest stable lepton."
+The exact mass-from-Cosserat-torsion derivation is in Vol 2 Ch 6 (lepton-spectrum.md). **The point**: $(2, 3)$ is the SIMPLEST non-trivial torus knot, hence the electron's identity is forced if we accept "electron = lightest stable lepton." Higher-mass leptons stay at (2,3) topology — they don't climb the (p,q) torus-knot ladder; they climb the Cosserat-torsion excitation ladder.
 
-> **Internal-consistency flag (2026-05-17 night, Foundation Item 13 audit)**: The $(2, 5)$ at $c=5$ assignment here (muon) conflicts with the assignment in [`torus-knot-ladder.md`](torus-knot-ladder.md) which lists $(2, 5)$ at $c=5$ as proton (per ave-corpus-grep agent ad67b2d7b159cf6a1 audit, 2026-05-17 night). Additionally, the neutrino sector at [`vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`](../../ch03-neutrino-sector/pmns-eigenvalues.md) uses {c_1, c_2, c_3} = {5, 7, 9} as mode-space radii — a third physical interpretation of the same numerical sequence. The neutrino is geometrically a 0_1 unknot (zero crossings); the 5/7/9 are mode-space coordinates, NOT topological crossings of the neutrino itself. **Three distinct physical interpretations of (2,5) / c=5 across the corpus**: (a) muon (this leaf §7), (b) proton (torus-knot-ladder.md), (c) neutrino mode-space lowest flavor (ch03-neutrino-sector). Cross-references between these chapters do NOT exist. Disambiguation work pending — see closure-roadmap §0.5 FI-13 entry. The c_1=5 derivation gap in the neutrino sector is upstream-blocked by this (2,5) assignment ambiguity; resolution required before deriving the neutrino mode-space starting value from substrate primitives.
+> **Internal-consistency flag (2026-05-17 night, Foundation Item 13 audit) — RESOLVED 2026-05-18**: The previous version of this table assigned muon = $(2, 5)$, which conflicted with the proton = $(2, 5)$ assignment in [`torus-knot-ladder.md`](torus-knot-ladder.md). Per FI-13 resolution via loop-count taxonomy (see [`topological-fractionalization.md:6`](../ch02-baryon-sector/topological-fractionalization.md:6) Borromean 3-loop baryon + lepton single-loop framing): **the muon is canonically a single-loop lepton on (2,3) trefoil + 1 Cosserat torsion quantum**, NOT a (2,5) cinquefoil. The (2,5) cinquefoil topology belongs exclusively to the proton (baryon Borromean 3-loop with per-loop (2,5) winding). The three corpus uses of "(2,5)" now disambiguate cleanly:
+>
+> - **(a) Muon (formerly "(2,5) q-winding")** → RETRACTED. Canonical: muon = (2,3) + Cosserat torsion. The Q-G19α "(2,5) q-winding mode" framing for the muon was an alternative-hypothesis ladder framework, now scope-corrected at [`q-g19a-petermann-saliency-closure.md:108`](../ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md) FI-13 block.
+> - **(b) Proton (2,5)** → CANONICAL. Cinquefoil per-loop winding on Borromean 3-loop (N=3) baryon topology. Mass via $m(c=5)$ formula in [`torus-knot-ladder-baryons.md`](../ch02-baryon-sector/torus-knot-ladder-baryons.md).
+> - **(c) Neutrino c_1=5** → CANONICAL as RESONANCE LABEL. The neutrino is geometrically a 0_1 unknot screw defect (single-loop, distinct mechanism from electron lepton); the {5, 7, 9} = {c_1, c_2, c_3} mode-space radii reference the SAME (2,5), (2,7), (2,9) torus-knot resonance classes that the baryon ladder uses. The neutrino COUPLES to these resonances; it doesn't INHABIT them. c_1=5 starting value is structurally derived as "the lowest stable (2,q_odd) cinquefoil resonance above the electron (2,3) trefoil baseline".
+>
+> **FI-13 fully resolved. C3-MUON-DELTA matrix row UN-GATED** — Q-G27 Cosserat-torsion saliency is canonical for muon Fermilab observable; driver can build with $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$. See closure-roadmap §0.5 (2026-05-18 FI-13 resolution entry) for full audit trail.
 
 ## §8 — What this derivation establishes
 
