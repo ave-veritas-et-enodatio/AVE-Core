@@ -620,13 +620,28 @@ with CMB-induced thermal strain $\delta_{\text{strain}} \approx 2.225 \times 10^
 
 The Layer 2 identity $p_c = 8\pi\alpha$ and the Layer 3 EMT operating point are downstream algebraic consequences of this closure, not the closure mechanism. Given $\alpha$ derived above, the EMT quadratic then determines $z_0 \approx 51.25$ uniquely — a non-integer value that is generic for amorphous disordered networks (integer coordination is a crystalline feature, not an amorphous one).
 
-**$G$ is derived (not input).**
-Macroscopic gravity is the aggregate bulk modulus of $\sim\!10^{40}$ lattice
-links under mechanical tension. The universe naturally asymptotes to a
-steady-state horizon ($H_\infty$) where the thermodynamic latent heat of node
-generation balances the holographic thermal capacity of the expanding
-surface area. $G$ is the normalized scaling bound determined by this
-thermodynamic equilibrium.
+**$G$ closure is open work (per Chain B' showstoppers verdict 2026-05-19).**
+Macroscopic gravity is structurally the aggregate bulk modulus of
+$\sim\!10^{40}$ lattice links under mechanical tension, with the universe
+asymptoting to a steady-state horizon ($H_\infty$) at which the thermodynamic
+latent heat of node generation conceptually balances the holographic thermal
+capacity of the expanding surface area. This is the **qualitative mechanism**
+for what a substrate-local derivation of $G$ would look like; it is **not** a
+closed-form derivation. Corpus self-state: at Vol 3 Ch 1 the operational $G$
+derivation routes through the Machian-impedance integral $\xi =
+4\pi(R_H/\ell_{node})\alpha^{-2}$ with $R_H \equiv c/H_\infty$ substituted in,
+producing the consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2
+\alpha^2)$ — one algebraic constraint linking the pair $(G, H_\infty)$, not two
+independent emergence-class predictions (per the math audit on
+`analysis/h-infinity-derivation-audit` `f28a8b3` and Chain B' showstoppers
+research on `analysis/h-infinity-framing-forward`). The engine treats $G$ as
+Bounding Limit 3 (CODATA input, [`mathematical-closure.md:20`](mathematical-closure.md)) consistent with this status. Closing
+$G$ to a fully substrate-local derivation requires a closed-form Chain B'
+that derives $\Delta E_{\text{cryst}}$ and $\Gamma_{\text{cryst}}$ from
+$(\ell_{node}, \alpha)$ alone without routing through $R_H$ or $H_\infty$ —
+currently open work per [`closure-roadmap.md`](closure-roadmap.md) Tier 3
+"Chain B' independent G derivation" and the open-work statement at
+[`vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:103-111`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md).
 
 **$\ell_{node}$ is derived (not input).**
 The universe is a macroscopic **scale-invariant** fractal graph.

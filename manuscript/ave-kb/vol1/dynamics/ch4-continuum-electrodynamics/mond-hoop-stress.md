@@ -6,7 +6,7 @@
 
 Dark Matter is consistent with the network dynamics of a saturating $\mathcal{M}_{A}$ condensate. The phenomenological MOND acceleration threshold ($a_{0}$) corresponds to the fundamental Unruh-Hawking Drift of the expanding cosmic lattice.
 
-The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../ch8-alpha-golden-torus.md)). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to:
+The asymptotic Hubble constant $H_\infty$ enters this MOND derivation via the geometric consistency identity between $H_\infty$ and the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — $\alpha$ and $\ell_{node}$ closed in current corpus; $G$ taken as Bounding Limit 3 (CODATA input) since the substrate-local Chain B' derivation of $G$ from thermodynamic equilibrium between lattice-genesis latent heat and the expanding-horizon holographic radiative capacity remains qualitative only — see [Vol 3 Ch 1 §Asymptotic Hubble Constant](../../../vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md) for the corpus-honest framing of this relation as a geometric consistency identity, not an independent first-principles prediction, and the open Chain B' research agenda in [`closure-roadmap.md`](../../../common/closure-roadmap.md)). Evaluating the geometric consistency relation with CODATA $G$:
 
 > **[Resultbox]** *Asymptotic Hubble Constant*
 >

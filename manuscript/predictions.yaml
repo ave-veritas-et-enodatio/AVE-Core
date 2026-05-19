@@ -125,7 +125,7 @@ predictions:
 
   - id: P23
     name: "H∞ (Hubble asymptote)"
-    type: derived_prediction
+    type: consistency_check
     derivation_label: "sec:galactic_saturation"
     constants_py_symbol: "H_INFINITY"
     predicted_value: 2.246561628172611e-18
@@ -137,9 +137,22 @@ predictions:
     public_in_readme: true
     public_in_living_ref: true
     notes: |
-      H∞ = 28π m_e³ c G / (ℏ² α²). Engine stores s⁻¹; × 3.086e19 km/Mpc gives
-      69.32 km/s/Mpc. Sits between Planck (67.4) and SH0ES (73) — a priori
-      prediction that Hubble tension is a regime artifact.
+      H∞ = 28π m_e³ c G / (ℏ² α²). Geometric consistency identity that lands in
+      the Planck-SH0ES tension band (sits between Planck 67.4 and SH0ES 73;
+      within 1σ of TRGB 69.8). Structurally tied to G via the R_H ≡ c/H∞
+      substitution in the Machian-impedance integration that derives G in
+      Vol 3 Ch 1 (ξ = 4π(R_H/ℓ_node)α⁻²); the relation is one algebraic
+      constraint linking the (G, H∞) pair, not two independent predictions.
+      Inputs: m_e, c, ℏ, α, G — all CODATA-derived (G is Bounding Limit 3).
+      Vol 3 Ch 1 self-states this as "consistency proof... same geometric limit
+      from different topological reference frames." Promoting to an independent
+      emergence-class prediction requires a closed-form Chain B' derivation of
+      G from substrate-local thermodynamics (lattice tension, equipartition,
+      generation rate per node) that does not route through R_H or H∞;
+      currently open work per Chain B' showstoppers research
+      (research/2026-05-19_h-infinity-chain-b-prime-showstoppers.md verdict d)
+      + cosmological-constant-closure.md:103-111 + closure-roadmap Tier 3
+      "Three-route α/G/𝒥 consistency verification."
 
   - id: P47
     name: "α thermal running (δ_strain)"
