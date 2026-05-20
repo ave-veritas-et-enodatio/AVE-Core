@@ -55,6 +55,9 @@ data/pantheon_plus/*
 data/sdss_dr17/*
 !data/sdss_dr17/README.md
 !data/sdss_dr17/GalaxyZoo1_DR_table2.csv.gz
+!data/shamir_2022/
+data/shamir_2022/*
+!data/shamir_2022/README.md
 
 #.claude/memory/
 #.claude/agent-memory/
