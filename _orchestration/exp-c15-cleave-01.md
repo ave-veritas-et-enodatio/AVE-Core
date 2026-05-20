@@ -1,7 +1,7 @@
 # EXP-C15-CLEAVE-01: Femto-Coulomb Electrometer ($Q = \xi_{topo} \cdot x$)
 
 **Parent epic**: [`experimental-arc.md`](experimental-arc.md)
-**Status**: PHASE 0 — Scoping (KiCad design from KB spec required)
+**Status**: PHASE 0 — Scoping (KiCad design from KB spec required); **Framework-readiness audit ✓ NO DRIFT** ([`exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md), 2026-05-20 EOD+++)
 **Owner**: Core (no sibling-repo holder yet — candidate for new sub-repo if pursued seriously)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
 
@@ -155,3 +155,4 @@ No existing sibling-repo owner. Decision in Phase 0: candidate for new `AVE-CLEA
 ## Audit trail
 
 - 2026-05-20 — Sub-epic established from Phase 2 cascade-emphasis ranking (Σ=10, cascade SIZE winner — largest single-row cascade 6+ dependents). Phase 0 scoping decision pending.
+- 2026-05-20 EOD+++ — **Framework-readiness audit** landed at [`exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md). Five axes verified empirically: ξ_topo canonical 4.149×10⁻⁷ C/m (per `src/ave/core/constants.py:205`), Ax2 [Q]≡[L] canonical statement preserved (per `ave-kb/CLAUDE.md` INVARIANT-S2 Axiom 2), 6 cascade dependents still load-bearing (B4 + C9 + C16 + B5/B6/B7), KB-leaf 41.5 mV/μm prediction reproduces arithmetically from current canonical constants (computed: 41.490 mV at 10 pF on 1 μm displacement), recent corpus drift spot-check (A-034 + Class E + temporal regime + FI-13 + C8 + Q-G47 + C1 + C11 + A1-HOPF) → all orthogonal to C15 axes. Q-G47 Sessions 19 ξ_K1/K2 vs ξ_topo identified as naming-collision (different ξ; not a drift). **Verdict 🟢 NO BLOCKING DRIFT.** Phase 0 theoretical-side ready; design-side gated on Grant scoping decision (not theoretical re-derivation).
