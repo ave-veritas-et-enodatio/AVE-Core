@@ -1,8 +1,20 @@
 # Experimental Arc Coordination
 
-**Status**: ACTIVE epic (established 2026-05-19 EOD+++)
+**Status**: ACTIVE epic (established 2026-05-19 EOD+++) — 3 sub-epics spawned 2026-05-20
 **Scope owner**: Grant (physics) + orchestrator (KB hygiene + driver readiness)
-**Last updated**: 2026-05-19 EOD+++
+**Last updated**: 2026-05-20
+
+## Sub-epics (cascade-emphasis top-3, Grant adjudication 2026-05-20)
+
+Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursued in parallel each tracked in own sub-epic:
+
+| Sub-epic | Doc | Tier | Phase 0 |
+|---|---|---|---|
+| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) | Cascade × **Executability** — hardware fab-ready ($123 BOM) | Grant fab decision (HOPF-02a → JLCPCB) |
+| **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity | KiCad design from KB spec + ~$1-5k bench |
+| **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation | Facility partnership search (terrestrial 1-m electron interferometer) |
+
+
 
 > **This directive consolidates the experimental track across the AVE workspace.** It owns: (i) experimental KB hygiene + walk-back coordination, (ii) execution prioritization for matrix predictions, (iii) driver readiness audit, (iv) cross-repo coordination with sibling-owned experiments (HOPF / PONDER / Fusion / Protein), (v) tie-back to current canonical framework (A-034 catalog + four-regimes + temporal classifier + Class E projection + Power-Domain θ). It does NOT own: physics adjudication of cosmic / soliton / cosmological-constant questions (those are queue items in `_orchestration/index.md`), nor process-discipline items (worktree-spawn leak, conflict-marker hook).
 
@@ -173,13 +185,15 @@ This is the discoverability backbone — every experimental leaf becomes navigab
 
 ## Adjudication queue (specific to this epic)
 
-| # | Item | Origin | Recommendation |
+| # | Item | Origin | Status |
 |---|---|---|---|
-| EXP-1 | **A1-HOPF fab order** — Grant decision to submit HOPF-02a Gerbers to JLCPCB; ~$123 BOM; design package complete | 2026-05-19 EOD+++ experimental audit | Recommend YES — load-bearing for A1 cascade (C8 + C3 + C10); cleanest experiment in matrix at current state. Stale Vol 4 reference leaf (`torus-knot-baryon-predictions.md`) doesn't block fab but should walk-back before Grant uses Vol 4 falsification index to plan. |
-| EXP-2 | **Phase 1 walk-back sequencing** — surgical (A1-HOPF only) vs full sweep (~25 leaves) | This epic | Recommend surgical first (~30-45 min); full sweep gated on Phase 2 execution priority — only walk back leaves load-bearing for queued next-3 experiments |
-| EXP-3 | **B4-PROTEIN RMSD benchmark close** — compute-only experiment; engines + PDB ready; run `s17_sub5_rmsd_benchmark.py` | Matrix B4 lifecycle | Low-effort runner-up to A1-HOPF; compute-only, no hardware |
-| EXP-4 | **C2-T-PAIR RHIC re-analysis scaffold** — facility-class data already public; needs literature pin + QGP driver; U-D F-severity | Matrix C2 lifecycle | High theoretical leverage but ~1 week scaffolding cost; gated on Phase 3 driver readiness audit |
-| EXP-5 | **HOPF-03 Snell-Parallax** vs HOPF-02b cavity-extension — sequencing post HOPF-02a results | AVE-HOPF roadmap | Hold for HOPF-02a measurement; per AVE-HOPF HANDOFF the next-fab decision tree branches here |
+| EXP-1 | **A1-HOPF fab order** — Grant decision to submit HOPF-02a Gerbers to JLCPCB; ~$123 BOM; design package complete | Phase 2 audit | **PROMOTED to sub-epic** [`exp-a1-hopf.md`](exp-a1-hopf.md) Phase 0 (2026-05-20) |
+| EXP-2 | **Phase 1 walk-back sequencing** — surgical (A1-HOPF only) vs full sweep (~25 leaves) | This epic | **RESOLVED 2026-05-20**: surgical scope — 4-5 leaves load-bearing for top-3 sub-epics + C13a Matrix 2 row 529 stale-closure fix. Bundled with sub-epic-establishment commit. |
+| EXP-3 | **C15-CLEAVE-01 scoping decision** — Grant decision to pursue KiCad design + ~$1-5k bench (largest cascade in matrix; F-severity) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) Phase 0 (2026-05-20) |
+| EXP-4 | **C11-MACH-ZEHNDER facility partnership search** — terrestrial 1-m electron interferometer (Hasselbach Tübingen / LENS Italy / NIST / TEM holography centers candidate list) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) Phase 0 (2026-05-20) |
+| EXP-5 | **HOPF-03 Snell-Parallax** vs HOPF-02b cavity-extension — sequencing post HOPF-02a results | AVE-HOPF roadmap | Hold for HOPF-02a measurement (sub-epic A1-HOPF Phase 3 outcome) |
+| EXP-6 | **B4-PROTEIN RMSD benchmark close** — compute-only experiment; engines + PDB ready | Matrix B4 lifecycle | DEFERRED — outside cascade-emphasis top-3; revisit if cost-emphasis re-weighting selected in future Phase 2 re-audit |
+| EXP-7 | **C2-T-PAIR RHIC re-analysis scaffold** — facility-class data public; needs literature pin + QGP driver; U-D F-severity | Matrix C2 lifecycle | DEFERRED — high theoretical leverage but ~1 week scaffolding cost; revisit after top-3 sub-epics land Phase 1+ |
 
 ## Open questions for next orchestrator
 
