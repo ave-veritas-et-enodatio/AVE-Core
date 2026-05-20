@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-20
 **Branch:** `analysis/soliton-lattice-coupling-operator-session2` off `analysis/integration` at `588e069`
-**Originating epic:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md) — Session 2 of multi-session arc
+**Originating epic:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/theoretical/soliton-lattice-coupling-operator.md) — Session 2 of multi-session arc
 **Session 1 predecessor:** [`research/2026-05-20_soliton-lattice-coupling-operator-scoping.md`](2026-05-20_soliton-lattice-coupling-operator-scoping.md)
 **Adjudications applied:** Grant 2026-05-19 EOD Q1' (CLASS prediction) / Q2' (BOTH cosmic+cascade; LOCAL inherited Ω) / Q3' (low-N regime → specific-value tolerance ±15°)
 
@@ -368,7 +368,7 @@ Row 11-a $A_{\text{gal,spin}}$ definition at §1.4 supplies the structural form.
 
 ## 8. Cross-references
 
-- **Epic brief**: [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md)
+- **Epic brief**: [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/theoretical/soliton-lattice-coupling-operator.md)
 - **Session 1 scoping**: [`research/2026-05-20_soliton-lattice-coupling-operator-scoping.md`](2026-05-20_soliton-lattice-coupling-operator-scoping.md)
 - **A-034 canonical leaf**: [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md)
 - **Ω_freeze cosmic-grain cascade**: [`manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)

@@ -3,7 +3,7 @@
 **Date**: 2026-05-19 EOD spawn / 2026-05-19 PDT session
 **Branch**: `analysis/cosmic-epsilon-de-projection-scoping` off `analysis/integration` HEAD `d3982ea`
 **Status**: SCOPING ONLY (no derivation; Session 1 of multi-session β epic)
-**Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/cosmic-epsilon-de-projection-scoping.md)
+**Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md)
 
 **Skills applied at session-start**: `verify-before-cite` v1.3 (every citation re-grepped at execution), `ave-canonical-leaf-pull` v1.1 trigger 16 (this scoping IS a framework-design proposal — (a)-(e) classification mandatory throughout), `consistency-vs-emergence` v1.1 (Class E framing carried explicit), `ave-evidence-framing-discipline` (scoping-not-derivation strength language only), `pre-test-physics-check` (active in Phase 4).
 
@@ -368,7 +368,7 @@ Per brief: "If projection-chain inventory surfaces a corpus structural inconsist
 
 ## §8 — Cross-references
 
-- **Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/cosmic-epsilon-de-projection-scoping.md)
+- **Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md)
 - **Catalog ε/μ axis (γ extension)**: [`universal-saturation-kernel-catalog.md:72-110`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) (commit `6436d65`)
 - **Class E operating-point canonical**: [`omega-freeze-cosmic-grain-cascade.md`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)
 - **Latent-heat-of-crystallisation mechanism for $\rho_\Lambda$**: [`cosmological-constant-closure.md`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md)

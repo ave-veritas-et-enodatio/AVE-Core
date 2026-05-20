@@ -1,6 +1,7 @@
 # EXP-A1-HOPF: Chiral Antenna Resonance Shift (HOPF-02a)
 
 **Parent epic**: [`experimental-arc.md`](../experimental-arc.md)
+**Phase tag**: **[EXEC]** — Phase 0b requires Grant fab submission ($123 JLCPCB + 2 wk fab + 3D-print mandrels per BOM); next adjudication is spend authorization
 **Status**: **PHASE 0a ✓ COMPLETE (Phase B walk-back commits) + Sim-audit ✓ NO DRIFT** — Phase 0b ready for Grant fab submission
 **Sibling repo owner**: AVE-HOPF (Grant)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking

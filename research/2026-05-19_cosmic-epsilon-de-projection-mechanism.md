@@ -3,7 +3,7 @@
 **Date**: 2026-05-19 EOD / 2026-05-20 spawn
 **Branch**: `analysis/cosmic-epsilon-de-projection-session2` off `analysis/integration` HEAD `588e069`
 **Status**: PROJECTION-CHAIN TRACE (Session 2 of multi-session β epic)
-**Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/cosmic-epsilon-de-projection-scoping.md) § "Session 2 — implementor brief"
+**Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) § "Session 2 — implementor brief"
 **Session 1 predecessor**: [`research/2026-05-19_cosmic-epsilon-de-projection-scoping.md`](2026-05-19_cosmic-epsilon-de-projection-scoping.md) (CLOSED 2026-05-19 EOD via merge `af8c522` + audit tag `audit/2026-05-19_cosmic-epsilon-de-projection-scoping`)
 
 **Grant adjudications carried in from Session 1 (`_orchestration/cosmic-epsilon-de-projection-scoping.md:9-17`)**:
@@ -424,7 +424,7 @@ No new anomalies were surfaced in projection-chain trace execution. The chain as
 
 ## §14 — Cross-references
 
-- **Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/cosmic-epsilon-de-projection-scoping.md) — Session 2 implementor brief
+- **Brief**: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Session 2 implementor brief
 - **Session 1 predecessor**: [`research/2026-05-19_cosmic-epsilon-de-projection-scoping.md`](2026-05-19_cosmic-epsilon-de-projection-scoping.md) — scoping doc with Q1/Q2/Q3 plumber-physical questions
 - **Phase 1 deliverable (this Session)**: [`op14-cosmic-horizon-profile.md`](../manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) at commit `20bb659` — Op14 (c)-operator-application leaf at cosmic-horizon scale
 - **Canonical chain anchors** (verified at session start):

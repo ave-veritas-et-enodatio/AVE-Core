@@ -1,6 +1,7 @@
 # EXP-C11-MACH-ZEHNDER: Gravitational Parallax Interferometry ($n_s \neq n_t$, ~250-rad shift)
 
 **Parent epic**: [`experimental-arc.md`](../experimental-arc.md)
+**Phase tag**: **[PREP]** — Phase 0 is facility partnership search (literature survey + cold-email outreach to Hasselbach / LENS / NIST / TEM holography centers); agent-prep complete, outreach pulls Grant time but no spend yet; flips to [EXEC] when facility partnership locks in
 **Status**: PHASE 0 — Facility partnership search; **sim audit ✓ NO DRIFT** (2026-05-20 EOD++)
 **Owner**: Core (no sibling-repo; driver canonical)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking

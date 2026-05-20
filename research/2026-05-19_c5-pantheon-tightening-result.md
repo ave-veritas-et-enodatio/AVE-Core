@@ -5,7 +5,7 @@
 **Driver:** [`src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py`](../src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py)
 **Result JSON:** [`src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening_results.json`](../src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening_results.json)
 **Pre-registration:** [`research/2026-05-19_c5-pantheon-tightening-prereg.md`](2026-05-19_c5-pantheon-tightening-prereg.md)
-**Briefing:** [`_orchestration/section-e-cascade.md`](../_orchestration/section-e-cascade.md) Phase E1b-prime
+**Briefing:** [`_orchestration/section-e-cascade.md`](../_orchestration/theoretical/section-e-cascade.md) Phase E1b-prime
 **Predecessor (E1b):** [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md)
 
 ---

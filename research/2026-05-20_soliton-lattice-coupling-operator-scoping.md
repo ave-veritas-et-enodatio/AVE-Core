@@ -2,7 +2,7 @@
 
 **Date:** 2026-05-20 (session spans 2026-05-19 EOD → 2026-05-20 early; landed under 2026-05-20 per UTC)
 **Branch:** `analysis/soliton-lattice-coupling-operator-scoping` off `analysis/integration` at `0f3fd52`
-**Originating epic:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md) (Session 1 of multi-session arc)
+**Originating epic:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/theoretical/soliton-lattice-coupling-operator.md) (Session 1 of multi-session arc)
 **Predecessor cascade:** SDSS DR17 merge `9f976e0` → operator-output reframing of three-observable triangle 2026-05-19 EOD; epic spawned at `0f3fd52`
 **Refactored:** 2026-05-19 EOD per Grant adjudication — Original scoping (tip `7c9d4d4`) used "new operator / new field theory" framing. The corpus's existing universal-scale machinery (A-034 universal-saturation-kernel-catalog + Ax 2 TKI scale invariance) already covers this mechanism class. This refactor recasts the work as A-034 **catalog-extension** rather than new framework. **Load-bearing test of `ave-canonical-leaf-pull` v1.1 trigger 16 (framework-extension proposals must work within existing universal-scale machinery).**
 
@@ -546,7 +546,7 @@ Risk profile under the A-034 reframe:
 
 ## 7. Cross-references
 
-- **Epic brief:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md)
+- **Epic brief:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/theoretical/soliton-lattice-coupling-operator.md)
 - **Originating epic (closed):** [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](../_orchestration/_archive/c5-sdss-dr17-spin-orientation.md), audit tag `audit/2026-05-19_c5-sdss-dr17-spin-orientation`
 - **Predecessor empirical results:** [`research/2026-05-19_c5-sdss-spin-orientation-result.md`](2026-05-19_c5-sdss-spin-orientation-result.md), [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md), [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md)
 - **Class E canonical leaf:** [`research/2026-05-19_class-e-candidate-corpus-sweep.md`](2026-05-19_class-e-candidate-corpus-sweep.md)

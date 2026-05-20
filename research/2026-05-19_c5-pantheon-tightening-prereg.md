@@ -4,7 +4,7 @@
 **Branch:** `analysis/c5-pantheon-tightening` off `analysis/integration` at `4457d3e`
 **Status:** EXECUTION-SESSION PRE-REGISTRATION. Frozen BEFORE estimator implementation + data analysis. Subordinate to the frozen 2026-05-15 A-034 methodology prereg at [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md).
 
-**Briefing:** [`_orchestration/section-e-cascade.md`](../_orchestration/section-e-cascade.md) — Phase E1b-prime brief at line 59, promoted ACTIVE 2026-05-19 EOD (commit `4457d3e`).
+**Briefing:** [`_orchestration/section-e-cascade.md`](../_orchestration/theoretical/section-e-cascade.md) — Phase E1b-prime brief at line 59, promoted ACTIVE 2026-05-19 EOD (commit `4457d3e`).
 
 **Predecessor:** E1b session result doc [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md) returned Outcome D (data-insufficient at 3σ due to literature Whitford+2023 σ_Hubble ≈ 30°).
 
