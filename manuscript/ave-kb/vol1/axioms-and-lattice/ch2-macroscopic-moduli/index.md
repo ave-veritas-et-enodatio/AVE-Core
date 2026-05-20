@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-2dwzib, clm-9gh0a1, clm-9s9apq, clm-dfaiwj]
+subtree-claims: [clm-2dwzib, clm-9gh0a1, clm-9s9apq, clm-dfaiwj, clm-gx1mpl]
 -->
 
 # Ch.2: Macroscopic Moduli and The Volumetric Energy Collapse

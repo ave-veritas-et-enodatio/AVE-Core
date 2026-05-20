@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-gdd70j]
+subtree-claims: [clm-9kd2t3, clm-gdd70j, clm-j550uh, clm-k6quve, clm-nxc9gy]
 -->
 
 # Ch.6: Universal Operators: Z, $S$, $\Gamma$

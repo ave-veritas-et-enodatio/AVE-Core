@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-8ep2b4, clm-crbl60, clm-efo113, clm-lv3uw1, clm-m3z5ux, clm-xy252u]
+subtree-claims: [clm-3npynp, clm-8ep2b4, clm-crbl60, clm-djpx2v, clm-efo113, clm-fr3mos, clm-i4p11y, clm-lv3uw1, clm-m3z5ux, clm-usflef, clm-utnwkc, clm-uu1qbo, clm-xy252u]
 -->
 
 # Ch.4: Continuum Electrodynamics and The Dark Sector
