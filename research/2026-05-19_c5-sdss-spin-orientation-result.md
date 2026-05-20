@@ -5,7 +5,7 @@
 **Driver:** [`src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation.py`](../src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation.py)
 **Result JSON:** [`src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation_results.json`](../src/scripts/vol_3_macroscopic/c5_sdss_spin_orientation_results.json)
 **Pre-registration:** [`research/2026-05-19_c5-sdss-spin-orientation-prereg.md`](2026-05-19_c5-sdss-spin-orientation-prereg.md)
-**Briefing:** [`_orchestration/c5-sdss-dr17-spin-orientation.md`](../_orchestration/c5-sdss-dr17-spin-orientation.md) — Option A
+**Briefing:** [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](../_orchestration/_archive/c5-sdss-dr17-spin-orientation.md) — Option A
 **Predecessors:**
 - E1b: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md) (CMB axis (60.28°, 50.48°), σ=0.92°; CMB-LSS = 27.9° with literature LSS pin)
 - E1b-prime: [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md) (σ_Hubble 30° → 24°; CMB-Hubble 88° at +2.83σ)

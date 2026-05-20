@@ -4,7 +4,7 @@
 **Branch:** `analysis/c5-sdss-dr17-spin-orientation` off `analysis/integration` at `5f926ad`
 **Status:** EXECUTION-SESSION PRE-REGISTRATION. Frozen BEFORE estimator implementation + data analysis. Subordinate to the frozen 2026-05-15 A-034 methodology prereg at [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md).
 
-**Briefing:** [`_orchestration/c5-sdss-dr17-spin-orientation.md`](../_orchestration/c5-sdss-dr17-spin-orientation.md) — Option A adjudicated 2026-05-19 EOD (SDSS DR17-class spin-orientation re-fit only; parallel-runnable with h-infinity-downstream-cascade).
+**Briefing:** [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](../_orchestration/_archive/c5-sdss-dr17-spin-orientation.md) — Option A adjudicated 2026-05-19 EOD (SDSS DR17-class spin-orientation re-fit only; parallel-runnable with h-infinity-downstream-cascade).
 
 **Predecessors:**
 - E1b session: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md) — Outcome D; CMB axis at (l=60.28°, b=50.48°) σ=0.92°; CMB-LSS = 27.9° (paper-pinned LSS at literature value).
@@ -153,7 +153,7 @@ Both this test and the corpus claim (CMB axis-of-evil pin at (60.28°, 50.48°),
 
 **Class E** (operating-point projection / topological-equilibrium observable).
 
-Justification: LSS spin direction is one of 8 projections of $\Omega_{\text{freeze}}$ (per [`omega-freeze-cosmic-grain-cascade.md:46-58`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)). $\hat{\Omega}_{\text{freeze}}$ is the cosmological initial-data parameter locked at lattice genesis; the prediction is direction-only (not magnitude). Same class as H_∞ (recently reclassified per Thread 2; see [`h-infinity-framing-forward.md`](../_orchestration/h-infinity-framing-forward.md)), $\alpha$, $G$. The test is a CONSISTENCY-CHECK: does the LSS spin axis observable project consistently with the same $\hat{\Omega}_{\text{freeze}}$ direction that the CMB axis observable already pinned?
+Justification: LSS spin direction is one of 8 projections of $\Omega_{\text{freeze}}$ (per [`omega-freeze-cosmic-grain-cascade.md:46-58`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)). $\hat{\Omega}_{\text{freeze}}$ is the cosmological initial-data parameter locked at lattice genesis; the prediction is direction-only (not magnitude). Same class as H_∞ (recently reclassified per Thread 2; see [`h-infinity-framing-forward.md`](../_orchestration/_archive/h-infinity-framing-forward.md)), $\alpha$, $G$. The test is a CONSISTENCY-CHECK: does the LSS spin axis observable project consistently with the same $\hat{\Omega}_{\text{freeze}}$ direction that the CMB axis observable already pinned?
 
 This is NOT an emergence-class prediction (we are not deriving $\hat{\Omega}_{\text{freeze}}$ from substrate axioms; we are testing whether two independent observables project to the same point in direction space). Result-doc framing per Class E discipline: tighten the central-value separation in σ-units; do NOT headline "AVE prediction confirmed" if the test happens to PASS — frame as "two observables consistently project to a common axis, as the framework asserts they must".
 
@@ -210,7 +210,7 @@ This is the most likely outcome given:
 - Updates (in scope):
   - `manuscript/ave-kb/common/divergence-test-substrate-map.md` lines 428, 514, 554 — C5 row state with LSS sub-finding
   - `manuscript/ave-kb/common/closure-roadmap.md` — new entry for C5 LSS tightening
-  - `_orchestration/c5-sdss-dr17-spin-orientation.md` — IF outcome decisive, status update (orchestration lands the final close; this implementor surfaces only)
+  - `_orchestration/_archive/c5-sdss-dr17-spin-orientation.md` — IF outcome decisive, status update (orchestration lands the final close; this implementor surfaces only)
 
 Out of scope this session:
 - Editing `cmb_axis_alignment_executable_observer.py` to fix the (32°, 32°) corpus pin (anomaly surfaced per §2.5; auditor lane lands the fix)

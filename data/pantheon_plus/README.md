@@ -19,7 +19,7 @@ The `.cov` file is routed through git-LFS per `.gitattributes` (filter=lfs).
 ## Used by
 
 - `src/scripts/vol_3_macroscopic/c5_pantheon_bulk_flow_tightening.py` — E1b-prime Pantheon+ raw-SN bulk-flow tightening (Outcome Marginal-D, audit tag `audit/2026-05-19_c5-pantheon-tightening`)
-- Future SDSS DR17 spin-orientation cross-check (queued epic `_orchestration/c5-sdss-dr17-spin-orientation.md`)
+- Future SDSS DR17 spin-orientation cross-check (queued epic `_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`)
 
 ## Re-download instructions
 

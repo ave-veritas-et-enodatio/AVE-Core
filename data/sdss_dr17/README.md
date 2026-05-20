@@ -10,7 +10,7 @@ External research data tracked here for AVE-Core reproducibility. NOT simulation
 
 ## Naming rationale ("sdss_dr17" not "galaxy_zoo_1")
 
-The directory is named `sdss_dr17` to match the orchestration brief at `_orchestration/c5-sdss-dr17-spin-orientation.md`. The actual catalog is **Galaxy Zoo 1 Table 2**, which is the crowdsourced morphological classification of SDSS galaxies. The relevant point for the C5-CMB-AXIS LSS-spin-orientation test:
+The directory is named `sdss_dr17` to match the orchestration brief at `_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`. The actual catalog is **Galaxy Zoo 1 Table 2**, which is the crowdsourced morphological classification of SDSS galaxies. The relevant point for the C5-CMB-AXIS LSS-spin-orientation test:
 
 - GZ1's source imaging is **SDSS DR7** (Lintott+2011 §2.1).
 - SDSS DR17 (2021 release) **includes the full DR7 photometric footprint unchanged** — additions in DR17 are spectroscopic (BOSS / eBOSS) and infrared (APOGEE-2), neither of which produces galaxy chirality labels.

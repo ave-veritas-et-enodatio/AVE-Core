@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-19
 **Branch**: `analysis/h-infinity-framing-forward` (off `analysis/integration` HEAD `4457d3e`)
-**Originating epic**: [`_orchestration/h-infinity-framing-forward.md`](../_orchestration/h-infinity-framing-forward.md) — Phase 1 (Chain B' obvious-showstoppers research)
+**Originating epic**: [`_orchestration/_archive/h-infinity-framing-forward.md`](../_orchestration/_archive/h-infinity-framing-forward.md) — Phase 1 (Chain B' obvious-showstoppers research)
 **Upstream**: [`research/2026-05-19_h-infinity-derivation-audit.md`](2026-05-19_h-infinity-derivation-audit.md) on `analysis/h-infinity-derivation-audit` tip `f28a8b3` (Class C verdict, identity confirmed both ways)
 **Skills applied**: `verify-before-cite` v1.3 (triggers 7c + 8), `ave-canonical-leaf-pull`, `consistency-vs-emergence`, `ave-evidence-framing-discipline`
 **Lane**: implementer (Phase 1 inventory only; no walk-back; Phase 2 conditional on §4 verdict)

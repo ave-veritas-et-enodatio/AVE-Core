@@ -18,11 +18,11 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 
 | Epic | Doc | Closure | Audit tag |
 |---|---|---|---|
-| Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Merged 2026-05-19 EOD via `fb62fa8` | `audit/2026-05-19_cosmic-axis-glossary` |
-| H_∞ derivation audit | [`h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | Merged 2026-05-19 EOD via `ceb8205` (research doc archival) | `audit/2026-05-19_h-infinity-derivation-audit` |
-| H_∞ framing-forward | [`h-infinity-framing-forward.md`](h-infinity-framing-forward.md) | Merged 2026-05-19 EOD via `a7e555e` (Class C walk-back applied; Class E refinement queued in downstream-cascade epic) | `audit/2026-05-19_h-infinity-framing-forward` |
-| H_∞ downstream cascade | [`h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md) | Merged 2026-05-19 EOD via `d2d38de` (Class C → Class E reclass + 5 anomalies + Class E candidate sweep) | `audit/2026-05-19_h-infinity-downstream-cascade` |
-| C5 SDSS DR17 spin-orientation | [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | Merged 2026-05-19 EOD via `9f976e0` (Marginal-D + operator-output reframing) | `audit/2026-05-19_c5-sdss-dr17-spin-orientation` |
+| Cosmic-axis glossary | [`_archive/cosmic-axis-glossary.md`](_archive/cosmic-axis-glossary.md) | Merged 2026-05-19 EOD via `fb62fa8` | `audit/2026-05-19_cosmic-axis-glossary` |
+| H_∞ derivation audit | [`_archive/h-infinity-derivation-audit.md`](_archive/h-infinity-derivation-audit.md) | Merged 2026-05-19 EOD via `ceb8205` (research doc archival) | `audit/2026-05-19_h-infinity-derivation-audit` |
+| H_∞ framing-forward | [`_archive/h-infinity-framing-forward.md`](_archive/h-infinity-framing-forward.md) | Merged 2026-05-19 EOD via `a7e555e` (Class C walk-back applied; Class E refinement queued in downstream-cascade epic) | `audit/2026-05-19_h-infinity-framing-forward` |
+| H_∞ downstream cascade | [`_archive/h-infinity-downstream-cascade.md`](_archive/h-infinity-downstream-cascade.md) | Merged 2026-05-19 EOD via `d2d38de` (Class C → Class E reclass + 5 anomalies + Class E candidate sweep) | `audit/2026-05-19_h-infinity-downstream-cascade` |
+| C5 SDSS DR17 spin-orientation | [`_archive/c5-sdss-dr17-spin-orientation.md`](_archive/c5-sdss-dr17-spin-orientation.md) | Merged 2026-05-19 EOD via `9f976e0` (Marginal-D + operator-output reframing) | `audit/2026-05-19_c5-sdss-dr17-spin-orientation` |
 
 Per `_orchestration/README.md` convention, these closed-epic docs will move to `_archive/` in a future hygiene pass. For now they remain in place for cross-reference accessibility.
 
@@ -58,8 +58,8 @@ Per `_orchestration/README.md` convention, these closed-epic docs will move to `
 
 | # | Item | Detail |
 |---|---|---|
-| 1 | **H_∞ downstream cascade implementor kickoff** | Brief at [`h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md). Grant adjudicated scope 2026-05-19 EOD; ready to spawn. Recommend `isolation: "worktree"`. |
-| 2 | **C5 SDSS DR17 scope adjudication** | Brief at [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md). 3 scope options A/B/C; recommend A. **Adjudication**: pick scope + kickoff or defer? |
+| 1 | **H_∞ downstream cascade implementor kickoff** | Brief at [`_archive/h-infinity-downstream-cascade.md`](_archive/h-infinity-downstream-cascade.md). Grant adjudicated scope 2026-05-19 EOD; ready to spawn. Recommend `isolation: "worktree"`. |
+| 2 | **C5 SDSS DR17 scope adjudication** | Brief at [`_archive/c5-sdss-dr17-spin-orientation.md`](_archive/c5-sdss-dr17-spin-orientation.md). 3 scope options A/B/C; recommend A. **Adjudication**: pick scope + kickoff or defer? |
 | 3 | **DM META closure** | Independent of C5. Two of three limbs (galactic + bullet cluster) already anchored; needs DAMA refresh-rate proportionality-constant derivation + formal META unification doc. Implementation session pattern. Can run in parallel with items 1+2. |
 | 4 | **Phase 2 mass-spectrum activation** per doc 98 §3.2 | Separate research track Grant already adjudicated 2026-04-30 ("(ii) works"). ~1 week scope. Not blocked by Section E cascade. **Adjudication**: queue now or after items 1-3? |
 | 5 | **C3-MUON-DELTA Run-4/5 update** | Fermilab Run-4/5 expected 2026-2027 at ±10 ppm. When it lands, the C3 driver needs a re-run + matrix update. Timing-dependent. |
@@ -86,11 +86,11 @@ Per `_orchestration/README.md` convention, these closed-epic docs will move to `
 | Path | Purpose |
 |---|---|
 | [`_orchestration/section-e-cascade.md`](section-e-cascade.md) | Active Section E epic (E1b-prime CLOSED; SDSS DR17 spawned as separate epic) |
-| [`_orchestration/h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md) | ACTIVE — 5 surfaced anomalies + Class E reclassification |
-| [`_orchestration/c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | QUEUED — scope adjudication pending |
-| [`_orchestration/cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_cosmic-axis-glossary`) |
-| [`_orchestration/h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_h-infinity-derivation-audit`) |
-| [`_orchestration/h-infinity-framing-forward.md`](h-infinity-framing-forward.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_h-infinity-framing-forward`) |
+| [`_orchestration/_archive/h-infinity-downstream-cascade.md`](_archive/h-infinity-downstream-cascade.md) | ACTIVE — 5 surfaced anomalies + Class E reclassification |
+| [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](_archive/c5-sdss-dr17-spin-orientation.md) | QUEUED — scope adjudication pending |
+| [`_orchestration/_archive/cosmic-axis-glossary.md`](_archive/cosmic-axis-glossary.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_cosmic-axis-glossary`) |
+| [`_orchestration/_archive/h-infinity-derivation-audit.md`](_archive/h-infinity-derivation-audit.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_h-infinity-derivation-audit`) |
+| [`_orchestration/_archive/h-infinity-framing-forward.md`](_archive/h-infinity-framing-forward.md) | CLOSED 2026-05-19 EOD (audit tag `audit/2026-05-19_h-infinity-framing-forward`) |
 | [`_orchestration/README.md`](README.md) | Convention doc for this directory (updated 2026-05-19 EOD with worktree-isolation discipline) |
 | [`CLAUDE.md`](../CLAUDE.md) | AVE-Core agent orientation (updated 2026-05-19 EOD with pre-commit branch-check + audit-tag count 24) |
 | [`manuscript/ave-kb/CLAUDE.md`](../manuscript/ave-kb/CLAUDE.md) | Cross-cutting KB invariants |

@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-19 EOD
 **Branch**: `analysis/h-infinity-downstream-cascade`
-**Epic**: Phase 3 of [`_orchestration/h-infinity-downstream-cascade.md`](../_orchestration/h-infinity-downstream-cascade.md)
+**Epic**: Phase 3 of [`_orchestration/_archive/h-infinity-downstream-cascade.md`](../_orchestration/_archive/h-infinity-downstream-cascade.md)
 **Originating skill canonization**: `consistency-vs-emergence` v1.1 at skills repo commit `470f1ec` (Class E added — operating-point projection / topological equilibrium observable; Grant canonized 2026-05-19 EOD)
 **Lane**: implementer (inventory only; NO reclassification of these candidates in this epic — that's a separate queued epic post-Grant adjudication per brief constraint)
 **Skills applied**: `consistency-vs-emergence` v1.1, `verify-before-cite` v1.3, `ave-canonical-leaf-pull`, `ave-prereg`

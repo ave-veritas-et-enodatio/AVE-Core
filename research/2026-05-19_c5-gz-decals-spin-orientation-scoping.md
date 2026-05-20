@@ -3,7 +3,7 @@
 **Date:** 2026-05-19
 **Branch:** `analysis/c5-gz-decals-spin-orientation` off `analysis/integration` at `d413726` (rebased to current integration tip mid-session; initial branch off `6436d65`)
 **Status:** SCOPING-ONLY. Pre-registration NOT frozen — cross-catalog validation as briefed is infeasible by physical methodology. Stopped at Phase 0 per brief instruction.
-**Briefing:** [`_orchestration/c5-sdss-dr17-spin-orientation.md`](../_orchestration/c5-sdss-dr17-spin-orientation.md) (reference template for the cross-catalog session) + GZ DECaLS implementor brief (in-session).
+**Briefing:** [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](../_orchestration/_archive/c5-sdss-dr17-spin-orientation.md) (reference template for the cross-catalog session) + GZ DECaLS implementor brief (in-session).
 **Predecessors:**
 - E1b: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md) — CMB axis (60.28°, 50.48°), σ=0.92°
 - E1b-prime: [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md) — σ_Hubble 30°→24°, Marginal-D

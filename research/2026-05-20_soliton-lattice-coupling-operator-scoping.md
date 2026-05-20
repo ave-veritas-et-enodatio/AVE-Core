@@ -547,7 +547,7 @@ Risk profile under the A-034 reframe:
 ## 7. Cross-references
 
 - **Epic brief:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md)
-- **Originating epic (closed):** [`_orchestration/c5-sdss-dr17-spin-orientation.md`](../_orchestration/c5-sdss-dr17-spin-orientation.md), audit tag `audit/2026-05-19_c5-sdss-dr17-spin-orientation`
+- **Originating epic (closed):** [`_orchestration/_archive/c5-sdss-dr17-spin-orientation.md`](../_orchestration/_archive/c5-sdss-dr17-spin-orientation.md), audit tag `audit/2026-05-19_c5-sdss-dr17-spin-orientation`
 - **Predecessor empirical results:** [`research/2026-05-19_c5-sdss-spin-orientation-result.md`](2026-05-19_c5-sdss-spin-orientation-result.md), [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md), [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md)
 - **Class E canonical leaf:** [`research/2026-05-19_class-e-candidate-corpus-sweep.md`](2026-05-19_class-e-candidate-corpus-sweep.md)
 - **A-034 canonical leaf (framework-design canon for this refactor):** [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — particularly the ε/μ axis extension (lines 73-83) + gap-cells (lines 89-94) + companion-row links (lines 103-110) added at commit `6436d65`.
