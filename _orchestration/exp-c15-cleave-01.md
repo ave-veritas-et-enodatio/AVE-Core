@@ -1,8 +1,8 @@
 # EXP-C15-CLEAVE-01: Femto-Coulomb Electrometer ($Q = \xi_{topo} \cdot x$)
 
 **Parent epic**: [`experimental-arc.md`](experimental-arc.md)
-**Status**: PHASE 0 — Scoping (KiCad design from KB spec required); **Framework-readiness audit ✓ NO DRIFT** ([`exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md), 2026-05-20 EOD+++)
-**Owner**: Core (no sibling-repo holder yet — candidate for new sub-repo if pursued seriously)
+**Status**: PHASE 0 — **Grant adjudication ✓ A3 scaffold-only + B1 standalone sibling repo (2026-05-20 EOD++++)** + Framework-readiness audit ✓ NO DRIFT ([`exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md), 2026-05-20 EOD+++); scaffold brief at [`exp-c15-cleave-01-phase-0-scaffolding.md`](exp-c15-cleave-01-phase-0-scaffolding.md); implementor dispatch IMMEDIATELY
+**Owner**: **AVE-Bench-FemtoElectrometer** sibling repo (NEW; scaffold pending) — parallels AVE-Bench-VacuumMirror precedent
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
 
 ## Tier (per parent epic Phase 2 audit)
@@ -57,18 +57,18 @@ A standard capacitor with PZT actuator generates charge via mechanical strain on
 
 ## Phase ladder
 
-### Phase 0 (PENDING) — Scoping decision
+### Phase 0 (ACTIVE — A3 scaffold-only + B1 standalone sibling repo, Grant adjudicated 2026-05-20 EOD++++) — Sibling-repo scaffolding
 
-**Action**: Grant decides whether to pursue C15-CLEAVE-01 actively (commits $1-5k + KiCad design time + bench setup time) vs hold as documented future work.
+**Action**: Spin up `AVE-Bench-FemtoElectrometer` standalone sibling repo per AVE-Bench-VacuumMirror precedent. Scaffold manuscript sub-volume + TEST_PROCEDURE.md + open-questions doc + design docs + glossary + .agents/ + cross-references back to AVE-Core canonical content. NO KiCad cycle yet (gated on Phase 0→1 promotion adjudication).
 
-**Decision factors**:
-- Cascade size makes this the highest-leverage SINGLE experiment in the matrix
-- F-severity gives binary kill-switch outcome (frame-clarifying regardless of outcome)
-- BUT activation energy is high: requires scoping + KiCad design from spec + fab + assembly + low-noise bench + vacuum chamber
+**Brief**: [`exp-c15-cleave-01-phase-0-scaffolding.md`](exp-c15-cleave-01-phase-0-scaffolding.md) — detailed implementor brief with deliverables, cross-references, skill discipline, success criteria.
 
-**Decision dependency**: Grant bench/IP priority vs theoretical-work priority
+**Decision context preserved**:
+- A3 scaffold-only chosen over A1 pure-pursue: VacuumMirror precedent shows value of surfacing open-questions BEFORE KiCad work starts; low-cost (~1 implementor session) preserves optionality on chamber + dielectric + pre-reg-precision decisions
+- B1 standalone sibling repo chosen over B2 AVE-Core/hardware/: matches VacuumMirror precedent; aligns with per-experiment-sibling-repo pattern; IP boundary clean; PEP 420 namespace extension keeps AVE-Core import-clean
+- B3 in AVE-PONDER hardware/ REJECTED: PONDER hardware is atopile-based (single design); would create infrastructure tooling collision; "PONDER transferable knowledge" claim from sub-epic establishment was at SCIENCE level (V_yield + ξ_topo) not BENCH level (no PZT / ADA4530 / vacuum chamber in PONDER)
 
-### Phase 1 (PENDING, gated on Phase 0) — KiCad design from KB spec
+### Phase 1 (PENDING, gated on Grant Phase 0→1 promotion adjudication) — KiCad design from KB spec
 
 **Action**: Translate [`project-cleave-01.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) PCBA spec → KiCad schematic + layout. Reference ADA4530-1 evaluation board + datasheet guard-ring recommendations.
 
@@ -156,3 +156,4 @@ No existing sibling-repo owner. Decision in Phase 0: candidate for new `AVE-CLEA
 
 - 2026-05-20 — Sub-epic established from Phase 2 cascade-emphasis ranking (Σ=10, cascade SIZE winner — largest single-row cascade 6+ dependents). Phase 0 scoping decision pending.
 - 2026-05-20 EOD+++ — **Framework-readiness audit** landed at [`exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md). Five axes verified empirically: ξ_topo canonical 4.149×10⁻⁷ C/m (per `src/ave/core/constants.py:205`), Ax2 [Q]≡[L] canonical statement preserved (per `ave-kb/CLAUDE.md` INVARIANT-S2 Axiom 2), 6 cascade dependents still load-bearing (B4 + C9 + C16 + B5/B6/B7), KB-leaf 41.5 mV/μm prediction reproduces arithmetically from current canonical constants (computed: 41.490 mV at 10 pF on 1 μm displacement), recent corpus drift spot-check (A-034 + Class E + temporal regime + FI-13 + C8 + Q-G47 + C1 + C11 + A1-HOPF) → all orthogonal to C15 axes. Q-G47 Sessions 19 ξ_K1/K2 vs ξ_topo identified as naming-collision (different ξ; not a drift). **Verdict 🟢 NO BLOCKING DRIFT.** Phase 0 theoretical-side ready; design-side gated on Grant scoping decision (not theoretical re-derivation).
+- 2026-05-20 EOD++++ — **Phase 0 Grant adjudication ✓ A3 scaffold-only + B1 standalone sibling repo.** Scaffold brief landed at [`exp-c15-cleave-01-phase-0-scaffolding.md`](exp-c15-cleave-01-phase-0-scaffolding.md). Target sibling repo: `AVE-Bench-FemtoElectrometer` (NEW; parallels AVE-Bench-VacuumMirror precedent). Decision rationale: A3 chosen over A1 pure-pursue because VacuumMirror precedent shows value of open-questions discipline before KiCad work; B1 chosen because per-experiment-sibling-repo pattern + IP boundary alignment + PEP 420 namespace cleanliness; B3 PONDER rejected (atopile vs KiCad tooling collision + PONDER transferable-knowledge claim was at SCIENCE not BENCH level). Six open questions (Q-C15-01 to Q-C15-06) drafted in brief: chamber priority, pre-reg precision target, discriminator dielectric choice, parasitic-C control, PZT outgassing, triboelectric confound discrimination. Implementor dispatch follows orchestration commit.
