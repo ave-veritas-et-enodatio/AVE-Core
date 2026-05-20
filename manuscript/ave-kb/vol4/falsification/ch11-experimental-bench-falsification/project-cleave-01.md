@@ -63,9 +63,9 @@ This is the **largest single-row cascade in the matrix**. F-severity (framework-
 | **C**: $V_{out} \approx 0$ within noise floor | **Ax2 dies. Framework falsified at substrate-foundational axiom level.** Cascade walk-back across ξ_topo family. |
 | **D**: Confound (parasitic leakage / triboelectric / outgassing) | Re-design with better guards; re-test |
 
-### Engineering substrate status (2026-05-20)
+### Engineering substrate status (2026-05-20 EOD+++++)
 
-PCBA spec exists in this leaf; **no KiCad / no hardware in any AVE repo** yet. Phase 1 of sub-epic is KiCad design from this spec + ADA4530-1 evaluation board reference + vacuum-chamber interface design. ~$1-5k bench cost. Per [`_orchestration/exp-c15-cleave-01.md`](../../../../_orchestration/exp-c15-cleave-01.md), Phase 0 scoping decision pending.
+PCBA spec exists in this leaf; **scaffold sibling repo `AVE-Bench-FemtoElectrometer` established 2026-05-20 EOD+++++ at commit `0b05bd4`** (Grant Phase 0 adjudication: A3 scaffold-only + B1 standalone sibling repo). Repo contains manuscript sub-volume + TEST_PROCEDURE.md + BOM + open-questions doc (Q-C15-01 to Q-C15-06) + design scoping + .agents/ orientation; bench remains UNBUILT (no KiCad / no hardware fab / no measurement scripts yet). Phase 1 KiCad design from this spec + ADA4530-1 evaluation board reference + vacuum-chamber interface design pending Grant Phase 0→1 promotion adjudication (gated on Q-C15-01 chamber priority resolution). ~$1-5k bench cost. Per [`_orchestration/exp-c15-cleave-01.md`](../../../../_orchestration/exp-c15-cleave-01.md) + [`_orchestration/exp-c15-cleave-01-phase-0-scaffolding.md`](../../../../_orchestration/exp-c15-cleave-01-phase-0-scaffolding.md) + [`_orchestration/exp-c15-cleave-01-sim-audit.md`](../../../../_orchestration/exp-c15-cleave-01-sim-audit.md).
 
 ### Engine constants reference
 

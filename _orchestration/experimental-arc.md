@@ -1,8 +1,8 @@
 # Experimental Arc Coordination
 
-**Status**: ACTIVE epic (established 2026-05-19 EOD+++) — 3 sub-epics spawned 2026-05-20; all 3 sub-epics sim/framework-readiness audited 2026-05-20 EOD+++ (no drift)
+**Status**: ACTIVE epic (established 2026-05-19 EOD+++) — 3 sub-epics spawned 2026-05-20; all 3 sub-epics sim/framework-readiness audited 2026-05-20 EOD+++ (no drift); **C15 Phase 0 scaffold landed 2026-05-20 EOD+++++ → AVE-Bench-FemtoElectrometer sibling repo established (first sibling-repo establishment under this epic)**
 **Scope owner**: Grant (physics) + orchestrator (KB hygiene + driver readiness)
-**Last updated**: 2026-05-20 EOD+++
+**Last updated**: 2026-05-20 EOD+++++
 
 ## Sub-epics (cascade-emphasis top-3, Grant adjudication 2026-05-20)
 
@@ -11,7 +11,7 @@ Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursue
 | Sub-epic | Doc | Tier | Phase 0 |
 |---|---|---|---|
 | **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) + [Phase A audit](exp-a1-hopf-repo-audit.md) + [Sim audit](exp-a1-hopf-sim-audit.md) | Cascade × **Executability** — **Phase 0a ✓ COMPLETE** (Phase B walk-back 2026-05-20); **Sim audit ✓ NO DRIFT** on α + (p,q) + C8 (2026-05-20 EOD+); **Phase 0b READY for Grant fab submission** | Grant uploads `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB per `hopf_02a_ORDERING.md`; orders 3D-print mandrels per `hopf_02a_BOM.md` |
-| **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) + [Framework-readiness audit](exp-c15-cleave-01-sim-audit.md) | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity; **framework-readiness audit ✓ NO DRIFT** on ξ_topo + Ax2 + 6 cascade dependents (2026-05-20 EOD+++) | KiCad design from KB spec + ~$1-5k bench |
+| **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) + [Framework-readiness audit](exp-c15-cleave-01-sim-audit.md) + [Phase 0 scaffold brief](exp-c15-cleave-01-phase-0-scaffolding.md) + **NEW sibling repo `AVE-Bench-FemtoElectrometer`** | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity; **framework-readiness audit ✓ NO DRIFT** on ξ_topo + Ax2 + 6 cascade dependents (2026-05-20 EOD+++); **Phase 0 SCAFFOLD ✓ LANDED** at `AVE-Bench-FemtoElectrometer` commit `0b05bd4` (2026-05-20 EOD+++++) | (i) Grant GitHub remote setup `gh repo create ave-veritas-et-enodatio/AVE-Bench-FemtoElectrometer --private`; (ii) Phase 0→1 promotion adjudication gated on Q-C15-01 chamber priority resolution |
 | **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) + [Sim audit](exp-c11-mach-zehnder-sim-audit.md) + [project-c11-mach-zehnder.md canonical KB leaf](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation; **sim audit ✓ NO DRIFT** (ν_vac + ε_11 + n_s/n_t + C1 cascade verified); Pattern B canonical KB leaf landed | Facility partnership search (terrestrial 1-m electron interferometer) |
 
 ## Supporting infrastructure docs
