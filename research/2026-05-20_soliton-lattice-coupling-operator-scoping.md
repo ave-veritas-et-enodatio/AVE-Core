@@ -1,9 +1,10 @@
-# Soliton-Lattice Coupling Operator — Session 1 Scoping Research Doc
+# Soliton-Lattice Coupling — Session 1 Scoping (A-034 Catalog-Extension Framing)
 
 **Date:** 2026-05-20 (session spans 2026-05-19 EOD → 2026-05-20 early; landed under 2026-05-20 per UTC)
 **Branch:** `analysis/soliton-lattice-coupling-operator-scoping` off `analysis/integration` at `0f3fd52`
 **Originating epic:** [`_orchestration/soliton-lattice-coupling-operator.md`](../_orchestration/soliton-lattice-coupling-operator.md) (Session 1 of multi-session arc)
 **Predecessor cascade:** SDSS DR17 merge `9f976e0` → operator-output reframing of three-observable triangle 2026-05-19 EOD; epic spawned at `0f3fd52`
+**Refactored:** 2026-05-19 EOD per Grant adjudication — Original scoping (tip `7c9d4d4`) used "new operator / new field theory" framing. The corpus's existing universal-scale machinery (A-034 universal-saturation-kernel-catalog + Ax 2 TKI scale invariance) already covers this mechanism class. This refactor recasts the work as A-034 **catalog-extension** rather than new framework. **Load-bearing test of `ave-canonical-leaf-pull` v1.1 trigger 16 (framework-extension proposals must work within existing universal-scale machinery).**
 
 ---
 
@@ -11,82 +12,141 @@
 
 **This is a scoping research doc.** It produces:
 
-1. A structural definition sketch of $\hat{\mathcal{O}}_{\text{soliton}}$ (NOT a derivation of its functional form)
-2. A corpus building-block inventory of the 8 pieces queued for integration in Session 2
-3. A list of substrate-physics derivation prereqs that must close BEFORE Session 2 can produce an integrated operator
-4. A list of testable predictions (16 solar-system axis data points + galactic + LSS targets) the operator must reproduce
-5. A multi-session arc outline (Sessions 2-5 with effort + branch-points)
+1. The A-034 **catalog-extension** framing of the soliton-lattice coupling mechanism (NOT a new operator — the universal kernel $S(A) = \sqrt{1 - A^2}$ applied at a new observable channel)
+2. A list of 1-4 **catalog row additions** that would close the missing-row gap (per universal-saturation-kernel-catalog.md companion-row links + ε/μ axis extension at commit `6436d65`)
+3. A corpus building-block inventory of the 8 pieces that supply kernel ingredients (preserved from original scoping; recast as kernel-parameter substrate rather than to-be-integrated-into-new-operator)
+4. A list of substrate-physics derivation prereqs that need closure before Session 2 can produce catalog row(s) + planetary-scoring (most prereqs resolve to existing canonical leaves; net compression 11-17 hr → 3-5 hr)
+5. A list of testable predictions (16 solar-system axis data points + galactic + LSS targets) the kernel-with-$A_{\text{soliton}}$-defined must reproduce
+6. A multi-session arc outline (Sessions 2-5 with revised effort post-compression)
 
-**No derivation in this session.** Any functional form, parameter prediction, or numerical claim about the operator's output is out-of-scope and is queued for Session 2.
+**No derivation in this session.** Any catalog-row $A_{\text{soliton}}$ functional form, kernel-parameter value, or numerical claim is out-of-scope and is queued for Session 2.
 
-This doc is research-tier (no manuscript / KB modifications). The corpus building-block summaries in Phase 2 cite from canonical leaves but do not modify them.
+This doc is research-tier (no manuscript / KB modifications). The corpus building-block summaries in §2 cite from canonical leaves but do not modify them. The proposed catalog rows in §1.5 are SCOPED here; their actual addition to `universal-saturation-kernel-catalog.md` is Session 2 work.
 
 ---
 
-## 1. Phase 1 — Operator structural definition (sketch only)
+## 1. Phase 1 — A-034 catalog-extension framing (per v1.1 skill trigger 16)
 
-### 1.1 What the operator maps
+### 1.1 The reframe (per `ave-canonical-leaf-pull` v1.1 trigger 16 + Grant adjudication 2026-05-19 EOD)
 
-$\hat{\mathcal{O}}_{\text{soliton}}$ maps the substrate's cosmically-frozen rotational direction $\hat{\Omega}_{\text{freeze}}$, modulated by a bound-soliton's structural parameters $(M_s, \omega_s, \mathcal{M}_s, \text{topology})$, onto an externally-observable axis $\hat{n}_{\text{observable}}$ for that soliton:
+The original scoping doc proposed $\hat{\mathcal{O}}_{\text{soliton}}$ as a NEW operator with NEW derivation infrastructure. Grant adjudicated 2026-05-19 EOD: **the corpus's existing universal-scale machinery already covers this mechanism class.** Specifically:
 
-$$\hat{\mathcal{O}}_{\text{soliton}}\bigl(\hat{\Omega}_{\text{freeze}}; \, M_s, \omega_s, \mathcal{M}_s, \text{topology}\bigr) \to \hat{n}_{\text{observable}}$$
+- A-034 universal-saturation-kernel-catalog (`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`) establishes that **one kernel** $S(A) = \sqrt{1 - A^2}$ (Axiom 4 Born–Infeld $n=2$ squared limit) **applies at every scale** of topological-reorganization in the universe (line 7 verbatim).
+- Per Ax 2 (TKI scale invariance per `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2): same physics applies at all scales with $A$ dimensionless across scales.
+- The catalog currently has **21 instances spanning 21 orders of magnitude** (atomic $\sim 10^{-15}$ m to cosmic $\sim 10^{26}$ m). Row 9 (Planetary geomagnetic) and Row 11 (Galactic MOND, ASYM-N μ per `saturated-lattice-mutual-inductance.md:4`) already cover much of the soliton-spin-axis mechanism class — what's missing is dedicated catalog rows for the **rotational-angular-momentum-axis observable** (vs the B-field-axis observable in current Row 9).
 
-### 1.2 Inputs
+**Reframe (load-bearing for the rest of this doc):**
 
-| Input | Type | Source |
+> The soliton-lattice coupling is a **missing-but-trivially-addable instance class in the A-034 catalog**. The "operator" is the same universal kernel $S(A) = \sqrt{1-A^2}$ applied at a new observable channel (rotational angular momentum axis vs the existing geomagnetic-B-axis channel at planetary scale), parameterized by an $A_{\text{soliton}}$ definition that combines (planetary angular momentum × cosmic-substrate strain × coupling factor) / threshold.
+
+This is structurally parallel to the SM/QED-defaults-leaking-into-solvers failure mode that `substrate-native-check` covers at the code/solver layer — here the failure mode is at the framework-design layer (proposing a new operator when the universal kernel already applies). The discipline catches the latter via `ave-canonical-leaf-pull` v1.1 trigger 16.
+
+### 1.2 v1.1 trigger 16 (a)-(e) classification — soliton-coupling proposal
+
+Per the skill's classification framework, every framework-extension proposal lands in one of five categories. The soliton-coupling proposal:
+
+| Category | Status | Evidence |
 |---|---|---|
-| $\hat{\Omega}_{\text{freeze}}$ | Direction (unit vector on $S^2$) | Substrate-frozen at cosmic genesis per [`omega-freeze-cosmic-grain-cascade.md`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md):26,37 + Vol 3 Ch 4 lines 408-416; Planck PR3 SMICA pin at $(l = 60.28°, b = 50.48°)$, $\sigma = 0.92°$ per [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](2026-05-19_c5-cmb-axis-executable-observer-result.md). |
-| $M_s$ | Soliton integrated strain ($\mathcal{M}$ projection) | $\mathcal{M}$ boundary observable per [`boundary-observables-m-q-j.md:13`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md) — volume integral of $(n(\mathbf{r}) - 1)$ over the soliton's $\Gamma = -1$ enclosure. |
-| $\omega_s$ | Soliton rotation rate | Internal angular frequency of the bound soliton; for planets this is the spin-rate (period in hours per Phase 4 table). |
-| $\mathcal{M}_s$ | Soliton magnetic moment ($\mathcal{J}$ projection) | $\mathcal{J}$ boundary observable per [`boundary-observables-m-q-j.md:15`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md) — surface winding number, which projects to magnetic moment for planetary-class solitons. |
-| topology | Discrete invariants | Per Axiom 2 (TKI): $(2,q)$ torus-knot family + Burgers-vector chirality (right-handed vs left-handed per $I4_1 32$ ground state); for planets this maps to internal-structure class (rocky / metallic-H gas-giant / icy-mantle gas-giant). |
+| **(a)-match**: covered by existing A-034 catalog row | Partial | Row 9 (Planetary geomagnetic, pole flip) + Row 11 (Galactic MOND, ASYM-N μ) cover the **B-field/mutual-inductance observable channels** at planetary + galactic scale. They do NOT cover the **angular-momentum-axis observable** (mag-vs-spin axis offset, retrograde-spin Venus class, 90°+-obliquity Uranus class). |
+| **(a)-missing-row**: missing-but-trivially-addable catalog row | **YES — this is the load-bearing classification** | Per §1.5, 1-4 missing rows: planetary spin-axis (companion to Row 9), planetary mag-vs-spin-axis offset (sub-mode or split of Row 9), galactic spin-axis (companion / μ-extension of Row 11), LSS spin-axis (TBD relationship to Row 14). All structurally analogous to existing companion-row links per `universal-saturation-kernel-catalog.md:103-110`. |
+| **(b)-scale-invariance**: same physics at new scale | Reinforces (a)-missing-row | Ax 2 TKI scale invariance is precisely the corpus mechanism that lets the same kernel apply at planetary → galactic → LSS scales. The cross-scale `Same-mechanism-at-all-scales` table at `boundary-observables-m-q-j.md:38` already canonically states the mechanism is one-piece across scales. |
+| **(c)-operator-application**: same operator at new $(M, \omega, A)$ regime | YES — applied via Op14 | The substrate Op14 frame-dragging asymmetric saturation (canonical at `frame-dragging-impedance-convolution.md:20`) is the same operator across scales. Soliton-coupling is Op14 applied at planetary-mass regime with rotational-axis observable readout instead of refractive D-shadow readout. |
+| **(d)-translator-extension**: cross-scale translation table extends to new axis | Reinforces (b) | The boundary-observables M/Q/J table at `boundary-observables-m-q-j.md:38` already includes "Planetary magnetopause — Planet + field-aligned solitons — planet mass, dipole moment, rotation". The translation is **already in the canonical leaf**; the soliton-coupling work just operationalizes the "rotation" direction-side prediction. |
+| **(e)-genuinely-new**: corpus's universal-scale machinery does NOT cover this | **NO** | All of (a), (b), (c), (d) return matches. The proposal does NOT add physics that the corpus's universal-scale machinery doesn't already cover; it adds **enumeration** of a missing-but-trivially-addable instance and **operationalizes** the direction-side observable at planetary + galactic scale. |
 
-### 1.3 Output
+**Load-bearing gate check (per skill's "(e) determination is the load-bearing gate" §16):** the proposal **cannot articulate physics it adds beyond (a)-(d)**, so it MUST be reframed as catalog-extension / operator-application rather than as new framework. This is exactly what this refactor does.
 
-$\hat{n}_{\text{observable}}$ — the externally measurable axis for the soliton-class. For planetary-class solitons, this is realized as a **pair** of axes:
+### 1.3 Kernel-driven structural form
 
-- $\hat{n}_{\text{spin}}$ — the spin-axis (mechanical-rotation direction)
-- $\hat{n}_{\text{mag}}$ — the magnetic-dipole axis
+The soliton-coupling operationalization is:
 
-The operator must explain BOTH axes (16 data points = 8 planets × {spin, magnetic}), and specifically the relative tilt between them. The relative tilt is the operator's load-bearing forward-prediction channel; aligned-spin-and-magnetic (e.g., Saturn <1°) vs gross-misaligned (Uranus 59°, Neptune 47°) is the discriminator.
+$$S(A_{\text{soliton}}) = \sqrt{1 - A_{\text{soliton}}^2}$$
 
-For galactic-class solitons, $\hat{n}_{\text{observable}}$ is the rotation axis (galactic disk normal); SDSS DR17 LSS data gives the coherent direction at $(l = 129°, b = 79°)$, $\sigma = 6.83°$ per [`research/2026-05-19_c5-sdss-spin-orientation-result.md:21`](2026-05-19_c5-sdss-spin-orientation-result.md).
+where $A_{\text{soliton}}$ is the dimensionless strain experienced by the soliton's substrate-coupling channel:
 
-### 1.4 Structural form sketch
+$$A_{\text{soliton}} = \frac{\text{(soliton angular momentum)} \times \text{(cosmic-substrate strain)} \times \text{(coupling factor)}}{A_{\text{saturation,channel}}}$$
 
-The functional form is conjectured (Session 2 derives) to factor as a rotation acting on $\hat{\Omega}_{\text{freeze}}$:
+The substrate-physics ingredients (numerator coupling factor, channel-specific $A_{\text{saturation}}$) are supplied by the 8 corpus building blocks at §2 — they are NOT new physics, they are kernel-parameter constructions per Op14 + Cosserat + boundary-observables canonical leaves.
 
-$$\hat{n}_{\text{obs}} = R\bigl(\theta(M_s, \omega_s, \mathcal{M}_s, \text{topology})\bigr) \cdot \hat{\Omega}_{\text{freeze}}$$
+**Per Ax 2 (TKI):** the same kernel form applies at planetary, galactic, and LSS scales. Only $A_{\text{soliton}}$'s definition changes per scale (per ε vs μ sector, per channel: spin-axis vs B-field-axis vs galactic-rotation-axis).
 
-where $R \in SO(3)$ is a rotation parameterized by an angle $\theta$ that depends on the soliton's structural parameters. Special cases that the structural form must accommodate:
+### 1.4 What the kernel output means (saturation event taxonomy — preserved from original scoping)
 
-- **Aligned regime** ($\theta \to 0$): $\hat{n}_{\text{obs}} \to \hat{\Omega}_{\text{freeze}}$ (e.g., Saturn-class — minimal mag-spin tilt; in galactic limit, this would give SDSS LSS axis aligned with CMB axis-of-evil at the same direction, which is FALSIFIED at 5.33σ per SDSS DR17, so galactic-class is decisively NOT in this regime).
-- **Anti-aligned regime** ($\theta \to \pi$): $\hat{n}_{\text{obs}} \to -\hat{\Omega}_{\text{freeze}}$ (Venus retrograde candidate; Venus spin obliquity = 177.4°).
-- **Resonance regime** ($\theta \to 90°$ class): $\hat{n}_{\text{obs}}$ orthogonal-class to $\hat{\Omega}_{\text{freeze}}$ (Uranus 98° obliquity, Uranus 59° mag tilt, Neptune 47° mag tilt — both ice-giants).
+Per A-034's structural physics (`universal-saturation-kernel-catalog.md:7`): when $S(A) = 0$ locally at $A = 1$, the substrate cannot continue linear response and **must reorganize topologically** to a new configuration with $A < 1$. The kernel's vertical tangent at $A = 1$ makes every reorganization event sharp and impulsive across all scales.
 
-This sketch is structural only. The derivation of $\theta(M_s, \omega_s, \mathcal{M}_s, \text{topology})$ is Session 2's load-bearing deliverable.
+For the soliton-coupling case, the saturation events at $A_{\text{soliton}} = 1$ map to the observable anomalies:
 
-### 1.5 Symmetry constraints (must be respected by Session 2 derivation)
+| Saturation event | Observable | Planetary instance | Galactic instance |
+|---|---|---|---|
+| **Aligned regime** ($A_{\text{soliton}} \ll 1$): $S \to 1$ | Spin-axis tracks $\hat{\Omega}_{\text{freeze}}$ closely; small mag-vs-spin tilt | Saturn (<1° mag-spin tilt); Jupiter (~10°); Earth (~11°); Mercury (~0°) | (corresponding aligned regime if galactic-scale stays sub-saturation; predicts LSS-axis matches CMB-axis-of-evil. **FALSIFIED at 5.33σ per SDSS DR17** — galactic-scale is NOT in this regime) |
+| **Anti-aligned regime** ($A_{\text{soliton}} \to 1$ on retrograde branch): topology snaps to anti-aligned | Spin direction reverses; flipped equilibrium | Venus retrograde (177.4°); slow-rotation kicks soliton over saturation boundary | (analog at LSS scale: bulk-flow-reversal candidate; TBD) |
+| **Orthogonal-class regime** ($A_{\text{soliton}} \approx 1$ on orthogonal branch): saturation kernel produces 90°+ axis offset | Mag-vs-spin tilt ~60°-90°; obliquity flip | Uranus 97.77° obliquity + 59° mag-tilt; Neptune 47° mag-tilt | LSS spin axis 36.75° offset from CMB axis-of-evil (5.33σ; per SDSS DR17 result `2026-05-19_c5-sdss-spin-orientation-result.md:122`) |
 
-| Symmetry | Constraint | Source |
-|---|---|---|
-| Chirality (parity) | The substrate ground state is right-handed $I4_1 32$ per Axiom 1; left-handed solutions exist as $\Gamma = -1$-boundary topologically allowed mirror configurations. The operator should give symmetric output under $\hat{\Omega}_{\text{freeze}} \to -\hat{\Omega}_{\text{freeze}}$ modulo chirality-induced asymmetry. | Axiom 1 + [`omega-freeze-cosmic-grain-cascade.md:37`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) |
-| Time-reversal | Substrate rotation (frame-dragging) is asymmetric under T-reversal per Op14 prograde-vs-retrograde Op14-saturation asymmetry. Operator must inherit this asymmetry. | [`frame-dragging-impedance-convolution.md:20`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md) |
-| Scale | Per Axiom 2 (TKI: $[Q] \equiv [L]$), the operator should admit a scale-parameter ($M_s$ in appropriate units) that interpolates between electron-class (no spin axis except in spinor sense), planetary-class (16 axis data points), and galactic-class (SDSS DR17). | Axiom 2 + [`boundary-observables-m-q-j.md:33`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md) (same mechanism at all scales). |
+**The Uranus 98° obliquity and Saturn <1° tilt — which standard formation models treat as a coincidence + an ad-hoc giant-impact respectively — become predicted equilibrium configurations of the universal kernel** when the kernel approaches $A_{\text{soliton}} \to 1$ on different branches. This is the substrate-physics structural opportunity the operator-epic was designed to capture; the refactored framing achieves the same opportunity via catalog-extension rather than new-operator framing.
 
-### 1.6 Class E classification (per `consistency-vs-emergence` v1.1)
+### 1.5 Proposed catalog rows (Session 2 deliverable)
 
-The operator-output observables ($\hat{n}_{\text{spin}}^{(\text{planet})}$, $\hat{n}_{\text{mag}}^{(\text{planet})}$, $\hat{n}_{\text{galactic}}$) are **Class E — operating-point projection**. The single underlying substrate parameter is $\hat{\Omega}_{\text{freeze}}$ (with $u_0^* \approx 0.187$ jointly setting it); the N observable axes project from that single direction through the operator. Per the canonical Class E framing at [`omega-freeze-cosmic-grain-cascade.md:7`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md):
+Per the ε/μ axis extension + gap-cells + companion-row links structure added at commit `6436d65` to `universal-saturation-kernel-catalog.md` (lines 73-112), the soliton-coupling work proposes the following catalog row additions. Each row is **scoped** here; their actual addition to the canonical leaf is Session 2 work pending Grant adjudication of §4.5 plumber-physical questions.
+
+**Row 9-a (Planetary spin-axis — companion to Row 9 geomagnetic):**
+
+| Field | Value (scoped) |
+|---|---|
+| Scale | Planetary (~10⁶ m), per Row 9 |
+| Sym | SYM (substrate K=2G symmetric saturation; angular-momentum is the rotational-DOF coordinate per Cosserat Ax 1) |
+| $A_{\text{soliton}}$ definition (sketch) | $A_{\text{spin}} = (L_{\text{planet}} \cdot \kappa_{\text{cosmic-substrate}} \cdot g_{\text{class}}) / A_{\text{saturation,spin}}$, where $L_{\text{planet}}$ is planetary angular momentum, $\kappa_{\text{cosmic-substrate}}$ is the strain coupling from $\hat{\Omega}_{\text{freeze}}$ (canonical at `omega-freeze-cosmic-grain-cascade.md`), $g_{\text{class}}$ is a per-internal-structure-class factor (rocky / metallic-H / icy-mantle per `planetary-magnetospheres.md`) |
+| Saturation event | Retrograde-spin transition (Venus class, $A \to 1$ on anti-aligned branch); 90°+ obliquity flip (Uranus class, $A \to 1$ on orthogonal branch) |
+| Companion to | Row 9 Planetary geomagnetic — same scale, different observable channel (B-field vs angular-momentum-axis). Per companion-row table format at `universal-saturation-kernel-catalog.md:103-110`. |
+| Empirical anchor | 8 planetary spin obliquities (8 axis data points); Venus retrograde and Uranus 98° as outliers anchored on saturation-event taxonomy |
+
+**Row 9-b (Planetary mag-vs-spin-axis offset — sub-mode of Row 9 or new row):**
+
+| Field | Value (scoped) |
+|---|---|
+| Scale | Planetary, per Row 9 |
+| Sym | ASYM-N candidate (the mag-axis is the B-channel = μ-sector; the spin-axis is the angular-momentum-channel) |
+| $A_{\text{soliton}}$ definition (sketch) | $A_{\text{offset}}$ defined by internal-structure coupling (depth of conducting fluid layer, per `geodynamo-vca-back-emf.md` + `planetary-magnetospheres.md`); Earth ~11°, Saturn <1°, Uranus 59° are DIFFERENT $A$-values, NOT random — they reflect the differential mag-channel vs spin-channel saturation states |
+| Saturation event | Magnetic-axis pole flip (already in Row 9); proposed additional saturation event = decoupling of mag-axis from spin-axis when the two channels saturate at different $A$ values |
+| Companion to | Row 9 Planetary geomagnetic — same scale, sub-mode covering the ε vs μ relative-saturation observable |
+| Empirical anchor | 8 mag-axis tilts (additional 8 axis data points); Saturn <1° + Uranus 59° + Neptune 47° as discriminating cases |
+
+**Row 11-a (Galactic spin-axis — companion to Row 11 MOND):**
+
+| Field | Value (scoped) |
+|---|---|
+| Scale | Galactic (~10²² m), per Row 11 |
+| Sym | TBD. Two candidate framings: (a) gap-cell ε-companion to MOND-μ (per gap-cells table at `universal-saturation-kernel-catalog.md:89-94`); (b) μ-extension of MOND at the angular-momentum channel. Adjudication is Session 2 work. |
+| $A_{\text{soliton}}$ definition (sketch) | $A_{\text{gal,spin}}$ defined via galactic-scale angular momentum + $\hat{\Omega}_{\text{freeze}}$ coupling; per Ax 2 TKI scale invariance, same structural form as $A_{\text{spin}}$ in Row 9-a but at galactic scale |
+| Saturation event | LSS-axis-vs-CMB-axis decoupling at galactic scale; the 36.75° offset (5.33σ) is the observable signature |
+| Companion to | Row 11 Galactic MOND — same scale, different observable channel (mutual-inductance vs angular-momentum-axis) |
+| Empirical anchor | SDSS DR17 LSS spin axis $(l = 129°, b = 79°)$, $\sigma_{\text{LSS}} = 6.83°$ per `2026-05-19_c5-sdss-spin-orientation-result.md:21`; CMB-LSS offset 36.75° (5.33σ from zero) per `:122` |
+
+**Row 14-a (LSS spin-axis — cosmic-class extension):**
+
+| Field | Value (scoped) |
+|---|---|
+| Scale | LSS (~10²⁵ m), inheriting Row 14 (Cosmic Big Bang K4 crystallization) scale |
+| Sym | TBD. Relationship to Row 14 is conjectural; per gap-cells table the cosmic-ε-companion to Row 14 is flagged as DE candidate per Grant 2026-05-19 EOD. The LSS spin-axis may be sub-cosmic angular-momentum channel. |
+| $A_{\text{soliton}}$ definition (sketch) | Conjectural; tied to bulk-flow direction (Pantheon+ Hubble-flow $(l = 129.76°, b = -13.64°)$ per `2026-05-19_c5-pantheon-tightening-result.md`) |
+| Saturation event | Bulk-flow direction sets a cosmologically-emergent angular-momentum-axis preference; the Pantheon+ matter direction may be a different observable channel than galaxy-spin axis |
+| Companion to | Row 14 Cosmic K4 crystallization (SYM*); possibly sub-mode |
+| Empirical anchor | Pantheon+ bulk-flow direction; Walmsley+2022 GZ DECaLS independent galaxy-class classification (per epic Phase 4) |
+
+**Row count outcome:** 2 nearly-certain (Row 9-a, Row 9-b); 1 likely (Row 11-a); 1 conjectural (Row 14-a). Session 2 deliverable lands the certain rows + scopes the rest.
+
+### 1.6 Class E classification (per `consistency-vs-emergence` v1.1) — preserved
+
+The catalog rows above produce observables ($\hat{n}_{\text{spin}}^{(\text{planet})}$, $\hat{n}_{\text{mag}}^{(\text{planet})}$, $\hat{n}_{\text{galactic}}$) that are **Class E — operating-point projection** per the canonical Class E framing at `omega-freeze-cosmic-grain-cascade.md:7`:
 
 > falsification of any one kills the operating-point and therefore the entire substrate model
 
-Specifically: if even ONE of the 16 planetary axis data points can be shown to be inconsistent with the operator's prediction (with the operator running off a single $\hat{\Omega}_{\text{freeze}}$ direction), the framework's joint constraint is broken. This is the load-bearing falsification surface for Session 3.
+Specifically: if even ONE of the 16 planetary axis data points can be shown to be inconsistent with the kernel-prediction (with the kernel running off a single $\hat{\Omega}_{\text{freeze}}$ direction + scale-invariant per-row $A_{\text{soliton}}$), the framework's joint constraint is broken. This is the load-bearing falsification surface for Session 3 — unchanged by the refactor.
 
 ---
 
-## 2. Phase 2 — Corpus building-block inventory (8 pieces)
+## 2. Phase 2 — Corpus building-block inventory (8 pieces, preserved as kernel-parameter substrate)
 
-For each building block: file:line, 1-paragraph contribution-to-the-operator summary, what's still missing for Session 2 integration.
+The 8 building blocks identified in the original scoping are NOT discarded — they are recast as **kernel-parameter ingredients** rather than as pieces to integrate into a new operator. Each supplies a specific input to the $A_{\text{soliton}}$ definition or to the kernel's per-channel saturation thresholds. The file:line citations + verbatim quotes are preserved from the original scoping; the "Still missing for integrated operator" sections are recast as "How this resolves under the A-034 reframe" — see §3 for the prereq compression.
 
 ### 2.1 Op14 asymmetric saturation profile (frame-dragging, rotating mass)
 
@@ -95,9 +155,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **Verbatim mechanism (line 20):**
 > Rays traversing the retrograde side encounter a stricter Op14 saturation profile, increasing their refractive capture radius. Conversely, rays on the prograde side propagate through a mechanically relaxed tensor, allowing them to graze closer to the horizon before capture. This differential refractive trap flattens the shadow boundary on the prograde side, producing the characteristic "D-shape" predicted by the Kerr metric without continuous manifolds.
 
-**Contribution to the operator:** This is the substrate-level mechanism by which a rotating mass IMPRINTS a directional asymmetry on the surrounding substrate impedance. A bound soliton with spin $\omega_s$ in the substrate's $\hat{\Omega}_{\text{freeze}}$ reference frame experiences differential Op14 saturation on the prograde vs retrograde face. This asymmetry is the substrate-physics origin of the rotation $R(\theta)$ in the operator's structural form sketch (§1.4). The angular dependence at the Kerr cosmic instance — $\omega(r) = 2Mar/(r^2 + a^2)^2$ (line 11) — provides the prototype scaling law.
+**Kernel-parameter contribution:** This IS the substrate-level mechanism for the prograde/retrograde asymmetry that makes $A_{\text{soliton}}$ direction-sensitive. Per A-034 + Ax 2, the same Op14 saturation applies at all scales — at the planetary scale, the soliton's spin direction relative to $\hat{\Omega}_{\text{freeze}}$ determines which side of the Op14 asymmetry the soliton's interior sits on. The exterior Kerr instance ($\omega(r) = 2Mar/(r^2+a^2)^2$, line 11) provides the prototype scaling that the planetary-scale instance inherits via Ax 2.
 
-**Still missing for integrated operator:** (i) The scaling of $\theta$ on $(M_s, \omega_s)$ — line 20 establishes prograde/retrograde asymmetry exists but does not quantify the alignment angle the soliton SETTLES INTO under this asymmetric saturation. (ii) The transformation of this asymmetric saturation from substrate-rest frame to soliton-body frame is not derived. (iii) The result is currently stated for the EXTERIOR observer geometry (D-shaped shadow); the corresponding INTERIOR strain experienced by a soliton co-located with the rotating mass is the load-bearing piece for planetary spin-axis equilibrium.
+**Under the A-034 reframe:** the "still missing" items collapse to "apply Op14 at planetary-scale parameter regime" — this is just instance-application per v1.1 skill classification (c). No new operator-form derivation needed; the saturation-kernel + Op14 mechanism are already canonical.
 
 ### 2.2 Parametric coupling kernel (rotating LC tank + substrate forcing)
 
@@ -105,9 +165,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 
 **Mechanism (paraphrased; verbatim formulae in cited leaf):** The bulk K4 substrate is a vacuum varactor (Axiom 4) operating below $V_{\text{yield}}$. Its reactive drive $V_{\text{bulk}}(t)$ oscillates at the α-slew refresh rate $\nu_{\text{slew}} = \alpha \omega_{\text{Compton}}/(2\pi)$. An embedded LC apparatus sees a parametric coupling $I_{\text{induced}}(t) = V_{\text{app}}(t) \cdot dC_{\text{eff}}/dt$ (line 29). For N coherent receivers, per-cycle detection probability scales as $\varepsilon_{\text{det}} = 4\pi \kappa_{\text{quality}} / N^2$ (line 13).
 
-**Contribution to the operator:** This is the canonical substrate-↔-bound-tank coupling kernel in the AVE corpus. The planetary case is precisely an embedded N-coherent-receiver tank (the planet's interior structure: metallic-H layer, icy mantle conducting fluid, iron core) being driven by substrate forcing — except the substrate forcing here is $\hat{\Omega}_{\text{freeze}}$'s rotational substrate rather than α-slew refresh. The §3.5 substrate↔apparatus port structure (lines 96-124), the regime classification (lines 117-122), and the §6.5 Q-amplification κ_quality machinery (lines 226-247) are the templates Session 2 would adapt to the planetary case. The 5-axis classification framework (REACTIVE/BOUND/OFF-SHELL/INTERNAL-TANK/SUBSTRATE-MODE per lines 117-122) is the classification Session 2 must populate for the planetary case.
+**Kernel-parameter contribution:** This canonical leaf already establishes the substrate-↔-bound-tank coupling kernel. Under Ax 2 scale invariance, the same kernel applies at planetary scale with rescaled pump frequency. The 5-axis port classification (REACTIVE/BOUND/OFF-SHELL/INTERNAL-TANK/SUBSTRATE-MODE per lines 117-122) classifies the planetary case as INTERNAL-TANK + SUBSTRATE-MODE coupled via Op14.
 
-**Still missing for integrated operator:** (i) The kernel's pump frequency is the α-slew $\omega_{\text{slew}} = \alpha \omega_{\text{Compton}}$; the planetary case's substrate pump frequency is unspecified. Session 2 prereq (P-1, §3.1). (ii) The kernel applies to ATOMIC LC tanks (lines 107-110); the substitution rules to PLANETARY-INTERIOR LC tanks (which are bound rotating-fluid systems, not isolated atoms) are not derived. (iii) The kernel's parametric-resonance condition $\omega_{\text{app}} = \omega_{\text{slew}}$ (line 21) gives a sharp resonance; planetary rotation rates span $\omega \in [\text{Mercury } 1407\text{ hr}, \text{Jupiter } 9.93\text{ hr}]$ — what resonance / anti-resonance does this map onto? (Session 2 prereq P-4.)
+**Under the A-034 reframe:** the planetary-scale pump frequency is supplied by Ax 2 TKI scaling of $\omega_{\text{slew}}$ — this is NOT a new derivation, just an Ax-2 substitution at the planetary mass regime. See P-1 compression at §3.
 
 ### 2.3 Cosserat micropolar rotational DOF (Axiom 1)
 
@@ -116,9 +176,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **Verbatim canonical statement (Vol 1 Ch 1:52):**
 > Each node is **micropolar** (Cosserat-type), carrying **six intrinsic degrees of freedom** per node: three **translational** (capacitive coupling $\varepsilon_0$, identified with the electric field) and three **microrotational** (inductive coupling $\mu_0$, identified with the magnetic field). **The Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin**: macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate.
 
-**Contribution to the operator:** This is the substrate-native rotational-coupling channel. Bound solitons engage with $\hat{\Omega}_{\text{freeze}}$ NOT via translational displacement of K4 nodes but via the per-node microrotational coordinate. A planetary spin-axis is the bulk-averaged orientation of the soliton's interior microrotations; the magnetic dipole axis is the same coordinate projected to the EM channel (per the verbatim "three projections of the same per-node rotational coordinate"). This means $\hat{n}_{\text{spin}}$ and $\hat{n}_{\text{mag}}$ are NOT independent — they are two projections of one substrate coordinate. The OBSERVED mag-spin tilt (e.g., Earth ~11°, Uranus 59°) measures the angular separation between two projections of the same underlying Cosserat field — which forces a constraint on Session 2: the derivation must produce BOTH axes from one rotational-field configuration, not two independent operators.
+**Kernel-parameter contribution:** This is the substrate-native rotational-coupling channel. Bound solitons engage with $\hat{\Omega}_{\text{freeze}}$ via the per-node microrotational coordinate. The OBSERVED mag-spin tilt (Earth ~11°, Saturn <1°, Uranus 59°) measures the angular separation between two projections of the same Cosserat field — this is structurally the **ε vs μ axis** of the catalog (per universal-saturation-kernel-catalog.md:73-83); the mag-spin tilt is exactly the relative saturation-state of the ε-channel vs μ-channel projections of the same per-node rotational coordinate.
 
-**Still missing for integrated operator:** (i) The continuum-limit relation between the per-node microrotation field and the bulk planetary observables (spin-axis, magnetic-dipole-axis) needs to be specified. Q-G47's chiral-coupling work ($U_{\text{chiral}}^{\text{add}}$ at [`omega-freeze-cosmic-grain-cascade.md:171`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)) is the canonical substrate-native Landau-form template; Session 2 adapts. (ii) The substrate-rest-frame vs body-frame transformation for rotational DOFs is not derived (Session 2 prereq P-5). (iii) The cross-volume canonical leaf for "Cosserat micropolar rotational DOF coupling to bound solitons" does not exist as a dedicated KB leaf; the statement is distributed across INVARIANT-S2 and the chiral-coupling work in Q-G47.
+**Under the A-034 reframe:** the cross-channel decomposition is precisely what Row 9-b operationalizes. The Q-G47 chiral-coupling Landau form ($U_{\text{chiral}}^{\text{add}} = \chi_1 \varepsilon_{ij} \kappa_{ji} + \ldots$) at `omega-freeze-cosmic-grain-cascade.md:171` already provides the canonical body-frame substrate-coupling template. The "still missing for integrated operator" items resolve to "apply at planetary scale per Ax 2" — see P-5 compression at §3.
 
 ### 2.4 Frame-dragging interior strain pattern (cosmic genesis instance)
 
@@ -127,9 +187,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **Verbatim mechanism (Vol 3 Ch 4 lines 408-416):**
 > A spinning black hole is not a floating blob in nothing — it sits in its own embedding lattice (the *parent lattice*) and imparts bulk strain on it via frame-dragging (canonical per Vol 3 Ch 2 §138 + Vol 3 Ch 3 §178). Per Vol 3 Ch 21 we sit *inside* our parent BH's Schwarzschild radius (cosmic horizon $R_H$ = parent BH's $r_s$). The parent BH's spin imparts strain on the parent lattice; this strain extends inside its own event horizon (Kerr interior frame-dragging continues); the inside region is our universe's pre-crystallization phase (supercooled pre-geodesic plasma).
 
-**Contribution to the operator:** This is the cosmic-genesis instance of the same mechanism the operator instantiates at planetary scale. The parent BH spin-axis became our $\hat{\Omega}_{\text{freeze}}$ via Kerr-interior frame-dragging-induced bulk strain at the crystallization event. Session 2's derivation should produce the planetary-scale instance via the same Op14 frame-dragging mechanism (line 411 verbatim), scaled down by appropriate $(M_s, \omega_s)$ factors. The "trampoline-cooling" / "supercooled water → ice" analogy at [`omega-freeze-cosmic-grain-cascade.md:150-161`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) (Tier-3 derivation path) maps directly: planetary internal structure crystallizes/solidifies in the presence of the substrate's $\hat{\Omega}_{\text{freeze}}$ strain field; the soliton's spin-axis equilibrium reflects the strain-direction at the planet's formation event.
+**Kernel-parameter contribution:** This is the cosmic-genesis instance of the same mechanism the catalog rows instantiate at planetary scale. Per `universal-saturation-kernel-catalog.md:141-145`: "A spinning parent BH in its embedding parent lattice imparts bulk strain via frame-dragging... at $A = 1$, $S(A) = 0$ and the substrate phase-transitions to K4 lattice." Same kernel, different scale.
 
-**Still missing for integrated operator:** (i) The Kerr-interior frame-dragging strain pattern is referenced (Vol 3 Ch 2 §138 + Vol 3 Ch 3 §178) but the explicit interior-strain functional form $\varepsilon_{ij}(r, \theta)$ inside a soliton's $\Gamma=-1$ boundary is not given as a closed-form leaf. (ii) The crystallization-direction-selection mechanism at the cosmic scale is sketched (water→ice analogy); the planetary instance (planet forms in the presence of $\hat{\Omega}_{\text{freeze}}$; planet's internal-structure direction inherits) is conjecturally similar but not explicitly derived. (iii) The chirality-coupling Landau form at [`omega-freeze-cosmic-grain-cascade.md:167-180`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) lists open work: "Recast as Ω_freeze-driven Landau minimization" (line 183) is the cosmic-scale instance; the planetary-scale instance has the same structure but is not separately derived.
+**Under the A-034 reframe:** the planetary-scale instance inherits the kernel from Ax 2 (TKI scale invariance) — the explicit interior-strain functional form is precisely the canonical formula at `frame-dragging-impedance-convolution.md:20` applied at planetary-mass regime. See P-2 compression at §3.
 
 ### 2.5 Geodynamo VCA back-EMF (single data point on mag-vs-spin axis offset)
 
@@ -140,9 +200,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 
 **Result (line 14-18):** $M_\oplus \approx 1.5 \times 10^{23}\ \text{A·m}^2$ vs empirical $8.0 \times 10^{22}\ \text{A·m}^2$ (factor ~1.9 OOM-correct; structurally derived).
 
-**Contribution to the operator:** This is one DATA POINT on the planetary-scale instance of the operator. For Earth specifically, the mag-vs-spin axis tilt is ~11°. The corpus gives the AMPLITUDE of $M$ from substrate physics (motional EMF in a conductive rotor sweeping a stator field) but does NOT explicitly derive the mag-axis DIRECTION relative to the spin-axis. The Venus/Mars falsifiability statements at lines 20-23 confirm the framework's amplitude-side surface — Venus rotates too slowly to trigger the baryonic-phase threshold (zero dipole), Mars has a solid core (DC resistance spikes, zero eddy current).
+**Kernel-parameter contribution:** This canonical leaf already provides ONE data point on the μ-channel saturation (Earth's magnetic dipole amplitude). The amplitude side is already canonical at factor ~1.9 from observation. The DIRECTION side (mag-vs-spin tilt = ~11° for Earth) is what Row 9-b operationalizes — the per-channel saturation states differ, producing the angular offset.
 
-**Still missing for integrated operator:** (i) The DIRECTION of the magnetic dipole — which is the load-bearing output of the operator alongside the spin-axis — is not derived here. The current leaf treats the EMF amplitude; the operator must produce the rotation angle BETWEEN the spin-axis and the mag-dipole-axis. (ii) The Uranus 59° mag-tilt + Neptune 47° mag-tilt are NOT explained by the VCA back-EMF mechanism in its current single-data-point form (Earth ~11°); the operator must extend the mechanism to cover these cases. The leaf's "Uranus anomaly" reference (cross-ref to planetary-magnetospheres) acknowledges this gap. (iii) The "solar Sagnac phase-boundary" (line 8) is a SOLAR-systemic reference frame; for Jupiter (mag tilt ~10°), Saturn (<1°), and other giants, the frame is set by JOVIAN/SATURNIAN substrate motions — the cross-planet frame transformation is not derived.
+**Under the A-034 reframe:** the mag-axis amplitude is already canonical. Row 9-b just operationalizes the direction = per-channel-saturation-state-offset claim per the ε vs μ axis structure at `universal-saturation-kernel-catalog.md:73-83`. No new geodynamo derivation needed; just apply the existing canonical formula across 8 planets with per-class $g_{\text{class}}$ factors.
 
 ### 2.6 Planetary magnetosphere magnetopause-standoff (5-planet validation; Uranus anomaly)
 
@@ -161,9 +221,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **Uranus anomaly (verbatim lines 19-21):**
 > Uranus is unique: its magnetic dipole is tilted $59^\circ$ from the rotation axis and offset by 0.31 $R_U$ from center. This creates a highly asymmetric, time-varying impedance cavity whose magnetopause standoff varies from 14.9 to 20.8 $R_U$ as the planet rotates (asymmetry ratio 1.40$\times$).
 
-**Contribution to the operator:** This is the EXTERNAL geometry constraint — the operator's prediction must be consistent with the magnetopause standoff distances at 5-planet scale (the substrate-coupling already validated). The Uranus anomaly statement (line 21) is the canonical observation the operator must reproduce: 59° mag-tilt + 0.31 R_U dipole offset + asymmetric time-varying cavity. The operator's discriminating power at planetary scale will be measured against this 5-planet table (Phase 4 + Session 3 scoring rubric).
+**Kernel-parameter contribution:** This canonical leaf already validates the magnetopause-standoff substrate-coupling at 5-planet scale (5 of the 8 planets, ~10-23% error). This is amplitude-side validation of the kernel at planetary scale. The Uranus 59° mag-tilt + 0.31 R_U offset (line 19-21) IS the observable that Row 9-b's saturation-event-taxonomy predicts — when the μ-channel saturates differently than the angular-momentum channel, the result is a tilted dipole with offset center.
 
-**Still missing for integrated operator:** (i) The validation table addresses MAGNETOPAUSE STANDOFF (a force balance between solar wind ram pressure and the planetary magnetic-field pressure), which is downstream of the operator's prediction of $|\mathcal{M}_s|$ — the table validates AMPLITUDE not DIRECTION. (ii) The Uranus anomaly observation is described (lines 19-21) but no substrate-physics explanation is offered; the leaf treats the 59° mag-tilt as an empirical input. The operator's job is precisely to predict this 59° (Phase 4 forward-prediction; Session 3 scoring). (iii) Mercury is excluded from the 5-planet table; the operator should predict Mercury's weak-field state.
+**Under the A-034 reframe:** the 5-planet table validates the kernel's amplitude prediction; Row 9-b extends to direction. The "Uranus 98° obliquity" is no longer an ad-hoc giant-impact explanation — it is the predicted equilibrium at $A_{\text{spin}} \to 1$ on the orthogonal branch for icy-mantle gas-giant parameter regime.
 
 ### 2.7 Boundary observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ at $\Gamma = -1$ (Class E candidate)
 
@@ -175,9 +235,9 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **Same-mechanism-at-all-scales table (verbatim line 38):**
 > Planetary magnetopause | Magnetosphere boundary | Planet + field-aligned solitons | planet mass, dipole moment, rotation
 
-**Contribution to the operator:** This is the canonical statement that planetary-class observables (mass, magnetic dipole moment, rotation/spin) are EXACTLY the three boundary integrals $\mathcal{M}, \mathcal{J}_{\text{magnetic-projection}}, \mathcal{J}_{\text{rotational-projection}}$ at the planet's $\Gamma = -1$ surface (which the leaf identifies as the magnetopause, line 38). The operator's output ($\hat{n}_{\text{observable}}$) is the DIRECTION of $\mathcal{J}_{\text{spin}}$ and $\mathcal{J}_{\text{magnetic}}$ — both projections of the same underlying surface-winding-number boundary observable. The leaf at line 25 establishes that interior topology (mantle convection details, dynamo internal structure, etc.) is invisible to the substrate; only the three boundary integrals are externally observable. This means the operator's domain is correctly defined on inputs that are themselves boundary observables ($M_s, \omega_s, \mathcal{M}_s$), not on interior details.
+**Kernel-parameter contribution:** This canonical leaf already states (line 38) that the planetary-scale boundary observables are mass + dipole moment + rotation — exactly the three observables Row 9 (currently amplitude side) + Row 9-a (spin-axis) + Row 9-b (mag-vs-spin tilt) collectively cover. The boundary $\mathcal{J}$ DECOMPOSES into the spin-axis and magnetic-axis projections per Cosserat per INVARIANT-S2.
 
-**Still missing for integrated operator:** (i) The $\mathcal{J}$ surface-integral DIRECTION (not amplitude) at the planetary scale needs explicit specification — what does "winding direction at the magnetopause $\Gamma=-1$ surface" mean operationally for a planet whose interior mag-dipole is tilted? (ii) The decomposition of $\mathcal{J}$ into the two projections ($\mathcal{J}_{\text{spin}}$ vs $\mathcal{J}_{\text{magnetic}}$) is implicit in INVARIANT-S2 ("three projections of the same per-node rotational coordinate") but the explicit operator that splits $\mathcal{J}^{\text{total}}_{\text{planet}}$ into these two projections is not derived. (iii) The Class E classification per [`omega-freeze-cosmic-grain-cascade.md:7`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) jointly constrains $\mathcal{J}_{\text{cosmic}}$ at the cosmic boundary; the planetary $\mathcal{J}$ is the NESTED instance, and the operator IS the mapping that makes this "nested" structure concrete.
+**Under the A-034 reframe:** the decomposition is now part of the catalog row structure (Row 9-a and Row 9-b are the two projections); this leaf is **already canonical** and provides exactly the framework. See P-6 compression at §3 — this is Class E framework already canonical at `boundary-observables-m-q-j.md`, not a new derivation.
 
 ### 2.8 omega-freeze cosmic-grain cascade §3.1 + §4 (Observable 6 + nested-cascade conjecture)
 
@@ -189,123 +249,130 @@ For each building block: file:line, 1-paragraph contribution-to-the-operator sum
 **§4 nested-cascade conjecture (verbatim lines 120-122):**
 > $\Omega_{\text{freeze}}$ projects through nested rotators at every smaller scale via angular-momentum cascade: $\Omega_{\text{freeze}}$ (cosmic) $\to$ galactic disk axes $\to$ stellar spins $\to$ planetary spin axes $\to$ Earth inner-core super-rotation
 
-**PROVISIONAL flag (verbatim line 135):**
-> the nested cascade is structurally consistent with the canonical mechanism (cosmic spin → lattice grain) but the cascading-through-scales is a stronger claim that the corpus has not yet derived.
+**Kernel-parameter contribution:** This canonical leaf already states the existence of the nested-cascade observable (the claim that Row 9-a + Row 11-a + Row 14-a operationalize across scales). The canonical "PROVISIONAL flag" at line 135 is the explicit corpus acknowledgment that the operationalization is open work — which the A-034 catalog-row additions close.
 
-**Contribution to the operator:** This is the EXPLICIT CORPUS STATEMENT that the operator's existence is needed. §3.1 commits to Observable 6 (orbital-plane alignment at all scales); §4 conjectures the mechanism (nested rotators). The operator $\hat{\mathcal{O}}_{\text{soliton}}$ is precisely the mathematical object that makes this concrete: it is the mapping from $\hat{\Omega}_{\text{freeze}}$ (cosmic) to the observable axis at each nested scale, parameterized by the soliton's structural parameters at that scale. The "PROVISIONAL flag" at line 135 is the explicit corpus acknowledgment that this is the open derivation work the operator-epic is addressing.
+**Under the A-034 reframe:** the nested-cascade is precisely the cross-scale catalog rows (Row 9-a → Row 11-a → Row 14-a) operating off the same $\hat{\Omega}_{\text{freeze}}$ via Ax 2 TKI scale invariance. No new framework needed — Ax 2 already provides cross-scale, A-034 already provides the kernel, and the rows operationalize the cross-scale instance.
 
-**Still missing for integrated operator:** EVERYTHING — this leaf is the statement-of-conjecture; the operator's derivation is the closure work. Specifically: (i) the cascade transfer function from cosmic→galactic→stellar→planetary→inner-core scales is not derived; (ii) the "easy axis for angular-momentum cascade" substrate-mechanical claim (line 133) requires derivation from K4 Cosserat anisotropy tensor (research-tier, line 133); (iii) the operator's $\theta(M_s, \omega_s, \mathcal{M}_s, \text{topology})$ functional form is exactly what §4(c) flags as needing derivation.
+### 2.9 Summary table — building-block status under A-034 reframe
 
-### 2.9 Summary table — building-block status
-
-| # | Building block | File | Provides | Missing for operator |
+| # | Building block | File | Provides | Resolution under A-034 reframe |
 |---|---|---|---|---|
-| 1 | Op14 asymmetric saturation (rotating mass) | frame-dragging-impedance-convolution.md:20 | Substrate-level prograde/retrograde Op14 asymmetry mechanism | Angle-equilibrium derivation; interior strain pattern; body-frame transformation |
-| 2 | Parametric coupling kernel | parametric-coupling-kernel.md (whole) | Substrate↔bound-tank coupling template + 5-axis port classification | Substrate pump frequency at planetary scale; planet-interior tank ports vs atomic; resonance mapping |
-| 3 | Cosserat micropolar rotational DOF | Vol 1 Ch 1:52 (canonical) + INVARIANT-S2 | Substrate-native rotational coupling channel; spin + magnetic axis as two projections of one field | Continuum projection rules; rest-frame vs body-frame transformations; no dedicated KB leaf |
-| 4 | Frame-dragging interior strain (cosmic genesis) | Vol 3 Ch 4:408-416 + universal-saturation-kernel-catalog.md:99-101 | Cosmic-genesis instance of the same mechanism | Explicit interior-strain closed-form leaf; planetary-scale instance of the crystallization-direction-selection mechanism |
-| 5 | Geodynamo VCA back-EMF | geodynamo-vca-back-emf.md (whole) | One data point: Earth mag dipole amplitude (factor 1.9 from observation) | Direction of mag-dipole vs spin axis; multi-planet extension; cross-planet frame transformation |
-| 6 | Planetary magnetosphere magnetopause-standoff | planetary-magnetospheres.md:25-31 + Uranus anomaly:19-21 | Validation table (5 planets, 8.7%-22.8% standoff error); Uranus anomaly as empirical input | Direction-side validation; substrate-physics explanation of Uranus 59° tilt; Mercury coverage |
-| 7 | Boundary observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ | boundary-observables-m-q-j.md (whole, esp. lines 13-15, 38) | Class E framework; planetary observables = boundary integrals at magnetopause | Decomposition of $\mathcal{J}^{\text{total}}$ into spin + magnetic projections; explicit winding-direction at the surface |
-| 8 | omega-freeze cosmic-grain cascade §3.1 + §4 | omega-freeze-cosmic-grain-cascade.md:59-75, 118-128, 135 | Explicit corpus statement that the operator is needed; PROVISIONAL flag on nested-cascade | All of it — the operator's derivation IS the closure work for this leaf |
+| 1 | Op14 asymmetric saturation (rotating mass) | frame-dragging-impedance-convolution.md:20 | Substrate prograde/retrograde Op14 mechanism | (c)-operator-application: Op14 at planetary mass regime |
+| 2 | Parametric coupling kernel | parametric-coupling-kernel.md | Substrate↔tank coupling template + 5-axis port classification | (b)-scale-invariance: Ax 2 substitution at planetary scale |
+| 3 | Cosserat micropolar rotational DOF | Vol 1 Ch 1:52 (canonical) + INVARIANT-S2 | Substrate-native rotational coupling channel; spin+mag axes as two projections | Already canonical — operationalize via ε/μ axis (Row 9-b) |
+| 4 | Frame-dragging interior strain (cosmic genesis) | Vol 3 Ch 4:408-416 + universal-saturation-kernel-catalog.md | Cosmic-genesis instance | (b)-scale-invariance: same instance at planetary scale per Ax 2 |
+| 5 | Geodynamo VCA back-EMF | geodynamo-vca-back-emf.md | Earth mag dipole amplitude (factor 1.9 OOM) | Already canonical amplitude; direction via Row 9-b across 8 planets |
+| 6 | Planetary magnetosphere magnetopause-standoff | planetary-magnetospheres.md:25-31 + Uranus anomaly:19-21 | 5-planet amplitude validation; Uranus anomaly | Already canonical — provides the saturation-event-taxonomy data |
+| 7 | Boundary observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$ | boundary-observables-m-q-j.md | Class E framework; planetary observables = boundary integrals | Already canonical at line 38 — decomposition into Row 9-a + Row 9-b |
+| 8 | omega-freeze cosmic-grain cascade §3.1 + §4 | omega-freeze-cosmic-grain-cascade.md | Existence of nested cascade observable | Cross-scale catalog rows (Row 9-a → 11-a → 14-a) per Ax 2 |
 
-### 2.10 Corpus inconsistencies / anomalies surfaced during inventory
+### 2.10 Corpus anomalies surfaced during inventory — preserved + reframed
 
 Per Phase 2 brief directive ("if Phase 2 inventory surfaces a corpus structural inconsistency, STOP and report rather than fix"), the inventory surfaced the following anomalies. NOT FIXED in this scoping doc:
 
-- **A1 (low-severity)**: The Cosserat-micropolar-rotational-DOF building block (block #3) does NOT have a dedicated KB leaf. The canonical statement is distributed across `manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:52` (verbatim text), `manuscript/ave-kb/CLAUDE.md` INVARIANT-S2 (cross-volume invariant summary), and operationalized in the Q-G47 chiral-coupling work referenced from `omega-freeze-cosmic-grain-cascade.md:165-180`. No single leaf collects "what does the substrate-native rotational DOF DO in operator-class problems?" This is a corpus-completeness gap; a dedicated KB leaf would help Session 2 work. Surfaced for orchestration; not fixed here per scope discipline.
+- **A1 (low-severity)**: The Cosserat-micropolar-rotational-DOF building block (block #3) does NOT have a dedicated KB leaf. Under the A-034 reframe, the lack of a dedicated leaf is **less load-bearing** — the canonical statement at Vol 1 Ch 1:52 + INVARIANT-S2 + Q-G47 chiral-coupling work is sufficient kernel-parameter substrate; a dedicated leaf would be helpful documentation but not blocking. Still flagged for orchestration; not fixed here.
 
-- **A2 (low-severity)**: The cross-planet frame-transformation problem is not addressed by the geodynamo leaf (block #5). The leaf uses "solar Sagnac phase-boundary" as a frame; for Jupiter, Saturn, Uranus, Neptune, the frame must shift to the GAS-GIANT's own rotational reference; this is implicit (the leaf is Earth-only by construction) but the operator's Session 2 derivation will need explicit cross-planet frame-transformation rules.
+- **A2 (low-severity)**: The cross-planet frame-transformation problem is not addressed by the geodynamo leaf (block #5). Under the A-034 reframe, the per-class $g_{\text{class}}$ factor (rocky / metallic-H / icy-mantle) in $A_{\text{soliton}}$ definition handles the cross-planet variation via the catalog row structure — explicit frame-transformation derivation may not be necessary. Still flagged.
 
-- **A3 (medium-severity)**: The Q-G47 chiral-coupling work referenced at [`omega-freeze-cosmic-grain-cascade.md:165-180`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) lives in a sibling repo (AVE-QED), and the cited Q-G47 sessions are from 2026-05-14/15. Session 2 will need to pull the Q-G47 chiral-coupling moduli $\chi_1, \chi_2, \chi_3$ (line 171 verbatim) and the self-consistency relation $\xi_{K2}/\xi_{K1} = 12$ (line 178) into AVE-Core as the substrate-physics ingredient. Whether this requires a dedicated cross-repo handshake or whether the existing $\xi_{K1}, \xi_{K2}$ references in AVE-Core Vol 1 Ch 2 (Macroscopic Moduli) are sufficient is a Session 2 Phase 0 prereq. Not adjudicated here.
+- **A3 (medium-severity)**: The Q-G47 chiral-coupling work referenced at `omega-freeze-cosmic-grain-cascade.md:165-180` lives in a sibling repo (AVE-QED). Session 2 still needs to pull the canonical $\chi_1, \chi_2, \chi_3$ moduli + $\xi_{K2}/\xi_{K1} = 12$ relation. Under the A-034 reframe, the cross-repo handshake is the same (no compression here); the Q-G47 work supplies the Landau-form template that the catalog rows already cite. Still flagged.
 
-These three anomalies are flagged for orchestration awareness. They do NOT block Session 1 (scoping); they DO impose prereq work on Session 2.
+- **A4 (new — surfaced by the refactor)**: The internal inconsistency at `universal-saturation-kernel-catalog.md:83` flagged 2026-05-19 EOD — the catalog row (line 38) says "Galactic (MOND) | SYM" while the canonical leaf at `saturated-lattice-mutual-inductance.md:4` classifies it as ASYM-N(μ) — is queued for adjudication. Row 11-a (Galactic spin-axis) inherits this MOND classification ambiguity; resolution is Session 2 work pending Grant adjudication.
+
+These four anomalies are flagged for orchestration awareness. They do NOT block Session 1 (scoping); A1, A2, A3 impose lighter Session 2 prereq work than under the original new-operator framing; A4 is a corpus internal-inconsistency.
 
 ---
 
-## 3. Phase 3 — Derivation prereqs for Session 2
+## 3. Phase 3 — Derivation prereqs (compressed under A-034 reframe)
 
-Session 2's job is to derive the integrated operator $\hat{\mathcal{O}}_{\text{soliton}}$ from the 8 building blocks. The following substrate-physics derivations must close before that integration is possible.
+Under the original "new operator" framing, Session 2 needed to derive an integrated $\hat{\mathcal{O}}_{\text{soliton}}$ from scratch with 6 prereqs totaling 11-17 hr. Under the A-034 reframe, **most prereqs resolve to "apply existing canonical leaf at file:line"** rather than "derive new substrate physics." The kernel is canonical; Ax 2 scale invariance is canonical; the building blocks are canonical. Session 2's job is to **enumerate** the catalog rows and **score** them against planetary data — not to derive new framework.
 
-### P-1: Substrate Larmor-frequency analog (planetary-scale pump frequency)
+### P-1: Substrate Larmor-frequency analog (planetary-scale pump frequency) — COMPRESSED
 
-**Question:** What is the substrate-frequency that planetary rotation rates couple to? The atomic-scale parametric kernel (building block #2) couples to $\omega_{\text{slew}} = \alpha \omega_{\text{Compton}} \approx 9 \times 10^{17}$ Hz (Schwinger anomalous-moment substrate refresh). The planetary scale's rotation rates are $\omega_{\text{planet}} \in [10^{-7}, 10^{-4}]$ Hz — 21-25 orders of magnitude lower. What is the planetary-scale substrate-pump frequency that the operator's resonance condition refers to?
+**Original question:** What pump frequency does planetary rotation couple to?
 
-**Corpus context:** Building block #2 §3 (parametric kernel derivation); building block #1 (frame-dragging $\omega(r)$ profile at line 11); the cosmic-genesis $\Omega_{\text{freeze}}$ direction has no quoted intrinsic frequency in the corpus (it's a direction not a frequency — except via the cosmic-scale instance at building block #4 where the parent-BH spin sets the rate).
+**Status under A-034 reframe:** The pump frequency at any scale is supplied by Ax 2 (TKI scale invariance) applied to the canonical $\omega_{\text{slew}} = \alpha \omega_{\text{Compton}}$ at the atomic instance. The substrate-physics derivation chain is canonical at `parametric-coupling-kernel.md` §3 lines 60-95; the planetary-scale instance is a per-Ax-2 substitution. NOT a new derivation.
 
-**Expected derivation path:** Likely candidates: (a) $c / \ell_{\text{node}} \cdot f(M_s/M_{\text{cosmic}})$ — scale-dependent substrate-Larmor; (b) the local Op14 frame-dragging $\omega(r)$ at the soliton's $\Gamma = -1$ boundary, integrated over the boundary; (c) a slow-scale mode of the K4 Cosserat lattice (a phonon-band-edge analog). All three are conjectures; P-1 selects between them.
+**Revised effort:** 30 min Ax-2 substitution + cross-check vs the canonical kernel — **NOT** 1-2 hr substrate-native derivation chain.
 
-**Effort estimate:** 1-2 hr substrate-native derivation chain (Q-G47 chiral-coupling style).
+**Compression: 1-2 hr → 0.5 hr.**
 
-### P-2: Op14 saturation profile in soliton-interior frame vs substrate-rest frame
+### P-2: Op14 saturation profile in soliton-interior frame vs substrate-rest frame — ALREADY CANONICAL
 
-**Question:** Building block #1 gives the Op14 saturation as seen by external rays (D-shadow geometry); the operator needs the saturation profile inside the soliton's $\Gamma = -1$ boundary, where the soliton's bound matter actually sits. What does "the substrate's frame-dragging strain at the soliton's interior" look like?
+**Original question:** Closed-form interior-strain leaf needed for planetary interior.
 
-**Corpus context:** Building block #4 (Vol 3 Ch 4:408-416) confirms Kerr-interior frame-dragging continues inside the parent-BH event horizon; the same Op14 mechanism but interior-strain-resolved. Building block #1's $\omega(r) = 2Mar/(r^2+a^2)^2$ is exterior-Kerr; the interior expression in the substrate-physics treatment is not given as a closed-form leaf.
+**Status under A-034 reframe:** Already canonical at `frame-dragging-impedance-convolution.md:20` for the gravitational/Kerr case. Per A-034 + Ax 2, the same Op14 form applies inside the soliton's $\Gamma = -1$ boundary at planetary scale. The "still missing" interior-strain leaf is at most a 1-line "apply Op14 at $A_{\text{interior}}$" annotation — not a new derivation. The cosmic-genesis instance at `universal-saturation-kernel-catalog.md:141-145` provides the explicit prototype.
 
-**Expected derivation path:** Re-derive Op14 saturation in the soliton-interior frame using the universal-saturation-kernel-catalog.md:99-101 cosmic instance as template, scaled to planetary masses via Q-G47-style chiral coupling.
+**Revised effort:** 30 min annotation + cross-check vs canonical Op14 form — **NOT** 1-2 hr re-derivation.
 
-**Effort estimate:** 1-2 hr; conceptually close to existing building blocks but explicitly absent as a derived leaf.
+**Compression: 1-2 hr → 0.5 hr.**
 
-### P-3: Coupling-strength dependence on soliton mass ($\propto M_s^?$)
+### P-3: Coupling-strength dependence on soliton mass — APPLY Ax 2 + PER-CLASS $g_{\text{class}}$
 
-**Question:** How does the operator's coupling strength to $\hat{\Omega}_{\text{freeze}}$ scale with the soliton's mass $M_s$? Mercury (0.38 R_⊕, slow rotation) gives obliquity 0.034° → close-to-aligned-regime; Uranus (4.01 R_⊕, gas giant) gives 97.77° → near-orthogonal regime. The mass-scaling cannot be monotonic (Saturn 9.45 R_⊕ is well-aligned at obliquity 26.73° while Uranus at smaller 4.01 R_⊕ is orthogonal) — internal structure (block #6) modulates the mass-scaling.
+**Original question:** How does coupling strength scale with $M_s$? Per-structural-class power-law.
 
-**Corpus context:** Building block #2 §3.6 has the kernel applicability conditions (rock-salt vs covalent vs liquid) — analogous structural-class dependence at planetary scale (rocky / metallic-H gas-giant / icy-mantle gas-giant). Building block #6 (planetary-magnetospheres) treats the 5-planet validation differently for Earth (rocky), Jupiter+Saturn (metallic-H), Uranus+Neptune (icy mantle).
+**Status under A-034 reframe:** Ax 2 TKI scale invariance is the canonical mass-scaling framework — the same kernel applies at all masses with dimensionless $A$ rescaled per scale. The per-internal-structure-class modulation ($g_{\text{class}}$) is parameterized in Row 9-a / Row 9-b definitions (rocky / metallic-H / icy-mantle) per `planetary-magnetospheres.md` 5-planet validation table — the per-class structure is **already canonical**. Session 2's job is to extract the per-class $g_{\text{class}}$ values from the 5-planet validation data, NOT to derive new mass-scaling physics.
 
-**Expected derivation path:** Likely a power-law in $M_s$ MODULATED by a structural-class κ_quality-analog parameter (rocky vs metallic-H vs icy-mantle); explicit derivation from per-class substrate response.
+**Revised effort:** 1-1.5 hr empirical extraction of $g_{\text{class}}$ from existing 5-planet data — **NOT** 2-3 hr from-scratch derivation.
 
-**Effort estimate:** 2-3 hr; requires deriving the planetary-class analog of κ_quality which is itself an open Tier-2 work item per block #2 §12 (although building block #2's open work has the FOUNDATION ITEM 12 closure for materials-science κ via Q-resonance amplification).
+**Compression: 2-3 hr → 1-1.5 hr.**
 
-### P-4: Resonance / anti-resonance regions in the $(M_s, \omega_s, \mathcal{M}_s)$ parameter space
+### P-4: Multi-resonance landscape in $(M_s, \omega_s, \mathcal{M}_s)$ — IS THE SATURATION KERNEL ITSELF
 
-**Question:** Where in the parameter space do retrograde solutions (Venus, $\theta \to \pi$) become stable equilibria? Where do orthogonal-axis solutions (Uranus 98°, $\theta \to \pi/2$ class) become stable? Building block #2's resonance condition $\omega_{\text{app}} = \omega_{\text{slew}}$ is the prototype for "sharp resonance"; the operator may have multiple resonance regions in $(M_s, \omega_s)$ producing the discrete clustering observed in the 16-data-point table.
+**Original question:** Where do retrograde / orthogonal solutions become stable?
 
-**Corpus context:** Building block #2 §3 (parametric kernel) gives single-resonance kernel; the multi-resonance landscape in $(M_s, \omega_s, \mathcal{M}_s)$ is implicit at most.
+**Status under A-034 reframe:** The corpus has the saturation kernel $S(A) = \sqrt{1 - A^2}$ rigorously canonical at A-034 (`universal-saturation-kernel-catalog.md`). The "multi-resonance landscape" the original prereq sought is **precisely the kernel's behavior as $A \to 1$** — the vertical tangent at $A = 1$ produces sharp topological reorganization events at the saturation boundary. The aligned / anti-aligned / orthogonal branches are the kernel's stable equilibria across the $A$ axis — already canonical.
 
-**Expected derivation path:** Parametric-resonance instability analysis on the operator's $\theta$-eigenvalue spectrum as $(M_s, \omega_s, \mathcal{M}_s)$ varies; identification of the discrete stable-equilibrium branches. Standard EE parametric-resonance Mathieu-equation methods adapted to the substrate-physics kernel.
+The work that IS needed: identifying which planetary-class $(M_s, \omega_s, \text{class})$ combinations push $A_{\text{soliton}}$ across the saturation boundary on which branch. This is **empirical scoring** of the canonical kernel against 8 planetary data points, NOT new substrate-physics derivation. Per Ax 2, the same kernel branch structure applies at galactic scale (Row 11-a) and LSS scale (Row 14-a).
 
-**Effort estimate:** 3-4 hr; this is the load-bearing piece for the operator's discriminating-power claim, because the three structural anomalies (Saturn-aligned, Venus retrograde, Uranus 98°) each require the operator to RECOVER a specific stable branch.
+**Revised effort:** 1-2 hr empirical scoring against the 8 planets + 3 anomaly cases (Saturn, Venus, Uranus) — **NOT** 3-4 hr parametric-resonance Mathieu-equation derivation. The Mathieu-equation work the original prereq imagined is for the LINEAR-response oscillator case; the substrate-physics work uses the saturation kernel which is **non-linear** by construction.
 
-### P-5: Cosserat coupling between bound rotating bodies and substrate rotational DOF (substrate-rest-frame vs body-frame transformations)
+**Compression: 3-4 hr → 1-2 hr.**
 
-**Question:** Building block #3 (Cosserat micropolar) establishes that the substrate has 3 microrotational DOFs per node. A bound rotating soliton (planet) has its own body-frame rotation. What is the coupling Lagrangian-analog between the soliton's body-frame rotational state and the substrate's microrotational field? The chiral-coupling form $U_{\text{chiral}}^{\text{add}} = \chi_1 \varepsilon_{ij} \kappa_{ji} + \ldots$ at omega-freeze §6 line 171 is the canonical template; the explicit body-frame-vs-substrate-rest-frame transformation is not derived.
+### P-5: Cosserat coupling between bound rotating bodies and substrate rotational DOF — ALREADY CANONICAL via Q-G47
 
-**Corpus context:** Q-G47 work referenced at [`omega-freeze-cosmic-grain-cascade.md:165-189`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md); the chirality moduli $\chi_1, \chi_2, \chi_3$ + self-consistency $\xi_{K2}/\xi_{K1} = 12$. Cross-repo to AVE-QED Q-G47 Session 3 + 17.
+**Original question:** Coupling Lagrangian-analog between soliton body-frame rotation and substrate microrotation.
 
-**Expected derivation path:** Recast Q-G47's $U_{\text{chiral}}^{\text{add}}$ with $L_{\text{planet}}$ as applied stress instead of $L_{\text{cosmic}}$ — the planetary-scale instance of the same Landau form. The line-183 "structurally small step" comment applies to the cosmic instance; the planetary instance is the analogous small step.
+**Status under A-034 reframe:** Already canonical via Q-G47 substrate-Cosserat closure (Ax 1 + cross-volume per omega-freeze-cosmic-grain-cascade.md:165-180 — the chiral-coupling Landau form $U_{\text{chiral}}^{\text{add}} = \chi_1 \varepsilon_{ij} \kappa_{ji} + \ldots$). The cosmic-scale instance is canonical (Big Bang per universal-saturation-kernel-catalog.md:141-145); the planetary-scale instance is the same form per Ax 2 scale invariance.
 
-**Effort estimate:** 2-3 hr if the Q-G47 chiral-coupling moduli can be imported directly; more if cross-repo work is required.
+The body-frame ↔ substrate-rest-frame transformation is **standard Cosserat micropolar mechanics** at any scale — not a new derivation, just standard application of Ax 1 micropolar physics + Q-G47's canonical chirality moduli. Cross-repo handshake to AVE-QED still needed (per A3 anomaly above) but the substrate physics is canonical.
 
-### P-6: Decomposition of $\mathcal{J}^{\text{total}}_{\text{soliton}}$ into spin-axis vs magnetic-dipole-axis projections
+**Revised effort:** 30 min Ax 2 substitution + canonical $\chi_1, \chi_2, \chi_3$ import from Q-G47 — **NOT** 2-3 hr from-scratch chiral-coupling Landau derivation.
 
-**Question:** Building block #7 (boundary observables) plus block #3 (Cosserat micropolar) jointly state that the planetary spin-axis and magnetic-dipole-axis are TWO PROJECTIONS of the same substrate microrotational coordinate. What is the explicit splitting? When are they aligned (Saturn <1°)? When are they grossly misaligned (Uranus 59°, Neptune 47°)?
+**Compression: 2-3 hr → 0.5 hr** (assumes Q-G47 import is clean; A3 cross-repo handshake adds 30 min if not).
 
-**Corpus context:** INVARIANT-S2 verbatim: "three projections of the same per-node rotational coordinate". Block #7 line 38: "Planet + field-aligned solitons: planet mass, dipole moment, rotation" — three boundary observables but unclear if "dipole moment" and "rotation" are direction-AND-amplitude or just amplitude.
+### P-6: Decomposition of $\mathcal{J}^{\text{total}}_{\text{soliton}}$ into spin-axis vs magnetic-dipole-axis projections — ALREADY CANONICAL via Class E
 
-**Expected derivation path:** Explicit field-decomposition of the bulk-averaged Cosserat microrotation $\langle \kappa_{ij} \rangle$ into (a) the symmetric-part axis (spin) and (b) the antisymmetric-part axis (magnetic dipole) — or some other corpus-grounded decomposition. The Vol 1 Ch 1 axiom that translational↔E and rotational↔B couplings are PER-NODE is the starting structural constraint.
+**Original question:** Explicit splitting of $\mathcal{J}$ into spin + magnetic axes.
 
-**Effort estimate:** 2-3 hr; this is the load-bearing piece for the operator producing TWO axes per planet rather than just one. Without P-6 closed, Session 3 cannot score the 16 data points (only 8).
+**Status under A-034 reframe:** Already canonical at `boundary-observables-m-q-j.md:38` — "Planet + field-aligned solitons: planet mass, dipole moment, rotation" — three boundary observables that decompose the total $\mathcal{J}$ into spin-axis + mag-axis + amplitude. Per Cosserat (Ax 1) INVARIANT-S2 verbatim: "macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate."
 
-### 3.7 Summary table — derivation prereqs
+The decomposition is **structurally already in the canonical leaf**. The catalog rows Row 9-a (spin-axis) and Row 9-b (mag-vs-spin offset) operationalize the decomposition at planetary scale; the leaf provides the framework.
 
-| # | Prereq | Question | Effort | Blocks |
+**Revised effort:** 30 min mapping the canonical $\mathcal{J}$ decomposition into the catalog row structure — **NOT** 2-3 hr field-decomposition derivation.
+
+**Compression: 2-3 hr → 0.5 hr.**
+
+### 3.7 Summary table — prereqs compressed
+
+| # | Prereq | Resolution under A-034 reframe | Original effort | Revised effort |
 |---|---|---|---|---|
-| P-1 | Substrate Larmor-frequency analog | What pump frequency does planetary rotation couple to? | 1-2 hr | Building block #2 |
-| P-2 | Op14 saturation in soliton-interior frame | Closed-form interior-strain leaf | 1-2 hr | Building blocks #1 + #4 |
-| P-3 | Mass-scaling of coupling strength | Per-structural-class power-law | 2-3 hr | Building blocks #2 + #6 |
-| P-4 | Multi-resonance landscape in $(M_s, \omega_s, \mathcal{M}_s)$ | Stable-branch identification | 3-4 hr | Building blocks #2 + #6 |
-| P-5 | Cosserat body-frame ↔ substrate-rest-frame coupling | Planetary instance of Q-G47 chiral-coupling Landau | 2-3 hr | Building blocks #3 + cross-repo Q-G47 |
-| P-6 | $\mathcal{J}^{\text{total}}$ → spin-axis + mag-axis splitting | Bulk-averaged Cosserat decomposition | 2-3 hr | Building blocks #3 + #7 |
-| | **TOTAL** | | **11-17 hr (parallelizable in part)** | |
+| P-1 | Substrate Larmor-frequency analog | Ax 2 substitution from canonical `parametric-coupling-kernel.md` | 1-2 hr | **0.5 hr** |
+| P-2 | Op14 saturation in soliton-interior frame | Already canonical at `frame-dragging-impedance-convolution.md:20` + Ax 2 | 1-2 hr | **0.5 hr** |
+| P-3 | Mass-scaling of coupling strength | Ax 2 + empirical $g_{\text{class}}$ from `planetary-magnetospheres.md` 5-planet table | 2-3 hr | **1-1.5 hr** |
+| P-4 | Multi-resonance landscape | IS the saturation kernel $S(A) = \sqrt{1-A^2}$ at $A \to 1$ — canonical at A-034 | 3-4 hr | **1-2 hr** |
+| P-5 | Cosserat body-frame ↔ substrate-rest-frame | Already canonical via Q-G47 chiral-coupling + Ax 1 + Ax 2 | 2-3 hr | **0.5 hr** (+0.5 hr if A3 cross-repo handshake needed) |
+| P-6 | $\mathcal{J}^{\text{total}}$ → spin + mag projection | Already canonical at `boundary-observables-m-q-j.md:38` + INVARIANT-S2 | 2-3 hr | **0.5 hr** |
+| | **TOTAL** | | **11-17 hr** | **3-5 hr** (4-6 of 6 prereqs collapse to "apply existing canonical leaf") |
 
-All six prereqs are gates on Session 2. Session 2 cannot produce an integrated operator until all six are derived (or explicitly deferred with operator-form changes documented). The 11-17 hr total exceeds the original Session 2 estimate of 3-5 hr in the epic brief; Session 2 may need to be split (see Phase 5).
+**Net compression: 11-17 hr → 3-5 hr** — significant compression by leveraging A-034 + Ax 2 + existing canonical leaves rather than deriving new framework.
+
+**4 of the 6 prereqs (P-1, P-2, P-5, P-6) reduce to "apply existing canonical leaf at file:line."** Only P-3 and P-4 retain some empirical-scoring work (extracting per-class $g_{\text{class}}$, scoring kernel against 16 axis data points) — and that empirical-scoring work is canonically Session 3 work (planetary application), not Session 2 derivation.
 
 ---
 
-## 4. Phase 4 — Testable predictions list
+## 4. Phase 4 — Testable predictions list (preserved as-is)
 
-The operator must reproduce the following observables to count as "working" at each scale.
+The empirical data + saturation-event taxonomy are preserved from the original scoping. The verification question is reframed: "does the A-034 kernel $S(A_{\text{soliton}})$ with appropriately-defined $A_{\text{soliton}}$ reproduce these 16 data points?" rather than "does the new operator predict them?"
 
 ### 4.1 Solar system (16 axis data points = 8 planets × {spin axis, magnetic axis})
 
@@ -320,30 +387,30 @@ The operator must reproduce the following observables to count as "working" at e
 | Uranus | **97.77°** | **59°** | 4.01 | 17.24 | Icy-mantle gas giant |
 | Neptune | 28.32° | **47°** | 3.88 | 16.11 | Icy-mantle gas giant |
 
-**Data provenance**: standard solar-system reference values (NASA NSSDC); used here as the empirical target. Per `pre-test-physics-check` (see §4.5 below): these values are widely-tabulated and not contested; the operator's job is to reproduce them, not to re-measure them.
+**Data provenance**: standard solar-system reference values (NASA NSSDC); used here as the empirical target. Per `pre-test-physics-check` (see §4.5 below): these values are widely-tabulated and not contested; the kernel-with-$A_{\text{soliton}}$-defined must reproduce them.
 
-### 4.2 Three structural anomalies the operator must explain
+### 4.2 Three structural anomalies the kernel must explain
 
-Per the epic brief Phase 4:
+Per the epic brief Phase 4, reframed under A-034:
 
-1. **Saturn aligned (<1°) vs Uranus tilted (59°) — same gas-giant class, similar rotation periods (10.66 hr vs 17.24 hr), different internal structure.** The discriminator must come from the difference in internal-structure class: Saturn has metallic-H layer near surface; Uranus has icy mantle with conducting fluid much deeper. This is a CLEAN test of P-3 (mass-scaling MODULATED by structural class) and P-4 (resonance regions in $(M_s, \omega_s, \mathcal{M}_s)$ with structural-class entering through topology input).
+1. **Saturn aligned (<1°) vs Uranus tilted (59°) — same gas-giant class, similar rotation periods (10.66 hr vs 17.24 hr), different internal structure.** Under A-034 reframe: Saturn has $A_{\text{spin}} \ll 1$ (sub-saturation) on the aligned branch; Uranus has $A_{\text{spin}} \to 1$ on the orthogonal branch — the per-class $g_{\text{class}}$ factor (Row 9-a definition) differentiates metallic-H vs icy-mantle. **Test of P-3** (empirical $g_{\text{class}}$ extraction).
 
-2. **Venus retrograde — slow rotation (243 days) + no magnetic field.** Per block #5 (geodynamo VCA): slow rotation ($\omega < \omega_{\text{baryonic-threshold}}$) gives zero dipole field amplitude. The operator must also predict that slow-rotation $\omega_s$ in the parameter space falls in an ANTI-ALIGNED stable equilibrium for the spin axis ($\theta \to \pi$). This is a load-bearing test of P-4 (multi-resonance landscape including the anti-aligned branch).
+2. **Venus retrograde — slow rotation (243 days) + no magnetic field.** Under A-034 reframe: slow $\omega_s$ pushes $A_{\text{soliton}}$ across the saturation boundary on the anti-aligned branch (retrograde-spin stable equilibrium). **Test of P-4** (kernel branch structure — saturation event at anti-aligned branch).
 
-3. **Uranus 98° obliquity — standard "giant impact" explanation is ad-hoc; AVE has a structural opportunity.** The operator must predict an ORTHOGONAL-class stable equilibrium ($\theta \to \pi/2$ class) for icy-mantle gas-giants in the appropriate $(M_s, \omega_s)$ region. This is the differentiating-mechanism test: if the operator derives 98° as a stable substrate-physics equilibrium (not a one-off impact-history fact), AVE has a structural advantage over the standard explanation.
+3. **Uranus 98° obliquity.** Under A-034 reframe: the universal kernel + icy-mantle $g_{\text{class}}$ produces a stable equilibrium at $\theta \to \pi/2$ class (the orthogonal saturation branch). **Test of P-4 + saturation-event taxonomy** — if the kernel-with-Row-9-a's $A_{\text{spin}}$ definition recovers 98° as a stable equilibrium for icy-mantle $(M_s, \omega_s)$ region, AVE has substrate-physics structural advantage over the standard ad-hoc giant-impact explanation.
 
 ### 4.3 Scoring rubric (proposed for Session 3)
 
-A proposed first-cut scoring rubric for Session 3 (Session 2's output is the operator; Session 3 applies + scores). Pre-test-physics-check applies (see §4.5):
+A proposed first-cut scoring rubric for Session 3 (Session 2's output is the catalog rows + $A_{\text{soliton}}$ definitions; Session 3 applies + scores). Pre-test-physics-check applies (see §4.5):
 
 | Outcome | Criterion | Implication |
 |---|---|---|
-| **Pass (16/16 within tolerance)** | Operator's $\hat{n}_{\text{spin}}$ matches observed spin axis within $\sigma_{\text{op}}$ for all 8 planets AND same for $\hat{n}_{\text{mag}}$ for all 8 planets | Operator validated at planetary scale; proceed to Session 4 (galactic extrapolation) with confidence |
-| **Marginal (12-15/16 within tolerance)** | Some planets match, others miss; sub-class structure may emerge (rocky vs gas-giant) | Investigate which class misses; possible operator refinement before Session 4 |
-| **Fail (≤11/16 within tolerance)** | Substantial fraction of planets miss; structural anomalies (Saturn vs Uranus, Venus retrograde, Uranus 98°) NOT reproduced | Operator's functional form needs reformulation; Session 5 conditional refinement triggered |
-| **Decisive falsification** | Operator's prediction is inconsistent with the data at >3σ for any axis | Per Class E framing (block #8), the entire substrate operating-point framework is killed |
+| **Pass (16/16 within tolerance)** | Kernel + Row 9-a $A_{\text{spin}}$ matches observed spin axis within $\sigma_{\text{op}}$ for all 8 planets AND same for $\hat{n}_{\text{mag}}$ via Row 9-b $A_{\text{offset}}$ for all 8 planets | Catalog rows validated at planetary scale; proceed to Session 4 (galactic via Row 11-a) with confidence |
+| **Marginal (12-15/16 within tolerance)** | Some planets match, others miss; sub-class structure may emerge (rocky vs gas-giant; per-$g_{\text{class}}$ refinement needed) | Investigate which class misses; possible Row 9-a / 9-b refinement before Session 4 |
+| **Fail (≤11/16 within tolerance)** | Substantial fraction of planets miss; structural anomalies (Saturn vs Uranus, Venus retrograde, Uranus 98°) NOT reproduced | Per Class E: the joint constraint is broken. Investigate which canonical leaf assumption fails; possible walk-back of $\hat{\Omega}_{\text{freeze}}$ or per-class $g_{\text{class}}$ formulation |
+| **Decisive falsification** | Kernel-prediction inconsistent with data at >3σ for any axis | Per Class E framing, the entire substrate operating-point framework is killed |
 
-**Tolerance $\sigma_{\text{op}}$ is NOT YET specified.** Setting $\sigma_{\text{op}}$ before Session 2 produces the operator is putting-the-cart-before-the-horse. The pre-test-physics-check (§4.5) flags this: setting $\sigma_{\text{op}} = 10°$ uncritically would convert Saturn aligned (<1°) and Uranus mag-tilt 59° from a discriminator-pair into a noise-band that the operator passes trivially for one and trivially fails for the other. Proper $\sigma_{\text{op}}$ specification is Session 3 prereq, informed by Session 2's derived per-class uncertainty propagation.
+**Tolerance $\sigma_{\text{op}}$ is NOT YET specified.** Per pre-test-physics-check (§4.5): setting $\sigma_{\text{op}} = 10°$ uncritically would convert Saturn aligned (<1°) and Uranus mag-tilt 59° from a discriminator-pair into a noise-band. Proper $\sigma_{\text{op}}$ specification is Session 3 prereq, informed by Session 2's derived per-class uncertainty propagation.
 
 ### 4.4 Galactic + LSS scale predictions
 
@@ -356,74 +423,88 @@ A proposed first-cut scoring rubric for Session 3 (Session 2's output is the ope
 | Pantheon+ Hubble flow direction | $(l = 129.76°, b = -13.64°)$, $\sigma = 24.0°$ | [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md) |
 | CMB axis-of-evil (Planck PR3 SMICA pin) | $(l = 60.28°, b = 50.48°)$, $\sigma_{\text{CMB}} = 0.92°$ | [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](2026-05-19_c5-cmb-axis-executable-observer-result.md) |
 
-The operator's galactic-scale output (Session 4) must:
+The catalog Row 11-a output (Session 4) must:
 
-- Take galactic-class soliton parameters $(M_{\text{gal}}, \omega_{\text{gal}}, \mathcal{M}_{\text{gal}})$ → predict $\hat{n}_{\text{LSS}}$
-- Reproduce the OFFSET from the CMB axis (36.75° at 5.33σ); the offset must be a CONSEQUENCE of the operator's structure for galactic-class solitons, not a free parameter
+- Take galactic-class soliton parameters $(M_{\text{gal}}, \omega_{\text{gal}}, \mathcal{M}_{\text{gal}})$ → predict $\hat{n}_{\text{LSS}}$ via the same kernel applied with galactic-class $A_{\text{soliton}}$
+- Reproduce the OFFSET from the CMB axis (36.75° at 5.33σ); the offset must be a CONSEQUENCE of $A_{\text{gal,spin}} \to 1$ on the orthogonal branch at galactic scale, not a free parameter
 - Optionally: extend to a SECOND galactic-scale data point — the Walmsley+2022 GZ DECaLS independent classification (per epic brief Phase 4) — providing cross-catalog confirmation
 
-**Pantheon+ Hubble bulk-flow direction** is a different soliton class (mass distribution rather than galaxy spin); the operator MAY map to a different observable axis. This is an EXTENSION of the operator beyond the spin-axis case (Session 5 conditional).
+**Pantheon+ Hubble bulk-flow direction** is a different soliton class (mass distribution rather than galaxy spin); maps to a different observable channel. This is potentially Row 14-a or a different catalog row entirely (Session 5 conditional).
 
-### 4.5 pre-test-physics-check
+### 4.5 pre-test-physics-check — three plumber-physical questions for Grant (preserved)
 
-Per the brief skill discipline: `pre-test-physics-check` is APPLICABLE if the Phase 4 testable-predictions section locks in adjudication criteria for Sessions 2-4. Walking the checkpoint:
+Per the brief skill discipline: `pre-test-physics-check` is APPLICABLE because the Phase 4 testable-predictions section locks in adjudication criteria for Sessions 2-4. **These three questions are preserved verbatim from the original scoping — the A-034 reframe does NOT eliminate them; if anything it sharpens them, because the kernel branch structure depends on the answers:**
 
-**Question for Grant (flagged to orchestration, NOT adjudicated in this session):**
+**Question 1: Precise-vs-class prediction.**
+Is the mag-spin tilt for the 8 planets meant to be a PRECISE prediction (kernel-with-$A_{\text{soliton}}$ outputs the angle to within a few degrees) or a CLASS prediction (kernel predicts which class — aligned, anti-aligned, mid-tilted, near-orthogonal — and the per-planet precision is loose)? The Saturn-vs-Uranus contrast (<1° vs 59°) is a class-level discriminator; precise predictions of 23.44° (Earth obliquity) vs 25.19° (Mars obliquity) is harder and may not be what the kernel is for.
 
-The Phase 4 scoring rubric (§4.3) hinges on a tolerance $\sigma_{\text{op}}$ that is currently unspecified. Three plumber-physical sub-questions:
+**Under A-034 reframe sharpening:** the kernel's saturation branches are inherently CLASS-level (aligned / anti-aligned / orthogonal); precise within-branch positions are a property of where $A_{\text{soliton}}$ sits on the kernel curve. Grant's adjudication selects which level the catalog rows are scored at.
 
-1. **Is the mag-spin tilt for the 8 planets meant to be a PRECISE prediction (operator outputs the angle to within a few degrees) or a CLASS prediction (operator predicts which class — aligned, mid-tilted, near-orthogonal — and the per-planet precision is loose)?** The Saturn-vs-Uranus contrast (<1° vs 59°) is a class-level discriminator; precise predictions of 23.44° (Earth obliquity) vs 25.19° (Mars obliquity) is harder and may not be what the operator is for.
+**Question 2: Single $\hat{\Omega}_{\text{freeze}}$ vs cascaded-per-planet.**
+Is the operator's input the SAME $\hat{\Omega}_{\text{freeze}}$ for all 8 planets, or does each planet have an "inherited" frozen direction at the formation epoch? The brief implies the former (single substrate direction); the cascade conjecture at block #8 §4 implies the latter (cosmic→galactic→stellar→planetary). If each planet inherits a slightly different direction (the local-substrate motion at planet-formation), the kernel's predictions for 16 axes become 16 quasi-independent local-substrate-direction predictions, which is a much weaker test.
 
-2. **Is the operator's input the SAME $\hat{\Omega}_{\text{freeze}}$ for all 8 planets, or does each planet have an "inherited" frozen direction at the formation epoch?** The brief implies the former (single substrate direction); the cascade conjecture at block #8 §4 implies the latter (cosmic→galactic→stellar→planetary). If each planet inherits a slightly different direction (the local-substrate motion at planet-formation), the operator's predictions for 16 axes become 16 quasi-independent local-substrate-direction predictions, which is a much weaker test.
+**Under A-034 reframe sharpening:** if cascaded-per-planet, the cross-scale catalog rows (Row 9-a → Row 11-a → Row 14-a) operate off different per-scale $\hat{\Omega}$ inputs, and Class E joint-constraint testing requires per-cascade adjudication. Grant's adjudication selects the corpus framing.
 
-3. **For the structural anomalies (Saturn aligned, Venus retrograde, Uranus 98°): is the operator obligated to derive the SPECIFIC values, or to derive the STABLE-EQUILIBRIUM BRANCH STRUCTURE (i.e., "there exists a stable equilibrium near 98° for the icy-mantle parameter region")? The latter is a weaker but more achievable claim.**
+**Question 3: Specific-value vs stable-branch-structure.**
+For the structural anomalies (Saturn aligned, Venus retrograde, Uranus 98°): is the kernel-with-$A_{\text{soliton}}$ obligated to derive the SPECIFIC values, or to derive the STABLE-EQUILIBRIUM BRANCH STRUCTURE (i.e., "there exists a stable equilibrium near 98° for the icy-mantle parameter region")? The latter is a weaker but more achievable claim.
 
-These three questions are LOAD-BEARING for Session 2's derivation target and Session 3's scoring rubric. They are surfaced here for Grant's adjudication BEFORE Session 2 spins up (per Rule 16 strengthening: ask BEFORE design, not after 30+ commits return Mode III).
+**Under A-034 reframe sharpening:** the kernel branch structure is inherently a stable-equilibrium statement (saturation events are topological reorganizations to new $A < 1$ stable configurations). Question 3 may resolve naturally under the A-034 reframe — the kernel produces branch structure, not specific values. Specific values come from $A_{\text{soliton}}$ values per planet, which depend on per-class $g_{\text{class}}$ extraction (P-3).
+
+These three questions are LOAD-BEARING for Session 2's catalog-row definitions and Session 3's scoring rubric. They are surfaced here for Grant's adjudication BEFORE Session 2 spins up (per Rule 16 strengthening: ask BEFORE design, not after 30+ commits return Mode III).
 
 ---
 
-## 5. Phase 5 — Multi-session arc outline
+## 5. Phase 5 — Multi-session arc outline (compressed under A-034 reframe)
 
-### 5.1 Sessions 2-5 estimated total effort + branch points
+### 5.1 Sessions 2-5 estimated total effort + branch points (revised post-reframe)
 
-| Session | Deliverable | Effort | Status / Gates |
+| Session | Deliverable | Original effort | Revised effort |
 |---|---|---|---|
-| **Session 2** | Substrate-physics derivation of $\hat{\mathcal{O}}_{\text{soliton}}$ via P-1..P-6 closure | **11-17 hr** (six prereqs sum) | QUEUED; gated on this scoping doc + Grant adjudication of §4.5 questions. **Original epic estimate (3-5 hr) likely undershoots; Session 2 may need to split into 2a (P-1, P-2, P-5 — substrate-physics infrastructure, ~6 hr) and 2b (P-3, P-4, P-6 + integration — operator structure, ~8 hr).** |
-| **Session 3** | Application to planetary scale (16 axis data points) — score against §4.3 rubric | **2-3 hr** (per brief; matches) | QUEUED; gated on Session 2 producing testable operator AND on Grant resolving §4.5 pre-test-physics-check questions. |
-| **Session 4** | Galactic + LSS-scale extrapolation; predict $\hat{n}_{\text{LSS}}$ for SDSS DR17 cross-check | **3-5 hr** (revised UP from brief's 2-3 hr; the scale-extrapolation from planetary → galactic is non-trivial if Session 3 reveals per-class structural dependence) | QUEUED; gated on Session 3 outcome. **Branch point: if Session 3 shows the operator requires structural-class κ_quality per planet, Session 4 must derive the GALACTIC analog of that.** |
-| **Session 5 (conditional)** | Refinement based on Sessions 1-4 outcomes | **TBD** | CONDITIONAL on Session 3 / Session 4 outcomes (see branch points §5.2). |
-| | **TOTAL (Sessions 2-4 base case)** | **16-25 hr** | (excludes Session 5 conditional refinement) |
+| **Session 2** | A-034 catalog row additions (Row 9-a + Row 9-b + Row 11-a scoped) + $A_{\text{soliton}}$ definitions via P-1..P-6 (most resolving to canonical leaves) + planetary scoring (8 planets × 2 axes via the kernel) | **11-17 hr** | **3-5 hr** |
+| **Session 3** | Application to planetary scale (16 axis data points) — score against §4.3 rubric | 2-3 hr | **1-2 hr** (lighter because Session 2 already does primary scoring; Session 3 finalizes against $\sigma_{\text{op}}$ + writes up) |
+| **Session 4** | Galactic-scale extension to SDSS DR17 (Row 11-a $A_{\text{soliton}}$ definition + LSS-axis prediction) | 3-5 hr | **1-2 hr** (Ax 2 substitution from Row 9-a + canonical galactic-scale parameters) |
+| **Session 5 (conditional)** | LSS extension (Row 14-a) + cross-catalog GZ DECaLS prep; refinement based on Sessions 2-4 outcomes | TBD | **TBD** (conditional; potentially 1-2 hr LSS framing if Session 4 indicates clean Row 14-a; potentially doubling under B2-fail) |
+| | **TOTAL (Sessions 2-4 base case)** | **16-25 hr** | **5-9 hr** |
 
-### 5.2 Branch points
+**Net compression: 16-25 hr → 5-9 hr** — by leveraging the A-034 catalog-extension framing rather than the original new-operator framing.
 
-**Branch point B1 (post-Session 2):** Did all six prereqs (P-1..P-6) close cleanly?
-- **B1-yes**: Proceed to Session 3 with integrated operator.
-- **B1-partial** (some prereqs deferred): Session 2 produces a PARTIAL operator with explicit operator-form changes for deferred prereqs; Session 3 scoring rubric must account for the partial-operator status.
-- **B1-no** (P-4 or P-5 fails to close): Re-scope; the operator's derivation requires additional substrate-physics infrastructure not currently in the corpus. Session 5 promoted to Session 2'; original Session 2 archived.
+### 5.2 Branch points (revised post-reframe)
 
-**Branch point B2 (post-Session 3):** Operator scores Pass / Marginal / Fail / Decisive-falsification per §4.3.
+**Branch point B1 (post-Session 2):** Did the catalog row scope + planetary scoring close cleanly?
+- **B1-yes**: Proceed to Session 3 finalization with the rows + scoring in hand.
+- **B1-partial** (per-class $g_{\text{class}}$ doesn't extract cleanly from 5-planet data): Session 2 produces PARTIAL rows + flags the per-class uncertainty; Session 3 scoring rubric accounts for partial-row status.
+- **B1-no** (kernel branch structure doesn't accommodate Saturn-aligned-vs-Uranus-tilted at icy-mantle parameter region): Re-scope. The catalog rows would not capture the planetary anomalies; either the saturation kernel does NOT apply at planetary-rotational-axis observable channel (which would surface a structural gap in A-034), or the $A_{\text{soliton}}$ definition needs additional ingredients beyond (angular momentum × cosmic-substrate strain × coupling factor). Surfaced for Grant adjudication, NOT silently fixed.
+
+**Branch point B2 (post-Session 3):** Kernel-with-rows scores Pass / Marginal / Fail / Decisive-falsification per §4.3.
 - **B2-pass**: Proceed to Session 4 with confidence.
-- **B2-marginal**: Session 5 conditional refinement — investigate sub-class structure (rocky vs gas-giant); identify which structural anomalies the operator captures vs misses.
-- **B2-fail**: Operator's functional form needs reformulation; Session 5 = re-derivation. Multi-session arc total effort would roughly double.
+- **B2-marginal**: Investigate sub-class structure (rocky vs metallic-H vs icy-mantle); refine per-$g_{\text{class}}$ before Session 4.
+- **B2-fail**: Per Class E, the joint constraint is broken. Walk back the $A_{\text{soliton}}$ definition; possible structural-gap surface in A-034 (could trigger new canonical leaf or row-format revision rather than walking back $\hat{\Omega}_{\text{freeze}}$).
 - **B2-decisive-falsification**: Per Class E framing, the substrate operating-point framework is killed. Stop. Walk back $\hat{\Omega}_{\text{freeze}}$ and the omega-freeze cascade (block #8). This would be a MAJOR negative result — equivalent in scope to walking back $u_0^* \approx 0.187$ as the joint operating-point.
 
-**Branch point B3 (post-Session 4):** Operator's galactic-scale prediction agreement with SDSS DR17 LSS axis $(l=129°, b=79°)$, $\sigma=6.83°$.
-- **B3-agreement**: Forward-prediction confirmed at galactic scale; operator validated cosmologically. The C5 row in the master prediction matrix (per [`omega-freeze-cosmic-grain-cascade.md` Observable 3](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md)) moves from Marginal-D to A (passed).
-- **B3-disagreement**: Operator's galactic-scale prediction differs from the SDSS LSS axis at >3σ. Either (a) the operator's scaling to galactic-class is wrong, or (b) the galactic-scale soliton-class has additional physics not captured by the planetary-scale operator. Triggers Session 5 conditional refinement on the SCALE-EXTRAPOLATION specifically.
+**Branch point B3 (post-Session 4):** Row 11-a galactic-scale prediction agreement with SDSS DR17 LSS axis $(l=129°, b=79°)$, $\sigma=6.83°$.
+- **B3-agreement**: Forward-prediction confirmed at galactic scale; Row 11-a validated cosmologically. The C5 row in the master prediction matrix moves from Marginal-D to A (passed).
+- **B3-disagreement**: Row 11-a's galactic-scale prediction differs from SDSS LSS axis at >3σ. Either (a) the Ax-2 substitution to galactic scale is wrong (possible structural gap in catalog scale-invariance), or (b) the galactic-scale soliton has additional physics (Session 5 conditional refinement).
 
 ### 5.3 Session 2 → Session 3 hand-off requirements
 
-Per the brief's Session 2 → 3 gating: Session 2's output must include explicit per-planet operator-output predictions ($\hat{n}_{\text{spin}}^{(\text{predicted})}$, $\hat{n}_{\text{mag}}^{(\text{predicted})}$) for all 8 planets, with derivation-traceable uncertainty propagation. Without per-planet uncertainty bands, Session 3 cannot score against §4.3's rubric.
+Session 2's output must include:
 
-Session 2 should also produce: (a) a clean cross-check on Earth (which has the most ground-truth data — geodynamo VCA back-EMF amplitude already validated to factor 1.9 per block #5; magnetic dipole observed at $8 \times 10^{22}$ A·m² with derived $1.5 \times 10^{23}$ A·m²); (b) a "smoke test" prediction on Mercury (smallest, weakest field — clean limiting case).
+- Catalog row Row 9-a + Row 9-b scoped completely (table format matching `universal-saturation-kernel-catalog.md:27-41`)
+- Per-planet $A_{\text{soliton}}$ values for all 8 planets (using extracted $g_{\text{class}}$ factors)
+- Per-planet kernel-output predictions for $\hat{n}_{\text{spin}}$ AND $\hat{n}_{\text{mag}}$ (16 values total)
+- Per-planet uncertainty propagation (informs $\sigma_{\text{op}}$ for Session 3)
+- A clean cross-check on Earth (mag-axis ~11° + spin obliquity 23.44° — the most validated data point) and a smoke test on Mercury (smallest, weakest field — clean limiting case)
 
-### 5.4 Multi-session arc summary
+### 5.4 Multi-session arc summary (revised)
 
-Total estimated effort for Sessions 2-4 base case: **16-25 hr**. Session 5 conditional: TBD (potentially doubling under B2-fail). The arc is ambitious but every component is grounded in canonical corpus building blocks; no new axioms or framework primitives are required. The risk profile is:
+Total estimated effort for Sessions 2-4 base case: **5-9 hr** (compressed from 16-25 hr). Session 5 conditional: TBD. The arc is significantly tighter now because every component leverages existing canonical leaves (A-034 kernel + Ax 2 scale invariance + 8 building blocks + Class E framework); the catalog-extension framing eliminates the new-framework-derivation overhead.
 
-- **Lowest risk**: Session 3 application (the 16 data points are well-tabulated; scoring is mechanical once operator + rubric are in place)
-- **Medium risk**: Session 2 derivation (six prereqs to close; P-4 multi-resonance landscape is the most uncertain)
-- **Higher risk**: Session 4 scale-extrapolation (genuinely new derivation territory; the cosmic-scale instance is at block #4 + block #8 §4 PROVISIONAL, not yet derived)
+Risk profile under the A-034 reframe:
+
+- **Lowest risk**: Session 2 catalog-row scoping + planetary scoring (the kernel is canonical; per-class extraction from existing data is mechanical)
+- **Lower risk**: Session 3 finalization (the scoring is largely done in Session 2)
+- **Medium risk**: Session 4 galactic-scale extrapolation (the Ax 2 substitution is clean; the per-galactic-class $g_{\text{class}}$ analog at galactic scale is the open extension)
+- **Conditional risk**: Session 5 LSS extension (Row 14-a is the most conjectural, depending on cosmic-scale companion-row gap-cell adjudication)
 
 ---
 
@@ -434,27 +515,32 @@ Total estimated effort for Sessions 2-4 base case: **16-25 hr**. Session 5 condi
 | Skill | Fired? | Notes |
 |---|---|---|
 | `verify-before-cite` v1.3 | YES (triggers 1, 2) | Every corpus citation re-read at execution time; quotes verbatim from canonical leaves; cited verbatim per-line numbers verified against current branch HEAD. SDSS DR17 numerics verified directly from result doc (lines 17, 21, 122). |
-| `ave-canonical-leaf-pull` | YES | 8 building-block canonical leaves enumerated in Phase 2. Inventory format matches the canonical leaf-pull pattern. |
+| `ave-canonical-leaf-pull` v1.1 | YES — **load-bearing test of trigger 16** | The original "new operator" framing landed in trigger-16 (framework-extension proposals). The (a)-(e) classification at §1.2 walks the canon. Result: proposal is (a)-missing-row (catalog extension), NOT (e)-genuinely-new. Refactor reframes accordingly. |
 | `ave-prereg` | SKIP | Per brief; this is a scoping doc, not a new derivation. |
-| `consistency-vs-emergence` v1.1 | YES (§1.6) | Operator-output observables classified as Class E per the canonical statement at [`omega-freeze-cosmic-grain-cascade.md:7`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md). Joint constraint with $\hat{\Omega}_{\text{freeze}}$ explicitly noted. |
-| `pre-test-physics-check` | YES (§4.5) | Three plumber-physical questions for Grant flagged BEFORE Session 2 design (per Rule 16 strengthening). |
+| `consistency-vs-emergence` v1.1 | YES (§1.6) | Catalog-row observables classified as Class E per the canonical statement at `omega-freeze-cosmic-grain-cascade.md:7`. Joint constraint with $\hat{\Omega}_{\text{freeze}}$ explicitly noted. |
+| `pre-test-physics-check` | YES (§4.5) | Three plumber-physical questions for Grant flagged BEFORE Session 2 design (per Rule 16 strengthening). Sharpened under A-034 reframe — the kernel branch structure depends on the answers. |
 | Pure-AVE-corpus rule | YES | No external-context refs anywhere. |
 
 ### 6.2 Constraints satisfied (per brief §"Constraints")
 
-- ✓ NO derivation performed. The operator structural sketch (§1.4) is conjectural; the $\theta(M_s, \omega_s, \mathcal{M}_s)$ functional form is NOT computed.
+- ✓ NO derivation performed. The catalog rows are SCOPED (Session 2 deliverable); the $A_{\text{soliton}}$ functional forms are NOT computed.
 - ✓ No `_orchestration/*.md` modified.
 - ✓ No corpus leaves modified.
-- ✓ Three corpus structural inconsistencies surfaced (§2.10 A1, A2, A3); NOT fixed; flagged for orchestration.
-- ✓ Single research-doc deliverable at `research/2026-05-20_soliton-lattice-coupling-operator-scoping.md`.
+- ✓ Four corpus structural inconsistencies surfaced (§2.10 A1, A2, A3, A4); NOT fixed; flagged for orchestration.
+- ✓ Single research-doc deliverable at `research/2026-05-20_soliton-lattice-coupling-operator-scoping.md` (this file).
+- ✓ Empirical data preserved (16 planetary axis data points table).
+- ✓ Corpus building-block inventory preserved (8 pieces).
+- ✓ Saturation-event taxonomy preserved (aligned / anti-aligned / orthogonal-class).
+- ✓ Three plumber-physical questions preserved + sharpened under A-034 reframe.
 
 ### 6.3 Anomalies surfaced
 
-1. **Corpus gap (A1)** — no dedicated KB leaf for "Cosserat micropolar rotational DOF in operator-class problems"; canonical statement distributed across Vol 1 Ch 1, INVARIANT-S2, and Q-G47 sibling-repo material.
-2. **Corpus gap (A2)** — geodynamo leaf is Earth-only; cross-planet frame-transformation rules implicit.
-3. **Cross-repo dependency (A3)** — Q-G47 chiral-coupling work at AVE-QED is load-bearing for Session 2 P-5; explicit handshake mechanism needed.
-4. **Effort underestimate** — Session 2 epic estimate (3-5 hr) is likely undershoot vs derived 11-17 hr based on six prereqs. Recommend Session 2 split into 2a + 2b.
-5. **Pre-test-physics-check** — three plumber-physical questions for Grant flagged at §4.5 (precision-vs-class predictions, single-vs-cascaded $\hat{\Omega}_{\text{freeze}}$, branch-structure-vs-specific-value adjudication) BEFORE Session 2 design begins.
+1. **Corpus gap (A1)** — no dedicated KB leaf for "Cosserat micropolar rotational DOF in operator-class problems." Under A-034 reframe: less load-bearing; canonical statements at Vol 1 Ch 1 + INVARIANT-S2 + Q-G47 are sufficient kernel-parameter substrate.
+2. **Corpus gap (A2)** — geodynamo leaf is Earth-only; cross-planet frame-transformation rules implicit. Under A-034 reframe: per-class $g_{\text{class}}$ factor in Row 9-a / Row 9-b handles the cross-planet variation; explicit frame-transformation derivation may not be necessary.
+3. **Cross-repo dependency (A3)** — Q-G47 chiral-coupling work at AVE-QED is load-bearing for Session 2 P-5; explicit handshake mechanism needed. Same under both framings.
+4. **Catalog internal inconsistency (A4)** — Row 11 MOND classification ambiguity (line 83 of `universal-saturation-kernel-catalog.md`) inherits to Row 11-a galactic-spin-axis. Pending Grant adjudication.
+5. **Effort compression** — Session 2 effort 11-17 hr → 3-5 hr; total arc 16-25 hr → 5-9 hr. By leveraging A-034 + Ax 2 + canonical leaves rather than deriving new framework.
+6. **Pre-test-physics-check (preserved)** — three plumber-physical questions for Grant flagged at §4.5 (precision-vs-class predictions, single-vs-cascaded $\hat{\Omega}_{\text{freeze}}$, branch-structure-vs-specific-value adjudication) BEFORE Session 2 design begins. Sharpened under the A-034 reframe.
 
 ---
 
@@ -464,6 +550,8 @@ Total estimated effort for Sessions 2-4 base case: **16-25 hr**. Session 5 condi
 - **Originating epic (closed):** [`_orchestration/c5-sdss-dr17-spin-orientation.md`](../_orchestration/c5-sdss-dr17-spin-orientation.md), audit tag `audit/2026-05-19_c5-sdss-dr17-spin-orientation`
 - **Predecessor empirical results:** [`research/2026-05-19_c5-sdss-spin-orientation-result.md`](2026-05-19_c5-sdss-spin-orientation-result.md), [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](2026-05-19_c5-cmb-axis-executable-observer-result.md), [`research/2026-05-19_c5-pantheon-tightening-result.md`](2026-05-19_c5-pantheon-tightening-result.md)
 - **Class E canonical leaf:** [`research/2026-05-19_class-e-candidate-corpus-sweep.md`](2026-05-19_class-e-candidate-corpus-sweep.md)
+- **A-034 canonical leaf (framework-design canon for this refactor):** [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — particularly the ε/μ axis extension (lines 73-83) + gap-cells (lines 89-94) + companion-row links (lines 103-110) added at commit `6436d65`.
+- **`ave-canonical-leaf-pull` v1.1 skill (load-bearing for this refactor):** `~/.claude/skills/ave-canonical-leaf-pull/SKILL.md` v1.1 (commit `41e6b47`), trigger 16 (framework-extension proposals).
 - **8 building blocks:** as cited per §2; full file:line list:
   1. [`manuscript/ave-kb/vol3/gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md:20`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md)
   2. [`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)
@@ -473,7 +561,6 @@ Total estimated effort for Sessions 2-4 base case: **16-25 hr**. Session 5 condi
   6. [`manuscript/ave-kb/vol3/cosmology/ch06-solar-system/planetary-magnetospheres.md`](../manuscript/ave-kb/vol3/cosmology/ch06-solar-system/planetary-magnetospheres.md)
   7. [`manuscript/ave-kb/common/boundary-observables-m-q-j.md`](../manuscript/ave-kb/common/boundary-observables-m-q-j.md)
   8. [`manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) §3.1 + §4
+- **Refactor predecessor:** original scoping at commit `7c9d4d4` (this branch tip pre-refactor); refactor applied 2026-05-19 EOD per Grant adjudication.
 
 ---
-
-**End of Session 1 scoping doc.** Ready for orchestration audit + Session 2 spawn (after Grant adjudication of §4.5 pre-test-physics-check questions + A1-A4 anomaly disposition).
