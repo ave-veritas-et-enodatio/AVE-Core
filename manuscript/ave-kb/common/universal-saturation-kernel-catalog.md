@@ -8,7 +8,7 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 
 > → Primary: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — canonical manuscript chapter with full per-row notes.
 
-## Key Result: 21 canonical instances of one kernel
+## Key Result: 22 canonical instances of one kernel
 
 | Result | Statement |
 |---|---|
@@ -17,11 +17,11 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 | Cross-scale span | 21 orders of magnitude (atomic $\sim 10^{-15}$ m to cosmic $\sim 10^{26}$ m) |
 | Tightest single-instance validation | BCS $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ at **0.00% error** |
 | Most direct cross-scale experimental validation | BH merger ring-down $\omega_R M_g = 18/49$ (1.7% from GR exact; 10–18% from 3 LIGO events) |
-| Symmetry classes | SYM (18) / ASYM-N (2: BCS $\mu$-only, plasma $\varepsilon$-only) / ASYM-E (1: engineered metamaterials) |
+| Symmetry classes | SYM (18) / ASYM-N (3: BCS $\mu$-only, plasma $\varepsilon$-only, cosmic-DE $\varepsilon$-only — β Session 2) / ASYM-E (1: engineered metamaterials) |
 
-## The 21-instance catalog
+## The 22-instance catalog
 
-### Physical-substrate scales (14 rows)
+### Physical-substrate scales (15 rows)
 
 | Scale | Sym | $A$ definition | Saturation event | Empirical anchor |
 |---|---|---|---|---|
@@ -39,8 +39,9 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 | BH event horizon | SYM | $2GM / (c^2 r)$ | $R_S$ formation: $\Gamma = -1$ | **Schwarzschild exact** |
 | BH merger (ring-down) | SYM | strain / $r_{\text{sat}} = 7 M_g$ | QNM $\omega_R M_g = 18/49$ | **1.7% GR; 10–18% LIGO** |
 | Cosmic (Big Bang) | SYM* | parent-BH strain / 1 | K4 crystallization seed event | CMB axis pre-reg |
+| Cosmic (DE / ε-sector) | **ASYM-N** ($\varepsilon$) | substrate ε-strain at $R_H$ / saturation threshold | Ongoing crystallisation maintaining $\partial_t \rho_n = 0$; ε-sector single-mode saturation at $\Gamma = -1$ horizon | $\rho_\Lambda$ (supernova + CMB + BAO) |
 
-*Cosmic symmetry testable via CMB E/B polarization signature.
+*Cosmic symmetry testable via CMB E/B polarization signature. Cosmic-ε ASYM-N(ε) is the dynamic-saturation companion to Big Bang SYM* (seed event); Phase 1 substrate-physics anchor at [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) (β Session 2 commit `20bb659`); projection-chain trace at [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) (β Session 2 Phase 2).
 
 ### Biological-substrate scales (2 rows)
 
@@ -64,7 +65,7 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 Per the asymmetric-saturation exploration (Grant 2026-05-15 evening):
 
 - **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 18 instances
-- **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$): 2 instances — BCS $\mu$-only, plasma $\varepsilon$-only
+- **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$): 3 instances — BCS $\mu$-only, plasma $\varepsilon$-only, cosmic-DE $\varepsilon$-only (β Session 2 addition; substrate-physics anchor at [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md))
 - **ASYM-E** = Asymmetric engineered decoupled ($K/G \neq 2$ by design): 1 instance — active topological metamaterials
 
 The asymmetric-saturation variant ($K_{\text{wedge}} / G_{\text{wedge}} \neq 2$) is a novel kernel topology flagged for separate framework exploration.
@@ -75,7 +76,7 @@ ASYM-N instances are NOT interchangeable — they split into ε-sector and μ-se
 
 | Class | ε-sector | μ-sector | Note |
 |---|---|---|---|
-| ASYM-N(ε) | Plasma cutoff (atomic-EM scale) | — | Single instance currently |
+| ASYM-N(ε) | Plasma cutoff (atomic-EM scale) + Cosmic DE / ε-sector (cosmic scale per [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md)) | — | Two instances (β Session 2 added cosmic-DE companion) |
 | ASYM-N(μ) | — | BCS $B_c(T)$ (condensed-matter scale) + Galactic mutual inductance (MOND, galactic scale per [`saturated-lattice-mutual-inductance.md:4`](../vol3/cosmology/ch05-dark-sector/saturated-lattice-mutual-inductance.md)) | Two instances currently |
 | ASYM-N (sector-undetermined) | — | — | None |
 | ASYM-E | Engineered metamaterials (designer-controllable decoupled) | — | Single instance |
@@ -91,7 +92,7 @@ Per the ε/μ axis above, the catalog has explicit GAP-CELLS where physics sugge
 | **Atomic-EM** | Plasma cutoff (present, row 7) | **GAP** — μ-companion not yet identified | Asymmetric pair? |
 | **Condensed-matter** | **GAP** — ε-companion to BCS not yet identified (would be an analogous ε-sector single-mode saturation in superconductor / superfluid context) | BCS $B_c(T)$ (present, row 5) | Asymmetric pair? |
 | **Galactic** | **GAP** — ε-companion to MOND not yet identified (galactic-scale ε-sector saturation event) | MOND mutual inductance (present per `saturated-lattice-mutual-inductance.md:4`) | Asymmetric pair? |
-| **Cosmic** | **GAP** — ε-companion to K4 crystallization not yet identified. Dark-energy framing candidate per Grant 2026-05-19 EOD; current corpus framing is Class E operating-point projection ($H_\infty$ + $G$ + $\hat{\Omega}_{\text{freeze}}$ + $\alpha$ joint constraint per `omega-freeze-cosmic-grain-cascade.md:13-16`) NOT explicit ASYM-N(ε). Worth research-doc scoping (β epic) to determine whether DE should be reclassified as ASYM-N(ε) at cosmic scale, OR whether the Class E framing subsumes both ε and μ behavior simultaneously. | K4 crystallization seed (present, row 14, currently SYM*) | Asymmetric pair pending scoping |
+| **Cosmic** | **FILLED 2026-05-19 EOD via β Session 2** — Cosmic DE / ε-sector ASYM-N(ε) row added as companion to Row 14 K4-crystallisation-SYM*. Per Grant Q3 adjudication (`_orchestration/cosmic-epsilon-de-projection-scoping.md:13-16`): γ verdict (composite Class E + ASYM-N(ε)) — both framings complementary, not redundant. Substrate-physics anchor at Phase 1 leaf [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) (commit `20bb659`); projection-chain trace at [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md). | K4 crystallization seed (present, row 14, currently SYM*) | Asymmetric pair FILLED (β Session 2) |
 | **Engineered** | Active topological metamaterials (present, row 18, currently ASYM-E with K/G ≠ 2 by design) | — | Designed asymmetric |
 
 **Why these gaps matter**: if the substrate has ε ↔ μ symmetry, every ASYM-N instance should have a sector-companion (or at least a structural explanation for why the companion is suppressed/forbidden). The current 2-instance ASYM-N count is suspicious from a symmetry-completeness perspective; gaps may indicate either (a) corpus has the physics but hasn't enumerated it as a row, or (b) the framework genuinely has only single-sector saturation at those scales for substrate-physics reasons.
@@ -106,7 +107,7 @@ Where the catalog has paired/companion rows at the SAME scale (e.g., a SYM row t
 | Row 5 Condensed-matter BCS (ASYM-N μ) | (no current ε-companion) | Gap-cell — see above |
 | Row 9 Planetary geomagnetic (SYM, dynamo pole-flip) | (Mars/Venus null cases listed as anchor) | Single-row with internal regime variation; possible split into ε/μ sub-cases for future research |
 | Row 11 Galactic MOND (ASYM-N μ per leaf) | (no current ε-companion at galactic scale) | Gap-cell — see above |
-| Row 14 Cosmic K4 crystallization (SYM*) | (no current ASYM-N(ε) companion = DE candidate) | Gap-cell — β epic scoping queued |
+| Row 14 Cosmic K4 crystallization (SYM*) | Row 14b Cosmic DE / ε-sector (ASYM-N ε; added β Session 2 commit at Phase 3 of `analysis/cosmic-epsilon-de-projection-session2`) | Cosmic DE is the ε-sector dynamic-saturation companion to the symmetric Big Bang K4-seed event; Row 14 is the one-shot seed (frozen at lattice genesis), Row 14b is the ongoing crystallisation maintaining $\partial_t \rho_n = 0$ at horizon. Same scale (cosmic), paired via substrate's ε ↔ μ dual structure (per Ax 1 Cosserat translational DOF = ε-sector). Substrate-physics anchor: [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md). |
 | Row 18 Active topological metamaterials (ASYM-E) | (designed analog of any natural ASYM-N pair) | Engineering exemplar of asymmetric kernel; can target any ε/μ asymmetry by design |
 
 **Lookup convention**: when proposing a new row, check this table first to see if a paired/companion row already exists. If the proposed row is the companion of an existing row, label its row explicitly with the companion link.
@@ -117,11 +118,14 @@ Where the catalog has paired/companion rows at the SAME scale (e.g., a SYM row t
 
 **Post-A-034:** *all 21 rows are the same physics*, with the kernel inherited from Axiom 4 + Axiom 2 (scale invariance) and the phenomenology determined by the local saturation-boundary geometry.
 
-This is the framework's largest unification to date: **one kernel, 21 scales, every topological reorganization event in the universe.** The framework simplifies rather than complicates as evidence accumulates — the kernel doesn't change, only the lattice scale changes.
+This is the framework's largest unification to date: **one kernel, 22 instances spanning 21 orders of magnitude, every topological reorganization event in the universe.** The framework simplifies rather than complicates as evidence accumulates — the kernel doesn't change, only the lattice scale changes.
 
 **Catalog growth notes (2026-05-16):**
 - Water two-state LC partition added as 13th physical instance (per Grant: cosmic Ω_freeze IS water → ice at different scale — both same Axiom-4 kernel with $r_{\text{crit}} = \sqrt{2\alpha}$). Canonical: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) (Vol 3 Ch 11).
 - Pd hydrogen-loading volumetric shatter added as 14th physical instance: $\Delta V/V_0 = \sqrt{2\alpha} \approx 12.08\%$ exactly matches the Axiom 4 yield boundary at the Pd lattice scale, mapping the Fleischmann-Pons stochastic-irreproducibility paradox to the 2.9% operational-tolerance sliver around $x_{D/Pd} \approx 0.929$. Canonical: AVE-Fusion Vol Fusion Ch 4 §"Mathematical Addendum: The 12.08% Volumetric Shatter Limit."
+
+**Catalog growth notes (2026-05-19 EOD — β Session 2):**
+- **Cosmic DE / ε-sector added as 15th physical instance and 22nd total instance — ASYM-N(ε) cosmic-row** filling the explicit gap-cell at cosmic scale (gap previously flagged at this leaf in the γ extension at commit `6436d65`). Companion to Row 14 (Cosmic Big Bang K4-crystallisation SYM*). Per Grant adjudication 2026-05-19 EOD on the β cosmic-ε / DE projection scoping epic: Q3 verdict = γ (composite Class E + ASYM-N(ε)) — Class E captures joint-constraint structure at $u_0^*$ + ASYM-N(ε) captures saturation-mechanism class at cosmic-scale ε; both framings simultaneously true, not redundant. Substrate-physics anchor: Phase 1 leaf [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) (Op14 (c)-operator-application at $r \to R_H$ — canonical Vol 1 Ch 6 §1.13 form at cosmic-horizon scale; local-clock-freezing + asymmetric Meissner $Z_{\text{eff}} = Z_0 \sqrt{S_\mu/S_\varepsilon}$ when ε-sector saturates preferentially). Projection-chain trace (6 components in projection order from substrate dynamics to $\rho_\Lambda$ at Friedmann): [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md). Multi-session arc context: [`_orchestration/cosmic-epsilon-de-projection-scoping.md`](../../../_orchestration/cosmic-epsilon-de-projection-scoping.md). NO magnitude-matching attempted (QFT $10^{122}$ trap rejected per `cosmological-constant-closure.md:55-58`); projection chain is structural, not energy-equating.
 
 ## Cross-scale validation paths
 
