@@ -1,6 +1,6 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-19 EOD — post 3rd-batch session-close. Comprehensive handoff state.
+**Last updated**: 2026-05-19 EOD+ — post c8-baryon-ladder merge (f4c9ffa) + verify-before-cite v1.4.
 **Current HEAD on `analysis/integration`**: `f9b2e55` — Shamir 2022 merge tip (advances with this commit)
 **Audit tag count**: 33 (`git tag -l "audit/*" | wc -l`)
 **Active branches** (local): 6 — `analysis/integration`, `analysis/c8-baryon-ladder-pdg-anchor`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`. All 11 May-19 implementor branches merged + deleted (local + remote).
@@ -10,7 +10,7 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 
 ## Session summary (2026-05-19 EOD, 3 batches)
 
-This session executed three sequential batches with 11 implementor sessions + 4 orchestration-session commits + 33 audit tags landed.
+This session executed three sequential batches with 11 implementor sessions + 4 orchestration-session commits + 33 audit tags landed. **Post-session addendum (2026-05-19 EOD+)**: c8-baryon-ladder-pdg-anchor branch merged via `f4c9ffa` (12-commit merge resolving corpus-coherence breakage where matrix + closure-roadmap cited a driver missing from integration); audit tag count now 34. Skill update v1.3 → v1.4 (trigger 9 — merge-conflict-shape claims) from in-session failure #5 (agent generated 3-path adjudication speculation when empirical `git merge --no-commit` produced only 2 actual conflicts vs predicted "minimal-to-moderate" surface).
 
 **Batch 1 (early-session)**: cosmic-axis glossary epic + h-infinity 3-epic arc (derivation-audit + framing-forward + downstream-cascade) + SDSS DR17 → 5 closed epics, 5 audit tags.
 
@@ -123,7 +123,7 @@ Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by 
 
 | Skill | Version | Location | Last amended | Purpose |
 |---|---|---|---|---|
-| `verify-before-cite` | **v1.3** (was 1.2 pre-session) | `~/.claude/skills/verify-before-cite/SKILL.md` | 2026-05-19 EOD via skills commit `e0be68a` | Trigger 8 added (commit-application claims). 6th instance of bilateral-axis pattern. |
+| `verify-before-cite` | **v1.4** (was 1.3 mid-session, 1.2 pre-session) | `~/.claude/skills/verify-before-cite/SKILL.md` | 2026-05-19 EOD+ (v1.4 post-c8-merge) | Trigger 9 added (merge-conflict-shape claims — empirical `git merge --no-commit` before adjudication). 7th instance of bilateral-axis pattern; FUTURE-STATE axis projection. Origin: failure #5 (c8-baryon-ladder merge speculation; Grant: "this is ridiculous"). |
 | `consistency-vs-emergence` | **v1.1** (was 1.0 pre-session) | `~/.claude/skills/consistency-vs-emergence/SKILL.md` | 2026-05-19 EOD via skills commit `8dfc31d` | Class E added (operating-point projection / topological equilibrium observable). Closes H_∞ Class C miscategorization. |
 | `ave-canonical-leaf-pull` | **v1.2** (was 1.0 pre-session) | `~/.claude/skills/ave-canonical-leaf-pull/SKILL.md` | 2026-05-19 EOD via skills commits `41e6b47` (v1.1) + `4f504c0` (v1.2) | Trigger 16 added (framework-extension proposals / SM/QED-creeper at design layer) at v1.1; sub-case (e-i)/(e-ii)/(e-iii) for projection-vs-measurement conflation at v1.2. Closes "cosmic polarization field" + "QFT cosmological constant problem" failure modes. |
 | `ave-handoff-canonical-locale` | **v1.0** (added this session) | `~/.claude/skills/ave-handoff-canonical-locale/SKILL.md` | 2026-05-19 EOD | This directory's write-time discipline. Closes E1a + E1b loose-plans failure mode. |
@@ -168,7 +168,7 @@ Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by 
 | [`manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md) | K4 rest frame ↔ Ω_freeze definitional leaf (NEW earlier in session) |
 | [`manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md`](../manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md) | Op14 cosmic-horizon profile leaf (NEW β Session 2) |
 | `data/pantheon_plus/README.md` + `data/sdss_dr17/README.md` + `data/shamir_2022/README.md` | Canonical data caches with re-download instructions |
-| `git tag -l "audit/*" \| wc -l` | 33 immutable audit tags (12 new this session) |
+| `git tag -l "audit/*" \| wc -l` | 34 immutable audit tags (13 new this session, including c8-baryon-ladder post-session) |
 | [`.agents/handoffs/`](../.agents/handoffs/) | Ephemeral scratch (gitignored; NOT canonical) |
 
 ## Playbook for the next orchestration session
@@ -179,7 +179,7 @@ Grant has 5 substantive items + 4 hygiene items pending. Prioritized roughly by 
    - `git tag -l "audit/*" | wc -l` should match 33 (or higher).
    - `git branch --show-current` should report `analysis/integration` — if not, `git checkout analysis/integration` BEFORE any commit per CLAUDE.md "Pre-commit discipline" section.
    - Verify no leftover worktrees at `.claude/worktrees/` (none expected at handoff).
-3. **Don't trust corpus-state claims here without re-verifying** (per `verify-before-cite` v1.3 trigger 7c + 8): facts here are accurate as of 2026-05-19 EOD; re-verify if days/weeks later.
+3. **Don't trust corpus-state claims here without re-verifying** (per `verify-before-cite` v1.4 triggers 7c + 8 + 9): facts here are accurate as of 2026-05-19 EOD+; re-verify if days/weeks later. For any merge decision, fire trigger 9 — attempt `git merge --no-commit --no-ff` with audit-tag safety BEFORE generating adjudication options.
 4. **Ask Grant**: which adjudication item to action first. Default if not specified: priority ladder item 1 (Soliton-coupling Session 3 with Neptune sub-class refinement). The methodology-systematic adjudication (item 1) is the most physically interesting but has multi-session downstream cascade.
 5. **For implementor-session kickoff**: append a `## Phase X (PENDING)` section to the relevant epic doc with assumptions A1-AN, scope boundary, phase plan, adjudication criteria, verification — that's the implementor briefing. Spawn `ave-implementer` agent with `isolation: "worktree"`. **Immediately after spawn, run `git checkout analysis/integration` to defensively avoid the worktree-spawn branch-state leak failure (3rd recurrence this session — pattern, not instance)**.
 6. **At session close**: update this file (`index.md`) — bump HEAD ref, audit count, active-epic statuses, closed-epic table, adjudication queue. Per `ave-handoff-canonical-locale` v1.0 discipline.
