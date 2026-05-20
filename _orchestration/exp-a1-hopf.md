@@ -1,9 +1,10 @@
 # EXP-A1-HOPF: Chiral Antenna Resonance Shift (HOPF-02a)
 
 **Parent epic**: [`experimental-arc.md`](experimental-arc.md)
-**Status**: PHASE 0 — Grant fab decision pending
+**Status**: PHASE 0a — Artifact-generation pending (Gerbers export + HOPF-02a ORDERING.md draft); Phase 0b fab-submission gated on 0a
 **Sibling repo owner**: AVE-HOPF (Grant)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
+**Phase A repo audit**: [`exp-a1-hopf-repo-audit.md`](exp-a1-hopf-repo-audit.md) (425 lines, 23 ✓ / 11 ⚠ / 3 🔴 — 2026-05-20)
 
 ## Tier (per parent epic Phase 2 audit)
 
@@ -47,23 +48,37 @@ A1-HOPF tests the (p,q) coupling at EE scale — distinct from hadronic mass sca
 - 89 fast tests passing per HOPF-02 geometry validation (SMA convention, z-values, hole counts, L↔R mirror exactness)
 - Python KiCad emitter [`hopf_02_generate_kicad_pcb.py`](../../AVE-HOPF/hardware/hopf_02_generate_kicad_pcb.py) — canonical fab path (bypasses still-unblocked `ato build` layout-init issue)
 
-### Walk-back targets (Phase 1 of parent epic)
-Phase 1 surgical walk-back will refresh these load-bearing leaves:
+### Walk-back targets (Phase 1 of parent epic) — ✓ DONE 2026-05-20 via `6621dae`
 
-| Leaf | Stale state | Refresh |
+Phase 1 surgical walk-back refreshed these load-bearing leaves (verified at-canon at audit time per [`exp-a1-hopf-repo-audit.md`](exp-a1-hopf-repo-audit.md) Axis 5):
+
+| Leaf | Pre-walk-back state | Post-walk-back state |
 |---|---|---|
-| [`torus-knot-baryon-predictions.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) (2026-04-13) | proton at 0.00%; no J^P column; missing forward predictions; pre-FI-13 (2,q) framing | Refresh per [`torus-knot-ladder-baryons.md`](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) Vol 2 anchor; add J^P column; add forward c=17/19 confirmations; cite FI-13 RESOLVED state |
-| [`project-hopf-02.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) (2026-04-13) | HOPF-02/03 namespace split missing; pre-FI-13 (2,q) framing | Reference HOPF-02/03 namespace split per AVE-HOPF 2026-05-06 reconciliation; cite FI-13 RESOLVED state for (2,q) canonical |
+| [`torus-knot-baryon-predictions.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) | proton at 0.00%; no J^P column; missing forward predictions; pre-FI-13 (2,q) framing | ✓ DONE — refreshed per [`torus-knot-ladder-baryons.md`](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) Vol 2 anchor; J^P column added; forward c=17/19 confirmations included; FI-13 RESOLVED state cited |
+| [`project-hopf-02.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) | HOPF-02/03 namespace split missing; pre-FI-13 (2,q) framing | ✓ DONE — HOPF-01/02/03 namespace clarification table per AVE-HOPF 2026-05-06 reconciliation; FI-13 (2,q) particle-id table; canonical AVE-HOPF cross-references |
+
+**Audit-surfaced follow-up walk-backs** (NOT in original Phase 1 scope; flagged for Grant adjudication):
+- 4 misdirected citations in `exp-a1-hopf.md` (lines 32, 46, 70, 85, 139-141) point at HOPF-01-pilot artifacts (BOM.md, TEST_PROCEDURE.md, assembly_guide/, Gerbers/) — root cause is AVE-HOPF directory structure (audit Axis 1 ATTN-2); gated on AVE-HOPF reorganization OR direct walk-back
+- Same 3 misdirected citations in `project-hopf-02.md` (lines 82, 84, 85) — same root cause
+- 18 explicit `AVE-HOPF/...` paths in PUBLIC AVE-Core — IP-divide opacity violation per `ave-ip-divide-discipline` Step 4 Class F; corpus-wide concern (not just A1-HOPF)
 
 ## Phase ladder
 
-### Phase 0 (PENDING) — Grant fab decision
+### Phase 0a (PENDING) — Artifact generation (3 BLOCKERS per repo audit)
 
-**Action**: Grant submits HOPF-02a Gerbers to JLCPCB; orders 3D-print mandrels.
+**🔴 BLOCKER-1** (5 min, Grant action): export HOPF-02a Gerbers + drill files from `AVE-HOPF/hardware/hopf_02a.kicad_pcb`. Currently `AVE-HOPF/hardware/Gerbers/` contains HOPF-01 Gerbers only (12 files all named `hopf_01-*.gbr`); HOPF-02a equivalents do not exist as built artifacts. Run `kicad-cli pcb export gerbers ...` + `... export drill ...` per `AVE-HOPF/.agents/HANDOFF.md` TODO #1.
 
-**Cost**: ~$123 BOM
+**🔴 BLOCKER-2** (15 min, drafting): write `AVE-HOPF/hardware/hopf_02a_ORDERING.md` with v-score spec. Current `AVE-HOPF/hardware/ORDERING.md` is titled "HOPF-01 JLCPCB Ordering Guide" with 160×120 mm dimensions, no v-score, 6 SMA layout — entirely HOPF-01-specific. HOPF-02a needs: 250×185 mm panel, 4 v-score lines at 1/3 board thickness (0.5 mm), ±0.1 mm drill tol. Draft from `AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md` lines 36-77.
+
+These are AVE-HOPF-side work; either Grant inline OR Phase B implementor session on AVE-HOPF branch `analysis/a1-hopf-audit-walkback-2026-05-20` (or similar typed name per AGENTS.md §3) off `research/hopf-01-testing`.
+
+### Phase 0b (PENDING, gated on 0a) — Grant fab submission
+
+**Action**: Grant submits HOPF-02a Gerbers + ORDERING.md to JLCPCB; orders 3D-print mandrels.
+
+**Cost**: ~$123 BOM (verified at `AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md:21-32`; **note**: top-level `AVE-HOPF/hardware/BOM.md` is the $142 HOPF-01 BOM — cite the assembly guide for HOPF-02a BOM)
 **Time**: 2 weeks fab turnaround (typical JLCPCB)
-**Decision dependency**: Grant bench priority + cash flow
+**Decision dependency**: Grant bench priority + cash flow (post-Phase-0a artifact-completion)
 
 ### Phase 1 (PENDING, gated on Phase 0) — Assembly
 

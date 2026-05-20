@@ -88,11 +88,19 @@ A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological
 | 89 fast tests passing | HOPF-02 geometry validation (SMA convention, z-values, hole counts, L↔R mirror exactness) |
 | Canonical state | [`AVE-HOPF/.agents/HANDOFF.md`](../../../../../AVE-HOPF/.agents/HANDOFF.md) |
 
-### Status (2026-05-20)
+### Status (2026-05-20 EOD per `exp-a1-hopf-repo-audit.md`)
 
-**HOPF-02a HARDWARE FAB-READY**. Per AVE-HOPF HANDOFF.md: *"Next gate: physical fab order for HOPF-02a (user action; ~$123 BOM; design package complete; Python KiCad emitter is the canonical fab path)."*
+**HOPF-02a DESIGN-COMPLETE; PHASE 0a artifact-generation pending**. Per AVE-HOPF HANDOFF.md: *"Next gate: physical fab order for HOPF-02a (user action; design package complete; Python KiCad emitter is the canonical fab path)."*
 
-Bottleneck: Grant fab decision (JLCPCB submission + 3D-print mandrel order). Tracked at [`_orchestration/exp-a1-hopf.md`](../../../../_orchestration/exp-a1-hopf.md) Phase 0.
+Per the Phase A repo audit at [`_orchestration/exp-a1-hopf-repo-audit.md`](../../../../_orchestration/exp-a1-hopf-repo-audit.md), three blockers remain before JLCPCB submission:
+
+1. **🔴 BLOCKER-1** (5 min): Export HOPF-02a Gerbers + drill files from `hopf_02a.kicad_pcb` via `kicad-cli pcb export gerbers/drill`. Currently `AVE-HOPF/hardware/Gerbers/` contains HOPF-01 Gerbers only.
+2. **🔴 BLOCKER-2** (15 min): Draft `AVE-HOPF/hardware/hopf_02a_ORDERING.md` with v-score spec. Current `ORDERING.md` is titled "HOPF-01 JLCPCB Ordering Guide" with 160×120 mm dimensions; HOPF-02a needs 250×185 mm panel with 4 v-score lines.
+3. **🔴 BLOCKER-3** (~1 hour, Phase 2 gate only): Draft `ave-prereg`-format pre-registration for VNA measurement. NOT blocking for Phase 0 fab; blocks Phase 2 bench-fire.
+
+Per audit Axis 1 ATTN-2: the root cause of citation drift between AVE-Core canonical leaves and AVE-HOPF hardware artifacts is the AVE-HOPF `hardware/` directory mixing HOPF-01 and HOPF-02a files at the same hierarchy level. ~30 min reorganization recommended (R1.1).
+
+Sub-epic tracking: [`_orchestration/exp-a1-hopf.md`](../../../../_orchestration/exp-a1-hopf.md) Phase 0a + 0b.
 
 [Figure: ee_pcba_bench_protocols.png — see manuscript/vol_4_engineering/chapters/]
 
