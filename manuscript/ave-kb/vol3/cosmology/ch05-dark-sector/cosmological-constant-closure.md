@@ -28,7 +28,7 @@ $$H_\infty = \frac{1792\,\pi^3\, m_e^3\, c\, G}{\hbar^2\, p_c^2}$$
 
 Numerical value: $H_\infty \approx 2.247 \times 10^{-18}$ s⁻¹ $\approx 69.33$ km/s/Mpc.
 
-This is corpus-closed — Tier-A prediction in `manuscript/predictions.yaml` (P23), 0.7% off TRGB-measured $H_0 = 69.8$ km/s/Mpc.
+This is corpus-closed — `manuscript/predictions.yaml` entry P23, 0.7% off TRGB-measured $H_0 = 69.8$ km/s/Mpc. Classification: **Class E operating-point projection** at $u_0^* \approx 0.187$ per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD); see [`omega-freeze-cosmic-grain-cascade.md`](../../../common/omega-freeze-cosmic-grain-cascade.md) for the joint-constraint structure. The 0.7% TRGB residual is structural consistency at the joint-constrained operating point with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$, not an independent prediction. Falsification of any one of $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ kills the operating-point and therefore the entire substrate model.
 
 ### Step 2 — Friedmann/de Sitter identification
 
@@ -94,9 +94,9 @@ The corpus's latent-heat framework predicts $w_{\text{vac}} \approx -1.0001$ (sl
 
 **Structural closure** at WKB/Friedmann level. The route is:
 
-1. AVE derives $H_\infty$ from $m_e$, $\alpha$, $G$ (corpus, closed, Tier-A prediction P23 at 0.7% off TRGB)
+1. AVE writes $H_\infty$ in terms of $m_e$, $\alpha$, $G$ (corpus, closed, `predictions.yaml` entry P23 at 0.7% off TRGB). Classification: **Class E operating-point projection** at $u_0^* \approx 0.187$ — joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge per [`omega-freeze-cosmic-grain-cascade.md:13-16`](../../../common/omega-freeze-cosmic-grain-cascade.md), not an independent single-observable prediction.
 2. Friedmann/de Sitter standard GR gives $\Lambda = 3H^2/c^2$ (no AVE-distinct content — standard GR, accepted by AVE)
-3. $\Lambda$ value follows directly
+3. $\Lambda$ value follows directly (also Class E — same operating-point projection scaled by $3/c^2$)
 
 **Zero fit parameters.** The genuinely AVE-distinct claim — that $\rho_\Lambda$ comes from latent heat of vacuum crystallization rather than from zero-point fluctuations — is the **mechanistic** story. The numerical value follows from $H_\infty$.
 
