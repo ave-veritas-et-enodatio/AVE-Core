@@ -251,20 +251,39 @@ Each row of [`universal-saturation-kernel-catalog.md`](universal-saturation-kern
 | Sine-Gordon kink memory | SYM | Lossless (between switches) | Non-volatile memory state |
 | Autoresonant rupture | SYM | Cyclic (PLL ring-up) | Coherent standing-wave amplification |
 
-## Methodology-systematic implications
+## Methodology-systematic implications (PROVISIONAL — adjudication item 1)
 
-The bulk-lossless / per-object-lossy distinction is load-bearing for [adjudication queue item 1](../../../../_orchestration/index.md) (Ganalyzer vs Longo cos-γ on SDSS galactic spin-axis):
+**Status**: Walk-back applied 2026-05-19 EOD+++ per external review (ave-discrimination-check Step 1.5 retroactive application). Initial draft of this section claimed Ganalyzer = bulk-statistic + Longo cos-γ = per-galaxy-directional as the source of the 2.99σ methodology separation on [SDSS spin-orientation cross-comparison](../../../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md). **That framing was a misclassification.** Per [shamir-result.md:39](../../../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md) + [sdss-result.md:62](../../../research/2026-05-19_c5-sdss-spin-orientation-result.md), BOTH estimators are per-galaxy chirality classifiers ($\chi_i \in \{-1, +1\}$ per galaxy) that aggregate to a population dipole. The methodology difference is the per-galaxy classification FEATURE, not bulk-vs-individual aggregation:
 
-- **Ganalyzer (bulk statistic)**: averages over ~10⁴ galaxies; samples the lossless-bulk distribution → measures the population-mean axis.
-- **Longo cos-γ (per-galaxy directional)**: per-galaxy measurement; samples the lossy-individual distribution → per-galaxy stochasticity dominates within-class scatter.
+- **Ganalyzer** (Shamir 2022): algorithmic regression on radial intensity peaks (peripheral-pixel asymmetry per per-galaxy image)
+- **Longo cos-γ** (AVE SDSS DR17 + Galaxy Zoo 1): crowdsourced ±1 vote on isophotal twist angle (GZ1 visual classification)
 
-Same substrate, different temporal-regime sampling. The 2.99σ separation between methods is NOT a physics disagreement — it is a measurement of the bulk-vs-individual regime difference. Both methods are correct for what they sample; neither is "wrong."
+Both apply per-galaxy chirality assignment then population dipole-fit. The 2.99σ separation between Shamir DESI Legacy (axis at $l=242°, b=-47°$ per [shamir-result.md:162](../../../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md)) and AVE SDSS DR17 (axis at $l=129°, b=79°$) is therefore a **per-galaxy-estimator-systematic**, NOT a temporal-regime-sampling difference.
 
-This holds because the LSS / galactic-cluster / per-galaxy spin axes occupy DIFFERENT temporal regimes:
-- LSS bulk-flow direction: lossless (stable across cosmological time)
-- Per-galaxy spin axis: lossy (stochastic per-galaxy assembly history)
+### Interpretive alternatives (per `ave-discrimination-check`)
 
-The CMB axis (lossless cosmic Ω_freeze) projects onto both regimes but with different observable signatures.
+The 2.99σ separation has multiple structurally-distinct explanations; the temporal-regime axis is NOT the load-bearing discriminator:
+
+| # | Alternative | Mechanism | Discriminating test |
+|---|---|---|---|
+| **Alt 1** | Per-galaxy morphological estimator systematic | Ganalyzer (algorithmic peripheral-pixel) and Longo (GZ1 crowdsourced) classify different per-galaxy features that correlate differently with the underlying chirality | Same-parent-sample side-by-side: run Shamir's Ganalyzer on the SAME GZ1 catalog AVE uses. McAdam & Shamir 2023 IS this test (per [shamir-result.md:371](../../../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md)) |
+| **Alt 2** | Bulk-vs-individual temporal-regime sampling | Different sampling scales of the same per-object population | Subdivide each catalog into spatial sub-blocks; check that Ganalyzer + Longo agree at the sub-block level even when disagreeing at the full-catalog level |
+| **Alt 3** | Catalog-selection bias | Different parent catalogs (Shamir DESI Legacy ~1.29M; AVE GZ1 + SDSS DR7 ~63k) sample different galactic-population sub-regions | Cross-survey controls: do Ganalyzer + Longo agree on the SAME survey-coverage sub-region? |
+| **Alt 4** | Image-resolution / preprocessing-systematic | Ganalyzer operates on DECaLS DR8 + BASS + MzLS imaging; Longo on SDSS DR7 imaging — different PSF, different depth, different photometric calibration | Re-run both on common imaging (e.g., HSC overlap) and check |
+
+The previously-drafted Alt-2 framing was adopted without enumerating Alt 1 (the standard-astronomy explanation), which IS the discriminating axis. Per [shamir-result.md:371](../../../research/2026-05-19_c5-shamir-2022-cross-catalog-result.md), the corpus already queues McAdam & Shamir 2023 cross-comparison as next-step #4 — that is the Alt-1 vs Alt-2 discriminator.
+
+### Falsifiable form of the temporal-regime claim
+
+If the corpus eventually adopts a temporal-regime explanation, it must be in falsifiable form:
+
+> **IF** Alt 2 (bulk-vs-individual temporal sampling) is correct, **THEN** running Ganalyzer on the SAME GZ1 catalog AVE uses (McAdam & Shamir 2023) should give ~AVE Longo axis $(l=129°, b=79°)$ at per-galaxy level. **IF** Alt 1 (per-galaxy estimator systematic) is correct, **THEN** Ganalyzer on GZ1 should give ~Shamir DESI axis $(l=242°, b=-47°)$, proving the methodology is the dominant variable, not the catalog.
+
+This is the experimentum crucis. Until McAdam & Shamir 2023 (or equivalent same-parent-sample test) lands, Item 1 stays **PROVISIONAL**. The temporal-regime framing is one alternative among four; it is NOT corpus-closure of the methodology-systematic question.
+
+### What this section IS load-bearing for
+
+Even with the methodology-systematic question PROVISIONAL, the temporal-regime axis itself is a legitimate classifier — just not at the level of THIS particular methodology discrimination. The axis correctly classifies systems like planetary spin (persistent low-$A$ = lossless), BH ringdown (persistent high-$A$ = lossy decaying), and quartz oscillator (cyclic per cycle). The error was overreaching to claim it as the source of the Ganalyzer/Longo 2.99σ separation when the corpus evidence points to per-galaxy estimator features.
 
 ## Predictability implications (Q3' from Soliton-coupling Session 2)
 
@@ -272,7 +291,7 @@ Closes the predictability question for Q3' adjudication ("are smaller systems mo
 
 | Temporal regime | Predictability | N-body scaling | AVE example |
 |---|---|---|---|
-| Lossless | High (deterministic) | Independent of N | Planetary spin-axis (8/8 class match) |
+| Lossless | High (deterministic) | Independent of N | Planetary spin-axis (**6/8 class match per [Session 2 doc:167](../../../research/2026-05-20_soliton-coupling-operator-session2-planetary-scoring.md); 14/16 total with mag-tilt 8/8 incl. degenerate Mercury/Venus/Mars no-field matches per Session 2:236**) |
 | Cyclic | Quasi-deterministic | Weak N-scaling | Geomagnetic dynamo (predictable cycle, stochastic in detail) |
 | Lossy | Stochastic | Strong N-scaling (Reynolds-analogue) | Galactic-cluster gas dynamics; LSS bulk-flow individual-cluster |
 
@@ -282,7 +301,9 @@ The Reynolds-number analogue at AVE substrate scale is $\delta_{\text{AVE}} \tim
 
 **Class identification (per `consistency-vs-emergence` v1.1)**: $\delta_{\text{AVE}}$ is **Class 1 (definitional construct)** — the parameter is defined to classify regimes, not to predict observations. The trichotomy itself is taxonomic, not predictive. Downstream USES of the trichotomy (e.g., methodology-systematic resolution, predictability-scaling) ARE Class 4 (emergence) where the framework makes observable predictions about which regime applies to which empirical phenomenon.
 
-**SM-counterfactual (per `ave-discrimination-check`)**: SM has loss tangent $\tan\delta$ (EM-only) and Reynolds number (fluid-only) — distinct dimensionless parameters per discipline. AVE has a **single** cross-scale parameter $\delta_{\text{AVE}}$ that applies at 21 OOM via the same kernel $S(A)$. This unification IS AVE-distinct: SM has no equivalent unifying parameter.
+**SM-counterfactual (per `ave-discrimination-check`)**: SM has loss tangent $\tan\delta$ (EM-only) and Reynolds number (fluid-only) — distinct dimensionless parameters per discipline. AVE has a **single** cross-scale parameter $\delta_{\text{AVE}}$ that applies at 21 OOM via the same kernel $S(A)$.
+
+**Scope of the unification claim — TAXONOMIC, not derivational** (clarification added 2026-05-19 EOD+++ per external-review catch): The unification of EM $\tan\delta$ + fluid Reynolds + cavity QED $g/\kappa$ under $\delta_{\text{AVE}}$ is a TAXONOMIC BRIDGE — it labels these classical-physics ratios under a common substrate-physics axis, recognizing they all measure the same time-fraction-at-saturation pattern. It does NOT (yet) derive their numerical values from $S(A)$ first principles. SM also has scale-invariant dimensionless ratios (Reynolds is dimensionless across fluid scales; $\tan\delta$ is dimensionless across frequencies); what's potentially AVE-distinct is the claim that ALL of these trace to the same kernel mechanism, but that claim requires demonstrating the trace, not asserting it. To make the AVE-distinct claim load-bearing as more-than-taxonomy: pick one classical-physics value (e.g., $\tan\delta$ in water at 1 GHz) and FORWARD-PREDICT it from $S(A)$ + the $t_{\text{sat}}/t_{\text{period}}$ structure for that specific system. Without that forward-derivation, the unification is a useful classification scheme, not a falsifiable AVE-distinct prediction. The leaf's framing-discipline (Class 1 definitional per `consistency-vs-emergence`) is the honest level; "21-OOM unification via single kernel" in commit message `98994c1` overstated this and is corrected here in canon.
 
 **Honest framing (per `ave-evidence-framing-discipline`)**: this leaf introduces the temporal axis; it does NOT introduce new physics. The kernel $S(A) = \sqrt{1-A^2}$ is unchanged. The Regime I-IV spatial axis is unchanged. The Power-Domain θ axis is unchanged. The temporal axis classifies the time-pattern of evolution through the existing spatial axis. Calling this "new physics" would be overclaim; calling it "useful classifier" is honest.
 
