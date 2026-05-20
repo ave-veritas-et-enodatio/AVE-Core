@@ -1,5 +1,19 @@
 # C5-CMB-AXIS Executable Observer — Result
 
+> **🟡 POST-HOC ANNOTATION 2026-05-19 EOD (c5-corpus-pin-fix walk-back) — corpus pin for the SDSS LSS spin axis was wrong at the time this driver ran.**
+>
+> The Observable-3 input pin used in this E1b session — `(l = 32°, b = 32°)` cited as Longo 2011 + Shamir 2020 — was a coordinate-system conflation: Longo's published equatorial declination 32° was mistakenly substituted for BOTH galactic l and galactic b. The actual Longo 2011 published axis in galactic coordinates is `(l = 52°, b = 68.5°)`, verified 2026-05-19 EOD by the SDSS DR17 implementor (2026-05-19_c5-sdss-spin-orientation session) reading the Longo 2011 PDF directly (Phys. Lett. B 699:224).
+>
+> **Corrected-comparison sub-note for §2.2 / §0 TL;DR:**
+>
+> - The CMB-LSS separation reported below as **27.9°** (corpus pin (32°, 32°) → CMB (60.28°, 50.48°)) is preserved as the verbatim driver output at run time.
+> - Against Longo's ACTUAL published axis (52°, 68.5°), the CMB-LSS separation would have been **~30°** — numerically close to 27.9° by accident of the corpus error landing near Longo's actual position in 3D angular separation, NOT by the corpus value being correct.
+> - The framework's current best-precision empirical state for the LSS spin axis is the SDSS DR17 re-fit at `(l = 129°, b = 79°)` with σ = 6.83° per [`research/2026-05-19_c5-sdss-spin-orientation-result.md`](2026-05-19_c5-sdss-spin-orientation-result.md) — supersedes BOTH the original corpus pin AND Longo's published axis at the framework's current empirical state. The CMB-LSS separation against the empirical re-fit is **36.75°** (Outcome Marginal-D; LSS alignment with CMB axis EXCLUDED at 5.33σ from zero per the SDSS session's tight σ_LSS = 6.83°).
+>
+> **Walk-back artifact:** driver pin corrected in [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py:97-127`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py); cross-references updated at [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) C5 rows + [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) §0.5 new entry. Pattern follows the E1b CMB-axis (174°, -5°) → (60.28°, 50.48°) walk-back precedent at closure-roadmap.md §0.5 row dated 2026-05-19. The 27.9° figure in the prose below is preserved verbatim as historical-record of the driver's actual output; this annotation does not rewrite that figure.
+>
+> ---
+
 **Date:** 2026-05-19
 **Branch:** `analysis/c5-cmb-axis-driver` off `analysis/integration` at `e61a3dc`
 **Driver:** [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py)
