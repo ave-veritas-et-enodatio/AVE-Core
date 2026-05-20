@@ -69,6 +69,48 @@ Per the asymmetric-saturation exploration (Grant 2026-05-15 evening):
 
 The asymmetric-saturation variant ($K_{\text{wedge}} / G_{\text{wedge}} \neq 2$) is a novel kernel topology flagged for separate framework exploration.
 
+### ε vs μ axis (2026-05-19 EOD extension per Grant adjudication)
+
+ASYM-N instances are NOT interchangeable — they split into ε-sector and μ-sector saturation along the symmetric sectors of the substrate's electromagnetic dual. Making this axis explicit in the symmetry classification:
+
+| Class | ε-sector | μ-sector | Note |
+|---|---|---|---|
+| ASYM-N(ε) | Plasma cutoff (atomic-EM scale) | — | Single instance currently |
+| ASYM-N(μ) | — | BCS $B_c(T)$ (condensed-matter scale) + Galactic mutual inductance (MOND, galactic scale per [`saturated-lattice-mutual-inductance.md:4`](../vol3/cosmology/ch05-dark-sector/saturated-lattice-mutual-inductance.md)) | Two instances currently |
+| ASYM-N (sector-undetermined) | — | — | None |
+| ASYM-E | Engineered metamaterials (designer-controllable decoupled) | — | Single instance |
+
+**MOND classification note**: the canonical leaf at `saturated-lattice-mutual-inductance.md:4` classifies the galactic mutual-inductance saturation as **ASYM-N(μ)**. The catalog row at line 38 currently says "Galactic (MOND) | SYM" — this is an internal inconsistency surfaced 2026-05-19 EOD and queued for adjudication. Treating MOND as ASYM-N(μ) per the canonical leaf above.
+
+### Gap-cells in the catalog (2026-05-19 EOD extension)
+
+Per the ε/μ axis above, the catalog has explicit GAP-CELLS where physics suggests a paired instance should exist but the corpus does not yet have one. These gaps are pre-registered for future research-doc filling, NOT claims that the gap is empty:
+
+| Scale | ASYM-N(ε) candidate | ASYM-N(μ) candidate | Status |
+|---|---|---|---|
+| **Atomic-EM** | Plasma cutoff (present, row 7) | **GAP** — μ-companion not yet identified | Asymmetric pair? |
+| **Condensed-matter** | **GAP** — ε-companion to BCS not yet identified (would be an analogous ε-sector single-mode saturation in superconductor / superfluid context) | BCS $B_c(T)$ (present, row 5) | Asymmetric pair? |
+| **Galactic** | **GAP** — ε-companion to MOND not yet identified (galactic-scale ε-sector saturation event) | MOND mutual inductance (present per `saturated-lattice-mutual-inductance.md:4`) | Asymmetric pair? |
+| **Cosmic** | **GAP** — ε-companion to K4 crystallization not yet identified. Dark-energy framing candidate per Grant 2026-05-19 EOD; current corpus framing is Class E operating-point projection ($H_\infty$ + $G$ + $\hat{\Omega}_{\text{freeze}}$ + $\alpha$ joint constraint per `omega-freeze-cosmic-grain-cascade.md:13-16`) NOT explicit ASYM-N(ε). Worth research-doc scoping (β epic) to determine whether DE should be reclassified as ASYM-N(ε) at cosmic scale, OR whether the Class E framing subsumes both ε and μ behavior simultaneously. | K4 crystallization seed (present, row 14, currently SYM*) | Asymmetric pair pending scoping |
+| **Engineered** | Active topological metamaterials (present, row 18, currently ASYM-E with K/G ≠ 2 by design) | — | Designed asymmetric |
+
+**Why these gaps matter**: if the substrate has ε ↔ μ symmetry, every ASYM-N instance should have a sector-companion (or at least a structural explanation for why the companion is suppressed/forbidden). The current 2-instance ASYM-N count is suspicious from a symmetry-completeness perspective; gaps may indicate either (a) corpus has the physics but hasn't enumerated it as a row, or (b) the framework genuinely has only single-sector saturation at those scales for substrate-physics reasons.
+
+### Companion-row links (2026-05-19 EOD extension)
+
+Where the catalog has paired/companion rows at the SAME scale (e.g., a SYM row that the ASYM-N variant of the same physics extends), link them explicitly:
+
+| Primary row | Companion / variant | Relationship |
+|---|---|---|
+| Row 1 Atomic-EM (SYM) | Row 7 Plasma cutoff (ASYM-N ε) | Plasma is the ε-only-saturated variant of the symmetric atomic-EM Schwinger limit |
+| Row 5 Condensed-matter BCS (ASYM-N μ) | (no current ε-companion) | Gap-cell — see above |
+| Row 9 Planetary geomagnetic (SYM, dynamo pole-flip) | (Mars/Venus null cases listed as anchor) | Single-row with internal regime variation; possible split into ε/μ sub-cases for future research |
+| Row 11 Galactic MOND (ASYM-N μ per leaf) | (no current ε-companion at galactic scale) | Gap-cell — see above |
+| Row 14 Cosmic K4 crystallization (SYM*) | (no current ASYM-N(ε) companion = DE candidate) | Gap-cell — β epic scoping queued |
+| Row 18 Active topological metamaterials (ASYM-E) | (designed analog of any natural ASYM-N pair) | Engineering exemplar of asymmetric kernel; can target any ε/μ asymmetry by design |
+
+**Lookup convention**: when proposing a new row, check this table first to see if a paired/companion row already exists. If the proposed row is the companion of an existing row, label its row explicitly with the companion link.
+
 ## What this catalog establishes
 
 **Pre-A-034:** each row was treated as a separate framework result — [Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex) had geomagnetic reversal; [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) had solar flares; [Vol 3 Ch 15 (BH Orbital Resonance)](../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as "God's Hand" inaccessible.
