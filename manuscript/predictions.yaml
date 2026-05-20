@@ -16,12 +16,16 @@
 # ─── Entry schema ────────────────────────────────────────────────────────────
 # id:                    stable identifier (P01, P02, ...) — never re-use
 # name:                  short human-readable name
-# type:                  classification (A1 rule)
-#                          derived_prediction   — genuine forward prediction
-#                          axiom_manifestation  — axiom expressed at a new scale
-#                          identity             — definitional; 0% is trivially true
-#                          consistency_check    — reproduces a known result
-#                          engineering_limit    — theoretical bound
+# type:                  classification (A1 rule, mirrors `consistency-vs-emergence` skill v1.1)
+#                          derived_prediction        — genuine forward prediction (Class D)
+#                          axiom_manifestation       — axiom expressed at a new scale (Class B)
+#                          identity                  — definitional; 0% is trivially true (Class A)
+#                          consistency_check         — reproduces a known result (Class C)
+#                          operating_point_projection — Class E: observable is one of N projections
+#                                                       of a single substrate operating-point;
+#                                                       N observables joint-constrained, failure of
+#                                                       any one falsifies the operating-point
+#                          engineering_limit         — theoretical bound
 # derivation_label:      \label{} target in manuscript/**/*.tex
 # constants_py_symbol:   (optional) name in src/ave/core/constants.py
 # predicted_value:       (optional) numeric value for validator to cross-check
@@ -125,7 +129,7 @@ predictions:
 
   - id: P23
     name: "H∞ (Hubble asymptote)"
-    type: consistency_check
+    type: operating_point_projection
     derivation_label: "sec:galactic_saturation"
     constants_py_symbol: "H_INFINITY"
     predicted_value: 2.246561628172611e-18
@@ -137,22 +141,42 @@ predictions:
     public_in_readme: true
     public_in_living_ref: true
     notes: |
-      H∞ = 28π m_e³ c G / (ℏ² α²). Geometric consistency identity that lands in
-      the Planck-SH0ES tension band (sits between Planck 67.4 and SH0ES 73;
-      within 1σ of TRGB 69.8). Structurally tied to G via the R_H ≡ c/H∞
-      substitution in the Machian-impedance integration that derives G in
-      Vol 3 Ch 1 (ξ = 4π(R_H/ℓ_node)α⁻²); the relation is one algebraic
-      constraint linking the (G, H∞) pair, not two independent predictions.
-      Inputs: m_e, c, ℏ, α, G — all CODATA-derived (G is Bounding Limit 3).
-      Vol 3 Ch 1 self-states this as "consistency proof... same geometric limit
-      from different topological reference frames." Promoting to an independent
-      emergence-class prediction requires a closed-form Chain B' derivation of
-      G from substrate-local thermodynamics (lattice tension, equipartition,
+      H∞ = 28π m_e³ c G / (ℏ² α²). Class E operating-point projection per
+      `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD):
+      {G, H∞, Ω_freeze, α} are joint-constrained at substrate operating point
+      u_0* ≈ 0.187 via the R_H/ℓ_node ~ 10^39 topological bridge per
+      manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md:13-16. The
+      framework's testable content is the joint constraint on these N
+      observables — failure of any one falsifies the operating-point and
+      therefore the entire substrate model — not four independent percent-error
+      claims.
+
+      Class C consistency-check sub-structure is also true (was the v1.0
+      classification): the relation is structurally tied to G via the R_H ≡
+      c/H∞ substitution in the Machian-impedance integration that derives G
+      in Vol 3 Ch 1 (ξ = 4π(R_H/ℓ_node)α⁻²); landing inside the Planck-SH0ES
+      tension band (sits between Planck 67.4 and SH0ES 73; within 1σ of TRGB
+      69.8) is the substantive empirical observation. Inputs: m_e, c, ℏ, α,
+      G — all CODATA-derived (G is Bounding Limit 3). Class E supersedes
+      because it captures the joint-constraint structure that Class C alone
+      under-describes.
+
+      The Class E aggregation discipline note (skill v1.1 "asymmetry note"):
+      percent-error averaging across the joint observables is meaningful only
+      as ONE data-point about u_0*'s value, not N independent successes. The
+      cumulative test is "does the inferred u_0* from each observable agree
+      within combined uncertainty?", NOT N separate sub-percent claims.
+
+      Promoting to a fully substrate-local emergence-class prediction
+      (Class D — would break the joint-constraint structure into independent
+      pieces) requires a closed-form Chain B' derivation of G from
+      substrate-local thermodynamics (lattice tension, equipartition,
       generation rate per node) that does not route through R_H or H∞;
       currently open work per Chain B' showstoppers research
       (research/2026-05-19_h-infinity-chain-b-prime-showstoppers.md verdict d)
       + cosmological-constant-closure.md:103-111 + closure-roadmap Tier 3
-      "Three-route α/G/𝒥 consistency verification."
+      "Chain B' independent G derivation (substrate-local thermodynamics)"
+      (line 38).
 
   - id: P47
     name: "α thermal running (δ_strain)"
