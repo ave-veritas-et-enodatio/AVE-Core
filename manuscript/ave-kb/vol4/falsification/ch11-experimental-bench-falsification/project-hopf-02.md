@@ -43,8 +43,8 @@ $$
 
 Design a single PCBA containing both a standard Toroid and a Hopf Coil, mathematically matched to identical classical DC inductances. Connect both to a Vector Network Analyzer (VNA) and sweep from 10 MHz to 100 MHz.
 
-**Test methodology** (per [`AVE-HOPF/hardware/TEST_PROCEDURE.md`](../../../../../AVE-HOPF/hardware/TEST_PROCEDURE.md)):
-1. Wind L-handed + R-handed enantiomer pair on 3D-printed mandrels per [`AVE-HOPF/hardware/assembly_guide/`](../../../../../AVE-HOPF/hardware/assembly_guide/)
+**Test methodology** (per [`AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md`](../../../../../AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md) Phase F-G; full ave-prereg-format VNA measurement protocol to be drafted at `AVE-Core/research/2026-MM-DD_a1-hopf-hopf-02a-prereg.md` per Phase 2 gate):
+1. Wind L-handed + R-handed enantiomer pair on 3D-printed mandrels per [`AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md`](../../../../../AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md)
 2. Solder SMA connectors per per-board scored breakaway (eliminates HOPF-01 multi-antenna coupling confound)
 3. Measure S₁₁ for both enantiomers; record differential
 
@@ -78,11 +78,12 @@ A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological
 | Asset | Location |
 |---|---|
 | KiCad PCB | [`AVE-HOPF/hardware/hopf_02a.kicad_pcb`](../../../../../AVE-HOPF/hardware/hopf_02a.kicad_pcb) |
-| Gerbers + drill files | [`AVE-HOPF/hardware/Gerbers/`](../../../../../AVE-HOPF/hardware/Gerbers/) |
-| BOM (~$123) | [`AVE-HOPF/hardware/BOM.md`](../../../../../AVE-HOPF/hardware/BOM.md) |
-| JLCPCB ordering | [`AVE-HOPF/hardware/ORDERING.md`](../../../../../AVE-HOPF/hardware/ORDERING.md) |
-| Test procedure | [`AVE-HOPF/hardware/TEST_PROCEDURE.md`](../../../../../AVE-HOPF/hardware/TEST_PROCEDURE.md) |
-| Assembly guide | [`AVE-HOPF/hardware/assembly_guide/`](../../../../../AVE-HOPF/hardware/assembly_guide/) |
+| Gerbers + drill files | [`AVE-HOPF/hardware/Gerbers_hopf_02a/`](../../../../../AVE-HOPF/hardware/Gerbers_hopf_02a/) (15 files; Phase B export commit `86d1a00`) |
+| BOM (~$123) | [`AVE-HOPF/hardware/hopf_02a_BOM.md`](../../../../../AVE-HOPF/hardware/hopf_02a_BOM.md) |
+| JLCPCB ordering | [`AVE-HOPF/hardware/hopf_02a_ORDERING.md`](../../../../../AVE-HOPF/hardware/hopf_02a_ORDERING.md) (250×185 mm panel + 4 v-score lines + ±0.1 mm drill tol) |
+| Test procedure | extract Phase F-G from [`AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md`](../../../../../AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md); full ave-prereg-format pre-reg drafts at Phase 2 gate |
+| Assembly guide | [`AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md`](../../../../../AVE-HOPF/hardware/hopf_02_ASSEMBLY_GUIDE.md) (376 lines; 3D-print mandrel + wire-winding + Phase F-G measurement) |
+| DRC report | [`AVE-HOPF/hardware/hopf_02a_DRC.rpt`](../../../../../AVE-HOPF/hardware/hopf_02a_DRC.rpt) (251 violations are `lib_footprint_issues` warnings for local HOPF02 footprint library; no copper/drill clearance issues per Phase B verification) |
 | Python KiCad emitter | [`AVE-HOPF/hardware/hopf_02_generate_kicad_pcb.py`](../../../../../AVE-HOPF/hardware/hopf_02_generate_kicad_pcb.py) (canonical fab path) |
 | NEC2 prediction | [`AVE-HOPF/docs/SESSION_STATE_2026-05-05.md:21`](../../../../../AVE-HOPF/docs/SESSION_STATE_2026-05-05.md) |
 | 89 fast tests passing | HOPF-02 geometry validation (SMA convention, z-values, hole counts, L↔R mirror exactness) |

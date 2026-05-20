@@ -10,7 +10,7 @@ Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursue
 
 | Sub-epic | Doc | Tier | Phase 0 |
 |---|---|---|---|
-| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) + [Phase A audit](exp-a1-hopf-repo-audit.md) | Cascade × **Executability** — design complete; Phase 0a artifact-generation pending (3 BLOCKERS verified empirically 2026-05-20) | Phase 0a artifact-generation → Phase 0b Grant fab submission |
+| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) + [Phase A audit](exp-a1-hopf-repo-audit.md) + [Sim audit](exp-a1-hopf-sim-audit.md) | Cascade × **Executability** — **Phase 0a ✓ COMPLETE** (Phase B walk-back 2026-05-20); **Sim audit ✓ NO DRIFT** on α + (p,q) + C8 (2026-05-20 EOD+); **Phase 0b READY for Grant fab submission** | Grant uploads `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB per `hopf_02a_ORDERING.md`; orders 3D-print mandrels per `hopf_02a_BOM.md` |
 | **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity | KiCad design from KB spec + ~$1-5k bench |
 | **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation | Facility partnership search (terrestrial 1-m electron interferometer) |
 
