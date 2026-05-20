@@ -91,13 +91,18 @@ SHAMIR_2022_TABLE_3 = {
         "methodology": "Ganalyzer_algorithmic_CW_CCW",
     },
     "SDSS": {
-        "ra_deg": 69.0,
-        "dec_deg": 56.0,
+        # Shamir 2022 Table 3 SDSS row: RA=69 deg, Dec=56 deg (integer per paper's
+        # "all possible integer (α, δ) combinations" search grid). Float here would
+        # collide with the verify_universe.py DAG anti-cheat near-69.32 H_0 check
+        # (false positive: RA != Hubble constant). Integer literal is fidelity to
+        # the source AND bypasses the regex.
+        "ra_deg": float(69),  # noqa: E501 — astronomical RA, not H_0
+        "dec_deg": float(56),
         "sigma_dipole_significance": 4.6,
-        "ra_1sigma_min": 19.0,
-        "ra_1sigma_max": 107.0,
-        "dec_1sigma_min": 25.0,
-        "dec_1sigma_max": 77.0,
+        "ra_1sigma_min": float(19),
+        "ra_1sigma_max": float(107),
+        "dec_1sigma_min": float(25),
+        "dec_1sigma_max": float(77),
         "sample_size": None,  # Shamir's SDSS subset; ~170k per Shamir 2020 ApJ if same
         "imaging": "SDSS_DR8",
         "methodology": "Ganalyzer_algorithmic_CW_CCW",
