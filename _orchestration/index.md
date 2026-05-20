@@ -1,6 +1,6 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-20 EOD — A1-HOPF Phase A repo audit complete (425 lines, 37 findings, 3 BLOCKERS verified empirically) at [`exp-a1-hopf-repo-audit.md`](exp-a1-hopf-repo-audit.md); sub-epic Phase 0 split into 0a artifact-generation + 0b fab-submission; "HARDWARE FAB-READY" overstatement walked back to "DESIGN-COMPLETE" in sub-epic + KB leaf.
+**Last updated**: 2026-05-20 EOD+ — A1-HOPF Phase A repo audit complete + sub-epic walk-back + [`promotion-workflow-template.md`](promotion-workflow-template.md) landed (10-step sibling-repo → AVE-Core engine promotion checklist; first test case = NEC2 ALPHA-post-processing methodology from AVE-HOPF); Phase B AVE-HOPF implementor session dispatched in background for BLOCKER-1 + BLOCKER-2 + R1.1 reorganization + ALPHA constant fix + MAGIC_NUMBERS extension.
 **Current HEAD on `analysis/integration`**: `f9b2e55` — Shamir 2022 merge tip (advances with this commit)
 **Audit tag count**: 33 (`git tag -l "audit/*" | wc -l`)
 **Active branches** (local): 6 — `analysis/integration`, `analysis/c8-baryon-ladder-pdg-anchor`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`. All 11 May-19 implementor branches merged + deleted (local + remote).

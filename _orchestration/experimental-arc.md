@@ -10,9 +10,15 @@ Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursue
 
 | Sub-epic | Doc | Tier | Phase 0 |
 |---|---|---|---|
-| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) | Cascade × **Executability** — hardware fab-ready ($123 BOM) | Grant fab decision (HOPF-02a → JLCPCB) |
+| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) + [Phase A audit](exp-a1-hopf-repo-audit.md) | Cascade × **Executability** — design complete; Phase 0a artifact-generation pending (3 BLOCKERS verified empirically 2026-05-20) | Phase 0a artifact-generation → Phase 0b Grant fab submission |
 | **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity | KiCad design from KB spec + ~$1-5k bench |
 | **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation | Facility partnership search (terrestrial 1-m electron interferometer) |
+
+## Supporting infrastructure docs
+
+| Doc | Purpose |
+|---|---|
+| [`promotion-workflow-template.md`](promotion-workflow-template.md) | 10-step checklist for sibling-repo → AVE-Core engine promotion (extracted from `exp-a1-hopf-repo-audit.md` Axis 8 R8.1; adapts `ave-ip-divide-discipline` Step 5). First test case queued: NEC2 ALPHA-post-processing methodology promotion from AVE-HOPF → AVE-Core. |
 
 
 
