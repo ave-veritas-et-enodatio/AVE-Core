@@ -70,7 +70,7 @@ The substrate-physics distinction from the BH frame-dragging case ([`frame-dragg
 
 **Static profile shape identical; time-derivative distinguishes.** The Op14 kernel form $S(A) = \sqrt{1 - A^2}$ is the same at both scales (universal per A-034, `universal-saturation-kernel-catalog.md:7`). What differs is whether the saturation surface is **static** (BH, one-shot lock per `cosmological-constant-closure.md:55` mode) or **dynamic** (cosmic-horizon, ongoing crystallisation per `lattice-genesis-hubble-tension.md:6` + `phantom-energy-equation-of-state.md:6`).
 
-Per Grant adjudication Q1 (`_orchestration/cosmic-epsilon-de-projection-scoping.md:9`): cosmic case is DYNAMIC ("water-crystallization analogy lands cleanly. The Friedmann static-Λ limit corresponds to 'ice in equilibrium' post-crystallization-front; AVE's DE is the crystallization happening NOW at the cosmic horizon — substrate still phase-transitioning, latent heat still being released"). Class E framing already encodes this as ongoing operating-point process at $u_0^*$.
+Per Grant adjudication Q1 (`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9`): cosmic case is DYNAMIC ("water-crystallization analogy lands cleanly. The Friedmann static-Λ limit corresponds to 'ice in equilibrium' post-crystallization-front; AVE's DE is the crystallization happening NOW at the cosmic horizon — substrate still phase-transitioning, latent heat still being released"). Class E framing already encodes this as ongoing operating-point process at $u_0^*$.
 
 ## §4 — Asymmetric Meissner form (ε/μ-decoupled at cosmic horizon)
 
@@ -110,7 +110,7 @@ The Op14 cosmic-horizon profile is the substrate-side structural piece that make
 
 ## §6 — What this leaf does NOT do
 
-Per the brief's CRITICAL FAILURE MODES (`_orchestration/cosmic-epsilon-de-projection-scoping.md:133-139`):
+Per the brief's CRITICAL FAILURE MODES (`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:133-139`):
 
 1. **No magnitude-matching of raw substrate Op14 energy to $\rho_\Lambda$.** The Op14 cosmic-horizon profile is the substrate-physics piece; $\rho_\Lambda$ is the macroscopic projection through Friedmann/de Sitter + latent-heat-of-crystallisation. The QFT-style cosmological-constant problem framing is rejected (cosmological-constant-closure.md:55-58: "naive zero-point-energy prediction is off by $\sim 10^{122}$ — the famous 'cosmological constant problem' of QFT for ~50 years. AVE doesn't inherit it.").
 
@@ -162,6 +162,6 @@ The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics 
   - [$\Omega_{\text{freeze}}$ Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) — three-route framework + Class E operating-point projection canonical
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 21-instance kernel; Row 14 cosmic K4 crystallisation + ASYM-N(ε) cosmic companion (Phase 3 addition)
 - **Pre-test physics anchors:**
-  - Grant adjudications 2026-05-19 EOD at [`_orchestration/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../_orchestration/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
+  - Grant adjudications 2026-05-19 EOD at [`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
 - **Research-tier projection-chain trace:**
   - [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) — 6-component projection chain using this leaf as Component 5

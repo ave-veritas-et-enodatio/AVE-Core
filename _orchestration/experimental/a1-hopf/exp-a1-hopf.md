@@ -1,6 +1,6 @@
 # EXP-A1-HOPF: Chiral Antenna Resonance Shift (HOPF-02a)
 
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent epic**: [`experimental-arc.md`](../experimental-arc.md)
 **Status**: **PHASE 0a ✓ COMPLETE (Phase B walk-back commits) + Sim-audit ✓ NO DRIFT** — Phase 0b ready for Grant fab submission
 **Sibling repo owner**: AVE-HOPF (Grant)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
@@ -16,8 +16,8 @@ Cascade × Executability winner — only top-3 cascade candidate with hardware f
 
 The AVE framework's `Δf/f = α · pq/(p+q)` chiral-antenna resonance-shift formula is the EE-scale test of the (2,q) torus-knot family. The same (p,q) classification underlies:
 
-- **C8-BARYON-LADDER** (FULL PASS at -0.002% proton, 6/6 J^P per [`baryon_ladder_pdg_2024_anchor.py`](../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))
-- **C3-MUON-DELTA** (PASS-conditional +502 per [`muon_g2_fermilab_anchor.py`](../src/scripts/verify/muon_g2_fermilab_anchor.py); awaits Fermilab Run-4/5)
+- **C8-BARYON-LADDER** (FULL PASS at -0.002% proton, 6/6 J^P per [`baryon_ladder_pdg_2024_anchor.py`](../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py))
+- **C3-MUON-DELTA** (PASS-conditional +502 per [`muon_g2_fermilab_anchor.py`](../../../src/scripts/verify/muon_g2_fermilab_anchor.py); awaits Fermilab Run-4/5)
 - **C10-MUON-LIFE** (canonical (2,3)+Cosserat ladder per FI-13 resolution)
 
 A1-HOPF tests the (p,q) coupling at EE scale — distinct from hadronic mass scale at C8 and lepton g-2 scale at C3 — providing cross-scale corroboration of (2,q) topological classification.
@@ -65,13 +65,13 @@ Phase 1 surgical walk-back refreshed these load-bearing leaves (verified at-cano
 
 | Leaf | Pre-walk-back state | Post-walk-back state |
 |---|---|---|
-| [`torus-knot-baryon-predictions.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) | proton at 0.00%; no J^P column; missing forward predictions; pre-FI-13 (2,q) framing | ✓ DONE — refreshed per [`torus-knot-ladder-baryons.md`](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) Vol 2 anchor; J^P column added; forward c=17/19 confirmations included; FI-13 RESOLVED state cited |
-| [`project-hopf-02.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) | HOPF-02/03 namespace split missing; pre-FI-13 (2,q) framing | ✓ DONE — HOPF-01/02/03 namespace clarification table per AVE-HOPF 2026-05-06 reconciliation; FI-13 (2,q) particle-id table; canonical AVE-HOPF cross-references |
+| [`torus-knot-baryon-predictions.md`](../../../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) | proton at 0.00%; no J^P column; missing forward predictions; pre-FI-13 (2,q) framing | ✓ DONE — refreshed per [`torus-knot-ladder-baryons.md`](../../../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) Vol 2 anchor; J^P column added; forward c=17/19 confirmations included; FI-13 RESOLVED state cited |
+| [`project-hopf-02.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) | HOPF-02/03 namespace split missing; pre-FI-13 (2,q) framing | ✓ DONE — HOPF-01/02/03 namespace clarification table per AVE-HOPF 2026-05-06 reconciliation; FI-13 (2,q) particle-id table; canonical AVE-HOPF cross-references |
 
 **Audit-surfaced follow-up walk-backs** (status post Phase B + sim-audit 2026-05-20):
 - ✓ DONE — 4 misdirected citations in `exp-a1-hopf.md` (Hardware substrate section above) — refreshed to HOPF-02a sibling files; HOPF-01 historicals also explicitly cited
 - ✓ DONE — 3 misdirected citations in `project-hopf-02.md` (engineering substrate table) — refreshed in same commit batch
-- ⚠ DEFERRED — 18 explicit `AVE-HOPF/...` paths in PUBLIC AVE-Core — IP-divide opacity violation per `ave-ip-divide-discipline` Step 4 Class F; corpus-wide concern (not just A1-HOPF); requires `.ip-graph.yaml` seed + APP-XX opaque pointer migration per [`promotion-workflow-template.md`](promotion-workflow-template.md) Step 5; multi-session work; NOT blocking Phase 0b fab
+- ⚠ DEFERRED — 18 explicit `AVE-HOPF/...` paths in PUBLIC AVE-Core — IP-divide opacity violation per `ave-ip-divide-discipline` Step 4 Class F; corpus-wide concern (not just A1-HOPF); requires `.ip-graph.yaml` seed + APP-XX opaque pointer migration per [`promotion-workflow-template.md`](../promotion-workflow-template.md) Step 5; multi-session work; NOT blocking Phase 0b fab
 
 ## Phase ladder
 
@@ -169,16 +169,16 @@ Per AVE-HOPF 2026-05-06 namespace split: HOPF-03 is the spatial-domain Topologic
 ## Cross-references
 
 ### Canonical AVE physics
-- [Universal Saturation Kernel Catalog A-034 row "Atomic / EM"](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — Ax 4 saturation governs E-field at substrate boundary
-- [Four Universal Regimes — Regime I sub-yield substrate](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — A1-HOPF operates in Regime I (small-signal $E \ll E_{yield}$)
-- [Power-Domain Classification (orbital-friction-paradox)](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) — antenna at S₁₁ resonance is reactive-cycling (θ → 90°, lossless LC tank)
-- [Temporal Saturation Regime Classifier](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md) — A1-HOPF is in **lossless temporal regime** ($\delta_{AVE} \to 0$); high-Q resonator class
+- [Universal Saturation Kernel Catalog A-034 row "Atomic / EM"](../../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — Ax 4 saturation governs E-field at substrate boundary
+- [Four Universal Regimes — Regime I sub-yield substrate](../../../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — A1-HOPF operates in Regime I (small-signal $E \ll E_{yield}$)
+- [Power-Domain Classification (orbital-friction-paradox)](../../../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) — antenna at S₁₁ resonance is reactive-cycling (θ → 90°, lossless LC tank)
+- [Temporal Saturation Regime Classifier](../../../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md) — A1-HOPF is in **lossless temporal regime** ($\delta_{AVE} \to 0$); high-Q resonator class
 
 ### Matrix + downstream cascade
-- [Matrix row A1-HOPF (Predictions)](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — full prediction matrix entry
-- [C8-BARYON-LADDER FULL PASS](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — hadronic-scale (2,q) confirmation
-- [C3-MUON-DELTA PASS-conditional](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — lepton-g-2 scale (2,q) confirmation
-- [Torus-Knot Ladder Baryons (canonical Vol 2)](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) — refreshed per C8 PDG anchor 2026-05-18; Vol 4 falsification leaf currently STALE (Phase 1 walk-back target)
+- [Matrix row A1-HOPF (Predictions)](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — full prediction matrix entry
+- [C8-BARYON-LADDER FULL PASS](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — hadronic-scale (2,q) confirmation
+- [C3-MUON-DELTA PASS-conditional](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — lepton-g-2 scale (2,q) confirmation
+- [Torus-Knot Ladder Baryons (canonical Vol 2)](../../../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md) — refreshed per C8 PDG anchor 2026-05-18; Vol 4 falsification leaf currently STALE (Phase 1 walk-back target)
 
 ### Hardware (sibling-repo)
 - [`AVE-HOPF/.agents/HANDOFF.md`](../../AVE-HOPF/.agents/HANDOFF.md) — canonical hardware-state holder

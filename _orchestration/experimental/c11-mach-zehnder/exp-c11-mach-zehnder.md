@@ -1,11 +1,11 @@
 # EXP-C11-MACH-ZEHNDER: Gravitational Parallax Interferometry ($n_s \neq n_t$, ~250-rad shift)
 
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent epic**: [`experimental-arc.md`](../experimental-arc.md)
 **Status**: PHASE 0 — Facility partnership search; **sim audit ✓ NO DRIFT** (2026-05-20 EOD++)
 **Owner**: Core (no sibling-repo; driver canonical)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
 **Sim audit**: [`exp-c11-mach-zehnder-sim-audit.md`](exp-c11-mach-zehnder-sim-audit.md)
-**Canonical project KB leaf** (NEW 2026-05-20 per Pattern B): [`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md)
+**Canonical project KB leaf** (NEW 2026-05-20 per Pattern B): [`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md)
 
 ## Tier (per parent epic Phase 2 audit)
 
@@ -21,13 +21,13 @@ $$
 
 The **9/7 and 2/7 ARE the $\nu_{vac} = 2/7$ Poisson-ratio numbers** ($2/7 = \nu_{vac}$, $9/7 = 1 + \nu_{vac}$). This is a STRICT VIOLATION of Lorentz parity at electron-de-Broglie wavelength scales.
 
-At canonical Earth strain $\varepsilon_{11}(R_\oplus) = 7GM_\oplus/(c^2 R_\oplus) \approx 4.87 \times 10^{-9}$ (per [`ave.gravity.principal_radial_strain`](../src/ave/gravity/__init__.py) engine), the predicted phase shift on a **1-meter macroscopic vertical-vs-horizontal Mach-Zehnder** at 100 eV electron energy is:
+At canonical Earth strain $\varepsilon_{11}(R_\oplus) = 7GM_\oplus/(c^2 R_\oplus) \approx 4.87 \times 10^{-9}$ (per [`ave.gravity.principal_radial_strain`](../../../src/ave/gravity/__init__.py) engine), the predicted phase shift on a **1-meter macroscopic vertical-vs-horizontal Mach-Zehnder** at 100 eV electron energy is:
 
 $$
 \boxed{\Delta\phi \approx 250 \text{ rad}}
 $$
 
-Live-fire confirmed at 249.64 rad per [`electron_interferometry_parallax.py`](../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py) (canonical-corrected 2026-05-17; prior matrix value 35 rad was a factor-7-low driver bug fixed at same date).
+Live-fire confirmed at 249.64 rad per [`electron_interferometry_parallax.py`](../../../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py) (canonical-corrected 2026-05-17; prior matrix value 35 rad was a factor-7-low driver bug fixed at same date).
 
 ## ν_vac=2/7 cascade triangulation (load-bearing for X=3)
 
@@ -53,10 +53,10 @@ GR / standard QM predicts **isotropic** refractive index from gravitational time
 
 | Asset | State |
 |---|---|
-| Driver | [`src/scripts/vol_2_subatomic/electron_interferometry_parallax.py`](../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py) (canonical-corrected 2026-05-17; live-fire 249.64 rad confirms ~250 rad prediction) |
-| Canonical strain engine | [`src/ave/gravity/__init__.py:23-41`](../src/ave/gravity/__init__.py) — `ave.gravity.principal_radial_strain` |
-| KB leaf | [`vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) lines 49-53 — full derivation chain |
-| Cross-cascade ref | [`ν_vac=2/7 cascade in divergence-test-substrate-map.md:441,613`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — Mermaid triangulation diagram |
+| Driver | [`src/scripts/vol_2_subatomic/electron_interferometry_parallax.py`](../../../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py) (canonical-corrected 2026-05-17; live-fire 249.64 rad confirms ~250 rad prediction) |
+| Canonical strain engine | [`src/ave/gravity/__init__.py:23-41`](../../../src/ave/gravity/__init__.py) — `ave.gravity.principal_radial_strain` |
+| KB leaf | [`vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md`](../../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) lines 49-53 — full derivation chain |
+| Cross-cascade ref | [`ν_vac=2/7 cascade in divergence-test-substrate-map.md:441,613`](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — Mermaid triangulation diagram |
 
 ### Hardware substrate
 **NONE.** No partner identified.
@@ -65,7 +65,7 @@ GR / standard QM predicts **isotropic** refractive index from gravitational time
 
 | Leaf | Stale state | Refresh |
 |---|---|---|
-| [`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) | Date last-touch verification needed; verify 9/7 vs 2/7 indices, 250-rad prediction, ν_vac cascade citations all match current driver + canonical strain | Verify-only initially; refresh if needed for cascade-triangulation framing |
+| [`de-broglie-standing-wave.md`](../../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) | Date last-touch verification needed; verify 9/7 vs 2/7 indices, 250-rad prediction, ν_vac cascade citations all match current driver + canonical strain | Verify-only initially; refresh if needed for cascade-triangulation framing |
 
 **Note**: this leaf was NOT in the 26-stale-leaf list (it's outside vol4/falsification/); need to verify its currency separately during Phase 1 walk-back.
 
@@ -103,7 +103,7 @@ Multi-month-to-year collaboration cycle with facility partner. Grant + collabora
 | **A**: ~250-rad shift observed at predicted magnitude | **ν_vac=2/7 triangulation node 2 confirmed**. Combined with C1 FULL PASS → 2-of-3 triangulation nodes confirmed; framework-level support for K4 Cosserat substrate at 13-OOM-spanning precision. **Major positive — foreword-promotion-grade**. |
 | **B**: Phase shift detected but magnitude differs | Partial — confirms spatial-vs-temporal split exists; magnitude requires structural revision (9/7 or 2/7 prefactor) |
 | **C**: No phase shift OR phase shift consistent with classical gravitational time-dilation only | **Ax3 dies + Ax1 K4 Cosserat substrate hypothesis falsified at framework level.** Cascade walk-back: C1 PASS at LIGO scale doesn't generalize to electron scale; major structural finding. |
-| **D**: Phase noise dominates → 1-m baseline insufficient | **Escalate to space-baseline interferometer** (km-class in space); KB explicit fallback path per [matrix Cascade column](../manuscript/ave-kb/common/divergence-test-substrate-map.md:441). Decade-class wait. |
+| **D**: Phase noise dominates → 1-m baseline insufficient | **Escalate to space-baseline interferometer** (km-class in space); KB explicit fallback path per [matrix Cascade column](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md:441). Decade-class wait. |
 
 ### Phase 4 (CONDITIONAL on Phase 3 Outcome A) — Triangulation closure announcement
 
@@ -133,25 +133,25 @@ No sibling-repo holder. C11 is Core-only at driver + KB level. Facility partners
 ## Cross-references
 
 ### Canonical AVE physics
-- [De Broglie standing wave (Vol 2 Ch 7)](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) lines 49-53 — full derivation chain
-- [Canonical strain engine](../src/ave/gravity/__init__.py) lines 23-41 — `ave.gravity.principal_radial_strain`
-- [Universal Saturation Kernel Catalog A-034](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — gravitational strain row
-- [Four Universal Regimes — Regime I](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — Earth $\varepsilon_{11} \sim 10^{-9}$ deep in Regime I
-- [Power-Domain Classification](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) — quantum interference is reactive (θ → 90°)
-- [Temporal Saturation Regime Classifier](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md) — electron coherence is in **lossless temporal regime** ($\delta_{AVE} \to 0$ over coherence-time)
+- [De Broglie standing wave (Vol 2 Ch 7)](../../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) lines 49-53 — full derivation chain
+- [Canonical strain engine](../../../src/ave/gravity/__init__.py) lines 23-41 — `ave.gravity.principal_radial_strain`
+- [Universal Saturation Kernel Catalog A-034](../../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) — gravitational strain row
+- [Four Universal Regimes — Regime I](../../../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md) — Earth $\varepsilon_{11} \sim 10^{-9}$ deep in Regime I
+- [Power-Domain Classification](../../../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) — quantum interference is reactive (θ → 90°)
+- [Temporal Saturation Regime Classifier](../../../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md) — electron coherence is in **lossless temporal regime** ($\delta_{AVE} \to 0$ over coherence-time)
 
 ### ν_vac=2/7 cascade triangulation
-- [Matrix row C11-MACH-ZEHNDER](../manuscript/ave-kb/common/divergence-test-substrate-map.md) line 441
-- [Cascade Mermaid diagram (ν_vac cascade)](../manuscript/ave-kb/common/divergence-test-substrate-map.md) line 613
-- [C1-BH-RING FULL PASS](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — first cascade node
-- [C12-G-STAR (LISA wait)](../manuscript/ave-kb/common/divergence-test-substrate-map.md) — third cascade node
+- [Matrix row C11-MACH-ZEHNDER](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) line 441
+- [Cascade Mermaid diagram (ν_vac cascade)](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) line 613
+- [C1-BH-RING FULL PASS](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — first cascade node
+- [C12-G-STAR (LISA wait)](../../../manuscript/ave-kb/common/divergence-test-substrate-map.md) — third cascade node
 
 ### Q-G47 substrate-scale closure
-- [Q-G47 Sessions 19 closure (ξ_K1=8/3, ξ_K2=32 canonical 2026-05-18)](../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md) — ν_vac=2/7 derivation chain canonical at substrate scale
+- [Q-G47 Sessions 19 closure (ξ_K1=8/3, ξ_K2=32 canonical 2026-05-18)](../../../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md) — ν_vac=2/7 derivation chain canonical at substrate scale
 
 ### Driver + engine
-- [`src/scripts/vol_2_subatomic/electron_interferometry_parallax.py`](../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py)
-- [`src/ave/gravity/__init__.py:23-41`](../src/ave/gravity/__init__.py)
+- [`src/scripts/vol_2_subatomic/electron_interferometry_parallax.py`](../../../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py)
+- [`src/ave/gravity/__init__.py:23-41`](../../../src/ave/gravity/__init__.py)
 
 ## Audit trail
 

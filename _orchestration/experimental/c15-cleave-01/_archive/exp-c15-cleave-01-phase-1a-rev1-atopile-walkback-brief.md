@@ -1,7 +1,9 @@
+> **ARCHIVED 2026-05-20 EOD+++++++++++++** — content preserved per ave-walk-back discipline. Canonical reference: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md) consolidated sub-epic. This brief was the active doc during Phase 1a-rev1 execution (Q-C15-10 adjudication → atopile walk-back); Stages A + B both landed, Stage B branch pushed but NOT merged pending Q-C15-12 adjudication. Forward-active details live in the consolidated doc's phase table + per-phase sections.
+
 # EXP-C15-CLEAVE-01 — Phase 1a-rev1 atopile walk-back brief (Q-C15-10 ✓ ADJUDICATED)
 
-**Parent sub-epic**: [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent sub-epic**: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md)
+**Parent epic**: [`../../experimental-arc.md`](../../experimental-arc.md)
 **Predecessor**: [`exp-c15-cleave-01-phase-1-kicad-brief.md`](exp-c15-cleave-01-phase-1-kicad-brief.md) Phase 1a (delivered KiCad-native; merged at `331a778` on AVE-Bench-FemtoElectrometer)
 **Phase**: 1a-rev1 — atopile walk-back + standalone module repo scaffold
 **Grant adjudication**: 2026-05-20 EOD+++++++++ — Q-C15-10 ✓ ATOPILE (HOPF-style atopile-first pattern); modules live in **new sibling repo `AVE-Hardware-Modules`**

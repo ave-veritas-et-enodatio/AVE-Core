@@ -221,8 +221,8 @@ Target public location candidate: `AVE-Core/src/ave/regime_1_linear/nec2_wrapper
 
 ### Related orchestration docs
 - [`experimental-arc.md`](experimental-arc.md) parent epic — Phase 4 cross-repo coordination owns this template's invocation
-- [`exp-a1-hopf-repo-audit.md`](exp-a1-hopf-repo-audit.md) Axis 8 — origin of this template
-- [`exp-a1-hopf.md`](exp-a1-hopf.md) sub-epic — first test case for NEC2 promotion
+- [`a1-hopf/exp-a1-hopf-repo-audit.md`](a1-hopf/exp-a1-hopf-repo-audit.md) Axis 8 — origin of this template
+- [`a1-hopf/exp-a1-hopf.md`](a1-hopf/exp-a1-hopf.md) sub-epic — first test case for NEC2 promotion
 
 ### Sibling-repo HANDOFF anchors
 - [`AVE-HOPF/.agents/HANDOFF.md`](../../AVE-HOPF/.agents/HANDOFF.md) — promotion-aware state holder

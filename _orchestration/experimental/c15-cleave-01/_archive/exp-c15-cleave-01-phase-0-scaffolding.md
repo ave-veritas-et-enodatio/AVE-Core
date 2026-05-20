@@ -1,7 +1,9 @@
+> **ARCHIVED 2026-05-20 EOD+++++++++++++** — content preserved per ave-walk-back discipline. Canonical reference: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md) consolidated sub-epic. This brief was the active doc during phase execution; phase is now closed/superseded per the consolidated doc's phase table (Phase 0 ✓ COMPLETE 2026-05-20 EOD+++++).
+
 # EXP-C15-CLEAVE-01 — Phase 0 Scaffolding Brief (AVE-Bench-FemtoElectrometer sibling-repo establishment)
 
-**Parent sub-epic**: [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent sub-epic**: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md)
+**Parent epic**: [`../../experimental-arc.md`](../../experimental-arc.md)
 **Phase**: 0 — Scoping + standalone sibling-repo scaffold (no KiCad cycle yet)
 **Grant adjudication**: 2026-05-20 EOD++++ — **A3 scaffold-only + B1 standalone sibling repo**
 **Target sibling repo**: `AVE-Bench-FemtoElectrometer` (new)
@@ -94,10 +96,10 @@ All cross-references back to AVE-Core canonical content (per AVE-Bench-VacuumMir
 
 ### Orchestration
 
-- **Sub-epic** → [`AVE-Core/_orchestration/exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
-- **Framework-readiness audit** → [`AVE-Core/_orchestration/exp-c15-cleave-01-sim-audit.md`](exp-c15-cleave-01-sim-audit.md)
-- **Parent epic** → [`AVE-Core/_orchestration/experimental-arc.md`](experimental-arc.md)
-- **Promotion workflow** (for any engine code that later promotes back to AVE-Core) → [`AVE-Core/_orchestration/promotion-workflow-template.md`](promotion-workflow-template.md)
+- **Sub-epic** → [`AVE-Core/_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01.md`](../exp-c15-cleave-01.md)
+- **Framework-readiness audit** → [`AVE-Core/_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01-sim-audit.md`](../exp-c15-cleave-01-sim-audit.md)
+- **Parent epic** → [`AVE-Core/_orchestration/experimental/experimental-arc.md`](../../experimental-arc.md)
+- **Promotion workflow** (for any engine code that later promotes back to AVE-Core) → [`AVE-Core/_orchestration/experimental/promotion-workflow-template.md`](../../promotion-workflow-template.md)
 
 ### Cascade dependents (6 downstream rows)
 
