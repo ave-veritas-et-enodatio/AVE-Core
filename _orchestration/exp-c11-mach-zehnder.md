@@ -1,9 +1,11 @@
 # EXP-C11-MACH-ZEHNDER: Gravitational Parallax Interferometry ($n_s \neq n_t$, ~250-rad shift)
 
 **Parent epic**: [`experimental-arc.md`](experimental-arc.md)
-**Status**: PHASE 0 — Facility partnership search
+**Status**: PHASE 0 — Facility partnership search; **sim audit ✓ NO DRIFT** (2026-05-20 EOD++)
 **Owner**: Core (no sibling-repo; driver canonical)
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
+**Sim audit**: [`exp-c11-mach-zehnder-sim-audit.md`](exp-c11-mach-zehnder-sim-audit.md)
+**Canonical project KB leaf** (NEW 2026-05-20 per Pattern B): [`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md)
 
 ## Tier (per parent epic Phase 2 audit)
 
