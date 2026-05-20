@@ -13,7 +13,7 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 |---|---|---|---|
 | Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE — E1b-prime CLOSED Outcome Marginal-D; SDSS DR17 next-session candidate (separate epic) | E1b-prime merged 2026-05-19 EOD via `c587573` audit tag `audit/2026-05-19_c5-pantheon-tightening`; σ_Hubble = 24.0°, +2.83σ above 20° threshold, NOT 3σ-decisive |
 | H_∞ downstream cascade | [`h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md) | ACTIVE — implementor kickoff pending | Grant adjudicated 2026-05-19 EOD: 5 surfaced anomalies + Class C → Class E reclassification pass (post v1.1 skill canonization) + Class E corpus sweep |
-| C5 SDSS DR17 spin-orientation | [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | QUEUED — scope adjudication pending | Spawned from E1b-prime Marginal-D outcome; next-leverage move to push C5 to 3σ-decisive. Independent observable (LSS galaxy spin direction). 3 scope options A/B/C in brief. Recommendation: A. |
+| C5 SDSS DR17 spin-orientation | [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | ACTIVE — implementor kickoff ready | Grant adjudicated Option A 2026-05-19 EOD (SDSS DR17 spin-orientation re-fit only; parallel-runnable with downstream-cascade) |
 
 ## Recently closed epics (this session)
 

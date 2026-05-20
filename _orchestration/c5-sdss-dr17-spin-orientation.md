@@ -1,8 +1,8 @@
 # C5 SDSS DR17 Spin-Orientation Re-Analysis Epic
 
-**Status**: QUEUED — implementor kickoff pending Grant scope adjudication
+**Status**: ACTIVE — implementor kickoff ready (Grant adjudicated Option A 2026-05-19 EOD: SDSS DR17 spin-orientation re-fit only; parallel-runnable with h-infinity-downstream-cascade)
 **Last updated**: 2026-05-19 EOD
-**Originating session**: Orchestration session post-E1b-prime Outcome Marginal-D + Grant adjudication 2026-05-19 EOD ("yes queue it up")
+**Originating session**: Orchestration session post-E1b-prime Outcome Marginal-D + Grant adjudication 2026-05-19 EOD ("yes queue it up" + subsequent "let's proceed")
 
 ## Why this exists
 
@@ -40,18 +40,20 @@ The questions:
 
 **Recommendation**: Option A. Single-observable session; if PASS / NULL clears at 3σ, downstream cascade activates and Option B+C scope becomes follow-up epic. If A stays in Marginal-D / suggests deeper systematics, Option B is the natural escalation.
 
-## Open decisions (pending Grant scope adjudication)
+## Resolved decisions (Grant adjudication 2026-05-19 EOD)
 
-| # | Decision | Notes |
+| # | Decision | Resolution |
 |---|---|---|
-| G1 | Which scope option (A/B/C)? | Recommended A |
-| G2 | Run in parallel with Thread 3 (h-infinity-downstream-cascade) or sequential? | Recommend PARALLEL — different repos/files, no conflicts. Both can be implementor sessions running concurrently with `isolation: "worktree"` |
-| G3 | SDSS DR17 access path | Implementor must verify Q-cuts methodology; SDSS DR17 has well-defined spin-axis estimators per Hayes+2017 / Land+2008 methodology. Verify-before-cite for catalog access details. |
-| G4 | What's the AVE-substrate prior on SDSS spin orientation? | Per `omega-freeze-cosmic-grain-cascade.md:48-57` table, Observable 3 ("LSS spin direction") is forward-predicted to align with Ω_freeze at (60.28°, 50.48°). Forward-prediction discipline per `ave-driver-script-honesty`: estimate SDSS spin direction independently THEN compare. |
+| G1 | Which scope option (A/B/C)? | **A** — SDSS DR17 spin-orientation re-fit ONLY (~2-3 hr); if outcome stays Marginal-D / surfaces deeper systematics, Option B (joint Pantheon+ + SDSS) is the natural escalation in a follow-up epic |
+| G2 | Run in parallel with h-infinity-downstream-cascade? | **PARALLEL** — different repos/files (this epic touches `src/scripts/vol_3_macroscopic/` + research/ + matrix; downstream-cascade touches Vol 1-3 KB leaves + engine annotation). Both via `isolation: "worktree"`. |
+| G3 | SDSS DR17 access path | **Implementor responsibility** — verify Q-cuts methodology against Hayes+2017 / Land+2008. Use `verify-before-cite` v1.3 for citations + cross-branch checks on canonical methodology references. |
+| G4 | AVE-substrate prior on SDSS spin orientation | **Forward-prediction**: Observable 3 (LSS spin direction) per `omega-freeze-cosmic-grain-cascade.md:48-57` predicted to align with $\hat{\Omega}_{\text{freeze}}$ at (60.28°, 50.48°). Implementor estimates direction INDEPENDENTLY then compares (per `ave-driver-script-honesty`). |
 
-## Phase plan (DRAFT — finalizes when scope is adjudicated)
+## Phase plan (LOCKED — Option A scope; implementor kickoff input)
 
-To be filled in at scope-pick time. Template phase plan:
+**Branch**: `analysis/c5-sdss-dr17-spin-orientation` from `analysis/integration` HEAD `cb43eb5` (or current at session start — verify Phase 0)
+**Push**: yes (at end of Phase 4)
+**Merge**: NO — orchestration session handles merge after audit
 
 **Phase 0 — verification + skill upfront fires** (20 min)
 - Verify SDSS DR17 catalog availability + access path
