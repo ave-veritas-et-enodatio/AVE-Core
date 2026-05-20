@@ -1,8 +1,8 @@
 # AVE-Core Orchestration Index
 
 **Last updated**: 2026-05-19 EOD (post 4-merge sequence: cosmic-axis-glossary + h-infinity-derivation-audit + h-infinity-framing-forward + c5-pantheon-tightening; Class E canonized; downstream-cascade + SDSS DR17 epics drafted; Pantheon+ LFS cache landed)
-**Current HEAD on `analysis/integration`**: `c587573` (E1b-prime merge tip; will advance with this commit)
-**Audit tag count**: 24 (`git tag -l "audit/*" | wc -l`)
+**Current HEAD on `analysis/integration`**: `9f976e0` (SDSS DR17 merge tip; will advance with this commit)
+**Audit tag count**: 26 (`git tag -l "audit/*" | wc -l`) — 2 added this session (h-infinity-downstream-cascade + c5-sdss-dr17-spin-orientation)
 **Active branches** (local): 6 — `analysis/integration`, `research/l3-electron-soliton`, `main`, `analysis/c8-baryon-ladder-pdg-anchor`, `benn/long-running`, `golden-torus-update`. All 4 May-19 implementor branches merged + deleted (local + remote).
 
 This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic state lives in adjacent `<epic-slug>.md` files; this doc carries the priority ladder, open decisions, and active-epic table.
@@ -12,8 +12,7 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Epic | Doc | Status | Last phase landed |
 |---|---|---|---|
 | Section E cascade | [`section-e-cascade.md`](section-e-cascade.md) | ACTIVE — E1b-prime CLOSED Outcome Marginal-D; SDSS DR17 next-session candidate (separate epic) | E1b-prime merged 2026-05-19 EOD via `c587573` audit tag `audit/2026-05-19_c5-pantheon-tightening`; σ_Hubble = 24.0°, +2.83σ above 20° threshold, NOT 3σ-decisive |
-| H_∞ downstream cascade | [`h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md) | ACTIVE — implementor kickoff pending | Grant adjudicated 2026-05-19 EOD: 5 surfaced anomalies + Class C → Class E reclassification pass (post v1.1 skill canonization) + Class E corpus sweep |
-| C5 SDSS DR17 spin-orientation | [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | ACTIVE — implementor kickoff ready | Grant adjudicated Option A 2026-05-19 EOD (SDSS DR17 spin-orientation re-fit only; parallel-runnable with downstream-cascade) |
+| Soliton-lattice coupling operator | [`soliton-lattice-coupling-operator.md`](soliton-lattice-coupling-operator.md) | ACTIVE — Session 1 (scoping research doc only) ready to spawn | NEW 2026-05-19 EOD post-SDSS DR17 operator-output reframing. Multi-session arc: scoping → derivation → planetary test → galactic extrapolation. Session 1 deliverable: research doc only (no derivation). |
 
 ## Recently closed epics (this session)
 
@@ -22,6 +21,8 @@ This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic sta
 | Cosmic-axis glossary | [`cosmic-axis-glossary.md`](cosmic-axis-glossary.md) | Merged 2026-05-19 EOD via `fb62fa8` | `audit/2026-05-19_cosmic-axis-glossary` |
 | H_∞ derivation audit | [`h-infinity-derivation-audit.md`](h-infinity-derivation-audit.md) | Merged 2026-05-19 EOD via `ceb8205` (research doc archival) | `audit/2026-05-19_h-infinity-derivation-audit` |
 | H_∞ framing-forward | [`h-infinity-framing-forward.md`](h-infinity-framing-forward.md) | Merged 2026-05-19 EOD via `a7e555e` (Class C walk-back applied; Class E refinement queued in downstream-cascade epic) | `audit/2026-05-19_h-infinity-framing-forward` |
+| H_∞ downstream cascade | [`h-infinity-downstream-cascade.md`](h-infinity-downstream-cascade.md) | Merged 2026-05-19 EOD via `d2d38de` (Class C → Class E reclass + 5 anomalies + Class E candidate sweep) | `audit/2026-05-19_h-infinity-downstream-cascade` |
+| C5 SDSS DR17 spin-orientation | [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) | Merged 2026-05-19 EOD via `9f976e0` (Marginal-D + operator-output reframing) | `audit/2026-05-19_c5-sdss-dr17-spin-orientation` |
 
 Per `_orchestration/README.md` convention, these closed-epic docs will move to `_archive/` in a future hygiene pass. For now they remain in place for cross-reference accessibility.
 
