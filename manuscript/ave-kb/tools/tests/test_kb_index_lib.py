@@ -11,18 +11,17 @@ Or, equivalently from the repo root::
 
     PYTHONPATH=manuscript/ave-kb/tools python -m unittest tests.test_kb_index_lib
 
-Behavioral tests run against the small, stable hand-built fixture under
-``tests/fixtures/mini-kb/`` — its claim graph is known exactly, so expected
-values are derivable from the fixture rather than re-baselined every time the
-live KB's content changes. The live KB's own structural health is covered by
-``make verify-kb-metadata``; a single de-pinned smoke test here confirms
-``discover_kb`` runs clean against it. All tests are read-only and never
-mutate any file.
+Tests are fully independent of live KB state. Every test runs against the
+small, stable hand-built fixture under ``tests/fixtures/mini-kb/`` (its claim
+graph is known exactly, so expected values are derivable from the fixture) or
+against inline synthetic data. The live KB's own structural health is covered
+by ``make verify-kb-metadata``; nothing in this module reads or asserts on
+``manuscript/ave-kb/`` proper. All tests are read-only and never mutate any
+file in the fixture or the live KB.
 """
 
 from __future__ import annotations
 
-import io
 import json
 import sys
 import tempfile
@@ -37,18 +36,10 @@ if str(_TOOLS_DIR) not in sys.path:
 
 import kb_index_lib as lib  # noqa: E402
 
-# Repo root: tools/tests -> tools -> ave-kb -> manuscript -> repo
-_REPO_ROOT = _TOOLS_DIR.parents[2]
-_KB_ROOT = _REPO_ROOT / "manuscript" / "ave-kb"
-
 # The synthetic fixture KB — the stable graph behavioral tests run against.
-# It lives under a ``session/`` directory: ``session`` is in the KB tools'
-# ``EXCLUDE_DIRS``, so ``make refresh-kb-metadata`` / ``make verify-kb-metadata``
-# (which walk the whole real KB tree, ``tools/`` included) skip the fixture
-# entirely and never fold its synthetic claims into the live KB graph. The
-# tests below root ``discover_kb`` directly at ``mini-kb``, so the ``session``
-# segment is not in the relative path and the fixture parses normally.
-_FIXTURE = _THIS_DIR / "fixtures" / "session" / "mini-kb"
+# Lives entirely under ``tests/fixtures/mini-kb/``; this module never touches
+# the live ``manuscript/ave-kb/`` tree.
+_FIXTURE = _THIS_DIR / "fixtures" / "mini-kb"
 
 
 class TestParseFrontmatter(unittest.TestCase):
@@ -350,32 +341,6 @@ class TestDiscoverKb(unittest.TestCase):
         kinds = {idx.kind for idx in self.state.indexes}
         self.assertIn("entry-point", kinds)
         self.assertIn("index", kinds)
-
-
-class TestKnownIdFiltering(unittest.TestCase):
-    """The diagnostic stream is silenceable on a clean KB.
-
-    Post-`clm-`-migration the ID regex is exact: a `clm-`-shaped token is
-    only ever a real ID candidate, never an incidental prose word.
-    """
-
-    def test_diagnostic_silenceable(self):
-        """The one real-KB smoke test: discover_kb runs clean on the live KB.
-
-        De-pinned — no hard counts. Confirms ``discover_kb(_KB_ROOT)`` does
-        not raise, returns a non-empty claim set, and that passing
-        ``diagnostic_stream=None`` is a true no-op yielding the same state
-        shape as a buffered run. The live KB's structural correctness is
-        covered by ``make verify-kb-metadata``; this only guards that the
-        library can load it at all.
-        """
-        silent = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
-        self.assertGreater(len(silent.claim_entries), 0)
-        buf = io.StringIO()
-        buffered = lib.discover_kb(_KB_ROOT, diagnostic_stream=buf)
-        self.assertEqual(
-            len(silent.claim_entries), len(buffered.claim_entries)
-        )
 
 
 class TestBuildClaimsRecords(unittest.TestCase):

@@ -1,24 +1,21 @@
 """Tests for the extended ``verify-kb-metadata.py`` verifier — index checks.
 
 Exercises the verifier's behavioral checks (well-formed, freshness,
-referential integrity, quality-block integrity) by mutating canonical KB
-files and restoring them in a ``try/finally`` so the working tree is left
-untouched even on failure.
+referential integrity, quality-block integrity) against the hand-built
+synthetic fixture under ``tests/fixtures/mini-kb/``. The fixture is copied
+to a per-class tempdir at setup so mutating tests cannot pollute the
+committed fixture even on failure; ``refresh-kb-metadata`` is run against the
+copy once to bring its ``.index/`` and derived solidity content to canonical
+shape before tests start.
 
 Run from the repo root::
 
     cd /Users/benn/projects/AVE-Umbrella/AVE-Core/manuscript/ave-kb/tools
     python -m unittest tests.test_check_index
 
-These tests are content-independent: where a test must mutate a specific
-claim/value, the mutation target is picked dynamically (the first matching
-line) rather than hard-coded, so the suite survives content migrations. The
-live KB's "does it currently pass" status is covered by
-``make verify-kb-metadata``, not duplicated here.
-
-The synthetic-corruption tests (referential integrity) avoid touching the
-canonical KB by pointing the verifier at a temp ``.index/`` directory via
-``--index-dir``.
+Tests are fully independent of live KB state. Nothing here reads or asserts
+on ``manuscript/ave-kb/`` proper; the live KB's "does it currently pass"
+status is covered by ``make verify-kb-metadata``.
 """
 
 from __future__ import annotations
@@ -36,65 +33,73 @@ _TOOLS_DIR = _THIS_DIR.parent
 if str(_TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(_TOOLS_DIR))
 
-# Repo root: tools/tests -> tools -> ave-kb -> manuscript -> repo
-_REPO_ROOT = _TOOLS_DIR.parents[2]
-_KB_ROOT = _REPO_ROOT / "manuscript" / "ave-kb"
-_INDEX_DIR = _KB_ROOT / ".index"
+_FIXTURE_SRC = _THIS_DIR / "fixtures" / "mini-kb"
 _CHECK_SCRIPT = _TOOLS_DIR / "verify-kb-metadata.py"
 _REFRESH_SCRIPT = _TOOLS_DIR / "refresh-kb-metadata.py"
 
 
-def _run_checker(extra_args: list[str] | None = None) -> subprocess.CompletedProcess:
-    cmd = [sys.executable, str(_CHECK_SCRIPT)]
+def _run_checker(
+    kb_root: Path, extra_args: list[str] | None = None
+) -> subprocess.CompletedProcess:
+    cmd = [sys.executable, str(_CHECK_SCRIPT), "--kb-root", str(kb_root)]
     if extra_args:
         cmd.extend(extra_args)
     return subprocess.run(
-        cmd,
-        cwd=str(_REPO_ROOT),
-        capture_output=True,
-        text=True,
-        check=False,
+        cmd, capture_output=True, text=True, check=False
     )
 
 
-def _run_refresh() -> subprocess.CompletedProcess:
+def _run_refresh(kb_root: Path) -> subprocess.CompletedProcess:
     return subprocess.run(
-        [sys.executable, str(_REFRESH_SCRIPT)],
-        cwd=str(_REPO_ROOT),
-        capture_output=True,
-        text=True,
-        check=False,
+        [sys.executable, str(_REFRESH_SCRIPT), "--kb-root", str(kb_root)],
+        capture_output=True, text=True, check=False,
     )
 
 
-def _backup_index_file(name: str) -> bytes:
-    return (_INDEX_DIR / name).read_bytes()
+def _materialize_fixture(parent: Path) -> Path:
+    """Copy the committed fixture into ``parent`` and refresh it.
 
-
-def _restore_index_file(name: str, content: bytes) -> None:
-    (_INDEX_DIR / name).write_bytes(content)
+    Returns the path to the materialized fixture KB root.
+    """
+    kb = parent / "mini-kb"
+    shutil.copytree(_FIXTURE_SRC, kb)
+    result = _run_refresh(kb)
+    if result.returncode != 0:
+        raise AssertionError(
+            f"refresh-kb-metadata failed against fixture copy: "
+            f"stdout={result.stdout}\nstderr={result.stderr}"
+        )
+    return kb
 
 
 class TestCheckIndex(unittest.TestCase):
-    """Verifier extended-check behavior on real and mutated KB state."""
+    """Verifier extended-check behavior on the fixture KB.
+
+    A single per-class fixture tempdir is materialized once. Tests that
+    mutate a file in the tempdir restore it via try/finally so each test in
+    the class sees the fresh canonical state.
+    """
 
     @classmethod
     def setUpClass(cls):
-        # Guarantee a clean canonical baseline before mutating anything.
-        result = _run_refresh()
-        if result.returncode != 0:
-            raise AssertionError(
-                f"refresh-kb-metadata exited non-zero before test setup: "
-                f"stderr={result.stderr}"
-            )
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+
+    def _backup_index_file(self, name: str) -> bytes:
+        return (self.index_dir / name).read_bytes()
+
+    def _restore_index_file(self, name: str, content: bytes) -> None:
+        (self.index_dir / name).write_bytes(content)
 
     def test_index_line_reports_node_type_breakdown(self):
         """The [index] summary reports a claims / invariants / axioms breakdown.
 
         Asserts the line's *format* — content-independent — not the specific
-        node counts (those move with every KB content migration).
+        node counts.
         """
-        result = _run_checker()
+        result = _run_checker(self.kb_root)
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertRegex(
             result.stdout,
@@ -114,7 +119,7 @@ class TestCheckIndex(unittest.TestCase):
                 "cites.jsonl",
                 "subtree-aggregates.jsonl",
             ):
-                shutil.copy2(_INDEX_DIR / short, tmp_index / short)
+                shutil.copy2(self.index_dir / short, tmp_index / short)
 
             # Inject an edge to a real INVARIANT node but mislabel its kind.
             dep_path = tmp_index / "depends-on.jsonl"
@@ -127,7 +132,9 @@ class TestCheckIndex(unittest.TestCase):
             )
             dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
 
-            result = _run_checker(["--index-dir", str(tmp_index)])
+            result = _run_checker(
+                self.kb_root, ["--index-dir", str(tmp_index)]
+            )
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("referential-integrity", result.stdout)
             self.assertIn("INVARIANT-S2", result.stdout)
@@ -135,30 +142,30 @@ class TestCheckIndex(unittest.TestCase):
     def test_check_detects_stale_jsonl(self):
         """A truncated cites.jsonl fails freshness with the refresh hint."""
         name = "cites.jsonl"
-        original = _backup_index_file(name)
+        original = self._backup_index_file(name)
         try:
             text = original.decode("utf-8")
             lines = [ln for ln in text.split("\n") if ln]
-            # Drop the first 5 lines.
-            truncated = "\n".join(lines[5:]) + "\n"
-            (_INDEX_DIR / name).write_bytes(truncated.encode("utf-8"))
+            # Drop the first line (the fixture has too few rows for 5).
+            truncated = "\n".join(lines[1:]) + "\n"
+            (self.index_dir / name).write_bytes(truncated.encode("utf-8"))
 
-            result = _run_checker()
+            result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn(name, result.stdout)
             # Freshness failures must surface the refresh-fixable hint.
             self.assertIn("make refresh-kb-metadata", result.stdout)
         finally:
-            _restore_index_file(name, original)
+            self._restore_index_file(name, original)
 
     def test_check_detects_missing_jsonl(self):
         """A renamed JSONL file fails with a clear 'missing' message."""
         name = "strengthen-by.jsonl"
-        src = _INDEX_DIR / name
-        dst = _INDEX_DIR / (name + ".bak")
+        src = self.index_dir / name
+        dst = self.index_dir / (name + ".bak")
         src.rename(dst)
         try:
-            result = _run_checker()
+            result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("missing", result.stdout.lower())
             self.assertIn(name, result.stdout)
@@ -169,10 +176,10 @@ class TestCheckIndex(unittest.TestCase):
     def test_check_detects_malformed_jsonl(self):
         """Appending a non-JSON line fails the well-formed check (not refresh-fixable)."""
         name = "claims.jsonl"
-        original = _backup_index_file(name)
+        original = self._backup_index_file(name)
         try:
-            (_INDEX_DIR / name).write_bytes(original + b"not-a-json\n")
-            result = _run_checker()
+            (self.index_dir / name).write_bytes(original + b"not-a-json\n")
+            result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             output = result.stdout.lower()
             # The malformed-line block uses "well-formed JSON" phrasing.
@@ -182,13 +189,13 @@ class TestCheckIndex(unittest.TestCase):
             )
             self.assertIn(name, result.stdout)
         finally:
-            _restore_index_file(name, original)
+            self._restore_index_file(name, original)
 
     def test_check_detects_referential_integrity_violation(self):
         """A synthetic depends-on edge to a nonexistent target fails ref-integrity.
 
-        Uses ``--index-dir`` to point at a temp index tree so the canonical
-        ``.index/`` is never touched. Copies the real index files in, then
+        Uses ``--index-dir`` to point at a temp index tree so the fixture
+        ``.index/`` is never touched. Copies the fixture index files in, then
         rewrites ``depends-on.jsonl`` with one extra orphan edge.
         """
         with tempfile.TemporaryDirectory() as tmp:
@@ -201,7 +208,7 @@ class TestCheckIndex(unittest.TestCase):
                 "cites.jsonl",
                 "subtree-aggregates.jsonl",
             ):
-                shutil.copy2(_INDEX_DIR / short, tmp_index / short)
+                shutil.copy2(self.index_dir / short, tmp_index / short)
 
             # Inject an edge whose target is a syntactically-valid clm- id
             # that does not appear in claims.jsonl.
@@ -217,7 +224,9 @@ class TestCheckIndex(unittest.TestCase):
             )
             dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
 
-            result = _run_checker(["--index-dir", str(tmp_index)])
+            result = _run_checker(
+                self.kb_root, ["--index-dir", str(tmp_index)]
+            )
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("referential-integrity", result.stdout)
             self.assertIn(orphan_target, result.stdout)
@@ -226,12 +235,11 @@ class TestCheckIndex(unittest.TestCase):
         """Hand-editing a solidity value fails the freshness check.
 
         Picks the mutation target dynamically: the first ``- solidity: 0.NN
-        (...)`` line in a real register. Replaces its numeric value with a
-        clearly-wrong one, runs the verifier, expects a refresh-fixable
-        freshness failure, then restores the file. Works regardless of which
-        claim/value is current.
+        (...)`` line in the fixture's ``common/`` register. Replaces its
+        numeric value with a clearly-wrong one, runs the verifier, expects a
+        refresh-fixable freshness failure, then restores the file.
         """
-        cq = _KB_ROOT / "common" / "claim-quality.md"
+        cq = self.kb_root / "common" / "claim-quality.md"
         original = cq.read_bytes()
         try:
             text = original.decode("utf-8")
@@ -245,7 +253,7 @@ class TestCheckIndex(unittest.TestCase):
             self.assertNotEqual(stale, text)
             cq.write_bytes(stale.encode("utf-8"))
 
-            result = _run_checker()
+            result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
             self.assertIn("make refresh-kb-metadata", result.stdout)
@@ -256,10 +264,9 @@ class TestCheckIndex(unittest.TestCase):
         """A wrong (solidity X) annotation fails the freshness check.
 
         Picks the mutation target dynamically: the first numeric ``(solidity
-        0.NN)`` depends-on annotation in a real register. Works regardless of
-        which claims/values are current.
+        0.NN)`` depends-on annotation in the fixture's root register.
         """
-        cq = _KB_ROOT / "claim-quality.md"
+        cq = self.kb_root / "claim-quality.md"
         original = cq.read_bytes()
         try:
             text = original.decode("utf-8")
@@ -271,7 +278,7 @@ class TestCheckIndex(unittest.TestCase):
             self.assertNotEqual(stale, text)
             cq.write_bytes(stale.encode("utf-8"))
 
-            result = _run_checker()
+            result = _run_checker(self.kb_root)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("solidity freshness", result.stdout)
         finally:
@@ -280,8 +287,7 @@ class TestCheckIndex(unittest.TestCase):
     def test_solidity_cycle_check_function(self):
         """check_solidity_cycle reports cycle members on a cyclic graph.
 
-        The real KB is acyclic, so this exercises the check directly with a
-        synthetic two-node cycle.
+        Synthetic two-node cycle — does not touch any KB state.
         """
         check = _load_checker_module()
         lib = sys.modules["kb_index_lib"]
@@ -367,8 +373,7 @@ class TestQualityBlockIntegrity(unittest.TestCase):
 
     Drives ``check_quality_block_integrity`` against synthetic register
     trees by repointing the checker module's ``KB`` global at a temp dir.
-    This is the regression guard that makes the orphan-Quality defect class
-    non-recurring.
+    Fully independent of any KB state.
     """
 
     def _run_against(self, register_text: str):
@@ -403,28 +408,28 @@ class TestQualityBlockIntegrity(unittest.TestCase):
         self.assertEqual(self._run_against(_FENCED_EXAMPLE_REGISTER), [])
 
     def test_orphan_block_fails_full_verifier(self):
-        """An orphan block in a real register fails the end-to-end verifier.
+        """An orphan block in a register fails the end-to-end verifier.
 
-        Appends an orphan `### Quality` block to vol5/claim-quality.md, runs
-        the verifier, expects a non-zero exit naming the file, then restores.
-        Content-independent — it mutates and restores, asserting only that
-        the verifier catches the injected defect.
+        Appends an orphan `### Quality` block to the fixture's root
+        claim-quality.md (in the per-class tempdir copy), runs the verifier,
+        expects a non-zero exit naming the file, then restores. Operates
+        purely on the tempdir; the committed fixture is never touched.
         """
-        cq = _KB_ROOT / "vol5" / "claim-quality.md"
-        original = cq.read_bytes()
-        try:
+        # Re-use the per-class fixture from TestCheckIndex: a fresh tempdir
+        # and refresh would also work, but the fixture is already canonical.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            cq = kb / "claim-quality.md"
             orphan = (
                 b"\n\n---\n\n### Quality\n- confidence: *pending*\n"
                 b"- solidity: *pending*\n- rationale: *pending*\n"
                 b"- strengthen-by:\n  - *pending*\n"
             )
-            cq.write_bytes(original + orphan)
-            result = _run_checker()
+            cq.write_bytes(cq.read_bytes() + orphan)
+            result = _run_checker(kb)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("orphan/malformed", result.stdout)
-            self.assertIn("vol5/claim-quality.md", result.stdout)
-        finally:
-            cq.write_bytes(original)
+            self.assertIn("claim-quality.md", result.stdout)
 
 
 def _load_checker_module():

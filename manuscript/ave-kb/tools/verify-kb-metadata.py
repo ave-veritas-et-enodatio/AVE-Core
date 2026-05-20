@@ -96,7 +96,7 @@ INDEX_FILES = (
     "subtree-aggregates",
 )
 
-EXCLUDE_DIRS = {"session", ".index"}
+EXCLUDE_DIRS = {"session", ".index", "tools"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
@@ -160,6 +160,8 @@ def collect_files() -> list[tuple[Path, dict | None]]:
 def collect_canonical_ids() -> list[tuple[str, str]]:
     out: list[tuple[str, str]] = []
     for p in KB.rglob("claim-quality.md"):
+        if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
+            continue
         scrubbed = strip_code_fences(p.read_text())
         for m in CANONICAL_ID.findall(scrubbed):
             out.append((m, str(p.relative_to(KB))))
@@ -185,6 +187,8 @@ def check_quality_block_integrity():
     """
     failures: list[tuple[str, int, str]] = []
     for p in sorted(KB.rglob("claim-quality.md")):
+        if any(part in EXCLUDE_DIRS for part in p.relative_to(KB).parts[:-1]):
+            continue
         rel = str(p.relative_to(KB))
         # Scrub fenced code blocks so the preamble's format-example snippet
         # (a fenced `### Quality` / `<!-- id: clm-xxxxxx -->`) is not parsed
@@ -686,8 +690,19 @@ def check_solidity_fresh(state, index_dir: Path):
 
 
 def main(argv: list[str] | None = None) -> int:
+    global KB
     parser = argparse.ArgumentParser(
         description="Mechanical KB claim-quality and derived-index verifier."
+    )
+    parser.add_argument(
+        "--kb-root",
+        type=Path,
+        default=None,
+        help=(
+            "KB root directory to operate on. Defaults to manuscript/ave-kb/ "
+            "(computed relative to the invocation cwd). Used by tests to point "
+            "the verifier at a synthetic fixture KB instead of the canonical one."
+        ),
     )
     parser.add_argument(
         "--index-dir",
@@ -695,11 +710,13 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help=(
             "Directory containing the .index/*.jsonl files. Defaults to "
-            "manuscript/ave-kb/.index/. Used by tests to point at a synthetic "
+            "<kb-root>/.index/. Used by tests to point at a synthetic "
             "index tree without disturbing the canonical one."
         ),
     )
     args = parser.parse_args(argv)
+    if args.kb_root is not None:
+        KB = args.kb_root
     index_dir = args.index_dir if args.index_dir is not None else (KB / ".index")
 
     if not KB.is_dir():

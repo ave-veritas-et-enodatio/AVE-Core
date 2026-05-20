@@ -24,7 +24,7 @@ from typing import TextIO
 
 KB_ROOT_DEFAULT = Path("manuscript/ave-kb")
 
-EXCLUDE_DIRS = {"session", ".index"}
+EXCLUDE_DIRS = {"session", ".index", "tools"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 # Claim-ID pattern: the `clm-` prefix plus 6 lowercase alphanumeric chars.

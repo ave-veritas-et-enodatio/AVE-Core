@@ -1,7 +1,9 @@
 """Integration tests for the JSONL index emission in ``refresh-kb-metadata.py``.
 
-Runs the refresh script as a subprocess against the real KB and verifies the
-contract documented in ``manuscript/ave-kb/.index/SCHEMA.md``:
+Runs the refresh script as a subprocess against the synthetic fixture KB
+under ``tests/fixtures/mini-kb/`` (copied to a per-class tempdir so the
+committed fixture is never mutated) and verifies the contract documented in
+``manuscript/ave-kb/.index/SCHEMA.md``:
 
 * All five JSONL files are emitted under ``.index/``.
 * The script is idempotent — a second run produces byte-identical files.
@@ -16,9 +18,8 @@ Run from the repo root::
     cd /Users/benn/projects/AVE-Umbrella/AVE-Core/manuscript/ave-kb/tools
     python -m unittest tests.test_refresh_index
 
-These tests write the real ``.index/*.jsonl`` files in place. The
-``refresh-kb-metadata.py`` script is idempotent against a clean canonical
-state, so this leaves the working tree in the same state it found.
+Tests are fully independent of live KB state. Nothing here reads, writes, or
+asserts on ``manuscript/ave-kb/`` proper.
 """
 
 from __future__ import annotations
@@ -26,6 +27,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -40,11 +42,8 @@ if str(_TOOLS_DIR) not in sys.path:
 
 import kb_index_lib as lib  # noqa: E402
 
-# Repo root: tools/tests -> tools -> ave-kb -> manuscript -> repo
-_REPO_ROOT = _TOOLS_DIR.parents[2]
-_KB_ROOT = _REPO_ROOT / "manuscript" / "ave-kb"
-_INDEX_DIR = _KB_ROOT / ".index"
-_SCRIPT = _REPO_ROOT / "manuscript" / "ave-kb" / "tools" / "refresh-kb-metadata.py"
+_FIXTURE_SRC = _THIS_DIR / "fixtures" / "mini-kb"
+_SCRIPT = _TOOLS_DIR / "refresh-kb-metadata.py"
 
 _INDEX_FILES = (
     "claims.jsonl",
@@ -55,15 +54,19 @@ _INDEX_FILES = (
 )
 
 
-def _run_refresh() -> subprocess.CompletedProcess:
-    """Run refresh-kb-metadata.py from the repo root and return the result."""
+def _run_refresh(kb_root: Path) -> subprocess.CompletedProcess:
+    """Run refresh-kb-metadata.py against ``kb_root`` and return the result."""
     return subprocess.run(
-        [sys.executable, str(_SCRIPT)],
-        cwd=str(_REPO_ROOT),
-        capture_output=True,
-        text=True,
-        check=False,
+        [sys.executable, str(_SCRIPT), "--kb-root", str(kb_root)],
+        capture_output=True, text=True, check=False,
     )
+
+
+def _materialize_fixture(parent: Path) -> Path:
+    """Copy the committed fixture into ``parent``. Returns the KB root path."""
+    kb = parent / "mini-kb"
+    shutil.copytree(_FIXTURE_SRC, kb)
+    return kb
 
 
 def _hash_file(path: Path) -> str:
@@ -81,11 +84,17 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        result = _run_refresh()
-        cls.first_result = result
-        cls.first_hashes = {
-            name: _hash_file(_INDEX_DIR / name) for name in _INDEX_FILES
-        }
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+        cls.first_result = _run_refresh(cls.kb_root)
+        if cls.first_result.returncode == 0:
+            cls.first_hashes = {
+                name: _hash_file(cls.index_dir / name) for name in _INDEX_FILES
+            }
+        else:
+            cls.first_hashes = {}
 
     def test_jsonl_files_emitted(self):
         self.assertEqual(
@@ -96,24 +105,24 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         for name in _INDEX_FILES:
             with self.subTest(name=name):
                 self.assertTrue(
-                    (_INDEX_DIR / name).exists(),
+                    (self.index_dir / name).exists(),
                     f"missing emitted file: {name}",
                 )
 
     def test_idempotence(self):
         # Run again and compare hashes.
-        second_result = _run_refresh()
+        second_result = _run_refresh(self.kb_root)
         self.assertEqual(second_result.returncode, 0)
         for name in _INDEX_FILES:
             with self.subTest(name=name):
                 self.assertEqual(
                     self.first_hashes[name],
-                    _hash_file(_INDEX_DIR / name),
+                    _hash_file(self.index_dir / name),
                     f"{name} changed between runs (not idempotent)",
                 )
 
     def test_record_counts_match_state(self):
-        state = lib.discover_kb(_KB_ROOT)
+        state = lib.discover_kb(self.kb_root)
         all_records = lib.build_all_records(state)
         expected = {
             "claims.jsonl": len(all_records["claims"]),
@@ -124,7 +133,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         }
         for name, want in expected.items():
             with self.subTest(name=name):
-                got = len(_read_jsonl_lines(_INDEX_DIR / name))
+                got = len(_read_jsonl_lines(self.index_dir / name))
                 self.assertEqual(
                     got,
                     want,
@@ -134,10 +143,10 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
     def test_jsonl_well_formed(self):
         for name in _INDEX_FILES:
             with self.subTest(name=name):
-                path = _INDEX_DIR / name
+                path = self.index_dir / name
                 raw = path.read_bytes()
                 # Empty file is acceptable per write_jsonl semantics, but we
-                # expect every file in this KB to be non-empty.
+                # expect every file in this fixture to be non-empty.
                 self.assertTrue(raw, f"{name} is empty")
                 # File ends with exactly one trailing newline.
                 self.assertEqual(
@@ -165,10 +174,10 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
 
     def test_claims_jsonl_node_type_distribution(self):
         # Content-independent: every record's node_type is one of the three
-        # valid node kinds. No hard counts — those move with KB content.
+        # valid node kinds.
         recs = [
             json.loads(ln)
-            for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "claims.jsonl")
         ]
         self.assertTrue(recs, "claims.jsonl is empty")
         for rec in recs:
@@ -180,10 +189,10 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
 
     def test_depends_on_target_kind_distribution(self):
         # Content-independent: every edge's target_kind is one of the three
-        # valid node kinds. No hard counts.
+        # valid node kinds.
         recs = [
             json.loads(ln)
-            for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "depends-on.jsonl")
         ]
         self.assertTrue(recs, "depends-on.jsonl is empty")
         for rec in recs:
@@ -198,9 +207,9 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         # resolves to in claims.jsonl.
         node_type = {
             json.loads(ln)["id"]: json.loads(ln).get("node_type", "claim")
-            for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "claims.jsonl")
         }
-        for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl"):
+        for ln in _read_jsonl_lines(self.index_dir / "depends-on.jsonl"):
             rec = json.loads(ln)
             self.assertIn(rec["target"], node_type, f"orphan target: {rec}")
             self.assertEqual(
@@ -211,22 +220,20 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
 
     def test_referential_integrity(self):
         # Build the set of canonical claim ids from claims.jsonl.
-        claims_path = _INDEX_DIR / "claims.jsonl"
+        claims_path = self.index_dir / "claims.jsonl"
         canonical_ids = {
             json.loads(ln)["id"] for ln in _read_jsonl_lines(claims_path)
         }
 
         # depends-on: source and target must each appear in claims.jsonl.
-        dep_path = _INDEX_DIR / "depends-on.jsonl"
+        dep_path = self.index_dir / "depends-on.jsonl"
         for ln in _read_jsonl_lines(dep_path):
             rec = json.loads(ln)
             self.assertIn(rec["source"], canonical_ids, f"depends-on source orphan: {rec}")
             self.assertIn(rec["target"], canonical_ids, f"depends-on target orphan: {rec}")
 
-        # strengthen-by: claim_id must appear in claims.jsonl. (mentioned_ids
-        # may include ids that are not canonical — SCHEMA.md notes orphan
-        # detection is global, not per-file.)
-        sb_path = _INDEX_DIR / "strengthen-by.jsonl"
+        # strengthen-by: claim_id must appear in claims.jsonl.
+        sb_path = self.index_dir / "strengthen-by.jsonl"
         for ln in _read_jsonl_lines(sb_path):
             rec = json.loads(ln)
             self.assertIn(
@@ -236,7 +243,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
             )
 
         # cites: claim_id must appear in claims.jsonl.
-        cites_path = _INDEX_DIR / "cites.jsonl"
+        cites_path = self.index_dir / "cites.jsonl"
         for ln in _read_jsonl_lines(cites_path):
             rec = json.loads(ln)
             self.assertIn(
@@ -247,7 +254,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
 
         # subtree-aggregates: every id within each subtree_claims must
         # appear in claims.jsonl.
-        agg_path = _INDEX_DIR / "subtree-aggregates.jsonl"
+        agg_path = self.index_dir / "subtree-aggregates.jsonl"
         for ln in _read_jsonl_lines(agg_path):
             rec = json.loads(ln)
             for cid in rec["subtree_claims"]:
@@ -261,7 +268,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         # claims.jsonl sorted by (node_type, id)
         claims_keys = [
             (json.loads(ln).get("node_type", "claim"), json.loads(ln)["id"])
-            for ln in _read_jsonl_lines(_INDEX_DIR / "claims.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "claims.jsonl")
         ]
         self.assertEqual(claims_keys, sorted(claims_keys))
 
@@ -272,80 +279,76 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
                 json.loads(ln)["target"],
                 json.loads(ln).get("context") or "",
             )
-            for ln in _read_jsonl_lines(_INDEX_DIR / "depends-on.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "depends-on.jsonl")
         ]
         self.assertEqual(dep_keys, sorted(dep_keys))
 
         # strengthen-by.jsonl sorted by (claim_id, item_idx)
         sb_keys = [
             (json.loads(ln)["claim_id"], json.loads(ln)["item_idx"])
-            for ln in _read_jsonl_lines(_INDEX_DIR / "strengthen-by.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "strengthen-by.jsonl")
         ]
         self.assertEqual(sb_keys, sorted(sb_keys))
 
         # cites.jsonl sorted by (claim_id, leaf_path)
         cite_keys = [
             (json.loads(ln)["claim_id"], json.loads(ln)["leaf_path"])
-            for ln in _read_jsonl_lines(_INDEX_DIR / "cites.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "cites.jsonl")
         ]
         self.assertEqual(cite_keys, sorted(cite_keys))
 
         # subtree-aggregates.jsonl sorted by node_path
         agg_keys = [
             json.loads(ln)["node_path"]
-            for ln in _read_jsonl_lines(_INDEX_DIR / "subtree-aggregates.jsonl")
+            for ln in _read_jsonl_lines(self.index_dir / "subtree-aggregates.jsonl")
         ]
         self.assertEqual(agg_keys, sorted(agg_keys))
-
-
-_CQ_FILES = (
-    "claim-quality.md",
-    "vol1/claim-quality.md",
-    "vol2/claim-quality.md",
-    "vol3/claim-quality.md",
-    "vol4/claim-quality.md",
-    "vol5/claim-quality.md",
-    "vol6/claim-quality.md",
-    "common/claim-quality.md",
-)
 
 
 class TestRefreshSolidityWriteBack(unittest.TestCase):
     """Refresh writes derived solidity into claim-quality.md, idempotently.
 
-    These tests run refresh against the real KB. Refresh is idempotent, so on
-    an already-refreshed KB they are non-mutating; the assertions hold whether
-    or not the KB needed correction.
+    Runs refresh against a per-class tempdir copy of the fixture. The
+    committed fixture is never touched.
     """
 
     @classmethod
     def setUpClass(cls):
-        # First run: bring the KB to a fully-refreshed state.
-        first = _run_refresh()
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        # First run: bring the fixture copy to a fully-refreshed state.
+        first = _run_refresh(cls.kb_root)
         assert first.returncode == 0, first.stderr
+        # Discover the canonical claim-quality.md files dynamically so a
+        # change in fixture shape doesn't require a hand-edited file list.
+        cls.cq_files = sorted(
+            p.relative_to(cls.kb_root).as_posix()
+            for p in cls.kb_root.rglob("claim-quality.md")
+        )
         cls.cq_hashes = {
-            rel: _hash_file(_KB_ROOT / rel) for rel in _CQ_FILES
+            rel: _hash_file(cls.kb_root / rel) for rel in cls.cq_files
         }
 
     def test_solidity_lines_idempotent(self):
         # A second refresh must leave every claim-quality.md byte-identical.
-        second = _run_refresh()
+        second = _run_refresh(self.kb_root)
         self.assertEqual(second.returncode, 0, second.stderr)
-        for rel in _CQ_FILES:
+        for rel in self.cq_files:
             with self.subTest(file=rel):
                 self.assertEqual(
                     self.cq_hashes[rel],
-                    _hash_file(_KB_ROOT / rel),
+                    _hash_file(self.kb_root / rel),
                     f"{rel} changed on a second refresh (not idempotent)",
                 )
 
     def test_all_claim_entries_carry_derived_solidity(self):
         # After refresh, every claim entry's on-disk parsed solidity equals
-        # compute_solidity's output. Content-independent: it loops over all
+        # compute_solidity's output. Content-independent: loops over all
         # entries rather than hard-coding any (claim, value) pair. A claim
-        # with no computable solidity (pending) carries None on disk and is
-        # absent from the compute_solidity result — both sides agree on None.
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        # with no computable solidity carries None on disk and is absent from
+        # the compute_solidity result — both sides agree on None.
+        state = lib.discover_kb(self.kb_root, diagnostic_stream=None)
         sol = lib.compute_solidity(state.claim_entries)
         for entry in state.claim_entries:
             with self.subTest(claim=entry.id):
@@ -359,7 +362,7 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
         # module's own `_solidity_line`, so the test holds regardless of
         # which claims/values are current.
         refresh = _load_refresh_module()
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        state = lib.discover_kb(self.kb_root, diagnostic_stream=None)
         sol = lib.compute_solidity(state.claim_entries)
 
         with_deps = next(
@@ -374,7 +377,7 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
         for entry, expect_trace in ((with_deps, True), (no_deps, False)):
             min_dep = lib.min_dependency_solidity(entry, sol)
             line = refresh._solidity_line(entry, sol[entry.id], min_dep)
-            text = (_KB_ROOT / entry.canonical_path).read_text()
+            text = (self.kb_root / entry.canonical_path).read_text()
             # The canonical line must appear verbatim on disk (refresh ran).
             self.assertIn(
                 line, text, f"{entry.id}: canonical solidity line not on disk"
@@ -387,7 +390,7 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
     def test_depends_on_annotations_synced(self):
         # Every claim-target depends-on (solidity X) annotation equals the
         # target's computed solidity after refresh.
-        state = lib.discover_kb(_KB_ROOT, diagnostic_stream=None)
+        state = lib.discover_kb(self.kb_root, diagnostic_stream=None)
         sol = lib.compute_solidity(state.claim_entries)
         for entry in state.claim_entries:
             for edge in entry.depends_on:
@@ -456,13 +459,9 @@ Body.
 class TestRefreshSolidityPendingWriteBack(unittest.TestCase):
     """Refresh renders a numeric-confidence-blocked claim as ``*pending*``.
 
-    The real KB is a closed subgraph — no numeric-confidence claim depends on
-    a pending one — so this consumer path is dormant against canonical
-    content. This test drives the solidity write-back over a synthetic
-    fixture that DOES exercise it, locking the audit-item-1 fix: a numeric
-    claim blocked by a pending dependency must get the ``- solidity:
-    *pending*`` line (not a stale numeric value, not a crash), and a
-    depends-on bullet pointing at it must get ``(solidity *pending*)``.
+    Drives the solidity write-back over an inline synthetic fixture that
+    exercises the dormant blocked-by-pending-dependency path. Fully
+    independent of any KB state — the input is the inline string above.
     """
 
     def setUp(self):

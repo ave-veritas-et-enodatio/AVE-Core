@@ -22,7 +22,7 @@ Each claim entry carries a `### Quality` section. The format of a Quality sectio
   - [specific work that would raise confidence]
 ```
 
-The fenced `<!-- id: clm-xxxxxx -->` marker above sits inside a code fence and must NOT be counted as a real claim entry.
+The fenced canonical-id marker above sits inside a code fence and must NOT be counted as a real claim entry.
 
 ---
 
