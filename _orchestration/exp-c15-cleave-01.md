@@ -1,7 +1,7 @@
 # EXP-C15-CLEAVE-01: Femto-Coulomb Electrometer ($Q = \xi_{topo} \cdot x$)
 
 **Parent epic**: [`experimental-arc.md`](experimental-arc.md)
-**Status**: PHASE 0 ✓ SCAFFOLD LANDED — `AVE-Bench-FemtoElectrometer` sibling repo at commit `0b05bd4` on `main`, 36 files (29 substantive + 7 .gitkeep), 2686 lines; **awaiting (i) Grant GitHub remote setup + (ii) Grant Phase 0→1 promotion adjudication** (Q-C15-01 chamber priority resolution gates Phase 1 KiCad entry)
+**Status**: PHASE 0 ✓ SCAFFOLD LANDED — `AVE-Bench-FemtoElectrometer` sibling repo at commit `0b05bd4` on `main`, 36 files (29 substantive + 7 .gitkeep), 2686 lines; **Q-C15-01 chamber priority scoping doc landed with C1 RECOMMENDED** ([`exp-c15-cleave-01-q-c15-01-chamber-scoping.md`](exp-c15-cleave-01-q-c15-01-chamber-scoping.md), 2026-05-20 EOD+++++); **awaiting (i) Grant GitHub remote setup + (ii) Grant Q-C15-01 adjudication + (iii) Grant Phase 0→1 promotion adjudication**
 **Owner**: **AVE-Bench-FemtoElectrometer** sibling repo at `/Users/grantlindblom/AVE-staging/AVE-Bench-FemtoElectrometer/` — parallels AVE-Bench-VacuumMirror precedent
 **Established**: 2026-05-20 from Phase 2 cascade-emphasis ranking
 
