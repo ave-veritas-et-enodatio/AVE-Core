@@ -94,12 +94,36 @@ PANTHEON_BULK_FLOW_WHITFORD2023 = {
     "depth_h_inv_Mpc": 150.0,
 }
 
+# CORPUS-PIN CORRECTION 2026-05-19 EOD (c5-corpus-pin-fix walk-back):
+#   Prior value (l=32°, b=32°) was a coordinate-system conflation: the literal
+#   "32°" came from Longo 2011's quoted equatorial declination of the dipole
+#   direction (δ ~ 32°), then mistakenly used as BOTH galactic l AND galactic b
+#   in the corpus pin. The actual Longo 2011 published axis in galactic
+#   coordinates is (l = 52°, b = 68.5°).
+#   Verified 2026-05-19 EOD by SDSS DR17 implementor reading the Longo 2011
+#   PDF directly (Phys. Lett. B 699:224, "Detection of a Dipole in the
+#   Handedness of Spiral Galaxies with Redshifts z ~ 0.04").
+#   Walk-back pattern follows the E1b (174°, -5°) → (60.28°, 50.48°) precedent
+#   recorded at closure-roadmap.md §0.5 row dated 2026-05-19 (driver-executed
+#   empirical pin of an unpinned literature value).
+#   NOTE: the framework's current best-precision empirical state for the LSS
+#   spin axis is the SDSS DR17 re-fit at (l = 129°, b = 79°), σ = 6.83°, per
+#   research/2026-05-19_c5-sdss-spin-orientation-result.md +
+#   c5_sdss_spin_orientation_results.json. That empirical re-fit supersedes
+#   BOTH the original corpus pin (32°, 32°) AND Longo's published axis at
+#   the framework's current empirical state; this dict carries the literature
+#   pin for archival driver-output reproducibility.
 SDSS_LSS_SPIN_LONGO2011 = {
-    "l_deg": 32.0,
-    "b_deg": 32.0,
+    "l_deg": 52.0,
+    "b_deg": 68.5,
     "sigma_deg": 30.0,
     "reference": "Longo 2011, Phys. Lett. B 699:224, SDSS DR7 spiral handedness "
-    "+ Shamir 2020 ApJ 891:97 DR8 confirmation; literature scatter dominates uncertainty.",
+    "(galactic-coordinate axis (l=52°, b=68.5°) per direct read of the PDF, "
+    "verified 2026-05-19 EOD; prior corpus value (32°, 32°) was a coordinate "
+    "conflation corrected via the c5-corpus-pin-fix walk-back) + Shamir 2020 "
+    "ApJ 891:97 DR8 confirmation; literature scatter dominates uncertainty. "
+    "Current best-precision empirical axis is the SDSS DR17 re-fit at "
+    "(l=129°, b=79°), σ=6.83° per c5_sdss_spin_orientation_results.json.",
 }
 
 # Matter-asymmetry direction: per frozen prereg section 3.4 (line 314-316) this is the
