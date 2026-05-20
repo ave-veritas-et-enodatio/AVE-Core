@@ -1,0 +1,286 @@
+{
+  "session_date": "2026-05-19",
+  "branch": "analysis/c5-sdss-dr17-spin-orientation",
+  "prereg": "research/2026-05-19_c5-sdss-spin-orientation-prereg.md",
+  "pipelines": {
+    "primary": {
+      "pipeline_name": "primary",
+      "delta_clear": 0.4,
+      "min_nvote": 10,
+      "n_galaxies_after_cuts": 63379,
+      "monopole_asymmetry": -0.032297764243676925,
+      "dipole_fit": {
+        "stage1_best_pix": 29,
+        "stage1_best_A": -0.021879836847419218,
+        "stage2_best_pix": 441,
+        "stage2_best_A": -0.021884801288857808,
+        "A_magnitude": 0.021884801288857808,
+        "l_deg_raw": 129.0,
+        "b_deg_raw": 79.0187139489105,
+        "l_deg": 129.0,
+        "b_deg": 79.0187139489105,
+        "best_axis_cart": [
+          -0.11987821305059326,
+          0.14803726442668078,
+          0.981689453125
+        ],
+        "galaxy_dipole_vec_cart": [
+          0.0026924236686766074,
+          -0.0032799422315043193,
+          -0.021469604881828745
+        ],
+        "galaxy_dipole_magnitude": 0.02188495145152258,
+        "analytic_A_check": 0.02188495145152258,
+        "pixel_size_deg": 0.9161297098179749
+      },
+      "sigma_hessian_mc": {
+        "method": "Hessian + Gaussian MC (1000 samples; per Mardia & Jupp 9.3.10)",
+        "sigma_deg_68": 6.503126376730541,
+        "n_samples_valid": 1000,
+        "cov_v_eigenvalues": [
+          1.5693215351505256e-06,
+          3.852034318931133e-06,
+          1.0349184055035937e-05
+        ],
+        "v_cart": [
+          0.0026924236686766074,
+          -0.0032799422315043193,
+          -0.021469604881828745
+        ],
+        "v_magnitude": 0.02188495145152258
+      },
+      "sigma_bootstrap": {
+        "method": "Block bootstrap (500/500 converged; analytic closed-form per draw)",
+        "sigma_deg_68": 6.831141009312945,
+        "n_bootstraps_converged": 500,
+        "n_bootstraps_attempted": 500,
+        "mean_magnitude": 0.022028902865011305,
+        "magnitude_std": 0.0033004653652468365
+      },
+      "sigma_canonical_deg": 6.831141009312945,
+      "randomization_null": {
+        "method": "Random sign assignment (10000 catalogs); analytic |A_max| = |v_random| per catalog",
+        "p_value": 0.0,
+        "n_at_or_above_observed": 0,
+        "n_random_catalogs": 10000,
+        "random_mean_A_squared": 1.5757287378105055e-05,
+        "random_std_A_squared": 1.555698047333098e-05,
+        "z_score_one_sided": 29.773595259614797,
+        "A_observed_squared": 0.00047894452745279235
+      },
+      "cmb_axis_pin": {
+        "source": "Planck PR3 SMICA via cmb_axis_alignment_executable_observer.py (E1b)",
+        "l_deg": 60.28301886792453,
+        "b_deg": 50.48004426244294,
+        "sigma_deg": 0.9161297098179749,
+        "method": "data-derived; max-angular-momentum-dispersion estimator"
+      },
+      "adjudication": {
+        "outcome": "Marginal-D",
+        "rationale": "sigma_LSS = 6.83\u00b0 meets prereg precision target (<15\u00b0), but CMB-LSS separation 36.75\u00b0 at +2.43sigma above 20\u00b0 alignment threshold does not clear 3sigma-decisive against alignment (needs separation > 20\u00b0 + 3*sigma_combined = 40.68\u00b0), and separation/sigma_combined = 5.33sigma is > 3sigma from zero \u2014 alignment also excluded at 3sigma. Result: separation lands in the in-between band [20\u00b0 - 3sigma_combined, 20\u00b0 + 3sigma_combined] = [0.0\u00b0, 40.7\u00b0]. Adjudication: Marginal-D (precision-sufficient, threshold-bracketed). Headline finding: alignment with CMB axis EXCLUDED at 5.3sigma; alignment-threshold falsification at only 2.4sigma. Cascade: queue 20\u00b0-threshold reassessment AND/OR joint Pantheon+ + SDSS constraint (Option B follow-up) for sharper boundary.",
+        "sigma_lss_canonical_deg": 6.831141009312945,
+        "cmb_lss_separation_deg": 36.74779662639894,
+        "sigma_combined_deg": 6.89229868290168,
+        "significance_against_alignment_sigma": 2.4299290261384985,
+        "significance_for_alignment_sigma": 5.331718533551421,
+        "decisive_against": false,
+        "decisive_for": false
+      }
+    },
+    "robustness_0.2": {
+      "pipeline_name": "robustness_0.2",
+      "delta_clear": 0.2,
+      "min_nvote": 10,
+      "n_galaxies_after_cuts": 83531,
+      "monopole_asymmetry": -0.03647747542828411,
+      "dipole_fit": {
+        "stage1_best_pix": 16,
+        "stage1_best_A": -0.024284057005982615,
+        "stage2_best_pix": 442,
+        "stage2_best_A": -0.024299149562956177,
+        "A_magnitude": 0.024299149562956177,
+        "l_deg_raw": 135.0,
+        "b_deg_raw": 79.0187139489105,
+        "l_deg": 135.0,
+        "b_deg": 79.0187139489105,
+        "best_axis_cart": [
+          -0.1346956154133059,
+          0.13469561541330594,
+          0.981689453125
+        ],
+        "galaxy_dipole_vec_cart": [
+          0.003313618653815743,
+          -0.0031298452336396337,
+          -0.023868284572736903
+        ],
+        "galaxy_dipole_magnitude": 0.02429960921938052,
+        "analytic_A_check": 0.02429960921938052,
+        "pixel_size_deg": 0.9161297098179749
+      },
+      "sigma_hessian_mc": {
+        "method": "Hessian + Gaussian MC (1000 samples; per Mardia & Jupp 9.3.10)",
+        "sigma_deg_68": 5.027490231299938,
+        "n_samples_valid": 1000,
+        "cov_v_eigenvalues": [
+          1.1930427898052776e-06,
+          2.933162471602336e-06,
+          7.838329210725897e-06
+        ],
+        "v_cart": [
+          0.003313618653815743,
+          -0.0031298452336396337,
+          -0.023868284572736903
+        ],
+        "v_magnitude": 0.02429960921938052
+      },
+      "sigma_bootstrap": {
+        "method": "Block bootstrap (500/500 converged; analytic closed-form per draw)",
+        "sigma_deg_68": 5.343751684124964,
+        "n_bootstraps_converged": 500,
+        "n_bootstraps_attempted": 500,
+        "mean_magnitude": 0.024244412738473244,
+        "magnitude_std": 0.002713606014384345
+      },
+      "sigma_canonical_deg": 5.343751684124964,
+      "randomization_null": {
+        "method": "Random sign assignment (10000 catalogs); analytic |A_max| = |v_random| per catalog",
+        "p_value": 0.0,
+        "n_at_or_above_observed": 0,
+        "n_random_catalogs": 10000,
+        "random_mean_A_squared": 1.2045382715754832e-05,
+        "random_std_A_squared": 1.2061784612006407e-05,
+        "z_score_one_sided": 47.953375505595645,
+        "A_observed_squared": 0.0005904486694829134
+      },
+      "cmb_axis_pin": {
+        "source": "Planck PR3 SMICA via cmb_axis_alignment_executable_observer.py (E1b)",
+        "l_deg": 60.28301886792453,
+        "b_deg": 50.48004426244294,
+        "sigma_deg": 0.9161297098179749,
+        "method": "data-derived; max-angular-momentum-dispersion estimator"
+      },
+      "adjudication": {
+        "outcome": "A",
+        "rationale": "CMB-LSS separation 37.89\u00b0 exceeds 20\u00b0 threshold by 3.30sigma > 3sigma \u2014 alignment falsified at 3sigma.",
+        "sigma_lss_canonical_deg": 5.343751684124964,
+        "cmb_lss_separation_deg": 37.88644898364987,
+        "sigma_combined_deg": 5.421713355277975,
+        "significance_against_alignment_sigma": 3.2990399550056666,
+        "significance_for_alignment_sigma": 6.987910739834273,
+        "decisive_against": true,
+        "decisive_for": false
+      }
+    },
+    "robustness_0.6": {
+      "pipeline_name": "robustness_0.6",
+      "delta_clear": 0.6,
+      "min_nvote": 10,
+      "n_galaxies_after_cuts": 47128,
+      "monopole_asymmetry": -0.037811916482770325,
+      "dipole_fit": {
+        "stage1_best_pix": 16,
+        "stage1_best_A": -0.02584701182240645,
+        "stage2_best_pix": 281,
+        "stage2_best_A": -0.025848269146897702,
+        "A_magnitude": 0.025848269146897702,
+        "l_deg_raw": 131.25,
+        "b_deg_raw": 81.21982231598935,
+        "l_deg": 131.25,
+        "b_deg": 81.21982231598935,
+        "best_axis_cart": [
+          -0.10064513975594647,
+          0.11476378671838734,
+          0.98828125
+        ],
+        "galaxy_dipole_vec_cart": [
+          0.0024508568697774527,
+          -0.002800889602840974,
+          -0.025579926379980335
+        ],
+        "galaxy_dipole_magnitude": 0.02584926141243985,
+        "analytic_A_check": 0.025849261412439848,
+        "pixel_size_deg": 0.9161297098179749
+      },
+      "sigma_hessian_mc": {
+        "method": "Hessian + Gaussian MC (1000 samples; per Mardia & Jupp 9.3.10)",
+        "sigma_deg_68": 6.231399176925416,
+        "n_samples_valid": 1000,
+        "cov_v_eigenvalues": [
+          2.1094121927922145e-06,
+          5.187734744448941e-06,
+          1.3907483339546142e-05
+        ],
+        "v_cart": [
+          0.0024508568697774527,
+          -0.002800889602840974,
+          -0.025579926379980335
+        ],
+        "v_magnitude": 0.02584926141243985
+      },
+      "sigma_bootstrap": {
+        "method": "Block bootstrap (500/500 converged; analytic closed-form per draw)",
+        "sigma_deg_68": 6.52318995736112,
+        "n_bootstraps_converged": 500,
+        "n_bootstraps_attempted": 500,
+        "mean_magnitude": 0.025873216070021854,
+        "magnitude_std": 0.0035546895933293186
+      },
+      "sigma_canonical_deg": 6.52318995736112,
+      "randomization_null": {
+        "method": "Random sign assignment (10000 catalogs); analytic |A_max| = |v_random| per catalog",
+        "p_value": 0.0,
+        "n_at_or_above_observed": 0,
+        "n_random_catalogs": 10000,
+        "random_mean_A_squared": 2.1517471160748225e-05,
+        "random_std_A_squared": 2.1805501473132827e-05,
+        "z_score_one_sided": 29.65378014930905,
+        "A_observed_squared": 0.0006681330178904636
+      },
+      "cmb_axis_pin": {
+        "source": "Planck PR3 SMICA via cmb_axis_alignment_executable_observer.py (E1b)",
+        "l_deg": 60.28301886792453,
+        "b_deg": 50.48004426244294,
+        "sigma_deg": 0.9161297098179749,
+        "method": "data-derived; max-angular-momentum-dispersion estimator"
+      },
+      "adjudication": {
+        "outcome": "Marginal-D",
+        "rationale": "sigma_LSS = 6.52\u00b0 meets prereg precision target (<15\u00b0), but CMB-LSS separation 37.44\u00b0 at +2.65sigma above 20\u00b0 alignment threshold does not clear 3sigma-decisive against alignment (needs separation > 20\u00b0 + 3*sigma_combined = 39.76\u00b0), and separation/sigma_combined = 5.68sigma is > 3sigma from zero \u2014 alignment also excluded at 3sigma. Result: separation lands in the in-between band [20\u00b0 - 3sigma_combined, 20\u00b0 + 3sigma_combined] = [0.2\u00b0, 39.8\u00b0]. Adjudication: Marginal-D (precision-sufficient, threshold-bracketed). Headline finding: alignment with CMB axis EXCLUDED at 5.7sigma; alignment-threshold falsification at only 2.6sigma. Cascade: queue 20\u00b0-threshold reassessment AND/OR joint Pantheon+ + SDSS constraint (Option B follow-up) for sharper boundary.",
+        "sigma_lss_canonical_deg": 6.52318995736112,
+        "cmb_lss_separation_deg": 37.43533077505866,
+        "sigma_combined_deg": 6.587207364659786,
+        "significance_against_alignment_sigma": 2.646847109838807,
+        "significance_for_alignment_sigma": 5.6830351168081235,
+        "decisive_against": false,
+        "decisive_for": false
+      }
+    }
+  },
+  "cross_pipeline_consistency": {
+    "primary_vs_robustness_0.2_separation_deg": 1.1424269581672646,
+    "primary_vs_robustness_0.6_separation_deg": 2.2343002622222072,
+    "within_1sigma_LSS": true
+  },
+  "corpus_pin_anomaly": {
+    "longo_2011_published": {
+      "l_deg": 52.0,
+      "b_deg": 68.5,
+      "source": "Longo 2011 Phys. Lett. B 699:224 sec 3, page 6 (galactic from equatorial (217\u00b0, 32\u00b0))"
+    },
+    "ave_corpus_pinned": {
+      "l_deg": 32.0,
+      "b_deg": 32.0,
+      "source": "cmb_axis_alignment_executable_observer.py:97-99"
+    },
+    "primary_vs_longo_separation_deg": 21.707231693950003,
+    "primary_vs_ave_corpus_separation_deg": 59.96499697073499,
+    "longo_vs_ave_corpus_separation_deg": 38.26889866123491,
+    "anomaly_flag": "AVE corpus pin (32\u00b0, 32\u00b0) does NOT match Longo 2011's published axis (52\u00b0, 68.5\u00b0); corpus appears to have substituted equatorial dec for both galactic l and b. Per prereg sec 2.5: this anomaly is SURFACED here per flag-don't-fix; fix lives in the auditor lane (likely: replace literature pin with this session's empirical re-fit at (primary l, b) below)."
+  },
+  "headline_outcome": "Marginal-D",
+  "headline_rationale": "sigma_LSS = 6.83\u00b0 meets prereg precision target (<15\u00b0), but CMB-LSS separation 36.75\u00b0 at +2.43sigma above 20\u00b0 alignment threshold does not clear 3sigma-decisive against alignment (needs separation > 20\u00b0 + 3*sigma_combined = 40.68\u00b0), and separation/sigma_combined = 5.33sigma is > 3sigma from zero \u2014 alignment also excluded at 3sigma. Result: separation lands in the in-between band [20\u00b0 - 3sigma_combined, 20\u00b0 + 3sigma_combined] = [0.0\u00b0, 40.7\u00b0]. Adjudication: Marginal-D (precision-sufficient, threshold-bracketed). Headline finding: alignment with CMB axis EXCLUDED at 5.3sigma; alignment-threshold falsification at only 2.4sigma. Cascade: queue 20\u00b0-threshold reassessment AND/OR joint Pantheon+ + SDSS constraint (Option B follow-up) for sharper boundary.",
+  "headline_sigma_lss_deg": 6.831141009312945,
+  "headline_cmb_lss_separation_deg": 36.74779662639894,
+  "headline_significance_against_alignment_sigma": 2.4299290261384985,
+  "headline_significance_for_alignment_sigma": 5.331718533551421
+}
