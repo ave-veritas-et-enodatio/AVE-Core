@@ -1,16 +1,17 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-20 EOD+++++++++++++ (Phase B orchestration-hygiene reorganization landed; subdirectory hierarchy + C15 consolidation)
-**Current focus**: C15-CLEAVE-01 Phase 1a-rev1 atopile walk-back — Stages A + B both landed; Q-C15-12 merge decision pending Grant adjudication (Path 1 fix Stage A first vs Path 2 merge Stage B as-is + queue separate fix). Phase B reorg moved per-sub-epic docs into `experimental/<slug>/` subdirectories with consolidated sub-epic doc + phase table; closed-phase briefs in `_archive/`.
-**Current HEAD on `analysis/integration`**: `7cd4bc2` — Phase 1a-rev1 Stage B landed walk-back
-**Audit tag count (AVE-Core)**: 34 (`git tag -l "audit/*" | wc -l`)
+**Last updated**: 2026-05-20 EOD++++++++++++++ (Q-C15-12 ✓ CLOSED via Path 1; Phase 1a-rev1 FULLY MERGED both repos)
+**Current focus**: C15-CLEAVE-01 Phase 1a-rev1 ✓ COMPLETE — atopile walk-back delivered clean module-level imports; all Q-C15-10/11/12 + Q1.2 + Q-HWMOD-04 CLOSED. Next: A1-HOPF Phase 0b (Grant fab submission, [EXEC]) + C11 Phase 0 outreach ([PREP]).
+**Current HEAD on `analysis/integration`**: `5977f4d` — Q-C15-12 Path 1 brief landed (will bump to next commit when walk-back lands)
+**Audit tag count (AVE-Core)**: 35 (`git tag -l "audit/*" | wc -l`) — `audit/2026-05-20_orchestration-reorg` landed
+**Audit tags pushed (sibling repos this session)**: `audit/2026-05-20_phase-1a-kicad-design` + `audit/2026-05-20_phase-1a-rev1-atopile-walkback` at `AVE-Bench-FemtoElectrometer`; `audit/2026-05-20_q-c15-12-stage-a-fix` at `AVE-Hardware-Modules`
 **Active branches (local AVE-Core)**: 5 — `analysis/integration`, `benn/long-running`, `golden-torus-update`, `main`, `research/l3-electron-soliton`
-**Cross-repo state**: `AVE-Bench-FemtoElectrometer` main @ `331a778` + branch `analysis/phase-1a-rev1-atopile-walkback` @ `b44b1f7` pushed not merged; `AVE-Hardware-Modules` main @ `e2171cb`; AVE-Skills main @ `4f504c0`.
+**Cross-repo state**: `AVE-Bench-FemtoElectrometer` main @ `7f9c721` (Phase 1a-rev1 ✓ MERGED with clean atopile module imports); `AVE-Hardware-Modules` main @ `8b0626b` (Q-C15-12 Stage A fix ✓ MERGED); AVE-Skills main @ `4f504c0`.
 
 **Grant adjudication queue (needs your yes before agents proceed)**:
-1. **Q-C15-12 merge path** — fix Stage A first (Path 1, recommended) vs merge Stage B as-is (Path 2). Path 1 spawns a fix-branch in AVE-Hardware-Modules + revises Stage B for clean module imports; Path 2 ships workaround in main.
-2. **A1-HOPF Phase 0b** — upload `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB + order 3D-print mandrels per BOM (Grant's only low-friction high-signal exec item).
-3. **C11 Phase 0** — facility partnership outreach (literature survey + cold-emails to Hasselbach / LENS / NIST / TEM holography centers). Agent-prep complete; outreach needs your decision.
+1. **A1-HOPF Phase 0b** [EXEC] — upload `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB + order 3D-print mandrels per BOM (your only low-friction high-signal exec item now).
+2. **C11 Phase 0** [PREP→EXEC trigger] — facility partnership outreach (literature survey + cold-emails to Hasselbach / LENS / NIST / TEM holography centers). Agent-prep complete; outreach needs your decision.
+3. **C15 Phase 1b** [PREP] — KiCad GUI work (schematic ERC clean + PCB layout + guard-ring polygon + DRC) per DESIGN_LOG §5.1-5.2; sub-agent tooling limitation makes this Grant manual. No spend; just time commitment when ready.
 
 **Session narrative** (collapsed from prior 609-word inline header): see `_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01.md` audit trail for Phase 1a-rev1 detail; `experimental/experimental-arc.md` for top-3 sub-epic state; per-epic docs for phase-by-phase. This file is the snapshot; per-epic docs hold the narrative.
 

@@ -2,7 +2,7 @@
 
 **Phase tag (parent)**: **[PREP]** — parent epic is coordination/orchestration; per-sub-epic phase tags below indicate Grant-spend-or-time-commitment status
 **Phase-tag legend**: `[PREP]` = agent work only (no Grant spend or time commitment) / `[EXEC]` = needs Grant yes before money or time / `[EXEC-GATED]` = currently PREP but next adjudication flips to EXEC
-**Status**: ACTIVE epic (established 2026-05-19 EOD+++) — 3 sub-epics spawned 2026-05-20; all 3 sub-epics sim/framework-readiness audited 2026-05-20 EOD+++ (no drift); **C15 Phase 0 scaffold landed 2026-05-20 EOD+++++ → AVE-Bench-FemtoElectrometer sibling repo established (first sibling-repo establishment under this epic)**
+**Status**: ACTIVE epic (established 2026-05-19 EOD+++) — 3 sub-epics spawned 2026-05-20; all 3 sub-epics sim/framework-readiness audited (no drift); **C15 Phase 1a-rev1 ✓ MERGED 2026-05-20 EOD++++++++++++++ both repos (`AVE-Bench-FemtoElectrometer` main @ `7f9c721` + `AVE-Hardware-Modules` main @ `8b0626b`); all C15 Q-* CLOSED (Q-C15-01 through Q-C15-12 + Q1.2 + Q-HWMOD-04). `ave-module-library-discipline v1.0` skill created same session + first-fire on Q-C15-12 closure.**
 **Scope owner**: Grant (physics) + orchestrator (KB hygiene + driver readiness)
 **Last updated**: 2026-05-20 EOD+++++
 
