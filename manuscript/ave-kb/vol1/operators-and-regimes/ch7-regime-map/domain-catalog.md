@@ -6,6 +6,8 @@
 
 Each domain has a unique physical interpretation of the amplitude $A$ and the critical threshold $A_c$. In every case, $A_c$ is **derived from the four axioms**---it is never a fitted or empirical parameter.
 
+> ↗ See also: [Temporal Saturation Regime Classifier](../../../common/temporal-saturation-regime-classifier.md) — companion leaf introducing the orthogonal temporal axis (lossless / cyclic / lossy) on top of the Regime I-IV spatial-instantaneous classification per this catalog. Maps additional field domains (semiconductor, plasma, MHD, nonlinear optics, cavity QED, tribology, polymer dynamics, magnonics, etc.) to the AVE regime framework.
+
 ### Electromagnetic (Dielectric)
 
 | | |

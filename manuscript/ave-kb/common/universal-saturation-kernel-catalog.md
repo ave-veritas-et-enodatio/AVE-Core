@@ -7,6 +7,8 @@
 A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every topological-reorganization event in the universe.** The Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ — Born–Infeld $n = 2$ squared-limit form — applies at every scale of physical phenomenon per Axiom 2 (TKI scale invariance). $A$ is the same dimensionless quantity (substrate strain / local saturation) regardless of whether the physical observable manifests as voltage, magnetic field, frame-dragging strain, or something else. When $S(A) = 0$ locally, the substrate cannot continue linear response and **must reorganize topologically** to a new configuration with $A < 1$. The kernel's vertical tangent at $A = 1$ is what makes every reorganization event sharp and impulsive across all scales.
 
 > → Primary: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — canonical manuscript chapter with full per-row notes.
+>
+> ↗ See also: [Temporal Saturation Regime Classifier](temporal-saturation-regime-classifier.md) — companion leaf introducing the orthogonal temporal axis (lossless / cyclic / lossy) via $\delta_{\text{AVE}} = t_{\text{sat}}/t_{\text{period}}$ and mapping each catalog row to a temporal regime tag. Each row's spatial Regime I-IV classification + Power-Domain θ + temporal $\delta_{\text{AVE}}$ form the complete three-axis regime characterization.
 
 ## Key Result: 26 canonical instances of one kernel
 
