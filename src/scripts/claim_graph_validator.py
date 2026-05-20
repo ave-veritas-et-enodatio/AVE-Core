@@ -52,6 +52,7 @@ ALLOWED_TYPES = {
     "axiom_manifestation",
     "identity",
     "consistency_check",
+    "operating_point_projection",  # Class E per `consistency-vs-emergence` v1.1
     "engineering_limit",
 }
 

@@ -379,3 +379,11 @@ Phase 1 research-doc audit-ready.
 - Class E "operating-point projection" framing surfaced for skill-refinement consideration; documented here, not modified in this session.
 
 Phase 2 may proceed per brief.
+
+---
+
+## §9 Postscript — Class E canonization (2026-05-19 EOD)
+
+§6 of this doc surfaced the Class E "operating-point projection" framing as a proposed skill refinement, explicitly NOT modifying the skill in-session per `ave-newly-created-skill-self-audit`. On 2026-05-19 EOD, Grant adjudicated and canonized `consistency-vs-emergence` v1.1 with Class E added at skills repo commit `470f1ec`. The v1.1 skill body cites the H_∞ in-session audit (the upstream doc, `research/2026-05-19_h-infinity-derivation-audit.md`) as the origin-trigger case.
+
+**Cross-reference for current corpus-state**: the h-infinity-downstream-cascade epic (Phase 2, branch `analysis/h-infinity-downstream-cascade`) applies the Class C → Class E refinement EXTENSION across the 13 corpus files cited in §7 + Phase 2 cascade-grep additions (+ schema extension at `src/scripts/claim_graph_validator.py` ALLOWED_TYPES and `manuscript/predictions.yaml` P23). Class E is corpus-canonical as of `analysis/h-infinity-downstream-cascade` tip.

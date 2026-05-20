@@ -429,6 +429,19 @@ ALPHA_S: float = ALPHA ** (3.0 / 7.0)  # ≈ 0.1214
 
 # Machian hierarchy coupling  ξ_M = 4π(R_H/ℓ_node)α⁻²
 # (computed from G via G = ℏc / (7ξ m_e²))
+#
+# Class E circularity (intentional): G is CODATA-input (Bounding Limit 3);
+# ξ_M is inverted out of G via the closed-form above; ξ_M is then used
+# downstream in derivations that re-route through H_∞ via R_H ≡ c/H_∞.
+# This is structurally faithful to the framework's joint-constraint state:
+# {G, H_∞, Ω_freeze, α} are a Class E operating-point projection at
+# u_0* ≈ 0.187 per `consistency-vs-emergence` v1.1 — not N independent
+# numerical predictions. The corpus-honest open path to breaking the
+# circularity is the Chain B' independent G derivation logged at
+# manuscript/ave-kb/common/closure-roadmap.md:38 (substrate-local
+# thermodynamic balance for G that does NOT route through R_H), corpus-
+# self-stated at manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/
+# cosmological-constant-closure.md:103-111 — currently OPEN.
 XI_MACHIAN: float = HBAR * C_0 / (7.0 * G * M_E**2)
 
 # =============================================================================

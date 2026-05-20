@@ -2,7 +2,7 @@
 
 # Ch.5: Galactic Rotation from Axiom 4
 
-Derives the MOND acceleration scale $a_0 = c H_\infty / (2\pi)$ from first principles and applies the Axiom 4 saturation operator to the galactic rotation problem. The saturated lattice mutual inductance yields an effective galactic acceleration $g_{eff}$ that reproduces flat rotation curves (deep MOND regime) and Keplerian inner-galaxy orbits (saturated regime) without invoking non-baryonic matter. Five-galaxy validation spanning four decades of baryonic mass confirms predictions to $<17\%$ with zero free parameters.
+Derives the MOND acceleration scale $a_0 = c H_\infty / (2\pi)$ as a **Class E operating-point projection** of $H_\infty$ via the Hoop-stress $2\pi$ motif (per `consistency-vs-emergence` v1.1; see [`omega-freeze-cosmic-grain-cascade.md`](../../common/omega-freeze-cosmic-grain-cascade.md)) — downstream of $u_0^* \approx 0.187$, joint-constrained with $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$, not an independent single-observable prediction — and applies the Axiom 4 saturation operator to the galactic rotation problem. The saturated lattice mutual inductance yields an effective galactic acceleration $g_{eff}$ that reproduces flat rotation curves (deep MOND regime) and Keplerian inner-galaxy orbits (saturated regime) without invoking non-baryonic matter. Five-galaxy validation spanning four decades of baryonic mass confirms predictions to $<17\%$ with zero free parameters.
 
 ## Key Results
 

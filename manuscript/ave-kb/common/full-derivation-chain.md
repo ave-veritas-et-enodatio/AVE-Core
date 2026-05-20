@@ -632,7 +632,7 @@ derivation routes through the Machian-impedance integral $\xi =
 4\pi(R_H/\ell_{node})\alpha^{-2}$ with $R_H \equiv c/H_\infty$ substituted in,
 producing the consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2
 \alpha^2)$ — one algebraic constraint linking the pair $(G, H_\infty)$, not two
-independent emergence-class predictions (per the math audit on
+independent emergence-class (Class D) predictions (per the math audit on
 `analysis/h-infinity-derivation-audit` `f28a8b3` and Chain B' showstoppers
 research on `analysis/h-infinity-framing-forward`). The engine treats $G$ as
 Bounding Limit 3 (CODATA input, [`mathematical-closure.md:20`](mathematical-closure.md)) consistent with this status. Closing
@@ -640,8 +640,10 @@ $G$ to a fully substrate-local derivation requires a closed-form Chain B'
 that derives $\Delta E_{\text{cryst}}$ and $\Gamma_{\text{cryst}}$ from
 $(\ell_{node}, \alpha)$ alone without routing through $R_H$ or $H_\infty$ —
 currently open work per [`closure-roadmap.md`](closure-roadmap.md) Tier 3
-"Chain B' independent G derivation" and the open-work statement at
+"Chain B' independent G derivation" (line 38) and the open-work statement at
 [`vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:103-111`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md).
+
+**Refinement per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD)**: the consistency identity is more precisely a **Class E operating-point projection** that includes the Class C consistency-check sub-structure. $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ are joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge per [`omega-freeze-cosmic-grain-cascade.md:13-16`](omega-freeze-cosmic-grain-cascade.md). The framework's testable content is the joint constraint on these N observables — failure of any one falsifies the operating-point and therefore the entire substrate model — not four independent percent-error claims. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (the joint constraint defines the framework's actual falsifiability surface).
 
 **$\ell_{node}$ is derived (not input).**
 The universe is a macroscopic **scale-invariant** fractal graph.

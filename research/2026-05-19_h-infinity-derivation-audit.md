@@ -435,3 +435,13 @@ Per `verify-before-cite` discipline, every file:line citation in this doc was re
 - `git show 912dd88` — verified full diff content quoted accurately
 
 Audit complete. Branch ready for orchestration return.
+
+---
+
+## §11 Postscript — Class C → Class E refinement (2026-05-19 EOD)
+
+This audit's Class C verdict (§8 verdict line + §8 secondary class) was canonical per `consistency-vs-emergence` v1.0 at the time. On the same day (2026-05-19 EOD), Grant canonized `consistency-vs-emergence` v1.1 at skills repo commit `470f1ec`, adding **Class E — operating-point projection / topological equilibrium observable**. The v1.1 skill body's in-session validation example cites THIS audit as the trigger case: the joint-constraint structure on $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ via the substrate operating point $u_0^* \approx 0.187$ is what Class C alone under-describes.
+
+**Per Rule 12 (preserve body, add header)**: this audit's Class C verdict is preserved as historical record — it WAS the correct verdict per the v1.0 taxonomy and surfaced the missing class as part of its work. The h-infinity-downstream-cascade epic (Phase 2, branch `analysis/h-infinity-downstream-cascade`) applies the Class C → Class E refinement EXTENSION (not replacement) across the 13 corpus files identified in this audit's §9 implication matrix + Phase 2 cascade-grep additions. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (joint-constraint structure defines actual falsifiability surface). The honest framing is "Class E operating-point projection (which includes Class C consistency-check sub-structure)."
+
+**Cross-reference for current corpus-state**: `manuscript/ave-kb/common/closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/predictions.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).
