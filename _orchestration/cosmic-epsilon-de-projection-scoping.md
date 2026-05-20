@@ -1,8 +1,19 @@
 # Cosmic-ε / DE Projection Scoping Epic
 
-**Status**: ACTIVE — Session 1 (scoping research doc only) ready to spawn
+**Status**: ACTIVE — Session 2 (projection-mechanism derivation) ready to spawn; Session 1 CLOSED 2026-05-19 EOD via merge `af8c522` + audit tag `audit/2026-05-19_cosmic-epsilon-de-projection-scoping`
 **Last updated**: 2026-05-19 EOD
 **Originating session**: Orchestration session post-batch (γ A-034 catalog ε/μ extension + E-field-as-overbracing identification + projection-vs-measurement conflation catch)
+
+## Grant adjudications 2026-05-19 EOD (resolves Session 1 plumber-physical questions Q1/Q2/Q3)
+
+**Q1 — DE static vs dynamic? → DYNAMIC** (water-crystallization analogy lands cleanly). The Friedmann static-Λ limit corresponds to "ice in equilibrium" post-crystallization-front; AVE's DE is the crystallization happening NOW at the cosmic horizon — substrate still phase-transitioning, latent heat still being released. Class E framing already encodes this as ongoing operating-point process at $u_0^*$.
+
+**Q2 — Op14 cosmic-horizon profile?** Op14 IS canonical at Vol 1 Ch 6 §1.13: $Z_{\text{eff}} = Z_0/\sqrt{S(A)}$ — substrate impedance modulated by saturation kernel. Three canonical leaves exist. **The cosmic-horizon-scale profile is the missing piece** — analog of `frame-dragging-impedance-convolution.md:20`'s Kerr-interior profile, but for cosmic-horizon saturation rather than BH event horizon. Session 2 derives THIS profile, NOT a new operator. Per `ave-canonical-leaf-pull` v1.2 trigger 16: **(c)-operator-application** at a new scale.
+
+**Q3 — α/β/γ verdict? → γ (composite Class E + ASYM-N(ε))**. Both axes complementary:
+- Class E captures the joint-constraint structure at operating-point $u_0^*$ (DE is one of N joint observables of $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$)
+- ASYM-N(ε) cosmic-row captures the saturation-mechanism class (cosmic-ε saturation companion to Row 14 K4-crystallisation-SYM*; fills the gap-cell in γ catalog extension)
+- Together: complete framing without overcommitment to either single axis. If "thermodynamic latent-heat flow" 4th-category turns out load-bearing later, Session 2 can extend.
 
 ## Why this exists
 
@@ -24,10 +35,118 @@ Until this is settled at a scoping level, ANY downstream classification ("DE is 
 
 | Session | Deliverable | Effort | Status |
 |---|---|---|---|
-| **1 (this epic)** | **Scoping research doc** — DE measurement framing + projection chain inventory + catalog classification options + 3 plumber-physical questions. **NO derivation.** | 1-2 hr | ACTIVE — ready to spawn |
-| 2 | Projection-mechanism derivation: substrate dynamics → DE measurement via Ax 2 + Op14 (or whichever canonical leaves the scoping doc identifies) | TBD (gated on Session 1 prereqs) | QUEUED |
-| 3 | Catalog row classification commit (extend A-034 with DE-row if scoping verdict supports it; OR reaffirm Class E framing if scoping verdict says no new row needed) | 30-45 min | QUEUED |
-| 4 (conditional) | Downstream walk-back if classification changes existing corpus framing | TBD | CONDITIONAL |
+| 1 | Scoping research doc (Q1/Q2/Q3 surfaced + (a)-(e) classification + projection-chain inventory) | 1-2 hr | **CLOSED 2026-05-19 EOD via merge `af8c522` + audit tag `audit/2026-05-19_cosmic-epsilon-de-projection-scoping`** |
+| **2 (this session)** | **Op14 cosmic-horizon profile derivation + projection-chain trace + γ (composite Class E + ASYM-N(ε)) catalog row addition** | 4-8 hr | ACTIVE — ready to spawn |
+| 3 | Downstream walk-back if Session 2 reveals corpus framing inconsistencies (`cosmological-constant-closure.md` framing reconciliation per anomaly A2 from Session 1) | 1-2 hr | QUEUED |
+| 4 (conditional) | 4th-category framing if "thermodynamic latent-heat flow" surfaces as load-bearing during Session 2 | TBD | CONDITIONAL |
+
+## Session 2 (this session) — implementor brief
+
+### Goal
+
+Three concrete deliverables (per Session 1 Q1/Q2/Q3 adjudications):
+
+1. **Op14 cosmic-horizon saturation profile leaf** at `manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md` (or equivalent path). Analog of `frame-dragging-impedance-convolution.md:20`'s Kerr-interior asymmetric saturation profile, but for cosmic-horizon scale. Derives how $Z_{\text{eff}} = Z_0/\sqrt{S(A)}$ behaves as $r \to R_H$ during ongoing K4 crystallisation. Does NOT require new operator — applies canonical Op14 (Vol 1 Ch 6 §1.13) at new scale.
+
+2. **Projection-chain trace** from substrate dynamics (over-bracing $u_0^*$ + ongoing K4 crystallisation at $R_H$ + Cosserat translational-DOF) → cosmic-scale DE measurement ($\rho_\Lambda$ via Friedmann). Per Session 1 scoping doc Phase 2's 6-component inventory. NO magnitude-matching attempts (per v1.2 trigger 16 sub-case (e-i) — projection-trace not energy-equality).
+
+3. **A-034 catalog row addition** at `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` — new cosmic-scale ASYM-N(ε) row companion to Row 14 K4-crystallisation-SYM*. Fills the gap-cell from γ extension at commit `6436d65`. Row content: scale = cosmic horizon; $A$ definition = (substrate ε-sector strain at $R_H$) / (saturation threshold from Ax 4); saturation event = ongoing crystallisation maintaining $\partial_t \rho_n = 0$; empirical anchor = $\rho_\Lambda$ measurement from supernova / CMB / BAO.
+
+### Branch + commit
+
+- Branch: `analysis/cosmic-epsilon-de-projection-session2` from `analysis/integration` HEAD (verify at session start)
+- Multi-commit acceptable (per-deliverable commits OK, OR single batch commit per `ave-walk-back` discipline)
+- Push at end
+- **DO NOT MERGE** — orchestration handles merge
+
+### Phase plan
+
+#### Phase 0 — verification (15-20 min)
+
+- Read Session 1 scoping doc at `research/2026-05-19_cosmic-epsilon-de-projection-scoping.md`
+- Read this brief's Grant adjudications section
+- Verify Op14 canonical references resolve: `frame-dragging-impedance-convolution.md:20` (BH case), Vol 1 Ch 6 §1.13 (definition), `op14-local-clock-modulation.md`, `op14-cross-sector-trading.md`, `lattice-impedance-decomposition.md`
+- Verify `lattice-genesis-hubble-tension.md` + `cosmological-constant-closure.md` framings
+- Create branch
+
+#### Phase 1 — Op14 cosmic-horizon profile derivation (90-120 min)
+
+Apply `ave-canonical-leaf-pull` v1.2 trigger 16 (c)-operator-application classification: this is Op14 at a NEW scale, not a new operator.
+
+Derive (or assemble from canonical pieces):
+- $Z_{\text{eff}}(r)$ profile as $r \to R_H$
+- Saturation behavior $S(A(r)) \to 0$ at horizon
+- Asymmetric ε/μ sub-profile if applicable (per Q3 γ = ASYM-N(ε))
+- Connection to crystallisation rate (dynamic per Q1)
+
+Output: canonical leaf at `manuscript/ave-kb/vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md` (or equivalent path — implementor chooses placement).
+
+Skill discipline:
+- `ave-canonical-leaf-pull` v1.2 — trigger 16 (c)-classification load-bearing
+- `verify-before-cite` v1.3 — every canonical-leaf citation grep-confirmed
+- `consistency-vs-emergence` v1.1 — Class E framing for $Z_{\text{eff}}(R_H)$ as operating-point projection
+- `ave-evidence-framing-discipline` — derivation strength matches actual derivation, not synthesis
+
+#### Phase 2 — Projection-chain trace (60-90 min)
+
+Walk through the 6-component inventory from Session 1 Phase 2 in order:
+1. Substrate over-bracing $u_0^*$ + $\hat{\Omega}_{\text{freeze}}$ direction (set at cosmic genesis)
+2. K4 crystallisation rate at horizon (dynamic per Q1)
+3. Cosserat translational-DOF projection (Ax 1 ε ↔ macroscopic E)
+4. Ax 2 TKI scale invariance (substrate-scale → cosmic-scale)
+5. Op14 long-range coupling (using Phase 1's new cosmic-horizon profile)
+6. Boundary observables $\mathcal{M}/\mathcal{Q}/\mathcal{J}$ at cosmic horizon
+
+For each: how does the projection produce $\rho_\Lambda$ at the macroscopic Friedmann equation? NOT a magnitude-matching exercise. Show the structural chain.
+
+Output: research doc at `research/2026-05-NN_cosmic-epsilon-de-projection-mechanism.md` (or 2026-05-20 if session spans midnight).
+
+#### Phase 3 — A-034 catalog row addition (30-45 min)
+
+Apply `ave-walk-back` discipline (single commit for the catalog edit + closure-roadmap entry).
+
+Add new row to `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` per γ extension's gap-cell:
+
+```
+| Cosmic (DE / ε-sector) | ASYM-N(ε) | substrate ε-strain at R_H / saturation threshold | Ongoing crystallisation maintaining ∂_t ρ_n = 0 | ρ_Λ measurement (supernova + CMB + BAO) |
+```
+
+Update the companion-row links table to show the explicit pairing with Row 14 K4-crystallisation-SYM*.
+
+Update closure-roadmap with the addition + reference to Session 2 derivation + this commit.
+
+#### Phase 4 — Audit + push (15-20 min)
+
+- Self-audit per the (a)-(e) classification check
+- Push branch
+- Do NOT merge
+
+### Skill discipline
+
+- `ave-canonical-leaf-pull` v1.2 — MANDATORY trigger 16 throughout
+- `verify-before-cite` v1.3 — every citation
+- `consistency-vs-emergence` v1.1 — Class E for DE observable
+- `ave-walk-back` — Phase 3 catalog row addition
+- `ave-evidence-framing-discipline` — Op14 cosmic-horizon profile claim strength
+- `pre-test-physics-check` — if Phase 1 derivation surfaces a load-bearing physics question that wasn't in Q1/Q2/Q3, STOP and surface
+
+### CRITICAL FAILURE MODES TO AVOID (carried forward from Session 1 brief)
+
+1. NO magnitude-matching attempts (raw substrate field energy vs DE measurement).
+2. NO RMS→DC averaging as projection mechanism.
+3. NO microscopic/macroscopic conflation.
+4. NO inventing new operator (Op14 already exists).
+
+### Expected return summary
+
+- Branch + tip commit hash
+- Per-phase commit hashes
+- Phase 1 Op14 cosmic-horizon profile leaf path
+- Phase 2 research doc path + projection-chain summary
+- Phase 3 catalog row addition + companion-row link update
+- (a)-(e) classification verdict (should be (c)-operator-application + (a)-missing-row composite)
+- Any anomalies surfaced
+- Confirmation of push + no merge
 
 ## Session 1 (this epic) — implementor brief
 

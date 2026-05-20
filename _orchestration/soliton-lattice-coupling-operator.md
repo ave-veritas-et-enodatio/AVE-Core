@@ -1,8 +1,18 @@
 # Soliton-Lattice Coupling Operator Epic
 
-**Status**: ACTIVE — Session 1 (scoping research doc only) ready to spawn
+**Status**: ACTIVE — Session 2 (operator derivation at planetary scale) ready to spawn; Session 1 CLOSED 2026-05-19 EOD via merge `d413726` + audit tag `audit/2026-05-19_soliton-lattice-coupling-operator-scoping`
 **Last updated**: 2026-05-19 EOD
 **Originating session**: Orchestration session post-SDSS DR17 merge + Grant operator-output reframing 2026-05-19 EOD
+
+## Grant adjudications 2026-05-19 EOD (resolves Session 1 plumber-physical questions Q1'/Q2'/Q3')
+
+**Q1' — precise vs class prediction for mag-spin tilts? → CLASS prediction** (fluid-dynamics Reynolds-number analogy). Operator predicts class structure (rocky / metallic-H / icy-mantle differential coupling regime; aligned / moderate / tilted-vs-spin offset class). Specific values (Earth's exact 11° / Saturn's exact <1° / Uranus's exact 59°) emerge from micro-complexity beyond the operator's predictive granularity. Same pattern as turbulent flow: bulk Reynolds number predicts laminar/turbulent regime; specific velocity field at every microscopic point is chaotic.
+
+**Q2' — single Ω_freeze vs cascaded-per-planet inheritance? → BOTH** (cosmic genesis first, then nested cascade). Cosmic Ω_freeze is the source (frozen at K4 crystallisation seed event). Cascaded propagation through nested rotators per `omega-freeze-cosmic-grain-cascade.md:118-128` §4: cosmic → galactic disk axes → stellar spins → planetary spin axes → Earth inner-core super-rotation. Each formation event is a substrate phase-transition that inherits + modulates by local conditions. The operator's "Ω_freeze direction" for any given soliton is the LOCAL inherited direction, not cosmic-genesis directly.
+
+**Q3' — specific-value vs stable-branch for 3 anomalies? → N-body-scaled predictability** (Reynolds-number analog). Low N (solar system, 8 planets): operator predicts specific values within tolerance. High N (galaxy, 10¹¹ stars): operator predicts class/statistical properties only. Solar system is in the LOW-N regime where specific-value prediction is structurally possible — but the SDSS DR17 galactic-scale work IS the HIGH-N regime where only bulk statistical-direction prediction is meaningful.
+
+Scoring rubric implication: planetary scale targets specific obliquity per body within ±15° tolerance; galactic scale targets coherent-direction mean within σ_LSS of empirical.
 
 ## Why this exists
 
@@ -22,11 +32,115 @@ Empirical data already exists in spades. The solar system gives 8 planetary spin
 
 | Session | Deliverable | Effort | Status |
 |---|---|---|---|
-| **1 (this epic)** | **Scoping research doc** — corpus inventory + operator structure sketch + derivation prereqs + testable predictions list + multi-session arc outline. **NO derivation in this session.** | 1-2 hr | ACTIVE — ready to spawn |
-| 2 | Substrate-physics derivation of $\hat{\mathcal{O}}_{\text{soliton}}$ from Op14 + Cosserat + parametric coupling + frame-dragging interior | 3-5 hr (estimate) | QUEUED — gated on Session 1 prereq inventory |
-| 3 | Application to planetary scale (8 planets × 2 axes = 16 data-points) | 2-3 hr | QUEUED — gated on Session 2 derivation |
-| 4 | Extrapolation to galactic + LSS scale; predict $\hat{n}_{\text{galaxy-class}}$ for SDSS DR17 comparison | 2-3 hr | QUEUED — gated on Session 3 |
-| 5 (conditional) | Refinement based on Sessions 1-4 outcomes | TBD | CONDITIONAL |
+| 1 | Scoping research doc (corpus inventory + operator structure sketch + derivation prereqs + testable predictions + multi-session arc outline) | 1-2 hr | **CLOSED 2026-05-19 EOD via merge `d413726` + audit tag `audit/2026-05-19_soliton-lattice-coupling-operator-scoping`**. Refactored to A-034 catalog-extension framing per `ave-canonical-leaf-pull` v1.1 trigger 16 — 4 of 6 prereqs collapse to existing canonical leaves; total arc 16-25 hr → 5-9 hr |
+| **2 (this session)** | **Catalog row additions + $A_{\text{soliton}}$ definition + planetary-scale scoring against 16 axis-data-points** | 3-5 hr | ACTIVE — ready to spawn |
+| 3 | Galactic-scale extension to SDSS DR17 via the added Row(s) | 1-2 hr | QUEUED |
+| 4 | LSS-scale + cross-catalog (Shamir 2022) extension | 1-2 hr | QUEUED |
+| 5 (conditional) | Refinement based on Sessions 2-4 outcomes | TBD | CONDITIONAL |
+
+## Session 2 (this session) — implementor brief
+
+### Goal
+
+Per the refactored Session 1 scoping doc (`research/2026-05-20_soliton-lattice-coupling-operator-scoping.md`) and Grant Q1'/Q2'/Q3' adjudications above:
+
+1. **Add 1-4 new rows to A-034 catalog** at `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` covering: planetary spin-axis alignment with Ω_freeze, planetary magnetic-vs-spin-axis offset, galactic spin-axis alignment, LSS spin-axis. Per Session 1's (a)-missing-row classification per `ave-canonical-leaf-pull` v1.2 trigger 16.
+
+2. **Define $A_{\text{soliton}}$ concretely** for each new row using compressed prereqs P-1 through P-6 from Session 1 refactor (4 of 6 resolve to "apply existing canonical leaf at file:line" — substrate Larmor freq via parametric-coupling-kernel, Op14 interior strain via frame-dragging-impedance-convolution, Cosserat body-frame via Q-G47, J decomposition via boundary-observables-m-q-j). P-3 (mass-scaling per structural class) and P-4 (multi-resonance landscape) retain empirical-scoring work.
+
+3. **Planetary-scale scoring**: apply $A_{\text{soliton}}$ + kernel $S(A) = \sqrt{1-A^2}$ to 8 planets × 2 axes = 16 data-points. Per Q1' adjudication, target is CLASS prediction (within ±15° tolerance per body), NOT specific-value matching. Per Q3' adjudication, low-N regime makes specific-value prediction structurally possible — but tolerance band is wide.
+
+### Branch + commit
+
+- Branch: `analysis/soliton-lattice-coupling-operator-session2` from `analysis/integration` HEAD (verify at session start)
+- Multi-commit OK
+- Push at end
+- **DO NOT MERGE** — orchestration handles merge
+
+### Phase plan
+
+#### Phase 0 — verification (15 min)
+
+- Read Session 1 refactor at `research/2026-05-20_soliton-lattice-coupling-operator-scoping.md`
+- Read Grant adjudications above
+- Verify the 6 compressed prereq citations resolve at HEAD (per refactor)
+- Verify γ catalog extension at commit `6436d65` provides the row-structure template
+- Create branch
+
+#### Phase 1 — A-definition derivation (90-120 min)
+
+For each new catalog row (1-4 rows depending on Session 2 verdict), define $A_{\text{soliton}}$ structurally:
+
+- Inputs: soliton parameters $(M_s, \omega_s, \mathcal{M}_s, \text{topology class})$
+- Inherited Ω_freeze direction (LOCAL per Q2' cascade, not cosmic directly)
+- Coupling-strength dependence on per-class $g_{\text{class}}$ (rocky / metallic-H / icy-mantle) per P-3
+- Resonance/anti-resonance regions for stable retrograde / 90° / aligned solutions per P-4
+
+Skill discipline:
+- `ave-canonical-leaf-pull` v1.2 — trigger 16 (a)-missing-row for the catalog additions; trigger 1-13 for any derivation pieces
+- `consistency-vs-emergence` v1.1 — Class E for the operator-output observables
+- `verify-before-cite` v1.3 — all citations
+
+#### Phase 2 — A-034 catalog row additions (45-60 min)
+
+Apply `ave-walk-back` discipline (single commit batch).
+
+Add the 1-4 new rows to `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md` per γ extension template. Update ε/μ axis classification, gap-cells (which fill, if any), companion-row links table.
+
+Update closure-roadmap with new entry referencing Session 2.
+
+#### Phase 3 — Planetary-scale scoring (60-90 min)
+
+Apply the derived $A_{\text{soliton}}$ + kernel to 16 planetary axis-data-points:
+
+| Body | Spin obliquity (deg) | Magnetic tilt (deg) | Operator-predicted class | Match? |
+|---|---|---|---|---|
+| Mercury | 0.034 | ~0 weak | ? | ? |
+| Venus | 177.4 | none | ? | ? |
+| Earth | 23.44 | ~11 | ? | ? |
+| Mars | 25.19 | none | ? | ? |
+| Jupiter | 3.13 | ~10 | ? | ? |
+| Saturn | 26.73 | <1 | ? | ? |
+| Uranus | 97.77 | 59 | ? | ? |
+| Neptune | 28.32 | 47 | ? | ? |
+
+Per Q1' (class prediction) + Q3' (low-N specific-value tolerance ±15°):
+- Score "class match" if operator predicts correct broad class (aligned / moderate / retrograde / 90°+)
+- Score "specific match" if operator predicts within ±15° tolerance band
+
+Report:
+- N/16 specific matches
+- N/16 class matches  
+- 3 anomaly resolution (Saturn-aligned-vs-Uranus-tilted; Venus retrograde; Uranus 98°) — does operator predict these as stable equilibria or non-trivial outliers?
+
+Output: research doc at `research/2026-05-NN_soliton-coupling-operator-session2-planetary-scoring.md`.
+
+#### Phase 4 — Audit + push (15 min)
+
+- Self-audit + ave-discrimination-check (the 16-data-point scoring is potentially AVE-distinct — apply SM-counterfactual + interpretive-alternatives if outcome >50% class matches)
+- Push branch
+- Do NOT merge
+
+### Skill discipline
+
+- `ave-canonical-leaf-pull` v1.2 — trigger 16 (a)-missing-row throughout
+- `verify-before-cite` v1.3
+- `consistency-vs-emergence` v1.1 — Class E
+- `ave-walk-back` — Phase 2 catalog row commit
+- `ave-discrimination-check` — Phase 3 scoring outcome interpretation
+- `ave-evidence-framing-discipline` — strength language for "operator predicts X" claims
+- `pre-test-physics-check` — if Phase 1 derivation surfaces new load-bearing physics question, STOP
+
+### Expected return summary
+
+- Branch + tip commit hash
+- Per-phase commit hashes + summaries
+- Phase 1 A-definitions per new row (1-4 definitions)
+- Phase 2 catalog rows added (count + summary of each)
+- Phase 3 planetary-scale scoring: N/16 specific matches + N/16 class matches + 3-anomaly resolution status
+- ave-discrimination-check verdict if Phase 3 outcome >50% match
+- Any anomalies surfaced
+- Confirmation of push + no merge
 
 ## Session 1 (this epic) — implementor brief
 
