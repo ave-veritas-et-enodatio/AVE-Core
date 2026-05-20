@@ -51,10 +51,10 @@ C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stan
 - **Audit tag**: `audit/2026-05-19_c5-cmb-axis-driver`
 - **ave-auditor verdict**: APPROVED-WITH-NOTES (10/10 audit checklist + A+/E execution-refinement note addressed in result-doc §1.5; minor follow-up unit-test queued)
 - **Artifacts**:
-  - Driver: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py)
-  - Result JSON: [`cmb_axis_alignment_executable_observer_results.json`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json)
-  - Execution-session prereg: [`research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md)
-  - Result doc: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)
+  - Driver: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py)
+  - Result JSON: [`cmb_axis_alignment_executable_observer_results.json`](../../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json)
+  - Execution-session prereg: [`research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md)
+  - Result doc: [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)
 
 ### Phase E1b-prime (PENDING — full briefing below, ready for implementor) — Pantheon+ raw-SN bulk-flow re-fit
 
@@ -62,7 +62,7 @@ C3 post-walk-back stands as PASS-conditional with deeper-on-BMW tension; C5 stan
 
 #### Resolved pre-execution plumber question (Grant adjudication 2026-05-19 EOD)
 
-AVE corpus carries TWO physically distinct cosmological direction concepts (canonical leaf: [`cosmic-axes-and-frames-glossary.md`](../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md) — landed on `analysis/cosmic-axis-glossary` branch, pending merge to `analysis/integration`):
+AVE corpus carries TWO physically distinct cosmological direction concepts (canonical leaf: [`cosmic-axes-and-frames-glossary.md`](../../manuscript/ave-kb/common/cosmic-axes-and-frames-glossary.md) — landed on `analysis/cosmic-axis-glossary` branch, pending merge to `analysis/integration`):
 
 1. **K4 lattice rest frame** — where the substrate $\mathcal{M}_A$ sits at rest. Sun's velocity vector through this frame = CMB dipole at $(l \approx 264°, b \approx 48°)$, $\sim 370$ km/s. Local kinematics. **NOT a fundamental cosmological axis.**
 2. **$\hat{\Omega}_{\text{freeze}}$** — parent-BH spin axis preserved through K4 crystallization at lattice genesis. Cosmic chirality direction from $I4_132$ space group lock-in. Empirically pinned at $(l = 60.28°, b = 50.48°)$ via Planck PR3 SMICA axis-of-evil. **Cosmological initial condition.**
@@ -89,9 +89,9 @@ Pantheon+SH0ES dataset is already cached locally at `data/pantheon_plus/Pantheon
 
 A1. **Pantheon+SH0ES data accessible** at `data/pantheon_plus/Pantheon+SH0ES.dat`. Format = whitespace-separated ASCII with header row; ~1700 SNe at z<0.1 expected.
 
-A2. **Existing C5 driver is the template foundation**: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes) — reuse Planck/SMICA-axis ingestion + axis-comparison framework; ADD Pantheon+ bulk-flow estimator + uncertainty propagation.
+A2. **Existing C5 driver is the template foundation**: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes) — reuse Planck/SMICA-axis ingestion + axis-comparison framework; ADD Pantheon+ bulk-flow estimator + uncertainty propagation.
 
-A3. **E1b empirical CMB axis is the reference**: $(l=60.28°, b=50.48°)$, σ ~ 0.9°, sourced from E1b result doc [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The comparison is "Pantheon+ bulk-flow direction vs this CMB axis."
+A3. **E1b empirical CMB axis is the reference**: $(l=60.28°, b=50.48°)$, σ ~ 0.9°, sourced from E1b result doc [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The comparison is "Pantheon+ bulk-flow direction vs this CMB axis."
 
 A4. **Bulk-flow estimator class + velocity convention** (RESOLVED 2026-05-19 EOD): maximum-likelihood fit on peculiar-velocity-corrected distances at z<0.1, using the **standard Pantheon+ pipeline** (heliocentric → CMB-rest-frame transform via conventional CMB dipole $(l \approx 264°, b \approx 48°)$ + 2M++ LSS peculiar-velocity correction). Methodology follows Watkins-Feldman-Hudson 2009 ML approach (or Howlett+Said-style velocity tomography if WFH09 lacks fit-precision).
 
@@ -154,16 +154,16 @@ A8. **Cascade implications**:
 #### Infrastructure / KB references the agent will use
 
 **Canonical leaves (read-only references)**:
-- [`manuscript/ave-kb/common/divergence-test-substrate-map.md:428`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) + `:514` + `:554` (C5 row state)
-- [`manuscript/ave-kb/common/closure-roadmap.md:80`](../manuscript/ave-kb/common/closure-roadmap.md) (C5 entry)
-- [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md):86-92 (cosmic axis cite — preserved as superseded by empirical pin)
-- [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../research/2026-05-19_c5-cmb-axis-executable-observer-result.md) (E1b result — empirical axis source)
-- [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) (frozen methodology — Pantheon+ comparison axis specified)
+- [`manuscript/ave-kb/common/divergence-test-substrate-map.md:428`](../../manuscript/ave-kb/common/divergence-test-substrate-map.md) + `:514` + `:554` (C5 row state)
+- [`manuscript/ave-kb/common/closure-roadmap.md:80`](../../manuscript/ave-kb/common/closure-roadmap.md) (C5 entry)
+- [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md):86-92 (cosmic axis cite — preserved as superseded by empirical pin)
+- [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md) (E1b result — empirical axis source)
+- [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) (frozen methodology — Pantheon+ comparison axis specified)
 
 **Driver + result-doc artifacts**:
-- Existing C5 driver (Phase 1 + Phase 2): [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes)
-- E1b result JSON: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json)
-- Pantheon+ data: [`data/pantheon_plus/Pantheon+SH0ES.dat`](../data/pantheon_plus/Pantheon+SH0ES.dat) (cached)
+- Existing C5 driver (Phase 1 + Phase 2): [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py`](../../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py) (40125 bytes)
+- E1b result JSON: [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json`](../../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer_results.json)
+- Pantheon+ data: [`data/pantheon_plus/Pantheon+SH0ES.dat`](../../data/pantheon_plus/Pantheon+SH0ES.dat) (cached)
 
 **Existing template patterns (study before writing)**:
 - C13a-GAL-ROT SPARC gold-standard public-data-ingest pattern (per closure-roadmap.md)
@@ -267,11 +267,11 @@ Briefing drafted 2026-05-19 EOD by orchestration session immediately after `_orc
 
 | Path | Purpose |
 |---|---|
-| [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) | 33-row matrix at HEAD; C3 row + C5 row + D4-A034 row + C4 three-route |
-| [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) | Running changelog §0.5; E1a + E1b entries dated 2026-05-19 |
+| [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../../manuscript/ave-kb/common/divergence-test-substrate-map.md) | 33-row matrix at HEAD; C3 row + C5 row + D4-A034 row + C4 three-route |
+| [`manuscript/ave-kb/common/closure-roadmap.md`](../../manuscript/ave-kb/common/closure-roadmap.md) | Running changelog §0.5; E1a + E1b entries dated 2026-05-19 |
 | `audit/2026-05-19_c3-muon-delta-driver-rerun` | Immutable audit tag, E1a |
 | `audit/2026-05-19_c5-cmb-axis-driver` | Immutable audit tag, E1b |
-| [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) | E1b's frozen methodology prereg (commits `fb9d9c0` + `1b2ef6d` + `fc05b5c`) |
+| [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) | E1b's frozen methodology prereg (commits `fb9d9c0` + `1b2ef6d` + `fc05b5c`) |
 
 ## Provenance
 

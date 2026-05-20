@@ -2,14 +2,73 @@
 
 This directory carries the **revision-controlled orchestration state** for AVE-Core: per-epic state docs, cross-cutting carry-forward, and the archive of closed epics. Created 2026-05-19 to fix the drift where orchestration briefings were landing at `~/.claude/plans/` (agent-local, mutable, undiscoverable) or `.agents/handoffs/` (in-repo but gitignored).
 
-## What lives here
+## Directory structure (Phase B reorg, 2026-05-20)
 
-| File | Purpose |
-|---|---|
-| `README.md` | This convention doc |
-| `index.md` | Cross-cutting carry-forward — priority ladder + open decisions + active-epic table |
-| `<epic-slug>.md` | Per-epic state, multi-phase, evolves through revisions |
-| `_archive/<epic-slug>.md` | Closed epics (preserved; audit tags reference) |
+Two top-level subdirectories under `_orchestration/`:
+
+```
+_orchestration/
+├── index.md                              # Cross-cutting carry-forward (top-level entry point)
+├── README.md                             # This convention doc
+├── experimental/                         # Experimental-arc epic + sub-epics + supporting docs
+│   ├── experimental-arc.md               # Parent epic (matrix-row hardware/measurement workstream)
+│   ├── promotion-workflow-template.md    # Sibling-repo → AVE-Core promotion checklist
+│   ├── <sub-epic-slug>/                  # Per-sub-epic subdirectory (one per matrix row in flight)
+│   │   ├── exp-<slug>.md                 # Single consolidated sub-epic doc (phase table + per-active-phase detail + audit trail)
+│   │   ├── exp-<slug>-sim-audit.md       # Sim audit / framework-readiness audit (separate; kept distinct)
+│   │   └── _archive/                     # Closed-phase briefs (preserved; ARCHIVED banner header)
+│   │       └── exp-<slug>-<phase>-brief.md
+│   ├── a1-hopf/                          # Concrete sub-epic example
+│   ├── c11-mach-zehnder/                 # Concrete sub-epic example
+│   └── c15-cleave-01/                    # Concrete sub-epic example (6 closed-phase briefs in _archive/)
+├── theoretical/                          # Theoretical multi-session epics (cascade adjudication, axis sweeps, etc.)
+│   ├── section-e-cascade.md
+│   ├── soliton-lattice-coupling-operator.md
+│   └── cosmic-epsilon-de-projection-scoping.md
+└── _archive/                             # Top-level closed-epic archive (pre-Phase-B; preserved)
+    └── <closed-epic-slug>.md             # e.g. cosmic-axis-glossary, h-infinity 3 epics, c5-sdss-dr17, c5-shamir-2022
+```
+
+## Conventions for per-sub-epic subdirectories (new in Phase B)
+
+Each in-flight experimental sub-epic gets a **single consolidated `exp-<slug>.md` doc** as the navigational spine, plus sibling audit docs that stay separate (sim audit / framework-readiness audit), plus a `_archive/` subdirectory for closed-phase briefs:
+
+| Doc class | Location | Notes |
+|---|---|---|
+| **Sub-epic consolidated doc** | `experimental/<slug>/exp-<slug>.md` | Phase table + per-active-phase detail + audit trail. The single navigational spine for the sub-epic. |
+| **Sim / framework-readiness audit** | `experimental/<slug>/exp-<slug>-sim-audit.md` | Kept SEPARATE from the consolidated doc (different audit class; different load-bearing role). |
+| **Closed-phase briefs** | `experimental/<slug>/_archive/<original-brief-name>.md` | Move HERE when the phase closes; insert ARCHIVED banner header at top pointing back to the consolidated doc. |
+
+**Why this structure** (Phase B rationale, external review 2026-05-20):
+- Flat-namespace nesting collapse — pre-reorg pattern `exp-c15-cleave-01-phase-1a-rev1-atopile-walkback-brief.md` (5 levels in one filename) compounded at next sub-decision.
+- Brief proliferation without merges — pre-reorg C15 had 6 separate briefs; discoverability inverted (orchestrator knew everything; new sessions didn't know which file was current).
+- Subdirectory hierarchy + per-sub-epic consolidation addresses both.
+
+## When to archive a brief
+
+When its phase closes — i.e., the phase row in the consolidated doc's phase table shows ✓ COMPLETE or ✓ CLOSED:
+
+1. `git mv experimental/<slug>/exp-<slug>-<phase>-brief.md experimental/<slug>/_archive/`
+2. Insert ARCHIVED banner header at top of the archived brief:
+   ```markdown
+   > **ARCHIVED <date>** — content preserved per ave-walk-back discipline. Canonical reference: [`exp-<slug>.md`](../exp-<slug>.md) consolidated sub-epic. This brief was the active doc during phase execution; phase is now closed/superseded per the consolidated doc's phase table.
+   ```
+3. Walk back any `../` relative paths in the brief: it's now 2 levels deep (was at `experimental/<slug>/`), so manuscript/src refs need an extra `../`. Intra-archive sibling references stay as-is.
+
+## Cross-reference convention (post-Phase-B)
+
+ALL cross-refs from outside `_orchestration/` (KB leaves, manuscript LaTeX, source code, sibling-repo READMEs, research docs, etc.) to per-epic docs MUST use the new paths after Phase B:
+
+- `_orchestration/exp-c15-cleave-01.md` (old) → `_orchestration/experimental/c15-cleave-01/exp-c15-cleave-01.md` (new)
+- `_orchestration/exp-a1-hopf.md` (old) → `_orchestration/experimental/a1-hopf/exp-a1-hopf.md` (new)
+- `_orchestration/exp-c11-mach-zehnder.md` (old) → `_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md` (new)
+- `_orchestration/experimental-arc.md` (old) → `_orchestration/experimental/experimental-arc.md` (new)
+- `_orchestration/promotion-workflow-template.md` (old) → `_orchestration/experimental/promotion-workflow-template.md` (new)
+- `_orchestration/section-e-cascade.md` (old) → `_orchestration/theoretical/section-e-cascade.md` (new)
+- `_orchestration/soliton-lattice-coupling-operator.md` (old) → `_orchestration/theoretical/soliton-lattice-coupling-operator.md` (new)
+- `_orchestration/cosmic-epsilon-de-projection-scoping.md` (old) → `_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md` (new)
+
+Orchestrator propagates cross-ref updates in the same branch as the reorganization commit. Sibling-repo cross-refs land on separate sibling-repo branches (one branch per sibling).
 
 ## What does NOT live here
 
@@ -21,24 +80,27 @@ This directory carries the **revision-controlled orchestration state** for AVE-C
 ## Per-epic doc lifecycle
 
 ```
-[Epic kickoff]    → _orchestration/<epic-slug>.md created with Status: ACTIVE,
-                    Goal, Current state, Phase 1 PENDING
+[Epic kickoff]    → experimental/<slug>/exp-<slug>.md created with Status: ACTIVE,
+                    Goal, Phase table, Phase 1 PENDING
 [Implementor]     → Phase 1 PENDING → CLOSED; merge commit + audit tag referenced;
-                    next phase PENDING appended
+                    next phase PENDING appended; brief moved to _archive/ when phase closes
 [Multi-phase arc] → Phases 2..N follow same pattern
-[Epic closure]    → All phases CLOSED; doc moved to _archive/
-                    (not deleted; audit tags reference it immutably)
+[Epic closure]    → All phases CLOSED; sub-epic dir moved to a top-level `_archive/` or remains in place
+                    (per orchestrator adjudication); audit tags reference immutably
 ```
 
 ## File-naming convention
 
-- **Epic slug**: kebab-case, descriptive, stable
-  - `section-e-cascade.md`
-  - `q-g47-retrofit.md`
-  - `phase-2-mass-spectrum.md`
-  - `dm-meta-closure.md`
-- **Carry-forward**: `index.md` (single file, not dated)
-- **Archive**: `_archive/<epic-slug>.md` when epic closes
+- **Sub-epic slug**: kebab-case matching matrix row + epic name
+  - `a1-hopf`
+  - `c11-mach-zehnder`
+  - `c15-cleave-01`
+- **Sub-epic consolidated doc**: `exp-<slug>.md`
+- **Sim audit / framework-readiness audit**: `exp-<slug>-sim-audit.md`
+- **Closed-phase brief in `_archive/`**: original brief name preserved (e.g. `exp-c15-cleave-01-phase-0-scaffolding.md`)
+- **Theoretical epic**: kebab-case epic name (no `exp-` prefix; lives at `theoretical/`)
+- **Carry-forward**: `index.md` (single file at root; not dated)
+- **Top-level archive**: `_archive/<closed-epic-slug>.md` for pre-Phase-B closed epics
 
 ## Pure-AVE-corpus rule
 

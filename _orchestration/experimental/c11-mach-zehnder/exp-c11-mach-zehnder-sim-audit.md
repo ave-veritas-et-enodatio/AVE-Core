@@ -1,6 +1,6 @@
 # EXP-C11-MACH-ZEHNDER — Sim Audit (ν_vac=2/7 + ε_11 + cascade vs AVE-Core canon)
 
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent epic**: [`experimental-arc.md`](../experimental-arc.md)
 **Sub-epic**: [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md)
 **Audit type**: Read-only sim drift comparison — HOPF driver predictions vs current AVE-Core canon
 **Audit date**: 2026-05-20 EOD++
@@ -13,7 +13,7 @@
 
 ## Premise
 
-Per [Phase 2 cascade-emphasis audit](experimental-arc.md), C11 is the cascade × severity winner (F-severity ν_vac=2/7 triangulation). Driver built + live-fire confirmed (per sub-epic). Before initiating facility outreach (Phase 0), verify the driver predictions hold against current AVE-Core canon — same pattern as A1-HOPF sim audit pre-fab.
+Per [Phase 2 cascade-emphasis audit](../experimental-arc.md), C11 is the cascade × severity winner (F-severity ν_vac=2/7 triangulation). Driver built + live-fire confirmed (per sub-epic). Before initiating facility outreach (Phase 0), verify the driver predictions hold against current AVE-Core canon — same pattern as A1-HOPF sim audit pre-fab.
 
 Grant scope adjudication 2026-05-20: focus on axes likely to affect the ~250-rad numerical prediction; defer non-load-bearing axes.
 
@@ -31,7 +31,7 @@ python3 -c "from ave.core.constants import NU_VAC; print(f'NU_VAC = {NU_VAC}')"
 
 ### Q-G47 Sessions 19 closure (2026-05-18) verification
 
-Per [`q-g47-substrate-scale-cosserat-closure.md`](../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md): Q-G47 Sessions 19 derived individual substrate-scale Cosserat prefactors ξ_K1 = 8/3, ξ_K2 = 32 at K=2G operating point. The ν_vac = 2/7 value is the **algebraic Poisson identity** at K=2G operating point (κ_Cosserat = (4/3)μ), unchanged by the Sessions 19 work.
+Per [`q-g47-substrate-scale-cosserat-closure.md`](../../../manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md): Q-G47 Sessions 19 derived individual substrate-scale Cosserat prefactors ξ_K1 = 8/3, ξ_K2 = 32 at K=2G operating point. The ν_vac = 2/7 value is the **algebraic Poisson identity** at K=2G operating point (κ_Cosserat = (4/3)μ), unchanged by the Sessions 19 work.
 
 ### Drift impact
 **NONE.** ν_vac=2/7 is the canonical Poisson ratio at the K=2G operating point; Sessions 19 derived per-prefactor values but the operating-point relationship is unchanged.
@@ -65,7 +65,7 @@ Per matrix row C11 + sub-epic: "Prior matrix value of 35 rad inherited a factor-
 
 ## Axis 3 — n_s/n_t split (9/7 + 2/7) formula application
 
-### KB-leaf canonical formula (per [`de-broglie-standing-wave.md`](../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) §49-53)
+### KB-leaf canonical formula (per [`de-broglie-standing-wave.md`](../../../manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) §49-53)
 
 $$
 n_s = 1 + (9/7)\varepsilon_{11}, \qquad n_t = 1 + (2/7)\varepsilon_{11}, \qquad \Delta n = n_s - n_t = \varepsilon_{11}

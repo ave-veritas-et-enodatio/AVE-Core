@@ -1,8 +1,8 @@
 # EXP-C15-CLEAVE-01 — Framework Readiness Audit (ξ_topo + Ax2 [Q]≡[L] + cascade dependents)
 
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent epic**: [`../experimental-arc.md`](../experimental-arc.md)
 **Sub-epic**: [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
-**Canonical project KB leaf**: [`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md)
+**Canonical project KB leaf**: [`manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md)
 **Audit type**: **Framework-readiness audit** (substrate readiness R=0 — no driver, no hardware; this audit verifies theoretical foundation is current rather than runtime sim drift)
 **Audit date**: 2026-05-20 EOD+++
 **AVE-Core branch at audit**: `analysis/integration` @ `3f6cf95`
@@ -48,7 +48,7 @@ XI_TOPO: float = e_charge / L_NODE  # ≈ 4.149e-7 C/m
 - V at 10 pF input: Q / C = 4.149e-13 / 10e-12 = **41.490 mV** ≈ KB "41.5 mV" ✓
 
 ### INVARIANT-C2 canonical leaf
-ξ_topo definition lives at [`vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`](../manuscript/ave-kb/vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md) per `ave-kb/CLAUDE.md` INVARIANT-C2: "$\xi_{topo} = e / l_{node}$ (units: C/m). The bridge between AVE lattice parameters and mechanical/biological quantities."
+ξ_topo definition lives at [`vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`](../../../manuscript/ave-kb/vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md) per `ave-kb/CLAUDE.md` INVARIANT-C2: "$\xi_{topo} = e / l_{node}$ (units: C/m). The bridge between AVE lattice parameters and mechanical/biological quantities."
 
 ### Drift impact
 **NONE.** ξ_topo value preserved; arithmetic reproduces KB-leaf prediction exactly.
@@ -103,7 +103,7 @@ This is the **largest single-row cascade in the matrix** (verified empirically �
 
 ## Axis 4 — KB-leaf prediction arithmetic reproduction
 
-### Canonical KB-leaf prediction (per [`project-cleave-01.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) §"The Falsification Metric")
+### Canonical KB-leaf prediction (per [`project-cleave-01.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) §"The Falsification Metric")
 
 > Q = ξ_topo · x = (4.149 × 10⁻⁷ C/m) × 10⁻⁶ m = **0.415 pC**
 >
@@ -140,7 +140,7 @@ Quick verification that recent 2026-05 corpus work doesn't shift C15 framing:
 
 ## Outcome adjudication consistency (already pre-registered in KB leaf)
 
-Per [`project-cleave-01.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) §"Outcome adjudication":
+Per [`project-cleave-01.md`](../../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) §"Outcome adjudication":
 
 | Outcome | Interpretation | Verified against current canon? |
 |---|---|---|

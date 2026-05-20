@@ -62,7 +62,7 @@ ANTENNAS = [
 | `k35_R / k35_L` | (3,5) | Higher-winding test mode (no canonical particle; probe of formula extension) | ✓ (intentional test of formula generality) |
 
 **No stale (2,q) assignments**:
-- HOPF does NOT use the retracted "(2,5)=muon" framing per [FI-13 RESOLVED 2026-05-18](../manuscript/ave-kb/common/closure-roadmap.md)
+- HOPF does NOT use the retracted "(2,5)=muon" framing per [FI-13 RESOLVED 2026-05-18](../../../manuscript/ave-kb/common/closure-roadmap.md)
 - Lepton family stays at (2,3) trefoil; baryon climbs (2,q_odd) — HOPF correctly probes (2,3) electron + (2,5) proton independently
 - (3,5) is intentionally non-particle: probes whether Δf formula generalizes beyond canonical assignments
 
@@ -71,7 +71,7 @@ ANTENNAS = [
 
 ## Axis 3 — C8-BARYON-LADDER FULL PASS implications
 
-### C8 result (per [`baryon_ladder_pdg_2024_anchor.py`](../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py) commit `55b3317`)
+### C8 result (per [`baryon_ladder_pdg_2024_anchor.py`](../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py) commit `55b3317`)
 
 - Proton mass via (2,5) cinquefoil = **938.254 MeV** vs PDG 938.272 → **−0.002%** (200× better than precision-rounding overclaim)
 - 6/6 retrospective J^P-consistent
@@ -143,7 +143,7 @@ Quick verification that the deferred axes don't have hidden drift:
 - ⚠ Phase 2 ave-prereg-format pre-registration for VNA measurement (BLOCKER-3 from Phase A audit; ~1 hr to draft; NOT blocking Phase 0)
 - ⚠ Phase 4 outcome paper-template drafting (IF Outcome A lands; deferred to post-measurement)
 - ⚠ Pointer-opacity migration across AVE-Core (corpus-wide IP-divide concern; separate sub-epic if pursued)
-- ⚠ Promotion-workflow first-fire (NEC2 ALPHA-post-processing extraction to AVE-Core per [`promotion-workflow-template.md`](promotion-workflow-template.md); gated on Outcome A)
+- ⚠ Promotion-workflow first-fire (NEC2 ALPHA-post-processing extraction to AVE-Core per [`promotion-workflow-template.md`](../promotion-workflow-template.md); gated on Outcome A)
 
 ## Phase 0b green-light
 

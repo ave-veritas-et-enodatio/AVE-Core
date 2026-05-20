@@ -1,6 +1,8 @@
+> **ARCHIVED 2026-05-20 EOD+++++++++++++** — content preserved per ave-walk-back discipline. Canonical reference: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md) consolidated sub-epic. This brief was the active doc during phase execution; phase is now closed/superseded per the consolidated doc's phase table (Q-C15-01 ✓ CLOSED — dedicated chamber, Grant adjudicated C1, 2026-05-20 EOD+++++).
+
 # Q-C15-01 — Vacuum Chamber Priority Scoping (C15-CLEAVE-01 Phase 0→1 entry gate)
 
-**Parent sub-epic**: [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
+**Parent sub-epic**: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md)
 **Phase 0 scaffold**: [`exp-c15-cleave-01-phase-0-scaffolding.md`](exp-c15-cleave-01-phase-0-scaffolding.md) — Phase 0 ✓ SCAFFOLD LANDED at commit `0b05bd4` in `AVE-Bench-FemtoElectrometer`
 **Open question source**: `AVE-Bench-FemtoElectrometer/docs/open_questions.md` Q-C15-01 (and brief §"Open questions to surface" Q-C15-01)
 **Decision gate**: Phase 0→1 KiCad design entry (PCBA-mount geometry + cabling-feedthrough constraints depend on chamber decision)

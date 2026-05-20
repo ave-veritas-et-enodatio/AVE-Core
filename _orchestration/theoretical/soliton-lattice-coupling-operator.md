@@ -291,8 +291,8 @@ Lay out what Sessions 2-5 need:
 ## Cross-references
 
 - Originating SDSS DR17 epic: [`c5-sdss-dr17-spin-orientation.md`](c5-sdss-dr17-spin-orientation.md) (CLOSED 2026-05-19 EOD; audit tag `audit/2026-05-19_c5-sdss-dr17-spin-orientation`)
-- Cosmic axis cascade: [`omega-freeze-cosmic-grain-cascade.md`](../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) §3.1 Observable 6 + §4 Nested-cascade conjecture
+- Cosmic axis cascade: [`omega-freeze-cosmic-grain-cascade.md`](../../manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md) §3.1 Observable 6 + §4 Nested-cascade conjecture
 - Class E framework: `~/.claude/skills/consistency-vs-emergence/SKILL.md` v1.1 (operating-point projection)
-- Planetary-magnetosphere prior: [`planetary-magnetospheres.md`](../manuscript/ave-kb/vol3/cosmology/ch06-solar-system/planetary-magnetospheres.md) Uranus anomaly + 5-planet validation table
-- Frame-dragging substrate-physics prior: [`frame-dragging-impedance-convolution.md:20`](../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md) Op14 asymmetric saturation
-- Parametric coupling prior: [`parametric-coupling-kernel.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)
+- Planetary-magnetosphere prior: [`planetary-magnetospheres.md`](../../manuscript/ave-kb/vol3/cosmology/ch06-solar-system/planetary-magnetospheres.md) Uranus anomaly + 5-planet validation table
+- Frame-dragging substrate-physics prior: [`frame-dragging-impedance-convolution.md:20`](../../manuscript/ave-kb/vol3/gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md) Op14 asymmetric saturation
+- Parametric coupling prior: [`parametric-coupling-kernel.md`](../../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md)

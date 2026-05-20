@@ -10,9 +10,9 @@ Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursue
 
 | Sub-epic | Doc | Tier | Phase 0 |
 |---|---|---|---|
-| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](exp-a1-hopf.md) + [Phase A audit](exp-a1-hopf-repo-audit.md) + [Sim audit](exp-a1-hopf-sim-audit.md) | Cascade × **Executability** — **Phase 0a ✓ COMPLETE** (Phase B walk-back 2026-05-20); **Sim audit ✓ NO DRIFT** on α + (p,q) + C8 (2026-05-20 EOD+); **Phase 0b READY for Grant fab submission** | Grant uploads `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB per `hopf_02a_ORDERING.md`; orders 3D-print mandrels per `hopf_02a_BOM.md` |
-| **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) + [Framework-readiness audit](exp-c15-cleave-01-sim-audit.md) + [Phase 0 scaffold brief](exp-c15-cleave-01-phase-0-scaffolding.md) + [Q-C15-01 chamber scoping](exp-c15-cleave-01-q-c15-01-chamber-scoping.md) + [Phase 1 KiCad brief (predecessor)](exp-c15-cleave-01-phase-1-kicad-brief.md) + [Phase 1a-rev1 atopile walk-back brief](exp-c15-cleave-01-phase-1a-rev1-atopile-walkback-brief.md) + **sibling repos: `AVE-Bench-FemtoElectrometer` main @ `331a778` (Phase 1a) + Phase 1a-rev1 branch `analysis/phase-1a-rev1-atopile-walkback` @ `b44b1f7` (Stage B LANDED, NOT merged) + `AVE-Hardware-Modules` main @ `e2171cb` (Stage A COMPLETE)** | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity; **Phase 1a-rev1 Stages A + B BOTH LANDED**: Stage A 8 modules + smoke tests + parts all `ato build` clean; Stage B C15 atopile walk-back at `b44b1f7` with `cleave_01.ato` + ato.yaml + archived KiCad orphans + DESIGN_LOG §7 + BOM cross-ref + Q-C15-10 CLOSED + Q-C15-11 OPEN. **Q-C15-12 NEW OPEN** — Stage B integration discovered 2 Stage A latent bugs (`signal` keyword conflict in mill_max_ptfe_socket; `tp.2` nonexistent pin reference in ptfe_turret_post_standoff) + Stage A ato.yaml lacks `package:` block for ato-install consumability. Stage B uses direct-part-import workaround (semantically equivalent; ato build clean). KB-leaf verbatim preserved; pure-AVE-corpus zero. All prior adjudications honored. | **Grant merge decision pending Q-C15-12 path**: (i) fix Stage A first then revise Stage B for clean module-imports vs (ii) merge Stage B as-is + queue separate Q-HWMOD-04 fix branch in AVE-Hardware-Modules; after merge: audit tag + Phase 1b/1c KiCad GUI from `ato build` outputs → Phase 2 fab + assembly |
-| **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) + [Sim audit](exp-c11-mach-zehnder-sim-audit.md) + [project-c11-mach-zehnder.md canonical KB leaf](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation; **sim audit ✓ NO DRIFT** (ν_vac + ε_11 + n_s/n_t + C1 cascade verified); Pattern B canonical KB leaf landed | Facility partnership search (terrestrial 1-m electron interferometer) |
+| **A1-HOPF** (chiral antenna) | [`exp-a1-hopf.md`](a1-hopf/exp-a1-hopf.md) + [Phase A audit](a1-hopf/exp-a1-hopf-repo-audit.md) + [Sim audit](a1-hopf/exp-a1-hopf-sim-audit.md) | Cascade × **Executability** — **Phase 0a ✓ COMPLETE** (Phase B walk-back 2026-05-20); **Sim audit ✓ NO DRIFT** on α + (p,q) + C8 (2026-05-20 EOD+); **Phase 0b READY for Grant fab submission** | Grant uploads `AVE-HOPF/hardware/Gerbers_hopf_02a/` ZIP to JLCPCB per `hopf_02a_ORDERING.md`; orders 3D-print mandrels per `hopf_02a_BOM.md` |
+| **C15-CLEAVE-01** (femto-Coulomb electrometer) | [`exp-c15-cleave-01.md`](c15-cleave-01/exp-c15-cleave-01.md) + [Framework-readiness audit](c15-cleave-01/exp-c15-cleave-01-sim-audit.md) + [Phase 0 scaffold brief](c15-cleave-01/_archive/exp-c15-cleave-01-phase-0-scaffolding.md) + [Q-C15-01 chamber scoping](c15-cleave-01/_archive/exp-c15-cleave-01-q-c15-01-chamber-scoping.md) + [Phase 1 KiCad brief (predecessor)](c15-cleave-01/_archive/exp-c15-cleave-01-phase-1-kicad-brief.md) + [Phase 1a-rev1 atopile walk-back brief](c15-cleave-01/_archive/exp-c15-cleave-01-phase-1a-rev1-atopile-walkback-brief.md) + **sibling repos: `AVE-Bench-FemtoElectrometer` main @ `331a778` (Phase 1a) + Phase 1a-rev1 branch `analysis/phase-1a-rev1-atopile-walkback` @ `b44b1f7` (Stage B LANDED, NOT merged) + `AVE-Hardware-Modules` main @ `e2171cb` (Stage A COMPLETE)** | Cascade **SIZE** winner (ξ_topo family 6+ rows) — F-severity; **Phase 1a-rev1 Stages A + B BOTH LANDED**: Stage A 8 modules + smoke tests + parts all `ato build` clean; Stage B C15 atopile walk-back at `b44b1f7` with `cleave_01.ato` + ato.yaml + archived KiCad orphans + DESIGN_LOG §7 + BOM cross-ref + Q-C15-10 CLOSED + Q-C15-11 OPEN. **Q-C15-12 NEW OPEN** — Stage B integration discovered 2 Stage A latent bugs (`signal` keyword conflict in mill_max_ptfe_socket; `tp.2` nonexistent pin reference in ptfe_turret_post_standoff) + Stage A ato.yaml lacks `package:` block for ato-install consumability. Stage B uses direct-part-import workaround (semantically equivalent; ato build clean). KB-leaf verbatim preserved; pure-AVE-corpus zero. All prior adjudications honored. | **Grant merge decision pending Q-C15-12 path**: (i) fix Stage A first then revise Stage B for clean module-imports vs (ii) merge Stage B as-is + queue separate Q-HWMOD-04 fix branch in AVE-Hardware-Modules; after merge: audit tag + Phase 1b/1c KiCad GUI from `ato build` outputs → Phase 2 fab + assembly |
+| **C11-MACH-ZEHNDER** (electron interferometry) | [`exp-c11-mach-zehnder.md`](c11-mach-zehnder/exp-c11-mach-zehnder.md) + [Sim audit](c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md) + [project-c11-mach-zehnder.md canonical KB leaf](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md) | Cascade × **Severity** — F-severity ν_vac=2/7 triangulation; **sim audit ✓ NO DRIFT** (ν_vac + ε_11 + n_s/n_t + C1 cascade verified); Pattern B canonical KB leaf landed | Facility partnership search (terrestrial 1-m electron interferometer) |
 
 ## Supporting infrastructure docs
 
@@ -26,7 +26,7 @@ Per Phase 2 audit + cascade-emphasis re-weighting, all 3 top-3 candidates pursue
 
 ## Premise (why this epic exists)
 
-The AVE corpus has 33 tracked experimental predictions across 4 tiers (per [`divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md)), supported by ~36 KB leaves under [`vol4/falsification/ch11-experimental-bench-falsification/`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/) + [`vol4/falsification/ch12-falsifiable-predictions/`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/). Three concurrent problems:
+The AVE corpus has 33 tracked experimental predictions across 4 tiers (per [`divergence-test-substrate-map.md`](../../manuscript/ave-kb/common/divergence-test-substrate-map.md)), supported by ~36 KB leaves under [`vol4/falsification/ch11-experimental-bench-falsification/`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/) + [`vol4/falsification/ch12-falsifiable-predictions/`](../../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/). Three concurrent problems:
 
 1. **Staleness gap**: 26 of 36 experimental KB leaves (72%) were last touched **2026-04-13**, which predates the major corpus consolidation work of 2026-05 (A-034 catalog 21→26 instances, FI-13 (2,5) namespace resolution, C1 Phase 5 closure, C8 PDG 2024 anchor, SPARC 135-galaxy benchmark, Class E projection canonicalization, temporal-saturation-regime-classifier, +others).
 2. **Discoverability gap**: experimental leaves were authored independently of the cross-disciplinary translation infrastructure that now exists (translation-tables/, four-regimes.md domain-catalog, temporal-classifier, chemistry-translation, VCA matrix). Anyone reaching for an experiment reads stale framings that may conflict with current canon.
@@ -57,22 +57,22 @@ This epic provides the canonical coordination home for resolving all three.
 
 | Leaf | Last touch | Severity | Tool / canon missed |
 |---|---|---|---|
-| [`torus-knot-baryon-predictions.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) | 2026-04-13 | **HIGH** | C8 PDG 2024 anchor: proton -0.002% (not 0.00%); J^P 6/6 column; forward c=17/19 confirmations; FI-13 (2,5) cinquefoil canonical. Load-bearing for A1-HOPF matrix-row Δf citations. |
-| [`project-hopf-02.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) | 2026-04-13 | MEDIUM | FI-13 (2,5) namespace resolution; HOPF-02/03 namespace split per AVE-HOPF 2026-05-06 reconciliation; HOPF-02a fab-ready (~$123 BOM) |
-| [`project-cleave-01.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) | 2026-04-13 | MEDIUM | ξ_topo canonical [Q]≡[L]; PONDER ch.5 framework |
-| [`project-roentgen-03.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-roentgen-03.md) | 2026-04-13 | MEDIUM | Q-G47 Sessions 19 closure (ξ_K1=8/3, ξ_K2=32 canonical 2026-05-18); ν_vac=2/7 cascade triangulation (C1+C11+C12); Sagnac-RLVE canonical |
-| [`project-torsion-05.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md) | 2026-04-13 | MEDIUM | V_yield vs V_snap dual-threshold framing per [`regimes-of-operation.md`](../manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md); Engine defaults table |
-| [`project-zener-04.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md) | 2026-04-13 | MEDIUM | A-034 26-instance catalog; macroscopic-Zener canonical via [`solar-flares-led-avalanche.md`](../manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md) |
-| [`sagnac-rlve.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) | 2026-04-13 | MEDIUM | Q-G47 closure; ν_vac=2/7 triangulation; Cosserat micropolar canonical |
-| [`ybco-phased-array.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/ybco-phased-array.md) | 2026-04-13 | LOW | [`superconductor-type-classification.md`](../manuscript/ave-kb/vol3/condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md); BCS at 0.00% via A-034 |
-| [`autoresonant-helicity.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/autoresonant-helicity.md) | 2026-04-13 | LOW | Autoresonant-rupture A-034 row; Ax4 squared-form derivation |
-| [`binary-kill-switches.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md) | 2026-04-13 | LOW | C7-GRB / C6-NU-PARITY null history accumulation since 2026-04 |
-| [`vacuum-birefringence-e4.md`](../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md) | 2026-04-13 | LOW | A-034 row 14b cosmic-DE + Casimir effective-temperature + Kerr-as-Ax4-squared |
-| [`vacuum-impedance-mirror.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md) | 2026-04-13 | LOW | V_yield + ε_eff per regimes-of-operation |
-| [`metric-levitation-limit.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md) | 2026-04-13 | LOW | V_yield/V_snap dual + A-034 row |
-| [`sapphire-phonon-centrifuge.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md) | 2026-04-13 | LOW | Phonon coupling via [`phase-transitions-impedance.md`](../manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md); temporal-regime-classifier phonon §9 |
-| [`achromatic-lens-test.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/achromatic-lens-test.md) | 2026-04-13 | LOW | n_optical vs n_scalar dual refractive indices (per 2026-05-17 Hulse-Taylor work) |
-| [`metric-refraction-capacitor.md`](../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md) | 2026-04-13 | LOW | n_scalar canonical for massive particles |
+| [`torus-knot-baryon-predictions.md`](../../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) | 2026-04-13 | **HIGH** | C8 PDG 2024 anchor: proton -0.002% (not 0.00%); J^P 6/6 column; forward c=17/19 confirmations; FI-13 (2,5) cinquefoil canonical. Load-bearing for A1-HOPF matrix-row Δf citations. |
+| [`project-hopf-02.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md) | 2026-04-13 | MEDIUM | FI-13 (2,5) namespace resolution; HOPF-02/03 namespace split per AVE-HOPF 2026-05-06 reconciliation; HOPF-02a fab-ready (~$123 BOM) |
+| [`project-cleave-01.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md) | 2026-04-13 | MEDIUM | ξ_topo canonical [Q]≡[L]; PONDER ch.5 framework |
+| [`project-roentgen-03.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-roentgen-03.md) | 2026-04-13 | MEDIUM | Q-G47 Sessions 19 closure (ξ_K1=8/3, ξ_K2=32 canonical 2026-05-18); ν_vac=2/7 cascade triangulation (C1+C11+C12); Sagnac-RLVE canonical |
+| [`project-torsion-05.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-torsion-05.md) | 2026-04-13 | MEDIUM | V_yield vs V_snap dual-threshold framing per [`regimes-of-operation.md`](../../manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md); Engine defaults table |
+| [`project-zener-04.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md) | 2026-04-13 | MEDIUM | A-034 26-instance catalog; macroscopic-Zener canonical via [`solar-flares-led-avalanche.md`](../../manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md) |
+| [`sagnac-rlve.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) | 2026-04-13 | MEDIUM | Q-G47 closure; ν_vac=2/7 triangulation; Cosserat micropolar canonical |
+| [`ybco-phased-array.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/ybco-phased-array.md) | 2026-04-13 | LOW | [`superconductor-type-classification.md`](../../manuscript/ave-kb/vol3/condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md); BCS at 0.00% via A-034 |
+| [`autoresonant-helicity.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/autoresonant-helicity.md) | 2026-04-13 | LOW | Autoresonant-rupture A-034 row; Ax4 squared-form derivation |
+| [`binary-kill-switches.md`](../../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md) | 2026-04-13 | LOW | C7-GRB / C6-NU-PARITY null history accumulation since 2026-04 |
+| [`vacuum-birefringence-e4.md`](../../manuscript/ave-kb/vol4/falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md) | 2026-04-13 | LOW | A-034 row 14b cosmic-DE + Casimir effective-temperature + Kerr-as-Ax4-squared |
+| [`vacuum-impedance-mirror.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md) | 2026-04-13 | LOW | V_yield + ε_eff per regimes-of-operation |
+| [`metric-levitation-limit.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md) | 2026-04-13 | LOW | V_yield/V_snap dual + A-034 row |
+| [`sapphire-phonon-centrifuge.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md) | 2026-04-13 | LOW | Phonon coupling via [`phase-transitions-impedance.md`](../../manuscript/ave-kb/vol3/condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md); temporal-regime-classifier phonon §9 |
+| [`achromatic-lens-test.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/achromatic-lens-test.md) | 2026-04-13 | LOW | n_optical vs n_scalar dual refractive indices (per 2026-05-17 Hulse-Taylor work) |
+| [`metric-refraction-capacitor.md`](../../manuscript/ave-kb/vol4/falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md) | 2026-04-13 | LOW | n_scalar canonical for massive particles |
 | 10 other leaves at 2026-04-13 | (see audit) | LOW | mixed |
 
 ### Currently-fresh leaves (no walk-back needed)
@@ -113,7 +113,7 @@ This epic provides the canonical coordination home for resolving all three.
 Target: 2-3 leaves with highest-impact staleness affecting near-term experiment recommendations.
 
 **Specific work**:
-- `torus-knot-baryon-predictions.md`: refresh precision values per C8 PDG 2024 anchor (proton -0.002% not 0.00%; Δ(1600) +0.779%; Δ(1900) +1.876%; N(2190) +4.506%; Δ(2420) +3.249%); add J^P column; add forward c=17 Δ(2750) -0.30% + c=19 Δ(2950) +1.12%; add precision-summary block per Vol 2 anchor pattern; cross-reference to [`torus-knot-ladder-baryons.md`](../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md)
+- `torus-knot-baryon-predictions.md`: refresh precision values per C8 PDG 2024 anchor (proton -0.002% not 0.00%; Δ(1600) +0.779%; Δ(1900) +1.876%; N(2190) +4.506%; Δ(2420) +3.249%); add J^P column; add forward c=17 Δ(2750) -0.30% + c=19 Δ(2950) +1.12%; add precision-summary block per Vol 2 anchor pattern; cross-reference to [`torus-knot-ladder-baryons.md`](../../manuscript/ave-kb/vol2/particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md)
 - `project-hopf-02.md`: cite FI-13 RESOLVED state for (2,q) canonical; cross-reference AVE-HOPF/.agents/HANDOFF.md fab-ready state; reference HOPF-02/03 namespace split
 
 **Skill discipline**: `ave-walk-back` (this is exactly the propagation-checklist class); `ave-canonical-leaf-pull` v1.2 (verify each precision value against C8 PDG 2024 anchor); `verify-before-cite` v1.4 (verify each citation before refresh)
@@ -176,11 +176,11 @@ Sibling-repo experimental owners per [`reference_ave_workspace.md`](file:///User
 ### Phase 5 (CONTINUOUS) — Tie-back to canonical structure
 
 For any experimental KB leaf walk-back, ensure the leaf cites:
-- (a) The relevant A-034 catalog row (per [`universal-saturation-kernel-catalog.md`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md))
-- (b) The relevant four-regimes spatial classification (per [`four-regimes.md`](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md))
-- (c) The relevant temporal-saturation-regime per [`temporal-saturation-regime-classifier.md`](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md)
-- (d) The relevant Power-Domain θ classification per [`orbital-friction-paradox.md`](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)
-- (e) The relevant translation-table per [`translation-tables/`](../manuscript/ave-kb/common/translation-tables/index.md) (Circuit / QM / Particle / Gravity / Cosmology / Condensed Matter / Biology)
+- (a) The relevant A-034 catalog row (per [`universal-saturation-kernel-catalog.md`](../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md))
+- (b) The relevant four-regimes spatial classification (per [`four-regimes.md`](../../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md))
+- (c) The relevant temporal-saturation-regime per [`temporal-saturation-regime-classifier.md`](../../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md)
+- (d) The relevant Power-Domain θ classification per [`orbital-friction-paradox.md`](../../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)
+- (e) The relevant translation-table per [`translation-tables/`](../../manuscript/ave-kb/common/translation-tables/index.md) (Circuit / QM / Particle / Gravity / Cosmology / Condensed Matter / Biology)
 - (f) Where applicable: Class E projection per [`consistency-vs-emergence`](file:///Users/grantlindblom/.claude/skills/consistency-vs-emergence/SKILL.md) v1.1
 
 This is the discoverability backbone — every experimental leaf becomes navigable to its canonical structural home.
@@ -193,10 +193,10 @@ This is the discoverability backbone — every experimental leaf becomes navigab
 
 | # | Item | Origin | Status |
 |---|---|---|---|
-| EXP-1 | **A1-HOPF fab order** — Grant decision to submit HOPF-02a Gerbers to JLCPCB; ~$123 BOM; design package complete | Phase 2 audit | **PROMOTED to sub-epic** [`exp-a1-hopf.md`](exp-a1-hopf.md) Phase 0 (2026-05-20) |
+| EXP-1 | **A1-HOPF fab order** — Grant decision to submit HOPF-02a Gerbers to JLCPCB; ~$123 BOM; design package complete | Phase 2 audit | **PROMOTED to sub-epic** [`exp-a1-hopf.md`](a1-hopf/exp-a1-hopf.md) Phase 0 (2026-05-20) |
 | EXP-2 | **Phase 1 walk-back sequencing** — surgical (A1-HOPF only) vs full sweep (~25 leaves) | This epic | **RESOLVED 2026-05-20**: surgical scope — 4-5 leaves load-bearing for top-3 sub-epics + C13a Matrix 2 row 529 stale-closure fix. Bundled with sub-epic-establishment commit. |
-| EXP-3 | **C15-CLEAVE-01 scoping decision** — Grant decision to pursue KiCad design + ~$1-5k bench (largest cascade in matrix; F-severity) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md) Phase 0 (2026-05-20) |
-| EXP-4 | **C11-MACH-ZEHNDER facility partnership search** — terrestrial 1-m electron interferometer (Hasselbach Tübingen / LENS Italy / NIST / TEM holography centers candidate list) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c11-mach-zehnder.md`](exp-c11-mach-zehnder.md) Phase 0 (2026-05-20) |
+| EXP-3 | **C15-CLEAVE-01 scoping decision** — Grant decision to pursue KiCad design + ~$1-5k bench (largest cascade in matrix; F-severity) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c15-cleave-01.md`](c15-cleave-01/exp-c15-cleave-01.md) Phase 0 (2026-05-20) |
+| EXP-4 | **C11-MACH-ZEHNDER facility partnership search** — terrestrial 1-m electron interferometer (Hasselbach Tübingen / LENS Italy / NIST / TEM holography centers candidate list) | Phase 2 cascade-emphasis audit | **PROMOTED to sub-epic** [`exp-c11-mach-zehnder.md`](c11-mach-zehnder/exp-c11-mach-zehnder.md) Phase 0 (2026-05-20) |
 | EXP-5 | **HOPF-03 Snell-Parallax** vs HOPF-02b cavity-extension — sequencing post HOPF-02a results | AVE-HOPF roadmap | Hold for HOPF-02a measurement (sub-epic A1-HOPF Phase 3 outcome) |
 | EXP-6 | **B4-PROTEIN RMSD benchmark close** — compute-only experiment; engines + PDB ready | Matrix B4 lifecycle | DEFERRED — outside cascade-emphasis top-3; revisit if cost-emphasis re-weighting selected in future Phase 2 re-audit |
 | EXP-7 | **C2-T-PAIR RHIC re-analysis scaffold** — facility-class data public; needs literature pin + QGP driver; U-D F-severity | Matrix C2 lifecycle | DEFERRED — high theoretical leverage but ~1 week scaffolding cost; revisit after top-3 sub-epics land Phase 1+ |
@@ -228,21 +228,21 @@ Per `_orchestration/README.md` orchestration discipline + the relevant skill eco
 ## Cross-references
 
 ### Canonical experimental tracking
-- [Divergence Test Substrate Map (main matrix, 3 sub-matrices, 33 predictions)](../manuscript/ave-kb/common/divergence-test-substrate-map.md)
-- [Unified Experiments Appendix](../manuscript/ave-kb/common/appendix-experiments.md)
-- [Closure Roadmap §0.5 changelog](../manuscript/ave-kb/common/closure-roadmap.md)
+- [Divergence Test Substrate Map (main matrix, 3 sub-matrices, 33 predictions)](../../manuscript/ave-kb/common/divergence-test-substrate-map.md)
+- [Unified Experiments Appendix](../../manuscript/ave-kb/common/appendix-experiments.md)
+- [Closure Roadmap §0.5 changelog](../../manuscript/ave-kb/common/closure-roadmap.md)
 
 ### Canonical framework structure (Phase 5 tie-back targets)
-- [A-034 Universal Saturation-Kernel Catalog (26 instances)](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md)
-- [Four Universal Regimes (Regime I-IV + semiconductor analog)](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md)
-- [Domain Control Parameter Catalog (8 domains)](../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md)
-- [Regimes of Operation (formal table)](../manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md)
-- [Temporal Saturation Regime Classifier](../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md)
-- [Power-Domain Classification (orbital-friction-paradox)](../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)
-- [Translation Tables (7 disciplines)](../manuscript/ave-kb/common/translation-tables/index.md)
-- [Chemistry Translation Guide](../manuscript/ave-kb/vol6/framework/chemistry-translation/index.md)
-- [AVE Analytical Toolkit Index](../manuscript/ave-kb/common/ave-analytical-toolkit-index.md)
-- [Trampoline / Spring Analogy Primer](../manuscript/ave-kb/common/trampoline-analogy-primer.md)
+- [A-034 Universal Saturation-Kernel Catalog (26 instances)](../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md)
+- [Four Universal Regimes (Regime I-IV + semiconductor analog)](../../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/four-regimes.md)
+- [Domain Control Parameter Catalog (8 domains)](../../manuscript/ave-kb/vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md)
+- [Regimes of Operation (formal table)](../../manuscript/ave-kb/vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md)
+- [Temporal Saturation Regime Classifier](../../manuscript/ave-kb/common/temporal-saturation-regime-classifier.md)
+- [Power-Domain Classification (orbital-friction-paradox)](../../manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md)
+- [Translation Tables (7 disciplines)](../../manuscript/ave-kb/common/translation-tables/index.md)
+- [Chemistry Translation Guide](../../manuscript/ave-kb/vol6/framework/chemistry-translation/index.md)
+- [AVE Analytical Toolkit Index](../../manuscript/ave-kb/common/ave-analytical-toolkit-index.md)
+- [Trampoline / Spring Analogy Primer](../../manuscript/ave-kb/common/trampoline-analogy-primer.md)
 
 ### Sibling-repo experimental owners
 - AVE-HOPF: [`AVE-HOPF/.agents/HANDOFF.md`](../../AVE-HOPF/.agents/HANDOFF.md) (A1-HOPF fab-ready state)

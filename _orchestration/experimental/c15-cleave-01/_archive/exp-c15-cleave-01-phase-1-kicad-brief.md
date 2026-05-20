@@ -1,7 +1,9 @@
+> **ARCHIVED 2026-05-20 EOD+++++++++++++** — content preserved per ave-walk-back discipline. Canonical reference: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md) consolidated sub-epic. This brief was the active doc during Phase 1 KiCad execution; predecessor merged at `331a778` then walked back to atopile via Q-C15-10 (2026-05-20 EOD++++++++++).
+
 # EXP-C15-CLEAVE-01 — Phase 1 KiCad Design Brief (Phase 0→1 promotion)
 
-**Parent sub-epic**: [`exp-c15-cleave-01.md`](exp-c15-cleave-01.md)
-**Parent epic**: [`experimental-arc.md`](experimental-arc.md)
+**Parent sub-epic**: [`exp-c15-cleave-01.md`](../exp-c15-cleave-01.md)
+**Parent epic**: [`../../experimental-arc.md`](../../experimental-arc.md)
 **Sibling repo**: [`AVE-Bench-FemtoElectrometer`](https://github.com/ave-veritas-et-enodatio/AVE-Bench-FemtoElectrometer) — local at `/Users/grantlindblom/AVE-staging/AVE-Bench-FemtoElectrometer/`; remote at GitHub (private), tracking `main`
 **Phase**: 1 — KiCad design from KB spec (translate PCBA spec + Q-C15-01 chamber resolution into fab-ready hardware design)
 **Grant promotion adjudication**: 2026-05-20 EOD++++++ — Phase 0→1 PROMOTED (per Q-C15-01 ✓ RESOLVED dedicated chamber path)
