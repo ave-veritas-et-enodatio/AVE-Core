@@ -85,7 +85,7 @@ This is the framework's largest unification to date: **one kernel, 21 scales, ev
 
 The catalog enables testable cross-scale predictions per A-034 §A-034.5:
 
-1. **CMB axis-of-evil** (Planck data, $\approx (l = 174^\circ, b = -5^\circ)$) should align with Hubble flow anisotropy (Pantheon+), large-scale-structure galaxy rotation (SDSS), and matter-asymmetry direction. Standard cosmology has no reason for these axes to align; A-034 predicts they MUST share the parent BH's spin axis.
+1. **CMB axis-of-evil** (Planck data, $\approx (l = 60.28^\circ, b = 50.48^\circ)$ — Planck PR3 SMICA, empirical pin 2026-05-19 per [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)) should align with Hubble flow anisotropy (Pantheon+), large-scale-structure galaxy rotation (SDSS), and matter-asymmetry direction. Standard cosmology has no reason for these axes to align; A-034 predicts they MUST share the parent BH's spin axis.
 2. **Universe age** $R_H / c \approx 14.5$ Gyr (predicted from crystallization-front-at-$c$) matches observed $\sim 13.8$ Gyr within $\sim 5\%$.
 3. **Power-law avalanche statistics** at solar flare scale should be related to ring-down QNM frequency distribution and geomagnetic reversal interval distribution cross-scale via the kernel's universal threshold-snap behavior.
 4. **CMB power-spectrum peaks** should match the parent BH's QNM $\ell$-spectrum (Vol 3 Ch 15 scaled to cosmic scale), testable against Planck data.
