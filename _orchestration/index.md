@@ -1,8 +1,8 @@
 # AVE-Core Orchestration Index
 
-**Last updated**: 2026-05-19 EOD (post 4-merge sequence: cosmic-axis-glossary + h-infinity-derivation-audit + h-infinity-framing-forward + c5-pantheon-tightening; Class E canonized; downstream-cascade + SDSS DR17 epics drafted; Pantheon+ LFS cache landed)
-**Current HEAD on `analysis/integration`**: `9f976e0` (SDSS DR17 merge tip; will advance with this commit)
-**Audit tag count**: 26 (`git tag -l "audit/*" | wc -l`) — 2 added this session (h-infinity-downstream-cascade + c5-sdss-dr17-spin-orientation)
+**Last updated**: 2026-05-19 EOD (post 2nd batch: γ A-034 catalog ε/μ extension + #5 Longo 2011 corpus pin walk-back + soliton-coupling Session 1 scoping refactor to A-034 framing + #6 GZ-DECaLS Outcome-E + α `ave-canonical-leaf-pull` v1.1 trigger 16 + v1.2 projection-vs-measurement sub-case + β cosmic-ε / DE projection scoping spawned + closed-epic archive move)
+**Current HEAD on `analysis/integration`**: post-batch (verify via `git log -1 --oneline`)
+**Audit tag count**: 29 (`git tag -l "audit/*" | wc -l`) — 3 added this 2nd batch (c5-corpus-pin-fix + soliton-lattice-coupling-operator-scoping + c5-gz-decals-spin-orientation)
 **Active branches** (local): 6 — `analysis/integration`, `research/l3-electron-soliton`, `main`, `analysis/c8-baryon-ladder-pdg-anchor`, `benn/long-running`, `golden-torus-update`. All 4 May-19 implementor branches merged + deleted (local + remote).
 
 This is the cross-cutting carry-forward for AVE-Core orchestration. Per-epic state lives in adjacent `<epic-slug>.md` files; this doc carries the priority ladder, open decisions, and active-epic table.
@@ -33,7 +33,6 @@ Per `_orchestration/README.md` convention, these closed-epic docs will move to `
 | DM META closure | (no doc yet) | Grant greenlight | Independent of Section E. Closes C13c META row. ~1-2 sessions. |
 | Phase 2 mass-spectrum activation | (no doc yet) | Grant greenlight | Pre-greenlit 2026-04-30 per [`research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md:5`](../research/_archive/L3_electron_soliton/98_framework_decision_ii_mass_spectrum_activation.md). W/Z/Higgs eigenvalue solver; ~1 week scope. |
 | Hygiene pass | (no doc yet) | Batch convenience | Items 6-9 from "Open decisions" below; ~30 min each. |
-| Closed-epic archive move | (no doc yet) | Batch hygiene | Move 3 closed epic docs to `_archive/` per README convention. ~15 min. |
 
 ## Next-move priority ladder
 
@@ -52,7 +51,6 @@ Per `_orchestration/README.md` convention, these closed-epic docs will move to `
 ### Hygiene tier (any session, batchable)
 
 7. Items 6-9 from "Open decisions" below. Each is small (≤30 min). Can be batched into a single hygiene-pass session.
-8. Closed-epic archive move (3 docs → `_archive/`).
 
 ## Open decisions
 
