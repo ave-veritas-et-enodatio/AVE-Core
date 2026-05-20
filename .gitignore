@@ -51,6 +51,10 @@ data/pantheon_plus/*
 !data/pantheon_plus/README.md
 !data/pantheon_plus/Pantheon+SH0ES.dat
 !data/pantheon_plus/Pantheon+SH0ES_STAT+SYS.cov
+!data/sdss_dr17/
+data/sdss_dr17/*
+!data/sdss_dr17/README.md
+!data/sdss_dr17/GalaxyZoo1_DR_table2.csv.gz
 
 #.claude/memory/
 #.claude/agent-memory/
