@@ -43,6 +43,15 @@ data/*
 simulations/*
 sim_outputs/
 
+# Canonical external research data — explicit allowlist (override of data/* above)
+# External research artifacts (not simulation outputs) tracked for reproducibility.
+# Large covariance files (>5MB) routed through git-LFS per .gitattributes.
+!data/pantheon_plus/
+data/pantheon_plus/*
+!data/pantheon_plus/README.md
+!data/pantheon_plus/Pantheon+SH0ES.dat
+!data/pantheon_plus/Pantheon+SH0ES_STAT+SYS.cov
+
 #.claude/memory/
 #.claude/agent-memory/
 .claude/local-settings.json
