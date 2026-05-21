@@ -63,8 +63,6 @@ Cross-volume dependencies:
 | [Four-Entropy Distinction at BH Horizon](./four-entropy-distinction.md) | AVE has 4 distinct entropy quantities for a BH: geometric $\hat S_{\text{geo}} = A \log 2 / \ell_{\text{node}}^2$ (AVE-native via A-B interface), thermodynamic $S_{BH} = A/(4 \ell_P^2)$ (imported via first law), microstate count $2^{A/\ell_{\text{node}}^2}$, volume-thermalization $S_v$ (Boltzmann); ratio $\hat S_{\text{geo}}/S_{BH} \approx 2.8 \times 10^{-44}$ Machian dilution; first-law $T \cdot dS = dE$ fails axiom-first |
 | [Discrete-Lattice $\hat S_{\text{horizon}} \approx 8.7 \, k_B$ Universal Constant](./discrete-lattice-entropy-constant.md) | Flag 62-G closure: even under corpus symmetric saturation ($\Gamma_{\text{continuum}} = 0$), discrete K4 lattice structure gives finite residual $\|\Gamma\|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$ per cell; summed over $N_{\text{cells}} \sim (r_{\text{sat}}/\ell_{\text{node}})^2$, product is universal $\sim 4\pi \log 2 \cdot k_B \approx 8.7 \, k_B$ independent of BH mass; likely one-time horizon-formation cost (topological invariant) |
 
-> ↗ See also: [Ch.10: Quantum Computing and Topological Immunity](../../../vol4/advanced-applications/ch10-quantum-computing/index.md) — transmon decoherence and Casimir cooling context
->
 > Note (REPO-ARCH-4 2026-05-17): Vol 4 Ch.10 Quantum Computing application leaves migrated to AVE-Metamaterials private repo per `ave-ip-divide-discipline` skill; transmon-decoherence substrate physics in this chapter remains canonical.
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.
