@@ -54,13 +54,32 @@ Not canonical KB leaves; parked verbatim from L3:
 
 **Decision needed**: final disposition — keep parked as session artifacts, promote any to canonical, or discard once their content is otherwise captured.
 
-## 6. Entry-body drift residue
+## 6. Entry-body drift residue — RESOLVED 2026-05-21
 
-Register-entry bodies that lag their (now-correct) leaves. Three were fixed 2026-05-21 (`clm-zfqd9v` c_eff form, `clm-hvvvop` 21→26 + tally, A-034 catalog SYM 20→19). Remaining:
-
-- **`clm-bjceop`** entry caveat still states ξ_K1/ξ_K2 are "still open / multi-week work"; the leaf shows them closed 2026-05-18 (ξ_K1 = 8/3, ξ_K2 = 32 with full derivation chain). The Quality rescore (0.70) already reflects the closure; the entry *body* caveat text is stale.
+All known entry-body drift fixed: `clm-zfqd9v` (c_eff form), `clm-hvvvop` (21→26 + tally), A-034 catalog leaf (SYM 20→19), and `clm-bjceop` (ξ_K1/ξ_K2 closure: added the Sessions-19 closure claim, replaced the stale "STILL OPEN" caveat with the residual k_a/k_s upstream gap, and de-staled the rationale). No remaining known register-entry/leaf drift in `common`+`vol1`.
 
 ## 7. Primary-but-deferred pointers (NOT post-migration-misc — listed so they aren't lost)
 
 - **`vol2-6` KB sweep**: 152 pending claims + leaf ports. Held until the `common`+`vol1` sub-0.65 claims are reworked solid (standing hold). Part of the primary KB effort.
 - **`src/` migration**: engine + driver corrections that round-2 KB leaves now reference must land — e.g. `ave.gravity.principal_radial_strain` (ε₁₁ = 7GM/c²r), `sparc_catalog_ingest.py`, `gaia_substrate_equilibrium_test.py` + directional, `electron_interferometry_parallax.py` (factor-7 fix), `lbm_3d.py` (viscosity docstring), `q_g47_sessions_19_xi_K_derivation.py`. Part of the primary Python-source effort.
+
+## 8. Experiment DAG-id category (`exp-NNNNNN`) — forthcoming metadata-model extension
+
+Add a new category of DAG id for **physical experiments** to the KB metadata, parallel to the `clm-` claim ids.
+
+- **Id scheme**: experiment ids are generated as `exp-` + 6 digits (`exp-[0-9]{6}`). (Note: digits, distinct from the `clm-[a-z0-9]{6}` claim-id alphabet.)
+- **Attachment**: `exp-` ids attach to all *physical experiments* described in the KB.
+  - Like unevaluated claims, an **unrun experiment has a solidity contribution of *pending***.
+- **Simulations are NOT experiments** — a simulation is part of the existing derivation + claim process (it feeds confidence / derivation-solidity, not experimental-solidity). Only *physical* experiments get `exp-` ids.
+- **Physical experiments that validate a claim are inputs to that claim** (a new edge type into the claim node, alongside the existing derivation `depends-on` edges):
+  - A physical validation goes **straight to solidity** and **can supersede** the quality/solidity obtained via derivation + simulation.
+  - The **experimental solidity** is derived from the strength of the interpretation of the result as applying to / validating the claim:
+    - if the experiment produces a result **exactly on-point** for the prediction/claim → experimental-solidity = **1.0** (it worked; it was true).
+    - if the result is merely **indicative** of the claim being true → a **subjective call** is required on how strongly the result aligns with the claim.
+  - **Combination rule**: $\text{claim solidity} = \max(s_{\text{experimental}}, s_{\text{derivation}})$, where a *pending* solidity maps to **0.0 for the max comparison** (so *pending* does not poison the operation — it simply does not contribute).
+
+**Implementation surface** (derived implications, for scoping — not additional decisions):
+- New node type + id scheme in `.index/` JSONL (experiment nodes) and a new edge type (experiment → claim validation input).
+- Solidity computation in `kb_index_lib` extended to `max(derivation-solidity, experimental-solidity)` with `*pending* → 0.0`.
+- `refresh-kb-metadata` + `verify-kb-metadata` updates; a frontmatter/marker convention for attaching `exp-` ids to physical-experiment leaves (parallel to the `clm-` Tier-1/Tier-2 propagation); and a new `CLAUDE.md` invariant documenting the `exp-` category (parallel to INVARIANT-S8).
+- Natural anchor points already in the KB: `appendix-experiments.md` (narrative falsification catalog) and `divergence-test-substrate-map.md` (operational falsification-test index) — the physical experiments enumerated there are the initial `exp-` id population.

@@ -103,9 +103,8 @@
 {"claim_id": "clm-b9eura", "item_idx": 2, "text": "Provide an axiom-grounded derivation that Pauli exclusion's NO-OVERLAP constraint follows from the impedance mismatch (currently a structural identification, not a derivation that produces fermion statistics)", "mentioned_ids": []}
 {"claim_id": "clm-baoa36", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-bh9p6s", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-bjceop", "item_idx": 0, "text": "Update the entry's Non-Claim: the individual prefactors are no longer open (leaf §\"Substrate-scale Cosserat prefactors\" closed 2026-05-18)", "mentioned_ids": []}
-{"claim_id": "clm-bjceop", "item_idx": 1, "text": "Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs", "mentioned_ids": []}
-{"claim_id": "clm-bjceop", "item_idx": 2, "text": "Show the self-consistency that \"forces\" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)", "mentioned_ids": []}
+{"claim_id": "clm-bjceop", "item_idx": 0, "text": "Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs", "mentioned_ids": []}
+{"claim_id": "clm-bjceop", "item_idx": 1, "text": "Show the self-consistency that \"forces\" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)", "mentioned_ids": []}
 {"claim_id": "clm-br3bcv", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c54kdd", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}

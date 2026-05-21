@@ -1006,8 +1006,9 @@ The substrate's continuous Cosserat micropolar constitutive constants satisfy $\
   - The substrate's continuous Cosserat micropolar field has constitutive constants $(\mu, \kappa, \beta, \gamma)$ at the axiom level.
   - Q-G47 Sessions 16–17 closed the dimensional framework: $\mu + \kappa = \xi_{K1}\cdot T_{EM}$ and $\beta + \gamma = \xi_{K2}\cdot T_{EM}\cdot\ell_{\text{node}}^2$, with $T_{EM}$ the lattice's electromagnetic string tension and $\ell_{\text{node}}$ the lattice pitch.
   - Self-consistency forces $\xi_{K2}/\xi_{K1} = 12$; the ratio is independent of $T_{EM}$ and is purely K4-symmetry-forced (the same route 4 of the $|T|=12$ universality).
+  - Q-G47 Sessions 19 (2026-05-18) closed the individual prefactors: $\xi_{K1} = 8/3$ and $\xi_{K2} = 32$ (clean rationals), derived from the Session 13 discrete moduli $K_0 = 16/7$, $G_0 = 8/7$ via the Lamé identity $\kappa = K - \tfrac{2}{3}\mu$, consistent with the forced ratio $\xi_{K2}/\xi_{K1} = 12$ and cross-checked by recovering the canonical $\ell_c/\ell_{\text{node}} = \sqrt{6}$.
 - _Specific Non-Claims and Caveats_
-  - Only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed; the individual prefactors $\xi_{K1}, \xi_{K2}$ are explicitly STILL OPEN — their first-principles computation from K4 unit-cell Cosserat-Lagrangian integration is flagged as multi-week analytical work not yet done.
+  - The individual prefactors $\xi_{K1} = 8/3$, $\xi_{K2} = 32$ are closed (Sessions 19, 2026-05-18); the residual gap is upstream — the closure chain takes the $K = 2G$ operating-point spring constants $k_a = 2/7$, $k_s = 1/7$ as given rather than deriving them from the K4 unit-cell Cosserat Lagrangian.
   - The substrate-scale prefactors $\xi_{K1}, \xi_{K2}$ are a distinct namespace from the Machian $\xi \sim 10^{38}$ (cosmic-scale impedance integral) and from $\xi_{\text{topo}} = e/\ell_{\text{node}}$ (charge-displacement conversion); the three-way de-collision is owned by `xi-topo-traceability.md` and cross-referenced, not re-derived here.
   - The dimensional framework is "closed" in the sense of being dimensionally consistent and fixing the ratio; it is not a complete derivation of the constitutive tensor.
 
@@ -1018,9 +1019,8 @@ The substrate's continuous Cosserat micropolar constitutive constants satisfy $\
 - depends-on:
   - clm-qwmnhn — |T|=12 Universality [supplies the K4-symmetry orbit factor that forces the ratio]
 - solidity: 0.39 (do not build on, rework needed) [= 0.70 × 0.55]
-- rationale: The dimensional closure μ+κ=ξ_K1·T_EM and β+γ=ξ_K2·T_EM·ℓ_node² is dimensionally consistent and the T_EM-independent ratio ξ_K2/ξ_K1=12 is a clean self-consistency result; notably the entry's central caveat ("individual prefactors STILL OPEN, multi-week work not yet done") is STALE — the leaf shows the individual values were closed 2026-05-18 (ξ_K1=8/3, ξ_K2=32) via a full chain (discrete K_0=16/7, G_0=8/7; Lamé κ=K-(2/3)μ; cross-check recovering ℓ_c/ℓ_node=√6), so the leaf supports more than the entry claims, though that downstream chain rests on the K=2G operating-point spring constants k_a=2/7, k_s=1/7 taken as given.
+- rationale: The dimensional closure μ+κ=ξ_K1·T_EM and β+γ=ξ_K2·T_EM·ℓ_node² is dimensionally consistent and the T_EM-independent ratio ξ_K2/ξ_K1=12 is a clean self-consistency result; the individual prefactors are closed (ξ_K1=8/3, ξ_K2=32, Sessions 19 2026-05-18) via a full chain (discrete K_0=16/7, G_0=8/7; Lamé κ=K-(2/3)μ; cross-check recovering ℓ_c/ℓ_node=√6). Confidence held at 0.70 because that closure chain rests on the K=2G operating-point spring constants k_a=2/7, k_s=1/7 taken as given rather than derived.
 - strengthen-by:
-  - Update the entry's Non-Claim: the individual prefactors are no longer open (leaf §"Substrate-scale Cosserat prefactors" closed 2026-05-18)
   - Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs
   - Show the self-consistency that "forces" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)
 ---
