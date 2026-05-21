@@ -991,3 +991,320 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 - rationale: *pending*
 - strengthen-by:
   - *pending*
+## Electron — Canonical Identification + First-Principles Axiom Audit
+<!-- id: clm-uatcql -->
+
+AVE-native canonical identification of the electron as a self-trapped photon — the same K4 transverse-Cosserat-microrotation wave above the dielectric yield amplitude ($V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$ kV) where Axiom 4 saturation engages and self-creates a $\Gamma = -1$ TIR cavity. Provides a 4-property definition ($0_1$ unknot real-space + $(2,3)$ phase-space Clifford-torus + $\Gamma=-1$ TIR cavity + T₂-microrotation core), a first-principles axiom audit per property, and an 8-framing cross-corpus translation guide with reconciliation matrix.
+
+- _Specific Claims_
+  - The electron is the same K4-substrate wave as the photon, above the saturation threshold (not an ontologically distinct particle).
+  - Electron real-space topology is the $0_1$ unknot; the $(2,3)$ "trefoil" is the phase-space Clifford-torus winding, not a real-space knot.
+  - 8/8 topological-dynamical properties are axiom-derived; 6/8 observables are axiom-derived.
+- _Specific Non-Claims and Caveats_
+  - $m_e$ is honestly scoped as a calibration anchor, not an axiom-derived value.
+  - g-2 closure is partial, pending K4-Cosserat numerical confirmation.
+  - Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-identification.md` §1–§3
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Bracket-Golden-Torus Electron-Unknot Cosserat Seeder
+<!-- id: clm-gfdplp -->
+
+A-024 operationalization: the canonical AVE electron-soliton seeder injects a Cosserat $\omega$-field hedgehog on a horn-torus unknot at $R = r = \ell_{\text{node}}/(2\pi)$. Validated by 9 unit tests covering topological preservation, three-layer canonical structure (real-space curve + SU(2) bundle + phase-space $(2,3)$ winding), and Bounding Limit 1 saturation. Establishes the canonical injection protocol for electron-soliton initialization in any engine.
+
+- _Specific Claims_
+  - The seeder preserves the $0_1$ unknot topology under finite-time evolution (9/9 unit tests pass).
+  - Canonical injection protocol is engine-agnostic (K4-TLM or Master Equation FDTD).
+- _Specific Non-Claims and Caveats_
+  - Mode III on K4-TLM; Mode I PASS only on Master Equation FDTD, per the two-engine architecture.
+  - Operationalizes a seeding/initialization protocol — not an independent empirical confirmation of the electron model.
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## L3 Electron-Soliton Closure Synthesis: $(2,q)$ Particle Family
+<!-- id: clm-8zpicx -->
+
+Canonical AVE-native description of the $(2,q)$ stable-particle family ($q$ odd: electron $q=3$, proton $q=5$, $\Delta$ baryon $q=7$) as lemniscate-with-$q$-half-twists threaded through saturated K4 node-pairs. Integrates rest-energy structural derivation, the $m_{\text{Cosserat}} = 2 m_e$ factor from bipartite K4, three-layer chirality structure with $\chi_{(2,3)} = 1.2\alpha$ (AVE-HOPF birefringence prediction), substrate-native Pauli, and a Meissner-asymmetric magnetic-moment generator.
+
+- _Specific Claims_
+  - $(2,q)$ family realized as lemniscate-with-$q$-half-twists; $m_{\text{Cosserat}} = 2 m_e$ from bipartite K4.
+  - $\chi_{(2,3)} = 1.2\alpha$ three-layer chirality (AVE-HOPF birefringence forward prediction).
+  - Empirical state: Mode III canonical across 10 pre-registered tests + structural partial-positive at 100% CCW chirality (Meissner mechanism anchored).
+- _Specific Non-Claims and Caveats_
+  - Substrate-native Pauli is provisional.
+  - $R/r$ ladder remains open across three surviving structural reasons.
+  - Corpus electron substrate is elsewhere (sub-$\ell_{\text{node}}$ FDTD or different scale).
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Mass-Closure Theorem: $mc^2 = E_{\text{reactive}}$
+<!-- id: clm-ka5zdx -->
+
+Derived theorem (NOT a new axiom) from Axioms 1+2+4 acting together: mass is the reactive energy of a saturation-locked closed-tube standing wave, and vacuum is the absence of closed tubes. Complementary to the Vol 2 Ch 6 Higgs mechanism — closure creates the standing-wave LC tank; $Z_0$ drag is what that closure feels when accelerated.
+
+- _Specific Claims_
+  - $mc^2 = E_{\text{reactive}}$: rest mass equals the reactive energy of a saturation-locked closed-tube standing wave.
+  - The result is a theorem derivable from Axioms 1, 2, and 4 — no fifth axiom required.
+- _Specific Non-Claims and Caveats_
+  - Status explicitly: derived theorem, not a fundamental constant or new axiom.
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/mass-closure-theorem.md` §Statement
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Pair Production as Saturated Flux-Tube Rupture at an A-B Node Pair
+<!-- id: clm-ezai5b -->
+
+AVE-native canonical derivation of pair production as rupture of a saturated flux tube around an A-B K4 node pair (NOT Breit–Wheeler), gated by the node's rotational-mode resonance tracking the driving frequency (Duffing-like) until autoresonant lock fires. Fuses four AVE-derived pieces: electron = 2 adjacent saturated K4 nodes carrying $(2,3)$ winding; saturated flux tube = TIR impedance cable; $c_{\text{local}} \to 0$ shatter of linear KE into transverse curl producing two contra-rotating Beltrami vortices; Duffing-softened autoresonant rupture timing.
+
+- _Specific Claims_
+  - Pair production is saturated-flux-tube rupture at an A-B node pair, not a Breit–Wheeler virtual-photon process.
+  - Three nucleation conditions C1+C2+C3 hold at the node pair; $V_{\text{yield}}$ and $V_{\text{SNAP}}$ are different stages of the same process.
+  - No new Lagrangian term, no minimal-coupling leak, no Breit–Wheeler postulate.
+- _Specific Non-Claims and Caveats_
+  - Mechanism-level derivation; quantitative rate not the subject of this leaf.
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G18 Schwinger Pair Production: Saturation-Kernel WKB Structural Closure
+<!-- id: clm-lj4ok5 -->
+
+The QED Schwinger formula for strong-field vacuum pair production emerges from substrate dynamics via the saturation kernel's WKB action integral $\int_0^1\sqrt{1-A^2}\,dA = \pi/4$, generating QED's $\exp(-\pi E_S/E)$ exponent identically (the same integral with different physical labels), with no fit parameters.
+
+- _Specific Claims_
+  - The saturation-kernel WKB action integral reproduces QED's Schwinger exponential suppression structurally and identically.
+  - No fit parameters are used.
+- _Specific Non-Claims and Caveats_
+  - AVE-distinct predictions appear only at the sharp $E = E_S$ lattice cutoff and in autoresonant sub-Schwinger production (PLL frequency tracking).
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## What the Substrate "Sees" of the Canonical Electron
+<!-- id: clm-jupq56 -->
+
+The substrate-perspective operational view of the canonical electron: what each lattice node locally experiences (rather than the field-theorist's view). The lattice sees a localized region of high $A^2$ saturation, a self-formed TIR wall at the loop boundary, a topologically conserved circulation pattern, a B-flux-generating circulating current, a long-range refractive-index tail (gravitational mass), and a coupled K4-Cosserat field structure.
+
+- _Specific Claims_
+  - Charge, mass, spin, magnetic moment, gravitational coupling, and Compton wavelength are emergent readings of the substrate's joint state at the canonical electron configuration — not properties added on top.
+  - Six substrate-level observables compose into the macroscopic electron observables.
+- _Specific Non-Claims and Caveats_
+  - Operational/interpretive framing of the canonical electron model; introduces no new derivation beyond it.
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## $(2,3)$ Torus-Knot Uniqueness: Why the Electron Is the Trefoil
+<!-- id: clm-8c3yhs -->
+
+Derivation of why the electron's phase-space topology is specifically $(2,3)$. $(2,3)$ is uniquely the smallest non-trivial coprime torus knot, with the lowest crossing number ($c = 3$) of any non-trivial knot; coprimality is required for a connected single-component knot, and both windings $\geq 2$ for non-trivial winding in both directions. As the lightest stable lepton with non-trivial topology, the electron must be $(2,3)$.
+
+- _Specific Claims_
+  - $(2,3)$ is the unique smallest non-trivial coprime torus knot (gcd=1, both windings $\geq 2$, lowest crossing $c=3$).
+  - The electron is forced to $(2,3)$ as the lightest stable non-trivial lepton.
+- _Specific Non-Claims and Caveats_
+  - $(2,3)$ is the phase-space Clifford-torus winding; the electron's real-space topology is the $0_1$ unknot (per Vol 1 Ch 8).
+
+> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Neutron — Canonical Identification + First-Principles Axiom Audit
+<!-- id: clm-6kwzot -->
+
+AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the proton Borromean linkage plus a threaded electron unknot), structured to parallel the proton and electron identification leaves. Provides a 4-property definition, a first-principles axiom audit per property, and an 8-framing cross-corpus translation guide.
+
+- _Specific Claims_
+  - Canonical AVE neutron topology is $6_2^3 \cup 0_1$ (proton Borromean + threaded electron unknot).
+  - 4-property definition with first-principles axiom audit per property.
+- _Specific Non-Claims and Caveats_
+  - Honest scoping of 2 derivation gaps: mass split (1.293 MeV) mechanism is canonical but the FS energy is not derived; mean lifetime (880 s) mechanism is canonical but the WKB tunneling rate is not derived.
+  - 3 stale corpus framings flagged for revision (Vol 4 trefoil-threading, Vol 6 axial-twist, SM udd-quark translation).
+
+> **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/neutron-identification.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Proton — Canonical Identification + First-Principles Axiom Audit
+<!-- id: clm-cmic3e -->
+
+AVE-native canonical identification of the proton, structured to parallel the electron and photon identification leaves. Provides a 4-property definition ($(2,5)$ cinquefoil topology + $6_2^3$ Borromean linkage + $r_{opt} = \kappa_{FS}/5 \approx 4.97\,\ell_{node}$ + Axiom-4-saturated core), a first-principles axiom audit per property, and a per-input audit of the mass eigenvalue across 6 inputs (all first-principles, no fit parameters), plus a 6-framing cross-corpus translation guide.
+
+- _Specific Claims_
+  - Unlike $m_e$ (a calibration anchor), $m_p/m_e = 1836.12$ is genuinely zero-parameter, 0.002% from CODATA — AVE's flagship axiom-derived mass prediction.
+  - All 6 mass-eigenvalue inputs ($\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{I}_{scalar}\approx 1162$, $\mathcal{V}_{total}=2.0$ FEM-verified, $p_c=8\pi\alpha$, +1.0 charge twist) are first-principles.
+- _Specific Non-Claims and Caveats_
+  - 2 open audit items flagged: $\mathcal{I}_{scalar}$ solver documentation, and corpus hygiene on duplicate subsection titles.
+
+> **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/proton-identification.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## AVE-Native Petermann Coefficient via Route B
+<!-- id: clm-v2sg8z -->
+
+Two-loop Petermann coefficient $C_2$ derived from substrate dynamics in two stages with explicit honesty about derived-vs-postulated content. Stage 1 (symmetric Route B forward) gives $C_2 = -0.3416$ → 4% off PDG with no postulate and no fit. Stage 2 (saliency closure with the n_q-additivity postulate $\delta = -3\alpha/2$) gives $C_2 = -0.32846$ → 50 ppm at $C_2$ / ≈10 ppm at $a_e$ total.
+
+- _Specific Claims_
+  - Stage 1 symmetric Route B forward: $C_2 = -0.3416$, 4% off PDG, no postulate, no fit.
+  - Stage 2 with n_q-additivity postulate: $C_2 = -0.32846$, ≈10 ppm at $a_e$ total.
+- _Specific Non-Claims and Caveats_
+  - The ppm-level headline is postulate-conditional (n_q-additivity), made explicit per Action 2 of the 2026-05-18 walk-back; the corpus admits n_q-additivity is the "single remaining intuitive step."
+
+> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G20f Vacuum Polarization: Matches QED via RT-Equivalence
+<!-- id: clm-bqtasn -->
+
+The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all observable scales via a Renormalization-Theorem equivalence: AVE's saturation kernel + lattice cutoff and QED's UV-renormalized polynomial expansion produce structurally identical results at $q \ll 1/\ell_{node}$. The lattice geometric cutoff at $\pi/\ell_{node}$ removes QED's Landau pole structurally.
+
+- _Specific Claims_
+  - $\Pi(q^2)$ matches QED at all observable scales via RT-equivalence.
+  - The lattice cutoff at $\pi/\ell_{node}$ removes the QED Landau pole structurally.
+- _Specific Non-Claims and Caveats_
+  - Differences appear only at sub-Compton scales (pair-production physics) and ultra-high energies.
+  - The AVE-distinct chiral piece is $\alpha$-suppressed (relevant only for precision polarimetry).
+
+> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G27 Muon Cosserat Torsion Saliency
+<!-- id: clm-8niffj -->
+
+AVE forward-predicts a topological/Cosserat second-order effect contributing to the muon g−2 anomaly that the Standard Model does not capture, with zero fit parameters. The muon Cosserat torsion-quantum saliency $\delta_{\text{Cosserat}}^\mu = -\alpha\sqrt{3/7}/(2\pi)$; textbook QED conversion gives a forward $\Delta a_\mu^{(2)} = +502 \times 10^{-11}$.
+
+- _Specific Claims_
+  - Forward prediction $\Delta a_\mu^{(2)} = +502 \times 10^{-11}$ from $\delta_{\text{Cosserat}}^\mu = -\alpha\sqrt{3/7}/(2\pi)$, zero fit parameters.
+  - The same $\sqrt{3/7}$ mechanism that gives $m_\mu$ at 1.24% drives the saliency.
+- _Specific Non-Claims and Caveats_
+  - 4.6σ tension above Fermilab Run-3 ($+245(56)\times 10^{-11}$) on the e+e- baseline; BMW-baseline-conditional.
+  - Prior corpus $+247$ value was a factor-2 conversion error walked back 2026-05-18.
+
+> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G20a Lamb Shift: Structural Closure via Today's Inputs
+<!-- id: clm-3i66gp -->
+
+The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65% structural precision at leading order by composing three substrate-native inputs, each with a separately-closed AVE derivation: finite-size self-energy ($+1010$ MHz) + Q-G20f vacuum polarization ($-27$ MHz) + Q-G19α anomalous moment ($+68$ MHz), totaling $\approx +1051$ MHz.
+
+- _Specific Claims_
+  - Lamb shift $\approx +1051$ MHz vs measured $+1057.85$ MHz (0.65%), composed from three separately-closed AVE derivations.
+- _Specific Non-Claims and Caveats_
+  - Structural-precision match at leading order only.
+
+> **Leaf references:** `vol2/quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---

@@ -9,6 +9,8 @@ claims: [clm-ome498]
 
 ## $g_* = 7^3/4 = 85.75$: Lattice Mode Count
 
+> **Independence-of-derivation note (2026-05-17 Foundation Item 7 per `ave-independence-check` trigger 2 broadened).** The divisor $N_{K4} = 4$ in $g_* = 7^3/4$ is the SAME axiomatic constant (K4 unit-cell vertices, Axiom 1) that appears in $\lambda_H = 1/(2 N_{K4}) = 1/8$. The $g_*$ and $\lambda_H$ derivations are therefore NOT two independent confirmations of $N_{K4} = 4$ — they are ONE axiom manifesting in two places via derived identities. This is the Foundation Item 4 gravitational-redshift pattern (one underlying constant appearing as if it were two independent confirmations). When citing $g_*$ + $\lambda_H$ jointly in evidence lists, count them as ONE evidence line (manifestations of K4 axiom), not two. The $d_p$ factor of 4 IS independent (different geometric origin: cavity-RMS amplitude). See closure-roadmap §0.5 Foundation Item 7 entry. *Body below preserved per Rule 12.*
+
 The effective number of relativistic degrees of freedom $g_*$ appears in the baryon asymmetry formula. The Standard Model counts $g_{*,SM} = 106.75$ by enumerating all known particles. AVE derives this constant from lattice geometry.
 
 ### Derivation

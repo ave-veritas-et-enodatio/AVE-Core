@@ -1,6 +1,4 @@
 {"claim_id": "clm-07kd5v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-07wvul", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-0hwopi", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 0, "text": "Close the sum-decomposition rule: establish functional orthogonality of the self-impedance kernel (e.g. SU(2)×SU(2) irrep separation by Schur), since the nested supports (1-cycle ⊂ Clifford torus ⊂ 3-volume) defeat domain-disjointness arguments.", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 1, "text": "Alternatively reframe the leaf prose honestly: drop the \"graded-orthogonal, no cross-terms\" theorem language for \"a dimensionally-compatible Clifford-embedded combination hitting CODATA to 10⁻⁶.\"", "mentioned_ids": []}
 {"claim_id": "clm-0ktpcn", "item_idx": 2, "text": "Derive the (2,3) winding from a uniqueness argument rather than asserting it as the simplest stable winding.", "mentioned_ids": []}
@@ -9,6 +7,7 @@
 {"claim_id": "clm-15nwqy", "item_idx": 0, "text": "Close route 4 by deriving ξ_K1, ξ_K2 individually from K4 unit-cell Cosserat integration and showing the ratio is 12 (the leaf's own stated bar for theorem status)", "mentioned_ids": []}
 {"claim_id": "clm-15nwqy", "item_idx": 1, "text": "Justify route 2's factor structure — why ℓ_c≈√6 ℓ_node and why ×2 — rather than presenting it as a matched product", "mentioned_ids": []}
 {"claim_id": "clm-15nwqy", "item_idx": 2, "text": "Address that routes 1/3/4 are admittedly windows into the same Axiom-1 symmetry, so quantify how independent the cross-check truly is", "mentioned_ids": []}
+{"claim_id": "clm-1eg13f", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-1klgo2", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-219e8j", "item_idx": 0, "text": "none — algebraic identity within the framework's existing definitions; the entry is correctly self-bounded as interpretive", "mentioned_ids": []}
 {"claim_id": "clm-239tr4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -20,6 +19,7 @@
 {"claim_id": "clm-3bwhad", "item_idx": 1, "text": "Show ε_eff, μ_eff modulation reproduces n(r)=1+2GM/(rc²) quantitatively to confirm the impedance-gradient reading", "mentioned_ids": []}
 {"claim_id": "clm-3bwhad", "item_idx": 2, "text": "State the regime where fixed-dx Eulerian small-strain is \"correct for observability\" vs where it would fail, to bound the engine-correctness claim", "mentioned_ids": []}
 {"claim_id": "clm-3dc9qt", "item_idx": 0, "text": "none entry-local — entry is correctly bounded as axiom manifestation, not a derived prediction; $B_{c,0}$ honestly disclosed as material-specific input", "mentioned_ids": []}
+{"claim_id": "clm-3i66gp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-3ii690", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-3kmt3p", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-3kzmt9", "item_idx": 0, "text": "Strengthen Golden Torus α Derivation (dominant solidity bottleneck for $\\xi$)", "mentioned_ids": []}
@@ -30,9 +30,12 @@
 {"claim_id": "clm-3npynp", "item_idx": 3, "text": "Confirm the steady state is the photon specifically (vs any T2-content soliton) by an independent observable", "mentioned_ids": []}
 {"claim_id": "clm-3zz0f6", "item_idx": 0, "text": "Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)", "mentioned_ids": []}
 {"claim_id": "clm-3zz0f6", "item_idx": 1, "text": "Strengthen Symmetric vs Asymmetric Saturation (`clm-8nkvwy`); the symmetric-case identification is the dependency", "mentioned_ids": ["clm-8nkvwy"]}
+{"claim_id": "clm-48g5qf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-4jy0t8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-4mmwb6", "item_idx": 0, "text": "State the long-wavelength expansion explicitly (the k→0 limit of the lattice dispersion) so the c²k²+m² form is shown as leading order with a bounded next-order correction.", "mentioned_ids": []}
 {"claim_id": "clm-4mmwb6", "item_idx": 1, "text": "Separate the Axiom-3 validation remark from the dispersion derivation, since Hamiltonian conservation tests the integrator, not the gapped form.", "mentioned_ids": []}
+{"claim_id": "clm-4o0f0h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-4r4jiy", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-4vwsjc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-527k22", "item_idx": 0, "text": "Derive the universal halo-to-baryon ratio as an explicit function of baryonic content + geometry (currently asserted), so the discrimination claim becomes a numerical prediction rather than a correlation expectation", "mentioned_ids": []}
 {"claim_id": "clm-527k22", "item_idx": 1, "text": "Justify the ~10^20 mass/length scale-up from AVE-PONDER lab physics to cluster scale — show the Axiom 2 + Axiom 4 mechanism survives the regime change rather than asserting \"same physics, different scale\"", "mentioned_ids": []}
@@ -43,20 +46,22 @@
 {"claim_id": "clm-533gvm", "item_idx": 2, "text": "Pin the BH-QNM identification to the cited Backmatter Ch.5 derivation so it is not read as a free-standing analogy", "mentioned_ids": []}
 {"claim_id": "clm-533gvm", "item_idx": 3, "text": "Confirm in the cited corpus locations that the spatial-90° framing is stated there (the retraction hinges on temporal-90° being absent from the same locations)", "mentioned_ids": []}
 {"claim_id": "clm-5965y1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-5em8fx", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5fu303", "item_idx": 0, "text": "Derive (or give a substrate-physics argument for) why a given instance saturates in ε vs μ, for at least the two anchored cases (plasma ε, BCS μ)", "mentioned_ids": []}
 {"claim_id": "clm-5fu303", "item_idx": 1, "text": "Resolve the sector-undetermined Row 9-b and the pending Row 11-a / 14-a classifications before counting them on the axis", "mentioned_ids": []}
 {"claim_id": "clm-5fu303", "item_idx": 2, "text": "Decide each gap-cell between \"corpus has it, unenumerated\" vs \"framework forbids the companion,\" since the symmetry-completeness argument hinges on which", "mentioned_ids": []}
-{"claim_id": "clm-5rigtn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5s5b0d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 0, "text": "Derive $\\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA)", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 1, "text": "Demonstrate Nyquist-resolution-of-smallest-stable-soliton without circular reference to $m_e$ (closes the $\\{m_e, \\ell_{node}\\}$ input scale)", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 2, "text": "Derive $G$ from local thermodynamic balance (lattice tension, equipartition, generation rate per node) independent of $R_H$ (closes the $H_\\infty$ identity into a true downstream prediction)", "mentioned_ids": []}
 {"claim_id": "clm-5zuo7g", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-67jn9o", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-6btlq3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-6kqvyp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-6kwzot", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-6mvtsf", "item_idx": 0, "text": "Exhibit the explicit dimensionless-coefficient composition for at least the dimensionful-looking operators (Op4 U(r), Op8 R_g_target, Op19 n(r)) to show invariance survives, rather than asserting it", "mentioned_ids": []}
 {"claim_id": "clm-6mvtsf", "item_idx": 1, "text": "Identify any operator (e.g. Op22 avalanche M=1/S², Op16 c_shear) whose form carries a dimensional scale and confirm it reduces to boundary conditions on Z", "mentioned_ids": []}
 {"claim_id": "clm-6mvtsf", "item_idx": 2, "text": "Cite a worked cross-scale instance where the identical operator code path is verified at two of the named scales (10⁻¹³ m vs 10²⁶ m)", "mentioned_ids": []}
+{"claim_id": "clm-6t3p6x", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-6tuqjh", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-7o8clt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-7pvh9i", "item_idx": 0, "text": "Enumerate the 4 mirror planes explicitly (as reflection matrices) and show each swaps A↔B, paralleling §3's rotation verification", "mentioned_ids": []}
@@ -71,12 +76,15 @@
 {"claim_id": "clm-82dxbj", "item_idx": 2, "text": "Strengthen Four-Regime Map (`clm-b2anl4`); regime-boundary numerical solidity propagates here", "mentioned_ids": ["clm-b2anl4"]}
 {"claim_id": "clm-82dxbj", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`) transitively", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-86gq2d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-8c3yhs", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 0, "text": "Justify (or replace) the use of proton-specific 6-crossing Borromean topology ($\\mathcal{V}_{total} = 2.0$) in a formula governing macroscopic / cosmological lattice mechanics; either derive why proton topology is universally embedded in the macroscopic vacuum, or replace with a generic topological factor derived from lattice properties alone", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 1, "text": "Quantify the predicted Sagnac-RLVE phase shift (currently \"asserted in principle, not characterized in detail\")", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 2, "text": "Quantitatively match \"asteroid belt / Oort cloud\" formation positions to $\\tau_{yield}$ isoclines (currently interpretive, not numerical)", "mentioned_ids": []}
 {"claim_id": "clm-8ep2b4", "item_idx": 3, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $p_c = 8\\pi\\alpha$ enters the formula", "mentioned_ids": ["clm-0ktpcn"]}
+{"claim_id": "clm-8niffj", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-8nkvwy", "item_idx": 0, "text": "none entry-local — Axiom 4 is framework input; the symmetric/asymmetric case identification is structural and the disambiguation is correctly bounded", "mentioned_ids": []}
 {"claim_id": "clm-8psuqe", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-8zpicx", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-8zwyl3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-91adfe", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-9fnieq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -88,6 +96,7 @@
 {"claim_id": "clm-9s9apq", "item_idx": 1, "text": "State that p_c=8πα is an identity (zero predictive content) wherever it is cited, to prevent the \"α from EMT\" misreading", "mentioned_ids": []}
 {"claim_id": "clm-9s9apq", "item_idx": 2, "text": "Cross-check the z₀≈51.25 / p_G≈0.117 chain against an independent EMT coordination estimate", "mentioned_ids": []}
 {"claim_id": "clm-9sujp8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-a034pf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-a3rby3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-a71inj", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-a7cbqq", "item_idx": 0, "text": "Execute the Ω_freeze-driven Landau minimization of U_chiral^add to derive u₀* rather than assert the rotating-frame lock", "mentioned_ids": []}
@@ -96,6 +105,7 @@
 {"claim_id": "clm-a95yx1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ak97cb", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-av2o4v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-b27pnp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-b2anl4", "item_idx": 0, "text": "Derive the sector-specific $\\ell_{\\min}$ values (scalar 0, vector 1, spin-2 2, ...) from axiom-grounded multipole decomposition rather than pattern-matching to \"minimum non-trivial multipole\"", "mentioned_ids": []}
 {"claim_id": "clm-b2anl4", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $r_1 = \\sqrt{2\\alpha}$ inherits α's solidity for numerical evaluation", "mentioned_ids": ["clm-0ktpcn"]}
 {"claim_id": "clm-b9eura", "item_idx": 0, "text": "Strengthen Master Equation EFT Validity (`clm-efo113`); $\\Gamma \\to -1$ at saturation depends on master-equation dynamics correctly describing $\\mu_{eff} \\to 0$", "mentioned_ids": ["clm-efo113"]}
@@ -105,6 +115,7 @@
 {"claim_id": "clm-bh9p6s", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-bjceop", "item_idx": 0, "text": "Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs", "mentioned_ids": []}
 {"claim_id": "clm-bjceop", "item_idx": 1, "text": "Show the self-consistency that \"forces\" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)", "mentioned_ids": []}
+{"claim_id": "clm-bqtasn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-br3bcv", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c54kdd", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -114,7 +125,9 @@
 {"claim_id": "clm-ce8dg1", "item_idx": 1, "text": "Derive the Hoop-Stress T = F_r/(2π) projection onto the electron unknot from AVE micropolar dynamics rather than importing classical continuum mechanics + invoking Ropelength as the loop circumference", "mentioned_ids": []}
 {"claim_id": "clm-ce8dg1", "item_idx": 2, "text": "Close the 9% magnitude gap from first principles (cosmic-flow contribution is currently a qualitative attribution) or state the predicted LSR bulk velocity with an error budget", "mentioned_ids": []}
 {"claim_id": "clm-ce8dg1", "item_idx": 3, "text": "Establish a genuinely AVE-distinct directional or magnitude signature not shared by SM-with-CMB-rest-baseline (current alignment is a consistency check by the leaf's own audit)", "mentioned_ids": []}
+{"claim_id": "clm-cfd5yf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cltls0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-cmic3e", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 0, "text": "Derive the κ≡α identification (geometric scattering threshold = packing-fraction self-coupling) from first principles rather than asserting it from the porosity argument", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 1, "text": "Justify the Cauchy relation K_vac = 2G_vac for the chiral micropolar lattice (it is stated as the isotropic-lattice Cauchy relation but the substrate is explicitly non-Cauchy/micropolar per the implosion-paradox argument)", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 2, "text": "Strengthen the Golden Torus α derivation (clm-0ktpcn); ρ_bulk, G_vac, and ν_kin all inherit α through p_c and the ν_kin prefactor", "mentioned_ids": ["clm-0ktpcn"]}
@@ -146,6 +159,7 @@
 {"claim_id": "clm-exjfai", "item_idx": 1, "text": "Derive or cite a closed form for τ_relax and the crossing-rate criterion (≥τ_relax) that defines the slow regime", "mentioned_ids": []}
 {"claim_id": "clm-exjfai", "item_idx": 2, "text": "Characterize the fast-crossing regime so the slow/fast boundary is a stated threshold rather than an unbounded caveat", "mentioned_ids": []}
 {"claim_id": "clm-exjfai", "item_idx": 3, "text": "Support the ≥100-Compton-period residue persistence with a simulation or decay-rate estimate", "mentioned_ids": []}
+{"claim_id": "clm-ezai5b", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-f0jwtk", "item_idx": 0, "text": "Forward-predict one classical value (e.g. tan δ of water at 1 GHz) from S(A)+t_sat/t_period to lift it past taxonomy", "mentioned_ids": []}
 {"claim_id": "clm-f0jwtk", "item_idx": 1, "text": "Prove (not assert) orthogonality of the temporal axis to the spatial Regime I-IV and power-domain θ axes", "mentioned_ids": []}
 {"claim_id": "clm-f0jwtk", "item_idx": 2, "text": "Operationally define t_sat for a system whose A(t) only grazes A_yield (boundary-touching trajectories)", "mentioned_ids": []}
@@ -156,7 +170,7 @@
 {"claim_id": "clm-f4urxy", "item_idx": 2, "text": "State explicitly how the vacuum substrate would be heated (the matter-radiation-coupling mechanism) so the falsification protocol \"heat the vacuum itself\" is operational.", "mentioned_ids": []}
 {"claim_id": "clm-f5ucdo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-f8k2um", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-ffa5sq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-fgo20a", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-fh6w3y", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-fndptx", "item_idx": 0, "text": "Derive δ_χ from the χ₁/K₀ ratio at substrate scale to fix N rather than bracket it", "mentioned_ids": []}
 {"claim_id": "clm-fndptx", "item_idx": 1, "text": "Show the tensor extension of the scalar G derivation explicitly yields the −(4π/15)·P₂ form", "mentioned_ids": []}
@@ -172,11 +186,13 @@
 {"claim_id": "clm-g0mkne", "item_idx": 2, "text": "Produce the Phase-II/III coupled calculation that converts the generic gap m²=4G_c/I_ω into the electron-specific m_e, closing the inheritance step.", "mentioned_ids": []}
 {"claim_id": "clm-g6e3zw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gdd70j", "item_idx": 0, "text": "none entry-local — per-domain numerical validations live in their own claim-quality entries; this entry's claim is just the operator-reuse structural identity, which is correctly bounded", "mentioned_ids": []}
+{"claim_id": "clm-gfdplp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gfs4j8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ghs75o", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 0, "text": "Derive z₀≈51.25 from first-principles K4 amorphous-network geometry (flagged still-open) so the K4-TLM route stops depending on inverting the EMT quadratic given α", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 1, "text": "State the numerical agreement tolerance between the two routes' p* values rather than asserting \"identical\"", "mentioned_ids": []}
 {"claim_id": "clm-gr8d63", "item_idx": 2, "text": "Make explicit that the FDTD route's α=1/(4π³+π²+π) is the actual derived input and p*=8πα is downstream definitional", "mentioned_ids": []}
+{"claim_id": "clm-gv1wu4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gw2wgc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gx1mpl", "item_idx": 0, "text": "Derive the cube-root relation (volume packing-fraction → linear-distance ratio scales as the 1/3 power) explicitly rather than stating it", "mentioned_ids": []}
 {"claim_id": "clm-gx1mpl", "item_idx": 1, "text": "Separate the geometric NNN-distance claim from the magic-angle u_0*≈0.187 placement, which the leaf conflates with the 1.187 distance", "mentioned_ids": []}
@@ -221,8 +237,9 @@
 {"claim_id": "clm-j550uh", "item_idx": 2, "text": "State the eigenvector basis of the T_2 triplet explicitly to confirm the traceless-subspace identification", "mentioned_ids": []}
 {"claim_id": "clm-j9l3ww", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-jkpfd4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-jpfbm6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-jpfbm6", "item_idx": 0, "text": "*pending* # vol3 L3-migration register entries (NEW-IN-L3 minted claims) — confidence pending (deferred rescore)", "mentioned_ids": []}
 {"claim_id": "clm-jqnzz7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-jupq56", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-jwyy6l", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-jy8h1x", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-jz0xaw", "item_idx": 0, "text": "Show the prefactor 4 survives (or how it changes) for non-uniform ω configurations, not just uniform ω_z.", "mentioned_ids": []}
@@ -231,6 +248,7 @@
 {"claim_id": "clm-k6quve", "item_idx": 0, "text": "Pin the L_cell/C_cell lattice-native values by stating the μ₀/ε₀ convention used, removing the two \"depends on choice\" rows.", "mentioned_ids": []}
 {"claim_id": "clm-k6quve", "item_idx": 1, "text": "Cross-check the √(2α) Regime I/II boundary (A=0.121 in V_SNAP units, 1.42 in V_YIELD units) against the Axiom-4 saturation kernel definition to confirm the boundary placement.", "mentioned_ids": []}
 {"claim_id": "clm-k9up5c", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ka5zdx", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-kezk9z", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-kl1ern", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-knveh6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -238,9 +256,11 @@
 {"claim_id": "clm-l4o7hv", "item_idx": 0, "text": "Derive the strain-concentration locus (replace the \"probably along spin axis\" hedge with a Kerr-interior frame-drag argument)", "mentioned_ids": []}
 {"claim_id": "clm-l4o7hv", "item_idx": 1, "text": "Supply a quantitative bridge from parent-BH frame-drag strain to the A=1 saturation crossing", "mentioned_ids": []}
 {"claim_id": "clm-l4o7hv", "item_idx": 2, "text": "Sharpen the R_H/c ≈ 14.5 Gyr vs 13.8 Gyr (~5%) comparison into a stated prediction band with error sources", "mentioned_ids": []}
+{"claim_id": "clm-law1ho", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ldmvwi", "item_idx": 0, "text": "Derive the \"click probability $\\propto$ extracted work\" identification from an explicit stochastic-threshold model of thermal detectors (Poisson shot-noise statistics with detector dead-time corrections), not as an asserted thermal-substrate property", "mentioned_ids": []}
 {"claim_id": "clm-ldmvwi", "item_idx": 1, "text": "Derive uniqueness of the $|\\Psi|^2$ form vs. alternative powers $|\\Psi|^p$ for $p \\neq 2$ given the stochastic-threshold detector framework (currently presumes $p = 2$ from the Joule-heating $V^2$ structure but does not establish uniqueness)", "mentioned_ids": []}
 {"claim_id": "clm-ldmvwi", "item_idx": 2, "text": "Validate quantitatively against single-photon detector statistics (detector dead time, non-Poissonian regimes) to bound the regime of applicability", "mentioned_ids": []}
+{"claim_id": "clm-lj4ok5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-llqd1n", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-lm9b3j", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-lqanmt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -256,6 +276,7 @@
 {"claim_id": "clm-mlwm3h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-mnb3lt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-mroghg", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-n3un96", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-nhlo1e", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-nk6c43", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-nq2kcc", "item_idx": 0, "text": "Derive statistical independence of SM continuous-momentum uncertainty and lattice node-spacing uncertainty from the underlying Bloch-state theory of the discrete-graph wavefunction, OR derive the corrected combination rule (covariance-aware) if the variances are not independent", "mentioned_ids": []}
@@ -282,10 +303,10 @@
 {"claim_id": "clm-ou2jym", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-oygz1i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-p12mem", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-p2tp9i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-p5cf3t", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-p7rfkb", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-pav5m3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-pcute0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 0, "text": "Derive, for at least one channel, the quantitative coupling from Ω_freeze to the observable (not just axis identity)", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 1, "text": "Pre-register the joint multi-channel alignment statistic and its isotropic-null distribution", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 2, "text": "Reconcile the (l≈174°,b≈−5°) literature-placeholder axis with the 2026-05-19 Planck pin at (l=60.28°,b=50.48°)", "mentioned_ids": []}
@@ -325,20 +346,24 @@
 {"claim_id": "clm-rebdw1", "item_idx": 1, "text": "State whether the cutoff is a hard sphere |k|<π/ℓ_node or the first Brillouin zone of the K4 lattice (the geometry changes the numerical prefactor).", "mentioned_ids": []}
 {"claim_id": "clm-rebdw1", "item_idx": 2, "text": "Confirm the equipartition assignment of equal k_B T/2 to field and velocity DOFs is consistent with the lattice dispersion at the cutoff scale.", "mentioned_ids": []}
 {"claim_id": "clm-refjr6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-rg7cls", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-rji99i", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-rkisb8", "item_idx": 0, "text": "Pull the minimal Finkelstein–Misner argument into this leaf, or downscope the title to \"double-cover structure\" with spin-½ as a forward pointer", "mentioned_ids": []}
 {"claim_id": "clm-rkisb8", "item_idx": 1, "text": "Justify why physical K4 fields must lift to 2T rather than represent A_4 directly (the crux of \"native, not imported\")", "mentioned_ids": []}
 {"claim_id": "clm-rkisb8", "item_idx": 2, "text": "Give the two 2T preimages of at least one A_4 element explicitly to ground the Z_2 central extension", "mentioned_ids": []}
 {"claim_id": "clm-rppigm", "item_idx": 0, "text": "none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded", "mentioned_ids": []}
+{"claim_id": "clm-rtdmsn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 0, "text": "Show explicitly, for at least two distinct domains, the nondimensionalization that maps their EOM onto the master form (currently asserted)", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 1, "text": "State precisely the symmetric-sector assumption and where the asymmetric Z=Z₀/(1-r²)^{1/4} sector breaks the claimed universality", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 2, "text": "Distinguish what is Axiom-4-restatement from what is genuinely cross-domain content, to avoid overstating \"single equation governing all of physics\"", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 3, "text": "Bound the dropped field-gradient/regime corrections (Tier-1 EFT validity) as r→1", "mentioned_ids": []}
 {"claim_id": "clm-rw7jqo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-s11nf0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-s3i0lw", "item_idx": 0, "text": "Add a verifier that every row's KB-anchor link resolves and every cited sibling-repo path exists", "mentioned_ids": []}
 {"claim_id": "clm-s3i0lw", "item_idx": 1, "text": "Make the cascade arrows' \"which-rows-propagate\" semantics machine-checkable against the dependency index", "mentioned_ids": []}
 {"claim_id": "clm-s3i0lw", "item_idx": 2, "text": "Flag rows whose lifecycle-status or substrate-availability is stale relative to the per-project leaves", "mentioned_ids": []}
 {"claim_id": "clm-s3i0lw", "item_idx": 3, "text": "State a coverage check that every AVE-distinct prediction in appendix-experiments.md appears as a row here", "mentioned_ids": []}
+{"claim_id": "clm-s4n33u", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-salw2h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-sd04x4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-sjixaw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -359,18 +384,19 @@
 {"claim_id": "clm-t5ybqw", "item_idx": 1, "text": "Add explicit status flags (designed / in-progress / completed / inconclusive) per entry to distinguish \"catalog target\" from \"test pending\" from \"test completed\"", "mentioned_ids": []}
 {"claim_id": "clm-to41c7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-trgqtf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-tt8j0v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-u1o2lo", "item_idx": 0, "text": "Derive the predicted cubic harmonic content (e.g. which cubic-symmetric multipoles dominate) so the signature becomes quantitative, not just \"not spherical\"", "mentioned_ids": []}
 {"claim_id": "clm-u1o2lo", "item_idx": 1, "text": "Quantify the +x/−x bipolar split against a predicted ratio rather than reporting medians", "mentioned_ids": []}
 {"claim_id": "clm-u1o2lo", "item_idx": 2, "text": "Clarify why T_d (tetrahedral) projects to a cubic 6/8/12 envelope rather than a tetrahedral one in the lattice frame", "mentioned_ids": []}
 {"claim_id": "clm-u462e4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-u4vmgk", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-u86caq", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-uatcql", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ui3m8a", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 0, "text": "Derive the (2,3) phase-space winding from a uniqueness argument (why not (4,3), (5,2), etc.).", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 1, "text": "Spell out the Finkelstein–Misner spin-1/2 derivation from the K4 → A4 → 2T ⊂ SU(2) chain explicitly in the leaves.", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 2, "text": "Settle the photon-720° compatibility determination flagged for post-porting review.", "mentioned_ids": []}
 {"claim_id": "clm-unk0bd", "item_idx": 3, "text": "Establish whether (2,3) phase-space winding gives genuine topological protection, or whether electron stability is purely energetic.", "mentioned_ids": []}
-{"claim_id": "clm-uosu8w", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-uowffm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-usflef", "item_idx": 0, "text": "Justify the specific 0.2× threshold quantitatively (e.g. tie it to the breather V_min/V_max envelope ratio rather than asserting it)", "mentioned_ids": []}
 {"claim_id": "clm-usflef", "item_idx": 1, "text": "Provide an independent derivation that the seed relaxes to a breather (not a stationary attractor) rather than asserting non-eigenmode relaxation", "mentioned_ids": []}
@@ -384,6 +410,7 @@
 {"claim_id": "clm-uu1qbo", "item_idx": 1, "text": "Make the identification of the elastic bulk/shear speeds with the A_1/T_2 port modes explicit (not just asserted by table row)", "mentioned_ids": []}
 {"claim_id": "clm-uu1qbo", "item_idx": 2, "text": "State the continuum-limit condition under which the cardinal √2 disappears, tying the two √2's together quantitatively", "mentioned_ids": []}
 {"claim_id": "clm-uu6dl5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-v2sg8z", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-v6ti0v", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-viawy9", "item_idx": 0, "text": "Make the per-port / per-bond mode-counting explicit (how the 4-port-per-node structure maps the single-capacitor Nyquist result onto the field variance).", "mentioned_ids": []}
 {"claim_id": "clm-viawy9", "item_idx": 1, "text": "Note the regime of validity for classical equipartition (k_B T vs ℏω_bond at the relevant temperatures) so the table rows at high T are bounded against quantum corrections.", "mentioned_ids": []}
@@ -436,6 +463,7 @@
 {"claim_id": "clm-zi6t1e", "item_idx": 1, "text": "Validate the $n_{3D} \\approx 1.8095$ prediction against a broader empirical avalanche dataset (currently a single-figure structural agreement)", "mentioned_ids": []}
 {"claim_id": "clm-zi6t1e", "item_idx": 2, "text": "Quantify the per-application hardware constants (e.g., $V_{write}$, $P_{drag}$, $\\rho_{kink}$) against the AVE-APU private-repo measurements as those become available", "mentioned_ids": []}
 {"claim_id": "clm-zsqh87", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-zt0pd1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-zuf7g1", "item_idx": 0, "text": "Strengthen Born Rule from Ohmic Measurement Work (`clm-ldmvwi`) — the dominant solidity bottleneck for this entry", "mentioned_ids": ["clm-ldmvwi"]}
 {"claim_id": "clm-zuf7g1", "item_idx": 1, "text": "Derive the structural identification \"phase-locked topological thread = lossless short-short LC resonator with $Z_0 \\approx 377\\,\\Omega$, $Q = \\infty$\" from first principles (currently asserted as a constructive identification of the Bell-correlation carrier)", "mentioned_ids": []}
 {"claim_id": "clm-zuf7g1", "item_idx": 2, "text": "Document the spin-1/2 Möbius half-angle coupling derivation explicitly (currently summarized; the Finkelstein-Misner kink construction needs to be present here or pointed at an explicit derivation leaf)", "mentioned_ids": []}

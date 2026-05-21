@@ -9,6 +9,16 @@ claims: [clm-qky559]
 
 ## The Universal Saturation Operator: $\varepsilon$--$\mu$ Duality
 
+> **⚡ Canonical synthesis cross-reference:** the
+> universal-saturation-operator framing on this leaf is one of the original
+> corpus instances of the scale-invariant kernel. It is canonicalized as
+> the A-034 Universal Saturation-Kernel Strain-Snap Mechanism with a
+> **21-instance catalog** spanning ~21 orders of magnitude. The ε-μ
+> duality and BCS $B_c(T)$ identification below remain canonical for this
+> leaf's domain; for the full cross-scale catalog see Vol 3 Ch 4
+> §sec:tki_strain_snap + Backmatter Ch 7 (Universal Saturation-Kernel
+> Catalog).
+
 The most striking confirmation of scale invariance is the *duality* between plasma physics and superconductivity. Both are instances of the *same* saturation operator acting on complementary sectors of the impedance:
 
 | **Property** | **Plasma ($\varepsilon$-sector)** | **Superconductor ($\mu$-sector)** |

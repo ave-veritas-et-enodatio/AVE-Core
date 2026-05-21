@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-67jn9o, clm-bh9p6s, clm-k6olj8, clm-mnb3lt]
+subtree-claims: [clm-67jn9o, clm-6kwzot, clm-bh9p6s, clm-cmic3e, clm-k6olj8, clm-mnb3lt]
 -->
 
 # Ch.2 — The Baryon Sector: Confinement and Fractional Quarks
@@ -28,9 +28,11 @@ The baryon sector derives baryonic matter from the $6^3_2$ Borromean linkage top
 
 | Document | Contents |
 |---|---|
+| [Proton Identification — Canonical 4-Property Definition + First-Principles Axiom Audit + 6-Framing Translation Guide](proton-identification.md) | **Canonical proton-identification hub** (parallel to Vol 1 Ch 4 photon-identification + Vol 2 Ch 1 electron-identification): 4-property definition ($(2,5)$ cinquefoil topology + $6_2^3$ Borromean linkage + $r_{opt} = \kappa_{FS}/5 \approx 4.97\,\ell_{node}$ + Ax4-saturated core); first-principles axiom audit per property + per-input audit of mass eigenvalue (6 inputs: $\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{I}_{scalar}\approx 1162$, $\mathcal{V}_{total}=2.0$ FEM-verified, $p_c=8\pi\alpha$, +1.0 charge twist — ALL first-principles, NO fit parameters). **Load-bearing finding: unlike $m_e$ (calibration anchor), $m_p/m_e = 1836.12$ is genuinely zero-parameter, 0.002% from CODATA — AVE's flagship axiom-derived mass prediction**. 6-framing cross-corpus translation guide; 2 open audit items flagged ($\mathcal{I}_{scalar}$ solver documentation + corpus hygiene on duplicate subsection titles). |
 | [Topological Fractionalization](topological-fractionalization.md) | Borromean confinement; scale paradox; topological scaling ansatz; Faddeev-Skyrme proton energy; coupling constant; orthogonal tensor trace; skew-lines and toroidal halo; Witten Effect fractional charges; neutron decay; He-4 nucleus; Hierarchy Bridge |
 | [Quark Flavors](quark-flavors.md) | GAP stub — quark flavor content embedded in topological-fractionalization.md |
 | [Self-Consistent Mass Oscillator](self-consistent-mass-oscillator.md) | Self-consistent eigenvalue equation; cinquefoil confinement bound; core mass solution; baryon mass eigenvalue |
 | [Thermal Softening](thermal-softening.md) | Thermal lattice softening $\delta_{th} = 1/(14\pi^2)$; Poisson ratio, cold Skyrme coupling, and RMS noise averaging |
 | [Torus Knot Ladder (Baryons)](torus-knot-ladder-baryons.md) | Baryon resonance spectrum from $(2,q)$ torus knot ladder; predictions vs PDG |
 | [Proton-Neutron Mass Split](proton-neutron-mass-split.md) | Neutron decay; He-4 tetrahedral Borromean braid; mass-stiffened strong force; Hierarchy Bridge |
+| [Neutron Canonical Identification](neutron-identification.md) | Canonical AVE neutron = $6_2^3 \cup 0_1$ (proton Borromean + threaded electron unknot); 4-property definition + first-principles axiom audit + 8-framing translation guide (3 stale corpus framings flagged for revision: Vol 4 trefoil-threading, Vol 6 axial-twist, plus SM udd quark translation); honest scoping of 2 derivation gaps (mass split 1.293 MeV mechanism canonical but FS energy not derived; mean lifetime 880s mechanism canonical but WKB tunneling rate not derived) |

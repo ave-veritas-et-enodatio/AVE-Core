@@ -12,6 +12,8 @@ claims: [clm-ome498]
 
 ## $\alpha_s = \alpha^{3/7} \approx 0.121$: Strong Coupling
 
+> **Scope correction (2026-05-17 Foundation Item 7 per `ave-evidence-framing-discipline` trigger 2).** The derivation $\alpha_s = \alpha^{3/7}$ from $\nu_{vac} = 2/7$ is honest (Class D emergence test with zero free parameters in the derivation chain). The agreement-strength framing is OVERREACH. PDG world average $\alpha_s(M_Z) = 0.1179 \pm 0.0010$; AVE prediction $0.1214$; deviation $0.0035$ = **3.5σ TENSION**. A 3.5σ result is conventionally a strong tension at pre-discovery anomaly threshold, NOT a "match." The 2.97% central-value deviation framing reads as success; the 3.5σ statistical framing reads as failure. Honest reframing: **candidate prediction with 3.5σ tension against PDG; falsifier: if next-gen $\alpha_s$ measurements reduce $\sigma$ below 0.0006 while keeping central value, this derivation fails outright.** The derivation chain is preserved; the agreement-strength claim is downgraded. See closure-roadmap §0.5 Foundation Item 7 entry. *Body below preserved per Rule 12.*
+
 The strong coupling constant $\alpha_s$ at the $Z$-pole ($M_Z$) is measured as $0.1179 \pm 0.0010$ (PDG). AVE derives it from the lattice compliance structure.
 
 ### Derivation

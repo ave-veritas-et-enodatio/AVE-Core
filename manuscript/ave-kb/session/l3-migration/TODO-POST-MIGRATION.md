@@ -67,7 +67,7 @@ All known entry-body drift fixed: `clm-zfqd9v` (c_eff form), `clm-hvvvop` (21→
 
 Add a new category of DAG id for **physical experiments** to the KB metadata, parallel to the `clm-` claim ids.
 
-- **Id scheme**: experiment ids are generated as `exp-` + 6 digits (`exp-[0-9]{6}`). (Note: digits, distinct from the `clm-[a-z0-9]{6}` claim-id alphabet.)
+- **Id scheme**: experiment ids are generated as `exp-` + 6 alphanum (`exp-[a-z0-9]{6}`). (same as claim-id alphabet)
 - **Attachment**: `exp-` ids attach to all *physical experiments* described in the KB.
   - Like unevaluated claims, an **unrun experiment has a solidity contribution of *pending***.
 - **Simulations are NOT experiments** — a simulation is part of the existing derivation + claim process (it feeds confidence / derivation-solidity, not experimental-solidity). Only *physical* experiments get `exp-` ids.
@@ -83,3 +83,16 @@ Add a new category of DAG id for **physical experiments** to the KB metadata, pa
 - Solidity computation in `kb_index_lib` extended to `max(derivation-solidity, experimental-solidity)` with `*pending* → 0.0`.
 - `refresh-kb-metadata` + `verify-kb-metadata` updates; a frontmatter/marker convention for attaching `exp-` ids to physical-experiment leaves (parallel to the `clm-` Tier-1/Tier-2 propagation); and a new `CLAUDE.md` invariant documenting the `exp-` category (parallel to INVARIANT-S8).
 - Natural anchor points already in the KB: `appendix-experiments.md` (narrative falsification catalog) and `divergence-test-substrate-map.md` (operational falsification-test index) — the physical experiments enumerated there are the initial `exp-` id population.
+
+## 9. vol2-6 KB migration — DONE 2026-05-21; open decisions surfaced
+
+vol2-6 L3 KB content migrated: **35 new claim-bearing leaves** (vol2:14, vol3:8, vol4:9, vol5:4) + **~73 body-delta merges**, all new claims `confidence: *pending*` (deferred rescore). `verify` PASS (721 files / 289 claims). 435 frontmatter-only diffs were correctly no-action. Decisions surfaced by the waves, NOT yet actioned:
+
+- **vol4 REPO-ARCH restructure (biggest decision)**: L3 deleted the `advanced-applications/` subtree (ch7 SMES, ch8 fusion, ch9 antimatter, ch10 quantum-computing, ch18 metamaterials, ch19 silicon-engine, ch20 optical-caustic = 28 files) + 2 loose leaves (ch13 chiral-antenna → AVE-HOPF, ch17 ponder-stack → AVE-PONDER), renamed to `hardware-programs/`, routing content to private sibling repos via REPO-ARCH-1..11 notes. The 30 only-in-ours files are coherent BLR-original chapters; L3's `hardware-programs/index.md` target doesn't exist even in L3 (mid-migration dangling). NOT applied — kept ours, kept our 5 vol4 indexes. **Decide: keep as BLR vol4 content, or adopt L3's relocation (delete `advanced-applications/`, create `hardware-programs/`, move 2 loose leaves to sibling repos).**
+- **Neutrino model — OURS AHEAD of L3 (reverse back-port)**: our branch carries the corrected helical-torsional-screw-dislocation neutrino model + 2026-05-06 Corrigendum; L3 still uses the old "$0_1$/chiral unknot" framing and would have reverted us in 3 vol2 places (ch03-neutrino-sector index, particle-physics index, delta-cp-violation). Kept ours. **Recommend back-porting our correction TO L3.**
+- **Rigor-regression deletions KEPT (L3 silently dropped, not applied)**: vol2 thermal-softening Gaussian-ansatz caveat + app-c saturation qualifier; vol3 `einstein-field-equation.md` (L3 simplification conflicts with our $Z_0$-invariance theorem — left entirely unchanged) + vol3/index Hubble caveat; vol4 `ybco-phased-array` + autoresonant-breakdown INVALIDATED headers; vol5 repo-scope-note + consciousness-cavity dangling-link; vol6 `radioactive-decay-impedance` (L3 added a "~11.3 MeV" figure while deleting our empirical-magnitude guardrail — 11.3 MeV doesn't match the tritium→He-3 Q-value ~0.529 MeV; likely L3 error). Review individually if desired.
+- **Claim-state shifts ported (affect rescore solidity)**: vol4 `geo-synchronous-impedance` + `sagnac-parallax` flipped positive-forward-prediction → corroborative-null; `project-hopf-02` Snell-parallax derivation dropped by L3 (→ deferred HOPF-03 sub-epic).
+- **L3 error reverted**: vol4 `tabletop-graveyard` Axiom 2→1 (kept correct Axiom 2 per INVARIANT-S2).
+- **Inherited dangling relative-links** (→ folds into §4 cross-ref stitching): vol3 new BH leaves → `common/` targets; vol5 new protein-folding leaves → `../../common/` wrong depth (catalog actually at KB-root `common/`); a few L3-source path-depth bugs were fixed inline by the vol3 wave.
+
+(Section 7 "vol2-6 KB sweep": the *migration* is now done; the *rescore* of the resulting pending claims remains on the standing hold.)

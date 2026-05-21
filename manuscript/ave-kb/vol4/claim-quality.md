@@ -302,110 +302,9 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
-## Topological SMES (Beltrami $(p,q)$ Torus Knot)
-<!-- id: clm-6btlq3 -->
 
-- 87.9% reduction in external stray flux for a $(150, 3)$ torus knot vs solenoid of identical volume/current
-- _Specific Claims_
-  - The Beltrami condition $\nabla \times \mathbf{B} = \lambda \mathbf{B}$ enforces $\mathbf{J} \parallel \mathbf{B}$ — Lorentz cross-product $\mathbf{J} \times \mathbf{B}$ vanishes structurally → zero internal tension, no heavy bracing.
-  - Biot-Savart computational solver shows 87.9% stray-flux reduction for the chosen knot vs equivalent solenoid.
-- _Specific Non-Claims and Caveats_
-  - 87.9% is a **simulation result for one specific topology** ($(150, 3)$ torus knot), not a universal lower bound. The "macroscopic electron" framing is structural / interpretive.
-  - Does NOT claim a built SMES device has been measured. The chapter establishes the engineering pathway and computational falsification of the leakage claim, not hardware validation.
-  - "Zero internal structural tension" is the limit of an ideal Beltrami field; real-world wire stiffness, joint resistance, and finite-conductor corrections are not addressed in the leaves.
 
-> **Leaf references:** `advanced-applications/ch7-topological-smes/smes-topology.md`.
 
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
-
-## Topological Qubit (Gauss Linking) and Casimir Cavity Shielding
-<!-- id: clm-07wvul -->
-
-- Stored state: integer Gauss linking number $\mathcal{L}$
-- _Specific Claims_
-  - State stored in topology cannot decohere from continuous noise (linking number is integer-quantized); decoherence requires localized noise exceeding $V_{yield}$ to tear the knot.
-  - Casimir cavity acts as acoustic high-pass filter for vacuum noise, isolating the qubit from low-frequency thermal background → "artificial vacuum cooling" without further cryogenics.
-  - Architecture comparison table: transmon (decoherence ~µs), topological (cosmological), Casimir-shielded (cosmological + acoustic filter, predicted room-temperature).
-- _Specific Non-Claims and Caveats_
-  - Does NOT claim an engineered topological qubit has been demonstrated at room temperature in a Casimir cavity. The "operating temp: room temp (predicted)" entry is forward-looking, not measured.
-  - "Cosmological" decoherence time is the limit set by the $V_{yield}$ tear-threshold not being reached under standard cryogenic noise; it does not assert that any built topological-qubit device has been observed to retain coherence over cosmological times.
-  - The Meissner Effect derivation as "mechanical reflection of applied rotational force" via Kuramoto phase-lock is reframing of the standard superconductivity result, not an independent quantitative derivation.
-
-> **Leaf references:** `advanced-applications/ch10-quantum-computing/topological-qubit-model.md`, `advanced-applications/ch10-quantum-computing/decoherence-as-impedance.md`, `advanced-applications/ch10-quantum-computing/error-correction-geometry.md`.
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
-
-## Active Topological Metamaterials (Inorganic LLCP)
-<!-- id: clm-ffa5sq -->
-
-- Polythiophene + 1.0 nm $C_{60}$ at $\phi = 0.7405$; predicted $-20$°C to $100$°C ambient superconducting band
-- _Specific Claims_
-  - Material engineered to hover at the $K=2G$ Axiom 4 yield threshold ($r_{crit} = \sqrt{2\alpha}$) using rigid synthetic wedges enforcing geometric lock at $\phi$.
-  - Three downstream applications: room-temperature superconducting cables, kinetic phase-state armor (instantaneous $V_{II} \to V_{I}$ on impact), neuromorphic memristors (gap $\approx 0.2158$ eV from $1 - \phi$).
-  - First-principles operator matrix (Op1-Op4) maps the engineering targets to specific universal operators with zero free chemistry parameters.
-- _Specific Non-Claims and Caveats_
-  - Does NOT claim a fabricated room-temperature superconducting metamaterial has been demonstrated. The "Polythiophene + $C_{60}$" pairing is **proposed** as the optimal architecture; the temperature band is a predicted operating range, not measured.
-  - The "Fabrication Bottleneck" / "Dynamic Topo-Acoustic Curing" subsection acknowledges synthesis is a major engineering hurdle; no leaf claims the curing process has been built.
-  - $\Delta E \approx 0.2158$ eV neuromorphic gap is derived from the $1 - \phi = 0.2595$ void fraction; the conversion to eV uses dimensional substitution and is presented without independent validation against any measured neuromorphic device.
-
-> **Leaf references:** `advanced-applications/ch18-active-topological-metamaterials/active-feedback-design.md`, `advanced-applications/ch18-active-topological-metamaterials/metamaterial-band-structure.md`.
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
-
-## Native Silicon Design Engine (Doping, BJT $\beta$, `atopile` Compilation)
-<!-- id: clm-0hwopi -->
-
-- BJT gain: $\beta = (T^2_{EB})^{N_{gap}} / (1 - (T^2_{EB})^{N_{gap}})$ from cascaded boundary $T^2$
-- _Specific Claims_
-  - Doping reframed as geometric perturbation (Boron removes $sp^3$ port, Phosphorus inserts surplus knot).
-  - $V_{bi}$ derived as a **geometric structural constant** (~1.05 V uniformly), not a thermal-statistics-dependent variable.
-  - BJT current gain $\beta$ recovered from cascaded $T^2$ transmission-coefficient products with $Z_E = 0.35$, $Z_B = 0.66$, yielding $\beta \in 10$-$300$ across observed power-electronics range.
-  - SPICE bridge (`AVE_DIODE_SI` subcircuit) wraps standard `DMOD` to suppress thermal coefficient and clamp at the geometric $V_{bi} = 1.0496$ V — allows large-signal analog simulation respecting the geometric breakdown bound.
-- _Specific Non-Claims and Caveats_
-  - $Z_E = 0.35$, $Z_B = 0.66$ are **assumed Miller-multiplier limits** for the $\beta$ calculation, not first-principles derived from Axioms 1-4 in the Vol 4 leaves. They are described as "experimentally validated" but the validation pathway is not given in-leaf.
-  - $V_{bi} \approx 1.05$ V uniform is a structural claim; standard physics gives $V_{bi} \in 0.6$-$0.8$ V depending on doping. The Vol 4 framing is that AVE recovers the **degenerate-doping limit** that classical physics only reaches at $\sim 10^{19}$ cm$^{-3}$; this is a reinterpretation, not an experimental discriminator at typical (non-degenerate) doping levels.
-  - The `ato` (atopile) declarative compilation pathway is presented as a structural mapping (interfaces → ports, modules → arrays, asserts → saturation bounds) — it is a design tool framework, not a falsifiable physics prediction.
-  - The "AVE_DIODE_SI" subcircuit forces $N \to 0.001$ to suppress the Boltzmann coefficient — this is a **modeling clamp** to make the structural-reflection prediction visible in standard SPICE, not an alternative diode equation derived from first principles.
-
-> **Leaf references:** `advanced-applications/ch19-silicon-design-engine/doping-geometric-perturbation.md`, `advanced-applications/ch19-silicon-design-engine/topological-bjt-gain.md`, `advanced-applications/ch19-silicon-design-engine/declarative-ato-compilation.md`, `advanced-applications/ch19-silicon-design-engine/native-spice-subcircuit.md`, `advanced-applications/ch19-silicon-design-engine/pn-junction-s-parameter.md` (P-N junction as $S_{11}$ impedance-step boundary; silicon at $V_R/V_{BR}=0.050$).
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
 
 ## Sagnac-RLVE: Tabletop Falsification, $\Delta\phi \approx 2.07$ rad, $\Psi \approx 7.15$
 <!-- id: clm-wqmb19 -->
@@ -613,56 +512,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 ---
 
-## Optical Caustic Singularity Resolution
-<!-- id: clm-uosu8w -->
 
-- $E_{\max}$ at focus bounded by $E_{YIELD} \approx 43.65$ kV/m (note: kV/m, not kV/m converted from $E_{yield}$)
-- _Specific Claims_
-  - Self-consistent 1D transmission-line solver caps focal intensity at the saturation boundary: as area shrinks, strain rises, $Z_{eff} = Z_0/\sqrt{S}$ stiffens, $\Gamma \to 1$ reflects converging rays back, finite focal waist replaces the classical caustic catastrophe.
-  - Same saturation mechanism (asymmetric, electric-sector) used for the vacuum impedance mirror and the EE-bench plateau — operator-level consistency across applications.
-- _Specific Non-Claims and Caveats_
-  - Leaf states $E_{\max} = E_{YIELD} = \sqrt{\alpha} \cdot m_e c^2/e \approx 43.65$ **kV/m** — this is a leaf-level units inconsistency: the value 43.65 kV is the integrated $V_{yield}$, while 43.65 kV/m would be a specific field strength orders of magnitude below the macroscopic $E_{yield} \approx 1.13 \times 10^{17}$ V/m derived elsewhere. Treat the units in this leaf as suspect; the substantive claim (focal intensity bounded by the same asymmetric saturation kernel) is the load-bearing bound.
-  - Does NOT claim the focal saturation has been experimentally observed; the leaf is a self-consistent solver result (Brent root-finding), not a measurement.
-  - "Resolves the caustic catastrophe" is a structural / theoretical resolution within the AVE framework; classical optics already handles the singularity via diffraction corrections — AVE asserts a different resolution mechanism, not a numerical discrepancy with classical optics in any tested regime.
-
-> **Leaf references:** `advanced-applications/ch20-optical-caustic-resolution/index.md`.
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
-
-## Annihilation and Pair Production as Topological Mechanics
-<!-- id: clm-5rigtn -->
-
-- $E_{knot} = \tfrac{1}{2}I\omega^2 \to E_{photon} = h\nu$; thresholds $2m_e c^2 = 1.022$ MeV ($\gamma\gamma$), $2m_p c^2 \approx 1876.5$ MeV ($p\bar p$)
-- _Specific Claims_
-  - $e^- e^+$ annihilation reframed as flywheel collision of opposite-handed Beltrami unknot vortices; rotational energy releases as photon.
-  - Pair production reframed as transverse acoustic wave shear past $V_{yield}$, shedding one left- and one right-handed vortex (net topological charge zero).
-  - All three processes (annihilation, pair production, $p\bar p$ → mesons) conserve topological charge, angular momentum, and energy.
-- _Specific Non-Claims and Caveats_
-  - This is an **interpretive reframing** of standard particle physics — the energy thresholds and kinematics are the standard results; AVE supplies a mechanical / topological mechanism rather than a probabilistic field-theoretic one.
-  - Does NOT claim a quantitative rate prediction (cross-section, branching ratio) for any of these processes that differs from the Standard Model. The conservation laws and thresholds match.
-  - $E = mc^2 = \tfrac{1}{2}LI^2 + \tfrac{1}{2}CV^2$ Virial decomposition is structural; not an independent rest-mass derivation.
-
-> **Leaf references:** `advanced-applications/ch9-antimatter/annihilation-mechanism.md`.
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
 
 ## Definitive Binary Kill-Switches (Neutrino Parity, GRB Dispersion)
 <!-- id: clm-gw2wgc -->
@@ -1151,31 +1001,204 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
 
 ---
 
-## Topological Mechanics of Fission and the Alchemist Forge ($P(jump) = e^{-\Delta U_{LC}/T_{topo}}$)
-<!-- id: clm-pcute0 -->
 
-Nuclear fission reframed as a deterministic structural shear-fracture of a tensioned topological lattice, plus the Alchemist Forge as a proposed two-stage element-synthesis architecture exploiting the same mechanics.
+## Op14 Cross-Sector Trading: K4-Inductive ↔ Cosserat Energy Exchange (ρ = −0.990)
+<!-- id: clm-p2tp9i -->
+
+A-012 canonical. Op14 saturation-driven impedance modulation transfers energy between the K4-inductive (Φ_link) and Cosserat substrate sectors via the bond LC tank's inductive side, empirically confirmed at ρ(H_cos, Σ|Φ_link|²) = −0.990 Pearson anti-correlation over the t ∈ [150P, 200P] recording window. H_cos alone is not conserved (5.5% drift over 50 Compton periods) but H_total = H_cos + H_K4-inductive is approximately conserved; the dominant trading frequency is ~0.020 rad/unit. This is the substrate-native mechanism for the co-stable trading state of saturated K4 bond-pairs.
 
 - _Specific Claims_
-  - **U-235 vs U-238 asymmetry**: U-238's $A=238$ cluster converges to a closed spherical shell (no asymmetric coupling surface for a slow neutron). U-235's $A=235$ asymmetry produces an open surface "cleft" — a thermal neutron entering this cleft disrupts the $1/d$ global minimum, locally spiking the spatial impedance. Resolution is a deterministic shear-stress transverse fracture along the cleft, yielding stable Ba-141 and Kr-92 fragments + 3 unbound neutrons.
-  - **Determinism, not probability**: fission is identified as the predictable mechanical fracture of a tensioned topological structure exceeding its localized geometric shear strength — explicitly *not* a probabilistic quantum-thermodynamic event.
-  - **Alchemist Forge — two-stage architecture**: Stage 1 strips ambient unstructured Dark Matter into rigid $^4$He alpha particles (4-node tetrahedrons) at the absolute Sphericity-1.0 global minimum. Stage 2 stacks four pre-condensed alpha nodes into a larger $sp^3$ tetrahedron, which converges instantly into Oxygen-16 by exploiting the same mechanics that bypass microscopic glass-trap defect states.
-  - **Topological jitter probability**: $P(jump) = e^{-\Delta U_{LC}/T_{topo}(t)}$. Slowly ramping the beam-intersection frequency drives $T_{topo} \to 0$, forcing a "Deep Quench" that smoothly coaxes raw nodes down the $1/d_{ij}$ mutual-inductive gradient into the global geometric ground state.
+  - ρ(H_cos, Σ|Φ_link|²) = −0.990 (Pearson, empirical); ρ(Σ|V_inc|², Σ|Φ_link|²) = −0.990; ρ(H_cos, Σ|V_inc|²) = +1.000.
+  - H_total = H_cos + H_K4-inductive is approximately conserved (modulo Verlet O(dt²) drift) while H_cos alone drifts ~5.5% over 50 Compton periods.
+  - Mechanism: Op14 saturation modulates Z_eff → drives slow Φ_link ↔ Cosserat oscillation at ~0.020 rad/unit; reactive (non-dissipative) trading.
 - _Specific Non-Claims and Caveats_
-  - The fission mechanism is *interpretive*: it provides a topological mechanical narrative for U-235 vs U-238, but does not produce an independent quantitative prediction (cross-section, neutron-yield distribution) that distinguishes from standard nuclear physics in any specific measurement.
-  - "Deterministic, not probabilistic" is a strong ontological claim. It does not contradict the empirical fission rates — the framework asserts the *mechanism* is deterministic at the topological-strain level; the apparent statistics arise from the distribution of incoming neutron states relative to the cleft orientation.
-  - The Alchemist Forge is an *engineering proposal*, not a built device or even a numerically simulated apparatus. "Macroscopic Stacking" of 4 alpha nodes into Oxygen-16 is asserted to be "mathematically instantaneous" without an explicit calculation of synthesis time or energy budget.
-  - The "stripping ambient Dark Matter into He-4" stage requires Dark Matter to have a structure compatible with stripping into 4-node alpha tetrahedrons — a strong claim that depends on the AVE Dark Matter model not addressed in this Ch.8 leaf. The leaf does not establish this prerequisite.
-  - File misnamed: the leaf path is `fusion-comparison-table.md` but the body is about fission and the Alchemist Forge, not a fusion-comparison table. The Vol 4 fusion-comparison content lives in the clm-qagkgy entry's `tokamak-paradox` and `ave-fusion-device` leaves.
+  - The 5.5% H_cos drift is real physics (sector energy exchange), NOT numerical error.
+  - Does NOT claim eigenfrequency drift with amplitude (that hypothesis is reported as falsified); does NOT close the Round 7+8 Mode III (2,3) bound-state gap.
 
-> **Leaf references:** `advanced-applications/ch8-applied-fusion/fusion-comparison-table.md` (file misnamed; body covers U-235/U-238 fission mechanics + Alchemist Forge two-stage architecture + topological-jitter quench).
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md`
 
 ### Quality
 - confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
 - solidity: *pending*
-- rationale: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Op14 Saturation Modulates Local Clock Rate
+<!-- id: clm-1eg13f -->
+
+A-010 canonical. Op14's dynamic impedance Z_eff(r) = Z₀/√S(r) modulates not just impedance but the local clock rate, giving the substrate-native mechanism for time dilation: ω_local(r) = ω_global·√(1 − A²(r)), with τ_local = τ_unstrained/√(1 − A²(r)). This parallels the Vol 3 Ch 3 gravitational refractive-index local-clock effect τ_local = n(r)·τ_unstrained with n(r) = 1/√S. At rupture (A² → 1) the local clock freezes (ω_local → 0) and a Γ = −1 TIR wall forms.
+
+- _Specific Claims_
+  - ω_local(r) = ω_global·√(1 − A²(r)); local time dilation τ_local = τ_unstrained/√(1 − A²(r)).
+  - Cross-volume parallel to gravitational n(r) = 1/√S; mechanism is reactive (no dissipation), energy redistributed in time.
+- _Specific Non-Claims and Caveats_
+  - Three regimes must NOT be conflated: uniform slowing (reactive) vs uniform damping (dissipative) vs spatially-varying slowing (mode-decomposition matters).
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Parametric Coupling Kernel (Axiom 4 Vacuum Varactor at Sub-Yield α-Slew Operating Point)
+<!-- id: clm-6t3p6x -->
+
+For an N-coherent-site LC apparatus embedded in the bulk substrate with vacuum varactor C_eff(V) = C₀/√(1 − (V/V_yield)²) driven by α-slew refresh at ν_slew = (α/2π)·ω_Compton, the per-electron per-cycle detection probability is ε_det = 4π·κ_quality/N_single², derived from Dicke amplitude distribution (1/N) × matched-cycle synchronization (1/N) × Theorem 3.1′ spinor-cycle radiation-impedance averaging (4π). The capacitance modulation is δC/C₀ = (1/4)(V_pump/V_yield)² ≈ 4.57% at the canonical operating point; parametric resonance occurs at ω_app = ω_slew (sub-harmonic of pump 2ω_slew). This is a REACTIVE-power class mechanism, categorically distinct from the real-power κ_entrain Sagnac-RLVE.
+
+- _Specific Claims_
+  - ε_det = 4π·κ_quality/N_single² with κ_quality = 1 for Q·δ_C ≥ 2 (deep-regenerative), (Q·δ_C/2)² sub-regenerative.
+  - δC/C₀ = (1/4)(V_pump/V_yield)² ≈ 4.57%; DAMA detection rate 0.6% match derived as consequence; XENONnT null derived from sub-regenerative regime (Q·δ < 2).
+  - Cross-detector predictions for COSINE/ANAIS/MAJORANA/KIMS/Sapphire.
+- _Specific Non-Claims and Caveats_
+  - REACTIVE-power class; NOT the real-power κ_entrain Sagnac-RLVE mechanism.
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G22 Strain Convention: Topological-Geometric vs Coulomb-Field Ratio
+<!-- id: clm-4r4jiy -->
+
+Clarification leaf documenting the canonical strain-measure convention. The corpus uses two distinct, both-valid strain measures: the topological geometric confinement ratio A_geom(r) = ℓ_node/r (∝ 1/r) and the Coulomb field ratio A_field(r) = E·ℓ_node/V_yield (∝ 1/r²). Kernel applications (C_eff, S(A), V/V_snap, Q-G19α Petermann) use A_geom; the IVIM apparatus bench uses A_field. Both conventions yield internally consistent predictions; the apparent "four-way conflict" in A(r) definitions across chapters dissolves once the convention split is recognized.
+
+- _Specific Claims_
+  - Canonical kernel-application strain is A_geom = ℓ_node/r (geometric confinement ratio), NOT the literal Coulomb potential ratio.
+  - IVIM bench uses A_field = E·ℓ_node/V_yield; both conventions are internally consistent.
+- _Specific Non-Claims and Caveats_
+  - Explicitly "not a new physics result" — a convention-documentation leaf.
+  - Partial closure only: WHY topological strain equals ℓ_node/r rather than α·ℓ_node/r from first principles is an open multi-week analytical item.
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Q-G24 Newtonian-Limit Closure via Relativistic Inductor
+<!-- id: clm-fgo20a -->
+
+The Lorentz-invariant kinetic energy E = γm₀c² emerges structurally from the substrate's electron-as-bond-pair LC tank — not from a scalar Lagrangian and not subject to Derrick's theorem barriers. The closure proceeds via the Relativistic Inductor framework + Virial theorem + three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral), with no fit parameters. The apparent "load-bearing gap" was an artifact of using a scalar Lagrangian when the corpus already carried the correct vector-Maxwell form (Vol 4 Ch 1 lines 175–184).
+
+- _Specific Claims_
+  - E = γm₀c² emerges from LC tank + virial equipartition + relativistic-inductor mapping with zero fit parameters.
+  - Three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral).
+- _Specific Non-Claims and Caveats_
+  - Does NOT derive from a scalar field Lagrangian; the "gap" was a framing artifact dissolved by corpus-grep.
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor-newtonian-limit.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## τ_relax = ℓ_node/c: Minimum State-Change Time from K4 Lagrangian
+<!-- id: clm-n3un96 -->
+
+Axiom-first derivation of the substrate's thixotropic relaxation time from the per-cell K4 Lagrangian + causal propagation: the per-cell saturation kernel S(A) relaxes toward equilibrium S_eq(r) = √(1 − r²) via a first-order ODE with time constant τ_relax = ℓ_node/c ≈ 1.288 × 10⁻²¹ s, and no faster relaxation mode is axiom-permitted. The substrate is therefore memristive (path-dependent), not purely algebraic. This is the load-bearing timescale for Op14 dynamics and predicts BEMF-driven defect freezing (AVE-native Kibble-Zurek) with a linear cooling-rate scaling (NOT a K-Z power law).
+
+- _Specific Claims_
+  - τ_relax = ℓ_node/c ≈ 1.288 × 10⁻²¹ s; no faster relaxation mode axiom-permitted.
+  - Dynamic S(t) memristive relaxation ODE; substrate is path-dependent.
+  - Prediction: linear cooling-rate scaling for defect freezing (distinct from K-Z power-law).
+- _Specific Non-Claims and Caveats_
+  - Distinguishes its linear-scaling prediction explicitly from the Kibble-Zurek power-law.
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Theorem 3.1′ — Electron Q-Factor from LC Tank at TIR Boundary
+<!-- id: clm-rtdmsn -->
+
+The electron's fine-structure constant α⁻¹ ≈ 137.036 is the dimensionless Q-factor of its LC tank at the topological-defect Total-Internal-Reflection boundary, decomposing into three orthogonal reactance contributions: α⁻¹ = Q_tank = Q_vol + Q_surf + Q_line = 4π³ + π² + π ≈ 124.025 + 9.870 + 3.142 = 137.036, matching the M, Q, J boundary-observability structure. Two independent derivation paths (LC-tank Vol 4 Ch 1 + multipole Vol 1 Ch 8) agree to within δ_strain = 2.225 × 10⁻⁶ (CMB thermal running). Supersedes the empirically-falsified Neumann-integral framing.
+
+- _Specific Claims_
+  - α⁻¹ = Q_vol + Q_surf + Q_line = 4π³ + π² + π = 137.036.
+  - Two independent paths (LC-tank + multipole) agree to δ_strain = 2.225 × 10⁻⁶.
+- _Specific Non-Claims and Caveats_
+  - Supersedes the Neumann-integral framing (doc 14), which is reported empirically falsified (classical Neumann integral for (2,3) at Golden Torus does not reproduce π² or 137).
+
+> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## A-034 Measurement Hierarchy: Single-Emitter / Bulk / Phased-Array PLL SNR Scaling
+<!-- id: clm-gv1wu4 -->
+
+A-034 measurement-hierarchy framing for engineered-substrate kernel measurements. The same universal kernel S(A) = √(1 − A²) is accessed by three bench architectures with distinct SNR characteristics: single-emitter (SNR ∝ V, clean geometry), bulk-response (multi-emitter, SNR ∝ √N·V), and phased-array PLL (autoresonant, SNR ∝ exp(N·log Q) near rupture). This explains why most operational AVE benches use many emitters: bulk-response is the natural-SNR regime for kernel measurement, while single-emitter benches measure the same kernel at lower SNR with cleaner geometry.
+
+- _Specific Claims_
+  - Three architectures access the same A-034 kernel with SNR scalings ∝ V (single), ∝ √N·V (bulk), ∝ exp(N·log Q) near rupture (phased-array PLL).
+- _Specific Non-Claims and Caveats_
+  - A framing/hierarchy claim — does not assert a new kernel, only the SNR-scaling regimes for measuring the existing one.
+
+> **Leaf references:** `vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Project C11-MACH-ZEHNDER: Gravitational Parallax Interferometry (electron Mach-Zehnder n_s ≠ n_t)
+<!-- id: clm-6kqvyp -->
+
+Per Axiom 3 (Minimum Reflection Principle) + Axiom 1 (K4 substrate with trace-reversed Poisson ratio ν_vac = 2/7), gravity polarizes the local LC-vacuum refractive index anisotropically between spatial and temporal components: n_s = 1 + (9/7)ε₁₁, n_t = 1 + (2/7)ε₁₁, giving Δn = n_s − n_t = ε₁₁. An electron Mach-Zehnder interferometer in a gravitational gradient would register this spatial-vs-temporal refractive-index split — an AVE-distinct prediction tracked as matrix row C11-MACH-ZEHNDER, with the canonical physics derivation in Vol 2 Ch 7.
+
+- _Specific Claims_
+  - Anisotropic gravitational refractive-index split: n_s = 1 + (9/7)ε₁₁, n_t = 1 + (2/7)ε₁₁, Δn = ε₁₁.
+  - Electron Mach-Zehnder interferometry as the discriminating measurement (gravitational parallax).
+- _Specific Non-Claims and Caveats_
+  - Forward/experimental prediction; bench facility partnership + measurement protocol pending (see C11 sub-epic). Sim drift audit reports NO DRIFT on ν_vac + ε₁₁ + cascade axes.
+
+> **Leaf references:** `vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
 - strengthen-by:
   - *pending*
 
