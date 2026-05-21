@@ -1,41 +1,103 @@
-{"source": "clm-0ktpcn", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": null, "context": "the α derivation builds on the electron's $(2,3)$ phase-space Clifford-torus winding"}
-{"source": "clm-2dwzib", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $V_{yield}$'s $\\sqrt{\\alpha}$ factor"}
-{"source": "clm-2e9j97", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
-{"source": "clm-2e9j97", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": null, "context": "for the consistency-proof framing of $H_\\infty$ vs $G$"}
-{"source": "clm-3kzmt9", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $\\xi$'s $\\alpha^{-2}$ factor"}
-{"source": "clm-3kzmt9", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $\\xi$'s $R_H/H_\\infty$ factor — $H_\\infty$ is a consistency identity conditional on $G$ closure"}
+{"source": "clm-0ktpcn", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the (2,3) phase-space Clifford-torus winding the three-regime geometry is built on"}
+{"source": "clm-15nwqy", "target": "clm-gx1mpl", "target_kind": "claim", "target_solidity_recorded": null, "context": "route 1 path-count scaffold: 4 B-neighbors × 3 other-A sublattices"}
+{"source": "clm-15nwqy", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "|T|=12 is the group order all four routes target"}
+{"source": "clm-2dwzib", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for $V_{yield}$'s $\\sqrt{\\alpha}$ factor"}
+{"source": "clm-2e9j97", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
+{"source": "clm-2e9j97", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.32, "context": "for the consistency-proof framing of $H_\\infty$ vs $G$"}
+{"source": "clm-3bwhad", "target": "clm-ofys5v", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies boundary-only observability that motivates fixed-grid Eulerian correctness"}
+{"source": "clm-3kzmt9", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for $\\xi$'s $\\alpha^{-2}$ factor"}
+{"source": "clm-3kzmt9", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": 0.32, "context": "for $\\xi$'s $R_H/H_\\infty$ factor — $H_\\infty$ is a consistency identity conditional on $G$ closure"}
+{"source": "clm-3npynp", "target": "clm-j550uh", "target_kind": "claim", "target_solidity_recorded": null, "context": "the A1 ⊕ T2 group theory this entry applies"}
 {"source": "clm-3zz0f6", "target": "clm-8nkvwy", "target_kind": "claim", "target_solidity_recorded": 0.85, "context": "the cancellation argument depends on the symmetric case"}
-{"source": "clm-5xon03", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": null, "context": "closure condition (c) \"via the unknot ground state\" formulation"}
-{"source": "clm-82dxbj", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": "uses $r_1, r_2, r_3$ boundaries to classify domains"}
-{"source": "clm-8ep2b4", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $p_c = 8\\pi\\alpha$ in the porosity factor"}
-{"source": "clm-9s9apq", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-b2anl4", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $r_1 = \\sqrt{2\\alpha}$ numerical value"}
+{"source": "clm-4mmwb6", "target": "clm-jz0xaw", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the mass term m² entering the gapped dispersion"}
+{"source": "clm-527k22", "target": "clm-crbl60", "target_kind": "claim", "target_solidity_recorded": null, "context": "linear substrate response at cluster wavelengths"}
+{"source": "clm-527k22", "target": "clm-dfaiwj", "target_kind": "claim", "target_solidity_recorded": null, "context": "Axiom 2 charge-to-strain coupling that sources the halo"}
+{"source": "clm-533gvm", "target": "clm-jwyy6l", "target_kind": "claim", "target_solidity_recorded": null, "context": "the back-EMF/inductive-rotor framing the FOC homes lean on"}
+{"source": "clm-5fu303", "target": "clm-hvvvop", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the ASYM-N set this axis sub-divides"}
+{"source": "clm-5xon03", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": 0.45, "context": "closure condition (c) \"via the unknot ground state\" formulation"}
+{"source": "clm-6mvtsf", "target": "clm-gdd70j", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the invariant operator this thesis names as the inheritance root"}
+{"source": "clm-6mvtsf", "target": "clm-sysqaf", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the Op1–Op22 set whose scale-invariance is being asserted"}
+{"source": "clm-7pvh9i", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "the rotation subgroup T_d\\T is defined relative to"}
+{"source": "clm-82dxbj", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": 0.17, "context": "uses $r_1, r_2, r_3$ boundaries to classify domains"}
+{"source": "clm-8ep2b4", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for $p_c = 8\\pi\\alpha$ in the porosity factor"}
+{"source": "clm-9kd2t3", "target": "clm-j550uh", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies A_1/T_2 sectors and the bare S-matrix this dissipation acts on"}
+{"source": "clm-9s9apq", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α enters every numerical claim downstream of the identity"}
+{"source": "clm-a7cbqq", "target": "clm-ze4clw", "target_kind": "claim", "target_solidity_recorded": null, "context": "J_cosmic as cosmic-scale boundary winding inherited at genesis"}
+{"source": "clm-b2anl4", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for $r_1 = \\sqrt{2\\alpha}$ numerical value"}
 {"source": "clm-b9eura", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": 0.5, "context": "the saturated-knot $Z \\to 0$ behavior depends on master-equation dynamics at saturation"}
-{"source": "clm-crbl60", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $p_c = 8\\pi\\alpha$ in $\\rho_{bulk}$ and $\\alpha$ in $\\nu_{kin} = \\alpha c \\ell_{node}$"}
+{"source": "clm-bjceop", "target": "clm-qwmnhn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the K4-symmetry orbit factor that forces the ratio"}
+{"source": "clm-ce8dg1", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α enters v = αc/(2π) linearly"}
+{"source": "clm-ce8dg1", "target": "clm-m3z5ux", "target_kind": "claim", "target_solidity_recorded": null, "context": "the parallel Hoop-Stress 2π projection motif"}
+{"source": "clm-ce8dg1", "target": "clm-yr6tu4", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the K4=CMB preferred-frame identification the prediction is referenced to"}
+{"source": "clm-crbl60", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "p_c = 8πα in ρ_bulk and α in ν_kin = αcℓ_node"}
+{"source": "clm-crbl60", "target": "clm-dfaiwj", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies L = ξ_topo^-2 m used in m_node"}
+{"source": "clm-dhvhwi", "target": "clm-jz0xaw", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the predicted ω_m=√(4G_c/I_ω)=2, T=π that the test measures against"}
+{"source": "clm-djpx2v", "target": "clm-uu1qbo", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the √2 = √(K/G) at magic-angle K=2G underpinning the cardinal-axis kinematic"}
+{"source": "clm-dsb560", "target": "clm-a7cbqq", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the single u₀*/Ω_freeze source the three routes all map to"}
+{"source": "clm-dsb560", "target": "clm-vnp57s", "target_kind": "claim", "target_solidity_recorded": null, "context": "Route 1 EM closure to u₀*"}
+{"source": "clm-dxdsvt", "target": "clm-gz7ryg", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the one-kernel premise the catalog enumerates instances of"}
+{"source": "clm-exjfai", "target": "clm-jwyy6l", "target_kind": "claim", "target_solidity_recorded": null, "context": "the L_eff↔inductive-impedance identification the freeze mechanism rides on"}
+{"source": "clm-exjfai", "target": "clm-nxc9gy", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies Z_eff(r)=Z₀/√S → L_eff divergence as S→0"}
+{"source": "clm-f4urxy", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies α entering k_B T/(m_e c²)=α/(4π)"}
+{"source": "clm-f4urxy", "target": "clm-viawy9", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the equipartition variance whose σ_V=V_SNAP condition defines the threshold"}
+{"source": "clm-fndptx", "target": "clm-pe8lpx", "target_kind": "claim", "target_solidity_recorded": null, "context": "G-anisotropy is observable 7; supplies the Ω_freeze symmetry axis"}
+{"source": "clm-fr3mos", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": null, "context": "the one-empirical-input-mass-scale disclosure"}
+{"source": "clm-g0mkne", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies Q=1/α and the R=φ/2, r=(φ−1)/2 geometry used in the calibration"}
+{"source": "clm-g0mkne", "target": "clm-jz0xaw", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the rotational massive mode that carries the electron's mass content"}
+{"source": "clm-g0mkne", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the (2,3) Clifford-torus winding the electron calibration is attached to"}
 {"source": "clm-gr8d63", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "both convergence routes bottleneck on α"}
+{"source": "clm-gr8d63", "target": "clm-zgllr2", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the two engines whose convergence is the claim"}
+{"source": "clm-gx1mpl", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "K4 4-neighbor graph topology underlying the shared-B-node path"}
+{"source": "clm-gz7ryg", "target": "clm-sysqaf", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies S(A)=√(1−A²) as the postulated kernel"}
 {"source": "clm-h9aqmt", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "lattice pitch $\\ell_{node}$"}
 {"source": "clm-h9aqmt", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "saturation kernel — for the running-coupling sketch"}
 {"source": "clm-h9aqmt", "target": "axiom-1", "target_kind": "axiom", "target_solidity_recorded": null, "context": "lattice pitch $\\ell_{node}$"}
 {"source": "clm-h9aqmt", "target": "axiom-4", "target_kind": "axiom", "target_solidity_recorded": null, "context": "saturation kernel — for the running-coupling sketch"}
-{"source": "clm-ibfyda", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α appears at multiple layers; α-bottleneck cascades through chain"}
-{"source": "clm-io8hft", "target": "INVARIANT-C1", "target_kind": "invariant", "target_solidity_recorded": null, "context": "$V_{yield} \\approx 43.65$ kV — referenced in the catalogue's key-parameter column"}
-{"source": "clm-io8hft", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "universal saturation kernel — markers and active-symbol semantics"}
-{"source": "clm-io8hft", "target": "axiom-4", "target_kind": "axiom", "target_solidity_recorded": null, "context": "universal saturation kernel — markers and active-symbol semantics"}
+{"source": "clm-hvvvop", "target": "clm-dxdsvt", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the instance set being partitioned"}
+{"source": "clm-i4p11y", "target": "clm-3npynp", "target_kind": "claim", "target_solidity_recorded": null, "context": "the object being trapped"}
+{"source": "clm-i4p11y", "target": "clm-fr3mos", "target_kind": "claim", "target_solidity_recorded": null, "context": "ω_C resonance + V_yield = √α V_snap that triggers the trap"}
+{"source": "clm-ibfyda", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "α appears at multiple layers; α-bottleneck cascades through chain"}
+{"source": "clm-io8hft", "target": "INVARIANT-C1", "target_kind": "invariant", "target_solidity_recorded": null, "context": null}
+{"source": "clm-io8hft", "target": "INVARIANT-S2", "target_kind": "invariant", "target_solidity_recorded": null, "context": "A"}
+{"source": "clm-io8hft", "target": "axiom-4", "target_kind": "axiom", "target_solidity_recorded": null, "context": "A"}
+{"source": "clm-iouqn9", "target": "clm-bjceop", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the constitutive constants behind K(u₀),G(u₀)"}
+{"source": "clm-j550uh", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "T_d is the point group whose irreps decompose the port space"}
+{"source": "clm-k6quve", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies α, which sets V_YIELD=√α·V_SNAP=1 and the √α-conditioned native values"}
+{"source": "clm-l4o7hv", "target": "clm-gz7ryg", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies Axiom-4 kernel applied at cosmic scale"}
 {"source": "clm-lv3uw1", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": 0.5, "context": null}
-{"source": "clm-m3z5ux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for $H_\\infty$'s $\\alpha^{-2}$ factor"}
-{"source": "clm-m3z5ux", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": null, "context": "for the consistency-proof framing of $H_\\infty$"}
-{"source": "clm-m7qd0w", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α appears in BH $r_{eff} = r_{sat}/(1+\\nu_{vac})$, pion via $m_p$, etc."}
-{"source": "clm-nu1ir7", "target": "clm-t1okz0", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-ph2uux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-ph2uux", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-q39qct", "target": "clm-9s9apq", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-rtgmg5", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-rtgmg5", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-xy252u", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-xy252u", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-yc7fgm", "target": "clm-nq2kcc", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-yiyyi3", "target": "clm-dfaiwj", "target_kind": "claim", "target_solidity_recorded": null, "context": null}
-{"source": "clm-zi6t1e", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α-dependent constants throughout: $V_{yield}$, $p_c$, etc."}
+{"source": "clm-m3z5ux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α^-2 factor in H_∞"}
+{"source": "clm-m3z5ux", "target": "clm-5xon03", "target_kind": "claim", "target_solidity_recorded": null, "context": "consistency-proof framing of H_∞"}
+{"source": "clm-m3z5ux", "target": "clm-crbl60", "target_kind": "claim", "target_solidity_recorded": null, "context": "G_vac/ρ_bulk for the v_longitudinal = √2 c bulk-compression speed"}
+{"source": "clm-m7qd0w", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "α appears in BH $r_{eff} = r_{sat}/(1+\\nu_{vac})$, pion via $m_p$, etc."}
+{"source": "clm-nu1ir7", "target": "clm-q39qct", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the discrete-update engine ontology that the Yee-grid identification specializes"}
+{"source": "clm-nxc9gy", "target": "clm-k6quve", "target_kind": "claim", "target_solidity_recorded": null, "context": "the dimensional/natural-units table the decomposition is read in"}
+{"source": "clm-pe8lpx", "target": "clm-a7cbqq", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the single preferred axis the eight channels are predicted to share"}
+{"source": "clm-ph2uux", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "α in ε(Δφ) sets the 1/α^2 coefficient of the E^4 term"}
+{"source": "clm-ph2uux", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": null, "context": "the 1D telegrapher form drops field-gradient corrections near Δφ→α"}
+{"source": "clm-q39qct", "target": "clm-9s9apq", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the z=3 chiral-SRS justification for the 3-strut-per-node connectivity used as a fixture"}
+{"source": "clm-q4c615", "target": "clm-ofys5v", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the causal/impedance disconnection that makes the cosmic parameters inaccessible"}
+{"source": "clm-q4c615", "target": "clm-ze4clw", "target_kind": "claim", "target_solidity_recorded": null, "context": "the three cosmic invariants that remain observable from inside"}
+{"source": "clm-qimsgq", "target": "clm-jz0xaw", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the mass gap that makes the k-integral finite at the origin"}
+{"source": "clm-rkisb8", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "the group whose double cover is taken"}
+{"source": "clm-rtgmg5", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": "sector structure underlying the r-control-parameter classification"}
+{"source": "clm-rtgmg5", "target": "clm-efo113", "target_kind": "claim", "target_solidity_recorded": null, "context": "the dimensionless form is the same leading-order EFT recast in r"}
+{"source": "clm-sjjvhf", "target": "clm-ofys5v", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies causal/impedance disconnection of the Γ=−1 interior"}
+{"source": "clm-sxn6eo", "target": "clm-vnp57s", "target_kind": "claim", "target_solidity_recorded": null, "context": "α-closure is the back-edge cited as acyclic-by-inspection"}
+{"source": "clm-sysqaf", "target": "clm-gdd70j", "target_kind": "claim", "target_solidity_recorded": null, "context": "the one operator formula this catalog restates rather than only pointing to"}
+{"source": "clm-u1o2lo", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "the T=A_4/T_d symmetry the cubic signature is attributed to"}
+{"source": "clm-utnwkc", "target": "clm-usflef", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the breathing-appropriate criterion 1 used in the 4/4 adjudication"}
+{"source": "clm-uu1qbo", "target": "clm-j550uh", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the A_1/T_2 split whose speeds this entry measures"}
+{"source": "clm-uu1qbo", "target": "clm-ys0xl1", "target_kind": "claim", "target_solidity_recorded": null, "context": "underlying T_d symmetry of the port modes"}
+{"source": "clm-viawy9", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies α in the natural-units form ⟨V²⟩_T = k_B T·4π/α via ε₀=α/4π"}
+{"source": "clm-vnp57s", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "owns the geometric closure of α⁻¹=4π³+π²+π that this entry reads dimensionally"}
+{"source": "clm-xy252u", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the α control-parameter denominator"}
+{"source": "clm-xy252u", "target": "clm-b2anl4", "target_kind": "claim", "target_solidity_recorded": null, "context": "same physical regime structure at finer granularity"}
+{"source": "clm-yc7fgm", "target": "clm-nq2kcc", "target_kind": "claim", "target_solidity_recorded": null, "context": "shares the Nyquist/discrete-graph foundation resting on Axiom 1's lattice pitch"}
+{"source": "clm-yiyyi3", "target": "clm-dfaiwj", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies ξ_topo=e/ℓ_node used in the C≡ξ_topo·m substitution throughout"}
+{"source": "clm-yr6tu4", "target": "clm-9gh0a1", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the K4 cubic substrate whose point-group symmetry drives the suppression"}
+{"source": "clm-ze4clw", "target": "clm-ofys5v", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies that the Γ=−1 boundary exposes only integrated boundary observables"}
+{"source": "clm-zfqd9v", "target": "clm-zgllr2", "target_kind": "claim", "target_solidity_recorded": null, "context": "supplies the engine split this localization claim partitions across"}
+{"source": "clm-zi6t1e", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "α-dependent constants throughout: $V_{yield}$, $p_c$, etc."}
 {"source": "clm-zuf7g1", "target": "clm-ldmvwi", "target_kind": "claim", "target_solidity_recorded": 0.55, "context": "Bell-correlation derivation uses Born rule as one of three ingredients"}
-{"source": "clm-zw6mut", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": null, "context": "for muon's $\\alpha\\sqrt{3/7}$ and tau's $8\\pi/\\alpha$ sector factors"}
-{"source": "clm-zw6mut", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": null, "context": "the \"ground-state unknot\" framing is load-bearing for the lepton mass formula and the \"three structural dimensions of the unknot\" Cosserat-sector argument"}
+{"source": "clm-zw6mut", "target": "clm-0ktpcn", "target_kind": "claim", "target_solidity_recorded": 0.23, "context": "for muon's $\\alpha\\sqrt{3/7}$ and tau's $8\\pi/\\alpha$ sector factors"}
+{"source": "clm-zw6mut", "target": "clm-unk0bd", "target_kind": "claim", "target_solidity_recorded": 0.45, "context": "the \"ground-state unknot\" framing is load-bearing for the lepton mass formula and the \"three structural dimensions of the unknot\" Cosserat-sector argument"}

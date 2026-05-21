@@ -469,3 +469,26 @@ open_items:
   - "MOND class propagation: update saturated-lattice-mutual-inductance.md SYM -> ASYM-N(mu) wording (NOT in round-2 delta but inconsistent with adjudicated catalog row)."
   - "Post-merge grep sweep for retired concepts: 'TT tensor shockwave', 'decoupled refractive', 'transverse phonon coupling', '(l=174°, b=-5°)' (old CMB axis pin)."
   - "Round-2 rescore candidates per triage: clm-sxn6eo, clm-pe8lpx, clm-bjceop, clm-zfqd9v, clm-dxdsvt, clm-9s9apq, clm-crbl60, clm-m3z5ux (mond-hoop side), + 2 new minted claims (epsilon/mu axis + bullet-cluster mechanism)."
+
+# ============================================================================
+# RESCORE OUTCOME (2026-05-20, bounded to common + vol1)
+# ============================================================================
+rescore_outcome:
+  scope: "common + vol1 only (vol2-6 stays deferred per standing sweep hold)"
+  method: "7 applied-mathematician agent waves (clusters A-G) + 1 follow-up; strict LOCAL-rigor scoring, assume inputs reliable; outputs spliced via /tmp/rescore-wave/apply.py"
+  claims_scored: 70   # 66 previously-pending + 4 lift-candidates re-assessed
+  done_gate: "0 pending confidence in common+vol1 (met)"
+  verify: "PASS — 254 canonical entries, 103 depends-on edges, DAG clean"
+  autonomous_fixes:
+    - "4 depends-on SCCs introduced by independent agents -> cut 5 back-edges by dependency-direction (ofys5v->ze4clw; qwmnhn->iouqn9 + qwmnhn->bjceop; ys0xl1->7pvh9i; usflef->utnwkc)"
+    - "9 missing solidity lines (cluster F omission) -> inserted before rationale; refresh recomputed"
+  bands_common_vol1:   # 97 claims total
+    confidence: ">=0.8: 23 | 0.65-0.8: 30 | 0.45-0.65: 39 | 0.25-0.45: 5 | <0.25: 0"
+    solidity: "build-ready(>=0.65): 25 | ok-caveats: 15 | weak/rework: 16 | do-not-build(<0.25): 39 | undefined: 2"
+    undefined_note: "clm-533gvm + clm-exjfai depend on clm-jwyy6l (vol2, pending) -> solidity uncomputable until vol2-6 sweep"
+  followups_entry_body_drift:   # NOT fixed — flagged for decision (separate pass)
+    - "clm-zfqd9v entry body still describes retracted c_eff=c0*sqrt(S); leaf canonical form is c0/sqrt(S)"
+    - "clm-bjceop entry caveat says xi_K1/xi_K2 'still open'; leaf shows closed 2026-05-18 (8/3, 32)"
+    - "clm-hvvvop entry still says '21 instances'; catalog grew to 26 (3-way SYM/ASYM count needs reconcile)"
+    - "A-034 catalog leaf internal count drift: 26 vs 21 vs symmetry-tally 27 — needs one authoritative number"
+  committed: false   # working tree only; awaiting user review

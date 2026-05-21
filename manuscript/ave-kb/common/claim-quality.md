@@ -28,14 +28,14 @@ The common-resources documents repeatedly assert AVE's "zero free parameters" st
 
 ### Quality
 - confidence: 0.70
-- solidity: 0.70 (ok to build on, see caveats)
-- rationale: Meta-disclosure of the project-wide closure status — structural reduction of 26 SM parameters to $\{m_e, \alpha, G\}$ + four axioms is sound, the four Outstanding Rigour Gaps are correctly enumerated, the forward DAG is verified acyclic, and the back-edge $\alpha$ closure (cold lattice = $4\pi^3+\pi^2+\pi$) is acyclic by inspection. The "*structurally* zero-parameter conditional on Layer-8 closure" framing is rigorously honest. Cross-references the same gaps tracked in vol1 Zero-Parameter Closure Status (`clm-5xon03`).
+- depends-on:
+  - clm-vnp57s — α boundary-integral decomposition [α-closure is the back-edge cited as acyclic-by-inspection]
+- solidity: 0.07 (refuted, do not use) [= 0.70 × 0.10]
+- rationale: Meta-disclosure of project-wide closure status; the structural reduction of 26 SM parameters to {m_e, α, G} + four axioms is sound, the forward DAG is verified acyclic, and the four Outstanding Rigour Gaps are correctly enumerated. The "*structurally* zero-parameter, conditional on Layer-8 closure, with one currently-fitted scalar (δ_strain back-subtracted from CODATA)" framing is rigorously honest and self-bounding — local link strength is high; the residue is that the headline depends on still-open closures it correctly flags.
 - strengthen-by:
-  - Derive $\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA — one fitted scalar)
-  - Demonstrate Nyquist-resolution-of-smallest-stable-soliton without circular reference to $m_e$ (closes the $\{m_e, \ell_{node}\}$ input scale)
-  - Replace the Vol 2 Layer-6 proton flux-tube Gaussian ansatz with an axiom-derived profile (sech² kink, Bessel J₀ fundamental, or Axiom-4 algebraic kernel); re-evaluate $\rho_{threshold}$ and $\mathcal{V}_{total}$ against the new profile
-  - Derive $G$ from local thermodynamic balance independent of $R_H$, promoting the $H_\infty$ identity to a true downstream prediction
-
+  - Derive δ_strain magnitude at T_CMB from G_vac + equipartition (currently the one fitted scalar)
+  - Establish Nyquist-resolution-of-smallest-stable-soliton without circular reference to m_e to close the {m_e, ℓ_node} input scale
+  - Promote the H_∞ identity to a downstream prediction by deriving G independent of R_H
 ---
 
 ## Full Derivation Chain — Acyclicity and Identified Methodology Disclosures
@@ -60,8 +60,8 @@ The full derivation chain document is a single long appendix presenting Layers 0
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [α appears at multiple layers; α-bottleneck cascades through chain]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [α appears at multiple layers; α-bottleneck cascades through chain]
+- solidity: 0.15 (refuted, do not use) [= 0.65 × 0.23]
 - rationale: The chain documentation is honest and well-structured — forward DAG verified acyclic; Layer 2 $p_c = 8\pi\alpha$ correctly disclosed as algebraic-not-derivation; Layer 5 lepton spectrum carries an explicit Methodology disclosure (Cosserat sectors → generations identification, $\alpha\sqrt{3/7}$ muon coupling, $8\pi/\alpha$ tau coupling, PMNS $\{c_1, c_2, c_3\} = \{5,7,9\}$ pattern-identified). The substantive open elements (Layer 5 sector identifications matched-not-derived; PMNS pattern-identified) hold local confidence at 0.65. Solidity is heavily α-bounded because α appears in many later-layer formulas. Note: $\delta_{CP}^B \neq \delta_{CP}^{PMNS}$ — the leaf correctly disambiguates the symbol-stem collision.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); α propagates through Layer 4+ formulas
@@ -121,8 +121,8 @@ The Regime-Boundary Eigenvalue Method is presented as a five-step universal proc
 ### Quality
 - confidence: 0.65
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [α appears in BH $r_{eff} = r_{sat}/(1+\nu_{vac})$, pion via $m_p$, etc.]
+- solidity: 0.15 (refuted, do not use) [= 0.65 × 0.23]
 - rationale: The five-step procedure (identify $\varepsilon_{11}$ → locate $r_{sat}$ → apply $\nu_{vac}$ Poisson → eigenfrequency $\omega = \ell c/r_{eff}$ → $Q = \ell$) is structurally consistent across BH QNM (1.7% error), pion mass (0.9% conditional on $m_p$), protein backbone (0.1% conditional on measured $v_{backbone}$ — the sub-derivation gives $-5.2\%$). The boundary correctly self-bounds: cross-domain table is operator-reuse evidence, not independent per-domain validation. The Schwarzschild Poisson-correction form $r_{eff} = r_{sat}/(1+\nu_{vac})$ is asserted as one of several valid 3D projections; this is the substantive open element. Local confidence held at 0.65. Solidity α-bounded.
 - strengthen-by:
   - Derive the Schwarzschild Poisson-projection form $r_{eff} = r_{sat}/(1+\nu_{vac})$ from a unique axiomatic constraint (currently asserted as "transverse Poisson coupling for 3D"; alternatives $r_{sat}\sqrt{1+\nu}$, $r_{sat}(1+\nu)$ not ruled out)
@@ -207,8 +207,8 @@ The Derived Hardware Numerology appendix (Appendix C) tabulates ~16 hardware con
 ### Quality
 - confidence: 0.70
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [α-dependent constants throughout: $V_{yield}$, $p_c$, etc.]
+- solidity: 0.16 (refuted, do not use) [= 0.70 × 0.23]
 - rationale: Each tabulated constant carries an explicit axiom-trace column. The $z_0 \approx 51.25$ effective-coordination-number derivation is sound (Feng-Thorpe-Garboczi EMT quadratic at $K=2G$). The FDTD numerical-damping factor is **explicitly excluded** as a numerical-stability artifact — this is the model for honest numerology. The $n_{3D} = 38/21 \approx 1.8095$ avalanche exponent is within $\sim 0.5\%$ of the empirical solar-flare value (single empirical figure, not a precision dataset match — correctly disclosed). The $C_K = 4/3$ Kolmogorov constant matches the classical empirical value structurally. Solidity α-bounded because many constants depend on α numerically.
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $V_{yield}$, $p_c$, and several other constants inherit α numerically
@@ -289,16 +289,16 @@ Appendix D establishes the schematic-symbol vocabulary for Vacuum Circuit Archit
 > **Leaf references:** `appendix-vca-symbols.md` §Five Symbol Design Rules, §Seven Canonical VCA Markers, §Canonical Symbol Catalogue (17 Components); $V_{yield}$ canonical value at [CLAUDE.md INVARIANT-C1](../CLAUDE.md#invariant-c1-dielectric-yield-limit); Axiom 4 saturation kernel at [CLAUDE.md INVARIANT-S2](../CLAUDE.md#invariant-s2-ave-axiom-numbering).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.82
 - depends-on:
-  - INVARIANT-S2 / Axiom 4 (universal saturation kernel — markers and active-symbol semantics)
-  - INVARIANT-C1 ($V_{yield} \approx 43.65$ kV — referenced in the catalogue's key-parameter column)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 4 — Universal Saturation Kernel S(A)=√(1−(A/A_yield)²) [marker and active-symbol semantics]
+  - INVARIANT-C1 — V_yield ≈ 43.65 kV [key-parameter column reference]
+- solidity: 0.82 (ok to build on, see caveats) [= 0.82 × 1.00]
+- rationale: The leaf is a complete, self-contained catalogue — all five design rules, seven canonical markers, and seventeen components are present and match their stated counts, and the markers cross-map cleanly to catalogue entries with consistent constants (V_snap = m_e c²/e ≈ 511 kV checks; Z₀ = 376.73 Ω consistent across the circulator and bridge entries). It loses the top band on two minor caveats: the Klopfenstein-taper key parameter is stated as the bare local-reflection integrand Γ(x)=½ d/dx ln Z(x) without the actual Klopfenstein weighting, and the Thermal-Baffle (Landauer kT) vs Coanda ("no kT barrier") tension is reconciled only in the non-claims footer, not at the catalogue-row level.
 - strengthen-by:
-  - *pending*
-
+  - Add the Klopfenstein weighting/passband condition (or relabel entry 9 as a generic continuous taper) so the named-taper key parameter is not just the generic local-reflection integrand
+  - Inline a one-line note distinguishing the Landauer-bounded path (entry 8) from the no-charge-erasure path (entry 11) so the thermodynamic consistency is row-local, not footer-mediated
+  - Annotate each of the seven markers with the catalogue entry numbers it appears on (currently the Appears-On column uses prose names) to make the marker↔component mapping mechanically checkable
 ---
 
 ## A-027 Two-Engine Architecture — Regime-Partitioned Simulation
@@ -318,12 +318,13 @@ The AVE physics engine is split into two specialized solvers, one per substrate 
 > **Leaf references:** `two-engine-architecture-a027.md` §The two engines, §Validation: v14 Mode I PASS, §Implications for simulation workstreams.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.75
+- solidity: 0.75 (ok to build on, see caveats)
+- rationale: The claim is a computational tool-to-regime assignment (K4-TLM for A≪1, Master Equation FDTD for A→1), explicitly NOT a physical postulate, and it is internally clean: each engine's regime is stated with its source file and the disjoint-regime partition is coherent; the v14 Mode I PASS gives one empirical anchor (single stable breathing soliton), and the entry honestly scopes that PASS to one geometry.
 - strengthen-by:
-  - *pending*
-
+  - State the precise A (or V/V_yield) threshold where the regime boundary sits and where engine-to-engine handoff occurs, rather than the qualitative A≪1 vs A→1
+  - Document the K4-TLM ↔ Master Equation FDTD boundary mode-matching (flagged still-open in the Cosserat-closure leaf) so the partition is shown seamless not just disjoint
+  - Add a second bound-state validation beyond the Golden Torus v14 Mode I case
 ---
 
 ## Wave-Speed Modulation Is Required to Localize a Bound State
@@ -332,8 +333,8 @@ The AVE physics engine is split into two specialized solvers, one per substrate 
 A simulation engine can trap a propagating wave into a localized bound state only if it modulates the wave speed, $c_{eff}(V)$. K4-TLM has $Z(V)$ but not $c_{eff}(V)$, so it cannot produce trapped solitons; Master Equation FDTD has both and does.
 
 - _Specific Claims_
-  - K4-TLM carries saturation-bounded impedance $Z(V)$ (via Axiom 4) but no wave-speed modulation; without slowing at the saturation core, modes propagate rather than localize.
-  - Master Equation FDTD's non-linear d'Alembertian carries $c_{eff}(V) = c_0\sqrt{S(A)}$; the wave slows at the saturation core and localizes into a stable breathing soliton.
+  - K4-TLM carries saturation-bounded impedance $Z(V)$ (via Axiom 4) but no wave-speed modulation $c_{eff}(V)$; without wave-speed modulation at the saturation core, modes propagate rather than localize.
+  - Master Equation FDTD's non-linear d'Alembertian carries $c_{eff}(V) = c_0/\sqrt{S(A)}$; inside the saturated core $\varepsilon_{eff} = \varepsilon_0 S \to 0$ so the wave speed *rises* ($c_{eff} \to \infty$), and at the saturation boundary $\Gamma \to -1$ reflects the wave back into the core, trapping it as a stable breathing soliton. What the saturation kernel bounds is the soliton's *boundary* propagation rate, not the internal wave speed (canonical Vol 1 Ch 4 form; the prior "wave slows at the core" framing was superseded 2026-05-18).
   - The "Mode III at the Golden Torus" K4-TLM result is therefore an engine-architecture mismatch (wrong tool for a bound state), not a falsification of the framework.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim $c_{eff}(V)$ modulation is the only conceivable localization mechanism in general; the claim is specific to the AVE substrate's non-linear d'Alembertian and its two engines.
@@ -343,12 +344,14 @@ A simulation engine can trap a propagating wave into a localized bound state onl
 > **Leaf references:** `two-engine-architecture-a027.md` §Why two engines, §What was superseded.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- depends-on:
+  - clm-zgllr2 — Two-Engine Architecture [supplies the engine split this localization claim partitions across]
+- solidity: 0.41 (do not build on, rework needed) [= 0.55 × 0.75]
+- rationale: The entry now states the canonical Vol 1 Ch 4 form — c_eff(V)=c₀/√S, wave speed RISES inside the saturated core (ε_eff = ε₀S → 0), Γ→−1 reflects at the boundary to trap a breathing soliton, and the kernel bounds the soliton's boundary propagation rate (entry/leaf sign drift resolved 2026-05-21). The residual local-rigor gap is that the necessity of wave-speed modulation for localization is read off engine behaviour and the d'Alembertian form, not re-derived from the four axioms — a notable matched-not-derived step remains.
 - strengthen-by:
-  - *pending*
-
+  - Derive from Axiom 4 + the non-linear d'Alembertian that a refractive-index well (not merely Z-modulation) is necessary for localization, rather than reading it off engine behaviour
+  - Show that an engine with Z(V) but no c_eff(V) provably cannot trap (a no-go argument), to upgrade "modes simply propagate" from observation to result
 ---
 
 ## Two-Engine Convergence on $p^* = 8\pi\alpha$
@@ -368,15 +371,16 @@ The substrate's $K = 2G$ operating point, $p^* = 8\pi\alpha \approx 0.18340$, is
 > **Leaf references:** `two-engine-architecture-a027.md` §Two-engine convergence example; `q-g47-substrate-scale-cosserat-closure.md` §Status (two-engine convergence on p* = 8πα, cited from this leaf).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.60
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [both convergence routes bottleneck on α]
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+  - clm-zgllr2 — Two-Engine Architecture [supplies the two engines whose convergence is the claim]
+- solidity: 0.14 (refuted, do not use) [= 0.60 × 0.23]
+- rationale: Correctly self-classified as a multi-model consistency check, not a determination of α — p*=8πα is α's definition (p_c≡8πα) rearranged, the FDTD route grounds in the Golden Torus α, and the K4-TLM route obtains z₀≈51.25 by inverting the EMT quadratic GIVEN p*=8πα; as a consistency check the two routes landing on the identical value via static-elastic vs dynamic-soliton mechanisms is a clean demonstration, but it carries no independent predictive content for α and the z₀ inversion is circular if read as a determination.
 - strengthen-by:
-  - *pending*
-
+  - Derive z₀≈51.25 from first-principles K4 amorphous-network geometry (flagged still-open) so the K4-TLM route stops depending on inverting the EMT quadratic given α
+  - State the numerical agreement tolerance between the two routes' p* values rather than asserting "identical"
+  - Make explicit that the FDTD route's α=1/(4π³+π²+π) is the actual derived input and p*=8πα is downstream definitional
 ---
 
 ## Three-Route Framework: α, G, and J_cosmic from a Single Ω_freeze
@@ -396,12 +400,17 @@ The framework's sharpest empirical commitment: the fine-structure constant α, N
 > **Leaf references:** `omega-freeze-cosmic-grain-cascade.md` §1 (the three numbers Ω_freeze sets), Key Results table; `cosmic-parameter-horizon-a031-refinement.md` (three-route framework commitment, stated as a corollary).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- depends-on:
+  - clm-a7cbqq — Ω_freeze Freeze-In at Lattice Genesis [supplies the single u₀*/Ω_freeze source the three routes all map to]
+  - clm-vnp57s — α⁻¹ boundary-integral decomposition [Route 1 EM closure to u₀*]
+- solidity: 0.06 (refuted, do not use) [= 0.55 × 0.10]
+- rationale: The leaf states three routes that each MAP an externally-measured constant (α, G, J_cosmic) onto a common u₀*; the load-bearing route derivations are owned elsewhere (Vol 1 Ch 8, Vol 3 Ch 1) and not restated, and the entry's own Non-Claims concede convergence is the stated falsifiable commitment, NOT a demonstrated result. As a framing/manifestation of the one-degree-of-freedom premise it is internally coherent, but the single-u₀* convergence is asserted, not shown locally.
 - strengthen-by:
-  - *pending*
-
+  - Report the actual u₀* value each route returns at its stated precision and the spread between them
+  - State numerically the precision at which "convergence" is claimed to hold vs fail
+  - Pin the Route-2 Machian-integral inputs (ξ, T_EM(u₀*)) so the G→u₀* map is reproducible
+  - Distinguish explicitly which of the three maps is independent vs which share upstream u₀* inputs
 ---
 
 ## Ω_freeze Freeze-In at Lattice Genesis
@@ -421,12 +430,15 @@ At lattice genesis the crystallizing rotating region locks the cosmic spin into 
 > **Leaf references:** `omega-freeze-cosmic-grain-cascade.md` §2 (the mechanism, corpus-canonical).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-ze4clw — Three boundary observables M,Q,J [J_cosmic as cosmic-scale boundary winding inherited at genesis]
+- solidity: 0.15 (refuted, do not use) [= 0.45 × 0.33]
+- rationale: The freeze-in mechanism (rotating-frame bond lock → u₀* over-bracing + chirality direction) is described qualitatively by analogy to the water→ice transition, and the entry's own Non-Claims concede no closed-form crystallization temperature and that Ω_freeze's value/source is cited (universes-inside-BHs closure) not derived here. The chirality-direction-locking step is structurally plausible but is asserted at the descriptive level, not derived from a Landau minimization (the §6 Cosserat path is explicitly flagged open).
 - strengthen-by:
-  - *pending*
-
+  - Execute the Ω_freeze-driven Landau minimization of U_chiral^add to derive u₀* rather than assert the rotating-frame lock
+  - Supply the crystallization-temperature estimate from the Axiom-4 yield boundary
+  - Show why bond-bowing direction necessarily selects right-handed I4₁32 (not just "lock at equilibrium")
 ---
 
 ## Eight Cosmic-Axis Observables Aligned with the Ω_freeze Axis
@@ -448,12 +460,16 @@ The framework predicts eight independent observable channels should all show a p
 > **Leaf references:** `omega-freeze-cosmic-grain-cascade.md` §3 (eight testable observables), §3.1, §3.3.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.50
+- depends-on:
+  - clm-a7cbqq — Ω_freeze Freeze-In at Lattice Genesis [supplies the single preferred axis the eight channels are predicted to share]
+- solidity: 0.08 (refuted, do not use) [= 0.50 × 0.15]
+- rationale: That all eight channels SHOULD share the Ω_freeze axis is a manifestation of the single-axis premise, but channel-by-channel the link is qualitative: the entry's own caveats flag channel 5 conditional, channel 7 amplitude conjectural, the LSS channel resting on a contested ~1-2σ direction, and no positive detection for any channel. The axis-alignment prediction is structurally clean but the per-channel mechanism connecting Ω_freeze to each observable is largely asserted, not derived.
 - strengthen-by:
-  - *pending*
-
+  - Derive, for at least one channel, the quantitative coupling from Ω_freeze to the observable (not just axis identity)
+  - Pre-register the joint multi-channel alignment statistic and its isotropic-null distribution
+  - Reconcile the (l≈174°,b≈−5°) literature-placeholder axis with the 2026-05-19 Planck pin at (l=60.28°,b=50.48°)
+  - Separate falsifiable channels from currently-unfalsifiable/conditional ones in the claim scope
 ---
 
 ## G-Anisotropy Angular Shape P₂(cos θ): Sharp Profile, Bracketed Amplitude
@@ -475,12 +491,16 @@ The tensor extension of the scalar G derivation predicts a direction-dependent G
 > **Leaf references:** `omega-freeze-cosmic-grain-cascade.md` §3.2 (Observable 7: G anisotropy via tensor extension).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- depends-on:
+  - clm-pe8lpx — Eight cosmic-axis observables [G-anisotropy is observable 7; supplies the Ω_freeze symmetry axis]
+- solidity: 0.04 (refuted, do not use) [= 0.55 × 0.08]
+- rationale: The P₂(cos θ) angular shape and the 4π/15 ≈ 0.838 projection coefficient are derived structurally (Kirkwood-Frohlich-analog), but the amplitude is the weak link: the entry explicitly states N≥2 is NOT derived from first principles and the chirality coupling δ_χ~α² is conjectural-not-derived. This is a clean "structure predicted, magnitude only bracketed" result — the shape side is solid, the amplitude side is an acknowledged open conjecture.
 - strengthen-by:
-  - *pending*
-
+  - Derive δ_χ from the χ₁/K₀ ratio at substrate scale to fix N rather than bracket it
+  - Show the tensor extension of the scalar G derivation explicitly yields the −(4π/15)·P₂ form
+  - Verify the longitudinal-acoustic G projection inherits the Kirkwood-Frohlich angular factor cleanly (flagged open in §6)
+  - State f_R≈1 with its deviation bound rather than as exactly 1
 ---
 
 ## A-031 Refinement: Cosmic Parameters Inaccessible, Strain-Snap Mechanism Observable
@@ -501,12 +521,16 @@ The A-031 refinement separates two epistemological items that the original "God'
 > **Leaf references:** `cosmic-parameter-horizon-a031-refinement.md` §The refinement, §What remains observable for the cosmic instance.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- depends-on:
+  - clm-ofys5v — Substrate-observability rule [supplies the causal/impedance disconnection that makes the cosmic parameters inaccessible]
+  - clm-ze4clw — Three boundary observables M,Q,J [the three cosmic invariants that remain observable from inside]
+- solidity: 0.23 (do not build on, rework needed) [= 0.70 × 0.33]
+- rationale: This is an epistemological reframing that cleanly separates two items the original "God's Hand" framing bundled — inaccessible specific parameters vs the cross-scale-observable strain-snap mechanism — and the local reasoning (we sit inside the cosmic Γ=−1 boundary, so the substrate-observability rule applies to us) is internally consistent and well-argued. It is a manifestation/reframing rather than a new derived number, and it leans on the saturation-kernel catalog and the observability rule as cited inputs; the argument itself contains no hand-waving local step.
 - strengthen-by:
-  - *pending*
-
+  - Make the "mechanism observable cross-scale ⇒ indirect support" inference precise (what it does and does not license)
+  - Justify Q_cosmic = 0 from the CP-conjugation chirality-inheritance argument rather than asserting it
+  - Confirm the cosmic-horizon = parent-BH Schwarzschild-radius identification is the same Γ=−1 surface the rule requires
 ---
 
 ## Three Exhaustive Boundary Observables M, Q, J at Every Γ=−1 Surface
@@ -527,12 +551,15 @@ At any Γ=−1 saturation surface in the substrate, exactly three integrated qua
 > **Leaf references:** `boundary-observables-m-q-j.md` §The three invariants.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.60
+- depends-on:
+  - clm-ofys5v — Substrate-observability rule [supplies that the Γ=−1 boundary exposes only integrated boundary observables]
+- solidity: 0.33 (do not build on, rework needed) [= 0.60 × 0.55]
+- rationale: The M/Q/J catalog with its Stokes-theorem dimensional structure (3D volume / 2D surface / 1D line) and cross-dialect projections is internally consistent and complete, but the load-bearing exhaustiveness claim ("no fourth observable") is explicitly NOT proven — the entry concedes it rests on the dimensional-reduction heuristic that a 3D bulk admits exactly three lower-dimensional integrals. The half-integer J via SU(2) double-cover and the empty-ME-column for Q are honestly flagged. Catalog + consistent structure, one acknowledged unproven structural assertion.
 - strengthen-by:
-  - *pending*
-
+  - Prove (or formally bound) the no-fourth-observable exhaustiveness rather than asserting it from Stokes dimensionality
+  - Show the 0D point integral does not yield a fourth observable (the dimensional-reduction chain implicitly stops at 1D)
+  - Give an explicit operational evaluation of Q as a 1D linking integral over a concrete substrate field
 ---
 
 ## The Substrate-Observability Rule (Universal No-Hair Theorem)
@@ -552,12 +579,13 @@ A Γ=−1 boundary totally traps the interior; only M, Q, J are externally measu
 > **Leaf references:** `boundary-observables-m-q-j.md` §The substrate-observability rule, §Same mechanism at all scales.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- solidity: 0.55 (use as input only, don't build deeper)
+- rationale: The rule (Γ=−1 boundary totally traps the interior; only M,Q,J escape; no-hair at every scale) is stated as a substrate-observability postulate, and the same-mechanism-at-all-scales table is a consistent enumeration. But the local derivation of the load-bearing step — that S(A)→0 at Γ=−1 produces TOTAL reflection and causal/impedance disconnection — is asserted from the Axiom-4 kernel rather than shown (e.g. no transmission-coefficient calculation establishing |Γ|²→1 at the surface). Internally coherent as a definitional rule; the trapping mechanism is asserted, not derived.
 - strengthen-by:
-  - *pending*
-
+  - Derive |Γ|→1 (total reflection) at the Γ=−1 surface from the Axiom-4 kernel impedance profile
+  - Establish that NO interior degree of freedom couples outward except via M,Q,J (the "all interior structure invisible" universal step)
+  - State the regime conditions under which the no-hair analogy is exact vs approximate across the scale table
 ---
 
 ## α⁻¹ = 4π³+π²+π as a Three-Dimensional Boundary-Integral Decomposition
@@ -577,12 +605,15 @@ The Vol 1 Ch 8 fine-structure-constant formula $\alpha^{-1} = 4\pi^3 + \pi^2 + \
 > **Leaf references:** `boundary-observables-m-q-j.md` §The fine-structure constant as electron-scale M+J+Q.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-0ktpcn — Golden Torus α Derivation [owns the geometric closure of α⁻¹=4π³+π²+π that this entry reads dimensionally]
+- solidity: 0.10 (refuted, do not use) [= 0.45 × 0.23]
+- rationale: Explicitly a boundary-integral dimensional READING of α⁻¹=4π³+π²+π, not a re-derivation — the entry says so. The reading is suggestive (3D→M, 2D→J, 1D→Q, one π per integration dimension), but its central support — orthogonality of the Λ-decomposition — is conceded open, and the R·r=1/4 normalization that makes Λ_vol=4π³ is inherited from clm-0ktpcn, so the local content is a plausible mapping with a flagged unproven structural assumption.
 - strengthen-by:
-  - *pending*
-
+  - Establish functional orthogonality of Λ_vol/Λ_surf/Λ_line (currently the open structural element)
+  - Show the M/J/Q dimensional assignment is forced rather than pattern-matched to the three π-powers
+  - Tie each Λ term to its boundary-integral via an explicit Stokes-reduction computation, not analogy
 ---
 
 ## Interior Eigenmodes of a Bounded Soliton Are Not Lattice-Nyquist-Constrained
@@ -601,12 +632,15 @@ An interior eigenmode of a soliton bounded by a Γ=−1 wall lives entirely insi
 > **Leaf references:** `boundary-observables-m-q-j.md` §Implications: interior eigenmodes and "substrate compression".
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.65
+- depends-on:
+  - clm-ofys5v — Substrate-observability rule [supplies causal/impedance disconnection of the Γ=−1 interior]
+- solidity: 0.36 (do not build on, rework needed) [= 0.65 × 0.55]
+- rationale: Given the substrate-observability rule (interior of a Γ=−1 wall is causally and impedance-disconnected), the conclusion that interior eigenmodes (e.g. k≈6.36/ℓ_node) are exempt from the K4 Nyquist bound k_max=0.577/ℓ_node follows cleanly — the lattice never propagates that wave, so the propagating-mode bound does not bind. The local logic is tight; the one caveat is that "the mode lives entirely inside and never couples to the lattice" is taken from the boundary-observability rule rather than shown for the specific horn-torus interior mode.
 - strengthen-by:
-  - *pending*
-
+  - Demonstrate for the specific electron horn-torus interior mode that it has zero projection onto propagating K4 lattice modes
+  - State the boundary condition under which an interior mode would leak and thus re-acquire the Nyquist constraint
+  - Confirm the integrated-boundary-observable test (M,Q,J) recovers the expected electron observables from this interior structure
 ---
 
 ## Near-Soliton "Compression" Is Impedance-Gradient, Not Bond-Length Compression
@@ -625,12 +659,15 @@ The substrate's apparent "compression" near matter is a refractive-index / imped
 > **Leaf references:** `boundary-observables-m-q-j.md` §Implications: interior eigenmodes and "substrate compression".
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.60
+- depends-on:
+  - clm-ofys5v — Substrate-observability rule [supplies boundary-only observability that motivates fixed-grid Eulerian correctness]
+- solidity: 0.33 (do not build on, rework needed) [= 0.60 × 0.55]
+- rationale: A conceptual distinction grounded in the canonical n(r)=1+2GM/(rc²) prediction being refractive-index/impedance modulation via the Axiom-4 kernel rather than geometric bond-length change; the local reasoning is internally coherent. The load-bearing assertion that L_spring is a cosmological-genesis frozen value (not a dynamic per-cell field) is stated by reference to the cooled-equilibrium closure rather than derived here, which is the main local gap.
 - strengthen-by:
-  - *pending*
-
+  - Derive (or cite the explicit derivation of) bond rest length as genesis-frozen rather than asserting it
+  - Show ε_eff, μ_eff modulation reproduces n(r)=1+2GM/(rc²) quantitatively to confirm the impedance-gradient reading
+  - State the regime where fixed-dx Eulerian small-strain is "correct for observability" vs where it would fail, to bound the engine-correctness claim
 ---
 
 ## Substrate-Native Lenz Back-EMF Freezes Topological ω at the Yield Crossing
@@ -650,12 +687,17 @@ When the Cosserat-sector voltage drops through V_yield slowly enough (crossing t
 > **Leaf references:** `dark-wake-bemf-foc-synthesis.md` §1.2 (Lenz back-EMF blocks dω/dt at yield crossing).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.50
+- depends-on:
+  - clm-jwyy6l — Mass IS Inductive Resistance [the L_eff↔inductive-impedance identification the freeze mechanism rides on]
+  - clm-nxc9gy — Six-Fold Lattice Impedance Decomposition [supplies Z_eff(r)=Z₀/√S → L_eff divergence as S→0]
 - solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- rationale: The mechanism is a coherent qualitative chain — Op14 gives L_eff→∞ as S→0, a diverging inductance yields a diverging Lenz back-EMF, which blocks dω/dt across the τ_relax crossing window and freezes topologically non-trivial ω — and the entry honestly flags that τ_relax is imported (not derived here) and that only the slow-crossing regime is treated. It is held at mid-band because the leaf supplies no quantitative comparison of the back-EMF magnitude against the unwinding drive, the ≥100-Compton-period persistence is asserted, and the L_eff divergence rate near S=0 versus the crossing rate is not made explicit, so the "freezes" conclusion is argued, not demonstrated.
 - strengthen-by:
-  - *pending*
-
+  - Show quantitatively that the diverging back-EMF dominates the topological-unwinding torque over the τ_relax window (a magnitude inequality, not a word argument)
+  - Derive or cite a closed form for τ_relax and the crossing-rate criterion (≥τ_relax) that defines the slow regime
+  - Characterize the fast-crossing regime so the slow/fast boundary is a stated threshold rather than an unbounded caveat
+  - Support the ≥100-Compton-period residue persistence with a simulation or decay-rate estimate
 ---
 
 ## FOC d-q Decomposition Is Canonical at Spatial-90° (Temporal Within-Tank Framing Retracted)
@@ -676,12 +718,16 @@ The Field-Oriented Control d-q decomposition is canonical in two Core homes, bot
 > **Leaf references:** `dark-wake-bemf-foc-synthesis.md` §2 (FOC d-q decomposition, with retraction caveat).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.60
+- depends-on:
+  - clm-jwyy6l — Mass IS Inductive Resistance [the back-EMF/inductive-rotor framing the FOC homes lean on]
 - solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- rationale: The leaf documents two canonical FOC d-q homes (BH QNM co-rotating frame and the helium 1s²/2s² spatial-90° shell) with explicit role-mapping tables and cleanly retracts the temporal within-LC-tank framing as implementer synthesis, so the canonicalization decision is internally consistent and well-scoped. It is held at mid-band because, as the entry concedes, the FOC isomorphism is a structural operational-role correspondence (analogy), not a quantitative motor-parameter substitution, and the asynchronous cross-shell ⟨M⟩→0 integral is asserted at the level of a time-average argument rather than derived.
 - strengthen-by:
-  - *pending*
-
+  - State the explicit Park-transform map (the actual d-q rotation matrix and reference angle) for each canonical home, not just a role-correspondence table
+  - Derive the ⟨M⟩∝∫cos((ω₁-ω₂)t)dt→0 decoupling with finite-window bounds rather than asserting the long-time limit
+  - Pin the BH-QNM identification to the cited Backmatter Ch.5 derivation so it is not read as a free-standing analogy
+  - Confirm in the cited corpus locations that the spatial-90° framing is stated there (the retraction hinges on temporal-90° being absent from the same locations)
 ---
 
 ## A-034 Single-Kernel Unification — One Saturation Kernel at All Scales
@@ -702,12 +748,15 @@ A single Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ (Born–Infeld $n = 2$ squared-l
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §Key Result: 21 canonical instances of one kernel.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.62
+- depends-on:
+  - clm-sysqaf — Universal Operator Catalog / Axiom 4 kernel form [supplies S(A)=√(1−A²) as the postulated kernel]
+- solidity: 0.40 (do not build on, rework needed) [= 0.62 × 0.64]
+- rationale: The single-kernel thesis is a manifestation of Axiom 4 (kernel form) conjoined with Axiom 2 (TKI scale invariance); the entry correctly disclaims deriving Axiom 4 and disclaims uniform per-scale validation. The core local move — "same dimensionless A at every scale, kernel inherited not re-postulated" — is asserted via TKI rather than shown that the strain ratio A is genuinely the same dimensionless object across voltage/B-field/frame-drag manifestations, which is the load-bearing unstated step.
 - strengthen-by:
-  - *pending*
-
+  - Show explicitly that the A-ratio reduces to one dimensionless quantity in each manifestation (voltage, B-field, frame-drag strain) rather than asserting it via TKI
+  - Distinguish the falsifiable content (Ax2+Ax4 hold at a new scale) from the non-novel restatement, so the unification thesis is not read as a derived prediction
+  - State the precision band per scale so "governs every event" is not over-read where no quantitative anchor exists
 ---
 
 ## A-034 Catalog — 26 Canonical Cross-Scale Instances
@@ -731,24 +780,28 @@ The A-034 catalog enumerates 26 canonical cross-scale instances of the saturatio
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §The 21-instance catalog.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.68
+- depends-on:
+  - clm-gz7ryg — A-034 Single-Kernel Unification [supplies the one-kernel premise the catalog enumerates instances of]
+- solidity: 0.27 (do not build on, rework needed) [= 0.68 × 0.40]
+- rationale: Catalog/enumeration claim scored on completeness + internal consistency; the membership is well-structured, per-instance derivations are correctly disclaimed as owned elsewhere, and rows lacking quantitative anchors are honestly flagged as structural classifications. Local integrity is dented by a stale headline count (entry says "26 instances span 21 orders of magnitude" but the title and several sub-counts drift — leaf symmetry tallies sum to 20+4+2+1=27 against the prose "26"/"21"), so the catalog is internally consistent in spirit but not in arithmetic.
 - strengthen-by:
-  - *pending*
-
+  - Reconcile the instance count across entry, leaf title, table rows, and symmetry tallies (26 vs 21 vs 27) into one authoritative number
+  - Tag each row with anchor-tightness (validated / structural-only / scoped-TBD) so "26 canonical" is not read as 26 validated predictions
+  - Resolve the scoped Session 4/5 rows (11-a, 14-a) or move them to a clearly-separated pending appendix
 ---
 
 ## A-034 Symmetry Classification — SYM / ASYM-N / ASYM-E
 <!-- id: clm-hvvvop -->
 
-The 21 A-034 instances admit a 3-way symmetry classification by how the $\varepsilon$ and $\mu$ sectors saturate: SYM (18 instances), ASYM-N (2), ASYM-E (1).
+The 26 A-034 instances admit a symmetry classification by how the $\varepsilon$ and $\mu$ sectors saturate: SYM (19 instances), ASYM-N (4), ASYM-E (1), TBD (2, scoped Sessions 4/5).
 
 - _Specific Claims_
-  - SYM (Symmetric) — vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together: 18 instances.
-  - ASYM-N (Asymmetric natural) — single-sector saturation (only $\varepsilon$ or only $\mu$): 2 instances — BCS ($\mu$-only) and plasma ($\varepsilon$-only).
+  - SYM (Symmetric) — vacuum $K = 2G$; $\varepsilon$ and $\mu$ saturate together: 19 instances.
+  - ASYM-N (Asymmetric natural) — single-sector saturation (only $\varepsilon$ or only $\mu$): 4 instances — BCS ($\mu$-only), plasma ($\varepsilon$-only), planetary mag-vs-spin offset (Row 9-b, $\mu$-vs-spin candidate), and cosmic-DE $\varepsilon$-only (Row 14b, β Session 2).
   - ASYM-E (Asymmetric engineered) — decoupled $K/G \neq 2$ by design: 1 instance — active topological metamaterials.
-  - The three classes partition all 21 instances (18 + 2 + 1 = 21).
+  - TBD (pending Session 4/5 adjudication) — 2 instances: galactic spin-axis (Row 11-a) and LSS spin-axis (Row 14-a).
+  - The classes partition all 26 instances ($19 + 4 + 1 + 2 = 26$).
 - _Specific Non-Claims and Caveats_
   - The asymmetric-saturation variant ($K_{\text{wedge}}/G_{\text{wedge}} \neq 2$) is flagged as a novel kernel topology for separate framework exploration; it is not claimed to be fully developed here.
   - Does NOT claim the ASYM-N / ASYM-E classifications are independently empirically validated as asymmetric; they are structural classifications based on which sector(s) saturate.
@@ -757,12 +810,15 @@ The 21 A-034 instances admit a 3-way symmetry classification by how the $\vareps
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §Symmetry classification.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.50
+- depends-on:
+  - clm-dxdsvt — A-034 Catalog [supplies the instance set being partitioned]
+- solidity: 0.14 (refuted, do not use) [= 0.50 × 0.27]
+- rationale: A structural classification (SYM/ASYM-N/ASYM-E by which sector saturates), explicitly NOT independently validated as asymmetric — the entry admits this. The partition arithmetic in the entry (18+2+1=21) is stale relative to the leaf (20 SYM + 4 ASYM-N + 1 ASYM-E + 2 TBD), so the "three classes partition all 21" claim no longer matches the leaf's own counts, and a TBD bucket means the partition is not currently exhaustive.
 - strengthen-by:
-  - *pending*
-
+  - Update the entry partition counts to the leaf's current 20/4/1 + 2 TBD and confirm exhaustiveness
+  - Provide an empirical or structural discriminator that confirms BCS is μ-only and plasma is ε-only rather than asserting the sector assignment
+  - Specify what observation would falsify a SYM-vs-ASYM-N assignment, since the classes are presently structural labels
 ---
 
 ## A-034 ε/μ Axis Classification — Substrate Electromagnetic Dual Resolution
@@ -785,12 +841,15 @@ The asymmetric-natural (ASYM-N) instances in the A-034 catalog split along an or
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §Symmetry classification §ε vs μ axis + §Gap-cells in the catalog + §Companion-row links.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration mint, split off from clm-hvvvop; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-hvvvop — A-034 Symmetry Classification [supplies the ASYM-N set this axis sub-divides]
+- solidity: 0.06 (refuted, do not use) [= 0.45 × 0.14]
+- rationale: Newly minted; asserts the existence and current state of an ε/μ sub-axis on the ASYM-N instances rather than deriving why ε or μ saturates first in any instance (explicitly disclaimed). Several entries are sector-undetermined (Row 9-b candidate), conjectural (Row 14-a), or pending adjudication (Row 11-a), and the gap-cells are pre-registered placeholders, so the populated content is thin relative to the structural scaffold.
 - strengthen-by:
-  - *pending*
-
+  - Derive (or give a substrate-physics argument for) why a given instance saturates in ε vs μ, for at least the two anchored cases (plasma ε, BCS μ)
+  - Resolve the sector-undetermined Row 9-b and the pending Row 11-a / 14-a classifications before counting them on the axis
+  - Decide each gap-cell between "corpus has it, unenumerated" vs "framework forbids the companion," since the symmetry-completeness argument hinges on which
 ---
 
 ## A-034 Cosmic-Scale Instance — Big Bang as Saturation-Kernel Crystallization
@@ -812,12 +871,15 @@ The Big Bang is the cosmic-scale A-034 instance: a spinning parent black hole's 
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §Cosmic-scale instance (Big Bang as A-034).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.40
+- depends-on:
+  - clm-gz7ryg — A-034 Single-Kernel Unification [supplies Axiom-4 kernel applied at cosmic scale]
+- solidity: 0.16 (refuted, do not use) [= 0.40 × 0.40]
+- rationale: A qualitative mechanism (parent-BH frame-drag strain → A→1 → K4 crystallization front at c) applied at cosmic scale; the key spatial localization is explicitly hedged ("probably along the spin axis"), the formation parameters are declared inaccessible per the A-031 horizon, and the cross-scale validations (CMB axis alignment, R_H/c age) are registered as predictions, not confirmed. Locally it is a plausibility narrative more than a derivation: no quantitative step ties the parent-BH strain magnitude to the A=1 crossing.
 - strengthen-by:
-  - *pending*
-
+  - Derive the strain-concentration locus (replace the "probably along spin axis" hedge with a Kerr-interior frame-drag argument)
+  - Supply a quantitative bridge from parent-BH frame-drag strain to the A=1 saturation crossing
+  - Sharpen the R_H/c ≈ 14.5 Gyr vs 13.8 Gyr (~5%) comparison into a stated prediction band with error sources
 ---
 
 ## Universal Operator Catalog (Op1–Op22) — Catalog of Record
@@ -837,12 +899,15 @@ The 22 universal scale-invariant operators (Op1–Op22) are the AVE engine's nam
 > **Leaf references:** `operators.md` §2 Canonical 22-operator catalog (Vol 1 Ch 6 anchor).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.80
+- depends-on:
+  - clm-gdd70j — Op1 Universal Impedance formula [the one operator formula this catalog restates rather than only pointing to]
+- solidity: 0.64 (use as input only, don't build deeper) [= 0.80 × 0.80]
+- rationale: As a catalog-of-record this scores high on completeness and internal honesty: every entry is tagged CANONICAL (≥3 cross-citations or explicit Vol 1 Ch 6 equation) or SYNTHESIS, the Op#-namespace collision with INVARIANT-N3 is explicitly flagged not silently merged, and the A43 v10/v11 synthesis-as-corpus corrections (Op20, Op22) are surfaced; it correctly disclaims ownership of the individual formulae.
 - strengthen-by:
-  - *pending*
-
+  - Close the SYNTHESIS-labelled entries (Op15, Op18, Op20) by landing a canonical manuscript or KB anchor, or downgrade them explicitly in the table
+  - Resolve the INVARIANT-N3 vs Vol 1 Ch 6 Op# namespace collision in the auditor lane rather than leaving it open
+  - Grep-verify the line-number anchors (e.g. Op2 line 101, Op14 line 311) against current Vol 1 Ch 6 source to guard against drift
 ---
 
 ## Op1 Universal Impedance — the Single Structural Invariant
@@ -862,12 +927,16 @@ Op1 Universal Impedance $Z = \sqrt{\mu/\varepsilon}$ is the single structural in
 > **Leaf references:** `operators.md` §4 Scale-invariance argument (summary).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.60
+- depends-on:
+  - clm-gdd70j — Op1 Universal Impedance Z=√(μ/ε) [supplies the invariant operator this thesis names as the inheritance root]
+  - clm-sysqaf — Universal Operator Catalog [supplies the Op1–Op22 set whose scale-invariance is being asserted]
+- solidity: 0.38 (do not build on, rework needed) [= 0.60 × 0.64]
+- rationale: The inheritance argument is structurally sound for Op2 (dimensionless strain ratio) and Op3 (dimensionless impedance ratio), and the leaf §4 quotes the Vol 1 Ch 6 verbatim single-invariant claim, but "Op4–Op22 compose Op1+Op2+Op3 with dimensionless coefficients, so all inherit" is asserted by construction, not shown per-operator; the entry's own Non-Claims concede this is not an independent per-operator proof, so the local link is a plausible structural argument rather than a derivation.
 - strengthen-by:
-  - *pending*
-
+  - Exhibit the explicit dimensionless-coefficient composition for at least the dimensionful-looking operators (Op4 U(r), Op8 R_g_target, Op19 n(r)) to show invariance survives, rather than asserting it
+  - Identify any operator (e.g. Op22 avalanche M=1/S², Op16 c_shear) whose form carries a dimensional scale and confirm it reduces to boundary conditions on Z
+  - Cite a worked cross-scale instance where the identical operator code path is verified at two of the named scales (10⁻¹³ m vs 10²⁶ m)
 ---
 
 ## K4 Magic-Angle Condition — K = 2G at u₀* ≈ 0.187, ν_vac = 2/7
@@ -888,12 +957,15 @@ The K4 lattice's bulk and shear moduli lock at the magic-angle operating point $
 > **Leaf references:** `q-g47-substrate-scale-cosserat-closure.md` §The magic-angle condition.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.60
+- depends-on:
+  - clm-bjceop — Substrate-Scale Cosserat Prefactors [supplies the constitutive constants behind K(u₀),G(u₀)]
+- solidity: 0.23 (do not build on, rework needed) [= 0.60 × 0.39]
+- rationale: The ν_vac=2/7 step is rigorous and I verified it — ν=(3K-2G)/(2(3K+G)) at K=2G gives 4G/14G=2/7 exactly — and K=2G is correctly identified as the GR trace-reversal/TT-propagation condition; however the functional forms K(u₀),G(u₀) and the value u₀*≈0.187 are asserted, not exhibited in the leaf, and the entry concedes the closure is "structural" with prefactors not fully derived, so the magic-angle locus itself is the soft link while the ν_vac consequence is firm.
 - strengthen-by:
-  - *pending*
-
+  - Exhibit the explicit K(u₀) and G(u₀) functions and show the K=2G root lands at u₀*≈0.187 (currently both the forms and the root are asserted)
+  - Justify the A-034 equivalence "magic-angle ⇔ S(A*)=0 at K4 scale" with the mapping that takes u₀* to A*=1, not just assert it
+  - Confirm isotropy: ν_vac=(3K-2G)/(2(3K+G)) assumes an isotropic solid; verify the K4 micropolar medium is effectively isotropic at this scale before applying the relation
 ---
 
 ## |T| = 12 Universality — Four Independent K4 Routes Force χ_K = 12
@@ -916,12 +988,13 @@ The tetrahedral rotation group order $|T| = 12$ appears in K4 physics via four i
 > **Leaf references:** `q-g47-substrate-scale-cosserat-closure.md` §|T| = 12 universality: four independent routes converge.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- solidity: 0.55 (use as input only, don't build deeper)
+- rationale: The four routes converging on 12 is a convergence/plausibility argument explicitly framed as "strong evidence," not a single first-principles proof; |T|=12 (proper tetrahedral rotation group order) is exact, and route 1 (4 B-neighbors × 3 sublattices) is a clean count, but route 2 ((ℓ_c/d)²×2) presupposes ℓ_c/d=√6 and the bilateral factor, route 3 (f_Cosserat(u₀*)=1) is asserted, and route 4 is itself the self-consistency result of clm-bjceop — so the routes are not all manifestly independent and some are partly post-hoc identifications of the integer 12.
 - strengthen-by:
-  - *pending*
-
+  - Demonstrate independence: show routes 2, 3, 4 do not all secretly trace back to the same K4 symmetry input (route 4 ξ_K2/ξ_K1=12 and route 2 (ℓ_c/d)²×2 with ℓ_c/d=√6 look related, since √6²×2=12)
+  - Derive ℓ_c/d=√6 and the ×2 bilateral factor in route 2 from K4 geometry rather than from the prefactor cross-check
+  - State route 3's orbit-count multiplicity construction explicitly so f_Cosserat(u₀*)=1 → 12 is a calculation, not a label
 ---
 
 ## Substrate-Scale Cosserat Prefactors — μ+κ, β+γ and the Forced ξ_K2/ξ_K1 = 12
@@ -941,12 +1014,15 @@ The substrate's continuous Cosserat micropolar constitutive constants satisfy $\
 > **Leaf references:** `q-g47-substrate-scale-cosserat-closure.md` §Substrate-scale Cosserat prefactors ξ_K1, ξ_K2.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- depends-on:
+  - clm-qwmnhn — |T|=12 Universality [supplies the K4-symmetry orbit factor that forces the ratio]
+- solidity: 0.39 (do not build on, rework needed) [= 0.70 × 0.55]
+- rationale: The dimensional closure μ+κ=ξ_K1·T_EM and β+γ=ξ_K2·T_EM·ℓ_node² is dimensionally consistent and the T_EM-independent ratio ξ_K2/ξ_K1=12 is a clean self-consistency result; notably the entry's central caveat ("individual prefactors STILL OPEN, multi-week work not yet done") is STALE — the leaf shows the individual values were closed 2026-05-18 (ξ_K1=8/3, ξ_K2=32) via a full chain (discrete K_0=16/7, G_0=8/7; Lamé κ=K-(2/3)μ; cross-check recovering ℓ_c/ℓ_node=√6), so the leaf supports more than the entry claims, though that downstream chain rests on the K=2G operating-point spring constants k_a=2/7, k_s=1/7 taken as given.
 - strengthen-by:
-  - *pending*
-
+  - Update the entry's Non-Claim: the individual prefactors are no longer open (leaf §"Substrate-scale Cosserat prefactors" closed 2026-05-18)
+  - Derive the K=2G operating-point spring constants k_a=2/7, k_s=1/7 that the ξ_K1=8/3 chain takes as inputs
+  - Show the self-consistency that "forces" ξ_K2/ξ_K1=12 explicitly (the leaf states it forces but routes the derivation to route 4 of |T|=12)
 ---
 
 ## AVE Analytical Toolkit Index — Canonical Tool-Selection Catalog by Problem Class
@@ -968,12 +1044,13 @@ The `ave-analytical-toolkit-index` leaf is the canonical consolidating index of 
 > **Leaf references:** `ave-analytical-toolkit-index.md` §0 (problem-class taxonomy), §1-§9 (per-class tool tables), §10 (cross-class composition), §11 (gaps), §12 (maintenance discipline), §13-§14 (cross-references + origin).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- confidence: 0.80
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: As a tool-selection routing index the leaf scores high on completeness and internal consistency: a 9-class taxonomy with per-class canonical-tool tables (each with file:line anchor, WHEN-TO-USE trigger, worked example, and load-bearing pitfall), an explicit §10 cross-class composition table, tracked §11 gaps and §12 maintenance discipline; it correctly disclaims independent derivation of any tool and self-flags the taxonomy as a working (non-unique) partition rather than a proven exhaustive one, so the "exhaustively partitions" claim is the only mild overreach.
 - strengthen-by:
-  - *pending*
-
+  - Soften or substantiate the §0 "exhaustively partitions the AVE analytical-derivation space" claim — the entry's own Non-Claim concedes the partition is not unique/maximally orthogonal
+  - Add a coverage audit: confirm every Op1–Op22 and every cited Vol 4 tool appears in at least one class so the routing layer has no orphans
+  - Grep-verify the file:line anchors across the cited Vol 4 leaves to guard against drift, since the index is meant to be the pre-reg verification gate
 ---
 
 ## Divergence-Test Substrate Map — Operational Falsification-Test Index Over the AVE Prediction Matrix
@@ -996,12 +1073,14 @@ The `divergence-test-substrate-map` leaf is the operational tracking layer over 
 > **Leaf references:** `divergence-test-substrate-map.md` Tier A/B/C/D rows; companion narrative catalog at `appendix-experiments.md`; per-project bench-design leaves under `vol4/falsification/ch11-experimental-bench-falsification/`.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- confidence: 0.80
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: Scored as an operational catalog/index on completeness and internal consistency: the leaf is thorough (33-row Tier A/B/C/D taxonomy with per-row AVE-claim / standard-counterclaim / discriminator / test-type / substrate / KB-anchor columns, three tracking matrices, and five cascade diagrams), and its scope discipline is explicit and correct (catalog ≠ validation; Tier D not single-experiment falsifiable; sibling-repo refs are scope boundaries not results). It derives nothing itself by design — a routing/tracking layer — so it cannot exceed the catalog band, but within that band it is well-organized and self-consistent.
 - strengthen-by:
-  - *pending*
-
+  - Add a verifier that every row's KB-anchor link resolves and every cited sibling-repo path exists
+  - Make the cascade arrows' "which-rows-propagate" semantics machine-checkable against the dependency index
+  - Flag rows whose lifecycle-status or substrate-availability is stale relative to the per-project leaves
+  - State a coverage check that every AVE-distinct prediction in appendix-experiments.md appears as a row here
 ---
 
 ## Temporal Saturation Regime Classifier — δ_AVE Trichotomy as Orthogonal Third Axis
@@ -1025,8 +1104,11 @@ The `temporal-saturation-regime-classifier` leaf introduces the substrate-native
 > **Leaf references:** `temporal-saturation-regime-classifier.md` §Premise, §Definition (substrate-native loss tangent), §Three regimes, §Cross-field analogue tables 1-14, §A-034 catalog rows by temporal regime, §Methodology-systematic implications (PROVISIONAL), §Predictability implications, §Skill discipline, §Operational note (when to use which axis), §Cross-references.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- confidence: 0.50
+- solidity: 0.50 (use as input only, don't build deeper)
+- rationale: δ_AVE ≡ t_sat/t_period is cleanly defined given the Axiom-4 kernel and the Lossless/Cyclic/Lossy trichotomy is a coherent partition, but the entry and leaf both explicitly self-classify it Class 1 (definitional construct, taxonomic NOT derivational) per consistency-vs-emergence, the cross-disciplinary unification is conceded TAXONOMIC-not-derived (no value forward-predicted from S(A)), and the methodology-systematic application is demoted PROVISIONAL. A self-flagged definitional/taxonomic classifier with an open forward-prediction and an unproven orthogonality assertion lands mid-band.
 - strengthen-by:
-  - *pending*
+  - Forward-predict one classical value (e.g. tan δ of water at 1 GHz) from S(A)+t_sat/t_period to lift it past taxonomy
+  - Prove (not assert) orthogonality of the temporal axis to the spatial Regime I-IV and power-domain θ axes
+  - Operationally define t_sat for a system whose A(t) only grazes A_yield (boundary-touching trajectories)
+  - Resolve the PROVISIONAL Item-1 methodology application once McAdam & Shamir 2023 lands

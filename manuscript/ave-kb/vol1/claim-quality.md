@@ -28,17 +28,14 @@ The electron's intrinsic body in physical 3D space is a $0_1$ unknot — a singl
 > **Leaf references:** [`ch8-alpha-golden-torus.md`](./ch8-alpha-golden-torus.md) (§Topological identity of the electron; three-regime derivation); [`axioms-and-lattice/ch1-fundamental-axioms/calibration-cutoff-scales.md`](./axioms-and-lattice/ch1-fundamental-axioms/calibration-cutoff-scales.md) (canonical "$0_1$ unknot soliton" calibration); [`dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md`](./dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md); [`dynamics/ch3-quantum-signal-dynamics/quantum-foam-virtual.md`](./dynamics/ch3-quantum-signal-dynamics/quantum-foam-virtual.md); [`operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md`](./operators-and-regimes/ch5-universal-spatial-tension/scale-invariance.md); [`operators-and-regimes/ch5-universal-spatial-tension/scale-invariant-predictions.md`](./operators-and-regimes/ch5-universal-spatial-tension/scale-invariant-predictions.md).
 
 ### Quality
-- confidence: *pending*
-- depends-on:
-  - *(none entry-local — primary position. The former mutual exclusivity with `clm-trf3bd` is resolved by the 2026-05-17 body-topology decision; `clm-trf3bd` is retired.)*
-- solidity: *pending*
-- rationale: *pending — canonical body-topology claim as of the 2026-05-17 resolution (synthesis: $0_1$ unknot real-space body + $(2,3)$ phase-space winding). Confidence rescore deferred to the claim-evaluation pass; the α-enablement knock of the former unknot entry is resolved (the α derivation builds on the phase-space winding), the topological-protection and photon-720° items remain open caveats per the Non-Claims above.*
+- confidence: 0.45
+- solidity: 0.45 (use as input only, don't build deeper)
+- rationale: The 0_1-unknot real-space body + (2,3) phase-space winding is the canonical post-2026-05-17 position and the mass relation m_e = ℏ/(c·ℓ_node) is dimensionally clean, but the entry's own Non-Claims flag the load-bearing structural elements as not established: real-space topological protection is absent (the unknot is trivially knotted), phase-space-winding-as-protection is "not yet rigorously established," the spin-1/2/photon-720° compatibility is "a final determination deferred," and the (2,3) winding numbers are asserted not derived. A claim whose own caveats mark its protection mechanism and a key compatibility question as open should not exceed ~0.5.
 - strengthen-by:
-  - Derive the $(2,3)$ phase-space winding numbers from a uniqueness argument — why not $(4,3)$, $(5,2)$, etc. (shared open item with `clm-0ktpcn`).
-  - Spell out the Finkelstein–Misner spin-1/2 derivation explicitly in the leaves, from the $K_4 \to A_4 \to 2T \subset SU(2)$ chain.
-  - Make the final determination on the photon-720° compatibility question (the post-porting intense review).
-  - Establish whether the $(2,3)$ phase-space winding provides genuine topological protection, or whether electron stability is purely energetic.
-
+  - Derive the (2,3) phase-space winding from a uniqueness argument (why not (4,3), (5,2), etc.).
+  - Spell out the Finkelstein–Misner spin-1/2 derivation from the K4 → A4 → 2T ⊂ SU(2) chain explicitly in the leaves.
+  - Settle the photon-720° compatibility determination flagged for post-porting review.
+  - Establish whether (2,3) phase-space winding gives genuine topological protection, or whether electron stability is purely energetic.
 ---
 
 ## Zero-Parameter Closure Status (Conditional on Thermal Closure)
@@ -61,8 +58,8 @@ The framework's "zero free parameters" headline rests on a layered closure that 
 ### Quality
 - confidence: 0.70
 - depends-on:
-  - clm-unk0bd — Electron Body Topology = Unknot (solidity *pending*) [closure condition (c) "via the unknot ground state" formulation]
-- solidity: *pending*
+  - clm-unk0bd — Electron Body Topology = Unknot (solidity 0.45) [closure condition (c) "via the unknot ground state" formulation]
+- solidity: 0.32 (do not build on, rework needed) [= 0.70 × 0.45]
 - rationale: Structural reduction of 26 SM parameters to $\{m_e, \alpha, G\}$ + four axioms is sound and explicit; conditionality on $\delta_{strain}$ magnitude derivation, Nyquist-independence proof for $m_e/\ell_{node}$, and $G$ closure independent of $R_H$ is correctly disclosed. **Refined (2026-05-06 session):** closure condition (c) — "one of $\{m_e, \ell_{node}\}$ being computable from the other via the unknot ground state" — is body-topology-dependent. The current formulation uses the unknot's 2π ropelength × $T_{EM}$ derivation (per Vol 1 Ch 1 calibration-cutoff-scales); under `clm-unk0bd`'s solidity 0.40, this formulation inherits the cross-leaf body-topology conflict. Under the 2026-05-17 body-topology resolution (`clm-unk0bd` canonical — $0_1$ unknot real-space body with $(2,3)$ phase-space winding), condition (c)'s "via the unknot ground state" formulation is consistent with the canonical body topology; the prior trefoil-vs-unknot conditionality is closed. The dimensional formula $m_e = \hbar/(c \cdot \ell_{node})$ holds regardless, but the derivation chain that closes one input from the other requires body-topology-specific argument. Local confidence 0.70 reflects honest disclosure of the closure conditions; solidity drops to 0.28 because the dependency on `clm-unk0bd` is now explicit.
 - strengthen-by:
   - Derive $\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA)
@@ -87,26 +84,16 @@ The framework's "zero free parameters" headline rests on a layered closure that 
 > **Leaf references:** [`ch8-alpha-golden-torus.md`](./ch8-alpha-golden-torus.md) Derivation Summary, $\Lambda_{\text{line}}$ derivation, Multipole Decomposition, "Unified axiomatic origin" subsection.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.50
 - depends-on:
-  - clm-unk0bd — Electron Body Topology = $0_1$ Unknot with $(2,3)$ Phase-Space Winding (solidity *pending*) [the α derivation builds on the electron's $(2,3)$ phase-space Clifford-torus winding]
-- solidity: *pending*
-- rationale: Cold-lattice $\alpha^{-1} = 4\pi^3+\pi^2+\pi$ reproduces CODATA to $\sim 10^{-6}$ and the geometry $(R,r) = (\varphi/2, (\varphi-1)/2)$ is forced by intersection of three regimes (corroborated by independent ropelength + Clifford-screening optimization). However, the sum decomposition's orthogonality is asserted, not derived from the axioms — this is the substantive open structural element, which lands the entry at the 0.5 rubric band rather than 0.7. **Refined (2026-05-06 session):** on closer inspection, the leaf's three Λs are locked at $\Lambda_{\text{vol}} = 4\pi \cdot \Lambda_{\text{surf}}$ identically, because the leaf places the fixed spin-1/2 temporal phase factor $4\pi$ in slot 3 of $\Lambda_{\text{vol}}$ (not a third geometric DOF). The map $(R, r, d) \to (\Lambda_{\text{vol}}, \Lambda_{\text{surf}}, \Lambda_{\text{line}})$ has 2-dimensional image in Λ-space, not 3-dimensional, since $\Lambda_{\text{vol}}$ and $\Lambda_{\text{surf}}$ both depend only on $R \cdot r$. This tightens what "orthogonality" can plausibly mean: it cannot be parameter-independence (which fails by the lock); it can only be **functional orthogonality** of the bilinear self-impedance kernel — no off-diagonal blocks coupling the three Λ-projections. The currently-sketched de-Rham / form-degree argument for orthogonality is too quick because the trefoil's three geometric supports are *nested* (1-cycle ⊂ Clifford torus ⊂ 3-volume), not separated, so cross-terms cannot be killed by domain-disjointness alone. **Body-topology dependency (updated 2026-05-19):** the derivation builds on the electron's $(2,3)$ phase-space Clifford-torus winding — post-resolution the canonical electron-body claim is `clm-unk0bd` ($0_1$ unknot real-space body + $(2,3)$ phase-space winding); the former trefoil-body entry is retired. Confidence and solidity rescore are pending the claim-evaluation pass.
+  - clm-unk0bd — Electron Body Topology = 0_1 Unknot with (2,3) Phase-Space Winding [supplies the (2,3) phase-space Clifford-torus winding the three-regime geometry is built on]
+- solidity: 0.23 (do not build on, rework needed) [= 0.50 × 0.45]
+- rationale: The three regimes (Nyquist d=1, self-avoidance R−r=1/2, half-cover R·r=1/4) cleanly fix the Golden Torus geometry and the half-cover Λ_surf=π² is rigorously forced, but the sum α⁻¹ = Λ_vol+Λ_surf+Λ_line is an asserted multipole identification whose claimed orthogonality is not derived — and the leaf's own forms give Λ_vol=16π³(R·r) and Λ_surf=4π²(R·r), i.e. Λ_vol≡4π·Λ_surf, so the (R,r,d)→Λ map has only 2-dimensional image and "orthogonality" cannot mean parameter-independence. Reproducing CODATA to ~10⁻⁶ is a consistency match against the cold-lattice asymptote (with the separate fitted δ_strain), not an independent local derivation of the combination rule, which lands it at the 0.5 band.
 - strengthen-by:
-  - **Reframe or close the sum-decomposition combination rule.** Two acceptable closure paths:
-    - (a) Demonstrate that the EM bilinear kernel on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ respects an $SU(2) \times SU(2)$ symmetry under which the three Λ-projections sit in distinct irreps (orthogonality then by Schur's lemma). Non-trivial because the embedded Clifford torus breaks part of the symmetry; the kernel's behavior under the broken-symmetry restriction must be checked explicitly.
-    - (b) Honestly reframe the leaf prose: replace "graded-orthogonal multipole decomposition with no cross-terms" with "a particular dimensionally-compatible combination of Clifford-embedded geometric integrals that hits CODATA to $10^{-6}$ — orthogonality of the three contributions is not established." Dropping the implied orthogonality theorem narrows the claim but stays honest.
-    - Either path resolves the open structural element; (a) raises solidity, (b) keeps solidity bounded but removes the false-rigor framing.
-  - Derive the SU(2) double-cover identification's role producing both $\Lambda_{\text{surf}}$ halving ($\tfrac{1}{2}\cdot 2\pi^2 = \pi^2$) and the factor 2 in the third slot of $\Lambda_{\text{vol}}$ from a single axiom-grounded mechanism, closing the "two faces of one fact" claim. **Note (2026-05-06 session):** plausibly subsumed by path (a) above — the same $SU(2) \times SU(2)$ representation-theoretic structure that would establish functional orthogonality would also unify the $4\pi$ (temporal) and the half-cover (spatial) under one mechanism. The two strengthen-by items may not be independent.
-  - Derive $\delta_{strain}$ magnitude at $T_{CMB}$ to close the cold-lattice → CODATA bridge
-  - **Clarity / framework-prose gaps (work-in-progress, surfaced 2026-05-06 session).** The leaf's α derivation relies on several implicit modeling choices and ansatzes that are not made explicit in the prose. None block the formal derivation; each leaves a careful reader unable to validate or falsify the setup without speculative reconstruction. Each wants explicit treatment in the leaf:
-    - **Trefoil/unknot body-vs-phase ambiguity.** The leaf phrases the electron as both "smallest stable soliton = trefoil" (regime (a)) and "ground-state unknot" (cross-cutting `clm-zw6mut` entry) and "unknot phase winding on the trefoil" (Mathematical Closure section). The most charitable compositional reading: body topology = trefoil ((3, 2)-torus-knot flux-tube centerline in 3D physical space); phase topology = unknot (winding-number-1 phase circulation along the centerline). The leaf does not specify the body/phase split at every mention, leaving readers to reconcile what reads on the surface as a contradictory description of "the electron."
-    - **Why (3, 2) winding numbers and not (4, 3), (5, 2), etc.** The leaf asserts "smallest stable soliton = trefoil" without deriving why the (3, 2)-torus-knot is the unique selection. The (3, 2) trefoil IS the simplest topologically-locked torus knot in 3D (lower windings unravel to unknots when removed from the torus), but the leaf does not spell this out, and does not derive *why* the lightest stable lepton lives in the simplest topologically-locked torus-knot class rather than e.g. an even simpler structure outside the torus-knot family. Consistency with the lepton mass hierarchy (muon, tau as higher-winding sectors) is asserted in `clm-zw6mut` but not derived from a uniqueness argument.
-    - **Lattice dimensionality (3D spatial + phase fiber) vs. ambient $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ lift.** The leaf computes the multipole decomposition on $\mathbb{T}^2 \subset S^3 \subset \mathbb{C}^2$ but does not state that $S^3$ is the spin-1/2 phase-space lift, not the physical lattice. Three readings are plausible: (A) physical lattice is 3D, $S^3$ is the phase-space lift for spin-1/2 calculations because $S^3 = SU(2)$; (B) physical vacuum is 4D with $S^3$ as actual spatial structure; (C) 4D spacetime with $S^3$ as the spatial part. Reading (A) is consistent with Axiom 1's 3D LC network (lattice pitch $\ell_{\text{node}} \approx 3.86 \times 10^{-13}$ m in physical 3D meters) and is the most charitable reading, but the leaf does not commit. The choice affects what $\Lambda_{\text{vol}}$ actually integrates over (2 physical dimensions × 1 phase dimension under (A); 3 physical dimensions under (B)).
-    - **Discrete lattice $\leftrightarrow$ continuous Golden Torus reconciliation.** The leaf computes integrals on a smooth 2D Golden Torus surface (continuous geometry), but Axiom 1 specifies a discrete LC network. The trefoil's tube diameter equals exactly one lattice unit (regime (a): $d = 1 \cdot \ell_{\text{node}}$), placing the soliton at the absolute boundary where envelope-style continuous descriptions begin to break down rather than in the far-continuum regime. The leaf does not explicitly bridge the discrete-lattice physics with the continuous-style integration that produces $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$. Three plausible reconciliations: (a) continuous-mode envelope description (analogous to long-wavelength elastic-wave description of phonons); (b) orientational averaging (the discrete trefoil pattern manifests differently at different orientations, time-averaging to the continuous envelope); (c) discrete approximation of a continuous limiting target. The numerical evidence is the `ropelength_trefoil_golden_torus.py` script converging to the Golden Torus geometry from arbitrary starting points; the analytical bridge is not present in the leaf material.
-    - **The "smallest-stable-and-identity-fixed soliton" ansatz.** The leaf's regime (a) — "smallest stable soliton = trefoil" — implicitly treats the electron as the smallest representable stable soliton on the lattice and calibrates $\ell_{\text{node}} = \hbar / (m_e \cdot c)$ accordingly. The justification is empirical: no smaller particle is observed that is both stable in existence AND fixed in identity (transients decay; protean objects like neutrinos morph between flavor configurations). This is not derived from the four axioms; it is a calibration ansatz acknowledged in the leaf's "Closure status (honest)" section as one of three open closure conditions. The leaf would benefit from making this ansatz explicit at the regime-(a) statement, including the "stable + identity-fixed" criterion that excludes neutrinos from the would-be-counterexample category. Note: in AVE's deterministic worldview, neutrino flavor "oscillation" is a definite-state morphing through Cosserat-sector configurations, not a QM superposition of mass eigenstates.
-    - **Phase coverage of the Clifford torus as the basis for $\Lambda_{\text{surf}}$ integration.** The leaf integrates $\Lambda_{\text{surf}}$ over a 2D surface on the Clifford torus, but the electron's instantaneous spatial structure in physical 3D space is a 1D curve (the trefoil flux-tube centerline) on the Golden Torus surface. The cleanest reading of why the integration is over a 2D surface rather than a 1D curve: the electron's spin-1/2 phase rotation, acting on $S^3$ via SU(2), sweeps the trefoil's phase-space state around the entire Clifford torus over a phase-rotation cycle — so the time-averaged phase-space coverage IS the 2D Clifford torus surface, justifying the surface integration. The leaf does not make this bridge explicit, leaving the surface-integration step structurally unclear.
-
+  - Close the sum-decomposition rule: establish functional orthogonality of the self-impedance kernel (e.g. SU(2)×SU(2) irrep separation by Schur), since the nested supports (1-cycle ⊂ Clifford torus ⊂ 3-volume) defeat domain-disjointness arguments.
+  - Alternatively reframe the leaf prose honestly: drop the "graded-orthogonal, no cross-terms" theorem language for "a dimensionally-compatible Clifford-embedded combination hitting CODATA to 10⁻⁶."
+  - Derive the (2,3) winding from a uniqueness argument rather than asserting it as the simplest stable winding.
+  - Derive δ_strain magnitude at T_CMB to close the cold-lattice → CODATA bridge rather than back-subtracting it.
 ---
 
 ## EMT $p_c = 8\pi\alpha$ — Consistency Relation, NOT α Derivation
@@ -129,13 +116,13 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
 ### Quality
 - confidence: 0.85
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*)
-- solidity: *pending*
-- rationale: Local work is solid — the entry is correctly scoped, $p_c = 8\pi\alpha$ is algebraically exact, the $K=2G$ operating point with $z_0 \approx 51.25$ from Feng-Thorpe-Garboczi EMT is a sound consistency check given $\alpha$, and non-claims ($u_{sat}$ as external QED input; "$\alpha$ derived from EMT" disclaimer) are explicit. Solidity is bounded by the Golden Torus α Derivation entry (0.41) because every numerical claim here propagates from $\alpha$. (Solidity dropped from 0.47 to 0.35 in 2026-05-06 session as `clm-0ktpcn` was rebound to depend on the body-topology entry `clm-trf3bd`.)
+  - clm-0ktpcn — Golden Torus α Derivation [α enters every numerical claim downstream of the identity]
+- solidity: 0.20 (do not build on, rework needed) [= 0.85 × 0.23]
+- rationale: Local work is solid and correctly scoped: p_c=8πα is algebraically exact (the 4π in α=e²/(4πε₀ℏc) cancels the 8π), it is explicitly framed as a consistency relation NOT an α derivation, and the K=2G operating point with z₀≈51.25 from amorphous central-force EMT is a sound cross-check given α. Non-claims are explicit (u_sat taken as external QED input; "α from EMT" disclaimer), so the only unrepaired local input is u_sat.
 - strengthen-by:
-  - Derive $u_{sat}$ from the four AVE axioms (currently taken as external QED input) — would close the only remaining unrepaired input local to this entry
-  - Strengthen Golden Torus α Derivation (the dominant solidity bottleneck for this entry; closing its identification-step gap raises this entry's solidity proportionally toward local-confidence 0.85)
-
+  - Derive u_sat (Schwinger yield density) from the four AVE axioms rather than importing it as a QED input
+  - State that p_c=8πα is an identity (zero predictive content) wherever it is cited, to prevent the "α from EMT" misreading
+  - Cross-check the z₀≈51.25 / p_G≈0.117 chain against an independent EMT coordination estimate
 ---
 
 ## $V_{snap}$ vs $V_{yield}$ — Two Distinct Thresholds
@@ -155,8 +142,8 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
 ### Quality
 - confidence: 0.95
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $V_{yield}$'s $\sqrt{\alpha}$ factor]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for $V_{yield}$'s $\sqrt{\alpha}$ factor]
+- solidity: 0.22 (do not build on, rework needed) [= 0.95 × 0.23]
 - rationale: Both thresholds are direct consequences of axiom-level definitions — $V_{snap} = m_e c^2/e$ is the per-node energy-equivalent voltage; $V_{yield} = \sqrt{\alpha}\cdot V_{snap}$ follows from Axiom 2. Local distinction work is rock-solid and explicitly catalogued in LIVING_REFERENCE.md Critical Distinction #1. Solidity is bounded by $\alpha$ via $V_{yield}$'s $\sqrt{\alpha}$ factor; $V_{snap}$ alone (depending only on framework inputs) carries solidity ≈ 0.95. (Solidity dropped from 0.52 to 0.39 in 2026-05-06 session as `clm-0ktpcn` was rebound to depend on `clm-trf3bd`.)
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (the only dependency reducing this entry's solidity; closing it lifts $V_{yield}$ numerical solidity to the local-confidence level of 0.95)
@@ -179,9 +166,9 @@ The Ch.2 dielectric-rupture argument shows that the AVE lattice's packing fracti
 ### Quality
 - confidence: 0.90
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $\xi$'s $\alpha^{-2}$ factor]
-  - clm-5xon03 — Zero-Parameter Closure Status (solidity *pending*) [for $\xi$'s $R_H/H_\infty$ factor — $H_\infty$ is a consistency identity conditional on $G$ closure]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for $\xi$'s $\alpha^{-2}$ factor]
+  - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.32) [for $\xi$'s $R_H/H_\infty$ factor — $H_\infty$ is a consistency identity conditional on $G$ closure]
+- solidity: 0.21 (do not build on, rework needed) [= 0.90 × 0.23]
 - rationale: Local distinction work is correctly enforced — $\xi_{topo} = e/\ell_{node}$ from Axiom 2's topo-kinematic isomorphism mechanism; $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ from the derived-gravity Machian dilution (Axioms 1 + 4). Solidity bounded by the Closure Status entry $clm-5xon03$ (now 0.28, the tighter bottleneck after rebinding to `clm-unk0bd`) over the α dependency $clm-0ktpcn$ (0.41, rebound to `clm-trf3bd`). $\xi_{topo}$'s numerical value alone carries solidity 0.90 (depends only on framework inputs); $\xi$ inherits the dependency chain. (Solidity dropped from 0.50 to 0.25 in 2026-05-06 session as both upstream entries rebound to body-topology dependencies.)
 - strengthen-by:
   - Strengthen Golden Torus α Derivation (dominant solidity bottleneck for $\xi$)
@@ -414,17 +401,16 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
 ### Quality
 - confidence: 0.60
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $H_\infty$'s $\alpha^{-2}$ factor]
-  - clm-5xon03 — Zero-Parameter Closure Status (solidity *pending*) [for the consistency-proof framing of $H_\infty$]
-- solidity: *pending*
-- rationale: The $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ formula is correctly disclosed as a consistency-proof, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The MOND $a_0 = cH_\infty/(2\pi)$ hoop-stress projection produces a $-10.7\%$ deficit vs empirical $1.2\times 10^{-10}$ m/s² — a real numerical gap. Local confidence is held below 0.7 because the underlying `mond-hoop-stress.md` leaf carries an unresolved longitudinal wave-speed formula ($v_L = \sqrt{2G/\rho} = \sqrt{2}c$ vs standard isotropic-elasticity $v_L = c\sqrt{10/3} \approx 1.826c$ for $K=2G$), and the hoop-stress projection factor $1/(2\pi)$ is asserted from classical continuum mechanics rather than derived from AVE micropolar dynamics. (Solidity dropped from 0.33 to 0.17 in 2026-05-06 session as both `clm-0ktpcn` and `clm-5xon03` rebound to body-topology dependencies; the Closure Status now-0.28 is the tighter bottleneck.)
+  - clm-0ktpcn — Golden Torus α Derivation [α^-2 factor in H_∞]
+  - clm-5xon03 — Zero-Parameter Closure Status [consistency-proof framing of H_∞]
+  - clm-crbl60 — Vacuum Bulk Mass Density and Shear Modulus [G_vac/ρ_bulk for the v_longitudinal = √2 c bulk-compression speed]
+- solidity: 0.08 (refuted, do not use) [= 0.60 × 0.14]
+- rationale: The leaf now honestly discloses H_∞ = 28π m_e^3 cG/(ℏ^2 α^2) as a Class E operating-point projection / geometric-consistency identity (G taken as CODATA input; the Machian ξ embeds R_H in G) rather than an ab-initio prediction, and a_0 = cH_∞/(2π) inherits Class E status via the Hoop-Stress projection. The MOND a_0 carries a real -10.7% deficit, and the 1/(2π) hoop-stress factor is imported from classical continuum mechanics rather than derived from AVE micropolar dynamics; the prior √2-vs-√(10/3) longitudinal-speed flag is resolved here as v_longitudinal = √(2G_vac/ρ_bulk) = √2 c, consistent with the K=2G operating point. Confidence held at mid-band by the imported projection factor + the residual a_0 gap.
 - strengthen-by:
-  - Resolve the longitudinal wave speed formula in `mond-hoop-stress.md` (currently $\sqrt{2}c$; standard isotropic elasticity at $K=2G$ gives $c\sqrt{10/3}$); either derive the AVE-specific formula from the micropolar / chiral LC continuum (which decouples transverse propagation from bulk modulus) or correct the leaf
-  - Derive the hoop-stress projection factor $1/(2\pi)$ from AVE's micropolar dynamics rather than importing the classical continuum-mechanics result
-  - Close the MOND $a_0$ -10.7% deficit by carrying higher-order corrections OR by re-deriving the hoop-stress geometry from AVE first principles
-  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\alpha^{-2}$ factor in $H_\infty$ amplifies α's solidity into the strongest dependence
-  - Close the Hubble identity into a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes the Closure Status entry)
-
+  - Derive the 1/(2π) hoop-stress projection from AVE micropolar dynamics rather than importing the classical T = F_r/(2π) result
+  - Close the cosmic-scale 2π via explicit de Sitter-horizon Hoop-Stress closed-loop integration (Step 5 of the rigorous-derivation prereg, still open) instead of routing through Unruh-Hawking
+  - Close the MOND a_0 -10.7% deficit by carrying higher-order corrections or re-deriving the hoop-stress geometry from first principles
+  - Convert the H_∞ consistency identity into a true downstream prediction by deriving G from local thermodynamic balance independent of R_H (open Chain B')
 ---
 
 ## Bullet Cluster as Ponderomotive Halo + Einstein Lensing on Gordon Optical Metric
@@ -447,12 +433,17 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/bullet-cluster.md`](./dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) (mechanism + Plumber framing + AVE-distinct prediction + DAMA refresh-rate reframe + Cross-references).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration mint following bullet-cluster mechanism replacement; quality scored at the rescore pass*
+- confidence: 0.40
+- depends-on:
+  - clm-dfaiwj — Topo-Kinematic Isomorphism [Axiom 2 charge-to-strain coupling that sources the halo]
+  - clm-crbl60 — Vacuum Bulk Mass Density and Shear Modulus [linear substrate response at cluster wavelengths]
+- solidity: 0.06 (refuted, do not use) [= 0.40 × 0.14]
+- rationale: The leaf is an internally consistent qualitative mechanism (ponderomotive strain halos co-move with stars, gas decouples, Einstein lensing on the Gordon metric tracks halos) and honestly concedes the qualitative offset is degenerate with WIMP DM; but the AVE-distinct discriminator — a UNIVERSAL halo-to-baryon correlation — is asserted, not derived, and the ~150 kpc offset is matched-by-construction ("cluster centers separated by 150 kpc") rather than predicted, with the 10^20 AVE-PONDER scale-up stated without a scaling derivation. Qualitative where the framing implies quantitative discrimination, so the local link sits in the significant-gap band.
 - strengthen-by:
-  - *pending*
-
+  - Derive the universal halo-to-baryon ratio as an explicit function of baryonic content + geometry (currently asserted), so the discrimination claim becomes a numerical prediction rather than a correlation expectation
+  - Justify the ~10^20 mass/length scale-up from AVE-PONDER lab physics to cluster scale — show the Axiom 2 + Axiom 4 mechanism survives the regime change rather than asserting "same physics, different scale"
+  - Predict the lensing-baryon offset distance from collision kinematics + cluster mass profiles rather than matching it to the observed 150 kpc post hoc
+  - Quantify a falsifiable scatter bound for the universal correlation against the WIMP-allowed scatter (NGC 1052-DF2/DF4 framed as falsifier but no quantitative threshold given)
 ---
 
 ## Macroscopic Yield Stress $\tau_{yield}$ — Order-of-Magnitude Bound, Not Precision
@@ -472,8 +463,8 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
 ### Quality
 - confidence: 0.50
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $p_c = 8\pi\alpha$ in the porosity factor]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for $p_c = 8\pi\alpha$ in the porosity factor]
+- solidity: 0.12 (refuted, do not use) [= 0.50 × 0.23]
 - rationale: The formula $\tau_{yield} = (\rho_{bulk} c^2)\cdot(6\,\mathcal{V}_{crossing})\cdot(p_c/8\pi)$ uses the proton-specific Borromean topology ($\mathcal{V}_{total} = 6\,\mathcal{V}_{crossing} = 2.0$, FEM-verified to 0.13% for the proton's 6³₂ Borromean) as a load-bearing factor in a formula presented as governing **macroscopic / cosmological** lattice mechanics (planetary slipstreams, asteroid belts, dark-sector boundary-layer transitions). The justification for embedding proton-specific topology in a macroscopic vacuum formula is asserted, not derived — this is the substantive open structural question that lands the entry at the 0.5 rubric band. Order-of-magnitude framing is correctly disclosed; quantitative claims (specific $1.04\times 10^{22}$ Pa value, asteroid-belt / Oort-cloud isocline matching) are interpretive at this scope. (Solidity dropped from 0.28 to 0.21 in 2026-05-06 session as `clm-0ktpcn` rebound to depend on `clm-trf3bd`.)
 - strengthen-by:
   - Justify (or replace) the use of proton-specific 6-crossing Borromean topology ($\mathcal{V}_{total} = 2.0$) in a formula governing macroscopic / cosmological lattice mechanics; either derive why proton topology is universally embedded in the macroscopic vacuum, or replace with a generic topological factor derived from lattice properties alone
@@ -504,9 +495,9 @@ The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive
 ### Quality
 - confidence: 0.60
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for muon's $\alpha\sqrt{3/7}$ and tau's $8\pi/\alpha$ sector factors]
-  - clm-unk0bd — Electron Body Topology = Unknot (solidity *pending*) [the "ground-state unknot" framing is load-bearing for the lepton mass formula and the "three structural dimensions of the unknot" Cosserat-sector argument]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for muon's $\alpha\sqrt{3/7}$ and tau's $8\pi/\alpha$ sector factors]
+  - clm-unk0bd — Electron Body Topology = Unknot (solidity 0.45) [the "ground-state unknot" framing is load-bearing for the lepton mass formula and the "three structural dimensions of the unknot" Cosserat-sector argument]
+- solidity: 0.14 (refuted, do not use) [= 0.60 × 0.23]
 - rationale: The cross-scale operator framing — same universal $1/r$ tension governs lepton and nuclear binding — is structurally claimed but the three-Cosserat-sector-to-three-lepton-generation identification (translation/torsion/curvature-twist) is asserted, not derived from the four axioms. Lepton-mass deviations are non-trivial: muon $+1.24\%$, tau $-0.95\%$ — correctly disclosed but not sub-percent. Nuclear methodology is honestly disclosed as **one fitted scalar per nucleus** (Vol 6); the Vol 1 Neon-20 mention is one application. The reported "$<0.001\%$ Neon-20 residual" is the optimizer convergence tolerance, not an independent prediction error — claim-quality entry correctly flags this. Local confidence held at 0.6 because the structural identifications and the residual lepton-mass percentages are real open work. **Body-topology dependency (2026-05-06 session):** the cited leaves (`scale-invariance.md`, `scale-invariant-predictions.md`, `mass-unification.md`) explicitly use the "ground-state unknot" framing for the electron and "the three structural dimensions of the unknot" for the lepton-generation hierarchy. Under `clm-unk0bd`'s solidity 0.40 (cross-leaf inconsistency vs `clm-trf3bd`), this entry inherits the lower bound. If the body-topology conflict resolves in favor of the trefoil, the Cosserat-sector mapping needs rederivation in trefoil terms; the asserted "three structural dimensions" argument is unknot-specific.
 - strengthen-by:
   - Derive the three-Cosserat-sectors-to-three-lepton-generations identification (translation/torsion/curvature-twist) from the four axioms (currently a structural identification with sector-specific coupling factors $\alpha\sqrt{3/7}$ and $8\pi/\alpha$ that are asserted, not derived)
@@ -562,8 +553,8 @@ The eight Ch.6 universal operators are the engine-level shared code paths. Bound
 ### Quality
 - confidence: 0.75
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $r_1 = \sqrt{2\alpha}$ numerical value]
-- solidity: *pending*
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for $r_1 = \sqrt{2\alpha}$ numerical value]
+- solidity: 0.17 (refuted, do not use) [= 0.75 × 0.23]
 - rationale: The boundary derivations are individually sound — $r_1 = \sqrt{2\alpha}$ from leading-order Taylor truncation of $S(r)$ matching the lattice's self-coupling $\alpha$; $r_3 = 1$ axiomatic from Axiom 4 ($S = 0$); $r_2 = \sqrt{3}/2$ from $Q = 1/S = \ell_{\min}$ with $\ell_{\min} = 2$ for the spin-2 sector. The substantive open element is the **sector-specific identification of $\ell_{\min}$** (scalar/vector/spin-2 ℓ_min values are stated as "minimum non-trivial multipole" rather than derived from a specific axiom-grounded harmonic decomposition). Local confidence held at 0.75. Solidity bounded by α via $r_1$'s numerical value. The structural form $r_1 = \sqrt{2\alpha}$ survives any reasonable α value; the **numerical** boundary at 0.121 is α-dependent. (Solidity dropped from 0.41 to 0.31 in 2026-05-06 session as `clm-0ktpcn` rebound to depend on `clm-trf3bd`.)
 - strengthen-by:
   - Derive the sector-specific $\ell_{\min}$ values (scalar 0, vector 1, spin-2 2, ...) from axiom-grounded multipole decomposition rather than pattern-matching to "minimum non-trivial multipole"
@@ -591,8 +582,8 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 ### Quality
 - confidence: 0.70
 - depends-on:
-  - clm-b2anl4 — Four-Regime Map (solidity *pending*) [uses $r_1, r_2, r_3$ boundaries to classify domains]
-- solidity: *pending*
+  - clm-b2anl4 — Four-Regime Map (solidity 0.17) [uses $r_1, r_2, r_3$ boundaries to classify domains]
+- solidity: 0.12 (refuted, do not use) [= 0.70 × 0.17]
 - rationale: The catalog correctly applies the four-regime structure to specific physical systems (Solar surface, WD interiors, lab fields, NS interior, BH horizons, LIGO GW signals); the claim-quality entry honestly discloses that the AVE-internal compactness bound ($R_{\min} = 7GM/c^2$) is stricter than the GR Buchdahl bound but is **not validated** against observed neutron-star equations of state, and that the galactic-domain operating point uses empirical $a_0$ (not AVE-derived). Local confidence is sound for the application work. Solidity is heavily bounded transitively through Four-Regime Map's α dependency — every $r$ value tabulated for a specific system inherits regime-boundary numerical solidity. (Solidity dropped from 0.29 to 0.22 in 2026-05-06 session as `clm-b2anl4` rebound transitively through `clm-0ktpcn` to `clm-trf3bd`.)
 - strengthen-by:
   - Validate the AVE-internal compactness bound ($R_{\min} = 7GM/c^2$) against observed neutron-star equations of state (currently disclosed as not-validated)
@@ -618,15 +609,17 @@ The Ch.7.2 domain catalog tabulates $r$ values across EM, gravitational, BCS, ma
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md`](./dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md).
 
 ### Quality
-- confidence: 0.65
+- confidence: 0.62
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity *pending*) [for $p_c = 8\pi\alpha$ in $\rho_{bulk}$ and $\alpha$ in $\nu_{kin} = \alpha c \ell_{node}$]
-- solidity: *pending*
-- rationale: $\rho_{bulk}$ and $G_{vac} = \rho_{bulk}c^2$ are dimensionally constructed from $\xi_{topo}$, $\mu_0$, $p_c$, $\ell_{node}$, $c$ — the construction itself is sound algebra. The Cauchy relation $K_{vac} = 2G_{vac}$ is the same operating point disclosed in the EMT entry and is structurally consistent. The substantive open element is the **identification $\kappa \equiv \alpha$** for the kinematic mutual inductance $\nu_{kin}$ — asserted as a consequence of the porosity argument but not derived. The "$\nu_{kin}$ close to liquid water" comparison is order-of-magnitude only. The distinction $G_{vac}$ (3D continuum) vs $G_{string}$ (1D edge tension, $\sim 10^{12}$ smaller) is correctly disclosed. (Solidity dropped from 0.36 to 0.27 in 2026-05-06 session as `clm-0ktpcn` rebound to depend on `clm-trf3bd`.)
+  - clm-dfaiwj — Topo-Kinematic Isomorphism [supplies L = ξ_topo^-2 m used in m_node]
+  - clm-0ktpcn — Golden Torus α Derivation [p_c = 8πα in ρ_bulk and α in ν_kin = αcℓ_node]
+- solidity: 0.14 (refuted, do not use) [= 0.62 × 0.23]
+- rationale: ρ_bulk = ξ_topo^2 μ_0/(p_c ℓ_node^2) and G_vac = ρ_bulk c^2 are sound dimensional construction from ξ_topo, μ_0, p_c, ℓ_node, c, and the v_T = √(G_vac/ρ_bulk) = c cross-check passes; the 13-OOM error from conflating G_vac (3D shear) with G_string (1D edge tension) is now corrected and the two are explicitly separated. The substantive open element is the κ≡α identification for ν_kin — asserted as a consequence of the porosity argument, not derived — and the "ν_kin close to liquid water" is an order-of-magnitude observation only; the Cauchy K=2G operating point is structurally consistent with the rest of the corpus.
 - strengthen-by:
-  - Derive the $\kappa \equiv \alpha$ identification (geometric scattering threshold = packing-fraction-derived self-coupling) from first principles rather than asserting
-  - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $\rho_{bulk}$, $G_{vac}$, and $\nu_{kin}$ all inherit α numerically through $p_c$ and $\nu_{kin}$'s factor
-
+  - Derive the κ≡α identification (geometric scattering threshold = packing-fraction self-coupling) from first principles rather than asserting it from the porosity argument
+  - Justify the Cauchy relation K_vac = 2G_vac for the chiral micropolar lattice (it is stated as the isotropic-lattice Cauchy relation but the substrate is explicitly non-Cauchy/micropolar per the implosion-paradox argument)
+  - Strengthen the Golden Torus α derivation (clm-0ktpcn); ρ_bulk, G_vac, and ν_kin all inherit α through p_c and the ν_kin prefactor
+  - Drop or formalize the "close to liquid water" comparison so it is not read as a physical correspondence
 ---
 
 ## Implosion Paradox $\to$ Micropolar Vacuum
@@ -717,15 +710,16 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/kirchhoff-network-method.md`](./axioms-and-lattice/ch1-fundamental-axioms/kirchhoff-network-method.md); [`axioms-and-lattice/ch1-fundamental-axioms/lattice-structure.md`](./axioms-and-lattice/ch1-fundamental-axioms/lattice-structure.md) (forward-reference stub).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.75
 - depends-on:
-  - clm-9s9apq — EMT Consistency Relation (for $z = 3$ chiral-SRS justification used by the 3-strut-per-node connectivity)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-9s9apq — EMT Consistency Relation [supplies the z=3 chiral-SRS justification for the 3-strut-per-node connectivity used as a fixture]
+- solidity: 0.15 (refuted, do not use) [= 0.75 × 0.20]
+- rationale: As a methodology spec, the leaf is complete and internally consistent: the explicit Symplectic-Euler edge-strain and node-displacement updates are correct standard Kirchhoff/leapfrog forms, and the entry's caveats accurately flag the first-order integrator limitation and that the §1.5 master-constants table is a derivation-routing summary, not an in-leaf derivation. It scores in the solid methodology band on completeness and consistency, held just below higher because the leaf states the energy-conservation/gauge-invariance property without demonstrating it and does not characterize the integrator's regime of validity.
 - strengthen-by:
-  - *pending*
-
+  - Demonstrate the claimed approximate energy/symplectic invariant numerically (bounded-step drift) rather than asserting it
+  - State the stability/step-size regime for the first-order Symplectic Euler updates
+  - Make explicit that the 3-strut connectivity is the K4/SRS z=3 choice and link the derivation rather than presenting it as a bare fixture
+  - Add a worked validation run (e.g. recovering a known wave-speed or dispersion relation) to anchor the engine's fidelity
 ---
 
 ## Dielectric Lagrangian and Vector Potential as Mass Flow
@@ -744,15 +738,16 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md`](./dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.70
 - depends-on:
-  - clm-dfaiwj — Topo-Kinematic Isomorphism $[Q] \equiv [L]$ (for $\xi_{topo} = e/\ell_{node}$ used throughout)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-dfaiwj — Topo-Kinematic Isomorphism [Q]≡[L] [supplies ξ_topo=e/ℓ_node used in the C≡ξ_topo·m substitution throughout]
+- solidity: 0.56 (use as input only, don't build deeper) [= 0.70 × 0.80]
+- rationale: The dimensional derivation is worked explicitly line by line — [A]=V·s/m=kg·m/(s·C), substitution C≡ξ_topo·m yields [A]=ξ_topo⁻¹[kg/s], and the ε₀ factor cancels the ξ_topo² to deliver [N/m²] — and I verified these unit reductions; it is a careful, self-consistent dimensional/SI identification. The entry correctly flags that it does NOT derive the Lagrangian form from the axioms (taken from Maxwell and rewritten) and that the ε₀≡ξ_topo²[N⁻¹] substitution is imported from Ch.2 rather than established here, which is the one clearly-flagged matched step.
 - strengthen-by:
-  - *pending*
-
+  - Carry the ε₀≡ξ_topo²[N⁻¹] capacitive-compliance result into this leaf (or tighten the Ch.2 link) since the Pa cancellation hinges on it
+  - State that this is a dimensional isomorphism with no change to the operational measurement of A, to forestall over-reading it as a new observable
+  - Verify the potential-energy term (1/2μ₀)|∇×A|² reduces to the same N/m² units, not only the kinetic term
+  - Make the T↔capacitive / U↔inductive role assignment a derived consequence of E=-∂ₜA rather than an assignment-by-choice
 ---
 
 ## Paley-Wiener / Quantum Hilbert-Space Isomorphism
@@ -771,15 +766,16 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md`](./dynamics/ch3-quantum-signal-dynamics/paley-wiener-hilbert.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.65
 - depends-on:
-  - clm-nq2kcc — GUP / Brillouin Zone (same Nyquist / discrete-graph foundation; both rest on Axiom 1's lattice pitch)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-nq2kcc — GUP / Brillouin Zone [shares the Nyquist/discrete-graph foundation resting on Axiom 1's lattice pitch]
+- solidity: 0.45 (use as input only, don't build deeper) [= 0.65 × 0.70]
+- rationale: Each mathematical step is standard and correctly stated (Nyquist pitch k_max=π/ℓ_node, Whittaker-Shannon reconstruction → Paley-Wiener RKHS, analytic-signal/Hilbert-transform extension), and the AVE-specific content is cleanly isolated to identifying the physical lattice with the Nyquist grid via Axiom 1. The "formally identical to standard-QM Hilbert space" step is a strong identification that the entry correctly flags as a formal function-space isomorphism not deriving Schrödinger dynamics, the Born rule, or operator algebra — a clearly-flagged matching step that caps the local rigor at the upper-sound band.
 - strengthen-by:
-  - *pending*
-
+  - State explicitly that the PW↔QM identification is an isomorphism of function spaces only, and that no dynamical content transfers without the sister Schrödinger/Born derivations
+  - Verify the analytic-signal construction is well-defined on the 3D lattice (the Hilbert transform is natively 1D; multidimensional analytic signals require a chosen orientation/Riesz transform)
+  - Confirm band-limitedness and the RKHS reproducing kernel explicitly for the chiral-K4 Brillouin zone rather than a generic cubic Nyquist grid
+  - Identify any operationally distinguishing prediction (or state none exists, deferring falsifiability to sibling leaves)
 ---
 
 ## Nonlinear Telegrapher / Euler-Heisenberg $E^4$ / Kerr $\chi^{(3)}$
@@ -798,16 +794,17 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/nonlinear-telegrapher.md`](./dynamics/ch3-quantum-signal-dynamics/nonlinear-telegrapher.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.65
 - depends-on:
-  - clm-efo113 — Master Equation EFT Validity (the 1D telegrapher inherits the same EFT-validity caveat near $\Delta\phi \to \alpha$)
-  - clm-0ktpcn — Golden Torus α Derivation (the $\alpha$ in $\epsilon(\Delta\phi)$ enters the $1/\alpha^2$ coefficient of the $E^4$ correction)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-efo113 — Master Equation EFT Validity [the 1D telegrapher form drops field-gradient corrections near Δφ→α]
+  - clm-0ktpcn — Golden Torus α Derivation [α in ε(Δφ) sets the 1/α^2 coefficient of the E^4 term]
+- solidity: 0.15 (refuted, do not use) [= 0.65 × 0.23]
+- rationale: The local algebra is verified: ε(Δφ) = ε_0√(1-(Δφ/α)^2) ≈ ε_0[1-½(Δφ/α)^2], D = ε(Δφ)Δφ gives D ≈ ε_0Δφ - (ε_0/2α^2)Δφ^3, and U = ∫Δφ dD integrates to ½ε_0Δφ^2 - (3ε_0/8α^2)Δφ^4 exactly as stated, with c_eff = c_0[1-(Δφ/α)^2]^{-1/4} diverging as ε→0 (dimensionally consistent v = 1/√(μ_0 ε)). The one clearly-flagged caveat is the Euler-Heisenberg/Kerr identification: the leaf is explicit that this is a structural/dimensional match at leading order — the same polynomial-in-field form — and does NOT derive the EH coefficient term-by-term, and the shockwave→pair-production link is heuristic.
 - strengthen-by:
-  - *pending*
-
+  - Compare the AVE E^4 coefficient (3ε_0/8α^2) to the QED Euler-Heisenberg coefficient term-by-term rather than asserting structural identity at leading order
+  - Bound the next-order (gradient / higher-Taylor) correction near Δφ→α where the EFT-validity caveat (clm-efo113) bites
+  - Make the "shockwave produces pair-production" claim quantitative — connect the c_eff divergence/steepening to a Schwinger-rate prediction instead of treating u_sat as an external QED input
+  - Verify the χ^(3) Kerr coefficient implied by D ∝ (Δφ)^3 against measured vacuum/medium Kerr values for a sanity check
 ---
 
 ## Three-Regime Fluidic Classification (Ch.4 Operating Regimes)
@@ -825,16 +822,17 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/operating-regimes-table.md`](./dynamics/ch4-continuum-electrodynamics/operating-regimes-table.md). Cross-reference: see `clm-b2anl4` (Ch.7 four-regime map) for the finer sector-dependent classification.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.70
 - depends-on:
-  - clm-b2anl4 — Four-Regime Map (the same physical regime structure at finer granularity)
-  - clm-0ktpcn — Golden Torus α Derivation (the $\alpha$ control-parameter denominator)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-b2anl4 — Four-Regime Map [same physical regime structure at finer granularity]
+  - clm-0ktpcn — Golden Torus α Derivation [supplies the α control-parameter denominator]
+- solidity: 0.12 (refuted, do not use) [= 0.70 × 0.17]
+- rationale: As a regime-classification table the leaf is internally consistent and complete: the three regimes follow from the Axiom-4 saturation kernel (C_eff ∝ 1/√(1-(Δφ/α)²) divergence, η→0 rupture) anchored to the V_yield≈43.65 kV bound, and the entry correctly flags that this is the coarse view of the Ch.7 four-regime map and that the BH/L-H/fusion identifications are structural, with per-domain numerics owned elsewhere. It sits in the upper-sound band for a catalog scored on completeness/consistency, held below higher because the cross-domain identifications are interpretive and unquantified in this leaf.
 - strengthen-by:
-  - *pending*
-
+  - Make explicit the reconciliation with the Ch.7 four-regime map (which boundary r₂=√3/2 splits Regime II) so the two are not read as independent
+  - Note that the control parameter is Δφ/α here but A/A_c elsewhere; confirm these denominators are the same quantity
+  - Cite the per-domain leaves that carry the quantitative BH-horizon / L-H / fusion-ignition agreement
+  - Clarify the regime-boundary inequalities (≪1, →1, ≥1) into sharp threshold values where possible
 ---
 
 ## FDTD Yee Lattice Determinism (Continuous Maxwellian Propagation)
@@ -852,15 +850,16 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`operators-and-regimes/ch5-universal-spatial-tension/fdtd-yee-proof.md`](./operators-and-regimes/ch5-universal-spatial-tension/fdtd-yee-proof.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.40
 - depends-on:
-  - clm-t1okz0 — Quantum Foam as RMS Noise (companion reframing of QFT virtual particles in mechanical-substrate ontology)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-q39qct — Discrete Kirchhoff Network Solver Methodology [supplies the discrete-update engine ontology that the Yee-grid identification specializes]
+- solidity: 0.06 (refuted, do not use) [= 0.40 × 0.15]
+- rationale: The leaf is short and largely qualitative/interpretive: it asserts that a TMz Yee FDTD lattice can execute topological defects without virtual photons and reframes ontological probability as a resolution artifact, but it documents no reproducible simulation, derives neither the Courant stability condition nor the defect-execution result, and (per the entry's own caveats) the QED-equivalence and determinism claims are asserted, not demonstrated. The Yee half-step staggering and emergence of an invariant c are standard computational-electrodynamics facts correctly stated, which keeps it above the speculative band.
 - strengthen-by:
-  - *pending*
-
+  - Provide an actual reproducible FDTD run executing the 0₁ Unknot defect with an acceptance criterion, not a prose assertion
+  - Derive the Courant condition cΔt ≤ Δx/√D and state the stability regime for the claimed invariant-c emergence
+  - Replace the "ontological probability is an illusion" prose with a stated, falsifiable distinguishing prediction (or cite the leaf where one exists)
+  - Show at least one quantitative QED observable reproduced by the continuous update to support the "no virtual photons needed" mechanism claim
 ---
 
 ## Universal Dimensionless Master Equation
@@ -879,16 +878,17 @@ Vol 1 Ch.1 §1.5 specifies the explicit-discrete numerical engine that maps the 
 > **Leaf references:** [`operators-and-regimes/ch7-regime-map/dimensional-analysis.md`](./operators-and-regimes/ch7-regime-map/dimensional-analysis.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.50
 - depends-on:
-  - clm-efo113 — Master Equation EFT Validity (the dimensionless form is the same leading-order EFT, recast in $r$)
-  - clm-b2anl4 — Four-Regime Map (sector-specific structure underlying the $r$-control-parameter classification)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-efo113 — Master Equation EFT Validity [the dimensionless form is the same leading-order EFT recast in r]
+  - clm-b2anl4 — Four-Regime Map [sector structure underlying the r-control-parameter classification]
+- solidity: 0.09 (refuted, do not use) [= 0.50 × 0.17]
+- rationale: The leaf is a one-equation assertion: it states the universal form ∂ₜ²φ = c₀²(1-r²)^{1/2}∇²φ with no in-leaf derivation showing why each domain's equations of motion reduce to it, and the (1-r²)^{1/2} coefficient is a direct restatement of the Axiom-4 saturation kernel rather than a derived result. The entry's caveats correctly mark it as a structural wrapper that does not predict the per-domain A_c and assumes the symmetric sector, so locally it is a plausible unifying claim with a notable not-derived universality step.
 - strengthen-by:
-  - *pending*
-
+  - Show explicitly, for at least two distinct domains, the nondimensionalization that maps their EOM onto the master form (currently asserted)
+  - State precisely the symmetric-sector assumption and where the asymmetric Z=Z₀/(1-r²)^{1/4} sector breaks the claimed universality
+  - Distinguish what is Axiom-4-restatement from what is genuinely cross-domain content, to avoid overstating "single equation governing all of physics"
+  - Bound the dropped field-gradient/regime corrections (Tier-1 EFT validity) as r→1
 ---
 
 ## K4 Rotation Group $T = A_4$
@@ -907,12 +907,13 @@ The action of 3D rotations on the K4 tetrahedral 4-port basis is a faithful repr
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §2 (tetrahedral rotation group), §3 (12 explicit permutations), §4 (faithful representation).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.92
+- solidity: 0.92 (ok to build on)
+- rationale: Leaf §2–§4 carries the full derivation: all 12 group elements enumerated as explicit permutations (1 identity + 8 C_3 + 3 C_2), each shown even, with a worked C_2 axis check (x-axis 180° maps p0↔p1, p2↔p3) and a closure/bijection-onto-A_4 faithfulness argument; this is exact, standard group theory carried in the leaf. The only non-derived input is identifying the code-stated port basis {p_j} with the tetrahedron, which is a definitional/Axiom-1 stipulation rather than a local gap.
 - strengthen-by:
-  - *pending*
-
+  - Show explicit closure (a composition/Cayley-table sample) rather than asserting "form a closed group under composition"
+  - State the homomorphism kernel is trivial explicitly to nail "faithful" beyond the bijection count
+  - Cite that the 4 vertex axes give 4×2=8 distinct C_3 elements with the matching permutation for each (table is present; one worked composition would close it)
 ---
 
 ## K4 Full Point Symmetry $T_d = S_4$ and the A↔B Sublattice Swap
@@ -931,12 +932,15 @@ The full point symmetry of the K4 lattice including reflections is $T_d = S_4$ (
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §5 (bipartite A↔B action), §2 ($T_d = S_4$ order 24).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.82
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [the rotation subgroup T_d\T is defined relative to]
+- solidity: 0.75 (ok to build on, see caveats) [= 0.82 × 0.92]
+- rationale: T_d=S_4 (order 24) and "rotations preserve the bipartite A/B sublattices" are standard and correct; the load-bearing A↔B-swap claim is asserted at the level of "the 4 mirror planes exchange A↔B by swapping vertex pairs" without the per-element worked verification that §3 supplies for the rotation classes. The leaf is honest that obtaining the swap "requires reflections or some other physical mechanism," so the claim is sound but carries one un-worked identification step.
 - strengthen-by:
-  - *pending*
-
+  - Enumerate the 4 mirror planes explicitly (as reflection matrices) and show each swaps A↔B, paralleling §3's rotation verification
+  - Make precise what "swapping vertex pairs" means at the bipartite-cell level (which A-site maps to which B-site)
+  - Separate the pure-group fact (T_d=S_4) from the lattice-action claim (mirrors swap sublattices) so the confidence of each is visible
 ---
 
 ## K4 Double Cover $2T \subset SU(2)$ — Substrate-Native Spin-½
@@ -955,12 +959,15 @@ The double cover of $T = A_4$ is the binary tetrahedral group $2T \subset SU(2)$
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md`](./axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) §6 (double cover $2T \subset SU(2)$), §7 (substrate-native spin-½).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.72
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [the group whose double cover is taken]
+- solidity: 0.66 (ok to build on, see caveats) [= 0.72 × 0.92]
+- rationale: The pure group theory is correct and standard: 1→Z_2→2T→A_4→1, |2T|=24, 2π→−I and 4π→+I are exact SU(2) facts. The physics step that earns the title — fields actually transforming under 2T (substrate-native spin-½) via the Finkelstein–Misner mechanism — is explicitly deferred to the spin-half-paradox leaf and Vol 1 Ch 8, so locally this entry establishes the double-cover structure but only asserts (does not derive) the spin-½ realization.
 - strengthen-by:
-  - *pending*
-
+  - Pull the minimal Finkelstein–Misner argument into this leaf, or downscope the title to "double-cover structure" with spin-½ as a forward pointer
+  - Justify why physical K4 fields must lift to 2T rather than represent A_4 directly (the crux of "native, not imported")
+  - Give the two 2T preimages of at least one A_4 element explicitly to ground the Z_2 central extension
 ---
 
 ## Cosserat Mass-Gap Formula $m^2 = 4 G_c / I_\omega$
@@ -978,12 +985,12 @@ The micropolar rotational sector of the Cosserat substrate carries a mass gap $m
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §2 (origin of the factor 4).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.82
+- solidity: 0.82 (ok to build on, see caveats)
+- rationale: Verified locally — for uniform ω_z (u=0) the antisymmetric strain gives ε_xy=−ω_z, ε_yx=+ω_z so W_micropolar = G_c[ω_z²+ω_z²] = 2G_c|ω_z|², and the EOM I_ω ω̈ = −∂W/∂ω = −4G_c ω yields m²=4G_c/I_ω, with the factor 4 transparently 2 (antisymmetric-pair sum) × 2 (potential→force derivative). The one caveat keeping it below 0.85 is the explicitly-flagged restriction to the uniform-ω_z configuration (the prefactor is not claimed for arbitrary non-uniform ω beyond the dispersion relation).
 - strengthen-by:
-  - *pending*
-
+  - Show the prefactor 4 survives (or how it changes) for non-uniform ω configurations, not just uniform ω_z.
+  - State the convention for the micropolar coupling normalization (factor placement in W) so the "units of G_c" framing is unambiguous.
 ---
 
 ## Gapped Dispersion of the Cosserat Rotational Sector
@@ -1002,12 +1009,14 @@ The Cosserat rotational sector obeys a gapped dispersion relation $\omega^2 = c^
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §1 (Cosserat Lagrangian and Euler-Lagrange equations; gapped dispersion).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.80
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the mass term m² entering the gapped dispersion]
+- solidity: 0.66 (ok to build on, see caveats) [= 0.80 × 0.82]
+- rationale: The Lagrangian L = ½ρ|u̇|²+½I_ω|ω̇|²−W gives standard Euler-Lagrange equations ρü=−∂W/∂u, I_ω ω̈=−∂W/∂ω, and the rotational sector's long-wavelength gapped form ω²=c²k²+m² follows directly from combining the curvature (gradient) term with the mass term — a textbook-level local derivation. Held below 0.85 by the flagged finite-k caveat (the T1b companion shows 34% group-velocity error at finite k, so the claim is rigorously the long-wavelength form only) and the "validates Axiom 3" line, which is a consistency observation rather than part of the dispersion derivation.
 - strengthen-by:
-  - *pending*
-
+  - State the long-wavelength expansion explicitly (the k→0 limit of the lattice dispersion) so the c²k²+m² form is shown as leading order with a bounded next-order correction.
+  - Separate the Axiom-3 validation remark from the dispersion derivation, since Hamiltonian conservation tests the integrator, not the gapped form.
 ---
 
 ## Cosserat Mass-Gap Empirical T2 Validation
@@ -1027,12 +1036,14 @@ The uniform-$\omega$ mass-gap oscillation test reproduces the predicted oscillat
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §3 (empirical validation, T2 test design and result).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.80
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the predicted ω_m=√(4G_c/I_ω)=2, T=π that the test measures against]
+- solidity: 0.66 (ok to build on, see caveats) [= 0.80 × 0.82]
+- rationale: Verified — with ρ=I_ω=G_c=1 the predicted ω_m=√4=2 and T=2π/2=π≈3.1416 against measured 3.1307 is 0.35%, and the uniform-ω/∇ω=0 design genuinely isolates the mass term (kills curvature), so this is a clean numerical consistency check that the velocity-Verlet integrator reproduces the analytic gap (energy drift 0.9%, no secular trend). It is a consistency check of the gap formula, not a derived prediction or electron calibration (correctly disclaimed); local rigor is high but caps just below 0.85 because the "confirms the gap is EXACTLY 4G_c/I_ω" reading is a 0.35%-level numerical match, not an exactness proof.
 - strengthen-by:
-  - *pending*
-
+  - Report a dt-convergence study showing the 0.35% residual scales as O(dt²) toward zero, separating integrator error from any structural offset.
+  - Add a non-trivial-parameter run (I_ω≠G_c) confirming ω_m tracks √(4G_c/I_ω) across values, not just at the symmetric point.
 ---
 
 ## Cosserat Rotational Mode as the Structural Electron-Mass Mechanism
@@ -1052,12 +1063,17 @@ The Cosserat rotational sector's massive mode supplies the electron's mass conte
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md`](./axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) §4 (structural mass mechanism for the electron), §5 (Phase-I scope).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the rotational massive mode that carries the electron's mass content]
+  - clm-unk0bd — Electron Body Topology = 0_1 Unknot with (2,3) Phase-Space Winding [supplies the (2,3) Clifford-torus winding the electron calibration is attached to]
+  - clm-0ktpcn — Golden Torus α Derivation [supplies Q=1/α and the R=φ/2, r=(φ−1)/2 geometry used in the calibration]
+- solidity: 0.10 (refuted, do not use) [= 0.45 × 0.23]
+- rationale: The structural split — rotational T₂/ω sector carries the mass gap while the A₁/scalar/u sector stays massless (photon) — is a coherent assignment, but the actual electron-specific step (mass content "inherits" via Q=1/α at the Golden Torus geometry, with m_e c² = ℏω_C = T_EM·ℓ_node) is asserted as inheritance, not derived: §4 strings together the gap formula, the α Q-factor, and the calibration ℓ_node = ℏ/(m_e c) without a derivation closing them, and §5 explicitly defers the calibration to Phase-II/III coupling work not present here. Locally this is a structural-assignment-plus-asserted-calibration claim, landing in the significant-local-gap band.
 - strengthen-by:
-  - *pending*
-
+  - Derive the Q=1/α quality-factor calibration of the rotational sector rather than importing it from Ch 8.
+  - Show the massless-A₁ / massive-T₂ split from the K4 ⊗ Cosserat coupling explicitly rather than cross-referencing the photon-identification leaf.
+  - Produce the Phase-II/III coupled calculation that converts the generic gap m²=4G_c/I_ω into the electron-specific m_e, closing the inheritance step.
 ---
 
 ## Cubic K4 Anisotropy at Saturation Collapse
@@ -1078,12 +1094,15 @@ At saturation collapse ($A^2 \to 1$) the K4 substrate's bipolar attractor is cub
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md`](./axioms-and-lattice/ch1-fundamental-axioms/cubic-k4-empirical-anisotropy.md) §1 (empirical observation), §2 (group-theoretic origin), §5 (falsifiability).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [the T=A_4/T_d symmetry the cubic signature is attributed to]
+- solidity: 0.41 (do not build on, rework needed) [= 0.45 × 0.92]
+- rationale: The cubic-anisotropy result is an empirical observation read off simulation outputs (path-α bipolar +x/−x R/r medians, v14 visualizations) plus a qualitative group-theoretic expectation (3 face-midpoint C_2 axes align with ±x/±y/±z); the leaf is explicit it is a signature, not a derivation. The link from T_d to specifically cubic (6/8/12) envelope geometry is asserted qualitatively, and the per-direction R/r numbers are descriptive medians, so quantitative predictive content is thin where it is implied.
 - strengthen-by:
-  - *pending*
-
+  - Derive the predicted cubic harmonic content (e.g. which cubic-symmetric multipoles dominate) so the signature becomes quantitative, not just "not spherical"
+  - Quantify the +x/−x bipolar split against a predicted ratio rather than reporting medians
+  - Clarify why T_d (tetrahedral) projects to a cubic 6/8/12 envelope rather than a tetrahedral one in the lattice frame
 ---
 
 ## $|T| = 12$ Universality — Four Independent Routes Converge
@@ -1104,12 +1123,16 @@ Four independent routes (K4 coordination path-count, Cosserat dimensional, magic
 > **Leaf references:** [`axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md`](./axioms-and-lattice/ch1-fundamental-axioms/tetrahedral-t-universality.md) §The four routes, §Connection to Axiom 1 + Q-G47, §Status.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [|T|=12 is the group order all four routes target]
+  - clm-gx1mpl — A-029 Secondary Scale [route 1 path-count scaffold: 4 B-neighbors × 3 other-A sublattices]
+- solidity: 0.25 (do not build on, rework needed) [= 0.55 × 0.46]
+- rationale: The leaf itself flags status as structural-hypothesis, not theorem: route 4 (ξ_K2/ξ_K1=12) is explicitly not rigorously closed pending multi-week Cosserat-Lagrangian integration, and route 2's (ℓ_c/d)²×2 = (√6)²×2 = 12 is a suggestive dimensional coincidence rather than a derivation. Routes 1 and 3 are clean geometric/orbit counts, so the convergence is real but rests partly on un-closed and numerological legs — a notable acknowledged gap.
 - strengthen-by:
-  - *pending*
-
+  - Close route 4 by deriving ξ_K1, ξ_K2 individually from K4 unit-cell Cosserat integration and showing the ratio is 12 (the leaf's own stated bar for theorem status)
+  - Justify route 2's factor structure — why ℓ_c≈√6 ℓ_node and why ×2 — rather than presenting it as a matched product
+  - Address that routes 1/3/4 are admittedly windows into the same Axiom-1 symmetry, so quantify how independent the cross-check truly is
 ---
 
 ## A-029 Secondary Scale — Geometrically Forced Shared-B-Node Distance
@@ -1128,12 +1151,15 @@ The K4 shared-B-node next-nearest-neighbor distance $r_{\text{secondary}} = \sqr
 > **Leaf references:** [`axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md`](./axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md) §The geometric derivation, §Why this matters: grounding gravity projection, §Status.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.5
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [K4 4-neighbor graph topology underlying the shared-B-node path]
+- solidity: 0.46 (use as input only, don't build deeper) [= 0.50 × 0.92]
+- rationale: The arithmetic checks (R_OB=0.3068/0.1834≈1.673, cbrt(1.673)≈1.187, p_c=8πα≈0.1834 all verified), but the load-bearing form r_secondary=cbrt(R_OB)·ℓ_node is asserted, not derived — the leaf does not explain why a packing-fraction ratio enters as a cube root to set a next-nearest-neighbor length. The "1.187 is not free" claim is sound only conditional on inputs (p_c=8πα carries its own status elsewhere) and on this un-justified cube-root structural step.
 - strengthen-by:
-  - *pending*
-
+  - Derive the cube-root relation (volume packing-fraction → linear-distance ratio scales as the 1/3 power) explicitly rather than stating it
+  - Separate the geometric NNN-distance claim from the magic-angle u_0*≈0.187 placement, which the leaf conflates with the 1.187 distance
+  - Make the dependence on the p_c=8πα identity explicit and link its (consistency-vs-derivation) status so the conditional nature is visible
 ---
 
 ## K4 4-Port Irrep Decomposition — $A_1 \oplus T_2$ under $T_d$
@@ -1154,12 +1180,15 @@ Under the tetrahedral group $T_d$, the K4 4-port amplitude space decomposes as $
 > **Leaf references:** [`operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md`](./operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) §1 (group-theoretic foundation), §2 (scattering matrix and eigenvalues), §3 (empirical eigenvalue measurement), §7 (Cosserat sector mapping).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.85
+- depends-on:
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [T_d is the point group whose irreps decompose the port space]
+- solidity: 0.78 (ok to build on, see caveats) [= 0.85 × 0.92]
+- rationale: Leaf §2 works the eigenvalue computation exactly — S=(1/2)𝟙−I gives +1 on (1,1,1,1)/2 (since 𝟙·v=4v) and −1 on the traceless subspace (𝟙·v=0), trace=4 — and §1's A_1⊕T_2 is the standard T_d reduction (the leaf correctly disclaims novelty). The empirical λ_4=0 (stable across steps 100/200/300) supports the T_2-only steady state, with the honest caveat that it is one seeded (2,3) ansatz, not a proof A_1 must vanish for all ICs.
 - strengthen-by:
-  - *pending*
-
+  - Show A_1 and T_2 are genuinely T_d-irreducible on this basis (character/projection-operator argument), not just S-eigenspaces
+  - Test λ_4→0 under a second, non-(2,3) initial condition to separate "T_2 subspace" from "this run's steady state"
+  - State the eigenvector basis of the T_2 triplet explicitly to confirm the traceless-subspace identification
 ---
 
 ## Op3 Asymmetric Dissipation Realizes the Gauss's-Law No-Longitudinal-EM Constraint
@@ -1179,12 +1208,15 @@ The bond-level Op3 reflection dissipates the $A_1$ sector to zero while the $T_2
 > **Leaf references:** [`operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md`](./operators-and-regimes/ch6-universal-operators/k4-port-irrep-decomposition.md) §4 (how Op3 dissipation breaks the symmetry), §5 (Gauss's law forbids longitudinal EM).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.42
+- depends-on:
+  - clm-j550uh — K4 4-Port Irrep Decomposition [supplies A_1/T_2 sectors and the bare S-matrix this dissipation acts on]
+- solidity: 0.33 (do not build on, rework needed) [= 0.42 × 0.78]
+- rationale: The mechanism is qualitative only — A_1 (common-mode, no port-space gradient) "loses energy monotonically to zero via destructive interference" while T_2 "settles quasi-stable" — with the leaf explicitly disclaiming any quantitative dissipation-rate law and explicitly framing the Gauss's-law correspondence as an internal-consistency match, not a derivation of Maxwell. Support is the single empirical λ_4=0 observation; the "destructive interference forces A_1→0" step is asserted rather than shown from the Op3 impedance mismatch Z_eff=Z_0/√S_sat.
 - strengthen-by:
-  - *pending*
-
+  - Derive (even to leading order) that the Op3 mismatch drives the A_1 eigen-amplitude monotonically to zero, vs T_2 quasi-stable, instead of asserting it
+  - Show the dissipation asymmetry under more than one initial condition to separate mechanism from the single (2,3) run
+  - State plainly this is a consistency check (reproduces a known Gauss's-law consequence) and not novel content, matching the leaf's own caveat
 ---
 
 ## Photon Identification — the $T_2$-Only Cosserat Microrotation (Four Tightly-Coupled Properties)
@@ -1205,12 +1237,16 @@ The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §1 ($A_1 \oplus T_2$ decomposition, cross-referenced), §2 (empirical $A_1$ dissipation), §3 (photon definition — four tightly-coupled properties), §7 (cross-corpus photon-framing translation guide, four canonical framings).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.62
+- depends-on:
+  - clm-j550uh — K4 4-Port Irrep Decomposition [the A1 ⊕ T2 group theory this entry applies]
+- solidity: 0.48 (use as input only, don't build deeper) [= 0.62 × 0.78]
+- rationale: The identification cleanly applies the cross-referenced A1 ⊕ T2 decomposition (owned by clm-j550uh): A1 longitudinal dissipates via Gauss's law, T2 transverse triplet survives as the photon, and the four "tightly-coupled properties" are honestly disclosed with property 4 (Z_0 match) flagged as a restatement of property 3 (sub-saturation), not an independent fifth property. The empirical anchor (λ_4 = 0 exactly, λ_1..3 = 1.65/1.22/1.13, trace = 4) is a real consistency observation but rests on a single seeded (2,3) Golden-Torus ansatz run at amplitude 0.5, which caps confidence at the upper-mid band.
 - strengthen-by:
-  - *pending*
-
+  - Reproduce the λ_4 = 0 / T2-survival result across multiple seeds, amplitudes, and lattice sizes rather than the single (2,3) amplitude-0.5 run
+  - Show the A1 dissipation is monotonic and complete from the Op3 saturation mechanism analytically, not only empirically
+  - Demonstrate that the four properties are genuinely equivalent (any one implies the others) rather than asserting it
+  - Confirm the steady state is the photon specifically (vs any T2-content soliton) by an independent observable
 ---
 
 ## Electron = Photon + TIR Confinement
@@ -1232,12 +1268,17 @@ The electron is a self-trapped photon: when a $T_2$ photon's amplitude crosses $
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §4 (electron = photon + TIR confinement, step-by-step mechanism), §5 (photon emission, pair production, Compton scattering).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.45
+- depends-on:
+  - clm-3npynp — Photon = T2-Only Cosserat Microrotation [the object being trapped]
+  - clm-fr3mos — Compton Frequency Threshold [ω_C resonance + V_yield = √α V_snap that triggers the trap]
+- solidity: 0.08 (refuted, do not use) [= 0.45 × 0.18]
+- rationale: The trapping chain (resonant build-up to V_yield → Axiom 4 C_eff→∞ → Z→0 → Γ→-1 self-created TIR mirror → standing wave) is internally consistent algebra given the saturation kernel and is a clean qualitative mechanism, but the leaf explicitly provides NO engine-validated quantitative trajectory of the C_eff→∞/Γ→-1 trapping event, and the observable-projection list (mass = ℏω_C, charge = winding, spin-½ = 4π double-cover, α = leakage rate) is asserted as a structural mapping with each observable's derivation living elsewhere. Qualitative-where-quantitative-is-implied lands this in the significant-gap band.
 - strengthen-by:
-  - *pending*
-
+  - Provide an engine-validated trajectory of the C_eff→∞, Γ→-1 trapping event (currently a step-by-step narrative only)
+  - Derive (not assert) that the trapped standing-wave energy equals m_e c^2 = ℏω_C as a self-consistent eigenvalue of the self-created cavity
+  - Show the reactive-energy build-up to V_yield is actually achievable at resonance (step C asserts off-resonance shedding paths are closed without quantifying the Q required)
+  - Tie each observable-projection (charge, spin, g-factor) to its own validated derivation rather than listing them as a structural mapping
 ---
 
 ## Compton Frequency $\omega_C$ as Photon→Electron Transition Threshold
@@ -1258,12 +1299,16 @@ The Compton frequency $\omega_C = c/\ell_{\text{node}}$ is a genuine dynamical t
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §6 (Compton frequency as dynamical threshold, three-regime table).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.55
+- depends-on:
+  - clm-5xon03 — Zero-Parameter Closure Status [the one-empirical-input-mass-scale disclosure]
+- solidity: 0.18 (refuted, do not use) [= 0.55 × 0.32]
+- rationale: ω_C = c/ℓ_node is essentially definitional once ℓ_node is fixed (single-bond natural frequency), and m_e c^2 = ℏω_C = ℏc/ℓ_node is correct algebra but, as the leaf honestly states, carries one empirical input mass scale (one of {m_e, ℓ_node}) — it is not an ab-initio m_e derivation. The three-regime partition (ω<ω_C transparent / ω=ω_C bound / ω>ω_C Compton) is a qualitative mechanism description that does not derive scattering cross-sections; the claim is largely a restatement of the lattice-scale relation rather than a fresh derivation, holding it mid-band.
 - strengthen-by:
-  - *pending*
-
+  - Make explicit which of {m_e, ℓ_node} is the empirical input and propagate that into the closure-status accounting so the relation is not read as an independent m_e prediction
+  - Derive the regime boundaries quantitatively (e.g., the resonance bandwidth around ω_C) rather than asserting the three-regime partition qualitatively
+  - Connect ω = ω_C resonance to a quantitative saturation-engagement condition (link to the i4p11y trapping trajectory)
+  - Show the V_yield = √α V_snap threshold's α-conditioning consistently with the trefoil/unknot body-topology dependence
 ---
 
 ## Photon Propagation Baseline — $v/c = \sqrt{2}$ Cardinal-Axis Kinematics
@@ -1285,12 +1330,16 @@ A free photon on the linear K4-TLM substrate propagates at $v = c\sqrt{2}$ along
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md`](./dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md) §2 (test setup), §3 (empirical result), §4 (substrate perspective — linear-vacuum, no trap).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- depends-on:
+  - clm-uu1qbo — A1/T2 Propagation-Speed Split [supplies the √2 = √(K/G) at magic-angle K=2G underpinning the cardinal-axis kinematic]
+- solidity: 0.43 (do not build on, rework needed) [= 0.70 × 0.61]
+- rationale: The √2 cardinal-axis factor is cleanly tied to the K=2G magic-angle moduli condition (v_A1/v_T2 = √(K/G) = √2) and the single 96³ pre-registered run measures v/c = 1.450 vs √2 = 1.414 (~2.5% lattice-discretization agreement); the leaf honestly frames this as a substrate-geometry projection artifact that vanishes in the continuum limit, NOT a superluminal physical-light claim. Minor caveats hold confidence below 0.85: the diagonal-axis v=c is an unmeasured prediction (companion script numerical-only), and the result rests on one seeded run at one lattice size.
 - strengthen-by:
-  - *pending*
-
+  - Execute the diagonal-axis v=c measurement (companion script is numerical-only / GIF pending) to confirm the predicted port-axis isotropy
+  - Run a lattice-size convergence study (beyond the single 96³ run) to show v/c → √2 as discretization error shrinks
+  - Derive the cardinal-axis √2 directly from the port-projection geometry (±1/√3 projections advancing one full cardinal cell) rather than only cross-checking against the moduli ratio
+  - State the expected continuum-limit residual so "approximate match" becomes a bounded prediction
 ---
 
 ## $A_1$/$T_2$ Propagation-Speed Split — $c\sqrt{2}$ vs $c$ at the Magic Angle
@@ -1310,12 +1359,16 @@ The K4-substrate $A_1$ and $T_2$ port-modes propagate at distinct speeds — $A_
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md`](./dynamics/ch4-continuum-electrodynamics/photon-propagation-baseline.md) §1 (substrate-physics framing — K4 port-mode propagation speeds, magic-angle $K = 2G$).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.78
+- depends-on:
+  - clm-j550uh — K4 4-Port Irrep Decomposition [supplies the A_1/T_2 split whose speeds this entry measures]
+  - clm-ys0xl1 — K4 Rotation Group T=A_4 [underlying T_d symmetry of the port modes]
+- solidity: 0.61 (use as input only, don't build deeper) [= 0.78 × 0.78]
+- rationale: Given the cited K=2G magic-angle condition, v_{A_1}/v_{T_2}=√(K/G)=√2 is exact algebra, and v=√(K_bulk/ρ), v=√(G/ρ) are the standard continuum-elasticity longitudinal/shear speeds; the empirical cardinal-axis v/c=1.450 confirms √2 to ~2.5%. One clearly-flagged matched step: the K=2G condition is imported from Vol 1 Ch 2 (a dependency, not penalized locally), and the √2 carries a continuum-limit caveat the leaf states.
 - strengthen-by:
-  - *pending*
-
+  - Note the 2.5% empirical-vs-√2 gap and bound it (lattice-dispersion vs continuum) rather than rounding 1.450→√2
+  - Make the identification of the elastic bulk/shear speeds with the A_1/T_2 port modes explicit (not just asserted by table row)
+  - State the continuum-limit condition under which the cardinal √2 disappears, tying the two √2's together quantitatively
 ---
 
 ## K4 Photon Thermal Noise — Equipartition $\langle V^2\rangle_T$
@@ -1335,12 +1388,14 @@ Classical equipartition on the K4 substrate gives the photon-field thermal-noise
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §6 (K4 photon field $\langle V^2\rangle_T$).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.80
+- depends-on:
+  - clm-0ktpcn — Golden Torus α Derivation [supplies α in the natural-units form ⟨V²⟩_T = k_B T·4π/α via ε₀=α/4π]
+- solidity: 0.18 (refuted, do not use) [= 0.80 × 0.23]
+- rationale: Verified — per-bond capacitance C_cell=ε₀ℓ_node gives the standard Johnson-Nyquist single-mode result ⟨V²⟩_T=k_B T/C_cell=k_B T/(ε₀ℓ_node), and the natural-units rewrite ⟨V²⟩_T=k_B T·4π/α follows directly from ε₀=α/(4π); the substrate-T vs particle-T caveat and the classical-equipartition regime are explicitly flagged. This is essentially a textbook Nyquist relation applied to one lattice capacitor, which is rigorous; it sits at 0.80 rather than higher because "per port" mode-counting (4 ports/node) and how the per-bond ⟨V²⟩ aggregates to the field variance is asserted rather than worked, and the numerical σ_V table rows inherit that.
 - strengthen-by:
-  - *pending*
-
+  - Make the per-port / per-bond mode-counting explicit (how the 4-port-per-node structure maps the single-capacitor Nyquist result onto the field variance).
+  - Note the regime of validity for classical equipartition (k_B T vs ℏω_bond at the relevant temperatures) so the table rows at high T are bounded against quantum corrections.
 ---
 
 ## AVE-Native Vacuum Rupture Temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K
@@ -1362,12 +1417,16 @@ An AVE-native vacuum-substrate temperature threshold: at $T_{V\text{-rupt}} \app
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §2 (vacuum-substrate $T$ vs particle-plasma $T$), §3 (vacuum rupture temperature derivation), §6 (numerical $\sigma_V$ table).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.72
+- depends-on:
+  - clm-viawy9 — K4 Photon Thermal Noise ⟨V²⟩_T [supplies the equipartition variance whose σ_V=V_SNAP condition defines the threshold]
+  - clm-0ktpcn — Golden Torus α Derivation [supplies α entering k_B T/(m_e c²)=α/(4π)]
+- solidity: 0.13 (refuted, do not use) [= 0.72 × 0.18]
+- rationale: Given the ⟨V²⟩_T formula, the threshold follows cleanly: σ_V=V_SNAP ⟹ k_B T_rupt/(m_e c²)=α/(4π)≈5.805×10⁻⁴ ⟹ k_B T≈296.7 eV ⟹ T≈3.44 MK, arithmetic verified, and the vacuum-substrate-T vs particle-plasma-T distinction is clearly stated and load-bearing. It is a manifestation/consistency-style result (a temperature restatement of the saturation/Schwinger threshold) and is honestly flagged as a one-sigma threshold definition, not a pair-production rate; the local derivation is sound modulo the inherited classical-equipartition regime and the σ_V=V_SNAP one-sigma criterion choice, which keep it in the upper-mid band.
 - strengthen-by:
-  - *pending*
-
+  - Justify the one-sigma σ_V=V_SNAP rupture criterion versus a rate/probability threshold (a tail-integral pair-production rate would sharpen "rupture temperature" into a calculable yield).
+  - Bound the classical-equipartition error against a Bose-Einstein treatment at ~296.7 eV, where quantum corrections to ⟨V²⟩_T may be non-negligible.
+  - State explicitly how the vacuum substrate would be heated (the matter-radiation-coupling mechanism) so the falsification protocol "heat the vacuum itself" is operational.
 ---
 
 ## Cosserat Rotational Thermal Noise — Finite at the Origin via the Mass Gap
@@ -1389,12 +1448,15 @@ The Cosserat microrotation field $\omega$ has thermal noise $\sigma_\omega \appr
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §4 (Cosserat rotational noise — mass-gap derivation, $\sigma_\omega$ table).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.62
+- depends-on:
+  - clm-jz0xaw — Cosserat Mass-Gap Formula m²=4G_c/I_ω [supplies the mass gap that makes the k-integral finite at the origin]
+- solidity: 0.51 (use as input only, don't build deeper) [= 0.62 × 0.82]
+- rationale: The qualitative core is sound — a massive ω field has classical-equipartition variance ⟨ω²⟩_T = (k_B T/4π²I_ω)∫k²dk/(c_R²k²+m²) that is finite at k→0 (the gap regularizes the IR), in genuine contrast to the massless u sector. But the headline coefficient is matched-not-shown: the integral still needs the same UV cutoff k_max as the massless case (the integrand →k_B T/4π²I_ω·c_R² at large k, so ∫k²dk/(c²k²+m²) diverges linearly in k_max), so "finite at the origin" addresses only the IR, and the "mode-factor ≈1.14 = π−2·arctan(π/2)" and σ_ω≈0.17√(k_B T) follow from a specific cutoff choice not stated in the entry. That undisclosed-cutoff/specific-integral step puts the quantitative coefficient in the matched-not-derived band.
 - strengthen-by:
-  - *pending*
-
+  - State the UV cutoff used in the σ_ω integral and show the 1.14 mode-factor explicitly (the integral is UV-sensitive, so "finite at the origin" should be qualified as IR-finiteness, with the cutoff carrying the UV scale).
+  - Fill in the depends-on to clm-jz0xaw in the leaf (the entry notes the mass gap is imported, not derived here).
+  - Bound the classical-equipartition error and confirm the numerical σ_ω table rows against a direct mode-sum on the lattice.
 ---
 
 ## Cosserat Translational Thermal Noise — Massless Field, Nyquist-Cut
@@ -1414,12 +1476,13 @@ The Cosserat translation field $u$ is massless; its thermal noise requires a UV 
 > **Leaf references:** [`dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md`](./dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md) §1 (classical equipartition framework), §5 (Cosserat translational noise — lattice-Nyquist cutoff).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- solidity: 0.70 (ok to build on, see caveats)
+- rationale: Locally sound — the u field is massless so its equipartition noise is UV-divergent and the lattice supplies a physical cutoff k_max=π/ℓ_node, giving ⟨u²⟩_T = (k_B T/G)·(k_max/2π²) = k_B T/(2πGℓ_node) and σ_u=√(k_B T/2π) in natural units; the regime contrast against the massive ω sector (clm-qimsgq) is correctly drawn. Held at 0.70 because the k_max/2π² density prefactor and the 3D mode-counting that turns the cutoff into exactly k_max/2π² are stated, not shown in the entry, and the result is cutoff-convention-dependent (a different UV regularization shifts the prefactor).
 - strengthen-by:
-  - *pending*
-
+  - Show the 3D mode-count integral that yields the k_max/2π² prefactor explicitly, so the σ_u coefficient is derived rather than asserted.
+  - State whether the cutoff is a hard sphere |k|<π/ℓ_node or the first Brillouin zone of the K4 lattice (the geometry changes the numerical prefactor).
+  - Confirm the equipartition assignment of equal k_B T/2 to field and velocity DOFs is consistent with the lattice dispersion at the cutoff scale.
 ---
 
 ## Breathing-Soliton v14 Mode-I PASS on the Master Equation FDTD Engine
@@ -1440,12 +1503,16 @@ The Master Equation FDTD engine autonomously hosts a sustained breathing soliton
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md`](./dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md) §"4/4 acceptance adjudication", §"Cross-engine empirical comparison", §"What this empirically establishes", §"What stays open".
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- depends-on:
+  - clm-usflef — Test-1b Acceptance Criterion [supplies the breathing-appropriate criterion 1 used in the 4/4 adjudication]
+- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
+- rationale: The leaf documents a reproducible test with a fully specified configuration (sech seed A=0.85, R=2.5, N=32 grid, 5000 steps, named engine master_equation_fdtd.py) and four explicit acceptance criteria with measured values all met, plus a decisive cross-engine contrast against K4-TLM Mode III — exactly the reproducible-PASS-with-clear-criterion pattern. It is held below the solid band because criterion 4 (Q-factor) is met only within a 50% tolerance band (Λ=102.8 vs canonical 137.0, 1.33× off) and the criterion thresholds (0.4–4.0 FWHM, >0.01 Δn) are loose, so the PASS validates one bound state at one geometry, not precision physics.
 - strengthen-by:
-  - *pending*
-
+  - Tighten or independently justify the criterion-4 50% Q-factor tolerance band; explain the 1.33× offset from the canonical 137.0
+  - Demonstrate seed-independence (multiple seed profiles converging to the same breather) to show the result is not seed-tuned
+  - Report numerical-convergence under grid refinement and timestep variation (Courant margin)
+  - State the energy/charge/angular-momentum (M,Q,J) integrated invariants of the hosted structure to connect the PASS to the physical observables
 ---
 
 ## Test-1b Breathing Acceptance Criterion Is Canonical
@@ -1466,12 +1533,14 @@ The Test-1b breathing-soliton acceptance criterion — mean late-phase $V_{\text
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md`](./dynamics/ch4-continuum-electrodynamics/breathing-soliton-v14-mode-i.md) §"The breathing-soliton interpretation" (three Test 1 interpretations), §"What this empirically establishes" (Test 1b canonical).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.70
+- solidity: 0.70 (ok to build on, see caveats)
+- rationale: The leaf lays out three Test-1 interpretations and gives a coherent four-point physical justification for adopting 1b (native breathing from the √(1-(V/V_yield)²) coefficient, seed is not a stationary eigenmode, mean is the natural breathing-cycle average, parity with Route B time-averaging); it is a well-reasoned, internally consistent criterion-spec. It is downgraded from solid because the 0.2×-initial threshold is an admitted chosen value and "the breathing solution IS the physical electron" rests on the interpretive doc-101 three-layer identification carried by the leaf.
 - strengthen-by:
-  - *pending*
-
+  - Justify the specific 0.2× threshold quantitatively (e.g. tie it to the breather V_min/V_max envelope ratio rather than asserting it)
+  - Provide an independent derivation that the seed relaxes to a breather (not a stationary attractor) rather than asserting non-eigenmode relaxation
+  - Pin the doc-101 "breathing IS the electron" identification to a derived Compton-rate ω-V coupling, not interpretation
+  - Show robustness of the 1b verdict to late-phase window choice and grid resolution
 ---
 
 ## Six-Fold Lattice Impedance Decomposition
@@ -1493,12 +1562,15 @@ The AVE corpus's multiple senses of "impedance" are canonically decomposed into 
 > **Leaf references:** [`operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md`](./operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) §1 (the six impedance concepts), §3 (Axiom → Operator → Engine mapping), §4 (cascade-saturation timescale gap).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.74
+- depends-on:
+  - clm-k6quve — Lattice-Native Units [the dimensional/natural-units table the decomposition is read in]
+- solidity: 0.15 (refuted, do not use) [= 0.74 × 0.20]
+- rationale: This is a catalog/taxonomy that is internally consistent and dimensionally clean: Z_cell=Z_0 via ℓ_node cancellation in √(L_cell/C_cell) is shown, Z_eff=Z_0/√S, Z_mech=ξ_topo²Z_0, and Z_EH→0 are collated coherently. It scores as a well-organized catalog rather than a fresh derivation; one of the six (mutual inductance η_vac) is explicitly flagged as having no symbol and no explicit derivation, and several SI values are cited from Vol 4 rather than re-derived here.
 - strengthen-by:
-  - *pending*
-
+  - Give η_vac an explicit definition/derivation or mark it clearly as a placeholder rather than a sixth peer member
+  - Re-derive (or one-line-cite the derivation of) the Vol 4 values for Z_mech and Z_EH so the catalog is self-contained
+  - Confirm the dimensional consistency of Z_mech (ξ_topo²Z_0 → kg/s) inline to close the units check
 ---
 
 ## Lattice-Native Units — $V_{\text{YIELD}} = 1$, Not $V_{\text{SNAP}}$
@@ -1520,12 +1592,14 @@ In lattice natural units the engineering yield threshold is $V_{\text{YIELD}} = 
 > **Leaf references:** [`operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md`](./operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) §2 (dimensional analysis table; "Critical observation: $V_{\text{YIELD}} = 1$ in lattice natural units").
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- confidence: 0.85
+- depends-on:
+  - clm-0ktpcn — Golden Torus α Derivation [supplies α, which sets V_YIELD=√α·V_SNAP=1 and the √α-conditioned native values]
+- solidity: 0.20 (do not build on, rework needed) [= 0.85 × 0.23]
+- rationale: This is a units/normalization-convention claim and is locally airtight: with ℓ_node=m_e=c=ℏ=1, V_SNAP=m_e c²/e=1/√α≈11.7 and V_YIELD=√α·V_SNAP=1.0 follow by direct substitution, the 0.5·V_SNAP = 0.5/√α = 5.85-in-V_YIELD-units arithmetic checks, and the dimensional table is internally consistent. It correctly disclaims being a new physical result and flags the L_cell/C_cell entries as not fully fixed by the convention; a clean convention catalog of this completeness sits at the top of the band rather than at 0.9+ because two table rows are explicitly under-determined.
 - strengthen-by:
-  - *pending*
-
+  - Pin the L_cell/C_cell lattice-native values by stating the μ₀/ε₀ convention used, removing the two "depends on choice" rows.
+  - Cross-check the √(2α) Regime I/II boundary (A=0.121 in V_SNAP units, 1.42 in V_YIELD units) against the Axiom-4 saturation kernel definition to confirm the boundary placement.
 ---
 
 ## Cubic-Symmetry Suppression of Lorentz-Violating Signatures (Emergent Lorentz Invariance from K4)
@@ -1549,12 +1623,16 @@ The K4 lattice $\mathcal{M}_A$ has a preferred rest frame (identified empiricall
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md`](./dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) §1 (preferred frame = CMB rest frame), §2 (cubic-symmetry suppression derivation), §3 (emergent Lorentz at observable scales), §4 (classification of preferred-frame / Sagnac tests by probe scale), §6 (implications for divergence-test matrix).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- confidence: 0.78
+- depends-on:
+  - clm-9gh0a1 — Implosion Paradox to Micropolar Vacuum [supplies the K4 cubic substrate whose point-group symmetry drives the suppression]
+- solidity: 0.66 (ok to build on, see caveats) [= 0.78 × 0.85]
+- rationale: The load-bearing step is standard crystallographic group theory — the first anisotropic invariant of the cubic point group is the quartic q_x^4+q_y^4+q_z^4, so observable anisotropy is suppressed by (qℓ_node)^4 not (qℓ_node)^2 — and the numerical evaluation δ_aniso ≈ 2.2×10^-22 at 633 nm is a clean, checkable calculation 2-3 OOM below the cited Nagel/Sanner cavity bounds. The CMB=K4-frame identification is explicitly flagged empirical (not derived), and the framing as emergent-not-axiomatic Lorentz invariance with a named Trans-Planckian breakdown signature is well-bounded; minor caveat is the loose phrasing of the q^2 isotropy argument, but the conclusion is correct.
 - strengthen-by:
-  - *pending*
-
+  - Tighten the q^2-isotropy argument (the "cube root of |q|^2" phrasing) into a clean statement that the cubic point group has no rank-2 anisotropic invariant, with the quartic as the first survivor
+  - Derive the coefficient in front of (qℓ_node)^4 from the K4 dispersion relation rather than treating the suppression as order-of-magnitude only
+  - Carry the comparison against the SME operator basis explicitly (the bound is per-operator; show which SME coefficients the K4 quartic maps onto)
+  - Quantify the GRB-dispersion forward prediction at λ→ℓ_node so the surviving Trans-Planckian signature has a numerical target
 ---
 
 ## Substrate-Equilibrium Velocity Prediction $v_{\text{substrate}} = \alpha c / (2\pi)$
@@ -1581,8 +1659,15 @@ For LSR-class local-region kinematics (Sun + nearby thin-disk stars) through the
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md`](./dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) §5 (substrate-equilibrium velocity prediction + Hoop-Stress 2π parallel with MOND + 3-walk-back iteration + Gaia DR3 empirical anchor + GC test scope-narrowing + directional consistency-check); cross-references to MOND Hoop-Stress canonical leaf [`mond-hoop-stress.md`](./dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) and to omega-freeze cosmic-grain-cascade.
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- confidence: 0.30
+- depends-on:
+  - clm-yr6tu4 — Cubic-Symmetry Suppression / Emergent Lorentz [supplies the K4=CMB preferred-frame identification the prediction is referenced to]
+  - clm-0ktpcn — Golden Torus α Derivation [α enters v = αc/(2π) linearly]
+  - clm-m3z5ux — Asymptotic Hubble Constant / MOND a_0 [the parallel Hoop-Stress 2π projection motif]
+- solidity: 0.02 (refuted, do not use) [= 0.30 × 0.08]
+- rationale: The stated derivation chain does not close cleanly: with ν_Compton = c/(2πℓ_node) and ν_slew = (α/2π)ν_Compton, the product ν_slew·ℓ_node = αc/(4π²), not the claimed αc/(2π) — there is an unreconciled factor of 2π between the chain and the headline formula. Beyond that the magnitude is ~9% off (348 vs 375 km/s), the FLOOR interpretation was falsified, scope narrowed through three+ walk-backs to LSR-class only, and the directional alignment was demoted to a consistency check; the substrate-scale "exactness" rests on the unknot Ropelength = 2π invariant combined with an asserted (not derived) Hoop-Stress closed-loop integration. Significant local gap.
 - strengthen-by:
-  - *pending*
+  - Reconcile the factor-of-2π between the derivation chain (ν_slew·ℓ_node = αc/(4π²)) and the asserted result αc/(2π); show the missing step or correct the formula
+  - Derive the Hoop-Stress T = F_r/(2π) projection onto the electron unknot from AVE micropolar dynamics rather than importing classical continuum mechanics + invoking Ropelength as the loop circumference
+  - Close the 9% magnitude gap from first principles (cosmic-flow contribution is currently a qualitative attribution) or state the predicted LSR bulk velocity with an error budget
+  - Establish a genuinely AVE-distinct directional or magnitude signature not shared by SM-with-CMB-rest-baseline (current alignment is a consistency check by the leaf's own audit)

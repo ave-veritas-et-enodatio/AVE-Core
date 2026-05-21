@@ -25,7 +25,7 @@ A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every top
 | Tightest single-instance validation | BCS $B_c(T) = B_{c0}\sqrt{1 - (T/T_c)^2}$ at **0.00% error** |
 | Most direct cross-scale experimental validation | BH merger ring-down $\omega_R M_g = 18/49$ (1.7% from GR exact; 10–18% from 3 LIGO events) |
 | Most extensive multi-instance class validation | Planetary spin-axis + mag-tilt: **14-15/16 class matches** (Row 9-a + Row 9-b, planetary scoring 2026-05-20 Session 2) |
-| Symmetry classes | SYM (20) / ASYM-N (4: BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-spin offset μ-vs-spin candidate, cosmic-DE $\varepsilon$-only β Session 2) / TBD (2: galactic spin + LSS spin scoped Session 4/5) / ASYM-E (1: engineered metamaterials) |
+| Symmetry classes | SYM (19) / ASYM-N (4: BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-spin offset μ-vs-spin candidate, cosmic-DE $\varepsilon$-only β Session 2) / TBD (2: galactic spin + LSS spin scoped Session 4/5) / ASYM-E (1: engineered metamaterials) — partitions all 26 (19+4+2+1) |
 
 The single-kernel claim — one Axiom 4 saturation kernel, with the vertical tangent at $A = 1$ making every topological-reorganization event sharp at all scales — is the unification thesis of this catalog.
 
@@ -34,7 +34,7 @@ The single-kernel claim — one Axiom 4 saturation kernel, with the vertical tan
 
 The 26 canonical cross-scale instances span 21 orders of magnitude: 17 physical-substrate instances, 2 biological-substrate instances, and 5 engineered-substrate instances, plus 2 companion rows scoped for Sessions 4/5.
 
-### Physical-substrate scales (17 rows)
+### Physical-substrate scales (19 rows: 17 canonical + 2 scoped Session 4/5)
 
 | Scale | Sym | $A$ definition | Saturation event | Empirical anchor |
 |---|---|---|---|---|
@@ -82,7 +82,7 @@ The 26 canonical cross-scale instances span 21 orders of magnitude: 17 physical-
 
 Per the asymmetric-saturation exploration (Grant 2026-05-15 evening), the instances fall into a 3-way symmetry classification:
 
-- **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 20 instances
+- **SYM** = Symmetric (vacuum $K = 2G$; $\varepsilon$, $\mu$ saturate together): 19 instances
 - **ASYM-N** = Asymmetric natural (single-sector: only $\varepsilon$ or only $\mu$): 4 instances — BCS $\mu$-only, plasma $\varepsilon$-only, planetary mag-vs-spin offset (μ-vs-spin candidate), cosmic-DE $\varepsilon$-only (β Session 2 addition; substrate-physics anchor at [`op14-cosmic-horizon-profile.md`](../vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md))
 - **ASYM-E** = Asymmetric engineered decoupled ($K/G \neq 2$ by design): 1 instance — active topological metamaterials
 - **TBD** = pending Session 4/5 adjudication: 2 instances (galactic spin-axis Row 11-a, LSS spin-axis Row 14-a)
