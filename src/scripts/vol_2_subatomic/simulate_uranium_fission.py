@@ -1,12 +1,26 @@
 """
-AVE Topological Fission Simulator
-======================================================
-Models the MACROSCOPIC sheer-failure mechanism of U-235 nuclear fission.
-Instead of relying on quantum probabilities, we compute the explicit
-$1/d$ topological strain matrix of the U-235 nucleus. Upon impact
-by a thermal neutron, the lattice experiences an impedance rupture,
-shearing into two stable daughter lattices (Ba-141 + Kr-92) which
-are then violently ejected by long-range Coulomb repulsion.
+AVE Topological Fission Visualization (illustrative — phenomenological N-body).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders an illustrative N-body animation of U-235 fission using
+phenomenological force constants (K_ATTR = 20.0, K_REP = 500.0, K_COULOMB = 4.0)
+in arbitrary units — NOT axiom-derived. The "$1/d$ topological strain matrix"
+referenced in the original docstring is computed only as a pairwise 1/d
+potential, NOT as a derived AVE-distinct nuclear-binding kernel.
+
+The script does NOT compute:
+  - U-235 fission cross-section σ_f (~585 barns at thermal energies, ENSDF)
+  - Neutron-induced fission threshold (~6.5 MeV barrier)
+  - Ba-141 + Kr-92 daughter Q-value (~190 MeV total, ENSDF)
+  - Fission fragment kinetic-energy distribution
+
+The script DOES illustrate the AVE "macroscopic shear-failure" interpretive
+narrative as alternative to QM tunneling. For quantitative claims, see
+the open nuclear-structure benchmarks queue (would parallel SPARC ingest
+pattern for the nuclear sector).
+
+Docstring corrected 2026-05-17: "compute explicit topological strain matrix"
+softened to "render illustrative N-body with phenomenological constants".
 """
 
 import os

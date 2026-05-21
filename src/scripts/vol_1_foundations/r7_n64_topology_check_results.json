@@ -1,0 +1,16 @@
+{
+  "context": "doc 74_ \u00a77.1 concern #1 \u2014 V-block N=64 GT_corpus topology check",
+  "N": 64,
+  "R_anchor": 10.0,
+  "r_minor": 3.8196601125010514,
+  "closest_eigenvalue_phase": 0.7103068388224354,
+  "gap_to_omega_C_dt": 0.003200057635887932,
+  "PASS_at_frequency_only": "True",
+  "shell_fraction": 0.011322895238774689,
+  "shell_energy": 0.011322895238774878,
+  "bulk_energy": 0.9886771047612422,
+  "total_energy": 1.0000000000000167,
+  "bulk_uniform_expectation": 0.005752339821930825,
+  "localization_factor_vs_bulk": 1.9683981804423467,
+  "verdict": "WEAK SHELL LOCALIZATION (fraction 0.011 < 0.10): eigvec is spread uniformly across lattice (bulk mode). NOT a (2,3) bound state. Mode I candidate framing collapses."
+}

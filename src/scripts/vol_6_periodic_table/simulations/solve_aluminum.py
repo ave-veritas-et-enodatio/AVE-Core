@@ -1,10 +1,19 @@
 """
-AVE SUBMODULE: ALUMINUM-27 TOPOLOGICAL SOLVER
----------------------------------------------
-Calculates the required macroscopic separation distance (R_halo)
-between the rigid Magnesium-24 (6-Alpha Octahedron) core and the
-bound Tritium outer ring to mathematically match the empirical
-CODATA mass defect of Al-27.
+AVE SUBMODULE: ALUMINUM-27 R_HALO FITTER (1-parameter inverse problem).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script numerically FITS R_halo (between the rigid Mg-24 6-Alpha
+Octahedron core and the bound Tritium outer ring) to recover the CODATA
+Al-27 mass-defect target via Nelder-Mead. The K_MUTUAL coupling kernel IS
+axiom-derived; the recovered R_halo is a 1-parameter inverse-problem
+solve, NOT a forward prediction.
+
+Fit-on-fit dependency: this script uses the Mg-24 geometry from
+solve_magnesium.py (itself a 1-parameter fit), so Al-27 is fit-on-fit.
+The "Mass Mapping Error" output is ~0 by construction. M_P_RAW, M_N_RAW
+are empirical PDG inputs.
+
+Scope corrected 2026-05-17.
 """
 
 import pathlib
@@ -16,7 +25,7 @@ from scipy.optimize import minimize
 from ave.core.constants import D_PROTON as D_0
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
-from ave.core.constants import M_P_MEV_AVE as M_P_RAW
+from ave.core.constants import M_P_MEV_CODATA as M_P_RAW
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target Empirical CODATA Nuclear Mass for Aluminum-27 (MeV)

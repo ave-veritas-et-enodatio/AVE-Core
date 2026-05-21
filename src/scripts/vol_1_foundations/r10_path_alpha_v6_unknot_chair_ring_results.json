@@ -1,0 +1,344 @@
+{
+  "pre_registration": "P_phase11_path_alpha_v6_unknot_chair_ring_IC",
+  "test": "trapped-photon unknot bond-pair-scale chair-ring IC",
+  "lattice": {
+    "N": 32,
+    "pml": 4,
+    "center": [
+      16,
+      16,
+      16
+    ]
+  },
+  "recording_periods": 200.0,
+  "n_recording_steps": 1777,
+  "elapsed_seconds": 259.7569479942322,
+  "ring_nodes": [
+    [
+      16,
+      16,
+      16
+    ],
+    [
+      17,
+      17,
+      17
+    ],
+    [
+      16,
+      18,
+      18
+    ],
+    [
+      15,
+      19,
+      17
+    ],
+    [
+      14,
+      18,
+      16
+    ],
+    [
+      15,
+      17,
+      15
+    ]
+  ],
+  "ring_centroid": [
+    15.5,
+    17.5,
+    16.5
+  ],
+  "ring_plane_normal": [
+    -0.8164965809277261,
+    -0.4082482904638631,
+    0.4082482904638631
+  ],
+  "ring_bonds": [
+    {
+      "ring_idx": 0,
+      "node_curr": [
+        16,
+        16,
+        16
+      ],
+      "node_next": [
+        17,
+        17,
+        17
+      ],
+      "a_site": [
+        16,
+        16,
+        16
+      ],
+      "b_site": [
+        17,
+        17,
+        17
+      ],
+      "port": 0,
+      "a_to_b_offset": [
+        1,
+        1,
+        1
+      ],
+      "traversal_direction": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ]
+    },
+    {
+      "ring_idx": 1,
+      "node_curr": [
+        17,
+        17,
+        17
+      ],
+      "node_next": [
+        16,
+        18,
+        18
+      ],
+      "a_site": [
+        16,
+        18,
+        18
+      ],
+      "b_site": [
+        17,
+        17,
+        17
+      ],
+      "port": 1,
+      "a_to_b_offset": [
+        1,
+        -1,
+        -1
+      ],
+      "traversal_direction": [
+        -0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ]
+    },
+    {
+      "ring_idx": 2,
+      "node_curr": [
+        16,
+        18,
+        18
+      ],
+      "node_next": [
+        15,
+        19,
+        17
+      ],
+      "a_site": [
+        16,
+        18,
+        18
+      ],
+      "b_site": [
+        15,
+        19,
+        17
+      ],
+      "port": 2,
+      "a_to_b_offset": [
+        -1,
+        1,
+        -1
+      ],
+      "traversal_direction": [
+        -0.5773502691896258,
+        0.5773502691896258,
+        -0.5773502691896258
+      ]
+    },
+    {
+      "ring_idx": 3,
+      "node_curr": [
+        15,
+        19,
+        17
+      ],
+      "node_next": [
+        14,
+        18,
+        16
+      ],
+      "a_site": [
+        14,
+        18,
+        16
+      ],
+      "b_site": [
+        15,
+        19,
+        17
+      ],
+      "port": 0,
+      "a_to_b_offset": [
+        1,
+        1,
+        1
+      ],
+      "traversal_direction": [
+        -0.5773502691896258,
+        -0.5773502691896258,
+        -0.5773502691896258
+      ]
+    },
+    {
+      "ring_idx": 4,
+      "node_curr": [
+        14,
+        18,
+        16
+      ],
+      "node_next": [
+        15,
+        17,
+        15
+      ],
+      "a_site": [
+        14,
+        18,
+        16
+      ],
+      "b_site": [
+        15,
+        17,
+        15
+      ],
+      "port": 1,
+      "a_to_b_offset": [
+        1,
+        -1,
+        -1
+      ],
+      "traversal_direction": [
+        0.5773502691896258,
+        -0.5773502691896258,
+        -0.5773502691896258
+      ]
+    },
+    {
+      "ring_idx": 5,
+      "node_curr": [
+        15,
+        17,
+        15
+      ],
+      "node_next": [
+        16,
+        16,
+        16
+      ],
+      "a_site": [
+        16,
+        16,
+        16
+      ],
+      "b_site": [
+        15,
+        17,
+        15
+      ],
+      "port": 2,
+      "a_to_b_offset": [
+        -1,
+        1,
+        -1
+      ],
+      "traversal_direction": [
+        0.5773502691896258,
+        -0.5773502691896258,
+        0.5773502691896258
+      ]
+    }
+  ],
+  "ic_amplitudes": {
+    "v_amp_saturation": 0.95,
+    "phi_amp": 0.95,
+    "omega_amp": 0.95
+  },
+  "thresholds": {
+    "saturation_persistence_periods": 100.0,
+    "saturation_a2": 0.5,
+    "beltrami_parallelism": 0.8,
+    "centroid_flux_relative": 0.05,
+    "ring_localization": 0.5
+  },
+  "results": {
+    "persistence_period_P": 0.0,
+    "beltrami_cos_sim_steady_abs_mean": 0.2289111664440158,
+    "centroid_flux_rel_steady_mean": 0.5408063038901034,
+    "ring_localization_steady_mean": 0.9624469477800084,
+    "A2_mean_steady": 0.9020238095163229,
+    "A2_min_first10": [
+      0.4502756264135777,
+      0.4473657403542323,
+      0.4493012577874669,
+      0.45027414346593386,
+      0.4531934511028767,
+      0.4512469771345922,
+      0.4502726113661974,
+      0.4473627473845745,
+      0.4492982717738258,
+      0.4502711511457919
+    ],
+    "A2_min_last10": [
+      0.44939565676987003,
+      0.4523084129147318,
+      0.450359620818339,
+      0.4493870831117306,
+      0.4464837741119124,
+      0.4484216119069963,
+      0.44939267559969376,
+      0.45230540949794323,
+      0.4503566095419427,
+      0.44938407805919733
+    ],
+    "A2_min_overall_min": 0.4464837741119124,
+    "A2_min_overall_max": 0.4531934511028767
+  },
+  "initial_state": {
+    "A2_per_node": [
+      1.128125,
+      1.128125,
+      0.45124999999999993,
+      1.1281249999999998,
+      1.1281250000000003,
+      0.4512500000000005
+    ],
+    "A2_min": 0.45124999999999993,
+    "A2_mean": 0.9025000000000002,
+    "cos_sim_per_node": [
+      0.8181818181818183,
+      0.7431122376522517,
+      -1.1758766197863274e-16,
+      0.8181818181818183,
+      0.0750695805295671,
+      -2.3757532208261818e-17
+    ],
+    "cos_sim_mean": 0.4090909090909092,
+    "centroid_flux_total": 0.4677476657214651,
+    "centroid_flux_relative": 0.4923659639173316,
+    "ring_energy": 10.83,
+    "total_energy": 10.830000000000002,
+    "ring_localization": 0.9999999999999999
+  },
+  "criteria_pass": {
+    "persistence": false,
+    "beltrami": false,
+    "centroid_flux": false,
+    "ring_localization": true,
+    "n_pass": 1
+  },
+  "mode": "III",
+  "verdict": "Mode III: bond-pair-scale trapped-photon unknot fails. 1/4 criteria pass. Persistence=0.0P, Beltrami=0.229, flux_rel=5.408e-01, loc=0.962. Either IC framing wrong, or engine doesn't host this configuration."
+}

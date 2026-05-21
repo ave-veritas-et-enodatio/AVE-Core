@@ -1,3 +1,26 @@
+"""
+Phase-Locked Superconductivity Visualization (illustrative Kuramoto — no T_c prediction).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script runs an illustrative Kuramoto oscillator simulation with
+chosen coupling K and temperature schedule to demonstrate the AVE
+interpretation that superconductivity is a kinematic phase-lock of
+adjacent electron inductors (NOT Cooper pairs + phonon exchange).
+
+The script does NOT compute:
+  - T_c (critical temperature) for any specific superconductor
+  - Comparison against BCS prediction T_c = 1.13 Θ_D exp(-1/N(0)V)
+  - Niobium, MgB2, YBCO, or any specific T_c numerical match
+  - Meissner-effect penetration depth λ_L
+
+This is an illustrative Kuramoto demo of the AVE phase-lock interpretation,
+NOT a T_c prediction. Quantitative superconductor benchmarks require a
+dedicated AVE-engine workstream (would parallel the SPARC ingest pattern
+for condensed-matter targets).
+
+Docstring corrected 2026-05-17.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -6,13 +29,13 @@ import numpy as np
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE CONDENSED MATTER SCALE: CLASSICAL SUPERCONDUCTIVITY")
+    print(" AVE CONDENSED MATTER: SUPERCONDUCTIVITY VISUALIZATION    ")
+    print("                       (illustrative Kuramoto demo)        ")
     print("==========================================================\n")
 
-    print("- Objective: Eliminate the need for 'Cooper Pairs' and 'Phonon Exchange'.")
-    print("- We will map Superconductivity purely as a Classical Kinematic Phase-Lock.")
-    print("  When the relative inductive rotation (dB/dt) between adjacent electrons")
-    print("  drops to zero, all macroscopic electrical resistance vanishes.\n")
+    print("- Renders AVE narrative: superconductivity as kinematic phase-lock.")
+    print("- No T_c prediction; no BCS comparison.")
+    print("  Illustrative Kuramoto demo, not quantitative derivation.\n")
 
     print("[1] Initializing 2D cross-section of conducting electron gas...")
 

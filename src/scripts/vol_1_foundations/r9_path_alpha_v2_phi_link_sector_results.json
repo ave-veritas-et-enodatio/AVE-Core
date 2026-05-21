@@ -1,0 +1,172 @@
+{
+  "pre_registration": "P_phase9_path_alpha_v2",
+  "test": "Round 9 path \u03b1 v2: (\u03a6_link, \u03c9_axial) phasor on Move 5 saturated bond-pairs (Op14 trading channel)",
+  "N": 32,
+  "PML": 4,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "phi_sq": 2.618033988749895,
+  "v_amp_init": 0.14,
+  "a26_amp_scale": 0.34641016151377546,
+  "pre_evolve_end_p": 10.0,
+  "selection_end_p": 15.0,
+  "recording_end_p": 200.0,
+  "n_recording_steps": 1644,
+  "top_k_candidates": 8,
+  "sample_port_default": 0,
+  "elapsed_seconds": 267.237144947052,
+  "omega_peak_init": 0.9262465141773654,
+  "omega_peak_final": 0.30436045892252095,
+  "persistence": 0.32859552426260413,
+  "persistence_guard": 0.4,
+  "persistence_ok": false,
+  "n_bond_pairs": 4,
+  "bond_results": [
+    {
+      "cell_a": [
+        24,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        19,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "R_phase": 0.2506484891655968,
+      "r_phase": 0.046263099052294324,
+      "R_over_r": 5.417892322394394,
+      "phi_link_amplitude_std": 0.2505721879081284,
+      "omega_axial_amplitude_std": 0.04624934286368302,
+      "chirality_mean_sin_dphi": 0.004586049615856333,
+      "chirality_std_sin_dphi": 0.70583358369873,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        6,
+        16,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        17,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "R_phase": 0.2706144515571838,
+      "r_phase": 0.04502716342852688,
+      "R_over_r": 6.010026636182381,
+      "phi_link_amplitude_std": 0.2705321353250968,
+      "omega_axial_amplitude_std": 0.045013467236311916,
+      "chirality_mean_sin_dphi": 0.0005051800642937677,
+      "chirality_std_sin_dphi": 0.706444709020727,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        6,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        19,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "R_phase": 0.16377522005225384,
+      "r_phase": 0.04163162623197301,
+      "R_over_r": 3.9339135862647323,
+      "phi_link_amplitude_std": 0.1637253855464304,
+      "omega_axial_amplitude_std": 0.0416190292880609,
+      "chirality_mean_sin_dphi": 0.001453031843631221,
+      "chirality_std_sin_dphi": 0.7067551311347429,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        24,
+        10,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        11,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "R_phase": 0.04109935953323829,
+      "r_phase": 0.02246151931901523,
+      "R_over_r": 1.8297675660098753,
+      "phi_link_amplitude_std": 0.022454690450681256,
+      "omega_axial_amplitude_std": 0.041086855895705286,
+      "chirality_mean_sin_dphi": 0.00043648250341223537,
+      "chirality_std_sin_dphi": 0.7062945831285816,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    }
+  ],
+  "cluster_adjudication": {
+    "+x": {
+      "n_bonds": 2,
+      "median_R_over_r": 3.623829944202135,
+      "consensus_fraction": 0.0,
+      "consensus_direction": "TIE",
+      "n_ccw": 0,
+      "n_cw": 0,
+      "c1_pass": "False",
+      "c2_pass": false,
+      "bond_indices": [
+        0,
+        3
+      ]
+    },
+    "-x": {
+      "n_bonds": 2,
+      "median_R_over_r": 4.971970111223557,
+      "consensus_fraction": 0.0,
+      "consensus_direction": "TIE",
+      "n_ccw": 0,
+      "n_cw": 0,
+      "c1_pass": "False",
+      "c2_pass": false,
+      "bond_indices": [
+        1,
+        2
+      ]
+    }
+  },
+  "cross_cluster_chirality_consistent": false,
+  "phi_sq_target": 2.618033988749895,
+  "phi_sq_tolerance": 0.05,
+  "consensus_threshold": 0.75,
+  "all_c1_pass": false,
+  "all_c2_pass": false,
+  "mode": "III",
+  "verdict": "MODE III \u2014 \u03a6_link sector framing also fails. C1+C2 fail across clusters on (\u03a6_link, \u03c9_axial). Per doc 75 line 140 alternatives, deeper reframe needed: hybrid V\u22600 \u2227 \u03c9\u22600 seed, different topology, or continuum-limit-only object. CAVEAT: peak |\u03c9| persistence 33% below 40% threshold."
+}

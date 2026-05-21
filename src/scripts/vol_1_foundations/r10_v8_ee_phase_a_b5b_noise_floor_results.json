@@ -1,0 +1,64 @@
+{
+  "test": "Control B5b: noise-floor (V_AMP=0)",
+  "elapsed_recording_s": 254.14361691474915,
+  "n_avg_steps": 1333,
+  "E_floor_per_shell": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "B_floor_per_shell": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "B5_main_E_per_shell": [
+    2.8082e-08,
+    1.13e-08,
+    1.5225e-08,
+    8.9369e-09,
+    1.1699e-08,
+    1.0032e-08,
+    6.3441e-09
+  ],
+  "B5_main_B_per_shell": [
+    3.7865e-06,
+    1.6215e-06,
+    1.8735e-06,
+    1.5491e-06,
+    1.5266e-06,
+    1.1339e-06,
+    1.1029e-06
+  ],
+  "E_signal_to_noise_per_shell": [
+    2.8081999999999995e+22,
+    1.13e+22,
+    1.5224999999999998e+22,
+    8.936899999999999e+21,
+    1.1699e+22,
+    1.0032e+22,
+    6.344099999999999e+21
+  ],
+  "B_signal_to_noise_per_shell": [
+    3.7864999999999996e+24,
+    1.6214999999999998e+24,
+    1.8734999999999997e+24,
+    1.5490999999999997e+24,
+    1.5265999999999997e+24,
+    1.1338999999999999e+24,
+    1.1029e+24
+  ],
+  "noise_floor_E_slope": null,
+  "noise_floor_B_slope": null,
+  "B5_main_E_slope": -1.1,
+  "B5_main_B_slope": -1.04,
+  "verdict": "Indeterminate (zero values prevent ratio calculation)"
+}

@@ -1,0 +1,165 @@
+{
+  "test": "Phase 1 baryon ladder extension c=5-25",
+  "current_production_ladder": {
+    "5": {
+      "i_scalar": 1161.9870305252678,
+      "ratio": 1836.1170402290593,
+      "mass_mev": 938.2538796271142
+    },
+    "7": {
+      "i_scalar": 1561.9131656550887,
+      "ratio": 2467.7172613416174,
+      "mass_mev": 1261.0009294329766
+    },
+    "9": {
+      "i_scalar": 1959.9539370768518,
+      "ratio": 3096.3399422779116,
+      "mass_mev": 1582.2264593351968
+    },
+    "11": {
+      "i_scalar": 2347.3910619755025,
+      "ratio": 3708.216367092627,
+      "mass_mev": 1894.8946699429232
+    },
+    "13": {
+      "i_scalar": 2718.809573226044,
+      "ratio": 4294.794720505286,
+      "mass_mev": 2194.635592627271
+    }
+  },
+  "extended_ladder": {
+    "5": {
+      "i_scalar": 1161.9870305252678,
+      "ratio": 1836.1170402290593,
+      "mass_mev": 938.2538796271142
+    },
+    "7": {
+      "i_scalar": 1561.9131656550887,
+      "ratio": 2467.7172613416174,
+      "mass_mev": 1261.0009294329766
+    },
+    "9": {
+      "i_scalar": 1959.9539370768518,
+      "ratio": 3096.3399422779116,
+      "mass_mev": 1582.2264593351968
+    },
+    "11": {
+      "i_scalar": 2347.3910619755025,
+      "ratio": 3708.216367092627,
+      "mass_mev": 1894.8946699429232
+    },
+    "13": {
+      "i_scalar": 2718.809573226044,
+      "ratio": 4294.794720505286,
+      "mass_mev": 2194.635592627271
+    },
+    "15": {
+      "i_scalar": 3069.8956151811294,
+      "ratio": 4849.262163990527,
+      "mass_mev": 2477.9678740552868
+    },
+    "17": {
+      "i_scalar": 3396.7887307624624,
+      "ratio": 5365.52190784128,
+      "mass_mev": 2741.77606108831
+    },
+    "19": {
+      "i_scalar": 3695.8432319027133,
+      "ratio": 5837.816345371787,
+      "mass_mev": 2983.1180227554282
+    },
+    "21": {
+      "i_scalar": 3963.5259339298673,
+      "ratio": 6260.565545629669,
+      "mass_mev": 3199.1424201989244
+    },
+    "23": {
+      "i_scalar": 4196.3672366823475,
+      "ratio": 6628.28999618318,
+      "mass_mev": 3387.0492283196845
+    },
+    "25": {
+      "i_scalar": 4390.935696892659,
+      "ratio": 6935.570445485327,
+      "mass_mev": 3544.069215267431
+    }
+  },
+  "extension_c_values": [
+    15,
+    17,
+    19,
+    21,
+    23,
+    25
+  ],
+  "pdg_matches": [
+    {
+      "c": 15,
+      "predicted_mass_mev": 2477.9678740552868,
+      "closest_pdg_name": "\u0394(2420)",
+      "closest_pdg_mass_mev": 2420,
+      "error_pct": 2.395366696499453,
+      "match_status": "STRONG",
+      "pdg_jp": "11/2+",
+      "pdg_stars": "****"
+    },
+    {
+      "c": 17,
+      "predicted_mass_mev": 2741.77606108831,
+      "closest_pdg_name": "\u0394(2750)",
+      "closest_pdg_mass_mev": 2750,
+      "error_pct": -0.2990523240614493,
+      "match_status": "STRONG",
+      "pdg_jp": "13/2-",
+      "pdg_stars": "**"
+    },
+    {
+      "c": 19,
+      "predicted_mass_mev": 2983.1180227554282,
+      "closest_pdg_name": "N(3000)",
+      "closest_pdg_mass_mev": 3000,
+      "error_pct": -0.5627325748190591,
+      "match_status": "STRONG",
+      "pdg_jp": "?",
+      "pdg_stars": "*"
+    },
+    {
+      "c": 21,
+      "predicted_mass_mev": 3199.1424201989244,
+      "closest_pdg_name": "N(3000)",
+      "closest_pdg_mass_mev": 3000,
+      "error_pct": 6.638080673297478,
+      "match_status": "MODERATE",
+      "pdg_jp": "?",
+      "pdg_stars": "*"
+    },
+    {
+      "c": 23,
+      "predicted_mass_mev": 3387.0492283196845,
+      "closest_pdg_name": "N(3000)",
+      "closest_pdg_mass_mev": 3000,
+      "error_pct": 12.901640943989484,
+      "match_status": "WEAK",
+      "pdg_jp": "?",
+      "pdg_stars": "*"
+    },
+    {
+      "c": 25,
+      "predicted_mass_mev": 3544.069215267431,
+      "closest_pdg_name": "N(3000)",
+      "closest_pdg_mass_mev": 3000,
+      "error_pct": 18.135640508914367,
+      "match_status": "WEAK",
+      "pdg_jp": "?",
+      "pdg_stars": "*"
+    }
+  ],
+  "summary": {
+    "states_added": 6,
+    "max_abs_error_pct": 18.135640508914367,
+    "mean_abs_error_pct": 6.822085620263548,
+    "strong_matches": 3,
+    "moderate_matches": 1,
+    "weak_matches": 2
+  }
+}

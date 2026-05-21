@@ -1,0 +1,165 @@
+{
+  "pre_registration": "P_phase6_natural_attractor_characterization",
+  "test": "Move 6 \u2014 natural-attractor characterization post-Move-5",
+  "N": 32,
+  "phi_sq": 2.618033988749895,
+  "n_periods_total": 200.0,
+  "n_steps": 1778,
+  "elapsed_seconds": 258.29504108428955,
+  "snapshot_periods": [
+    100.0,
+    150.0,
+    200.0
+  ],
+  "geometry": {
+    "R_opt": 14.0,
+    "r_opt": 6.0,
+    "R_over_r": 2.3333333333333335,
+    "shell_frac_opt": 0.23093971272945724,
+    "center": [
+      15.5,
+      15.5,
+      15.5
+    ]
+  },
+  "phasor_shell_envelope": {
+    "n_sample_cells": 8,
+    "cell_labels": [
+      [
+        "14",
+        "0",
+        "16"
+      ],
+      [
+        "0",
+        "14",
+        "16"
+      ],
+      [
+        "31",
+        "17",
+        "15"
+      ],
+      [
+        "0",
+        "16",
+        "16"
+      ],
+      [
+        "17",
+        "31",
+        "15"
+      ],
+      [
+        "16",
+        "0",
+        "16"
+      ],
+      [
+        "31",
+        "15",
+        "15"
+      ],
+      [
+        "15",
+        "31",
+        "15"
+      ]
+    ],
+    "rho_per_cell": [
+      4.417107532603863e-06,
+      4.287372909872107e-06,
+      6.843960799639467e-06,
+      1.2183204227339775e-05,
+      1.4183616965400675e-05,
+      7.021175002996742e-06,
+      1.2892768990726251e-05,
+      8.987833762721203e-06
+    ],
+    "R_spatial": 8.85213002391251e-06,
+    "r_spatial": 3.601346259584528e-06,
+    "R_over_r": 2.4580058083428344,
+    "rel_std": 0.406833863697902
+  },
+  "spectrum": {
+    "omega_top_freqs_natural": [
+      [
+        0.01994560241597471,
+        8.930205475523554e-61
+      ],
+      [
+        0.029918403623962062,
+        7.755790915137496e-61
+      ],
+      [
+        0.03989120483194942,
+        1.5800719355242555e-61
+      ]
+    ],
+    "vinc_top_freqs_natural": [
+      [
+        4.437896537554373,
+        1.0578213168756594
+      ],
+      [
+        0.009972801207987355,
+        0.42356316694169144
+      ],
+      [
+        4.4279237363463855,
+        0.14198772328346268
+      ]
+    ]
+  },
+  "stats_stream_first_last": [
+    {
+      "step": 888,
+      "t_period": 99.93511109343876,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.39369747802297106,
+      "v_total_peak": 0.39369747802297106,
+      "c": 3
+    },
+    {
+      "step": 1778,
+      "t_period": 200.09530126591682,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.4012517235617937,
+      "v_total_peak": 0.4012517235617937,
+      "c": 3
+    }
+  ],
+  "stats_stream_n_samples": 891,
+  "R_over_r_target": 2.618033988749895,
+  "R_over_r_tol": 0.1,
+  "shell_frac_opt_thresh": 0.4,
+  "fit_grid_top_5": [
+    {
+      "R": 14.0,
+      "r": 6.0,
+      "frac": 0.23093971272945724
+    },
+    {
+      "R": 14.0,
+      "r": 5.75,
+      "frac": 0.2016892434455296
+    },
+    {
+      "R": 14.0,
+      "r": 5.5,
+      "frac": 0.1803763507832381
+    },
+    {
+      "R": 14.0,
+      "r": 5.25,
+      "frac": 0.17921603372686878
+    },
+    {
+      "R": 13.5,
+      "r": 6.0,
+      "frac": 0.17165694354292552
+    }
+  ],
+  "mode": "III-natural",
+  "verdict": "MODE III-natural \u2014 Natural attractor is DELOCALIZED. Best shell fit at (R=14.00, r=6.00) achieves only shell_frac=0.2309 (< threshold 0.4). The (2,3) topology (c=3) is preserved but the energy density doesn't localize on any clean torus shell. Different methodology needed to characterize the natural attractor."
+}
