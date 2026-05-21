@@ -5,7 +5,8 @@ equipartition variances exist in the suite. This file closes that gap
 (~1 day effort per Grant's own manual note: "highest-leverage non-
 Grant-adjudication item").
 
-Pins the Maxwell-Boltzmann variances per [doc 47_ §2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
+Pins the Maxwell-Boltzmann variances per
+[doc 47_ §2](../../research/_archive/L3_electron_soliton/47_thermal_lattice_noise.md)
 and [VacuumEngine3D.initialize_thermal](../ave/topological/vacuum_engine.py):
 
     σ_V per port = √(4π·T/α) · V_SNAP       (ONLY if thermalize_V=True)
@@ -24,7 +25,8 @@ Sample-size discipline: for N=16 lattice, ~2·(N/2)³ ≈ 2048 active sites
 estimate is σ/√(2·n_sample) ≈ 0.9%, so 5% tolerance is safe.
 
 Tests also validate:
-- T=0 gives deterministic zero fields (C1 — [46_ §2.1](../../research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md))
+- T=0 gives deterministic zero fields
+  (C1 — [46_ §2.1](../../research/_archive/L3_electron_soliton/46_vacuum_engine_scope.md))
 - Default thermalize_V=False leaves V_inc = 0 even for hot Cosserat
 - Seed reproducibility
 - σ ∝ √T scaling across multiple temperatures

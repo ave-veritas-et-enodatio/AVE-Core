@@ -325,7 +325,7 @@ class TestPhase5RefirePrevention:
         monkeypatch.setattr(gate, "_compute_A2_mu", lambda eng: A2)
         monkeypatch.setattr(gate, "_compute_Omega_node", lambda eng: Omega_node)
 
-        cap1 = gate._capture(engine)
+        gate._capture(engine)
         first_firings = gate._total_firings
         assert first_firings >= 1
 

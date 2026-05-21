@@ -121,7 +121,7 @@ def test_cosmic_cooling_stochastic_persistence():
     _seed_random_noise(engine, AMPLITUDE, fill_fraction=0.3, seed=42)
 
     print(f"\nCosmic cooling test: N={N}, dx={DX}, amplitude={AMPLITUDE:.3e}, n_steps={N_STEPS}")
-    print(f"Initial state:")
+    print("Initial state:")
     print(f"  Total energy: {_total_energy(engine):.4e} J")
     print(f"  Total helicity: {_total_helicity(engine):.4e}")
     print(f"  Max |E|: {_max_field_amplitude(engine):.4e} V/m")

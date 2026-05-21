@@ -60,11 +60,9 @@ from ave.core.constants import (
     ALPHA_S,
     C_0,
     HBAR,
-    HIGGS_VEV_MEV,
     L_NODE,
     M_E,
     M_HIGGS_MEV,
-    M_PROTON,
     M_W_MEV,
     M_Z_MEV,
     P_C,
@@ -144,7 +142,7 @@ class TestGroup2_SubstrateFundamentals:
         observed = P_C
         target = 8.0 * np.pi * ALPHA
         rel_err = abs(observed - target) / target
-        assert rel_err < 1e-15, f"p_c definitional"
+        assert rel_err < 1e-15, "p_c definitional"
 
     def test_z_coordination(self):
         """z_0 ≈ 51.25 from EMT quadratic at K/G = 2."""

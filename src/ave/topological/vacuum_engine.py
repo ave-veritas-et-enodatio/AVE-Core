@@ -1293,7 +1293,6 @@ class PairNucleationGate(Observer):
         import jax.numpy as jnp
 
         from ave.topological.cosserat_field_3d import (
-            KAPPA_CHIRAL_ELECTRON,
             _beltrami_helicity,
             _compute_curvature,
         )

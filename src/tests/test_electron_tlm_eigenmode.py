@@ -30,7 +30,6 @@ import pytest
 
 from ave.core.constants import V_YIELD
 from scripts.vol_1_foundations.tlm_electron_soliton_eigenmode import (
-    extract_alpha_inverse,
     extract_crossing_count_tlm,
     run_tlm_electron,
     solve_eigenmode_self_consistent,

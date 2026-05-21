@@ -1298,7 +1298,8 @@ class CosseratField3D:
                     trajectory.append({"step": step + 1, "S11": S11_new, "R": R_s, "r": r_s, "c": c_s, "lr": lr})
                     if verbose:
                         print(
-                            f"  step {step+1:4d}  S11 = {S11_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
+                            f"  step {step+1:4d}  S11 = {S11_new:.6e}  "
+                            f"(R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
                         )
 
                 if step > 10 and rel_change < tol:
@@ -1430,7 +1431,8 @@ class CosseratField3D:
                     trajectory.append({"step": step + 1, "E": E_new, "R": R_s, "r": r_s, "c": c_s, "lr": lr})
                     if verbose:
                         print(
-                            f"  step {step+1:4d}  E = {E_new:.6e}  (R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
+                            f"  step {step+1:4d}  E = {E_new:.6e}  "
+                            f"(R, r, c) = ({R_s:.3f}, {r_s:.3f}, {c_s})  lr = {lr:.2e}"
                         )
 
                 if step > 10 and rel_change < tol:

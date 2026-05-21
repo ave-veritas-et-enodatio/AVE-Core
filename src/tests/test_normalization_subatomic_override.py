@@ -166,9 +166,6 @@ class TestThreeObserversAgreeUnderR4:
         """The underlying A²_total field is identical across all three observers."""
         engine, site = engine_with_k4_poke
 
-        V_sq = np.sum(engine.k4.V_inc**2, axis=-1)
-        A2_k4 = V_sq / (engine.V_SNAP**2)
-
         # RegimeClassifier computes A²_cos via _cosserat_A_squared; at T=0 it's zero
         # so A²_total should equal A²_k4 exactly
         regime = RegimeClassifierObserver(cadence=1)

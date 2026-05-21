@@ -55,10 +55,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from ave.core.constants import C_0, EPSILON_0, MU_0, P_C
+from ave.core.constants import C_0
 from ave.core.constants import V_SNAP as _V_SNAP_MODULE
-from ave.core.constants import V_YIELD, Z_0
-from ave.core.universal_operators import universal_saturation
 
 # ═══════════════════════════════════════════════════════════════════════════
 # EXACT SCATTERING MATRIX (Op5)

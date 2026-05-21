@@ -16,7 +16,6 @@ Run:
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from ave.core.cosserat_master_equation_fdtd import CosseratMasterEquationFDTD
 

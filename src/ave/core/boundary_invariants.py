@@ -243,7 +243,6 @@ def compute_J(V: np.ndarray, dx: float, V_yield: float = 1.0) -> float:
     rx = coords_x - com_x
     ry = coords_y - com_y
     rz = coords_z - com_z
-    r2 = rx**2 + ry**2 + rz**2
 
     # Asymmetry proxy: max anisotropy in the moment-of-inertia eigenvalues
     Ixx = float((A * (ry**2 + rz**2)).sum() / A_total)

@@ -23,7 +23,6 @@ Run:
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
 

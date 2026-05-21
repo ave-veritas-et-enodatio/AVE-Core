@@ -30,7 +30,6 @@ Run:
 from __future__ import annotations
 
 import numpy as np
-import pytest
 
 from ave.core.fdtd_3d import FDTD3DEngine
 
@@ -122,7 +121,8 @@ def test_soliton_self_trapping_comparison():
     _seed_gaussian_pulse(engine_nl_low, center, SIGMA_CELLS, 0.3 * E_at_yield)
     results["nonlinear_low"] = _run_and_track_FWHM(engine_nl_low, N_STEPS, PROBE_EVERY)
     print(
-        f"  Final FWHM = {results['nonlinear_low']['fwhm'][-1]:.2f} cells (initial {results['nonlinear_low']['fwhm'][0]:.2f})"
+        f"  Final FWHM = {results['nonlinear_low']['fwhm'][-1]:.2f} cells "
+        f"(initial {results['nonlinear_low']['fwhm'][0]:.2f})"
     )
     print(f"  Final peak = {results['nonlinear_low']['peak_amplitude'][-1]:.3e} V/m")
     print(f"  Max strain = {results['nonlinear_low']['max_strain'][-1]:.4f}")
@@ -133,7 +133,8 @@ def test_soliton_self_trapping_comparison():
     _seed_gaussian_pulse(engine_nl_high, center, SIGMA_CELLS, 0.85 * E_at_yield)
     results["nonlinear_high"] = _run_and_track_FWHM(engine_nl_high, N_STEPS, PROBE_EVERY)
     print(
-        f"  Final FWHM = {results['nonlinear_high']['fwhm'][-1]:.2f} cells (initial {results['nonlinear_high']['fwhm'][0]:.2f})"
+        f"  Final FWHM = {results['nonlinear_high']['fwhm'][-1]:.2f} cells "
+        f"(initial {results['nonlinear_high']['fwhm'][0]:.2f})"
     )
     print(f"  Final peak = {results['nonlinear_high']['peak_amplitude'][-1]:.3e} V/m")
     print(f"  Max strain = {results['nonlinear_high']['max_strain'][-1]:.4f}")
@@ -196,4 +197,4 @@ def test_engine_responds_to_saturation():
 
     print(f"\nMax strain ratio after 50 steps: {engine.max_strain_ratio:.4f}")
     assert engine.max_strain_ratio > 0.01, "Saturation not engaged at A=0.9; check nonlinearity"
-    print(f"Nonlinearity engaged correctly.")
+    print("Nonlinearity engaged correctly.")

@@ -124,7 +124,6 @@ class TestDipoleAntisymmetry:
         engine, src = engine_after_apply
         N = engine.N
         yc = (N - 1) / 2.0  # = 5.5 for N=12
-        zc = (N - 1) / 2.0
         # At integer-nearest to center: y=5, z=5 (profile peak per Gaussian)
         # But the CENTER is at 5.5 — integer sites don't perfectly match.
         # Instead verify that symmetric pairs (y_c - Δ, z) and (y_c + Δ, z)

@@ -65,7 +65,6 @@ from ave.core.k4_tlm import K4Lattice3D
 from ave.topological.cosserat_field_3d import (
     KAPPA_CHIRAL_ELECTRON,
     CosseratField3D,
-    _beltrami_helicity,
     _compute_curvature,
     _compute_strain,
     _reflection_density,
