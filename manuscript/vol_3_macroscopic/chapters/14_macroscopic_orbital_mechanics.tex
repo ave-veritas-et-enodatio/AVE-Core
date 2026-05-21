@@ -96,13 +96,13 @@ At this boundary, the massive rigidly rotating planet shears violently against t
 \end{equation}
 
 When a highly conductive, mass-dense body plows through this sheer gradient at hyper-velocity ($V \sim 10$ km/s), it undergoes a macroscopic acoustic phase drag. The metric phase shift acts identically to a Sagnac loop integrated over the transit path. The resulting relativistic momentum fractional strain across the body is:
-\begin{resultbox}{Topo-Kinematic Phase Slip Velocity}
+\begin{resultbox}{Topo-Kinematic Phase Slip Velocity (Anderson 2008 empirical form, derived via Regime-IV stator-boundary Sagnac loop)}
 \begin{equation}
-    \Delta V_{flyby} = V_{\infty} \cdot 2 \left( \frac{U_{\oplus}}{C_{0}} \right) \cdot \cos(\alpha_{geo}) \cos(\delta_{geo})
+    \Delta V_{flyby} = V_{\infty} \cdot 2 \left( \frac{U_{\oplus}}{C_{0}} \right) \cdot (\cos \delta_{in} - \cos \delta_{out})
 \end{equation}
 \end{resultbox}
 
-This pure geometrical boundary reflection parameter intrinsically identically outputs $\Delta V \approx 13.4$ mm/s without fitting. The Monte Carlo execution variance bounds are detailed in Figure \ref{fig:flyby_monte_carlo}. It formally falsifies Lense-Thirring gravity on macroscopic geometries while simultaneously resolving the empirical anomalies from Pioneer, Galileo, and NEAR precisely.
+where $\delta_{in}, \delta_{out}$ are the declinations of the incoming and outgoing hyperbolic asymptotes. The $(\cos \delta_{in} - \cos \delta_{out})$ structure is the AVE-substrate derivation of the empirical fit form via the Sagnac-loop integral between endpoint projections. \textbf{Scope correction (2026-05-18 walk-back):} earlier versions of this section wrote the geometric factor as $\cos(\alpha_{geo})\cos(\delta_{geo})$ with the headline ``intrinsically outputs $\Delta V \approx 13.4$ mm/s without fitting.'' Direct verification against the six-spacecraft anchor set (driver \texttt{src/scripts/verify/flyby\_anomaly\_anderson\_anchor.py}) found: (a) literal $\cos(\alpha)\cos(\delta)$ notation produced wrong-sign or wildly-off predictions for ALL 6 anchor spacecraft; correct geometric factor is $(\cos\delta_{in} - \cos\delta_{out})$; (b) ``13.4 mm/s'' is the NEAR-specific evaluation ($V_\infty = 6.851$ km/s + NEAR geometry), not a universal AVE prediction. Match across 6-spacecraft anchor set: 2/6 within 1$\sigma$ (Galileo~II, Cassini), 3/6 within 2$\sigma$ (adds NEAR); Galileo~I, Rosetta~I, MESSENGER are $>2\sigma$ outliers. The Sagnac-RLVE Regime-IV stator-boundary MECHANISM is preserved (consistent with the Gravitational Stator framework at \texttt{vol3/cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md} and the sibling-observable Earth magnetic dipole derivation at \texttt{vol3/applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md}); only the geometric notation and per-spacecraft framing are corrected. Pioneer anomaly mention removed (different observable --- long-duration trajectory, not perigee passage $\Delta V$). \textbf{Categorical discrimination vs GR Lense-Thirring:} AVE Regime-IV ($\sim 10^{-6}$ coupling) is 6 orders of magnitude stronger than GR Lense-Thirring ($\sim 10^{-12}$); the AVE prediction lies in the right order of magnitude across the anchor set, while GR is categorically too small. The 2/6 1$\sigma$ match is a partial match, not a categorical falsification.
 
 \begin{figure}[htpb]
     \centering
@@ -115,7 +115,22 @@ This pure geometrical boundary reflection parameter intrinsically identically ou
 The transiting body is physically Fizeau-dragged by the acoustic Sagnac rotation of the metric boundary.
 
 \section{Stellar Magnetic Topology and Solar Flares}
-Because AVE maps magnetic flux directly to the physical rotational velocity (sheer vector) of the $1/d$ dielectric vacuum, the macroscopic magnetic fields of stars are highly susceptible to mechanical twisting. 
+
+\textbf{A-034 stellar-scale instance (canonical 2026-05-15 evening, SYM).}
+Solar flares / CMEs are the stellar-scale row in the A-034 catalog
+(Universal Saturation-Kernel Strain-Snap Mechanism). The Sun's differential
+rotation winds the $1/d$ topological lattice (Parker spiral), strain
+accumulates against a critical shear-stress threshold (= $S(A) \to 0$
+locally), and the topology snaps via magnetic reconnection. Same universal
+kernel $S(A) = \sqrt{1 - A^2}$ as atomic dielectric breakdown, BCS
+superconductivity (0.00\% error \textit{Axiom~4 manifestation: the kernel IS $B_c(T)$, not a fitted prediction}), BH ring-down (1.7\% from GR), and
+cosmic K4 crystallization. \textbf{NOAA GOES 40-yr empirical validation}:
+0.46-yr FWHM danger window per 11-yr solar cycle (the framework's
+strongest macroscopic time-series anchor). See Vol 3 Ch~4
+\S\ref{sec:tki_strain_snap} + Backmatter Ch~\ref{app:universal_saturation_kernel}
+for the full 19-instance catalog.
+
+Because AVE maps magnetic flux directly to the physical rotational velocity (sheer vector) of the $1/d$ dielectric vacuum, the macroscopic magnetic fields of stars are highly susceptible to mechanical twisting.
 
 Stars are not solid bodies; they exhibit \textit{differential rotation}, meaning their equatorial regions rotate significantly faster than their poles. Within the AVE framework, this varying angular velocity mechanically ``grabs'' and winds up the topological $1/d$ resonant lines connecting the stellar core to the surrounding medium.
 

@@ -44,6 +44,52 @@ The Schwarzschild radius $r_s = 2GM/c^2$ marks the point where the local strain 
 
 When localised topological energy (mass) is present, it draws continuous phase-locked energy from the surrounding LC grid. This creates an inductive deficit in the adjacent vacuum, analogous to a density gradient in fluid dynamics. This impedance gradient ($Z = \sqrt{\mu/\epsilon}$) acts as an optical refractive index, bending the propagation trajectories of passing light and accelerating other mass-bearing geometric knots down the gradient. ``Gravity'' is macroscopic dielectric refraction.
 
+\paragraph{Substrate-native identity: $\mathcal{M} \to M_{ADM}$ projection.}
+The mass term $M$ appearing in the refractive index $n(r) = 1 + 2GM/(rc^2)$ above is
+the \textbf{ADM-mass projection of the substrate-native invariant} $\mathcal{M}$:
+
+\begin{equation}
+M_{ADM} = \int_\Omega (n(\mathbf{r}) - 1)\, dV = \mathcal{M}
+\label{eq:M_to_M_ADM}
+\end{equation}
+
+That is: the gravitational source $M$ in standard GR is the same quantity as
+the substrate-native integrated strain integral $\mathcal{M}$ (Common Foreword
+$\S$``Three Boundary Observables''). The substrate-observability rule applied
+at gravitational boundaries:
+
+\begin{itemize}\itemsep 0pt
+\item For a localized mass with $\Gamma = -1$ saturation surface at the Schwarzschild
+  radius (BH limit), the three integrated invariants
+  $(\mathcal{M}, \mathcal{Q}, \mathcal{J})$ are the only externally observable
+  quantities --- structurally identical to the canonical Kerr-Newman BH
+  $(M, Q, J)$ no-hair theorem.
+\item For sub-saturation matter (ordinary stars, planets), $\mathcal{M}$ is still
+  the relevant integrated strain; the GR projection $M_{ADM}$ is just the
+  observation-frame name for the same substrate-native quantity.
+\item For the cosmic boundary itself (where we sit inside our parent BH's
+  Schwarzschild radius $R_H$): the three observables become
+  $(\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}})$.
+  $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$ encodes
+  the cosmological initial condition (see Vol~3 Ch~4 \S\ref{sec:tki_strain_snap}
+  for the formal statement and Vol~3 Ch~\ref{ch:bh_interior} for the
+  same-epistemic-horizon framing at BH interiors).
+\end{itemize}
+
+\textbf{Engine implementation:} \texttt{src/ave/core/boundary\_invariants.py}
+provides \texttt{compute\_M} computing the gravitational mass-equivalent
+$\mathcal{M} = \int_\Omega (n - 1)\, dV$ for any localized strain field.
+
+\textbf{Cross-references:} Common Foreword $\S$``Three Boundary Observables and
+the Substrate-Observability Rule'' (canonical statement of the rule and the
+three integrated invariants); Vol~3 Ch~4 \S\ref{sec:tki_strain_snap} (cosmic
+$\mathcal{J}_{\text{cosmic}}$ identification); Vol~3
+Ch~\ref{ch:bh_interior} (substrate-observability horizon at BH
+interiors); Backmatter Ch~\ref{app:universal_saturation_kernel} (A-034
+Universal Saturation-Kernel Catalog: the cosmic-mechanism horizon decouples
+into ``cosmic-parameter horizon'' vs.~observable mechanism --- the
+saturation-kernel mechanism IS observable at four smaller scales).
+
 \section{Gravitational Waves as Inductive Shear}
 In 2015, LIGO detected "Gravitational Waves" from merging black holes. Mainstream physics describes this as "ripples in the fabric of spacetime itself."
 

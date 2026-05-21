@@ -14,6 +14,31 @@ result in this series---from the fine-structure constant to galactic
 rotation curves---is produced by code paths traceable to the four
 axioms through the architecture documented below.
 
+\textbf{A-034 engine implementation (canonical 2026-05-15 evening).} The
+engine's Op2 (\texttt{universal\_operators.py:universal\_saturation()})
+is the executable implementation of Axiom 4's saturation kernel
+$S(A) = \sqrt{1 - A^2}$ --- the same kernel that governs all 19 catalog
+instances of A-034 (Universal Saturation-Kernel Strain-Snap Mechanism).
+Downstream modules cross-referencing A-034 in their docstrings as of
+2026-05-15 evening:
+
+\begin{itemize}
+    \item \texttt{core/}: \texttt{master\_equation\_fdtd}, \texttt{k4\_tlm},
+    \texttt{constants}
+    \item \texttt{topological/}: \texttt{cosserat\_field\_3d},
+    \texttt{vacuum\_engine}, \texttt{k4\_cosserat\_coupling}
+    \item \texttt{regime\_3\_saturated/}: \texttt{black\_hole\_core},
+    \texttt{galactic\_rotation}, \texttt{condensed\_matter},
+    \texttt{kolmogorov\_cutoff}
+    \item \texttt{axioms/scale\_invariant.py}
+\end{itemize}
+
+The substrate-scale K4 magic-angle closure (Vol 1
+Ch~\ref{ch:macroscopic_moduli}) is reflected in the engine's
+architecture-review doc (``Substrate-Scale Closure Update''
+section). For the full catalog see Backmatter
+Ch~\ref{app:universal_saturation_kernel}.
+
 \section{Design Principles}
 
 \begin{enumerate}

@@ -13,6 +13,7 @@ L3 carries a tracked `_orchestration/` directory: per-epic phase logs, `index.md
 - The newly-ported root `CLAUDE.md` references it as required first-read (`_orchestration/index.md`, `_orchestration/<epic>.md`, `_orchestration/README.md`) — these are **forward-links** until the dir is dealt with.
 - `divergence-test-substrate-map.md` (C11-MACH-ZEHNDER row) links `_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md` + its sim-audit.
 - **Decision needed** (deferred per 2026-05-21): port wholesale / port a curated subset / drop and rewrite the CLAUDE.md + leaf references. Figure out what is redundant vs load-bearing once the primary KB+src porting is done.
+- **UPDATE 2026-05-21**: `_orchestration/` theirs-only files PORTED wholesale (25 files, byte-identical to L3) in the non-src/non-kb sweep — see §11. The redundant-vs-load-bearing curation + the CLAUDE.md path genericization (§2) remain open; porting was the sane first step (preserves the state; curation is non-destructive afterward).
 
 ## 2. Root `CLAUDE.md` environment reconciliation
 
@@ -33,6 +34,8 @@ Many round-2 `common`+`vol1` leaves cite `research/2026-05-*` docs (preregs, res
 - `research/_archive/L3_electron_soliton/` (129 docs, Q-G47 thread) — reference-only per round-1 convention.
 
 **Decision needed**: migrate `research/` wholesale, migrate the cited subset, or treat as external-forward-link (resolve in the cross-reference stitching pass).
+
+- **UPDATE 2026-05-21**: `research/` PORTED wholesale (theirs-only: 94 active docs + `_archive/L3_electron_soliton` 143 + `_archive/L5` 7 + discussions 2) — see §11. The `L3_electron_soliton` archive port closes the predictions-matrix `test_research_doc_exists` regression (17 backing docs for pre_registered predictions now resolve on disk).
 
 ## 4. Dangling forward cross-refs from migrated `common`+`vol1` leaves
 
@@ -102,3 +105,57 @@ vol2-6 L3 KB content migrated: **35 new claim-bearing leaves** (vol2:14, vol3:8,
 
 - **Neutrino body-wording ↔ PMNS-derivation coherence (physics authority)**: confirm our helical-torsional-screw-dislocation neutrino body language (2026-05-06 Corrigendum) is consistent with the c₁=5 / c₃=9 torus-knot PMNS mixing derivation that L3's FI-13 scope-correction audits. The two appear orthogonal (body-topology vs mode-space crossing numbers), but verify the merged leaves (`delta-cp-violation.md`, `ch03-neutrino-sector/index.md`, `particle-physics/index.md`) read coherently.
   - **Blast radius: low / bounded.** The 2 neutrino claims (`clm-7o8clt` PMNS angles + δ_CP; `clm-rji99i` mass/hierarchy) are DAG terminals — zero depends-on edges point into them. `clm-rji99i` is co-cited by `lepton-spectrum.md` (ch06). Only conceptual coupling: the aggregate "26 SM parameters" (`clm-xhdai6`) + zero-parameter-closure (`clm-sxn6eo`, `clm-ibfyda`) scorecards include the 4 PMNS params + 3 neutrino masses, so a body-wording inconsistency would touch those scorecard rows but does NOT propagate solidity through the DAG. Verification is self-contained to the neutrino sector + those scorecard rows.
+
+## 11. Non-src / non-kb migration sweep — 2026-05-21
+
+Full tabulation of L3 (`analysis/integration` @ `c7996256`) changes **outside** `src/` and `manuscript/ave-kb/` since merge-base `05e2a45`. Direction split (git-merge-base, per the §9 methodology): **357 theirs-only · 27 both-changed · 13 ours-ahead**.
+
+### Ported 2026-05-21 — 356 theirs-only, byte-identical to L3 (verified 0 mismatches)
+- `research/_archive/L3_electron_soliton/` (143) — **includes the 17 predictions-backing docs** → closes the `test_research_doc_exists` regression.
+- `research/` active docs (94); `research/_archive/L5` (7) + `discussions` (2).
+- `assets/` (21), `_orchestration/` (25 — see §1), `results/` (7), `data/` pantheon_plus + sdss_dr17 (6), `.claude/` (8), `docs/` (2).
+- `manuscript/*.tex` theirs-only (38 — "L3-only changes and new docs" per Grant 2026-05-21).
+- `manuscript/predictions.yaml` (the regression fix: 33→80 entries, 0→44 pre_registered; ours' IDs were a strict subset of L3's).
+- root theirs-only (2).
+
+**predictions regression CLOSED**: ours now passes all 356 predictions-matrix + v_snap tests that L3 passes (zero L3-pass-but-ours-fail violations). `test_count_matches_expected` still fails — but it fails on L3 too (44 pre_registered ≠ hardcoded EXPECTED 10), so it is allowed under the "green-on-L3 ⇒ green-here" rule.
+
+### Protected — 13 ours-ahead (NOT ported; ours is newer)
+`pyproject.toml`, `uv.lock`, `.github/workflows/{build_pdf,verify}.yml`, `.claude/{kb-docent.md, commands/kb-next.md, commands/kb-start.md}`, and `.tex`: `backmatter/{01_appendices, 05_universal_solver_toolchain}`, `common/translation_particle_physics`, `vol_0/02_analytical_summaries`, `vol_1/03_quantum_and_signal_dynamics`, `vol_2/03_neutrino_sector`.
+
+### QUEUED — both-changed reconciliation pass (dedicated, KB-leaf-referenced)
+27 both-changed files need a true 3-way reconciliation. **The 23 `.tex` must be reconciled against the canonical KB leaves already ported** to nail final language (the leaf is canonical; the `.tex` is derived per [[kb-canonical-not-tex]]).
+
+**Critical methodology (Grant 2026-05-21):** for each both-changed `.tex`, check whether L3's `.tex` carries edits dated *later* than L3's last edit to the corresponding KB leaf. In theory the leaf is always newer (canonical) and the `.tex` merely lags; in practice **verify per-file** — a `.tex` newer than its leaf may carry physics content never captured in the canonical leaf ("reality eats cornflakes out of theory's skull").
+- **Neutrino — CHECKED, CLEAN:** L3 leaf `vol2/.../ch03-neutrino-sector` (2026-05-17, FI-13) is *later* than L3 `vol_2/.../03_neutrino_sector.tex` (2026-04-19). KB newer; no `.tex`-ahead risk. (Our neutrino `.tex` is ours-ahead regardless.)
+- **Risk window:** the 23 both-changed `.tex` were L3-edited **2026-05-15 … 05-19** — squarely inside the KB-closure window. Per-file date checks are therefore mandatory, not pro-forma. Latest-edited (highest risk first): `frontmatter/00_foreword`, `backmatter/02_full_derivation_chain` (both 05-19 22:10); `vol_1/{01_fundamental_axioms, 04_continuum_electrodynamics}` + `vol_3/04_generative_cosmology` (05-19 18:08); then the 05-16/05-17 cluster.
+
+**both-changed `.tex` (23):**
+  - manuscript/backmatter/02_full_derivation_chain.tex
+  - manuscript/backmatter/12_mathematical_closure.tex
+  - manuscript/backmatter/appendix_c_derived_numerology.tex
+  - manuscript/backmatter/appendix_vacuum_engineering.tex
+  - manuscript/common/translation_gravity.tex
+  - manuscript/common_equations/eq_axiom_1.tex
+  - manuscript/common_equations/eq_axiom_2.tex
+  - manuscript/common_equations/eq_axiom_3.tex
+  - manuscript/common_equations/eq_axiom_4.tex
+  - manuscript/common_equations/eq_calibration_constants.tex
+  - manuscript/common_equations/eq_gravity_derived.tex
+  - manuscript/frontmatter/00_foreword.tex
+  - manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex
+  - manuscript/vol_1_foundations/chapters/02_macroscopic_moduli.tex
+  - manuscript/vol_1_foundations/chapters/04_continuum_electrodynamics.tex
+  - manuscript/vol_1_foundations/chapters/05_universal_spatial_tension.tex
+  - manuscript/vol_1_foundations/chapters/07_regime_map.tex
+  - manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex
+  - manuscript/vol_2_subatomic/chapters/02_baryon_sector.tex
+  - manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex
+  - manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex
+  - manuscript/vol_3_macroscopic/chapters/20_white_dwarf_predictions.tex
+  - manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex
+
+**both-changed config/root (3 — simple 3-way merge, NOT KB-leaf reconciliation):** `.gitignore`, `Makefile`, `LIVING_REFERENCE.md`. (`CLAUDE.md` — the 4th both-changed root file — already ported, §2.)
+
+### L3 deletion — pending decision (1)
+`manuscript/frontmatter/00_foreword_lean.tex` — L3 deleted it (lean-foreword variant; the main `00_foreword.tex` is both-changed). Not deleted unilaterally (destructive op on manuscript content). Adopt the deletion per the vol4 REPO-ARCH canonical-decision precedent (§9), or keep — confirm before removing.

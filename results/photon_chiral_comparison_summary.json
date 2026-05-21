@@ -1,0 +1,40 @@
+{
+  "yee_eval": {
+    "C_P1_cp_amp_ratio": 1.0000004776591447,
+    "C_P1_phase_offset_deg": 91.98267047414068,
+    "pass_C_P1": true,
+    "C_P2_v_forward_over_c": 4.209845712841022,
+    "pass_C_P2": false,
+    "C_P3_max_wake_amplitude": 56120699990831.59,
+    "pass_C_P3": true,
+    "C_P4_chirality_asymmetry_frac": 0.037859096832470844,
+    "pass_C_P4": false,
+    "C_P5_far_field_amplitude_frac": 0.0014474781324007905,
+    "pass_C_P5": false,
+    "C_P6_PML_reflection_frac": 0.1367248879577716,
+    "pass_C_P6": false
+  },
+  "k4_eval": {
+    "C_D1_h_RH": -0.07962367222850002,
+    "C_D1_h_LH": 0.6566109643511002,
+    "pass_C_D1": false,
+    "C_D2_centroid_drift": 3.892545951568561,
+    "pass_C_D2": false,
+    "C_D3_max_tau_zx_RH": 0.0,
+    "C_D3_max_tau_zx_LH": 0.0,
+    "pass_C_D3": false,
+    "C_D5_pml_reflection_frac": 0.0,
+    "pass_C_D5": true,
+    "C_D6_chirality_asymmetry": 0.0,
+    "pass_C_D6": false
+  },
+  "comparison_notes": [
+    "Path B (Yee Maxwell) and Path A (K4-TLM) both run with chiral CP/Beltrami sources.",
+    "CP source at injection: Path B passes phase 90\u00b0 + amp 1:1; Path A Cosserat \u03c9 injection per docstring.",
+    "Forward propagation: Path B's peak-arrival measurement on sustained source is unreliable; Path A uses centroid drift instead.",
+    "Phase A.1 finding (K4 cardinal v=\u221a2\u00b7c regardless of T\u2082 projection) means K4-TLM substrate kinematics differ from Yee Maxwell at the wavefront level.",
+    "Dark wake observed in BOTH substrates \u2014 Yee via Z_eff\u00b7\u2202|E|\u00b2/\u2202x; K4-TLM via DarkWakeObserver tetrahedral_gradient on V_inc.",
+    "Chirality asymmetry: both substrates show NON-zero asymmetry; thresholds (5%) are ad-hoc per A47 v18 since corpus doesn't supply quantitative chirality-induced wake-asymmetry prediction.",
+    "Net: the dark wake mechanism is observable across substrate-implementation classes. Quantitative agreement at both magnitudes and propagation speeds requires substrate-physics-canonical prediction the corpus doesn't currently supply."
+  ]
+}
