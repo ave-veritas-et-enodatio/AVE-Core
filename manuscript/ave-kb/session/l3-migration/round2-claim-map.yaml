@@ -1,0 +1,471 @@
+# Round-2 L3 -> BLR KB Migration -- Claim Map Skeleton
+# TRANSIENT reconciliation artifact. Delete after round-2 (pass 2 code) completes.
+# Round 1 = research/l3-electron-soliton -> migrate-l3-to-blr; see claim-map.yaml (complete).
+# Round 2 = research/l3-electron-soliton..analysis/integration delta -> migrate-l3-to-blr.
+
+meta:
+  purpose: >-
+    Pins each L3-author content change between rounds (scope: common + vol1)
+    to its BLR target path. Drives the port -> rescore -> refresh phases for
+    round 2. Companion to round2-claim-triage.md (which carries claim-graph
+    dispositions per leaf: stay/rehome/split/drop and the resolved adjudications).
+  ancestor: 317faf3              # tip of research/l3-electron-soliton; round-1 source = round-2 base
+  l3_source: "analysis/integration @ c7996256"  # re-pinned 2026-05-20 from c5b725c; delta = 3 in-scope files, 5+/5- (closure-roadmap, divergence-test-substrate-map, universal-saturation-kernel-catalog)
+  blr_target_branch: "migrate-l3-to-blr @ d66df11e"
+  kb_root: "manuscript/ave-kb/"  # every l3_path is relative to this
+  blr_target_rule: >-
+    BLR target path == l3_path for every row. No renames/copies/deletes in the
+    L3 round-2 delta (all 29 entries are M or A, zero D).
+  scope: [common, vol1]
+  delta_command: >-
+    git -C ../AVE-Core_L3 diff research/l3-electron-soliton..analysis/integration --
+    manuscript/ave-kb/common/ manuscript/ave-kb/vol1/
+  generated: 2026-05-20
+  companion: "round2-claim-triage.md -- per-leaf claim-graph triage (stay/rehome/split/drop dispositions)"
+
+coverage:
+  l3_changed_files: 29           # 22 M + 7 A in common+vol1
+  rows: 29
+  new_leaf: 7                    # 6 common + 1 vol1
+  modified_leaf: 17              # M minus 4 indexes minus 1 park
+  index_nav: 4                   # common/index, common/translation-tables/index, vol1/dynamics/ch4/index, vol1/index
+  park: 1                        # common/closure-roadmap.md (parked verbatim per task #9 convention)
+  axiom_homologation: 0          # unchanged in L3 round-2 delta; already at session/l3-migration/ from earlier copy
+  gate_pinned: "rows == l3_changed_files (29)"
+  gate_ported: "all 29 rows status >= ported"
+
+legend:
+  disposition:
+    new-leaf:      "absent from BLR -- author new leaf in new-KB format; mint clm-id(s) OR no-claim"
+    modified-leaf: "exists in BLR -- semantic 3-way merge of L3 delta onto BLR leaf; convert <!-- leaf: verbatim --> to S5 kb-frontmatter"
+    index-nav:     "index.md -- re-do nav additions in new-KB index format; subtree-claims auto-regenerates via refresh"
+    park:          "not a KB leaf (process/planning/spec doc) -- copy verbatim to session/l3-migration/ per task #9"
+  status: "pinned -> enriched -> ported -> rescored -> refreshed"
+  delta_class:
+    framing-only:            "framing/scope shift; no new physics content"
+    new-content:             "new sections / new rows / new tables"
+    numeric-correction:      "a derivation value or coefficient corrected (carries audit note)"
+    mechanism-replacement:   "load-bearing mechanism replaced (e.g. bullet-cluster TT-shockwave -> ponderomotive halo)"
+    scope-correction:        "claim's locus of applicability narrowed/widened with explicit audit"
+    claim-shape-change:      "claims: list or inline markers materially affected (see triage_ref)"
+    cross-ref-add:           "primarily new cross-references (e.g. to new round-2 leaves)"
+  triage_ref: "section anchor in round2-claim-triage.md; see that file for per-claim disposition + rationale"
+
+method_notes:
+  - >-
+    Round-2 deltas are mostly leaf-local refinements; NO structural changes
+    (CLAUDE.md untouched, no axiom restructure, zero deletions). 21 of 29 are
+    refinements to existing leaves; 7 are new content; 1 is parked.
+  - >-
+    L3 systematically strips our claim-graph machinery (claims: frontmatter
+    + inline <!-- claim-quality: --> markers) because L3 uses a different leaf
+    convention (<!-- leaf: verbatim --><!-- path-stable: ... -->). This is
+    CONVENTION ONLY -- not a retirement signal. Default disposition per claim
+    is STAY (re-apply our machinery atop L3's prose). See round2-claim-triage.md
+    for the 4 exceptions: clm-gr8d63 rehome, clm-hvvvop split, clm-dxdsvt
+    title update (21->26 instances), clm-m3z5ux on bullet-cluster needs-assessment.
+  - >-
+    Time/clarity heuristic for ambiguities (per working principle 2026-05-20
+    02:56): later canonicalized statement wins; silent regressions lose to
+    explicit qualifications. 4 adjudications resolved in round2-claim-triage.md
+    (G framing, MOND class, c_eff sign, Hoop Stress motif home); 1 deferred
+    (omega-freeze "Provisional" guardrail drop -- need brief git log check
+    at port time).
+  - >-
+    6 RIGOR REGRESSIONS in L3 to NOT port (preserve current text per clarity
+    heuristic): omega-freeze "Provisional" guardrails, xi-topo delta_strain
+    qualifier, four-regimes sector-dependence note + Ch.3 sidebar, operators.md
+    §2 LaTeX->unicode notation, full-derivation-chain methodology disclosure
+    callout, vol1/index.md "G from Axiom 3" framing. See round2-claim-triage.md.
+  - >-
+    171 L3 commits in delta range. Per-commit provenance available via
+    delta_command; not enumerated inline. Key audit threads to watch on port:
+    Class-E operating-point projection (Grant canonized 2026-05-19 EOD),
+    Chain B' showstoppers (2026-05-19), G_vac 13-OOM correction (92d904f),
+    bullet-cluster mechanism replacement (d953ccf), Hoop Stress 2π motif
+    walk-back to 2 instances (f9e707f), DAMA 8th-9th-11th-12th audit cycles.
+  - >-
+    Port order: (1) 7 new leaves first (so cross-refs from the 17 modifieds
+    resolve); (2) 17 modifieds in dependency order, ch4 cluster + A-034 cluster
+    together; (3) 4 index-nav updates (auto-mostly via refresh); (4) parked
+    closure-roadmap re-sync; (5) rescore newly-pending + lift candidates per
+    triage; (6) refresh + verify.
+
+# ============================================================================
+# ROWS
+# ============================================================================
+
+rows:
+
+  # --------------------------------------------------------------------------
+  # NEW LEAVES (7) -- port FIRST so cross-refs from modifieds resolve
+  # --------------------------------------------------------------------------
+
+  - l3_path: common/ave-analytical-toolkit-index.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT (count TBD at port; likely no-claim catalog or 1 catalog-status claim)"
+    notes: "304L. Methodological tool-selection index. Likely no-claim or single catalog-status claim (cf. operators.md / appendix-experiments.md pattern)."
+
+  - l3_path: common/cosmic-axes-and-frames-glossary.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT (count TBD; likely no-claim glossary)"
+    notes: "159L. Glossary leaf naming the cosmic axes / frames vocabulary. Likely no-claim. Provides the vocabulary used by the new CMB-axis pin propagation (Planck PR3 SMICA)."
+
+  - l3_path: common/divergence-test-substrate-map.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT x1-3 (catalog + framework axes + meta-cascade?)"
+    notes: >-
+      1065L -- largest new leaf. Operational tracking layer for AVE
+      falsification predictions: 33 prediction rows across 4 tiers + 3 tracking
+      matrices + cascade Mermaid diagrams (nu_vac=2/7, alpha=1/(4pi^3+pi^2+pi),
+      xi_topo, G, J_cosmic+Omega_freeze, master cross-cascade). Companion to
+      appendix-experiments.md (narrative catalog -> this is the operational
+      layer). Heavy cross-link target; port early.
+
+  - l3_path: common/grants-random-tangents.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT (likely no-claim rolling-capture leaf)"
+    notes: >-
+      250L. Rolling capture for mid-session intuitions; explicit "Entry #001
+      [OPEN]" + maintenance section. Behaves like a working/inbox doc. Decide
+      at port time: no-claim leaf vs park (the doc semantics are closer to a
+      project-state log -- could be a park candidate like axiom-homologation).
+
+  - l3_path: common/natural-units-cheatsheet.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT (likely no-claim reference cheatsheet)"
+    notes: "145L. Consolidates 3 scattered sources into single canonical reference. Likely no-claim reference leaf."
+
+  - l3_path: common/temporal-saturation-regime-classifier.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT x1-3 (regime classification + temporal axis)"
+    notes: >-
+      379L. New physics leaf: temporal saturation regime classifier as the
+      orthogonal axis to the spatial four-regime map (cf. cross-refs from
+      four-regimes.md + domain-catalog.md). Substantive new claims expected.
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md
+    disposition: new-leaf
+    status: ported
+    claims: "MINT x1-3 (cubic-symmetry suppression + Sagnac/VLBI null synthesis)"
+    notes: >-
+      219L. New ch4 physics leaf. Cohesive narrative unifying K4 cubic-symmetry
+      Lorentz-suppression with A2/C17/C7 null bounds. Cited from
+      appendix-experiments.md (Sagnac, GEO Impedance), bullet-cluster, the
+      new divergence-test-substrate-map. Heavy cross-link target.
+
+  # --------------------------------------------------------------------------
+  # INDEX NAV (4) -- subtree-claims auto-regenerate via refresh
+  # --------------------------------------------------------------------------
+
+  - l3_path: common/index.md
+    disposition: index-nav
+    status: ported
+    claims: n/a
+    notes: >-
+      Add rows for the 6 new common/ leaves above + new natural-units cheatsheet
+      Key Results row. subtree-claims auto-refresh. Mind: row for divergence-test-substrate-map
+      should NOT inline-summarize the full 1000+ word leaf content (keep concise pointer).
+
+  - l3_path: common/translation-tables/index.md
+    disposition: index-nav
+    status: ported
+    claims: n/a
+    notes: "Bump 'six tables' -> 'seven tables' if temporal-saturation-regime-classifier joins as a 7th table. Add cross-ref. subtree-claims auto-refresh."
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/index.md
+    disposition: index-nav
+    status: ported
+    claims: n/a
+    notes: >-
+      Add row for preferred-frame-and-emergent-lorentz.md (new). Enrich existing
+      leaf descriptions per L3. Includes the G_vac numeric correction surface
+      (table distinguishes G_string vs G_vac). subtree-claims auto-refresh.
+
+  - l3_path: vol1/index.md
+    disposition: index-nav
+    status: ported
+    claims: n/a
+    notes: >-
+      RIGOR REGRESSION TO REVERT: L3 changes "G from Machian boundary (derived from
+      Axioms 1+4)" -> "G from Machian boundary (Axiom 3)". This contradicts the
+      Grant-canonized 2026-05-19 EOD walk-back in zero-parameter-universe.md.
+      Update vol1/index.md foreword text to align with the walk-back: "G is
+      Bounding Limit 3 (CODATA input) + Class E joint constraint". subtree-claims
+      auto-refresh.
+
+  # --------------------------------------------------------------------------
+  # MODIFIED LEAVES (17) -- semantic 3-way merge; convert frontmatter convention
+  # --------------------------------------------------------------------------
+
+  - l3_path: common/appendix-experiments.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-t5ybqw]
+    delta_class: new-content + scope-correction
+    notes: >-
+      MAJOR rework: SPARC galactic rotation CONFIRMED (135-galaxy, 11.5% Q=1
+      mean |residual|), Gaia substrate-velocity (αc/(2π)) magnitude + directional
+      results with 3 walk-backs documented, DAMA 8th audit cycle walk-back/demotion,
+      VLBI Jupiter retraction, Sagnac retired to corroborative-null, Bullet
+      Cluster reframe, "Operational tracking layer" cross-ref to new
+      divergence-test-substrate-map.md. Single claim stays (catalog-status
+      framing now more explicit per entry). Rescore unchanged.
+    triage_ref: "round2-claim-triage.md#common-appendix-experiments-md"
+
+  - l3_path: common/full-derivation-chain.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-sxn6eo, clm-ibfyda]
+    delta_class: framing-only + numeric-correction
+    notes: >-
+      G walk-back to "Bounding Limit 3 + Class E joint constraint" (Grant 2026-05-19 EOD).
+      F_conf 160,037N -> 160,584N tiny update. **RIGOR REGRESSION TO NOT PORT**:
+      L3 silently removes the lepton "Methodology disclosure" callout block --
+      KEEP current callout (clarity over silent removal). Axiom 4 rename L3
+      "Dielectric Saturation" vs ours "Universal Saturation Kernel" -- prefer
+      our naming (A-034 unification is the canonical framing). Rescore-up:
+      clm-sxn6eo (G walk-back strengthens "not absolutely zero-parameter").
+    triage_ref: "round2-claim-triage.md#common-full-derivation-chain-md"
+
+  - l3_path: common/omega-freeze-cosmic-grain-cascade.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-dsb560, clm-a7cbqq, clm-pe8lpx, clm-fndptx]
+    delta_class: numeric-correction + framing-only
+    notes: >-
+      CMB axis pin update (174°,-5°) -> (60.28°,50.48°) Planck PR3 SMICA empirical
+      pin. Class E framing for the three-route framework. **RIGOR REGRESSION TO
+      NOT PORT**: L3 drops "Provisional discussion -- not a framework claim"
+      guardrails around §4 and §6 (silent drop, no supersession marker) -- keep
+      guardrails. **DEFER**: run `git -C ../AVE-Core_L3 log -p analysis/integration -- common/omega-freeze-cosmic-grain-cascade.md`
+      at port time to confirm no explicit "no longer provisional" promotion.
+      Rescore-up: clm-pe8lpx (Planck PR3 empirical anchor replaces lit placeholder).
+    triage_ref: "round2-claim-triage.md#common-omega-freeze-cosmic-grain-cascade-md"
+
+  - l3_path: common/operators.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-sysqaf, clm-6mvtsf, clm-gdd70j]
+    delta_class: new-content + framing-only
+    notes: >-
+      New §5.5 Hoop Stress motif -- COLLAPSE to one-paragraph cross-ref
+      (canonical home is mond-hoop-stress.md per clarity heuristic). New §6.5
+      tool-selection cross-ref to ave-analytical-toolkit-index. Op14 narrative
+      trim (replaced by REPO-ARCH-3 migration note). **RIGOR REGRESSION TO NOT
+      PORT**: L3 §2 catalog table LaTeX -> unicode notation across all 22 rows
+      -- keep LaTeX. All 3 claims stay.
+    triage_ref: "round2-claim-triage.md#common-operators-md"
+
+  - l3_path: common/q-g47-substrate-scale-cosserat-closure.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-iouqn9, clm-qwmnhn, clm-bjceop]   # clm-gr8d63 REHOMED to two-engine
+    delta_class: numeric-correction + claim-shape-change
+    notes: >-
+      Sessions 19 closure: xi_K1 = 8/3, xi_K2 = 32 as closed-form rationals
+      (consistent with forced ratio xi_K2/xi_K1 = 12). One "Still open" item
+      struck through. Two-engine convergence narrative MOVED to cross-ref to
+      two-engine-architecture-a027.md. CLAIM REHOME: drop clm-gr8d63 from this
+      leaf's claims: and inline markers (canonical home becomes two-engine).
+      Rescore-up: clm-bjceop (prefactor closure strengthens claim).
+    triage_ref: "round2-claim-triage.md#common-q-g47-substrate-scale-cosserat-closure-md"
+
+  - l3_path: common/trampoline-framework.md
+    disposition: modified-leaf
+    status: ported
+    claims: no-claim
+    delta_class: numeric-correction
+    notes: >-
+      Single numeric coefficient correction: BH-event-horizon eps_11(r) =
+      2GM/(c^2 r) -> 7GM/(c^2 r). Verify against dielectric-rupture-event-horizon.md
+      + universal-saturation-kernel-catalog before adopting. If correct, propagate
+      to any other locus quoting the same eps_11(r) form. No-claim leaf (picture-first
+      synthesis) -- preserve.
+
+  - l3_path: common/translation-tables/translation-cosmology.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-fy05jc]
+    delta_class: new-content
+    notes: >-
+      8 new rows added (CMB rest, CMB dipole 370 km/s, CMB axis-of-evil with
+      new (60.28°,50.48°) Planck pin, Hubble bulk-flow, LSS galaxy-spin, parent-BH
+      spin = Omega_freeze, Big Bang as K4 phase transition, cosmic chirality
+      bias). Cross-refs to new leaves (preferred-frame-and-emergent-lorentz,
+      cosmic-axes-and-frames-glossary). Keep numerically synchronized with
+      omega-freeze + universal-saturation-kernel-catalog. Single claim stays.
+
+  - l3_path: common/two-engine-architecture-a027.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-zgllr2, clm-zfqd9v, clm-gr8d63]   # clm-gr8d63 inbound from q-g47 rehome
+    delta_class: numeric-correction
+    notes: >-
+      SIGN-FLIP correction: c_eff = c_0 * sqrt(S) -> c_eff = c_0 / sqrt(S)
+      (waves SPEED UP inside saturated core, not slow). Explicit "Prior verbal
+      description superseded" retraction tag. Mechanism paragraph added. Apparent
+      conflict with Op16 c_shear = c_0 * sqrt(S) is resolved by L3's own note:
+      different physical quantities (phase velocity inside core vs shear wave
+      on boundary). Inbound clm-gr8d63 (from q-g47 rehome). Rescore-up:
+      clm-zfqd9v (sign correction strengthens claim's local rigor).
+    triage_ref: "round2-claim-triage.md#common-two-engine-architecture-a027-md"
+
+  - l3_path: common/universal-saturation-kernel-catalog.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-gz7ryg, clm-dxdsvt, clm-hvvvop, clm-l4o7hv, clm-NEW-epsilon-mu]   # +1 split
+    delta_class: new-content + claim-shape-change
+    notes: >-
+      Catalog grows 21 -> 26 instances. New rows: 9-a (planetary spin-axis SYM),
+      9-b (planetary mag-vs-spin offset ASYM-N candidate), 11-a (galactic spin-axis
+      TBD), 14b (cosmic DE / epsilon-sector ASYM-N(eps)), 14-a (LSS spin-axis
+      conditional). NEW eps/mu axis classification with gap-cell table -- SPLIT
+      clm-hvvvop -> keep 3-way SYM/ASYM-N/ASYM-E + mint a NEW claim for eps/mu
+      axis. clm-dxdsvt title/text update 21 -> 26 instances. MOND class
+      ADJUDICATED -> SYM (catalog wins per 2026-05-19 EOD tag; propagate to
+      saturated-lattice-mutual-inductance.md). 4 existing claims stay; +1 mint.
+      Rescore-up: clm-dxdsvt (larger N), clm-hvvvop+split.
+    triage_ref: "round2-claim-triage.md#common-universal-saturation-kernel-catalog-md"
+
+  - l3_path: common/xi-topo-traceability.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-sxn6eo, clm-hmiytz]
+    delta_class: framing-only + cross-ref-add
+    notes: >-
+      Two Vol 4 rows replaced with REPO-ARCH-6 migration note (AVE-Fusion private
+      repo cross-ref). **RIGOR REGRESSION TO NOT PORT**: L3 drops the
+      "conditional on thermal closure of delta_strain at T_CMB" qualifier
+      from the zero-free-parameter chain equation -- keep qualifier. Also: L3
+      leaks `\ref{}` LaTeX into markdown row source -- keep current Markdown.
+      Both claims stay.
+
+  - l3_path: vol1/axioms-and-lattice/ch1-fundamental-axioms/zero-parameter-universe.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-9s9apq]
+    delta_class: framing-only
+    notes: >-
+      G walk-back from "Macroscopic Gravity (G) is emergent..." to "qualitative
+      mechanism; quantitative Chain B' is OPEN WORK" + explicit Class E
+      operating-point projection (Grant canonized 2026-05-19 EOD). Cites
+      research/2026-05-19_h-infinity-chain-b-prime-showstoppers.md and
+      `consistency-vs-emergence v1.1`. Headline rigor-strengthening. Single
+      claim (clm-9s9apq for p_c = 8pi*alpha consistency relation) stays --
+      the meta-framing is captured by clm-sxn6eo. Rescore-up.
+    triage_ref: "round2-claim-triage.md#vol1-axioms-and-lattice-ch1-fundamental-axioms-zero-parameter-universe-md"
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md
+    disposition: modified-leaf
+    status: ported
+    claims: "NEEDS-ASSESSMENT (likely drop clm-m3z5ux + mint NEW)"
+    delta_class: mechanism-replacement
+    notes: >-
+      FULL MECHANISM REPLACEMENT: TT shockwave retired (over-parameterized,
+      contradicted v_T = c) -> ponderomotive halos + Einstein lensing on Gordon
+      optical metric per Grant adjudication 2026-05-17 evening (commit d953ccf).
+      Also DAMA section fully replaced (transverse phonon -> refresh-rate
+      interpretation). PORT-TIME CHECK: read L3 leaf body; if clm-m3z5ux
+      (H_infinity/MOND a_0) is no longer cited as load-bearing background,
+      DROP clm-m3z5ux from claims: and MINT a new claim for "Bullet Cluster as
+      Ponderomotive Halo + Einstein Lensing on Gordon Optical Metric". Cascade:
+      retired concepts ("TT tensor shockwave", "decoupled refractive", "transverse
+      phonon coupling") need corpus-grep post-merge for orphan refs.
+    triage_ref: "round2-claim-triage.md#vol1-dynamics-ch4-continuum-electrodynamics-bullet-cluster-md"
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-crbl60]
+    delta_class: numeric-correction
+    notes: >-
+      G_vac 13-ORDERS-OF-MAGNITUDE CORRECTION (commit 92d904f): prior leaf
+      conflated G_string (1D axial stiffness, ~5.49e11 Pa) with G_vac (3D shear
+      modulus, ~7.12e23 Pa) and quoted G_vac ~5.48e24 Pa. Resultboxes restructured
+      to distinguish both quantities with cross-check v_T = sqrt(G_vac/rho_bulk) = c.
+      Plus LBM viscosity-audit note (documentation-only, no downstream impact).
+      Single claim stays. Rescore-up (major rigor advance). Propagate corrected
+      G_vac to any other locus quoting the old value.
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-m3z5ux]
+    delta_class: framing-only + new-content + scope-correction
+    notes: >-
+      H_infinity framing -> Class E operating-point projection (mirrors
+      zero-parameter-universe walk-back). NEW section "Cross-volume substrate
+      motif: Hoop Stress 2π projection at multiple scales" with explicit walk-back
+      ("3-4 instances -> 2 INDEPENDENT instances per ave-independence-check",
+      commit f9e707f) -- canonical home for this motif (operators.md §5.5 collapses
+      to cross-ref). Substrate-velocity scope narrowed to LSR-class only (GC-class
+      Outcome III falsification per fdceb33). Single claim stays. Rescore likely.
+    triage_ref: "round2-claim-triage.md#vol1-dynamics-ch4-continuum-electrodynamics-mond-hoop-stress-md"
+
+  - l3_path: vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-3npynp, clm-i4p11y, clm-fr3mos]
+    delta_class: new-content + framing-only
+    notes: >-
+      Photon definition 3 -> 4 properties (adds "impedance-matched at Z_0"
+      as 4th property; commit d3b7619). NEW §4.0 symmetric photon<->electron
+      framing at V_yield threshold. NEW §7 cross-corpus framing translation
+      guide (4 framings + reconciliation matrix; commit 10f0bf1). All 3 claims
+      stay; clm-3npynp claim text updates 3->4 properties. Drops "Primary" cross-ref
+      to k4-port-irrep-decomposition.md -- KEEP cross-ref (canonical-source
+      discipline; both the cross-ref AND local exposition coexist).
+
+  - l3_path: vol1/operators-and-regimes/ch7-regime-map/domain-catalog.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-b2anl4, clm-82dxbj]
+    delta_class: cross-ref-add
+    notes: "Adds cross-ref to temporal-saturation-regime-classifier.md (new leaf). Both claims stay; minimal substantive change."
+
+  - l3_path: vol1/operators-and-regimes/ch7-regime-map/four-regimes.md
+    disposition: modified-leaf
+    status: ported
+    claims: [clm-2dwzib, clm-b2anl4]
+    delta_class: framing-only
+    notes: >-
+      Adds cross-ref to temporal-saturation-regime-classifier.md. **RIGOR
+      REGRESSION TO NOT PORT**: L3 silently removes the spin-sector-dependence
+      note for r_2 = sqrt(3)/2 AND the "Note (cross-link with Ch.3)" sidebar.
+      The sector-dependence note IS the claim's substantive content
+      (clm-b2anl4 title: "Boundary Derivations are Sector-Dependent"). Keep
+      both. Both claims stay.
+
+  # --------------------------------------------------------------------------
+  # PARK (1) -- copy verbatim to session/ per task #9 convention
+  # --------------------------------------------------------------------------
+
+  - l3_path: common/closure-roadmap.md
+    disposition: park
+    status: pinned                # working-copy already in place; re-verify hash at port
+    claims: n/a
+    notes: >-
+      +211L from L3 author since round-1 base. Currently in working tree at
+      session/l3-migration/closure-roadmap.md (copied 2026-05-20 from L3
+      analysis/integration; untracked). Verify hash against L3 c5b725c at port
+      time and commit. No claim-graph integration (process/spec doc per task #9).
+
+# ============================================================================
+# OPEN ITEMS / PORT-TIME CHECKS
+# ============================================================================
+
+open_items:
+  - "omega-freeze.md: confirm Provisional-guardrail drop via L3 git log; keep guardrails if silent."
+  - "bullet-cluster.md: read L3 body to confirm clm-m3z5ux no longer load-bearing; drop + mint new claim accordingly."
+  - "trampoline-framework.md: verify 7GM/c^2r against dielectric-rupture-event-horizon.md + saturation-kernel catalog before adopting."
+  - "grants-random-tangents.md: decide at port time -- no-claim leaf vs park (semantics closer to project-state log)."
+  - "MOND class propagation: update saturated-lattice-mutual-inductance.md SYM -> ASYM-N(mu) wording (NOT in round-2 delta but inconsistent with adjudicated catalog row)."
+  - "Post-merge grep sweep for retired concepts: 'TT tensor shockwave', 'decoupled refractive', 'transverse phonon coupling', '(l=174°, b=-5°)' (old CMB axis pin)."
+  - "Round-2 rescore candidates per triage: clm-sxn6eo, clm-pe8lpx, clm-bjceop, clm-zfqd9v, clm-dxdsvt, clm-9s9apq, clm-crbl60, clm-m3z5ux (mond-hoop side), + 2 new minted claims (epsilon/mu axis + bullet-cluster mechanism)."

@@ -710,20 +710,23 @@ A single Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ (Born–Infeld $n = 2$ squared-l
 
 ---
 
-## A-034 Catalog — 21 Canonical Cross-Scale Instances
+## A-034 Catalog — 26 Canonical Cross-Scale Instances
 <!-- id: clm-dxdsvt -->
 
-The A-034 catalog enumerates 21 canonical cross-scale instances of the saturation kernel, spanning 21 orders of magnitude: 14 physical-substrate, 2 biological-substrate, and 5 engineered-substrate instances.
+The A-034 catalog enumerates 26 canonical cross-scale instances of the saturation kernel, spanning 21 orders of magnitude: 17 physical-substrate, 2 biological-substrate, and 5 engineered-substrate instances, plus 2 companion rows scoped for Sessions 4/5.
 
 - _Specific Claims_
-  - 21 canonical instances are catalogued, spanning ~21 orders of magnitude from atomic ($\sim 10^{-15}$ m) to cosmic ($\sim 10^{26}$ m) scale.
-  - The 21 split into 14 physical-substrate instances (atomic/EM, K4 substrate, DT fusion, Pd hydrogen-loading shatter, BCS, water two-state LC partition, plasma, Kolmogorov turbulence, geomagnetic, solar flare, MOND, BH event horizon, BH ring-down, Big Bang), 2 biological-substrate instances (lipid bilayer, protein folding), and 5 engineered-substrate instances (DC-biased piezoelectric, asymmetric-electrode vacuum-mirror bench, active topological metamaterials, sine-Gordon kink memory, autoresonant rupture).
-  - Each instance has a defined $A$ ratio and a saturation event; the catalog records empirical anchors where they exist (BCS $B_c(T)$ at 0.00% error; BH ring-down 1.7% from GR; NOAA GOES 40-yr solar flares; Schwarzschild exact; Nilsson 2026 X-ray LLCP for water).
+  - 26 canonical instances are catalogued, spanning ~21 orders of magnitude from atomic ($\sim 10^{-15}$ m) to cosmic ($\sim 10^{26}$ m) scale.
+  - Physical-substrate instances (17): atomic/EM, K4 substrate, DT fusion, Pd hydrogen-loading shatter, BCS, water two-state LC partition, plasma, Kolmogorov turbulence, geomagnetic, planetary spin-axis (Row 9-a, NEW 2026-05-20 Session 2), planetary mag-vs-spin offset (Row 9-b, NEW 2026-05-20 Session 2), solar flare, MOND, galactic spin-axis (Row 11-a, scoped Session 4), BH event horizon, BH ring-down, Big Bang, cosmic DE / ε-sector (Row 14b, NEW 2026-05-19 EOD β Session 2), LSS spin-axis (Row 14-a, scoped Session 5 conditional).
+  - Biological-substrate instances (2): lipid bilayer, protein folding.
+  - Engineered-substrate instances (5): DC-biased piezoelectric, asymmetric-electrode vacuum-mirror bench, active topological metamaterials, sine-Gordon kink memory, autoresonant rupture.
+  - Each instance has a defined $A$ ratio and a saturation event; the catalog records empirical anchors where they exist (BCS $B_c(T)$ at 0.00% error; BH ring-down 1.7% from GR; NOAA GOES 40-yr solar flares; Schwarzschild exact; Nilsson 2026 X-ray LLCP for water; SPARC galactic rotation 11.5% Q=1 mean residual; planetary scoring 14-15/16 class matches).
 - _Specific Non-Claims and Caveats_
-  - The 21 instances are NOT 21 claims of this leaf; per-instance physics is owned by the respective per-instance leaves elsewhere in the KB. This entry asserts the catalog's membership and cross-scale span, not each instance's individual derivation.
-  - Catalog count is as of the 2026-05-16 growth notes (water added as 13th, Pd hydrogen-loading shatter as 14th physical instance); the catalog is explicitly described as growing as evidence accumulates.
+  - The 26 instances are NOT 26 claims of this leaf; per-instance physics is owned by the respective per-instance leaves elsewhere in the KB. This entry asserts the catalog's membership and cross-scale span, not each instance's individual derivation.
+  - Catalog count grew from 21 (2026-05-16 growth notes; water + Pd hydrogen-loading shatter added) to 26 across two further expansion events: +1 cosmic-DE row (β Session 2, 2026-05-19 EOD); +4 planetary/galactic/LSS spin-axis and mag-tilt rows (Soliton-Lattice Coupling Session 2, 2026-05-20). The catalog is explicitly described as growing as evidence accumulates.
+  - Row 11-a (galactic spin-axis) and Row 14-a (LSS spin-axis) are scoped for Session 4 and Session 5 adjudication respectively; their symmetry classifications are TBD.
   - Several rows carry no quantitative empirical anchor (e.g., "plasma canonical", "substrate instance"); for those the instance is a structural classification, not a validated measurement.
-  - LLM SiLU activation saturation is explicitly kept OUT of the 21: same kernel form but applied in activation space during neural-net training, tracked as a parallel thread.
+  - LLM SiLU activation saturation is explicitly kept OUT of the 26: same kernel form but applied in activation space during neural-net training, tracked as a parallel thread.
 
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §The 21-instance catalog.
 
@@ -757,6 +760,34 @@ The 21 A-034 instances admit a 3-way symmetry classification by how the $\vareps
 - confidence: *pending*
 - solidity: *pending*
 - rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## A-034 ε/μ Axis Classification — Substrate Electromagnetic Dual Resolution
+<!-- id: clm-5fu303 -->
+
+The asymmetric-natural (ASYM-N) instances in the A-034 catalog split along an orthogonal axis from the SYM/ASYM-N/ASYM-E classification: which sector (ε or μ) of the substrate's electromagnetic dual saturates preferentially. This makes explicit the gap-cell structure where physics suggests paired ε/μ instances should exist at each scale.
+
+- _Specific Claims_
+  - ASYM-N(ε): single-sector ε saturation — plasma cutoff (atomic-EM scale) + cosmic DE / ε-sector (cosmic scale, β Session 2 addition per `op14-cosmic-horizon-profile.md`). Two instances currently.
+  - ASYM-N(μ): single-sector μ saturation — BCS $B_c(T)$ (condensed-matter scale). One instance currently (galactic MOND adjudicated SYM per 2026-05-19 EOD).
+  - ASYM-N (sector-undetermined): planetary mag-vs-spin offset (Row 9-b, NEW 2026-05-20 Session 2) is a μ-channel-vs-spin-channel relative-saturation candidate; ε-channel of Row 9-a + μ-channel of Row 9-b are companion projections of the same per-node Cosserat rotational coordinate.
+  - ASYM-E: engineered metamaterials are designer-controllable decoupled (ε/μ asymmetry by design); single instance.
+  - The gap-cell structure (where physics suggests a paired ε/μ instance should exist but corpus does not yet have one) is pre-registered for future research-doc filling at: atomic-EM (μ-companion to plasma GAP), condensed-matter (ε-companion to BCS GAP), planetary (PAIR FILLED 2026-05-20 Session 2), galactic (PARTIAL FILL pending Session 4 via Row 11-a), cosmic (FILLED β Session 2 + Row 14-a Session 5 conditional).
+- _Specific Non-Claims and Caveats_
+  - This entry asserts the existence and current state of the ε/μ classification axis, not the per-instance derivation of why ε or μ saturates first in any given physical instance.
+  - Gap-cells are pre-registered for future filling, NOT claims that the gap is empty. Two interpretive routes remain: (a) corpus has the physics but hasn't enumerated it as a row, or (b) the framework genuinely has only single-sector saturation at those scales for substrate-physics reasons.
+  - The Row 11-a galactic spin-axis classification (ε-companion vs μ-extension of MOND) is open and pending Session 4 adjudication.
+  - The Row 14-a LSS spin-axis classification is conjectural and scoped for Session 5 conditional.
+
+> **Leaf references:** `universal-saturation-kernel-catalog.md` §Symmetry classification §ε vs μ axis + §Gap-cells in the catalog + §Companion-row links.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration mint, split off from clm-hvvvop; quality scored at the rescore pass*
 - strengthen-by:
   - *pending*
 
@@ -913,5 +944,89 @@ The substrate's continuous Cosserat micropolar constitutive constants satisfy $\
 - confidence: *pending*
 - solidity: *pending*
 - rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## AVE Analytical Toolkit Index — Canonical Tool-Selection Catalog by Problem Class
+<!-- id: clm-h3acr9 -->
+
+The `ave-analytical-toolkit-index` leaf is the canonical consolidating index of the ~30 canonical AVE analytical tools (operators, theorems, kernels, coupling formulas) organized by the 9 recognized analytical-problem classes (coupling, resonance, saturation, time-domain, power, mode, boundary, network, numerical). The catalog asserts: every AVE derivation that maps to one or more problem classes should consult this index before deriving, and the `ave-analytical-tool-selection` skill enforces that consultation. The index status is "canonical tool-selection guide" — not a derivation source, but the authoritative routing layer between problem class and canonical tool leaf.
+
+- _Specific Claims_
+  - The 9 problem-class taxonomy (§1 Coupling, §2 Resonance, §3 Saturation, §4 Time-domain, §5 Power, §6 Mode, §7 Boundary, §8 Network, §9 Numerical) exhaustively partitions the AVE analytical-derivation space; any AVE derivation can be located by enumerating which classes it spans.
+  - For each problem class, the listed canonical tools (file:line cited from operators.md, Vol 4 Ch 1/11/13/14-20 leaves, Vol 1 Ch 1/6 leaves) are the authoritative entry points; pulling them is mandatory before deriving a new formula in that class.
+  - The §10 cross-class composition table is the canonical pattern for problems that span multiple classes (DAMA, Sagnac-RLVE, electron tank Q-factor, cosmological constant closure, MOND).
+  - The catalog is LIVING — new canonical tools land via the §12 maintenance discipline, and surfaced gaps (§11) are tracked open until closed.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim independent derivation of any tool listed. Tools are pointers to the canonical leaves that own each derivation; the toolkit index is a routing layer, not a derivation chapter.
+  - Does NOT claim the 9-class taxonomy is unique or maximally orthogonal — it is a working partition that has so far covered the AVE corpus's analytical-derivation patterns; future physics may surface a §10 new class.
+  - Does NOT claim consultation of the index closes the cross-class enumeration discipline by itself — the `ave-canonical-leaf-pull` skill (Step 3) is the upstream catalog enumeration; this index is the problem-class routing layer downstream of that.
+  - The skill-enforced consultation is a process claim about how derivations should be done, not a falsifiable physics prediction.
+
+> **Leaf references:** `ave-analytical-toolkit-index.md` §0 (problem-class taxonomy), §1-§9 (per-class tool tables), §10 (cross-class composition), §11 (gaps), §12 (maintenance discipline), §13-§14 (cross-references + origin).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Divergence-Test Substrate Map — Operational Falsification-Test Index Over the AVE Prediction Matrix
+<!-- id: clm-s3i0lw -->
+
+The `divergence-test-substrate-map` leaf is the operational tracking layer over the canonical narrative catalog (`appendix-experiments.md`) and per-project bench-design leaves under `vol4/falsification/ch11-*`. It catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + ΛCDM, mapped to the actual hardware, simulation, or data substrate where the test would run. The Tier A/B/C/D classification (hardware-exists / simulation-exists / Core-only / structural-internal) and the per-row falsification-logic + lifecycle-status + axiom-impact-severity + sibling-repo-substrate columns together constitute the operational falsification-test index of the AVE corpus. Companion to `appendix-experiments.md` (narrative catalog) and to `divergence-test-substrate-map.md`'s own cascade Mermaid diagrams and three tracking matrices (ν_vac=2/7, α=1/(4π³+π²+π), ξ_topo, G, J_cosmic+Ω_freeze, master cross-cascade).
+
+- _Specific Claims_
+  - Every row in the map names a specific AVE-distinct prediction with its (a) AVE claim, (b) Standard-physics counterclaim, (c) discriminator, (d) test type (new experiment vs existing-data re-analysis), (e) substrate (hardware / simulation / Core-only / structural), and (f) KB anchors.
+  - The Tier A/B/C/D taxonomy (hardware substrate exists / simulation substrate exists / Core-internal derivation only / structural-internal-consistency wins) is the operational scope-and-readiness classification used by orchestration to prioritize executable observers.
+  - The cascade diagrams + tracking matrices anchored to ν_vac, α, ξ_topo, G, and J_cosmic+Ω_freeze capture how falsification of a single foundational constant or invariant propagates to which rows.
+  - The leaf is the canonical "where to run which test" index; updates land here when a row's lifecycle status, substrate availability, or discriminator changes.
+- _Specific Non-Claims and Caveats_
+  - Does NOT claim any listed prediction has been experimentally confirmed. Catalog ≠ validation; the index enumerates falsification targets, not validated results.
+  - Does NOT independently derive any of the listed AVE predictions — derivations live in the per-row KB anchors and per-project leaves; this map is the routing-and-tracking layer.
+  - The Tier D ("structural-internal consistency wins") category is explicitly NOT field-falsifiable by single experiment; treating Tier D rows as falsification targets is a category error.
+  - The cascade diagrams capture which-rows-propagate dependencies, not numerical sensitivity coefficients; treating a cascade arrow as a quantitative coupling is over-reading.
+  - Sibling-repo substrate references (AVE-PONDER, AVE-HOPF, AVE-Fusion, AVE-Protein, AVE-QED, AVE-APU, AVE-Metamaterials) point into private-repo experimental work; public-KB readers should treat those as scope boundaries for the listed substrate, not as published results.
+
+> **Leaf references:** `divergence-test-substrate-map.md` Tier A/B/C/D rows; companion narrative catalog at `appendix-experiments.md`; per-project bench-design leaves under `vol4/falsification/ch11-experimental-bench-falsification/`.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Temporal Saturation Regime Classifier — δ_AVE Trichotomy as Orthogonal Third Axis
+<!-- id: clm-f0jwtk -->
+
+The `temporal-saturation-regime-classifier` leaf introduces the substrate-native loss tangent $\delta_{\text{AVE}} \equiv t_{\text{sat}}/t_{\text{period}}$ as a temporal-axis classifier orthogonal to (i) the canonical spatial Regime I/II/III/IV taxonomy and (ii) the power-domain phase-angle θ classifier. The temporal trichotomy (Lossless / Cyclic / Lossy) captures how a system EVOLVES through saturation space over its observation window — distinct from where it instantaneously sits and from whether power is dissipated vs cycled. The leaf classifies cross-disciplinary regime taxonomies (fluid dynamics, electromagnetics, semiconductor physics, plasma physics, MHD, nonlinear optics, cavity QED, Casimir, phonons, magnonics, tribology, biological / ion channels, polymer dynamics, quantum coherence) under this temporal axis and maps every row of the A-034 universal-saturation-kernel catalog to a temporal regime.
+
+- _Specific Claims_
+  - $\delta_{\text{AVE}} \equiv t_{\text{sat}}/t_{\text{period}}$ is well-defined for any system whose Axiom 4 saturation kernel $S(A) = \sqrt{1-A^2}$ can be evaluated over an observation window; range $\delta_{\text{AVE}} \in [0, 1]$.
+  - The trichotomy Lossless ($\delta_{\text{AVE}} \to 0$, persistent Regime I) / Cyclic ($0 < \delta_{\text{AVE}} \ll 1$, oscillating Regime I↔III/IV per cycle) / Lossy ($\delta_{\text{AVE}} \to 1$, persistent Regime III/IV) is the substrate-native temporal partition.
+  - The temporal axis is orthogonal to the spatial Regime I/II/III/IV axis and the power-domain θ axis; a complete regime characterization of a system requires all three.
+  - The 14 cross-disciplinary tables (fluid, EM, semiconductor, plasma, MHD, nonlinear optics, cavity QED, Casimir, phonon, magnonics, tribology, biological/ion channels, polymer, quantum coherence) classify standard-discipline regimes under the temporal axis; the tag distribution is 4 CANONICAL / 5 EXTENSION / 7 NEW MAPPING / 1 PARTIAL.
+  - $\delta_{\text{AVE}}$ at substrate scale is the analogue of EM $\tan\delta$, fluid Reynolds-class distance from inviscid, and cavity-QED $\kappa/g$ — the leaf positions cavity-QED $g/\kappa$ as the closest established-physics homolog.
+- _Specific Non-Claims and Caveats_
+  - The leaf classifies $\delta_{\text{AVE}}$ as **Class 1 (definitional construct)** per `consistency-vs-emergence` v1.1 — the parameter is defined to classify regimes, NOT to predict observations. Downstream USES of the trichotomy (predictability-scaling, methodology-systematic resolution) ARE Class 4 (emergence), but the classifier itself is taxonomic.
+  - The cross-disciplinary unification claim is **TAXONOMIC, not derivational**. The leaf labels EM $\tan\delta$ + fluid Reynolds + cavity QED $g/\kappa$ under a common substrate-physics axis recognizing they all measure the same time-fraction-at-saturation pattern; it does NOT derive their numerical values from $S(A)$ first principles. To make the AVE-distinct unification load-bearing as more-than-taxonomy, the leaf flags: pick one classical-physics value and FORWARD-PREDICT it from $S(A)$ + the $t_{\text{sat}}/t_{\text{period}}$ structure.
+  - The Item-1-adjudication methodology-systematic application (Ganalyzer vs Longo cos-γ at 2.99σ separation on SDSS spin-orientation cross-comparison) is explicitly demoted to PROVISIONAL per `ave-discrimination-check` audit; the temporal axis is one of four interpretive alternatives, NOT the load-bearing discriminator until McAdam & Shamir 2023 (same-parent-sample test) lands.
+  - The "21-OOM unification via single kernel" framing in commit message `98994c1` was overstated; the leaf's framing-discipline correction (Class 1 definitional per `consistency-vs-emergence`) is the honest level.
+  - Several cross-disciplinary tables (cavity QED, tribology, magnonics, polymer dynamics, T1/T2 notation, etc.) are flagged NEW MAPPING — flagged for follow-up KB leaves only if any becomes load-bearing for downstream work.
+
+> **Leaf references:** `temporal-saturation-regime-classifier.md` §Premise, §Definition (substrate-native loss tangent), §Three regimes, §Cross-field analogue tables 1-14, §A-034 catalog rows by temporal regime, §Methodology-systematic implications (PROVISIONAL), §Predictability implications, §Skill discipline, §Operational note (when to use which axis), §Cross-references.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
 - strengthen-by:
   - *pending*

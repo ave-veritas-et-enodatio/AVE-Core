@@ -11,6 +11,8 @@ Every physical domain in the AVE framework reduces to a single dimensionless con
 
 This chapter establishes the regime classification as a **prerequisite gate**: no domain analysis proceeds without first identifying its regime and verifying the appropriate equation set.
 
+> ↗ See also: [Temporal Saturation Regime Classifier](../../../common/temporal-saturation-regime-classifier.md) — companion leaf introducing the orthogonal temporal axis (lossless / cyclic / lossy) via $\delta_{\text{AVE}} = t_{\text{sat}}/t_{\text{period}}$. The four regimes here classify WHERE in saturation space a system instantaneously sits; the temporal classifier classifies HOW the system evolves through those regimes over its observation window.
+
 <!-- claim-quality: clm-b2anl4 -->
 
 > **[Resultbox]** *Universal Regime Classification*

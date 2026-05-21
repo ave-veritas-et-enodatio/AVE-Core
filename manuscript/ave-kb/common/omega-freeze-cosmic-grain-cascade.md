@@ -8,7 +8,7 @@ path-stable: "referenced from Common Foreword §three-route-framework-commitment
 
 # Ω_freeze Cosmic-Grain Cascade: Three-Route Framework + Eight Observables
 
-Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^*$. The framework synthesis is corpus-canonical; the eight observables (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor $G$ anisotropy + CMB QNM matching) extend the multi-axis alignment test. The K4-stiffness-tensor $\Delta G/G$ anisotropy work has structural closure for the angular profile $P_2(\cos\theta)$ but its amplitude is only conjecturally bracketed at $\alpha^N$-suppression for some $N \geq 2$ ($N = 2$ giving ~4.4×10⁻⁵, contingent on $\chi_1/K_0 \sim \alpha$ at substrate scale — **NOT yet derived from first principles**).
+Per the Common Foreword §"three-route framework commitment" — **the framework's sharpest empirical commitment**: the fine-structure constant $\alpha$, Newton's gravitational constant $G$, and the cosmic-boundary winding number $\mathcal{J}_{\text{cosmic}}$ **all derive from a single cosmological initial-data parameter $\Omega_{\text{freeze}}$** via the substrate's magic-angle operating point $u_0^* \approx 0.187$. This is the **canonical Class E operating-point projection** per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD): substrate has ONE degree of freedom (the operating point $u_0^*$); the N observables ($\alpha$, $G$, $H_\infty$, $\hat{\Omega}_{\text{freeze}}$, $\mathcal{J}_{\text{cosmic}}$, MOND $a_0$, …) project onto N separable measurable channels, joint-constrained — falsification of any one kills the operating-point and therefore the entire substrate model. The eight observables (CMB axis + Hubble flow + LSS spin + matter asymmetry + E/B polarization + orbital-plane alignment + tensor $G$ anisotropy + CMB QNM matching) extend the multi-axis alignment test. The K4-stiffness-tensor $\Delta G/G$ anisotropy work has structural closure for the angular profile $P_2(\cos\theta)$ but its amplitude is only conjecturally bracketed at $\alpha^N$-suppression for some $N \geq 2$ ($N = 2$ giving ~4.4×10⁻⁵, contingent on $\chi_1/K_0 \sim \alpha$ at substrate scale — **NOT yet derived from first principles**).
 
 ## Key Results
 
@@ -29,7 +29,7 @@ Per the Common Foreword §"three-route framework commitment" — **the framework
 |---|---|---|---|
 | $\alpha$ | Fine-structure constant | $1/137.036$ (CODATA, 12 decimals) | **Vol 1 Ch 8 Q-factor closure**: $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi \approx 137.036$ via $S_{11}$-min Golden Torus geometry of the electron's $0_1$ unknot real-space body, with its $(2,3)$ phase-space (Clifford-torus) winding pattern. CMB thermal-running correction $\delta_{\text{strain}} \approx 2.225 \times 10^{-6}$. |
 | $G$ | Newton's gravitational constant | $6.67 \times 10^{-11}$ m³ kg⁻¹ s⁻² (CODATA, $\sim 4$ decimals) | **Machian impedance integral** $G = c^4 / (7\xi T_{EM}(u_0^*))$ where $\xi$ is the cosmic-boundary Sagnac integration constant and $T_{EM} = m_e c^2 / \ell_{\text{node}}$ is the substrate string tension at $u_0^*$. |
-| $\mathcal{J}_{\text{cosmic}}$ | Cosmic-boundary winding number | CMB axis-of-evil at $(l = 174°, b = -5°)$ in galactic coordinates, $\sim 3\sigma$ depending on statistic | **Cosmic-spin frozen at lattice genesis** per trampoline-framework + Vol 3 Ch 4: $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}} / I_{\text{cosmic}}$ where $I_{\text{cosmic}}$ is the cosmic moment of inertia. |
+| $\mathcal{J}_{\text{cosmic}}$ | Cosmic-boundary winding number | CMB axis-of-evil at $(l = 60.28°, b = 50.48°)$ in galactic coordinates (Planck PR3 SMICA, empirical pin 2026-05-19 per [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md); intrinsic dispersion 88% of theoretical max) | **Cosmic-spin frozen at lattice genesis** per trampoline-framework + Vol 3 Ch 4: $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}} / I_{\text{cosmic}}$ where $I_{\text{cosmic}}$ is the cosmic moment of inertia. |
 
 All three derive from a single substrate operating point $u_0^* \approx 0.187$ (bond over-bracing at the K4 magic-angle $K(u_0^*) = 2 G(u_0^*)$). **The framework's sharpest empirical commitment is that all three routes must converge on this same $u_0^*$ at the relevant precision, or the single-cosmological-parameter framework is falsified.**
 
@@ -64,7 +64,7 @@ The multi-axis alignment test pre-registers a **four-axis alignment test** for t
 | 4 | Matter asymmetry direction | Same axis | CMB temperature + matter density correlation |
 | 5 | E/B polarization decoupling | Same axis IF asymmetric crystallization ($K/G \neq 2$) | Planck PR3 + BICEP/Keck + LiteBIRD (future) |
 | 6 | Orbital-plane alignment | Same axis | Solar system ecliptic + binary stars (Gaia DR3) + galactic disks (SDSS) + LIGO/Virgo binary inspiral planes |
-| 7 | $G$ anisotropy via tensor extension (conjectural) | $\Delta G/G \sim \alpha^N$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ for some $N \geq 2$ (most plausibly $N=2$ → 4.4×10⁻⁵) | CODATA $G$ dataset re-analysis along $(l=174°, b=-5°)$ |
+| 7 | $G$ anisotropy via tensor extension (conjectural) | $\Delta G/G \sim \alpha^N$ along $P_2(\cos\theta_{\hat{n} \cdot \hat{\Omega}_{\text{freeze}}})$ for some $N \geq 2$ (most plausibly $N=2$ → 4.4×10⁻⁵) | CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ axis at $(l=60.28°, b=50.48°)$ (Planck PR3 SMICA empirical pin 2026-05-19) |
 | 8 | CMB QNM matching (Hawking/ring-down) | CMB power-spectrum peaks at $\ell$-modes matching parent-BH quasinormal-mode spectrum | Planck PR3 + future-survey high-$\ell$ TT/EE; cross-check with derived BH QNM $\omega_R M_g = 18/49$ |
 
 ### §3.1 — Observable 6: orbital-plane alignment
@@ -75,13 +75,13 @@ Concrete observables:
 
 | Sub-test | Observable | Status |
 |---|---|---|
-| Solar system ecliptic normal vs cosmic axis | Single data point | The multi-axis prereg already notes the CMB axis-of-evil $(l=174°, b=-5°)$ is anomalously aligned with the ecliptic plane — standard cosmology has no explanation. **AVE prediction**: this is a leak of $\Omega_{\text{freeze}}$ into solar system formation. |
+| Solar system ecliptic normal vs cosmic axis | Single data point | The multi-axis prereg originally noted the literature-placeholder CMB axis-of-evil $(l=174°, b=-5°)$ was anomalously aligned with the ecliptic plane — standard cosmology has no explanation. With the 2026-05-19 Planck PR3 SMICA empirical pin at $(l=60.28°, b=50.48°)$ (per [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md)), the ecliptic-alignment qualitative claim survives at the same anomalous-direction-hemisphere level and requires quantitative re-analysis against the empirically-pinned axis. **AVE prediction**: this is a leak of $\Omega_{\text{freeze}}$ into solar system formation. |
 | Solar system prograde fraction | 8/8 planets prograde orbit; Venus + Uranus retrograde spin | Should track $\Omega_{\text{freeze}}$ direction |
 | Binary star orbital plane statistics | ~10⁵ resolved binaries | Gaia DR3 |
 | Galactic disk axes | Galactic spin axes | SDSS (~1-2σ preferred direction; contested) |
 | LIGO/Virgo binary inspiral orbital planes | ~100 events; rapidly growing | O5+ observing runs |
 
-**Methodology** (extends the 4-axis test): compute angular separation between each orbital-plane normal and the $\Omega_{\text{freeze}}$ axis $(l=174°, b=-5°)$; test against isotropic null at $> 3\sigma$ significance.
+**Methodology** (extends the 4-axis test): compute angular separation between each orbital-plane normal and the $\Omega_{\text{freeze}}$ axis $(l=60.28°, b=50.48°)$ (Planck PR3 SMICA empirical pin 2026-05-19); test against isotropic null at $> 3\sigma$ significance.
 
 **Falsifier for Observable 6**: if orbital-plane normals are uniformly isotropic (no preferred axis alignment), $\Omega_{\text{freeze}}$ doesn't project into orbital dynamics — would suggest cosmic-grain projection stops at galactic scale (not nested through solar-system + planetary).
 
@@ -109,7 +109,7 @@ Where:
 
 **The framework PREDICTS the angular shape ($P_2$) sharply; the amplitude is only bracketed pending the $\chi_1/K_0$ derivation.**
 
-**Falsifier**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ at $(l=174°, b=-5°)$:
+**Falsifier**: CODATA $G$ dataset re-analysis along $\hat{\Omega}_{\text{freeze}}$ at $(l=60.28°, b=50.48°)$ (Planck PR3 SMICA empirical pin 2026-05-19):
 
 - IF a $P_2(\cos\theta)$ profile with amplitude $\sim \alpha^N \cdot 4\pi/15$ for any $N \geq 2$ is detected: the framework's three-route commitment is **SUPPORTED** (chirality coupling exists).
 - IF NO $P_2$ signal at any $\alpha^N$ amplitude (down to JPL precision 10⁻¹¹): the three-route commitment is **FALSIFIED**.

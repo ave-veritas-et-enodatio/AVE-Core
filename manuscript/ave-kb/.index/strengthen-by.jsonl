@@ -35,8 +35,10 @@
 {"claim_id": "clm-4jy0t8", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-4mmwb6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-4vwsjc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-527k22", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-533gvm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5965y1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-5fu303", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5rigtn", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5s5b0d", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-5xon03", "item_idx": 0, "text": "Derive $\\delta_{strain}$ magnitude at $T_{CMB}$ from $G_{vac}$ + equipartition (currently back-subtracted from CODATA)", "mentioned_ids": []}
@@ -91,6 +93,7 @@
 {"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c8q0z5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cbwd77", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-ce8dg1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cltls0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 0, "text": "Derive the $\\kappa \\equiv \\alpha$ identification (geometric scattering threshold = packing-fraction-derived self-coupling) from first principles rather than asserting", "mentioned_ids": []}
 {"claim_id": "clm-crbl60", "item_idx": 1, "text": "Strengthen Golden Torus α Derivation (`clm-0ktpcn`); $\\rho_{bulk}$, $G_{vac}$, and $\\nu_{kin}$ all inherit α numerically through $p_c$ and $\\nu_{kin}$'s factor", "mentioned_ids": ["clm-0ktpcn"]}
@@ -109,6 +112,7 @@
 {"claim_id": "clm-efo113", "item_idx": 0, "text": "Derive whether $\\nabla\\varepsilon_{eff}\\cdot\\nabla V$ gradient corrections vanish by symmetry at saturation, OR carry the higher-order EFT correction and re-evaluate the particle-confinement and standing-wave claims at $V \\to V_{yield}$ with the corrected form", "mentioned_ids": []}
 {"claim_id": "clm-enjq28", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-exjfai", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-f0jwtk", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-f4osd7", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-f4urxy", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-f5ucdo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -127,6 +131,7 @@
 {"claim_id": "clm-gw2wgc", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gx1mpl", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-gz7ryg", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-h3acr9", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-h55fy1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-h8nmpu", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-h9aqmt", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -232,6 +237,7 @@
 {"claim_id": "clm-rppigm", "item_idx": 0, "text": "none entry-local — algebraic identity from framework inputs; cross-volume reuse is structural and correctly bounded", "mentioned_ids": []}
 {"claim_id": "clm-rtgmg5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-rw7jqo", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-s3i0lw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-salw2h", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-sd04x4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-sjixaw", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -283,6 +289,7 @@
 {"claim_id": "clm-yc7fgm", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ydksh6", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-yiyyi3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
+{"claim_id": "clm-yr6tu4", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-ys0xl1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-yyhczl", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-z73h6n", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}

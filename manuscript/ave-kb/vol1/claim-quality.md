@@ -409,7 +409,7 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
   - The MOND $a_0$ deficit (-10.7%) and the Pitfall #4 (no MOND drag at high $g$, $S(g_N/a_0) = 0$ when $g_N \gg a_0$) are documented in detail in the vol3 sidecar; flagged here because Vol 1 introduces the formula.
   - Vol 1 dark-sector framings ("Bullet Cluster as decoupled refractive shockwave"; "DAMA/LIBRA vs XENON as transverse-shear impedance mismatch") are **interpretive reinterpretations**, not quantitative predictions. They reframe established observations within the LC-substrate ontology but do not output new numerical values to test.
 
-> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](./dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md); [`dynamics/ch4-continuum-electrodynamics/dark-sector.md`](./dynamics/ch4-continuum-electrodynamics/dark-sector.md); [`dynamics/ch4-continuum-electrodynamics/bullet-cluster.md`](./dynamics/ch4-continuum-electrodynamics/bullet-cluster.md). Cross-cutting boundary detail in [vol3 Asymptotic Hubble Constant and MOND entries](../vol3/claim-quality.md).
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](./dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md); [`dynamics/ch4-continuum-electrodynamics/dark-sector.md`](./dynamics/ch4-continuum-electrodynamics/dark-sector.md). Cross-cutting boundary detail in [vol3 Asymptotic Hubble Constant and MOND entries](../vol3/claim-quality.md). (Note: bullet-cluster.md was previously cited here; that leaf was reframed 2026-05-17 to retire the TT-tensor-shockwave mechanism in favor of ponderomotive halos + Einstein lensing on the Gordon optical metric, and its claim now lives at `clm-527k22`.)
 
 ### Quality
 - confidence: 0.60
@@ -424,6 +424,34 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
   - Close the MOND $a_0$ -10.7% deficit by carrying higher-order corrections OR by re-deriving the hoop-stress geometry from AVE first principles
   - Strengthen Golden Torus α Derivation (`clm-0ktpcn`); the $\alpha^{-2}$ factor in $H_\infty$ amplifies α's solidity into the strongest dependence
   - Close the Hubble identity into a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes the Closure Status entry)
+
+---
+
+## Bullet Cluster as Ponderomotive Halo + Einstein Lensing on Gordon Optical Metric
+<!-- id: clm-527k22 -->
+
+The bullet-cluster lensing-baryon spatial offset is explained as **ponderomotive-class substrate-strain halos that co-move with stars + standard Einstein lensing through the Gordon optical metric**, with no exotic particles and no propagating shockwave. Stars source inhomogeneous $h_\perp$ halos via Axiom 2 TKI charge-to-strain coupling + Axiom 4 saturation kernel; the halos pass through each other ballistically during cluster collision (long-wavelength substrate modes superpose linearly); baryonic gas is collisionally stopped at the X-ray bow shock; lensing tracks the halos = star centers, not the gas. This replaces the prior TT-tensor-shockwave mechanism (retired 2026-05-17 audit; full prereg at `research/2026-05-17_C13b_bullet_cluster_prereg.md`).
+
+- _Specific Claims_
+  - Each cluster's mass generates an inhomogeneous substrate-strain halo via Axiom 2 (TKI charge-to-strain) + Axiom 4 (saturation kernel); the same mechanism as AVE-PONDER lab-scale ponderomotive tests scaled up by ~$10^{20}$ in mass and length.
+  - The halo co-moves with stars because stars source the strain; the halo is a substrate response to the mass distribution, locked to its generating mass.
+  - During cluster collision: baryonic gas is collisionally stopped (forming the visible X-ray bow shock); stars + their substrate-strain halos pass through each other ballistically; strains do not collide with strains because the substrate is linear at cluster wavelengths.
+  - Lensing tracks the substrate-strain halos via standard Einstein deflection through the Gordon optical metric ($n_\perp = 1 - h_\perp$); lensing peaks align with halos = star centers, not with gas.
+  - The lensing-baryon offset (~150 kpc projected, ~25 arcsec at z = 0.30) is the post-collision kinematic separation between gas (stuck at collision point) and stars + halos (moved apart with cluster centers); no propagation physics required.
+  - AVE-distinct quantitative prediction (vs WIMP DM): halo strength is determined entirely by baryonic content + geometry — halo-to-baryon ratio is a UNIVERSAL function, not a per-cluster fit parameter. WIMP picture allows substantial scatter; AVE picture requires tight correlation across merging-cluster systems. Ultra-diffuse galaxies supposedly lacking dark matter (NGC 1052-DF2 / DF4) or cD galaxies with high DM-to-baryon ratios, if real, would falsify the AVE universal-correlation prediction.
+- _Specific Non-Claims and Caveats_
+  - The qualitative bullet-cluster offset is reproduced by both AVE-ponderomotive-halo and WIMP DM pictures; this leaf's discrimination claim is the tight halo-to-baryon UNIVERSAL correlation (testable via weak-lensing convergence vs baryonic content across many merging-cluster systems), NOT the qualitative offset itself.
+  - The prior TT-tensor-shockwave framing (over-parameterized, contradicted $v_T = c$) is explicitly retired per Grant adjudication 2026-05-17 evening (commit d953ccf). The DAMA section is also reframed (transverse-phonon → refresh-rate interpretation per `research/2026-05-17_C14-DAMA_amplitude_prereg.md`).
+  - Standard Einstein lensing is taken as the mechanism for light deflection through $h_\perp$ gradients; this is shared with GR Shapiro/Einstein deflection and is not AVE-distinct in isolation. The AVE-distinct content is the substrate-strain halo SOURCE (Axiom 2 + Axiom 4 ponderomotive mechanism, not exotic-particle DM).
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/bullet-cluster.md`](./dynamics/ch4-continuum-electrodynamics/bullet-cluster.md) (mechanism + Plumber framing + AVE-distinct prediction + DAMA refresh-rate reframe + Cross-references).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration mint following bullet-cluster mechanism replacement; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
 
 ---
 
@@ -1159,21 +1187,22 @@ The bond-level Op3 reflection dissipates the $A_1$ sector to zero while the $T_2
 
 ---
 
-## Photon Identification — the $T_2$-Only Cosserat Microrotation
+## Photon Identification — the $T_2$-Only Cosserat Microrotation (Four Tightly-Coupled Properties)
 <!-- id: clm-3npynp -->
 
 The AVE-native photon is the K4-TLM's stable $T_2$-only bound state: under $T_d$ the 4-port space is $A_1 \oplus T_2$, the $A_1$ longitudinal sector dissipates via Gauss's law, and the surviving $T_2$ transverse triplet — a Cosserat microrotation with $u=0$, $\omega\neq0$ — is the photon.
 
 - _Specific Claims_
-  - The photon is the stable $T_2$-only configuration: purely transverse, microrotation sector only ($u=0$, $\omega\neq0$), and unsaturated ($\Delta\phi \ll \alpha$, linear $Z = Z_0$).
-  - The empirical port-correlation steady state ($\lambda_4 = 0$ exactly, $\lambda_{1\ldots3} = 1.65, 1.22, 1.13$) satisfies all three AVE-photon properties simultaneously: zero longitudinal amplitude, pure microrotation content, sub-yield amplitude.
+  - The photon is the stable $T_2$-only configuration with **four tightly-coupled properties** (equivalent statements; any one implies the others): (1) purely transverse, (2) microrotation sector only ($u=0$, $\omega\neq0$), (3) sub-saturation ($\Delta\phi \ll \alpha$, lattice stays linear, no Axiom 4 kernel engagement), (4) impedance-matched at $Z_0$ ($Z_{\text{local}} = Z_0 \approx 376.7$ Ω perfectly matched everywhere; $\Gamma = 0$ at every bond; the wave-engineer's restatement of property 3).
+  - The empirical port-correlation steady state ($\lambda_4 = 0$ exactly, $\lambda_{1\ldots3} = 1.65, 1.22, 1.13$) satisfies all AVE-photon properties simultaneously: zero longitudinal amplitude, pure microrotation content, sub-yield amplitude.
   - The identification is consistent with the Vol 3 Ch 2 and Vol 4 Ch 1 manuscript characterizations of the photon as a purely transverse Cosserat shear wave that does not geometrically saturate the lattice.
 - _Specific Non-Claims and Caveats_
   - The $A_1 \oplus T_2$ group-theoretic decomposition is NOT this entry's claim — it is owned by `clm-j550uh` (K4 4-Port Irrep Decomposition); this leaf cites it as a cross-reference and applies it to identify the photon.
   - Per the leaf's Doc 107 correction: doc 105's dual-sector helical-photon framing ($u\neq0$ AND $\omega\neq0$) is superseded as empirically wrong; the canonical photon is single-sector. The engine's observed "$u$ driven by $\omega$" coupling is a sub-saturation Op14 effect, not photon content.
+  - Property 4 (impedance match at $Z_0$) is an equivalent restatement of property 3 (sub-saturation), not an independent fifth property — added as the fourth canonical property to make the wave-engineer's framing explicit per the canonical cross-corpus §7 translation guide added 2026-05-17.
   - The identification rests on one seeded $(2,3)$ Golden-Torus ansatz run at amplitude $0.5$; it is the observed steady state of that engine run.
 
-> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §1 ($A_1 \oplus T_2$ decomposition, cross-referenced), §2 (empirical $A_1$ dissipation), §3 (photon definition — three tightly-coupled properties).
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/photon-identification.md`](./dynamics/ch4-continuum-electrodynamics/photon-identification.md) §1 ($A_1 \oplus T_2$ decomposition, cross-referenced), §2 (empirical $A_1$ dissipation), §3 (photon definition — four tightly-coupled properties), §7 (cross-corpus photon-framing translation guide, four canonical framings).
 
 ### Quality
 - confidence: *pending*
@@ -1494,5 +1523,66 @@ In lattice natural units the engineering yield threshold is $V_{\text{YIELD}} = 
 - confidence: *pending*
 - solidity: *pending*
 - rationale: *pending — L3-migration port; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cubic-Symmetry Suppression of Lorentz-Violating Signatures (Emergent Lorentz Invariance from K4)
+<!-- id: clm-yr6tu4 -->
+
+The K4 lattice $\mathcal{M}_A$ has a preferred rest frame (identified empirically with the CMB rest frame to high precision), yet strict Lorentz invariance at observable wavelengths is consistent with current cavity-comparison bounds. These two facts are not in tension: the diamond-cubic ($Fd\bar{3}m$) symmetry of the K4-bipartite tetrahedral lattice suppresses observable anisotropy at low momentum $q \ll \pi/\ell_{node}$ to $\delta_{aniso} \sim (q\ell_{node})^4$ — at optical wavelengths ($\lambda = 633$ nm), $\delta_{aniso} \approx 2.2 \times 10^{-22}$, two to three orders of magnitude below the tightest current cavity-comparison bound. **Strict Lorentz invariance at observable wavelengths is an EMERGENT consequence of K4 cubic symmetry, not an AVE axiom.** The framework derives Lorentz invariance at observable scales, predicts the precise momentum scale at which it must break down ($q \sim \pi/\ell_{node}$, i.e. Trans-Planckian wavelengths), and names the empirical signature (GRB dispersion at $\lambda \to \ell_{node}$). The leaf classifies every preferred-frame / Sagnac test in the AVE divergence matrix by probe scale (rotor-local Sagnac, bulk preferred-frame, scalar gradient, Trans-Planckian, Regime-IV planetary-mass-saturated drag) under this synthesis.
+
+- _Specific Claims_
+  - The K4 lattice has a preferred rest frame, identified empirically with the CMB rest frame per AVE-QED Q-G24; Earth moves at $\sim 370$ km/s through it, measurable as the CMB dipole anisotropy.
+  - The first anisotropic invariant for the cubic point group is QUARTIC: $q^0$ and $q^2$ corrections are isotropic; $q^4$ is the first order at which $q_x^4 + q_y^4 + q_z^4$ differs from $|q|^4$. Anisotropic corrections are therefore suppressed by $(q\ell_{node})^4$, not the naive $(q\ell_{node})^2$ a non-cubic lattice would give.
+  - At optical scale ($\lambda = 633$ nm, $q\ell_{node} \approx 3.86 \times 10^{-6}$), $\delta_{aniso} \sim 2.2 \times 10^{-22}$ — 2-3 OOM below current cavity bounds ($\sim 10^{-19}$ to $10^{-20}$ per SME operator, Nagel 2015 + Sanner 2019). Consistency with existing null Lorentz-violation results is BY DERIVATION.
+  - At microwave scale (30 GHz), $\delta_{aniso} \sim 2.5 \times 10^{-34}$.
+  - At Trans-Planckian probe wavelengths ($q \sim \pi/\ell_{node}$), the cubic symmetry no longer averages; preferred-frame effects ARE observable. GRB dispersion at $\lambda \to \ell_{node}$ is the surviving forward-prediction.
+  - The synthesis classifies the divergence-test matrix by probe scale: A2 (rotor-local, NOT a preferred-frame probe) — predictions unchanged; C17 (bulk preferred-frame, optical wavelength) — retired to corroborative-null; C18 (scalar gradient, AVE-$n(r)$ = GR-$n(r)$) — retired to corroborative-null; C7 GRB dispersion — surviving Trans-Planckian probe; Earth-flyby — distinct fifth category (Regime-IV planetary-mass-saturated LC drag).
+- _Specific Non-Claims and Caveats_
+  - "Identification of K4 lattice rest frame with the CMB rest frame" is **empirical**, not derived. Vacuum crystallization at recombination defines the CMB as the universe's rest frame; the K4 lattice was cast at that boundary. This is NOT a Maxwell-Lorentz ether (which was undetectable in principle); AVE's preferred frame IS detectable — the CMB dipole is the detection.
+  - The $(q\ell_{node})^4$ suppression is at LOW MOMENTUM only ($q \ll \pi/\ell_{node}$). It does NOT apply at lattice resolution; it does NOT apply to scalar-gradient probes ($q^0$ order survives cubic symmetry); it does NOT apply to local rotor-induced perturbations of a moving substrate.
+  - The plumber-physical "diamond crystal not visibly birefringent at optical wavelength" analogy is a pedagogical translation, not an independent derivation. The substrate analogy carries the same mechanism but does not constitute additional evidence.
+  - The numerical bounds compared (Nagel 2015 *Nat Commun* 6:8174; Sanner 2019 *Nature* 567:204) are cited as the tightest current cavity-comparison bounds; tighter future cavity tests could narrow but not close the AVE-prediction gap (the gap is 2-3 OOM).
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md`](./dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) §1 (preferred frame = CMB rest frame), §2 (cubic-symmetry suppression derivation), §3 (emergent Lorentz at observable scales), §4 (classification of preferred-frame / Sagnac tests by probe scale), §6 (implications for divergence-test matrix).
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Substrate-Equilibrium Velocity Prediction $v_{\text{substrate}} = \alpha c / (2\pi)$
+<!-- id: clm-ce8dg1 -->
+
+For LSR-class local-region kinematics (Sun + nearby thin-disk stars) through the K4 rest frame, AVE predicts a zero-parameter substrate-equilibrium velocity $v_{\text{substrate}} = \alpha c / (2\pi) \approx 348.18$ km/s. Derived from the Schwinger anomalous-moment substrate-rate $\nu_{slew} = a_e \cdot \nu_{Compton}$ with $a_e = \alpha/(2\pi)$, then $v_{\text{substrate}} = \nu_{slew} \cdot \ell_{node}$. Structurally identical to the canonical MOND Hoop-Stress-2π projection ($a_0 = c H_\infty / (2\pi)$). Empirical anchor: Gaia DR3 thin-disk subset (N=11,690 stars, $|v_{LSR}|<30$) clusters at 375.2 km/s with σ=11.2 km/s; AVE prediction sits at 4.08%ile (lower envelope). The directional alignment of this LSR-class bulk velocity with the CMB-dipole direction (~2.75° offset) is the cleanest AVE-distinct signature and remains a positive across three walk-back iterations; the magnitude prediction is approximate (9% gap reflects LSR participation in CMB-dipole-aligned cosmic flow). Scope narrows to LSR-class ONLY per Globular Cluster test 2026-05-17 night Outcome III: GC population (N=165) median $|v_{CMB}|$ = 563.88 km/s does NOT cluster near $\alpha c/(2\pi)$, falsifying any universal "decoupled-population" floor interpretation.
+
+- _Specific Claims_
+  - Zero-parameter derivation: $v_{\text{substrate}} = \alpha c / (2\pi) \approx 348.18$ km/s from $\nu_{slew} = a_e \cdot \nu_{Compton}$ with $a_e = \alpha/(2\pi)$ Schwinger anomalous moment and $\ell_{node} = \hbar/(m_e c)$ Compton wavelength.
+  - Scope is LSR-class local-region kinematics ONLY (Sun + nearby thin-disk stars); does NOT extend to GC-class or halo populations per the 2026-05-17 night GC test Outcome III walk-back.
+  - Hoop Stress 2π projection unifies the substrate-scale prediction with cosmic-scale MOND $a_0 = c H_\infty / (2\pi)$; both follow the same substrate-bulk-drift-projected-through-2π-Hoop-Stress pattern.
+  - The 2π in the substrate-scale prediction is RIGOROUSLY EXACT at substrate scale: the electron $0_1$ unknot's ideal ropelength is exactly $2\pi \times \ell_{node}$ per Cantarella-Kusner-Sullivan 2002 knot-theory topological invariant, and Hoop Stress integration around this loop gives exact $T = F_r/(2\pi)$.
+  - Empirical match (Gaia DR3 magnitude statistics): 29,466 nearby thin-disk G/K dwarfs cluster at 379.5 km/s median (σ=25.7); thin-disk subset ($|v_{LSR}|<30$, N=11,690) clusters tightly at 375.2 km/s with σ=11.2 km/s — narrower than expected from random galactic kinematics (~σ=47).
+  - Directional structure: Gaia DR3 cluster mean direction agrees with CMB-dipole to 2.75° (consistency check per `ave-discrimination-check`, not independent AVE evidence — both AVE-with-K4=CMB and SM-with-CMB-rest-as-baseline predict alignment); 133.71° anti-aligned with galactic rotation (rules out galactic-dynamics interpretation); cluster tightness σ=11 km/s and anti-alignment-with-galactic-rotation ARE substantive AVE-distinct signatures.
+- _Specific Non-Claims and Caveats_
+  - The magnitude prediction is APPROXIMATE at stellar scale: 9% gap between AVE prediction (348 km/s) and Gaia thin-disk cluster center (375 km/s). The gap reflects LSR participation in CMB-dipole-aligned cosmic flow (Local Group → Great Attractor), NOT local-disk-specific systematics, NOT a universal "decoupled-population" floor.
+  - The FLOOR interpretation (αc/(2π) as the population FLOOR with additional dynamics driving cluster center above) was FALSIFIED 2026-05-17 late evening via the Toomre-stratified halo test: halo populations have INCREASING $|v_{CMB}|$ with peculiar dispersion, OPPOSITE of what a floor interpretation predicts.
+  - Scope-narrowing to LSR-class only is canonical per Globular Cluster test Outcome III (2026-05-17 night, N=165, Baumgardt+Vasiliev 2021): GC median $|v_{CMB}|$ = 563.88 km/s matches √(543² + 150²) cosmic-flow + GC-orbital-velocity quadrature to <1%, far from $\alpha c/(2\pi)$ and very close to Local Group cosmic-flow scale.
+  - The directional 2.75° CMB-dipole alignment was DEMOTED from STRONG POSITIVE to CONSISTENCY CHECK per `ave-discrimination-check` audit: alignment + anti-alignment-with-galactic-rotation are NOT independent AVE evidence — both follow from K4=CMB identification (Q-G24) + basic astronomy of LSR motion through CMB + basic geometry (CMB-dipole + galactic-rotation directions are ~131° apart). Substantive AVE-distinct content remains: (i) magnitude approximate match; (ii) cluster tightness σ=11 km/s.
+  - The cosmic-scale 2π rigor remains OPEN: an earlier version of the leaf asserted "cosmic-scale 2π similarly exact via de Sitter horizon 3-sphere great-circle integration"; external reviewer correctly caught this elides a category distinction (unknot Ropelength is a knot-theory topological invariant; great-circle = 2π is basic Euclidean geometry). Per `ave-independence-check` retroactive: only 2 INDEPENDENT instances of the motif (cosmic + substrate); $v_{\text{substrate}}$ is derived from $\nu_{slew} \times \ell_{node}$; $E_{slew}$ has 2π cancel via $h = 2\pi\hbar$ identity.
+  - The (1 + 1/(4π)) geometric correction (matches cluster center to 0.5 km/s) was DOWNGRADED to "would-require-new-canonical-derivation" pending Q-G47 Path B+ K4-discrete + Cosserat-continuum decomposition work that found NO continuum correction for the soft-shear E-irrep eigenvalue.
+  - The framing iterated through THREE walk-backs (Sun-22-km/s peculiar → LSR-bulk-population, FLOOR interpretation considered → FLOOR FALSIFIED, scope GC-test → scope narrows to LSR-class only). The current LSR-class-bulk-motion framing is the post-3-walk-back current canonical reading.
+
+> **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md`](./dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) §5 (substrate-equilibrium velocity prediction + Hoop-Stress 2π parallel with MOND + 3-walk-back iteration + Gaia DR3 empirical anchor + GC test scope-narrowing + directional consistency-check); cross-references to MOND Hoop-Stress canonical leaf [`mond-hoop-stress.md`](./dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) and to omega-freeze cosmic-grain-cascade.
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — L3-migration round-2 port; newly minted; quality scored at the rescore pass*
 - strengthen-by:
   - *pending*

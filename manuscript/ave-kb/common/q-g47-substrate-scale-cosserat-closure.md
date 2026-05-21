@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-iouqn9, clm-qwmnhn, clm-bjceop, clm-gr8d63]
+claims: [clm-iouqn9, clm-qwmnhn, clm-bjceop]
 path-stable: "referenced from vol1 ch2 macroscopic-moduli + ch1 axioms as canonical Q-G47 substrate-scale closure reference"
 -->
 
@@ -55,6 +55,8 @@ $$
 
 with $T_{EM}$ the lattice's electromagnetic string tension and $\ell_{\text{node}}$ the lattice pitch. **Self-consistency forces** $\xi_{K2}/\xi_{K1} = 12$, which is independent of $T_{EM}$ — the ratio is purely K4-symmetry-forced (route 4 above).
 
+**Individual values closed (Sessions 19, 2026-05-18):** $\xi_{K1} = 8/3$ and $\xi_{K2} = 32$, both clean rationals. Derivation chain: Session 13 discrete formulas $K_0 = 4 k_a + 8 k_s$ and $G_0 = 8 k_s$ at K=2G operating point ($k_a = 2/7$, $k_s = 1/7$) give $K_0 = 16/7$, $G_0 = 8/7$. Lamé identity $\kappa_{\text{Cosserat}} = K - (2/3)\mu$ yields $(\mu + \kappa) = K_0 + (1/3) G_0 = 8/3$, hence $\xi_{K1} = 8/3$. The canonical ratio $\xi_{K2}/\xi_{K1} = 12$ then forces $\xi_{K2} = 32 = 2^5$. Cross-check via AVE convention $\ell_c^2 = (\beta+\gamma)/(2(\mu+\kappa)) = \xi_{K2}/(2 \xi_{K1}) \cdot \ell_{\text{node}}^2$ yields $\ell_c^2 / \ell_{\text{node}}^2 = 32/(2 \cdot 8/3) = 6$, recovering canonical $\ell_c / \ell_{\text{node}} = \sqrt{6}$. Derivation script: [`src/scripts/verify/q_g47_sessions_19_xi_K_derivation.py`](../../../src/scripts/verify/q_g47_sessions_19_xi_K_derivation.py). Full audit + first-pass error analysis: [`research/2026-05-18_q-g47-sessions-19-prefactor-derivation-result-v2.md`](../../../research/2026-05-18_q-g47-sessions-19-prefactor-derivation-result-v2.md).
+
 **Namespace caveat:** the substrate-scale prefactors $\xi_{K1}, \xi_{K2}$ are distinct from:
 - Vol 3 Ch 1's **Machian** $\xi \sim 10^{38}$ (cosmic-scale impedance integral, $G = c^4 / (7\xi T_{EM})$)
 - Axiom 2's $\xi_{\text{topo}} = e / \ell_{\text{node}} \approx 4.149 \times 10^{-7}$ C/m (charge-displacement conversion)
@@ -93,8 +95,7 @@ The empirical validation of A-034 at four other scales (BCS $B_c(T) = B_{c0}\sqr
 - Axiom-level $\xi_{K2}/\xi_{K1} = 12$ self-consistency
 - A-034 substrate-scale instance reframing
 
-<!-- claim-quality: clm-gr8d63 -->
-**Two-engine convergence on $p^* = 8\pi\alpha$ (canonical 2026-05-16):** the substrate's $K = 2G$ operating point is verified at both engines of the A-027 two-engine architecture via independent physical routes — see [Two-Engine Architecture (A-027) §Two-engine convergence example](two-engine-architecture-a027.md) for the canonical statement of this convergence.
+**Two-engine convergence on $p^* = 8\pi\alpha$ (canonical 2026-05-16):** the substrate's $K = 2G$ operating point is verified at both engines of the A-027 two-engine architecture via independent physical routes — see [Two-Engine Architecture (A-027)](two-engine-architecture-a027.md) for the canonical statement of this convergence (rehomed 2026-05-20: clm-gr8d63 now lives at two-engine-architecture-a027.md).
 
 **Two K4 scales (clarifying distinction):**
 
@@ -105,9 +106,9 @@ The Q-G47 substrate-scale closure operates at two different K4 scales, which sho
 
 The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geometric scaffolding for the amorphous $z_0 = 51.25$ coordination, which then supports the canonical $p^* = 8\pi\alpha$ operating point. The two scales are physically connected but numerically distinct (different operating-point quantities, different units).
 
-**Still open** (multi-week analytical work):
-- Compute $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration (currently only the ratio $\xi_{K2}/\xi_{K1} = 12$ is fixed, not the individual prefactors)
-- First-principles derivation of $z_0 = 51.25$ from K4 lattice geometry (currently derived by inverting the EMT quadratic given $\alpha$; doesn't independently fix $\alpha$)
+**Still open**:
+- ~~Compute $\xi_{K1}, \xi_{K2}$ individually from K4 unit-cell Cosserat-Lagrangian integration~~ **CLOSED 2026-05-18**: $\xi_{K1} = 8/3$, $\xi_{K2} = 32$ (per analysis branch `analysis/q-g47-sessions-19-prefactor-derivation`)
+- First-principles derivation of $z_0 = 51.25$ from K4 lattice geometry (currently derived by inverting the EMT quadratic given $\alpha$; doesn't independently fix $\alpha$; first-pass crystalline-counting approach failed; needs amorphous EMT route per Path C doc 129)
 - K4-TLM ↔ Master Equation FDTD engine-boundary mode-matching at the EMT operating point
 
 ## Cross-references

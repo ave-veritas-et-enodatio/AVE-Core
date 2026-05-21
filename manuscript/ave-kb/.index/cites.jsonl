@@ -63,8 +63,10 @@
 {"claim_id": "clm-4vwsjc", "leaf_path": "vol2/nuclear-field/ch10-open-problems/g-star-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-4vwsjc", "leaf_path": "vol2/nuclear-field/ch10-open-problems/g-star-prediction.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-4vwsjc", "leaf_path": "vol2/nuclear-field/ch10-open-problems/quantitative-resolutions.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-527k22", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-533gvm", "leaf_path": "common/dark-wake-bemf-foc-synthesis.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-5965y1", "leaf_path": "vol6/framework/computational-mass-defect/abcd-transfer-matrix.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-5fu303", "leaf_path": "common/universal-saturation-kernel-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-5rigtn", "leaf_path": "vol4/advanced-applications/ch9-antimatter/annihilation-mechanism.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-5s5b0d", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-5s5b0d", "leaf_path": "vol4/falsification/ch11-experimental-bench/advanced-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -152,6 +154,7 @@
 {"claim_id": "clm-c8q0z5", "leaf_path": "vol2/nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cbwd77", "leaf_path": "vol4/simulation/ch16-sagnac-inductive-drag/spice-netlist.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cbwd77", "leaf_path": "vol4/simulation/ch16-sagnac-inductive-drag/theory.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-ce8dg1", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-zener-04.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-cltls0", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-crbl60", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -191,6 +194,7 @@
 {"claim_id": "clm-efo113", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-enjq28", "leaf_path": "vol5/common/translation-protein-solver.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-exjfai", "leaf_path": "common/dark-wake-bemf-foc-synthesis.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-f0jwtk", "leaf_path": "common/temporal-saturation-regime-classifier.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-f4osd7", "leaf_path": "vol5/molecular-foundations/organic-circuitry/thermal-thz-noise.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-f4urxy", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/thermal-lattice-noise.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-f5ucdo", "leaf_path": "vol6/period-1/helium/structure-isotope-stability.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -249,13 +253,13 @@
 {"claim_id": "clm-gfs4j8", "leaf_path": "vol2/nuclear-field/ch10-open-problems/quantitative-resolutions.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gfs4j8", "leaf_path": "vol2/nuclear-field/ch10-open-problems/strong-cp.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ghs75o", "leaf_path": "vol2/appendices/app-b-paradoxes/peierls-nabarro-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-gr8d63", "leaf_path": "common/q-g47-substrate-scale-cosserat-closure.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gr8d63", "leaf_path": "common/two-engine-architecture-a027.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch11-experimental-bench/epistemology-kill-switches.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-gw2wgc", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-gx1mpl", "leaf_path": "vol1/axioms-and-lattice/ch2-macroscopic-moduli/secondary-scale-shared-b-node.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-gz7ryg", "leaf_path": "common/universal-saturation-kernel-catalog.md", "leaf_kind": "leaf", "tier2_marked": true}
+{"claim_id": "clm-h3acr9", "leaf_path": "common/ave-analytical-toolkit-index.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-h55fy1", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-h55fy1", "leaf_path": "vol4/falsification/ch11-experimental-bench/advanced-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-h8nmpu", "leaf_path": "vol6/period-1/helium/vacuum-density-flux.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -345,7 +349,6 @@
 {"claim_id": "clm-lv3uw1", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/zero-impedance-boundary.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-lv3uw1", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/master-equation.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-lv3uw1", "leaf_path": "vol1/operators-and-regimes/ch7-regime-map/regime-equation-sets.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/bullet-cluster.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/dark-sector.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m3z5ux", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-m7qd0w", "leaf_path": "common/solver-toolchain.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -521,6 +524,7 @@
 {"claim_id": "clm-rw7jqo", "leaf_path": "vol6/period-3/magnesium/semiconductor-regime.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-rw7jqo", "leaf_path": "vol6/period-3/silicon/semiconductor-regime.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-rw7jqo", "leaf_path": "vol6/period-3/sodium/semiconductor-regime.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-s3i0lw", "leaf_path": "common/divergence-test-substrate-map.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/appendices/app-b-paradoxes/spin-half-paradox.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-salw2h", "leaf_path": "vol2/particle-physics/ch04-quantum-spin/larmor-derivation.md", "leaf_kind": "leaf", "tier2_marked": false}
@@ -552,7 +556,7 @@
 {"claim_id": "clm-t05mvx", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/entropy-redefinition.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-t05mvx", "leaf_path": "vol3/condensed-matter/ch11-thermodynamics/macroscopic-temperature-lc-noise.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-t1okz0", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/quantum-foam-virtual.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-t5ybqw", "leaf_path": "common/appendix-experiments.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-t5ybqw", "leaf_path": "common/appendix-experiments.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-to41c7", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-to41c7", "leaf_path": "vol4/falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-trgqtf", "leaf_path": "vol4/circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md", "leaf_kind": "leaf", "tier2_marked": true}
@@ -656,6 +660,7 @@
 {"claim_id": "clm-ydksh6", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-cleave-01.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-ydksh6", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-yiyyi3", "leaf_path": "vol1/dynamics/ch3-quantum-signal-dynamics/dielectric-lagrangian.md", "leaf_kind": "leaf", "tier2_marked": false}
+{"claim_id": "clm-yr6tu4", "leaf_path": "vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-ys0xl1", "leaf_path": "vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-yyhczl", "leaf_path": "vol5/molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-z73h6n", "leaf_path": "vol2/proofs-computation/ch09-computational-proof/computational-graph.md", "leaf_kind": "leaf", "tier2_marked": false}

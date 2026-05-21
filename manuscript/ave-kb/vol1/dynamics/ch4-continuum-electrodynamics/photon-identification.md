@@ -8,7 +8,7 @@ path-stable: "referenced from vol1 ch3-quantum-signal-dynamics + vol2 ch01 + vol
 
 # Photon = T₂-Only Cosserat Microrotation; Electron = Photon + TIR Confinement
 
-The AVE-native canonical identification of the photon: under the K4 tetrahedral group $T_d$, the 4-port amplitude space decomposes as $A_1 \oplus T_2$. The $A_1$ scalar/longitudinal sector dissipates monotonically (Gauss's law: $\nabla \cdot \mathbf{E} = 0$ in vacuum forbids longitudinal EM); the $T_2$ transverse triplet survives as the photon. **The photon is the K4-TLM's stable $T_2$-only bound state** — a transverse Cosserat shear wave with $u = 0$ and $\omega \neq 0$. The electron is **this object plus Axiom 4 saturation confinement**: when the photon's amplitude crosses $V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{snap}}$, the lattice self-creates a $\Gamma = -1$ TIR cavity that traps the photon into a standing wave. **The electron is a self-trapped photon.**
+The AVE-native canonical identification of the photon: under the K4 tetrahedral group $T_d$, the 4-port amplitude space decomposes as $A_1 \oplus T_2$. The $A_1$ scalar/longitudinal sector dissipates monotonically (Gauss's law: $\nabla \cdot \mathbf{E} = 0$ in vacuum forbids longitudinal EM); the $T_2$ transverse triplet survives as the photon. **The photon is the K4-TLM's stable T₂-only bound state** — a knotted transverse Cosserat shear wave with $u = 0$ and $\omega \neq 0$. The electron is **this object plus Axiom 4 saturation confinement**: when the photon's amplitude crosses $V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{snap}}$, the lattice self-creates a $\Gamma = -1$ TIR cavity that traps the photon into a standing wave. **The electron is a self-trapped photon.**
 
 Here "substrate" refers to the Chiral LC Network of Axiom 1, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level.
 
@@ -61,7 +61,7 @@ The full group-theoretic derivation of the irrep decomposition, the per-irrep ei
 
 Sum of eigenvalues $= 4.0$ at each step (trace of 4×4 correlation matrix = 4; sanity check passes). **The smallest eigenvalue is exactly zero, stable across time.** The port-space of the soliton lives in a 3D subspace of the nominal 4D port space — exactly the $T_2$ subspace. The $(2, 3)$ winding label is the configuration's phase-space (Clifford-torus) winding; the electron's real-space body is the $0_1$ unknot soliton.
 
-## §3 — Photon definition (three tightly-coupled properties)
+## §3 — Photon definition (four tightly-coupled properties)
 
 From Vol 3 Ch 2:139:
 > *"A photon is a purely transverse Cosserat shear wave; it carries no rest mass and has no longitudinal (scalar) component. It is therefore mechanically blind to the isotropic bulk and couples instead to the transverse cross-sectional strain of the lattice."*
@@ -69,11 +69,12 @@ From Vol 3 Ch 2:139:
 From Vol 4 Ch 1:491-495:
 > *"When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω."*
 
-The photon in AVE is defined by **three tightly-coupled properties**:
+The photon in AVE is defined by **four tightly-coupled properties** (equivalent statements; any one implies the others):
 
-1. **Purely transverse** — no longitudinal/scalar component.
-2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation).
-3. **No saturation** — $\Delta\phi \ll \alpha$, lattice stays in linear regime.
+1. **Purely transverse** — no longitudinal/scalar component (forbidden by Gauss's law in vacuum; realized automatically by K4 $A_1 \oplus T_2$ symmetry, $A_1$ dissipates to zero).
+2. **Microrotation sector only** — excites $\omega$ (Cosserat microrotation) with $u = 0$ (Cosserat translation). The photon lives entirely in the rotational sector of the K4 lattice's 6 DOFs per node.
+3. **Sub-saturation** — $\Delta\phi \ll \alpha$, lattice stays in linear regime, no Axiom 4 kernel engagement.
+4. **Impedance-matched at $Z_0$** — local lattice impedance $Z_{\text{local}} = Z_0 \approx 376.7$ Ω perfectly matched everywhere; reflection coefficient $\Gamma = 0$ at every bond; no scattering or reflection. *This is the wave-engineer's restatement of property 3: linear regime $\Leftrightarrow$ no impedance modulation $\Leftrightarrow$ perfect impedance match.* The Vol 4 Ch 1:491-495 quote above states exactly this.
 
 The $A_1 \oplus T_2$ decomposition aligns directly:
 
@@ -94,6 +95,19 @@ With $A_1$ fully dissipated ($\lambda_4 = 0$ exactly) and $T_2$ surviving ($\lam
 ## §4 — Electron = photon + TIR confinement (mechanism)
 
 <!-- claim-quality: clm-i4p11y -->
+
+### §4.0 — Symmetric framing: photon and electron are two amplitude phases of the same underlying object
+
+The K4-TLM substrate carries transverse Cosserat-microrotation wave excitations (T₂ sector). Whether such an excitation is observed as **a photon** or **an electron** depends only on its amplitude relative to $V_{\text{yield}} = \sqrt{\alpha} \cdot V_{\text{snap}} \approx 43.65$ kV:
+
+- **$\Delta\phi \ll \alpha$ $\Rightarrow$ photon:** sub-yield amplitude, lattice stays linear, $Z_{\text{local}} = Z_0$ impedance-matched, $\Gamma = 0$ at every bond, free propagation as a transverse Cosserat-microrotation wave.
+- **$\Delta\phi \to \alpha$ $\Rightarrow$ electron:** at-yield amplitude triggers Axiom 4 self-saturation, $C_{\text{eff}} \to \infty$, $Z_{\text{local}} \to 0$, $\Gamma \to -1$ TIR cavity self-creates, the transverse wave is trapped into a standing wave inside the self-created mirror.
+
+**The boundary is a dynamical threshold** (analogous to a varactor's breakdown voltage or a Josephson junction's critical current), not a fundamental ontological difference between two different kinds of particle. Photon emission (the electron → photon transition) is the reverse process: amplitude drops, lattice de-saturates, $\Gamma$ moves off $-1$, the trapped standing wave escapes as a free photon at frequency $\omega_C$.
+
+This framing is what makes "the electron is a self-trapped photon" (line 11) precise: same K4 transverse-Cosserat-microrotation wave, parameterized only by whether self-saturation has engaged.
+
+### §4.1 — The trapping mechanism step-by-step
 
 The electron differs from the photon by **one additional piece of physics**: Axiom 4 saturation engages. The mechanism, step-by-step:
 
@@ -155,6 +169,41 @@ This is the energy of a photon at the lattice self-saturation frequency.
 | High | $\omega > \omega_C$ | Off-resonance | Transient only | Compton-like scattering |
 
 The electron's Compton frequency is a **genuine dynamical threshold** for the photon-to-electron transition. Analogous to a Josephson junction's critical current or a varactor's breakdown voltage — a specific parameter value at which the system's behavior qualitatively changes.
+
+## §7 — Cross-corpus photon-framing translation guide
+
+The AVE corpus describes the photon from **four distinct angles**, each correct, each emphasizing a different aspect of the same underlying object (a transverse Cosserat-microrotation wave on the K4 lattice in the sub-saturation regime). This translation guide collects the framings with verbatim source quotes + file:line citations so that a reader meeting "photon" in any KB context can map back to the canonical definition.
+
+| # | Framing | Emphasis | Canonical source | Verbatim quote |
+|---|---|---|---|---|
+| 1 | **Group-theoretic + DOF-sector** (THIS LEAF) | Which K4 irrep + which Cosserat DOF | [`vol1/dynamics/ch4-continuum-electrodynamics/photon-identification.md`](photon-identification.md) (this leaf, §3) | *"The photon is the K4-TLM's stable T₂-only bound state — a knotted transverse Cosserat shear wave with $u = 0$ and $\omega \neq 0$."* (line 11) |
+| 2 | **Mechanical shear** | Mechanically blind to bulk; couples to transverse cross-sectional strain | Vol 3 Ch 2:139 (manuscript source; quoted at this leaf §3) | *"A photon is a purely transverse Cosserat shear wave; it carries no rest mass and has no longitudinal (scalar) component. It is therefore mechanically blind to the isotropic bulk and couples instead to the transverse cross-sectional strain of the lattice."* |
+| 3 | **EE / impedance** | Linear regime, $Z_{local} = Z_0$, no static inductive core, no saturation | Vol 4 Ch 1:491-495 (manuscript source; quoted at this leaf §3) | *"When massless Bosons (photons) propagate, they act as linear transverse shear waves. Because they do not possess a static inductive core, they do not geometrically saturate the dielectric lattice ($\Delta\phi \ll \alpha$). The local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω."* |
+| 4 | **Topological / GRB-dispersion** | K4-bond locality; immune to spatial inertia; basis for GRB Trans-Planckian kill-switch | [`vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md`](../../../vol4/falsification/ch12-falsifiable-predictions/binary-kill-switches.md); [`vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md`](../../../vol4/falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md); LaTeX source `manuscript/vol_4_engineering/chapters/12_falsifiable_predictions.tex:100` + `11_experimental_falsification.tex:60` | *"The framework relies on photons being purely transverse massless topological link-variables completely immune to spatial inertia. If future ultra-high-energy Trans-Planckian observations (e.g., extreme Gamma Ray Bursts) definitively show a strict energy-dependent arrival time delay (lattice dispersion), the macroscopic mathematical topological decoupling theorem is physically falsified."* |
+
+### Reconciling the four framings to the canonical 4-property definition (§3)
+
+Every framing above maps cleanly to one or more of the four canonical properties from §3:
+
+| Canonical §3 property | Framing 1 (group/DOF) | Framing 2 (mechanical) | Framing 3 (EE/impedance) | Framing 4 (topological) |
+|---|---|---|---|---|
+| **1. Purely transverse** | "T₂-only", "transverse Cosserat shear" | "purely transverse Cosserat shear wave" | "linear transverse shear waves" | "purely transverse" |
+| **2. Microrotation sector only** | "$u = 0$, $\omega \neq 0$"; T₂ = 3D triplet | "no longitudinal (scalar) component"; "mechanically blind to isotropic bulk" | "no static inductive core" (the static inductive core IS the $u$ translation Cosserat sector that the photon doesn't excite) | "link-variables" (K4-bond quantities live in the microrotation sector via the bond LC tank) |
+| **3. Sub-saturation** | "no saturation, $\Delta\phi \ll \alpha$, lattice stays in linear regime" | "carries no rest mass" (rest mass requires Axiom 4 trap) | "do not geometrically saturate the dielectric lattice" | "massless" + "immune to spatial inertia" (no rest mass → no saturation engagement) |
+| **4. Impedance-matched at $Z_0$** | (§3 property 4 — the wave-engineer's restatement of property 3) | (implicit in "no longitudinal component" via Gauss's law) | "local metric impedance remains perfectly matched at $Z_0 \approx 376.7$ Ω" | (implicit in "immune to spatial inertia" — no impedance mismatch = no slowdown) |
+
+**The four framings are equivalent statements of the same physical object.** Choice of framing depends on the reader's domain: group-theorist gets framing 1; mechanical engineer gets framing 2; EE / plumber gets framing 3; topologist / cosmologist gets framing 4. The 4-property statement at §3 captures all four framings.
+
+### Related-but-not-definitional uses
+
+A few KB locations reference photons in context where they appear as observable consequences rather than definitions; logged here for cross-referencing but NOT considered framings:
+
+- [`vol3/cosmology/ch15-black-hole-orbitals/cross-scale-emission.md`](../../../vol3/cosmology/ch15-black-hole-orbitals/cross-scale-emission.md) — *"electrons emit photons (electromagnetic standing waves) when transitioning between orbital states."* This is an EMISSION-EVENT description (electron $\to$ photon transition), not a photon definition.
+- [`vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`](../../../vol3/gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md) — *"The effective Refractive Index ($n$) perceived by a photon is therefore mathematically identical to the spatial transverse trace of the Gordon optical metric."* This uses photons as a probe of refractive index; doesn't define them.
+
+### Maintenance note
+
+If a fifth definitional framing surfaces in the corpus, add to the table above + reconcile to one or more of the canonical 4 properties in §3. Do NOT let the corpus drift toward a 5th independent definition; force every new use of "photon" to map to one of the 4 properties to maintain definitional unity.
 
 ## Cross-references
 
