@@ -102,7 +102,44 @@ These principles emerged from the `n_spatial` reconciliation (the `clm-rd9cjm` c
 
 Resolved now: the `n_spatial` form was corrected to the canonical "1+" (`n_s = 1 + (9/7)ε₁₁`, `n_t = 1 + (2/7)ε₁₁`, `Δn = ε₁₁`) across all 9 source files; `verify-kb-metadata` PASS. Two structural items remain for the sweep:
 - **(i) vs (ii) ownership:** today `clm-rd9cjm` is owned in vol3 (gravity); vol2 ch7 asserts the decomposition in prose (in support of its interferometry prediction `clm-qde5gn`) and forward-cites vol3 — an upward prose reference. **(i)** keep vol3 ownership, treat vol2 ch7's use as Axiom-3-direct (no upward claim edge); **(ii)** relocate ownership to the earliest assertion (vol2) per the architecture above, recast vol3's trace-reversal derivation as a backward `strengthens` edge. (ii) is principled but relocates a claim cited by ~25 vol3 leaves. Decide with the sweep.
-- **`clm-6kqvyp` (C11-MACH-ZEHNDER) is a physical experiment mis-modeled as a `clm-`** (no exp-id category existed). Reclassify to `exp-…` targeting `clm-rd9cjm`; it should *reference* the decomposition, not re-assert it. **Do NOT wire a claim→claim `depends-on` edge in the interim** — it would be undone by the exp-id remap.
+- **`clm-6kqvyp` (C11-MACH-ZEHNDER) is a physical experiment mis-modeled as a `clm-`** (no exp-id category existed). Reclassify to `exp-…` targeting `clm-rd9cjm`; it should *reference* the decomposition, not re-assert it. **Do NOT wire a claim→claim `depends-on` edge in the interim** — it would be undone by the exp-id remap. **DONE 2026-05-22 → `exp-7jekc6`.**
+
+### exp- population pass — classification locked 2026-05-22 (ACTIVE pass)
+
+**The `exp-` gate (Grant, 2026-05-22):** an `exp-id` is assigned ONLY to an experiment **we design, originate, and control** — physical apparatus/project, even if unbuilt/facility-class and `status: pending`. "Physical apparatus + measurement" is necessary but not sufficient; authorship/control is the deciding axis.
+- **NOT `exp-`:** data re-analyses of outside measurements (LIGO ringdown, CMB axis, SPARC) and kill switches tested by others' facilities (C6 neutrino parity, C7 GRB dispersion) — we are *analytical consumers*. These are `sup-` work (see S10 below), NOT experiments. Simulations remain derivation-side (unchanged).
+- **PONDER-01/02/05 deferred** to the "other repos later" bucket (no dedicated AVE-Core experiment leaf; canonical apparatus lives in AVE-PONDER).
+
+**Conversion set (this pass — 10 leaves → `kind: experiment`, all `status: pending`).** Each converts on the `clm-6kqvyp` template (frontmatter → `kind: experiment` + `exp-id` + `status` + `strengthens:`; remove the experiment-as-claim entry from `vol4/claim-quality.md`; `refresh`):
+
+| leaf | clm- (retire) | strengthens (surviving physics claim) |
+|---|---|---|
+| project-hopf-02 | clm-wzezvt ⚠ | clm-oygz1i (topological mass / Hopf charge) |
+| sagnac-rlve | clm-wqmb19 ⚠ | clm-qx9bb8 (material-dependent entrainment law) |
+| project-roentgen-03 | clm-qsgl7d | clm-qx9bb8 |
+| sapphire-phonon-centrifuge | clm-iz3svl | clm-qx9bb8 |
+| project-zener-04 | clm-cltls0 | clm-pp3qwf (E⁴ vs E² birefringence) |
+| vacuum-impedance-mirror | clm-5s5b0d | clm-pp3qwf |
+| metric-levitation-limit | clm-ui3m8a *(keep)* | clm-ui3m8a (√α yield limit — self) |
+| metric-refraction-capacitor | clm-ui3m8a *(keep)* | clm-ui3m8a |
+| project-cleave-01 | clm-ydksh6 | clm-dfaiwj (TKI [Q]≡[L]) |
+| project-torsion-05 | clm-kl1ern | clm-2dwzib (V_snap vs V_yield thresholds) |
+
+- **Decision A (locked):** clm-ui3m8a (√α yield limits) stays the physics claim; only the two genuine apparatus leaves (metric-levitation, metric-refraction-capacitor) convert and strengthen it. ybco-phased-array (Tier-D mechanism) + zero-parameter-derivations (meta) remain plain `clm-` citers — NOT converted.
+- **⚠ Two shared experiment-as-claims are NOT pure-deletes** (unlike clm-6kqvyp which had no citers): `clm-wqmb19` is also cited by `sagnac-parallax` (C17 null) + `active-sagnac-impedance-drag` (ch12 prediction); `clm-wzezvt` is also cited by `open-source-hardware` (meta). Conversion = **re-point those sibling leaves' `claims:` to the surviving physics claim** (clm-qx9bb8 / clm-oygz1i), not orphan them.
+- **Stays `clm-`:** kill switches (clm-gw2wgc); predictions (clm-pp3qwf, clm-to41c7, clm-trgqtf, clm-9sujp8, clm-i02mhk, clm-qx9bb8, + C2/C8/C10/C12/C14/C19); meta (clm-om0rtq, clm-fh6w3y, clm-baoa36, clm-oiw6cb, clm-p12mem, epistemology leaves); corroborative-null C17/C18; Tier D D1–D5.
+
+### INVARIANT-S10 (`sup-` support nodes) — DESIGN LOCKED 2026-05-22, BUILD QUEUED after the exp- pass
+
+A `sup-` node represents **non-physical analytical work that strengthens an existing claim without originating a new one** — parallel to `exp-` but on the *other* branch of the two-branch solidity model.
+
+- **`sup-` is non-physical / derivation-side.** Its `strengthens` edge slots into the **derivation branch (min-side)**, lifting the target claim's **local quality** (the `confidence` baseline). It does NOT touch `experimental_solidity`. (`exp-` = physical, max-branch, empirical; `sup-` = analytical, min-branch, local-quality. They plug into opposite halves of the model with opposite pending-semantics — so two distinct node types, NOT one type with an `origin` field.)
+- **Pending logic (refined):** a **pending** `sup-` contributes nothing and **never NaN-poisons** a claim that already has valid quality/solidity (a strengthening attempt is non-load-bearing; pending-poison flows only from load-bearing derivation *dependencies*). A **done** `sup-` lifts `local_quality`.
+- **Mechanic:** `derivation_solidity = local_quality × min(dep solidities)`, where `local_quality` is the authored `confidence` lifted by *done* `sup-` contributions; `solidity = max(derivation_solidity, experimental_solidity)`. A `sup-` lift "may or may not" move final solidity — `min(deps)` can cap it and `max(experimental)` can override it.
+- **Bright line `sup-` vs. citation:** a `sup-` exists iff *additional work or an on-point observation that justifiably adds weight* was done; a passive reference is not a `sup-`.
+- **Scope / what is NOT a `sup-`:** (a) pure derivation improvement to an existing claim → edit the claim at source; (b) strengthening that is a byproduct of a *later* claim → that later `clm-` is already the node. `sup-` is for: outside-data re-analyses with no other home (LIGO/CMB/SPARC; C5 Outcome-D becomes a `done`-but-low-strength `sup-`), and the **exploratory** workflow (park free-standing strengthening work as a node to chase an idea).
+- **Deletability requirement:** `sup-` nodes must be safely dissolvable — the author can later fold the work back into the source claim and delete the node without breaking referential integrity (a derivation-flavored `sup-` folded into canonical derivation is the correct signal of a reorg, not a bug).
+- **Build arc (mirror S9):** `.index/SCHEMA.md` `sup-` node + derivation-branch `strengthens` edge; `kb_index_lib` local-quality computation; `refresh`/`verify` extensions; frontmatter convention; new `INVARIANT-S10` in KB `CLAUDE.md`; fixtures + e2e + negative tests exercising the pending-non-poison path. **Do this as its own pass, after the exp- population pass lands.**
 
 ## 9. vol2-6 KB migration — DONE 2026-05-21; open decisions surfaced
 
