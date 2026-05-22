@@ -302,3 +302,4 @@
 {"node_type": "invariant", "id": "INVARIANT-S6", "title": "(subsumed into S5 frontmatter)", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s6-subsumed-into-s5-frontmatter"}
 {"node_type": "invariant", "id": "INVARIANT-S7", "title": "Canonicality of leaves", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s7-canonicality-of-leaves"}
 {"node_type": "invariant", "id": "INVARIANT-S8", "title": "Claim-quality ID propagation", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s8-claim-quality-id-propagation"}
+{"node_type": "invariant", "id": "INVARIANT-S9", "title": "Experiment DAG-id propagation (`exp-`)", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s9-experiment-dag-id-propagation-exp"}
