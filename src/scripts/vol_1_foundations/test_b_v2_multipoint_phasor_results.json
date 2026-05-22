@@ -1,0 +1,106 @@
+{
+  "pre_registration": "P_phase5_bond_scale_phasor_v2_multipoint",
+  "test": "Test B v2 per audit + doc 26_ \u00a71-\u00a73 spatial reading",
+  "N": 32,
+  "drive_amp": 0.5,
+  "drive_omega": 1.0,
+  "drive_periods": {
+    "ramp": 5.0,
+    "sustain": 50.0,
+    "decay": 2.0
+  },
+  "n_samples": 507,
+  "transient_steps_skipped": 133,
+  "elapsed_seconds": 110.07655882835388,
+  "bond": {
+    "A_idx": [
+      14,
+      14,
+      14
+    ],
+    "port_AB": 0,
+    "B_idx": [
+      "15",
+      "15",
+      "15"
+    ]
+  },
+  "n_spatial_samples": 8,
+  "port_labels": [
+    {
+      "cell": "A",
+      "port": 0
+    },
+    {
+      "cell": "A",
+      "port": 1
+    },
+    {
+      "cell": "A",
+      "port": 2
+    },
+    {
+      "cell": "A",
+      "port": 3
+    },
+    {
+      "cell": "B",
+      "port": 0
+    },
+    {
+      "cell": "B",
+      "port": 1
+    },
+    {
+      "cell": "B",
+      "port": 2
+    },
+    {
+      "cell": "B",
+      "port": 3
+    }
+  ],
+  "spatial_analysis": {
+    "rho_per_port": [
+      0.09691453185667322,
+      0.09884465428891749,
+      0.09560393294982358,
+      0.0956039329498236,
+      0.09691688657089988,
+      0.10751911176450665,
+      0.10208615388972245,
+      0.10208615388972245
+    ],
+    "v_inc_envelope": [
+      -4.851955259025974e-05,
+      0.00011213729137375485,
+      0.00014484517338113977,
+      0.00014484517338115958,
+      -0.00015392847615094103,
+      -0.0001921008962888308,
+      1.6379253807524666e-05,
+      1.6379253807571416e-05
+    ],
+    "v_ref_envelope": [
+      -0.00015396090036921568,
+      -0.0003190368143958959,
+      7.459827166920904e-06,
+      7.45982716690037e-06,
+      -4.847217441516949e-05,
+      1.907965918590063e-05,
+      -0.0005191812426063628,
+      -0.0005191812426064089
+    ],
+    "R_spatial": 0.09944691977001116,
+    "r_spatial": 0.0039020070591220526,
+    "R_over_r_spatial": 25.486094274874688,
+    "rel_std": 0.03923708314089711,
+    "spatially_uniform": true
+  },
+  "R_over_r_target": 2.618033988749895,
+  "R_over_r_tol": 0.1,
+  "spatial_uniform_thresh": 0.05,
+  "R_over_r_spatial_pass": false,
+  "mode": "III-spatial",
+  "verdict": "MODE III-spatial \u2014 Spatial envelope is essentially uniform (rel_std r/R = 0.0392 < 0.05). The 8-port amplitude profile across the A-B bond cluster has no spatial structure: \u27e8\u03c1\u27e9 \u2248 \u03c1 at every port, so A(s) is flat and \u03b8(s) winding cannot be extracted. At this drive the bond cluster doesn't develop the spatial phase profile that doc 26_ \u00a71 requires for (2,3) winding."
+}

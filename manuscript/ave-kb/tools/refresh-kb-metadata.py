@@ -23,6 +23,7 @@ afterward to confirm the result is internally consistent.
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -49,7 +50,7 @@ INDEX_FILES = (
     "subtree-aggregates",
 )
 
-EXCLUDE_DIRS = {"session", ".index"}
+EXCLUDE_DIRS = {"session", ".index", "tools"}
 EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
@@ -389,7 +390,26 @@ def _emit_jsonl_indexes() -> tuple[int, int]:
     return written, unchanged
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    global KB, INDEX_DIR
+    parser = argparse.ArgumentParser(
+        description="Regenerate derived KB metadata fields from leaf claims."
+    )
+    parser.add_argument(
+        "--kb-root",
+        type=Path,
+        default=None,
+        help=(
+            "KB root directory to operate on. Defaults to manuscript/ave-kb/ "
+            "(computed relative to the invocation cwd). Used by tests to point "
+            "the refresher at a synthetic fixture KB instead of the canonical one."
+        ),
+    )
+    args = parser.parse_args(argv)
+    if args.kb_root is not None:
+        KB = args.kb_root
+        INDEX_DIR = KB / ".index"
+
     if not KB.is_dir():
         print(f"FAIL: {KB} not found. Run from repository root.", file=sys.stderr)
         return 2

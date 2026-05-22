@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-07kd5v, clm-1klgo2, clm-2e9j97, clm-395gps, clm-3dc9qt, clm-3ii690, clm-3kmt3p, clm-3zz0f6, clm-8nkvwy, clm-91adfe, clm-9fnieq, clm-a71inj, clm-av2o4v, clm-c6k5om, clm-cul4it, clm-eaiqj1, clm-hk81zp, clm-ir8h78, clm-jpfbm6, clm-nxfmh0, clm-o6kgkz, clm-qky559, clm-qyn8t0, clm-rd9cjm, clm-refjr6, clm-t05mvx, clm-u86caq, clm-uu6dl5, clm-wd5rs0, clm-wx5324, clm-x19btt, clm-y9old1, clm-zsqh87]
+subtree-claims: [clm-07kd5v, clm-1klgo2, clm-2e9j97, clm-395gps, clm-3dc9qt, clm-3ii690, clm-3kmt3p, clm-3zz0f6, clm-48g5qf, clm-4o0f0h, clm-5em8fx, clm-8nkvwy, clm-91adfe, clm-9fnieq, clm-a71inj, clm-av2o4v, clm-b27pnp, clm-c6k5om, clm-cfd5yf, clm-cul4it, clm-eaiqj1, clm-hk81zp, clm-ir8h78, clm-jpfbm6, clm-law1ho, clm-nxfmh0, clm-o6kgkz, clm-qky559, clm-qyn8t0, clm-rd9cjm, clm-refjr6, clm-s4n33u, clm-t05mvx, clm-tt8j0v, clm-u86caq, clm-uu6dl5, clm-wd5rs0, clm-wx5324, clm-x19btt, clm-y9old1, clm-zsqh87]
 bootstrap: true
 -->
 
@@ -47,7 +47,7 @@ Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravit
 | AVE Merger Ringdown Eigenvalue | $\omega_R M_g = 18/49 = 0.3673$ (1.7% error) [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) |
 | QNM Quality Factor | $Q = \ell$ [Cosmo](./cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md) |
 | AVE Compactness Limit | $2GM/(c^2 R) < 2/7 = \nu_{vac}$ [Cosmo](./cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md) |
-| Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} \approx 13.4$ mm/s; falsifies Lense-Thirring [Cosmo](./cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
+| Topo-Kinematic Phase Slip Velocity | $\Delta V_{flyby} = V_\infty \cdot 2(U_\oplus/C_0) \cdot (\cos\delta_{in} - \cos\delta_{out})$; matches Anderson 2008 anchor set 2/6 within 1$\sigma$, 3/6 within 2$\sigma$; categorically distinguishes from GR Lense-Thirring ($\sim 10^{-12}$ coupling) [Cosmo](./cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) |
 | Lunar Inductive Joule Heating | $P_{topo} \approx 1.04$ TW via $\Gamma_{sagnac}$ amplification [Cosmo](./cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md) |
 | Planetary Magnetic Dipole (AC Motor) | $M_\oplus \approx 1.5 \times 10^{23}$ A$\cdot$m$^2$ from VCA Back-EMF [AP](./applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md) |
 | Tabletop Relativity | $\rho_{eff} = \rho_0/\sqrt{1 - \mathrm{M}^2}$ — acoustic SR emulation from Axiom 4 [AP](./applied-physics/ch14-sonoluminescence/index.md) |
@@ -59,7 +59,7 @@ Macroscopic phenomena derived from the $\mathcal{M}_A$ LC vacuum network: gravit
 | Domain | Summary |
 |---|---|
 | [Gravity](./gravity/index.md) | Macroscopic gravity from trace-reversed LC network ($\nu_{vac} = 2/7$, $1/7$ projection), Einstein field equation as impedance mapping, optical metric and refractive lensing, gravitational waves as lossless impedance modulation. Chapters 1, 2, 3, 8. |
-| [Cosmology](./cosmology/index.md) | Generative cosmology (Hubble constant as LC crystallisation rate, $H_\infty \approx 69.32$ km/s/Mpc), dark sector (MOND $a_0$ from Axiom 4 saturation, galactic rotation), solar system impedance (Oort Cloud, Kirkwood gaps, magnetospheres, Two Winds decoupling), orbital mechanics (Saturn rings, perihelion advance, solar flares, flyby anomaly Sagnac operator, lunar inductive heating), black hole orbitals (QPOs, ringdown $\omega_R M_g = 18/49$, compactness limit $2/7 = \nu_{vac}$). Chapters 4, 5, 6, 14, 15. |
+| [Cosmology](./cosmology/index.md) | Generative cosmology (Hubble constant as LC crystallisation rate, $H_\infty \approx 69.33$ km/s/Mpc), dark sector (MOND $a_0$ from Axiom 4 saturation, galactic rotation), solar system impedance (Oort Cloud, Kirkwood gaps, magnetospheres, Two Winds decoupling), orbital mechanics (Saturn rings, perihelion advance, solar flares, flyby anomaly Sagnac operator, lunar inductive heating), black hole orbitals (QPOs, ringdown $\omega_R M_g = 18/49$, compactness limit $2/7 = \nu_{vac}$). Chapters 4, 5, 6, 14, 15. |
 | [Condensed Matter](./condensed-matter/index.md) | Superconductivity as Kuramoto phase-locking, material properties from nuclear Hessian eigenspectrum, thermodynamics as electromagnetic noise and impedance matching. Chapters 9, 10, 11. |
 | [Applied Physics](./applied-physics/index.md) | Stellar interiors and neutrino oscillation, ideal gas law as LC energy balance, geophysics via FDTD seismic engine, geodynamo as VCA AC motor output, sonoluminescence as Tabletop Relativity (Axiom 4 saturated Rayleigh-Plesset). Chapters 7, 12, 13, 14. |
 

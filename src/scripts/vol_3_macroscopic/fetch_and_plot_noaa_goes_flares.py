@@ -1,12 +1,26 @@
 """
-AVE Empirical Validation: NOAA GOES Satellite vs. Topological Solar Weather
-======================================================
-This script fetches empirical historical solar flare data (X-ray fluxes)
-and overlays the actual occurrence of X-Class and M-Class flares against
-the theoretical Macroscopic I-V FWHM (0.46 Years) derived by the AVE Solar Diode model.
+AVE Solar Weather Comparison — illustrative (synthesized timeline, NOT NOAA fetch).
 
-We use sunspot numbers or known solar cycle maxima (e.g., Cycle 23, 24, 25)
-as the proxy for the macroscopic Dynamo Voltage (V).
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+Despite the script name "fetch_and_plot_noaa_goes_flares", this script does
+NOT live-fetch NOAA GOES satellite data. As acknowledged at lines 24-27, the
+"empirical layout" is SYNTHESIZED from known historical Solar Cycle 23/24/25
+maximum dates with empirical flare clustering — NOT pulled from the actual
+NOAA GOES X-ray flux JSON catalog.
+
+The plotted "flare data" is a Monte-Carlo placeholder for what the actual
+fetch should produce. The AVE Solar Diode model's I-V FWHM = 0.46 Years
+prediction overlay IS the AVE-distinct claim; quantitative falsification
+against real NOAA data requires the live-fetch path (currently bypassed).
+
+Recommended cleanup (queued): implement live NOAA GOES SWPC fetch via
+their public JSON endpoint or NOAA Data Service API and replace the
+synthesized timeline. Until then, this script is ILLUSTRATIVE — it does
+not constitute empirical validation despite the name.
+
+Title softened 2026-05-17: was "AVE Empirical Validation: NOAA GOES
+Satellite vs. Topological Solar Weather" — corrected to clarify the fetch
+is synthesized, not real.
 """
 
 import os

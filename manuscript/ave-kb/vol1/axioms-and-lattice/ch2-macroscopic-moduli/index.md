@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-2dwzib, clm-9gh0a1, clm-9s9apq, clm-dfaiwj]
+subtree-claims: [clm-2dwzib, clm-9gh0a1, clm-9s9apq, clm-dfaiwj, clm-gx1mpl]
 -->
 
 # Ch.2: Macroscopic Moduli and The Volumetric Energy Collapse
@@ -30,3 +30,5 @@ The vacuum cannot be a classical Cauchy solid (implosion paradox); it must be a 
 | [Topo-Kinematic Isomorphism](./topo-kinematic-isomorphism.md) | 7-row dimensional mapping table: Voltage to Force, Current to Velocity, etc. |
 | [Dielectric Rupture](./dielectric-rupture.md) | Voronoi cell volume, packing fraction $p_c = 8\pi\alpha$ as QED↔EMT consistency identity (α's value derived in Ch.8) |
 | [Dielectric Snap Limit](./dielectric-snap-limit.md) | Over-bracing factor, secondary link reach, $V_{snap} = 511.0$ kV |
+| [Continuous-Springs Reframing](./continuous-springs-reframing.md) | The discrete K4 lattice as a Nyquist discretization of the continuous Cosserat micropolar field; "bonds" are sampling, not physical springs |
+| [A-029 Secondary Scale: Shared-B-Node Distance](./secondary-scale-shared-b-node.md) | The $1.187\,\ell_{node}$ secondary-scale ratio is geometrically forced by K4 topology + packing fraction, not a calibration input |

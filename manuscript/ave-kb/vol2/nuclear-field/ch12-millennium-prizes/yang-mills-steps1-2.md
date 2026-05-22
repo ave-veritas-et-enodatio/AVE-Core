@@ -7,6 +7,8 @@ claims: [clm-q5izb7]
 
 ## The Yang-Mills Mass Gap: Steps 1-2
 
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy — a careful argument within the AVE lattice + saturation framework that does NOT prove the Clay problem as formulated. Clay asks for a continuum 4D quantum gauge theory (SU(N), N≥2) on $\mathbb{R}^4$ with positive mass gap; this leaf provides a discrete lattice Hamiltonian with ground state = unknot at $m_e c^2$ via Axiom 1 ℓ_node ≈ 386 fm UV cutoff + Axiom 4 saturation cap. Gap: (i) continuum limit ℓ_node → 0 explicitly NOT taken; (ii) SU(N) emergence from torus knot topology is ansatz, not derived from Yang-Mills field equations; (iii) Osterwalder–Schrader reconstruction requires Schwinger functions defined continuously on $\mathbb{R}^4$ which AVE does not provide. The mass gap = m_e c² is the rest energy of the assumed lightest topological defect, NOT a derived consequence of Yang-Mills dynamics. **The lattice result is interesting AVE-internal physics; it should NOT be cited as solving the Clay problem.** See closure-roadmap §0.5 FI-14 entry + `ch12-millennium-prizes/index.md:5` for canonical scope framing.
+
 ### The Mathematical Paradox (What Clay Asks)
 
 Prove that a non-trivial quantum field theory exists based on any compact simple gauge group $G$, and that it inherently possesses a strictly positive mass gap ($\Delta > 0$).

@@ -1,0 +1,103 @@
+{
+  "pre_registration": "P_phase6_self_consistent_orbit_hunt",
+  "test": "Move 5 \u2014 single-electron self-consistent orbit hunt at corpus GT",
+  "N": 32,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "phi_sq": 2.618033988749895,
+  "v_amp_init": 0.14,
+  "a26_amp_scale": 0.34641016151377546,
+  "n_periods_total": 200.0,
+  "n_steps": 1778,
+  "dt": 0.7071067811865475,
+  "elapsed_seconds": 255.0755262374878,
+  "samples": [
+    {
+      "t_period": 0.0,
+      "step": 0,
+      "peak_omega": 0.9262465141773654,
+      "peak_vinc": 0.4592014797225732,
+      "v_total_peak": 0.4592014797225732,
+      "c": 3,
+      "shell_frac": 0.7871561688088088
+    },
+    {
+      "t_period": 4.951739738864083,
+      "step": 44,
+      "peak_omega": 0.5179349904840225,
+      "peak_vinc": 0.3945896757369265,
+      "v_total_peak": 0.3945896757369265,
+      "c": 1,
+      "shell_frac": 0.4471267337824492
+    },
+    {
+      "t_period": 9.903479477728165,
+      "step": 88,
+      "peak_omega": 0.43551234512365605,
+      "peak_vinc": 0.3911421114216361,
+      "v_total_peak": 0.3911421114216361,
+      "c": 0,
+      "shell_frac": 0.3947553913530876
+    },
+    {
+      "t_period": 24.98377777335969,
+      "step": 222,
+      "peak_omega": 0.3079494243593477,
+      "peak_vinc": 0.37801080675474,
+      "v_total_peak": 0.37801080675474,
+      "c": 0,
+      "shell_frac": 0.3323601021652581
+    },
+    {
+      "t_period": 49.96755554671938,
+      "step": 444,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.37992584930942264,
+      "v_total_peak": 0.37992584930942264,
+      "c": 3,
+      "shell_frac": 0.3075896780537651
+    },
+    {
+      "t_period": 99.93511109343876,
+      "step": 888,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.39369747802297106,
+      "v_total_peak": 0.39369747802297106,
+      "c": 3,
+      "shell_frac": 0.19185830648314614
+    },
+    {
+      "t_period": 149.90266664015815,
+      "step": 1332,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.39876379407240176,
+      "v_total_peak": 0.39876379407240176,
+      "c": 3,
+      "shell_frac": 0.17018210344721732
+    },
+    {
+      "t_period": 199.98276172639717,
+      "step": 1777,
+      "peak_omega": 0.30436045892252095,
+      "peak_vinc": 0.4026161111286892,
+      "v_total_peak": 0.4026161111286892,
+      "c": 3,
+      "shell_frac": 0.13582530805704085
+    }
+  ],
+  "omega_peak_init": 0.9262465141773654,
+  "persistence": 0.32859552426260413,
+  "c_post_transient": [
+    0,
+    3,
+    3,
+    3,
+    3
+  ],
+  "topology_preserved": false,
+  "topology_target_c": 3,
+  "persistence_mode_I_threshold": 0.8,
+  "persistence_mode_II_III_threshold": 0.5,
+  "mode": "III-orbit",
+  "verdict": "MODE III-orbit \u2014 Single-electron orbit DISSOLVES. peak |\u03c9| decays to 32.86% of initial within 200 Compton periods (below 50% threshold). In addition to R7.1's eigsolve Mode III, the corpus single-electron is not self-stable as a nonlinear orbit either. This combined with R7.1+R7.2+\u00a710 closure means: no LINEAR mode AND no NONLINEAR orbit at corpus GT. Round 8 entry candidates (Move 3 hybrid eigsolve, Move 4 (p,q) sweep) become the cleaner follow-ups."
+}

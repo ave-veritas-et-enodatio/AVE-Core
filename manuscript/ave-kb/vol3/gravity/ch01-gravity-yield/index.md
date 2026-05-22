@@ -25,7 +25,7 @@ Derives macroscopic gravity from the Effective Medium Theory of the $\mathcal{M}
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV |
 | Static Nodal Tension | $T_{static} = m_{e}c^{2}/(2\pi\, \ell_{node}) \approx 0.0338$ N |
 | α Invariance Under Symmetric Gravity | $\alpha = e^2/(4\pi\varepsilon_0\hbar c_0) = \alpha_0$ exactly; multi-species $\Delta\alpha/\alpha = 0$ |
-| Temporal vs Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (redshift); $n_{spatial} = (9/7)\varepsilon_{11}$ (light deflection) |
+| Temporal vs Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ (redshift); $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ (light deflection) |
 
 ## Derivations and Detail
 

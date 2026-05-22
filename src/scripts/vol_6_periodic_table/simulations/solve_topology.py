@@ -1,3 +1,17 @@
+"""
+AVE MODULE: TOPOLOGY OPTIMIZER (basinhopping coordinate fit to CODATA target).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script is a coordinate optimizer — it uses scipy.basinhopping to find
+the nucleon positions that minimize abs(theoretical_mass - target_mass).
+The K_MUTUAL coupling kernel IS axiom-derived; the recovered geometry is a
+many-parameter inverse-problem solve, NOT a forward prediction.
+
+The forward AVE claim that survives is restricted to the coupling FORM
+(K_MUTUAL / d via Σ over pairs) — the recovered geometry is what the
+optimizer found, not what AVE axioms predict directly.
+"""
+
 import sys
 
 import numpy as np
@@ -7,7 +21,7 @@ from scipy.optimize import basinhopping
 from ave.core.constants import D_PROTON as D_MIN
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
-from ave.core.constants import M_P_MEV_AVE as M_P_RAW
+from ave.core.constants import M_P_MEV_CODATA as M_P_RAW
 
 
 def evaluate_binding_energy(positions: np.ndarray) -> float:

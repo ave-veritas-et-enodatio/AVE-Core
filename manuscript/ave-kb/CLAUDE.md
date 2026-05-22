@@ -52,12 +52,14 @@ Individual volumes may use only a subset; resultbox is the most common. Vol 5 us
 
 The four AVE axioms carry stable meanings across all volumes. Canonical source of truth: `AVE-Core/manuscript/common_equations/eq_axiom_[1-4].tex`. KB documents must use these labels; volume-specific re-instantiations may add a parenthetical domain alias but the canonical name is primary.
 
-- Axiom 1: **Impedance** — Z₀ = √(μ₀/ε₀); ℓ_node = ℏ/(m_e·c). (Vol 8 alias: ABCD cascade / coupled amplitude.)
-- Axiom 2: **Fine Structure** — α = e²/(4πε₀ℏc); V_yield = √α · m_e c²/e ≈ 43.65 kV. Includes the topo-kinematic isomorphism `[Q] ≡ [L]` as its underlying mechanism. (Vol 8 alias: topological phase dislocation.)
-- Axiom 3: **Gravity** — G = ℏc/(7ξ·m_e²) with ξ ≈ 8.15×10⁴³ the dimensionless Machian hierarchy coupling (NOT ξ_topo). (Vol 8 alias: least reflected action.)
-- Axiom 4: **Universal Saturation Kernel** — S(A) = √(1 − (A/A_yield)²). (Vol 8 alias: SiLU / saturation gate.)
+- Axiom 1: **Substrate Topology** — the vacuum is a chiral Laves K4 Cosserat crystal ($I4_1 32$ chiral space group; six-DOF micropolar nodes). Legacy aliases: *Chiral Laves K4 Crystal*, *LC Network*.
+- Axiom 2: **Topo-Kinematic Isomorphism** — charge is a discrete geometric dislocation, `[Q] ≡ [L]`; conversion constant ξ_topo = e/ℓ_node.
+- Axiom 3: **Minimum Reflection Principle** — the substrate extremizes the macroscopic action S_AVE, equivalently minimizes boundary reflection |Γ|² at every internal impedance boundary. Legacy alias: *Effective Action Principle*.
+- Axiom 4: **Universal Saturation Kernel** — S(A) = √(1 − (A/A_yield)²).
 
-*Confirmed by: vol1 canonical .tex (eq_axiom_[1-4].tex); vol8 (re-instantiated in virtual media domain).*
+The numerical calibration constants (Z₀, ℓ_node, α, ξ_topo, V_snap, V_yield, G) are **derived** from these axioms — not axioms themselves; see `eq_calibration_constants.tex` and `eq_gravity_derived.tex`. ⚠ Do not confuse ξ_topo = e/ℓ_node (electromechanical transduction, C/m) with the dimensionless Machian hierarchy coupling ξ ≈ 8.15×10⁴³ that appears in `eq_gravity_derived.tex`.
+
+*Confirmed by: vol1 canonical .tex (eq_axiom_[1-4].tex, homologated to Scheme A 2026-05-17).*
 
 ### INVARIANT-S3: Shared experimental appendix
 

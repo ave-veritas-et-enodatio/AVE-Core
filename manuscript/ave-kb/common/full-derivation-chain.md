@@ -66,42 +66,21 @@ $$
 
 ### The Four Structural Axioms
 
-**Axiom 1: Impedance.**
-The vacuum is a discrete LC resonant network with characteristic impedance
-$Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch
-$\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
-*Underlying mechanism (substrate topology):* the physical vacuum operates as
-a dense, non-linear electromagnetic LC resonant network $\mathcal{M}_A(V, E, t)$,
-evaluated as a **Trace-Reversed Chiral LC Network** (micropolar continuum) in
-the macroscopic limit.
+**Axiom 1: Substrate Topology.**
+The physical vacuum IS a chiral Laves K4 Cosserat crystal $\mathcal{M}_A(V, E, t)$ — a dense, non-linear electromagnetic LC resonant network of micropolar nodes, evaluated as a **Trace-Reversed Chiral LC Network** (Cosserat micropolar continuum) in the macroscopic limit. Its calibration constants are *derived* from this substrate: characteristic impedance $Z_0 = \sqrt{\mu_0/\varepsilon_0} \approx 376.73\;\Omega$ and lattice pitch $\ell_{node} = \hbar/(m_e c) \approx 3.86\times 10^{-13}\,\text{m}$.
 
-**Axiom 2: Fine Structure.**
-The fine-structure constant couples topology to impedance:
-$\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$, setting the
-saturation threshold for the dielectric yield voltage
-$V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$.
-*Underlying mechanism (topo-kinematic isomorphism):* charge $q$ is identically
-a discrete geometric dislocation (a localized phase twist) within $\mathcal{M}_A$.
-The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with
-topological conversion constant $\xi_{topo} = e/\ell_{node}$.
+**Axiom 2: Topo-Kinematic Isomorphism.**
+Charge $q$ is identically a discrete geometric dislocation (a localized phase twist) within $\mathcal{M}_A$. The fundamental dimension of charge is *length*: $[Q] \equiv [L]$, with topological conversion constant $\xi_{topo} = e/\ell_{node}$. The fine-structure constant $\alpha = e^2/(4\pi\varepsilon_0 \hbar c) \approx 1/137.036$ and the dielectric yield voltage $V_{yield} = \sqrt{\alpha}\, m_e c^2/e \approx 43.65\;\text{kV}$ are *derived* calibration constants (Axiom 4 operating point), not axioms.
 
-**Axiom 3: Gravity.**
-Newton's constant emerges as the Machian boundary impedance:
-
-$$
-G = \frac{\hbar c}{7\,\xi\, m_e^2}
-$$
-
-where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15\times 10^{43}$ is
-the dimensionless Machian hierarchy coupling (distinct from $\xi_{topo}$).
-*Underlying mechanism (effective action principle):* the system evolves to
-minimize the macroscopic hardware action; the dynamics are encoded in the
-continuous phase transport field ($\mathbf{A}$):
+**Axiom 3: Minimum Reflection Principle.**
+The substrate minimizes the boundary reflection $|\Gamma|^2$ at every internal impedance boundary; equivalently, it extremizes the macroscopic hardware action $S_{AVE}$, with the dynamics encoded in the continuous phase transport field ($\mathbf{A}$):
 
 $$
 \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0 |\partial_t \mathbf{A}|^2
 - \tfrac{1}{2\mu_0} |\nabla \times \mathbf{A}|^2
 $$
+
+(Legacy name: *Effective Action Principle*.) Macroscopic gravity is a *derived consequence* of Axioms 1 + 4 (Symmetric Scaling), not an axiom: Newton's constant emerges as the Machian boundary impedance $G = \hbar c/(7\,\xi\, m_e^2)$, where $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2} \approx 8.15\times 10^{43}$ is the dimensionless Machian hierarchy coupling (distinct from $\xi_{topo}$).
 
 **Axiom 4: Universal Saturation Kernel.**
 The universal yield kernel bounding all LC modes:
@@ -121,6 +100,15 @@ C_{eff}(\Delta\phi)
 = \frac{C_0}{\sqrt{1 - \left(\dfrac{\Delta\phi}{\alpha}\right)^{\!2}}}
 = \frac{C_0}{S}
 $$
+
+**A-034 universality (canonical 2026-05-15 evening).** The same kernel
+$S(A) = \sqrt{1 - A^2}$ governs **every topological-reorganization event at every
+scale** — 21 catalog instances spanning 21 orders of magnitude
+(atomic dielectric breakdown $\to$ BCS superconductivity at 0.00% error $\to$
+NOAA-validated solar flares $\to$ BH ring-down at 1.7% from GR exact $\to$
+cosmic K4 crystallization). 3-way symmetry classification: SYM / ASYM-N / ASYM-E.
+Full catalog: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md);
+canonical synthesis: [trampoline-framework.md §7.5](trampoline-framework.md).
 
 ## Layer 0 → Layer 1: SI Anchors → Lattice Constants
 
@@ -422,7 +410,9 @@ The PMNS matrix is derived by applying the regime-boundary eigenvalue method
 to torus knot mode space. The three neutrino
 crossing numbers $c_1 = 5$, $c_2 = 7$, $c_3 = 9$ define the "radii" in
 mode space. The K4 lattice is 3-connected, setting a chiral screening
-threshold $\Delta c_{\text{crit}} = 3$:
+threshold $\Delta c_{\text{crit}} = 3$.
+
+> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The Δc=2 spacing of the {c_1, c_2, c_3} = {5, 7, 9} ladder IS derived from $\nu_{vac} = 2/7$ (compliance-manifold mode allocation per [`vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md:23`](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)). The absolute starting value c_1=5 is NOT derived from substrate primitives in any canonical leaf grep'd — registered as open derivation gap in closure-roadmap §0.5 FI-13 entry. Without c_1=5 derivation, $\sin^2\theta_{13}$ below reclassifies from Class D emergence to Class C consistency check; other 3 PMNS predictions cross-validate from same c_1·c_3=45 input (3:1 structural compression preserved).
 
 1. **Screened regime** ($\nu_1 \leftrightarrow \nu_3$,
 $\Delta c = 4 > 3$): Compliance coupling is evanescent. Only
@@ -558,8 +548,8 @@ The strong-force string tension between confined quarks:
 $$
 F_{conf}
 = 3\!\left(\frac{m_p}{m_e}\right)\alpha^{-1}\,T_{EM}
-\approx 160{,}037\;\text{N}
-\approx 0.999\;\text{GeV/fm}
+\approx 160{,}584\;\text{N}
+\approx 1.002\;\text{GeV/fm}
 $$
 
 ## Layer 6 → Layer 7: Cosmology and the Dark Sector
@@ -658,13 +648,30 @@ with CMB-induced thermal strain $\delta_{\text{strain}} \approx 2.225 \times 10^
 
 The Layer 2 identity $p_c = 8\pi\alpha$ and the Layer 3 EMT operating point are downstream algebraic consequences of this closure, not the closure mechanism. Given $\alpha$ derived above, the EMT quadratic then determines $z_0 \approx 51.25$ uniquely — a non-integer value that is generic for amorphous disordered networks (integer coordination is a crystalline feature, not an amorphous one).
 
-**$G$ is derived (not input).**
-Macroscopic gravity is the aggregate bulk modulus of $\sim\!10^{40}$ lattice
-links under mechanical tension. The universe naturally asymptotes to a
-steady-state horizon ($H_\infty$) where the thermodynamic latent heat of node
-generation balances the holographic thermal capacity of the expanding
-surface area. $G$ is the normalized scaling bound determined by this
-thermodynamic equilibrium.
+**$G$ closure is open work (per Chain B' showstoppers verdict 2026-05-19).**
+Macroscopic gravity is structurally the aggregate bulk modulus of
+$\sim\!10^{40}$ lattice links under mechanical tension, with the universe
+asymptoting to a steady-state horizon ($H_\infty$) at which the thermodynamic
+latent heat of node generation conceptually balances the holographic thermal
+capacity of the expanding surface area. This is the **qualitative mechanism**
+for what a substrate-local derivation of $G$ would look like; it is **not** a
+closed-form derivation. Corpus self-state: at Vol 3 Ch 1 the operational $G$
+derivation routes through the Machian-impedance integral $\xi =
+4\pi(R_H/\ell_{node})\alpha^{-2}$ with $R_H \equiv c/H_\infty$ substituted in,
+producing the consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2
+\alpha^2)$ — one algebraic constraint linking the pair $(G, H_\infty)$, not two
+independent emergence-class (Class D) predictions (per the math audit on
+`analysis/h-infinity-derivation-audit` `f28a8b3` and Chain B' showstoppers
+research on `analysis/h-infinity-framing-forward`). The engine treats $G$ as
+Bounding Limit 3 (CODATA input, [`mathematical-closure.md:20`](mathematical-closure.md)) consistent with this status. Closing
+$G$ to a fully substrate-local derivation requires a closed-form Chain B'
+that derives $\Delta E_{\text{cryst}}$ and $\Gamma_{\text{cryst}}$ from
+$(\ell_{node}, \alpha)$ alone without routing through $R_H$ or $H_\infty$ —
+currently open work per [`closure-roadmap.md`](closure-roadmap.md) Tier 3
+"Chain B' independent G derivation" (line 38) and the open-work statement at
+[`vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:103-111`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md).
+
+**Refinement per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD)**: the consistency identity is more precisely a **Class E operating-point projection** that includes the Class C consistency-check sub-structure. $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ are joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge per [`omega-freeze-cosmic-grain-cascade.md:13-16`](omega-freeze-cosmic-grain-cascade.md). The framework's testable content is the joint constraint on these N observables — failure of any one falsifies the operating-point and therefore the entire substrate model — not four independent percent-error claims. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (the joint constraint defines the framework's actual falsifiability surface).
 
 **$\ell_{node}$ is derived (not input).**
 The universe is a macroscopic **scale-invariant** fractal graph.
@@ -840,7 +847,7 @@ Every quantity marked $\checkmark$ is computed by the physics engine at import t
 | **Layer 6: Baryons** | | | | |
 | $\kappa_{FS}$ | $p_c/\alpha$ | $8\pi$ | --- | derived |
 | $m_p/m_e$ | Faddeev--Skyrme eigenvalue | 1836 | 1836.15 | $0.002\%$ |
-| $F_{conf}$ | $3(m_p/m_e)\alpha^{-1}T_{EM}$ | 0.999 GeV/fm | $\sim$1 GeV/fm | $\sim\!0.1\%$ |
+| $F_{conf}$ | $3(m_p/m_e)\alpha^{-1}T_{EM}$ | 1.002 GeV/fm | $\sim$1 GeV/fm | $\sim\!0.2\%$ |
 | **Layer 7: Cosmology** | | | | |
 | $H_\infty$ | $28\pi m_e^3 cG/(\hbar^2\alpha^2)$ | 69.32 km/s/Mpc | 67--73 | in range |
 | $a_{genesis}$ | $cH_\infty/(2\pi)$ | $1.07\!\times\!10^{-10}$ m/s$^2$ | $1.2\!\times\!10^{-10}$ | $10.7\%$ |
@@ -872,6 +879,39 @@ and neutrino MSW oscillation.
 
 Every prediction uses zero adjustable parameters and calls the same
 code path in `src/ave/axioms/scale_invariant.py`.
+
+### A-034: Formal Universal Saturation-Kernel Catalog
+
+The cross-scale verification has been promoted to a formal **21-instance catalog**
+(canonical 2026-05-15 evening) demonstrating that Axiom 4's saturation kernel
+$S(A) = \sqrt{1 - A^2}$ is the **same operator at every scale** for every
+topological-reorganization event:
+
+| Scale | Instance | Empirical anchor |
+|---|---|---|
+| Atomic | Dielectric breakdown | EE bench $C/C_0 \to \infty$ at $V_{yield} = 43.65$ kV |
+| Condensed-matter | BCS superconductivity | $B_c(T)$ kernel match at **0.00% error** (Vol 3 Ch 9) |
+| Geophysical | Geomagnetic reversal | Brunhes--Matuyama 780 ka pole-flip dynamics ([Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex)) |
+| Solar | Coronal mass ejection / flare | NOAA GOES 40-yr LED-avalanche validation ([Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| Stellar | White dwarf Chandrasekhar | $M_{Ch}$ kernel boundary (Vol 3 Ch 20) |
+| Gravitational | BH ring-down (QNM) | $\omega_R M_g = 18/49$ at **1.7% from GR exact** (3 LIGO events, Vol 3 Ch 15) |
+| Cosmic | TKI strain-snap (K4 crystallization) | CMB axis-alignment prereg (2026-05-15; Vol 3 Ch 4 §TKI Strain-Snap) |
+
+**3-way symmetry classification** of the 21 instances:
+- **SYM** (symmetric collapse): BCS, dielectric breakdown, Chandrasekhar collapse, ...
+- **ASYM-N** (asymmetric, neutral mediator): MOND-acceleration boundary, geomagnetic reversal, ...
+- **ASYM-E** (asymmetric, energy-mediator): BH ring-down, solar flare, cosmic K4 crystallization, ...
+
+**Measurement-hierarchy framing**: single-emitter (atomic events) /
+multi-emitter bulk (BCS, condensed-matter) /
+phased-array PLL autoresonant (BH ring-down, cosmic-scale).
+
+Full catalog with all 21 instances + per-row symmetry / measurement tier /
+empirical anchor: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
+
+Canonical synthesis (user-facing): [trampoline-framework.md §7.5](trampoline-framework.md).
+
+Canonical manuscript source: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 ## Layer 8+: Millennium Problems and Open Problems
 

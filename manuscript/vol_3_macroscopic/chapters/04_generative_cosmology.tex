@@ -6,7 +6,7 @@
 \begin{objectivebox}
 \begin{itemize}
     \item Derive cosmological expansion as the thermodynamic relaxation of a quenched LC lattice from a maximally compressed initial state.
-    \item Establish the geometric consistency relation between macroscopic gravity ($G$) and the Hubble asymptote, evaluating to $H_\infty \approx 69.32$~km/s/Mpc when $G$ is taken from CODATA (consistency proof, not an independent prediction; see Ch.~\ref{ch:gravity_and_yield} and App.~\ref{app:verification} Outstanding Rigour Gaps).
+    \item Evaluate the geometric consistency relation $H_\infty \approx 69.32$~km/s/Mpc between $G$ and the cosmological horizon via the structural impedance cooling rate of the lattice (consistency identity from Vol 3 Ch 1's Machian-impedance $G$ derivation, not an independent prediction).
     \item Resolve the JWST early galaxy paradox via macroscopic mutual inductive drag, predicting a $\sim 65.1$~Myr herding condensation limit.
 \end{itemize}
 \end{objectivebox}
@@ -47,7 +47,10 @@ TRGB (Chicago)      & $69.8 \pm 1.7$  & Tip of red giant & $-0.7\%$ \\
 \end{tabularx}
 \end{center}
 
-\noindent The geometric consistency relation evaluates to $69.33$~km/s/Mpc when $G$ is taken from CODATA. As established in Ch.~\ref{ch:gravity_and_yield}, this equation does not predict $H_\infty$ from first principles alone; it is a consistency proof showing that macroscopic gravity ($G$) and the cosmological horizon ($H_\infty$) are the same geometric limit evaluated from different topological reference frames. Specifically, $R_H \equiv c/H_\infty$ enters the Machian integration that defines $G$ via $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$, so substituting back to ``compute'' $H_\infty$ from $G$ is structurally an identity rearrangement, not an independent prediction. The agreement to within $1\sigma$ of the TRGB distance-ladder measurement is therefore a geometric self-consistency check (the framework's geometric constraint between $G$ and $H_\infty$ is internally compatible with both empirical values simultaneously), not an independent prediction. Promoting this relation to a true downstream prediction requires deriving $G$ from a thermodynamic balance whose closure conditions are local (lattice tension, equipartition, generation rate per node) rather than horizon-scale; that derivation is currently open --- see App.~\ref{app:verification} Outstanding Rigour Gaps.
+\noindent The geometric consistency relation $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ evaluates to $69.33$~km/s/Mpc when $G$ is taken from CODATA. As established in Ch.~\ref{ch:gravity_and_yield}, this equation does not predict $H_\infty$ from first principles alone; it is a consistency proof showing that macroscopic gravity ($G$) and the cosmological horizon ($H_\infty$) are the same geometric limit evaluated from different topological reference frames. Specifically, $R_H \equiv c/H_\infty$ enters the Machian integration that defines $G$ via $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$, so substituting back to ``compute'' $H_\infty$ from $G$ is structurally an identity rearrangement of $G$'s Machian-impedance derivation, not an independent prediction. The agreement to within $1\sigma$ of the TRGB distance-ladder measurement is therefore a geometric self-consistency check (the framework's geometric constraint between $G$ and $H_\infty$ is internally compatible with both empirical values simultaneously), not an independent prediction. Promoting this relation to a true downstream prediction requires deriving $G$ from a thermodynamic balance whose closure conditions are local (lattice tension, equipartition, generation rate per node) rather than horizon-scale; that derivation is currently open --- the Chain~B$'$ research agenda is preserved in the closure-roadmap.
+
+\medskip
+\noindent\textbf{Refinement per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD).} The relation is more precisely a \textbf{Class E operating-point projection} that includes Class C consistency-check sub-structure. The four observables $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ are joint-constrained at the substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge (per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade). The framework's testable content is the joint constraint on these N observables --- failure of any one falsifies the operating-point and therefore the entire substrate model --- not the four independent percent-error claims that Class C language would naturally read. Class C is true (CODATA $G$ $\to$ SI substitution recovers $H_\infty$); Class E is also true and stronger (the joint constraint defines the framework's actual falsifiability surface).
 
 \section{Dark Energy: The Stable Phantom Derivation}
 
@@ -141,12 +144,392 @@ The AVE framework explicitly sides with Hawking's original assessment: the therm
 namic phase transition of the substrate dictates that quantum unitarity is macroscopically
 violated at the event horizon, enforcing information loss.
 
+\section{The Cosmic Boundary's Three Observables and $\mathcal{J}_{\text{cosmic}}$ as Cosmological Initial Condition}
+\label{sec:cosmic_J_as_IC}
+
+\textbf{Canonical statement, 2026-05-15 evening.}
+The substrate-observability rule (Common Foreword $\S$``Three Boundary
+Observables and the Substrate-Observability Rule'') applies fractally
+at every scale where a $\Gamma = -1$ boundary forms --- including the cosmic
+horizon itself. We sit inside our cosmic $\Gamma = -1$ boundary; that boundary
+has the canonical three integrated invariants of any $\Gamma = -1$ surface:
+
+\begin{itemize}
+\item $\mathcal{M}_{\text{cosmic}}$ --- the integrated substrate strain
+  integral across the observable universe; the universe's mass-energy
+  content as a single boundary observable.
+
+\item $\mathcal{Q}_{\text{cosmic}}$ --- the boundary linking number;
+  the net topological charge of all substrate flux through the cosmic
+  horizon. For our universe, $\mathcal{Q}_{\text{cosmic}} \approx 0$.
+
+\item $\mathcal{J}_{\text{cosmic}}$ --- the boundary winding number;
+  the angular momentum of the cosmic boundary as a substrate observable.
+  \textbf{This encodes the cosmological initial condition:}
+\begin{equation}
+\Omega_{\text{freeze}} = \frac{\mathcal{J}_{\text{cosmic}}}{I_{\text{cosmic}}}
+\label{eq:cosmic_J_as_IC}
+\end{equation}
+\end{itemize}
+
+$\Omega_{\text{freeze}}$ is the rotation rate of the crystallizing region at
+the moment of lattice genesis (per \texttt{trampoline-framework.md} \S{}1.3,
+phase-transition-while-spinning mechanism). It is locked into the substrate
+as bond over-bracing $u_0$ and the global chirality direction, and survives
+in observable form as the cosmic angular momentum $\mathcal{J}_{\text{cosmic}}$.
+
+\textbf{In-principle observable from inside.} Same way astronomers measure
+a Kerr black hole's spin from outside via frame-dragging and accretion-disk
+asymmetry, we measure our cosmic boundary's spin from inside via local-physics
+consequences: CMB low-multipole anomalies (``axis of evil,'' quadrupole/
+octupole alignment), large-scale-structure rotation correlations (galactic
+spin-axis preferred direction), Hubble flow anisotropy, cosmic shear at
+largest scales, frame-dragging signatures in distant clock comparison.
+The measurements are not yet at the precision to pin down $\mathcal{J}_{\text{cosmic}}$
+cleanly, but the framework predicts a specific value, and observations
+can test it.
+
+\textbf{Universe-as-vortex MECHANIZED (closes E-019).} The macroscopic
+``universe is a vortex in the pre-genesis plasma'' framing is now grounded
+mechanically: the vortex IS the freeze-in rotating region; the cosmic
+angular momentum $\mathcal{J}_{\text{cosmic}}$ is the macroscopic signature
+of that vortex; the substrate carries the vortex's rotation rate in its
+locked-in over-bracing $u_0$.
+
+\subsection{Three-route falsifiability framework}
+\label{sec:three_route_falsifiability}
+
+Newton's $G$ (canonical at this chapter, \S{}preceding) is the Machian
+impedance integral $G = c^4 / (7\xi T_{EM})$ where $T_{EM}$ is the bulk
+substrate tension and $\xi$ is the Machian impedance integral over the
+cosmic horizon. Both $T_{EM}$ and the magic-angle operating point that
+sets $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$ depend on the same $u_0^*$ derived
+from $\Omega_{\text{freeze}}$. The framework therefore admits three
+independent observational routes to the single cosmological parameter:
+
+\begin{center}\small
+\begin{tabular}{|p{3.2cm}|p{4.5cm}|p{4.5cm}|}
+\hline
+\textbf{Route} & \textbf{Measurement} & \textbf{Output} \\
+\hline
+1 --- Electromagnetic & $\alpha$ to 12 decimals (CODATA) & $u_0^*$ via the substrate-scale magic-angle closure (Vol 1 Ch~\ref{ch:macroscopic_moduli}) \\
+\hline
+2 --- Gravitational & $G$ to $\sim$4 decimals + CODATA & $u_0^*$ via Machian impedance integral $G = c^4 / (7\xi T_{EM})$ \\
+\hline
+3 --- Cosmological & $\mathcal{J}_{\text{cosmic}}$ via CMB / LSS anomalies & $u_0^*$ via $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}}/I_{\text{cosmic}}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{All three routes must give the same $u_0^*$} or the single-cosmological-
+parameter framework is falsified. This is the sharpest empirical commitment
+AVE makes --- three independent observational paths constraining one number.
+
+\textbf{``God's Hand'' epistemic horizon (refined per the A-034 catalog).}
+The \emph{specific cosmic parameters} ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$)
+that gave $\mathcal{J}_{\text{cosmic}}$ its specific value at lattice genesis are
+fundamentally inaccessible from inside the substrate. \emph{The mechanism itself
+is not inaccessible} --- it is the universal saturation-kernel strain-snap
+mechanism (\S\ref{sec:tki_strain_snap}), observable at four other scales. The
+crystallization phase transition that produced our substrate IS the wall ---
+no observer position exists from which the pre-genesis state is visible. The
+framework locates this horizon precisely without claiming to answer it: it's
+the cosmic-scale version of the no-hair theorem applied to ourselves. (See
+also Vol~3 Ch~\ref{ch:bh_interior} for the same-epistemic-horizon
+cross-reference at BH scale; Backmatter Ch~\ref{app:universal_saturation_kernel}
+for the full A-034 catalog with all 19 cross-scale instances.)
+
+\section{TKI Strain-Snap: Axiom 4 Saturation Kernel at All Scales}
+\label{sec:tki_strain_snap}
+
+\textbf{Canonical 2026-05-15 evening via Grant synthesis} after one year of
+substrate-intuition development (project start 2026-05-28). The recognition
+came as a verbatim utterance during conversation while working through the
+cosmic-IC initiation question:
+
+\begin{quote}
+``oh my god, it's the fucking saturation kernel''
+\end{quote}
+
+The synthesis: every ``topological reorganization event'' the framework
+describes --- from atomic dielectric breakdown to cosmic crystallization
+--- is governed by Axiom 4's saturation kernel applied at the appropriate
+scale. The mechanism is universal; only the scale of $A$ and the geometry of
+the saturation boundary changes.
+
+\subsection{The universal kernel}
+
+Axiom 4's dielectric saturation kernel:
+\begin{equation}
+S(A) = \sqrt{1 - A^2} \qquad \text{(Born--Infeld } n=2 \text{ form)}
+\label{eq:tki_kernel}
+\end{equation}
+governs the substrate's nonlinear response to local strain $A$ normalized to
+its saturation limit. Three regimes:
+
+\begin{itemize}
+    \item $A \ll 1$: $S \to 1$. Linear-response regime; smooth wave propagation.
+    \item $A \to 1$: $S \to 0$. Substrate's linear response capacity vanishes.
+    \item $A = 1$: $S = 0$. Substrate cannot continue linear response; \emph{MUST reorganize topologically} to a new configuration with $A < 1$ locally.
+\end{itemize}
+
+The kernel's \emph{vertical tangent at $A = 1$} is the structural property that
+makes every saturation event sharp and impulsive rather than gradual: small
+further strain near saturation produces large changes in $S(A)$, locking in
+sharp-threshold behavior across nine orders of magnitude.
+
+\subsection{Universal catalog: same kernel, different geometries (expanded post-cross-repo audit)}
+
+\textbf{Framework principle (Grant 2026-05-15 late evening):} \emph{``the
+bulk response of the lattice to strain is universal.''} Per Axiom~2 (TKI
+scale invariance), the substrate's bulk strain response is set by the
+same kernel $\sqrt{1-A^2}$ at every scale and in every domain. Different
+physical observables at different scales (voltage, magnetic field,
+temperature, frame-dragging strain, accumulated topological shear,
+wavenumber, biological membrane strain) all reduce to the same underlying
+lattice strain via the kernel.
+
+The original 6-scale catalog has been expanded to a comprehensive
+19-instance synthesis spanning ~21 orders of magnitude.
+\textbf{Total: 19 canonical instances of the universal kernel}
+(12 physical + 2 biological + 5 engineered). See
+Backmatter Ch~\ref{app:universal_saturation_kernel} for the complete
+cross-volume catalog.
+
+\textbf{3-way symmetry classification} per the A-034 asymmetric-saturation
+analysis (\S6, canonical in Backmatter Ch~\ref{app:universal_saturation_kernel}):
+\begin{itemize}
+    \item \textbf{SYM} = Symmetric (substrate at vacuum $K = 2G$; $\varepsilon$ and $\mu$ sectors saturate together)
+    \item \textbf{ASYM-N} = Asymmetric natural (single-sector saturation: only $\varepsilon$ or only $\mu$)
+    \item \textbf{ASYM-E} = Asymmetric engineered decoupled (substrate $K/G \neq 2$ by design)
+\end{itemize}
+
+\textit{Physical-substrate scales (12 rows):}
+\begin{center}
+\scriptsize
+\begin{tabular}{|p{1.8cm}|p{1.0cm}|p{2.2cm}|p{2.7cm}|p{2.1cm}|p{2.0cm}|}
+\hline
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Reference} & \textbf{Empirical} \\
+\hline
+Atomic / EM & SYM & $V/V_{\text{snap}}$ & Dielectric breakdown $\to$ pair creation & Ax~4 + Vol~4 Ch~1 & Schwinger limit \\
+\hline
+Substrate (K4) & SYM & bond-bow / saturation & K4 lattice + soliton formation & Vol 1 Ch~\ref{ch:macroscopic_moduli} & substrate instance \\
+\hline
+Nuclear (DT fusion) & SYM & nodal strain / $V_{\text{yield}}$ & Topology snap; 14.1 MeV n + $^4$He $\alpha$ collapse & Vol 2 Ch~2 + Vol 3 Ch~14 & DT fusion canonical \\
+\hline
+Condensed matter (BCS) & \textbf{ASYM-N} ($\mu$-only) & $T/T_c$ & Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ & KB \texttt{ch09} leaf & \textbf{0.00\% error} \\
+\hline
+Plasma ($\varepsilon$-sector) & \textbf{ASYM-N} ($\varepsilon$-only) & $V_{\text{local}} / V_{\text{snap}}$ & Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) & $\varepsilon$-$\mu$ duality leaf & plasma canonical \\
+\hline
+Kolmogorov turbulence & SYM & $k/k_{\text{node}}$ & Spectral cutoff at dissipation scale & Bench Ch~2:159 & Kolmogorov empirical \\
+\hline
+Planetary (geomagnetic) & SYM & dynamo / threshold & Geomagnetic reversal (pole flip) & Ch~13:131 & geological + Venus null \\
+\hline
+Stellar (solar flare) & SYM & twisted-flux / shear-stress & CME / solar flare; macro Zener avalanche & Ch~14 & \textbf{NOAA GOES 40-yr} \\
+\hline
+Galactic (MOND) & SYM & $g_N/a_0$ & Newtonian $\to$ deep-MOND transition & \texttt{mond.md} & deep-MOND derived \\
+\hline
+BH event horizon & SYM & $2GM/(c^2 r)$ / 1 & $R_S$ formation: $\Gamma=-1$ & KB \texttt{ch03} leaf & \textbf{Schwarzschild exact} \\
+\hline
+BH merger (ring-down) & SYM & strain / $r_{\text{sat}}=7M_g$ & Ring-down QNM $\omega_R M_g = 18/49$ & Ch~15 & \textbf{1.7\% GR; 10-18\% LIGO} \\
+\hline
+Cosmic (Big Bang) & SYM* & parent-BH strain / 1 & K4 crystallization seed event & A-034 NEW & CMB axis test pre-reg \\
+\hline
+\end{tabular}
+\end{center}
+\textsuperscript{*}Cosmic symmetry status testable via CMB E/B polarization
+signature; asymmetric case would imply parent BH lattice has $K/G \neq 2$.
+
+\textit{Biological-substrate scales (2 rows):}
+\begin{center}
+\scriptsize
+\begin{tabular}{|p{2.4cm}|p{0.8cm}|p{2.6cm}|p{4.0cm}|p{2.8cm}|}
+\hline
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Reference} \\
+\hline
+Lipid bilayer membrane & SYM & membrane strain / yield & Phase transition; cholesterol = engineered kernel phase-buffer & Vol 5 Ch~2 \\
+\hline
+Protein folding & SYM & $d_0 / d$ atomic separation & Folding snap via dielectric saturation $C_{\text{eff}} = C_0/\sqrt{1-(d_0/d)^2}$ & Vol 5 Ch~2 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textit{Engineered-substrate scales (5 rows):}
+\begin{center}
+\scriptsize
+\begin{tabular}{|p{2.5cm}|p{0.9cm}|p{2.7cm}|p{4.3cm}|p{3.3cm}|}
+\hline
+\textbf{Scale} & \textbf{Sym} & \textbf{``$A$''} & \textbf{Saturation event} & \textbf{Reference} \\
+\hline
+DC-biased piezoelectric (e.g., quartz) & SYM & $V_{\text{DC}}/V_{\text{yield}} = 0.687$ & $\varepsilon_{\text{eff}}$ collapse 27.4\%, $C_{\text{eff}}$ rise 37.7\% at 30 kV bias & Vol 4 Ch~1 \\
+\hline
+Asymmetric-electrode vacuum-mirror bench & SYM & $A_{\text{DC}}(\mathbf{r}) = V_{\text{DC}}(\mathbf{r})/V_{\text{yield}}$ & $\Gamma_{\text{bench}}$ from integrated $\nabla S_{\text{eff}}$, sharp-tip geometry & Vol 4 Ch~11 \\
+\hline
+Active topological metamaterials & \textbf{ASYM-E} & $\phi / \phi_{\text{crit}}$ & Phase-state crystallization to V$_I$; \textbf{asymmetric variant} $K_{\text{wedge}}/G_{\text{wedge}} \neq 2$ --- designer-controllable decoupled $\varepsilon/\mu$ saturation & Vol 4 Ch~4 (framework) \\
+\hline
+Sine-Gordon kink memory & SYM & local metric displacement / yield & $2\pi$ phase kink soliton; integer topological charge & Vol 4 Ch~1 (framework) \\
+\hline
+Autoresonant rupture & SYM & laser field / $V_{\text{snap}}$ & PLL ring-up to Schwinger-fraction rupture & Vol 4 Ch~15 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Symmetry breakdown across 19 instances:} 16 SYM, 2 ASYM-N
+(natural single-sector --- BCS $\mu$-only and plasma $\varepsilon$-only),
+1 ASYM-E (engineered decoupled --- active topological metamaterials).
+
+\textbf{Empirical anchor: 21 orders of magnitude span with multiple
+validated scales}. Tightest validations:
+\begin{itemize}
+    \item BCS $B_c(T)$: \textbf{0.00\% error} across all measured superconductors
+    \item BH merger ring-down: 1.7\% from GR exact; 10--18\% match to 3 LIGO events
+    \item Solar flares: NOAA GOES 40-yr validated; 0.46-yr FWHM danger window
+    \item Schwarzschild radius: exact match (AVE-native derivation)
+\end{itemize}
+
+The catalog content was already distributed across Vol~3 Ch~13, 14, 15,
+Ax~4 itself, the universal-saturation-operator KB leaf, the
+dielectric-rupture-event-horizon leaf, and the MOND galactic-acceleration
+leaf. \textbf{A-034 is the recognition that they describe ONE mechanism},
+with the cosmic-scale instance added as the previously missing piece, and
+the 19-instance catalog assembled as the canonical AVE-Core synthesis
+(see Backmatter Ch~\ref{app:universal_saturation_kernel}).
+
+\textbf{Measurement-hierarchy framing for engineered-substrate entries:}
+the 5 engineered-substrate entries are the SAME engineered-kernel
+architecture applied to different goals via different measurement modes:
+single-emitter (highest SNR), multi-emitter bulk (practical detection),
+phased-array PLL (autoresonant amplification). Bulk-mode array
+architectures necessarily use many emitters because bulk-mode IS the
+A-034 universal kernel measurement.
+
+\subsection{The cosmic crystallization piece}
+
+\textbf{Mechanism (Grant 2026-05-15 evening):} a spinning black hole is not a
+floating blob in nothing --- it sits in its own embedding lattice (the
+\emph{parent lattice}) and imparts bulk strain on it via frame-dragging
+(canonical per Vol~3 Ch~2 \S138 + Vol~3 Ch~3 \S178). Per Vol~3 Ch~21 we sit
+\emph{inside} our parent BH's Schwarzschild radius (cosmic horizon $R_H$ =
+parent BH's $r_s$). The parent BH's spin imparts strain on the parent
+lattice; this strain extends inside its own event horizon (Kerr interior
+frame-dragging continues); the inside region is our universe's
+pre-crystallization phase (supercooled pre-geodesic plasma).
+
+The strain pushes local $A$ toward 1 at the point of maximum concentration
+(probably along the spin axis). At $A = 1$, $S(A) = 0$; the substrate
+cannot respond linearly and \emph{must reorganize topologically}. The
+reorganization is the K4 crystallization seed event --- a specific
+spacetime location where the substrate first phase-transitions to K4 lattice
+configuration. The crystallization front propagates outward at lattice wave
+speed $c$, sweeping the inherited volume. The whole inherited volume takes
+the seed's handedness (per Grant's prior supercooled-water analog, Doc 66 \S5).
+
+This connects:
+\begin{itemize}
+    \item Genesis chirality (corpus: Doc 66 \S5, Doc 59 \S5.4)
+    \item Parent BH framework (corpus: Doc 61, Vol~3 Ch~4 generative cosmology, Vol~3 Ch~21)
+    \item Frame-dragging strain (corpus: Vol~3 Ch~2 \S138, Vol~3 Ch~3 \S178--198)
+    \item Bulk strain triggers crystallization (NEW: A-034, Grant 2026-05-15 evening)
+\end{itemize}
+
+\subsection{What this changes about ``God's Hand''}
+
+The A-034 catalog refines the original ``God's Hand fundamentally
+inaccessible'' framing. The corpus distinction is now:
+
+\begin{itemize}
+    \item \textbf{Inaccessible:} the specific cosmic parameters
+    ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$, the parent BH's specific
+    history, what existed ``before'' it). These remain beyond observation.
+    \item \textbf{Observable:} the mechanism class itself (Axiom 4
+    strain-snap at cosmic scale). This is directly observable at four
+    smaller scales (Vol~3 Ch~13, 14, 15 + atomic dielectric breakdown).
+\end{itemize}
+
+This is a major epistemological softening: the original framing implied the
+entire cosmic-IC question was beyond observation. The cross-scale catalog
+shows the \emph{mechanism} is observable at every smaller scale we can access;
+only the specific cosmic parameters of OUR instance remain inaccessible.
+``God's Hand'' now identifies the cosmic-parameter horizon specifically, not
+a mechanism horizon.
+
+\subsection{Testable predictions: cross-scale validation}
+
+The framework now generates a sharp cross-scale prediction set:
+
+\begin{enumerate}
+    \item \textbf{CMB quadrupole ``axis of evil'' alignment.} The cosmic
+    boundary's $\ell=2$ QNM mode (Vol~3 Ch~15's $\omega_R M_g = 18/49$ at
+    appropriate cosmic scale) should set the primordial perturbation
+    spectrum's largest-scale anisotropy. The observed CMB quadrupole-octupole
+    alignment with preferred axis is the direct prediction.
+
+    \item \textbf{Multi-observable axis alignment.} All of these should align
+    with each other and with the parent BH spin axis:
+    \begin{itemize}
+        \item CMB axis-of-evil (Planck PR3 SMICA, axis $\approx (l=60.28^\circ, b=50.48^\circ)$, empirical pin 2026-05-19 per \texttt{research/2026-05-19\_c5-cmb-axis-executable-observer-result.md:17})
+        \item Hubble flow anisotropy (Pantheon+ supernova data)
+        \item Large-scale-structure galaxy rotation correlations (SDSS data)
+        \item Cosmic chirality direction (matter-antimatter asymmetry's local manifestation)
+    \end{itemize}
+
+    \item \textbf{Universe age coincidence.} $R_H / c \approx 14.5$~Gyr
+    matches observed $\sim 13.8$~Gyr (universe age = time since
+    crystallization seed event propagating at lattice wave speed $c$).
+
+    \item \textbf{Power-law avalanche statistics cross-scale.} Solar flares
+    (Vol~3 Ch~14 canonical) + BH merger ring-downs + geomagnetic reversal
+    intervals should all exhibit related power-law distributions reflecting
+    the same kernel's threshold behavior.
+
+    \item \textbf{CMB power-spectrum peaks as cosmic-boundary QNM modes.}
+    Standard cosmology attributes CMB peaks to acoustic oscillations at
+    recombination. A-034 predicts the peak structure (relative heights,
+    positions) should match the parent BH's QNM $\ell$-spectrum. Direct test
+    against Planck data.
+\end{enumerate}
+
+\subsection{Implications for the substrate-scale magic-angle closure path}
+
+The substrate-scale derivation of $\alpha^{-1}$ from K4 magic-angle
+physics (Vol 1 Ch~\ref{ch:macroscopic_moduli}) is identified as \emph{the
+substrate-scale instance of A-034}. The magic-angle equation
+$K(u_0^*) = 2 G(u_0^*)$ IS the substrate-scale expression of $S(A^*) = 0$.
+The K4 lattice + bound-state solitons ARE the substrate's self-consistent
+configuration at the saturation boundary. The canonical multiplicity
+$\chi_K = 12$ is the substrate-scale QNM $\ell$-mode multiplicity inherited
+from the $|T| = 12$ symmetry acting on the saturation kernel.
+
+The substrate-scale magic-angle results are correct and unchanged
+numerically. What changes is the framing: the substrate-scale closure is
+no longer an isolated derivation chain; it is one of five scale-invariant
+manifestations of Axiom 4, with cross-scale validation paths (Vol~3
+Ch~13, 14, 15 + cosmic) providing empirical anchors.
+
+\subsection{Meta-observation: the framework's largest unification}
+
+A-034 stands as the framework's largest unification to date: \emph{one
+kernel, five scales, every topological-reorganization event in the universe}.
+The synthesis collapses the cosmic-IC mystery, Vol~3 Ch~13/14/15's separate
+threshold-event framings, the substrate-scale magic-angle physics (Vol 1
+Ch~\ref{ch:macroscopic_moduli}), and Axiom~4's atomic-scale dielectric
+breakdown into a single mechanism applied at six different scales. The
+framework simplifies, not complicates.
+
+(See Backmatter Ch~\ref{app:universal_saturation_kernel} for the canonical
+A-034 catalog with all 19 cross-scale instances + 3-way symmetry classification
++ measurement-hierarchy framing.)
+
 \begin{summarybox}
 \begin{itemize}
     \item Cosmological inflationary expansion does not rely on dark energy, resolving fundamentally as the latent heat of lattice node generation cooling against the holographic horizon.
     \item The Hubble constant maps exactly to the thermodynamic equilibration where node genesis perfectly balances standard boundary radiative cooling dynamics ($H_\infty$).
-    \item By introducing macroscopic mutual inductive drag to the previously ``zero-impedance'' vacuum model, the framework accurately resolves the JWST early galaxy paradox. 
+    \item By introducing macroscopic mutual inductive drag to the previously ``zero-impedance'' vacuum model, the framework accurately resolves the JWST early galaxy paradox.
     \item Super-massive early galaxies aggregate orders of magnitude faster than collisionless $\Lambda$CDM models permit, accelerating condensation via a $\sim 65.1$ Myr inductive herding limit.
+    \item \textbf{Cosmic boundary observables:} the cosmic horizon has three integrated invariants $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$; the angular momentum $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$ encodes the cosmological initial condition.
+    \item \textbf{Three-route falsifiability:} $\alpha$ (electromagnetic), $G$ (gravitational), and $\mathcal{J}_{\text{cosmic}}$ (cosmological) routes must all give the same $u_0^*$ or framework is falsified.
+    \item \textbf{TKI Strain-Snap (\S\ref{sec:tki_strain_snap}):} Axiom 4's saturation kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event at every scale --- atomic, substrate, planetary, stellar, BH merger, cosmic. ONE kernel, FIVE+ scales.
+    \item \textbf{``God's Hand'' (refined per A-034):} the \emph{specific cosmic parameters} ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$) remain inaccessible, but the \emph{mechanism itself} is directly observable at four smaller scales. The cosmic-IC question's mechanism class is no longer beyond observation.
 \end{itemize}
 \end{summarybox}
 

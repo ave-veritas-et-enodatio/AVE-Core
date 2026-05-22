@@ -1,0 +1,301 @@
+{
+  "driver": "c5_pantheon_bulk_flow_tightening.py",
+  "prereg": "research/2026-05-19_c5-pantheon-tightening-prereg.md",
+  "briefing": "_orchestration/section-e-cascade.md",
+  "branch": "analysis/c5-pantheon-tightening",
+  "date": "2026-05-19",
+  "constants_used": {
+    "C_0_m_per_s": 299792458.0,
+    "H_INFINITY_inv_s": 2.246561628172611e-18,
+    "H0_AVE_km_s_Mpc": 69.32215216052226,
+    "H0_SH0ES_km_s_Mpc": 73.04,
+    "Q0": -0.55
+  },
+  "forward_prediction_discipline_check": {
+    "chi2_sees_cmb_axis": false,
+    "starting_params_biased_to_cmb_axis": false,
+    "alignment_functional_minimized": false,
+    "result_depends_on_comparison_axis": false
+  },
+  "cmb_axis_reference": {
+    "l_deg": 60.28301886792453,
+    "b_deg": 50.48004426244294,
+    "sigma_deg": 0.9161297098179749,
+    "source": "Planck PR3 SMICA, E1b session (cmb_axis_alignment_executable_observer_results.json)"
+  },
+  "primary_pipeline_zHD": {
+    "pipeline_name": "primary (zHD = CMB-rest + 2M++ VPEC, standard Pantheon+ pipeline)",
+    "redshift_field": "zHD",
+    "h0_used_km_s_mpc": 73.04,
+    "n_sn": 664,
+    "chi2": 604.5092321236036,
+    "dof": 660,
+    "chi2_per_dof": 0.915923078975157,
+    "u_best_km_s": [
+      -96.0679784928339,
+      115.46632724396227,
+      -36.44891292101333
+    ],
+    "magnitude_km_s": 154.56407238434485,
+    "l_deg": 129.76045462141485,
+    "b_deg": -13.639816406209416,
+    "sigma_hubble_hessian_deg": 19.632690880298117,
+    "sigma_hubble_bootstrap_deg": 23.996585331649428,
+    "sigma_hubble_canonical_deg": 23.996585331649428,
+    "hessian_diagnostic": {
+      "method": "Hessian + Gaussian MC (1000 samples)",
+      "sigma_deg_68": 19.632690880298117,
+      "best_u_km_s": [
+        -96.0679784928339,
+        115.46632724396227,
+        -36.44891292101333
+      ],
+      "best_u_magnitude_km_s": 154.56407238434485,
+      "cov_u_eigenvalues": [
+        823.6567434241258,
+        1368.2043750657435,
+        2193.681042570811
+      ],
+      "n_samples_valid": 1000
+    },
+    "bootstrap_diagnostic": {
+      "method": "Block bootstrap (500/500 converged)",
+      "sigma_deg_68": 23.996585331649428,
+      "n_bootstraps_converged": 500,
+      "n_bootstraps_attempted": 500,
+      "mean_magnitude_km_s": 145.21917017509324,
+      "magnitude_std_km_s": 30.17627973074471
+    },
+    "used_full_covariance": true,
+    "diagnostics": {
+      "n_sn_input_cut": 664,
+      "chi2_per_dof": 0.915923078975157,
+      "raw_lb_pre_canonicalization": [
+        129.76045462141485,
+        -13.639816406209416
+      ]
+    }
+  },
+  "sub_analysis_zHEL_plus_VPEC": {
+    "pipeline_name": "sub-analysis (zHEL + 2M++ VPEC, no CMB-rest-frame transform)",
+    "redshift_field": "zHEL_plus_VPEC",
+    "h0_used_km_s_mpc": 73.04,
+    "n_sn": 664,
+    "chi2": 604.5439370173284,
+    "dof": 660,
+    "chi2_per_dof": 0.9159756621474673,
+    "u_best_km_s": [
+      -120.21871725188414,
+      -136.14731892993302,
+      250.01236149130312
+    ],
+    "magnitude_km_s": 309.0223508550076,
+    "l_deg": 48.555346032744154,
+    "b_deg": -54.002532416047536,
+    "sigma_hubble_hessian_deg": 11.191156161965385,
+    "sigma_hubble_bootstrap_deg": 11.013091151774034,
+    "sigma_hubble_canonical_deg": 11.191156161965385,
+    "hessian_diagnostic": {
+      "method": "Hessian + Gaussian MC (1000 samples)",
+      "sigma_deg_68": 11.191156161965385,
+      "best_u_km_s": [
+        -120.21871725188414,
+        -136.14731892993302,
+        250.01236149130312
+      ],
+      "best_u_magnitude_km_s": 309.0223508550076,
+      "cov_u_eigenvalues": [
+        814.017912262748,
+        1353.6325614907778,
+        2119.7607277918733
+      ],
+      "n_samples_valid": 1000
+    },
+    "bootstrap_diagnostic": {
+      "method": "Block bootstrap (500/500 converged)",
+      "sigma_deg_68": 11.013091151774034,
+      "n_bootstraps_converged": 500,
+      "n_bootstraps_attempted": 500,
+      "mean_magnitude_km_s": 311.9894276206186,
+      "magnitude_std_km_s": 27.60888292477536
+    },
+    "used_full_covariance": true,
+    "diagnostics": {
+      "n_sn_input_cut": 664,
+      "chi2_per_dof": 0.9159756621474673,
+      "raw_lb_pre_canonicalization": [
+        228.55534603274415,
+        54.002532416047536
+      ]
+    }
+  },
+  "diagnostic_zCMB_only": {
+    "pipeline_name": "diagnostic (zCMB-only, no VPEC)",
+    "redshift_field": "zCMB",
+    "h0_used_km_s_mpc": 73.04,
+    "n_sn": 664,
+    "chi2": 606.8766017527005,
+    "dof": 660,
+    "chi2_per_dof": 0.9195100026556068,
+    "u_best_km_s": [
+      -210.74426155106312,
+      257.0696797586018,
+      -65.28183981235343
+    ],
+    "magnitude_km_s": 338.76198523030706,
+    "l_deg": 129.34470516356296,
+    "b_deg": -11.11080979371971,
+    "sigma_hubble_hessian_deg": 8.925110874439472,
+    "sigma_hubble_bootstrap_deg": 11.969944380791866,
+    "sigma_hubble_canonical_deg": 11.969944380791866,
+    "hessian_diagnostic": {
+      "method": "Hessian + Gaussian MC (1000 samples)",
+      "sigma_deg_68": 8.925110874439472,
+      "best_u_km_s": [
+        -210.74426155106312,
+        257.0696797586018,
+        -65.28183981235343
+      ],
+      "best_u_magnitude_km_s": 338.76198523030706,
+      "cov_u_eigenvalues": [
+        792.975903557926,
+        1317.9978228441778,
+        2084.295350737187
+      ],
+      "n_samples_valid": 1000
+    },
+    "bootstrap_diagnostic": {
+      "method": "Block bootstrap (500/500 converged)",
+      "sigma_deg_68": 11.969944380791866,
+      "n_bootstraps_converged": 500,
+      "n_bootstraps_attempted": 500,
+      "mean_magnitude_km_s": 323.2283455106651,
+      "magnitude_std_km_s": 32.36944613363064
+    },
+    "used_full_covariance": true,
+    "diagnostics": {
+      "n_sn_input_cut": 664,
+      "chi2_per_dof": 0.9195100026556068,
+      "raw_lb_pre_canonicalization": [
+        129.34470516356296,
+        -11.11080979371971
+      ]
+    }
+  },
+  "diagnostic_zHEL_raw": {
+    "pipeline_name": "diagnostic (zHEL raw, no correction)",
+    "redshift_field": "zHEL",
+    "h0_used_km_s_mpc": 73.04,
+    "n_sn": 664,
+    "chi2": 605.5383081804204,
+    "dof": 660,
+    "chi2_per_dof": 0.917482285121849,
+    "u_best_km_s": [
+      -236.60074457538016,
+      5.47239645303989,
+      222.9638153226135
+    ],
+    "magnitude_km_s": 325.1503073961026,
+    "l_deg": 178.67502814711622,
+    "b_deg": 43.29268023651113,
+    "sigma_hubble_hessian_deg": 9.546237633682228,
+    "sigma_hubble_bootstrap_deg": 12.759467990113148,
+    "sigma_hubble_canonical_deg": 12.759467990113148,
+    "hessian_diagnostic": {
+      "method": "Hessian + Gaussian MC (1000 samples)",
+      "sigma_deg_68": 9.546237633682228,
+      "best_u_km_s": [
+        -236.60074457538016,
+        5.47239645303989,
+        222.9638153226135
+      ],
+      "best_u_magnitude_km_s": 325.1503073961026,
+      "cov_u_eigenvalues": [
+        791.707507181478,
+        1308.7554273944083,
+        2020.2776941602292
+      ],
+      "n_samples_valid": 1000
+    },
+    "bootstrap_diagnostic": {
+      "method": "Block bootstrap (500/500 converged)",
+      "sigma_deg_68": 12.759467990113148,
+      "n_bootstraps_converged": 500,
+      "n_bootstraps_attempted": 500,
+      "mean_magnitude_km_s": 319.87559376750914,
+      "magnitude_std_km_s": 30.559953973590922
+    },
+    "used_full_covariance": true,
+    "diagnostics": {
+      "n_sn_input_cut": 664,
+      "chi2_per_dof": 0.917482285121849,
+      "raw_lb_pre_canonicalization": [
+        178.67502814711622,
+        43.29268023651113
+      ]
+    }
+  },
+  "primary_cmb_comparison": {
+    "cmb_axis_lb": [
+      60.28301886792453,
+      50.48004426244294
+    ],
+    "hubble_axis_lb": [
+      129.76045462141485,
+      -13.639816406209416
+    ],
+    "separation_deg": 88.00076727669611,
+    "sigma_combined_deg": 24.014066736484754,
+    "sigma_separation_vs_pass_threshold": 2.8317056008419446,
+    "sigma_separation_vs_zero": 3.664550791932125,
+    "decisive_against_alignment_3sigma": false,
+    "decisive_for_alignment_3sigma": false
+  },
+  "sub_cmb_comparison": {
+    "cmb_axis_lb": [
+      60.28301886792453,
+      50.48004426244294
+    ],
+    "hubble_axis_lb": [
+      48.555346032744154,
+      -54.002532416047536
+    ],
+    "separation_deg": 75.05491191474157,
+    "sigma_combined_deg": 11.22859162525323,
+    "sigma_separation_vs_pass_threshold": 4.903100384461614,
+    "sigma_separation_vs_zero": 6.6842676641603225,
+    "decisive_against_alignment_3sigma": true,
+    "decisive_for_alignment_3sigma": false
+  },
+  "sub_primary_axis_separation_deg": 73.85211050801337,
+  "primary_chi2_per_dof": 0.915923078975157,
+  "primary_used_full_covariance": true,
+  "verdict": {
+    "outcome": "Marginal-D",
+    "name": "DATA INSUFFICIENT (improved, not decisive)",
+    "reason": "sigma_Hubble = 24.00\u00b0 in [15, 24.9]\u00b0 marginal window. Tighter than Whitford+2023's ~30\u00b0 but not 3\u03c3-decisive. Separation = 88.0\u00b0 at +2.83\u03c3 above 20\u00b0 threshold.",
+    "sub_primary_sep_deg": 73.85211050801337,
+    "sub_primary_consistent_1sigma": false,
+    "cascade": "C5 row updates to D with refined-bounds note. Queue joint-constraint session (Pantheon+ + SDSS DR17 spin-orientation re-analysis) for decisive 3\u03c3 adjudication."
+  },
+  "cross_check_dipole_recovery": {
+    "implied_solar_motion_km_s": [
+      -25.856483024317043,
+      -251.59728330556192,
+      288.2456551349669
+    ],
+    "implied_solar_motion_magnitude_km_s": 383.4779112091233,
+    "implied_solar_motion_direction_l_b": [
+      264.13235067045696,
+      48.73452441666296
+    ],
+    "planck_2020_cmb_dipole_l_b_v": [
+      264.02,
+      48.25,
+      369.82
+    ],
+    "separation_implied_vs_planck_deg": 0.4902118112560099,
+    "magnitude_ratio_implied_over_planck": 1.036931240087403,
+    "passes_dipole_recovery_check": true
+  }
+}

@@ -1,0 +1,1083 @@
+{
+  "pre_registration": "P_phase6_photon_tail_propagating_ic",
+  "test": "Photon-tail propagating IC test (path b), 3/3 + C4 informational per A57",
+  "omega_loop_natural": 0.10894694214056866,
+  "loop_length_cells": 57.671974850590246,
+  "N": 64,
+  "PML": 4,
+  "R_loop": 4.0,
+  "r_minor": 1.5,
+  "n_loop_nodes_sampled": 30,
+  "n_unique_cells": 30,
+  "n_periods_total": 200.0,
+  "n_record_samples": 447,
+  "elapsed_seconds": 2266.2911307811737,
+  "loop_node_path": [
+    {
+      "t_param": 0.0,
+      "cell": [
+        37,
+        32,
+        32
+      ],
+      "port": 0,
+      "tangent": [
+        -0.0,
+        0.9255469562056767,
+        0.3786328457205041
+      ],
+      "arc_length": 0.0
+    },
+    {
+      "t_param": 0.20943951023931953,
+      "cell": [
+        36,
+        34,
+        32
+      ],
+      "port": 1,
+      "tangent": [
+        -0.5862137988723901,
+        0.7440360023643581,
+        0.32056794786326614
+      ],
+      "arc_length": 2.411946535512558
+    },
+    {
+      "t_param": 0.41887902047863906,
+      "cell": [
+        34,
+        35,
+        33
+      ],
+      "port": 1,
+      "tangent": [
+        -0.950055054101219,
+        0.27936927030349734,
+        0.1390978252411628
+      ],
+      "arc_length": 4.6217292494802145
+    },
+    {
+      "t_param": 0.6283185307179586,
+      "cell": [
+        33,
+        35,
+        33
+      ],
+      "port": 0,
+      "tangent": [
+        -0.9601790745602165,
+        -0.2248122464725812,
+        -0.1658782644370191
+      ],
+      "arc_length": 6.516146929656227
+    },
+    {
+      "t_param": 0.8377580409572781,
+      "cell": [
+        31,
+        34,
+        32
+      ],
+      "port": 0,
+      "tangent": [
+        -0.7351640367272385,
+        -0.4485691705613923,
+        -0.5082514518668649
+      ],
+      "arc_length": 8.117184355468911
+    },
+    {
+      "t_param": 1.0471975511965976,
+      "cell": [
+        30,
+        34,
+        32
+      ],
+      "port": 0,
+      "tangent": [
+        -0.6437116131343119,
+        -0.3716470731235831,
+        -0.6689647316224497
+      ],
+      "arc_length": 9.5538264185453
+    },
+    {
+      "t_param": 1.2566370614359172,
+      "cell": [
+        29,
+        33,
+        31
+      ],
+      "port": 0,
+      "tangent": [
+        -0.7560543154242997,
+        -0.4123861464738084,
+        -0.508251451866865
+      ],
+      "arc_length": 10.99046848162169
+    },
+    {
+      "t_param": 1.4660765716752366,
+      "cell": [
+        28,
+        32,
+        30
+      ],
+      "port": 0,
+      "tangent": [
+        -0.6747826538072124,
+        -0.7191333475150892,
+        -0.16587826443701922
+      ],
+      "arc_length": 12.591505907434373
+    },
+    {
+      "t_param": 1.6755160819145563,
+      "cell": [
+        27,
+        31,
+        30
+      ],
+      "port": 3,
+      "tangent": [
+        -0.23308664193105966,
+        -0.9624564469972036,
+        0.13909782524116274
+      ],
+      "arc_length": 14.485923587610385
+    },
+    {
+      "t_param": 1.8849555921538759,
+      "cell": [
+        27,
+        28,
+        31
+      ],
+      "port": 2,
+      "tangent": [
+        0.35124717994155746,
+        -0.8796940430546505,
+        0.32056794786326614
+      ],
+      "arc_length": 16.695706301578042
+    },
+    {
+      "t_param": 2.0943951023931953,
+      "cell": [
+        29,
+        27,
+        32
+      ],
+      "port": 2,
+      "tangent": [
+        0.8015471764694792,
+        -0.46277347810283886,
+        0.3786328457205041
+      ],
+      "arc_length": 19.107652837090598
+    },
+    {
+      "t_param": 2.3038346126325147,
+      "cell": [
+        31,
+        26,
+        32
+      ],
+      "port": 0,
+      "tangent": [
+        0.9374609788139481,
+        0.13565804069029128,
+        0.3205679478632664
+      ],
+      "arc_length": 21.519599372603153
+    },
+    {
+      "t_param": 2.5132741228718345,
+      "cell": [
+        33,
+        27,
+        33
+      ],
+      "port": 0,
+      "tangent": [
+        0.7169684121701599,
+        0.6830871766937062,
+        0.13909782524116293
+      ],
+      "arc_length": 23.729382086570812
+    },
+    {
+      "t_param": 2.722713633111154,
+      "cell": [
+        34,
+        29,
+        33
+      ],
+      "port": 3,
+      "tangent": [
+        0.28539642075300486,
+        0.9439455939876705,
+        -0.16587826443701897
+      ],
+      "arc_length": 25.62379976674682
+    },
+    {
+      "t_param": 2.9321531433504733,
+      "cell": [
+        34,
+        30,
+        32
+      ],
+      "port": 2,
+      "tangent": [
+        -0.020890278697060546,
+        0.8609553170352007,
+        -0.5082514518668648
+      ],
+      "arc_length": 27.224837192559505
+    },
+    {
+      "t_param": 3.141592653589793,
+      "cell": [
+        34,
+        32,
+        32
+      ],
+      "port": 2,
+      "tangent": [
+        -6.371909579185895e-17,
+        0.7432941462471664,
+        -0.6689647316224497
+      ],
+      "arc_length": 28.661479255635896
+    },
+    {
+      "t_param": 3.3510321638291125,
+      "cell": [
+        34,
+        33,
+        31
+      ],
+      "port": 3,
+      "tangent": [
+        0.020890278697061546,
+        0.8609553170352006,
+        -0.5082514518668652
+      ],
+      "arc_length": 30.098121318712284
+    },
+    {
+      "t_param": 3.560471674068432,
+      "cell": [
+        34,
+        34,
+        30
+      ],
+      "port": 2,
+      "tangent": [
+        -0.2853964207530034,
+        0.9439455939876709,
+        -0.1658782644370194
+      ],
+      "arc_length": 31.69915874452497
+    },
+    {
+      "t_param": 3.7699111843077517,
+      "cell": [
+        33,
+        36,
+        30
+      ],
+      "port": 1,
+      "tangent": [
+        -0.7169684121701596,
+        0.6830871766937068,
+        0.13909782524116263
+      ],
+      "arc_length": 33.593576424700984
+    },
+    {
+      "t_param": 3.979350694547071,
+      "cell": [
+        31,
+        37,
+        31
+      ],
+      "port": 1,
+      "tangent": [
+        -0.9374609788139477,
+        0.13565804069029308,
+        0.3205679478632661
+      ],
+      "arc_length": 35.80335913866864
+    },
+    {
+      "t_param": 4.1887902047863905,
+      "cell": [
+        29,
+        36,
+        32
+      ],
+      "port": 3,
+      "tangent": [
+        -0.8015471764694799,
+        -0.4627734781028375,
+        0.3786328457205041
+      ],
+      "arc_length": 38.215305674181195
+    },
+    {
+      "t_param": 4.39822971502571,
+      "cell": [
+        27,
+        35,
+        32
+      ],
+      "port": 3,
+      "tangent": [
+        -0.3512471799415581,
+        -0.8796940430546503,
+        0.3205679478632662
+      ],
+      "arc_length": 40.62725220969376
+    },
+    {
+      "t_param": 4.607669225265029,
+      "cell": [
+        27,
+        32,
+        33
+      ],
+      "port": 2,
+      "tangent": [
+        0.23308664193105738,
+        -0.962456446997204,
+        0.1390978252411637
+      ],
+      "arc_length": 42.837034923661406
+    },
+    {
+      "t_param": 4.817108735504349,
+      "cell": [
+        28,
+        31,
+        33
+      ],
+      "port": 1,
+      "tangent": [
+        0.6747826538072115,
+        -0.7191333475150901,
+        -0.16587826443701884
+      ],
+      "arc_length": 44.73145260383742
+    },
+    {
+      "t_param": 5.026548245743669,
+      "cell": [
+        29,
+        30,
+        32
+      ],
+      "port": 1,
+      "tangent": [
+        0.7560543154242997,
+        -0.4123861464738086,
+        -0.5082514518668648
+      ],
+      "arc_length": 46.3324900296501
+    },
+    {
+      "t_param": 5.235987755982988,
+      "cell": [
+        30,
+        29,
+        32
+      ],
+      "port": 1,
+      "tangent": [
+        0.643711613134312,
+        -0.37164707312358275,
+        -0.6689647316224497
+      ],
+      "arc_length": 47.76913209272649
+    },
+    {
+      "t_param": 5.445427266222308,
+      "cell": [
+        31,
+        29,
+        31
+      ],
+      "port": 1,
+      "tangent": [
+        0.735164036727238,
+        -0.4485691705613927,
+        -0.5082514518668654
+      ],
+      "arc_length": 49.20577415580288
+    },
+    {
+      "t_param": 5.654866776461628,
+      "cell": [
+        33,
+        28,
+        30
+      ],
+      "port": 1,
+      "tangent": [
+        0.9601790745602163,
+        -0.22481224647258172,
+        -0.16587826443701953
+      ],
+      "arc_length": 50.80681158161556
+    },
+    {
+      "t_param": 5.864306286700947,
+      "cell": [
+        34,
+        28,
+        30
+      ],
+      "port": 0,
+      "tangent": [
+        0.9500550541012198,
+        0.2793692703034955,
+        0.13909782524116254
+      ],
+      "arc_length": 52.70122926179157
+    },
+    {
+      "t_param": 6.073745796940266,
+      "cell": [
+        36,
+        29,
+        31
+      ],
+      "port": 0,
+      "tangent": [
+        0.5862137988723912,
+        0.7440360023643574,
+        0.32056794786326603
+      ],
+      "arc_length": 54.91101197575922
+    }
+  ],
+  "initial_state": {
+    "peak_omega": 0.8358897504897039,
+    "peak_vinc": 0.26110145772977156,
+    "c": 2
+  },
+  "final_state": {
+    "peak_omega": 0.03639725664599286,
+    "peak_vinc": 0.1735047268376992,
+    "c": 1
+  },
+  "C1_ellipse_aspect": {
+    "median_R_over_r": 25.741233651771083,
+    "target": 2.618033988749895,
+    "tolerance": 0.05,
+    "pass": "False",
+    "per_node_records": [
+      {
+        "node_idx": 0,
+        "cell": [
+          37,
+          32,
+          32
+        ],
+        "port": 0,
+        "arc_length": 0.0,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 1,
+        "cell": [
+          36,
+          34,
+          32
+        ],
+        "port": 1,
+        "arc_length": 2.411946535512558,
+        "R_phase": 0.0012040892386254829,
+        "r_phase": 5.9709961965167185e-05,
+        "R_over_r": 20.165633991324743,
+        "theta": -2.368377956662419,
+        "amp_drift": 0.4340790562264235
+      },
+      {
+        "node_idx": 2,
+        "cell": [
+          34,
+          35,
+          33
+        ],
+        "port": 1,
+        "arc_length": 4.6217292494802145,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 3,
+        "cell": [
+          33,
+          35,
+          33
+        ],
+        "port": 0,
+        "arc_length": 6.516146929656227,
+        "R_phase": 0.0036908768160269475,
+        "r_phase": 6.041200571050145e-05,
+        "R_over_r": 61.09508818021846,
+        "theta": -2.3577443746361793,
+        "amp_drift": 0.11284919414500548
+      },
+      {
+        "node_idx": 4,
+        "cell": [
+          31,
+          34,
+          32
+        ],
+        "port": 0,
+        "arc_length": 8.117184355468911,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 5,
+        "cell": [
+          30,
+          34,
+          32
+        ],
+        "port": 0,
+        "arc_length": 9.5538264185453,
+        "R_phase": 0.0002774650750698615,
+        "r_phase": 1.2206045591147148e-05,
+        "R_over_r": 22.73177443078719,
+        "theta": 0.7891778785760017,
+        "amp_drift": 0.4741017539934249
+      },
+      {
+        "node_idx": 6,
+        "cell": [
+          29,
+          33,
+          31
+        ],
+        "port": 0,
+        "arc_length": 10.99046848162169,
+        "R_phase": 0.0016044874531805865,
+        "r_phase": 0.00047107443050757787,
+        "R_over_r": 3.4060168611821444,
+        "theta": 0.7873851548643461,
+        "amp_drift": 0.24552964025009663
+      },
+      {
+        "node_idx": 7,
+        "cell": [
+          28,
+          32,
+          30
+        ],
+        "port": 0,
+        "arc_length": 12.591505907434373,
+        "R_phase": 0.001603126453118498,
+        "r_phase": 0.0004727834136758327,
+        "R_over_r": 3.390826341927666,
+        "theta": -2.359978171598957,
+        "amp_drift": 0.24549536044805137
+      },
+      {
+        "node_idx": 8,
+        "cell": [
+          27,
+          31,
+          30
+        ],
+        "port": 3,
+        "arc_length": 14.485923587610385,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 9,
+        "cell": [
+          27,
+          28,
+          31
+        ],
+        "port": 2,
+        "arc_length": 16.695706301578042,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 10,
+        "cell": [
+          29,
+          27,
+          32
+        ],
+        "port": 2,
+        "arc_length": 19.107652837090598,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 11,
+        "cell": [
+          31,
+          26,
+          32
+        ],
+        "port": 0,
+        "arc_length": 21.519599372603153,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 12,
+        "cell": [
+          33,
+          27,
+          33
+        ],
+        "port": 0,
+        "arc_length": 23.729382086570812,
+        "R_phase": 0.01305727275750026,
+        "r_phase": 0.0002872341756256472,
+        "R_over_r": 45.45863224339233,
+        "theta": 0.7854279753852855,
+        "amp_drift": 0.0021322274544196946
+      },
+      {
+        "node_idx": 13,
+        "cell": [
+          34,
+          29,
+          33
+        ],
+        "port": 3,
+        "arc_length": 25.62379976674682,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 14,
+        "cell": [
+          34,
+          30,
+          32
+        ],
+        "port": 2,
+        "arc_length": 27.224837192559505,
+        "R_phase": 0.006333287067597513,
+        "r_phase": 0.00022028293702789774,
+        "R_over_r": 28.750692872754975,
+        "theta": 0.7866399182776845,
+        "amp_drift": 0.020204947809447878
+      },
+      {
+        "node_idx": 15,
+        "cell": [
+          34,
+          32,
+          32
+        ],
+        "port": 2,
+        "arc_length": 28.661479255635896,
+        "R_phase": 0.005778053089788447,
+        "r_phase": 0.0003292136828039482,
+        "R_over_r": 17.55107212001685,
+        "theta": 0.7871154271132809,
+        "amp_drift": 0.026367491461535577
+      },
+      {
+        "node_idx": 16,
+        "cell": [
+          34,
+          33,
+          31
+        ],
+        "port": 3,
+        "arc_length": 30.098121318712284,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 17,
+        "cell": [
+          34,
+          34,
+          30
+        ],
+        "port": 2,
+        "arc_length": 31.69915874452497,
+        "R_phase": 0.0067124874777259496,
+        "r_phase": 0.00012291586775611626,
+        "R_over_r": 54.610422561914824,
+        "theta": 0.7856966158488726,
+        "amp_drift": 0.05544420381129372
+      },
+      {
+        "node_idx": 18,
+        "cell": [
+          33,
+          36,
+          30
+        ],
+        "port": 1,
+        "arc_length": 33.593576424700984,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 19,
+        "cell": [
+          31,
+          37,
+          31
+        ],
+        "port": 1,
+        "arc_length": 35.80335913866864,
+        "R_phase": 0.0032316533596011277,
+        "r_phase": 0.00029275551541555703,
+        "R_over_r": 11.038744581853223,
+        "theta": 0.7865945926349156,
+        "amp_drift": 0.29519921893971685
+      },
+      {
+        "node_idx": 20,
+        "cell": [
+          29,
+          36,
+          32
+        ],
+        "port": 3,
+        "arc_length": 38.215305674181195,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 21,
+        "cell": [
+          27,
+          35,
+          32
+        ],
+        "port": 3,
+        "arc_length": 40.62725220969376,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 22,
+        "cell": [
+          27,
+          32,
+          33
+        ],
+        "port": 2,
+        "arc_length": 42.837034923661406,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 23,
+        "cell": [
+          28,
+          31,
+          33
+        ],
+        "port": 1,
+        "arc_length": 44.73145260383742,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 24,
+        "cell": [
+          29,
+          30,
+          32
+        ],
+        "port": 1,
+        "arc_length": 46.3324900296501,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 25,
+        "cell": [
+          30,
+          29,
+          32
+        ],
+        "port": 1,
+        "arc_length": 47.76913209272649,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 26,
+        "cell": [
+          31,
+          29,
+          31
+        ],
+        "port": 1,
+        "arc_length": 49.20577415580288,
+        "R_phase": 0.017091831519209774,
+        "r_phase": 0.00038628820535537635,
+        "R_over_r": 44.24631992966412,
+        "theta": -2.356226364311839,
+        "amp_drift": 0.012547900897074221
+      },
+      {
+        "node_idx": 27,
+        "cell": [
+          33,
+          28,
+          30
+        ],
+        "port": 1,
+        "arc_length": 50.80681158161556,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      },
+      {
+        "node_idx": 28,
+        "cell": [
+          34,
+          28,
+          30
+        ],
+        "port": 0,
+        "arc_length": 52.70122926179157,
+        "R_phase": 0.03385937818530644,
+        "r_phase": 0.0009856011584304515,
+        "R_over_r": 34.354036514351066,
+        "theta": 0.7854167559820378,
+        "amp_drift": 0.035808425701335335
+      },
+      {
+        "node_idx": 29,
+        "cell": [
+          36,
+          29,
+          31
+        ],
+        "port": 0,
+        "arc_length": 54.91101197575922,
+        "R_phase": NaN,
+        "r_phase": NaN,
+        "R_over_r": NaN,
+        "theta": NaN,
+        "amp_drift": NaN
+      }
+    ]
+  },
+  "C2_spatial_winding": {
+    "total_winding_2pi": NaN,
+    "winding_ratio": NaN,
+    "target_cycles": 5,
+    "tolerance_frac": 0.3,
+    "pass": false
+  },
+  "C3_lc_reactance": {
+    "rho_vinc_philink": -0.4629160855480369,
+    "target_range": [
+      -1.2,
+      -0.8
+    ],
+    "pass": false
+  },
+  "C4_topology_INFORMATIONAL": {
+    "c_final": 1,
+    "target": 3,
+    "pass": false,
+    "note": "C4 demoted to informational per A57 (sub-Nyquist topology seed at R=4, r=1.5 makes c=3 unsatisfiable from t=0). Mode I = 3/3 of C1/C2/C3."
+  },
+  "c_trajectory": [
+    {
+      "step": 88,
+      "t_period": 9.903479477728165,
+      "c": 3,
+      "peak_omega": 0.10339561166925072
+    },
+    {
+      "step": 177,
+      "t_period": 19.919498494975972,
+      "c": 0,
+      "peak_omega": 0.08411020605184448
+    },
+    {
+      "step": 266,
+      "t_period": 29.935517512223775,
+      "c": 1,
+      "peak_omega": 0.06680622402619169
+    },
+    {
+      "step": 355,
+      "t_period": 39.95153652947158,
+      "c": 0,
+      "peak_omega": 0.0750985443974045
+    },
+    {
+      "step": 444,
+      "t_period": 49.96755554671938,
+      "c": 3,
+      "peak_omega": 0.05559215852893393
+    },
+    {
+      "step": 533,
+      "t_period": 59.98357456396719,
+      "c": 1,
+      "peak_omega": 0.05233994196181437
+    },
+    {
+      "step": 622,
+      "t_period": 69.999593581215,
+      "c": 1,
+      "peak_omega": 0.04526720058462632
+    },
+    {
+      "step": 710,
+      "t_period": 79.90307305894316,
+      "c": 0,
+      "peak_omega": 0.044110943748300754
+    },
+    {
+      "step": 799,
+      "t_period": 89.91909207619095,
+      "c": 1,
+      "peak_omega": 0.03631023790656159
+    },
+    {
+      "step": 888,
+      "t_period": 99.93511109343876,
+      "c": 3,
+      "peak_omega": 0.05086793467765776
+    },
+    {
+      "step": 977,
+      "t_period": 109.95113011068656,
+      "c": 0,
+      "peak_omega": 0.03170539442396168
+    },
+    {
+      "step": 1066,
+      "t_period": 119.96714912793438,
+      "c": 2,
+      "peak_omega": 0.033236737304604975
+    },
+    {
+      "step": 1155,
+      "t_period": 129.98316814518216,
+      "c": 1,
+      "peak_omega": 0.04133273775871
+    },
+    {
+      "step": 1244,
+      "t_period": 139.99918716243,
+      "c": 2,
+      "peak_omega": 0.04354084625409062
+    },
+    {
+      "step": 1332,
+      "t_period": 149.90266664015815,
+      "c": 0,
+      "peak_omega": 0.0337921630921815
+    },
+    {
+      "step": 1421,
+      "t_period": 159.91868565740597,
+      "c": 1,
+      "peak_omega": 0.030134868562917236
+    },
+    {
+      "step": 1510,
+      "t_period": 169.93470467465377,
+      "c": 2,
+      "peak_omega": 0.02920253196417829
+    },
+    {
+      "step": 1599,
+      "t_period": 179.95072369190157,
+      "c": 0,
+      "peak_omega": 0.035000827408830204
+    },
+    {
+      "step": 1688,
+      "t_period": 189.96674270914937,
+      "c": 0,
+      "peak_omega": 0.04458719167620589
+    },
+    {
+      "step": 1777,
+      "t_period": 199.98276172639717,
+      "c": 0,
+      "peak_omega": 0.03835417975261511
+    }
+  ],
+  "c_climbed_to_3_during_evolution": true,
+  "load_bearing_pass_count": "0",
+  "load_bearing_total": 3,
+  "mode": "III (C1_ellipse_aspect, C2_spatial_winding, C3_lc_reactance FAIL)",
+  "verdict": "MODE III \u2014 0/3 load-bearing criteria PASS. Failed: ['C1_ellipse_aspect', 'C2_spatial_winding', 'C3_lc_reactance']. Even with propagating IC at engine-representable scale, photon-tail framework doesn't produce corpus-electron signature. Per pre-reg threshold: photon-tail branch closes; Round 8 closes with cumulative empirical statement that engine doesn't host corpus electron at any tested configuration accessible to N=64. Round 9 (if exists) escalates to N=128+ or reframes corpus prediction."
+}

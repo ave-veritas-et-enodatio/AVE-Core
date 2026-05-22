@@ -19,6 +19,11 @@
 }{%
     \typeout{[xr-hyper] vol_1_foundations.aux not found — cross-vol refs will be unresolved. Run `make vol1` first.}%
 }
+\IfFileExists{../../build/aux/vol_3_macroscopic.aux}{%
+    \externaldocument{../../build/aux/vol_3_macroscopic}%
+}{%
+    \typeout{[xr-hyper] vol_3_macroscopic.aux not found — Vol 3 chapter refs (e.g. sec:tki_strain_snap) will be unresolved. Run `make vol3` first.}%
+}
 
 \begin{document}
 

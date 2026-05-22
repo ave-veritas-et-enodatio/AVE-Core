@@ -1,0 +1,450 @@
+{
+  "pre_registration": "P_phase9_path_alpha_v3_3d_aligned",
+  "test": "Round 9 path \u03b1 v3: 3D-aligned \u03c9-vector sampler \u2014 auditor (\u03b4) interpretation",
+  "N": 32,
+  "PML": 4,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "phi_sq": 2.618033988749895,
+  "v_amp_init": 0.14,
+  "a26_amp_scale": 0.34641016151377546,
+  "pre_evolve_end_p": 10.0,
+  "selection_end_p": 15.0,
+  "recording_end_p": 200.0,
+  "n_recording_steps": 1644,
+  "top_k_candidates": 8,
+  "sample_port_default": 0,
+  "elapsed_seconds": 267.2531588077545,
+  "omega_peak_init": 0.9262465141773654,
+  "omega_peak_final": 0.30436045892252095,
+  "persistence": 0.32859552426260413,
+  "persistence_guard": 0.4,
+  "persistence_ok": false,
+  "n_bond_pairs": 4,
+  "bond_results": [
+    {
+      "cell_a": [
+        24,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        19,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "phi_link_amplitude_std": 0.2505721879081284,
+      "view_a_3d_omega_pca": {
+        "eigvals": [
+          0.0008534400816195361,
+          0.002716111997730816,
+          0.004166064608087028
+        ],
+        "axis_lengths": [
+          0.029213696815355912,
+          0.05211633139171268,
+          0.0645450587426104
+        ],
+        "planarity_e0_over_e2": 0.4526093458502044,
+        "in_plane_aspect_e2_over_e1": 1.2384804728000116
+      },
+      "view_b_per_axis": {
+        "x": {
+          "R_phase": 0.25064844173828654,
+          "r_phase": 0.05337304072366316,
+          "R_over_r": 4.69616192631799,
+          "omega_amplitude_std": 0.053356857030740966,
+          "chirality_mean_sin_dphi": 0.002198023070400029,
+          "chirality_std_sin_dphi": 0.7077640346410617,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "y": {
+          "R_phase": 0.2506484722747195,
+          "r_phase": 0.06318709085292264,
+          "R_over_r": 3.966767086304719,
+          "omega_amplitude_std": 0.06316803499987504,
+          "chirality_mean_sin_dphi": 0.006453440699422963,
+          "chirality_std_sin_dphi": 0.7064925694034605,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "z": {
+          "R_phase": 0.2506484434849048,
+          "r_phase": 0.029904750379891345,
+          "R_over_r": 8.381559461317112,
+          "omega_amplitude_std": 0.02989576034397598,
+          "chirality_mean_sin_dphi": 0.006255493597459091,
+          "chirality_std_sin_dphi": 0.7064248500949836,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        }
+      },
+      "view_c_magnitude": {
+        "R_phase": 0.2534434024133653,
+        "r_phase": 0.03943621879195315,
+        "R_over_r": 6.426665896910982,
+        "omega_mag_std": 0.05442733434797358,
+        "chirality_mean_sin_dphi": 0.4019656376210408,
+        "chirality_std_sin_dphi": 0.5077970840407511,
+        "chirality_sign": 1,
+        "chirality_label": "CCW"
+      }
+    },
+    {
+      "cell_a": [
+        6,
+        16,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        17,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "phi_link_amplitude_std": 0.2705321353250968,
+      "view_a_3d_omega_pca": {
+        "eigvals": [
+          0.0010329236245177104,
+          0.0023379014095123865,
+          0.0034932234110803383
+        ],
+        "axis_lengths": [
+          0.032139129181073194,
+          0.04835185011467903,
+          0.05910349745218415
+        ],
+        "planarity_e0_over_e2": 0.5437771124640188,
+        "in_plane_aspect_e2_over_e1": 1.2223626875084361
+      },
+      "view_b_per_axis": {
+        "x": {
+          "R_phase": 0.27061446349188967,
+          "r_phase": 0.04973396004598454,
+          "R_over_r": 5.441241020053032,
+          "omega_amplitude_std": 0.04971889702149685,
+          "chirality_mean_sin_dphi": -0.0010525059022474129,
+          "chirality_std_sin_dphi": 0.7081755279155053,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "y": {
+          "R_phase": 0.27061445159470404,
+          "r_phase": 0.05793924619282356,
+          "R_over_r": 4.670658825868927,
+          "omega_amplitude_std": 0.05792162248275322,
+          "chirality_mean_sin_dphi": 0.0019726080977670963,
+          "chirality_std_sin_dphi": 0.7070144079809431,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "z": {
+          "R_phase": 0.2706144638594666,
+          "r_phase": 0.03214983979953503,
+          "R_over_r": 8.417288096825303,
+          "omega_amplitude_std": 0.032140164297838676,
+          "chirality_mean_sin_dphi": 0.0016674026360448103,
+          "chirality_std_sin_dphi": 0.7071058544966717,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        }
+      },
+      "view_c_magnitude": {
+        "R_phase": 0.2720652989731151,
+        "r_phase": 0.03928056082845938,
+        "R_over_r": 6.926207091625829,
+        "omega_mag_std": 0.048258579921095904,
+        "chirality_mean_sin_dphi": 0.3922494955495579,
+        "chirality_std_sin_dphi": 0.5641769956263027,
+        "chirality_sign": 1,
+        "chirality_label": "CCW"
+      }
+    },
+    {
+      "cell_a": [
+        6,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        19,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "phi_link_amplitude_std": 0.1637253855464304,
+      "view_a_3d_omega_pca": {
+        "eigvals": [
+          0.0009847802805472495,
+          0.0019541214731385722,
+          0.003376309811253516
+        ],
+        "axis_lengths": [
+          0.03138120903577887,
+          0.04420544619318498,
+          0.058106022159957874
+        ],
+        "planarity_e0_over_e2": 0.5400681008483205,
+        "in_plane_aspect_e2_over_e1": 1.3144539228498027
+      },
+      "view_b_per_axis": {
+        "x": {
+          "R_phase": 0.16377521006653561,
+          "r_phase": 0.05399130743444721,
+          "R_over_r": 3.0333625512844082,
+          "omega_amplitude_std": 0.05397490534871058,
+          "chirality_mean_sin_dphi": 0.003273412549854789,
+          "chirality_std_sin_dphi": 0.7070962971852808,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "y": {
+          "R_phase": 0.1637752040044575,
+          "r_phase": 0.04690111689335663,
+          "R_over_r": 3.491925456207113,
+          "omega_amplitude_std": 0.04688685355142897,
+          "chirality_mean_sin_dphi": -0.0018460885797871045,
+          "chirality_std_sin_dphi": 0.7071012278604892,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "z": {
+          "R_phase": 0.16377523268978333,
+          "r_phase": 0.0346471247029208,
+          "R_over_r": 4.726950189779438,
+          "omega_amplitude_std": 0.03463672548060621,
+          "chirality_mean_sin_dphi": 0.001987847946815658,
+          "chirality_std_sin_dphi": 0.7077153976804569,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        }
+      },
+      "view_c_magnitude": {
+        "R_phase": 0.16620714530258082,
+        "r_phase": 0.036490184381476276,
+        "R_over_r": 4.554845313057764,
+        "omega_mag_std": 0.046181527505115734,
+        "chirality_mean_sin_dphi": 0.41510541164638975,
+        "chirality_std_sin_dphi": 0.5726839850745161,
+        "chirality_sign": 1,
+        "chirality_label": "CCW"
+      }
+    },
+    {
+      "cell_a": [
+        24,
+        10,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        11,
+        15
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "phi_link_amplitude_std": 0.022454690450681256,
+      "view_a_3d_omega_pca": {
+        "eigvals": [
+          0.0007679576258133956,
+          0.0021839601260055215,
+          0.0032648224152242696
+        ],
+        "axis_lengths": [
+          0.02771204838717982,
+          0.04673285916788659,
+          0.0571386245478859
+        ],
+        "planarity_e0_over_e2": 0.4849967706862686,
+        "in_plane_aspect_e2_over_e1": 1.2226648564903095
+      },
+      "view_b_per_axis": {
+        "x": {
+          "R_phase": 0.0507123735982626,
+          "r_phase": 0.022461522329651103,
+          "R_over_r": 2.2577442817096145,
+          "omega_amplitude_std": 0.05069694754900942,
+          "chirality_mean_sin_dphi": -0.0004785693052077185,
+          "chirality_std_sin_dphi": 0.7060031222061092,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "y": {
+          "R_phase": 0.05343615829352676,
+          "r_phase": 0.022461522852575827,
+          "R_over_r": 2.3790087005342495,
+          "omega_amplitude_std": 0.053419903948148544,
+          "chirality_mean_sin_dphi": 0.00035244171104916084,
+          "chirality_std_sin_dphi": 0.7067209832940948,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        },
+        "z": {
+          "R_phase": 0.028099346943826063,
+          "r_phase": 0.022461501545291612,
+          "R_over_r": 1.2510003789001478,
+          "omega_amplitude_std": 0.028090782586209402,
+          "chirality_mean_sin_dphi": 0.001217253117105528,
+          "chirality_std_sin_dphi": 0.7064210512655295,
+          "chirality_sign": 0,
+          "chirality_label": "AMBIG"
+        }
+      },
+      "view_c_magnitude": {
+        "R_phase": 0.04508228984549535,
+        "r_phase": 0.01691265373934602,
+        "R_over_r": 2.6655952720544844,
+        "omega_mag_std": 0.04257731016818916,
+        "chirality_mean_sin_dphi": 0.31771272745176876,
+        "chirality_std_sin_dphi": 0.5671460022557331,
+        "chirality_sign": 1,
+        "chirality_label": "CCW"
+      }
+    }
+  ],
+  "cluster_adjudication": {
+    "+x": {
+      "n_bonds": 2,
+      "view_a_3d_omega_pca": {
+        "median_e2_over_e1": 1.2305726646451607,
+        "median_planarity_e0_over_e2": 0.46880305826823654,
+        "c1_pass_aspect": false,
+        "planarity_pass": false,
+        "mode_i_pass": false
+      },
+      "view_b_per_axis": {
+        "x": {
+          "median_R_over_r": 3.4769531040138024,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        },
+        "y": {
+          "median_R_over_r": 3.1728878934194844,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        },
+        "z": {
+          "median_R_over_r": 4.81627992010863,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        }
+      },
+      "view_c_magnitude": {
+        "median_R_over_r": 4.546130584482733,
+        "consensus_fraction": 1.0,
+        "consensus_direction": "CCW",
+        "n_ccw": 2,
+        "n_cw": 0,
+        "c1_pass": false,
+        "c2_pass": true,
+        "mode_i_pass": false
+      },
+      "cluster_mode_i_pass": false,
+      "bond_indices": [
+        0,
+        3
+      ]
+    },
+    "-x": {
+      "n_bonds": 2,
+      "view_a_3d_omega_pca": {
+        "median_e2_over_e1": 1.2684083051791193,
+        "median_planarity_e0_over_e2": 0.5419226066561696,
+        "c1_pass_aspect": false,
+        "planarity_pass": false,
+        "mode_i_pass": false
+      },
+      "view_b_per_axis": {
+        "x": {
+          "median_R_over_r": 4.23730178566872,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        },
+        "y": {
+          "median_R_over_r": 4.08129214103802,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        },
+        "z": {
+          "median_R_over_r": 6.57211914330237,
+          "consensus_fraction": 0.0,
+          "consensus_direction": "TIE",
+          "n_ccw": 0,
+          "n_cw": 0,
+          "c1_pass": false,
+          "c2_pass": false,
+          "mode_i_pass": false
+        }
+      },
+      "view_c_magnitude": {
+        "median_R_over_r": 5.740526202341797,
+        "consensus_fraction": 1.0,
+        "consensus_direction": "CCW",
+        "n_ccw": 2,
+        "n_cw": 0,
+        "c1_pass": false,
+        "c2_pass": true,
+        "mode_i_pass": false
+      },
+      "cluster_mode_i_pass": false,
+      "bond_indices": [
+        1,
+        2
+      ]
+    }
+  },
+  "phi_sq_target": 2.618033988749895,
+  "phi_sq_tolerance": 0.05,
+  "consensus_threshold": 0.75,
+  "planarity_threshold": 0.1,
+  "passing_views": [],
+  "all_clusters_mode_i": false,
+  "mode": "III",
+  "verdict": "MODE III \u2014 (\u03b4) interpretation falsified at engine-representable scale. None of (a) 3D \u03c9-PCA, (b-x/y/z) per-axis, (c) magnitude pass C1+C2 in both clusters. Sampler axis-projection is NOT the load-bearing flaw. Doc 79_ v5 Mode III canonical closure stands with v5.1 amendment hardening: structural reason is not 3D-axis-mapping. CAVEAT: peak |\u03c9| persistence 33% below 40% threshold."
+}

@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/tmp",
+      "/private/tmp"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/grantlindblom/AVE-staging/AVE-Core/.claude/hooks/precommit-verify.sh",
+            "timeout": 120
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/grantlindblom/AVE-staging/AVE-Core/.claude/hooks/skill-trigger-detect.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/grantlindblom/AVE-staging/AVE-Core/.claude/hooks/validation-table-watchdog.sh",
+            "timeout": 90
+          }
+        ]
+      }
+    ]
+  }
+}

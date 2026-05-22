@@ -105,6 +105,111 @@ Table~the main text consolidates the six identities into a single reference dict
 
 \input{../common/translation_circuit.tex}
 
+\subsection{Substrate-Native Vocabulary --- Three-Column Rosetta-Stone Extension}
+\label{sec:rosetta_stone_3col}
+
+\textbf{Substrate-native vocabulary convention (canonical 2026-05-14).}
+The translation dictionary above maps EE projection quantities to ME
+projections. The universal substrate vocabulary (formalized in the Common
+Foreword $\S$``Three Boundary Observables and the Substrate-Observability
+Rule'' and \texttt{docs/glossary.md}) extends this to a third column ---
+\textbf{substrate-native} --- naming what the substrate \emph{itself} carries
+before any observation-frame projection. This subsection captures the canonical
+three-column form. The translation discipline: \textbf{default to substrate-native
+when writing about substrate dynamics; name the EE / ME projection only when
+the math is committed to a specific observation frame.}
+
+\begin{center}\small
+\begin{tabular}{|p{2.8cm}|p{2.5cm}|p{2.5cm}|p{4.5cm}|}
+\hline
+\textbf{Substrate-native} & \textbf{EE projection} & \textbf{ME projection} & \textbf{Use when} \\
+\hline
+Substrate ($\mathcal{M}_A$) & vacuum / EM field & spacetime / elastic medium &
+  Default: substrate. EE/ME when probe is specific. \\
+\hline
+Node & circuit node & lattice point &
+  Default: substrate-vocabulary. The K4 4-port tetrahedral active site. \\
+\hline
+Bond & transmission line & spring &
+  Default: bond. \emph{Spring} acceptable when invoking the substrate-scale Cosserat micropolar pedagogy (Vol 1 Ch~\ref{ch:macroscopic_moduli}). \\
+\hline
+State & voltage / $V_{\text{inc}}$ & force / displacement &
+  Default: substrate. Specify projection when math is probe-coupled. \\
+\hline
+Propagation & current flow & --- &
+  Default: substrate. How state evolves between nodes. \\
+\hline
+Impedance $Z$ & already universal & already universal & Use freely. \\
+\hline
+Saturation kernel $S(A) = \sqrt{1-A^2}$ & Schwinger / breakdown & yield / rupture &
+  Use freely; Axiom~4 canonical. \\
+\hline
+Boundary & charged surface & yield surface &
+  Default: substrate-vocabulary. Always. $\Gamma = -1$ saturation surface. \\
+\hline
+Envelope & wavefunction support & zone of influence &
+  Default: substrate. What the substrate \emph{actually sees}. \\
+\hline
+\textbf{Linking number $\mathcal{Q}$} & charge $Q$ & (no clean analog) &
+  Integer per boundary; universal substrate; project to $Q$ for EE. \\
+\hline
+\textbf{Winding number $\mathcal{J}$} & spin $J$ / mag.~moment & rotation &
+  Half-integer per SU(2) double-cover; universal substrate. \\
+\hline
+\textbf{Strain integral $\mathcal{M}$} & inductance $L$ / inertia (kg) & inertia &
+  $\int_\Omega (n - 1)\, dV$; substrate mass-equivalent boundary observable. \\
+\hline
+Strain $A$ & voltage gradient & already universal & Default: substrate. \\
+\hline
+Machian & (no clean analog) & (no clean analog) & Use freely; relational substrate property. \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{The three substrate boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
+(canonical 2026-05-14 evening).} These three integers/half-integer are the
+only externally observable invariants at any local $\Gamma = -1$ boundary
+(substrate-observability rule, Common Foreword $\S$``Three Boundary Observables
+and the Substrate-Observability Rule''). This is the no-hair theorem applied at
+every scale: from outside a BH, observers see $M, Q, J$; from outside an electron,
+observers see $m_e, e, \hbar/2$. Same structure, scale-invariant.
+
+\begin{center}\small
+\begin{tabular}{|p{1.3cm}|p{4.5cm}|p{6cm}|}
+\hline
+\textbf{Symbol} & \textbf{Canonical name} & \textbf{Operational definition} \\
+\hline
+$\mathcal{M}$ & Integrated strain integral & $\int_\Omega (n(\mathbf{r}) - 1)\, dV$; mass quantum $\hbar/(\ell_{\text{node}} c)$; per Eq.~\ref{eq:varactor} Virial sum recovery, $\mathcal{M} \cdot \ell_{\text{node}} \cdot c^2 = m_e c^2$ \\
+\hline
+$\mathcal{Q}$ & Boundary linking number & $\mathrm{Link}(\partial\Omega, \mathbf{F}_{\text{substrate}}) \in \mathbb{Z}$; one integer per primary flux unit \\
+\hline
+$\mathcal{J}$ & Boundary winding number & $\mathrm{Wind}(\partial\Omega)$; half-integer per SU(2) double-cover (spin-$\tfrac{1}{2}$ from $720°$ identity-closure mechanism) \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Engine implementation:} \texttt{src/ave/core/boundary\_invariants.py}
+(13/13 tests PASS) provides reference implementations: \texttt{compute\_M},
+\texttt{compute\_Q}, \texttt{compute\_J} for scalar substrate fields
+(e.g., from MasterEquationFDTD).
+
+\textbf{Cross-references:}
+\begin{itemize}\itemsep 0pt
+\item \textbf{Canonical statement:} Common Foreword $\S$``Three Boundary
+  Observables and the Substrate-Observability Rule'' --- formal definitions,
+  same-mechanism-at-all-scales claim, how to analyze any boundary in AVE.
+\item \textbf{Cosmic-scale application:}
+  $\mathcal{J}_{\text{cosmic}} = \Omega_{\text{freeze}} \cdot I_{\text{cosmic}}$
+  encodes the cosmological initial condition (Vol~3 Ch~4 \S\ref{sec:tki_strain_snap}).
+\item \textbf{Substrate vocabulary table:} \texttt{docs/glossary.md} (canonical
+  substrate-native / EE / ME projection table).
+\item \textbf{Universal Saturation-Kernel Catalog:} Backmatter
+  Ch~\ref{app:universal_saturation_kernel} --- the A-034 catalog refines the
+  cosmic-mechanism horizon (``God's Hand'') into a cosmic-parameter horizon vs.
+  observable mechanism; the saturation-kernel mechanism IS observable at four
+  smaller scales (BCS, NOAA solar flares, BH ring-down, Schwarzschild exact).
+\end{itemize}
+
 \subsection{Self-Consistency Verification}
 
 \paragraph{Work--Energy Theorem.}
@@ -201,9 +306,12 @@ Mutual inductance yields when the applied shear stress exceeds the structural th
 \end{resultbox}
 
 Below the yield voltage, the vacuum acts as a highly resistive solid---kinematically gripping embedded matter via inductive drag ($\eta_0 > 0$). Above $V_{yield}$, an avalanche dielectric transition annihilates the mutual inductance. The vacuum enters ideal frictionless flow ($\eta = 0$): the \textbf{Zero-Impedance Slipstream}. The yield stress evaluates from the bulk energy density and packing geometry:
-\begin{equation}
-    \tau_{yield} = \rho_{bulk}\, c^2 \times (6 \times \mathcal{V}_{crossing}) \times \frac{p_c}{8\pi} = \rho_{bulk}\, c^2 \times \mathcal{V}_{total} \times \alpha \approx 7.91 \times 10^{6} \times (3 \times 10^8)^2 \times 2.0 \times 0.00730 \approx 1.04 \times 10^{22}\ \text{Pa}
-\end{equation}
+\begin{align}
+    \tau_{yield} &= \rho_{bulk}\, c^2 \times (6 \times \mathcal{V}_{crossing}) \times \frac{p_c}{8\pi} \nonumber \\
+    &= \rho_{bulk}\, c^2 \times \mathcal{V}_{total} \times \alpha \nonumber \\
+    &\approx 7.91 \times 10^{6} \times (3 \times 10^8)^2 \times 2.0 \times 0.00730 \nonumber \\
+    &\approx 1.04 \times 10^{22}\ \text{Pa}
+\end{align}
 where $\mathcal{V}_{crossing} = V_{toroidal}/6 = 2.0/6$ is the per-crossing halo volume and $p_c/(8\pi) = \alpha \approx 1/137$ is the lattice porosity.
 
 \subsection{The Vacuum Memristor (Thixotropic Hysteresis)}

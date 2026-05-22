@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qsgl7d, clm-ui3m8a, clm-wqmb19, clm-wzezvt, clm-ydksh6]
+subtree-claims: [clm-5s5b0d, clm-6kqvyp, clm-7tynm2, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gw2wgc, clm-h55fy1, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qsgl7d, clm-ui3m8a, clm-wqmb19, clm-wzezvt, clm-ydksh6]
 -->
 
 # Ch.11: Experimental Bench Falsification
@@ -27,6 +27,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | Sapphire phonon centrifuge | $a_{LT} = v_{vac}^2/r = 62.3\,\text{m/s}^2$ (6.35 G's) | sapphire-phonon-centrifuge |
 | Achromatic impedance lens | $Z_{gravity} = \sqrt{\mu(r)/\varepsilon(r)} = Z_0$; zero reflection at all angles | achromatic-lens-test |
 | Vacuum impedance mirror | $\Gamma(V) = [(1-(V/V_{yield})^2)^{-1/4} - 1]/[(1-(V/V_{yield})^2)^{-1/4} + 1]$; $\Gamma \to 1$ as $V \to V_{yield}$ | vacuum-impedance-mirror |
+| C11-MACH-ZEHNDER parallax shift | $\Delta\Phi \approx 250\,\text{rad}$ on 1-m baseline at 100-eV electron energy; $n_s = 1 + (9/7)\varepsilon_{11}$ vs $n_t = 1 + (2/7)\varepsilon_{11}$, $\Delta n = \varepsilon_{11} = 7GM/c^2r$ | project-c11-mach-zehnder |
 
 ## Derivations and Detail
 
@@ -42,6 +43,7 @@ Comprehensive catalogue of tabletop falsification experiments, existing experime
 | [Project ZENER-04](project-zener-04.md) | Impedance avalanche detector; Marx generator; avalanche knee at 43.65 kV |
 | [Metric Levitation Limit](metric-levitation-limit.md) | $m_{max} = 1.846\,\text{g}$; dielectric death spiral; topological rocket equation |
 | [Project TORSION-05](project-torsion-05.md) | Horizontal metric rectification; asymmetric flyback; $\sim 100\,\mu\text{N}$ DC thrust |
+| [Project C11-MACH-ZEHNDER](project-c11-mach-zehnder.md) | Electron Mach-Zehnder gravitational-parallax interferometry; $\sim 250\,\text{rad}$ phase shift on 1-m macroscopic baseline at 100 eV; tests $n_s$ vs $n_t$ spatial/temporal refractive split from $\varepsilon_{11} = 7GM/c^2r$ |
 | [YBCO Phased Array](ybco-phased-array.md) | $10^6$-node micro-inductor array; 2.5 metric tons lift per m$^2$ |
 | [Metric Refraction Capacitor](metric-refraction-capacitor.md) | $BaTiO_3$ high-$k$ graded dielectric; $c^2$ multiplier; 130 G's from $10^{-17}$ index shift |
 | [Sapphire Phonon Centrifuge](sapphire-phonon-centrifuge.md) | Acoustic vortex at 11,100 m/s; 6.35 G artificial gravity; Beltrami inductive shield |

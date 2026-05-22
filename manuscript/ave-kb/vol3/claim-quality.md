@@ -38,7 +38,7 @@
 - $n(r) = 1 + \nu_{vac}\,\varepsilon_{11} = 1 + (2/7)\,\varepsilon_{11}$ with $\varepsilon_{11}(r) = 7GM/(c^2 r)$
 - _Specific Claims_
   - The refractive form $n(r) = 1 + 2GM/(c^2 r)$ is the **temporal component** of the lattice metric (governs clock rate / redshift).
-  - Light deflection couples to a **separate spatial component** $n_{spatial} = (9/7)\varepsilon_{11}$. The Einstein deflection $\delta = 4GM/(bc^2)$ comes from integrating the full bidirectional metric; the temporal-only $n(r)$ alone reproduces the Newtonian half-deflection, not the GR value.
+  - Light deflection couples to a **separate spatial component** $n_{spatial} = 1 + (9/7)\varepsilon_{11}$. The Einstein deflection $\delta = 4GM/(bc^2)$ comes from integrating the full bidirectional metric; the temporal-only $n(r)$ alone reproduces the Newtonian half-deflection, not the GR value.
   - Solar deflection at the Einstein value is a **category (iii) consistency check** (per cross-cutting Master Prediction Table tripwire) — the framework reproduces the standard result via metric refraction, not an independent novel prediction.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim that the same $n(r)$ governs both clock-rate and light-deflection observables. LIVING_REFERENCE.md Pitfall #3: using full lattice density $n = 1 + (11/7)\varepsilon_{11}$ for redshift, or the temporal-only $n$ for deflection, are both errors.
@@ -754,3 +754,195 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
 - rationale: *pending*
 - strengthen-by:
   - *pending*
+# vol3 L3-migration register entries (NEW-IN-L3 minted claims) — confidence pending (deferred rescore)
+
+## Discrete-Lattice Horizon Entropy Constant
+<!-- id: clm-cfd5yf -->
+
+Under the corpus symmetric-saturation picture ($\Gamma_{\text{continuum}} = 0$ at the BH horizon), the discrete K4 lattice structure at scale $\ell_{\text{node}}$ generates a finite second-order residual reflection per cell, $|\Gamma|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$. Summed over $N_{\text{cells}} \sim (r_{\text{sat}}/\ell_{\text{node}})^2$ horizon cells, the per-cell suppression cancels the cell count, leaving a universal mass-independent entropy constant $\hat S_{\text{horizon}} \approx 4\pi \log 2 \cdot k_B \approx 8.7\,k_B$ (Flag 62-G closure).
+
+- _Specific Claims_
+  - Discrete-lattice corrections give a universal horizon entropy $\hat S_{\text{horizon}} \approx 4\pi\log 2 \cdot k_B \approx 8.7\,k_B$, independent of BH mass.
+  - Per-cell $|\Gamma|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$ exactly cancels $N_{\text{cells}} \sim (r_{\text{sat}}/\ell_{\text{node}})^2$, leaving an $O(1)$ product.
+  - Interpreted as a one-time horizon-formation cost (topological invariant), not a degrees-of-freedom count.
+- _Specific Non-Claims and Caveats_
+  - Leading-order dimensional estimate only; rigorous WKB hits a near-horizon coordinate singularity (numerical prefactor / possible log corrections open, §9).
+  - NOT a candidate for thermodynamic $S_{BH}$ (does not scale with area or mass).
+
+> **Leaf references:** `vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md` §1–§9
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Four Distinct Entropy Quantities at the BH Horizon
+<!-- id: clm-4o0f0h -->
+
+AVE distinguishes four physically distinct entropy quantities at a BH horizon — AVE-native geometric $\hat S_{\text{geo}} = k_B A \log 2/\ell_{\text{node}}^2$ (Op14 scattering irreversibility at A-B interface cells), thermodynamic $S_{BH} = A/(4\ell_P^2)$ (imported via the first law), microstate count $2^{A/\ell_{\text{node}}^2}$, and volume-thermalization $S_v$ (Boltzmann) — which coexist with ratios spanning $\sim 10^{44}$. The ratio $\hat S_{\text{geo}}/S_{BH} = 4\log 2/(7\xi) \approx 2.8\times 10^{-44}$ is the Machian dilution factor; the first-law $T\,dS = dE$ recovers standard $S_{BH}$ only via imported equipartition that AVE rejects.
+
+- _Specific Claims_
+  - Four entropy quantities are distinct, coexisting, and measure different physics (not redundant).
+  - AVE-native geometric entropy $\hat S_{\text{geo}} = k_B A \log 2/\ell_{\text{node}}^2$ from a $|\Gamma|^2 = 1/2$ A-B-interface beam-splitter per horizon cell.
+  - Machian dilution ratio $\hat S_{\text{geo}}/S_{BH} \approx 2.8\times 10^{-44}$.
+- _Specific Non-Claims and Caveats_
+  - First-law $T\,dS = dE$ recovery of $S_{BH}$ is via imported Boltzmann counting AVE rejects (not axiom-first); AVE-native $\hat S_{\text{geo}}$ violates the first law by $\sim 10^{-44}$.
+  - $S_v$ is factor-of-4 off and uses Boltzmann mode-counting; $S_\mu$ is an informal microstate framing.
+
+> **Leaf references:** `vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md` §1–§8
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Op14 Cosmic-Horizon Saturation Profile
+<!-- id: clm-48g5qf -->
+
+Applies the canonical Op14 long-range coupling operator ($Z_{\text{eff}}(r) = Z_0/\sqrt{S(A)}$, Vol 1 Ch 6 §1.13) at cosmic-horizon scale during ongoing K4 crystallisation. As $r \to R_H$, $A^2 \to 1$, $S(A) \to 0$, $\Gamma \to -1$ (the universal saturation surface), local clocks freeze ($\omega_{\text{local}} \to 0$), and an asymmetric ε/μ-decoupled Meissner-type impedance form arises if cosmic crystallisation saturates the ε-sector preferentially. Distinct from the BH event horizon (frozen one-shot Schwarzschild lock) and from BCS symmetric μ-saturation.
+
+- _Specific Claims_
+  - At the cosmic horizon, the substrate reaches the canonical $\Gamma = -1$ saturation surface with $Z_{\text{eff}} \to \infty$ and local-clock freezing $\omega_{\text{local}} \to 0$.
+  - Asymmetric ε/μ-decoupled Meissner form $Z_{\text{eff}} = Z_0\sqrt{S_\mu/S_\varepsilon}$ when sectors saturate unequally during ongoing crystallisation.
+  - Dynamic (crystallising) cosmic horizon is structurally distinct from the frozen BH event horizon.
+- _Specific Non-Claims and Caveats_
+  - Canonical-piece assembly, NOT a new operator or new derivation; it is a (c)-operator-application of Op14.
+  - Class E operating-point projection (joint-constrained with $\{G, H_\infty, \hat\Omega_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$), not an independent prediction.
+
+> **Leaf references:** `vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md` §Key Results + body
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Cosmological Constant Closure
+<!-- id: clm-s4n33u -->
+
+From the corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ applied through the Friedmann/de Sitter relation, AVE predicts $\rho_\Lambda = 9.03\times 10^{-27}$ kg/m³ — within a factor $1.54$ of the Planck-2018 measurement (exact in the de Sitter asymptote) with no $\rho_\Lambda$-specific fit parameters. QED's naive zero-point-energy prediction is off by $\sim 10^{122}$, so AVE represents a $\sim 10^{122}$ improvement on the standard QFT estimate of the cosmological constant.
+
+- _Specific Claims_
+  - $\rho_\Lambda = 9.03\times 10^{-27}$ kg/m³ and $\Lambda = 1.68\times 10^{-52}$ m⁻², both within factor 1.54 of Planck-2018.
+  - $\sim 10^{122}$ improvement over QED's naive ZPE prediction.
+  - Derived from canonical corpus inputs with no $\rho_\Lambda$-specific fit parameter.
+- _Specific Non-Claims and Caveats_
+  - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending first-principles derivation (inherited via $\alpha$ closure).
+  - Downstream of the open $G$/$H_\infty$ Machian closure (Class E joint constraint), not a fully first-principles single-observable prediction.
+
+> **Leaf references:** `vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md` §Headline + derivation
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## DAMA Energy Quantum via α-Slew Substrate-Rate
+<!-- id: clm-b27pnp -->
+
+Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ keV via a Schwinger anomalous-moment substrate-rate (Axiom-4 saturation-kernel back-reaction on the LC tank, projected through the Hoop-Stress $2\pi$ factor), landing in the observed 2–6 keV annual-modulation window. After the 8th–9th audit cycles the energy-scale status is honest-scoped: the value coincides within 1% with Ca Kα (Moseley), so the numerical match alone does not discriminate AVE from SM atomic physics; the AVE-distinguishing content is the reactive-power categorical reframe plus the §11 cross-experiment tests.
+
+- _Specific Claims_
+  - Substrate derivation gives a coupling quantum $E = \alpha\,m_e c^2 \approx 3.728$ keV in the DAMA window.
+  - AVE-distinguishing claims (§11): Z-independence under cross-crystal swap; CMB-velocity phase-lock of the annual modulation; solid-vs-liquid binary gate (DAMA positive / XENONnT null).
+  - α m_e c² is the per-cycle reactive power of the electron LC tank ($P_{real}=0$), not a real radiated photon quantum.
+- _Specific Non-Claims and Caveats_
+  - Energy-scale "zero-parameter CONFIRMED" status DEMOTED (2026-05-17 audit): 1% coincidence with Ca Kα via Moseley; magnitude alone does not discriminate.
+  - Rate magnitude / single-Q-factor closure PAUSED pending anti-anchor + substrate-mode-density work. (Preserves the leaf's 🔴 scope-correction author marker.)
+
+> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md` §Key Results + §11–§12
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## DAMA Rate Magnitude — Matched-LC-Coupling Formula
+<!-- id: clm-5em8fx -->
+
+Candidate formula for the DAMA rate magnitude from matched-impedance coupling between the electron's reactive α-slew LC tank and a coherent NaI crystal LC mode: per-cycle efficiency $\epsilon_{det} = 4\pi/N_{single}^2$ (with $4\pi$ the spinor-cycle radiation-impedance averaging factor), giving $R_{predicted} = 4.80\times 10^{-7}$ events/s/kg vs DAMA/LIBRA Phase-2 observed $4.77\times 10^{-7}$ — a 0.6% consistency. Cross-detector forward predictions follow (HPGe 9.39 kg is the cleanest single-experiment test for 4 AVE-distinct claims).
+
+- _Specific Claims_
+  - $\epsilon_{det} = 4\pi/N_{single}^2$ yields rate within 0.6% of DAMA Phase-2 observed.
+  - Cross-detector forward predictions (e.g., HPGe 9.39 kg) discriminate AVE-distinct claims.
+  - Cycle-12 form excises $\kappa_{entrain}$ (real-power class) and unifies into a single $\epsilon_{param}\times\kappa_{quality}$ parametric-coupling kernel.
+- _Specific Non-Claims and Caveats_
+  - The 0.6% match is a POST-HOC consistency check, NOT a forward prediction — the $4\pi$ prefactor was selected after inspecting the rate gap (§3.2). (Preserves the leaf's honest-scope / Grant-adjudication CANONIZED-status marker.)
+  - Rigor refinements pending (parametric-coupling-kernel §12).
+
+> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md` §2–§13
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## DM-Mechanism Unification (Substrate-Shared, Operator-Distinct)
+<!-- id: clm-tt8j0v -->
+
+Three independently-validated AVE dark-sector observables share one foundational substrate (K4 Cosserat micropolar lattice + Axiom 4) but operate through three distinct operators: galactic rotation via the $\eta_{eff}$ saturation kernel, cluster (bullet) via a ponderomotive halo, and atomic-scale via parametric coupling. Unification is at the substrate level (shared Ax1 + Ax4), not at the operator level; limbs i + iii sit in a Hoop-Stress $2\pi$ projection sub-family (`mond-hoop-stress.md §4.5`) while limb ii (cluster) is a separate ponderomotive operator class (C13c META row of the divergence-test substrate map).
+
+- _Specific Claims_
+  - Three DM observables are unified at the substrate level (shared K4 + Ax4) while remaining operator-distinct.
+  - Limbs i (cosmic) + iii (atomic) share the Hoop-Stress $2\pi$ projection; limb ii (cluster) is a distinct ponderomotive operator.
+  - Cross-limb predictions: cosmological constant from $a_0$; substrate-equilibrium velocity from Hoop-Stress $2\pi$; $\eta_{eff}$ drag connecting rotation to bullet cluster; AVE-PONDER lab-scale parametric coupling.
+- _Specific Non-Claims and Caveats_
+  - Explicitly NOT a one-Lagrangian deep unification (intentionally): three observables, three operators, one substrate.
+
+> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dm-mechanism-unification.md` §Key Result + body
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## AVE BH Horizon: $r_{\text{sat}} = 7GM/c^2$ + Area Theorem
+<!-- id: clm-law1ho -->
+
+Axiom-first derivation of the AVE-native BH horizon at $r_{\text{sat}} = 7GM/c^2 = 3.5\,r_s$, where the Axiom-4 strain $\varepsilon_{11}(r_{\text{sat}}) = 1$; the factor 7 = $1/\nu_{\text{vac}}$ from the Poisson-ratio projection ($\nu_{\text{vac}} = 2/7$). The horizon area $A = 196\pi G^2 M^2/c^4$ and the area theorem $\delta A = 392\pi G^2 M\,\delta M/c^4 \geq 0$ follow directly from Axiom 4 plus mass-energy conservation — stronger than Hawking's 1971 theorem in that it derives WHY the horizon can only grow (saturation threshold $\propto M$) without invoking energy conditions.
+
+- _Specific Claims_
+  - $r_{\text{sat}} = 7GM/c^2 = 3.5\,r_s$ from $\varepsilon_{11}(r_{\text{sat}}) = 1$ and $\nu_{\text{vac}} = 2/7$.
+  - Area theorem $\delta A \geq 0$ derived from Axiom 4 + mass-energy conservation (no energy conditions); derives why the horizon can only grow.
+  - Prefactor $196\pi G^2/c^4$ vs standard $16\pi G^2/c^4$ (factor 12.25); falsifiable via matter/shear-mode horizon-radius observables.
+- _Specific Non-Claims and Caveats_
+  - $r_{\text{sat}} = 3.5\,r_s$ is a shear-mode + matter boundary, NOT photon-geometric: EHT shadow / photon-ring radius do NOT discriminate $r_{\text{sat}}$ from $r_s$ (prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit).
+  - The first-law / entropy pillar is only partially axiom-derived (see four-entropy leaf); only area + mass-energy pillars are axiom-first here.
+
+> **Leaf references:** `vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` §1–§6
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---

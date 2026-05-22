@@ -1,0 +1,96 @@
+{
+  "pre_registration": "P_phase8_canonical_phase_space_phasor",
+  "test": "Round 9 entry: doc 28 \u00a75.1 canonical phase-space (V_inc, V_ref) phasor on Move 5 attractor",
+  "N": 32,
+  "PML": 4,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "phi_sq": 2.618033988749895,
+  "v_amp_init": 0.14,
+  "a26_amp_scale": 0.34641016151377546,
+  "n_periods_total": 200.0,
+  "pre_evolve_end_p": 40.0,
+  "selection_end_p": 50.0,
+  "recording_end_p": 200.0,
+  "n_recording_steps": 1334,
+  "top_k_bonds": 4,
+  "sample_port": 0,
+  "elapsed_seconds": 271.21782302856445,
+  "omega_peak_init": 0.9262465141773654,
+  "omega_peak_final": 0.30436045892252095,
+  "persistence": 0.32859552426260413,
+  "persistence_guard": 0.4,
+  "persistence_ok": false,
+  "bonds": [
+    {
+      "cell": [
+        25,
+        19,
+        15
+      ],
+      "port": 0,
+      "R_phase": 0.003917007310015024,
+      "r_phase": 0.000715962272181262,
+      "R_over_r": 5.470968879521274,
+      "chirality_cross_mean": -7.137377434052973e-09,
+      "chirality_cross_std": 5.1253536131929645e-06,
+      "chirality_sign": -1,
+      "chirality_label": "CW"
+    },
+    {
+      "cell": [
+        24,
+        18,
+        14
+      ],
+      "port": 0,
+      "R_phase": 0.0039394990677915276,
+      "r_phase": 0.0006885716470888024,
+      "R_over_r": 5.721262390700014,
+      "chirality_cross_mean": 8.05844397016686e-09,
+      "chirality_cross_std": 5.247852825852514e-06,
+      "chirality_sign": 1,
+      "chirality_label": "CCW"
+    },
+    {
+      "cell": [
+        6,
+        16,
+        14
+      ],
+      "port": 0,
+      "R_phase": 0.010461681557968469,
+      "r_phase": 0.004853314664724475,
+      "R_over_r": 2.155574546609865,
+      "chirality_cross_mean": 9.9096803641665e-08,
+      "chirality_cross_std": 0.00011850225977843363,
+      "chirality_sign": 1,
+      "chirality_label": "CCW"
+    },
+    {
+      "cell": [
+        7,
+        17,
+        15
+      ],
+      "port": 0,
+      "R_phase": 0.010527637997086146,
+      "r_phase": 0.004762198899243322,
+      "R_over_r": 2.2106674290229478,
+      "chirality_cross_mean": -9.716841521260942e-08,
+      "chirality_cross_std": 0.0001169602049763893,
+      "chirality_sign": -1,
+      "chirality_label": "CW"
+    }
+  ],
+  "median_R_over_r": 3.8408181542721107,
+  "phi_sq_target": 2.618033988749895,
+  "phi_sq_tolerance": 0.05,
+  "c1_pass": false,
+  "consensus_fraction": 0.5,
+  "consensus_direction": "TIE",
+  "consensus_threshold": 0.75,
+  "c2_pass": false,
+  "mode": "III",
+  "verdict": "MODE III \u2014 phase-space framing also fails. Median R/r = 3.8408 (target 2.6180 \u00b1 5%, FAIL); chirality consensus 50% (threshold 75%, FAIL). Trapped-node-vortex picture empirically fails; deeper reframe needed. CAVEAT: peak |\u03c9| persistence 33% below 40% threshold \u2014 Move 5 attractor may have dissolved during recording window, corrupting phase-space measurements."
+}

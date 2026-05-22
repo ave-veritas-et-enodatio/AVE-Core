@@ -10,7 +10,7 @@ path-stable: "referenced from vol6 as sec:galactic_saturation and eq:H_infinity"
 
 Dark Matter is consistent with the network dynamics of a saturating $\mathcal{M}_{A}$ condensate. The phenomenological MOND acceleration threshold ($a_{0}$) corresponds to the fundamental Unruh-Hawking Drift of the expanding cosmic lattice.
 
-The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — all three themselves derived; see [Vol 1 Ch.8 Golden Torus α derivation](../../ch8-alpha-golden-torus.md)). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to:
+The asymptotic Hubble constant $H_\infty$ enters this MOND derivation via the geometric consistency identity between $H_\infty$ and the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ — $\alpha$ and $\ell_{node}$ closed in current corpus; $G$ taken as Bounding Limit 3 (CODATA input) since the substrate-local Chain B' derivation of $G$ from thermodynamic equilibrium between lattice-genesis latent heat and the expanding-horizon holographic radiative capacity remains qualitative only — see [Vol 3 Ch 1 §Asymptotic Hubble Constant](../../../vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md) for the corpus-honest framing of this relation as a geometric consistency identity, not an independent first-principles prediction, and the open Chain B' research agenda in [`closure-roadmap.md`](../../../common/closure-roadmap.md)). Per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD), this is a **Class E operating-point projection** (joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$ per [`omega-freeze-cosmic-grain-cascade.md:13-16`](../../../common/omega-freeze-cosmic-grain-cascade.md)) that includes Class C consistency-check sub-structure — the downstream $a_0 = c H_\infty/(2\pi)$ inherits Class E status via the Hoop-stress $2\pi$ projection (it is the same operating-point projection scaled by $c/(2\pi)$). Evaluating the geometric consistency relation with CODATA $G$:
 
 > **[Resultbox]** *Asymptotic Hubble Constant*
 >
@@ -43,6 +43,52 @@ By applying this exact continuum mechanics projection to the topological knot, t
 Because the $2\pi$ divisor is a dimensionless geometric projection factor from Hoop Stress, $a_{genesis}$ preserves the acceleration dimensions of $[\text{m/s}^2]$.
 
 This recovers Milgrom's empirical MOND boundary ($a_{0}\approx1.2\times10^{-10}\text{ m/s}^{2}$) within 10.7% error, reproducing the flat galactic rotation curves without free parameters or dimension-violating modifications.
+
+### Cross-volume substrate motif: Hoop Stress 2π projection at multiple scales (NEW 2026-05-17)
+
+The Hoop Stress 2π projection that derives $a_0 = c H_\infty/(2\pi)$ at cosmic scale is **recurring substrate physics** that also applies at substrate scale. The same projection formula governs the electron's substrate-equilibrium velocity:
+
+$$v_{substrate} = \frac{\alpha c}{2\pi} \approx 348.2\,\text{km/s}$$
+
+via the Schwinger anomalous-moment substrate-rate (canonical at [`../../../../../src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)):
+
+**Independent scale-instances** (2):
+
+| Scale | Formula | Small-parameter $\epsilon$ | Output |
+|---|---|---|---|
+| **Cosmic** (MOND) | $a_0 = c \cdot \epsilon / (2\pi)$ | $\epsilon = H_\infty$ (cosmological expansion rate) | Acceleration $\sim 10^{-10}$ m/s² |
+| **Substrate** (electron α-slew, LSR-class scope only per GC test 2026-05-17 night) | $v_{substrate} = c \cdot \epsilon / (2\pi)$ | $\epsilon = \alpha$ (fine structure constant) | Velocity $\sim 348$ km/s — applies to LSR-class kinematics; does NOT extend to GC-class populations (Outcome III per [`research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md`](../../../../../research/2026-05-17_substrate_equilibrium_velocity_GLOBULAR_CLUSTER_result.md)) |
+
+**Derivative observable at the substrate operating point** (NOT an independent scale-instance per honest-scope 2026-05-17 late evening per external reviewer):
+
+| Derivative | Algebraic chain | Output |
+|---|---|---|
+| DAMA energy quantum | $E = h \nu_{slew}$; 2π cancels via $\ell_{node} = \hbar/m_e c$ giving $E = \alpha m_e c^2$ | $\sim 3.728$ keV |
+
+**The recurring pattern** ("Hoop Stress projection of substrate drift onto closed topological loops"): substrate bulk drift $c \times \epsilon$ projected through the 2π Hoop Stress geometric factor onto closed topological loops gives the observable equilibrium scale. At cosmic scale the small parameter is $H_\infty$ acting on the cosmic horizon loop; at substrate scale the small parameter is $\alpha$ acting on the electron unknot via Axiom 4 dielectric saturation back-reaction.
+
+**Empirical confirmation across scales**:
+- Cosmic: $a_0$ matches Milgrom to 10.7%; SPARC 135-galaxy benchmark 11.5% Q=1 mean residual ([`../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md`](../../../vol3/cosmology/ch05-dark-sector/multi-galaxy-validation.md))
+- Substrate: $v_{substrate} = \alpha c/(2\pi)$ is the **approximate magnitude prediction at LSR-class scope only** (FLOOR interpretation tested + falsified 2026-05-17 late evening via halo stars; GC-class scope tested + Outcome III 2026-05-17 night via 165 MW globular clusters at median 564 km/s; directional alignment was tested + demoted to consistency check per ave-discrimination-check audit). Gaia DR3 thin-disk cluster at 375 km/s (9% above prediction). GC population at 564 km/s (cosmic-flow dominated, NOT substrate-equilibrium). Substantive AVE-distinct content at LSR scope: magnitude 9% match + cluster tightness σ=11 inconsistent with random galactic kinematics. Substrate-velocity prediction now scoped to LSR-class local-region kinematics only; does NOT extend to GC-class or extreme-halo populations.
+- DAMA: $E_{substrate}$ lies in 2-6 keV detection window (see [`../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md`](../../../vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md))
+
+**This motif is not previously named explicitly in the corpus** — verified via corpus-grep 2026-05-17. Naming it here is a substantive cross-volume synthesis of three previously-independent AVE predictions (MOND, substrate-equilibrium-velocity, DAMA quantum) under the same Hoop Stress 2π projection framework.
+
+### 🟡 PARTIAL GROUNDING via knot-theory Ideal Ropelength (Tier-3 #10 Step 4, 2026-05-17 night; walked back post external reviewer A#1)
+
+The 2π factor is EXACT **at substrate scale** (NOT approximate), grounded in the knot-theoretic Ideal Ropelength of the electron unknot. Per existing canonical AVE result at [`vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md:12`](../../../vol3/gravity/ch01-gravity-yield/leaky-cavity-decay.md) + [`vol3/gravity/ch01-gravity-yield/kinetic-yield-threshold.md:22`](../../../vol3/gravity/ch01-gravity-yield/kinetic-yield-threshold.md):
+
+> "The electron is an extended $0_1$ Unknot flux tube loop. In mathematical knot theory, the minimum length-to-diameter ratio of a closed loop is its Ideal Ropelength. **For the unknot, this is $2\pi \approx 6.28$.** Because Axiom 1 bounds the physical tube diameter at $1 \ell_{node}$, the continuous closed loop must span $2\pi$ fundamental lattice nodes."
+
+The Ideal Ropelength is a TOPOLOGICAL INVARIANT (Cantarella, Kusner, Sullivan 2002, *Invent. Math.* 150:257-286). For the unknot ($0_1$) it equals $2\pi$ exactly. AVE's Axiom 1 fixes the tube diameter at $1 \ell_{node}$, so the unknot's circumference = $2\pi \times \ell_{node}$ (exact). **Hoop Stress integration around this loop yields exact $T = F_r/(2\pi)$ at SUBSTRATE scale.**
+
+**🟡 WALK-BACK (external reviewer Part A#1 + ave-independence-check retroactive)**:
+
+1. **Cosmic-scale 2π rigor is STILL OPEN**: an earlier version of this section claimed "cosmic scale similarly exact via $S^3$ great-circle integration." External reviewer correctly caught: unknot Ropelength = 2π is a knot-theory topological invariant; 3-sphere great-circle = 2π is basic Euclidean geometry (circumference of unit circle). These are STRUCTURALLY DISTINCT mechanisms that both yield 2π. The cosmic-scale derivation in this leaf §4 uses Unruh-Hawking, NOT explicit Hoop-Stress-as-closed-loop-integration on the de Sitter 3-sphere. Step 5 of the rigorous-derivation prereg (cosmic-horizon Hoop Stress derivation proper) is still pending.
+
+2. **"3-4 instances of motif" walks back to "2 INDEPENDENT instances"** per `ave-independence-check`: $v_{substrate} = \nu_{slew} \times \ell_{node}$ is algebraically derived from $\nu_{slew}$; $E_{slew} = h \times \nu_{slew} = \alpha m_e c^2$ has the 2π CANCEL via canonical $h = 2\pi\hbar$ identity. So only TWO genuinely-independent instances: cosmic $a_0$ + substrate $\nu_{slew}$. The DAMA quantum $E_{slew}$ has NO 2π and is not an instance of the motif at all.
+
+**Net status**: substrate-scale 2π is RIGOROUSLY EXACT (knot theory). Cosmic-scale 2π is derived in this leaf via Unruh-Hawking; cosmic-scale Hoop Stress closed-loop integration on de Sitter horizon REMAINS OPEN. Cross-scale "same mechanism" framing is ASSERTED, not derived. Full updated derivation chain + ave-independence-check retroactive application at [`research/2026-05-17_hoop-stress-2pi-step-4-result.md`](../../../../../research/2026-05-17_hoop-stress-2pi-step-4-result.md) §5.1.
 
 ### Dark Sector Comparison: AVE vs. Observation
 

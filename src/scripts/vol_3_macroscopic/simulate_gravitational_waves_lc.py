@@ -1,3 +1,24 @@
+"""
+Gravitational Wave LC-grid Visualization (illustrative animation — no h(t) prediction).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders a 2D VacuumGrid wave animation with two rotating
+sources for visual illustration of the AVE narrative that gravitational
+waves are shear-waves on the LC vacuum matrix.
+
+The script does NOT compute:
+  - LIGO strain h(t) numerical values for any binary inspiral
+  - The Q-N×M quadrupole formula evaluated at canonical AVE constants
+  - Comparison against GW150914, GW170817, or any specific detection
+
+For the canonical AVE GW prediction matched against Hulse-Taylor binary
+pulsar P_b decay, see `simulate_binary_lc_damping.py` (which DOES compute
+the strain prediction and matches Ṗ_b within 2% of empirical).
+
+Docstring corrected 2026-05-17: prints retained for illustrative narrative
+but scope-flagged as visualization, not strain prediction.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -9,13 +30,13 @@ from ave.core.grid import VacuumGrid
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE COSMIC SCALE: GENERAL RELATIVITY & GRAVITATIONAL WAVES")
+    print(" AVE COSMIC SCALE: GW VISUALIZATION (illustrative)")
     print("==========================================================\n")
 
-    print("- Objective: Eliminate Einstein's 'Empty Curved 4D Manifold'.")
-    print("- We will map Gravitational Waves explicitly as Macroscopic Inductive")
-    print("  Shear-Waves rippling through the massive dielectric LC vacuum matrix.")
-    print("  'Curved Spacetime' is strictly Variable Vacuum Impedance (Z = sqrt(L/C)).\n")
+    print("- Renders the AVE interpretive narrative: GWs as shear-waves on the")
+    print("  LC vacuum matrix; 'curved spacetime' as variable vacuum impedance.")
+    print("- For numerical strain predictions matched to LIGO/binary-pulsar data,")
+    print("  see simulate_binary_lc_damping.py (Hulse-Taylor Ṗ_b 2% match).\n")
 
     # Simulation Parameters
     NX, NY = 120, 120

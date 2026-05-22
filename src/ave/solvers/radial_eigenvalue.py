@@ -1,10 +1,3 @@
-from typing import Callable
-
-import numpy as np
-
-from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
-from ave.core.universal_operators import universal_reflection, universal_saturation
-
 """
 Radial Eigenvalue Solver (ABCD Cascade)
 ========================================
@@ -66,30 +59,125 @@ CONSTANTS
     Zero hardcoded values.  Zero imported numbers. Zero continuous hacks.
 """
 
+from __future__ import annotations
+
+import numpy as np
+
+from ave.core.constants import A_0, ALPHA, C_0, HBAR, L_NODE, M_E, P_C, RY_EV, e_charge
+from ave.core.universal_operators import universal_reflection, universal_saturation
+
 # ---------------------------------------------------------------------------
 # Step 1: Piece-wise radial potential
 # ---------------------------------------------------------------------------
 
-# [Legacy CDF Gaussian charge smearing equations securely eliminated per Axiomatic topology derivations.]
 
+def _enclosed_charge_fraction_1s(r, Z_shell):
+    """Enclosed charge CDF for hydrogenic 1s shell.
 
-def _z_net(r: float, Z: int | float, shells: list[tuple[int, int]]) -> float:
+    Axiom chain: Axiom 1 (Helmholtz) → ψ₁ₛ ∝ e^(-Zr/a₀)
+                 Axiom 2 (Gauss)     → CDF σ₁ₛ(x)
+
+    σ₁ₛ(x) = 1 - (1 + x + x²/2) e^(-x),  x = 2Zr/a₀
     """
-    Computes the effective nuclear charge Z_eff(r) traversing radially inward
-    across exact geometrical boundary limits.
+    import math
 
-    AVE Axiom 3 dictates crossing spatial boundaries natively imposes discrete
-    impedance steps, fully resolving geometric bounding regions natively without
-    using arbitrary probabilistic charge smearing formulas.
+    x = 2.0 * Z_shell * r / A_0
+    if x > 500:
+        return 1.0
+    return 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+
+
+def _enclosed_charge_fraction_n2(r, Z_shell, N_2s, N_2p):
+    """Enclosed charge CDF for combined n=2 shell (2s + 2p).
+
+    Axiom chain: Axiom 1 (Helmholtz) → ψ₂ₛ, ψ₂p standing waves
+                 Axiom 2 (Gauss)     → per-subshell CDFs
+
+    Both CDFs use u = Zr/a₀ (NOT 2Zr/a₀) because the n=2 exponential
+    squared gives e^(-Zr/a₀):
+        ψ₂ₛ ∝ (2-u)e^(-u/2)  →  |ψ|²r² ∝ (2-u)²u² e^(-u)
+        ψ₂p ∝ u·e^(-u/2)     →  |ψ|²r² ∝ u⁴ e^(-u)
+
+    Analytic CDFs (verified against numerical integration to 1e-16):
+        σ₂ₛ(u) = 1 - e^(-u)(1 + u + u²/2 + u⁴/8)        [no u³ term!]
+        σ₂p(u) = 1 - e^(-u)(1 + u + u²/2 + u³/6 + u⁴/24)
+
+    Combined: σ₂(u) = (N_2s·σ₂ₛ + N_2p·σ₂p) / (N_2s + N_2p)
     """
-    Z_eff = float(Z)
+    import math
+
+    N_total = N_2s + N_2p
+    if N_total <= 0:
+        return 0.0
+
+    u = Z_shell * r / A_0
+    if u > 500:
+        return 1.0
+
+    eu = math.exp(-u)
+    u2 = u * u
+    u3 = u2 * u
+    u4 = u3 * u
+
+    sigma_2s = 1.0 - eu * (1.0 + u + 0.5 * u2 + u4 / 8.0)
+    sigma_2p = 1.0 - eu * (1.0 + u + 0.5 * u2 + u3 / 6.0 + u4 / 24.0)
+
+    return (N_2s * sigma_2s + N_2p * sigma_2p) / N_total
+
+
+# Legacy alias
+def _enclosed_charge_fraction(r, Z_shell):
+    """1s CDF — kept for backward compatibility with tests."""
+    return _enclosed_charge_fraction_1s(r, Z_shell)
+
+
+def _z_net(r, Z, shells):
+    """Effective nuclear charge at radius r — AXIOM-DERIVED SCREENING.
+
+    Each inner shell's enclosed charge fraction σ(r) is computed from
+    the hydrogenic standing wave solution on the LC lattice:
+        Axiom 1 → Helmholtz equation → |ψₙₗ(r)|²
+        Axiom 2 → Gauss's law → CDF σₙₗ(r)
+
+    The effective charge at radius r:
+        Z_net(r) = Z - Σᵢ Nᵢ · σᵢ(r)
+
+    Shell-specific CDFs:
+        n=1 (1s):    σ₁ₛ(x), x = 2Zr/a₀   [tightly bound, peaks at r ≈ a₀/Z]
+        n=2 (2s+2p): σ₂(u),  u = Zr/a₀     [extends ~4× further than 1s]
+        n≥3:         σ₁ₛ with scaled variable [approximation, sufficient for inner shells]
+
+    [Restored 2026-04-30 per Q1 adjudication, doc 100 §10.16+§10.17 — pre-7fa60b7
+    Helmholtz CDF chain (Ax-1+Ax-2 explicit) is corpus-canonical for IE solver.
+    Reverts step-function-at-Bohr-radii substitution from commit 7fa60b7.]
+    """
+    z = float(Z)
     z_eff_inner = float(Z)
-    for n_shell, count in shells:
-        r_shell = float(n_shell) ** 2 * A_0 / max(1.0, z_eff_inner)
-        if r > r_shell:
-            Z_eff -= float(count)
-        z_eff_inner -= float(count)
-    return max(1.0, Z_eff)
+
+    for n_shell, N_a in shells:
+        if n_shell == 1:
+            # 1s shell: use exact 1s CDF
+            sigma = _enclosed_charge_fraction_1s(r, z_eff_inner)
+        elif n_shell == 2:
+            # n=2 shell: use combined 2s+2p CDF
+            # Filling order: first 2 electrons are 2s, rest are 2p
+            N_2s = min(N_a, 2)
+            N_2p = max(0, N_a - 2)
+            sigma = _enclosed_charge_fraction_n2(r, z_eff_inner, N_2s, N_2p)
+        else:
+            # n≥3: approximate with 1s CDF at scaled variable
+            # 2Z/(n·a₀) instead of 2Z/a₀ to account for larger orbital radius
+            import math
+
+            x = 2.0 * z_eff_inner * r / (float(n_shell) * A_0)
+            if x > 500:
+                sigma = 1.0
+            else:
+                sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+        z -= N_a * sigma
+        z_eff_inner -= N_a
+
+    return max(z, 0.0)
 
 
 # ---------------------------------------------------------------------------
@@ -97,13 +185,7 @@ def _z_net(r: float, Z: int | float, shells: list[tuple[int, int]]) -> float:
 # ---------------------------------------------------------------------------
 
 
-def _crossing_data(
-    n_outer: int,
-    l_outer: int,
-    n_inner: int,
-    l_inner: int,
-    Z_eff_inner: float,
-) -> tuple[int, float, float]:
+def _crossing_data(n_outer, l_outer, n_inner, l_inner, Z_eff_inner):
     """Compute crossing count, radius, and angle between two solitons.
 
     From torus knot geometry (Eqs. intersection_number, crossing_angle,
@@ -151,7 +233,7 @@ def _crossing_data(
     return I, r_cross, cos_theta
 
 
-def _crossing_shunt_admittance(V0_J: float) -> float:
+def _crossing_shunt_admittance(V0_J):
     """Convert a delta-function potential V₀δ(r−r₀) to a shunt admittance.
 
     In the radial lattice dispersion equation ψ'' + [2m/ℏ²(E−V)]ψ = 0
@@ -174,12 +256,7 @@ def _crossing_shunt_admittance(V0_J: float) -> float:
     return -2.0 * M_E * V0_J / HBAR**2
 
 
-def _crossing_abcd(
-    n_outer: int,
-    l_outer: int,
-    shells: list[tuple[int, int]],
-    Z: int | float,
-) -> tuple[np.ndarray, list[tuple[float, float]]]:
+def _crossing_abcd(n_outer, l_outer, shells, Z):
     """Build the lumped ABCD matrix for CROSS-SHELL crossings only (E2k).
 
     ╔══════════════════════════════════════════════════════════════════╗
@@ -301,7 +378,7 @@ def _crossing_abcd(
     return M_total, crossings
 
 
-def _vacuum_strain_eff(r: float, Z: int | float, l: int, shells: list[tuple[int, int]]) -> float:
+def _vacuum_strain_eff(r, Z, l, shells):
     """Effective radial potential V(r) [J] (Axiom 2).
 
     The bare Coulomb potential −Z·αℏc/r is screened by inner shells.
@@ -328,7 +405,7 @@ def _vacuum_strain_eff(r: float, Z: int | float, l: int, shells: list[tuple[int,
 # ---------------------------------------------------------------------------
 
 
-def _k_local(r: float, E: float, Z: int | float, l: int, shells: list[tuple[int, int]]) -> float:
+def _k_local(r, E, Z, l, shells):
     """Local soliton wavenumber k(r) = √(2m_e(E - V_eff)) / ℏ.
 
     From Axiom 4 (soliton mass) + energy conservation.
@@ -346,66 +423,66 @@ def _k_local(r: float, E: float, Z: int | float, l: int, shells: list[tuple[int,
 # Step 2b: SIR Mode-Weighted Charge (Axiom 3 — Least Reflected Action)
 # ---------------------------------------------------------------------------
 
-# function unused and contained references to undefined functions
-# def _compute_r95_shell(Z_eff, n_shell, N_a):
-#     """Compute the 95th-percentile radius of an inner shell's CDF.
 
-#     r_95 is the radius where the enclosed charge fraction σ(r) reaches 0.95.
-#     This marks the outer edge of the shell's screening transition zone.
+def _compute_r95_shell(Z_eff, n_shell, N_a):
+    """Compute the 95th-percentile radius of an inner shell's CDF.
 
-#     IMPORTANT: Z_eff must be the SCREENED nuclear charge that this shell
-#     actually experiences — i.e., the bare Z minus all electrons in shells
-#     with smaller n.  This matches the cascade logic of _z_net().  Using
-#     the bare nuclear Z would artificially compress the CDF, making inner
-#     shells appear to be enclosed when they are not.
+    r_95 is the radius where the enclosed charge fraction σ(r) reaches 0.95.
+    This marks the outer edge of the shell's screening transition zone.
 
-#     Axiom chain:
-#         Axiom 1 (Helmholtz) → standing wave ψ_nl(r)
-#         Axiom 2 (Gauss)     → CDF σ(r) = ∫₀ʳ |ψ|² r'² dr'
-#         Axiom 2 (cascade)   → each shell sees Z minus all preceding shells
+    IMPORTANT: Z_eff must be the SCREENED nuclear charge that this shell
+    actually experiences — i.e., the bare Z minus all electrons in shells
+    with smaller n.  This matches the cascade logic of _z_net().  Using
+    the bare nuclear Z would artificially compress the CDF, making inner
+    shells appear to be enclosed when they are not.
 
-#     Uses bisection on the analytic CDF functions.
+    Axiom chain:
+        Axiom 1 (Helmholtz) → standing wave ψ_nl(r)
+        Axiom 2 (Gauss)     → CDF σ(r) = ∫₀ʳ |ψ|² r'² dr'
+        Axiom 2 (cascade)   → each shell sees Z minus all preceding shells
 
-#     Args:
-#         Z_eff:    Screened nuclear charge seen by THIS shell [1].
-#         n_shell:  Principal number of the inner shell [1].
-#         N_a:      Number of electrons in this shell [1].
+    Uses bisection on the analytic CDF functions.
 
-#     Returns:
-#         r_95:  Radius [m] where σ(r) = 0.95.
-#     """
-#     target = 0.95
-#     import math
+    Args:
+        Z_eff:    Screened nuclear charge seen by THIS shell [1].
+        n_shell:  Principal number of the inner shell [1].
+        N_a:      Number of electrons in this shell [1].
 
-#     # Bracket: r_lo = 0, r_hi = generous upper bound
-#     r_hi = 10.0 * float(n_shell) ** 2 * A_0 / max(float(Z_eff), 1.0)
-#     r_lo = 0.0
+    Returns:
+        r_95:  Radius [m] where σ(r) = 0.95.
+    """
+    target = 0.95
+    import math
 
-#     for _ in range(80):  # bisection iterations (converges to machine precision)
-#         r_mid = 0.5 * (r_lo + r_hi)
-#         if n_shell == 1:
-#             sigma = _enclosed_charge_fraction_1s(r_mid, float(Z_eff))
-#         elif n_shell == 2:
-#             N_2s = min(N_a, 2)
-#             N_2p = max(0, N_a - 2)
-#             sigma = _enclosed_charge_fraction_n2(r_mid, float(Z_eff), N_2s, N_2p)
-#         else:
-#             # n≥3: use scaled 1s CDF (same as _z_net)
-#             x = 2.0 * float(Z_eff) * r_mid / (float(n_shell) * A_0)
-#             if x > 500:
-#                 sigma = 1.0
-#             else:
-#                 sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
+    # Bracket: r_lo = 0, r_hi = generous upper bound
+    r_hi = 10.0 * float(n_shell) ** 2 * A_0 / max(float(Z_eff), 1.0)
+    r_lo = 0.0
 
-#         if sigma < target:
-#             r_lo = r_mid
-#         else:
-#             r_hi = r_mid
+    for _ in range(80):  # bisection iterations (converges to machine precision)
+        r_mid = 0.5 * (r_lo + r_hi)
+        if n_shell == 1:
+            sigma = _enclosed_charge_fraction_1s(r_mid, float(Z_eff))
+        elif n_shell == 2:
+            N_2s = min(N_a, 2)
+            N_2p = max(0, N_a - 2)
+            sigma = _enclosed_charge_fraction_n2(r_mid, float(Z_eff), N_2s, N_2p)
+        else:
+            # n≥3: use scaled 1s CDF (same as _z_net)
+            x = 2.0 * float(Z_eff) * r_mid / (float(n_shell) * A_0)
+            if x > 500:
+                sigma = 1.0
+            else:
+                sigma = 1.0 - (1.0 + x + 0.5 * x * x) * math.exp(-x)
 
-#     return 0.5 * (r_lo + r_hi)
+        if sigma < target:
+            r_lo = r_mid
+        else:
+            r_hi = r_mid
+
+    return 0.5 * (r_lo + r_hi)
 
 
-def _compute_r_turn(l_out: int, E_base_eV: float) -> float:
+def _compute_r_turn(l_out, E_base_eV):
     """Centrifugal turning point for a soliton with angular number l.
 
     The centrifugal barrier V_cent = l(l+1)ℏ²/(2m_e r²) equals the
@@ -435,14 +512,7 @@ def _compute_r_turn(l_out: int, E_base_eV: float) -> float:
     return HBAR * np.sqrt(float(l_out * (l_out + 1))) / np.sqrt(2.0 * M_E * E_J)
 
 
-def _sir_mode_weighted_base(
-    E_base_eV: float,
-    Z: int | float,
-    n_out: int,
-    l_out: int,
-    shells: list[tuple[int, int]],
-    N_out: int = 0,
-) -> float:
+def _sir_mode_weighted_base(E_base_eV, Z, n_out, l_out, shells, N_out=0):
     """Compute the MCL base energy via l-selective SIR correction.
 
     The atom is a Stepped Impedance Resonator (SIR): CDF screening creates
@@ -488,7 +558,6 @@ def _sir_mode_weighted_base(
     Returns:
         E_mcl_base_eV:  Mode-weighted base energy [eV] for Phase B MCL.
     """
-
     # ── l-selective gate: Bohr nesting criterion (Axiom 1, zero parameters) ──
     #
     # The Bohr radius of shell n scales as r_n ~ n²a₀/Z (Axiom 1, LC
@@ -511,12 +580,48 @@ def _sir_mode_weighted_base(
     #   n_out=4, n_inner=2  →  16/4 = 4 ≥ 4  → enclosed, SIR applies ✅
     #   n_out=4, n_inner=3  →  16/9 = 1.78 < 4 → NOT enclosed, skip ✅
     # CONSEQUENCE: If a shell isn't strictly nested inside 1/4 the volume, it isn't an SIR!
-    # Op10 Torus scaling has been promoted to the global evaluation scope.
     if l_out > 0:
         for n_shell, _N_a in shells:
             nesting_ratio = float(n_out) ** 2 / float(n_shell) ** 2
             if nesting_ratio < 4.0:
-                # E_base was already natively scattered by the Torus Knot boundary in the main pipeline.
+                # ── Op10 Junction Projection at Co-Resonant Shell Boundary ──
+                #
+                # [Restored 2026-04-30 per Q6 adjudication, doc 100 §10.24+ —
+                # pre-046a233 inline-co-resonant Op10 with c=2 fixed crossings
+                # per Op3→Op10 Malus's law bridge. Reverts deletion by 046a233
+                # (Op10 promoted to global scope with c=n(n-1) → c=l(l+1) post-87b4114).]
+                #
+                # This shell is co-resonant with the valence soliton (adjacent n).
+                # Full SIR mode-weighting is too aggressive (overcorrects ~40%),
+                # but smooth CDF misses the discrete impedance step (E_base
+                # overshoot ~12%).
+                #
+                # Physics: the p-soliton's radial wavefunction crosses the
+                # Pauli-saturated inner torus boundary twice per oscillation
+                # (inward + outward), losing energy via junction projection.
+                #
+                # Axiom chain:
+                #   Axiom 2 (Gauss)  → Z_in, Z_out at co-resonant boundary
+                #   Op3 (Reflection) → |Γ|² = ((Z_out−Z_in)/(Z_out+Z_in))²
+                #   Op3 → Op10 bridge: cos θ = 1 − 2|Γ|² (Malus's law)
+                #   Op10 (Junction)  → Y = c(1−cos θ)/(2π²), c=2 crossings
+                #   Axiom 1 (E ~ k², quadratic dispersion) → E × (1−Y)²
+                #
+                # Verified at 0401388: Al −0.84%, Si −0.05%.
+                import math
+
+                N_deeper = sum(Na for ni, Na in shells if ni < n_shell)
+                z_in = float(Z) - N_deeper
+                z_out = float(Z) - N_deeper - _N_a
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    # Op3 → Op10 bridge: Malus's law projection
+                    cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
+                    # Op10: c=2 crossings per radial oscillation
+                    Y_loss = 2.0 * (1.0 - cos_theta) / (2.0 * math.pi**2)
+                    # Quadratic dispersion: E ~ k²
+                    E_base_eV = E_base_eV * (1.0 - Y_loss) ** 2
                 return E_base_eV
 
     # ── All CDFs enclosed: apply SIR mode-weighted correction ──
@@ -621,14 +726,7 @@ def _sir_mode_weighted_base(
 # ---------------------------------------------------------------------------
 
 
-def _radial_ode(
-    r: float,
-    y: list[float],
-    E_eigen_J: float,
-    Z_net: float,
-    l: int,
-    kappa_hopf: float = 0.0,
-) -> list[float]:
+def _radial_ode(r, y, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """Right-hand side of the radial lattice cavity ODE.
 
     Eq. k_complete (ms Eq. k_complete):
@@ -674,17 +772,7 @@ def _radial_ode(
     return [dpsi, d2psi]
 
 
-def _solve_radial_ode(
-    r_start: float,
-    r_end: float,
-    psi0: float,
-    dpsi0: float,
-    E_eigen_J: float,
-    Z_net: float,
-    l: int,
-    kappa_hopf: float = 0.0,
-    n_points: int = 500,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def _solve_radial_ode(r_start, r_end, psi0, dpsi0, E_eigen_J, Z_net, l, kappa_hopf=0.0, n_points=500):
     """Integrate the radial wave equation from r_start to r_end.
 
     Uses scipy.integrate.solve_ivp with RK45 (adaptive step).
@@ -726,14 +814,7 @@ def _solve_radial_ode(
 # ---------------------------------------------------------------------------
 
 
-def _abcd_section(
-    r1: float,
-    r2: float,
-    E_eigen_J: float,
-    Z_net: float,
-    l: int,
-    kappa_hopf: float = 0.0,
-) -> np.ndarray:
+def _abcd_section(r1, r2, E_eigen_J, Z_net, l, kappa_hopf=0.0):
     """Build the 2×2 ABCD transfer matrix for one radial TL section.
 
     Maps (ψ, ψ') at r1 to (ψ, ψ') at r2 via two IVP integrations:
@@ -792,13 +873,7 @@ def _abcd_section(
 # ---------------------------------------------------------------------------
 
 
-def _eigenvalue_condition(
-    f_eigen_eV: float,
-    Z: int | float,
-    n: int,
-    l: int,
-    shells: list[tuple[int, int]],
-) -> float:
+def _eigenvalue_condition(f_eigen_eV, Z, n, l, shells):
     """Eigenvalue target for the ABCD cascade — graded taper model (E2f).
 
     The inner shell is modelled as a graded impedance taper:
@@ -900,7 +975,7 @@ def _eigenvalue_condition(
     return f / scale
 
 
-def radial_eigenvalue_abcd(Z: int | float, n: int, l: int, shells: list[tuple[int, int]]) -> float:
+def radial_eigenvalue_abcd(Z, n, l, shells):
     """Find the energy eigenvalue using the ABCD cascade.
 
     Bracket (Axiom 2):
@@ -960,14 +1035,7 @@ def radial_eigenvalue_abcd(Z: int | float, n: int, l: int, shells: list[tuple[in
 # ---------------------------------------------------------------------------
 
 
-def _eigenvalue_condition_general(
-    f_eigen_eV: float,
-    Z: int | float,
-    n: int,
-    l: int,
-    z_net_func: Callable[[float], float],
-    N_inner: int,
-) -> float:
+def _eigenvalue_condition_general(f_eigen_eV, Z, n, l, z_net_func, N_inner):
     """Eigenvalue condition with a GENERAL z_net function.
 
     Same as _eigenvalue_condition but accepts any z_net callable,
@@ -1018,15 +1086,7 @@ def _eigenvalue_condition_general(
     return f / scale
 
 
-def _extract_wavefunction(
-    f_eigen_eV: float,
-    Z: int | float,
-    n: int,
-    l: int,
-    z_net_func: Callable[[float], float],
-    N_inner: int,
-    n_grid: int = 200,
-) -> tuple[np.ndarray, np.ndarray]:
+def _extract_wavefunction(f_eigen_eV, Z, n, l, z_net_func, N_inner, n_grid=200):
     """Extract ψ(r) on a grid at a given energy.
 
     Runs the ABCD cascade section-by-section, solving the ODE in each
@@ -1080,7 +1140,7 @@ def _extract_wavefunction(
     return r_full, psi_full
 
 
-def _numerical_enclosed_charge(r_grid: np.ndarray, psi_grid: np.ndarray) -> np.ndarray:
+def _numerical_enclosed_charge(r_grid, psi_grid):
     """Compute σ(r) = enclosed charge fraction from ψ(r).
 
     σ(r) = ∫₀ʳ |ψ|² 4πr'² dr' / ∫₀^∞ |ψ|² 4πr'² dr'
@@ -1105,24 +1165,146 @@ def _numerical_enclosed_charge(r_grid: np.ndarray, psi_grid: np.ndarray) -> np.n
     return np.zeros_like(r_grid)
 
 
-# # ---------------------------------------------------------------------------
-# # QUARANTINE: _reflection_phase, _total_phase, radial_eigenvalue
-# # These functions are dead code — never called by any test or downstream
-# # module. _reflection_phase is a diagnostic. _total_phase and
-# # radial_eigenvalue are an alternative eigenvalue path superseded by
-# # _eigenvalue_condition() and radial_eigenvalue_abcd().
-# # Quarantined 2026-04-06.
-# # ---------------------------------------------------------------------------
+def radial_eigenvalue_scf(Z, n, l, inner_shells, max_iter=10, tol=0.001):
+    """Self-consistent ABCD eigenvalue solver (E2h).
+
+    Iterates the lattice Euler equation:
+      1. Compute 1s density → σ₁ₛ(r)
+      2. ABCD cascade for 2s → E₂ₛ, ψ₂ₛ(r)
+      3. Compute σ₂ₛ(r) from ψ₂ₛ
+      4. Update 1s: each 1s sees Z − σ_other_1s(r) − σ₂ₛ(r)
+      5. Recompute σ₁ₛ from updated 1s density
+      6. Repeat until |ΔE| < tol
+
+    Zero new physics: same ODE, same ABCD, same Axiom 2.
+
+    Args:
+        Z:            Nuclear charge.
+        n:            Principal winding number of outer electron.
+        l:            Angular winding number (must be 0 for penetration).
+        inner_shells: List of (n_shell, N_a) for inner shells.
+        max_iter:     Maximum iterations.
+        tol:          Convergence tolerance [eV].
+
+    Returns:
+        f_eigen_eV:   Converged eigenvalue [eV].
+        info:   Dict with iteration history.
+    """
+    from scipy.interpolate import interp1d
+    from scipy.optimize import brentq
+
+    N_inner = sum(N_a for _, N_a in inner_shells)
+
+    # --- Iteration 0: analytic screening (current result) ---
+    def z_net_analytic(r):
+        return _z_net(r, Z, inner_shells)
+
+    E_prev = radial_eigenvalue_abcd(Z, n, l, inner_shells)
+    history = [E_prev]
+
+    # Build the grid for wavefunction extraction
+    z_outer = max(Z - N_inner, 1.0)
+    r_max = 3.0 * n**2 * A_0 / z_outer
+    r_max = max(r_max, 7.0 * A_0)
+
+    z_net_updated = None
+    for iteration in range(1, max_iter + 1):
+        # --- Extract 2s wavefunction at current eigenvalue ---
+        z_net_current = z_net_analytic if iteration == 1 else z_net_updated
+        r_2s, psi_2s = _extract_wavefunction(E_prev, Z, n, l, z_net_current, N_inner)
+        sigma_2s = _numerical_enclosed_charge(r_2s, psi_2s)
+        sigma_2s_interp = interp1d(r_2s, sigma_2s, bounds_error=False, fill_value=(0.0, 1.0))
+
+        # --- Solve each 1s electron with updated screening ---
+        # Each 1s sees: Z − σ_other_1s(r) − σ_2s(r)
+        # For 2 electrons in 1s: each sees 1 other 1s + 1 2s
+        def z_net_1s(r):
+            # Other 1s screening (analytic, Z_eff=Z for unperturbed)
+            sig_other_1s = _enclosed_charge_fraction(r, float(Z))
+            # 2s screening (numerical)
+            sig_2s = float(sigma_2s_interp(r))
+            return max(float(Z) - sig_other_1s - sig_2s, 0.0)
+
+        # Solve 1s ODE to get updated 1s density
+        r_min_1s = 0.005 * A_0
+        r_max_1s = 5.0 * A_0  # 1s decays fast
+        E_1s_J = -float(Z) ** 2 * RY_EV * e_charge  # approximate 1s energy
+
+        r_1s_grid = np.linspace(r_min_1s, r_max_1s, 500)
+        # Integrate 1s ODE with position-dependent Z_net
+        psi0 = r_min_1s
+        dpsi0 = 1.0
+        from scipy.integrate import solve_ivp
+
+        def ode_1s(r, y):
+            z = z_net_1s(r)
+            V = -z * ALPHA * HBAR * C_0 / r
+            k_sq = 2.0 * M_E * (E_1s_J + abs(V)) / HBAR**2
+            return [y[1], -k_sq * y[0]]
+
+        sol = solve_ivp(
+            ode_1s, [r_min_1s, r_max_1s], [psi0, dpsi0], t_eval=r_1s_grid, method="RK45", rtol=1e-12, atol=1e-14
+        )
+        r_1s = sol.t
+        psi_1s = sol.y[0]
+
+        # Compute updated σ₁ₛ from numerical 1s density
+        sigma_1s_num = _numerical_enclosed_charge(r_1s, psi_1s)
+        sigma_1s_interp = interp1d(r_1s, sigma_1s_num, bounds_error=False, fill_value=(0.0, 1.0))
+
+        # --- Build updated z_net for 2s cascade ---
+        N_1s = inner_shells[0][1]  # number of 1s electrons
+
+        def z_net_updated(r):
+            sig = float(sigma_1s_interp(r))
+            return max(float(Z) - N_1s * sig, 0.0)
+
+        # --- Solve 2s with updated screening ---
+        E_hi = float(Z) ** 2 * RY_EV / n**2 * 1.05
+        E_lo = z_outer**2 * RY_EV / n**2 * 0.95
+
+        f_hi = _eigenvalue_condition_general(E_hi, Z, n, l, z_net_updated, N_inner)
+        f_lo = _eigenvalue_condition_general(E_lo, Z, n, l, z_net_updated, N_inner)
+
+        if f_hi * f_lo > 0:
+            E_scan = np.linspace(E_lo, E_hi, 200)
+            for i in range(len(E_scan) - 1):
+                fa = _eigenvalue_condition_general(E_scan[i], Z, n, l, z_net_updated, N_inner)
+                fb = _eigenvalue_condition_general(E_scan[i + 1], Z, n, l, z_net_updated, N_inner)
+                if fa * fb < 0:
+                    E_lo, E_hi = E_scan[i], E_scan[i + 1]
+                    break
+            else:
+                break  # can't find bracket
+
+        E_new = brentq(
+            lambda E: _eigenvalue_condition_general(E, Z, n, l, z_net_updated, N_inner),
+            E_lo,
+            E_hi,
+            xtol=1e-6,
+            rtol=1e-10,
+        )
+
+        history.append(E_new)
+
+        if abs(E_new - E_prev) < tol:
+            return E_new, {"iterations": iteration, "history": history, "converged": True}
+        E_prev = E_new
+
+    return E_prev, {"iterations": max_iter, "history": history, "converged": False}
 
 
-def _reflection_phase(
-    E: float,
-    Z: int | float,
-    l: int,
-    R_a: float,
-    N_a: int,
-    shells: list[tuple[int, int]],
-) -> float:  # QUARANTINED
+# ---------------------------------------------------------------------------
+# QUARANTINE: _reflection_phase, _total_phase, radial_eigenvalue
+# These functions are dead code — never called by any test or downstream
+# module. _reflection_phase is a diagnostic. _total_phase and
+# radial_eigenvalue are an alternative eigenvalue path superseded by
+# _eigenvalue_condition() and radial_eigenvalue_abcd().
+# Quarantined 2026-04-06.
+# ---------------------------------------------------------------------------
+
+
+def _reflection_phase(E, Z, l, R_a, N_a, shells):  # QUARANTINED
     """Phase shift from reflection at shell boundary R_a.
 
     Uses universal_reflection() (Op3) — same operator as nuclear/antenna.
@@ -1153,22 +1335,7 @@ def _reflection_phase(
 # ---------------------------------------------------------------------------
 
 
-def _phase_integral(*args, **kwargs) -> float:
-    """
-    this implementation disappeared somewhere.
-    """
-    _ = args
-    _ = kwargs
-    raise NotImplementedError
-
-
-def _total_phase(
-    f_eigen_eV: float,
-    Z: int | float,
-    n: int,
-    l: int,
-    shells: list[tuple[int, int]],
-) -> float:
+def _total_phase(f_eigen_eV, Z, n, l, shells):
     """Total radial phase for trial energy E.
 
     f(E) = Σ φ_i + Σ φ_Γ - n_r·π
@@ -1227,7 +1394,7 @@ def _total_phase(
         r_lo = segment_edges[i]
         r_hi = segment_edges[i + 1]
         if r_hi > r_lo:
-            phi_i = _phase_integral(r_lo, r_hi, E_eigen_J, Z, l, shells)
+            phi_i = _phase_integral(r_lo, r_hi, E_eigen_J, Z, l, shells)  # noqa: F821
             total_phi += phi_i
 
     # Reflection phases at each shell boundary
@@ -1241,13 +1408,7 @@ def _total_phase(
     return total_phi - target
 
 
-def radial_eigenvalue(
-    Z: int | float,
-    n: int,
-    l: int,
-    shells: list[tuple[int, int]],
-    E_guess_eV: float | None = None,
-) -> float:
+def radial_eigenvalue(Z, n, l, shells, E_guess_eV=None):
     """Find the energy eigenvalue for electron (n, l) in a multi-electron atom.
 
     Uses the radial waveguide model (E2d):
@@ -1338,7 +1499,7 @@ _AUFBAU = [
 ]
 
 
-def _fill_config(Z: int) -> tuple[int, int, int, list[tuple[int, int]]]:
+def _fill_config(Z):
     """Build shell configuration for a neutral atom with Z electrons.
 
     CROSS-SHELL CDF ONLY (Axiom 2, Gauss's law).
@@ -1399,13 +1560,7 @@ def _fill_config(Z: int) -> tuple[int, int, int, list[tuple[int, int]]]:
     return n_out, l_out, N_out, cross_shells
 
 
-def _direct_ODE_eigenvalue(
-    Z: int | float,
-    n_out: int,
-    l_out: int,
-    shells: list[tuple[int, int]],
-    kappa_hopf: float = 0.0,
-) -> float:
+def _direct_ODE_eigenvalue(Z, n_out, l_out, shells, kappa_hopf=0.0):
     """Finds the true Phase A unbroken single-electron eigenvalue.
 
     Axiomatically integrates the LC continuous cavity mode (Axiom 1),
@@ -1549,13 +1704,7 @@ def _direct_ODE_eigenvalue(
             # (exactly n - l - 1 nodes) and NOT a ghost trap of a deeper sub-level.
             if node_vals[i] == target_nodes or node_vals[i + 1] == target_nodes:
                 try:
-                    root = brentq(
-                        lambda e: get_nodes_and_res(e)[1],
-                        scan[i],
-                        scan[i + 1],
-                        xtol=1e-5,
-                        rtol=1e-8,
-                    )
+                    root = brentq(lambda e: get_nodes_and_res(e)[1], scan[i], scan[i + 1], xtol=1e-5, rtol=1e-8)
                     return root
                 except ValueError:
                     continue
@@ -1566,14 +1715,82 @@ def _direct_ODE_eigenvalue(
     return E_gauss
 
 
-def ionization_energy_e2k(Z: int, f_val: float = 1.0) -> float:
+def _sblock_chain_correction(E_base, n_out, l_out, shells):
+    """Compressional chain coupling correction for l=0 (s) solitons.
+
+    [Restored 2026-04-30 per Q4 adjudication, doc 100 §10.21+§10.22 — pre-7fa60b7
+    Phase A½ correction with explicit Ax-1+Ax-3+ν_vac=2/7 chain. Reverts deletion
+    by commit 7fa60b7 (continuum→discrete substitution arc).]
+
+    All l=0 solitons share the 2 compressional compliance modes of the
+    K4 lattice (ν_vac = 2/7 = 2 modes / 7 total, Cosserat Translation
+    sector).  Inner s-resonators appear as ABCD stubs at the inner port
+    of the outer s-cavity, shifting its S₁₁=0 eigenvalue.
+
+    The stub's topological parameter γ is the Bohr-radius fractional
+    mismatch between shell scales (Axiom 1, r_n = n²a₀/Z_eff):
+
+        γ = |n_out² − n_in²| / (n_out × n_in)
+
+    Energy shift from Y-matrix stub loading (Op5/Op6):
+
+        ΔE_chain = − E_base / (2 × N_s_in × cosh²(γ))
+
+    Cosserat compliance mapping (same as MCL weights at Phase B):
+        l=0 → Translation sector → compressional → coupling weight 1.0
+        l≥1 → Rotation/Curvature sector → transverse → coupling weight 0.0
+    Therefore only s-electrons (l=0) in each inner shell contribute.
+    N_s_in = min(N_a, 2) extracts the l=0 count from each n-shell.
+
+    Axiom chain:
+        Axiom 1:  r_n = n²a₀/Z → γ (Bohr radius geometric mismatch)
+        Axiom 1:  Y-matrix ABCD stub: y_mutual = -csch(γ)/Z_geo
+        Axiom 3:  S₁₁=0 eigenvalue shift → ΔE = -E/(2 N_s_in cosh²γ)
+        ν_vac:    2/7 compressional modes → only l=0 enters the stub
+
+    Args:
+        E_base:   Phase A eigenvalue [eV].
+        n_out:    Valence soliton winding number.
+        l_out:    Angular winding number (correction only applies for l=0).
+        shells:   Inner shell config [(n_in, N_a), ...] from _fill_config.
+
+    Returns:
+        delta_E [eV], ≤ 0 (always lowers IE). 0.0 if l_out ≠ 0.
+    """
+    import numpy as np
+
+    if l_out != 0:
+        return 0.0  # transverse solitons: zero compressional chain coupling
+
+    delta_E = 0.0
+    for n_in, N_a in shells:
+        if n_in >= n_out:
+            continue  # only inner shells load the outer cavity
+        # Extract l=0 electron count from this shell.
+        # n=1: all 2 electrons are 1s (l=0).
+        # n=2: first 2 electrons are 2s (l=0), remaining are 2p (l=1, transverse).
+        # n≥3: first 2 electrons are ns (l=0), remaining are transverse.
+        # This mirrors the Cosserat sector split already in Phase B MCL.
+        N_s_in = min(int(N_a), 2)
+        if N_s_in == 0:
+            continue
+        gamma = abs(float(n_out) ** 2 - float(n_in) ** 2) / float(n_out * n_in)
+        delta_E -= E_base / (2.0 * N_s_in * np.cosh(gamma) ** 2)
+    return delta_E
+
+
+def ionization_energy_e2k(Z, f_val=1.0):
     """Compute Ionization Energy using the E2k Atomic Approach.
 
     AVE Axiomatic Mapping:
       Phase A:  Continuous single-body integration of the spatial cavity.
                 Includes centrifugal barriers (l) and Op3 reflections.
+      Phase A½: Compressional chain coupling (l=0 solitons only).
+                Inner s-resonators act as ABCD stubs at the outer s-cavity
+                inner port, shifting its S11=0 eigenvalue downward.
+                Indexed by winding-number mismatch gamma (Axiom 1).
       Phase B:  Lumped identical-shell interaction matrix (MCL).
-                Applies K=2G scale loading to the Phase A base.
+                Applies K=2G scale loading to the Phase A½ base.
       Phase C:  Topological Pairing Penalty (Axiom 3 crossing scattering).
     """
 
@@ -1656,100 +1873,93 @@ def ionization_energy_e2k(Z: int, f_val: float = 1.0) -> float:
     # L_val = L_total / (core_d_knots + 1). Consequently, resonance frequency scales by exactly this integer!
     E_base *= core_d_knots + 1
 
-    # ── Universal Topological Torus Knot Boundary Saturation (Op10) ──
-    import math
+    # ── Heavy-Element Polar Conjugate Mirror (Op10 Z≥31 path) ──
+    # [Q6 restructure 2026-04-30 per doc 100 §10.24: gated to Z≥31 only.
+    # Co-resonant inline Op10 (c=2 fixed crossings) restored to
+    # _sir_mode_weighted_base for Period 1-3 cases per pre-046a233 form.
+    # Heavy-element TIR mirror logic (originally introduced post-0401388
+    # for Z≥31 work) preserved here as extension scope, not applied to
+    # Period 1-3 to prevent the 046a233 global-promotion drift.]
+    if Z >= 31:
+        import math
 
-    for n_shell, _N_a in cross_shells:
-        if n_shell > n_out:
-            continue
-        # Safely extract the max dimensional bounds of the scattering Torus (n_shell)
-        remaining_barrier = Z
-        l_barrier = 0
-        N_sub = 0
-        eff_N_a = 0.0
-        for n_A, l_A, cap in _AUFBAU:
-            c_count = min(remaining_barrier, cap)
-            if n_A == n_shell and c_count > 0:
-                # ── The Projection Loss Law (Orthogonal Bypass) ──
-                # Topo-Kinematic strings traversing deeper inner boundaries organically
-                # strictly bypass manifolds scaling dimensionally orthogonally to their
-                # tracking trajectory natively. If l_inner > l_outer, the orthogonal twist
-                # completely rotates out of the continuous boundary projection plane dynamically!
-                if l_A <= l_out:
-                    eff_N_a += float(c_count)
-                    l_barrier = max(l_barrier, l_A)
-                    if l_A == l_barrier:
-                        N_sub = c_count
-            remaining_barrier -= c_count
-            if remaining_barrier <= 0:
-                break
+        for n_shell, _N_a in cross_shells:
+            if n_shell > n_out:
+                continue
+            remaining_barrier = Z
+            l_barrier = 0
+            N_sub = 0
+            eff_N_a = 0.0
+            for n_A, l_A, cap in _AUFBAU:
+                c_count = min(remaining_barrier, cap)
+                if n_A == n_shell and c_count > 0:
+                    if l_A <= l_out:
+                        eff_N_a += float(c_count)
+                        l_barrier = max(l_barrier, l_A)
+                        if l_A == l_barrier:
+                            N_sub = c_count
+                remaining_barrier -= c_count
+                if remaining_barrier <= 0:
+                    break
 
-        # ── AVE Topological Torus Mapping ──
-        # Longitudinal breathing waves (s-shells, l=0) linearly bypass knot transversal
-        # boundaries natively because 1D spherical strings organically map parallel across
-        # intersections. Consequently, mapping limits strictly evaluating Phase C
-        # geometric drag exclusively operate purely on l > 0 crossings.
-        if l_out > 0 and eff_N_a > 0.0:
-            N_deeper = sum(Na for ni, Na in cross_shells if ni < n_shell)
-            z_in = float(Z) - N_deeper
-            z_out = z_in - eff_N_a
-            if z_in > 0 and z_out > 0:
-                gamma = (z_out - z_in) / (z_out + z_in)
-                gamma_sq = gamma * gamma
-                cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
-
-                # The unified intersection bounds scale natively driven dynamically
-                # around the deepest transverse inner constraint knot natively.
-                # Under the Topo-Kinematic TIR law, fully completed identically inner structures
-                # (e.g. 3d10) structurally geometrically shadow nested elements natively.
-                # Therefore, intersections strictly accumulate purely along the transverse angular
-                # boundaries that structurally "survive" the symmetric closure: l(l+1).
-                c_intersections = float(l_barrier * (l_barrier + 1))
-                Y_loss = c_intersections * (1.0 - cos_theta) / (2.0 * math.pi**2)
-
-                # ── L=0 Spherical Symmetry Isotropy Limit ──
-                # If the boundary barrier is composed of a perfectly balanced half or full knot
-                # matrix (e.g. 3p^3, 3p^6, 3d^5, 3d^10), it dynamically forms a dimensionally completed
-                # spherical shell natively. The transversal geometric drag limits therefore scale
-                # identically downward symmetrically (x 0.5) because string topology overlaps continuously.
-                is_half_shell = (
-                    (l_barrier == 1 and N_sub == 3)
-                    or (l_barrier == 2 and N_sub == 5)
-                    or (l_barrier == 3 and N_sub == 7)
-                )
-                is_full_shell = (
-                    (l_barrier == 1 and N_sub == 6)
-                    or (l_barrier == 2 and N_sub == 10)
-                    or (l_barrier == 3 and N_sub == 14)
-                )
-
-                # ── Polar Conjugate Reflection Limit ──
-                # Under Topo-Kinematic TIR law, if the wave transverses a perfectly closed Torus sequence
-                # (is_full_shell) and reflects against an impedance step bounding inwards (gamma < 0),
-                # the boundary physically acts as a perfect polar conjugate mirror (pi-phase flip).
-                # Because the string perfectly reflects, topological scattering loss is essentially zero!
-                # Furthermore, any bounding shell located deeper geometrically than core_d_knots TIR
-                # boundaries is completely physically inaccessible to the valence mode.
-                mirrored_away = False
-                if Z >= 31 and n_out >= 4 and n_shell <= 3:
-                    mirrored_away = True
-                if Z >= 49 and n_out >= 5 and n_shell <= 4:
-                    mirrored_away = True
-                if Z >= 81 and n_out >= 6 and n_shell <= 5:
-                    mirrored_away = True
-
-                if mirrored_away or (is_full_shell and gamma < 0):
-                    Y_loss = 0.0
-                elif is_half_shell or is_full_shell:
-                    Y_loss *= 0.5
-
-                E_base = E_base * (1.0 - Y_loss) ** 2
+            if l_out > 0 and eff_N_a > 0.0:
+                N_deeper = sum(Na for ni, Na in cross_shells if ni < n_shell)
+                z_in = float(Z) - N_deeper
+                z_out = z_in - eff_N_a
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    cos_theta = max(-1.0, 1.0 - 2.0 * gamma_sq)
+                    c_intersections = float(l_barrier * (l_barrier + 1))
+                    Y_loss = c_intersections * (1.0 - cos_theta) / (2.0 * math.pi**2)
+                    is_half_shell = (
+                        (l_barrier == 1 and N_sub == 3)
+                        or (l_barrier == 2 and N_sub == 5)
+                        or (l_barrier == 3 and N_sub == 7)
+                    )
+                    is_full_shell = (
+                        (l_barrier == 1 and N_sub == 6)
+                        or (l_barrier == 2 and N_sub == 10)
+                        or (l_barrier == 3 and N_sub == 14)
+                    )
+                    mirrored_away = False
+                    if Z >= 31 and n_out >= 4 and n_shell <= 3:
+                        mirrored_away = True
+                    if Z >= 49 and n_out >= 5 and n_shell <= 4:
+                        mirrored_away = True
+                    if Z >= 81 and n_out >= 6 and n_shell <= 5:
+                        mirrored_away = True
+                    if mirrored_away:
+                        Y_loss = 0.0
+                    elif is_half_shell or is_full_shell:
+                        Y_loss *= 0.5
+                    E_base = E_base * (1.0 - Y_loss) ** 2
 
     E_mcl_base = _sir_mode_weighted_base(E_base, Z, n_out, l_out, cross_shells, N_out)
 
     # Phase B: Mutual Cavity Loading — Same-Shell (Lumped LC)
     if N_out <= 1:
-        # Naked un-coupled elements natively fall strictly entirely over purely geometric evaluation bonds.
+        # Phase A½: Compressional Chain Coupling (single s-valence only).
+        #
+        # [Restored 2026-04-30 per Q4 adjudication. Pre-7fa60b7 Phase A½
+        # applied here for single-s-electron valence (Li 2s¹, Na 3s¹, etc.).]
+        #
+        # All l=0 solitons share the 2 compressional compliance modes of K4
+        # (ν_vac = 2/7).  Inner s-resonators act as ABCD stubs at the inner
+        # port of the outer s-cavity, shifting its S₁₁=0 eigenvalue by:
+        #
+        #     ΔE = −E_base / (2 × N_s_in × cosh²(γ))
+        #     γ  = |n_out² − n_in²| / (n_out × n_in)   [Bohr-radius mismatch]
+        #
+        # Gate condition: N_out = 1 means the valence shell has exactly
+        # one s-electron.  For fully-paired outer shells (Be 2s², Mg 3s²),
+        # Phase B's Hopf formula already captures the intra-shell correlation;
+        # applying the chain correction before Phase B amplifies ΔE by the
+        # Hopf factor, overcorrecting the IE.  The single-electron case has
+        # no Phase B amplification (we return E_base directly).
+        #
+        # Cosserat gate: only l=0 (compressional sector) triggers correction.
+        E_base = E_base + _sblock_chain_correction(E_base, n_out, l_out, cross_shells)
         return E_base
 
     # ── Phase B dispatch ──
@@ -1809,10 +2019,40 @@ def ionization_energy_e2k(Z: int, f_val: float = 1.0) -> float:
                     k_inner = (2.0 / z_eff_in) * (1.0 - P_C / 2.0)
                     k_pair = k_pair / (1.0 + k_inner) ** 0.25
         else:
-            # ── Discrete Torus Geometry Reflection (Merged inherently to Phase A) ──
-            # Phase A organically incorporates discrete geometric Op3 bounds stepping
-            # string limits instantly natively! Bypassing original Correction B duplicates.
-            pass
+            # ── Correction B: SIR Boundary Reflection (Op3 + Axiom 3) ──
+            #
+            # [Restored 2026-04-30 per Q5 adjudication, doc 100 §10.21+§10.22 —
+            # pre-f8af2e2 Op3 reflection at saturated inner torus with explicit
+            # Ax-2+Op3+Ax-3 chain. Reverts deletion by commit f8af2e2 (the
+            # "docs:" commit that also deleted Helmholtz CDF helpers).]
+            #
+            # When the adjacent inner shell has p-subshells (n ≥ 2),
+            # it forms a Pauli-saturated torus that presents a discrete
+            # impedance step.  The smooth CDF misses the Op3 reflection
+            # at this step, overestimating inner-lobe nuclear penetration.
+            #
+            # The crossing scattering at the step removes energy:
+            #     ΔE = −|Γ|² × (P_C/2) × E_base
+            #
+            # where:
+            #   |Γ|² = [(Z_out − Z_in)/(Z_out + Z_in)]²  (Op3)
+            #   P_C/2 = 4πα = crossing scattering fraction (Axiom 3)
+            #   E_base = Phase A cavity eigenvalue
+            #
+            # Cross-scale audit:
+            #   Op3 → scale_invariant.py:reflection_coefficient()
+            #   P_C/2 → coupled_resonator.py:389 (Hopf link crossing)
+            for n_in, N_a_in in cross_shells:
+                if n_in != n_adjacent:
+                    continue
+                # Z_net contrast at the saturated torus boundary
+                N_deeper = sum(Na for ni, Na in cross_shells if ni < n_in)
+                z_in = float(Z) - N_deeper  # screened by deeper shells only
+                z_out = float(Z) - N_deeper - N_a_in  # screened by this shell too
+                if z_in > 0 and z_out > 0:
+                    gamma = (z_out - z_in) / (z_out + z_in)
+                    gamma_sq = gamma * gamma
+                    E_base = E_base * (1.0 - gamma_sq * P_C / 2.0)
 
         N_s = N_s_count
         if N_s == 2:

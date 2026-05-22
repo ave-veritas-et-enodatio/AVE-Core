@@ -1,0 +1,239 @@
+{
+  "pre_registration": "P_phase11_path_alpha_v4_port_mixed",
+  "test": "Round 10+ Phase 1 path \u03b1 v4 port-mixed: 1 bond per port direction",
+  "cached_state_source": "data/move5_attractor_15p.npz",
+  "N": 32,
+  "PML": 4,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "selection_end_p": 15.0,
+  "recording_end_p_absolute": 200.0,
+  "n_recording_steps": 1643,
+  "elapsed_recording_seconds": 235.4339189529419,
+  "omega_peak_at_load": 0.4494052109316616,
+  "n_bonds": 4,
+  "bond_results": [
+    {
+      "port": 0,
+      "chirality_label": "RH",
+      "cell_a": [
+        24,
+        18,
+        14
+      ],
+      "cell_b": [
+        25,
+        19,
+        15
+      ],
+      "offset": [
+        1,
+        1,
+        1
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        0.5773502691896258,
+        0.5773502691896258
+      ],
+      "v_inc_sq_at_a": 0.06776986100290446,
+      "eigvals_sorted": [
+        0.0008539591504306598,
+        0.00271711763002548,
+        0.004168481072023946
+      ],
+      "axis_lengths": [
+        0.0292225794623038,
+        0.05212597845628876,
+        0.06456377523057295
+      ],
+      "planarity_e0_over_e2": 0.45261571768290904,
+      "aspect_e2_over_e1": 1.2386103271848248,
+      "ratio_e2_e1_e0": [
+        4.8813588681867754,
+        3.181788764316433,
+        1.0
+      ],
+      "phi_omega_mag_R_over_r": 6.422127198106558,
+      "phi_omega_mag_chirality_sign": 1,
+      "phi_omega_mag_chirality_label": "CCW",
+      "phi_omega_mag_mean_sin": 0.4016063584840065
+    },
+    {
+      "port": 1,
+      "chirality_label": "LH",
+      "cell_a": [
+        7,
+        15,
+        15
+      ],
+      "cell_b": [
+        8,
+        14,
+        14
+      ],
+      "offset": [
+        1,
+        -1,
+        -1
+      ],
+      "b_hat": [
+        0.5773502691896258,
+        -0.5773502691896258,
+        -0.5773502691896258
+      ],
+      "v_inc_sq_at_a": 0.07074661976116901,
+      "eigvals_sorted": [
+        0.0008335096581214923,
+        0.0021433179569422737,
+        0.0038972109012797894
+      ],
+      "axis_lengths": [
+        0.02887056733286501,
+        0.046295982082058415,
+        0.06242764532865059
+      ],
+      "planarity_e0_over_e2": 0.46246446075093484,
+      "aspect_e2_over_e1": 1.3484462910409638,
+      "ratio_e2_e1_e0": [
+        4.675663759029572,
+        2.571437458532561,
+        1.0
+      ],
+      "phi_omega_mag_R_over_r": 48889979856835.19,
+      "phi_omega_mag_chirality_sign": 0,
+      "phi_omega_mag_chirality_label": "AMBIG",
+      "phi_omega_mag_mean_sin": 0.0
+    },
+    {
+      "port": 2,
+      "chirality_label": "RH",
+      "cell_a": [
+        25,
+        11,
+        17
+      ],
+      "cell_b": [
+        24,
+        12,
+        16
+      ],
+      "offset": [
+        -1,
+        1,
+        -1
+      ],
+      "b_hat": [
+        -0.5773502691896258,
+        0.5773502691896258,
+        -0.5773502691896258
+      ],
+      "v_inc_sq_at_a": 0.08457424943580678,
+      "eigvals_sorted": [
+        0.0009021168784553298,
+        0.0017566416453928682,
+        0.0026935846751319245
+      ],
+      "axis_lengths": [
+        0.030035260585773677,
+        0.041912308996199056,
+        0.05189975602189209
+      ],
+      "planarity_e0_over_e2": 0.5787167973025606,
+      "aspect_e2_over_e1": 1.2382938870439892,
+      "ratio_e2_e1_e0": [
+        2.9858488843974147,
+        1.9472439628895073,
+        1.0
+      ],
+      "phi_omega_mag_R_over_r": 38672735694910.21,
+      "phi_omega_mag_chirality_sign": 0,
+      "phi_omega_mag_chirality_label": "AMBIG",
+      "phi_omega_mag_mean_sin": 0.0
+    },
+    {
+      "port": 3,
+      "chirality_label": "LH",
+      "cell_a": [
+        5,
+        15,
+        15
+      ],
+      "cell_b": [
+        4,
+        14,
+        16
+      ],
+      "offset": [
+        -1,
+        -1,
+        1
+      ],
+      "b_hat": [
+        -0.5773502691896258,
+        -0.5773502691896258,
+        0.5773502691896258
+      ],
+      "v_inc_sq_at_a": 0.0512515663093122,
+      "eigvals_sorted": [
+        0.0005874676850661195,
+        0.00213839857123553,
+        0.002551779743243808
+      ],
+      "axis_lengths": [
+        0.024237732671727352,
+        0.046242821834697,
+        0.050515143702099946
+      ],
+      "planarity_e0_over_e2": 0.47981121888246303,
+      "aspect_e2_over_e1": 1.0923888659449699,
+      "ratio_e2_e1_e0": [
+        4.343693803271248,
+        3.6400275718907893,
+        1.0
+      ],
+      "phi_omega_mag_R_over_r": 45947126606888.09,
+      "phi_omega_mag_chirality_sign": 0,
+      "phi_omega_mag_chirality_label": "AMBIG",
+      "phi_omega_mag_mean_sin": 0.0
+    }
+  ],
+  "aspect_e2_e1_per_port": [
+    1.2386103271848248,
+    1.3484462910409638,
+    1.2382938870439892,
+    1.0923888659449699
+  ],
+  "planarity_per_port": [
+    0.45261571768290904,
+    0.46246446075093484,
+    0.5787167973025606,
+    0.47981121888246303
+  ],
+  "aspect_mean_all": 1.2294348428036868,
+  "aspect_std_all": 0.09097801487608721,
+  "aspect_relative_spread": 0.07399986701907257,
+  "rh_bonds_count": 2,
+  "lh_bonds_count": 2,
+  "aspect_rh_mean": 1.238452107114407,
+  "aspect_rh_std": 0.00015822007041776942,
+  "aspect_lh_mean": 1.2204175784929667,
+  "aspect_lh_std": 0.12802871254799697,
+  "rh_lh_aspect_divergence": 0.014668958446234627,
+  "planarity_rh_mean": 0.5156662574927349,
+  "planarity_lh_mean": 0.47113783981669893,
+  "n_ccw": 1,
+  "n_cw": 0,
+  "n_ambig": 3,
+  "rh_n_ccw": 1,
+  "rh_n_cw": 0,
+  "lh_n_ccw": 0,
+  "lh_n_cw": 0,
+  "thresholds": {
+    "ratio_consistency": 0.1,
+    "ratio_divergence": 0.2,
+    "chirality_consistency": 0.75
+  },
+  "mode": "III",
+  "verdict": "Mode III: ratios spread irregularly across all 4 ports (aspect spread 7.4%, RH/LH diff 1.5%); chirality 1 CCW + 0 CW + 3 AMBIG. No clean pattern; IC or sampling-specific."
+}

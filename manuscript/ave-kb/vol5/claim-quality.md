@@ -477,3 +477,94 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
 - rationale: *pending*
 - strengthen-by:
   - *pending*
+## Topological Impedance ($Z_\text{topo}$) Framework Definition
+<!-- id: clm-zt0pd1 -->
+
+For each amino acid the sidechain R-group attaches as a shunt stub on the backbone transmission line; its loading effect on the amide-V passband ($\omega_0 \approx 2\pi \times 23$ THz) is the complex topological impedance $Z_\text{topo} \equiv |Z_\text{backbone}(\omega_0)|/|Z_R(\omega_0)| = R + jX$, with backbone characteristic impedance $Z_\text{backbone} = \sqrt{L_\text{bb}/C_\text{bb}} \approx 17.0\,\Omega$ and sidechain $Z_R = \sqrt{L_R/C_R}$ built from $L_R = \sum m_a/\xi_\text{topo}^2$ and $C_R = \sum \xi_\text{topo}^2/k_b$. $R$ encodes hydrophobic coupling, $X$ encodes charge reactance. Every $L,C$ derives from atomic mass and substrate-axiom bond force constants (zero empirical fits).
+
+- _Specific Claims_
+  - $Z_\text{topo} = R + jX$ defined as the sidechain-shunt loading ratio at the amide-V resonance.
+  - $L_R = \sum_\text{atoms} m_a/\xi_\text{topo}^2$, $C_R = \sum_\text{bonds} \xi_\text{topo}^2/k_b$ summation rules inherit the zero-empirical-fit chain from Axioms 2 and 4.
+  - Backbone characteristic impedance $\approx 17.0\,\Omega$ for the C$_\alpha$--C'(=O)--N(--H)--C$_\alpha$ peptide unit.
+- _Specific Non-Claims and Caveats_
+  - This is the framework definition only; the per-residue quantitative $Z_\text{topo}^i$ table for all 20 standard residues is held in the AVE-Protein engineering compendium (IP-protected per Vol 5 Ch 2:722), NOT in Core.
+  - The cascaded ABCD-matrix solver and multiplexed basis-state initialization are out of scope here.
+
+> **Leaf references:** `vol5/protein-folding-engine/z-topo-definition.md` §"Topological Impedance — Framework Definition"
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Native Fold as Minimum-$|S_{11}|^2$ Impedance Match (Levinthal Mechanical Resolution)
+<!-- id: clm-s11nf0 -->
+
+Protein folding is reframed as deterministic impedance matching rather than a search over $\sim 5 \times 10^{47}$ configurations. Each residue is a cascaded transmission-line section loaded by its $Z_\text{topo}$ shunt; the native 3D fold is the unique geometry minimizing the backbone standing-wave reflection $|S_{11}(\omega_0)|^2$ at the amide-V frequency. Secondary-structure preference follows directly from $Z_\text{topo}$ magnitude/reactance (low → α-helix, high → β-sheet/kink, charged $X \neq 0$ → long-range phase coupling). The chain is driven by substrate strain to the impedance-matched geometry; the $\mu$s folding timescale reflects substrate dielectric relaxation, not configuration enumeration.
+
+- _Specific Claims_
+  - The native fold is the minimum-$|S_{11}(\omega_0)|^2$ geometry on the backbone TL cascade — no configuration search.
+  - Secondary-structure rule: low-$|Z_\text{topo}|$ → α-helix; high-$|Z_\text{topo}|$ → β-sheet / kink; charged-sidechain reactance couples to long-range backbone resonance.
+  - Folding timescale ($\sim\mu$s) is set by substrate dielectric relaxation.
+- _Specific Non-Claims and Caveats_
+  - Framework-level only; the production folding solver (cascaded ABCD-matrix, multiplexed basis states, Op2 knot correction) and the 20-protein PDB RMSD validation are held in AVE-Protein (IP-protected), NOT in Core.
+
+> **Leaf references:** `vol5/protein-folding-engine/levinthal-mechanical-resolution.md` §"Four-step mechanism", §"Why this resolves Levinthal physically"
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Protein Folding as a Universal Saturation-Kernel Instance (A-034)
+<!-- id: clm-a034pf -->
+
+Protein folding is identified as an instance of the Axiom-4 universal saturation kernel at the protein-length scale. At the atomic-separation scale the substrate dielectric saturates as $C_\text{eff}(d) = C_0/\sqrt{1-(d_0/d)^2}$ with $A \equiv d_0/d$; when strain $A \to 1$ on a critical bond, $S(A) \to 0$ and the substrate cannot respond linearly, forcing a topological reorganization — the folding snap. This is the SYM (symmetric) universal-kernel saturation event, the "Protein folding" row of the A-034 biological-substrate-scales subcatalog, sharing the kernel with BCS, BH ring-down, solar-flare CME, cosmic K4 crystallization, water two-state LC partition, and Pd hydrogen-loading.
+
+- _Specific Claims_
+  - Protein folding instantiates the A-034 universal saturation kernel $C_\text{eff}(d) = C_0/\sqrt{1-(d_0/d)^2}$ at the atomic-separation scale (SYM symmetry class).
+  - The folding snap is the kernel-saturation event ($A \to 1$, $S(A) \to 0$) on the critical covalent bond.
+- _Specific Non-Claims and Caveats_
+  - The cross-scale validation list (BCS 0.00%, BH 1.7%, etc.) is cited as the shared-kernel context, not re-derived here.
+  - Leaf body references `../../common/universal-saturation-kernel-catalog.md`; the catalog actually lives at KB-root `common/universal-saturation-kernel-catalog.md` (relative path resolves to a non-existent `vol5/common/` target — dangling link inherited verbatim from L3; see migration FLAGS).
+
+> **Leaf references:** `vol5/protein-folding-engine/levinthal-mechanical-resolution.md` §"Protein folding as a universal saturation-kernel instance (A-034)"
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---
+
+## Regime Classification of Biological Length Scales
+<!-- id: clm-rg7cls -->
+
+Biological circuitry is classified across five length scales: the covalent bond (~1.5 Å) sits in Regime II (yield, $\Delta\phi/\alpha \sim 0.5$, soliton potential well); the backbone (3.8 Å) in Regime I--II ($\sim 0.1$, LC transmission line); and the R-group stub, peptide chain, and folded protein all in Regime I (linear, lossless, $\Delta\phi/\alpha \ll 0.1$). All biology is therefore linear-lossless except at the covalent-bond core where vacuum strain approaches the Axiom-4 yield limit — which is why biology is fundamentally an AC resonance phenomenon and why the non-linear A-034 snap operates only at the bond core while everything else is well-defined linear cascaded-TL impedance matching.
+
+- _Specific Claims_
+  - Five-scale regime table: covalent bond → Regime II yield; backbone → Regime I--II; R-group / chain / folded protein → Regime I linear.
+  - The non-linear saturation-kernel physics is confined to the covalent-bond core; all larger scales are linear-circuit-theory calculable, giving the folding problem a unique solution.
+- _Specific Non-Claims and Caveats_
+  - $\Delta\phi/\alpha$ values are order-of-magnitude regime indicators, not precision measurements.
+
+> **Leaf references:** `vol5/protein-folding-engine/regime-classification.md` §"Regime Classification of Biological Length Scales"
+
+### Quality
+- confidence: *pending*
+- solidity: *pending*
+- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- strengthen-by:
+  - *pending*
+
+---

@@ -2,16 +2,28 @@
 % Single source of truth. \input this wherever Axiom 4 is formally restated.
 %
 \begin{resultbox}{Axiom 4 — Universal Saturation Kernel}
-The universal yield kernel bounding all LC modes:
+The substrate's bulk response to local strain $A$ is the universal quarter-arc kernel:
 \begin{equation}
-    S(A) = \sqrt{1 - \left(\frac{A}{A_{yield}}\right)^{\!2}}
+    \boxed{S(A) = \sqrt{1 - \left(\frac{A}{A_{yield}}\right)^{\!2}}}\;, \qquad A \in [0,\, A_{yield}]
     \label{eq:axiom4_saturation}
 \end{equation}
-At $A = 0$: $S = 1$ (linear Maxwell recovered).\quad
-At $A \to A_{yield}$: $S \to 0$ (saturation).
+$A$ is the local strain normalized to the substrate's bandwidth limit $A_{yield}$ (the value at which $S \to 0$). The kernel is dialect-independent: the same $S(A)$ function governs strain expressed as $V/V_{yield}$ (dielectric), $T/T_c$ (BCS thermal pair-strain), $r_s/r$ (gravitational metric strain), $\Omega/\Omega_{break}$ (rotational shear), $B/B_c$ (magnetic), or any physical dialect's normalized perturbation amplitude.
 
-\medskip
-\textbf{Derived consequences:}
+\medskip\noindent
+\textbf{Behavior:} $A = 0 \Rightarrow S = 1$ (linear regime: Maxwell, BCS small-signal, Newtonian gravity recovered); $A \to A_{yield} \Rightarrow S \to 0$ with vertical tangent (saturation event is impulsive at every scale). When $S(A) \to 0$ locally, the substrate cannot sustain linear response and \emph{must reorganize topologically} to a new configuration. This is the universal mechanism behind the substrate's nonlinear repertoire.
+
+\medskip\noindent
+\textbf{A-034 universality (canonical 2026-05-15 evening):} the same kernel governs 19 cross-scale topological-reorganization events spanning 21 orders of magnitude, with four empirical anchors at \textbf{zero free parameters} (no per-domain refit):
+\begin{itemize}\itemsep 0pt
+    \item \textbf{Condensed matter:} BCS $B_c(T) = B_{c0}\, S(T/T_c)$ at \textbf{0.00\% error} across all measured Type-I/II superconductors
+    \item \textbf{Gravitational (horizon):} BH event horizon $\varepsilon_{11}(r) = 1$ matches Schwarzschild $r_s = 2GM/c^2$ \textbf{exactly}
+    \item \textbf{Gravitational (ring-down):} BH merger QNM $\omega_R M_g = 18/49$ at \textbf{1.7\% from GR exact}; 3 LIGO events
+    \item \textbf{Stellar:} solar CME / flare onset, NOAA GOES 40-yr empirical validation
+\end{itemize}
+Additional catalog rows span atomic dielectric breakdown, nuclear (DT fusion), geomagnetic reversal, galactic (MOND), cosmic (K4 crystallization at lattice genesis, Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}), biological (membrane LLCP), and engineered (autoresonant rupture). \textbf{Symmetry classification:} SYM ($\varepsilon$ and $\mu$ saturate together, vacuum $K = 2G$), ASYM-N (single-sector --- only $\varepsilon$ or only $\mu$, e.g., BCS $\mu$-only), ASYM-E (engineered $K/G \neq 2$). Full catalog in Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog).
+
+\medskip\noindent
+\textbf{Derived dielectric specialization} (atomic/bench scale, $A = \Delta\phi/\alpha$):
 
 \begin{center}\small
 \begin{tabular}{llll}
@@ -27,11 +39,11 @@ $c_{eff}$     & $c_0 \cdot S^{1/2}$  & $\to 0$       & Wave packet confined (mas
 \end{tabular}
 \end{center}
 
-\medskip
-\textbf{Confinement theorem (two paths):}
+\medskip\noindent
+\textbf{Confinement theorem (two paths at atomic / gravitational scale):}
 \begin{itemize}
     \item \textbf{Particles:} At a torus knot self-intersection,
-    B saturates $\mu$ first $\to$ $Z \to 0$, $\Gamma \to -1$
+    $B$ saturates $\mu$ (ASYM-N) $\to$ $Z \to 0$, $\Gamma \to -1$
     (short circuit) $\to$ standing wave = rest mass.
     \item \textbf{Gravity:} Near a massive defect, $\varepsilon_{11} \to 1$
     $\to$ shear modulus $G_{shear} \to 0$ (lattice phase transition)

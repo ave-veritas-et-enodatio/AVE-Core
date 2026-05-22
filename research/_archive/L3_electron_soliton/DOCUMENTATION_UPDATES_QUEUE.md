@@ -1,0 +1,286 @@
+# Documentation Updates Queue — L3 Research
+
+**Purpose:** Running log of all documentation edits (LaTeX manuscript chapters, markdown KBs, state-of-work trackers, YAML manifests, etc.) surfaced during Level-3 research. Not executed during the research program; reviewed and applied as a batch after the research concludes, so the physics work stays focused and the documentation receives a coherent, reviewed update.
+
+**Flag-don't-fix discipline:** Items are queued here and adjudicated/applied only after the user reviews. Phase-1+ research findings that contradict or require amending current documentation are added promptly so nothing is forgotten.
+
+**Format per entry:**
+```
+### [N] <short title>
+- **File:** <path>
+- **Kind:** <latex / markdown / config / yaml / other>
+- **Location:** <section / line / label reference>
+- **Change:** <what needs to change>
+- **Why:** <research finding that surfaced the issue>
+- **Surfaced:** <date / phase>
+- **Status:** queued / in-review / applied
+```
+
+---
+
+## Active queue
+
+### [1] Vol 1 Ch 8 — trefoil-vs-unknot convention footnote
+- **File:** [manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex](../../manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex)
+- **Kind:** latex
+- **Location:** §sec:electron_trefoil, around line 18 ("Trefoil Knot (3₁)") and §sec:golden_torus throughout
+- **Change:** Add a clarifying footnote (or short paragraph) distinguishing *spatial flux-tube topology* (unknot $0_1$ — an unknotted ring) from *phase-winding structure on the toroidal shell* ($(2,3)$ torus knot traced by the preimage of a constant phase on the Clifford torus). The chapter currently conflates the two by describing the electron as "a minimum-crossing Trefoil Knot ($3_1$)" without the spatial-vs-phase-space distinction. This is consistent with Ch 8's math (which is entirely on the Clifford torus $\mathbb{T}^2 \subset S^3$) but the prose can mislead a first-time reader into imagining a knotted flux-tube curve in real space.
+- **Why:** [src/ave/topological/faddeev_skyrme.py:17](../../src/ave/topological/faddeev_skyrme.py) states: *"The electron's topology is an unknot ($0_1$), but its phase winding number follows the (2,3) pattern with $c_3 = 3$ crossings."* Grant adjudicated (2026-04-19): the electron is an unknot spatially with $(2,3)$ phase winding. Ch 8 needs to reflect this to prevent cross-doc contradiction and to align with the Cosserat-unification framing canonized in `research/L3_electron_soliton/00_scoping.md` §2.
+- **Surfaced:** Phase 0, 2026-04-19
+- **Status:** queued
+
+### [2] LIVING_REFERENCE.md + CURRENT_STATE.md — canonical Cosserat cross-link
+- **File (primary):** [LIVING_REFERENCE.md](../../LIVING_REFERENCE.md)
+- **File (secondary):** [.agents/handoffs/CURRENT_STATE.md](../../.agents/handoffs/CURRENT_STATE.md)
+- **Kind:** markdown
+- **Location:** wherever each doc discusses axioms, formalism, or architectural commitments
+- **Change:** Add a canonical pointer to `research/L3_electron_soliton/00_scoping.md` §2 (the Cosserat canonization declaration) and §4 (the $\hat{\mathbf{n}} \leftrightarrow \boldsymbol{\omega}$ identity gap). Wording suggestion: *"Canonical formalism: Cosserat micropolar field theory on K4 substrate with Axiom 4 gradient-saturation. See `research/L3_electron_soliton/00_scoping.md` §2 for the declaration and §4 for the open identity gap."*
+- **Why:** Without a cross-link from the top-level reference docs, future sessions will not know to treat the Cosserat commitment as canonical when touching field-theory topics. Discoverability is the entire mechanism; the canonization itself is already declared in the scoping doc.
+- **Surfaced:** Phase 0, 2026-04-19
+- **Status:** queued (held per user direction, 2026-04-19)
+
+### [3] research/L3_electron_soliton/02_lagrangian_derivation.md — correct §8.3 overclaim
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §8.3 (screening constraint derivation sketch)
+- **Change:** Re-word §8.3 to reflect the corrected understanding established in [`03_existence_proof.md`](03_existence_proof.md) §0 + §4.3. Specifically, the current §8.3 sketch frames $R\cdot r = 1/4$ as emerging from "Cosserat bending-energy extremization" — which overclaims. Replace with: the condition is a *topological quantization* forced by SU(2) half-cover + Clifford-torus area match, not a dynamical energy extremum. Retain the Cosserat framing as consistency check, not as derivation mechanism.
+- **Why:** Writing out §4.3 of `03_` at publication rigor revealed that the naive "uniform-winding kinetic energy on the Clifford torus" gives $R/r = 3/2$ (or $2/3$ depending on winding assignment), not the Golden $R/r = \varphi^2 \approx 2.618$. The Cosserat Lagrangian alone does not dynamically select $R\cdot r = 1/4$; the condition is topological. Keeping §8.3 as-written would mis-state where the derivation's weight lies.
+- **Surfaced:** Phase 1, 2026-04-19
+- **Status:** **APPLIED 2026-04-20.** `02_` §8.3 rewritten with "topological quantization, not a dynamical extremum" framing.
+
+### [5] research/L3_electron_soliton/02_lagrangian_derivation.md — correct §9 Pinning-2 factor-of-3 and rationale
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §9 (Cosserat moduli pinning), Pinning 2 specifically
+- **Change:** Replace $\ell_{\text{Cos}} = \sqrt{3\gamma/G_c}$ with $\ell_{\text{Cos}} = \sqrt{\gamma/G_c}$; replace $G_c = 3\gamma$ with $G_c = \gamma$; replace the "pinned by $\nu_{\text{vac}} = 2/7$ operating point" rationale with "pinned by $\ell_{\text{Cos}} = \ell_{\text{node}}$ (Axiom 1 Nyquist match)." See [`04_moduli_pinning_check.md`](04_moduli_pinning_check.md) §3 for the corrected derivation.
+- **Why:** The factor of 3 came from naively summing three bending moduli that happen to all equal $\gamma$ in the isotropic ansatz; the dimensionally-natural characteristic length uses the coefficient of $|\nabla\boldsymbol{\omega}|^2$ in the isotropic energy functional, which is $\gamma$, not $3\gamma$. The $\nu_{\text{vac}}$ attribution was a confusion with the translational Poisson ratio (which pertains to $K/G$, not to $G_c$). After correction, all three pinnings self-consistently close and all three §9.1 checks pass.
+- **Surfaced:** Phase 1 moduli-pinning check, 2026-04-20
+- **Status:** **APPLIED 2026-04-20.** `02_` §9 Pinning-2 rewritten; factor-of-3 removed, rationale corrected to $\ell_\text{Cos}=\ell_\text{node}$ Nyquist match, final pinning updated to $G_c = \gamma$.
+
+### [6] research/L3_electron_soliton/01_ §10 + 02_ §7.2 + 03_ §4.3 — remove Reading-(a)↔(b) equivalence implications
+- **File:** [research/L3_electron_soliton/01_identity_adjudication.md](01_identity_adjudication.md), [02_lagrangian_derivation.md](02_lagrangian_derivation.md), [03_existence_proof.md](03_existence_proof.md)
+- **Kind:** markdown (internal research docs)
+- **Location:** `01_` §10.1 Reading-(a) language; `02_` §7.2 "a $(2,3)$ dual winding realizes $Q_H = 6$ via $Q_H = w_1 \cdot w_2$" (end of §7.2); `03_` §4.3 "torus-knot preimages" phrasing anywhere
+- **Change:** Remove or qualify any phrasing that equates Reading (b)'s factorized SU(2) sector with a Sutcliffe Hopfion (Reading a). Specifically, the end of `02_` §7.2 claims "$Q_H = w_1 \cdot w_2 = 6$" for Reading (b); this is false, $Q_H(\hat{\mathbf{n}}) = 0$ for Reading (b) as written. See [`05_reading_equivalence_check.md`](05_reading_equivalence_check.md) §4 for the calculation. Readings (b) and (c) in `01_` §10 may also be unified into a single "factorized SU(2) with joint $(w_1, w_2)$ invariant" reading, per `05_` §8.2 — pending user adjudication.
+- **Why:** The equivalence check revealed that (a) and (b) describe genuinely different topological sectors. Keeping equivalence-implying language would mislead future readers and introduce an error into the load-bearing topology-invariants claim.
+- **Surfaced:** Phase 1 equivalence check, 2026-04-20
+- **Status:** **APPLIED 2026-04-20** via universal-operator reframing supersession. `01_` §10.1 amended (two-step: (b)/(c) merge, then full supersession); `02_` §7.2 rewritten with $c = 3$ scalar invariant; `03_` §4.1 references updated. False "Q_H = w_1 × w_2 = 6" claim removed.
+
+### [7] Resolve Williamson-van der Mark (2,1) vs AVE (2,3) winding tension via Cosserat→EM projection map
+- **File (new):** suggested path `research/L3_electron_soliton/06_winding_index_projection.md`
+- **Kind:** markdown (new research doc) + possible touch of `02_lagrangian_derivation.md` §7.2 to annotate the projection relationship
+- **Location:** new Phase-1 wrap-up doc
+- **Change:** Derive the explicit projection from AVE's SU(2)-Cosserat winding pair $(2, 3)$ to the semi-classical EM-phase winding of a Williamson-van der Mark-type toroidal photon model. Under user adjudication (2026-04-20) that the two indices count different observables, show which Cosserat invariant produces a semi-classical EM-phase count matching Williamson-van der Mark's preferred 2:1 — and verify the other Cosserat invariant (the $(2,3)$ second number) has a consistent interpretation in the semi-classical limit (e.g., as a fibre-phase count invisible to a pure-EM observer).
+- **Why:** Williamson-van der Mark (B25) is the most directly comparable prior art for AVE's electron-as-torus claim. AVE uses $(2,3)$ winding; Williamson-van der Mark uses 2:1. User adjudicated this as option (1): different invariants being counted. But the adjudication is not written down formally anywhere yet; until it is, "why $(2,3)$ not $(2,1)$?" is an open question any reviewer will ask. The projection map is the rigorous answer.
+- **Surfaced:** Phase 1 bibliography expansion, 2026-04-20
+- **Status:** queued (Phase-1 wrap-up task)
+
+### [8] Resolve AVE major-minor convention for "(2,3)" assignment on Clifford torus
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md) §7.2 + [03_existence_proof.md](03_existence_proof.md) §4.3 (anywhere that assigns windings to major/minor cycles)
+- **Kind:** markdown (internal research docs) + potentially manuscript Ch 8 annotation
+- **Location:** §7.2 of `02_` and wherever $(w_1, w_2) = (2, 3)$ is tied to $(\theta_1, \theta_2)$
+- **Change:** Explicitly state and justify whether $w_1 = 2$ lives on the major cycle ($\theta_1$, radius $R = \varphi/2$) or the minor cycle ($\theta_2$, radius $r = (\varphi-1)/2$). Currently the assignment is implicit. Given Williamson-van der Mark (B25) puts their "2" on the major cycle, and the natural matching under the Cosserat → EM projection ([`06_winding_index_projection.md`](06_winding_index_projection.md) §3) is "major = 2," the canonical AVE convention should be: $w_1 = 2$ on $\theta_1$ (major), $w_2 = 3$ on $\theta_2$ (minor). If the AVE corpus's physical intuition disagrees, the opposite convention must be made explicit and §3 of `06_` revised accordingly.
+- **Why:** `06_` §6 flagged this as an unresolved convention. The (2,3) vs (2,1) resolution depends on the major-minor assignment. Leaving it implicit risks a silent sign/convention error in later Phase-3 numerics.
+- **Surfaced:** Phase 1 winding-index projection, 2026-04-20
+- **Status:** queued (Phase-1 wrap-up task)
+
+### [9] Revise 02_ §7.2 topological boundary condition from (w_1,w_2) pair to scalar c=3
+- **File:** [research/L3_electron_soliton/02_lagrangian_derivation.md](02_lagrangian_derivation.md) §7.2
+- **Kind:** markdown (internal research doc)
+- **Location:** §7.2 of `02_` (topological boundary condition on Clifford shell)
+- **Change:** Replace the Hopfion-literature-style dual-winding specification (winding 2 on $\theta_1$, winding 3 on $\theta_2$) with an AVE-native crossing-count specification: the electron ground state is characterized by $c = 3$ (Op10 scalar topological invariant). Retain the SU(2) field formulation from C3 canonization. Drop the factorized "base + fibre" phase specification — it was imported from Hopfion literature and does not match AVE's own universal-operator invariant basis.
+- **Why:** Survey of [`src/ave/core/universal_operators.py`](../../src/ave/core/universal_operators.py) in [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) establishes that AVE's native topological invariant is the scalar crossing count $c$ (used by Op10 = Junction Projection Loss), not a winding pair. The $(w_1, w_2)$ framing was a category error.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** **APPLIED 2026-04-20.** `02_` §7.2 rewritten with scalar $c = 3$ framing; §7.3 updated accordingly.
+
+### [10] Revise 06_ §3, §5, §8 projection map to AVE-native c-based framing
+- **File:** [research/L3_electron_soliton/06_winding_index_projection.md](06_winding_index_projection.md) §3 (major-cycle direct agreement), §5 (consistency prediction), §8 (open questions)
+- **Kind:** markdown (internal research doc)
+- **Location:** §§3, 5, 8 of `06_`
+- **Change:** Simplify the projection map under the `07_` finding. AVE and WvdM both speak $(p, q)$ torus-knot language but on different tori (phase-space Clifford for AVE; physical-space for WvdM), giving $c = 3$ for AVE and $c = 0$ (unknot; $(2,1)$ is an unknotted curve) for WvdM. The Cosserat → EM projection chain is still structurally correct but the "major vs minor" reasoning in §3 should be replaced with the two-different-tori framing.
+- **Why:** The `07_` reframing shows that AVE-native invariant is scalar $c$, not a pair. The `06_` §3 "major cycle agreement" reasoning was based on Hopfion-literature conventions that don't apply natively. Cleaner story: both pictures use $(p,q)$ notation but for different tori.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** **APPLIED 2026-04-20** (amendment box). Added ⚠ amendment at top of `06_` pointing to `07_` as cleaner resolution; preserved §§1–8 as traceable reasoning history. §§1–2 (two-tori distinction) and §5 (3:1 tube-wrap consistency check for Phase 3) retained as still-valuable; §§3–4 $(w_1, w_2)$ reasoning superseded by $c$-based framing.
+
+### [11] Revise 05_ §8 three-readings framework — superseded by universal-operator reframing
+- **File:** [research/L3_electron_soliton/05_reading_equivalence_check.md](05_reading_equivalence_check.md) §8 adjudication questions, §7 "Where the Cosserat canonization points"
+- **Kind:** markdown (internal research doc)
+- **Location:** `05_` §§6, 7, 8
+- **Change:** Add an amendment note: under the `07_` universal-operator reframing, the Reading (a) / Reading (b) distinction is superseded. Both are external-literature conventions that don't match AVE's own Op10 invariant basis. What remains is: (i) the field-formulation choice is C3 SU(2) embedding (from `01_` §10, still valid), and (ii) the topological invariant is $c = 3$ (from `07_`, supersedes all readings).
+- **Why:** The reading-equivalence check in `05_` was a valuable process that surfaced the category error. But now that the error is identified and resolved via `07_`, the three-readings framing is itself superseded.
+- **Surfaced:** Phase 1 universal-operator reframing, 2026-04-20
+- **Status:** **APPLIED 2026-04-20** (amendment box). Added ⚠ amendment at top of `05_` pointing to `07_`. §§1–6 retained as traceable reasoning; §§7–8 recommendations marked as overridden.
+
+### [8] Resolve AVE major-minor convention for "(2,3)" assignment on Clifford torus — RESOLVED via 07_
+- **Resolution:** No assignment needed. The scalar crossing count $c = 3$ is the AVE-native topological invariant (Op10, universal-operator basis), not a winding pair. The major-vs-minor assignment was a Hopfion-literature category error. See [`07_universal_operator_invariants.md`](07_universal_operator_invariants.md) §4.1.
+- **Status:** **RESOLVED** 2026-04-20 via `07_`. Keeping entry in queue as a resolved-item marker. Requeue only if Phase-3 numerics reveals an axis-dependent observable not captured by the universal operators.
+
+### [12] research/L3_electron_soliton/08_discretization_design.md — correct §3.2 consistency claim
+- **File:** [research/L3_electron_soliton/08_discretization_design.md](08_discretization_design.md) §3.2 (discrete kinematic tensors)
+- **Kind:** markdown (internal research doc)
+- **Location:** §3.2 — where "second-order consistency" is stated for the nearest-neighbor tetrahedral gradient
+- **Change:** Replace the "second-order consistency" wording with an honest statement: the naive nearest-neighbor tetrahedral-gradient estimator is **first-order consistent**, with leading error proportional to mixed second partials $\partial_k\partial_l V$ (for distinct $k, l \neq j$). Second-order consistency requires the A+B symmetrized estimator derived in [`09_phase2_wrapup.md`](09_phase2_wrapup.md) §1.4.
+- **Why:** `08_` overclaimed. Honest analysis in `09_` §1 showed the triple-sum $\sum_\ell p_\ell^j p_\ell^k p_\ell^l$ is non-zero for distinct indices ($= 4$), producing an $O(\Delta x)$ error. Phase-3 implementation efforts need accurate expected convergence rates.
+- **Surfaced:** Phase 2 wrap-up, 2026-04-20
+- **Status:** queued
+
+### [13] src/ave/topological/cosserat_field_3d.py — fix saturation-gradient bug
+- **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py) `_stress_and_couple_stress()`
+- **Kind:** code bug
+- **Change:** The analytical derivative of the saturated energy `W_sat = W_bare · S²(|X|)` with respect to tensor component `X_mn` disagrees with finite-difference by factor ~10 and often wrong sign at sites with moderately saturated field.
+- **Why:** Phase-3 validation revealed that without saturation, the Cosserat quadratic Lagrangian's unique minimum is the trivial vacuum — the soliton decays. Saturation is LOAD-BEARING for soliton stability.
+- **Surfaced:** Phase 3 first-pass validation, 2026-04-20
+- **Status:** **APPLIED 2026-04-20** — full JAX refactor. Module now uses `jax.value_and_grad` on the energy functional; hand-derived stress tensors removed entirely. New strict test `test_saturated_gradient_matches_finite_difference_under_activation` verifies FD agreement at 1e-5 rtol in the saturation-active regime (previously would fail at ~10× at same sites). x64 mode enabled via `jax.config.update`. JIT-compiled energy and gradient functions give ~5–10× speedup; Metal GPU backend will apply when `jax-metal` is installed.
+
+### [14] Phase-3: preserve (2,3) topology through gradient descent
+- **File:** [src/ave/topological/cosserat_field_3d.py](../../src/ave/topological/cosserat_field_3d.py)
+- **Kind:** numerical-physics enhancement — PARTIALLY RESOLVED 2026-04-20
+- **Resolution so far:** 
+  - c-extractor made robust via multi-radius contour scan (returns max over reliable contours); initial c now reads 3 correctly.
+  - At $32^3$: topology goes $3 \to 2$ (one winding lost between iters 20-60); not preserved.
+  - At $48^3$ and $64^3$: **topology preserved — $c = 3$ throughout relaxation.** Higher resolution defeats lattice tearing.
+- **Remaining issue:** at $48^3/64^3$ the relaxed soliton's *spatial* `r` (|ω| FWHM) collapses to $\sim 0{-}1$, and $R/r$ does NOT match $\varphi^2 \approx 2.618$. May indicate (a) the relaxed soliton is collapsing to a singular 1D curve, (b) the spatial FWHM extractor doesn't correspond to Ch 8's Clifford-torus $r$, or (c) the Lagrangian needs an additional stabilization term (e.g., Skyrme 4-derivative) to prevent the minor-axis collapse.
+- **Surfaced:** Phase 3 second-pass validation (JAX), 2026-04-20
+- **Status:** queued — partial resolution applied (topology preservation at higher res). Completing Phase-3 validation blocked on understanding the spatial-(R,r) vs Clifford-(R,r) relationship. See new item [15].
+
+### [15] Phase-3: distinguish spatial-toroidal (R, r) from Clifford-torus (R, r)
+- **File:** Phase-3 diagnostic work; may need new research doc `research/L3_electron_soliton/10_spatial_vs_clifford_torus.md`
+- **Kind:** conceptual / diagnostic
+- **Change:** Write out precisely what Ch 8's Clifford-torus $(R, r) = (\varphi/2, (\varphi-1)/2)$ correspond to in REAL-SPACE field measurements. Options: (a) Clifford-torus parameters are purely phase-space, not spatial — validate Ch 8 via $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ directly from the relaxed field's multipole Q-factor decomposition, not from spatial R/r. (b) There IS a direct spatial correspondence and the current extractor is wrong — derive and implement the correct spatial diagnostic. (c) Hybrid: Clifford (R, r) ≠ spatial |ω| FWHM but there's a known transformation between them.
+- **Why:** Phase-3 at $64^3$ preserves topology (c=3) and reduces energy, but reports spatial (R, r) = (16.33, 0.99), R/r = 16.5 — NOT $\varphi^2$. Either the validation target is wrong (we should validate α⁻¹ instead of spatial R/r), or the extractor is reading the wrong quantity, or the solver is producing a non-Ch8 soliton. Without this distinction clarified, we can't interpret the Phase-3 result as success or failure.
+- **Surfaced:** Phase 3 higher-resolution validation, 2026-04-20
+- **Status:** queued — conceptually blocks Phase-3 end-to-end interpretation.
+
+### [17] Phase-3 blocker: derive the Op10-continuum Lagrangian density
+- **File (new):** [`research/L3_electron_soliton/11_op10_continuum_promotion.md`](11_op10_continuum_promotion.md) (to be written); then update [`src/ave/topological/cosserat_field_3d.py`](../../src/ave/topological/cosserat_field_3d.py) energy functional.
+- **Kind:** AVE-native derivation + Lagrangian extension, load-bearing for Phase-3 end-to-end validation.
+- **Context:** Phase-3 validation via Ch 8 dimensionless ratios (`validate_cosserat_alpha_via_ch8_ratios.py`) shows the current Cosserat-plus-saturation Lagrangian relaxes to a thin flat ring ($R/r \approx 16.5$) in the $(2,3)$ topological sector rather than Ch 8's Golden Torus ($R/r = \varphi^2 \approx 2.618$). Root cause: scalar-invariant saturation on $|\kappa|$ caps per-site strain but doesn't penalize strand-crossing proximity — two strands of the $(2,3)$ winding passing near each other at a crossing point incur no extra energy cost. This is the classic Hopfion-stabilization gap.
+- **The AVE-native fix — promote Op10 to a Lagrangian density:**
+  Op10 (Junction Projection Loss, [`src/ave/core/universal_operators.py:535`](../../src/ave/core/universal_operators.py#L535)) is already the AVE-canonical crossing-loss operator: $Y_\text{loss}(\theta, c) = c(1 - \cos\theta)/(2\pi^2)$. It applies at discrete crossings. To write a field Lagrangian that includes this physics continuously, we need to express Op10 as a local density $\mathcal{L}_\text{Op10}(\hat{\mathbf{n}}, \partial \hat{\mathbf{n}})$ that, when integrated, reproduces the discrete Op10 behavior. The continuum form is structurally a Skyrme-like 4-derivative term $|\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$, but with a **coefficient derived from Op10's $2\pi^2$ normalization, not fit**.
+- **Derivation plan (research doc `11_`):**
+  1. State Op10 at a single discrete crossing: $Y_\text{loss} = c(1-\cos\theta)/(2\pi^2)$ with $c$ = local crossing number, $\theta$ = junction angle.
+  2. Identify the continuum analog of $(1-\cos\theta)$: this is $|\hat{\mathbf{n}}_1 - \hat{\mathbf{n}}_2|^2 / 2$ for two nearby field values. For a smooth field, this scales as $|\partial \hat{\mathbf{n}}|^2 \cdot (\text{distance})^2$ — but we already have this at order-2 in derivatives.
+  3. The new contribution at order-4 (in derivatives) is $|\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$, which measures simultaneous directional change — exactly what characterizes crossings.
+  4. Compute $\int |\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2 \, d^3\mathbf{r}$ over a test configuration with known crossings and match to the discrete Op10 sum. Coefficient falls out.
+  5. Result: $\mathcal{L}_\text{Op10} = (k/2\pi^2) \cdot |\partial_i \hat{\mathbf{n}} \wedge \partial_j \hat{\mathbf{n}}|^2$ with a specific $k$ determined by the matching in step 4.
+- **Why this is AVE-native, not ad-hoc:**
+  - Op10 is already a canonical universal operator (enumerated in the file header comment of universal_operators.py).
+  - Ch 8's $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derivation uses Op10 directly at the Clifford-torus crossings (the $\pi^2$ screening factor IS Op10 applied to $c = 3$ at $\theta = \pi/2$).
+  - The $2\pi^2$ normalization is derived (standing-wave $\pi$ times azimuthal $2\pi$), not fit.
+  - Promoting Op10 from discrete to continuum is a technical advance, not a new postulate.
+  - Zero-parameter closure is preserved — the continuum coefficient is determined by the discrete-to-continuum matching, no fit parameter.
+- **Success criterion:** with the Op10-derived term in the Lagrangian, rerun [`validate_cosserat_alpha_via_ch8_ratios.py`](../../src/scripts/vol_1_foundations/validate_cosserat_alpha_via_ch8_ratios.py) at 64³; the three Ch 8 ratios should match within the committed tolerances ($10^{-3}$ real-valued, c=3 integer, $\alpha^{-1}$ within $10^{-3}$ of 137.0363038).
+- **Failure mode & interpretation:** if the Op10-derived coefficient does NOT produce the Golden Torus under relaxation, that would be a significant finding: either Op10's continuum form is different from expected, or there's a missing ingredient in AVE's axiom set for full field-theoretic closure. Both outcomes are publication-relevant.
+- **Surfaced:** Phase 3 α⁻¹ validation → chirality-accounting resolution → Op10-native insight, 2026-04-20
+- **Status:** queued — next session entry point. Blocks Phase-3 end-to-end validation.
+
+### [16] Future research — strain-induced chirality-dependent dynamic impedance
+- **File (new):** suggested `research/L3_electron_soliton/12_strain_chirality_split.md` (if pursued)
+- **Kind:** future research note
+- **Change:** Investigate whether Op14 Dynamic Impedance $Z_\text{eff}(W)$ has a chirality-dependent correction under strain (i.e., $Z^L_\text{eff}(W) \neq Z^R_\text{eff}(W)$ while both equal $Z_0$ at $W = 0$). Would provide a derivation path for the $\Delta n \propto E^4$ vacuum birefringence in Vol 4 Ch 11 (baseline birefringence = 0, consistent with scalar $Z_0$ at $W = 0$; nonzero under strain). Derivation would come from Cosserat constitutive tensor decomposition into chirality-symmetric + antisymmetric parts, then tracking the antisymmetric part through the saturation kernel.
+- **Why:** [`10_chirality_accounting_narrative.md`](10_chirality_accounting_narrative.md) §8 identifies this as a natural extension thread. Not needed for Phase-3 (scalar $Z_0$ suffices for multipole Q-factor validation). Becomes load-bearing if a downstream prediction requires quantifying vacuum birefringence or optical activity inside high-strain regions.
+- **Surfaced:** Phase 3 chirality discussion, 2026-04-20
+- **Status:** queued — low priority, not blocking.
+
+### [4] research/L3_electron_soliton/03_existence_proof.md — complete formal proofs in §3 and §5
+- **File:** [research/L3_electron_soliton/03_existence_proof.md](03_existence_proof.md)
+- **Kind:** markdown (internal research doc)
+- **Location:** §3 (existence, currently sketched via Faddeev-Skyrme-literature adaptation); §5 (uniqueness, currently sketched via modulus-space argument)
+- **Change:** Replace the sketch-level existence and uniqueness arguments with formal proofs, including: (a) explicit coercivity bound for the Cosserat sector energy, (b) regularity argument for the weak-limit minimizer, (c) Palais-Smale or concentration-compactness for mass escape, (d) modulus-space uniqueness argument specific to the $(2,3)$ Cosserat sector.
+- **Why:** Publication rigor target (`00_scoping.md` §0). Current sketches invoke "standard Hopfion-literature adaptations" which are technically correct but not publication-ready.
+- **Surfaced:** Phase 1, 2026-04-19
+- **Status:** **TABLED 2026-04-20** per user direction. Phase-1 theoretical spine is complete as a research artifact; formal rigor upgrade of §3 and §5 is deferred. If/when the research targets publication, this becomes a prerequisite deliverable. Retained in the active queue as a known outstanding item.
+
+### [17] Vol 4 Ch 1 — cite AVE-native vacuum-rupture temperature T_V-rupt = 3.44 MK
+- **File:** [manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex)
+- **Kind:** latex
+- **Location:** end of §`sec:thixotropic-relaxation` / §`sec:axiom-4-nonlinear`, as a new subsection or resultbox
+- **Change:** Add an AVE-native Schwinger-vacuum-temperature prediction derived
+  in [47_thermal_lattice_noise.md §2.2](47_thermal_lattice_noise.md): if the
+  K4 substrate itself were in thermal equilibrium at T > α/(4π)·m_e c² ≈
+  5.8×10⁻⁴·m_e c² → **T ≈ 3.44×10⁶ K**, the vacuum would spontaneously
+  rupture from thermal V alone. Clarify that SOLAR-CORE plasma (1.5×10⁷ K)
+  does NOT imply vacuum-substrate heating — the vacuum between particles
+  stays cold. Falsifiable: any process that heats the VACUUM (not just
+  plasma) above 3.44 MK without spontaneous pair creation falsifies AVE.
+- **Why:** Emerged during Phase III-B simulator stability investigation
+  (T=0.1·m_e c² thermal-V init caused numerical blowup). First-principles
+  prediction from existing V_SNAP/α machinery but not currently stated
+  explicitly in the manuscript.
+- **Surfaced:** Phase III-B, 2026-04-22 (docs 47_ §2.1–2.3)
+- **Status:** queued
+
+### [18] Vol 4 Ch 11 — cross-ref AVE-Propulsion autoresonant dielectric rupture + AVE-Core AutoresonantCWSource
+- **File:** [manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex](../../manuscript/vol_4_engineering/chapters/11_experimental_falsification.tex)
+- **Kind:** latex
+- **Location:** sonoluminescence / FOC section (~line 202) where FOC is introduced
+- **Change:** Cross-reference AVE-Propulsion Ch 5 autoresonant dielectric
+  rupture, and point to the AVE-Core implementation at
+  [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py)
+  (`AutoresonantCWSource` class). FOC q-axis is now a computational mechanism
+  in AVE-Core, not only a conceptual framing.
+- **Why:** Consolidates FOC / autoresonant / back-EMF picture across three
+  volumes (Vol 4 Ch 11, AVE-Propulsion Ch 5, AVE-Core code).
+- **Surfaced:** Stage 4 ecosystem synthesis, 2026-04-22 (doc 49_)
+- **Status:** queued
+
+### [19] Vol 4 Ch 1/2 — cross-ref AVE-Core DarkWakeObserver implementation
+- **File:** [manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex](../../manuscript/vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex)
+  (dark-wake discussion) AND/OR eventual vol_4 ch02 mirroring AVE-PONDER/vol_ponder/ch01
+- **Kind:** latex
+- **Location:** dark-wake / PONDER thrust discussion
+- **Change:** Cross-reference [src/ave/topological/vacuum_engine.py](../../src/ave/topological/vacuum_engine.py)
+  `DarkWakeObserver` as the AVE-Core implementation of τ_zx back-EMF.
+  Formula `τ_zx ∝ Z_local · ∇|V|²` ported from AVE-Propulsion's
+  `simulate_warp_metric_tensors.py:75-95`. Pearson r(V², τ_zx) = 0.994
+  validates the formula numerically (doc 49_+50_).
+- **Why:** AVE-Core now has the instrument that validates PONDER's
+  dark-wake prediction. Manuscript should point to the reusable
+  implementation.
+- **Surfaced:** Stage 4b, 2026-04-22 (doc 49_)
+- **Status:** queued
+
+### [20] Vol 1 Ch 3 — cross-ref doc 47_'s σ_V/σ_ω equipartition derivation
+- **File:** [manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex](../../manuscript/vol_1_foundations/chapters/03_quantum_and_signal_dynamics.tex)
+- **Kind:** latex
+- **Location:** §Quantum Foam / baseline electrical noise (~lines 188–198)
+- **Change:** Cross-reference [47_thermal_lattice_noise.md](47_thermal_lattice_noise.md)
+  for QUANTITATIVE σ values at temperature T. Ch 3 provides qualitative
+  framing ("quantum foam is baseline electrical noise"); doc 47_ provides
+  the numbers. Doc 47_ explicitly rejects "quantum foam" terminology in
+  favor of "thermal lattice noise"; Ch 3 wording could be softened to match.
+- **Why:** Ch 3 currently is qualitative; doc 47_ makes it quantitative.
+  Future readers benefit from seeing the cross-link.
+- **Surfaced:** Phase III-B Stage 1b, 2026-04-22
+- **Status:** queued
+
+### [21] AVE-Core README / CURRENT_STATE — point to VacuumEngine3D
+- **File (primary):** `README.md` at repo root, if present, else
+  `.agents/handoffs/CURRENT_STATE.md`
+- **Kind:** markdown
+- **Location:** top-level "delivered infrastructure" section
+- **Change:** Add a pointer to [`src/ave/topological/vacuum_engine.py`](../../src/ave/topological/vacuum_engine.py)
+  as the delivered 3D AVE vacuum engine. Mention it covers all four
+  Axiom-4 operating regimes and supports temperature-dependent vacuum states.
+- **Why:** Without a top-level pointer, future sessions won't know the engine
+  exists as a reusable artifact.
+- **Surfaced:** 2026-04-22 Stage 5 release
+- **Status:** queued
+
+### [22] research/L3_electron_soliton — index README / promote 40_ as "enter here"
+- **File:** either new `research/L3_electron_soliton/README.md` OR update
+  [40_modeling_roadmap.md](40_modeling_roadmap.md) §1 with a clear "current
+  canonical engine doc" pointer (46_) and "follow-up handoff" pointer (51_)
+- **Kind:** markdown
+- **Change:** The research folder has 51 numbered docs as of 2026-04-22. A
+  reader starting from scratch needs a map. Promote 40_ to be the "enter
+  here" navigation document, or add a README.md index.
+- **Why:** Navigation / discoverability.
+- **Surfaced:** 2026-04-22 Stage 5 release
+- **Status:** queued
+
+---
+
+## Applied
+
+*(none yet)*

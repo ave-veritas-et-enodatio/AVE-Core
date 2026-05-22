@@ -1,8 +1,29 @@
 # AVE Project — Living Reference Document
-> **Last Updated:** 2026-05-15  
+> **Last Updated:** 2026-05-15 (structural closure declared)
 > **Purpose:** Canonical reference for all AI assistants and collaborators. Any chat session should read this file first.
 >
 > **Companion:** [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) captures recurring patterns that create friction between AVE and reviewers trained in SM/QED/continuum-GR physics — with specific anti-patterns, corrected framings, and remediation targets. Read it before presenting AVE externally or reviewing it.
+
+## 🎯 Framework Status — Structural Closure (2026-05-15)
+
+The AVE framework reached **structural closure** on 2026-05-15. Five criteria met:
+1. ✓ Six-step ground-up build maps every step to math structure (trampoline-framework.md §1.1-§1.7)
+2. ✓ Every macroscopic observable has derivation path (α, G, m_e, V_yield all derive from u_0* + intrinsic substrate parameters)
+3. ✓ Framework identifies its own irreducible epistemic horizon ("God's Hand" — what set Ω_freeze at lattice genesis)
+4. ✓ Free parameters minimized: 1 cosmological IC (Ω_freeze) + 1 scale (ℓ_node) + 4 axioms (reduces standard physics' 19+ free parameters)
+5. ✓ Three-route falsifiability: α + G + cosmic 𝒥 must give same u_0* or framework fails
+
+**Canonical entry points** (read these for AVE physics):
+- **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — single canonical reference covering substrate vocabulary, ground-up build, three substrate invariants 𝓜/𝓠/𝓙, substrate-observability rule (fractal application), inter-cell coupling and gravity projection, two-engine architecture, "God's Hand" cosmic IC.
+- **Closure path planning:** [`manuscript/ave-kb/common/closure-roadmap.md`](manuscript/ave-kb/common/closure-roadmap.md) — living planning artifact, 7 tiers, 28 actions tracked.
+- **L5 axiom-status:** [`research/_archive/L5/axiom_derivation_status.md`](research/_archive/L5/axiom_derivation_status.md) — A-001 through A-034 framework-level claims (canonical / open / closed). A-034 (canonical 2026-05-15 evening) is the Universal Saturation-Kernel Strain-Snap Mechanism with 19-instance cross-scale catalog.
+- **L5 manuscript queue:** [`research/_archive/L5/manuscript_pending.md`](research/_archive/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
+
+**Path forward:**
+- **Theoretical closure** pending: Q-G47 Session 6+ (THE keystone, 5-session plan at `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md`); Vol 3 Ch 4 explicit ξ derivation; three-route consistency verification.
+- **Empirical closure** pending: IVIM bench Phase 2A; cosmic 𝒥_cosmic observational campaign (CMB + LSS anomaly review).
+
+**Reference for picture-first discipline:** any new physics claim destined for the manuscript must first be reflected in `trampoline-framework.md`. Chapter edits cite the canonical picture, not the reverse.
 
 ## Project Identity
 
@@ -48,13 +69,12 @@ This inverts the original intake-era framing (where the inherited LaTeX manuscri
 
 > **Canonical source for axiom statements:** `manuscript/common_equations/eq_axiom_[1-4].tex`. If this list disagrees with those files, the .tex files win and this list is the bug.
 
-1. **Axiom 1 (Impedance):** The vacuum is a discrete LC resonant network with characteristic impedance Z₀ = √(μ₀/ε₀) ≈ 376.73 Ω and lattice pitch ℓ_node = ℏ/(m_e·c) ≈ 3.86×10⁻¹³ m. μ₀ is per-node inductance (rotational inertia); ε₀ is per-node capacitance (elastic compliance).
-2. **Axiom 2 (Fine Structure):** The fine-structure constant couples topology to impedance: α = e²/(4πε₀ℏc) ≈ 1/137.036. α sets the saturation threshold for the dielectric yield voltage: V_yield = √α · V_snap = √α · m_e c²/e ≈ 43.65 kV.
-   - **Axiomatic content vs derived value:** The axiomatic content is the topo-kinematic isomorphism `[Q] ≡ [L]` together with α's role as the saturation threshold. α's *numerical value* is derived in Vol 1 Ch 8 (Golden Torus S₁₁-min) — derivation does not reduce the axiom count.
-3. **Axiom 3 (Gravity):** G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²), where ξ = 4π(R_H/ℓ_node)·α⁻² ≈ 8.15×10⁴³ is the **dimensionless Machian hierarchy coupling** (cosmological-horizon dilution). ⚠ Do not confuse ξ (Machian coupling, dimensionless) with ξ_topo = e/ℓ_node (electromechanical transduction, C/m). They are distinct quantities sharing a Greek letter.
-   - **α invariance**: Under Symmetric Gravity, α = e²/(4πε₀ℏc₀) is exactly invariant because ε_local and c_local carry the same n·S factor that cancels. Multi-species Δα/α = 0.
-   - **Lattice decomposition**: n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift); n_spatial = (9/7)ε₁₁ (light deflection). Axiom 3's n(r) = 1+2GM/(c²r) is the temporal component only.
+1. **Axiom 1 (Substrate Topology):** The physical vacuum *is* a chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ — a crystallised substrate of micropolar nodes at pitch ℓ_node, governed by the right-handed $I4_1 32$ chiral space group with 4-fold K4 connectivity. Each node carries six DOF: three translational (capacitive ε₀ → E-field) and three microrotational (inductive μ₀ → B-field); the microrotational DOF is the substrate-native origin of intrinsic spin. Macroscopic continuum limit: a Trace-Reversed Chiral LC Network. (Legacy: *LC Network*.)
+2. **Axiom 2 (Topo-Kinematic Isomorphism):** Charge is a discrete geometric dislocation in $\mathcal{M}_A$; the dislocation's Burgers vector is the lattice pitch ℓ_node, so the dimension of charge equals length: `[Q] ≡ [L]`. Macroscopic scaling: the Topological Conversion Constant ξ_topo = e/ℓ_node. Charge quantization, charge sign (dislocation handedness), and fractional quark charges (ℤ₃ Borromean / Witten effect) all follow.
+3. **Axiom 3 (Minimum Reflection Principle):** The substrate extremizes the macroscopic action S_AVE — equivalently, it minimizes the boundary reflection |Γ|² at every internal impedance boundary. The variational form (Maxwell Lagrangian 𝓛_node) and the boundary form (minimum-|Γ|²) are co-canonical. (Legacy: *Effective Action Principle*.)
 4. **Axiom 4 (Universal Saturation Kernel):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes. At A = 0, S = 1 (linear Maxwell recovered); at A → A_yield, S → 0 (saturation).
+
+> **Derived, not axioms.** The calibration constants Z₀, ℓ_node, α, ξ_topo, V_snap, V_yield are derived from the axioms (`common_equations/eq_calibration_constants.tex`). **Gravity** is a derived consequence of Axiom 1 + Axiom 4 under Symmetric Scaling (`eq_gravity_derived.tex`): G = ℏc/(7ξ·m_e²), where ξ = 4π(R_H/ℓ_node)·α⁻² ≈ 8.15×10⁴³ is the **dimensionless Machian hierarchy coupling** (⚠ not ξ_topo = e/ℓ_node, C/m). Two derived gravitational consequences: **α invariance** — under Symmetric Gravity α is exactly invariant (ε_local and c_local carry the same n·S factor, which cancels; multi-species Δα/α = 0); **lattice decomposition** — n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift) and n_spatial = (9/7)ε₁₁ (light deflection), with the gravitational n(r) = 1+2GM/(c²r) the temporal component only.
 
 ### Derived Consequences of Axiom 4
 
@@ -294,7 +314,7 @@ future_work/          # Speculative roadmap
 | 39 | Protein Rg (Villin) | 0.8% | ✅ η_eq = P_C(1−ν), Rg = r_Ca(N/η_eq)^(1/3)√(3/5) |
 | 40 | NS compactness limit | Exact | ✅ R_min = 7GM/c² (ε₁₁ < 1 ↔ 2GM/c²R < 2/7 = ν_vac) |
 | 41 | WD redshift (Sirius B) | 3.7% | ✅ z = GM/(c²R), v_GR=77.75 km/s, v_obs=80.65±0.77 |
-| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (Axiom 3) |
+| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (derived: Ax 1 + Ax 4) |
 | 43 | BCS B_c(T) | 0.00% | ✅ B_c(T) = B_c0·S(T/T_c) IS the saturation operator (Al, Pb, Nb, MgB₂) |
 | 44 | BH interior (Regime IV) | Exact | ✅ G_shear = 0, c_eff = 0 for r < r_sat = 7GM/c². Symmetric saturation → Z = Z₀, Γ = 0 (dissipative sink). |
 | 45 | Regime IV isomorphism | — | ✅ BH (sym, hole) ≠ electron (asym, knot). Same S=0 operator, different saturation symmetry. |

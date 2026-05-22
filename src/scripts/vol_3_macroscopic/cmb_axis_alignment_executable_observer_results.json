@@ -1,0 +1,227 @@
+{
+  "driver": "cmb_axis_alignment_executable_observer.py",
+  "execution_session_prereg": "research/2026-05-19_c5-cmb-axis-executable-observer-prereg.md",
+  "frozen_methodology_prereg": "research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md",
+  "branch": "analysis/c5-cmb-axis-driver",
+  "date": "2026-05-19",
+  "data_sources": {
+    "planck_pr3_smica": {
+      "url": "https://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=COM_CMB_IQU-smica_2048_R3.00_full.fits",
+      "filename": "COM_CMB_IQU-smica_2048_R3.00_full.fits"
+    },
+    "pantheon_plus_bulk_flow": {
+      "l_deg": 323.0,
+      "b_deg": 26.0,
+      "sigma_deg": 30.0,
+      "reference": "Whitford et al. 2023, MNRAS 526:3051, 'Bulk flow in the local Universe'",
+      "depth_h_inv_Mpc": 150.0
+    },
+    "sdss_lss_spin": {
+      "l_deg": 32.0,
+      "b_deg": 32.0,
+      "sigma_deg": 30.0,
+      "reference": "Longo 2011, Phys. Lett. B 699:224, SDSS DR7 spiral handedness + Shamir 2020 ApJ 891:97 DR8 confirmation; literature scatter dominates uncertainty."
+    },
+    "matter_asymmetry": {
+      "l_deg": 174.0,
+      "b_deg": -5.0,
+      "sigma_deg": 60.0,
+      "reference": "Frozen methodology prereg section 3.4: directional matter-asymmetry probes are marginal; recorded for completeness, flagged low-confidence."
+    }
+  },
+  "axis_of_evil_computation": {
+    "l_deg": 60.28301886792453,
+    "b_deg": 50.48004426244294,
+    "sigma_deg": 0.9161297098179749,
+    "dispersion": 1.2516860039639872,
+    "method": "de Oliveira-Costa et al. 2004 max-angular-momentum-dispersion; two-stage HEALPix grid search; SMICA T-only; Planck PR3 common mask + mean-fill inpainting",
+    "map_file": "COM_CMB_IQU-smica_2048_R3.00_full.fits",
+    "nside_grid_initial": 16,
+    "nside_grid_refined": 64,
+    "lmax": 3,
+    "ell2_only_l_deg": 51.0,
+    "ell2_only_b_deg": 44.99388015045712,
+    "ell2_only_dispersion": 0.6504975607388579,
+    "ell3_only_l_deg": 69.54545454545455,
+    "ell3_only_b_deg": 57.39952353962295,
+    "ell3_only_dispersion": 0.6260017129915785,
+    "ell2_vs_ell3_axis_separation_deg": 16.889729043063067,
+    "corpus_174_neg5_dispersion": 0.5710784163968243,
+    "masking_applied": true,
+    "masking_note": "Planck PR3 common temperature mask applied (sky fraction unmasked = 0.779); inpainting = mean-fill (mean of unmasked region)."
+  },
+  "observables": [
+    {
+      "name": "CMB axis-of-evil (Planck PR3 SMICA, data-derived)",
+      "l_deg": 60.28301886792453,
+      "b_deg": 50.48004426244294,
+      "sigma_deg": 0.9161297098179749,
+      "source": "Computed from COM_CMB_IQU-smica_2048_R3.00_full.fits via de Oliveira-Costa et al. 2004 max-angular-momentum-dispersion; two-stage HEALPix grid search; SMICA T-only; Planck PR3 common mask + mean-fill inpainting",
+      "method": "data-derived",
+      "confidence": "load-bearing"
+    },
+    {
+      "name": "Hubble flow bulk direction (Pantheon+, Whitford+2023)",
+      "l_deg": 323.0,
+      "b_deg": 26.0,
+      "sigma_deg": 30.0,
+      "source": "Whitford et al. 2023, MNRAS 526:3051, 'Bulk flow in the local Universe'",
+      "method": "paper-pinned",
+      "confidence": "literature-pinned"
+    },
+    {
+      "name": "LSS galaxy spin axis (SDSS, Longo 2011 + Shamir 2020)",
+      "l_deg": 32.0,
+      "b_deg": 32.0,
+      "sigma_deg": 30.0,
+      "source": "Longo 2011, Phys. Lett. B 699:224, SDSS DR7 spiral handedness + Shamir 2020 ApJ 891:97 DR8 confirmation; literature scatter dominates uncertainty.",
+      "method": "paper-pinned",
+      "confidence": "literature-pinned"
+    },
+    {
+      "name": "Matter-asymmetry direction (weak / inconclusive per prereg section 3.4)",
+      "l_deg": 174.0,
+      "b_deg": -5.0,
+      "sigma_deg": 60.0,
+      "source": "Frozen methodology prereg section 3.4: directional matter-asymmetry probes are marginal; recorded for completeness, flagged low-confidence.",
+      "method": "paper-pinned",
+      "confidence": "weak"
+    }
+  ],
+  "pairwise_alignment": {
+    "n_observables": 4,
+    "observable_names": [
+      "CMB axis-of-evil (Planck PR3 SMICA, data-derived)",
+      "Hubble flow bulk direction (Pantheon+, Whitford+2023)",
+      "LSS galaxy spin axis (SDSS, Longo 2011 + Shamir 2020)",
+      "Matter-asymmetry direction (weak / inconclusive per prereg section 3.4)"
+    ],
+    "separation_matrix_deg": [
+      [
+        0.0,
+        74.59412282694767,
+        27.87016302266677,
+        71.20342255132077
+      ],
+      [
+        74.59412282694767,
+        0.0,
+        59.6383234013373,
+        36.322884633852354
+      ],
+      [
+        27.87016302266677,
+        59.6383234013373,
+        0.0,
+        44.60917866176686
+      ],
+      [
+        71.20342255132077,
+        36.322884633852354,
+        44.60917866176686,
+        0.0
+      ]
+    ],
+    "sigma_combined_matrix_deg": [
+      [
+        0.0,
+        30.013984967764795,
+        30.013984967764795,
+        60.00699370611071
+      ],
+      [
+        30.013984967764795,
+        0.0,
+        42.42640687119285,
+        67.08203932499369
+      ],
+      [
+        30.013984967764795,
+        42.42640687119285,
+        0.0,
+        67.08203932499369
+      ],
+      [
+        60.00699370611071,
+        67.08203932499369,
+        67.08203932499369,
+        0.0
+      ]
+    ],
+    "within_pass_threshold_3sigma_matrix": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "within_tight_threshold_3sigma_matrix": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "sharpest_falsifier": {
+      "cmb_vs_hubble_separation_deg": 74.59412282694767,
+      "combined_sigma_deg": 30.013984967764795,
+      "threshold_deg": 20.0,
+      "violated": false
+    }
+  },
+  "degree_class_agreement": {
+    "total_pairs_non_weak": 3,
+    "pairs_within_pass_threshold": 0,
+    "pairs_within_tight_threshold": 0,
+    "agreement_fraction_pass": 0.0,
+    "agreement_fraction_tight": 0.0,
+    "uniform_prior_null_probability_pass": 0.06030737921409157,
+    "uniform_prior_null_probability_tight": 0.01519224698779198,
+    "pass_threshold_deg": 20.0,
+    "tight_threshold_deg": 10.0
+  },
+  "verdict": {
+    "outcome": "D",
+    "name": "DATA INSUFFICIENT \u2014 uncertainties too wide for 3-sigma discrimination",
+    "explanation": "Central-value pairwise separations show no alignment at strict 20-deg threshold (frac = 0%), BUT the literature observable uncertainties (Pantheon+ sigma ~30 deg, SDSS sigma ~30 deg) are too wide to reject alignment at 3-sigma confidence. CMB-vs-Hubble separation = 74.6 deg, combined sigma = 30.0 deg; (sep - 20 deg) / sigma = 1.82 sigma (below 3-sigma decisive threshold). Central values LEAN TOWARD C (NULL) but cannot conclusively reject A (PASS) at the prereg's 3-sigma criterion.",
+    "cascade_implication": "D4-A034 cosmic row held PENDING tighter Hubble-flow / SDSS data. Surface to Grant for methodology adjudication: tighter Pantheon+ bulk-flow re-analysis from raw SN data, or independent LSS spin-orientation analysis, would tighten the 3-sigma test. E1c deferred until C5 settles."
+  }
+}
