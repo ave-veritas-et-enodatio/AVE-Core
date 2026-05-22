@@ -56,7 +56,6 @@
 {"claim_id": "clm-5xon03", "item_idx": 2, "text": "Derive $G$ from local thermodynamic balance (lattice tension, equipartition, generation rate per node) independent of $R_H$ (closes the $H_\\infty$ identity into a true downstream prediction)", "mentioned_ids": []}
 {"claim_id": "clm-5zuo7g", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-67jn9o", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-6kqvyp", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-6kwzot", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-6mvtsf", "item_idx": 0, "text": "Exhibit the explicit dimensionless-coefficient composition for at least the dimensionful-looking operators (Op4 U(r), Op8 R_g_target, Op19 n(r)) to show invariance survives, rather than asserting it", "mentioned_ids": []}
 {"claim_id": "clm-6mvtsf", "item_idx": 1, "text": "Identify any operator (e.g. Op22 avalanche M=1/S², Op16 c_shear) whose form carries a dimensional scale and confirm it reduces to boundary conditions on Z", "mentioned_ids": []}

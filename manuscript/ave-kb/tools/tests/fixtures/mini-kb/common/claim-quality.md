@@ -27,17 +27,19 @@ so its solidity is `*pending*` too.
 <!-- id: clm-gg7777 -->
 
 A claim with a numeric confidence (0.95) whose single dependency is the
-pending claim clm-ff6666. Pending-ness propagates like NaN: solidity is
-`*pending*` regardless of the local confidence.
+pending claim clm-ff6666. Its derivation branch is `*pending*` (pending-ness
+propagates like NaN), but a `run` experiment (exp-bench1) strengthens it at
+0.80, so its experimental branch is the only non-null branch and final
+solidity is RESCUED to 0.80 via the max-branch.
 
 ### Quality
 - confidence: 0.95
 - depends-on:
   - clm-ff6666 — Pending Upstream Claim F (solidity *pending*) [poisoned by the pending upstream]
-- solidity: *pending*
-- rationale: synthetic numeric-claim-blocked-by-pending-dependency case.
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: synthetic experiment-rescued claim; derivation pending, experimental branch governs.
 - strengthen-by:
-  - Assess clm-ff6666 so clm-gg7777 can inherit a numeric solidity.
+  - Assess clm-ff6666 so clm-gg7777's derivation branch can also score.
 
 ---
 

@@ -194,23 +194,28 @@ class TestDependsOnFrameworkEdges(unittest.TestCase):
     """Head-extraction depends-on parser: framework targets and multi-token.
 
     Edge-count and shape assertions run against the fixture's known graph:
-    8 depends-on edges total — 4 claim-target, 4 framework-target.
+    8 ``relation:"depends"`` edges total — 4 claim-target, 4 framework-target.
+    (The fixture also carries one ``relation:"strengthens"`` edge from
+    exp-bench1; that is scoped out of these depends-edge counts.)
     """
 
     @classmethod
     def setUpClass(cls):
         cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
         cls.records = lib.build_depends_on_records(cls.state)
+        cls.depends = [
+            r for r in cls.records if r["relation"] == "depends"
+        ]
 
     def test_total_edge_count(self):
-        self.assertEqual(len(self.records), 8)
+        self.assertEqual(len(self.depends), 8)
 
     def test_claim_edge_count(self):
-        claim_edges = [r for r in self.records if r["target_kind"] == "claim"]
+        claim_edges = [r for r in self.depends if r["target_kind"] == "claim"]
         self.assertEqual(len(claim_edges), 4)
 
     def test_framework_edge_count(self):
-        fw = [r for r in self.records if r["target_kind"] != "claim"]
+        fw = [r for r in self.depends if r["target_kind"] != "claim"]
         self.assertEqual(len(fw), 4)
 
     def test_target_kind_matches_target_shape(self):
@@ -353,21 +358,25 @@ class TestBuildClaimsRecords(unittest.TestCase):
         cls.by_id = {r["id"]: r for r in cls.records}
 
     def test_length_is_union_of_all_node_types(self):
-        # claims.jsonl is a type-tagged union: claims + framework nodes.
+        # claims.jsonl is a type-tagged union: claims + framework nodes +
+        # experiment nodes.
         self.assertEqual(
             len(self.records),
-            len(self.state.claim_entries) + len(self.state.framework_nodes),
+            len(self.state.claim_entries)
+            + len(self.state.framework_nodes)
+            + len(self.state.experiments),
         )
 
     def test_node_type_distribution(self):
         from collections import Counter
 
         counts = Counter(r["node_type"] for r in self.records)
-        # 8 claims + 4 invariants + 4 axioms = 16 nodes.
+        # 8 claims + 1 experiment + 4 invariants + 4 axioms = 17 nodes.
         self.assertEqual(counts["claim"], 8)
+        self.assertEqual(counts["experiment"], 1)
         self.assertEqual(counts["invariant"], 4)
         self.assertEqual(counts["axiom"], 4)
-        self.assertEqual(len(self.records), 16)
+        self.assertEqual(len(self.records), 17)
 
     def test_sorted_by_node_type_then_id(self):
         keys = [(r["node_type"], r["id"]) for r in self.records]
@@ -381,6 +390,8 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "canonical_path",
             "canonical_anchor",
             "confidence",
+            "derivation_solidity",
+            "experimental_solidity",
             "solidity",
             "build_status",
             "build_band",
@@ -402,7 +413,11 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "canonical_path",
             "canonical_anchor",
         ]
-        fw_recs = [r for r in self.records if r["node_type"] != "claim"]
+        fw_recs = [
+            r
+            for r in self.records
+            if r["node_type"] in ("invariant", "axiom")
+        ]
         self.assertEqual(len(fw_recs), 8)
         for rec in fw_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
@@ -420,7 +435,9 @@ class TestBuildClaimsRecords(unittest.TestCase):
         # claims.jsonl solidity must match compute_solidity, NOT the value
         # parsed off the claim-quality.md solidity line. clm-aa1111's on-disk
         # line is the stale 0.10; its record must carry the computed 0.90.
-        sol = lib.compute_solidity(self.state.claim_entries)
+        sol = lib.compute_solidity(
+            self.state.claim_entries, self.state.experiments
+        )
         for cid in ("clm-aa1111", "clm-cc3333", "clm-dd4444", "clm-ee5555"):
             self.assertEqual(self.by_id[cid]["solidity"], sol[cid])
         self.assertEqual(self.by_id["clm-aa1111"]["solidity"], 0.90)
@@ -438,13 +455,17 @@ class TestBuildClaimsRecords(unittest.TestCase):
         self.assertIsNone(rec["solidity"])
         self.assertIsNone(rec["build_status"])
 
-    def test_pending_blocked_claim_has_null_derived_fields(self):
-        # clm-gg7777 has numeric confidence but a pending dependency → its
-        # solidity is pending too, so the derived fields are null.
+    def test_experiment_rescued_claim_has_experimental_solidity(self):
+        # clm-gg7777 has a pending derivation (dependency clm-ff6666 pending),
+        # but a `run` experiment (exp-bench1) strengthens it at 0.80 → its
+        # experimental branch is the only non-null branch, so final solidity
+        # is RESCUED to 0.80 (the max-branch).
         rec = self.by_id["clm-gg7777"]
         self.assertEqual(rec["confidence"], 0.95)
-        self.assertIsNone(rec["solidity"])
-        self.assertIsNone(rec["build_status"])
+        self.assertIsNone(rec["derivation_solidity"])
+        self.assertEqual(rec["experimental_solidity"], 0.80)
+        self.assertEqual(rec["solidity"], 0.80)
+        self.assertEqual(rec["build_status"], "ok to build on, see caveats")
 
     def test_counts_are_accurate(self):
         # clm-cc3333 depends on clm-aa1111 (1 edge).
@@ -585,12 +606,14 @@ class TestJsonlIo(unittest.TestCase):
 
 
 def _edge(source, target, kind="claim", recorded=None):
-    """Build a DependsOnEdge for synthetic-graph tests."""
+    """Build a depends DependsOnEdge for synthetic-graph tests."""
     return lib.DependsOnEdge(
         source=source,
         target=target,
+        relation="depends",
         target_kind=kind,
         target_solidity_recorded=recorded,
+        strength=None,
         context=None,
     )
 
@@ -831,6 +854,106 @@ class TestSolidityPendingPropagation(unittest.TestCase):
         self.assertEqual(sol["clm-ssssss"], 0.70)
 
 
+def _experiment(exp_id, status, strengthens):
+    """Build an ExperimentNode for synthetic strengthens-graph tests."""
+    return lib.ExperimentNode(
+        id=exp_id,
+        title=exp_id,
+        canonical_path="test/exp.md",
+        canonical_anchor=exp_id,
+        status=status,
+        strengthens=tuple(strengthens),
+    )
+
+
+class TestExperimentalSolidity(unittest.TestCase):
+    """The max-branch: run-experiment strengthens edges rescue/lift claims.
+
+    Covers the SCHEMA "Solidity branches (definitive rule)" max-branch and the
+    INVARIANT-S9 non-transitivity rule, with no real leaves (synthetic
+    in-memory KbState fragments).
+    """
+
+    def test_run_experiment_rescues_pending_derivation(self):
+        # (a) clm-aaaaaa has a PENDING derivation (its claim-dep clm-pppppp is
+        # confidence-pending). A run experiment strengthens it at 1.0 →
+        # final = 1.0 even though derivation is pending.
+        p = _claim("clm-pppppp", None)  # pending confidence
+        a = _claim("clm-aaaaaa", 0.90, [_edge("clm-aaaaaa", "clm-pppppp")])
+        exp = _experiment("exp-aaaaaa", "run", [("clm-aaaaaa", 1.0)])
+        full = lib.compute_solidity_full([p, a], [exp])
+        ra = full["clm-aaaaaa"]
+        self.assertIsNone(ra.derivation)       # derivation pending (dep pending)
+        self.assertEqual(ra.experimental, 1.0)
+        self.assertEqual(ra.final, 1.0)         # RESCUED
+        # The wrapper surfaces the non-pending final.
+        self.assertEqual(lib.compute_solidity([p, a], [exp])["clm-aaaaaa"], 1.0)
+
+    def test_strengthens_is_non_transitive(self):
+        # (b) The experiment edge targets only clm-aaaaaa; its pending upstream
+        # input clm-pppppp is NOT touched and stays pending.
+        p = _claim("clm-pppppp", None)
+        a = _claim("clm-aaaaaa", 0.90, [_edge("clm-aaaaaa", "clm-pppppp")])
+        exp = _experiment("exp-aaaaaa", "run", [("clm-aaaaaa", 1.0)])
+        full = lib.compute_solidity_full([p, a], [exp])
+        self.assertEqual(full["clm-pppppp"].final, None)  # upstream still pending
+        self.assertNotIn("clm-pppppp", lib.compute_solidity([p, a], [exp]))
+
+    def test_rescued_final_propagates_downstream(self):
+        # (c) clm-dddddd depends on the rescued clm-aaaaaa; its min sees the
+        # rescued final 1.0, so it scores normally instead of going pending.
+        p = _claim("clm-pppppp", None)
+        a = _claim("clm-aaaaaa", 0.90, [_edge("clm-aaaaaa", "clm-pppppp")])
+        d = _claim("clm-dddddd", 0.80, [_edge("clm-dddddd", "clm-aaaaaa")])
+        exp = _experiment("exp-aaaaaa", "run", [("clm-aaaaaa", 1.0)])
+        full = lib.compute_solidity_full([p, a, d], [exp])
+        self.assertEqual(full["clm-aaaaaa"].final, 1.0)
+        # 0.80 × min(1.0) = 0.80 — downstream benefits from the rescue.
+        self.assertEqual(full["clm-dddddd"].derivation, 0.80)
+        self.assertEqual(full["clm-dddddd"].final, 0.80)
+
+    def test_unrun_experiment_contributes_nothing(self):
+        # (d) An UNRUN (pending) experiment strengthens clm-aaaaaa, but its
+        # derivation is pending (dep pending) → no rescue → claim stays pending.
+        p = _claim("clm-pppppp", None)
+        a = _claim("clm-aaaaaa", 0.90, [_edge("clm-aaaaaa", "clm-pppppp")])
+        exp = _experiment("exp-aaaaaa", "pending", [("clm-aaaaaa", 1.0)])
+        full = lib.compute_solidity_full([p, a], [exp])
+        ra = full["clm-aaaaaa"]
+        self.assertIsNone(ra.derivation)
+        self.assertIsNone(ra.experimental)  # unrun → excluded from the max
+        self.assertIsNone(ra.final)         # still pending
+        self.assertNotIn("clm-aaaaaa", lib.compute_solidity([p, a], [exp]))
+
+    def test_experimental_is_max_over_run_edges(self):
+        # Multiple run experiments → experimental_solidity is the MAX strength.
+        a = _claim("clm-aaaaaa", None)  # pending derivation
+        e1 = _experiment("exp-aaaaaa", "run", [("clm-aaaaaa", 0.6)])
+        e2 = _experiment("exp-bbbbbb", "run", [("clm-aaaaaa", 0.9)])
+        full = lib.compute_solidity_full([a], [e1, e2])
+        self.assertEqual(full["clm-aaaaaa"].experimental, 0.9)
+
+    def test_final_is_max_of_derivation_and_experimental(self):
+        # A claim with a strong derivation and a weaker experiment keeps the
+        # higher derivation; the experiment never floors it down.
+        a = _claim("clm-aaaaaa", 0.95)  # derivation 0.95, no deps
+        exp = _experiment("exp-aaaaaa", "run", [("clm-aaaaaa", 0.40)])
+        full = lib.compute_solidity_full([a], [exp])
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.95)
+        self.assertEqual(full["clm-aaaaaa"].experimental, 0.40)
+        self.assertEqual(full["clm-aaaaaa"].final, 0.95)  # max keeps derivation
+
+    def test_zero_experiments_final_equals_derivation(self):
+        # The HARD-GATE invariant: with no experiments, final == derivation and
+        # experimental is None for every claim.
+        a = _claim("clm-aaaaaa", 0.75)
+        b = _claim("clm-bbbbbb", 0.55, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        full = lib.compute_solidity_full([a, b], [])
+        for cid in ("clm-aaaaaa", "clm-bbbbbb"):
+            self.assertIsNone(full[cid].experimental)
+            self.assertEqual(full[cid].final, full[cid].derivation)
+
+
 class TestComputeSolidityFixture(unittest.TestCase):
     """compute_solidity and min_dependency_solidity against the fixture graph.
 
@@ -847,7 +970,9 @@ class TestComputeSolidityFixture(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.state = lib.discover_kb(_FIXTURE, diagnostic_stream=None)
-        cls.sol = lib.compute_solidity(cls.state.claim_entries)
+        cls.sol = lib.compute_solidity(
+            cls.state.claim_entries, cls.state.experiments
+        )
         cls.by_id = {e.id: e for e in cls.state.claim_entries}
 
     def test_known_entry_solidities(self):
@@ -857,6 +982,8 @@ class TestComputeSolidityFixture(unittest.TestCase):
         self.assertEqual(self.sol["clm-dd4444"], 0.54)
         self.assertEqual(self.sol["clm-ee5555"], 0.75)
         self.assertEqual(self.sol["clm-hh8888"], 0.70)
+        # clm-gg7777 is rescued by run-experiment exp-bench1 → 0.80.
+        self.assertEqual(self.sol["clm-gg7777"], 0.80)
 
     def test_no_deps_entry_solidity_equals_confidence(self):
         # clm-aa1111 has no entry-level dependencies → solidity == confidence.

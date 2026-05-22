@@ -1,8 +1,11 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 
 <!-- kb-frontmatter
-kind: leaf
-claims: [clm-6kqvyp]
+kind: experiment
+exp-id: exp-7jekc6
+status: pending
+strengthens:
+  - clm-rd9cjm: 1.0
 path-stable: "referenced from vol2, vol3, vol4 + matrix C11-MACH-ZEHNDER as canonical project leaf"
 -->
 

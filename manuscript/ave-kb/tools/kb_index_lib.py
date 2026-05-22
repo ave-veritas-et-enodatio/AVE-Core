@@ -31,6 +31,14 @@ EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 # The prefix makes the pattern exact — it cannot match incidental prose words.
 _CLAIM_ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 _CANONICAL_ID_RE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
+# Experiment-ID pattern (INVARIANT-S9): `exp-` prefix plus 6 lowercase
+# alphanumeric chars. Exact, like the claim-id pattern.
+_EXP_ID_RE = re.compile(r"\b(exp-[a-z0-9]{6})\b")
+# A `strengthens:` block pair line: `clm-<id>: <strength>` (strength a float
+# in [0,1]). Indented under the `strengthens:` frontmatter key.
+_STRENGTHENS_PAIR_RE = re.compile(
+    r"^\s*-?\s*(clm-[a-z0-9]{6})\s*:\s*(-?\d+(?:\.\d+)?)\s*$"
+)
 _FRONTMATTER_RE = re.compile(r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL)
 _TIER2_INLINE_RE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 _CODE_FENCE_RE = re.compile(r"^```")
@@ -66,7 +74,16 @@ _SOLIDITY_IN_PAREN_RE = re.compile(r"solidity\s+(-?\d+(?:\.\d+)?)")
 
 @dataclass(frozen=True)
 class DependsOnEdge:
-    """A forward dependency edge from a claim to another graph node.
+    """A forward edge in the claim graph — a ``depends`` or ``strengthens`` edge.
+
+    ``relation`` discriminates the edge class:
+
+    * ``"depends"`` (gating, min-branch): ``source`` is a claim; ``target`` is
+      a claim / invariant / axiom. ``strength`` is ``None``.
+    * ``"strengthens"`` (max-branch): ``source`` is an experiment; ``target``
+      is a claim; ``strength`` is the conferred experimental solidity in
+      ``[0, 1]``; ``target_kind`` is ``"claim"`` and ``target_solidity_recorded``
+      is ``None``.
 
     ``target_kind`` discriminates the target node type: ``"claim"`` for an
     edge to another claim, ``"invariant"`` / ``"axiom"`` for an edge to a
@@ -76,9 +93,31 @@ class DependsOnEdge:
 
     source: str
     target: str
+    relation: str  # "depends" | "strengthens"
     target_kind: str
     target_solidity_recorded: float | None
+    strength: float | None
     context: str | None
+
+
+@dataclass(frozen=True)
+class ExperimentNode:
+    """A physical experiment — a first-class, terminal graph node (INVARIANT-S9).
+
+    Experiments are strength-sources: they have NO ``depends`` edges and never
+    gate; they only emit ``strengthens`` edges to the claims their result bears
+    on. ``status`` is ``"run"`` (its strengthens edges count toward
+    experimental solidity) or ``"pending"`` (unrun — its edges contribute
+    nothing). ``strengthens`` is the tuple of ``(claim_id, strength)`` pairs
+    parsed from the leaf's ``strengthens:`` frontmatter block.
+    """
+
+    id: str
+    title: str
+    canonical_path: str
+    canonical_anchor: str
+    status: str  # "run" | "pending"
+    strengthens: tuple[tuple[str, float], ...]
 
 
 @dataclass(frozen=True)
@@ -151,6 +190,7 @@ class KbState:
     leaves: tuple[LeafRecord, ...]
     indexes: tuple[IndexRecord, ...]
     framework_nodes: tuple[FrameworkNode, ...]
+    experiments: tuple[ExperimentNode, ...]
 
 
 # ---------------------------------------------------------------------------
@@ -408,8 +448,10 @@ def _parse_depends_on_line(
             DependsOnEdge(
                 source=source_id,
                 target=cid,
+                relation="depends",
                 target_kind="claim",
                 target_solidity_recorded=target_sol,
+                strength=None,
                 context=bracket_context,
             )
         )
@@ -418,8 +460,10 @@ def _parse_depends_on_line(
             DependsOnEdge(
                 source=source_id,
                 target=label,
+                relation="depends",
                 target_kind="invariant",
                 target_solidity_recorded=None,
+                strength=None,
                 context=paren_context,
             )
         )
@@ -428,8 +472,10 @@ def _parse_depends_on_line(
             DependsOnEdge(
                 source=source_id,
                 target=f"axiom-{num}",
+                relation="depends",
                 target_kind="axiom",
                 target_solidity_recorded=None,
+                strength=None,
                 context=paren_context,
             )
         )
@@ -722,6 +768,115 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
     )
 
 
+class ExperimentLeafError(ValueError):
+    """Raised when an ``kind: experiment`` leaf is malformed.
+
+    The leaf either carries a claim-bearing field (``claims:`` / ``no-claim:``,
+    mutually exclusive with ``exp-id:`` per INVARIANT-S9) or an ``exp-id`` that
+    does not match the ``\\bexp-[a-z0-9]{6}\\b`` format.
+    """
+
+
+def _experiment_heading(text: str) -> str:
+    """Return the first Markdown heading text at any level (``#`` … ``######``), or ''.
+
+    The experiment node's ``title``/``canonical_anchor`` come from the leaf's
+    title heading. KB leaves use ``##`` for their title heading (a few use
+    ``#``); match any level so the title is captured regardless.
+    """
+    for line in text.splitlines():
+        m = re.match(r"^(#{1,6})\s+(.*)$", line)
+        if m:
+            return m.group(2).strip()
+    return ""
+
+
+def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
+    """Parse a ``kind: experiment`` leaf into an ExperimentNode (INVARIANT-S9).
+
+    Returns ``None`` if the file has no frontmatter or its kind is not
+    ``experiment``. The frontmatter carries ``exp-id``, ``status``, and a
+    ``strengthens:`` block of ``clm-<id>: <strength>`` pairs (one per line,
+    indented under the ``strengthens:`` key). ``strengthens`` pairs are
+    returned in source order.
+
+    Raises :class:`ExperimentLeafError` when the leaf violates INVARIANT-S9:
+    it carries ``claims:`` / ``no-claim:`` (mutually exclusive with ``exp-id``)
+    or its ``exp-id`` is malformed.
+    """
+    text = path.read_text()
+    m = _FRONTMATTER_RE.search(text)
+    if not m:
+        return None
+    body = m.group(1)
+    lines = body.splitlines()
+
+    # Quick top-level scan: kind, exp-id, status, and detection of the
+    # claim-bearing fields. ``strengthens:`` opens an indented sub-block.
+    kind = ""
+    exp_id: str | None = None
+    status: str | None = None
+    has_claims = False
+    in_strengthens = False
+    pairs: list[tuple[str, float]] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+        # A `strengthens:` pair sub-line (e.g. `  - clm-xxxxxx: 1.0` or
+        # `  clm-xxxxxx: 1.0`) — only collected while inside the block.
+        pair = _STRENGTHENS_PAIR_RE.match(line)
+        if in_strengthens and pair:
+            pairs.append((pair.group(1), float(pair.group(2))))
+            continue
+        # A new top-level key ends the strengthens block.
+        if ":" in stripped:
+            key = stripped.split(":", 1)[0].strip().lstrip("- ").strip()
+            value = stripped.split(":", 1)[1].strip()
+            if key == "strengthens":
+                in_strengthens = True
+                continue
+            in_strengthens = False
+            if key == "kind":
+                kind = value
+            elif key == "exp-id":
+                exp_id = value
+            elif key == "status":
+                status = value
+            elif key in ("claims", "no-claim"):
+                if value:
+                    has_claims = True
+
+    if kind != "experiment":
+        return None
+
+    rel = _posix_relative(path, kb_root)
+    if has_claims:
+        raise ExperimentLeafError(
+            f"{rel}: kind: experiment leaf carries claims:/no-claim: — "
+            f"mutually exclusive with exp-id (INVARIANT-S9)."
+        )
+    if exp_id is None or not _EXP_ID_RE.fullmatch(exp_id):
+        raise ExperimentLeafError(
+            f"{rel}: kind: experiment leaf has missing or malformed exp-id "
+            f"{exp_id!r} (expected \\bexp-[a-z0-9]{{6}}\\b)."
+        )
+    if status not in ("run", "pending"):
+        raise ExperimentLeafError(
+            f"{rel}: kind: experiment leaf has invalid status {status!r} "
+            f"(expected 'run' or 'pending')."
+        )
+
+    return ExperimentNode(
+        id=exp_id,
+        title=_experiment_heading(text),
+        canonical_path=rel,
+        canonical_anchor=_slugify_heading(_experiment_heading(text)),
+        status=status,
+        strengthens=tuple(pairs),
+    )
+
+
 def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
     """Parse an ``index`` or ``entry-point`` kind file."""
     text = path.read_text()
@@ -791,10 +946,15 @@ def discover_kb(
 
     leaves: list[LeafRecord] = []
     indexes: list[IndexRecord] = []
+    experiments: list[ExperimentNode] = []
     for p in _kb_files(kb_root):
         leaf = parse_leaf(p, kb_root)
         if leaf is not None:
             leaves.append(leaf)
+            continue
+        exp = parse_experiment_leaf(p, kb_root)
+        if exp is not None:
+            experiments.append(exp)
             continue
         idx = _parse_index(p, kb_root)
         if idx is not None:
@@ -807,6 +967,7 @@ def discover_kb(
         leaves=tuple(leaves),
         indexes=tuple(indexes),
         framework_nodes=tuple(framework_nodes),
+        experiments=tuple(experiments),
     )
 
 
@@ -899,8 +1060,180 @@ class SolidityCycleError(ValueError):
         )
 
 
-def compute_solidity(claim_entries) -> dict[str, float]:
-    """Compute the derived ``solidity`` for every numeric-confidence claim.
+@dataclass(frozen=True)
+class SolidityResult:
+    """The three derived solidity branches for one claim (SCHEMA definitive rule).
+
+    * ``derivation`` — min-branch: ``round2(confidence × min(dep final
+      solidities))``; ``None`` (pending) if confidence is pending or any claim
+      dependency's *final* solidity is pending. Framework deps contribute 1.0.
+    * ``experimental`` — max-branch: ``max`` of ``strength`` over every
+      ``run``-experiment ``strengthens`` edge into this claim; ``None`` if no
+      run experiment strengthens it.
+    * ``final`` — ``max`` over the non-None of ``{derivation, experimental}``;
+      ``None`` (pending) iff BOTH are None.
+    """
+
+    derivation: float | None
+    experimental: float | None
+    final: float | None
+
+
+def compute_solidity_full(
+    claim_entries, experiments=()
+) -> dict[str, SolidityResult]:
+    """Compute derivation / experimental / final solidity for every claim.
+
+    THE definitive solidity rule (SCHEMA "Solidity branches"). One result per
+    claim with a numeric ``confidence`` OR a run-experiment strengthens edge
+    (a claim with neither is fully pending and is omitted — treat absence as
+    ``*pending*``, i.e. ``SolidityResult(None, None, None)``).
+
+    Algorithm:
+
+    * **experimental_solidity[C]** = ``max`` of ``edge.strength`` over all
+      ``relation:"strengthens"`` edges with ``target == C`` whose source
+      experiment has ``status == "run"``. ``None`` if no such edge. Unrun
+      experiments contribute NOTHING (excluded from the max — no NaN, no 0.0
+      floor). Computed upfront, independent of topo order.
+    * **derivation_solidity[C]** (Kahn topo over claim→claim ``depends`` edges):
+      each claim-dep contributes the dep's *final* solidity (``final[dep]``),
+      each framework dep contributes ``1.0``. If C's confidence is ``None`` →
+      ``None``. Else if any claim-dep's final is ``None`` (pending) → ``None``.
+      Else if C has deps → ``round2(confidence × min(dep finals))``; else →
+      ``confidence``.
+    * **final[C]** = ``max`` over the non-None of ``{derivation, experimental}``;
+      ``None`` iff both are None.
+
+    A claim with pending derivation but a run experiment is RESCUED (final =
+    experimental) and its final propagates to its dependents' min — so the
+    rescue benefits downstream claims. Strengthening is NON-transitive: a
+    ``strengthens`` edge lifts only its directly-targeted claim, never that
+    claim's upstream inputs.
+
+    Raises :class:`SolidityCycleError` if the claim→claim ``depends`` subgraph
+    has a cycle. Experiments are terminal (no deps) and introduce no cycles.
+    """
+    entries = {e.id: e for e in claim_entries}
+
+    # --- experimental_solidity[C]: max strength over run-experiment edges ---
+    run_status = {exp.id: exp.status for exp in experiments}
+    experimental: dict[str, float] = {}
+    for exp in experiments:
+        if exp.status != "run":
+            continue
+        for claim_id, strength in exp.strengthens:
+            prev = experimental.get(claim_id)
+            if prev is None or strength > prev:
+                experimental[claim_id] = strength
+    # Defensive: any strengthens edge whose source is unknown / not "run" is
+    # already excluded above (only "run" experiments iterated). run_status is
+    # retained for the verifier-shared semantics; reference it to satisfy
+    # linters without changing behavior.
+    del run_status
+
+    # --- topo order over the claim→claim depends subgraph ---
+    # The graph and Kahn machinery mirror the original derivation-only path:
+    # only claims with numeric confidence participate as nodes; a depends edge
+    # to a non-numeric-confidence claim blocks the source's derivation.
+    numeric = {eid for eid, e in entries.items() if e.confidence is not None}
+    indegree: dict[str, int] = {eid: 0 for eid in numeric}
+    dependents: dict[str, list[str]] = {eid: [] for eid in numeric}
+    for eid in numeric:
+        for edge in entries[eid].depends_on:
+            if edge.relation != "depends" or edge.target_kind != "claim":
+                continue
+            if edge.target in numeric:
+                indegree[eid] += 1
+                dependents[edge.target].append(eid)
+            # A depends edge to a non-numeric claim does NOT block the source
+            # here: derivation may still be pending, but the source can be
+            # rescued experimentally. The per-claim derivation pass below
+            # decides pending-ness by checking each claim-dep's final.
+
+    queue = sorted(eid for eid in numeric if indegree[eid] == 0)
+    order: list[str] = []
+    while queue:
+        node = queue.pop(0)
+        order.append(node)
+        for dep in sorted(dependents[node]):
+            indegree[dep] -= 1
+            if indegree[dep] == 0:
+                queue.append(dep)
+                queue.sort()
+
+    if len(order) != len(numeric):
+        cycle_members = sorted(eid for eid in numeric if indegree[eid] > 0)
+        raise SolidityCycleError(cycle_members)
+
+    # Claims with no numeric confidence have a pending derivation (no
+    # confidence to multiply). Seed their final UPFRONT from experimental
+    # rescue so a numeric claim that depends on a rescued pending-confidence
+    # claim sees the rescued final in its min during the topo pass below.
+    # (Their derivation never depends on topo order — it is always pending.)
+    results: dict[str, SolidityResult] = {}
+    final: dict[str, float | None] = {}
+    for eid, entry in entries.items():
+        if entry.confidence is not None:
+            continue
+        exp_sol = experimental.get(eid)
+        results[eid] = SolidityResult(None, exp_sol, exp_sol)
+        final[eid] = exp_sol
+
+    def _final_of(claim_id: str) -> float | None:
+        return final.get(claim_id)
+
+    # Process numeric-confidence claims in topo order so each dep's final is
+    # known before the depender.
+    for eid in order:
+        entry = entries[eid]
+        # derivation: confidence × min(claim-dep finals), framework deps = 1.0.
+        dep_finals: list[float] = []
+        derivation: float | None
+        pending = False
+        for edge in entry.depends_on:
+            if edge.relation != "depends":
+                continue
+            if edge.target_kind == "claim":
+                dep_final = _final_of(edge.target)
+                if dep_final is None:
+                    pending = True
+                    break
+                dep_finals.append(dep_final)
+            else:
+                dep_finals.append(1.0)
+        if pending:
+            derivation = None
+        elif dep_finals:
+            derivation = round_half_up_2dp(entry.confidence * min(dep_finals))
+        else:
+            derivation = entry.confidence
+        exp_sol = experimental.get(eid)
+        fin = _max_nonnull(derivation, exp_sol)
+        final[eid] = fin
+        results[eid] = SolidityResult(derivation, exp_sol, fin)
+
+    return results
+
+
+def _max_nonnull(a: float | None, b: float | None) -> float | None:
+    """Return the max of the non-None values; None iff both are None."""
+    if a is None:
+        return b
+    if b is None:
+        return a
+    return max(a, b)
+
+
+def compute_solidity(claim_entries, experiments=()) -> dict[str, float]:
+    """Compute the derived FINAL ``solidity`` for every scorable claim.
+
+    Backward-compatible thin wrapper over :func:`compute_solidity_full`:
+    returns ``{claim_id: final_solidity}`` for every claim whose final solidity
+    is non-pending (numeric). A claim with a pending final (``*pending*``) is
+    OMITTED from the mapping — every consumer treats "absent" identically to
+    "pending". With zero experiments, ``final == derivation`` for every claim,
+    so this returns exactly the historical min-branch result.
 
     ``solidity = round_half_up_2dp(confidence × min(dependency solidities))``,
     computed bottom-up over the claim depends-on DAG (Kahn topological sort):
@@ -938,78 +1271,8 @@ def compute_solidity(claim_entries) -> dict[str, float]:
     solidity. Raises :class:`SolidityCycleError` if the claim depends-on
     subgraph contains a cycle (Kahn's algorithm detects this for free).
     """
-    entries = {e.id: e for e in claim_entries}
-
-    # Restrict the computation to claims whose confidence is set; a claim with
-    # None confidence cannot be scored and is excluded from the graph.
-    computable = {eid for eid, e in entries.items() if e.confidence is not None}
-
-    # Claim-target dependency edges, restricted to edges whose target is itself
-    # a computable claim. (Framework targets and pending/unknown claim targets
-    # do not become graph edges — framework deps contribute a constant 1.0;
-    # a pending/unknown claim target makes the depender uncomputable, handled
-    # below.)
-    indegree: dict[str, int] = {eid: 0 for eid in computable}
-    dependents: dict[str, list[str]] = {eid: [] for eid in computable}
-    # A computable claim is "blocked" if it depends on a non-computable claim
-    # (pending confidence or an unknown id) — its solidity cannot be derived.
-    blocked: set[str] = set()
-    for eid in computable:
-        for edge in entries[eid].depends_on:
-            if edge.target_kind != "claim":
-                continue
-            if edge.target in computable:
-                indegree[eid] += 1
-                dependents[edge.target].append(eid)
-            else:
-                blocked.add(eid)
-
-    # Kahn's algorithm over the computable subgraph.
-    queue = sorted(eid for eid in computable if indegree[eid] == 0)
-    order: list[str] = []
-    while queue:
-        node = queue.pop(0)
-        order.append(node)
-        for dep in sorted(dependents[node]):
-            indegree[dep] -= 1
-            if indegree[dep] == 0:
-                queue.append(dep)
-                queue.sort()
-
-    if len(order) != len(computable):
-        # Nodes never reaching indegree 0 are exactly the cycle members
-        # (plus claims downstream of a cycle). Report the still-blocked set.
-        cycle_members = sorted(eid for eid in computable if indegree[eid] > 0)
-        raise SolidityCycleError(cycle_members)
-
-    solidity: dict[str, float] = {}
-    for eid in order:
-        if eid in blocked:
-            # Depends on a non-computable claim — solidity is undefined.
-            continue
-        entry = entries[eid]
-        claim_dep_solidities: list[float] = []
-        ok = True
-        for edge in entry.depends_on:
-            if edge.target_kind == "claim":
-                if edge.target not in solidity:
-                    # Dependency itself uncomputable (blocked upstream).
-                    ok = False
-                    break
-                claim_dep_solidities.append(solidity[edge.target])
-            else:
-                # Framework dependency (invariant / axiom): solidity 1.0.
-                claim_dep_solidities.append(1.0)
-        if not ok:
-            continue
-        confidence = entry.confidence
-        assert confidence is not None  # computable ⇒ confidence is set
-        if claim_dep_solidities:
-            raw = confidence * min(claim_dep_solidities)
-        else:
-            raw = confidence
-        solidity[eid] = round_half_up_2dp(raw)
-    return solidity
+    full = compute_solidity_full(claim_entries, experiments)
+    return {cid: r.final for cid, r in full.items() if r.final is not None}
 
 
 def min_dependency_solidity(
@@ -1028,6 +1291,8 @@ def min_dependency_solidity(
     """
     dep_solidities: list[float] = []
     for edge in entry.depends_on:
+        if edge.relation != "depends":
+            continue
         if edge.target_kind == "claim":
             if edge.target not in solidity:
                 return None
@@ -1047,28 +1312,33 @@ def min_dependency_solidity(
 def build_claims_records(state: KbState) -> list[dict]:
     """One record per graph node, sorted by ``(node_type, id)``.
 
-    ``claims.jsonl`` holds a type-tagged union of three node types,
+    ``claims.jsonl`` holds a type-tagged union of FOUR node types,
     discriminated by ``node_type``:
 
-    * ``claim`` records carry the full 13-field shape (``node_type`` first,
-      then the 12 pre-existing claim fields).
+    * ``claim`` records carry the full 15-field shape (``node_type`` first,
+      then the 14 claim fields, including ``derivation_solidity`` and
+      ``experimental_solidity`` before ``solidity``).
+    * ``experiment`` records are minimal — six fields (``node_type``, ``id``,
+      ``title``, ``canonical_path``, ``canonical_anchor``, ``status``).
     * ``invariant`` / ``axiom`` records are minimal — exactly the five
-      identifying fields (``node_type``, ``id``, ``title``,
-      ``canonical_path``, ``canonical_anchor``). Framework nodes are
-      solidity-1.0 by definition, so they carry no scoring fields.
+      identifying fields. Framework nodes are solidity-1.0 by definition, so
+      they carry no scoring fields.
 
     The sort key ``(node_type, id)`` groups axioms, then claims, then
-    invariants (ASCII order of the discriminator).
+    experiments, then invariants (ASCII order of the discriminator).
 
     Claim counts (depends_on_count, strengthen_by_count, citation_count) are
     derived from the same state so they're internally consistent with the
-    other record files this module emits.
+    other record files this module emits. ``depends_on_count`` counts only
+    ``relation:"depends"`` edges.
 
-    ``solidity`` / ``build_status`` / ``build_band`` are **derived** — computed
-    by :func:`compute_solidity` from the hand-authored ``confidence`` values
-    and the depends-on DAG, NOT re-parsed from the claim-quality.md ``solidity``
-    line. A claim whose confidence is unset (so solidity is uncomputable)
-    carries ``null`` for all three fields.
+    ``derivation_solidity`` / ``experimental_solidity`` / ``solidity`` /
+    ``build_status`` / ``build_band`` are **derived** — computed by
+    :func:`compute_solidity_full` from the hand-authored ``confidence`` values,
+    the depends-on DAG, and run-experiment strengthens edges, NOT re-parsed
+    from the claim-quality.md ``solidity`` line. ``build_status`` / ``build_band``
+    derive from the FINAL solidity. A claim whose final solidity is pending
+    carries ``null`` for ``solidity`` / ``build_status``.
     """
     # Citation counts derived from leaves once.
     cite_counts: dict[str, int] = {}
@@ -1078,11 +1348,17 @@ def build_claims_records(state: KbState) -> list[dict]:
 
     # Solidity is the single derived computation — shared with the
     # claim-quality.md write-back; never computed twice.
-    solidity = compute_solidity(state.claim_entries)
+    full = compute_solidity_full(state.claim_entries, state.experiments)
 
     out: list[dict] = []
     for entry in state.claim_entries:
-        computed_solidity = solidity.get(entry.id)
+        result = full.get(entry.id)
+        derivation = result.derivation if result else None
+        experimental = result.experimental if result else None
+        final = result.final if result else None
+        depends_count = sum(
+            1 for e in entry.depends_on if e.relation == "depends"
+        )
         out.append(
             {
                 "node_type": "claim",
@@ -1091,13 +1367,26 @@ def build_claims_records(state: KbState) -> list[dict]:
                 "canonical_path": entry.canonical_path,
                 "canonical_anchor": entry.canonical_anchor,
                 "confidence": entry.confidence,
-                "solidity": computed_solidity,
-                "build_status": build_status_phrase(computed_solidity),
-                "build_band": derive_build_band(computed_solidity),
+                "derivation_solidity": derivation,
+                "experimental_solidity": experimental,
+                "solidity": final,
+                "build_status": build_status_phrase(final),
+                "build_band": derive_build_band(final),
                 "rationale": entry.rationale,
-                "depends_on_count": len(entry.depends_on),
+                "depends_on_count": depends_count,
                 "strengthen_by_count": len(entry.strengthen_by),
                 "citation_count": cite_counts.get(entry.id, 0),
+            }
+        )
+    for exp in state.experiments:
+        out.append(
+            {
+                "node_type": "experiment",
+                "id": exp.id,
+                "title": exp.title,
+                "canonical_path": exp.canonical_path,
+                "canonical_anchor": exp.canonical_anchor,
+                "status": exp.status,
             }
         )
     for node in state.framework_nodes:
@@ -1115,13 +1404,21 @@ def build_claims_records(state: KbState) -> list[dict]:
 
 
 def build_depends_on_records(state: KbState) -> list[dict]:
-    """One record per forward dependency edge.
+    """One record per forward graph edge — ``depends`` and ``strengthens``.
 
-    ``target_kind`` (``claim`` | ``invariant`` | ``axiom``) is placed right
-    after ``target``. Sorted by ``(source, target, context)`` — a null
-    context sorts as the empty string — so two edges from the same source to
-    the same target with different context notes stay deterministically
-    ordered.
+    Field order per SCHEMA: ``source``, ``target``, ``relation``,
+    ``target_kind``, ``target_solidity_recorded``, ``strength``, ``context``.
+
+    ``depends`` edges come from claim Quality sections (every pre-existing edge
+    is ``relation:"depends"``, ``strength:null``). ``strengthens`` edges come
+    from each experiment leaf's ``strengthens:`` block — one edge per pair
+    (``source: exp-id``, ``target: clm-id``, ``relation:"strengthens"``,
+    ``target_kind:"claim"``, ``target_solidity_recorded:null``,
+    ``strength:<value>``, ``context:null``).
+
+    Sorted by ``(source, target, context)`` — a null context sorts as the
+    empty string — so two edges from the same source to the same target with
+    different context notes stay deterministically ordered.
     """
     edges: list[dict] = []
     for entry in state.claim_entries:
@@ -1130,9 +1427,24 @@ def build_depends_on_records(state: KbState) -> list[dict]:
                 {
                     "source": edge.source,
                     "target": edge.target,
+                    "relation": edge.relation,
                     "target_kind": edge.target_kind,
                     "target_solidity_recorded": edge.target_solidity_recorded,
+                    "strength": edge.strength,
                     "context": edge.context,
+                }
+            )
+    for exp in state.experiments:
+        for claim_id, strength in exp.strengthens:
+            edges.append(
+                {
+                    "source": exp.id,
+                    "target": claim_id,
+                    "relation": "strengthens",
+                    "target_kind": "claim",
+                    "target_solidity_recorded": None,
+                    "strength": strength,
+                    "context": None,
                 }
             )
     edges.sort(key=lambda r: (r["source"], r["target"], r["context"] or ""))
@@ -1288,13 +1600,17 @@ __all__ = [
     "ClaimEntry",
     "DependsOnEdge",
     "FrameworkNode",
+    "ExperimentNode",
+    "ExperimentLeafError",
     "StrengthenByItem",
     "LeafRecord",
     "IndexRecord",
     "KbState",
+    "SolidityResult",
     "parse_frontmatter",
     "parse_framework_nodes",
     "parse_leaf",
+    "parse_experiment_leaf",
     "parse_claim_quality_file",
     "collect_known_claim_ids",
     "discover_kb",
@@ -1302,6 +1618,7 @@ __all__ = [
     "build_status_phrase",
     "round_half_up_2dp",
     "compute_solidity",
+    "compute_solidity_full",
     "min_dependency_solidity",
     "SolidityCycleError",
     "build_claims_records",

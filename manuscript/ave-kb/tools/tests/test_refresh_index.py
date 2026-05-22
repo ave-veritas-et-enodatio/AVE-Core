@@ -183,7 +183,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         for rec in recs:
             self.assertIn(
                 rec.get("node_type", "claim"),
-                {"claim", "invariant", "axiom"},
+                {"claim", "experiment", "invariant", "axiom"},
                 f"unexpected node_type in {rec}",
             )
 
@@ -349,7 +349,10 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
         # with no computable solidity carries None on disk and is absent from
         # the compute_solidity result — both sides agree on None.
         state = lib.discover_kb(self.kb_root, diagnostic_stream=None)
-        sol = lib.compute_solidity(state.claim_entries)
+        # Pass experiments — refresh's write-back computes solidity WITH the
+        # experiments (max-branch rescues), so the freshness oracle here must
+        # use the same inputs or it flags experiment-rescued values as stale.
+        sol = lib.compute_solidity(state.claim_entries, state.experiments)
         for entry in state.claim_entries:
             with self.subTest(claim=entry.id):
                 self.assertEqual(entry.solidity, sol.get(entry.id))

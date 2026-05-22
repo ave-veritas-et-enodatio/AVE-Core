@@ -331,7 +331,7 @@ def _refresh_solidity() -> tuple[int, list, list]:
     Returns ``(files_changed, solidity_changes, annotation_changes)``.
     """
     state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
-    solidity = kb_index_lib.compute_solidity(state.claim_entries)
+    solidity = kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
 
     # Group parsed entries by their canonical claim-quality.md file.
     entries_by_file: dict[str, list] = {}

@@ -20,6 +20,7 @@ status is covered by ``make verify-kb-metadata``.
 
 from __future__ import annotations
 
+import json
 import re
 import shutil
 import subprocess
@@ -103,7 +104,8 @@ class TestCheckIndex(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertRegex(
             result.stdout,
-            r"\d+ nodes: \d+ claims / \d+ invariants / \d+ axioms",
+            r"\d+ nodes: \d+ claims / \d+ experiments / "
+            r"\d+ invariants / \d+ axioms",
         )
 
     def test_check_detects_target_kind_mismatch(self):
@@ -127,7 +129,8 @@ class TestCheckIndex(unittest.TestCase):
             first_source = existing.split("\n")[0].split('"source": "')[1].split('"')[0]
             extra = (
                 '{"source": "' + first_source + '", "target": "INVARIANT-S2"'
-                ', "target_kind": "claim", "target_solidity_recorded": null'
+                ', "relation": "depends", "target_kind": "claim"'
+                ', "target_solidity_recorded": null, "strength": null'
                 ', "context": null}\n'
             )
             dep_path.write_bytes(existing.encode("utf-8") + extra.encode("utf-8"))
@@ -298,14 +301,15 @@ class TestCheckIndex(unittest.TestCase):
                 canonical_anchor=cid, confidence=0.8, solidity=None,
                 build_status=None, rationale="", strengthen_by=(),
                 depends_on=tuple(
-                    lib.DependsOnEdge(cid, d, "claim", None, None) for d in deps
+                    lib.DependsOnEdge(cid, d, "depends", "claim", None, None, None)
+                    for d in deps
                 ),
             )
 
         cyclic = lib.KbState(
             claim_entries=(mk("clm-aaaaaa", ["clm-bbbbbb"]),
                            mk("clm-bbbbbb", ["clm-aaaaaa"])),
-            leaves=(), indexes=(), framework_nodes=(),
+            leaves=(), indexes=(), framework_nodes=(), experiments=(),
         )
         members = check.check_solidity_cycle(cyclic)
         self.assertEqual(set(members), {"clm-aaaaaa", "clm-bbbbbb"})
@@ -313,7 +317,7 @@ class TestCheckIndex(unittest.TestCase):
         acyclic = lib.KbState(
             claim_entries=(mk("clm-aaaaaa", []),
                            mk("clm-bbbbbb", ["clm-aaaaaa"])),
-            leaves=(), indexes=(), framework_nodes=(),
+            leaves=(), indexes=(), framework_nodes=(), experiments=(),
         )
         self.assertEqual(check.check_solidity_cycle(acyclic), [])
 
@@ -430,6 +434,242 @@ class TestQualityBlockIntegrity(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("orphan/malformed", result.stdout)
             self.assertIn("claim-quality.md", result.stdout)
+
+
+def _read_jsonl(path: Path) -> list[dict]:
+    """Parse a JSONL file into a list of dicts (skipping blank lines)."""
+    return [
+        json.loads(ln)
+        for ln in path.read_text(encoding="utf-8").splitlines()
+        if ln.strip()
+    ]
+
+
+# A minimal valid experiment leaf, parameterized so negative variants can
+# perturb a single field. Frontmatter mirrors common/exp-bench.md.
+_EXP_LEAF_TEMPLATE = """\
+[↑ Mini-KB Common](index.md)
+
+<!-- kb-frontmatter
+kind: experiment
+{fields}
+-->
+
+# {title}
+
+Synthetic experiment leaf body.
+"""
+
+
+def _exp_leaf(
+    *,
+    exp_id: str = "exp-neg001",
+    status: str = "run",
+    strengthens: str = "  - clm-gg7777: 0.50",
+    extra: str = "",
+    title: str = "Negative Experiment",
+) -> str:
+    fields = [f"exp-id: {exp_id}", f"status: {status}"]
+    if extra:
+        fields.append(extra)
+    fields.append("strengthens:")
+    body = "\n".join(fields)
+    if strengthens:
+        body += "\n" + strengthens
+    return _EXP_LEAF_TEMPLATE.format(fields=body, title=title)
+
+
+class TestExperimentEndToEnd(unittest.TestCase):
+    """End-to-end: the experiment node + strengthens edge + rescue, on the
+    fixture-with-experiment, through the real refresh -> verify pipeline.
+
+    A fresh fixture is materialized (and refreshed) per class so the emitted
+    ``.index/`` reflects the committed ``common/exp-bench.md`` leaf.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+        cls.claims = _read_jsonl(cls.index_dir / "claims.jsonl")
+        cls.edges = _read_jsonl(cls.index_dir / "depends-on.jsonl")
+        cls.by_id = {r["id"]: r for r in cls.claims if "id" in r}
+
+    def test_experiment_node_emitted_into_claims_jsonl(self):
+        """The experiment is a 6-field, schema-ordered claims.jsonl node."""
+        exps = [r for r in self.claims if r["node_type"] == "experiment"]
+        self.assertEqual(len(exps), 1)
+        rec = exps[0]
+        self.assertEqual(
+            list(rec.keys()),
+            [
+                "node_type",
+                "id",
+                "title",
+                "canonical_path",
+                "canonical_anchor",
+                "status",
+            ],
+        )
+        self.assertEqual(rec["id"], "exp-bench1")
+        self.assertEqual(rec["canonical_path"], "common/exp-bench.md")
+        self.assertEqual(rec["status"], "run")
+        # title + anchor must come from the leaf's `##` heading — regression
+        # guard for _experiment_heading (KB leaves use `##`, not `#`).
+        self.assertEqual(rec["title"], "Synthetic Bench Experiment")
+        self.assertEqual(rec["canonical_anchor"], "synthetic-bench-experiment")
+
+    def test_claims_jsonl_sorted_experiment_after_claims_before_invariants(self):
+        """Sort key (node_type, id): experiments sit after claims, before
+        invariants (ASCII: axiom < claim < experiment < invariant)."""
+        keys = [(r["node_type"], r["id"]) for r in self.claims]
+        self.assertEqual(keys, sorted(keys))
+        order = [r["node_type"] for r in self.claims]
+        # The experiment must appear after the last claim and before the
+        # first invariant.
+        last_claim = max(i for i, t in enumerate(order) if t == "claim")
+        exp_idx = order.index("experiment")
+        first_invariant = min(
+            i for i, t in enumerate(order) if t == "invariant"
+        )
+        self.assertLess(last_claim, exp_idx)
+        self.assertLess(exp_idx, first_invariant)
+
+    def test_strengthens_edge_in_depends_on_jsonl(self):
+        """The strengthens edge has the schema's relation/kind/strength shape."""
+        edges = [
+            e
+            for e in self.edges
+            if e["source"] == "exp-bench1" and e["target"] == "clm-gg7777"
+        ]
+        self.assertEqual(len(edges), 1)
+        e = edges[0]
+        self.assertEqual(e["relation"], "strengthens")
+        self.assertEqual(e["target_kind"], "claim")
+        self.assertEqual(e["strength"], 0.80)
+        self.assertIsNone(e["target_solidity_recorded"])
+
+    def test_rescued_claim_reflects_run_experiment(self):
+        """clm-gg7777: derivation pending, experimental 0.80, final 0.80."""
+        rec = self.by_id["clm-gg7777"]
+        self.assertIsNone(rec["derivation_solidity"])
+        self.assertEqual(rec["experimental_solidity"], 0.80)
+        self.assertEqual(rec["solidity"], 0.80)
+        self.assertEqual(rec["build_band"], "ok-with-caveats")
+
+    def test_rescued_solidity_written_to_claim_quality(self):
+        """The rescued value is written back to common/claim-quality.md."""
+        cq = (self.kb_root / "common" / "claim-quality.md").read_text(
+            encoding="utf-8"
+        )
+        block = cq.split("clm-gg7777")[1]
+        m = re.search(r"^- solidity: (\S+)", block, flags=re.MULTILINE)
+        self.assertIsNotNone(m)
+        self.assertEqual(m.group(1), "0.80")
+
+    def test_pipeline_passes_with_experiment(self):
+        """The full refresh -> verify pipeline exits 0 on the fixture."""
+        result = _run_checker(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_refresh_is_deterministic(self):
+        """A second refresh writes byte-identical index files (idempotent)."""
+        before = {
+            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+        }
+        result = _run_refresh(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        after = {
+            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+        }
+        self.assertEqual(before, after)
+
+
+class TestExperimentLeafRejection(unittest.TestCase):
+    """Negative coverage: malformed experiment leaves are rejected.
+
+    In-memory cases call ``parse_experiment_leaf`` directly for a precise
+    ``ExperimentLeafError`` assertion; the bad-target and pending-status cases
+    run the full pipeline against a fixture copy carrying the bad leaf.
+    """
+
+    def _parse(self, leaf_text: str):
+        lib = sys.modules.get("kb_index_lib")
+        if lib is None:
+            import kb_index_lib as lib  # noqa: F811
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            leaf = root / "exp-bad.md"
+            leaf.write_text(leaf_text, encoding="utf-8")
+            return lib.parse_experiment_leaf(leaf, root), lib
+
+    def test_claim_bearing_experiment_leaf_rejected(self):
+        """(a) An experiment leaf that also carries claims: is rejected."""
+        text = _exp_leaf(extra="claims: [clm-aa1111]")
+        _, lib = self._parse(_exp_leaf())  # warm import
+        with self.assertRaises(lib.ExperimentLeafError):
+            self._parse(text)
+
+    def test_bad_exp_id_format_rejected(self):
+        """(b) A malformed exp-id (wrong shape) is rejected."""
+        text = _exp_leaf(exp_id="exp-TOOLONG9")
+        _, lib = self._parse(_exp_leaf())
+        with self.assertRaises(lib.ExperimentLeafError):
+            self._parse(text)
+
+    def test_bad_status_rejected(self):
+        """(c) A status outside {run, pending} is rejected."""
+        text = _exp_leaf(status="halfway")
+        _, lib = self._parse(_exp_leaf())
+        with self.assertRaises(lib.ExperimentLeafError):
+            self._parse(text)
+
+    def test_strengthens_target_not_a_real_claim_fails_verify(self):
+        """(d) A strengthens edge to a non-existent claim id fails the
+        pipeline (referential integrity / orphan target)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            bad = _exp_leaf(
+                exp_id="exp-orph01",
+                strengthens="  - clm-zzz999: 1.0",
+                title="Orphan-Target Experiment",
+            )
+            (kb / "common" / "exp-orphan.md").write_text(bad, encoding="utf-8")
+            _run_refresh(kb)
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("clm-zzz999", result.stdout)
+
+    def test_pending_experiment_contributes_nothing(self):
+        """(e) A status:pending experiment confers no experimental solidity:
+        its target stays pending (derivation pending, no run experiment)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            # Replace the run experiment with a pending one targeting the same
+            # pending-derivation claim clm-gg7777.
+            exp = kb / "common" / "exp-bench.md"
+            exp.write_text(
+                _exp_leaf(
+                    exp_id="exp-bench1",
+                    status="pending",
+                    strengthens="  - clm-gg7777: 0.80",
+                    title="Pending Bench Experiment",
+                ),
+                encoding="utf-8",
+            )
+            # clm-gg7777 must go back to *pending* on disk for refresh to be a
+            # clean no-op-or-rewrite; let refresh author the canonical value.
+            result = _run_refresh(kb)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            claims = _read_jsonl(kb / ".index" / "claims.jsonl")
+            gg = next(r for r in claims if r.get("id") == "clm-gg7777")
+            self.assertIsNone(gg["experimental_solidity"])
+            self.assertIsNone(gg["derivation_solidity"])
+            self.assertIsNone(gg["solidity"])
+            # And the pipeline still passes (pending is valid, not an error).
+            self.assertEqual(_run_checker(kb).returncode, 0)
 
 
 def _load_checker_module():

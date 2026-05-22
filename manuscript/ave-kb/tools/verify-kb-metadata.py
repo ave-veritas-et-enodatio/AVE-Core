@@ -105,6 +105,7 @@ FRONTMATTER_BLOCK = re.compile(
 CANONICAL_ID = re.compile(r"<!-- id: (clm-[a-z0-9]{6}) -->")
 TIER2_INLINE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+EXP_ID_RE = re.compile(r"\bexp-[a-z0-9]{6}\b")
 FENCE = re.compile(r"^```")
 
 
@@ -502,8 +503,14 @@ def check_index_referential_integrity(index_dir: Path):
         [("subtree_claims", lambda r: list(r.get("subtree_claims") or []))],
     )
 
-    # depends-on kind-match: a resolved target's node_type must equal the
-    # edge's declared target_kind.
+    # Per-edge consistency, relation-aware (depends vs strengthens).
+    #
+    # * depends:     source resolves to a claim; target resolves to any node;
+    #                target_kind == resolved target node_type (kind-match);
+    #                strength is null.
+    # * strengthens: source resolves to an experiment; target resolves to a
+    #                claim AND target_kind == "claim"; an experiment node is
+    #                never an edge target; strength is non-null.
     dep_path = index_dir / "depends-on.jsonl"
     if dep_path.exists():
         for lineno, line in enumerate(
@@ -515,18 +522,105 @@ def check_index_referential_integrity(index_dir: Path):
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            source = rec.get("source")
             target = rec.get("target")
             kind = rec.get("target_kind")
-            if target and target in node_type_by_id:
-                resolved = node_type_by_id[target]
-                if kind != resolved:
+            relation = rec.get("relation")
+            strength = rec.get("strength")
+            src_type = node_type_by_id.get(source)
+            tgt_type = node_type_by_id.get(target)
+
+            if relation == "strengthens":
+                if src_type is not None and src_type != "experiment":
                     violations.append(
-                        (
-                            "depends-on",
-                            target,
-                            f"line {lineno}, target_kind {kind!r} != "
-                            f"node_type {resolved!r}",
-                        )
+                        ("depends-on", source,
+                         f"line {lineno}, strengthens edge source resolves to "
+                         f"{src_type!r}, expected experiment")
+                    )
+                if tgt_type is not None and tgt_type != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, strengthens edge target resolves to "
+                         f"{tgt_type!r}, expected claim")
+                    )
+                if kind != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, strengthens edge target_kind {kind!r} "
+                         f"!= 'claim'")
+                    )
+                if strength is None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, strengthens edge has null strength")
+                    )
+            elif relation == "depends":
+                if src_type is not None and src_type != "claim":
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, depends edge source resolves to "
+                         f"{src_type!r}, expected claim")
+                    )
+                if tgt_type is not None and kind != tgt_type:
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, target_kind {kind!r} != "
+                         f"node_type {tgt_type!r}")
+                    )
+                if tgt_type == "experiment":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, depends edge targets an experiment "
+                         f"node (experiments are never edge targets)")
+                    )
+                if strength is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, depends edge has non-null strength "
+                         f"{strength!r}")
+                    )
+            else:
+                violations.append(
+                    ("depends-on", source or "?",
+                     f"line {lineno}, unknown relation {relation!r}")
+                )
+
+    # exp-id format + experiment-node placement: every experiment node id must
+    # match \bexp-[a-z0-9]{6}\b, and no experiment id may appear in cites /
+    # subtree-aggregates (those reference claim ids only). depends-on target
+    # placement is covered above.
+    for nid, ntype in node_type_by_id.items():
+        if ntype == "experiment" and not EXP_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid, "experiment node id is not \\bexp-[a-z0-9]{6}\\b")
+            )
+
+    experiment_ids = {
+        nid for nid, t in node_type_by_id.items() if t == "experiment"
+    }
+    for short in ("cites", "subtree-aggregates"):
+        path = index_dir / f"{short}.jsonl"
+        if not path.exists():
+            continue
+        for lineno, line in enumerate(
+            path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if short == "cites":
+                ids = [rec.get("claim_id")]
+            else:
+                ids = list(rec.get("subtree_claims") or [])
+            for cid in ids:
+                if cid in experiment_ids:
+                    violations.append(
+                        (short, cid,
+                         f"line {lineno}, experiment node referenced where a "
+                         f"claim id is expected")
                     )
 
     return violations
@@ -541,7 +635,7 @@ def check_solidity_cycle(state) -> list[str]:
     refresh-fixable — the cycle must be broken in the claim declarations.
     """
     try:
-        kb_index_lib.compute_solidity(state.claim_entries)
+        kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
     except kb_index_lib.SolidityCycleError as exc:
         return exc.cycle_members
     return []
@@ -579,7 +673,7 @@ def check_solidity_fresh(state, index_dir: Path):
     check already fails loudly in that case).
     """
     try:
-        solidity = kb_index_lib.compute_solidity(state.claim_entries)
+        solidity = kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
     except kb_index_lib.SolidityCycleError:
         return [], [], []
 
@@ -774,6 +868,7 @@ def main(argv: list[str] | None = None) -> int:
         f"[index] {len(INDEX_FILES)} JSONL files "
         f"({len(expected_records['claims'])} nodes: "
         f"{node_type_counts.get('claim', 0)} claims / "
+        f"{node_type_counts.get('experiment', 0)} experiments / "
         f"{node_type_counts.get('invariant', 0)} invariants / "
         f"{node_type_counts.get('axiom', 0)} axioms, "
         f"{len(expected_records['depends-on'])} depends-on, "
