@@ -29,7 +29,7 @@ The macroscopic fluid properties were historically approximated by a generalized
 
 Rather than a smooth, arbitrary curve, the fluid's topological network splinters in a **first-order discontinuous avalanche** at melting ($T_m = 279.5$ K, derived as the proton transfer eigenmode of the O--H$\cdots$O bridge), followed by a macroscopic geometric collapse bounded unconditionally by the Axiom 4 topological strain threshold $r_{\text{crit}}$.
 
-> → Primary: [Melting Eigenmode](../../../vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md) — sec:melting_eigenmode; Vol. VII, Ch. 11: the melting temperature derivation as proton transfer eigenmode of the O--H$\cdots$O bridge lives there.
+> → Primary: Melting Eigenmode (forthcoming) — sec:melting_eigenmode; Vol. VII, Ch. 11: the melting temperature derivation as proton transfer eigenmode of the O--H$\cdots$O bridge lives there.
 
 Using purely the derived H-bond Void space energy ($0.2158$ eV), the lattice $r_{\text{crit}}$ bounds the structural fluid exactly at $+29.4\,^{\circ}\text{C}$. The $+4\,^{\circ}\text{C}$ density peak emerges exclusively as a statistical property of the non-linear 3D cooperative topological grid within this domain. Because infinite 3D structural melting grids (e.g., Ising/Cluster Variation arrays) are computationally NP-Hard, no single 1D generalized polynomial can mechanically yield $3.98\,^{\circ}\text{C}$ out-of-the-box without explicit numerical cluster simulation iterations or empirical parameter "fudging".
 

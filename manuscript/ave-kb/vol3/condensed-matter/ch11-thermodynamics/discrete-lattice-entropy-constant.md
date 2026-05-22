@@ -145,6 +145,6 @@ The simplest dimensional estimate $|\Gamma|^2 \sim (\ell_{\text{node}}/r_{\text{
   - Vol 3 Ch 21:114 — ruptured-plasma BH interior
 - **KB cross-cutting:**
   - [Four-Entropy Distinction at BH Horizon](four-entropy-distinction.md) — full adjudication of four (now five with this leaf) entropy quantities
-  - [AVE BH Horizon Area Theorem](../../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — $r_{\text{sat}} = 7 G M / c^2$ used to compute $|\Gamma|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$
+  - [AVE BH Horizon Area Theorem](../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — $r_{\text{sat}} = 7 G M / c^2$ used to compute $|\Gamma|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$
   - [Vol 3 Ch 3 refractive-index-of-gravity](../../gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md) — $n(r) = 1 + 2GM/(c^2 r)$ used in §3 expansion
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — BH horizon as canonical kernel instance; discrete-lattice correction is a substrate-scale instance feature

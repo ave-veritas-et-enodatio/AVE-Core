@@ -179,7 +179,7 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 - [Theorem 3.1' Q-factor at TIR boundary](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md) — canonical $Q = \alpha^{-1}$ + 4π spinor-cycle inheritance
 - [Orbital friction paradox reactive-power table](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md) line 31 — canonical reactive-power classification (electron orbital P_real = 0, Q_reactive = m_e c² · α)
 - [Leaky-cavity-particle-decay theory](../../../vol4/simulation/ch14-leaky-cavity-particle-decay/theory.md) line 12 — electron tank below V_yield rings forever
-- [α from Golden Torus](../../vol1/ch8-alpha-golden-torus.md) — SU(2) double-cover argument (4π per spinor cycle)
+- [α from Golden Torus](../../../vol1/ch8-alpha-golden-torus.md) — SU(2) double-cover argument (4π per spinor cycle)
 - [DAMA α-slew derivation](dama-alpha-slew-derivation.md) §12 — full reactive-power physical picture + anti-anchor adjudication
 
 ### Engine implementation
@@ -197,7 +197,7 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 - [`research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md`](../../../../../research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md) — full matched-LC-coupling result with §10 + §11
 
 ### Matrix + closure-roadmap
-- [Matrix row C14-DAMA-MATERIAL](../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
+- [Matrix row C14-DAMA-MATERIAL](../../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
 - [Closure-roadmap §0.5](../../common/closure-roadmap.md) — 9th-cycle entries
 
 ### Skill discipline
@@ -235,7 +235,7 @@ Where:
 - $\kappa_{quality}$: regenerative-regime envelope from Q·δ ≥ 2 RVR threshold (saturated at 1 for solid crystals in deep-regenerative regime; $(Q\delta_C/2)^2$ for sub-regenerative)
 
 **Why $\kappa_{entrain}$ is NOT in the formula** (Grant (β) adjudication per 12th cycle):
-$\kappa_{entrain} = \rho_{matter}/\rho_{bulk}$ from Sagnac-RLVE is the REAL-power mass-density drag-along coefficient (rotor mechanical KE → vacuum viscous drag). Parametric coupling at ν_slew is REACTIVE-power class (90° phase per-cycle leak; no net energy dissipation per cycle). Mixing them violates `ave-power-category-check` Axis A common-pitfall rule per [`ave-analytical-toolkit-index.md` §1 line 53](../../common/ave-analytical-toolkit-index.md). Cycle-10 bulk-EE reframe included $\kappa_{entrain}$ as factor in $J_{substrate}^{bulk}$; cycle-11 walk-back labeled this RESEARCH-PENDING; cycle-12 excises it per categorical correctness.
+$\kappa_{entrain} = \rho_{matter}/\rho_{bulk}$ from Sagnac-RLVE is the REAL-power mass-density drag-along coefficient (rotor mechanical KE → vacuum viscous drag). Parametric coupling at ν_slew is REACTIVE-power class (90° phase per-cycle leak; no net energy dissipation per cycle). Mixing them violates `ave-power-category-check` Axis A common-pitfall rule per [`ave-analytical-toolkit-index.md` §1 line 53](../../../common/ave-analytical-toolkit-index.md). Cycle-10 bulk-EE reframe included $\kappa_{entrain}$ as factor in $J_{substrate}^{bulk}$; cycle-11 walk-back labeled this RESEARCH-PENDING; cycle-12 excises it per categorical correctness.
 
 **Why Z-INDEPENDENCE claim is "Z-INDEPENDENT at bulk-transfer level"**:
 

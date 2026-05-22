@@ -7,7 +7,7 @@ claims: [clm-3kzmt9, clm-dfaiwj]
 
 > ↗ See also: [VCA Topo-Kinematic Identity](../../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/index.md) — Axiom 2 ($\xi_{topo}$) applied to engineering
 > ↗ See also: [Protein Folding Engine](../../../vol5/protein-folding-engine/index.md) — Axioms 1-4 applied to biological systems
-> ↗ See also: [Virtual Media Foundations](../../../vol8/foundations/index.md) — Axioms 1-4 instantiated in LLM weight matrices
+> ↗ See also: Virtual Media Foundations (see AVE-VirtualMedia repo) — Axioms 1-4 instantiated in LLM weight matrices
 
 ## Section 1.2: The Four Fundamental Axioms
 

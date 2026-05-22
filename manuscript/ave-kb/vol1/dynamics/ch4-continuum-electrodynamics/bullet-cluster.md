@@ -74,7 +74,7 @@ Same DAMA experimental data, same XENONnT null — different (cleaner) substrate
 - [`gordon-optical-metric.md`](../../../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md) — canonical Gordon optical metric for AVE lensing
 - [`einstein-lensing-deflection.md`](../../../vol3/gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md) — Einstein deflection $\delta = 4GM/bc^2$ from Gordon metric
 - [`transverse-refractive-index.md`](../../../vol3/gravity/ch03-macroscopic-relativity/transverse-refractive-index.md) — $n_\perp = 1 - h_\perp$ formula
-- [`../../../common/preferred-frame-and-emergent-lorentz.md`](../../../common/preferred-frame-and-emergent-lorentz.md) — K4 lattice rest frame = CMB rest frame; Earth velocity ~370 km/s
+- [`../../../common/preferred-frame-and-emergent-lorentz.md`](preferred-frame-and-emergent-lorentz.md) — K4 lattice rest frame = CMB rest frame; Earth velocity ~370 km/s
 - AVE-PONDER manuscript chapters — same ponderomotive-halo physics at lab scale
 
 ---

@@ -24,7 +24,7 @@ The AVE framework's Torus Knot Ladder (Chapter 6, Section 6.4) generates a zero-
 | $(2,13)$ | 13 | 2194.636 | $N(2190)$ | 2100 ± 50 | $+4.506\%$ | $7/2^-$ ✓ |
 | $(2,15)$ | 15 | 2477.968 | $\Delta(2420)$ | 2400 ± 100 | $+3.249\%$ | $11/2^+$ ✓ |
 
-**Precision summary (PDG 2024 anchored, C8 PDG 2024 anchor commit `55b3317`)**: 6/6 retrospective $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; **4 of 6 retrospective within 3%, ALL 6 within 5%**. **Proton match at $-0.002\%$ is the strongest individual match in the framework** (200× more precise than corpus's prior "+0.00%" precision-rounding framing). Set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 halo invariant (Borromean $V=2$). Per [`ave-discrimination-check`](file:///Users/grantlindblom/.claude/skills/ave-discrimination-check/SKILL.md) D3: random nearest-mass matching cannot pass $J^P$ filter at 6/6 retrospective rate.
+**Precision summary (PDG 2024 anchored, C8 PDG 2024 anchor commit `55b3317`)**: 6/6 retrospective $J^P$-consistent with $(2,c)$ torus-knot winding allowed values; **4 of 6 retrospective within 3%, ALL 6 within 5%**. **Proton match at $-0.002\%$ is the strongest individual match in the framework** (200× more precise than corpus's prior "+0.00%" precision-rounding framing). Set by 1 input (CODATA $m_e$) + 1 topological integer (cinquefoil $c=5$) + 1 halo invariant (Borromean $V=2$). Per `ave-discrimination-check` D3: random nearest-mass matching cannot pass $J^P$ filter at 6/6 retrospective rate.
 
 ### Forward predictions (PDG 2024 anchored)
 

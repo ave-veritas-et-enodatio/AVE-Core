@@ -67,4 +67,4 @@ Total enstrophy is rigorously bounded for any finite lattice.  This constitutes 
 - `src/ave/core/universal_operators.py` (universal_saturation)
 
 > → Primary: [Effective DoF $g_*$](./effective-dof-g-star.md) — thermal partition from the same lattice geometry
-> ↗ See also: [Turbulence Onset](./s02-turbulence-onset.md) — classical onset criteria
+> ↗ See also: Turbulence Onset (forthcoming) — classical onset criteria

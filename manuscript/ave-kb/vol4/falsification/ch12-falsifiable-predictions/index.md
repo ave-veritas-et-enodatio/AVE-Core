@@ -26,7 +26,7 @@ Three explicit experimental blueprints designed to definitively measure the stru
 | Document | Contents |
 |---|---|
 | [Dielectric Plateau Prediction](dielectric-plateau-prediction.md) | EE Bench: $E_{yield}$, capacitance spike, interferometric refractive index drop; LCR + laser protocol |
-| [Ponder-01 Thrust Prediction](ponder-01-thrust-prediction.md) | Asymmetric Maxwell Stress Rectification; 1000:1 geometry; VHF sweep; torsion balance protocol |
+| Ponder-01 Thrust Prediction (see AVE-PONDER repo) | Asymmetric Maxwell Stress Rectification; 1000:1 geometry; VHF sweep; torsion balance protocol |
 | [Epistemology (Ch.12)](epistemology-ch12.md) | One-Parameter Effective Field Theory; falsifiability by design |
 | [Active Sagnac Impedance Drag](active-sagnac-impedance-drag.md) | Kinematic/electromagnetic entrainment law; density and permeability dependence; tolerances; applied telemetry (slip-velocity, gradient compass, dark wake, chiral torsion) |
 | [Helicity Injection](helicity-injection.md) | Polarization matching; Hopf Configuration ($\mathbf{A} \parallel \mathbf{B}$); topological power factor correction |
