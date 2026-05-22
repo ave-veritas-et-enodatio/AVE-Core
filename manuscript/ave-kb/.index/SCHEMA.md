@@ -33,7 +33,7 @@ These hold across every regeneration. They are checked by `personant verify`-sty
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
 3. **Schema closure.** Every record matches the schema in this document. Unknown fields are a hard verifier failure (catches drift between schema and emitter).
-4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim **and** framework nodes. A `depends-on` edge's `target` may resolve to any node type, and its `target_kind` must equal the resolved record's `node_type` (kind-match). `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference claim ids only. (Orphan or kind-mismatch is a verifier failure.)
+4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim, framework, **and experiment** nodes. For a `relation:"depends"` edge: `source` resolves to a claim, `target` may resolve to any node type, and `target_kind` must equal the resolved target's `node_type` (kind-match). For a `relation:"strengthens"` edge: `source` resolves to an **experiment** node, `target` resolves to a **claim** (and `target_kind == "claim"`); experiment nodes are never edge `target`s and never appear in `cites` / `subtree-aggregates`. `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference claim ids only. The `\bexp-[a-z0-9]{6}\b` id format is enforced for experiment nodes. (Orphan, kind-mismatch, or relation/source-type mismatch is a verifier failure.)
 5. **Single newline EOF.** Every file ends with exactly one `\n`. (Catches editor mishaps and trailing-whitespace creep.)
 6. **JSON valid.** Every line parses as a JSON object. (Catches partial writes and merge corruption.)
 
@@ -45,9 +45,9 @@ All field types are JSON types: `string`, `number` (float), `integer`, `boolean`
 
 ### `claims.jsonl`
 
-Despite the name, `claims.jsonl` holds **three node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`. The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
+Despite the name, `claims.jsonl` holds **four node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom` | `experiment`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`; **experiment nodes** are one per `<!-- exp-id: exp-xxxxxx -->` declaration in an experiment leaf (INVARIANT-S9). The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
 
-**Claim record** (`node_type: "claim"`) — `node_type` is the new FIRST field; the 12 pre-existing fields are unchanged. 13 fields total.
+**Claim record** (`node_type: "claim"`) — `node_type` is the FIRST field. `derivation_solidity` (min-branch) and `experimental_solidity` (max-branch) are the two solidity sources; `solidity` is their `max`. 15 fields total.
 
 ```typescript
 {
@@ -57,17 +57,40 @@ Despite the name, `claims.jsonl` holds **three node types** — a type-tagged un
   canonical_path: string,        // e.g. "vol1/claim-quality.md"
   canonical_anchor: string,      // GitHub-style anchor for the heading
   confidence: number,            // 0.0 .. 1.0; hand-authored, from Quality section
-  solidity: number,              // 0.0 .. 1.0; DERIVED by compute_solidity (null if confidence unset)
+  derivation_solidity: number,   // 0.0..1.0; DERIVED min-branch: confidence × min(dep final solidities); null if pending (NaN-propagating)
+  experimental_solidity: number, // 0.0..1.0; DERIVED max-branch: max over RUN-experiment strengthens-edge strengths; null if no run experiment strengthens this claim
+  solidity: number,              // 0.0 .. 1.0; DERIVED = max of the non-null branch(es); null (*pending*) iff derivation_solidity null AND experimental_solidity null
   build_status: string,          // DERIVED phrase from solidity band, e.g. "ok to build on" (null if solidity null)
   build_band: string,            // DERIVED from solidity: ok-to-build, ok-with-caveats, input-only, do-not-build, refuted
   rationale: string,             // text after "rationale:" — preserved as single line (LF → ' ')
-  depends_on_count: integer,     // count of edges in depends-on.jsonl with source == this id
+  depends_on_count: integer,     // count of relation:"depends" edges with source == this id
   strengthen_by_count: integer,  // count of items in strengthen-by.jsonl with claim_id == this id
   citation_count: integer        // count of edges in cites.jsonl with claim_id == this id
 }
 ```
 
-Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `derivation_solidity`, `experimental_solidity`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+
+**Solidity branches (definitive rule).**
+- `derivation_solidity` = the existing min-branch: `round2(confidence × min(dependency final solidities))`, framework deps contributing 1.0; **pending propagates NaN-style** through this branch (a pending dependency → pending `derivation_solidity`). Each dependency contributes its own **`solidity`** (the `max`), so building on an experimentally-validated claim correctly un-blocks the dependent.
+- `experimental_solidity` = `max` of the `strength` on every `relation:"strengthens"` edge into this claim whose source experiment has `status:"run"`. Unrun experiments contribute nothing (excluded from the max — **no NaN, no 0.0 floor**). `null` if no run experiment strengthens this claim.
+- `solidity` = `max(derivation_solidity, experimental_solidity)` over the non-null branches; **`*pending*` (null) iff BOTH are null** — i.e. derivation pending AND no run experiment. (`*pending*` = unassessed ≠ `0.0` = refuted; an unrun experiment can never float a pending claim down to a refuted 0.0.)
+- **Non-transitive:** a `strengthens` edge lifts only its directly-targeted claim. An experiment that also bears on an upstream input authors a *separate* `strengthens` edge to that input with its own `strength`.
+
+**Experiment record** (`node_type: "experiment"`) — a *physical* experiment node. Experiments are terminal strength-sources: they have **no `relation:"depends"` edges** and never gate; they only emit `relation:"strengthens"` edges to the claims their result bears on. 6 fields.
+
+```typescript
+{
+  node_type: "experiment",       // discriminator
+  id: string,                    // exp-[a-z0-9]{6}; primary key
+  title: string,                 // experiment / project leaf title
+  canonical_path: string,        // POSIX path of the experiment leaf, relative to ave-kb/
+  canonical_anchor: string,      // GitHub-style anchor for the heading carrying the exp-id
+  status: "run" | "pending"      // "run" = result exists (its strengthens edges count); "pending" = unrun (its edges contribute nothing)
+}
+```
+
+Experiment field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `status`. A **physical** experiment only — simulations are NOT experiments (a simulation feeds derivation confidence, not experimental solidity). Experiment leaves are NOT claim-bearing (`claims:` and `exp-id:` are mutually exclusive on a leaf).
 
 **Framework record** (`node_type: "invariant"` or `"axiom"`) — exactly 5 fields. Framework nodes carry no scoring fields: they are **solidity-1.0 by definition** (framework bedrock). This is a documented rule, not a stored field.
 
@@ -88,7 +111,7 @@ Framework field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_
 - **Invariants** (18) — parsed from `### INVARIANT-XX: <title>` headings (regex `^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$`). `id` is the label verbatim; `canonical_anchor` is the slug of the node's own heading. `INVARIANT-S6` (the subsumed-into-S5 tombstone) is a real heading and is included so a reference to it resolves.
 - **Axioms** (4) — parsed from the `- Axiom N: **<title>** — ...` bullets in the INVARIANT-S2 section (regex `^- Axiom ([1-4]): \*\*(.+?)\*\*`). `id` is `axiom-N` lowercase; `title` is the bold text. All four axioms point at the slug of the `### INVARIANT-S2: AVE Axiom numbering` heading — the KB's axiom-numbering authority.
 
-**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then invariants.
+**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then experiments, then invariants.
 
 **`build_band` derivation** (mechanical, from solidity):
 
@@ -110,19 +133,26 @@ This mirrors the build-status legend in the root `claim-quality.md` and provides
 
 ### `depends-on.jsonl`
 
-One record per forward dependency edge. A `source` is always a claim id. A `target` may be a claim id **or** a framework node id (invariant / axiom) — `target_kind` discriminates.
+One record per directed claim-graph edge. The file holds **two edge classes** discriminated by `relation`:
+
+- **`depends`** (gating, min-branch): `source` is a **claim** id; `target` is a claim / invariant / axiom id. This is the original edge (every pre-existing edge is `relation: "depends"`).
+- **`strengthens`** (max-branch): `source` is an **experiment** id; `target` is a **claim** id; carries a `strength`. Authored from the experiment leaf's `strengthens:` block and emitted by `refresh`.
 
 ```typescript
 {
-  source: string,                          // claim id (depender)
-  target: string,                          // dependee node id (claim / invariant / axiom)
+  source: string,                          // claim id (depends) | experiment id (strengthens)
+  target: string,                          // claim/invariant/axiom (depends); claim (strengthens)
+  relation: "depends" | "strengthens",     // edge class
   target_kind: "claim" | "invariant" | "axiom",  // node type of the target
-  target_solidity_recorded: number | null, // solidity as written in the line; null for framework targets
-  context: string | null                   // optional context note from the depends-on line
+  target_solidity_recorded: number | null, // depends: dep solidity as written; null for framework / strengthens
+  strength: number | null,                 // strengthens: conferred experimental-solidity in [0,1]; null for depends
+  context: string | null                   // optional context note
 }
 ```
 
-Field order: `source`, `target`, `target_kind`, `target_solidity_recorded`, `context`.
+Field order: `source`, `target`, `relation`, `target_kind`, `target_solidity_recorded`, `strength`, `context`.
+
+`relation` is recoverable from `source`-node type (claim ⇒ depends, experiment ⇒ strengthens), but is stored explicitly so a human reviewer sees each edge's *role* at a glance and `compute_solidity` need not cross-reference node types. A `strengthens` edge's `strength` is the per-(experiment, claim) conferred experimental-solidity — typically `1.0` for the experiment's designed target on an unequivocal result, lower for orthogonally-implicated claims; it counts only when the source experiment has `status: "run"`.
 
 **Bullet-head extraction.** A depends-on bullet's dependency target(s) live in its *head*, not its title/context. The head is the bullet text after the leading `- `, truncated at the EARLIER of: the first ` — ` (em-dash title separator) or the first ` (` (paren). The head is scanned for ALL recognized target tokens, emitting **one edge per token**:
 

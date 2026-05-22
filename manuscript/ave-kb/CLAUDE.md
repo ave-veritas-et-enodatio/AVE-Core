@@ -156,6 +156,25 @@ Each entry in a `claim-quality.md` file carries a stable ID of the form `clm-` p
 
 *Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-kb-metadata`.*
 
+### INVARIANT-S9: Experiment DAG-id propagation (`exp-`)
+
+Physical experiments are first-class graph nodes carrying a stable ID of the form `exp-` plus 6 lowercase-alphanumeric characters (`\bexp-[a-z0-9]{6}\b`), parallel to the `clm-` claim id (INVARIANT-S8). An experiment **validates / strengthens** one or more claims; it never originates a derivation.
+
+**Physical experiments only.** A simulation is NOT an experiment — a simulation feeds a claim's *derivation* confidence (the min-branch), not its experimental solidity. Only a physical experiment (apparatus + measurement) earns an `exp-` id.
+
+**Experiment leaf frontmatter.** An experiment / project leaf declares `kind: experiment` and:
+- `exp-id: exp-xxxxxx` — the node's stable id. The leaf is its own canonical home (no separate register).
+- `status: run | pending` — `run` once a result exists; `pending` while unrun. A `pending` experiment's `strengthens` edges contribute nothing.
+- `strengthens:` — a list of `clm-<id>: <strength>` pairs, one per claim the result bears on; `<strength>` ∈ [0,1] is the conferred experimental-solidity for that claim (typically `1.0` for the designed target on an unequivocal result, lower for orthogonally-implicated claims).
+
+`kind: experiment` leaves carry `exp-id` + `strengthens` and are **not** claim-bearing (`claims:` / `no-claim:` are mutually exclusive with `exp-id:`).
+
+**Strengthening is non-transitive (max-branch).** A `strengthens` edge lifts only its directly-targeted claim. A claim's solidity is `max(derivation_solidity, experimental_solidity)`, where `experimental_solidity = max` of the strengths from `run` experiments targeting it. Validation does NOT flow to a claim's upstream derivation dependencies — an experiment that also bears on an input authors a *separate* `strengthens` edge to that input with its own strength. A claim is `*pending*` iff its derivation is pending **and** no run experiment strengthens it (unassessed ≠ refuted; an unrun experiment can never float a pending claim down to a refuted `0.0`).
+
+**Grep guarantee.** `grep -r "exp-<id>"` returns the experiment leaf's frontmatter declaration and every `strengthens` reference. `\bexp-[a-z0-9]{6}\b` matches exp-ids and nothing else. The experiment node and its strengthens edges are materialized in `.index/claims.jsonl` (`node_type: experiment`) and `.index/depends-on.jsonl` (`relation: strengthens`); see `.index/SCHEMA.md`.
+
+*Confirmed by: spec at `manuscript/ave-kb/.index/SCHEMA.md` (experiment node + strengthens edge + max-solidity rule); live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,verify-kb-metadata}.py`; CI gate via `make verify-kb-metadata`.*
+
 ---
 
 ## Cross-Volume Physical Constants
