@@ -13,7 +13,7 @@ Gravity is macroscopic dielectric refraction; no curved manifold is required.
 
 | **General Relativity** | **AVE Equivalent** | **Relationship** |
 |---|---|---|
-| Metric tensor $g_{\mu\nu}$ | Variable $\varepsilon_{eff}, \mu_{eff}$ | Temporal: $n_t(r) = 1 + (2/7)\varepsilon_{11} = 1 + 2GM/(rc^2)$ (clock rate, redshift); Spatial: $n_s(r) = (9/7)\varepsilon_{11}$ (light deflection). $Z = Z_0$ invariant under Symmetric Gravity. |
+| Metric tensor $g_{\mu\nu}$ | Variable $\varepsilon_{eff}, \mu_{eff}$ | Temporal: $n_t(r) = 1 + (2/7)\varepsilon_{11} = 1 + 2GM/(rc^2)$ (clock rate, redshift); Spatial: $n_s(r) = 1 + (9/7)\varepsilon_{11}$ (light deflection). $Z = Z_0$ invariant under Symmetric Gravity. |
 | Spacetime curvature | Dielectric refraction | Geodesic $\equiv$ Fermat path through refractive medium. |
 | Stress-energy $T_{\mu\nu}$ | LC energy density $U$ | $U = \tfrac{1}{2}\varepsilon_0 |E|^2 + \tfrac{1}{2}\mu_0 |H|^2$. |
 | Schwarzschild radius $r_s$ | Saturation boundary ($S \to 0$) | $Z \to 0, \; \Gamma = -1$: total impedance collapse. |

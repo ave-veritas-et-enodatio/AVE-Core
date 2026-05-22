@@ -87,6 +87,23 @@ Add a new category of DAG id for **physical experiments** to the KB metadata, pa
 - `refresh-kb-metadata` + `verify-kb-metadata` updates; a frontmatter/marker convention for attaching `exp-` ids to physical-experiment leaves (parallel to the `clm-` Tier-1/Tier-2 propagation); and a new `CLAUDE.md` invariant documenting the `exp-` category (parallel to INVARIANT-S8).
 - Natural anchor points already in the KB: `appendix-experiments.md` (narrative falsification catalog) and `divergence-test-substrate-map.md` (operational falsification-test index) — the physical experiments enumerated there are the initial `exp-` id population.
 
+### Ownership + edge-direction architecture (Grant canonized 2026-05-21 — design basis for the exp-id sweep)
+
+These principles emerged from the `n_spatial` reconciliation (the `clm-rd9cjm` case below) and govern how the exp-id sweep wires experiment→claim edges. Promote to `CONVENTIONS.md` / `claim-quality.md` preamble **when the edge-class tooling is built** (don't canonicalize an invariant whose enforcement doesn't exist yet).
+
+1. **Ownership = earliest-asserting claim, not the deriving volume.** A claim id is anchored where a proposition is first asserted *as a claim* (with a `### Quality` block) — not where it is later derived. A bare assertion is owned at birth (low confidence per the rubric: `0.1` "asserted without supporting derivation", or `*pending*` if unassessed/deferred-debt); a later derivation in any volume **strengthens** it. Reuses the existing solidity mechanism — no new quality rule (the `0.1`/`0.3`/`*pending*` bands already cover the assertion/ansatz spectrum). A pure ansatz *as a claim* is `0.1`/`*pending*`; the claim that derives a result *given* the ansatz is a separate, higher-confidence node with the ansatz as a `depends-on`.
+2. **Two edge classes, two directions:**
+   - **Hand-authored edges (`depends-on` / built-on, and `strengthens`) point ≤ current volume** — a human only ever references backward toward foundations. This makes the authored graph volume-monotone ⇒ acyclic by construction ⇒ volume order is a topological order.
+   - **Reverse views (`strengthened-by`, `cited-by`, `subtree-claims`) are machine-generated bookkeeping** and may point forward (higher volume). Never hand-authored.
+3. **Derivations and experiments are both backward `strengthens` inputs.** A physical experiment is not a claim that originates physics — it is a falsification/validation input that *targets* (strengthens) the claim it tests. This is why the Mach-Zehnder experiment should not own a `clm-` re-asserting the decomposition (see below).
+4. **Audit blind spot:** the recorded `depends-on` DAG is already volume-monotone across numbered volumes (0 upward edges, verified 2026-05-21), but the `n_spatial` anomaly was a **prose forward-reference**, invisible to the edge check. A complete ownership audit must also grep leaf *bodies* for upward cross-volume references, not just the edge graph.
+
+### `clm-rd9cjm` (refractive-index decomposition) ownership — DECISION DEFERRED to exp-id sweep
+
+Resolved now: the `n_spatial` form was corrected to the canonical "1+" (`n_s = 1 + (9/7)ε₁₁`, `n_t = 1 + (2/7)ε₁₁`, `Δn = ε₁₁`) across all 9 source files; `verify-kb-metadata` PASS. Two structural items remain for the sweep:
+- **(i) vs (ii) ownership:** today `clm-rd9cjm` is owned in vol3 (gravity); vol2 ch7 asserts the decomposition in prose (in support of its interferometry prediction `clm-qde5gn`) and forward-cites vol3 — an upward prose reference. **(i)** keep vol3 ownership, treat vol2 ch7's use as Axiom-3-direct (no upward claim edge); **(ii)** relocate ownership to the earliest assertion (vol2) per the architecture above, recast vol3's trace-reversal derivation as a backward `strengthens` edge. (ii) is principled but relocates a claim cited by ~25 vol3 leaves. Decide with the sweep.
+- **`clm-6kqvyp` (C11-MACH-ZEHNDER) is a physical experiment mis-modeled as a `clm-`** (no exp-id category existed). Reclassify to `exp-…` targeting `clm-rd9cjm`; it should *reference* the decomposition, not re-assert it. **Do NOT wire a claim→claim `depends-on` edge in the interim** — it would be undone by the exp-id remap.
+
 ## 9. vol2-6 KB migration — DONE 2026-05-21; open decisions surfaced
 
 vol2-6 L3 KB content migrated: **35 new claim-bearing leaves** (vol2:14, vol3:8, vol4:9, vol5:4) + **~73 body-delta merges**, all new claims `confidence: *pending*` (deferred rescore). `verify` PASS (721 files / 289 claims). 435 frontmatter-only diffs were correctly no-action. Decisions surfaced by the waves, NOT yet actioned:
@@ -123,7 +140,29 @@ Full tabulation of L3 (`analysis/integration` @ `c7996256`) changes **outside** 
 ### Protected — 13 ours-ahead (NOT ported; ours is newer)
 `pyproject.toml`, `uv.lock`, `.github/workflows/{build_pdf,verify}.yml`, `.claude/{kb-docent.md, commands/kb-next.md, commands/kb-start.md}`, and `.tex`: `backmatter/{01_appendices, 05_universal_solver_toolchain}`, `common/translation_particle_physics`, `vol_0/02_analytical_summaries`, `vol_1/03_quantum_and_signal_dynamics`, `vol_2/03_neutrino_sector`.
 
-### QUEUED — both-changed reconciliation pass (dedicated, KB-leaf-referenced)
+### DONE 2026-05-21 — both-changed reconciliation pass (21 files; 1 held)
+
+Refined scope: 6 of the original 27 had **converged** (HEAD == L3, no action): `CLAUDE.md` (ported earlier) + 5 `eq_axiom_{1,2,3,4}.tex` / `eq_calibration_constants.tex` (both sides independently reached identical content — verified `base≠ours`, `base≠theirs`, `ours==theirs`). Real reconciliation set = **21** (3 config + 18 `.tex`).
+
+**Method:** 3-way merge (base = merge-base `05e2a45`, ours = HEAD, theirs = L3), conflicts adjudicated against the canonical (converged) `eq_axiom_*.tex` and KB leaves. Outcomes:
+- **Config (3):** `.gitignore` clean union (= L3 superset; carries the data-allowlist our ported pantheon/sdss data needs + our mad-review/guest-session/*.tgz). `Makefile` combined (theirs's `verify_atomic_ie` line + ours's `verify-kb-metadata`/`refresh`/`framing-audit` targets + ours's hardened critical-tier defense gate). `LIVING_REFERENCE.md`: ours's axiom block kept — it matches canonical (`Substrate Topology`/`Minimum Reflection`); **L3's was stale** (`Impedance`/`Gravity`) despite L3's own `eq_axiom_*.tex` being current.
+- **`.tex` clean auto-merges (9):** all preserved ours's honesty/rigor + axiom-homologation corrections (α-is-consistency-not-derivation, Neon-20 one-fitted-scalar + R 72→81d, Gaussian-ansatz gap, Higgs VEV +1.1%, gravity-derived-from-Ax1+4) AND gained L3's orthogonal A-034/engine-pointer enrichments. Verified non-contradicting.
+- **`.tex` conflicts resolved (8):** `00_foreword`, `08_alpha_golden_torus`, `04_generative_cosmology`, `02_full_derivation_chain` → **theirs** (canonical-correct framing / corrigendum-consistent / strict superset; ours was stale on the axiom names in the two backmatter files). `11_experimental_falsification`, `01_fundamental_axioms` → **ours** (01: theirs's summary recap reverted to stale axiom names — ours is internally consistent + numbered + references A-034). `appendix_vacuum_engineering` → ours's correct axiom-attribution column + theirs's "; A-034" enrichment. `12_mathematical_closure` → **combined**: kept ours's crown-jewel "Explicit Closure DAG + Outstanding Rigour Gaps" honesty block, appended theirs's "A-034 Empirical Anchors" section, fixed the stale "Gravity (Axiom 3)" attribution → "(derived from Axioms 1 & 4)".
+
+**✅ RESOLVED 2026-05-21 — `eq_gravity_derived.tex` (`n_spatial` divergence):** adopted the "1+" form corpus-wide (Grant call, by time/clarity + physical correctness — the "1+" form is the later 2026-05-17 deliberate cleanup, gives `Δn = ε₁₁`, and reduces to `n=1` in flat vacuum). Corrected across **9 source files**: `eq_gravity_derived.tex` (took L3), `translation_gravity.tex`, `common/translation-tables/translation-gravity.md` (canonical KB leaf), `temporal-spatial-lattice-decomposition.md` (`clm-rd9cjm` + fixed its stale `eq_axiom_3.tex`→`eq_gravity_derived.tex` source pointer), `vol3/gravity/index.md`, `vol3/gravity/ch01-gravity-yield/index.md`, root + vol2 + vol3 `claim-quality.md`. `.index` regenerated (solidity/subtree unchanged — pure content fix); `verify-kb-metadata` PASS. Ownership/edge architecture + the `clm-rd9cjm` (i)/(ii) + `clm-6kqvyp`-reclassification follow-ups logged in §8. Original analysis retained below.
+
+**(superseded) ⚠ HELD — `eq_gravity_derived.tex` (`n_spatial` divergence, needs Grant's physics-authority call + a corpus-wide sweep):**
+The genuine "cornflakes" case. The KB is **internally inconsistent** on the spatial gravitational refractive index:
+- **bare** `n_spatial = (9/7)ε₁₁`: canonical decomposition leaf `clm-rd9cjm` (`vol3/.../temporal-spatial-lattice-decomposition.md`), `vol3/gravity` indexes, `common/claim-quality.md`, and `translation_gravity.tex` (ours).
+- **`n_spatial = 1 + (9/7)ε₁₁`**: vol4 Mach-Zehnder leaf `project-c11-mach-zehnder.md` (the C11 falsifiable prediction) + `vol4/claim-quality.md` + L3's `eq_gravity_derived.tex` (2026-05-17 "parallelism" cleanup, explicitly reasoned: both indices carry the DC "1+", index →1 in flat vacuum, fixes driver-script confusion).
+
+Only the "1+" form yields the published `Δn = n_s − n_t = ε₁₁` (bare gives `ε₁₁ − 1`) and behaves as a physical refractive index (→1 in flat vacuum). So L3's `.tex` is **ahead** of the canonical decomposition leaf, which still carries the "shorthand" bare form. This is exactly the `.tex`-newer-than-leaf case. **Decision needed:** adopt "1+" form corpus-wide — update `eq_gravity_derived.tex` (take L3), `translation_gravity.tex` (already merged with bare form — would need re-edit), and the canonical leaf `clm-rd9cjm` + vol3 indexes — so the whole corpus matches the physically-correct Mach-Zehnder form; OR confirm the bare form is intended shorthand and reconcile the Mach-Zehnder leaf the other way. Touches a claim (`clm-rd9cjm`) + a falsifiable prediction → not resolved unilaterally.
+
+**Residual corpus item (not a merge conflict):** L3 prose retains some stale "Axiom 3 = gravity / Effective Action" references (e.g. `appendix_c_derived_numerology.tex` intro: "G from the Machian boundary condition of Axiom 3") that the canonical `eq_gravity_derived.tex` + `eq_axiom_3.tex` supersede. A corpus-wide prose-consistency sweep for stale axiom-name references is a separate follow-up (the canonical single-source `eq_axiom_*.tex` are correct; only derived prose mentions lag).
+
+---
+**(Original queue notes retained below for reference.)**
+
 27 both-changed files need a true 3-way reconciliation. **The 23 `.tex` must be reconciled against the canonical KB leaves already ported** to nail final language (the leaf is canonical; the `.tex` is derived per [[kb-canonical-not-tex]]).
 
 **Critical methodology (Grant 2026-05-21):** for each both-changed `.tex`, check whether L3's `.tex` carries edits dated *later* than L3's last edit to the corresponding KB leaf. In theory the leaf is always newer (canonical) and the `.tex` merely lags; in practice **verify per-file** — a `.tex` newer than its leaf may carry physics content never captured in the canonical leaf ("reality eats cornflakes out of theory's skull").
@@ -157,5 +196,5 @@ Full tabulation of L3 (`analysis/integration` @ `c7996256`) changes **outside** 
 
 **both-changed config/root (3 — simple 3-way merge, NOT KB-leaf reconciliation):** `.gitignore`, `Makefile`, `LIVING_REFERENCE.md`. (`CLAUDE.md` — the 4th both-changed root file — already ported, §2.)
 
-### L3 deletion — pending decision (1)
-`manuscript/frontmatter/00_foreword_lean.tex` — L3 deleted it (lean-foreword variant; the main `00_foreword.tex` is both-changed). Not deleted unilaterally (destructive op on manuscript content). Adopt the deletion per the vol4 REPO-ARCH canonical-decision precedent (§9), or keep — confirm before removing.
+### L3 deletion — RESOLVED 2026-05-21 (adopted)
+`manuscript/frontmatter/00_foreword_lean.tex` — L3 deleted it (lean-foreword variant). **Deletion adopted** (Grant 2026-05-21) per the vol4 REPO-ARCH canonical-decision precedent (§9). Confirmed zero `\input`/references anywhere in ours or L3 before removal; the main `00_foreword.tex` survives.

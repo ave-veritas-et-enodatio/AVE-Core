@@ -38,7 +38,7 @@
 - $n(r) = 1 + \nu_{vac}\,\varepsilon_{11} = 1 + (2/7)\,\varepsilon_{11}$ with $\varepsilon_{11}(r) = 7GM/(c^2 r)$
 - _Specific Claims_
   - The refractive form $n(r) = 1 + 2GM/(c^2 r)$ is the **temporal component** of the lattice metric (governs clock rate / redshift).
-  - Light deflection couples to a **separate spatial component** $n_{spatial} = (9/7)\varepsilon_{11}$. The Einstein deflection $\delta = 4GM/(bc^2)$ comes from integrating the full bidirectional metric; the temporal-only $n(r)$ alone reproduces the Newtonian half-deflection, not the GR value.
+  - Light deflection couples to a **separate spatial component** $n_{spatial} = 1 + (9/7)\varepsilon_{11}$. The Einstein deflection $\delta = 4GM/(bc^2)$ comes from integrating the full bidirectional metric; the temporal-only $n(r)$ alone reproduces the Newtonian half-deflection, not the GR value.
   - Solar deflection at the Einstein value is a **category (iii) consistency check** (per cross-cutting Master Prediction Table tripwire) — the framework reproduces the standard result via metric refraction, not an independent novel prediction.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim that the same $n(r)$ governs both clock-rate and light-deflection observables. LIVING_REFERENCE.md Pitfall #3: using full lattice density $n = 1 + (11/7)\varepsilon_{11}$ for redshift, or the temporal-only $n$ for deflection, are both errors.

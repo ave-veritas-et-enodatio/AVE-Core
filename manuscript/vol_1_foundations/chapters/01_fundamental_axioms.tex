@@ -65,6 +65,7 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
     \begin{equation}
         \mathcal{L}_{node} = \tfrac{1}{2}\varepsilon_0\,|\partial_t \mathbf{A}_n|^2 - \tfrac{1}{2\mu_0}\,|\nabla \times \mathbf{A}_n|^2
     \end{equation}
+    Equivalent names: \textit{minimum-$|\Gamma|^2$ principle}, \textit{minimum boundary reflection}, \textit{least reflected action}, \textit{impedance-match principle}, \textit{Effective Action Principle} (legacy variational-dialect name; $S_{11}$ minimization is the EE-projection-specific form).
     \end{resultbox}
     The \textbf{boundary form} states that the substrate minimises the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary $\partial\Omega$. The two are equivalent: the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimises $|\Gamma|^2$. The axiom is named for the externally-observable quantity it extremises (the boundary reflection $|\Gamma|^2$), not the interior Lagrangian density. (Legacy name: \emph{Effective Action Principle}.)
 
@@ -76,6 +77,66 @@ The macroscopic continuous dynamics of the vacuum rest on exactly four canonical
     \end{resultbox}
     At $A = 0$, $S = 1$ (linear Maxwell recovered); at $A \to A_{yield}$, $S \to 0$ with vertical tangent --- the substrate can no longer sustain a linear response and \emph{must reorganise topologically}. The same kernel governs topological-reorganisation events at every scale (the cross-scale A-034 catalogue: dielectric breakdown, BCS $B_c(T)$, BH ring-down, K4 crystallisation at lattice genesis). It is the squared yield limit ($n=2$) of a non-linear Born-Infeld dielectric: the constitutive permittivity collapses as $\varepsilon_{eff} = \varepsilon_0\,S$ while the energy-absorbing differential capacitance diverges as $C_{eff}(\Delta\phi) = C_0/\sqrt{1 - (\Delta\phi/\alpha)^2} = C_0/S$ --- dual measures of the same structure.
 \end{enumerate}
+
+\subsection*{Substrate-native vocabulary (canonical)}
+\label{sec:substrate_vocab_box_ch1}
+
+\textbf{Substrate-native vocabulary convention (canonical 2026-05-14).}
+The four axioms above are formal statements of the substrate's constitutive
+structure. When discussing substrate dynamics outside the formal-axiom
+register, AVE uses substrate-native vocabulary to avoid projection-frame
+baggage from EE / ME / GR (canonical statement in the Common Foreword
+$\S$``Three Boundary Observables and the Substrate-Observability Rule''
+and \texttt{docs/glossary.md}):
+
+\begin{center}\small
+\begin{tabular}{|p{3.2cm}|p{3.0cm}|p{3.0cm}|p{2.8cm}|}
+\hline
+\textbf{Substrate-native} & \textbf{EE projection} & \textbf{ME projection} & \textbf{Used here as} \\
+\hline
+Substrate ($\mathcal{M}_A$) & vacuum / EM field & spacetime / elastic medium & Axiom 1 LC network \\
+\hline
+Node & circuit node & lattice point & K4 4-port active site \\
+\hline
+Bond & transmission line & spring & inter-node connection \\
+\hline
+State & voltage / $V_{\text{inc}}$ & force / displacement & propagating quantity \\
+\hline
+Boundary & charged surface & yield surface & $\Gamma = -1$ saturation surface \\
+\hline
+Linking number $\mathcal{Q}$ & charge $Q$ & --- & integer per boundary \\
+\hline
+Winding number $\mathcal{J}$ & spin $J$ / mag.~moment & rotation & half-integer per SU(2) \\
+\hline
+Strain integral $\mathcal{M}$ & inductance $L$ / inertia & inertia (kg) & substrate mass-equivalent \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{The three substrate invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$
+are the only externally observable invariants at any local $\Gamma = -1$
+boundary} (substrate-observability rule; canonical statement in the Common
+Foreword $\S$``Three Boundary Observables and the Substrate-Observability
+Rule''). This is the no-hair theorem applied at every scale --- from electron
+horn-torus tube wall to cosmic horizon, the same three integrated invariants
+appear at every $\Gamma = -1$ saturation surface (electron, nucleus, atom,
+planetary magnetopause, black-hole event horizon, cosmic horizon).
+
+\textbf{Canonical picture-first reference:}
+\texttt{ave-kb/common/trampoline-framework.md} --- six-step
+ground-up build (rubber sheet $\to$ trampoline $\to$ springs too long $\to$
+press center $\to$ bubble wand $\to$ 3D sphere) covering substrate / node /
+bond / state / boundary / envelope vocabulary, three storage modes,
+saturation kernel, and inter-cell coupling.
+
+\textbf{Cross-references:} the substrate-observability rule, three substrate
+invariants ($\mathcal{M}, \mathcal{Q}, \mathcal{J}$), shared-spring inter-cell
+coupling, and the cosmological initial-condition framing ($\Omega_{\text{freeze}}$)
+are formalized in the Common Foreword ($\S$``Three Boundary Observables and
+the Substrate-Observability Rule''), with extended treatment in Vol 3
+Ch~\ref{ch:cosmology} (Generative Cosmology) and Vol 3
+Ch~\ref{ch:bh_interior} (BH Interior Regime IV). The substrate-native
+vocabulary table is maintained in \texttt{docs/glossary.md}.
 
 \section{The Vacuum as an LC Resonant Condensate ($\mathcal{M}_A$)}
 
@@ -162,8 +223,11 @@ This isolates the Fine-Structure Constant: $\alpha$ is not the rigidity threshol
     \label{fig:rigidity_alpha}
 \end{figure}
 
-\textbf{2. Deriving $G$ via Thermodynamic Equilibrium:}
-Macroscopic Gravity ($G$) is emergent, representing the aggregate bulk modulus of $10^{40}$ interacting lattice links stretching under mechanical tension. It defines the Machian causal boundary of the universe ($R_H$). A local continuous wave equation cannot evaluate the total macroscopic size of its own medium without a boundary condition. However, as established in Chapter 10, cosmological expansion is governed by the latent heat of lattice genesis. The universe naturally asymptotes to a steady-state horizon ($H_\infty$) where the thermodynamic latent heat of node generation balances the holographic thermal capacity of the expanding surface area. $G$ scales to this thermodynamic graph equilibrium.
+\textbf{2. $G$ Closure (qualitative mechanism; quantitative Chain B$'$ is open work):}
+Macroscopic Gravity ($G$) is structurally the aggregate bulk modulus of $\sim\!10^{40}$ interacting lattice links stretching under mechanical tension, defining the Machian causal boundary of the universe ($R_H$). A local continuous wave equation cannot evaluate the total macroscopic size of its own medium without a boundary condition. Conceptually, the universe asymptotes to a steady-state horizon ($H_\infty$) at which the thermodynamic latent heat of node generation would balance the holographic thermal capacity of the expanding surface area --- and $G$ would scale to this thermodynamic graph equilibrium. This is the \emph{qualitative mechanism} for a substrate-local $G$ derivation; the \emph{quantitative closure has not been derived in closed form}. The operational $G$ derivation in Vol~3 Ch~\ref{ch:gravity_and_yield} routes through the Machian-impedance integral $\xi = 4\pi(R_H/\ell_{node})\alpha^{-2}$ with $R_H \equiv c/H_\infty$ substituted in, producing the consistency identity $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ --- one algebraic constraint linking the pair $(G, H_\infty)$, not two independent emergence-class (Class~D) predictions. The engine treats $G$ as Bounding Limit~3 (CODATA input) consistent with this status. Closing $G$ to a fully substrate-local emergence-class derivation is open work --- the open Chain~B$'$ research agenda.
+
+\medskip
+\noindent\textbf{Refinement per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD).} The $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ relation is more precisely a \textbf{Class E operating-point projection} that includes Class C consistency-check sub-structure. The set $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ is joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge (per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade). The framework's testable content is the joint constraint on these N observables --- failure of any one falsifies the operating-point and therefore the entire substrate model --- not four independent percent-error claims.
 
 \begin{figure}[h]
     \centering
@@ -175,7 +239,7 @@ Macroscopic Gravity ($G$) is emergent, representing the aggregate bulk modulus o
 \textbf{3. Deriving $\ell_{node}$ via Scale Invariance:}
 Volume II demonstrates that the subatomic equations producing discrete, gapped orbitals apply identically to macroscopic solar accretion rings, reproducing the Saturnian gap structure by scaling the input mass and radius. The universe is a macroscopic \textbf{Scale Invariant} fractal graph. Absolute distance therefore does not exist as a physical parameter; $\ell_{node}$ is evaluated as the dimensionless integer $\mathbf{1}$.
 
-When all three of these integrations are evaluated, the AVE framework reduces to an \textbf{Absolute Zero-Parameter Theory}. The universe operates as a self-optimising mathematical graph.
+Pathways 1 and 3 ($\alpha$ closure via the Golden Torus; $\ell_{node}$ closure via scale invariance) are closed in current corpus. Pathway 2 ($G$ closure via substrate-local thermodynamics) is \emph{qualitatively identified but quantitatively open}: the corpus carries the mechanism story but no closed-form Chain~B$'$ derivation of $G$ from substrate primitives that avoids routing through $R_H$. The framework is \textbf{structurally closed} (zero-parameter operating point $u_0^* \approx 0.187$ identified; Class~E operating-point projection per \texttt{consistency-vs-emergence} v1.1 links $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ joint-constrained at the cosmic horizon) but \emph{not yet a closed-form zero-parameter theory} pending Chain~B$'$ closure.
 
 \section{Methodology: Explicit Discrete Kirchhoff Execution}
 While the manuscript often evaluates continuous PDEs (the macroscopic fluid approximation) to derive standard physical laws, the true AVE vacuum is strictly a discrete networked graph. 

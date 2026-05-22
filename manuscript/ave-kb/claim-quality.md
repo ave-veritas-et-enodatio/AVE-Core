@@ -138,7 +138,7 @@ Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\vare
 - _Specific Claims_
   - Under Symmetric Gravity, $\alpha$ is **exactly invariant**: $\varepsilon$ and $c$ carry compensating $n \cdot S$ factors that cancel in the $\alpha$ expression.
   - Multi-species $\Delta\alpha/\alpha = 0$ across gravitational potentials.
-  - Lattice decomposition: $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governs clock rate / redshift; $n_{spatial} = (9/7)\varepsilon_{11}$ governs light deflection. Axiom 3's $n(r) = 1 + 2GM/(c^2 r)$ is the temporal component only.
+  - Lattice decomposition: $n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governs clock rate / redshift; $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ governs light deflection. Axiom 3's $n(r) = 1 + 2GM/(c^2 r)$ is the temporal component only.
 - _Specific Non-Claims and Caveats_
   - Does NOT claim the framework predicts $\Delta\alpha \neq 0$ in any gravitational regime.
   - Does NOT claim $\alpha$ invariance under arbitrary saturation — invariance is specifically under **symmetric** saturation. Asymmetric saturation breaks the $n \cdot S$ cancellation.
@@ -152,7 +152,7 @@ Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\vare
 - depends-on:
   - clm-8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
 - solidity: 0.72 (ok to build on, see caveats) [= 0.85 × 0.85]
-- rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
+- rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
 - strengthen-by:
   - Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)
   - Strengthen Symmetric vs Asymmetric Saturation (`clm-8nkvwy`); the symmetric-case identification is the dependency
