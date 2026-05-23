@@ -325,8 +325,9 @@ class TestDiscoverKb(unittest.TestCase):
         # `<!-- id: clm-xxxxxx -->` inside a fenced ``markdown`` code block in
         # the Quality Convention example. The library strips code fences
         # before extracting canonical IDs, so that example is NOT counted.
-        # Five real entries in the root register + three in common/ = 8.
-        self.assertEqual(len(self.state.claim_entries), 8)
+        # Five real entries in the root register + four in common/ = 9
+        # (common/ adds clm-co1111, the co-hosted claim+experiment leaf).
+        self.assertEqual(len(self.state.claim_entries), 9)
 
     def test_every_leaf_with_claims_present(self):
         # Build the set of leaf paths from a parallel walk and intersect.
@@ -371,12 +372,14 @@ class TestBuildClaimsRecords(unittest.TestCase):
         from collections import Counter
 
         counts = Counter(r["node_type"] for r in self.records)
-        # 8 claims + 1 experiment + 4 invariants + 4 axioms = 17 nodes.
-        self.assertEqual(counts["claim"], 8)
-        self.assertEqual(counts["experiment"], 1)
+        # 9 claims + 2 experiments + 4 invariants + 4 axioms = 19 nodes.
+        # (exp-bench1 owned by exp-bench.md; exp-cohst1 co-hosted with
+        # clm-co1111 on leaf-cohost.md.)
+        self.assertEqual(counts["claim"], 9)
+        self.assertEqual(counts["experiment"], 2)
         self.assertEqual(counts["invariant"], 4)
         self.assertEqual(counts["axiom"], 4)
-        self.assertEqual(len(self.records), 17)
+        self.assertEqual(len(self.records), 19)
 
     def test_sorted_by_node_type_then_id(self):
         keys = [(r["node_type"], r["id"]) for r in self.records]
@@ -401,7 +404,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "citation_count",
         ]
         claim_recs = [r for r in self.records if r["node_type"] == "claim"]
-        self.assertEqual(len(claim_recs), 8)
+        self.assertEqual(len(claim_recs), 9)
         for rec in claim_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 

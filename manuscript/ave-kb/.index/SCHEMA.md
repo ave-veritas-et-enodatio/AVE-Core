@@ -1,15 +1,17 @@
 # AVE-KB Derived Index — Schema Specification
 
-**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation, exp- experiment nodes + `experiments:` references). Last revised 2026-05-22.
+**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation, exp- experiment nodes + `experiments:` references; experiment-ness conferred by hosting an `exp-id`, `claims:`+`exp-id:` co-hosting allowed). Last revised 2026-05-23.
 **Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
 - Leaf frontmatter (`claims:`, `experiments:`, `subtree-claims:`, `subtree-experiments:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
-- Experiment-leaf frontmatter (`exp-id:`, `status:`, `strengthens:`) in every `kind: experiment` leaf (INVARIANT-S9).
+- Experiment-hosting frontmatter (`exp-id:`, `status:`, `strengthens:`) in every leaf that hosts an experiment node — experiment-ness is conferred by HOSTING an `exp-id`, not by a `kind` (the container `kind` stays `leaf` / `leaf-as-index`). A leaf may host both `claims:` and `exp-id:` (orthogonal node-bodies) (INVARIANT-S9).
 - Tier 2 inline markers (`<!-- claim-quality: <id> ... -->`) in multi-claim leaves.
 - Claim-quality entries in every `claim-quality.md` register (root, per-volume, common).
 
 Every file here is regeneratable from those canonical sources via `make refresh-kb-metadata`. If any file here disagrees with what regeneration would produce, the canonical sources win and the file is rebuilt. The freshness verifier (`make verify-kb-metadata`) runs the build in dry-run and diffs against on-disk; non-empty diff = stale index = hard failure.
+
+**Two-graph model.** A KB `.md` leaf is a **container**, and two orthogonal graphs run through it. (1) The **topography graph** — the hyperlink/navigation tree — in which a container's `kind` (`leaf` | `leaf-as-index` | `index` | `entry-point`) is its structural-position label; `kind` does NOT encode node-flavor. (2) The **claim graph** — an acyclic graph of `clm` (claim) and `exp` (experiment) node-bodies a leaf *originates*, connected by `strengthens` (exp→clm) and `references` (leaf→exp) edges. A single container may originate several node-bodies (e.g. both a `claims:` list and an `exp-id:`); these are declared additively in frontmatter and are independent of the container's `kind`. The reverse views materialized here (`strengthen-by`, `cites`) are untraversed bookkeeping — convenience indexes, not part of the forward acyclic graph.
 
 ---
 
@@ -35,7 +37,7 @@ These hold across every regeneration. They are checked by `personant verify`-sty
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
 3. **Schema closure.** Every record matches the schema in this document. Unknown fields are a hard verifier failure (catches drift between schema and emitter).
 4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim, framework, **and experiment** nodes. For a `relation:"depends"` edge: `source` resolves to a claim, `target` may resolve to any node type, and `target_kind` must equal the resolved target's `node_type` (kind-match). For a `relation:"strengthens"` edge: `source` resolves to an **experiment** node, `target` resolves to a **claim** (and `target_kind == "claim"`); experiment nodes are never edge `target`s and never appear in `cites`. `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference **claim** ids only; `subtree-aggregates` `subtree_experiments` references **experiment** ids only (a claim id there is a kind mismatch). The `\bexp-[a-z0-9]{6}\b` id format is enforced for experiment nodes. (Orphan, kind-mismatch, or relation/source-type mismatch is a verifier failure.)
-   - **Leaf `experiments:` references.** A leaf may carry an optional `experiments: [exp-xxxxxx, ...]` frontmatter field — the experiment-reference analog of `claims:` (a leaf-level citation, the inverse of an experiment's Leaf-references; NOT rolled up transitively, NOT for mere prose mentions). Every id in any leaf's `experiments:` must be a well-formed exp-id AND resolve to an actual experiment node (an `exp-id`-declaring leaf). An id that resolves to a claim (`clm-`) instead of an experiment, or resolves to nothing, is a hard verifier failure (not refresh-fixable). The field is **additive**: it is allowed alongside `claims:` OR `no-claim:` and is **not** a primary field — a referencing leaf still satisfies Tier 1 coverage via `claims:`/`no-claim:`. An owning (`exp-id`) experiment leaf must **not** also carry `experiments:` (exclusivity, like `claims:`/`exp-id:`).
+   - **Leaf `experiments:` references.** A leaf may carry an optional `experiments: [exp-xxxxxx, ...]` frontmatter field — the experiment-reference analog of `claims:` (a leaf-level citation, the inverse of an experiment's Leaf-references; NOT rolled up transitively, NOT for mere prose mentions). Every id in any leaf's `experiments:` must be a well-formed exp-id AND resolve to an actual experiment node (an `exp-id`-declaring leaf). An id that resolves to a claim (`clm-`) instead of an experiment, or resolves to nothing, is a hard verifier failure (not refresh-fixable). The field is **additive**: it is allowed alongside `claims:` OR `no-claim:` and is **not** a primary field — a referencing leaf still satisfies Tier 1 coverage via `claims:`/`no-claim:`. An owning (`exp-id`) experiment-hosting leaf must **not** also carry `experiments:` (an owner does not also reference foreign experiments). Note this is the ONLY exclusivity that survives: `claims:` and `exp-id:` are **not** mutually exclusive — they are orthogonal node-bodies and may co-exist on one leaf.
 5. **Single newline EOF.** Every file ends with exactly one `\n`. (Catches editor mishaps and trailing-whitespace creep.)
 6. **JSON valid.** Every line parses as a JSON object. (Catches partial writes and merge corruption.)
 
@@ -47,7 +49,7 @@ All field types are JSON types: `string`, `number` (float), `integer`, `boolean`
 
 ### `claims.jsonl`
 
-Despite the name, `claims.jsonl` holds **four node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom` | `experiment`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`; **experiment nodes** are one per `<!-- exp-id: exp-xxxxxx -->` declaration in an experiment leaf (INVARIANT-S9). The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
+Despite the name, `claims.jsonl` holds **four node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom` | `experiment`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`; **experiment nodes** are one per `exp-id: exp-xxxxxx` declaration in a leaf that hosts an experiment — regardless of whether that same leaf also originates `claims:` (INVARIANT-S9). The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
 
 **Claim record** (`node_type: "claim"`) — `node_type` is the FIRST field. `derivation_solidity` (min-branch) and `experimental_solidity` (max-branch) are the two solidity sources; `solidity` is their `max`. 15 fields total.
 
@@ -92,7 +94,7 @@ Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anch
 }
 ```
 
-Experiment field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `status`. A **physical** experiment only — simulations are NOT experiments (a simulation feeds derivation confidence, not experimental solidity). Experiment leaves are NOT claim-bearing (`claims:` and `exp-id:` are mutually exclusive on a leaf).
+Experiment field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `status`. A **physical** experiment only — simulations are NOT experiments (a simulation feeds derivation confidence, not experimental solidity). A leaf hosting an `exp-id` MAY also originate its own `claims:` — `claims:` and `exp-id:` are orthogonal node-bodies in one container, not mutually exclusive. When co-hosted, the leaf emits BOTH a `node_type: claim` record and a `node_type: experiment` record, and the experiment's `strengthens` edge may target that same leaf's own claim (a node→node edge between two distinct co-located nodes — not a self-loop).
 
 **Framework record** (`node_type: "invariant"` or `"axiom"`) — exactly 5 fields. Framework nodes carry no scoring fields: they are **solidity-1.0 by definition** (framework bedrock). This is a documented rule, not a stored field.
 
@@ -306,7 +308,7 @@ files                                                    WRITTEN (new)
 `refresh-kb-metadata.py` is idempotent: same canonical state → same outputs, byte-identical.
 
 `check-claim-quality.py` (extended):
-- Runs all existing checks (Tier 1, Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity).
+- Runs all existing checks (Tier 1 coverage — a leaf declares its content via at least one of `{claims, no-claim, exp-id}`; Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity — `claims` and `no-claim` stay mutually exclusive with each other, but `exp-id` is orthogonal to both).
 - runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
 - validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
 - validates referential integrity (every id referenced in any non-claims file appears in claims.jsonl).

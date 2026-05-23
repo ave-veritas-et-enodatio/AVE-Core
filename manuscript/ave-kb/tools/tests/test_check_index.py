@@ -445,13 +445,15 @@ def _read_jsonl(path: Path) -> list[dict]:
     ]
 
 
-# A minimal valid experiment leaf, parameterized so negative variants can
-# perturb a single field. Frontmatter mirrors common/exp-bench.md.
+# A minimal valid experiment-hosting leaf, parameterized so negative variants
+# can perturb a single field. Frontmatter mirrors common/exp-bench.md:
+# experiment-ness is conferred by HOSTING an exp-id, not by a kind (the
+# container kind is `leaf`).
 _EXP_LEAF_TEMPLATE = """\
 [↑ Mini-KB Common](index.md)
 
 <!-- kb-frontmatter
-kind: experiment
+kind: leaf
 {fields}
 -->
 
@@ -499,7 +501,11 @@ class TestExperimentEndToEnd(unittest.TestCase):
 
     def test_experiment_node_emitted_into_claims_jsonl(self):
         """The experiment is a 6-field, schema-ordered claims.jsonl node."""
-        exps = [r for r in self.claims if r["node_type"] == "experiment"]
+        exps = [
+            r
+            for r in self.claims
+            if r["node_type"] == "experiment" and r["id"] == "exp-bench1"
+        ]
         self.assertEqual(len(exps), 1)
         rec = exps[0]
         self.assertEqual(
@@ -587,6 +593,85 @@ class TestExperimentEndToEnd(unittest.TestCase):
         self.assertEqual(before, after)
 
 
+class TestCoHostedClaimAndExperiment(unittest.TestCase):
+    """End-to-end: one container hosting BOTH a claim node and an experiment
+    node (INVARIANT-S9), through the real refresh -> verify pipeline.
+
+    The committed fixture carries ``common/leaf-cohost.md`` — a ``kind: leaf``
+    that declares ``claims: [clm-co1111]`` AND ``exp-id: exp-cohst1`` whose
+    ``strengthens`` edge targets that same co-located claim. This exercises the
+    genuinely-new path: ``claims:`` and ``exp-id:`` co-existing on one leaf.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+        cls.claims = _read_jsonl(cls.index_dir / "claims.jsonl")
+        cls.edges = _read_jsonl(cls.index_dir / "depends-on.jsonl")
+        cls.by_id = {r["id"]: r for r in cls.claims if "id" in r}
+
+    def test_leaf_parses_as_both_claim_and_experiment_host(self):
+        """parse_leaf sees the claim; parse_experiment_leaf sees the exp — both
+        from the one container, with no short-circuit between them."""
+        lib = sys.modules.get("kb_index_lib")
+        if lib is None:
+            import kb_index_lib as lib  # noqa: F811
+        path = self.kb_root / "common" / "leaf-cohost.md"
+        leaf = lib.parse_leaf(path, self.kb_root)
+        self.assertIsNotNone(leaf)
+        self.assertEqual(leaf.claims, ("clm-co1111",))
+        exp = lib.parse_experiment_leaf(path, self.kb_root)
+        self.assertIsNotNone(exp)
+        self.assertEqual(exp.id, "exp-cohst1")
+        self.assertEqual(exp.strengthens, (("clm-co1111", 0.90),))
+
+    def test_both_node_records_emitted(self):
+        """The container emits a claim node AND an experiment node into
+        claims.jsonl — two distinct records from one leaf."""
+        self.assertIn("clm-co1111", self.by_id)
+        self.assertEqual(self.by_id["clm-co1111"]["node_type"], "claim")
+        exp = self.by_id.get("exp-cohst1")
+        self.assertIsNotNone(exp)
+        self.assertEqual(exp["node_type"], "experiment")
+        self.assertEqual(exp["canonical_path"], "common/leaf-cohost.md")
+        self.assertEqual(exp["status"], "run")
+
+    def test_strengthens_edge_to_own_claim(self):
+        """The exp->clm strengthens edge targets the leaf's own co-located
+        claim (a node->node edge between two distinct node-bodies)."""
+        edges = [
+            e
+            for e in self.edges
+            if e["source"] == "exp-cohst1" and e["target"] == "clm-co1111"
+        ]
+        self.assertEqual(len(edges), 1)
+        self.assertEqual(edges[0]["relation"], "strengthens")
+        self.assertEqual(edges[0]["target_kind"], "claim")
+        self.assertEqual(edges[0]["strength"], 0.90)
+
+    def test_experiment_raises_claim_experimental_solidity(self):
+        """clm-co1111: derivation pending, experimental 0.90, final 0.90."""
+        rec = self.by_id["clm-co1111"]
+        self.assertIsNone(rec["derivation_solidity"])
+        self.assertEqual(rec["experimental_solidity"], 0.90)
+        self.assertEqual(rec["solidity"], 0.90)
+
+    def test_owning_index_subtree_experiments_lists_exp(self):
+        """common/ index subtree-experiments aggregates the owned exp-cohst1
+        even though its owning leaf also hosts a claim (owned-only, kind-blind)."""
+        agg = _read_jsonl(self.index_dir / "subtree-aggregates.jsonl")
+        common = next(r for r in agg if r["node_path"] == "common/index.md")
+        self.assertIn("exp-cohst1", common["subtree_experiments"])
+
+    def test_pipeline_passes_with_cohosted_leaf(self):
+        """The full refresh -> verify pipeline exits 0 on the fixture."""
+        result = _run_checker(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+
 class TestExperimentLeafRejection(unittest.TestCase):
     """Negative coverage: malformed experiment leaves are rejected.
 
@@ -605,12 +690,19 @@ class TestExperimentLeafRejection(unittest.TestCase):
             leaf.write_text(leaf_text, encoding="utf-8")
             return lib.parse_experiment_leaf(leaf, root), lib
 
-    def test_claim_bearing_experiment_leaf_rejected(self):
-        """(a) An experiment leaf that also carries claims: is rejected."""
+    def test_claim_bearing_experiment_leaf_accepted(self):
+        """(a) A leaf hosting BOTH claims: and an exp-id is ACCEPTED — they are
+        orthogonal node-bodies in one container (INVARIANT-S9). The experiment
+        node parses regardless of the co-hosted claim.
+
+        Flipped from the prior exclusivity-rejection assertion: `exp-id` is no
+        longer mutually exclusive with `claims:`.
+        """
         text = _exp_leaf(extra="claims: [clm-aa1111]")
-        _, lib = self._parse(_exp_leaf())  # warm import
-        with self.assertRaises(lib.ExperimentLeafError):
-            self._parse(text)
+        node, _ = self._parse(text)
+        self.assertIsNotNone(node)
+        self.assertEqual(node.id, "exp-neg001")
+        self.assertEqual(node.strengthens, (("clm-gg7777", 0.50),))
 
     def test_bad_exp_id_format_rejected(self):
         """(b) A malformed exp-id (wrong shape) is rejected."""
@@ -732,10 +824,10 @@ class TestExperimentsReferenceEndToEnd(unittest.TestCase):
         self.assertIsNotNone(leaf.no_claim_reason)
 
     def test_common_index_subtree_experiments_lists_exp(self):
-        """After refresh, common/ index subtree-experiments lists exp-bench1."""
+        """After refresh, common/ index subtree-experiments includes exp-bench1."""
         agg = _read_jsonl(self.index_dir / "subtree-aggregates.jsonl")
         common = next(r for r in agg if r["node_path"] == "common/index.md")
-        self.assertEqual(common["subtree_experiments"], ["exp-bench1"])
+        self.assertIn("exp-bench1", common["subtree_experiments"])
 
     def test_subtree_experiments_is_owned_only_not_reference(self):
         """The aggregate counts the OWNED experiment, not the referencing leaf.
@@ -747,9 +839,8 @@ class TestExperimentsReferenceEndToEnd(unittest.TestCase):
         agg = _read_jsonl(self.index_dir / "subtree-aggregates.jsonl")
         for rec in agg:
             # No duplication: exp-bench1 appears at most once per node.
-            self.assertEqual(
-                rec["subtree_experiments"].count("exp-bench1"),
-                len(rec["subtree_experiments"]),
+            self.assertLessEqual(
+                rec["subtree_experiments"].count("exp-bench1"), 1
             )
 
     def test_pipeline_passes_with_reference_leaf(self):
@@ -834,14 +925,13 @@ class TestExperimentsReferenceRejection(unittest.TestCase):
             kb = _materialize_fixture(Path(tmp))
             idx = kb / "common" / "index.md"
             text = idx.read_text(encoding="utf-8")
-            self.assertIn("subtree-experiments: [exp-bench1]", text)
-            idx.write_text(
-                text.replace(
-                    "subtree-experiments: [exp-bench1]",
-                    "subtree-experiments: []",
-                ),
-                encoding="utf-8",
+            new_text, n = re.subn(
+                r"subtree-experiments: \[[^\]]*\]",
+                "subtree-experiments: []",
+                text,
             )
+            self.assertEqual(n, 1, "no subtree-experiments line to corrupt")
+            idx.write_text(new_text, encoding="utf-8")
             result = _run_checker(kb)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("subtree-experiments drift", result.stdout)

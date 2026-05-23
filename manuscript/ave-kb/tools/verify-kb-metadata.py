@@ -12,8 +12,10 @@ Fourteen checks, all hard fail-loud:
        ``<!-- id: clm-xxxxxx -->`` marker. An orphan ``### Quality`` block is
        a hard failure. (Not refresh-fixable; delete the orphan or restore the
        missing title/id.)
-    1. Tier 1 coverage: every leaf has either ``claims:`` or ``no-claim:`` in
-       its frontmatter (mutually exclusive).
+    1. Tier 1 coverage: every leaf declares its content via at least one of
+       ``{claims:, no-claim:, exp-id:}`` (hosting an experiment node satisfies
+       coverage on its own). ``claims`` and ``no-claim`` stay mutually exclusive
+       with each other; ``exp-id`` is orthogonal and may co-exist with either.
     2. Tier 2 coverage: every multi-claim leaf has proximal inline markers
        (``<!-- claim-quality: <id> ... -->``) for each ID in its claims list.
     3. ID uniqueness: no canonical ``<!-- id: clm-xxxxxx -->`` appears twice
@@ -250,7 +252,15 @@ def check_frontmatter_presence(files: list[tuple[Path, dict | None]]):
 
 
 def check_tier1_coverage(files: list[tuple[Path, dict | None]]):
-    """Leaf or leaf-as-index missing both claims and no-claim, OR with both."""
+    """Leaf coverage: a leaf must declare its content via at least one of
+    ``{claims, no-claim, exp-id}``.
+
+    Hosting an experiment node (``exp-id``) satisfies coverage on its own — a
+    leaf that originates only an experiment needs neither ``claims:`` nor
+    ``no-claim:`` (INVARIANT-S9). ``claims`` and ``no-claim`` remain mutually
+    exclusive *with each other*; ``exp-id`` is orthogonal to both and may
+    co-exist with either.
+    """
     failures = []
     for p, fm in files:
         if fm is None:
@@ -260,8 +270,11 @@ def check_tier1_coverage(files: list[tuple[Path, dict | None]]):
             continue
         has_claims = "claims" in fm and bool(fm["claims"])
         has_no_claim = "no-claim" in fm and bool(fm["no-claim"])
-        if not has_claims and not has_no_claim:
-            failures.append((str(p.relative_to(KB)), "neither claims nor no-claim"))
+        has_exp = "exp-id" in fm and bool(fm["exp-id"])
+        if not has_claims and not has_no_claim and not has_exp:
+            failures.append(
+                (str(p.relative_to(KB)), "none of claims / no-claim / exp-id")
+            )
         elif has_claims and has_no_claim:
             failures.append((str(p.relative_to(KB)), "BOTH claims and no-claim"))
     return failures

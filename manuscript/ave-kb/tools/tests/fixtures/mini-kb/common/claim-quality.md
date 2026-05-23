@@ -59,3 +59,21 @@ survive as distinct records.
 - rationale: synthetic double-INVARIANT-S2-from-one-owner case.
 - strengthen-by:
   - Merge the two context treatments so the claim cites INVARIANT-S2 once.
+
+---
+
+## Co-Hosted Prediction Claim I
+<!-- id: clm-co1111 -->
+
+A claim stated by the same leaf that ALSO hosts the experiment which tests it
+(co-hosting — `claims:` and `exp-id:` are orthogonal node-bodies in one
+container, INVARIANT-S9). Its derivation is `*pending*`, so its derivation
+branch is null; the co-located `run` experiment exp-cohst1 strengthens it at
+0.90, the only non-null branch, so its final solidity is 0.90 (max-branch).
+
+### Quality
+- confidence: *pending*
+- solidity: 0.90 (ok to build on)
+- rationale: synthetic co-hosted claim+experiment; derivation pending, experimental branch governs.
+- strengthen-by:
+  - Author the derivation so the claim also scores a derivation branch.

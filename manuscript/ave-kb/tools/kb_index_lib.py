@@ -799,11 +799,13 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
 
 
 class ExperimentLeafError(ValueError):
-    """Raised when an ``kind: experiment`` leaf is malformed.
+    """Raised when a leaf hosting an ``exp-id`` experiment node is malformed.
 
-    The leaf either carries a claim-bearing field (``claims:`` / ``no-claim:``,
-    mutually exclusive with ``exp-id:`` per INVARIANT-S9) or an ``exp-id`` that
-    does not match the ``\\bexp-[a-z0-9]{6}\\b`` format.
+    The leaf carries an ``exp-id`` that does not match the
+    ``\\bexp-[a-z0-9]{6}\\b`` format, a ``status`` outside ``{run, pending}``,
+    or an ``experiments:`` reference field (an owning experiment-hosting leaf
+    must not also reference other experiments). Co-hosting ``claims:`` is
+    allowed — ``exp-id`` and ``claims:`` are orthogonal node-bodies (INVARIANT-S9).
     """
 
 
@@ -822,18 +824,25 @@ def _experiment_heading(text: str) -> str:
 
 
 def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
-    """Parse a ``kind: experiment`` leaf into an ExperimentNode (INVARIANT-S9).
+    """Parse an experiment-hosting leaf into an ExperimentNode (INVARIANT-S9).
 
-    Returns ``None`` if the file has no frontmatter or its kind is not
-    ``experiment``. The frontmatter carries ``exp-id``, ``status``, and a
-    ``strengthens:`` block of ``clm-<id>: <strength>`` pairs (one per line,
-    indented under the ``strengthens:`` key). ``strengthens`` pairs are
-    returned in source order.
+    Experiment-ness is conferred by a leaf HOSTING an ``exp-id``, not by a
+    ``kind``: any ``kind: leaf`` or ``kind: leaf-as-index`` container that
+    carries a well-formed ``exp-id:`` originates an experiment node, regardless
+    of whether it ALSO carries ``claims:`` (the two are orthogonal node-bodies
+    in one container). Returns ``None`` if the file has no frontmatter, is not a
+    leaf-kind container, or declares no ``exp-id``.
 
-    Raises :class:`ExperimentLeafError` when the leaf violates INVARIANT-S9:
-    it carries ``claims:`` / ``no-claim:`` (mutually exclusive with ``exp-id``),
-    it carries an ``experiments:`` reference field (an owning experiment leaf
-    must not also reference other experiments), or its ``exp-id`` is malformed.
+    The frontmatter carries ``exp-id``, ``status``, and a ``strengthens:`` block
+    of ``clm-<id>: <strength>`` pairs (one per line, indented under the
+    ``strengthens:`` key). ``strengthens`` pairs are returned in source order;
+    a target may include a claim originated by this same leaf (a node→node edge
+    between two distinct co-located node-bodies — not a self-loop).
+
+    Raises :class:`ExperimentLeafError` when the leaf carries an
+    ``experiments:`` reference field (an owning experiment-hosting leaf must not
+    also reference other experiments), its ``exp-id`` is malformed, or its
+    ``status`` is outside ``{run, pending}``.
     """
     text = path.read_text()
     m = _FRONTMATTER_RE.search(text)
@@ -842,12 +851,13 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
     body = m.group(1)
     lines = body.splitlines()
 
-    # Quick top-level scan: kind, exp-id, status, and detection of the
-    # claim-bearing fields. ``strengthens:`` opens an indented sub-block.
+    # Quick top-level scan: kind, exp-id, status, and detection of an
+    # `experiments:` reference field. ``strengthens:`` opens an indented
+    # sub-block. ``claims:`` / ``no-claim:`` are NOT inspected here — they are
+    # the leaf's separate claim node-body, orthogonal to the experiment.
     kind = ""
     exp_id: str | None = None
     status: str | None = None
-    has_claims = False
     has_experiments_ref = False
     in_strengthens = False
     pairs: list[tuple[str, float]] = []
@@ -875,35 +885,31 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
                 exp_id = value
             elif key == "status":
                 status = value
-            elif key in ("claims", "no-claim"):
-                if value:
-                    has_claims = True
             elif key == "experiments":
                 if value:
                     has_experiments_ref = True
 
-    if kind != "experiment":
+    # Only leaf-kind containers host experiment node-bodies; a container with
+    # no exp-id originates no experiment (the common case — return None).
+    if kind not in ("leaf", "leaf-as-index"):
+        return None
+    if exp_id is None:
         return None
 
     rel = _posix_relative(path, kb_root)
-    if has_claims:
-        raise ExperimentLeafError(
-            f"{rel}: kind: experiment leaf carries claims:/no-claim: — "
-            f"mutually exclusive with exp-id (INVARIANT-S9)."
-        )
     if has_experiments_ref:
         raise ExperimentLeafError(
-            f"{rel}: kind: experiment leaf carries experiments: — an owning "
+            f"{rel}: experiment-hosting leaf carries experiments: — an owning "
             f"experiment leaf must not also reference other experiments."
         )
-    if exp_id is None or not _EXP_ID_RE.fullmatch(exp_id):
+    if not _EXP_ID_RE.fullmatch(exp_id):
         raise ExperimentLeafError(
-            f"{rel}: kind: experiment leaf has missing or malformed exp-id "
+            f"{rel}: experiment-hosting leaf has malformed exp-id "
             f"{exp_id!r} (expected \\bexp-[a-z0-9]{{6}}\\b)."
         )
     if status not in ("run", "pending"):
         raise ExperimentLeafError(
-            f"{rel}: kind: experiment leaf has invalid status {status!r} "
+            f"{rel}: experiment-hosting leaf has invalid status {status!r} "
             f"(expected 'run' or 'pending')."
         )
 
@@ -992,17 +998,21 @@ def discover_kb(
     indexes: list[IndexRecord] = []
     experiments: list[ExperimentNode] = []
     for p in _kb_files(kb_root):
+        # A single container may host BOTH a claim node-body (parsed as a
+        # LeafRecord) AND an experiment node-body (parsed as an ExperimentNode):
+        # `kind` is the container's role in the topography graph, while `claims:`
+        # and `exp-id:` are orthogonal claim-graph node-bodies it originates.
+        # Run both parsers; do not short-circuit (INVARIANT-S9).
         leaf = parse_leaf(p, kb_root)
         if leaf is not None:
             leaves.append(leaf)
-            continue
         exp = parse_experiment_leaf(p, kb_root)
         if exp is not None:
             experiments.append(exp)
-            continue
-        idx = _parse_index(p, kb_root)
-        if idx is not None:
-            indexes.append(idx)
+        if leaf is None and exp is None:
+            idx = _parse_index(p, kb_root)
+            if idx is not None:
+                indexes.append(idx)
 
     framework_nodes = parse_framework_nodes(kb_root)
 

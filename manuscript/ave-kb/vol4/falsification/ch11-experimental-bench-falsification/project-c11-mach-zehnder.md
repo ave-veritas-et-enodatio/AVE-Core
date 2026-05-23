@@ -1,7 +1,7 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 
 <!-- kb-frontmatter
-kind: experiment
+kind: leaf
 exp-id: exp-7jekc6
 status: pending
 strengthens:
