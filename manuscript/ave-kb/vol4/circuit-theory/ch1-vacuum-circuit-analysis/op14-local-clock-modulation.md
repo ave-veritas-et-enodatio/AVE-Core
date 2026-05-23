@@ -115,7 +115,7 @@ The Op14 local-clock mechanism is testable wherever local saturation can be modu
   - Vol 4 Ch 1 §sec:thixotropic-relaxation — Op14 dynamic impedance derivation
   - Vol 1 Ch 6 (universal operators) — Op14 in operator catalog
 - **KB cross-cutting:**
-  - [Lattice Impedance Decomposition](lattice-impedance-decomposition.md) — $Z_{\text{eff}}(r) = Z_0 / \sqrt{S}$ canonical
+  - [Lattice Impedance Decomposition](../../../vol1/operators-and-regimes/ch6-universal-operators/lattice-impedance-decomposition.md) — $Z_{\text{eff}}(r) = Z_0 / \sqrt{S}$ canonical
   - [Theorem 3.1 Q-factor](theorem-3-1-q-factor.md) — TIR-boundary leakage at Op14-modulated impedance
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — Op14 as 21-instance kernel application
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](../../../common/boundary-observables-m-q-j.md) — substrate-observability rule using local-clock-frozen interior

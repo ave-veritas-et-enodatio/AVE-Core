@@ -1,14 +1,17 @@
 # AVE-KB Derived Index — Schema Specification
 
-**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation). Last revised 2026-05-16.
+**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation, exp- experiment nodes + `experiments:` references; experiment-ness conferred by hosting an `exp-id`, `claims:`+`exp-id:` co-hosting allowed). Last revised 2026-05-23.
 **Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
-- Leaf frontmatter (`claims:`, `subtree-claims:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
+- Leaf frontmatter (`claims:`, `experiments:`, `subtree-claims:`, `subtree-experiments:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
+- Experiment-hosting frontmatter (`exp-id:`, `status:`, `strengthens:`) in every leaf that hosts an experiment node — experiment-ness is conferred by HOSTING an `exp-id`, not by a `kind` (the container `kind` stays `leaf` / `leaf-as-index`). A leaf may host both `claims:` and `exp-id:` (orthogonal node-bodies) (INVARIANT-S9).
 - Tier 2 inline markers (`<!-- claim-quality: <id> ... -->`) in multi-claim leaves.
 - Claim-quality entries in every `claim-quality.md` register (root, per-volume, common).
 
 Every file here is regeneratable from those canonical sources via `make refresh-kb-metadata`. If any file here disagrees with what regeneration would produce, the canonical sources win and the file is rebuilt. The freshness verifier (`make verify-kb-metadata`) runs the build in dry-run and diffs against on-disk; non-empty diff = stale index = hard failure.
+
+**Two-graph model.** A KB `.md` leaf is a **container**, and two orthogonal graphs run through it. (1) The **topography graph** — the hyperlink/navigation tree — in which a container's `kind` (`leaf` | `leaf-as-index` | `index` | `entry-point`) is its structural-position label; `kind` does NOT encode node-flavor. (2) The **claim graph** — an acyclic graph of `clm` (claim) and `exp` (experiment) node-bodies a leaf *originates*, connected by `strengthens` (exp→clm) and `references` (leaf→exp) edges. A single container may originate several node-bodies (e.g. both a `claims:` list and an `exp-id:`); these are declared additively in frontmatter and are independent of the container's `kind`. The reverse views materialized here (`strengthen-by`, `cites`) are untraversed bookkeeping — convenience indexes, not part of the forward acyclic graph.
 
 ---
 
@@ -16,9 +19,10 @@ Every file here is regeneratable from those canonical sources via `make refresh-
 
 | File | Records | Sort key | Purpose |
 |---|---|---|---|
-| `claims.jsonl` | one per graph node (claim / invariant / axiom) | `(node_type, id)` | Canonical graph nodes — claims plus framework nodes |
-| `depends-on.jsonl` | one per forward dependency edge | `(source, target, context)` | "What does X depend on?" / "What depends on Y?" |
+| `claims.jsonl` | one per graph node (claim / invariant / axiom / experiment / support) | `(node_type, id)` | Canonical graph nodes — claims, framework nodes, experiments, support nodes |
+| `depends-on.jsonl` | one per forward dependency edge (`depends` / `strengthens` / `supports`) | `(source, target, context)` | "What does X depend on / strengthen / support?" |
 | `strengthen-by.jsonl` | one per open work item | `(claim_id, item_idx)` | "What gates this claim?" / "Where is this strengthen-by item being worked on?" |
+| `supported-by.jsonl` | one per (claim, supporting support) edge | `(claim_id, sup_id)` | "Which support nodes lift claim X, and by how much?" (reverse view of `supports` edges; untraversed bookkeeping) |
 | `cites.jsonl` | one per (claim, leaf) citation edge | `(claim_id, leaf_path)` | "Which leaves cite claim X?" (inverse of leaf frontmatter) |
 | `subtree-aggregates.jsonl` | one per index / entry-point node | `node_path` | Precomputed subtree-claims aggregation |
 
@@ -33,7 +37,8 @@ These hold across every regeneration. They are checked by `personant verify`-sty
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
 3. **Schema closure.** Every record matches the schema in this document. Unknown fields are a hard verifier failure (catches drift between schema and emitter).
-4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim **and** framework nodes. A `depends-on` edge's `target` may resolve to any node type, and its `target_kind` must equal the resolved record's `node_type` (kind-match). `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference claim ids only. (Orphan or kind-mismatch is a verifier failure.)
+4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim, framework, **and experiment** nodes. For a `relation:"depends"` edge: `source` resolves to a claim, `target` may resolve to any node type, and `target_kind` must equal the resolved target's `node_type` (kind-match). For a `relation:"strengthens"` edge: `source` resolves to an **experiment** node, `target` resolves to a **claim** (and `target_kind == "claim"`); experiment nodes are never edge `target`s and never appear in `cites`. For a `relation:"supports"` edge (INVARIANT-S10): `source` resolves to a **support** node, `target` resolves to a **claim** (and `target_kind == "claim"`), `strength` is null, and `fraction` is non-null and in (0,1]. The `\bsup-[a-z0-9]{6}\b` id format is enforced for support nodes; `supported-by` `claim_id`/`sup_id` must resolve to a claim/support node respectively. `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference **claim** ids only; `subtree-aggregates` `subtree_experiments` references **experiment** ids only (a claim id there is a kind mismatch). The `\bexp-[a-z0-9]{6}\b` id format is enforced for experiment nodes. (Orphan, kind-mismatch, or relation/source-type mismatch is a verifier failure.)
+   - **Leaf `experiments:` references.** A leaf may carry an optional `experiments: [exp-xxxxxx, ...]` frontmatter field — the experiment-reference analog of `claims:` (a leaf-level citation, the inverse of an experiment's Leaf-references; NOT rolled up transitively, NOT for mere prose mentions). Every id in any leaf's `experiments:` must be a well-formed exp-id AND resolve to an actual experiment node (an `exp-id`-declaring leaf). An id that resolves to a claim (`clm-`) instead of an experiment, or resolves to nothing, is a hard verifier failure (not refresh-fixable). The field is **additive**: it is allowed alongside `claims:` OR `no-claim:` and is **not** a primary field — a referencing leaf still satisfies Tier 1 coverage via `claims:`/`no-claim:`. An owning (`exp-id`) experiment-hosting leaf must **not** also carry `experiments:` (an owner does not also reference foreign experiments). Note this is the ONLY exclusivity that survives: `claims:` and `exp-id:` are **not** mutually exclusive — they are orthogonal node-bodies and may co-exist on one leaf.
 5. **Single newline EOF.** Every file ends with exactly one `\n`. (Catches editor mishaps and trailing-whitespace creep.)
 6. **JSON valid.** Every line parses as a JSON object. (Catches partial writes and merge corruption.)
 
@@ -45,9 +50,9 @@ All field types are JSON types: `string`, `number` (float), `integer`, `boolean`
 
 ### `claims.jsonl`
 
-Despite the name, `claims.jsonl` holds **three node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`. The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
+Despite the name, `claims.jsonl` holds **five node types** — a type-tagged union discriminated by the `node_type` field (`claim` | `invariant` | `axiom` | `experiment` | `support`). Claim nodes are one per `<!-- id: clm-xxxxxx -->` canonical entry across all `claim-quality.md` files; framework nodes (invariants + axioms) are parsed from `manuscript/ave-kb/CLAUDE.md`; **experiment nodes** are one per `exp-id: exp-xxxxxx` declaration in a leaf that hosts an experiment — regardless of whether that same leaf also originates `claims:` (INVARIANT-S9). The file is **not** split — all node types share one file so a single referential-integrity pass spans the whole graph.
 
-**Claim record** (`node_type: "claim"`) — `node_type` is the new FIRST field; the 12 pre-existing fields are unchanged. 13 fields total.
+**Claim record** (`node_type: "claim"`) — `node_type` is the FIRST field. `derivation_solidity` (min-branch) and `experimental_solidity` (max-branch) are the two solidity sources; `solidity` is their `max`. 15 fields total.
 
 ```typescript
 {
@@ -57,17 +62,60 @@ Despite the name, `claims.jsonl` holds **three node types** — a type-tagged un
   canonical_path: string,        // e.g. "vol1/claim-quality.md"
   canonical_anchor: string,      // GitHub-style anchor for the heading
   confidence: number,            // 0.0 .. 1.0; hand-authored, from Quality section
-  solidity: number,              // 0.0 .. 1.0; DERIVED by compute_solidity (null if confidence unset)
+  derivation_solidity: number,   // 0.0..1.0; DERIVED min-branch: confidence × min(dep final solidities); null if pending (NaN-propagating)
+  experimental_solidity: number, // 0.0..1.0; DERIVED max-branch: max over RUN-experiment strengthens-edge strengths; null if no run experiment strengthens this claim
+  solidity: number,              // 0.0 .. 1.0; DERIVED = max of the non-null branch(es); null (*pending*) iff derivation_solidity null AND experimental_solidity null
   build_status: string,          // DERIVED phrase from solidity band, e.g. "ok to build on" (null if solidity null)
   build_band: string,            // DERIVED from solidity: ok-to-build, ok-with-caveats, input-only, do-not-build, refuted
   rationale: string,             // text after "rationale:" — preserved as single line (LF → ' ')
-  depends_on_count: integer,     // count of edges in depends-on.jsonl with source == this id
+  depends_on_count: integer,     // count of relation:"depends" edges with source == this id
   strengthen_by_count: integer,  // count of items in strengthen-by.jsonl with claim_id == this id
   citation_count: integer        // count of edges in cites.jsonl with claim_id == this id
 }
 ```
 
-Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+Claim field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `confidence`, `derivation_solidity`, `experimental_solidity`, `solidity`, `build_status`, `build_band`, `rationale`, `depends_on_count`, `strengthen_by_count`, `citation_count`.
+
+**Solidity branches (definitive rule).**
+- `derivation_solidity` = the min-branch: `round2(local_quality × min(dependency final solidities))`, framework deps contributing 1.0; **pending propagates NaN-style** through this branch (a pending dependency → pending `derivation_solidity`). Each dependency contributes its own **`solidity`** (the `max`), so building on an experimentally-validated claim correctly un-blocks the dependent.
+  - `local_quality(C)` = `max(confidence(C), max over supporting support-nodes S of sup_solidity(S) × f)`, where `f` ∈ (0,1] is the support's on-point fraction for C and a **pending** `sup_solidity` is EXCLUDED from the max (no NaN, no poison) — INVARIANT-S10. With no supports, `local_quality == confidence`. A support lift is still **dep-gated** (throttled by C's own `min(dep finals)`), unlike an experiment's max-branch which bypasses deps. CRITICAL: a pending support never drags a beneficiary with otherwise-valid quality to pending — pending-poison flows ONLY from a claim's own load-bearing `depends-on`, never from an inbound `supports` edge.
+  - `sup_solidity(S)` = `round2(quality(S) × min(S's dependency final solidities))`; framework deps 1.0; pending if `quality` pending OR any dep pending; free-standing (no deps) → `quality`. Computed by the SAME shared function as claim solidity (`compute_solidity_full`), so refresh and verify never dual-compute it.
+- `experimental_solidity` = `max` of the `strength` on every `relation:"strengthens"` edge into this claim whose source experiment has `status:"run"`. Unrun experiments contribute nothing (excluded from the max — **no NaN, no 0.0 floor**). `null` if no run experiment strengthens this claim.
+- `solidity` = `max(derivation_solidity, experimental_solidity)` over the non-null branches; **`*pending*` (null) iff BOTH are null** — i.e. derivation pending AND no run experiment. (`*pending*` = unassessed ≠ `0.0` = refuted; an unrun experiment can never float a pending claim down to a refuted 0.0.)
+- **Non-transitive:** a `strengthens` edge lifts only its directly-targeted claim. An experiment that also bears on an upstream input authors a *separate* `strengthens` edge to that input with its own `strength`.
+
+**Experiment record** (`node_type: "experiment"`) — a *physical* experiment node. Experiments are terminal strength-sources: they have **no `relation:"depends"` edges** and never gate; they only emit `relation:"strengthens"` edges to the claims their result bears on. 6 fields.
+
+```typescript
+{
+  node_type: "experiment",       // discriminator
+  id: string,                    // exp-[a-z0-9]{6}; primary key
+  title: string,                 // experiment / project leaf title
+  canonical_path: string,        // POSIX path of the experiment leaf, relative to ave-kb/
+  canonical_anchor: string,      // GitHub-style anchor for the heading carrying the exp-id
+  status: "run" | "pending"      // "run" = result exists (its strengthens edges count); "pending" = unrun (its edges contribute nothing)
+}
+```
+
+Experiment field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `status`. A **physical** experiment only — simulations are NOT experiments (a simulation feeds derivation confidence, not experimental solidity). A leaf hosting an `exp-id` MAY also originate its own `claims:` — `claims:` and `exp-id:` are orthogonal node-bodies in one container, not mutually exclusive. When co-hosted, the leaf emits BOTH a `node_type: claim` record and a `node_type: experiment` record, and the experiment's `strengthens` edge may target that same leaf's own claim (a node→node edge between two distinct co-located nodes — not a self-loop).
+
+**Support record** (`node_type: "support"`) — a non-physical analytical SUPPORT node (INVARIANT-S10). A support is claim-like inside (carries a local-rigor `quality` and may consume its own `depends-on` claims), experiment-like in fan-out (one support may help many claims via `relation:"supports"` edges), and contributes to the DERIVATION branch of each beneficiary (never the experimental/max branch). 7 fields.
+
+```typescript
+{
+  node_type: "support",          // discriminator
+  id: string,                    // sup-[a-z0-9]{6}; primary key
+  title: string,                 // support / analysis leaf title (its `##`/`#` heading)
+  canonical_path: string,        // POSIX path of the support-hosting leaf, relative to ave-kb/
+  canonical_anchor: string,      // GitHub-style anchor for the heading
+  quality: number | null,        // 0.0..1.0; hand-authored local rigor (claim-`confidence` analog); null if *pending*
+  solidity: number | null        // 0.0..1.0; DERIVED sup_solidity = round2(quality × min(dep final solidities)); null if pending
+}
+```
+
+Support field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `quality`, `solidity`.
+
+A support node's `quality` / `depends-on` / `solidity` write-back live in a **claim-quality-style entry keyed by the sup-id** (a `<!-- id: sup-xxxxxx -->` marker + a `### Quality` block with `quality:` / `depends-on:` / `solidity:` / `rationale:`, parallel to a claim entry — `quality:` in place of `confidence:`). The beneficiary fan-out is authored in the **hosting leaf's** `supports:` frontmatter block (parallel to an experiment's `strengthens:`), one `clm-<id>: <fraction>` pair per beneficiary. A leaf may co-host `sup-id:` with `claims:` / `exp-id:` / `no-claim:` — orthogonal node-bodies. `sup_solidity` is dep-gated and pending-propagating exactly like a claim's derivation; a free-standing support (no deps) has `sup_solidity == quality`.
 
 **Framework record** (`node_type: "invariant"` or `"axiom"`) — exactly 5 fields. Framework nodes carry no scoring fields: they are **solidity-1.0 by definition** (framework bedrock). This is a documented rule, not a stored field.
 
@@ -88,7 +136,7 @@ Framework field order: `node_type`, `id`, `title`, `canonical_path`, `canonical_
 - **Invariants** (18) — parsed from `### INVARIANT-XX: <title>` headings (regex `^### (INVARIANT-[A-Z]+[0-9]+):\s*(.+)$`). `id` is the label verbatim; `canonical_anchor` is the slug of the node's own heading. `INVARIANT-S6` (the subsumed-into-S5 tombstone) is a real heading and is included so a reference to it resolves.
 - **Axioms** (4) — parsed from the `- Axiom N: **<title>** — ...` bullets in the INVARIANT-S2 section (regex `^- Axiom ([1-4]): \*\*(.+?)\*\*`). `id` is `axiom-N` lowercase; `title` is the bold text. All four axioms point at the slug of the `### INVARIANT-S2: AVE Axiom numbering` heading — the KB's axiom-numbering authority.
 
-**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then invariants.
+**Sort key.** Records are sorted by `(node_type, id)` — explicit grouping by ASCII order of the discriminator: axioms, then claims, then experiments, then invariants, then **support** (alphabetical: axiom < claim < experiment < invariant < support).
 
 **`build_band` derivation** (mechanical, from solidity):
 
@@ -110,19 +158,28 @@ This mirrors the build-status legend in the root `claim-quality.md` and provides
 
 ### `depends-on.jsonl`
 
-One record per forward dependency edge. A `source` is always a claim id. A `target` may be a claim id **or** a framework node id (invariant / axiom) — `target_kind` discriminates.
+One record per directed claim-graph edge. The file holds **three edge classes** discriminated by `relation`:
+
+- **`depends`** (gating, min-branch): `source` is a **claim** OR a **support** id (a support's own deps are `depends` edges sourced at the sup-id); `target` is a claim / invariant / axiom id. `strength` and `fraction` are null.
+- **`strengthens`** (max-branch): `source` is an **experiment** id; `target` is a **claim** id; carries a `strength`. `fraction` null. Authored from the experiment leaf's `strengthens:` block.
+- **`supports`** (DERIVATION-branch lift, INVARIANT-S10): `source` is a **support** id; `target` is a **claim** id; `target_kind` is `"claim"`; carries an on-point `fraction` ∈ (0,1]; `strength` null. Authored from the support leaf's `supports:` block and emitted by `refresh`. The derivation-branch analog of a `strengthens` edge.
 
 ```typescript
 {
-  source: string,                          // claim id (depender)
-  target: string,                          // dependee node id (claim / invariant / axiom)
+  source: string,                          // claim/support id (depends) | experiment id (strengthens) | support id (supports)
+  target: string,                          // claim/invariant/axiom (depends); claim (strengthens / supports)
+  relation: "depends" | "strengthens" | "supports",  // edge class
   target_kind: "claim" | "invariant" | "axiom",  // node type of the target
-  target_solidity_recorded: number | null, // solidity as written in the line; null for framework targets
-  context: string | null                   // optional context note from the depends-on line
+  target_solidity_recorded: number | null, // depends: dep solidity as written; null for framework / strengthens / supports
+  strength: number | null,                 // strengthens: conferred experimental-solidity in [0,1]; null otherwise
+  context: string | null,                  // optional context note
+  fraction: number | null                  // supports: on-point fraction f ∈ (0,1]; null otherwise
 }
 ```
 
-Field order: `source`, `target`, `target_kind`, `target_solidity_recorded`, `context`.
+Field order: `source`, `target`, `relation`, `target_kind`, `target_solidity_recorded`, `strength`, `context`, `fraction`. Every record carries all eight keys (schema closure); only the relevant ones are non-null per edge class.
+
+`relation` is recoverable from `source`-node type (claim ⇒ depends, experiment ⇒ strengthens), but is stored explicitly so a human reviewer sees each edge's *role* at a glance and `compute_solidity` need not cross-reference node types. A `strengthens` edge's `strength` is the per-(experiment, claim) conferred experimental-solidity — typically `1.0` for the experiment's designed target on an unequivocal result, lower for orthogonally-implicated claims; it counts only when the source experiment has `status: "run"`.
 
 **Bullet-head extraction.** A depends-on bullet's dependency target(s) live in its *head*, not its title/context. The head is the bullet text after the leading `- `, truncated at the EARLIER of: the first ` — ` (em-dash title separator) or the first ` (` (paren). The head is scanned for ALL recognized target tokens, emitting **one edge per token**:
 
@@ -155,6 +212,21 @@ Field order: `claim_id`, `item_idx`, `text`, `mentioned_ids`.
 
 **`mentioned_ids` extraction:** match the `\bclm-[a-z0-9]{6}\b` pattern in `text`. The `clm-` prefix makes the pattern exact — it cannot match incidental English or physics words. A `clm-`-shaped token that doesn't match any record in `claims.jsonl` is still emitted, and signals a typo or stale reference (the verifier flags orphan-style consistency issues globally).
 
+### `supported-by.jsonl`
+
+One record per (claim, supporting support-node) edge — the reverse view of the `supports` edges in `depends-on.jsonl` (INVARIANT-S10). It answers "which support nodes lift claim X, and by how much?". It is **untraversed bookkeeping** — solidity flows forward through the `supports` edges; this file is a convenience reverse index analogous to `strengthen-by`, never consulted in the solidity computation.
+
+```typescript
+{
+  claim_id: string,          // the beneficiary claim
+  sup_id: string,            // the supporting support node (sup-[a-z0-9]{6})
+  fraction: number,          // the on-point fraction f ∈ (0,1] of this support for this claim
+  sup_solidity: number | null // the support's computed sup_solidity (same shared computation); null if pending
+}
+```
+
+Field order: `claim_id`, `sup_id`, `fraction`, `sup_solidity`. Sort key `(claim_id, sup_id)`. Referential integrity: every `claim_id` resolves to a `claim` node and every `sup_id` to a `support` node in `claims.jsonl`.
+
 ### `cites.jsonl`
 
 One record per (claim, leaf) citation edge. A leaf's frontmatter `claims: [a, b, c]` produces three edges.
@@ -180,13 +252,16 @@ One record per index file (`kind: index`) plus the single entry-point node.
 {
   node_path: string,            // POSIX path relative to manuscript/ave-kb/
   node_kind: string,            // "index" or "entry-point"
-  subtree_claims: string[]      // sorted unique list of all claim ids under this node's subtree
+  subtree_claims: string[],     // sorted unique list of all claim ids OWNED under this node's subtree
+  subtree_experiments: string[] // sorted unique list of all exp-ids OWNED under this node's subtree
 }
 ```
 
-Field order: `node_path`, `node_kind`, `subtree_claims`.
+Field order: `node_path`, `node_kind`, `subtree_claims`, `subtree_experiments`.
 
-This file persists what `refresh-kb-metadata` already computes transiently for the frontmatter `subtree-claims:` field. Having it materialized as JSONL means cross-volume aggregation queries don't require re-walking the tree.
+This file persists what `refresh-kb-metadata` already computes transiently for the frontmatter `subtree-claims:` and `subtree-experiments:` fields. Having it materialized as JSONL means cross-volume aggregation queries don't require re-walking the tree.
+
+**`subtree_experiments` (owned-only).** The union of exp-ids OWNED (declared via `exp-id:`) by experiment leaves under this node's directory (`kind: index`) or the whole KB (`kind: entry-point`). It is the experiment analog of `subtree_claims`, and OWNED-ONLY in the same sense: just as a leaf's foreign depends-on references never enter `subtree_claims` (only its owned `claims:` support rolls up), a leaf's `experiments:` REFERENCES never propagate into `subtree_experiments` — only an experiment leaf's own `exp-id:` declaration does. Sorted with the same ordering convention as `subtree_claims`. Both this JSONL key and the frontmatter `subtree-experiments:` field are derived from the single shared `kb_index_lib.compute_subtree_aggregates`, so the materialized aggregate, the refresh write-back, and the verify consistency check cannot drift; declared `subtree-experiments` ≠ the computed owned union is a refresh-fixable verifier failure.
 
 ---
 
@@ -271,10 +346,11 @@ files                                                    WRITTEN (new)
 `refresh-kb-metadata.py` is idempotent: same canonical state → same outputs, byte-identical.
 
 `check-claim-quality.py` (extended):
-- Runs all existing checks (Tier 1, Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity).
+- Runs all existing checks (Tier 1 coverage — a leaf declares its content via at least one of `{claims, no-claim, exp-id}`; Tier 2, ID uniqueness, orphans, frontmatter presence, subtree consistency, bidirectional coverage, claim/no-claim exclusivity — `claims` and `no-claim` stay mutually exclusive with each other, but `exp-id` is orthogonal to both).
 - runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
 - validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
 - validates referential integrity (every id referenced in any non-claims file appears in claims.jsonl).
+- validates leaf `experiments:` references resolve to experiment nodes (orphan / claim-id-mismatch is a hard failure, not refresh-fixable) and that declared `subtree-experiments` equals the computed owned union (refresh-fixable).
 - **NEW (Push 3):** checks the claim depends-on graph is acyclic (a cycle makes solidity undefined — hard failure, not refresh-fixable).
 - **NEW (Push 3):** checks solidity freshness — every claim-quality.md `solidity` line, its build-status phrase, the depends-on `(solidity X)` annotations, and the `claims.jsonl` solidity fields must equal `compute_solidity`'s output (`refresh-fixable`).
 

@@ -50,7 +50,7 @@ The Topo-Kinematic isomorphism identically solves the self-energy infinity by su
 
 By enforcing the geometric ropelength bound mapped to the intrinsic topology of the knot, the electromagnetic strain is perfectly capped, mirroring the continuous running of the field while strictly averting the classical electrostatic paradox.
 
-![Resolution of Electrostatic Self-Energy Divergence](../../../../../vol_2_subatomic/figures/electrostatic_singularity_resolution.png)
+![Resolution of Electrostatic Self-Energy Divergence](../../../../vol_2_subatomic/figures/electrostatic_singularity_resolution.png)
 
 ### The Dielectric Ropelength Limit
 

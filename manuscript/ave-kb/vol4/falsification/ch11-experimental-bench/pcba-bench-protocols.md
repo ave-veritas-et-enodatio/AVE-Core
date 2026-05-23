@@ -2,7 +2,8 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-cltls0, clm-kl1ern, clm-qsgl7d, clm-wzezvt, clm-ydksh6]
+claims: [clm-cltls0, clm-kl1ern, clm-qsgl7d, clm-ydksh6]
+experiments: [exp-1up5ww]
 -->
 
 ## PCBA Bench Protocols
@@ -19,7 +20,6 @@ Five specific PCBA-level experiments, each isolating a single AVE prediction.
 - Electrometer: ADA4530-1 (20 fA bias), guard rings, Teflon standoffs
 - **Falsification**: 0.0 mV → framework killed; 41.5 mV → $\xi_{topo}$ confirmed
 
-<!-- claim-quality: clm-wzezvt -->
 ### HOPF-02: S-Parameter VNA Falsification
 
 **Prediction**: Hopf coil (torus knot) couples to chiral LC metric → anomalously deep $S_{11}$ notch vs classical toroid.

@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-ui3m8a]
+exp-id: exp-1ddtr0
+status: pending
+strengthens:
+  - clm-ui3m8a: 1.0
 -->
 
 ## The Metric Refraction Capacitor (The $c^2$ Multiplier)

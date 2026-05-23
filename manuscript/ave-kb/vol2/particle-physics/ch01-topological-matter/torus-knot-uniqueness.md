@@ -113,7 +113,7 @@ The exact mass-from-Cosserat-torsion derivation is in Vol 2 Ch 6 (lepton-spectru
 > - **(b) Proton (2,5)** → CANONICAL. Cinquefoil per-loop winding on Borromean 3-loop (N=3) baryon topology. Mass via $m(c=5)$ formula in [`torus-knot-ladder-baryons.md`](../ch02-baryon-sector/torus-knot-ladder-baryons.md).
 > - **(c) Neutrino c_1=5** → CANONICAL as RESONANCE LABEL. The neutrino is geometrically a 0_1 unknot screw defect (single-loop, distinct mechanism from electron lepton); the {5, 7, 9} = {c_1, c_2, c_3} mode-space radii reference the SAME (2,5), (2,7), (2,9) torus-knot resonance classes that the baryon ladder uses. The neutrino COUPLES to these resonances; it doesn't INHABIT them. c_1=5 starting value is structurally derived as "the lowest stable (2,q_odd) cinquefoil resonance above the electron (2,3) trefoil baseline".
 >
-> **FI-13 fully resolved. C3-MUON-DELTA matrix row UN-GATED** — Q-G27 Cosserat-torsion saliency is canonical for muon Fermilab observable; driver can build with $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$. See closure-roadmap §0.5 (2026-05-18 FI-13 resolution entry) for full audit trail.
+> **FI-13 fully resolved. C3-MUON-DELTA matrix row UN-GATED** — Q-G27 Cosserat-torsion saliency is canonical for muon Fermilab observable; driver can build with $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$.
 
 ## §8 — What this derivation establishes
 

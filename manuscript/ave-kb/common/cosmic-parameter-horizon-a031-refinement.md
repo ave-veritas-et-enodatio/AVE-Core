@@ -78,4 +78,3 @@ As a corollary, AVE's empirical anchoring rests on a **three-route framework** �
   - [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md) — the catalog of strain-snap instances across scales
   - [Ω_freeze Cosmic-Grain Cascade](omega-freeze-cosmic-grain-cascade.md) — the three-route framework, canonical
   - [trampoline-framework.md §1.3.7 "God's Hand"](trampoline-framework.md) — original framing + refinement
-  - [closure-roadmap.md](closure-roadmap.md) — A-031 + universal-saturation-kernel status rows

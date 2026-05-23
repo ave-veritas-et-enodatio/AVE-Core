@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-5s5b0d]
+exp-id: exp-po1a0v
+status: pending
+strengthens:
+  - clm-5s5b0d: 1.0
 path-stable: "referenced from vol3 as sec:induced_vacuum_impedance_mirror"
 -->
 

@@ -104,4 +104,3 @@ The substrate-observability rule applies to ourselves. We are inside the cosmic 
 - **KB cross-cutting:**
   - [trampoline-framework.md §4-§7](trampoline-framework.md) — picture-first multi-scale hierarchy
   - [Vol 1 Ch 8 — Alpha Golden Torus](../vol1/ch8-alpha-golden-torus.md) — geometric derivation of the $\alpha^{-1}$ three-regime closure
-  - [axiom-homologation.md](axiom-homologation.md) — Axiom 3 (Minimum Reflection Principle) substrate-observability framing

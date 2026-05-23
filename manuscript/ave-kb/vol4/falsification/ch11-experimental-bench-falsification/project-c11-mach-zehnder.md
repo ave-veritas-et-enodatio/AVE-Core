@@ -2,15 +2,18 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-6kqvyp]
+exp-id: exp-7jekc6
+status: pending
+strengthens:
+  - clm-rd9cjm: 1.0
 path-stable: "referenced from vol2, vol3, vol4 + matrix C11-MACH-ZEHNDER as canonical project leaf"
 -->
 
 ## Project C11-MACH-ZEHNDER: Gravitational Parallax Interferometry (electron Mach-Zehnder $n_s \neq n_t$)
 
-> ↗ See also: [`_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md`](../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) — AVE-Core orchestration sub-epic for facility partnership search + measurement
+> ↗ See also: [`_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) — AVE-Core orchestration sub-epic for facility partnership search + measurement
 >
-> ↗ See also: [`_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md`](../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md) — sim drift audit (NO DRIFT verdict on ν_vac + ε_11 + cascade axes)
+> ↗ See also: [`_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md) — sim drift audit (NO DRIFT verdict on ν_vac + ε_11 + cascade axes)
 >
 > ↗ See also: [Vol 2 Ch 7 §Gravitational Parallax Interferometry](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) — canonical physics derivation
 >
@@ -108,7 +111,7 @@ C11 has **NO application IP** at current state. The experiment is:
 
 No proprietary bench design because Grant isn't designing the bench — facility scientists already have the apparatus. C11 is essentially: "you have the interferometer, here's our prediction, would you measure it?"
 
-If C11 evolves to co-designed 1m interferometer + specific collaboration → application IP emerges → revisit per `ave-ip-divide-discipline` + [`promotion-workflow-template.md`](../../../../_orchestration/experimental/promotion-workflow-template.md).
+If C11 evolves to co-designed 1m interferometer + specific collaboration → application IP emerges → revisit per `ave-ip-divide-discipline` + [`promotion-workflow-template.md`](../../../../../_orchestration/experimental/promotion-workflow-template.md).
 
 ### Regime classification (per canonical regime taxonomy)
 
@@ -125,7 +128,7 @@ If C11 evolves to co-designed 1m interferometer + specific collaboration → app
 - [Q-G47 Substrate-Scale Cosserat Closure](../../../common/q-g47-substrate-scale-cosserat-closure.md) — ν_vac=2/7 upstream derivation (Sessions 19 closure 2026-05-18; ξ_K1=8/3, ξ_K2=32, ν_vac unchanged as algebraic Poisson identity at K=2G operating point)
 - [C1-BH-RING canonical leaf](../../../vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md) — ν_vac=2/7 cascade node 1 (FULL PASS Phase 5 2026-05-18)
 - [C12-G-STAR canonical leaf](../../../vol2/nuclear-field/ch10-open-problems/g-star-derivation.md) — ν_vac=2/7 cascade node 3 (LISA wait)
-- Sub-epic [`exp-c11-mach-zehnder.md`](../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) + Sim audit [`exp-c11-mach-zehnder-sim-audit.md`](../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md)
+- Sub-epic [`exp-c11-mach-zehnder.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder.md) + Sim audit [`exp-c11-mach-zehnder-sim-audit.md`](../../../../../_orchestration/experimental/c11-mach-zehnder/exp-c11-mach-zehnder-sim-audit.md)
 
 ### Status (2026-05-20 EOD++)
 

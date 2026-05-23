@@ -46,12 +46,13 @@ INDEX_FILES = (
     "claims",
     "depends-on",
     "strengthen-by",
+    "supported-by",
     "cites",
     "subtree-aggregates",
 )
 
 EXCLUDE_DIRS = {"session", ".index", "tools"}
-EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
+EXCLUDE_NAMES = {"claim-quality.md", "claim-quality-closure-roadmap.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
@@ -87,37 +88,62 @@ def parse_frontmatter(text: str) -> dict | None:
     return fields
 
 
-def replace_subtree_claims(text: str, new_ids: list[str]) -> str:
-    """Replace the subtree-claims line in the frontmatter block (or insert it)."""
+def _replace_or_insert_field(
+    text: str, field: str, new_ids: list[str], anchor_prefix: str
+) -> str:
+    """Replace ``field: [...]`` in the frontmatter block, or insert it.
+
+    When the field is absent it is inserted immediately after the line whose
+    stripped form starts with ``anchor_prefix`` (e.g. ``subtree-claims:`` for
+    ``subtree-experiments``, ``kind:`` for ``subtree-claims``), preserving the
+    documented field order. Falls back to inserting at the top of the block if
+    no anchor line is present.
+    """
     new_value = "[" + ", ".join(new_ids) + "]"
 
     def repl(match: re.Match) -> str:
-        body = match.group(1)
-        lines = body.splitlines()
+        lines = match.group(1).splitlines()
         replaced = False
         new_lines = []
         for line in lines:
-            if line.strip().startswith("subtree-claims:"):
+            if line.strip().startswith(f"{field}:"):
                 indent = line[: len(line) - len(line.lstrip())]
-                new_lines.append(f"{indent}subtree-claims: {new_value}")
+                new_lines.append(f"{indent}{field}: {new_value}")
                 replaced = True
             else:
                 new_lines.append(line)
         if not replaced:
-            # Insert after kind: line if present, else at top
             inserted = False
             out = []
             for line in new_lines:
                 out.append(line)
-                if not inserted and line.strip().startswith("kind:"):
-                    out.append(f"subtree-claims: {new_value}")
+                if not inserted and line.strip().startswith(anchor_prefix):
+                    out.append(f"{field}: {new_value}")
                     inserted = True
             if not inserted:
-                out.insert(0, f"subtree-claims: {new_value}")
+                out.insert(0, f"{field}: {new_value}")
             new_lines = out
         return "<!-- kb-frontmatter\n" + "\n".join(new_lines) + "\n-->"
 
     return FRONTMATTER_BLOCK.sub(repl, text, count=1)
+
+
+def replace_subtree_claims(text: str, new_ids: list[str]) -> str:
+    """Replace the subtree-claims line in the frontmatter block (or insert it)."""
+    return _replace_or_insert_field(text, "subtree-claims", new_ids, "kind:")
+
+
+def replace_subtree_experiments(text: str, new_ids: list[str]) -> str:
+    """Replace subtree-experiments in the frontmatter (or insert it).
+
+    Inserted directly after the ``subtree-claims:`` line so the two derived
+    aggregates sit together; falls back after ``kind:`` if subtree-claims is
+    somehow absent (it is written first in the same refresh pass).
+    """
+    anchor = "subtree-claims:"
+    if "subtree-claims:" not in text:
+        anchor = "kind:"
+    return _replace_or_insert_field(text, "subtree-experiments", new_ids, anchor)
 
 
 def collect_leaves() -> dict[Path, list[str]]:
@@ -140,6 +166,12 @@ def collect_leaves() -> dict[Path, list[str]]:
 
 
 CANONICAL_ID_LINE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
+# A canonical-id marker keying a claim OR a support entry (INVARIANT-S10).
+# Support entries share the `### Quality` shape, so the solidity write-back
+# locates their sections the same way.
+CANONICAL_ANY_ID_LINE = re.compile(
+    r"<!--\s*id:\s*((?:clm|sup)-[a-z0-9]{6})\s*-->"
+)
 SOLIDITY_LINE = re.compile(r"^(\s*)-\s*solidity:")
 # Matches a depends-on (solidity X) annotation in either rendering: a numeric
 # value or the *pending* form (target has no computable solidity). Matching
@@ -162,17 +194,18 @@ def _fmt(value: float) -> str:
 SOLIDITY_PENDING_LINE = "- solidity: *pending*"
 
 
-def _solidity_line(entry, solidity, min_dep) -> str:
-    """Build the canonical ``- solidity:`` line for one claim entry.
+def _solidity_line(base_value, solidity, min_dep) -> str:
+    """Build the canonical ``- solidity:`` line for a claim OR support entry.
 
-    ``solidity`` is the entry's computed value; ``min_dep`` is the minimum
-    dependency solidity (or ``None`` when the entry has no depends-on edges).
-    With dependencies the line carries an arithmetic trace
-    ``[= <confidence> × <min-dep-solidity>]``; without, the trace is omitted
-    (solidity trivially equals confidence).
+    ``base_value`` is the entry's hand-authored quality scalar — a claim's
+    ``confidence`` or a support's ``quality`` (INVARIANT-S10). ``solidity`` is
+    the computed value; ``min_dep`` is the minimum dependency solidity (or
+    ``None`` when the entry has no depends-on edges). With dependencies the line
+    carries an arithmetic trace ``[= <base> × <min-dep-solidity>]``; without,
+    the trace is omitted (solidity trivially equals the base value).
 
-    When ``solidity`` is ``None`` the claim has no computable solidity — its
-    ``confidence`` is ``*pending*`` OR a dependency's solidity is ``*pending*``
+    When ``solidity`` is ``None`` the entry has no computable solidity — its
+    base is ``*pending*`` OR a dependency's solidity is ``*pending*``
     (pending-ness propagates transitively, like NaN). Both render the same:
     the bare ``- solidity: *pending*`` form, no phrase, no arithmetic trace.
     """
@@ -182,7 +215,7 @@ def _solidity_line(entry, solidity, min_dep) -> str:
     base = f"- solidity: {_fmt(solidity)} ({phrase})"
     if min_dep is None:
         return base
-    return f"{base} [= {_fmt(entry.confidence)} × {_fmt(min_dep)}]"
+    return f"{base} [= {_fmt(base_value)} × {_fmt(min_dep)}]"
 
 
 def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
@@ -197,10 +230,11 @@ def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
     An entry with no ``### Quality`` section is omitted.
     """
     scrubbed = kb_index_lib._strip_code_fences("\n".join(lines)).splitlines()
-    # Locate every (id_line_idx, claim_id).
+    # Locate every (id_line_idx, node_id) for claim AND support entries — both
+    # carry a `### Quality` section whose solidity line is a derived field.
     id_lines: list[tuple[int, str]] = []
     for i, line in enumerate(scrubbed):
-        m = CANONICAL_ID_LINE.match(line.strip())
+        m = CANONICAL_ANY_ID_LINE.match(line.strip())
         if m:
             id_lines.append((i, m.group(1)))
 
@@ -227,9 +261,20 @@ def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
 
 
 def _rewrite_claim_quality_solidity(
-    path: Path, entries, solidity: dict[str, float]
+    path: Path,
+    entries,
+    solidity: dict[str, float],
+    supports=(),
+    sup_solidity: dict[str, float] | None = None,
 ) -> tuple[int, list[tuple[str, str, str]], list[tuple[str, str, str]]]:
     """Rewrite derived solidity content in a single ``claim-quality.md`` file.
+
+    Handles both claim entries and SUPPORT entries (INVARIANT-S10): a support's
+    ``### Quality`` section carries the same derived ``- solidity:`` line and the
+    same claim-target ``(solidity X)`` depends-on annotations. A support's own
+    solidity comes from ``sup_solidity``; its base scalar is ``quality`` (a
+    claim's is ``confidence``). Depends-on annotations always reference the claim
+    ``solidity`` map (a support's deps are claims).
 
     For every claim entry, rewrites:
 
@@ -261,30 +306,41 @@ def _rewrite_claim_quality_solidity(
         # with the visible content lines, restore the newline at write time.
         lines = lines[:-1]
 
+    sup_solidity = sup_solidity or {}
     by_id = {e.id: e for e in entries}
+    sup_by_id = {s.id: s for s in supports}
     ranges = _quality_section_ranges(lines)
 
     solidity_changes: list[tuple[str, str, str]] = []
     annotation_changes: list[tuple[str, str, str]] = []
 
-    for claim_id, (qstart, qend) in ranges.items():
-        entry = by_id.get(claim_id)
-        if entry is None:
+    for node_id, (qstart, qend) in ranges.items():
+        entry = by_id.get(node_id)
+        sup = sup_by_id.get(node_id)
+        if entry is None and sup is None:
             continue
-        # ``computed`` is None when this claim has no computable solidity:
-        # its confidence is *pending* OR a dependency is *pending*. Both
-        # cases render as the *pending* solidity line — pending-ness is
-        # decided by presence in ``solidity``, NOT by local confidence.
-        computed = solidity.get(claim_id)
-        min_dep = kb_index_lib.min_dependency_solidity(entry, solidity)
+        # A claim's own solidity comes from ``solidity`` and its base scalar is
+        # ``confidence``; a support's comes from ``sup_solidity`` and its base
+        # is ``quality``. ``computed`` is None when the node has no computable
+        # solidity (base *pending* OR a dependency *pending*) — pending-ness is
+        # decided by presence in the relevant map, not by the local base value.
+        if entry is not None:
+            node = entry
+            base_value = entry.confidence
+            computed = solidity.get(node_id)
+        else:
+            node = sup
+            base_value = sup.quality
+            computed = sup_solidity.get(node_id)
+        min_dep = kb_index_lib.min_dependency_solidity(node, solidity)
 
         for idx in range(qstart, qend):
             line = lines[idx]
             # (1) The solidity line.
             if SOLIDITY_LINE.match(line):
-                new_line = _solidity_line(entry, computed, min_dep)
+                new_line = _solidity_line(base_value, computed, min_dep)
                 if new_line != line:
-                    solidity_changes.append((claim_id, line, new_line))
+                    solidity_changes.append((node_id, line, new_line))
                     lines[idx] = new_line
                 continue
             # (2) A claim-target depends-on bullet's (solidity X) annotation.
@@ -306,7 +362,7 @@ def _rewrite_claim_quality_solidity(
                 replacement = f"(solidity {_fmt(target_solidity)})"
             new_line = SOLIDITY_ANNOTATION.sub(replacement, line, count=1)
             if new_line != line:
-                annotation_changes.append((claim_id, line, new_line))
+                annotation_changes.append((node_id, line, new_line))
                 lines[idx] = new_line
 
     new_text = "\n".join(lines)
@@ -331,12 +387,32 @@ def _refresh_solidity() -> tuple[int, list, list]:
     Returns ``(files_changed, solidity_changes, annotation_changes)``.
     """
     state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
-    solidity = kb_index_lib.compute_solidity(state.claim_entries)
+    # ``solidity`` (claim finals) and ``sup_solidity`` (support node solidities)
+    # come from the SAME single computation — never re-derived — so the
+    # claim-quality write-back, the depends-on annotation sync, and the JSONL
+    # fields cannot drift (INVARIANT-S10; the dual-compute trap).
+    solidity = kb_index_lib.compute_solidity(
+        state.claim_entries, state.experiments, state.supports
+    )
+    sup_solidity = kb_index_lib.compute_support_solidity(
+        state.claim_entries, state.experiments, state.supports
+    )
 
-    # Group parsed entries by their canonical claim-quality.md file.
+    # Group claim entries by their owning claim-quality.md file. Support entries
+    # share those registers; ``_quality_section_ranges`` locates each register's
+    # own sup-ids, so the full support list is passed to every file (only its
+    # resident sup-ids match). Register every claim-quality.md file so a file
+    # holding ONLY support entries is still rewritten.
     entries_by_file: dict[str, list] = {}
     for entry in state.claim_entries:
         entries_by_file.setdefault(entry.canonical_path, []).append(entry)
+    for cq in sorted(KB.rglob("claim-quality.md")):
+        if any(
+            part in kb_index_lib.EXCLUDE_DIRS
+            for part in cq.relative_to(KB).parts[:-1]
+        ):
+            continue
+        entries_by_file.setdefault(cq.relative_to(KB).as_posix(), [])
 
     files_changed = 0
     all_solidity_changes: list = []
@@ -344,7 +420,7 @@ def _refresh_solidity() -> tuple[int, list, list]:
     for rel_path, entries in sorted(entries_by_file.items()):
         path = KB / rel_path
         changed, sol_ch, ann_ch = _rewrite_claim_quality_solidity(
-            path, entries, solidity
+            path, entries, solidity, state.supports, sup_solidity
         )
         files_changed += changed
         all_solidity_changes.extend((rel_path, *c) for c in sol_ch)
@@ -416,10 +492,22 @@ def main(argv: list[str] | None = None) -> int:
 
     leaves = collect_leaves()
 
+    # Owned exp-ids per directory come from the SAME shared library
+    # computation the verifier uses (compute_subtree_aggregates over a single
+    # discover_kb state) — never a second, independent walk — so the written
+    # subtree-experiments cannot drift from what verify recomputes. The
+    # subtree-claims values are kept on the existing local walk (byte-stable);
+    # both must equal compute_subtree_aggregates, which the verifier checks.
+    exp_state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
+    aggregates = kb_index_lib.compute_subtree_aggregates(exp_state)
+
     updated = 0
     skipped = 0
 
-    # Update each kind: index file
+    # Update each kind: index file. An ``entry-point`` may itself be named
+    # index.md (the fixture's root is one); handle both index and entry-point
+    # kinds here so subtree-experiments is written regardless of filename. The
+    # entry-point branch below covers a separately-named ``entry-point.md``.
     for root, dirs, files in os.walk(KB):
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         for f in files:
@@ -431,18 +519,27 @@ def main(argv: list[str] | None = None) -> int:
             if not fm:
                 skipped += 1
                 continue
-            if fm.get("kind") != "index":
+            kind = fm.get("kind")
+            if kind not in ("index", "entry-point"):
                 continue  # leaf-as-index has no subtree
-            idx_dir = p.parent
-            expected = set()
-            for leaf, ids in leaves.items():
-                try:
-                    leaf.relative_to(idx_dir)
-                    expected.update(ids)
-                except ValueError:
-                    continue
-            sorted_ids = sorted(expected)
+            rel = p.relative_to(KB).as_posix()
+            if kind == "entry-point":
+                # Global union — take both aggregates from the shared compute.
+                claim_ids, exp_ids = aggregates.get(rel, ([], []))
+                sorted_ids = claim_ids
+            else:
+                idx_dir = p.parent
+                expected = set()
+                for leaf, ids in leaves.items():
+                    try:
+                        leaf.relative_to(idx_dir)
+                        expected.update(ids)
+                    except ValueError:
+                        continue
+                sorted_ids = sorted(expected)
+                _, exp_ids = aggregates.get(rel, ([], []))
             new_text = replace_subtree_claims(text, sorted_ids)
+            new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
                 p.write_text(new_text)
                 updated += 1
@@ -457,7 +554,10 @@ def main(argv: list[str] | None = None) -> int:
             for ids in leaves.values():
                 all_ids.update(ids)
             sorted_ids = sorted(all_ids)
+            rel = ep.relative_to(KB).as_posix()
+            _, exp_ids = aggregates.get(rel, ([], []))
             new_text = replace_subtree_claims(text, sorted_ids)
+            new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
                 ep.write_text(new_text)
                 updated += 1

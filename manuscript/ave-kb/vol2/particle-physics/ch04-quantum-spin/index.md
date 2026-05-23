@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-salw2h]
+subtree-experiments: []
 -->
 
 # Ch.4 — Quantum Spin as Classical Gyroscopic Precession

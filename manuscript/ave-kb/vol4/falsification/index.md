@@ -2,7 +2,8 @@
 
 <!-- kb-frontmatter
 kind: index
-subtree-claims: [clm-5s5b0d, clm-6kqvyp, clm-7tynm2, clm-9sujp8, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gv1wu4, clm-gw2wgc, clm-h55fy1, clm-i02mhk, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qagkgy, clm-qsgl7d, clm-qx9bb8, clm-to41c7, clm-trgqtf, clm-ui3m8a, clm-wqmb19, clm-wzezvt, clm-ydksh6]
+subtree-claims: [clm-5s5b0d, clm-7tynm2, clm-9sujp8, clm-baoa36, clm-cltls0, clm-cwjd8t, clm-fh6w3y, clm-gv1wu4, clm-gw2wgc, clm-h55fy1, clm-i02mhk, clm-iz3svl, clm-k9up5c, clm-kl1ern, clm-oiw6cb, clm-om0rtq, clm-p12mem, clm-pp3qwf, clm-qagkgy, clm-qsgl7d, clm-qx9bb8, clm-to41c7, clm-trgqtf, clm-ui3m8a, clm-wzezvt, clm-ydksh6, clm-yr6tu4]
+subtree-experiments: [exp-0n5p16, exp-1ddtr0, exp-1up5ww, exp-6kwkx7, exp-71uhr0, exp-742kv5, exp-7jekc6, exp-ct4cts, exp-onqclb, exp-po1a0v, exp-rth12t, exp-v6nzcq]
 -->
 
 > ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.

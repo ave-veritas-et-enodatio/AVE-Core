@@ -166,7 +166,7 @@ The 9 recognized analytical-problem classes (any AVE derivation that maps to ≥
 |---|---|---|---|
 | **Z₀ derivation discrete LC ladder** | Z_cell = √(μ₀/ε₀) = Z₀ (scale invariant) | [`vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md) | Substrate's characteristic impedance; scale-invariant base |
 | **Op13 D'Alembertian** | □² with local saturated c_eff per Op16 | [`operators.md` Op13 line 43](operators.md) | Generalized wave-equation operator; substrate-native PDE |
-| **Op16 Universal Wave Speed** | c_shear = c₀ √S (Axiom 4 saturation modifies) | [`operators.md` Op16 line 46](operators.md) + [`axiom-homologation.md` §208](axiom-homologation.md) | Wave speed in saturation regime; gravitational analog |
+| **Op16 Universal Wave Speed** | c_shear = c₀ √S (Axiom 4 saturation modifies) | [`operators.md` Op16 line 46](operators.md) | Wave speed in saturation regime; gravitational analog |
 | **Op11 + Op12 Curl/Div** | discrete Yee-lattice form on K4 | [`operators.md` Op11-Op12 line 41-42](operators.md) | Substrate-native vector calculus on K4 graph |
 | **Op19 Refractive Index** | n(r) = 1 + ν_vac ε₁₁; ν_vac = 2/7 | [`operators.md` Op19 line 49](operators.md) | Gravity as refractive-index variation |
 | **Resonant LC Solitons** | particles as LC tanks; Virial | [`resonant-lc-solitons.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md) | Soliton-as-eigenmode framing |

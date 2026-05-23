@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-iz3svl]
+exp-id: exp-ct4cts
+status: pending
+strengthens:
+  - clm-iz3svl: 1.0
 -->
 
 ## The Sapphire Phonon Centrifuge

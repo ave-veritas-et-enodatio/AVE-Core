@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-vjv4zf]
+subtree-experiments: []
 -->
 
 # Ch.18: Universal AVE Vacuum Cell
@@ -67,4 +68,4 @@ Functions:
 - `src/ave/hardware/spice_models/ave_vacuum_cell.lib`
 - `src/ave/solvers/spice_netlist_compiler.py`
 - Backmatter App 6 — SPICE Verification Manual
-- [Nonlinear Constitutive Models](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-constitutive-models.md) — varactor, inductor, TVS theory
+- [Nonlinear Constitutive Models](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) — varactor, inductor, TVS theory

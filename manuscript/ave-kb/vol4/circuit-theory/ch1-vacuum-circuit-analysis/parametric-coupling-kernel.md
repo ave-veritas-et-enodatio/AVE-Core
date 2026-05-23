@@ -108,7 +108,7 @@ Per `ave-audit-of-audit` 2026-05-17 retroactive substrate-native walk: the §4 1
 - Available substrate power: $P_{substrate} = V_a^2 / Z_{radiation} = V_a^2 \cdot (4\pi/Z_0)$
 
 **Apparatus-side port (per atom)**:
-- Each atomic site in the detector crystal is canonically an LC tank per [`../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46
+- Each atomic site in the detector crystal is canonically an LC tank per [`../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46
 - The atom presents a VALENCE PORT to the substrate via the nuclear → 1s → 2s → ... → valence ladder cascade (line 13)
 - Per-shell characteristic impedance: $Z_{LC} = \sqrt{L_n / C_n} \approx 12.31\,\Omega$ for the 1s shell (line 45), with the substrate-native ratio $Z_{LC}/Z_0 \approx \alpha/\pi$ (line 48) — NOT borrowed from atomic physics, derived from substrate's bulk modulus
 - N atoms in parallel: aggregate apparatus-side impedance $Z_{apparatus} = Z_{LC}/N$ (standard EE parallel-impedance rule, canonical Vol 4 Ch 1 ladder network)
@@ -133,7 +133,7 @@ This sector classification is the substrate-native counterpart to the (now-remov
 
 **Corrected applicability statement (post-REVISE-LATERAL)**:
 
-The §3.5 substrate ↔ apparatus port structure derives the per-atom impedance $Z_{LC} = 12.31\,\Omega$ from canonical Vol 2 Ch 7 [`analog-ladder-filter.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46 — which is UNIVERSAL per-atom 1s-shell LC tank physics with NO lattice-class qualifier. The kernel applies to ANY detector substrate where the substrate-↔-apparatus voltage-divider structure holds: bulk K4 substrate pump at $V_a$ → N parallel atomic LC tanks → per-atom voltage $V_{app}^{per-atom} \propto V_{pump}/N$.
+The §3.5 substrate ↔ apparatus port structure derives the per-atom impedance $Z_{LC} = 12.31\,\Omega$ from canonical Vol 2 Ch 7 [`analog-ladder-filter.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46 — which is UNIVERSAL per-atom 1s-shell LC tank physics with NO lattice-class qualifier. The kernel applies to ANY detector substrate where the substrate-↔-apparatus voltage-divider structure holds: bulk K4 substrate pump at $V_a$ → N parallel atomic LC tanks → per-atom voltage $V_{app}^{per-atom} \propto V_{pump}/N$.
 
 **The kernel APPLIES for**: any crystalline substrate with discrete atomic sites (NaI(Tl), CsI(Tl), HPGe, Sapphire Al₂O₃, CaF₂, other crystalline detectors). Per-detector $\kappa_{quality}$ varies with materials-science properties (crystal quality, phonon coherence at α-slew rate, dopant role, defect density) — see Tier-2 #9 + §12 open work.
 
@@ -147,7 +147,7 @@ This sub-section's REVISED framing closes the cross-substrate extrapolation gap 
 
 **ORIGINAL §3.6 BODY (preserved per Rule 12 — superseded by corrected framing above):**
 
-Per `ave-audit-of-audit` 2026-05-17 retroactive 5-axis cross-substrate classification (Foundation Item 3): the §3.5 substrate ↔ apparatus port structure derives the per-atom impedance $Z_{LC} = 12.31\,\Omega$ from canonical Vol 2 Ch 7 [`analog-ladder-filter.md`](../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46 — which derives the 1s-shell LC tank for **ionic atomic-physics** in **rock-salt or rock-salt-equivalent lattices** with **discrete crystalline N-parallel-LC-tank topology**. The derivation does NOT carry over without re-derivation to:
+Per `ave-audit-of-audit` 2026-05-17 retroactive 5-axis cross-substrate classification (Foundation Item 3): the §3.5 substrate ↔ apparatus port structure derives the per-atom impedance $Z_{LC} = 12.31\,\Omega$ from canonical Vol 2 Ch 7 [`analog-ladder-filter.md`](../../../vol2/quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md):18-46 — which derives the 1s-shell LC tank for **ionic atomic-physics** in **rock-salt or rock-salt-equivalent lattices** with **discrete crystalline N-parallel-LC-tank topology**. The derivation does NOT carry over without re-derivation to:
 
 - ~~**Covalent-bonded lattices** (diamond-cubic Ge, Si): the 1s-shell ladder derivation in `analog-ladder-filter.md` is for ionic atomic-physics with valence electrons screened by inner shells via the explicit nuclear → 1s → ... → valence port cascade. Covalent bonding shares electrons across multiple atoms — the per-atom port structure is NOT 1:1 with the ionic case. The kernel may apply with different prefactors, or may not apply at all; this is OPEN work.~~ [REVISED: cited source has no ionic/covalent qualifier; kernel applies universally per-atom]
 - **Liquids / amorphous solids** (liquid Xe, amorphous Ge, glasses): the §3.5 N-parallel-LC-tank topology assumes discrete crystalline atomic sites at fixed lattice positions. Liquids lack this topology; the kernel's port-enumeration step does not have a well-defined N. The kernel may apply via a different (phonon-density-based) port structure, or may not apply; OPEN work. [STANDS — discrete N requirement is substantively grounded]
@@ -206,7 +206,7 @@ The 4π is now DERIVED from spinor-cycle radiation impedance, NOT post-hoc selec
 
 ## §6 — κ_quality envelope from Q·δ regenerative regime
 
-Per [Tabletop-Graveyard RVR derivation](../../vol4/falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md) line 26-34: regenerative parametric oscillation onsets when $Q \cdot \delta_C \geq 2$.
+Per [Tabletop-Graveyard RVR derivation](../../falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md) line 26-34: regenerative parametric oscillation onsets when $Q \cdot \delta_C \geq 2$.
 
 For α-slew $\delta_C / C_0 = 0.0457$ (§3), regime check:
 
@@ -232,13 +232,13 @@ The in-range modulation $0 < \kappa_{quality} \leq 1$ within the deep-regenerati
 
 **Substrate-native derivation chain** (NO Dicke borrowing; uses canonical Kuramoto + percolation + intensity-coupling primitives only):
 
-1. **Kuramoto order parameter** for N atomic LC tanks with port phases θ_j (canonical [`kuramoto-phase-locking.md`](../../vol3/condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md) + [`bcs-alternative-framework.md:32`](../../vol3/condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md)): $R = \left|\frac{1}{N}\sum_j e^{i\theta_j}\right|$
+1. **Kuramoto order parameter** for N atomic LC tanks with port phases θ_j (canonical [`kuramoto-phase-locking.md`](../../../vol3/condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md) + [`bcs-alternative-framework.md:32`](../../../vol3/condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md)): $R = \left|\frac{1}{N}\sum_j e^{i\theta_j}\right|$
 2. **Intensity coupling**: $\kappa_{quality} = R^2$ because parametric kernel treats κ_quality as power-fraction (per §4 derivation $P_{coupled} \propto |V_{coherent}|^2 \propto N^2 R^2$)
 3. **Gaussian port-phase disorder** (ensemble of defects): $R = \exp(-\sigma_\theta^2/2)$ where $\sigma_\theta$ = ensemble standard deviation of port phases
 4. **Q-resonance amplification** of defect detuning: $\sigma_\theta = Q_{atomic} \cdot \sigma_{(\Delta\omega/\omega)}$ from forced-oscillator near-resonance phase response (standard EE: $\delta\theta_j = \arctan[Q \cdot \Delta\omega_j/\omega] \approx Q \cdot \Delta\omega_j/\omega$ in small-angle limit)
 5. **Per-atom Q from Theorem 3.1'** (canonical [`theorem-3-1-q-factor.md`](theorem-3-1-q-factor.md)): $Q_{atomic} = \alpha^{-1} \approx 137$ (radiation-resistance limited per-electron LC tank in vacuum)
 6. **Ensemble defect distribution** (uncorrelated random): $\sigma_{(\Delta\omega/\omega)} = \sqrt{\rho_{def}} \cdot (\Delta\omega/\omega)_{per-defect}$
-7. **Percolation cutoff** (AVE-Metamaterials sister-repo canonical [`03_superconducting_metamaterials.tex:67-71`](../../../../../AVE-Metamaterials/manuscript/vol_1_active_metamaterials/chapters/03_superconducting_metamaterials.tex)): $\rho_{perc} = 1 - p_c/p_{perc} = 7.8\%$ for 3D FCC lattice connectivity; above $\rho_{def} > \rho_{perc}$, Kuramoto coupling K vanishes across defect-clusters → R → 0
+7. **Percolation cutoff** (AVE-Metamaterials sister-repo canonical [`03_superconducting_metamaterials.tex:67-71`](../../../../../../AVE-Metamaterials/manuscript/vol_1_active_metamaterials/chapters/03_superconducting_metamaterials.tex)): $\rho_{perc} = 1 - p_c/p_{perc} = 7.8\%$ for 3D FCC lattice connectivity; above $\rho_{def} > \rho_{perc}$, Kuramoto coupling K vanishes across defect-clusters → R → 0
 
 **Closed parameter-free formula**:
 
@@ -277,11 +277,11 @@ All inferred ρ_def values lie in plausible-for-known-crystal-class ranges. The 
 ✓ Percolation cutoff from AVE-Metamaterials canonical (sister-repo per workspace authority)
 ✓ NO Dicke amplitude / Fermi golden rule attribution as derivation source
 
-Result doc: [`research/2026-05-17_kappa-quality-defect-density-derivation-result.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-result.md) §15. Prereg: [`research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md). Foundation Item 12 entry in closure-roadmap §0.5 with full audit trail.
+Result doc: [`research/2026-05-17_kappa-quality-defect-density-derivation-result.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-result.md) §15. Prereg: [`research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md).
 
 ## §7 — Differentiation from scalar-gravity RVR null
 
-Per [Tabletop-Graveyard](../../vol4/falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md): scalar-gravity parametric pumping concluded NULL for $\delta_L = GM_\oplus / (c^2 R_\oplus) \approx 6.96 \times 10^{-10}$ (15 OOM short of $Q \cdot \delta \geq 2$).
+Per [Tabletop-Graveyard](../../falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md): scalar-gravity parametric pumping concluded NULL for $\delta_L = GM_\oplus / (c^2 R_\oplus) \approx 6.96 \times 10^{-10}$ (15 OOM short of $Q \cdot \delta \geq 2$).
 
 **α-slew δ_C is $6.57 \times 10^7$ times larger than scalar-gravity δ_L**:
 
@@ -352,7 +352,7 @@ Per §3.6 kernel applicability classification + §8 layered confidence (Foundati
 
 ## §10 — Common pitfalls (load-bearing)
 
-- **DO NOT include $\kappa_{entrain}$ in coupling formula** alongside parametric kernel — $\kappa_{entrain}$ (Sagnac-RLVE) is REAL-power class (mass-density drag-along); parametric kernel is REACTIVE-power class. Mixing violates `ave-power-category-check` Axis A common-pitfall rule per [`../common/ave-analytical-toolkit-index.md` §1 line 53](../../common/ave-analytical-toolkit-index.md).
+- **DO NOT include $\kappa_{entrain}$ in coupling formula** alongside parametric kernel — $\kappa_{entrain}$ (Sagnac-RLVE) is REAL-power class (mass-density drag-along); parametric kernel is REACTIVE-power class. Mixing violates `ave-power-category-check` Axis A common-pitfall rule per [`../common/ave-analytical-toolkit-index.md` §1 line 53](../../../common/ave-analytical-toolkit-index.md).
 - **DO NOT use $\omega_{app} = 2\omega_{slew}$** as resonance condition. Degenerate parametric coupling puts signal at sub-harmonic of pump: $\omega_{app} = \omega_{slew}$. The $2\omega_{slew}$ is the $C_{eff}$ modulation frequency.
 - **DO derive 1/N² from substrate-native machinery** (voltage-divider on N parallel atomic LC tanks per §3.5 + substrate-clock phase-bin enumeration per §4). DO NOT substitute Dicke quantum-optics borrowing or Fermi-golden-rule reconciliation as source-of-derivation; both are structural-equivalence notes only. Per Foundation Item 2 substrate-native re-derivation 2026-05-17.
 - **DO check §3.6 kernel applicability conditions** before applying cycle-12 predictions to a new detector substrate. Rock-salt + halide-alkali ionic crystals → derived applicability. Covalent lattices (Ge), liquids (Xe), non-rock-salt crystalline (Al₂O₃, CaF₂) → UNDERIVED, predictions are CONDITIONAL not categorical. Per Foundation Item 3 cross-substrate audit 2026-05-17.
@@ -363,25 +363,24 @@ Per §3.6 kernel applicability classification + §8 layered confidence (Foundati
 **Canonical tools used in derivation**:
 - [Axiom 4 vacuum varactor](nonlinear-vacuum-capacitance.md) — constitutive form $C_{eff}(V)$
 - [Theorem 3.1' Q-Factor](theorem-3-1-q-factor.md) — $Z_{radiation} = Z_0/(4\pi)$ inheritance
-- [Op17 Power Transmission](../../common/operators.md) — matched-impedance limit
-- [Tabletop-Graveyard RVR Q·δ ≥ 2](../../vol4/falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md) — regenerative threshold
+- [Op17 Power Transmission](../../../common/operators.md) — matched-impedance limit
+- [Tabletop-Graveyard RVR Q·δ ≥ 2](../../falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md) — regenerative threshold
 - [Orbital Friction Paradox](orbital-friction-paradox.md) — real-vs-reactive Axis A categorical reference
 - [Intermodulation Distortion](intermodulation-distortion.md) — varactor Taylor expansion template
 
 **Application**:
-- [DAMA Matched-LC-Coupling](../../vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md) §13 — bulk-EE level expression of this kernel for DAMA-class detection
+- [DAMA Matched-LC-Coupling](../../../vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md) §13 — bulk-EE level expression of this kernel for DAMA-class detection
 
 **Index location**:
-- [AVE Analytical Toolkit Index §1 Coupling](../../common/ave-analytical-toolkit-index.md) — entry "Parametric Coupling Kernel"
+- [AVE Analytical Toolkit Index §1 Coupling](../../../common/ave-analytical-toolkit-index.md) — entry "Parametric Coupling Kernel"
 
 **Categorical exclusions** (per Axis A common-pitfall):
-- [Sagnac-RLVE $\kappa_{entrain}$](../../vol4/falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) — REAL-power class; categorically distinct from this REACTIVE-power kernel
+- [Sagnac-RLVE $\kappa_{entrain}$](../../falsification/ch11-experimental-bench-falsification/sagnac-rlve.md) — REAL-power class; categorically distinct from this REACTIVE-power kernel
 
 **Provenance**:
 - Prereg: [`research/2026-05-17_parametric-coupling-kernel-prereg.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-prereg.md)
 - Derivation Steps 1-3: [`research/2026-05-17_parametric-coupling-kernel-derivation-steps-1-3.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-derivation-steps-1-3.md)
 - Derivation Steps 4-9: [`research/2026-05-17_parametric-coupling-kernel-derivation-steps-4-9.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-derivation-steps-4-9.md)
-- closure-roadmap.md §0.5 12th-cycle entry — adjudication trail
 
 ## §12 — Open work (rigor refinements; do not block canonical use)
 

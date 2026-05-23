@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-hd9bee, clm-u462e4, clm-wzezvt]
+subtree-experiments: []
 -->
 
 # Ch.13: Future Geometries — Hopf Coils and Phased Arrays

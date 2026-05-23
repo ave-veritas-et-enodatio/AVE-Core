@@ -12,8 +12,10 @@ Fourteen checks, all hard fail-loud:
        ``<!-- id: clm-xxxxxx -->`` marker. An orphan ``### Quality`` block is
        a hard failure. (Not refresh-fixable; delete the orphan or restore the
        missing title/id.)
-    1. Tier 1 coverage: every leaf has either ``claims:`` or ``no-claim:`` in
-       its frontmatter (mutually exclusive).
+    1. Tier 1 coverage: every leaf declares its content via at least one of
+       ``{claims:, no-claim:, exp-id:}`` (hosting an experiment node satisfies
+       coverage on its own). ``claims`` and ``no-claim`` stay mutually exclusive
+       with each other; ``exp-id`` is orthogonal and may co-exist with either.
     2. Tier 2 coverage: every multi-claim leaf has proximal inline markers
        (``<!-- claim-quality: <id> ... -->``) for each ID in its claims list.
     3. ID uniqueness: no canonical ``<!-- id: clm-xxxxxx -->`` appears twice
@@ -92,19 +94,28 @@ INDEX_FILES = (
     "claims",
     "depends-on",
     "strengthen-by",
+    "supported-by",
     "cites",
     "subtree-aggregates",
 )
 
 EXCLUDE_DIRS = {"session", ".index", "tools"}
-EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
+EXCLUDE_NAMES = {"claim-quality.md", "claim-quality-closure-roadmap.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
 )
 CANONICAL_ID = re.compile(r"<!-- id: (clm-[a-z0-9]{6}) -->")
+# A claim OR support entry marker — both carry a `### Quality` block, so the
+# quality-block integrity check accepts either prefix (INVARIANT-S10).
+CANONICAL_ANY_ID = re.compile(r"<!-- id: ((?:clm|sup)-[a-z0-9]{6}) -->")
 TIER2_INLINE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+EXP_ID_RE = re.compile(r"\bexp-[a-z0-9]{6}\b")
+SUP_ID_RE = re.compile(r"\bsup-[a-z0-9]{6}\b")
+# Either prefix — for id-list frontmatter values that may hold clm- ids
+# (claims:, subtree-claims:) or exp- ids (experiments:, subtree-experiments:).
+ANY_ID_RE = re.compile(r"\b((?:clm|exp)-[a-z0-9]{6})\b")
 FENCE = re.compile(r"^```")
 
 
@@ -134,7 +145,9 @@ def parse_frontmatter(text: str) -> dict | None:
         key = key.strip()
         value = value.strip()
         if value.startswith("[") and value.endswith("]"):
-            fields[key] = ID_RE.findall(value)
+            # clm- ids (claims:, subtree-claims:) or exp- ids (experiments:,
+            # subtree-experiments:) — accept both prefixes.
+            fields[key] = ANY_ID_RE.findall(value)
         elif value.startswith('"') and value.endswith('"'):
             fields[key] = value[1:-1]
         elif value in ("true", "false"):
@@ -218,7 +231,7 @@ def check_quality_block_integrity():
             if quality_idx is None:
                 continue
             has_title = any(ln.startswith("## ") for ln in sec_lines)
-            has_id = any(CANONICAL_ID.match(ln.strip()) for ln in sec_lines)
+            has_id = any(CANONICAL_ANY_ID.match(ln.strip()) for ln in sec_lines)
             if has_title and has_id:
                 continue
             missing = []
@@ -244,7 +257,15 @@ def check_frontmatter_presence(files: list[tuple[Path, dict | None]]):
 
 
 def check_tier1_coverage(files: list[tuple[Path, dict | None]]):
-    """Leaf or leaf-as-index missing both claims and no-claim, OR with both."""
+    """Leaf coverage: a leaf must declare its content via at least one of
+    ``{claims, no-claim, exp-id}``.
+
+    Hosting an experiment node (``exp-id``) satisfies coverage on its own — a
+    leaf that originates only an experiment needs neither ``claims:`` nor
+    ``no-claim:`` (INVARIANT-S9). ``claims`` and ``no-claim`` remain mutually
+    exclusive *with each other*; ``exp-id`` is orthogonal to both and may
+    co-exist with either.
+    """
     failures = []
     for p, fm in files:
         if fm is None:
@@ -254,8 +275,11 @@ def check_tier1_coverage(files: list[tuple[Path, dict | None]]):
             continue
         has_claims = "claims" in fm and bool(fm["claims"])
         has_no_claim = "no-claim" in fm and bool(fm["no-claim"])
-        if not has_claims and not has_no_claim:
-            failures.append((str(p.relative_to(KB)), "neither claims nor no-claim"))
+        has_exp = "exp-id" in fm and bool(fm["exp-id"])
+        if not has_claims and not has_no_claim and not has_exp:
+            failures.append(
+                (str(p.relative_to(KB)), "none of claims / no-claim / exp-id")
+            )
         elif has_claims and has_no_claim:
             failures.append((str(p.relative_to(KB)), "BOTH claims and no-claim"))
     return failures
@@ -338,6 +362,88 @@ def check_subtree_consistency(files: list[tuple[Path, dict | None]]):
                     sorted(expected - declared),
                     sorted(declared - expected),
                 ))
+    return failures
+
+
+def check_experiments_ref_integrity(
+    files: list[tuple[Path, dict | None]],
+    experiment_ids: set[str],
+    claim_ids: set[str],
+):
+    """Every leaf ``experiments:`` ref must resolve to an experiment node.
+
+    A leaf may carry an optional ``experiments: [exp-xxxxxx, ...]`` field that
+    REFERENCES experiments it does not own (the analog of ``claims:`` for
+    claims). Each referenced id must:
+
+    * be a well-formed ``\\bexp-[a-z0-9]{6}\\b`` id, and
+    * resolve to an actual experiment node (an ``exp-id``-declaring leaf).
+
+    Two hard-failure modes are reported per (leaf, id):
+
+    * ``orphan`` — the id matches no experiment node (and is not a known claim
+      id either): a dangling reference.
+    * ``kind-mismatch`` — the id resolves to a CLAIM (``clm-``) rather than an
+      experiment: an id that points at the wrong node class.
+    * ``malformed`` — the id is not a syntactically valid exp-id.
+
+    Returns a list of ``(leaf_path, id, reason)`` tuples. Mirrors the style of
+    ``check_orphan_refs`` / the index referential-integrity check. NOT
+    refresh-fixable — the leaf's ``experiments:`` field must be corrected.
+    """
+    failures: list[tuple[str, str, str]] = []
+    for p, fm in files:
+        if fm is None:
+            continue
+        refs = fm.get("experiments", [])
+        if not refs:
+            continue
+        rel = str(p.relative_to(KB))
+        for rid in refs:
+            if not EXP_ID_RE.fullmatch(rid):
+                if rid in claim_ids or ID_RE.fullmatch(rid):
+                    failures.append(
+                        (rel, rid, "resolves to a claim, not an experiment")
+                    )
+                else:
+                    failures.append(
+                        (rel, rid, "malformed exp-id (expected exp-[a-z0-9]{6})")
+                    )
+                continue
+            if rid not in experiment_ids:
+                failures.append(
+                    (rel, rid, "no such experiment node (orphan reference)")
+                )
+    return failures
+
+
+def check_subtree_experiments_consistency(state) -> list[tuple[str, list, list]]:
+    """Declared ``subtree-experiments`` must equal the computed owned union.
+
+    Owned-only, parallel to ``check_subtree_consistency`` for subtree-claims:
+    each index / entry-point node's declared ``subtree-experiments`` must equal
+    the union of exp-ids OWNED by experiment leaves under it (a leaf's
+    ``experiments:`` REFERENCES do NOT contribute). The expected union comes
+    from ``kb_index_lib.compute_subtree_aggregates`` — the SAME shared
+    computation refresh writes from, so this checker and the emitter cannot
+    drift. (refresh-fixable.)
+
+    Returns ``(node_path, missing_from_declared, extra_in_declared)`` tuples.
+    """
+    aggregates = kb_index_lib.compute_subtree_aggregates(state)
+    failures: list[tuple[str, list, list]] = []
+    for idx in state.indexes:
+        _, expected_exp = aggregates.get(idx.path, ([], []))
+        declared = set(idx.declared_subtree_experiments)
+        expected = set(expected_exp)
+        if declared != expected:
+            failures.append(
+                (
+                    idx.path,
+                    sorted(expected - declared),
+                    sorted(declared - expected),
+                )
+            )
     return failures
 
 
@@ -498,12 +604,35 @@ def check_index_referential_integrity(index_dir: Path):
         [("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else [])],
     )
     _check_lines(
+        "supported-by",
+        [
+            ("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else []),
+            ("sup_id", lambda r: [r.get("sup_id")] if r.get("sup_id") else []),
+        ],
+    )
+    _check_lines(
         "subtree-aggregates",
-        [("subtree_claims", lambda r: list(r.get("subtree_claims") or []))],
+        [
+            ("subtree_claims", lambda r: list(r.get("subtree_claims") or [])),
+            (
+                "subtree_experiments",
+                lambda r: list(r.get("subtree_experiments") or []),
+            ),
+        ],
     )
 
-    # depends-on kind-match: a resolved target's node_type must equal the
-    # edge's declared target_kind.
+    # Per-edge consistency, relation-aware (depends vs strengthens).
+    #
+    # * depends:     source resolves to a claim OR a support (a support's own
+    #                deps are depends edges sourced at the sup-id); target
+    #                resolves to any node; target_kind == resolved target
+    #                node_type (kind-match); strength is null; fraction is null.
+    # * strengthens: source resolves to an experiment; target resolves to a
+    #                claim AND target_kind == "claim"; an experiment node is
+    #                never an edge target; strength is non-null; fraction null.
+    # * supports:    source resolves to a SUPPORT; target resolves to a claim
+    #                AND target_kind == "claim"; strength is null; fraction is
+    #                non-null and in (0, 1] (INVARIANT-S10).
     dep_path = index_dir / "depends-on.jsonl"
     if dep_path.exists():
         for lineno, line in enumerate(
@@ -515,19 +644,182 @@ def check_index_referential_integrity(index_dir: Path):
                 rec = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            source = rec.get("source")
             target = rec.get("target")
             kind = rec.get("target_kind")
-            if target and target in node_type_by_id:
-                resolved = node_type_by_id[target]
-                if kind != resolved:
+            relation = rec.get("relation")
+            strength = rec.get("strength")
+            fraction = rec.get("fraction")
+            src_type = node_type_by_id.get(source)
+            tgt_type = node_type_by_id.get(target)
+
+            if relation == "supports":
+                if src_type is not None and src_type != "support":
                     violations.append(
-                        (
-                            "depends-on",
-                            target,
-                            f"line {lineno}, target_kind {kind!r} != "
-                            f"node_type {resolved!r}",
-                        )
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge source resolves to "
+                         f"{src_type!r}, expected support")
                     )
+                if tgt_type is not None and tgt_type != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, supports edge target resolves to "
+                         f"{tgt_type!r}, expected claim")
+                    )
+                if kind != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, supports edge target_kind {kind!r} "
+                         f"!= 'claim'")
+                    )
+                if strength is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge has non-null strength "
+                         f"{strength!r}")
+                    )
+                if fraction is None or not (0.0 < fraction <= 1.0):
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge on-point fraction "
+                         f"{fraction!r} not in (0, 1]")
+                    )
+            elif relation == "strengthens":
+                if src_type is not None and src_type != "experiment":
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, strengthens edge source resolves to "
+                         f"{src_type!r}, expected experiment")
+                    )
+                if tgt_type is not None and tgt_type != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, strengthens edge target resolves to "
+                         f"{tgt_type!r}, expected claim")
+                    )
+                if kind != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, strengthens edge target_kind {kind!r} "
+                         f"!= 'claim'")
+                    )
+                if strength is None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, strengthens edge has null strength")
+                    )
+            elif relation == "depends":
+                if src_type is not None and src_type not in ("claim", "support"):
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, depends edge source resolves to "
+                         f"{src_type!r}, expected claim or support")
+                    )
+                if tgt_type is not None and kind != tgt_type:
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, target_kind {kind!r} != "
+                         f"node_type {tgt_type!r}")
+                    )
+                if tgt_type == "experiment":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, depends edge targets an experiment "
+                         f"node (experiments are never edge targets)")
+                    )
+                if strength is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, depends edge has non-null strength "
+                         f"{strength!r}")
+                    )
+            else:
+                violations.append(
+                    ("depends-on", source or "?",
+                     f"line {lineno}, unknown relation {relation!r}")
+                )
+
+    # exp-id format + experiment-node placement: every experiment node id must
+    # match \bexp-[a-z0-9]{6}\b, and no experiment id may appear in cites /
+    # subtree-aggregates (those reference claim ids only). depends-on target
+    # placement is covered above.
+    for nid, ntype in node_type_by_id.items():
+        if ntype == "experiment" and not EXP_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid, "experiment node id is not \\bexp-[a-z0-9]{6}\\b")
+            )
+        if ntype == "support" and not SUP_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid, "support node id is not \\bsup-[a-z0-9]{6}\\b")
+            )
+
+    experiment_ids = {
+        nid for nid, t in node_type_by_id.items() if t == "experiment"
+    }
+    for short in ("cites", "subtree-aggregates"):
+        path = index_dir / f"{short}.jsonl"
+        if not path.exists():
+            continue
+        for lineno, line in enumerate(
+            path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if short == "cites":
+                ids = [rec.get("claim_id")]
+            else:
+                ids = list(rec.get("subtree_claims") or [])
+            for cid in ids:
+                if cid in experiment_ids:
+                    violations.append(
+                        (short, cid,
+                         f"line {lineno}, experiment node referenced where a "
+                         f"claim id is expected")
+                    )
+            # subtree-aggregates subtree_experiments holds exp-ids only; each
+            # must resolve to an experiment node (a claim id here is a kind
+            # mismatch — the inverse of the subtree_claims check above).
+            if short == "subtree-aggregates":
+                for eid in list(rec.get("subtree_experiments") or []):
+                    if eid in node_type_by_id and eid not in experiment_ids:
+                        violations.append(
+                            (short, eid,
+                             f"line {lineno}, subtree_experiments id resolves to "
+                             f"{node_type_by_id[eid]!r}, expected experiment")
+                        )
+
+    # supported-by kind-match: claim_id must resolve to a claim, sup_id to a
+    # support (INVARIANT-S10). The reverse view is untraversed for solidity, but
+    # a kind mismatch still signals a build bug.
+    sb_path = index_dir / "supported-by.jsonl"
+    if sb_path.exists():
+        for lineno, line in enumerate(
+            sb_path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            cid = rec.get("claim_id")
+            sid = rec.get("sup_id")
+            if cid in node_type_by_id and node_type_by_id[cid] != "claim":
+                violations.append(
+                    ("supported-by", cid,
+                     f"line {lineno}, claim_id resolves to "
+                     f"{node_type_by_id[cid]!r}, expected claim")
+                )
+            if sid in node_type_by_id and node_type_by_id[sid] != "support":
+                violations.append(
+                    ("supported-by", sid,
+                     f"line {lineno}, sup_id resolves to "
+                     f"{node_type_by_id[sid]!r}, expected support")
+                )
 
     return violations
 
@@ -541,7 +833,9 @@ def check_solidity_cycle(state) -> list[str]:
     refresh-fixable — the cycle must be broken in the claim declarations.
     """
     try:
-        kb_index_lib.compute_solidity(state.claim_entries)
+        kb_index_lib.compute_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
     except kb_index_lib.SolidityCycleError as exc:
         return exc.cycle_members
     return []
@@ -579,7 +873,12 @@ def check_solidity_fresh(state, index_dir: Path):
     check already fails loudly in that case).
     """
     try:
-        solidity = kb_index_lib.compute_solidity(state.claim_entries)
+        solidity = kb_index_lib.compute_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
+        sup_solidity = kb_index_lib.compute_support_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
     except kb_index_lib.SolidityCycleError:
         return [], [], []
 
@@ -587,6 +886,41 @@ def check_solidity_fresh(state, index_dir: Path):
 
     line_drift: list[tuple[str, str, str]] = []
     annotation_drift: list[tuple[str, str, str, str]] = []
+
+    # Support entries carry the same derived ``- solidity:`` line + claim-target
+    # depends-on annotations (INVARIANT-S10); their solidity is sup_solidity.
+    for sup in state.supports:
+        computed = sup_solidity.get(sup.id)
+        if computed is None:
+            if sup.solidity is not None:
+                line_drift.append(
+                    (sup.id, f"solidity {sup.solidity}", "expected *pending*")
+                )
+        elif not _approx(sup.solidity, computed):
+            line_drift.append(
+                (sup.id, f"solidity {sup.solidity}", f"expected {computed:.2f}")
+            )
+        for edge in sup.depends_on:
+            if edge.target_kind != "claim":
+                continue
+            target_solidity = solidity.get(edge.target)
+            if target_solidity is None:
+                if edge.target_solidity_recorded is not None:
+                    annotation_drift.append(
+                        (sup.id, edge.target,
+                         f"recorded {edge.target_solidity_recorded}",
+                         "expected *pending*")
+                    )
+                continue
+            if edge.target_solidity_recorded is None:
+                continue
+            if not _approx(edge.target_solidity_recorded, target_solidity):
+                annotation_drift.append(
+                    (sup.id, edge.target,
+                     f"recorded {edge.target_solidity_recorded}",
+                     f"expected {target_solidity:.2f}")
+                )
+
     for entry in state.claim_entries:
         computed = solidity.get(entry.id)
         if computed is None:
@@ -659,7 +993,25 @@ def check_solidity_fresh(state, index_dir: Path):
                 if not line:
                     continue
                 rec = json.loads(line)
-                if rec.get("node_type", "claim") != "claim":
+                node_type = rec.get("node_type", "claim")
+                if node_type == "support":
+                    # A support record's solidity must equal its computed
+                    # sup_solidity (null when pending).
+                    sid = rec.get("id")
+                    computed = sup_solidity.get(sid)
+                    if computed is None:
+                        if rec.get("solidity") is not None:
+                            jsonl_drift.append(
+                                (sid, f"solidity {rec.get('solidity')}",
+                                 "expected null")
+                            )
+                    elif not _approx(rec.get("solidity"), computed):
+                        jsonl_drift.append(
+                            (sid, f"solidity {rec.get('solidity')}",
+                             f"expected {computed:.2f}")
+                        )
+                    continue
+                if node_type != "claim":
                     continue
                 cid = rec.get("id")
                 computed = solidity.get(cid)
@@ -764,6 +1116,16 @@ def main(argv: list[str] | None = None) -> int:
         kb_state, index_dir
     )
 
+    # Experiments-reference checks (the optional `experiments:` leaf field):
+    # every reference must resolve to an experiment node, and the derived
+    # subtree-experiments aggregate must match the owned union.
+    experiment_ids = {exp.id for exp in kb_state.experiments}
+    claim_ids = {entry.id for entry in kb_state.claim_entries}
+    exp_ref_failures = check_experiments_ref_integrity(
+        files, experiment_ids, claim_ids
+    )
+    subtree_exp_failures = check_subtree_experiments_consistency(kb_state)
+
     # Index summary line — counts come from the canonical (expected) record
     # set so the line is meaningful even when on-disk files are stale.
     # claims.jsonl is a type-tagged union; report the node-type breakdown.
@@ -774,10 +1136,13 @@ def main(argv: list[str] | None = None) -> int:
         f"[index] {len(INDEX_FILES)} JSONL files "
         f"({len(expected_records['claims'])} nodes: "
         f"{node_type_counts.get('claim', 0)} claims / "
+        f"{node_type_counts.get('experiment', 0)} experiments / "
+        f"{node_type_counts.get('support', 0)} support / "
         f"{node_type_counts.get('invariant', 0)} invariants / "
         f"{node_type_counts.get('axiom', 0)} axioms, "
         f"{len(expected_records['depends-on'])} depends-on, "
         f"{len(expected_records['strengthen-by'])} strengthen-by, "
+        f"{len(expected_records['supported-by'])} supported-by, "
         f"{len(expected_records['cites'])} citations, "
         f"{len(expected_records['subtree-aggregates'])} aggregates)."
     )
@@ -852,6 +1217,34 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"    missing from declared: {missing}")
             if extra:
                 print(f"    extra in declared: {extra}")
+
+    if subtree_exp_failures:
+        has_failures = True
+        refresh_fixable = True
+        print(
+            f"\n[FAIL] {len(subtree_exp_failures)} indexes with "
+            f"subtree-experiments drift:"
+        )
+        for p, missing, extra in subtree_exp_failures:
+            print(f"  {p}")
+            if missing:
+                print(f"    missing from declared: {missing}")
+            if extra:
+                print(f"    extra in declared: {extra}")
+
+    if exp_ref_failures:
+        has_failures = True
+        print(
+            f"\n[FAIL] {len(exp_ref_failures)} leaf experiments: reference(s) "
+            f"do not resolve to an experiment node:"
+        )
+        for rel, rid, reason in exp_ref_failures:
+            print(f"  {rel}: {rid} — {reason}")
+        print(
+            "  → Not refresh-fixable. Every id in a leaf's experiments: field "
+            "must resolve to an exp-id-declaring experiment leaf. Fix the "
+            "reference or add the experiment."
+        )
 
     if uncited:
         has_failures = True

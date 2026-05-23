@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-l416hl, clm-llqd1n, clm-mlwm3h, clm-nk6c43, clm-ome498, clm-sjixaw]
+subtree-experiments: []
 -->
 
 # Geometric Inevitability --- From Numerology to Derivation

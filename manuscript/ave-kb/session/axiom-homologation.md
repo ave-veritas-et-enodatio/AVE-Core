@@ -1,7 +1,9 @@
-[↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-
 # AVE Axiom Homologation — Cross-Repo Inventory
+
+**EDIT** - 2026-05-23 Benn - the kb-metadata system (claim-quality.md, frontmatter, derived tooling) has been greatly extended, enhanced, and matured since this document was created. see the [main kb readme](../README.md), and the main [claim-quality.md](../claim-quality.md). This document originally lived as a kb leaf under `common/`. It has been moved to `session/` to preserve its content for evaluation until it can be deleted.
+
+**DO NOT MAKE SWEEPING CHANGES BASED ON THIS DOCUMENT WITHOUT FULLY RE-EVALUATING CURRENT STATUS**
+
 
 > **Cross-cutting framework reference per [INVARIANT-S3 / cross-cutting-notes pattern](../CLAUDE.md).** Documents distinct axiom-numbering schemes used across the AVE org (Schemes A / B / C / vestige), their reconciliation, and the load-bearing canonical naming (Scheme A per Vol 1 Ch 1:51-75). **Living record** — future audits surfacing new scheme variants, additional inconsistencies, or downstream homologation work should land as amendments here, not as parallel docs. Last revised: 2026-05-16 (Axiom 3 rename: "Effective Action Principle" → "Minimum Reflection Principle"; historical body preserved per Rule 12).
 

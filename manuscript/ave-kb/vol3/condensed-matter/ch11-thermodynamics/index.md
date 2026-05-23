@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-4o0f0h, clm-cfd5yf, clm-eaiqj1, clm-hk81zp, clm-jpfbm6, clm-refjr6, clm-t05mvx, clm-uu6dl5]
+subtree-experiments: []
 -->
 
 # Ch.11: Thermodynamics and The Arrow of Time
@@ -12,7 +13,7 @@ Temperature redefined as RMS electromagnetic noise on the LC lattice; entropy as
 Cross-volume dependencies:
 > → Primary: [H-Bond Op4 Equilibrium](../../../vol5/molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md) — sec:hbond_derivation; the O--O distance $d_{OO} = 2.727$ Angstrom used in the water anomaly derivation is derived in Vol. V, Ch. 2.
 
-> → Primary: [Melting Eigenmode](../../../vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md) — sec:melting_eigenmode; the melting temperature $T_m = 279.5$ K derived as proton transfer eigenmode lives in Vol. VII, Ch. 11.
+> → Primary: Melting Eigenmode (forthcoming) — sec:melting_eigenmode; the melting temperature $T_m = 279.5$ K derived as proton transfer eigenmode lives in Vol. VII, Ch. 11.
 
 ## Key Results
 

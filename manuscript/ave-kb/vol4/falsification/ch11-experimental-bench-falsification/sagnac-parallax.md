@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-wqmb19]
+claims: [clm-yr6tu4]
 -->
 
 ## Protocol 11: Sagnac-Parallax (Galactic Wind Vectoring) — AVE predicts NULL, corroborated by Brillet–Hall + Wolf

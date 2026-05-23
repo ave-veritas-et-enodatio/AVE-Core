@@ -102,7 +102,7 @@ path-stable: "referenced from vol2 as eq:dynamic_capacitance_yield"
 - `kind` — one of `leaf`, `leaf-as-index`, `index`, `entry-point`.
 
 **For `kind: leaf` and `kind: leaf-as-index`:**
-- Either `claims: [id1, id2, ...]` OR `no-claim: <reason>`. Mutually exclusive; verifier enforces.
+- At least one of `claims: [id1, id2, ...]`, `no-claim: <reason>`, or `exp-id: exp-xxxxxx` (hosting an experiment node satisfies coverage on its own — see INVARIANT-S9). `claims` and `no-claim` are mutually exclusive *with each other*; `exp-id` is orthogonal to both and may co-exist with either. Verifier enforces.
 - Optional `path-stable: <provenance string>` — preserves the prior INVARIANT-S6 cross-volume label provenance.
 
 **For `kind: index`:**
@@ -155,6 +155,57 @@ Each entry in a `claim-quality.md` file carries a stable ID of the form `clm-` p
 **Query index.** The claim graph is also materialized as JSONL under `manuscript/ave-kb/.index/` (claim nodes, dependency edges, citations, subtree aggregates) and queryable via the `ave-kb` CLI and the `ave.kb.index` module — faster and more precise than grep for dependency, solidity, and citation questions. See `manuscript/ave-kb/.index/SCHEMA.md`.
 
 *Confirmed by: spec at `mad-review/kb-metadata-spine-spec.md`; live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,check-claim-quality}.py` (one-shot migration tools retired to `tools/archival/`); CI gate via `make verify-kb-metadata`.*
+
+### INVARIANT-S9: Experiment DAG-id propagation (`exp-`)
+
+Physical experiments are first-class graph nodes carrying a stable ID of the form `exp-` plus 6 lowercase-alphanumeric characters (`\bexp-[a-z0-9]{6}\b`), parallel to the `clm-` claim id (INVARIANT-S8). An experiment **validates / strengthens** one or more claims; it never originates a derivation.
+
+**Physical experiments only.** A simulation is NOT an experiment — a simulation feeds a claim's *derivation* confidence (the min-branch), not its experimental solidity. Only a physical experiment (apparatus + measurement) earns an `exp-` id.
+
+**Two-graph model — container vs. node.** A KB leaf is a **container**; its `kind` (`leaf` | `leaf-as-index` | `index` | `entry-point`, per INVARIANT-S5) is its role in the *topography graph* (the hyperlink/navigation tree) and does NOT encode node-flavor. Separately, a leaf *originates* zero or more **node-bodies** in the *claim graph* — `clm` claim nodes (via `claims:`) and `exp` experiment nodes (via `exp-id:`) — connected by `strengthens` (exp→clm) and `references` (leaf→exp) edges. The claim graph is acyclic; reverse views (`strengthen-by`, `cites`) are untraversed bookkeeping. `clm` and `exp` node-bodies are **orthogonal**: a single container may host BOTH a `claims:` list AND an `exp-id` (e.g. a bench leaf that states a prediction *and* describes the experiment testing it).
+
+**Experiment-hosting leaf frontmatter.** Experiment-ness is conferred by a leaf *hosting an `exp-id`*, not by a `kind` — there is no `kind: experiment`. An experiment-hosting leaf is a `kind: leaf` (or `leaf-as-index`) carrying:
+- `exp-id: exp-xxxxxx` — the node's stable id. The leaf is its own canonical home (no separate register).
+- `status: run | pending` — `run` once a result exists; `pending` while unrun. A `pending` experiment's `strengthens` edges contribute nothing.
+- `strengthens:` — a list of `clm-<id>: <strength>` pairs, one per claim the result bears on; `<strength>` ∈ [0,1] is the conferred experimental-solidity for that claim (typically `1.0` for the designed target on an unequivocal result, lower for orthogonally-implicated claims). A target may be a claim that the *same leaf* also originates via `claims:` — a node→node edge between two distinct co-located node-bodies, not a self-loop and not a cycle.
+
+A leaf hosting an `exp-id` MAY also carry `claims:` — they are orthogonal node-bodies, **not** mutually exclusive. When co-hosted, the leaf materializes BOTH a `node_type: claim` record and a `node_type: experiment` record. The only surviving exclusivity is that an `exp-id`-owning leaf must not also carry an `experiments:` reference (an owner does not also reference foreign experiments).
+
+**Strengthening is non-transitive (max-branch).** A `strengthens` edge lifts only its directly-targeted claim. A claim's solidity is `max(derivation_solidity, experimental_solidity)`, where `experimental_solidity = max` of the strengths from `run` experiments targeting it. Validation does NOT flow to a claim's upstream derivation dependencies — an experiment that also bears on an input authors a *separate* `strengthens` edge to that input with its own strength. A claim is `*pending*` iff its derivation is pending **and** no run experiment strengthens it (unassessed ≠ refuted; an unrun experiment can never float a pending claim down to a refuted `0.0`).
+
+**Leaf `experiments:` references.** A leaf that REFERENCES an experiment it does not own carries an optional `experiments: [exp-xxxxxx, ...]` frontmatter field — the experiment-reference analog of `claims:` for claims (a leaf-level citation, the inverse of the experiment's Leaf-references; not rolled up transitively, not for prose mentions). It is additive: allowed alongside `claims:` OR `no-claim:`, and never a primary field (a referencing leaf with no claims of its own uses `no-claim: <reason>` + `experiments: [...]`). An owning `exp-id` leaf must NOT also carry `experiments:`. Every referenced id must resolve to a real experiment node; a verifier check enforces this. `index` / `entry-point` files carry a derived `subtree-experiments: [...]` aggregate = the OWNED-only union of exp-ids declared under their scope (a leaf's `experiments:` references do not propagate into it), regenerated by `make refresh-kb-metadata`.
+
+**Grep guarantee.** `grep -r "exp-<id>"` returns the experiment leaf's frontmatter declaration, every `strengthens` reference, and every leaf's `experiments:` reference line that cites the id (plus the derived `subtree-experiments:` aggregates that scope it). `\bexp-[a-z0-9]{6}\b` matches exp-ids and nothing else. The experiment node and its strengthens edges are materialized in `.index/claims.jsonl` (`node_type: experiment`) and `.index/depends-on.jsonl` (`relation: strengthens`); see `.index/SCHEMA.md`.
+
+*Confirmed by: spec at `manuscript/ave-kb/.index/SCHEMA.md` (experiment node + strengthens edge + max-solidity rule); live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,verify-kb-metadata}.py`; CI gate via `make verify-kb-metadata`.*
+
+### INVARIANT-S10: Support DAG-id propagation (`sup-`)
+
+A **support** node is **non-physical analytical support work** that strengthens existing claims without originating a new proposition. It carries a stable ID of the form `sup-` plus 6 lowercase-alphanumeric characters (`\bsup-[a-z0-9]{6}\b`), parallel to the `clm-` claim id (INVARIANT-S8) and the `exp-` experiment id (INVARIANT-S9). A support is **claim-like inside, experiment-like in fan-out, and contributes to the DERIVATION branch** (never the experimental/max branch). It is the analytic counterpart of the physical experiment: where an `exp-` confers *experimental* solidity via the max-branch, a `sup-` confers *derivation* lift, dep-gated.
+
+**Two-graph model.** As with `clm` and `exp` (INVARIANT-S9), a KB leaf is a **container** whose `kind` (topography role) does NOT encode node-flavor; a `sup` support node-body is originated by a leaf hosting a `sup-id`, orthogonal to `claims:` / `exp-id:` / `no-claim:` (all may co-exist on one container).
+
+**Id + hosting.** `sup-id: sup-xxxxxx` in a `kind: leaf` (or `leaf-as-index`) container, plus a `supports:` block. Hosting a `sup-id` satisfies Tier-1 coverage on its own: a leaf is valid with at least one of `{claims, no-claim, exp-id, sup-id}`.
+
+**Claim-like internals.** A support has a **local rigor** `quality` (scored by the same rubric as a claim's `confidence`; `*pending*` until evaluated) and **may carry its own `depends-on`** (consume other claims) OR be free-standing. These live in a **claim-quality-style entry keyed by the sup-id** — a `<!-- id: sup-xxxxxx -->` marker + a `### Quality` block (`quality:` / `depends-on:` / `solidity:` / `rationale:`) in the same `claim-quality.md` register as claims, following the claim-entry shape with `quality:` substituted for `confidence:`.
+
+**Its own solidity (computed exactly like a claim's derivation):** `sup_solidity = round2(quality × min(its dependency final solidities))`; framework deps contribute 1.0; pending propagates (pending `quality` OR a pending dep ⇒ pending `sup_solidity`). A free-standing support (no deps) has `sup_solidity = quality`.
+
+**Experiment-like fan-out.** A single support may support MULTIPLE beneficiary claims; the hosting leaf's `supports:` block carries one `clm-<id>: <fraction>` pair per beneficiary, where `<fraction>` is the **on-point fraction** f ∈ (0,1] (how on-point the support is for that claim; 0 excluded — a zero-relevance edge is not authored). Materialized as `relation: supports` edges (source = sup-id, target = claim, carrying `fraction`) in `depends-on.jsonl`.
+
+**Contribution to beneficiaries (DERIVATION branch, dep-gated — NOT the max/experimental branch):** each beneficiary claim `C` receives `sup_solidity × f` into its **local_quality**:
+- `local_quality(C) = max(confidence(C), max over supporting sups of (sup_solidity × f))` — a pending `sup_solidity` contributes nothing (excluded from the max; no NaN, no poison), exactly as an unrun experiment is excluded from the experimental max.
+- `derivation_solidity(C) = round2(local_quality(C) × min(C's dependency final solidities))` — so a support lift is still throttled by C's own deps (dep-gated; it does NOT bypass deps the way an experiment's max-branch does).
+- `solidity(C) = max(derivation_solidity, experimental_solidity)`; `*pending*` iff both branches null.
+- **CRITICAL:** a pending support (pending quality or pending dep) must NEVER drag a beneficiary with otherwise-valid quality to pending. Pending-poison flows ONLY from a claim's own load-bearing `depends-on`, never from an inbound `supports` edge.
+
+**Acyclicity.** A support's `depends-on` and its `supports` edges are hand-authored backward edges (point to claims at ≤ the support's volume), preserving the acyclic claim graph. The reverse view `supported-by` may point forward and is never traversed for solidity.
+
+**Materialization.** `claims.jsonl` gains `node_type: "support"` records (`node_type`, `id`, `title`, `canonical_path`, `canonical_anchor`, `quality`, `solidity`), sorted last (axiom < claim < experiment < invariant < support). `depends-on.jsonl`: a support's OWN deps are `relation: depends` edges (source = sup-id); its beneficiary edges are `relation: supports` (source = sup-id, target = claim, with `fraction`). The `supported-by.jsonl` reverse view is untraversed bookkeeping. Both `sup_solidity` and the beneficiary `local_quality` lift come from the SAME shared `kb_index_lib.compute_solidity_full` (no dual-compute drift); the verifier recomputes from that same source.
+
+**Grep guarantee.** `grep -r "sup-<id>"` returns the support's claim-quality entry, the hosting leaf's `sup-id:` + `supports:` block, and every materialized `supports` / `supported-by` reference. `\bsup-[a-z0-9]{6}\b` matches sup-ids and nothing else.
+
+*Confirmed by: spec at `manuscript/ave-kb/.index/SCHEMA.md` (support node + supports edge + supported-by view + local_quality/sup_solidity rule); live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,verify-kb-metadata}.py`; CI gate via `make verify-kb-metadata`.*
 
 ---
 

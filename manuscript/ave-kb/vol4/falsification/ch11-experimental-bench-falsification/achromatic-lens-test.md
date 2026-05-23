@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-k9up5c]
+exp-id: exp-onqclb
+status: pending
+strengthens:
+  - clm-k9up5c: 1.0
 path-stable: "referenced from vol3 as sec:achromatic_lens"
 -->
 

@@ -209,7 +209,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "Substrate-independent slope" is a falsification criterion (mineral-oil submersion test); a substrate-dependent slope falsifies the prediction at this scale, but absence of substrate dependence has not yet been established experimentally in the leaves.
   - The Chiral Figure of Merit ($\text{FoM} = Q_u \times \alpha \cdot pq/(p+q) \times \eta_{\mathcal{H}}$) is a design-optimization composite, not a measured quantity; the "$1{,}300\times$ FoM gain from YBCO" is a predicted improvement assuming idealized Q.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/open-source-hardware.md`, `falsification/ch11-experimental-bench-falsification/project-hopf-02.md` (HOPF-02 VNA $S_{11}$ chiral-impedance-match falsifier), `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA summary including HOPF-02), `future-geometries/ch13-future-geometries/high-q-chiral-antenna.md`, `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`.
+> **Leaf references:** `falsification/ch11-experimental-bench-falsification/open-source-hardware.md` (HOPF-01 chiral VNA antenna + falsification protocol), `future-geometries/ch13-future-geometries/k4-tlm-simulator.md` (K4-TLM simulator-side reproduction of $\Delta f/f$ — derivation support). This is the torus-knot resonance-shift *prediction*; the HOPF-02 VNA experiment (`exp-1up5ww`, `falsification/ch11-experimental-bench-falsification/project-hopf-02.md`) `strengthens` it, and `falsification/ch11-experimental-bench/pcba-bench-protocols.md` references the experiment via `experiments:`. (Upstream: derives from the Hopf-charge / topological-mass model `clm-oygz1i` — depends-on edge deferred to the quality pass.)
 
 ### Quality
 - confidence: *pending*
@@ -305,33 +305,6 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 
 
 
-
-## Sagnac-RLVE: Tabletop Falsification, $\Delta\phi \approx 2.07$ rad, $\Psi \approx 7.15$
-<!-- id: clm-wqmb19 -->
-
-- $\Delta\phi = 4\pi L_{fiber} v_{network} / (\lambda c) \approx 2.07$ rad (Tungsten rotor, 200 m fiber, 10k RPM)
-- _Specific Claims_
-  - Macroscopic mass rotation entrains the vacuum LC network with coupling $\kappa_{entrain} = \rho_{rotor}/\rho_{bulk}$ ($= 0.00244$ for Tungsten); first-order in $v_{network}/c$, bypassing the $G/c^2$ scalar gap.
-  - Predicted $\sim 2.07$ rad shift is "trivially detectable by standard commercial photodetectors".
-  - Material discriminator $\Psi = \Delta\phi_W/\Delta\phi_{Al} \approx 7.15$ tests density-dependence: AVE predicts $\Psi \approx 7.15$, GR (Lense-Thirring at this scale) predicts $\Psi = 1$ (and $\Delta\phi \sim 10^{-20}$).
-  - Null result ($\Delta\phi \approx 0$ or $\Psi = 1$) **decisively falsifies AVE macroscopic electrodynamics**.
-- _Specific Non-Claims and Caveats_
-  - $\rho_{bulk} = 7.91 \times 10^6$ kg/m$^3$ is the AVE-derived "bulk vacuum mass density" — the entrainment coupling and predicted phase shift are entirely contingent on this number, which is itself a derived constant from the framework, not an independently measured quantity.
-  - Does NOT claim the Sagnac-RLVE has been performed or that 2.07 rad has been observed. The leaf is the **proposed protocol**; the result is predicted, not measured.
-  - "Falsifies Lense-Thirring as the mechanism for flyby anomalies specifically" (referenced in Vol 3) is a different claim from "falsifies Lense-Thirring as a gravitomagnetic effect generally" — the Sagnac-RLVE result distinguishes AVE from a particular scalar-gravity null prediction; it does not bear on Lense-Thirring's confirmed effects in other regimes.
-
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`, `falsification/ch11-experimental-bench/sagnac-rlve.md` (consolidated), `falsification/ch11-experimental-bench-falsification/sagnac-parallax.md` (24-hour static-loop variant against the 370 km/s CMB-dipole metric wind), `falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md`.
-
-### Quality
-- confidence: *pending*
-- depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
-- strengthen-by:
-  - *pending*
-
----
 
 ## $\sqrt{\alpha}$ Yield Limit Predictions: Levitation 1.846 g, $E_{yield} = 1.13 \times 10^{17}$ V/m
 <!-- id: clm-ui3m8a -->
@@ -927,12 +900,12 @@ The Sagnac shift in AVE depends on the rotor's *physical* properties (mass densi
   - **Falsification protocol**: identical fiber-loop units at the same RPM with Aerogel vs Lead rotors, and Aluminum vs Mu-Metal rotors. A density- and permeability-independent shift falsifies AVE outright.
   - **Aerospace-navigation derivatives**: differential Sagnac arrays subtract the shared common-mode rotation, isolating the inductive-drag scalar — a "metric slip-velocity indicator" — alongside other proposed derivatives (3D metric gradient compass, dark-wake sensor, chiral torsion sensor) that the leaves describe as extracted to companion IP volumes.
 - _Specific Non-Claims and Caveats_
-  - This is the same material-dependent entrainment law that produces the Sagnac-RLVE 2.07 rad prediction (see clm-wqmb19) — but stated as a general law rather than a specific apparatus. Treat as the parametric-law statement; clm-wqmb19 is the specific worked-example.
+  - This is the same material-dependent entrainment law that produces the Sagnac-RLVE 2.07 rad prediction (the Sagnac-RLVE experiment `exp-rth12t`, which `strengthens` this claim) — but stated as a general law rather than a specific apparatus. Treat as the parametric-law statement; `exp-rth12t` is the specific worked-example apparatus.
   - Has NOT been performed; the material-pair falsification (Aerogel/Lead, Al/Mu-Metal) is the framework's own design, not a measured result.
   - Three of the four telemetry derivatives (gradient compass, dark wake, chiral torsion) are explicitly noted as "extracted to companion IP volumes" — i.e., not present in the open KB. Cite this leaf only for the entrainment law itself and the slip-velocity-indicator architecture.
   - SNR / hardware tolerance numbers (Zerodur cavity, $<1$ mK thermal stability, $<46$ kHz linewidth, sub-pm seismic) are quoted in the index for this leaf but the body of this leaf marks them "extracted to companion IP volumes."
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`. The material-dependent entrainment law is also the basis of the Sagnac-RLVE prediction (see clm-wqmb19).
+> **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`, `falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md`. The material-dependent entrainment law is the physics that the Sagnac-RLVE experiment (`exp-rth12t`, `falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`) tests via a `strengthens` edge.
 
 ### Quality
 - confidence: *pending*
@@ -956,7 +929,7 @@ Mutual inductance yields above a structural shear threshold $\tau_{yield}$, mapp
   - Identifies the underlying mechanism for the $V_{yield}$-crossing impedance rupture used by the autoresonant PLL (clm-9sujp8), the ZENER-04 avalanche detector (clm-cltls0), and the asymmetric flyback in TORSION-05 (clm-kl1ern).
 - _Specific Non-Claims and Caveats_
   - The step function is *idealized*. In any physical realization the transition is not literally discontinuous — finite-rise-time effects, non-uniform field distributions, and any finite quality factor smear the step. The leaf does not specify the transition width.
-  - The $\tau_{yield} \approx 1.04 \times 10^{22}$ Pa figure is framework-derived; it inherits the same $\rho_{bulk}$ and $p_c$ values used elsewhere in Vol 4 (see also clm-wqmb19 caveats about $\rho_{bulk}$).
+  - The $\tau_{yield} \approx 1.04 \times 10^{22}$ Pa figure is framework-derived; it inherits the same $\rho_{bulk}$ and $p_c$ values used elsewhere in Vol 4 (see also the Sagnac-RLVE experiment `exp-rth12t`, which uses the same framework-derived $\rho_{bulk}$).
   - "Frictionless flow" above yield is the inductive-drag-only statement; it does not assert that all dissipation channels vanish — it specifically identifies the mutual-inductance damping channel as the one that yields.
   - The TVS-Zener analogy is structural; this leaf does not present an empirical match to any specific Zener device's $\eta(V)$ characteristic.
 
@@ -985,7 +958,7 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
 - _Specific Non-Claims and Caveats_
   - The simulation reproduces the *qualitative* Sagnac arrival-time differential. The leaves do not claim the SPICE netlist's specific $L_0$, $C_0$, and $S_{DRAG}$ values quantitatively predict the Sagnac phase of any specific ring-laser gyroscope or fiber loop.
   - "No relativistic tensor math" is a property of the SPICE solver, not a derivation that relativistic tensor math is wrong — the LC-ring model and the standard relativistic derivation produce equivalent observables in the linear regime.
-  - This SPICE reproduction is distinct from the Sagnac-RLVE prediction (clm-wqmb19), which couples to *bulk vacuum* metric drag. The ch.16 simulation models a *rotating-frame fiber* with intrinsic directional induction; both share the Faraday-style mechanism but operate at different couplings.
+  - This SPICE reproduction is distinct from the Sagnac-RLVE experiment (`exp-rth12t`), which couples to *bulk vacuum* metric drag. The ch.16 simulation models a *rotating-frame fiber* with intrinsic directional induction; both share the Faraday-style mechanism but operate at different couplings.
   - Sub-microsecond transient analysis duration ($2\,\mu$s in the netlist); not a steady-state observability claim.
 
 > **Leaf references:** `simulation/ch16-sagnac-inductive-drag/theory.md`, `simulation/ch16-sagnac-inductive-drag/spice-netlist.md` (`sagnac_ring.cir` single-node behavioral inductor pattern, repeated across 50 nodes).
@@ -1172,28 +1145,6 @@ A-034 measurement-hierarchy framing for engineered-substrate kernel measurements
   - A framing/hierarchy claim — does not assert a new kernel, only the SNR-scaling regimes for measuring the existing one.
 
 > **Leaf references:** `vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md`
-
-### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
-- strengthen-by:
-  - *pending*
-
----
-
-## Project C11-MACH-ZEHNDER: Gravitational Parallax Interferometry (electron Mach-Zehnder n_s ≠ n_t)
-<!-- id: clm-6kqvyp -->
-
-Per Axiom 3 (Minimum Reflection Principle) + Axiom 1 (K4 substrate with trace-reversed Poisson ratio ν_vac = 2/7), gravity polarizes the local LC-vacuum refractive index anisotropically between spatial and temporal components: n_s = 1 + (9/7)ε₁₁, n_t = 1 + (2/7)ε₁₁, giving Δn = n_s − n_t = ε₁₁. An electron Mach-Zehnder interferometer in a gravitational gradient would register this spatial-vs-temporal refractive-index split — an AVE-distinct prediction tracked as matrix row C11-MACH-ZEHNDER, with the canonical physics derivation in Vol 2 Ch 7.
-
-- _Specific Claims_
-  - Anisotropic gravitational refractive-index split: n_s = 1 + (9/7)ε₁₁, n_t = 1 + (2/7)ε₁₁, Δn = ε₁₁.
-  - Electron Mach-Zehnder interferometry as the discriminating measurement (gravitational parallax).
-- _Specific Non-Claims and Caveats_
-  - Forward/experimental prediction; bench facility partnership + measurement protocol pending (see C11 sub-epic). Sim drift audit reports NO DRIFT on ν_vac + ε₁₁ + cascade axes.
-
-> **Leaf references:** `vol4/falsification/ch11-experimental-bench-falsification/project-c11-mach-zehnder.md`
 
 ### Quality
 - confidence: *pending*

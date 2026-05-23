@@ -11,7 +11,7 @@ claims: [clm-3dc9qt, clm-qky559]
 >
 > **Open work for promoting per-material BCS to emergence-class**: derive $B_{c0}$ and $T_c$ from substrate parameters per material (lattice geometry + Cosserat coupling + Op14 saturation onset) — currently NOT derived; both are inputs. If derived independently and matched to experimental values, BCS recovery would promote from definitional-identity to emergence.
 >
-> **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md). Foundation Item 4 walk-back: see closure-roadmap §0.5 entry 2026-05-17 night.
+> **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
 
 ---
 

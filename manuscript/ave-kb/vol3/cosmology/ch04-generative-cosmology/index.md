@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-2e9j97, clm-3ii690, clm-48g5qf, clm-9fnieq, clm-c6k5om, clm-ir8h78, clm-wx5324]
+subtree-experiments: []
 -->
 
 # Ch.4: Generative Cosmology and Thermodynamic Attractors

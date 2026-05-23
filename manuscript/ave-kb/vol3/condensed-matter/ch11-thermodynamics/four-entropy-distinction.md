@@ -112,7 +112,7 @@ Compare to $S_{BH} = 4 \pi G M^2 k_B / (\hbar c)$: **$S_v / S_{BH} = 4$**.
 
 ## §7 — First-law $T \cdot dS = dE$ fails axiom-first
 
-Per [AVE BH Horizon Area Theorem](../../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md), the area theorem ($\delta A \geq 0$) and mass-energy ($dE = dM \cdot c^2$) are axiom-derived. But the first-law relation $T \cdot dS = dE$ requires:
+Per [AVE BH Horizon Area Theorem](../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md), the area theorem ($\delta A \geq 0$) and mass-energy ($dE = dM \cdot c^2$) are axiom-derived. But the first-law relation $T \cdot dS = dE$ requires:
 
 $$dS = dE / T_H \quad \Rightarrow \quad S = 4 \pi G M^2 k_B / (\hbar c) = A k_B / (4 \ell_P^2)$$
 
@@ -142,7 +142,7 @@ These measure DIFFERENT physics. Neither is "wrong" — but they aren't the same
   - Vol 3 Ch 21:114 — ruptured-plasma BH interior
   - Vol 3 Ch 11:15 — explicit rejection of standard equipartition assumption
 - **KB cross-cutting:**
-  - [AVE BH Horizon Area Theorem](../../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — axiom-derived pillars (area + mass-energy)
+  - [AVE BH Horizon Area Theorem](../../cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — axiom-derived pillars (area + mass-energy)
   - [Discrete-Lattice $\hat S$ at BH Horizon](discrete-lattice-entropy-constant.md) — Flag 62-G closure: ~8.7 $k_B$ per cell under symmetric saturation (lattice-discretization correction to Γ = 0)
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — BH horizon as canonical kernel instance
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](../../../common/boundary-observables-m-q-j.md) — substrate-observability rule at BH horizon

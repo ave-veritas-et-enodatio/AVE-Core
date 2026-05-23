@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: []
+subtree-experiments: []
 -->
 
 <!-- All 8 children are documented no-claim translation-table forwarders; canonical translation content lives in common/translation-tables/ -->
