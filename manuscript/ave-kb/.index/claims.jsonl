@@ -305,6 +305,7 @@
 {"node_type": "invariant", "id": "INVARIANT-N3", "title": "AVE Operator numbering convention", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-n3-ave-operator-numbering-convention"}
 {"node_type": "invariant", "id": "INVARIANT-N4", "title": "$S_{11}$ dual-use notation", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-n4-s_11-dual-use-notation"}
 {"node_type": "invariant", "id": "INVARIANT-S1", "title": "tcolorbox environments", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s1-tcolorbox-environments"}
+{"node_type": "invariant", "id": "INVARIANT-S10", "title": "Support DAG-id propagation (`sup-`)", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s10-support-dag-id-propagation-sup"}
 {"node_type": "invariant", "id": "INVARIANT-S2", "title": "AVE Axiom numbering", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s2-ave-axiom-numbering"}
 {"node_type": "invariant", "id": "INVARIANT-S3", "title": "Shared experimental appendix", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s3-shared-experimental-appendix"}
 {"node_type": "invariant", "id": "INVARIANT-S4", "title": "Up-link format", "canonical_path": "CLAUDE.md", "canonical_anchor": "invariant-s4-up-link-format"}

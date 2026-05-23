@@ -183,7 +183,7 @@ class TestRefreshIndexJsonlEmission(unittest.TestCase):
         for rec in recs:
             self.assertIn(
                 rec.get("node_type", "claim"),
-                {"claim", "experiment", "invariant", "axiom"},
+                {"claim", "experiment", "support", "invariant", "axiom"},
                 f"unexpected node_type in {rec}",
             )
 
@@ -349,10 +349,13 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
         # with no computable solidity carries None on disk and is absent from
         # the compute_solidity result — both sides agree on None.
         state = lib.discover_kb(self.kb_root, diagnostic_stream=None)
-        # Pass experiments — refresh's write-back computes solidity WITH the
-        # experiments (max-branch rescues), so the freshness oracle here must
-        # use the same inputs or it flags experiment-rescued values as stale.
-        sol = lib.compute_solidity(state.claim_entries, state.experiments)
+        # Pass experiments AND supports — refresh's write-back computes solidity
+        # WITH both (max-branch experiment rescues and DERIVATION-branch support
+        # lifts), so the freshness oracle here must use the same inputs or it
+        # flags experiment-rescued / support-lifted values as stale.
+        sol = lib.compute_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
         for entry in state.claim_entries:
             with self.subTest(claim=entry.id):
                 self.assertEqual(entry.solidity, sol.get(entry.id))
@@ -379,7 +382,9 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
 
         for entry, expect_trace in ((with_deps, True), (no_deps, False)):
             min_dep = lib.min_dependency_solidity(entry, sol)
-            line = refresh._solidity_line(entry, sol[entry.id], min_dep)
+            line = refresh._solidity_line(
+                entry.confidence, sol[entry.id], min_dep
+            )
             text = (self.kb_root / entry.canonical_path).read_text()
             # The canonical line must appear verbatim on disk (refresh ran).
             self.assertIn(

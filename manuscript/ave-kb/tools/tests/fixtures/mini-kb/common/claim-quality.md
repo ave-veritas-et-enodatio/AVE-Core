@@ -77,3 +77,157 @@ branch is null; the co-located `run` experiment exp-cohst1 strengthens it at
 - rationale: synthetic co-hosted claim+experiment; derivation pending, experimental branch governs.
 - strengthen-by:
   - Author the derivation so the claim also scores a derivation branch.
+
+---
+
+## Support Beneficiary J — Lifted To 0.90
+<!-- id: clm-sb1111 -->
+
+A low-confidence (0.40) dependency-free claim. The free-standing support
+sup-free01 (quality 0.90) supports it on-point at f=1.0, lifting its
+local_quality to max(0.40, 0.90×1.0) = 0.90, so its derivation solidity is 0.90
+(no own deps to gate it). The DERIVATION-branch lift from a support
+(INVARIANT-S10).
+
+### Quality
+- confidence: 0.40
+- solidity: 0.90 (ok to build on)
+- rationale: synthetic support-lifted claim; lifted from 0.40 to 0.90 by sup-free01 at f=1.0.
+- strengthen-by:
+  - Author a stronger first-principles derivation so confidence rises without leaning on the support.
+
+---
+
+## Support Beneficiary K — Fractional Lift To 0.45
+<!-- id: clm-sb2222 -->
+
+A second low-confidence (0.40) dependency-free claim, supported by the SAME
+sup-free01 but at a smaller on-point fraction f=0.50. Its lift is 0.90×0.50 =
+0.45, so local_quality = max(0.40, 0.45) = 0.45 and derivation solidity is 0.45
+— demonstrably less than clm-sb1111's f=1.0 lift (multi-beneficiary support;
+on-point fraction < 1.0 reduces the contribution).
+
+### Quality
+- confidence: 0.40
+- solidity: 0.45 (use as input only, don't build deeper)
+- rationale: synthetic fractional-support claim; lifted from 0.40 to 0.45 by sup-free01 at f=0.50.
+- strengthen-by:
+  - Establish a more on-point support so the fraction can rise toward 1.0.
+
+---
+
+## Support Beneficiary L — Lifted By A Dep-Gated Support
+<!-- id: clm-sb3333 -->
+
+A low-confidence (0.30) dependency-free claim, supported at f=1.0 by sup-dep001,
+whose OWN solidity is dep-gated below its quality (quality 0.90 × dep clm-aa1111
+final 0.90 = 0.81). So the lift is 0.81, local_quality = max(0.30, 0.81) = 0.81,
+and derivation solidity is 0.81.
+
+### Quality
+- confidence: 0.30
+- solidity: 0.81 (ok to build on, see caveats)
+- rationale: synthetic claim lifted by a dep-gated support; the support's own deps throttle its solidity below its quality.
+- strengthen-by:
+  - Discharge the support's dependency so its solidity can rise toward its quality.
+
+---
+
+## Support Beneficiary M — Not Poisoned By A Pending Support
+<!-- id: clm-sb4444 -->
+
+A claim with valid confidence (0.55) supported by the PENDING-quality support
+sup-pend01. A pending support contributes nothing to the max (no NaN, no
+poison), so local_quality stays 0.55 and derivation solidity is 0.55 — the
+pending support neither lifts nor drags it to pending (INVARIANT-S10).
+
+### Quality
+- confidence: 0.55
+- solidity: 0.55 (use as input only, don't build deeper)
+- rationale: synthetic claim with a pending support; the pending support contributes nothing and does not poison.
+- strengthen-by:
+  - Evaluate sup-pend01 so its (currently pending) lift can either raise or leave this claim's solidity.
+
+---
+
+## Support Beneficiary N — Lifted By A Co-Hosted Support
+<!-- id: clm-sb5555 -->
+
+A mid-confidence (0.50) dependency-free claim lifted to 0.85 by sup-coh001
+(quality 0.85, free-standing, f=1.0). sup-coh001 is co-hosted on a leaf that ALSO
+declares its own `claims:` — `claims:` and `sup-id:` are orthogonal node-bodies
+in one container (INVARIANT-S10).
+
+### Quality
+- confidence: 0.50
+- solidity: 0.85 (ok to build on)
+- rationale: synthetic claim lifted by a co-hosted support; lifted from 0.50 to 0.85 by sup-coh001.
+- strengthen-by:
+  - Author a stronger derivation so the claim's own confidence approaches the supported value.
+
+---
+
+## Support: Free-Standing Analytical Support
+<!-- id: sup-free01 -->
+
+A non-physical analytical support node (INVARIANT-S10) with NO dependencies of
+its own (free-standing), so its sup_solidity equals its quality, 0.90. It
+supports two beneficiaries — clm-sb1111 at f=1.0 and clm-sb2222 at f=0.50
+(experiment-like multi-beneficiary fan-out, claim-like internals).
+
+### Quality
+- quality: 0.90
+- solidity: 0.90 (ok to build on)
+- rationale: synthetic free-standing support; sup_solidity equals quality (no deps).
+- supports:
+  - clm-sb1111 (f=1.0) and clm-sb2222 (f=0.50)
+
+---
+
+## Support: Dep-Gated Analytical Support
+<!-- id: sup-dep001 -->
+
+A support that consumes its own dependency (clm-aa1111, final 0.90), so its
+sup_solidity is dep-gated below its quality: round2(0.90 × 0.90) = 0.81. It
+supports clm-sb3333 at f=1.0.
+
+### Quality
+- quality: 0.90
+- depends-on:
+  - clm-aa1111 — Foundation Claim A (solidity 0.90) [the support builds on the anchor claim]
+- solidity: 0.81 (ok to build on, see caveats) [= 0.90 × 0.90]
+- rationale: synthetic dep-gated support; its own dependency throttles sup_solidity below its quality.
+- supports:
+  - clm-sb3333 (f=1.0)
+
+---
+
+## Support: Pending-Quality Analytical Support
+<!-- id: sup-pend01 -->
+
+A support whose local rigor has not yet been evaluated (`quality: *pending*`),
+so its sup_solidity is `*pending*` and it contributes NOTHING to any
+beneficiary's max (no poison). It supports clm-sb4444 at f=1.0.
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-sb4444 (f=1.0)
+
+---
+
+## Support: Co-Hosted Analytical Support
+<!-- id: sup-coh001 -->
+
+A free-standing support (quality 0.85, sup_solidity 0.85) hosted on a leaf that
+ALSO declares its own `claims:` list — orthogonal node-bodies in one container.
+It supports clm-sb5555 at f=1.0.
+
+### Quality
+- quality: 0.85
+- solidity: 0.85 (ok to build on)
+- rationale: synthetic co-hosted support; free-standing, sup_solidity equals quality.
+- supports:
+  - clm-sb5555 (f=1.0)

@@ -104,7 +104,7 @@ class TestCheckIndex(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertRegex(
             result.stdout,
-            r"\d+ nodes: \d+ claims / \d+ experiments / "
+            r"\d+ nodes: \d+ claims / \d+ experiments / \d+ support / "
             r"\d+ invariants / \d+ axioms",
         )
 
@@ -935,6 +935,271 @@ class TestExperimentsReferenceRejection(unittest.TestCase):
             result = _run_checker(kb)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("subtree-experiments drift", result.stdout)
+
+
+# A support-hosting leaf (sup-id + supports block), parameterized so negative
+# variants perturb a single field. Mirrors common/sup-free.md.
+_SUP_LEAF_TEMPLATE = """\
+[↑ Mini-KB Common](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: "hosts a support node only"
+sup-id: {sup_id}
+supports:
+{supports}
+-->
+
+## {title}
+
+Synthetic support leaf body.
+"""
+
+
+def _sup_leaf(
+    *,
+    sup_id: str = "sup-neg001",
+    supports: str = "  - clm-bb2222: 1.0",
+    title: str = "Negative Support",
+) -> str:
+    return _SUP_LEAF_TEMPLATE.format(
+        sup_id=sup_id, supports=supports, title=title
+    )
+
+
+class TestSupportEndToEnd(unittest.TestCase):
+    """End-to-end: support node + supports edge + DERIVATION lift, on the
+    committed fixture, through the real refresh -> verify pipeline (INVARIANT-S10).
+
+    The committed fixture carries four support nodes (sup-free01, sup-dep001,
+    sup-pend01, sup-coh001) and five beneficiary claims (clm-sb1111..sb5555).
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+        cls.claims = _read_jsonl(cls.index_dir / "claims.jsonl")
+        cls.edges = _read_jsonl(cls.index_dir / "depends-on.jsonl")
+        cls.by_id = {r["id"]: r for r in cls.claims if "id" in r}
+
+    def test_support_node_emitted_with_documented_field_order(self):
+        rec = self.by_id["sup-free01"]
+        self.assertEqual(rec["node_type"], "support")
+        self.assertEqual(
+            list(rec.keys()),
+            ["node_type", "id", "title", "canonical_path",
+             "canonical_anchor", "quality", "solidity"],
+        )
+        self.assertEqual(rec["canonical_path"], "common/sup-free.md")
+        self.assertEqual(rec["quality"], 0.90)
+        self.assertEqual(rec["solidity"], 0.90)
+
+    def test_support_sorts_after_invariant(self):
+        order = [r["node_type"] for r in self.claims]
+        last_invariant = max(i for i, t in enumerate(order) if t == "invariant")
+        first_support = min(i for i, t in enumerate(order) if t == "support")
+        self.assertLess(last_invariant, first_support)
+
+    def test_free_standing_support_lifts_beneficiary(self):
+        # (a) clm-sb1111 lifted from 0.40 confidence to 0.90 by a free-standing
+        # support at f=1.0; the lift lands in the DERIVATION branch.
+        rec = self.by_id["clm-sb1111"]
+        self.assertEqual(rec["confidence"], 0.40)
+        self.assertEqual(rec["derivation_solidity"], 0.90)
+        self.assertIsNone(rec["experimental_solidity"])  # NOT the max-branch
+        self.assertEqual(rec["solidity"], 0.90)
+
+    def test_dep_gated_support(self):
+        # (b) sup-dep001's own dep gates its solidity to 0.81 (< quality 0.90).
+        self.assertEqual(self.by_id["sup-dep001"]["solidity"], 0.81)
+        self.assertEqual(self.by_id["clm-sb3333"]["derivation_solidity"], 0.81)
+
+    def test_pending_support_contributes_nothing_no_poison(self):
+        # (c) sup-pend01 is pending; clm-sb4444 keeps its own 0.55 and is not
+        # dragged to pending.
+        self.assertIsNone(self.by_id["sup-pend01"]["solidity"])
+        self.assertEqual(self.by_id["clm-sb4444"]["derivation_solidity"], 0.55)
+        self.assertEqual(self.by_id["clm-sb4444"]["solidity"], 0.55)
+
+    def test_fraction_below_one_reduces_lift(self):
+        # (d) clm-sb2222 (f=0.50) gets 0.45 vs clm-sb1111 (f=1.0) 0.90.
+        self.assertEqual(self.by_id["clm-sb2222"]["derivation_solidity"], 0.45)
+        self.assertLess(
+            self.by_id["clm-sb2222"]["solidity"],
+            self.by_id["clm-sb1111"]["solidity"],
+        )
+
+    def test_multi_beneficiary_support(self):
+        # (e) sup-free01 supports two claims at different fractions.
+        supports = [
+            e for e in self.edges
+            if e["source"] == "sup-free01" and e["relation"] == "supports"
+        ]
+        self.assertEqual(len(supports), 2)
+        fracs = {e["target"]: e["fraction"] for e in supports}
+        self.assertEqual(fracs["clm-sb1111"], 1.0)
+        self.assertEqual(fracs["clm-sb2222"], 0.50)
+
+    def test_cohosting_leaf_emits_claim_and_support(self):
+        # (f) leaf-sup-cohost.md emits BOTH clm-sb5555 (claim) and sup-coh001
+        # (support) — two records from one container.
+        self.assertEqual(self.by_id["clm-sb5555"]["node_type"], "claim")
+        self.assertEqual(self.by_id["sup-coh001"]["node_type"], "support")
+        self.assertEqual(
+            self.by_id["sup-coh001"]["canonical_path"],
+            "common/leaf-sup-cohost.md",
+        )
+        self.assertEqual(self.by_id["clm-sb5555"]["solidity"], 0.85)
+
+    def test_support_solidity_written_back_to_claim_quality(self):
+        cq = (self.kb_root / "common" / "claim-quality.md").read_text(
+            encoding="utf-8"
+        )
+        block = cq.split("sup-dep001")[1]
+        m = re.search(r"^- solidity: (\S+)", block, flags=re.MULTILINE)
+        self.assertIsNotNone(m)
+        self.assertEqual(m.group(1), "0.81")
+
+    def test_supported_by_reverse_view_emitted(self):
+        sb = _read_jsonl(self.index_dir / "supported-by.jsonl")
+        self.assertEqual(len(sb), 5)
+        by_claim = {r["claim_id"]: r for r in sb}
+        self.assertEqual(by_claim["clm-sb4444"]["sup_id"], "sup-pend01")
+        self.assertIsNone(by_claim["clm-sb4444"]["sup_solidity"])
+
+    def test_pipeline_passes_with_support(self):
+        result = _run_checker(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_refresh_is_deterministic(self):
+        before = {
+            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+        }
+        result = _run_refresh(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        after = {
+            p.name: p.read_bytes() for p in sorted(self.index_dir.glob("*.jsonl"))
+        }
+        self.assertEqual(before, after)
+
+
+class TestSupportRejection(unittest.TestCase):
+    """Negative coverage: malformed support nodes / edges fail (INVARIANT-S10).
+
+    Format/range errors are asserted at the parse level (precise
+    SupportLeafError); orphan / non-claim-target cases run the full pipeline.
+    """
+
+    def _parse(self, leaf_text: str):
+        lib = sys.modules.get("kb_index_lib")
+        if lib is None:
+            import kb_index_lib as lib  # noqa: F811
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            leaf = root / "sup-bad.md"
+            leaf.write_text(leaf_text, encoding="utf-8")
+            return lib.parse_support_leaf(leaf, root), lib
+
+    def test_fraction_zero_rejected(self):
+        # An on-point fraction of 0 is excluded — a zero-relevance edge is not
+        # authored.
+        _, lib = self._parse(_sup_leaf())
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(_sup_leaf(supports="  - clm-bb2222: 0.0"))
+
+    def test_fraction_above_one_rejected(self):
+        _, lib = self._parse(_sup_leaf())
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(_sup_leaf(supports="  - clm-bb2222: 1.5"))
+
+    def test_malformed_sup_id_rejected(self):
+        _, lib = self._parse(_sup_leaf())
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(_sup_leaf(sup_id="sup-TOOLONG9"))
+
+    def test_orphan_supports_target_fails_verify(self):
+        # A supports edge to a non-existent claim id fails referential integrity.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            (kb / "common" / "sup-orphan.md").write_text(
+                _sup_leaf(
+                    sup_id="sup-orph01",
+                    supports="  - clm-zzz999: 1.0",
+                    title="Orphan-Target Support",
+                ),
+                encoding="utf-8",
+            )
+            _run_refresh(kb)
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("clm-zzz999", result.stdout)
+
+    def test_supports_target_is_non_claim_fails_verify(self):
+        # A supports edge whose target resolves to a non-claim (an experiment
+        # node) fails referential integrity (target must be a claim).
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            (kb / "common" / "sup-badtgt.md").write_text(
+                _sup_leaf(
+                    sup_id="sup-bad001",
+                    supports="  - exp-bench1: 1.0",
+                    title="Non-Claim-Target Support",
+                ),
+                encoding="utf-8",
+            )
+            # exp-bench1 is matched by the clm-only supports pair regex? No — it
+            # is an exp- id, so the supports block parses zero pairs and the
+            # node supports nothing. Instead inject the bad edge directly into a
+            # temp index to exercise the verifier's target-kind check.
+            with tempfile.TemporaryDirectory() as itmp:
+                tmp_index = Path(itmp) / ".index"
+                tmp_index.mkdir()
+                for short in (
+                    "claims.jsonl", "depends-on.jsonl", "strengthen-by.jsonl",
+                    "supported-by.jsonl", "cites.jsonl",
+                    "subtree-aggregates.jsonl",
+                ):
+                    shutil.copy2(kb / ".index" / short, tmp_index / short)
+                dep = tmp_index / "depends-on.jsonl"
+                extra = (
+                    '{"source": "sup-free01", "target": "exp-bench1", '
+                    '"relation": "supports", "target_kind": "claim", '
+                    '"target_solidity_recorded": null, "strength": null, '
+                    '"context": null, "fraction": 1.0}\n'
+                )
+                dep.write_bytes(dep.read_bytes() + extra.encode("utf-8"))
+                result = _run_checker(kb, ["--index-dir", str(tmp_index)])
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("referential-integrity", result.stdout)
+                self.assertIn("exp-bench1", result.stdout)
+
+    def test_supports_fraction_out_of_range_in_index_fails_verify(self):
+        # A materialized supports edge with fraction > 1 fails the verifier.
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            with tempfile.TemporaryDirectory() as itmp:
+                tmp_index = Path(itmp) / ".index"
+                tmp_index.mkdir()
+                for short in (
+                    "claims.jsonl", "depends-on.jsonl", "strengthen-by.jsonl",
+                    "supported-by.jsonl", "cites.jsonl",
+                    "subtree-aggregates.jsonl",
+                ):
+                    shutil.copy2(kb / ".index" / short, tmp_index / short)
+                dep = tmp_index / "depends-on.jsonl"
+                extra = (
+                    '{"source": "sup-free01", "target": "clm-bb2222", '
+                    '"relation": "supports", "target_kind": "claim", '
+                    '"target_solidity_recorded": null, "strength": null, '
+                    '"context": null, "fraction": 1.5}\n'
+                )
+                dep.write_bytes(dep.read_bytes() + extra.encode("utf-8"))
+                result = _run_checker(kb, ["--index-dir", str(tmp_index)])
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("referential-integrity", result.stdout)
 
 
 def _load_checker_module():

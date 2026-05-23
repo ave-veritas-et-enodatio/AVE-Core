@@ -94,6 +94,7 @@ INDEX_FILES = (
     "claims",
     "depends-on",
     "strengthen-by",
+    "supported-by",
     "cites",
     "subtree-aggregates",
 )
@@ -105,9 +106,13 @@ FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
 )
 CANONICAL_ID = re.compile(r"<!-- id: (clm-[a-z0-9]{6}) -->")
+# A claim OR support entry marker — both carry a `### Quality` block, so the
+# quality-block integrity check accepts either prefix (INVARIANT-S10).
+CANONICAL_ANY_ID = re.compile(r"<!-- id: ((?:clm|sup)-[a-z0-9]{6}) -->")
 TIER2_INLINE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
 ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
 EXP_ID_RE = re.compile(r"\bexp-[a-z0-9]{6}\b")
+SUP_ID_RE = re.compile(r"\bsup-[a-z0-9]{6}\b")
 # Either prefix — for id-list frontmatter values that may hold clm- ids
 # (claims:, subtree-claims:) or exp- ids (experiments:, subtree-experiments:).
 ANY_ID_RE = re.compile(r"\b((?:clm|exp)-[a-z0-9]{6})\b")
@@ -226,7 +231,7 @@ def check_quality_block_integrity():
             if quality_idx is None:
                 continue
             has_title = any(ln.startswith("## ") for ln in sec_lines)
-            has_id = any(CANONICAL_ID.match(ln.strip()) for ln in sec_lines)
+            has_id = any(CANONICAL_ANY_ID.match(ln.strip()) for ln in sec_lines)
             if has_title and has_id:
                 continue
             missing = []
@@ -599,6 +604,13 @@ def check_index_referential_integrity(index_dir: Path):
         [("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else [])],
     )
     _check_lines(
+        "supported-by",
+        [
+            ("claim_id", lambda r: [r.get("claim_id")] if r.get("claim_id") else []),
+            ("sup_id", lambda r: [r.get("sup_id")] if r.get("sup_id") else []),
+        ],
+    )
+    _check_lines(
         "subtree-aggregates",
         [
             ("subtree_claims", lambda r: list(r.get("subtree_claims") or [])),
@@ -611,12 +623,16 @@ def check_index_referential_integrity(index_dir: Path):
 
     # Per-edge consistency, relation-aware (depends vs strengthens).
     #
-    # * depends:     source resolves to a claim; target resolves to any node;
-    #                target_kind == resolved target node_type (kind-match);
-    #                strength is null.
+    # * depends:     source resolves to a claim OR a support (a support's own
+    #                deps are depends edges sourced at the sup-id); target
+    #                resolves to any node; target_kind == resolved target
+    #                node_type (kind-match); strength is null; fraction is null.
     # * strengthens: source resolves to an experiment; target resolves to a
     #                claim AND target_kind == "claim"; an experiment node is
-    #                never an edge target; strength is non-null.
+    #                never an edge target; strength is non-null; fraction null.
+    # * supports:    source resolves to a SUPPORT; target resolves to a claim
+    #                AND target_kind == "claim"; strength is null; fraction is
+    #                non-null and in (0, 1] (INVARIANT-S10).
     dep_path = index_dir / "depends-on.jsonl"
     if dep_path.exists():
         for lineno, line in enumerate(
@@ -633,10 +649,42 @@ def check_index_referential_integrity(index_dir: Path):
             kind = rec.get("target_kind")
             relation = rec.get("relation")
             strength = rec.get("strength")
+            fraction = rec.get("fraction")
             src_type = node_type_by_id.get(source)
             tgt_type = node_type_by_id.get(target)
 
-            if relation == "strengthens":
+            if relation == "supports":
+                if src_type is not None and src_type != "support":
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge source resolves to "
+                         f"{src_type!r}, expected support")
+                    )
+                if tgt_type is not None and tgt_type != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, supports edge target resolves to "
+                         f"{tgt_type!r}, expected claim")
+                    )
+                if kind != "claim":
+                    violations.append(
+                        ("depends-on", target,
+                         f"line {lineno}, supports edge target_kind {kind!r} "
+                         f"!= 'claim'")
+                    )
+                if strength is not None:
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge has non-null strength "
+                         f"{strength!r}")
+                    )
+                if fraction is None or not (0.0 < fraction <= 1.0):
+                    violations.append(
+                        ("depends-on", source,
+                         f"line {lineno}, supports edge on-point fraction "
+                         f"{fraction!r} not in (0, 1]")
+                    )
+            elif relation == "strengthens":
                 if src_type is not None and src_type != "experiment":
                     violations.append(
                         ("depends-on", source,
@@ -661,11 +709,11 @@ def check_index_referential_integrity(index_dir: Path):
                          f"line {lineno}, strengthens edge has null strength")
                     )
             elif relation == "depends":
-                if src_type is not None and src_type != "claim":
+                if src_type is not None and src_type not in ("claim", "support"):
                     violations.append(
                         ("depends-on", source,
                          f"line {lineno}, depends edge source resolves to "
-                         f"{src_type!r}, expected claim")
+                         f"{src_type!r}, expected claim or support")
                     )
                 if tgt_type is not None and kind != tgt_type:
                     violations.append(
@@ -699,6 +747,10 @@ def check_index_referential_integrity(index_dir: Path):
         if ntype == "experiment" and not EXP_ID_RE.fullmatch(nid):
             violations.append(
                 ("claims", nid, "experiment node id is not \\bexp-[a-z0-9]{6}\\b")
+            )
+        if ntype == "support" and not SUP_ID_RE.fullmatch(nid):
+            violations.append(
+                ("claims", nid, "support node id is not \\bsup-[a-z0-9]{6}\\b")
             )
 
     experiment_ids = {
@@ -740,6 +792,35 @@ def check_index_referential_integrity(index_dir: Path):
                              f"{node_type_by_id[eid]!r}, expected experiment")
                         )
 
+    # supported-by kind-match: claim_id must resolve to a claim, sup_id to a
+    # support (INVARIANT-S10). The reverse view is untraversed for solidity, but
+    # a kind mismatch still signals a build bug.
+    sb_path = index_dir / "supported-by.jsonl"
+    if sb_path.exists():
+        for lineno, line in enumerate(
+            sb_path.read_text(encoding="utf-8").split("\n"), start=1
+        ):
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            cid = rec.get("claim_id")
+            sid = rec.get("sup_id")
+            if cid in node_type_by_id and node_type_by_id[cid] != "claim":
+                violations.append(
+                    ("supported-by", cid,
+                     f"line {lineno}, claim_id resolves to "
+                     f"{node_type_by_id[cid]!r}, expected claim")
+                )
+            if sid in node_type_by_id and node_type_by_id[sid] != "support":
+                violations.append(
+                    ("supported-by", sid,
+                     f"line {lineno}, sup_id resolves to "
+                     f"{node_type_by_id[sid]!r}, expected support")
+                )
+
     return violations
 
 
@@ -752,7 +833,9 @@ def check_solidity_cycle(state) -> list[str]:
     refresh-fixable — the cycle must be broken in the claim declarations.
     """
     try:
-        kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
+        kb_index_lib.compute_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
     except kb_index_lib.SolidityCycleError as exc:
         return exc.cycle_members
     return []
@@ -790,7 +873,12 @@ def check_solidity_fresh(state, index_dir: Path):
     check already fails loudly in that case).
     """
     try:
-        solidity = kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
+        solidity = kb_index_lib.compute_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
+        sup_solidity = kb_index_lib.compute_support_solidity(
+            state.claim_entries, state.experiments, state.supports
+        )
     except kb_index_lib.SolidityCycleError:
         return [], [], []
 
@@ -798,6 +886,41 @@ def check_solidity_fresh(state, index_dir: Path):
 
     line_drift: list[tuple[str, str, str]] = []
     annotation_drift: list[tuple[str, str, str, str]] = []
+
+    # Support entries carry the same derived ``- solidity:`` line + claim-target
+    # depends-on annotations (INVARIANT-S10); their solidity is sup_solidity.
+    for sup in state.supports:
+        computed = sup_solidity.get(sup.id)
+        if computed is None:
+            if sup.solidity is not None:
+                line_drift.append(
+                    (sup.id, f"solidity {sup.solidity}", "expected *pending*")
+                )
+        elif not _approx(sup.solidity, computed):
+            line_drift.append(
+                (sup.id, f"solidity {sup.solidity}", f"expected {computed:.2f}")
+            )
+        for edge in sup.depends_on:
+            if edge.target_kind != "claim":
+                continue
+            target_solidity = solidity.get(edge.target)
+            if target_solidity is None:
+                if edge.target_solidity_recorded is not None:
+                    annotation_drift.append(
+                        (sup.id, edge.target,
+                         f"recorded {edge.target_solidity_recorded}",
+                         "expected *pending*")
+                    )
+                continue
+            if edge.target_solidity_recorded is None:
+                continue
+            if not _approx(edge.target_solidity_recorded, target_solidity):
+                annotation_drift.append(
+                    (sup.id, edge.target,
+                     f"recorded {edge.target_solidity_recorded}",
+                     f"expected {target_solidity:.2f}")
+                )
+
     for entry in state.claim_entries:
         computed = solidity.get(entry.id)
         if computed is None:
@@ -870,7 +993,25 @@ def check_solidity_fresh(state, index_dir: Path):
                 if not line:
                     continue
                 rec = json.loads(line)
-                if rec.get("node_type", "claim") != "claim":
+                node_type = rec.get("node_type", "claim")
+                if node_type == "support":
+                    # A support record's solidity must equal its computed
+                    # sup_solidity (null when pending).
+                    sid = rec.get("id")
+                    computed = sup_solidity.get(sid)
+                    if computed is None:
+                        if rec.get("solidity") is not None:
+                            jsonl_drift.append(
+                                (sid, f"solidity {rec.get('solidity')}",
+                                 "expected null")
+                            )
+                    elif not _approx(rec.get("solidity"), computed):
+                        jsonl_drift.append(
+                            (sid, f"solidity {rec.get('solidity')}",
+                             f"expected {computed:.2f}")
+                        )
+                    continue
+                if node_type != "claim":
                     continue
                 cid = rec.get("id")
                 computed = solidity.get(cid)
@@ -996,10 +1137,12 @@ def main(argv: list[str] | None = None) -> int:
         f"({len(expected_records['claims'])} nodes: "
         f"{node_type_counts.get('claim', 0)} claims / "
         f"{node_type_counts.get('experiment', 0)} experiments / "
+        f"{node_type_counts.get('support', 0)} support / "
         f"{node_type_counts.get('invariant', 0)} invariants / "
         f"{node_type_counts.get('axiom', 0)} axioms, "
         f"{len(expected_records['depends-on'])} depends-on, "
         f"{len(expected_records['strengthen-by'])} strengthen-by, "
+        f"{len(expected_records['supported-by'])} supported-by, "
         f"{len(expected_records['cites'])} citations, "
         f"{len(expected_records['subtree-aggregates'])} aggregates)."
     )

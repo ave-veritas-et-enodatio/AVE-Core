@@ -46,6 +46,7 @@ INDEX_FILES = (
     "claims",
     "depends-on",
     "strengthen-by",
+    "supported-by",
     "cites",
     "subtree-aggregates",
 )
@@ -165,6 +166,12 @@ def collect_leaves() -> dict[Path, list[str]]:
 
 
 CANONICAL_ID_LINE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
+# A canonical-id marker keying a claim OR a support entry (INVARIANT-S10).
+# Support entries share the `### Quality` shape, so the solidity write-back
+# locates their sections the same way.
+CANONICAL_ANY_ID_LINE = re.compile(
+    r"<!--\s*id:\s*((?:clm|sup)-[a-z0-9]{6})\s*-->"
+)
 SOLIDITY_LINE = re.compile(r"^(\s*)-\s*solidity:")
 # Matches a depends-on (solidity X) annotation in either rendering: a numeric
 # value or the *pending* form (target has no computable solidity). Matching
@@ -187,17 +194,18 @@ def _fmt(value: float) -> str:
 SOLIDITY_PENDING_LINE = "- solidity: *pending*"
 
 
-def _solidity_line(entry, solidity, min_dep) -> str:
-    """Build the canonical ``- solidity:`` line for one claim entry.
+def _solidity_line(base_value, solidity, min_dep) -> str:
+    """Build the canonical ``- solidity:`` line for a claim OR support entry.
 
-    ``solidity`` is the entry's computed value; ``min_dep`` is the minimum
-    dependency solidity (or ``None`` when the entry has no depends-on edges).
-    With dependencies the line carries an arithmetic trace
-    ``[= <confidence> × <min-dep-solidity>]``; without, the trace is omitted
-    (solidity trivially equals confidence).
+    ``base_value`` is the entry's hand-authored quality scalar — a claim's
+    ``confidence`` or a support's ``quality`` (INVARIANT-S10). ``solidity`` is
+    the computed value; ``min_dep`` is the minimum dependency solidity (or
+    ``None`` when the entry has no depends-on edges). With dependencies the line
+    carries an arithmetic trace ``[= <base> × <min-dep-solidity>]``; without,
+    the trace is omitted (solidity trivially equals the base value).
 
-    When ``solidity`` is ``None`` the claim has no computable solidity — its
-    ``confidence`` is ``*pending*`` OR a dependency's solidity is ``*pending*``
+    When ``solidity`` is ``None`` the entry has no computable solidity — its
+    base is ``*pending*`` OR a dependency's solidity is ``*pending*``
     (pending-ness propagates transitively, like NaN). Both render the same:
     the bare ``- solidity: *pending*`` form, no phrase, no arithmetic trace.
     """
@@ -207,7 +215,7 @@ def _solidity_line(entry, solidity, min_dep) -> str:
     base = f"- solidity: {_fmt(solidity)} ({phrase})"
     if min_dep is None:
         return base
-    return f"{base} [= {_fmt(entry.confidence)} × {_fmt(min_dep)}]"
+    return f"{base} [= {_fmt(base_value)} × {_fmt(min_dep)}]"
 
 
 def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
@@ -222,10 +230,11 @@ def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
     An entry with no ``### Quality`` section is omitted.
     """
     scrubbed = kb_index_lib._strip_code_fences("\n".join(lines)).splitlines()
-    # Locate every (id_line_idx, claim_id).
+    # Locate every (id_line_idx, node_id) for claim AND support entries — both
+    # carry a `### Quality` section whose solidity line is a derived field.
     id_lines: list[tuple[int, str]] = []
     for i, line in enumerate(scrubbed):
-        m = CANONICAL_ID_LINE.match(line.strip())
+        m = CANONICAL_ANY_ID_LINE.match(line.strip())
         if m:
             id_lines.append((i, m.group(1)))
 
@@ -252,9 +261,20 @@ def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
 
 
 def _rewrite_claim_quality_solidity(
-    path: Path, entries, solidity: dict[str, float]
+    path: Path,
+    entries,
+    solidity: dict[str, float],
+    supports=(),
+    sup_solidity: dict[str, float] | None = None,
 ) -> tuple[int, list[tuple[str, str, str]], list[tuple[str, str, str]]]:
     """Rewrite derived solidity content in a single ``claim-quality.md`` file.
+
+    Handles both claim entries and SUPPORT entries (INVARIANT-S10): a support's
+    ``### Quality`` section carries the same derived ``- solidity:`` line and the
+    same claim-target ``(solidity X)`` depends-on annotations. A support's own
+    solidity comes from ``sup_solidity``; its base scalar is ``quality`` (a
+    claim's is ``confidence``). Depends-on annotations always reference the claim
+    ``solidity`` map (a support's deps are claims).
 
     For every claim entry, rewrites:
 
@@ -286,30 +306,41 @@ def _rewrite_claim_quality_solidity(
         # with the visible content lines, restore the newline at write time.
         lines = lines[:-1]
 
+    sup_solidity = sup_solidity or {}
     by_id = {e.id: e for e in entries}
+    sup_by_id = {s.id: s for s in supports}
     ranges = _quality_section_ranges(lines)
 
     solidity_changes: list[tuple[str, str, str]] = []
     annotation_changes: list[tuple[str, str, str]] = []
 
-    for claim_id, (qstart, qend) in ranges.items():
-        entry = by_id.get(claim_id)
-        if entry is None:
+    for node_id, (qstart, qend) in ranges.items():
+        entry = by_id.get(node_id)
+        sup = sup_by_id.get(node_id)
+        if entry is None and sup is None:
             continue
-        # ``computed`` is None when this claim has no computable solidity:
-        # its confidence is *pending* OR a dependency is *pending*. Both
-        # cases render as the *pending* solidity line — pending-ness is
-        # decided by presence in ``solidity``, NOT by local confidence.
-        computed = solidity.get(claim_id)
-        min_dep = kb_index_lib.min_dependency_solidity(entry, solidity)
+        # A claim's own solidity comes from ``solidity`` and its base scalar is
+        # ``confidence``; a support's comes from ``sup_solidity`` and its base
+        # is ``quality``. ``computed`` is None when the node has no computable
+        # solidity (base *pending* OR a dependency *pending*) — pending-ness is
+        # decided by presence in the relevant map, not by the local base value.
+        if entry is not None:
+            node = entry
+            base_value = entry.confidence
+            computed = solidity.get(node_id)
+        else:
+            node = sup
+            base_value = sup.quality
+            computed = sup_solidity.get(node_id)
+        min_dep = kb_index_lib.min_dependency_solidity(node, solidity)
 
         for idx in range(qstart, qend):
             line = lines[idx]
             # (1) The solidity line.
             if SOLIDITY_LINE.match(line):
-                new_line = _solidity_line(entry, computed, min_dep)
+                new_line = _solidity_line(base_value, computed, min_dep)
                 if new_line != line:
-                    solidity_changes.append((claim_id, line, new_line))
+                    solidity_changes.append((node_id, line, new_line))
                     lines[idx] = new_line
                 continue
             # (2) A claim-target depends-on bullet's (solidity X) annotation.
@@ -331,7 +362,7 @@ def _rewrite_claim_quality_solidity(
                 replacement = f"(solidity {_fmt(target_solidity)})"
             new_line = SOLIDITY_ANNOTATION.sub(replacement, line, count=1)
             if new_line != line:
-                annotation_changes.append((claim_id, line, new_line))
+                annotation_changes.append((node_id, line, new_line))
                 lines[idx] = new_line
 
     new_text = "\n".join(lines)
@@ -356,12 +387,32 @@ def _refresh_solidity() -> tuple[int, list, list]:
     Returns ``(files_changed, solidity_changes, annotation_changes)``.
     """
     state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
-    solidity = kb_index_lib.compute_solidity(state.claim_entries, state.experiments)
+    # ``solidity`` (claim finals) and ``sup_solidity`` (support node solidities)
+    # come from the SAME single computation — never re-derived — so the
+    # claim-quality write-back, the depends-on annotation sync, and the JSONL
+    # fields cannot drift (INVARIANT-S10; the dual-compute trap).
+    solidity = kb_index_lib.compute_solidity(
+        state.claim_entries, state.experiments, state.supports
+    )
+    sup_solidity = kb_index_lib.compute_support_solidity(
+        state.claim_entries, state.experiments, state.supports
+    )
 
-    # Group parsed entries by their canonical claim-quality.md file.
+    # Group claim entries by their owning claim-quality.md file. Support entries
+    # share those registers; ``_quality_section_ranges`` locates each register's
+    # own sup-ids, so the full support list is passed to every file (only its
+    # resident sup-ids match). Register every claim-quality.md file so a file
+    # holding ONLY support entries is still rewritten.
     entries_by_file: dict[str, list] = {}
     for entry in state.claim_entries:
         entries_by_file.setdefault(entry.canonical_path, []).append(entry)
+    for cq in sorted(KB.rglob("claim-quality.md")):
+        if any(
+            part in kb_index_lib.EXCLUDE_DIRS
+            for part in cq.relative_to(KB).parts[:-1]
+        ):
+            continue
+        entries_by_file.setdefault(cq.relative_to(KB).as_posix(), [])
 
     files_changed = 0
     all_solidity_changes: list = []
@@ -369,7 +420,7 @@ def _refresh_solidity() -> tuple[int, list, list]:
     for rel_path, entries in sorted(entries_by_file.items()):
         path = KB / rel_path
         changed, sol_ch, ann_ch = _rewrite_claim_quality_solidity(
-            path, entries, solidity
+            path, entries, solidity, state.supports, sup_solidity
         )
         files_changed += changed
         all_solidity_changes.extend((rel_path, *c) for c in sol_ch)
