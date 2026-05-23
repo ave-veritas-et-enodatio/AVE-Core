@@ -238,7 +238,7 @@ The in-range modulation $0 < \kappa_{quality} \leq 1$ within the deep-regenerati
 4. **Q-resonance amplification** of defect detuning: $\sigma_\theta = Q_{atomic} \cdot \sigma_{(\Delta\omega/\omega)}$ from forced-oscillator near-resonance phase response (standard EE: $\delta\theta_j = \arctan[Q \cdot \Delta\omega_j/\omega] \approx Q \cdot \Delta\omega_j/\omega$ in small-angle limit)
 5. **Per-atom Q from Theorem 3.1'** (canonical [`theorem-3-1-q-factor.md`](theorem-3-1-q-factor.md)): $Q_{atomic} = \alpha^{-1} \approx 137$ (radiation-resistance limited per-electron LC tank in vacuum)
 6. **Ensemble defect distribution** (uncorrelated random): $\sigma_{(\Delta\omega/\omega)} = \sqrt{\rho_{def}} \cdot (\Delta\omega/\omega)_{per-defect}$
-7. **Percolation cutoff** (AVE-Metamaterials sister-repo canonical [`03_superconducting_metamaterials.tex:67-71`](../../../../../AVE-Metamaterials/manuscript/vol_1_active_metamaterials/chapters/03_superconducting_metamaterials.tex)): $\rho_{perc} = 1 - p_c/p_{perc} = 7.8\%$ for 3D FCC lattice connectivity; above $\rho_{def} > \rho_{perc}$, Kuramoto coupling K vanishes across defect-clusters → R → 0
+7. **Percolation cutoff** (AVE-Metamaterials sister-repo canonical [`03_superconducting_metamaterials.tex:67-71`](../../../../../../AVE-Metamaterials/manuscript/vol_1_active_metamaterials/chapters/03_superconducting_metamaterials.tex)): $\rho_{perc} = 1 - p_c/p_{perc} = 7.8\%$ for 3D FCC lattice connectivity; above $\rho_{def} > \rho_{perc}$, Kuramoto coupling K vanishes across defect-clusters → R → 0
 
 **Closed parameter-free formula**:
 

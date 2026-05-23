@@ -66,6 +66,6 @@ The $(2,q)$ winding count is INTERNAL to each N-class: leptons stay at $(2,3)$ +
 
 ### Status (2026-05-20)
 
-**FULL PASS at PDG 2024 anchor scale** per C8-BARYON-LADDER cherry-pick. Strongest individual empirical match in framework. Cross-scale corroboration via A1-HOPF chiral antenna ($(2,q)$ family at EE scale) and C3-MUON-DELTA Fermilab g-2 anchor ($(2,3)$+Cosserat lepton family) pending — see [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) sub-epic for EE-scale corroboration plan.
+**FULL PASS at PDG 2024 anchor scale** per C8-BARYON-LADDER cherry-pick. Strongest individual empirical match in framework. Cross-scale corroboration via A1-HOPF chiral antenna ($(2,q)$ family at EE scale) and C3-MUON-DELTA Fermilab g-2 anchor ($(2,3)$+Cosserat lepton family) pending — see [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) sub-epic for EE-scale corroboration plan.
 
 ---

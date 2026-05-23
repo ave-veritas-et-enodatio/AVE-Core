@@ -13,7 +13,7 @@ path-stable: "canonical HOPF-02 VNA experiment leaf; matrix A1-HOPF (HOPF-02a fa
 
 > ↗ See also: [`AVE-HOPF/.agents/HANDOFF.md`](../../../../../AVE-HOPF/.agents/HANDOFF.md) — canonical hardware-state holder (HOPF-02a fab-ready, $123 BOM)
 >
-> ↗ See also: [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) — AVE-Core orchestration sub-epic for HOPF-02a fab + measurement
+> ↗ See also: [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) — AVE-Core orchestration sub-epic for HOPF-02a fab + measurement
 >
 > ↗ See also: [Torus Knot Baryon Predictions](../ch12-falsifiable-predictions/torus-knot-baryon-predictions.md) — $(2,q)$ family canonical (refreshed against PDG 2024 + J^P 2026-05-18); cross-scale corroboration target
 
@@ -72,7 +72,7 @@ A1-HOPF tests the $(2,q)$ family at EE scale. The same $(2,q)$ classification un
 
 A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological classification. A1-HOPF failing at EE scale → cascade-impact requires structural revision of $(2,q)$ classification despite C8 hadronic-scale confirmation.
 
-### Outcome adjudication (Phase 3 of sub-epic [`exp-a1-hopf.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md))
+### Outcome adjudication (Phase 3 of sub-epic [`exp-a1-hopf.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md))
 
 | Outcome | Interpretation |
 |---|---|
@@ -101,7 +101,7 @@ A1-HOPF passing at EE scale → cross-scale corroboration of $(2,q)$ topological
 
 **HOPF-02a DESIGN-COMPLETE; PHASE 0a artifact-generation pending**. Per AVE-HOPF HANDOFF.md: *"Next gate: physical fab order for HOPF-02a (user action; design package complete; Python KiCad emitter is the canonical fab path)."*
 
-Per the Phase A repo audit at [`_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md), three blockers remain before JLCPCB submission:
+Per the Phase A repo audit at [`_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf-repo-audit.md), three blockers remain before JLCPCB submission:
 
 1. **🔴 BLOCKER-1** (5 min): Export HOPF-02a Gerbers + drill files from `hopf_02a.kicad_pcb` via `kicad-cli pcb export gerbers/drill`. Currently `AVE-HOPF/hardware/Gerbers/` contains HOPF-01 Gerbers only.
 2. **🔴 BLOCKER-2** (15 min): Draft `AVE-HOPF/hardware/hopf_02a_ORDERING.md` with v-score spec. Current `ORDERING.md` is titled "HOPF-01 JLCPCB Ordering Guide" with 160×120 mm dimensions; HOPF-02a needs 250×185 mm panel with 4 v-score lines.
@@ -109,6 +109,6 @@ Per the Phase A repo audit at [`_orchestration/experimental/a1-hopf/exp-a1-hopf-
 
 Per audit Axis 1 ATTN-2: the root cause of citation drift between AVE-Core canonical leaves and AVE-HOPF hardware artifacts is the AVE-HOPF `hardware/` directory mixing HOPF-01 and HOPF-02a files at the same hierarchy level. ~30 min reorganization recommended (R1.1).
 
-Sub-epic tracking: [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) Phase 0a + 0b.
+Sub-epic tracking: [`_orchestration/experimental/a1-hopf/exp-a1-hopf.md`](../../../../../_orchestration/experimental/a1-hopf/exp-a1-hopf.md) Phase 0a + 0b.
 
 ---

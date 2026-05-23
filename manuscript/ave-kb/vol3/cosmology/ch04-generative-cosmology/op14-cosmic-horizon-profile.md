@@ -165,6 +165,6 @@ The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics 
   - [$\Omega_{\text{freeze}}$ Cosmic-Grain Cascade](../../../common/omega-freeze-cosmic-grain-cascade.md) — three-route framework + Class E operating-point projection canonical
   - [Universal Saturation-Kernel Catalog (A-034)](../../../common/universal-saturation-kernel-catalog.md) — 21-instance kernel; Row 14 cosmic K4 crystallisation + ASYM-N(ε) cosmic companion (Phase 3 addition)
 - **Pre-test physics anchors:**
-  - Grant adjudications 2026-05-19 EOD at [`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
+  - Grant adjudications 2026-05-19 EOD at [`_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md:9-17`](../../../../../_orchestration/theoretical/cosmic-epsilon-de-projection-scoping.md) — Q1 dynamic / Q2 cosmic-horizon profile is deliverable / Q3 γ composite
 - **Research-tier projection-chain trace:**
-  - [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) — 6-component projection chain using this leaf as Component 5
+  - [`research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md`](../../../../../research/2026-05-19_cosmic-epsilon-de-projection-mechanism.md) — 6-component projection chain using this leaf as Component 5
