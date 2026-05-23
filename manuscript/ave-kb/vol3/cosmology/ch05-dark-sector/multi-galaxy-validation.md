@@ -55,7 +55,7 @@ The Tully-Fisher relation ($v_{flat}^4 = G M a_0$) is an automatic consequence o
 >
 > The corpus's actual derived DM mechanism is **kinematic mutual inductance of the spatial network** ($\nu_{kin} = \alpha c \ell_{node}$ per [`lc-electrodynamics.md:40-54`](../../../vol1/dynamics/ch4-continuum-electrodynamics/lc-electrodynamics.md)), with the observable galactic-rotation chain driven by $a_0 = c H_\infty / (2\pi)$ via the Unruh-Hawking hoop projection ([`mond-hoop-stress.md:25-31`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md)).
 >
-> The C13-VLBI-DARK matrix row was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking the three-mechanism coexistence as an open theoretical gap). See `closure-roadmap.md` §0.5 scope-correction changelog + [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) C13 family section.
+> The C13-VLBI-DARK matrix row was split 2026-05-16 into three rows reflecting what the corpus actually derives: C13a (galactic rotation via $a_0 + \eta_{eff}$), C13b (bullet cluster via TT shockwave on Gordon metric), C13c (META row tracking the three-mechanism coexistence as an open theoretical gap). See [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) C13 family section.
 
 ### DAMA Parallax & Crystal Phonon Modulation — descriptive only
 

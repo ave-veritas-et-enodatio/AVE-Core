@@ -321,4 +321,3 @@ The rate-magnitude follow-up to this §12 categorical reframe landed at canonica
 - **MOND Hoop Stress 2π canonical derivation**: [`../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — structural parallel
 - **Preferred-frame substrate-equilibrium velocity**: [`../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md` §5](../../../vol1/dynamics/ch4-continuum-electrodynamics/preferred-frame-and-emergent-lorentz.md) — Sun velocity prediction + Gaia DR3 empirical test
 - **Matrix row**: [`../../../common/divergence-test-substrate-map.md` C14-DAMA-MATERIAL](../../../common/divergence-test-substrate-map.md) — energy U-C-pending-Z-independence-test; rate U-D-on-reactive-coupling-footing
-- **Closure-roadmap**: `../../../common/closure-roadmap.md` §0.5 DAMA entry — 8th + 9th cycle entries

@@ -196,9 +196,8 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 - [`research/2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md`](../../../../../research/2026-05-17_C14-DAMA_Q-factor_prereg_and_derivation.md) — Q-factor prereg
 - [`research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md`](../../../../../research/2026-05-17_C14-DAMA_Q-factor_matched-LC-coupling_result.md) — full matched-LC-coupling result with §10 + §11
 
-### Matrix + closure-roadmap
+### Matrix
 - [Matrix row C14-DAMA-MATERIAL](../../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
-- Closure-roadmap §0.5 — 9th-cycle entries
 
 ### Skill discipline
 - `ave-power-category-check` (~/.claude/skills/) — 5-axis categorical-classification check that would have caught the 8th-cycle photoabsorption mis-categorization on first pass

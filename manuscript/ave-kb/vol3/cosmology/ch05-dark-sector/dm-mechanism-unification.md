@@ -216,9 +216,8 @@ The parametric coupling kernel canonical at substrate scale (limb iii) should ma
 **Hoop Stress 2π motif**:
 - [MOND Hoop Stress §4.5 cross-volume substrate motif](../../../vol1/dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md) — canonical naming 2026-05-17
 
-**Matrix row + closure-roadmap**:
+**Matrix row**:
 - [Matrix C13c row](../../../common/divergence-test-substrate-map.md) — META row tracking this unification
-- closure-roadmap §0.5 — 12th-cycle entry references this leaf landing
 
 **Research provenance**:
 - [`research/2026-05-17_C13b_bullet_cluster_prereg.md`](../../../../../research/2026-05-17_C13b_bullet_cluster_prereg.md) — full Grant adjudication on bullet cluster operator

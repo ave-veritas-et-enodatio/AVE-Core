@@ -412,7 +412,7 @@ crossing numbers $c_1 = 5$, $c_2 = 7$, $c_3 = 9$ define the "radii" in
 mode space. The K4 lattice is 3-connected, setting a chiral screening
 threshold $\Delta c_{\text{crit}} = 3$.
 
-> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The Δc=2 spacing of the {c_1, c_2, c_3} = {5, 7, 9} ladder IS derived from $\nu_{vac} = 2/7$ (compliance-manifold mode allocation per [`vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md:23`](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)). The absolute starting value c_1=5 is NOT derived from substrate primitives in any canonical leaf grep'd — registered as open derivation gap in closure-roadmap §0.5 FI-13 entry. Without c_1=5 derivation, $\sin^2\theta_{13}$ below reclassifies from Class D emergence to Class C consistency check; other 3 PMNS predictions cross-validate from same c_1·c_3=45 input (3:1 structural compression preserved).
+> **Scope correction (2026-05-17 night, Foundation Item 13 audit)**: The Δc=2 spacing of the {c_1, c_2, c_3} = {5, 7, 9} ladder IS derived from $\nu_{vac} = 2/7$ (compliance-manifold mode allocation per [`vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md:23`](../vol2/particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md)). The absolute starting value c_1=5 is NOT derived from substrate primitives in any canonical leaf grep'd — registered as open derivation gap. Without c_1=5 derivation, $\sin^2\theta_{13}$ below reclassifies from Class D emergence to Class C consistency check; other 3 PMNS predictions cross-validate from same c_1·c_3=45 input (3:1 structural compression preserved).
 
 1. **Screened regime** ($\nu_1 \leftrightarrow \nu_3$,
 $\Delta c = 4 > 3$): Compliance coupling is evanescent. Only
@@ -667,8 +667,8 @@ Bounding Limit 3 (CODATA input, [`mathematical-closure.md:20`](mathematical-clos
 $G$ to a fully substrate-local derivation requires a closed-form Chain B'
 that derives $\Delta E_{\text{cryst}}$ and $\Gamma_{\text{cryst}}$ from
 $(\ell_{node}, \alpha)$ alone without routing through $R_H$ or $H_\infty$ —
-currently open work per `closure-roadmap.md` Tier 3
-"Chain B' independent G derivation" (line 38) and the open-work statement at
+currently open work — the
+"Chain B' independent G derivation" — and the open-work statement at
 [`vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:103-111`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md).
 
 **Refinement per `consistency-vs-emergence` v1.1 (Grant canonized 2026-05-19 EOD)**: the consistency identity is more precisely a **Class E operating-point projection** that includes the Class C consistency-check sub-structure. $\{G, H_\infty, \hat{\Omega}_{\text{freeze}}, \alpha\}$ are joint-constrained at substrate operating point $u_0^* \approx 0.187$ via the $R_H/\ell_{\text{node}} \sim 10^{39}$ topological bridge per [`omega-freeze-cosmic-grain-cascade.md:13-16`](omega-freeze-cosmic-grain-cascade.md). The framework's testable content is the joint constraint on these N observables — failure of any one falsifies the operating-point and therefore the entire substrate model — not four independent percent-error claims. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (the joint constraint defines the framework's actual falsifiability surface).

@@ -277,7 +277,7 @@ All inferred ρ_def values lie in plausible-for-known-crystal-class ranges. The 
 ✓ Percolation cutoff from AVE-Metamaterials canonical (sister-repo per workspace authority)
 ✓ NO Dicke amplitude / Fermi golden rule attribution as derivation source
 
-Result doc: [`research/2026-05-17_kappa-quality-defect-density-derivation-result.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-result.md) §15. Prereg: [`research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md). Foundation Item 12 entry in closure-roadmap §0.5 with full audit trail.
+Result doc: [`research/2026-05-17_kappa-quality-defect-density-derivation-result.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-result.md) §15. Prereg: [`research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md`](../../../../../research/2026-05-17_kappa-quality-defect-density-derivation-prereg.md).
 
 ## §7 — Differentiation from scalar-gravity RVR null
 
@@ -381,7 +381,6 @@ Per §3.6 kernel applicability classification + §8 layered confidence (Foundati
 - Prereg: [`research/2026-05-17_parametric-coupling-kernel-prereg.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-prereg.md)
 - Derivation Steps 1-3: [`research/2026-05-17_parametric-coupling-kernel-derivation-steps-1-3.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-derivation-steps-1-3.md)
 - Derivation Steps 4-9: [`research/2026-05-17_parametric-coupling-kernel-derivation-steps-4-9.md`](../../../../../research/2026-05-17_parametric-coupling-kernel-derivation-steps-4-9.md)
-- closure-roadmap.md §0.5 12th-cycle entry — adjudication trail
 
 ## §12 — Open work (rigor refinements; do not block canonical use)
 

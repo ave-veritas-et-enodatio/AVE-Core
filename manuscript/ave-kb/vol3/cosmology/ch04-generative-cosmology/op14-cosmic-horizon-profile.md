@@ -146,7 +146,7 @@ Per the existing canonical leaf's open-work statement:
 > 2. *Crystallization rate $\Gamma_{\text{cryst}}$ derivation — what fraction of vacuum crystallizes per unit time? Corpus claims $\Gamma = 3H\rho_{\text{latent}}$ but doesn't derive $\Gamma$ from substrate.*
 > 3. *Verification that Friedmann route and latent-heat route give the same number — internal-consistency check.*
 
-The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics anchor** for (2): local-clock-freezing at horizon is the substrate-native mechanism. (1) and (3) remain open — this leaf does not close them. Per `closure-roadmap.md:38` Tier 3 "Chain B' independent G derivation (substrate-local thermodynamics)" entry: still OPEN; this leaf advances the structural anchor without converting the operating-point projection to an emergence-class derivation.
+The Op14 cosmic-horizon profile provides the **substrate-side substrate-physics anchor** for (2): local-clock-freezing at horizon is the substrate-native mechanism. (1) and (3) remain open — this leaf does not close them. The Chain B' independent G derivation (substrate-local thermodynamics) remains OPEN; this leaf advances the structural anchor without converting the operating-point projection to an emergence-class derivation.
 
 ## Cross-references
 
