@@ -1,5 +1,4 @@
 [↑ Common Resources](../common/index.md)
-<!-- leaf: verbatim -->
 
 # Grant's Random Tangents — Rolling Capture + Adversarial Challenge
 
