@@ -2,6 +2,12 @@
 
 This is the canonical engine + manuscript + KB repo for the AVE (Applied Vacuum Engineering) framework. AVE is a substrate-physics framework treating vacuum as a saturable K4-TLM lattice with Cosserat-Beltrami flux structure; this repo carries the load-bearing derivations, drivers, KB invariants, and matrix of empirical claims.
 
+> **⚙ Maintainer-specific workflow + paths.** The **Branching pattern**, **Session conventions**, **Audit-tag + merge pattern**, **Pre-commit discipline**, and the sibling-repo / memory **paths** in **Cross-references** below describe the maintainer's personal local working setup — e.g. `/Users/grantlindblom/AVE-staging/` is a local directory layout, **not** a repo path; sibling repos live under whatever umbrella the contributor has cloned them into. These apply only where:
+> ```bash
+> [[ $(git config get user.name) == Grant* ]]
+> ```
+> Other contributors: adapt branch conventions and absolute paths to your own workspace. The **Repo structure**, **Skill ecosystem**, and **Pure-AVE-corpus rule** sections are universal.
+
 ## First read for any new session
 
 Before doing anything substantive, read these in order:
