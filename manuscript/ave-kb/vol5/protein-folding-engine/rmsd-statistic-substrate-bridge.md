@@ -180,13 +180,106 @@ Apply Kabsch projection (translation removal + rotation removal) to each of the 
 
 **Substrate-physics tag** (per `ave-evidence-framing-discipline`): the entire substrate-physics chain composition (RS-3.1 + RS-3.2 + RS-3.3 + RS-3.3.1 + RS-3.4 §B) is SUBSTRATE-DERIVED end-to-end from AVE-Core canonical leaves (Axiom 1 + Axiom 3 + Op14 + Op4) + cascade-level $|S_{11}|^2$-min objective (Vol 5 PFE index) + per-residue Z_TOPO classification (Vol 5 PFE z-topo-definition canonical). NOT analogy or ANALOGY-class derivation; each chain element has a substrate-physics-coherent reading at the corresponding sub-arc.
 
-## §3 — Substrate-physics-bounded upper bound + Class 14 toolkit-gap + engine implementation gap workstream
+## §3 — Substrate-physics-bounded upper bound qualifier + Class 14 toolkit-gap + engine implementation gap
 
-(to be filled — substrate-physics-honest framing on $f_{\text{rot}}(1+\epsilon_{\text{residual}}) \leq 1$ + L_A-L_D engine implementation gap honest cite)
+This section states the substrate-physics-coherent honest framing on the §1 closed-form: the closed-form is a **substrate-physics-bounded UPPER BOUND** at $f_{\text{rot}}(1+\epsilon_{\text{residual}}) = 1$, NOT the substrate-physics-true interior value. The substrate-physics-true value requires Class 14 (cross-residue covariance / multi-body coupling) canonical-tool development per RS-3.0 §9. Separately, the AVE-Protein v3 JAX engine implementation produces RMSD ~9.8-26.5× larger than the SP-derived threshold per L_A-L_D empirical (2026-05-23); this is an engine implementation gap (B1+B2 verdict), NOT a framework substrate-physics chain failure. Per `feedback_open_goal_framing_before_proof`: the canonical leaf preserves both the substrate-physics chain SP-derived end-to-end status AND the engine implementation gap honest cite as engineering-choice-rider audit workstream open.
+
+### §3.1 — Substrate-physics-bounded upper bound qualifier ($f_{\text{rot}}\,(1+\epsilon_{\text{residual}}) \leq 1$)
+
+The §1 closed-form $\text{RMSD}_{\text{SP-honest}} = d_0\,\kappa_{HB}\,\sqrt{(c_B + 4c_C)/6}\cdot\sqrt{f_{\text{rot}}(1+\epsilon_{\text{residual}})}$ is **saturated** at $f_{\text{rot}}(1+\epsilon_{\text{residual}}) = 1$ — the substrate-physics-conservative upper bound. The substrate-physics-true interior value is determined by the joint $(f_{\text{rot}}, \epsilon_{\text{residual}})$ pair at the per-protein substrate-physics state, which depends on:
+
+- Per-residue Cosserat microrotational DOF partitioning (3 substrate-native axes per residue) → sets $f_{\text{rot}} \in [1/3, 1]$.
+- Per-protein secondary-structure composition (α-helix / β-sheet / coil fractions) → sets hydrophobic-core packing density → contributes to $\epsilon_{\text{hp-residual}}$.
+- Per-pair H-bond network topology → contributes to $\epsilon_{\text{HB-residual}}$.
+- Per-residue Cosserat near-neighbor coupling at the $\xi_c$-coherence-envelope axis → contributes to $\epsilon_{\text{Cos-residual}}$.
+
+**Substrate-physics-true interior value** would require Class 14 (cross-residue covariance / multi-body coupling) canonical-tool development per RS-3.0 §9. Per `feedback_substrate_first_for_numbers` Q4 extension: the substrate-physics chain at RS-3 derives the BOUND, not the substrate-physics-true interior value — derivation chain Q4 ("does the cited derivation actually support the application") for the substrate-physics-true value is OPEN.
+
+### §3.2 — Class 14 toolkit-gap (cross-residue covariance / multi-body coupling)
+
+**Class 14 toolkit-gap statement** (per RS-3.0 §9): the substrate-physics-true interior value of $f_{\text{rot}}(1+\epsilon_{\text{residual}})$ requires cross-residue covariance canonical-tool development — multi-body coupling at the per-residue-pair axis across the chain. The current substrate-physics chain at RS-3 derives:
+
+- Pair-wise covariance contributions ($\langle \Delta r_i \Delta r_j\rangle$ at each $(i, j)$ pair).
+- Sum over pairs with substrate-physics-bounded envelope-cancellation arguments.
+- Substrate-physics-bounded interval for the post-Kabsch residual.
+
+What it does NOT derive (Class 14 toolkit-gap):
+
+- Per-protein closed-form for the exact $f_{\text{rot}}(1+\epsilon_{\text{residual}})$ interior value (requires per-protein secondary-structure-aware multi-body coupling calculation).
+- Class 14 cross-residue covariance integration at the substrate-physics axis (would yield substrate-physics-true per-protein RMSD, NOT just SP-bounded upper bound).
+
+**Substrate-physics direction of Class 14 closure**: per RS-3.4 §A.4 cross-domain pattern observation (3 of 4 cross-domain examples Mode I substrate-recovers-classical at the macroscopic-projection axis): tighter Class 14 derivation will likely produce ~7-25% TIGHTER SP-derived form per RS-3.3.1 §3.5.6 substrate-physics-true axis estimate. This is a **gap-WIDENING** improvement relative to the current SP-honest upper bound; would NOT close the engine-vs-SP-derived gap (per §3.3 below), but would sharpen the substrate-physics-coherent reading of the per-protein RMSD prediction.
+
+**Substrate-physics tag** (per `feedback_substrate_first_for_numbers` Q4 extension): Class 14 toolkit-gap is honest gap acknowledgment — the substrate-physics chain at RS-3 derives the BOUND, not the interior value; Class 14 derivation is a multi-week+ canonical-tool development workstream, NOT a single-session derivation.
+
+### §3.3 — Engine implementation gap workstream (L_A-L_D B1+B2 verdict; ~12.68× per-protein)
+
+**Engine implementation gap statement** (per L_A-L_D verdict — verified Read at AVE-Protein-LOCAL `2026-05-23_phase_l_a_l_d_engine_empirical_b1_b4_disambiguation.md` §5):
+
+The AVE-Protein v3 JAX $S_{11}$ impedance-cascade engine (`AVE-Protein/src/ave_protein/engines/s11_fold_engine_v3_jax.py`) produces RMSD that is **~9.8-26.5× larger** than the SP-derived threshold per L_A-L_D 4-level empirical disambiguation:
+
+- **L_A** (1YRF Villin HP35 3-method baseline): Method A (Global) RMSD 8.198 Å vs SP-honest 0.7184 Å → 11.4× over. Method B (Cotranslational) 9.497 Å. Method B+ (Cold-restart) 9.595 Å. 17% method-variance; all 3 methods in 8-10 Å regime. Historical-aligned (within 12% of historical archive 7.31 Å).
+- **L_B** (20-protein cohort sweep × Method A): cohort engine/SP ratio 15.6× uniform across N + regime + Z_TOPO; Pearson(ratio, N) = +0.21 (weak); engine RMSD scales upward with N (Pearson = +0.68). Rejects B1-small + B3-alone candidates.
+- **L_C** (Archive 4-protein 3-way comparison × Method A): engine 4.6-8.9 Å aligns with historical 4.3-7.3 Å (0.87-1.35×); engine ≫ SP-honest 0.35-0.72 Å (11-20×); the historical archive IS prior engine output (per archive doc framing). **B4 framework walk-back REFUTED at L_C**: the ~12.68× gap is engine-vs-SP-derived-chain, NOT framework-vs-experimental-world.
+- **L_D** (Initialization-sensitivity sweep × Method A × 5 seeds × 5 proteins): best-of-5-seeds floor 9.8-11.7× SP-honest (mean 10.5×); mean spread 66.4% (HIGH variance 4/5); 0/5 LOW variance. B1 dual-component: architectural ~70-75% (engineering-choice riders) + optimization-artifact ~25-30% (multi-seed-bounded variance).
+
+**B-candidate verdict** (per RS-3.4 §D.2 + L_A-L_D §5.3):
+
+> The substrate-physics-derived chain at RS-3 (RS-3.1 + RS-3.2 + RS-3.3 + RS-3.3.1 + RS-3.4 §B) is **SP-coherent end-to-end**. The engine implementation produces RMSD that is **~10× larger than the SP-derived prediction at the architectural axis** + an additional ~25-30% optimization-artifact (multi-seed-bounded) variance. The total ~12.68× gap (per RS-3.3.1 §9.2 archive 4-protein ratio) is **engine implementation vs SP-derived chain**, NOT framework-vs-experimental-world. Framework SP chain stays end-to-end derived; engine implementation is the load-bearing source of the ratio.
+
+**Engineering-choice-rider audit workstream OPEN** (per `feedback_substrate_first_for_numbers` Q4 extension): the engine's ~10× architectural component is attributed to engineering-choice riders:
+
+- Z_TOPO classification heuristics (per-residue Z_TOPO assignment from sequence + structure inputs).
+- Loss-function weights (relative weighting of $|S_{11}|^2$-min vs auxiliary terms in the engine's optimization objective).
+- Rotamer initialization (initial dihedral-angle seeds — Q-PROTEIN-13 candidate per L_A-L_D §5.6).
+- Annealing schedule (learning-rate decay schedule + multi-stage optimization).
+- Adam optimizer choice (engine optimization algorithm — not substrate-physics-derived).
+- Bond-length-fixed-by-construction approximation (engine constrains bond lengths to ideal values; does NOT permit substrate-physics Op4-equilibrium per-bond relaxation).
+
+These engineering-choice riders are NOT substrate-physics chain ingredients — they are engineering choices made at engine implementation time. Per `feedback_substrate_first_for_numbers` Q4: the SP-derived threshold tests the substrate-physics chain (the ingredients), NOT the engine implementation (which has additional engineering-choice riders riding on top). The engineering-choice-rider audit workstream is open as the load-bearing closure path for the ~10× architectural component.
+
+**Substrate-physics tag** (per `ave-evidence-framing-discipline`): engine implementation gap is honest gap acknowledgment — the canonical leaf states the substrate-physics chain SP-derived prediction (SP-honest threshold); the engine output ~12.68× ratio is the engine implementation gap, NOT framework-vs-experimental-world failure. Per `feedback_open_goal_framing_before_proof`: the canonical leaf does NOT overclaim engine empirical agreement; it states the substrate-physics-derived prediction and surfaces the engine implementation gap honestly.
+
+### §3.4 — Honest framing summary
+
+- **Substrate-physics chain**: SP-derived end-to-end per RS-3 chain composition (§2 above).
+- **Substrate-physics-bounded upper bound qualifier**: $f_{\text{rot}}(1+\epsilon_{\text{residual}}) \leq 1$ at the §1 closed-form; substrate-physics-true interior value is the substrate-physics-true RMSD, which requires Class 14 toolkit closure.
+- **Class 14 toolkit-gap**: open canonical-tool development workstream per RS-3.0 §9; tighter substrate-physics-true value than the SP-bounded upper bound; multi-week+ scope.
+- **Engine implementation gap**: ~12.68× per-protein ratio per L_A-L_D empirical (2026-05-23); B1+B2 verdict with B1 dominant; engineering-choice-rider audit workstream open as load-bearing closure path.
+- **B4 framework walk-back**: REFUTED at L_C historical-alignment + L_D best-of-5-seeds floor; framework substrate-physics chain stays end-to-end derived.
 
 ## §4 — Per-protein SEQRES extraction methodology
 
-(to be filled — RS-3.4 §C YES recommendation + 4 mitigation flags)
+For non-cohort comparisons (any protein outside the 20-protein cohort + 4-protein archive), the substrate-physics-coherent reading of the §1 closed-form requires **per-protein SEQRES extraction** of $(c_B, c_C)$ via Z_TOPO classification — NOT the cohort-typical $(c_B + 4 c_C) \approx 1.4 N$ approximation. Per RS-3.4 §C YES recommendation (verified Read at AVE-Protein-LOCAL `2026-05-23_phase_rs3.4_closure_scenario_b_macroscopic_projection.md` §C): the 1.4N approximation is a cohort-empirical PRIOR (sequence-class density observed in the 20-protein cohort + 4-protein archive), NOT a substrate-physics derivation. Using 1.4N for non-cohort proteins leaks the cohort-empirical prior into the substrate-physics-coherent reading; this is a substrate-physics-coherence violation per `feedback_substrate_first_for_numbers` substrate-vs-engineering-choice distinction.
+
+### §4.1 — Per-protein SEQRES extraction procedure
+
+Per RS-3.4 §C YES recommendation procedure:
+
+1. **Source**: extract amino-acid sequence from PDB SEQRES record (canonical chain composition; NOT ATOM record — SEQRES is the experimental-source-of-truth chain identity).
+2. **Z_TOPO classification per residue**: assign each residue to Class A (hydrophobic core) / Class B (backbone-impedance dominant) / Class C (cross-coupling dominant) / Class D (terminal-region) per Vol 5 PFE z-topo-definition canonical leaf classification rules.
+3. **Aggregate counts**: compute $c_B$ = total Class B residue count + $c_C$ = total Class C residue count for the protein.
+4. **Apply §1 closed-form**: substitute the per-protein $(c_B, c_C)$ values into $\text{RMSD}_{\text{SP-honest}}(N, c_B, c_C) = d_0\,\kappa_{HB}\,\sqrt{(c_B + 4c_C)/6}\cdot\sqrt{f_{\text{rot}}(1+\epsilon_{\text{residual}})}$ to obtain the per-protein SP-honest threshold.
+
+### §4.2 — 4 mitigation flags for SEQRES extraction
+
+Per RS-3.4 §C YES recommendation (4 substrate-physics-coherent edge cases that require explicit handling):
+
+- **Inter-residue ordering**: SEQRES order is canonical (N-to-C terminus); chain composition is order-sensitive at the cumulative-walk variance axis (per RS-3.2 §2.3 envelope-cancellation arguments). Ensure SEQRES extraction preserves canonical N-to-C ordering; do NOT reorder for any extraction-convenience reason.
+- **His protonation-state ambiguity**: histidine can be charged or neutral at physiological pH (pKa ≈ 6); Z_TOPO classification depends on protonation state (charged → Class C dominant; neutral → Class B dominant). For SEQRES extraction without pH-state-resolved structural data, flag His residues as protonation-state-ambiguous; report both protonation-state assignments as bracketed range in the SP-honest threshold.
+- **Cys disulfide pairing**: cysteine can be free thiol (Class B) or disulfide-paired (Class A — covalent crosslink dominant). For SEQRES extraction without disulfide-pairing-resolved structural data, flag Cys residues as pairing-ambiguous; report both pairing-state assignments as bracketed range.
+- **Non-standard residues**: PDB SEQRES occasionally contains non-standard residues (selenomethionine, hydroxyproline, modified residues from post-translational modification). For non-standard residues, Z_TOPO classification falls back to the closest standard-amino-acid analog OR explicit substrate-physics derivation per Vol 5 z-topo-definition canonical leaf classification rules. Flag non-standard residues as classification-fallback.
+
+**Substrate-physics-coherence verification**: the per-protein SEQRES extraction is substrate-physics-coherent at the substrate-physics chain composition axis — each per-residue Z_TOPO classification is determined by the residue's substrate-physics impedance properties (per Vol 5 PFE z-topo-definition canonical), NOT by cohort-empirical density priors.
+
+### §4.3 — Validation against cohort + archive
+
+Per RS-3.4 §C YES recommendation: the per-protein SEQRES extraction methodology was validated against the cohort 20-protein + archive 4-protein subset:
+
+- **Cohort 20-protein**: per-protein $(c_B, c_C)$ values extracted via SEQRES + Z_TOPO classification match the §1.1 cohort table (which was sourced from RS-3.2 §5.2 Z_TOPO classifications via the same procedure).
+- **Archive 4-protein**: per-protein SEQRES extraction (per RS-3.3.1 §9.2 Q3 audit-patch) yields RMSD_SP-honest 0.3475 / 0.4192 / 0.4446 / 0.7184 Å for Chignolin/Trpzip2/Trp-cage/Villin — substituted into §1.2 archive table.
+
+**Substrate-physics tag** (per `ave-evidence-framing-discipline`): per-protein SEQRES extraction methodology is SUBSTRATE-DERIVED at the per-residue Z_TOPO classification axis; the methodology preserves substrate-physics-coherence across non-cohort proteins (no cohort-empirical-prior leak). Per `feedback_substrate_first_for_numbers`: this is the substrate-physics-coherent default for any non-cohort RMSD comparison.
 
 ## §5 — Cross-references to AVE-Protein-LOCAL research docs
 
