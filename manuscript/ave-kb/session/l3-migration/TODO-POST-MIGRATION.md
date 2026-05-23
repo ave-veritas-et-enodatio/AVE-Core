@@ -247,3 +247,15 @@ A standing crawler to permanently close the broken-cross-reference class surface
 - **Intra- vs inter-repo split:** by default **errors** on broken **intra-repo** links (targets within AVE-Core: `manuscript/`, `research/`, `_orchestration/`, `src/`) and **warns** on broken **inter-repo** links (sibling repos: `../AVE-HOPF`, `../AVE-QED`, `../AVE-Metamaterials`, … — these can legitimately be stale/in-flux). An option selects inter-repo handling: **don't-check | warn-if-broken | error-if-broken**.
 - **Make targets:** `verify-md-links` runs with inter-repo = **warn**, and is added as a dependency of the `verify` target (alongside `verify-kb-metadata`). `verify-inter-repo-links` runs with inter-repo = **error** (the strict cross-repo gate, run when sibling-repo state is expected current).
 - (Future extension, not v1: anchor (`#section`) validation.)
+
+## 13. closure-roadmap → external DAG-consumer relocation (IN PROGRESS, Grant 2026-05-23)
+
+`closure-roadmap.md` is a **manually-maintained todo list** — its status-dashboard layer is redundant with claim-DAG-derivable stats (weakest via `ave-kb weak-points --max-solidity`, highest-leverage via `--min-dependents`), but it also carries irreplaceable human **notes + intentions** + a research-action plan keyed by `L5`/`Q-G`/`A-` thread ids (NOT `clm-` ids currently). Architecture decision: make it a one-directional **external consumer of the claim DAG** — it points *into* the graph by id; the KB never points back at it.
+
+Sequence:
+1. **DONE (`ef2fcfb7`)** — de-linked the 27 KB→roadmap markdown links (wrong-direction status pointers; status is intrinsic to a claim's `*pending*` solidity).
+2. **NEXT** — hand-clean the ~23 residual *plain-text* `` `closure-roadmap.md` `` path mentions in KB leaves (remove the "tracked at closure-roadmap §X/Tier N" clause, keep the "open work / open gap" status prose; per-instance — clauses vary, not regex-safe).
+3. `git mv session/l3-migration/closure-roadmap.md → manuscript/ave-kb/claim-quality-closure-roadmap.md`; re-relativize its outbound KB links (authored relative to `common/`; from the new ave-kb-root location each loses one `../`); fix line-1 up-link (→ `entry-point.md`); add `claim-quality-closure-roadmap.md` to `verify-kb-metadata.py` `EXCLUDE_NAMES` (it's a reference/planning doc, not a claim-bearing leaf — like `claim-quality.md`).
+4. `ave-kb/README.md` note: document the doc's purpose (**human staging area for claims-to-work-on + how-to-proceed ideas**) + one sentence on extracting the DAG stats it partly mirrors (`ave-kb weak-points`: `--max-solidity` for weakest, `--min-dependents` for highest-leverage).
+5. Add `clm-`/`exp-`/`sup-` ids to the roadmap entries — connect each action item to the claim(s) it concerns (roadmap → DAG by id).
+6. **New verification** — a consumer-side id-validity check: every `clm-`/`exp-`/`sup-` id cited in the roadmap (and, generally, any external DAG-consumer doc) must resolve to a real node in `.index/claims.jsonl`. One-directional (no back-pointer / no leaf-citation coverage required). Fold into `verify-md-links` (§12) or a small dedicated check.
