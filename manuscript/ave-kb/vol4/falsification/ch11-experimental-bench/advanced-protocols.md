@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-5s5b0d, clm-cwjd8t, clm-h55fy1, clm-k9up5c, clm-wqmb19]
+claims: [clm-5s5b0d, clm-cwjd8t, clm-h55fy1, clm-k9up5c, clm-yr6tu4]
 -->
 
 ## Advanced Falsification Protocols
@@ -36,7 +36,7 @@ As $V \to 43{,}650$ V: $\Gamma \to 1$ (perfect reflection from empty space).
 
 **Falsification**: Sweep DC voltage past 35 kV → APD must register exponential spike in back-scattered photons. If zero → linear QED confirmed, AVE killed.
 
-<!-- claim-quality: clm-wqmb19 -->
+<!-- claim-quality: clm-yr6tu4 -->
 ### Protocol 12: Sagnac-Parallax (Galactic Wind)
 
 Static horizontal Sagnac loop observed over 24 hours. Earth's rotation vectors the loop against the 370 km/s CMB dipole flow, generating predictable sinusoidal phase shift $\Delta\phi \propto v_{gal} \cos(\omega t)$.

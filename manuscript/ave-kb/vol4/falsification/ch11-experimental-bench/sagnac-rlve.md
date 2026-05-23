@@ -2,7 +2,8 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-wqmb19]
+no-claim: "by-methodology condensed duplicate of the canonical Sagnac-RLVE experiment leaf"
+experiments: [exp-rth12t]
 -->
 
 ## Sagnac-RLVE: The Definitive Tabletop Falsification
