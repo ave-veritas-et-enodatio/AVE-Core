@@ -167,6 +167,8 @@ So the electron has **sub-lattice interior structure** at $k \approx 6.36 / \ell
 
 So: **the trapping is dual.** Topology forbids the unraveling state (Ax2). Impedance forbids the unraveling motion from propagating (Ax4 + $\Gamma = -1$). Either alone would not suffice; both together make the soliton categorically inaccessible to external substrate dynamics.
 
+→ Intended material: this dual (two-reason) trap is the rationale behind the **Stability (non-decay)** row of [`../vol2/particle-physics/ch01-topological-matter/electron-identification.md`](../vol2/particle-physics/ch01-topological-matter/electron-identification.md).
+
 #### New open questions added to (e) — surfaced by (f) clarification
 
 5. **Should [`boundary-observables-m-q-j.md` line 73](../common/boundary-observables-m-q-j.md)'s "interior causally disconnected" finding be explicitly cross-linked from [`../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md`](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) and [`../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)?** Same mechanism at electron scale and BH scale — explicit A-034 cross-link makes the unification load-bearing rather than implicit. This is the load-bearing answer to "why can't an electron untangle" and it currently lives only in a common/ leaf without back-references from the per-volume leaves that need it.
