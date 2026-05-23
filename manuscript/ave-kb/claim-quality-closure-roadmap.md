@@ -12,6 +12,8 @@
 
 **Supersedes:** `research/_archive/L3_electron_soliton/114_next_steps_consolidation_plan.md` for forward-looking planning. Doc 114 remains historical record of the post-2026-05-14 session.
 
+**EDIT** - 2026-05-23 Benn - renamed to claim-quality-closure-roadmap.md and moved to top level of ave-kb. This document *references into* the KB claim DAG, but is not *part* of it. It has been preserved as a record of human intent and notes for future claim strengthening work. See [README](README.md) for notes on this document and related sources of information obtainable via the claim quality DAG tooling.
+
 ---
 
 ## §0 Status dashboard (update after every session)
