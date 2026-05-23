@@ -365,8 +365,8 @@ All three axes are orthogonal classifiers. A complete characterization of a syst
 - [A-034 Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md) — 26-instance cross-scale catalog; this leaf's temporal-regime column is a companion classifier
 
 ### Adjudication queue
-- [_orchestration/index.md substantive item 1](../../../../_orchestration/index.md) — methodology-systematic Ganalyzer vs Longo: resolved-by-implication via bulk-vs-individual regime sampling per §Methodology-systematic implications above
-- [_orchestration/index.md substantive item 3](../../../../_orchestration/index.md) — lossless-dynamics framing axis: this leaf IS the encoding
+- [_orchestration/index.md substantive item 1](../../../_orchestration/index.md) — methodology-systematic Ganalyzer vs Longo: resolved-by-implication via bulk-vs-individual regime sampling per §Methodology-systematic implications above
+- [_orchestration/index.md substantive item 3](../../../_orchestration/index.md) — lossless-dynamics framing axis: this leaf IS the encoding
 
 ### Open follow-up work (corpus gaps surfaced by this leaf)
 - Tunnel diode / IGBT / BJT (semiconductor sub-categories)
