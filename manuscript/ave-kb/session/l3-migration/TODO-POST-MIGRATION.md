@@ -235,3 +235,15 @@ Only the "1+" form yields the published `Δn = n_s − n_t = ε₁₁` (bare giv
 
 ### L3 deletion — RESOLVED 2026-05-21 (adopted)
 `manuscript/frontmatter/00_foreword_lean.tex` — L3 deleted it (lean-foreword variant). **Deletion adopted** (Grant 2026-05-21) per the vol4 REPO-ARCH canonical-decision precedent (§9). Confirmed zero `\input`/references anywhere in ours or L3 before removal; the main `00_foreword.tex` survives.
+
+## 12. KB Markdown link-integrity checker — DEFERRED tooling (build after KB-usage unblocking)
+
+A standing crawler to permanently close the broken-cross-reference class surfaced during migration (off-by-one `../` depths, parked-doc relocations, sibling-repo staleness). **Build this AFTER the immediate KB-usage blockers are cleared** (the over-counted `../` links, the parked-doc disposition, the Grant-home `file://` link). Design (Grant 2026-05-23):
+
+- **`tools/verify-md-links.py`** crawls **ALL markdown in the repo** (not just `manuscript/ave-kb/`) — KB leaves, docs, READMEs, `research/`, `_orchestration/`, etc. For each markdown link target, resolve relative to the file's dir and check existence (strip `#anchor` + trailing `:linenum`; skip `http(s)`/`mailto`/absolute).
+- **Doc/example links are checked too** (Grant 2026-05-23): the checker is repo-wide precisely so it catches broken links in documentation `.md` (e.g. the over-counted `../claim-quality.md` / `../entry-point.md` snippets in `CONVENTIONS.md`/`CLAUDE.md`). Do NOT blanket-skip fenced code blocks. **Open sub-design:** distinguish genuine illustrative *placeholders* (e.g. `relative/path/to/target.md`, which can never resolve) from real-looking-but-broken links — options: a recognized sentinel/placeholder convention exempted from checking, or rewrite doc examples to use resolvable real paths. Real-looking broken links in docs are caught and fixed.
+- **Exhaustive:** displays **all** broken links by **file + line number** (does NOT exit on first error).
+- **Exit code:** `1` if any broken links, `0` if none.
+- **Intra- vs inter-repo split:** by default **errors** on broken **intra-repo** links (targets within AVE-Core: `manuscript/`, `research/`, `_orchestration/`, `src/`) and **warns** on broken **inter-repo** links (sibling repos: `../AVE-HOPF`, `../AVE-QED`, `../AVE-Metamaterials`, … — these can legitimately be stale/in-flux). An option selects inter-repo handling: **don't-check | warn-if-broken | error-if-broken**.
+- **Make targets:** `verify-md-links` runs with inter-repo = **warn**, and is added as a dependency of the `verify` target (alongside `verify-kb-metadata`). `verify-inter-repo-links` runs with inter-repo = **error** (the strict cross-repo gate, run when sibling-repo state is expected current).
+- (Future extension, not v1: anchor (`#section`) validation.)
