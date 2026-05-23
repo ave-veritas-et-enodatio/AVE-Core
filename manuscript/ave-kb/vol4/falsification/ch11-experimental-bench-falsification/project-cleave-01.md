@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-ydksh6]
+exp-id: exp-742kv5
+status: pending
+strengthens:
+  - clm-ydksh6: 1.0
 -->
 
 ## Project CLEAVE-01: The Femto-Coulomb Electrometer

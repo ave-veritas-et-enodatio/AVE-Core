@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-qsgl7d]
+exp-id: exp-0n5p16
+status: pending
+strengthens:
+  - clm-qsgl7d: 1.0
 -->
 
 ## Project ROENTGEN-03: Solid-State Sagnac Induction

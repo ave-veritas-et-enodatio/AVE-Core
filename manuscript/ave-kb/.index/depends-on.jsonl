@@ -101,8 +101,14 @@
 {"source": "clm-zuf7g1", "target": "clm-ldmvwi", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.55, "strength": null, "context": "Bell-correlation derivation uses Born rule as one of three ingredients"}
 {"source": "clm-zw6mut", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.23, "strength": null, "context": "for muon's $\\alpha\\sqrt{3/7}$ and tau's $8\\pi/\\alpha$ sector factors"}
 {"source": "clm-zw6mut", "target": "clm-unk0bd", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.45, "strength": null, "context": "the \"ground-state unknot\" framing is load-bearing for the lepton mass formula and the \"three structural dimensions of the unknot\" Cosserat-sector argument"}
+{"source": "exp-0n5p16", "target": "clm-qsgl7d", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
+{"source": "exp-1ddtr0", "target": "clm-ui3m8a", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-1up5ww", "target": "clm-wzezvt", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
+{"source": "exp-6kwkx7", "target": "clm-kl1ern", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-71uhr0", "target": "clm-cltls0", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
+{"source": "exp-742kv5", "target": "clm-ydksh6", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-7jekc6", "target": "clm-rd9cjm", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
+{"source": "exp-ct4cts", "target": "clm-iz3svl", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-po1a0v", "target": "clm-5s5b0d", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-rth12t", "target": "clm-qx9bb8", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
+{"source": "exp-v6nzcq", "target": "clm-ui3m8a", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}

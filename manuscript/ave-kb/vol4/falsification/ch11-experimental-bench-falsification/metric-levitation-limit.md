@@ -3,6 +3,10 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-ui3m8a]
+exp-id: exp-v6nzcq
+status: pending
+strengthens:
+  - clm-ui3m8a: 1.0
 -->
 
 ## The Absolute Hardware Limit of Metric Levitation
