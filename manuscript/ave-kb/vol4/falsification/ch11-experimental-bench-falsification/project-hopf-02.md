@@ -1,8 +1,12 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
 
 <!-- kb-frontmatter
-kind: leaf
-claims: [clm-wzezvt]
+kind: experiment
+exp-id: exp-1up5ww
+status: pending
+strengthens:
+  - clm-wzezvt: 1.0
+path-stable: "canonical HOPF-02 VNA experiment leaf; matrix A1-HOPF (HOPF-02a fab-ready, $123 BOM)"
 -->
 
 ## Project HOPF-02: The S-Parameter VNA Falsification

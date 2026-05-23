@@ -101,5 +101,6 @@
 {"source": "clm-zuf7g1", "target": "clm-ldmvwi", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.55, "strength": null, "context": "Bell-correlation derivation uses Born rule as one of three ingredients"}
 {"source": "clm-zw6mut", "target": "clm-0ktpcn", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.23, "strength": null, "context": "for muon's $\\alpha\\sqrt{3/7}$ and tau's $8\\pi/\\alpha$ sector factors"}
 {"source": "clm-zw6mut", "target": "clm-unk0bd", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.45, "strength": null, "context": "the \"ground-state unknot\" framing is load-bearing for the lepton mass formula and the \"three structural dimensions of the unknot\" Cosserat-sector argument"}
+{"source": "exp-1up5ww", "target": "clm-wzezvt", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-7jekc6", "target": "clm-rd9cjm", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}
 {"source": "exp-rth12t", "target": "clm-qx9bb8", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null}

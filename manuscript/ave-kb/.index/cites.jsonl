@@ -634,8 +634,6 @@
 {"claim_id": "clm-wx5324", "leaf_path": "vol3/gravity/ch01-gravity-yield/asymptotic-hubble-constant.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-wx5324", "leaf_path": "vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-wzezvt", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/open-source-hardware.md", "leaf_kind": "leaf", "tier2_marked": true}
-{"claim_id": "clm-wzezvt", "leaf_path": "vol4/falsification/ch11-experimental-bench-falsification/project-hopf-02.md", "leaf_kind": "leaf", "tier2_marked": false}
-{"claim_id": "clm-wzezvt", "leaf_path": "vol4/falsification/ch11-experimental-bench/pcba-bench-protocols.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-wzezvt", "leaf_path": "vol4/future-geometries/ch13-future-geometries/k4-tlm-simulator.md", "leaf_kind": "leaf", "tier2_marked": true}
 {"claim_id": "clm-x19btt", "leaf_path": "vol3/cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md", "leaf_kind": "leaf", "tier2_marked": false}
 {"claim_id": "clm-x19btt", "leaf_path": "vol3/gravity/ch01-gravity-yield/vacuum-poisson-ratio.md", "leaf_kind": "leaf", "tier2_marked": false}
