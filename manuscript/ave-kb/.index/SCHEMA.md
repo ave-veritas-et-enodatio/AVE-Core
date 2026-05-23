@@ -1,10 +1,11 @@
 # AVE-KB Derived Index — Schema Specification
 
-**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation). Last revised 2026-05-16.
+**Status:** Live — built and hardened (clm- IDs, framework nodes, derived solidity, NaN-propagation, exp- experiment nodes + `experiments:` references). Last revised 2026-05-22.
 **Scope:** specifies the canonical JSONL files that live under this directory, the record shapes within each, the build invariants, and the query semantics the runtime module (`src/ave/kb/index.py`) is expected to provide over them.
 
 This directory is **derived** from canonical sources:
-- Leaf frontmatter (`claims:`, `subtree-claims:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
+- Leaf frontmatter (`claims:`, `experiments:`, `subtree-claims:`, `subtree-experiments:`, `kind:`, `path-stable`, `no-claim`) in every KB `.md` file outside `session/`.
+- Experiment-leaf frontmatter (`exp-id:`, `status:`, `strengthens:`) in every `kind: experiment` leaf (INVARIANT-S9).
 - Tier 2 inline markers (`<!-- claim-quality: <id> ... -->`) in multi-claim leaves.
 - Claim-quality entries in every `claim-quality.md` register (root, per-volume, common).
 
@@ -33,7 +34,8 @@ These hold across every regeneration. They are checked by `personant verify`-sty
 1. **Determinism.** Running `make refresh-kb-metadata` against the same canonical state yields byte-identical files. No timestamps, no random IDs, no environment-dependent paths embedded in records.
 2. **Sort stability.** Each file's records are sorted by the file's sort key. A new claim or edge appears as one inserted line in `git diff`, never reorders surrounding lines.
 3. **Schema closure.** Every record matches the schema in this document. Unknown fields are a hard verifier failure (catches drift between schema and emitter).
-4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim, framework, **and experiment** nodes. For a `relation:"depends"` edge: `source` resolves to a claim, `target` may resolve to any node type, and `target_kind` must equal the resolved target's `node_type` (kind-match). For a `relation:"strengthens"` edge: `source` resolves to an **experiment** node, `target` resolves to a **claim** (and `target_kind == "claim"`); experiment nodes are never edge `target`s and never appear in `cites` / `subtree-aggregates`. `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference claim ids only. The `\bexp-[a-z0-9]{6}\b` id format is enforced for experiment nodes. (Orphan, kind-mismatch, or relation/source-type mismatch is a verifier failure.)
+4. **Referential integrity.** Every ID referenced in `depends-on.jsonl`, `strengthen-by.jsonl`, `cites.jsonl`, or `subtree-aggregates.jsonl` resolves to a record in `claims.jsonl` — which holds claim, framework, **and experiment** nodes. For a `relation:"depends"` edge: `source` resolves to a claim, `target` may resolve to any node type, and `target_kind` must equal the resolved target's `node_type` (kind-match). For a `relation:"strengthens"` edge: `source` resolves to an **experiment** node, `target` resolves to a **claim** (and `target_kind == "claim"`); experiment nodes are never edge `target`s and never appear in `cites`. `strengthen-by` / `cites` `claim_id` and `subtree-aggregates` `subtree_claims` reference **claim** ids only; `subtree-aggregates` `subtree_experiments` references **experiment** ids only (a claim id there is a kind mismatch). The `\bexp-[a-z0-9]{6}\b` id format is enforced for experiment nodes. (Orphan, kind-mismatch, or relation/source-type mismatch is a verifier failure.)
+   - **Leaf `experiments:` references.** A leaf may carry an optional `experiments: [exp-xxxxxx, ...]` frontmatter field — the experiment-reference analog of `claims:` (a leaf-level citation, the inverse of an experiment's Leaf-references; NOT rolled up transitively, NOT for mere prose mentions). Every id in any leaf's `experiments:` must be a well-formed exp-id AND resolve to an actual experiment node (an `exp-id`-declaring leaf). An id that resolves to a claim (`clm-`) instead of an experiment, or resolves to nothing, is a hard verifier failure (not refresh-fixable). The field is **additive**: it is allowed alongside `claims:` OR `no-claim:` and is **not** a primary field — a referencing leaf still satisfies Tier 1 coverage via `claims:`/`no-claim:`. An owning (`exp-id`) experiment leaf must **not** also carry `experiments:` (exclusivity, like `claims:`/`exp-id:`).
 5. **Single newline EOF.** Every file ends with exactly one `\n`. (Catches editor mishaps and trailing-whitespace creep.)
 6. **JSON valid.** Every line parses as a JSON object. (Catches partial writes and merge corruption.)
 
@@ -210,13 +212,16 @@ One record per index file (`kind: index`) plus the single entry-point node.
 {
   node_path: string,            // POSIX path relative to manuscript/ave-kb/
   node_kind: string,            // "index" or "entry-point"
-  subtree_claims: string[]      // sorted unique list of all claim ids under this node's subtree
+  subtree_claims: string[],     // sorted unique list of all claim ids OWNED under this node's subtree
+  subtree_experiments: string[] // sorted unique list of all exp-ids OWNED under this node's subtree
 }
 ```
 
-Field order: `node_path`, `node_kind`, `subtree_claims`.
+Field order: `node_path`, `node_kind`, `subtree_claims`, `subtree_experiments`.
 
-This file persists what `refresh-kb-metadata` already computes transiently for the frontmatter `subtree-claims:` field. Having it materialized as JSONL means cross-volume aggregation queries don't require re-walking the tree.
+This file persists what `refresh-kb-metadata` already computes transiently for the frontmatter `subtree-claims:` and `subtree-experiments:` fields. Having it materialized as JSONL means cross-volume aggregation queries don't require re-walking the tree.
+
+**`subtree_experiments` (owned-only).** The union of exp-ids OWNED (declared via `exp-id:`) by experiment leaves under this node's directory (`kind: index`) or the whole KB (`kind: entry-point`). It is the experiment analog of `subtree_claims`, and OWNED-ONLY in the same sense: just as a leaf's foreign depends-on references never enter `subtree_claims` (only its owned `claims:` support rolls up), a leaf's `experiments:` REFERENCES never propagate into `subtree_experiments` — only an experiment leaf's own `exp-id:` declaration does. Sorted with the same ordering convention as `subtree_claims`. Both this JSONL key and the frontmatter `subtree-experiments:` field are derived from the single shared `kb_index_lib.compute_subtree_aggregates`, so the materialized aggregate, the refresh write-back, and the verify consistency check cannot drift; declared `subtree-experiments` ≠ the computed owned union is a refresh-fixable verifier failure.
 
 ---
 
@@ -305,6 +310,7 @@ files                                                    WRITTEN (new)
 - runs the index build in-memory; diffs against `.index/*.jsonl` on disk; any difference is a `refresh-fixable` failure with `make refresh-kb-metadata` as the remediation hint.
 - validates each JSONL file is well-formed JSON line-by-line; reports parse failures as hard failures.
 - validates referential integrity (every id referenced in any non-claims file appears in claims.jsonl).
+- validates leaf `experiments:` references resolve to experiment nodes (orphan / claim-id-mismatch is a hard failure, not refresh-fixable) and that declared `subtree-experiments` equals the computed owned union (refresh-fixable).
 - **NEW (Push 3):** checks the claim depends-on graph is acyclic (a cycle makes solidity undefined — hard failure, not refresh-fixable).
 - **NEW (Push 3):** checks solidity freshness — every claim-quality.md `solidity` line, its build-status phrase, the depends-on `(solidity X)` annotations, and the `claims.jsonl` solidity fields must equal `compute_solidity`'s output (`refresh-fixable`).
 

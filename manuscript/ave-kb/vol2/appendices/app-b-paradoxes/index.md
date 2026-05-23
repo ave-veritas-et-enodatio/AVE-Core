@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-ghs75o, clm-nhlo1e, clm-salw2h]
+subtree-experiments: []
 -->
 
 # App B: Theoretical Stress Tests — Surviving Standard Disproofs

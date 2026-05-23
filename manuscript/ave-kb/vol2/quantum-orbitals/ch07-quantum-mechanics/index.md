@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-3i66gp, clm-ak97cb, clm-oltvwy, clm-qde5gn, clm-w6kk5y]
+subtree-experiments: []
 -->
 
 # Ch. 7: Quantum Mechanics and Atomic Orbitals

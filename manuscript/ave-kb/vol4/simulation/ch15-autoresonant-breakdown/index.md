@@ -3,6 +3,7 @@
 <!-- kb-frontmatter
 kind: index
 subtree-claims: [clm-9sujp8]
+subtree-experiments: []
 -->
 
 # Ch.15: Autoresonant Dielectric Breakdown — Bypassing the Schwinger Limit

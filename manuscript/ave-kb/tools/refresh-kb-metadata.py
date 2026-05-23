@@ -87,37 +87,62 @@ def parse_frontmatter(text: str) -> dict | None:
     return fields
 
 
-def replace_subtree_claims(text: str, new_ids: list[str]) -> str:
-    """Replace the subtree-claims line in the frontmatter block (or insert it)."""
+def _replace_or_insert_field(
+    text: str, field: str, new_ids: list[str], anchor_prefix: str
+) -> str:
+    """Replace ``field: [...]`` in the frontmatter block, or insert it.
+
+    When the field is absent it is inserted immediately after the line whose
+    stripped form starts with ``anchor_prefix`` (e.g. ``subtree-claims:`` for
+    ``subtree-experiments``, ``kind:`` for ``subtree-claims``), preserving the
+    documented field order. Falls back to inserting at the top of the block if
+    no anchor line is present.
+    """
     new_value = "[" + ", ".join(new_ids) + "]"
 
     def repl(match: re.Match) -> str:
-        body = match.group(1)
-        lines = body.splitlines()
+        lines = match.group(1).splitlines()
         replaced = False
         new_lines = []
         for line in lines:
-            if line.strip().startswith("subtree-claims:"):
+            if line.strip().startswith(f"{field}:"):
                 indent = line[: len(line) - len(line.lstrip())]
-                new_lines.append(f"{indent}subtree-claims: {new_value}")
+                new_lines.append(f"{indent}{field}: {new_value}")
                 replaced = True
             else:
                 new_lines.append(line)
         if not replaced:
-            # Insert after kind: line if present, else at top
             inserted = False
             out = []
             for line in new_lines:
                 out.append(line)
-                if not inserted and line.strip().startswith("kind:"):
-                    out.append(f"subtree-claims: {new_value}")
+                if not inserted and line.strip().startswith(anchor_prefix):
+                    out.append(f"{field}: {new_value}")
                     inserted = True
             if not inserted:
-                out.insert(0, f"subtree-claims: {new_value}")
+                out.insert(0, f"{field}: {new_value}")
             new_lines = out
         return "<!-- kb-frontmatter\n" + "\n".join(new_lines) + "\n-->"
 
     return FRONTMATTER_BLOCK.sub(repl, text, count=1)
+
+
+def replace_subtree_claims(text: str, new_ids: list[str]) -> str:
+    """Replace the subtree-claims line in the frontmatter block (or insert it)."""
+    return _replace_or_insert_field(text, "subtree-claims", new_ids, "kind:")
+
+
+def replace_subtree_experiments(text: str, new_ids: list[str]) -> str:
+    """Replace subtree-experiments in the frontmatter (or insert it).
+
+    Inserted directly after the ``subtree-claims:`` line so the two derived
+    aggregates sit together; falls back after ``kind:`` if subtree-claims is
+    somehow absent (it is written first in the same refresh pass).
+    """
+    anchor = "subtree-claims:"
+    if "subtree-claims:" not in text:
+        anchor = "kind:"
+    return _replace_or_insert_field(text, "subtree-experiments", new_ids, anchor)
 
 
 def collect_leaves() -> dict[Path, list[str]]:
@@ -416,10 +441,22 @@ def main(argv: list[str] | None = None) -> int:
 
     leaves = collect_leaves()
 
+    # Owned exp-ids per directory come from the SAME shared library
+    # computation the verifier uses (compute_subtree_aggregates over a single
+    # discover_kb state) — never a second, independent walk — so the written
+    # subtree-experiments cannot drift from what verify recomputes. The
+    # subtree-claims values are kept on the existing local walk (byte-stable);
+    # both must equal compute_subtree_aggregates, which the verifier checks.
+    exp_state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
+    aggregates = kb_index_lib.compute_subtree_aggregates(exp_state)
+
     updated = 0
     skipped = 0
 
-    # Update each kind: index file
+    # Update each kind: index file. An ``entry-point`` may itself be named
+    # index.md (the fixture's root is one); handle both index and entry-point
+    # kinds here so subtree-experiments is written regardless of filename. The
+    # entry-point branch below covers a separately-named ``entry-point.md``.
     for root, dirs, files in os.walk(KB):
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         for f in files:
@@ -431,18 +468,27 @@ def main(argv: list[str] | None = None) -> int:
             if not fm:
                 skipped += 1
                 continue
-            if fm.get("kind") != "index":
+            kind = fm.get("kind")
+            if kind not in ("index", "entry-point"):
                 continue  # leaf-as-index has no subtree
-            idx_dir = p.parent
-            expected = set()
-            for leaf, ids in leaves.items():
-                try:
-                    leaf.relative_to(idx_dir)
-                    expected.update(ids)
-                except ValueError:
-                    continue
-            sorted_ids = sorted(expected)
+            rel = p.relative_to(KB).as_posix()
+            if kind == "entry-point":
+                # Global union — take both aggregates from the shared compute.
+                claim_ids, exp_ids = aggregates.get(rel, ([], []))
+                sorted_ids = claim_ids
+            else:
+                idx_dir = p.parent
+                expected = set()
+                for leaf, ids in leaves.items():
+                    try:
+                        leaf.relative_to(idx_dir)
+                        expected.update(ids)
+                    except ValueError:
+                        continue
+                sorted_ids = sorted(expected)
+                _, exp_ids = aggregates.get(rel, ([], []))
             new_text = replace_subtree_claims(text, sorted_ids)
+            new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
                 p.write_text(new_text)
                 updated += 1
@@ -457,7 +503,10 @@ def main(argv: list[str] | None = None) -> int:
             for ids in leaves.values():
                 all_ids.update(ids)
             sorted_ids = sorted(all_ids)
+            rel = ep.relative_to(KB).as_posix()
+            _, exp_ids = aggregates.get(rel, ([], []))
             new_text = replace_subtree_claims(text, sorted_ids)
+            new_text = replace_subtree_experiments(new_text, exp_ids)
             if new_text != text:
                 ep.write_text(new_text)
                 updated += 1

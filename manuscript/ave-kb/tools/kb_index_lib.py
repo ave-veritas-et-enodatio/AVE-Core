@@ -30,6 +30,11 @@ EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 # Claim-ID pattern: the `clm-` prefix plus 6 lowercase alphanumeric chars.
 # The prefix makes the pattern exact — it cannot match incidental prose words.
 _CLAIM_ID_RE = re.compile(r"\b(clm-[a-z0-9]{6})\b")
+# Either an exp- or clm- id — used to extract id-list frontmatter values that
+# may hold either prefix (a `claims:` list holds clm- ids, an `experiments:`
+# list holds exp- ids). Longest alternative first is irrelevant here (fixed
+# six-char bodies), but the prefix keeps each match exact.
+_ANY_ID_RE = re.compile(r"\b((?:clm|exp)-[a-z0-9]{6})\b")
 _CANONICAL_ID_RE = re.compile(r"<!--\s*id:\s*(clm-[a-z0-9]{6})\s*-->")
 # Experiment-ID pattern (INVARIANT-S9): `exp-` prefix plus 6 lowercase
 # alphanumeric chars. Exact, like the claim-id pattern.
@@ -164,22 +169,39 @@ class ClaimEntry:
 
 @dataclass(frozen=True)
 class LeafRecord:
-    """A leaf or leaf-as-index file's parsed metadata."""
+    """A leaf or leaf-as-index file's parsed metadata.
+
+    ``experiments_ref`` holds the exp-ids a leaf REFERENCES via its optional
+    ``experiments:`` frontmatter field (the exact analog of ``claims:`` for
+    claims — a leaf-level citation, the inverse of an experiment's
+    Leaf-references). It is additive: a referencing leaf still declares
+    ``claims:`` or ``no-claim:`` as its primary field. References do NOT roll
+    up into ``subtree-experiments`` (that aggregate is owned-only — see
+    :func:`build_subtree_aggregate_records`).
+    """
 
     path: str
     kind: str
     claims: tuple[str, ...]
     tier2_marked: frozenset[str]
     no_claim_reason: str | None
+    experiments_ref: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
 class IndexRecord:
-    """An index or entry-point file's parsed metadata."""
+    """An index or entry-point file's parsed metadata.
+
+    ``declared_subtree_experiments`` is the derived ``subtree-experiments:``
+    field — the union of exp-ids OWNED (declared via ``exp-id:``) by
+    experiment leaves under this node's directory. Owned-only, parallel to
+    how ``declared_subtree_claims`` aggregates owned leaf claims.
+    """
 
     path: str
     kind: str
     declared_subtree_claims: tuple[str, ...]
+    declared_subtree_experiments: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -218,7 +240,9 @@ def parse_frontmatter(text: str) -> dict | None:
         key = key.strip()
         value = value.strip()
         if value.startswith("[") and value.endswith("]"):
-            fields[key] = _CLAIM_ID_RE.findall(value)
+            # Id-list values hold clm- ids (e.g. claims:, subtree-claims:) or
+            # exp- ids (experiments:, subtree-experiments:); accept both.
+            fields[key] = _ANY_ID_RE.findall(value)
         elif value.startswith('"') and value.endswith('"'):
             fields[key] = value[1:-1]
         elif value in ("true", "false"):
@@ -750,6 +774,11 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
     no_claim_reason = (
         no_claim_value if isinstance(no_claim_value, str) and no_claim_value else None
     )
+    # Optional `experiments:` references — exp-ids this leaf cites but does
+    # NOT own. Additive to claims:/no-claim:; never a primary field.
+    experiments_ref = tuple(
+        i for i in (fm.get("experiments", []) or ()) if i.startswith("exp-")
+    )
     # Tier 2 markers: scan body (minus the frontmatter block) for
     # `<!-- claim-quality: <id> ... -->` markers and intersect with claims.
     scrubbed = _FRONTMATTER_RE.sub("", text)
@@ -765,6 +794,7 @@ def parse_leaf(path: Path, kb_root: Path) -> LeafRecord | None:
         claims=claims,
         tier2_marked=frozenset(marked),
         no_claim_reason=no_claim_reason,
+        experiments_ref=experiments_ref,
     )
 
 
@@ -801,8 +831,9 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
     returned in source order.
 
     Raises :class:`ExperimentLeafError` when the leaf violates INVARIANT-S9:
-    it carries ``claims:`` / ``no-claim:`` (mutually exclusive with ``exp-id``)
-    or its ``exp-id`` is malformed.
+    it carries ``claims:`` / ``no-claim:`` (mutually exclusive with ``exp-id``),
+    it carries an ``experiments:`` reference field (an owning experiment leaf
+    must not also reference other experiments), or its ``exp-id`` is malformed.
     """
     text = path.read_text()
     m = _FRONTMATTER_RE.search(text)
@@ -817,6 +848,7 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
     exp_id: str | None = None
     status: str | None = None
     has_claims = False
+    has_experiments_ref = False
     in_strengthens = False
     pairs: list[tuple[str, float]] = []
     for line in lines:
@@ -846,6 +878,9 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
             elif key in ("claims", "no-claim"):
                 if value:
                     has_claims = True
+            elif key == "experiments":
+                if value:
+                    has_experiments_ref = True
 
     if kind != "experiment":
         return None
@@ -855,6 +890,11 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
         raise ExperimentLeafError(
             f"{rel}: kind: experiment leaf carries claims:/no-claim: — "
             f"mutually exclusive with exp-id (INVARIANT-S9)."
+        )
+    if has_experiments_ref:
+        raise ExperimentLeafError(
+            f"{rel}: kind: experiment leaf carries experiments: — an owning "
+            f"experiment leaf must not also reference other experiments."
         )
     if exp_id is None or not _EXP_ID_RE.fullmatch(exp_id):
         raise ExperimentLeafError(
@@ -887,10 +927,14 @@ def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
     if kind not in ("index", "entry-point"):
         return None
     declared = tuple(fm.get("subtree-claims", []) or ())
+    declared_exp = tuple(
+        i for i in (fm.get("subtree-experiments", []) or ()) if i.startswith("exp-")
+    )
     return IndexRecord(
         path=_posix_relative(path, kb_root),
         kind=kind,
         declared_subtree_claims=declared,
+        declared_subtree_experiments=declared_exp,
     )
 
 
@@ -1489,45 +1533,72 @@ def build_cites_records(state: KbState) -> list[dict]:
     return rows
 
 
+def _is_under(leaf_path: Path, idx_dir: Path) -> bool:
+    """True if ``leaf_path`` lies within ``idx_dir`` (the index's directory)."""
+    try:
+        leaf_path.relative_to(idx_dir)
+        return True
+    except ValueError:
+        return False
+
+
+def compute_subtree_aggregates(
+    state: KbState,
+) -> dict[str, tuple[list[str], list[str]]]:
+    """THE single computation of every index/entry-point subtree aggregate.
+
+    Returns ``{node_path: (subtree_claims, subtree_experiments)}`` with both
+    lists sorted. This is the one place either aggregate is derived; refresh
+    (emitter) and verify (checker) both consume this same function from the
+    same :class:`KbState`, so the two cannot drift (the dual-compute trap).
+
+    * ``subtree_claims`` — union of OWNED leaf ``claims`` under the node's
+      directory (a leaf's foreign depends-on references do not roll up).
+    * ``subtree_experiments`` — union of exp-ids OWNED (declared via
+      ``exp-id:``) by experiment leaves under the node's directory. OWNED-ONLY:
+      a leaf's ``experiments:`` REFERENCES never propagate here, exactly as a
+      leaf's foreign claim references never enter ``subtree_claims``.
+
+    A ``kind: entry-point`` node aggregates the whole KB; a ``kind: index``
+    node aggregates everything under its own directory.
+    """
+    leaf_claims = [(Path(leaf.path), leaf.claims) for leaf in state.leaves]
+    exp_paths = [(Path(exp.canonical_path), exp.id) for exp in state.experiments]
+
+    out: dict[str, tuple[list[str], list[str]]] = {}
+    for idx in state.indexes:
+        idx_dir = Path(idx.path).parent
+        is_ep = idx.kind == "entry-point"
+        claims: set[str] = set()
+        experiments: set[str] = set()
+        for leaf_path, ids in leaf_claims:
+            if is_ep or _is_under(leaf_path, idx_dir):
+                claims.update(ids)
+        for exp_path, exp_id in exp_paths:
+            if is_ep or _is_under(exp_path, idx_dir):
+                experiments.add(exp_id)
+        out[idx.path] = (sorted(claims), sorted(experiments))
+    return out
+
+
 def build_subtree_aggregate_records(state: KbState) -> list[dict]:
     """One record per index/entry-point node, sorted by node_path.
 
-    The subtree_claims list is computed from the leaves under each index's
-    directory (mirroring the existing refresh-kb-metadata behavior). The
-    entry-point aggregates every leaf in the KB.
+    Both ``subtree_claims`` and ``subtree_experiments`` come from the single
+    shared :func:`compute_subtree_aggregates` so the materialized JSONL cannot
+    diverge from what the frontmatter refresh and the verify check derive.
+    ``subtree_experiments`` is owned-only (see that function).
     """
-    # Map of leaf POSIX path -> claims list, keyed for fast lookup.
-    leaf_paths = [(Path(leaf.path), leaf.claims) for leaf in state.leaves]
+    aggregates = compute_subtree_aggregates(state)
     rows: list[dict] = []
     for idx in state.indexes:
-        if idx.kind == "entry-point":
-            all_claims: set[str] = set()
-            for _, claims in leaf_paths:
-                all_claims.update(claims)
-            rows.append(
-                {
-                    "node_path": idx.path,
-                    "node_kind": idx.kind,
-                    "subtree_claims": sorted(all_claims),
-                }
-            )
-            continue
-        # For a kind: index file, the subtree is every leaf whose POSIX path
-        # is under the index's parent directory.
-        idx_path = Path(idx.path)
-        idx_dir = idx_path.parent
-        subtree: set[str] = set()
-        for leaf_path, claims in leaf_paths:
-            try:
-                leaf_path.relative_to(idx_dir)
-            except ValueError:
-                continue
-            subtree.update(claims)
+        subtree_claims, subtree_experiments = aggregates[idx.path]
         rows.append(
             {
                 "node_path": idx.path,
                 "node_kind": idx.kind,
-                "subtree_claims": sorted(subtree),
+                "subtree_claims": subtree_claims,
+                "subtree_experiments": subtree_experiments,
             }
         )
     rows.sort(key=lambda r: r["node_path"])
@@ -1625,6 +1696,7 @@ __all__ = [
     "build_depends_on_records",
     "build_strengthen_by_records",
     "build_cites_records",
+    "compute_subtree_aggregates",
     "build_subtree_aggregate_records",
     "build_all_records",
     "serialize_records",

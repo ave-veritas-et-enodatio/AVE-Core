@@ -672,6 +672,181 @@ class TestExperimentLeafRejection(unittest.TestCase):
             self.assertEqual(_run_checker(kb).returncode, 0)
 
 
+# A leaf that REFERENCES an experiment via the optional `experiments:` field
+# (the analog of `claims:` for claims). Parameterized so negative variants can
+# perturb the primary field or the experiments list. Mirrors the real
+# bench-protocols.md fixture leaf.
+_REF_LEAF_TEMPLATE = """\
+[↑ Mini-KB Common](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+{primary}
+experiments: [{experiments}]
+-->
+
+## {title}
+
+Synthetic by-methodology leaf referencing an experiment.
+"""
+
+
+def _ref_leaf(
+    *,
+    primary: str = 'no-claim: "references the bench experiment only"',
+    experiments: str = "exp-bench1",
+    title: str = "Reference Leaf",
+) -> str:
+    return _REF_LEAF_TEMPLATE.format(
+        primary=primary, experiments=experiments, title=title
+    )
+
+
+class TestExperimentsReferenceEndToEnd(unittest.TestCase):
+    """End-to-end for the `experiments:` reference field (feature 2a).
+
+    Exercises the genuinely-new path — a leaf REFERENCING an experiment it does
+    not own — through the real refresh -> verify pipeline on the committed
+    fixture (which carries common/bench-protocols.md referencing exp-bench1).
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmp = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls._tmp.cleanup)
+        cls.kb_root = _materialize_fixture(Path(cls._tmp.name))
+        cls.index_dir = cls.kb_root / ".index"
+
+    def test_referencing_leaf_parses_experiments_ref(self):
+        """The leaf's experiments_ref parses to ("exp-bench1",)."""
+        lib = sys.modules.get("kb_index_lib")
+        if lib is None:
+            import kb_index_lib as lib  # noqa: F811
+        leaf = lib.parse_leaf(
+            self.kb_root / "common" / "bench-protocols.md", self.kb_root
+        )
+        self.assertIsNotNone(leaf)
+        self.assertEqual(leaf.experiments_ref, ("exp-bench1",))
+        # The reference is additive — the leaf is still a no-claim leaf.
+        self.assertEqual(leaf.claims, ())
+        self.assertIsNotNone(leaf.no_claim_reason)
+
+    def test_common_index_subtree_experiments_lists_exp(self):
+        """After refresh, common/ index subtree-experiments lists exp-bench1."""
+        agg = _read_jsonl(self.index_dir / "subtree-aggregates.jsonl")
+        common = next(r for r in agg if r["node_path"] == "common/index.md")
+        self.assertEqual(common["subtree_experiments"], ["exp-bench1"])
+
+    def test_subtree_experiments_is_owned_only_not_reference(self):
+        """The aggregate counts the OWNED experiment, not the referencing leaf.
+
+        bench-protocols.md REFERENCES exp-bench1 but exp-bench.md OWNS it; the
+        single entry comes from ownership, so a reference adds nothing beyond
+        what ownership already contributes (owned-only aggregation).
+        """
+        agg = _read_jsonl(self.index_dir / "subtree-aggregates.jsonl")
+        for rec in agg:
+            # No duplication: exp-bench1 appears at most once per node.
+            self.assertEqual(
+                rec["subtree_experiments"].count("exp-bench1"),
+                len(rec["subtree_experiments"]),
+            )
+
+    def test_pipeline_passes_with_reference_leaf(self):
+        """The full refresh -> verify pipeline exits 0 (byte-green)."""
+        result = _run_checker(self.kb_root)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+
+class TestExperimentsReferenceRejection(unittest.TestCase):
+    """Negative coverage for the `experiments:` reference field (feature 2a).
+
+    Each case must make verify FAIL with a clear message. The orphan and
+    kind-mismatch cases run the full pipeline against a fixture copy carrying
+    the bad leaf; the exclusivity case calls parse_experiment_leaf directly
+    for a precise ExperimentLeafError assertion (and is also exercised
+    end-to-end). None pollute the committed fixture with broken files.
+    """
+
+    def test_orphan_experiment_reference_fails_verify(self):
+        """(a) experiments: [exp-zzzzzz] — no such experiment → orphan failure."""
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            (kb / "common" / "ref-orphan.md").write_text(
+                _ref_leaf(experiments="exp-zzzzzz", title="Orphan Ref Leaf"),
+                encoding="utf-8",
+            )
+            _run_refresh(kb)
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("exp-zzzzzz", result.stdout)
+            self.assertIn("experiments:", result.stdout)
+
+    def test_reference_to_claim_id_fails_verify(self):
+        """(b) experiments: [clm-gg7777] — id resolves to a CLAIM → kind mismatch."""
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            (kb / "common" / "ref-claim.md").write_text(
+                _ref_leaf(experiments="clm-gg7777", title="Claim-Ref Leaf"),
+                encoding="utf-8",
+            )
+            _run_refresh(kb)
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("clm-gg7777", result.stdout)
+            self.assertIn("claim", result.stdout.lower())
+
+    def test_experiment_leaf_with_experiments_ref_rejected(self):
+        """(c) An exp-id leaf that ALSO carries experiments: is rejected.
+
+        Direct parse assertion for the precise ExperimentLeafError, plus an
+        end-to-end check that the pipeline fails.
+        """
+        lib = sys.modules.get("kb_index_lib")
+        if lib is None:
+            import kb_index_lib as lib  # noqa: F811
+        bad = _exp_leaf(
+            exp_id="exp-bench1",
+            strengthens="  - clm-gg7777: 0.80",
+            extra="experiments: [exp-bench1]",
+            title="Self-Referencing Experiment",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            leaf = Path(tmp) / "exp-bad.md"
+            leaf.write_text(bad, encoding="utf-8")
+            with self.assertRaises(lib.ExperimentLeafError):
+                lib.parse_experiment_leaf(leaf, Path(tmp))
+
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            (kb / "common" / "exp-bench.md").write_text(bad, encoding="utf-8")
+            _run_refresh(kb)
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+
+    def test_subtree_experiments_drift_fails_verify(self):
+        """A hand-edited (wrong) subtree-experiments value fails consistency.
+
+        Confirms the verify checker independently recomputes the owned union
+        rather than trusting the declared field — the dual-compute guard.
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            kb = _materialize_fixture(Path(tmp))
+            idx = kb / "common" / "index.md"
+            text = idx.read_text(encoding="utf-8")
+            self.assertIn("subtree-experiments: [exp-bench1]", text)
+            idx.write_text(
+                text.replace(
+                    "subtree-experiments: [exp-bench1]",
+                    "subtree-experiments: []",
+                ),
+                encoding="utf-8",
+            )
+            result = _run_checker(kb)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("subtree-experiments drift", result.stdout)
+
+
 def _load_checker_module():
     """Import verify-kb-metadata.py as a module (its name has a hyphen)."""
     import importlib.util
