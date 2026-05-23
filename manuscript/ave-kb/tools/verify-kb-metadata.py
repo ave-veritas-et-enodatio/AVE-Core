@@ -100,7 +100,7 @@ INDEX_FILES = (
 )
 
 EXCLUDE_DIRS = {"session", ".index", "tools"}
-EXCLUDE_NAMES = {"claim-quality.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
+EXCLUDE_NAMES = {"claim-quality.md", "claim-quality-closure-roadmap.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
 
 FRONTMATTER_BLOCK = re.compile(
     r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL
