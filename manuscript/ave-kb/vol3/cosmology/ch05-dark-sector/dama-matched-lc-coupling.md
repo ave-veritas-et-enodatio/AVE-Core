@@ -198,7 +198,7 @@ The matched-LC-coupling formula $\epsilon_{det} = 4\pi/N_{single}^2$ is falsifie
 
 ### Matrix + closure-roadmap
 - [Matrix row C14-DAMA-MATERIAL](../../../common/divergence-test-substrate-map.md) — rate magnitude U-D-structurally-suggestive
-- [Closure-roadmap §0.5](../../common/closure-roadmap.md) — 9th-cycle entries
+- Closure-roadmap §0.5 — 9th-cycle entries
 
 ### Skill discipline
 - `ave-power-category-check` (~/.claude/skills/) — 5-axis categorical-classification check that would have caught the 8th-cycle photoabsorption mis-categorization on first pass

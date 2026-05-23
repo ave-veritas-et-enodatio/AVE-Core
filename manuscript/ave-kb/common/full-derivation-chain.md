@@ -667,7 +667,7 @@ Bounding Limit 3 (CODATA input, [`mathematical-closure.md:20`](mathematical-clos
 $G$ to a fully substrate-local derivation requires a closed-form Chain B'
 that derives $\Delta E_{\text{cryst}}$ and $\Gamma_{\text{cryst}}$ from
 $(\ell_{node}, \alpha)$ alone without routing through $R_H$ or $H_\infty$ —
-currently open work per [`closure-roadmap.md`](closure-roadmap.md) Tier 3
+currently open work per `closure-roadmap.md` Tier 3
 "Chain B' independent G derivation" (line 38) and the open-work statement at
 [`vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md:103-111`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md).
 

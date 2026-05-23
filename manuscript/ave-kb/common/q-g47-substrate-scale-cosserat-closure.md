@@ -118,7 +118,7 @@ The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geome
   - [Vol 1 Ch 1 (Four Axioms)](../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
   - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../backmatter/07_universal_saturation_kernel.tex) — A-034 21-instance catalog including substrate-scale K4 instance
 - **KB cross-cutting:**
-  - [closure-roadmap.md](closure-roadmap.md) — Q-G47 Sessions 6–18 status row
+  - closure-roadmap.md — Q-G47 Sessions 6–18 status row
   - [xi-topo-traceability.md](xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ vs Machian $\xi$ vs $\xi_{\text{topo}}$ namespace
   - [trampoline-framework.md](trampoline-framework.md) §1–§4 — continuous Cosserat substrate picture
 - **Related leafs:**
