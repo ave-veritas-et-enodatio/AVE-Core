@@ -281,10 +281,57 @@ Per RS-3.4 §C YES recommendation: the per-protein SEQRES extraction methodology
 
 **Substrate-physics tag** (per `ave-evidence-framing-discipline`): per-protein SEQRES extraction methodology is SUBSTRATE-DERIVED at the per-residue Z_TOPO classification axis; the methodology preserves substrate-physics-coherence across non-cohort proteins (no cohort-empirical-prior leak). Per `feedback_substrate_first_for_numbers`: this is the substrate-physics-coherent default for any non-cohort RMSD comparison.
 
-## §5 — Cross-references to AVE-Protein-LOCAL research docs
+## §5 — Cross-references to AVE-Protein-LOCAL research docs (substrate-physics chain provenance)
 
-(to be filled — substrate-physics chain provenance)
+The substrate-physics chain composition at §2 is sourced from AVE-Protein-LOCAL Phase RS-3 deliverables. These are engineering-compendium scope research docs (per Vol 5 Ch 2:722 IP boundary — see [`./index.md`](./index.md) "What this subdomain does NOT contain (IP boundary)") that derive the substrate-physics chain step-by-step from the AVE-Core canonical leaves. The aggregate substrate-physics-derived RMSD form is promoted to this canonical leaf per RS-3.4 §E.2 α PROMOTE staging plan; per-protein detail + engineering-compendium-scope work stays at AVE-Protein-LOCAL.
 
-## §6 — Cross-references to AVE-Core canonical leaves
+| Sub-arc | AVE-Protein-LOCAL path | Substrate-physics chain element |
+|---|---|---|
+| RS-3.0 | `AVE-Protein/docs/research/2026-05-22_phase_rs3_substrate_physics_honest_threshold_derivation_scoping.md` | Substrate-physics-honest threshold derivation scoping; §9 Class 14 toolkit-gap statement |
+| RS-3.1 | `AVE-Protein/docs/research/2026-05-22_phase_rs3.1_phase_to_spatial_conversion_substrate_derivation.md` | Phase-to-spatial conversion: $\Delta r_i \approx d_0 \Phi_{\text{cum},i}$; $d_0 \approx 3.80$ Å substrate-physics conversion factor |
+| RS-3.2 | `AVE-Protein/docs/research/2026-05-22_phase_rs3.2_within_register_to_global_n_aggregation.md` | Within-register to global-N variance aggregation: $\sigma^2_{\Phi_{\text{cum}}} = (c_B + 4c_C) \kappa_{HB}^2$ |
+| RS-3.3 | `AVE-Protein/docs/research/2026-05-22_phase_rs3.3_cumulative_to_rmsd_statistic_substrate_bridge.md` §3 + §4 (1631 lines post-patch) | RMSD² aggregation + Kabsch-translation correction (factor 1/6); §4.1 closed-form + §4.2 cohort table |
+| RS-3.3.1 §3.3.bis | same file §3.3.bis | $f_{\text{rot}} \geq 1/3$ substrate-physics bound via Cosserat L11 + Op14 |
+| RS-3.3.1 §3.5 | same file §3.5 | $\epsilon_{\text{residual}}$ upper bound via Kabsch projection of §2.5 contributions (Q2 audit-patch derivation) |
+| RS-3.3.1 §9.2 | same file §9.2 | Per-protein SEQRES extraction Q3 audit-patch for archive 4-protein subset (0.3475/0.4192/0.4446/0.7184 Å) |
+| RS-3.4 §A | `AVE-Protein/docs/research/2026-05-23_phase_rs3.4_closure_scenario_b_macroscopic_projection.md` §A | Cross-domain macroscopic projection research (3 of 4 examples Mode I substrate-recovers-classical) |
+| RS-3.4 §B | same file §B | Kabsch = K4-inductive collective mode projection 5-step substrate-physics chain |
+| RS-3.4 §C | same file §C | Per-protein SEQRES extraction methodology YES recommendation + 4 mitigation flags |
+| RS-3.4 §D | same file §D | Scenario B sub-candidate framework (B1/B2/B3/B4 enumeration) |
+| RS-3.4 §E | same file §E | G-RMSD-bridge α/β/γ rationale enumeration (α PROMOTE adjudicated by Grant 2026-05-23) |
+| L_A-L_D | `AVE-Protein/docs/research/2026-05-23_phase_l_a_l_d_engine_empirical_b1_b4_disambiguation.md` | Engine empirical L_A-L_D 4-level disambiguation; B1+B2 verdict; B4 REFUTED |
+| Pre-reg v1.3.0 LOCKED | `AVE-Protein/docs/design/2026-05-21_pre_registration_discriminator.md` | Substrate-derived D2 formula + SEQRES cohort table + B1+B2 verdict; LOCKED at AVE-Protein commit `151b558` (2026-05-23) |
 
-(to be filled — Axiom 1 / Axiom 3 / Op14 / Op4 / Vol 5 PFE index / cascade $|S_{11}|^2$-min)
+**Substrate-physics-coherence note**: the AVE-Protein-LOCAL research docs are engineering-compendium scope per Vol 5 Ch 2:722 IP boundary (canonical at `./index.md` line 33-44). The substrate-physics chain DERIVATIONS in those docs are aggregate-status-promoted to this canonical leaf per RS-3.4 §E.2 α PROMOTE staging plan; per-protein engine outputs + engineering-scope solver detail + per-protein RMSD validation tables stay at AVE-Protein-LOCAL per the IP boundary.
+
+## §6 — Cross-references to AVE-Core canonical leaves (substrate-physics chain ingredients)
+
+The substrate-physics chain at §2 reuses 5 AVE-Core canonical leaves as substrate-physics-chain ingredients. Each ingredient is cited at the chain element that reuses it; this section provides the canonical-leaf cross-reference index for reader navigation.
+
+> → Primary: [Axiom 1 — Substrate Topology (Chiral Laves K4 Cosserat Crystal)](../../CLAUDE.md) — INVARIANT-S2 line 55; Cosserat L11 3-microrotational-DOF per node is the substrate-native origin of intrinsic spin; reused at §2.4 ($f_{\text{rot}}$ substrate-physics bound derivation via 3-DOF partition).
+
+> → Primary: [Axiom 3 — Minimum Reflection Principle](../../CLAUDE.md) — INVARIANT-S2 line 57; substrate minimizes $|\Gamma|^2$ at every internal impedance boundary; cascade-level $|S_{11}|^2$ minimization (EE-projection form) is the protein-folding-engine objective; reused at §2.6 Step 1 (rotation+translation invariance at cascade level).
+
+> → Primary: [Op14 Cross-Sector Trading: K4-Inductive ↔ Cosserat Energy Exchange](../../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md) — §2 mechanism (bond LC tank inductive side mediates K4-inductive ↔ Cosserat trading at $\rho = -0.990$ empirical anti-correlation); reused at §2.4 (Op14 trading-channel principal-axis absorption sets $f_{\text{rot}}$ lower bound) + §2.6 Step 3 (Op14 trading between K4-inductive rigid-body modes and Cosserat microrotational sector).
+
+> → Primary: [Hydrogen Bond: Op4 Equilibrium](../molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md) — Op4 H-bond canonical with $K_{HB} = \Gamma^2 \alpha \hbar c$, $\Gamma = 1/3$ Op3 partial-charge reflection coefficient; reused at §2.2 (per-residue $\kappa_{HB}$ phase magnitude derived from H-bond Op4 coupling).
+
+> → Primary: [Protein Folding Engine — Framework (IP-Clean)](./index.md) — Vol 5 PFE subdomain index; canonical leaf for cascade $|S_{11}|^2$-min basin selection at amide-V resonance ($\omega_0 \approx 2\pi \times 23$ THz); cross-references Vol 5 Ch 2 §sec:z_topo_framework canonical manuscript source (lines 678-770) for framework-level derivation; reused at §2.6 Step 2 (cascade-level basin selection 6D rigid-body degeneracy).
+
+> → Primary: [Topological Impedance ($Z_{\text{topo}}$) Definition](./z-topo-definition.md) — Vol 5 PFE z-topo-definition canonical leaf; per-residue $Z_{\text{topo}}$ classification (Class A / Class B / Class C / Class D) from atomic mass + bond force constants (no empirical fits); reused at §2.2 (sequence-class statistic $(c_B + 4c_C)$ aggregation) + §4 (per-protein SEQRES extraction methodology).
+
+> ↗ See also: [Levinthal's Paradox: Mechanical Resolution](./levinthal-mechanical-resolution.md) — Four-step mechanism via $|S_{11}|^2$ minimization (cascade-level objective at the same Vol 5 PFE subdomain); A-034 universal saturation-kernel instance at protein-length scale.
+
+> ↗ See also: [Regime Classification of Biological Length Scales](./regime-classification.md) — five-row table establishing protein folding as Regime I linear lossless biology with covalent-bond core Regime II yield.
+
+> ↗ See also: [Vol 5 Ch 2 §"Topological Impedance and the Levinthal Resolution (Framework)"](../../../vol_5_biology/chapters/02_organic_circuitry.tex) — canonical manuscript source (lines 678-770); framework-level derivation of $Z_{\text{topo}}$ from Vol 5 atomic translation layer.
+
+> ↗ See also: [Electromechanical transduction constant ($\xi_{\text{topo}}$)](../molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md) — INVARIANT-C2 ($\xi_{\text{topo}} = e/\ell_{\text{node}}$); substrate-physics-bridging constant; canonical $\xi_{\text{topo}} \approx 4.149 \times 10^{-7}$ C/m at AVE-Core `src/ave/core/constants.py:205`.
+
+### §6.1 — Cascade $|S_{11}|^2$-min basin selection cross-reference index
+
+The cascade-level $|S_{11}|^2$-min basin selection objective at protein-folding (the substrate-physics chain element at §2.6 Step 2) reuses the EE-projection form of Axiom 3 Minimum Reflection Principle (INVARIANT-S2 line 57: "S₁₁ minimization (EE-projection form)"). Per [INVARIANT-N4](../../CLAUDE.md): $S_{11}$ is used as the folding free-energy functional / objective function in Vol 5 (biology context — protein-folding objective); same notation also used as standard EE reflection coefficient in Vol 4 + Vol 7. Both uses are intentional and AVE-specific; the dual-use notation does NOT introduce ambiguity at the chain element because the protein-folding objective IS the EE-projection form of $|\Gamma|^2$ minimization applied at the per-residue cascade.
+
+### §6.2 — B4-PROTEIN matrix-row cross-reference
+
+This canonical leaf is the substrate-physics chain anchor for the B4-PROTEIN matrix row at [`common/divergence-test-substrate-map.md`](../../common/divergence-test-substrate-map.md). The B4-PROTEIN matrix row tests Axiom 2 (Topo-Kinematic Isomorphism, $[Q] \equiv [L]$) in the biological domain via zero-parameter PDB fold-class matching. The substrate-physics-derived RMSD threshold at §1 closed-form provides the substrate-physics-coherent prediction floor for B4-PROTEIN at the per-protein RMSD axis; the engine implementation gap workstream at §3.3 is the load-bearing closure path for the engine-vs-SP-derived ratio.
