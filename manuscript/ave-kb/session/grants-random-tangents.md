@@ -1,4 +1,4 @@
-[↑ Common Resources](index.md)
+[↑ Common Resources](../common/index.md)
 <!-- leaf: verbatim -->
 
 # Grant's Random Tangents — Rolling Capture + Adversarial Challenge
@@ -50,7 +50,7 @@ Port-to-port spacing is calibrated to $\ell_{node}$ at the nearest-neighbor (bon
 
 - [`../vol4/falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md` line 6](../vol4/falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md): *"The $(2,q)$ torus knot ladder generates a zero-parameter mass spectrum using only the crossing number $c$."*
 
-170 MeV uniform spacing; 6 retrospective PDG matches; 3 forward predictions per [`divergence-test-substrate-map.md` row C8-BARYON-LADDER](divergence-test-substrate-map.md).
+170 MeV uniform spacing; 6 retrospective PDG matches; 3 forward predictions per [`divergence-test-substrate-map.md` row C8-BARYON-LADDER](../common/divergence-test-substrate-map.md).
 
 **"Locally same refresh rate, globally different" IS canonical — via the Op14 two-timescale electron picture.**
 
@@ -93,9 +93,9 @@ Same mechanism as the "globally lensed" framing — but the KB frames it at atom
 
 1. **Is the "port separation" you're imagining the inter-node bond length $\ell_{node}$ (canonical, $= \hbar/(m_e c)$ by Ax1 calibration), or the intra-node tetrahedral port spacing on a single K4 node (geometrically fixed by I4₁32)?** If neither is a free dial, the tangent reduces to the $(2,q)$ ladder for loop-length variation. If you meant something else, name it.
 
-2. **Do you want to formalize the "generalized probe-scale-mismatch lensing" as an AVE-distinct prediction?** Candidate observable: muonic vs electronic scattering off $\Delta(1232)$ or other $(2, q \geq 5)$ targets should show a *predictable* radius/cross-section shift different from the standard QED-plus-form-factor analysis. If yes, this becomes a new row in [`divergence-test-substrate-map.md`](divergence-test-substrate-map.md) (likely Tier C / existing-data, comparison against COMPASS / Jefferson Lab data). If no, this tangent stays as a pedagogical recasting only.
+2. **Do you want to formalize the "generalized probe-scale-mismatch lensing" as an AVE-distinct prediction?** Candidate observable: muonic vs electronic scattering off $\Delta(1232)$ or other $(2, q \geq 5)$ targets should show a *predictable* radius/cross-section shift different from the standard QED-plus-form-factor analysis. If yes, this becomes a new row in [`divergence-test-substrate-map.md`](../common/divergence-test-substrate-map.md) (likely Tier C / existing-data, comparison against COMPASS / Jefferson Lab data). If no, this tangent stays as a pedagogical recasting only.
 
-3. **The frequency-vs-amplitude tradeoff in Ax4 — do you want it explicitly added to the saturation-kernel canonical leaf?** Currently the kernel is presented as $C_{eff}(A)$ impedance modulation; the implied $\omega(A)$ local-frequency softening with amplitude isn't called out. Could matter for the autoresonant-Schwinger derivation ([divergence-test-substrate-map.md row B2-SCHWINGER](divergence-test-substrate-map.md)).
+3. **The frequency-vs-amplitude tradeoff in Ax4 — do you want it explicitly added to the saturation-kernel canonical leaf?** Currently the kernel is presented as $C_{eff}(A)$ impedance modulation; the implied $\omega(A)$ local-frequency softening with amplitude isn't called out. Could matter for the autoresonant-Schwinger derivation ([divergence-test-substrate-map.md row B2-SCHWINGER](../common/divergence-test-substrate-map.md)).
 
 4. **Should the Op14 two-timescale electron picture be explicitly cross-linked from [`de-broglie-standing-wave.md`](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) and [`../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)?** Currently lives only in [`op14-cross-sector-trading.md`](../vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md). The "locally Compton, globally Op14-slow" picture is genuinely useful pedagogy for explaining what stabilizes a heavier $(2,q)$ knot vs a $(2,3)$ electron.
 
@@ -132,7 +132,7 @@ Same mechanism as the "globally lensed" framing — but the KB frames it at atom
 
 #### (f.2) Flux-tube length → $\Gamma = -1$ — does length factor?
 
-**Yes, via standing-wave amplitude.** The $\Gamma = -1$ mechanism is canonical per [`boundary-observables-m-q-j.md` line 7](boundary-observables-m-q-j.md): *"the boundary where Axiom 4's kernel reaches $S(A) \to 0$ locally."* The full chain:
+**Yes, via standing-wave amplitude.** The $\Gamma = -1$ mechanism is canonical per [`boundary-observables-m-q-j.md` line 7](../common/boundary-observables-m-q-j.md): *"the boundary where Axiom 4's kernel reaches $S(A) \to 0$ locally."* The full chain:
 
 $$A \to 1 \quad \Rightarrow \quad S(A) = \sqrt{1-A^2} \to 0 \quad \Rightarrow \quad C_{eff} = C_0 / S(A) \to \infty \quad \Rightarrow \quad Z = \sqrt{L/C_{eff}} \to 0 \quad \Rightarrow \quad \Gamma = \frac{Z - Z_0}{Z + Z_0} \to -1$$
 
@@ -155,7 +155,7 @@ For the electron unknot at minimum ropelength $2\pi \ell_{node}$:
 
 **Topological reason** (Ax2 TKI): per Axiom 2, $[Q] \equiv [L]$. Electric charge IS the knot's topological invariant. To untangle the unknot, you'd have to destroy charge — forbidden by charge conservation, which IS topological conservation in AVE.
 
-**Impedance reason** — this is the load-bearing answer, canonical at [`boundary-observables-m-q-j.md` line 73](boundary-observables-m-q-j.md):
+**Impedance reason** — this is the load-bearing answer, canonical at [`boundary-observables-m-q-j.md` line 73](../common/boundary-observables-m-q-j.md):
 
 > *"**Interior eigenmodes are not lattice-Nyquist-constrained.** Any interior Beltrami / phase-space eigenmode of a bounded soliton (e.g., the electron's horn-torus interior at $k \approx 6.36 / \ell_{node}$) lives entirely inside the $\Gamma = -1$ wall and is **causally disconnected from the exterior substrate**. The K4 Nyquist limit $k_{max} = 0.577 / \ell_{node}$ does NOT apply to interior structure because the substrate never propagates that wave through the lattice — it lives only in the bounded interior cell."*
 
@@ -163,13 +163,13 @@ So the electron has **sub-lattice interior structure** at $k \approx 6.36 / \ell
 
 **This is exactly Grant's "trapped within a single node" intuition, made precise:** the electron's tube circumference is $\ell_{node}$ (one lattice pitch — node-scale), and its tube radius is $\ell_{node}/(2\pi)$ (sub-node). The $\Gamma = -1$ wall at the tube surface causally isolates the entire interior — including sub-Nyquist interior modes — from the K4 lattice dynamics outside.
 
-**A-034 parallel** (the canonical connection that makes this beautiful): the SAME mechanism gates the BH event horizon at cosmic scale. Per [`universal-saturation-kernel-catalog.md` line 39](universal-saturation-kernel-catalog.md): BH event horizon achieves $\Gamma = -1$ at $R_S$ formation; interior is causally disconnected from exterior. **The electron cannot untangle for the same reason the inside of a black hole cannot influence the outside** — same Ax4 saturation kernel mechanism, scale-different per A-034 universality.
+**A-034 parallel** (the canonical connection that makes this beautiful): the SAME mechanism gates the BH event horizon at cosmic scale. Per [`universal-saturation-kernel-catalog.md` line 39](../common/universal-saturation-kernel-catalog.md): BH event horizon achieves $\Gamma = -1$ at $R_S$ formation; interior is causally disconnected from exterior. **The electron cannot untangle for the same reason the inside of a black hole cannot influence the outside** — same Ax4 saturation kernel mechanism, scale-different per A-034 universality.
 
 So: **the trapping is dual.** Topology forbids the unraveling state (Ax2). Impedance forbids the unraveling motion from propagating (Ax4 + $\Gamma = -1$). Either alone would not suffice; both together make the soliton categorically inaccessible to external substrate dynamics.
 
 #### New open questions added to (e) — surfaced by (f) clarification
 
-5. **Should [`boundary-observables-m-q-j.md` line 73](boundary-observables-m-q-j.md)'s "interior causally disconnected" finding be explicitly cross-linked from [`../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md`](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) and [`../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)?** Same mechanism at electron scale and BH scale — explicit A-034 cross-link makes the unification load-bearing rather than implicit. This is the load-bearing answer to "why can't an electron untangle" and it currently lives only in a common/ leaf without back-references from the per-volume leaves that need it.
+5. **Should [`boundary-observables-m-q-j.md` line 73](../common/boundary-observables-m-q-j.md)'s "interior causally disconnected" finding be explicitly cross-linked from [`../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md`](../vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md) and [`../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md`](../vol3/cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md)?** Same mechanism at electron scale and BH scale — explicit A-034 cross-link makes the unification load-bearing rather than implicit. This is the load-bearing answer to "why can't an electron untangle" and it currently lives only in a common/ leaf without back-references from the per-volume leaves that need it.
 
 6. **Should Vol 6 grow per-element mass-derivation leaves, or document explicitly that empirical anchors are intentional for current scope?** The $(2,q)$ baryon ladder + Borromean nuclear binding + electron orbital eigenvalue machinery exists; assembly into "predicted mass of $^{12}$C = X amu" is not done. The current Vol 6 per-element leaves cite empirical mass anchors. **Productive divergence-map row candidate:** "atomic-mass-derivation per element" as a Tier C row — substrate exists, no executable observer assembles the chain.
 
@@ -247,4 +247,4 @@ All matches empirical: electron is the most-exchanged particle in chemistry + QE
 > ↗ See also: [Static Nodal Tension](../vol3/gravity/ch01-gravity-yield/static-nodal-tension.md) — mass-via-ropelength canonical derivation
 > ↗ See also: [Spin-Gyroscopic Isomorphism](../vol2/particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md) — single-axis quantization of electron spin per Entry #002 polarization axis
 > ↗ See also: [Torus Knot Ladder](../vol2/particle-physics/ch01-topological-matter/torus-knot-ladder.md) — (2,q) complexity ladder underlying Entry #002 mobility hierarchy
-> ↗ See also: [Divergence Test Substrate Map](divergence-test-substrate-map.md) — where adjudicated tangents land as new test rows
+> ↗ See also: [Divergence Test Substrate Map](../common/divergence-test-substrate-map.md) — where adjudicated tangents land as new test rows
