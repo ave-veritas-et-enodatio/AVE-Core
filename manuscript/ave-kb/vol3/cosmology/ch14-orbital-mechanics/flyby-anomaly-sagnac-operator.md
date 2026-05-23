@@ -35,7 +35,7 @@ The AVE-PONDER Sagnac-RLVE protocol (`AVE-PONDER/manuscript/vol_ponder/chapters/
 
 ## Q-G24 reconciliation (bulk vs local)
 
-[AVE-QED Q-G24 canonical](file:///Users/grantlindblom/AVE-staging/AVE-QED/docs/analysis/2026-05-13_Q-G24_lorentz_from_axiom_4.md): the K4 lattice is at rest in the CMB rest frame; Earth moves through it at ~370 km/s. **Both Q-G24 (bulk K4 at rest in CMB) and this leaf's Regime-IV local drag are simultaneously true at different scales:**
+[AVE-QED Q-G24 canonical](../../../../../../AVE-QED/docs/analysis/2026-05-13_Q-G24_lorentz_from_axiom_4.md): the K4 lattice is at rest in the CMB rest frame; Earth moves through it at ~370 km/s. **Both Q-G24 (bulk K4 at rest in CMB) and this leaf's Regime-IV local drag are simultaneously true at different scales:**
 
 - **Bulk scale**: K4 lattice at rest in CMB; Earth's center-of-mass moves at ~370 km/s through it. Uniform bulk flow integrates to zero around any closed Sagnac loop (PONDER scope note's point — bulk preferred-frame tests predict NULL via K4 cubic-symmetry suppression $\delta_{aniso} \sim (q\ell_{node})^4 \approx 10^{-22}$).
 - **Local scale**: Within $R_\oplus$, the LC vacuum is dragged by Earth's Regime-IV mass saturation and co-rotates with the planet at $v_{eq} = 465$ m/s. The $R_\oplus$ shear layer is where this saturated co-rotation meets the bulk lattice frame.
