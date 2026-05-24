@@ -1,5 +1,13 @@
 [↑ Vol 2: The Subatomic Scale](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-3i66gp, clm-ak97cb, clm-oltvwy, clm-qde5gn, clm-w6kk5y]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Quantum Orbitals
 
 This domain derives atomic orbital structure — energy levels, angular momentum quantization, multi-electron coupling, and ionization energies — as acoustic standing-wave resonances of the $\mathcal{M}_A$ LC vacuum lattice. Every orbital property emerges from impedance matching conditions on discrete topological defects (electron unknots) trapped in nuclear Coulomb cavities, with zero free parameters.

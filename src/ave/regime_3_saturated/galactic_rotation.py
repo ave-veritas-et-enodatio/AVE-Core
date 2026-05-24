@@ -2,6 +2,12 @@
 AVE Galactic Rotation: Flat Curves from Vacuum Yield Stress
 ============================================================
 
+A-034 instance (canonical 2026-05-15): this module implements the MOND
+catalog row — local Newtonian acceleration g_N serves as A, MOND scale a_0
+serves as A_yield. Same kernel S(A) = √(1−A²) as atomic dielectric breakdown
+and BCS B_c(T). See: backmatter Ch 7 (Universal Saturation-Kernel Catalog);
+L5 A-034.
+
 The "dark matter problem" vanishes in the AVE framework. Flat galaxy
 rotation curves are a direct consequence of the vacuum's Bingham-plastic
 rheology: below a critical shear rate, the LC lattice resists differential

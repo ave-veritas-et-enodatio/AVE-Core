@@ -1,5 +1,9 @@
 [↑ Ch.5 — Electroweak Mechanics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-q8un7j]
+-->
 
 ## The Absolute $W$ Boson Mass: Chirality Mismatch Self-Energy
 

@@ -1,18 +1,43 @@
 """
-AVE Framework: Cosmological Equilibrium Simulator
-Deriving Macroscopic Gravity (G) and the Hubble Constant (H_0) from Latent Heat.
+AVE Framework: Cosmological Equilibrium Visualization (illustrative — NOT a derivation driver).
 
-In standard Physics, G is an empirical fundamental constant.
-In AVE, G serves only to define the causal boundary of the universe R_H.
-R_H (and therefore G) is determined by the thermodynamic equilibrium where the
-Latent Heat of spatial crystallization equals the Holographic Radiation Capacity
-of the boundary.
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script visualizes the AVE narrative that H(t) settles to a steady-state
+H_∞ ≈ 69.32 km/s/Mpc via thermodynamic equilibrium between latent-heat
+generation and holographic boundary cooling. The H_∞ value is imported from
+`ave.core.constants.H_INFINITY` (the canonical H_0 = 28π × M_E^3 × C_0 × G /
+(ℏ^2 α^2), in SI s⁻¹) and converted to km/s/Mpc here. This script does NOT
+re-derive that value — it plots a phenomenological exponential approach
+`H(t) = H_∞ × (1 − exp(−t))` for pedagogical illustration.
+
+Specifically:
+  - H_baseline = H_INFINITY × (Mpc in km) — sourced from constants.py, not re-derived
+  - The exponential approach curve is phenomenological (NOT axiom-derived)
+  - G_normalized(t) is a normalized illustration, not a G derivation
+
+For the actual AVE derivation of H_0 and G, see:
+  - simulate_cosmology_bao.py (zero-parameter derivation chain)
+  - simulate_vacuum_mirror.py (G from K=2G operating point)
+
+Title "Deriving Macroscopic Gravity (G)" was misleading; corrected to
+"Cosmological Equilibrium Visualization" 2026-05-17. The narrative still
+serves the manuscript's pedagogical purpose, with honest scope.
 """
 
 import os
+import sys
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import H_INFINITY
+
+# Megaparsec in km, for converting H_∞ from SI [s⁻¹] to astronomical [km/s/Mpc].
+# 1 Mpc = 3.0856775814913673e22 m = 3.0856775814913673e19 km (IAU 2015).
+_MPC_IN_KM = 3.0856775814913673e19
 
 
 def simulate_cosmological_equilibrium() -> None:
@@ -24,7 +49,8 @@ def simulate_cosmological_equilibrium() -> None:
     permanent cosmological horizon R_H, which in turn fixes G.
     """
     print("==========================================================")
-    print("   AVE FRAMEWORK: DERIVING MACROSCOPIC GRAVITY (G)        ")
+    print("   AVE FRAMEWORK: COSMOLOGICAL EQUILIBRIUM VISUALIZATION   ")
+    print("   (illustrative — H_∞ literal from simulate_cosmology_bao)")
     print("==========================================================")
 
     # 1. Theoretical Setup
@@ -42,8 +68,11 @@ def simulate_cosmological_equilibrium() -> None:
     # Late universe: cold, fast crystallization approaching equilibrium
 
     # Expansion Rate (Hubble Parameter H)
-    # Starts low (CMB phase), accelerates, then asymptotes to H_infinity
-    H_baseline = float("69.32")  # The target absolute equilibrium rate we derived in Chapter 1
+    # Starts low (CMB phase), accelerates, then asymptotes to H_infinity.
+    # H_baseline is the canonical asymptotic Hubble constant H_∞ = 28π × M_E³ ×
+    # C_0 × G / (ℏ² α²), imported from constants.py (SI s⁻¹) and converted to
+    # km/s/Mpc here. Evaluates to ≈ 69.32 km/s/Mpc.
+    H_baseline = H_INFINITY * _MPC_IN_KM
 
     # Modeled acceleration curve based on thermodynamic cooling
     H_t = H_baseline * (1.0 - np.exp(-time_steps))
@@ -53,9 +82,10 @@ def simulate_cosmological_equilibrium() -> None:
     # Here we plot the normalized stabilization of the geometric tensor
     G_normalized = 1.0 / (1.0 - 0.9 * np.exp(-time_steps))
 
-    print("Calculating Latent Heat Thermodynamic Equilibrium...")
-    print(f"Target Steady-State Hubble Constant: {H_baseline} km/s/Mpc")
-    print("The cosmological horizon R_H locks into place, fixing the value of G.")
+    print("Plotting phenomenological approach to thermodynamic equilibrium...")
+    print(f"H_∞ (from constants.H_INFINITY): {H_baseline:.2f} km/s/Mpc")
+    print("(Canonical AVE claim: equilibrium R_H fixes G via G = c^3/(M_universe·H_∞);")
+    print("  G-derivation chain lives in simulate_cosmology_bao.py + simulate_vacuum_mirror.py)")
 
     # 2. Visualization
     plt.style.use("dark_background")
@@ -102,9 +132,10 @@ def simulate_cosmological_equilibrium() -> None:
     plt.savefig(output_path, dpi=300, facecolor=fig.get_facecolor())
 
     print(f"\nSaved cosmological equilibrium plot to {output_path}")
-    print("\nCONCLUSION: G is not fundamental. It is strictly the boundary condition")
-    print("where the latent heat of expanding lattice synthesis perfectly equals")
-    print("the holographic thermal capacity of the cosmological horizon ($R_H$).")
+    print("\nNOTE: Plot is illustrative — H_∞ is a literal from simulate_cosmology_bao.py;")
+    print("approach curve is phenomenological. G(t) is normalized for visual comparison,")
+    print("not derived. The underlying AVE claim (G = c^3/(M_universe·H_∞), equilibrium")
+    print("between latent-heat generation and holographic boundary cooling) is canonical.")
 
 
 if __name__ == "__main__":

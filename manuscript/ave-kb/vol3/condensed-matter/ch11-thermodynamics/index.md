@@ -1,5 +1,11 @@
 [↑ Condensed Matter](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-4o0f0h, clm-cfd5yf, clm-eaiqj1, clm-hk81zp, clm-jpfbm6, clm-refjr6, clm-t05mvx, clm-uu6dl5]
+subtree-experiments: []
+-->
+
 # Ch.11: Thermodynamics and The Arrow of Time
 
 Temperature redefined as RMS electromagnetic noise on the LC lattice; entropy as geometric spherical spreading; the Fluctuation-Dissipation Theorem as Nyquist noise applied to lattice impedance; lattice-derived $g_* = 85.75$ fixing heat capacity and baryon asymmetry; thermal softening of topological structures as a zero-parameter correction; phase transitions as impedance matching catastrophes; and water anomalies from a two-state LC partition framework.
@@ -7,7 +13,7 @@ Temperature redefined as RMS electromagnetic noise on the LC lattice; entropy as
 Cross-volume dependencies:
 > → Primary: [H-Bond Op4 Equilibrium](../../../vol5/molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md) — sec:hbond_derivation; the O--O distance $d_{OO} = 2.727$ Angstrom used in the water anomaly derivation is derived in Vol. V, Ch. 2.
 
-> → Primary: [Melting Eigenmode](../../../vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md) — sec:melting_eigenmode; the melting temperature $T_m = 279.5$ K derived as proton transfer eigenmode lives in Vol. VII, Ch. 11.
+> → Primary: Melting Eigenmode (forthcoming) — sec:melting_eigenmode; the melting temperature $T_m = 279.5$ K derived as proton transfer eigenmode lives in Vol. VII, Ch. 11.
 
 ## Key Results
 
@@ -55,8 +61,10 @@ Cross-volume dependencies:
 | [General Classification of Phase Transitions](./phase-transition-classification.md) | Impedance mapping table for all classical phase transitions |
 | [Remaining Ch.11 Resultboxes](./ch11-remaining-resultboxes.md) | Completion manifest: all ch11 resultboxes assigned to named leaves; no unassigned resultboxes remain |
 | [Kolmogorov Spectral Cutoff](./kolmogorov-spectral-cutoff.md) | Nyquist hard cutoff at $k_{\max} = \pi/\ell_{node}$; saturated energy spectrum $E(k) \cdot S(k/k_{\max})$; AVALANCHE_N $= 38/21$; bounded enstrophy proof |
+| [Four-Entropy Distinction at BH Horizon](./four-entropy-distinction.md) | AVE has 4 distinct entropy quantities for a BH: geometric $\hat S_{\text{geo}} = A \log 2 / \ell_{\text{node}}^2$ (AVE-native via A-B interface), thermodynamic $S_{BH} = A/(4 \ell_P^2)$ (imported via first law), microstate count $2^{A/\ell_{\text{node}}^2}$, volume-thermalization $S_v$ (Boltzmann); ratio $\hat S_{\text{geo}}/S_{BH} \approx 2.8 \times 10^{-44}$ Machian dilution; first-law $T \cdot dS = dE$ fails axiom-first |
+| [Discrete-Lattice $\hat S_{\text{horizon}} \approx 8.7 \, k_B$ Universal Constant](./discrete-lattice-entropy-constant.md) | Flag 62-G closure: even under corpus symmetric saturation ($\Gamma_{\text{continuum}} = 0$), discrete K4 lattice structure gives finite residual $\|\Gamma\|^2 \sim (\ell_{\text{node}}/r_{\text{sat}})^2$ per cell; summed over $N_{\text{cells}} \sim (r_{\text{sat}}/\ell_{\text{node}})^2$, product is universal $\sim 4\pi \log 2 \cdot k_B \approx 8.7 \, k_B$ independent of BH mass; likely one-time horizon-formation cost (topological invariant) |
 
-> ↗ See also: [Ch.10: Quantum Computing and Topological Immunity](../../../vol4/advanced-applications/ch10-quantum-computing/index.md) — transmon decoherence and Casimir cooling context
+> Note (REPO-ARCH-4 2026-05-17): Vol 4 Ch.10 Quantum Computing application leaves migrated to AVE-Metamaterials private repo per `ave-ip-divide-discipline` skill; transmon-decoherence substrate physics in this chapter remains canonical.
 
 NOTE: summarybox and exercisebox environments are not extracted as leaves.
 

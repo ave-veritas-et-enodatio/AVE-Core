@@ -1,5 +1,9 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+no-claim: aggregator/forward-reference to sibling resultboxes
+-->
 
 ---
 

@@ -1,5 +1,10 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-mnb3lt]
+-->
+
 <!-- NOTE: source has duplicate subsection titles "The Self-Consistent Mass Oscillator (The Structural Eigenvalue)" at approximately lines 114 and 166. This leaf covers both occurrences. -->
 
 ## The Self-Consistent Mass Oscillator (The Structural Eigenvalue)

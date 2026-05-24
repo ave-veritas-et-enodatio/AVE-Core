@@ -1,5 +1,9 @@
 [↑ Ch.11: Thermodynamics and The Arrow of Time](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-eaiqj1]
+-->
 
 ---
 
@@ -9,7 +13,9 @@ The transmon qubit provides a direct experimental demonstration. A Josephson jun
 
 A correct simulation must therefore inject stochastic noise only at the boundary nodes, not uniformly across the bulk field. The resulting coherence metric (the Cauchy-Schwarz normalised overlap between the instantaneous state and the initial eigenmode) is bounded $C(t) \in [0, 1]$ and decays via oscillatory relaxation, reproducing the observed error-rate timelines of modern cryo-cooled qubits.
 
-> ↗ See also: [Ch.10: Quantum Computing and Topological Immunity](../../../vol4/advanced-applications/ch10-quantum-computing/index.md) — decoherence as impedance mismatch; topological qubit model
+> ↗ See also: [Mathematical Topology of Mass](../../../vol2/particle-physics/ch01-topological-matter/mathematical-topology-of-mass.md) — Gauss linking number / Hopf charge canonical (topological-invariant immunity argument applicable to qubit-class systems)
+>
+> Note (REPO-ARCH-4 2026-05-17): Vol 4 Ch.10 Quantum Computing application leaves migrated to AVE-Metamaterials private repo per `ave-ip-divide-discipline` skill. Substrate-physics anchors (transmon-decoherence here + Gauss linking at mathematical-topology-of-mass.md + Kuramoto at kuramoto-phase-locking.md) remain canonical in core.
 
 ### Ohmic Damping: The Dissipation Arm
 

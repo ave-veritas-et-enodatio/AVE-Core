@@ -1,5 +1,13 @@
 [↑ Vol 4: Engineering](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-9sujp8, clm-c54kdd, clm-cbwd77, clm-vjv4zf]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Simulation
 
 SPICE circuit simulations that model AVE vacuum phenomena as analog transmission-line transients. Each chapter defines a physical mechanism — particle decay, autoresonant dielectric breakdown, Sagnac inductive drag — and provides a complete, runnable SPICE netlist derived from zero free parameters.

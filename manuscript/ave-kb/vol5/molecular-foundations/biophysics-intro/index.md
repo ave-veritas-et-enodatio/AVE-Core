@@ -1,5 +1,11 @@
 [↑ Molecular Foundations](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-239tr4, clm-a3rby3, clm-br3bcv, clm-pav5m3, clm-u4vmgk]
+subtree-experiments: []
+-->
+
 # Biophysics Introduction
 
 Ch. 1 establishes the derivation chain from the AVE lattice pitch $\ell_{node}$ to the protein backbone length scale $d_0 \approx 3.80$ Å, classifies the 20 amino acids by sidechain impedance, and validates the folding engine against the Chignolin mini-protein.

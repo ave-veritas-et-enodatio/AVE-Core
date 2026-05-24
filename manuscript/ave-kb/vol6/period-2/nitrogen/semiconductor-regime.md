@@ -1,5 +1,9 @@
 [↑ Nitrogen (Z=7)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-rw7jqo]
+-->
 
 ## Semiconductor Regime Classification
 

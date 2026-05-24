@@ -1,5 +1,13 @@
 [↑ Vol 3: Macroscopic Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-07kd5v, clm-1klgo2, clm-3zz0f6, clm-8nkvwy, clm-ir8h78, clm-rd9cjm, clm-wx5324, clm-x19btt, clm-y9old1]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Gravity
 
 Macroscopic gravity derived from the $\mathcal{M}_A$ LC network. The trace-reversed vacuum ($K = 2G$, $\nu_{vac} = 2/7$) produces a $1/7$ isotropic impedance projection that maps 1D electromagnetic string tension into 3D bulk gravitational coupling. The refractive index of gravity $n(r) = 1 + 2GM/(c^2 r)$ follows from the optical metric, yielding Newtonian attraction, Einstein lensing, frame-dragging, and event horizons as dielectric phenomena. Gravitational waves propagate losslessly as transverse impedance modulations with $Z(r) = Z_0$ everywhere.
@@ -16,6 +24,8 @@ Macroscopic gravity derived from the $\mathcal{M}_A$ LC network. The trace-rever
 | Planck Mass | $m_{P} = m_{e}\sqrt{7\xi}$ [Ch.1](./ch01-gravity-yield/planck-mass.md) |
 | Physical Causal Horizon | $R_H \approx 1.334 \times 10^{26}$ m (14.1 Gly; $H_\infty \approx 69.32$ km/s/Mpc) [Ch.1](./ch01-gravity-yield/optical-refraction-gravity.md) |
 | Kinetic Yield Threshold | $E_{k} = \sqrt{\alpha}\cdot m_{e}c^{2} \approx 43.65$ keV [Ch.1](./ch01-gravity-yield/kinetic-yield-threshold.md) |
+| α Invariance Under Symmetric Gravity | $\alpha = \alpha_0$ exactly; multi-species $\Delta\alpha/\alpha = 0$ [Ch.1](./ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) |
+| Temporal/Spatial Lattice Decomposition | $n_{temporal} = 1 + (2/7)\varepsilon_{11}$; $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ [Ch.1](./ch01-gravity-yield/temporal-spatial-lattice-decomposition.md) |
 | Einstein Field Equation (AVE mapping) | $T_{\mu\nu} \equiv U_{\mu\nu}$; $g_{\mu\nu} \leftrightarrow (\varepsilon_{eff}, \mu_{eff})$ [Ch.2](./ch02-general-relativity/einstein-field-equation.md) |
 | Symmetric Gravity Impedance | $Z(r) = Z_0$ (invariant) [Ch.2](./ch02-general-relativity/einstein-field-equation.md) |
 | Gordon Optical Metric | $g_{\mu\nu}^{AVE} = \eta_{\mu\nu} + (1 - 1/n^{2}) u_{\mu} u_{\nu}$ [Ch.3](./ch03-macroscopic-relativity/gordon-optical-metric.md) |

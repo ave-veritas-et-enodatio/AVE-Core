@@ -1,5 +1,9 @@
 [↑ App D: Computational Graph Architecture](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-pf84ng]
+-->
 
 ## The Genesis Algorithm (Poisson-Disk Crystallization)
 

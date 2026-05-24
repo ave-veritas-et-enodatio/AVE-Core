@@ -1,5 +1,9 @@
 [↑ Ch.4 Continuum Electrodynamics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-xy252u]
+-->
 
 ## Section 4.3: Analytical Operating Regimes of the Vacuum
 

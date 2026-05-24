@@ -1,5 +1,11 @@
 [↑ Applied Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-91adfe]
+subtree-experiments: []
+-->
+
 # Ch.14: Sonoluminescence and Tabletop Relativity
 
 Sonoluminescence — picosecond light emission from collapsing microbubbles — is resolved as a macroscopic manifestation of Axiom 4 topological saturation.  As the bubble wall velocity approaches the lattice acoustic metric speed $c_{sound}$, the effective fluid density diverges identically to special-relativistic mass, preventing the classical Rayleigh-Plesset singularity at $R = 0$.

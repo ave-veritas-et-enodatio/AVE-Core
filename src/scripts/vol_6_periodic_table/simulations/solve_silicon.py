@@ -1,9 +1,15 @@
 """
-AVE SUBMODULE: SILICON-28 TOPOLOGICAL SOLVER
---------------------------------------------
-Calculates the required macroscopic separation distance (R_bipyr)
-for the 7-Alpha Pentagonal Bipyramid matrix to mathematically match
-the empirical CODATA mass defect of Si-28.
+AVE SUBMODULE: SILICON-28 R_BIPYR FITTER (1-parameter inverse problem).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script numerically FITS R_bipyr (the radius of the 7-Alpha Pentagonal
+Bipyramid matrix in Si-28) to recover the CODATA Si-28 mass-defect target
+via Nelder-Mead. The K_MUTUAL coupling kernel IS axiom-derived; the
+recovered R_bipyr is a 1-parameter inverse-problem solve, NOT a forward
+prediction. The "Mass Mapping Error" output is ~0 by construction.
+M_P_RAW, M_N_RAW are empirical PDG inputs.
+
+Scope corrected 2026-05-17.
 """
 
 import pathlib
@@ -15,7 +21,7 @@ from scipy.optimize import minimize
 from ave.core.constants import D_PROTON as D_0
 from ave.core.constants import K_MUTUAL
 from ave.core.constants import M_N_MEV_TARGET as M_N_RAW
-from ave.core.constants import M_P_MEV_TARGET as M_P_RAW
+from ave.core.constants import M_P_MEV_CODATA as M_P_RAW
 
 project_root = pathlib.Path(__file__).parent.parent.parent.absolute()
 # Target Empirical CODATA Nuclear Mass for Silicon-28 (MeV)

@@ -1,5 +1,11 @@
 [↑ Vol 4: Simulation](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-vjv4zf]
+subtree-experiments: []
+-->
+
 # Ch.17: Hardware Netlists — PONDER-01 and the EE Bench
 
 Physical LTspice netlists for actual tabletop AVE hardware. These are engineering blueprints with component values derived directly from the zero-parameter framework. Ch.17 uses codebox environments only (no resultboxes).
@@ -17,7 +23,6 @@ Physical LTspice netlists for actual tabletop AVE hardware. These are engineerin
 | Document | Contents |
 |---|---|
 | [EE Bench Netlist](ee-bench-netlist.md) | Verbatim `ee_bench.cir` — behavioral charge equation for nonlinear vacuum capacitance under DC sweep to $45\,\text{kV}$ |
-| [PONDER-01 Stack Netlist](ponder-01-stack-netlist.md) | Verbatim `ponder_01_stack.cir` — 20-layer alternating Air/FR4 LC ladder at $100\,\text{MHz}$, $30\,\text{kV}$ |
 
 > **Note:** `summarybox` and `exercisebox` environments in the source chapter are not extracted as leaves in this KB.
 

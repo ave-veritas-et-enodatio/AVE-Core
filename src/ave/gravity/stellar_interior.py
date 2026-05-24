@@ -125,7 +125,6 @@ def build_radial_profile(
         for layer in layers:
             if layer.r_inner <= r <= layer.r_outer:
                 # Linear interpolation within layer
-                # frac = (r - layer.r_inner) / max(layer.r_outer - layer.r_inner, EPS_NUMERICAL)  # bulk lint fixup pass
                 n_e[i] = layer.n_e
                 T[i] = layer.T
                 names.append(layer.name)

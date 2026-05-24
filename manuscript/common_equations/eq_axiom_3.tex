@@ -1,45 +1,42 @@
-% eq_axiom_3.tex — Axiom 3 (Gravity)
+% eq_axiom_3.tex — Axiom 3 (Minimum Reflection Principle)
 % Single source of truth. \input this wherever Axiom 3 is formally restated.
+% Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:61-66.
 %
-\begin{resultbox}{Axiom 3 — Gravity}
-Newton's constant sets the Machian boundary impedance:
+% PROVENANCE:
+% (1) Pre-2026-04-27 this file was titled "Axiom 3 — Gravity" and documented
+%     Newton's constant G, the gravitational refractive index n(r), Symmetric
+%     Gravity, and alpha-invariance under gravitational strain. Per axiom
+%     homologation 2026-04-27, gravity is a derived consequence of Axiom 1 +
+%     Axiom 4 (Symmetric Scaling), not a primitive axiom; G is a calibration
+%     constant emerging from Machian thermodynamic equilibrium. The gravity
+%     content has been moved to eq_gravity_derived.tex.
+% (2) Pre-2026-05-16 this axiom was named "Effective Action Principle." Per
+%     Grant 2026-05-16, renamed to "Minimum Reflection Principle" because the
+%     substrate-observable quantity is the boundary reflection |Γ|² (per the
+%     substrate-observability rule), not the interior Lagrangian density.
+%     The variational form (Maxwell Lagrangian) and the boundary form
+%     (min|Γ|² at every ∂Ω) are co-canonical; both extremize the same
+%     externally-observable quantity. The legacy name "Effective Action
+%     Principle" remains a valid equivalent.
+%
+\begin{resultbox}{Axiom 3 — Minimum Reflection Principle}
+The substrate, in its continuum limit, evolves to extremize the macroscopic substrate action $S_{AVE}$. Two mathematically equivalent forms of this principle are co-canonical:
+
+\medskip\noindent\textbf{Variational form} (theoretical-physics-natural). The dynamics are encoded entirely in the per-node electromagnetic vector potential $\mathbf{A}_n$:
 \begin{equation}
-    G = \frac{\hbar c}{7\xi \cdot m_e^2}
-    \label{eq:axiom3_gravity}
+    \mathcal{L}_{node} = \frac{1}{2}\epsilon_0 |\partial_t \mathbf{A}_n|^2 - \frac{1}{2\mu_0} |\nabla \times \mathbf{A}_n|^2,\qquad
+    S_{AVE} = \int \mathcal{L}_{node}\, d^4x
+    \label{eq:axiom3_lagrangian}
 \end{equation}
-where $\xi = 4\pi(R_H / \ell_{node})\alpha^{-2} \approx 8.15 \times 10^{43}$ is the Machian hierarchy coupling.
-The gravitational refractive index is
+This is the standard Maxwell Lagrangian (in vector-potential form), recovered as the substrate's effective action in the linear regime ($A \ll A_{yield}$). Under finite strain, $\varepsilon_0$ and $\mu_0$ become nonlinear functions of local strain via Axiom 4's saturation kernel ($\varepsilon_{eff} = \varepsilon_0\, S(A)$, $\mu_{eff} = \mu_0\, S(A)$). Energy conservation, Lorentz invariance, and U(1) gauge symmetry follow as Noether consequences of $\mathcal{L}_{node}$'s symmetry structure.
+
+\medskip\noindent\textbf{Boundary form} (substrate-native, engineering-natural). The substrate evolves to minimize the reflection coefficient $|\Gamma|^2$ at every internal impedance boundary:
 \begin{equation}
-    n(r) = 1 + \frac{2GM}{rc^2}
-    \label{eq:axiom3_refraction}
+    \min |\Gamma|^2 \quad \text{at every } \partial\Omega,\qquad
+    \Gamma = \frac{Z_2 - Z_1}{Z_2 + Z_1}
+    \label{eq:axiom3_boundary}
 \end{equation}
-with Symmetric Gravity: $\mu_{eff} = \mu_0 \cdot n(r)$,\;
-$\varepsilon_{eff} = \varepsilon_0 \cdot n(r)$,\;
-$Z = Z_0$ (invariant).
+Equivalent names: \textit{Minimum Reflection Principle} (substrate-native, this axiom's canonical name), \textit{minimum-$|\Gamma|^2$ principle}, \textit{minimum boundary reflection}, \textit{least reflected action}, \textit{impedance-match principle}, \textit{Effective Action Principle} (legacy variational-dialect name). This form is substrate-native because only $\Gamma$ (and the three integrated boundary invariants $\mathcal{M}, \mathcal{Q}, \mathcal{J}$) is externally observable at any boundary --- $\mathcal{L}_{node}$ is an interior volumetric quantity, not directly measurable (substrate-observability rule, formalized in the Common Foreword $\S$``Three Boundary Observables''). The axiom name follows the substrate-observable: the externally-measurable quantity being extremized is the boundary reflection $|\Gamma|^2$, not the interior action.
+
+\medskip\noindent\textbf{Equivalence.} The variational extremum (Eq.~\ref{eq:axiom3_lagrangian}) corresponds bijectively to the boundary reflection minimum (Eq.~\ref{eq:axiom3_boundary}): the Euler--Lagrange equations of $\mathcal{L}_{node}$ enforce continuity of $E$ and $B$ at boundaries, which is exactly the condition that minimizes $|\Gamma|^2$. The two forms describe the same physics from different starting points --- volumetric Lagrangian (standard QFT dialect) vs.~boundary impedance (engineering / substrate-native dialect).
 \end{resultbox}
-
-\noindent\textbf{Derived Consequence 1: $\alpha$ Invariance.}
-Under Symmetric Gravity, both constitutive parameters scale by the same factor $n \cdot S$
-(including Axiom~4 saturation). The fine-structure constant is therefore
-\textit{exactly invariant} under gravitational strain:
-\begin{equation}
-    \alpha = \frac{e^2}{4\pi\,\varepsilon_{local}\,\hbar\,c_{local}}
-           = \frac{e^2}{4\pi\,(\varepsilon_0 n S)\,\hbar\,(c_0/(nS))}
-           = \frac{e^2}{4\pi\,\varepsilon_0\,\hbar\,c_0}
-           = \alpha_0
-    \label{eq:alpha_invariance}
-\end{equation}
-Multi-species clock comparisons at different gravitational potentials predict a
-\textbf{null result} for $\Delta\alpha/\alpha$, consistent with all current experimental bounds.
-
-\noindent\textbf{Derived Consequence 2: Temporal vs.\ Spatial Lattice Compression.}
-The principal radial strain $\varepsilon_{11} = 7GM/(c^2 r)$ compresses the lattice asymmetrically.
-The refractive index decomposes into:
-\begin{align}
-    n_{temporal} &= 1 + \tfrac{2}{7}\,\varepsilon_{11} && (\text{controls clock rate, redshift}) \nonumber \\
-    n_{spatial} &= \tfrac{9}{7}\,\varepsilon_{11} && (\text{controls light deflection})
-    \label{eq:lattice_decomposition}
-\end{align}
-Axiom~3 uses only the temporal component for gravitational redshift ($z \approx GM/(c^2 r)$).
-The spatial component governs light bending and frame dragging.
-

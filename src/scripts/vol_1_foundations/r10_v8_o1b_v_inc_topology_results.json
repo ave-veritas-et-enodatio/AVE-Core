@@ -1,0 +1,45 @@
+{
+  "test": "O.1b: V_inc topology measurement",
+  "config": {
+    "N": 48,
+    "PML": 4,
+    "R": 8.0,
+    "r": 4.0,
+    "amp_ic": 0.1,
+    "n_bonds": 16
+  },
+  "ic_verification": {
+    "a2_max_t0": 0.10903828837752115
+  },
+  "measure_A_phase_space": {
+    "aspects_per_bond_port0": [
+      18.573329140872712,
+      null,
+      4.337208437302195,
+      null,
+      9.657236187205129,
+      null,
+      11.814624161744867,
+      null,
+      21.63928611868125,
+      null,
+      9.694489821313763,
+      null,
+      2.916095115284815,
+      null,
+      1.9469212962167732,
+      null
+    ],
+    "mean_aspect_port0": 10.072398784827687,
+    "phi_squared_target": 2.618033988749895,
+    "phase_space_match": false
+  },
+  "measure_B_spatial_winding": {
+    "winding_number": 0.0,
+    "contour_amp_rms": 0.07981243420434139,
+    "spatial_winding_match": false
+  },
+  "op10_cosserat": 0,
+  "energy_retention_50P": 0.3949537985541722,
+  "elapsed_total_s": 186.5465109348297
+}

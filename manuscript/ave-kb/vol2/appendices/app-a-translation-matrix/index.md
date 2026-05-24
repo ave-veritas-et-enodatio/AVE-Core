@@ -1,5 +1,13 @@
 [↑ Appendices](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: []
+subtree-experiments: []
+-->
+
+<!-- All 8 children are documented no-claim translation-table forwarders; canonical translation content lives in common/translation-tables/ -->
+
 # App A: The Interdisciplinary Translation Matrix
 
 The AVE framework roots physical reality in the deterministic continuum mechanics of a discrete $\mathcal{M}_A$ graph; its foundational equations project symmetrically outward into multiple established disciplines of applied engineering and mathematics. This appendix collects the complete set of domain-specific translation tables, each defined once in a canonical location and referenced from the relevant chapter.

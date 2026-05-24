@@ -1,5 +1,11 @@
 [↑ Axioms and Lattice](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-15nwqy, clm-219e8j, clm-3kzmt9, clm-4mmwb6, clm-5xon03, clm-7pvh9i, clm-9s9apq, clm-dfaiwj, clm-dhvhwi, clm-g0mkne, clm-jz0xaw, clm-q39qct, clm-rkisb8, clm-u1o2lo, clm-unk0bd, clm-ys0xl1]
+subtree-experiments: []
+-->
+
 # Ch.1: The Four Fundamental Axioms and Network Architecture
 
 The four fundamental axioms define the vacuum as an electromagnetic LC resonant network ($\mathcal{M}_A$) with a topo-kinematic charge-length isomorphism, an effective hardware action principle, and non-linear dielectric saturation bounded by the fine-structure constant. Three emergent hardware constraints ($\ell_{node}$, $\alpha$, $G$) are shown to be derivable from topology, reducing the framework to zero free parameters.
@@ -27,3 +33,7 @@ The four fundamental axioms define the vacuum as an electromagnetic LC resonant 
 | [Zero-Parameter Universe](./zero-parameter-universe.md) | Deriving $\alpha$ via Golden Torus S₁₁-min (Ch.8), $G$ via thermodynamic equilibrium, $\ell_{node}$ via scale invariance |
 | [Kirchhoff Network Method](./kirchhoff-network-method.md) | Discrete Kirchhoff solver, edge/node update equations, master constants pipeline |
 | [Lattice Structure (stub)](./lattice-structure.md) | Redirect to Kirchhoff network method |
+| [$\|T\| = 12$ Universality (4 Routes)](./tetrahedral-t-universality.md) | The tetrahedral rotation-group order $\|T\| = 12$ converges via four independent routes — K4-symmetry-forced, not a calibration fit |
+| [Cosserat Mass-Gap $m^2 = 4 G_c / I_\omega$](./cosserat-mass-gap.md) | Structural electron-mass mechanism: the Cosserat rotational sector natively carries a mass-gap; T2 validation to 0.35% |
+| [K4 Rotation Group $T = A_4$](./k4-rotation-group.md) | Faithful $T = A_4$ representation on the 4-port basis; full $T_d = S_4$ with reflections; double cover $2T \subset SU(2)$ giving spin-½ |
+| [Cubic K4 Empirical Anisotropy](./cubic-k4-empirical-anisotropy.md) | The saturated attractor is cubic (6/8/12), not spherical — the falsifiable empirical signature of $T_d$ tetrahedral symmetry |

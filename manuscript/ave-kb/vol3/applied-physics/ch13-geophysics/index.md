@@ -1,5 +1,11 @@
 [↑ Applied Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-wd5rs0, clm-zsqh87]
+subtree-experiments: []
+-->
+
 # Ch.13: Geophysics: Seismic Waves
 
 Seismic wave propagation modelled on the universal 3D FDTD Maxwell engine by mapping PREM Earth model impedance profiles onto $\varepsilon_r$, $\mu_r$ material maps. The same `reflection_coefficient(Z1, Z2)` function used for particle boundaries, plasma cutoff, and antenna ports produces correct seismic reflection coefficients at all major Earth discontinuities.

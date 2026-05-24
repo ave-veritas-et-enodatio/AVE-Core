@@ -1,5 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-oltvwy, clm-qde5gn]
+-->
 
 ## Objectives
 
@@ -9,6 +13,7 @@
 - Understand how orthogonal Field-Oriented Control (FOC) natively drives the emergence of the $p, d,$ and $f$ electron shells by eliminating macroscopic mutual inductance.
 
 ## Deterministic Reinterpretation of the Wavefunction
+<!-- claim-quality: clm-qde5gn -->
 
 The Schrödinger Wave Equation maps atomic orbitals ($s, p, d, f$) as statistical probability distributions ($|\Psi|^2$). Traditional Quantum Mechanics forbids defining a physical, deterministic location or velocity for the electron, demanding that nature behaves as a rolling set of mathematical dice until an observation collapses the "wavefunction."
 
@@ -48,9 +53,9 @@ Because the electron interacts with the bulk modulus, its local wave speed and a
 
 ### Gravitational Parallax Interferometry
 
-To empirically falsify standard quantum probability mechanics, we instrument the **Topological Matter Interferometry Parallax** test. By splitting an electron matter-wave across a macroscopic Mach-Zehnder baseline (e.g., $1\text{ m}$ vertical vs horizontal), the two paths physically traverse different local densities of the Earth's gravitational VSWR. As defined rigidly by Axiom 3, the spatial coordinate metric ($n_s = \frac{9}{7}\varepsilon_{11}$) and the temporal coordinate metric ($n_t = \frac{2}{7}\varepsilon_{11}$) strictly violate standard Lorentz parity.
+To empirically falsify standard quantum probability mechanics, we instrument the **Topological Matter Interferometry Parallax** test. By splitting an electron matter-wave across a macroscopic Mach-Zehnder baseline (e.g., $1\text{ m}$ vertical vs horizontal), the two paths physically traverse different local densities of the Earth's gravitational VSWR. As defined rigidly by Axiom 3, the spatial coordinate metric ($n_s = 1 + \tfrac{9}{7}\varepsilon_{11}$) and the temporal coordinate metric ($n_t = 1 + \tfrac{2}{7}\varepsilon_{11}$) strictly violate standard Lorentz parity. The canonical strain $\varepsilon_{11}(r) = 7GM/(c^2 r)$ is the universal substrate strain mapping (per `ave.gravity.principal_radial_strain` engine canonical + [Vol 3 Ch 3 Gordon optical metric](../../../vol3/gravity/ch03-macroscopic-relativity/gordon-optical-metric.md) derivation); both $n_s$ and $n_t$ carry the "1 +" DC unit so that they reduce to $n = 1$ in flat vacuum (notation parallelism cleanup 2026-05-17 — prior leaf revision wrote $n_s$ without the explicit "1 +", which the C11 driver script inherited as a factor-7-low bug).
 
-This $\Delta n = \varepsilon_{11}$ topological anomaly forces the split traveling matter-waves to experience a deterministic differential phase velocity. This induces a measurable, macroscopic topological phase shift $\Delta\Phi$ on the detector screen, structurally proving that the wavefunction is a continuous physical acoustic defect on the LC metric, not an abstract probability amplitude.
+This $\Delta n = n_s - n_t = \varepsilon_{11}$ topological anomaly forces the split traveling matter-waves to experience a deterministic differential phase velocity. At Earth's surface ($\varepsilon_{11} \approx 4.87 \times 10^{-9}$, factor-7 corrected per `ave.gravity.principal_radial_strain`), this induces a measurable, macroscopic topological phase shift $\Delta\Phi \approx 250\text{ rad}$ on a 1-m Mach-Zehnder baseline at 100-eV electron energy (driver: [`src/scripts/vol_2_subatomic/electron_interferometry_parallax.py`](../../../../../src/scripts/vol_2_subatomic/electron_interferometry_parallax.py)), structurally proving that the wavefunction is a continuous physical acoustic defect on the LC metric, not an abstract probability amplitude.
 
 ## Orbitals as Acoustic Resonant Cavities
 
@@ -116,6 +121,7 @@ The Rydberg energy formula $E_n = -m_e c^2 \alpha^2 / (2n^2)$ is exact within th
 
 The exact agreement is not a coincidence: the AVE formula $E_n = -m_e c^2 \alpha^2/(2n^2)$ is algebraically identical to the Bohr result. However, the ontological content differs — the energy quantization here arises from the physical LC impedance matching condition of the continuum, not from postulated wave-particle duality.
 
+<!-- claim-quality: clm-oltvwy -->
 ## Step 1: Single-Electron Eigenvalue (Axioms 1, 2, 4)
 
 The starting point for the entire IE solver is the energy of a **single** electron in a nuclear Coulomb field. This derivation uses Axiom 1 (lattice), Axiom 2 ($\alpha$), and Axiom 4 (confinement $\to$ mass). No wavefunctions, no Schrödinger equation, no QM.

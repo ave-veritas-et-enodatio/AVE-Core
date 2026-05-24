@@ -7,7 +7,7 @@ on:
 
 jobs:
   validators:
-    name: Claim-graph + defense-context + unit tests
+    name: make verify + make test
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -29,11 +29,8 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Claim-graph validator (strict)
-        run: uv run python src/scripts/claim_graph_validator.py
+      - name: make verify
+        run: make verify
 
-      - name: Defense-context checker (warning-only)
-        run: uv run python src/scripts/defense_context_checker.py || true
-
-      - name: Unit tests
-        run: uv run pytest src/tests --tb=short
+      - name: make test
+        run: make test

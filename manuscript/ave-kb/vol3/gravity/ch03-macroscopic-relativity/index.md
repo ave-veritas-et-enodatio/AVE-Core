@@ -1,5 +1,11 @@
 [↑ Gravity](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-ir8h78, clm-rd9cjm]
+subtree-experiments: []
+-->
+
 # Ch.3: Macroscopic Relativity: The Optical Metric
 
 Derives gravity as electromagnetic densification of the vacuum LC network via a 3D optical impedance metric. The Gordon optical metric reproduces curved-spacetime geodesics in a flat dielectric. The Ponderomotive Equivalence Principle derives $m_i \equiv m_g$ from wave mechanics. The transverse refractive index $n(r) = 1 + 2GM/(c^2 r)$ follows from the trace-reversed Poisson ratio and radial strain field. Achromatic impedance matching ($Z_0$ invariant) ensures lossless gravitational lensing. The event horizon is identified as dielectric rupture at unitary strain. Frame dragging reduces to macroscopic mutual inductance.

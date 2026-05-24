@@ -1,5 +1,9 @@
 [↑ Ch.2 General Relativity](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-y9old1]
+-->
 
 ---
 

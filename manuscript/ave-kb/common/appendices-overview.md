@@ -1,6 +1,10 @@
 [↑ Common Resources](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-yawl6z]
+path-stable: "referenced from vol1,vol2,vol3,vol4,vol5 as app:translation_matrix"
+-->
 
 # The Interdisciplinary Translation Matrix
 
@@ -29,9 +33,11 @@ When translating the vacuum into a discrete mechanical solid, the framework inhe
 
 ### The Spin-1/2 Paradox
 
-**The Challenge:** In classical solid-state mechanics, the continuous rotational degrees of freedom of an elastic medium (like a Chiral LC Network) are governed by $SO(3)$ geometry. A fundamental mathematical proof of $SO(3)$ continuum mechanics is that point-defects can only possess integer spin (Spin-1, Spin-2). However, the fundamental building blocks of the universe (Electrons, Quarks) are Fermions, which possess **Spin-1/2** ($SU(2)$ geometry, requiring a $4\pi$ rotation to return to their original state). A rigid Chiral LC Network cannot support Spin-1/2 point-defects, seemingly falsifying the framework.
+**The Challenge:** In classical solid-state mechanics, the continuous rotational degrees of freedom of an elastic medium (like a Chiral LC Network in continuum-EM dialect, corresponding to a chiral Laves K4 Cosserat crystal at the substrate level) are governed by $SO(3)$ geometry. A fundamental mathematical proof of $SO(3)$ continuum mechanics is that point-defects can only possess integer spin (Spin-1, Spin-2). However, the fundamental building blocks of the universe (Electrons, Quarks) are Fermions, which possess **Spin-1/2** ($SU(2)$ geometry, requiring a $4\pi$ rotation to return to their original state). A rigid Chiral LC Network cannot support Spin-1/2 point-defects, seemingly falsifying the framework.
 
 **The Resolution:** If the electron were modeled as a microscopic point-defect (a missing node), the framework would indeed fail. However, the AVE framework defines the electron as an extended, macroscopic **$0_1$ Unknot** (a closed, continuous topological flux tube loop). In topological mathematics, an extended knotted line defect embedded in an $SO(3)$ manifold exhibits $SU(2)$ spinor behaviour through the generation of a **Finkelstein-Misner Kink** (also known as the Dirac Belt Trick). The continuous geometric extension of the topological loop provides a double-cover over the $SO(3)$ background, reproducing Spin-1/2 quantum statistics without violating macroscopic solid-state geometry.
+
+**Substrate-native origin:** The Cosserat microrotational DOF per node (Axiom 1, three rotational coordinates alongside the three translational ones) IS the substrate-native origin of intrinsic spin — macroscopic angular momentum, EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate.
 
 ### The Holographic Information Paradox
 
@@ -78,9 +84,9 @@ See .agents/handoffs/TAU_YIELD_DERIVATION_AUDIT.md. Do not re-add without a deri
 - **Effective Coupling:** $\kappa_{eff} = \kappa_{FS}(1-\delta_{th}) \approx 24.951$
 - **Proton Rest Mass (Geometric Eigenvalue):** $m_p = \frac{\mathcal{I}_{scalar}}{1 - (\mathcal{V}_{total} \cdot p_c)} + 1.0 \approx \mathbf{1836\ m_e}$ (0.002% from CODATA)
 - **Mutual Inductance at Crossing:** $M/L = \exp(-d^2/(4\sigma^2)) = 1/\sqrt{2}$ (exact, $d = \ell_{node}/2$, $\sigma = \ell_{node}/(2\sqrt{2\ln 2})$)
-- **Saturation Threshold (Derived):** $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (zero-parameter)
+- **Saturation Threshold (closed-form, conditional on Gaussian flux-tube ansatz):** $\rho_{threshold} = 1 + \sigma/4 = 1 + \ell_{node}/(8\sqrt{2\ln 2}) \approx 1.1062$ (no fitted parameters; profile derivation pending — see [Outstanding Rigour Gaps](mathematical-closure.md))
 - **Toroidal Halo Volume (FEM Verified):** $\mathcal{V}_{total} = 2.0$ at derived threshold (FEM: $2.001 \pm 0.003$, Richardson $N\to\infty$)
-- **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}584\text{ N}} \ (\approx 1.002\text{ GeV/fm})$
+- **Macroscopic Strong Force:** $F_{confinement} = 3 \left(\frac{m_p}{m_e}\right) \alpha^{-1} T_{EM} \approx \mathbf{160{,}037\text{ N}} \ (\approx 0.999\text{ GeV/fm})$
 - **Witten Effect Fractional Charge (Quarks):** $q_{eff} = n + \frac{\theta}{2\pi}e \implies \pm \frac{1}{3}e, \pm \frac{2}{3}e$
 - **Vacuum Poisson's Ratio (Trace-Reversed Bound):** $\nu_{vac} \equiv \frac{2}{7}$
 - **Weak Mixing Angle (Acoustic Mode Ratio):** $\frac{m_W}{m_Z} = \frac{1}{\sqrt{1+\nu_{vac}}} = \frac{\sqrt{7}}{3} \approx \mathbf{0.8819}$

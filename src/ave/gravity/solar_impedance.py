@@ -541,10 +541,6 @@ def saturn_ring_gap_model() -> list[dict[str, float | str]]:
 
         error_pct = abs(r_pred_km - obs_km) / obs_km * 100
 
-        # Saturn's gravitational perturbation at gap
-        # F_moon_at_gap = G * M_SATURN / r_pred_m**2  # Tidal acceleration
-        # Z_perturbation = F_moon_at_gap / (G * M_SATURN / a_moon**2)  # bulk lint fixup pass
-
         gaps.append(
             {
                 "gap_name": label,
@@ -668,7 +664,6 @@ def flyby_anomaly_impedance(
     dv_anderson = flyby_anomaly_anderson(v_inf, declination_in, declination_out)
 
     # AVE impedance gradient at periapsis
-    # r_peri = periapsis_Re * R_EARTH  # bulk lint fixup pass
     v_rot_equator = OMEGA_EARTH * R_EARTH
 
     # Gravitomagnetic coefficient

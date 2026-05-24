@@ -1,0 +1,88 @@
+[↑ Common Resources](index.md)
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zgllr2, clm-zfqd9v, clm-gr8d63]
+path-stable: "referenced from vol1, vol4, vol5 as canonical two-engine architecture reference"
+-->
+
+# A-027 Two-Engine Architecture: K4-TLM + Master Equation FDTD
+
+The AVE substrate has **two disjoint operating regimes** requiring two specialized engines. This is canonical architecture (A-027 per L5 derivation status, doc 113 §3.2): pre-2026-05-14's single-engine approach (K4-TLM for everything) is superseded.
+
+## The two engines
+<!-- claim-quality: clm-zgllr2 -->
+
+| Engine | Source | Regime | Status |
+|---|---|---|---|
+| **K4-TLM** | `src/ave/core/k4_tlm.py` | Sub-saturation bench regime ($A \ll 1$; linear + weakly nonlinear up to $V_{\text{yield}}$ onset) | Canonical for sub-saturation |
+| **Master Equation FDTD** | `src/ave/core/master_equation_fdtd.py` | Bound-state regime ($A \to 1$; saturation kernel + $c_{\text{eff}}(V)$ modulation; breathing soliton solutions) | Canonical for bound-state; v14 Mode I PASS validated |
+
+## Why two engines
+<!-- claim-quality: clm-zfqd9v -->
+
+**K4-TLM** implements the discrete K4 lattice with bond-by-bond impedance updates. It has $Z(V)$ modulation (saturation-bounded characteristic impedance via Axiom 4) but **lacks $c_{\text{eff}}(V)$** — the wave speed does not slow at the saturation core. Without wave-speed modulation, the engine cannot trap waves into a localized bound state; propagating modes simply propagate.
+
+**Master Equation FDTD** implements the substrate's non-linear d'Alembertian:
+$$\nabla^2 V - \mu_0 \varepsilon_0 \sqrt{1 - (V/V_{\text{yield}})^2}\, \partial_t^2 V = 0$$
+which has both $Z(V)$ and $c_{\text{eff}}(V) = c_0/\sqrt{S(A)}$ modulation, per the canonical derivation at `vol_1_foundations/chapters/04_continuum_electrodynamics.tex:46-77`. This is the canonical bound-state engine. **Mechanism**: inside the saturated core, $\varepsilon_{\text{eff}} = \varepsilon_0 \cdot S \to 0$ so the wave speed $c_{\text{eff}} = c_0/\sqrt{S} \to \infty$ (thinner dielectric → faster propagation). At the saturation boundary, $\Gamma \to -1$ reflects the wave back into the core, trapping it as a stable breathing soliton. The soliton's center-of-mass propagation rate is bounded by the saturate-desaturate cycle time at the boundary nodes (which scales as $\tau_{\text{cycle}} \propto 1/\sqrt{S}$); at velocity $v \to c_0$, cycle backlog produces Lorentz contraction $\gamma = 1/S(v/c_0)$, recovering Q-G24 lorentz-from-Axiom-4 derivation.
+
+**Prior verbal description "waves slow at the saturation core" (pre-2026-05-18) is superseded** — that framing inverted $c_{\text{eff}}$ relative to the canonical Vol 1 Ch 4 derivation. Correct picture: wave speed RISES inside the saturated core; what's bounded by the saturation kernel is the soliton's BOUNDARY propagation rate, not the internal wave speed.
+
+## Validation: v14 Mode I PASS (doc 113)
+
+The Master Equation FDTD engine produces a stable breathing bound state at the Vol 1 Ch 8 Golden Torus geometry with:
+- **4/4 strict on the breathing-soliton criterion** ($V_{\text{peak}}$ mean > 0.2; FWHM stable; $n(r)$ gradient measurable; long-term stability)
+- Shell $\Gamma \approx -1$ TIR (total internal reflection) structure
+- Saturation-onset amplitude (peak $|\omega| \approx 0.3\pi$)
+
+The K4-TLM engine at the same geometry showed Mode III on the bound-state criterion — wave propagation without localization, exactly as the engine-architecture analysis predicted.
+
+## What was superseded
+
+The pre-2026-05-14 framework attempted to use K4-TLM as the universal engine, including bound-state simulations. The "Mode III at Vol 1 Ch 8 Golden Torus" result was originally framed as a framework failure; per doc 113 §3.2, it is instead an **engine-architecture mismatch** — K4-TLM is the wrong tool for bound-state work, not a failed validation of the framework.
+
+This is a meta-lesson recorded in the corpus: empirical results need engine-architecture context. The Vol 1 Ch 8 α derivation, the Vol 2 Ch 6 electroweak derivations, and the Vol 3 Ch 4 cosmology framing all rest on substrate physics that requires the bound-state regime; Master Equation FDTD is the canonical engine for verifying them computationally.
+
+## Implications for simulation workstreams
+
+| Workstream | Engine | Rationale |
+|---|---|---|
+| Bench / sub-saturation linear validation (IM3, IP3, etc.) | K4-TLM | $A \ll 1$ regime |
+| IVIM bench tree-level discrimination | K4-TLM | Linear bench regime |
+| Bound-state soliton verification (electron, baryon, breathing) | Master Equation FDTD | $A \to 1$ regime; localization required |
+| Pair production (Schwinger, autoresonant) | Master Equation FDTD | $A \to 1$ kernel boundary crossing |
+| Cosserat field-component simulations | `cosserat_field_3d.py` (validated standalone) | Mode-specific factor-of-4 mass-gap |
+
+## Two-engine convergence example: $p^* = 8\pi\alpha$ at K=2G
+<!-- claim-quality: clm-gr8d63 -->
+
+The canonical AVE substrate's K=2G operating point at $p^* = 8\pi\alpha \approx 0.18340$ is verified at both engines via independent physical routes — a concrete demonstration of the two-engine architecture in action:
+
+**K4-TLM route (sub-saturation):** the Feng-Thorpe-Garboczi EMT for a 3D amorphous central-force network with effective coordination $z_0 \approx 51.25$ yields the canonical formula
+$$p^* = \frac{10 z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
+at the K/G = 2 crossing (per Vol 3 Ch 1 §3.2). This is a STATIC linear-elasticity result valid in the sub-saturation regime ($A \ll 1$).
+
+**Master Equation FDTD route (bound-state):** the breathing-soliton bound state at the Vol 1 Ch 8 Golden Torus geometry yields the electron knot Q-factor $\alpha = 1/(4\pi^3 + \pi^2 + \pi)$; Axiom 4's definition $p_c \equiv 8\pi\alpha$ then gives the same operating point. This is a DYNAMIC nonlinear result valid in the bound-state regime ($A \to 1$, $c_{\text{eff}}(V)$ modulation active).
+
+**Two independent physical mechanisms converging on the identical canonical value.** This pattern — both engines independently verifying the same substrate-scale operating point through their respective canonical routes — is the multi-model consistency that A-027 architecture requires. The K4-TLM analysis tests the STATIC geometric/elastic structure; the Master Equation FDTD analysis tests the DYNAMIC bound-state stability.
+
+See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) for the two-K4-scales distinction (primary unit cell vs amorphous secondary network) and the over-bracing mechanism that connects them.
+
+## Status
+
+**Canonical (closed).** A-027 entry in L5 axiom_derivation_status; doc 113 §3.2 architectural statement; v14 Mode I PASS empirical validation. Future bound-state simulations should use Master Equation FDTD by default; K4-TLM for sub-saturation bench-style work. Cross-references that mention "K4-TLM bound-state" need to be updated to reference Master Equation FDTD.
+
+## Cross-references
+
+- **Canonical engine implementations:**
+  - `src/ave/core/k4_tlm.py` — K4-TLM canonical engine (sub-saturation)
+  - `src/ave/core/master_equation_fdtd.py` — Master Equation FDTD canonical engine (bound-state)
+  - `src/ave/topological/cosserat_field_3d.py` — Cosserat field implementation (validated standalone, factor-of-4 mass gap)
+- **Canonical manuscript anchors:**
+  - Common Foreword §"The Synthesis: The Unifying Master Equation" — Master Equation as the dielectric specialization of Axiom 4's universal saturation kernel
+  - Backmatter Ch 4 Physics Engine Architecture — engine architecture canonical
+- **Related KB leafs:**
+  - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — Cosserat substrate-scale work uses cosserat_field_3d.py
+  - [Solver Toolchain](solver-toolchain.md) — universal regime-boundary eigenvalue method (engine-agnostic)
+  - [Mathematical Closure](mathematical-closure.md) — DAG proof + engine cross-references

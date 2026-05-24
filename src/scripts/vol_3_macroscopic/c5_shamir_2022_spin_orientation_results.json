@@ -1,0 +1,182 @@
+{
+  "session_date": "2026-05-19",
+  "branch": "analysis/c5-shamir-2022-cross-catalog",
+  "prereg": "research/2026-05-19_c5-shamir-2022-cross-catalog-prereg.md",
+  "ave_sdss_dr17_reference": {
+    "l_deg": 129.0,
+    "b_deg": 79.0187139489105,
+    "sigma_deg": 6.831141009312945,
+    "source": "c5_sdss_spin_orientation_results.json primary pipeline (delta_clear=0.4)",
+    "method": "Longo 2011 cos-gamma on GZ1 + SDSS DR7; Hessian-MC + bootstrap"
+  },
+  "cmb_axis_reference": {
+    "l_deg": 60.28301886792453,
+    "b_deg": 50.48004426244294,
+    "sigma_deg": 0.9161297098179749,
+    "source": "cmb_axis_alignment_executable_observer_results.json (E1b)",
+    "method": "Planck PR3 SMICA, max-angular-momentum-dispersion"
+  },
+  "shamir_2022_table_3_galactic": {
+    "DESI_Legacy_Survey": {
+      "paper_quoted_ra_deg": 63.0,
+      "paper_quoted_dec_deg": -39.0,
+      "paper_quoted_dipole_significance_sigma": 8.8,
+      "paper_quoted_ra_1sigma_min": -2.0,
+      "paper_quoted_ra_1sigma_max": 118.0,
+      "paper_quoted_dec_1sigma_min": -90.0,
+      "paper_quoted_dec_1sigma_max": 6.0,
+      "galactic_l_deg": 242.10048651885467,
+      "galactic_b_deg": -46.90681758463126,
+      "galactic_l_canonical_deg": 62.100486518854666,
+      "galactic_b_canonical_deg": 46.90681758463126,
+      "sigma_galactic_68_deg": 42.57118821918646,
+      "sigma_galactic_max_deg": 74.879200638035,
+      "sigma_galactic_median_deg": 36.74799313059477,
+      "sigma_derivation_method": "Uniform sample 200x200=40000 points in (RA, Dec) 1sigma box; convert to galactic; take 68%% great-circle containment radius around center",
+      "sample_size": 1287000,
+      "imaging": "DECaLS_DR8_plus_BASS_plus_MzLS",
+      "methodology": "Ganalyzer_algorithmic_CW_CCW",
+      "dec_clipped_to_minus_90_plus_90": true
+    },
+    "DECam": {
+      "paper_quoted_ra_deg": 57.0,
+      "paper_quoted_dec_deg": -10.0,
+      "paper_quoted_dipole_significance_sigma": 4.7,
+      "paper_quoted_ra_1sigma_min": 22.0,
+      "paper_quoted_ra_1sigma_max": 92.0,
+      "paper_quoted_dec_1sigma_min": -39.0,
+      "paper_quoted_dec_1sigma_max": 56.0,
+      "galactic_l_deg": 199.19065551307958,
+      "galactic_b_deg": -45.08567465319217,
+      "galactic_l_canonical_deg": 19.190655513079577,
+      "galactic_b_canonical_deg": 45.08567465319217,
+      "sigma_galactic_68_deg": 41.507013503981064,
+      "sigma_galactic_max_deg": 72.11279380719546,
+      "sigma_galactic_median_deg": 32.54128965168479,
+      "sigma_derivation_method": "Uniform sample 200x200=40000 points in (RA, Dec) 1sigma box; convert to galactic; take 68%% great-circle containment radius around center",
+      "sample_size": null,
+      "imaging": "DECam_DES_subset",
+      "methodology": "Ganalyzer_algorithmic_CW_CCW",
+      "dec_clipped_to_minus_90_plus_90": false
+    },
+    "SDSS": {
+      "paper_quoted_ra_deg": 69.0,
+      "paper_quoted_dec_deg": 56.0,
+      "paper_quoted_dipole_significance_sigma": 4.6,
+      "paper_quoted_ra_1sigma_min": 19.0,
+      "paper_quoted_ra_1sigma_max": 107.0,
+      "paper_quoted_dec_1sigma_min": 25.0,
+      "paper_quoted_dec_1sigma_max": 77.0,
+      "galactic_l_deg": 150.75429735370236,
+      "galactic_b_deg": 5.78202213066457,
+      "galactic_l_canonical_deg": 150.75429735370236,
+      "galactic_b_canonical_deg": 5.78202213066457,
+      "sigma_galactic_68_deg": 23.83431072392782,
+      "sigma_galactic_max_deg": 47.45790144465102,
+      "sigma_galactic_median_deg": 19.843254936782536,
+      "sigma_derivation_method": "Uniform sample 200x200=40000 points in (RA, Dec) 1sigma box; convert to galactic; take 68%% great-circle containment radius around center",
+      "sample_size": null,
+      "imaging": "SDSS_DR8",
+      "methodology": "Ganalyzer_algorithmic_CW_CCW",
+      "dec_clipped_to_minus_90_plus_90": false
+    },
+    "Pan_STARRS": {
+      "paper_quoted_ra_deg": 47.0,
+      "paper_quoted_dec_deg": -1.0,
+      "paper_quoted_dipole_significance_sigma": 1.9,
+      "paper_quoted_ra_1sigma_min": 4.0,
+      "paper_quoted_ra_1sigma_max": 117.0,
+      "paper_quoted_dec_1sigma_min": -73.0,
+      "paper_quoted_dec_1sigma_max": 40.0,
+      "galactic_l_deg": 180.1188057498056,
+      "galactic_b_deg": -48.112443692644945,
+      "galactic_l_canonical_deg": 0.11880574980560255,
+      "galactic_b_canonical_deg": 48.112443692644945,
+      "sigma_galactic_68_deg": 56.2768528918426,
+      "sigma_galactic_max_deg": 83.29995012696914,
+      "sigma_galactic_median_deg": 45.129182072814984,
+      "sigma_derivation_method": "Uniform sample 200x200=40000 points in (RA, Dec) 1sigma box; convert to galactic; take 68%% great-circle containment radius around center",
+      "sample_size": 33000,
+      "imaging": "Pan_STARRS_DR1",
+      "methodology": "Ganalyzer_algorithmic_CW_CCW",
+      "dec_clipped_to_minus_90_plus_90": false
+    }
+  },
+  "primary_adjudication_shamir_desi_vs_sdss_dr17": {
+    "outcome": "A",
+    "rationale": "Shamir 2022 DESI Legacy axis vs AVE SDSS DR17: separation 39.83 deg = 0.92 sigma_combined < 1 sigma. CATALOG-AGREE: the two catalog/methodology paths consistently report the same axis within 1 sigma joint uncertainty.",
+    "sigma_shamir_deg": 42.57118821918646,
+    "sigma_sdss_dr17_deg": 6.831141009312945,
+    "sigma_combined_deg": 43.11578079871124,
+    "separation_deg": 39.831467567321084,
+    "separation_in_sigma": 0.9238257275979025,
+    "decisive_agree": true,
+    "decisive_disagree": false
+  },
+  "cross_survey_adjudications_vs_sdss_dr17": {
+    "DECam": {
+      "outcome": "D",
+      "rationale": "Shamir 2022 DESI Legacy axis vs AVE SDSS DR17: separation 49.49 deg = 1.18 sigma_combined. CATALOG-MARGINAL: 1 <= sep/sigma_combined <= 2. Both results valid with explicit methodology-uncertainty acknowledged.",
+      "sigma_shamir_deg": 41.507013503981064,
+      "sigma_sdss_dr17_deg": 6.831141009312945,
+      "sigma_combined_deg": 42.06538550291419,
+      "separation_deg": 49.48722332620905,
+      "separation_in_sigma": 1.1764357495970337,
+      "decisive_agree": false,
+      "decisive_disagree": false
+    },
+    "SDSS": {
+      "outcome": "C",
+      "rationale": "Shamir 2022 DESI Legacy axis vs AVE SDSS DR17: separation 74.04 deg = 2.99 sigma_combined > 2 sigma. CATALOG-DISAGREE: methodology systematic dominates; SDSS DR17 axis interpretation needs caveating.",
+      "sigma_shamir_deg": 23.83431072392782,
+      "sigma_sdss_dr17_deg": 6.831141009312945,
+      "sigma_combined_deg": 24.79392778834886,
+      "separation_deg": 74.04266682643093,
+      "separation_in_sigma": 2.9863225971491696,
+      "decisive_agree": false,
+      "decisive_disagree": true
+    },
+    "Pan_STARRS": {
+      "outcome": "A",
+      "rationale": "Shamir 2022 DESI Legacy axis vs AVE SDSS DR17: separation 49.38 deg = 0.87 sigma_combined < 1 sigma. CATALOG-AGREE: the two catalog/methodology paths consistently report the same axis within 1 sigma joint uncertainty.",
+      "sigma_shamir_deg": 56.2768528918426,
+      "sigma_sdss_dr17_deg": 6.831141009312945,
+      "sigma_combined_deg": 56.689934370214345,
+      "separation_deg": 49.38363221327794,
+      "separation_in_sigma": 0.871118175773101,
+      "decisive_agree": true,
+      "decisive_disagree": false
+    }
+  },
+  "cross_observable_shamir_desi_vs_cmb": {
+    "separation_deg": 3.7689326319226133,
+    "sigma_combined_deg": 42.58104460952797,
+    "separation_in_sigma_combined": 0.08851198148105727
+  },
+  "methodology_systematic_probe_shamir_sdss_vs_ave_sdss_dr17": {
+    "separation_deg": 74.04266682643093,
+    "sigma_combined_deg": 24.79392778834886,
+    "separation_in_sigma_combined": 2.9863225971491696,
+    "verdict": "METHODOLOGY-SYSTEMATIC SURFACE",
+    "interpretation": "Shamir's SDSS row uses Ganalyzer on SDSS DR8 imaging; AVE SDSS DR17 uses Longo cos-gamma on GZ1 crowdsourced classification of SDSS DR7. Same input galaxies (broadly), different methodology + classifier. Large separation reflects methodology-systematic at the SDSS-imaging level."
+  },
+  "e2_catalog_access_subfinding": {
+    "active": true,
+    "description": "Shamir 2022 per-galaxy CW/CCW classifications NOT publicly redistributed. Comparison uses paper-quoted Table 3 axes + asymmetric 1sigma boxes only. Live-fire re-fit on Shamir's catalog is out of single-session scope. Outcome label uses paper-quoted comparison; cross-catalog depth is reduced (we trust Shamir's published axis without independent re-fit + Q-cuts variation + bootstrap diagnostics).",
+    "implication_for_outcome_strength": "Headline outcome label A/C/D applies under the paper-quoted-axis comparison. The catalog-access blocker is a separate E2 sub-finding that does not change the primary outcome label but flags reduced cross-catalog independence depth.",
+    "next_steps_for_resolution": [
+      "Author email contact for catalog access (multi-week effort)",
+      "Live-fire Ganalyzer reproduction on DECaLS imaging (multi-month effort)",
+      "Retarget to McAdam & Shamir 2023 (Advances in Astronomy) Galaxy Zoo SDSS reanalysis"
+    ]
+  },
+  "headline_outcome": "A",
+  "headline_rationale": "Shamir 2022 DESI Legacy axis vs AVE SDSS DR17: separation 39.83 deg = 0.92 sigma_combined < 1 sigma. CATALOG-AGREE: the two catalog/methodology paths consistently report the same axis within 1 sigma joint uncertainty.",
+  "headline_sigma_shamir_deg": 42.57118821918646,
+  "headline_separation_deg": 39.831467567321084,
+  "headline_separation_in_sigma": 0.9238257275979025,
+  "headline_shamir_axis_galactic_l_deg": 242.10048651885467,
+  "headline_shamir_axis_galactic_b_deg": -46.90681758463126,
+  "headline_shamir_vs_cmb_separation_deg": 3.7689326319226133,
+  "headline_shamir_vs_cmb_separation_in_sigma": 0.08851198148105727
+}

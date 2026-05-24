@@ -4,6 +4,18 @@ What an AI coding agent must know before modifying this codebase.
 
 ---
 
+## 0. Documentation Canonicality (KB leaves > LaTeX)
+
+As of **2026-05-07**, the KB markdown tree (`manuscript/ave-kb/`) is the **sole canonical source** for AVE results, derivations, and prose. The LaTeX manuscript (`manuscript/vol_*/`) is a **derived publication artifact** that mirrors KB state, not its inverse.
+
+For engine work, the practical implications:
+
+- When an engine change produces a new or revised result, document the result in the **KB leaf first** — with frontmatter `claims:`, Tier 2 inline markers, and subtree-claims aggregation per INVARIANT-S5/S8 in `manuscript/ave-kb/CLAUDE.md`. Sync to LaTeX as a downstream step.
+- When LaTeX and KB disagree about a result, the KB is right; treat the LaTeX as stale until synced.
+- This inverts the older intake-era framing where LaTeX was canonical and the KB was a projection. Rule 9 of `LIVING_REFERENCE.md` ("Engine architecture changes must propagate to LaTeX") should be read in light of this: propagate to **KB first**, then LaTeX.
+
+---
+
 ## 1. The Zero Free Parameters Constraint
 
 **This is the single most important rule.**
@@ -22,22 +34,24 @@ Constants labeled as "CODATA 2018" or "empirical" in existing code may be
 intentional validation targets, or may be violations. Check whether the value
 flows into any computation or is used only for comparison/reporting.
 
-## 2. Import-Time Computation
+## 2. Import-Time Computation (resolved by P5-A)
 
-`constants.py` runs scipy optimization at import time (lines 452-465, 518-537).
-This means:
+`constants.py` is now pure literals + algebra: no scipy optimization, no
+imports of physics modules at module scope.  The historical circular
+dependency `constants.py ↔ faddeev_skyrme.py` has been structurally
+eliminated.
 
-- **`import ave.core.constants` triggers numerical computation.** First import
-  takes measurable time (seconds). This is not a bug — it is the baryon mass
-  derivation running.
-- The import chain `constants.py -> faddeev_skyrme.py -> universal_operators.py
-  -> constants.py` is circular. It works because EPS_NUMERICAL/EPS_CLIP/EPS_DIVZERO
-  are defined before the deferred import, and the import is inside a function body.
-- **Do not move** the EPS_* definitions below line 458. Do not move the
-  `_compute_i_scalar_dynamic` function or its call above the EPS_* definitions.
-  Doing so will break the circular import resolution.
-- Adding new imports from `constants.py` in files that `constants.py` imports
-  (currently: `faddeev_skyrme.py`, `universal_operators.py`) risks import deadlock.
+- `I_SCALAR_1D` and `BARYON_LADDER` are stored as literals.  The live
+  computation lives in `ave.core._constants_compute` and is exercised by
+  `tests/test_constants_literals.py`, which fails if the literals drift
+  from the solver output.
+- When the Faddeev-Skyrme integrand or coupling changes, expect those tests
+  to fail.  The remediation is to re-run the helpers in
+  `_constants_compute` and update the literals in `constants.py` to match.
+  Do **not** restore the import-time computation.
+- `faddeev_skyrme.py` now imports `EPS_NUMERICAL` and
+  `CROSSING_NUMBER_CINQUEFOIL` directly from `ave.core.constants`.  No
+  tombstones, no drift-guard.
 
 ## 3. NU_VAC = 2/7 Is Central
 
@@ -69,6 +83,18 @@ reflection logic is an architectural violation.
 In practice, `scale_invariant.py` in the axioms package also defines versions
 of impedance, saturation, and reflection that are used by many modules.
 When modifying operator logic, check both files.
+
+**A-034 framework state (canonical 2026-05-15 evening):** Op2 (universal
+saturation kernel, `universal_operators.py:saturation_factor`) is the
+**single S(A) = √(1-A²) function** that the engine evaluates across 19
+distinct cross-scale phenomena (atomic dielectric breakdown → BCS
+superconductivity at 0.00% error → NOAA solar flares → BH ring-down
+at 1.7% from GR → cosmic K4 crystallization). This is the operator-level
+universality claim — when adding new physics, do NOT introduce a per-scale
+saturation function; reuse Op2. The 19-instance catalog is at
+`manuscript/backmatter/07_universal_saturation_kernel.tex`; canonical
+synthesis at `manuscript/ave-kb/common/trampoline-framework.md` §7.5;
+L5 authority at `research/_archive/L5/axiom_derivation_status.md` A-034.
 
 ## 5. Regime Classification
 
@@ -146,7 +172,7 @@ scale_invariant.py — these form the foundation and are imported by everything.
 - SI constants: ALL_CAPS (C_0, MU_0, EPSILON_0, HBAR)
 - Native lattice units: N_ prefix (N_ALPHA, N_NU, N_A0, N_RY)
 - Derived constants: ALL_CAPS descriptive (SIN2_THETA_W, PROTON_ELECTRON_RATIO)
-- Private computation: _ prefix (_compute_baryon_ladder, _KG_TO_MEV)
+- Private computation: _ prefix (_compute_baryon_ladder, _X_CORE)
 - Operators: universal_ prefix in universal_operators.py, bare names in
   scale_invariant.py (impedance, saturation, reflection_coefficient)
 - Empirical data catalogs: ALL_CAPS dicts or lists (GALAXY_CATALOG, LIGO_EVENTS,

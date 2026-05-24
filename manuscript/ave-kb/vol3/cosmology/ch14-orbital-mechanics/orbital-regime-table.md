@@ -1,5 +1,9 @@
 [↑ Ch.14 Orbital Mechanics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-qyn8t0]
+-->
 
 <!-- NOTE: This subsection has no \label{} in the source. -->
 

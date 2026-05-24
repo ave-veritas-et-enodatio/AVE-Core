@@ -1,5 +1,9 @@
 [↑ Ch.3 Quantum and Signal Dynamics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-yiyyi3]
+-->
 
 ## Section 3.1: The Dielectric Lagrangian: Hardware Mechanics
 
@@ -33,7 +37,7 @@ By substituting the mathematically exact topological conversion $\text{C} \equiv
 > [\mathbf{A}] = \left[ \frac{\text{kg} \cdot \text{m}}{\text{s} \cdot (\xi_{topo} \text{ m})} \right] = \mathbf{\xi_{topo}^{-1} \left[ \frac{\text{kg}}{\text{s}} \right]}
 > $$
 
-This establishes a fundamental dimensional equivalence: the magnetic vector potential ($\mathbf{A}$) is physically isomorphic to the continuous **Mass Flow Rate** (linear momentum density) of the vacuum lattice, scaled inversely by the topological dislocation constant.
+This establishes a fundamental dimensional equivalence: the magnetic vector potential ($\mathbf{A}$) is physically isomorphic to the continuous **Mass Flow Rate** (linear momentum density) of the vacuum lattice, scaled inversely by the topological dislocation constant. The time derivative therefore carries one extra factor of inverse time: $[\partial_t \mathbf{A}] = \xi_{topo}^{-1}\,[\text{kg/s}^2]$.
 
 When evaluating the full kinetic energy density term using this mechanical substitution, and retrieving the exact capacitive compliance derivation from Chapter 2 ($\epsilon_{0}\equiv\xi_{topo}^2[\text{N}^{-1}]$), the topological scaling constants cancel:
 

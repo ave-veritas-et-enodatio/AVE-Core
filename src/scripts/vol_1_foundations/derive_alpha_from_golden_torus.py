@@ -3,8 +3,9 @@ Derive α from the Golden Torus Trefoil Q-Factor.
 
 Companion figure for Ch.8 (Zero-Parameter Closure). Renders the trefoil
 (2,3) torus knot at dielectric ropelength (Golden Torus geometry:
-R = φ/2, r = (φ-1)/2) with strain coloring, and annotates the holomorphic
-decomposition of its impedance into volumetric, surface, and line terms:
+R = φ/2, r = (φ-1)/2) with strain coloring, and annotates the multipole
+decomposition of its impedance on T² ⊂ S³ ⊂ ℂ² into volumetric, surface,
+and line terms:
 
     α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363
 
@@ -32,8 +33,8 @@ r_gt = (PHI - 1.0) / 2.0  # Golden Torus minor radius
 
 def golden_torus_multipole() -> dict[str, float]:
     """
-    Evaluate the holomorphic multipole decomposition of α⁻¹ at the Golden
-    Torus (R = φ/2, r = (φ-1)/2, d = 1).
+    Evaluate the multipole decomposition of α⁻¹ on T² ⊂ S³ ⊂ ℂ² at the
+    Golden Torus (R = φ/2, r = (φ-1)/2, d = 1).
 
     Returns
     -------
@@ -170,7 +171,7 @@ def render_figure(output_path: str | None = None) -> str:
 def main() -> None:
     # Geometric sanity checks
     assert np.isclose(R_gt - r_gt, 0.5), "Self-avoidance R - r = 1/2 violated"
-    assert np.isclose(R_gt * r_gt, 0.25), "Holomorphic screening R·r = 1/4 violated"
+    assert np.isclose(R_gt * r_gt, 0.25), "Clifford-torus screening R·r = 1/4 violated"
 
     mp = golden_torus_multipole()
     alpha_inv_computed = mp["alpha_inv"]

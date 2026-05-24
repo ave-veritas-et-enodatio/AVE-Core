@@ -1,8 +1,29 @@
 # AVE Project — Living Reference Document
-> **Last Updated:** 2026-04-08  
+> **Last Updated:** 2026-05-15 (structural closure declared)
 > **Purpose:** Canonical reference for all AI assistants and collaborators. Any chat session should read this file first.
 >
 > **Companion:** [`docs/framing_and_presentation.md`](docs/framing_and_presentation.md) captures recurring patterns that create friction between AVE and reviewers trained in SM/QED/continuum-GR physics — with specific anti-patterns, corrected framings, and remediation targets. Read it before presenting AVE externally or reviewing it.
+
+## 🎯 Framework Status — Structural Closure (2026-05-15)
+
+The AVE framework reached **structural closure** on 2026-05-15. Five criteria met:
+1. ✓ Six-step ground-up build maps every step to math structure (trampoline-framework.md §1.1-§1.7)
+2. ✓ Every macroscopic observable has derivation path (α, G, m_e, V_yield all derive from u_0* + intrinsic substrate parameters)
+3. ✓ Framework identifies its own irreducible epistemic horizon ("God's Hand" — what set Ω_freeze at lattice genesis)
+4. ✓ Free parameters minimized: 1 cosmological IC (Ω_freeze) + 1 scale (ℓ_node) + 4 axioms (reduces standard physics' 19+ free parameters)
+5. ✓ Three-route falsifiability: α + G + cosmic 𝒥 must give same u_0* or framework fails
+
+**Canonical entry points** (read these for AVE physics):
+- **Picture-first framework:** [`manuscript/ave-kb/common/trampoline-framework.md`](manuscript/ave-kb/common/trampoline-framework.md) — single canonical reference covering substrate vocabulary, ground-up build, three substrate invariants 𝓜/𝓠/𝓙, substrate-observability rule (fractal application), inter-cell coupling and gravity projection, two-engine architecture, "God's Hand" cosmic IC.
+- **Closure path planning:** [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](manuscript/ave-kb/claim-quality-closure-roadmap.md) — living planning artifact, 7 tiers, 28 actions tracked.
+- **L5 axiom-status:** [`research/_archive/L5/axiom_derivation_status.md`](research/_archive/L5/axiom_derivation_status.md) — A-001 through A-034 framework-level claims (canonical / open / closed). A-034 (canonical 2026-05-15 evening) is the Universal Saturation-Kernel Strain-Snap Mechanism with 19-instance cross-scale catalog.
+- **L5 manuscript queue:** [`research/_archive/L5/manuscript_pending.md`](research/_archive/L5/manuscript_pending.md) — E-NNN entries for chapter propagation.
+
+**Path forward:**
+- **Theoretical closure** pending: Q-G47 Session 6+ (THE keystone, 5-session plan at `AVE-QED/docs/analysis/2026-05-15_Q-G47_session_6_plus_plan.md`); Vol 3 Ch 4 explicit ξ derivation; three-route consistency verification.
+- **Empirical closure** pending: IVIM bench Phase 2A; cosmic 𝒥_cosmic observational campaign (CMB + LSS anomaly review).
+
+**Reference for picture-first discipline:** any new physics claim destined for the manuscript must first be reflected in `trampoline-framework.md`. Chapter edits cite the canonical picture, not the reverse.
 
 ## Project Identity
 
@@ -12,6 +33,25 @@
 | **Repo** | [github.com/ave-veritas-et-enodatio/AVE-Core](https://github.com/ave-veritas-et-enodatio/AVE-Core) |
 | **Author** | Grant Lindblom |
 | **Status** | Active development — Phase D/E |
+
+## 📚 Knowledge Base Canonicality
+
+As of **2026-05-07**, the KB markdown tree (`manuscript/ave-kb/`) is the **sole canonical source** for all AVE results, derivations, and prose. The LaTeX manuscript (`manuscript/vol_*/`) is a **derived publication artifact** that mirrors KB state, not its inverse.
+
+This inverts the original intake-era framing (where the inherited LaTeX manuscript was canonical and the KB was a hierarchical projection of it). The author now works primarily *in* the KB; LaTeX is updated periodically to reflect KB state, not the other way around.
+
+**Implications for agents and collaborators:**
+
+- **KB wins disputes.** When a KB leaf and the LaTeX disagree, the KB is right and the LaTeX is stale.
+- **Edits flow KB → LaTeX, not LaTeX → KB.** Update the KB leaf first (with frontmatter, claim-quality propagation, subtree aggregation), then sync to LaTeX as a downstream publication step if in scope.
+- **LaTeX silence is not authority.** A KB leaf documenting a result that LaTeX has not yet caught up to still stands.
+- **Corrigenda live in the KB.** Superseding prior framing (e.g., the 2026-05-06 neutrino screw-dislocation corrigendum) is recorded in the KB leaf/index first; the LaTeX mirrors it as a downstream sync.
+
+**What this does *not* change:**
+
+- Historical extraction work — distilling a not-yet-touched LaTeX section into a new KB leaf for the first time — still treats LaTeX as the input for that first extraction. The inversion applies once a region of the KB has been authored or revised in-place.
+- The claim-quality propagation discipline (INVARIANT-S5/S8 in `manuscript/ave-kb/CLAUDE.md`, subtree aggregation, verifier gates) is unchanged. Those structural rules apply to the KB regardless of where canonicity sits.
+- LaTeX must still be kept in sync for publication. It is derived, but it is not optional.
 
 ## ⛔ Prime Directive: Derive Before You Code
 
@@ -27,12 +67,14 @@
 >
 > **Violation of this rule is the single most common failure mode in this project.** Every quarantined solver (~2,000+ lines) was written before its physics was derived.
 
-1. **Axiom 1 (Impedance):** The vacuum is an LC resonant network with Z₀ = √(μ₀/ε₀) ≈ 377 Ω
-2. **Axiom 2 (Topo-Kinematic Isomorphism):** Charge is a geometric dislocation: `[Q] ≡ [L]`. Topology encodes EM; α falls out as the Q-factor of the minimum-crossing soliton (Vol 1 Ch 8). α being derived does not reduce the axiom count — the isomorphism, not α's value, is the axiomatic content.
-3. **Axiom 3 (Gravity):** G sets the Machian boundary impedance via G = ℏc/(7ξ·m_e²)
-   - **α invariance**: Under Symmetric Gravity, α = e²/(4πε₀ℏc₀) is exactly invariant because ε_local and c_local carry the same n·S factor that cancels. Multi-species Δα/α = 0.
-   - **Lattice decomposition**: n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift); n_spatial = (9/7)ε₁₁ (light deflection). Axiom 3's n(r) = 1+2GM/(c²r) is the temporal component only.
-4. **Axiom 4 (Saturation):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes
+> **Canonical source for axiom statements:** `manuscript/common_equations/eq_axiom_[1-4].tex`. If this list disagrees with those files, the .tex files win and this list is the bug.
+
+1. **Axiom 1 (Substrate Topology):** The physical vacuum *is* a chiral Laves K4 Cosserat crystal $\mathcal{M}_A$ — a crystallised substrate of micropolar nodes at pitch ℓ_node, governed by the right-handed $I4_1 32$ chiral space group with 4-fold K4 connectivity. Each node carries six DOF: three translational (capacitive ε₀ → E-field) and three microrotational (inductive μ₀ → B-field); the microrotational DOF is the substrate-native origin of intrinsic spin. Macroscopic continuum limit: a Trace-Reversed Chiral LC Network. (Legacy: *LC Network*.)
+2. **Axiom 2 (Topo-Kinematic Isomorphism):** Charge is a discrete geometric dislocation in $\mathcal{M}_A$; the dislocation's Burgers vector is the lattice pitch ℓ_node, so the dimension of charge equals length: `[Q] ≡ [L]`. Macroscopic scaling: the Topological Conversion Constant ξ_topo = e/ℓ_node. Charge quantization, charge sign (dislocation handedness), and fractional quark charges (ℤ₃ Borromean / Witten effect) all follow.
+3. **Axiom 3 (Minimum Reflection Principle):** The substrate extremizes the macroscopic action S_AVE — equivalently, it minimizes the boundary reflection |Γ|² at every internal impedance boundary. The variational form (Maxwell Lagrangian 𝓛_node) and the boundary form (minimum-|Γ|²) are co-canonical. (Legacy: *Effective Action Principle*.)
+4. **Axiom 4 (Universal Saturation Kernel):** S(A) = √(1 − (A/A_yield)²) — universal yield kernel bounding all LC modes. At A = 0, S = 1 (linear Maxwell recovered); at A → A_yield, S → 0 (saturation).
+
+> **Derived, not axioms.** The calibration constants Z₀, ℓ_node, α, ξ_topo, V_snap, V_yield are derived from the axioms (`common_equations/eq_calibration_constants.tex`). **Gravity** is a derived consequence of Axiom 1 + Axiom 4 under Symmetric Scaling (`eq_gravity_derived.tex`): G = ℏc/(7ξ·m_e²), where ξ = 4π(R_H/ℓ_node)·α⁻² ≈ 8.15×10⁴³ is the **dimensionless Machian hierarchy coupling** (⚠ not ξ_topo = e/ℓ_node, C/m). Two derived gravitational consequences: **α invariance** — under Symmetric Gravity α is exactly invariant (ε_local and c_local carry the same n·S factor, which cancels; multi-species Δα/α = 0); **lattice decomposition** — n_temporal = 1 + (2/7)ε₁₁ (clock rate, redshift) and n_spatial = (9/7)ε₁₁ (light deflection), with the gravitational n(r) = 1+2GM/(c²r) the temporal component only.
 
 ### Derived Consequences of Axiom 4
 
@@ -175,7 +217,7 @@ Compute the predicted signal magnitude and compare to the best available measure
 >
 > **Correction C (Al-type):** Op10 junction projection at co-resonant shell boundary — when the SIR nesting gate rejects (n_out²/n_inner² < 4, i.e. adjacent shells), the p-soliton's radial wavefunction crosses the saturated inner torus twice per oscillation.  Op3 gives the power reflection |Γ|² at the boundary; Malus's law maps this to a junction crossing angle θ via `cos θ = 1 − 2|Γ|²`; Op10 computes the projection loss `Y = 2(1−cos θ)/(2π²)`.  Quadratic dispersion (E ~ k²) gives `E_eff = E_base × (1−Y)²`.  Gate: l_out > 0 AND nesting_ratio < 4.0.  Result: Al −0.82%, Si −0.06% (zero free parameters, zero regression on Z=1–12).  Scale-invariant precedent: protein backbone Op10 bend loss, nuclear hierarchical_binding().
 >
-> **Correction D (Topo-Kinematic Shift):** Radial Parity Shift mapping inner $d$-block boundaries — the orthogonal presence of a $3d^{10}$ and $4d^{10}$ knot organically slices the LC domain bounds into transversal reflection layers dynamically, mapping Exactly $+1$ radial structural parity node effectively backwards natively onto the outer bounding string sequence, perfectly reconstructing the Hopf parity cycle naturally mapping Bromine/Krypton anomalies analytically perfectly with zero free parameters!
+> **Correction D (Topo-Kinematic Radial Parity Shift):** Filled inner $d$-block subshells contribute an effective topological radial node to the outer wave's parity count, shifting the Hopf back-EMF sign used in Phase A.  `n_r_eff = n_r + core_d_knots`, where `core_d_knots` increments by 1 for each filled core $d$-shell enclosed by the valence shell.  Gates: `Z ≥ 31 and n_out ≥ 4` (3d enclosed); `Z ≥ 49 and n_out ≥ 5` (3d, 4d enclosed); `Z ≥ 81 and n_out ≥ 6` (3d, 4d, 5d enclosed).  Implemented in `ionization_energy_e2k()` (`radial_eigenvalue.py`); zero free parameters.
 
 The atomic domain applies the same universal operators as every other scale. The specific solver architecture is documented in the manuscript and `src/ave/solvers/radial_eigenvalue.py`.
 
@@ -257,7 +299,7 @@ future_work/          # Speculative roadmap
 | 24 | α_s (strong coupling) | 2.97% | ✅ α^(3/7) |
 | 25 | m_H (Higgs mass) | 0.55% | ✅ v/√N_K4 |
 | 26 | V_us (Cabibbo) | 1.4% | ✅ λ = sin²θ_W = 2/9 |
-| 27 | V_cb (CKM) | 4.1% | ✅ Aλ² = cos(θ_W)×(2/9)² |
+| 27 | V_cb (CKM) | 6.2% vs PDG 0.0410 (3.5% vs PDG inclusive 0.0421) | ✅ Aλ² = cos(θ_W)×(2/9)² ≈ 0.0436; PDG-reference dependent |
 | 28 | V_ub (CKM) | 1.3% | ✅ 8/2187 |
 | 29 | sin²θ_13 (PMNS) | 1.0% | ✅ 1/(c₁c₃) = 1/45 |
 | 30 | sin²θ_12 (PMNS) | 0.3% | ✅ ν_vac + 1/45 |
@@ -272,7 +314,7 @@ future_work/          # Speculative roadmap
 | 39 | Protein Rg (Villin) | 0.8% | ✅ η_eq = P_C(1−ν), Rg = r_Ca(N/η_eq)^(1/3)√(3/5) |
 | 40 | NS compactness limit | Exact | ✅ R_min = 7GM/c² (ε₁₁ < 1 ↔ 2GM/c²R < 2/7 = ν_vac) |
 | 41 | WD redshift (Sirius B) | 3.7% | ✅ z = GM/(c²R), v_GR=77.75 km/s, v_obs=80.65±0.77 |
-| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (Axiom 3) |
+| 42 | α invariance (gravity) | Exact | ✅ Δα/α = 0 under Symmetric Gravity (derived: Ax 1 + Ax 4) |
 | 43 | BCS B_c(T) | 0.00% | ✅ B_c(T) = B_c0·S(T/T_c) IS the saturation operator (Al, Pb, Nb, MgB₂) |
 | 44 | BH interior (Regime IV) | Exact | ✅ G_shear = 0, c_eff = 0 for r < r_sat = 7GM/c². Symmetric saturation → Z = Z₀, Γ = 0 (dissipative sink). |
 | 45 | Regime IV isomorphism | — | ✅ BH (sym, hole) ≠ electron (asym, knot). Same S=0 operator, different saturation symmetry. |
@@ -406,7 +448,7 @@ For both humans and AI assistants working on the AVE codebase, the `main` branch
 6. **Commit frequently** with descriptive messages listing what changed.
 7. **Check V_YIELD vs V_SNAP** — most lab-relevant physics uses V_YIELD = 43.65 kV.
 8. **The manuscript is the source of truth** for formulas. Check `manuscript/` before deriving.
-9. **Engine architecture changes must propagate to LaTeX.** When any function, module, or constant in the three-tier engine (Core → Domain Adapters → Solvers) is added, renamed, moved, or deleted, search **all** `.tex` files for references to the affected names and update them. Use `grep -rn` across `manuscript/` to ensure no stale references remain.
+9. **Engine architecture changes must propagate to KB and then LaTeX.** When any function, module, or constant in the three-tier engine (Core → Domain Adapters → Solvers) is added, renamed, moved, or deleted, search **all** KB leaves (`manuscript/ave-kb/**/*.md`) AND `.tex` files (`manuscript/vol_*/`) for references to the affected names and update them. Update the KB leaves first (they are canonical per the Knowledge Base Canonicality section above), then sync the LaTeX. Use `grep -rn` across `manuscript/` to ensure no stale references remain in either tree.
 10. **Every script must import constants from `ave.core.constants`.** No hardcoded physics constants (α, mₑ, c, ℏ, ε₀, μ₀, Z₀, etc.). The engine is the single source of truth. Engineering parameters (wire lengths, PCB dimensions, operating frequencies) are permitted but must be documented with a comment citing their source.
 11. **`scipy.constants` is banned.** All physical constants come from `ave.core.constants`. Using `scipy` for math tools (`scipy.optimize`, `scipy.linalg`, `scipy.signal`) is fine — the ban is specifically on `scipy.constants`. Enforced by AST check in `verify_universe.py`.
 12. **No smuggled data.** Scripts must not normalize outputs to match experimental data, curve-fit to known values, or use ad-hoc correction factors. If a result disagrees with experiment, document the discrepancy — do not hide it with fitting. Exception: `np.polyfit` for parity plots (predicted vs. experimental) is acceptable for diagnostic purposes only.

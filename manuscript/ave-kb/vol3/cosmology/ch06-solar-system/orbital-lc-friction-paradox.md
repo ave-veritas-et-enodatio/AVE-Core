@@ -1,5 +1,9 @@
 [↑ Solar System Impedance](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3kmt3p]
+-->
 
 # The Orbital LC Friction Paradox Resolved
 

@@ -1,5 +1,11 @@
 [↑ Circuit Theory](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-1eg13f, clm-4r4jiy, clm-6t3p6x, clm-8nkvwy, clm-fgo20a, clm-i9l284, clm-kezk9z, clm-n3un96, clm-o2shcn, clm-p2tp9i, clm-p5cf3t, clm-pp3qwf, clm-rtdmsn, clm-u462e4, clm-v6ti0v, clm-vjv4zf]
+subtree-experiments: []
+-->
+
 # Ch.1 Vacuum Circuit Analysis
 
 The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensional isomorphism between continuum spatial mechanics and electrical network theory via the Topological Conversion Constant $\xi_{topo} \equiv e/\ell_{node}$. From this mapping, all six rows of the circuit-mechanical translation table are derived, the non-linear constitutive models for extreme-field regimes are established, and the characteristic impedance $Z_0 = 376.73\;\Omega$ is shown to emerge from the discrete LC ladder of the lattice.
@@ -24,6 +30,8 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | IM3 frequencies | $f_{IM3} = 2f_1 - f_2$ and $2f_2 - f_1$ |
 | IP3 | $V_{IP3} = \sqrt{4/3}\; V_{yield} \approx 50.4$ kV |
 | Particle confinement | $\Gamma = -1$ at saturated boundary ($Z_{core} \to 0\;\Omega$) |
+| [Q-G24 Newtonian-Limit Closure](relativistic-inductor-newtonian-limit.md) | Full $E = \gamma m_0 c^2$ relativistic dispersion from LC tank + virial equipartition + relativistic-inductor mapping; three independent Derrick-bypass mechanisms (lattice floor / Faddeev-Skyrme / bilateral chiral); no fit parameters |
+| [Q-G22 Strain Convention (Geometric vs Field-Ratio)](q-g22-strain-convention.md) | Clarification: corpus uses $A_{geom} = \ell_{node}/r$ ($\propto 1/r$, geometric confinement ratio) for kernel applications; IVIM bench uses $A_{field} = E\ell_{node}/V_{yield}$ ($\propto 1/r^2$, field ratio) for apparatus calculations; both internally consistent, different physical measures |
 
 ## Derivations and Detail
 
@@ -39,6 +47,11 @@ The Vacuum Circuit Analysis (VCA) framework establishes a single, exact dimensio
 | [Intermodulation Distortion](intermodulation-distortion.md) | Vacuum IMD spectroscopy; IM3 prediction; IP3 derivation; QED comparison |
 | [Translation Circuit](translation-circuit.md) | Cross-reference to common translation table |
 | [Solver Selection](solver-selection.md) | FDTD vs K4-TLM decision matrix, boundary conditions, default yield thresholds |
+| [Theorem 3.1 Q-Factor Reframe](theorem-3-1-q-factor.md) | $\alpha^{-1} = Q_{\text{tank}} = Q_{\text{vol}} + Q_{\text{surf}} + Q_{\text{line}} = 4\pi^3 + \pi^2 + \pi$ at Golden Torus; two independent paths (LC-tank + multipole) agree to $\delta_{\text{strain}}$ (2.225e-6 CMB thermal); supersedes Neumann-integral framing |
+| [Op14 Local Clock Modulation](op14-local-clock-modulation.md) | A-010 canonical: $\omega_{\text{local}}(r) = \omega_{\text{global}}\sqrt{1 - A^2(r)}$; substrate-native time dilation; cross-volume parallel to gravitational $\tau_{\text{local}} = n(r)\tau_{\text{unstrained}}$; three regime distinction (reactive slowing vs damping vs spatially-varying) |
+| [$\tau_{\text{relax}} = \ell_{\text{node}}/c$ Derivation](tau-relax-derivation.md) | Minimum state-change time $\tau_{\text{relax}} = \ell_{\text{node}}/c \approx 1.288 \times 10^{-21}$ s from per-cell K4 Lagrangian + causal propagation; dynamic $S(t)$ memristive relaxation ODE; BEMF-driven defect freezing (AVE-native Kibble-Zurek); linear cooling-rate scaling (NOT K-Z power-law) prediction |
+| [Op14 Cross-Sector Trading ($\rho = -0.990$)](op14-cross-sector-trading.md) | A-012 canonical: Cosserat ↔ K4-inductive energy exchange via Op14 impedance modulation; empirically $\rho(H_{\text{cos}}, \Sigma\|\Phi_{\text{link}}\|^2) = -0.990$ at trading frequency $\sim 0.020$ rad/unit; $H_{\text{cos}}$ alone NOT conserved but $H_{\text{total}} = H_{\text{cos}} + H_{\text{K4-inductive}}$ approximately is |
+| [Parametric Coupling Kernel](parametric-coupling-kernel.md) | Axiom 4 vacuum varactor at sub-yield α-slew operating point; $\varepsilon_{det} = 4\pi \kappa_{quality} / N_{single}^2$ derived from Dicke amplitude × matched-cycle synchronization (1/N²) × Theorem 3.1' spinor-cycle averaging (4π); $\delta C/C_0 = (1/4)(V_{pump}/V_{yield})^2 \approx 4.57\%$; parametric resonance at $\omega_{app} = \omega_{slew}$ (sub-harmonic of pump $2\omega_{slew}$); REACTIVE-power class (categorically distinct from real-power $\kappa_{entrain}$ Sagnac-RLVE); DAMA detection rate 0.6% match as derived consequence; XENONnT null derived from sub-regenerative regime (Q·δ < 2); cross-detector predictions for COSINE/ANAIS/MAJORANA/KIMS/Sapphire |
 
 > **Note:** `summarybox` and `exercisebox` environments in the source chapter are not extracted as leaves in this KB.
 

@@ -1,5 +1,9 @@
 [↑ Biological Applications](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-8zwyl3]
+-->
 
 # Creatine as a Neural Decoupling Capacitor
 

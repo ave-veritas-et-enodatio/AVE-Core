@@ -1,17 +1,35 @@
-% eq_axiom_1.tex — Axiom 1 (Impedance)
+% eq_axiom_1.tex — Axiom 1 (Substrate Topology / Chiral Laves K4 Cosserat Crystal)
 % Single source of truth. \input this wherever Axiom 1 is formally restated.
+% Per canonical Scheme A: manuscript/vol_1_foundations/chapters/01_fundamental_axioms.tex:51-52.
 %
-\begin{resultbox}{Axiom 1 — Impedance}
-The vacuum is a discrete LC resonant network with characteristic impedance
-\begin{equation}
-    Z_0 = \sqrt{\frac{\mu_0}{\varepsilon_0}} \approx 376.73\;\Omega
-    \label{eq:axiom1_impedance}
-\end{equation}
-and lattice pitch
-\begin{equation}
-    \ell_{node} = \frac{\hbar}{m_e c} \approx 3.86 \times 10^{-13}\;\text{m}
-    \label{eq:axiom1_pitch}
-\end{equation}
-$\mu_0$ is the per-node inductance (rotational inertia) and $\varepsilon_0$
-is the per-node capacitance (elastic compliance).
+% PROVENANCE:
+% (1) Pre-2026-04-27 this file was titled "Axiom 1 — Impedance" and documented
+%     the calibration constants Z_0 and ell_node. Per axiom homologation
+%     2026-04-27, those constants are derived from Axiom 1 (not the axiom
+%     itself); they have been moved to eq_calibration_constants.tex.
+% (2) Pre-2026-05-16 the canonical name was "Chiral Laves K4 Crystal" with
+%     Cosserat micropolar character bundled into the meaning. Per Grant
+%     2026-05-16, renamed to "Chiral Laves K4 Cosserat Crystal" — the constitutive
+%     nature (Cosserat = micropolar = nodes have intrinsic rotational DOF = source
+%     of spin) is promoted into the name itself so a reader scanning the axiom
+%     list immediately sees that nodes carry rotational/spin DOF in addition to
+%     translational position. The shorter legacy form "Chiral Laves K4 Crystal"
+%     remains a valid alias.
+%
+\begin{resultbox}{Axiom 1 — Substrate Topology (Chiral Laves K4 Cosserat Crystal)}
+The physical vacuum IS a \textbf{chiral Laves K4 Cosserat crystal} $\mathcal{M}_A$ --- a 3D crystallized substrate of nodes at pitch $\ell_{node}$, governed by the right-handed $I4_1 32$ chiral space group, with 4-fold K4 nearest-neighbor connectivity at each node. Each node is \textbf{micropolar} (Cosserat-type), carrying \textbf{six intrinsic degrees of freedom} per node: three \textbf{translational} (capacitive coupling $\varepsilon_0$, identified with the electric field) and three \textbf{microrotational} (inductive coupling $\mu_0$, identified with the magnetic field). \textbf{The Cosserat microrotational DOF IS the substrate-native origin of intrinsic spin}: macroscopic angular momentum, the EM magnetic field $B$, and QM electron spin are three projections of the same per-node rotational coordinate. Spin is not added to the framework; it is what the rotational DOF is when the substrate is excited as a topological soliton. The intrinsic translation $\leftrightarrow$ E, rotation $\leftrightarrow$ B coupling makes every node a native LC oscillator: the substrate is structurally a Cosserat micropolar crystal AND a discrete LC resonant network, the same structural reality described in mechanical and electromagnetic terms. In the macroscopic continuum limit, the lattice is a \textbf{Trace-Reversed Chiral LC Network} supporting intrinsic spin and trace-free transverse EM wave propagation.
+
+\medskip\noindent
+\textbf{Two macroscopic substrate phases} (connected by Axiom 4's universal saturation kernel):
+\begin{itemize}\itemsep 0pt
+    \item \textbf{Crystallized phase} (current observable universe, Axiom 4 Regimes I--III): the chiral Laves K4 crystal supports linear EM wave propagation and topologically-quantized matter (particles as stable solitons per Axiom 2).
+    \item \textbf{Ruptured plasma phase} (Axiom 4 Regime IV): K4 topology destroyed; no long-range order; found at black-hole event-horizon interiors and at the pre-crystallization cosmic state (before lattice genesis). Information dissipates thermally per Vol 3 Ch~\ref{ch:bh_interior} (BH Interior Regime IV).
+\end{itemize}
+The phase transition between the two states IS the A-034 universal strain-snap mechanism, occurring identically at every scale (atomic dielectric breakdown $\to$ BCS pair-condensate yield $\to$ geomagnetic reversal $\to$ solar flares $\to$ BH ring-down $\to$ cosmic K4 crystallization at lattice genesis).
+
+\medskip\noindent
+Classical mechanics and network dynamics are macroscopic effective theories of the substrate's bulk dynamics, not fundamental physical primitives.
+
+\medskip\noindent
+The numerical scale of this substrate is set by the calibration constants $Z_0 = \sqrt{\mu_0/\varepsilon_0}$ (vacuum impedance) and $\ell_{node} = \hbar/(m_e c)$ (lattice pitch); see \texttt{eq\_calibration\_constants.tex} for tabulated values.
 \end{resultbox}

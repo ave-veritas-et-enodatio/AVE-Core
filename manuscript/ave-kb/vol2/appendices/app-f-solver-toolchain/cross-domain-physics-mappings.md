@@ -1,5 +1,9 @@
 [↑ App F: Universal Solver Toolchain](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-dboxok]
+-->
 
 ## Cross-Domain Physics Mappings
 

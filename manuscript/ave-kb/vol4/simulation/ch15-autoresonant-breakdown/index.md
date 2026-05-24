@@ -1,5 +1,11 @@
 [↑ Vol 4: Simulation](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-9sujp8]
+subtree-experiments: []
+-->
+
 # Ch.15: Autoresonant Dielectric Breakdown — Bypassing the Schwinger Limit
 
 The $\mathcal{M}_A$ vacuum is a nonlinear dielectric LC lattice. Fixed-frequency high-intensity drives detune as the local capacitance drops under strain, reflecting power instead of breaching the yield limit. An autoresonant phase-locked loop (PLL) tracks the shifting resonance and pumps the metric past $60\,\text{kV}$ at a fraction of brute-force power.

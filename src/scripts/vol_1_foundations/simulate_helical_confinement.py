@@ -1,6 +1,10 @@
 # simulate_helical_confinement.py
-# Natively computes the spatial collapse of a linear EM wave into a stationary
-# helical spin-1 topology strictly due to increasing local network impedance.
+# Visualizes the proposed spatial collapse of a linear EM wave into a stationary
+# helical spin-1 topology under increasing local network impedance. NOTE: this script
+# plots a helix with hardcoded `Z_profile = exp(0.4*z)` and `k_z = 2.0*Z` — it does
+# NOT compute the collapse from first principles. Annotation language softened
+# 2026-05-17 to match what the code actually produces (stipulated illustrative plot,
+# not derivation).
 
 import os
 
@@ -68,11 +72,11 @@ def simulate_confinement() -> None:
     ax.view_init(elev=20, azim=-60)
     ax.set_axis_off()
 
-    # Annotation proving the physics
+    # Annotation illustrating the proposed mechanism (visualization, not derivation)
     ax.text2D(
         0.05,
         0.85,
-        r"$\mathbf{Topological\ Collapse\ into\ Rest\ Mass}$"
+        r"$\mathbf{Topological\ Collapse\ into\ Rest\ Mass\ (illustrative)}$"
         + "\n"
         + r"As localized discrete network impedance $Z \to Z_{crit}$:"
         + "\n"

@@ -35,7 +35,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from ave.axioms.scale_invariant import reflection_coefficient
-from ave.core.constants import C_0, G_F, HBAR, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
+from ave.core.constants import C_0, EPS_CLIP, G_F, HBAR_EV_S, SIN2_THETA_12, SIN2_THETA_13, SIN2_THETA_23, e_charge
 
 # ═══════════════════════════════════════════════════════════════
 # Physical constants for neutrino physics
@@ -57,7 +57,7 @@ THETA_13 = np.arcsin(np.sqrt(SIN2_THETA_13))  # Reactor: 1/(c₁c₃) = 1/45
 
 # Conversion factors
 EV_TO_JOULE = float(e_charge)  # from constants.py
-HBAR_EV_S = HBAR / e_charge  # ℏ [eV·s]
+# HBAR_EV_S imported from ave.core.constants (single source of truth)
 MEV_TO_JOULE = EV_TO_JOULE * 1e6
 
 
@@ -92,8 +92,6 @@ def matter_potential(n_e: float) -> float:
     """
     # Convert n_e to natural units: n_e [m⁻³] → [(ℏc)⁻³ eV³]
     # V_CC = √2 G_F n_e [eV] (using G_F in appropriate units)
-    # hbar_c_m = HBAR_EV_S * C_0  # ℏc [eV·m]
-    # n_e_natural = n_e * hbar_c_m**3  # [eV³]  # bulk lint fixup pass
     # G_F is in GeV⁻² = 10⁻⁶ eV⁻²... but we need consistent units
     # Simpler: V_CC = √2 × 1.1664e-5 GeV⁻² × (ℏc)³ × n_e
     # In SI: V_CC [eV] = √2 × G_F [GeV⁻²] × (ℏc)³ [GeV³·m³] × n_e [m⁻³]
@@ -131,10 +129,12 @@ def effective_mixing_angle(
     cos2 = np.cos(2 * theta_vac)
 
     denominator = cos2 - A
-    if abs(denominator) < 1e-15:
+    # MSW resonance occurs when cos(2θ_vac) = A; the denominator vanishes and
+    # mixing becomes maximal. EPS_CLIP (1e-15, the float64 tight bound) is the
+    # singularity threshold below which we short-circuit to the limit value.
+    if abs(denominator) < EPS_CLIP:
         return np.pi / 4  # Resonance → maximal mixing
 
-    # tan2theta_m = sin2 / denominator  # bulk lint fixup pass
     theta_m = 0.5 * np.arctan2(sin2, denominator)
 
     # Keep in [0, π/2]

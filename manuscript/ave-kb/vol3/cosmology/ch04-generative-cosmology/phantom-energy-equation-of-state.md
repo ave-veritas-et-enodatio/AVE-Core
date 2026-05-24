@@ -1,5 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3ii690]
+-->
 
 ## Dark Energy: The Stable Phantom Derivation
 

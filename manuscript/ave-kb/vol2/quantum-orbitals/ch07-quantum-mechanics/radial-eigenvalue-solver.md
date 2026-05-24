@@ -1,5 +1,9 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-w6kk5y]
+-->
 
 ## Radial Eigenvalue Solver
 
@@ -572,7 +576,7 @@ This uses **zero new physics**---the same ODE, the same ABCD cascade, and the sa
 
 The ABCD cascade (E2f) treats the $1s$ pair as a passive charge distribution but ignores the **topological crossing** between the $2s$ soliton and the $1s$ solitons at the shell-penetration radius.
 
-**1. Same-shell reference.** For the $1s$ Hopf-linked pair (E1), Op2 modifies the coupling coefficient: $k_{\text{Hopf}} = (2/Z)(1 - P_C/2)$, where $P_C = 8\pi\alpha$ is the lattice packing fraction (Axiom 3). This Op2 correction accounts for the repulsive topological energy at each crossing of the Hopf link.
+**1. Same-shell reference.** For the $1s$ Hopf-linked pair (E1), Op2 modifies the coupling coefficient: $k_{\text{Hopf}} = (2/Z)(1 - P_C/2)$, where $P_C = 8\pi\alpha$ is the lattice packing fraction (clm-9s9apq, via Axiom 3). This Op2 correction accounts for the repulsive topological energy at each crossing of the Hopf link.
 
 **2. Cross-shell l=0 crossings.** The $2s$ soliton ($l{=}0$) oscillates radially through the $1s$ shell. On each radial period it passes through the $1s$ region *twice* (once inward, once outward). Only the **same-phase** $1s$ dipole string contributes a topological crossing (the anti-phase soliton is orthogonal on the lattice and does not cross).
 

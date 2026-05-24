@@ -1,0 +1,182 @@
+{
+  "prereg": "research/2026-05-18_flyby-anomaly-anderson-anchor-prereg.md",
+  "earth_constants": {
+    "C_0_m_s": 299792458.0,
+    "R_E_m": 6378137.0,
+    "T_sidereal_s": 86164.0905,
+    "OMEGA_E_rad_s": 7.292115857915991e-05,
+    "U_E_m_s": 465.10113961660727,
+    "coupling_2_U_E_over_C_0": 3.10282081623686e-06
+  },
+  "per_spacecraft": [
+    {
+      "name": "Galileo I",
+      "date": "1990-12-08",
+      "V_inf_km_s": 8.949,
+      "observed_dV_mm_s": 3.92,
+      "observed_sigma_mm_s": 0.08,
+      "max_dV_mm_s_cos_cos_unity": 27.76714348450366,
+      "cos_factor_required": 0.14117404630359912,
+      "convention_A_cos_in": {
+        "dV_mm_s": -1.5320395385664778,
+        "sigma": -68.15049423208097
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": -17.610878474438042,
+        "sigma": -269.1359809304755
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": -11.42995313033856,
+        "sigma": -191.874414129232
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": 4.127575505169885,
+        "sigma": 2.594693814623561
+      },
+      "notes": ""
+    },
+    {
+      "name": "Galileo II",
+      "date": "1992-12-08",
+      "V_inf_km_s": 8.877,
+      "observed_dV_mm_s": -4.6,
+      "observed_sigma_mm_s": 1.0,
+      "max_dV_mm_s_cos_cos_unity": 27.543740385734605,
+      "cos_factor_required": -0.16700709255822138,
+      "convention_A_cos_in": {
+        "dV_mm_s": -17.603625705444163,
+        "sigma": -13.003625705444163
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": -27.310976117035462,
+        "sigma": -22.710976117035464
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": -24.8391643468128,
+        "sigma": -20.2391643468128
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": -4.679636740139326,
+        "sigma": -0.07963674013932653
+      },
+      "notes": ""
+    },
+    {
+      "name": "NEAR",
+      "date": "1998-01-23",
+      "V_inf_km_s": 6.851,
+      "observed_dV_mm_s": 13.46,
+      "observed_sigma_mm_s": 0.13,
+      "max_dV_mm_s_cos_cos_unity": 21.257425412038724,
+      "cos_factor_required": 0.6331905082154113,
+      "convention_A_cos_in": {
+        "dV_mm_s": -3.0512228236520453,
+        "sigma": -127.00940633578497
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": -6.570809630501841,
+        "sigma": -154.0831510038603
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": -10.845423765044197,
+        "sigma": -186.96479819264766
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": 13.294233960147782,
+        "sigma": -1.275123383478607
+      },
+      "notes": "Largest published flyby anomaly; corpus '13.4 mm/s' candidate match."
+    },
+    {
+      "name": "Cassini",
+      "date": "1999-08-18",
+      "V_inf_km_s": 16.01,
+      "observed_dV_mm_s": -2.0,
+      "observed_sigma_mm_s": 1.0,
+      "max_dV_mm_s_cos_cos_unity": 49.67616126795214,
+      "cos_factor_required": -0.040260759868542245,
+      "convention_A_cos_in": {
+        "dV_mm_s": 43.63247991026412,
+        "sigma": 45.63247991026412
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": 49.06900527179648,
+        "sigma": 51.06900527179648
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": 47.03162745586684,
+        "sigma": 49.03162745586684
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": -1.069363256948614,
+        "sigma": 0.930636743051386
+      },
+      "notes": ""
+    },
+    {
+      "name": "Rosetta I",
+      "date": "2005-03-04",
+      "V_inf_km_s": 3.863,
+      "observed_dV_mm_s": 1.82,
+      "observed_sigma_mm_s": 0.05,
+      "max_dV_mm_s_cos_cos_unity": 11.98619681312299,
+      "cos_factor_required": 0.15184132451482757,
+      "convention_A_cos_in": {
+        "dV_mm_s": 11.622211781933554,
+        "sigma": 196.04423563867107
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": -3.947209179054547,
+        "sigma": -115.34418358109095
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": 5.037493307375054,
+        "sigma": 64.34986614750106
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": 2.068829082360527,
+        "sigma": 4.976581647210536
+      },
+      "notes": ""
+    },
+    {
+      "name": "MESSENGER",
+      "date": "2005-08-02",
+      "V_inf_km_s": 4.056,
+      "observed_dV_mm_s": 0.02,
+      "observed_sigma_mm_s": 0.01,
+      "max_dV_mm_s_cos_cos_unity": 12.585041230656703,
+      "cos_factor_required": 0.0015891882778485244,
+      "convention_A_cos_in": {
+        "dV_mm_s": 4.128059490122605,
+        "sigma": 410.80594901226056
+      },
+      "convention_B_cos_out": {
+        "dV_mm_s": -7.261909517899793,
+        "sigma": -728.1909517899793
+      },
+      "convention_C_cos_mean": {
+        "dV_mm_s": -2.209140529068016,
+        "sigma": -222.9140529068016
+      },
+      "convention_D_Anderson_empirical": {
+        "dV_mm_s": 0.05537015200483252,
+        "sigma": 3.5370152004832525
+      },
+      "notes": "Adams 2008 + Acedo 2017 both characterize as outlier of simple Anderson empirical fit."
+    }
+  ],
+  "convention_match_counts_1sigma": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 2
+  },
+  "convention_within_2sigma": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 3
+  },
+  "outcome_classification": "C or D: AVE 'cos(\u03b1)cos(\u03b4)' notation under-specified; only Anderson empirical form gives any match. Leaf's literal cos(\u03b1)cos(\u03b4) framing is misleading"
+}

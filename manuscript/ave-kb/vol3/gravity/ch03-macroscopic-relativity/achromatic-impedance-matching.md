@@ -1,6 +1,10 @@
 [↑ Ch.3 Macroscopic Relativity](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol3 as sec:achromatic_matching -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-rd9cjm]
+path-stable: "referenced from vol3 as sec:achromatic_matching"
+-->
 
 ---
 

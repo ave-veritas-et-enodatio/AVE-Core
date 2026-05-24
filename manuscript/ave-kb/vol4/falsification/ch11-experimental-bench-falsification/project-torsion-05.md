@@ -1,5 +1,13 @@
 [↑ Ch.11: Experimental Bench Falsification](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-kl1ern]
+exp-id: exp-6kwkx7
+status: pending
+strengthens:
+  - clm-kl1ern: 1.0
+-->
 
 ## Project TORSION-05: Horizontal Metric Rectification
 

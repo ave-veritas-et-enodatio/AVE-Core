@@ -1,5 +1,9 @@
 [↑ Ch.4 Generative Cosmology](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-wx5324]
+-->
 
 ## Asymptotic Expansion Limit
 

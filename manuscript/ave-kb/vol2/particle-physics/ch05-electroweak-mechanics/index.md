@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-5zuo7g, clm-jkpfd4, clm-q8un7j]
+subtree-experiments: []
+-->
+
 # Ch.5 — Electroweak Mechanics and Gauge Symmetries
 
 Electrodynamics is derived as continuous topological phase gradients and convective vorticity of the LC metric. Gauge Invariance (U(1)) is the classical Helmholtz Decomposition freedom to shift the irrotational background coordinate velocity. The weak mixing angle ($\sin^2\theta_W = 2/9$) is derived from the isotropic elastic stiffness ratio of cylindrical flux tubes via the Perpendicular Axis Theorem and the vacuum Poisson ratio $\nu_{vac} = 2/7$. SU(3) colour charge symmetries follow from the $S_3$ permutation group of the $6^3_2$ Borromean linkage.

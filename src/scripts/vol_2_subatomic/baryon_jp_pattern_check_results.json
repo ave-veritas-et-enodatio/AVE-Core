@@ -1,0 +1,146 @@
+{
+  "test": "J^P pattern check on baryon ladder matches",
+  "corpus_anchor": "Vol 2 Ch 2:232 (qualitative higher c \u2192 higher J)",
+  "empirical_fit_pattern": "J = (c-4)/2 for odd c (post-hoc fit)",
+  "matched_states": [
+    {
+      "c": 5,
+      "predicted_mass_mev": 938.254,
+      "pdg_state": "proton",
+      "pdg_mass_mev": 938.272,
+      "pdg_jp": "1/2+",
+      "pdg_status": "****",
+      "fit_j": "1/2",
+      "j_match": true,
+      "parity_observed": "+",
+      "parity_assumed_positive_match": true,
+      "full_jp_match": true
+    },
+    {
+      "c": 7,
+      "predicted_mass_mev": 1261.0,
+      "pdg_state": "\u0394(1232)",
+      "pdg_mass_mev": 1232,
+      "pdg_jp": "3/2+",
+      "pdg_status": "****",
+      "fit_j": "3/2",
+      "j_match": true,
+      "parity_observed": "+",
+      "parity_assumed_positive_match": true,
+      "full_jp_match": true
+    },
+    {
+      "c": 9,
+      "predicted_mass_mev": 1582.2,
+      "pdg_state": "\u0394(1620)",
+      "pdg_mass_mev": 1620,
+      "pdg_jp": "1/2-",
+      "pdg_status": "****",
+      "fit_j": "5/2",
+      "j_match": false,
+      "parity_observed": "-",
+      "parity_assumed_positive_match": false,
+      "full_jp_match": false
+    },
+    {
+      "c": 11,
+      "predicted_mass_mev": 1894.9,
+      "pdg_state": "\u0394(1950)",
+      "pdg_mass_mev": 1950,
+      "pdg_jp": "7/2+",
+      "pdg_status": "****",
+      "fit_j": "7/2",
+      "j_match": true,
+      "parity_observed": "+",
+      "parity_assumed_positive_match": true,
+      "full_jp_match": true
+    },
+    {
+      "c": 13,
+      "predicted_mass_mev": 2194.6,
+      "pdg_state": "N(2250)",
+      "pdg_mass_mev": 2250,
+      "pdg_jp": "9/2-",
+      "pdg_status": "****",
+      "fit_j": "9/2",
+      "j_match": true,
+      "parity_observed": "-",
+      "parity_assumed_positive_match": false,
+      "full_jp_match": false
+    },
+    {
+      "c": 15,
+      "predicted_mass_mev": 2478.0,
+      "pdg_state": "\u0394(2420)",
+      "pdg_mass_mev": 2420,
+      "pdg_jp": "11/2+",
+      "pdg_status": "****",
+      "fit_j": "11/2",
+      "j_match": true,
+      "parity_observed": "+",
+      "parity_assumed_positive_match": true,
+      "full_jp_match": true
+    },
+    {
+      "c": 17,
+      "predicted_mass_mev": 2741.8,
+      "pdg_state": "\u0394(2750)",
+      "pdg_mass_mev": 2750,
+      "pdg_jp": "13/2-",
+      "pdg_status": "**",
+      "fit_j": "13/2",
+      "j_match": true,
+      "parity_observed": "-",
+      "parity_assumed_positive_match": false,
+      "full_jp_match": false
+    },
+    {
+      "c": 19,
+      "predicted_mass_mev": 2983.1,
+      "pdg_state": "\u0394(2950)",
+      "pdg_mass_mev": 2950,
+      "pdg_jp": "15/2+",
+      "pdg_status": "**",
+      "fit_j": "15/2",
+      "j_match": true,
+      "parity_observed": "+",
+      "parity_assumed_positive_match": true,
+      "full_jp_match": true
+    }
+  ],
+  "forward_predictions": [
+    {
+      "c": 21,
+      "predicted_mass_mev": 3199.1,
+      "predicted_j_numerator": 17,
+      "predicted_j_denominator": 2,
+      "predicted_parity_assumed": "+",
+      "falsifiable_signature": "if exists at 3199 MeV with J=17/2+"
+    },
+    {
+      "c": 23,
+      "predicted_mass_mev": 3387.0,
+      "predicted_j_numerator": 19,
+      "predicted_j_denominator": 2,
+      "predicted_parity_assumed": "+",
+      "falsifiable_signature": "if exists at 3387 MeV with J=19/2+"
+    },
+    {
+      "c": 25,
+      "predicted_mass_mev": 3544.1,
+      "predicted_j_numerator": 21,
+      "predicted_j_denominator": 2,
+      "predicted_parity_assumed": "+",
+      "falsifiable_signature": "if exists at 3544 MeV with J=21/2+"
+    }
+  ],
+  "j_match_rate": "7/8",
+  "parity_positive_match_rate": "5/8",
+  "full_jp_match_rate": "5/8",
+  "honest_scope": [
+    "J = (c-4)/2 is post-hoc empirical fit, NOT pre-registered",
+    "Algebraic-topology J-from-torus-knot derivation NOT in code",
+    "Parity not predicted; observed mostly + with c=9,13,17 as -",
+    "Forward predictions c=21,23,25 are falsifiable"
+  ]
+}

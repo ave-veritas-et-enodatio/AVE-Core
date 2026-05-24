@@ -1,5 +1,9 @@
 [↑ Ch. 10: Three Open Problems from Lattice Topology](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-4vwsjc]
+-->
 
 ## Derivation: $g_* = 85.75$
 

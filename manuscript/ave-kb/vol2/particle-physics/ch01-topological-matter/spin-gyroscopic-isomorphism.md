@@ -1,5 +1,10 @@
 [↑ Ch.1 Topological Matter](index.md)
 
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-salw2h]
+-->
+
 # Spin ↔ Gyroscopic Precession Isomorphism
 
 **Volume:** 2 (Subatomic Scale)

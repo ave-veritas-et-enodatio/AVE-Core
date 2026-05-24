@@ -2,11 +2,36 @@
 Core physical primitives and invariant constants for the
 Applied Vacuum Electrodynamics (AVE) Framework.
 
-=== THREE CALIBRATION INPUTS ===
-The entire framework is parameterized by exactly three empirical measurements:
-  1. The spatial cutoff (ℓ_node)             → Lattice pitch
-  2. The fine-structure constant (α)          → Dielectric saturation bound
-  3. The gravitational constant (G)           → Machian boundary impedance
+=== STRUCTURAL CLOSURE FRAMING (post 2026-05-15) ===
+
+Per the framework's structural closure declaration (`manuscript/ave-kb/common/
+trampoline-framework.md` §11.0 + `closure-roadmap.md` §1), the parameter count
+has been sharpened:
+
+  STANDARD framing (pre-2026-05-15): three calibration inputs (ℓ_node, α, G)
+  STRUCTURAL CLOSURE framing (current): one scale (ℓ_node) + one cosmological
+    initial-data parameter (Ω_freeze = 𝒥_cosmic / I_cosmic) + four axioms.
+    α and G are JOINTLY cosmologically anchored — both derive from u_0* at
+    the magic-angle operating point, which derives from Ω_freeze via the
+    phase-transition-while-spinning mechanism. See L5 A-001 / A-030 / A-031.
+
+The framework's three observational routes to constrain u_0* (sharpest
+empirical commitment):
+  Route 1 — Electromagnetic: α to 12 decimals (CODATA) → u_0* via Q-G47
+  Route 2 — Gravitational: G to ~4 decimals → u_0* via Machian impedance integral
+  Route 3 — Cosmological: 𝒥_cosmic via CMB/LSS anomalies → u_0* via Ω_freeze
+
+All three routes must give the same u_0* or framework is falsified.
+
+A-034 UNIVERSAL KERNEL (canonical 2026-05-15 late evening): the constants
+defined below (V_SNAP, V_YIELD, ℓ_node, T_EM, etc.) parameterize the
+substrate-scale instance of A-034 (Universal Saturation-Kernel Strain-Snap
+Mechanism). The same kernel S(A) = √(1−A²) governs 19 catalog instances
+spanning 21 orders of magnitude — the constants below ARE the substrate-
+scale values; the kernel form is universal. Q-G47 Sessions 9-18
+(2026-05-15 evening) closed Q-G47 at substrate level: K(u_0*) = 2 G(u_0*)
+is the substrate-scale expression of S(A*) = 0. See L5 A-034 + Vol 3 Ch 4
+§sec:tki_strain_snap + Backmatter Ch 7 (catalog).
 
 The electron rest mass is NOT an independent input. It is the ground-state
 energy of the simplest topological object on the lattice: the unknot
@@ -19,8 +44,28 @@ the electron is the minimal-energy stable loop, with circumference ℓ_node
 and tube radius ℓ_node/(2π). Its mass is set entirely by the lattice
 tension and the unknot ropelength.
 
-All other constants are DERIVED from these three plus the SI definitions
+In substrate-native vocabulary (per Common Foreword §"Three Boundary
+Observables and the Substrate-Observability Rule" + `docs/glossary.md`),
+the electron's substrate-observable mass is 𝓜_electron = m_e (the
+integrated strain integral at the horn-torus tube wall boundary). See
+the three substrate invariants 𝓜, 𝓠, 𝓙 canonical leaf
+(`manuscript/ave-kb/common/boundary-observables-m-q-j.md`) and
+`src/ave/core/boundary_invariants.py` for engine implementation.
+
+All other constants are DERIVED from these inputs plus the SI definitions
 of ε₀, μ₀, c, ℏ, and e.
+
+=== CROSS-REFERENCES ===
+- Picture-first framework: `manuscript/ave-kb/common/trampoline-framework.md`
+- Substrate-native vocabulary: Common Foreword §"Three Boundary Observables"
+  + `docs/glossary.md` + canonical KB leaf
+  `manuscript/ave-kb/common/boundary-observables-m-q-j.md`
+- Three substrate invariants engine module: `src/ave/core/boundary_invariants.py`
+- Master Equation FDTD canonical engine: `src/ave/core/master_equation_fdtd.py`
+- K4-TLM canonical engine: `src/ave/core/k4_tlm.py`
+- Closure-path planning: `manuscript/ave-kb/claim-quality-closure-roadmap.md`
+- L5 framework status: `research/_archive/L5/axiom_derivation_status.md`
+  (A-001, A-026 through A-031 canonical)
 """
 
 from math import pi
@@ -36,6 +81,7 @@ EPSILON_0: float = 1.0 / (MU_0 * C_0**2)  # Vacuum permittivity [F/m]
 Z_0: float = np.sqrt(MU_0 / EPSILON_0)  # Characteristic impedance [Ω] ≈ 376.73
 HBAR: float = 1.054571817e-34  # reduced Planck constant [J·s]
 e_charge: float = 1.602176634e-19  # Elementary charge [C]
+HBAR_EV_S: float = HBAR / e_charge  # reduced Planck constant [eV·s] ≈ 6.582e-16
 # Note: K_B defines the Kelvin scale relative to Joules. It is a definitional mapping,
 # not a free parameter of the vacuum topology.
 K_B: float = 1.380649e-23  # Boltzmann conversion constant [J/K] (exact, 2019 SI)
@@ -102,6 +148,19 @@ G: float = 6.67430e-11  # Gravitational constant [m³/(kg·s²)]
 #
 #       α⁻¹_ideal = Λ_vol + Λ_surf + Λ_line = 4π³ + π² + π ≈ 137.0363038
 #
+# Golden Torus geometric constants — canonical (R, r, R·r) and golden ratio φ.
+# Defining identities (lines 132-133 above):
+#     R − r = 1/2  (self-avoidance of internal strands)
+#     R · r = 1/4  (holomorphic screening at π² surface optimum)
+# Solving: R = φ/2, r = (φ − 1)/2 where φ = (1+√5)/2 is the golden ratio.
+# These are the Clifford-torus (R, r) phase-space coordinates that Theorem 3.1'
+# (`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`)
+# requires the electron bound state to realize for Λ_i = Q_i bridge to hold.
+PHI: float = (1.0 + np.sqrt(5.0)) / 2.0  # Golden ratio ≈ 1.6180339887
+R_GOLDEN_TORUS: float = PHI / 2.0  # Major radius ≈ 0.8090169944
+R_GOLDEN_TORUS_MINOR: float = (PHI - 1.0) / 2.0  # Minor radius ≈ 0.3090169944
+RR_GOLDEN_TORUS: float = R_GOLDEN_TORUS * R_GOLDEN_TORUS_MINOR  # = 1/4 exactly (algebraic)
+
 ALPHA_COLD_INV: float = 4.0 * pi**3 + pi**2 + pi  # ≈ 137.0363038
 ALPHA_COLD: float = 1.0 / ALPHA_COLD_INV  # ≈ 7.29352e-3
 
@@ -221,6 +280,15 @@ NATIVE_TO_SI_ENERGY_EV: float = M_E * C_0**2 / e_charge  # 1 native energy [eV] 
 NATIVE_TO_SI_TIME: float = HBAR / (M_E * C_0**2)  # 1 native time = ℏ/(m_e c²) [s]
 NATIVE_TO_SI_VELOCITY: float = C_0  # 1 native velocity = c [m/s]
 
+# Thixotropic relaxation time — minimum state-change time of the K4 lattice.
+# Derived from Ax1 (ℓ_node from K4 pitch) + Ax3 (propagation at c) in
+# research/_archive/L3_electron_soliton/59_memristive_yield_crossing_derivation.md §1.
+# Any saturation-state change must propagate at minimum one lattice spacing
+# at wave speed c; no faster relaxation mode is axiom-permitted.
+# Matches Vol 4 Ch 1:214 (thixotropic hysteresis) exactly.
+TAU_RELAX_SI: float = L_NODE / C_0  # ≈ 1.288e-21 s
+TAU_RELAX_NATIVE: float = 1.0  # ℓ_node/c = 1 in natural units
+
 # =============================================================================
 # MACROSCOPIC EE TO TOPOLOGICAL KINEMATIC CONVERSIONS (VCA)
 # =============================================================================
@@ -309,6 +377,7 @@ R_III: float = 1.0  # Saturated -> Rupture
 #   EPS_NUMERICAL  — Impedance ratios, reflection coefficients, normalisation
 #                    denominators.  Chosen so that Z/(Z+eps) ≈ 1 to within
 #                    float64 precision for any physical impedance value.
+#                    Also the Faddeev-Skyrme integrand's 1/r² regulator.
 #
 #   EPS_CLIP       — Saturation operator clip (√(1 − x²) near x=1).
 #                    Must be small enough that S(A_yield − δ) ≈ 0 to float64
@@ -320,16 +389,26 @@ R_III: float = 1.0  # Saturated -> Rupture
 #
 # Dimensional note: these constants are DIMENSIONLESS ratios applied to
 # already-normalised quantities.  They carry no units and no physics.
-#
-# IMPORTANT: These are defined EARLY in this file (before the derived nuclear
-# constants) because the Faddeev-Skyrme solver calls universal_operators
-# during constants initialization, creating a dependency chain:
-#   constants.py → faddeev_skyrme.py → universal_operators.py → constants.py
-# The guards must be defined before _compute_i_scalar_dynamic() runs.
 
 EPS_NUMERICAL: float = 1e-12  # Reflection / impedance guards
-EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling
+EPS_CLIP: float = 1e-15  # Saturation argument clip ceiling (tight bound)
 EPS_DIVZERO: float = 1e-30  # Hard division-by-zero floor
+
+# EPS_SAT_RATIO — saturation-ratio clamp ceiling for the Axiom 4 macroscopic
+# kernel  ε_eff = ε₀·√(1 − r²),  r = V/V_yield (or B/B_yield).
+#
+# Distinct from EPS_CLIP: both clamp √(1 − x²) near x = 1, but they operate at
+# different scales. EPS_CLIP (1e-15) is the analytical tight bound used by the
+# axiom-level scale_invariant operators where the input is already known to be
+# at its limit. EPS_SAT_RATIO (1e-12) is the numerically-conservative ceiling
+# used inside the FDTD time-stepping loop, where the saturation ratio is a
+# function of free-running grid fields and needs ~6 orders of magnitude of
+# headroom in √(1 − r²) to remain stable under accumulated round-off across
+# many timesteps. Numerically EPS_SAT_RATIO matches EPS_NUMERICAL (1e-12), but
+# the names are kept distinct: EPS_NUMERICAL is for impedance/reflection
+# denominators (additive guard), EPS_SAT_RATIO is for the saturation-ratio
+# clamp itself (subtractive bound on r²).
+EPS_SAT_RATIO: float = 1e-12  # FDTD saturation-ratio clamp: r² ≤ 1 − EPS_SAT_RATIO
 
 
 # =============================================================================
@@ -352,6 +431,7 @@ _a_emt = P_C
 _b_emt = 2.0 * P_C - 10.0
 _c_emt = 12.0
 _disc = _b_emt**2 - 4.0 * _a_emt * _c_emt
+assert _disc >= 0, f"Z_COORDINATION discriminant negative: {_disc}"
 Z_COORDINATION: float = (-_b_emt + _disc**0.5) / (2.0 * _a_emt)  # ≈ 51.25
 
 # Rigidity percolation threshold  p_G = 6/z₀ ≈ 0.117
@@ -375,6 +455,19 @@ ALPHA_S: float = ALPHA ** (3.0 / 7.0)  # ≈ 0.1214
 
 # Machian hierarchy coupling  ξ_M = 4π(R_H/ℓ_node)α⁻²
 # (computed from G via G = ℏc / (7ξ m_e²))
+#
+# Class E circularity (intentional): G is CODATA-input (Bounding Limit 3);
+# ξ_M is inverted out of G via the closed-form above; ξ_M is then used
+# downstream in derivations that re-route through H_∞ via R_H ≡ c/H_∞.
+# This is structurally faithful to the framework's joint-constraint state:
+# {G, H_∞, Ω_freeze, α} are a Class E operating-point projection at
+# u_0* ≈ 0.187 per `consistency-vs-emergence` v1.1 — not N independent
+# numerical predictions. The corpus-honest open path to breaking the
+# circularity is the Chain B' independent G derivation logged at
+# manuscript/ave-kb/claim-quality-closure-roadmap.md:38 (substrate-local
+# thermodynamic balance for G that does NOT route through R_H), corpus-
+# self-stated at manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/
+# cosmological-constant-closure.md:103-111 — currently OPEN.
 XI_MACHIAN: float = HBAR * C_0 / (7.0 * G * M_E**2)
 
 # =============================================================================
@@ -504,6 +597,41 @@ NU_KIN: float = ALPHA * C_0 * L_NODE  # ≈ 8.45e-7 m²/s
 DIELECTRIC_RUPTURE_STRAIN: float = 1.0
 
 # =============================================================================
+# α-SLEW SUBSTRATE OPERATING POINT (Schwinger anomalous-moment substrate-rate)
+# =============================================================================
+#
+# Canonical at:
+#   - manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md
+#   - manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md
+#   - src/scripts/vol_2_subatomic/simulate_g2.py (Axiom 4 + 1/π² geometric projection)
+#
+# The electron's LC tank operating point: Q_tank = α⁻¹ at TIR boundary, with
+# per-cycle reactive leak fraction = 1/Q = α (per Theorem 3.1' line 75 verbatim:
+# "this IS α in its original Sommerfeld meaning ('coupling strength'), seen
+# from the LC-tank side"). The α-slew is the per-cycle reactive (NOT real)
+# leak of the electron's LC tank — see orbital-friction-paradox.md:31 canonical
+# reactive-power table.
+
+# α-slew quantum energy (per-cycle reactive leak of electron LC tank)
+# = α m_e c² ≈ 3.728 keV; matches DAMA's 2-6 keV detection window
+# (anti-anchor: also matches Moseley Ca Kα = 3.691 keV within 1%; see
+# §11 of dama-alpha-slew-derivation.md for Z-INDEPENDENCE discriminator)
+E_SLEW: float = ALPHA * M_E * C_0**2  # ≈ 5.97e-16 J ≈ 3.728 keV
+
+# α-slew frequency (Schwinger-suppressed Compton frequency, per electron)
+NU_SLEW: float = ALPHA * C_0 / (2.0 * pi * L_NODE)  # ≈ 9.02e17 Hz
+
+# α-slew wavelength (atomic scale, NOT nuclear)
+LAMBDA_SLEW: float = C_0 / NU_SLEW  # ≈ 3.32e-10 m
+
+# Per-spinor-cycle radiation impedance (Theorem 3.1' line 67-73 canonical)
+# The 4π is the electron's spinor-cycle-phase requirement (SU(2) double-cover
+# of SO(3)). Radiation impedance averaged over one full spinor cycle.
+# Used in matched-LC-coupling efficiency formula at electron α-slew TIR
+# boundary: ε_det = 4π / N_single² per dama-matched-lc-coupling.md
+Z_RADIATION: float = Z_0 / (4.0 * pi)  # ≈ 29.98 Ω
+
+# =============================================================================
 # TOPOLOGICAL BARYON CONSTANTS
 # =============================================================================
 
@@ -532,6 +660,9 @@ KAPPA_FS_COLD: float = 8.0 * pi  # = 25.1327...
 # The proton's cinquefoil crossing number c = 5 gives:
 #   r_opt = κ_eff / 5 ≈ 4.97 ℓ_node
 CROSSING_NUMBER_PROTON: int = 5  # (2,5) cinquefoil
+# Alias: the (2,5) torus knot is also called the cinquefoil. Same value, kept
+# for callers that refer to the knot by its name rather than the proton role.
+CROSSING_NUMBER_CINQUEFOIL: int = CROSSING_NUMBER_PROTON
 
 # ---- Thermal softening of κ_FS ----
 #
@@ -566,24 +697,17 @@ KAPPA_FS: float = KAPPA_FS_COLD * (1.0 - DELTA_THERMAL)
 
 
 # Dynamic 1D Faddeev-Skyrme scalar trace
-# Computed by minimizing the 1D radial Skyrmion energy functional
-# with the thermally softened coupling constant.
-def _compute_i_scalar_dynamic(crossing_number: int = 5) -> float:
-    """Compute I_scalar from the Faddeev-Skyrme solver at import time.
-
-    Args:
-        crossing_number: Torus knot crossing number.  Default 5 (proton).
-    """
-    from ave.topological.faddeev_skyrme import TopologicalHamiltonian1D
-
-    solver = TopologicalHamiltonian1D(
-        node_pitch=HBAR / (M_E * C_0),  # = L_NODE (avoid circular ref)
-        scaling_coupling=KAPPA_FS,
-    )
-    return solver.solve_scalar_trace(crossing_number=crossing_number)
-
-
-I_SCALAR_1D: float = _compute_i_scalar_dynamic(crossing_number=5)
+# ────────────────────────────────────────────────────────────────────────
+# Stored as a literal (P5-A): historically computed at import time via
+# scipy.optimize, which forced a circular dependency
+# constants.py → faddeev_skyrme.py → universal_operators.py → constants.py.
+# The literal is now the canonical value; its agreement with the live
+# Faddeev-Skyrme solver is verified by
+# tests/test_constants_literals.py::test_i_scalar_1d_matches_computation,
+# which calls ave.core._constants_compute._compute_i_scalar_dynamic() and
+# asserts equality.  When the underlying physics changes (integrand, ansatz,
+# coupling), that test will fail and the literal must be updated.
+I_SCALAR_1D: float = 1161.9870305252678
 
 # Toroidal halo geometric volume (Borromean link tensor crossing integral)
 # ────────────────────────────────────────────────────────────────────────
@@ -620,9 +744,6 @@ T_NUC: float = T_EM * PROTON_ELECTRON_RATIO
 # topological LC node field. This matches the exact proton mass eigenvalue.
 MACROSCOPIC_BARYON_PHASE_SCALAR: float = PROTON_ELECTRON_RATIO
 
-# MeV conversion factor: mass [kg] → energy [MeV]
-_KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
-
 # =============================================================================
 # BARYON RESONANCE LADDER — (2,q) Torus Knot Spectrum
 # =============================================================================
@@ -643,28 +764,41 @@ _KG_TO_MEV: float = C_0**2 / (e_charge * 1e6)
 
 TORUS_KNOT_CROSSING_NUMBERS: list[int] = [5, 7, 9, 11, 13]
 
-
-def _compute_baryon_ladder() -> dict[int, dict[str, float]]:
-    """Compute the full baryon resonance ladder at import time."""
-    ladder = {}
-    for c in TORUS_KNOT_CROSSING_NUMBERS:
-        if c == 5:
-            # Proton already computed above
-            i_scalar = I_SCALAR_1D
-        else:
-            i_scalar = _compute_i_scalar_dynamic(crossing_number=c)
-        x_core = i_scalar / (1.0 - V_TOROIDAL_HALO * P_C)
-        ratio = x_core + 1.0
-        mass_mev = ratio * M_E * _KG_TO_MEV
-        ladder[c] = {
-            "i_scalar": i_scalar,
-            "ratio": ratio,
-            "mass_mev": mass_mev,
-        }
-    return ladder
-
-
-BARYON_LADDER: dict[int, dict[str, float]] = _compute_baryon_ladder()
+# Stored as a literal (P5-A): historically computed at import time by running
+# the Faddeev-Skyrme solver once per crossing number.  Each entry is the
+# eigenvalue solution to:
+#     m(c)/m_e = I_scalar(κ_FS, c) / (1 − V_TOROIDAL_HALO · P_C) + 1
+# Verified by
+# tests/test_constants_literals.py::test_baryon_ladder_matches_computation,
+# which re-runs ave.core._constants_compute._compute_baryon_ladder() and
+# asserts each numeric entry agrees within tolerance.
+BARYON_LADDER: dict[int, dict[str, float]] = {
+    5: {
+        "i_scalar": 1161.9870305252678,
+        "ratio": 1836.1170402290593,
+        "mass_mev": 938.2538796271142,
+    },
+    7: {
+        "i_scalar": 1561.9131656550887,
+        "ratio": 2467.7172613416174,
+        "mass_mev": 1261.0009294329766,
+    },
+    9: {
+        "i_scalar": 1959.9539370768518,
+        "ratio": 3096.3399422779116,
+        "mass_mev": 1582.2264593351968,
+    },
+    11: {
+        "i_scalar": 2347.3910619755025,
+        "ratio": 3708.216367092627,
+        "mass_mev": 1894.8946699429232,
+    },
+    13: {
+        "i_scalar": 2718.809573226044,
+        "ratio": 4294.794720505286,
+        "mass_mev": 2194.635592627271,
+    },
+}
 
 # =============================================================================
 # NUCLEAR MUTUAL COUPLING CONSTANT (Periodic Table Solver)
@@ -724,11 +858,25 @@ HBAR_C_MEV_FM: float = HBAR * C_0 / e_charge * 1e15 * 1e-6  # ≈ 197.327 MeV·f
 K_MUTUAL: float = (CROSSING_NUMBER_PROTON * pi / 2.0) * ALPHA * HBAR_C_MEV_FM / (1.0 - ALPHA / 3.0)
 
 # =============================================================================
-# NUCLEON MASS CONSTANTS (CODATA 2018 empirical — used as binding energy targets)
+# NUCLEON MASS CONSTANTS
 # =============================================================================
-# These are the experimentally measured isolated nucleon rest masses.
-# They serve as the target boundary conditions for the topological binding engine.
-M_P_MEV_TARGET: float = 938.272088  # Proton mass [MeV/c²]  (CODATA 2018)
+# Two values are exposed for the proton mass:
+#
+#   M_P_MEV_AVE    — framework-derived prediction.  Equals
+#                    PROTON_ELECTRON_RATIO * (M_E * c²) expressed in MeV.
+#                    Use this in any formula that produces a downstream
+#                    AVE prediction (e.g. raw_mass = Z * M_P + N * M_N).
+#
+#   M_P_MEV_CODATA — CODATA 2018 experimental anchor (formerly named
+#                    M_P_MEV_TARGET).  Use this only when comparing an
+#                    AVE prediction against the experimental value.
+#
+# Keeping both lets every callsite express its intent: prediction or
+# validation.  The two agree to ≈ 0.002 % — well inside the framework's
+# stated precision.  M_N_MEV_TARGET remains a CODATA anchor; no
+# framework derivation has yet been adopted for the neutron mass.
+M_P_MEV_AVE: float = PROTON_ELECTRON_RATIO * M_E * C_0**2 / e_charge * 1e-6  # ≈ 938.2539 MeV
+M_P_MEV_CODATA: float = 938.272088  # Proton mass [MeV/c²]  (CODATA 2018, experimental anchor)
 M_N_MEV_TARGET: float = 939.565420  # Neutron mass [MeV/c²] (CODATA 2018)
 
 # =============================================================================

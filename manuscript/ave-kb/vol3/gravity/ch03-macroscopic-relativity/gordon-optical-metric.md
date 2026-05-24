@@ -1,5 +1,9 @@
 [↑ Ch.3 Macroscopic Relativity](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-rd9cjm]
+-->
 
 ---
 

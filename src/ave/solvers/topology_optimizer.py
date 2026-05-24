@@ -235,7 +235,7 @@ class TopologicalOptimizer:
             # Numeric stability bound (topological wave speed limit)
             v_norm = np.linalg.norm(velocities, axis=1)
             v_max = max_disp / dt
-            scale = np.where(v_norm > v_max, v_max / (v_norm + 1e-12), 1.0)
+            scale = np.where(v_norm > v_max, v_max / (v_norm + EPS_NUMERICAL), 1.0)
             velocities *= scale[:, np.newaxis]
 
             coords += velocities * dt

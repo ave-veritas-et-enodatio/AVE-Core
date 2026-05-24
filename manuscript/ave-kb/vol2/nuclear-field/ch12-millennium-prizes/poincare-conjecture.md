@@ -1,5 +1,9 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-knveh6]
+-->
 
 ## The Poincare Conjecture — AVE Physical Interpretation (Perelman's proof, 2002–2003)
 

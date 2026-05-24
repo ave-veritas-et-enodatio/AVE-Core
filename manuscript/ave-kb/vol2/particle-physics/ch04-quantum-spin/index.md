@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-salw2h]
+subtree-experiments: []
+-->
+
 # Ch.4 — Quantum Spin as Classical Gyroscopic Precession
 
 Quantum Spin ($1/2\hbar$) is derived as the macroscopic angular momentum ($\mathbf{L} = I\boldsymbol{\omega}$) of a massive topological LC flywheel. The Larmor precession frequency is derived using classical gyroscopic mechanics, and the abstract Dirac spinor probability surface (Bloch sphere) maps 1:1 onto the physical tilt angle of a precessing topological defect. NMR and EPR are re-derived as continuous classical torque responses.

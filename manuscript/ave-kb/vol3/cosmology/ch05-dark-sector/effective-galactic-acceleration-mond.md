@@ -1,5 +1,9 @@
 [↑ Ch.5 Dark Sector](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-u86caq]
+-->
 
 ## Effective Galactic Acceleration (Axiom 4 MOND)
 

@@ -1,5 +1,9 @@
 [↑ Up](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-0vxzfu]
+-->
 
 > **[Resultbox]** *Dielectric Yield Thresholds*
 >

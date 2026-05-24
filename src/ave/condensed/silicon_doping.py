@@ -201,12 +201,10 @@ def print_doping_report() -> None:
 
     print("\n--- Boron (p-type, Z=5) ---")
     print(f"  k(B-Si)/4:         {boron['k_dopant_Si']:.6f}")
-    print(f"  Gap (B-Si bonds):  {boron['E_gap_dopant_eV']:.4f} eV")
     print(f"  ΔE (acceptor):     {boron['delta_E_eV']:.4f} eV  ({boron['position']})")
 
     print("\n--- Phosphorus (n-type, Z=15) ---")
     print(f"  k(P-Si)/4:         {phosphorus['k_dopant_Si']:.6f}")
-    print(f"  Gap (P-Si bonds):  {phosphorus['E_gap_dopant_eV']:.4f} eV")
     print(f"  ΔE (donor):        {phosphorus['delta_E_eV']:.4f} eV  ({phosphorus['position']})")
 
     print("\n--- p-n Junction ---")

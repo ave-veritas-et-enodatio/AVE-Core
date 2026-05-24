@@ -1,5 +1,9 @@
 [↑ Chemistry Translation Guide](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jqnzz7]
+-->
 
 ## Lewis Dots and Unbound Valency
 

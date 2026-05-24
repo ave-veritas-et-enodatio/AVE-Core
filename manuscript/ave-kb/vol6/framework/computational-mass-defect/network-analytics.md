@@ -1,5 +1,9 @@
 [↑ Computational Mass Defect](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-o9xphr]
+-->
 
 ## Network Analytics: Q-Factor and S-Parameters
 

@@ -1,5 +1,9 @@
 [↑ Ch. 8: The Planck Scale and String Theory](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-g6e3zw]
+-->
 
 ## Why Extra Dimensions Are Unnecessary
 

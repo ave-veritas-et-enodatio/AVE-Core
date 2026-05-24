@@ -1,5 +1,9 @@
 [↑ Hydrogen (Z=1)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-f8k2um]
+-->
 
 ## Topological Area of Interest: Stellar Compression & S-Parameters
 

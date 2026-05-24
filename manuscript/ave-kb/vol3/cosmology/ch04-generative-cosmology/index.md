@@ -1,5 +1,11 @@
 [↑ Cosmology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-2e9j97, clm-3ii690, clm-48g5qf, clm-9fnieq, clm-c6k5om, clm-ir8h78, clm-wx5324]
+subtree-experiments: []
+-->
+
 # Ch.4: Generative Cosmology and Thermodynamic Attractors
 
 Derives the Hubble constant as the LC crystallisation rate of the $\mathcal{M}_A$ network, yielding $H_\infty \approx 69.33$ km/s/Mpc from $m_e$, $c$, $\hbar$, $G$, and $\alpha$ alone. Dark energy is identified as the thermodynamic latent heat of continuous lattice genesis, producing a stable phantom equation of state $w < -1$. The CMB is an asymptotic thermal floor maintained by latent heat injection. The JWST early-galaxy paradox is resolved via exponential mutual-inductive accretion with time constant $\tau_{ind} \approx 65.1$ Myr. Black holes are lattice phase transitions where topology is destroyed at the Axiom 4 dielectric saturation limit.
@@ -23,6 +29,7 @@ Derives the Hubble constant as the LC crystallisation rate of the $\mathcal{M}_A
 |---|---|
 | [Asymptotic Expansion Limit](asymptotic-expansion-limit.md) | Resultbox: $H_\infty$ from Machian boundary impedance |
 | [Lattice Genesis and Hubble Tension](lattice-genesis-hubble-tension.md) | LC crystallisation mechanism, $H_\infty \approx 69.33$ km/s/Mpc, comparison table (Planck, SH0ES, TRGB) |
+| [Op14 Cosmic-Horizon Saturation Profile](op14-cosmic-horizon-profile.md) | $Z_{\text{eff}}(r \to R_H)$ during ongoing crystallisation; cosmic-scale (c)-operator-application of canonical Op14 (Vol 1 Ch 6 §1.13); local-clock-freezing at cosmic horizon, asymmetric ε/μ form, dynamic-vs-frozen distinction from BH event horizon |
 | [Phantom Energy Equation of State](phantom-energy-equation-of-state.md) | Dark energy as latent heat of lattice genesis; stable phantom state $w < -1$ |
 | [CMB Thermal Attractor](cmb-thermal-attractor.md) | Cosmological continuity equation, radiation energy with latent floor, asymptotic thermal baseline |
 | [JWST Constraint Equation](jwst-constraint-equation.md) | Exponential inductive accretion, JWST empirical constraint, $\tau_{ind}$ derivation |

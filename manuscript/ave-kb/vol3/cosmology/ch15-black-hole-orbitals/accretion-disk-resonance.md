@@ -1,5 +1,9 @@
 [↑ Ch.15 Black Hole Orbitals](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-395gps]
+-->
 
 ## Quantised Accretion Disk Resonance
 

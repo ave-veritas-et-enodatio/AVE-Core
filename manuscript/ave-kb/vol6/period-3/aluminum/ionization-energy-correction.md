@@ -1,5 +1,9 @@
 [↑ Up](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-7tk051]
+-->
 
 ## Ionization Energy: Op10 Junction Projection (Correction~C)
 

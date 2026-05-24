@@ -1,3 +1,19 @@
+"""
+Neon-20 poly-alpha bipyramid geometry plotter (illustrative — geometry only).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script renders the trigonal-bipyramid geometry of the 5-alpha-particle
+^20Ne structure with normalized geometric parameters (r=1.0, h=1.5 arbitrary
+units). The "Computed Mass = 18617.730 MeV" tech-box annotation cites a
+manuscript-pinned value, NOT a value computed by this script. The mass
+derivation chain (sum of topological pairwise binding energies over the
+5-α bipyramid) lives in `simulate_atomic_spectra.py` and corpus leaves at
+`manuscript/ave-kb/vol6/period-2/neon/*.md`.
+
+Annotation 2026-05-17: tech-box label softened from "Computed Mass"
+(false implication that this script computes it) to "Manuscript-pinned mass".
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -41,8 +57,9 @@ def create_neon20_plot() -> None:
         pA, pB = bond
         ax.plot([pA[0], pB[0]], [pA[1], pB[1]], [pA[2], pB[2]], color="#00ffcc", lw=3, alpha=0.8)
 
-    # Note: the Neon-20 bond lengths in the manuscript computation gave exactly 18617.730 MeV.
-    # We will annotate the bonds with conceptual d_ij distances.
+    # Note: manuscript pinned Neon-20 binding energy = 18617.730 MeV (see
+    # `simulate_atomic_spectra.py` for the derivation chain). This script does
+    # NOT compute that value — it renders the bipyramid geometry only.
 
     # Plot alpha particles as large spheres
     u, v = np.mgrid[0 : 2 * np.pi : 30j, 0 : np.pi : 15j]
@@ -123,7 +140,8 @@ def create_neon20_plot() -> None:
         0.85,
         "Neon-20 ($^{20}$Ne) Structure:\nTrigonal Bipyramid (5 $\\alpha$ particles)\n\n"
         "Total Binding Energy = $\\sum M_{topo}(d_{ij})$\n"
-        "Computed Mass = 18617.730 MeV",
+        "Manuscript-pinned mass: 18617.730 MeV\n"
+        "(derivation in simulate_atomic_spectra.py)",
         transform=ax.transAxes,
         color="white",
         fontsize=14,

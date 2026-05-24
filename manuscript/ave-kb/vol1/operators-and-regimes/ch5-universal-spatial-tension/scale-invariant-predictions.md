@@ -1,8 +1,16 @@
 [↑ Ch.5 Universal Spatial Tension](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-zw6mut, clm-unk0bd]
+-->
 
 ## Scale-Invariant Mass Predictions
 
+<!-- claim-quality: clm-zw6mut -->
+The table below maps the same $M \propto 1/r$ universal tension across leptons (Cosserat sector excitations) and nuclei (pairwise topological binding). The electron row's body-topology specifier ($0_1$ unknot) is itself a body-topology claim, marked separately.
+
+<!-- claim-quality: clm-unk0bd -->
 | **Particle** | **$M \propto 1/r$ Sector** | **AVE (MeV)** | **CODATA (MeV)** | **Error** |
 |---|---|---|---|---|
 | Electron ($0_1$ unknot) | Translation | 0.511 | 0.511 | exact |

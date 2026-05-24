@@ -1,5 +1,11 @@
 [↑ Condensed Matter](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-3dc9qt, clm-qky559]
+subtree-experiments: []
+-->
+
 # Ch.9: Condensed Matter and Superconductivity
 
 Superconductivity derived as classical Kuramoto phase-locking of topological inductors, with the Meissner effect emerging as boundary torque rejection by an interlocked gear train. The universal saturation operator $S(T/T_c)$ unifies plasma screening ($\varepsilon$-sector) and superconducting flux expulsion ($\mu$-sector) as dual instances of the same Axiom 4 operator.

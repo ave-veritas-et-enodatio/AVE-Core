@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-7tk051, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Beryllium (Z=4)
 
 Beryllium-9 is the only stable isotope of Beryllium, sustained by a lone neutron bridging two Alpha clusters ($\alpha - n - \alpha$). The nucleus is structurally endothermic---heavier than its separated components---with the Alpha cores stretched by $\gamma \approx 3.82$ relative to isolated Helium. This maps to an AC Wheatstone Bridge circuit whose central galvanometer (the bridging neutron) maintains a state of extreme topological tension.

@@ -1,5 +1,9 @@
 [↑ Vol 1: Foundations](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-5xon03]
+-->
 
 ## Introduction
 
@@ -14,12 +18,12 @@ This work proposes the AVE framework as a **Macroscopic Effective Field Theory (
 
 In standard EFT methodologies, physical descriptions require a characteristic length scale (a cutoff) where the macroscopic effective degrees of freedom emerge from the underlying microphysics. The AVE framework anchors this topological coherence length to the kinematic scale of the fundamental ground-state fermion---the electron ($\ell_{node} \equiv \hbar / m_e c$).
 
-Historically, the framework was presented as a single-parameter EFT (taking $\alpha$ as the one empirical input after $\ell_{node}$ is identified with the electron's Compton wavelength). The zero-parameter closure is now complete: $\alpha$ itself is derived from the S₁₁-minimum Golden Torus geometry of the trefoil electron soliton (Ch.8), $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$, with a CMB-induced thermal strain coefficient $\delta_{\text{strain}}$ accounting for the residual to CODATA. From the three derived hardware scales plus four axioms, the geometric relationships defining all other macroscopic constants are derived from topology and continuum mechanics.
+Historically, the framework was presented as a single-parameter EFT (taking $\alpha$ as the one empirical input after $\ell_{node}$ is identified with the electron's Compton wavelength). The zero-parameter closure is now complete: $\alpha$ itself is derived from the S₁₁-minimum Golden Torus geometry of the electron's $0_1$ unknot soliton with $(2,3)$ phase-space Clifford-torus winding pattern (Ch.8), $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$, with a CMB-induced thermal strain coefficient $\delta_{\text{strain}}$ accounting for the residual to CODATA. From the three derived hardware scales plus four axioms, the geometric relationships defining all other macroscopic constants are derived from topology and continuum mechanics.
 
 From this single calibration point, the EFT offers a unified, mechanically grounded perspective on:
 
 - **Quantum Mechanics**---recovering the Generalized Uncertainty Principle (GUP) as the effective finite-difference momentum bound of the vacuum condensate, with the Born rule arising naturally from thermodynamic impedance loading.
-- **Gravity & Cosmology**---where the continuum limit of a trace-reversed Chiral LC Network reproduces the transverse-traceless kinematics of the Einstein field equations. By evaluating the thermodynamic latent heat of metric generation, the framework derives the **Asymptotic Hubble Time and Horizon Size (14.1 Billion Years)** from the geometric projection of the fine-structure limit.
+- **Gravity & Cosmology**---where the continuum limit of the trace-reversed chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect) reproduces the transverse-traceless kinematics of the Einstein field equations. By evaluating the thermodynamic latent heat of metric generation, the framework derives the **Asymptotic Hubble Time and Horizon Size (14.1 Billion Years)** from the geometric projection of the fine-structure limit.
 - **Topological Matter**---where particle mass hierarchies emerge as non-linear topological solitons. The framework computes the **Rest Mass of the Proton ($\approx 1836.14\ m_e$)** as a parameter-free geometric eigenvalue of a saturated Borromean flux linkage, while fractional quark charges emerge via the Witten effect.
 - **The Dark Sector**---where flat galactic rotation curves and accelerating cosmic expansion follow from the Navier-Stokes network dynamics of the manifold. Milgrom's empirical MOND boundary ($a_0$) is derived from the continuum Hoop Stress of the Unruh-Hawking cosmic drift.
 
@@ -47,8 +51,8 @@ The AVE framework synthesizes several historically siloed theoretical breakthrou
 
 ### Chapter Summary
 
-- AVE is an Effective Field Theory mapping the vacuum to a trace-reversed Chiral LC Network.
-- The framework is genuinely zero-parameter: $\alpha^{-1} = 4\pi^3 + \pi^2 + \pi$ derives from Golden Torus geometry (Ch.8), and $\ell_{node}$ and $G$ are also derived.
+- AVE is an Effective Field Theory mapping the vacuum to a trace-reversed chiral Laves K4 Cosserat crystal (Chiral LC Network in continuum-EM dialect).
+- The framework is structurally zero-parameter (conditional on thermal closure of $\delta_{strain}$ at $T_{CMB}$): $\alpha^{-1}_{\text{ideal}} = 4\pi^3 + \pi^2 + \pi$ derives from Golden Torus geometry (Ch.8), and $\ell_{node}$ and $G$ are also derived; one currently-fitted thermal scalar bridges the cold-lattice asymptote to CODATA pending derivation from $G_{vac}$ + equipartition. One-cosmological-parameter framework ($\Omega_{\text{freeze}}$) with three-route framework commitment ($\alpha + G + \mathcal{J}_{\text{cosmic}}$ converging on $u_0^*$).
 - Classical phenomena like gravity and MOND, as well as particle generation, are reframed as continuous mechanics arising naturally from this saturated medium.
 
 ---

@@ -39,7 +39,7 @@ Numerically verifying this via three stages of increasing strictness:
              not by pure ropelength on the crossings-tight boundary.
 
     STAGE B (Clifford energy): Add a second objective — the "screening
-             energy" penalizing |R·r - 1/4|² (the holomorphic-screening
+             energy" penalizing |R·r - 1/4|² (the Clifford-torus screening
              S₁₁-minimum on a Clifford torus).  Minimize L + λ·(R·r - 1/4)²
              with large λ.  Verify this converges to Golden Torus.
 
@@ -47,7 +47,7 @@ Numerically verifying this via three stages of increasing strictness:
              objective that represents the full S₁₁ free energy:
                - arc-length (LC-inductance cost)
                - self-avoidance penalty (tube impedance)
-               - holomorphic screening penalty (Clifford surface resonance)
+               - Clifford-torus screening penalty (Clifford surface resonance)
              and see whether Golden Torus emerges as a clean minimum.
 
 Usage:
@@ -141,17 +141,17 @@ def stage_a_arc_length_on_crossings_boundary() -> tuple[float, float]:
         print("  → Arc-length alone on the R-r=1/2 boundary lands on Golden Torus.")
     else:
         print("  → Arc-length alone does NOT land on Golden Torus; the second")
-        print("    constraint (R·r = 1/4, from S₁₁/holomorphic screening) is needed.")
+        print("    constraint (R·r = 1/4, from S₁₁/Clifford-torus screening) is needed.")
     print()
     return R_min_refined, r_min_refined
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# STAGE B: Add the holomorphic screening constraint R·r = 1/4
+# STAGE B: Add the Clifford-torus screening constraint R·r = 1/4
 # ═══════════════════════════════════════════════════════════════════════════
 def stage_b_with_screening_constraint() -> tuple[float, float]:
     print("─" * 72)
-    print("  STAGE B — Add holomorphic screening R·r = 1/4, re-minimize")
+    print("  STAGE B — Add Clifford-torus screening R·r = 1/4, re-minimize")
     print("─" * 72)
 
     # Both constraints imposed as equality via composite objective.
@@ -162,7 +162,7 @@ def stage_b_with_screening_constraint() -> tuple[float, float]:
         L = trefoil_arc_length(R, r)
         # Self-avoidance EQUALITY penalty (at crossings: 2(R-r) = 1 exactly at tight rope)
         penalty_avoid = lambda_avoid * ((R - r) - 0.5) ** 2
-        # Holomorphic screening penalty (R·r → 1/4)
+        # Clifford-torus screening penalty (R·r → 1/4)
         penalty_screen = lambda_screening * (R * r - 0.25) ** 2
         return L + penalty_avoid + penalty_screen
 
@@ -281,7 +281,7 @@ if __name__ == "__main__":
     )
 
     if converged:
-        print("  ✓ VERIFIED: Both constraints (self-avoidance R-r=1/2 + holomorphic")
+        print("  ✓ VERIFIED: Both constraints (self-avoidance R-r=1/2 + Clifford-torus")
         print("    screening R·r=1/4) together drive the composite ropelength + S₁₁")
         print("    objective to the Golden Torus (R=φ/2, r=(φ-1)/2) from arbitrary")
         print("    starting points.")

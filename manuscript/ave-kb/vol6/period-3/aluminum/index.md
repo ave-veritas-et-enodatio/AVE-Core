@@ -1,5 +1,11 @@
 [↑ Period 3](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-7tk051, clm-8psuqe, clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Aluminum (Z=13)
 
 Aluminum-27 ($Z=13$, $A=27$) is a $6\alpha + ^3\text{H}$ core-plus-halo structure: the Magnesium-24 Octahedral core with a Tritium halo at $R_{\text{halo}} = 52.6d$. It is mono-isotopic ($100\%$ $^{27}$Al) and the third core-plus-halo element after Fluorine-19 and Sodium-23. The halo distance stabilizes at $52.6d$ (vs Sodium's $50.2d$), demonstrating that the $5\alpha \to 6\alpha$ core expansion has negligible effect on halo proximity.

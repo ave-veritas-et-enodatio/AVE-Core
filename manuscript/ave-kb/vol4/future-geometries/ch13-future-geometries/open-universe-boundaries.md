@@ -1,5 +1,9 @@
 [↑ Ch.13: Future Geometries](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-hd9bee]
+-->
 
 ## 3D Torus Knot Antenna Simulation
 

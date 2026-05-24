@@ -67,6 +67,8 @@ c_{eff}(V) = c_0 \left(1 - \left(\frac{V}{V_{yield}}\right)^2\right)^{-1/4}
 \end{equation}
 \end{resultbox}
 
+\paragraph{Domain of validity (EFT statement).} The direct substitution of $\varepsilon_{eff}(V)$ into the linear D'Alembert form is exact only in the leading-order long-wavelength EFT regime, where the field-gradient corrections that arise from $\nabla \cdot \mathbf{D} = \varepsilon_{eff}(V)\,\nabla \cdot \mathbf{E} + (\nabla \varepsilon_{eff})\cdot \mathbf{E} = 0$ are subdominant to the inertial term $\varepsilon_{eff}(V)\,\partial^2 V/\partial t^2$. This holds in the linear limit $V \ll V_{yield}$ (where $d\varepsilon_{eff}/dV \to 0$ and $\nabla \varepsilon_{eff} \to 0$). Particle confinement and standing-wave claims at $V \to V_{yield}$ depend on the dropped first-derivative gradient terms remaining negligible by symmetry at saturation; we use the leading-order form throughout this volume and flag the EFT caveat explicitly where downstream chapters invoke the master equation in the saturated regime. A higher-order correction including the $\nabla \varepsilon_{eff} \cdot \nabla V$ term is not derived here but is required for any quantitative claim that depends on the wave-equation form near $V_{yield}$ rather than on the saturation kernel $S$ alone.
+
 Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric $\to$ faster propagation), while the measured capacitance \emph{diverges} ($C_{eff} = C_0/S \to \infty$). The resulting non-linear wave equation is the \textbf{Unifying AVE Master Equation}:
 \begin{resultbox}{The Unifying AVE Master Equation}
 \begin{equation}
@@ -79,9 +81,53 @@ Note: the wave speed \emph{increases} as permittivity drops (thinner dielectric 
 This single line of non-linear differential topology formally replaces the fragmented domains of the Standard Model and General Relativity:
 \begin{enumerate}
     \item \textbf{Classical Electromagnetism ($V \ll 43.65\text{ kV}$):} The square root term evaluates to 1. The equation reduces to the linear Maxwellian wave equation used in standard optics and RF engineering.
-    \item \textbf{Particle Assembly ($V \to 43.65\text{ kV}$):} The local permittivity collapses ($\varepsilon_{eff} \to 0$), forcing the impedance to drop to zero ($Z \to 0$). The accelerating wave continuously reflects off its own self-induced impedance boundary ($\Gamma \to -1$). This traps the wave into a stabilized topological knot (a Fermion), physically generating invariant rest mass without invoking the Higgs Mechanism.
+    \item \textbf{Particle Assembly ($V \to 43.65\text{ kV}$):} The non-linear regime divides into two distinct saturation symmetries (per Axiom~4 confinement theorem):
+    \begin{itemize}
+        \item \emph{Asymmetric (electric-only) saturation}, where only $\varepsilon_{eff} \to 0$ while $\mu_{eff}$ remains intact, drives $Z = \sqrt{\mu_0/\varepsilon_{eff}} \to \infty$ --- the medium becomes electromagnetically opaque (evanescent, no energy transport). This is the dielectric-rupture branch (electric breakdown).
+        \item \emph{Particle confinement} proceeds via the magnetic branch instead: at a torus-knot self-intersection the field $\mathbf{B}$ saturates $\mu_{eff}$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The accelerating wave reflects off its own self-induced impedance boundary, trapping into a stabilised topological knot (a Fermion) and physically generating invariant rest mass without invoking the Higgs Mechanism.
+    \end{itemize}
+    Both branches are governed by the same kernel $S(A) = \sqrt{1-(A/A_{yield})^2}$; they differ in which constitutive parameter saturates first. See LIVING\_REFERENCE Axiom~4 derived consequences for the symmetric vs asymmetric tables.
     \item \textbf{Gravity:} The trapped topological knot permanently strains the surrounding $\varepsilon_{eff}$ and $\mu_{eff}$ fields symmetrically ($n(r) = 1 + 2GM/rc^2$). This produces a continuous refractive gradient radially outward while preserving $Z_0$. Test photons propagating through this gradient refract toward the knot, executing the macroscopic acceleration attributed to gravity.
 \end{enumerate}
+
+\paragraph{Canonical engine for the Master Equation: Master Equation FDTD.}
+Eq.~\ref{eq:master_wave} has a canonical numerical realization in
+\texttt{src/ave/core/master\_equation\_fdtd.py} (the \texttt{MasterEquationFDTD}
+class), validated empirically by the v14 Mode I PASS on the breathing-soliton
+criterion (4/4 strict) per research doc 113. The engine implements 3D leapfrog
+integration on eq.~\ref{eq:master_wave} with saturation kernel
+$S(A) = \sqrt{1-A^2}$ (Axiom 4 canonical) and effective wave speed
+$c_{\text{eff}}(V) = c_0 \cdot (1-A^2)^{-1/4}$.
+
+The framework's canonical two-engine architecture (doc 113 \S{}3.2):
+\textbf{K4-TLM} is canonical for the sub-saturation bench regime;
+\textbf{Master Equation FDTD} is canonical for the bound-state regime.
+Both are Axiom-1/2/3/4 compliant; they cover different operating regimes
+of the same substrate. Engines live under \texttt{src/ave/core/}.
+
+\paragraph{A-034 universality cross-reference.} The saturation kernel
+$S(A) = \sqrt{1 - A^2}$ in the Master Equation above is the SAME mechanism
+that governs every topological-reorganization event at every scale per the
+A-034 canonical synthesis (see Vol 3 Ch~4 \S\ref{sec:tki_strain_snap}
++ Backmatter Ch~\ref{app:universal_saturation_kernel}). 19 canonical
+instances span 21 orders of magnitude. The Master Equation is the
+substrate-scale FDTD realization; the same kernel produces BCS
+$B_c(T)$ at 0.00\% error, BH ring-down at 1.7\% from GR exact, NOAA-
+validated solar flare statistics, and the cosmic K4 crystallization
+seed event. The bulk response of the lattice to strain is universal.
+
+\paragraph{Substrate-observability rule near saturation boundaries.}
+When the saturation kernel reaches $S(A) \to 0$ (the local $\Gamma = -1$
+surface), the substrate is causally disconnected from the interior of the
+saturated region. The only externally observable invariants are the three
+integrated boundary observables: $\mathcal{M}$ (integrated strain integral,
+mass-equivalent), $\mathcal{Q}$ (boundary linking number, charge-equivalent),
+$\mathcal{J}$ (boundary winding number, spin-equivalent per SU(2)
+double-cover). The interior --- topology, eigenmode wavelength,
+microrotation profile --- is invisible. Engine implementation:
+\texttt{src/ave/core/boundary\_invariants.py}. \textbf{Canonical statement:}
+Common Foreword $\S$``Three Boundary Observables and the
+Substrate-Observability Rule''.
 
 \section{Continuum Electrodynamics of the LC Condensate}
 \subsection{The Dimensionally Exact Mass Density ($\rho_{bulk}$)}
@@ -113,8 +159,7 @@ Dividing by the Voronoi geometric volume of a single spatial node ($V_{node} = p
 This is the macroscopic 3D shear modulus of the $\mathcal{M}_A$ condensate---the elastic
 resistance to transverse spatial deformation. It must not be confused with the
 1D \textbf{string tension modulus} $G_{string} = T_{EM}/\ell_{node} = m_e c^2 / \ell_{node}^2
-\approx 5.49 \times 10^{11}$~Pa, which governs individual edge stiffness but is $\sim 10^{12}\times$
-smaller than the collective continuum value. The Cauchy bulk modulus is fixed at
+\approx 5.49 \times 10^{11}$~N/m, which governs individual edge stiffness (line tension per unit length, distinct from the volumetric shear modulus $G_{vac}$ in Pa above). The Cauchy bulk modulus is fixed at
 $K_{vac} = 2G_{vac}$ (the Cauchy relation for the isotropic lattice).
 
 \subsection{Deriving the Kinematic Mutual Inductance of the Universe ($\nu_{kin}$)}
@@ -180,7 +225,9 @@ By evaluating the scalar volume summation of these topological knot crossings ($
 \end{equation}
 \end{resultbox}
 
-In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$). 
+\noindent\textbf{Notation.} $\mathcal{V}_{crossing}$ is the per-crossing topological halo volume (dimensionless, lattice units); the $6^3_2$ Borromean proton has six crossings, so the total topological halo volume is $\mathcal{V}_{total} = 6\,\mathcal{V}_{crossing} = 2.0$ (FEM-verified). Substituting $\rho_{bulk} = \xi_{topo}^2 \mu_0/(p_c \ell_{node}^2)$ and using $\mu_0 c^2 = 1/\varepsilon_0$ rewrites this in the equivalent compact electrostatic form $\tau_{yield} = e^2\,\mathcal{V}_{total}/(8\pi\varepsilon_0\,\ell_{node}^4)$ used in the appendices summary table; the two presentations differ only by factoring choice and yield identical $1.04\times 10^{22}$~Pa.
+
+In regions of high gravitational shear (e.g., the spatial envelope surrounding a planetary body), the local magnetic field exceeds this structural saturation limit ($\tau > \tau_{yield}$).
 
 This triggers a localized \textbf{Electrodynamic Phase-Transition}. The discrete, structurally frustrated LC loops physically saturate and continuously destructively interfere. Because this saturated continuum mathematically cannot support transverse inductive drag vectors, its effective mutual inductance is strictly annihilated ($\eta \to 0$). 
 
@@ -221,7 +268,7 @@ saturating $\mathcal{M}_{A}$ condensate. The phenomenological MOND acceleration 
 corresponds to the fundamental Unruh-Hawking Drift of
 the expanding cosmic lattice.
 
-The asymptotic Hubble constant $H_\infty$ is derived strictly from the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ --- all three themselves derived from first principles; see Ch.~\ref{ch:alpha_golden_torus} for the $\alpha$ closure). By equating the thermodynamic latent heat of lattice genesis to the holographic radiative capacity of the expanding horizon (derived in full in the Generative Cosmology chapter), the steady-state expansion rate evaluates to:
+The asymptotic Hubble constant $H_\infty$ enters this MOND derivation via the geometric consistency identity between $H_\infty$ and the three canonical hardware scales of the AVE framework ($\ell_{node}$, $\alpha$, $G$ --- $\alpha$ closed via Ch.~\ref{ch:alpha_golden_torus}, $\ell_{node}$ closed via scale invariance, $G$ taken as Bounding Limit~3 (CODATA input) since the substrate-local Chain~B$'$ derivation of $G$ from thermodynamic equilibrium between lattice-genesis latent heat and the expanding-horizon holographic radiative capacity remains qualitative only --- see Vol~3 Ch~\ref{ch:gravity_and_yield} for the corpus-honest framing of this relation as a geometric consistency identity, not an independent first-principles prediction). Per \texttt{consistency-vs-emergence} v1.1 (Grant canonized 2026-05-19 EOD), this is a \textbf{Class E operating-point projection} (joint-constrained with $\{G, \hat{\Omega}_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$ per the canonical $\Omega_\text{freeze}$ cosmic-grain cascade) that includes Class C consistency-check sub-structure --- the downstream $a_0 = c H_\infty/(2\pi)$ inherits Class E status via the Hoop-stress $2\pi$ projection. Evaluating the geometric consistency relation with CODATA $G$:
 \begin{resultbox}{Asymptotic Hubble Constant}
 \begin{equation}
     H_\infty = \frac{28\pi m_e^3 c G}{\hbar^2 \alpha^2} \approx 2.247 \times 10^{-18} \text{ s}^{-1} \approx 69.32 \text{ km/s/Mpc}

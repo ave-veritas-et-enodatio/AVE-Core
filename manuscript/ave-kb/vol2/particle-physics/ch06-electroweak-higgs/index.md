@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-5zuo7g, clm-8niffj, clm-bqtasn, clm-p7rfkb, clm-q8un7j, clm-rji99i, clm-stgx1i, clm-v2sg8z]
+subtree-experiments: []
+-->
+
 # Ch.6 — The Subatomic Scale: Electroweak and Higgs Sectors
 
 The Higgs Mechanism is subsumed into the native dielectric breakdown of the $376.73\ \Omega$ LC network. The $W$ and $Z$ boson pole masses are derived as geometric macroscopic evanescent cutoffs. The three-generation charged lepton spectrum ($e$, $\mu$, $\tau$) follows from sequential quantized Cosserat (torsional/bending) excitations of the baseline $0_1$ electron unknot. Schwinger's anomalous magnetic moment ($a_e = \alpha/2\pi$) is derived from the on-site capacitive displacement strain.
@@ -27,3 +33,6 @@ The Higgs Mechanism is subsumed into the native dielectric breakdown of the $376
 | [Lepton Spectrum](lepton-spectrum.md) | Three-generation lepton spectrum: electron (translation), muon (Cosserat torsion), tau (curvature-twist) |
 | [Higgs Mass](higgs-mass.md) | Neutrino mass spectrum; Schwinger anomalous magnetic moment $a_e = \alpha/(2\pi)$; summary of all electroweak predictions |
 | [SM-AVE Translation](sm-ave-translation.md) | Cross-reference to shared SM/Particle Physics translation table |
+| [AVE-Native Petermann Coefficient via Route B (4% forward → 10 ppm with postulate)](q-g19a-petermann-saliency-closure.md) | Two-loop Petermann derivation in two stages: Stage 1 symmetric Route B forward gives $C_2 = -0.3416$ → 4% off PDG (no postulate, no fit); Stage 2 saliency closure with n_q-additivity postulate $\delta = -3\alpha/2$ gives $C_2 = -0.32846$ → 50 ppm at $C_2$ / ≈10 ppm at $a_e$ total. Postulate-conditional headline made explicit per Action 2 of 2026-05-18 walk-back; corpus admits n_q-additivity is the "single remaining intuitive step" at q-g19a:98 |
+| [Q-G27 Muon Cosserat Saliency (forward +502×10⁻¹¹; 4.6σ tension vs Fermilab on e+e- baseline)](q-g27-muon-cosserat-saliency.md) | Cosserat torsion-quantum saliency $\delta_{\text{Cosserat}}^\mu = -\alpha\sqrt{3/7}/(2\pi)$; textbook QED conversion gives forward $\Delta a_\mu^{(2)} = +502 \times 10^{-11}$ vs Fermilab Run-3 $+245(56) \times 10^{-11}$ tension (4.6σ above on e+e- baseline; BMW-baseline-conditional); mechanism preserved (same $\sqrt{3/7}$ that gives $m_\mu$ at 1.24%), zero fit parameters; prior corpus $+247$ value was factor-2 conversion error walked back 2026-05-18 |
+| [Q-G20f Vacuum Polarization (matches QED via RT-equivalence)](q-g20f-vacuum-polarization.md) | One-loop $\Pi(q^2)$ matches QED at observable scales via Renormalization-Theorem equivalence; lattice geometric cutoff at $\pi/\ell_{node}$ removes QED's Landau pole structurally; AVE-distinct chiral piece $\alpha$-suppressed for precision polarimetry |

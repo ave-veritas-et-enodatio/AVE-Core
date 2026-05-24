@@ -1,0 +1,48 @@
+{
+  "constants": {
+    "alpha": 0.0072973525692838015,
+    "alpha_inv": 137.035999084,
+    "p_star": 0.18340247377853275
+  },
+  "master_equation_results": {
+    "v_peak_initial": 0.8480639100752422,
+    "v_peak_final": 0.1395933604001397,
+    "v_peak_mean_late": 0.3236876360018764,
+    "v_peak_min_late": 0.09874595799057058,
+    "v_peak_max_late": 0.5986055244626921,
+    "v_peak_persistence_ratio": 0.3816783524877955,
+    "fwhm_initial": 6.547963313035439,
+    "fwhm_final": 7.96921879486843,
+    "fwhm_mean_late": 10.807881360316951,
+    "Lambda_total": 2.045684035112624,
+    "Q_factor_ratio_to_alpha_inv": 0.01492807764957196,
+    "rel_err_to_alpha_inv": 0.985071922350428,
+    "n_steps_logged": 50,
+    "final_time": 77.45966692414892,
+    "omega_breathe": 0.6489245881557781,
+    "period_breathe": 9.682458365518539,
+    "mode_i_pass": false,
+    "test_1_pass": true,
+    "test_2_pass": true,
+    "test_4_pass": false
+  },
+  "k4_tlm_results": {
+    "Master_Eq_linear_c_eff": 96.82458365518544,
+    "deviation_from_c0_pct": 9582.458365518543,
+    "K4_TLM_linear_status": "Validated externally per doc 113 \u00a73.2 (IM3 cubic slope 2.956)"
+  },
+  "operating_point_results": {
+    "A_op": 0.3236876360018764,
+    "S_op": 0.9461639996847887,
+    "n_op": 0.9862604206546043,
+    "c_eff_at_op": 1.0139309852222158,
+    "p_star_ftg_emt": 0.18340247377853275,
+    "Q_factor_consistent": false
+  },
+  "verdict": {
+    "mode_i_pass": false,
+    "linear_mode_match": false,
+    "q_factor_consistency": false,
+    "overall_pass": false
+  }
+}

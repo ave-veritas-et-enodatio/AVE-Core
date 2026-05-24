@@ -1,7 +1,13 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-knveh6]
+-->
 
 ## The Riemann Hypothesis
+
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy. The "proof" conflates spectral parameter σ (mathematical complex-analysis variable) with physical energy density (AVE physical-system observable). The ζ-function has NO physical energy density in the Clay formulation — it is a complex function of a complex variable. Step 3's "Axiom 4 forbids σ < 1/2 region because ζ(2σ) diverges → infinite energy density" is a physical-analogy argument applied to a purely mathematical statement. The lattice spectral ζ-function construction in Step 1 is interesting AS PHYSICS but does NOT bridge to the Clay statement (zeros of the Riemann ζ-function as a complex-analysis claim). **The lattice spectral-ζ identification is suggestive structural analogy; it should NOT be cited as proving the Riemann Hypothesis.** See `ch12-millennium-prizes/index.md:5` for canonical scope framing.
 
 ### The Mathematical Paradox (What Clay Asks)
 

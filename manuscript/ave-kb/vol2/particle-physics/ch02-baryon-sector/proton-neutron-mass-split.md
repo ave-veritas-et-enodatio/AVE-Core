@@ -1,5 +1,9 @@
 [↑ Ch.2 — Baryon Sector](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-bh9p6s]
+-->
 
 ## Neutron Decay: The Threading Instability
 

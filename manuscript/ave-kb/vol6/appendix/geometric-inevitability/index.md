@@ -1,5 +1,11 @@
 [↑ Vol 6: Appendix](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-l416hl, clm-llqd1n, clm-mlwm3h, clm-nk6c43, clm-ome498, clm-sjixaw]
+subtree-experiments: []
+-->
+
 # Geometric Inevitability --- From Numerology to Derivation
 
 Every "mystical" constant in physics is a geometric packing theorem in disguise. The AVE framework resolves each case: the Golden Ratio, Fibonacci sequence, $\pi$, nuclear magic numbers, and a catalog of derived numerical constants are all forced outcomes of minimum-impedance packing constraints applied to finite numbers of coupled resonant nodes in 3D space. This appendix traces each constant from its traditional numerological invocation to its deterministic derivation.

@@ -1,5 +1,11 @@
 [↑ Vol 4: Simulation](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-c54kdd]
+subtree-experiments: []
+-->
+
 # Ch.14: The Leaky Cavity — Simulating Particle Decay
 
 Particle decay reframed as a deterministic analog engineering problem: a topological knot (fermion) modeled as an LC tank circuit whose peak voltage exceeds the $\mathcal{M}_A$ structural yield limit $V_{yield} = 43.65\,\text{kV}$, triggering impedance rupture and exponential RC-discharge.

@@ -1,5 +1,11 @@
 [↑ Particle Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-8c3yhs, clm-8zpicx, clm-ezai5b, clm-gfdplp, clm-h9aqmt, clm-hb2xmj, clm-jupq56, clm-jwyy6l, clm-k6olj8, clm-ka5zdx, clm-lj4ok5, clm-ou2jym, clm-oygz1i, clm-salw2h, clm-uatcql]
+subtree-experiments: []
+-->
+
 # Ch.1 — Topological Matter: Fermion Generations
 
 > ↗ See also: [Nuclear Coupling Constant $K$](../../../vol6/framework/computational-mass-defect/mutual-coupling-constant.md) — proton $(2,5)$ knot crossings scale the nuclear $\alpha\hbar c$ coupling
@@ -23,9 +29,17 @@ Matter is defined as localised, self-sustaining topological knots of confined el
 | Document | Contents |
 |---|---|
 | [Mathematical Topology of Mass](mathematical-topology-of-mass.md) | Faddeev-Skyrme energy functional; Gauss Linking Number / Hopf Charge |
+| [Mass-Closure Theorem ($mc^2 = E_{\text{reactive}}$)](mass-closure-theorem.md) | Derived theorem (NOT new axiom) from Axioms 1+2+4: mass is the reactive energy of a saturation-locked closed-tube standing wave; vacuum is the absence of closed tubes. Complementary to [Vol 2 Ch 6 Higgs Mechanism leaf](../ch06-electroweak-higgs/higgs-mechanism.md): closure (this leaf) creates the standing-wave LC tank; $Z_0$ drag (Higgs leaf) is what that closure feels when accelerated |
 | [Newtonian Inertia as Lenz's Law](newtonian-inertia-as-lenz.md) | Inductance-to-mass mapping; back-EMF derivation of $F = ma$ |
+| [Electron Identification — Canonical 4-Property Definition + First-Principles Axiom Audit + Framing Translation Guide](electron-identification.md) | **Canonical electron-identification hub** (parallel to Vol 1 Ch 4 photon-identification): 4-property definition (0_1 unknot real-space + (2,3) phase-space + Γ=-1 TIR cavity + T₂-microrotation core); first-principles axiom audit per property (8/8 topological-dynamical properties axiom-derived; 6/8 observables axiom-derived; m_e honestly scoped as calibration anchor; g-2 partial closure pending K4-Cosserat numerical confirmation); 8-framing cross-corpus translation guide + reconciliation matrix; 🚩 flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse) |
 | [Electron Unknot](electron-unknot.md) | $0_1$ unknot geometry; ropelength limit; dynamic capacitive yielding (eq:dynamic_capacitance_yield) |
 | [Regime Classification](regime-classification.md) | Classification of particles by Axiom 4 saturation regime |
 | [Torus Knot Ladder](torus-knot-ladder.md) | $(2,q)$ torus knot phase winding ladder for stable topological defects |
 | [Chirality and Antimatter](chirality-and-antimatter.md) | Topological twist direction as charge polarity; optical phase cancellation annihilation |
 | [Spin ↔ Gyroscopic Precession](spin-gyroscopic-isomorphism.md) | Quantum spin as classical gyroscopic precession of the $0_1$ unknot; zero-deviation proof |
+| [Q-G18 Schwinger Pair Production WKB Closure](q-g18-schwinger-pair-wkb.md) | Saturation-kernel WKB integral $\int_0^1\sqrt{1-A^2}\,dA = \pi/4$ generates QED's $\exp(-\pi E_S/E)$ Schwinger exponent identically (same integral, different physical labels); no fit parameters; AVE-distinct predictions at sharp lattice cutoff + autoresonant sub-Schwinger PLL |
+| [L3 Electron-Soliton Closure Synthesis](l3-electron-soliton-synthesis.md) | $(2,q)$ family as lemniscate-with-$q$-half-twists; rest-energy Virial sum (structural, $E = \gamma m_0 c^2$); $m_{\text{Cosserat}} = 2 m_e$ from bipartite K4; three-layer chirality structure with $\chi_{(2,3)} = 1.2\alpha$ (AVE-HOPF birefringence prediction); Meissner-asymmetric magnetic-moment generator; substrate-native Pauli (provisional); L3 empirical closure (Mode III across 10 tests + structural partial positive at 100% CCW chirality + three-layer convergent refutation) |
+| [Pair Production: Saturated Flux-Tube Rupture](pair-production-axiom-derivation.md) | Pair production as rupture of saturated flux tube around A-B node pair (NOT Breit–Wheeler); four AVE-derived corpus pieces fused (electron = 2 saturated K4 nodes + saturated flux tube TIR cable + $c_{\text{local}} \to 0$ sideways KE shatter into transverse curl + Duffing autoresonant lock); three nucleation conditions C1+C2+C3 at the node pair; $V_{\text{yield}}$ vs $V_{\text{SNAP}}$ resolved as different stages of same process |
+| [Substrate-Perspective Electron](substrate-perspective-electron.md) | What the lattice "sees" when canonical electron exists; substrate doesn't have an "electron mode" — it has saturating LC dynamics the electron configures into a topologically stable pattern; six substrate-level observables (high $A^2$ saturation + self-formed TIR wall + topological circulation + B-flux + Op14 refractive tail + K4-Cosserat coupling) compose into macroscopic charge/mass/spin/g/Compton/gravitational coupling |
+| [$(2,3)$ Torus-Knot Uniqueness](torus-knot-uniqueness.md) | $(2, 3)$ is uniquely the smallest non-trivial coprime torus knot (gcd=1, both windings ≥2, lowest crossing $c = 3$); electron forced to $(2, 3)$ as lightest stable non-trivial lepton; clarification: $(2, 3)$ is **phase-space** Clifford-torus winding (electron real-space topology is $0_1$ unknot per Vol 1 Ch 8) |
+| [Bracket-Golden-Torus Electron Seeder](electron-unknot-cosserat-seeder.md) | A-024 operationalization: Cosserat $\omega$-field hedgehog on horn-torus unknot at $R = r = \ell_{\text{node}}/(2\pi)$; 9 unit tests PASS (topology preserves, three-layer canonical, Bounding Limit 1); canonical injection protocol; Mode III on K4-TLM but Mode I PASS on Master Equation FDTD per two-engine architecture |

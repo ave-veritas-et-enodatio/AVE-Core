@@ -1,11 +1,19 @@
 [↑ Ch.7 Regime Map](index.md)
-<!-- leaf: verbatim -->
-<!-- path-stable: referenced from vol1 as sec:domain_catalog -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-b2anl4, clm-82dxbj]
+path-stable: "referenced from vol1 as sec:domain_catalog"
+-->
 
 ## Section 7.2: Domain Control Parameter Catalog
+<!-- claim-quality: clm-82dxbj -->
 
 Each domain has a unique physical interpretation of the amplitude $A$ and the critical threshold $A_c$. In every case, $A_c$ is **derived from the four axioms**---it is never a fitted or empirical parameter.
 
+> ↗ See also: [Temporal Saturation Regime Classifier](../../../common/temporal-saturation-regime-classifier.md) — companion leaf introducing the orthogonal temporal axis (lossless / cyclic / lossy) on top of the Regime I-IV spatial-instantaneous classification per this catalog. Maps additional field domains (semiconductor, plasma, MHD, nonlinear optics, cavity QED, tribology, polymer dynamics, magnonics, etc.) to the AVE regime framework.
+
+<!-- claim-quality: clm-b2anl4 (regime classification applied per-domain throughout this catalog) -->
 ### Electromagnetic (Dielectric)
 
 | | |

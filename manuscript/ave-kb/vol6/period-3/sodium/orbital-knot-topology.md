@@ -1,5 +1,9 @@
 [↑ Sodium (Z=11)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-y7uvdc]
+-->
 
 ## Orbital Knot Topology
 

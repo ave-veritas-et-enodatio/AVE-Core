@@ -1,5 +1,9 @@
 [↑ Neon (Z=10)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-f8k2um]
+-->
 
 ## Topological Area of Interest: Noble Gas Inertness & Spectral Emission
 

@@ -6,6 +6,8 @@ __pycache__/
 # Virtual environments
 venv/
 .venv/
+venv
+.venv
 
 # OS files
 .DS_Store
@@ -41,6 +43,22 @@ data/*
 simulations/*
 sim_outputs/
 
+# Canonical external research data — explicit allowlist (override of data/* above)
+# External research artifacts (not simulation outputs) tracked for reproducibility.
+# Large covariance files (>5MB) routed through git-LFS per .gitattributes.
+!data/pantheon_plus/
+data/pantheon_plus/*
+!data/pantheon_plus/README.md
+!data/pantheon_plus/Pantheon+SH0ES.dat
+!data/pantheon_plus/Pantheon+SH0ES_STAT+SYS.cov
+!data/sdss_dr17/
+data/sdss_dr17/*
+!data/sdss_dr17/README.md
+!data/sdss_dr17/GalaxyZoo1_DR_table2.csv.gz
+!data/shamir_2022/
+data/shamir_2022/*
+!data/shamir_2022/README.md
+
 #.claude/memory/
 #.claude/agent-memory/
 .claude/local-settings.json
@@ -70,3 +88,9 @@ manuscript/**/main.pdf
 # custom defense-context checker: spots where an uncontextualized AI reviewer
 # will misread the framework and where the source should add pre-emptive context)
 .agents/
+mad-review/
+mad-design/
+guest-session/
+
+# tarballs archived for extraction/transfer/sharing
+*.tgz

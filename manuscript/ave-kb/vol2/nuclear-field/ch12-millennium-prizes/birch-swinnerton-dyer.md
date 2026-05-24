@@ -1,7 +1,13 @@
 [↑ Ch. 12: Mathematical Limits and the Millennium Prizes](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-knveh6]
+-->
 
 ## The Birch and Swinnerton-Dyer Conjecture
+
+> **Scope correction (2026-05-17 night, Foundation Item 14 audit per `ave-infinity-discipline` skill + `.agents/kb_audit/phase-5-millennium.md`)**: This derivation is **framework-conditional**, classification **(B)** per kb_audit phase-5 taxonomy. AVE's "elliptic curve = torus, rational points = winding orbits, rank = mutual inductance matrix rank" is a physical-analogy argument applied to a number-theoretic statement (Mordell-Weil rank vs L-function order of vanishing at s=1). The Clay problem is a statement about elliptic curves over ℚ + their L-functions; AVE's mutual-inductance-matrix reformulation is suggestive structural analogy, not a number-theoretic proof. **The lattice impedance-matrix construction is interesting AVE-internal physics; it should NOT be cited as proving the BSD Conjecture.** See `ch12-millennium-prizes/index.md:5` for canonical scope framing.
 
 ### The Mathematical Paradox (What Clay Asks)
 

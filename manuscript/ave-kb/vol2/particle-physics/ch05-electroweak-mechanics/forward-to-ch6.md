@@ -1,5 +1,9 @@
 [↑ Ch.5 — Electroweak Mechanics](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-jkpfd4]
+-->
 
 ## Electroweak Mechanics: Forward Reference
 

@@ -1,5 +1,11 @@
 [↑ Applied Physics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-o6kgkz]
+subtree-experiments: []
+-->
+
 # Ch.7: Stellar Interiors and Neutrino Oscillation
 
 Stellar objects classified on the universal regime map via $\varepsilon_{11} = 7GM/(c^2 r)$; stellar interiors modelled as radial impedance waveguides with the tachocline as an impedance boundary ($\Gamma \approx 0.82$); and the MSW neutrino flavor oscillation effect derived as impedance mode coupling, validated against Borexino and SNO survival probabilities.

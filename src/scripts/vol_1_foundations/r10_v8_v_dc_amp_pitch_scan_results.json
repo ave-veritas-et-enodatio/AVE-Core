@@ -1,0 +1,179 @@
+{
+  "test": "v8 V_DC scaling test (V_AMP \u00d7 HELICAL_PITCH scan)",
+  "n_periods_per_run": 100,
+  "baseline_200P_prior": {
+    "label": "Baseline (200P, prior run)",
+    "V_AMP": 0.95,
+    "HELICAL_PITCH": 0.15915494309189535,
+    "per_bond_mean_abs": 0.15804,
+    "n_contributing": 4
+  },
+  "runs": [
+    {
+      "label": "Run 1: V_AMP=0.5, HELICAL_PITCH=1/(2\u03c0) (V_AMP scan)",
+      "V_AMP": 0.5,
+      "HELICAL_PITCH": 0.15915494309189535,
+      "n_periods": 100,
+      "n_steps": 888,
+      "elapsed_s": 135.45960521697998,
+      "contribs": [
+        {
+          "ring_idx": 0,
+          "a_site": [
+            16,
+            16,
+            16
+          ],
+          "port": 0,
+          "V_DC_at_port": -0.00012081737415757514,
+          "contribution": -0.00012081737415757514
+        },
+        {
+          "ring_idx": 1,
+          "a_site": [
+            16,
+            18,
+            18
+          ],
+          "port": 1,
+          "V_DC_at_port": -0.00020334085727130802,
+          "contribution": 0.00020334085727130802
+        },
+        {
+          "ring_idx": 2,
+          "a_site": [
+            16,
+            18,
+            18
+          ],
+          "port": 2,
+          "V_DC_at_port": 0.00020197057408035063,
+          "contribution": 0.00020197057408035063
+        },
+        {
+          "ring_idx": 3,
+          "a_site": [
+            14,
+            18,
+            16
+          ],
+          "port": 0,
+          "V_DC_at_port": 0.000119184136058098,
+          "contribution": -0.000119184136058098
+        },
+        {
+          "ring_idx": 4,
+          "a_site": [
+            14,
+            18,
+            16
+          ],
+          "port": 1,
+          "V_DC_at_port": 0.00020423222533983692,
+          "contribution": 0.00020423222533983692
+        },
+        {
+          "ring_idx": 5,
+          "a_site": [
+            16,
+            16,
+            16
+          ],
+          "port": 2,
+          "V_DC_at_port": -0.00020635023746733185,
+          "contribution": 0.00020635023746733185
+        }
+      ],
+      "n_contributing": 0,
+      "per_bond_mean_abs": 0.0,
+      "loop_total": 0.0005758923839431542,
+      "pred_substrate_per_bond": 0.08333333333333333,
+      "pred_IC_per_bond": 0.07957747154594767,
+      "pct_off_substrate": 100.0,
+      "pct_off_IC": 100.0
+    },
+    {
+      "label": "Run 2: V_AMP=0.95, HELICAL_PITCH=0 (HELICAL_PITCH scan)",
+      "V_AMP": 0.95,
+      "HELICAL_PITCH": 0.0,
+      "n_periods": 100,
+      "n_steps": 888,
+      "elapsed_s": 133.8408019542694,
+      "contribs": [
+        {
+          "ring_idx": 0,
+          "a_site": [
+            16,
+            16,
+            16
+          ],
+          "port": 0,
+          "V_DC_at_port": 1.228041466024255e-06,
+          "contribution": 1.228041466024255e-06
+        },
+        {
+          "ring_idx": 1,
+          "a_site": [
+            16,
+            18,
+            18
+          ],
+          "port": 1,
+          "V_DC_at_port": -0.15801464974129925,
+          "contribution": 0.15801464974129925
+        },
+        {
+          "ring_idx": 2,
+          "a_site": [
+            16,
+            18,
+            18
+          ],
+          "port": 2,
+          "V_DC_at_port": 0.15801464971338364,
+          "contribution": 0.15801464971338364
+        },
+        {
+          "ring_idx": 3,
+          "a_site": [
+            14,
+            18,
+            16
+          ],
+          "port": 0,
+          "V_DC_at_port": -1.228044756888348e-06,
+          "contribution": 1.228044756888348e-06
+        },
+        {
+          "ring_idx": 4,
+          "a_site": [
+            14,
+            18,
+            16
+          ],
+          "port": 1,
+          "V_DC_at_port": 0.15801464933618178,
+          "contribution": 0.15801464933618178
+        },
+        {
+          "ring_idx": 5,
+          "a_site": [
+            16,
+            16,
+            16
+          ],
+          "port": 2,
+          "V_DC_at_port": -0.15801465015145466,
+          "contribution": 0.15801465015145466
+        }
+      ],
+      "n_contributing": 4,
+      "per_bond_mean_abs": 0.15801464973557983,
+      "loop_total": 0.6320610550285423,
+      "pred_substrate_per_bond": 0.15833333333333333,
+      "pred_IC_per_bond": 0.0,
+      "pct_off_substrate": 0.2012738512127366,
+      "pct_off_IC": null
+    }
+  ]
+}

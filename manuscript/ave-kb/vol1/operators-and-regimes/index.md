@@ -1,5 +1,13 @@
 [↑ Vol 1: Foundations](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-2dwzib, clm-82dxbj, clm-9kd2t3, clm-b2anl4, clm-gdd70j, clm-j550uh, clm-k6quve, clm-lv3uw1, clm-nu1ir7, clm-nxc9gy, clm-rtgmg5, clm-unk0bd, clm-zw6mut]
+subtree-experiments: []
+-->
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index, the volume index, and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this subtopic, load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+
 # Operators and Regimes
 
 Universal spatial tension ($M \propto 1/r$) unifies subatomic lepton mass and nuclear binding energy under a single geometric tensor. Eight universal operators ($Z$, $S$, $\Gamma$, pairwise potential, Y-to-S, eigenvalue target, spectral analyser, packing reflection) govern physics at all length scales without domain-specific modifications. The four-regime map classifies all physical domains by the dimensionless control parameter $r = A/A_c$.

@@ -11,6 +11,18 @@
 
 Every physical domain in the AVE framework reduces to a single dimensionless control parameter $r = A/A_c$, where $A$ is the local strain amplitude and $A_c$ is the domain-specific critical threshold derived from the four axioms. The saturation operator $S(r) = \sqrt{1 - r^2}$ (Axiom~4) changes character at well-defined boundaries, partitioning all of physics into four universal regimes.
 
+\textbf{A-034 universality (canonical 2026-05-15 evening):} this chapter's
+``every physical domain reduces to a single dimensionless control parameter''
+framing IS A-034 (Universal Saturation-Kernel Strain-Snap Mechanism). Per
+Grant 2026-05-15: \emph{``the bulk response of the lattice to strain is
+universal.''} 19 canonical instances span 21 orders of magnitude (atomic to
+cosmic), with empirical anchors: BCS $B_c(T)$ at \textbf{0.00\% error}, BH
+ring-down at 1.7\% from GR, NOAA-validated solar flares, Schwarzschild
+exact, cosmic K4 crystallization, biological membranes, engineered
+metamaterials, etc. See Vol 3 Ch 4 \S\ref{sec:tki_strain_snap} +
+Backmatter Ch~\ref{app:universal_saturation_kernel} for the full catalog
+with 3-way symmetry classification (SYM / ASYM-N / ASYM-E).
+
 This chapter establishes the regime classification as a \textbf{prerequisite gate}: no domain analysis proceeds without first identifying its regime and verifying the appropriate equation set.
 
 \section{The Four Universal Regimes}
@@ -44,13 +56,15 @@ IV  & Ruptured   & $r \geq 1.0$       & $S = 0$           & Topology destroyed  
     \end{equation}
     Below $r_1$, Axiom~4 corrections are \textit{sub-$\alpha$}: smaller than the lattice's own coupling strength and therefore physically unresolvable. This is the exact analog of small-signal linearization in semiconductor analysis, where perturbations smaller than $V_T = kT/q$ are absorbed by thermal noise.
 
-    \item \textbf{$r_2 = \sqrt{3}/2 \approx 0.8660$ (Avalanche Onset):} The quality factor $Q(r) = 1/S(r)$ measures energy trapping efficiency. A mode with $Q \geq \ell$ stores more energy per cycle than it radiates. The minimum non-trivial multipole is $\ell = 2$ (dipole cannot radiate gravitational waves; monopole cannot radiate at all). The yield regime begins when $Q$ first reaches this minimum:
+    \item \textbf{$r_2 = \sqrt{3}/2 \approx 0.8660$ (Avalanche Onset, spin-2 sector):} The quality factor $Q(r) = 1/S(r)$ measures energy trapping efficiency. A mode with $Q \geq \ell$ stores more energy per cycle than it radiates. For the \textbf{spin-2 (gravitational-wave / shear) sector}, the minimum non-trivial multipole is $\ell_{\min} = 2$ (dipole cannot radiate gravitational waves; monopole cannot radiate at all). The yield regime begins when $Q$ first reaches this minimum:
     \begin{equation}
-        Q(r) = \frac{1}{S(r)} = \ell_{\min} = 2 \qquad \Longrightarrow \qquad S = \frac{1}{2}, \quad r_2 = \sqrt{1 - \frac{1}{4}} = \frac{\sqrt{3}}{2}
+        Q(r) = \frac{1}{S(r)} = \ell_{\min} = 2 \qquad \Longrightarrow \qquad S = \frac{1}{2}, \quad r_2^{(\ell=2)} = \sqrt{1 - \frac{1}{4}} = \frac{\sqrt{3}}{2}
     \end{equation}
-    In semiconductor terms, this is the onset of \textbf{avalanche multiplication}: the Miller factor $M = 1/(1-(V_R/V_{BR})^n)$ reaches $M = 2$, meaning each cycle doubles the stored charge.
+    \textit{Sector-dependence note.} The $\ell_{\min} = 2$ argument is specific to the spin-2 sector. The scalar sector ($\ell_{\min} = 0$) has no avalanche-onset boundary from this criterion (it is trivially satisfied for all $r$); practical avalanche onset is set by Axiom~2's $V_{yield}$ instead. The vector / photon sector ($\ell_{\min} = 1$) collapses $r_2^{(\ell=1)} = 0$ together with the linear-Maxwell boundary, so the photon sector has no separate ``regime III'' between linear and yield. The ``universal regime map'' framing in this chapter is the spin-2 form; lower-spin sectors collapse two boundaries together. When this chapter cites $r_2 = \sqrt{3}/2$ without qualification, the spin-2 sector is implicit.
 
-    \item \textbf{$r_3 = 1.0$ (Breakdown):} Axiomatic from Axiom~4. The saturation factor reaches zero, compliance vanishes, and the topology is destroyed. In different domains this manifests as: pair production (EM), event horizon formation (gravity), quark deconfinement (nuclear), or superconducting transition (BCS). In semiconductor terms: $V_R = V_{BR}$, $M \to \infty$, the device is destroyed.
+    In semiconductor terms (an effectively spin-2 / shear-mode analog), the spin-2 boundary is the onset of \textbf{avalanche multiplication}: the Miller factor $M = 1/(1-(V_R/V_{BR})^n)$ reaches $M = 2$, meaning each cycle doubles the stored charge.
+
+    \item \textbf{$r_3 = 1.0$ (Breakdown):} Axiomatic from Axiom~4. The saturation factor reaches zero, compliance vanishes, and the topology is destroyed. In different domains this manifests as: pair production (EM), event horizon formation (gravity), quark deconfinement (nuclear), or superconducting transition (BCS). In semiconductor terms: $V_R = V_{BR}$, $M \to \infty$, the device is destroyed. \textit{Note (cross-link with Ch.~\ref{ch:quantum_signal_dynamics}):} this $r_3 = 1.0$ boundary is the same $V_{yield} = \sqrt{\alpha}\,V_{snap} \approx 43.65$~kV described in Ch.~\ref{ch:quantum_signal_dynamics} \S\ref{sec:zero_impedance} as ``matter assembly begins.'' The two descriptions are the same phase transition viewed from opposite sides: from sub-threshold trapping a wave reflects inward at $\Gamma = -1$ and forms a stable standing wave (matter); a super-threshold mode driven through the same boundary ruptures the existing topology. Same Axiom~4 saturation, two operational faces.
 \end{itemize}
 
 \subsection{Semiconductor Device Analogy}
@@ -234,7 +248,10 @@ The ``dark matter problem'' \textbf{IS} the Regime~III$\to$IV phase transition. 
 
 \section{Regime-Specific Equation Sets}
 
-For each regime, the constitutive parameters simplify:
+For each regime, the constitutive parameters simplify. Two saturation symmetries arise (per LIVING\_REFERENCE Axiom~4 derived consequences); each gets its own row block:
+
+\subsection*{Symmetric saturation (gravity, BH interior, GW shear)}
+Both $\varepsilon$ and $\mu$ scale by $S = \sqrt{1-r^2}$. The EM impedance ratio cancels, so $Z = Z_0$ is invariant; the EM phase velocity diverges; the shear (GW / soliton group) velocity freezes.
 
 \begin{center}
 \begin{tabular}{|l|c|c|c|c|}
@@ -242,14 +259,32 @@ For each regime, the constitutive parameters simplify:
 \textbf{Quantity} & \textbf{I (Linear)} & \textbf{II (Nonlinear)} & \textbf{III (Yield)} & \textbf{IV (Ruptured)} \\ \hline
 $\varepsilon_{eff}$ & $\varepsilon_0$ & $\varepsilon_0 \sqrt{1-r^2}$ & $\to 0$ & 0 \\
 $\mu_{eff}$         & $\mu_0$         & $\mu_0 \sqrt{1-r^2}$         & $\to 0$ & 0 \\
-$c_{eff}$           & $c_0$           & $c_0(1-r^2)^{1/4}$          & $\to 0$ & 0 \\
-$Z_{eff}$           & $Z_0$           & $Z_0 / (1-r^2)^{1/4}$       & $\to \infty$ & $\infty$ \\
-$C_{eff}$           & $C_0$           & $C_0 / \sqrt{1-r^2}$        & $\to \infty$ & $\infty$ \\
+$Z_{sym}$           & $Z_0$           & $Z_0$ (invariant)            & $Z_0$        & $Z_0$ \\
+$c_{EM,sym}$        & $c_0$           & $c_0 / \sqrt{1-r^2}$         & $\to \infty$ & $\infty$ \\
+$c_{shear}$         & $c_0$           & $c_0(1-r^2)^{1/4}$           & $\to 0$      & 0 \\
+$C_{eff}$           & $C_0$           & $C_0 / \sqrt{1-r^2}$         & $\to \infty$ & $\infty$ \\
 $Q$                 & $\sim 1$        & $1/\sqrt{1-r^2}$             & $\gg 1$      & $\infty$ \\ \hline
 \end{tabular}
 \end{center}
 
-\noindent The symmetric saturation case (both $\varepsilon$ and $\mu$ collapse equally) preserves $Z = \sqrt{\mu/\varepsilon} = Z_0$ (impedance invariant), while the asymmetric case (one collapses before the other) drives $Z$ to either 0 or $\infty$. The symmetric case governs gravity; the asymmetric case governs particle confinement (Meissner-like $\mu \to 0$ first $\Rightarrow Z \to 0$, $\Gamma \to -1$, standing wave $=$ rest mass).
+\subsection*{Asymmetric (electric-only) saturation (strong EM fields, dielectric rupture)}
+Only $\varepsilon$ scales by $S$; $\mu$ is unchanged. The EM impedance diverges and the medium becomes opaque (evanescent). $c_{shear}$ freezes identically to the symmetric case.
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Quantity} & \textbf{I (Linear)} & \textbf{II (Nonlinear)} & \textbf{III (Yield)} & \textbf{IV (Ruptured)} \\ \hline
+$\varepsilon_{eff}$ & $\varepsilon_0$ & $\varepsilon_0 \sqrt{1-r^2}$ & $\to 0$ & 0 \\
+$\mu_{eff}$         & $\mu_0$         & $\mu_0$ (unchanged)          & $\mu_0$ & $\mu_0$ \\
+$Z_{asym}$          & $Z_0$           & $Z_0 / (1-r^2)^{1/4}$        & $\to \infty$ & $\infty$ \\
+$c_{EM,asym}$       & $c_0$           & $c_0/(1-r^2)^{1/4}$          & $\to \infty$ & $\infty$ \\
+$c_{shear}$         & $c_0$           & $c_0(1-r^2)^{1/4}$           & $\to 0$      & 0 \\
+$C_{eff}$           & $C_0$           & $C_0 / \sqrt{1-r^2}$         & $\to \infty$ & $\infty$ \\
+$Q$                 & $\sim 1$        & $1/\sqrt{1-r^2}$             & $\gg 1$      & $\infty$ \\ \hline
+\end{tabular}
+\end{center}
+
+\noindent \textbf{Particle confinement} proceeds via the magnetic branch (a third sub-case of the symmetric sector): at a torus-knot self-intersection, the magnetic field saturates $\mu$ first, driving $Z = \sqrt{\mu_{eff}/\varepsilon_0} \to 0$ and $\Gamma \to -1$ (short-circuit). The standing wave that results is rest mass.
 
 \section{Cross-Domain Dimensional Analysis}
 \label{sec:dimensional_analysis}

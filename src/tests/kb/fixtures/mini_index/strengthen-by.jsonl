@@ -1,0 +1,10 @@
+{"claim_id": "clm-0ktpcn", "item_idx": 0, "text": "Extend the result to the adjacent regime.", "mentioned_ids": []}
+{"claim_id": "clm-5xon03", "item_idx": 0, "text": "Strengthen clm-unk0bd so the min() over the dependency set rises.", "mentioned_ids": ["clm-unk0bd"]}
+{"claim_id": "clm-h9aqmt", "item_idx": 0, "text": "Derive the mapping end-to-end.", "mentioned_ids": []}
+{"claim_id": "clm-inp001", "item_idx": 0, "text": "Tighten the estimate to clear the input-only band.", "mentioned_ids": []}
+{"claim_id": "clm-pen001", "item_idx": 0, "text": "Perform the first quality assessment.", "mentioned_ids": []}
+{"claim_id": "clm-ref001", "item_idx": 0, "text": "Re-examine the falsifying observation.", "mentioned_ids": []}
+{"claim_id": "clm-trf3bd", "item_idx": 0, "text": "Derive the torus bound end-to-end so confidence can rise.", "mentioned_ids": []}
+{"claim_id": "clm-trf3bd", "item_idx": 1, "text": "Add an independent cross-check of the golden ratio appearance.", "mentioned_ids": []}
+{"claim_id": "clm-trf3bd", "item_idx": 2, "text": "Reconcile with the lattice spacing convention.", "mentioned_ids": []}
+{"claim_id": "clm-unk0bd", "item_idx": 0, "text": "Tighten the bounding argument so confidence can rise.", "mentioned_ids": []}

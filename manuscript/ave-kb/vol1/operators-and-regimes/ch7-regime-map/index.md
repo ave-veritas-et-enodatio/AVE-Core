@@ -1,5 +1,11 @@
 [↑ Operators and Regimes](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-2dwzib, clm-82dxbj, clm-b2anl4, clm-lv3uw1, clm-rtgmg5]
+subtree-experiments: []
+-->
+
 # Ch.7: The Universal Regime Map
 
 All physical domains in the AVE framework reduce to a single dimensionless control parameter $r = A/A_c$, partitioned into four universal regimes by the saturation operator $S(r) = \sqrt{1-r^2}$. The regime boundaries are derived from first principles: $r_1 = \sqrt{2\alpha}$ (small-signal limit), $r_2 = \sqrt{3}/2$ (avalanche onset at $Q=2$), $r_3 = 1.0$ (breakdown). Eight domain-specific control parameters are catalogued, and a single dimensionless master equation governs all of physics.

@@ -1,5 +1,9 @@
 [↑ Ch.6 Solar System](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3kmt3p]
+-->
 
 ## 'Oumuamua (1I/2017 U1)
 

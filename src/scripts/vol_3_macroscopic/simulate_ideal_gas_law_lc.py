@@ -1,3 +1,22 @@
+"""
+Ideal Gas Law LC Mapping — illustrative N-body (NOT a PV=nRT verification).
+
+SCOPE NOTE (2026-05-17 driver-script honesty sweep):
+This script runs a simple N-body hard-sphere simulation with a moving wall
+to illustrate the AVE narrative that the Ideal Gas Law (PV=nRT) maps onto
+LC vacuum energy density: P↔transverse ponderomotive force, V↔grid cavity,
+n↔trapped topological nodes, T↔transverse RMS jitter.
+
+The script does NOT compute:
+  - PV=nRT relationship verified numerically (no P vs V/T sweep)
+  - R = 8.314 J/(mol·K) recovered from the LC mapping
+  - Comparison against standard kinetic theory predictions
+
+This is an illustrative narrative animation, NOT a PV=nRT derivation.
+
+Docstring corrected 2026-05-17.
+"""
+
 import os
 
 import matplotlib.pyplot as plt
@@ -7,14 +26,13 @@ from matplotlib import animation
 
 def main() -> None:
     print("==========================================================")
-    print(" AVE THERMODYNAMIC SCALE: SIMULATING PV=nRT")
+    print(" AVE THERMODYNAMIC SCALE: PV=nRT VISUALIZATION (illustrative)")
     print("==========================================================\n")
 
-    print("- Objective: Map the Ideal Gas Law to LC Vacuum Energy Density.")
-    print("- P (Pressure) = Transverse Ponderomotive Force (U) acting on the walls.")
-    print("- V (Volume) = Dimensions of the LC grid cavity.")
-    print("- n (Moles) = Number of trapped topological nodes (atoms).")
-    print("- T (Temperature) = Transverse RMS Jitter of the nodes.\n")
+    print("- Renders AVE narrative: P↔ponderomotive force, V↔LC cavity,")
+    print("  n↔trapped topological nodes, T↔transverse RMS jitter.")
+    print("- No quantitative PV=nRT verification or R recovery.")
+    print("  Illustrative animation, not derivation.\n")
 
     # Simulation Parameters
     num_particles = 150

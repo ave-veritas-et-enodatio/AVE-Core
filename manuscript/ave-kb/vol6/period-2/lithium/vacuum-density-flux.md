@@ -1,5 +1,9 @@
 [↑ Lithium (Z=3)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-h8nmpu]
+-->
 
 ## Continuous Vacuum Density Flux
 

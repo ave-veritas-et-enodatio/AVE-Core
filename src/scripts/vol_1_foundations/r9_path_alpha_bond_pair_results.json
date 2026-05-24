@@ -1,0 +1,146 @@
+{
+  "pre_registration": "P_phase9_path_alpha",
+  "test": "Round 9 path \u03b1: bond-pair (V_inc, V_ref) phasor on Move 5 fresh attractor with methodology fixes",
+  "N": 32,
+  "PML": 4,
+  "R": 10.0,
+  "r": 3.8196601125010514,
+  "phi_sq": 2.618033988749895,
+  "v_amp_init": 0.14,
+  "a26_amp_scale": 0.34641016151377546,
+  "pre_evolve_end_p": 10.0,
+  "selection_end_p": 15.0,
+  "recording_end_p": 50.0,
+  "n_recording_steps": 311,
+  "top_k_candidates": 8,
+  "sample_port": 0,
+  "elapsed_seconds": 69.28961181640625,
+  "omega_peak_init": 0.9262465141773654,
+  "omega_peak_final": 0.30436045892252095,
+  "persistence": 0.32859552426260413,
+  "persistence_guard": 0.7,
+  "persistence_ok": false,
+  "n_bond_pairs": 4,
+  "bond_results": [
+    {
+      "cell_a": [
+        24,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        19,
+        15
+      ],
+      "R_phase": 0.010824183915779351,
+      "r_phase": 0.005557987707073846,
+      "R_over_r": 1.9475005139005674,
+      "chirality_mean_sin_dphi": -0.01224488009167518,
+      "chirality_std_sin_dphi": 0.5121211890211679,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        6,
+        16,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        17,
+        15
+      ],
+      "R_phase": 0.01092886619270081,
+      "r_phase": 0.0068129182528945415,
+      "R_over_r": 1.6041387533246219,
+      "chirality_mean_sin_dphi": -0.01959588881720817,
+      "chirality_std_sin_dphi": 0.6047213564987423,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        6,
+        18,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        7,
+        19,
+        15
+      ],
+      "R_phase": 0.04801816656330977,
+      "r_phase": 0.0051955848097820605,
+      "R_over_r": 9.24211004561082,
+      "chirality_mean_sin_dphi": -0.0019295988983216942,
+      "chirality_std_sin_dphi": 0.14478821603331832,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    },
+    {
+      "cell_a": [
+        24,
+        10,
+        14
+      ],
+      "port": 0,
+      "cell_b": [
+        25,
+        11,
+        15
+      ],
+      "R_phase": 0.006604647861868955,
+      "r_phase": 0.003597136992288816,
+      "R_over_r": 1.8360846072938952,
+      "chirality_mean_sin_dphi": 0.008707348814318743,
+      "chirality_std_sin_dphi": 0.8500744364983261,
+      "chirality_sign": 0,
+      "chirality_label": "AMBIG"
+    }
+  ],
+  "cluster_adjudication": {
+    "+x": {
+      "n_bonds": 2,
+      "median_R_over_r": 1.8917925605972314,
+      "consensus_fraction": 0.0,
+      "consensus_direction": "TIE",
+      "n_ccw": 0,
+      "n_cw": 0,
+      "n_ambig": 2,
+      "c1_pass": "False",
+      "c2_pass": false,
+      "bond_indices": [
+        0,
+        3
+      ]
+    },
+    "-x": {
+      "n_bonds": 2,
+      "median_R_over_r": 5.423124399467721,
+      "consensus_fraction": 0.0,
+      "consensus_direction": "TIE",
+      "n_ccw": 0,
+      "n_cw": 0,
+      "n_ambig": 2,
+      "c1_pass": "False",
+      "c2_pass": false,
+      "bond_indices": [
+        1,
+        2
+      ]
+    }
+  },
+  "cross_cluster_chirality_consistent": false,
+  "phi_sq_target": 2.618033988749895,
+  "phi_sq_tolerance": 0.05,
+  "consensus_threshold": 0.75,
+  "all_c1_pass": false,
+  "all_c2_pass": false,
+  "mode": "III",
+  "verdict": "MODE III \u2014 NEGATIVE L3 CLOSURE. C1+C2 fail across clusters. Bond-pair lemniscate framing also fails. Either substrate doesn't host (2,q) at engine-representable scale, deeper reframe needed, or engine V\u00b7S/T\u00b71 implementation gap is load-bearing. CAVEAT: peak |\u03c9| persistence 33% below 70% threshold."
+}

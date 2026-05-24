@@ -1,5 +1,9 @@
 [↑ Heavy Element Catalog](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-nk6c43]
+-->
 
 ## Full Element Table
 

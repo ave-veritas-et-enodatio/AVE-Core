@@ -51,6 +51,173 @@ Key Results content is verbatim from the source. Derivations and Detail links mu
 
 **Navigation-pointer index exception:** An index that contains no original results — only pointers to child leaves — may replace `## Key Results` with a `> **Navigation note:**` blockquote stating explicitly that results reside in the destination leaves. Two confirmed instances: `common/translation-tables/index.md`, `vol5/common/index.md`. Absence of `## Key Results` is not a defect if a Navigation note is present.
 
+### Claim Quality Sidecar (INVARIANT-S7)
+
+A derived artifact that records the per-claim status of the framework's load-bearing claims for a volume (or for the whole KB at the cross-cutting level): what is claimed, what is NOT claimed, how confident we are in each claim locally, how solidly each claim can be built on (given its dependencies), and what work would strengthen it. Sidecars exist because index and entry-point documents are *summaries* of leaves, and a summary may suggest implications not actually supported by the leaves OR may obscure how solid those implications are. The sidecar identifies, per principle/equation/result, both the boundaries (claims and non-claims) and the quality (confidence, solidity, dependency chain, strengthen-by) of each.
+
+Locations:
+- Cross-cutting (project-wide tripwires that appear in two or more volumes): `claim-quality.md` (KB root)
+- Per volume: `volN/claim-quality.md` and `common/claim-quality.md`
+
+Structure:
+
+```
+Line 1: # [Scope] — Claim Quality
+Line 2: (blank)
+Line 3: <!-- path-stable: referenced from CLAUDE.md INVARIANT-S7 and from {scope}/index.md bootstrap directive -->
+Line 4: (blank)
+Line 5: > **Canonicality:** (preamble — see canonicality preamble below)
+Line 6: (blank)
+        ... entries ...
+```
+
+Note: this differs from INVARIANT-S6's index-document line-2 placement for PATH-STABLE. Sidecars carry no up-link, so the annotation sits below the H1 with a blank-line separator for readability. Convention spec §3 is the authoritative source for this placement.
+
+Sidecar files **do not** carry an up-link. They are not navigation nodes in the leaf/index tree; they are referenced only via bootstrap directives in `entry-point.md` and `volN/index.md`.
+
+Entry format (principle-keyed):
+
+```markdown
+## [Principle / Equation / Constant Name]
+<!-- id: <6-char-alphanumeric> -->
+
+- [formula/equation/constant — if necessary]
+- _Specific Claims_
+  - [Claim 1]
+  - ...
+- _Specific Non-Claims and Caveats_
+  - [Non-claim or caveat 1]
+  - ...
+
+> **Leaf references:** [honest provenance — leaves where the claim is established, OR CLAUDE.md / LIVING_REFERENCE.md when the bound lives at invariant level rather than in any leaf]
+
+## Quality
+- confidence: 0.X
+- depends-on:
+  - <other-id> — Other Entry Title (solidity 0.X)
+  - [...]
+- solidity: 0.X (build-status phrase)
+- rationale: one-sentence statement of why
+- strengthen-by:
+  - [specific work that would raise confidence or close a dependency]
+  - [...]
+```
+
+The Quality Convention preamble at the top of the cross-cutting `claim-quality.md` is the canonical spec for the confidence rubric, the solidity computation rule (`solidity = min(confidence, dependency solidities)` — the weakest link in the dependency cone — for entries with dependencies; `solidity = confidence` otherwise), the build-status legend, and the 6-character stable-ID format. Read that preamble before editing or scoring entries; this section gives the format only.
+
+Canonicality preamble (cross-cutting sidecar — verbatim):
+
+```markdown
+> **Canonicality preamble.** Leaves are canonical. Intermediate, index, and entry-point nodes are derived summaries and may suggest implications not supported by the leaves. Each entry below identifies a principle the AVE framework asserts and bounds it precisely: what is claimed, and what is NOT claimed even though a summary or external reading might suggest it.
+```
+
+Canonicality preamble (volume sidecar — short reference):
+
+```markdown
+> **Canonicality:** Leaves are canonical; this volume's indexes are derived summaries. See [cross-cutting claim-quality register](../claim-quality.md) for the full preamble and the canonical list of project-wide tripwires (the cross-cutting sidecar is the source of truth; do not infer the list from this preamble). Entries below are scoped to Vol N; cross-cutting tripwires with vol N-specific manifestations are noted but not duplicated.
+```
+
+Sourcing rule (priority order):
+1. Leaves under the sidecar's scope (canonical primary source).
+2. CLAUDE.md invariants — when a bound is asserted at structural-invariant level but not explicitly stated in any leaf.
+3. LIVING_REFERENCE.md "Common Pitfalls" / "Critical Distinctions" — explicit project-wide tripwires.
+4. Master Prediction Table classification note — for the meta-tripwire about reading prediction-table cells.
+
+Indexes are NEVER a source for claim entries (circular: indexes are what's being bounded).
+
+Provenance honesty: every entry's "Leaf references" footer must honestly identify the source. Inventing leaf citations for content that does not appear in the cited leaf is a Critical error.
+
+Routing rule (cross-cutting vs volume-specific): a claim-quality entry goes in the cross-cutting sidecar if the claim appears in two or more volumes' leaves as a tripwire; otherwise volume-specific.
+
+Sidecar-vs-leaf contradiction resolution: leaves win; the sidecar gets fixed.
+
+#### Bootstrap directive (required on `entry-point.md` and every `volN/index.md` and `common/index.md`)
+
+Sidecars are discovered through bootstrap directives placed at the top of `entry-point.md` and every volume `index.md`. Without the directive, a consumer reading the index will not know to load the sidecar. Placement is **line 3** of a volume `index.md` (after the line-1 up-link and a line-2 blank), or near-top of `entry-point.md` (after the H1).
+
+For `volN/index.md` and `common/index.md`:
+
+```markdown
+[↑ AVE Knowledge Base](../entry-point.md)
+
+> ⛔ **Bootstrap.** Leaves are canonical; this index and the entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about results in this volume, load [`./claim-quality.md`](./claim-quality.md) and [`../claim-quality.md`](../claim-quality.md). Treat the summary text and Key Results entries below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+```
+
+For subtopic-level `index.md` (one level below volume), relative paths shift by one:
+
+```markdown
+> ⛔ **Bootstrap.** ... load [`../claim-quality.md`](../claim-quality.md) (volume scope) and [`../../claim-quality.md`](../../claim-quality.md) (cross-cutting). ...
+```
+
+For `entry-point.md` (no up-link):
+
+```markdown
+# Applied Vacuum Engineering — Knowledge Base
+
+> ⛔ **Bootstrap.** Leaves are canonical; the volume indexes and this entry-point are *derived* summaries and may suggest implications not supported by the leaves. Before forming any claim about AVE results, load [`./claim-quality.md`](./claim-quality.md) (cross-cutting) and the relevant per-volume sidecar: [vol1](./vol1/claim-quality.md), [vol2](./vol2/claim-quality.md), ... [common](./common/claim-quality.md). Treat the summary text below as routing only — qualifications and conditions live in the cited leaves and the claim-quality documents.
+```
+
+Marker character: `⛔` (U+26D4). Form is blockquoted, imperative, single-paragraph. The marker is the machine-checkable signal that a directive is present (`grep -l "⛔ \*\*Bootstrap"`).
+
+#### Claim-quality ID propagation (Tier 1 + Tier 2)
+
+Each entry's stable 6-character ID propagates downward through the KB so the dependency graph is greppable end-to-end. See `CLAUDE.md` INVARIANT-S8 for the full specification; this section gives the placement rules.
+
+**Tier 1 — leaf-level back-reference (mandatory, mechanical).** Every leaf referenced by a claim-quality entry's "Leaf references" line carries a back-reference annotation. Placement: immediately after the up-link, leaf-marker, and any `path-stable` annotation:
+
+```markdown
+[↑ Parent](index.md)
+<!-- leaf: verbatim -->
+<!-- claim-quality: clm-0ktpcn, clm-5xon03 -->
+```
+
+The ID list is the complete set of claim-quality entries that reference the leaf (per-volume + cross-cutting + common). Auto-generatable from the existing "Leaf references" data; refresh whenever the upstream `claim-quality.md` changes.
+
+**Tier 2 — section / equation-level inline markers (mandatory for multi-claim leaves, manual placement).** When a leaf carries more than one ID in its Tier 1 list, every claim must have a proximal marker placed adjacent to the specific equation, named principle, section, or block that maps to that ID. Tier 1 alone is insufficient on multi-claim leaves — without inline markers, the leaf-level list says "something here maps to these IDs" without identifying which is which. Examples:
+
+```markdown
+### Internal Confinement and Matter Assembly
+<!-- claim-quality: clm-lv3uw1 -->
+
+(content for the magnetic-branch confinement section)
+```
+
+```markdown
+   - <!-- claim-quality: clm-lv3uw1 --> *Particle confinement* proceeds via the magnetic branch instead: ...
+```
+
+```markdown
+> **Note (cross-link with Ch.3).** <!-- claim-quality: clm-2dwzib --> This $r_3 = 1.0$ boundary is the same $V_{yield}$...
+```
+
+Tier 2 supplements Tier 1 (does not replace); the Tier 1 line at the top remains the complete index. For single-claim leaves (one ID in the Tier 1 list), Tier 2 is not required — the Tier 1 list is unambiguous. For multi-claim leaves, Tier 2 markers are mandatory at every claim that maps to a non-default ID; if claims are integrated rather than separated by sections, place markers at the most granular point that disambiguates (resultbox header, named-principle paragraph, key equation block).
+
+**Intermediate-index subtree annotation (mandatory, mechanical).** Each `index.md` (volume root, subtopic) carries a one-line summary of the IDs scoping leaves under its subtree:
+
+```markdown
+[↑ AVE Knowledge Base](../entry-point.md)
+<!-- claim-quality (subtree): clm-0ktpcn, clm-5xon03, clm-9s9apq, clm-2dwzib, ... -->
+```
+
+The subtree-IDs list is the union of all leaf-level Tier 1 IDs under the index. Auto-generatable from leaf annotations.
+
+**Grep guarantee.** `grep -r "<id>"` across the KB returns: canonical entry in `claim-quality.md`, every depends-on / strengthen-by reference, every Tier 1 leaf annotation, every Tier 2 inline marker, every intermediate-index subtree summary. Walking from claim-quality entry to its supporting leaves (and back) is fully mechanical.
+
+#### Maintenance cadence
+
+Sidecars are derived artifacts. Refresh when:
+- A leaf under the sidecar's scope is added, edited, or removed.
+- `LIVING_REFERENCE.md` "Common Pitfalls" or "Critical Distinctions" is added or revised.
+- A MAD review surfaces a new tripwire.
+
+Refresh is the same cadence as summary-mode distillation. Until `kb-content-distiller` carries an explicit Claim-Quality Mode (see `CLAUDE.md` INVARIANT-S7 followups), refresh requires a one-off `generalist-coder` dispatch with a custom brief that points at the convention spec sections above.
+
+#### Compactness budget
+
+Per-volume sidecars target **under ~500 lines**. This is a validation criterion, not a hard cap. If a volume sidecar materially exceeds the budget, the sidecar architecture should be reconsidered (the per-subtopic embedded-section approach was the rejected alternative; reopening it is appropriate if the sidecar form scales poorly).
+
+Worked-example entries demonstrating the format on real principles live in `claim-quality.md` (cross-cutting sidecar) — the four original entries (Master Prediction Table reading conventions, Symmetric vs Asymmetric Saturation, α Invariance under Symmetric Gravity, BCS $B_c(T)$ axiom manifestation) are the canonical references for entry style.
+
 ---
 
 ## Structural Annotations
@@ -194,3 +361,4 @@ See `CLAUDE.md` for full definitions. Quick reference:
 | N4 | `$S_{11}$` means reflection coefficient in vol 4/vol 7; folding objective function in vol 5 |
 | S1 | tcolorbox environments render as `> **[Type]** *Title*` blockquotes with a blank `>` line between title and body; see INVARIANT-S1 in `CLAUDE.md` |
 | S2 | Four AVE axioms carry stable cross-volume meanings — do not redefine |
+| S7 | Leaves are canonical; index/entry-point are derived. Cross-cutting bounds in `claim-quality.md` (KB root); per-volume bounds in `volN/claim-quality.md`. Bootstrap directives in entry-point and volume indexes are binding |

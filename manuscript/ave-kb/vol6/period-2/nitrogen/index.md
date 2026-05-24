@@ -1,5 +1,11 @@
 [↑ Period 2](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-f5ucdo, clm-f8k2um, clm-h8nmpu, clm-rw7jqo, clm-sd04x4, clm-y7uvdc]
+subtree-experiments: []
+-->
+
 # Nitrogen (Z=7)
 
 Nitrogen-14 is the first element whose nuclear geometry cannot be expressed as a simple symmetric Alpha lattice. A 42-dimensional Basinhopping optimizer produces an asymmetric, stretched topology that matches the CODATA mass of $13040.204$ MeV. This maps to an Irregular Asymmetric LC Mesh with heterogeneous $M_{ij}$ coupling factors. The $3\alpha + d$ semiconductor classification identifies it as a biased junction device: symmetric Carbon-12 core plus polar deuteron halo.

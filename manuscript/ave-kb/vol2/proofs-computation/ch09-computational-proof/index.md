@@ -1,5 +1,11 @@
 [↑ Proofs and Computation](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-ak97cb, clm-oltvwy, clm-z73h6n]
+subtree-experiments: []
+-->
+
 # Ch. 9: Computational Proof and Anomaly Catalog
 
 Chapter 9 establishes the computational universality of the AVE physics engine across 39 orders of magnitude, defines the numerical precision hierarchy that prevents floating-point artefacts from masquerading as physical predictions, and enforces complete independence from external theoretical frameworks.

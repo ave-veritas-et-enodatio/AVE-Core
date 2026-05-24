@@ -27,7 +27,7 @@ from math import pi
 
 import numpy as np
 
-from ave.nuclear.silicon_atom import IE_SI_NIST, R_VAL_SI
+from ave.nuclear.silicon_atom import IE_SI_AVE, R_VAL_SI
 from ave.solvers.coupled_resonator import molecular_bond_distance, molecular_bond_energy
 
 # ═══════════════════════════════════════════════════════════════════
@@ -45,8 +45,8 @@ D_SI_SI: float = molecular_bond_distance(
 
 # Bond energy and coupling constant
 B_SI_SI_EV, K_SI_SI = molecular_bond_energy(
-    IE_SI_NIST,
-    IE_SI_NIST,
+    IE_SI_AVE,
+    IE_SI_AVE,
     R_VAL_SI,
     R_VAL_SI,
     D_SI_SI,
@@ -184,7 +184,7 @@ def dispersion_periodic_lc(q_points: np.ndarray) -> tuple[np.ndarray, np.ndarray
     Returns:
         (E_bonding, E_antibonding): Two branch energies [eV].
     """
-    omega_0 = IE_SI_NIST  # Atomic resonance energy [eV]
+    omega_0 = IE_SI_AVE  # Atomic resonance energy [eV]
     k = K_CRYSTAL  # Per-bond coupling
 
     qa = q_points * pi
@@ -216,7 +216,7 @@ def silicon_band_gap() -> dict[str, float | int]:
     Returns:
         dict with band gap details.
     """
-    omega_0 = IE_SI_NIST
+    omega_0 = IE_SI_AVE
     k = K_CRYSTAL
 
     from ave.core.universal_operators import universal_coupled_mode_frequency
@@ -230,11 +230,9 @@ def silicon_band_gap() -> dict[str, float | int]:
 
     # Also compute at zone boundary (q=π/a, minimum gap)
     # At zone boundary: cos(qa/2) = 0, so E_± = ω₀ (degenerate)
-    # E_gap_zone_edge = 0.0  # For a monatomic chain with equal bonds  # bulk lint fixup pass
 
     # The zone-center gap is the physically meaningful one for
     # the coordination-loaded model
-    # E_gap_at_zone_center = E_gap  # bulk lint fixup pass
 
     return {
         "E_gap_eV": E_gap,

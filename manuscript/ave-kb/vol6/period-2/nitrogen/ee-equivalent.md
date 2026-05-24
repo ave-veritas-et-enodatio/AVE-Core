@@ -1,5 +1,9 @@
 [↑ Nitrogen (Z=7)](../index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-sd04x4]
+-->
 
 ## Electrical Engineering Equivalent: The Irregular Scattering Matrix
 

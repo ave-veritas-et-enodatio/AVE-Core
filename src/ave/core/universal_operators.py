@@ -1,4 +1,5 @@
 import jax
+import jax.numpy as jnp
 import numpy as np
 
 from ave.core.constants import EPS_CLIP, EPS_NUMERICAL
@@ -11,7 +12,7 @@ This module defines the ten fundamental, scale-invariant operators of the
 Applied Vacuum Engineering (AVE) framework:
 
  1. Impedance (Z)               — Axiom 1
- 2. Saturation (S)              — Axiom 4
+ 2. Saturation (S)              — Axiom 4 [see A-034 universality]
  3. Reflection (Γ)              — Axiom 3
  4. Pairwise Energy (U)         — Axioms 1-4
  5. Y-Matrix → S-Matrix (Y→S)   — Axiom 3 (multiport)
@@ -29,13 +30,26 @@ Applied Vacuum Engineering (AVE) framework:
 These operators are domain-agnostic and should be imported by all downstream
 solvers (Nuclear, Fluid, EE, Protein Folding, and Atomic) to ensure strict
 adherence to the core axioms without local redefinitions.
+
+A-034 NOTE (canonical 2026-05-15 evening): Operator 2 (universal_saturation,
+the saturation kernel S(A) = √(1−A²)) is the SAME mechanism applied across
+19 catalog instances spanning 21 orders of magnitude — from atomic dielectric
+breakdown to cosmic K4 crystallization. Per Grant 2026-05-15:
+"the bulk response of the lattice to strain is universal." See:
+  - L5 `research/_archive/L5/axiom_derivation_status.md` A-034 (canonical entry)
+  - Vol 3 Ch 4 §sec:tki_strain_snap (manuscript canonical)
+  - Backmatter Ch 7 `07_universal_saturation_kernel.tex` (19-instance catalog)
+  - `manuscript/ave-kb/common/trampoline-framework.md` §7.5 (user-facing synthesis)
+
+Caller note: when invoking universal_saturation() in a new domain, consider
+whether your domain is a NEW A-034 catalog instance (in which case the
+catalog should be updated).
 """
 
 
 def _is_jax_array(x: object) -> bool:
     try:
         import jax
-        import jax.numpy as jnp
 
         return isinstance(x, (jnp.ndarray, jax.Array))
     except ImportError:
@@ -64,6 +78,20 @@ def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.nd
     Imposes the geometric percolation limit of the 3D lattice. Strain cannot
     increase infinitely; as the limit is approached, the metric non-linearly stiffens.
 
+    S(A) = √(1 − (A/A_yield)²) — Axiom 4 (Born–Infeld n=2 form).
+
+    A-034 (canonical 2026-05-15 evening): this kernel is the UNIVERSAL
+    mechanism governing every topological-reorganization event at every
+    scale. 19 canonical instances span 21 orders of magnitude (atomic
+    pair creation, BCS B_c(T) at 0.00% error, BH ring-down at 1.7% from
+    GR, NOAA-validated solar flares, K4 substrate magic-angle, cosmic
+    Big Bang crystallization, etc.). The vertical tangent at A=1 makes
+    every saturation event impulsive. When S(A) → 0 locally, the substrate
+    cannot continue linear response and MUST reorganize topologically.
+
+    See: research/_archive/L5/axiom_derivation_status.md (A-034),
+    backmatter/07_universal_saturation_kernel.tex (catalog).
+
     Args:
         A: The current strain amplitude (e.g., Voltage, Velocity, Fluid Stress)
         A_yield: The absolute topological yield limit of the domain
@@ -75,13 +103,10 @@ def universal_saturation(A: float | np.ndarray, A_yield: float) -> float | np.nd
     # Using simple operators to support both raw floats, numpy arrays, and jax arrays.
     # Note: duck-typing assumes the caller handles the appropriate jnp/np where
     # branching/clipping is complex. A simple algebraic form is best for cross-compatibility.
-    import numpy as np
-
     # Try to use JAX if the input is a JAX array, otherwise use NumPy
     is_jax = _is_jax_array(A)
 
     if is_jax:
-        import jax.numpy as jnp
 
         ratio = jnp.clip(A / A_yield, -1.0, 1.0)
         return jnp.sqrt(1.0 - ratio**2)
@@ -153,7 +178,6 @@ def universal_pairwise_energy(
 
     is_jax = _is_jax_array(r)
     if is_jax:
-        import jax.numpy as jnp
 
         ratio_sq = jnp.clip((d_sat / r) ** 2, 0.0, 1.0 - EPS_CLIP)
         # Impedance ratio: Z/Z₀ = 1/(1-A²)^(1/4) where A² = ratio_sq
@@ -212,7 +236,6 @@ def universal_pairwise_energy_jax(r: jax.Array, K: float, d_sat: float) -> jax.A
     Returns:
         U: Pairwise energy (JAX array, same shape as r).
     """
-    import jax.numpy as jnp
 
     ratio_sq = jnp.clip((d_sat / r) ** 2, 0.0, 1.0 - EPS_CLIP)
     S_quarter = (1.0 - ratio_sq) ** 0.25
@@ -245,8 +268,6 @@ def universal_pairwise_gradient(
     Returns:
         dU_dr: Gradient of the pairwise potential.
     """
-    import numpy as np
-
     dr = 1e-8 * (r if np.isscalar(r) else np.maximum(r, EPS_CLIP))
     U_plus = universal_pairwise_energy(r + dr, K, d_sat)
     U_minus = universal_pairwise_energy(r - dr, K, d_sat)
@@ -279,12 +300,9 @@ def universal_ymatrix_to_s(Y: np.ndarray, Y0: float = 1.0) -> np.ndarray:
     Returns:
         S:  NxN complex scattering matrix
     """
-    import numpy as np
-
     is_jax = _is_jax_array(Y)
 
     if is_jax:
-        import jax.numpy as jnp
 
         N = Y.shape[0]
         I = jnp.eye(N, dtype=Y.dtype)
@@ -321,12 +339,9 @@ def universal_eigenvalue_target(S: np.ndarray) -> float:
     Returns:
         lambda_min:  Smallest eigenvalue of S†S (real, ≥ 0)
     """
-    import numpy as np
-
     is_jax = _is_jax_array(S)
 
     if is_jax:
-        import jax.numpy as jnp
 
         SdS = jnp.conj(S.T) @ S
         eigenvalues = jnp.linalg.eigvalsh(SdS)
@@ -368,8 +383,6 @@ def universal_spectral_analysis(Z_sequence: np.ndarray) -> dict[str, np.ndarray]
           'dominant_k':   Top 5 dominant spatial frequencies (by power)
           'dominant_periods': Corresponding spatial periods (residues)
     """
-    import numpy as np
-
     Z = np.asarray(Z_sequence, dtype=complex)
     N = len(Z)
 
@@ -455,12 +468,9 @@ def universal_packing_reflection(
         Gamma_pack_sq: Γ_pack² — the macroscopic packing mismatch power.
                        Add directly to any eigenvalue loss function.
     """
-    import numpy as np
-
     is_jax = _is_jax_array(Rg_sq)
 
     if is_jax:
-        import jax.numpy as jnp
 
         _max = jnp.maximum
         _sqrt = jnp.sqrt
@@ -533,12 +543,9 @@ def universal_steric_reflection(
         Gamma_steric_sq: ⟨Γ²⟩ — average pairwise steric mismatch power.
                          Add directly to any eigenvalue loss function.
     """
-    import numpy as np
-
     is_jax = _is_jax_array(dists)
 
     if is_jax:
-        import jax.numpy as jnp
 
         _max = jnp.maximum
         _sum = jnp.sum
@@ -655,8 +662,6 @@ def universal_junction_projection_loss(theta: float | np.ndarray, c_crossings: i
                    Linear:    E = E_bare * (1 - Y_loss)
                    Quadratic: E = E_bare * (1 - Y_loss)**2
     """
-    import numpy as np
-
     is_jax = _is_jax_array(theta)
     _cos = __import__("jax").numpy.cos if is_jax else np.cos
 
@@ -786,12 +791,9 @@ def universal_dynamic_impedance(
     Returns:
         Z_eff: The dynamic characteristic impedance
     """
-    import numpy as np
-
     is_jax = _is_jax_array(S)
 
     if is_jax:
-        import jax.numpy as jnp
 
         S_safe = jnp.maximum(S, eps)
         return Z_0 / jnp.sqrt(S_safe)
@@ -817,12 +819,9 @@ def universal_virtual_strain(x: float | np.ndarray) -> float | np.ndarray:
     Returns:
         r: Normalized geometric strain in [0, 1]
     """
-    import numpy as np
-
     is_jax = _is_jax_array(x)
 
     if is_jax:
-        import jax.numpy as jnp
 
         sigma = 1.0 / (1.0 + jnp.exp(-x))
         return jnp.sqrt(jnp.maximum(0.0, 1.0 - sigma**2))
@@ -853,14 +852,11 @@ def universal_power_transmission(
     Returns:
         T²: Power transmission fraction [0, 1].
     """
-    import numpy as np
-
     is_jax = _is_jax_array(Z1)
     if Z2 is not None:
         is_jax = is_jax or _is_jax_array(Z2)
 
     if is_jax:
-        import jax.numpy as jnp
 
         if Z2 is None:
             N = Z1
@@ -946,12 +942,9 @@ def universal_avalanche_factor(
     Returns:
         Avalanche factor M (dimensionless).
     """
-    import numpy as np
-
     is_jax = _is_jax_array(V_applied)
 
     if is_jax:
-        import jax.numpy as jnp
 
         ratio = jnp.abs(V_applied / V_breakdown)
         ratio = jnp.clip(ratio, 0.0, 1.0 - EPS_NUMERICAL ** (1.0 / n_topology))
@@ -988,12 +981,9 @@ def universal_wave_speed(
     Returns:
         Local shear/GW wave speed.
     """
-    import numpy as np
-
     is_jax = _is_jax_array(A)
 
     if is_jax:
-        import jax.numpy as jnp
 
         ratio_sq = jnp.clip((A / A_yield) ** 2, 0.0, 1.0 - EPS_NUMERICAL)
         return c_base * (1.0 - ratio_sq) ** 0.25
@@ -1025,12 +1015,9 @@ def universal_coupled_mode_frequency(
     Returns:
         Coupled mode frequency \\omega_n.
     """
-    import numpy as np
-
     is_jax = _is_jax_array(adjacency_eigenvalue)
 
     if is_jax:
-        import jax.numpy as jnp
 
         return omega_0 / jnp.sqrt(1.0 + k * adjacency_eigenvalue)
     else:
@@ -1076,12 +1063,9 @@ def plasma_refractive_index(omega: float | np.ndarray, omega_p: float) -> float 
     Returns:
         Refractive index n <= 1. (0 if omega <= omega_p)
     """
-    import numpy as np
-
     is_jax = _is_jax_array(omega)
 
     if is_jax:
-        import jax.numpy as jnp
 
         ratio_sq = (omega_p / jnp.maximum(omega, EPS_NUMERICAL)) ** 2
         return jnp.sqrt(jnp.maximum(0.0, 1.0 - ratio_sq))

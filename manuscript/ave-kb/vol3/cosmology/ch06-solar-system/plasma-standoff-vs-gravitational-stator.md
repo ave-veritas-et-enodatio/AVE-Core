@@ -1,5 +1,9 @@
 [↑ Solar System Impedance](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3kmt3p]
+-->
 
 # The Plasma Standoff vs. The Gravitational Stator
 
@@ -13,4 +17,4 @@ A common pedagogical risk is conflating the physical solar plasma (which interac
 
 This structural separation is proven definitively by Venus and Mars. Neither planet possesses an active intrinsic dynamo (no global magnetosphere), and thus both suffer aggressive atmospheric stripping precisely because they lack a plasma impedance cavity. Yet, their orbits obey identically precise Topo-Kinematic Keplerian mechanics as Earth and Jupiter. They suffer zero anomalous gravitational friction because the gravitational AC stator anchors exclusively to the atomic mass lattice, operating wholly independent of the magnetic planetary boundaries.
 
-> ↗ See also: [Flyby Anomaly as Acoustic Shear Operator](../../applied-physics/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) — empirical validation of stator boundary at $R_\oplus$
+> ↗ See also: [Flyby Anomaly as Acoustic Shear Operator](../ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md) — empirical validation of stator boundary at $R_\oplus$

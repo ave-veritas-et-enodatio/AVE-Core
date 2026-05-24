@@ -1,5 +1,11 @@
 [↑ Condensed Matter](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-nxfmh0]
+subtree-experiments: []
+-->
+
 # Ch.10: Deriving Macroscopic Material Properties
 
 Bulk material properties (hardness, magnetism, thermal stability) derived from the nuclear-coordinate geometry of the $K_{mutual}/d$ energy surface. The Hessian eigendecomposition classifies elements into two impedance families (closed-shell alpha cores vs. open-shell halo elements), and the inter-element reflection coefficient $\Gamma_{ij}$ predicts bonding character.

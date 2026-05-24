@@ -1,7 +1,12 @@
 [↑ Ch. 7: Quantum Mechanics and Atomic Orbitals](./index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-ak97cb, clm-oltvwy]
+-->
 
 ## Numerical Verification: ODE Eigenvalue Solver
+<!-- claim-quality: clm-oltvwy -->
 
 To verify that the acoustic cavity interpretation produces quantitatively correct eigenmodes (not merely the correct energy formula), an ODE shooting-method solver was implemented. The solver directly integrates the radial wave equation
 
@@ -24,6 +29,7 @@ The eigenvalue search uses Brent's root-finding method (`scipy.optimize.brentq`)
 
 The residual is below 1 ppm across all modes and is limited entirely by the CODATA uncertainty of the input constants $m_e$ and $\alpha$ (each $\sim 10^{-10}$ relative). This confirms that the AVE impedance cavity ODE is algebraically identical to the Schrödinger hydrogen equation — it must be, since both reduce to the same Helmholtz eigenvalue problem. The verification demonstrates that no numerical artefacts or approximations are introduced by the shooting method.
 
+<!-- claim-quality: clm-ak97cb -->
 ### Dimensional Analysis: $a_0 = l_{node}/\alpha$
 
 The Bohr radius relationship deserves emphasis as a dimensional identity:

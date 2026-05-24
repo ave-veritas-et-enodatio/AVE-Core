@@ -1,5 +1,9 @@
 [↑ Ch.1 Fundamental Axioms](index.md)
-<!-- leaf: verbatim -->
+
+<!-- kb-frontmatter
+kind: leaf
+claims: [clm-3kzmt9, clm-219e8j]
+-->
 
 ## Section 1.3: The Vacuum as an LC Resonant Condensate ($\mathcal{M}_A$)
 
@@ -9,6 +13,7 @@ Standard cosmology often assumes the absolute microscopic limit of spacetime is 
 
 If the un-shielded 1D electromagnetic gravitational tension bounding the topological network is evaluated by inverting the standard Newtonian dimensional relationship ($F = c^4/G \implies G = c^4/F$) and substituting the lattice string tension $T_{EM} = m_e c^2 / \ell_{node}$:
 
+<!-- claim-quality: clm-3kzmt9 -->
 > **[Resultbox]** *True Gravitational Coupling*
 >
 > $$
@@ -17,6 +22,7 @@ If the un-shielded 1D electromagnetic gravitational tension bounding the topolog
 
 This establishes $G_{true}$ as the un-shielded gravitational coupling evaluated at a single lattice node, prior to the $\sim 10^{40}$-fold Machian dilution that produces the macroscopic $G$. Substituting $G_{true}$ back into the standard Planck length equation:
 
+<!-- claim-quality: clm-219e8j -->
 > **[Resultbox]** *The True Planck Length*
 >
 > $$

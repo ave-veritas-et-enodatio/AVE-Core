@@ -16,27 +16,32 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
 	@echo "--------------------------------------------------"
-	@echo "  make setup           : bootstrap project"
-	@echo "  make all             : Run verify, then compile all PDFs"
-	@echo "  make verify          : Run physics verification protocols (The Kernel Check)"
-	@echo "  make test            : Run unit tests (pytest)"
-	@echo "  make pdf             : Compile all 7 public volumes"
-	@echo "  make pdf_manuscript  : Compile manuscript volumes"
-	@echo "  make vol0            : Vol 0:  The Engineering Compendium"
-	@echo "  make vol1            : Vol I:  Foundations & Universal Operators"
-	@echo "  make vol2            : Vol II: The Subatomic Lattice"
-	@echo "  make vol3            : Vol III: The Macroscopic Continuum"
-	@echo "  make vol4            : Vol IV: Applied Impedance Engineering"
-	@echo "  make vol5            : Vol V:  Topological Biology"
-	@echo "  make vol6            : Vol VI: The Periodic Table"
-	@echo "  make figures         : Generate particle topology figure suite"
-	@echo "  make clean           : Remove auxiliary build artifacts (preserves PDFs)"
-	@echo "  make distclean       : Remove ALL build artifacts including PDFs"
+	@echo "  make setup                : bootstrap project"
+	@echo "  make all                  : Run verify, then compile all PDFs"
+	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
+	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
+	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
+	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
+	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
+	@echo "  make test                 : Run unit tests (pytest)"
+	@echo "  make pdf                  : Compile all 7 public volumes"
+	@echo "  make pdf_manuscript       : Compile manuscript volumes"
+	@echo "  make vol0                 : Vol 0:  The Engineering Compendium"
+	@echo "  make vol1                 : Vol I:  Foundations & Universal Operators"
+	@echo "  make vol2                 : Vol II: The Subatomic Lattice"
+	@echo "  make vol3                 : Vol III: The Macroscopic Continuum"
+	@echo "  make vol4                 : Vol IV: Applied Impedance Engineering"
+	@echo "  make vol5                 : Vol V:  Topological Biology"
+	@echo "  make vol6                 : Vol VI: The Periodic Table"
+	@echo "  make figures              : Generate particle topology figure suite"
+	@echo "  make clean                : Remove auxiliary build artifacts (preserves PDFs)"
+	@echo "  make distclean            : Remove ALL build artifacts including PDFs"
 
 all: verify pdf
 
@@ -46,8 +51,8 @@ setup:
 # =============================================================================
 # 1. Physics Verification (The "Simulate to Verify" Protocol)
 # =============================================================================
-verify:
-	@echo "[Verify] Running DAG Anti-Cheat Scan..."
+verify: verify-kb-metadata verify-md-links
+	@echo "\n[Verify] Running DAG Anti-Cheat Scan..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_universe.py
 	@echo "\n[Verify] Running FDTD LC Network solvers..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_4_engineering/visualize_impedance_rupture.py
@@ -57,24 +62,58 @@ verify:
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/visualize_topological_bounds.py
 	@echo "\n[Verify] Running Ch 8 α closure: Clifford half-cover rigor..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_clifford_half_cover.py
+	@echo "\n[Verify] Running Ch 8 α closure: λ_line rigor..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_lambda_line.py
 	@echo "\n[Verify] Running Ch 8 α closure: ropelength → Golden Torus..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/ropelength_trefoil_golden_torus.py
 	@echo "\n[Verify] Running Ch 8 α closure: multipole decomposition..."
 	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/derive_alpha_from_golden_torus.py
-	@echo "\n[Verify] Running defense-context checker (warning-only)..."
-	-@$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+	@echo "\n[Verify] Running Vol 2 Ch 7 atomic IE manuscript-table reproducibility..."
+	$(PYTHON) $(SCRIPT_DIR)/vol_1_foundations/verify_atomic_ie_manuscript_table.py
+	@echo "\n[Verify] Running defense-context checker (critical-tier gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py --severity critical
 	@echo "\n[Verify] Running claim-graph validator..."
 	$(PYTHON) $(SCRIPT_DIR)/claim_graph_validator.py
 	@echo "\n=================================================="
 	@echo "[Verify] ALL PHYSICS PROTOCOLS PASSED."
 	@echo "=================================================="
 
+verify-kb-metadata:
+	@echo "Running KB claim-quality framework integrity check (read-only)..."
+	$(PYTHON) manuscript/ave-kb/tools/verify-kb-metadata.py
+
+refresh-kb-metadata:
+	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
+	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+
+kb-claim-stats:
+	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
+	PYTHONPATH=src $(PYTHON) -m ave.kb stats
+
+verify-md-links:
+	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
+	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo warn
+
+verify-inter-repo-links:
+	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."
+	$(PYTHON) tools/verify-md-links.py --inter-repo error
+
+framing-audit:
+	@echo "[Framing] Full defense-context anti-pattern scan (advisory; warn/info do not gate)..."
+	$(PYTHON) $(SCRIPT_DIR)/defense_context_checker.py
+
+
 # =============================================================================
 # 2. Unit Testing
 # =============================================================================
 test:
 	@echo "[Test] Running Unit Tests..."
-	$(PYTEST) $(SOURCE_DIR)
+	# Scope to the unit-test tree only. src/scripts/**/*_test.py are runnable
+	# analysis/forward-prediction DRIVERS (each has a __main__ block), not pytest
+	# tests; collecting them mis-runs driver functions as tests (and errors on
+	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
+	# standalone / via `make verify`, not here.
+	$(PYTEST) $(SOURCE_DIR)/tests
 
 # =============================================================================
 # 3. Manuscript Compilation
@@ -100,7 +139,12 @@ endef
 pdf: pdf_manuscript
 
 pdf_manuscript:
-	@echo "[Build] Compiling Volumes 0–VI..."
+	@echo "[Build] Compiling Volumes 0–VI (two-pass for cross-volume xr-hyper resolution)..."
+	@echo "[Build] === Pass 1 (collect aux files) ==="
+	@for dir in $(VOLUMES); do \
+		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
+	done
+	@echo "[Build] === Pass 2 (resolve cross-volume refs) ==="
 	@for dir in $(VOLUMES); do \
 		$(MAKE) --no-print-directory _compile_vol VOL=$$dir; \
 	done
@@ -110,30 +154,35 @@ _compile_vol:
 	$(call COMPILE_VOL,$(VOL))
 
 # --- Individual volume targets ---
-# Note: Vols 0, 2, 3, 4, 5, 6 use xr-hyper to pull Vol 1 labels (Ch.\ref{ch:alpha_golden_torus}
-# etc.) into their \ref namespace. They depend on vol1 so `build/aux/vol_1_foundations.aux`
-# is present when each is compiled. The \IfFileExists guard in each main.tex allows
-# standalone builds to fall through silently, but targeting them via these Makefile
-# rules guarantees cross-volume refs resolve.
-vol0: vol1
+# Cross-volume xr-hyper architecture (A-034 expansion 2026-05-16):
+#   Vol 1 is the base (defines ch:alpha_golden_torus, etc.)
+#   Vol 0 + Vol 3 are secondary bases (Vol 0 defines app:universal_saturation_kernel
+#       in backmatter Ch 7; Vol 3 defines sec:tki_strain_snap in Ch 4)
+#   Vol 0 ↔ Vol 3 are mutually pulling — full resolution requires the two-pass loop
+#       in pdf_manuscript above (single-volume targets below resolve to single-pass
+#       per call; users invoking specific vol targets should run them twice if
+#       cross-vol refs from Vol 0 ↔ Vol 3 are load-bearing).
+#   The \IfFileExists guard in each main.tex allows standalone single-pass builds
+#   to fall through silently with unresolved refs.
+vol0: vol1 vol3
 	$(call COMPILE_VOL,vol_0_engineering_compendium)
 
 vol1:
 	$(call COMPILE_VOL,vol_1_foundations)
 
-vol2: vol1
+vol2: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_2_subatomic)
 
 vol3: vol1
 	$(call COMPILE_VOL,vol_3_macroscopic)
 
-vol4: vol1
+vol4: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_4_engineering)
 
-vol5: vol1
+vol5: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_5_biology)
 
-vol6: vol1
+vol6: vol1 vol3 vol0
 	$(call COMPILE_VOL,vol_6_periodic_table)
 
 # =============================================================================

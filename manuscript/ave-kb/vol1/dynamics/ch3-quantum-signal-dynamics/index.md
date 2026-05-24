@@ -1,5 +1,11 @@
 [↑ Dynamics](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-2dwzib, clm-7zuwtm, clm-b9eura, clm-f4urxy, clm-ldmvwi, clm-lv3uw1, clm-nq2kcc, clm-ph2uux, clm-qimsgq, clm-rebdw1, clm-t1okz0, clm-unk0bd, clm-viawy9, clm-yc7fgm, clm-yiyyi3, clm-zuf7g1]
+subtree-experiments: []
+-->
+
 # Ch.3: Quantum Formalism and Signal Dynamics
 
 The continuous quantum formalism is derived from discrete finite-element signal dynamics of the $\mathcal{M}_A$ lattice. The electromagnetic Lagrangian density maps to continuous mechanical stress. The Generalized Uncertainty Principle and the Schrodinger Equation follow from discrete signal bandwidth and LC circuit resonance. Wave-particle duality arises from zero-impedance boundary conditions, and quantum entanglement is modelled as a topologically protected phase-locked thread on the $K_4$ lattice.
@@ -35,3 +41,4 @@ The continuous quantum formalism is derived from discrete finite-element signal 
 | [Ohmic Decoherence and Born Rule](./ohmic-decoherence-born.md) | Measurement as Ohmic loading, deterministic Born rule from Joule heating |
 | [Nonlinear Telegrapher](./nonlinear-telegrapher.md) | Non-linear wave equation, dielectric saturation expansion, Euler-Heisenberg $E^4$ correction |
 | [Phase-Locked Topological Thread](./phase-locked-topological-thread.md) | Topological thread (phase-locked gear train), CHSH = 2√2, no-signaling from Axioms 1–4 |
+| [Thermal Lattice Noise + $T_{V\text{-rupt}}$](./thermal-lattice-noise.md) | Equipartition $\sigma_V$ / $\sigma_\omega$ derivations; AVE-native vacuum-rupture temperature $T_{V\text{-rupt}} \approx 3.44 \times 10^6$ K (substrate-temperature analog of the Schwinger limit) |

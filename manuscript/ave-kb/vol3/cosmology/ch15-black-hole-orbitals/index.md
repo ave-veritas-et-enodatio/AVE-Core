@@ -1,5 +1,11 @@
 [↑ Cosmology](../index.md)
 
+<!-- kb-frontmatter
+kind: index
+subtree-claims: [clm-395gps, clm-c6k5om, clm-ir8h78, clm-law1ho, clm-x19btt]
+subtree-experiments: []
+-->
+
 # Ch.15: Black Holes as Macroscopic Electron Orbitals
 
 Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The electron--black hole isomorphism establishes that both are confinement boundaries surrounded by quantised standing-wave orbitals, differing only in their interior physics: the electron preserves topology (constructive), while the black hole destroys it via lattice phase transition (destructive). Accretion disk QPOs are derived as impedance band resonances. Hawking radiation is spontaneous emission from Nyquist noise leakage at the phase boundary. The merger ringdown eigenvalue $\omega_R M_g = 18/49 = 0.3673$ (1.7% error vs GR) and quality factor $Q = \ell$ are derived from Axioms 1--4 with zero free parameters. The AVE compactness limit $2GM/(c^2 R) < 2/7 = \nu_{vac}$ is more restrictive than the Buchdahl bound.
@@ -33,6 +39,7 @@ Extends the $1/d$ impedance topology to its ultimate macroscopic limit. The elec
 | [Axiom Coverage Audit](axiom-coverage-audit.md) | Axiom 1--4 coverage table, $Q = \ell$ derivation, LIGO decay time comparison |
 | [QNM Quality Factor](qnm-quality-factor.md) | Standalone resultbox: $Q = \ell$ |
 | [AVE Compactness Limit](ave-compactness-limit.md) | Buchdahl bound comparison, $2/7 = \nu_{vac}$, neutron star test case |
+| [AVE BH Horizon Area Theorem ($r_{\text{sat}} = 7GM/c^2$)](ave-bh-horizon-area-theorem.md) | Axiom-first derivation: $r_{\text{sat}} = 7GM/c^2 = 3.5 \cdot r_s$ (AVE Buchdahl-bound Poisson $\nu_{\text{vac}} = 2/7$ vs standard GR); area theorem $\delta A \geq 0$ direct from Axiom 4 saturation kernel + mass-energy conservation; **stronger than Hawking's 1971 theorem** (derives WHY horizon can only grow); falsifiable prediction $r_{\text{sat}} / r_s = 3.5$ for high-gravity observational tests |
 | [Interior Singularity Resolution](interior-singularity-resolution.md) | Topological halting, $\rho_{eff}$ divergence, phase-transition point resolution |
 | [Remaining Ch.15 Results](remaining-ch15-results.md) | GAP stub: all resultboxes accounted for in dedicated leaves |
 
