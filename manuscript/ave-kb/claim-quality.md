@@ -132,7 +132,7 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
 ## α Invariance Under Symmetric Gravity
 <!-- id: clm-3zz0f6 -->
 
-Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
+The Machian boundary sets $G = \hbar c / (7\xi \cdot m_e^2)$ (a derived consequence of Axioms 1 + 4). Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
 
 - $\alpha = e^2/(4\pi \varepsilon_0 \hbar c)$
 - _Specific Claims_
