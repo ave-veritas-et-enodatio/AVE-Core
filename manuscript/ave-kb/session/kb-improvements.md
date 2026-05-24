@@ -30,17 +30,12 @@ Round-2 KB leaves reference engine functions that must land: `ave.gravity.princi
 ### D3. `clm-rd9cjm` (i)/(ii) ownership
 Keep vol3 ownership (i) vs relocate to vol2 earliest-assertion (ii). Defer with the quality pass.
 
-### D4. `n_spatial` corpus-prose sweep
-Stale "Axiom 3 = gravity" references in derived prose (canonical `eq_*` are correct; prose lags).
-
 ### D5. Upstream `depends-on` edges (quality pass)
 `clm-wzezvt→clm-oygz1i`, `clm-ydksh6→Ax2 clm-dfaiwj`, `clm-kl1ern→Ax4 clm-2dwzib`, etc. — deferred to claim-quality evaluation.
 
-### D6. INVARIANT-S9 doc clause
-Add the "experiments we design / originate / control" gate to S9 text in `CLAUDE.md` + `.index/SCHEMA.md` (currently says only "physical experiment (apparatus + measurement)", which under-specifies — would wrongly admit outside-data re-analyses).
-
 ### D7. `_orchestration/` curation
-Redundant-vs-load-bearing pass over the wholesale-ported `_orchestration/` files.
+- Redundant-vs-load-bearing pass over the wholesale-ported `_orchestration/` files.
+- **NOTE**: deprecation note added to `_orchestration/` entry point documents.
 
 ### D8. Strip redundant identification-system remnants
 The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the framework's identification systems; the unified `clm-`/`exp-`/`sup-` metadata spine fulfilled that. Its residual value is a pointer to *strip out truly redundant/unnecessary identification-system remains* still scattered in the corpus. (Mine the historical doc for specifics when picked up.)
