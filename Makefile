@@ -108,7 +108,12 @@ framing-audit:
 # =============================================================================
 test:
 	@echo "[Test] Running Unit Tests..."
-	$(PYTEST) $(SOURCE_DIR)
+	# Scope to the unit-test tree only. src/scripts/**/*_test.py are runnable
+	# analysis/forward-prediction DRIVERS (each has a __main__ block), not pytest
+	# tests; collecting them mis-runs driver functions as tests (and errors on
+	# non-fixture positional args like test_wave_speed(N, ...)). Drivers run
+	# standalone / via `make verify`, not here.
+	$(PYTEST) $(SOURCE_DIR)/tests
 
 # =============================================================================
 # 3. Manuscript Compilation
