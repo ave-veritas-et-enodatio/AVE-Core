@@ -209,7 +209,7 @@ This is the most likely outcome given:
 - `data/sdss_dr17/README.md` — re-download instructions + MD5 checksums + provenance
 - Updates (in scope):
   - `manuscript/ave-kb/common/divergence-test-substrate-map.md` lines 428, 514, 554 — C5 row state with LSS sub-finding
-  - `manuscript/ave-kb/common/closure-roadmap.md` — new entry for C5 LSS tightening
+  - `manuscript/ave-kb/claim-quality-closure-roadmap.md` — new entry for C5 LSS tightening
   - `_orchestration/_archive/c5-sdss-dr17-spin-orientation.md` — IF outcome decisive, status update (orchestration lands the final close; this implementor surfaces only)
 
 Out of scope this session:

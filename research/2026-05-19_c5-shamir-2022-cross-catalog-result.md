@@ -338,7 +338,7 @@ This is the "AVE-distinct framing requires more precision than Outcome A provide
 
 ### 6.2 Closure-roadmap entry
 
-New entry in `manuscript/ave-kb/common/closure-roadmap.md` documenting:
+New entry in `manuscript/ave-kb/claim-quality-closure-roadmap.md` documenting:
 - The cross-catalog validation outcome (Outcome A weak).
 - The methodology-systematic surface (3 sigma at SDSS level).
 - The catalog-access blocker (E2 sub-finding).

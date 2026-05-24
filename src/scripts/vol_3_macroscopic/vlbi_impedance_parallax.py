@@ -16,7 +16,7 @@ computes Shapiro, not any AVE-distinct DM observable). The C13-VLBI-DARK matrix
 row that depended on this driver was retired/split 2026-05-16; the actual derived
 AVE DM observables live in simulate_galactic_rotation_curve.py (a_0 + saturation
 kernel) and simulate_bullet_cluster_fdtd.py (TT shockwave + a_0). See:
-- manuscript/ave-kb/common/closure-roadmap.md §0.5 scope-correction changelog
+- manuscript/ave-kb/claim-quality-closure-roadmap.md §0.5 scope-correction changelog
 - manuscript/ave-kb/common/divergence-test-substrate-map.md rows C13a/C13b/C13c
 
 The DAMA section below computes the crystal-density ratio kappa = rho_crystal /

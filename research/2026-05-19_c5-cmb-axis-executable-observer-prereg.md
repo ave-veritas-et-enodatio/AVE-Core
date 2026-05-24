@@ -27,7 +27,7 @@
 
 **Why this is testable:** standard cosmology (ΛCDM + inflation) has no mechanism to imprint a preferred axis. A statistical fluctuation could produce alignment in 2-of-4 observables; alignment in 4-of-4 (or 5+) requires either a mechanism (A-034) or extraordinary coincidence. The pairwise angular-separation matrix discriminates these hypotheses.
 
-**Why no specific direction is predicted:** per the frozen methodology prereg §7 (line 413-416): *"It does NOT predict the SPECIFIC direction of the cosmic spin axis from theory (only that all four axes align). Theory doesn't predict the parent BH's spin direction."* The (l=174°, b=-5°) corpus-quoted value at [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) is an EMPIRICAL reference point from prior literature, not an AVE-derived prediction. Per [`closure-roadmap.md:100`](../manuscript/ave-kb/common/closure-roadmap.md) option (c): *the AVE prediction is an alignment correlation, not a specific axis value; the empirical axis emerges from the data.*
+**Why no specific direction is predicted:** per the frozen methodology prereg §7 (line 413-416): *"It does NOT predict the SPECIFIC direction of the cosmic spin axis from theory (only that all four axes align). Theory doesn't predict the parent BH's spin direction."* The (l=174°, b=-5°) corpus-quoted value at [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) is an EMPIRICAL reference point from prior literature, not an AVE-derived prediction. Per [`closure-roadmap.md:100`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) option (c): *the AVE prediction is an alignment correlation, not a specific axis value; the empirical axis emerges from the data.*
 
 ---
 
@@ -128,7 +128,7 @@ Mapping the frozen methodology prereg's outcomes (A / A+ / B / C / D / E) to dri
 
 ## 5. Cascade implications mapped pre-execution
 
-Per [closure-roadmap.md:947](../manuscript/ave-kb/common/closure-roadmap.md): *"Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS."*
+Per [closure-roadmap.md:947](../manuscript/ave-kb/claim-quality-closure-roadmap.md): *"Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS."*
 
 **Outcome → cascade:**
 - **A+ / A (PASS):** D4-A034 cosmic row strengthens; C4 three-route Route 3 ($\mathcal{J}_{cosmic}$) gains empirical anchor; E1c (Route 3 framework-commitment activation) becomes immediately tractable.
@@ -158,7 +158,7 @@ Per [closure-roadmap.md:947](../manuscript/ave-kb/common/closure-roadmap.md): *"
 - ❌ Does NOT execute Observables 5 (E/B), 6 (orbital), 7 (G P_2 anisotropy). These are explicit future-session scope.
 - ❌ Does NOT cross-validate SMICA vs NILC vs Commander vs SEVEM. Single component-separation method (SMICA) is the canonical choice for this session.
 - ❌ Does NOT close A-034 catalog. A-034 catalog status is unchanged regardless of C5 outcome; this driver tests ONLY the cosmic-scale instance.
-- ❌ Does NOT pin the literature citation for (l=174°, b=-5°) — per [`closure-roadmap.md:100`](../manuscript/ave-kb/common/closure-roadmap.md) option (c), executing the driver makes the citation moot. The driver computes its own axis-of-evil direction from Planck data; the (174°, -5°) value is recorded as a literature reference point only.
+- ❌ Does NOT pin the literature citation for (l=174°, b=-5°) — per [`closure-roadmap.md:100`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) option (c), executing the driver makes the citation moot. The driver computes its own axis-of-evil direction from Planck data; the (174°, -5°) value is recorded as a literature reference point only.
 
 ---
 

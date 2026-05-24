@@ -20,7 +20,7 @@ prediction is ~250 rad (factor 7 larger; easier to detect, not harder).
 This script now imports `principal_radial_strain` from the canonical engine
 instead of hard-coding the Newtonian-potential form. See:
 - `src/ave/gravity/__init__.py:23-41` for the canonical function
-- `manuscript/ave-kb/common/closure-roadmap.md` §0.5 for the 2026-05-17 factor-7
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md` §0.5 for the 2026-05-17 factor-7
   cleanup changelog entry
 - `manuscript/ave-kb/vol2/quantum-orbitals/ch07-quantum-mechanics/de-broglie-
   standing-wave.md:51` for the C11 source leaf (notation parallelism cleanup

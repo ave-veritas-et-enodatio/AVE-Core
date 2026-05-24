@@ -63,7 +63,7 @@ of ε₀, μ₀, c, ℏ, and e.
 - Three substrate invariants engine module: `src/ave/core/boundary_invariants.py`
 - Master Equation FDTD canonical engine: `src/ave/core/master_equation_fdtd.py`
 - K4-TLM canonical engine: `src/ave/core/k4_tlm.py`
-- Closure-path planning: `manuscript/ave-kb/common/closure-roadmap.md`
+- Closure-path planning: `manuscript/ave-kb/claim-quality-closure-roadmap.md`
 - L5 framework status: `research/_archive/L5/axiom_derivation_status.md`
   (A-001, A-026 through A-031 canonical)
 """
@@ -464,7 +464,7 @@ ALPHA_S: float = ALPHA ** (3.0 / 7.0)  # ≈ 0.1214
 # u_0* ≈ 0.187 per `consistency-vs-emergence` v1.1 — not N independent
 # numerical predictions. The corpus-honest open path to breaking the
 # circularity is the Chain B' independent G derivation logged at
-# manuscript/ave-kb/common/closure-roadmap.md:38 (substrate-local
+# manuscript/ave-kb/claim-quality-closure-roadmap.md:38 (substrate-local
 # thermodynamic balance for G that does NOT route through R_H), corpus-
 # self-stated at manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/
 # cosmological-constant-closure.md:103-111 — currently OPEN.

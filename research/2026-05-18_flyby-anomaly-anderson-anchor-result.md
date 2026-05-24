@@ -407,7 +407,7 @@ Result doc Section 6 originally claimed "no other corpus location cites the '13.
 | `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/index.md:26` | Document table entry: "ΔV ≈ 13.4 mm/s" |
 | `manuscript/vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex:99-112` | LaTeX chapter source: identical formula + "intrinsically outputs ΔV ≈ 13.4 mm/s without fitting" + "Pioneer, Galileo, NEAR precisely" + figure caption "hits exact empirical velocity shift identically" |
 | `docs/framing_and_presentation.md:339-349` | Anti-pattern remediation: invokes literal `cos(α)cos(δ)` factor; status DEFERRED 2026-04-19 with target "per-flyby table needed for honest framing" — **driver result NOW PROVIDES this table** (status flip warranted) |
-| `manuscript/ave-kb/common/closure-roadmap.md §0.5` | (NOT currently in result doc — needs Type B+D bidirectional pairing changelog entry per ave-walk-back skill 3l) |
+| `manuscript/ave-kb/claim-quality-closure-roadmap.md §0.5` | (NOT currently in result doc — needs Type B+D bidirectional pairing changelog entry per ave-walk-back skill 3l) |
 | `manuscript/ave-kb/vol3/cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md:20` | Cross-ref to flyby leaf for "Γ_sagnac derivation at planetary boundary" — upstream dependency |
 | `manuscript/bibliography.bib:111-120` | Anderson 2008 in bibliography but NEVER cited in body text anywhere — bibliography entry should get `\cite{flyby2008}` invocation when walk-back goes through chapter LaTeX |
 

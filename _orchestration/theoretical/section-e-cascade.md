@@ -155,7 +155,7 @@ A8. **Cascade implications**:
 
 **Canonical leaves (read-only references)**:
 - [`manuscript/ave-kb/common/divergence-test-substrate-map.md:428`](../../manuscript/ave-kb/common/divergence-test-substrate-map.md) + `:514` + `:554` (C5 row state)
-- [`manuscript/ave-kb/common/closure-roadmap.md:80`](../../manuscript/ave-kb/common/closure-roadmap.md) (C5 entry)
+- [`manuscript/ave-kb/claim-quality-closure-roadmap.md:80`](../../manuscript/ave-kb/claim-quality-closure-roadmap.md) (C5 entry)
 - [`manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`](../../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md):86-92 (cosmic axis cite — preserved as superseded by empirical pin)
 - [`research/2026-05-19_c5-cmb-axis-executable-observer-result.md`](../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md) (E1b result — empirical axis source)
 - [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) (frozen methodology — Pantheon+ comparison axis specified)
@@ -268,7 +268,7 @@ Briefing drafted 2026-05-19 EOD by orchestration session immediately after `_orc
 | Path | Purpose |
 |---|---|
 | [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../../manuscript/ave-kb/common/divergence-test-substrate-map.md) | 33-row matrix at HEAD; C3 row + C5 row + D4-A034 row + C4 three-route |
-| [`manuscript/ave-kb/common/closure-roadmap.md`](../../manuscript/ave-kb/common/closure-roadmap.md) | Running changelog §0.5; E1a + E1b entries dated 2026-05-19 |
+| [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](../../manuscript/ave-kb/claim-quality-closure-roadmap.md) | Running changelog §0.5; E1a + E1b entries dated 2026-05-19 |
 | `audit/2026-05-19_c3-muon-delta-driver-rerun` | Immutable audit tag, E1a |
 | `audit/2026-05-19_c5-cmb-axis-driver` | Immutable audit tag, E1b |
 | [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) | E1b's frozen methodology prereg (commits `fb9d9c0` + `1b2ef6d` + `fc05b5c`) |

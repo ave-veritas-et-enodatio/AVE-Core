@@ -44,7 +44,7 @@ Protocol 12 (GEO-sync ground-to-GEO laser TOF):
 Both halves of this script are preserved as Shapiro-baseline / Fizeau-baseline
 references for any future AVE-distinct derivation that would need to compute its
 prediction as a residual above these GR/standard baselines. See:
-- manuscript/ave-kb/common/closure-roadmap.md §0.5 (scope-correction changelog
+- manuscript/ave-kb/claim-quality-closure-roadmap.md §0.5 (scope-correction changelog
   for C17 + C18 retirement entries)
 - manuscript/ave-kb/common/divergence-test-substrate-map.md (C17 + C18 row
   rewrites with corroborative-null status)

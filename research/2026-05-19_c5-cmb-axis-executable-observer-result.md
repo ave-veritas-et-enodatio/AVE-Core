@@ -10,7 +10,7 @@
 > - Against Longo's ACTUAL published axis (52°, 68.5°), the CMB-LSS separation would have been **~30°** — numerically close to 27.9° by accident of the corpus error landing near Longo's actual position in 3D angular separation, NOT by the corpus value being correct.
 > - The framework's current best-precision empirical state for the LSS spin axis is the SDSS DR17 re-fit at `(l = 129°, b = 79°)` with σ = 6.83° per [`research/2026-05-19_c5-sdss-spin-orientation-result.md`](2026-05-19_c5-sdss-spin-orientation-result.md) — supersedes BOTH the original corpus pin AND Longo's published axis at the framework's current empirical state. The CMB-LSS separation against the empirical re-fit is **36.75°** (Outcome Marginal-D; LSS alignment with CMB axis EXCLUDED at 5.33σ from zero per the SDSS session's tight σ_LSS = 6.83°).
 >
-> **Walk-back artifact:** driver pin corrected in [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py:97-127`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py); cross-references updated at [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) C5 rows + [`manuscript/ave-kb/common/closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) §0.5 new entry. Pattern follows the E1b CMB-axis (174°, -5°) → (60.28°, 50.48°) walk-back precedent at closure-roadmap.md §0.5 row dated 2026-05-19. The 27.9° figure in the prose below is preserved verbatim as historical-record of the driver's actual output; this annotation does not rewrite that figure.
+> **Walk-back artifact:** driver pin corrected in [`src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py:97-127`](../src/scripts/vol_3_macroscopic/cmb_axis_alignment_executable_observer.py); cross-references updated at [`manuscript/ave-kb/common/divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergence-test-substrate-map.md) C5 rows + [`manuscript/ave-kb/claim-quality-closure-roadmap.md`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) §0.5 new entry. Pattern follows the E1b CMB-axis (174°, -5°) → (60.28°, 50.48°) walk-back precedent at closure-roadmap.md §0.5 row dated 2026-05-19. The 27.9° figure in the prose below is preserved verbatim as historical-record of the driver's actual output; this annotation does not rewrite that figure.
 >
 > ---
 
@@ -30,7 +30,7 @@
 
 Computed CMB axis-of-evil from Planck PR3 SMICA temperature map (NSIDE=2048, common-mask + mean-fill inpainting): **(l = 60.28°, b = 50.48°)** in galactic coordinates, σ ≈ 0.92° (pixel resolution). Joint ℓ=2+ℓ=3 dispersion = 1.252 (~88% of theoretical max 1.417). ℓ=2 and ℓ=3 only-axes at (51.0°, 45.0°) and (69.6°, 57.4°), separated by **16.9° → confirms intrinsic Planck axis-of-evil quadrupole-octupole alignment** in the data.
 
-**Empirical pin on the (l=174°, b=-5°) corpus citation gap:** the corpus value at [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) was unpinned to a specific publication (flagged 2026-05-17 audit). The empirical Planck PR3 axis-of-evil is at (60.28°, 50.48°), which is **73° from the corpus value**. The corpus reference point yields dispersion 0.571 — only **45.6% of the data's max dispersion**. The corpus (174°, -5°) is NOT the data's preferred axis. Per [`closure-roadmap.md:100`](../manuscript/ave-kb/common/closure-roadmap.md) option (c), execution now makes the citation moot — the empirical axis emerges from the data.
+**Empirical pin on the (l=174°, b=-5°) corpus citation gap:** the corpus value at [`universal-saturation-kernel-catalog.md:88`](../manuscript/ave-kb/common/universal-saturation-kernel-catalog.md) was unpinned to a specific publication (flagged 2026-05-17 audit). The empirical Planck PR3 axis-of-evil is at (60.28°, 50.48°), which is **73° from the corpus value**. The corpus reference point yields dispersion 0.571 — only **45.6% of the data's max dispersion**. The corpus (174°, -5°) is NOT the data's preferred axis. Per [`closure-roadmap.md:100`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) option (c), execution now makes the citation moot — the empirical axis emerges from the data.
 
 **Pairwise alignment** (after masking):
 
@@ -40,7 +40,7 @@ Computed CMB axis-of-evil from Planck PR3 SMICA temperature map (NSIDE=2048, com
 | CMB vs LSS spin (Longo 2011) | 27.9 | 30.0 | within 1σ of alignment |
 | Hubble vs LSS | 59.6 | 42.4 | 0.94σ (NOT 3σ decisive) |
 
-**Sharpest falsifier** (per [closure-roadmap.md:35](../manuscript/ave-kb/common/closure-roadmap.md) + frozen prereg §5): "CMB axis vs Hubble flow misaligned >20° at 3σ" — **NOT TRIGGERED**. (74.6 − 20) / 30 = 1.82σ.
+**Sharpest falsifier** (per [closure-roadmap.md:35](../manuscript/ave-kb/claim-quality-closure-roadmap.md) + frozen prereg §5): "CMB axis vs Hubble flow misaligned >20° at 3σ" — **NOT TRIGGERED**. (74.6 − 20) / 30 = 1.82σ.
 
 **Cascade:** D4-A034 cosmic row HELD PENDING tighter Hubble-flow / SDSS data (no retirement; no strengthening). C4 three-route Route 3 ($\mathcal{J}_{cosmic}$) anchor REMAINS DEFERRED on A-031 cosmic-parameter-horizon. E1c (Route 3 framework-commitment activation) DEFERRED until C5 settles via tighter data.
 
@@ -135,7 +135,7 @@ Observed agreement (0%) is BELOW uniform-prior null (6%) — but with only 3 pai
 
 ### 2.4 Sharpest single falsifier check
 
-Per [closure-roadmap.md:35](../manuscript/ave-kb/common/closure-roadmap.md) + frozen prereg §5: "CMB axis vs Hubble flow misaligned >20° at 3σ" → outcome C immediate.
+Per [closure-roadmap.md:35](../manuscript/ave-kb/claim-quality-closure-roadmap.md) + frozen prereg §5: "CMB axis vs Hubble flow misaligned >20° at 3σ" → outcome C immediate.
 
 - Separation = 74.6°
 - Combined σ = √(0.9² + 30²) = 30.0°
@@ -197,7 +197,7 @@ The Class 3 classification is robust: the driver does NOT tune any AVE parameter
 
 ## 5. Cascade implications
 
-Per [closure-roadmap.md:947](../manuscript/ave-kb/common/closure-roadmap.md): *"Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS."*
+Per [closure-roadmap.md:947](../manuscript/ave-kb/claim-quality-closure-roadmap.md): *"Route 3 driver is the highest-leverage operational move for the entire framework, not just C5-CMB-AXIS."*
 
 ### 5.1 D4-A034 cosmic row
 
@@ -247,7 +247,7 @@ Update [`divergence-test-substrate-map.md`](../manuscript/ave-kb/common/divergen
 
 ### 6.3 Closure-roadmap §0.5 entry (Phase 5 below)
 
-Add 2026-05-19 entry to [`closure-roadmap.md`](../manuscript/ave-kb/common/closure-roadmap.md) §0.5 documenting the driver build + Outcome D verdict + walk-back propagations needed + cascade implications.
+Add 2026-05-19 entry to [`closure-roadmap.md`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) §0.5 documenting the driver build + Outcome D verdict + walk-back propagations needed + cascade implications.
 
 ---
 

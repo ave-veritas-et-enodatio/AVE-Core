@@ -232,7 +232,7 @@ E.g., return to a domain we haven't worked in this session (PONDER, HOPF, biolog
 - `manuscript/ave-kb/vol3/cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md` (Phase 5 τ paragraph)
 - `manuscript/ave-kb/common/q-g47-substrate-scale-cosserat-closure.md:49-50` (Sessions 19 closure)
 - `manuscript/ave-kb/common/divergence-test-substrate-map.md` (C1-BH-RING row updates across 3 matrix tables + Mermaid)
-- `manuscript/ave-kb/common/closure-roadmap.md` (§0.5 changelog entries + Tier 2 row update)
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md` (§0.5 changelog entries + Tier 2 row update)
 
 **Manuscript source modified this session**:
 - `manuscript/frontmatter/00_foreword.tex` (Second positive load-bearing anchor paragraph + r_sat bullet rewrite)

@@ -118,7 +118,7 @@ Per `ave-walk-back` skill discipline. Files to update (in scope):
 
 5. **Cascade grep** for any OTHER "First principles" / "a priori" / "Tier-A prediction" H_∞ framing in corpus that may have been missed by the audit's 7-file map. Apply same walk-back if found. Document in commit message.
 
-6. **Update `manuscript/ave-kb/common/closure-roadmap.md`** with an entry noting the framing-forward walk-back lands today + cross-reference to Phase 1 Chain B' research doc.
+6. **Update `manuscript/ave-kb/claim-quality-closure-roadmap.md`** with an entry noting the framing-forward walk-back lands today + cross-reference to Phase 1 Chain B' research doc.
 
 7. **Update `manuscript/ave-kb/common/full-derivation-chain.md:623-629`** (Layer 8 narrative "G is derived (not input)" qualitative inconsistency with same file lines 52-60 treating G as Bounding Limit 3) — reconcile to the post-walk-back framing.
 

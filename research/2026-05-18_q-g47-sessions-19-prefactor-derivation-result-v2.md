@@ -135,7 +135,7 @@ This matches canonical (Session 9 §3.3 + A-032) exactly.
 
 ### Finding 5: Sessions 19+ open list — one item closed
 
-[`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30) Tier 2 Q-G47 Sessions 19+ "genuinely-open items" listed three open items:
+[`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30) Tier 2 Q-G47 Sessions 19+ "genuinely-open items" listed three open items:
 1. Individual ξ_K1, ξ_K2 prefactor derivation from K4 unit-cell Cosserat-Lagrangian integration — **CLOSED** (this work)
 2. First-principles z_0=51.25 from K4 geometry — still open (wrong method in first-pass)
 3. K4-TLM ↔ Master Equation FDTD engine-boundary mode-matching at EMT operating point — still open

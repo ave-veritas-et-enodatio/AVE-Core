@@ -134,7 +134,7 @@ Files known to need touch when (A)/(B) and Action 1 land:
 - manuscript/vol_2_subatomic/chapters/06_electroweak_and_higgs.tex (mirror leaf changes)
 - manuscript/vol_2_subatomic/chapters/09_computational_proof.tex (anomaly catalog line 73-74 reframe; line 38-50 verification table may need C_2 update)
 - manuscript/ave-kb/common/divergence-test-substrate-map.md (C3 row at line 426, 512, 552, 665 per closure-roadmap)
-- manuscript/ave-kb/common/closure-roadmap.md §0.5 (new entries for Q-G19α + corrected Q-G27)
+- manuscript/ave-kb/claim-quality-closure-roadmap.md §0.5 (new entries for Q-G19α + corrected Q-G27)
 - manuscript/ave-kb/common/appendix-experiments.md (electron g-2 + muon g-2 entries)
 - manuscript/frontmatter/00_foreword.tex (if 50 ppm electron is foreword-promoted)
 - src/scripts/verify/muon_g2_fermilab_anchor.py docstring (update once canonical Δa_μ^(2) value is decided)

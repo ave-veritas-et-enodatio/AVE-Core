@@ -92,7 +92,7 @@ kb-claim-stats:
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."
-	$(PYTHON) tools/verify-md-links.py --inter-repo warn
+	$(PYTHON) manuscript/ave-kb/tools/verify-md-links.py --inter-repo warn
 
 verify-inter-repo-links:
 	@echo "Checking Markdown links incl. inter-repo as gating (inter-repo: error)..."

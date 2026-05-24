@@ -116,4 +116,4 @@ Result logged regardless of outcome — this is a null/informative result, not a
 - C1 closure (the BH-scale result this tests at soliton scale): [`ligo-ringdown-driver-design.md`](ligo-ringdown-driver-design.md) §10
 - Engine implementation: [`src/ave/core/cosserat_master_equation_fdtd.py`](../src/ave/core/cosserat_master_equation_fdtd.py)
 - Full-picture engine plan: [`2026-05-18_cosserat-lagrangian-engine-full-picture.md`](2026-05-18_cosserat-lagrangian-engine-full-picture.md) §4 Phase 4
-- Sessions 19+ Q-G47 ξ_K1, ξ_K2 derivation target: [`closure-roadmap.md:30`](../manuscript/ave-kb/common/closure-roadmap.md:30)
+- Sessions 19+ Q-G47 ξ_K1, ξ_K2 derivation target: [`closure-roadmap.md:30`](../manuscript/ave-kb/claim-quality-closure-roadmap.md:30)

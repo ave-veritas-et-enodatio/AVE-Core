@@ -247,7 +247,7 @@ The leaf does NOT contain an Outstanding Rigour Gaps table. The full Rigour Gaps
 
 ### §6.2 `closure-roadmap.md` acknowledges the Chain but not the recursion
 
-[`closure-roadmap.md:37`](../manuscript/ave-kb/common/closure-roadmap.md) verbatim:
+[`closure-roadmap.md:37`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) verbatim:
 
 > "| 3 | ~~Vol 3 Ch 4~~ **Vol 3 Ch 1 explicit ξ(R_H, ℓ_node) derivation** | **✓ ALREADY CLOSED in corpus** at Vol 3 Ch 1 §"Fundamental Unity of Gravity and Expansion" (lines 95-155) — corpus-grep audit 2026-05-15 evening. Canonical: $\xi = 4\pi(R_H/\ell_{\text{node}})\alpha^{-2}$; derives $G = \hbar c/(7\xi m_e^2)$, $\alpha_G = 1/(7\xi)$, $R_H/\ell_{\text{node}} = \alpha^2/(28\pi\alpha_G) \approx 3.455 \times 10^{38}$, $R_H \approx 1.334 \times 10^{26}$ m = 14.1 Gly, $H_\infty \approx 69.32$ km/s/Mpc (between Hubble tension bounds). Was originally located at "Vol 3 Ch 4" in this dashboard — that was wrong; actual location is Vol 3 Ch 1. | A-030 / A-031 | (corpus pre-existing, verified `060f429`)"
 
@@ -428,7 +428,7 @@ Per `verify-before-cite` discipline, every file:line citation in this doc was re
 - [`optical-refraction-gravity.md:50-64`](../manuscript/ave-kb/vol3/gravity/ch01-gravity-yield/optical-refraction-gravity.md) — verified Chain B derivation present verbatim
 - [`01_gravity_and_yield.tex:95-127`](../manuscript/vol_3_macroscopic/chapters/01_gravity_and_yield.tex) — verified LaTeX mirror present
 - [`src/ave/core/constants.py:432`](../src/ave/core/constants.py) — verified `XI_MACHIAN` definition present
-- [`closure-roadmap.md:37`](../manuscript/ave-kb/common/closure-roadmap.md) — verified "ALREADY CLOSED" row present
+- [`closure-roadmap.md:37`](../manuscript/ave-kb/claim-quality-closure-roadmap.md) — verified "ALREADY CLOSED" row present
 - [`hubble-tension.md:21`](../manuscript/ave-kb/vol2/nuclear-field/ch10-open-problems/hubble-tension.md) — verified "balances node generation against the holographic thermal capacity" present
 - [`zero-parameter-universe.md:38-41`](../manuscript/ave-kb/vol1/axioms-and-lattice/ch1-fundamental-axioms/zero-parameter-universe.md) — verified Chain B' qualitative gloss present
 - [`cosmological-constant-closure.md:107-111`](../manuscript/ave-kb/vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md) — verified open-work statement present
@@ -444,4 +444,4 @@ This audit's Class C verdict (§8 verdict line + §8 secondary class) was canoni
 
 **Per Rule 12 (preserve body, add header)**: this audit's Class C verdict is preserved as historical record — it WAS the correct verdict per the v1.0 taxonomy and surfaced the missing class as part of its work. The h-infinity-downstream-cascade epic (Phase 2, branch `analysis/h-infinity-downstream-cascade`) applies the Class C → Class E refinement EXTENSION (not replacement) across the 13 corpus files identified in this audit's §9 implication matrix + Phase 2 cascade-grep additions. Class C is true (CODATA $G$ → SI substitution recovers $H_\infty$); Class E is also true and stronger (joint-constraint structure defines actual falsifiability surface). The honest framing is "Class E operating-point projection (which includes Class C consistency-check sub-structure)."
 
-**Cross-reference for current corpus-state**: `manuscript/ave-kb/common/closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/predictions.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).
+**Cross-reference for current corpus-state**: `manuscript/ave-kb/claim-quality-closure-roadmap.md:37` (framing-forward entry + Class E refinement annotation) + `manuscript/predictions.yaml` P23 (`type: operating_point_projection` post-2026-05-19 EOD).

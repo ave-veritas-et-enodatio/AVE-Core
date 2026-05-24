@@ -62,7 +62,7 @@ ANTENNAS = [
 | `k35_R / k35_L` | (3,5) | Higher-winding test mode (no canonical particle; probe of formula extension) | ✓ (intentional test of formula generality) |
 
 **No stale (2,q) assignments**:
-- HOPF does NOT use the retracted "(2,5)=muon" framing per [FI-13 RESOLVED 2026-05-18](../../../manuscript/ave-kb/common/closure-roadmap.md)
+- HOPF does NOT use the retracted "(2,5)=muon" framing per [FI-13 RESOLVED 2026-05-18](../../../manuscript/ave-kb/claim-quality-closure-roadmap.md)
 - Lepton family stays at (2,3) trefoil; baryon climbs (2,q_odd) — HOPF correctly probes (2,3) electron + (2,5) proton independently
 - (3,5) is intentionally non-particle: probes whether Δf formula generalizes beyond canonical assignments
 

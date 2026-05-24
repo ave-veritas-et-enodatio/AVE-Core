@@ -139,7 +139,7 @@ If materials-science data hunting fails, the framework can still be tested via:
 
 This is a first-pass scoping doc, NOT a definitive walk-back. Minimal corpus propagation:
 
-1. **`manuscript/ave-kb/common/closure-roadmap.md` §0.5**: new brief entry noting first-pass scoping outcome
+1. **`manuscript/ave-kb/claim-quality-closure-roadmap.md` §0.5**: new brief entry noting first-pass scoping outcome
 2. **`manuscript/ave-kb/vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md` §6 κ_quality**: cross-reference this scoping doc; note that light yield is NOT a relevant κ_quality proxy
 
 ## §11 — Cross-references

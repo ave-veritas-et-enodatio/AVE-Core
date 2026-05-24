@@ -157,7 +157,7 @@ Apply `ave-walk-back` skill discipline. Per-file action:
 - `manuscript/vol_3_macroscopic/chapters/04_generative_cosmology.tex:467` — same replacement
 - `manuscript/ave-kb/common/divergence-test-substrate-map.md` — at `:160`, mark the citation gap entry RESOLVED (replace gap-flagging language with empirical-pin reference); at `:155`, leave the load-bearing alignment claim wording intact (it's framework-level, not direction-specific)
 - `research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md` — archival prereg; the 5 instances at `:40,194,238,275,494` get a single header annotation at top: `> **2026-05-19 retrospective annotation:** the literature axis (174°, -5°) referenced throughout this prereg was empirically pinned at (60.28°, 50.48°) per [`2026-05-19_c5-cmb-axis-executable-observer-result.md:17`](../../2026-05-19_c5-cmb-axis-executable-observer-result.md). Original prereg text preserved verbatim per archival discipline.`
-- `manuscript/ave-kb/common/closure-roadmap.md:90` — mark the queued walk-back item RESOLVED with new doc link
+- `manuscript/ave-kb/claim-quality-closure-roadmap.md:90` — mark the queued walk-back item RESOLVED with new doc link
 - Commit per `ave-walk-back` batch pattern (one commit covers the full propagation): `kb(walk-back): propagate (174°,-5°) → (60.28°,50.48°) empirical pin across 7 files`
 
 ### Phase 4 — H_∞ framing hygiene fixes (30-45 min)
@@ -181,4 +181,4 @@ Surfaced during scoping as side-effect of post-912dd88 framing-walk-back audit:
 
 - E1b-prime briefing that surfaced this need: [`section-e-cascade.md`](section-e-cascade.md) Phase E1b-prime
 - Canonical leaves referenced: `manuscript/ave-kb/common/omega-freeze-cosmic-grain-cascade.md`, `manuscript/ave-kb/common/universal-saturation-kernel-catalog.md`, `manuscript/ave-kb/common/divergence-test-substrate-map.md`
-- Walk-back queue: `manuscript/ave-kb/common/closure-roadmap.md:90`
+- Walk-back queue: `manuscript/ave-kb/claim-quality-closure-roadmap.md:90`
