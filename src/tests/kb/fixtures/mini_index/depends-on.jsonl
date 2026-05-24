@@ -1,0 +1,3 @@
+{"source": "clm-5xon03", "target": "clm-unk0bd", "relation": "depends", "target_kind": "claim", "target_solidity_recorded": 0.4, "strength": null, "context": "builds directly on the bound", "fraction": null}
+{"source": "clm-h9aqmt", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "axiom-numbering scaffold — used for the labelling convention", "fraction": null}
+{"source": "clm-trf3bd", "target": "INVARIANT-S2", "relation": "depends", "target_kind": "invariant", "target_solidity_recorded": null, "strength": null, "context": "axiom-numbering scaffold — labelling convention", "fraction": null}
