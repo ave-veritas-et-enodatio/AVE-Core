@@ -1,5 +1,7 @@
 # AVE-Core Orchestration Index
 
+**EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded
+
 **Last updated**: 2026-05-20 EOD++++++++++++++ (Q-C15-12 ✓ CLOSED via Path 1; Phase 1a-rev1 FULLY MERGED both repos)
 **Current focus**: C15-CLEAVE-01 Phase 1a-rev1 ✓ COMPLETE — atopile walk-back delivered clean module-level imports; all Q-C15-10/11/12 + Q1.2 + Q-HWMOD-04 CLOSED. Next: A1-HOPF Phase 0b (Grant fab submission, [EXEC]) + C11 Phase 0 outreach ([PREP]).
 **Current HEAD on `analysis/integration`**: `5977f4d` — Q-C15-12 Path 1 brief landed (will bump to next commit when walk-back lands)
