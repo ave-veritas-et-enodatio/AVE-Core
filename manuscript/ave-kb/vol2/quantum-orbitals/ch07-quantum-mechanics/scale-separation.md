@@ -12,7 +12,7 @@ Two solitons on the same shell interact through two physically distinct channels
 
 ### Orbital Scale (Axiom 2)
 
-The nuclear Coulomb strain field creates a Fabry--Perot cavity of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$). The charge of each soliton ($-e$) screens the nuclear charge seen by its partner. Gauss's law applied to the Hopf link geometry gives $\sigma_{\text{Hopf}} = 1/2$ per partner. This screening is **isotropic**---it depends on the linking number (Axiom 3) and the enclosed charge fraction, but *not* on the relative orbital plane orientation ($m_l$).
+The nuclear Coulomb strain field creates a Fabry--Perot cavity of radius $R \approx n^2 a_0 / Z$ (hundreds of $\ell_{\text{node}}$). The charge of each soliton ($-e$) screens the nuclear charge seen by its partner. Gauss's law applied to the Hopf link geometry gives $\sigma_{\text{Hopf}} = 1/2$ per partner. This screening is **isotropic**---it depends on the linking number (clm-dfaiwj, via Axiom 2) and the enclosed charge fraction, but *not* on the relative orbital plane orientation ($m_l$).
 
 ### Knot Scale (Axioms 1+3)
 
