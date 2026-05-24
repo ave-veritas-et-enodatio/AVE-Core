@@ -113,3 +113,6 @@
 {"source": "exp-po1a0v", "target": "clm-5s5b0d", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null, "fraction": null}
 {"source": "exp-rth12t", "target": "clm-qx9bb8", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null, "fraction": null}
 {"source": "exp-v6nzcq", "target": "clm-ui3m8a", "relation": "strengthens", "target_kind": "claim", "target_solidity_recorded": null, "strength": 1.0, "context": null, "fraction": null}
+{"source": "sup-5zs5s6", "target": "clm-395gps", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-msv2xy", "target": "clm-pe8lpx", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}
+{"source": "sup-s1h0og", "target": "clm-u86caq", "relation": "supports", "target_kind": "claim", "target_solidity_recorded": null, "strength": null, "context": null, "fraction": "*pending*"}

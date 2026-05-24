@@ -1112,3 +1112,72 @@ The `temporal-saturation-regime-classifier` leaf introduces the substrate-native
   - Prove (not assert) orthogonality of the temporal axis to the spatial Regime I-IV and power-domain θ axes
   - Operationally define t_sat for a system whose A(t) only grazes A_yield (boundary-touching trajectories)
   - Resolve the PROVISIONAL Item-1 methodology application once McAdam & Shamir 2023 lands
+
+---
+
+## Support: C1 LIGO Ringdown Re-Analysis — ω_R·M_g = 18/49 (PASS −0.45%)
+<!-- id: sup-5zs5s6 -->
+
+Non-physical analytical support (INVARIANT-S10): a re-analysis of existing LIGO
+O1–O3 ringdown fits against the AVE black-hole QNM prediction ω_R·M_g = 18/49,
+catalogued as the C1 row of `divergence-test-substrate-map.md`. The Phase-3
+v2 Cosserat-back-reaction formula validated at a −0.45% mean (max 2.0% per
+event) across three LIGO events vs the GR Kerr QNM reference — analytic
+re-analysis work, not a new physical experiment, so it lifts the DERIVATION
+branch of its beneficiary. Free-standing (no own dependencies). Wiring the graph
+only — the local rigor `quality` and the on-point fraction to the beneficiary
+are both `*pending*` (unassessed).
+
+> **Leaf references:** `divergence-test-substrate-map.md` §"C1. BH horizon and ringdown" (Phase 3 outcome 2026-05-18).
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-395gps (f=*pending*) — BH QNM ω_R·M_g = 18/49
+
+---
+
+## Support: C13a SPARC Galactic-Rotation Re-Analysis (CONFIRMED 15.5%)
+<!-- id: sup-s1h0og -->
+
+Non-physical analytical support (INVARIANT-S10): the C13a re-analysis of public
+SPARC galactic-rotation-curve data against the AVE a₀ + η_eff saturation-kernel
+fit, catalogued in `divergence-test-substrate-map.md`. An analytic re-analysis
+of existing data (not a new physical experiment), so it feeds the DERIVATION
+branch of its beneficiary, the MOND-scale acceleration a₀ claim. Free-standing
+(no own dependencies). Both the local rigor `quality` and the on-point fraction
+are `*pending*` (wiring the graph, not scoring it).
+
+> **Leaf references:** `divergence-test-substrate-map.md` §"C13a. Galactic rotation curves via a₀ + η_eff".
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-u86caq (f=*pending*) — MOND a₀ acceleration scale
+
+---
+
+## Support: C5 CMB Cosmic-Axis Re-Analysis (Outcome-D)
+<!-- id: sup-msv2xy -->
+
+Non-physical analytical support (INVARIANT-S10): the C5 executable-observer
+re-analysis of Planck PR3 SMICA CMB data for the cosmic-axis alignment, returning
+Outcome-D (data insufficient at 3σ) per the C5-CMB-AXIS row of
+`divergence-test-substrate-map.md`. An analytic re-analysis of existing data, so
+it bears on the DERIVATION branch of the "Eight Cosmic-Axis Observables" claim.
+Free-standing (no own dependencies). The local rigor `quality` and the on-point
+fraction are both `*pending*` (graph-wiring only; an Outcome-D re-analysis is not
+yet scored).
+
+> **Leaf references:** `divergence-test-substrate-map.md` §"C5. A-034 CMB axis-of-evil alignment".
+
+### Quality
+- quality: *pending*
+- solidity: *pending*
+- rationale: *pending*
+- supports:
+  - clm-pe8lpx (f=*pending*) — Eight Cosmic-Axis Observables aligned with the Ω_freeze axis

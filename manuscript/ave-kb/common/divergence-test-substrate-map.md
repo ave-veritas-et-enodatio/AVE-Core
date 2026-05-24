@@ -3,13 +3,22 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-s3i0lw]
+sup-id: sup-5zs5s6
+supports:
+  - clm-395gps: *pending*
+sup-id: sup-s1h0og
+supports:
+  - clm-u86caq: *pending*
+sup-id: sup-msv2xy
+supports:
+  - clm-pe8lpx: *pending*
 -->
 
 # AVE Divergences from Standard Physics — Test Substrate Map
 
 > **Related KB layers:** This leaf is the *operational tracking layer* over the canonical narrative catalog at [`appendix-experiments.md`](appendix-experiments.md) (PATH-STABLE, referenced from vol1-5,7,8 as `app:unified_experiments`) and the per-project bench-design leaves at [`../vol4/falsification/ch11-experimental-bench-falsification/`](../vol4/falsification/ch11-experimental-bench-falsification/index.md). Read the catalog for narrative descriptions organized by Volume; read the per-project leaves for bench specs + BOMs; read this map for falsification logic, lifecycle status, axiom-impact severity, and sibling-repo substrate.
 
-This leaf catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + $\Lambda$CDM, mapped to the actual hardware, simulation, or data substrate where the test would run. Anchored to the foreword's "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" sections ([`../../frontmatter/00_foreword.tex` lines 104-149](../../frontmatter/00_foreword.tex)).
+This leaf catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + $\Lambda$CDM, mapped to the actual hardware, simulation, or data substrate where the test would run. Anchored to the foreword's "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" sections.
 
 **Two definitions of "test":** a test is either (a) a new experiment to be run on hardware, or (b) a re-analysis of existing public data. Both count as falsifiers. Each row below tags `Test type:` accordingly.
 
@@ -161,7 +170,7 @@ These predictions live as derivations in the KB. None has an actual driver/obser
 - **Discriminator:** angular separation between the four axes; AVE predicts $\lesssim$ degree-class agreement, standard cosmology has uniform prior.
 - **Test type:** existing-data re-analysis (Planck CMB + SDSS galaxy survey are public).
 - **Substrate:** **DRIVER EXECUTED 2026-05-19.** Phase 2 executable observer on Planck PR3 SMICA returned Outcome D (data insufficient at 3σ); see C5-CMB-AXIS row at line 428. Empirical axis-of-evil at $(l=60.28°, b=50.48°)$.
-- **Citation gap RESOLVED 2026-05-19** via empirical pin. The corpus literature-placeholder $(174°, -5°)$ value (flagged 2026-05-17 audit, unpinned to specific publication) is superseded by the Planck PR3 SMICA empirical axis $(l=60.28°, b=50.48°)$ computed by the C5 driver run 2026-05-19 — see [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17,89`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The corpus value yields only 46% of the data's max dispersion; the empirical axis is 73° from the corpus value. Walk-back applied to citing files: [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md), [`07_universal_saturation_kernel.tex:221`](../../backmatter/07_universal_saturation_kernel.tex), [`omega-freeze-cosmic-grain-cascade.md:26`](omega-freeze-cosmic-grain-cascade.md), [`../../vol_3_macroscopic/chapters/04_generative_cosmology.tex:467`](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex). Archival prereg [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) preserved verbatim per archival discipline; carries header annotation for the empirical pin.
+- **Citation gap RESOLVED 2026-05-19** via empirical pin. The corpus literature-placeholder $(174°, -5°)$ value (flagged 2026-05-17 audit, unpinned to specific publication) is superseded by the Planck PR3 SMICA empirical axis $(l=60.28°, b=50.48°)$ computed by the C5 driver run 2026-05-19 — see [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17,89`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The corpus value yields only 46% of the data's max dispersion; the empirical axis is 73° from the corpus value. Walk-back applied to citing files: [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md), `07_universal_saturation_kernel.tex:221`, [`omega-freeze-cosmic-grain-cascade.md:26`](omega-freeze-cosmic-grain-cascade.md), `../../vol_3_macroscopic/chapters/04_generative_cosmology.tex:467`. Archival prereg [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) preserved verbatim per archival discipline; carries header annotation for the empirical pin.
 - **KB anchors:** [`universal-saturation-kernel-catalog.md` lines 86-92](universal-saturation-kernel-catalog.md); foreword line 149; [`cosmic-axes-and-frames-glossary.md`](cosmic-axes-and-frames-glossary.md) §2 (canonical glossary definition).
 
 ### C6. Neutrino parity kill-switch — no stable right-handed neutrino
@@ -1063,7 +1072,6 @@ Each domain cascade costs ~30-60 lines of Mermaid. Add as audited or as the matr
 
 
 > → Primary: [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — the 21-instance cross-scale catalogue that underlies Tier D and several Tier C predictions
-> → Primary: [Common Foreword](../../frontmatter/00_foreword.tex) — canonical narrative source for the "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" framings
 > ↗ See also: [A-031 Refined: Cosmic-Parameter Horizon](cosmic-parameter-horizon-a031-refinement.md) — Route 3 ($\mathcal{J}_{cosmic}$) bottleneck and the observable-mechanism vs cosmic-parameter distinction
 > ↗ See also: [Measurement Hierarchy SNR](../vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md) — bench-class SNR framing for the Tier A and Tier B substrate
 > ↗ See also: [Three Boundary Observables: $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$](boundary-observables-m-q-j.md) — substrate-observability rule that frames "what is measurable" at any saturation surface
