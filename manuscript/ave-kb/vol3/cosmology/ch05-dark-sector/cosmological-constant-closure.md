@@ -21,7 +21,7 @@ The largest single quantitative improvement on a QED prediction in all of fundam
 
 ### Step 1 — Corpus-derived $H_\infty$ (Vol 3 Ch 1)
 
-The asymptotic Hubble rate is canonical at [Vol 3 Ch 1 (Gravity and Yield)](../../../../vol_3_macroscopic/chapters/01_gravity_and_yield.tex):
+The asymptotic Hubble rate is canonical at Vol 3 Ch 1 (Gravity and Yield):
 
 $$H_\infty = \frac{28\pi\, m_e^3\, c\, G}{\hbar^2\, \alpha^2}$$
 
@@ -59,7 +59,7 @@ The QED cosmological-constant problem stems from treating the vacuum's zero-poin
 
 **AVE's lattice cutoff $\ell_{\text{node}}$** ($\approx 386$ fm vs Planck $\sim 10^{-35}$ m) eliminates 22 orders of magnitude of modes. The remaining mode counting still gives a too-large naive answer.
 
-**The key insight**: the cosmological constant is NOT the zero-point energy of vacuum modes. It is the **latent-heat density of ongoing crystallization** of the substrate. Per AVE's framework (canonical at [Vol 3 Ch 4 §sec:tki_strain_snap](../../../../vol_3_macroscopic/chapters/04_generative_cosmology.tex) + [phantom-energy-equation-of-state.md](../ch04-generative-cosmology/phantom-energy-equation-of-state.md)):
+**The key insight**: the cosmological constant is NOT the zero-point energy of vacuum modes. It is the **latent-heat density of ongoing crystallization** of the substrate. Per AVE's framework (canonical at [phantom-energy-equation-of-state.md](../ch04-generative-cosmology/phantom-energy-equation-of-state.md)):
 
 > *"The AVE framework identifies 'Dark Energy' not as a mysterious scalar field, but as the thermodynamic latent heat of the vacuum's continuous macroscopic crystallisation."*
 
@@ -132,8 +132,6 @@ Three tests are **free third-party** (PVLAS, Fermilab, $\Lambda$). The cosmologi
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 3 Ch 1 (Gravity and Yield)](../../../../vol_3_macroscopic/chapters/01_gravity_and_yield.tex) §3 — $H_\infty$ derivation canonical
-  - [Vol 3 Ch 4 (Generative Cosmology)](../../../../vol_3_macroscopic/chapters/04_generative_cosmology.tex) — latent-heat-of-crystallization framework
   - Common Foreword §"Epistemic Position: AVE as a UV Completion of QED" — cosmological-constant 10^122 improvement claim (this leaf is the canonical backing)
 - **Sibling dark-sector leafs:**
   - [Derived MOND Acceleration Scale](derived-mond-acceleration-scale.md) — $a_0 = c H_\infty/(2\pi)$ uses same $H_\infty$

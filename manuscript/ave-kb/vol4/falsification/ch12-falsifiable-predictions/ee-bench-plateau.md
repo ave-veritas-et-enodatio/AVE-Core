@@ -7,7 +7,7 @@ claims: [clm-trgqtf]
 
 ## EE Bench: Macroscopic Dielectric Plateau
 
-> **A-034 anchor (canonical 2026-05-15 evening).** The EE bench dielectric-plateau prediction at $V_{yield} = 43.65$ kV is the **atomic-scale row (SYM symmetry class)** in the Universal Saturation-Kernel Catalog — the same $S(A) = \sqrt{1 - A^2}$ kernel governs BCS $B_c(T)$ at 0.00% error, NOAA-validated solar flares, BH ring-down at 1.7% from GR, and cosmic K4 crystallization. The bench measurement is the **most cost-accessible empirical anchor** ($\sim$\$25k BOM) for the 21-instance cross-scale catalog. **Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../../../backmatter/07_universal_saturation_kernel.tex) (Vol 0). KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
+> **A-034 anchor (canonical 2026-05-15 evening).** The EE bench dielectric-plateau prediction at $V_{yield} = 43.65$ kV is the **atomic-scale row (SYM symmetry class)** in the Universal Saturation-Kernel Catalog — the same $S(A) = \sqrt{1 - A^2}$ kernel governs BCS $B_c(T)$ at 0.00% error, NOAA-validated solar flares, BH ring-down at 1.7% from GR, and cosmic K4 crystallization. The bench measurement is the **most cost-accessible empirical anchor** ($\sim$\$25k BOM) for the 26-instance cross-scale catalog. KB synthesis: [`trampoline-framework.md §7.5`](../../../common/trampoline-framework.md).
 
 > → Primary: [Regimes of Operation](../../circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md) — $V_{yield}$ and $E_{yield}$ derivations
 > ↗ See also: [Nonlinear Vacuum Capacitance](../../circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md) — Axiom 4 saturation kernel $S(E)$

@@ -19,16 +19,20 @@
   - Does NOT claim AVE resolves the Hubble Tension by selecting one measurement over the other; the claim is that both are compatible with the same geometric constraint.
   - Promoting this to a true downstream prediction requires deriving $G$ from a local thermodynamic balance independent of $R_H$ — open problem.
 
-> **Leaf references:** `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`, `cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`, `cosmology/ch04-generative-cosmology/asymptotic-expansion-limit.md` (alternate algebraic form via the topological packing fraction $p_c$).
+> **Leaf references:** [asymptotic-expansion-limit](./cosmology/ch04-generative-cosmology/asymptotic-expansion-limit.md), [lattice-genesis-hubble-tension](./cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md), [asymptotic-hubble-constant](./gravity/ch01-gravity-yield/asymptotic-hubble-constant.md), [optical-refraction-gravity](./gravity/ch01-gravity-yield/optical-refraction-gravity.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle — the action that fixes $G$)
+  - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND derivation, solidity X)
+  - `clm-mroghg` (Vol 2 $H_\infty$ framing, solidity X)
+  - `clm-9s9apq` (Vol 1 $p_c = 8\pi\alpha$ packing relation, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: The resultbox states $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$, but the leaf itself frames this as a **geometric consistency proof** — $G$ and $H_\infty$ are "the same geometric limit evaluated from different topological reference frames," not an ab-initio prediction of $H_0$. The Machian coupling embeds $R_H \equiv c/H_\infty$ in the definition of $G$, so rearranging to "compute" $H_\infty$ is structurally circular. The algebra closes cleanly; the disclosed circularity (an unbroken open dependency on a $G$ that is not independently derived) pins the band below a clean derivation.
 - strengthen-by:
-  - *pending*
+  - Derive $G$ from a local thermodynamic balance independent of $R_H$ (the leaf's named open problem), converting the consistency proof into a true downstream prediction.
+  - Close the Class-E joint-constraint at $u_0^*$ so $\{G, H_\infty, \alpha\}$ are not co-defined.
 
 ---
 
@@ -46,16 +50,20 @@
   - "Speed of light slows near mass" ($c_{local} = c_0/n$) is **local phase velocity**, not energy transport speed. See cross-cutting Symmetric vs Asymmetric Saturation entry: the impedance is invariant ($Z = Z_0$), so this is not a dispersive medium in the dissipative sense.
   - The $c_{max}$ inference (intergalactic $c$ exceeds local $c$ by $\sim 3{,}600$ m/s, "warp transit baseline") is an extrapolation of the same local refraction relation to $\Phi \to 0$; treat as illustrative of the framework's interpretation, not as an experimentally validated prediction.
 
-> **Leaf references:** Canonical for the temporal/spatial split: `gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (Derived Consequence 2 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Refractive-index derivations: `gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md`, `gravity/ch03-macroscopic-relativity/transverse-refractive-index.md`, `gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`. Companion bound on α invariance under symmetric gravity: `gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`. Supporting derivation chain (continuum-mechanics origin of $\nu_{vac} = 2/7$ and the $1/7$ projection): `gravity/ch01-gravity-yield/trace-reversal-mechanism.md`, `gravity/ch01-gravity-yield/topological-packing-fraction.md`, `gravity/ch01-gravity-yield/one-seventh-impedance-projection.md`, `gravity/ch03-macroscopic-relativity/cauchy-implosion-resolution.md`, `gravity/ch03-macroscopic-relativity/gordon-optical-metric.md`. Newtonian / equivalence-principle reduction: `gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md`, `gravity/ch03-macroscopic-relativity/newtonian-gravity-optical-gradient.md`. Yield/lifetime scale (kinetic point-yield, static nodal tension, leaky-cavity decay): `gravity/ch01-gravity-yield/kinetic-yield-threshold.md`, `gravity/ch01-gravity-yield/static-nodal-tension.md`, `gravity/ch01-gravity-yield/leaky-cavity-decay.md`. Achromatic / impedance-matched lensing and frame-dragging consequences: `gravity/ch03-macroscopic-relativity/achromatic-impedance-matching.md`, `gravity/ch03-macroscopic-relativity/gravitomagnetism-frame-dragging.md`, `gravity/ch02-general-relativity/gravitational-refractive-index-gradient.md`, `gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md`, `gravity/ch02-general-relativity/k4-tlm-lensing-validation.md` (numerical cross-check via TLM lattice).
+> **Leaf references:** [alpha-invariance-symmetric-gravity](./gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md), [kinetic-yield-threshold](./gravity/ch01-gravity-yield/kinetic-yield-threshold.md), [leaky-cavity-decay](./gravity/ch01-gravity-yield/leaky-cavity-decay.md), [one-seventh-impedance-projection](./gravity/ch01-gravity-yield/one-seventh-impedance-projection.md), [optical-refraction-gravity](./gravity/ch01-gravity-yield/optical-refraction-gravity.md), [static-nodal-tension](./gravity/ch01-gravity-yield/static-nodal-tension.md), [temporal-spatial-lattice-decomposition](./gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md), [topological-packing-fraction](./gravity/ch01-gravity-yield/topological-packing-fraction.md), [trace-reversal-mechanism](./gravity/ch01-gravity-yield/trace-reversal-mechanism.md), [frame-dragging-impedance-convolution](./gravity/ch02-general-relativity/frame-dragging-impedance-convolution.md), [gravitational-refractive-index-gradient](./gravity/ch02-general-relativity/gravitational-refractive-index-gradient.md), [k4-tlm-lensing-validation](./gravity/ch02-general-relativity/k4-tlm-lensing-validation.md), [achromatic-impedance-matching](./gravity/ch03-macroscopic-relativity/achromatic-impedance-matching.md), [cauchy-implosion-resolution](./gravity/ch03-macroscopic-relativity/cauchy-implosion-resolution.md), [einstein-lensing-deflection](./gravity/ch03-macroscopic-relativity/einstein-lensing-deflection.md), [gordon-optical-metric](./gravity/ch03-macroscopic-relativity/gordon-optical-metric.md), [gravitomagnetism-frame-dragging](./gravity/ch03-macroscopic-relativity/gravitomagnetism-frame-dragging.md), [newtonian-gravity-optical-gradient](./gravity/ch03-macroscopic-relativity/newtonian-gravity-optical-gradient.md), [ponderomotive-equivalence](./gravity/ch03-macroscopic-relativity/ponderomotive-equivalence.md), [refractive-index-of-gravity](./gravity/ch03-macroscopic-relativity/refractive-index-of-gravity.md), [transverse-refractive-index](./gravity/ch03-macroscopic-relativity/transverse-refractive-index.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle — trace-reversal boundary)
+  - Axiom 4 (Universal Saturation Kernel — radial strain $\varepsilon_{11}$)
+  - `clm-iouqn9` (common: K4 magic-angle $\nu_{vac} = 2/7$, solidity X)
+  - `clm-9s9apq` (Vol 1 EMT $p_c = 8\pi\alpha$, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- rationale: $n(r) = 1 + (2/7)(7GM/c^2r) = 1 + 2GM/c^2r$ is clean algebra once $\nu_{vac} = 2/7$ (trace-reversal, EMT-verified in the companion leaf) and the radial strain $\varepsilon_{11} = 7GM/c^2r$ are in hand. The temporal/spatial split (deflection couples to $1 + (9/7)\varepsilon_{11}$) is disclosed and consistent. The $c_{max}$ "warp baseline" extrapolation to $\Phi\to0$ is explicitly flagged interpretive and does not load-bear on the core refractive identity. Solar deflection is a category-(iii) consistency check, not novelty.
 - strengthen-by:
-  - *pending*
+  - Derive $\varepsilon_{11} = 7GM/c^2r$ (the factor-7 Machian stress boundary $T_{max} = c^4/7G$) from primitives within this leaf rather than importing it.
+  - Make the temporal/spatial projection ratio $9/7$ vs $2/7$ explicit in this leaf instead of the companion.
 
 ---
 
@@ -73,16 +81,20 @@
   - Does NOT claim AVE predicts deviations from GR's lossless GW propagation in the linear regime — the prediction is the same as linearized GR for currently observed signals. Distinguishing AVE from GR requires either near-merger nonlinear waveform residuals or polarization tests.
   - The shear-wave freeze inside the saturation boundary ($c_{shear} \to 0$ as $\varepsilon_{11} \to 1$) is the cross-cutting Symmetric Saturation result; see cross-cutting Symmetric vs Asymmetric Saturation. GWs cannot propagate through the ruptured BH interior.
 
-> **Leaf references:** `gravity/ch08-gravitational-waves/invariant-gravitational-impedance.md`, `gravity/ch08-gravitational-waves/gw-propagation-lossless.md`, `gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md`, `gravity/ch02-general-relativity/einstein-field-equation.md`. Detection-side consequences (impedance perturbation, Fabry-Perot phase accumulation, SQL, antenna framing — all read out the lossless propagation result): `gravity/ch08-gravitational-waves/gw-impedance-perturbation.md`, `gravity/ch08-gravitational-waves/fabry-perot-phase-shift.md`, `gravity/ch08-gravitational-waves/standard-quantum-limit.md`, `gravity/ch08-gravitational-waves/gw-detection-antenna.md`.
+> **Leaf references:** [einstein-field-equation](./gravity/ch02-general-relativity/einstein-field-equation.md), [fabry-perot-phase-shift](./gravity/ch08-gravitational-waves/fabry-perot-phase-shift.md), [gw-detection-antenna](./gravity/ch08-gravitational-waves/gw-detection-antenna.md), [gw-impedance-perturbation](./gravity/ch08-gravitational-waves/gw-impedance-perturbation.md), [gw-propagation-lossless](./gravity/ch08-gravitational-waves/gw-propagation-lossless.md), [invariant-gravitational-impedance](./gravity/ch08-gravitational-waves/invariant-gravitational-impedance.md), [ligo-gw-saturation-ratio](./gravity/ch08-gravitational-waves/ligo-gw-saturation-ratio.md), [standard-quantum-limit](./gravity/ch08-gravitational-waves/standard-quantum-limit.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle)
+  - Axiom 4 (Universal Saturation Kernel — symmetric scaling of $\mu,\varepsilon$)
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
+  - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- rationale: $Z(r) = \sqrt{\mu_0 n/\varepsilon_0 n} \equiv Z_0$ is an exact algebraic identity given symmetric scaling, so $\Gamma = 0$ across any gradient follows immediately. The leaf is honest that "Symmetric Scaling" is a **derived consequence of Axiom 3**, not a fifth axiom. The regime table (GW150914/170817/pulsar saturation ratios) is order-of-magnitude but the lossless-propagation conclusion is a clean consequence. Band held just below 1.0 because the per-source $V_{GW}/V_{snap}$ values are stated, not derived in this leaf.
 - strengthen-by:
-  - *pending*
+  - Derive the per-source saturation ratios from source parameters within the leaf rather than tabulating them.
+  - Spell out the I–II boundary onset ($\sim 10^{-8}$) as a calculation, not an assertion.
 
 ---
 
@@ -101,16 +113,20 @@
   - Does NOT claim a numerical match to BH interior observations. The interior is observationally inaccessible; the claim is structural (a phase transition exists at $r_{sat}$), not numerical.
   - The "pre-geometric plasma" and "information loss siding with Hawking" framings are interpretive consequences of the lattice picture, not independent results.
 
-> **Leaf references:** Primary for $\Gamma = 0$ (BH boundary absorbs, no reflection): `cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md` (states "no impedance mismatch and no reflection coefficient ($\Gamma = 0$ everywhere)"). Phase-transition / saturation framing: `cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md`, `gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md`. Constructive vs destructive interior asymmetry (electron preserves topology, BH destroys it — direct statement of the framing): `cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md`. Note: `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md` carries "$\Gamma = -1$" in its title and uses different framing — see followups (interpretive tension between leaves on horizon impedance). Cross-cutting: see Symmetric vs Asymmetric Saturation.
+> **Leaf references:** [black-holes-impedance-mismatch](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md), [constructive-destructive-paradox](./cosmology/ch15-black-hole-orbitals/constructive-destructive-paradox.md), [electron-bh-isomorphism](./cosmology/ch15-black-hole-orbitals/electron-bh-isomorphism.md), [interior-singularity-resolution](./cosmology/ch15-black-hole-orbitals/interior-singularity-resolution.md), [dielectric-rupture-event-horizon](./gravity/ch03-macroscopic-relativity/dielectric-rupture-event-horizon.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
+  - `clm-rd9cjm` (Vol 3 refractive index / radial strain, solidity X)
+  - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: The confinement mechanism ($G_{shear}\to0$, $c_g\to0$ at $r_{sat} = 7GM/c^2$) follows cleanly from $\varepsilon_{11}(r_{sat}) = 1$ plus the symmetric-impedance result ($\Gamma = 0$). The electron-vs-BH contrast (knot $\Gamma=-1$ vs hole phase-transition) is structural and internally consistent. Band sits at disclosed-bound rather than clean-derivation because the interior is explicitly **observationally inaccessible** — the claim is structural (a phase transition exists), and the saturation picture it rests on is an imported/asserted regime rather than a closed interior solution.
 - strengthen-by:
-  - *pending*
+  - Provide a worked interior solution (even schematic) showing $G_{shear}(r)\to0$ continuously across $r_{sat}$.
+  - Reconcile the "$\Gamma=0$ everywhere" framing here with the "$\Gamma=-1$" titled sibling leaf (`black-holes-impedance-mismatch.md`) to remove the disclosed inter-leaf tension.
 
 ---
 
@@ -127,16 +143,18 @@
   - Does NOT claim the Buchdahl bound is wrong — AVE is **strictly more restrictive** within its own framework, but the GR bound remains valid in standard GR.
   - The recurrence of $2/7 = \nu_{vac}$ across packing fraction, compliance modes, Hubble derivation, and compactness is a **scale-invariance claim** (the same Poisson ratio projecting through K4/SRS geometry), not an empirical numerology coincidence — but treat the recurrence as an interpretive thread, not as independent evidence for any single instance.
 
-> **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md`, `gravity/ch01-gravity-yield/vacuum-poisson-ratio.md`.
+> **Leaf references:** [ave-compactness-limit](./cosmology/ch15-black-hole-orbitals/ave-compactness-limit.md), [vacuum-poisson-ratio](./gravity/ch01-gravity-yield/vacuum-poisson-ratio.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
+  - `clm-rd9cjm` (Vol 3 radial strain / refractive index, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- rationale: The compactness bound $R > 7GM/c^2 \Leftrightarrow 2GM/c^2R < 2/7$ is direct algebra from $\varepsilon_{11}(R) = 1$ and $\nu_{vac} = 2/7$; the comparison to Buchdahl ($8/9$) is exact. The NS test case (1.4 $M_\odot$ at 10 km → $\varepsilon_{11} = 1.46$) is illustrative and the leaf is careful to call it "what the AVE bound implies," not a validated EOS. Clean derivation; the $2/7$ recurrence is flagged interpretive (not extra evidence).
 - strengthen-by:
-  - *pending*
+  - Derive the factor-7 ($T_{max} = c^4/7G$) within the leaf rather than carrying it from the strain definition.
 
 ---
 
@@ -154,16 +172,20 @@
   - The Kerr quality factor matches GR sub-2% only for $a_* = 0.3$–$0.8$; behaviour outside this spin range is not validated in the leaf.
   - "$Q = \ell$" is the lattice-derived form; for higher modes ($\ell > 2$) this disagrees with GR overtone structure — the claim is the fundamental mode, not the full QNM spectrum.
 
-> **Leaf references:** `cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md`, `cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md`. Phase-transition derivation of $Q = \ell$ and $\omega_I M_g = 9/98$ with axiom coverage table and three-event LIGO ringdown comparison: `cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md`. Sister standing-wave construction at the same scale (accretion-disk impedance bands, QPOs, cross-scale "photon" emission, EHT/iron-line/jet/GW-memory predictions — all derive the impedance-orbital framing the ringdown belongs to): `cosmology/ch15-black-hole-orbitals/accretion-disk-resonance.md`, `cosmology/ch15-black-hole-orbitals/qpo-frequency-impedance-resonance.md`, `cosmology/ch15-black-hole-orbitals/cross-scale-emission.md`, `cosmology/ch15-black-hole-orbitals/first-principles-predictions.md`.
+> **Leaf references:** [accretion-disk-resonance](./cosmology/ch15-black-hole-orbitals/accretion-disk-resonance.md), [ave-merger-ringdown-eigenvalue](./cosmology/ch15-black-hole-orbitals/ave-merger-ringdown-eigenvalue.md), [axiom-coverage-audit](./cosmology/ch15-black-hole-orbitals/axiom-coverage-audit.md), [cross-scale-emission](./cosmology/ch15-black-hole-orbitals/cross-scale-emission.md), [first-principles-predictions](./cosmology/ch15-black-hole-orbitals/first-principles-predictions.md), [qnm-quality-factor](./cosmology/ch15-black-hole-orbitals/qnm-quality-factor.md), [qpo-frequency-impedance-resonance](./cosmology/ch15-black-hole-orbitals/qpo-frequency-impedance-resonance.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
+  - `clm-rd9cjm` (Vol 3 radial strain, solidity X)
+  - `clm-x19btt` (Vol 3 compactness limit / $r_{sat}$, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.80, 0.45)]
+- rationale: The Schwarzschild $\ell=2$ eigenvalue $18/49 \approx 0.3673$ closes end-to-end from three axiom-grounded steps ($r_{sat} = 7M_g$, $r_{eff} = 49M_g/9$ via Poisson, $\omega_R = \ell c/r_{eff}$) with zero free parameters — a genuine 1.7%-error category-(iv) derived prediction. Band held below 0.9 because the Kerr extension rests on a **disclosed phenomenological** photon-sphere shift + Cosserat back-reaction fit (v2, refined post-hoc against LIGO), and $Q = \ell$ disagrees with GR overtone structure for $\ell > 2$. The Schwarzschild core is clean; the spinning-remnant comparisons (10–18% pre-Kerr-correction) are the disclosed weak edge.
 - strengthen-by:
-  - *pending*
+  - Derive the Kerr $x_{sat}(a_*)$ photon-sphere/Cosserat back-reaction form from primitives rather than fitting the rigid/compliant split.
+  - Extend the mode rule to $\ell > 2$ and reconcile $Q = \ell$ with GR overtones, or scope the claim explicitly to the fundamental mode.
 
 ---
 
@@ -181,16 +203,19 @@
   - The mechanism ("classical thermodynamic leakage of lattice noise") is an **interpretive** claim — to falsify against standard QFT-Hawking requires an experimentally observed BH evaporation spectrum (none currently exists).
   - "AVE sides with Hawking on information loss" is a framework-internal interpretive consequence of the topology-destroying phase transition, not an independent derivation against unitarity arguments.
 
-> **Leaf references:** `cosmology/ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md`, `cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md`.
+> **Leaf references:** [black-holes-impedance-mismatch](./cosmology/ch04-generative-cosmology/black-holes-impedance-mismatch.md), [hawking-temperature-nyquist-noise](./cosmology/ch15-black-hole-orbitals/hawking-temperature-nyquist-noise.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — FDT at the phase boundary)
+  - `clm-x19btt` (Vol 3 compactness / $r_{sat}$, solidity X)
+  - `clm-ir8h78` (Vol 3 BH interior phase transition, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- rationale: The leaf reproduces the standard $T_H = \hbar c^3/(8\pi GMk_B)$ but the AVE mechanism is asserted via a proportionality $P_{transmitted}\propto\partial_r S|_{r_{sat}}$ with no worked spectral shape and the standard formula imported, not derived. This is a category-(iii) consistency check at the formula level; the FDT/Nyquist reinterpretation is the new (interpretive) content. The unbridged step (rate-to-temperature with the standard coefficient assumed) and absence of a derived spectrum pin it at substantive-open-dependency.
 - strengthen-by:
-  - *pending*
+  - Derive the $T_H$ prefactor $\hbar c^3/(8\pi Gk_B)$ from $\partial_r S$ at $r_{sat}$ rather than quoting the standard result.
+  - Produce the emission spectral shape and show where (if anywhere) it departs from Planck-thermal.
 
 ---
 
@@ -209,16 +234,19 @@
   - Multi-galaxy validation table errors range 3–17% across the SPARC sample. The dwarf galaxy DDO 154 shows 17% error; do not extract a single "X%-accurate" headline.
   - The Tully-Fisher relation arises automatically from the deep-MOND limit; this is a structural consequence, not an independent fit.
 
-> **Leaf references:** `cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md`, `cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md`, `cosmology/ch05-dark-sector/asymptotic-limits.md`, `cosmology/ch05-dark-sector/multi-galaxy-validation.md`. Empirical interpolation matched against the Axiom 4 saturation form (asymptotes coincide; deep-MOND and Newtonian limits identical): `cosmology/ch05-dark-sector/mcgaugh-empirical-rar.md`. Galactic-scale realisation of the saturation operator on the lattice mutual inductance — the same kernel used at particle-confinement scale: `cosmology/ch05-dark-sector/saturated-lattice-mutual-inductance.md`.
+> **Leaf references:** [asymptotic-limits](./cosmology/ch05-dark-sector/asymptotic-limits.md), [derived-mond-acceleration-scale](./cosmology/ch05-dark-sector/derived-mond-acceleration-scale.md), [effective-galactic-acceleration-mond](./cosmology/ch05-dark-sector/effective-galactic-acceleration-mond.md), [mcgaugh-empirical-rar](./cosmology/ch05-dark-sector/mcgaugh-empirical-rar.md), [multi-galaxy-validation](./cosmology/ch05-dark-sector/multi-galaxy-validation.md), [saturated-lattice-mutual-inductance](./cosmology/ch05-dark-sector/saturated-lattice-mutual-inductance.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — saturation operator $S$)
+  - `clm-wx5324` (Vol 3 $H_\infty$, solidity X)
+  - `clm-m3z5ux` (Vol 1 $H_\infty$ / MOND, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: $a_0 = cH_\infty/(2\pi)$ is a clean parameter-free derivation and the 10.7% deficit vs empirical $1.2\times10^{-10}$ is honestly reported (not a small-parameter result). The galactic form is the Axiom-4 saturation operator with $g_N$ as amplitude. Band sits at disclosed-bound because $a_0$ inherits the disclosed import of $H_\infty$ (itself a consistency proof, see clm-wx5324) and the multi-galaxy table errors range 3–17% — the derivation closes but rests on a disclosed approximation. Regime-gating (zero drag at $g_N\gg a_0$) is correctly stated.
 - strengthen-by:
-  - *pending*
+  - Derive the $2\pi$ Hoop-Stress projection factor from primitives within the leaf.
+  - Close the $H_\infty$ dependency so $a_0$ is not downstream of a consistency proof.
 
 ---
 
@@ -234,16 +262,19 @@
   - Does NOT claim a novel numerical prediction distinguishable from GR for perihelion advance.
   - Does NOT claim the AVE derivation is independently confirmed against observational data beyond what already validates GR. This is reproduction-via-alternative-mechanism, with the same testable consequences as GR for the precession test.
 
-> **Leaf references:** `cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md`. Cross-scale orbital regime classification (Mercury, Saturn, solar flares, heliopause — same control parameter $\varepsilon_{11}$; Mercury entry is the perihelion test): `cosmology/ch14-orbital-mechanics/orbital-regime-table.md`. Sister classical-mechanics derivations using the same $1/d$ mutual-impedance topology — Saturn ring gaps as standing-wave cancellation zones, solar flares as a forward-biased macroscopic LED with Shockley-avalanche I–V and the empirical 0.46-yr FWHM "danger zone": `cosmology/ch14-orbital-mechanics/saturn-ring-integrator.md`, `cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md`, `cosmology/ch14-orbital-mechanics/macroscopic-avalanche-transconductance.md`.
+> **Leaf references:** [anomalous-perihelion-advance](./cosmology/ch14-orbital-mechanics/anomalous-perihelion-advance.md), [macroscopic-avalanche-transconductance](./cosmology/ch14-orbital-mechanics/macroscopic-avalanche-transconductance.md), [orbital-regime-table](./cosmology/ch14-orbital-mechanics/orbital-regime-table.md), [saturn-ring-integrator](./cosmology/ch14-orbital-mechanics/saturn-ring-integrator.md), [solar-flares-led-avalanche](./cosmology/ch14-orbital-mechanics/solar-flares-led-avalanche.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle — Ponderomotive Equivalence pathway)
+  - `clm-rd9cjm` (Vol 3 scalar refractive index $n_{scalar}$, solidity X)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ Poisson, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: $\Delta\phi = 6\pi GM/c^2a(1-e^2)$ reproduces the GR value (43"/century) exactly — a category-(iii) consistency check. The leaf's own Grant-adjudication scope-notes (Foundation Items 4–6, preserved verbatim) disclose the chain honestly: the $1/r^3$ tidal term was initially GR-PPN-taken-as-input (Item 4), then shown substrate-native at leading PPN-1 via the Ponderomotive Equivalence pathway with the "3" coefficient recovered exactly (Item 5). The recovery closes but rests on the disclosed reduction to PPN-1 order; the AVE-distinct chirality correction is explicitly bracketed across 4 OOM and walked back (Item 6).
 - strengthen-by:
-  - *pending*
+  - Close the chirality-amplitude bracket ($\alpha^1\to\alpha^4$) by resolving the cosmic chirality fraction $f_R$, or scope the AVE-distinct test out of single-binary periastron.
+  - Carry the substrate-native PPN-1 derivation (Item 5) into the leaf body rather than the scope-note.
 
 ---
 
@@ -259,16 +290,18 @@
   - The Kirkwood-gap formula is the standard mean-motion-resonance result reinterpreted as an impedance cavity mode — a category (iii) consistency check, not a novel mechanism distinguishable from classical resonance theory.
   - Oort Cloud derivation depends on the $a_0$ prediction (which itself carries 10.7% systematic deficit; see MOND entry).
 
-> **Leaf references:** `cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md`, `cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md`, `cosmology/ch06-solar-system/planetary-magnetopause-standoff.md`. Magnetopause-pressure / standing-wave construction (Chapman-Ferraro $B_{eff} = B_{dipole}(1 + |\Gamma|)$, dipole loss-cone trapped fraction, full per-planet table including Saturn/Uranus/Neptune): `cosmology/ch06-solar-system/chapman-ferraro-enhancement.md`, `cosmology/ch06-solar-system/dipole-loss-cone-fraction.md`, `cosmology/ch06-solar-system/planetary-magnetospheres.md`. Heliospheric impedance profile / heliopause as impedance boundary at $\sim 120$ AU: `cosmology/ch06-solar-system/heliospheric-impedance-profile.md`. Two-Winds decoupling (plasma magnetopause vs gravitational stator; Venus/Mars as control group) — frames *which* boundary the magnetopause result is about and isolates it from orbital coupling: `cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md`. Lossless-orbit consistency at the same scale (no LC drag in Regime I; supports "no anomalous orbital decay" caveat): `cosmology/ch06-solar-system/orbital-lc-friction-paradox.md`. Single-body anomaly handled by ordinary radiation pressure on a high $A/m$ body (zero-free-parameter 91% match): `cosmology/ch06-solar-system/oumuamua-acceleration.md`.
+> **Leaf references:** [chapman-ferraro-enhancement](./cosmology/ch06-solar-system/chapman-ferraro-enhancement.md), [dipole-loss-cone-fraction](./cosmology/ch06-solar-system/dipole-loss-cone-fraction.md), [heliospheric-impedance-profile](./cosmology/ch06-solar-system/heliospheric-impedance-profile.md), [kirkwood-gaps-cavity-modes](./cosmology/ch06-solar-system/kirkwood-gaps-cavity-modes.md), [oort-cloud-saturation-boundary](./cosmology/ch06-solar-system/oort-cloud-saturation-boundary.md), [orbital-lc-friction-paradox](./cosmology/ch06-solar-system/orbital-lc-friction-paradox.md), [oumuamua-acceleration](./cosmology/ch06-solar-system/oumuamua-acceleration.md), [planetary-magnetopause-standoff](./cosmology/ch06-solar-system/planetary-magnetopause-standoff.md), [planetary-magnetospheres](./cosmology/ch06-solar-system/planetary-magnetospheres.md), [plasma-standoff-vs-gravitational-stator](./cosmology/ch06-solar-system/plasma-standoff-vs-gravitational-stator.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-u86caq` (Vol 3 MOND $a_0$ — Oort boundary, solidity X)
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$ — reflection coefficient, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.60, 0.45)]
+- rationale: Mixed-bag entry. Oort inner edge $r = \sqrt{GM_\odot/a_0} \approx 7400$ AU is a clean one-line formula but inherits the disclosed 10.7% $a_0$ deficit and lands only "within" (not on) the observed Hills range. Kirkwood $a_{gap} = a_J(q/p)^{2/3}$ reproduces all five gaps to <0.3% but is the standard mean-motion-resonance result reinterpreted (category-(iii)). Magnetopause uses standard pressure balance with errors 8.7%/11.8% (not sub-percent, correctly flagged). Each sub-result closes cleanly but uses empirical inputs / standard forms — disclosed-bound, averaged down for the heterogeneity.
 - strengthen-by:
-  - *pending*
+  - Derive the Kirkwood cavity-mode reinterpretation as distinguishable from classical MMR (currently a relabeling).
+  - Remove the $a_0$ deficit dependency from the Oort prediction.
 
 ---
 
@@ -285,16 +318,18 @@
   - "Falsifies Lense-Thirring" applies to the Lense-Thirring **mechanism for flyby anomalies specifically** (where the magnitudes disagree by $10^6$); does NOT claim Lense-Thirring is falsified as a gravitomagnetic effect generally.
   - The $\Gamma_{sagnac} \approx 1836$ acoustic shear factor reused in lunar/geodynamo derivations is a numerical coincidence with the proton/electron mass ratio asserted as cross-scale; this is a structural claim, not an independent derivation per application.
 
-> **Leaf references:** `cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md`.
+> **Leaf references:** [flyby-anomaly-sagnac-operator](./cosmology/ch14-orbital-mechanics/flyby-anomaly-sagnac-operator.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — Regime-IV stator boundary $S(A)\to0$)
+  - `clm-ce8dg1` (Vol 1 substrate-equilibrium velocity / preferred frame, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: $\Delta V = V_\infty\cdot2(U_\oplus/c)(\cos\delta_{in} - \cos\delta_{out})$ is derived as a Sagnac-loop integral over the hyperbolic transit at the rigid Regime-IV stator boundary $R_\oplus$. The leaf's own 2026-05-18 walk-back is exemplary disclosure: it corrects the prior `cos α·cos δ` notation, removes the universal "13.4 mm/s" headline (NEAR-specific), and reports the verified Anderson-2008 anchor as 2/6 within 1σ, 3/6 within 2σ, 3/6 outliers. The mechanism closes against the empirical fit form; the disclosed partial per-spacecraft match (not all six) is what pins the band at disclosed-bound.
 - strengthen-by:
-  - *pending*
+  - Add per-spacecraft geometric corrections (atmospheric/magnetospheric) to capture the three >2σ outliers.
+  - Derive the stator-boundary lock at $R_\oplus$ from the saturation kernel quantitatively (currently the 465 m/s vs 0.324 m/s factor is named as the "saturation amplification" without independent derivation).
 
 ---
 
@@ -309,16 +344,18 @@
   - Does NOT claim a parameter-free derivation of the lunar heat budget. The formula **uses** the Love number $k_2 \approx 0.022$ and dissipation $Q \approx 38$ as inputs — these are empirical lunar quantities, not AVE-derived.
   - The $\Gamma_{sagnac} \approx 1836$ factor is reused across applications without per-application derivation; treat its appearance here as cross-scale consistency, not as an independent prediction.
 
-> **Leaf references:** `cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md`.
+> **Leaf references:** [lunar-inductive-heating](./cosmology/ch14-orbital-mechanics/lunar-inductive-heating.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$ mechanism, solidity X)
+  - `clm-k3p9wz` (common: macroscopic Sagnac amplification = $m_p/m_e \approx 1836$ — asserted cross-scale identity supplying the $\Gamma_{sagnac}$ value, solidity X)
+- solidity: 0.20 (do not build on, rework needed) [= min(0.50, 0.20)]
+- rationale: $P_{topo} = (\text{standard tidal formula})\times\Gamma_{sagnac}$ recovers the ~1 TW lunar budget that classical tidal friction underpredicts by ~1000×. The leaf openly states the Love number $k_2 \approx 0.022$ and $Q \approx 38$ are **empirical lunar inputs**, not AVE-derived, and the $\Gamma_{sagnac}$ amplification is reused cross-application without per-application derivation. So the derivation closes only modulo a substantive imported amplification factor and two empirical inputs — substantive open dependency. (Note: leaf body says "$\Gamma\sim1000$" while the cross-ref note says "$\approx1836$"; flagged in worksheet.)
 - strengthen-by:
-  - *pending*
+  - Derive $\Gamma_{sagnac}$ (whether ~1000 or 1836) from the Earth–Moon orbital LC geometry within this leaf, resolving the internal value inconsistency.
+  - Replace the empirical $k_2, Q$ with AVE-derived lunar response values, or scope the claim as "amplification of an empirically-anchored baseline."
 
 ---
 
@@ -334,16 +371,18 @@
   - The Venus/Mars "natural failures" are qualitative consistency arguments, not independent quantitative predictions of those bodies' field strengths.
   - The $\Gamma_{sagnac} = \mu_B \approx 1836$ identification (proton/electron mass ratio doubling as baryonic-phase-boundary acoustic shear) is asserted, not derived in this leaf.
 
-> **Leaf references:** `applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md`.
+> **Leaf references:** [geodynamo-vca-back-emf](./applied-physics/ch13-geophysics/geodynamo-vca-back-emf.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-a71inj` (Vol 3 flyby Sagnac stator boundary — $\Gamma_{sagnac}$ mechanism, solidity X)
+  - `clm-k3p9wz` (common: macroscopic Sagnac amplification = $m_p/m_e \approx 1836$ — asserted cross-scale identity supplying the $\Gamma_{sagnac}$ value, solidity X)
+- solidity: 0.20 (do not build on, rework needed) [= min(0.30, 0.20)]
+- rationale: The AC-motor back-EMF chain ($\mathcal{E}_{emf} = \omega_\oplus R_{core}\Gamma_{sagnac}\cdot B_{stator}\cdot2R_{core}$ → $M_\oplus$) is assembled from several plugged values (solar-wind $B\sim400$ nT, core reactance $Z$, and $\Gamma_{sagnac}\approx1836$ **asserted** as the baryon-phase shear factor, not derived). Result is ~$1.5\times10^{23}$ vs empirical $8.0\times10^{22}$ — a ~2× order-of-magnitude match, correctly flagged as not precision. The Venus/Mars "natural failures" are qualitative. This is a sketch with plausible support, not a closed derivation.
 - strengthen-by:
-  - *pending*
+  - Derive $\Gamma_{sagnac} = \mu_B \approx 1836$ from substrate primitives rather than asserting the proton/electron-mass-ratio identification.
+  - Reduce the ~2× discrepancy by deriving (not plugging) $B_{stator}$ and the core impedance.
 
 ---
 
@@ -360,16 +399,18 @@
   - Pure-vapor "bubble interior emulates a black-hole transition" is a Regime-III→IV identification at the acoustic scale; does NOT claim physically equivalent thermodynamics or that the bubble core is a literal BH analog beyond the saturation operator.
   - Flash temperatures vary with payload gas (ionization-energy gated); the table gives ranges, not point predictions.
 
-> **Leaf references:** `applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md`.
+> **Leaf references:** [sonoluminescence-derivation](./applied-physics/ch14-sonoluminescence/sonoluminescence-derivation.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — acoustic-medium $\rho_{eff}$)
+  - `clm-gz7ryg` (common: A-034 single-kernel unification, solidity X)
+- solidity: 0.62 (use as input only, don't build deeper) [= min(0.80, 0.62)]
+- rationale: The saturated Rayleigh-Plesset ODE with $\rho_{eff} = \rho_0/(1-M^2)^{3/2}$ closes as a well-posed substitution into the classical equation, and the Mach→1 topological wall (autonomous halt before $R=0$) follows directly from $\rho_{eff}\to\infty$. The framing as acoustic *emulation* of SR (not literal SR) is honest. Band held below 0.9 because the $3/2$ exponent is asserted from "longitudinal inertia in 3D spherical collapse" without an explicit derivation in the leaf, and flash temperatures are tabulated ranges (ionization-gated), not point predictions.
 - strengthen-by:
-  - *pending*
+  - Derive the $3/2$ exponent (vs Lorentz $1/2$) from the 3D spherical inertia explicitly.
+  - Show the ODE-halt radius as a function of drive amplitude rather than asserting "before $R=0$."
 
 ---
 
@@ -388,16 +429,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Lead's $\xi_0^{AVE} = 284$ nm vs $\xi_0^{exp} = 83$ nm is a $3.4\times$ overestimate — the coherence-length predictions are not sub-percent.
   - The Kuramoto phase-locking framework is presented as an **alternative** to BCS Cooper-pair condensation, not as its derivation. AVE asserts classical synchronisation produces the same $R = 0$ phenomenology; the equivalence with BCS macroscopic quantum coherence is a structural identification, not an experimental discrimination.
 
-> **Leaf references:** `condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md`, `condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md`, `condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md`, `condensed-matter/ch09-condensed-matter-superconductivity/universal-saturation-operator.md`. Phase-locking mechanism — Kuramoto order parameter + classical gear-train derivation of the London penetration depth as static rejection of boundary torque: `condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md`, `condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md`, `condensed-matter/ch09-condensed-matter-superconductivity/inertial-london-penetration-depth.md`. Five-material catalog (Al, Pb, Nb, MgB$_2$, YBCO) with the regime classification — note the catalog limitation on Nb's $n_s$ documented in this entry's caveats: `condensed-matter/ch09-condensed-matter-superconductivity/superconductor-catalog-predictions.md`. Cross-cutting: see BCS Critical Field $B_c(T)$.
+> **Leaf references:** [bcs-alternative-framework](./condensed-matter/ch09-condensed-matter-superconductivity/bcs-alternative-framework.md), [critical-field-validation](./condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md), [inertial-london-penetration-depth](./condensed-matter/ch09-condensed-matter-superconductivity/inertial-london-penetration-depth.md), [kuramoto-phase-locking](./condensed-matter/ch09-condensed-matter-superconductivity/kuramoto-phase-locking.md), [meissner-gear-train](./condensed-matter/ch09-condensed-matter-superconductivity/meissner-gear-train.md), [superconductor-catalog-predictions](./condensed-matter/ch09-condensed-matter-superconductivity/superconductor-catalog-predictions.md), [superconductor-type-classification](./condensed-matter/ch09-condensed-matter-superconductivity/superconductor-type-classification.md), [universal-saturation-operator](./condensed-matter/ch09-condensed-matter-superconductivity/universal-saturation-operator.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — $\mu_{eff}\to0$ Regime IV)
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
+  - `clm-gz7ryg` (common: A-034 single-kernel unification, solidity X)
+- solidity: 0.62 (use as input only, don't build deeper) [= min(0.70, 0.62)]
+- rationale: The GL $\kappa = \lambda_L/\xi_0$ classification ($1/\sqrt2$ threshold) is reproduced and reinterpreted (Type I = uniform Regime IV, Type II = localized vortex Regime IV) cleanly; $B_c(T)$ matches to 0.0000% (an axiom manifestation, flagged cross-cutting). Band held at disclosed-bound because the leaf openly documents that the $\lambda_L$ catalog uses free-electron $n_s$ (mis-classifying Nb), Pb's $\xi_0$ is a 3.4× overestimate, and the Kuramoto-vs-BCS equivalence is a structural identification, not an experimental discrimination. Derivation closes given the disclosed catalog limitations.
 - strengthen-by:
-  - *pending*
+  - Use measured $n_s$ (or derive d-band $n_s$ from AVE) so the catalog classifies Nb as Type II without the manual $\times$ override.
+  - Derive $\xi_0$ from primitives to remove the 3.4× Pb overestimate.
 
 ---
 
@@ -413,16 +457,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - The 0.38% baryon asymmetry agreement uses $g_* = 85.75$ together with $\alpha_W^4$, $C_{sph} = 28/79$, and $\kappa_{FS} = 8\pi$ — a multi-factor formula with several lattice-derived inputs. Treat the 0.38% as a composite consistency check, not a single-quantity prediction.
   - Does NOT claim $g_* = 85.75$ is a separately measurable cosmological observable; the validation is via the downstream baryon ratio.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/effective-dof-g-star.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry.md`, `condensed-matter/ch11-thermodynamics/baryon-asymmetry-derivation.md`, `condensed-matter/ch11-thermodynamics/thermal-softening-correction.md`. Mode-counting derivation $g_* = n^3/N_{K4}$ with the 7-mode compliance manifold and equipartition pathway to the vacuum heat capacity (extracted bare-resultbox companion): `condensed-matter/ch11-thermodynamics/mode-counting-heat-capacity.md`, `condensed-matter/ch11-thermodynamics/vacuum-heat-capacity.md`. Independent thermal-softening derivation (Faddeev-Skyrme coupling) — uses $\nu_{vac}/\kappa_{cold} \times 2/\pi = 1/(14\pi^2)$, the same lattice geometry: `condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md`.
+> **Leaf references:** [baryon-asymmetry-derivation](./condensed-matter/ch11-thermodynamics/baryon-asymmetry-derivation.md), [baryon-asymmetry](./condensed-matter/ch11-thermodynamics/baryon-asymmetry.md), [effective-dof-g-star](./condensed-matter/ch11-thermodynamics/effective-dof-g-star.md), [mode-counting-heat-capacity](./condensed-matter/ch11-thermodynamics/mode-counting-heat-capacity.md), [thermal-softening-correction](./condensed-matter/ch11-thermodynamics/thermal-softening-correction.md), [thermal-softening-skyrme](./condensed-matter/ch11-thermodynamics/thermal-softening-skyrme.md), [vacuum-heat-capacity](./condensed-matter/ch11-thermodynamics/vacuum-heat-capacity.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (Substrate Topology — K4 lattice / $N_{K4} = 4$)
+  - `clm-iouqn9` (common: K4 $|T| = 12$ / magic-angle geometry, solidity X)
+  - `clm-4vwsjc` (Vol 2 baryon asymmetry $\eta$, solidity X)
+- solidity: 0.40 (do not build on, rework needed) [= min(0.70, 0.40)]
+- rationale: $g_* = n^3/N_{K4} = 7^3/4 = 85.75$ is clean lattice mode-counting (7 compliance × $7^2$ angular / 4 K4 cell). The leaf is a single resultbox; the validation is the downstream $\eta = 6.08\times10^{-10}$ (0.38%), which the entry honestly flags as a **composite multi-factor formula** ($\alpha_W^4$, $C_{sph} = 28/79$, $\kappa_{FS} = 8\pi$, $g_*$). The mode-count itself closes cleanly given the K4 geometry; band held at disclosed-bound because $g_*$ is not separately measurable and rides on the composite baryon validation.
 - strengthen-by:
-  - *pending*
+  - Justify the $7^3$ ($n^3$) angular-sector count from the compliance manifold in this leaf rather than the companion mode-counting leaf.
+  - Isolate $g_*$'s contribution to $\eta$ from the other lattice-derived factors.
 
 ---
 
@@ -439,16 +486,20 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim $n_{3D} = 38/21$ is the universal turbulence exponent; the agreement is with solar-flare avalanche statistics specifically, and the comparison is to "$\sim 1.8$" (single empirical figure), not a precision dataset.
   - The Kolmogorov constant $C_K = 1.5$ is the classical empirical value; the framework asserts compatibility, not a new derivation.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md`.
+> **Leaf references:** [kolmogorov-spectral-cutoff](./condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (Substrate Topology — lattice pitch $\ell_{node}$ Nyquist cutoff)
+  - Axiom 3 (Minimum Reflection Principle)
+  - Axiom 4 (Universal Saturation Kernel — spectral envelope $S$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$, solidity X)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.60, 0.55)]
+- rationale: Three results each close cleanly: $k_{max} = \pi/\ell_{node}$ (Nyquist), $n_{3D} = 2(1-\nu_{vac}/3) = 38/21$ (from the $1D$ value 2 leaking via Poisson), and bounded enstrophy $Z_{max} = 2Nc^2dx$ (from max gradient $2c/dx$). The leaf is explicit that this is **lattice-conditional**, NOT a Clay-rigorous continuum NS proof, and that $C_K = 1.5$ is the imported classical constant; the $n_{3D}$ comparison is to "$\sim1.8$" (single solar-flare figure). Disclosed methodology bound — the closure rests on the lattice cutoff itself and an imported constant.
 - strengthen-by:
-  - *pending*
+  - State the continuum limit explicitly and bound the gap between the lattice-conditional bound and the Clay continuum problem.
+  - Compare $n_{3D} = 38/21$ against a precision turbulence dataset rather than a single "$\sim1.8$".
 
 ---
 
@@ -464,16 +515,18 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - The two-family classification is a structural / qualitative claim; cross-family $|\Gamma|$ being "ionic" is a structural identification, not a quantitative bonding-energy derivation.
   - Hydrogen-1 has no characterisation (single nucleon, no Hessian).
 
-> **Leaf references:** `condensed-matter/ch10-material-properties/per-element-impedance-table.md`, `condensed-matter/ch10-material-properties/nuclear-hessian.md`. Inter-element bonding via the universal `reflection_coefficient(Z_i, Z_j)` operator (intra-family $|\Gamma| \to 0$ covalent/metallic, cross-family $|\Gamma| \sim 0.5$ ionic): `condensed-matter/ch10-material-properties/inter-element-reflection-coefficient.md`. Macroscopic-hardness consequence (diamond as tri-alpha tetrahedral metamaterial, helium-metamaterial paradox resolution via internal flux routing): `condensed-matter/ch10-material-properties/diamond-hardness-alpha-clusters.md`, `condensed-matter/ch10-material-properties/helium-metamaterial-paradox.md`. Metallicity from magnetic susceptibility threshold ($\chi_{crit} \approx 0.3$): `condensed-matter/ch10-material-properties/metallicity-magnetic-asymmetry.md`. Caveat: the macroscopic dilution factor in the diamond-hardness derivation ($\sim 10^{-21}$) is asserted, not derived per element; the helium and metallicity entries are structural classifications using susceptibility values from the same table whose proxy/measurement caveat is recorded above.
+> **Leaf references:** [diamond-hardness-alpha-clusters](./condensed-matter/ch10-material-properties/diamond-hardness-alpha-clusters.md), [helium-metamaterial-paradox](./condensed-matter/ch10-material-properties/helium-metamaterial-paradox.md), [inter-element-reflection-coefficient](./condensed-matter/ch10-material-properties/inter-element-reflection-coefficient.md), [metallicity-magnetic-asymmetry](./condensed-matter/ch10-material-properties/metallicity-magnetic-asymmetry.md), [nuclear-hessian](./condensed-matter/ch10-material-properties/nuclear-hessian.md), [per-element-impedance-table](./condensed-matter/ch10-material-properties/per-element-impedance-table.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-gdd70j` (Vol 1 universal operators / reflection coefficient, solidity X)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ — alpha-core $Q = 2$ tetrahedral signature, solidity X)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.70, 0.55)]
+- rationale: The $3N\times3N$ Hessian eigendecomposition (Goldstone-mode removal, breathing/rocking/ejection classification) is a genuine numerical derivation, and the two-family partition (closed-shell alpha cores $Z_{atom}\approx1.37$, $Q=2$ vs open-shell halos) is a real structural result with an internally-consistent tetrahedral-symmetry rationale. Band held at disclosed-bound because the leaf is explicit that $K_{bulk}$, $G_{shear}$, $E_{rupt}$ are eigenvalue **proxies**, not experimental moduli, and the cross-family $|\Gamma|\sim0.5$ "ionic" identification is structural, not a quantitative bonding-energy derivation.
 - strengthen-by:
-  - *pending*
+  - Calibrate the eigenvalue proxies against experimental bulk/shear moduli for at least the alpha-core family.
+  - Derive the $K_{mutual}/d$ energy functional's $K_{mutual}$ from AVE primitives rather than treating it as a fitted scale.
 
 ---
 
@@ -489,16 +542,18 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim a measurement of the Planck mass at $m_e\sqrt{7\xi}$ as a novel prediction — both sides match because $\xi$ was defined to make this hold, given the empirical $G$.
   - "$\ell_{node}$ is the true quantization limit (not the Planck length)" is a **framework-internal interpretive** claim about which length scale is fundamental; it does not introduce new observables vs the standard Planck-length picture.
 
-> **Leaf references:** `gravity/ch01-gravity-yield/gravitational-coupling-constant.md`, `gravity/ch01-gravity-yield/asymptotic-hubble-constant.md`, `gravity/ch01-gravity-yield/planck-mass.md`, `gravity/ch01-gravity-yield/optical-refraction-gravity.md`.
+> **Leaf references:** [asymptotic-hubble-constant](./gravity/ch01-gravity-yield/asymptotic-hubble-constant.md), [gravitational-coupling-constant](./gravity/ch01-gravity-yield/gravitational-coupling-constant.md), [optical-refraction-gravity](./gravity/ch01-gravity-yield/optical-refraction-gravity.md), [planck-mass](./gravity/ch01-gravity-yield/planck-mass.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 1.0
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 (Topo-Kinematic Isomorphism — $\ell_{node} = \hbar/m_ec$ scale)
+  - Axiom 3 (Minimum Reflection Principle — definition of $G$)
+  - `clm-wx5324` (Vol 3 $H_\infty$ — same Machian-coupling geometric limit, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(1.00, 0.45)]
+- rationale: $G = c^4/(7\xi T_{EM})$ with $T_{EM} = m_ec^2/\ell_{node}$ and $\ell_{node} = \hbar/m_ec$ gives $G = \hbar c/(7\xi m_e^2)$, hence $\alpha_G = Gm_e^2/\hbar c = 1/(7\xi)$ and $m_P = m_e\sqrt{7\xi}$ — these are **pure algebraic identities by substitution** into the AVE definition of $G$, carrying zero predictive content (the leaf states this explicitly: "not independent predictions… both sides match because $\xi$ was defined to make this hold"). Definitional; no observation could falsify the substitution itself. Classification: identity.
 - strengthen-by:
-  - *pending*
+  - (Not applicable to local rigor — an identity is maximal at 1.0. Predictive content would require an independent derivation of $\xi$ or $G$, which is a separate claim.)
 
 ---
 
@@ -513,16 +568,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - $\tau_{ind} \approx 65.1$ Myr is **fitted to the JWST data** (constrained by the requirement that $M$ grow from $10^{10} M_\odot$ at $t = 350$ Myr to $10^{11} M_\odot$ at $t = 500$ Myr). It is **not** an independent prediction from axioms.
   - The framework supplies the *form* (exponential), not the *time constant*. Treat $\tau_{ind} = 65.1$ Myr as a derived consequence of the form fit to two data points, not an axiom-derived numerical prediction.
 
-> **Leaf references:** `cosmology/ch04-generative-cosmology/jwst-constraint-equation.md`, `cosmology/ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md`.
+> **Leaf references:** [jwst-constraint-equation](./cosmology/ch04-generative-cosmology/jwst-constraint-equation.md), [mutual-inductive-accretion-time-constant](./cosmology/ch04-generative-cosmology/mutual-inductive-accretion-time-constant.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — mutual-inductive accretion regime)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
+- rationale: The framework supplies the **form** ($M = M_{seed}e^{t/\tau}$, from $dM/dt = \lambda M$ mutual-inductive drag) cleanly, but $\tau_{ind} \approx 65.1$ Myr is **fitted** to two JWST data points ($10^{10}M_\odot$ at 350 Myr, $10^{11}M_\odot$ at 500 Myr), as the leaf's own constraint equation $10 = e^{150/\tau}$ makes explicit. The exponential-vs-$\Lambda$CDM-$t^{2.5}$ contrast is the substantive content; the time constant is a two-point fit, not an axiom-derived number — substantive open dependency on the fit.
 - strengthen-by:
-  - *pending*
+  - Derive $\tau_{ind}$ (the primordial mutual-inductance time constant) from the early-universe lattice density and $\xi_{topo}$ rather than fitting it to JWST.
+  - Add a third data point to test the exponential form independently of the two anchors.
 
 ---
 
@@ -538,16 +594,18 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - "Forbids Big Rip" is a framework-internal consequence of the latent-heat injection / asymptotic Unruh-Hawking attractor; it is an interpretive prediction, not a quantitative bound on $w$ time-evolution.
   - The CMB asymptotic-attractor picture (radiation density floors at $\frac{3}{4}\rho_{latent}$, asymptoting to Unruh-Hawking $\sim 10^{-30}$ K) is structural, not numerically validated against observation.
 
-> **Leaf references:** `cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md`, `cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md`.
+> **Leaf references:** [cmb-thermal-attractor](./cosmology/ch04-generative-cosmology/cmb-thermal-attractor.md), [phantom-energy-equation-of-state](./cosmology/ch04-generative-cosmology/phantom-energy-equation-of-state.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — latent-heat / crystallisation regime)
+  - `clm-wx5324` (Vol 3 $H_\infty$ / crystallisation rate, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: $w_{vac} = -1 - \rho_{latent}/\rho_{vac}$ follows from a first-law argument (latent heat $\rho_{latent}dV$ expelled while funding new-volume internal energy → strictly negative total pressure), and positive $\rho_{latent}$ then guarantees $w < -1$ cleanly. Band held at disclosed-bound because the leaf gives **no numerical $w$** to compare against the $w\approx-1\pm0.05$ data, and "forbids Big Rip" / the CMB asymptotic-attractor floor are interpretive consequences, not quantitative bounds on $w(t)$. The sign argument closes; the magnitude and Big-Rip claims rest on the disclosed latent-heat picture.
 - strengthen-by:
-  - *pending*
+  - Derive $\rho_{latent}/\rho_{vac}$ numerically (from crystallisation energetics) to give a falsifiable $w$ value.
+  - Show the Big-Rip-forbidding bound on $w(t)$ as a quantitative time-evolution, not a verbal attractor argument.
 
 ---
 
@@ -563,16 +621,20 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim derivation of the Einstein equation from AVE axioms ab initio. The reinterpretation maps the **same** equation onto LC quantities; it does not produce modified field equations.
   - There is interpretive tension between "Symmetric Gravity → $Z = Z_0$ invariant" (GW propagation leaves) and "$Z \to 0$ at the horizon" (Einstein-equation leaf). The two coexist: the impedance is invariant for **transverse** propagation while the **constitutive** $\mu_{eff}, \varepsilon_{eff}$ collapse to zero at saturation. Summaries that quote one without the other create apparent contradictions.
 
-> **Leaf references:** `gravity/ch02-general-relativity/einstein-field-equation.md`, `gravity/ch02-general-relativity/stress-energy-lc-density.md`.
+> **Leaf references:** [einstein-field-equation](./gravity/ch02-general-relativity/einstein-field-equation.md), [stress-energy-lc-density](./gravity/ch02-general-relativity/stress-energy-lc-density.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle)
+  - Axiom 4 (Universal Saturation Kernel — $\mu_{eff},\varepsilon_{eff}\to0$ at $r_s$)
+  - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
+  - `clm-rd9cjm` (Vol 3 refractive index $n(r)$, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: This is explicitly an **ontological reinterpretation** ($T_{\mu\nu}\equiv U_{\mu\nu}$ LC energy density; $g_{\mu\nu}\leftrightarrow\varepsilon_{eff},\mu_{eff}$), NOT a derivation of the Einstein equation ab initio nor modified field equations — the leaf states this. The mapping is internally consistent and the apparent "$Z=Z_0$ invariant" vs "$Z\to0$ at horizon" tension is explicitly surfaced and reconciled (transverse impedance invariant while constitutive $\mu,\varepsilon$ collapse). The reinterpretation closes as a consistent identification; band at disclosed-bound because it imports the standard EFE rather than deriving it.
 - strengthen-by:
-  - *pending*
+  - Derive (even schematically) the EFE from the LC Lagrangian rather than mapping onto the existing equation.
+  - Make the constitutive-collapse vs transverse-invariance reconciliation a worked calculation, not a prose statement, to fully retire the cross-leaf tension.
 
 ---
 
@@ -586,16 +648,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim the value $\Gamma \approx 0.29$ is AVE-derived. The inputs $\rho_i, V_{pi}$ are seismological measurements; AVE asserts the **operator form** is the same one used elsewhere, not a novel numerical derivation.
   - The cross-scale operator unity is structural (same formula reused), not a prediction at any single scale.
 
-> **Leaf references:** `applied-physics/ch13-geophysics/seismic-reflection-coefficient-moho.md`, `applied-physics/ch13-geophysics/constitutive-mapping.md`. PREM layer table with computed reflection coefficients at all major discontinuities (Moho, 670 km, CMB, ICB) and the LVZ waveguide-trapping condition: `applied-physics/ch13-geophysics/prem-layers-waveguide.md`. The same FDTD engine used elsewhere in the framework, with the constitutive mapping that lets it run seismic problems unchanged: `applied-physics/ch13-geophysics/seismic-fdtd-engine.md`.
+> **Leaf references:** [constitutive-mapping](./applied-physics/ch13-geophysics/constitutive-mapping.md), [prem-layers-waveguide](./applied-physics/ch13-geophysics/prem-layers-waveguide.md), [seismic-fdtd-engine](./applied-physics/ch13-geophysics/seismic-fdtd-engine.md), [seismic-reflection-coefficient-moho](./applied-physics/ch13-geophysics/seismic-reflection-coefficient-moho.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 1.0
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (Minimum Reflection Principle — reflection-coefficient operator)
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
+- solidity: 0.80 (ok to build on, see caveats) [= min(1.00, 0.80)]
+- rationale: $\Gamma_{Moho} = (\rho_2V_{p2} - \rho_1V_{p1})/(\rho_2V_{p2} + \rho_1V_{p1})$ is the standard impedance-mismatch reflection coefficient — the leaf's claim is the **operator-identity**: the same `reflection_coefficient(Z_1,Z_2)` used for Pauli exclusion, plasma cutoff, superconductor boundary, and antenna $S_{11}$. The inputs $\rho_i,V_{pi}$ are seismological measurements and the leaf does not claim $\Gamma\approx0.29$ is AVE-derived. As an operator-reuse identity (true by the operator's definition), this is category-(i)/definitional.
 - strengthen-by:
-  - *pending*
+  - (Not applicable to local rigor of the identity itself; the operator-reuse claim is maximal. A *predictive* version would derive a seismic discontinuity location from AVE primitives rather than plugging measured moduli.)
 
 ---
 
@@ -609,16 +672,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim a corrected ideal gas law that deviates from $PV = nRT$. The framework reproduces the standard formula at STP — a category (iii) consistency check via reinterpreted variables.
   - The mapping introduces no new measurable predictions at the macroscopic gas-law level; deviations would appear (if at all) only in regimes where lattice-noise structure becomes resolvable.
 
-> **Leaf references:** `applied-physics/ch12-ideal-gas-law/ideal-gas-law.md`, `applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md`, `applied-physics/ch12-ideal-gas-law/recovering-r-at-stp.md`. Ontological mapping (P, V, n, R, T translated into LC-grid quantities — the framing the entry's reinterpretation rests on): `applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md`.
+> **Leaf references:** [gas-dynamics-foundations](./applied-physics/ch12-ideal-gas-law/gas-dynamics-foundations.md), [ideal-gas-law](./applied-physics/ch12-ideal-gas-law/ideal-gas-law.md), [lc-energy-balance-equation](./applied-physics/ch12-ideal-gas-law/lc-energy-balance-equation.md), [recovering-r-at-stp](./applied-physics/ch12-ideal-gas-law/recovering-r-at-stp.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-gdd70j` (Vol 1 universal operators — LC energy balance, solidity X)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: $U\cdot V = Nk_B\overline{T_{jitter}}$ → $PV = nRT$ at STP is a reinterpretation (pressure as EM-jitter/lattice-noise) that recovers the standard law — a category-(iii) consistency check via reinterpreted variables, with **no** new measurable macroscopic prediction (the leaf is a single resultbox stating $PV = nRT$). The mapping is internally consistent; band at disclosed-bound because the recovery of $R$ at STP imports the standard thermodynamic identification and the ontological content is verbal, not a closed numerical derivation of $R$ from primitives.
 - strengthen-by:
-  - *pending*
+  - Derive the gas constant $R$ (or $k_B$) from the lattice-noise spectral density rather than recovering it at STP.
+  - Identify the regime where lattice-noise structure makes $PV=nRT$ deviate, giving a falsifiable prediction.
 
 ---
 
@@ -633,16 +697,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - LIVING_REFERENCE.md Critical Distinctions #5 caveat applies: SPICE RC muon model is qualitative; quantitative neutrino-related lifetimes go through the standard Fermi formula with AVE $G_F$.
   - The flavor-mixing energy-dependent table (pp / $^7$Be / $^8$B) reports agreement with Borexino/SNO; treat as consistency with the SM-MSW prediction using AVE $G_F$, not as an independent AVE-only validation.
 
-> **Leaf references:** `applied-physics/ch07-stellar-interiors/neutrino-msw-matter-potential.md`. Resonance-density companion ($n_e^{res}$ from $\Delta m^2$ and $G_F$, energy-dependent flavor-mixing validation table): `applied-physics/ch07-stellar-interiors/msw-resonance-critical-density.md`, `applied-physics/ch07-stellar-interiors/neutrino-flavor-mixing.md`. Stellar-interior context the resonance lives in (radial impedance profile, tachocline as impedance boundary using the universal `reflection_coefficient`, helioseismology cavity resonance, regime classification of stellar objects): `applied-physics/ch07-stellar-interiors/stellar-interior-impedance-profiles.md`, `applied-physics/ch07-stellar-interiors/stellar-regime-classification.md`.
+> **Leaf references:** [msw-resonance-critical-density](./applied-physics/ch07-stellar-interiors/msw-resonance-critical-density.md), [neutrino-flavor-mixing](./applied-physics/ch07-stellar-interiors/neutrino-flavor-mixing.md), [neutrino-msw-matter-potential](./applied-physics/ch07-stellar-interiors/neutrino-msw-matter-potential.md), [stellar-interior-impedance-profiles](./applied-physics/ch07-stellar-interiors/stellar-interior-impedance-profiles.md), [stellar-regime-classification](./applied-physics/ch07-stellar-interiors/stellar-regime-classification.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$ — reflection coefficient, solidity X)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: $V_{CC} = \sqrt2 G_F n_e$ is the **standard SM MSW charged-current potential**, reproduced verbatim; the AVE contribution is the value of $G_F$ (derived elsewhere, ~2–4% per Master Prediction Table #13), not the form of the potential. The leaf is a single resultbox; the flavor-mixing validation against Borexino/SNO is consistency with the SM-MSW prediction using AVE $G_F$. Disclosed import bound — the derivation closes only by importing the SM potential form and an externally-derived $G_F$.
 - strengthen-by:
-  - *pending*
+  - Cite/carry the AVE $G_F$ derivation as an explicit dependency once its Vol 2/Vol 7 claim-id is pinned (currently referenced via Master Prediction Table, not a clm-id in this footer).
+  - Show whether the AVE substrate modifies the potential's *form* (vs only its $G_F$ input) in any regime.
 
 ---
 
@@ -660,16 +725,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim to derive the Boltzmann constant $k_B$ from first principles; $k_B$ enters as the standard scaling constant linking macroscopic noise energy to a temperature scale.
   - The "spherical wave on a Cartesian grid" framing is a continuum analogue; for the discrete K4 lattice the same conclusion is asserted but is not separately worked out leaf-by-leaf.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/macroscopic-temperature-lc-noise.md`, `condensed-matter/ch11-thermodynamics/entropy-redefinition.md`, `condensed-matter/ch11-thermodynamics/arrow-of-time.md`.
+> **Leaf references:** [arrow-of-time](./condensed-matter/ch11-thermodynamics/arrow-of-time.md), [entropy-redefinition](./condensed-matter/ch11-thermodynamics/entropy-redefinition.md), [macroscopic-temperature-lc-noise](./condensed-matter/ch11-thermodynamics/macroscopic-temperature-lc-noise.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: $T\propto\langle U_{noise}\rangle = \langle\tfrac12\varepsilon_0|E|^2 + \tfrac12\mu_0|H|^2\rangle = \tfrac32 k_BT$ recovers equipartition exactly — a category-(iii) consistency check (alternate ontology, same scalar). The entropy reinterpretation (geometric irreversibility of spherical FDTD radiation on a Cartesian grid) and the Arrow-of-Time identification are structural/verbal arguments; the leaf does **not** produce a quantitative entropy-decrease bound (no fluctuation-theorem analogue) and does not derive $k_B$. Disclosed-bound: the temperature identity closes, the entropy/arrow content is asserted-structural and the discrete-K4 version is not separately worked out.
 - strengthen-by:
-  - *pending*
+  - Produce a quantitative bound on entropy-reversal probability (fluctuation-theorem-style) rather than "effectively zero."
+  - Work the spherical-wave-irreversibility argument on the discrete K4 lattice explicitly, not only the continuum analogue.
 
 ---
 
@@ -687,16 +753,18 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - The mapping from each transition to an impedance change is structural; magnitudes (e.g., the rate at which $Z_{shear} \to 0$ during melting) are not derived per transition.
   - The BEC and deconfinement entries are descriptive identifications, not independent quantitative derivations of condensation temperature or deconfinement scale.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md`, `condensed-matter/ch11-thermodynamics/phase-transition-classification.md`, `condensed-matter/ch11-thermodynamics/casimir-effective-temperature.md`.
+> **Leaf references:** [casimir-effective-temperature](./condensed-matter/ch11-thermodynamics/casimir-effective-temperature.md), [phase-transition-classification](./condensed-matter/ch11-thermodynamics/phase-transition-classification.md), [phase-transitions-impedance](./condensed-matter/ch11-thermodynamics/phase-transitions-impedance.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel — $\mu_{eff}\to0$ at $T_c$)
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$, solidity X)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.80)]
+- rationale: The mappings (solid→liquid $Z_{shear}\to0$; normal→SC $Z_{eff}\to0$, $|\Gamma|\to1$; ferromagnetic $Z_\mu\to0$; BEC $|\Gamma|\to1$; deconfinement $Z_{int}\to Z_0$) are **structural reinterpretations** with no per-transition magnitudes derived (the leaf states "magnitudes… are not derived per transition"). The Casimir $T_{eff} = T_{ambient}\sqrt{1-(f_c/f_{max})^2}$ with $f_c = c_0/2d$ is a concrete formula but the room-temperature-superconductivity-via-cavity claim is a strong, **falsifiable but experimentally unconfirmed** engineering proposal. Substantive open dependency — the central new prediction is asserted, not closed or validated.
 - strengthen-by:
-  - *pending*
+  - Derive the rate at which each $Z\to0$ during its transition (currently only the endpoints are given).
+  - Provide a quantitative Casimir-cavity geometry that drives a named conductor below its $T_c$, with a testable predicted gap $d$.
 
 ---
 
@@ -715,16 +783,17 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - Does NOT claim the boundary-only injection prescription is the unique correct prescription for all decoherence sources — explicitly scoped to thermal noise from the room-temperature reservoir entering through impedance mismatches.
   - The FDT closure ($P_{noise,in} = P_{Ohmic,out}$) is asserted as a structural balance; it is not derived as a per-mode equilibrium calculation in this leaf.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/nyquist-noise-fdt.md`, `condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md`, `condensed-matter/ch11-thermodynamics/transmon-decoherence.md`.
+> **Leaf references:** [nyquist-noise-fdt](./condensed-matter/ch11-thermodynamics/nyquist-noise-fdt.md), [transmon-decoherence](./condensed-matter/ch11-thermodynamics/transmon-decoherence.md), [vacuum-nyquist-baseline](./condensed-matter/ch11-thermodynamics/vacuum-nyquist-baseline.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - `clm-gdd70j` (Vol 1 universal operators $Z,S,\Gamma$ — reflection coefficient $\Gamma$, solidity X)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: The Johnson-Nyquist relation $\langle V^2_{vac}\rangle = 4k_BTZ_0\Delta f$ is **applied literally** to the lattice (with $Z_0\approx376.73\,\Omega$) and the boundary-thermalization transmission $4Z_0Z_{int}/(Z_0+Z_{int})^2$ follows from the standard $\Gamma$. The leaf is explicit that the relation itself is standard FDT (imported), not newly derived — the lattice ontology is the new content. The transmon coherence model is qualitative (reproduces "observed error-rate timelines," no per-device $T_1$) and the FDT closure $P_{noise,in}=P_{Ohmic,out}$ is asserted as a structural balance, not a per-mode calculation. Disclosed import bound.
 - strengthen-by:
-  - *pending*
+  - Carry out the per-mode FDT equilibrium ($P_{noise}=P_{Ohmic}$) as a calculation rather than a structural assertion.
+  - Give a quantitative $T_1$ for a specified transmon to convert the qualitative coherence model into a prediction.
 
 ---
 
@@ -744,16 +813,19 @@ See cross-cutting [BCS Critical Field $B_c(T)$](../claim-quality.md) for the $B_
   - The structural-fluid upper bound at $+29.4\,^{\circ}$C is the lattice $r_{crit}$ envelope; the empirical density anomaly persists only through the lower part of this envelope, and the leaf does not claim a sharp lattice-derived signature at exactly $+29.4\,^{\circ}$C in observation.
   - Engine implementation (`CooperativeHexagonalLattice.evaluate_structural_fraction(T)`) is named in the leaf but its numerical convergence and parameter sensitivity are not characterised here; treat as a code-pointer, not a separately validated derivation.
 
-> **Leaf references:** `condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md`. Cross-volume primaries (loaded by the leaf, not duplicated): `vol5/molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md` (Op4 H-bond, $d_{OO} = 2.727\,\text{\AA}$), `vol7/condensed-matter/ch4-phase-transitions/s03-melting-eigenmode.md` (melting eigenmode $T_m = 279.5$ K).
+> **Leaf references:** [water-anomaly-lc-partition](./condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 (Topo-Kinematic Isomorphism — FCC packing $\varphi = \pi\sqrt2/6$)
+  - Axiom 4 (Universal Saturation Kernel — yield boundary $r_{crit} = \sqrt{2\alpha}$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ / K = 2G yield, solidity X)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.55)]
+- rationale: The two-state LC partition (State I tetrahedral $V = a^3$, State II FCC close-packing) and the yield boundary $S(r) = f_{yield}\sqrt{1-(r_{th}/r_{crit})^2}$ are structurally derived, and the $+29.4°$C structural-fluid bound follows from $r_{crit}$. But the leaf is **explicit** that the $+3.98°$C density maximum is NOT a closed-form output — it requires NP-hard 3D cooperative-lattice numerical simulation and "no 1D continuous polynomial yields it without fudging." Also imports $T_m = 279.5$ K (Vol 7) and $d_{OO} = 2.727$ Å (Vol 5) as cross-volume primaries. Substantive open dependency: the headline anomaly is numerically demonstrated, not derived in closed form.
 - strengthen-by:
-  - *pending*
+  - Characterise the `CooperativeHexagonalLattice` engine's convergence/parameter sensitivity so the $+4°$C result is a validated numerical derivation, not a code-pointer.
+  - Reduce the cross-volume imports ($T_m$, $d_{OO}$) to in-leaf derivations or cite them as explicit clm-deps.
 # vol3 L3-migration register entries (NEW-IN-L3 minted claims) — confidence pending (deferred rescore)
 
 ## Discrete-Lattice Horizon Entropy Constant
@@ -769,14 +841,21 @@ Under the corpus symmetric-saturation picture ($\Gamma_{\text{continuum}} = 0$ a
   - Leading-order dimensional estimate only; rigorous WKB hits a near-horizon coordinate singularity (numerical prefactor / possible log corrections open, §9).
   - NOT a candidate for thermodynamic $S_{BH}$ (does not scale with area or mass).
 
-> **Leaf references:** `vol3/condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md` §1–§9
+> **Leaf references:** [discrete-lattice-entropy-constant](./condensed-matter/ch11-thermodynamics/discrete-lattice-entropy-constant.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.5
+- depends-on:
+  - Axiom 1 (Substrate Topology — discrete K4 lattice at $\ell_{node}$)
+  - Axiom 4 (Universal Saturation Kernel — symmetric saturation $\Gamma_{continuum}=0$)
+  - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
+  - `clm-rd9cjm` (Vol 3 refractive index $n(r)$ — used in §3 expansion, solidity X)
+  - `clm-x19btt` (Vol 3 $r_{sat} = 7GM/c^2$ saturation radius, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- rationale: The cancellation argument is structurally clean — per-cell $|\Gamma|^2\sim(\ell_{node}/r_{sat})^2$ against $N_{cells}\sim(r_{sat}/\ell_{node})^2$ leaves an $O(1)$ product $4\pi\log2\,k_B\approx8.7\,k_B$. But §4 explicitly labels the per-cell $|\Gamma|^2$ a "pragmatic dimensional estimate" / "leading dimensional correction," and §9 discloses that a rigorous WKB calculation hits a near-horizon coordinate singularity, leaving the numerical prefactor and possible log corrections open. The order-of-magnitude and mass-independence are robust; the numerical constant is a leading-order dimensional estimate, not a closed derivation — substantive acknowledged open step.
 - strengthen-by:
-  - *pending*
+  - Complete the near-horizon WKB calculation with a coordinate regulator to fix the prefactor and confirm/exclude log corrections.
+  - Derive the per-cell $|\Gamma|^2$ second-order correction from the discrete K4 bond impedance rather than the dimensional estimate.
 
 ---
 
@@ -793,14 +872,21 @@ AVE distinguishes four physically distinct entropy quantities at a BH horizon �
   - First-law $T\,dS = dE$ recovery of $S_{BH}$ is via imported Boltzmann counting AVE rejects (not axiom-first); AVE-native $\hat S_{\text{geo}}$ violates the first law by $\sim 10^{-44}$.
   - $S_v$ is factor-of-4 off and uses Boltzmann mode-counting; $S_\mu$ is an informal microstate framing.
 
-> **Leaf references:** `vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md` §1–§8
+> **Leaf references:** [four-entropy-distinction](./condensed-matter/ch11-thermodynamics/four-entropy-distinction.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 1 (Substrate Topology — A-B sublattice interface)
+  - Axiom 4 (Universal Saturation Kernel — symmetric saturation, $\Gamma_{horizon}=0$)
+  - `clm-07kd5v` (Vol 3 symmetric impedance $Z = Z_0$, solidity X)
+  - `clm-x19btt` (Vol 3 $r_{sat}$ / compactness-limit saturation radius, solidity X)
+  - `clm-ze4clw` (common: M,Q,J boundary observables, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: The four-way distinction is laid out cleanly and the AVE-native $\hat S_{geo} = k_BA\log2/\ell_{node}^2$ follows from a $|\Gamma|^2 = 1/2$ frustrated-bond beam-splitter (a 50/50 split = one bit/cell), with the Machian dilution ratio $\hat S_{geo}/S_{BH} = 4\log2/(7\xi)\approx2.8\times10^{-44}$ being clean algebra. The leaf is exemplary in disclosing that the standard $S_{BH}$ recovery requires **imported Boltzmann equipartition that AVE rejects**, that $S_v$ is a factor-of-4 off, that $S_\mu$ is informal, and that the first law is violated by $\sim10^{-44}$ on AVE-native quantities. Disclosed-bound: the distinction and $\hat S_{geo}$ close; the $|\Gamma|^2=1/2$ value is an assigned interface eigenmode, not independently derived.
 - strengthen-by:
-  - *pending*
+  - Derive $|\Gamma|^2 = 1/2$ at the frustrated A-B bond from the chirality-mismatch impedance rather than asserting the symmetric beam-splitter value.
+  - Resolve whether the first-law $\sim10^{-44}$ violation is a genuine prediction (observable) or an artifact of the rejected equipartition import.
 
 ---
 
@@ -817,14 +903,22 @@ Applies the canonical Op14 long-range coupling operator ($Z_{\text{eff}}(r) = Z_
   - Canonical-piece assembly, NOT a new operator or new derivation; it is a (c)-operator-application of Op14.
   - Class E operating-point projection (joint-constrained with $\{G, H_\infty, \hat\Omega_{\text{freeze}}, \alpha\}$ at $u_0^* \approx 0.187$), not an independent prediction.
 
-> **Leaf references:** `vol3/cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md` §Key Results + body
+> **Leaf references:** [op14-cosmic-horizon-profile](./cosmology/ch04-generative-cosmology/op14-cosmic-horizon-profile.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — $S(A)\to0$ at horizon)
+  - `clm-sysqaf` (common: universal operator catalog Op1–Op22, incl. Op14, solidity X)
+  - `clm-gz7ryg` (common: A-034 single-kernel unification, solidity X)
+  - `clm-ze4clw` (common: $\Gamma=-1$ M,Q,J boundary observables, solidity X)
+  - `clm-dsb560` (common: three-route $\alpha$/$G$/$J_{cosmic}$ from $\Omega_{freeze}$, solidity X)
+  - `clm-1eg13f` (Vol 4 Op14 saturation modulating local clock rate, solidity X) [vol3→vol4 exception, D11]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: The leaf is **explicit and disciplined** that this is a (c)-operator-application — canonical Op14 ($Z_{eff} = Z_0/\sqrt{S(A)}$) applied at cosmic-horizon scale, NOT a new operator or new derivation. The profile forms ($Z_{eff}\to\infty$, $\omega_{local}\to0$, asymmetric Meissner $Z_{eff} = Z_0\sqrt{S_\mu/S_\varepsilon}$) follow directly from the canonical kernel and disclosed canonical pieces. It is explicitly a Class-E operating-point projection at $u_0^*$, NOT an independent prediction. Disclosed-import bound: the assembly is clean but the rigor is inherited from the (vol4-canonical) Op14 derivation, which cannot be cited as a vol3 dependency (acyclicity — see worksheet flag).
 - strengthen-by:
-  - *pending*
+  - Once Op14's canonical derivation is reachable as a non-cyclic dependency (relocate to common, or express as a support node), bind it explicitly so this leaf's solidity reflects the operator's own rigor.
+  - Close the open $\rho_{latent}$ / $\Gamma_{cryst}$ substrate derivations (§8) that the cosmic-horizon profile is meant to anchor.
 
 ---
 
@@ -841,14 +935,22 @@ From the corpus-derived $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2)$ applied th
   - Carries the framework-wide $\delta_{\text{strain}} \approx 2.225\times 10^{-6}$ CMB thermal-running residual, currently empirically calibrated at $T_{\text{CMB}}$ pending first-principles derivation (inherited via $\alpha$ closure).
   - Downstream of the open $G$/$H_\infty$ Machian closure (Class E joint constraint), not a fully first-principles single-observable prediction.
 
-> **Leaf references:** `vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md` §Headline + derivation
+> **Leaf references:** [cosmological-constant-closure](./cosmology/ch05-dark-sector/cosmological-constant-closure.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - `clm-wx5324` (Vol 3 $H_\infty = 28\pi m_e^3 cG/\hbar^2\alpha^2$, solidity X)
+  - `clm-3ii690` (Vol 3 phantom-energy / latent-heat equation of state, solidity X)
+  - `clm-dsb560` (common: three-route $\alpha$/$G$/$J_{cosmic}$ from $\Omega_{freeze}$, solidity X)
+  - `clm-q4c615` (common: A-031 cosmic-parameter horizon / strain-snap, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.70, 0.45)]
+- rationale: Given $H_\infty$, the chain $\rho_\Lambda = 3H_\infty^2/(8\pi G) = 9.03\times10^{-27}$ kg/m³ via standard Friedmann/de Sitter is clean, and the factor-1.54 vs Planck-2018 is honestly attributed to $\Omega_\Lambda = 0.685 < 1$ (de Sitter asymptote vs current epoch) with the arithmetic shown ($1.54\times0.685\approx1$). The "$10^{122}$ improvement over QED" is a fair framing. Band at disclosed-bound because the leaf is explicit it is **downstream of the open $G$/$H_\infty$ Machian closure** (Class-E projection, not independent single-observable prediction), carries the empirically-calibrated $\delta_{strain}\approx2.225\times10^{-6}$ CMB residual, and lists $\rho_{latent}$/$\Gamma_{cryst}$ derivations as open work.
 - strengthen-by:
-  - *pending*
+  - Derive $\rho_{latent}$ from substrate crystallisation energetics ($\Delta E_{cryst}$ from $\ell_{node},\alpha,G$) and verify the Friedmann route equals the latent-heat route (the leaf's named open items 1–3).
+  - Derive $\delta_{strain}$ from first principles rather than calibrating it at $T_{CMB}$.
+
+
 
 ---
 
@@ -865,14 +967,23 @@ Predicts a DAMA/LIBRA coupling quantum at $E = \alpha\, m_e c^2 \approx 3.728$ k
   - Energy-scale "zero-parameter CONFIRMED" status DEMOTED (2026-05-17 audit): 1% coincidence with Ca Kα via Moseley; magnitude alone does not discriminate.
   - Rate magnitude / single-Q-factor closure PAUSED pending anti-anchor + substrate-mode-density work. (Preserves the leaf's 🔴 scope-correction author marker.)
 
-> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md` §Key Results + §11–§12
+> **Leaf references:** [dama-alpha-slew-derivation](./cosmology/ch05-dark-sector/dama-alpha-slew-derivation.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.5
+- depends-on:
+  - Axiom 4 (Universal Saturation Kernel — saturation back-reaction on the LC tank)
+  - `clm-stgx1i` (Vol 2 $g-2$ Schwinger $a_e = \alpha/2\pi$, solidity X)
+  - `clm-u86caq` (Vol 3 MOND $a_0$ — shared Hoop-Stress $2\pi$ projection, solidity X)
+  - `clm-ce8dg1` (Vol 1 substrate-equilibrium $v=\alpha c/2\pi$ — shared α-slew rate, solidity X)
+  - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — α-slew LC mechanism, solidity X) [vol3→vol4 exception, D11]
+  - `clm-1eg13f` (Vol 4 Op14 saturation modulating local clock rate, solidity X) [vol3→vol4 exception, D11]
+  - `clm-v6ti0v` (Vol 4 orbital friction reactive-vs-real power, solidity X) [vol3→vol4 exception, D11]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.50, 0.45)]
+- rationale: $E = a_e\,m_ec^2 = \alpha m_ec^2 = 3.728$ keV follows by a clean substitution chain ($\nu_{slew} = a_e\nu_{Compton}$, $\ell_{node} = \hbar/m_ec$) and lands in the DAMA 2–6 keV window. But the leaf's own 8th/9th-cycle audit (preserved 🔴 author markers) **demotes** the "zero-parameter CONFIRMED" energy-scale status: it is a 1% coincidence with Ca Kα via Moseley, so magnitude alone does not discriminate AVE from SM atomic physics. Rate magnitude is explicitly PAUSED. The AVE-distinct content (Z-independence, CMB phase-lock, solid/liquid gate) is partly confirmed but the load-bearing energy claim rests on a disclosed unresolved anti-anchor — substantive open dependency.
 - strengthen-by:
-  - *pending*
+  - Resolve the Ca Kα anti-anchor via the cross-crystal Z-independence test (NaI/Sapphire/Ge) so the energy line discriminates AVE from Moseley.
+  - Close the rate magnitude (single-Q-factor) derivation that the leaf pauses pending anti-anchor + substrate-mode-density work.
 
 ---
 
@@ -889,14 +1000,21 @@ Candidate formula for the DAMA rate magnitude from matched-impedance coupling be
   - The 0.6% match is a POST-HOC consistency check, NOT a forward prediction — the $4\pi$ prefactor was selected after inspecting the rate gap (§3.2). (Preserves the leaf's honest-scope / Grant-adjudication CANONIZED-status marker.)
   - Rigor refinements pending (parametric-coupling-kernel §12).
 
-> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dama-matched-lc-coupling.md` §2–§13
+> **Leaf references:** [dama-matched-lc-coupling](./cosmology/ch05-dark-sector/dama-matched-lc-coupling.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.3
+- depends-on:
+  - Axiom 3 (Minimum Reflection Principle — matched-impedance coupling)
+  - Axiom 4 (Universal Saturation Kernel — vacuum varactor at sub-yield)
+  - `clm-b27pnp` (Vol 3 DAMA α-slew energy quantum / $\nu_{slew}$, solidity X)
+  - `clm-6t3p6x` (Vol 4 parametric coupling kernel — matched-LC varactor coupling, solidity X) [vol3→vol4 exception, D11]
+  - `clm-rtdmsn` (Vol 4 electron Q-factor LC tank — matched-impedance coupling, solidity X) [vol3→vol4 exception, D11]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.45)]
+- rationale: $\epsilon_{det} = 4\pi/N_{single}^2$ yields a rate $4.80\times10^{-7}$ within 0.6% of DAMA Phase-2. But the leaf is explicit (§3.2, preserved honest-scope / CANONIZED-status Grant marker) that this is a **POST-HOC consistency check, NOT a forward prediction** — the $4\pi$ prefactor was selected from five canonical candidates *after* inspecting the rate gap. The Theorem 3.1′ "inheritance" argument is structurally clean but acknowledged as assembled post-hoc, and the $1/N^2$ scaling is a heuristic Dicke-amplitude argument with full QM derivation pending (§12). Sketch with structural support, not a closed forward derivation — asserted-partial.
 - strengthen-by:
-  - *pending*
+  - Run the forward-predictive cross-detector tests (HPGe 9.39 kg at 3.728 keV is the cleanest) to convert the post-hoc match into a forward result.
+  - Complete the full QM many-body derivation of the $1/N^2$ scaling and the $\kappa_{quality}$ sub-regenerative envelope (the leaf's §12 pending items). (Note: Theorem 3.1′ and the parametric-coupling kernel live in vol4 and are omitted as cyclic deps — see worksheet flag.)
 
 ---
 
@@ -912,14 +1030,22 @@ Three independently-validated AVE dark-sector observables share one foundational
 - _Specific Non-Claims and Caveats_
   - Explicitly NOT a one-Lagrangian deep unification (intentionally): three observables, three operators, one substrate.
 
-> **Leaf references:** `vol3/cosmology/ch05-dark-sector/dm-mechanism-unification.md` §Key Result + body
+> **Leaf references:** [dm-mechanism-unification](./cosmology/ch05-dark-sector/dm-mechanism-unification.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 1 (Substrate Topology — shared K4 Cosserat substrate)
+  - Axiom 4 (Universal Saturation Kernel — shared $S(A)$ across limbs)
+  - `clm-u86caq` (Vol 3 MOND $a_0$ — limb i, solidity X)
+  - `clm-527k22` (Vol 1 bullet-cluster ponderomotive halo — limb ii, solidity X)
+  - `clm-b27pnp` (Vol 3 DAMA α-slew — limb iii, solidity X)
+  - `clm-6t3p6x` (Vol 4 parametric coupling kernel — shared vacuum-varactor operator, solidity X) [vol3→vol4 exception, D11]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.70, 0.40)]
+- rationale: This is a **classification/synthesis** claim and it closes cleanly *as such*: three dark-sector observables share one substrate (Ax1+Ax4) but operate via three distinct operators, with limbs i+iii sharing the Hoop-Stress $2\pi$ projection sub-pattern and limb ii (cluster) a separate ponderomotive class. The leaf is disciplined — it explicitly states this is NOT a one-Lagrangian deep unification and scopes each limb to its own canonical derivation. Band at disclosed-bound rather than higher because the unification claim is only as solid as the disclosed-partial limbs it aggregates (limb iii post-hoc, limb ii qualitatively confirmed) and limb iii's parametric kernel is vol4-canonical (omitted as cyclic dep).
 - strengthen-by:
-  - *pending*
+  - Close the cross-limb predictions (bullet-cluster halo magnitude from the same parameters as $a_0$; AVE-PONDER lab-scale parametric coupling) to make the "shared substrate" claim quantitatively load-bearing rather than structural.
+  - Firm up the weakest limb (iii, DAMA rate, currently post-hoc) so the unification does not inherit an asserted-partial branch.
 
 ---
 
@@ -936,13 +1062,19 @@ Axiom-first derivation of the AVE-native BH horizon at $r_{\text{sat}} = 7GM/c^2
   - $r_{\text{sat}} = 3.5\,r_s$ is a shear-mode + matter boundary, NOT photon-geometric: EHT shadow / photon-ring radius do NOT discriminate $r_{\text{sat}}$ from $r_s$ (prior EHT-falsifier overclaim retracted 2026-05-16 per Grant audit).
   - The first-law / entropy pillar is only partially axiom-derived (see four-entropy leaf); only area + mass-energy pillars are axiom-first here.
 
-> **Leaf references:** `vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md` §1–§6
+> **Leaf references:** [ave-bh-horizon-area-theorem](./cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.9
+- depends-on:
+  - Axiom 2 (Topo-Kinematic Isomorphism — mass as inductance, $dE = dM c^2$)
+  - Axiom 4 (Universal Saturation Kernel — $\varepsilon_{11}(r_{sat}) = 1$)
+  - `clm-iouqn9` (common: $\nu_{vac} = 2/7$ / factor 7 Poisson projection, solidity X)
+  - `clm-x19btt` (Vol 3 compactness limit / Buchdahl derivation, solidity X)
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.90, 0.45)]
+- rationale: $r_{sat} = 7GM/c^2$ from $\varepsilon_{11}(r_{sat}) = 1$ with the factor $7 = 1/\nu_{vac}$, and the area theorem $\delta A = 392\pi G^2 M\delta M/c^4 \geq 0$ both close cleanly from Axiom 4 (saturation boundary $\propto M$) plus mass-energy conservation — no energy conditions needed, deriving *why* the horizon grows. $dE = dM c^2$ is itself a disclosed Ax2 identity. The leaf honestly scopes the falsifier (preserved Grant 2026-05-16 audit marker): the EHT-shadow falsifier was retracted because $r_{sat}$ is a shear/matter boundary, photon-geometric observables are silent. Clean derivation; the only disclosed gap (entropy/first-law pillar) is correctly delegated to the four-entropy leaf and not claimed here.
 - strengthen-by:
-  - *pending*
+  - Pursue the surviving matter/shear falsifiers (inner-disk Fe-Kα edge vs ISCO, GW echoes) to give the $3.5\,r_s$ prediction an empirical test.
+  - Carry the $\nu_{vac} = 2/7$ → factor-7 projection as an in-leaf derivation rather than referencing the Buchdahl-bound leaf.
 
 ---

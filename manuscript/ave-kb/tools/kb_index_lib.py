@@ -15,14 +15,52 @@ Same canonical input -> byte-identical output.
 from __future__ import annotations
 
 import json
+import posixpath
 import re
 import sys
 from dataclasses import dataclass, field
 from decimal import ROUND_HALF_UP, Decimal
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import TextIO
 
 KB_ROOT_DEFAULT = Path("manuscript/ave-kb")
+
+# The on-disk literal that marks a value as unassessed throughout the KB
+# (quality / solidity / support on-point fraction). Used both as the authored
+# token in frontmatter and as the materialized JSONL value for a pending
+# support fraction.
+PENDING_LITERAL = "*pending*"
+
+
+class _PendingFraction:
+    """Singleton sentinel for an UNASSESSED support on-point fraction (S10).
+
+    A ``supports:`` pair may carry the literal ``*pending*`` instead of a number,
+    meaning the beneficiary is an intended target but the on-point fraction is
+    not yet scored. This sentinel is DISTINCT from the ``None`` that a ``depends``
+    edge uses for its (absent) fraction: ``None`` means "no fraction applies to
+    this edge class", ``PENDING_FRACTION`` means "a fraction applies but is
+    unassessed". The two are distinguishable in the data model AND on disk — a
+    depends-edge serializes ``"fraction": null`` while a pending supports-edge
+    serializes ``"fraction": "*pending*"``.
+
+    A pending fraction contributes nothing to its beneficiary's ``local_quality``
+    max (excluded, exactly like a pending ``sup_solidity``); it never poisons the
+    beneficiary to pending.
+    """
+
+    _instance: _PendingFraction | None = None
+
+    def __new__(cls) -> _PendingFraction:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __repr__(self) -> str:
+        return "PENDING_FRACTION"
+
+
+PENDING_FRACTION = _PendingFraction()
 
 EXCLUDE_DIRS = {"session", ".index", "tools"}
 EXCLUDE_NAMES = {"claim-quality.md", "claim-quality-closure-roadmap.md", "CLAUDE.md", "CONVENTIONS.md", "README.md"}
@@ -52,11 +90,13 @@ _SUP_ID_RE = re.compile(r"\b(sup-[a-z0-9]{6})\b")
 _STRENGTHENS_PAIR_RE = re.compile(
     r"^\s*-?\s*(clm-[a-z0-9]{6})\s*:\s*(-?\d+(?:\.\d+)?)\s*$"
 )
-# A `supports:` block pair line: `clm-<id>: <fraction>` (on-point fraction a
-# float in (0,1]). Indented under the `supports:` frontmatter key. Same shape
-# as a strengthens pair; the hosting key disambiguates.
+# A `supports:` block pair line: `clm-<id>: <fraction>`, where <fraction> is
+# either an on-point fraction float in (0,1] OR the literal `*pending*` (the
+# fraction is an intended-but-unassessed edge — see PENDING_FRACTION). Indented
+# under the `supports:` frontmatter key. Group 2 captures the raw fraction
+# token; the loop in parse_support_leaf converts and validates it.
 _SUPPORTS_PAIR_RE = re.compile(
-    r"^\s*-?\s*(clm-[a-z0-9]{6})\s*:\s*(-?\d+(?:\.\d+)?)\s*$"
+    r"^\s*-?\s*(clm-[a-z0-9]{6})\s*:\s*(-?\d+(?:\.\d+)?|\*pending\*)\s*$"
 )
 _FRONTMATTER_RE = re.compile(r"<!--\s*kb-frontmatter\s*\n(.*?)\n-->", re.DOTALL)
 _TIER2_INLINE_RE = re.compile(r"<!--\s*claim-quality:\s*(.*?)\s*-->", re.DOTALL)
@@ -117,7 +157,10 @@ class DependsOnEdge:
     target_solidity_recorded: float | None
     strength: float | None
     context: str | None
-    fraction: float | None = None  # on-point fraction f ∈ (0,1] for "supports"
+    # on-point fraction for a "supports" edge: a float f ∈ (0,1], or
+    # PENDING_FRACTION when the fraction is authored but unassessed. None for
+    # non-supports edge classes (a depends edge carries no fraction at all).
+    fraction: float | _PendingFraction | None = None
 
 
 @dataclass(frozen=True)
@@ -150,16 +193,19 @@ class SupportNode:
     each beneficiary (never the experimental/max branch).
 
     Its own solidity is computed exactly like a claim:
-    ``round2(quality × min(dependency final solidities))``; framework deps
+    ``round2(min(quality, *dependency final solidities))``; framework deps
     contribute 1.0; pending propagates (pending ``quality`` OR a pending dep =>
     pending ``sup_solidity``). A free-standing support (no deps) has
     ``sup_solidity == quality``.
 
     ``supports`` is the tuple of ``(claim_id, fraction)`` beneficiary pairs
     parsed from the hosting leaf's ``supports:`` frontmatter block; each
-    ``fraction`` is the on-point fraction f ∈ (0, 1] for that claim. ``quality``
-    / ``depends_on`` / ``rationale`` come from the support's claim-quality entry
-    (keyed by ``<!-- id: sup-xxxxxx -->``), parallel to a claim entry.
+    ``fraction`` is the on-point fraction f ∈ (0, 1] for that claim, or
+    ``PENDING_FRACTION`` when authored as ``*pending*`` (an intended-but-
+    unassessed edge — contributes nothing to the beneficiary's local_quality and
+    never poisons it). ``quality`` / ``depends_on`` / ``rationale`` come from the
+    support's claim-quality entry (keyed by ``<!-- id: sup-xxxxxx -->``),
+    parallel to a claim entry.
     """
 
     id: str
@@ -168,7 +214,7 @@ class SupportNode:
     canonical_anchor: str
     quality: float | None
     depends_on: tuple[DependsOnEdge, ...]
-    supports: tuple[tuple[str, float], ...]
+    supports: tuple[tuple[str, float | _PendingFraction], ...]
     rationale: str = ""
     # The on-disk ``- solidity:`` value parsed from the support's claim-quality
     # entry (NOT recomputed). Used only by the freshness verifier to detect a
@@ -1021,55 +1067,58 @@ def _experiment_heading(text: str) -> str:
     return ""
 
 
-def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
-    """Parse an experiment-hosting leaf into an ExperimentNode (INVARIANT-S9).
+def parse_experiment_leaf(path: Path, kb_root: Path) -> list[ExperimentNode]:
+    """Parse an experiment-hosting leaf into its ExperimentNode(s) (INVARIANT-S9).
 
-    Experiment-ness is conferred by a leaf HOSTING an ``exp-id``, not by a
-    ``kind``: any ``kind: leaf`` or ``kind: leaf-as-index`` container that
-    carries a well-formed ``exp-id:`` originates an experiment node, regardless
-    of whether it ALSO carries ``claims:`` (the two are orthogonal node-bodies
-    in one container). Returns ``None`` if the file has no frontmatter, is not a
-    leaf-kind container, or declares no ``exp-id``.
+    A KB leaf is a **container**: it may host ANY number of ``exp`` node-bodies
+    (no one-per-leaf cap). Experiment-ness is conferred by a leaf HOSTING an
+    ``exp-id``, not by a ``kind``: any ``kind: leaf`` / ``leaf-as-index``
+    container carrying one or more well-formed ``exp-id:`` keys originates that
+    many experiment nodes, regardless of whether it ALSO carries ``claims:`` /
+    ``sup-id:`` (orthogonal node-bodies in one container). Returns ``[]`` if the
+    file has no frontmatter, is not a leaf-kind container, or declares no
+    ``exp-id``.
 
-    The frontmatter carries ``exp-id``, ``status``, and a ``strengthens:`` block
-    of ``clm-<id>: <strength>`` pairs (one per line, indented under the
-    ``strengthens:`` key). ``strengthens`` pairs are returned in source order;
-    a target may include a claim originated by this same leaf (a node→node edge
-    between two distinct co-located node-bodies — not a self-loop).
+    **Multi-exp syntax (scalar-or-list via repetition).** Each ``exp-id:`` key
+    opens a new experiment block; its following ``status:`` and ``strengthens:``
+    sub-block belong to that block until the next ``exp-id:`` (or end of
+    frontmatter). A single ``exp-id:`` parses as a one-element list — so the
+    existing scalar single-experiment leaves parse unchanged (no migration).
+
+    Each block's ``strengthens`` pairs are returned in source order; a target
+    may include a claim originated by this same leaf (a node→node edge between
+    two distinct co-located node-bodies — not a self-loop).
 
     Raises :class:`ExperimentLeafError` when the leaf carries an
     ``experiments:`` reference field (an owning experiment-hosting leaf must not
-    also reference other experiments), its ``exp-id`` is malformed, or its
-    ``status`` is outside ``{run, pending}``.
+    also reference other experiments), any ``exp-id`` is malformed, or any
+    block's ``status`` is outside ``{run, pending}``.
     """
     text = path.read_text()
     m = _FRONTMATTER_RE.search(text)
     if not m:
-        return None
-    body = m.group(1)
-    lines = body.splitlines()
+        return []
+    lines = m.group(1).splitlines()
 
-    # Quick top-level scan: kind, exp-id, status, and detection of an
-    # `experiments:` reference field. ``strengthens:`` opens an indented
-    # sub-block. ``claims:`` / ``no-claim:`` are NOT inspected here — they are
-    # the leaf's separate claim node-body, orthogonal to the experiment.
+    # Top-level scan. Each `exp-id:` opens a new block; `status:` / `strengthens:`
+    # attach to the currently-open block. `claims:` / `no-claim:` / `sup-id:` are
+    # NOT inspected here — they are separate, orthogonal node-bodies.
     kind = ""
-    exp_id: str | None = None
-    status: str | None = None
     has_experiments_ref = False
     in_strengthens = False
-    pairs: list[tuple[str, float]] = []
+    # Per-block accumulators, parallel-indexed: exp_ids[i] owns statuses[i] and
+    # strengthens_pairs[i]. A new exp-id appends a fresh slot.
+    exp_ids: list[str] = []
+    statuses: list[str | None] = []
+    strengthens_pairs: list[list[tuple[str, float]]] = []
     for line in lines:
         stripped = line.strip()
         if not stripped:
             continue
-        # A `strengthens:` pair sub-line (e.g. `  - clm-xxxxxx: 1.0` or
-        # `  clm-xxxxxx: 1.0`) — only collected while inside the block.
         pair = _STRENGTHENS_PAIR_RE.match(line)
-        if in_strengthens and pair:
-            pairs.append((pair.group(1), float(pair.group(2))))
+        if in_strengthens and pair and strengthens_pairs:
+            strengthens_pairs[-1].append((pair.group(1), float(pair.group(2))))
             continue
-        # A new top-level key ends the strengthens block.
         if ":" in stripped:
             key = stripped.split(":", 1)[0].strip().lstrip("- ").strip()
             value = stripped.split(":", 1)[1].strip()
@@ -1080,19 +1129,20 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
             if key == "kind":
                 kind = value
             elif key == "exp-id":
-                exp_id = value
+                exp_ids.append(value)
+                statuses.append(None)
+                strengthens_pairs.append([])
             elif key == "status":
-                status = value
+                if statuses:
+                    statuses[-1] = value
             elif key == "experiments":
                 if value:
                     has_experiments_ref = True
 
-    # Only leaf-kind containers host experiment node-bodies; a container with
-    # no exp-id originates no experiment (the common case — return None).
     if kind not in ("leaf", "leaf-as-index"):
-        return None
-    if exp_id is None:
-        return None
+        return []
+    if not exp_ids:
+        return []
 
     rel = _posix_relative(path, kb_root)
     if has_experiments_ref:
@@ -1100,25 +1150,32 @@ def parse_experiment_leaf(path: Path, kb_root: Path) -> ExperimentNode | None:
             f"{rel}: experiment-hosting leaf carries experiments: — an owning "
             f"experiment leaf must not also reference other experiments."
         )
-    if not _EXP_ID_RE.fullmatch(exp_id):
-        raise ExperimentLeafError(
-            f"{rel}: experiment-hosting leaf has malformed exp-id "
-            f"{exp_id!r} (expected \\bexp-[a-z0-9]{{6}}\\b)."
-        )
-    if status not in ("run", "pending"):
-        raise ExperimentLeafError(
-            f"{rel}: experiment-hosting leaf has invalid status {status!r} "
-            f"(expected 'run' or 'pending')."
-        )
 
-    return ExperimentNode(
-        id=exp_id,
-        title=_experiment_heading(text),
-        canonical_path=rel,
-        canonical_anchor=_slugify_heading(_experiment_heading(text)),
-        status=status,
-        strengthens=tuple(pairs),
-    )
+    heading = _experiment_heading(text)
+    anchor = _slugify_heading(heading)
+    nodes: list[ExperimentNode] = []
+    for exp_id, status, pairs in zip(exp_ids, statuses, strengthens_pairs):
+        if not _EXP_ID_RE.fullmatch(exp_id):
+            raise ExperimentLeafError(
+                f"{rel}: experiment-hosting leaf has malformed exp-id "
+                f"{exp_id!r} (expected \\bexp-[a-z0-9]{{6}}\\b)."
+            )
+        if status not in ("run", "pending"):
+            raise ExperimentLeafError(
+                f"{rel}: experiment {exp_id} has invalid status {status!r} "
+                f"(expected 'run' or 'pending')."
+            )
+        nodes.append(
+            ExperimentNode(
+                id=exp_id,
+                title=heading,
+                canonical_path=rel,
+                canonical_anchor=anchor,
+                status=status,
+                strengthens=tuple(pairs),
+            )
+        )
+    return nodes
 
 
 class SupportLeafError(ValueError):
@@ -1126,30 +1183,36 @@ class SupportLeafError(ValueError):
 
     The leaf carries a ``sup-id`` that does not match ``\\bsup-[a-z0-9]{6}\\b``,
     or a ``supports:`` block with a malformed claim id or an on-point
-    ``fraction`` outside ``(0, 1]`` (0 is excluded — a zero-relevance support
-    edge is not authored; > 1 is out of range). Co-hosting ``claims:`` /
+    ``fraction`` that is neither ``*pending*`` nor in ``(0, 1]`` (0 is excluded —
+    a zero-relevance support edge is not authored; > 1 is out of range).
+    Co-hosting ``claims:`` /
     ``exp-id:`` / ``no-claim:`` is allowed — they are orthogonal node-bodies
     (INVARIANT-S10).
     """
 
 
-def parse_support_leaf(path: Path, kb_root: Path) -> SupportNode | None:
-    """Parse a support-hosting leaf into a partial SupportNode (INVARIANT-S10).
+def parse_support_leaf(path: Path, kb_root: Path) -> list[SupportNode]:
+    """Parse a support-hosting leaf into its partial SupportNode(s) (INVARIANT-S10).
 
-    Support-ness is conferred by a leaf HOSTING a ``sup-id`` (parallel to how
-    an ``exp-id`` confers experiment-ness): any ``kind: leaf`` /
-    ``leaf-as-index`` container carrying a well-formed ``sup-id:`` originates a
-    support node, regardless of whether it ALSO carries ``claims:`` /
-    ``exp-id:`` / ``no-claim:`` (orthogonal node-bodies). Returns ``None`` if the
-    file has no frontmatter, is not a leaf-kind container, or declares no
-    ``sup-id``.
+    A KB leaf is a **container**: it may host ANY number of ``sup`` node-bodies
+    (no one-per-leaf cap). Support-ness is conferred by a leaf HOSTING a
+    ``sup-id`` (parallel to how an ``exp-id`` confers experiment-ness): any
+    ``kind: leaf`` / ``leaf-as-index`` container carrying one or more well-formed
+    ``sup-id:`` keys originates that many support nodes, regardless of whether it
+    ALSO carries ``claims:`` / ``exp-id:`` / ``no-claim:`` (orthogonal
+    node-bodies). Returns ``[]`` if the file has no frontmatter, is not a
+    leaf-kind container, or declares no ``sup-id``.
 
-    The frontmatter carries ``sup-id`` and a ``supports:`` block of
-    ``clm-<id>: <fraction>`` beneficiary pairs (one per line, indented under the
-    ``supports:`` key), where ``fraction`` is the on-point fraction f ∈ (0, 1].
-    The returned node carries the canonical_path/anchor/title from the leaf and
-    the ``supports`` fan-out; its ``quality`` / ``depends_on`` / ``rationale``
-    are filled in from the support's claim-quality entry by :func:`discover_kb`.
+    **Multi-sup syntax (scalar-or-list via repetition).** Each ``sup-id:`` key
+    opens a new support block; its following ``supports:`` sub-block of
+    ``clm-<id>: <fraction>`` beneficiary pairs (one per line, indented) belongs
+    to that block until the next ``sup-id:`` (or end of frontmatter). A single
+    ``sup-id:`` parses as a one-element list. ``<fraction>`` is the on-point
+    fraction f ∈ (0, 1] or the literal ``*pending*`` (an intended-but-unassessed
+    edge, stored as PENDING_FRACTION). Each returned node carries the
+    canonical_path/anchor/title from the leaf and its own ``supports`` fan-out;
+    its ``quality`` / ``depends_on`` / ``rationale`` are filled in from the
+    support's claim-quality entry by :func:`discover_kb`.
 
     Raises :class:`SupportLeafError` for a malformed ``sup-id``, a malformed
     ``supports:`` claim id, or an on-point fraction outside ``(0, 1]``.
@@ -1157,20 +1220,25 @@ def parse_support_leaf(path: Path, kb_root: Path) -> SupportNode | None:
     text = path.read_text()
     m = _FRONTMATTER_RE.search(text)
     if not m:
-        return None
+        return []
     lines = m.group(1).splitlines()
 
     kind = ""
-    sup_id: str | None = None
     in_supports = False
-    pairs: list[tuple[str, float]] = []
+    # Per-block accumulators, parallel-indexed: sup_ids[i] owns supports_pairs[i].
+    sup_ids: list[str] = []
+    supports_pairs: list[list[tuple[str, float | _PendingFraction]]] = []
     for line in lines:
         stripped = line.strip()
         if not stripped:
             continue
         pair = _SUPPORTS_PAIR_RE.match(line)
-        if in_supports and pair:
-            pairs.append((pair.group(1), float(pair.group(2))))
+        if in_supports and pair and supports_pairs:
+            raw = pair.group(2)
+            fraction = (
+                PENDING_FRACTION if raw == PENDING_LITERAL else float(raw)
+            )
+            supports_pairs[-1].append((pair.group(1), fraction))
             continue
         if ":" in stripped:
             key = stripped.split(":", 1)[0].strip().lstrip("- ").strip()
@@ -1182,36 +1250,47 @@ def parse_support_leaf(path: Path, kb_root: Path) -> SupportNode | None:
             if key == "kind":
                 kind = value
             elif key == "sup-id":
-                sup_id = value
+                sup_ids.append(value)
+                supports_pairs.append([])
 
     if kind not in ("leaf", "leaf-as-index"):
-        return None
-    if sup_id is None:
-        return None
+        return []
+    if not sup_ids:
+        return []
 
     rel = _posix_relative(path, kb_root)
-    if not _SUP_ID_RE.fullmatch(sup_id):
-        raise SupportLeafError(
-            f"{rel}: support-hosting leaf has malformed sup-id {sup_id!r} "
-            f"(expected \\bsup-[a-z0-9]{{6}}\\b)."
-        )
-    for claim_id, fraction in pairs:
-        if not (0.0 < fraction <= 1.0):
+    heading = _experiment_heading(text)
+    anchor = _slugify_heading(heading)
+    nodes: list[SupportNode] = []
+    for sup_id, pairs in zip(sup_ids, supports_pairs):
+        if not _SUP_ID_RE.fullmatch(sup_id):
             raise SupportLeafError(
-                f"{rel}: support {sup_id} on-point fraction for {claim_id} is "
-                f"{fraction} — must be in (0, 1] (0 is excluded; > 1 invalid)."
+                f"{rel}: support-hosting leaf has malformed sup-id {sup_id!r} "
+                f"(expected \\bsup-[a-z0-9]{{6}}\\b)."
             )
-
-    title = _experiment_heading(text)
-    return SupportNode(
-        id=sup_id,
-        title=title,
-        canonical_path=rel,
-        canonical_anchor=_slugify_heading(title),
-        quality=None,  # filled from the claim-quality entry in discover_kb
-        depends_on=(),  # filled from the claim-quality entry in discover_kb
-        supports=tuple(pairs),
-    )
+        for claim_id, fraction in pairs:
+            # A pending fraction is a valid authored value; a numeric fraction
+            # must lie in (0, 1] (0 excluded, > 1 invalid).
+            if fraction is PENDING_FRACTION:
+                continue
+            if not (0.0 < fraction <= 1.0):
+                raise SupportLeafError(
+                    f"{rel}: support {sup_id} on-point fraction for {claim_id} "
+                    f"is {fraction} — must be in (0, 1] or *pending* "
+                    f"(0 is excluded; > 1 invalid)."
+                )
+        nodes.append(
+            SupportNode(
+                id=sup_id,
+                title=heading,
+                canonical_path=rel,
+                canonical_anchor=anchor,
+                quality=None,  # filled from the claim-quality entry in discover_kb
+                depends_on=(),  # filled from the claim-quality entry in discover_kb
+                supports=tuple(pairs),
+            )
+        )
+    return nodes
 
 
 def _parse_index(path: Path, kb_root: Path) -> IndexRecord | None:
@@ -1311,13 +1390,11 @@ def discover_kb(
         leaf = parse_leaf(p, kb_root)
         if leaf is not None:
             leaves.append(leaf)
-        exp = parse_experiment_leaf(p, kb_root)
-        if exp is not None:
-            experiments.append(exp)
-        sup = parse_support_leaf(p, kb_root)
-        if sup is not None:
-            support_leaves.append(sup)
-        if leaf is None and exp is None and sup is None:
+        exps = parse_experiment_leaf(p, kb_root)
+        experiments.extend(exps)
+        sups = parse_support_leaf(p, kb_root)
+        support_leaves.extend(sups)
+        if leaf is None and not exps and not sups:
             idx = _parse_index(p, kb_root)
             if idx is not None:
                 indexes.append(idx)
@@ -1448,9 +1525,10 @@ class SolidityCycleError(ValueError):
 class SolidityResult:
     """The three derived solidity branches for one claim (SCHEMA definitive rule).
 
-    * ``derivation`` — min-branch: ``round2(confidence × min(dep final
-      solidities))``; ``None`` (pending) if confidence is pending or any claim
-      dependency's *final* solidity is pending. Framework deps contribute 1.0.
+    * ``derivation`` — gating branch: ``round2(min(confidence, *dep final
+      solidities))`` — the weakest link in the dependency cone; ``None``
+      (pending) if confidence is pending or any claim dependency's *final*
+      solidity is pending. Framework deps contribute 1.0 (never lower the min).
     * ``experimental`` — max-branch: ``max`` of ``strength`` over every
       ``run``-experiment ``strengthens`` edge into this claim; ``None`` if no
       run experiment strengthens it.
@@ -1488,11 +1566,13 @@ def _sup_solidity_from_deps(
 ) -> float | None:
     """Claim-style derivation of a support node's own solidity.
 
-    ``round2(quality × min(dependency final solidities))``; framework deps
-    contribute 1.0; a free-standing support (no deps) has ``sup_solidity ==
-    quality``. Returns ``None`` (pending) if ``quality`` is pending OR any claim
-    dependency's final is pending — exactly the claim derivation rule, applied
-    with the support's ``quality`` in place of a claim's ``confidence``.
+    ``round2(min(quality, *dependency final solidities))`` — the weakest link
+    in the support's own dependency cone, NOT the product down the chain.
+    Framework deps contribute 1.0 (never lower the min); a free-standing support
+    (no deps) has ``sup_solidity == quality``. Returns ``None`` (pending) if
+    ``quality`` is pending OR any claim dependency's final is pending — exactly
+    the claim derivation rule, applied with the support's ``quality`` in place of
+    a claim's ``confidence``.
     """
     if quality is None:
         return None
@@ -1509,7 +1589,7 @@ def _sup_solidity_from_deps(
             dep_finals.append(1.0)
     if not dep_finals:
         return quality
-    return round_half_up_2dp(quality * min(dep_finals))
+    return round_half_up_2dp(min(quality, *dep_finals))
 
 
 def compute_solidity_full(
@@ -1529,19 +1609,28 @@ def compute_solidity_full(
       ``relation:"strengthens"`` run-experiment edges into ``C``; ``None`` if
       none. Unrun experiments contribute nothing. The MAX/experimental branch.
     * **sup_solidity[S]** (computed in unified topo order — see below) =
-      ``round2(quality × min(S's dep finals))``; pending propagates. Each
+      ``round2(min(quality, *S's dep finals))``; pending propagates. Each
       support feeds the DERIVATION branch of its beneficiaries, never the
       experimental/max branch.
     * **local_quality[C]** = ``max(confidence[C], max over supporting sups S of
-      sup_solidity[S] × f)``, where a pending ``sup_solidity`` is EXCLUDED from
-      the max (no NaN, no poison). A support lift never drags a beneficiary with
+      sup_solidity[S] × f)``, where a pending ``sup_solidity`` OR a pending
+      on-point fraction ``f`` (``PENDING_FRACTION``) is EXCLUDED from the max (no
+      NaN, no poison). A support lift never drags a beneficiary with
       otherwise-valid quality to pending — pending flows ONLY from a claim's own
-      load-bearing ``depends-on``.
-    * **derivation_solidity[C]** = ``round2(local_quality[C] × min(C's claim-dep
-      finals))``, framework deps 1.0; ``None`` if ``local_quality`` is pending
-      (confidence pending AND no support lift) OR any claim-dep's final is
-      pending. So a support lift is still dep-gated — it does NOT bypass C's own
-      deps the way an experiment's max-branch does.
+      load-bearing ``depends-on``. NOTE: the support on-point fraction ``f`` is a
+      single edge-weight relevance discount (``sup_solidity × f``), NOT a chain,
+      so it stays multiplicative — it is not subject to the granularity argument
+      that motivates the min dep-gating below.
+    * **derivation_solidity[C]** = ``round2(min(local_quality[C], *C's claim-dep
+      finals))`` — the weakest link in C's dependency cone, framework deps 1.0;
+      ``None`` if ``local_quality`` is pending (confidence pending AND no support
+      lift) OR any claim-dep's final is pending. So a support lift is still
+      dep-gated — it does NOT bypass C's own deps the way an experiment's
+      max-branch does. The dep-gate is a pure ``min`` (weakest link), not a
+      product: solidity is refactor-invariant — splitting one derivation step
+      into two same-quality steps must not lower it, and a deep clean chain must
+      not decay toward 0 as a bookkeeping artifact (ordinal grades are not
+      independent probabilities to be multiplied).
     * **final[C]** = ``max`` over the non-None of ``{derivation, experimental}``;
       ``None`` iff both are None.
 
@@ -1652,6 +1741,8 @@ def compute_solidity_full(
         # pending contributes nothing to the max.
         local_quality: float | None = entry.confidence
         for sup_id, fraction in supporters.get(node, ()):
+            if fraction is PENDING_FRACTION:
+                continue  # pending fraction — excluded from the max (no poison)
             s_sol = sup_solidity.get(sup_id)
             if s_sol is None:
                 continue  # pending support — excluded from the max
@@ -1659,7 +1750,8 @@ def compute_solidity_full(
             if local_quality is None or lift > local_quality:
                 local_quality = lift
 
-        # derivation: local_quality × min(claim-dep finals), framework deps 1.0.
+        # derivation: min(local_quality, claim-dep finals) — the weakest link in
+        # the dependency cone, framework deps 1.0 (never lower the min).
         dep_finals: list[float] = []
         derivation: float | None
         pending = local_quality is None
@@ -1678,7 +1770,7 @@ def compute_solidity_full(
         if pending:
             derivation = None
         elif dep_finals:
-            derivation = round_half_up_2dp(local_quality * min(dep_finals))
+            derivation = round_half_up_2dp(min(local_quality, *dep_finals))
         else:
             derivation = local_quality
         exp_sol = experimental.get(node)
@@ -1713,16 +1805,22 @@ def compute_solidity(claim_entries, experiments=(), supports=()) -> dict[str, fl
     "pending". With zero experiments, ``final == derivation`` for every claim,
     so this returns exactly the historical min-branch result.
 
-    ``solidity = round_half_up_2dp(confidence × min(dependency solidities))``,
+    ``solidity = round_half_up_2dp(min(confidence, *dependency solidities))``,
     computed bottom-up over the claim depends-on DAG (Kahn topological sort):
 
     * A claim's dependencies are its ``depends-on`` edges. A ``claim``-target
       edge contributes that dependency's already-computed (and already-rounded)
       solidity; an ``invariant`` / ``axiom`` edge contributes ``1.0``
-      (framework bedrock — solidity-1.0 by definition).
+      (framework bedrock — solidity-1.0 by definition, never lowers the min).
     * A claim with no depends-on edges has ``solidity = confidence``.
+    * The dep-gate is the *weakest link* (``min``) over the claim's own
+      local quality and its dependency finals — NOT the product down the chain.
+      This makes solidity refactor-invariant: splitting one derivation step
+      into two same-quality steps leaves it unchanged, and a deep clean chain
+      does not decay toward 0 as a granularity artifact (ordinal confidence
+      grades are not independent probabilities to be multiplied).
     * Propagation uses each dependency's *rounded* solidity, so a human
-      auditing ``0.85 × min(0.41, 0.28)`` against the written values gets the
+      auditing ``min(0.85, 0.41, 0.28)`` against the written values gets the
       same answer the tool does.
 
     HARD RULE — ``*pending*`` propagates transitively, exactly like NaN
@@ -1784,8 +1882,8 @@ def min_dependency_solidity(
     trivially equals ``confidence`` — no arithmetic trace) or when any claim
     dependency is itself uncomputable (so the minimum is undefined).
 
-    This is the value ``refresh-kb-metadata`` writes into the
-    ``[= <confidence> × <min-dep-solidity>]`` trace on the solidity line.
+    This is the binding dep term ``refresh-kb-metadata`` writes into the
+    ``[= min(<confidence>, <min-dep-solidity>)]`` trace on the solidity line.
     """
     dep_solidities: list[float] = []
     for edge in entry.depends_on:
@@ -1935,7 +2033,9 @@ def build_depends_on_records(state: KbState) -> list[dict]:
     * ``supports`` edges come from each support leaf's ``supports:`` block
       (``source: sup-id``, ``target: clm-id``, ``relation:"supports"``,
       ``target_kind:"claim"``, ``strength:null``, ``fraction:<f>`` where
-      f ∈ (0, 1]). The DERIVATION-branch analog of a ``strengthens`` edge.
+      f ∈ (0, 1], OR ``fraction:"*pending*"`` for an unassessed edge). The
+      pending-fraction literal is distinct on disk from a depends edge's
+      ``fraction:null``. The DERIVATION-branch analog of a ``strengthens`` edge.
 
     Sorted by ``(source, target, context)`` — a null context sorts as the empty
     string — so two edges from one source to one target with different context
@@ -1976,10 +2076,15 @@ def build_depends_on_records(state: KbState) -> list[dict]:
                 edge.fraction,
             )
         # A support's beneficiary fan-out — supports edges sourced at the sup-id.
+        # A pending on-point fraction materializes as the literal "*pending*",
+        # distinct on disk from a depends edge's null fraction (INVARIANT-S10).
         for claim_id, fraction in sup.supports:
+            emitted_fraction = (
+                PENDING_LITERAL if fraction is PENDING_FRACTION else fraction
+            )
             _emit(
                 sup.id, claim_id, "supports", "claim",
-                fraction=fraction,
+                fraction=emitted_fraction,
             )
     for exp in state.experiments:
         for claim_id, strength in exp.strengthens:
@@ -2030,11 +2135,14 @@ def build_supported_by_records(state: KbState) -> list[dict]:
     rows: list[dict] = []
     for sup in state.supports:
         for claim_id, fraction in sup.supports:
+            emitted_fraction = (
+                PENDING_LITERAL if fraction is PENDING_FRACTION else fraction
+            )
             rows.append(
                 {
                     "claim_id": claim_id,
                     "sup_id": sup.id,
-                    "fraction": fraction,
+                    "fraction": emitted_fraction,
                     "sup_solidity": sup_solidity.get(sup.id),
                 }
             )
@@ -2057,6 +2165,104 @@ def build_cites_records(state: KbState) -> list[dict]:
             )
     rows.sort(key=lambda r: (r["claim_id"], r["leaf_path"]))
     return rows
+
+
+# ---------------------------------------------------------------------------
+# Leaf-references footer (derived field on claim-quality.md entries)
+# ---------------------------------------------------------------------------
+#
+# Each canonical entry in a claim-quality.md register carries a
+# ``> **Leaf references:**`` blockquote footer — the reverse-citation map of
+# which leaves host the entry's id. It is a *derived* field: regenerated by
+# ``refresh-kb-metadata`` and drift-gated by ``verify-kb-metadata``, exactly
+# like ``subtree-claims`` and the derived ``solidity`` line. The reverse map
+# below is THE single computation both consume (no dual-compute drift).
+
+# The literal that opens the footer blockquote. The full footer is a single
+# blockquote line beginning with this prefix; refresh finds-and-replaces it as
+# one stable region (or inserts it before the entry's `### Quality` heading).
+LEAF_REFERENCES_PREFIX = "> **Leaf references:**"
+
+
+def build_leaf_references(state: KbState) -> dict[str, list[str]]:
+    """Reverse-citation map ``{node_id: [citing leaf paths]}`` for every entry.
+
+    The footer of a ``clm-`` / ``exp-`` / ``sup-`` claim-quality entry lists the
+    leaves whose frontmatter hosts that id — fully derivable from leaf metadata:
+
+    * ``clm-`` — every leaf whose ``claims:`` frontmatter lists the id (the same
+      leaf→claim edges materialized in ``cites.jsonl``).
+    * ``exp-`` — the experiment's canonical home (the leaf hosting the
+      ``exp-id:``) plus every leaf that REFERENCES it via ``experiments:``.
+    * ``sup-`` — the support's canonical home (the leaf hosting the ``sup-id:``).
+
+    Each id's list is de-duplicated and stable-sorted by POSIX leaf path. An id
+    cited by exactly one leaf yields a one-element list (the common case); a
+    multi-leaf id lists all. The bidirectional-coverage check guarantees every
+    canonical entry is cited by ≥ 1 leaf, so a normal entry never has an empty
+    list — but an id absent from this map (a defect) simply yields no entry, and
+    the caller decides how to render that (see :func:`render_leaf_references`).
+    """
+    refs: dict[str, set[str]] = {}
+    for leaf in state.leaves:
+        for cid in leaf.claims:
+            refs.setdefault(cid, set()).add(leaf.path)
+        for eid in leaf.experiments_ref:
+            refs.setdefault(eid, set()).add(leaf.path)
+    for exp in state.experiments:
+        refs.setdefault(exp.id, set()).add(exp.canonical_path)
+    for sup in state.supports:
+        refs.setdefault(sup.id, set()).add(sup.canonical_path)
+    return {node_id: sorted(paths) for node_id, paths in refs.items()}
+
+
+def render_leaf_references(register_path: str, leaf_paths: list[str]) -> str:
+    """Render the canonical ``> **Leaf references:**`` footer line.
+
+    ``register_path`` is the POSIX path (relative to kb-root) of the
+    ``claim-quality.md`` register the footer lives in; ``leaf_paths`` are the
+    kb-root-relative citing leaf paths. Each leaf is rendered as a real
+    Markdown link ``[<name>](./<rel>)`` where ``<rel>`` is the leaf path
+    relative to the register's own directory and ``<name>`` is the leaf
+    filename stem (no backticks) — so the footer links are link-checkable by
+    ``verify-md-links`` (a dead path now gates instead of rotting silently).
+    The list is comma-joined in the given (stable-sorted) order, ending with a
+    period. All free-text editorial annotations are dropped (the rot the
+    derived footer eliminates).
+
+    An empty ``leaf_paths`` renders ``> **Leaf references:** *(none — entry has
+    no citing leaf; bidirectional-coverage check will fail)*`` so the defect is
+    visible in the file rather than silently producing a bare prefix.
+    """
+    if not leaf_paths:
+        return (
+            f"{LEAF_REFERENCES_PREFIX} *(none — entry has no citing leaf; "
+            f"bidirectional-coverage check will fail)*"
+        )
+    register_dir = PurePosixPath(register_path).parent
+    links: list[str] = []
+    for leaf_path in leaf_paths:
+        rel = _posix_path_relative_to(leaf_path, register_dir)
+        name = PurePosixPath(rel).stem
+        target = rel if rel.startswith(("../", "/")) else f"./{rel}"
+        links.append(f"[{name}]({target})")
+    return f"{LEAF_REFERENCES_PREFIX} {', '.join(links)}."
+
+
+def _posix_path_relative_to(leaf_path: str, register_dir: PurePosixPath) -> str:
+    """Return ``leaf_path`` expressed as a true relative path from ``register_dir`` (POSIX).
+
+    Leaves under the register's directory render cleanly (``dynamics/x.md``);
+    cross-directory citations — a per-volume register cited by a ``common/``
+    leaf, or any cross-volume citation — climb with ``../``
+    (``../common/operators.md``). The KB root register (``claim-quality.md``,
+    dir ``.``) yields the full kb-root-relative path. The result is always a
+    valid link target relative to the register file's own location.
+    """
+    base = str(register_dir)
+    if base in ("", "."):
+        return PurePosixPath(leaf_path).as_posix()
+    return posixpath.relpath(leaf_path, base)
 
 
 def _is_under(leaf_path: Path, idx_dir: Path) -> bool:
@@ -2195,6 +2401,8 @@ __all__ = [
     "KB_ROOT_DEFAULT",
     "EXCLUDE_DIRS",
     "EXCLUDE_NAMES",
+    "PENDING_LITERAL",
+    "PENDING_FRACTION",
     "ClaimEntry",
     "DependsOnEdge",
     "FrameworkNode",
@@ -2229,6 +2437,9 @@ __all__ = [
     "build_strengthen_by_records",
     "build_supported_by_records",
     "build_cites_records",
+    "LEAF_REFERENCES_PREFIX",
+    "build_leaf_references",
+    "render_leaf_references",
     "compute_subtree_aggregates",
     "build_subtree_aggregate_records",
     "build_all_records",

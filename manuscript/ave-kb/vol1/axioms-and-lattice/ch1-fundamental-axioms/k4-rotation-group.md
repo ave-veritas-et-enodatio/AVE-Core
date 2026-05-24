@@ -52,7 +52,7 @@ The symmetry group of a regular tetrahedron under **rotations only** is the **te
 |---|---|---|---|
 | $\{e\}$ | 1 | 1 | Identity |
 | $C_3$ | 3 | 8 | Rotations by $\pm 120°$ about each of the 4 vertex axes (4 axes × 2 directions = 8) |
-| $C_2$ | 2 | 3 | Rotations by $180°$ about each of the 3 face-midpoint axes |
+| $C_2$ | 2 | 3 | Rotations by $180°$ about each of the 3 edge-midpoint axes |
 
 Total: $1 + 8 + 3 = 12 = |A_4|$ ✓
 

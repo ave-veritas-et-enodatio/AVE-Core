@@ -1,5 +1,7 @@
 # `_orchestration/` — Tracked Orchestration State
 
+**EDIT** - 2026-05-23 Benn - document deprecated. Do not do any sweeping work from this document without evaluating current repo state. KB claim DAG has received many improvements and the KB has had many fixups in the process. This directory was ported over from `analysis/integration` branch, which has now been superseded. Work that was clearly already done has been extracted and moved to _archive/. What remains may still be relevant, but again, *check first*.
+
 This directory carries the **revision-controlled orchestration state** for AVE-Core: per-epic state docs, cross-cutting carry-forward, and the archive of closed epics. Created 2026-05-19 to fix the drift where orchestration briefings were landing at `~/.claude/plans/` (agent-local, mutable, undiscoverable) or `.agents/handoffs/` (in-repo but gitignored).
 
 ## Directory structure (Phase B reorg, 2026-05-20)

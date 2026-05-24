@@ -14,7 +14,16 @@ import json
 import sys
 from pathlib import Path
 
-from .index import CitationEdge, Claim, FrameworkNode, Index, StrengthenByItem, WeakPoint, load
+from .index import (
+    BUILD_BANDS,
+    CitationEdge,
+    Claim,
+    FrameworkNode,
+    Index,
+    StrengthenByItem,
+    WeakPoint,
+    load,
+)
 
 # ---------------------------------------------------------------------------
 # Exit codes
@@ -23,6 +32,9 @@ from .index import CitationEdge, Claim, FrameworkNode, Index, StrengthenByItem, 
 EXIT_OK = 0
 EXIT_USER_ERROR = 1
 EXIT_SYSTEM_ERROR = 2
+
+# How many rows the ``stats`` rework dashboard shows per ranked section.
+STATS_RANK_LIMIT = 10
 
 
 # ---------------------------------------------------------------------------
@@ -260,7 +272,20 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
 
     if cmd == "stats":
         s = idx.stats
+        bands = idx.band_distribution
+        # Rework dashboard: highest-leverage targets (weak-points ranking) and
+        # the lowest-solidity claims. Reuse the existing query helpers verbatim
+        # so the ranking math and pending-exclusion stay single-sourced.
+        leverage = idx.weak_points()[:STATS_RANK_LIMIT]
+        # solidity_below excludes pending (null) claims and sorts ascending by
+        # solidity; a threshold above the 1.0 framework ceiling captures every
+        # scored claim, so the head of that list is the weakest.
+        weakest = idx.solidity_below(1.1)[:STATS_RANK_LIMIT]
         if emit_json:
+            # Band distribution keyed by human-readable label, descending solidity.
+            s["solidity_bands"] = {label: bands[slug] for slug, label in BUILD_BANDS}
+            s["highest_leverage"] = [_weak_point_to_dict(wp) for wp in leverage]
+            s["weakest"] = [{"id": c.id, "solidity": c.solidity, "title": c.title} for c in weakest]
             _emit(s, emit_json=True, out=out)
         else:
             for key in (
@@ -273,6 +298,21 @@ def _dispatch(args: argparse.Namespace, idx: Index, out, err) -> int:
                 "subtree_aggregates",
             ):
                 print(f"{key}: {s[key]}", file=out)
+            print("\nsolidity build-band distribution (claims):", file=out)
+            for slug, label in BUILD_BANDS:
+                print(f"  {label}: {bands[slug]}", file=out)
+            print(
+                f"\nhighest-leverage claims to strengthen " f"(top {STATS_RANK_LIMIT}, shaky and load-bearing):",
+                file=out,
+            )
+            for wp in leverage:
+                print(
+                    f"  {wp.claim.id}\t{wp.claim.solidity}\t{wp.dependents} dependents" f"\t{wp.claim.title}",
+                    file=out,
+                )
+            print(f"\nweakest claims (lowest solidity, top {STATS_RANK_LIMIT}):", file=out)
+            for c in weakest:
+                print(f"  {c.id}\t{c.solidity}\t{c.title}", file=out)
         return EXIT_OK
 
     # argparse with required=True should never let us reach here.

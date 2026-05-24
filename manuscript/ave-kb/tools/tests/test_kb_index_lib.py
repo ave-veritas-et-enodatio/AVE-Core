@@ -328,17 +328,36 @@ class TestDiscoverKb(unittest.TestCase):
         # `<!-- id: clm-xxxxxx -->` inside a fenced ``markdown`` code block in
         # the Quality Convention example. The library strips code fences
         # before extracting canonical IDs, so that example is NOT counted.
-        # Five real entries in the root register + nine in common/ = 14
+        # Five real entries in the root register + eleven in common/ = 16
         # (common/ adds clm-co1111, the co-hosted claim+experiment leaf, plus
-        # the five support-beneficiary claims clm-sb1111..clm-sb5555). Support
+        # the seven support-beneficiary claims clm-sb1111..clm-sb7777). Support
         # entries (sup-*) are NOT claims and are not counted here.
-        self.assertEqual(len(self.state.claim_entries), 14)
+        self.assertEqual(len(self.state.claim_entries), 16)
 
     def test_support_node_count(self):
-        # Four support nodes (INVARIANT-S10): sup-free01 (free-standing),
+        # Six support nodes (INVARIANT-S10): sup-free01 (free-standing),
         # sup-dep001 (own deps), sup-pend01 (pending quality), sup-coh001
-        # (co-hosted with a claim on one leaf).
-        self.assertEqual(len(self.state.supports), 4)
+        # (co-hosted with a claim on one leaf), plus sup-mlt001 + sup-mlt002 —
+        # TWO supports hosted on ONE container (multi-sup; no one-per-leaf cap).
+        self.assertEqual(len(self.state.supports), 6)
+
+    def test_multi_sup_container_hosts_two_supports(self):
+        # A single container (leaf-multi-sup.md) originates BOTH sup-mlt001 and
+        # sup-mlt002 — N sup node-bodies on one leaf (INVARIANT-S10 container
+        # model). Both share the leaf's canonical home.
+        by_id = {s.id: s for s in self.state.supports}
+        self.assertIn("sup-mlt001", by_id)
+        self.assertIn("sup-mlt002", by_id)
+        self.assertEqual(
+            by_id["sup-mlt001"].canonical_path, "common/leaf-multi-sup.md"
+        )
+        self.assertEqual(
+            by_id["sup-mlt002"].canonical_path, "common/leaf-multi-sup.md"
+        )
+        # sup-mlt002's second beneficiary edge carries the pending sentinel.
+        by_claim = dict(by_id["sup-mlt002"].supports)
+        self.assertIs(by_claim["clm-sb6666"], lib.PENDING_FRACTION)
+        self.assertEqual(by_claim["clm-sb7777"], 0.50)
 
     def test_every_leaf_with_claims_present(self):
         # Build the set of leaf paths from a parallel walk and intersect.
@@ -384,13 +403,13 @@ class TestBuildClaimsRecords(unittest.TestCase):
         from collections import Counter
 
         counts = Counter(r["node_type"] for r in self.records)
-        # 14 claims + 2 experiments + 4 support + 4 invariants + 4 axioms = 28.
-        self.assertEqual(counts["claim"], 14)
+        # 16 claims + 2 experiments + 6 support + 4 invariants + 4 axioms = 32.
+        self.assertEqual(counts["claim"], 16)
         self.assertEqual(counts["experiment"], 2)
-        self.assertEqual(counts["support"], 4)
+        self.assertEqual(counts["support"], 6)
         self.assertEqual(counts["invariant"], 4)
         self.assertEqual(counts["axiom"], 4)
-        self.assertEqual(len(self.records), 28)
+        self.assertEqual(len(self.records), 32)
 
     def test_support_record_documented_key_order(self):
         expected_keys = [
@@ -403,7 +422,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "solidity",
         ]
         sup_recs = [r for r in self.records if r["node_type"] == "support"]
-        self.assertEqual(len(sup_recs), 4)
+        self.assertEqual(len(sup_recs), 6)
         for rec in sup_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 
@@ -438,7 +457,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "citation_count",
         ]
         claim_recs = [r for r in self.records if r["node_type"] == "claim"]
-        self.assertEqual(len(claim_recs), 14)
+        self.assertEqual(len(claim_recs), 16)
         for rec in claim_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 
@@ -465,7 +484,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
         self.assertEqual(self.by_id["clm-aa1111"]["build_band"], "ok-to-build")
         # clm-bb2222 solidity 0.60 -> input-only.
         self.assertEqual(self.by_id["clm-bb2222"]["build_band"], "input-only")
-        # clm-cc3333 solidity 0.72 -> ok-with-caveats.
+        # clm-cc3333 solidity 0.80 -> ok-with-caveats.
         self.assertEqual(self.by_id["clm-cc3333"]["build_band"], "ok-with-caveats")
 
     def test_solidity_field_is_computed_not_parsed(self):
@@ -478,8 +497,8 @@ class TestBuildClaimsRecords(unittest.TestCase):
         for cid in ("clm-aa1111", "clm-cc3333", "clm-dd4444", "clm-ee5555"):
             self.assertEqual(self.by_id[cid]["solidity"], sol[cid])
         self.assertEqual(self.by_id["clm-aa1111"]["solidity"], 0.90)
-        # clm-dd4444 is a multi-dep entry: 0.54 derived, build-status follows.
-        self.assertEqual(self.by_id["clm-dd4444"]["solidity"], 0.54)
+        # clm-dd4444 is a multi-dep entry: min(0.90,0.90,0.60)=0.60, build-status follows.
+        self.assertEqual(self.by_id["clm-dd4444"]["solidity"], 0.60)
         self.assertEqual(
             self.by_id["clm-dd4444"]["build_status"],
             "use as input only, don't build deeper",
@@ -724,13 +743,42 @@ class TestComputeSolidity(unittest.TestCase):
         sol = lib.compute_solidity([_claim("clm-aaaaaa", 0.85)])
         self.assertEqual(sol["clm-aaaaaa"], 0.85)
 
+    def test_clean_two_link_chain_is_weakest_link_not_product(self):
+        # THE distinguishing case for the min model: a clean 2-link chain
+        # q=0.9 → dep=0.9 yields 0.9 (the weakest link), NOT 0.81 (the product).
+        # Under multiplication this clean derivation would decay purely because
+        # it has one extra link; min keeps it at its honest floor.
+        a = _claim("clm-aaaaaa", 0.90)
+        b = _claim("clm-bbbbbb", 0.90, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        sol = lib.compute_solidity([a, b])
+        self.assertEqual(sol["clm-bbbbbb"], 0.90)
+
+    def test_solidity_is_refactor_invariant_under_node_splitting(self):
+        # Granularity invariance: splitting one derivation step into two
+        # same-quality steps must NOT change the endpoint's solidity. A single
+        # 0.90 leaf and a 3-node chain of identical 0.90 confidences both end at
+        # 0.90 under min; under a product they would diverge (0.90 vs 0.729),
+        # which is the bookkeeping artifact this model eliminates.
+        single = lib.compute_solidity([_claim("clm-solo01", 0.90)])
+
+        n1 = _claim("clm-chain1", 0.90)
+        n2 = _claim("clm-chain2", 0.90, [_edge("clm-chain2", "clm-chain1")])
+        n3 = _claim("clm-chain3", 0.90, [_edge("clm-chain3", "clm-chain2")])
+        chained = lib.compute_solidity([n1, n2, n3])
+
+        self.assertEqual(single["clm-solo01"], 0.90)
+        self.assertEqual(chained["clm-chain3"], single["clm-solo01"])
+        # Every node along the clean chain holds the same value — no decay.
+        self.assertEqual(chained["clm-chain1"], 0.90)
+        self.assertEqual(chained["clm-chain2"], 0.90)
+
     def test_single_claim_dependency(self):
         a = _claim("clm-aaaaaa", 0.75)
         b = _claim("clm-bbbbbb", 0.55, [_edge("clm-bbbbbb", "clm-aaaaaa")])
         sol = lib.compute_solidity([a, b])
         self.assertEqual(sol["clm-aaaaaa"], 0.75)
-        # 0.55 × 0.75 = 0.4125 → round-half-up → 0.41
-        self.assertEqual(sol["clm-bbbbbb"], 0.41)
+        # min(0.55, 0.75) = 0.55 — weakest link is b's own confidence.
+        self.assertEqual(sol["clm-bbbbbb"], 0.55)
 
     def test_framework_dependency_contributes_one(self):
         # An entry depending only on framework nodes → solidity == confidence.
@@ -754,8 +802,8 @@ class TestComputeSolidity(unittest.TestCase):
             [_edge("clm-cccccc", "clm-aaaaaa"), _edge("clm-cccccc", "clm-bbbbbb")],
         )
         sol = lib.compute_solidity([a, b, c])
-        # 0.85 × min(0.41, 0.28) = 0.85 × 0.28 = 0.238 → 0.24
-        self.assertEqual(sol["clm-cccccc"], 0.24)
+        # min(0.85, 0.41, 0.28) = 0.28 — weakest link in the cone.
+        self.assertEqual(sol["clm-cccccc"], 0.28)
 
     def test_framework_and_claim_dependency_mixed(self):
         a = _claim("clm-aaaaaa", 0.50)
@@ -768,18 +816,20 @@ class TestComputeSolidity(unittest.TestCase):
             ],
         )
         sol = lib.compute_solidity([a, b])
-        # min(0.50 [claim], 1.0 [framework]) = 0.50 → 0.80 × 0.50 = 0.40
-        self.assertEqual(sol["clm-bbbbbb"], 0.40)
+        # min(0.80 [local], 0.50 [claim dep], 1.0 [framework]) = 0.50
+        self.assertEqual(sol["clm-bbbbbb"], 0.50)
 
-    def test_propagation_uses_rounded_dependency_solidity(self):
-        # a: 0.55 → leaf. b depends on a: 0.55 × 0.55 = 0.3025 → 0.30.
-        # c depends on b: 0.90 × 0.30 (rounded) = 0.27, NOT 0.90 × 0.3025.
-        a = _claim("clm-aaaaaa", 0.55)
-        b = _claim("clm-bbbbbb", 0.55, [_edge("clm-bbbbbb", "clm-aaaaaa")])
-        c = _claim("clm-cccccc", 0.90, [_edge("clm-cccccc", "clm-bbbbbb")])
+    def test_propagation_uses_dependency_final(self):
+        # Each claim's final feeds its dependents: the weakest link propagates
+        # down the chain. a: 0.40 → leaf. b: min(0.90, 0.40) = 0.40. c depends
+        # on b: min(0.95, 0.40) = 0.40 — the chain is gated by the weakest node,
+        # not decayed by repeated multiplication.
+        a = _claim("clm-aaaaaa", 0.40)
+        b = _claim("clm-bbbbbb", 0.90, [_edge("clm-bbbbbb", "clm-aaaaaa")])
+        c = _claim("clm-cccccc", 0.95, [_edge("clm-cccccc", "clm-bbbbbb")])
         sol = lib.compute_solidity([a, b, c])
-        self.assertEqual(sol["clm-bbbbbb"], 0.30)
-        self.assertEqual(sol["clm-cccccc"], 0.27)
+        self.assertEqual(sol["clm-bbbbbb"], 0.40)
+        self.assertEqual(sol["clm-cccccc"], 0.40)
 
     def test_pending_confidence_omitted(self):
         # An entry with confidence None is uncomputable — omitted from output.
@@ -1030,7 +1080,7 @@ class TestSupportSolidity(unittest.TestCase):
 
     def test_support_with_own_deps_is_dep_gated(self):
         # (b) A support with its own depends-on is dep-gated below its quality:
-        # sup_solidity = round2(0.90 × dep final 0.50) = 0.45.
+        # sup_solidity = round2(min(0.90, dep final 0.50)) = 0.50 (weakest link).
         dep = _claim("clm-dddddd", 0.50)
         s = _support(
             "sup-aaaaaa", 0.90, [("clm-aaaaaa", 1.0)],
@@ -1038,9 +1088,9 @@ class TestSupportSolidity(unittest.TestCase):
         )
         a = _claim("clm-aaaaaa", 0.20)
         full = lib.compute_solidity_full([dep, a], (), [s])
-        self.assertEqual(full.sup_solidity["sup-aaaaaa"], 0.45)
-        # The lift into clm-aaaaaa is the dep-gated 0.45, not the raw 0.90.
-        self.assertEqual(full["clm-aaaaaa"].derivation, 0.45)
+        self.assertEqual(full.sup_solidity["sup-aaaaaa"], 0.50)
+        # The lift into clm-aaaaaa is the dep-gated 0.50, not the raw 0.90.
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.50)
 
     def test_pending_support_contributes_nothing_and_no_poison(self):
         # (c) A pending-quality support contributes nothing to the max AND does
@@ -1060,8 +1110,61 @@ class TestSupportSolidity(unittest.TestCase):
         s = _support("sup-aaaaaa", None, [("clm-aaaaaa", 1.0)])
         a = _claim("clm-aaaaaa", 0.50, [_edge("clm-aaaaaa", "clm-gggggg")])
         full = lib.compute_solidity_full([good, a], (), [s])
-        # 0.50 × min(0.80) = 0.40; the pending support is simply ignored.
-        self.assertEqual(full["clm-aaaaaa"].derivation, 0.40)
+        # min(0.50, 0.80) = 0.50; the pending support is simply ignored.
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.50)
+
+    def test_pending_fraction_contributes_nothing_and_no_poison(self):
+        # An EVALUATED support whose on-point fraction is *pending* contributes
+        # nothing to the beneficiary's local_quality max (excluded, exactly like
+        # a pending sup_solidity) and never poisons an otherwise-valid claim.
+        s = _support(
+            "sup-aaaaaa", 0.90, [("clm-aaaaaa", lib.PENDING_FRACTION)]
+        )
+        a = _claim("clm-aaaaaa", 0.55)
+        full = lib.compute_solidity_full([a], (), [s])
+        self.assertEqual(full.sup_solidity["sup-aaaaaa"], 0.90)  # support scored
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.55)    # not lifted
+        self.assertEqual(full["clm-aaaaaa"].final, 0.55)         # not poisoned
+
+    def test_pending_fraction_excluded_but_sibling_numeric_lift_applies(self):
+        # One support fans out to two claims: a *pending* fraction to one, a
+        # numeric fraction to the other. The pending edge is excluded; the
+        # numeric edge still lifts its beneficiary.
+        s = _support(
+            "sup-aaaaaa", 0.90,
+            [("clm-aaaaaa", lib.PENDING_FRACTION), ("clm-bbbbbb", 0.50)],
+        )
+        a = _claim("clm-aaaaaa", 0.20)
+        b = _claim("clm-bbbbbb", 0.20)
+        full = lib.compute_solidity_full([a, b], (), [s])
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.20)  # pending f, no lift
+        self.assertEqual(full["clm-bbbbbb"].derivation, 0.45)  # 0.90×0.50
+
+    def test_pending_fraction_materializes_as_literal_distinct_from_null(self):
+        # On disk a pending supports-fraction is the literal "*pending*", DISTINCT
+        # from a depends edge's null fraction (the sentinel-distinctness contract).
+        dep = _claim("clm-dddddd", 0.50)
+        s = _support(
+            "sup-aaaaaa", 0.90, [("clm-aaaaaa", lib.PENDING_FRACTION)],
+            depends_on=[_edge("sup-aaaaaa", "clm-dddddd")],
+        )
+        a = _claim("clm-aaaaaa", 0.20)
+        state = lib.KbState(
+            claim_entries=(dep, a), leaves=(), indexes=(),
+            framework_nodes=(), experiments=(), supports=(s,),
+        )
+        edges = lib.build_depends_on_records(state)
+        supports = [e for e in edges if e["relation"] == "supports"]
+        depends = [
+            e for e in edges
+            if e["relation"] == "depends" and e["source"] == "sup-aaaaaa"
+        ]
+        self.assertEqual(supports[0]["fraction"], lib.PENDING_LITERAL)
+        self.assertIsNone(depends[0]["fraction"])
+        # And the serialized line distinguishes them: "*pending*" vs null.
+        blob = lib.serialize_records(edges).decode("utf-8")
+        self.assertIn('"fraction": "*pending*"', blob)
+        self.assertIn('"fraction": null', blob)
 
     def test_fraction_below_one_reduces_contribution(self):
         # (d) An on-point fraction < 1.0 reduces the lift vs f=1.0.
@@ -1089,8 +1192,8 @@ class TestSupportSolidity(unittest.TestCase):
         s = _support("sup-aaaaaa", 0.90, [("clm-aaaaaa", 1.0)])
         a = _claim("clm-aaaaaa", 0.20, [_edge("clm-aaaaaa", "clm-dddddd")])
         full = lib.compute_solidity_full([dep, a], (), [s])
-        # local_quality 0.90, but × min(dep 0.50) = 0.45 — dep-gated.
-        self.assertEqual(full["clm-aaaaaa"].derivation, 0.45)
+        # local_quality 0.90, but min(0.90, dep 0.50) = 0.50 — dep-gated.
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.50)
 
     def test_support_lift_never_floors_a_higher_confidence(self):
         # A support weaker than the claim's own confidence does not lower it.
@@ -1119,14 +1222,67 @@ class TestSupportSolidity(unittest.TestCase):
             lib.compute_solidity_full([a], (), [s])
 
 
+class TestSupportPendingFractionParse(unittest.TestCase):
+    """parse_support_leaf accepts a *pending* on-point fraction (INVARIANT-S10).
+
+    A ``supports`` pair may carry the literal ``*pending*`` (intended-but-
+    unassessed) — stored as the PENDING_FRACTION sentinel, distinct from a
+    depends edge's null. Numeric fractions must still validate to (0, 1].
+    """
+
+    _LEAF = (
+        "[↑ Parent](index.md)\n\n"
+        "<!-- kb-frontmatter\n"
+        "kind: leaf\n"
+        "no-claim: \"hosts a support node only\"\n"
+        "sup-id: sup-aaaaaa\n"
+        "supports:\n"
+        "  - clm-aaaaaa: *pending*\n"
+        "  - clm-bbbbbb: 0.50\n"
+        "-->\n\n"
+        "## Pending-Fraction Support\n"
+    )
+
+    def _parse(self, text):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            leaf = root / "leaf.md"
+            leaf.write_text(text)
+            return lib.parse_support_leaf(leaf, root)
+
+    def test_pending_fraction_parses_as_sentinel(self):
+        sups = self._parse(self._LEAF)
+        self.assertEqual(len(sups), 1)
+        sup = sups[0]
+        self.assertEqual(sup.id, "sup-aaaaaa")
+        by_claim = dict(sup.supports)
+        self.assertIs(by_claim["clm-aaaaaa"], lib.PENDING_FRACTION)
+        self.assertEqual(by_claim["clm-bbbbbb"], 0.50)
+
+    def test_pending_sentinel_is_distinct_from_none(self):
+        # The pending sentinel must NOT be None (which a depends edge uses).
+        self.assertIsNotNone(lib.PENDING_FRACTION)
+        self.assertIsNot(lib.PENDING_FRACTION, None)
+
+    def test_zero_fraction_still_rejected(self):
+        bad = self._LEAF.replace("clm-bbbbbb: 0.50", "clm-bbbbbb: 0")
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(bad)
+
+    def test_above_one_fraction_still_rejected(self):
+        bad = self._LEAF.replace("clm-bbbbbb: 0.50", "clm-bbbbbb: 1.5")
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(bad)
+
+
 class TestSupportFixture(unittest.TestCase):
     """Support nodes against the fixture graph — the committed answer key.
 
     * sup-free01 (free-standing, q 0.90)  → sup_solidity 0.90
-    * sup-dep001 (q 0.90, dep clm-aa1111) → 0.90 × 0.90 = 0.81 (dep-gated)
+    * sup-dep001 (q 0.90, dep clm-aa1111 0.90) → min(0.90, 0.90) = 0.90 (dep-gated)
     * sup-pend01 (q *pending*)            → *pending* (omitted)
     * sup-coh001 (free-standing, q 0.85)  → 0.85
-    Beneficiary lifts: sb1111→0.90, sb2222→0.45, sb3333→0.81, sb4444→0.55
+    Beneficiary lifts: sb1111→0.90, sb2222→0.45, sb3333→0.90, sb4444→0.55
     (not lifted), sb5555→0.85.
     """
 
@@ -1142,16 +1298,24 @@ class TestSupportFixture(unittest.TestCase):
 
     def test_support_solidities(self):
         self.assertEqual(self.sup["sup-free01"], 0.90)
-        self.assertEqual(self.sup["sup-dep001"], 0.81)
+        self.assertEqual(self.sup["sup-dep001"], 0.90)
         self.assertEqual(self.sup["sup-coh001"], 0.85)
         self.assertNotIn("sup-pend01", self.sup)  # pending → omitted
+        # Both supports on the multi-sup container are free-standing.
+        self.assertEqual(self.sup["sup-mlt001"], 0.80)
+        self.assertEqual(self.sup["sup-mlt002"], 0.70)
 
     def test_beneficiary_lifts(self):
         self.assertEqual(self.sol["clm-sb1111"], 0.90)
         self.assertEqual(self.sol["clm-sb2222"], 0.45)
-        self.assertEqual(self.sol["clm-sb3333"], 0.81)
+        self.assertEqual(self.sol["clm-sb3333"], 0.90)
         self.assertEqual(self.sol["clm-sb4444"], 0.55)  # pending sup, not lifted
         self.assertEqual(self.sol["clm-sb5555"], 0.85)
+        # clm-sb6666: lifted by sup-mlt001 (0.80 × f=1.0 = 0.80); sup-mlt002's
+        # pending-fraction edge to it contributes nothing.
+        self.assertEqual(self.sol["clm-sb6666"], 0.80)
+        # clm-sb7777: lifted by sup-mlt002 (0.70 × f=0.50 = 0.35).
+        self.assertEqual(self.sol["clm-sb7777"], 0.35)
 
     def test_pending_support_does_not_poison_fixture_beneficiary(self):
         # clm-sb4444 has valid confidence (0.55) and a pending support; it must
@@ -1164,8 +1328,9 @@ class TestSupportFixture(unittest.TestCase):
         path = _FIXTURE / "common" / "leaf-sup-cohost.md"
         leaf = lib.parse_leaf(path, _FIXTURE)
         self.assertEqual(leaf.claims, ("clm-sb5555",))
-        sup = lib.parse_support_leaf(path, _FIXTURE)
-        self.assertIsNotNone(sup)
+        sups = lib.parse_support_leaf(path, _FIXTURE)
+        self.assertEqual(len(sups), 1)
+        sup = sups[0]
         self.assertEqual(sup.id, "sup-coh001")
         self.assertEqual(sup.supports, (("clm-sb5555", 1.0),))
 
@@ -1182,15 +1347,24 @@ class TestSupportFixture(unittest.TestCase):
     def test_supports_edges_carry_fraction(self):
         edges = lib.build_depends_on_records(self.state)
         supports = [e for e in edges if e["relation"] == "supports"]
-        self.assertEqual(len(supports), 5)
+        # 5 from the single-sup leaves + 3 from the multi-sup container
+        # (sup-mlt001→sb6666, sup-mlt002→sb6666 *pending*, sup-mlt002→sb7777).
+        self.assertEqual(len(supports), 8)
         for e in supports:
             self.assertEqual(e["target_kind"], "claim")
             self.assertIsNone(e["strength"])
             self.assertIsNotNone(e["fraction"])
+        # The pending on-point fraction serializes as the literal "*pending*".
+        pending = [
+            e for e in supports
+            if e["source"] == "sup-mlt002" and e["target"] == "clm-sb6666"
+        ]
+        self.assertEqual(len(pending), 1)
+        self.assertEqual(pending[0]["fraction"], lib.PENDING_LITERAL)
 
     def test_supported_by_reverse_view(self):
         rows = lib.build_supported_by_records(self.state)
-        self.assertEqual(len(rows), 5)
+        self.assertEqual(len(rows), 8)
         by_claim = {r["claim_id"]: r for r in rows}
         self.assertEqual(by_claim["clm-sb2222"]["fraction"], 0.50)
         self.assertEqual(by_claim["clm-sb2222"]["sup_solidity"], 0.90)
@@ -1204,8 +1378,8 @@ class TestComputeSolidityFixture(unittest.TestCase):
 
     * clm-aa1111 (conf 0.90, no deps)         → solidity 0.90
     * clm-bb2222 (conf 0.60, no deps)         → solidity 0.60
-    * clm-cc3333 (conf 0.80, dep aa1111)      → 0.80 × 0.90 = 0.72
-    * clm-dd4444 (conf 0.90, deps aa+bb)      → 0.90 × min(0.90,0.60) = 0.54
+    * clm-cc3333 (conf 0.80, dep aa1111)      → min(0.80, 0.90) = 0.80
+    * clm-dd4444 (conf 0.90, deps aa+bb)      → min(0.90, 0.90, 0.60) = 0.60
     * clm-ee5555 (conf 0.75, framework deps)  → 0.75 (framework contributes 1.0)
     * clm-hh8888 (conf 0.70, double INV-S2)   → 0.70
     """
@@ -1221,8 +1395,8 @@ class TestComputeSolidityFixture(unittest.TestCase):
     def test_known_entry_solidities(self):
         self.assertEqual(self.sol["clm-aa1111"], 0.90)
         self.assertEqual(self.sol["clm-bb2222"], 0.60)
-        self.assertEqual(self.sol["clm-cc3333"], 0.72)
-        self.assertEqual(self.sol["clm-dd4444"], 0.54)
+        self.assertEqual(self.sol["clm-cc3333"], 0.80)
+        self.assertEqual(self.sol["clm-dd4444"], 0.60)
         self.assertEqual(self.sol["clm-ee5555"], 0.75)
         self.assertEqual(self.sol["clm-hh8888"], 0.70)
         # clm-gg7777 is rescued by run-experiment exp-bench1 → 0.80.

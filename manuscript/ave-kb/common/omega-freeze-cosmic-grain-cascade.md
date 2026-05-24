@@ -37,7 +37,7 @@ All three derive from a single substrate operating point $u_0^* \approx 0.187$ (
 
 <!-- claim-quality: clm-a7cbqq -->
 
-Per [trampoline-framework.md](trampoline-framework.md) §§"freeze-in / phase-transition-while-spinning" + [Vol 3 Ch 4 generative cosmology](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex) (lines 172-184, 405-416, 458-470):
+Per [trampoline-framework.md](trampoline-framework.md) §§"freeze-in / phase-transition-while-spinning" + Vol 3 Ch 4 generative cosmology (lines 172-184, 405-416, 458-470):
 
 **At lattice genesis**, the crystallizing region is rotating with angular velocity $\Omega_{\text{freeze}}$. At crystallization:
 
@@ -168,7 +168,7 @@ $$\Omega_{\text{freeze}} \text{ (cosmic)} \to \text{galactic disk axes} \to \tex
 
 > **Provisional discussion — not a framework claim.** The following derivation-path discussion sketches an open, not-yet-executed line of work. It records the identified path and the open pieces; it is not an established result.
 
-**Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality ($I4_1 32$ right-handed at Axiom 1, Substrate Topology). Gravity is the macroscopic refractive-index modulation of the substrate ([Vol 3 Ch 2-3](../../vol_3_macroscopic/chapters/)). [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
+**Setup**: The K4 substrate has frozen $\Omega_{\text{freeze}}$ chirality ($I4_1 32$ right-handed at Axiom 1, Substrate Topology). Gravity is the macroscopic refractive-index modulation of the substrate ([Vol 3 Ch 2-3](../../vol_3_macroscopic/chapters/)). Vol 3 Ch 14 (Orbital Mechanics) currently treats gravity as **pure scalar $1/r$ acoustic tension** — **chirality-blind at leading order**.
 
 **Reframe (2026-05-16, per Grant)**: this is not a novel cosmic mechanism. It is a cosmic-scale instance of standard materials-science physics — **applying stress to a substrate while it undergoes a material phase change**. The canonical AVE example is already in Core: [Water Anomaly LC Partition](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md).
 

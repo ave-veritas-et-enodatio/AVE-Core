@@ -3,13 +3,22 @@
 <!-- kb-frontmatter
 kind: leaf
 claims: [clm-s3i0lw]
+sup-id: sup-5zs5s6
+supports:
+  - clm-395gps: *pending*
+sup-id: sup-s1h0og
+supports:
+  - clm-u86caq: *pending*
+sup-id: sup-msv2xy
+supports:
+  - clm-pe8lpx: *pending*
 -->
 
 # AVE Divergences from Standard Physics — Test Substrate Map
 
 > **Related KB layers:** This leaf is the *operational tracking layer* over the canonical narrative catalog at [`appendix-experiments.md`](appendix-experiments.md) (PATH-STABLE, referenced from vol1-5,7,8 as `app:unified_experiments`) and the per-project bench-design leaves at [`../vol4/falsification/ch11-experimental-bench-falsification/`](../vol4/falsification/ch11-experimental-bench-falsification/index.md). Read the catalog for narrative descriptions organized by Volume; read the per-project leaves for bench specs + BOMs; read this map for falsification logic, lifecycle status, axiom-impact severity, and sibling-repo substrate.
 
-This leaf catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + $\Lambda$CDM, mapped to the actual hardware, simulation, or data substrate where the test would run. Anchored to the foreword's "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" sections ([`../../frontmatter/00_foreword.tex` lines 104-149](../../frontmatter/00_foreword.tex)).
+This leaf catalogues every AVE-distinct prediction that diverges from Standard Model + General Relativity + $\Lambda$CDM, mapped to the actual hardware, simulation, or data substrate where the test would run. Anchored to the foreword's "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" sections.
 
 **Two definitions of "test":** a test is either (a) a new experiment to be run on hardware, or (b) a re-analysis of existing public data. Both count as falsifiers. Each row below tags `Test type:` accordingly.
 
@@ -161,7 +170,7 @@ These predictions live as derivations in the KB. None has an actual driver/obser
 - **Discriminator:** angular separation between the four axes; AVE predicts $\lesssim$ degree-class agreement, standard cosmology has uniform prior.
 - **Test type:** existing-data re-analysis (Planck CMB + SDSS galaxy survey are public).
 - **Substrate:** **DRIVER EXECUTED 2026-05-19.** Phase 2 executable observer on Planck PR3 SMICA returned Outcome D (data insufficient at 3σ); see C5-CMB-AXIS row at line 428. Empirical axis-of-evil at $(l=60.28°, b=50.48°)$.
-- **Citation gap RESOLVED 2026-05-19** via empirical pin. The corpus literature-placeholder $(174°, -5°)$ value (flagged 2026-05-17 audit, unpinned to specific publication) is superseded by the Planck PR3 SMICA empirical axis $(l=60.28°, b=50.48°)$ computed by the C5 driver run 2026-05-19 — see [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17,89`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The corpus value yields only 46% of the data's max dispersion; the empirical axis is 73° from the corpus value. Walk-back applied to citing files: [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md), [`07_universal_saturation_kernel.tex:221`](../../backmatter/07_universal_saturation_kernel.tex), [`omega-freeze-cosmic-grain-cascade.md:26`](omega-freeze-cosmic-grain-cascade.md), [`../../vol_3_macroscopic/chapters/04_generative_cosmology.tex:467`](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex). Archival prereg [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) preserved verbatim per archival discipline; carries header annotation for the empirical pin.
+- **Citation gap RESOLVED 2026-05-19** via empirical pin. The corpus literature-placeholder $(174°, -5°)$ value (flagged 2026-05-17 audit, unpinned to specific publication) is superseded by the Planck PR3 SMICA empirical axis $(l=60.28°, b=50.48°)$ computed by the C5 driver run 2026-05-19 — see [`../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md:17,89`](../../../research/2026-05-19_c5-cmb-axis-executable-observer-result.md). The corpus value yields only 46% of the data's max dispersion; the empirical axis is 73° from the corpus value. Walk-back applied to citing files: [`universal-saturation-kernel-catalog.md:88`](universal-saturation-kernel-catalog.md), `07_universal_saturation_kernel.tex:221`, [`omega-freeze-cosmic-grain-cascade.md:26`](omega-freeze-cosmic-grain-cascade.md), `../../vol_3_macroscopic/chapters/04_generative_cosmology.tex:467`. Archival prereg [`research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md`](../../../research/_archive/L3_electron_soliton/2026-05-15_A-034_CMB_axis_alignment_empirical_prereg.md) preserved verbatim per archival discipline; carries header annotation for the empirical pin.
 - **KB anchors:** [`universal-saturation-kernel-catalog.md` lines 86-92](universal-saturation-kernel-catalog.md); foreword line 149; [`cosmic-axes-and-frames-glossary.md`](cosmic-axes-and-frames-glossary.md) §2 (canonical glossary definition).
 
 ### C6. Neutrino parity kill-switch — no stable right-handed neutrino
@@ -348,7 +357,7 @@ These claims are load-bearing for the framework's philosophical position but won
 - **Discriminator:** *"Any observational test sensitive to the AVE-native geometric entropy (as opposed to thermodynamic $S_{BH}$) would distinguish. Specifically: Hawking radiation modes that depend on the interface structure."* Not a current-instrument test.
 - **KB anchor:** [`../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md` lines 13, 17, 62, 74, 122, 128-132](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md); foreword line 116.
 
-### D4. A-034 universal saturation kernel — 21 instances across 21 OOM
+### D4. A-034 universal saturation kernel — 26 instances across 21 OOM
 
 - **AVE position:** one kernel $S(A) = \sqrt{1 - A^2}$ governs every topological-reorganization event at every scale. Empirical anchors: BCS $B_c(T)$ at **0.00% error**, BH ringdown 1.7% from GR exact, NOAA 40-yr solar flare statistics validated, Schwarzschild radius exact, Pd hydrogen 12.08%, water LLCP per Nilsson 2026, **turbulence avalanche exponent $n_{3D} = 38/21 \approx 1.8095$ within 0.5% of empirical solar flare $\sim 1.8$** (per [`../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md` lines 14-47](../vol3/condensed-matter/ch11-thermodynamics/kolmogorov-spectral-cutoff.md)). Vol VII Ch 11 turbulence/water-condensation phase-transitions framing (per appendix line 42) subsumes here: turbulence + water LLCP are A-034 cross-scale instances, not separate rows.
 - **The cross-scale consistency IS the falsifier.** Any single canonical instance failing at >1% (where the prediction is sharp) would falsify the universality claim. So far none has.
@@ -438,7 +447,7 @@ Three matrices, all keyed by stable ID, organized for three distinct stakeholder
 | D1-CHSH | CHSH = $2\sqrt{2}$ from K4 Möbius half-angle + Ohmic Born | D / existing-data | I | Nonlocal-deterministic-hidden-variable interpretation via topological-thread substrate | All four axioms (**N**) — matches QM by construction; no single-shot kill | Cascade: C2 T_pair (thread topology). NULL = find QM protocol AVE deterministic substrate cannot reproduce. | U-C | Matches Tsirelson bound exactly | [`../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md`](../vol1/dynamics/ch3-quantum-signal-dynamics/phase-locked-topological-thread.md) |
 | D2-RHO-LAMBDA | $\rho_\Lambda = 9.03 \times 10^{-27}$ kg/m³ as latent heat of substrate crystallization | D / existing-data | IV→I | Latent heat of substrate crystallization mechanism (not vacuum ZPE) | Ax4 + Friedmann (**C**) — mechanism revision possible; quantitative match is structural | Cascade: D4 A-034 (cosmic crystallization is A-034 cosmic instance). NULL = $\rho_\Lambda$ off → $H_\infty$ or G derivation revisited. | U-C (mechanism) | $9.03 \times 10^{-27}$ vs Planck $5.85 \times 10^{-27}$ ($\times$1.54; exact in de Sitter asymptote) | [`../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md`](../vol3/cosmology/ch05-dark-sector/cosmological-constant-closure.md) |
 | D3-GEOM-ENTROPY | Geometric entropy $\hat{\mathcal{S}}_{geo}/S_{BH} \approx 2.8 \times 10^{-44}$ | D / new-exp | III↔IV | A-B interface Op14 mechanism gives $\hat{\mathcal{S}}_{geo} = k_B A \log 2 / \ell_{node}^2$ | Ax1 (ℓ_node) + Ax4 (saturation horizon) (**C**) | Cascade: C1 BH horizon shares A-region machinery. NULL = no Hawking-radiation correlation measurement currently possible. | U-C | $2.8 \times 10^{-44}$ ratio to $S_{BH}$ | [`../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md`](../vol3/condensed-matter/ch11-thermodynamics/four-entropy-distinction.md) |
-| D4-A034 | A-034 universal saturation kernel catalog (21 instances) | D / both | META | Single kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event | Ax4 (**F-cumulative**) — any single canonical instance failing at $>1\%$ where prediction is sharp kills universality claim | Cascade: all 21 catalog instances; one FAIL = catalog row dies. Subsumes turbulence avalanche $n_{3D}=38/21$ + water LLCP Nilsson 2026 (Vol VII Ch 11). NULL trivial; PASS corroborative. | U-C (universality claim AVE-unique; individual instances shared with domain models) | 21 instances over 21 OOM; BCS 0.00%, BH 1.7%, Schwarzschild exact, Pd 12.08%, water LLCP, turbulence 0.5% | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) |
+| D4-A034 | A-034 universal saturation kernel catalog (26 instances) | D / both | META | Single kernel $S(A) = \sqrt{1-A^2}$ governs every topological-reorganization event | Ax4 (**F-cumulative**) — any single canonical instance failing at $>1\%$ where prediction is sharp kills universality claim | Cascade: all 26 catalog instances; one FAIL = catalog row dies. Subsumes turbulence avalanche $n_{3D}=38/21$ + water LLCP Nilsson 2026 (Vol VII Ch 11). NULL trivial; PASS corroborative. | U-C (universality claim AVE-unique; individual instances shared with domain models) | 26 instances over 21 OOM; BCS 0.00%, BH 1.7%, Schwarzschild exact, Pd 12.08%, water LLCP, turbulence 0.5% | [`universal-saturation-kernel-catalog.md`](universal-saturation-kernel-catalog.md) |
 | B5-PONDER-01 | Project PONDER-01 Topological Thrust + Stereo Parallax (30 kV asymmetric LC drive) | B / new-exp | II | Asymmetric FR4/Air dielectric stack ponderomotive thrust via $\Gamma \approx -0.349$ interface (Jensen rectification at 10,000 tips) | Ax3+Ax4 (**C**) — Vol IV ch.2 thrust chapter dies; Ax3/Ax4 survive with revised mechanism. **PLUS internal PONDER-source scaling-law contradiction** (Ch.01 $F = N\nu\delta P/c$ vs Ch.02 $F \propto V^2 f^2$ — not the same) | Cascade: B6/B7 PONDER family. NULL = thermal-catastrophe-limited CW operation (not retraction; revisit via oil-bath analog from PONDER ch.5). | U-D vs Maxwell null | ~40.1 μN @ **30 kV** / 100 MHz / 10,000 tips (per `01_topological_thrust_mechanics.tex:51`; appendix's "35 kV" framing is inconsistent with source) | PONDER-01 stack netlist (relocated to AVE-PONDER private repo per REPO-ARCH) |
 | B6-PONDER-02 | Project PONDER-02 bistatic plume diagnostics (10 GHz microwave reflection off $G_{vac}$) | B / new-exp | II | Microwave reflection off $G_{vac}$ distortion via $c_{eff} = c_0 \sqrt{S(A)}$ in saturated plume | Ax4+Ax1 (**C**) — Vol IV ch.6 vacuum-torsion-metrology mechanism dies; Ax4 globally survives | Cascade: B5/B7 PONDER, D4-A034 (plume = direct $S(A)$ probe). NULL = phase below interferometer floor → revert to torsion-only. | U-D ($c_{eff}$ reduction AVE-unique) | **$\Delta\phi \approx 62.7°$ (1.095 rad)** @ 25 kV / 10 GHz probe / 5 cm plume (pinned 2026-05-16 from `ponder_02_bistatic_probe.py:6-44`) | `AVE-PONDER/manuscript/vol_ponder/chapters/05_vacuum_torsion_metrology.tex:86-91` |
 | B7-PONDER-05 | Project PONDER-05 differential saturation parallax (paired DC-biased quartz vertical gradient) | B / new-exp | II↔III | 30 kV DC bias holds quartz at 68.7% $V_{yield}$; $\varepsilon_{eff}$ drops to 72.6%; $C_{eff}$ rises to 137.7% | Ax4 (**F**) — Ax4 IS saturation kernel; null at 68.7% V_yield falsifies directly | Cascade: B5/B6 PONDER, B1-VAC-BIREFRINGE, D4-A034, C9-LEVITATION (V_yield shared). NULL = no $C_{eff}$ rise → Ax4 fails → all A-034 instances under pressure. | U-D | 37.7% capacitance rise; ~469 μN thrust | `AVE-PONDER/manuscript/vol_ponder/chapters/04_ponder_05_dc_biased_quartz.tex` |
@@ -815,7 +824,7 @@ A FAIL on any row testing $Q = \xi_{topo} \cdot x$ (C15-CLEAVE-01 most directly)
 - **B7-PONDER-05** (α + ξ_topo): paired-quartz parallax via both V_yield and ξ_topo
 - **C9-LEVITATION** (α + ξ_topo): m_max = V_yield · ξ_topo / g uses both
 - **C16-TORSION-05** (α + ξ_topo): asymmetric V_yield gate via both
-- **D4-A034** (ν_vac + α via separate instances): both turbulence row and V_yield row are canonical 21-instance entries
+- **D4-A034** (ν_vac + α via separate instances): both turbulence row and V_yield row are canonical 26-instance entries
 
 A FAIL on any of these heavily-cascaded rows could falsify either upstream anchor depending on which clean-isolated single-anchor row also fails. The triangulation strategies become powerful here: e.g., if C15-CLEAVE-01 (ξ_topo only) FAILs but C9-LEVITATION (α + ξ_topo) PASSes, the failure isolates to ξ_topo; conversely if C9 FAILs but C15 PASSes, the failure isolates to V_yield (α-chain).
 
@@ -910,7 +919,7 @@ flowchart TD
     %% 𝒥_cosmic direct observational tests (3 rows)
     R3 --> C5["C5-CMB-AXIS<br/>CMB axis (60°, 50°), Hubble (130°, -14°), LSS (129°, 79°), Shamir-DESI (242°, -47°)<br/>FOUR DRIVERS EXECUTED 2026-05-19 — OUTCOME MARGINAL-D + cross-cat A weak<br/>(σ_LSS 30°→6.83° AVE-Longo; CMB-LSS excluded at 5.33σ from zero;<br/>Shamir-DESI vs CMB at 3.77°/0.09σ within σ_Shamir~42°;<br/>methodology-systematic surface at SDSS level 2.99σ;<br/>three-observable consistency check FAILING in AVE-Longo methodology;<br/>corpus pin (32°,32°) → Longo PDF (52°,68.5°) walk-back applied 2026-05-19 EOD)"]
     R3 --> C13a["C13a-GAL-ROT<br/>galactic rotation curves<br/>(a_0 + saturation kernel)"]
-    R3 --> D4COS["D4-A034 cosmic instance<br/>cosmic K4 crystallization<br/>(canonical 21-instance row)"]
+    R3 --> D4COS["D4-A034 cosmic instance<br/>cosmic K4 crystallization<br/>(canonical 26-instance row)"]
 
     %% Three-route convergence (the framework commitment)
     R1 --> COMMIT{{"3-ROUTE FRAMEWORK COMMITMENT<br/>α + G + 𝒥_cosmic → SAME u_0*<br/>or framework falsified"}}
@@ -1053,7 +1062,7 @@ From the cross-cascade dependency table in the ξ_topo section, the 6 rows that 
 The 4 framework-anchor cascades + IC meta-cascade cover the foundational scalars. Domain-specific cascades that would be useful additions:
 
 - **(2,q) torus-knot family ladder** — particle-mass cascade (electron 0_1, proton (2,5), Δ (2,7), …); touches A1-HOPF, B3-PD-FRACTURE, C3-MUON-DELTA, C8-BARYON-LADDER, C10-MUON-LIFE
-- **A-034 universal saturation kernel catalog** — already partially mapped via individual instance rows; could become its own cross-instance consistency diagram with 21 leaf-nodes
+- **A-034 universal saturation kernel catalog** — already partially mapped via individual instance rows; could become its own cross-instance consistency diagram with 26 leaf-nodes
 - **Op14 cross-sector trading** — the bond-LC-tank mechanism underlying PONDER family + B4-PROTEIN + dark-wake derivations
 - **K4 substrate mechanics** ($p_c = 8\pi\alpha$, FTG-EMT z_0 = 51.25, K=2G operating point) — already touched at the apex but not visualized as a substrate-mechanics cascade
 
@@ -1062,8 +1071,7 @@ Each domain cascade costs ~30-60 lines of Mermaid. Add as audited or as the matr
 ---
 
 
-> → Primary: [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — the 21-instance cross-scale catalogue that underlies Tier D and several Tier C predictions
-> → Primary: [Common Foreword](../../frontmatter/00_foreword.tex) — canonical narrative source for the "Epistemic Position" + "Falsifiable Standard" + "Three-Route Framework Commitment" framings
+> → Primary: [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — the 26-instance cross-scale catalogue that underlies Tier D and several Tier C predictions
 > ↗ See also: [A-031 Refined: Cosmic-Parameter Horizon](cosmic-parameter-horizon-a031-refinement.md) — Route 3 ($\mathcal{J}_{cosmic}$) bottleneck and the observable-mechanism vs cosmic-parameter distinction
 > ↗ See also: [Measurement Hierarchy SNR](../vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md) — bench-class SNR framing for the Tier A and Tier B substrate
 > ↗ See also: [Three Boundary Observables: $\mathcal{M}$, $\mathcal{Q}$, $\mathcal{J}$](boundary-observables-m-q-j.md) — substrate-observability rule that frames "what is measurable" at any saturation surface

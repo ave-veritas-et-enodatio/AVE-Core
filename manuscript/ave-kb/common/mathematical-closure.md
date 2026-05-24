@@ -2,7 +2,7 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-sxn6eo, clm-ibfyda]
+claims: [clm-sxn6eo, clm-ibfyda, clm-k3p9wz]
 path-stable: "referenced from vol1 as app:verification"
 -->
 
@@ -90,7 +90,7 @@ From these initial geometric anchors and four structural rules, all fundamental 
 - **Geometry & Symmetries (Parameters 1 & 2):** Dividing the localized topological yield by the continuous macroscopic Schwinger yield dictates the emergence of the macroscopic fine-structure geometric constant ($1/\alpha = 8\pi/p_c$). The $\mathbb{Z}_3$ symmetry of the Borromean proton generates $SU(3)$ color symmetry, evaluating the Witten Effect to predict $\pm 1/3e$ and $\pm 2/3e$ fractional charges.
 - **Electromagnetism (Axioms 1 & 2):** Axiom 2's topo-kinematic mechanism yields the topological conversion constant ($\xi_{topo}$), demonstrating that magnetism is equivalent to kinematic convective vorticity ($\mathbf{H} = \mathbf{v} \times \mathbf{D}$); Axiom 1 supplies the wave dynamics propagating this charge.
 - **The Electroweak Layer (Axioms 1 & 2):** Axiom 1's LC network, evaluated via Effective Medium Theory (EMT) for a 3D amorphous central-force network with coordination $z_0 \approx 51.25$, shows that $K/G = 2$ at the unique operating point $p^* = 8\pi\alpha \approx 0.1834$, located $56.7\%$ above the rigidity threshold. The vacuum is a rigid solid, not a marginal glass. This trace-reversed geometric boundary forces the macroscopic vacuum Poisson's ratio to $\nu_{vac} = 2/7$, which evaluates the Weak Mixing Angle acoustic mass ratio ($m_W / m_Z = \sqrt{7}/3 \approx 0.8819$). The fine-structure value of $\alpha$ entering this constraint is fixed by Axiom 2.
-- **Gravity, Orbital Mechanics, and Cosmology (derived consequence of Axioms 1 + 4):** Projecting a 1D QED string tension into the 3D bulk metric via the trace-reversed tensor yields the $1/7$ isotropic projection factor for massive defects. Integrating the 1D causal chain across the 3D holographic solid angle, bounded by the cross-sectional porosity ($\alpha^2$) of the discrete graph, analytically binds macroscopic gravity ($G = \hbar c/(7\xi\,m_e^2)$) and the Asymptotic de Sitter Expansion Limit ($H_\infty$) into a single, unified mathematical identity. For macroscopic orbital mechanics natively bounded by baryonic crystal arrays (the Geodynamo target layer and the Moons' inductive resonant shell), the structural Sagnac reflection boundary forces a geometric power scaling structurally equal to the Torus knot eigenvalue of the Proton ($m_p/m_e \approx 1836.12$), uniting the quantum mass hierarchy directly to the limits of physical Earth-space topological drag boundaries without arbitrary statistical parameters.
+- **Gravity, Orbital Mechanics, and Cosmology (derived consequence of Axioms 1 + 4):** Projecting a 1D QED string tension into the 3D bulk metric via the trace-reversed tensor yields the $1/7$ isotropic projection factor for massive defects. Integrating the 1D causal chain across the 3D holographic solid angle, bounded by the cross-sectional porosity ($\alpha^2$) of the discrete graph, analytically binds macroscopic gravity ($G = \hbar c/(7\xi\,m_e^2)$) and the Asymptotic de Sitter Expansion Limit ($H_\infty$) into a single, unified mathematical identity. <!-- claim-quality: clm-k3p9wz --> For macroscopic orbital mechanics natively bounded by baryonic crystal arrays (the Geodynamo target layer and the Moon's inductive resonant shell), the macroscopic Sagnac drag-boundary amplification is **conjectured** to equal the Torus knot eigenvalue of the Proton ($m_p/m_e \approx 1836.12$) — an **asserted cross-scale identity** (`clm-k3p9wz`). The numerical match is striking, but the mechanism connecting the proton's Faddeev eigenvalue to a macroscopic drag amplification is **not derived**; the "quantum mass hierarchy → Earth-space topological drag" unification this would imply is a forward conjecture, not an established identity.
 - **The Dark Sector (Axiom 4):** The strict EFT hardware packing fraction ($p_c \approx 0.1834$) limits excess thermal energy storage during lattice genesis, proving Dark Energy is a mathematically stable phantom energy state ($w \approx -1.0001$). The generative expansion of the lattice sets a fundamental continuous Unruh-Hawking drift. The exact topological derivation of the substrate mass density ($\rho_{bulk}$) and mutual inductance ($\nu_{vac}$) dictates a saturating Dielectric Saturation-plastic transition, mathematically recovering the exact empirical MOND acceleration boundary ($a_{genesis} = c H_\infty / 2\pi$), dynamically yielding flat galactic rotation curves without invoking non-baryonic particulate dark matter.
 
 ## Explicit Closure DAG
@@ -142,19 +142,17 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 | Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
 |---|---|---|---|---|
 | **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
-| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter ([Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter (Vol 3 Ch 14 (Orbital Mechanics / Solar)) |
 | **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
 | **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
 
 **Methodological significance:** Each empirical anchor uses **zero free parameters** beyond the framework's existing 3 inputs ($\ell_{node}$, $\alpha$, $G$ — themselves derived in Layer 8). The kernel is not fit per-scale; it is the *same* $\sqrt{1 - A^2}$ kernel applied in different physical regimes. This is the strongest form of cross-scale verification possible for an axiom: the kernel asserted abstractly in Vol 1 Ch 1 is shown empirically to be the same operator governing pairing, plasma reorganization, gravitational wave damping, and event-horizon formation.
 
-**Full enumeration:** the 4 anchors above are the most-validated members of a **21-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
+**Full enumeration:** the 4 anchors above are the most-validated members of a **26-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
 
 **Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
 
-**Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
-
-These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 21 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
+These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 26 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
 
 ## Outstanding Rigour Gaps
 

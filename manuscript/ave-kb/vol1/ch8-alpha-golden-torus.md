@@ -8,7 +8,7 @@ claims: [clm-3zz0f6, clm-5xon03, clm-0ktpcn, clm-unk0bd]
 # Ch.8: Zero-Parameter Closure — $\alpha$ from the Golden Torus
 <!-- claim-quality: clm-0ktpcn -->
 
-**Source:** [`manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex`](../../vol_1_foundations/chapters/08_alpha_golden_torus.tex)
+**Source:** `manuscript/vol_1_foundations/chapters/08_alpha_golden_torus.tex`
 
 **Scripts:**
 - [`derive_alpha_from_golden_torus.py`](../../../src/scripts/vol_1_foundations/derive_alpha_from_golden_torus.py) — multipole evaluation, renders Fig. of trefoil at Golden Torus
@@ -145,7 +145,7 @@ Conditional on (a)–(c), the framework is zero-free-parameters at the SM level.
 **Framework closure status (refined 2026-05-15 evening):** the framework is reduced from "three independent calibration constants ($\alpha$, $G$, $\ell_{\text{node}}$)" to a **one-cosmological-parameter** theory with three observational windows. The single cosmological initial-data parameter $\Omega_{\text{freeze}}$ (the substrate's rotation rate at lattice genesis) sets the magic-angle operating point $u_0^*$; from $u_0^*$ the framework derives:
 
 1. **Route 1 (electromagnetic):** $\alpha$ via the Golden Torus Q-factor closure above
-2. **Route 2 (gravitational):** $G = c^4 / (7\xi T_{EM}(u_0^*))$ via the Machian impedance integral (see [Vol 3 Ch 4](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex))
+2. **Route 2 (gravitational):** $G = c^4 / (7\xi T_{EM}(u_0^*))$ via the Machian impedance integral (see Vol 3 Ch 4)
 3. **Route 3 (cosmological):** $\mathcal{J}_{\text{cosmic}}$ via $\Omega_{\text{freeze}} = \mathcal{J}_{\text{cosmic}} / I_{\text{cosmic}}$ measured from CMB / LSS anomaly observables
 
 **All three routes must give the same $u_0^*$** or the single-cosmological-parameter framework is falsified. See [A-031 refined: cosmic-parameter horizon vs observable mechanism](../common/cosmic-parameter-horizon-a031-refinement.md) for the full three-route framework commitment and the substrate-observability separation of inaccessible cosmic parameters from observable mechanism (per A-034). The 26 Standard Model constants are then determined by four axioms + the single cosmological IC + the topological requirement that the smallest stable soliton is the $0_1$ unknot with $(2,3)$ phase-space trefoil winding pattern.

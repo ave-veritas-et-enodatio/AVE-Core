@@ -25,7 +25,7 @@ The AVE substrate has **two disjoint operating regimes** requiring two specializ
 
 **Master Equation FDTD** implements the substrate's non-linear d'Alembertian:
 $$\nabla^2 V - \mu_0 \varepsilon_0 \sqrt{1 - (V/V_{\text{yield}})^2}\, \partial_t^2 V = 0$$
-which has both $Z(V)$ and $c_{\text{eff}}(V) = c_0/\sqrt{S(A)}$ modulation, per the canonical derivation at [`vol_1_foundations/chapters/04_continuum_electrodynamics.tex:46-77`](../../vol_1_foundations/chapters/04_continuum_electrodynamics.tex). This is the canonical bound-state engine. **Mechanism**: inside the saturated core, $\varepsilon_{\text{eff}} = \varepsilon_0 \cdot S \to 0$ so the wave speed $c_{\text{eff}} = c_0/\sqrt{S} \to \infty$ (thinner dielectric → faster propagation). At the saturation boundary, $\Gamma \to -1$ reflects the wave back into the core, trapping it as a stable breathing soliton. The soliton's center-of-mass propagation rate is bounded by the saturate-desaturate cycle time at the boundary nodes (which scales as $\tau_{\text{cycle}} \propto 1/\sqrt{S}$); at velocity $v \to c_0$, cycle backlog produces Lorentz contraction $\gamma = 1/S(v/c_0)$, recovering Q-G24 lorentz-from-Axiom-4 derivation.
+which has both $Z(V)$ and $c_{\text{eff}}(V) = c_0/\sqrt{S(A)}$ modulation, per the canonical derivation at `vol_1_foundations/chapters/04_continuum_electrodynamics.tex:46-77`. This is the canonical bound-state engine. **Mechanism**: inside the saturated core, $\varepsilon_{\text{eff}} = \varepsilon_0 \cdot S \to 0$ so the wave speed $c_{\text{eff}} = c_0/\sqrt{S} \to \infty$ (thinner dielectric → faster propagation). At the saturation boundary, $\Gamma \to -1$ reflects the wave back into the core, trapping it as a stable breathing soliton. The soliton's center-of-mass propagation rate is bounded by the saturate-desaturate cycle time at the boundary nodes (which scales as $\tau_{\text{cycle}} \propto 1/\sqrt{S}$); at velocity $v \to c_0$, cycle backlog produces Lorentz contraction $\gamma = 1/S(v/c_0)$, recovering Q-G24 lorentz-from-Axiom-4 derivation.
 
 **Prior verbal description "waves slow at the saturation core" (pre-2026-05-18) is superseded** — that framing inverted $c_{\text{eff}}$ relative to the canonical Vol 1 Ch 4 derivation. Correct picture: wave speed RISES inside the saturated core; what's bounded by the saturation kernel is the soliton's BOUNDARY propagation rate, not the internal wave speed.
 
@@ -81,7 +81,7 @@ See [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-clos
   - `src/ave/topological/cosserat_field_3d.py` — Cosserat field implementation (validated standalone, factor-of-4 mass gap)
 - **Canonical manuscript anchors:**
   - Common Foreword §"The Synthesis: The Unifying Master Equation" — Master Equation as the dielectric specialization of Axiom 4's universal saturation kernel
-  - [Backmatter Ch 4 Physics Engine Architecture](../../backmatter/04_physics_engine_architecture.tex) — engine architecture canonical
+  - Backmatter Ch 4 Physics Engine Architecture — engine architecture canonical
 - **Related KB leafs:**
   - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — Cosserat substrate-scale work uses cosserat_field_3d.py
   - [Solver Toolchain](solver-toolchain.md) — universal regime-boundary eigenvalue method (engine-agnostic)

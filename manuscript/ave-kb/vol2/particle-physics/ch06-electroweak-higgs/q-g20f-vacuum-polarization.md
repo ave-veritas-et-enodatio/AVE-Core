@@ -62,8 +62,8 @@ AVE's chiral Laves K4 Cosserat substrate (Axiom 1) introduces an additional **ch
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 4 (Continuum Electrodynamics)](../../../../vol_1_foundations/chapters/04_continuum_electrodynamics.tex) — Master Equation + Lagrangian
-  - [Vol 2 Ch 6 (Electroweak and Higgs)](../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) — gauge-boson masses + QED limit
+  - Vol 1 Ch 4 (Continuum Electrodynamics) — Master Equation + Lagrangian
+  - Vol 2 Ch 6 (Electroweak and Higgs) — gauge-boson masses + QED limit
 - **Sibling leafs:**
   - [Q-G19α Petermann (50 ppm)](q-g19a-petermann-saliency-closure.md) — electron anomalous moment matches QED at 50 ppm precision (sister loop-level closure)
   - [Q-G18 Schwinger Pair Production WKB](../ch01-topological-matter/q-g18-schwinger-pair-wkb.md) — atomic-scale kernel application; same saturation kernel

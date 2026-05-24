@@ -27,6 +27,23 @@ _REQUIRED_FILES = (
     "subtree-aggregates.jsonl",
 )
 
+# Canonical build-band enum, in descending-solidity order. The slugs are the
+# values written into each claim's ``build_band`` field by the derived-index
+# pipeline (``kb_index_lib.derive_build_band``); the labels mirror the
+# build-status legend in the root ``claim-quality.md``. The terminal
+# ``"unknown"`` slug is the pending (unscored) bucket — a claim whose solidity
+# is null carries ``build_band == "unknown"``. This module is self-contained
+# (no import from ``manuscript/ave-kb/tools/``), so the slug→label mapping is
+# kept here; the slugs themselves remain owned by the pipeline.
+BUILD_BANDS: tuple[tuple[str, str], ...] = (
+    ("ok-to-build", "ok to build on"),
+    ("ok-with-caveats", "ok to build on, see caveats"),
+    ("input-only", "use as input only"),
+    ("do-not-build", "do not build on, rework needed"),
+    ("refuted", "refuted, do not use"),
+    ("unknown", "*pending*"),
+)
+
 
 # ---------------------------------------------------------------------------
 # Dataclasses
@@ -492,6 +509,21 @@ class Index:
             "citation_edges": len(self._cites),
             "subtree_aggregates": len(self._subtree_aggregates),
         }
+
+    @property
+    def band_distribution(self) -> dict[str, int]:
+        """Claim count per build band, keyed by slug, descending-solidity order.
+
+        Counts ``node_type == "claim"`` records by their stored ``build_band``.
+        Every slug in :data:`BUILD_BANDS` is present (zero when empty), so the
+        result is a complete, stably-ordered view. The counts sum to the total
+        claim count. ``"unknown"`` is the pending (unscored) bucket.
+        """
+        counts = {slug: 0 for slug, _ in BUILD_BANDS}
+        for c in self._claims:
+            if c.build_band in counts:
+                counts[c.build_band] += 1
+        return counts
 
 
 # ---------------------------------------------------------------------------

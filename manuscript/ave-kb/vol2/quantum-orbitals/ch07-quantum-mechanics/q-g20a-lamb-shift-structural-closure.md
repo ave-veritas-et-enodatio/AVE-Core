@@ -61,7 +61,7 @@ where the logarithm runs from $\alpha m_e c$ to $1/\ell_{\text{node}} = m_e c / 
   - [Q-G20f Vacuum Polarization](../../particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md) — vacuum-polarization input
   - [Electron Unknot (Vol 2 Ch 1)](../../particle-physics/ch01-topological-matter/electron-unknot.md) — finite-size self-energy input
 - **Canonical manuscript anchors:**
-  - [Vol 2 Ch 7 (Quantum Mechanics and Orbitals)](../../../../vol_2_subatomic/chapters/07_quantum_mechanics_and_orbitals.tex) — hydrogen / 2S / 2P canonical framework
+  - Vol 2 Ch 7 (Quantum Mechanics and Orbitals) — hydrogen / 2S / 2P canonical framework
 - **Related precision tests in same chapter:**
   - [Helium Symmetric Cavity](./helium-symmetric-cavity.md) — He IE at $-1.6\%$ from CODATA via mutual cavity loading
   - [Ionization Energy Validation Z=1 to 14](./ionization-energy-validation.md) — broader Z-sweep precision

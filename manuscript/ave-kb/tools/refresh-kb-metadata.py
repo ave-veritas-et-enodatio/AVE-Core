@@ -201,8 +201,10 @@ def _solidity_line(base_value, solidity, min_dep) -> str:
     ``confidence`` or a support's ``quality`` (INVARIANT-S10). ``solidity`` is
     the computed value; ``min_dep`` is the minimum dependency solidity (or
     ``None`` when the entry has no depends-on edges). With dependencies the line
-    carries an arithmetic trace ``[= <base> × <min-dep-solidity>]``; without,
-    the trace is omitted (solidity trivially equals the base value).
+    carries an arithmetic trace ``[= min(<base>, <min-dep-solidity>)]`` — the
+    weakest-link dep-gate that produced the value, so a reader sees why it is
+    what it is; without deps the trace is omitted (solidity trivially equals the
+    base value).
 
     When ``solidity`` is ``None`` the entry has no computable solidity — its
     base is ``*pending*`` OR a dependency's solidity is ``*pending*``
@@ -215,7 +217,7 @@ def _solidity_line(base_value, solidity, min_dep) -> str:
     base = f"- solidity: {_fmt(solidity)} ({phrase})"
     if min_dep is None:
         return base
-    return f"{base} [= {_fmt(base_value)} × {_fmt(min_dep)}]"
+    return f"{base} [= min({_fmt(base_value)}, {_fmt(min_dep)})]"
 
 
 def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:
@@ -372,6 +374,138 @@ def _rewrite_claim_quality_solidity(
         path.write_text(new_text)
         return 1, solidity_changes, annotation_changes
     return 0, solidity_changes, annotation_changes
+
+
+def _entry_footer_regions(lines: list[str]) -> dict[str, tuple[int, int]]:
+    """Map each entry id to the line range of its body (id-marker → Quality).
+
+    For every ``<!-- id: (clm|sup)-xxxxxx -->`` marker (experiment nodes live in
+    leaves, not registers, so only clm/sup entries appear here), returns
+    ``[body_start, quality_start)`` over ``lines`` — ``body_start`` is the line
+    AFTER the id-marker, ``quality_start`` is the ``### Quality`` heading line.
+    The ``> **Leaf references:**`` footer lives in this band (after the prose,
+    before Quality), so the rewrite searches it for an existing footer and, if
+    absent, inserts the footer immediately before ``quality_start``.
+
+    Computed on fence-scrubbed text (line indices unchanged by scrubbing, so
+    they map back to raw ``lines``). An entry with no ``### Quality`` section is
+    omitted (the quality-block-integrity check flags that separately).
+    """
+    scrubbed = kb_index_lib._strip_code_fences("\n".join(lines)).splitlines()
+    id_lines: list[tuple[int, str]] = []
+    for i, line in enumerate(scrubbed):
+        m = CANONICAL_ANY_ID_LINE.match(line.strip())
+        if m:
+            id_lines.append((i, m.group(1)))
+
+    regions: dict[str, tuple[int, int]] = {}
+    for id_line, node_id in id_lines:
+        qstart: int | None = None
+        for j in range(id_line + 1, len(scrubbed)):
+            if scrubbed[j].strip() == "### Quality":
+                qstart = j
+                break
+            if scrubbed[j].startswith("## "):
+                break
+        if qstart is None:
+            continue
+        regions[node_id] = (id_line + 1, qstart)
+    return regions
+
+
+def _rewrite_claim_quality_leaf_references(
+    path: Path,
+    register_rel: str,
+    leaf_references: dict[str, list[str]],
+) -> tuple[int, list[tuple[str, str, str]]]:
+    """Rewrite the derived ``> **Leaf references:**`` footer in one register.
+
+    For every ``clm-`` / ``sup-`` entry in ``path``, regenerates the footer from
+    the reverse-citation map ``leaf_references`` (``{node_id: [leaf paths]}``).
+    The footer is a single blockquote line in the band between the entry's
+    ``<!-- id: ... -->`` marker and its ``### Quality`` heading: if a line
+    starting with ``> **Leaf references:**`` is present there it is replaced;
+    otherwise the footer is inserted just before ``### Quality`` (with blank-line
+    separators). Lines already in canonical form are left byte-identical, so the
+    rewrite is idempotent.
+
+    Returns ``(files_changed, footer_changes)`` where ``files_changed`` is 0 or
+    1 and ``footer_changes`` holds ``(node_id, old, new)`` tuples for reporting.
+    """
+    text = path.read_text()
+    had_final_newline = text.endswith("\n")
+    lines = text.split("\n")
+    if had_final_newline:
+        lines = lines[:-1]
+
+    regions = _entry_footer_regions(lines)
+    footer_changes: list[tuple[str, str, str]] = []
+
+    # Edit by node id in DESCENDING region order so insertions never shift the
+    # line indices of regions not yet processed.
+    for node_id, (body_start, qstart) in sorted(
+        regions.items(), key=lambda kv: kv[1][0], reverse=True
+    ):
+        new_footer = kb_index_lib.render_leaf_references(
+            register_rel, leaf_references.get(node_id, [])
+        )
+        footer_idx: int | None = None
+        for idx in range(body_start, qstart):
+            if lines[idx].startswith(kb_index_lib.LEAF_REFERENCES_PREFIX):
+                footer_idx = idx
+                break
+        if footer_idx is not None:
+            if lines[footer_idx] != new_footer:
+                footer_changes.append((node_id, lines[footer_idx], new_footer))
+                lines[footer_idx] = new_footer
+        else:
+            # Insert before `### Quality`, ensuring one blank line on each side.
+            insert_at = qstart
+            block = [new_footer, ""]
+            if insert_at > body_start and lines[insert_at - 1].strip() != "":
+                block = ["", *block]
+            lines[insert_at:insert_at] = block
+            footer_changes.append((node_id, "(none)", new_footer))
+
+    new_text = "\n".join(lines)
+    if had_final_newline:
+        new_text += "\n"
+    if new_text != text:
+        path.write_text(new_text)
+        return 1, footer_changes
+    return 0, footer_changes
+
+
+def _refresh_leaf_references() -> tuple[int, list]:
+    """Regenerate the ``> **Leaf references:**`` footer across every register.
+
+    The reverse-citation map is computed ONCE via
+    ``kb_index_lib.build_leaf_references`` over the whole KB state — the SAME
+    function the verifier's drift gate consumes — so the written footer and what
+    verify recomputes cannot drift. Every ``claim-quality.md`` register is
+    rewritten (a register holding only support entries still gets its footers
+    refreshed).
+
+    Returns ``(files_changed, footer_changes)``.
+    """
+    state = kb_index_lib.discover_kb(KB, diagnostic_stream=None)
+    leaf_references = kb_index_lib.build_leaf_references(state)
+
+    files_changed = 0
+    all_footer_changes: list = []
+    for cq in sorted(KB.rglob("claim-quality.md")):
+        if any(
+            part in kb_index_lib.EXCLUDE_DIRS
+            for part in cq.relative_to(KB).parts[:-1]
+        ):
+            continue
+        register_rel = cq.relative_to(KB).as_posix()
+        changed, footer_ch = _rewrite_claim_quality_leaf_references(
+            cq, register_rel, leaf_references
+        )
+        files_changed += changed
+        all_footer_changes.extend((register_rel, *c) for c in footer_ch)
+    return files_changed, all_footer_changes
 
 
 def _refresh_solidity() -> tuple[int, list, list]:
@@ -589,6 +723,20 @@ def main(argv: list[str] | None = None) -> int:
         print(f"    + {new.strip()}")
     for rel, cid, old, new in ann_changes:
         print(f"  [depends-on] {rel}:{cid}")
+        print(f"    - {old.strip()}")
+        print(f"    + {new.strip()}")
+
+    # Phase 1c: rewrite the derived `> **Leaf references:**` footer in every
+    # claim-quality.md entry from the reverse-citation map (which leaves host
+    # the entry's id). The footer is a derived field — hand-edits become a
+    # verify failure after this lands.
+    ref_files, ref_changes = _refresh_leaf_references()
+    print(
+        f"[refresh] Rewrote leaf-references footer in {ref_files} "
+        f"claim-quality.md file(s) ({len(ref_changes)} footer(s) changed)."
+    )
+    for rel, nid, old, new in ref_changes:
+        print(f"  [leaf-refs] {rel}:{nid}")
         print(f"    - {old.strip()}")
         print(f"    + {new.strip()}")
 

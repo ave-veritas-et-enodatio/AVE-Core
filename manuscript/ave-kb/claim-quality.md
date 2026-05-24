@@ -66,7 +66,7 @@ A new entry assigns its ID at creation time and never changes it. If an entry is
 
 `solidity` is a **derived field**, exactly like `subtree-claims`: `make refresh-kb-metadata` computes it from the authored `confidence` values and the depends-on graph, writes it back to every `solidity` line, and syncs the `(solidity X)` annotations on `depends-on` bullets. `make verify-kb-metadata` flags any drift between the on-disk value and the computed one as a refresh-fixable failure. Never edit a `solidity` line, its build-status phrase, or a `(solidity X)` annotation by hand — edit the `confidence` and re-run refresh.
 
-**Rule**: `solidity = ROUND_HALF_UP_2DP(confidence × min(dependency_solidity_values))`. For an entry with no entry-level dependencies, `solidity = confidence`. Rounding is round-half-up to 2 decimal places (the 0.005 boundary rounds away from zero); propagation uses each dependency's already-rounded solidity, so the arithmetic in the `[= confidence × min-dep-solidity]` trace audits exactly. The depends-on graph is a DAG; solidity is computed bottom-up in topological order. A cycle would make solidity undefined — `make verify-kb-metadata` carries a standing acyclicity check that hard-fails on one.
+**Rule**: `solidity = ROUND_HALF_UP_2DP(min(confidence, *dependency_solidity_values))` — the **weakest link** in the entry's dependency cone, not a product down the chain. `min` is refactor-invariant (splitting one derivation step into two same-quality steps does not lower it, and a deep clean chain does not decay toward 0 as a bookkeeping artifact of granularity) and is the honest algebra for ordinal confidence grades, which are quality bands, not independent probabilities to be multiplied. Framework deps (Axiom/INVARIANT) contribute 1.0 and so never lower the min. For an entry with no entry-level dependencies, `solidity = confidence`. Rounding is round-half-up to 2 decimal places (the 0.005 boundary rounds away from zero); propagation uses each dependency's already-rounded solidity, so the arithmetic in the `[= min(confidence, min-dep-solidity)]` trace audits exactly (the trace shows `confidence` and the single binding — minimum — dependency solidity). The depends-on graph is a DAG; solidity is computed bottom-up in topological order. A cycle would make solidity undefined — `make verify-kb-metadata` carries a standing acyclicity check that hard-fails on one. (Changed from the earlier `confidence × min(deps)` product form 2026-05-24; hand-assessed `confidence` values are unchanged.)
 
 **Hard rule — `*pending*` propagates transitively (NaN semantics).** An entry's `confidence` is `*pending*` until it has been quality-assessed. An entry's `solidity` is `*pending*` if its `confidence` is `*pending*` **OR** any of its dependencies' solidity is `*pending*` — **regardless of the entry's own local `confidence`**. An entry with `confidence: 1.0` that depends on a single pending entry still has `solidity: *pending*`. Pending-ness propagates through the depends-on graph exactly like NaN through arithmetic: one pending input poisons the result. Framework dependencies (invariant / axiom targets) are **never** pending — they are solidity-1.0 bedrock by definition, so an entry depending only on framework nodes is not pending (its `solidity` equals its `confidence`). A pending `solidity` is written as the bare line `- solidity: *pending*` (no build-status phrase, no arithmetic trace), and a depends-on bullet whose target is pending carries `(solidity *pending*)`. `make refresh-kb-metadata` derives all of this; assessing one volume while a volume it depends on is still pending leaves the dependent volume's entries pending until that upstream volume is assessed.
 
@@ -118,7 +118,7 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
   - Does NOT claim symmetric vs asymmetric is a free-parameter distinction. The symmetry case is determined by physics, not chosen.
   - LIVING_REFERENCE.md Pitfall #5: any framework summary suggesting "AVE predicts $\Delta\alpha/\alpha \neq 0$ from gravity" reads symmetric-cancellation steps as predictions; the actual derivation result under symmetric gravity is **invariance**.
 
-> **Leaf references:** Axiom 4 statement leaves in `vol1/`; symmetric-case mapping in `vol3/gravity/` (BH interior, GW propagation); asymmetric-case mapping in `vol4/circuit-theory/` (nonlinear constitutive); particle-confinement in `vol2/particle-physics/`.
+> **Leaf references:** [einstein-field-equation](./vol3/gravity/ch02-general-relativity/einstein-field-equation.md), [nonlinear-vacuum-capacitance](./vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
 
 ### Quality
 - confidence: 0.85
@@ -132,7 +132,7 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
 ## α Invariance Under Symmetric Gravity
 <!-- id: clm-3zz0f6 -->
 
-Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
+The Machian boundary sets $G = \hbar c / (7\xi \cdot m_e^2)$ (a derived consequence of Axioms 1 + 4). Under Symmetric Gravity, $\varepsilon_{local}$ and $c_{local}$ both carry the same $n \cdot S$ factor.
 
 - $\alpha = e^2/(4\pi \varepsilon_0 \hbar c)$
 - _Specific Claims_
@@ -147,11 +147,13 @@ Axiom 3 sets $G = \hbar c / (7\xi \cdot m_e^2)$. Under Symmetric Gravity, $\vare
 
 > **References:** Canonical leaf for the bound: [`vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`](vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (Derived Consequence 1 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Companion leaf for the temporal/spatial decomposition: [`vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`](vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md) (Derived Consequence 2). Cross-volume invariant restatement: `LIVING_REFERENCE.md` Axiom 3 entry ("α invariance" and "Lattice decomposition" sub-bullets); LIVING_REFERENCE.md Pitfall #5 for the contamination warning. Note: [`CLAUDE.md`](./CLAUDE.md) INVARIANT-S2 lists the four AVE axioms in their bare form; the derived-consequence sub-bullets under Axiom 3 are in LIVING_REFERENCE.md, not in CLAUDE.md. The α thermal-running effect derivation is in [`vol1/ch8-alpha-golden-torus.md`](vol1/ch8-alpha-golden-torus.md).
 
+> **Leaf references:** [ch8-alpha-golden-torus](./vol1/ch8-alpha-golden-torus.md), [alpha-invariance-symmetric-gravity](./vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md), [temporal-spatial-lattice-decomposition](./vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md).
+
 ### Quality
 - confidence: 0.85
 - depends-on:
   - clm-8nkvwy — Symmetric vs Asymmetric Saturation (solidity 0.85) [the cancellation argument depends on the symmetric case]
-- solidity: 0.72 (ok to build on, see caveats) [= 0.85 × 0.85]
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.85)]
 - rationale: Direct algebraic consequence of Axiom 3 + the symmetric saturation case: under symmetric saturation, $\varepsilon$ and $c$ both carry the same $n \cdot S$ factor, which cancels in $\alpha = e^2/(4\pi\varepsilon_0\hbar c)$, giving $\Delta\alpha/\alpha = 0$ exactly. The lattice decomposition ($n_{temporal} = 1 + (2/7)\varepsilon_{11}$ governing redshift/clock-rate; $n_{spatial} = 1 + (9/7)\varepsilon_{11}$ governing light deflection; Axiom 3's $n(r) = 1 + 2GM/c^2 r$ as the temporal component) is structurally derived. Pitfall #5 contamination warning is properly disclosed.
 - strengthen-by:
   - Strengthen the temporal/spatial lattice decomposition derivation in `vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md` (the 2/7 vs 9/7 split would benefit from an explicit axiom-grounded derivation tying $n_{temporal}$ and $n_{spatial}$ to the Cosserat decomposition)
@@ -175,7 +177,7 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
   - Does NOT claim any of the four BCS materials' $B_{c,0}$ values are AVE-derived. Only the temperature dependence is the axiom manifestation.
   - This is one specific instance of the project-wide meta-tripwire ("Reading Conventions for the Master Prediction Table" above): "0.00%" or "Exact" entries elsewhere may belong to different classification categories. Each row's classification matters; a global "AVE achieves 0.00% on N predictions" claim collapses meaningful distinctions.
 
-> **Leaf references:** Axiom 4 statement leaves in `vol1/`; BCS mapping leaves in `vol3/condensed-matter/`.
+> **Leaf references:** [critical-field-validation](./vol3/condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md).
 
 ### Quality
 - confidence: 0.85
@@ -203,6 +205,8 @@ CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The brid
 
 > **References:** CLAUDE.md INVARIANT-C2; canonical definition leaf in `vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`; vol4/vol6 manifestations cited in their respective sidecars.
 
+> **Leaf references:** [electromechanical-transduction-constant](./vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md).
+
 ### Quality
 - confidence: 0.90
 - solidity: 0.90 (ok to build on)
@@ -229,12 +233,14 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
 
 > **References:** Master Prediction Table #23; canonical leaf `vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`. Vol1 sidecar carries an "Asymptotic Hubble Constant $H_\infty$ and MOND $a_0$" entry; vol3 sidecar carries the full "Asymptotic Hubble Constant $H_\infty$" entry. Vol2 sidecar does not currently carry a Hubble entry — vol2 leaves do touch $H_\infty$ in cosmology framing, so a vol2 entry that cross-references back here would be appropriate (logged as followup, not blocking).
 
+> **Leaf references:** [lattice-genesis-hubble-tension](./vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md).
+
 ### Quality
 - confidence: 0.85
 - depends-on:
-  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.23) [for $H_\infty$'s $\alpha^{-2}$ factor]
-  - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.32) [for the consistency-proof framing of $H_\infty$ vs $G$]
-- solidity: 0.20 (do not build on, rework needed) [= 0.85 × 0.23]
+  - clm-0ktpcn — Golden Torus α Derivation (solidity 0.45) [for $H_\infty$'s $\alpha^{-2}$ factor]
+  - clm-5xon03 — Zero-Parameter Closure Status (solidity 0.45) [for the consistency-proof framing of $H_\infty$ vs $G$]
+- solidity: 0.45 (use as input only, don't build deeper) [= min(0.85, 0.45)]
 - rationale: The boundary correctly frames the $H_\infty$ formula as a **geometric self-consistency relation**, not an independent ab-initio prediction (Machian $\xi$ embeds $R_H \equiv c/H_\infty$ in $G$'s definition; one identity in $(G, H_\infty)$, not two). The Hubble Tension framing — both Planck and SH0ES are compatible with the same geometric constraint at different thermodynamic regimes — is correctly bounded as NOT a tension-resolution-via-AVE-output. Local confidence high (0.85) for the meta-disclosure work; solidity α-bounded for any numerical use.
 - strengthen-by:
   - Promote the Hubble identity to a true downstream prediction by deriving $G$ from local thermodynamic balance independent of $R_H$ (echoes Closure Status open item; closing this lifts the framework-level claim from consistency-proof to derived-prediction)

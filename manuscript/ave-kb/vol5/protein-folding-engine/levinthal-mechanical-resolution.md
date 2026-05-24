@@ -66,10 +66,8 @@ At a particular configuration the strain $A \to 1$ on a critical bond, $S(A) \to
 
 ### Cross-references
 
-> → Primary: [Vol 5 Ch 2 §sec:z_topo_framework](../../../vol_5_biology/chapters/02_organic_circuitry.tex) lines 695-720 — canonical manuscript source
->
 > → Primary: [Topological Impedance $Z_{\text{topo}}$ Definition](./z-topo-definition.md) — the impedance that drives the mechanism
 >
-> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — full 21-instance cross-scale catalog
+> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — full 26-instance cross-scale catalog
 >
 > ↗ See also: [Vol 5 Translation Tables](../common/translation-protein.md) — Biology↔EE↔AVE terminology mapping (Levinthal's paradox row: "Why doesn't the line ring forever? — Deterministic Z-driven gradient")

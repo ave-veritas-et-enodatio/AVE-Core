@@ -52,10 +52,8 @@ These are AVE-Protein-canonical (engineering compendium scope), not Core-canonic
 
 ## Cross-references
 
-> → Primary: [Vol 5 Ch 2 §"Topological Impedance and the Levinthal Resolution (Framework)"](../../../vol_5_biology/chapters/02_organic_circuitry.tex) — canonical manuscript source (lines 678-770)
->
 > → Primary: [Molecular Foundations](../molecular-foundations/index.md) — Vol 5 Ch 1-2 atomic translation layer that supplies $\xi_{\text{topo}}$, atomic mass→inductance, bond stiffness→capacitance, H-bond Op4, etc.
 >
-> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — protein folding is row "Protein folding" in the 21-instance biological-substrate-scales subcatalog
+> → Primary: [Universal Saturation-Kernel Catalog (A-034)](../../common/universal-saturation-kernel-catalog.md) — protein folding is row "Protein folding" in the 26-instance biological-substrate-scales subcatalog
 >
 > ↗ See also: [Vol 5 Translation Tables](../common/index.md) — Biology↔EE↔AVE mapping tables; [translation-protein.md](../common/translation-protein.md) for protein-folding terminology mapping; [translation-protein-solver.md](../common/translation-protein-solver.md) for solver-domain mapping

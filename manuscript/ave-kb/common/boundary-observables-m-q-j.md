@@ -92,15 +92,15 @@ The substrate-observability rule has two non-obvious consequences that supersede
 
 ## We sit inside the cosmic $\Gamma = -1$ boundary
 
-The substrate-observability rule applies to ourselves. We are inside the cosmic $\Gamma = -1$ surface (the cosmic horizon = parent-black-hole Schwarzschild radius per the generative cosmology, [Vol 3 Ch 4 (Generative Cosmology)](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex)). We measure $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ from inside via local-physics consequences: CMB anomalies, large-scale-structure rotation, Hubble flow anisotropy. The mechanism that set $\mathcal{J}_{\text{cosmic}}$ at lattice genesis is the universal Axiom 4 strain-snap mechanism — directly observable at every smaller scale.
+The substrate-observability rule applies to ourselves. We are inside the cosmic $\Gamma = -1$ surface (the cosmic horizon = parent-black-hole Schwarzschild radius per the generative cosmology). We measure $\mathcal{M}_{\text{cosmic}}, \mathcal{Q}_{\text{cosmic}}, \mathcal{J}_{\text{cosmic}}$ from inside via local-physics consequences: CMB anomalies, large-scale-structure rotation, Hubble flow anisotropy. The mechanism that set $\mathcal{J}_{\text{cosmic}}$ at lattice genesis is the universal Axiom 4 strain-snap mechanism — directly observable at every smaller scale.
 
 ## Cross-references
 
 - **Canonical manuscript anchors:**
   - Common Foreword §"Three Boundary Observables and the Substrate-Observability Rule"
-  - [Vol 1 Ch 1 (Four Fundamental Axioms)](../../vol_1_foundations/chapters/01_fundamental_axioms.tex) §sec:substrate_vocab_box_ch1
-  - [Vol 1 Ch 8 (Alpha Golden Torus)](../../vol_1_foundations/chapters/08_alpha_golden_torus.tex) — $\alpha^{-1}$ decomposition derivation
-  - [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — same-mechanism-at-all-scales empirical demonstration
+  - Vol 1 Ch 1 (Four Fundamental Axioms) §sec:substrate_vocab_box_ch1
+  - Vol 1 Ch 8 (Alpha Golden Torus) — $\alpha^{-1}$ decomposition derivation
+  - Backmatter Ch 7 — Universal Saturation-Kernel Catalog — same-mechanism-at-all-scales empirical demonstration
 - **KB cross-cutting:**
   - [trampoline-framework.md §4-§7](trampoline-framework.md) — picture-first multi-scale hierarchy
   - [Vol 1 Ch 8 — Alpha Golden Torus](../vol1/ch8-alpha-golden-torus.md) — geometric derivation of the $\alpha^{-1}$ three-regime closure

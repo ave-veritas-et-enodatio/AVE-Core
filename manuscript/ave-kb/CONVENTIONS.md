@@ -103,7 +103,7 @@ Entry format (principle-keyed):
   - [...]
 ```
 
-The Quality Convention preamble at the top of the cross-cutting `claim-quality.md` is the canonical spec for the confidence rubric, the solidity computation rule (`solidity = confidence × min(dependency solidity)` for entries with dependencies; `solidity = confidence` otherwise), the build-status legend, and the 6-character stable-ID format. Read that preamble before editing or scoring entries; this section gives the format only.
+The Quality Convention preamble at the top of the cross-cutting `claim-quality.md` is the canonical spec for the confidence rubric, the solidity computation rule (`solidity = min(confidence, dependency solidities)` — the weakest link in the dependency cone — for entries with dependencies; `solidity = confidence` otherwise), the build-status legend, and the 6-character stable-ID format. Read that preamble before editing or scoring entries; this section gives the format only.
 
 Canonicality preamble (cross-cutting sidecar — verbatim):
 

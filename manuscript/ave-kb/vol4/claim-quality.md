@@ -21,16 +21,18 @@ The Vacuum Circuit Analysis (VCA) framework rests on a single dimensional isomor
   - The mechanical impedance cross-check $Z_{mech} = \xi_{topo}^2 Z_0 \approx 6.5 \times 10^{-11}$ kg/s is "structurally consistent within the geometric packing fraction" with the per-node acoustic impedance ($\sim 3.5 \times 10^{-10}$ kg/s) — a factor-of-$\sim 5$ residual is absorbed by the porosity correction $p_c/(8\pi) = \alpha$. Treat as order-of-magnitude consistency, not sub-percent agreement.
   - Do NOT confuse $\xi_{topo}$ (electromechanical transduction, C/m) with $\xi$ (Machian hierarchy coupling, dimensionless ≈ $8.15 \times 10^{43}$). Both share a Greek letter; they are distinct quantities (CLAUDE.md Axiom 3 entry; LIVING_REFERENCE.md Axiom 3 warning).
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md`, `circuit-theory/ch1-vacuum-circuit-analysis/translation-circuit.md`, `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`. Cross-cutting note on $\xi$ vs $\xi_{topo}$: CLAUDE.md (Axiom 3 entry) and LIVING_REFERENCE.md.
+> **Leaf references:** [topological-kinematics](./circuit-theory/ch1-vacuum-circuit-analysis/topological-kinematics.md), [translation-circuit](./circuit-theory/ch1-vacuum-circuit-analysis/translation-circuit.md), [z0-derivation](./circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (Substrate Topology — fixes $\ell_{node}$)
+  - Axiom 2 (Topo-Kinematic Isomorphism — $[Q]\equiv[L]$, defines $\xi_{topo}=e/\ell_{node}$)
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
+- rationale: The six-row translation table is derived end-to-end by substituting $\xi_{topo}$ into each standard SI definition and isolating the mechanical observable; every row carries an explicit dimensional check, and the work-energy integral verifies the $\xi_{topo}$ factors cancel identically. The only non-clean step is the impedance cross-check, which the leaf itself discloses as order-of-magnitude (factor-$\sim5$ porosity residual), not sub-percent. Pinned just below identity because the table is definitional algebra with one disclosed OOM consistency check rather than an exact match.
 - strengthen-by:
-  - *pending*
+  - Derive the porosity factor $p_c/(8\pi)=\alpha$ from lattice primitives so the $Z_{mech}$ cross-check closes to sub-percent rather than factor-5.
+  - State the $\ell_{node}=\hbar/(m_e c)$ calibration provenance inline so the table is self-contained from axioms.
 
 ---
 
@@ -50,16 +52,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Several Vol 4 leaves switch between the two thresholds without flagging the regime change. The autoresonant-breakdown / Schwinger-bypass leaves cite $\sim 60$ kV "bulk-avalanche" rather than 43.65 kV — the 60 kV figure is the D-T ion-collision strain (tokamak-paradox), not a third yield threshold.
   - The "$V_{yield}$ vs $V_{snap}$" choice does not affect any prediction quoted in Vol 4 to leading numerical accuracy; the distinction is a correctness fix, not a precision claim. Do NOT reframe the threshold change as a discrepancy or a correction.
 
-> **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md` (definitive selection table), `circuit-theory/ch2-topological-thrust-mechanics/dielectric-yield-thresholds.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #1.
+> **Leaf references:** [dielectric-yield-thresholds](./circuit-theory/ch2-topological-thrust-mechanics/dielectric-yield-thresholds.md), [regimes-of-operation](./circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 (defines $V_{snap}=m_e c^2/e$ via $\xi_{topo}^{-1}T_{EM}$)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
+- rationale: Both thresholds are definitional: $V_{snap}=m_ec^2/e$ and $V_{yield}=\sqrt{\alpha}\,V_{snap}$ are exact, and the dielectric-yield-thresholds leaf states them in a resultbox. The numerical-convergence table (identical to 4+ sig figs at PONDER fields) closes cleanly and the regime-selection logic is well-supported. The claim is a clearly-derived definitional distinction plus a verified convergence demonstration.
 - strengthen-by:
-  - *pending*
+  - Add the explicit derivation that the $\sqrt{\alpha}$ ratio is the 1D→3D yield projection (currently asserted as "macroscopic onset vs theoretical strength" analogy).
 
 ---
 
@@ -76,16 +79,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The divergence at $V = V_{yield}$ is asymptotic in the constitutive equation, not a literal infinity in any physical apparatus — leaves consistently truncate the table at $V/V_{yield} = 1.000$ where the formula breaks down; SPICE implementations clamp the ratio (e.g. `min((V/V_YLD)^2, 0.9999)`).
   - Below $V_{yield}$ the framework reproduces the standard linear vacuum; the Vol 4 claim is the **shape** of the deviation (specifically the squared-radical form), not that linear electrodynamics is wrong in its domain.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `simulation/ch18-universal-vacuum-cell/spice-subcircuit.md`, `simulation/ch17-hardware-netlists/ee-bench-netlist.md` (`ee_bench.cir` SPICE realization sweeping the $C_{eff}(V)=C_0\sqrt{1-(V/V_{yield})^2}$ plateau with the $>10\%$-deviation Anomaly Window above $\sim 37$ kV).
+> **Leaf references:** [intermodulation-distortion](./circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md), [nonlinear-vacuum-capacitance](./circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md), [ee-bench-netlist](./simulation/ch17-hardware-netlists/ee-bench-netlist.md), [spice-subcircuit](./simulation/ch18-universal-vacuum-cell/spice-subcircuit.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (Universal Saturation Kernel $S(A)=\sqrt{1-(A/A_{yield})^2}$)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
+- rationale: $C_{eff}(V)=C_0/S(V)$ is the direct application of the Axiom-4 kernel to the electric sector; the Taylor expansion (quadratic leading correction matching Euler-Heisenberg low-field form) and the divergence table close cleanly, and the SPICE subcircuit realizes the clamped form faithfully. The asymmetric-saturation caveat ($Z=Z_0/\sqrt S\to\infty$, do not apply symmetric-gravity invariance) is explicit in-leaf. A clean closed derivation from the axiom.
 - strengthen-by:
-  - *pending*
+  - Tie the clamp value ($V/V_{yield}<1$) to a physical transition-width rather than a numerical SPICE convenience.
 
 ---
 
@@ -103,16 +107,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "$S_{11}$ Return Loss of $-\infty$ dB" for the universe is a structural / interpretive consequence of perfect impedance matching, not an independent observable claim.
   - The $c \to c_0/n$ "speed of light slows in gravity" usage is **local phase velocity** — see Vol 3 cross-volume entry on temporal-vs-spatial $n$ decomposition.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`. Cross-cutting: see Symmetric vs Asymmetric Saturation in `../claim-quality.md`.
+> **Leaf references:** [resonant-lc-solitons](./circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md), [z0-derivation](./circuit-theory/ch1-vacuum-circuit-analysis/z0-derivation.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (per-cell $L_{cell}=\mu_0\ell_{node}$, $C_{cell}=\varepsilon_0\ell_{node}$)
+  - Axiom 4 (symmetric vs asymmetric saturation branch)
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
+- rationale: $Z_0=\sqrt{L_{cell}/C_{cell}}=\sqrt{\mu_0/\varepsilon_0}$ with pitch cancelling identically, and $v_g=1/\sqrt{\mu_0\varepsilon_0}=c$, are clean closed algebra; the symmetric-gravity $Z_{local}(r)=Z_0\Rightarrow\Gamma=0$ result is exact. The leaf is honest that the $Z_0$ identity carries zero predictive content. The BH-echo branch ($Z_{EH}\to0$, $\Gamma=-1$) is disclosed as in interpretive tension with the symmetric-invariance result and is not load-bearing for the core derivation, so it does not pull the band down.
 - strengthen-by:
-  - *pending*
+  - Resolve in-leaf the constitutive-parameters-individually-collapsing vs ratio-preserved distinction so the BH-echo branch is not in apparent tension with $\Gamma=0$ everywhere.
 
 ---
 
@@ -128,16 +133,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Does NOT claim a new derivation of Special Relativity from independent axioms. The mapping shows the Lorentz-saturation form is structurally a circuit-element constraint; SR-equivalent kinematics are reproduced, not novelly predicted.
   - The "particle as resonant LC tank, $E = m_e c^2 = \tfrac{1}{2}LI^2 + \tfrac{1}{2}CV^2$" mapping is structural (Virial decomposition), not an independent rest-mass derivation — $m_e$ is taken as given.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md`, `circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md`.
+> **Leaf references:** [relativistic-inductor](./circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor.md), [resonant-lc-solitons](./circuit-theory/ch1-vacuum-circuit-analysis/resonant-lc-solitons.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.85
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 ($L=\xi_{topo}^{-2}m$, $I=\xi_{topo}v$ mappings)
+  - Axiom 4 (Lorentz-saturation kernel projected onto magnetic sector)
+  - clm-i9l284 (topo-kinematic identities used in the energy ledger)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.90)]
+- rationale: $L_{eff}(I)=L_0/\sqrt{1-(I/I_{max})^2}$ with $I_{max}=\xi_{topo}c$ follows directly from the relativistic-mass-to-inductance mapping, and the $E=\tfrac12\gamma m_0v^2$ expansion plus rest-energy $\tfrac12 m_0c^2$ inductive term are clean algebra. The closing step to $E_{total}=m_0c^2$ invokes virial equipartition (capacitive = inductive) as an assertion, and $m_e$ is explicitly taken as given — disclosed as a structural reproduction of SR, not an independent rest-mass derivation. Closed derivation resting on one disclosed virial assumption.
 - strengthen-by:
-  - *pending*
+  - Show the capacitive (potential) energy ledger explicitly so the virial $E_{elec}=E_{mag}$ equality is derived rather than asserted.
 
 ---
 
@@ -153,16 +160,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Vol 4 does NOT claim PONDER measures bulk vacuum saturation. Summaries that frame PONDER as "tabletop dielectric saturation" misread the regime classification.
   - The 4-regime $E/E_{yield}$ table has finer cutoffs than the master 4-regime table in LIVING_REFERENCE.md (which uses $\sqrt{2\alpha}$ and $\sqrt{3}/2$ as boundaries). The Vol 4 cutoffs (0.1 / 0.5 / 1.0) are convenience thresholds for the macroscopic constitutive plot; they do not replace the master regime boundaries.
 
-> **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`, `falsification/ch12-falsifiable-predictions/ee-bench-plateau.md`.
+> **Leaf references:** [regimes-of-operation](./circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md), [dielectric-plateau-prediction](./falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md), [ee-bench-plateau](./falsification/ch12-falsifiable-predictions/ee-bench-plateau.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.85
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (saturation factor $S(E)$ → 4-regime map)
+  - INVARIANT-C1 ($V_{yield}$ → $E_{yield}=V_{yield}/\ell_{node}$)
+  - clm-vjv4zf (constitutive $C_{eff}(V)$ underlying the regime boundaries)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.90)]
+- rationale: $E_{yield}=V_{yield}/\ell_{node}\approx1.13\times10^{17}$ V/m and the PONDER-01 placement ($E/E_{yield}\approx2.7\times10^{-10}$, firmly Regime I) are clean ratio computations. The regime-classification table is well-defined and the leaf is explicit that bulk $\varepsilon$-saturation is NOT the lab thrust mechanism. The convenience cutoffs (0.1/0.5/1.0) are disclosed as distinct from the master $\sqrt{2\alpha}$ boundaries. Clean derivation; pinned just below top because the cutoff values are conventional rather than derived.
 - strengthen-by:
-  - *pending*
+  - Reconcile the convenience cutoffs with the master $\sqrt{2\alpha},\sqrt3/2$ regime boundaries so a single canonical regime map governs.
 
 ---
 
@@ -182,16 +191,20 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "Metric Streamlining and Superluminal Transit" / "warp metric" / "Alcubierre-type shock fronts" are framework-internal interpretive consequences of the non-linear scalar wave equation; Vol 4 does NOT claim experimental validation of superluminal transit, nor a quantitative warp-bubble derivation.
   - Gargantua simulation reproduces the visual D-shaped photon shadow / Doppler beaming / accretion disk via topological-saturation ray tracing — **a category (iii) consistency check** with standard GR ray-tracing results, not an independent novel prediction.
 
-> **Leaf references:** `circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md`, `circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md`, `falsification/ch11-experimental-bench-falsification/open-source-hardware.md` (PONDER-01 build guide), `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocol summary), `simulation/ch17-hardware-netlists/ponder-01-stack-netlist.md` (cascaded LC stack SPICE realization). PONDER-05 number sourced only from `vol4/index.md`; no leaf supports it.
+> **Leaf references:** [chiral-thrust-derivation](./circuit-theory/ch2-topological-thrust-mechanics/chiral-thrust-derivation.md), [regimes-of-operation](./circuit-theory/ch2-topological-thrust-mechanics/regimes-of-operation.md), [open-source-hardware](./falsification/ch11-experimental-bench-falsification/open-source-hardware.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (concave $S(E)$ → Jensen rectification)
+  - clm-trgqtf (Regime-I placement justifying the local-amplification mechanism)
+  - clm-vjv4zf (vacuum varactor $S(E)$ constitutive form)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.85)]
+- rationale: The Jensen-inequality rectification chain ($\langle S\rangle<1$ → DC stress) and the thrust form $F=N\nu_{vac}\delta P_{in}/c$ are dimensionally clean. But the worked 40.1 µN rests on assumed engineering targets ($\beta=10^3$, $Q=10^4$) and the leaf contains an internal arithmetic slip — it prints $E_{local}^{peak}\approx4.2\times10^{14}$ V/m, whereas $\beta Q E_{macro}\sqrt2\approx4.2\times10^{17}$ V/m (the downstream $E_{local}/E_{yield}\approx3.8\times10^{-3}$ corresponds to the $10^{17}$ value). The $\delta\propto\beta^2Q^2$ sensitivity is disclosed. Sketch-plus-support with assumed inputs and a numerical inconsistency pins the band at asserted-partial.
 - strengthen-by:
-  - *pending*
+  - Fix the $E_{local}^{peak}$ exponent ($10^{14}\to10^{17}$) so the field-amplification chain is internally consistent.
+  - Derive or bound $\beta$ and $Q$ from a specified electrode/resonator geometry instead of asserting engineering targets.
+  - Provide a Dark-Wake momentum-balance calculation (currently qualitative) to close the reactionless-drive objection quantitatively.
 
 ---
 
@@ -209,16 +222,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "Substrate-independent slope" is a falsification criterion (mineral-oil submersion test); a substrate-dependent slope falsifies the prediction at this scale, but absence of substrate dependence has not yet been established experimentally in the leaves.
   - The Chiral Figure of Merit ($\text{FoM} = Q_u \times \alpha \cdot pq/(p+q) \times \eta_{\mathcal{H}}$) is a design-optimization composite, not a measured quantity; the "$1{,}300\times$ FoM gain from YBCO" is a predicted improvement assuming idealized Q.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/open-source-hardware.md` (HOPF-01 chiral VNA antenna + falsification protocol), `future-geometries/ch13-future-geometries/k4-tlm-simulator.md` (K4-TLM simulator-side reproduction of $\Delta f/f$ — derivation support). This is the torus-knot resonance-shift *prediction*; the HOPF-02 VNA experiment (`exp-1up5ww`, `falsification/ch11-experimental-bench-falsification/project-hopf-02.md`) `strengthens` it, and `falsification/ch11-experimental-bench/pcba-bench-protocols.md` references the experiment via `experiments:`. (Upstream: derives from the Hopf-charge / topological-mass model `clm-oygz1i` — depends-on edge deferred to the quality pass.)
+> **Leaf references:** [open-source-hardware](./falsification/ch11-experimental-bench-falsification/open-source-hardware.md), [k4-tlm-simulator](./future-geometries/ch13-future-geometries/k4-tlm-simulator.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 (topological winding → chiral coupling)
+  - clm-oygz1i (Hopf-charge / topological-mass model, vol2)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
+- rationale: $\Delta f/f=\alpha\,pq/(p+q)$ is a clean zero-free-parameter topological-coupling formula ($\alpha$ from Axiom 2, $(p,q)$ from antenna topology). The K4-TLM "cross-validation" is explicitly disclosed as a simulator-vs-analytics self-consistency check (both share the topological-coupling assumption), and the leaf carries an α-emergence-circularity scope caveat (sub-saturation hardcodes $\alpha$ into the chiral coupling). The formula closes given the upstream model; pinned at disclosed-methodology-bound because the supporting numerics are self-consistency, not independent derivation, and no measured slope exists yet.
 - strengthen-by:
-  - *pending*
+  - Run the two-engine (K4-TLM + Master-Equation FDTD) bound-state α-emergence test so the chiral coupling is verified from substrate-only inputs, removing the disclosed circularity.
 
 ---
 
@@ -236,16 +250,16 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Native emergence of chirality from K4 bipartite structure is **structural** (the bipartite labeling is the input). The simulator confirms that explicit $R(\theta)$ rotation injection is unnecessary on K4; it does not derive the chirality from a separate principle.
   - Wire-antenna resonance experiments on the lattice show torus knots resonate at frequencies *higher* than the simple $c/(2L)$ prediction; this is interpreted as evidence of self-coupling shortcuts, but is not framed as a quantitative match — it is asserted as qualitative confirmation that knot topology shifts the fundamental mode.
 
-> **Leaf references:** `future-geometries/ch13-future-geometries/k4-tlm-simulator.md`, `future-geometries/ch13-future-geometries/open-universe-boundaries.md`, `future-geometries/ch13-future-geometries/cem-methods-survey.md`.
+> **Leaf references:** [cem-methods-survey](./future-geometries/ch13-future-geometries/cem-methods-survey.md), [k4-tlm-simulator](./future-geometries/ch13-future-geometries/k4-tlm-simulator.md), [open-universe-boundaries](./future-geometries/ch13-future-geometries/open-universe-boundaries.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.9
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (K4 diamond lattice topology, bipartite chirality)
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
+- rationale: The unitarity result $\max|S^\dagger S-I|=2.2\times10^{-16}$ is a verified numerical/structural fact of the $S^{(0)}_{ij}=\tfrac12-\delta_{ij}$ 4-port matrix, and the leaf is scrupulously explicit that this is machine-epsilon precision of the discrete scheme, NOT a physics prediction. All five validation tests are internal computational-consistency checks (disclosed), and the chirality-emergence is honestly framed as structural (bipartite labeling is the input) with an explicit α-emergence-circularity scope caveat. Clean within its stated (numerical) scope.
 - strengthen-by:
-  - *pending*
+  - Validate the K4-TLM against an external experimental dataset (currently all five tests are internal consistency checks) to lift it beyond an implementation-correctness claim.
 
 ---
 
@@ -260,16 +274,16 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - This is an **interpretive identification**, not a derivation. The CEM equations were derived from Maxwell's equations; AVE asserts they ARE the lattice equations because Maxwell's equations are the lattice equations in the continuum limit. This claim is not independent of the broader AVE-vs-Maxwell ontology claim.
   - Does NOT claim that running a CEM solver on a torus knot validates any AVE-specific prediction beyond what Maxwell already predicts. CEM agreement with AVE-shaped predictions follows trivially because both inherit the same Maxwell substrate; the AVE-specific claim ($\Delta f/f = \alpha \cdot pq/(p+q)$) is the topological coupling factor, not the underlying RF mechanics.
 
-> **Leaf references:** `future-geometries/ch13-future-geometries/cem-methods-survey.md`, `circuit-theory/ch1-vacuum-circuit-analysis/computational-solver-selection.md`, `circuit-theory/ch1-vacuum-circuit-analysis/solver-selection.md` (concise FDTD-vs-K4-TLM decision matrix variant of the same mapping).
+> **Leaf references:** [computational-solver-selection](./circuit-theory/ch1-vacuum-circuit-analysis/computational-solver-selection.md), [solver-selection](./circuit-theory/ch1-vacuum-circuit-analysis/solver-selection.md), [cem-methods-survey](./future-geometries/ch13-future-geometries/cem-methods-survey.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (lattice-is-physical ontology underlying every mapping)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
+- rationale: Each CEM↔AVE mapping (MoM $[Z][I]=[V]$, Yee=LC grid, FEM $\omega^2LC=1$, TLM isomorphism, CMA eigenmodes, PO/GO continuum limit) is correctly stated, but they are interpretive identifications, not derivations — the CEM equations were derived from Maxwell, and the leaf itself discloses the claim is not independent of the broader AVE-vs-Maxwell ontology. A real, acknowledged open dependency (the ontology claim) gates this; the mappings carry no AVE-specific predictive content beyond what Maxwell already gives.
 - strengthen-by:
-  - *pending*
+  - Identify a CEM-on-torus-knot prediction that AVE makes and Maxwell does not (i.e., the topological-coupling factor as a stand-alone discriminator) to give the mapping independent content.
 
 ---
 
@@ -289,16 +303,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The active acoustic-metric compression mechanism (3D standing tensor shockwave producing $n > 1$) is **proposed** as the engineering pathway; the framework provides the threshold ($n^* = 1.114$) but no leaf-level derivation that any specific apparatus achieves it.
   - Pair-production drain at advanced-fuel temperatures is asserted from the $V_{topo} > V_{snap}$ chain, not from an experimental measurement of pair-production rates in fusion plasmas.
 
-> **Leaf references:** `advanced-applications/ch8-applied-fusion/tokamak-paradox.md`, `advanced-applications/ch8-applied-fusion/ignition-criterion.md`, `advanced-applications/ch8-applied-fusion/ave-fusion-device.md`, `advanced-applications/ch8-applied-fusion/radius-scaling.md` (Bohr-radius compression $r(n)=a_0/n$ and $V_{topo}(n)=V_{topo,0}/n^3$ derivation), `advanced-applications/ch8-applied-fusion/temperature-scaling.md` (WKB derivation of $T_{ign}(n)=T_0/n^2$), `advanced-applications/ch8-applied-fusion/gamow-compressed.md` (compressed Gamow exponent $\eta(n)=\eta_0/n$), `advanced-applications/ch8-applied-fusion/vtopo-scaling.md` (topological-velocity $V_{topo}(n)=V_{topo,0}/n^3$ scaling and three operating-regime rules), `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated $\sqrt{\alpha}$ alignment with the 60.3 kV fusion strain).
+> **Leaf references:** [zero-parameter-derivations](./falsification/ch11-experimental-bench/zero-parameter-derivations.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 ($\xi_{topo}$, $V=\xi_{topo}^{-1}F$ ion-collision strain)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+  - clm-ui3m8a ($\sqrt{\alpha}$ yield-limit $E_{yield}$ prediction the strain references)
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.60)]
+- rationale: STALE FOOTER — all seven `advanced-applications/ch8-applied-fusion/*.md` primary leaves DO NOT EXIST anywhere in the KB (no `advanced-applications/` directory in vol4). The only surviving support is `falsification/ch11-experimental-bench/zero-parameter-derivations.md`, which states a single-line "60.3 kV exceeds $V_{yield}$ by 38%" alignment with NO visible derivation of $n^*=1.114$, the Bohr-radius compression $r(n)=a_0/n$, the WKB $T_{ign}(n)=T_0/n^2$, or the Gamow scaling. Graded against the surviving stub: an asserted alignment plus sketch, no closed derivation reachable in-leaf. See worksheet Flags.
 - strengthen-by:
-  - *pending*
+  - Restore the missing ch8-applied-fusion leaves (or repair the footer to point at the actual canonical homes) so the $n^*=1.114$ / radius / temperature / Gamow chain is reachable and graded on its merits.
+  - Derive the 60.3 kV ion-collision strain explicitly from $V=\xi_{topo}^{-1}F$ at 15 keV rather than asserting it.
 
 ---
 
@@ -320,16 +337,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - YBCO array prediction (2.5 metric tons / m$^2$) assumes drive at 59 kV per node "safely below the 60 kV saturation limit" — the 60 kV figure itself is the bulk-avalanche limit (vs the 43.65 kV point-yield); the per-node grip per actuator (2.49 g) is contingent on the chosen 59 kV operating point, not derived from a separately validated YBCO process.
   - Has NOT been experimentally demonstrated. Treat as a parameter-free prediction with a falsifiable threshold (no levitation above 1.846 g per single actuator), not a confirmed result.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/zero-parameter-derivations.md`, `falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md`, `falsification/ch11-experimental-bench-falsification/ybco-phased-array.md`, `falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated levitation limit + dielectric death spiral + YBCO array + metric-refraction capacitor + sapphire centrifuge), `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated $\sqrt{\alpha}$-yield alignment with levitation and fusion limits).
+> **Leaf references:** [metric-levitation-limit](./falsification/ch11-experimental-bench-falsification/metric-levitation-limit.md), [metric-refraction-capacitor](./falsification/ch11-experimental-bench-falsification/metric-refraction-capacitor.md), [ybco-phased-array](./falsification/ch11-experimental-bench-falsification/ybco-phased-array.md), [zero-parameter-derivations](./falsification/ch11-experimental-bench-falsification/zero-parameter-derivations.md), [industrial-scaleup](./falsification/ch11-experimental-bench/industrial-scaleup.md), [zero-parameter-derivations](./falsification/ch11-experimental-bench/zero-parameter-derivations.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 ($\xi_{topo}=e/\ell_{node}$)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
+- rationale: The single-actuator levitation cap $m_{max}=V_{yield}\xi_{topo}/g=1.846$ g and $E_{yield}=V_{yield}/\ell_{node}\approx1.13\times10^{17}$ V/m are clean zero-parameter algebra (would warrant ~0.9 alone), and the "Dielectric Death Spiral" self-limitation is an honest internal-consistency observation. But the YBCO-array sub-leaf (2.5 tons/m²) carries an explicit ⛔ INVALIDATED — RECOMPUTATION REQUIRED banner: its 59 kV/node operating point sits ABOVE the actual 43.65 kV yield, so the per-node 2.49 g and 24,480 N numbers are disregarded pending recompute. The composite claim therefore mixes a solid sub-result with a refuted sub-result; pinned at substantive-open-dependency.
 - strengthen-by:
-  - *pending*
+  - Recompute the YBCO phased-array prediction against the canonical $V_{yield}=43.65$ kV (not 60 kV) and re-derive the per-node grip force.
+  - Demonstrate the array-extensivity bypass of the 1.846 g cap (currently asserted, not shown).
 
 ---
 
@@ -347,16 +366,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Several inbound references in the leaf (`\ref{sec:topological_defects_lc}`, `\ref{sec:point_yield}`, `\ref{eq:dielectric_saturation}`) are dangling — the in-leaf comment flags these as "presumed Vol 3 targets" and they are not resolved.
   - Hard distinction between "vacuum mirror" ($V_{yield}$ asymptotic strain, no rupture) vs "Zener avalanche" (impulse past $V_{yield}$, complete dielectric breakdown) is explicit in-leaf — summaries that conflate them describe two physically distinct boundary regimes.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (Protocol 11 condensed restatement of the $\Gamma(V)\to 1$ derivation and APD-back-scatter falsification protocol).
+> **Leaf references:** [vacuum-impedance-mirror](./falsification/ch11-experimental-bench-falsification/vacuum-impedance-mirror.md), [advanced-protocols](./falsification/ch11-experimental-bench/advanced-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (asymmetric saturation: only $\varepsilon$ scales by $S$)
+  - clm-vjv4zf (vacuum varactor constitutive form)
+  - clm-kezk9z ($Z_0$ baseline and symmetric-vs-asymmetric distinction)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.90)]
+- rationale: $Z_{local}(V)=Z_0(1-(V/V_{yield})^2)^{-1/4}$ and the explicit parameter-free $\Gamma(V)$ are derived cleanly by substituting the asymmetrically-yielding $\varepsilon_{eff}(V)$ into transmission-line theory while holding $\mu_{local}=\mu_0$. The derivation rests entirely on the asymmetric-saturation assumption (only $\varepsilon$ strained), which the leaf discloses as a strict prerequisite distinct from the symmetric-gravity invariance. The leaf also flags three dangling Vol-3 cross-refs in-source. Closed derivation gated by a clearly-disclosed assumption.
 - strengthen-by:
-  - *pending*
+  - Justify from substrate dynamics why a static DC field strains $\varepsilon$ without inducing a compensating $\mu$ response (the asymmetric branch is asserted, not derived).
+  - Resolve the three dangling `\ref{}` Vol-3 targets flagged in-leaf.
 
 ---
 
@@ -372,16 +394,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - QED's predicted IM3 cross-section ($\sim 10^{-65}$ cm$^2$ at optical) is "$\sim 10^{40}$ times smaller than the AVE prediction at the same frequency" — the AVE prediction depends on the apparatus reaching $\sim 30\%$ of $V_{yield}/\ell_{node} \sim 3 \times 10^{16}$ V/m macroscopic field, which is far beyond current laboratory capability without resonant local enhancement.
   - Distinguishing $E^2$ from $E^4$ to within $\pm 0.5$ in the exponent is the falsification target; sub-decade dynamic range or systematic field-uncertainty would allow both fits.
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md`, `circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md`, `falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md`, `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` (Birefringence Kill-Switch as the third binary discriminator, evaluated from the Axiom-4 Taylor expansion), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated $E^2$-vs-$E^4$ slope statement).
+> **Leaf references:** [intermodulation-distortion](./circuit-theory/ch1-vacuum-circuit-analysis/intermodulation-distortion.md), [epistemology-of-falsification](./falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md), [epistemology-kill-switches](./falsification/ch11-experimental-bench/epistemology-kill-switches.md), [dielectric-plateau-prediction](./falsification/ch12-falsifiable-predictions/dielectric-plateau-prediction.md), [vacuum-birefringence-e4](./falsification/ch12-falsifiable-predictions/vacuum-birefringence-e4.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (saturation kernel → $\Delta n=1-\sqrt{1-(E/E_{yield})^2}$)
+  - clm-vjv4zf (varactor Taylor expansion template)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.90)]
+- rationale: The discriminator is a clean Taylor-expansion result: AVE's $\Delta n\propto E^4$ (leading term of $1-\sqrt{1-(E/E_{yield})^2}$) vs QED's Euler-Heisenberg $E^2$, with the parallel IM3 cubic-vs-sextic ($V^3$ vs $V^6$) scaling derived in the IMD leaf. The derivation closes cleanly from Axiom 4. The leaf discloses the practical attainability bound (measurable only near $V_{yield}$; QED cross-section $\sim10^{40}\times$ smaller) and the $\pm0.5$-in-exponent falsification target. A clean derivation with disclosed measurement-regime bounds.
 - strengthen-by:
-  - *pending*
+  - Provide a concrete local-field-enhancement path that brings the $\sim30\%\,V_{yield}$ drive into laboratory reach, so the discriminator is testable below the macroscopic $\sim3\times10^{16}$ V/m wall.
 
 ---
 
@@ -398,16 +421,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Per-row Δ% in the retrospective matches mixes "0.00%" (proton) with $\sim 2.4\%$ (top of error bar) — these are category (iv) derived predictions per the Master Prediction Table classification, but the proton 0.00% and the 2.40% are not the same kind of claim. The forward predictions inherit at least the 0.27%-2.40% scatter of the established matches.
   - Does NOT claim the forward predictions have been confirmed. They are open experimental targets.
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md`, `falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md` (consolidated $(2,q)$ ladder retrospective + forward predictions table). Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
+> **Leaf references:** [baryon-mass-predictions](./falsification/ch12-falsifiable-predictions/baryon-mass-predictions.md), [torus-knot-baryon-predictions](./falsification/ch12-falsifiable-predictions/torus-knot-baryon-predictions.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.85
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (topological-knot mass spectrum)
+  - INVARIANT-C2 / CODATA $m_e$ (single physics input)
+- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
+- rationale: The leaf is now PDG-2024-anchored with a verifiable driver (`baryon_ladder_pdg_2024_anchor.py`): 6/6 $J^P$-consistent retrospective matches (proton at $-0.002\%$), 2 of 3 forward predictions land on existing PDG $\ast\ast$ entries ($\Delta(2750)$ at $-0.30\%$, $\Delta(2950)$ at $+1.12\%$), from a zero-adjusted-parameter formula (1 CODATA input + 1 topological integer + 1 Borromean halo invariant). The claim-quality prose uses the older $(2,17)\to2742$ MeV labelling, which matches the leaf's $(2,17)$ row. These are category-(iv) derived predictions per the leaf. A closed, driver-reproducible derivation; the per-row $0.27\%$–$4.5\%$ scatter is honestly tabulated.
 - strengthen-by:
-  - *pending*
+  - Resolve the convention realignment $(2,3)\to(2,5)$-for-proton fully across the prose so the claim-quality $(2,17/19/21)$ labels match the leaf's $(2,q_{odd})$ ladder exactly.
+  - Secure the $(2,21)\to3199$ MeV forward search target (no PDG entry within 5% yet) at CLAS12/PANDA.
 
 ---
 
@@ -423,16 +448,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Does NOT claim the SPICE netlist's specific $L$ and $C$ values reproduce the empirical muon lifetime. The 1 mH / 1 nF values give a particular $\tau$; the leaves do not derive the actual muon $\tau \approx 2.2$ µs from these.
   - Bulk-dielectric invariance is a structural / geometric argument; it is not a measurement of muon decay rates in dense media.
 
-> **Leaf references:** `simulation/ch14-leaky-cavity-particle-decay/theory.md`, `simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md`. Cross-cutting: LIVING_REFERENCE.md "Critical Distinctions" #5.
+> **Leaf references:** [spice-netlist](./simulation/ch14-leaky-cavity-particle-decay/spice-netlist.md), [theory](./simulation/ch14-leaky-cavity-particle-decay/theory.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 ($V_{yield}$ rupture → $\Gamma=-1$ leaky cavity)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+  - clm-o2shcn (TVS solid→slipstream phase transition underlying the rupture cavity)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.70)]
+- rationale: The mechanism — standing wave exceeding $V_{yield}$ collapses $R_{eff}$ ($1\,\text{G}\Omega\to50\,\Omega$) into an RC discharge — is cleanly modeled and the leaf is explicit (Critical Distinction #5) that this is QUALITATIVE: the SPICE netlist demonstrates the mechanism, not the quantitative lifetime (which comes from Fermi/$G_F$). The bulk-dielectric-invariance argument (muon topology in the void space between electron clouds) is a sound geometric argument. Disclosed-bound: closes as a mechanism demonstration, explicitly not a quantitative $\tau$ derivation.
 - strengthen-by:
-  - *pending*
+  - Derive the muon $L,C$ values from its topology so the RC time constant reproduces $\tau\approx2.2\,\mu$s rather than being a chosen $1$ mH / $1$ nF illustration.
 
 ---
 
@@ -448,16 +475,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The 60 kV "bulk-avalanche limit" used in this chain is distinct from $V_{yield}$ (43.65 kV) — see the $V_{yield}$ vs $V_{snap}$ entry above. The SPICE model uses 60 kV as the rupture threshold; the leaves do not reconcile this with the 43.65 kV figure quoted elsewhere.
   - Reflected-power detuning is a standard non-linear-resonator behavior; the framework's specific contribution is identifying the vacuum's $C(V)$ form and the PLL bypass — neither of which is independently measured at vacuum-rupture amplitudes.
 
-> **Leaf references:** `simulation/ch15-autoresonant-breakdown/theory.md`, `simulation/ch15-autoresonant-breakdown/spice-netlist.md` (`pll_breakdown.cir` realization with behavioral $C_{eff}(V)$ and PLL phase integrator), `falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md`, `falsification/ch12-falsifiable-predictions/autoresonant-helicity.md`.
+> **Leaf references:** [autoresonant-dielectric-rupture](./falsification/ch12-falsifiable-predictions/autoresonant-dielectric-rupture.md), [autoresonant-helicity](./falsification/ch12-falsifiable-predictions/autoresonant-helicity.md), [spice-netlist](./simulation/ch15-autoresonant-breakdown/spice-netlist.md), [theory](./simulation/ch15-autoresonant-breakdown/theory.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (nonlinear $C_{eff}(V)$ Duffing detuning)
+  - clm-o2shcn (TVS solid→slipstream transition setting the $\eta_{eff}(V)$ step)
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.70)]
+- rationale: The primary leaf `simulation/ch15-autoresonant-breakdown/theory.md` carries an explicit ⛔ INVALIDATED — RECOMPUTATION REQUIRED banner: the $C_{eff}(V)=C_0\sqrt{1-(V/60\text{k})^2}$ detuning curve, the PLL frequency-tracking demonstration, and the "pumps past the 60 kV yield" Schwinger-bypass conclusion all rest on the wrong 60 kV rupture threshold (the canonical yield is 43.65 kV). The leaf's own notice states "none of the numerical autoresonant predictions" are defensible. The Duffing-detuning qualitative picture survives, but every quantitative claim is flagged for recompute. Asserted-partial at best.
 - strengthen-by:
-  - *pending*
+  - Recompute the entire $C_{eff}(V)$ detuning and PLL-bypass chain against $V_{yield}=43.65$ kV per the leaf's banner.
 
 ---
 
@@ -472,16 +500,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Has NOT been experimentally tested. Predicted as an **industrial-scale artificial-gravity device**; engineering feasibility of trapping a stable acoustic vortex at 11.1 km/s in a 1 m sapphire sphere is asserted, not demonstrated.
   - "Inductive shield" framing (Beltrami coil + acoustic vortex → impenetrable boundary) is a structural / interpretive consequence, not an independent prediction.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated industrial-scale write-up of the sapphire centrifuge alongside the YBCO array and metric-refraction capacitor).
+> **Leaf references:** [sapphire-phonon-centrifuge](./falsification/ch11-experimental-bench-falsification/sapphire-phonon-centrifuge.md), [industrial-scaleup](./falsification/ch11-experimental-bench/industrial-scaleup.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (Sagnac mass-density-coupled mutual inductance; framework-derived $\rho_{bulk}$)
+  - clm-qx9bb8 (active Sagnac material-dependent entrainment law)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.60)]
+- rationale: The chain $v_{vac}=v_s(\rho_{Al_2O_3}/\rho_{bulk})\approx5.58$ m/s → $a_{LT}=v_{vac}^2/r=6.35$ G is clean algebra. But the whole prediction is downstream of the framework-derived $\rho_{bulk}=7.91\times10^6$ kg/m³ (imported, not independently grounded — same caveat as the Sagnac-RLVE entry), and the engineering feasibility of trapping a stable 11.1 km/s acoustic vortex in a 1 m sapphire sphere is asserted, not demonstrated. The "inductive shield" framing is disclosed as interpretive. Substantive open dependency on $\rho_{bulk}$ pins the band.
 - strengthen-by:
-  - *pending*
+  - Ground $\rho_{bulk}$ independently (or carry its derivation provenance inline) so the $a_{LT}$ prediction is not contingent on an unverified bulk-density import.
 
 ---
 
@@ -497,16 +526,16 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - These are **falsification criteria**, not predictions of detection. AVE asserts both should produce null results under current observation; positive detection of either falsifies the framework.
   - The leaf abbreviates a longer original list (the heading promises three but only two are present in this leaf; treat as the published subset).
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/binary-kill-switches.md`, `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md` (Neutrino Parity, GRB Dispersion, and the $E^2$-vs-$E^4$ Birefringence Kill-Switch enumerated together), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated three-binary-kill-switches restatement).
+> **Leaf references:** [epistemology-of-falsification](./falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md), [epistemology-kill-switches](./falsification/ch11-experimental-bench/epistemology-kill-switches.md), [binary-kill-switches](./falsification/ch12-falsifiable-predictions/binary-kill-switches.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (chiral LC bandgap → weak-force chirality)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: Both kill-switches are cleanly stated falsification criteria, each anchored to a named framework structure: right-handed-neutrino detection falsifies the $\tfrac13 G_{vac}$ microrotational boundary of the chiral LC bandgap; energy-dependent GRB arrival-time dispersion falsifies the photon-as-massless-link-variable claim. These are disclosed-import predictions (null expected) tied to specific axioms, not in-leaf derivations of the bandgap/decoupling theorem. The leaf notes the heading promises three but only two are present here (the third is the $E^4$ birefringence switch, clm-pp3qwf). Cleanly-anchored falsification criteria resting on imported derivations.
 - strengthen-by:
-  - *pending*
+  - Include or cross-link the in-leaf derivation of the $\tfrac13 G_{vac}$ microrotational boundary condition so the neutrino-parity switch is traceable to its source.
 
 ---
 
@@ -521,16 +550,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "$\theta = 90°$ → zero loss" is a **classical AC-power-analysis result** (real vs reactive power); AVE's contribution is identifying the orbital geometry as the physical realization of this circuit. Not an independent quantitative prediction.
   - Does NOT account for measurable orbital decay where $\theta \neq 90°$ (gravitational-wave inspiral, atmospheric drag, tidal dissipation) — these are framed as "$\theta \neq 90°$" perturbations consistent with the same framework. No quantitative match to observed inspiral rates is claimed in-leaf.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md`.
+> **Leaf references:** [orbital-friction-paradox](./circuit-theory/ch1-vacuum-circuit-analysis/orbital-friction-paradox.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 ($\eta\to0$ dielectric-phase-transition drag suppression)
+  - clm-i9l284 (Topo-Kinematic identity mapping $F_g\to V$, $v_{orb}\to I$)
+  - clm-o2shcn (TVS solid→slipstream transition giving the $\eta_{eff}(V)$ drag step)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.70)]
+- rationale: $P_{real}=F_g\,v_{orb}\cos(90°)\equiv0$ is exact classical AC-power algebra, and the orthogonality of radial gravity to tangential velocity in a circular orbit is correct. The AVE-specific content — identifying orbital geometry as a lossless reactive LC tank — is a sound mapping but, as the leaf discloses, not an independent quantitative prediction (it imports the $\eta\to0$ drag-suppression result and recasts a standard power-analysis identity). The $\theta\neq90°$ inspiral case is acknowledged without a quantitative match. Closes cleanly given the imported drag-suppression.
 - strengthen-by:
-  - *pending*
+  - Derive a quantitative $\theta\neq90°$ orbital-decay rate and compare to an observed inspiral so the framework makes a prediction beyond the lossless-tank identity.
 
 ---
 
@@ -549,16 +580,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The 1 µm step in $<100$ ms is an engineering choice for SNR; the prediction is on the per-micron step, not the timing.
   - The leaf carries an in-source comment flagging an authoring error: the $Q \equiv \xi_{topo} x$ identity is defined in Ch.01 (topological-kinematics), not Ch.13 as the protocol text states. The physics binding is to Ch.01.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-cleave-01.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, CLEAVE-01 entry).
+> **Leaf references:** [project-cleave-01](./falsification/ch11-experimental-bench-falsification/project-cleave-01.md), [pcba-bench-protocols](./falsification/ch11-experimental-bench/pcba-bench-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.85
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 ($Q\equiv\xi_{topo}\,x$ topo-kinematic identity)
+  - clm-i9l284 (the topological-kinematics identity tested)
+- solidity: 0.85 (ok to build on) [= min(0.85, 0.90)]
+- rationale: The prediction $Q=\xi_{topo}x=0.415$ pC for a $1\,\mu$m step and the $V=Q/C=41.5$ mV/µm readout into a controlled 10 pF parasitic are clean zero-free-parameter algebra directly off Axiom 2. The parasitic-C contingency is disclosed (a different $C$ rescales linearly, does not falsify), and the leaf flags an in-source authoring error (the identity is Ch.01, not Ch.13). A discriminator vs piezo/triboelectric (dielectric-independence) is given. Clean derived prediction; pinned just below 0.9 because the readout magnitude is contingent on the assumed parasitic.
 - strengthen-by:
-  - *pending*
+  - Specify the measured in-circuit parasitic $C$ (or a guard-ring design that fixes it) so the 41.5 mV/µm step is a fixed, not rescalable, target.
 
 ---
 
@@ -575,16 +607,18 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The 0.038 m/s drift velocity uses the Sagnac-RLVE entrainment chain: it is contingent on the same framework-derived $\rho_{bulk}$ as the Sagnac-RLVE signal — see the Sagnac-RLVE entry's caveat about $\rho_{bulk}$ being framework-derived.
   - Lock-In SNR is asserted; no leaf-level noise budget proves the $\sim 0.26\,\mu$V signal is recoverable in the presence of motor EMI, mains hum, and ground-loop noise typical of high-RPM rigs.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-roentgen-03.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, ROENTGEN-03 entry).
+> **Leaf references:** [project-roentgen-03](./falsification/ch11-experimental-bench-falsification/project-roentgen-03.md), [pcba-bench-protocols](./falsification/ch11-experimental-bench/pcba-bench-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (Sagnac material-dependent entrainment; framework-derived $v_{vac}$, $\rho_{bulk}$)
+  - clm-qx9bb8 (active Sagnac material-dependent entrainment law)
+- solidity: 0.55 (use as input only, don't build deeper) [= min(0.55, 0.60)]
+- rationale: The Roentgen $\mathbf{B}=(1/c^2)\mathbf{v}\times\mathbf{E}$ synthesis and the $\sim4.2$ pT → $\sim0.26\,\mu$V pickup are dimensionally clean, but the load-bearing input — the $v_{vac}\approx0.038$ m/s drift at 10k RPM — rests on the framework-derived $\rho_{bulk}\approx7.9\times10^6$ kg/m³ via the same Sagnac-RLVE entrainment chain (imported). The Lock-In SNR recoverability of $0.26\,\mu$V against motor EMI / mains / ground-loop noise is asserted with no leaf-level noise budget. Closes given imports but with a real open dependency on $\rho_{bulk}$ plus an unshown SNR claim.
 - strengthen-by:
-  - *pending*
+  - Provide a noise budget proving $\sim0.26\,\mu$V is recoverable on a high-RPM rig.
+  - Ground $\rho_{bulk}$ / $v_{vac}$ independently of the framework derivation.
 
 ---
 
@@ -601,16 +635,19 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The 43.65 kV figure is the same $V_{yield} = \sqrt{\alpha} \cdot m_e c^2/e$ used elsewhere in Vol 4. Note that several adjacent leaves (autoresonant-breakdown, levitation-array) instead use 60 kV as the avalanche threshold — see the $V_{yield}$ vs $V_{snap}$ entry for the regime distinction; ZENER-04 specifically targets the 43.65 kV onset.
   - "Encapsulated spherical electrode in vacuum" is a hardware mitigation for atmospheric Paschen arcing; classical surface-arc artefacts inside an imperfect chamber would mimic an avalanche knee and must be excluded by the vacuum quality. The leaf does not specify a vacuum-quality threshold.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-zener-04.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, ZENER-04 entry).
+> **Leaf references:** [project-zener-04](./falsification/ch11-experimental-bench-falsification/project-zener-04.md), [pcba-bench-protocols](./falsification/ch11-experimental-bench/pcba-bench-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (TVS-Zener impedance-rupture mechanism)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV)
+  - clm-kezk9z ($Z_0\approx377\,\Omega$ baseline)
+  - clm-o2shcn (TVS solid→slipstream phase transition driving the Zener rupture)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.70)]
+- rationale: The predicted "Avalanche Knee" — an anomalous $I_D=C\,dV/dt$ discontinuity exactly as the localized field crosses $V_{yield}=43.65$ kV — follows cleanly from the TVS impedance-rupture mechanism (clm-o2shcn), contrasted against the linear electrostatic prediction. The protocol (80 kV sub-µs Marx into an encapsulated spherical electrode) is concrete and falsifiable, and the leaf correctly anchors on the 43.65 kV onset (vs the 60 kV figure used elsewhere). Disclosed gap: no vacuum-quality threshold specified to exclude surface-arc mimics. A clean mechanism-following prediction with one disclosed protocol gap.
 - strengthen-by:
-  - *pending*
+  - Specify the vacuum-quality threshold needed to exclude classical surface-arc artefacts mimicking the knee.
 
 ---
 
@@ -628,16 +665,20 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - The 75 kV figure is the inductive kickback magnitude; this is the same $|V| > V_{yield}$ rupture regime claimed in the ZENER-04 protocol and the autoresonant PLL — see also the $V_{yield}$ vs $V_{snap}$ entry. TORSION-05 specifically rests on the 43.65 kV crossing being a reaction-free wall.
   - Cavendish pendulums are sensitive to electrostatic patch potentials, residual gas drift, and seismic micro-tremor at the 100 µN level; the leaf identifies the chamber and suspension but does not enumerate these systematic backgrounds.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/project-torsion-05.md`, `falsification/ch11-experimental-bench/pcba-bench-protocols.md` (consolidated PCBA bench protocols, TORSION-05 entry).
+> **Leaf references:** [project-torsion-05](./falsification/ch11-experimental-bench-falsification/project-torsion-05.md), [pcba-bench-protocols](./falsification/ch11-experimental-bench/pcba-bench-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (impedance-rupture / $\Gamma=-1$ at fast edge)
+  - INVARIANT-C1 ($V_{yield}\approx43.65$ kV one-way valve)
+  - clm-ui3m8a (1.846 g vertical cap this protocol bypasses)
+  - clm-o2shcn (TVS solid→slipstream transition enabling the fast-edge rupture)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.60)]
+- rationale: The one-way-impedance-valve concept (slow $+500$ V grip → $+0.207$ mN matched; fast $-75$ kV kickback → ruptured $\Gamma=-1$ → $0$ mN reaction) gives a $\sim100\,\mu$N time-averaged DC thrust, but this rests on an IDEALIZED perfect step-function rectification at the $V_{yield}$ crossing. The leaf explicitly does NOT quantify the finite-rise-time backward-reaction leakage floor (even at $<10$ ns) and does not enumerate Cavendish-pendulum systematics (patch potentials, gas drift, seismic) at the 100 µN level. Real open gaps in the quantitative prediction pin it at substantive-open-dependency.
 - strengthen-by:
-  - *pending*
+  - Quantify the backward-reaction leakage from the finite 75 kV flyback rise time, which sets the actual net-thrust floor.
+  - Enumerate and bound the Cavendish systematic backgrounds at the $100\,\mu$N scale.
 
 ---
 
@@ -654,16 +695,17 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - Has NOT been demonstrated. Co-doping $\mu_r$ and $\varepsilon_r$ at exactly proportional radial gradients is itself a non-trivial fabrication problem; achievable proportionality is asserted, not built.
   - "Mimics a gravitational well" is structural — the metamaterial reproduces the impedance signature, not the curvature of spacetime; the experiment falsifies the impedance-pair hypothesis, not General Relativity directly.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/achromatic-lens-test.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 9 statement).
+> **Leaf references:** [achromatic-lens-test](./falsification/ch11-experimental-bench-falsification/achromatic-lens-test.md), [advanced-protocols](./falsification/ch11-experimental-bench/advanced-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (symmetric saturation branch — $\mu$ and $\varepsilon$ scale together)
+  - clm-kezk9z (symmetric-gravity $Z=Z_0$ invariance)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 0.90)]
+- rationale: $Z_{gravity}=\sqrt{\mu_0 n(r)/(\varepsilon_0 n(r))}=Z_0\Rightarrow\Gamma=0$ at all incidence angles is identity-grade algebra (the $n(r)$ cancels exactly), and the leaf correctly anchors this as the symmetric branch, explicitly opposite to the asymmetric Vacuum-Impedance-Mirror result (clm-5s5b0d). The benchtop falsifier (co-doped $\mu_r/\varepsilon_r$ metamaterial showing zero reflection all-angle) is concrete and the "mimics gravity, not GR-curvature" scope is disclosed. The derivation is clean; the fabrication of exactly-proportional gradients is disclosed as a non-trivial open engineering problem.
 - strengthen-by:
-  - *pending*
+  - Specify an achievable $\mu_r/\varepsilon_r$ co-doping recipe and quantify the proportionality tolerance below which $\Gamma$ stays measurably zero.
 
 ---
 
@@ -681,16 +723,16 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
   - "Sudden, otherwise inexplicable spike in transit drag" is qualitative; no quantitative prediction of $\Delta v$ vs $r$ across the 15,000 AU boundary is given.
   - No completed measurement is claimed; the test depends on logging deep-space probe telemetry that does not yet exist for the Oort boundary.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 10 statement).
+> **Leaf references:** [boundary-trapping-test](./falsification/ch11-experimental-bench-falsification/boundary-trapping-test.md), [advanced-protocols](./falsification/ch11-experimental-bench/advanced-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (LC-network impedance-shear boundary)
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
+- rationale: This is an interpretive identification of the Asteroid Belt and Oort Cloud as inner/outer termination shocks of the solar metric slipstream. The strain scaling $h_\perp\propto1/r$ is stated only qualitatively; there is no quantitative $\Delta v(r)$ prediction across the $\sim15{,}000$ AU boundary against which a probe transit could be compared, and the leaf neither refutes the standard Jupiter-resonance-shepherding / anisotropic-thermal explanations nor compares contributions. Asserted mechanism with qualitative support, no closed derivation.
 - strengthen-by:
-  - *pending*
+  - Produce a quantitative $\Delta v$ vs $r$ inductive-drag-spike prediction at the 15,000 AU boundary, distinguishable from resonance-shepherding and thermal-recoil alternatives.
 
 ---
 
@@ -700,23 +742,23 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - Vertical laser link from a ground station to a GEO satellite ($h = 35{,}786$ km, classical TOF $\sim 119$ ms): the AVE non-linear impedance integral $\int n(r)/c\,dr$ stretches the round-trip optical path by fractions of a millimeter relative to the linear-distance prediction. Correlated against atomic clocks, this Topological Delay maps the LC saturation envelope of Earth.
 - _Specific Claims_
   - Gravity is reframed (per Axiom 3 in Vol 4) as a macroscopic spherically symmetric impedance gradient $\Delta Z_0$, with the local phase velocity $c_{eff}$ statistically faster in deep space than at the Earth's surface — a structural prediction, not a fitted gravitational redshift parameter.
-  - Vertical TOF accumulates a measurable non-linear delay across $35{,}786$ km — the leaf claims this signature breaks Lorentz symmetry in favor of a structural waveguide electrodynamics interpretation.
+  - At $O(GM/c^2 r)$ the AVE impedance integral $\int n(r)/c\,dr$ with $n(r) = 1 + 2GM/c^2 r$ is **mathematically identical to the GR Shapiro delay**, so the vertical TOF is the same in AVE as in GR — there is NO AVE-distinct prediction at this order (corroborative-null, per the leaf's 2026-05-16 scope correction). The only AVE-distinct contribution is the discrete-lattice correction, cubic-symmetry-suppressed to $\sim 10^{-22}$ (undetectable).
 - _Specific Non-Claims and Caveats_
   - The "fractions of a millimeter" path-stretch is qualitative — no leaf-level numerical prediction of $\Delta t$ at the GEO altitude is given against which a measurement could be compared. Compare to the Sagnac-RLVE entry, which gives a specific 2.07 rad prediction.
   - Standard general-relativistic Shapiro delay also predicts a non-trivial $\int n(r)/c\,dr$-style integral; the leaf does not quantitatively distinguish the AVE prediction from Shapiro at this altitude.
   - "Definitively breaking Lorentz symmetry in favor of structural waveguide electrodynamics" is the framework's interpretive framing; the proposed observation is consistent with multiple gravity models, not uniquely with AVE in the absence of a numerical bound.
   - Has NOT been performed; ground-to-GEO laser-link clock-comparison experiments at the required precision are not standard.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md`, `falsification/ch11-experimental-bench/advanced-protocols.md` (consolidated Protocol 13 / GEO-Synchronous Impedance Differential statement).
+> **Leaf references:** [geo-synchronous-impedance](./falsification/ch11-experimental-bench-falsification/geo-synchronous-impedance.md), [advanced-protocols](./falsification/ch11-experimental-bench/advanced-protocols.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 3 (gravity as macroscopic impedance gradient $\Delta Z_0$)
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
+- rationale: Corroborative-null. The leaf's 2026-05-16 scope correction establishes that AVE's $n(r)=1+2GM/c^2r$ is mathematically identical to the GR Gordon-metric Shapiro integrand, so $\int n(r)/c\,dr$ yields the SAME vertical TOF — no AVE-distinct prediction at $O(GM/c^2r)$. The only AVE-distinct piece is cubic-symmetry-suppressed (~$10^{-22}$, undetectable), and the earlier "16.7 mm" stretch was retracted. The entry now matches the leaf (forward Lorentz-breaking framing dropped 2026-05-24): an honest GR-equivalence, not a distinct closed prediction — hence the low local-rigor band (it reproduces a known result rather than deriving a falsifiable AVE-specific one).
 - strengthen-by:
-  - *pending*
+  - To become AVE-distinct, identify a regime where the discrete-lattice $(q\ell_{node})^4$ correction escapes cubic-symmetry suppression (e.g. a trans-Planckian probe), or a configuration where $n(r)$ measurably departs from the GR Shapiro form.
 
 ---
 
@@ -738,16 +780,18 @@ A catalog of five empirical anomalies presented as exact mechanical consequences
   - The vortex-core limit is a *kill-check* (negative test): no current observation falsifies, but a future sub-$\ell_{node}$ coherence-length measurement does. The leaf does not assert any positive prediction here.
   - The proton-radius muon-orbit Kerr integration is asserted; no in-leaf step-by-step integration showing the 4% gap arises with zero free parameters is presented.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/existing-experimental-signatures.md`, `falsification/ch11-experimental-bench/existing-signatures.md` (consolidated five-anomaly summary).
+> **Leaf references:** [existing-experimental-signatures](./falsification/ch11-experimental-bench-falsification/existing-experimental-signatures.md), [existing-signatures](./falsification/ch11-experimental-bench/existing-signatures.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 ($\ell_{node}$ resolution floor for the vortex-core kill-check)
+  - Axiom 4 ($\Gamma=-1$ horizon-echo branch)
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 1.00)]
+- rationale: A catalog of five retrospective explanations (proton-radius Kerr-integration, neutron-lifetime phonon-snap, Hubble crystallization curve, LIGO $\Gamma=-1$ echo, sub-$\ell_{node}$ vortex kill-check). The leaf is honest that these are retrospective consistency/coverage claims, not forward zero-parameter matches. None carries an in-leaf closed derivation — e.g. the 4% proton-radius gap is asserted to arise from Kerr-index integration with no step-by-step integration shown, and the $H_\infty=69.32$ figure is sourced to Vol 3. The vortex-core item is a clean negative kill-check (well-posed). Mostly asserted mechanistic stories with disclosed retrospective status.
 - strengthen-by:
-  - *pending*
+  - Supply the in-leaf optical integration showing the 4% muonic-proton-radius gap emerges with zero free parameters.
+  - Cross-link the $H_\infty\approx69.32$ km/s/Mpc derivation chain (Vol 3) so the Hubble-tension item is traceable rather than asserted.
 
 ---
 
@@ -765,16 +809,19 @@ Standard-model empirical results that *appear* to contradict an LC-network vacuu
   - "Standard QCD jet formation proceeds exactly as observed" is a *consistency* claim with the Standard Model in this regime — Vol 4 does not predict QCD outcomes, it asserts that AVE does not contradict them at LHC interaction times.
   - Treat as defensive resolutions of intuitive critiques, not as positive empirical confirmations.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/horsemen-of-falsification.md`, `falsification/ch11-experimental-bench/zero-parameter-derivations.md` (consolidated LHC-paradox + LIGO-paradox restatement bound to the $\sqrt{\alpha}$ yield derivation).
+> **Leaf references:** [horsemen-of-falsification](./falsification/ch11-experimental-bench-falsification/horsemen-of-falsification.md), [zero-parameter-derivations](./falsification/ch11-experimental-bench/zero-parameter-derivations.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (linear-below-rupture / dissipative-at-rupture regime switch)
+  - Axiom 1 ($\tau_{tick}=\ell_{node}/c\approx1.28\times10^{-21}$ s from lattice pitch)
+  - INVARIANT-C1 ($V_{yield}$ rupture point)
+  - clm-n3un96 ($\tau_{relax}=\ell_{node}/c$ minimum state-change time bounding the edge)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.80)]
+- rationale: Both resolutions are clean order-of-magnitude regime arguments: LHC ($\tau_{tick}\approx1.28\times10^{-21}$ s vs $\sim10^{-28}$ s crossing → vacuum cannot polarize → linear rigid line) and LIGO ($h\sim10^{-21}$ is $\sim10^{19}\times$ below rupture → lossless line). The framework-derived $\tau_{tick}$ and rupture threshold drive both. The leaf is explicit these are defensive consistency claims (regime-switch explanations, not separately-measured loss curves), not positive empirical confirmations. Closed regime arguments resting on disclosed framework-derived constants.
 - strengthen-by:
-  - *pending*
+  - Replace the regime-switch assertion with a derived loss curve $\eta(V/V_{yield})$ so the linear-below / dissipative-above transition is quantitative rather than a binary switch.
 
 ---
 
@@ -793,16 +840,16 @@ Two intuitive tabletop tests that *necessarily* return null results within AVE, 
   - "Required null result" framing means a *positive* tabletop signal in either VFDT or RVR would actually falsify AVE — it would imply the bulk vacuum is far less dense than $\rho_{bulk} \approx 7.91 \times 10^6$ kg/m$^3$ asserts.
   - Numerical thresholds ($Q \ge 2.7 \times 10^{25}$, $v_{vac} \approx 1.33 \times 10^{-13}$ m/s) are framework-derived; they are not independently measured from a non-AVE source.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md`, `falsification/ch11-experimental-bench/tabletop-null-results.md` (consolidated VFDT + RVR + scalar-gap rule).
+> **Leaf references:** [tabletop-graveyard](./falsification/ch11-experimental-bench-falsification/tabletop-graveyard.md), [tabletop-null-results](./falsification/ch11-experimental-bench/tabletop-null-results.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 2 ($p_{vac}=\Phi\,\xi_{topo}$ flux-momentum mapping)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: Both null-result calculations are clean algebra: VFDT ($p_{vac}=\Phi\xi_{topo}\approx1.30\times10^{-8}$ kg·m/s ÷ $M_{vac}\approx97{,}450$ kg → $v_{vac}\approx1.33\times10^{-13}$ m/s → $\sim10^{-14}$ rad, undetectable) and RVR ($\delta_L\approx7.4\times10^{-26}$ → $Q\ge2.7\times10^{25}$ vs SOTA $\sim10^{11}$, 15-orders short). The required-null framing is logically sound (a positive signal would falsify $\rho_{bulk}$). The leaf discloses these are consistency checks using the same framework-derived $\rho_{bulk}$, $G/c^2$ couplings — not independent corroboration. Closed null-derivations resting on disclosed imported constants.
 - strengthen-by:
-  - *pending*
+  - Ground $\rho_{bulk}\approx7.91\times10^6$ kg/m³ independently so the VFDT/RVR null thresholds are not circular with the constants they test.
 
 ---
 
@@ -821,16 +868,17 @@ Three telemetry concepts for industrial-scale metric-engineering platforms (YBCO
   - The boundary-layer and redline monitors are engineering proposals for hypothetical industrial platforms; no built telemetry suite is described.
   - The 511 kV "absolute transient limit" cited as the pair-production trigger is the $V_{snap}$ threshold (see the $V_{yield}$ vs $V_{snap}$ entry); the leaf uses both 43.65 kV (Axiom-4 yield) and 511 kV ($V_{snap}$) without flagging the regime distinction.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/applied-telemetry.md`, `falsification/ch11-experimental-bench/industrial-scaleup.md` (consolidated telemetry summary alongside the YBCO-array and sapphire-centrifuge predictions).
+> **Leaf references:** [applied-telemetry](./falsification/ch11-experimental-bench-falsification/applied-telemetry.md), [industrial-scaleup](./falsification/ch11-experimental-bench/industrial-scaleup.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 ($C_{eff}\to\infty$ near yield; $V_{yield}=43.65$ kV)
+  - clm-vjv4zf (the $C_{eff}(V)$ strain-gauge readout)
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.90)]
+- rationale: Three loosely-coupled telemetry concepts. The dielectric-strain-gauge ($C_{eff}\to\infty$ throttle) and Schwinger-redline (gamma-scintillation abort) are engineering proposals with no built suite. The SBSL FOC isomorphism is the most concrete but its 67.68 kV / 1 Å focal-pressure figure is a K4-TLM solver self-consistency output (Axiom-4 threshold crossing), explicitly NOT an empirical match to measured SBSL spectroscopy, and the leaf mixes 43.65 kV and 511 kV without flagging the regime distinction (the caveat notes this). Asserted proposals + a self-consistency simulation output.
 - strengthen-by:
-  - *pending*
+  - Produce a quantitative SBSL spectrum/temperature prediction from the K4-TLM envelope comparable against measured single-bubble sonoluminescence data.
 
 ---
 
@@ -850,16 +898,16 @@ The framework-level epistemological claim binding the kill-switch leaves: AVE is
   - The contrast with BSM "moving goalposts" is rhetorical — it is a meta-claim about scientific practice, not a derived result.
   - The doctrine is *meta* — it tells you how to read other leaves' falsification statements; it is not itself a hardware test.
 
-> **Leaf references:** `falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md`, `falsification/ch12-falsifiable-predictions/epistemology-ch12.md` (Ch.12 condensed restatement), `falsification/ch11-experimental-bench/epistemology-kill-switches.md` (consolidated three-binary-kill-switches restatement bound to the doctrine).
+> **Leaf references:** [epistemology-of-falsification](./falsification/ch11-experimental-bench-falsification/epistemology-of-falsification.md), [epistemology-kill-switches](./falsification/ch11-experimental-bench/epistemology-kill-switches.md), [epistemology-ch12](./falsification/ch12-falsifiable-predictions/epistemology-ch12.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (single $\ell_{node}$ calibration from which the chain hangs)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
+- rationale: A framework-internal meta-claim that AVE is a one-parameter EFT with no back-fitting slack. It is honest about its own status (the doctrine asserts the chain is not adjustable, not that it is correct; the BSM "moving-goalposts" contrast is explicitly rhetorical). But the load-bearing assertion "all masses, forces, and cosmological constants are algebraically interlocked from $\ell_{node}$" is acknowledged in-leaf to lack a complete per-quantity enumeration in any single leaf (directional, verify-per-quantity). A self-aware meta-doctrine with an open completeness gap.
 - strengthen-by:
-  - *pending*
+  - Provide the explicit chain-of-derivation map from $\ell_{node}$ to each major output (electron mass, $\alpha$, baryon ladder, $H_\infty$) so the "no slack" claim is enumerated rather than directional.
 
 ---
 
@@ -877,16 +925,17 @@ To couple maximally to the chiral $\mathcal{M}_A$ vacuum, an EM emitter must car
   - This is the polarization-matching companion claim to the HOPF-01 chiral antenna prediction (see the clm-wzezvt entry's $\Delta f/f = \alpha\,pq/(p+q)$ formula). Helicity injection is the *why* — the qualitative reason the chiral coupling exists; HOPF-01 is the *what* — the specific zero-parameter resonance shift the matched coupling produces.
   - Does NOT independently constitute a falsifiable signal: helicity-mismatched coupling is a known result in classical plasma physics. The novel claim is that the *vacuum itself* has the chiral structure that demands matched helicity — testable only through HOPF-01-style topological-resonance experiments.
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/helicity-injection.md`.
+> **Leaf references:** [helicity-injection](./falsification/ch12-falsifiable-predictions/helicity-injection.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (chiral Cosserat microrotation of $\mathcal{M}_A$)
+  - clm-wzezvt (HOPF-01 chiral-antenna companion prediction)
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.60)]
+- rationale: The polarization-matching argument is qualitatively sound: a flat toroid has $\int\mathbf{A}\cdot\mathbf{B}\,dV=0$ (mismatched), while a Hopf $(p,q)$ winding forces $\mathbf{A}\parallel\mathbf{B}\neq0$ (matched to the chiral lattice microrotation). But "maximizes geometric power transfer / reduces reactive return loss" is asserted with no quantitative toroid-vs-Hopf coupling-efficiency comparison, and the leaf concedes this is the qualitative "why" companion to HOPF-01, not an independent falsifiable signal (helicity-mismatch is a known plasma-physics result). Sketch with structural support, no closed efficiency derivation.
 - strengthen-by:
-  - *pending*
+  - Compute the toroid-vs-Hopf coupling efficiency at a specified drive frequency so "maximizes power transfer" becomes a quantitative claim.
 
 ---
 
@@ -905,16 +954,16 @@ The Sagnac shift in AVE depends on the rotor's *physical* properties (mass densi
   - Three of the four telemetry derivatives (gradient compass, dark wake, chiral torsion) are explicitly noted as "extracted to companion IP volumes" — i.e., not present in the open KB. Cite this leaf only for the entrainment law itself and the slip-velocity-indicator architecture.
   - SNR / hardware tolerance numbers (Zerodur cavity, $<1$ mK thermal stability, $<46$ kHz linewidth, sub-pm seismic) are quoted in the index for this leaf but the body of this leaf marks them "extracted to companion IP volumes."
 
-> **Leaf references:** `falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md`, `falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md`. The material-dependent entrainment law is the physics that the Sagnac-RLVE experiment (`exp-rth12t`, `falsification/ch11-experimental-bench-falsification/sagnac-rlve.md`) tests via a `strengthens` edge.
+> **Leaf references:** [active-sagnac-impedance-drag](./falsification/ch12-falsifiable-predictions/active-sagnac-impedance-drag.md), [active-sagnac-telemetry](./falsification/ch12-falsifiable-predictions/active-sagnac-telemetry.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (mass-density-coupled mutual inductance / metric drag)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
+- rationale: The five-axis material-dependent entrainment law ($\rho_m$, $\mu_r$, $B$, altitude, latitude) is clearly stated with a sharp material-pair falsifier (Aerogel/Lead, Al/Mu-Metal: density/material-independent shift kills AVE) — directly contradicting the GR area-only Sagnac claim, which is a genuine discriminator. But this leaf is the parametric-law statement; the quantitative worked example (2.07 rad) lives in the Sagnac-RLVE experiment, and the SNR/tolerance specifics + three of four telemetry derivatives are explicitly "extracted to companion IP volumes" (not present in the open KB). A well-posed parametric law with the quantitative apparatus and SNR offloaded.
 - strengthen-by:
-  - *pending*
+  - Derive the functional form of the five-axis dependence (currently a list of monotonic directions) so the law makes a quantitative shift-vs-$\rho_m$ prediction testable by the material-pair experiment.
 
 ---
 
@@ -933,16 +982,18 @@ Mutual inductance yields above a structural shear threshold $\tau_{yield}$, mapp
   - "Frictionless flow" above yield is the inductive-drag-only statement; it does not assert that all dissipation channels vanish — it specifically identifies the mutual-inductance damping channel as the one that yields.
   - The TVS-Zener analogy is structural; this leaf does not present an empirical match to any specific Zener device's $\eta(V)$ characteristic.
 
-> **Leaf references:** `circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md`. The yield mechanism this entry describes is the constitutive basis of the autoresonant PLL (clm-9sujp8), the ZENER-04 avalanche detector (clm-cltls0), and the asymmetric-flyback rectification in TORSION-05 (clm-kl1ern).
+> **Leaf references:** [tvs-transition](./circuit-theory/ch1-vacuum-circuit-analysis/tvs-transition.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 4 (shear-yield TVS step at $\tau_{yield}$)
+  - INVARIANT-C1 ($V_{yield}$ threshold)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: The constitutive step $\eta_{eff}(V)=\eta_0$ below / $0$ above $V_{yield}$ is well-posed, and the yield-stress numeral $\tau_{yield}=\rho_{bulk}c^2\mathcal{V}_{total}\,\alpha\approx1.04\times10^{22}$ Pa closes arithmetically. But it imports several framework-derived inputs — $\rho_{bulk}$, the FEM-verified Borromean halo volume $\mathcal{V}_{total}=2.0$, and the porosity identity $p_c/(8\pi)=\alpha$ — and the leaf discloses the step is idealized (transition width unspecified). A clean constitutive derivation gated by clearly-disclosed imports.
 - strengthen-by:
-  - *pending*
+  - Specify the finite transition width (from $\tau_{relax}$ / finite rise-time) so the step is a physical profile rather than a discontinuity.
+  - Derive $\mathcal{V}_{total}=2.0$ and $p_c/(8\pi)=\alpha$ from lattice primitives inline.
 
 ---
 
@@ -961,16 +1012,17 @@ A SPICE simulation that reproduces the Sagnac arrival-time shift from a discrete
   - This SPICE reproduction is distinct from the Sagnac-RLVE experiment (`exp-rth12t`), which couples to *bulk vacuum* metric drag. The ch.16 simulation models a *rotating-frame fiber* with intrinsic directional induction; both share the Faraday-style mechanism but operate at different couplings.
   - Sub-microsecond transient analysis duration ($2\,\mu$s in the netlist); not a steady-state observability claim.
 
-> **Leaf references:** `simulation/ch16-sagnac-inductive-drag/theory.md`, `simulation/ch16-sagnac-inductive-drag/spice-netlist.md` (`sagnac_ring.cir` single-node behavioral inductor pattern, repeated across 50 nodes).
+> **Leaf references:** [spice-netlist](./simulation/ch16-sagnac-inductive-drag/spice-netlist.md), [theory](./simulation/ch16-sagnac-inductive-drag/theory.md).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - Axiom 1 (rotating-frame mutual inductance / directional $\mu_{eff}$)
+  - clm-i9l284 (LC-ladder propagation underlying the ring)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.90)]
+- rationale: The 50-node directional-$L_{eff}=L_0(1\pm\delta)$ LC ring qualitatively reproduces the Sagnac arrival-time differential from Faraday-style induction in a rotating frame, with the framing note correctly distinguishing rotor-local perturbation from a globally co-rotating bulk. The leaf is explicit this is QUALITATIVE — it does not claim the netlist's $L_0,C_0,S_{DRAG}$ values quantitatively predict any specific gyro's phase, and "no relativistic tensor math" is a property of the solver, not a refutation of the relativistic derivation (equivalent observables in the linear regime). Closes as a qualitative mechanism demonstration with that scope disclosed.
 - strengthen-by:
-  - *pending*
+  - Calibrate $S_{DRAG}$ from a physical rotor so the ring reproduces a measured ring-laser-gyro phase quantitatively.
 
 ---
 
@@ -988,14 +1040,17 @@ A-012 canonical. Op14 saturation-driven impedance modulation transfers energy be
   - The 5.5% H_cos drift is real physics (sector energy exchange), NOT numerical error.
   - Does NOT claim eigenfrequency drift with amplitude (that hypothesis is reported as falsified); does NOT close the Round 7+8 Mode III (2,3) bound-state gap.
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md`
+> **Leaf references:** [op14-cross-sector-trading](./circuit-theory/ch1-vacuum-circuit-analysis/op14-cross-sector-trading.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 1 (K4-inductive ↔ Cosserat sector structure)
+  - Axiom 4 (Op14 saturation-driven $Z_{eff}$ modulation)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: The central result — $\rho(H_{cos},\Sigma|\Phi_{link}|^2)=-0.990$ anti-correlation with $H_{total}=H_{cos}+H_{K4\text{-}ind}$ approximately conserved — is an empirical engine-measurement over a stated recording window with a clearly-stated reactive-trading mechanism (Op14 $Z_{eff}$ modulation transferring energy via the bond LC tank). The 5.5% $H_{cos}$ drift is interpreted as real sector exchange, not numerical error, and a competing amplitude-eigenfrequency-drift hypothesis is reported falsified. Rests on a simulation measurement (disclosed) rather than a closed analytic derivation, with the (2,3) bound-state gap explicitly left open.
 - strengthen-by:
-  - *pending*
+  - Derive the $\sim0.020$ rad/unit trading frequency analytically from the Op14 coupling rather than reading it from the FFT.
 
 ---
 
@@ -1010,14 +1065,16 @@ A-010 canonical. Op14's dynamic impedance Z_eff(r) = Z₀/√S(r) modulates not 
 - _Specific Non-Claims and Caveats_
   - Three regimes must NOT be conflated: uniform slowing (reactive) vs uniform damping (dissipative) vs spatially-varying slowing (mode-decomposition matters).
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md`
+> **Leaf references:** [op14-local-clock-modulation](./circuit-theory/ch1-vacuum-circuit-analysis/op14-local-clock-modulation.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.8
+- depends-on:
+  - Axiom 4 (saturation kernel $S(A)=\sqrt{1-A^2}$; $c_{eff}=c_0\sqrt S$ relation)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 1.00)]
+- rationale: $\omega_{local}=\omega_{global}\sqrt{1-A^2}$ follows cleanly from $c_{eff}=c_0\sqrt{S}$ (wave needs $\tau=\ell/c_{eff}$ to cross a cell), giving $\tau_{local}=\tau_{unstrained}/\sqrt{1-A^2}$; the cross-volume parallel to gravitational $n(r)=1/\sqrt S$ is exact, and the three-regime non-conflation (uniform-slowing reactive vs uniform-damping dissipative vs spatially-varying) is explicit and methodologically careful. A clean derivation from the kernel; pinned just below 0.9 because the $c_{eff}=c_0\sqrt S$ wave-speed step is asserted from the kernel rather than re-derived in-leaf.
 - strengthen-by:
-  - *pending*
+  - Derive $c_{eff}=c_0\sqrt{S}$ from the per-cell dispersion relation inline so the clock-rate result is fully self-contained.
 
 ---
 
@@ -1033,14 +1090,19 @@ For an N-coherent-site LC apparatus embedded in the bulk substrate with vacuum v
 - _Specific Non-Claims and Caveats_
   - REACTIVE-power class; NOT the real-power κ_entrain Sagnac-RLVE mechanism.
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md`
+> **Leaf references:** [parametric-coupling-kernel](./circuit-theory/ch1-vacuum-circuit-analysis/parametric-coupling-kernel.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.6
+- depends-on:
+  - Axiom 4 (vacuum varactor $C_{eff}(V)$; Theorem 3.1' $Z_{radiation}=Z_0/4\pi$ inheritance)
+  - clm-vjv4zf (constitutive $C_{eff}(V)$ form)
+  - clm-rtdmsn (Theorem 3.1' $Z_{radiation}=Z_0/4\pi$ LC-tank Q-factor inherited)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.85)]
+- rationale: The kernel $\varepsilon_{det}=4\pi\kappa_{quality}/N^2$ is derived substrate-native (N-parallel-LC voltage-divider for the first $1/N$, substrate-clock phase-bin enumeration for the second, $4\pi$ inherited from spinor-cycle radiation impedance), and $\delta C/C_0=\tfrac14(V_{pump}/V_{yield})^2\approx4.57\%$ is clean algebra with a textbook degenerate-parametric cross-check. But the leaf is candid that $\kappa_{quality}$ per detector and the per-defect detuning $(\Delta\omega/\omega)_{per-defect}\approx0.1$ are load-bearing-open (sub-regenerative envelope "rigorous derivation pending"; per-defect-class sub-derivations open). Closes to leading order with substantive disclosed open dependencies on $\kappa_{quality}$.
 - strengthen-by:
-  - *pending*
+  - Derive the per-defect-class $(\Delta\omega/\omega)_{per-defect}$ from first principles so $\kappa_{quality}(\rho_{def})$ is fully parameter-free.
+  - Give the rigorous (not dimensional-analysis) form of the sub-regenerative $\kappa_{quality}=(Q\delta_C/2)^2$ envelope.
 
 ---
 
@@ -1056,14 +1118,16 @@ Clarification leaf documenting the canonical strain-measure convention. The corp
   - Explicitly "not a new physics result" — a convention-documentation leaf.
   - Partial closure only: WHY topological strain equals ℓ_node/r rather than α·ℓ_node/r from first principles is an open multi-week analytical item.
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md`
+> **Leaf references:** [q-g22-strain-convention](./circuit-theory/ch1-vacuum-circuit-analysis/q-g22-strain-convention.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 4 (kernel-application strain measure)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
+- rationale: A convention-documentation leaf, not a physics result (explicitly stated). It cleanly resolves the apparent "four-way conflict" by distinguishing the geometric confinement ratio $A_{geom}=\ell_{node}/r$ ($\propto1/r$, used in all kernel applications) from the Coulomb field ratio $A_{field}=E\ell_{node}/V_{yield}$ ($\propto1/r^2$, used in the IVIM bench), with multiple corpus anchor-line citations. The distinction is internally consistent and well-supported; the leaf openly flags the open piece — WHY topological strain $=\ell_{node}/r$ rather than $\alpha\ell_{node}/r$ from first principles (a multi-week item). Disclosed partial closure.
 - strengthen-by:
-  - *pending*
+  - Derive from first principles why the kernel strain is $\ell_{node}/r$ (not $\alpha\ell_{node}/r$) via the $V_{yield}$ scale-cascade, closing the acknowledged open piece.
 
 ---
 
@@ -1078,14 +1142,18 @@ The Lorentz-invariant kinetic energy E = γm₀c² emerges structurally from the
 - _Specific Non-Claims and Caveats_
   - Does NOT derive from a scalar field Lagrangian; the "gap" was a framing artifact dissolved by corpus-grep.
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor-newtonian-limit.md`
+> **Leaf references:** [relativistic-inductor-newtonian-limit](./circuit-theory/ch1-vacuum-circuit-analysis/relativistic-inductor-newtonian-limit.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - Axiom 1 (lattice floor / Cosserat dual-axis structure)
+  - Axiom 2 ($L=\xi_{topo}^{-2}m$ inductance-mass mapping)
+  - clm-p5cf3t (Relativistic Inductor $L_{eff}(I)$ framework)
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.85)]
+- rationale: $E=\gamma m_0c^2$ (and the full $E^2=(m_0c^2)^2+(pc)^2$) is reconstructed structurally from the LC-tank virial equipartition + relativistic-inductor mapping with no fit parameters, and the leaf is honest that the prior "Derrick-theorem gap" was a framing artifact dissolved by corpus-grep. The three Derrick-bypass mechanisms are clearly stated but two of them (Faddeev-Skyrme Op10 term, bilateral chiral Cosserat structure) are imported from Vol 2 / Axiom 1 rather than re-derived here, and Step 3's "virial preserves capacitive balance under boost" is asserted. Closes structurally on disclosed imports.
 - strengthen-by:
-  - *pending*
+  - Show explicitly that virial equipartition survives the Lorentz boost (Step 3 currently asserts the capacitive balance adjusts to maintain $E_{total}=\gamma m_0c^2$).
 
 ---
 
@@ -1101,14 +1169,18 @@ Axiom-first derivation of the substrate's thixotropic relaxation time from the p
 - _Specific Non-Claims and Caveats_
   - Distinguishes its linear-scaling prediction explicitly from the Kibble-Zurek power-law.
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md`
+> **Leaf references:** [tau-relax-derivation](./circuit-theory/ch1-vacuum-circuit-analysis/tau-relax-derivation.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.8
+- depends-on:
+  - Axiom 1 (K4 LC lattice, $\ell_{node}$ pitch)
+  - Axiom 3 ($c$ as universal propagation limit)
+  - Axiom 4 (saturation kernel relaxing toward $S_{eq}$)
+- solidity: 0.80 (ok to build on, see caveats) [= min(0.80, 1.00)]
+- rationale: $\tau_{relax}=\ell_{node}/c\approx1.288\times10^{-21}$ s is derived axiom-first from the per-cell K4 Lagrangian (lattice wave speed $=c$) plus the nearest-neighbor bond-length / causal-propagation argument, with a clean no-faster-mode proof (supraluminal violates Axiom 3, sub-lattice coherence violates Axiom 1). The memristive first-order ODE and the hysteresis-loop / linear-(not-Kibble-Zurek)-cooling prediction are well-posed and clearly distinguished. Pinned just below 0.9 because the continuum-limit Euler-Lagrange step to the wave equation is stated rather than carried out in detail.
 - strengthen-by:
-  - *pending*
+  - Carry out the continuum-limit Euler-Lagrange derivation explicitly rather than citing Vol 4 Ch 1:60-125.
 
 ---
 
@@ -1123,14 +1195,18 @@ The electron's fine-structure constant α⁻¹ ≈ 137.036 is the dimensionless 
 - _Specific Non-Claims and Caveats_
   - Supersedes the Neumann-integral framing (doc 14), which is reported empirically falsified (classical Neumann integral for (2,3) at Golden Torus does not reproduce π² or 137).
 
-> **Leaf references:** `vol4/circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md`
+> **Leaf references:** [theorem-3-1-q-factor](./circuit-theory/ch1-vacuum-circuit-analysis/theorem-3-1-q-factor.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.85
+- depends-on:
+  - Axiom 1 ($\ell_{node}$, Nyquist cutoff, Golden Torus geometry)
+  - Axiom 2 ($\xi_{topo}$, $L_e=\xi_{topo}^{-2}m_e$)
+  - Axiom 3 (TIR $\Gamma=-1$ confinement, per-cycle leak $=\alpha$)
+- solidity: 0.85 (ok to build on) [= min(0.85, 1.00)]
+- rationale: Two independent derivations of $\alpha^{-1}=Q_{tank}=4\pi^3+\pi^2+\pi=137.036$ — the LC-tank path ($Q=\omega_C L_e/R=(Z_0/4\pi\alpha)/(Z_0/4\pi)=1/\alpha$, clean algebra) and the multipole geometric-sum path — agree to $\delta_{strain}=2.225\times10^{-6}$, identified as the CMB thermal running (a numerical-verification script is cited). The one asserted step is the natural-unit bridge "$Q_i=\Lambda_i$" (dimensionless geometric volumes ARE reactances), disclosed as a convention. Supersedes the empirically-falsified Neumann framing. Two-path-agreeing closed derivation with one disclosed identification.
 - strengthen-by:
-  - *pending*
+  - Derive the $Q_i=\Lambda_i$ identification (geometric volume → reactance) from the substrate impedance scaling rather than asserting it as a natural-unit convention.
 
 ---
 
@@ -1144,13 +1220,15 @@ A-034 measurement-hierarchy framing for engineered-substrate kernel measurements
 - _Specific Non-Claims and Caveats_
   - A framing/hierarchy claim — does not assert a new kernel, only the SNR-scaling regimes for measuring the existing one.
 
-> **Leaf references:** `vol4/falsification/ch11-experimental-bench/measurement-hierarchy-snr.md`
+> **Leaf references:** [measurement-hierarchy-snr](./falsification/ch11-experimental-bench/measurement-hierarchy-snr.md).
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.6
+- depends-on:
+  - Axiom 4 (universal kernel $S(A)=\sqrt{1-A^2}$ accessed by all three architectures)
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
+- rationale: A framing/hierarchy claim (explicitly "does not assert a new kernel"). The single-emitter ($\propto V$) and bulk-response ($\propto\sqrt N\,V$ Gaussian-averaging) SNR scalings are standard, well-grounded EE results. The phased-array PLL $\propto\exp(N\log Q)$-near-rupture form is asserted as autoresonant amplification but not derived in-leaf (no model producing the exponential). The cross-scale unification table is illustrative. A sound organizing framework whose third (exponential) scaling is asserted rather than shown.
 - strengthen-by:
-  - *pending*
+  - Derive the phased-array-PLL $\propto\exp(N\log Q)$ near-rupture SNR scaling from the autoresonant Duffing lock dynamics.
 
 ---
