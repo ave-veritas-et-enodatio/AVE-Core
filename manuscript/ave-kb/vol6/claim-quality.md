@@ -25,6 +25,8 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 
 > **References:** `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` (methodology note explicitly flags fit-vs-prediction); `framework/mass-defect-summary.md` (the table that omits the qualifier); `framework/computational-mass-defect/mutual-coupling-constant.md` (zero-parameter $K$ derivation); `framework/computational-mass-defect/nucleon-spacing-derivation.md` (zero-parameter $d$, $D_{\text{intra}}$); `appendix/geometric-inevitability/platonic-progression.md`.
 
+> **Leaf references:** [platonic-progression](./appendix/geometric-inevitability/platonic-progression.md), [mutual-coupling-constant](./framework/computational-mass-defect/mutual-coupling-constant.md), [nucleon-spacing-derivation](./framework/computational-mass-defect/nucleon-spacing-derivation.md), [semiconductor-nuclear-analysis](./framework/computational-mass-defect/semiconductor-nuclear-analysis.md), [mass-defect-summary](./framework/mass-defect-summary.md).
+
 ### Quality
 - confidence: 0.7
 - depends-on:
@@ -54,7 +56,7 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
   - Does NOT claim $K$ is an independent input. Treat the $K = 11.337$ MeV·fm value as **derived from the assembled three-factor expression**; alternative groupings of the same three factors (different per-crossing phase, different proximity correction) would yield different $K$ values, and the chain is structurally argued rather than first-principles-rigorous in the leaf.
   - The He-4 mass match at $0.001\%$ is a single-point validation; the same $K$ is then **applied** to all heavier nuclei where the inter-alpha distance $R$ becomes the per-nucleus fit parameter (see "Mass-Defect Accuracy" entry above).
 
-> **Leaf references:** `framework/computational-mass-defect/mutual-coupling-constant.md`; `framework/computational-mass-defect/nucleon-spacing-derivation.md`. Cross-volume: vol2 torus-knot identification of the proton as $(2,5)$ cinquefoil ($c=5$).
+> **Leaf references:** [mutual-coupling-constant](./framework/computational-mass-defect/mutual-coupling-constant.md), [nucleon-spacing-derivation](./framework/computational-mass-defect/nucleon-spacing-derivation.md).
 
 ### Quality
 - confidence: 0.6
@@ -89,6 +91,8 @@ The atomic ionization solver `radial_eigenvalue.py` computes first IEs for $Z=1$
 
 > **References:** `framework/ionization-energy-summary.md` (full table, $Z=1$–$14$ and $Z=31$–$36$); `period-2/beryllium/ionization-energy-correction.md` (A); `period-3/magnesium/ionization-energy-correction.md` (B); `period-3/aluminum/ionization-energy-correction.md`, `period-3/silicon/ionization-energy-correction.md` (C); `framework/polar-conjugate-bounding.md` (D). Cross-cutting: LIVING_REFERENCE.md Common Pitfalls #7, #8, #9, #10, #11; "4. Axioms in the Atomic Domain" Corrections A–D.
 
+> **Leaf references:** [ionization-energy-summary](./framework/ionization-energy-summary.md), [polar-conjugate-bounding](./framework/polar-conjugate-bounding.md), [ionization-energy-correction](./period-2/beryllium/ionization-energy-correction.md), [ionization-energy-correction](./period-3/aluminum/ionization-energy-correction.md), [ionization-energy-correction](./period-3/magnesium/ionization-energy-correction.md), [ionization-energy-correction](./period-3/silicon/ionization-energy-correction.md).
+
 ### Quality
 - confidence: 0.7
 - depends-on:
@@ -120,7 +124,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
   - Does NOT claim the topology assignments for $Z \ge 28$ are first-principles-derived in vol6. The mass-prediction-accuracy leaf calls Tier C "Fibonacci lattice packing as a geometric proxy"; the abcd-transfer-matrix leaf (`abcd-transfer-matrix.md`) explicitly states the port-connected network topology for $Z \ge 15$ is the **key open problem** — the current heavy-element predictions use sphere packing rather than the deterministic ABCD cascade.
   - The Large-Signal $0.000\%$ for S-32 and Ca-40 is one specific instance of the cross-cutting Master-Prediction-Table tripwire: "$0.000\%$" entries are not all the same category. These two are zero-parameter Large-Signal closures (closer to category iv "derived prediction" given the avalanche $M$ also derives from $c_{\text{proton}} = 5$); Ar-40 / Ti-48 / Cr-52 / Fe-56 are geometric-identity packing solutions; Tier-C entries are proxy fits. Do not present a global "AVE achieves $< 0.5\%$ across $Z=15$–$119$" claim without per-tier breakout.
 
-> **Leaf references:** `appendix/heavy-element-catalog/full-element-table.md`; `appendix/heavy-element-catalog/mass-prediction-accuracy.md`; `appendix/heavy-element-catalog/selected-heavy-orbital-topology.md` (Tier-A/B per-element soliton placements); `appendix/heavy-element-catalog/index.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/platonic-progression.md`; `framework/computational-mass-defect/abcd-transfer-matrix.md` (ABCD cascade as the open problem). Cross-cutting: Master Prediction Table reading conventions in `../claim-quality.md`.
+> **Leaf references:** [fibonacci-packing-proxy](./appendix/geometric-inevitability/fibonacci-packing-proxy.md), [platonic-progression](./appendix/geometric-inevitability/platonic-progression.md), [full-element-table](./appendix/heavy-element-catalog/full-element-table.md), [mass-prediction-accuracy](./appendix/heavy-element-catalog/mass-prediction-accuracy.md), [selected-heavy-orbital-topology](./appendix/heavy-element-catalog/selected-heavy-orbital-topology.md), [abcd-transfer-matrix](./framework/computational-mass-defect/abcd-transfer-matrix.md).
 
 ### Quality
 - confidence: 0.6
@@ -153,7 +157,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
   - Does NOT claim $R_{\text{halo}}$ is a first-principles output. It is the per-nucleus fit parameter for $^{11}$B (see "Mass-Defect Accuracy" entry); the substantive claim is that the fit value lands at the Horizon limit, which the framework calls **structural** rather than coincidental.
   - The Horizon limit applies to halo nucleons around a single saturated alpha core; does NOT claim a universal $4\pi - \sqrt{2}/2$ bound for any reactive-coherence radius across vol6 elements. Other halo distances (F-19 at $398d$, Na-23 at $50d$, Al-27 at $52.6d$) operate under different core-density regimes and are not bounded by this same formula.
 
-> **Leaf references:** `period-2/boron/structure-isotope-stability.md`; `appendix/geometric-inevitability/pi-topological-horizon.md`.
+> **Leaf references:** [pi-topological-horizon](./appendix/geometric-inevitability/pi-topological-horizon.md), [structure-isotope-stability](./period-2/boron/structure-isotope-stability.md).
 
 ### Quality
 - confidence: 0.4
@@ -183,7 +187,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
   - Does NOT claim the same argument extends parameter-free to all heavy halogens / alkali metals. The argument is strongest for the F/Na pair (same Tritium halo, opposite core scale); extrapolating to Cl/K, Br/Rb, etc., requires the corresponding core+halo topology assignments, which for $Z \ge 17$ are in the Tier-C Fibonacci-proxy regime.
   - The Neon "curve-fitting fallacy" leaf is an **interpretive defense**, not an independent validation; it argues *why* the variation is meaningful but does not constitute a separate empirical test.
 
-> **Leaf references:** `period-2/neon/curve-fitting-fallacy.md`; `period-2/fluorine/structure-isotope-stability.md`; `period-3/sodium/core-proximity-effect.md`; `period-3/aluminum/gradual-halo-separation.md`.
+> **Leaf references:** [structure-isotope-stability](./period-2/fluorine/structure-isotope-stability.md), [curve-fitting-fallacy](./period-2/neon/curve-fitting-fallacy.md), [gradual-halo-separation](./period-3/aluminum/gradual-halo-separation.md), [core-proximity-effect](./period-3/sodium/core-proximity-effect.md).
 
 ### Quality
 - confidence: 0.3
@@ -211,7 +215,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
   - Does NOT claim the AVE shell-closure mechanism is empirically distinguishable from the standard shell-model with spin-orbit coupling at the level of tested predictions. The two reproduce the same magic-number sequence (in the covered range); the AVE mechanism is presented as ontologically different (geometric vs spin-orbit), not as a numerically distinguishable prediction.
   - Does NOT claim a mass prediction at the magic numbers beyond what the semiconductor binding model already gives — the magic-number entry is structural (these $Z$ values close a Platonic/Archimedean shell), not an independent quantitative claim.
 
-> **Leaf references:** `appendix/geometric-inevitability/magic-numbers-shell-closure.md`; `appendix/geometric-inevitability/platonic-progression.md`.
+> **Leaf references:** [magic-numbers-shell-closure](./appendix/geometric-inevitability/magic-numbers-shell-closure.md), [platonic-progression](./appendix/geometric-inevitability/platonic-progression.md).
 
 ### Quality
 - confidence: 0.3
@@ -242,7 +246,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - $g_*$: the "$0.38\%$" baryon-asymmetry agreement uses $g_*$ together with $\alpha_W^4$, $C_{\text{sph}} = 28/79$, and $\kappa_{FS} = 8\pi$ — a multi-factor formula with several lattice-derived inputs. Treat as a composite consistency check, not a single-quantity prediction. (This entry overlaps with vol3's `effective-degrees-of-freedom` boundary; the bound there applies here too.)
   - All three sit in the Master Prediction Table at category (iv) "derived prediction" classification; the cross-cutting Master-Prediction-Table tripwire applies — these are not "0.00% identities" and the per-row classification matters.
 
-> **Leaf references:** `appendix/geometric-inevitability/alpha-s-derivation.md`; `appendix/geometric-inevitability/lambda-higgs-derivation.md`; `appendix/geometric-inevitability/g-star-derivation.md`; `appendix/geometric-inevitability/derived-numerical-constants.md`. Cross-cutting: see Master Prediction Table reading conventions in `../claim-quality.md`.
+> **Leaf references:** [alpha-s-derivation](./appendix/geometric-inevitability/alpha-s-derivation.md), [derived-numerical-constants](./appendix/geometric-inevitability/derived-numerical-constants.md), [g-star-derivation](./appendix/geometric-inevitability/g-star-derivation.md), [lambda-higgs-derivation](./appendix/geometric-inevitability/lambda-higgs-derivation.md).
 
 ### Quality
 - confidence: 0.5
@@ -269,7 +273,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - Does NOT claim $\varphi$ appears across vol6 wherever icosahedral imagery suggests it; the load-bearing claim is the Cr-52 case (and the related claim that icosahedral packings drive minimum impedance at $N=12$ generally).
   - The "Death of Numerology" framing is interpretive — the constants $\varphi$, $\pi$, Fibonacci, magic numbers reduce to packing theorems within the AVE framework. Does NOT claim this rules out alternative explanations for $\varphi$'s appearance in non-AVE contexts (sunflower spirals, etc., are asserted to follow the same packing logic but not separately validated in vol6).
 
-> **Leaf references:** `appendix/geometric-inevitability/golden-ratio-min-impedance.md`; `appendix/geometric-inevitability/fibonacci-packing-proxy.md`; `appendix/geometric-inevitability/conclusion-death-of-numerology.md`; `framework/executive-abstract.md` ($\varphi$ at 13-alpha shell).
+> **Leaf references:** [conclusion-death-of-numerology](./appendix/geometric-inevitability/conclusion-death-of-numerology.md), [fibonacci-packing-proxy](./appendix/geometric-inevitability/fibonacci-packing-proxy.md), [golden-ratio-min-impedance](./appendix/geometric-inevitability/golden-ratio-min-impedance.md), [executive-abstract](./framework/executive-abstract.md).
 
 ### Quality
 - confidence: 0.6
@@ -295,7 +299,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - Does NOT claim $6.847$ MeV is a directly measurable binding-per-nucleon limit. The empirical peak (Fe-56, $\sim 8.79$ MeV/nucleon) exceeds this base ceiling; the framework attributes the excess to Miller amplification across geometric $p$-$n$ arrays. The base ceiling is a per-nucleon **rupture limit on a single isolated $6^3_2$ knot**, not the observed binding peak.
   - Does NOT claim a quantitative derivation of the gap between $6.847$ MeV (base ceiling) and $\sim 8.79$ MeV (Fe-56 peak) at the level of the geometric-inevitability appendix entries. The bridge is via Miller amplification with $n = c_{\text{proton}} = 5$; does NOT claim this amplification factor reproduces the entire empirical binding curve at sub-percent accuracy. (The mass-defect entries cover what the framework actually validates per-element.)
 
-> **Leaf references:** `framework/computational-mass-defect/pn-junction-coupling.md` (resultbox); `framework/index.md` (Key Results "Binding energy ceiling" row).
+> **Leaf references:** [pn-junction-coupling](./framework/computational-mass-defect/pn-junction-coupling.md).
 
 ### Quality
 - confidence: 0.4
@@ -323,7 +327,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - Does NOT claim the $S_{11}$ scattering cross-section reproduces measured cross-sections at quantitative precision per-element. The $S_{11}$ argument is structural (compact topology = small cross-section, extended halo = large cross-section); per-event cross-section comparisons are not tabulated in the leaves.
   - The Tritium $\to ^3$He decay leaf is explicit that the $Q$-factor jump ($3.20 \to 19.52$) is the framework's *mechanistic* contribution — it identifies why the decay runs in that direction. The empirical mass-energy difference $\approx 0.529$ MeV (and the $\sim 18.6$ keV $\beta$-endpoint) is taken from CODATA, not derived independently in vol6. An attempt to derive the magnitude from the framework's pairwise coupling across the two geometries is tracked as future work.
 
-> **Leaf references:** `framework/computational-mass-defect/network-analytics.md`; `framework/computational-mass-defect/topological-circuit-conventions.md`; `framework/computational-mass-defect/radioactive-decay-impedance.md`.
+> **Leaf references:** [network-analytics](./framework/computational-mass-defect/network-analytics.md), [radioactive-decay-impedance](./framework/computational-mass-defect/radioactive-decay-impedance.md), [topological-circuit-conventions](./framework/computational-mass-defect/topological-circuit-conventions.md).
 
 ### Quality
 - confidence: 0.3
@@ -349,7 +353,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
   - Does NOT claim the heavy-element catalog ($Z=15$–$119$) currently uses the ABCD cascade. The catalog is on Fibonacci-proxy sphere packing pending the ABCD solution. The leaf is explicit that this is an open problem.
   - Does NOT claim the ABCD reformulation will preserve the current Tier-C accuracy figures — when solved, it is expected to **replace** the current heuristic, and the current Tier-C $0.1$–$1.5\%$ residuals could shift in either direction.
 
-> **Leaf references:** `framework/computational-mass-defect/abcd-transfer-matrix.md`.
+> **Leaf references:** [abcd-transfer-matrix](./framework/computational-mass-defect/abcd-transfer-matrix.md).
 
 ### Quality
 - confidence: 0.5
@@ -379,7 +383,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
   - Does NOT claim the $\sim 75$ MeV endothermic figure for $^{28}\text{Si} + \alpha \to ^{32}\text{S}$ is AVE-derived — it is the empirical $Q$-value cited as evidence of the regime transition.
   - V_YIELD vs V_SNAP distinction is project-wide (LIVING_REFERENCE.md Critical Distinctions #1): V_SNAP $= 511$ kV (absolute destruction), V_YIELD $= 43.65$ kV (kinetic onset of nonlinearity). Vol 6 nuclear binding operates at $V_{BR} \approx 3.631$ MeV per alpha cluster, which is the **alpha-cluster internal Coulomb capacity**, not the lattice V_YIELD or V_SNAP. The three voltage scales (V_YIELD, V_SNAP, V_BR) live at different scales; reviewers should not conflate them.
 
-> **Leaf references:** `framework/computational-mass-defect/operating-regimes.md`; `framework/computational-mass-defect/semiconductor-nuclear-analysis.md`; `framework/chemistry-translation/semiconductor-regime-chemistry.md` (regime-to-chemistry mapping); `period-3/silicon/symmetric-core-collapse.md`; `period-3/magnesium/symmetric-shell-collapse.md`. Cross-cutting: Symmetric vs Asymmetric Saturation in `../claim-quality.md`; LIVING_REFERENCE.md Critical Distinctions #1.
+> **Leaf references:** [semiconductor-regime-chemistry](./framework/chemistry-translation/semiconductor-regime-chemistry.md), [operating-regimes](./framework/computational-mass-defect/operating-regimes.md), [semiconductor-nuclear-analysis](./framework/computational-mass-defect/semiconductor-nuclear-analysis.md), [symmetric-shell-collapse](./period-3/magnesium/symmetric-shell-collapse.md), [symmetric-core-collapse](./period-3/silicon/symmetric-core-collapse.md).
 
 ### Quality
 - confidence: 0.7
@@ -408,7 +412,7 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
   - LIVING_REFERENCE.md Pitfall #8 (QM Contamination — Bohr formula) is the relevant project-wide tripwire: the topological derivation here uses $E_k = (1/2) m_e (\alpha c)^2$, which is **algebraically equivalent** to the Bohr-formula Rydberg expression. The framework's claim is that the topological route arrives at the same number via classical LC standing-wave mechanics rather than via $E = Z_{\text{eff}}^2 \mathrm{Ry} / n^2$. Reviewers must not promote this single-element result into a general "AVE-derived ionization energies use the Bohr formula" reading — the multi-element solver explicitly rejects the Bohr formula (see "Period 1–3 Per-Element IE Accuracy" entry).
   - The "trefoil electron + Borromean proton" identification is structural; does NOT claim novel observables distinguishable from the standard Hydrogen atom in low-energy QM.
 
-> **Leaf references:** `period-1/hydrogen/orbital-knot-topology.md`. Cross-cutting: LIVING_REFERENCE.md Pitfall #8.
+> **Leaf references:** [orbital-knot-topology](./period-1/hydrogen/orbital-knot-topology.md).
 
 ### Quality
 - confidence: 0.9
@@ -437,6 +441,8 @@ Per CLAUDE.md INVARIANT-N2, Vol 6 source uses **roman ell** ($l_{node}$) as the 
 
 > **References:** CLAUDE.md INVARIANT-N2; vol6 leaves throughout (e.g., `framework/computational-mass-defect/semiconductor-nuclear-analysis.md` parameter table uses `L_NODE`).
 
+> **Leaf references:** [semiconductor-nuclear-analysis](./framework/computational-mass-defect/semiconductor-nuclear-analysis.md).
+
 ### Quality
 - confidence: 1.0
 - depends-on:
@@ -463,7 +469,7 @@ The "Computational Mass Defect" framework rests on a small set of axiomatic mapp
   - The convention mapping $\Gamma \to Q$ is qualitative — it identifies isotope half-life with network $Q$-factor as a structural relationship; it does not assert a quantitative half-life prediction from $Q$ (see entry `clm-o9xphr`).
   - Vol 6 nuclear binding operates at $V_{BR} \approx 3.631$ MeV per alpha cluster, which is the alpha-cluster internal Coulomb capacity — not the lattice $V_{\text{yield}}$ ($\approx 43.65$ kV) or $V_{\text{snap}}$ ($\approx 511$ kV) defined in Vol 4. Reviewers should not conflate the three voltage scales (LIVING_REFERENCE.md Critical Distinctions #1).
 
-> **Leaf references:** `framework/computational-mass-defect/mass-as-reactive-load.md`; `framework/computational-mass-defect/topological-circuit-conventions.md`. Cross-cutting: LIVING_REFERENCE.md Critical Distinctions #1.
+> **Leaf references:** [mass-as-reactive-load](./framework/computational-mass-defect/mass-as-reactive-load.md), [topological-circuit-conventions](./framework/computational-mass-defect/topological-circuit-conventions.md).
 
 ### Quality
 - confidence: 0.5
@@ -494,7 +500,7 @@ Vol 6 maps standard chemistry vocabulary (electron orbitals, Lewis dot structure
   - Does NOT claim the topological re-identification produces observables empirically distinguishable from the standard QM/chemistry treatment at the level of these leaves. The claim is ontological (same numbers, different mechanism / different ground story), not a falsifiable quantitative deviation.
   - The water $104.5^\circ$ bond-angle illustration is presented as a structural analogy, not a derivation in vol6.
 
-> **Leaf references:** `framework/chemistry-translation/quantum-vs-topological-shells.md`; `framework/chemistry-translation/lewis-dots-vsepr.md`.
+> **Leaf references:** [lewis-dots-vsepr](./framework/chemistry-translation/lewis-dots-vsepr.md), [quantum-vs-topological-shells](./framework/chemistry-translation/quantum-vs-topological-shells.md).
 
 ### Quality
 - confidence: 0.3
@@ -526,7 +532,7 @@ For every element in Period 1–3 the catalog presents a per-nucleus structural 
   - The $\gamma \approx 3.82$ Beryllium core stretch and the $\sim 0.5$ MeV endothermic Be-9 binding are presented as solver outputs; the substantive claim is the geometric identification of the bridge, not an independently derived stretching factor.
   - The Topological Horizon claim for B-11 ($R_{halo} \approx 11.84\,d \approx 4\pi - \sqrt{2}/2$) is covered separately in entry `clm-l416hl`; this entry inherits that caveat.
 
-> **Leaf references:** `period-1/hydrogen/structure-isotope-stability.md`; `period-1/helium/structure-isotope-stability.md`; `period-2/lithium/structure-isotope-stability.md`; `period-2/beryllium/structure-isotope-stability.md`; `period-2/boron/structure-isotope-stability.md`; `period-2/carbon/structure-isotope-stability.md`; `period-2/nitrogen/structure-isotope-stability.md`; `period-2/oxygen/structure-isotope-stability.md`; `period-2/fluorine/structure-isotope-stability.md`; `period-2/neon/structure-isotope-stability.md`; `period-3/sodium/structure-isotope-stability.md`; `period-3/magnesium/structure-isotope-stability.md`; `period-3/aluminum/structure-isotope-stability.md`; `period-3/silicon/structure-isotope-stability.md`. Cross-link: entry `clm-llqd1n` (Mass-Defect Accuracy framework), `clm-l416hl` (Boron Topological Horizon), `clm-8psuqe` (halo distance), `clm-jy8h1x` (semiconductor regimes).
+> **Leaf references:** [structure-isotope-stability](./period-1/helium/structure-isotope-stability.md), [structure-isotope-stability](./period-1/hydrogen/structure-isotope-stability.md), [structure-isotope-stability](./period-2/beryllium/structure-isotope-stability.md), [structure-isotope-stability](./period-2/boron/structure-isotope-stability.md), [structure-isotope-stability](./period-2/carbon/structure-isotope-stability.md), [structure-isotope-stability](./period-2/fluorine/structure-isotope-stability.md), [structure-isotope-stability](./period-2/lithium/structure-isotope-stability.md), [structure-isotope-stability](./period-2/neon/structure-isotope-stability.md), [structure-isotope-stability](./period-2/nitrogen/structure-isotope-stability.md), [structure-isotope-stability](./period-2/oxygen/structure-isotope-stability.md), [structure-isotope-stability](./period-3/aluminum/structure-isotope-stability.md), [structure-isotope-stability](./period-3/magnesium/structure-isotope-stability.md), [structure-isotope-stability](./period-3/silicon/structure-isotope-stability.md), [structure-isotope-stability](./period-3/sodium/structure-isotope-stability.md).
 
 ### Quality
 - confidence: 0.4
@@ -562,7 +568,7 @@ Each per-element "Topological Area" leaf identifies a macroscopic chemical / mat
   - The "Fire" / "Cellular Respiration" / "Diamond hardness" identifications are chemistry-naming for the topology-driven behavior; they do NOT constitute novel falsifiable predictions in vol6.
   - Each per-element behavior summary is a single-leaf interpretive description; cross-element claim coordination (Halogen vs Alkali via halo lever arm) is covered in entry `clm-8psuqe`.
 
-> **Leaf references:** `period-1/hydrogen/topological-area.md`; `period-1/helium/topological-area.md`; `period-2/lithium/topological-area.md`; `period-2/beryllium/topological-area.md`; `period-2/boron/topological-area.md`; `period-2/carbon/topological-area.md`; `period-2/nitrogen/topological-area.md`; `period-2/oxygen/topological-area.md`; `period-2/fluorine/topological-area.md`; `period-2/neon/topological-area.md`; `period-3/sodium/topological-area.md`; `period-3/magnesium/topological-area.md`; `period-3/aluminum/topological-area.md`; `period-3/silicon/topological-area.md`. Cross-link: `clm-8psuqe` (halo distance vs electronegativity), `clm-jy8h1x` (semiconductor regimes), `clm-o9xphr` ($Q$-factor stability).
+> **Leaf references:** [topological-area](./period-1/helium/topological-area.md), [topological-area](./period-1/hydrogen/topological-area.md), [topological-area](./period-2/beryllium/topological-area.md), [topological-area](./period-2/boron/topological-area.md), [topological-area](./period-2/carbon/topological-area.md), [topological-area](./period-2/fluorine/topological-area.md), [topological-area](./period-2/lithium/topological-area.md), [topological-area](./period-2/neon/topological-area.md), [topological-area](./period-2/nitrogen/topological-area.md), [topological-area](./period-2/oxygen/topological-area.md), [topological-area](./period-3/aluminum/topological-area.md), [topological-area](./period-3/magnesium/topological-area.md), [topological-area](./period-3/silicon/topological-area.md), [topological-area](./period-3/sodium/topological-area.md).
 
 ### Quality
 - confidence: 0.3
@@ -596,7 +602,7 @@ Each Period 1–3 element is assigned a semiconductor-regime classification on t
   - Silicon's `semiconductor-regime.md` leaf is a routing pointer to its `topological-area.md` (the merged section); the substantive Silicon-28 regime claims live there.
   - Vol6's per-element coverage stops at Si-28; the avalanche-onset transition (S-32, Ca-40) is in the heavy-element catalog (entry `clm-nk6c43`) and the cross-cutting Symmetric vs Asymmetric Saturation framing (entry `clm-jy8h1x`).
 
-> **Leaf references:** `period-1/hydrogen/semiconductor-regime.md`; `period-1/helium/semiconductor-regime.md`; `period-2/lithium/semiconductor-regime.md`; `period-2/beryllium/semiconductor-regime.md`; `period-2/boron/semiconductor-regime.md`; `period-2/carbon/semiconductor-regime.md`; `period-2/nitrogen/semiconductor-regime.md`; `period-2/oxygen/semiconductor-regime.md`; `period-2/fluorine/semiconductor-regime.md`; `period-2/neon/semiconductor-regime.md`; `period-3/sodium/semiconductor-regime.md`; `period-3/magnesium/semiconductor-regime.md`; `period-3/aluminum/semiconductor-regime.md`; `period-3/silicon/semiconductor-regime.md`. Cross-link: `clm-jy8h1x` (Symmetric vs Asymmetric Saturation), `clm-llqd1n` (fit-vs-prediction), `clm-nk6c43` (heavy element regimes).
+> **Leaf references:** [semiconductor-regime](./period-1/helium/semiconductor-regime.md), [semiconductor-regime](./period-1/hydrogen/semiconductor-regime.md), [semiconductor-regime](./period-2/beryllium/semiconductor-regime.md), [semiconductor-regime](./period-2/boron/semiconductor-regime.md), [semiconductor-regime](./period-2/carbon/semiconductor-regime.md), [semiconductor-regime](./period-2/fluorine/semiconductor-regime.md), [semiconductor-regime](./period-2/lithium/semiconductor-regime.md), [semiconductor-regime](./period-2/neon/semiconductor-regime.md), [semiconductor-regime](./period-2/nitrogen/semiconductor-regime.md), [semiconductor-regime](./period-2/oxygen/semiconductor-regime.md), [semiconductor-regime](./period-3/aluminum/semiconductor-regime.md), [semiconductor-regime](./period-3/magnesium/semiconductor-regime.md), [semiconductor-regime](./period-3/silicon/semiconductor-regime.md), [semiconductor-regime](./period-3/sodium/semiconductor-regime.md).
 
 ### Quality
 - confidence: 0.6
@@ -627,7 +633,7 @@ Each per-element "EE Equivalent" leaf maps the nuclear topology onto a specific 
   - The named archetypes (Wheatstone Bridge for Be, Air-Core Transformer for Li, Ring Oscillator for Ne) are presented as analogies — does NOT claim novel observables falsifiable against EE measurements on the named archetypes.
   - The per-element coupling-pair counts (3 for C, 6 for O, 21 for Si, etc.) follow combinatorially from the assumed topology and are NOT independent predictions.
 
-> **Leaf references:** `period-1/hydrogen/ee-equivalent.md`; `period-1/helium/ee-equivalent.md`; `period-2/lithium/ee-equivalent.md`; `period-2/beryllium/ee-equivalent.md`; `period-2/boron/ee-equivalent.md`; `period-2/carbon/ee-equivalent.md`; `period-2/nitrogen/ee-equivalent.md`; `period-2/oxygen/ee-equivalent.md`; `period-2/fluorine/ee-equivalent.md`; `period-2/neon/ee-equivalent.md`; `period-3/sodium/ee-equivalent.md`; `period-3/magnesium/ee-equivalent.md`; `period-3/aluminum/ee-equivalent.md`; `period-3/silicon/ee-equivalent.md`. Cross-link: `clm-qjwj12` (mass-as-inductance conventions), `clm-llqd1n` (per-nucleus fit accuracy).
+> **Leaf references:** [ee-equivalent](./period-1/helium/ee-equivalent.md), [ee-equivalent](./period-1/hydrogen/ee-equivalent.md), [ee-equivalent](./period-2/beryllium/ee-equivalent.md), [ee-equivalent](./period-2/boron/ee-equivalent.md), [ee-equivalent](./period-2/carbon/ee-equivalent.md), [ee-equivalent](./period-2/fluorine/ee-equivalent.md), [ee-equivalent](./period-2/lithium/ee-equivalent.md), [ee-equivalent](./period-2/neon/ee-equivalent.md), [ee-equivalent](./period-2/nitrogen/ee-equivalent.md), [ee-equivalent](./period-2/oxygen/ee-equivalent.md), [ee-equivalent](./period-3/aluminum/ee-equivalent.md), [ee-equivalent](./period-3/magnesium/ee-equivalent.md), [ee-equivalent](./period-3/silicon/ee-equivalent.md), [ee-equivalent](./period-3/sodium/ee-equivalent.md).
 
 ### Quality
 - confidence: 0.3
@@ -658,7 +664,7 @@ Each per-element "Orbital Knot Topology" leaf identifies the electron configurat
   - Several leaves (Si-28 explicitly, O-16 implicitly, others variably) note that no `\section{Orbital Knot Topology}` exists in the source `.tex` — content is extracted from embedded figures and captions in adjacent sections. The figure captions are the authoritative source; the surrounding narrative is downstream summary.
   - Hydrogen's leaf carries the algebraic-identity Bohr/Rydberg derivation (entry `clm-a95yx1`); the LIVING_REFERENCE.md Pitfall #8 tripwire applies — this single-element result must NOT be promoted into a "AVE-derived IEs use the Bohr formula" reading.
 
-> **Leaf references:** `period-1/hydrogen/orbital-knot-topology.md`; `period-1/helium/orbital-knot-topology.md`; `period-2/lithium/orbital-knot-topology.md`; `period-2/beryllium/orbital-knot-topology.md`; `period-2/boron/orbital-knot-topology.md`; `period-2/carbon/orbital-knot-topology.md`; `period-2/nitrogen/orbital-knot-topology.md`; `period-2/oxygen/orbital-knot-topology.md`; `period-2/fluorine/orbital-knot-topology.md`; `period-2/neon/orbital-knot-topology.md`; `period-3/sodium/orbital-knot-topology.md`; `period-3/magnesium/orbital-knot-topology.md`; `period-3/aluminum/orbital-knot-topology.md`; `period-3/silicon/orbital-knot-topology.md`. Cross-link: `clm-a95yx1` (Hydrogen Bohr radius / Rydberg derivation), `clm-7tk051` (multi-element IE solver), `clm-jqnzz7` (chemistry translation conventions). Cross-cutting: LIVING_REFERENCE.md Pitfall #8 (QM Contamination — Bohr formula).
+> **Leaf references:** [orbital-knot-topology](./period-1/helium/orbital-knot-topology.md), [orbital-knot-topology](./period-1/hydrogen/orbital-knot-topology.md), [orbital-knot-topology](./period-2/beryllium/orbital-knot-topology.md), [orbital-knot-topology](./period-2/boron/orbital-knot-topology.md), [orbital-knot-topology](./period-2/carbon/orbital-knot-topology.md), [orbital-knot-topology](./period-2/fluorine/orbital-knot-topology.md), [orbital-knot-topology](./period-2/lithium/orbital-knot-topology.md), [orbital-knot-topology](./period-2/neon/orbital-knot-topology.md), [orbital-knot-topology](./period-2/nitrogen/orbital-knot-topology.md), [orbital-knot-topology](./period-2/oxygen/orbital-knot-topology.md), [orbital-knot-topology](./period-3/aluminum/orbital-knot-topology.md), [orbital-knot-topology](./period-3/magnesium/orbital-knot-topology.md), [orbital-knot-topology](./period-3/silicon/orbital-knot-topology.md), [orbital-knot-topology](./period-3/sodium/orbital-knot-topology.md).
 
 ### Quality
 - confidence: 0.3
@@ -688,7 +694,7 @@ Each per-element "Continuous Vacuum Density Flux" leaf presents the equatorial /
   - Does NOT claim novel observables falsifiable against measured vacuum-strain or scattering data per-element. The flux maps are derived from the already-established nucleon-coordinate output.
   - Anisotropy → property identifications (directional Silicon band structure, Oxygen tetrahedral cage void, etc.) are interpretive overlays, not separate quantitative predictions.
 
-> **Leaf references:** `period-1/hydrogen/vacuum-density-flux.md`; `period-1/helium/vacuum-density-flux.md`; `period-2/lithium/vacuum-density-flux.md`; `period-2/beryllium/vacuum-density-flux.md`; `period-2/boron/vacuum-density-flux.md`; `period-2/carbon/vacuum-density-flux.md`; `period-2/nitrogen/vacuum-density-flux.md`; `period-2/oxygen/vacuum-density-flux.md`; `period-2/fluorine/vacuum-density-flux.md`; `period-2/neon/vacuum-density-flux.md`; `period-3/sodium/vacuum-density-flux.md`; `period-3/magnesium/vacuum-density-flux.md`; `period-3/aluminum/vacuum-density-flux.md`; `period-3/silicon/vacuum-density-flux.md`. Cross-link: `clm-f5ucdo` (per-element structure / fitted geometry).
+> **Leaf references:** [vacuum-density-flux](./period-1/helium/vacuum-density-flux.md), [vacuum-density-flux](./period-1/hydrogen/vacuum-density-flux.md), [vacuum-density-flux](./period-2/beryllium/vacuum-density-flux.md), [vacuum-density-flux](./period-2/boron/vacuum-density-flux.md), [vacuum-density-flux](./period-2/carbon/vacuum-density-flux.md), [vacuum-density-flux](./period-2/fluorine/vacuum-density-flux.md), [vacuum-density-flux](./period-2/lithium/vacuum-density-flux.md), [vacuum-density-flux](./period-2/neon/vacuum-density-flux.md), [vacuum-density-flux](./period-2/nitrogen/vacuum-density-flux.md), [vacuum-density-flux](./period-2/oxygen/vacuum-density-flux.md), [vacuum-density-flux](./period-3/aluminum/vacuum-density-flux.md), [vacuum-density-flux](./period-3/magnesium/vacuum-density-flux.md), [vacuum-density-flux](./period-3/silicon/vacuum-density-flux.md), [vacuum-density-flux](./period-3/sodium/vacuum-density-flux.md).
 
 ### Quality
 - confidence: 0.3

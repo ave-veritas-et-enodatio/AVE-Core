@@ -118,7 +118,7 @@ The Universal Saturation Kernel $S(A) = \sqrt{1 - (A/A_{yield})^2}$ (Axiom 4) is
   - Does NOT claim symmetric vs asymmetric is a free-parameter distinction. The symmetry case is determined by physics, not chosen.
   - LIVING_REFERENCE.md Pitfall #5: any framework summary suggesting "AVE predicts $\Delta\alpha/\alpha \neq 0$ from gravity" reads symmetric-cancellation steps as predictions; the actual derivation result under symmetric gravity is **invariance**.
 
-> **Leaf references:** Axiom 4 statement leaves in `vol1/`; symmetric-case mapping in `vol3/gravity/` (BH interior, GW propagation); asymmetric-case mapping in `vol4/circuit-theory/` (nonlinear constitutive); particle-confinement in `vol2/particle-physics/`.
+> **Leaf references:** [einstein-field-equation](./vol3/gravity/ch02-general-relativity/einstein-field-equation.md), [nonlinear-vacuum-capacitance](./vol4/circuit-theory/ch1-vacuum-circuit-analysis/nonlinear-vacuum-capacitance.md).
 
 ### Quality
 - confidence: 0.85
@@ -146,6 +146,8 @@ The Machian boundary sets $G = \hbar c / (7\xi \cdot m_e^2)$ (a derived conseque
   - LIVING_REFERENCE.md Pitfall #5 explicitly: any framework summary suggesting "AVE predicts multi-species $\Delta\alpha/\alpha$ from gravity" is **wrong**.
 
 > **References:** Canonical leaf for the bound: [`vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md`](vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md) (Derived Consequence 1 of Axiom 3, verbatim from `manuscript/common_equations/eq_axiom_3.tex`). Companion leaf for the temporal/spatial decomposition: [`vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md`](vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md) (Derived Consequence 2). Cross-volume invariant restatement: `LIVING_REFERENCE.md` Axiom 3 entry ("α invariance" and "Lattice decomposition" sub-bullets); LIVING_REFERENCE.md Pitfall #5 for the contamination warning. Note: [`CLAUDE.md`](./CLAUDE.md) INVARIANT-S2 lists the four AVE axioms in their bare form; the derived-consequence sub-bullets under Axiom 3 are in LIVING_REFERENCE.md, not in CLAUDE.md. The α thermal-running effect derivation is in [`vol1/ch8-alpha-golden-torus.md`](vol1/ch8-alpha-golden-torus.md).
+
+> **Leaf references:** [ch8-alpha-golden-torus](./vol1/ch8-alpha-golden-torus.md), [alpha-invariance-symmetric-gravity](./vol3/gravity/ch01-gravity-yield/alpha-invariance-symmetric-gravity.md), [temporal-spatial-lattice-decomposition](./vol3/gravity/ch01-gravity-yield/temporal-spatial-lattice-decomposition.md).
 
 ### Quality
 - confidence: 0.85
@@ -175,7 +177,7 @@ Master Prediction Table entry #43: BCS $B_c(T)$ at 0.00% match, marked ✅. The 
   - Does NOT claim any of the four BCS materials' $B_{c,0}$ values are AVE-derived. Only the temperature dependence is the axiom manifestation.
   - This is one specific instance of the project-wide meta-tripwire ("Reading Conventions for the Master Prediction Table" above): "0.00%" or "Exact" entries elsewhere may belong to different classification categories. Each row's classification matters; a global "AVE achieves 0.00% on N predictions" claim collapses meaningful distinctions.
 
-> **Leaf references:** Axiom 4 statement leaves in `vol1/`; BCS mapping leaves in `vol3/condensed-matter/`.
+> **Leaf references:** [critical-field-validation](./vol3/condensed-matter/ch09-condensed-matter-superconductivity/critical-field-validation.md).
 
 ### Quality
 - confidence: 0.85
@@ -203,6 +205,8 @@ CLAUDE.md INVARIANT-C2: $\xi_{topo} \equiv e/\ell_{node}$ (units: C/m). The brid
 
 > **References:** CLAUDE.md INVARIANT-C2; canonical definition leaf in `vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`; vol4/vol6 manifestations cited in their respective sidecars.
 
+> **Leaf references:** [electromechanical-transduction-constant](./vol5/molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md).
+
 ### Quality
 - confidence: 0.90
 - solidity: 0.90 (ok to build on)
@@ -228,6 +232,8 @@ $H_\infty \approx 69.32$ km/s/Mpc (Master Prediction Table #23). Surfaces as a "
   - The volume index Key Results entries that show "$H_\infty \approx 69.32$ km/s/Mpc" without qualifier are summary-conflation pattern — followups logged for index refresh.
 
 > **References:** Master Prediction Table #23; canonical leaf `vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md`. Vol1 sidecar carries an "Asymptotic Hubble Constant $H_\infty$ and MOND $a_0$" entry; vol3 sidecar carries the full "Asymptotic Hubble Constant $H_\infty$" entry. Vol2 sidecar does not currently carry a Hubble entry — vol2 leaves do touch $H_\infty$ in cosmology framing, so a vol2 entry that cross-references back here would be appropriate (logged as followup, not blocking).
+
+> **Leaf references:** [lattice-genesis-hubble-tension](./vol3/cosmology/ch04-generative-cosmology/lattice-genesis-hubble-tension.md).
 
 ### Quality
 - confidence: 0.85

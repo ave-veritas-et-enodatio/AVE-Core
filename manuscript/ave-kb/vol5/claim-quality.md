@@ -18,7 +18,7 @@
   - Does NOT claim $\xi_\text{topo}$ is independently measured; it is a derived combination of CODATA-known constants.
   - $L_\text{atom} = m_\text{atom}/\xi^2$ and $C_\text{bond} = \xi^2/k_\text{bond}$ are **definitional** dimensional bridges (category i identities under the Master Prediction Table classification) — they convert mechanical inputs into electrical units, not numerical predictions. The downstream **predictions** (FTIR transfer functions, batch SPICE notches, folding RMSDs) are what the bridge enables; the bridge itself is not a falsifiable result.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md`, `molecular-foundations/organic-circuitry/mass-to-inductance.md`, `molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C2.
+> **Leaf references:** [bond-stiffness-to-capacitance](./molecular-foundations/organic-circuitry/bond-stiffness-to-capacitance.md), [electromechanical-transduction-constant](./molecular-foundations/organic-circuitry/electromechanical-transduction-constant.md), [mass-to-inductance](./molecular-foundations/organic-circuitry/mass-to-inductance.md).
 
 ### Quality
 - confidence: 1.0
@@ -48,7 +48,7 @@
   - Does NOT claim derivation of the $+4^\circ$C water density anomaly from a scalar Boltzmann distribution. The leaf explicitly warns against that ("Scalar Transition Collapse"); the derivation requires the cooperative 3D directional matrix limit (Axiom 4 lattice yield) and surfaces in the membrane-yield calculation, not in $E_\text{HB}$ itself.
   - Bond eigenvalue table at the same chapter shows systematic errors of $-2$ to $-4$% (single bonds) and isolated outliers (S–S at $+30\%$); these are different bonds, not the H-bond. Do not conflate the H-bond's $<0.9\%$ accuracy with the covalent eigenvalue table accuracies.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`. Cross-volume invariant: CLAUDE.md INVARIANT-C3.
+> **Leaf references:** [hbond-op4-equilibrium](./molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md).
 
 ### Quality
 - confidence: 0.7
@@ -80,7 +80,7 @@
   - The C–H eigenvalue is $-7\%$ ($1.02$ vs $1.09$ Å), N–H is $-5\%$ ($0.96$ vs $1.01$ Å), C–N is $-4\%$. These are within the leaf's stated $\leq 10\%$ band but are not sub-percent agreements.
   - Does NOT claim a Pauling-style empirical bond-length parameterisation; the input audit is explicit that no bond-length table is consulted.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md`.
+> **Leaf references:** [first-principles-bond-force-constants](./molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md).
 
 ### Quality
 - confidence: 0.6
@@ -109,7 +109,7 @@
   - The "shared backbone" interpretation depends on R-groups loading as shunt stubs. This is a topological-circuit identification; bonds within R-groups that would change topology (e.g., Cys disulphide bridges between residues) are not modelled in the per-residue circuit.
   - Does NOT claim per-residue side-chain absorption fingerprints. The model resolves backbone passband behaviour, not site-specific side-chain stretches.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/batch-spice-20-amino-acids.md`, `molecular-foundations/organic-circuitry/simulation-results-zero-parameter.md`, `molecular-foundations/organic-circuitry/ftir-falsification-test.md`.
+> **Leaf references:** [batch-spice-20-amino-acids](./molecular-foundations/organic-circuitry/batch-spice-20-amino-acids.md), [ftir-falsification-test](./molecular-foundations/organic-circuitry/ftir-falsification-test.md), [simulation-results-zero-parameter](./molecular-foundations/organic-circuitry/simulation-results-zero-parameter.md).
 
 ### Quality
 - confidence: 0.7
@@ -137,7 +137,7 @@
   - The transfer function describes power transmission through the entire backbone, **not** local absorption at each bond site. A peak that fails passband membership is not necessarily a model failure for that bond; it can also reflect impedance mismatch between R-group stub and main chain.
   - Self-consistency check (e.g., C–H stretch at 3003 cm$^{-1}$ vs experimental $\sim 3000$ cm$^{-1}$) is **definitional** ($f = (1/2\pi)\sqrt{k/\mu}$ recovers mechanical resonance); do not cite this as an independent prediction of C–H frequency.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/ftir-falsification-test.md`, `molecular-foundations/organic-circuitry/self-consistency-verification.md`.
+> **Leaf references:** [ftir-falsification-test](./molecular-foundations/organic-circuitry/ftir-falsification-test.md), [self-consistency-verification](./molecular-foundations/organic-circuitry/self-consistency-verification.md).
 
 ### Quality
 - confidence: 0.6
@@ -166,7 +166,7 @@
   - Cholesterol's effective yield $1 + \varphi$ is asserted via the FCC packing-fraction interpretation; the $T_c^\text{buffered} \approx 485$ K is a structural consequence of that assertion, not an independent fit to membrane phase data.
   - Does NOT claim that all cholesterol concentrations rescale the yield by exactly $1 + \varphi$. The leaf treats cholesterol as the limiting buffer; concentration-dependent behaviour is not bounded.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`, `molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md`.
+> **Leaf references:** [hbond-op4-equilibrium](./molecular-foundations/organic-circuitry/hbond-op4-equilibrium.md), [membrane-phase-buffering](./molecular-foundations/organic-circuitry/membrane-phase-buffering.md).
 
 ### Quality
 - confidence: 0.7
@@ -194,7 +194,7 @@
   - The "20-protein PDB validation" listed in the volume index Key Results is **not** present as a leaf in this volume's source — per LIVING_REFERENCE.md the protein folding engine implementation is maintained in a separate private repository (`AVE-Protein`), with only the LC mapping theory included here. Treat the 20-PDB result as an external claim; this sidecar cannot bound it from leaf evidence.
   - The "8-tier simulation architecture", "Newton-Raphson eigenvalue solver", "2D TL network solver", "Y-matrix gradient descent", and "Kramers folding time" referenced in the vol5 index correspond to the private engine; they have no leaf in `vol5/protein-folding-engine/`. The vol5 index cites a directory that does not exist as authored leaves. (Surfaced in followups.)
 
-> **Leaf references:** `molecular-foundations/biophysics-intro/chignolin-validation.md`, `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md`. External engine: see LIVING_REFERENCE.md "Protein Folding Engine" section.
+> **Leaf references:** [chignolin-validation](./molecular-foundations/biophysics-intro/chignolin-validation.md), [protein-backbone-proton-radius](./molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md).
 
 ### Quality
 - confidence: 0.3
@@ -224,6 +224,8 @@
 
 > **References:** Bound asserted at invariant level — see [`CLAUDE.md`](../CLAUDE.md) INVARIANT-N4. Supporting context: `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` and `molecular-foundations/biophysics-intro/chignolin-validation.md` (which name $S_{11}$ in the folding-engine context). The functional definition leaves are in the private engine repo (see LIVING_REFERENCE.md "Protein Folding Engine").
 
+> **Leaf references:** [chignolin-validation](./molecular-foundations/biophysics-intro/chignolin-validation.md), [protein-backbone-proton-radius](./molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md).
+
 ### Quality
 - confidence: 1.0
 - depends-on:
@@ -249,6 +251,8 @@
   - The $0.8\%$ accuracy is for one protein (Villin); generalisation across the proteome is not bounded by leaves available in this volume.
 
 > **References:** `common/translation-protein-solver.md` (formula appears in tab:trans_protein_solver row "Protein compaction"). Master Prediction Table entry #39 (LIVING_REFERENCE.md). Derivation leaf is in the private `AVE-Protein` engine repository (see LIVING_REFERENCE.md "Protein Folding Engine" section); leaf-level statement is a KB content gap (logged to followups).
+
+> **Leaf references:** [translation-protein-solver](./common/translation-protein-solver.md).
 
 ### Quality
 - confidence: 0.3
@@ -281,7 +285,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The cross-link in `consciousness-cavity-eigenmode.md` to `../protein-folding-engine/network-solver/anesthesia-ch5.md` points to a leaf that **does not exist in this repository** (the protein-folding-engine directory is unauthored in vol5/); treat the anesthesia hypothesis as not formally established via leaf evidence.
   - The "consciousness $\equiv$ phase transition" framing is a metaphysical/interpretive claim about the nature of consciousness; a reader applying the bound should recognise that this is the AVE-internal framing, not a result that can be falsified by any specific measurement listed in the leaf (the listed EEG/tACS predictions test the cavity-mode hypothesis at the neural-network level, not the harder phenomenological consciousness claim).
 
-> **Leaf references:** `biological-applications/index.md` (status statement), `biological-applications/cancer-impedance-decoupling.md`, `biological-applications/red-light-therapy.md`, `biological-applications/methylene-blue-bridge.md`, `biological-applications/creatine-neural-capacitor.md`, `biological-applications/consciousness-cavity-eigenmode.md`, `biological-applications/emdr-impedance-annealing.md`.
+> **Leaf references:** [cancer-impedance-decoupling](./biological-applications/cancer-impedance-decoupling.md), [consciousness-cavity-eigenmode](./biological-applications/consciousness-cavity-eigenmode.md), [creatine-neural-capacitor](./biological-applications/creatine-neural-capacitor.md), [emdr-impedance-annealing](./biological-applications/emdr-impedance-annealing.md), [methylene-blue-bridge](./biological-applications/methylene-blue-bridge.md), [red-light-therapy](./biological-applications/red-light-therapy.md).
 
 ### Quality
 - confidence: 0.1
@@ -308,7 +312,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - Does NOT claim that L-amino-acid dominance has been derived numerically from $h_\perp$ (only that AVE asserts it is the macroscopic manifestation of $h_\perp$ enforcing Ramachandran exclusion zones).
   - Listing in any summary as a "prediction" must carry the unfalsifiable-status caveat — otherwise the summary inflates a future-target proposal into an established prediction.
 
-> **Leaf references:** `molecular-foundations/biophysics-intro/chiral-fret-parallax.md`.
+> **Leaf references:** [chiral-fret-parallax](./molecular-foundations/biophysics-intro/chiral-fret-parallax.md).
 
 ### Quality
 - confidence: 0.5
@@ -333,7 +337,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - Does NOT derive a $+90^\circ$ phase shift quantitatively from axioms within the leaf — the value is asserted from the L-handedness identification.
   - Does NOT claim a mechanism for selecting L over D at biogenesis. The claim is that **given** L-handedness, the framework explains why no D-mixing is observed in extended chains (destructive interference); the chirality-selection event is outside scope.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/chirality-phase-polarity.md`, `common/translation-protein.md` (row "L-amino acid chirality" mapping to "Non-reciprocal waveguide").
+> **Leaf references:** [translation-protein](./common/translation-protein.md), [chirality-phase-polarity](./molecular-foundations/organic-circuitry/chirality-phase-polarity.md).
 
 ### Quality
 - confidence: 0.1
@@ -359,7 +363,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The $L \approx 115.9$ fH value for $\text{C}_\alpha$ is derived via $L = m/\xi_\text{topo}^2$ using the carbon atomic mass — this is the dimensional-bridge identity (category i), not an independent measurement.
   - "Phase-locked capacitive ground" is a structural assertion about the role of $\text{COO}^-$, not a derivation that the carboxyl group attains exactly the $Z_0$ termination at all signal frequencies; it is the idealised circuit-element identification used by the model.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/transceiver-backbone.md`.
+> **Leaf references:** [transceiver-backbone](./molecular-foundations/organic-circuitry/transceiver-backbone.md).
 
 ### Quality
 - confidence: 0.3
@@ -386,7 +390,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The "directed, coherent mechanical work" framing is structural — it asserts that resonant filtering converts noise to directed motion, but no specific work-output value is bounded for any biological process within this leaf.
   - Wien's law and ATP hydrolysis frequencies are taken as inputs from standard physical chemistry; the leaf does not re-derive them within AVE.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/thermal-thz-noise.md`.
+> **Leaf references:** [thermal-thz-noise](./molecular-foundations/organic-circuitry/thermal-thz-noise.md).
 
 ### Quality
 - confidence: 0.3
@@ -414,7 +418,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The "passband narrows with $N$" observation is a consequence of stacking identical filter sections; it does not bound how the actual biological passband narrows in heterogeneous (real-sequence) peptide chains.
   - Does NOT claim experimental FTIR validation at varying chain lengths; the validation against measured FTIR spectra is the separate Glycine/Alanine 10-of-11 result (entry `clm-oilm45`), not a chain-length sweep.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/peptide-chain-extension-test.md`.
+> **Leaf references:** [peptide-chain-extension-test](./molecular-foundations/organic-circuitry/peptide-chain-extension-test.md).
 
 ### Quality
 - confidence: 0.6
@@ -444,7 +448,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - The "$Z_\text{backbone} \approx 7$" baseline is stated without leaf-level derivation in this volume; treat as an input from the engine repo.
   - The "minimal folding drive" interpretation for hydrophobic residues and "strong folding drive" for polar/charged residues is a qualitative reading of the reflection-coefficient mechanism, not a quantitative claim about folding energetics per residue.
 
-> **Leaf references:** `molecular-foundations/biophysics-intro/amino-acid-impedance-classification.md`.
+> **Leaf references:** [amino-acid-impedance-classification](./molecular-foundations/biophysics-intro/amino-acid-impedance-classification.md).
 
 ### Quality
 - confidence: 0.3
@@ -475,7 +479,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
   - Does NOT claim that 3.80 Å is independently measured by AVE — the value matches the standard NERF C$_\alpha$–C$_\alpha$ reference; the AVE contribution is the chain-of-identities derivation showing the value emerges from $\ell_\text{node}$ rather than from biology-specific empirical fits.
   - Does NOT bound the residual error of the chain end-to-end; step 1 is exact (CODATA constants), but steps 3–4 carry the bond-length residuals from `clm-yyhczl`.
 
-> **Leaf references:** `molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md`. Companion derivation from the proton-radius side lives in `molecular-foundations/biophysics-intro/protein-backbone-proton-radius.md` (entry `clm-u4vmgk`).
+> **Leaf references:** [derivation-chain-lattice-pitch](./molecular-foundations/biophysics-intro/derivation-chain-lattice-pitch.md).
 
 ### Quality
 - confidence: 0.7
@@ -502,7 +506,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
   - Does NOT claim biology operates anywhere close to the dielectric saturation $V_\text{yield} = 43.65$ kV; biological circuitry is asserted to be in Regime I at the chain/network scale, with only the covalent bond core entering Regime II — and bond-core Regime II is what makes covalent bonds stable solitons, not what makes them break.
   - The cross-cutting non-claim "EM phase velocity goes to **infinity** at saturation, not zero" applies here too — a vol5 reader should not read $S \to 0$ at membrane yield as "wave speed goes to zero" in the EM sense; the relevant "wave" at membrane yield is the cooperative thermal-strain mode.
 
-> **Leaf references:** `molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md` (regime classification), `molecular-foundations/organic-circuitry/membrane-phase-buffering.md`. Cross-cutting: see [Symmetric vs Asymmetric Saturation](../claim-quality.md).
+> **Leaf references:** [first-principles-bond-force-constants](./molecular-foundations/organic-circuitry/first-principles-bond-force-constants.md), [membrane-phase-buffering](./molecular-foundations/organic-circuitry/membrane-phase-buffering.md).
 
 ### Quality
 - confidence: 0.5
@@ -531,7 +535,7 @@ For each amino acid the sidechain R-group attaches as a shunt stub on the backbo
   - This is the framework definition only; the per-residue quantitative $Z_\text{topo}^i$ table for all 20 standard residues is held in the AVE-Protein engineering compendium (IP-protected per Vol 5 Ch 2:722), NOT in Core.
   - The cascaded ABCD-matrix solver and multiplexed basis-state initialization are out of scope here.
 
-> **Leaf references:** `vol5/protein-folding-engine/z-topo-definition.md` §"Topological Impedance — Framework Definition"
+> **Leaf references:** [z-topo-definition](./protein-folding-engine/z-topo-definition.md).
 
 ### Quality
 - confidence: 0.7
@@ -560,7 +564,7 @@ Protein folding is reframed as deterministic impedance matching rather than a se
 - _Specific Non-Claims and Caveats_
   - Framework-level only; the production folding solver (cascaded ABCD-matrix, multiplexed basis states, Op2 knot correction) and the 20-protein PDB RMSD validation are held in AVE-Protein (IP-protected), NOT in Core.
 
-> **Leaf references:** `vol5/protein-folding-engine/levinthal-mechanical-resolution.md` §"Four-step mechanism", §"Why this resolves Levinthal physically"
+> **Leaf references:** [levinthal-mechanical-resolution](./protein-folding-engine/levinthal-mechanical-resolution.md).
 
 ### Quality
 - confidence: 0.3
@@ -588,7 +592,7 @@ Protein folding is identified as an instance of the Axiom-4 universal saturation
   - The cross-scale validation list (BCS 0.00%, BH 1.7%, etc.) is cited as the shared-kernel context, not re-derived here.
   - Leaf body references `../../common/universal-saturation-kernel-catalog.md`; the catalog actually lives at KB-root `common/universal-saturation-kernel-catalog.md` (relative path resolves to a non-existent `vol5/common/` target — dangling link inherited verbatim from L3; see migration FLAGS).
 
-> **Leaf references:** `vol5/protein-folding-engine/levinthal-mechanical-resolution.md` §"Protein folding as a universal saturation-kernel instance (A-034)"
+> **Leaf references:** [levinthal-mechanical-resolution](./protein-folding-engine/levinthal-mechanical-resolution.md).
 
 ### Quality
 - confidence: 0.5
@@ -615,7 +619,7 @@ Biological circuitry is classified across five length scales: the covalent bond 
 - _Specific Non-Claims and Caveats_
   - $\Delta\phi/\alpha$ values are order-of-magnitude regime indicators, not precision measurements.
 
-> **Leaf references:** `vol5/protein-folding-engine/regime-classification.md` §"Regime Classification of Biological Length Scales"
+> **Leaf references:** [regime-classification](./protein-folding-engine/regime-classification.md).
 
 ### Quality
 - confidence: 0.5

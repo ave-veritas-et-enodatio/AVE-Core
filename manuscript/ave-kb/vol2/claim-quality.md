@@ -22,7 +22,7 @@
   - The g=2 mention is brief; the canonical claim-quality entry for spin-1/2 gyroscopic precession is "Spin-1/2 as Macroscopic Gyroscopic Precession" (`clm-salw2h`) with the canonical leaf at `spin-gyroscopic-isomorphism.md` and the spin chapter. This entry's mention is pedagogical, not the canonical g=2 derivation.
   - Does NOT claim the Beltrami / $\nabla \times \mathbf{A} = k\mathbf{A}$ form is a derivation; it is an **ansatz** for the closed-loop standing-wave structure consistent with the topological unknot identification.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/electron-unknot.md`.
+> **Leaf references:** [electron-unknot](./particle-physics/ch01-topological-matter/electron-unknot.md).
 
 ### Quality
 - confidence: 0.7
@@ -51,7 +51,7 @@
   - Does NOT claim a derivation of $\delta_{th} = 1/(14\pi^2)$ that is independent of the proton-mass calibration. The factor combines $\nu_{vac}/\kappa_{cold} \times 2/\pi$ with prior gradient-saturation already inside the functional; treat as a structural correction, not an additional free parameter.
   - $\mathcal{I}_{scalar} \approx 1162$ is a **numerical** output of the 1D Faddeev-Skyrme solver at the cinquefoil radius with thermal softening; it is not algebraically closed-form.
 
-> **Leaf references:** `particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md` (eigenvalue closure), `particle-physics/ch02-baryon-sector/thermal-softening.md` ($\delta_{th}$, $\kappa_{FS}$, Gaussian-ansatz gap), `particle-physics/ch02-baryon-sector/topological-fractionalization.md` (Borromean topology and Witten Effect).
+> **Leaf references:** [self-consistent-mass-oscillator](./particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md), [thermal-softening](./particle-physics/ch02-baryon-sector/thermal-softening.md), [topological-fractionalization](./particle-physics/ch02-baryon-sector/topological-fractionalization.md).
 
 ### Quality
 - confidence: 0.7
@@ -80,7 +80,7 @@
   - Does NOT claim coverage of nucleon resonances with even $c$. There is no stable $(2,4)$ torus knot, so the ladder covers only odd-$q$ states; $N(1440)$ Roper, $N^*(1535)$, etc. are outside the ladder's scope.
   - The $(2,9) \to \Delta(1620)$ "best hit" ($0.20\%$) is highlighted in the leaf as a zero-parameter prediction; treat the headline as one row's success, not a global ladder accuracy claim.
 
-> **Leaf references:** `particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md`, `particle-physics/ch01-topological-matter/torus-knot-ladder.md`, `appendices/app-f-solver-toolchain/torus-knot-ladder-toolchain.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (the same leaf is also referenced under `clm-d9ivj1` for its role in the universal regime-boundary eigenvalue method).
+> **Leaf references:** [knot-mode-isomorphism](./appendices/app-f-solver-toolchain/knot-mode-isomorphism.md), [torus-knot-ladder-toolchain](./appendices/app-f-solver-toolchain/torus-knot-ladder-toolchain.md), [torus-knot-ladder](./particle-physics/ch01-topological-matter/torus-knot-ladder.md), [torus-knot-ladder-baryons](./particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md).
 
 ### Quality
 - confidence: 0.6
@@ -109,7 +109,7 @@
   - Does NOT claim derivation of one-loop radiative corrections. The AVE prediction is the tree-level pole ratio; the framework does not produce the $\overline{MS}$ running that converts on-shell to $\overline{MS}$.
   - Does NOT claim $J = 2I$ is an axiomatic input; it is the Perpendicular Axis Theorem applied to a circular cross-section (geometric identity for any cylindrical flux tube). The axiomatic input is the cylindrical-flux-tube model itself (Axiom 1's $d \equiv 1\,\ell_{node}$).
 
-> **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weinberg-angle.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`. Bound on scheme specificity asserted at invariant level — see `LIVING_REFERENCE.md` Critical Distinctions #2.
+> **Leaf references:** [gauge-boson-masses](./particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md), [weinberg-angle](./particle-physics/ch05-electroweak-mechanics/weinberg-angle.md), [higgs-mechanism](./particle-physics/ch06-electroweak-higgs/higgs-mechanism.md).
 
 ### Quality
 - confidence: 0.85
@@ -135,7 +135,7 @@
   - Does NOT claim the $W$/$Z$ widths or branching ratios are derived in the same chain. Only the pole masses and the on-shell mixing angle.
   - The $+1.24\%$ muon and $-0.95\%$ tau mass agreements reuse the same $\alpha$, $p_c$, $\sqrt{3/7}$ structure (Cosserat lepton spectrum); these are **not** independent validations of $W$/$Z$ — they are siblings on the same hierarchy $m_e \xrightarrow{\alpha\sqrt{3/7}} m_\mu \xrightarrow{\alpha\,p_c} m_\tau \xrightarrow{\alpha\,p_c} M_W$.
 
-> **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weak-coupling.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ($M_W$/$M_Z$ derivation including the torsional ring self-energy and $\sqrt{3/7}$ factor; the same leaf also carries the W/Z-as-plasma-arcs reinterpretation indexed under `clm-p7rfkb`).
+> **Leaf references:** [gauge-boson-masses](./particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md), [weak-coupling](./particle-physics/ch05-electroweak-mechanics/weak-coupling.md), [higgs-mass](./particle-physics/ch06-electroweak-higgs/higgs-mass.md), [lepton-spectrum](./particle-physics/ch06-electroweak-higgs/lepton-spectrum.md), [spontaneous-symmetry-breaking](./particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md).
 
 ### Quality
 - confidence: 0.7
@@ -164,7 +164,7 @@
   - Does NOT claim the $125$ GeV LHC peak is "not the Higgs". The framework asserts the resonance exists with a different physical mechanism (acoustic relaxation), not that the experimental signal is absent or misidentified.
   - The reinterpretation does not produce new electroweak observables distinguishable from the SM Higgs picture without testing the acoustic-relaxation hypothesis directly (e.g., width, decay channel anomalies) — none currently demonstrated.
 
-> **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ("W and Z Bosons as Dielectric Plasma Arcs" reinterpretation; the same leaf's $M_W$/$M_Z$ derivation is indexed under `clm-q8un7j`).
+> **Leaf references:** [higgs-mass](./particle-physics/ch06-electroweak-higgs/higgs-mass.md), [higgs-mechanism](./particle-physics/ch06-electroweak-higgs/higgs-mechanism.md), [spontaneous-symmetry-breaking](./particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md).
 
 ### Quality
 - confidence: 0.3
@@ -191,7 +191,7 @@
   - Does NOT claim the muon $g-2$ anomaly (BNL/Fermilab discrepancy at $\sim 4\sigma$) is resolved by this derivation. The muon $a_\mu$ is not addressed in this leaf.
   - The decomposition $a_e = (1/\pi^2)\times(\pi\alpha/2)$ uses the unknot diameter $2R = \ell/\pi$ (Axiom 1); this is the same geometry that fixes the electron mass, not an independent input.
 
-> **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md` (the Schwinger derivation appears in this leaf's "Schwinger's Anomalous Magnetic Moment" section).
+> **Leaf references:** [higgs-mass](./particle-physics/ch06-electroweak-higgs/higgs-mass.md).
 
 ### Quality
 - confidence: 0.75
@@ -222,7 +222,7 @@
   - Does NOT claim AVE-derivation of the absolute neutrino mass scale beyond the suppression form $m_\nu = m_e\,\alpha\,(m_e/M_W) \approx 0.024$ eV/flavor (see Neutrino Mass entry).
   - "Neutrino oscillation is classical mechanical dispersion" is an **ontological reinterpretation** (group-velocity differential of the three mass eigenstates), not a new oscillation phenomenology distinguishable from the standard PMNS-rotation picture at the formula level.
 
-> **Leaf references:** `particle-physics/ch03-neutrino-sector/chiral-screening.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`, `particle-physics/ch03-neutrino-sector/pmns-junction-model.md`.
+> **Leaf references:** [chiral-screening](./particle-physics/ch03-neutrino-sector/chiral-screening.md), [delta-cp-violation](./particle-physics/ch03-neutrino-sector/delta-cp-violation.md), [pmns-eigenvalues](./particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md), [pmns-junction-model](./particle-physics/ch03-neutrino-sector/pmns-junction-model.md).
 
 ### Quality
 - confidence: 0.6
@@ -250,7 +250,7 @@
   - The leaf in ch06 (`lepton-spectrum.md`) and the leaf in ch03 (`pmns-eigenvalues.md`) present the mass ordering differently: ch06 lists $\nu_1 > \nu_2 > \nu_3$ in meV, ch03 derives "inverted hierarchy" from $m_i \propto 1/c_i^2$. These are consistent (both have $\nu_1$ heaviest), but consumers should treat the inverted-hierarchy commitment (not normal) as the load-bearing claim.
   - Does NOT claim a direct laboratory mass measurement (KATRIN, etc.) is reproduced. The $\sim 0.024$ eV scale is below current direct-detection sensitivity.
 
-> **Leaf references:** `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`.
+> **Leaf references:** [delta-cp-violation](./particle-physics/ch03-neutrino-sector/delta-cp-violation.md), [pmns-eigenvalues](./particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md), [lepton-spectrum](./particle-physics/ch06-electroweak-higgs/lepton-spectrum.md).
 
 ### Quality
 - confidence: 0.55
@@ -277,7 +277,7 @@
   - Does NOT claim derivation of all six quark masses from a single zero-parameter formula. The mass derivations ($m_u = m_e/(2\alpha_s)$, $m_d = m_e/(\alpha_s\cos\theta_W)$, $m_s = m_\mu\cos\theta_W$, etc.) appear as separate scale-invariance entries in the Master Prediction Table (#33–#38, $0.8$–$2.4\%$); they share structural ingredients but are individual derivations, not a single closed-form spectrum.
   - The "quarks have never been isolated" experimental fact is interpreted in AVE as quarks being **structurally inseparable** from the Borromean cage (deconfined within, not removable). This is consistent with QCD confinement empirically; AVE provides a different mechanism, not a different observable.
 
-> **Leaf references:** `particle-physics/ch02-baryon-sector/topological-fractionalization.md`, `particle-physics/ch02-baryon-sector/quark-flavors.md` (stub redirecting to topological-fractionalization).
+> **Leaf references:** [quark-flavors](./particle-physics/ch02-baryon-sector/quark-flavors.md), [topological-fractionalization](./particle-physics/ch02-baryon-sector/topological-fractionalization.md).
 
 ### Quality
 - confidence: 0.75
@@ -314,6 +314,8 @@
 
 > **References:** Bound on the Z = 1–14 validity range and the four correction gates is asserted at invariant level — see `LIVING_REFERENCE.md` §"Axioms in the Atomic Domain" (Corrections A–D specifications) and Pitfalls #6, #7, #8, #9, #10, #11. Supporting derivation steps appear in `quantum-orbitals/ch07-quantum-mechanics/` leaves: `radial-eigenvalue-solver.md`, `ionization-energy-validation.md`, `screening-rule.md`, `de-broglie-n.md`, `de-broglie-standing-wave.md`, `bonding-mode-formula.md`, `chiral-factor.md`, `helium-symmetric-cavity.md`, `hierarchical-cascade-correction.md`, `orbital-penetration-penalties.md`, `operator-domain-table.md`, `complete-solver-architecture.md`, `geometry-pipeline.md`, `atom-as-radial-waveguide.md`, `analog-ladder-filter.md`, `knot-vs-orbital-table.md`, `helium-coupling-first-principles.md`, `subshell-junction-scattering.md`, `ode-verification.md`, `scale-separation.md`, `dual-formalism-architecture.md`, `stepped-impedance-resonator.md`, `macro-cavity-saturation.md`. The proofs-computation leaf `proofs-computation/ch09-computational-proof/methodological-contamination.md` documents the Bohr/Schrödinger contamination hazard explicitly. Cross-domain reuse of the same operator chain (atomic / nuclear / protein / antenna) is summarised in `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
+> **Leaf references:** [sm-translation-toolchain](./appendices/app-f-solver-toolchain/sm-translation-toolchain.md), [methodological-contamination](./proofs-computation/ch09-computational-proof/methodological-contamination.md), [analog-ladder-filter](./quantum-orbitals/ch07-quantum-mechanics/analog-ladder-filter.md), [atom-as-radial-waveguide](./quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md), [chiral-factor](./quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md), [complete-solver-architecture](./quantum-orbitals/ch07-quantum-mechanics/complete-solver-architecture.md), [de-broglie-n](./quantum-orbitals/ch07-quantum-mechanics/de-broglie-n.md), [de-broglie-standing-wave](./quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md), [dual-formalism-architecture](./quantum-orbitals/ch07-quantum-mechanics/dual-formalism-architecture.md), [geometry-pipeline](./quantum-orbitals/ch07-quantum-mechanics/geometry-pipeline.md), [helium-coupling-first-principles](./quantum-orbitals/ch07-quantum-mechanics/helium-coupling-first-principles.md), [ionization-energy-validation](./quantum-orbitals/ch07-quantum-mechanics/ionization-energy-validation.md), [knot-vs-orbital-table](./quantum-orbitals/ch07-quantum-mechanics/knot-vs-orbital-table.md), [macro-cavity-saturation](./quantum-orbitals/ch07-quantum-mechanics/macro-cavity-saturation.md), [ode-verification](./quantum-orbitals/ch07-quantum-mechanics/ode-verification.md), [operator-domain-table](./quantum-orbitals/ch07-quantum-mechanics/operator-domain-table.md), [orbital-penetration-penalties](./quantum-orbitals/ch07-quantum-mechanics/orbital-penetration-penalties.md), [scale-separation](./quantum-orbitals/ch07-quantum-mechanics/scale-separation.md), [stepped-impedance-resonator](./quantum-orbitals/ch07-quantum-mechanics/stepped-impedance-resonator.md), [subshell-junction-scattering](./quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md).
+
 ### Quality
 - confidence: 0.55
 - depends-on:
@@ -342,7 +344,7 @@
   - The current B and beyond accuracy is documented as **open**: the "Be and B remain open: the corrections are applied *outside* the phase integral, violating the action principle" (radial-eigenvalue-solver.md §E2j). The complete-phase-integral architecture (§E2k) is presented as the in-progress correct architecture — not yet validated end-to-end across Z $\ge 5$.
   - Does NOT claim coupled-microstrip same-shell formalism is independently validated at the atomic scale beyond the Hopf-pair Be result. The cross-scale isomorphism with protein $\beta$-sheet and antenna coupled-microstrip is a structural identification.
 
-> **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/screening-rule.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md`, `quantum-orbitals/ch07-quantum-mechanics/hierarchical-cascade-correction.md`, `quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md`, `quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md`, `quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md`, `quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-coupling-first-principles.md`, `quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md`, `quantum-orbitals/ch07-quantum-mechanics/scale-separation.md`.
+> **Leaf references:** [atom-as-radial-waveguide](./quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md), [bonding-mode-formula](./quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md), [chiral-factor](./quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md), [helium-coupling-first-principles](./quantum-orbitals/ch07-quantum-mechanics/helium-coupling-first-principles.md), [helium-symmetric-cavity](./quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md), [hierarchical-cascade-correction](./quantum-orbitals/ch07-quantum-mechanics/hierarchical-cascade-correction.md), [radial-eigenvalue-solver](./quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md), [scale-separation](./quantum-orbitals/ch07-quantum-mechanics/scale-separation.md), [screening-rule](./quantum-orbitals/ch07-quantum-mechanics/screening-rule.md), [subshell-junction-scattering](./quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md).
 
 ### Quality
 - confidence: 0.5
@@ -371,7 +373,7 @@
   - The claimed equivalence is at the single-particle level (one spin in an external field). Multi-particle entanglement / Bell-inequality predictions are not addressed in vol2 spin chapter; the agreement with classical ODE applies to NMR/EPR-style scenarios, not arbitrary entanglement experiments.
   - The Larmor frequency $\omega_L = \gamma B_0$ is recovered as a classical precession rate; this is an **ontological reinterpretation** (categories (i)/(iii) cohabit), not a novel numerical prediction.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md`, `particle-physics/ch04-quantum-spin/spin-as-precession.md`, `particle-physics/ch04-quantum-spin/larmor-derivation.md`, `particle-physics/ch04-quantum-spin/visual-equivalence.md`, `appendices/app-b-paradoxes/spin-half-paradox.md`.
+> **Leaf references:** [spin-half-paradox](./appendices/app-b-paradoxes/spin-half-paradox.md), [spin-gyroscopic-isomorphism](./particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md), [larmor-derivation](./particle-physics/ch04-quantum-spin/larmor-derivation.md), [spin-as-precession](./particle-physics/ch04-quantum-spin/spin-as-precession.md), [visual-equivalence](./particle-physics/ch04-quantum-spin/visual-equivalence.md).
 
 ### Quality
 - confidence: 0.8
@@ -399,7 +401,7 @@
   - The mass gap value $\Delta = m_e c^2$ relies on identifying the electron unknot rest mass as the lightest topological defect; ZFC formalisation that the unknot is *globally* the unique lightest stable defect on the lattice is open future work.
   - Does NOT claim a derivation of the SU(3) QCD coupling or the gluon spectrum. The "SU($N$) emergence from $(2,q)$ knots" is a structural identification (Step 3); the electron's mass is from the unknot ($0_1$), while its electroweak interaction symmetry is from the $(2,3)$ trefoil — the leaves explicitly note the distinction.
 
-> **Leaf references:** `nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md`, `nuclear-field/ch12-millennium-prizes/yang-mills-steps3-5.md`, `nuclear-field/ch12-millennium-prizes/index.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table notes #14, #15, #16.
+> **Leaf references:** [yang-mills-steps1-2](./nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md), [yang-mills-steps3-5](./nuclear-field/ch12-millennium-prizes/yang-mills-steps3-5.md).
 
 ### Quality
 - confidence: 0.65
@@ -426,7 +428,7 @@
   - This is **NOT a Clay-rigorous proof for the continuum Navier-Stokes equation**. The result is rigorous *for the discrete lattice variant*; promoting to the Clay statement requires either accepting Axiom 1's discrete pitch as physical or formalising a lattice-to-continuum limit theorem that preserves the bound. The latter is open future work.
   - LIVING_REFERENCE.md Master Prediction Table #15 explicitly: "Framework-derived (lattice + Picard-Lindelöf; not Clay-rigorous)". Same caveat applies; downstream summarisation must preserve it.
 
-> **Leaf references:** `nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #15.
+> **Leaf references:** [navier-stokes-prize](./nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md).
 
 ### Quality
 - confidence: 0.7
@@ -451,7 +453,7 @@
   - This is **NOT a Clay-rigorous result** and is not on the Clay list — but the same lattice-conditional caveat applies, as flagged in Master Prediction Table note #16. The "uniqueness of the AVE vacuum topology" is asserted, not formally proven against all possible competing ground states within ZFC.
   - Does NOT claim falsification of the QCD axion search programme. AVE asserts the axion is unnecessary within its framework, not that experimental axion searches will falsify a particle whose existence the framework already excludes.
 
-> **Leaf references:** `nuclear-field/ch10-open-problems/strong-cp.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #16.
+> **Leaf references:** [quantitative-resolutions](./nuclear-field/ch10-open-problems/quantitative-resolutions.md), [strong-cp](./nuclear-field/ch10-open-problems/strong-cp.md).
 
 ### Quality
 - confidence: 0.5
@@ -479,7 +481,7 @@
   - Does NOT claim $g_* = 85.75$ is independently measured. The validation is via the downstream baryon ratio; the lattice-DoF-counting metric is asserted, not directly observed.
   - The Sakharov-conditions framing (C/CP violation from lattice chirality + electroweak phase transition) reuses the standard out-of-equilibrium picture for its third condition; this is consistency with the Sakharov framework, not its derivation.
 
-> **Leaf references:** `nuclear-field/ch10-open-problems/baryon-asymmetry.md`, `nuclear-field/ch10-open-problems/g-star-derivation.md`, `nuclear-field/ch10-open-problems/g-star-prediction.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table).
+> **Leaf references:** [baryon-asymmetry](./nuclear-field/ch10-open-problems/baryon-asymmetry.md), [g-star-derivation](./nuclear-field/ch10-open-problems/g-star-derivation.md), [g-star-prediction](./nuclear-field/ch10-open-problems/g-star-prediction.md), [quantitative-resolutions](./nuclear-field/ch10-open-problems/quantitative-resolutions.md).
 
 ### Quality
 - confidence: 0.4
@@ -506,7 +508,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The framing-of-asymmetric-systematics ("CMB low-density-void calibration" vs "local Cepheid impedance calibration") is an **interpretive consequence**, not an independent quantitative derivation of either measurement's residual.
   - The cross-cutting circularity caveat (Vol3 sidecar: $R_H \equiv c/H_\infty$ enters $G$ via $\xi$, so rearranging back to "compute" $H_\infty$ from CODATA $G$ is structurally an identity) applies here as well. Treat the vol2 leaf's "every factor rigorously derived" wording as inheriting the vol3-documented caveat; do NOT summarise vol2's framing as a parameter-free first-principles prediction of $H_0$.
 
-> **Leaf references:** `nuclear-field/ch10-open-problems/hubble-tension.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Cross-cutting caveat documented in vol3 sidecar's Asymptotic Hubble Constant entry; bound asserted at the kb-claims-boundaries-followups level (see `kb-claims-boundaries-followups.md` 2026-05-02 entry on vol3 index circularity framing).
+> **Leaf references:** [hubble-tension](./nuclear-field/ch10-open-problems/hubble-tension.md), [quantitative-resolutions](./nuclear-field/ch10-open-problems/quantitative-resolutions.md).
 
 ### Quality
 - confidence: 0.7
@@ -532,7 +534,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The QCD string-tension agreement ($\alpha'_{baryon}$ vs phenomenological $10^{-4}$ GeV$^{-2}$) is "matches to within an order of magnitude natively" (the leaf's wording). This is not a quantitative replacement for lattice QCD's $\sigma \approx 1$ GeV/fm string-tension measurements.
   - Does NOT claim a derivation of standard string theory observables (mass spectra of meson trajectories, etc.) at sub-percent precision. The mapping is structural (string tension $\leftrightarrow$ inductive energy density), not a phenomenological replacement.
 
-> **Leaf references:** `nuclear-field/ch08-planck-string/planck-scale-derivation.md`, `nuclear-field/ch08-planck-string/string-theory-translation.md`.
+> **Leaf references:** [planck-scale-derivation](./nuclear-field/ch08-planck-string/planck-scale-derivation.md), [string-theory-translation](./nuclear-field/ch08-planck-string/string-theory-translation.md).
 
 ### Quality
 - confidence: 0.65
@@ -562,7 +564,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The polyalanine $\alpha$-helix dihedral emergence is a **structural** validation (geometry recovered from minimisation); does not claim quantitative folding-rate or thermodynamic-stability prediction at the single-protein level.
   - Does NOT claim AVE replaces Lattice QCD or AlphaFold in their respective production roles. The comparison is methodological (scaling, free parameters), not a head-to-head accuracy benchmark.
 
-> **Leaf references:** `proofs-computation/ch11-overdrive/index.md`, `proofs-computation/ch11-overdrive/universal-energy.md`, `proofs-computation/ch11-overdrive/overdrive-nuclear.md`, `proofs-computation/ch11-overdrive/overdrive-protein.md`, `proofs-computation/ch11-overdrive/overdrive-comparison.md`, `appendices/app-f-solver-toolchain/cross-domain-physics-mappings.md` (K4-TLM, Miller-avalanche-as-nuclear-binding, RF-transmission-line-as-protein-folding cross-domain identifications).
+> **Leaf references:** [cross-domain-physics-mappings](./appendices/app-f-solver-toolchain/cross-domain-physics-mappings.md), [overdrive-comparison](./proofs-computation/ch11-overdrive/overdrive-comparison.md), [overdrive-nuclear](./proofs-computation/ch11-overdrive/overdrive-nuclear.md), [overdrive-protein](./proofs-computation/ch11-overdrive/overdrive-protein.md), [universal-energy](./proofs-computation/ch11-overdrive/universal-energy.md).
 
 ### Quality
 - confidence: 0.55
@@ -590,6 +592,8 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 
 > **References:** Discipline asserted at invariant level — see `LIVING_REFERENCE.md` "Common Pitfalls" #7–#11 and Critical Distinctions; "Red flags for QM contamination" checklist therein. Supporting derivation-discipline statements appear in `proofs-computation/ch09-computational-proof/methodological-contamination.md`, `proofs-computation/ch09-computational-proof/precision-policy.md`, the QM-translation appendix `quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md`, the ODE shooting-method verification leaf `quantum-orbitals/ch07-quantum-mechanics/ode-verification.md` (algebraic identity Schrödinger ↔ Helmholtz acoustic ODE confirmed numerically), and the SM-to-AVE translation pointer `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
+> **Leaf references:** [sm-translation-toolchain](./appendices/app-f-solver-toolchain/sm-translation-toolchain.md), [methodological-contamination](./proofs-computation/ch09-computational-proof/methodological-contamination.md), [precision-policy](./proofs-computation/ch09-computational-proof/precision-policy.md), [ode-verification](./quantum-orbitals/ch07-quantum-mechanics/ode-verification.md), [qm-ave-translation](./quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md).
+
 ### Quality
 - confidence: 0.7
 - depends-on:
@@ -614,7 +618,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - This is a **stress-test resolution** (App B paradoxes), demonstrating internal consistency of the lattice picture against an established constraint — not an independent quantitative derivation of the Bekenstein-Hawking entropy formula. The cross-sectional-porosity argument is presented as the geometric mechanism, not a calculation of $S_{BH} = A/(4\ell_P^2)$ ab initio.
   - Does NOT claim falsification of any specific holographic-duality framework (AdS/CFT, dS/CFT). The framework asserts the principle is recoverable in AVE, not that competing formulations are excluded.
 
-> **Leaf references:** `appendices/app-b-paradoxes/holographic-paradox.md`.
+> **Leaf references:** [holographic-paradox](./appendices/app-b-paradoxes/holographic-paradox.md).
 
 ### Quality
 - confidence: 0.3
@@ -639,7 +643,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The Faddeev-Skyrme functional with the $1/e^2$ Skyrme term is a **chosen ansatz** for a stable soliton model — it is the standard form in the topological-soliton literature, here adopted as the AVE continuum field theory. The leaf does not derive the Skyrme term independently from Axioms 1–4.
   - "All conservation laws derived from $Q$" is asserted at the formula level (any continuous deformation preserves $Q$). The mapping from $Q$-sectors to specific Standard Model quantum numbers (baryon number, lepton number) is the structural identification used downstream — see `clm-mnb3lt`, `clm-67jn9o`, and `clm-q5izb7` for the load-bearing applications.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/mathematical-topology-of-mass.md`.
+> **Leaf references:** [mathematical-topology-of-mass](./particle-physics/ch01-topological-matter/mathematical-topology-of-mass.md).
 
 ### Quality
 - confidence: 0.6
@@ -665,7 +669,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - This is a **category (i) ontological reinterpretation**, not a new numerical prediction. Macroscopic Newtonian dynamics are unchanged at the formula level; the framework's claim is about the underlying mechanism.
   - Does NOT claim a derivation of relativistic mass or the equivalence principle from this single leaf — only that the inertial-mass term is mechanistically Lenz-law back-EMF on the lattice's distributed inductance ($\mu_0$). Relativistic and gravitational extensions are addressed in vol3 gravity and in the unification leaves.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md`; `../common/dark-wake-bemf-foc-synthesis.md` (R_drag = Z₀ / mass-as-inductive-resistance, cited by the common dark-wake synthesis leaf).
+> **Leaf references:** [dark-wake-bemf-foc-synthesis](../common/dark-wake-bemf-foc-synthesis.md), [newtonian-inertia-as-lenz](./particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md).
 
 ### Quality
 - confidence: 0.3
@@ -690,7 +694,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The regime table is a structural taxonomy, not a quantitative prediction. The numerical mass, charge, and lifetime values for each entry are derived in their respective per-particle entries (e.g., proton in `clm-mnb3lt`, electron in `clm-h9aqmt`, W/Z in `clm-q8un7j`). This entry indexes which regime each particle inhabits and asserts regime-character claims; it does not duplicate the per-particle quantitative results.
   - "Black hole as macroscopic soliton in Regime III" is the vol2 framing of the gravitational-saturation result developed in vol3. Treat the black-hole row as a forward reference into vol3, not a self-contained vol2 derivation.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/regime-classification.md`.
+> **Leaf references:** [regime-classification](./particle-physics/ch01-topological-matter/regime-classification.md).
 
 ### Quality
 - confidence: 0.3
@@ -717,7 +721,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Does NOT claim an extension to multi-particle annihilation channels (e.g., $e^-e^+ \to 3\gamma$ at higher order, $e^-e^+ \to \mu^-\mu^+$, etc.). The Mazur-resolution sketch addresses the simplest two-photon annihilation channel only.
   - "Phase cancellation severs the topological boundary" is a **mechanism claim** in the AVE language; whether the lattice formally supports such a cancellation as a continuous evolution (rather than a singular event) is an open formalisation question.
 
-> **Leaf references:** `particle-physics/ch01-topological-matter/chirality-and-antimatter.md`.
+> **Leaf references:** [chirality-and-antimatter](./particle-physics/ch01-topological-matter/chirality-and-antimatter.md).
 
 ### Quality
 - confidence: 0.3
@@ -746,7 +750,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The Hierarchy Bridge is **algebraic substitution**, not an independent derivation of $G$. Both inputs ($G$ via the Axiom 3 expression and $T_{nuc}$ via the mass-stiffening assertion) are framework choices; the bridge demonstrates internal consistency by recovering Newton's law with the correct numerical hierarchy. It does not constitute a parameter-free first-principles derivation of $G$ — that derivation is asserted at the Axiom 3 level. The framing "parameter-free algebraic unification" is shorthand for "no new parameters introduced beyond what is already in the AVE axioms."
   - The 28.3 MeV alpha binding energy is the empirical input to the strain calculation, not an independent AVE prediction.
 
-> **Leaf references:** `particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md`.
+> **Leaf references:** [proton-neutron-mass-split](./particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md).
 
 ### Quality
 - confidence: 0.4
@@ -775,7 +779,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Does NOT claim a derivation of the QCD running coupling $\alpha_s(\mu)$ or the gluon spectrum from this leaf. The "colour quantum number = which loop carries the dominant phase winding" is an ontological identification, not a calculational replacement for QCD perturbation theory.
   - The chapter's title "Forward to Ch.6" indicates the gauge-emergence content is positioned as a bridge into the electroweak chapter; downstream quantitative results (Weinberg angle, $W$/$Z$ masses) are indexed under their own entries (`clm-5zuo7g`, `clm-q8un7j`).
 
-> **Leaf references:** `particle-physics/ch05-electroweak-mechanics/forward-to-ch6.md`.
+> **Leaf references:** [forward-to-ch6](./particle-physics/ch05-electroweak-mechanics/forward-to-ch6.md).
 
 ### Quality
 - confidence: 0.55
@@ -807,7 +811,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Does NOT claim derivation of relativistic Dirac corrections, fine structure, or hyperfine structure from this leaf. The non-relativistic limit is the explicit scope.
   - Angular momentum quantisation $L = \hbar\sqrt{l(l+1)}$ and magnetic-quantum-number-as-nodal-planes recovery is **standard spherical-harmonic mode counting** for any spherical resonator — AVE adds the ontological identification ("orbitals are not probability densities; they are LC pressure-mode geometries"), not a different quantisation rule.
 
-> **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` (the same leaf is also referenced under `clm-oltvwy` for its Step-1 single-electron eigenvalue derivation supporting the multi-electron solver).
+> **Leaf references:** [de-broglie-standing-wave](./quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md).
 
 ### Quality
 - confidence: 0.8
@@ -844,7 +848,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - "Strong coupling $\alpha_s = \alpha^{3/7}$" is the AVE scale-invariant identification (spatial projection of $\alpha$ via the K4 manifold ratios). The leaf does not produce a running-coupling $\alpha_s(\mu)$ or compute the QCD beta-function. The claim is scheme-specific (the AVE-native scheme), not the $\overline{MS}$ value at any specific scale.
   - The "complete" status (`Standard Model: 26 of 26 parameters derived, $< 4.1\%$") is the table summary; per-parameter caveats apply (on-shell vs $\overline{MS}$ for $\sin^2\theta_W$ — see `clm-5zuo7g`; framework-conditional vs Clay-rigorous for mass-gap-related SU(3) results — see `clm-q5izb7`).
 
-> **Leaf references:** `nuclear-field/ch10-open-problems/unification.md`, `nuclear-field/ch10-open-problems/scale-invariance-table.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table; the same leaf is referenced under `clm-4vwsjc`, `clm-gfs4j8`, and `clm-mroghg`).
+> **Leaf references:** [quantitative-resolutions](./nuclear-field/ch10-open-problems/quantitative-resolutions.md), [scale-invariance-table](./nuclear-field/ch10-open-problems/scale-invariance-table.md), [unification](./nuclear-field/ch10-open-problems/unification.md).
 
 ### Quality
 - confidence: 0.4
@@ -881,7 +885,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - **P-vs-NP "rendered moot" is explicit non-resolution.** AVE does not claim P = NP, P ≠ NP, or P = NP/poly; it asserts the Turing-machine framing is non-physical and replaces it with a parallel-lattice model. The Clay statement is left untouched at its own terms.
   - The five problems share a common structural template (mathematical paradox $\to$ AVE physical interpretation $\to$ engineering verdict) but each carries materially distinct technical content; this consolidated entry is a routing index, not a substitute for reading each leaf's specific argument.
 
-> **Leaf references:** `nuclear-field/ch12-millennium-prizes/birch-swinnerton-dyer.md`, `nuclear-field/ch12-millennium-prizes/riemann-hypothesis.md`, `nuclear-field/ch12-millennium-prizes/hodge-conjecture.md`, `nuclear-field/ch12-millennium-prizes/poincare-conjecture.md`, `nuclear-field/ch12-millennium-prizes/p-vs-np.md`. Cross-reference: Yang-Mills (`clm-q5izb7`) and Navier-Stokes (`clm-c8q0z5`) are the other two Clay problems addressed in vol2 and live under their own entries with the same framework-conditional caveat.
+> **Leaf references:** [birch-swinnerton-dyer](./nuclear-field/ch12-millennium-prizes/birch-swinnerton-dyer.md), [hodge-conjecture](./nuclear-field/ch12-millennium-prizes/hodge-conjecture.md), [p-vs-np](./nuclear-field/ch12-millennium-prizes/p-vs-np.md), [poincare-conjecture](./nuclear-field/ch12-millennium-prizes/poincare-conjecture.md), [riemann-hypothesis](./nuclear-field/ch12-millennium-prizes/riemann-hypothesis.md).
 
 ### Quality
 - confidence: 0.4
@@ -911,7 +915,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Some rows (Kirkwood gaps, magnetopauses, 'Oumuamua) carry their own falsification status (`vol4/falsification/` chapters); the table here is a routing index into them, not their canonical entries.
   - Does NOT claim every legitimate physical phenomenon at every length scale is captured by the saturation kernel. The claim is that the kernel applies across the 13 audited domains; phenomena outside the operator chain (e.g., specific-heat anomalies in highly correlated electron systems, late-stellar nucleosynthesis branching ratios) are not asserted to be captured.
 
-> **Leaf references:** `proofs-computation/ch09-computational-proof/computational-graph.md`. Cross-reference: see also `clm-dboxok` (universal energy functional applied to nuclear + protein) for the operator chain demonstration on two specific domains, and `clm-d9ivj1` (universal regime-boundary eigenvalue method) for the closed-form analytical companion to this computational verification.
+> **Leaf references:** [computational-graph](./proofs-computation/ch09-computational-proof/computational-graph.md).
 
 ### Quality
 - confidence: 0.4
@@ -937,7 +941,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The STZ mechanism is asserted at the qualitative level (dielectric-saturation-plastic flow on the leading edge); the leaf does not produce a quantitative threshold for the onset velocity or a coupling constant for the slipstream dynamics. Treat as a mechanism claim, not a numerical prediction.
   - Does NOT claim falsification of the standard PN-stress framework in real crystallographic dislocations; the framework's claim is that the AVE vacuum's plastic regime preempts the rigid-PN-barrier picture for fundamental charged particles, not that real-material PN dynamics is wrong.
 
-> **Leaf references:** `appendices/app-b-paradoxes/peierls-nabarro-paradox.md`.
+> **Leaf references:** [peierls-nabarro-paradox](./appendices/app-b-paradoxes/peierls-nabarro-paradox.md).
 
 ### Quality
 - confidence: 0.3
@@ -962,7 +966,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The catalog explicitly carries forward the proton-mass Gaussian-ansatz caveat ("conditional on Gaussian flux-tube ansatz" for $\rho_{threshold} = 1.1062$) and the rigour-gap pointer to `mathematical-closure.md` — the same caveat documented in `clm-mnb3lt`.
   - Does NOT introduce any new derivation not already in a per-result entry; this entry exists so that consumers searching the catalog can find the canonical source.
 
-> **Leaf references:** `appendices/app-c-derivations/index.md` (this index doubles as a leaf, per INVARIANT-S5 single-leaf-index exception). Per-result canonical entries: `clm-mnb3lt`, `clm-5zuo7g`, `clm-q8un7j`, `clm-67jn9o`, `clm-mroghg`, `clm-dboxok`, `clm-oygz1i`.
+> **Leaf references:** [index](./appendices/app-c-derivations/index.md).
 
 ### Quality
 - confidence: 0.5
@@ -995,7 +999,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - Specific numerical thresholds ($k_{couple} < 3.0$ Cauchy, $k_{couple} > 4.5$ trace-reversed) are reported from simulation; the leaf does not derive these thresholds analytically.
   - The architecture description here is **about the computational engine** that emulates AVE physics (`src/ave/axioms/...`), not about the physics axioms themselves. Treat as engine specification, not as a new physical law.
 
-> **Leaf references:** `appendices/app-d-computational-graph/graph-architecture.md`.
+> **Leaf references:** [graph-architecture](./appendices/app-d-computational-graph/graph-architecture.md).
 
 ### Quality
 - confidence: 0.5
@@ -1026,7 +1030,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The AQUAL identification with MOND-like rotation curves is the structural recovery; per-galaxy quantitative validation is documented separately in vol3 cosmology / vol2 ch9 cross-scale verification (`clm-z73h6n`).
   - Discrete-Hilbert commutator claims relate to the engine's **integration stability** at $p \to \hbar/a$; whether the discrete operator equation $[\hat x, \hat p_{discrete}] = i\hbar\sqrt{1 - (ap/\hbar)^2}$ is a physically correct quantum-mechanical commutator at sub-lattice momenta (vs an engine-correct one for the simulation) is treated as the same question — the AVE position is that the discrete commutator IS the physical one in a discrete-lattice ontology, but ZFC-level scrutiny against standard QM is open work.
 
-> **Leaf references:** `appendices/app-e-dcve/dcve-specification.md`.
+> **Leaf references:** [dcve-specification](./appendices/app-e-dcve/dcve-specification.md).
 
 ### Quality
 - confidence: 0.5
@@ -1060,7 +1064,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - The pion mass derivation uses $I_{baryon} \approx 1836$ from the proton mass eigenvalue (`clm-mnb3lt`); the pion result is therefore not independent of the proton calibration. Treat as a same-eigenvalue projection, not a second-independent-calibration.
   - Many of the worked examples (electron, nuclear, antenna, tokamak, BLDC motor) live in other volumes; this consolidated entry is a routing index for vol2's gravity-side and particle-side examples.
 
-> **Leaf references:** `appendices/app-f-solver-toolchain/regime-eigenvalue-method.md`, `appendices/app-f-solver-toolchain/cross-scale-isomorphism-table.md`, `appendices/app-f-solver-toolchain/nuclear-eigenvalue.md`, `appendices/app-f-solver-toolchain/protein-eigenvalue.md`, `appendices/app-f-solver-toolchain/semiconductor-junction-analogy.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (also referenced under `clm-k6olj8`), `appendices/app-f-solver-toolchain/derived-numerology.md`, `appendices/app-f-solver-toolchain/lattice-phase-transition.md`, `appendices/app-f-solver-toolchain/kerr-q-correction.md`.
+> **Leaf references:** [cross-scale-isomorphism-table](./appendices/app-f-solver-toolchain/cross-scale-isomorphism-table.md), [derived-numerology](./appendices/app-f-solver-toolchain/derived-numerology.md), [kerr-q-correction](./appendices/app-f-solver-toolchain/kerr-q-correction.md), [knot-mode-isomorphism](./appendices/app-f-solver-toolchain/knot-mode-isomorphism.md), [lattice-phase-transition](./appendices/app-f-solver-toolchain/lattice-phase-transition.md), [nuclear-eigenvalue](./appendices/app-f-solver-toolchain/nuclear-eigenvalue.md), [protein-eigenvalue](./appendices/app-f-solver-toolchain/protein-eigenvalue.md), [regime-eigenvalue-method](./appendices/app-f-solver-toolchain/regime-eigenvalue-method.md), [semiconductor-junction-analogy](./appendices/app-f-solver-toolchain/semiconductor-junction-analogy.md).
 
 ### Quality
 - confidence: 0.7
@@ -1087,7 +1091,7 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
   - "Zero free parameters" applies to the AVE-side derivations once $\ell_{node}, \alpha, G$ are accepted as the calibration triad (which in turn fixes $m_e, c, \hbar$). The exchange-rate framing supports the headline, but the calibration triad itself is the underlying input — not derived from nothing.
   - Does NOT claim a derivation of the numerical value of any exchange rate from a more primitive principle; the values $c, \hbar, G, \ldots$ remain the empirical inputs (or definitional couples thereof). The claim is structural (every quantity = geometric ratio × exchange rates), not a generation-of-constants-from-scratch.
 
-> **Leaf references:** `appendices/app-f-solver-toolchain/universal-constants-exchange.md`.
+> **Leaf references:** [universal-constants-exchange](./appendices/app-f-solver-toolchain/universal-constants-exchange.md).
 
 ### Quality
 - confidence: 0.3
@@ -1113,7 +1117,7 @@ AVE-native canonical identification of the electron as a self-trapped photon —
   - g-2 closure is partial, pending K4-Cosserat numerical confirmation.
   - Flagged corpus citation issue (sm-translation-toolchain.md:22 "longitudinal wave" vs canonical transverse).
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-identification.md` §1–§3
+> **Leaf references:** [electron-identification](./particle-physics/ch01-topological-matter/electron-identification.md).
 
 ### Quality
 - confidence: 0.75
@@ -1140,7 +1144,7 @@ A-024 operationalization: the canonical AVE electron-soliton seeder injects a Co
   - Mode III on K4-TLM; Mode I PASS only on Master Equation FDTD, per the two-engine architecture.
   - Operationalizes a seeding/initialization protocol — not an independent empirical confirmation of the electron model.
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md`
+> **Leaf references:** [electron-unknot-cosserat-seeder](./particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md).
 
 ### Quality
 - confidence: 0.5
@@ -1169,7 +1173,7 @@ Canonical AVE-native description of the $(2,q)$ stable-particle family ($q$ odd:
   - $R/r$ ladder remains open across three surviving structural reasons.
   - Corpus electron substrate is elsewhere (sub-$\ell_{\text{node}}$ FDTD or different scale).
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md`
+> **Leaf references:** [l3-electron-soliton-synthesis](./particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md).
 
 ### Quality
 - confidence: 0.4
@@ -1196,7 +1200,7 @@ Derived theorem (NOT a new axiom) from Axioms 1+2+4 acting together: mass is the
 - _Specific Non-Claims and Caveats_
   - Status explicitly: derived theorem, not a fundamental constant or new axiom.
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/mass-closure-theorem.md` §Statement
+> **Leaf references:** [mass-closure-theorem](./particle-physics/ch01-topological-matter/mass-closure-theorem.md).
 
 ### Quality
 - confidence: 0.5
@@ -1225,7 +1229,7 @@ AVE-native canonical derivation of pair production as rupture of a saturated flu
 - _Specific Non-Claims and Caveats_
   - Mechanism-level derivation; quantitative rate not the subject of this leaf.
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md`
+> **Leaf references:** [pair-production-axiom-derivation](./particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md).
 
 ### Quality
 - confidence: 0.4
@@ -1253,7 +1257,7 @@ The QED Schwinger formula for strong-field vacuum pair production emerges from s
 - _Specific Non-Claims and Caveats_
   - AVE-distinct predictions appear only at the sharp $E = E_S$ lattice cutoff and in autoresonant sub-Schwinger production (PLL frequency tracking).
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md`
+> **Leaf references:** [q-g18-schwinger-pair-wkb](./particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md).
 
 ### Quality
 - confidence: 0.65
@@ -1279,7 +1283,7 @@ The substrate-perspective operational view of the canonical electron: what each 
 - _Specific Non-Claims and Caveats_
   - Operational/interpretive framing of the canonical electron model; introduces no new derivation beyond it.
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md`
+> **Leaf references:** [substrate-perspective-electron](./particle-physics/ch01-topological-matter/substrate-perspective-electron.md).
 
 ### Quality
 - confidence: 0.35
@@ -1305,7 +1309,7 @@ Derivation of why the electron's phase-space topology is specifically $(2,3)$. $
 - _Specific Non-Claims and Caveats_
   - $(2,3)$ is the phase-space Clifford-torus winding; the electron's real-space topology is the $0_1$ unknot (per Vol 1 Ch 8).
 
-> **Leaf references:** `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md`
+> **Leaf references:** [torus-knot-uniqueness](./particle-physics/ch01-topological-matter/torus-knot-uniqueness.md).
 
 ### Quality
 - confidence: 0.7
@@ -1332,7 +1336,7 @@ AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the prot
   - Honest scoping of 2 derivation gaps: mass split (1.293 MeV) mechanism is canonical but the FS energy is not derived; mean lifetime (880 s) mechanism is canonical but the WKB tunneling rate is not derived.
   - 3 stale corpus framings flagged for revision (Vol 4 trefoil-threading, Vol 6 axial-twist, SM udd-quark translation).
 
-> **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/neutron-identification.md`
+> **Leaf references:** [neutron-identification](./particle-physics/ch02-baryon-sector/neutron-identification.md).
 
 ### Quality
 - confidence: 0.5
@@ -1360,7 +1364,7 @@ AVE-native canonical identification of the proton, structured to parallel the el
 - _Specific Non-Claims and Caveats_
   - 2 open audit items flagged: $\mathcal{I}_{scalar}$ solver documentation, and corpus hygiene on duplicate subsection titles.
 
-> **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/proton-identification.md`
+> **Leaf references:** [proton-identification](./particle-physics/ch02-baryon-sector/proton-identification.md).
 
 ### Quality
 - confidence: 0.7
@@ -1388,7 +1392,7 @@ Two-loop Petermann coefficient $C_2$ derived from substrate dynamics in two stag
 - _Specific Non-Claims and Caveats_
   - The ppm-level headline is postulate-conditional (n_q-additivity), made explicit per Action 2 of the 2026-05-18 walk-back; the corpus admits n_q-additivity is the "single remaining intuitive step."
 
-> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`
+> **Leaf references:** [q-g19a-petermann-saliency-closure](./particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md).
 
 ### Quality
 - confidence: 0.6
@@ -1416,7 +1420,7 @@ The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all o
   - Differences appear only at sub-Compton scales (pair-production physics) and ultra-high energies.
   - The AVE-distinct chiral piece is $\alpha$-suppressed (relevant only for precision polarimetry).
 
-> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md`
+> **Leaf references:** [q-g20f-vacuum-polarization](./particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md).
 
 ### Quality
 - confidence: 0.6
@@ -1444,7 +1448,7 @@ AVE forward-predicts a topological/Cosserat second-order effect contributing to 
   - 4.6σ tension above Fermilab Run-3 ($+245(56)\times 10^{-11}$) on the e+e- baseline; BMW-baseline-conditional.
   - Prior corpus $+247$ value was a factor-2 conversion error walked back 2026-05-18.
 
-> **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md`
+> **Leaf references:** [q-g27-muon-cosserat-saliency](./particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md).
 
 ### Quality
 - confidence: 0.45
@@ -1470,7 +1474,7 @@ The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65%
 - _Specific Non-Claims and Caveats_
   - Structural-precision match at leading order only.
 
-> **Leaf references:** `vol2/quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md`
+> **Leaf references:** [q-g20a-lamb-shift-structural-closure](./quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md).
 
 ### Quality
 - confidence: 0.45
