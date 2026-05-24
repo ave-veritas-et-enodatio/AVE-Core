@@ -10,8 +10,11 @@ Running list of open work scoped specifically to the AVE-KB (canonical markdown 
 
 > **N1 (closure-roadmap → external DAG consumer) landed 2026-05-23.** `claim-quality-closure-roadmap.md` now carries **35 hashed ids** (33 `clm-`, 1 `exp-`, 1 `sup-`) annotating its KB-leaf backlinks — each sourced from the linked leaf's own frontmatter (single-claim deterministic; multi-claim disambiguated by the link's line-anchor → nearest Tier-2 marker), id-check-guarded by `verify-md-links` (0 unknown ids; closure-roadmap is an error-source, so a dead id would gate). The reciprocal back-link edges (added when the KB→closure-roadmap links were removed) now resolve INTO the claim DAG by id, one-directionally.
 
----
+> **D2 closed 2026-05-23** (`src/` engine + driver migration): re-examined post-L3-migration — all six referenced engine refs landed and verified: `principal_radial_strain` (ε₁₁ = 7GM/c²r), `sparc_catalog_ingest.py`, `gaia_substrate_equilibrium_test.py` + `gaia_directional_analysis.py` (directional variant), `electron_interferometry_parallax.py` (factor-7 fix applied), `lbm_3d.py` (viscosity docstring present), `q_g47_sessions_19_xi_K_derivation.py`. A broader KB→src code-symbol audit beyond these six was never in D2 scope; not tracked.
 
+> **D7 closed 2026-05-23** (`_orchestration/` curation): assessed load-bearing vs superseded. **Kept active** — the Experimental Arc + sub-epics (`a1-hopf`, `c11-mach-zehnder`, `c15-cleave-01`; all have open hardware/fab/measurement phases) and the 3 `theoretical/` docs (Grant-active per 2026-05-19/20 notes). `_archive/*` already archived. **Curated**: extracted index.md's completed-work snapshots (2026-05-19 session summary + recently-closed-epics table) → `_archive/index-stale.md` + fixed its stale closure-roadmap path; entry points (`index.md`/`README.md`) carry deprecation banners; the live status/claim layer is now the claim DAG. The prevention side is codified as **INVARIANT-S11** (single identification system; extend-don't-reinvent; verifier-gated) — the forward complement to D8's remnant cleanup.
+
+---
 
 ## Deferred
 
@@ -21,16 +24,8 @@ The KB markdown tree is canonical; the LaTeX manuscript (`manuscript/vol_*/`) is
 ### D1. vol2-6 claim-quality rescore
 ~152 `*pending*` claims. **Standing hold** behind the sub-0.65 vol1+common rework. (Once scored, `ave-kb weak-points` can rank weakest / highest-leverage claims directly — superseding the manual closure-roadmap status layer.)
 
-### D2. `src/` engine + driver migration
-***RE-EXAMINE STATE FOLLOWING MIGRATION OF GRANT'S L3 WORK TO NEW KB***
-Round-2 KB leaves reference engine functions that must land: `ave.gravity.principal_radial_strain` (ε₁₁ = 7GM/c²r), `sparc_catalog_ingest.py`, `gaia_substrate_equilibrium_test.py` + directional, `electron_interferometry_parallax.py` (factor-7 fix), `lbm_3d.py` viscosity docstring, `q_g47_sessions_19_xi_K_derivation.py`.
-
 ### D5. Upstream `depends-on` edges (quality pass)
 `clm-wzezvt→clm-oygz1i`, `clm-ydksh6→Ax2 clm-dfaiwj`, `clm-kl1ern→Ax4 clm-2dwzib`, etc. — deferred to claim-quality evaluation.
-
-### D7. `_orchestration/` curation
-- Redundant-vs-load-bearing pass over the wholesale-ported `_orchestration/` files.
-- **NOTE**: deprecation note added to `_orchestration/` entry point documents.
 
 ### D8. Strip redundant identification-system remnants
 The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the framework's identification systems; the unified `clm-`/`exp-`/`sup-` metadata spine fulfilled that. Its residual value is a pointer to *strip out truly redundant/unnecessary identification-system remains* still scattered in the corpus. (Mine the historical doc for specifics when picked up.)

@@ -223,6 +223,16 @@ supports:
 
 *Confirmed by: spec at `manuscript/ave-kb/.index/SCHEMA.md` (support node + supports edge + supported-by view + local_quality/sup_solidity rule); live pipeline tools at `manuscript/ave-kb/tools/{refresh-kb-metadata,verify-kb-metadata}.py`; CI gate via `make verify-kb-metadata`.*
 
+### INVARIANT-S11: Single identification system — extend, don't reinvent
+
+The `clm-`/`exp-`/`sup-` metadata spine (INVARIANT-S8/S9/S10) is the **single identification system** for AVE-KB knowledge. A new class of identifiable knowledge entity is added by **extending the spine** — a `node_type` declared deliberately in `.index/SCHEMA.md` + the pipeline tools, with its own greppable `\b<prefix>-[a-z0-9]{6}\b` id — **never** by spinning up a parallel local id scheme.
+
+**Why this is an invariant, not a guideline.** The framework's history accumulated a series of one-off identification schemes — research-thread ids (`A-NNN` axiom-status, `E-NNN` manuscript-propagation, `Q-GNN` research-questions, `L5` trackers, etc.) — each invented locally for an immediate need, propagated, then buried by context-churn and left unmaintained, forcing the next need to invent yet another scheme (wash, rinse, repeat). Each rotted *silently*, which is what let the loop run. The unified spine ends it **because it is verifier-gated**: `make verify-kb-metadata`, the `verify-md-links` id-validity check, and byte-identical `.index/` regeneration all **fail loudly on drift**. A local scheme rots invisibly; a spine id cannot. The thing that keeps the single system single is *enforcement* (CI), not discipline (which churns away).
+
+**Process/workflow ids are not knowledge ids.** Operational thread-ids in `_orchestration/` (`A-`/`E-`/`Q-G`) are legitimate *process* labels for tracking work — not knowledge-claim ids. But where a process artifact references KB knowledge it must **bridge into the spine by `clm-`/`exp-`/`sup-` id** (e.g. the closure-roadmap's hashed-id annotations), so the reference resolves into the claim DAG and is id-check-guarded. Do not let a process-tracking scheme accrete into a shadow knowledge-identification system.
+
+*Confirmed by: the metadata-spine tooling (INVARIANT-S8/S9/S10) + CI gates `make verify-kb-metadata` / `verify-md-links`; motivated by the documented churn of legacy local schemes (A-/E-/Q-G/L5), now bridged into or superseded by the spine.*
+
 ---
 
 ## Cross-Volume Physical Constants
