@@ -21,11 +21,17 @@ Running list of open work scoped specifically to the AVE-KB (canonical markdown 
 ### D0. KB-vs-LaTeX divergence as a staleness signal
 The KB markdown tree is canonical; the LaTeX manuscript (`manuscript/vol_*/`) is a derived publication artifact (effective 2026-05-07; documented in `kb-docent.md` "Canonical Source" + INVARIANT-S7). **Open:** decide whether to add a verifier step that flags KB-vs-LaTeX divergence as a *derivation-staleness* signal ("the LaTeX has not caught up to this leaf") rather than a KB error. No automated LaTeX-lag detection currently exists.
 
-### D1. vol2-6 claim-quality rescore
-~152 `*pending*` claims. **Standing hold** behind the sub-0.65 vol1+common rework. (Once scored, `ave-kb weak-points` can rank weakest / highest-leverage claims directly — superseding the manual closure-roadmap status layer.)
+### D1. vol2-6 claim-quality rescore — **UNBLOCKED 2026-05-23**
+~152 `*pending*` claims. The vol1+common rescore prerequisite landed 2026-05-23 (applied-mathematician local-rigor wave — 97 claims re-scored, 3 confidence changes, verify-green), so the standing hold is **lifted**: this is now ready to start as the next major workstream. Run the same disjoint-batch applied-mathematician local-rigor wave across vol2-6. (Once scored, `ave-kb weak-points` can rank weakest / highest-leverage claims directly — superseding the manual closure-roadmap status layer.)
 
 ### D5. Upstream `depends-on` edges (quality pass)
 `clm-wzezvt→clm-oygz1i`, `clm-ydksh6→Ax2 clm-dfaiwj`, `clm-kl1ern→Ax4 clm-2dwzib`, etc. — deferred to claim-quality evaluation.
 
 ### D8. Strip redundant identification-system remnants
 The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the framework's identification systems; the unified `clm-`/`exp-`/`sup-` metadata spine fulfilled that. Its residual value is a pointer to *strip out truly redundant/unnecessary identification-system remains* still scattered in the corpus. (Mine the historical doc for specifics when picked up.)
+
+### D10. Post-rescore corpus-drift hygiene sweep
+Small cross-reference / count-drift fixes surfaced by the 2026-05-23 common+vol1 rescore wave (not confidence-scoring items — the entries themselves score correctly):
+- **Catalog-count drift** (the A-034 catalog grew 21→26; the divergence-test substrate-map 33→36): `operators.md` Op2 row still says "21 instances / 18 SYM / 2 ASYM-N" → should be 26 / 19 / 4; `clm-dxdsvt` Leaf-reference reads "§The 21-instance catalog" → now 26; `clm-s3i0lw` says "33-row" → substrate-map is now 36.
+- **One real derivation gap** — `clm-ce8dg1`: the leaf's own chain gives `ν_slew·ℓ_node = αc/(4π²)`, not the headline `αc/(2π)` — the formula doesn't follow from its stated derivation. (The 0.30 confidence already reflects an open step; the formula/derivation mismatch itself is the fix.)
+- **Minor**: `clm-ys0xl1` cosmetic face- vs edge-midpoint C₂-axis slip in `k4-rotation-group.md` (non-load-bearing); `clm-pe8lpx` stale strengthen-by note about an `l≈174°` placeholder (the leaf already adopted the Planck pin).
