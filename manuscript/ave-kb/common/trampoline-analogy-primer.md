@@ -104,8 +104,6 @@ $$p^* = \frac{10 z_0 - 12}{z_0(z_0 + 2)} = 8\pi\alpha$$
 
 The fine-structure constant $\alpha$ IS the trampoline weave density (up to a $8\pi$ geometric factor). When we say "$\alpha \approx 1/137$", we're saying "$1$ out of every $\sim 5.5$ available bond directions is occupied." α isn't a number floating around in QED — it's the substrate's bond density at the only viable operating point.
 
-> → Primary: [Vol 3 Ch 1:17-23 EMT operating point](../../vol_3_macroscopic/chapters/01_gravity_and_yield.tex) — canonical $p^* = 8\pi\alpha$ derivation
->
 > ↗ See also: [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $\chi_K = 12$ + magic-angle framework
 
 ---

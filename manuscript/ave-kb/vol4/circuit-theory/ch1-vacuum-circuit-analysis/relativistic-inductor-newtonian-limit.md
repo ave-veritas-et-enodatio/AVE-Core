@@ -11,7 +11,7 @@ The Lorentz-invariant kinetic energy $E = \gamma m_0 c^2$ emerges from the subst
 
 ## The framing trap (and why corpus-grep dissolved it)
 
-Prior framing attempted to derive $E = \gamma m_0 c^2$ from a scalar field Lagrangian, hit Derrick's theorem (no static stable soliton in scalar field theory for $d \geq 2$), and concluded the AVE corpus had a load-bearing gap. **Corpus-grep showed the canonical derivation already exists** at [Vol 4 Ch 1 lines 175–184](../../../../vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex) via the relativistic-inductor virial-sum mechanism. The "gap" was an artifact of using the wrong Lagrangian form (scalar) when the corpus had the right one (vector Maxwell).
+Prior framing attempted to derive $E = \gamma m_0 c^2$ from a scalar field Lagrangian, hit Derrick's theorem (no static stable soliton in scalar field theory for $d \geq 2$), and concluded the AVE corpus had a load-bearing gap. **Corpus-grep showed the canonical derivation already exists** at Vol 4 Ch 1 lines 175–184 via the relativistic-inductor virial-sum mechanism. The "gap" was an artifact of using the wrong Lagrangian form (scalar) when the corpus had the right one (vector Maxwell).
 
 This is the canonical example of the **corpus-grep-first discipline** — multi-week framing collapsed to ~30 minutes by reading existing corpus rather than re-deriving from scratch.
 
@@ -80,7 +80,7 @@ Any one of these three mechanisms is sufficient. All three are present, providin
 ## Cross-references
 
 - **Canonical manuscript derivation:**
-  - [Vol 4 Ch 1 (Vacuum Circuit Analysis)](../../../../vol_4_engineering/chapters/01_vacuum_circuit_analysis.tex) lines 175–184 — relativistic-inductor virial sum giving $E_0 = (1/2) L_0 I_{\max}^2 + (1/2) C V_{\text{peak}}^2 = m_e c^2$
+  - Vol 4 Ch 1 (Vacuum Circuit Analysis) lines 175–184 — relativistic-inductor virial sum giving $E_0 = (1/2) L_0 I_{\max}^2 + (1/2) C V_{\text{peak}}^2 = m_e c^2$
 - **KB derivations:**
   - [Relativistic Inductor](relativistic-inductor.md) — full $L_{\text{eff}}(I)$ mapping; SPICE enforcement of $c$
   - [Resonant LC Solitons](resonant-lc-solitons.md) — Virial theorem; particles as LC tanks

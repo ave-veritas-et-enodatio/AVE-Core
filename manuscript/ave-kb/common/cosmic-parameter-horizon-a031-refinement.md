@@ -9,7 +9,7 @@ claims: [clm-q4c615, clm-dsb560]
 
 The original A-031 framing ("God's Hand fundamentally inaccessible") was refined per Grant adjudication 2026-05-15 evening, separating two distinct epistemological items that had been bundled together:
 
-1. **Specific cosmic parameters** ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$, $\Omega_{\text{freeze}}$ of our parent black hole) — **INACCESSIBLE.** We sit inside the cosmic $\Gamma = -1$ boundary (the cosmic horizon = parent-BH Schwarzschild radius per [Vol 3 Ch 4 (Generative Cosmology)](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex)); per the substrate-observability rule, the interior is causally and impedance-disconnected from outside observers. We cannot measure the specific parameters of OUR parent-BH instance from inside.
+1. **Specific cosmic parameters** ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$, $\Omega_{\text{freeze}}$ of our parent black hole) — **INACCESSIBLE.** We sit inside the cosmic $\Gamma = -1$ boundary (the cosmic horizon = parent-BH Schwarzschild radius per Vol 3 Ch 4 (Generative Cosmology)); per the substrate-observability rule, the interior is causally and impedance-disconnected from outside observers. We cannot measure the specific parameters of OUR parent-BH instance from inside.
 
 2. **The mechanism that set those parameters** (the universal saturation-kernel strain-snap mechanism) — **OBSERVABLE.** The same mechanism is directly observable at four smaller scales (BH ring-down, solar flares, geomagnetic reversal, atomic dielectric breakdown). The mechanism is **not** behind the horizon; only the specific parameters of our instance are.
 
@@ -70,9 +70,9 @@ As a corollary, AVE's empirical anchoring rests on a **three-route framework** �
 
 - **Canonical manuscript anchors:**
   - Common Foreword §"The three-route framework commitment" (lines 119–128)
-  - [Vol 3 Ch 4 (Generative Cosmology)](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex) — parent-BH cosmology + cosmic-IC framing
-  - [Vol 3 Ch 21 (BH Interior Regime IV)](../../vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex) — same-epistemic-horizon framing
-  - [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — cosmic-scale K4 crystallization as a universal-saturation-kernel instance
+  - Vol 3 Ch 4 (Generative Cosmology) — parent-BH cosmology + cosmic-IC framing
+  - Vol 3 Ch 21 (BH Interior Regime IV) — same-epistemic-horizon framing
+  - Backmatter Ch 7 — Universal Saturation-Kernel Catalog — cosmic-scale K4 crystallization as a universal-saturation-kernel instance
 - **KB cross-cutting:**
   - [Three Boundary Observables: M, Q, J](boundary-observables-m-q-j.md) — substrate-observability rule applied at cosmic scale
   - [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md) — the catalog of strain-snap instances across scales

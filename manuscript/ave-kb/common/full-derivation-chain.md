@@ -891,8 +891,8 @@ topological-reorganization event:
 |---|---|---|
 | Atomic | Dielectric breakdown | EE bench $C/C_0 \to \infty$ at $V_{yield} = 43.65$ kV |
 | Condensed-matter | BCS superconductivity | $B_c(T)$ kernel match at **0.00% error** (Vol 3 Ch 9) |
-| Geophysical | Geomagnetic reversal | Brunhes--Matuyama 780 ka pole-flip dynamics ([Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex)) |
-| Solar | Coronal mass ejection / flare | NOAA GOES 40-yr LED-avalanche validation ([Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| Geophysical | Geomagnetic reversal | Brunhes--Matuyama 780 ka pole-flip dynamics (Vol 3 Ch 13 (Geophysics)) |
+| Solar | Coronal mass ejection / flare | NOAA GOES 40-yr LED-avalanche validation (Vol 3 Ch 14 (Orbital Mechanics)) |
 | Stellar | White dwarf Chandrasekhar | $M_{Ch}$ kernel boundary (Vol 3 Ch 20) |
 | Gravitational | BH ring-down (QNM) | $\omega_R M_g = 18/49$ at **1.7% from GR exact** (3 LIGO events, Vol 3 Ch 15) |
 | Cosmic | TKI strain-snap (K4 crystallization) | CMB axis-alignment prereg (2026-05-15; Vol 3 Ch 4 §TKI Strain-Snap) |
@@ -910,8 +910,6 @@ Full catalog with all 21 instances + per-row symmetry / measurement tier /
 empirical anchor: [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
 
 Canonical synthesis (user-facing): [trampoline-framework.md §7.5](trampoline-framework.md).
-
-Canonical manuscript source: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 ## Layer 8+: Millennium Problems and Open Problems
 

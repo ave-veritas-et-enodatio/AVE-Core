@@ -62,7 +62,7 @@ The $(2,q)$ winding count is INTERNAL to each N-class: leptons stay at $(2,3)$ +
 - [C8-BARYON-LADDER matrix row](../../../common/divergence-test-substrate-map.md) — Matrix 1 Predictions row PROMOTED FULL CLOSURE
 - [Driver `baryon_ladder_pdg_2024_anchor.py`](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor.py) + [results JSON](../../../../../src/scripts/verify/baryon_ladder_pdg_2024_anchor_results.json)
 - Closure-roadmap §0.5 2026-05-18 C8 entry
-- [Foreword "Third positive load-bearing empirical confirmation at scale"](../../../../frontmatter/00_foreword.tex) line 115 (per 2026-05-18 promotion)
+- Foreword "Third positive load-bearing empirical confirmation at scale" line 115 (per 2026-05-18 promotion)
 
 ### Status (2026-05-20)
 

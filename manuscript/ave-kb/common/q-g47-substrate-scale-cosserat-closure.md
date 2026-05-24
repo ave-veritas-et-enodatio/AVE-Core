@@ -14,7 +14,7 @@ The Q-G47 question — "what fixes the K4 lattice's magic-angle operating point 
 
 2. **Substrate-level (Sessions 9–18):** Cosserat $\mu_c$ dimensional resolution; $\gamma_{\text{canonical}}$ self-consistency; $\chi_G = 3$ from the $T_t$ translational triplet; numerical K4 scaffold; $|T| = 12$ universality via four independent routes; sublattice relaxation + Keating bond-bending stabilization (Cosserat couple-stress JUSTIFIED); continuous-field recasting at axiom level ("the springs are actually continuous"); $\xi_{K2}/\xi_{K1} = 12$ self-consistency.
 
-**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, solar flares, cosmic crystallization). See [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
+**Session 18 reframing (per A-034 canonicalization):** Q-G47 substrate-scale work is **the substrate-scale instance** of the universal saturation-kernel mechanism (A-034), not a standalone derivation. The numerical results (Sessions 9–17) are unchanged; their physical interpretation now connects to cross-scale empirical validation (BCS, BH ring-down, solar flares, cosmic crystallization).
 
 ## The magic-angle condition
 <!-- claim-quality: clm-iouqn9 -->
@@ -114,9 +114,9 @@ The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geome
 ## Cross-references
 
 - **Canonical manuscript anchors:**
-  - [Vol 1 Ch 2 (Macroscopic Moduli)](../../vol_1_foundations/chapters/02_macroscopic_moduli.tex) — substrate Cosserat moduli + over-bracing framework
-  - [Vol 1 Ch 1 (Four Axioms)](../../vol_1_foundations/chapters/01_fundamental_axioms.tex) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
-  - [Backmatter Ch 7 (Universal Saturation-Kernel Catalog)](../../backmatter/07_universal_saturation_kernel.tex) — A-034 21-instance catalog including substrate-scale K4 instance
+  - Vol 1 Ch 2 (Macroscopic Moduli) — substrate Cosserat moduli + over-bracing framework
+  - Vol 1 Ch 1 (Four Axioms) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 21-instance catalog including substrate-scale K4 instance
 - **KB cross-cutting:**
   - [xi-topo-traceability.md](xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ vs Machian $\xi$ vs $\xi_{\text{topo}}$ namespace
   - [trampoline-framework.md](trampoline-framework.md) §1–§4 — continuous Cosserat substrate picture

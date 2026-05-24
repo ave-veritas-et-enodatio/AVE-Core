@@ -170,7 +170,7 @@ The substrate-observability rule walls off the pre-substrate state by definition
 
 **All three must give the same $u_0^*$** or the framework is wrong. This is a sharp falsification test: AVE commits to a single value of one parameter, derivable from three independent observational routes.
 
-**Cross-references.** A-031 refined ($\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$; canonical at [Common: A-031 cosmic-parameter horizon refinement](cosmic-parameter-horizon-a031-refinement.md)); A-026 (substrate-observability rule applied fractally including to ourselves; canonical at [Common: Three Boundary Observables M, Q, J](boundary-observables-m-q-j.md)); A-030 (α + G joint anchoring extended to three routes; same A-031 leaf); multi-scale Machian network (Vol 3 Ch 4 generative cosmology + §7 of this doc); [Vol 3 Ch 4 generative cosmology](../../vol_3_macroscopic/chapters/04_generative_cosmology.tex); [Vol 3 Ch 21 BH Interior Regime IV](../../vol_3_macroscopic/chapters/21_black_hole_interior_regime_iv.tex) (same-mechanism framing).
+**Cross-references.** A-031 refined ($\Omega_{\text{freeze}}$ as cosmic-boundary $\mathcal{J}/I$; canonical at [Common: A-031 cosmic-parameter horizon refinement](cosmic-parameter-horizon-a031-refinement.md)); A-026 (substrate-observability rule applied fractally including to ourselves; canonical at [Common: Three Boundary Observables M, Q, J](boundary-observables-m-q-j.md)); A-030 (α + G joint anchoring extended to three routes; same A-031 leaf); multi-scale Machian network (Vol 3 Ch 4 generative cosmology + §7 of this doc); Vol 3 Ch 4 generative cosmology; Vol 3 Ch 21 BH Interior Regime IV (same-mechanism framing).
 
 ---
 
@@ -714,13 +714,13 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 |---|---|---|---|---|---|
 | Atomic / EM | SYM | $V / V_{\text{snap}}$ | Dielectric breakdown → pair creation | Axiom 4 + Vol 4 Ch 1 | Schwinger limit |
 | Substrate (K4) | SYM | bond-bow strain / saturation | K4 lattice + soliton formation | Q-G47 Sessions 1-18 | substrate instance |
-| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | [Vol 2 Ch 2 (Baryons)](../../vol_2_subatomic/chapters/02_baryon_sector.tex) + [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | DT fusion canonical |
+| Nuclear (DT fusion) | SYM | nodal strain / $V_{\text{yield}}$ | Topology snap; 14.1 MeV n + ⁴He α collapse | Vol 2 Ch 2 (Baryons) + Vol 3 Ch 14 (Orbital Mechanics) | DT fusion canonical |
 | Condensed matter (BCS) | **ASYM-N** (μ-only) | $T / T_c$ | Cooper-pair formation; $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ | `universal-saturation-operator.md`:18 | **0.00% error** across all measured |
 | Fluid two-state LC partition (water) | SYM | $r_{th} / r_{\text{crit}} = \sqrt{2\alpha}$ | First-order avalanche: State I tetrahedral H-bond → State II FCC close-pack; +4°C density max | [Vol 3 Ch 11 (Water Anomaly)](../vol3/condensed-matter/ch11-thermodynamics/water-anomaly-lc-partition.md) | **Nilsson 2026 X-ray LLCP** (LDL/HDL directly observed) |
 | Plasma (ε-sector) | **ASYM-N** (ε-only) | $V_{\text{local}} / V_{\text{snap}}$ | Plasma cutoff ($\varepsilon_{\text{eff}} \to 0$) | ε-μ duality leaf | plasma canonical |
 | Kolmogorov turbulence | SYM | wavenumber $k / k_{\text{node}}$ | Spectral cutoff at dissipation scale | Bench Ch 2:159 | Kolmogorov empirical |
-| Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | [Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex) | geological + Venus null |
-| Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
+| Planetary (geomagnetic) | SYM | dynamo strain / threshold | Geomagnetic reversal (Earth pole flip) | Vol 3 Ch 13 (Geophysics) | geological + Venus null |
+| Stellar (solar flare) | SYM | twisted-flux / shear-stress | CME / solar flare; macroscopic Zener avalanche | Vol 3 Ch 14 (Orbital Mechanics) | **NOAA GOES 40-yr validated** (0.46-yr FWHM) |
 | Galactic (MOND) | SYM | $g_N / a_0$ | Newtonian → deep-MOND transition | `mond.md` | deep-MOND derived |
 | BH event horizon | SYM | $\varepsilon_{11}(r) = 7GM/(c^2 r)$ / 1 | Schwarzschild formation: $\Gamma = -1$ | `dielectric-rupture-event-horizon.md` | **Schwarzschild exact** |
 | BH merger (ring-down) | SYM | lattice strain / $r_{\text{sat}} = 7 M_g$ | Ring-down QNM, $\omega_R M_g = 18/49$ | Vol 3 Ch 15 | **1.7% from GR; 10-18% LIGO** |
@@ -760,7 +760,7 @@ Per Grant's framework principle: *"the bulk response of the lattice to strain is
 A-034 refines the original A-031 "God's Hand fundamentally inaccessible" framing. The cosmic-IC mystery narrows:
 
 - **INACCESSIBLE:** specific cosmic parameters ($M_{\text{parent BH}}$, $J_{\text{parent BH}}$ of our parent BH)
-- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales ([Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex), [Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex), [Vol 3 Ch 15 (BH Orbital Resonance)](../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) + atomic dielectric breakdown)
+- **OBSERVABLE:** the mechanism class itself — directly observable at four smaller scales (Vol 3 Ch 13 (Geophysics), Vol 3 Ch 14 (Orbital Mechanics / Solar), Vol 3 Ch 15 (BH Orbital Resonance) + atomic dielectric breakdown)
 
 This is a major epistemological softening. The original framing implied the entire cosmic-IC question was beyond observation. A-034 shows the *mechanism* is observable; only the specific parameters of OUR instance remain inaccessible. "God's Hand" is the cosmic-parameter horizon, not a mechanism horizon.
 
@@ -771,7 +771,7 @@ This is a major epistemological softening. The original framing implied the enti
 3. **Power-law avalanche statistics** at solar flare scale should be related to ring-down QNM frequency distribution and geomagnetic reversal interval distribution cross-scale.
 4. **CMB power-spectrum peaks** should match the parent BH's QNM $\ell$-spectrum.
 
-Empirical pre-registration of the multi-observable axis-alignment test: see [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) §CMB axis-alignment test pre-reg.
+Empirical pre-registration of the multi-observable axis-alignment test: see Backmatter Ch 7 — Universal Saturation-Kernel Catalog §CMB axis-alignment test pre-reg.
 
 **Cross-references for A-034:**
 - **Backmatter Ch~\ref{app:universal_saturation_kernel} (Universal Saturation-Kernel Catalog):** canonical manuscript source (full mechanism + 21-instance catalog + SYM/ASYM-N/ASYM-E classification + measurement-hierarchy framing)

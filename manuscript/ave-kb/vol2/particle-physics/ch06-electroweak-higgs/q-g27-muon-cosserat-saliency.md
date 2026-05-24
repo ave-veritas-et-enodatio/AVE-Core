@@ -79,7 +79,7 @@ giving $a_\tau$ shifted by approximately $+1000 \times 10^{-11}$ from the SM (do
   - [Higgs Mass / lepton spectrum](higgs-mass.md) — muon MASS formula (Cosserat torsion at 1.24%), separate from this leaf's g−2 anomalous-moment derivation
   - [Lepton Spectrum](lepton-spectrum.md) — three-generation Cosserat sector chain
 - **Canonical manuscript anchors:**
-  - [Vol 2 Ch 6 (Electroweak and Higgs)](../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) lines 154–176 — Cosserat constants $\alpha\sqrt{3/7}$, $\sqrt{3/7}$, $\nu_{\text{vac}} = 2/7$, $\Phi_{\text{twist}}$
+  - Vol 2 Ch 6 (Electroweak and Higgs) lines 154–176 — Cosserat constants $\alpha\sqrt{3/7}$, $\sqrt{3/7}$, $\nu_{\text{vac}} = 2/7$, $\Phi_{\text{twist}}$
   - Common Foreword §"Three Falsifiable Predictions" — empirical-test queue including Fermilab Muon g−2 Run-4/5
 - **Empirical test queue:**
   - Fermilab Muon g−2 Run-4/5 (2026–2027) — $\pm 10$ ppm precision; discriminates AVE Cosserat-saliency from SM + new-physics alternatives

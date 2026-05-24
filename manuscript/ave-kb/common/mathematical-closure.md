@@ -142,7 +142,7 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 | Scale | Phenomenon | AVE Prediction | Empirical Match | Error |
 |---|---|---|---|---|
 | **Condensed-matter** | BCS superconductivity $B_c(T)$ kernel | $S(T/T_c) = \sqrt{1 - (T/T_c)^2}$ | Type-I/II $B_c(T)$ datasets | **0.00%** (Vol 3 Ch 9) |
-| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter ([Vol 3 Ch 14 (Orbital Mechanics / Solar)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex)) |
+| **Solar/Geophysical** | Solar flare LED-avalanche | Saturation kernel governs flare onset | NOAA GOES 40-yr catalog | within data scatter (Vol 3 Ch 14 (Orbital Mechanics / Solar)) |
 | **Gravitational** | BH ring-down (QNM) | $\omega_R M_g = 18/49$ | GR exact value | **1.7%** (Vol 3 Ch 15, 3 LIGO events) |
 | **Cosmological** | Schwarzschild radius | $r_s = 2GM/c^2$ from saturation boundary | Standard GR | **exact** (Vol 3 Ch 15, 20) |
 
@@ -151,8 +151,6 @@ Beyond the internal DAG closure documented above, **Axiom 4's universal saturati
 **Full enumeration:** the 4 anchors above are the most-validated members of a **21-instance catalog** spanning 21 orders of magnitude. Full catalog with 3-way symmetry classification (SYM / ASYM-N / ASYM-E) and measurement-hierarchy framing (single-emitter / multi-emitter bulk / phased-array PLL autoresonant): [Universal Saturation-Kernel Catalog](universal-saturation-kernel-catalog.md).
 
 **Canonical synthesis:** [trampoline-framework.md §7.5](trampoline-framework.md).
-
-**Canonical manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex).
 
 These anchors are produced by the same code path (`src/ave/axioms/scale_invariant.py` + `src/ave/regime_3_saturated/*.py`) — the engine literally evaluates one $S(A)$ function across all 21 instances. The "168/168 framework files" closure above and the 4 empirical anchors here together establish that AVE's Axiom 4 is **both internally closed AND externally calibrated** without parameter tuning.
 

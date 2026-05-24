@@ -112,7 +112,7 @@ The residual $\sim 10$ ppm gap is the contribution of three-loop and higher QED 
 
 ## Falsification predictions (post-derivation chain)
 
-> **Scope correction (2026-05-18 FI-13 resolution)**: The "Muon (q-winding mode) (2,5)" row below is **NOT CANONICAL** for the muon's Fermilab g-2 observable. Per the loop-count topological taxonomy (lepton = single-loop = N=1; baryon = Borromean 3-loop = N=3 per [`topological-fractionalization.md:6`](../ch02-baryon-sector/topological-fractionalization.md:6)), the muon is canonically a SINGLE-LOOP lepton on (2,3) trefoil topology + 1 Cosserat torsion quantum (per Vol 1 Ch 5:39 + [`vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:154-176`](../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) + [`lepton-spectrum.md:21-44`](lepton-spectrum.md) + [`q-g27-muon-cosserat-saliency.md:23,48`](q-g27-muon-cosserat-saliency.md)). The muon's Fermilab observable is dominated by Q-G27 Cosserat torsion saliency: $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$. The "(2,5) q-winding mode" entry below is retained as an **alternative-hypothesis falsifier** for the n_q-additivity assumption applied to a hypothetical 5-winding lepton (which would be structurally inconsistent with the single-loop lepton topology — see Read A discussion below).
+> **Scope correction (2026-05-18 FI-13 resolution)**: The "Muon (q-winding mode) (2,5)" row below is **NOT CANONICAL** for the muon's Fermilab g-2 observable. Per the loop-count topological taxonomy (lepton = single-loop = N=1; baryon = Borromean 3-loop = N=3 per [`topological-fractionalization.md:6`](../ch02-baryon-sector/topological-fractionalization.md:6)), the muon is canonically a SINGLE-LOOP lepton on (2,3) trefoil topology + 1 Cosserat torsion quantum (per Vol 1 Ch 5:39 + `vol_2_subatomic/chapters/06_electroweak_and_higgs.tex:154-176` + [`lepton-spectrum.md:21-44`](lepton-spectrum.md) + [`q-g27-muon-cosserat-saliency.md:23,48`](q-g27-muon-cosserat-saliency.md)). The muon's Fermilab observable is dominated by Q-G27 Cosserat torsion saliency: $\delta_\mu = -3\alpha/2 - \alpha\sqrt{3/7}/(2\pi) = -0.01171$. The "(2,5) q-winding mode" entry below is retained as an **alternative-hypothesis falsifier** for the n_q-additivity assumption applied to a hypothetical 5-winding lepton (which would be structurally inconsistent with the single-loop lepton topology — see Read A discussion below).
 
 Per the n_q-additive derivation chain, the saliency scales linearly across the $(2, q)$ particle family:
 
@@ -130,7 +130,7 @@ The trefoil $(2,3)$, the Compton retardation, the LC equipartition, the $1/\pi^2
 
 ## Cross-references
 
-- **Canonical manuscript derivation:** [Vol 2 Ch 6 §6.2 (Schwinger leading-order g-2)](../../../../vol_2_subatomic/chapters/06_electroweak_and_higgs.tex) — both leading-order and Route B / saliency derivations land here as canonical
+- **Canonical manuscript derivation:** Vol 2 Ch 6 §6.2 (Schwinger leading-order g-2) — both leading-order and Route B / saliency derivations land here as canonical
 - **Related KB leafs:**
   - [Higgs Mass leaf](higgs-mass.md) — Schwinger leading-order $a_e = \alpha/(2\pi)$ in this chapter
   - [Lepton Spectrum leaf](lepton-spectrum.md) — Cosserat generations + muon torsion-quantum

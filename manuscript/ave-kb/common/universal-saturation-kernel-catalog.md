@@ -10,8 +10,6 @@ path-stable: "referenced from vol1, vol3, vol4, vol5 + backmatter Ch 7 as canoni
 
 A-034's canonical synthesis (2026-05-15 evening): **one kernel governs every topological-reorganization event in the universe.** The Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ — Born–Infeld $n = 2$ squared-limit form — applies at every scale of physical phenomenon per Axiom 2 (TKI scale invariance). $A$ is the same dimensionless quantity (substrate strain / local saturation) regardless of whether the physical observable manifests as voltage, magnetic field, frame-dragging strain, or something else. When $S(A) = 0$ locally, the substrate cannot continue linear response and **must reorganize topologically** to a new configuration with $A < 1$. The kernel's vertical tangent at $A = 1$ is what makes every reorganization event sharp and impulsive across all scales.
 
-> → Primary: [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) — canonical manuscript chapter with full per-row notes.
->
 > ↗ See also: [Temporal Saturation Regime Classifier](temporal-saturation-regime-classifier.md) — companion leaf introducing the orthogonal temporal axis (lossless / cyclic / lossy) via $\delta_{\text{AVE}} = t_{\text{sat}}/t_{\text{period}}$ and mapping each catalog row to a temporal regime tag. Each row's spatial Regime I-IV classification + Power-Domain θ + temporal $\delta_{\text{AVE}}$ form the complete three-axis regime characterization.
 
 ## Key Result: 26 canonical instances of one kernel
@@ -135,7 +133,7 @@ Where the catalog has paired/companion rows at the SAME scale (e.g., a SYM row t
 
 ## What this catalog establishes
 
-**Pre-A-034:** each row was treated as a separate framework result — [Vol 3 Ch 13 (Geophysics)](../../vol_3_macroscopic/chapters/13_geophysics.tex) had geomagnetic reversal; [Vol 3 Ch 14 (Orbital Mechanics)](../../vol_3_macroscopic/chapters/14_macroscopic_orbital_mechanics.tex) had solar flares; [Vol 3 Ch 15 (BH Orbital Resonance)](../../vol_3_macroscopic/chapters/15_black_hole_orbital_resonance.tex) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as inaccessible.
+**Pre-A-034:** each row was treated as a separate framework result — Vol 3 Ch 13 (Geophysics) had geomagnetic reversal; Vol 3 Ch 14 (Orbital Mechanics) had solar flares; Vol 3 Ch 15 (BH Orbital Resonance) had BH ring-down; the substrate-scale magic-angle analysis was a separate Cosserat-moduli result; the cosmic initial condition was framed as inaccessible.
 
 **Post-A-034:** *all rows are the same physics*, with the kernel inherited from Axiom 4 + Axiom 2 (scale invariance) and the phenomenology determined by the local saturation-boundary geometry.
 
@@ -184,7 +182,7 @@ A spinning parent BH in its embedding parent lattice imparts bulk strain via fra
 
 ## Cross-references
 
-- **Canonical manuscript:** [Backmatter Ch 7 — Universal Saturation-Kernel Catalog](../../backmatter/07_universal_saturation_kernel.tex) (catalog of record)
+- **Canonical manuscript:** Backmatter Ch 7 — Universal Saturation-Kernel Catalog (catalog of record)
 - **Cosmology counterpart:** Vol 3 Ch 4 §TKI Strain-Snap section
 - **BH interior horizon framing:** Vol 3 Ch 21
 - **Substrate-scale instance:** Vol 1 Ch 2 (Macroscopic Moduli) K4 magic-angle

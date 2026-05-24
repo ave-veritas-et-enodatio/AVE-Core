@@ -9,11 +9,7 @@ The AVE KB is a navigable Markdown distillation of an 8-volume LaTeX physics man
 > magnitude** (atomic dielectric breakdown → BCS superconductivity at
 > 0.00% error → solar flares NOAA 40-yr validated → BH ring-down 1.7%
 > from GR → cosmic K4 crystallization). Per Grant 2026-05-15: *"the
-> bulk response of the lattice to strain is universal."* **Canonical
-> manuscript source:** [Backmatter Ch 7 — Universal Saturation-Kernel
-> Catalog](../backmatter/07_universal_saturation_kernel.tex)
-> (26-instance catalog + 3-way symmetry classification +
-> measurement-hierarchy framing). Canonical KB catalog leaf:
+> bulk response of the lattice to strain is universal."* Canonical KB catalog leaf:
 > [common/universal-saturation-kernel-catalog.md](common/universal-saturation-kernel-catalog.md)
 > (26 = 19 SYM + 4 ASYM-N + 2 TBD + 1 ASYM-E); KB synthesis at
 > [common/trampoline-framework §7.5](common/trampoline-framework.md);
