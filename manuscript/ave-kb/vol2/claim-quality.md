@@ -25,15 +25,16 @@
 > **Leaf references:** `particle-physics/ch01-topological-matter/electron-unknot.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - INVARIANT-S2 / Axiom 1 (lattice pitch $\ell_{node}$)
-  - INVARIANT-S2 / Axiom 4 (saturation kernel — for the running-coupling sketch)
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (lattice pitch $\ell_{node}$; minimum tube diameter $d \equiv 1\,\ell_{node}$ forcing ropelength $2\pi$)
+  - INVARIANT-S2 / Axiom 2 (topo-kinematic isomorphism; 1D ropelength integral replacing the 3D point-volume integral)
+  - INVARIANT-S2 / Axiom 4 (saturation kernel — for the running-coupling sketch only)
+- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+- rationale: The ropelength self-energy resolution $U_{AVE}=\oint T_{EM}\,ds = T_{EM}\cdot\ell_{node}=1.0\,m_ec^2$ closes cleanly as a 1D-loop integral, and $C_{loop}=\ell_{node}$ follows by algebra. But the absolute $m_e$ scale enters through the definitional couple $T_{EM}=m_ec^2/\ell_{node}$ (not derived), the Beltrami $\nabla\times\mathbf{A}=k\mathbf{A}$ form is an explicit ansatz, and the running-coupling content is flagged in the leaf as a sketch (static dielectric-saturation form, not a $\beta$-function). Disclosed-bound rather than a fully closed first-principles derivation.
 - strengthen-by:
-  - *pending*
+  - Derive the Beltrami closed-loop ansatz from Axiom 1 + Axiom 3 (minimum reflection) rather than positing it.
+  - Replace the running-coupling sketch with a momentum-dependent RG flow derived from the Axiom 4 kernel, with a bounded comparison to the QED $\beta$-function.
 
 ---
 
@@ -53,13 +54,17 @@
 > **Leaf references:** `particle-physics/ch02-baryon-sector/self-consistent-mass-oscillator.md` (eigenvalue closure), `particle-physics/ch02-baryon-sector/thermal-softening.md` ($\delta_{th}$, $\kappa_{FS}$, Gaussian-ansatz gap), `particle-physics/ch02-baryon-sector/topological-fractionalization.md` (Borromean topology and Witten Effect).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (lattice pitch; FWHM $=\ell_{node}$; Borromean skew-line geometry)
+  - INVARIANT-S2 / Axiom 4 (gradient saturation inside the Faddeev-Skyrme integrand)
+  - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
+  - clm-h9aqmt (electron unknot / $m_e$ baseline for the $+1$ integer-twist mass)
+- solidity: 0.14 (refuted, do not use) [= 0.70 × 0.20]
+- rationale: The self-consistent eigenvalue $x=\mathcal{I}_{scalar}/(1-\mathcal{V}_{total}p_c)+1$ closes algebraically and the FEM convergence to $\mathcal{V}_{total}=2.0$ is binding. The band is pinned by two disclosed dependencies the leaf states explicitly: $\mathcal{I}_{scalar}\approx1162$ is a numerical solver output (not closed-form), and the $\rho_{threshold}=1.1062$ / $\mathcal{V}_{total}$ derivation is closed-form only *conditional on a Gaussian flux-tube ansatz* (Axiom 1 fixes the FWHM but not the profile — an acknowledged outstanding rigour gap). Disclosed methodology bound.
 - strengthen-by:
-  - *pending*
+  - Derive the flux-tube radial profile from Axiom 4 LC dynamics (or substitute the algebraic $\sqrt{1-r^2}$ kernel) and re-evaluate $\rho_{threshold}$, closing the Gaussian-ansatz gap.
+  - Document the 1D Faddeev-Skyrme solver and demonstrate $\mathcal{I}_{scalar}$ has no tunable parameter.
 
 ---
 
@@ -78,13 +83,17 @@
 > **Leaf references:** `particle-physics/ch02-baryon-sector/torus-knot-ladder-baryons.md`, `particle-physics/ch01-topological-matter/torus-knot-ladder.md`, `appendices/app-f-solver-toolchain/torus-knot-ladder-toolchain.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (the same leaf is also referenced under `clm-d9ivj1` for its role in the universal regime-boundary eigenvalue method).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 ($(2,q)$ odd-$q$ torus-knot stability; crossing-number confinement)
+  - INVARIANT-S2 / Axiom 4 (gradient saturation in the eigenvalue functional)
+  - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
+  - clm-mnb3lt (proton-mass eigenvalue method, $c=5$ anchor and shared $\kappa_{FS}$, $\mathcal{V}_{total}$, $p_c$)
+- solidity: 0.08 (refuted, do not use) [= 0.60 × 0.14]
+- rationale: The same closed-form eigenvalue $m(c)$ is applied across the odd-$c$ ladder with no parameters re-tuned between states, which is the load-bearing structural claim. But agreement is a $\sim2\%$ band against PDG $\Delta$/N resonances (proton row is by-construction $0.00\%$), and the "best hit" framing is one row, not a global accuracy claim. Inherits clm-mnb3lt's Gaussian-ansatz and numerical-$\mathcal{I}_{scalar}$ bounds. Disclosed-bound consistency family rather than a precision derivation.
 - strengthen-by:
-  - *pending*
+  - Report the full per-row error distribution and state-assignment provenance so the headline is not read off one best hit.
+  - Close the upstream Gaussian-ansatz / $\mathcal{I}_{scalar}$ gaps inherited from clm-mnb3lt.
 
 ---
 
@@ -103,13 +112,15 @@
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weinberg-angle.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`. Bound on scheme specificity asserted at invariant level — see `LIVING_REFERENCE.md` Critical Distinctions #2.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.85
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (cylindrical flux-tube model, $d\equiv1\,\ell_{node}$, giving PAT $J=2I$)
+  - $\nu_{vac}=2/7$ (vacuum Poisson ratio; substrate-anchored framework input)
+- solidity: 0.85 (ok to build on) [= 0.85 × 1.00]
+- rationale: A clean closed algebraic chain: $J=2I$ is the Perpendicular Axis Theorem for any circular cross-section (geometric identity), the isotropic relation $E=2G(1+\nu)$ is standard elasticity, and substituting $\nu_{vac}=2/7$ gives $(M_W/M_Z)^2=7/9$ and $\sin^2\theta_W=2/9$ with zero free parameters. The only disclosed imports are $\nu_{vac}$ and the on-shell-scheme caveat (must not be compared to $\overline{MS}$). Derivation closes end-to-end modulo those imports.
 - strengthen-by:
-  - *pending*
+  - Derive $\nu_{vac}=2/7$ inside this leaf (or pin its primary source) so the chain is self-contained.
+  - Add the one-loop on-shell$\to\overline{MS}$ map to show the framework can reach the running scheme rather than only the tree pole ratio.
 
 ---
 
@@ -127,13 +138,17 @@
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/weak-coupling.md`, `particle-physics/ch05-electroweak-mechanics/gauge-boson-masses.md`, `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ($M_W$/$M_Z$ derivation including the torsional ring self-energy and $\sqrt{3/7}$ factor; the same leaf also carries the W/Z-as-plasma-arcs reinterpretation indexed under `clm-p7rfkb`).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (ring topology $2\pi$ enhancement; PAT $\sqrt{3/7}$ from $J=2I$)
+  - INVARIANT-S2 / Axiom 4 ($\alpha^2$ two-vertex dielectric coupling)
+  - clm-9s9apq (packing fraction $p_c=8\pi\alpha$; vol1)
+  - clm-5zuo7g (on-shell mixing ratio $M_W/M_Z=\sqrt{7}/3$ used for $M_Z$)
+- solidity: 0.14 (refuted, do not use) [= 0.70 × 0.20]
+- rationale: The $M_W=m_e/(\alpha^2 p_c\sqrt{3/7})$ factor-chain is given a first-principles origin for each factor ($\pi$ spherical, $2\pi$ ring, $\alpha^2$ two-vertex, $p_c$ packing, $\sqrt{3/7}$ PAT) and closes to a number ($-0.57\%$ on $M_W$, $-0.62\%$ on $M_Z$). The $\alpha^2$-as-two-vertex identification and the torsional permittivity decomposition are asserted (motivated by analogy to Coulomb self-energy), and the chain rests on disclosed imports ($p_c$, $\sqrt{3/7}$, the $m_e$ baseline). Disclosed methodology bound.
 - strengthen-by:
-  - *pending*
+  - Derive the torsional permittivity ratio $\varepsilon_T/\mu=\pi\alpha^2 p_c\sqrt{3/7}$ from the Cosserat constitutive law rather than assembling it factor-by-factor by analogy.
+  - Add an independent check of the $W$/$Z$ widths from the same self-energy structure.
 
 ---
 
@@ -152,13 +167,15 @@
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md`, `particle-physics/ch06-electroweak-higgs/higgs-mechanism.md`, `particle-physics/ch06-electroweak-higgs/spontaneous-symmetry-breaking.md` ("W and Z Bosons as Dielectric Plasma Arcs" reinterpretation; the same leaf's $M_W$/$M_Z$ derivation is indexed under `clm-q8un7j`).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (LC condensate; $Z_0=\sqrt{\mu_0/\varepsilon_0}$ baseline impedance)
+  - INVARIANT-S2 / Axiom 4 (saturation/relaxation framing for the 125 GeV acoustic mode)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: An ontological reinterpretation asserted at the mechanism level: VEV $\leftrightarrow Z_0=376.73\,\Omega$, inertia as Lenz-law induction drag, the 125 GeV peak as an acoustic relaxation mode, and $m_H/v=1/\sqrt{N_{K4}}$ with $N_{K4}=4$. The numerical $v=246$ GeV is unchanged from the SM and no new distinguishable observable is produced; the $1/\sqrt{4}$ mass ratio is a structural identification, not a closed derivation. Claimed mechanism without derivation.
 - strengthen-by:
-  - *pending*
+  - Derive $m_H/v=1/\sqrt{N_{K4}}$ from the K4-cell breathing dynamics quantitatively rather than asserting $N_{K4}=4$.
+  - Produce at least one acoustic-relaxation observable (width/decay-channel signature) that distinguishes the reinterpretation from the SM Higgs.
 
 ---
 
@@ -177,13 +194,16 @@
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/higgs-mass.md` (the Schwinger derivation appears in this leaf's "Schwinger's Anomalous Magnetic Moment" section).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.75
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (unknot ring diameter $2R=\ell/\pi$ giving form factor $1/\pi^2$)
+  - INVARIANT-S2 / Axiom 4 (nonlinear capacitive saturation $\to \langle\delta C/C\rangle=\pi\alpha$)
+  - clm-h9aqmt (unknot geometry / on-site strain identity)
+- solidity: 0.52 (use as input only, don't build deeper) [= 0.75 × 0.70]
+- rationale: The chain $a_e=(1/\pi^2)\times(\pi\alpha/2)=\alpha/2\pi$ reproduces the Schwinger value ($+0.09\%$) from stated geometry: $(V_{peak}/V_{snap})^2=4\pi\alpha$ is an exact on-site-strain identity, the time-average gives $\pi\alpha$, and the form factor $1/\pi^2=(2R/\ell)^2$ from Axiom 1. Classification is a consistency check (reproduces a known QED result via an alternative mechanism); the decomposition into form-factor $\times$ resonance-shift is mildly assembled-to-target. Clean local derivation modulo that assembly.
 - strengthen-by:
-  - *pending*
+  - Show the $1/\pi^2$ form factor and the $\pi\alpha/2$ resonance shift arise jointly from one variational calculation, not as two independently-motivated factors multiplied to land on $\alpha/2\pi$.
+  - Extend the mechanism to the $\alpha^2$ term to test whether it tracks the QED higher-order coefficient.
 
 ---
 
@@ -205,13 +225,15 @@
 > **Leaf references:** `particle-physics/ch03-neutrino-sector/chiral-screening.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`, `particle-physics/ch03-neutrino-sector/pmns-junction-model.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (K4 3-connectivity = trefoil $c=3$ = $\Delta c_{crit}$; torus-knot crossing numbers)
+  - $\nu_{vac}=2/7$ (compliance-mode allocation $\to \sin^2\theta_{12}^{(0)}$)
+- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+- rationale: The four PMNS parameters are closed crossing-number/regime-boundary expressions ($\le1.0\%$ vs NuFIT 5.2, all within 1$\sigma$), and the $\delta_{CP}$ three components have distinct disparate-physics origins (not post-hoc summed). But each boundary-condition identification (compliance / impedance-matched / screened) is asserted, and the leaf's own 2026-05-17 scope-correction box states the starting value $c_1=5$ is NOT derived from substrate primitives, reclassifying $\sin^2\theta_{13}$ from emergence to consistency check. Disclosed methodology bound with an acknowledged un-derived input.
 - strengthen-by:
-  - *pending*
+  - Derive the absolute ladder start $c_1=5$ from substrate primitives (currently only the $\Delta c=2$ spacing is derived from $\nu_{vac}$).
+  - Replace the three asserted regime-boundary identifications with a single mode-coupling calculation that produces all three $\sin^2\theta$ values.
 
 ---
 
@@ -231,13 +253,16 @@
 > **Leaf references:** `particle-physics/ch06-electroweak-higgs/lepton-spectrum.md`, `particle-physics/ch03-neutrino-sector/pmns-eigenvalues.md`, `particle-physics/ch03-neutrino-sector/delta-cp-violation.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (torus-knot crossing-number flavor splitting; $1/c^2$ torsional coupling)
+  - INVARIANT-S2 / Axiom 4 (dielectric coupling $\alpha$ between Cosserat sectors)
+  - clm-q8un7j (W-boson scale $M_W$ entering $m_\nu=m_e\,\alpha\,(m_e/M_W)$)
+- solidity: 0.08 (refuted, do not use) [= 0.55 × 0.14]
+- rationale: The suppression form $m_\nu=m_e\,\alpha\,(m_e/M_W)\approx0.024$ eV is a closed formula once $M_W$ is in hand, and the $\Delta m^2$-ratio agreement ($\sim3\%$) follows from $m_i\propto1/c_i^2$. But the factor identification ($\alpha$ = inter-sector dielectric coupling, $m_e/M_W$ = translational/torsional energy ratio) is asserted as physical-meaning labels, per-eigenstate values are inferred from baryon pairing (not measured), and the $\sum m_\nu$ comparison is a cosmological upper bound (consistency, not validation). The inverted-hierarchy commitment is the falsifiable load-bearing content.
 - strengthen-by:
-  - *pending*
+  - Derive the $\alpha\,(m_e/M_W)$ suppression factor from the Cosserat inter-sector coupling rather than labeling it.
+  - Pin the three per-eigenstate masses to an independent constraint instead of inferring them from the torus-knot pairing.
 
 ---
 
@@ -255,13 +280,15 @@
 > **Leaf references:** `particle-physics/ch02-baryon-sector/topological-fractionalization.md`, `particle-physics/ch02-baryon-sector/quark-flavors.md` (stub redirecting to topological-fractionalization).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.75
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 ($6^3_2$ Borromean linkage with $\mathbb{Z}_3$ permutation symmetry)
+  - INVARIANT-S2 / Axiom 2 (charge = integer topological winding; $Q_{total}=+1e$)
+- solidity: 0.75 (ok to build on, see caveats) [= 0.75 × 1.00]
+- rationale: Given the Witten relation $q_{eff}=n+(\theta/2\pi)e$ and $\theta\in\{0,\pm2\pi/3,\pm4\pi/3\}$, the fractional charges $\pm1/3,\pm2/3$ follow by exact substitution — a clean closed evaluation. The two disclosed imports are the Witten Effect itself (standard topological-field-theory result, adopted) and the restriction of $\theta$ to thirds, which rests on the asserted $\mathbb{Z}_3$ symmetry of the Borromean cage. Does not derive quark masses (those are separate scale-invariance entries). Disclosed methodology bound.
 - strengthen-by:
-  - *pending*
+  - Derive the $\theta$-vacuum / Witten-charge coupling from the AVE lattice dielectric response rather than importing it.
+  - Show $\mathbb{Z}_3$ is forced (not merely consistent) for the proton's Borromean ground state.
 
 ---
 
@@ -288,13 +315,18 @@
 > **References:** Bound on the Z = 1–14 validity range and the four correction gates is asserted at invariant level — see `LIVING_REFERENCE.md` §"Axioms in the Atomic Domain" (Corrections A–D specifications) and Pitfalls #6, #7, #8, #9, #10, #11. Supporting derivation steps appear in `quantum-orbitals/ch07-quantum-mechanics/` leaves: `radial-eigenvalue-solver.md`, `ionization-energy-validation.md`, `screening-rule.md`, `de-broglie-n.md`, `de-broglie-standing-wave.md`, `bonding-mode-formula.md`, `chiral-factor.md`, `helium-symmetric-cavity.md`, `hierarchical-cascade-correction.md`, `orbital-penetration-penalties.md`, `operator-domain-table.md`, `complete-solver-architecture.md`, `geometry-pipeline.md`, `atom-as-radial-waveguide.md`, `analog-ladder-filter.md`, `knot-vs-orbital-table.md`, `helium-coupling-first-principles.md`, `subshell-junction-scattering.md`, `ode-verification.md`, `scale-separation.md`, `dual-formalism-architecture.md`, `stepped-impedance-resonator.md`, `macro-cavity-saturation.md`. The proofs-computation leaf `proofs-computation/ch09-computational-proof/methodological-contamination.md` documents the Bohr/Schrödinger contamination hazard explicitly. Cross-domain reuse of the same operator chain (atomic / nuclear / protein / antenna) is summarised in `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (radial waveguide; standing-wave $r_n=n^2a_0/Z$; angular momentum)
+  - INVARIANT-S2 / Axiom 2 (Coulomb $V=-Z_{net}\alpha\hbar c/r$; Gauss screening)
+  - INVARIANT-S2 / Axiom 4 (soliton mass / dispersion $\to k(r)$)
+  - INVARIANT-N3 (Op2–Op6 operator chain)
+  - clm-h9aqmt (single-electron unknot mass/Compton baseline underlying the Step-1 eigenvalue)
+- solidity: 0.39 (do not build on, rework needed) [= 0.55 × 0.70]
+- rationale: The single-electron eigenvalue ($Ry$ emergent, $r_n=n^2a_0/Z$) and H/He/Li results ($\le1.5\%$) close cleanly, and the corrections A–D have stated gate conditions. But the leaf documents that for Be ($11.9\%$) and B the corrections are applied *outside* the phase integral — "violating the action principle" — with the complete-phase-integral architecture (E2k) still in-progress and unvalidated $Z\ge5$; the Li residual is internally inconsistent ($+2.46\%$ vs $-1.2\%$). The $\pm2.8\%$ headline averages over a real per-element spread. Substantive acknowledged open dependency.
 - strengthen-by:
-  - *pending*
+  - Land the E2k complete-phase-integral architecture (all operators inside $V(r)$) and re-validate $Z=5$–14 end-to-end.
+  - Reconcile the Li per-element residual so a single canonical value is reported.
 
 ---
 
@@ -313,13 +345,17 @@
 > **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/screening-rule.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-symmetric-cavity.md`, `quantum-orbitals/ch07-quantum-mechanics/hierarchical-cascade-correction.md`, `quantum-orbitals/ch07-quantum-mechanics/bonding-mode-formula.md`, `quantum-orbitals/ch07-quantum-mechanics/radial-eigenvalue-solver.md`, `quantum-orbitals/ch07-quantum-mechanics/atom-as-radial-waveguide.md`, `quantum-orbitals/ch07-quantum-mechanics/chiral-factor.md`, `quantum-orbitals/ch07-quantum-mechanics/helium-coupling-first-principles.md`, `quantum-orbitals/ch07-quantum-mechanics/subshell-junction-scattering.md`, `quantum-orbitals/ch07-quantum-mechanics/scale-separation.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 2 (cross-shell Gauss screening $\sigma_{cross}=N_{inner}$)
+  - INVARIANT-S2 / Axiom 4 (same-shell chiral coupling $J_{shell}$ via Op4)
+  - INVARIANT-N3 (Op4 potential well; coupled-line even/odd-mode formalism)
+  - clm-9s9apq (packing fraction $p_c$ in $J_{1s^2}=(1+p_c)/2$; vol1)
+- solidity: 0.10 (refuted, do not use) [= 0.50 × 0.20]
+- rationale: The two-screening-physics distinction (integer Gauss cross-shell vs chiral $J_{shell}$ same-shell) and the He bonding-mode result ($-0.88\%$) are clean. But the leaf explicitly states "Be and B remain open: the corrections are applied outside the phase integral, violating the action principle," and the complete-phase-integral architecture (E2k) is presented as in-progress, not yet validated end-to-end for $Z\ge5$. The same-shell coupled-microstrip formalism is asserted by cross-scale isomorphism with no independent atomic-scale validation past the Hopf-pair Be result. Substantive open dependency the leaf acknowledges.
 - strengthen-by:
-  - *pending*
+  - Complete and validate the E2k action-consistent same-shell treatment for B and beyond.
+  - Independently validate the coupled-line even/odd-mode same-shell coupling at the atomic scale rather than importing it from protein/antenna analogy.
 
 ---
 
@@ -338,13 +374,15 @@
 > **Leaf references:** `particle-physics/ch01-topological-matter/spin-gyroscopic-isomorphism.md`, `particle-physics/ch04-quantum-spin/spin-as-precession.md`, `particle-physics/ch04-quantum-spin/larmor-derivation.md`, `particle-physics/ch04-quantum-spin/visual-equivalence.md`, `appendices/app-b-paradoxes/spin-half-paradox.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (extended $0_1$ unknot; $SU(2)\to SO(3)$ double cover via Finkelstein-Misner kink)
+  - clm-h9aqmt (electron-unknot topological-flywheel identification)
+- solidity: 0.56 (use as input only, don't build deeper) [= 0.80 × 0.70]
+- rationale: Given the topological-flywheel premise, the Larmor result $\omega_L=\gamma B_0$ follows from clean classical gyroscope mechanics ($d\mathbf{L}/dt=\gamma\mathbf{L}\times\mathbf{B}$), and the gyroscope-ODE $\leftrightarrow$ Bloch-sphere $SU(2)$ equivalence is standard mathematics (the $\sim10^{-8}$ deviation is integration tolerance) — a consistency check reproducing standard QM single-particle spin observables. The disclosed import is the flywheel ontology itself; multi-particle entanglement is explicitly out of scope. Clean derivation on a disclosed premise.
 - strengthen-by:
-  - *pending*
+  - Provide the explicit projection map showing the classical $\mathbf{L}$-vector and the Pauli spinor evolve identically, not just numerically close, including the $4\pi$ vs $2\pi$ period bookkeeping.
+  - State which (if any) multi-spin correlation the mechanism can/cannot reproduce, to bound the equivalence claim.
 
 ---
 
@@ -364,13 +402,16 @@
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/yang-mills-steps1-2.md`, `nuclear-field/ch12-millennium-prizes/yang-mills-steps3-5.md`, `nuclear-field/ch12-millennium-prizes/index.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table notes #14, #15, #16.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.65
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (discrete pitch $\to$ UV cutoff; lattice dispersion)
+  - INVARIANT-S2 / Axiom 4 (saturation cap $H_{cell}\le m_ec^2$)
+  - clm-h9aqmt (unknot $0_1$ as the lightest topological defect = mass gap)
+- solidity: 0.45 (use as input only, don't build deeper) [= 0.65 × 0.70]
+- rationale: Within the lattice framework the result is rigorous: $H\ge0$, $H_{cell}\le m_ec^2$, self-adjointness, and a Bogomol'nyi bound $E\ge2\pi^3c/\kappa_{FS}>0$ all close. The leaf carries a thorough, honest scope correction: the continuum limit is explicitly NOT taken, SU($N$) emergence from $(2,q)$ knots is an ansatz (not derived from YM field equations), Osterwalder-Schrader reconstruction is absent, and $\Delta=m_ec^2$ is the assumed lightest defect's energy. Framework-conditional, not Clay-rigorous; the SU($N$) step pins the band below the Navier-Stokes case.
 - strengthen-by:
-  - *pending*
+  - Derive SU($N$) emergence from the gauge dynamics rather than identifying it from torus-knot topology.
+  - Prove (within ZFC, on the lattice) that the unknot is the unique globally-lightest stable defect.
 
 ---
 
@@ -388,13 +429,15 @@
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/navier-stokes-prize.md`. Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #15.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (rigid pitch $\ell$ $\to$ bounded discrete Laplacian $\|\nabla^2_\ell\|=4/\ell^2$)
+  - INVARIANT-S2 / Axiom 4 (velocity clamp $|\mathbf{u}|\le c$)
+- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+- rationale: The mathematics closes cleanly: a bounded discrete Laplacian + velocity cap + bounded enstrophy gives a Lipschitz ODE on a bounded domain, and Picard-Lindelöf then yields unique global existence — that step is sound. The leaf carries an explicit, honest scope correction: the result holds for a *modified* problem (UV cutoff + speed limit), not the Clay continuum statement, and promoting it requires a lattice-to-continuum limit theorem (open). Disclosed methodology bound: the derivation closes on a clearly-stated assumption.
 - strengthen-by:
-  - *pending*
+  - Supply (or cite) a lattice$\to$continuum limit theorem that preserves the enstrophy bound as $\ell\to0$.
+  - Address the internal tension with Regime IV "topology rupture," which would itself be a singularity event.
 
 ---
 
@@ -411,13 +454,15 @@
 > **Leaf references:** `nuclear-field/ch10-open-problems/strong-cp.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Caveat asserted at invariant level — see `LIVING_REFERENCE.md` Master Prediction Table note #16.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (gauge structure from $(2,q)$ torus knots; quantized phase winding)
+  - clm-q5izb7 (mass-gap barrier preventing inter-$\theta$-sector tunneling)
+- solidity: 0.23 (do not build on, rework needed) [= 0.50 × 0.45]
+- rationale: The five-step proof has clean structure (zero-charge unique ground state $\to$ mass-gap barrier $\to$ no tunneling $\to \theta=0$), but the load-bearing step 1 asserts the AVE vacuum is *the unique* ground state with zero topological charge — a uniqueness against all competing ground states that the leaf itself flags as not formally proven within ZFC. The $\theta=0$ result is therefore as strong as that asserted uniqueness. Substantive open dependency.
 - strengthen-by:
-  - *pending*
+  - Prove the uniqueness of the zero-charge AVE vacuum topology against competing ground states.
+  - Quantify the inter-sector tunneling suppression to show it is exactly (not approximately) zero.
 
 ---
 
@@ -437,13 +482,16 @@
 > **Leaf references:** `nuclear-field/ch10-open-problems/baryon-asymmetry.md`, `nuclear-field/ch10-open-problems/g-star-derivation.md`, `nuclear-field/ch10-open-problems/g-star-prediction.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (lattice/torus-knot chirality for C and CP violation)
+  - $\nu_{vac}=2/7$ ($g_*=7^3/4$ degrees-of-freedom count)
+  - clm-5zuo7g (weak coupling $\alpha_W=\alpha/\sin^2\theta_W$)
+- solidity: 0.34 (do not build on, rework needed) [= 0.40 × 0.85]
+- rationale: The $0.38\%$ headline is a composite of factors each *assigned* a lattice origin rather than cleanly derived: $\delta_{CP}=\pi/\kappa_{FS}$ "the fraction asymmetric under mirror reflection" is asserted, $g_*=7^3/4$ is a numerological "$7$ modes cubed / $4$ K4 nodes" identification, and $C_{sph}=28/79$ uses asserted $N_f=3,N_H=1$ assignments — all fed into the imported electroweak-baryogenesis formula. Multi-factor cancellations make per-factor sensitivity hard to attribute. Asserted-partial.
 - strengthen-by:
-  - *pending*
+  - Derive $g_*=7^3/4$ from a genuine relativistic-DoF count rather than the mode-cubed-over-nodes heuristic.
+  - Derive $\delta_{CP}=\pi/\kappa_{FS}$ from the lattice chirality dynamics, with a sensitivity analysis of the composite formula.
 
 ---
 
@@ -461,13 +509,14 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `nuclear-field/ch10-open-problems/hubble-tension.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table). Cross-cutting caveat documented in vol3 sidecar's Asymptotic Hubble Constant entry; bound asserted at the kb-claims-boundaries-followups level (see `kb-claims-boundaries-followups.md` 2026-05-02 entry on vol3 index circularity framing).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 3 (Machian-impedance closure of $G$ that the $H_\infty$ identity rearranges)
+- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+- rationale: The vol2 leaf is honest about what it is: $H_\infty=28\pi m_e^3 cG/(\hbar^2\alpha^2)\approx69.32$ km/s/Mpc is explicitly a geometric self-consistency identity (the same algebraic relation as $G$'s Machian closure written two ways), with the $R_H\equiv c/H_\infty$ circularity disclosed verbatim. The algebra closes by identity; the numerical value follows from CODATA $G$. It carries no novel first-principles content (its own framing), and the asymmetric-systematics CMB-vs-local explanation is interpretive. Disclosed-bound identity rearrangement — clean but content-light.
 - strengthen-by:
-  - *pending*
+  - Supply the open Chain B' derivation of $G$ from substrate-local thermodynamics that does not route through $R_H$, which would promote this from consistency identity to a prediction.
+  - Quantify the claimed CMB-void vs local-Cepheid impedance-calibration residuals rather than framing them qualitatively.
 
 ---
 
@@ -486,13 +535,17 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `nuclear-field/ch08-planck-string/planck-scale-derivation.md`, `nuclear-field/ch08-planck-string/string-theory-translation.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.65
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (finite transverse flux-tube radius $d\equiv1\,\ell_{node}$)
+  - INVARIANT-S2 / Axiom 4 (UV regulator; Faddeev-Skyrme 3D stabilization)
+  - clm-h9aqmt (unknot inductive energy $\to T_{AVE}=m_e^2c^3/\hbar$)
+  - clm-mnb3lt (baryon mass-stiffening $m_p/m_e$ for $\alpha'_{baryon}$)
+- solidity: 0.09 (refuted, do not use) [= 0.65 × 0.14]
+- rationale: $T_{AVE}=m_e^2c^3/\hbar\approx0.212$ N is clean dimensional algebra from the unknot tension, and $\alpha'=1/(2\pi T)$ is the standard Nambu-Goto relation — dimensionally exact. But the result is explicitly $17\%$ off the empirical hadronic $\alpha'\approx0.9$ GeV$^{-2}$ (order-of-magnitude, not precision), the $\alpha'_{baryon}$ match is "within an order of magnitude," and equating the fundamental EM string tension to the hadronic Regge slope is an asserted identification. Disclosed-bound: clean algebra, disclosed accuracy gap, asserted EM$\leftrightarrow$hadronic mapping.
 - strengthen-by:
-  - *pending*
+  - Account for the $17\%$ gap (e.g. derive the EM$\to$hadronic correction) rather than reporting it as order-of-magnitude consistency.
+  - Derive a meson Regge trajectory (mass vs spin) from the same tension to test beyond the single slope number.
 
 ---
 
@@ -512,13 +565,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `proofs-computation/ch11-overdrive/index.md`, `proofs-computation/ch11-overdrive/universal-energy.md`, `proofs-computation/ch11-overdrive/overdrive-nuclear.md`, `proofs-computation/ch11-overdrive/overdrive-protein.md`, `proofs-computation/ch11-overdrive/overdrive-comparison.md`, `appendices/app-f-solver-toolchain/cross-domain-physics-mappings.md` (K4-TLM, Miller-avalanche-as-nuclear-binding, RF-transmission-line-as-protein-folding cross-domain identifications).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 3 (impedance-minimizing gradient descent / minimum reflection)
+  - INVARIANT-S2 / Axiom 4 (saturation inside the coupling)
+  - INVARIANT-N3 (shared operator chain across domains)
+- solidity: 0.55 (use as input only, don't build deeper) [= 0.55 × 1.00]
+- rationale: The strain functional $U_{total}=\sum K_{mutual}/d_{ij}+\sum U_{bond}$ and gradient-descent are stated as a standard energy-minimization form; the load-bearing content is the "single unmodified $O(N^2)$ solver across two domains" scale-invariance claim plus the computational results (U-235 binding sub-% through actinides / $<0.01\%$ for $A\le28$; polyalanine $\phi,\psi$ dihedrals). But $K_{mutual}=(5\pi/2)\alpha\hbar c/(1-\alpha/3)$ is asserted/imported with a nuclear-specific $\alpha/3$ correction, per-actinide errors are not reported, and the protein result is structural (geometry recovered, not folding thermodynamics). Computational validation with disclosed bounds.
 - strengthen-by:
-  - *pending*
+  - Derive $K_{mutual}$ (including the $\alpha/3$ nuclear correction) from AVE primitives rather than asserting the coupling constant.
+  - Report per-actinide error breakdowns to substantiate the "sub-percent through actinides" claim.
 
 ---
 
@@ -535,13 +591,17 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **References:** Discipline asserted at invariant level — see `LIVING_REFERENCE.md` "Common Pitfalls" #7–#11 and Critical Distinctions; "Red flags for QM contamination" checklist therein. Supporting derivation-discipline statements appear in `proofs-computation/ch09-computational-proof/methodological-contamination.md`, `proofs-computation/ch09-computational-proof/precision-policy.md`, the QM-translation appendix `quantum-orbitals/ch07-quantum-mechanics/qm-ave-translation.md`, the ODE shooting-method verification leaf `quantum-orbitals/ch07-quantum-mechanics/ode-verification.md` (algebraic identity Schrödinger ↔ Helmholtz acoustic ODE confirmed numerically), and the SM-to-AVE translation pointer `appendices/app-f-solver-toolchain/sm-translation-toolchain.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (cavity saturation boundary $r_{sat}=a_0=\ell_{node}/\alpha$; standing-wave radii)
+  - INVARIANT-S2 / Axiom 2 (Gauss cross-shell screening)
+  - INVARIANT-N3 (operator-boundary tripwires Op4/Op6 etc.)
+  - clm-oltvwy (atomic IE solver this discipline governs)
+- solidity: 0.27 (do not build on, rework needed) [= 0.70 × 0.39]
+- rationale: This is a methodological discipline statement (true-by-construction within the framework: "all atomic states must emerge from the 5-step method, never $Z_{eff}^2 Ry/n^2$"), not an empirical prediction — so it cannot be falsified by a measurement, but it is backed by clean supporting derivations ($Ry$ emergent from the cavity-saturation boundary; $r_n\propto n^2$ from the standing-wave condition, both shown algebraically). The band reflects a well-grounded boundary plus its clean supporting algebra rather than a closed numerical prediction.
 - strengthen-by:
-  - *pending*
+  - Add a mechanical contamination-detector check (e.g. a unit test) that flags any downstream reuse of the forbidden $Z_{eff}^2 Ry/n^2$ form.
+  - Strengthen by closing the clm-oltvwy E2k action-consistent architecture so the discipline is satisfied end-to-end, not just stated.
 
 ---
 
@@ -557,13 +617,14 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-b-paradoxes/holographic-paradox.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (1D inductive flux tubes with 2D cross-sectional porosity $\Phi_A\equiv\alpha^2$)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: A qualitative stress-test resolution: the $R^2$ entropy scaling is asserted to be recovered because information traverses 1D flux tubes whose bandwidth is bounded by 2D cross-sectional porosity, projected via Nyquist-Shannon onto the causal-horizon surface. No calculation of $S_{BH}=A/(4\ell_P^2)$ ab initio; the porosity-to-area argument is presented as a geometric mechanism, not a derivation. Asserted mechanism.
 - strengthen-by:
-  - *pending*
+  - Compute the Bekenstein-Hawking entropy coefficient $1/4$ from the flux-tube channel-capacity argument.
+  - Show the $R^3\to R^2$ projection is forced, not merely consistent.
 
 ---
 
@@ -581,13 +642,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch01-topological-matter/mathematical-topology-of-mass.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.6
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (continuous non-linear $\mathcal{M}_A$ manifold hosting finite-energy solitons)
+  - INVARIANT-S2 / Axiom 4 (dielectric yield bound $e$ scaling the Skyrme term)
+- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+- rationale: The Faddeev-Skyrme energy functional and the Hopf-charge/Gauss-linking integral are stated as standard, correct topological-soliton forms. But the leaf adopts them as an ansatz (the $1/e^2$ Skyrme stabilizer is the standard literature form, not derived from Axioms 1–4), and the mapping from $Q$-sectors to specific SM quantum numbers (baryon/lepton number) is asserted at the formula level. Correct standard forms adopted as ansatz rather than derived.
 - strengthen-by:
-  - *pending*
+  - Derive the quartic Skyrme term (and its $1/e^2$ scaling) from the Axiom 4 dielectric saturation dynamics.
+  - Make the $Q$-sector $\to$ baryon/lepton-number identification explicit and forced rather than asserted.
 
 ---
 
@@ -605,13 +668,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch01-topological-matter/newtonian-inertia-as-lenz.md`; `../common/dark-wake-bemf-foc-synthesis.md` (R_drag = Z₀ / mass-as-inductive-resistance, cited by the common dark-wake synthesis leaf).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (distributed vacuum inductance $\mu_0$; closed flux loop)
+  - INVARIANT-S2 / Axiom 2 (topo-kinematic isomorphism $[L]\equiv[M]$)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: An ontological reinterpretation asserted at the formula level: $E_{mass}=\frac12 L_{eff}|\mathbf{A}|^2$ is stated and $F=ma$ is "derived as the macroscopic phenomenological consequence" of Lenz's law, but no actual $F=ma$ derivation is carried out — the back-EMF$\to$inertia mapping is claimed, not shown. Macroscopic dynamics are unchanged. Claimed mechanism without closed derivation.
 - strengthen-by:
-  - *pending*
+  - Carry out the explicit derivation of $F=ma$ (or $p=mv$) from the back-EMF on the closed loop, showing $m=L_{eff}$ quantitatively.
+  - Extend to relativistic mass $E=\gamma m_0c^2$ from $L_{eff}=L_0/\sqrt{1-v^2/c^2}$ within this leaf.
 
 ---
 
@@ -628,13 +693,14 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch01-topological-matter/regime-classification.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 4 (saturation-kernel regimes I/II/III; $\Delta\phi$ vs $\alpha$)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: A structural taxonomy table asserting each particle's regime placement (photon I, electron/proton II, W/Z and black hole III, neutrino at the I–II boundary). It is a manifestation of the Axiom 4 regime structure applied to known particles, not a derivation — the per-particle quantitative values live in their own entries. The regime assignments are asserted/qualitative. Asserted taxonomy.
 - strengthen-by:
-  - *pending*
+  - For each row, compute the regime parameter $\Delta\phi/\alpha$ from the particle's own derived quantities to substantiate the placement.
+  - Justify the neutrino's I–II boundary placement quantitatively rather than by qualitative "chiral phase below yield."
 
 ---
 
@@ -654,13 +720,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch01-topological-matter/chirality-and-antimatter.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (chiral lattice; twist direction as charge polarity)
+  - clm-h9aqmt (unknot identity; $e^\pm$ as opposite-handed unknots)
+- solidity: 0.21 (do not build on, rework needed) [= 0.30 × 0.70]
+- rationale: A mechanism-claim reinterpretation of pair annihilation. The energy balance $2m_ec^2=1.022$ MeV is a trivial identity given $m_e$; the load-bearing content (Mazur-square-knot paradox resolved by optical phase cancellation $\boldsymbol\omega+(-\boldsymbol\omega)=0$ severing the topological boundary) is asserted, and the leaf does not show the cancellation is a continuous lattice evolution (an open formalization question the entry acknowledges). The observable $2\gamma$ at 511 keV is the standard QED result. Asserted mechanism.
 - strengthen-by:
-  - *pending*
+  - Demonstrate (or formalize) that the phase-cancellation event is a continuous lattice evolution rather than a singular boundary discontinuity.
+  - Extend beyond the two-photon channel to recover the relative $3\gamma$ rate or other channels.
 
 ---
 
@@ -681,13 +749,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch02-baryon-sector/proton-neutron-mass-split.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (flux-tube minimum thickness $\ell_{node}$; $K_4$ tetrahedral Borromean braid)
+  - INVARIANT-S2 / Axiom 3 (Machian closure expression for $G=c^4\ell_{node}/(7\xi m_ec^2)$)
+  - clm-mnb3lt (proton mass / $m_p/m_e$ in the mass-stiffening factor)
+- solidity: 0.06 (refuted, do not use) [= 0.40 × 0.14]
+- rationale: The He-4 strain consistency check ($\Delta x=E_{bond}/T_{nuc}\approx1.93$ fm, $\approx0.50\%$ strain) is a clean calculation, but it uses the asserted scaling $T_{nuc}=T_{EM}(m_p/m_e)$ (the leaf calls this "a key observation in the computational audit," not a closed derivation) and the empirical 28.3 MeV binding energy as input. The Hierarchy Bridge is explicitly algebraic substitution of two framework choices ($G$ via Axiom 3, $T_{nuc}$ via the assertion), disclosed as not an independent $G$ derivation; neutron decay is structural with no $\tau_n$ derived. Asserted-with-consistency-checks.
 - strengthen-by:
-  - *pending*
+  - Derive $T_{nuc}=T_{EM}(m_p/m_e)$ (rule out nearby functional forms) rather than asserting the mass-stiffening scaling.
+  - Predict the He-4 binding energy from the topology instead of taking 28.3 MeV as input.
 
 ---
 
@@ -707,13 +778,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `particle-physics/ch05-electroweak-mechanics/forward-to-ch6.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.55
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (lattice plaquette / Wilson link variables; $S_3$ symmetry of the three Borromean loops)
+  - clm-67jn9o (Borromean $\mathbb{Z}_3$ / quark structure underpinning the SU(3) identification)
+- solidity: 0.41 (do not build on, rework needed) [= 0.55 × 0.75]
+- rationale: The U(1) half is clean, standard lattice-gauge math: the Wilson plaquette action $\sum_P(1-\cos\Phi_P)\to\int\frac14 F_{\mu\nu}F^{\mu\nu}$ in the continuum limit (correct, and disclosed as not original to AVE — AVE adds the physical-condensate interpretation). The SU(3) half rests on the asserted "smallest continuous Lie group whose Weyl group contains $S_3$ is SU(3)" — supported by the three-loop fundamental-rep count and $\mathbb{Z}_3$-centre confinement, but explicitly not a uniqueness theorem (alternative embeddings not ruled out). Half clean-standard, half asserted structural identification.
 - strengthen-by:
-  - *pending*
+  - Rule out higher-rank Lie groups whose Weyl groups also contain $S_3$, converting the SU(3) identification into a uniqueness result.
+  - Derive the QCD running coupling $\alpha_s(\mu)$ from the lattice to go beyond the structural symmetry match.
 
 ---
 
@@ -737,13 +810,17 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `quantum-orbitals/ch07-quantum-mechanics/de-broglie-standing-wave.md` (the same leaf is also referenced under `clm-oltvwy` for its Step-1 single-electron eigenvalue derivation supporting the multi-electron solver).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.8
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (LC pressure field; standing-wave $2\pi r=n\lambda$; $a_0=\ell_{node}/\alpha$)
+  - INVARIANT-S2 / Axiom 2 (Coulomb impedance gradient $V(r)$)
+  - INVARIANT-S2 / Axiom 4 (soliton dispersion $\to k(r)$)
+  - clm-h9aqmt (unknot Compton-wavelength $\ell_{node}$ baseline)
+- solidity: 0.56 (use as input only, don't build deeper) [= 0.80 × 0.70]
+- rationale: The core equations are clean: the Schrödinger$\leftrightarrow$Helmholtz rearrangement is exact algebra, and the Bohr radius $a_0=\ell_{node}/\alpha$ and hydrogen spectrum $E_n=-m_ec^2\alpha^2/(2n^2)$ are recovered exactly (the leaf states they are algebraically identical to Bohr, sub-1 ppm vs CODATA). Classification is largely a consistency check / identity-rearrangement carrying an ontological reinterpretation; the one novel piece (the $n_s,n_t$ differential-phase parallax falsifier) is explicitly *proposed*, with Lorentz-invariance survival an open question. Clean local derivation, modest novel content.
 - strengthen-by:
-  - *pending*
+  - Carry the parallax $\Delta\Phi$ prediction through a Lorentz-invariance analysis to establish whether the $n_s\neq n_t$ asymmetry survives at accessible baselines.
+  - Derive (not assert) that $\Psi$ is the bulk-modulus (longitudinal acoustic) amplitude, distinguishing it observably from the standard probability amplitude.
 
 ---
 
@@ -770,13 +847,19 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `nuclear-field/ch10-open-problems/unification.md`, `nuclear-field/ch10-open-problems/scale-invariance-table.md`, `nuclear-field/ch10-open-problems/quantitative-resolutions.md` (cross-cutting open-problems table; the same leaf is referenced under `clm-4vwsjc`, `clm-gfs4j8`, and `clm-mroghg`).
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - $\nu_{vac}=2/7$ (master integer-ratio input)
+  - INVARIANT-S2 / Axiom 1 (torus-knot crossing numbers $c_1,c_2,c_3$)
+  - clm-gfs4j8 ($\theta_{QCD}\equiv0$ structural elimination)
+  - clm-5zuo7g ($\sin^2\theta_W=2/9$ row)
+  - clm-7o8clt (PMNS rows)
+  - clm-4vwsjc ($g_*=7^3/4$ row)
+- solidity: 0.09 (refuted, do not use) [= 0.40 × 0.23]
+- rationale: A headline aggregation: "26 of 26 SM parameters, max residual $<4.1\%$" assembled from per-chapter results that live in (and are scored under) their own entries. As an aggregation it is a structural-unification claim about a common derivation principle (lattice scale invariance + integer ratios), not a single computed result; the leaf does not provide a complete CKM derivation (Wolfenstein parameters not fitted to PMNS accuracy), and $\alpha_s=\alpha^{3/7}$ is an AVE-native-scheme identification with no running-coupling. Per-parameter accuracy spans $0.09\%$ to $\sim4\%$. Aggregation with several asserted/scheme-specific rows.
 - strengthen-by:
-  - *pending*
+  - Provide the full CKM matrix derivation (all four Wolfenstein parameters) at the same rigor as the PMNS matrix.
+  - Tabulate which of the 26 are derived predictions vs consistency checks vs identities, so the "26 of 26" headline is not read uniformly.
 
 ---
 
@@ -801,13 +884,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `nuclear-field/ch12-millennium-prizes/birch-swinnerton-dyer.md`, `nuclear-field/ch12-millennium-prizes/riemann-hypothesis.md`, `nuclear-field/ch12-millennium-prizes/hodge-conjecture.md`, `nuclear-field/ch12-millennium-prizes/poincare-conjecture.md`, `nuclear-field/ch12-millennium-prizes/p-vs-np.md`. Cross-reference: Yang-Mills (`clm-q5izb7`) and Navier-Stokes (`clm-c8q0z5`) are the other two Clay problems addressed in vol2 and live under their own entries with the same framework-conditional caveat.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (lattice spectral structure; $(2,q)$ torus-knot quantization; impedance relaxation)
+  - INVARIANT-S2 / Axiom 4 (energy-density boundedness used in the Riemann below-cutoff argument)
+  - clm-q5izb7 (mass-gap barrier reused in several reinterpretations)
+- solidity: 0.18 (refuted, do not use) [= 0.40 × 0.45]
+- rationale: Five framework-conditional reinterpretations, each explicitly NOT Clay-rigorous (Poincaré is interpretive-only, Perelman's proof being canonical; P-vs-NP is "rendered moot," an explicit non-resolution). They are structural physical interpretations (rank$\leftrightarrow$mutual-inductance, $\zeta$-zeros$\leftrightarrow$spectral-cutoff, Hodge-classes$\leftrightarrow$standing-waves), not algorithmic or ZFC-level derivations; e.g. BSD computes no specific curve's rank, Riemann's below-cutoff step is physical not a zero-free-strip proof. A routing index over five distinct arguments. Asserted/interpretive.
 - strengthen-by:
-  - *pending*
+  - For at least one problem (e.g. BSD), demonstrate the physical identification computes a known answer for a specific instance.
+  - Sharpen each reinterpretation's scope caveat at the individual-leaf level so the consolidated index is not read as five proofs.
 
 ---
 
@@ -828,13 +914,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `proofs-computation/ch09-computational-proof/computational-graph.md`. Cross-reference: see also `clm-dboxok` (universal energy functional applied to nuclear + protein) for the operator chain demonstration on two specific domains, and `clm-d9ivj1` (universal regime-boundary eigenvalue method) for the closed-form analytical companion to this computational verification.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.4
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 4 (single saturation kernel $S(x,x_{yield})=\sqrt{1-(x/x_{yield})^2}$ across 39 OOM)
+  - INVARIANT-N3 (shared impedance-operator chain)
+  - clm-dboxok (operator chain on nuclear + protein)
+- solidity: 0.22 (do not build on, rework needed) [= 0.40 × 0.55]
+- rationale: This leaf is an aggregation/routing table: 13 domain rows whose canonical derivations and caveats live in other vol2/3/4/5 chapters. The verifiable load-bearing fact is the *software* identity — one `scale_invariant.py` imported by 13 modules, test-checked to give identical results across scales — but the per-row physical predictions (5%–10% to "exact" regime checks) are not derived here, and "exact" rows are regime/identity checks, not sub-percent waveform matches. As a derivation the leaf asserts agreement and points elsewhere. Aggregation index.
 - strengthen-by:
-  - *pending*
+  - Replace the summary table with per-row links to the canonical derivation + its own confidence, so the headline cannot be read as uniform sub-percent.
+  - Distinguish "exact" regime/identity rows from quantitative matches explicitly in the table.
 
 ---
 
@@ -851,13 +940,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-b-paradoxes/peierls-nabarro-paradox.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (amorphous dielectric-saturation-plastic network, not a rigid periodic crystal)
+  - INVARIANT-S2 / Axiom 4 (local yield $\tau_{local}>\tau_{yield}$ initiating the STZ slipstream)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: A qualitative stress-test resolution: the PN-stuttering/Bremsstrahlung objection is dissolved by reinterpreting $\mathcal{M}_A$ as an amorphous saturation-plastic network where the leading edge liquefies into a frictionless Shear Transformation Zone. The STZ slipstream mechanism is asserted at the qualitative level — no onset-velocity threshold and no slipstream coupling constant are produced (the entry acknowledges this). Asserted mechanism.
 - strengthen-by:
-  - *pending*
+  - Derive a quantitative onset velocity / shear threshold for STZ formation from Axiom 4.
+  - Show (quantitatively) that the re-freezing rate suppresses Bremsstrahlung below an observable bound.
 
 ---
 
@@ -874,13 +965,20 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-c-derivations/index.md` (this index doubles as a leaf, per INVARIANT-S5 single-leaf-index exception). Per-result canonical entries: `clm-mnb3lt`, `clm-5zuo7g`, `clm-q8un7j`, `clm-67jn9o`, `clm-mroghg`, `clm-dboxok`, `clm-oygz1i`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - clm-mnb3lt (proton mass eigenvalue, with Gaussian-ansatz caveat carried forward)
+  - clm-5zuo7g (Weinberg angle)
+  - clm-q8un7j (W/Z masses)
+  - clm-67jn9o (Witten-effect quark charges)
+  - clm-mroghg (Hubble framing)
+  - clm-dboxok (universal energy functional)
+  - clm-oygz1i (topological mass functional)
+- solidity: 0.07 (refuted, do not use) [= 0.50 × 0.14]
+- rationale: Explicitly a derivation-summary catalog that introduces no new derivation — every equation is the load-bearing content of another vol2 entry, and the catalog faithfully carries forward those entries' caveats verbatim (including the proton-mass Gaussian-ansatz "conditional" flag and the `mathematical-closure.md` rigour-gap pointer). Its local rigor is the rigor of a faithful, caveat-preserving aggregation, not of an independent derivation. Pinned mid-band as a non-source summary.
 - strengthen-by:
-  - *pending*
+  - Add per-entry confidence annotations so a consumer reading the catalog sees each result's actual band, not just the headline list.
+  - Keep the caveat-preservation under CI so the catalog cannot drift from its per-result entries.
 
 ---
 
@@ -900,13 +998,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-d-computational-graph/graph-architecture.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (Poisson-disk hard-sphere genesis; $K=2G$ trace-reversed micropolar state)
+  - clm-9s9apq (analytic QED packing fraction $p_c\approx0.1834$ the genesis targets; vol1)
+- solidity: 0.10 (refuted, do not use) [= 0.50 × 0.20]
+- rationale: An engine-specification leaf. The Poisson-disk genesis $\to p_c\approx0.17$–$0.18$ is presented as a simulation/analytical *agreement* (the simulation reproduces the analytic $p_c$ given the right exclusion radius — not a derivation of $p_c$ from genesis dynamics). The $C_{ratio}=(p_{cauchy}/p_c)^{1/3}\approx1.187$ over-bracing relation is clean algebra but uses the simulation-reported $p_{cauchy}\approx0.3068$, and the $k_{couple}$ thresholds are simulation-reported, not analytically derived. Engine spec with computationally-supported, partly-asserted constants.
 - strengthen-by:
-  - *pending*
+  - Derive the $k_{couple}$ Cauchy$\to$trace-reversed transition thresholds analytically rather than reading them off simulation.
+  - Show the Poisson-disk packing fraction follows from genesis dynamics, not just that it can be tuned to match $p_c$.
 
 ---
 
@@ -929,13 +1029,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-e-dcve/dcve-specification.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.5
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 1 (micropolar $K=2G$ continuum; lattice pitch $a\equiv\ell_{node}$)
+  - INVARIANT-S2 / Axiom 4 (Nyquist band-limit; saturation cap)
+  - clm-mnb3lt ($\kappa_{FS}=8\pi$ tying the Vakulenko-Kapitanski constant)
+- solidity: 0.07 (refuted, do not use) [= 0.50 × 0.14]
+- rationale: Engine-specification leaf mixing clean algebraic identities with imported/asserted choices. Solid pieces: the exact discrete commutator $[\hat x,\hat p_{discrete}]=i\hbar\sqrt{1-(ap/\hbar)^2}$ (correct finite-difference algebra), the flux-basis dimensional-exactness argument, and the standard micropolar constitutive law. Asserted/imported pieces: the Vakulenko-Kapitanski bound $M_{rest}\ge C_{VK}|Q_H|^{3/4}$ with $C_{VK}$ tied to $\kappa_{FS}$ (adopted, not independently derived) and the AQUAL $a_0=cH_\infty/(2\pi)$ identification. Engineering discipline, partly identity-grounded.
 - strengthen-by:
-  - *pending*
+  - Derive $C_{VK}$ from substrate primitives independent of the proton-mass calibration.
+  - Show the discrete commutator is the physically correct sub-lattice QM commutator (vs merely an engine-stable one) against a standard-QM benchmark.
 
 ---
 
@@ -960,13 +1063,16 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-f-solver-toolchain/regime-eigenvalue-method.md`, `appendices/app-f-solver-toolchain/cross-scale-isomorphism-table.md`, `appendices/app-f-solver-toolchain/nuclear-eigenvalue.md`, `appendices/app-f-solver-toolchain/protein-eigenvalue.md`, `appendices/app-f-solver-toolchain/semiconductor-junction-analogy.md`, `appendices/app-f-solver-toolchain/knot-mode-isomorphism.md` (also referenced under `clm-k6olj8`), `appendices/app-f-solver-toolchain/derived-numerology.md`, `appendices/app-f-solver-toolchain/lattice-phase-transition.md`, `appendices/app-f-solver-toolchain/kerr-q-correction.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.7
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-S2 / Axiom 4 (saturation boundary $\varepsilon_{11}=1$; lattice phase transition $G\to0$)
+  - $\nu_{vac}=2/7$ (Poisson correction $r_{eff}=r_{sat}/(1+\nu_{vac})$)
+  - clm-mnb3lt (proton/pion eigenvalue uses $\mathcal{I}_{baryon}\approx1836$ from proton mass)
+- solidity: 0.10 (refuted, do not use) [= 0.70 × 0.14]
+- rationale: The universal closed form $\omega\cdot r_{char}=\ell(1+\nu_{vac})/x_{sat}$ produces the Schwarzschild QNM $18/49=0.367$ vs GR $0.3737$ (1.7%) via a clean 5-step chain — a consistency check reproducing the GR ringdown through an alternative (saturation-boundary) value problem. The disclosed imports are the factor-7 Machian boundary and the asserted $Q=\ell$ (the leaf states $Q=\ell$ is consistent with observed quality factors but not shown to be the unique resolution); per-domain errors range $0.1\%$ to $\sim40\%$ (extremal Kerr). Disclosed methodology bound.
 - strengthen-by:
-  - *pending*
+  - Derive $Q=\ell$ as the unique consequence of the perfect-reflector saturation boundary rather than a consistent identification.
+  - Extend the Kerr correction to recover the extremal-$a_*$ regime (currently $\sim40\%$ at $a_*=0.99$).
 
 ---
 
@@ -984,13 +1090,15 @@ See cross-cutting [Master Prediction Table reading conventions](../claim-quality
 > **Leaf references:** `appendices/app-f-solver-toolchain/universal-constants-exchange.md`.
 
 ### Quality
-- confidence: *pending*
+- confidence: 0.3
 - depends-on:
-  - *pending — full enumeration deferred to quality evaluation pass*
-- solidity: *pending*
-- rationale: *pending*
+  - INVARIANT-C2 ($\xi_{topo}=e/\ell_{node}$ length$\leftrightarrow$charge exchange rate)
+  - INVARIANT-S2 / Axiom 1 (lattice pitch $\ell_{node}$ as the reference geometric scale)
+- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- rationale: An ontological reinterpretation: $c,\hbar,G,\varepsilon_0,e,k_B$ recast as domain-exchange rates. The individual pairings (e.g. $c$: m$\leftrightarrow$s, $\hbar c$: J$\leftrightarrow$m) are valid dimensional conversions — essentially near-identities — but the leaf derives no value and produces no new content; the CODATA values are unchanged and the "zero free parameters" headline rests on the calibration triad ($\ell_{node},\alpha,G$) being accepted as input. Asserted reinterpretation (dimensionally valid, content-light).
 - strengthen-by:
-  - *pending*
+  - Derive at least one exchange-rate value from a more primitive principle to move beyond restating dimensional relations.
+  - Make explicit which quantities are genuinely eliminated vs which are just relabeled, to substantiate "zero free parameters."
 ## Electron — Canonical Identification + First-Principles Axiom Audit
 <!-- id: clm-uatcql -->
 
@@ -1008,11 +1116,15 @@ AVE-native canonical identification of the electron as a self-trapped photon —
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-identification.md` §1–§3
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.75
+- depends-on:
+  - INVARIANT-S2 / Axioms 1–4 (per-property axiom audit: K4 lattice, TKI, minimum reflection, saturation)
+  - clm-h9aqmt (electron-unknot ropelength / self-energy, framing #2)
+- solidity: 0.52 (use as input only, don't build deeper) [= 0.75 × 0.70]
+- rationale: A rigorous, self-critical per-property axiom audit: 8/8 topological-dynamical properties and 6/8 observables are traced to axioms, with $m_e$ honestly scoped as a calibration anchor (not derived), the Compton wavelength as definitional, and g-2 flagged as partial closure (pending $n_q$-additivity); one Clifford-torus uniqueness sub-item is disclosed and does not affect predictions. The audit is honest and well-grounded with explicit calibration/circularity flagging; it is an identification+audit, not a numerical prediction. Disclosed-bound.
 - strengthen-by:
-  - *pending*
+  - Close the g-2 Petermann $n_q$-additivity item via the K4-Cosserat Lagrangian numerical confirmation.
+  - Resolve the flagged longitudinal-vs-transverse corpus citation (sm-translation-toolchain.md:22) pending Grant adjudication.
 
 ---
 
@@ -1031,11 +1143,15 @@ A-024 operationalization: the canonical AVE electron-soliton seeder injects a Co
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/electron-unknot-cosserat-seeder.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.5
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (horn-torus unknot at $R=r=\ell_{node}/(2\pi)$; Bounding Limit 1 saturation)
+  - clm-uatcql (canonical electron definition the seeder instantiates)
+- solidity: 0.26 (do not build on, rework needed) [= 0.50 × 0.52]
+- rationale: This operationalizes a seeding/initialization protocol, validated by 9/9 unit tests (topology preservation under finite-time evolution, three-layer real-space + SU(2) + $(2,3)$ structure, Bounding Limit 1). It closes cleanly as what it claims — a validated, engine-agnostic injection protocol — but it is an operationalization, not an independent empirical confirmation or a physics derivation; the "results" are test-passes confirming the protocol behaves as designed. Modest local rigor.
 - strengthen-by:
-  - *pending*
+  - Add a long-time-evolution stability test (beyond finite-time) confirming the seeded unknot is a true attractor, not a metastable seed.
+  - Demonstrate Mode I PASS on K4-TLM (currently Mode III; Mode I PASS only on Master Equation FDTD).
 
 ---
 
@@ -1056,11 +1172,16 @@ Canonical AVE-native description of the $(2,q)$ stable-particle family ($q$ odd:
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/l3-electron-soliton-synthesis.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.4
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (bipartite K4 lobe-count = 2; lemniscate-with-$q$-half-twists)
+  - INVARIANT-S2 / Axiom 4 (Meissner-asymmetric saturation collapse)
+  - clm-h9aqmt (electron rest-energy / virial baseline)
+- solidity: 0.28 (do not build on, rework needed) [= 0.40 × 0.70]
+- rationale: An integrative $(2,q)$-family synthesis with several explicitly-open pieces: the rest-energy virial sum is labeled "structural, not predicted"; substrate-native Pauli is "PROVISIONAL"; the $R/r$ ladder is "open across three surviving structural reasons." The forward $\chi_{(2,3)}=1.2\alpha$ birefringence prediction and $m_{Cosserat}=2m_e$ from bipartite K4 are the more concrete elements; empirical state is "Mode III canonical + one structural partial-positive." Asserted-partial synthesis with disclosed open/provisional items.
 - strengthen-by:
-  - *pending*
+  - Resolve the $R/r=\varphi^2$ ladder across the three surviving structural reasons.
+  - Promote substrate-native Pauli from provisional to derived (per-node $A^2\le1$ budget made rigorous).
 
 ---
 
@@ -1078,11 +1199,17 @@ Derived theorem (NOT a new axiom) from Axioms 1+2+4 acting together: mass is the
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/mass-closure-theorem.md` §Statement
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.5
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (per-node LC reactance)
+  - INVARIANT-S2 / Axiom 2 (TKI: winding number = conserved charge stabilizing closure)
+  - INVARIANT-S2 / Axiom 3 (minimum-reflection selecting the closed-tube configuration)
+  - INVARIANT-S2 / Axiom 4 (saturation boundary $\Gamma\to1$ at $A\to1$)
+- solidity: 0.50 (use as input only, don't build deeper) [= 0.50 × 1.00]
+- rationale: A coherent four-step derivation chain assembling $mc^2=E_{reactive}$ from Axioms 1+2+4 (+3): open$\to$massless, saturation-locked reflection, topological closure, reactive energy = rest mass. The mechanism steps are sound, but the load-bearing final identity $E_{reactive}=mc^2$ is reached by *identifying* the closed-loop standing-wave invariant with the rest energy (no quantity computed) — honestly labeled "a statement about what mass IS, not a computational program." Real derivation-chain with the closing step asserted by identification.
 - strengthen-by:
-  - *pending*
+  - Compute $E_{reactive}=\frac12 L_{tube}I_{max}^2$ for the unknot and show it equals $m_ec^2$ numerically, closing the identification.
+  - Demonstrate the minimum-action (Axiom 3) selection of the closed-tube geometry is unique among competing reflected configurations.
 
 ---
 
@@ -1101,11 +1228,17 @@ AVE-native canonical derivation of pair production as rupture of a saturated flu
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/pair-production-axiom-derivation.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.4
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (electron = 2 adjacent saturated K4 nodes with $(2,3)$ bond)
+  - INVARIANT-S2 / Axiom 4 ($\Gamma=-1$ TIR walls at $A^2=1$; $c_{local}\to0$ transverse-curl shatter)
+  - clm-h9aqmt (electron unknot / bond geometry)
+  - clm-ka5zdx (closure/rupture as the generation mechanism)
+- solidity: 0.20 (do not build on, rework needed) [= 0.40 × 0.50]
+- rationale: A mechanism-level derivation fusing four AVE-derived pieces with three nucleation conditions (C1 amplitude + C2 frequency + C3 phase). The pieces are internally consistent with the framework's other leaves, but the core dynamical claim ($c_{local}\to0$ shatters linear KE sideways into two contra-rotating Beltrami vortices, Duffing-autoresonant rupture timing) is a structural assertion, and the quantitative rate is explicitly out of scope. Asserted-partial mechanism.
 - strengthen-by:
-  - *pending*
+  - Derive the nucleation rate / threshold field quantitatively from the C1+C2+C3 conditions.
+  - Show the $c_{local}\to0$ "shatter into transverse curl" is a continuous lattice evolution producing exactly two $m_ec^2$ vortices.
 
 ---
 
@@ -1123,11 +1256,15 @@ The QED Schwinger formula for strong-field vacuum pair production emerges from s
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/q-g18-schwinger-pair-wkb.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.65
+- depends-on:
+  - INVARIANT-S2 / Axiom 4 (saturation-kernel WKB action $\int_0^1\sqrt{1-A^2}\,dA=\pi/4$)
+  - clm-ezai5b (A-B node-pair nucleation as the AVE-native realization of the tunneling event)
+- solidity: 0.13 (refuted, do not use) [= 0.65 × 0.20]
+- rationale: The structural match is genuine: $\int_0^1\sqrt{1-A^2}\,dA=\pi/4$ is literally the QED instanton action $\int_0^{m_ec}\sqrt{m_e^2c^2-p^2}\,dp$ under the substitution $A=p/(m_ec)$, so the exponent $\exp(-\pi E_S/E)$ matches "by construction." But the AVE-action assembly ($2\cdot2\cdot E_S\cdot\pi/4\cdot1/E$) places the pair-factor and dimensional factors somewhat to-target, the prefactor matching is explicitly pending, and it is a consistency check (reproduces QED's exponent). Clean exponent identity, open prefactor, mild factor-assembly.
 - strengthen-by:
-  - *pending*
+  - Complete the prefactor matching to $\sim1\%$ via the bound-state integration the leaf defers.
+  - Justify the pair-tunneling factor placement from first principles rather than assembling to the QED exponent.
 
 ---
 
@@ -1145,11 +1282,15 @@ The substrate-perspective operational view of the canonical electron: what each 
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/substrate-perspective-electron.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.35
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (per-node K4 + Cosserat observables)
+  - clm-uatcql (canonical electron this leaf views from the substrate side)
+- solidity: 0.18 (refuted, do not use) [= 0.35 × 0.52]
+- rationale: An operational/interpretive reframing: what each lattice node locally experiences at the canonical electron configuration (high-$A^2$ region, self-formed TIR wall, topological circulation, B-flux, Op14 refractive tail, K4-Cosserat coupling). The six substrate observables are asserted to compose into the macroscopic electron observables, but the leaf "introduces no new derivation beyond" the electron-identification leaf — it is a perspective, not a derivation. Low local rigor as a standalone derivation.
 - strengthen-by:
-  - *pending*
+  - Show explicitly (with the composition map) how the six substrate observables sum to charge/mass/spin/$\mu$/Compton, rather than asserting emergence.
+  - Tie each substrate observable to a measurable to make the perspective falsifiable on its own terms.
 
 ---
 
@@ -1167,11 +1308,15 @@ Derivation of why the electron's phase-space topology is specifically $(2,3)$. $
 > **Leaf references:** `vol2/particle-physics/ch01-topological-matter/torus-knot-uniqueness.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (K4 chiral lattice supporting torus-knot windings)
+  - clm-h9aqmt (electron = lightest stable lepton, the identification premise)
+- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
+- rationale: The mathematical half is clean standard knot theory (essentially a theorem): $(2,3)$ is provably the smallest non-trivial coprime torus knot (gcd=1, both windings $\ge2$, lowest crossing $c=3$), with the candidate enumeration correct. The one clearly-disclosed assumption is the physical identification "electron = lightest stable non-trivial lepton $\Rightarrow$ simplest knot $\Rightarrow(2,3)$"; the leaf labels this explicitly as the AVE assertion atop the standard math, and carries a resolved muon/proton $(2,5)$ consistency flag. Clean standard-math derivation + one disclosed identification.
 - strengthen-by:
-  - *pending*
+  - Derive (not assert) that "lightest stable lepton = simplest non-trivial knot" follows from a Faddeev-Skyrme energy ordering on K4.
+  - Establish that the lepton ladder is the Cosserat-torsion ladder (fixed $(2,3)$) from dynamics, closing the FI-13 framing rather than asserting it.
 
 ---
 
@@ -1190,11 +1335,17 @@ AVE-native canonical identification of the neutron as $6_2^3 \cup 0_1$ (the prot
 > **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/neutron-identification.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.5
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (composite $6^3_2\cup0_1$ topology; flux-tube minimum thickness)
+  - INVARIANT-S2 / Axiom 2 (charge neutrality via additive $+1+(-1)=0$ twist count)
+  - clm-mnb3lt (proton $6^3_2$ / $m_p$ that the neutron composite builds on)
+  - clm-uatcql (threaded electron $0_1$ identification)
+- solidity: 0.07 (refuted, do not use) [= 0.50 × 0.14]
+- rationale: A rigorous, self-critical audit: the composite topology $n=6^3_2\cup0_1$ and charge neutrality are clean axiom-derived, but the leaf explicitly flags TWO load-bearing derivation gaps — the mass split $m_n-m_p\approx1.293$ MeV is mechanism-named (elastic-expansion tension) but NOT derived from a Faddeev-Skyrme calculation, and the lifetime $\tau_n\approx880$ s mechanism is named but the rate is NOT derived. Magnetic moment and charge radius are structural-only. Substantive acknowledged open dependencies on the two main quantitative observables.
 - strengthen-by:
-  - *pending*
+  - Derive the 1.293 MeV mass split as $E_{FS}(6^3_2\cup0_1)-E_{FS}(6^3_2)$ from the threaded-knot Faddeev-Skyrme energy.
+  - Derive $\tau_n$ from WKB tunneling through the threaded-knot dielectric barrier (would also address the bottle-vs-beam anomaly).
 
 ---
 
@@ -1212,11 +1363,17 @@ AVE-native canonical identification of the proton, structured to parallel the el
 > **Leaf references:** `vol2/particle-physics/ch02-baryon-sector/proton-identification.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.7
+- depends-on:
+  - INVARIANT-S2 / Axioms 1–4 (per-property axiom audit; $(2,5)$ cinquefoil + $6^3_2$ Borromean + saturated core)
+  - clm-mnb3lt (the $m_p/m_e=1836.12$ eigenvalue this leaf audits input-by-input)
+  - clm-67jn9o (Witten-effect fractional quark charges)
+  - clm-9s9apq (packing fraction $p_c$; vol1)
+- solidity: 0.10 (refuted, do not use) [= 0.70 × 0.14]
+- rationale: A rigorous per-input audit of the flagship $m_p/m_e=1836.12$ (0.002%, zero fit parameters): $\kappa_{FS}=8\pi$, $c_5=5$, $\mathcal{V}_{total}=2.0$ (FEM-verified), $p_c=8\pi\alpha$, and the $+1.0$ charge twist are each traced to axioms. The audit is honest that $\mathcal{I}_{scalar}\approx1162$ is a computational input flagged for solver verification, and it inherits the Gaussian-ansatz bound of clm-mnb3lt. Consistent with the clm-mnb3lt band — disclosed methodology bound.
 - strengthen-by:
-  - *pending*
+  - Verify the 1D Faddeev-Skyrme solver implementation has no tunable parameter and document the $\mathcal{I}_{scalar}$ convergence.
+  - Close the inherited Gaussian flux-tube ansatz gap upstream in clm-mnb3lt.
 
 ---
 
@@ -1234,11 +1391,16 @@ Two-loop Petermann coefficient $C_2$ derived from substrate dynamics in two stag
 > **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g19a-petermann-saliency-closure.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.6
+- depends-on:
+  - INVARIANT-S2 / Axiom 4 (saturation-kernel asymmetry; dark-wake back-reaction)
+  - clm-stgx1i (leading-order $a_e=\alpha/2\pi$ that the $1/\pi^2$ form factor and two-loop build on)
+  - clm-8c3yhs ($(2,3)$ phase-space trefoil $d/q$-axis structure)
+- solidity: 0.29 (do not build on, rework needed) [= 0.60 × 0.49]
+- rationale: Two-stage with explicit honesty. Stage 1 (symmetric Route B, no postulate, no fit) yields $C_2=-0.3416$, 4% off PDG — a genuine substrate-mechanism prediction. Stage 2's ppm headline ($C_2=-0.32846$, $\approx10$ ppm at $a_e$) is explicitly conditional on the $n_q$-additivity postulate, which the leaf itself admits is "the single remaining intuitive step." The two-stage framing makes derived-vs-postulated visible (per the 2026-05-18 walk-back). Disclosed methodology bound: closes at 4% with no postulate, ppm precision postulate-gated.
 - strengthen-by:
-  - *pending*
+  - Derive $n_q$-additivity ($\delta=-\alpha n_q/2$) from the K4-Cosserat Lagrangian, converting the ppm closure from postulate-conditional to derived.
+  - Land the independent bisection verification (`verify/electron_g2_petermann.py`) to confirm $\delta^*=-0.01093$.
 
 ---
 
@@ -1257,11 +1419,16 @@ The one-loop vacuum polarization function $\Pi(q^2)$ in AVE matches QED at all o
 > **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g20f-vacuum-polarization.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.6
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (Brillouin-zone geometric cutoff at $\pi/\ell_{node}$)
+  - INVARIANT-S2 / Axiom 3 (local relativistic action; same low-energy U(1) gauge content as QED)
+  - INVARIANT-S2 / Axiom 4 (saturation-kernel inverse $K(V)$ giving the cubic vertex)
+- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+- rationale: The match-to-QED is argued structurally via Renormalization-Theorem equivalence: AVE is a local relativistic field theory with the same low-energy U(1) content, so its loop predictions must agree with QED after renormalization — a sound consistency-check argument. The cubic vertex + BZ-cutoff mechanism is sketched and the $\Pi(q^2)$ match is argued (not independently computed here); the Landau-pole removal via the geometric cutoff is a clean structural consequence. Disclosed consistency check, match argued rather than computed.
 - strengthen-by:
-  - *pending*
+  - Compute $\Pi(q^2)$ from the cubic vertex with the BZ cutoff and show it equals QED's $-(\alpha/3\pi)q^2\ln(q^2/m_e^2)$ explicitly.
+  - Quantify the $\alpha$-suppressed AVE-distinct chiral piece so the sub-Compton discriminator is testable.
 
 ---
 
@@ -1280,11 +1447,16 @@ AVE forward-predicts a topological/Cosserat second-order effect contributing to 
 > **Leaf references:** `vol2/particle-physics/ch06-electroweak-higgs/q-g27-muon-cosserat-saliency.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.45
+- depends-on:
+  - INVARIANT-S2 / Axiom 4 (Cosserat torsional excitation; $\sqrt{3/7}$ PAT torsion-shear projection)
+  - clm-v2sg8z (Q-G19α electron Petermann closure this parallels / builds on)
+  - clm-rji99i (shared $\sqrt{3/7}$ mechanism that also gives $m_\mu$)
+- solidity: 0.04 (refuted, do not use) [= 0.45 × 0.08]
+- rationale: A zero-fit forward prediction $\delta^\mu_{Cosserat}=-\alpha\sqrt{3/7}/(2\pi)$ reusing the same $\sqrt{3/7}$ PAT projection that yields $m_\mu$ at 1.24% — a clean structural assembly. But the Cosserat-saliency identification (one torsion quantum adds exactly this $\delta$) is asserted/structural, the textbook-QED conversion gives $\Delta a_\mu^{(2)}=+502\times10^{-11}$ which is currently in **4.6$\sigma$ tension** with Fermilab on the e+e- baseline (BMW-baseline-conditional, so not refuted), and a prior $+247$ value was a walked-back factor-2 error. Asserted-structural with disclosed experimental tension.
 - strengthen-by:
-  - *pending*
+  - Resolve the e+e- vs BMW baseline ambiguity and state the prediction against the adjudicated SM baseline.
+  - Derive the single-Cosserat-quantum saliency contribution from the K4-Cosserat Lagrangian rather than identifying it by analogy to the electron closure.
 
 ---
 
@@ -1301,10 +1473,16 @@ The 2S–2P hydrogen Lamb shift ($+1057.85$ MHz measured) is reproduced at 0.65%
 > **Leaf references:** `vol2/quantum-orbitals/ch07-quantum-mechanics/q-g20a-lamb-shift-structural-closure.md`
 
 ### Quality
-- confidence: *pending*
-- solidity: *pending*
-- rationale: *pending — vol2-6 L3 migration; scored at the deferred rescore pass*
+- confidence: 0.45
+- depends-on:
+  - INVARIANT-S2 / Axiom 1 (finite-size electron; geometric UV cutoff $1/\ell_{node}$)
+  - clm-h9aqmt (finite-size self-energy $T_{EM}\ell_{node}=m_ec^2$)
+  - clm-bqtasn (Q-G20f vacuum-polarization contribution, $-27$ MHz)
+  - clm-v2sg8z (Q-G19α anomalous-moment contribution, $+68$ MHz)
+- solidity: 0.13 (refuted, do not use) [= 0.45 × 0.29]
+- rationale: A three-input composition reaching $\approx+1051$ MHz vs measured $+1057.85$ (0.65%). The vacuum-polarization and anomalous-moment terms inherit separately-closed AVE derivations, but the dominant self-energy term ($+1010$ MHz) has an acknowledged log discrepancy: the AVE Bethe-log-equivalent ($\approx9.84$) differs from QED's ($\approx2.81$) by 3.5×, glossed as "same magnitude — agree at the few-percent level." The total lands right, but the load-bearing self-energy magnitude effectively leans on the QED value rather than being cleanly derived. Disclosed-bound composition with a papered-over dominant-term discrepancy.
 - strengthen-by:
-  - *pending*
+  - Resolve the Bethe-log magnitude gap (9.84 vs 2.81) so the $+1010$ MHz self-energy is a clean AVE output, not a "same-magnitude" match.
+  - Carry the composition to the next-order ($\alpha^5$ Bethe-log, recoil, nuclear size) to test beyond leading order.
 
 ---

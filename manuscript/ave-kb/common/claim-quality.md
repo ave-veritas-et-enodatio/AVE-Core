@@ -690,7 +690,7 @@ When the Cosserat-sector voltage drops through V_yield slowly enough (crossing t
 - depends-on:
   - clm-jwyy6l — Mass IS Inductive Resistance [the L_eff↔inductive-impedance identification the freeze mechanism rides on]
   - clm-nxc9gy — Six-Fold Lattice Impedance Decomposition [supplies Z_eff(r)=Z₀/√S → L_eff divergence as S→0]
-- solidity: *pending*
+- solidity: 0.08 (refuted, do not use) [= 0.50 × 0.15]
 - rationale: The mechanism is a coherent qualitative chain — Op14 gives L_eff→∞ as S→0, a diverging inductance yields a diverging Lenz back-EMF, which blocks dω/dt across the τ_relax crossing window and freezes topologically non-trivial ω — and the entry honestly flags that τ_relax is imported (not derived here) and that only the slow-crossing regime is treated. It is held at mid-band because the leaf supplies no quantitative comparison of the back-EMF magnitude against the unwinding drive, the ≥100-Compton-period persistence is asserted, and the L_eff divergence rate near S=0 versus the crossing rate is not made explicit, so the "freezes" conclusion is argued, not demonstrated.
 - strengthen-by:
   - Show quantitatively that the diverging back-EMF dominates the topological-unwinding torque over the τ_relax window (a magnitude inequality, not a word argument)
@@ -720,7 +720,7 @@ The Field-Oriented Control d-q decomposition is canonical in two Core homes, bot
 - confidence: 0.60
 - depends-on:
   - clm-jwyy6l — Mass IS Inductive Resistance [the back-EMF/inductive-rotor framing the FOC homes lean on]
-- solidity: *pending*
+- solidity: 0.18 (refuted, do not use) [= 0.60 × 0.30]
 - rationale: The leaf documents two canonical FOC d-q homes (BH QNM co-rotating frame and the helium 1s²/2s² spatial-90° shell) with explicit role-mapping tables and cleanly retracts the temporal within-LC-tank framing as implementer synthesis, so the canonicalization decision is internally consistent and well-scoped. It is held at mid-band because, as the entry concedes, the FOC isomorphism is a structural operational-role correspondence (analogy), not a quantitative motor-parameter substitution, and the asynchronous cross-shell ⟨M⟩→0 integral is asserted at the level of a time-average argument rather than derived.
 - strengthen-by:
   - State the explicit Park-transform map (the actual d-q rotation matrix and reference angle) for each canonical home, not just a role-correspondence table
