@@ -444,7 +444,7 @@ At lattice genesis the crystallizing rotating region locks the cosmic spin into 
 ## Eight Cosmic-Axis Observables Aligned with the Ω_freeze Axis
 <!-- id: clm-pe8lpx -->
 
-The framework predicts eight independent observable channels should all show a preferred axis aligned with the Ω_freeze axis at (l ≈ 174°, b ≈ −5°) in galactic coordinates.
+The framework predicts eight independent observable channels should all show a preferred axis aligned with the Ω_freeze axis at (l = 60.28°, b = 50.48°) in galactic coordinates (Planck PR3 SMICA empirical pin, 2026-05-19; the earlier (l ≈ 174°, b ≈ −5°) was a literature placeholder).
 
 - _Specific Claims_
   - The eight channels: (1) CMB axis-of-evil; (2) Hubble flow anisotropy; (3) LSS spin direction; (4) matter asymmetry direction; (5) E/B polarization decoupling; (6) orbital-plane alignment; (7) tensor G anisotropy; (8) CMB QNM matching.
@@ -468,7 +468,6 @@ The framework predicts eight independent observable channels should all show a p
 - strengthen-by:
   - Derive, for at least one channel, the quantitative coupling from Ω_freeze to the observable (not just axis identity)
   - Pre-register the joint multi-channel alignment statistic and its isotropic-null distribution
-  - Reconcile the (l≈174°,b≈−5°) literature-placeholder axis with the 2026-05-19 Planck pin at (l=60.28°,b=50.48°)
   - Separate falsifiable channels from currently-unfalsifiable/conditional ones in the claim scope
 ---
 
@@ -742,10 +741,10 @@ A single Axiom 4 kernel $S(A) = \sqrt{1 - A^2}$ (Born–Infeld $n = 2$ squared-l
   - The kernel's vertical tangent at $A = 1$ is the structural reason every topological-reorganization event is sharp and impulsive at all scales.
 - _Specific Non-Claims and Caveats_
   - Does NOT derive Axiom 4 itself; the kernel is the postulated Axiom 4 form. This entry asserts its single-kernel cross-scale applicability, not its first-principles origin.
-  - Does NOT claim the kernel form is verified at every one of the 21 scales to the same precision; per-scale empirical anchors vary in tightness (BCS at 0.00% error; BH ring-down at 1.7% from GR; several rows carry no quantitative anchor).
+  - Does NOT claim the kernel form is verified at every one of the 26 scales to the same precision; per-scale empirical anchors vary in tightness (BCS at 0.00% error; BH ring-down at 1.7% from GR; several rows carry no quantitative anchor).
   - Born–Infeld $n = 2$ is the squared-limit form; the identification with the AVE saturation kernel is structural, not a derivation of Born–Infeld electrodynamics.
 
-> **Leaf references:** `universal-saturation-kernel-catalog.md` §Key Result: 21 canonical instances of one kernel.
+> **Leaf references:** `universal-saturation-kernel-catalog.md` §Key Result: 26 canonical instances of one kernel.
 
 ### Quality
 - confidence: 0.62
@@ -777,7 +776,7 @@ The A-034 catalog enumerates 26 canonical cross-scale instances of the saturatio
   - Several rows carry no quantitative empirical anchor (e.g., "plasma canonical", "substrate instance"); for those the instance is a structural classification, not a validated measurement.
   - LLM SiLU activation saturation is explicitly kept OUT of the 26: same kernel form but applied in activation space during neural-net training, tracked as a parallel thread.
 
-> **Leaf references:** `universal-saturation-kernel-catalog.md` §The 21-instance catalog.
+> **Leaf references:** `universal-saturation-kernel-catalog.md` §The 26-instance catalog.
 
 ### Quality
 - confidence: 0.75
@@ -786,7 +785,6 @@ The A-034 catalog enumerates 26 canonical cross-scale instances of the saturatio
 - solidity: 0.30 (do not build on, rework needed) [= 0.75 × 0.40]
 - rationale: Catalog/enumeration claim scored on completeness + internal consistency. The current leaf (`universal-saturation-kernel-catalog.md`) is now arithmetically clean: title, Key-Result row, and the symmetry-classification body all agree on 26 = 19 + 4 + 2 + 1 (SYM 19 / ASYM-N 4 / TBD 2 / ASYM-E 1). The "21 orders of magnitude" is a span axis (atomic $\sim 10^{-15}$ m → cosmic $\sim 10^{26}$ m), not an instance count, so it is no inconsistency. Per-instance derivations are correctly disclaimed as owned elsewhere, anchor-less rows are honestly flagged, and scoped Session-4/5 rows (11-a, 14-a) are tagged TBD. The prior 0.68 was depressed by a count mismatch that no longer exists — a complete, internally consistent enumeration.
 - strengthen-by:
-  - Reconcile the instance count across entry, leaf title, table rows, and symmetry tallies (26 vs 21 vs 27) into one authoritative number
   - Tag each row with anchor-tightness (validated / structural-only / scoped-TBD) so "26 canonical" is not read as 26 validated predictions
   - Resolve the scoped Session 4/5 rows (11-a, 14-a) or move them to a clearly-separated pending appendix
 ---

@@ -73,7 +73,7 @@ This reframing eliminates a class of "discrete vs continuous" framing confusions
 
 ## A-034 substrate-scale instance interpretation
 
-Per Session 18, the Q-G47 substrate-scale work is one of the 21 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
+Per Session 18, the Q-G47 substrate-scale work is one of the 26 instances in the A-034 Universal Saturation-Kernel Strain-Snap Mechanism catalog:
 
 | Q-G47 Result | A-034 Reading |
 |---|---|
@@ -116,7 +116,7 @@ The connection per Vol 3 Ch 1 §3.2: primary K4's over-bracing creates the geome
 - **Canonical manuscript anchors:**
   - Vol 1 Ch 2 (Macroscopic Moduli) — substrate Cosserat moduli + over-bracing framework
   - Vol 1 Ch 1 (Four Axioms) — Axiom 1 Chiral Laves K4 Cosserat Crystal canonical
-  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 21-instance catalog including substrate-scale K4 instance
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 26-instance catalog including substrate-scale K4 instance
 - **KB cross-cutting:**
   - [xi-topo-traceability.md](xi-topo-traceability.md) — $\xi_{K1}, \xi_{K2}$ vs Machian $\xi$ vs $\xi_{\text{topo}}$ namespace
   - [trampoline-framework.md](trampoline-framework.md) §1–§4 — continuous Cosserat substrate picture

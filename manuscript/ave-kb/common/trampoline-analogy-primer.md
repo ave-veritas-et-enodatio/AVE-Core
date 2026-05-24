@@ -509,7 +509,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - Vol 3 Ch 1 (Gravity and Yield) — $K = 2G$ canonical + Machian impedance integral
   - Vol 3 Ch 4 (Generative Cosmology) — Ω_freeze cosmic-spin freeze-in
   - Vol 3 Ch 21 (BH Interior Regime IV) — pre-geodesic plasma framing
-  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 21 scales
+  - Backmatter Ch 7 (Universal Saturation-Kernel Catalog) — A-034 at 26 scales
 - **Cross-cutting KB leafs**:
   - [Boundary Observables $\mathcal{M}, \mathcal{Q}, \mathcal{J}$](boundary-observables-m-q-j.md) — substrate-observability rule
   - [Q-G47 Substrate-Scale Cosserat Closure](q-g47-substrate-scale-cosserat-closure.md) — $K = 2G$ derivation framework + Session log
@@ -518,7 +518,7 @@ Before any new AVE derivation, articulate the physical picture in mechanical/top
   - [AVE BH Horizon Area Theorem](../vol3/cosmology/ch15-black-hole-orbitals/ave-bh-horizon-area-theorem.md) — Step 5 universal-horizon BH case
   - [Cosserat Mass-Gap](../vol1/axioms-and-lattice/ch1-fundamental-axioms/cosserat-mass-gap.md) — Step 6 7-mode compliance, massive mode
   - [K4 Rotation Group $T = A_4$](../vol1/axioms-and-lattice/ch1-fundamental-axioms/k4-rotation-group.md) — Step 3 chirality + group structure
-  - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Step 4 saturation kernel at 21 scales
+  - [Universal Saturation-Kernel Catalog (A-034)](universal-saturation-kernel-catalog.md) — Step 4 saturation kernel at 26 scales
 - **ave-prereg integration**:
   - Step 1.5 ("Articulate the physical picture in mechanical bullets") — references this primer
   - Step 2 ("Corpus-grep for prior work") — uses this primer's vocabulary as search terms

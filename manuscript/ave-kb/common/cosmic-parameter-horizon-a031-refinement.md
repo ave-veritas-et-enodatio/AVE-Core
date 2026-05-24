@@ -26,7 +26,7 @@ This conflated two distinct things:
 
 <!-- claim-quality: clm-q4c615 -->
 
-The Universal Saturation-Kernel Strain-Snap Mechanism catalogs **21 instances** of the same mechanism $S(A) = \sqrt{1 - A^2}$ at scales from atomic dielectric breakdown to cosmic K4 crystallization, spanning 21 orders of magnitude. The cosmic-scale instance (lattice genesis) is the same kind of event as:
+The Universal Saturation-Kernel Strain-Snap Mechanism catalogs **26 instances** of the same mechanism $S(A) = \sqrt{1 - A^2}$ at scales from atomic dielectric breakdown to cosmic K4 crystallization, spanning 21 orders of magnitude. The cosmic-scale instance (lattice genesis) is the same kind of event as:
 
 - **Atomic:** dielectric breakdown $V_{\text{snap}} = 511$ kV.
 - **Condensed matter:** BCS pair condensate yield $B_c(T) = B_{c0}\sqrt{1-(T/T_c)^2}$ at 0.00% error.

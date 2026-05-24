@@ -100,15 +100,17 @@ for gravitationally-isolated stellar systems through the K4 substrate.
 
 ### Derivation chain
 
-The K4 substrate has natural per-node LC clock at the Compton frequency $\nu_{Compton} = c/(2\pi \ell_{node}) = m_e c^2/h$ (since $\ell_{node} = \hbar/(m_e c)$ by canonical AVE construction). The electron's substrate-coupling rate is α-suppressed from this base clock by the Schwinger anomalous-moment factor:
+The K4 substrate has a natural per-node LC clock. Write it as the **angular** Compton frequency $\omega_{Compton} = c/\ell_{node} = m_e c^2/\hbar$ (since $\ell_{node} = \hbar/(m_e c)$ by canonical AVE construction; the ordinary-frequency form is $\nu_{Compton} = \omega_{Compton}/2\pi = c/(2\pi\ell_{node}) = m_e c^2/h$). The electron's substrate-coupling rate is suppressed from this base clock by the Schwinger anomalous-moment factor $a_e = \alpha/(2\pi)$ acting on the **angular** clock:
 
-$$\nu_{slew} = a_e \cdot \nu_{Compton} = \frac{\alpha}{2\pi} \cdot \frac{m_e c^2}{h}$$
+$$\nu_{slew} = a_e \cdot \omega_{Compton} = \frac{\alpha}{2\pi} \cdot \frac{c}{\ell_{node}} = \frac{\alpha}{2\pi} \cdot \frac{m_e c^2}{\hbar}$$
 
-where $a_e = \alpha/(2\pi)$ is the Schwinger anomalous magnetic moment — canonically derived in AVE via Axiom 4 saturation-kernel back-reaction on the LC tank + $1/\pi^2$ spin-orbit geometric projection (see [`src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)).
+where $a_e = \alpha/(2\pi)$ is the Schwinger anomalous magnetic moment — canonically derived in AVE via Axiom 4 saturation-kernel back-reaction on the LC tank + $1/\pi^2$ spin-orbit geometric projection (see [`src/scripts/vol_2_subatomic/simulate_g2.py`](../../../../../src/scripts/vol_2_subatomic/simulate_g2.py)). Equivalently $\nu_{slew} = \alpha\,\nu_{Compton}$ (fine-structure suppression of the *ordinary* Compton clock) — identical since $\omega = 2\pi\nu$ — which is the form carried downstream by [`divergence-test-substrate-map.md`](../../../common/divergence-test-substrate-map.md) and the DAMA derivation.
 
 The velocity at which an observer's substrate-encounter rate matches the electron's α-slew is:
 
-$$v_{substrate} = \nu_{slew} \cdot \ell_{node} = \frac{\alpha c}{2\pi}$$
+$$v_{substrate} = \nu_{slew} \cdot \ell_{node} = \frac{\alpha c}{2\pi} = 348.18\,\text{km/s}$$
+
+**Consistency check (energy quantum).** The same $\nu_{slew}$ reproduces the canonical DAMA substrate line: $E_{slew} = h\,\nu_{slew} = h \cdot a_e\,\omega_{Compton} = \alpha\,m_e c^2 = 3.728$ keV (the $2\pi$ in $a_e$ cancels the $2\pi$ in $h = 2\pi\hbar$), matching the value used at [`mond-hoop-stress.md`](mond-hoop-stress.md) §motif and the DAMA leaf. (Provenance: an earlier form applied $a_e$ to the *ordinary* $\nu_{Compton}$, $\nu_{slew} = a_e\cdot\nu_{Compton}$, which double-counted a $2\pi$ — it gave $\nu_{slew}\cdot\ell_{node} = \alpha c/(4\pi^2)$ and $E_{slew} = (\alpha/2\pi)m_e c^2 \approx 594$ eV, both off by $2\pi$ from the canonical headline and DAMA line. Corrected to the angular-clock form 2026-05-23.)
 
 ### Hoop Stress 2π parallel with MOND (cross-volume substrate motif)
 

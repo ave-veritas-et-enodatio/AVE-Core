@@ -120,10 +120,9 @@
 {"claim_id": "clm-c6k5om", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-c8q0z5", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cbwd77", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
-{"claim_id": "clm-ce8dg1", "item_idx": 0, "text": "Reconcile the factor-of-2π between the derivation chain (ν_slew·ℓ_node = αc/(4π²)) and the asserted result αc/(2π); show the missing step or correct the formula", "mentioned_ids": []}
-{"claim_id": "clm-ce8dg1", "item_idx": 1, "text": "Derive the Hoop-Stress T = F_r/(2π) projection onto the electron unknot from AVE micropolar dynamics rather than importing classical continuum mechanics + invoking Ropelength as the loop circumference", "mentioned_ids": []}
-{"claim_id": "clm-ce8dg1", "item_idx": 2, "text": "Close the 9% magnitude gap from first principles (cosmic-flow contribution is currently a qualitative attribution) or state the predicted LSR bulk velocity with an error budget", "mentioned_ids": []}
-{"claim_id": "clm-ce8dg1", "item_idx": 3, "text": "Establish a genuinely AVE-distinct directional or magnitude signature not shared by SM-with-CMB-rest-baseline (current alignment is a consistency check by the leaf's own audit)", "mentioned_ids": []}
+{"claim_id": "clm-ce8dg1", "item_idx": 0, "text": "Derive the Hoop-Stress T = F_r/(2π) projection onto the electron unknot from AVE micropolar dynamics rather than importing classical continuum mechanics + invoking Ropelength as the loop circumference (this is now the load-bearing local-rigor gap, the 2π-closure having been resolved 2026-05-23)", "mentioned_ids": []}
+{"claim_id": "clm-ce8dg1", "item_idx": 1, "text": "Close the 9% magnitude gap from first principles (cosmic-flow contribution is currently a qualitative attribution) or state the predicted LSR bulk velocity with an error budget", "mentioned_ids": []}
+{"claim_id": "clm-ce8dg1", "item_idx": 2, "text": "Establish a genuinely AVE-distinct directional or magnitude signature not shared by SM-with-CMB-rest-baseline (current alignment is a consistency check by the leaf's own audit)", "mentioned_ids": []}
 {"claim_id": "clm-cfd5yf", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cltls0", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-cmic3e", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
@@ -147,9 +146,8 @@
 {"claim_id": "clm-dsb560", "item_idx": 1, "text": "State numerically the precision at which \"convergence\" is claimed to hold vs fail", "mentioned_ids": []}
 {"claim_id": "clm-dsb560", "item_idx": 2, "text": "Pin the Route-2 Machian-integral inputs (ξ, T_EM(u₀*)) so the G→u₀* map is reproducible", "mentioned_ids": []}
 {"claim_id": "clm-dsb560", "item_idx": 3, "text": "Distinguish explicitly which of the three maps is independent vs which share upstream u₀* inputs", "mentioned_ids": []}
-{"claim_id": "clm-dxdsvt", "item_idx": 0, "text": "Reconcile the instance count across entry, leaf title, table rows, and symmetry tallies (26 vs 21 vs 27) into one authoritative number", "mentioned_ids": []}
-{"claim_id": "clm-dxdsvt", "item_idx": 1, "text": "Tag each row with anchor-tightness (validated / structural-only / scoped-TBD) so \"26 canonical\" is not read as 26 validated predictions", "mentioned_ids": []}
-{"claim_id": "clm-dxdsvt", "item_idx": 2, "text": "Resolve the scoped Session 4/5 rows (11-a, 14-a) or move them to a clearly-separated pending appendix", "mentioned_ids": []}
+{"claim_id": "clm-dxdsvt", "item_idx": 0, "text": "Tag each row with anchor-tightness (validated / structural-only / scoped-TBD) so \"26 canonical\" is not read as 26 validated predictions", "mentioned_ids": []}
+{"claim_id": "clm-dxdsvt", "item_idx": 1, "text": "Resolve the scoped Session 4/5 rows (11-a, 14-a) or move them to a clearly-separated pending appendix", "mentioned_ids": []}
 {"claim_id": "clm-e1pdfd", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-eaiqj1", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-efo113", "item_idx": 0, "text": "Derive whether $\\nabla\\varepsilon_{eff}\\cdot\\nabla V$ gradient corrections vanish by symmetry at saturation, OR carry the higher-order EFT correction and re-evaluate the particle-confinement and standing-wave claims at $V \\to V_{yield}$ with the corrected form", "mentioned_ids": []}
@@ -308,8 +306,7 @@
 {"claim_id": "clm-pav5m3", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 0, "text": "Derive, for at least one channel, the quantitative coupling from Ω_freeze to the observable (not just axis identity)", "mentioned_ids": []}
 {"claim_id": "clm-pe8lpx", "item_idx": 1, "text": "Pre-register the joint multi-channel alignment statistic and its isotropic-null distribution", "mentioned_ids": []}
-{"claim_id": "clm-pe8lpx", "item_idx": 2, "text": "Reconcile the (l≈174°,b≈−5°) literature-placeholder axis with the 2026-05-19 Planck pin at (l=60.28°,b=50.48°)", "mentioned_ids": []}
-{"claim_id": "clm-pe8lpx", "item_idx": 3, "text": "Separate falsifiable channels from currently-unfalsifiable/conditional ones in the claim scope", "mentioned_ids": []}
+{"claim_id": "clm-pe8lpx", "item_idx": 2, "text": "Separate falsifiable channels from currently-unfalsifiable/conditional ones in the claim scope", "mentioned_ids": []}
 {"claim_id": "clm-pf84ng", "item_idx": 0, "text": "*pending*", "mentioned_ids": []}
 {"claim_id": "clm-pfocn6", "item_idx": 0, "text": "none entry-local — toolchain documentation is correctly bounded; physics-correctness validation lives in per-domain leaves with their own quality entries", "mentioned_ids": []}
 {"claim_id": "clm-ph2uux", "item_idx": 0, "text": "Compare the AVE E^4 coefficient (3ε_0/8α^2) to the QED Euler-Heisenberg coefficient term-by-term rather than asserting structural identity at leading order", "mentioned_ids": []}
