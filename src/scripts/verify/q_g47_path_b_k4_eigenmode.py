@@ -37,15 +37,21 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from dataclasses import asdict, dataclass
+from pathlib import Path
 
 import numpy as np
 from scipy.linalg import eigh
 from scipy.optimize import brentq, minimize
 
-# Physical constants for comparison targets
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# Physical constants for comparison targets (CODATA measured α, the
+# experimental reference these eigenmode quantities are compared against)
+ALPHA_INV = 1.0 / ALPHA
 
 # Target quantities (substrate-scale "0.187 candidates")
 TARGETS = {

@@ -39,14 +39,20 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 from scipy.linalg import eigh
 from scipy.optimize import brentq
 
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# CODATA measured α (experimental reference for the eigenmode comparison targets)
+ALPHA_INV = 1.0 / ALPHA
 
 TARGETS = {
     "u_0_star_A029": 0.187,

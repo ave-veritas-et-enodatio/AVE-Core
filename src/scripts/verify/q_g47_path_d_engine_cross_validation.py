@@ -35,11 +35,12 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from ave.core.constants import ALPHA
 from ave.core.master_equation_fdtd import MasterEquationFDTD
 
-# Constants
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+# Constants — CODATA measured α (the experimental Q-factor reference the
+# bound-state Λ_total is validated against)
+ALPHA_INV = 1.0 / ALPHA
 P_STAR = 8 * np.pi * ALPHA  # 0.1834
 
 

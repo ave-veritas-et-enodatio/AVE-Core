@@ -25,13 +25,19 @@ Pre-registered outcomes:
 from __future__ import annotations
 
 import math
+import sys
+from pathlib import Path
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA  # noqa: F401  (FTG-EMT consistency check)
 
 # Canonical inputs (corpus)
 R_SECONDARY_OVER_D = 1.187  # Vol 3 Ch 1 §3.2 over-bracing canonical
 Z_0_TARGET = 51.25  # EMT-inversion-given-α canonical target
-ALPHA = 1.0 / 137.0360  # for FTG-EMT consistency check
+# ALPHA imported above (CODATA measured α, for FTG-EMT consistency check)
 NU_VAC = 2.0 / 7.0  # Sessions 19 anchor
 
 # K4 / Diamond unit cell — 8 atoms in conventional cubic cell

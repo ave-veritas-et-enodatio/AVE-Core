@@ -19,7 +19,13 @@ Run:
 from __future__ import annotations
 
 import math
+import sys
 from dataclasses import dataclass
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import C_0, M_SUN, G
 
 # AVE-canonical constants (cold lattice).
 NU_VAC = 2 / 7  # vacuum Poisson ratio (INVARIANT canonical, Vol 3 Ch 1)
@@ -31,10 +37,10 @@ OMEGA_R_M_G_COLD = ELL_MODE * (1 + NU_VAC) / X_SAT  # = 18/49
 # GR exact Schwarzschild ell=2, n=0 QNM eigenvalue (Leaver 1985)
 OMEGA_R_M_G_GR = 0.3737
 
-# Physical constants
-G_SI = 6.674e-11  # m^3 / (kg s^2)
-C_SI = 2.998e8  # m/s
-M_SUN_KG = 1.989e30  # kg
+# Physical constants (imported from canonical constants.py)
+G_SI = G  # m^3 / (kg s^2)
+C_SI = C_0  # m/s
+M_SUN_KG = M_SUN  # kg
 
 # Conversion: M (in solar masses) -> M (in seconds) via M_seconds = G*M / c^3
 T_SUN = G_SI * M_SUN_KG / (C_SI**3)  # ~ 4.92e-6 s/M_sun

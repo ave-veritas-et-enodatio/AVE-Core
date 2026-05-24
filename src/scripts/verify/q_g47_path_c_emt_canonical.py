@@ -34,12 +34,18 @@ from __future__ import annotations
 
 import json
 import os
+import sys
+from pathlib import Path
 
 import numpy as np
 from scipy.optimize import brentq
 
-ALPHA_INV = 137.035999084
-ALPHA = 1.0 / ALPHA_INV
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+
+from ave.core.constants import ALPHA
+
+# CODATA measured α (the empirical input to the p* = 8πα → z_0 inversion chain)
+ALPHA_INV = 1.0 / ALPHA
 P_STAR_TARGET = 8 * np.pi * ALPHA  # 0.18340
 
 # Axiom-trace per backmatter/appendix_c_derived_numerology.tex:74:
