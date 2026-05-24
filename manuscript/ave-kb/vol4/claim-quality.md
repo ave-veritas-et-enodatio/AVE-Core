@@ -742,7 +742,7 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - Vertical laser link from a ground station to a GEO satellite ($h = 35{,}786$ km, classical TOF $\sim 119$ ms): the AVE non-linear impedance integral $\int n(r)/c\,dr$ stretches the round-trip optical path by fractions of a millimeter relative to the linear-distance prediction. Correlated against atomic clocks, this Topological Delay maps the LC saturation envelope of Earth.
 - _Specific Claims_
   - Gravity is reframed (per Axiom 3 in Vol 4) as a macroscopic spherically symmetric impedance gradient $\Delta Z_0$, with the local phase velocity $c_{eff}$ statistically faster in deep space than at the Earth's surface — a structural prediction, not a fitted gravitational redshift parameter.
-  - Vertical TOF accumulates a measurable non-linear delay across $35{,}786$ km — the leaf claims this signature breaks Lorentz symmetry in favor of a structural waveguide electrodynamics interpretation.
+  - At $O(GM/c^2 r)$ the AVE impedance integral $\int n(r)/c\,dr$ with $n(r) = 1 + 2GM/c^2 r$ is **mathematically identical to the GR Shapiro delay**, so the vertical TOF is the same in AVE as in GR — there is NO AVE-distinct prediction at this order (corroborative-null, per the leaf's 2026-05-16 scope correction). The only AVE-distinct contribution is the discrete-lattice correction, cubic-symmetry-suppressed to $\sim 10^{-22}$ (undetectable).
 - _Specific Non-Claims and Caveats_
   - The "fractions of a millimeter" path-stretch is qualitative — no leaf-level numerical prediction of $\Delta t$ at the GEO altitude is given against which a measurement could be compared. Compare to the Sagnac-RLVE entry, which gives a specific 2.07 rad prediction.
   - Standard general-relativistic Shapiro delay also predicts a non-trivial $\int n(r)/c\,dr$-style integral; the leaf does not quantitatively distinguish the AVE prediction from Shapiro at this altitude.
@@ -756,9 +756,9 @@ A volume-wide reading hazard: Vol 4 uses two yield voltages with different physi
 - depends-on:
   - Axiom 3 (gravity as macroscopic impedance gradient $\Delta Z_0$)
 - solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
-- rationale: STALE PROSE vs LEAF. The leaf carries a 2026-05-16 scope correction: AVE's $n(r)=1+2GM/c^2r$ is mathematically identical to the GR Gordon-metric Shapiro integral, so $\int n(r)/c\,dr$ gives the SAME TOF — there is NO AVE-distinct prediction at $O(GM/c^2r)$. The protocol is explicitly retired to "corroborative-null"; the only AVE-distinct piece is cubic-symmetry-suppressed (~$10^{-22}$, undetectable), and the previously-cited "16.7 mm" stretch is RETRACTED. The claim-quality prose still frames it as a forward Lorentz-symmetry-breaking prediction, which the leaf has walked back. Graded against the current leaf: an honest null-equivalence, no distinct closed prediction.
+- rationale: Corroborative-null. The leaf's 2026-05-16 scope correction establishes that AVE's $n(r)=1+2GM/c^2r$ is mathematically identical to the GR Gordon-metric Shapiro integrand, so $\int n(r)/c\,dr$ yields the SAME vertical TOF — no AVE-distinct prediction at $O(GM/c^2r)$. The only AVE-distinct piece is cubic-symmetry-suppressed (~$10^{-22}$, undetectable), and the earlier "16.7 mm" stretch was retracted. The entry now matches the leaf (forward Lorentz-breaking framing dropped 2026-05-24): an honest GR-equivalence, not a distinct closed prediction — hence the low local-rigor band (it reproduces a known result rather than deriving a falsifiable AVE-specific one).
 - strengthen-by:
-  - Rewrite the claim-quality prose to match the leaf's corroborative-null status (drop the "breaks Lorentz symmetry" / forward-TOF-anomaly framing and the retracted 16.7 mm figure).
+  - To become AVE-distinct, identify a regime where the discrete-lattice $(q\ell_{node})^4$ correction escapes cubic-symmetry suppression (e.g. a trans-Planckian probe), or a configuration where $n(r)$ measurably departs from the GR Shapiro form.
 
 ---
 

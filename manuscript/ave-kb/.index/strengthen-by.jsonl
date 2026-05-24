@@ -179,7 +179,7 @@
 {"claim_id": "clm-crbl60", "item_idx": 3, "text": "Drop or formalize the \"close to liquid water\" comparison so it is not read as a physical correspondence", "mentioned_ids": []}
 {"claim_id": "clm-cul4it", "item_idx": 0, "text": "Derive the gas constant $R$ (or $k_B$) from the lattice-noise spectral density rather than recovering it at STP.", "mentioned_ids": []}
 {"claim_id": "clm-cul4it", "item_idx": 1, "text": "Identify the regime where lattice-noise structure makes $PV=nRT$ deviate, giving a falsifiable prediction.", "mentioned_ids": []}
-{"claim_id": "clm-cwjd8t", "item_idx": 0, "text": "Rewrite the claim-quality prose to match the leaf's corroborative-null status (drop the \"breaks Lorentz symmetry\" / forward-TOF-anomaly framing and the retracted 16.7 mm figure).", "mentioned_ids": []}
+{"claim_id": "clm-cwjd8t", "item_idx": 0, "text": "To become AVE-distinct, identify a regime where the discrete-lattice $(q\\ell_{node})^4$ correction escapes cubic-symmetry suppression (e.g. a trans-Planckian probe), or a configuration where $n(r)$ measurably departs from the GR Shapiro form.", "mentioned_ids": []}
 {"claim_id": "clm-d5jhku", "item_idx": 0, "text": "Derive at least one exchange-rate value from a more primitive principle to move beyond restating dimensional relations.", "mentioned_ids": []}
 {"claim_id": "clm-d5jhku", "item_idx": 1, "text": "Make explicit which quantities are genuinely eliminated vs which are just relabeled, to substantiate \"zero free parameters.\"", "mentioned_ids": []}
 {"claim_id": "clm-d9ivj1", "item_idx": 0, "text": "Derive $Q=\\ell$ as the unique consequence of the perfect-reflector saturation boundary rather than a consistent identification.", "mentioned_ids": []}
