@@ -16,7 +16,7 @@ SCRIPT_DIR = $(SOURCE_DIR)/scripts
 # Volume list — public volumes only (0–6)
 VOLUMES = vol_0_engineering_compendium vol_1_foundations vol_2_subatomic vol_3_macroscopic vol_4_engineering vol_5_biology vol_6_periodic_table
 
-.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
+.PHONY: all clean distclean verify verify-kb-metadata refresh-kb-metadata kb-claim-stats verify-md-links verify-inter-repo-links framing-audit test pdf pdf_manuscript figures help vol0 vol1 vol2 vol3 vol4 vol5 vol6 setup
 
 help:
 	@echo "Applied Vacuum Engineering (AVE-Core) Build System"
@@ -25,6 +25,7 @@ help:
 	@echo "  make all                  : Run verify, then compile all PDFs"
 	@echo "  make verify               : Run physics verification protocols (The Kernel Check) and kb claim id check"
 	@echo "  make refresh-kb-metadata  : Regenerate derived KB metadata (subtree-claims, solidity, claim index)"
+	@echo "  make kb-claim-stats       : Print claim-graph counts + solidity build-band distribution (read-only)"
 	@echo "  make verify-md-links      : Check Markdown link integrity + cited-id validity (inter-repo: warn)"
 	@echo "  make verify-inter-repo-links : Same, but broken inter-repo links also gate (inter-repo: error)"
 	@echo "  make framing-audit        : Scan corpus for reviewer-misread framing anti-patterns (advisory)"
@@ -84,6 +85,10 @@ verify-kb-metadata:
 refresh-kb-metadata:
 	@echo "Regenerating derived KB metadata fields (subtree-claims, ...)..."
 	$(PYTHON) manuscript/ave-kb/tools/refresh-kb-metadata.py
+
+kb-claim-stats:
+	@echo "Claim-graph stats summary (counts + solidity build-band distribution, read-only)..."
+	PYTHONPATH=src $(PYTHON) -m ave.kb stats
 
 verify-md-links:
 	@echo "Checking Markdown link integrity + cited-id validity (inter-repo: warn)..."

@@ -212,13 +212,25 @@ class TestQueries(unittest.TestCase):
 
     def test_stats(self) -> None:
         s = self.idx.stats
-        self.assertEqual(s["claims"], 199)
-        self.assertEqual(s["invariants"], 18)
-        self.assertEqual(s["axioms"], 4)
-        self.assertEqual(s["depends_on_edges"], 40)
-        self.assertEqual(s["strengthen_by_items"], 259)
-        self.assertEqual(s["citation_edges"], 621)
-        self.assertEqual(s["subtree_aggregates"], 111)
+        # The live corpus drifts; assert structural shape, not frozen counts.
+        for key in (
+            "claims",
+            "invariants",
+            "axioms",
+            "depends_on_edges",
+            "strengthen_by_items",
+            "citation_edges",
+            "subtree_aggregates",
+        ):
+            self.assertIsInstance(s[key], int)
+            self.assertGreaterEqual(s[key], 0)
+
+    def test_band_distribution_sums_to_claims(self) -> None:
+        bands = self.idx.band_distribution
+        # Every canonical band slug is present, in descending-solidity order.
+        self.assertEqual(list(bands), [slug for slug, _ in kb_index.BUILD_BANDS])
+        # The band counts partition the claim nodes exactly.
+        self.assertEqual(sum(bands.values()), self.idx.stats["claims"])
 
     # ---- Framework nodes -----------------------------------------------
 
@@ -325,9 +337,52 @@ class TestCli(unittest.TestCase):
     def test_stats(self) -> None:
         proc = self._run("stats")
         self.assertIn("claims:", proc.stdout)
-        self.assertIn("199", proc.stdout)
         self.assertIn("invariants:", proc.stdout)
         self.assertIn("axioms:", proc.stdout)
+        # Band distribution sub-header + every canonical label appears.
+        self.assertIn("solidity build-band distribution", proc.stdout)
+        for _, label in kb_index.BUILD_BANDS:
+            self.assertIn(label, proc.stdout)
+        # Rework dashboard: both ranked sections present, and in the documented
+        # order (counts -> bands -> highest-leverage -> weakest).
+        self.assertIn("highest-leverage claims to strengthen", proc.stdout)
+        self.assertIn("weakest claims", proc.stdout)
+        band_pos = proc.stdout.index("solidity build-band distribution")
+        leverage_pos = proc.stdout.index("highest-leverage claims to strengthen")
+        weakest_pos = proc.stdout.index("weakest claims")
+        self.assertLess(band_pos, leverage_pos)
+        self.assertLess(leverage_pos, weakest_pos)
+
+    def test_stats_json_bands_sum_to_claims(self) -> None:
+        proc = self._run("stats", "--json")
+        data = json.loads(proc.stdout)
+        bands = data["solidity_bands"]
+        self.assertEqual(list(bands), [label for _, label in kb_index.BUILD_BANDS])
+        self.assertEqual(sum(bands.values()), data["claims"])
+
+    def test_stats_json_rework_sections(self) -> None:
+        proc = self._run("stats", "--json")
+        data = json.loads(proc.stdout)
+        # Existing keys are preserved alongside the two new arrays.
+        self.assertIn("claims", data)
+        self.assertIn("solidity_bands", data)
+        for section in ("highest_leverage", "weakest"):
+            self.assertIsInstance(data[section], list)
+            # No section may exceed the dashboard's per-section cap.
+            self.assertLessEqual(len(data[section]), 10)
+        # highest_leverage mirrors the weak-points record shape, head-truncated.
+        for rec in data["highest_leverage"]:
+            for key in ("id", "solidity", "build_band", "dependents", "title"):
+                self.assertIn(key, rec)
+            self.assertGreaterEqual(rec["dependents"], 1)
+        # weakest carries id/solidity/title, ascending by solidity, no pending.
+        weakest = data["weakest"]
+        for rec in weakest:
+            for key in ("id", "solidity", "title"):
+                self.assertIn(key, rec)
+            self.assertIsNotNone(rec["solidity"])
+        solidities = [rec["solidity"] for rec in weakest]
+        self.assertEqual(solidities, sorted(solidities))
 
     def test_show_invariant(self) -> None:
         proc = self._run("show", "INVARIANT-S2")
