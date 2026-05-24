@@ -392,6 +392,13 @@ class TestRefreshSolidityWriteBack(unittest.TestCase):
             )
             if expect_trace:
                 self.assertIn("[= ", line, f"{entry.id} has deps but no trace")
+                # The trace renders the weakest-link min form, not a product.
+                self.assertIn(
+                    f"[= min({entry.confidence:.2f}, {min_dep:.2f})]",
+                    line,
+                    f"{entry.id}: trace is not the min(...) form",
+                )
+                self.assertNotIn(" × ", line, f"{entry.id}: stale product trace")
             else:
                 self.assertNotIn("[= ", line, f"{entry.id} no deps but a trace")
 

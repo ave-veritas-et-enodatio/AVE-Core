@@ -193,7 +193,7 @@ class SupportNode:
     each beneficiary (never the experimental/max branch).
 
     Its own solidity is computed exactly like a claim:
-    ``round2(quality × min(dependency final solidities))``; framework deps
+    ``round2(min(quality, *dependency final solidities))``; framework deps
     contribute 1.0; pending propagates (pending ``quality`` OR a pending dep =>
     pending ``sup_solidity``). A free-standing support (no deps) has
     ``sup_solidity == quality``.
@@ -1525,9 +1525,10 @@ class SolidityCycleError(ValueError):
 class SolidityResult:
     """The three derived solidity branches for one claim (SCHEMA definitive rule).
 
-    * ``derivation`` — min-branch: ``round2(confidence × min(dep final
-      solidities))``; ``None`` (pending) if confidence is pending or any claim
-      dependency's *final* solidity is pending. Framework deps contribute 1.0.
+    * ``derivation`` — gating branch: ``round2(min(confidence, *dep final
+      solidities))`` — the weakest link in the dependency cone; ``None``
+      (pending) if confidence is pending or any claim dependency's *final*
+      solidity is pending. Framework deps contribute 1.0 (never lower the min).
     * ``experimental`` — max-branch: ``max`` of ``strength`` over every
       ``run``-experiment ``strengthens`` edge into this claim; ``None`` if no
       run experiment strengthens it.
@@ -1565,11 +1566,13 @@ def _sup_solidity_from_deps(
 ) -> float | None:
     """Claim-style derivation of a support node's own solidity.
 
-    ``round2(quality × min(dependency final solidities))``; framework deps
-    contribute 1.0; a free-standing support (no deps) has ``sup_solidity ==
-    quality``. Returns ``None`` (pending) if ``quality`` is pending OR any claim
-    dependency's final is pending — exactly the claim derivation rule, applied
-    with the support's ``quality`` in place of a claim's ``confidence``.
+    ``round2(min(quality, *dependency final solidities))`` — the weakest link
+    in the support's own dependency cone, NOT the product down the chain.
+    Framework deps contribute 1.0 (never lower the min); a free-standing support
+    (no deps) has ``sup_solidity == quality``. Returns ``None`` (pending) if
+    ``quality`` is pending OR any claim dependency's final is pending — exactly
+    the claim derivation rule, applied with the support's ``quality`` in place of
+    a claim's ``confidence``.
     """
     if quality is None:
         return None
@@ -1586,7 +1589,7 @@ def _sup_solidity_from_deps(
             dep_finals.append(1.0)
     if not dep_finals:
         return quality
-    return round_half_up_2dp(quality * min(dep_finals))
+    return round_half_up_2dp(min(quality, *dep_finals))
 
 
 def compute_solidity_full(
@@ -1606,7 +1609,7 @@ def compute_solidity_full(
       ``relation:"strengthens"`` run-experiment edges into ``C``; ``None`` if
       none. Unrun experiments contribute nothing. The MAX/experimental branch.
     * **sup_solidity[S]** (computed in unified topo order — see below) =
-      ``round2(quality × min(S's dep finals))``; pending propagates. Each
+      ``round2(min(quality, *S's dep finals))``; pending propagates. Each
       support feeds the DERIVATION branch of its beneficiaries, never the
       experimental/max branch.
     * **local_quality[C]** = ``max(confidence[C], max over supporting sups S of
@@ -1614,12 +1617,20 @@ def compute_solidity_full(
       on-point fraction ``f`` (``PENDING_FRACTION``) is EXCLUDED from the max (no
       NaN, no poison). A support lift never drags a beneficiary with
       otherwise-valid quality to pending — pending flows ONLY from a claim's own
-      load-bearing ``depends-on``.
-    * **derivation_solidity[C]** = ``round2(local_quality[C] × min(C's claim-dep
-      finals))``, framework deps 1.0; ``None`` if ``local_quality`` is pending
-      (confidence pending AND no support lift) OR any claim-dep's final is
-      pending. So a support lift is still dep-gated — it does NOT bypass C's own
-      deps the way an experiment's max-branch does.
+      load-bearing ``depends-on``. NOTE: the support on-point fraction ``f`` is a
+      single edge-weight relevance discount (``sup_solidity × f``), NOT a chain,
+      so it stays multiplicative — it is not subject to the granularity argument
+      that motivates the min dep-gating below.
+    * **derivation_solidity[C]** = ``round2(min(local_quality[C], *C's claim-dep
+      finals))`` — the weakest link in C's dependency cone, framework deps 1.0;
+      ``None`` if ``local_quality`` is pending (confidence pending AND no support
+      lift) OR any claim-dep's final is pending. So a support lift is still
+      dep-gated — it does NOT bypass C's own deps the way an experiment's
+      max-branch does. The dep-gate is a pure ``min`` (weakest link), not a
+      product: solidity is refactor-invariant — splitting one derivation step
+      into two same-quality steps must not lower it, and a deep clean chain must
+      not decay toward 0 as a bookkeeping artifact (ordinal grades are not
+      independent probabilities to be multiplied).
     * **final[C]** = ``max`` over the non-None of ``{derivation, experimental}``;
       ``None`` iff both are None.
 
@@ -1739,7 +1750,8 @@ def compute_solidity_full(
             if local_quality is None or lift > local_quality:
                 local_quality = lift
 
-        # derivation: local_quality × min(claim-dep finals), framework deps 1.0.
+        # derivation: min(local_quality, claim-dep finals) — the weakest link in
+        # the dependency cone, framework deps 1.0 (never lower the min).
         dep_finals: list[float] = []
         derivation: float | None
         pending = local_quality is None
@@ -1758,7 +1770,7 @@ def compute_solidity_full(
         if pending:
             derivation = None
         elif dep_finals:
-            derivation = round_half_up_2dp(local_quality * min(dep_finals))
+            derivation = round_half_up_2dp(min(local_quality, *dep_finals))
         else:
             derivation = local_quality
         exp_sol = experimental.get(node)
@@ -1793,16 +1805,22 @@ def compute_solidity(claim_entries, experiments=(), supports=()) -> dict[str, fl
     "pending". With zero experiments, ``final == derivation`` for every claim,
     so this returns exactly the historical min-branch result.
 
-    ``solidity = round_half_up_2dp(confidence × min(dependency solidities))``,
+    ``solidity = round_half_up_2dp(min(confidence, *dependency solidities))``,
     computed bottom-up over the claim depends-on DAG (Kahn topological sort):
 
     * A claim's dependencies are its ``depends-on`` edges. A ``claim``-target
       edge contributes that dependency's already-computed (and already-rounded)
       solidity; an ``invariant`` / ``axiom`` edge contributes ``1.0``
-      (framework bedrock — solidity-1.0 by definition).
+      (framework bedrock — solidity-1.0 by definition, never lowers the min).
     * A claim with no depends-on edges has ``solidity = confidence``.
+    * The dep-gate is the *weakest link* (``min``) over the claim's own
+      local quality and its dependency finals — NOT the product down the chain.
+      This makes solidity refactor-invariant: splitting one derivation step
+      into two same-quality steps leaves it unchanged, and a deep clean chain
+      does not decay toward 0 as a granularity artifact (ordinal confidence
+      grades are not independent probabilities to be multiplied).
     * Propagation uses each dependency's *rounded* solidity, so a human
-      auditing ``0.85 × min(0.41, 0.28)`` against the written values gets the
+      auditing ``min(0.85, 0.41, 0.28)`` against the written values gets the
       same answer the tool does.
 
     HARD RULE — ``*pending*`` propagates transitively, exactly like NaN
@@ -1864,8 +1882,8 @@ def min_dependency_solidity(
     trivially equals ``confidence`` — no arithmetic trace) or when any claim
     dependency is itself uncomputable (so the minimum is undefined).
 
-    This is the value ``refresh-kb-metadata`` writes into the
-    ``[= <confidence> × <min-dep-solidity>]`` trace on the solidity line.
+    This is the binding dep term ``refresh-kb-metadata`` writes into the
+    ``[= min(<confidence>, <min-dep-solidity>)]`` trace on the solidity line.
     """
     dep_solidities: list[float] = []
     for edge in entry.depends_on:

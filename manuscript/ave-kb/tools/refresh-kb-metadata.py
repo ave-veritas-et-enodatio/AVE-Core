@@ -201,8 +201,10 @@ def _solidity_line(base_value, solidity, min_dep) -> str:
     ``confidence`` or a support's ``quality`` (INVARIANT-S10). ``solidity`` is
     the computed value; ``min_dep`` is the minimum dependency solidity (or
     ``None`` when the entry has no depends-on edges). With dependencies the line
-    carries an arithmetic trace ``[= <base> × <min-dep-solidity>]``; without,
-    the trace is omitted (solidity trivially equals the base value).
+    carries an arithmetic trace ``[= min(<base>, <min-dep-solidity>)]`` — the
+    weakest-link dep-gate that produced the value, so a reader sees why it is
+    what it is; without deps the trace is omitted (solidity trivially equals the
+    base value).
 
     When ``solidity`` is ``None`` the entry has no computable solidity — its
     base is ``*pending*`` OR a dependency's solidity is ``*pending*``
@@ -215,7 +217,7 @@ def _solidity_line(base_value, solidity, min_dep) -> str:
     base = f"- solidity: {_fmt(solidity)} ({phrase})"
     if min_dep is None:
         return base
-    return f"{base} [= {_fmt(base_value)} × {_fmt(min_dep)}]"
+    return f"{base} [= min({_fmt(base_value)}, {_fmt(min_dep)})]"
 
 
 def _quality_section_ranges(lines: list[str]) -> dict[str, tuple[int, int]]:

@@ -34,7 +34,7 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
   - Axiom 2 (cinquefoil $c=5$, $\alpha\hbar c$ → $K$, $V_{BR}$)
   - Axiom 4 (Miller avalanche / saturation gating)
   - clm-lqanmt (mutual coupling constant $K$)
-- solidity: 0.42 (do not build on, rework needed) [= 0.70 × 0.60]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
 - rationale: The binding formula and its axiom-derived constants ($K$, $d$, $D_{\text{intra}}$, $V_{BR}$, $n=5$) close cleanly with zero empirical content, and the He-4 single-tank point is genuinely zero-parameter. But the semiconductor-nuclear-analysis leaf explicitly discloses that for every other nucleus a single scalar $R$ per nucleus is *fit* to recover the CODATA mass under a topology forced by $(Z,A)$ — the headline $0.0000\%$–$0.03\%$ figures are fitting tolerances, not ab-initio prediction errors. Derivation closes on a clearly-disclosed per-nucleus fit; classic disclosed-methodology bound.
 - strengthen-by:
   - Derive the per-nucleus $R$ from topology + axioms (e.g. via the ABCD cascade of clm-5965y1) so no scalar is fit
@@ -63,7 +63,7 @@ The vol6 index, framework summary, and per-element leaves report mass-defect err
 - depends-on:
   - Axiom 1 (lattice standing-wave → $d$, $D_{\text{intra}}$)
   - Axiom 2 (cinquefoil $c=5$; $\alpha\hbar c$ Coulomb scale)
-- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
 - rationale: $K = (5\pi/2)\,\alpha\hbar c/(1-\alpha/3)$ is assembled algebraically from three quantities and computes to $11.337$ MeV·fm, with the He-4 single point matching to $0.001\%$. But two factors are asserted by EE analogy rather than derived in-leaf: the $\pi/2$ phase-per-crossing (multi-turn-transformer analogy) and the $1/(1-\alpha/3)$ proximity correction with $\alpha/3$ as an "isotropic 3D spatial average." The leaf itself notes alternative groupings of the same factors would give different $K$. Closes structurally on disclosed analogical imports — between disclosed-bound and asserted-partial.
 - strengthen-by:
   - Derive the $\pi/2$-per-crossing phase from the knot's flux-linkage geometry rather than transformer analogy
@@ -99,7 +99,7 @@ The atomic ionization solver `radial_eigenvalue.py` computes first IEs for $Z=1$
   - Axiom 1 (cavity-eigenvalue lattice)
   - Axiom 2 (Hopf coupling, crossing scattering)
   - Axiom 3 (impedance-step reflection / Op10 junction projection)
-- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
 - rationale: The solver achieves $\le 2.80\%$ over $Z=1$–$14$ (Boron the floor) with corrections gated by structural predicates rather than fit constants, and the Beryllium Correction-A leaf exhibits a closed numeric chain ($k_{\text{inner}}{=}0.454 \to k_{\text{eff}}{=}0.687 \to 9.28$ eV). Zero-free-parameter is the disclosed methodology claim. The base ODE radial-eigenvalue solver and each correction's gating logic are imported from referenced operator leaves, not re-derived in the summary, and Correction D's integer truncation step is structurally asserted — derivation closes on disclosed solver/operator imports.
 - strengthen-by:
   - Derive the radial-eigenvalue ODE + CDF screening from AVE primitives within a vol6 leaf rather than citing the solver
@@ -135,7 +135,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
   - clm-llqd1n (per-nucleus mass-defect fit framework)
   - clm-mlwm3h (golden-ratio / Cr-52 icosahedral closure)
   - clm-5965y1 (ABCD cascade as the open replacement)
-- solidity: 0.15 (refuted, do not use) [= 0.60 × 0.25]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.60, 0.50)]
 - rationale: The leaves are honest that the "$<0.5\%$ across 105 elements" headline is tiered, not uniform: Tier-A (S-32, Ca-40) and Tier-B Platonic/Archimedean closures are clean near-exact, but Tier-C is an explicitly-disclosed Fibonacci-lattice *proxy* with residuals up to ~1.5% (Cl-35), and `abcd-transfer-matrix.md` flags the $Z\ge15$ port-network topology as the key open problem. The disclosed proxy + open-topology dependency pins the band above asserted-partial but below clean.
 - strengthen-by:
   - Replace the Fibonacci proxy with the solved ABCD cascade topology for $Z\ge15$ (closes clm-5965y1)
@@ -164,7 +164,7 @@ The catalog reports masses for $Z=15$ through $Z=119$ in a single table; the ind
 - depends-on:
   - Axiom 1 (isotropic $4\pi$ radiation boundary / Gauss-law solid angle)
   - clm-llqd1n (per-nucleus halo $R$ fit framework)
-- solidity: 0.17 (refuted, do not use) [= 0.40 × 0.42]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.60)]
 - rationale: The $4\pi$ piece is rigorously the total spherical solid angle (Gauss's law), but the leaf gives no derivation of the $-\sqrt{2}/2$ subleading term — it is asserted as the bounding correction (the body only gestures at a unit-cube diagonal half). $R_{\text{halo}}=11.84d$ is itself the per-nucleus fit reverse-engineered from the CODATA mass; the structural claim is that the fit lands near $\text{Horizon}_{\text{limit}}=4\pi-\sqrt{2}/2\approx11.859$. A clean $4\pi$ term plus an asserted subleading term plus a fitted observable is a sketch-with-partial-support.
 - strengthen-by:
   - Derive $-\sqrt{2}/2$ as the unique subleading topological-decoupling correction from AVE primitives
@@ -194,7 +194,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 - depends-on:
   - clm-llqd1n (per-nucleus halo $R$ fit framework)
   - clm-f5ucdo (per-element core+halo topology assignments)
-- solidity: 0.02 (refuted, do not use) [= 0.30 × 0.07]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.40)]
 - rationale: The substantive content is qualitative: the same Tritium halo lands at very different fitted $R$ (F-19 ~398d, Na-23 ~50d, Al-27 ~53d) and the *direction* of the variation tracks empirical electronegativity. The leaves concede the absolute $R$ values are per-nucleus fits and that no quantitative $R\to\chi$ mapping is produced; the Neon "curve-fitting fallacy" leaf is an interpretive defense, not an independent test. A directional structural assertion supported by examples — not a closed derivation.
 - strengthen-by:
   - Derive a quantitative $R_{\text{halo}}\to\chi$ relation and test it against the Pauling/Mulliken scale
@@ -222,7 +222,7 @@ The optimizer outputs strikingly different $R_{\text{halo}}$ values for the same
 - depends-on:
   - Axiom 1 (Platonic/Archimedean minimum-impedance packing)
   - Axiom 3 (impedance match $S_{11}\to0$)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
 - rationale: The leaf tabulates the first four magic numbers (2, 8, 20, 28) against Single-Tank/Tetrahedron/Bicapped-Antiprism/FCC-14 geometries and asserts each "achieves impedance matching ($S_{11}\to0$, maximum Q)" with zero net dipole — but no per-geometry impedance-match calculation is shown, and the higher magic numbers (50, 82, 126) are not covered (those $Z$ sit in the Fibonacci-proxy tier). A structural pattern-assertion with partial coverage, no closed derivation that these counts uniquely minimize reflection.
 - strengthen-by:
   - Compute $S_{11}$ (or the strain dipole moment) for each magic geometry and show it is a local minimum vs neighbors
@@ -253,7 +253,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 - depends-on:
   - Axiom 1 (7-mode compliance manifold; $N_{K4}=4$ K4 unit cell)
   - Axiom 2 ($\alpha$ as the EM coupling projected)
-- solidity: 0.50 (use as input only, don't build deeper) [= 0.50 × 1.00]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
 - rationale: Each of the three carries a structural argument with zero in-chain fit ($\alpha_s=\alpha^{3/7}$ from $d/n=3/7$; $\lambda_H=1/(2N_{K4})$ from the K4 breathing mode; $g_*=7^3/4$), but the load-bearing functional *forms* are asserted, not derived: the leaf does not justify why $\alpha^{d/n}$ rather than $\alpha\cdot d/n$, and the Higgs identification rests only on the resulting $m_H$ match. The leaves themselves carry author scope-corrections downgrading $\alpha_s$ to a 3.5σ PDG tension and $\lambda_H$/$g_*$ to one shared-$N_{K4}$ axiom manifestation (not two independent confirmations); $g_*$'s $\eta$ agreement is a multi-factor composite. Substantive open step in the projection form.
 - strengthen-by:
   - Derive the $\alpha^{d/n}$ power-law form (vs linear projection) from the lattice mode structure
@@ -280,7 +280,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 - depends-on:
   - Axiom 1 (Thomson-problem minimum-impedance packing on $S^2$)
   - clm-llqd1n (Cr-52 per-nucleus $R$ fit)
-- solidity: 0.25 (do not build on, rework needed) [= 0.60 × 0.42]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 0.60)]
 - rationale: The load-bearing claim — $\varphi$ is forced into Cr-52 because the icosahedron is the energy-minimizing Thomson-problem configuration at $N=12$ and its vertices are permutations of $(0,\pm1,\pm\varphi)$ — is a sound structural argument: $\varphi$ is not chosen. Two local-rigor caveats keep it below clean: the leaf overstates with "only solution / 12 equidistant points" (12 points are not literally equidistant on $S^2$; the icosahedron is the minimizer), and the Cr-52 $R=166.5d$ is itself the per-nucleus fit. The Fibonacci-as-proxy half is honestly disclosed as an approximation. Disclosed-proxy bound.
 - strengthen-by:
   - Tighten the Thomson-$N{=}12$ statement to "unique energy minimizer" (not "only/equidistant")
@@ -306,7 +306,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 - depends-on:
   - Axiom 2 ($\alpha$)
   - Axiom 4 (yield-saturation rupture limit)
-- solidity: 0.40 (do not build on, rework needed) [= 0.40 × 1.00]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 1.00)]
 - rationale: $E_{\text{binding(max)}}=\alpha\cdot M_p c^2\approx6.847$ MeV is an exact substitution given $\alpha$ and $M_p$ (this part is identity-grade arithmetic), and identifying it with an Axiom-4 single-knot rupture ceiling is a clean structural claim. But the bridge from this base ceiling to the observed ~8.79 MeV/nucleon Fe-56 peak is only asserted ("smoothly brackets / Miller amplification across geometric $p$-$n$ arrays") with no derivation that the amplification reproduces the binding curve. An identity base plus an undeveloped amplification sketch.
 - strengthen-by:
   - Derive the Miller-amplification factor that lifts $6.847$ MeV to the ~8.79 MeV peak
@@ -334,7 +334,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 - depends-on:
   - clm-qjwj12 ($\Gamma\to Q$ / mass-as-inductance conventions)
   - clm-llqd1n (per-nucleus geometry the $Q$/$S_{11}$ are computed on)
-- solidity: 0.13 (refuted, do not use) [= 0.30 × 0.42]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
 - rationale: $Q$ (stored-inductance / effective-radius) and $S_{11}$ (topological footprint) are presented as qualitative stability/reactivity proxies; the numeric $Q$ values (He-4 19.2, Be-9 7.9, Li-7 2.85, T 3.2) are stated as solver outputs without an in-leaf calculation, and the leaves explicitly disclaim quantitative half-life or cross-section predictions. The Tritium→³He decay direction ($Q$: 3.20→19.52) is a mechanistic narrative; the energy magnitudes are taken from CODATA. Asserted-partial — structural proxy with stated-not-derived numbers.
 - strengthen-by:
   - Show the $Q$-factor computation explicitly from the coupled-network impedance matrix for each cited nucleus
@@ -360,7 +360,7 @@ Vol 6 appendix asserts derivations for three SM-relevant constants from lattice 
 - depends-on:
   - Axiom 1 (alpha as a 4-port resonant cavity)
   - clm-qjwj12 (mass-as-inductance / mutual-coupling conventions)
-- solidity: 0.25 (do not build on, rework needed) [= 0.50 × 0.50]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
 - rationale: The leaf correctly identifies the bare all-pairs $K/r$ mesh as an over-counting model and argues the physically accurate object is a port-connected ABCD transfer-matrix cascade with each alpha a 4-port resonator. It then explicitly and honestly declares that solving the cascade order and junction impedances for $Z\ge15$ is the key OPEN problem — no cascade is solved in-leaf. The claim's substance *is* the disclosed gap; this is a clean statement of a substantive open dependency, not a closed derivation.
 - strengthen-by:
   - Solve the ABCD cascade order + junction impedances for at least one $Z\ge15$ nucleus
@@ -390,7 +390,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (in `../claim-quality
 - depends-on:
   - Axiom 4 (Universal Saturation Kernel; $S$-kernel regimes)
   - clm-llqd1n (per-nucleus fit producing the $V_R/V_{BR}$ ratios)
-- solidity: 0.29 (do not build on, rework needed) [= 0.70 × 0.42]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
 - rationale: The three-regime classification (Linear / Non-Linear / Saturated) on $V_R/V_{BR}$ is the clean nuclear specialization of the Axiom-4 saturation kernel, with $V_{BR}\approx3.631$ MeV axiom-derived and the S-32 boundary jump ($0.050\to0.994$) falling directly out of the binding formula. The "explains why silicon dominates microelectronics" and the ~75 MeV $^{28}$Si+$\alpha$ endothermicity are explicitly disclosed as interpretive / empirical-$Q$-value inputs, and the regime ratios inherit the per-nucleus fit of clm-llqd1n. Closes on disclosed imports — disclosed-methodology bound.
 - strengthen-by:
   - Derive the $V_R/V_{BR}$ ratios from topology without the per-nucleus $R$ fit
@@ -419,7 +419,7 @@ The Hydrogen orbital-knot leaf derives $a_0 = \ell_{node}/\alpha \approx 5.291 \
 - depends-on:
   - Axiom 1 ($l_{node}=\hbar/(m_e c)$; standing-wave closure)
   - Axiom 2 ($\alpha$)
-- solidity: 0.90 (ok to build on) [= 0.90 × 1.00]
+- solidity: 0.90 (ok to build on) [= min(0.90, 1.00)]
 - rationale: $a_0=l_{node}/\alpha\approx5.291\times10^{-11}$ m and $E_0=\tfrac12 m_e(\alpha c)^2\approx13.606$ eV follow by direct substitution of the AVE definitions of $l_{node}$ and $\alpha$, and the de Broglie closure $n=2\pi a_0/\lambda_e\equiv1.00000$ collapses algebraically — a clean closed derivation within the leaf. By the framework's own framing this is an identity / consistency-check (the values are algebraically equivalent to the Bohr-formula Rydberg, reached via classical LC standing-wave mechanics), not a novel prediction; local rigor is nonetheless high. (Pitfall #8 tripwire: do not generalize this single-element substitution into "AVE IEs use the Bohr formula" — the multi-element solver of clm-7tk051 rejects it.)
 - strengthen-by:
   - State explicitly that $E_0$ is an algebraic identity given the $l_{node}$/$\alpha$ definitions (set reader expectation against a "prediction" reading)
@@ -447,7 +447,7 @@ Per CLAUDE.md INVARIANT-N2, Vol 6 source uses **roman ell** ($l_{node}$) as the 
 - confidence: 1.0
 - depends-on:
   - INVARIANT-N2 (lattice node-spacing notation, vol-split)
-- solidity: 1.00 (ok to build on) [= 1.00 × 1.00]
+- solidity: 1.00 (ok to build on) [= min(1.00, 1.00)]
 - rationale: This is a notation convention, not a physical claim: vol6 renders the node spacing as roman $l_{node}$ per INVARIANT-N2 (vols 6–7), while vols 1–5 use script $\ell_{node}$, for the same quantity $\hbar/(m_e c)$. True by construction — the leaf's `L_NODE` table entry and the body confirm the convention is followed. Definitional / zero predictive content.
 - strengthen-by:
   - (Not applicable — definitional convention; no derivation to strengthen.) Optionally add a one-line glossary cross-pointer so quoted vol6 results carry their notation into vol1–5 contexts unchanged.
@@ -475,7 +475,7 @@ The "Computational Mass Defect" framework rests on a small set of axiomatic mapp
 - confidence: 0.5
 - depends-on:
   - Axiom 1 (mass as topological defect / inductive load; vacuum as distributed capacitance)
-- solidity: 0.50 (use as input only, don't build deeper) [= 0.50 × 1.00]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
 - rationale: The mappings ($m\to L$, $\epsilon_0\to C$, $\Delta m\to M_{ij}\propto1/d_{ij}$, $e^-\to$ displacement current, $\Gamma\to Q$) and the network-energy form $U_{total}=\sum U_{self}-\tfrac12\sum_{i\ne j}M_{ij}I_iI_j$ are presented as Axiom-1-consistent *identifications*, not independently derived within these convention leaves. They are the convention layer beneath the downstream fits (clm-llqd1n etc.), and the leaves disclose that the $1/d_{ij}$ all-pairs form is an over-counting approximation pending the ABCD reformulation. A substantive open identification — the physics load is asserted as convention, deferred downstream.
 - strengthen-by:
   - Derive the $m\to L$ and $\epsilon_0\to C$ assignments quantitatively from Axiom 1 rather than asserting them
@@ -507,7 +507,7 @@ Vol 6 maps standard chemistry vocabulary (electron orbitals, Lewis dot structure
 - depends-on:
   - Axiom 1 (topology / minimum-impedance packing)
   - clm-qjwj12 (mutual-inductance / EE-mapping conventions)
-- solidity: 0.15 (refuted, do not use) [= 0.30 × 0.50]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
 - rationale: The leaves map orbitals, Lewis dots, and VSEPR onto topological re-identifications ("$1s$" ↔ closed alpha node, valence count ↔ outer vertices, VSEPR ↔ mutual-impedance minimization, covalent bond ↔ shared $M_{ij}$). These are ontological re-statements: the leaves explicitly disclaim quantitative bond-angle / bond-length / spectra predictions, and the water $104.5^\circ$ example is offered as analogy. No closed derivation here — asserted structural mapping.
 - strengthen-by:
   - Derive one VSEPR bond angle (e.g. methane $109.47^\circ$ or water $104.5^\circ$) from the mutual-impedance-minimization rule
@@ -540,7 +540,7 @@ For every element in Period 1–3 the catalog presents a per-nucleus structural 
   - Axiom 1 (minimum-impedance Platonic/Archimedean packing per $N_\alpha$)
   - clm-llqd1n (per-nucleus $R$ fit framework)
   - clm-l416hl (Boron Topological Horizon, inherited)
-- solidity: 0.07 (refuted, do not use) [= 0.40 × 0.17]
+- solidity: 0.40 (do not build on, rework needed) [= min(0.40, 0.40)]
 - rationale: For each Period 1–3 element the leaves identify an alpha-cluster topology plus halo, and the closed even-even shells (C/O/Ne/Mg/Si) snap to the unique minimum-impedance packing — that structural identification is the substance. But the per-nucleus geometric scales ($R_{ring}$, $R_{tet}$, $R_{halo}$, etc.) are explicitly the fitted scalars recovering the CODATA mass (inherits the clm-llqd1n bound), the topology assignment uses empirical $(Z,A)$, and the isotope-stability arguments are openly post-hoc rationalizations. Structural identification resting on a disclosed per-nucleus fit.
 - strengthen-by:
   - Derive each per-nucleus geometric scale from topology + axioms rather than fitting to mass
@@ -577,7 +577,7 @@ Each per-element "Topological Area" leaf identifies a macroscopic chemical / mat
   - clm-8psuqe (halo distance vs electronegativity)
   - clm-jy8h1x (semiconductor regimes)
   - clm-o9xphr ($Q$-factor stability)
-- solidity: 0.01 (refuted, do not use) [= 0.30 × 0.02]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.30)]
 - rationale: Each per-element "Topological Area" leaf names a macroscopic chemistry behavior (catenation, combustion, alkali stripping, semiconductor switching, inertness) and asserts the nuclear topology is its structural origin — the leaves themselves state the mapping is structural/interpretive, not quantitative (no bond enthalpies, electronegativity scales, or material constants derived). The Silicon $V_{bi}=1.0496$ V is asserted as a static solver output, not derived in-leaf. Asserted-partial structural identifications layered on the per-element geometry.
 - strengthen-by:
   - Derive the Silicon $V_{bi}=1.0496$ V from the topological matrix explicitly (show the calculation)
@@ -610,7 +610,7 @@ Each Period 1–3 element is assigned a semiconductor-regime classification on t
   - clm-jy8h1x (operating-regime / saturation framing)
   - clm-llqd1n (per-nucleus fit, $0.000000\%$ disclosed as tolerance)
   - clm-nk6c43 (heavy-element regime tiers)
-- solidity: 0.09 (refuted, do not use) [= 0.60 × 0.15]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.60, 0.50)]
 - rationale: The classification is a single-ratio gate ($V_R/V_{BR}\ll1\Rightarrow M=1$ Small Signal; $\to1\Rightarrow$ avalanche) applied mechanically per element, and the regime assignment for Period 1–3 (all Small Signal, first Large Signal at S-32) falls cleanly out of the binding formula. The per-element $0.000000\%$ closures are disclosed as optimizer convergence tolerance under the assumed topology (inheriting clm-llqd1n), and the boundary/avalanche cases live in clm-nk6c43/clm-jy8h1x. A disclosed-methodology bound — the gate is clean but the ratios ride the per-nucleus fit.
 - strengthen-by:
   - Derive the $V_R/V_{BR}$ ratios from topology without the per-nucleus $R$ fit
@@ -640,7 +640,7 @@ Each per-element "EE Equivalent" leaf maps the nuclear topology onto a specific 
 - depends-on:
   - clm-qjwj12 (mass-as-inductance / EE conventions)
   - clm-llqd1n (per-nucleus fit, C-12 92.16 MeV summation)
-- solidity: 0.13 (refuted, do not use) [= 0.30 × 0.42]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
 - rationale: Each per-element leaf maps the topology onto a named EE-network archetype (Delta-Wye, Wheatstone bridge, ring oscillator, etc.) with phase/coupling-pair counts. The coupling-pair and SPICE-matrix counts follow combinatorially from the assumed topology (not independent predictions), the archetype names are explicitly analogies with no claimed falsifiable EE observables, and the C-12 $E_B=92.160$ MeV is the fit summation already covered by clm-llqd1n. Asserted-structural identifications, no closed derivation.
 - strengthen-by:
   - Show one archetype makes a falsifiable EE-measurable prediction beyond the per-nucleus fit
@@ -672,7 +672,7 @@ Each per-element "Orbital Knot Topology" leaf identifies the electron configurat
   - Axiom 1 (minimum-impedance soliton packing on harmonic tracks)
   - clm-a95yx1 (Hydrogen Bohr/Rydberg derivation)
   - clm-jqnzz7 (chemistry-translation conventions)
-- solidity: 0.05 (refuted, do not use) [= 0.30 × 0.15]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.30)]
 - rationale: The per-element soliton placements (trefoils at specific angles on $n=1,2,3$ tracks; $sp^3$ as the four-knot packing limit; spin as trefoil helicity) are structural identifications, several extracted from figure captions where no source `\section` exists. The leaves explicitly disclaim quantitative multi-electron IE / fine-structure / spectral predictions (those live in clm-7tk051) and any QM-distinguishable observable. Asserted-partial structural mapping. (Hydrogen's leaf carries the clean clm-a95yx1 substitution derivation; Pitfall #8 caveat applies.)
 - strengthen-by:
   - Derive the inter-soliton angular separations from the minimum-impedance condition (not asserted from packing)
@@ -700,7 +700,7 @@ Each per-element "Continuous Vacuum Density Flux" leaf presents the equatorial /
 - confidence: 0.3
 - depends-on:
   - clm-f5ucdo (per-element nucleon-coordinate geometry the flux maps are drawn from)
-- solidity: 0.02 (refuted, do not use) [= 0.30 × 0.07]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.40)]
 - rationale: These are visualization leaves — figure callouts plus narrative captions of the per-element vacuum strain-density slice (well counts, central voids, polar caps, symmetry). The leaves carry no equations beyond the already-established $1/r$ / $1/r^2$ impedance field, derive entirely from the clm-f5ucdo nucleon-coordinate output, and explicitly claim no novel falsifiable observable; the anisotropy→property links (e.g. directional Si band structure) are interpretive overlays. Asserted-structural visualization, no independent derivation.
 - strengthen-by:
   - Derive one quantitative observable from the flux map (e.g. a scattering form factor) and compare to data

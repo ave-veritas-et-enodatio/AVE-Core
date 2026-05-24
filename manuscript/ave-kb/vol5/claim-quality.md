@@ -25,7 +25,7 @@
 - depends-on:
   - Axiom 1 (Substrate Topology — provides $\ell_\text{node} = \hbar/(m_e c)$)
   - Axiom 2 (Topo-Kinematic Isomorphism — $[Q] \equiv [L]$, $\xi_\text{topo} = e/\ell_\text{node}$; CLAUDE.md INVARIANT-C2)
-- solidity: 1.00 (ok to build on) [= 1.00 × 1.00]
+- solidity: 1.00 (ok to build on) [= min(1.00, 1.00)]
 - rationale: $\xi_\text{topo} \equiv e/\ell_\text{node} = e\,m_e\,c/\hbar$ is a pure composition of axiom-level CODATA constants with no free parameters — true by construction. The downstream bridges $L_\text{atom} = m/\xi^2$ and $C_\text{bond} = \xi^2/k$ are explicitly flagged in the leaf as definitional (category-i) dimensional conversions, not numerical predictions. Local rigor is therefore identity-grade; the predictive content sits in the downstream observables the bridge enables, not in the bridge itself.
 - strengthen-by:
   - Nothing raises an identity; if anything, restate that $\xi_\text{topo}$ carries zero predictive content so consumers do not cite the bridge itself as a falsifiable result.
@@ -57,7 +57,7 @@
   - Axiom 1 (FCC packing fraction $\phi = \pi\sqrt{2}/6$ supplying the void-fraction projection)
   - Axiom 4 (Op4 pairwise saturation potential $U(r)$ whose argmin gives $d_\text{HB}$)
   - clm-lm9b3j (electromechanical bridge context; partial-charge/impedance machinery shares the $\xi_\text{topo}$/Axiom-2 lineage)
-- solidity: 0.70 (ok to build on, see caveats) [= 0.70 × 1.00]
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 1.00)]
 - rationale: The Op4 potential minimization closes end-to-end — $\Gamma = 1/3$ from Op3, $K_\text{HB} = \Gamma^2\alpha\hbar c$, $d_\text{sat} = r_H + r_O$, then $d_\text{HB} = \text{argmin}\,U = 1.754$ Å and $E_\text{HB} = U_\text{raw}(1-\phi) = 0.2158$ eV (4.98 kcal/mol, <0.9% vs gas-phase dimer). It rests on two clearly-disclosed imports: $r_O, r_H$ from the Vol 2 MCL solver, and the $(1-\phi)$ void-fraction projection justified by a structural/geometric routing argument (the leaf marks this as the AVE interpretation of why the factor is exactly $1-\phi$, not an independent derivation). Disclosed-methodology-bound, hence 0.7 not 0.9.
 - strengthen-by:
   - Derive the $(1-\phi)$ projection factor from the substrate field equations rather than asserting it geometrically.
@@ -88,7 +88,7 @@
   - Axiom 1 (chiral $K_4$/SRS lattice supplying isotropy $1/3$ and three-phase WYE balance)
   - Axiom 2 (atomic port impedances $r = n^2 a_0/Z_\text{eff}$; integer electron counting for $N_\text{eff}$)
   - clm-lm9b3j (the $C = \xi^2/k$ bridge that turns the predicted $k$ into capacitance)
-- solidity: 0.60 (use as input only, don't build deeper) [= 0.60 × 1.00]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.60, 1.00)]
 - rationale: The loaded-Fabry–Perot eigenvalue $d_\text{eq} = \sqrt{2}\sqrt{r_A r_B}\sqrt{T^2(N_\text{eff})/T^2(2)}$ is derived from first principles with a clean input audit (no IR frequencies, bond lengths, or Slater constants), verified at H$_2^+$ and H$_2$ ($+1.0\%$). But the leaf itself discloses substantive open gaps: S–S geometry is a $+30\%$ outlier explicitly "not yet validated," and C–C/C–N/C–O singles plus C–H/N–H carry systematic $-2$ to $-7\%$ underprediction flagged as "open refinement" requiring degenerate-mode hybridisation. Those are acknowledged unproven steps, not merely disclosed approximations — pinning the band below the 0.7 disclosed-bound line.
 - strengthen-by:
   - Close the degenerate symmetric-cavity-loading refinement so the $-2$ to $-7\%$ single-bond residuals shrink.
@@ -118,7 +118,7 @@
   - clm-lm9b3j (the $L = m/\xi^2$, $C = \xi^2/k$ component values)
   - clm-yyhczl (first-principles force constants used for the zero-parameter run)
   - Axiom 1 (vacuum termination $Z_0 \approx 376.73\,\Omega$)
-- solidity: 0.21 (do not build on, rework needed) [= 0.70 × 0.30]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.70, 0.30)]
 - rationale: A self-contained MNA AC solver over procedurally-generated netlists for all 20 amino acids produces the shared 1192 cm$^{-1}$ notch (18/20) with zero adjustable parameters when first-principles $k$ are used; the computation itself closes cleanly. The leaf explicitly discloses the partial-circularity escape hatch (if NIST $k$ are substituted, individual bond frequencies become inputs) and is careful that 1192 cm$^{-1}$ is a structural-cluster claim "in the amide fingerprint region," not an exact named-band match. Disclosed-methodology-bound. The Glycine hinge interpretation is a parameter-free structural consequence, not a fitted result.
 - strengthen-by:
   - Quote the specific amide band the 1192 cm$^{-1}$ cluster is claimed to match, with an error bar, to convert the structural claim into a numerical one.
@@ -144,7 +144,7 @@
 - depends-on:
   - clm-4jy0t8 (the fixed-frequency backbone transfer function this test overlays against NIST FTIR)
   - clm-lm9b3j (component-value bridge feeding the transfer function)
-- solidity: 0.13 (refuted, do not use) [= 0.60 × 0.21]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.60, 0.30)]
 - rationale: For Glycine and Alanine independently, 10/11 NIST peaks fall inside the predicted passband on a fixed scale with no tuning — a clean falsification-style test. But the rigor is throttled by a disclosed-loose acceptance criterion: success is passband *membership* ($|H|^2 > -60$ dB at the experimental frequency), not peak alignment, and the leaf flags the C–H/N–H self-consistency recovery as definitional (Eq. f_check recovers mechanical resonance by construction). The result is a genuine but coarse consistency demonstration, not a sub-percent prediction.
 - strengthen-by:
   - Replace passband-membership with a per-peak frequency-match metric and report the residuals.
@@ -173,7 +173,7 @@
 - depends-on:
   - clm-j9l3ww (supplies $E_\text{HB} = 0.2158$ eV, the numerator of $T_c$)
   - Axiom 4 (regime-boundary yield snap $S(A) \to 0$ at $A = A_\text{yield}$)
-- solidity: 0.49 (use as input only, don't build deeper) [= 0.70 × 0.70]
+- solidity: 0.70 (ok to build on, see caveats) [= min(0.70, 0.70)]
 - rationale: $T_c = E_\text{HB}/(n_\text{coop} k_B) = 278.3$ K is a closed one-line evaluation once $E_\text{HB}$ and $n_\text{coop}=9$ are in hand, matching the water $+4^\circ$C density maximum to $0.40\%$. Two disclosed bounds keep it off 0.9: $n_\text{coop}=9$ is imported from the Vol 3 Ch.13 K4 junction mode count (enters Vol 5 as an input, not re-derived here), and the comparison target is an interpretive identification (membrane yield $\equiv$ water density-anomaly event in AVE framing, not a conventional membrane phase-transition measurement). The cholesterol $1+\varphi$ buffer is an asserted FCC-packing interpretation. Disclosed-methodology-bound.
 - strengthen-by:
   - Re-derive or cite-by-clm-id the $n_\text{coop}=9$ K4 mode count from a Vol 3 leaf so it is leaf-traceable within the dependency graph.
@@ -201,7 +201,7 @@
 - depends-on:
   - clm-br3bcv (the $d_0 \approx 3.80$ Å backbone length scale the engine uses)
   - clm-s11nf0 (the min-$|S_{11}|^2$ impedance-matching folding mechanism this validates)
-- solidity: 0.01 (refuted, do not use) [= 0.30 × 0.02]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.30)]
 - rationale: The single number RMSD $= 2.59$ Å is asserted as a zero-parameter engine output; the leaf states the fold uses the three universal operators but contains no in-leaf derivation, and the folding engine implementation plus the 20-protein PDB table are in the private AVE-Protein repo. There is no traceable derivation chain from axioms to 2.59 Å in any in-repo leaf — it is a claimed result with supporting framing only. The "Level 6 Emergence / sub-3 Å" label is qualitative.
 - strengthen-by:
   - Port (even a stripped IP-clean version of) the Chignolin folding computation into an in-repo leaf so the 2.59 Å number has a traceable derivation.
@@ -230,7 +230,7 @@
 - confidence: 1.0
 - depends-on:
   - INVARIANT-N4 (CLAUDE.md — $S_{11}$ dual-use notation declaration)
-- solidity: 1.00 (ok to build on) [= 1.00 × 1.00]
+- solidity: 1.00 (ok to build on) [= min(1.00, 1.00)]
 - rationale: This entry binds the Vol 5 meaning of $S_{11}$ (folding free-energy functional) as distinct from the Vol 4/7 EE reflection-coefficient meaning. It is a definitional notation-coherence manifestation of INVARIANT-N4 — true by the invariant's declaration that both uses are intentional. No derivation is at stake; the local-rigor object is the binding itself, which is identity-grade. (The substantive folding-functional content is graded separately under clm-s11nf0.)
 - strengthen-by:
   - Nothing raises a definitional binding; consumers should simply not import magnitude bounds, units, or interpretation across the Vol 4 ↔ Vol 5 boundary.
@@ -259,7 +259,7 @@
 - depends-on:
   - Axiom 1 (FCC packing $P_C$ projected by the trace-reversal complement)
   - Axiom 4 (the $\nu_\text{vac} = 2/7$ trace-reversal / compliance-mode lineage)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
 - rationale: At the leaf level available in this repo, $\eta_\text{eq} = P_C(1-\nu_\text{vac}) = P_C \times 5/7$ appears only as a single row in the `common/translation-protein-solver.md` translation table; the actual derivation leaf and the Villin $R_g$ $0.8\%$ validation are in the private AVE-Protein engine repo. The $5/7$ projection is stated and tied to the cross-volume $2/7$ recurrence, but no closed derivation is present in-repo — it is asserted with a structural pointer. Axiom-traceable in principle, but not leaf-traceable here, and validated on a single protein.
 - strengthen-by:
   - Port the $\eta_\text{eq}$ derivation (trace-reversal complement → $5/7$) into an in-repo leaf with the full chain shown.
@@ -292,7 +292,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - Axiom 3 (Minimum Reflection Principle — impedance match/mismatch framing of the reinterpretations)
   - Axiom 4 (saturation kernel invoked for red-light UV saturation, cavity eigenmode threshold)
-- solidity: 0.10 (refuted, do not use) [= 0.10 × 1.00]
+- solidity: 0.10 (refuted, do not use) [= min(0.10, 1.00)]
 - rationale: The chapter is explicitly self-classified as hypothesis and prediction with "no resultboxes"; none of the six sections produces a number validated against biological data with quoted error. Each is a structural identification ("phenomenon X $\equiv$ circuit element Y") reusing the universal operators, plus 2–4 falsifiable-but-untested predictions. The consciousness $\equiv$ phase-transition framing is interpretive/metaphysical. Local rigor is asserted — claimed without derivation — so 0.1; the entry honestly says as much, but the grade tracks the underlying derivation state, not the honesty of the disclaimer.
 - strengthen-by:
   - Produce at least one quantitative threshold (e.g. the cancer apoptosis $|\Gamma|$ critical value, or the EMDR optimal frequency) derived from AVE primitives.
@@ -319,7 +319,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - Axiom 2 (Chirality — $h_\perp$ chiral metric bias)
   - Axiom 3 (gravitational VSWR $\varepsilon_{11}$ strain entering the relaxation magnitude)
-- solidity: 0.50 (use as input only, don't build deeper) [= 0.50 × 1.00]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 1.00)]
 - rationale: The numerical core — microgravity relaxation $\Delta r/r = \alpha \cdot \varepsilon_{11} \approx 3.6\times10^{-11}$, giving $\sim 1.8\times10^{-19}$ m over a 5 nm baseline — is a closed sub-calculation, with $\varepsilon_{11} \approx 4.87\times10^{-9}$ traced (and a 2026-05-17 factor-7 correction cited to the Vol 3 Gordon-optical-metric leaf). But it rests on a substantive open dependency the leaf openly acknowledges: the $h_\perp$ chiral-metric bias enforcing L-dominance is asserted, not derived, and the test is "currently unfalsifiable" at terrestrial baselines (signal far below detection). The acknowledged-gap-plus-disclosed-import profile pins it at 0.5.
 - strengthen-by:
   - Derive the $h_\perp$ chiral metric bias and the resulting Ramachandran exclusion zones numerically from Axiom 2 rather than asserting the identification.
@@ -343,7 +343,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - confidence: 0.1
 - depends-on:
   - Axiom 2 (Chirality — L-handedness as inductor winding direction)
-- solidity: 0.10 (refuted, do not use) [= 0.10 × 1.00]
+- solidity: 0.10 (refuted, do not use) [= min(0.10, 1.00)]
 - rationale: The $+90^\circ$ intrinsic phase difference (current leads voltage) is asserted directly from the L-handedness identification; the leaf gives no derivation of the value from axioms and explicitly disclaims deriving it. The mechanism that "no D-mixing in extended chains" follows from destructive-interference avoidance is a plausible structural reading, but the quantitative phase value and the chirality-selection event are both outside the derived content. Claimed without derivation → asserted.
 - strengthen-by:
   - Derive the $+90^\circ$ phase relation from the chiral inductor sequence geometry (Axiom 1/2) rather than reading it off the L-handedness label.
@@ -370,7 +370,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - Axiom 1 (vacuum impedance $Z_0 \approx 376.73\,\Omega$ as the carboxyl termination)
   - clm-lm9b3j ($L_{C_\alpha} = m_C/\xi^2 \approx 115.9$ fH bridge identity)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
 - rationale: The three-port source ($\text{NH}_3^+$) / payload ($C_\alpha$, $L \approx 115.9$ fH) / sink ($\text{COO}^-$ into $Z_0$) decomposition is a structural circuit template, not a derivation — the leaf presents it as the input model that makes the downstream SPICE netlists well-formed, with validation occurring downstream (FTIR / batch SPICE). The $L \approx 115.9$ fH component is a clean bridge identity, and $Z_0$ is the Axiom 1 vacuum impedance, but "phase-locked capacitive ground at exactly $Z_0$" is an idealized assertion. Architecture-statement-level rigor is asserted-with-some-grounding.
 - strengthen-by:
   - Show that the $\text{COO}^-$ group's frequency-dependent impedance actually approaches $Z_0$ at the operating band, rather than positing it.
@@ -397,7 +397,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - clm-huhz7r (the transceiver backbone whose source/termination this drive completes)
   - clm-4jy0t8 (the SPICE picture this AC source closes)
-- solidity: 0.06 (refuted, do not use) [= 0.30 × 0.21]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.30)]
 - rationale: The drive is identified as the ambient THz noise floor (thermal phonons peaking near 30 THz by Wien's law; ATP hydrolysis in the 10–100 THz band). Wien's law and ATP frequencies are taken as external standard-physical-chemistry inputs, not re-derived in AVE, and the leaf bounds neither the integrated spectral power into the backbone passband nor any work-output value — the "directed coherent mechanical work" framing is a structural assertion. The identification is reasonable but uncloseable at the leaf level: asserted with imported inputs.
 - strengthen-by:
   - Bound the integrated THz noise power overlapping the backbone passband so a coupling efficiency can be stated.
@@ -425,7 +425,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - clm-lm9b3j ($L = m/\xi^2$, $C = \xi^2/k$ underlying the LC resonator behaviour being tested)
   - clm-4jy0t8 (the single-residue netlist machinery cascaded here)
-- solidity: 0.13 (refuted, do not use) [= 0.60 × 0.21]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.60, 0.30)]
 - rationale: The mass-scaling test closes cleanly: $f_\text{peak} \propto 1/\sqrt{\alpha}$ to better than 0.03% over $\alpha \in [0.5, 1.5]$, exactly matching $f = 1/(2\pi\sqrt{LC})$, and the monotonic passband narrowing with $N$ and persistent R-group differentiation are consistent results. But the leaf is explicit (and correct) that the 0.03% match is *simulator self-consistency* — confirming the SPICE model behaves as a true LC resonator — not an independent experimental falsification, and it honestly flags the $\alpha=2.0$ mode-hop as outside the validated range. A clean consistency check rather than a fresh prediction; 0.6.
 - strengthen-by:
   - Validate the chain-length passband narrowing against measured FTIR spectra of real oligopeptides at increasing $N$.
@@ -455,7 +455,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - Axiom 3 (Minimum Reflection — $\Gamma$-driven impedance mismatch as folding drive)
   - clm-lm9b3j ($Z = \sqrt{L/C}$ sidechain impedances feeding the classification)
-- solidity: 0.30 (do not build on, rework needed) [= 0.30 × 1.00]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 1.00)]
 - rationale: The three-class partition (hydrophobic low-$Z$ / polar-charged high-$|Z|$ / special Gly $\approx 0$, Cys short-circuit) is a qualitative grouping mapping the standard biochemical taxonomy onto the AVE reflection-coefficient framework. The leaf bounds no individual residue $Z$ value — only class membership — and the $Z_\text{backbone} \approx 7$ baseline is stated without in-repo derivation (an import from the engine repo). No numbers, no thresholds: asserted classification with structural motivation.
 - strengthen-by:
   - Compute and tabulate per-residue $Z_\text{topo}$ values from the $L_R/C_R$ summation rules so the class boundaries become numerical.
@@ -486,7 +486,7 @@ The Ch. 6 leaves (`cancer-impedance-decoupling.md`, `red-light-therapy.md`, `met
 - depends-on:
   - Axiom 1 (lattice pitch $\ell_\text{node} = \hbar/(m_e c)$, step 1 — exact)
   - clm-yyhczl (covalent bond lengths in step 3; chain inherits its $-2$ to $-7\%$ residuals)
-- solidity: 0.42 (do not build on, rework needed) [= 0.70 × 0.60]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
 - rationale: The four-step chain closes end-to-end: $\ell_\text{node} \to a_0 = \ell_\text{node}/\alpha \to r_\text{cov} \to d_0 = 3.80$ Å via fixed-angle rigid-body geometry. Step 1 is an exact CODATA identity; steps 3–4 carry clearly-disclosed bounds — step 3 imports covalent bond lengths from the Fabry–Perot leaf (inheriting its acknowledged single-bond underprediction), and step 4 assumes fixed tetrahedral/planar-amide angles (the canonical idealized $C_\alpha$–$C_\alpha$ scale, not a per-residue distance). The leaf is explicit that it does not bound the end-to-end residual. Disclosed-methodology-bound.
 - strengthen-by:
   - Propagate the clm-yyhczl bond-length residuals through the geometry to bound the end-to-end error on 3.80 Å.
@@ -514,7 +514,7 @@ The cross-cutting Symmetric vs Asymmetric Saturation entry (see [cross-cutting c
   - Axiom 4 (Universal Saturation Kernel — the regime-boundary snap and yield mechanics)
   - clm-yyhczl (covalent-bond Regime II yield classification — the bond-core soliton)
   - clm-uowffm (membrane yield $S \to 0$, $\Gamma \to 1$ asymmetric saturation instance)
-- solidity: 0.25 (do not build on, rework needed) [= 0.50 × 0.49]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.60)]
 - rationale: This is the Vol 5 manifestation of the cross-cutting Symmetric-vs-Asymmetric Saturation entry. It asserts a regime assignment (covalent core in Regime II yield, all larger scales in linear Regime I; membrane yield as an asymmetric $\varepsilon$-only snap) backed by $\Delta\phi/\alpha$ values that the leaf itself labels order-of-magnitude regime indicators, not precision measurements. The membrane-yield chain ($A \to A_\text{yield}$, $S \to 0$, $Z_\text{eff} \to \infty$, $\Gamma \to 1$) is a genuine Axiom 4 consequence, but the per-scale Regime I/II *assignments* are a substantive soft step resting on OOM indicators — a real open dependency, hence 0.5.
 - strengthen-by:
   - Compute the $\Delta\phi/\alpha$ strain ratio at each length scale from substrate primitives so the Regime I/II boundary is quantitative rather than OOM.
@@ -544,7 +544,7 @@ For each amino acid the sidechain R-group attaches as a shunt stub on the backbo
   - Axiom 4 (dielectric stiffness-to-capacitance $C_R = \sum \xi_\text{topo}^2/k_b$)
   - clm-lm9b3j (the $\xi_\text{topo}$ electromechanical bridge feeding $L_R$, $C_R$)
   - clm-yyhczl (Fabry–Perot bond force constants $k_b$ entering $C_R$)
-- solidity: 0.42 (do not build on, rework needed) [= 0.70 × 0.60]
+- solidity: 0.60 (use as input only, don't build deeper) [= min(0.70, 0.60)]
 - rationale: $Z_\text{topo} \equiv |Z_\text{backbone}(\omega_0)|/|Z_R(\omega_0)| = R + jX$, with $Z_\text{backbone} \approx 17.0\,\Omega$ and the $L_R/C_R$ summation rules, is a clean framework definition that inherits the zero-empirical-fit chain from the bridge identities — it closes as a definition. It rests on a clearly-disclosed boundary: the per-residue quantitative $Z_\text{topo}^i$ table for all 20 residues and the cascaded ABCD solver are held in the private AVE-Protein compendium, so only the construction principle (not the produced numbers) is in-repo. Disclosed-methodology-bound at the definition level.
 - strengthen-by:
   - Port even one fully-worked per-residue $Z_\text{topo}$ evaluation into the leaf so the $R/X$ decomposition is demonstrated, not just defined.
@@ -572,7 +572,7 @@ Protein folding is reframed as deterministic impedance matching rather than a se
   - Axiom 3 (Minimum Reflection Principle — native fold minimizes $|S_{11}|^2$)
   - clm-zt0pd1 (the $Z_\text{topo}$ shunt loading that drives the cascade)
   - clm-rg7cls (the regime classification that justifies the linear-cascade uniqueness argument)
-- solidity: 0.02 (refuted, do not use) [= 0.30 × 0.08]
+- solidity: 0.30 (do not build on, rework needed) [= min(0.30, 0.50)]
 - rationale: The reframing — each residue a cascaded TL section, native fold = the unique geometry minimizing backbone $|S_{11}(\omega_0)|^2$, secondary-structure preference from $|Z_\text{topo}|$ magnitude/reactance, $\mu$s timescale from dielectric relaxation — is a framework-level mechanism statement with conceptual support but no closed proof. The claim of a *unique* minimum (the load-bearing Levinthal resolution) is asserted, not demonstrated; the production solver, multiplexed initialization, Op2 knot correction, and 20-protein PDB validation are all in the private repo. Sketch with structural support, not a closed derivation: asserted-partial.
 - strengthen-by:
   - Demonstrate (even on a toy chain) that the $|S_{11}|^2$ surface has a unique global minimum, closing the uniqueness gap that carries the Levinthal claim.
@@ -600,7 +600,7 @@ Protein folding is identified as an instance of the Axiom-4 universal saturation
   - Axiom 4 (Universal Saturation Kernel $S(A) = \sqrt{1-A^2}$, the $C_\text{eff} = C_0/\sqrt{1-(d_0/d)^2}$ form)
   - clm-gz7ryg (universal-kernel key result, common/ A-034 catalog)
   - clm-dxdsvt (the 26-instance catalog containing the "Protein folding" SYM row)
-- solidity: 0.15 (refuted, do not use) [= 0.50 × 0.30]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.62)]
 - rationale: This identifies protein folding as a SYM instance of the Axiom-4 saturation kernel $C_\text{eff}(d) = C_0/\sqrt{1-(d_0/d)^2}$ at the atomic-separation scale, with the folding snap as the $A \to 1$, $S(A) \to 0$ event on a critical bond. The kernel form is axiom-given, so the kernel identity itself is a manifestation of Axiom 4 at a new scale (falsifiable by observing the folding snap not following the kernel). But the *application* to folding — that the critical-bond saturation IS the folding reorganization — is asserted, and the cross-scale validation list (BCS 0.00%, BH 1.7%, etc.) is explicitly cited as shared context, not re-derived. Manifestation of the kernel + asserted biological application: 0.5.
 - strengthen-by:
   - Identify the specific critical bond and compute its $d_0/d$ trajectory through a fold, showing the kernel saturation event empirically rather than by analogy.
@@ -627,7 +627,7 @@ Biological circuitry is classified across five length scales: the covalent bond 
   - Axiom 4 (yield limit defining Regime II at the covalent-bond core)
   - clm-yyhczl (covalent bond as the Regime II soliton potential well)
   - clm-a034pf (the A-034 saturation-kernel snap confined to the bond core, which this regime split justifies)
-- solidity: 0.08 (refuted, do not use) [= 0.50 × 0.15]
+- solidity: 0.50 (use as input only, don't build deeper) [= min(0.50, 0.50)]
 - rationale: The five-scale table (covalent bond → Regime II yield; backbone → Regime I–II; R-group / chain / folded protein → Regime I linear) and the conclusion that non-linear A-034 physics is confined to the bond core while all larger scales are linear-circuit calculable is the structural backbone of the "no configuration search / unique solution" folding argument. But the leaf concedes $\Delta\phi/\alpha$ values are order-of-magnitude regime indicators, not precision measurements — so the regime assignments that carry the uniqueness conclusion rest on a soft, unquantified step. Substantive open dependency: 0.5. (This is essentially the same content as clm-x5z09x, here in the engine-directory leaf.)
 - strengthen-by:
   - Compute $\Delta\phi/\alpha$ per scale from substrate primitives so each Regime boundary is quantitative.

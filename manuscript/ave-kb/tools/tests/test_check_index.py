@@ -1015,9 +1015,10 @@ class TestSupportEndToEnd(unittest.TestCase):
         self.assertEqual(rec["solidity"], 0.90)
 
     def test_dep_gated_support(self):
-        # (b) sup-dep001's own dep gates its solidity to 0.81 (< quality 0.90).
-        self.assertEqual(self.by_id["sup-dep001"]["solidity"], 0.81)
-        self.assertEqual(self.by_id["clm-sb3333"]["derivation_solidity"], 0.81)
+        # (b) sup-dep001's own dep (clm-aa1111 0.90) gates via min: min(0.90,
+        # 0.90) = 0.90 — the weakest link, not a product.
+        self.assertEqual(self.by_id["sup-dep001"]["solidity"], 0.90)
+        self.assertEqual(self.by_id["clm-sb3333"]["derivation_solidity"], 0.90)
 
     def test_pending_support_contributes_nothing_no_poison(self):
         # (c) sup-pend01 is pending; clm-sb4444 keeps its own 0.55 and is not
@@ -1063,7 +1064,7 @@ class TestSupportEndToEnd(unittest.TestCase):
         block = cq.split("sup-dep001")[1]
         m = re.search(r"^- solidity: (\S+)", block, flags=re.MULTILINE)
         self.assertIsNotNone(m)
-        self.assertEqual(m.group(1), "0.81")
+        self.assertEqual(m.group(1), "0.90")
 
     def test_supported_by_reverse_view_emitted(self):
         sb = _read_jsonl(self.index_dir / "supported-by.jsonl")
