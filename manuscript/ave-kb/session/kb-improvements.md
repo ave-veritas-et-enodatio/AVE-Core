@@ -6,6 +6,8 @@ Running list of open work scoped specifically to the AVE-KB (canonical markdown 
 
 > **The sup-claims + md-link-tooling branch landed 2026-05-23** (commits on `kb-node-type-claim-support`): the `verify-md-links` repo-wide link checker (source-gated, `.tex`/`.agents`/`_archive`/`assets/sim_outputs` carve-outs, wired into `make verify` + strict `verify-inter-repo-links`); the **container model** in tooling + docs (a leaf hosts any number of any combination of `clm`/`exp`/`sup` node-bodies — repeated `exp-id:`/`sup-id:` keys) with the `*pending*` support-fraction sentinel; the three real `sup-` re-analysis nodes (`sup-5zs5s6`→LIGO/`clm-395gps`, `sup-s1h0og`→SPARC/`clm-u86caq`, `sup-msv2xy`→CMB/`clm-pe8lpx`), all `quality` + fractions `*pending*`; and the KB→tex provenance-backlink strip across 39 leaves.
 
+> **D6 + axiom-attribution consistency pass landed 2026-05-23.** INVARIANT-S9 now carries the **design/originate/control gate** for `exp-` (re-analyses of outside data → `sup-`/`clm-`, never `exp-`; CLAUDE.md + SCHEMA.md). D4 (`n_spatial` / "Axiom 3 = gravity") was scanned and closed as moot (homologation already scrubbed it). Macroscopic-gravity/G source attribution harmonized to the canonical leaf framing (symmetric volumetric compression → **Axioms 1 + 4** / Machian boundary; Axiom 3 is *satisfied* by the Z₀-match, not the source) — fixed the generated `entry-point.md` summary + the `claim-quality.md` α-invariance premise. Established the **`(clm-XXXXXX via Axiom N)`** attribution form for derived quantities mis-credited to a bare `(Axiom N)`: `p_c = 8πα` → `(clm-9s9apq via Axiom 3)`, Hopf linking number → `(clm-dfaiwj via Axiom 2)`. See D9 for the remaining sweep.
+
 ---
 
 ## Near-term
@@ -39,3 +41,6 @@ Keep vol3 ownership (i) vs relocate to vol2 earliest-assertion (ii). Defer with 
 
 ### D8. Strip redundant identification-system remnants
 The now-deprecated `axiom-homologation.md` (`session/`) called for unifying the framework's identification systems; the unified `clm-`/`exp-`/`sup-` metadata spine fulfilled that. Its residual value is a pointer to *strip out truly redundant/unnecessary identification-system remains* still scattered in the corpus. (Mine the historical doc for specifics when picked up.)
+
+### D9. Normalize bare-axiom attributions of derived quantities
+Some leaves credit a *derived* quantity to a bare `(Axiom N)` where it should cite the deriving claim + the fundamental: `(clm-XXXXXX via Axiom N[, Axiom M])`. Spot-fixed 2026-05-23: `p_c = 8πα` (`radial-eigenvalue-solver.md` → `clm-9s9apq via Axiom 3`) and the Hopf linking number (`scale-separation.md` → `clm-dfaiwj via Axiom 2`). A systematic sweep for other bare-`(Axiom N)` attributions of *derived* results (vs. genuine axiom statements) remains — normalize each to the claim-id-via-axiom form. Grep seed: `\(Axiom [1-4]\)` adjacent to a derived symbol/identity.
