@@ -102,7 +102,7 @@ path-stable: "referenced from vol2 as eq:dynamic_capacitance_yield"
 - `kind` — one of `leaf`, `leaf-as-index`, `index`, `entry-point`.
 
 **For `kind: leaf` and `kind: leaf-as-index`:**
-- At least one of `claims: [id1, id2, ...]`, `no-claim: <reason>`, or `exp-id: exp-xxxxxx` (hosting an experiment node satisfies coverage on its own — see INVARIANT-S9). `claims` and `no-claim` are mutually exclusive *with each other*; `exp-id` is orthogonal to both and may co-exist with either. Verifier enforces.
+- A leaf is a **container**: it hosts ANY number of ANY combination of `clm` / `exp` / `sup` node-bodies — there is no one-per-leaf and no one-per-flavor cap. At least one of `claims: [id1, id2, ...]`, `no-claim: <reason>`, an `exp-id: exp-xxxxxx` (one or more — see INVARIANT-S9), or a `sup-id: sup-xxxxxx` (one or more — see INVARIANT-S10) satisfies coverage (hosting an experiment or support node satisfies coverage on its own). `claims` and `no-claim` are mutually exclusive *with each other*; `exp-id` and `sup-id` are orthogonal to both and to each other and may co-exist with either. Multiple `exp-id:` / `sup-id:` keys may appear, each opening its own block (see S9/S10 for the per-block syntax). Verifier enforces.
 - Optional `path-stable: <provenance string>` — preserves the prior INVARIANT-S6 cross-volume label provenance.
 
 **For `kind: index`:**
@@ -162,14 +162,14 @@ Physical experiments are first-class graph nodes carrying a stable ID of the for
 
 **Physical experiments only.** A simulation is NOT an experiment — a simulation feeds a claim's *derivation* confidence (the min-branch), not its experimental solidity. Only a physical experiment (apparatus + measurement) earns an `exp-` id.
 
-**Two-graph model — container vs. node.** A KB leaf is a **container**; its `kind` (`leaf` | `leaf-as-index` | `index` | `entry-point`, per INVARIANT-S5) is its role in the *topography graph* (the hyperlink/navigation tree) and does NOT encode node-flavor. Separately, a leaf *originates* zero or more **node-bodies** in the *claim graph* — `clm` claim nodes (via `claims:`) and `exp` experiment nodes (via `exp-id:`) — connected by `strengthens` (exp→clm) and `references` (leaf→exp) edges. The claim graph is acyclic; reverse views (`strengthen-by`, `cites`) are untraversed bookkeeping. `clm` and `exp` node-bodies are **orthogonal**: a single container may host BOTH a `claims:` list AND an `exp-id` (e.g. a bench leaf that states a prediction *and* describes the experiment testing it).
+**Two-graph model — container vs. node.** A KB leaf is a **container**; its `kind` (`leaf` | `leaf-as-index` | `index` | `entry-point`, per INVARIANT-S5) is its role in the *topography graph* (the hyperlink/navigation tree) and does NOT encode node-flavor. Separately, a leaf *originates* zero or more **node-bodies** in the *claim graph* — `clm` claim nodes (via `claims:`), `exp` experiment nodes (via `exp-id:`), and `sup` support nodes (via `sup-id:`) — connected by `strengthens` (exp→clm), `supports` (sup→clm), and `references` (leaf→exp) edges. **A container hosts any number of any combination of `clm` / `exp` / `sup` node-bodies** — there is no one-per-leaf and no one-per-flavor cap. The claim graph is acyclic; reverse views (`strengthen-by`, `supported-by`, `cites`) are untraversed bookkeeping. The flavors are **orthogonal**: one container may host a `claims:` list AND one or more `exp-id` AND one or more `sup-id` (e.g. a bench leaf that states a prediction, describes the experiment testing it, and carries an analytical support, all in one file).
 
-**Experiment-hosting leaf frontmatter.** Experiment-ness is conferred by a leaf *hosting an `exp-id`*, not by a `kind` — there is no `kind: experiment`. An experiment-hosting leaf is a `kind: leaf` (or `leaf-as-index`) carrying:
-- `exp-id: exp-xxxxxx` — the node's stable id. The leaf is its own canonical home (no separate register).
+**Experiment-hosting leaf frontmatter.** Experiment-ness is conferred by a leaf *hosting an `exp-id`*, not by a `kind` — there is no `kind: experiment`. An experiment-hosting leaf is a `kind: leaf` (or `leaf-as-index`) carrying, **per experiment** (a container may host several):
+- `exp-id: exp-xxxxxx` — the node's stable id. The leaf is its own canonical home (no separate register). Each `exp-id:` key opens a new experiment block; its following `status:` and `strengthens:` lines belong to that block until the next `exp-id:` (a single `exp-id:` is just the one-element case — existing single-experiment leaves are unchanged).
 - `status: run | pending` — `run` once a result exists; `pending` while unrun. A `pending` experiment's `strengthens` edges contribute nothing.
 - `strengthens:` — a list of `clm-<id>: <strength>` pairs, one per claim the result bears on; `<strength>` ∈ [0,1] is the conferred experimental-solidity for that claim (typically `1.0` for the designed target on an unequivocal result, lower for orthogonally-implicated claims). A target may be a claim that the *same leaf* also originates via `claims:` — a node→node edge between two distinct co-located node-bodies, not a self-loop and not a cycle.
 
-A leaf hosting an `exp-id` MAY also carry `claims:` — they are orthogonal node-bodies, **not** mutually exclusive. When co-hosted, the leaf materializes BOTH a `node_type: claim` record and a `node_type: experiment` record. The only surviving exclusivity is that an `exp-id`-owning leaf must not also carry an `experiments:` reference (an owner does not also reference foreign experiments).
+A leaf hosting one or more `exp-id` MAY also carry `claims:` (and/or `sup-id:`) — orthogonal node-bodies, **not** mutually exclusive. When co-hosted, the leaf materializes a `node_type: claim` record AND one `node_type: experiment` record per `exp-id`. The only surviving exclusivity is that an `exp-id`-owning leaf must not also carry an `experiments:` reference (an owner does not also reference foreign experiments).
 
 **Strengthening is non-transitive (max-branch).** A `strengthens` edge lifts only its directly-targeted claim. A claim's solidity is `max(derivation_solidity, experimental_solidity)`, where `experimental_solidity = max` of the strengths from `run` experiments targeting it. Validation does NOT flow to a claim's upstream derivation dependencies — an experiment that also bears on an input authors a *separate* `strengthens` edge to that input with its own strength. A claim is `*pending*` iff its derivation is pending **and** no run experiment strengthens it (unassessed ≠ refuted; an unrun experiment can never float a pending claim down to a refuted `0.0`).
 
@@ -183,9 +183,25 @@ A leaf hosting an `exp-id` MAY also carry `claims:` — they are orthogonal node
 
 A **support** node is **non-physical analytical support work** that strengthens existing claims without originating a new proposition. It carries a stable ID of the form `sup-` plus 6 lowercase-alphanumeric characters (`\bsup-[a-z0-9]{6}\b`), parallel to the `clm-` claim id (INVARIANT-S8) and the `exp-` experiment id (INVARIANT-S9). A support is **claim-like inside, experiment-like in fan-out, and contributes to the DERIVATION branch** (never the experimental/max branch). It is the analytic counterpart of the physical experiment: where an `exp-` confers *experimental* solidity via the max-branch, a `sup-` confers *derivation* lift, dep-gated.
 
-**Two-graph model.** As with `clm` and `exp` (INVARIANT-S9), a KB leaf is a **container** whose `kind` (topography role) does NOT encode node-flavor; a `sup` support node-body is originated by a leaf hosting a `sup-id`, orthogonal to `claims:` / `exp-id:` / `no-claim:` (all may co-exist on one container).
+**Two-graph model.** As with `clm` and `exp` (INVARIANT-S9), a KB leaf is a **container** whose `kind` (topography role) does NOT encode node-flavor. **A container hosts any number of any combination of `clm` / `exp` / `sup` node-bodies** — no one-per-leaf and no one-per-flavor cap. A `sup` support node-body is originated by a leaf hosting a `sup-id`, orthogonal to `claims:` / `exp-id:` / `no-claim:` (all may co-exist on one container, in any multiplicity).
 
-**Id + hosting.** `sup-id: sup-xxxxxx` in a `kind: leaf` (or `leaf-as-index`) container, plus a `supports:` block. Hosting a `sup-id` satisfies Tier-1 coverage on its own: a leaf is valid with at least one of `{claims, no-claim, exp-id, sup-id}`.
+**Id + hosting (one or more per container).** `sup-id: sup-xxxxxx` in a `kind: leaf` (or `leaf-as-index`) container, each immediately followed by its own `supports:` block. A container may host SEVERAL supports: each `sup-id:` key opens a new support block, and the `supports:` pairs that follow belong to that block until the next `sup-id:` (or end of frontmatter). A single `sup-id:` is just the one-element case. Each `sup-id` materializes its own `node_type: support` record (sharing the one container's canonical home) and its own `supports` fan-out edges. Hosting a `sup-id` satisfies Tier-1 coverage on its own: a leaf is valid with at least one of `{claims, no-claim, exp-id, sup-id}`.
+
+Frontmatter example — one container hosting two supports:
+
+```markdown
+<!-- kb-frontmatter
+kind: leaf
+no-claim: "hosts two support nodes"
+sup-id: sup-aaaaaa
+supports:
+  - clm-111111: 1.0
+sup-id: sup-bbbbbb
+supports:
+  - clm-111111: *pending*
+  - clm-222222: 0.50
+-->
+```
 
 **Claim-like internals.** A support has a **local rigor** `quality` (scored by the same rubric as a claim's `confidence`; `*pending*` until evaluated) and **may carry its own `depends-on`** (consume other claims) OR be free-standing. These live in a **claim-quality-style entry keyed by the sup-id** — a `<!-- id: sup-xxxxxx -->` marker + a `### Quality` block (`quality:` / `depends-on:` / `solidity:` / `rationale:`) in the same `claim-quality.md` register as claims, following the claim-entry shape with `quality:` substituted for `confidence:`.
 

@@ -328,17 +328,36 @@ class TestDiscoverKb(unittest.TestCase):
         # `<!-- id: clm-xxxxxx -->` inside a fenced ``markdown`` code block in
         # the Quality Convention example. The library strips code fences
         # before extracting canonical IDs, so that example is NOT counted.
-        # Five real entries in the root register + nine in common/ = 14
+        # Five real entries in the root register + eleven in common/ = 16
         # (common/ adds clm-co1111, the co-hosted claim+experiment leaf, plus
-        # the five support-beneficiary claims clm-sb1111..clm-sb5555). Support
+        # the seven support-beneficiary claims clm-sb1111..clm-sb7777). Support
         # entries (sup-*) are NOT claims and are not counted here.
-        self.assertEqual(len(self.state.claim_entries), 14)
+        self.assertEqual(len(self.state.claim_entries), 16)
 
     def test_support_node_count(self):
-        # Four support nodes (INVARIANT-S10): sup-free01 (free-standing),
+        # Six support nodes (INVARIANT-S10): sup-free01 (free-standing),
         # sup-dep001 (own deps), sup-pend01 (pending quality), sup-coh001
-        # (co-hosted with a claim on one leaf).
-        self.assertEqual(len(self.state.supports), 4)
+        # (co-hosted with a claim on one leaf), plus sup-mlt001 + sup-mlt002 —
+        # TWO supports hosted on ONE container (multi-sup; no one-per-leaf cap).
+        self.assertEqual(len(self.state.supports), 6)
+
+    def test_multi_sup_container_hosts_two_supports(self):
+        # A single container (leaf-multi-sup.md) originates BOTH sup-mlt001 and
+        # sup-mlt002 — N sup node-bodies on one leaf (INVARIANT-S10 container
+        # model). Both share the leaf's canonical home.
+        by_id = {s.id: s for s in self.state.supports}
+        self.assertIn("sup-mlt001", by_id)
+        self.assertIn("sup-mlt002", by_id)
+        self.assertEqual(
+            by_id["sup-mlt001"].canonical_path, "common/leaf-multi-sup.md"
+        )
+        self.assertEqual(
+            by_id["sup-mlt002"].canonical_path, "common/leaf-multi-sup.md"
+        )
+        # sup-mlt002's second beneficiary edge carries the pending sentinel.
+        by_claim = dict(by_id["sup-mlt002"].supports)
+        self.assertIs(by_claim["clm-sb6666"], lib.PENDING_FRACTION)
+        self.assertEqual(by_claim["clm-sb7777"], 0.50)
 
     def test_every_leaf_with_claims_present(self):
         # Build the set of leaf paths from a parallel walk and intersect.
@@ -384,13 +403,13 @@ class TestBuildClaimsRecords(unittest.TestCase):
         from collections import Counter
 
         counts = Counter(r["node_type"] for r in self.records)
-        # 14 claims + 2 experiments + 4 support + 4 invariants + 4 axioms = 28.
-        self.assertEqual(counts["claim"], 14)
+        # 16 claims + 2 experiments + 6 support + 4 invariants + 4 axioms = 32.
+        self.assertEqual(counts["claim"], 16)
         self.assertEqual(counts["experiment"], 2)
-        self.assertEqual(counts["support"], 4)
+        self.assertEqual(counts["support"], 6)
         self.assertEqual(counts["invariant"], 4)
         self.assertEqual(counts["axiom"], 4)
-        self.assertEqual(len(self.records), 28)
+        self.assertEqual(len(self.records), 32)
 
     def test_support_record_documented_key_order(self):
         expected_keys = [
@@ -403,7 +422,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "solidity",
         ]
         sup_recs = [r for r in self.records if r["node_type"] == "support"]
-        self.assertEqual(len(sup_recs), 4)
+        self.assertEqual(len(sup_recs), 6)
         for rec in sup_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 
@@ -438,7 +457,7 @@ class TestBuildClaimsRecords(unittest.TestCase):
             "citation_count",
         ]
         claim_recs = [r for r in self.records if r["node_type"] == "claim"]
-        self.assertEqual(len(claim_recs), 14)
+        self.assertEqual(len(claim_recs), 16)
         for rec in claim_recs:
             self.assertEqual(list(rec.keys()), expected_keys)
 
@@ -1063,6 +1082,59 @@ class TestSupportSolidity(unittest.TestCase):
         # 0.50 × min(0.80) = 0.40; the pending support is simply ignored.
         self.assertEqual(full["clm-aaaaaa"].derivation, 0.40)
 
+    def test_pending_fraction_contributes_nothing_and_no_poison(self):
+        # An EVALUATED support whose on-point fraction is *pending* contributes
+        # nothing to the beneficiary's local_quality max (excluded, exactly like
+        # a pending sup_solidity) and never poisons an otherwise-valid claim.
+        s = _support(
+            "sup-aaaaaa", 0.90, [("clm-aaaaaa", lib.PENDING_FRACTION)]
+        )
+        a = _claim("clm-aaaaaa", 0.55)
+        full = lib.compute_solidity_full([a], (), [s])
+        self.assertEqual(full.sup_solidity["sup-aaaaaa"], 0.90)  # support scored
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.55)    # not lifted
+        self.assertEqual(full["clm-aaaaaa"].final, 0.55)         # not poisoned
+
+    def test_pending_fraction_excluded_but_sibling_numeric_lift_applies(self):
+        # One support fans out to two claims: a *pending* fraction to one, a
+        # numeric fraction to the other. The pending edge is excluded; the
+        # numeric edge still lifts its beneficiary.
+        s = _support(
+            "sup-aaaaaa", 0.90,
+            [("clm-aaaaaa", lib.PENDING_FRACTION), ("clm-bbbbbb", 0.50)],
+        )
+        a = _claim("clm-aaaaaa", 0.20)
+        b = _claim("clm-bbbbbb", 0.20)
+        full = lib.compute_solidity_full([a, b], (), [s])
+        self.assertEqual(full["clm-aaaaaa"].derivation, 0.20)  # pending f, no lift
+        self.assertEqual(full["clm-bbbbbb"].derivation, 0.45)  # 0.90×0.50
+
+    def test_pending_fraction_materializes_as_literal_distinct_from_null(self):
+        # On disk a pending supports-fraction is the literal "*pending*", DISTINCT
+        # from a depends edge's null fraction (the sentinel-distinctness contract).
+        dep = _claim("clm-dddddd", 0.50)
+        s = _support(
+            "sup-aaaaaa", 0.90, [("clm-aaaaaa", lib.PENDING_FRACTION)],
+            depends_on=[_edge("sup-aaaaaa", "clm-dddddd")],
+        )
+        a = _claim("clm-aaaaaa", 0.20)
+        state = lib.KbState(
+            claim_entries=(dep, a), leaves=(), indexes=(),
+            framework_nodes=(), experiments=(), supports=(s,),
+        )
+        edges = lib.build_depends_on_records(state)
+        supports = [e for e in edges if e["relation"] == "supports"]
+        depends = [
+            e for e in edges
+            if e["relation"] == "depends" and e["source"] == "sup-aaaaaa"
+        ]
+        self.assertEqual(supports[0]["fraction"], lib.PENDING_LITERAL)
+        self.assertIsNone(depends[0]["fraction"])
+        # And the serialized line distinguishes them: "*pending*" vs null.
+        blob = lib.serialize_records(edges).decode("utf-8")
+        self.assertIn('"fraction": "*pending*"', blob)
+        self.assertIn('"fraction": null', blob)
+
     def test_fraction_below_one_reduces_contribution(self):
         # (d) An on-point fraction < 1.0 reduces the lift vs f=1.0.
         s = _support("sup-aaaaaa", 0.90, [("clm-aaaaaa", 0.50)])
@@ -1119,6 +1191,59 @@ class TestSupportSolidity(unittest.TestCase):
             lib.compute_solidity_full([a], (), [s])
 
 
+class TestSupportPendingFractionParse(unittest.TestCase):
+    """parse_support_leaf accepts a *pending* on-point fraction (INVARIANT-S10).
+
+    A ``supports`` pair may carry the literal ``*pending*`` (intended-but-
+    unassessed) — stored as the PENDING_FRACTION sentinel, distinct from a
+    depends edge's null. Numeric fractions must still validate to (0, 1].
+    """
+
+    _LEAF = (
+        "[↑ Parent](index.md)\n\n"
+        "<!-- kb-frontmatter\n"
+        "kind: leaf\n"
+        "no-claim: \"hosts a support node only\"\n"
+        "sup-id: sup-aaaaaa\n"
+        "supports:\n"
+        "  - clm-aaaaaa: *pending*\n"
+        "  - clm-bbbbbb: 0.50\n"
+        "-->\n\n"
+        "## Pending-Fraction Support\n"
+    )
+
+    def _parse(self, text):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            leaf = root / "leaf.md"
+            leaf.write_text(text)
+            return lib.parse_support_leaf(leaf, root)
+
+    def test_pending_fraction_parses_as_sentinel(self):
+        sups = self._parse(self._LEAF)
+        self.assertEqual(len(sups), 1)
+        sup = sups[0]
+        self.assertEqual(sup.id, "sup-aaaaaa")
+        by_claim = dict(sup.supports)
+        self.assertIs(by_claim["clm-aaaaaa"], lib.PENDING_FRACTION)
+        self.assertEqual(by_claim["clm-bbbbbb"], 0.50)
+
+    def test_pending_sentinel_is_distinct_from_none(self):
+        # The pending sentinel must NOT be None (which a depends edge uses).
+        self.assertIsNotNone(lib.PENDING_FRACTION)
+        self.assertIsNot(lib.PENDING_FRACTION, None)
+
+    def test_zero_fraction_still_rejected(self):
+        bad = self._LEAF.replace("clm-bbbbbb: 0.50", "clm-bbbbbb: 0")
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(bad)
+
+    def test_above_one_fraction_still_rejected(self):
+        bad = self._LEAF.replace("clm-bbbbbb: 0.50", "clm-bbbbbb: 1.5")
+        with self.assertRaises(lib.SupportLeafError):
+            self._parse(bad)
+
+
 class TestSupportFixture(unittest.TestCase):
     """Support nodes against the fixture graph — the committed answer key.
 
@@ -1145,6 +1270,9 @@ class TestSupportFixture(unittest.TestCase):
         self.assertEqual(self.sup["sup-dep001"], 0.81)
         self.assertEqual(self.sup["sup-coh001"], 0.85)
         self.assertNotIn("sup-pend01", self.sup)  # pending → omitted
+        # Both supports on the multi-sup container are free-standing.
+        self.assertEqual(self.sup["sup-mlt001"], 0.80)
+        self.assertEqual(self.sup["sup-mlt002"], 0.70)
 
     def test_beneficiary_lifts(self):
         self.assertEqual(self.sol["clm-sb1111"], 0.90)
@@ -1152,6 +1280,11 @@ class TestSupportFixture(unittest.TestCase):
         self.assertEqual(self.sol["clm-sb3333"], 0.81)
         self.assertEqual(self.sol["clm-sb4444"], 0.55)  # pending sup, not lifted
         self.assertEqual(self.sol["clm-sb5555"], 0.85)
+        # clm-sb6666: lifted by sup-mlt001 (0.80 × f=1.0 = 0.80); sup-mlt002's
+        # pending-fraction edge to it contributes nothing.
+        self.assertEqual(self.sol["clm-sb6666"], 0.80)
+        # clm-sb7777: lifted by sup-mlt002 (0.70 × f=0.50 = 0.35).
+        self.assertEqual(self.sol["clm-sb7777"], 0.35)
 
     def test_pending_support_does_not_poison_fixture_beneficiary(self):
         # clm-sb4444 has valid confidence (0.55) and a pending support; it must
@@ -1164,8 +1297,9 @@ class TestSupportFixture(unittest.TestCase):
         path = _FIXTURE / "common" / "leaf-sup-cohost.md"
         leaf = lib.parse_leaf(path, _FIXTURE)
         self.assertEqual(leaf.claims, ("clm-sb5555",))
-        sup = lib.parse_support_leaf(path, _FIXTURE)
-        self.assertIsNotNone(sup)
+        sups = lib.parse_support_leaf(path, _FIXTURE)
+        self.assertEqual(len(sups), 1)
+        sup = sups[0]
         self.assertEqual(sup.id, "sup-coh001")
         self.assertEqual(sup.supports, (("clm-sb5555", 1.0),))
 
@@ -1182,15 +1316,24 @@ class TestSupportFixture(unittest.TestCase):
     def test_supports_edges_carry_fraction(self):
         edges = lib.build_depends_on_records(self.state)
         supports = [e for e in edges if e["relation"] == "supports"]
-        self.assertEqual(len(supports), 5)
+        # 5 from the single-sup leaves + 3 from the multi-sup container
+        # (sup-mlt001→sb6666, sup-mlt002→sb6666 *pending*, sup-mlt002→sb7777).
+        self.assertEqual(len(supports), 8)
         for e in supports:
             self.assertEqual(e["target_kind"], "claim")
             self.assertIsNone(e["strength"])
             self.assertIsNotNone(e["fraction"])
+        # The pending on-point fraction serializes as the literal "*pending*".
+        pending = [
+            e for e in supports
+            if e["source"] == "sup-mlt002" and e["target"] == "clm-sb6666"
+        ]
+        self.assertEqual(len(pending), 1)
+        self.assertEqual(pending[0]["fraction"], lib.PENDING_LITERAL)
 
     def test_supported_by_reverse_view(self):
         rows = lib.build_supported_by_records(self.state)
-        self.assertEqual(len(rows), 5)
+        self.assertEqual(len(rows), 8)
         by_claim = {r["claim_id"]: r for r in rows}
         self.assertEqual(by_claim["clm-sb2222"]["fraction"], 0.50)
         self.assertEqual(by_claim["clm-sb2222"]["sup_solidity"], 0.90)

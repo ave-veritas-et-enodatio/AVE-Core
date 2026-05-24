@@ -623,8 +623,9 @@ class TestCoHostedClaimAndExperiment(unittest.TestCase):
         leaf = lib.parse_leaf(path, self.kb_root)
         self.assertIsNotNone(leaf)
         self.assertEqual(leaf.claims, ("clm-co1111",))
-        exp = lib.parse_experiment_leaf(path, self.kb_root)
-        self.assertIsNotNone(exp)
+        exps = lib.parse_experiment_leaf(path, self.kb_root)
+        self.assertEqual(len(exps), 1)
+        exp = exps[0]
         self.assertEqual(exp.id, "exp-cohst1")
         self.assertEqual(exp.strengthens, (("clm-co1111", 0.90),))
 
@@ -688,7 +689,8 @@ class TestExperimentLeafRejection(unittest.TestCase):
             root = Path(tmp)
             leaf = root / "exp-bad.md"
             leaf.write_text(leaf_text, encoding="utf-8")
-            return lib.parse_experiment_leaf(leaf, root), lib
+            nodes = lib.parse_experiment_leaf(leaf, root)
+            return (nodes[0] if nodes else None), lib
 
     def test_claim_bearing_experiment_leaf_accepted(self):
         """(a) A leaf hosting BOTH claims: and an exp-id is ACCEPTED — they are
@@ -1065,10 +1067,34 @@ class TestSupportEndToEnd(unittest.TestCase):
 
     def test_supported_by_reverse_view_emitted(self):
         sb = _read_jsonl(self.index_dir / "supported-by.jsonl")
-        self.assertEqual(len(sb), 5)
+        # 5 from single-sup leaves + 3 from the multi-sup container.
+        self.assertEqual(len(sb), 8)
         by_claim = {r["claim_id"]: r for r in sb}
         self.assertEqual(by_claim["clm-sb4444"]["sup_id"], "sup-pend01")
         self.assertIsNone(by_claim["clm-sb4444"]["sup_solidity"])
+
+    def test_multi_sup_container_emits_two_support_records(self):
+        # (g) leaf-multi-sup.md hosts TWO sup node-bodies — each materializes its
+        # own support record sharing the one container's canonical home
+        # (container model; no one-per-leaf cap, INVARIANT-S10).
+        for sid in ("sup-mlt001", "sup-mlt002"):
+            self.assertEqual(self.by_id[sid]["node_type"], "support")
+            self.assertEqual(
+                self.by_id[sid]["canonical_path"], "common/leaf-multi-sup.md"
+            )
+        # clm-sb6666 lifted to 0.80 by sup-mlt001; sup-mlt002's pending-fraction
+        # edge to it contributes nothing.
+        self.assertEqual(self.by_id["clm-sb6666"]["derivation_solidity"], 0.80)
+        # clm-sb7777 lifted to 0.35 by sup-mlt002 at f=0.50.
+        self.assertEqual(self.by_id["clm-sb7777"]["derivation_solidity"], 0.35)
+        # The pending on-point fraction serializes as the literal "*pending*".
+        pending = [
+            e for e in self.edges
+            if e["source"] == "sup-mlt002" and e["target"] == "clm-sb6666"
+            and e["relation"] == "supports"
+        ]
+        self.assertEqual(len(pending), 1)
+        self.assertEqual(pending[0]["fraction"], "*pending*")
 
     def test_pipeline_passes_with_support(self):
         result = _run_checker(self.kb_root)

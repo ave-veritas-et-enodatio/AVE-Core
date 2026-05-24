@@ -2,12 +2,12 @@
 
 <!-- kb-frontmatter
 kind: leaf
-claims: [clm-sb1111, clm-sb2222, clm-sb3333, clm-sb4444]
+claims: [clm-sb1111, clm-sb2222, clm-sb3333, clm-sb4444, clm-sb6666, clm-sb7777]
 -->
 
 # Support-Beneficiary Synthetic Leaf
 
-A multi-claim leaf citing the four support-beneficiary claims. Each id carries a
+A multi-claim leaf citing the support-beneficiary claims. Each id carries a
 proximal Tier-2 inline marker.
 
 ## Full and fractional support
@@ -28,3 +28,13 @@ Beneficiary L is lifted to 0.81 by a support whose own dependency throttles it.
 <!-- claim-quality: clm-sb4444 -->
 Beneficiary M keeps its own 0.55 — a pending support contributes nothing and
 does not poison it.
+
+## Multi-sup container beneficiaries
+
+<!-- claim-quality: clm-sb6666 -->
+Beneficiary O is lifted to 0.80 by the first of two supports co-hosted on one
+container; the second names it at a pending fraction (no contribution).
+
+<!-- claim-quality: clm-sb7777 -->
+Beneficiary P is lifted to 0.35 by the second of the two co-hosted supports at
+half on-point relevance (f=0.50).

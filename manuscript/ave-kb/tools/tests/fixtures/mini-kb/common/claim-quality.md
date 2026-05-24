@@ -167,6 +167,76 @@ in one container (INVARIANT-S10).
 
 ---
 
+## Support Beneficiary O — Lifted By One Of Two Co-Hosted Supports
+<!-- id: clm-sb6666 -->
+
+A low-confidence (0.40) dependency-free claim, beneficiary of TWO supports
+co-hosted on one container (leaf-multi-sup.md): sup-mlt001 lifts it at f=1.0
+(lift 0.80), while sup-mlt002 names it at a `*pending*` on-point fraction (which
+contributes nothing — an unassessed edge is excluded from the max). So
+local_quality = max(0.40, 0.80) = 0.80 and derivation solidity is 0.80.
+
+### Quality
+- confidence: 0.40
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: synthetic claim lifted by one of two co-hosted supports; the pending-fraction support edge contributes nothing.
+- strengthen-by:
+  - Assess the pending on-point fraction from sup-mlt002 so its lift can be realized.
+
+---
+
+## Support Beneficiary P — Fractional Lift From A Second Co-Hosted Support
+<!-- id: clm-sb7777 -->
+
+A low-confidence (0.30) dependency-free claim, supported only by sup-mlt002
+(quality 0.70, free-standing) at f=0.50. Its lift is 0.70×0.50 = 0.35, so
+local_quality = max(0.30, 0.35) = 0.35 and derivation solidity is 0.35 —
+demonstrating that the SECOND sup-id on a multi-sup container fans out
+independently.
+
+### Quality
+- confidence: 0.30
+- solidity: 0.35 (do not build on this yet)
+- rationale: synthetic claim lifted by the second of two co-hosted supports at a fractional on-point relevance.
+- strengthen-by:
+  - Establish a more on-point support so the fraction can rise toward 1.0.
+
+---
+
+## Support: First Of Two Co-Hosted Supports
+<!-- id: sup-mlt001 -->
+
+The first of TWO support nodes hosted on one container (leaf-multi-sup.md),
+free-standing (quality 0.80, sup_solidity 0.80). It supports clm-sb6666 at
+f=1.0. Hosting MULTIPLE sup-ids on one leaf is allowed — a container hosts any
+number of any combination of clm/exp/sup node-bodies (INVARIANT-S10).
+
+### Quality
+- quality: 0.80
+- solidity: 0.80 (ok to build on, see caveats)
+- rationale: synthetic first support on a multi-sup container; free-standing, sup_solidity equals quality.
+- supports:
+  - clm-sb6666 (f=1.0)
+
+---
+
+## Support: Second Of Two Co-Hosted Supports
+<!-- id: sup-mlt002 -->
+
+The second of two support nodes on the SAME container, free-standing (quality
+0.70, sup_solidity 0.70). It supports clm-sb6666 at a `*pending*` on-point
+fraction (intended-but-unassessed; contributes nothing) and clm-sb7777 at
+f=0.50.
+
+### Quality
+- quality: 0.70
+- solidity: 0.70 (ok to build on, see caveats)
+- rationale: synthetic second support on a multi-sup container; one beneficiary edge carries a pending on-point fraction.
+- supports:
+  - clm-sb6666 (f=*pending*) and clm-sb7777 (f=0.50)
+
+---
+
 ## Support: Free-Standing Analytical Support
 <!-- id: sup-free01 -->
 

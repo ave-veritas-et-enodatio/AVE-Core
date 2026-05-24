@@ -632,7 +632,7 @@ def check_index_referential_integrity(index_dir: Path):
     #                never an edge target; strength is non-null; fraction null.
     # * supports:    source resolves to a SUPPORT; target resolves to a claim
     #                AND target_kind == "claim"; strength is null; fraction is
-    #                non-null and in (0, 1] (INVARIANT-S10).
+    #                in (0, 1] OR the literal "*pending*" (INVARIANT-S10).
     dep_path = index_dir / "depends-on.jsonl"
     if dep_path.exists():
         for lineno, line in enumerate(
@@ -678,11 +678,21 @@ def check_index_referential_integrity(index_dir: Path):
                          f"line {lineno}, supports edge has non-null strength "
                          f"{strength!r}")
                     )
-                if fraction is None or not (0.0 < fraction <= 1.0):
+                # A pending on-point fraction (literal "*pending*") is a valid
+                # authored value (intended-but-unassessed); it is distinct from
+                # a depends edge's null fraction. A numeric fraction must be in
+                # (0, 1]; null or out-of-range is a violation (INVARIANT-S10).
+                if fraction == kb_index_lib.PENDING_LITERAL:
+                    pass
+                elif (
+                    not isinstance(fraction, (int, float))
+                    or isinstance(fraction, bool)
+                    or not (0.0 < fraction <= 1.0)
+                ):
                     violations.append(
                         ("depends-on", source,
                          f"line {lineno}, supports edge on-point fraction "
-                         f"{fraction!r} not in (0, 1]")
+                         f"{fraction!r} not in (0, 1] or *pending*")
                     )
             elif relation == "strengthens":
                 if src_type is not None and src_type != "experiment":
