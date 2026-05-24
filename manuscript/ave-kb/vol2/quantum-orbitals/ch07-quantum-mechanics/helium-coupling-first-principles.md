@@ -38,7 +38,7 @@ $$
 k_{\text{Hopf}} = \frac{2}{Z}\!\left(1 - \frac{p_c}{2}\right) = \frac{2}{2}\!\left(1 - \frac{8\pi\alpha}{2}\right) = 1 - 4\pi\alpha \approx 0.9083
 $$
 
-where $p_c = 8\pi\alpha$ is the packing fraction (Axiom 4).
+where $p_c = 8\pi\alpha$ is the packing fraction (clm-9s9apq, via Axiom 4).
 
 <!-- claim-quality: clm-oltvwy -->
 ### Bonding Energy (Stage E1)

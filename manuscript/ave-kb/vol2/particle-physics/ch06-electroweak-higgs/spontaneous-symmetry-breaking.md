@@ -34,7 +34,7 @@ Each factor has a first-principles geometric origin:
 
 1. $\pi$ --- spherical geometry of the $1/r^2$ integral
 2. $\alpha^2$ --- two-vertex coupling (Axiom 4 dielectric $\times 2$)
-3. $p_c = 8\pi\alpha$ --- packing fraction (Axiom 4: Saturation)
+3. $p_c = 8\pi\alpha$ --- packing fraction (clm-9s9apq, via Axiom 4: Saturation)
 4. $\sqrt{3/7}$ --- torsion-shear projection from the PAT and $\nu = 2/7$
 5. $2\pi$ --- ring topology of the unknot (Axiom 1)
 
