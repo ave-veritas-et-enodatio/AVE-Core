@@ -780,11 +780,11 @@ The A-034 catalog enumerates 26 canonical cross-scale instances of the saturatio
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §The 21-instance catalog.
 
 ### Quality
-- confidence: 0.68
+- confidence: 0.75
 - depends-on:
   - clm-gz7ryg — A-034 Single-Kernel Unification [supplies the one-kernel premise the catalog enumerates instances of]
-- solidity: 0.27 (do not build on, rework needed) [= 0.68 × 0.40]
-- rationale: Catalog/enumeration claim scored on completeness + internal consistency; the membership is well-structured, per-instance derivations are correctly disclaimed as owned elsewhere, and rows lacking quantitative anchors are honestly flagged as structural classifications. Local integrity is dented by a stale headline count (entry says "26 instances span 21 orders of magnitude" but the title and several sub-counts drift — leaf symmetry tallies sum to 20+4+2+1=27 against the prose "26"/"21"), so the catalog is internally consistent in spirit but not in arithmetic.
+- solidity: 0.30 (do not build on, rework needed) [= 0.75 × 0.40]
+- rationale: Catalog/enumeration claim scored on completeness + internal consistency. The current leaf (`universal-saturation-kernel-catalog.md`) is now arithmetically clean: title, Key-Result row, and the symmetry-classification body all agree on 26 = 19 + 4 + 2 + 1 (SYM 19 / ASYM-N 4 / TBD 2 / ASYM-E 1). The "21 orders of magnitude" is a span axis (atomic $\sim 10^{-15}$ m → cosmic $\sim 10^{26}$ m), not an instance count, so it is no inconsistency. Per-instance derivations are correctly disclaimed as owned elsewhere, anchor-less rows are honestly flagged, and scoped Session-4/5 rows (11-a, 14-a) are tagged TBD. The prior 0.68 was depressed by a count mismatch that no longer exists — a complete, internally consistent enumeration.
 - strengthen-by:
   - Reconcile the instance count across entry, leaf title, table rows, and symmetry tallies (26 vs 21 vs 27) into one authoritative number
   - Tag each row with anchor-tightness (validated / structural-only / scoped-TBD) so "26 canonical" is not read as 26 validated predictions
@@ -810,11 +810,11 @@ The 26 A-034 instances admit a symmetry classification by how the $\varepsilon$ 
 > **Leaf references:** `universal-saturation-kernel-catalog.md` §Symmetry classification.
 
 ### Quality
-- confidence: 0.50
+- confidence: 0.60
 - depends-on:
   - clm-dxdsvt — A-034 Catalog [supplies the instance set being partitioned]
-- solidity: 0.14 (refuted, do not use) [= 0.50 × 0.27]
-- rationale: A structural classification (SYM/ASYM-N/ASYM-E by which sector saturates), explicitly NOT independently validated as asymmetric — the entry admits this. The partition arithmetic in the entry (18+2+1=21) is stale relative to the leaf (20 SYM + 4 ASYM-N + 1 ASYM-E + 2 TBD), so the "three classes partition all 21" claim no longer matches the leaf's own counts, and a TBD bucket means the partition is not currently exhaustive.
+- solidity: 0.18 (refuted, do not use) [= 0.60 × 0.30]
+- rationale: A structural classification by which sector (ε/μ) saturates, explicitly NOT independently validated as asymmetric — the entry concedes this. With the count drift resolved (entry and leaf now agree: 19 SYM + 4 ASYM-N + 1 ASYM-E + 2 TBD = 26), the local work is a coherent, exhaustively-bookkept partition of the 26-instance set. Residual local-rigor limits: the TBD bucket leaves 2 scoped rows un-adjudicated, and the SYM-vs-ASYM-N sector assignments (BCS μ-only, plasma ε-only) are structural labels, not derived from a discriminator — holding it below the derived band.
 - strengthen-by:
   - Update the entry partition counts to the leaf's current 20/4/1 + 2 TBD and confirm exhaustiveness
   - Provide an empirical or structural discriminator that confirms BCS is μ-only and plasma is ε-only rather than asserting the sector assignment
@@ -844,7 +844,7 @@ The asymmetric-natural (ASYM-N) instances in the A-034 catalog split along an or
 - confidence: 0.45
 - depends-on:
   - clm-hvvvop — A-034 Symmetry Classification [supplies the ASYM-N set this axis sub-divides]
-- solidity: 0.06 (refuted, do not use) [= 0.45 × 0.14]
+- solidity: 0.08 (refuted, do not use) [= 0.45 × 0.18]
 - rationale: Newly minted; asserts the existence and current state of an ε/μ sub-axis on the ASYM-N instances rather than deriving why ε or μ saturates first in any instance (explicitly disclaimed). Several entries are sector-undetermined (Row 9-b candidate), conjectural (Row 14-a), or pending adjudication (Row 11-a), and the gap-cells are pre-registered placeholders, so the populated content is thin relative to the structural scaffold.
 - strengthen-by:
   - Derive (or give a substrate-physics argument for) why a given instance saturates in ε vs μ, for at least the two anchored cases (plasma ε, BCS μ)

@@ -399,13 +399,13 @@ Vol 1 Ch.4.5 contains the original $H_\infty = 28\pi m_e^3 cG/(\hbar^2\alpha^2) 
 > **Leaf references:** [`dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md`](./dynamics/ch4-continuum-electrodynamics/mond-hoop-stress.md); [`dynamics/ch4-continuum-electrodynamics/dark-sector.md`](./dynamics/ch4-continuum-electrodynamics/dark-sector.md). Cross-cutting boundary detail in [vol3 Asymptotic Hubble Constant and MOND entries](../vol3/claim-quality.md). (Note: bullet-cluster.md was previously cited here; that leaf was reframed 2026-05-17 to retire the TT-tensor-shockwave mechanism in favor of ponderomotive halos + Einstein lensing on the Gordon optical metric, and its claim now lives at `clm-527k22`.)
 
 ### Quality
-- confidence: 0.60
+- confidence: 0.55
 - depends-on:
   - clm-0ktpcn — Golden Torus α Derivation [α^-2 factor in H_∞]
   - clm-5xon03 — Zero-Parameter Closure Status [consistency-proof framing of H_∞]
   - clm-crbl60 — Vacuum Bulk Mass Density and Shear Modulus [G_vac/ρ_bulk for the v_longitudinal = √2 c bulk-compression speed]
-- solidity: 0.08 (refuted, do not use) [= 0.60 × 0.14]
-- rationale: The leaf now honestly discloses H_∞ = 28π m_e^3 cG/(ℏ^2 α^2) as a Class E operating-point projection / geometric-consistency identity (G taken as CODATA input; the Machian ξ embeds R_H in G) rather than an ab-initio prediction, and a_0 = cH_∞/(2π) inherits Class E status via the Hoop-Stress projection. The MOND a_0 carries a real -10.7% deficit, and the 1/(2π) hoop-stress factor is imported from classical continuum mechanics rather than derived from AVE micropolar dynamics; the prior √2-vs-√(10/3) longitudinal-speed flag is resolved here as v_longitudinal = √(2G_vac/ρ_bulk) = √2 c, consistent with the K=2G operating point. Confidence held at mid-band by the imported projection factor + the residual a_0 gap.
+- solidity: 0.08 (refuted, do not use) [= 0.55 × 0.14]
+- rationale: The leaf now honestly discloses H_∞ = 28π m_e^3 cG/(ℏ^2 α^2) as a Class E operating-point projection / geometric-consistency identity (G taken as CODATA input; the Machian ξ embeds R_H in G) rather than an ab-initio prediction, and a_0 = cH_∞/(2π) inherits Class E status via the Hoop-Stress projection. The MOND a_0 carries a real -10.7% deficit, and the 1/(2π) hoop-stress factor is imported from classical continuum mechanics rather than derived from AVE micropolar dynamics; the prior √2-vs-√(10/3) longitudinal-speed flag is resolved here as v_longitudinal = √(2G_vac/ρ_bulk) = √2 c, consistent with the K=2G operating point. Two imported/identity steps (CODATA G + the classical 1/(2π) hoop-stress projection) plus the unresolved −10.7% a_0 deficit place the local rigor in the 0.5 band — just below the prior 0.60.
 - strengthen-by:
   - Derive the 1/(2π) hoop-stress projection from AVE micropolar dynamics rather than importing the classical T = F_r/(2π) result
   - Close the cosmic-scale 2π via explicit de Sitter-horizon Hoop-Stress closed-loop integration (Step 5 of the rigorous-derivation prereg, still open) instead of routing through Unruh-Hawking
